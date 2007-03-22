@@ -78,10 +78,10 @@ var parse_marker = "#"+_random_string(8);
 function parse(text)
 {
 	if (text == null) {
-		log("text = null while parsing current = "+current);
+		log("text = null while parsing current page \""+current+"\"");
 		return;
 	} else
-		log("typeof(text) = "+typeof(text));
+//		log("typeof(text) = "+typeof(text));
 	var prefmt = new Array();
 	// put away stuff contained in <pre> tags
 	text = text.replace(/<pre>(.*?)<\/pre>/g, function (str, $1) {
@@ -341,8 +341,6 @@ function special_orphaned_pages()
 
 function special_links_here()
 {
-	if (is_special(current))
-		return null;
 	var pg = new Array();
 	for(j=0; j<pages.length; j++)
 	{
@@ -417,7 +415,7 @@ function set_current(cr)
 				text = special_links_here();
 				break;
 			case "Special::Block Edits":
-				alert("Block edit currently disabled!");
+				alert("Block edits currently disabled!");
 				//block_edits(current);
 				return;
 			case "Special::Edit Menu":
@@ -463,6 +461,7 @@ function load_as_current(title, text) {
 	el("wiki_title").innerHTML = title;
 	el("wiki_text").innerHTML = parse(text);
 	document.title = title;
+	update_nav_icons();
 }
 
 function refresh_menu_area() {
@@ -593,17 +592,21 @@ function on_resize()
 	}
 }
 
+function update_nav_icons() {
+	menu_display("back", (backstack.length > 0));
+	menu_display("forward", (forstack.length > 0));
+	menu_display("advanced", (current != "Special::Advanced"));
+	menu_display("edit", !is_special(current) && (edit_allowed(current)));
+}
+
 // Adjusts the menu buttons
 function disable_edit()
 {
 	log("DISABLING edit mode");
 	kbd_hooking = false;
 	// check for back and forward buttons - TODO grey out icons
-	menu_display("back", (backstack.length > 0));
-	menu_display("forward", (forstack.length > 0));
-	menu_display("advanced", (current != "Special::Advanced"));
+	update_nav_icons();
 	menu_display("home", true);
-	menu_display("edit", !is_special(current) && (edit_allowed(current)));
 	menu_display("save", false);
 	menu_display("cancel", false);
 	el("text_area").style.display = "block";
