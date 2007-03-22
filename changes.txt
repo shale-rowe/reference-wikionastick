@@ -1,7 +1,21 @@
-Comming soon
-------------
- - import images
- - search
+
+Version 0.9 (legolas558 - official)
+
+* new data storage format (faster & allow diffs)
+* much better syntax parsing
+
+Version 0.04G (legolas558's unofficial)
+-------------
+
+* double click to edit
+* escape key to cancel editing
+* backspace key to go backward
+* textarea is focused when editing
+* correct lists parsing
+* hid special pages in "All pages"
+* corrected rulers parsing in IE
+* fixed bug with #anchors when saving to file
+* reference link for "Pages not yet created"
 
 Version 0.04
 ------------

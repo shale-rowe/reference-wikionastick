@@ -1,0 +1,20 @@
+
+* password page-locking feature (deprecates permit_edits)
+
+* Export page as HTML
+
+* Export entire wiki as XML (StickWiki 0.9 format|MediaWiki format)
+
+* Import wiki from XML (StickWiki 0.9 format|MediaWiki format)
+
+* search function
+
+* customizable user interface
+
+* hotkeys
+
+* hotkey to insert timestamp
+
+* import images (embedding)
+
+* XHTML compliance
