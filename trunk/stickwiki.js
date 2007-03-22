@@ -778,12 +778,19 @@ function advanced()
 	go_to("Special::Advanced");
 }
 
+function history_mem(page) {
+	if (backstack.length>6)
+		backstack = new Array(page);
+	else
+		backstack.push(page);
+}
+
 // follows a link
 function go_to(cr)
 {
 	if(cr == current)
 		return;
-	backstack.push(current);
+	history_mem(current);
 	forstack = new Array();
 	set_current(cr);
 }
@@ -805,7 +812,7 @@ function go_forward()
 {
 	if(forstack.length > 0)
 	{
-		backstack.push(current);
+		history_mem(current);
 		set_current(forstack.pop());
 	}
 }
