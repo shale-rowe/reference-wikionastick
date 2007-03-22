@@ -446,6 +446,9 @@ function create_alt_buttons() {
 function on_load()
 {
 	log("***** StickWiki started *****");
+	
+	document.body.style.cursor = "auto";
+	
 	if(debug == true)
 		el("debug_info").style.display = "block";
 		
@@ -803,8 +806,6 @@ function save_all() {
 //	else		setup_uri_pics(el("img_home"),el("img_back"),el("img_forward"),el("img_edit"),el("img_cancel"),el("img_save"),el("img_advanced"))
 	// reload everything
 	set_current(current);
-	
-
 }
 
 // save this file
