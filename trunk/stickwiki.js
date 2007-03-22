@@ -387,15 +387,12 @@ function set_current(cr)
 				//block_edits(current);
 				return;
 			case "Special::Edit Menu":
-				edit_page(cr);
+				go_to("Special::Menu");
+				edit();
 				return;
 			case "Special::Edit CSS":
-				el("edit_page_title").style.display = "none";
+				current_editing(cr, true);
 				el("wiki_editor").value = document.getElementsByTagName("style")[0].innerHTML;
-				menu_editing(true);
-				el("wiki_title").innerHTML = cr;
-				document.title = cr;
-				current = cr;
 				return;
 			default:
 				text = get_text(cr);
@@ -420,17 +417,17 @@ function set_current(cr)
 		return;
 	}
 	
-	el("wiki_text").innerHTML = parse(text);
 	current = cr;
-	refresh_menu();
+	refresh_menu_area();
 	el("wiki_title").innerHTML = cr;
+	el("wiki_text").innerHTML = parse(text);
 	document.title = cr;
 	if(document.getElementById("lastDate"))
 		document.getElementById("lastDate").innerHTML = document.lastModified;
 	menu_editing(false);
 }
 
-function refresh_menu() {
+function refresh_menu_area() {
 /*
 	var bl_src = "\n\n[[Special::Backlinks]]";
 	if (is_special(current)) {
@@ -590,7 +587,7 @@ function menu_editing(editing)
 }
 
 function edit_menu() {
-	edit_page("Special::Edit Menu");
+	edit_page("Special::Menu");
 }
 
 function about() {
@@ -613,14 +610,24 @@ function edit_allowed(page) {
 	return true;
 }
 
+// setup the title boxes and gets ready to edit text
+function current_editing(page, disabled) {
+	el("edit_page_title").disabled = (disabled ? "disabled" : "");
+	el("edit_page_title").value = page;
+	el("wiki_title").innerHTML = page;
+	document.title = page;
+	current = page;
+	// current must be set BEFORE calling menu_editing
+	menu_editing(true);
+	el("wiki_editor").focus();
+}
+
 function edit_page(page) {
 	if (!edit_allowed(page))
 		return;
-		
-	el("wiki_page_title").value = page;
+	// setup the wiki editor textbox
+	current_editing(page, is_special(page));
 	el("wiki_editor").value = get_text(page);
-	menu_editing(true);
-	el("wiki_editor").focus();
 }
 
 
@@ -663,14 +670,8 @@ function save()
 		case "Special::Edit CSS":
 			document.getElementsByTagName("style")[0].innerHTML = el("wiki_editor").value;
 			set_current(main_page);
-			el("edit_page_title").style.display = "block";
+			el("edit_page_title").disabled = "";
 			break;
-/*		case "Special::Edit Menu":
-			el("menu_area").innerHTML = parse(el("wiki_editor").value);
-			set_text(el("wiki_editor").value);
-			set_current(main_page);
-			el("edit_page_title").style.display = "block";
-			break;	*/
 		default:
 			// check if text is empty
 			if(el("wiki_editor").value == "")
@@ -699,6 +700,7 @@ function save()
 function cancel()
 {
 //	if(confirm("Are you sure you want to cancel this edit?")) 
+	if (kbd_hooking)
 	{
 		menu_editing(false);
 		return true;
