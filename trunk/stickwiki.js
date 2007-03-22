@@ -513,6 +513,8 @@ function on_load()
 	
 	if(debug == true)
 		el("debug_info").style.display = "block";
+	else
+		el("debug_info").style.display = "none";
 		
 	if (!ie) {
 //		setup_uri_pics(el("img_home"),el("img_back"),el("img_forward"),el("img_edit"),el("img_cancel"),el("img_save"),el("img_advanced"));
