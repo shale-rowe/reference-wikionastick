@@ -2,8 +2,9 @@
 /*** stickwiki.js ***/
 
 var debug = true;            // won't save if it's true
+var end_trim = true;		// trim pages from the end
 var save_override = true;
-var edit_override = false;
+var edit_override = true;
 var forstack = new Array();
 var lastsearch = "";
 var search_focused = false;
@@ -85,6 +86,7 @@ function parse(text)
 	} else
 //		log("typeof(text) = "+typeof(text));
 	var prefmt = new Array();
+	var tags = new Array();
 	// put away stuff contained in <pre> tags
 	text = text.replace(/<pre>(.*?)<\/pre>/g, function (str, $1) {
 		var r = "<!-- "+parse_marker+prefmt.length+" -->";
@@ -114,9 +116,9 @@ function parse(text)
 	});
 	
 	// headers
-	text = text.replace(/(^|\n)!([^!].*)/g, "<h2>$2<\/h2>");
-	text = text.replace(/(^|\n)!!([^!].*)/g, "<h3>$2<\/h3>");
-	text = text.replace(/(^|\n)!!!(.*)/g, "<h4>$2<\/h4>");
+	text = text.replace(/(^|\n)!([^!].*)/g, "<h1>$2<\/h1>");
+	text = text.replace(/(^|\n)!!([^!].*)/g, "<h2>$2<\/h2>");
+	text = text.replace(/(^|\n)!!!(.*)/g, "<h3>$2<\/h3>");
 	
 	// <hr>
 	text = text.replace(/(^|\n)\-\-\-/g, "<hr />");
@@ -135,7 +137,7 @@ function parse(text)
     
 	// table new row
 	text = text.replace(/(^|\n)\|\-/g, "<\/tr><tr>");
-    
+	
 	// table data
 	text = text.replace(/(^|\n)\|\s([^\n]*)/g, function(str, $1, $2)
 		{
@@ -159,6 +161,10 @@ function parse(text)
 			{
 				if($1.match("://"))
 					return "<a class=\"world\" href=\"" + $1 + "\" target=\"_blank\">" + $1 + "<\/a>";
+				if ($1.indexOf("Tag::")==0) {
+					tags.push($1.substring(5));
+					return "";
+				}
 				if(page_exists($1))
 					return "<a class=\"link\" onclick='go_to(\"" + $1 +"\")'>" + $1 + "<\/a>";
 				else
@@ -190,13 +196,15 @@ function parse(text)
 	text = text.replace(/(\<\/ul\>)\n/g, "$1");
 	text = text.replace(/(\<\/ol\>)\n/g, "$1");
 	text = text.replace(/(\<\/li\>)\n/g, "$1");
+
+	if (ie)
+		text = text.replace("\r\n", "\n");
+
+	// end-trim
+	if (end_trim)
+		text = text.replace(/[\n\s]*$/, "");
+	
 	text = text.replace(/\n/g, "<br />");
-	//FIXME!
-	if (ie)	{
-		text = escape(text);
-		text = text.replace("%OD%OA", "<br />");
-		text = unescape(text);
-	}
 	
 	if (prefmt.length>0) {
 		text = text.replace(new RegExp("<\!-- "+parse_marker+"(\d+) -->", "g"), function (str, $1) {
@@ -205,7 +213,22 @@ function parse(text)
 		prefmt = new Array();
 	}
 	
+	if (tags.length) {
+		s="<div class=\"taglinks\">Tags: ";
+		for(i=0;i<tags.length-1;i++) {
+			s+="<a class=\"tag\" href=\"javascript:show_tag('"+tags[i]+"')\">"+tags[i]+"</a>&nbsp;&nbsp;";
+		}
+		if (tags.length>0)
+			s+="<a class=\"tag\" href=\"javascript:show_tag('"+tags[tags.length-1]+"')\">"+tags[tags.length-1]+"</a>";
+		s+="</div>";
+		text += s;
+	}
+	
 	return text;
+}
+
+function show_tag(tag) {
+	alert("Not yet implemented!");
 }
 
 // Gets text typed by user
@@ -357,6 +380,8 @@ function special_dead_pages () { // Returns a index of all dead pages
 //				log("In "+page_titles[j]+": "+$1+" -> "+$3);
 				if ($1.indexOf("://")!=-1)
 					return;
+				if ($1.indexOf("Tag::")==0)
+					return;
 				p = $1;
 				if (!page_exists(p) && ((up = p.toUpperCase)!=page_titles[j].toUpperCase())) {
 //					up = p.toUpperCase();
@@ -388,11 +413,11 @@ function special_dead_pages () { // Returns a index of all dead pages
 		if (from.length>0)
 			s+="[["+from[from.length-1]+"]]";
 		s += "\n";
-//		log(dead_pages[i]+" in "+from);
+		log(dead_pages[i]+" in "+from);
 	}
 	
   if (s == '')
-	return '<i>No orphaned pages</i>';
+	return '<i>No dead pages</i>';
   return s; 
 }
 
