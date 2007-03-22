@@ -2,7 +2,7 @@
 /*** stickwiki.js ***/
 
 var debug = true;            // won't save if it's true
-var save_override = true;
+var save_override = false;
 var edit_override = true;
 var forstack = new Array();
 
@@ -90,7 +90,7 @@ function parse(text)
 	text = text.replace(/(^|[^\w])_([^_]+)_/g, "$1"+parse_marker+"uS#$2"+parse_marker+"uE#");
 	
 	// italics
-	text = text.replace(/(^|[^\w])\/([^\/]+)\/($|[^\w])/g, function (str, $1, $2, $3) {
+	text = text.replace(/(^|[^\w])\/([^\/]+)\/($|[^\w\>])/g, function (str, $1, $2, $3) {
 		if (str.indexOf("//")!=-1) {
 			return str;
 		}
@@ -353,7 +353,7 @@ function is_special(page) {
 function set_current(cr)
 {
 	var text;
-	
+	log("Setting \""+cr+"\" as current page");
 	if(is_special(cr))
 	{
 		switch(cr)
@@ -506,8 +506,7 @@ function on_load()
 //			current = main_page;
 //		else
 			current = unescape(qpage);
-	} else
-		current = main_page;
+	}
 
 	set_current(current);
 }
@@ -788,7 +787,7 @@ function printout_arr(arr, split_lines) {
 
 function save_page(page_to_save) {
 	log("Saving page \""+page_to_save+"\"");
-	save_all();
+	return save_all();
 }
 
 function save_all() {
@@ -838,12 +837,14 @@ function save_all() {
 	}
 	
 	if (!debug || save_override)
-		saveThisFile(computed_js);
+		r = saveThisFile(computed_js);
+	else r = false;
 	document.body.style.cursor= "auto";
 	
 	if (ie)
 		create_alt_buttons();
 //	else		setup_uri_pics(el("img_home"),el("img_back"),el("img_forward"),el("img_edit"),el("img_cancel"),el("img_save"),el("img_advanced"))
+	return r;
 }
 
 // save this file
@@ -852,7 +853,7 @@ function saveThisFile(data)
 	if(unsupported_browser)
 	{
 		alert("This browser is not supported and your changes won't be saved on disk.");
-		return;
+		return false;
 	}
 	var filename = document.location.toString().split("?")[0];
 	filename = filename.replace("file:///", "");
@@ -865,13 +866,15 @@ function saveThisFile(data)
 	
 	var offset = document.documentElement.innerHTML.search(/\/\* ]]> \*\/(\r\n|\n)<\/script>/i);
 	if (offset==-1) {
-		alert("Head offset not found in this fucking "+navigator.appName);
+		alert("Head offset not found, using "+navigator.appName);
 		return;
 	}
 	
-	if(saveFile(filename,
-	"<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\">\n<head>\n<script type=\"text/javascript\">" + data + "\n" + document.documentElement.innerHTML.substring(offset) + "</html>"))
+	r = saveFile(filename,
+	"<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\">\n<head>\n<script type=\"text/javascript\">" + data + "\n" + document.documentElement.innerHTML.substring(offset) + "</html>");
+	if (r)
 		log("\""+filename+"\" saved successfully");
+	return r;
 }
 
 // Copied from TiddyWiki
@@ -1002,7 +1005,7 @@ function import_wiki()
 					page_names[pc] = $1;
 					page_contents[pc] = $2;
 				}
-				if (version < 9)
+				if (old_version < 9)
 					page_contents[pc] = page_contents[pc].replace(new RegExp("(\\[\\[|\\|)Special::Import wiki\\]\\]", "ig"), "$1Special::Import]]");
 				pc++;
 			}
@@ -1012,12 +1015,15 @@ function import_wiki()
 	var pages_imported = 0;
 	
 	//TODO: import the variables and the CSS from v0.04
-	var css = null;
-	wiki.replace(/\<style.*?\>((\n|.)*?)\<\/style\>/, function (str) {
-		alert(str);
-	});
-	if (css!=null) {
-		alert(css);
+	if (old_version==4) {
+		var css = null;
+		ct.replace(/\<style.*?type=\"text\/css\".*?\>((\n|.)*?)\<\/style\>/, function (str, $1) {
+			css = $1;
+		});
+		if (css!=null) {
+			log("Imported "+css.length+" bytes of CSS");
+			document.getElementsByTagName("style")[0].innerHTML = css;
+		}
 	}
 	
 	// import the variables
