@@ -276,13 +276,19 @@ plist[p][0] + ']]\n');
 function special_orphaned_pages()
 {
 	var pg = new Array();
+	var found = false;
 	for(j=0; j<pages.length; j++)
 	{
-		found = false;
+		if (is_special(page_titles[j]))
+			continue;
 		// search for pages that link to it
 		for(i=0; i<pages.length; i++) {
-			if(pages[i].toUpperCase().match("[[" + page_titles[j].toUpperCase() + "]]")
-				|| pages[i].toUpperCase().match("|" + page_titles[j].toUpperCase() + "]]")) {
+			if (is_special(page_titles[i]))
+				continue;
+			if( (pages[i].toUpperCase().indexOf("[[" + page_titles[j].toUpperCase() + "]]") != -1)
+				|| (pages[i].toUpperCase().indexOf("|" + page_titles[j].toUpperCase() + "]]") != -1)
+				) {
+					log("Page \""+page_titles[j]+"\" linked from page \""+page_titles[i]+"\"");
 					found = true;
 					break;
 			}
@@ -290,10 +296,11 @@ function special_orphaned_pages()
 		if(found == false) {
 			if (!is_special(page_titles[j]))
 				pg.push("+ [[" + page_titles[j] + "]]");
-		}
+		} else found = false;
 	}
+//	alert(pages[0]);
 	if(pg.length == 0)
-		return "<i>No orphaned pages found</i>";
+		return "/No orphaned pages found/";
 	else
 		return pg.sort().join("\n"); // TODO - Delete repeated data
 }
@@ -335,7 +342,7 @@ function block_edits(page) {
 		alert("Edits unblocked.");
 	}
 	save_all();
-	home();
+	back_or(main_page);
 }
 
 function is_special(page) {
@@ -354,7 +361,7 @@ function set_current(cr)
 			case "Special::Erase Wiki":
 				if (erase_wiki()) {
 					save_all();
-					go_to(main_page);
+					back_or(main_page);
 				}
 				return;
 			case "Special::Main Page":
@@ -376,7 +383,8 @@ function set_current(cr)
 				text = special_links_here();
 				break;
 			case "Special::Block Edits":
-				block_edits(current);
+				alert("Block edit currently disabled!");
+				//block_edits(current);
 				return;
 			case "Special::Edit Menu":
 				edit_page(cr);
@@ -642,6 +650,7 @@ function delete_page(page)
 		{
 			page_titles.splice(i,1);
 			pages.splice(i,1);
+			save_all();
 			break;
 		}
 	}
@@ -670,7 +679,7 @@ function save()
 				if(confirm("Are you sure you want to DELETE this page?"))
 				{
 					delete_page(current);
-					set_current(main_page); // TODO - go to previous page
+					back_or(main_page);
 				}
 				return;
 			}
@@ -704,6 +713,11 @@ function home()
 	go_to(main_page);
 }
 
+function back_or(or_page) {
+	if (!go_back())
+		set_current(or_page);
+}
+
 // when Advanced is clicked
 function advanced()
 {
@@ -727,7 +741,9 @@ function go_back()
 	{
 		forstack.push(current);
 		set_current(backstack.pop());
+		return true;
 	}
+	return false;
 }
 
 // when Forward button is clicked
@@ -828,8 +844,6 @@ function save_all() {
 	if (ie)
 		create_alt_buttons();
 //	else		setup_uri_pics(el("img_home"),el("img_back"),el("img_forward"),el("img_edit"),el("img_cancel"),el("img_save"),el("img_advanced"))
-	// reload everything
-	set_current(current);
 }
 
 // save this file
@@ -1026,7 +1040,7 @@ function import_wiki()
 	// save everything
 	save_all();
 
-	go_to("Special::All Pages");
+	back_or("Special::Import");
 }
 
 function loadFile(filePath)
