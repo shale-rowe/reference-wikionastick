@@ -259,6 +259,27 @@ table.text_area td
   padding: 5px;
 }
 
+/* since v0.9 */
+h1 { font-size: 23px; }
+
+h2 { font-size: 20px; }
+
+h3 { font-size: 17px; }
+
+h4 { font-size: 14px; }
+
+
+div.taglinks {
+	border: 1px solid #aaa;
+/*	background-color: #f9f9f9; */
+	padding: 5px;
+	margin-top: 1em;
+	clear: both;
+}
+
+a.tag {
+  color: navy;
+}
 </style>
 <script language="javascript" type="text/javascript">
 <!--
@@ -1512,6 +1533,8 @@ function import_wiki()
 		});
 		if (css!=null) {
 			log("Imported "+css.length+" bytes of CSS");
+			if (v<9)
+				css += "/* since v0.9 */\nh1 { font-size: 23px; }\nh2 { font-size: 20px; }\nh3 { font-size: 17px; }\nh4 { font-size: 14px; }\ndiv.taglinks {\n	border: 1px solid #aaa;\n/*	background-color: #f9f9f9; */\n	padding: 5px;\n	margin-top: 1em;\n	clear: both;\n}\n\na.tag {\n color: navy;\n}\n";
 			document.getElementsByTagName("style")[0].innerHTML = css;
 		}
 	}
