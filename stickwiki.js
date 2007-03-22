@@ -77,6 +77,18 @@ function _random_string(string_length) {
 
 var parse_marker = "#"+_random_string(8);
 
+function header_replace(hdr, text) {
+	return text.replace( new RegExp("(^|\n)"+RegExp.escape(hdr)+"([^"+RegExp.escape(hdr.charAt(0))+"].*)", "g"), 	function (str, $1, $2) {
+		var l = hdr.length;
+		if ($2.indexOf(hdr)==$2.length-l)
+			header = $2.substr(0, $2.length-l);
+		else
+			header = $2;
+		log("Header is "+header);
+		return "<h"+l+">"+header+"<\/h"+l+">";
+	});
+}
+
 // Parse typed code into HTML
 function parse(text)
 {
@@ -116,9 +128,9 @@ function parse(text)
 	});
 	
 	// headers
-	text = text.replace(/(^|\n)!([^!].*)/g, "<h1>$2<\/h1>");
-	text = text.replace(/(^|\n)!!([^!].*)/g, "<h2>$2<\/h2>");
-	text = text.replace(/(^|\n)!!!(.*)/g, "<h3>$2<\/h3>");
+	for(i=1;i<5;i++) {
+		text = header_replace(str_rep("!", i), text);
+	}
 	
 	// <hr>
 	text = text.replace(/(^|\n)\-\-\-/g, "<hr />");
