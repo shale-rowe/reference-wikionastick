@@ -1013,8 +1013,8 @@ function import_wiki()
 	
 	//TODO: import the variables and the CSS from v0.04
 	var css = null;
-	wiki.replace(/\<style.*\>(.*?)\<\/style\>/, function (str, $1) {
-		css = $1;
+	wiki.replace(/\<style.*?\>((\n|.)*?)\<\/style\>/, function (str) {
+		alert(str);
 	});
 	if (css!=null) {
 		alert(css);
