@@ -3,6 +3,7 @@
 
 var debug = true;            // won't save if it's true
 var save_override = true;
+var edit_override = true;
 var forstack = new Array();
 
 // Browser
@@ -233,6 +234,19 @@ function special_all_pages()
 	return pg.sort().join("\n");
 }
 
+// Returns a index of all special pages
+function special_all_special_pages()
+{
+	var pg = new Array();
+	var text = "";
+	for(i=0; i<page_titles.length; i++)
+	{
+		if (is_special(page_titles[i]))
+			pg.push("+ [[" + page_titles[i] + "]]");
+	}
+	return pg.sort().join("\n");
+}
+
 // Returns a index of all dead pages
 function special_dead_pages () { // Returns a index of all dead pages
 	for (var r, p, pg = [], plist= [], j= pages.length; j--;) {
@@ -349,6 +363,9 @@ function set_current(cr)
 			case "Special::All Pages":
 				text = special_all_pages();
 				break;
+			case "Special::All Special Pages":
+				text = special_all_special_pages();
+				break;
 			case "Special::Orphaned Pages":
 				text = special_orphaned_pages();
 				break;
@@ -405,6 +422,7 @@ function set_current(cr)
 }
 
 function refresh_menu() {
+/*
 	var bl_src = "\n\n[[Special::Backlinks]]";
 	if (is_special(current)) {
 		pre_src = "";
@@ -412,8 +430,8 @@ function refresh_menu() {
 	} else {
 		post_src = "";
 		pre_src = bl_src;
-	}
-	el("menu_area").innerHTML = parse(get_text("Special::Edit Menu")+pre_src)+post_src;
+	}	*/
+	el("menu_area").innerHTML = parse(get_text("Special::Edit Menu")/*+pre_src)+post_src*/);
 }
 
 function _gen_display(id, visible, prefix) {
@@ -567,6 +585,10 @@ function edit_menu() {
 	edit_page("Special::Edit Menu");
 }
 
+function about() {
+	go_to("Special::About");
+}
+
 // when edit is clicked
 function edit()
 {
@@ -574,6 +596,8 @@ function edit()
 }
 
 function edit_allowed(page) {
+	if (edit_override)
+		return true;
 	if (!permit_edits)
 		return false;
 	if (is_special(page) && (page!="Special::Edit Menu"))
