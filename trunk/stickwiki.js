@@ -5,6 +5,7 @@ var debug = true;            // won't save if it's true
 var save_override = false;
 var edit_override = true;
 var forstack = new Array();
+var prev_title = current;
 
 // Browser
 var ie = false;
@@ -415,20 +416,23 @@ function set_current(cr)
 		{
 			pages.push("Insert text here");
 			page_titles.push(cr);
+			log("Now pages list is: "+page_titles);
 			edit_page(cr);
 //			save_page(cr);
 		}
 		return;
 	}
-	
-	current = cr;
-	refresh_menu_area();
-	el("wiki_title").innerHTML = cr;
-	el("wiki_text").innerHTML = parse(text);
-	document.title = cr;
+
+	load_as_current(cr, text);
 	if(document.getElementById("lastDate"))
 		document.getElementById("lastDate").innerHTML = document.lastModified;
-	menu_editing(false);
+}
+
+function load_as_current(title, text) {
+	current = title;
+	el("wiki_title").innerHTML = title;
+	el("wiki_text").innerHTML = parse(text);
+	document.title = title;
 }
 
 function refresh_menu_area() {
@@ -510,6 +514,8 @@ function on_load()
 	}
 
 	set_current(current);
+	refresh_menu_area();
+	disable_edit();
 }
 
 function ff_fix_focus() {
@@ -556,38 +562,21 @@ function on_resize()
 }
 
 // Adjusts the menu buttons
-function menu_editing(editing)
+function disable_edit()
 {
-	kbd_hooking = editing;
-	if (!editing) {
-			// check for back and forward buttons - TODO grey out icons
-			menu_display("back", (backstack.length > 0));
-			menu_display("forward", (forstack.length > 0));
-			menu_display("advanced", (current != "Special::Advanced"));
-			menu_display("home", true);
-			menu_display("edit", !is_special(current) && (edit_allowed(current)));
-			menu_display("save", false);
-			menu_display("cancel", false);
-			el("text_area").style.display = "block";
-			el("edit_area").style.display = "none";
-	} else {
-			menu_display("back", false);
-			menu_display("forward", false);
-			menu_display("advanced", false);
-			menu_display("home", false);
-			menu_display("edit", false);
-			menu_display("save", true);
-			menu_display("cancel", true);
-			el("text_area").style.display = "none";
-
-			// FIXME!
-			if(!ie)	{
-				el("wiki_editor").style.width = window.innerWidth - 30 + "px";
-				el("wiki_editor").style.height = window.innerHeight - 150 + "px";
-			}
-			el("edit_area").style.display = "block";
-
-	}
+	log("DISABLING edit mode");
+	kbd_hooking = false;
+	// check for back and forward buttons - TODO grey out icons
+	menu_display("back", (backstack.length > 0));
+	menu_display("forward", (forstack.length > 0));
+	menu_display("advanced", (current != "Special::Advanced"));
+	menu_display("home", true);
+	menu_display("edit", !is_special(current) && (edit_allowed(current)));
+	menu_display("save", false);
+	menu_display("cancel", false);
+	el("text_area").style.display = "block";
+	el("edit_area").style.display = "none";
+	document.title = el("wiki_title").innerHTML = prev_title;
 }
 
 function edit_menu() {
@@ -616,14 +605,32 @@ function edit_allowed(page) {
 
 // setup the title boxes and gets ready to edit text
 function current_editing(page, disabled) {
-	el("edit_page_title").disabled = (disabled ? "disabled" : "");
-	el("edit_page_title").value = page;
-	el("wiki_title").innerHTML = page;
-	document.title = page;
-	current = page;
-	// current must be set BEFORE calling menu_editing
-	menu_editing(true);
+	log("Currently editing "+page+", title disabled: "+disabled);
+	prev_title = current;
+	el("wiki_page_title").disabled = (disabled ? "disabled" : "");
+	el("wiki_page_title").value = page;
+	document.title = el("wiki_title").innerHTML = "Editing "+page;
+	// current must be set BEFORE calling enabling menu edit
+	log("ENABLING edit mode");
+	kbd_hooking = true;
+	menu_display("back", false);
+	menu_display("forward", false);
+	menu_display("advanced", false);
+	menu_display("home", false);
+	menu_display("edit", false);
+	menu_display("save", true);
+	menu_display("cancel", true);
+	el("text_area").style.display = "none";
+
+	// FIXME!
+	if(!ie)	{
+		el("wiki_editor").style.width = window.innerWidth - 30 + "px";
+		el("wiki_editor").style.height = window.innerHeight - 150 + "px";
+	}
+	el("edit_area").style.display = "block";
+
 	el("wiki_editor").focus();
+	current = page;
 }
 
 function edit_page(page) {
@@ -634,10 +641,10 @@ function edit_page(page) {
 	el("wiki_editor").value = get_text(page);
 }
 
-
 // renames a page
 function rename_page(previous, newpage)
 {
+	log("Renaming "+previous+" to "+newpage);
 	for(i=0; i<pages.length; i++)
 	{
 		if(page_titles[i] == previous)
@@ -658,6 +665,7 @@ function delete_page(page)
 	{
 		if(page_titles[i].toUpperCase() == page.toUpperCase())
 		{
+			log("DELETED page "+page);
 			page_titles.splice(i,1);
 			pages.splice(i,1);
 			save_all();
@@ -673,8 +681,8 @@ function save()
 	{
 		case "Special::Edit CSS":
 			document.getElementsByTagName("style")[0].innerHTML = el("wiki_editor").value;
-			set_current(main_page);
-			el("edit_page_title").disabled = "";
+			back_to = null;
+			el("wiki_page_title").disabled = "";
 			break;
 		default:
 			// check if text is empty
@@ -691,13 +699,23 @@ function save()
 			{
 				// here the page gets actually saved
 				set_text(el("wiki_editor").value);
-				if(el("wiki_page_title").value != current)
-					rename_page(current, el("wiki_page_title").value);
-				set_current(el("wiki_page_title").value);
+				new_title = el("wiki_page_title").value;
+				if (new_title=="Special::Menu") {
+					refresh_menu_area();
+					back_to = prev_title;
+					alert(prev_title);
+				} else { if (!is_special(new_title) && (new_title != current))
+							rename_page(current, new_title);
+					back_to = new_title;
+				}				
 			}
 	}
-	menu_editing(false);
+	disable_edit();
 	save_page(current);
+	if (back_to != null)
+		set_current(back_to);
+	else // used for CSS editing
+		back_or(main_page);
 }
 
 // when cancel is clicked
@@ -706,10 +724,8 @@ function cancel()
 //	if(confirm("Are you sure you want to cancel this edit?")) 
 	if (kbd_hooking)
 	{
-		menu_editing(false);
-		return true;
+		disable_edit();
 	} 
-	// TODO - when Editing CSS and canceling, title gets Edit CSS
 }
 
 // when home is clicked
@@ -793,7 +809,7 @@ function printout_arr(arr, split_lines) {
 
 function save_page(page_to_save) {
 	log("Saving page \""+page_to_save+"\"");
-	return save_all();
+	save_all();
 }
 
 function save_all() {
@@ -846,6 +862,8 @@ function save_all() {
 		r = saveThisFile(computed_js);
 	else r = false;
 	document.body.style.cursor= "auto";
+	
+	refresh_menu_area();
 	
 	if (ie)
 		create_alt_buttons();
@@ -1258,7 +1276,7 @@ if (debug) {
 	{
 	    var logbox = document.getElementById("swlogger");
 		nls = logbox.value.match(new RegExp("\n", "g"));
-		if (nls!=null && typeof(nls)=='object' && nls.length>6)
+		if (nls!=null && typeof(nls)=='object' && nls.length>11)
 			logbox.value = "";
 		logbox.value += aMessage + "\n";
 	}
