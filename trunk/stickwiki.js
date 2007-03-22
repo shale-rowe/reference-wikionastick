@@ -1069,8 +1069,17 @@ function import_wiki()
 					page_names[pc] = $1;
 					page_contents[pc] = $2;
 				}
-				if (old_version < 9)
-					page_contents[pc] = page_contents[pc].replace(new RegExp("(\\[\\[|\\|)Special::Import wiki\\]\\]", "ig"), "$1Special::Import]]");
+				if (old_version < 9) {	// apply compatibility changes to v0.9
+					page_contents[pc] = page_contents[pc].replace(new RegExp("(\\[\\[|\\|)Special::Import wiki\\]\\]", "ig"), "$1Special::Import]]").replace(/\[\[([^\]\]]*?)(\|([^\]\]]+))?\]\]/g,
+					function (str, $1, $2, $3) {
+						if ($3.length)
+							return "[["+$3+"|"+$1+"]]";
+						else
+							return str;
+					});
+					if (page_names[pc] == "Special::Edit Menu")
+						page_names[pc] = "Special::Menu";
+				}
 				pc++;
 			}
 			);
@@ -1108,16 +1117,7 @@ function import_wiki()
 	for(i=0; i<page_names.length; i++)
 	{
 		if (!is_special(page_names[i]) || (page_names[i] == "Special::Menu"))
-		{
-		
-			page_contents[i] = page_contents[i].replace(/\[\[([^\]\]]*?)(\|([^\]\]]+))?\]\]/g,
-			function (str, $1, $2, $3) {
-				if ($3.length)
-					return "[["+$3+"|"+$1+"]]";
-				else
-					return str;
-			});
-		
+		{		
 			pi = page_index(page_names[i]);
 			if (pi == -1) {
 				page_titles.push(page_names[i]);
@@ -1134,6 +1134,8 @@ function import_wiki()
 	document.body.style.cursor= "auto";
 	
 	alert("Import completed: " + pages_imported + " pages imported.");
+	
+	current = main_page;
 	// save everything
 	save_all();
 
