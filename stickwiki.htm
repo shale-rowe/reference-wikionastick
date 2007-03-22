@@ -163,7 +163,7 @@ var pages = new Array(
 "[[Cayman]]",
 "!Search in Wiki\n" +
 "\n" +
-"<input id=\"string_to_search\" type=\"text\"><input type=\"button\" value=\"Search\" onclick=\"result_of_search()\">\n" +
+"<input id=\"string_to_search\" type=\"text\" onfocus=\"search_focus(true)\" onblur=\"search_focus(false)\" /><input type=\"button\" value=\"Search\" onclick=\"result_of_search()\" />\n" +
 "\n" +
 ""
 );

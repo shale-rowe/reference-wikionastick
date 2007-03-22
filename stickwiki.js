@@ -6,6 +6,7 @@ var save_override = true;
 var edit_override = false;
 var forstack = new Array();
 var lastsearch = "";
+var search_focused = false;
 var prev_title = current;
 
 // Browser
@@ -651,6 +652,12 @@ function ff_fix_focus() {
 		el("wiki_text").blur();
 }
 
+function search_focus(focused) {
+	search_focused = focused;
+	if (!focused)
+		ff_fix_focus();
+}
+
 var kbd_hooking=false;
 
 function kbd_hook(orig_e)
@@ -661,17 +668,19 @@ function kbd_hook(orig_e)
 		e = orig_e;
 		
 	if (!kbd_hooking) {
+		if (search_focused) {
+			if (e.keyCode==13) {
+				ff_fix_focus();
+				result_of_search();
+				return false;
+			}
+			return orig_e;
+		}
 		if ((e.keyCode==8) || (e.keyCode==27)) {
 			go_back();
-			ff_fix_focus();
+				ff_fix_focus();
 			return false;
 		}
-		if ((e.keyCode==13) && (current=="Special::Search")) {
-			result_of_search();
-			ff_fix_focus();
-			return false;
-		}
-		return orig_e;
 	}
 
 	if (e.keyCode==27) {
