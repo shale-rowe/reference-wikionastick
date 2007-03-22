@@ -1,0 +1,351 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>JSTetris</title>
+
+<!-- CSS -->
+
+<style type="text/css">
+	
+	table {
+		border-collapse: collapse;
+		border-width: 2pt;
+	}
+	tr {
+		height: 7pt;
+		padding: 0pt;
+	}
+	td {
+		width: 7pt;
+		padding: 0pt;
+	}
+	
+</style>
+
+<!-- Javascript code -->
+
+<script type="text/javascript">
+
+var p = new Array();
+var score = 0;
+var PIECE_DOWN = 0;
+var NEW_PIECE  = 1;
+var GAME_OVER  = 2;
+var current = NEW_PIECE;
+var cp; // current piece
+var px, py, pc; // piece X, piece Y, piece color
+
+function set_color(x, y, color)
+{
+	if(x < 0 || y < 0)
+		return;
+	var square = document.getElementById("r" + y + "c" + x);
+	switch(color)
+	{
+		case 0: square.style.backgroundColor = "white"; break;
+		case 1: square.style.backgroundColor = "lightblue"; break;
+		case 2: square.style.backgroundColor = "orange"; break;
+		case 3: square.style.backgroundColor = "lightgreen"; break;
+		case 4: square.style.backgroundColor = "brown"; break;
+		case 5: square.style.backgroundColor = "lightgrey"; break;
+		case 6: square.style.backgroundColor = "purple"; break;
+		case 7: square.style.backgroundColor = "yellow"; break;
+	}
+}
+
+function get_color(x, y)
+{
+	if(x < 0 || y < 0 || x >= 10 || y > 15)
+		return 0;
+	switch(document.getElementById("r" + y + "c" + x).style.backgroundColor)
+	{
+		case "white": return 0;
+		case "lightblue": return 1;
+		case "orange": return 2;
+		case "lightgreen": return 3;
+		case "brown": return 4;
+		case "lightgrey": return 5;
+		case "purple": return 6;
+		case "yellow": return 7;
+	}
+}
+
+function on_load()
+{
+	for(x=0; x<10; x++)
+		for(y=0; y<16; y++)
+			set_color(x, y, 0);
+
+	cp = new Array();
+	for(i=0; i<4; i++)
+		cp[i] = new Array();
+	
+	p[0] = new Array();
+	p[0][0] = new Array(1, 1, 1, 0);
+	p[0][1] = new Array(0, 0, 1, 0);
+	p[0][2] = new Array(0, 0, 0, 0);
+	p[0][3] = new Array(0, 0, 0, 0);
+	p[1] = new Array();
+	p[1][0] = new Array(0, 0, 1, 0);
+	p[1][1] = new Array(1, 1, 1, 0);
+	p[1][2] = new Array(0, 0, 0, 0);
+	p[1][3] = new Array(0, 0, 0, 0);
+	p[2] = new Array();
+	p[2][0] = new Array(0, 1, 1, 0);
+	p[2][1] = new Array(1, 1, 0, 0);
+	p[2][2] = new Array(0, 0, 0, 0);
+	p[2][3] = new Array(0, 0, 0, 0);
+	p[3] = new Array();
+	p[3][0] = new Array(1, 1, 0, 0);
+	p[3][1] = new Array(0, 1, 1, 0);
+	p[3][2] = new Array(0, 0, 0, 0);
+	p[3][3] = new Array(0, 0, 0, 0);
+	p[4] = new Array();
+	p[4][0] = new Array(0, 1, 0, 0);
+	p[4][1] = new Array(1, 1, 1, 0);
+	p[4][2] = new Array(0, 0, 0, 0);
+	p[4][3] = new Array(0, 0, 0, 0);
+	p[5] = new Array();
+	p[5][0] = new Array(1, 1, 0, 0);
+	p[5][1] = new Array(1, 1, 0, 0);
+	p[5][2] = new Array(0, 0, 0, 0);
+	p[5][3] = new Array(0, 0, 0, 0);
+	p[6] = new Array();
+	p[6][0] = new Array(0, 0, 0, 0);
+	p[6][1] = new Array(1, 1, 1, 1);
+	p[6][2] = new Array(0, 0, 0, 0);
+	p[6][3] = new Array(0, 0, 0, 0);
+	
+	window.setInterval("interval()", 800);
+	window.onkeypress = key_press;
+	
+	new_piece();
+}
+
+function key_press(e)
+{
+	if(e.keyCode == 37) // left
+	{
+		erase_piece();
+		px--;
+		if(get_stuck())
+			px++;
+		paste_piece();
+	}
+	else if(e.keyCode == 39) // right
+	{
+		erase_piece();
+		px++;
+		if(get_stuck())
+			px--;
+		paste_piece();
+	}
+	else if(e.keyCode == 40) // down
+	{
+		piece_down();
+	}
+	else if(e.charCode == 32) // space
+	{
+		erase_piece();
+		turn_piece();
+		if(get_stuck())
+		{
+			turn_piece();
+			turn_piece();
+			turn_piece();
+		}
+		paste_piece();
+	}
+}
+
+function turn_piece()
+{
+	var buf = new Array();
+	for(i=0; i<4; i++)
+	{
+		buf[i] = new Array();
+		for(j=0; j<4; j++)
+			buf[i][j] = cp[i][j];
+	}
+
+	cp[0][0] = buf[0][2];
+	cp[1][0] = buf[0][1];
+	cp[2][0] = buf[0][0];
+	cp[0][1] = buf[1][2];
+	cp[2][1] = buf[1][0];
+	cp[0][2] = buf[2][2];
+	cp[1][2] = buf[2][1];
+	cp[2][2] = buf[2][0];
+	cp[1][3] = buf[3][1];
+	cp[3][1] = buf[1][3];
+}
+
+function interval()
+{
+	/* if(current == NEW_PIECE)
+		new_piece();
+	else */ if(current == PIECE_DOWN)
+		piece_down();
+}
+
+function new_piece()
+{
+    np = Math.floor(Math.random() * 7);
+	pc = np + 1;
+	for(i=0; i<4; i++)
+		for(j=0; j<4; j++)
+			cp[i][j] = p[np][i][j];
+	px = 4;
+	py = 0;
+	if(get_stuck())
+		game_over();
+	paste_piece();
+	current = PIECE_DOWN;
+}
+
+function piece_down()
+{
+	erase_piece();
+	py++;
+	if(get_stuck())
+	{
+		py--;
+		paste_piece();
+		delete_lines();
+		current = NEW_PIECE;
+		new_piece();
+		return;
+	}
+	paste_piece();
+}
+
+function get_stuck()
+{
+	// check if piece reached bottom
+	for(i=0; i<4; i++)
+		for(j=0; j<4; j++)
+			if(cp[i][j] == 1 && ((py + j) > 15 || (px + i) < 0 || (px + i) >= 10))
+				return true;
+	// check if piece gets stuck
+	for(i=0; i<4; i++)
+		for(j=0; j<4; j++)
+			if(cp[i][j] == 1)
+				if(document.getElementById("r" + (py+j) + "c" + (px+i)))
+					if(document.getElementById("r" + (py+j) + "c" + (px+i)).style.backgroundColor != "white")
+						return true;
+	return false;
+}
+
+function paste_piece()
+{
+	for(i=0; i<4; i++)
+		for(j=0; j<4; j++)
+			if(cp[i][j] == 1)
+				set_color((px+i), (py+j), pc);
+}
+
+function erase_piece()
+{
+	for(i=0; i<4; i++)
+		for(j=0; j<4; j++)
+			if(cp[i][j] == 1)
+				set_color((px+i), (py+j), 0);
+}
+
+function delete_lines()
+{
+	y = 15;
+	lines_deleted = 0;
+	while(y >= 0)
+	{
+		i = 0;
+		for(x=0; x<10; x++)
+			if(get_color(x, y) != 0)
+				i++;
+		if(i == 10)
+		{
+			for(j=y; j>0; j--)
+				for(x=0; x<10; x++)
+					set_color(x, j, get_color(x, j-1));
+			for(x=0; x<10; x++)
+				set_color(x, y, 0);
+			lines_deleted++;
+		}
+		else
+			y--;
+	}
+	switch(lines_deleted)
+	{
+		case 1: score += 100; break;
+		case 2: score += 300; break;
+		case 3: score += 600; break;
+		case 4: score += 1000; break;
+	}
+	if(lines_deleted > 0)
+		document.getElementById("score").innerHTML = "<b>" + score + "</b>";
+}
+
+function game_over()
+{
+	current = GAME_OVER;
+}
+
+</script>
+
+<!-- HTML -->
+<body onload="on_load()">
+	<table border="1">
+		<tr>
+			<td id="r0c0"></td><td id="r0c1"></td><td id="r0c2"></td><td id="r0c3"></td><td id="r0c4"></td><td id="r0c5"></td><td id="r0c6"></td><td id="r0c7"></td><td id="r0c8"></td><td id="r0c9"></td>
+		</tr>
+		<tr>
+			<td id="r1c0"></td><td id="r1c1"></td><td id="r1c2"></td><td id="r1c3"></td><td id="r1c4"></td><td id="r1c5"></td><td id="r1c6"></td><td id="r1c7"></td><td id="r1c8"></td><td id="r1c9"></td>
+		</tr>
+		<tr>
+			<td id="r2c0"></td><td id="r2c1"></td><td id="r2c2"></td><td id="r2c3"></td><td id="r2c4"></td><td id="r2c5"></td><td id="r2c6"></td><td id="r2c7"></td><td id="r2c8"></td><td id="r2c9"></td>
+		</tr>
+		<tr>
+			<td id="r3c0"></td><td id="r3c1"></td><td id="r3c2"></td><td id="r3c3"></td><td id="r3c4"></td><td id="r3c5"></td><td id="r3c6"></td><td id="r3c7"></td><td id="r3c8"></td><td id="r3c9"></td>
+		</tr>
+		<tr>
+			<td id="r4c0"></td><td id="r4c1"></td><td id="r4c2"></td><td id="r4c3"></td><td id="r4c4"></td><td id="r4c5"></td><td id="r4c6"></td><td id="r4c7"></td><td id="r4c8"></td><td id="r4c9"></td>
+		</tr>
+		<tr>
+			<td id="r5c0"></td><td id="r5c1"></td><td id="r5c2"></td><td id="r5c3"></td><td id="r5c4"></td><td id="r5c5"></td><td id="r5c6"></td><td id="r5c7"></td><td id="r5c8"></td><td id="r5c9"></td>
+		</tr>
+		<tr>
+			<td id="r6c0"></td><td id="r6c1"></td><td id="r6c2"></td><td id="r6c3"></td><td id="r6c4"></td><td id="r6c5"></td><td id="r6c6"></td><td id="r6c7"></td><td id="r6c8"></td><td id="r6c9"></td>
+		</tr>
+		<tr>
+			<td id="r7c0"></td><td id="r7c1"></td><td id="r7c2"></td><td id="r7c3"></td><td id="r7c4"></td><td id="r7c5"></td><td id="r7c6"></td><td id="r7c7"></td><td id="r7c8"></td><td id="r7c9"></td>
+		</tr>
+		<tr>
+			<td id="r8c0"></td><td id="r8c1"></td><td id="r8c2"></td><td id="r8c3"></td><td id="r8c4"></td><td id="r8c5"></td><td id="r8c6"></td><td id="r8c7"></td><td id="r8c8"></td><td id="r8c9"></td>
+		</tr>
+		<tr>
+			<td id="r9c0"></td><td id="r9c1"></td><td id="r9c2"></td><td id="r9c3"></td><td id="r9c4"></td><td id="r9c5"></td><td id="r9c6"></td><td id="r9c7"></td><td id="r9c8"></td><td id="r9c9"></td>
+		</tr>
+		<tr>
+			<td id="r10c0"></td><td id="r10c1"></td><td id="r10c2"></td><td id="r10c3"></td><td id="r10c4"></td><td id="r10c5"></td><td id="r10c6"></td><td id="r10c7"></td><td id="r10c8"></td><td id="r10c9"></td>
+		</tr>
+		<tr>
+			<td id="r11c0"></td><td id="r11c1"></td><td id="r11c2"></td><td id="r11c3"></td><td id="r11c4"></td><td id="r11c5"></td><td id="r11c6"></td><td id="r11c7"></td><td id="r11c8"></td><td id="r11c9"></td>
+		</tr>
+		<tr>
+			<td id="r12c0"></td><td id="r12c1"></td><td id="r12c2"></td><td id="r12c3"></td><td id="r12c4"></td><td id="r12c5"></td><td id="r12c6"></td><td id="r12c7"></td><td id="r12c8"></td><td id="r12c9"></td>
+		</tr>
+		<tr>
+			<td id="r13c0"></td><td id="r13c1"></td><td id="r13c2"></td><td id="r13c3"></td><td id="r13c4"></td><td id="r13c5"></td><td id="r13c6"></td><td id="r13c7"></td><td id="r13c8"></td><td id="r13c9"></td>
+		</tr>
+		<tr>
+			<td id="r14c0"></td><td id="r14c1"></td><td id="r14c2"></td><td id="r14c3"></td><td id="r14c4"></td><td id="r14c5"></td><td id="r14c6"></td><td id="r14c7"></td><td id="r14c8"></td><td id="r14c9"></td>
+		</tr>
+		<tr>
+			<td id="r15c0"></td><td id="r15c1"></td><td id="r15c2"></td><td id="r15c3"></td><td id="r15c4"></td><td id="r15c5"></td><td id="r15c6"></td><td id="r15c7"></td><td id="r15c8"></td><td id="r15c9"></td>
+		</tr>
+	</table>
+	<p>Score: <b><span id="score">0</span></b></p>
+</body>
+</html>
