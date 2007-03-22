@@ -76,6 +76,10 @@ var parse_marker = "#"+_random_string(8);
 // Parse typed code into HTML
 function parse(text)
 {
+	if (text == null) {
+		log("text = null while parsing current = "+current);
+		return;
+	}
 	var prefmt = new Array();
 	// put away stuff contained in <pre> tags
 	text = text.replace(/<pre>(.*?)<\/pre>/g, function (str, $1) {
@@ -437,7 +441,7 @@ function refresh_menu_area() {
 		post_src = "";
 		pre_src = bl_src;
 	}	*/
-	el("menu_area").innerHTML = parse(get_text("Special::Edit Menu")/*+pre_src)+post_src*/);
+	el("menu_area").innerHTML = parse(get_text("Special::Menu")/*+pre_src)+post_src*/);
 }
 
 function _gen_display(id, visible, prefix) {
@@ -605,7 +609,7 @@ function edit_allowed(page) {
 		return true;
 	if (!permit_edits)
 		return false;
-	if (is_special(page) && (page!="Special::Edit Menu"))
+	if (is_special(page) && (page!="Special::Menu"))
 		return false;
 	return true;
 }
@@ -896,7 +900,7 @@ function erase_wiki() {
 		return false;
 	var pg_advanced = get_text("Special::Advanced");
 	var pg_import = get_text("Special::Import");
-	page_titles = new Array("Main Page", "Special::Edit Menu", "Special::Advanced", "Special::Import");
+	page_titles = new Array("Main Page", "Special::Menu", "Special::Advanced", "Special::Import");
 	pages = new Array("This is your empty main page", "[[Main Page]]\n\n[[Special::Advanced]]", pg_advanced, pg_import);
 	current = main_page = "Main Page";
 	backstack = new Array();
@@ -1045,7 +1049,7 @@ function import_wiki()
 	
 	for(i=0; i<page_names.length; i++)
 	{
-		if (!is_special(page_names[i]) || (page_names[i] == "Special::Edit Menu"))
+		if (!is_special(page_names[i]) || (page_names[i] == "Special::Menu"))
 		{
 			pi = page_index(page_names[i]);
 			if (pi == -1) {
