@@ -7,8 +7,6 @@
 
 * Import wiki from XML (StickWiki 0.9 format|MediaWiki format)
 
-* search function
-
 * customizable user interface
 
 * hotkeys
