@@ -145,7 +145,7 @@ function parse(text)
 	// with | 
 	text = text.replace(/\[\[([^\]\]]*?)\|(.*?)\]\]/g, function(str, $1, $2)
 			{
-				if($2.indexOf("://")!=-1)
+				if($1.indexOf("://")!=-1)
 					return "<a class=\"world\" href=\"" + $1 + "\" target=\"_blank\">" + $2 + "<\/a>";
 				if(page_exists($1))
 					return "<a class=\"link\" onclick='go_to(\"" + $1 +"\")'>" + $2 + "<\/a>";
@@ -1079,7 +1079,7 @@ function import_wiki()
 	var pages_imported = 0;
 	
 	//TODO: import the variables and the CSS from v0.04
-	if (old_version==4) {
+	if (old_version>=4) {
 		var css = null;
 		ct.replace(/\<style.*?type=\"text\/css\".*?\>((\n|.)*?)\<\/style\>/, function (str, $1) {
 			css = $1;
@@ -1109,6 +1109,15 @@ function import_wiki()
 	{
 		if (!is_special(page_names[i]) || (page_names[i] == "Special::Menu"))
 		{
+		
+			page_contents[i] = page_contents[i].replace(/\[\[([^\]\]]*?)(\|([^\]\]]+))?\]\]/g,
+			function (str, $1, $2, $3) {
+				if ($3.length)
+					return "[["+$3+"|"+$1+"]]";
+				else
+					return str;
+			});
+		
 			pi = page_index(page_names[i]);
 			if (pi == -1) {
 				page_titles.push(page_names[i]);
