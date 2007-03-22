@@ -2,7 +2,7 @@
 /*** stickwiki.js ***/
 
 var debug = true;            // won't save if it's true
-var save_override = false;
+var save_override = true;
 var edit_override = true;
 var forstack = new Array();
 var prev_title = current;
@@ -80,7 +80,8 @@ function parse(text)
 	if (text == null) {
 		log("text = null while parsing current = "+current);
 		return;
-	}
+	} else
+		log("typeof(text) = "+typeof(text));
 	var prefmt = new Array();
 	// put away stuff contained in <pre> tags
 	text = text.replace(/<pre>(.*?)<\/pre>/g, function (str, $1) {
@@ -254,27 +255,54 @@ function special_all_special_pages()
 
 // Returns a index of all dead pages
 function special_dead_pages () { // Returns a index of all dead pages
-	for (var r, p, pg = [], plist= [], j= pages.length; j--;) {
+	var dead_pages = new Array();
+	var from_pages = new Array();
+	var page_done = false;
+	for (j=0;j<pages.length;j++) {
 
-	pages[j].replace(/\[\[([^\]\]]*?)(\|(.+))?\]\]/g,
-        function (str, $1, $2, $3) {
-          if (!(p = $3 || $1).match("://") && !page_exists(p))
-            plist[pg[pg.length] = p] ?
-plist[p].push(page_titles[j]) : (plist[p] = [page_titles[j]]);
-        }
-	);
+		pages[j].replace(/\[\[([^\]\]]*?)(\|(.+))?\]\]/g,
+	        function (str, $1, $2, $3) {
+				if (page_done)
+					return false;
+				log("Here you are: 1:"+$1+" 2:"+$2+" 3:"+$3);
+				if ($3.length && ($3.indexOf("://")==-1))
+					p = $3;
+				else {
+					p = $1;
+				}
+				if (!page_exists(p)) {
+					up = p.toUpperCase();
+					for(i=0;i<dead_pages.length;i++) {
+						if (dead_pages[i].toUpperCase()==up) {
+							from_pages[i].push(page_titles[j]);
+							page_done = true;
+							break;
+						}
+					}
+					if (!page_done) {
+						dead_pages.push(p);
+						from_pages.push(new Array(page_titles[j]));
+						page_done = true;
+					}
+				}
+	        }
+		);
+		page_done = false;
 	}
 
-  dead_pages = '';
-  for (p in pg.sort() ) {
-    plist[p = pg[p]].sort ();
-    dead_pages += '+ [[' + p + ']]' + ((plist[p].length > 1) ?
-      '\n++ [[' + plist[p].join (']]\n++ [[') + ']]\n' : ' on [[' +
-plist[p][0] + ']]\n');
-  }
-  if (dead_pages == '')
+	var s = "";
+	for(i=0;i<dead_pages.length;i++) {
+		s+="[["+dead_pages[i]+"]] from ";
+		for(j=0;j<from_pages[i].length-1;j++) {
+			s+="[["+from_pages[j]+"]], ";
+		}
+		if (from_pages[i].length>1)
+			s+="[["+from_pages[j]+"]]";
+	}
+	
+  if (s == '')
 	return '<i>No dead pages</i>';
-  return pages; 
+  return s; 
 }
 
 // Returns a index of all orphaned pages
@@ -416,6 +444,7 @@ function set_current(cr)
 		{
 			pages.push("Insert text here");
 			page_titles.push(cr);
+			current = cr;
 			log("Now pages list is: "+page_titles);
 			edit_page(cr);
 //			save_page(cr);
@@ -576,6 +605,7 @@ function disable_edit()
 	menu_display("cancel", false);
 	el("text_area").style.display = "block";
 	el("edit_area").style.display = "none";
+	log("setting back title to "+prev_title);
 	document.title = el("wiki_title").innerHTML = prev_title;
 }
 
@@ -682,6 +712,7 @@ function save()
 		case "Special::Edit CSS":
 			document.getElementsByTagName("style")[0].innerHTML = el("wiki_editor").value;
 			back_to = null;
+			current = "Special::Advanced";
 			el("wiki_page_title").disabled = "";
 			break;
 		default:
@@ -691,6 +722,7 @@ function save()
 				if(confirm("Are you sure you want to DELETE this page?"))
 				{
 					delete_page(current);
+					disable_edit();
 					back_or(main_page);
 				}
 				return;
@@ -710,12 +742,12 @@ function save()
 				}				
 			}
 	}
-	disable_edit();
 	save_page(current);
 	if (back_to != null)
 		set_current(back_to);
 	else // used for CSS editing
 		back_or(main_page);
+	disable_edit();
 }
 
 // when cancel is clicked
