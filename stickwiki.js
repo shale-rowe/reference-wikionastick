@@ -753,7 +753,11 @@ function save_page(page_to_save) {
 function save_all() {
 	document.body.style.cursor = "wait";
 
-	var computed_js = "\n/* <![CDATA[ */\n\nvar permit_edits = "+permit_edits+";\n\nvar allow_diff = "+allow_diff+";\n\nvar current = \"" + js_encode(current) + "\";\n\nvar main_page = \"" + main_page + "\";\n\n";
+	var computed_js = "\n/* <![CDATA[ */\n\nvar version = \""+version+
+	"\";\n\nvar permit_edits = "+permit_edits+
+	";\n\nvar allow_diff = "+allow_diff+
+	";\n\nvar current = \"" + js_encode(current)+
+	"\";\n\nvar main_page = \"" + main_page + "\";\n\n";
 	
 	computed_js += "var backstack = new Array(\n" + printout_arr(backstack, false) + ");\n\n";
 
@@ -764,11 +768,6 @@ function save_all() {
 	// not needed: the end tag is provviden by the matching function
 //	computed_js += "/* ]]> */";
 	
-/*	if (ie)
-		el("wiki_data").text = "";
-	else
-		el("wiki_data").innerHTML = "";	*/
-		
 	// attempt to clear the first <script> tag found in the DOM
 	try {
 		var obj = document.documentElement.childNodes[0];
@@ -964,6 +963,8 @@ function import_wiki()
 					page_names[pc] = $1;
 					page_contents[pc] = $2;
 				}
+				if (version < 9)
+					page_contents[pc] = page_contents[pc].replace(new RegExp("(\\[\\[|\\|)Special::Import wiki\\]\\]", "ig"), "$1Special::Import]]");
 				pc++;
 			}
 			);
@@ -993,6 +994,8 @@ function import_wiki()
 
 	// remove hourglass
 	document.body.style.cursor= "auto";
+	
+	alert(var_names);
 
 	alert("Import completed: " + pages_imported + " pages imported.");
 	// save everything
