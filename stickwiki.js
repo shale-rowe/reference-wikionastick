@@ -3,7 +3,7 @@
 
 var debug = true;            // won't save if it's true
 var save_override = true;
-var edit_override = true;
+var edit_override = false;
 var forstack = new Array();
 
 // Browser
@@ -406,7 +406,8 @@ function set_current(cr)
 		{
 			pages.push("Insert text here");
 			page_titles.push(cr);
-			save_page(cr);
+			edit_page(cr);
+//			save_page(cr);
 		}
 		return;
 	}
