@@ -444,12 +444,12 @@ function special_orphaned_pages()
 			continue;
 		// search for pages that link to it
 		for(i=0; i<pages.length; i++) {
-			if ((i==j) || is_special(page_titles[i]))
+			if ((i==j) /*|| is_special(page_titles[i])*/)
 				continue;
 			if( (pages[i].toUpperCase().indexOf("[[" + page_titles[j].toUpperCase() + "]]") != -1)
 				|| (pages[i].toUpperCase().indexOf("|" + page_titles[j].toUpperCase() + "]]") != -1)
 				) {
-					log("Page \""+page_titles[j]+"\" linked from page \""+page_titles[i]+"\"");
+//					log("Page \""+page_titles[j]+"\" linked from page \""+page_titles[i]+"\"");
 					found = true;
 					break;
 			}
