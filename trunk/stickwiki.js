@@ -5,6 +5,7 @@ var debug = true;            // won't save if it's true
 var save_override = true;
 var edit_override = true;
 var forstack = new Array();
+var lastsearch = "";
 var prev_title = current;
 
 // Browser
@@ -227,6 +228,94 @@ function set_text(text)
 	}
 }
 
+// thanks to S.Willison
+RegExp.escape = function(text) {
+  if (!arguments.callee.sRE) {
+    var specials = [
+      '/', '.', '*', '+', '?', '|',
+      '(', ')', '[', ']', '{', '}', '\\'
+    ];
+    arguments.callee.sRE = new RegExp(
+      '(\\' + specials.join('|\\') + ')', 'g'
+    );
+  }
+  return text.replace(arguments.callee.sRE, '\\$1');
+}
+
+function result_of_search()
+{
+	var search_str = el("string_to_search").value;
+
+	if ( search_str == "")
+		return ;
+
+/*	if( !(search_str = search_str.match( /(\w+){3,}/g ) ) )
+	{
+		alert( "Search is not valid (at least 3 characters)" ) ;
+		return ;
+	}	*/
+
+	lastsearch = search_str;
+	if( current != "Special::Search" )
+		go_to( "Special::Search" ) ;
+	else
+		set_current( "Special::Search" );
+}
+
+// Returns a index of search pages (by miz)
+function special_search( str )
+{
+	var pg = new Array();
+	var pg_body = new Array();
+	var text = "";
+
+	for(i=0; i<pages.length; i++)
+	{
+		if (is_special(page_titles[i]))
+			continue;
+		result = new Array;
+		found_body = true ;
+		found_title = true ;
+		count = 0;
+				
+/*				for(j=0; j<str.length; j++)
+				{	*/
+					res_body = new Array ;
+		
+					reg = new RegExp( ".*" + RegExp.escape(str/*[j]*/) + ".*", "gi" );
+
+					//look for str in title
+					if(!page_titles[i].match(reg))
+						found_title = false ;
+					
+					//Look for str in body
+					if( res_body = pages[i].match( reg ) )
+					{
+						if ( count == 0 || count > res_body.length )
+							count = res_body.length ;
+						result.push( res_body ) ;
+					}
+					else
+						found_body = false ;
+/*				}	*/
+				
+				if(found_title)
+					pg.push("+ [[" + page_titles[i] + "]]");
+					
+				if (found_body)
+				{
+					result_str = new String( result );
+					result_str = result_str.replace( /\n/g, "") ;
+					pg_body.push("+ [[" + page_titles[i] + "]]: *found " + count + " times :* " + result_str );
+				}
+
+
+	}
+	if (pg.length==0)
+		return "No results found for *"+str+"*";
+	return "Results for *" + str + "*\n" +pg.sort().join("\n") + "\n\n---\n" + pg_body.sort().join("\n");
+}
+
 // Returns a index of all pages
 function special_all_pages()
 {
@@ -265,11 +354,11 @@ function special_dead_pages () { // Returns a index of all dead pages
 				if (page_done)
 					return false;
 //				log("In "+page_titles[j]+": "+$1+" -> "+$3);
-				if ($3.length && ($3.indexOf("://")!=-1))
+				if ($1.indexOf("://")!=-1)
 					return;
 				p = $1;
-				if (!page_exists(p)) {
-					up = p.toUpperCase();
+				if (!page_exists(p) && ((up = p.toUpperCase)!=page_titles[j].toUpperCase())) {
+//					up = p.toUpperCase();
 					for(i=0;i<dead_pages.length;i++) {
 						if (dead_pages[i].toUpperCase()==up) {
 							from_pages[i].push(page_titles[j]);
@@ -317,7 +406,7 @@ function special_orphaned_pages()
 			continue;
 		// search for pages that link to it
 		for(i=0; i<pages.length; i++) {
-			if (is_special(page_titles[i]))
+			if ((i==j) || is_special(page_titles[i]))
 				continue;
 			if( (pages[i].toUpperCase().indexOf("[[" + page_titles[j].toUpperCase() + "]]") != -1)
 				|| (pages[i].toUpperCase().indexOf("|" + page_titles[j].toUpperCase() + "]]") != -1)
@@ -390,6 +479,13 @@ function set_current(cr)
 	{
 		switch(cr)
 		{
+			case "Special::Search":
+				text = get_text(cr);
+				if (lastsearch.length) {
+					text += special_search( lastsearch );
+					lastsearch = "";
+				}
+				break;
 			case "Special::Erase Wiki":
 				if (erase_wiki()) {
 					save_all();
@@ -567,6 +663,11 @@ function kbd_hook(orig_e)
 	if (!kbd_hooking) {
 		if ((e.keyCode==8) || (e.keyCode==27)) {
 			go_back();
+			ff_fix_focus();
+			return false;
+		}
+		if ((e.keyCode==13) && (current=="Special::Search")) {
+			result_of_search();
 			ff_fix_focus();
 			return false;
 		}
@@ -963,8 +1064,10 @@ function erase_wiki() {
 		return false;
 	var pg_advanced = get_text("Special::Advanced");
 	var pg_import = get_text("Special::Import");
-	page_titles = new Array("Main Page", "Special::Menu", "Special::Advanced", "Special::Import");
-	pages = new Array("This is your empty main page", "[[Main Page]]\n\n[[Special::Advanced]]", pg_advanced, pg_import);
+	var pg_search = get_text("Special::Search");
+	var pg_about = get_text("Special::About");
+	page_titles = new Array("Main Page", "Special::Menu", "Special::Advanced", "Special::Import", "Special::Search", "Special::About");
+	pages = new Array("This is your empty main page", "[[Main Page]]\n\n[[Special::Advanced]]", pg_advanced, pg_import, pg_search, pg_about);
 	current = main_page = "Main Page";
 	backstack = new Array();
 	forstack = new Array();	
@@ -1121,7 +1224,7 @@ function import_wiki()
 	
 	for(i=0; i<page_names.length; i++)
 	{
-		if (!is_special(page_names[i]) || (page_names[i] == "Special::Menu"))
+		if (!is_special(page_names[i]) || (page_names[i] == "Special::Menu") || (page_names[i] == "Special::Search"))
 		{		
 			pi = page_index(page_names[i]);
 			if (pi == -1) {
