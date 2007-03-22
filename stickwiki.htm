@@ -16,29 +16,10 @@ var current = "Main Page";
 var main_page = "Main Page";
 
 var backstack = new Array(
-"Main Page",
-"Main Page",
-"New page",
-"Main Page",
-"New page",
-"Main Page",
-"New page",
-"Main Page",
-"Main Page",
-"Main Page",
-"Special::Backlinks",
-"Main Page",
-"Special::Backlinks",
-"Special::Backlinks",
-"Main Page",
-"Main Page",
-"Main Page",
-"Special::Advanced",
-"Special::Orphaned Pages"
 );
 
 var page_titles = new Array(
-"Special::Edit Menu",
+"Special::Menu",
 "Special::Advanced",
 "Special::Import",
 "Special::About",
@@ -285,7 +266,7 @@ table.text_area td
 <div id="menu_edit_button" style="display: inline;">
 <hr>
 
-<div style="text-align: center;"><a class="link" onclick='go_to("Special::Edit Menu")'>[Edit]</a></div></div></div></td>
+<div style="text-align: center;"><a class="link" onclick='edit_menu()'>[Edit]</a></div></div></div></td>
 <td style="width: 88%;" rowspan="2" valign="top">
 <div class="text_area" id="wiki_text" ondblclick="edit()"></div></td></tr>
 <tr>
