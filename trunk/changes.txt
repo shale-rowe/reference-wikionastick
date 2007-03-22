@@ -1,8 +1,16 @@
 
 Version 0.9 (legolas558 - official)
+-------------
 
+* rewritten core javascript functions
+* DOM is cleaned up before saving
+* import feature working ok
+* history gets saved
+* embedded pictures
 * new data storage format (faster & allow diffs)
 * much better syntax parsing
+* backlinks
+* erase wiki
 
 Version 0.04G (legolas558's unofficial)
 -------------
