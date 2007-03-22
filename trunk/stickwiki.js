@@ -1012,6 +1012,26 @@ function import_wiki()
 	var pages_imported = 0;
 	
 	//TODO: import the variables and the CSS from v0.04
+	var css = null;
+	wiki.replace(/\<style.*\>(.*?)\<\/style\>/, function (str, $1) {
+		css = $1;
+	});
+	if (css!=null) {
+		alert(css);
+	}
+	
+	// import the variables
+	var new_main_page = main_page;
+	var block_edits = false;
+	for(i=0;i<var_names.length;i++) {
+		if (var_names[i] == "main_page_")
+			new_main_page = (version!=2) ? unescape(var_values[i]) : var_values[i];
+		else if (var_names[i] == "permit_edits")
+			block_edits = (var_values[i]=="0");
+	}
+	if (page_exists(new_main_page))
+		main_page = new_main_page;
+	
 	//note: before v0.04 permit_edits didnt exist
 	//note: in version 2 pages were not escaped
 	
@@ -1034,8 +1054,6 @@ function import_wiki()
 	// remove hourglass
 	document.body.style.cursor= "auto";
 	
-	alert(var_names);
-
 	alert("Import completed: " + pages_imported + " pages imported.");
 	// save everything
 	save_all();
