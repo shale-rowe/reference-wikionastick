@@ -1,0 +1,38 @@
+/* background */
+body {color:#FFFFFF;background-color: #131313;font-family:
+Arial;font-size: 13px;}
+
+/* page title */
+p.title {color: #F67426;font-size: 22px;font-weight:
+bold;margin-bottom: 0pt;margin-top:0pt;}
+
+/* Text */
+/*.text_area {font-family: Arial;} */
+
+/* Left menu */
+div.menu_area {color:#F67426;border-width: 1pt;border-color:
+black;border-style: solid;font-size: 13px;background-color:
+#292929;padding: 5pt;width: 120pt;line-height: 14px;}
+
+/* Main text */
+div.text_area {border-width: 1pt;border-color: black;border-style:
+solid;color:#FEDCBA;background-color: #2F2F2F;padding: 10pt;}
+
+/* existent link */
+a.link {text-decoration:none; color: #F67426;}
+a.link:hover {color:#FDD670;text-decoration: underline;cursor:pointer;}
+
+/* unexistent link */
+a.unlink {color: #C83838;text-decoration:none;}
+a.unlink:hover {text-decoration: underline;cursor:pointer;}
+
+/* outside world link */
+a.world {color: #BBEEA6;text-decoration:none;}
+a.world:hover {color:#87D97E;cursor:pointer;text-decoration:underline;}
+
+/* Tables */
+table.text_area {border-collapse:separate;background-color:
+#666666;border-spacing:1px;}
+
+table.text_area td {padding: 5px;border: 0px solid
+#999999;background-color: #292929;} 
