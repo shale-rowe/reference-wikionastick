@@ -145,12 +145,12 @@ function parse(text)
 	// with | 
 	text = text.replace(/\[\[([^\]\]]*?)\|(.*?)\]\]/g, function(str, $1, $2)
 			{
-				if($2.match("://"))
-					return "<a class=\"world\" href=\"" + $2 + "\" target=\"_blank\">" + $1 + "<\/a>";
-				if(page_exists($2))
-					return "<a class=\"link\" onclick='go_to(\"" + $2 +"\")'>" + $1 + "<\/a>";
+				if($2.indexOf("://")!=-1)
+					return "<a class=\"world\" href=\"" + $1 + "\" target=\"_blank\">" + $2 + "<\/a>";
+				if(page_exists($1))
+					return "<a class=\"link\" onclick='go_to(\"" + $1 +"\")'>" + $2 + "<\/a>";
 				else
-					return "<a class=\"unlink\" onclick='go_to(\"" + $2 +"\")'>" + $1 + "<\/a>";
+					return "<a class=\"unlink\" onclick='go_to(\"" + $1 +"\")'>" + $2 + "<\/a>";
 			}); //"<a class=\"wiki\" onclick='go_to(\"$2\")'>$1<\/a>");
 	// without |
 	text = text.replace(/\[\[([^\|]*?)\]\]/g, function(str, $1)
@@ -260,16 +260,14 @@ function special_dead_pages () { // Returns a index of all dead pages
 	var page_done = false;
 	for (j=0;j<pages.length;j++) {
 
-		pages[j].replace(/\[\[([^\]\]]*?)(\|(.+))?\]\]/g,
-	        function (str, $1, $2, $3) {
+		pages[j].replace(/\[\[([^\]\]]*?)(\|([^\]\]]+))?\]\]/g,
+			function (str, $1, $2, $3) {
 				if (page_done)
 					return false;
-				log("Here you are: 1:"+$1+" 2:"+$2+" 3:"+$3);
-				if ($3.length && ($3.indexOf("://")==-1))
-					p = $3;
-				else {
-					p = $1;
-				}
+//				log("In "+page_titles[j]+": "+$1+" -> "+$3);
+				if ($3.length && ($3.indexOf("://")!=-1))
+					return;
+				p = $1;
 				if (!page_exists(p)) {
 					up = p.toUpperCase();
 					for(i=0;i<dead_pages.length;i++) {
@@ -293,15 +291,18 @@ function special_dead_pages () { // Returns a index of all dead pages
 	var s = "";
 	for(i=0;i<dead_pages.length;i++) {
 		s+="[["+dead_pages[i]+"]] from ";
-		for(j=0;j<from_pages[i].length-1;j++) {
-			s+="[["+from_pages[j]+"]], ";
+		var from = from_pages[i];
+		for(j=0;j<from.length-1;j++) {
+			s+="[["+from[j]+"]], ";
 		}
-		if (from_pages[i].length>1)
-			s+="[["+from_pages[j]+"]]";
+		if (from.length>0)
+			s+="[["+from[from.length-1]+"]]";
+		s += "\n";
+//		log(dead_pages[i]+" in "+from);
 	}
 	
   if (s == '')
-	return '<i>No dead pages</i>';
+	return '<i>No orphaned pages</i>';
   return s; 
 }
 
