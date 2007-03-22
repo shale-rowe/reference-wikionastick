@@ -3,7 +3,7 @@
 
 var debug = true;            // won't save if it's true
 var save_override = true;
-var edit_override = true;
+var edit_override = false;
 var forstack = new Array();
 var lastsearch = "";
 var prev_title = current;
