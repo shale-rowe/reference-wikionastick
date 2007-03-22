@@ -71,7 +71,79 @@ var pages = new Array(
 "\n" +
 "Read more at [[Our SourceForge Project|http://sf.net/projects/stickwiki/]]\n" +
 "We also have a [[Google dicussion group|http://groups.google.com/group/stickwiki/]]",
-""
+"!Wiki on a Stick Example\n" +
+"!!Formatting\n" +
+"\n" +
+"/(click on the pencil icon on the top right corner to see source)/\n" +
+"\n" +
+"<pre>\n" +
+"\n" +
+"This is pre-formatted text!\n" +
+"</pre>\n" +
+"\n" +
+"This is always the [[Special::Main Page|Main page]]\n" +
+"\n" +
+"!!Testcases\n" +
+"\n" +
+"On my right there is some _underlined text_, followed by *bold text* and /italics/.\n" +
+"\n" +
+"Now I will use /*italics and bold*/, followed by */bold and italics/* and finally _*/underlined bold italics/*_.\n" +
+"\n" +
+"Maybe you want to see some *_/bold underlined italics/_* or also some */_bold italics underlined_/*?\n" +
+"\n" +
+"And here is, just for you, a partial *bold-/italics/*!!!\n" +
+"\n" +
+"!!Syntax\n" +
+"\n" +
+"External links: [[Wiki on a Stick|http://stickwiki.sourceforge.net/]]\n" +
+"\n" +
+"/damn/path/ to go to hell\n" +
+"\n" +
+"*BOLD ME!!*\n" +
+"\n" +
+"/hear me/\n" +
+"\n" +
+"_Underline me!_\n" +
+"\n" +
+"Boldface: *Boldface text*\n" +
+"Italics: /italics text/\n" +
+"Underline: _underlined text_\n" +
+"\n" +
+"Ruler:\n" +
+"---\n" +
+"\n" +
+"List:\n" +
+"+ Item 1\n" +
+"++ Subitem a\n" +
+"++ Subitem b\n" +
+"+ Item 2\n" +
+"++ Subitem c\n" +
+"+++ Subsubitem d\n" +
+"+ Item 3\n" +
+"\n" +
+"Numbered list:\n" +
+"# Item A\n" +
+"## Subitem i\n" +
+"## Subitem ii\n" +
+"# Item B\n" +
+"## Subitem iii\n" +
+"### Subsubitem iv\n" +
+"# Item C\n" +
+"\n" +
+"!!Tables\n" +
+"\n" +
+"{|\n" +
+"|+ Telephone Table\n" +
+"| *Column Name* || *Type* || *Other* || *Description*\n" +
+"|-\n" +
+"| id || INT || PRIMARY KEY || Row ID\n" +
+"|-\n" +
+"| contact_id || INT || KEY || References FOREIGN KEY(Contacts.id)\n" +
+"|-\n" +
+"| type || ENUM('Home','Work','Mobile','Pager','Other') || || Defines type of Telephone record\n" +
+"|-\n" +
+"| number || CHAR(32) || || Contains actual Telephone number\n" +
+"|}"
 );
 
 
