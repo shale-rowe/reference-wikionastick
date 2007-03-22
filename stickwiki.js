@@ -4,7 +4,7 @@
 var debug = true;            // won't save if it's true
 var end_trim = true;		// trim pages from the end
 var save_override = true;
-var edit_override = true;
+var edit_override = false;
 var forstack = new Array();
 var lastsearch = "";
 var search_focused = false;
