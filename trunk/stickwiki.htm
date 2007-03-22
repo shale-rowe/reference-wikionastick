@@ -16,11 +16,9 @@ var current = "Special::Advanced";
 var main_page = "Main Page";
 
 var backstack = new Array(
+"Special::Menu",
 "Main Page",
-"Special::Advanced",
-"Main Page",
-"Special::Advanced",
-"Special::About"
+"Special::Search"
 );
 
 var page_titles = new Array(
@@ -37,12 +35,13 @@ var pages = new Array(
 "[[Main Page]]\n" +
 "\n" +
 "[[Special::Backlinks]]\n" +
-"[[Special::Advanced]]",
+"[[Special::Search]]",
 "!Pages\n" +
 "  [[Special::All Pages|All Pages]]: a list of all user created pages in this wiki\n" +
 "  [[Special::All Special Pages|All Special Pages]]: list of all system pages\n" +
-"  [[Special::Pages not yet created|Pages not yet created]]: a list of pages that have links to them, but were still not created. \n" +
-"  [[Special::Orphaned Pages|Orphaned Pages]]: a list of pages that once were linked to, but now no page links to them anymore.\n" +
+"  [[Special::Pages not yet created|Pages not yet created]]: a list of pages that have links to them, but were still not created \n" +
+"  [[Special::Orphaned Pages|Orphaned Pages]]: a list of pages that once were linked to, but now no page links to them anymore\n" +
+"  [[Special::Search|Search]]: search all wiki pages\n" +
 "\n" +
 "!Maintenance\n" +
 "  [[Special::Import|Import wiki]] from an early (or current) version.\n" +
@@ -164,7 +163,8 @@ var pages = new Array(
 "!Search in Wiki\n" +
 "\n" +
 "<input id=\"string_to_search\" type=\"text\"><input type=\"button\" value=\"Search\" onclick=\"result_of_search()\">\n" +
-"\n"
+"\n" +
+""
 );
 
 

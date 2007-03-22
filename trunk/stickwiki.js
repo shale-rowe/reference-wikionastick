@@ -842,7 +842,7 @@ function save()
 				if (new_title=="Special::Menu") {
 					refresh_menu_area();
 					back_to = prev_title;
-					alert(prev_title);
+//					alert(prev_title);
 				} else { if (!is_special(new_title) && (new_title != current))
 							rename_page(current, new_title);
 					back_to = new_title;
