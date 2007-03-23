@@ -100,7 +100,7 @@ function parse(text)
 	var prefmt = new Array();
 	var tags = new Array();
 	// put away stuff contained in <pre> tags
-	text = text.replace(/<pre>(.*?)<\/pre>/g, function (str, $1) {
+	text = text.replace(/\<pre.*?\>(.*?)\<\/pre\>/g, function (str, $1) {
 		var r = "<!-- "+parse_marker+prefmt.length+" -->";
 		prefmt.push($1);
 		return r;
