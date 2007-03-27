@@ -254,8 +254,7 @@ function parse(text)
 			return "<td>" + $2 + "<\/td>";
 		});
 
-	// links
-	// with | 
+	// links with | 
 	text = text.replace(/\[\[([^\]\]]*?)\|(.*?)\]\]/g, function(str, $1, $2)
 			{
 				if($1.indexOf("://")!=-1)
@@ -266,7 +265,7 @@ function parse(text)
 				else
 					return "<a class=\"unlink\" onclick='go_to(\"" + $1 +"\")'>" + $2 + "<\/a>";
 			}); //"<a class=\"wiki\" onclick='go_to(\"$2\")'>$1<\/a>");
-	// without |
+	// links without |
 	var inline_tags = 0;
 	text = text.replace(/\[\[([^\|]*?)\]\]/g, function(str, $1)
 			{
@@ -288,16 +287,6 @@ function parse(text)
 				else
 					return "<a class=\"unlink\" onclick='go_to(\"" + $1 +"\")'>" + $1 + "<\/a>";
 					}); //"<a class=\"wiki\" onclick='go_to(\"$1\")'>$1<\/a>");
-	var max_list = 5;
-	// unordered lists
-	for(i=0; i<max_list; i++) {
-		text = text.replace(new RegExp("(^|\\n)"+str_rep("\\+", i+1)+"\\s([^\\n]*)", "g"), "$1"+str_rep("<ul>", i+1)+"<li>$2<\/li>"+str_rep("<\/ul>",i+1));
-	}
-	for(i=0; i<max_list; i++)
-	{
-		text = text.replace(/\<\/ul\>\<ul\>/g, "");
-		text = text.replace(/\<\/ul\>\n\<ul\>/g, "");
-	}
 
 	if (ie)
 		text = text.replace("\r\n", "\n");
@@ -351,16 +340,16 @@ function parse(text)
 }
 
 function _get_namespace(ns) {
-	var pg = new Array();
+	var result = "";
 	for(var i=0;i<page_titles.length;i++) {
 		if (page_titles[i].indexOf(ns+":")==0)
-			pg.push("+ [["+page_titles[i]+"]]");
+			result += "+ [["+page_titles[i]+"]]\n";
 	}
-	return "!Pages in "+ns+" namespace\n" + pg.sort().join("\n");
+	return "!Pages in "+ns+" namespace\n" + result;
 }
 
 function _get_tagged(tag) {
-	var pg = new Array();
+	var result = "";
 
 	for(var i=0; i<pages.length; i++)
 	{
@@ -375,23 +364,23 @@ function _get_tagged(tag) {
 				
 				for (var t=0;t<found_tags.length;t++) {
 					if (found_tags[t] == tag)
-						pg.push("+ [[" + page_titles[i] + "]]" );
+						result += "+ [[" + page_titles[i] + "]]\n";
 				}
 
 				
 			});
 	}
 	
-	if (!pg.length)
+	if (!result.length)
 		return "No pages tagged with *"+tag+"*";
-	return "!" + tag + "\n" +pg.sort().join("\n");
+	return "!Pages tagged with " + tag + "\n" + result;
 }
 
 // Returns a index of search pages (by miz & legolas558)
 function special_search( str )
 {
-	var pg = new Array();
-	var pg_body = new Array();
+	var body_result = "";
+	var title_result = "";
 
 	var count = 0;
 	// matches the search string and nearby text
@@ -400,13 +389,15 @@ function special_search( str )
 
 	for(i=0; i<pages.length; i++)
 	{
+		if (is_special(page_titles[i]) && (page_titles[i] != "Special:Menu"))
+			continue;
 //		log("Searching into "+page_titles[i]);
 		
 //		log("Regex is \""+reg+"\"");
 
 		//look for str in title
 		if(page_titles[i].match(reg))
-			pg.push("+ [[" + page_titles[i] + "]]");
+			title_result += "+ [[" + page_titles[i] + "]]\n";
 
 		//Look for str in body
 		res_body = pages[i].match( reg );
@@ -420,14 +411,14 @@ function special_search( str )
 				alert("string result");
 			}
 			res_body = res_body.replace( /\n/g, "") ;
-			pg_body.push("+ [[" + page_titles[i] + "]]: *found " + count + " times :* <div class=\"search_results\"><i>...</i><br />" + res_body+"<br/><i>...</i></div>" );
+			body_result += "+ [[" + page_titles[i] + "]]: *found " + count + " times :* <div class=\"search_results\"><i>...</i><br />" + res_body+"<br/><i>...</i></div>\n";
 		}
 	}
 	
-	if (!pg.length && !pg_body.length)
+	if (!body_result.length && !title_result.length)
 		return "No results found for *"+str+"*";
 	force_inline = true;
-	return "Results for *" + str + "*\n" +pg.sort().join("\n") + "\n\n---\n" + pg_body.sort().join("\n");
+	return "Results for *" + str + "*\n" + title_result + "\n\n---\n" + body_result;
 }
 
 // Returns a index of all pages
@@ -579,7 +570,7 @@ function set_text(text)
 		log("current page \""+current+"\" is not cached!");
 		return;
 	}
-	pages[pi] = text;
+	pages[pi] = _new_syntax_patch(text);
 }
 
 // thanks to S.Willison
@@ -1043,9 +1034,24 @@ function delete_page(page)
 }
 
 function _new_syntax_patch(text) {
-	//TODO: convert '+' to '*' for bullet lists, convert '::' to ':' into wiki links
-	
-	return text;
+	// links with | 
+	text = text.replace(/\[\[([^\]\]]*?)\|(.*?)\]\]/g, function(str, $1, $2)
+			{
+				if($1.indexOf("://")!=-1)
+					return str;
+				
+				// replace the first occurence of the two double colons
+				return str.replace("::", ":");
+			});
+	// links without |
+	return text.replace(/\[\[([^\|]*?)\]\]/g, function(str, $1)
+			{
+				if($1.match("://"))
+					return str;
+				
+				// replace the first occurence of the two double colons
+				return str.replace("::", ":");
+			});
 }
 
 // when save is clicked
@@ -1414,19 +1420,17 @@ function import_wiki()
 					page_names[pc] = $1;
 					page_contents[pc] = $2;
 				}
-				if (old_version < 9) {	// apply compatibility changes to v0.9
-					page_contents[pc] = page_contents[pc].replace(new RegExp("(\\[\\[|\\|)Special::Import wiki\\]\\]", "ig"), "$1Special:Import]]").replace(/\[\[([^\]\]]*?)(\|([^\]\]]+))?\]\]/g,
+				if (old_version < 9) {	// apply compatibility changes to stickwiki versions below v0.9
+					page_contents[pc] = _new_syntax_patch(page_contents[pc].replace(new RegExp("(\\[\\[|\\|)Special::Import wiki\\]\\]", "ig"), "$1Special::Import]]").replace(/\[\[([^\]\]]*?)(\|([^\]\]]+))?\]\]/g,
 					function (str, $1, $2, $3) {
 						if ($3.length)
 							return "[["+$3+"|"+$1+"]]";
 						else
 							return str;
-					});
+					}));
 					if (page_names[pc] == "Special::Edit Menu")
 						page_names[pc] = "Special:Menu";
 				}
-				if (old_version >= 9)
-					page_contents[pc] = _new_syntax_patch(page_contents[pc]);
 				pc++;
 			}
 			);
