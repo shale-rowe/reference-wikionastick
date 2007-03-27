@@ -391,7 +391,7 @@ function _get_tagged(tag) {
 // Returns a index of search pages (by miz & legolas558)
 function special_search( str )
 {
-	var pb_body = new Array();
+	var pg_body = new Array();
 	var title_result = "";
 
 	var count = 0;
@@ -415,15 +415,9 @@ function special_search( str )
 		res_body = pages[i].match( reg );
 //		log("res_body = "+res_body);
 		if (res_body!=null) {
-			if (typeof(res_body) == "object") {
-				count = res_body.length;
-				res_body = res_body.join(" ");
-			} else {
-				count = 1;
-				alert("string result");
-			}
-			res_body = res_body.replace( /\n/g, "") ;
-			pg_body.push( "* [[" + page_titles[i] + "]]: *found " + count + " times :* <div class=\"search_results\"><i>...</i><br />" + res_body+"<br/><i>...</i></div>");
+			count = res_body.length;
+			res_body = res_body.join(" ").replace( /\n/g, " ");
+			pg_body.push( "* [[" + page_titles[i] + "]]: *found " + count + " times :* <div class=\"search_results\"><i>...</i><br />" + res_body +"<br/><i>...</i></div>");
 		}
 	}
 	
@@ -1475,7 +1469,7 @@ function import_wiki()
 		});
 		if (css!=null) {
 			log("Imported "+css.length+" bytes of CSS");
-			if (v<9)
+			if (old_version<9)
 				css += "/* since v0.9 */\nh1 { font-size: 23px; }\nh2 { font-size: 20px; }\nh3 { font-size: 17px; }\nh4 { font-size: 14px; }\ndiv.taglinks {\n	border: 1px solid #aaa;\n/*	background-color: #f9f9f9; */\n	padding: 5px;\n	margin-top: 1em;\n	clear: both;\n}\n\na.tag {\n color: navy;\n}\n";
 			document.getElementsByTagName("style")[0].innerHTML = css;
 		}
@@ -1726,4 +1720,6 @@ if(ie)
 else
 	addEventListener("load",on_load,false);
 */
+
+
 // -->
