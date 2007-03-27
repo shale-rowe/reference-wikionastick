@@ -51,8 +51,11 @@ var pages = new Array(
 "  [[Special:Edit Menu|Edit Menu]]: edit main menu (on the left)\n" +
 "\n" +
 "!Options\n" +
-"  [[Special:Block Edits|Block/Unblock edits]]: hides the edit button, to be used when this wiki goes public (when used as a webpage, for example)\n" +
-"  [[Special:Diff|Diff mode]]: enable/disable the diff mode (useful for revision control systems) after having viewed it\n" +
+"  <label for=\"cb_allow_diff\"><input type=\"checkbox\" id=\"cb_allow_diff\" onclick=\"allow_diff = el_eval('cb_allow_diff')\" />Diff mode (consistent newlines splitting in saved data, useful for versioning)<br />\n" +
+"  <label for=\"cb_permit_edits\"><input type=\"checkbox\" id=\"cb_permit_edits\" onclick=\"permit_edits = !el_eval('cb_permit_edits')\" />Disable edit mode for all pages (useful when publishing the Wiki On a Stick file on a web server)<br />\n" +
+"  <label for=\"cb_dblclick_edit\"><input type=\"checkbox\" id=\"cb_dblclick_edit\" onclick=\"dblclick_edit = el_eval('cb_dblclick_edit')\" />Double click to edit pages/menu<br />\n" +
+"  <label for=\"cb_save_on_quit\"><input type=\"checkbox\" id=\"cb_save_on_quit\" onclick=\"save_on_quit = el_eval('cb_save_on_quit')\" />Save configuration (if changed) on quit<br />\n" +
+"\n" +
 "\n" +
 "!Info\n" +
 "  [[Special:About|About Wiki on a Stick]]\n" +
