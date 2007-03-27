@@ -87,7 +87,6 @@ var pages = new Array(
 "!Wiki on a Stick Example\n" +
 "!!Formatting\n" +
 "!!!Third header\n" +
-"\n" +
 "!!!!Fourth header\n" +
 "\n" +
 "/(click on the pencil icon on the top right corner to see source)/\n" +
@@ -318,13 +317,13 @@ a.link.tag {
 <tr>
 <td valign="top">
 <div class="menu_area">
-<div class="wiki" id="menu_area" ondblclick="edit_menu()"></div>
+<div class="wiki" id="menu_area" ondblclick="menu_dblclick()"></div>
 <div id="menu_edit_button" style="display: inline;">
 <hr>
 
 <div style="text-align: center;"><a class="link" onclick="edit_menu()">[Edit]</a></div></div></div></td>
 <td style="width: 88%;" rowspan="2" valign="top">
-<div class="text_area" id="wiki_text" ondblclick="edit()"></div></td></tr>
+<div class="text_area" id="wiki_text" ondblclick="page_dblclick()"></div></td></tr>
 <tr>
 <td>&nbsp;</td></tr></tbody></table><!-- Editor -->
 <div id="edit_area" style="display: block;">
