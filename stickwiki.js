@@ -623,7 +623,7 @@ function block_edits(page) {
 		alert("Edits unblocked.");
 	}
 	if (!save_on_quit)
-		_save_config_only();
+		save_to_file(false);
 	back_or(main_page);
 }
 
@@ -645,7 +645,7 @@ function _get_special(cr) {
 			break;
 		case "Erase Wiki":
 			if (erase_wiki()) {
-				save_all();
+				save_to_file(true);
 				back_or(main_page);
 			}
 			return null;
@@ -813,7 +813,7 @@ function create_alt_buttons() {
 // save configuration on exit
 function before_quit() {
 	if (save_on_quit)
-		_save_config_only();
+		save_to_file(false);
 	return true;
 }
 
@@ -1095,7 +1095,7 @@ function save()
 					delete_page(current);
 					disable_edit();
 					back_or(main_page);
-					save_all();
+					save_to_file(true);
 				}
 				return;
 			}
@@ -1218,17 +1218,24 @@ function printout_arr(arr, split_lines) {
 
 function save_page(page_to_save) {
 	log("Saving page \""+page_to_save+"\"");
-	save_all();
+	save_to_file(true);
 }
 
-function _save_config_only() {
-	// not yet written
+function save_options() {
+	save_to_file(false);
+	set_current("Special:Advanced");
 }
 
-function save_all() {
+function save_to_file(full) {
 	document.body.style.cursor = "wait";
 
+	var new_marker;
+	if (full)
+		new_marker = _random_string(18);
+	else new_marker = __marker;
+
 	var computed_js = "\n/* <![CDATA[ */\n\nvar version = \""+version+
+	"\";\n\nvar __marker = \""+new_marker+
 	"\";\n\nvar permit_edits = "+permit_edits+
 	";\n\nvar allow_diff = "+allow_diff+
 	";\n\nvar current = \"" + js_encode(current)+
@@ -1238,9 +1245,16 @@ function save_all() {
 
 	computed_js += "var page_titles = new Array(\n" + printout_arr(page_titles, false) + ");\n\n";
 	
-	computed_js += "var pages = new Array(\n" + printout_arr(pages, allow_diff) + ");\n\n";
+	computed_js += "/* " + new_marker + " */\n";
+	
+	if (full) {
+	
+		computed_js += "var pages = new Array(\n" + printout_arr(pages, allow_diff) + ");\n\n";
+		
+		computed_js += "/* " + new_marker + " */\n";
+	}
 
-	// not needed: the end tag is provviden by the matching function
+	// not needed: the end tag must not be removed by the offset
 //	computed_js += "/* ]]> */";
 	
 	// attempt to clear the first <script> tag found in the DOM
@@ -1251,9 +1265,9 @@ function save_all() {
 			subobj = obj.childNodes[i];
 			if (subobj.tagName && subobj.tagName.toUpperCase() == "SCRIPT") {
 				if (ie)
-					subobj.text = "/* ]]> */\n";
+					subobj.text = "/* ]]> */ ";
 				else
-					subobj.innerHTML = "/* ]]> */\n";
+					subobj.innerHTML = "/* ]]> */ ";
 				break;
 			}
 		}
@@ -1271,8 +1285,15 @@ function save_all() {
 //		free_uri_pics(el("img_home"),el("img_back"),el("img_forward"),el("img_edit"),el("img_cancel"),el("img_save"),el("img_advanced"))
 	}
 	
+	// fully remove the first <script> tag
+	var offset;
+	if (full)
+		offset = document.documentElement.innerHTML.indexOf("/* ]]> */ </script>");
+	else
+		offset = document.documentElement.innerHTML.indexOf("/* "+__marker+ " */") + 6 + __marker.length;
+	
 	if (!debug || save_override)
-		r = saveThisFile(computed_js);
+		r = saveThisFile(computed_js, offset);
 	else r = false;
 	document.body.style.cursor= "auto";
 	
@@ -1288,7 +1309,7 @@ function save_all() {
 }
 
 // save this file
-function saveThisFile(data)
+function saveThisFile(data, offset)
 {
 	if(unsupported_browser)
 	{
@@ -1303,8 +1324,6 @@ function saveThisFile(data)
 		filename = filename.replace(/\//g, "\\");
 	else
 		filename = "/" + filename;
-	
-	var offset = document.documentElement.innerHTML.search(/\/\* ]]> \*\/(\r\n|\n)<\/script>/i);
 	
 	r = saveFile(filename,
 	"<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\">\n<head>\n<script type=\"text/javascript\">" + data + "\n" + document.documentElement.innerHTML.substring(offset) + "</html>");
@@ -1470,7 +1489,7 @@ function import_wiki()
 		if (css!=null) {
 			log("Imported "+css.length+" bytes of CSS");
 			if (old_version<9)
-				css += "/* since v0.9 */\nh1 { font-size: 23px; }\nh2 { font-size: 20px; }\nh3 { font-size: 17px; }\nh4 { font-size: 14px; }\ndiv.taglinks {\n	border: 1px solid #aaa;\n/*	background-color: #f9f9f9; */\n	padding: 5px;\n	margin-top: 1em;\n	clear: both;\n}\n\na.tag {\n color: navy;\n}\n";
+				css += "/* since v0.9 */\nh1 { font-size: 23px; }\nh2 { font-size: 20px; }\nh3 { font-size: 17px; }\nh4 { font-size: 14px; }\ndiv.taglinks {\n	border: 1px solid #aaa;\n	padding: 5px;\n	margin-top: 1em;\n	clear: both;\n}\n\ndiv.search_results {\n	border: 1px solid #aaa;\n	background-color: #f9f9f9;\n	padding: 5px;\n	margin-top: 1em;\n	clear: both;\n}\n\na.link.tag {\n  color: navy;\n}";
 			document.getElementsByTagName("style")[0].innerHTML = css;
 		}
 	}
@@ -1714,6 +1733,23 @@ if (debug) {
 if (!ie)
 	window.onresize = on_resize;
 
+// function used to store encrypted pages into javascript strings
+function js_hex_encode(s) {
+	// escape double quotes
+	s = s.replace(new RegExp("\"", "g"), "\\\"");
+	// escape newlines (\r\n happens only on the stupid IE) and eventually split the lines accordingly
+	s = s.replace(new RegExp("\r\n|\n", "g"), "\\n");
+	// and fix also the >= 128 ascii chars (to prevent UTF-8 characters corruption)
+	return s.replace(new RegExp("([^\u0000-\u007F])", "g"), function(str, $1) {
+				var s = $1.charCodeAt(0).toString(16);
+				for(var i=2-s.length;i>0;i--) {
+					s = "0"+s;
+				}
+				return "\\x" + s;
+	});
+}
+
+	
 /*** aes.js ***/
 
 // AES encryption for StickWiki
@@ -2055,7 +2091,6 @@ function setData(d) {
 // returns an array of encrypted characters
 function AES_encrypt(sKey, raw_data) {
 	setKey(sKey);
-	
 	setData(raw_data);
 	
 	i=tot=0;
@@ -2066,9 +2101,7 @@ function AES_encrypt(sKey, raw_data) {
 
 // decrypts an array of encrypted characters
 function AES_decrypt(sKey, raw_data) {
-
 	setKey(sKey);
-	
 	bData = raw_data;
 	
 	i=tot=0;
@@ -2079,5 +2112,9 @@ function AES_decrypt(sKey, raw_data) {
 	
 	return sData;
 }
+
+//var test_key = "a very good password";
+
+//alert(AES_decrypt(test_key, AES_encrypt(test_key, "Hello World!")));
 
 /* ]]> */
