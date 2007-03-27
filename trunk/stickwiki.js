@@ -5,11 +5,11 @@ var debug = true;			// toggle debug mode (and console)
 var save_override = true;	// allow to save when debug mode is active
 var end_trim = true;		// trim pages from the end
 var save_on_quit = true;
-var dblclick_edit = false;
+var dblclick_edit = true;
 
 var forstack = new Array();
 var cached_search = "";
-var tag_to_show = "";
+var cfg_changed = false;	// true when configuration has been changed
 var search_focused = false;
 var prev_title = current;	// used when entering/exiting edit mode
 
@@ -645,6 +645,10 @@ function _get_special(cr) {
 			text = get_text("Special:"+cr);
 			text += cached_search;
 			break;
+		case "Advanced":
+			text = get_text("Special:"+cr);
+			post_dom_render = "_setup_options";
+			break;
 		case "Erase Wiki":
 			if (erase_wiki()) {
 				save_all();
@@ -666,10 +670,6 @@ function _get_special(cr) {
 		case "Backlinks":
 			text = special_links_here();
 			break;
-		case "Block Edits":
-			alert("Block edits currently disabled!");
-			//block_edits(current);
-			return null;
 		case "Edit Menu":
 			go_to("Special:Menu");
 			edit();
@@ -691,6 +691,7 @@ function set_current(cr)
 {
 	var text;
 	log("Setting \""+cr+"\" as current page");
+	post_dom_render = "";
 	var p = cr.indexOf(":");
 	if (p!=-1) {
 		namespace = cr.substring(0,p);
@@ -751,6 +752,29 @@ function load_as_current(title, text) {
 	el("wiki_text").innerHTML = parse(text);
 	document.title = title;
 	update_nav_icons();
+	if (post_dom_render.length!=0) {
+		eval(post_dom_render+"()");
+		post_dom_render = "";
+	}
+}
+
+function bool2chk(b) {
+	if (b) return "checked";
+	return "";
+}
+
+function el_eval(name) {
+	cfg_changed = true;
+	if (el(name).checked)
+		return true;
+	return false;
+}
+
+function _setup_options() {
+	el("cb_allow_diff").checked = bool2chk(allow_diff);
+	el("cb_dblclick_edit").checked = bool2chk(dblclick_edit);
+	el("cb_permit_edits").checked = bool2chk(!permit_edits);
+	el("cb_save_on_quit").checked = bool2chk(save_on_quit);
 }
 
 function refresh_menu_area() {
@@ -815,7 +839,6 @@ function on_load()
 //		setup_uri_pics(el("img_home"),el("img_back"),el("img_forward"),el("img_edit"),el("img_cancel"),el("img_save"),el("img_advanced"));
 	}
 
-		
 	img_display("back", true);
 	img_display("forward", true);
 	img_display("home", true);
@@ -948,7 +971,7 @@ function edit()
 	edit_page(current);
 }
 
-var edit_override = false;
+var edit_override = true;
 
 function edit_allowed(page) {
 	if (edit_override)
@@ -1264,6 +1287,9 @@ function save_all() {
 	if (ie)
 		create_alt_buttons();
 //	else		setup_uri_pics(el("img_home"),el("img_back"),el("img_forward"),el("img_edit"),el("img_cancel"),el("img_save"),el("img_advanced"))
+
+	cfg_changed = false;
+
 	return r;
 }
 
