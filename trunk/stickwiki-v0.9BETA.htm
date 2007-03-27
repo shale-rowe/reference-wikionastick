@@ -16,8 +16,6 @@ var current = "Main Page";
 var main_page = "Main Page";
 
 var backstack = new Array(
-"Main Page",
-"Special:About"
 );
 
 var page_titles = new Array(
@@ -98,12 +96,12 @@ var pages = new Array(
 "\n" +
 "If you have an older Wiki on a Stick, [[Special:Import|import it]]!\n" +
 "\n" +
-"<pre class=\"\">\n" +
+"<pre>\n" +
 "\n" +
 "This is pre-formatted text!\n" +
 "</pre>\n" +
 "\n" +
-"<pre style=\"color:blue\">\n" +
+"<pre style=\"color:gray\">\n" +
 "\n" +
 "This is stylish pre-formatted text!\n" +
 "</pre>\n" +
@@ -138,13 +136,13 @@ var pages = new Array(
 "---\n" +
 "\n" +
 "List:\n" +
-"+ Item 1\n" +
-"++ Subitem a\n" +
-"++ Subitem b\n" +
-"+ Item 2\n" +
-"++ Subitem c\n" +
-"+++ Subsubitem d\n" +
-"+ Item 3\n" +
+"* Item 1\n" +
+"** Subitem a\n" +
+"** Subitem b\n" +
+"* Item 2\n" +
+"** Subitem c\n" +
+"*** Subsubitem d\n" +
+"* Item 3\n" +
 "\n" +
 "Numbered list:\n" +
 "# Item A\n" +
@@ -405,10 +403,10 @@ function header_replace(hdr, text) {
 // This is a bit of a monster, if you know an easier way please tell me!
 // There is no limit to the level of nesting and it produces
 // valid xhtml markup.
-var reListItems = /([+#]+)\s+([^\n]*)\n/g;
-var reReapLists = /(?:^|\n)[+#]\s[^\n]+\n(?:[+#]+\s[^\n]+\n)*/g;
+var reListItems = /([\*#]+)\s+([^\n]*)\n/g;
+var reReapLists = /(?:^|\n)[\*#]\s[^\n]+\n(?:[\*#]+\s[^\n]+\n)*/g;
 function parseList(str) {
-        var o_or_u = (str.charAt(1)=='+'?'ul':'ol'),
+        var o_or_u = (str.charAt(1)=='*'?'ul':'ol'),
 		open_o_or_u = '<' + o_or_u + '>',
 		close_o_or_u = '</' + o_or_u + '>',
 		old = 0,
@@ -478,7 +476,6 @@ function parseList(str) {
         return toStr(stk[1]);
     }
 
-
 // used not to break layout when presenting search results
 var force_inline = false;
 
@@ -500,7 +497,7 @@ function parse(text)
 	});
 	
 	// <b>
-	text = text.replace(/\*([^\*]+)\*/g, parse_marker+"bS#$1"+parse_marker+"bE#");
+	text = text.replace(/\*([^\*\n]+)\*/g, parse_marker+"bS#$1"+parse_marker+"bE#");
 	// <u>
 	text = text.replace(/(^|[^\w])_([^_]+)_/g, "$1"+parse_marker+"uS#$2"+parse_marker+"uE#");
 	
@@ -550,8 +547,7 @@ function parse(text)
 			return "<td>" + $2 + "<\/td>";
 		});
 
-	// links
-	// with | 
+	// links with | 
 	text = text.replace(/\[\[([^\]\]]*?)\|(.*?)\]\]/g, function(str, $1, $2)
 			{
 				if($1.indexOf("://")!=-1)
@@ -562,7 +558,7 @@ function parse(text)
 				else
 					return "<a class=\"unlink\" onclick='go_to(\"" + $1 +"\")'>" + $2 + "<\/a>";
 			}); //"<a class=\"wiki\" onclick='go_to(\"$2\")'>$1<\/a>");
-	// without |
+	// links without |
 	var inline_tags = 0;
 	text = text.replace(/\[\[([^\|]*?)\]\]/g, function(str, $1)
 			{
@@ -584,16 +580,6 @@ function parse(text)
 				else
 					return "<a class=\"unlink\" onclick='go_to(\"" + $1 +"\")'>" + $1 + "<\/a>";
 					}); //"<a class=\"wiki\" onclick='go_to(\"$1\")'>$1<\/a>");
-	var max_list = 5;
-	// unordered lists
-	for(i=0; i<max_list; i++) {
-		text = text.replace(new RegExp("(^|\\n)"+str_rep("\\+", i+1)+"\\s([^\\n]*)", "g"), "$1"+str_rep("<ul>", i+1)+"<li>$2<\/li>"+str_rep("<\/ul>",i+1));
-	}
-	for(i=0; i<max_list; i++)
-	{
-		text = text.replace(/\<\/ul\>\<ul\>/g, "");
-		text = text.replace(/\<\/ul\>\n\<ul\>/g, "");
-	}
 
 	if (ie)
 		text = text.replace("\r\n", "\n");
@@ -646,13 +632,26 @@ function parse(text)
 	return "<p>" + text + "</p>";
 }
 
+// prepends and appends a newline character to workaround plumloco's XHTML lists parsing bug
+function _join_list(arr, sorted) {
+	if (sorted)
+		arr = arr.sort();
+	return "\n* [["+arr.join("]]\n* [[")+"]]\n";
+}
+
+function _simple_join_list(arr, sorted) {
+	if (sorted)
+		arr = arr.sort();
+	return arr.join("\n")+"\n";
+}
+
 function _get_namespace(ns) {
 	var pg = new Array();
 	for(var i=0;i<page_titles.length;i++) {
 		if (page_titles[i].indexOf(ns+":")==0)
-			pg.push("+ [["+page_titles[i]+"]]");
+			pg.push( page_titles[i]);
 	}
-	return "!Pages in "+ns+" namespace\n" + pg.sort().join("\n");
+	return "!Pages in "+ns+" namespace\n" + _join_list(pg, true);
 }
 
 function _get_tagged(tag) {
@@ -671,7 +670,7 @@ function _get_tagged(tag) {
 				
 				for (var t=0;t<found_tags.length;t++) {
 					if (found_tags[t] == tag)
-						pg.push("+ [[" + page_titles[i] + "]]" );
+						pg.push(page_titles[i]);
 				}
 
 				
@@ -680,14 +679,14 @@ function _get_tagged(tag) {
 	
 	if (!pg.length)
 		return "No pages tagged with *"+tag+"*";
-	return "!" + tag + "\n" +pg.sort().join("\n");
+	return "!Pages tagged with " + tag + "\n" + _join_list(pg, true);
 }
 
 // Returns a index of search pages (by miz & legolas558)
 function special_search( str )
 {
-	var pg = new Array();
-	var pg_body = new Array();
+	var pb_body = new Array();
+	var title_result = "";
 
 	var count = 0;
 	// matches the search string and nearby text
@@ -696,13 +695,15 @@ function special_search( str )
 
 	for(i=0; i<pages.length; i++)
 	{
+		if (is_special(page_titles[i]) && (page_titles[i] != "Special:Menu"))
+			continue;
 //		log("Searching into "+page_titles[i]);
 		
 //		log("Regex is \""+reg+"\"");
 
 		//look for str in title
 		if(page_titles[i].match(reg))
-			pg.push("+ [[" + page_titles[i] + "]]");
+			title_result += "* [[" + page_titles[i] + "]]\n";
 
 		//Look for str in body
 		res_body = pages[i].match( reg );
@@ -716,14 +717,14 @@ function special_search( str )
 				alert("string result");
 			}
 			res_body = res_body.replace( /\n/g, "") ;
-			pg_body.push("+ [[" + page_titles[i] + "]]: *found " + count + " times :* <div class=\"search_results\"><i>...</i><br />" + res_body+"<br/><i>...</i></div>" );
+			pg_body.push( "* [[" + page_titles[i] + "]]: *found " + count + " times :* <div class=\"search_results\"><i>...</i><br />" + res_body+"<br/><i>...</i></div>");
 		}
 	}
 	
-	if (!pg.length && !pg_body.length)
+	if (!pg_body.length && !title_result.length)
 		return "No results found for *"+str+"*";
 	force_inline = true;
-	return "Results for *" + str + "*\n" +pg.sort().join("\n") + "\n\n---\n" + pg_body.sort().join("\n");
+	return "Results for *" + str + "*\n" + title_result + "\n\n---\n" + _simple_join_list(pg_body, false);
 }
 
 // Returns a index of all pages
@@ -734,22 +735,9 @@ function special_all_pages()
 	for(i=0; i<page_titles.length; i++)
 	{
 		if (!is_special(page_titles[i]))
-			pg.push("+ [[" + page_titles[i] + "]]");
+			pg.push( page_titles[i] );
 	}
-	return pg.sort().join("\n");
-}
-
-// Returns a index of all special pages
-function special_all_special_pages()
-{
-	var pg = new Array();
-	var text = "";
-	for(i=0; i<page_titles.length; i++)
-	{
-		if (is_special(page_titles[i]))
-			pg.push("+ [[" + page_titles[i] + "]]");
-	}
-	return pg.sort().join("\n");
+	return _join_list(pg, true);
 }
 
 // Returns a index of all dead pages
@@ -766,7 +754,7 @@ function special_dead_pages () { // Returns a index of all dead pages
 //				log("In "+page_titles[j]+": "+$1+" -> "+$3);
 				if ($1.indexOf("://")!=-1)
 					return;
-				if ($1.match("Tag(s|ged)?:")==0)
+				if ($1.match(/Tag(s|ged)?:/gi))
 					return;
 				p = $1;
 				if (!page_exists(p) && ((up = p.toUpperCase)!=page_titles[j].toUpperCase())) {
@@ -789,22 +777,21 @@ function special_dead_pages () { // Returns a index of all dead pages
 		page_done = false;
 	}
 
-	var s = "";
+	var pg = new Array();
 	for(i=0;i<dead_pages.length;i++) {
-		s+="[["+dead_pages[i]+"]] from ";
+		s = "[["+dead_pages[i]+"]] from ";
 		var from = from_pages[i];
 		for(j=0;j<from.length-1;j++) {
 			s+="[["+from[j]+"]], ";
 		}
 		if (from.length>0)
 			s+="[["+from[from.length-1]+"]]";
-		s += "\n";
-		log(dead_pages[i]+" in "+from);
+		pg.push(s);
 	}
 	
-  if (s == '')
+  if (!pg.length)
 	return '<i>No dead pages</i>';
-  return s; 
+  return _simple_join_list(pg, true);
 }
 
 // Returns a index of all orphaned pages
@@ -830,14 +817,14 @@ function special_orphaned_pages()
 		}
 		if(found == false) {
 			if (!is_special(page_titles[j]))
-				pg.push("+ [[" + page_titles[j] + "]]");
+				pg.push( page_titles[j] );
 		} else found = false;
 	}
 //	alert(pages[0]);
-	if(pg.length == 0)
+	if (!pg.length)
 		return "/No orphaned pages found/";
 	else
-		return pg.sort().join("\n"); // TODO - Delete repeated data
+		return _join_list(pg, true); // TODO - Delete repeated data
 }
 
 function special_links_here()
@@ -849,13 +836,13 @@ function special_links_here()
 		if(	(pages[j].toUpperCase().indexOf("[[" + current.toUpperCase() + "]]")!=-1) ||
 				(pages[j].toUpperCase().indexOf("|" + current.toUpperCase() + "]]") != -1)
 				) {
-					pg.push("+ [["+page_titles[j]+"]]");
+					pg.push( page_titles[j] );
 		}
 	}
 	if(pg.length == 0)
 		return "/No page links here/";
 	else
-		return "!!Links to "+current+"\n"+pg.sort().join("\n");
+		return "!!Links to "+current+"\n"+_join_list(pg, true);
 }
 
 // retrieve a stored page
@@ -875,7 +862,7 @@ function set_text(text)
 		log("current page \""+current+"\" is not cached!");
 		return;
 	}
-	pages[pi] = text;
+	pages[pi] = _new_syntax_patch(text);
 }
 
 // thanks to S.Willison
@@ -1332,14 +1319,35 @@ function delete_page(page)
 			log("DELETED page "+page);
 			page_titles.splice(i,1);
 			pages.splice(i,1);
-			save_all();
 			break;
 		}
 	}
 }
 
 function _new_syntax_patch(text) {
-	//TODO: convert '+' to '*' for bullet lists, convert '::' to ':' into wiki links
+	// links with |
+	text = text.replace(/\[\[([^\]\]]*?)\|(.*?)\]\]/g, function(str, $1, $2)
+			{
+				if($1.indexOf("://")!=-1)
+					return str;
+				
+				// replace the first occurence of the two double colons
+				return str.replace("::", ":");
+			});
+	// links without |
+	text = text.replace(/\[\[([^\|]*?)\]\]/g, function(str, $1)
+			{
+				if($1.match("://"))
+					return str;
+				
+				// replace the first occurence of the two double colons
+				return str.replace("::", ":");
+			});
+
+	//BUG: will also edit <pre> tags stuff
+	text = text.replace(/(^|\n)(\+*)/g, function (str, $1, $2) {
+		return $1+str_rep("*", $2.length);
+	});
 	
 	return text;
 }
@@ -1364,6 +1372,7 @@ function save()
 					delete_page(current);
 					disable_edit();
 					back_or(main_page);
+					save_all();
 				}
 				return;
 			}
@@ -1457,11 +1466,9 @@ function go_forward()
 }
 
 function js_encode(s, split_lines) {
-	// first replace all slashes
-//	s = s.replace(new RegExp("\x5C", "g"), "\\\\");
-	// then replace the double quotes
+	// escape double quotes
 	s = s.replace(new RegExp("\"", "g"), "\\\"");
-	// finally replace the newlines (\r\n happens only on the stupid IE
+	// escape newlines (\r\n happens only on the stupid IE) and eventually split the lines accordingly
 	if (!split_lines)
 		s = s.replace(new RegExp("\r\n|\n", "g"), "\\n");
 	else
@@ -1473,7 +1480,7 @@ function js_encode(s, split_lines) {
 					s = "0"+s;
 				}
 				return "\\u" + s;
-		});
+	});
 }
 
 function printout_arr(arr, split_lines) {
@@ -1533,7 +1540,7 @@ function save_all() {
 	el("wiki_editor").value = "";
 	el("wiki_text").innerHTML = "";
 	el("menu_area").innerHTML = "";
-	if (ie) {	// to prevent utf-8 corruption
+	if (ie) {	// to prevent their usual UTF-8 corruption
 		el("alt_back").innerHTML = "";
 		el("alt_forward").innerHTML = "";
 		el("alt_cancel").innerHTML = "";
@@ -1710,19 +1717,17 @@ function import_wiki()
 					page_names[pc] = $1;
 					page_contents[pc] = $2;
 				}
-				if (old_version < 9) {	// apply compatibility changes to v0.9
-					page_contents[pc] = page_contents[pc].replace(new RegExp("(\\[\\[|\\|)Special::Import wiki\\]\\]", "ig"), "$1Special:Import]]").replace(/\[\[([^\]\]]*?)(\|([^\]\]]+))?\]\]/g,
+				if (old_version < 9) {	// apply compatibility changes to stickwiki versions below v0.9
+					page_contents[pc] = _new_syntax_patch(page_contents[pc].replace(new RegExp("(\\[\\[|\\|)Special::Import wiki\\]\\]", "ig"), "$1Special::Import]]").replace(/\[\[([^\]\]]*?)(\|([^\]\]]+))?\]\]/g,
 					function (str, $1, $2, $3) {
 						if ($3.length)
 							return "[["+$3+"|"+$1+"]]";
 						else
 							return str;
-					});
+					}));
 					if (page_names[pc] == "Special::Edit Menu")
 						page_names[pc] = "Special:Menu";
 				}
-				if (old_version >= 9)
-					page_contents[pc] = _new_syntax_patch(page_contents[pc]);
 				pc++;
 			}
 			);
@@ -2044,7 +2049,7 @@ else
 <td># numbered list</td>
 <td>!!subheader</td>
 <td><a class="world" onclick="open_table_help()">(tables)</a></td></tr></tbody></table></div>
-<div id="debug_info" style="display: block;"><h2>Debug console</h2><p>You are using a development BETA version of Wiki On a Stick. If you want to disable this debug console, you will have to find the line that says <b><tt>var debug = true;</tt></b> and change it to <b><tt>false</tt></b>. Note: changes will be saved if <b><tt>var save_override</tt></b> is set to <b><tt>true</tt></b></p><div align="center"><textarea id="swlogger" cols="70" rows="12" style="width: 90%; background-color: lightgray;" readonly="true"></textarea></div>
+<div id="debug_info" style="display: block;"><h2>Debug console</h2><p>This is a development BETA version of Wiki On a Stick; it is not suggested to use it with important data. If you want to disable this debug console, you will have to find the line that says <b><tt>var debug = true;</tt></b> and change it to <b><tt>false</tt></b>. Note: in the currently active debug mode changes will be saved only if <b><tt>var save_override</tt></b> is set to <b><tt>true</tt></b></p><div align="center"><textarea id="swlogger" cols="70" rows="12" style="width: 90%; background-color: lightgray;" readonly="true"></textarea></div>
 </div>
 <hr>
 <div align="center"><sub><a class="link" onclick="go_to('Special:About')">About Wiki on a Stick v0.9B</a></sub></div>
