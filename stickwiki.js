@@ -338,13 +338,26 @@ function parse(text)
 	return "<p>" + text + "</p>";
 }
 
+// prepends and appends a newline character to workaround plumloco's XHTML lists parsing bug
+function _join_list(arr, sorted) {
+	if (sorted)
+		arr = arr.sort();
+	return "\n* [["+arr.join("]]\n* [[")+"]]\n";
+}
+
+function _simple_join_list(arr, sorted) {
+	if (sorted)
+		arr = arr.sort();
+	return arr.join("\n")+"\n";
+}
+
 function _get_namespace(ns) {
 	var pg = new Array();
 	for(var i=0;i<page_titles.length;i++) {
 		if (page_titles[i].indexOf(ns+":")==0)
-			pg.push( "* [["+page_titles[i]+"]]");
+			pg.push( page_titles[i]);
 	}
-	return "!Pages in "+ns+" namespace\n" + pg.join("\n");
+	return "!Pages in "+ns+" namespace\n" + _join_list(pg, true);
 }
 
 function _get_tagged(tag) {
@@ -363,7 +376,7 @@ function _get_tagged(tag) {
 				
 				for (var t=0;t<found_tags.length;t++) {
 					if (found_tags[t] == tag)
-						pg.push("* [[" + page_titles[i] + "]]");
+						pg.push(page_titles[i]);
 				}
 
 				
@@ -372,7 +385,7 @@ function _get_tagged(tag) {
 	
 	if (!pg.length)
 		return "No pages tagged with *"+tag+"*";
-	return "!Pages tagged with " + tag + "\n" + pg.join("\n");
+	return "!Pages tagged with " + tag + "\n" + _join_list(pg, true);
 }
 
 // Returns a index of search pages (by miz & legolas558)
@@ -417,7 +430,7 @@ function special_search( str )
 	if (!pg_body.length && !title_result.length)
 		return "No results found for *"+str+"*";
 	force_inline = true;
-	return "Results for *" + str + "*\n" + title_result + "\n\n---\n" + pg_body.join("\n");
+	return "Results for *" + str + "*\n" + title_result + "\n\n---\n" + _simple_join_list(pg_body, false);
 }
 
 // Returns a index of all pages
@@ -428,9 +441,9 @@ function special_all_pages()
 	for(i=0; i<page_titles.length; i++)
 	{
 		if (!is_special(page_titles[i]))
-			pg.push("* [[" + page_titles[i] + "]]");
+			pg.push( page_titles[i] );
 	}
-	return pg.sort().join("\n");
+	return _join_list(pg, true);
 }
 
 // Returns a index of all dead pages
@@ -447,7 +460,7 @@ function special_dead_pages () { // Returns a index of all dead pages
 //				log("In "+page_titles[j]+": "+$1+" -> "+$3);
 				if ($1.indexOf("://")!=-1)
 					return;
-				if ($1.match("Tag(s|ged)?:")==0)
+				if ($1.match(/Tag(s|ged)?:/gi))
 					return;
 				p = $1;
 				if (!page_exists(p) && ((up = p.toUpperCase)!=page_titles[j].toUpperCase())) {
@@ -484,7 +497,7 @@ function special_dead_pages () { // Returns a index of all dead pages
 	
   if (!pg.length)
 	return '<i>No dead pages</i>';
-  return pg.join("\n");
+  return _simple_join_list(pg, true);
 }
 
 // Returns a index of all orphaned pages
@@ -510,14 +523,14 @@ function special_orphaned_pages()
 		}
 		if(found == false) {
 			if (!is_special(page_titles[j]))
-				pg.push("* [[" + page_titles[j] + "]]");
+				pg.push( page_titles[j] );
 		} else found = false;
 	}
 //	alert(pages[0]);
 	if (!pg.length)
 		return "/No orphaned pages found/";
 	else
-		return pg.sort().join("\n"); // TODO - Delete repeated data
+		return _join_list(pg, true); // TODO - Delete repeated data
 }
 
 function special_links_here()
@@ -529,13 +542,13 @@ function special_links_here()
 		if(	(pages[j].toUpperCase().indexOf("[[" + current.toUpperCase() + "]]")!=-1) ||
 				(pages[j].toUpperCase().indexOf("|" + current.toUpperCase() + "]]") != -1)
 				) {
-					pg.push("* [["+page_titles[j]+"]]");
+					pg.push( page_titles[j] );
 		}
 	}
 	if(pg.length == 0)
 		return "/No page links here/";
 	else
-		return "!!Links to "+current+"\n"+pg.sort().join("\n");
+		return "!!Links to "+current+"\n"+_join_list(pg, true);
 }
 
 // retrieve a stored page
@@ -1012,7 +1025,6 @@ function delete_page(page)
 			log("DELETED page "+page);
 			page_titles.splice(i,1);
 			pages.splice(i,1);
-			save_all();
 			break;
 		}
 	}
@@ -1066,6 +1078,7 @@ function save()
 					delete_page(current);
 					disable_edit();
 					back_or(main_page);
+					save_all();
 				}
 				return;
 			}
@@ -1159,11 +1172,9 @@ function go_forward()
 }
 
 function js_encode(s, split_lines) {
-	// first replace all slashes
-//	s = s.replace(new RegExp("\x5C", "g"), "\\\\");
-	// then replace the double quotes
+	// escape double quotes
 	s = s.replace(new RegExp("\"", "g"), "\\\"");
-	// finally replace the newlines (\r\n happens only on the stupid IE
+	// escape newlines (\r\n happens only on the stupid IE) and eventually split the lines accordingly
 	if (!split_lines)
 		s = s.replace(new RegExp("\r\n|\n", "g"), "\\n");
 	else
@@ -1175,7 +1186,7 @@ function js_encode(s, split_lines) {
 					s = "0"+s;
 				}
 				return "\\u" + s;
-		});
+	});
 }
 
 function printout_arr(arr, split_lines) {
@@ -1235,7 +1246,7 @@ function save_all() {
 	el("wiki_editor").value = "";
 	el("wiki_text").innerHTML = "";
 	el("menu_area").innerHTML = "";
-	if (ie) {	// to prevent utf-8 corruption
+	if (ie) {	// to prevent their usual UTF-8 corruption
 		el("alt_back").innerHTML = "";
 		el("alt_forward").innerHTML = "";
 		el("alt_cancel").innerHTML = "";
