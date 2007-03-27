@@ -11,71 +11,77 @@ var permit_edits = true;
 
 var allow_diff = true;
 
-var current = "Main Page";
+var current = "Special:Advanced";
 
 var main_page = "Main Page";
 
 var backstack = new Array(
+"Main Page",
+"Special:Advanced",
+"Special:Advanced",
+"Special:Menu",
+"Main Page"
 );
 
 var page_titles = new Array(
-"Special::Menu",
-"Special::Advanced",
-"Special::Import",
-"Special::About",
+"Special:Menu",
+"Special:Advanced",
+"Special:Import",
+"Special:About",
 "Main Page",
-"Special::Search",
-"New page"
+"Special:Search",
+"MyPages:Page 1",
+"MyPages:Page 2"
 );
 
 var pages = new Array(
 "[[Main Page]]\n" +
 "\n" +
-"[[Special::Advanced]]\n" +
-"[[Special::Backlinks]]\n" +
-"[[Special::Search]]",
+"[[Special:Advanced]]\n" +
+"[[Special:Backlinks]]\n" +
+"[[Special:Search]]",
 "!Pages\n" +
-"  [[Special::All Pages|All Pages]]: a list of all user created pages in this wiki\n" +
-"  [[Special::All Special Pages|All Special Pages]]: list of all system pages\n" +
-"  [[Special::Pages not yet created|Pages not yet created]]: a list of pages that have links to them, but were still not created \n" +
-"  [[Special::Orphaned Pages|Orphaned Pages]]: a list of pages that once were linked to, but now no page links to them anymore\n" +
-"  [[Special::Search|Search]]: search all wiki pages\n" +
+"  [[Special:All Pages|All Pages]]: a list of all user created pages in this wiki\n" +
+"  [[Special:|All Special Pages]]: list of all system pages\n" +
+"  [[Special:Pages not yet created|Pages not yet created]]: a list of pages that have links to them, but were still not created \n" +
+"  [[Special:Orphaned Pages|Orphaned Pages]]: a list of pages that once were linked to, but now no page links to them anymore\n" +
+"  [[Special:Search|Search]]: search all wiki pages\n" +
 "\n" +
 "!Maintenance\n" +
-"  [[Special::Import|Import wiki]] from an early (or current) version.\n" +
-"  [[Special::Erase Wiki|Erase Wiki]]: delete ALL wiki pages and put in default data\n" +
+"  [[Special:Import|Import wiki]] from an early (or current) version.\n" +
+"  [[Special:Erase Wiki|Erase Wiki]]: delete ALL wiki pages and reset with default data\n" +
 "\n" +
 "!Special edits\n" +
-"  [[Special::Edit CSS|Edit CSS]]: edit the global CSS styles\n" +
-"  [[Special::Edit Menu|Edit Menu]]: edit main menu (on the left)\n" +
+"  [[Special:Edit CSS|Edit CSS]]: edit the global CSS styles\n" +
+"  [[Special:Edit Menu|Edit Menu]]: edit main menu (on the left)\n" +
 "\n" +
 "!Options\n" +
-"  [[Special::Block Edits|Block/Unblock edits]]: hides the edit button, to be used when this wiki goes public (when used as a webpage, for example)\n" +
-"  [[Special::Diff|Diff mode]]: enable/disable the diff mode (useful for revision control systems) after having viewed it\n" +
+"  [[Special:Block Edits|Block/Unblock edits]]: hides the edit button, to be used when this wiki goes public (when used as a webpage, for example)\n" +
+"  [[Special:Diff|Diff mode]]: enable/disable the diff mode (useful for revision control systems) after having viewed it\n" +
 "\n" +
 "!Info\n" +
-"  [[Special::About|About StickWiki]]\n" +
+"  [[Special:About|About Wiki on a Stick]]\n" +
 "  This wiki was last modified in <span id=\"lastDate\"></span>.",
 "Import a wiki from an early (or current) version:\n" +
 "\n" +
 "File: <input id=\"filename_\" type=\"file\" /><input type=\"button\" value=\"Import\" onclick=\"import_wiki()\" />\n" +
 "\n" +
-"*Important:* CSS will not be imported from versions prior to v0.04",
-"!StickWiki version 0.9\n" +
+"*Important:* CSS will not be imported from versions below v0.04",
+"!Wiki on a Stick version 0.9\n" +
 "\n" +
 "Current version *v0.9B* by Daniele C. ([[http://sf.net/users/legolas558/|legolas558]])\n" +
 "Original version (v0.01 &tilde; v0.04) by Andr\u00e9 Wagner\n" +
-"StickWiki is licensed under the [[http://www.gnu.org/copyleft/gpl.html|GNU/GPL]] license.\n" +
+"Wiki on a Stick is licensed under the [[http://www.gnu.org/copyleft/gpl.html|GNU/GPL]] license.\n" +
 "\n" +
 "!!Contributes\n" +
 "This project wouldn't be what it is without the help of other people. If you contributed to Wiki on a Stick and your name is not here, please send an email to <a class=\"world\" href=\"mailto:legolas558 _AT_ users.sourceforge.net\">this email address</a>.\n" +
 "\n" +
-"+ *Jeremy Ruston* - the creator of the wonderful [[http://www.tiddlywiki.com/|TiddlyWiki]], who served as inspiration for StickWiki. He also kindly allowed the usage of his saving/loading routines.\n" +
+"+ *Jeremy Ruston* - the creator of the wonderful [[http://www.tiddlywiki.com/|TiddlyWiki]], who served as inspiration for Wiki on a Stick. He also kindly allowed the usage of his saving/loading routines.\n" +
 "+ *Philip O'Donnel* - creator of the table syntax & parsing code\n" +
 "+ *Tim Lord*\n" +
 "+ *Knut Kohl*\n" +
 "+ *Rob Schmersel*\n" +
-"+ *miz* - search feature\n" +
+"+ *Cyril Mazard* - search feature\n" +
 "\n" +
 "If, for any reason, you don't want your name listed here, just send an email.\n" +
 "\n" +
@@ -93,7 +99,9 @@ var pages = new Array(
 "\n" +
 "You can also double click anywhere on the text to edit, and you can use escape to cancel editing\n" +
 "\n" +
-"<pre>\n" +
+"If you have an older Wiki on a Stick, [[Special:Import|import it]]!\n" +
+"\n" +
+"<pre class=\"\">\n" +
 "\n" +
 "This is pre-formatted text!\n" +
 "</pre>\n" +
@@ -103,11 +111,13 @@ var pages = new Array(
 "This is stylish pre-formatted text!\n" +
 "</pre>\n" +
 "\n" +
-"This is always the [[Special::Main Page|Main page]], and this is a [[New page]]\n" +
+"Using [[Special:Main Page]] you will always link to the main page, no matters what its name is.\n" +
 "\n" +
-"If you have an older StickWiki, [[Special::Import|import it]]!\n" +
+"New pages have red links, like this [[New page]]\n" +
 "\n" +
-"!!Testcases\n" +
+"There is support for [[Tagged:Nice|tags]] and namespaces. For example, see [[MyPages:Page 1]] and [[MyPages:Page 2]], both belonging to the [[MyPages:]] namespace.\n" +
+"\n" +
+"!!Syntax parser testcases\n" +
 "\n" +
 "On my right there is some _underlined text_, followed by *bold text* and /italics/.\n" +
 "\n" +
@@ -164,20 +174,12 @@ var pages = new Array(
 "|}",
 "!Search in Wiki\n" +
 "\n" +
-"<input id=\"string_to_search\" type=\"text\" onfocus=\"search_focus(true)\" onblur=\"search_focus(false)\" /><input type=\"button\" value=\"Search\" onclick=\"result_of_search()\" />\n" +
-"\n" +
+"<input id=\"string_to_search\" type=\"text\" onfocus=\"search_focus(true)\" onblur=\"search_focus(false)\" />&nbsp;<input type=\"button\" value=\"Search\" onclick=\"do_search()\" />&nbsp;<input type=\"button\" value=\"Clear\" onclick=\"clear_search()\" />\n" +
 "",
-"Insert text here\n" +
+"Hello there! I am indeed a better page than [[MyPages:Page 2]]\n" +
 "\n" +
-"\n" +
-"\n" +
-"\n" +
-"\n" +
-"\n" +
-"\n" +
-"\n" +
-"\n" +
-"[[Tag::Nice]] [[Tag::Wonderful]]"
+"[[Tags: Nice]]",
+"Hey, don't tell anyone around but...I am better than [[MyPages:Page 1]]!"
 );
 
 
@@ -282,16 +284,24 @@ div.taglinks {
 	clear: both;
 }
 
-a.tag {
+div.search_results {
+	border: 1px solid #aaa;
+	background-color: #f9f9f9;
+	padding: 5px;
+	margin-top: 1em;
+	clear: both;
+}
+
+a.link.tag {
   color: navy;
 }
 </style>
-<script src="stickwiki.js" type="text/javascript"></script></head><body style="cursor: wait;" id="body" onload="on_load()">
+<script src="stickwiki.js" type="text/javascript"></script></head><body style="cursor: wait;" id="body" onload="on_load()" onunload="before_quit()">
 <table cellspacing="0">
 <tbody>
 <tr>
 <td style="width: 100%;" valign="bottom">
-<p class="title" id="wiki_title">Editing Main Page</p></td>
+<p class="title" id="wiki_title">Editing Special:Advanced</p></td>
 <td class="menu" onclick="go_back()">
 <div id="menu_back" style="display: none; cursor: pointer;"><img id="img_back" style="display: inline;" alt="Back" src="data:image/png;base64,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"><span id="alt_back" style="display: none; font-size: 24pt; font-family: wingdings;"></span></div></td>
 <td class="menu" onclick="go_forward()">
@@ -323,7 +333,7 @@ a.tag {
 <tr>
 <td>&nbsp;</td></tr></tbody></table><!-- Editor -->
 <div id="edit_area" style="display: block;">
-<div id="edit_page_title" style="display: block;">Page title: <input id="wiki_page_title" value="Main Page"></div><textarea id="wiki_editor" style="width: 994px; height: 430px;" rows="0" cols="0"></textarea> 
+<div id="edit_page_title" style="display: block;">Page title: <input disabled="disabled" id="wiki_page_title" value="Main Page"></div><textarea id="wiki_editor" style="width: 994px; height: 430px;" rows="0" cols="0"></textarea> 
 <table style="font-size: 8pt;">
 <tbody>
 <tr>
@@ -340,8 +350,8 @@ a.tag {
 <td># numbered list</td>
 <td>!!subheader</td>
 <td><a class="world" onclick="open_table_help()">(tables)</a></td></tr></tbody></table></div>
-<div id="debug_info" style="display: block;"><h2>Debug console</h2><p>You are using a development BETA version of StickWiki. If you want to disable this debug console, you will have to find the line that says <b><tt>var debug = true;</tt></b> and change it to <b><tt>false</tt></b>. Note: changes will be saved if <b><tt>var save_override</tt></b> is set to <b><tt>true</tt></b></p><div align="center"><textarea id="swlogger" cols="70" rows="12" style="width: 90%; background-color: lightgray;" readonly="true"></textarea></div>
+<div id="debug_info" style="display: block;"><h2>Debug console</h2><p>You are using a development BETA version of Wiki On a Stick. If you want to disable this debug console, you will have to find the line that says <b><tt>var debug = true;</tt></b> and change it to <b><tt>false</tt></b>. Note: changes will be saved if <b><tt>var save_override</tt></b> is set to <b><tt>true</tt></b></p><div align="center"><textarea id="swlogger" cols="70" rows="12" style="width: 90%; background-color: lightgray;" readonly="true"></textarea></div>
 </div>
 <hr>
-<div align="center"><sub><a href="javascript:about()">About StickWiki v0.9B</a></sub></div>
+<div align="center"><sub><a class="link" onclick="go_to('Special:About')">About Wiki on a Stick v0.9B</a></sub></div>
 </body></html>
