@@ -1,3 +1,5 @@
+/* <![CDATA[ */
+/*** aes.js ***/
 
 // AES encryption for StickWiki
 // adapted by legolas558
@@ -367,10 +369,4 @@ function AES_decrypt(sKey, raw_data) {
 	return sData;
 }
 
-var my_key = "password";
-
-encoded = AES_encrypt(my_key, "hello world!");
-
-s = AES_decrypt(my_key, enc);
-
-alert(s);
+/* ]]> */
