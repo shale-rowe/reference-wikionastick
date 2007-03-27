@@ -873,7 +873,7 @@ function edit()
 	edit_page(current);
 }
 
-var edit_override = true;	// allow editing of any page
+var edit_override = false;
 
 function edit_allowed(page) {
 	if (edit_override)
@@ -1181,7 +1181,7 @@ function saveThisFile(data)
 	}
 	var filename = document.location.toString().split("?")[0];
 	filename = filename.replace("file:///", "");
-	filename = filename.replace(/\s/g, " ");
+	filename = filename.replace(/\s/g, "_");
 	filename = filename.replace(/#.*/g, "");
 	if(navigator.appVersion.indexOf("Win")!=-1)
 		filename = filename.replace(/\//g, "\\");
