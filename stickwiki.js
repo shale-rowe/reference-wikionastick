@@ -339,16 +339,16 @@ function parse(text)
 }
 
 function _get_namespace(ns) {
-	var result = "";
+	var pg = new Array();
 	for(var i=0;i<page_titles.length;i++) {
 		if (page_titles[i].indexOf(ns+":")==0)
-			result += "+ [["+page_titles[i]+"]]\n";
+			pg.push( "* [["+page_titles[i]+"]]");
 	}
-	return "!Pages in "+ns+" namespace\n" + result;
+	return "!Pages in "+ns+" namespace\n" + pg.join("\n");
 }
 
 function _get_tagged(tag) {
-	var result = "";
+	var pg = new Array();
 
 	for(var i=0; i<pages.length; i++)
 	{
@@ -363,22 +363,22 @@ function _get_tagged(tag) {
 				
 				for (var t=0;t<found_tags.length;t++) {
 					if (found_tags[t] == tag)
-						result += "+ [[" + page_titles[i] + "]]\n";
+						pg.push("* [[" + page_titles[i] + "]]");
 				}
 
 				
 			});
 	}
 	
-	if (!result.length)
+	if (!pg.length)
 		return "No pages tagged with *"+tag+"*";
-	return "!Pages tagged with " + tag + "\n" + result;
+	return "!Pages tagged with " + tag + "\n" + pg.join("\n");
 }
 
 // Returns a index of search pages (by miz & legolas558)
 function special_search( str )
 {
-	var body_result = "";
+	var pb_body = new Array();
 	var title_result = "";
 
 	var count = 0;
@@ -396,7 +396,7 @@ function special_search( str )
 
 		//look for str in title
 		if(page_titles[i].match(reg))
-			title_result += "+ [[" + page_titles[i] + "]]\n";
+			title_result += "* [[" + page_titles[i] + "]]\n";
 
 		//Look for str in body
 		res_body = pages[i].match( reg );
@@ -410,14 +410,14 @@ function special_search( str )
 				alert("string result");
 			}
 			res_body = res_body.replace( /\n/g, "") ;
-			body_result += "+ [[" + page_titles[i] + "]]: *found " + count + " times :* <div class=\"search_results\"><i>...</i><br />" + res_body+"<br/><i>...</i></div>\n";
+			pg_body.push( "* [[" + page_titles[i] + "]]: *found " + count + " times :* <div class=\"search_results\"><i>...</i><br />" + res_body+"<br/><i>...</i></div>");
 		}
 	}
 	
-	if (!body_result.length && !title_result.length)
+	if (!pg_body.length && !title_result.length)
 		return "No results found for *"+str+"*";
 	force_inline = true;
-	return "Results for *" + str + "*\n" + title_result + "\n\n---\n" + body_result;
+	return "Results for *" + str + "*\n" + title_result + "\n\n---\n" + pg_body.join("\n");
 }
 
 // Returns a index of all pages
@@ -428,20 +428,7 @@ function special_all_pages()
 	for(i=0; i<page_titles.length; i++)
 	{
 		if (!is_special(page_titles[i]))
-			pg.push("+ [[" + page_titles[i] + "]]");
-	}
-	return pg.sort().join("\n");
-}
-
-// Returns a index of all special pages
-function special_all_special_pages()
-{
-	var pg = new Array();
-	var text = "";
-	for(i=0; i<page_titles.length; i++)
-	{
-		if (is_special(page_titles[i]))
-			pg.push("+ [[" + page_titles[i] + "]]");
+			pg.push("* [[" + page_titles[i] + "]]");
 	}
 	return pg.sort().join("\n");
 }
@@ -483,22 +470,21 @@ function special_dead_pages () { // Returns a index of all dead pages
 		page_done = false;
 	}
 
-	var s = "";
+	var pg = new Array();
 	for(i=0;i<dead_pages.length;i++) {
-		s+="[["+dead_pages[i]+"]] from ";
+		s = "[["+dead_pages[i]+"]] from ";
 		var from = from_pages[i];
 		for(j=0;j<from.length-1;j++) {
 			s+="[["+from[j]+"]], ";
 		}
 		if (from.length>0)
 			s+="[["+from[from.length-1]+"]]";
-		s += "\n";
-		log(dead_pages[i]+" in "+from);
+		pg.push(s);
 	}
 	
-  if (s == '')
+  if (!pg.length)
 	return '<i>No dead pages</i>';
-  return s; 
+  return pg.join("\n");
 }
 
 // Returns a index of all orphaned pages
@@ -524,11 +510,11 @@ function special_orphaned_pages()
 		}
 		if(found == false) {
 			if (!is_special(page_titles[j]))
-				pg.push("+ [[" + page_titles[j] + "]]");
+				pg.push("* [[" + page_titles[j] + "]]");
 		} else found = false;
 	}
 //	alert(pages[0]);
-	if(pg.length == 0)
+	if (!pg.length)
 		return "/No orphaned pages found/";
 	else
 		return pg.sort().join("\n"); // TODO - Delete repeated data
@@ -543,7 +529,7 @@ function special_links_here()
 		if(	(pages[j].toUpperCase().indexOf("[[" + current.toUpperCase() + "]]")!=-1) ||
 				(pages[j].toUpperCase().indexOf("|" + current.toUpperCase() + "]]") != -1)
 				) {
-					pg.push("+ [["+page_titles[j]+"]]");
+					pg.push("* [["+page_titles[j]+"]]");
 		}
 	}
 	if(pg.length == 0)
