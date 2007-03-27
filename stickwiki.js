@@ -1,14 +1,16 @@
 <!--
 /*** stickwiki.js ***/
 
-var debug = true;            // won't save if it's true
+var debug = true;			// toggle debug mode (and console)
+var save_override = true;	// allow to save when debug mode is active
 var end_trim = true;		// trim pages from the end
-var save_override = true;
-var edit_override = false;
+var save_on_quit = true;
+
 var forstack = new Array();
-var lastsearch = "";
+var cached_search = "";
+var tag_to_show = "";
 var search_focused = false;
-var prev_title = current;
+var prev_title = current;	// used when entering/exiting edit mode
 
 // Browser
 var ie = false;
@@ -56,7 +58,7 @@ function page_index(page) {
 // Returns if a page exists
 function page_exists(page)
 {
-	return (is_special(page) || (page_index(page)!=-1));
+	return (is_special(page) || (page.indexOf("Tagged:")==0) || (page[page.length-1]==":") || (page_index(page)!=-1));
 }
 
 function str_rep(s, n) {
@@ -77,6 +79,19 @@ function _random_string(string_length) {
 
 var parse_marker = "#"+_random_string(8);
 
+function _get_tags(text) {
+	var tags = new Array();
+	if (text.indexOf("Tag:")==0) {
+		tags.push(text.substring(4));
+	} else if (text.indexOf("Tags:")==0) {
+		var alltags = text.substring(5).split(",");
+		for(i=0;i<alltags.length;i++) {
+			tags.push(alltags[i].replace(/^\s/g, "").replace(/\s$/g, ""));
+		}
+	}
+	return tags;
+}
+
 function header_replace(hdr, text) {
 	return text.replace( new RegExp("(^|\n)"+RegExp.escape(hdr)+"([^"+RegExp.escape(hdr.charAt(0))+"].*)", "g"), 	function (str, $1, $2) {
 		var l = hdr.length;
@@ -88,6 +103,9 @@ function header_replace(hdr, text) {
 		return "<h"+l+">"+header+"<\/h"+l+">";
 	});
 }
+
+// used not to break layout when presenting search results
+var force_inline = false;
 
 // Parse typed code into HTML
 function parse(text)
@@ -120,7 +138,7 @@ function parse(text)
 	});
 	
 	text = text.replace(new RegExp(parse_marker+"([ub])([SE])#", "g"), function (str, $1, $2) {
-		tag = "<";
+		var tag = "<";
 		if ($2=="E")
 			tag += "/";
 		tag += $1+">";
@@ -163,20 +181,29 @@ function parse(text)
 			{
 				if($1.indexOf("://")!=-1)
 					return "<a class=\"world\" href=\"" + $1 + "\" target=\"_blank\">" + $2 + "<\/a>";
+				
 				if(page_exists($1))
 					return "<a class=\"link\" onclick='go_to(\"" + $1 +"\")'>" + $2 + "<\/a>";
 				else
 					return "<a class=\"unlink\" onclick='go_to(\"" + $1 +"\")'>" + $2 + "<\/a>";
 			}); //"<a class=\"wiki\" onclick='go_to(\"$2\")'>$1<\/a>");
 	// without |
+	var inline_tags = 0;
 	text = text.replace(/\[\[([^\|]*?)\]\]/g, function(str, $1)
 			{
 				if($1.match("://"))
 					return "<a class=\"world\" href=\"" + $1 + "\" target=\"_blank\">" + $1 + "<\/a>";
-				if ($1.indexOf("Tag::")==0) {
-					tags.push($1.substring(5));
-					return "";
+					
+				found_tags = _get_tags($1);
+				
+				if (found_tags.length>0) {
+					tags = tags.concat(found_tags);
+					if (!force_inline)
+						return "";
+					inline_tags++;
+					return "<!-- "+parse_marker+":"+inline_tags+" -->";
 				}
+				
 				if(page_exists($1))
 					return "<a class=\"link\" onclick='go_to(\"" + $1 +"\")'>" + $1 + "<\/a>";
 				else
@@ -219,136 +246,118 @@ function parse(text)
 	text = text.replace(/\n/g, "<br />");
 	
 	if (prefmt.length>0) {
-		text = text.replace(new RegExp("<\!-- "+parse_marker+"(\d+) -->", "g"), function (str, $1) {
+//		log("Replacing "+prefmt.length+" preformatted blocks");
+		text = text.replace(new RegExp("<\\!-- "+parse_marker+"(\\d+) -->", "g"), function (str, $1) {
+//			log("Replacing prefmt block #"+$1);
 			return prefmt[$1];
 		});
 		prefmt = new Array();
 	}
 	
 	if (tags.length) {
-		s="<div class=\"taglinks\">Tags: ";
+		if (force_inline)
+			s = "";
+		else
+			s = "<div class=\"taglinks\">";
+		s += "Tags: ";
 		for(i=0;i<tags.length-1;i++) {
-			s+="<a class=\"tag\" href=\"javascript:show_tag('"+tags[i]+"')\">"+tags[i]+"</a>&nbsp;&nbsp;";
+			s+="<a class=\"link tag\" onclick=\"go_to('Tagged:"+tags[i]+"')\">"+tags[i]+"</a>&nbsp;&nbsp;";
 		}
 		if (tags.length>0)
-			s+="<a class=\"tag\" href=\"javascript:show_tag('"+tags[tags.length-1]+"')\">"+tags[tags.length-1]+"</a>";
-		s+="</div>";
-		text += s;
+			s+="<a class=\"link tag\" onclick=\"go_to('Tagged:"+tags[tags.length-1]+"')\">"+tags[tags.length-1]+"</a>";
+		if (!force_inline) {
+			s+="</div>";
+			text += s;
+		} else {
+			text = text.replace(new RegExp("<\\!-- "+parse_marker+":(\\d+) -->", "g"), function (str, $1) {
+				if ($1==inline_tags)
+					return s;
+				return "";
+			});
+		}
 	}
+	if (force_inline)
+		force_inline = false;
 	
 	return text;
 }
 
-function show_tag(tag) {
-	alert("Not yet implemented!");
-}
-
-// Gets text typed by user
-function get_text(title)
-{
-	for(i=0; i<page_titles.length; i++) {
-		if(page_titles[i].toUpperCase() == title.toUpperCase())
-			return pages[i];
+function _get_namespace(ns) {
+	var pg = new Array();
+	for(var i=0;i<page_titles.length;i++) {
+		if (page_titles[i].indexOf(ns+":")==0)
+			pg.push("+ [["+page_titles[i]+"]]");
 	}
-	return null;
+	return "!Pages in "+ns+" namespace\n" + pg.sort().join("\n");
 }
 
-// Sets text typed by user
-function set_text(text)
-{
-	for(i=0;i<page_titles.length; i++) {
-		if(page_titles[i].toUpperCase() == current.toUpperCase()) {
-			pages[i] = text;
-			break;
-		}
-	}
-}
+function _get_tagged(tag) {
+	var pg = new Array();
 
-// thanks to S.Willison
-RegExp.escape = function(text) {
-  if (!arguments.callee.sRE) {
-    var specials = [
-      '/', '.', '*', '+', '?', '|',
-      '(', ')', '[', ']', '{', '}', '\\'
-    ];
-    arguments.callee.sRE = new RegExp(
-      '(\\' + specials.join('|\\') + ')', 'g'
-    );
-  }
-  return text.replace(arguments.callee.sRE, '\\$1');
-}
-
-function result_of_search()
-{
-	var search_str = el("string_to_search").value;
-
-	if ( search_str == "")
-		return ;
-
-/*	if( !(search_str = search_str.match( /(\w+){3,}/g ) ) )
+	for(var i=0; i<pages.length; i++)
 	{
-		alert( "Search is not valid (at least 3 characters)" ) ;
-		return ;
-	}	*/
+		pages[i].replace(/\[\[([^\|]*?)\]\]/g, function(str, $1)
+			{
+				if($1.match("://"))
+					return;
+					
+				found_tags = _get_tags($1);
+				
+//				alert(found_tags);
+				
+				for (var t=0;t<found_tags.length;t++) {
+					if (found_tags[t] == tag)
+						pg.push("+ [[" + page_titles[i] + "]]" );
+				}
 
-	lastsearch = search_str;
-	if( current != "Special::Search" )
-		go_to( "Special::Search" ) ;
-	else
-		set_current( "Special::Search" );
+				
+			});
+	}
+	
+	if (!pg.length)
+		return "No pages tagged with *"+tag+"*";
+	return "!" + tag + "\n" +pg.sort().join("\n");
 }
 
-// Returns a index of search pages (by miz)
+// Returns a index of search pages (by miz & legolas558)
 function special_search( str )
 {
 	var pg = new Array();
 	var pg_body = new Array();
-	var text = "";
 
+	var count = 0;
 	for(i=0; i<pages.length; i++)
 	{
-		if (is_special(page_titles[i]))
-			continue;
-		result = new Array;
-		found_body = true ;
-		found_title = true ;
-		count = 0;
-				
-/*				for(j=0; j<str.length; j++)
-				{	*/
-					res_body = new Array ;
+//		log("Searching into "+page_titles[i]);
 		
-					reg = new RegExp( ".*" + RegExp.escape(str/*[j]*/) + ".*", "gi" );
+		// matches the search string and nearby text
+		reg = new RegExp( ".*" + RegExp.escape(str) + ".*", "gi" );
+		
+//		log("Regex is \""+reg+"\"");
 
-					//look for str in title
-					if(!page_titles[i].match(reg))
-						found_title = false ;
-					
-					//Look for str in body
-					if( res_body = pages[i].match( reg ) )
-					{
-						if ( count == 0 || count > res_body.length )
-							count = res_body.length ;
-						result.push( res_body ) ;
-					}
-					else
-						found_body = false ;
-/*				}	*/
-				
-				if(found_title)
-					pg.push("+ [[" + page_titles[i] + "]]");
-					
-				if (found_body)
-				{
-					result_str = new String( result );
-					result_str = result_str.replace( /\n/g, "") ;
-					pg_body.push("+ [[" + page_titles[i] + "]]: *found " + count + " times :* " + result_str );
-				}
+		//look for str in title
+		if(page_titles[i].match(reg))
+			pg.push("+ [[" + page_titles[i] + "]]");
 
-
+		//Look for str in body
+		res_body = pages[i].match( reg );
+//		log("res_body = "+res_body);
+		if (res_body!=null) {
+			if (typeof(res_body) == "object") {
+				count = res_body.length;
+				res_body = res_body.join(" ");
+			} else {
+				count = 1;
+				alert("string result");
+			}
+			res_body = res_body.replace( /\n/g, "") ;
+			pg_body.push("+ [[" + page_titles[i] + "]]: *found " + count + " times :* <div class=\"search_results\"><i>...</i><br />" + res_body+"<br/><i>...</i></div>" );
+		}
 	}
-	if (pg.length==0)
+	
+	if (!pg.length && !pg_body.length)
 		return "No results found for *"+str+"*";
+	force_inline = true;
 	return "Results for *" + str + "*\n" +pg.sort().join("\n") + "\n\n---\n" + pg_body.sort().join("\n");
 }
 
@@ -392,7 +401,7 @@ function special_dead_pages () { // Returns a index of all dead pages
 //				log("In "+page_titles[j]+": "+$1+" -> "+$3);
 				if ($1.indexOf("://")!=-1)
 					return;
-				if ($1.indexOf("Tag::")==0)
+				if ($1.match("Tag(s|ged)?:")==0)
 					return;
 				p = $1;
 				if (!page_exists(p) && ((up = p.toUpperCase)!=page_titles[j].toUpperCase())) {
@@ -475,13 +484,74 @@ function special_links_here()
 		if(	(pages[j].toUpperCase().indexOf("[[" + current.toUpperCase() + "]]")!=-1) ||
 				(pages[j].toUpperCase().indexOf("|" + current.toUpperCase() + "]]") != -1)
 				) {
-					pg.push("[["+page_titles[j]+"]]");
+					pg.push("+ [["+page_titles[j]+"]]");
 		}
 	}
 	if(pg.length == 0)
 		return "/No page links here/";
 	else
 		return "!!Links to "+current+"\n"+pg.sort().join("\n");
+}
+
+// retrieve a stored page
+function get_text(title)
+{
+	var pi = page_index(title);
+	if (pi==-1)
+		return null;
+	return pages[pi];
+}
+
+// Sets text typed by user
+function set_text(text)
+{
+	var pi = page_index(current);
+	if (pi==-1) {
+		log("current page \""+current+"\" is not cached!");
+		return;
+	}
+	pages[pi] = text;
+}
+
+// thanks to S.Willison
+RegExp.escape = function(text) {
+  if (!arguments.callee.sRE) {
+    var specials = [
+      '/', '.', '*', '+', '?', '|',
+      '(', ')', '[', ']', '{', '}', '\\'
+    ];
+    arguments.callee.sRE = new RegExp(
+      '(\\' + specials.join('|\\') + ')', 'g'
+    );
+  }
+  return text.replace(arguments.callee.sRE, '\\$1');
+}
+
+function clear_search() {
+	if (!cached_search.length)
+		return;
+	cached_search = "";
+	assert_current("Special:Search");
+}
+
+function assert_current(page) {
+	if( current != page )
+		go_to( page ) ;
+	else
+		set_current( page );
+}
+
+// make the actual search and cache the results
+function do_search()
+{
+	var search_string = el("string_to_search").value;
+
+	if ( !search_string.length )
+		return;
+	
+	cached_search = special_search( search_string )
+
+	assert_current("Special:Search");
 }
 
 function block_edits(page) {
@@ -500,12 +570,62 @@ function block_edits(page) {
 			document.getElementById("unsupported_browser").style.display = "block";
 		alert("Edits unblocked.");
 	}
-	save_all();
+	if (!save_on_quit)
+		_save_config_only();
 	back_or(main_page);
 }
 
 function is_special(page) {
-	return (page.search(/Special::/i)==0);
+	return (page.search(/Special:/i)==0);
+}
+
+function _get_special(cr) {
+	var text = null;
+	log("Getting special page "+cr);
+	switch(cr) {
+		case "Search":
+			text = get_text("Special:"+cr);
+			text += cached_search;
+			break;
+		case "Erase Wiki":
+			if (erase_wiki()) {
+				save_all();
+				back_or(main_page);
+			}
+			return null;
+		case "Main Page":
+			go_to(main_page);
+			return null;
+		case "All Pages":
+			text = special_all_pages();
+			break;
+		case "Orphaned Pages":
+			text = special_orphaned_pages();
+			break;
+		case "Pages not yet created":
+			text = special_dead_pages();
+			break;
+		case "Backlinks":
+			text = special_links_here();
+			break;
+		case "Block Edits":
+			alert("Block edits currently disabled!");
+			//block_edits(current);
+			return null;
+		case "Edit Menu":
+			go_to("Special:Menu");
+			edit();
+			return null;
+		case "Edit CSS":
+			current_editing(cr, true);
+			el("wiki_editor").value = document.getElementsByTagName("style")[0].innerHTML;
+			return null;
+		default:
+			text = get_text("Special:"+cr);
+			if(text == null)
+				alert("Invalid special page.");
+	}
+	return text;
 }
 
 // Load a new current page
@@ -513,69 +633,42 @@ function set_current(cr)
 {
 	var text;
 	log("Setting \""+cr+"\" as current page");
-	if(is_special(cr))
-	{
-		switch(cr)
-		{
-			case "Special::Search":
-				text = get_text(cr);
-				if (lastsearch.length) {
-					text += special_search( lastsearch );
-					lastsearch = "";
-				}
-				break;
-			case "Special::Erase Wiki":
-				if (erase_wiki()) {
-					save_all();
-					back_or(main_page);
-				}
-				return;
-			case "Special::Main Page":
-				go_to(main_page);
-				return;
-			case "Special::All Pages":
-				text = special_all_pages();
-				break;
-			case "Special::All Special Pages":
-				text = special_all_special_pages();
-				break;
-			case "Special::Orphaned Pages":
-				text = special_orphaned_pages();
-				break;
-			case "Special::Pages not yet created":
-				text = special_dead_pages();
-				break;
-			case "Special::Backlinks":
-				text = special_links_here();
-				break;
-			case "Special::Block Edits":
-				alert("Block edits currently disabled!");
-				//block_edits(current);
-				return;
-			case "Special::Edit Menu":
-				go_to("Special::Menu");
-				edit();
-				return;
-			case "Special::Edit CSS":
-				current_editing(cr, true);
-				el("wiki_editor").value = document.getElementsByTagName("style")[0].innerHTML;
-				return;
-			default:
-				text = get_text(cr);
-				if(text == null) {
-					alert("Invalid special page.");
-					return;
-				}
+	var p = cr.indexOf(":");
+	if (p!=-1) {
+		namespace = cr.substring(0,p);
+		log("namespace of "+cr+" is "+namespace);
+		cr = cr.substring(p+1);
+		if (!cr.length)
+			text = _get_namespace(namespace);
+		else {
+			switch (namespace) {
+				case "Special":
+					text = _get_special(cr);
+					if (text == null)
+						return;
+					break;
+				case "Tagged":
+					text = _get_tagged(cr);
+					if (text == null)
+						return;
+					break;
+				default:
+					text = get_text(namespace+":"+cr);
+			}
 		}
-	}
-	else
+		ns = namespace+":";
+	} else {
+		ns = "";
 		text = get_text(cr);
+	}
 	
 	if(text == null)
 	{
 		if(confirm("Page not found. Do you want to create it?"))
-		{
-			pages.push("Insert text here");
+		{	// create and edit the new page
+			// treat the page as a normal page
+			cr = ns+cr;
+			pages.push("");
 			page_titles.push(cr);
 			current = cr;
 			log("Now pages list is: "+page_titles);
@@ -585,7 +678,7 @@ function set_current(cr)
 		return;
 	}
 
-	load_as_current(cr, text);
+	load_as_current(ns+cr, text);
 	if(document.getElementById("lastDate"))
 		document.getElementById("lastDate").innerHTML = document.lastModified;
 }
@@ -600,7 +693,7 @@ function load_as_current(title, text) {
 
 function refresh_menu_area() {
 /*
-	var bl_src = "\n\n[[Special::Backlinks]]";
+	var bl_src = "\n\n[[Special:Backlinks]]";
 	if (is_special(current)) {
 		pre_src = "";
 		post_src = bl_src;
@@ -608,7 +701,7 @@ function refresh_menu_area() {
 		post_src = "";
 		pre_src = bl_src;
 	}	*/
-	el("menu_area").innerHTML = parse(get_text("Special::Menu")/*+pre_src)+post_src*/);
+	el("menu_area").innerHTML = parse(get_text("Special:Menu")/*+pre_src)+post_src*/);
 }
 
 function _gen_display(id, visible, prefix) {
@@ -635,6 +728,13 @@ function create_alt_buttons() {
 		el("alt_forward").innerHTML = "&#222;";
 		el("alt_cancel").innerHTML = "&#251;";
 	}
+}
+
+// save configuration on exit
+function before_quit() {
+	if (save_on_quit)
+		_save_config_only();
+	return true;
 }
 
 // when the page is loaded
@@ -708,14 +808,14 @@ function kbd_hook(orig_e)
 		if (search_focused) {
 			if (e.keyCode==13) {
 				ff_fix_focus();
-				result_of_search();
+				do_search();
 				return false;
 			}
 			return orig_e;
 		}
 		if ((e.keyCode==8) || (e.keyCode==27)) {
 			go_back();
-				ff_fix_focus();
+			ff_fix_focus();
 			return false;
 		}
 	}
@@ -742,7 +842,7 @@ function on_resize()
 function update_nav_icons() {
 	menu_display("back", (backstack.length > 0));
 	menu_display("forward", (forstack.length > 0));
-	menu_display("advanced", (current != "Special::Advanced"));
+	menu_display("advanced", (current != "Special:Advanced"));
 	menu_display("edit", !is_special(current) && (edit_allowed(current)));
 }
 
@@ -763,11 +863,7 @@ function disable_edit()
 }
 
 function edit_menu() {
-	edit_page("Special::Menu");
-}
-
-function about() {
-	go_to("Special::About");
+	edit_page("Special:Menu");
 }
 
 // when edit is clicked
@@ -776,12 +872,14 @@ function edit()
 	edit_page(current);
 }
 
+var edit_override = true;	// allow editing of any page
+
 function edit_allowed(page) {
 	if (edit_override)
 		return true;
 	if (!permit_edits)
 		return false;
-	if (is_special(page) && (page!="Special::Menu"))
+	if (is_special(page) && (page!="Special:Menu"))
 		return false;
 	return true;
 }
@@ -857,15 +955,20 @@ function delete_page(page)
 	}
 }
 
+function _new_syntax_patch(text) {
+	//TODO: convert '+' to '*' for bullet lists, convert '::' to ':' into wiki links
+	return text;
+}
+
 // when save is clicked
 function save()
 {
 	switch(current)
 	{
-		case "Special::Edit CSS":
+		case "Special:Edit CSS":
 			document.getElementsByTagName("style")[0].innerHTML = el("wiki_editor").value;
 			back_to = null;
-			current = "Special::Advanced";
+			current = "Special:Advanced";
 			el("wiki_page_title").disabled = "";
 			break;
 		default:
@@ -885,7 +988,7 @@ function save()
 				// here the page gets actually saved
 				set_text(el("wiki_editor").value);
 				new_title = el("wiki_page_title").value;
-				if (new_title=="Special::Menu") {
+				if (new_title=="Special:Menu") {
 					refresh_menu_area();
 					back_to = prev_title;
 //					alert(prev_title);
@@ -927,7 +1030,7 @@ function back_or(or_page) {
 // when Advanced is clicked
 function advanced()
 {
-	go_to("Special::Advanced");
+	go_to("Special:Advanced");
 }
 
 function history_mem(page) {
@@ -979,7 +1082,7 @@ function js_encode(s, split_lines) {
 		s = s.replace(new RegExp("\r\n|\n", "g"), "\\n");
 	else
 		s = s.replace(new RegExp("\r\n|\n", "g"), "\\n\" +\n\"");
-	// and fix also the > 128 ascii chars
+	// and fix also the >= 128 ascii chars (to prevent UTF-8 characters corruption)
 	return s.replace(new RegExp("([^\u0000-\u007F])", "g"), function(str, $1) {
 				var s = $1.charCodeAt(0).toString(16);
 				for(var i=4-s.length;i>0;i--) {
@@ -1002,6 +1105,10 @@ function printout_arr(arr, split_lines) {
 function save_page(page_to_save) {
 	log("Saving page \""+page_to_save+"\"");
 	save_all();
+}
+
+function _save_config_only() {
+	// not yet written
 }
 
 function save_all() {
@@ -1073,7 +1180,7 @@ function saveThisFile(data)
 	}
 	var filename = document.location.toString().split("?")[0];
 	filename = filename.replace("file:///", "");
-	filename = filename.replace(/ /g, " ");
+	filename = filename.replace(/\s/g, " ");
 	filename = filename.replace(/#.*/g, "");
 	if(navigator.appVersion.indexOf("Win")!=-1)
 		filename = filename.replace(/\//g, "\\");
@@ -1081,10 +1188,6 @@ function saveThisFile(data)
 		filename = "/" + filename;
 	
 	var offset = document.documentElement.innerHTML.search(/\/\* ]]> \*\/(\r\n|\n)<\/script>/i);
-	if (offset==-1) {
-		alert("Head offset not found, using "+navigator.appName);
-		return;
-	}
 	
 	r = saveFile(filename,
 	"<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\">\n<head>\n<script type=\"text/javascript\">" + data + "\n" + document.documentElement.innerHTML.substring(offset) + "</html>");
@@ -1108,12 +1211,12 @@ function saveFile(fileUrl, content)
 function erase_wiki() {
 	if(confirm("This will ERASE all your pages.\n\nAre you sure you want to continue?") == false)
 		return false;
-	var pg_advanced = get_text("Special::Advanced");
-	var pg_import = get_text("Special::Import");
-	var pg_search = get_text("Special::Search");
-	var pg_about = get_text("Special::About");
-	page_titles = new Array("Main Page", "Special::Menu", "Special::Advanced", "Special::Import", "Special::Search", "Special::About");
-	pages = new Array("This is your empty main page", "[[Main Page]]\n\n[[Special::Advanced]]", pg_advanced, pg_import, pg_search, pg_about);
+	var pg_advanced = get_text("Special:Advanced");
+	var pg_import = get_text("Special:Import");
+	var pg_search = get_text("Special:Search");
+	var pg_about = get_text("Special:About");
+	page_titles = new Array("Main Page", "Special:Menu", "Special:Advanced", "Special:Import", "Special:Search", "Special:About");
+	pages = new Array("This is your empty main page", "[[Main Page]]\n\n[[Special:Advanced]]\n[[Special:Backlinks]]\n[[Special:Search]]", pg_advanced, pg_import, pg_search, pg_about);
 	current = main_page = "Main Page";
 	backstack = new Array();
 	forstack = new Array();	
@@ -1159,7 +1262,7 @@ function import_wiki()
 		}
 	} catch(e) {
 		old_version = 2;
-		if(ct.match("<div id=\""+escape("Special::Advanced")+"\">"))
+		if(ct.match("<div id=\""+escape("Special:Advanced")+"\">"))
 			old_version = 3;
 	}
 
@@ -1224,7 +1327,7 @@ function import_wiki()
 					page_contents[pc] = $2;
 				}
 				if (old_version < 9) {	// apply compatibility changes to v0.9
-					page_contents[pc] = page_contents[pc].replace(new RegExp("(\\[\\[|\\|)Special::Import wiki\\]\\]", "ig"), "$1Special::Import]]").replace(/\[\[([^\]\]]*?)(\|([^\]\]]+))?\]\]/g,
+					page_contents[pc] = page_contents[pc].replace(new RegExp("(\\[\\[|\\|)Special::Import wiki\\]\\]", "ig"), "$1Special:Import]]").replace(/\[\[([^\]\]]*?)(\|([^\]\]]+))?\]\]/g,
 					function (str, $1, $2, $3) {
 						if ($3.length)
 							return "[["+$3+"|"+$1+"]]";
@@ -1232,8 +1335,10 @@ function import_wiki()
 							return str;
 					});
 					if (page_names[pc] == "Special::Edit Menu")
-						page_names[pc] = "Special::Menu";
+						page_names[pc] = "Special:Menu";
 				}
+				if (old_version >= 9)
+					page_contents[pc] = _new_syntax_patch(page_contents[pc]);
 				pc++;
 			}
 			);
@@ -1272,7 +1377,7 @@ function import_wiki()
 	
 	for(i=0; i<page_names.length; i++)
 	{
-		if (!is_special(page_names[i]) || (page_names[i] == "Special::Menu") || (page_names[i] == "Special::Search"))
+		if (!is_special(page_names[i]) || (page_names[i] == "Special:Menu") || (page_names[i] == "Special:Search"))
 		{		
 			pi = page_index(page_names[i]);
 			if (pi == -1) {
@@ -1295,7 +1400,7 @@ function import_wiki()
 	// save everything
 	save_all();
 
-	back_or("Special::Import");
+	back_or("Special:Import");
 }
 
 function loadFile(filePath)
@@ -1483,7 +1588,7 @@ if (debug) {
 	{
 	    var logbox = document.getElementById("swlogger");
 		nls = logbox.value.match(new RegExp("\n", "g"));
-		if (nls!=null && typeof(nls)=='object' && nls.length>11)
+		if (nls!=null && typeof(nls)=='object' && nls.length>20)
 			logbox.value = "";
 		logbox.value += aMessage + "\n";
 	}

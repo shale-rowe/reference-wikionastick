@@ -15,4 +15,8 @@
 
 * import images (embedding)
 
+* import files ("attachments", ASCII-javascript/binary-base64 encoding options)
+
+* on-the-fly syntax patching
+
 * XHTML compliance
