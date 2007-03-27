@@ -733,6 +733,10 @@ function set_current(cr)
 	
 	if(text == null)
 	{
+		if (ns == "Special") {
+			alert("You are not allowed to create a page titled \""+ns+cr+"\" because namespace \""+namespace+"\" is reserved");
+			return;
+		}
 		if(confirm("Page not found. Do you want to create it?"))
 		{	// create and edit the new page
 			// treat the page as a normal page
@@ -955,7 +959,7 @@ function edit()
 	edit_page(current);
 }
 
-var edit_override = true;
+var edit_override = false;
 
 function edit_allowed(page) {
 	if (edit_override)
