@@ -326,12 +326,13 @@ function special_search( str )
 	var pg_body = new Array();
 
 	var count = 0;
+	// matches the search string and nearby text
+	var reg = new RegExp( ".*" + RegExp.escape(str).replace(/^\s+/, "").
+					replace(/\s+$/, "").replace(/\s+/g, ".*") + ".*", "gi" );
+
 	for(i=0; i<pages.length; i++)
 	{
 //		log("Searching into "+page_titles[i]);
-		
-		// matches the search string and nearby text
-		reg = new RegExp( ".*" + RegExp.escape(str) + ".*", "gi" );
 		
 //		log("Regex is \""+reg+"\"");
 
