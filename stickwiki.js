@@ -4,8 +4,6 @@
 var debug = true;			// toggle debug mode (and console)
 var save_override = true;	// allow to save when debug mode is active
 var end_trim = true;		// trim pages from the end
-var save_on_quit = true;
-var dblclick_edit = true;
 
 var forstack = new Array();
 var cached_search = "";
@@ -606,27 +604,6 @@ function do_search()
 	assert_current("Special:Search");
 }
 
-function block_edits(page) {
-	if (edit_allowed(page))
-	{
-		permit_edits = false;
-		menu_display("edit", false);
-		menu_display("edit_button", false);
-//		if(unsupported_browser)			document.getElementById("unsupported_browser").style.display = "none";
-		alert("Edits blocked.");
-	} else {
-		permit_edits = true;
-		menu_display("edit", true);
-		menu_display("edit_button", true);
-		if(unsupported_browser)
-			document.getElementById("unsupported_browser").style.display = "block";
-		alert("Edits unblocked.");
-	}
-	if (!save_on_quit)
-		save_to_file(false);
-	back_or(main_page);
-}
-
 function is_special(page) {
 	return (page.search(/Special:/i)==0);
 }
@@ -1216,6 +1193,16 @@ function printout_arr(arr, split_lines) {
 	return s;
 }
 
+function printout_num_arr(arr) {
+	var s = "";
+	for(var i=0;i<arr.length-1;i++) {
+		s += arr[i] + ",\n";
+	}
+	if (arr.length>1)
+		s += arr[arr.length-1] + "\n";
+	return s;
+}
+
 function save_page(page_to_save) {
 	log("Saving page \""+page_to_save+"\"");
 	save_to_file(true);
@@ -1249,6 +1236,8 @@ function save_to_file(full) {
 	
 	if (full) {
 	
+		computed_js += "var page_attrs = new Array(\n" + printout_num_arr(page_attrs) + ");\n\n";
+		
 		computed_js += "var pages = new Array(\n" + printout_arr(pages, allow_diff) + ");\n\n";
 		
 		computed_js += "/* " + new_marker + " */\n";
@@ -1496,15 +1485,17 @@ function import_wiki()
 	
 	// import the variables
 	var new_main_page = main_page;
-	var block_edits = false;
+	var old_block_edits = !permit_edits;
 	for(i=0;i<var_names.length;i++) {
 		if (var_names[i] == "main_page_")
 			new_main_page = (version!=2) ? unescape(var_values[i]) : var_values[i];
 		else if (var_names[i] == "permit_edits")
-			block_edits = (var_values[i]=="0");
+			old_block_edits = (var_values[i]=="0");
 	}
 	if (page_exists(new_main_page))
 		main_page = new_main_page;
+		
+	permit_edits = !old_block_edits;
 	
 	//note: before v0.04 permit_edits didnt exist
 	//note: in version 2 pages were not escaped
@@ -1532,7 +1523,7 @@ function import_wiki()
 	
 	current = main_page;
 	// save everything
-	save_all();
+	save_to_file(true);
 
 	back_or("Special:Import");
 }
