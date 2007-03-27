@@ -1,5 +1,9 @@
 
-// adapted by legolas558 from http://home.versatel.nl/MAvanEverdingen/Code/
+// AES encryption for StickWiki
+// adapted by legolas558
+// license: GNU/GPL
+// original code from http://home.versatel.nl/MAvanEverdingen/Code/
+// this is a javascript conversion of a C implementation by Mike Scott
 
 var bData;
 var sData;
@@ -7,7 +11,7 @@ var i;
 var j;
 var tot;
 var key;
-var lenInd = false;	//RFC!
+var lenInd = true;	// length indicator (to remove padding bytes)
 
 var wMax = 0xFFFFFFFF;
 function rotb(b,n){ return ( b<<n | b>>>( 8-n) ) & 0xFF; }
@@ -365,9 +369,7 @@ function AES_decrypt(sKey, raw_data) {
 
 var my_key = "password";
 
-enc = AES_encrypt(my_key, "hello world!");
-
-alert(enc.length);
+encoded = AES_encrypt(my_key, "hello world!");
 
 s = AES_decrypt(my_key, enc);
 
