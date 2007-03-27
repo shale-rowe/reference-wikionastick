@@ -109,10 +109,10 @@ function header_replace(hdr, text) {
 // This is a bit of a monster, if you know an easier way please tell me!
 // There is no limit to the level of nesting and it produces
 // valid xhtml markup.
-var reListItems = /([+#]+)\s+([^\n]*)\n/g;
-var reReapLists = /(?:^|\n)[+#]\s[^\n]+\n(?:[+#]+\s[^\n]+\n)*/g;
+var reListItems = /([\*#]+)\s+([^\n]*)\n/g;
+var reReapLists = /(?:^|\n)[\*#]\s[^\n]+\n(?:[\*#]+\s[^\n]+\n)*/g;
 function parseList(str) {
-        var o_or_u = (str.charAt(1)=='+'?'ul':'ol'),
+        var o_or_u = (str.charAt(1)=='*'?'ul':'ol'),
 		open_o_or_u = '<' + o_or_u + '>',
 		close_o_or_u = '</' + o_or_u + '>',
 		old = 0,
@@ -182,7 +182,6 @@ function parseList(str) {
         return toStr(stk[1]);
     }
 
-
 // used not to break layout when presenting search results
 var force_inline = false;
 
@@ -204,7 +203,7 @@ function parse(text)
 	});
 	
 	// <b>
-	text = text.replace(/\*([^\*]+)\*/g, parse_marker+"bS#$1"+parse_marker+"bE#");
+	text = text.replace(/\*([^\*\n]+)\*/g, parse_marker+"bS#$1"+parse_marker+"bE#");
 	// <u>
 	text = text.replace(/(^|[^\w])_([^_]+)_/g, "$1"+parse_marker+"uS#$2"+parse_marker+"uE#");
 	
@@ -1034,7 +1033,7 @@ function delete_page(page)
 }
 
 function _new_syntax_patch(text) {
-	// links with | 
+	// links with |
 	text = text.replace(/\[\[([^\]\]]*?)\|(.*?)\]\]/g, function(str, $1, $2)
 			{
 				if($1.indexOf("://")!=-1)
@@ -1044,7 +1043,7 @@ function _new_syntax_patch(text) {
 				return str.replace("::", ":");
 			});
 	// links without |
-	return text.replace(/\[\[([^\|]*?)\]\]/g, function(str, $1)
+	text = text.replace(/\[\[([^\|]*?)\]\]/g, function(str, $1)
 			{
 				if($1.match("://"))
 					return str;
@@ -1052,6 +1051,13 @@ function _new_syntax_patch(text) {
 				// replace the first occurence of the two double colons
 				return str.replace("::", ":");
 			});
+
+	//BUG: will also edit <pre> tags stuff
+	text = text.replace(/(^|\n)(\+*)/g, function (str, $1, $2) {
+		return $1+str_rep("*", $2.length);
+	});
+	
+	return text;
 }
 
 // when save is clicked
