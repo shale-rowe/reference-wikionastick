@@ -5,6 +5,7 @@ var debug = true;			// toggle debug mode (and console)
 var save_override = true;	// allow to save when debug mode is active
 var end_trim = true;		// trim pages from the end
 var save_on_quit = true;
+var dblclick_edit = false;
 
 var forstack = new Array();
 var cached_search = "";
@@ -103,6 +104,84 @@ function header_replace(hdr, text) {
 		return "<h"+l+">"+header+"<\/h"+l+">";
 	});
 }
+
+// XHTML lists parsing code by plumloco
+// This is a bit of a monster, if you know an easier way please tell me!
+// There is no limit to the level of nesting and it produces
+// valid xhtml markup.
+var reListItems = /([+#]+)\s+([^\n]*)\n/g;
+var reReapLists = /(?:^|\n)[+#]\s[^\n]+\n(?:[+#]+\s[^\n]+\n)*/g;
+function parseList(str) {
+        var o_or_u = (str.charAt(1)=='+'?'ul':'ol'),
+		open_o_or_u = '<' + o_or_u + '>',
+		close_o_or_u = '</' + o_or_u + '>',
+		old = 0,
+		stk = [];
+
+        function toStr(item)
+        {
+            var s, i;
+            if (typeof(item) === 'string')
+            {
+                return '<li>' + item + '</li>';
+            }
+            if (item instanceof Array)
+            {
+                s = open_o_or_u;
+                for ( i=0; i<item.length; i++)
+                {
+                    s += toStr(item[i]);
+                }
+                return s + close_o_or_u;
+
+            }
+            return '<li>' + item.data + toStr(item.lst) + '</li>';
+        }
+
+        function collapse(to, from)
+        {
+            var nos, tos
+            while (to < from)
+            {
+                nos = stk[from-1].pop();
+                tos = stk[from];
+                if (typeof(nos)==='string')
+                {
+                    stk[from-1].push({data: nos, lst: tos});
+                }
+                else
+                {
+                    stk[from-1].push(tos);
+                }
+                stk[from] = [];
+                from -= 1;
+             }
+
+        }
+        function collect(str, p1, data)
+        {
+            var nos, tos, type;
+            var level = p1.length;
+            while (stk.length <= level)
+            {
+                stk.push([])
+            }
+            if (level >= old)
+            {
+                stk[level].push(data);
+                old = level;
+            }
+            else
+            {
+                collapse(level, old)
+                stk[level].push(data);
+            }
+        }
+        str.replace(reListItems, collect);
+        collapse(1, old)
+        return toStr(stk[1]);
+    }
+
 
 // used not to break layout when presenting search results
 var force_inline = false;
@@ -220,25 +299,14 @@ function parse(text)
 		text = text.replace(/\<\/ul\>\n\<ul\>/g, "");
 	}
 
-	// numberered lists
-	for(i=0; i<max_list; i++) {
-		text = text.replace(new RegExp("(^|\\n)"+str_rep("#", i+1)+"\\s([^\\n]*)", "g"), "$1"+str_rep("<ol>", i+1)+"<li>$2<\/li>"+str_rep("<\/ol>",i+1));
-	}
-	for(i=0; i<max_list; i++)
-	{
-		text = text.replace(/\<\/ol\>\<ol\>/g, "");
-		text = text.replace(/\<\/ol\>\n\<ol\>/g, "");
-	}
-	text = text.replace(/\n\n/g, "<\/p><p>");
-	text = "<p>" + text + "<\/p>";
-	text = text.replace(/(\<\/h.\>)\n/g, "$1");
-	text = text.replace(/(\<\/ul\>)\n/g, "$1");
-	text = text.replace(/(\<\/ol\>)\n/g, "$1");
-	text = text.replace(/(\<\/li\>)\n/g, "$1");
-
 	if (ie)
 		text = text.replace("\r\n", "\n");
-
+		
+	// fix double newlines
+	text = text.replace(/\n\n/g, "<\/p><p>");
+	// ordered/unordered lists parsing (code by plumloco)
+	text = text.replace(reReapLists, parseList);
+	
 	// end-trim
 	if (end_trim)
 		text = text.replace(/[\n\s]*$/, "");
@@ -279,7 +347,7 @@ function parse(text)
 	if (force_inline)
 		force_inline = false;
 	
-	return text;
+	return "<p>" + text + "</p>";
 }
 
 function _get_namespace(ns) {
@@ -863,6 +931,20 @@ function disable_edit()
 	document.title = el("wiki_title").innerHTML = prev_title;
 }
 
+function menu_dblclick() {
+	if (!dblclick_edit)
+		return false;
+	edit_menu();
+	return true;
+}
+
+function page_dblclick() {
+	if (!dblclick_edit)
+		return false;
+	edit();
+	return true;
+}
+
 function edit_menu() {
 	edit_page("Special:Menu");
 }
@@ -873,7 +955,7 @@ function edit()
 	edit_page(current);
 }
 
-var edit_override = false;
+var edit_override = true;
 
 function edit_allowed(page) {
 	if (edit_override)
@@ -958,6 +1040,7 @@ function delete_page(page)
 
 function _new_syntax_patch(text) {
 	//TODO: convert '+' to '*' for bullet lists, convert '::' to ':' into wiki links
+	
 	return text;
 }
 
