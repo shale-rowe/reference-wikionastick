@@ -1,4 +1,4 @@
-<!--
+/* <![CDATA[ */
 /*** stickwiki.js ***/
 
 var debug = true;			// toggle debug mode (and console)
@@ -1721,5 +1721,4 @@ else
 	addEventListener("load",on_load,false);
 */
 
-
-// -->
+/* ]]> */
