@@ -703,6 +703,7 @@ function set_current(cr)
 			// treat the page as a normal page
 			cr = ns+cr;
 			pages.push("");
+			page_attrs.push(0);
 			page_titles.push(cr);
 			current = cr;
 			log("Now pages list is: "+page_titles);
@@ -1019,6 +1020,7 @@ function delete_page(page)
 			log("DELETED page "+page);
 			page_titles.splice(i,1);
 			pages.splice(i,1);
+			page_attrs.splice(i,1);
 			break;
 		}
 	}
@@ -1224,6 +1226,8 @@ function save_to_file(full) {
 	var computed_js = "\n/* <![CDATA[ */\n\nvar version = \""+version+
 	"\";\n\nvar __marker = \""+new_marker+
 	"\";\n\nvar permit_edits = "+permit_edits+
+	";\n\nvar dblclick_edit = "+dblclick_edit+
+	";\n\nvar save_on_quit = "+save_on_quit+
 	";\n\nvar allow_diff = "+allow_diff+
 	";\n\nvar current = \"" + js_encode(current)+
 	"\";\n\nvar main_page = \"" + main_page + "\";\n\n";
@@ -1503,14 +1507,16 @@ function import_wiki()
 	for(i=0; i<page_names.length; i++)
 	{
 		if (!is_special(page_names[i]) || (page_names[i] == "Special:Menu") || (page_names[i] == "Special:Search"))
-		{		
+		{
 			pi = page_index(page_names[i]);
 			if (pi == -1) {
 				page_titles.push(page_names[i]);
 				pages.push(page_contents[i]);
+				page_attrs.push(0);
 			} else {
 				page_titles[pi] = page_names[i];
 				pages[pi] = page_contents[i];
+				page_attrs[pi] = 0;
 			}
 			pages_imported++;
 		}
