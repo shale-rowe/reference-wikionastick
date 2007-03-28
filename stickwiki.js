@@ -13,6 +13,7 @@ var cfg_changed = false;	// true when configuration has been changed
 var search_focused = false;
 var prev_title = current;	// used when entering/exiting edit mode
 var decrypt_failed = false;
+var post_dom_render = "";
 
 // Browser
 var ie = false;
@@ -581,6 +582,15 @@ function get_text(title)
 	return pg;
 }
 
+function _set_text(pi, text) {
+	text = _new_syntax_patch(text);
+	if (!is__encrypted(pi)) {
+		pages[pi] = text;
+		return;
+	}
+	pages[pi] = AES_encrypt(text);
+}
+
 // Sets text typed by user
 function set_text(text)
 {
@@ -589,12 +599,7 @@ function set_text(text)
 		log("current page \""+current+"\" is not cached!");
 		return;
 	}
-	text = _new_syntax_patch(text);
-	if (!is__encrypted(pi)) {
-		pages[pi] = text;
-		return;
-	}
-	pages[pi] = AES_encrypt(text);
+	_set_text(pi, text);
 }
 
 // thanks to S.Willison
@@ -642,10 +647,65 @@ function is_special(page) {
 	return (page.search(/Special:/i)==0);
 }
 
+function _create_page(ns, cr, ask) {
+		switch (ns) {
+			case "Special:":
+			case "Lock:":
+			case "Unlock:":
+			case "Tag:":
+			case "Tagged:":
+				alert("You are not allowed to create a page titled \""+ns+cr+"\" because namespace \""+ns+"\" is reserved");
+			return;
+		}
+		if (ask && !confirm("Page not found. Do you want to create it?"))
+			return;
+		// create and edit the new page
+		cr = ns+cr;
+		pages.push("Insert text here");
+		page_attrs.push(0);
+		page_titles.push(cr);
+		current = cr;
+		log("Now pages list is: "+page_titles);
+		edit_page(cr);
+//			save_page(cr);
+}
+
 function _get_special(cr) {
 	var text = null;
 	log("Getting special page "+cr);
 	switch(cr) {
+		case "New page":
+			var title = prompt("Insert new page title", "");
+			if ((title!=null) && title.length) {
+				if (page_index(title)!=-1)
+					alert("A page with title \""+title+"\" already exists!");
+				else {
+					cr = title;
+					if (cr[cr.length-1]==":") {
+						alert("You cannot create a page for a namespace");
+					} else {
+						var p = cr.indexOf(":");
+						if (p!=-1) {
+							ns = cr.substring(0,p+1);
+							log("namespace of "+cr+" is "+ns);
+							cr = cr.substring(p+1);
+						} else ns="";
+						_create_page(ns, cr, false);
+						if (confirm("Do you want to add a link in the main menu?")) {
+							var menu = get_text("Special:Menu");
+							var p = menu.indexOf("\n\n");
+							if (p==-1)
+								menu += "\n[["+ns+cr+"]]";
+							else
+								menu = menu.substring(0,p)+"\n[["+title+"]]"+menu.substring(p);
+							_set_text(page_index("Special:Menu"), menu);
+							refresh_menu_area();
+						}
+					}
+
+				}
+			}
+			return;
 		case "Search":
 			text = get_text("Special:"+cr);
 			text += cached_search;
@@ -696,7 +756,6 @@ function set_current(cr)
 {
 	var text;
 	log("Setting \""+cr+"\" as current page");
-	post_dom_render = "";
 	if (cr[cr.length-1]==":") {
 		text = _get_namespace(cr);
 		ns = "";
@@ -722,21 +781,15 @@ function set_current(cr)
 						text = "Not yet implemented";
 						break;
 					case "Lock":
-						pi = page_index(namespace+":"+cr);
-						if (pi==-1)
+						pi = page_index(cr);
+						if ((pi==-1) || is__encrypted(pi))
 							return;
-						if (is__encrypted(pi)) {
-//							alert("Page is already encrypted! First remove the previous password");
-							return;
-						}
 						text = get_text("Special:Lock");
-						post_dom_render = "_setup_lock_page('"+_sq_enc(cr)+"')";
+						post_dom_render = "_setup_lock_page('"+_sq_esc(cr)+"')";
 						break;
 					case "Unlock":
-						cr = namespace+":"+cr;
 						pi = page_index(cr);
-							return;
-						if (!is__encrypted(pi))
+						if ((pi==-1) || !is__encrypted(pi))
 							return;
 						text = get_text(cr);
 						if (decrypt_failed) {
@@ -764,28 +817,7 @@ function set_current(cr)
 			decrypt_failed = false;
 			return;
 		}
-		switch (ns) {
-			case "Special:":
-			case "Lock:":
-			case "Unlock:":
-			case "Tag:":
-			case "Tagged:":
-				alert("You are not allowed to create a page titled \""+ns+cr+"\" because namespace \""+ns+"\" is reserved");
-			return;
-		}
-		if(confirm("Page not found. Do you want to create it?"))
-		{	// create and edit the new page
-			// treat the page as a normal page
-			cr = ns+cr;
-			pages.push("");
-			page_attrs.push(0);
-			page_titles.push(cr);
-			current = cr;
-			log("Now pages list is: "+page_titles);
-			edit_page(cr);
-//			save_page(cr);
-		}
-		return;
+		_create_page(ns, cr, true);
 	}
 
 	load_as_current(ns+cr, text);
@@ -1054,7 +1086,9 @@ function is_readonly(page) {
 }
 
 function is__encrypted(pi) {
-	return (page_attrs[pi] & 2 != 0);
+	if (page_attrs[pi] & 2 != 0)
+		return true;
+	return false;
 }
 function is_encrypted(page) {
 	return is__encrypted(page_index(page));
