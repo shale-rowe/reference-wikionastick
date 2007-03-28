@@ -856,12 +856,13 @@ function _setup_lock_page(page) {
 
 function lock_page(page) {
 	var pwd = el("pw1").value;
+	// re-focusing seem not to work
 	if (!pwd.length) {
-		pw1.focus();
+		el("pw1").focus();
 		return;
 	}
 	if (pwd!=el("pw2").value) {
-		pw2.focus();
+		el("pw2").focus();
 		return;
 	}
 	var pi = page_index(page);
