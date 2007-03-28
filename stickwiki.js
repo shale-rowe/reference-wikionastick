@@ -146,8 +146,8 @@ function parseList(str, type) {
         var old = 0;
         var reItems = /^([\*#]+)[ \t]([^\n]+)/mg;
 
-        try 
-        {   var stk =[]
+        try {
+		var stk =[]
 	        str.replace
             (
                 reItems,
@@ -848,7 +848,7 @@ function load_as_current(title, text) {
 	el("wiki_title").innerHTML = title;
 	el("wiki_text").innerHTML = parse(text);
 	document.title = title;
-	update_nav_icons();
+	update_nav_icons(title);
 	if (post_dom_render.length!=0) {
 		eval(post_dom_render);
 		post_dom_render = "";
@@ -1126,17 +1126,23 @@ function on_resize()
 	}
 }
 
-function update_nav_icons() {
+function update_nav_icons(page) {
 	menu_display("back", (backstack.length > 0));
 	menu_display("forward", (forstack.length > 0));
-	menu_display("advanced", (current != "Special::Advanced"));
-	var can_edit = edit_allowed(current);
+	menu_display("advanced", (page != "Special::Advanced"));
+	var can_edit = edit_allowed(page);
 	menu_display("edit", can_edit);
-	update_lock_icons(can_edit);
+	update_lock_icons(page, can_edit);
 }
 
-function update_lock_icons(can_edit) {
-	var cyphered = is_encrypted(current);
+function update_lock_icons(page, can_edit) {
+	var pi = page_index(page);
+	if (pi==-1) {
+		menu_display("lock", false);
+		menu_display("unlock", false);
+		return;
+	}
+	var cyphered = is_encrypted(page);
 	menu_display("lock", !kbd_hooking && can_edit && cyphered);
 	menu_display("unlock", !kbd_hooking && can_edit && !cyphered);
 	var cls;
@@ -1153,7 +1159,7 @@ function disable_edit()
 	log("DISABLING edit mode");
 	kbd_hooking = false;
 	// check for back and forward buttons - TODO grey out icons
-	update_nav_icons();
+	update_nav_icons(current);
 	menu_display("home", true);
 	menu_display("save", false);
 	menu_display("cancel", false);
@@ -1199,7 +1205,7 @@ var edit_override = true;
 
 function edit_allowed(page) {
 	if (edit_override)
-		return true;
+		return (page_exists(page) != -1);
 	if (!permit_edits)
 		return false;
 	if (is_special(page) && (page!="Special::Menu"))
@@ -1224,7 +1230,7 @@ function current_editing(page, disabled) {
 	menu_display("edit", false);
 	menu_display("save", true);
 	menu_display("cancel", true);
-	update_lock_icons(true);
+	update_lock_icons(page, true);
 	el("text_area").style.display = "none";
 
 	// FIXME!
@@ -2086,7 +2092,11 @@ function utf8Decrypt(){
     k=0; while(c&0x80){ c=(c<<1)&0xFF; k++; }
     c >>= k;
     if (k==1||k>4) {
-		throw('UTF-8: invalid first byte '+e+'.');
+//		throw
+		log('UTF-8: invalid first byte '+e+'.');
+		sData = null;
+		i=tot;
+		return;
 	}
     for (var n=1;n<k;n++){
       d = bData[i++];
@@ -2095,7 +2105,11 @@ function utf8Decrypt(){
       c=(c<<6)+(d&0x3F);
     }
     if ( (k==2&&c<0x80) || (k>2&&c<utf8sets[k-3]) ) {
-		throw("UTF-8: invalid sequence "+e+'.');
+//		throw
+		log("UTF-8: invalid sequence "+e+'.');
+		sData = null;
+		i=tot;
+		return;
 	}
     sData+=String.fromCharCode(c);
   }
