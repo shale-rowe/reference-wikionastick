@@ -903,6 +903,7 @@ function lock_page(page) {
 	}
 	AES_setKey(pwd);
 	pages[pi] = AES_encrypt(pages[pi]);
+	alert(pages[pi]);
 	page_attrs[pi] += 2;
 	save_to_file(true);
 	go_to(page);
@@ -2026,7 +2027,7 @@ var i;
 var j;
 var tot;
 var key = [];
-var lenInd = true;	// length indicator (to remove padding bytes)
+var lenInd = false;	// length indicator (to remove padding bytes)
 
 var wMax = 0xFFFFFFFF;
 function rotb(b,n){ return ( b<<n | b>>>( 8-n) ) & 0xFF; }
@@ -2313,7 +2314,7 @@ function blcDecrypt(dec){
     //if (cbc)
 	{ i=16; }
     tot = bData.length;
-    if ( (tot%16) || tot<i ) throw 'AES: Incorrect length.';
+    if ( (tot%16) || tot<i ) throw 'AES: Incorrect length (tot='+tot+', i='+i+')';
     aesInit();
   }else{
     //if (cbc)
@@ -2362,22 +2363,24 @@ function setData(d) {
 	sData = null;
 }
 
+var _magic_check = true;
+
 // returns an array of encrypted characters
 function AES_encrypt(raw_data) {
 	setData(raw_data);
 
-/*
-	// save 2 random characters for decryption control
-	var magic_pos = _rand( Math.max(0, bData.length-2));
-	var magic_len = 2 + _rand(4);
-	bData.push(0);
-	for(a=0;a<magic_len;a++)
-		bData.push(bData[magic_pos+a]);
+	if (_magic_check) {
+		// save 2 random characters for decryption control
+		var magic_pos = _rand( Math.max(0, bData.length-2));
+		var magic_len = 2 + _rand(4);
+		bData.push(0);
+		for(a=0;a<magic_len;a++)
+			bData.push(bData[magic_pos+a]);
 
-	setW(bData, bData.length, magic_pos);
-	setW(bData, bData.length, magic_len);
-*/
-
+		setW(bData, bData.length, magic_pos);
+		setW(bData, bData.length, magic_len);
+	}
+	
 	i=tot=0;
 	do{ blcEncrypt(aesEncrypt); } while (i<tot);
 
@@ -2392,21 +2395,21 @@ function AES_decrypt(raw_data) {
 	i=tot=0;
 	do{ blcDecrypt(aesDecrypt); } while (i<tot);
 
-/*
-	// check if the magic characters were saved
-	if (bData.length < 10)
-		return null;
-	var magic_pos = getW(bData.length-8);
-	var magic_len = getW(bData.length-4);
-	if ((magic_pos >= bData.length - 9) ||
-		(magic_pos + magic_len >= bData.length - 9))
-		return null;
-	for(a=0;a<magic_len;a++)
-		if (bData[magic_pos+a] != bData[bData.length-8-magic_len+a])
+	if (_magic_check) {
+		// check if the magic characters were saved
+		if (bData.length < 10)
 			return null;
-			
-	bData.splice(bData.length-8 - magic_len, 8 + magic_len + 1);
-*/
+		var magic_pos = getW(bData.length-8);
+		var magic_len = getW(bData.length-4);
+		if ((magic_pos >= bData.length - 9) ||
+			(magic_pos + magic_len >= bData.length - 9))
+			return null;
+		for(a=0;a<magic_len;a++)
+			if (bData[magic_pos+a] != bData[bData.length-8-magic_len+a])
+				return null;
+				
+		bData.splice(bData.length-8 - magic_len, 8 + magic_len + 1);
+	}
 	
 	i=tot=0;
 	do{ utf8Decrypt(); } while (i<tot);
@@ -2416,6 +2419,6 @@ function AES_decrypt(raw_data) {
 
 //var test_key = "a very good password";
 //AES_setKey(test_key);
-//alert(AES_decrypt(AES_encrypt("Hello World!")));
+//alert(AES_decrypt(AES_encrypt(pages[0])));
 
 /* ]]> */
