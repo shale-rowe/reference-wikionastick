@@ -7,7 +7,7 @@
 
 var version = "0.9B";
 
-var __marker = "riUSSUsInnTNaKowIG";
+var __marker = "hItqLUKXrbAFfDnDDb";
 
 var permit_edits = true;
 
@@ -17,14 +17,14 @@ var save_on_quit = false;
 
 var allow_diff = true;
 
-var current = "Main Page";
+var current = "Special:Menu";
 
 var main_page = "Main Page";
 
 var backstack = new Array(
+"Main Page",
 "Special:Advanced",
-"Special:Backlinks",
-"Special:Advanced"
+"Special:Menu"
 );
 
 var page_titles = new Array(
@@ -36,11 +36,13 @@ var page_titles = new Array(
 "Special:Search",
 "MyPages:Page 1",
 "MyPages:Page 2",
-"MyPages:Approved:Page 3"
+"MyPages:Approved:Page 3",
+"Hello there!"
 );
 
-/* riUSSUsInnTNaKowIG */
+/* hItqLUKXrbAFfDnDDb */
 var page_attrs = new Array(
+0x0,
 0x0,
 0x0,
 0x0,
@@ -212,10 +214,14 @@ var pages = new Array(
 "This is a page in a subnamespace!\n" +
 "\n" +
 "The parent namespace is [[MyPages:]] while the subnamespace is [[MyPages:Approved:]]\n" +
-"\n"
+"\n" +
+"",
+"saadadsasd\n" +
+"\n" +
+"dasasd"
 );
 
-/* riUSSUsInnTNaKowIG */
+/* hItqLUKXrbAFfDnDDb */
 
 /* ]]> */ </script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -334,7 +340,7 @@ a.link.tag {
 <tbody>
 <tr>
 <td style="width: 100%;" valign="bottom">
-<p class="title" id="wiki_title">Editing Main Page</p></td>
+<p class="title" id="wiki_title">Editing Special:Menu</p></td>
 <td class="menu" onclick="go_back()">
 <div id="menu_back" style="display: none; cursor: pointer;"><img id="img_back" style="display: inline;" alt="Back" src="data:image/png;base64,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"><span id="alt_back" style="display: none; font-size: 24pt; font-family: wingdings;"></span></div></td>
 <td class="menu" onclick="go_forward()">
@@ -351,9 +357,9 @@ a.link.tag {
 <div id="menu_save" style="display: inline; cursor: pointer;"><img id="img_save" style="display: inline;" alt="Save" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAAK/INwWK6QAAAAZiS0dEAP8A/wD/oL2nkwAAA0FJREFUeNq1lc+KHFUUxn/n3qqu6h7tGdPByTBOEjQunK26EQRdhAGRuHGE2agLH8C1j5AXCFnkAYyBEIKoRHeabWQyJKIm+IdAdwSd0HZPdVXdc1xU9UynbZIe/xy4XG5R93z3fN937hWqeALYqGcFhH8WBkTAD8DXTCS64n18Jo6ToFo4792hAEQEVUUVc87baDR0ZvYBcEFAngO7eeatD5vHjq2XKysDee/dNxkOc9zcOIJzgXPnrhD0mfDVl+cbt29f/0zEvREBHqD9ZIckWfCdIwnLy8v0+3t47x7PiRkAcexoLy6SZW1arTaAQyq+ACSEAtVAURQyGo3I8/krMANVoSxLQigtaKjKsgkAREAEmRjOzVeBCDgnCPXecU7g8Rn+ZfzvANHkYprxsYD/GYABiExAzS+yWcX/IwEATEu8V7w3vNc5skvVvt7Qyj2zAVSVVqvJj3d6nD37MeAxJimSh+qxuj5DMVNUA7t/wFNHInSC2mhyh6AkyQrd3gOKYhcRv2/V6dOJCBoCjWSJNG2jqiSpAPrQUaLpTXk+4mhnyObma4QAWTZABNJ0AdWDk5mB98bFi9fJ8gWSxBFCybQt/gagqjSbTU6cOMknl66xvd0DjJdfWmNj41WGwwznBFVIU0+z1WQwDMRRNNMUUyJXzIYQyPOMbvcB8DSqSre7S1mOKIoc5xxmRp57NITaebMjmvlVqmq8czingOJ8Zd8DK8pB3ke0y34n26y/qutp8n45dEQ1fPA+qkU0MzMxM4q8JMsCqkpelJgZqoZz4xvU6m6vZqs6bnxYA4hEBDNz/f7vliQtnBuQNBJL0xbr68cpw6+Asf7CsyRJimpFk1klcqOR4HxEVIvsfSzeRQAmApGZfQ9c/uLz81tpupB3Oidd736X7e0dVlc7rK4u1g6LuHXru30NzMA55f5vPfLc0CCEMkgIZTkY7Hog7PebiHNLS8uXKlQpqR5+O+wQEQVCvX6/lrHq+M13PmplWf760c7QnT79Cnt7h3nRFO+Fq1e/saLoRDd3rv10986Nb0WECMTAiOMkWzv+4qfPnyrY2nqb/p97+DletDFdcSz8/EtgNFrj3r0d7nJDRMT+AqKAkRUl/oStAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAABJRU5ErkJggg=="><span id="alt_save" style="display: none; font-size: 24pt; font-family: wingdings;">&lt;</span></div>
 </td>
 <td>
-<div id="menu_lock" style="display: none; cursor: pointer;" onclick="lock()"><img id="img_lock" style="display: inline;" alt="Lock" src="locked.png"><span id="alt_lock" style="display: none; font-size: 24pt; font-family: wingdings;">I</span></div>
+<div id="menu_lock" style="display: none; cursor: pointer;" onclick="unlock()"><img id="img_lock" style="display: inline;" alt="Lock" src="locked.png"><span id="alt_lock" style="display: none; font-size: 24pt; font-family: wingdings;">I</span></div>
 </td><td>
-<div id="menu_unlock" style="display: none; cursor: pointer;" onclick="unlock()"><img id="img_unlock" style="display: inline;" alt="Unlock" src="unlocked.png"><span id="alt_unlock" style="display: none; font-size: 24pt; font-family: wingdings;">C</span></div>
+<div id="menu_unlock" style="display: none; cursor: pointer;" onclick="lock()"><img id="img_unlock" style="display: inline;" alt="Unlock" src="unlocked.png"><span id="alt_unlock" style="display: none; font-size: 24pt; font-family: wingdings;">C</span></div>
 </td></tr></tbody></table>
 <hr>
 <div id="unsupported_browser" style="display: none;"><i>Your browser is not supported. You can access the wiki but you won't be able to save.</i></div>
@@ -372,7 +378,7 @@ a.link.tag {
 <tr>
 <td>&nbsp;</td></tr></tbody></table><!-- Editor -->
 <div id="edit_area" style="display: block;">
-<div id="edit_page_title" style="display: block;">Page title: <input id="wiki_page_title" value="Main Page" size="50"></div><textarea id="wiki_editor" style="width: 994px; height: 430px;" rows="0" cols="0"></textarea> 
+<div id="edit_page_title" style="display: block;">Page title: <input disabled="disabled" id="wiki_page_title" value="Main Page" size="50"></div><textarea id="wiki_editor" style="width: 994px; height: 430px;" rows="0" cols="0"></textarea> 
 <table style="font-size: 8pt;">
 <tbody>
 <tr>
