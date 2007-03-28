@@ -850,13 +850,12 @@ function _setup_options() {
 
 function _setup_lock_page(page) {
 	el("btn_lock").value = "Lock "+page;
-	el("btn_lock").onclick = "lock_page('"+_sq_esc(page)+"')";
 	el("pw1").focus();
+	el("btn_lock").setAttribute("onclick", "lock_page('"+_sq_esc(page)+"')");
 }
 
 function lock_page(page) {
 	var pwd = el("pw1").value;
-	// re-focusing seem not to work
 	if (!pwd.length) {
 		el("pw1").focus();
 		return;
@@ -1409,22 +1408,45 @@ function js_encode(s, split_lines) {
 }
 
 function printout_arr(arr, split_lines) {
+
+	function elem_print(e) {
+		return "\"" + js_encode(e, split_lines) + "\"";
+	}
+
 	var s = "";
 	for(var i=0;i<arr.length-1;i++) {
-		s += "\"" + js_encode(arr[i], split_lines) + "\",\n";
+		s += elem_print(arr[i]) + ",\n";
 	}
 	if (arr.length>1)
-		s += "\"" + js_encode(arr[arr.length-1], split_lines) + "\"\n";
+		s += elem_print(arr[arr.length-1]) + "\n";
+	return s;
+}
+
+function printout_mixed_arr(arr, split_lines, attrs) {
+
+	function elem_print(e, attr) {
+		if (attr & 2) {
+			return "[" + printout_num_arr(e) + "]";
+		}
+		return "\"" + js_encode(e, split_lines) + "\"";
+	}
+
+	var s = "";
+	for(var i=0;i<arr.length-1;i++) {
+		s += elem_print(arr[i], attrs[i]) + ",\n";
+	}
+	if (arr.length>1)
+		s += elem_print(arr[arr.length-1], attrs[arr.length-1]) + "\n";
 	return s;
 }
 
 function printout_num_arr(arr) {
 	var s = "";
 	for(var i=0;i<arr.length-1;i++) {
-		s += "0x"+arr[i].toString(16) + ",\n";
+		s += "0x"+arr[i].toString(16) + ", ";
 	}
 	if (arr.length>1)
-		s += "0x"+arr[i].toString(16) + "\n";
+		s += "0x"+arr[i].toString(16);
 	return s;
 }
 
@@ -1465,7 +1487,7 @@ function save_to_file(full) {
 	
 		computed_js += "var page_attrs = new Array(\n" + printout_num_arr(page_attrs) + ");\n\n";
 		
-		computed_js += "var pages = new Array(\n" + printout_arr(pages, allow_diff) + ");\n\n";
+		computed_js += "var pages = new Array(\n" + printout_mixed_arr(pages, allow_diff, page_attrs) + ");\n\n";
 		
 		computed_js += "/* " + new_marker + " */\n";
 	}
