@@ -7,7 +7,13 @@
 
 var version = "0.9B";
 
+var __marker = "riUSSUsInnTNaKowIG";
+
 var permit_edits = true;
+
+var dblclick_edit = true;
+
+var save_on_quit = false;
 
 var allow_diff = true;
 
@@ -16,6 +22,9 @@ var current = "Main Page";
 var main_page = "Main Page";
 
 var backstack = new Array(
+"Special:Advanced",
+"Special:Backlinks",
+"Special:Advanced"
 );
 
 var page_titles = new Array(
@@ -26,7 +35,21 @@ var page_titles = new Array(
 "Main Page",
 "Special:Search",
 "MyPages:Page 1",
-"MyPages:Page 2"
+"MyPages:Page 2",
+"MyPages:Approved:Page 3"
+);
+
+/* riUSSUsInnTNaKowIG */
+var page_attrs = new Array(
+0x0,
+0x0,
+0x0,
+0x0,
+0x0,
+0x0,
+0x0,
+0x0,
+0x0
 );
 
 var pages = new Array(
@@ -35,6 +58,10 @@ var pages = new Array(
 "[[Special:Advanced]]\n" +
 "[[Special:Backlinks]]\n" +
 "[[Special:Search]]",
+"!Info\n" +
+"  [[Special:About|About Wiki on a Stick]]\n" +
+"  This wiki was last modified in <span id=\"lastDate\"></span>.\n" +
+"\n" +
 "!Pages\n" +
 "  [[Special:All Pages|All Pages]]: a list of all user created pages in this wiki\n" +
 "  [[Special:|All Special Pages]]: list of all system pages\n" +
@@ -51,12 +78,11 @@ var pages = new Array(
 "  [[Special:Edit Menu|Edit Menu]]: edit main menu (on the left)\n" +
 "\n" +
 "!Options\n" +
-"  [[Special:Block Edits|Block/Unblock edits]]: hides the edit button, to be used when this wiki goes public (when used as a webpage, for example)\n" +
-"  [[Special:Diff|Diff mode]]: enable/disable the diff mode (useful for revision control systems) after having viewed it\n" +
-"\n" +
-"!Info\n" +
-"  [[Special:About|About Wiki on a Stick]]\n" +
-"  This wiki was last modified in <span id=\"lastDate\"></span>.",
+"  <label for=\"cb_allow_diff\"><input type=\"checkbox\" id=\"cb_allow_diff\" onclick=\"allow_diff = el_eval('cb_allow_diff')\" />Diff mode (consistent newlines splitting in saved data, useful for versioning)<br />\n" +
+"  <label for=\"cb_permit_edits\"><input type=\"checkbox\" id=\"cb_permit_edits\" onclick=\"permit_edits = !el_eval('cb_permit_edits')\" />Disable edit mode for all pages (useful when publishing the Wiki On a Stick file on a web server)<br />\n" +
+"  <label for=\"cb_dblclick_edit\"><input type=\"checkbox\" id=\"cb_dblclick_edit\" onclick=\"dblclick_edit = el_eval('cb_dblclick_edit')\" />Double click to edit pages/menu<br />\n" +
+"  <label for=\"cb_save_on_quit\"><input type=\"checkbox\" id=\"cb_save_on_quit\" onclick=\"save_on_quit = el_eval('cb_save_on_quit')\" />Automatically save options (if changed) before quitting<br />\n" +
+"  <input type=\"button\" onclick=\"save_options()\" value=\"Save options\" />",
 "Import a wiki from an early (or current) version:\n" +
 "\n" +
 "File: <input id=\"filename_\" type=\"file\" /><input type=\"button\" value=\"Import\" onclick=\"import_wiki()\" />\n" +
@@ -71,13 +97,13 @@ var pages = new Array(
 "!!Contributes\n" +
 "This project wouldn't be what it is without the help of other people. If you contributed to Wiki on a Stick and your name is not here, please send an email to <a class=\"world\" href=\"mailto:legolas558 _AT_ users.sourceforge.net\">this email address</a>.\n" +
 "\n" +
-"+ *Jeremy Ruston* - the creator of the wonderful [[http://www.tiddlywiki.com/|TiddlyWiki]], who served as inspiration for Wiki on a Stick. He also kindly allowed the usage of his saving/loading routines.\n" +
-"+ *Philip O'Donnel* - creator of the table syntax & parsing code\n" +
-"+ *Tim Lord*\n" +
-"+ *Knut Kohl*\n" +
-"+ *Rob Schmersel*\n" +
-"+ *Cyril Mazard* - search feature\n" +
-"+ *plumloco* - XHTML lists parsing and other improvements\n" +
+"* *Jeremy Ruston* - the creator of the wonderful [[http://www.tiddlywiki.com/|TiddlyWiki]], who served as inspiration for Wiki on a Stick. He also kindly allowed the usage of his saving/loading routines.\n" +
+"* *Philip O'Donnel* - creator of the table syntax & parsing code\n" +
+"* *Tim Lord*\n" +
+"* *Knut Kohl*\n" +
+"* *Rob Schmersel*\n" +
+"* *Cyril Mazard* - search feature\n" +
+"* *plumloco* - XHTML lists\n" +
 "\n" +
 "If, for any reason, you don't want your name listed here, just send an email.\n" +
 "\n" +
@@ -85,16 +111,21 @@ var pages = new Array(
 "\n" +
 "Read more at [[http://sf.net/projects/stickwiki/|Our SourceForge Project]]\n" +
 "We also have a [[http://groups.google.com/group/stickwiki/|Google dicussion group]]",
-"!Wiki on a Stick Example\n" +
-"!!Formatting\n" +
-"!!!Third header\n" +
-"!!!!Fourth header\n" +
+"!Welcome to Wiki on a Stick!\n" +
+"A self-containing XHTML/javascript wiki.\n" +
 "\n" +
+"!!How to use\n" +
 "/(click on the pencil icon on the top right corner to edit the wiki source)/\n" +
 "\n" +
-"You can also double click anywhere on the text to edit, and you can use escape to cancel editing\n" +
+"You can also double click anywhere on the text to edit (if this option is enabled from [[Special:Advanced]]), and you can use escape to cancel editing or to go backward.\n" +
 "\n" +
-"If you have an older Wiki on a Stick, [[Special:Import|import it]]!\n" +
+"If you have an older Wiki on a Stick (v0.01 &tilde; v0.04), [[Special:Import|import it]]!\n" +
+"\n" +
+"Follows a brief example of all the capabilities of Wiki on a Stick syntax.\n" +
+"\n" +
+"!!Formatting\n" +
+"!!!Subheader of third level\n" +
+"!!!!Subheader of fourth level\n" +
 "\n" +
 "<pre>\n" +
 "\n" +
@@ -103,14 +134,17 @@ var pages = new Array(
 "\n" +
 "<pre style=\"color:gray\">\n" +
 "\n" +
-"This is stylish pre-formatted text!\n" +
+"This is pre-formatted text with CSS style!\n" +
 "</pre>\n" +
+"\n" +
+"!!Some specials\n" +
 "\n" +
 "Using [[Special:Main Page]] you will always link to the main page, no matters what its name is.\n" +
 "\n" +
-"New pages have red links, like this [[New page]]\n" +
+"New pages have red links, like this [[New page]], but you can use [[Special:New page]] to automatically create a new one.\n" +
 "\n" +
-"There is support for [[Tagged:Nice|tags]] and namespaces. For example, see [[MyPages:Page 1]] and [[MyPages:Page 2]], both belonging to the [[MyPages:]] namespace.\n" +
+"!!Tags and namespaces\n" +
+"There is support for [[Tagged:Nice|tags]] and namespaces. For example, see [[MyPages:Page 1]] and [[MyPages:Page 2]], both belonging to the [[MyPages:]] namespace. You can also use subnamespaces, like in [[MyPages:Approved:Page 3]]\n" +
 "\n" +
 "!!Syntax parser testcases\n" +
 "\n" +
@@ -174,12 +208,16 @@ var pages = new Array(
 "Hello there! I am indeed a better page than [[MyPages:Page 2]]\n" +
 "\n" +
 "[[Tags: Nice]]",
-"Hey, don't tell anyone around but...I am better than [[MyPages:Page 1]]!"
+"Hey, don't tell anyone around but...I am better than [[MyPages:Page 1]]!",
+"This is a page in a subnamespace!\n" +
+"\n" +
+"The parent namespace is [[MyPages:]] while the subnamespace is [[MyPages:Approved:]]\n" +
+"\n"
 );
 
+/* riUSSUsInnTNaKowIG */
 
-/* ]]> */
-</script>
+/* ]]> */ </script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <style type="text/css">body {
   background-color: #CCFFCC;
@@ -292,20 +330,21 @@ a.link.tag {
 }
 </style>
 <script language="javascript" type="text/javascript">
-<!--
+/* <![CDATA[ */
 /*** stickwiki.js ***/
+
+// page attributes are mapped to (readonly, encrypted, ...)
 
 var debug = true;			// toggle debug mode (and console)
 var save_override = true;	// allow to save when debug mode is active
 var end_trim = true;		// trim pages from the end
-var save_on_quit = true;
-var dblclick_edit = false;
 
 var forstack = new Array();
 var cached_search = "";
-var tag_to_show = "";
+var cfg_changed = false;	// true when configuration has been changed
 var search_focused = false;
 var prev_title = current;	// used when entering/exiting edit mode
+var decrypt_failed = false;
 
 // Browser
 var ie = false;
@@ -476,6 +515,11 @@ function parseList(str) {
         return toStr(stk[1]);
     }
 
+// single quote escaping for page titles	
+function _sq_esc(s) {
+	return s.replace(/'/g, "\\'");
+}
+
 // used not to break layout when presenting search results
 var force_inline = false;
 
@@ -497,7 +541,7 @@ function parse(text)
 	});
 	
 	// <b>
-	text = text.replace(/\*([^\*\n]+)\*/g, parse_marker+"bS#$1"+parse_marker+"bE#");
+	text = text.replace(/([^\n])\*([^\*\n]+)\*/g, "$1"+parse_marker+"bS#$2"+parse_marker+"bE#");
 	// <u>
 	text = text.replace(/(^|[^\w])_([^_]+)_/g, "$1"+parse_marker+"uS#$2"+parse_marker+"uE#");
 	
@@ -554,9 +598,9 @@ function parse(text)
 					return "<a class=\"world\" href=\"" + $1 + "\" target=\"_blank\">" + $2 + "<\/a>";
 				
 				if(page_exists($1))
-					return "<a class=\"link\" onclick='go_to(\"" + $1 +"\")'>" + $2 + "<\/a>";
+					return "<a class=\"link\" onclick='go_to(\"" + _sq_esc($1) +"\")'>" + $2 + "<\/a>";
 				else
-					return "<a class=\"unlink\" onclick='go_to(\"" + $1 +"\")'>" + $2 + "<\/a>";
+					return "<a class=\"unlink\" onclick='go_to(\"" + _sq_esc($1) +"\")'>" + $2 + "<\/a>";
 			}); //"<a class=\"wiki\" onclick='go_to(\"$2\")'>$1<\/a>");
 	// links without |
 	var inline_tags = 0;
@@ -576,9 +620,9 @@ function parse(text)
 				}
 				
 				if(page_exists($1))
-					return "<a class=\"link\" onclick='go_to(\"" + $1 +"\")'>" + $1 + "<\/a>";
+					return "<a class=\"link\" onclick=\"go_to('" + _sq_esc($1) +"')\">" + $1 + "<\/a>";
 				else
-					return "<a class=\"unlink\" onclick='go_to(\"" + $1 +"\")'>" + $1 + "<\/a>";
+					return "<a class=\"unlink\" onclick=\"go_to('" + _sq_esc($1) +"')\">" + $1 + "<\/a>";
 					}); //"<a class=\"wiki\" onclick='go_to(\"$1\")'>$1<\/a>");
 
 	if (ie)
@@ -611,10 +655,10 @@ function parse(text)
 			s = "<div class=\"taglinks\">";
 		s += "Tags: ";
 		for(i=0;i<tags.length-1;i++) {
-			s+="<a class=\"link tag\" onclick=\"go_to('Tagged:"+tags[i]+"')\">"+tags[i]+"</a>&nbsp;&nbsp;";
+			s+="<a class=\"link tag\" onclick=\"go_to('Tagged:"+_sq_esc(tags[i])+"')\">"+tags[i]+"</a>&nbsp;&nbsp;";
 		}
 		if (tags.length>0)
-			s+="<a class=\"link tag\" onclick=\"go_to('Tagged:"+tags[tags.length-1]+"')\">"+tags[tags.length-1]+"</a>";
+			s+="<a class=\"link tag\" onclick=\"go_to('Tagged:"+_sq_esc(tags[tags.length-1])+"')\">"+tags[tags.length-1]+"</a>";
 		if (!force_inline) {
 			s+="</div>";
 			text += s;
@@ -633,10 +677,10 @@ function parse(text)
 }
 
 // prepends and appends a newline character to workaround plumloco's XHTML lists parsing bug
-function _join_list(arr, sorted) {
-	if (sorted)
-		arr = arr.sort();
-	return "\n* [["+arr.join("]]\n* [[")+"]]\n";
+function _join_list(arr) {
+	if (!arr.length)
+		return "";
+	return "\n* [["+arr.sort().join("]]\n* [[")+"]]\n";
 }
 
 function _simple_join_list(arr, sorted) {
@@ -645,13 +689,14 @@ function _simple_join_list(arr, sorted) {
 	return arr.join("\n")+"\n";
 }
 
+// with trailing double colon
 function _get_namespace(ns) {
 	var pg = new Array();
 	for(var i=0;i<page_titles.length;i++) {
-		if (page_titles[i].indexOf(ns+":")==0)
+		if (page_titles[i].indexOf(ns)==0)
 			pg.push( page_titles[i]);
 	}
-	return "!Pages in "+ns+" namespace\n" + _join_list(pg, true);
+	return "!Pages in "+ns+" namespace\n" + _join_list(pg);
 }
 
 function _get_tagged(tag) {
@@ -679,7 +724,7 @@ function _get_tagged(tag) {
 	
 	if (!pg.length)
 		return "No pages tagged with *"+tag+"*";
-	return "!Pages tagged with " + tag + "\n" + _join_list(pg, true);
+	return "!Pages tagged with " + tag + "\n" + _join_list(pg);
 }
 
 // Returns a index of search pages (by miz & legolas558)
@@ -711,7 +756,7 @@ function special_search( str )
 		if (res_body!=null) {
 			count = res_body.length;
 			res_body = res_body.join(" ").replace( /\n/g, " ");
-			pg_body.push( "* [[" + page_titles[i] + "]]: *found " + count + " times :* <div class=\"search_results\"><i>...</i><br />" + res_body +"<br/><i>...</i></div>");
+			pg_body.push( "* [[" + page_titles[i] + "]]: found *" + count + "* times :<div class=\"search_results\"><i>...</i><br />" + res_body +"<br/><i>...</i></div>");
 		}
 	}
 	
@@ -731,7 +776,7 @@ function special_all_pages()
 		if (!is_special(page_titles[i]))
 			pg.push( page_titles[i] );
 	}
-	return _join_list(pg, true);
+	return _join_list(pg);
 }
 
 // Returns a index of all dead pages
@@ -818,7 +863,7 @@ function special_orphaned_pages()
 	if (!pg.length)
 		return "/No orphaned pages found/";
 	else
-		return _join_list(pg, true); // TODO - Delete repeated data
+		return _join_list(pg); // TODO - Delete repeated data
 }
 
 function special_links_here()
@@ -836,7 +881,7 @@ function special_links_here()
 	if(pg.length == 0)
 		return "/No page links here/";
 	else
-		return "!!Links to "+current+"\n"+_join_list(pg, true);
+		return "!!Links to "+current+"\n"+_join_list(pg);
 }
 
 // retrieve a stored page
@@ -845,7 +890,27 @@ function get_text(title)
 	var pi = page_index(title);
 	if (pi==-1)
 		return null;
-	return pages[pi];
+	// is the page encrypted or plain?
+	if (!is__encrypted(pi))
+		return pages[pi];
+	decrypt_failed = true;
+	var retry = false;
+	var pg = null;
+	do {
+		if (!key.length) {
+			var pw = prompt('The latest entered password (if any) was not correct for page "'+title+"'\n\nPlease enter the correct password.", '');
+			if (pw==null)
+				return null;
+			if (!pw.length)
+				return null;
+			AES_setKey(pw);
+			retry = true;
+		}
+		pg = AES_decrypt(pages[pi]);
+	} while (retry);
+	if (pg != null)
+		decrypt_failed = false;
+	return pg;
 }
 
 // Sets text typed by user
@@ -856,7 +921,12 @@ function set_text(text)
 		log("current page \""+current+"\" is not cached!");
 		return;
 	}
-	pages[pi] = _new_syntax_patch(text);
+	text = _new_syntax_patch(text);
+	if (!is__encrypted(pi)) {
+		pages[pi] = text;
+		return;
+	}
+	pages[pi] = AES_encrypt(text);
 }
 
 // thanks to S.Willison
@@ -900,27 +970,6 @@ function do_search()
 	assert_current("Special:Search");
 }
 
-function block_edits(page) {
-	if (edit_allowed(page))
-	{
-		permit_edits = false;
-		menu_display("edit", false);
-		menu_display("edit_button", false);
-//		if(unsupported_browser)			document.getElementById("unsupported_browser").style.display = "none";
-		alert("Edits blocked.");
-	} else {
-		permit_edits = true;
-		menu_display("edit", true);
-		menu_display("edit_button", true);
-		if(unsupported_browser)
-			document.getElementById("unsupported_browser").style.display = "block";
-		alert("Edits unblocked.");
-	}
-	if (!save_on_quit)
-		_save_config_only();
-	back_or(main_page);
-}
-
 function is_special(page) {
 	return (page.search(/Special:/i)==0);
 }
@@ -933,9 +982,13 @@ function _get_special(cr) {
 			text = get_text("Special:"+cr);
 			text += cached_search;
 			break;
+		case "Advanced":
+			text = get_text("Special:"+cr);
+			post_dom_render = "_setup_options";
+			break;
 		case "Erase Wiki":
 			if (erase_wiki()) {
-				save_all();
+				save_to_file(true);
 				back_or(main_page);
 			}
 			return null;
@@ -954,10 +1007,6 @@ function _get_special(cr) {
 		case "Backlinks":
 			text = special_links_here();
 			break;
-		case "Block Edits":
-			alert("Block edits currently disabled!");
-			//block_edits(current);
-			return null;
 		case "Edit Menu":
 			go_to("Special:Menu");
 			edit();
@@ -979,39 +1028,81 @@ function set_current(cr)
 {
 	var text;
 	log("Setting \""+cr+"\" as current page");
-	var p = cr.indexOf(":");
-	if (p!=-1) {
-		namespace = cr.substring(0,p);
-		log("namespace of "+cr+" is "+namespace);
-		cr = cr.substring(p+1);
-		if (!cr.length)
-			text = _get_namespace(namespace);
-		else {
-			switch (namespace) {
-				case "Special":
-					text = _get_special(cr);
-					if (text == null)
-						return;
-					break;
-				case "Tagged":
-					text = _get_tagged(cr);
-					if (text == null)
-						return;
-					break;
-				default:
-					text = get_text(namespace+":"+cr);
-			}
-		}
-		ns = namespace+":";
-	} else {
+	post_dom_render = "";
+	if (cr[cr.length-1]==":") {
+		text = _get_namespace(cr);
 		ns = "";
-		text = get_text(cr);
+	} else {
+		var p = cr.indexOf(":");
+		if (p!=-1) {
+			namespace = cr.substring(0,p);
+			log("namespace of "+cr+" is "+namespace);
+			cr = cr.substring(p+1);
+				switch (namespace) {
+					case "Special":
+						text = _get_special(cr);
+						if (text == null)
+							return;
+						break;
+					case "Tagged":
+						text = _get_tagged(cr);
+						if (text == null)
+							return;
+						break;
+					case "Locked":
+					case "Unlocked":
+						text = "Not yet implemented";
+						break;
+					case "Lock":
+						pi = page_index(namespace+":"+cr);
+						if (pi==-1)
+							return;
+						if (is__encrypted(pi)) {
+//							alert("Page is already encrypted! First remove the previous password");
+							return;
+						}
+						text = get_text("Special:Lock");
+						post_dom_render = "_setup_lock_page('"+_sq_enc(cr)+"')";
+						break;
+					case "Unlock":
+						cr = namespace+":"+cr;
+						pi = page_index(cr);
+							return;
+						if (!is__encrypted(pi))
+							return;
+						text = get_text(cr);
+						if (decrypt_failed) {
+							decrypt_failed = false;
+							return;
+						}
+						pages[pi] = text;
+						page_attrs[pi] -= 2;
+						save_to_file(true);
+						return;
+					default:
+						text = get_text(namespace+":"+cr);
+				}
+
+			ns = namespace+":";
+		} else {
+			ns = "";
+			text = get_text(cr);
+		}
 	}
 	
 	if(text == null)
 	{
-		if (ns == "Special") {
-			alert("You are not allowed to create a page titled \""+ns+cr+"\" because namespace \""+namespace+"\" is reserved");
+		if (decrypt_failed) {
+			decrypt_failed = false;
+			return;
+		}
+		switch (ns) {
+			case "Special:":
+			case "Lock:":
+			case "Unlock:":
+			case "Tag:":
+			case "Tagged:":
+				alert("You are not allowed to create a page titled \""+ns+cr+"\" because namespace \""+ns+"\" is reserved");
 			return;
 		}
 		if(confirm("Page not found. Do you want to create it?"))
@@ -1019,6 +1110,7 @@ function set_current(cr)
 			// treat the page as a normal page
 			cr = ns+cr;
 			pages.push("");
+			page_attrs.push(0);
 			page_titles.push(cr);
 			current = cr;
 			log("Now pages list is: "+page_titles);
@@ -1039,6 +1131,29 @@ function load_as_current(title, text) {
 	el("wiki_text").innerHTML = parse(text);
 	document.title = title;
 	update_nav_icons();
+	if (post_dom_render.length!=0) {
+		eval(post_dom_render+"()");
+		post_dom_render = "";
+	}
+}
+
+function bool2chk(b) {
+	if (b) return "checked";
+	return "";
+}
+
+function el_eval(name) {
+	cfg_changed = true;
+	if (el(name).checked)
+		return true;
+	return false;
+}
+
+function _setup_options() {
+	el("cb_allow_diff").checked = bool2chk(allow_diff);
+	el("cb_dblclick_edit").checked = bool2chk(dblclick_edit);
+	el("cb_permit_edits").checked = bool2chk(!permit_edits);
+	el("cb_save_on_quit").checked = bool2chk(save_on_quit);
 }
 
 function refresh_menu_area() {
@@ -1070,6 +1185,7 @@ function img_display(id, visible) {
 
 function menu_display(id, visible) {
 	_gen_display(id, visible, "menu");
+//	log("menu_"+id+" is "+el("menu_"+id).style.display);
 }
 
 function create_alt_buttons() {
@@ -1082,8 +1198,8 @@ function create_alt_buttons() {
 
 // save configuration on exit
 function before_quit() {
-	if (save_on_quit)
-		_save_config_only();
+	if (save_on_quit && cfg_changed)
+		save_to_file(false);
 	return true;
 }
 
@@ -1103,7 +1219,6 @@ function on_load()
 //		setup_uri_pics(el("img_home"),el("img_back"),el("img_forward"),el("img_edit"),el("img_cancel"),el("img_save"),el("img_advanced"));
 	}
 
-		
 	img_display("back", true);
 	img_display("forward", true);
 	img_display("home", true);
@@ -1111,6 +1226,8 @@ function on_load()
 	img_display("advanced", true);
 	img_display("cancel", true);
 	img_display("save", true);
+	img_display("lock", true);
+	img_display("unlock", true);
 	
 	unsupported_browser = (!firefox && !ie);
 	document.getElementById("unsupported_browser").style.display = (unsupported_browser ? "block" : "none");
@@ -1193,7 +1310,15 @@ function update_nav_icons() {
 	menu_display("back", (backstack.length > 0));
 	menu_display("forward", (forstack.length > 0));
 	menu_display("advanced", (current != "Special:Advanced"));
-	menu_display("edit", !is_special(current) && (edit_allowed(current)));
+	var can_edit = edit_allowed(current);
+	menu_display("edit", can_edit);
+	update_lock_icons(can_edit);
+}
+
+function update_lock_icons(can_edit) {
+	var cyphered = is_encrypted(current);
+	menu_display("lock", !kbd_hooking && can_edit && cyphered);
+	menu_display("unlock", !kbd_hooking && can_edit && !cyphered);
 }
 
 // Adjusts the menu buttons
@@ -1230,6 +1355,14 @@ function edit_menu() {
 	edit_page("Special:Menu");
 }
 
+function lock() {
+	go_to("Lock:" + current);
+}
+
+function unlock() {
+	go_to("Unlock:" + current);
+}
+
 // when edit is clicked
 function edit()
 {
@@ -1245,7 +1378,18 @@ function edit_allowed(page) {
 		return false;
 	if (is_special(page) && (page!="Special:Menu"))
 		return false;
-	return true;
+	return !is_readonly(page);
+}
+
+function is_readonly(page) {
+	return (page_attrs[page_index(page)] & 1 != 0);
+}
+
+function is__encrypted(pi) {
+	return (page_attrs[pi] & 2 != 0);
+}
+function is_encrypted(page) {
+	return is__encrypted(page_index(page));
 }
 
 // setup the title boxes and gets ready to edit text
@@ -1265,6 +1409,7 @@ function current_editing(page, disabled) {
 	menu_display("edit", false);
 	menu_display("save", true);
 	menu_display("cancel", true);
+	update_lock_icons(true);
 	el("text_area").style.display = "none";
 
 	// FIXME!
@@ -1313,6 +1458,7 @@ function delete_page(page)
 			log("DELETED page "+page);
 			page_titles.splice(i,1);
 			pages.splice(i,1);
+			page_attrs.splice(i,1);
 			break;
 		}
 	}
@@ -1326,7 +1472,7 @@ function _new_syntax_patch(text) {
 					return str;
 				
 				// replace the first occurence of the two double colons
-				return str.replace("::", ":");
+				return str.replace(/::/g, ":");
 			});
 	// links without |
 	text = text.replace(/\[\[([^\|]*?)\]\]/g, function(str, $1)
@@ -1335,7 +1481,7 @@ function _new_syntax_patch(text) {
 					return str;
 				
 				// replace the first occurence of the two double colons
-				return str.replace("::", ":");
+				return str.replace(/::/g, ":");
 			});
 
 	//BUG: will also edit <pre> tags stuff
@@ -1366,7 +1512,7 @@ function save()
 					delete_page(current);
 					disable_edit();
 					back_or(main_page);
-					save_all();
+					save_to_file(true);
 				}
 				return;
 			}
@@ -1487,20 +1633,39 @@ function printout_arr(arr, split_lines) {
 	return s;
 }
 
+function printout_num_arr(arr) {
+	var s = "";
+	for(var i=0;i<arr.length-1;i++) {
+		s += "0x"+arr[i].toString(16) + ",\n";
+	}
+	if (arr.length>1)
+		s += "0x"+arr[i].toString(16) + "\n";
+	return s;
+}
+
 function save_page(page_to_save) {
 	log("Saving page \""+page_to_save+"\"");
-	save_all();
+	save_to_file(true);
 }
 
-function _save_config_only() {
-	// not yet written
+function save_options() {
+	save_to_file(false);
+	set_current("Special:Advanced");
 }
 
-function save_all() {
+function save_to_file(full) {
 	document.body.style.cursor = "wait";
 
+	var new_marker;
+	if (full)
+		new_marker = _random_string(18);
+	else new_marker = __marker;
+
 	var computed_js = "\n/* <![CDATA[ */\n\nvar version = \""+version+
+	"\";\n\nvar __marker = \""+new_marker+
 	"\";\n\nvar permit_edits = "+permit_edits+
+	";\n\nvar dblclick_edit = "+dblclick_edit+
+	";\n\nvar save_on_quit = "+save_on_quit+
 	";\n\nvar allow_diff = "+allow_diff+
 	";\n\nvar current = \"" + js_encode(current)+
 	"\";\n\nvar main_page = \"" + main_page + "\";\n\n";
@@ -1509,9 +1674,18 @@ function save_all() {
 
 	computed_js += "var page_titles = new Array(\n" + printout_arr(page_titles, false) + ");\n\n";
 	
-	computed_js += "var pages = new Array(\n" + printout_arr(pages, allow_diff) + ");\n\n";
+	computed_js += "/* " + new_marker + " */\n";
+	
+	if (full) {
+	
+		computed_js += "var page_attrs = new Array(\n" + printout_num_arr(page_attrs) + ");\n\n";
+		
+		computed_js += "var pages = new Array(\n" + printout_arr(pages, allow_diff) + ");\n\n";
+		
+		computed_js += "/* " + new_marker + " */\n";
+	}
 
-	// not needed: the end tag is provviden by the matching function
+	// not needed: the end tag must not be removed by the offset
 //	computed_js += "/* ]]> */";
 	
 	// attempt to clear the first <script> tag found in the DOM
@@ -1522,9 +1696,9 @@ function save_all() {
 			subobj = obj.childNodes[i];
 			if (subobj.tagName && subobj.tagName.toUpperCase() == "SCRIPT") {
 				if (ie)
-					subobj.text = "/* ]]> */\n";
+					subobj.text = "/* ]]> */ ";
 				else
-					subobj.innerHTML = "/* ]]> */\n";
+					subobj.innerHTML = "/* ]]> */ ";
 				break;
 			}
 		}
@@ -1542,8 +1716,15 @@ function save_all() {
 //		free_uri_pics(el("img_home"),el("img_back"),el("img_forward"),el("img_edit"),el("img_cancel"),el("img_save"),el("img_advanced"))
 	}
 	
+	// fully remove the first <script> tag
+	var offset;
+	if (full)
+		offset = document.documentElement.innerHTML.indexOf("/* ]]> */ </script>");
+	else
+		offset = document.documentElement.innerHTML.indexOf("/* "+__marker+ " */") + 6 + __marker.length;
+	
 	if (!debug || save_override)
-		r = saveThisFile(computed_js);
+		r = saveThisFile(computed_js, offset);
 	else r = false;
 	document.body.style.cursor= "auto";
 	
@@ -1552,11 +1733,14 @@ function save_all() {
 	if (ie)
 		create_alt_buttons();
 //	else		setup_uri_pics(el("img_home"),el("img_back"),el("img_forward"),el("img_edit"),el("img_cancel"),el("img_save"),el("img_advanced"))
+
+	cfg_changed = false;
+
 	return r;
 }
 
 // save this file
-function saveThisFile(data)
+function saveThisFile(data, offset)
 {
 	if(unsupported_browser)
 	{
@@ -1565,14 +1749,12 @@ function saveThisFile(data)
 	}
 	var filename = document.location.toString().split("?")[0];
 	filename = filename.replace("file:///", "");
-	filename = filename.replace(/%20/g, " ");
+	filename = filename.replace(/\s/g, "_");
 	filename = filename.replace(/#.*/g, "");
 	if(navigator.appVersion.indexOf("Win")!=-1)
 		filename = filename.replace(/\//g, "\\");
 	else
 		filename = "/" + filename;
-	
-	var offset = document.documentElement.innerHTML.search(/\/\* ]]> \*\/(\r\n|\n)<\/script>/i);
 	
 	r = saveFile(filename,
 	"<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\">\n<head>\n<script type=\"text/javascript\">" + data + "\n" + document.documentElement.innerHTML.substring(offset) + "</html>");
@@ -1738,22 +1920,24 @@ function import_wiki()
 		if (css!=null) {
 			log("Imported "+css.length+" bytes of CSS");
 			if (old_version<9)
-				css += "/* since v0.9 */\nh1 { font-size: 23px; }\nh2 { font-size: 20px; }\nh3 { font-size: 17px; }\nh4 { font-size: 14px; }\ndiv.taglinks {\n	border: 1px solid #aaa;\n/*	background-color: #f9f9f9; */\n	padding: 5px;\n	margin-top: 1em;\n	clear: both;\n}\n\na.tag {\n color: navy;\n}\n";
+				css += "/* since v0.9 */\nh1 { font-size: 23px; }\nh2 { font-size: 20px; }\nh3 { font-size: 17px; }\nh4 { font-size: 14px; }\ndiv.taglinks {\n	border: 1px solid #aaa;\n	padding: 5px;\n	margin-top: 1em;\n	clear: both;\n}\n\ndiv.search_results {\n	border: 1px solid #aaa;\n	background-color: #f9f9f9;\n	padding: 5px;\n	margin-top: 1em;\n	clear: both;\n}\n\na.link.tag {\n  color: navy;\n}";
 			document.getElementsByTagName("style")[0].innerHTML = css;
 		}
 	}
 	
 	// import the variables
 	var new_main_page = main_page;
-	var block_edits = false;
+	var old_block_edits = !permit_edits;
 	for(i=0;i<var_names.length;i++) {
 		if (var_names[i] == "main_page_")
 			new_main_page = (version!=2) ? unescape(var_values[i]) : var_values[i];
 		else if (var_names[i] == "permit_edits")
-			block_edits = (var_values[i]=="0");
+			old_block_edits = (var_values[i]=="0");
 	}
 	if (page_exists(new_main_page))
 		main_page = new_main_page;
+		
+	permit_edits = !old_block_edits;
 	
 	//note: before v0.04 permit_edits didnt exist
 	//note: in version 2 pages were not escaped
@@ -1761,14 +1945,16 @@ function import_wiki()
 	for(i=0; i<page_names.length; i++)
 	{
 		if (!is_special(page_names[i]) || (page_names[i] == "Special:Menu") || (page_names[i] == "Special:Search"))
-		{		
+		{
 			pi = page_index(page_names[i]);
 			if (pi == -1) {
 				page_titles.push(page_names[i]);
 				pages.push(page_contents[i]);
+				page_attrs.push(0);
 			} else {
 				page_titles[pi] = page_names[i];
 				pages[pi] = page_contents[i];
+				page_attrs[pi] = 0;
 			}
 			pages_imported++;
 		}
@@ -1781,7 +1967,7 @@ function import_wiki()
 	
 	current = main_page;
 	// save everything
-	save_all();
+	save_to_file(true);
 
 	back_or("Special:Import");
 }
@@ -1971,7 +2157,7 @@ if (debug) {
 	{
 	    var logbox = document.getElementById("swlogger");
 		nls = logbox.value.match(new RegExp("\n", "g"));
-		if (nls!=null && typeof(nls)=='object' && nls.length>20)
+		if (nls!=null && typeof(nls)=='object' && nls.length>11)
 			logbox.value = "";
 		logbox.value += aMessage + "\n";
 	}
@@ -1982,13 +2168,416 @@ if (debug) {
 if (!ie)
 	window.onresize = on_resize;
 
-/*
-if(ie)
-	attachEvent("onload",on_load);
-else
-	addEventListener("load",on_load,false);
-*/
-// -->
+// function used to store encrypted pages into javascript strings
+function js_hex_encode(s) {
+	// escape double quotes
+	s = s.replace(new RegExp("\"", "g"), "\\\"");
+	// escape newlines (\r\n happens only on the stupid IE) and eventually split the lines accordingly
+	s = s.replace(new RegExp("\r\n|\n", "g"), "\\n");
+	// and fix also the >= 128 ascii chars (to prevent UTF-8 characters corruption)
+	return s.replace(new RegExp("([^\u0000-\u007F])", "g"), function(str, $1) {
+				var s = $1.charCodeAt(0).toString(16);
+				for(var i=2-s.length;i>0;i--) {
+					s = "0"+s;
+				}
+				return "\\x" + s;
+	});
+}
+
+	
+/*** aes.js ***/
+
+// AES encryption for StickWiki
+// adapted by legolas558
+// license: GNU/GPL
+// original code from http://home.versatel.nl/MAvanEverdingen/Code/
+// this is a javascript conversion of a C implementation by Mike Scott
+
+var bData;
+var sData;
+var i;
+var j;
+var tot;
+var key = [];
+var lenInd = true;	// length indicator (to remove padding bytes)
+
+var wMax = 0xFFFFFFFF;
+function rotb(b,n){ return ( b<<n | b>>>( 8-n) ) & 0xFF; }
+function rotw(w,n){ return ( w<<n | w>>>(32-n) ) & wMax; }
+function getW(a,i){ return a[i]|a[i+1]<<8|a[i+2]<<16|a[i+3]<<24; }
+function setW(a,i,w){ a.splice(i,4,w&0xFF,(w>>>8)&0xFF,(w>>>16)&0xFF,(w>>>24)&0xFF); }
+function setWInv(a,i,w){ a.splice(i,4,(w>>>24)&0xFF,(w>>>16)&0xFF,(w>>>8)&0xFF,w&0xFF); }
+function getB(x,n){ return (x>>>(n*8))&0xFF; }
+
+function getNrBits(i){ var n=0; while (i>0){ n++; i>>>=1; } return n; }
+function getMask(n){ return (1<<n)-1; }
+
+function getLen(bits){
+  var n = (bits+7)>>>3;
+  var r=0;
+  for (var i=0; i<n; i++) r += bData.shift()<<(i*8);
+  return r&getMask(bits);
+}
+
+var bMax=0xFFFF;
+var bMaxBits=getNrBits(bMax);
+
+function bGetNrBits(a){ return (a.length-1)*bMaxBits+getNrBits(a[a.length-1]); }
+
+function insLen(len, bits){
+  var n=(bits+7)>>>3;
+  while (bits<n*8){ len=((len&0xFF)<<bits)|len; bits*=2; }
+  while (n-->0) bData.unshift( (len>>>(n*8))&0xFF );
+}
+
+var utf8sets = [0x800,0x10000,0x110000];
+
+function unExpChar(c){
+  return "unexpected character '"+String.fromCharCode(c)+"' (code 0x"+c.toString(16)+").";
+}
+
+function utf8Encrypt(){
+  if (i==0) { /* prgr='UTF-8'; */ bData=[]; tot=sData.length; j=0; }
+  var z = Math.min(i+100,tot);
+  var c = 0;
+  var k = 0;
+  while (i<z) {
+    c = sData.charCodeAt(i++);
+    if (c<0x80){ bData[j++]=c; continue; }
+    k=0; while(k<utf8sets.length && c>=utf8sets[k]) k++;
+    if (k>=utf8sets.length) throw( "UTF-8: "+unExpChar(c) );
+    for (var n=j+k+1;n>j;n--){ bData[n]=0x80|(c&0x3F); c>>>=6; }
+    bData[j]=c+((0xFF<<(6-k))&0xFF);
+    j += k+2;
+  }
+}
+
+function utf8Decrypt(){
+  if (i==0){ /* prgr='UTF-8'; */ sData=""; tot=bData.length; }
+  var z=Math.min(i+100,tot);
+  var c = 0;
+  var e = "";
+  var k = 0;
+  var d = 0;
+  while (i<z){
+    c = bData[i++];
+    e = '0x'+c.toString(16);
+    k=0; while(c&0x80){ c=(c<<1)&0xFF; k++; }
+    c >>= k;
+    if (k==1||k>4) {
+		throw('UTF-8: invalid first byte '+e+'.');
+	}
+    for (var n=1;n<k;n++){
+      d = bData[i++];
+      e+=',0x'+d.toString(16);
+      if (d<0x80||d>0xBF) break;
+      c=(c<<6)+(d&0x3F);
+    }
+    if ( (k==2&&c<0x80) || (k>2&&c<utf8sets[k-3]) ) {
+		throw("UTF-8: invalid sequence "+e+'.');
+	}
+    sData+=String.fromCharCode(c);
+  }
+}
+
+var aesNk;
+var aesNr;
+
+var aesPows;
+var aesLogs;
+var aesSBox;
+var aesSBoxInv;
+var aesRco;
+var aesFtable;
+var aesRtable;
+var aesFi;
+var aesRi;
+var aesFkey;
+var aesRkey;
+
+function aesMult(x, y){ return (x&&y) ? aesPows[(aesLogs[x]+aesLogs[y])%255]:0; }
+
+function aesPackBlock() {
+  return [ getW(bData,i), getW(bData,i+4), getW(bData,i+8), getW(bData,i+12) ];
+}
+
+function aesUnpackBlock(packed){
+  for ( var mj=0; mj<4; mj++,i+=4) setW( bData, i, packed[mj] );
+}
+
+function aesXTime(p){
+  p <<= 1;
+  return p&0x100 ? p^0x11B : p;
+}
+
+function aesSubByte(w){
+  return aesSBox[getB(w,0)] | aesSBox[getB(w,1)]<<8 | aesSBox[getB(w,2)]<<16 | aesSBox[getB(w,3)]<<24;
+}
+
+function aesProduct(w1,w2){
+  return aesMult(getB(w1,0),getB(w2,0)) ^ aesMult(getB(w1,1),getB(w2,1))
+       ^ aesMult(getB(w1,2),getB(w2,2)) ^ aesMult(getB(w1,3),getB(w2,3));
+}
+
+function aesInvMixCol(x){
+  return aesProduct(0x090d0b0e,x)     | aesProduct(0x0d0b0e09,x)<<8 |
+         aesProduct(0x0b0e090d,x)<<16 | aesProduct(0x0e090d0b,x)<<24;
+}
+
+function aesByteSub(x){
+  var y=aesPows[255-aesLogs[x]];
+  x=y;  x=rotb(x,1);
+  y^=x; x=rotb(x,1);
+  y^=x; x=rotb(x,1);
+  y^=x; x=rotb(x,1);
+  return x^y^0x63;
+}
+
+function aesGenTables(){
+  var i,y;
+  aesPows = [ 1,3 ];
+  aesLogs = [ 0,0,null,1 ];
+  aesSBox = new Array(256);
+  aesSBoxInv = new Array(256);
+  aesFtable = new Array(256);
+  aesRtable = new Array(256);
+  aesRco = new Array(30);
+
+  for ( i=2; i<256; i++){
+    aesPows[i]=aesPows[i-1]^aesXTime( aesPows[i-1] );
+    aesLogs[aesPows[i]]=i;
+  }
+
+  aesSBox[0]=0x63;
+  aesSBoxInv[0x63]=0;
+  for ( i=1; i<256; i++){
+    y=aesByteSub(i);
+    aesSBox[i]=y; aesSBoxInv[y]=i;
+  }
+
+  for (i=0,y=1; i<30; i++){ aesRco[i]=y; y=aesXTime(y); }
+
+  for ( i=0; i<256; i++){
+    y = aesSBox[i];
+    aesFtable[i] = aesXTime(y) | y<<8 | y<<16 | (y^aesXTime(y))<<24;
+    y = aesSBoxInv[i];
+    aesRtable[i]= aesMult(14,y) | aesMult(9,y)<<8 |
+                  aesMult(13,y)<<16 | aesMult(11,y)<<24;
+  }
+}
+
+function aesInit(){
+  key=key.slice(0,32);
+  var i,k,m;
+  var j = 0;
+  var l = key.length;
+
+  while ( l!=16 && l!=24 && l!=32 ) key[l++]=key[j++];
+  aesGenTables();
+
+  aesNk = key.length >>> 2;
+  aesNr = 6 + aesNk;
+
+  var N=4*(aesNr+1);
+  
+  aesFi = new Array(12);
+  aesRi = new Array(12);
+  aesFkey = new Array(N);
+  aesRkey = new Array(N);
+
+  for (m=j=0;j<4;j++,m+=3){
+    aesFi[m]=(j+1)%4;
+    aesFi[m+1]=(j+2)%4;
+    aesFi[m+2]=(j+3)%4;
+    aesRi[m]=(4+j-1)%4;
+    aesRi[m+1]=(4+j-2)%4;
+    aesRi[m+2]=(4+j-3)%4;
+  }
+
+  for (i=j=0;i<aesNk;i++,j+=4) aesFkey[i]=getW(key,j);
+
+  for (k=0,j=aesNk;j<N;j+=aesNk,k++){
+    aesFkey[j]=aesFkey[j-aesNk]^aesSubByte(rotw(aesFkey[j-1], 24))^aesRco[k];
+    if (aesNk<=6)
+      for (i=1;i<aesNk && (i+j)<N;i++) aesFkey[i+j]=aesFkey[i+j-aesNk]^aesFkey[i+j-1];
+    else{
+      for (i=1;i<4 &&(i+j)<N;i++) aesFkey[i+j]=aesFkey[i+j-aesNk]^aesFkey[i+j-1];
+      if ((j+4)<N) aesFkey[j+4]=aesFkey[j+4-aesNk]^aesSubByte(aesFkey[j+3]);
+      for (i=5;i<aesNk && (i+j)<N;i++) aesFkey[i+j]=aesFkey[i+j-aesNk]^aesFkey[i+j-1];
+    }
+  }
+
+  for (j=0;j<4;j++) aesRkey[j+N-4]=aesFkey[j];
+  for (i=4;i<N-4;i+=4){
+    k=N-4-i;
+    for (j=0;j<4;j++) aesRkey[k+j]=aesInvMixCol(aesFkey[i+j]);
+  }
+  for (j=N-4;j<N;j++) aesRkey[j-N+4]=aesFkey[j];
+}
+
+function aesClose(){
+  aesPows=aesLogs=aesSBox=aesSBoxInv=aesRco=null;
+  aesFtable=aesRtable=aesFi=aesRi=aesFkey=aesRkey=null;
+}
+
+function aesRounds( block, key, table, inc, box ){
+  var tmp = new Array( 4 );
+  var i,j,m,r;
+
+  for ( r=0; r<4; r++ ) block[r]^=key[r];
+  for ( i=1; i<aesNr; i++ ){
+    for (j=m=0;j<4;j++,m+=3){
+      tmp[j]=key[r++]^table[block[j]&0xFF]^
+             rotw(table[(block[inc[m]]>>>8)&0xFF], 8)^
+             rotw(table[(block[inc[m+1]]>>>16)&0xFF], 16)^
+             rotw(table[(block[inc[m+2]]>>>24)&0xFF], 24);
+    }
+    var t=block; block=tmp; tmp=t;
+  }
+
+  for (j=m=0;j<4;j++,m+=3)
+    tmp[j]=key[r++]^box[block[j]&0xFF]^
+           rotw(box[(block[inc[m  ]]>>> 8)&0xFF], 8)^
+           rotw(box[(block[inc[m+1]]>>>16)&0xFF],16)^
+           rotw(box[(block[inc[m+2]]>>>24)&0xFF],24);
+  return tmp;
+}
+
+function aesEncrypt(){
+  aesUnpackBlock( aesRounds(aesPackBlock(), aesFkey, aesFtable, aesFi, aesSBox ) );
+}
+
+function aesDecrypt(){
+  aesUnpackBlock( aesRounds(aesPackBlock(), aesRkey, aesRtable, aesRi, aesSBoxInv ) );
+}
+
+// Blockcipher
+
+function blcEncrypt(enc){
+  if (tot==0){
+//    prgr = name;
+    if (key.length<1) return;
+    if (lenInd) insLen( bData.length%16, 4 );
+    //if (cbc)
+	for (i=0; i<16; i++) bData.unshift( Math.floor(Math.random()*256) );
+    while( bData.length%16!=0 ) bData.push(0);
+    tot = bData.length;
+    aesInit();
+  }else{
+    //if (cbc)
+	for (j=i; j<i+16; j++) bData[j] ^= bData[j-16];
+    enc();
+  }
+  if (i>=tot) aesClose();
+}
+
+function blcDecrypt(dec){
+  if (tot==0){
+//    prgr = name;
+    if (key.length<1) return;
+    //if (cbc)
+	{ i=16; }
+    tot = bData.length;
+    if ( (tot%16) || tot<i ) throw 'AES: Incorrect length.';
+    aesInit();
+  }else{
+    //if (cbc)
+	i=tot-i;
+    dec();
+    //if (cbc)
+	{
+      for (j=i-16; j<i; j++) bData[j] ^= bData[j-16];
+      i = tot+32-i;
+    }
+  }
+  if (i>=tot){
+    aesClose();
+    //if (cbc)
+	bData.splice(0,16);
+    if (lenInd){
+      var ol = bData.length;
+      var k = getLen(getNrBits(15));
+      while((k+ol-bData.length)%16!=0) bData.pop();
+    }
+    else{
+      while(bData[bData.length-1]==0) bData.pop();
+    }
+  }
+}
+
+// sets global key to the utf-8 encoded key
+function AES_setKey(sKey) {
+  sData=p;
+  i=tot=0;
+  do{ utf8Encrypt(); } while (i<tot);
+  sData = null;
+  key = bData;
+  bData = null;
+}
+
+function AES_clearKey() {
+	key = [];
+}
+
+// sets global bData to the utf-8 encoded binary data extracted from d
+function setData(d) {
+	sData = d;
+	i=tot=0;
+	do{ utf8Encrypt(); } while (i<tot);
+	sData = null;
+}
+
+// returns an array of encrypted characters
+function AES_encrypt(raw_data) {
+	setData(raw_data);
+
+	// save 2 random characters for decryption control
+	var magic_pos = Math.floor(Math.random() * Math.max(0, bData.length-2));
+	var magic_len = 2;
+	bData.push(0);
+	for(a=0;a<magic_len;a++)
+		bData.push(bData[magic_pos+a]);
+
+	setW(bData, bData.length, magic_pos);
+	setW(bData, bData.length, magic_len);
+	
+	i=tot=0;
+	do{ blcEncrypt(aesEncrypt); } while (i<tot);
+
+	return bData;
+}
+
+// decrypts an array of encrypted characters
+// returns null if magic check fails
+function AES_decrypt(raw_data) {
+	bData = raw_data;
+	
+	i=tot=0;
+	do{ blcDecrypt(aesDecrypt); } while (i<tot);
+
+	// check if the magic characters were saved
+	if (bData.length < 10)
+		return null;
+	var magic_pos = getW(bData.length-8);
+	var magic_len = getW(bData.length-4);
+	if ((magic_pos >= bData.length - 9) ||
+		(magic_pos + magic_len >= bData.length - 9))
+		return null;
+	for(a=0;a<magic_len;a++)
+		if (bData[magic_pos+a] != bData[bData.length-8-magic_len+a])
+			return null;
+	
+	i=tot=0;
+	do{ utf8Decrypt(); } while (i<tot);
+	
+	return sData;
+}
+
+var test_key = "a very good password";
+
+//alert(AES_decrypt(test_key, AES_encrypt(test_key, "Hello World!")));
+
+/* ]]> */
 </script></head><body style="cursor: wait;" id="body" onload="on_load()" onunload="before_quit()">
 <table cellspacing="0">
 <tbody>
@@ -2008,7 +2597,13 @@ else
 <td class="menu" onclick="cancel()">
 <div id="menu_cancel" style="display: inline; cursor: pointer;"><img id="img_cancel" style="display: inline;" alt="Cancel" src="data:image/png;base64,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"><span id="alt_cancel" style="display: none; font-size: 24pt; font-family: wingdings;"></span></div></td>
 <td class="menu" onclick="save()">
-<div id="menu_save" style="display: inline; cursor: pointer;"><img id="img_save" style="display: inline;" alt="Save" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAAK/INwWK6QAAAAZiS0dEAP8A/wD/oL2nkwAAA0FJREFUeNq1lc+KHFUUxn/n3qqu6h7tGdPByTBOEjQunK26EQRdhAGRuHGE2agLH8C1j5AXCFnkAYyBEIKoRHeabWQyJKIm+IdAdwSd0HZPdVXdc1xU9UynbZIe/xy4XG5R93z3fN937hWqeALYqGcFhH8WBkTAD8DXTCS64n18Jo6ToFo4792hAEQEVUUVc87baDR0ZvYBcEFAngO7eeatD5vHjq2XKysDee/dNxkOc9zcOIJzgXPnrhD0mfDVl+cbt29f/0zEvREBHqD9ZIckWfCdIwnLy8v0+3t47x7PiRkAcexoLy6SZW1arTaAQyq+ACSEAtVAURQyGo3I8/krMANVoSxLQigtaKjKsgkAREAEmRjOzVeBCDgnCPXecU7g8Rn+ZfzvANHkYprxsYD/GYABiExAzS+yWcX/IwEATEu8V7w3vNc5skvVvt7Qyj2zAVSVVqvJj3d6nD37MeAxJimSh+qxuj5DMVNUA7t/wFNHInSC2mhyh6AkyQrd3gOKYhcRv2/V6dOJCBoCjWSJNG2jqiSpAPrQUaLpTXk+4mhnyObma4QAWTZABNJ0AdWDk5mB98bFi9fJ8gWSxBFCybQt/gagqjSbTU6cOMknl66xvd0DjJdfWmNj41WGwwznBFVIU0+z1WQwDMRRNNMUUyJXzIYQyPOMbvcB8DSqSre7S1mOKIoc5xxmRp57NITaebMjmvlVqmq8czingOJ8Zd8DK8pB3ke0y34n26y/qutp8n45dEQ1fPA+qkU0MzMxM4q8JMsCqkpelJgZqoZz4xvU6m6vZqs6bnxYA4hEBDNz/f7vliQtnBuQNBJL0xbr68cpw6+Asf7CsyRJimpFk1klcqOR4HxEVIvsfSzeRQAmApGZfQ9c/uLz81tpupB3Oidd736X7e0dVlc7rK4u1g6LuHXru30NzMA55f5vPfLc0CCEMkgIZTkY7Hog7PebiHNLS8uXKlQpqR5+O+wQEQVCvX6/lrHq+M13PmplWf760c7QnT79Cnt7h3nRFO+Fq1e/saLoRDd3rv10986Nb0WECMTAiOMkWzv+4qfPnyrY2nqb/p97+DletDFdcSz8/EtgNFrj3r0d7nJDRMT+AqKAkRUl/oStAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAABJRU5ErkJggg=="><span id="alt_save" style="display: none; font-size: 24pt; font-family: wingdings;">&lt;</span></div></td></tr></tbody></table>
+<div id="menu_save" style="display: inline; cursor: pointer;"><img id="img_save" style="display: inline;" alt="Save" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAAK/INwWK6QAAAAZiS0dEAP8A/wD/oL2nkwAAA0FJREFUeNq1lc+KHFUUxn/n3qqu6h7tGdPByTBOEjQunK26EQRdhAGRuHGE2agLH8C1j5AXCFnkAYyBEIKoRHeabWQyJKIm+IdAdwSd0HZPdVXdc1xU9UynbZIe/xy4XG5R93z3fN937hWqeALYqGcFhH8WBkTAD8DXTCS64n18Jo6ToFo4792hAEQEVUUVc87baDR0ZvYBcEFAngO7eeatD5vHjq2XKysDee/dNxkOc9zcOIJzgXPnrhD0mfDVl+cbt29f/0zEvREBHqD9ZIckWfCdIwnLy8v0+3t47x7PiRkAcexoLy6SZW1arTaAQyq+ACSEAtVAURQyGo3I8/krMANVoSxLQigtaKjKsgkAREAEmRjOzVeBCDgnCPXecU7g8Rn+ZfzvANHkYprxsYD/GYABiExAzS+yWcX/IwEATEu8V7w3vNc5skvVvt7Qyj2zAVSVVqvJj3d6nD37MeAxJimSh+qxuj5DMVNUA7t/wFNHInSC2mhyh6AkyQrd3gOKYhcRv2/V6dOJCBoCjWSJNG2jqiSpAPrQUaLpTXk+4mhnyObma4QAWTZABNJ0AdWDk5mB98bFi9fJ8gWSxBFCybQt/gagqjSbTU6cOMknl66xvd0DjJdfWmNj41WGwwznBFVIU0+z1WQwDMRRNNMUUyJXzIYQyPOMbvcB8DSqSre7S1mOKIoc5xxmRp57NITaebMjmvlVqmq8czingOJ8Zd8DK8pB3ke0y34n26y/qutp8n45dEQ1fPA+qkU0MzMxM4q8JMsCqkpelJgZqoZz4xvU6m6vZqs6bnxYA4hEBDNz/f7vliQtnBuQNBJL0xbr68cpw6+Asf7CsyRJimpFk1klcqOR4HxEVIvsfSzeRQAmApGZfQ9c/uLz81tpupB3Oidd736X7e0dVlc7rK4u1g6LuHXru30NzMA55f5vPfLc0CCEMkgIZTkY7Hog7PebiHNLS8uXKlQpqR5+O+wQEQVCvX6/lrHq+M13PmplWf760c7QnT79Cnt7h3nRFO+Fq1e/saLoRDd3rv10986Nb0WECMTAiOMkWzv+4qfPnyrY2nqb/p97+DletDFdcSz8/EtgNFrj3r0d7nJDRMT+AqKAkRUl/oStAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAABJRU5ErkJggg=="><span id="alt_save" style="display: none; font-size: 24pt; font-family: wingdings;">&lt;</span></div>
+</td>
+<td>
+<div id="menu_lock" style="display: none; cursor: pointer;" onclick="lock()"><img id="img_lock" style="display: inline;" alt="Lock" src="locked.png"><span id="alt_lock" style="display: none; font-size: 24pt; font-family: wingdings;">I</span></div>
+</td><td>
+<div id="menu_unlock" style="display: none; cursor: pointer;" onclick="unlock()"><img id="img_unlock" style="display: inline;" alt="Unlock" src="unlocked.png"><span id="alt_unlock" style="display: none; font-size: 24pt; font-family: wingdings;">C</span></div>
+</td></tr></tbody></table>
 <hr>
 <div id="unsupported_browser" style="display: none;"><i>Your browser is not supported. You can access the wiki but you won't be able to save.</i></div>
 <table id="text_area" style="display: none;" cellspacing="10">
@@ -2026,7 +2621,7 @@ else
 <tr>
 <td>&nbsp;</td></tr></tbody></table><!-- Editor -->
 <div id="edit_area" style="display: block;">
-<div id="edit_page_title" style="display: block;">Page title: <input id="wiki_page_title" value="Main Page"></div><textarea id="wiki_editor" style="width: 994px; height: 430px;" rows="0" cols="0"></textarea> 
+<div id="edit_page_title" style="display: block;">Page title: <input id="wiki_page_title" value="Main Page" size="50"></div><textarea id="wiki_editor" style="width: 994px; height: 430px;" rows="0" cols="0"></textarea> 
 <table style="font-size: 8pt;">
 <tbody>
 <tr>
