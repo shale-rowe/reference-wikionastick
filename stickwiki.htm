@@ -7,7 +7,7 @@
 
 var version = "0.9B";
 
-var __marker = "hItqLUKXrbAFfDnDDb";
+var __marker = "CNTSeuXKUMcVpcgOZi";
 
 var permit_edits = true;
 
@@ -17,31 +17,32 @@ var save_on_quit = false;
 
 var allow_diff = true;
 
-var current = "Special:Menu";
+var current = "Main Page";
 
 var main_page = "Main Page";
 
 var backstack = new Array(
-"Main Page",
-"Special:Advanced",
-"Special:Menu"
 );
 
 var page_titles = new Array(
-"Special:Menu",
-"Special:Advanced",
-"Special:Import",
-"Special:About",
+"Special::Menu",
+"Special::Advanced",
+"Special::Import",
+"Special::About",
 "Main Page",
-"Special:Search",
-"MyPages:Page 1",
-"MyPages:Page 2",
-"MyPages:Approved:Page 3",
-"Hello there!"
+"Special::Search",
+"MyPages::Page 1",
+"MyPages::Page 2",
+"MyPages::Approved::Page 3",
+"Hello there!",
+"Special::Lock",
+"Special::Security"
 );
 
-/* hItqLUKXrbAFfDnDDb */
+/* CNTSeuXKUMcVpcgOZi */
 var page_attrs = new Array(
+0x0,
+0x0,
 0x0,
 0x0,
 0x0,
@@ -57,27 +58,27 @@ var page_attrs = new Array(
 var pages = new Array(
 "[[Main Page]]\n" +
 "\n" +
-"[[Special:Advanced]]\n" +
-"[[Special:Backlinks]]\n" +
-"[[Special:Search]]",
+"[[Special::Advanced]]\n" +
+"[[Special::Backlinks]]\n" +
+"[[Special::Search]]",
 "!Info\n" +
-"  [[Special:About|About Wiki on a Stick]]\n" +
+"  [[Special::About|About Wiki on a Stick]]\n" +
 "  This wiki was last modified in <span id=\"lastDate\"></span>.\n" +
 "\n" +
 "!Pages\n" +
-"  [[Special:All Pages|All Pages]]: a list of all user created pages in this wiki\n" +
-"  [[Special:|All Special Pages]]: list of all system pages\n" +
-"  [[Special:Pages not yet created|Pages not yet created]]: a list of pages that have links to them, but were still not created \n" +
-"  [[Special:Orphaned Pages|Orphaned Pages]]: a list of pages that once were linked to, but now no page links to them anymore\n" +
-"  [[Special:Search|Search]]: search all wiki pages\n" +
+"  [[Special::All Pages|All Pages]]: a list of all user created pages in this wiki\n" +
+"  [[Special::|All Special Pages]]: list of all system pages\n" +
+"  [[Special::Pages not yet created|Pages not yet created]]: a list of pages that have links to them, but were still not created \n" +
+"  [[Special::Orphaned Pages|Orphaned Pages]]: a list of pages that once were linked to, but now no page links to them anymore\n" +
+"  [[Special::Search|Search]]: search all wiki pages\n" +
 "\n" +
 "!Maintenance\n" +
-"  [[Special:Import|Import wiki]] from an early (or current) version.\n" +
-"  [[Special:Erase Wiki|Erase Wiki]]: delete ALL wiki pages and reset with default data\n" +
+"  [[Special::Import|Import wiki]] from an early (or current) version.\n" +
+"  [[Special::Erase Wiki|Erase Wiki]]: delete ALL wiki pages and reset with default data\n" +
 "\n" +
 "!Special edits\n" +
-"  [[Special:Edit CSS|Edit CSS]]: edit the global CSS styles\n" +
-"  [[Special:Edit Menu|Edit Menu]]: edit main menu (on the left)\n" +
+"  [[Special::Edit CSS|Edit CSS]]: edit the global CSS styles\n" +
+"  [[Special::Edit Menu|Edit Menu]]: edit main menu (on the left)\n" +
 "\n" +
 "!Options\n" +
 "  <label for=\"cb_allow_diff\"><input type=\"checkbox\" id=\"cb_allow_diff\" onclick=\"allow_diff = el_eval('cb_allow_diff')\" />Diff mode (consistent newlines splitting in saved data, useful for versioning)<br />\n" +
@@ -105,7 +106,7 @@ var pages = new Array(
 "* *Knut Kohl*\n" +
 "* *Rob Schmersel*\n" +
 "* *Cyril Mazard* - search feature\n" +
-"* *plumloco* - XHTML lists\n" +
+"* the StickWiki google group for their support, advices and testing\n" +
 "\n" +
 "If, for any reason, you don't want your name listed here, just send an email.\n" +
 "\n" +
@@ -119,34 +120,41 @@ var pages = new Array(
 "!!How to use\n" +
 "/(click on the pencil icon on the top right corner to edit the wiki source)/\n" +
 "\n" +
-"You can also double click anywhere on the text to edit (if this option is enabled from [[Special:Advanced]]), and you can use escape to cancel editing or to go backward.\n" +
+"You can also double click anywhere on the text to edit (if this option is enabled from [[Special::Advanced]]), and you can use escape to cancel editing or to go backward.\n" +
 "\n" +
-"If you have an older Wiki on a Stick (v0.01 &tilde; v0.04), [[Special:Import|import it]]!\n" +
+"!!Upgrading\n" +
+"\n" +
+"If you have an older Wiki on a Stick (v0.01 &tilde; v0.04), [[Special::Import|import it]]!\n" +
+"\n" +
+"!!!Syntax changes in v0.9\n" +
+"There have been a few changes in the wiki syntax, they will be automatically applied on import or saving (except the wiki link parts inversion).\n" +
+"\n" +
+"* bullet lists are recognized using a plus sign '+' (previous stickwiki syntax) or an asterisk '*' (0.9 stickwiki syntax), with preference for asterisk lists\n" +
+"* namespace separator is '::'\n" +
+"* wiki link parts are inverted, e.g. no more [<!-- -->[the label|WikiActualPage]] but [<!-- -->[WikiActualPage|the label]]\n" +
+"\n" +
+"!Syntax examples \n" +
 "\n" +
 "Follows a brief example of all the capabilities of Wiki on a Stick syntax.\n" +
 "\n" +
 "!!Formatting\n" +
 "!!!Subheader of third level\n" +
 "!!!!Subheader of fourth level\n" +
-"\n" +
 "<pre>\n" +
-"\n" +
 "This is pre-formatted text!\n" +
 "</pre>\n" +
 "\n" +
 "<pre style=\"color:gray\">\n" +
-"\n" +
 "This is pre-formatted text with CSS style!\n" +
 "</pre>\n" +
-"\n" +
 "!!Some specials\n" +
 "\n" +
-"Using [[Special:Main Page]] you will always link to the main page, no matters what its name is.\n" +
+"Using [[Special::Main Page]] you will always link to the main page, no matters what its name is.\n" +
 "\n" +
-"New pages have red links, like this [[New page]], but you can use [[Special:New page]] to automatically create a new one.\n" +
+"New pages have red links, like this [[New page]], but you can use [[Special::New page]] to automatically create a new one.\n" +
 "\n" +
 "!!Tags and namespaces\n" +
-"There is support for [[Tagged:Nice|tags]] and namespaces. For example, see [[MyPages:Page 1]] and [[MyPages:Page 2]], both belonging to the [[MyPages:]] namespace. You can also use subnamespaces, like in [[MyPages:Approved:Page 3]]\n" +
+"There is support for [[Tagged:Nice|tags]] and namespaces. For example, see [[MyPages::Page 1]] and [[MyPages::Page 2]], both belonging to the [[MyPages::]] namespace. You can also use subnamespaces, like in [[MyPages::Approved::Page 3]]\n" +
 "\n" +
 "!!Syntax parser testcases\n" +
 "\n" +
@@ -207,21 +215,49 @@ var pages = new Array(
 "\n" +
 "<input id=\"string_to_search\" type=\"text\" onfocus=\"search_focus(true)\" onblur=\"search_focus(false)\" />&nbsp;<input type=\"button\" value=\"Search\" onclick=\"do_search()\" />&nbsp;<input type=\"button\" value=\"Clear\" onclick=\"clear_search()\" />\n" +
 "",
-"Hello there! I am indeed a better page than [[MyPages:Page 2]]\n" +
+"Hello there! I am indeed a better page than [[MyPages::Page 2]]\n" +
 "\n" +
-"[[Tags: Nice]]",
-"Hey, don't tell anyone around but...I am better than [[MyPages:Page 1]]!",
+"[[Tags:: Nice]]",
+"Hey, don't tell anyone around but...I am better than [[MyPages::Page 1]]!",
 "This is a page in a subnamespace!\n" +
 "\n" +
-"The parent namespace is [[MyPages:]] while the subnamespace is [[MyPages:Approved:]]\n" +
+"The parent namespace is [[MyPages::]] while the subnamespace is [[MyPages::Approved::]]\n" +
 "\n" +
 "",
 "saadadsasd\n" +
 "\n" +
-"dasasd"
+"dasasd",
+"!!AES encryption\n" +
+"Read more about the [[Special::Security|embedded AES encryption]] used in Wiki On a Stick.\n" +
+"\n" +
+"!!Password\n" +
+"Enter your password for AES encryption. The more complex your password is, the more difficult it will be to attack the encryption. It is suggested *not* to use passwords whose textbox color is <span style=\"background-color:red\">&nbsp;red&nbsp;</span>, and to accept passwords only when the textbox color is <span style=\"background-color:cyan\">&nbsp;cyan&nbsp;</span>.\n" +
+"\n" +
+"  <input type=\"password\" id=\"pw1\" style=\"background-color:red\" value=\"\" size=\"50\" onkeypress=\"pw_quality()\" />&nbsp;<span id=\"txtBits\">&nbsp;</span>\n" +
+"  <input type=\"password\" id=\"pw2\" value=\"\" size=\"50\" />\n" +
+"  <input id=\"btn_lock\" type=\"button\" value=\"\" />",
+"!!AES encryption\n" +
+"Since Wiki on a Stick v0.9 the [[http://en.wikipedia.org/wiki/Advanced_Encryption_Standard|AES]] 256-bit high security data encryption standard is supported to protect a single page or groups of them.\n" +
+"\n" +
+" *If you forget your key there is no way to retrieve it or your data, FOREVER*.\n" +
+"\n" +
+"!!How Do I Encrypt a page?\n" +
+"In order to encrypt a page you will have to click on the /lock/ icon on the top-right navigation panel; if your page is already encrypted you will first have to unlock it.\n" +
+"\n" +
+"!!Security level\n" +
+"Security is never absolute. Data encrypted with these pages might be compromised in a variety of ways, including but not limited to the following:\n" +
+"\n" +
+"* Your Web browser and/or JavaScript interpreter may contain bugs or deliberate security violations which report activity on your computer back to some other Internet site.\n" +
+"* Some other applet running on another page in your browser, perhaps without your being aware of its existence, is spying on other windows.\n" +
+"* Some other \"spyware\" application running on your computer may have compromised your system's security and be snooping on your activity.\n" +
+"* Your Web browser may be keeping a \"history log\" or \"cache\" of data you generate. Somebody may come along later and recover a copy of your data from that log.\n" +
+"* The implementation of the encryption may contain a bug which makes its results insecure. This is why transparency is essential. Wiki on a Stick is open-source. You can judge for yourself whether the tool merits your confidence.\n" +
+"* Your computer's security may have been compromised physically; when's the last time you checked that a bug that transmits your keystrokes and/or screen contents to that white van parked down the street wasn't lurking inside your computer cabinet?\n" +
+"\n" +
+"Apart from the above, your normal usage of encrypted pages can be considered secure. They will be even more secure if you do not open them."
 );
 
-/* hItqLUKXrbAFfDnDDb */
+/* CNTSeuXKUMcVpcgOZi */
 
 /* ]]> */ </script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -340,7 +376,7 @@ a.link.tag {
 <tbody>
 <tr>
 <td style="width: 100%;" valign="bottom">
-<p class="title" id="wiki_title">Editing Special:Menu</p></td>
+<p class="title" id="wiki_title">Editing Main Page</p></td>
 <td class="menu" onclick="go_back()">
 <div id="menu_back" style="display: none; cursor: pointer;"><img id="img_back" style="display: inline;" alt="Back" src="data:image/png;base64,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"><span id="alt_back" style="display: none; font-size: 24pt; font-family: wingdings;"></span></div></td>
 <td class="menu" onclick="go_forward()">
@@ -378,7 +414,7 @@ a.link.tag {
 <tr>
 <td>&nbsp;</td></tr></tbody></table><!-- Editor -->
 <div id="edit_area" style="display: block;">
-<div id="edit_page_title" style="display: block;">Page title: <input disabled="disabled" id="wiki_page_title" value="Main Page" size="50"></div><textarea id="wiki_editor" style="width: 994px; height: 430px;" rows="0" cols="0"></textarea> 
+<div id="edit_page_title" style="display: block;">Page title: <input id="wiki_page_title" value="Main Page" size="50"></div><textarea id="wiki_editor" style="width: 994px; height: 430px;" rows="0" cols="0"></textarea> 
 <table style="font-size: 8pt;">
 <tbody>
 <tr>

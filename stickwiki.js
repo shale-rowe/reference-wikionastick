@@ -61,7 +61,7 @@ function page_index(page) {
 // Returns if a page exists
 function page_exists(page)
 {
-	return (is_special(page) || (page.indexOf("Tagged:")==0) || (page[page.length-1]==":") || (page_index(page)!=-1));
+	return (is_special(page) || (page.indexOf("Tagged::")==0) || (page.substring(page.length-2)=="::") || (page_index(page)!=-1));
 }
 
 function str_rep(s, n) {
@@ -70,11 +70,15 @@ function str_rep(s, n) {
    return r;
 }
 
+function _rand(scale) {
+	return Math.floor(Math.random() * scale);
+}
+
 function _random_string(string_length) {
 	var chars = "ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
 	var randomstring = '';
 	for (var i=0; i<string_length; i++) {
-		var rnum = Math.floor(Math.random() * chars.length);
+		var rnum = _rand(chars.length);
 		randomstring += chars.charAt(rnum);
 	}
 	return randomstring;
@@ -84,10 +88,10 @@ var parse_marker = "#"+_random_string(8);
 
 function _get_tags(text) {
 	var tags = new Array();
-	if (text.indexOf("Tag:")==0) {
-		tags.push(text.substring(4));
-	} else if (text.indexOf("Tags:")==0) {
-		var alltags = text.substring(5).split(",");
+	if (text.indexOf("Tag::")==0) {
+		tags.push(text.substring(5));
+	} else if (text.indexOf("Tags::")==0) {
+		var alltags = text.substring(6).split(",");
 		for(i=0;i<alltags.length;i++) {
 			tags.push(alltags[i].replace(/^\s/g, "").replace(/\s$/g, ""));
 		}
@@ -230,10 +234,13 @@ function parse(text)
 		return tag;
 	});
 	
-	// headers
-	for(i=1;i<5;i++) {
+	// headers (from h1 to h6, defined by the HTML 3.2 standard)
+	for(i=1;i<7;i++) {
 		text = header_replace(str_rep("!", i), text);
 	}
+	
+	// cleanup closing </hx> vs <br /> tags
+	text = text.replace(/(<\/h\d>)\n/g, "$1");
 	
 	// <hr>
 	text = text.replace(/(^|\n)\-\-\-/g, "<hr />");
@@ -358,7 +365,7 @@ function _simple_join_list(arr, sorted) {
 	return arr.join("\n")+"\n";
 }
 
-// with trailing double colon
+// with two trailing double colon
 function _get_namespace(ns) {
 	var pg = new Array();
 	for(var i=0;i<page_titles.length;i++) {
@@ -409,7 +416,7 @@ function special_search( str )
 
 	for(i=0; i<pages.length; i++)
 	{
-		if (is_special(page_titles[i]) && (page_titles[i] != "Special:Menu"))
+		if (is_special(page_titles[i]) && (page_titles[i] != "Special::Menu"))
 			continue;
 //		log("Searching into "+page_titles[i]);
 		
@@ -620,7 +627,7 @@ function clear_search() {
 	if (!cached_search.length)
 		return;
 	cached_search = "";
-	assert_current("Special:Search");
+	assert_current("Special::Search");
 }
 
 function assert_current(page) {
@@ -640,25 +647,25 @@ function do_search()
 	
 	cached_search = special_search( search_string )
 
-	assert_current("Special:Search");
+	assert_current("Special::Search");
 }
 
 function is_special(page) {
-	return (page.search(/Special:/i)==0);
+	return (page.search(/Special::/i)==0);
 }
 
 function _create_page(ns, cr, ask) {
 		switch (ns) {
-			case "Special:":
-			case "Lock:":
-			case "Unlock:":
-			case "Tag:":
-			case "Tagged:":
+//			case "Special::":
+			case "Lock::":
+			case "Unlock::":
+			case "Tag::":
+			case "Tagged::":
 				alert("You are not allowed to create a page titled \""+ns+cr+"\" because namespace \""+ns+"\" is reserved");
-			return;
+			return false;
 		}
 		if (ask && !confirm("Page not found. Do you want to create it?"))
-			return;
+			return false;
 		// create and edit the new page
 		cr = ns+cr;
 		pages.push("Insert text here");
@@ -667,6 +674,7 @@ function _create_page(ns, cr, ask) {
 		current = cr;
 		log("Now pages list is: "+page_titles);
 		edit_page(cr);
+		return true;
 //			save_page(cr);
 }
 
@@ -681,24 +689,25 @@ function _get_special(cr) {
 					alert("A page with title \""+title+"\" already exists!");
 				else {
 					cr = title;
-					if (cr[cr.length-1]==":") {
+					if (cr.substring(cr.length-2)=="::") {
 						alert("You cannot create a page for a namespace");
 					} else {
-						var p = cr.indexOf(":");
+						var p = cr.indexOf("::");
 						if (p!=-1) {
-							ns = cr.substring(0,p+1);
+							ns = cr.substring(0,p+2);
 							log("namespace of "+cr+" is "+ns);
-							cr = cr.substring(p+1);
+							cr = cr.substring(p+2);
 						} else ns="";
-						_create_page(ns, cr, false);
+						if (!_create_page(ns, cr, false))
+							return;
 						if (confirm("Do you want to add a link in the main menu?")) {
-							var menu = get_text("Special:Menu");
+							var menu = get_text("Special::Menu");
 							var p = menu.indexOf("\n\n");
 							if (p==-1)
 								menu += "\n[["+ns+cr+"]]";
 							else
 								menu = menu.substring(0,p)+"\n[["+title+"]]"+menu.substring(p);
-							_set_text(page_index("Special:Menu"), menu);
+							_set_text(page_index("Special::Menu"), menu);
 							refresh_menu_area();
 						}
 					}
@@ -707,12 +716,12 @@ function _get_special(cr) {
 			}
 			return;
 		case "Search":
-			text = get_text("Special:"+cr);
+			text = get_text("Special::"+cr);
 			text += cached_search;
 			break;
 		case "Advanced":
-			text = get_text("Special:"+cr);
-			post_dom_render = "_setup_options";
+			text = get_text("Special::"+cr);
+			post_dom_render = "_setup_options()";
 			break;
 		case "Erase Wiki":
 			if (erase_wiki()) {
@@ -736,7 +745,7 @@ function _get_special(cr) {
 			text = special_links_here();
 			break;
 		case "Edit Menu":
-			go_to("Special:Menu");
+			go_to("Special::Menu");
 			edit();
 			return null;
 		case "Edit CSS":
@@ -744,7 +753,7 @@ function _get_special(cr) {
 			el("wiki_editor").value = document.getElementsByTagName("style")[0].innerHTML;
 			return null;
 		default:
-			text = get_text("Special:"+cr);
+			text = get_text("Special::"+cr);
 			if(text == null)
 				alert("Invalid special page.");
 	}
@@ -756,15 +765,15 @@ function set_current(cr)
 {
 	var text;
 	log("Setting \""+cr+"\" as current page");
-	if (cr[cr.length-1]==":") {
+	if (cr.substring(cr.length-2)=="::") {
 		text = _get_namespace(cr);
 		ns = "";
 	} else {
-		var p = cr.indexOf(":");
+		var p = cr.indexOf("::");
 		if (p!=-1) {
 			namespace = cr.substring(0,p);
 			log("namespace of "+cr+" is "+namespace);
-			cr = cr.substring(p+1);
+			cr = cr.substring(p+2);
 				switch (namespace) {
 					case "Special":
 						text = _get_special(cr);
@@ -784,7 +793,7 @@ function set_current(cr)
 						pi = page_index(cr);
 						if ((pi==-1) || is__encrypted(pi))
 							return;
-						text = get_text("Special:Lock");
+						text = get_text("Special::Lock");
 						post_dom_render = "_setup_lock_page('"+_sq_esc(cr)+"')";
 						break;
 					case "Unlock":
@@ -832,7 +841,7 @@ function load_as_current(title, text) {
 	document.title = title;
 	update_nav_icons();
 	if (post_dom_render.length!=0) {
-		eval(post_dom_render+"()");
+		eval(post_dom_render);
 		post_dom_render = "";
 	}
 }
@@ -856,9 +865,62 @@ function _setup_options() {
 	el("cb_save_on_quit").checked = bool2chk(save_on_quit);
 }
 
+function _setup_lock_page(page) {
+	el("btn_lock").value = "Lock "+page;
+	el("btn_lock").onclick = "alert('hello')";
+	el("pw1").focus();
+}
+
+function pw_quality() {
+
+function _hex_col(tone) {
+	var s=Math.floor(tone).toString(16);
+	if (s.length==1)
+		return "0"+s;
+	return s;
+}
+
+	// from http://lxr.mozilla.org/seamonkey/source/security/manager/pki/resources/content/password.js
+	// Here is how we weigh the quality of the password
+	// number of characters
+	// numbers
+	// non-alpha-numeric chars
+	// upper and lower case characters
+	var pw=el('pw1').value;
+
+	//length of the password
+	var pwlength=pw.length;
+
+//use of numbers in the password
+  var numnumeric = pw.replace (/[0-9]/g, "");
+  var numeric=numnumeric.length/pwlength;
+
+//use of symbols in the password
+  var symbols = pw.replace (/\W/g, "");
+  var numsymbols= symbols.length/pwlength;
+
+//use of uppercase in the password
+  var numupper = pw.replace (/[A-Z]/g, "");
+  var upper=numupper.length/pwlength;
+  // end of modified code from Mozilla
+
+//   var pwstrength=((pwlength*10)-20) + (numeric*10) + (numsymbols*15) + (upper*10);
+  
+	// 80% of security defined by length, 10% by symbols, 5% by numeric presence and 5% by upper case presence
+	var pwstrength = ((pwlength/16) * 80) + (numsymbols * 10 + upper*5 + numeric*5);
+  
+	if (pwstrength>100)
+		color = "cyan";
+	else
+		color = "#AA"+ _hex_col((pwstrength*256)/100) + "00";
+  
+	el("pw1").style.backgroundColor = color;
+	el("txtBits").innerHTML = "Key size: "+(pwlength*8).toString() + " bits";
+}
+
 function refresh_menu_area() {
 /*
-	var bl_src = "\n\n[[Special:Backlinks]]";
+	var bl_src = "\n\n[[Special::Backlinks]]";
 	if (is_special(current)) {
 		pre_src = "";
 		post_src = bl_src;
@@ -866,7 +928,7 @@ function refresh_menu_area() {
 		post_src = "";
 		pre_src = bl_src;
 	}	*/
-	el("menu_area").innerHTML = parse(get_text("Special:Menu")/*+pre_src)+post_src*/);
+	el("menu_area").innerHTML = parse(get_text("Special::Menu")/*+pre_src)+post_src*/);
 }
 
 function _gen_display(id, visible, prefix) {
@@ -1009,7 +1071,7 @@ function on_resize()
 function update_nav_icons() {
 	menu_display("back", (backstack.length > 0));
 	menu_display("forward", (forstack.length > 0));
-	menu_display("advanced", (current != "Special:Advanced"));
+	menu_display("advanced", (current != "Special::Advanced"));
 	var can_edit = edit_allowed(current);
 	menu_display("edit", can_edit);
 	update_lock_icons(can_edit);
@@ -1052,7 +1114,7 @@ function page_dblclick() {
 }
 
 function edit_menu() {
-	edit_page("Special:Menu");
+	edit_page("Special::Menu");
 }
 
 function lock() {
@@ -1076,7 +1138,7 @@ function edit_allowed(page) {
 		return true;
 	if (!permit_edits)
 		return false;
-	if (is_special(page) && (page!="Special:Menu"))
+	if (is_special(page) && (page!="Special::Menu"))
 		return false;
 	return !is_readonly(page);
 }
@@ -1166,27 +1228,9 @@ function delete_page(page)
 	}
 }
 
+// applies some on-the-fly patches for the syntax changes in v0.9
 function _new_syntax_patch(text) {
-	// links with |
-	text = text.replace(/\[\[([^\]\]]*?)\|(.*?)\]\]/g, function(str, $1, $2)
-			{
-				if($1.indexOf("://")!=-1)
-					return str;
-				
-				// replace the first occurence of the two double colons
-				return str.replace(/::/g, ":");
-			});
-	// links without |
-	text = text.replace(/\[\[([^\|]*?)\]\]/g, function(str, $1)
-			{
-				if($1.match("://"))
-					return str;
-				
-				// replace the first occurence of the two double colons
-				return str.replace(/::/g, ":");
-			});
-
-	//BUG: will also edit <pre> tags stuff
+	//BUG: will also modify text contained in <pre> tags
 	text = text.replace(/(^|\n)(\+*)/g, function (str, $1, $2) {
 		return $1+str_rep("*", $2.length);
 	});
@@ -1199,10 +1243,10 @@ function save()
 {
 	switch(current)
 	{
-		case "Special:Edit CSS":
+		case "Special::Edit CSS":
 			document.getElementsByTagName("style")[0].innerHTML = el("wiki_editor").value;
 			back_to = null;
-			current = "Special:Advanced";
+			current = "Special::Advanced";
 			el("wiki_page_title").disabled = "";
 			break;
 		default:
@@ -1223,7 +1267,7 @@ function save()
 				// here the page gets actually saved
 				set_text(el("wiki_editor").value);
 				new_title = el("wiki_page_title").value;
-				if (new_title=="Special:Menu") {
+				if (new_title=="Special::Menu") {
 					refresh_menu_area();
 					back_to = prev_title;
 //					alert(prev_title);
@@ -1265,7 +1309,7 @@ function back_or(or_page) {
 // when Advanced is clicked
 function advanced()
 {
-	go_to("Special:Advanced");
+	go_to("Special::Advanced");
 }
 
 function history_mem(page) {
@@ -1352,7 +1396,7 @@ function save_page(page_to_save) {
 
 function save_options() {
 	save_to_file(false);
-	set_current("Special:Advanced");
+	set_current("Special::Advanced");
 }
 
 function save_to_file(full) {
@@ -1480,12 +1524,12 @@ function saveFile(fileUrl, content)
 function erase_wiki() {
 	if(confirm("This will ERASE all your pages.\n\nAre you sure you want to continue?") == false)
 		return false;
-	var pg_advanced = get_text("Special:Advanced");
-	var pg_import = get_text("Special:Import");
-	var pg_search = get_text("Special:Search");
-	var pg_about = get_text("Special:About");
-	page_titles = new Array("Main Page", "Special:Menu", "Special:Advanced", "Special:Import", "Special:Search", "Special:About");
-	pages = new Array("This is your empty main page", "[[Main Page]]\n\n[[Special:Advanced]]\n[[Special:Backlinks]]\n[[Special:Search]]", pg_advanced, pg_import, pg_search, pg_about);
+	var pg_advanced = get_text("Special::Advanced");
+	var pg_import = get_text("Special::Import");
+	var pg_search = get_text("Special::Search");
+	var pg_about = get_text("Special::About");
+	page_titles = new Array("Main Page", "Special::Menu", "Special::Advanced", "Special::Import", "Special::Search", "Special::About");
+	pages = new Array("This is your empty main page", "[[Main Page]]\n\n[[Special::Advanced]]\n[[Special::Backlinks]]\n[[Special::Search]]", pg_advanced, pg_import, pg_search, pg_about);
 	current = main_page = "Main Page";
 	backstack = new Array();
 	forstack = new Array();	
@@ -1531,7 +1575,7 @@ function import_wiki()
 		}
 	} catch(e) {
 		old_version = 2;
-		if(ct.match("<div id=\""+escape("Special:Advanced")+"\">"))
+		if(ct.match("<div id=\""+escape("Special::Advanced")+"\">"))
 			old_version = 3;
 	}
 
@@ -1604,7 +1648,7 @@ function import_wiki()
 							return str;
 					}));
 					if (page_names[pc] == "Special::Edit Menu")
-						page_names[pc] = "Special:Menu";
+						page_names[pc] = "Special::Menu";
 				}
 				pc++;
 			}
@@ -2209,7 +2253,7 @@ function blcDecrypt(dec){
 
 // sets global key to the utf-8 encoded key
 function AES_setKey(sKey) {
-  sData=p;
+  sData=sKey;
   i=tot=0;
   do{ utf8Encrypt(); } while (i<tot);
   sData = null;
@@ -2234,8 +2278,8 @@ function AES_encrypt(raw_data) {
 	setData(raw_data);
 
 	// save 2 random characters for decryption control
-	var magic_pos = Math.floor(Math.random() * Math.max(0, bData.length-2));
-	var magic_len = 2;
+	var magic_pos = _rand( Math.max(0, bData.length-2));
+	var magic_len = 2 + _rand(4);
 	bData.push(0);
 	for(a=0;a<magic_len;a++)
 		bData.push(bData[magic_pos+a]);
@@ -2268,6 +2312,8 @@ function AES_decrypt(raw_data) {
 	for(a=0;a<magic_len;a++)
 		if (bData[magic_pos+a] != bData[bData.length-8-magic_len+a])
 			return null;
+			
+	bData.splice(bData.length-8 - magic_len, 8 + magic_len + 1);
 	
 	i=tot=0;
 	do{ utf8Decrypt(); } while (i<tot);
@@ -2275,8 +2321,8 @@ function AES_decrypt(raw_data) {
 	return sData;
 }
 
-var test_key = "a very good password";
-
-//alert(AES_decrypt(test_key, AES_encrypt(test_key, "Hello World!")));
+//var test_key = "a very good password";
+//AES_setKey(test_key);
+//alert(AES_decrypt(AES_encrypt("Hello World!")));
 
 /* ]]> */
