@@ -11,6 +11,7 @@ var forstack = new Array();
 var cached_search = "";
 var cfg_changed = false;	// true when configuration has been changed
 var search_focused = false;
+var _custom_focus = false;
 var prev_title = current;	// used when entering/exiting edit mode
 var decrypt_failed = false;
 var post_dom_render = "";
@@ -852,7 +853,14 @@ function _setup_lock_page(page) {
 	el("pw1").focus();
 }
 
+var _pw_q_lock = false;
+
 function pw_quality() {
+
+	if (_pw_q_lock)
+		return;
+		
+	_pw_q_lock = true;
 
 function _hex_col(tone) {
 	var s=Math.floor(tone).toString(16);
@@ -871,32 +879,38 @@ function _hex_col(tone) {
 
 	//length of the password
 	var pwlength=pw.length;
+	
+	if (pwlength!=0) {
 
-//use of numbers in the password
-  var numnumeric = pw.replace (/[0-9]/g, "");
-  var numeric=numnumeric.length/pwlength;
+	//use of numbers in the password
+	  var numnumeric = pw.replace (/[0-9]/g, "");
+	  var numeric=numnumeric.length/pwlength;
 
-//use of symbols in the password
-  var symbols = pw.replace (/\W/g, "");
-  var numsymbols= symbols.length/pwlength;
+	//use of symbols in the password
+	  var symbols = pw.replace (/\W/g, "");
+	  var numsymbols= symbols.length/pwlength;
 
-//use of uppercase in the password
-  var numupper = pw.replace (/[A-Z]/g, "");
-  var upper=numupper.length/pwlength;
-  // end of modified code from Mozilla
+	//use of uppercase in the password
+	  var numupper = pw.replace (/[A-Z]/g, "");
+	  var upper=numupper.length/pwlength;
+	  // end of modified code from Mozilla
 
-//   var pwstrength=((pwlength*10)-20) + (numeric*10) + (numsymbols*15) + (upper*10);
-  
-	// 80% of security defined by length, 10% by symbols, 5% by numeric presence and 5% by upper case presence
-	var pwstrength = ((pwlength/16) * 80) + (numsymbols * 10 + upper*5 + numeric*5);
+	//   var pwstrength=((pwlength*10)-20) + (numeric*10) + (numsymbols*15) + (upper*10);
+	  
+		// 80% of security defined by length (at least 16, best 22 chars), 10% by symbols, 5% by numeric presence and 5% by upper case presence
+		var pwstrength = ((pwlength/18) * 80) + (numsymbols * 10 + upper*5 + numeric*5);
+	} else
+		var pwstrength = 0;
   
 	if (pwstrength>100)
-		color = "cyan";
+		color = "#00FF00";
 	else
-		color = "#AA"+ _hex_col((pwstrength*256)/100) + "00";
+		color = "#" + _hex_col((100-pwstrength)*255/100) + _hex_col((pwstrength*255)/100) + "00";
   
 	el("pw1").style.backgroundColor = color;
 	el("txtBits").innerHTML = "Key size: "+(pwlength*8).toString() + " bits";
+	
+	_pw_q_lock = false;
 }
 
 function refresh_menu_area() {
@@ -1005,6 +1019,12 @@ function search_focus(focused) {
 		ff_fix_focus();
 }
 
+function custom_focus(focused) {
+	_custom_focus = focused;
+	if (!focused)
+		ff_fix_focus();
+}
+
 var kbd_hooking=false;
 
 function kbd_hook(orig_e)
@@ -1015,6 +1035,8 @@ function kbd_hook(orig_e)
 		e = orig_e;
 		
 	if (!kbd_hooking) {
+		if (_custom_focus)
+			return orig_e;
 		if (search_focused) {
 			if (e.keyCode==13) {
 				ff_fix_focus();
@@ -1099,11 +1121,11 @@ function edit_menu() {
 }
 
 function lock() {
-	go_to("Lock:" + current);
+	go_to("Lock::" + current);
 }
 
 function unlock() {
-	go_to("Unlock:" + current);
+	go_to("Unlock::" + current);
 }
 
 // when edit is clicked
