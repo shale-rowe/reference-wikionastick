@@ -806,6 +806,7 @@ function img_display(id, visible) {
 
 function menu_display(id, visible) {
 	_gen_display(id, visible, "menu");
+	log("menu_"+id+" is "+el("menu_"+id).style.display);
 }
 
 function create_alt_buttons() {
@@ -846,6 +847,8 @@ function on_load()
 	img_display("advanced", true);
 	img_display("cancel", true);
 	img_display("save", true);
+	img_display("lock", true);
+	img_display("unlock", true);
 	
 	unsupported_browser = (!firefox && !ie);
 	document.getElementById("unsupported_browser").style.display = (unsupported_browser ? "block" : "none");
@@ -930,9 +933,13 @@ function update_nav_icons() {
 	menu_display("advanced", (current != "Special:Advanced"));
 	var can_edit = edit_allowed(current);
 	menu_display("edit", can_edit);
+	update_lock_icons(can_edit);
+}
+
+function update_lock_icons(can_edit) {
 	var cyphered = is_encrypted(current);
-	menu_display("lock", !kbd_hooking & can_edit & cyphered);
-	menu_display("unlock", !kbd_hooking & can_edit & !cyphered);
+	menu_display("lock", !kbd_hooking && can_edit && cyphered);
+	menu_display("unlock", !kbd_hooking && can_edit && !cyphered);
 }
 
 // Adjusts the menu buttons
@@ -1020,6 +1027,7 @@ function current_editing(page, disabled) {
 	menu_display("edit", false);
 	menu_display("save", true);
 	menu_display("cancel", true);
+	update_lock_icons(true);
 	el("text_area").style.display = "none";
 
 	// FIXME!
