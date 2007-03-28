@@ -7,7 +7,7 @@
 
 var version = "0.9B";
 
-var __marker = "gmWTPuwMdfNaVnuoRo";
+var __marker = "KDunFAnLGglbkXKKQK";
 
 var permit_edits = true;
 
@@ -17,16 +17,11 @@ var save_on_quit = false;
 
 var allow_diff = true;
 
-var current = "Main Page";
+var current = "Apos'here";
 
 var main_page = "Main Page";
 
 var backstack = new Array(
-"Main Page",
-"Special:Search",
-"Main Page",
-"Special:Advanced",
-"Special:About"
 );
 
 var page_titles = new Array(
@@ -37,11 +32,15 @@ var page_titles = new Array(
 "Main Page",
 "Special:Search",
 "MyPages:Page 1",
-"MyPages:Page 2"
+"MyPages:Page 2",
+"MyPages:Approved:Page 3",
+"Apos'here"
 );
 
-/* gmWTPuwMdfNaVnuoRo */
+/* KDunFAnLGglbkXKKQK */
 var page_attrs = new Array(
+0,
+0,
 0,
 0,
 0,
@@ -111,16 +110,20 @@ var pages = new Array(
 "\n" +
 "Read more at [[http://sf.net/projects/stickwiki/|Our SourceForge Project]]\n" +
 "We also have a [[http://groups.google.com/group/stickwiki/|Google dicussion group]]",
-"!Wiki on a Stick Example\n" +
-"!!Formatting\n" +
-"!!!Third header\n" +
-"!!!!Fourth header\n" +
-"\n" +
+"!Welcome to Wiki on a Stick!\n" +
+"A self-containing XHTML wiki.\n" +
+"!!How to use\n" +
 "/(click on the pencil icon on the top right corner to edit the wiki source)/\n" +
 "\n" +
-"You can also double click anywhere on the text to edit, and you can use escape to cancel editing\n" +
+"You can also double click anywhere on the text to edit (if this option is enabled from [[Special:Advanced]]), and you can use escape to cancel editing or to go backward.\n" +
 "\n" +
-"If you have an older Wiki on a Stick, [[Special:Import|import it]]!\n" +
+"If you have an older Wiki on a Stick (v0.01 &tilde; v0.04), [[Special:Import|import it]]!\n" +
+"\n" +
+"Follows a brief example of all the capabilities of Wiki on a Stick syntax.\n" +
+"\n" +
+"!!Formatting\n" +
+"!!!Subheader of third level\n" +
+"!!!!Subheader of fourth level\n" +
 "\n" +
 "<pre>\n" +
 "\n" +
@@ -129,14 +132,17 @@ var pages = new Array(
 "\n" +
 "<pre style=\"color:gray\">\n" +
 "\n" +
-"This is stylish pre-formatted text!\n" +
+"This is pre-formatted text with CSS style!\n" +
 "</pre>\n" +
+"\n" +
+"!!Some specials\n" +
 "\n" +
 "Using [[Special:Main Page]] you will always link to the main page, no matters what its name is.\n" +
 "\n" +
-"New pages have red links, like this [[New page]]\n" +
+"New pages have red links, like this [[New page]], but you can use [[Special:New page]] to automatically create a new one.\n" +
 "\n" +
-"There is support for [[Tagged:Nice|tags]] and namespaces. For example, see [[MyPages:Page 1]] and [[MyPages:Page 2]], both belonging to the [[MyPages:]] namespace.\n" +
+"!!Tags and namespaces\n" +
+"There is support for [[Tagged:Nice|tags]] and namespaces. For example, see [[MyPages:Page 1]] and [[MyPages:Page 2]], both belonging to the [[MyPages:]] namespace. You can also use subnamespaces, like in [[MyPages:Approved:Page 3]]\n" +
 "\n" +
 "!!Syntax parser testcases\n" +
 "\n" +
@@ -200,10 +206,16 @@ var pages = new Array(
 "Hello there! I am indeed a better page than [[MyPages:Page 2]]\n" +
 "\n" +
 "[[Tags: Nice]]",
-"Hey, don't tell anyone around but...I am better than [[MyPages:Page 1]]!"
+"Hey, don't tell anyone around but...I am better than [[MyPages:Page 1]]!",
+"This is a page in a subnamespace!\n" +
+"\n" +
+"The parent namespace is [[MyPages:]] while the subnamespace is [[MyPages:Approved:]]\n" +
+"\n" +
+"Here is an apostrophed page [[Apos'here]]",
+"daasdsadsa"
 );
 
-/* gmWTPuwMdfNaVnuoRo */
+/* KDunFAnLGglbkXKKQK */
 
 /* ]]> */ </script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -322,7 +334,7 @@ a.link.tag {
 <tbody>
 <tr>
 <td style="width: 100%;" valign="bottom">
-<p class="title" id="wiki_title">Editing Main Page</p></td>
+<p class="title" id="wiki_title">Editing Apos'here</p></td>
 <td class="menu" onclick="go_back()">
 <div id="menu_back" style="display: none; cursor: pointer;"><img id="img_back" style="display: inline;" alt="Back" src="data:image/png;base64,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"><span id="alt_back" style="display: none; font-size: 24pt; font-family: wingdings;"></span></div></td>
 <td class="menu" onclick="go_forward()">
@@ -360,7 +372,7 @@ a.link.tag {
 <tr>
 <td>&nbsp;</td></tr></tbody></table><!-- Editor -->
 <div id="edit_area" style="display: block;">
-<div id="edit_page_title" style="display: block;">Page title: <input id="wiki_page_title" value="Main Page"></div><textarea id="wiki_editor" style="width: 994px; height: 430px;" rows="0" cols="0"></textarea> 
+<div id="edit_page_title" style="display: block;">Page title: <input id="wiki_page_title" value="Main Page" size="50"></div><textarea id="wiki_editor" style="width: 994px; height: 430px;" rows="0" cols="0"></textarea> 
 <table style="font-size: 8pt;">
 <tbody>
 <tr>

@@ -184,6 +184,11 @@ function parseList(str) {
         return toStr(stk[1]);
     }
 
+// single quote escaping for page titles	
+function _sq_esc(s) {
+	return s.replace(/'/g, "\\'");
+}
+
 // used not to break layout when presenting search results
 var force_inline = false;
 
@@ -262,9 +267,9 @@ function parse(text)
 					return "<a class=\"world\" href=\"" + $1 + "\" target=\"_blank\">" + $2 + "<\/a>";
 				
 				if(page_exists($1))
-					return "<a class=\"link\" onclick='go_to(\"" + $1 +"\")'>" + $2 + "<\/a>";
+					return "<a class=\"link\" onclick='go_to(\"" + _sq_esc($1) +"\")'>" + $2 + "<\/a>";
 				else
-					return "<a class=\"unlink\" onclick='go_to(\"" + $1 +"\")'>" + $2 + "<\/a>";
+					return "<a class=\"unlink\" onclick='go_to(\"" + _sq_esc($1) +"\")'>" + $2 + "<\/a>";
 			}); //"<a class=\"wiki\" onclick='go_to(\"$2\")'>$1<\/a>");
 	// links without |
 	var inline_tags = 0;
@@ -284,9 +289,9 @@ function parse(text)
 				}
 				
 				if(page_exists($1))
-					return "<a class=\"link\" onclick='go_to(\"" + $1 +"\")'>" + $1 + "<\/a>";
+					return "<a class=\"link\" onclick=\"go_to('" + _sq_esc($1) +"')\">" + $1 + "<\/a>";
 				else
-					return "<a class=\"unlink\" onclick='go_to(\"" + $1 +"\")'>" + $1 + "<\/a>";
+					return "<a class=\"unlink\" onclick=\"go_to('" + _sq_esc($1) +"')\">" + $1 + "<\/a>";
 					}); //"<a class=\"wiki\" onclick='go_to(\"$1\")'>$1<\/a>");
 
 	if (ie)
@@ -319,10 +324,10 @@ function parse(text)
 			s = "<div class=\"taglinks\">";
 		s += "Tags: ";
 		for(i=0;i<tags.length-1;i++) {
-			s+="<a class=\"link tag\" onclick=\"go_to('Tagged:"+tags[i]+"')\">"+tags[i]+"</a>&nbsp;&nbsp;";
+			s+="<a class=\"link tag\" onclick=\"go_to('Tagged:"+_sq_esc(tags[i])+"')\">"+tags[i]+"</a>&nbsp;&nbsp;";
 		}
 		if (tags.length>0)
-			s+="<a class=\"link tag\" onclick=\"go_to('Tagged:"+tags[tags.length-1]+"')\">"+tags[tags.length-1]+"</a>";
+			s+="<a class=\"link tag\" onclick=\"go_to('Tagged:"+_sq_esc(tags[tags.length-1])+"')\">"+tags[tags.length-1]+"</a>";
 		if (!force_inline) {
 			s+="</div>";
 			text += s;
@@ -342,6 +347,8 @@ function parse(text)
 
 // prepends and appends a newline character to workaround plumloco's XHTML lists parsing bug
 function _join_list(arr) {
+	if (!arr.length)
+		return "";
 	return "\n* [["+arr.sort().join("]]\n* [[")+"]]\n";
 }
 
@@ -351,10 +358,11 @@ function _simple_join_list(arr, sorted) {
 	return arr.join("\n")+"\n";
 }
 
+// with trailing double colon
 function _get_namespace(ns) {
 	var pg = new Array();
 	for(var i=0;i<page_titles.length;i++) {
-		if (page_titles[i].indexOf(ns+":")==0)
+		if (page_titles[i].indexOf(ns)==0)
 			pg.push( page_titles[i]);
 	}
 	return "!Pages in "+ns+" namespace\n" + _join_list(pg);
@@ -672,50 +680,52 @@ function set_current(cr)
 	var text;
 	log("Setting \""+cr+"\" as current page");
 	post_dom_render = "";
-	var p = cr.indexOf(":");
-	if (p!=-1) {
-		namespace = cr.substring(0,p);
-		log("namespace of "+cr+" is "+namespace);
-		cr = cr.substring(p+1);
-		if (!cr.length)
-			text = _get_namespace(namespace);
-		else {
-			switch (namespace) {
-				case "Special":
-					text = _get_special(cr);
-					if (text == null)
-						return;
-					break;
-				case "Tagged":
-					text = _get_tagged(cr);
-					if (text == null)
-						return;
-					break;
-				case "Lock":
-					cr = namespace+":"+cr;
-					if (page_index(cr)==-1)
-						return;
-					if (is_encrypted(cr)) {
-						//TODO: ask previous password
-					}
-					//TODO: set a password encryption
-					return;
-				case "Unlock":
-					cr = namespace+":"+cr;
-					if (page_index(cr)==-1)
-						return;
-					if (!is_encrypted(cr))
-						return;
-					//TODO: ask previous password and remove it
-					return;
-				default:
-					text = get_text(namespace+":"+cr);
-			}
-		}
-		ns = namespace+":";
-	} else {
+	if (cr[cr.length-1]==":") {
+		text = _get_namespace(cr);
 		ns = "";
-		text = get_text(cr);
+	} else {
+		var p = cr.indexOf(":");
+		if (p!=-1) {
+			namespace = cr.substring(0,p);
+			log("namespace of "+cr+" is "+namespace);
+			cr = cr.substring(p+1);
+				switch (namespace) {
+					case "Special":
+						text = _get_special(cr);
+						if (text == null)
+							return;
+						break;
+					case "Tagged":
+						text = _get_tagged(cr);
+						if (text == null)
+							return;
+						break;
+					case "Lock":
+						cr = namespace+":"+cr;
+						if (page_index(cr)==-1)
+							return;
+						if (is_encrypted(cr)) {
+							//TODO: ask previous password
+						}
+						//TODO: set a password encryption
+						return;
+					case "Unlock":
+						cr = namespace+":"+cr;
+						if (page_index(cr)==-1)
+							return;
+						if (!is_encrypted(cr))
+							return;
+						//TODO: ask previous password and remove it
+						return;
+					default:
+						text = get_text(namespace+":"+cr);
+				}
+
+			ns = namespace+":";
+		} else {
+			ns = "";
+			text = get_text(cr);
+		}
 	}
 	
 	if(text == null)
@@ -1090,7 +1100,7 @@ function _new_syntax_patch(text) {
 					return str;
 				
 				// replace the first occurence of the two double colons
-				return str.replace("::", ":");
+				return str.replace(/::/g, ":");
 			});
 	// links without |
 	text = text.replace(/\[\[([^\|]*?)\]\]/g, function(str, $1)
@@ -1099,7 +1109,7 @@ function _new_syntax_patch(text) {
 					return str;
 				
 				// replace the first occurence of the two double colons
-				return str.replace("::", ":");
+				return str.replace(/::/g, ":");
 			});
 
 	//BUG: will also edit <pre> tags stuff
@@ -1775,7 +1785,7 @@ if (debug) {
 	{
 	    var logbox = document.getElementById("swlogger");
 		nls = logbox.value.match(new RegExp("\n", "g"));
-		if (nls!=null && typeof(nls)=='object' && nls.length>20)
+		if (nls!=null && typeof(nls)=='object' && nls.length>11)
 			logbox.value = "";
 		logbox.value += aMessage + "\n";
 	}
