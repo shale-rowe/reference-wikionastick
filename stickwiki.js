@@ -2366,6 +2366,7 @@ function setData(d) {
 function AES_encrypt(raw_data) {
 	setData(raw_data);
 
+/*
 	// save 2 random characters for decryption control
 	var magic_pos = _rand( Math.max(0, bData.length-2));
 	var magic_len = 2 + _rand(4);
@@ -2375,7 +2376,8 @@ function AES_encrypt(raw_data) {
 
 	setW(bData, bData.length, magic_pos);
 	setW(bData, bData.length, magic_len);
-	
+*/
+
 	i=tot=0;
 	do{ blcEncrypt(aesEncrypt); } while (i<tot);
 
@@ -2390,6 +2392,7 @@ function AES_decrypt(raw_data) {
 	i=tot=0;
 	do{ blcDecrypt(aesDecrypt); } while (i<tot);
 
+/*
 	// check if the magic characters were saved
 	if (bData.length < 10)
 		return null;
@@ -2403,6 +2406,7 @@ function AES_decrypt(raw_data) {
 			return null;
 			
 	bData.splice(bData.length-8 - magic_len, 8 + magic_len + 1);
+*/
 	
 	i=tot=0;
 	do{ utf8Decrypt(); } while (i<tot);
