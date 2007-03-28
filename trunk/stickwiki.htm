@@ -7,7 +7,7 @@
 
 var version = "0.9B";
 
-var __marker = "xMIhLLcMqQimxDiTcJ";
+var __marker = "CcIxFpbhPkIygGaxof";
 
 var permit_edits = true;
 
@@ -17,11 +17,15 @@ var save_on_quit = false;
 
 var allow_diff = true;
 
-var current = "Special::About";
+var current = "Special::Lock";
 
 var main_page = "Main Page";
 
 var backstack = new Array(
+"Special::About",
+"Lock::Special::About",
+"Special::Advanced",
+"Special::"
 );
 
 var page_titles = new Array(
@@ -39,7 +43,7 @@ var page_titles = new Array(
 "Special::Security"
 );
 
-/* xMIhLLcMqQimxDiTcJ */
+/* CcIxFpbhPkIygGaxof */
 var page_attrs = new Array(
 0x0,
 0x0,
@@ -233,13 +237,15 @@ var pages = new Array(
 "!!Password\n" +
 "Enter your password for AES encryption. The more complex your password is, the more difficult it will be to attack the encryption. It is suggested *not* to use passwords whose textbox color is <span style=\"background-color:red\">&nbsp;red&nbsp;</span>, and to accept passwords only when the textbox color is <span style=\"background-color:lime\">&nbsp;green&nbsp;</span>.\n" +
 "\n" +
+" *If you forget the password there is no way to retrieve it or your data, FOREVER.*\n" +
+"\n" +
 "  <input type=\"password\" id=\"pw1\" style=\"background-color:red\" value=\"\" size=\"50\" onfocus=\"custom_focus(true)\" onblur=\"custom_focus(false)\" onkeyup=\"pw_quality()\" />&nbsp;<span id=\"txtBits\">&nbsp;</span>\n" +
 "  <input type=\"password\" id=\"pw2\" value=\"\" size=\"50\" onfocus=\"custom_focus(true)\" onblur=\"custom_focus(false)\" />\n" +
 "  <input id=\"btn_lock\" type=\"button\" value=\"\" />",
 "!!AES encryption\n" +
 "Since Wiki on a Stick v0.9 the [[http://en.wikipedia.org/wiki/Advanced_Encryption_Standard|AES]] 256-bit high security data encryption standard is supported to protect a single page or groups of them.\n" +
 "\n" +
-" *If you forget your key there is no way to retrieve it or your data, FOREVER*.\n" +
+" *If you forget the password there is no way to retrieve it or your data, FOREVER*.\n" +
 "\n" +
 "!!How Do I Encrypt a page?\n" +
 "In order to encrypt a page you will have to click on the /lock/ icon on the top-right navigation panel; if your page is already encrypted you will first have to unlock it.\n" +
@@ -257,7 +263,7 @@ var pages = new Array(
 "Apart from the above, your normal usage of encrypted pages can be considered secure. They will be even more secure if you do not open them."
 );
 
-/* xMIhLLcMqQimxDiTcJ */
+/* CcIxFpbhPkIygGaxof */
 
 /* ]]> */ </script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -272,12 +278,6 @@ p.title {
   margin-bottom: 0pt;
   margin-top: 0pt;
 }
-
-/* Text */
-/*
-.text_area {
-  font-family: "Arial";
-} */
 
 /* Left menu */
 div.menu_area {
@@ -370,13 +370,20 @@ div.search_results {
 a.link.tag {
   color: navy;
 }
+
+/* main wiki pane when locked */
+div.text_area.locked {
+	background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAEAQMAAACTPww9AAAAB3RJTUUH1wMcDgM7DjiDLQAAAAlwSFlzAAAuIgAALiIBquLdkgAAAARnQU1BAACxjwv8YQUAAAAGUExURf%2F%2F%2F93d3RxnYCYAAAAQSURBVHjaYzBgmMBwgCEBAAbIAeGwZobHAAAAAElFTkSuQmCC);
+	background-color: #eeeeee;
+}
+
 </style>
 <script src="stickwiki.js" type="text/javascript"></script></head><body style="cursor: wait;" id="body" onload="on_load()" onunload="before_quit()">
 <table cellspacing="0">
 <tbody>
 <tr>
 <td style="width: 100%;" valign="bottom">
-<p class="title" id="wiki_title">Editing Special::About</p></td>
+<p class="title" id="wiki_title">Editing Special::Lock</p></td>
 <td class="menu" onclick="go_back()">
 <div id="menu_back" style="display: none; cursor: pointer;"><img id="img_back" style="display: inline;" alt="Back" src="data:image/png;base64,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"><span id="alt_back" style="display: none; font-size: 24pt; font-family: wingdings;"></span></div></td>
 <td class="menu" onclick="go_forward()">
