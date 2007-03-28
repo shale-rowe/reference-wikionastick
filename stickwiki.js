@@ -543,6 +543,32 @@ function special_links_here()
 		return "!!Links to "+current+"\n"+_join_list(pg);
 }
 
+function is_readonly(page) {
+	return is__readonly(page_index(page));
+}
+
+function is__readonly(pi) {
+	if (page_attrs[pi] & 1)
+		return true;
+	return false;
+}
+
+function is__encrypted(pi) {
+	if (debug) {
+		if (pi==-1) {
+			alert("Invalid page index!");
+			return;
+		}
+	}
+	log(page_titles[pi]+" flags: "+page_attrs[pi].toString(16)+" (enc:"+(page_attrs[pi] & 2)+")");
+	if (page_attrs[pi] & 2)
+		return true;
+	return false;
+}
+function is_encrypted(page) {
+	return is__encrypted(page_index(page));
+}
+
 // retrieve a stored page
 function get_text(title)
 {
@@ -1181,19 +1207,6 @@ function edit_allowed(page) {
 	return !is_readonly(page);
 }
 
-function is_readonly(page) {
-	return (page_attrs[page_index(page)] & 1 != 0);
-}
-
-function is__encrypted(pi) {
-	if (page_attrs[pi] & 2 != 0)
-		return true;
-	return false;
-}
-function is_encrypted(page) {
-	return is__encrypted(page_index(page));
-}
-
 // setup the title boxes and gets ready to edit text
 function current_editing(page, disabled) {
 	log("Currently editing "+page+", title disabled: "+disabled);
@@ -1440,10 +1453,11 @@ function printout_mixed_arr(arr, split_lines, attrs) {
 	return s;
 }
 
+// used to print out encrypted pages bytes and attributes
 function printout_num_arr(arr) {
 	var s = "";
 	for(var i=0;i<arr.length-1;i++) {
-		s += "0x"+arr[i].toString(16) + ", ";
+		s += "0x"+arr[i].toString(16) + ",";
 	}
 	if (arr.length>1)
 		s += "0x"+arr[i].toString(16);
@@ -1477,17 +1491,17 @@ function save_to_file(full) {
 	";\n\nvar current = \"" + js_encode(current)+
 	"\";\n\nvar main_page = \"" + main_page + "\";\n\n";
 	
-	computed_js += "var backstack = new Array(\n" + printout_arr(backstack, false) + ");\n\n";
+	computed_js += "var backstack = [\n" + printout_arr(backstack, false) + "];\n\n";
 
-	computed_js += "var page_titles = new Array(\n" + printout_arr(page_titles, false) + ");\n\n";
+	computed_js += "var page_titles = [\n" + printout_arr(page_titles, false) + "];\n\n";
 	
 	computed_js += "/* " + new_marker + " */\n";
 	
 	if (full) {
 	
-		computed_js += "var page_attrs = new Array(\n" + printout_num_arr(page_attrs) + ");\n\n";
+		computed_js += "var page_attrs = [" + printout_num_arr(page_attrs) + "];\n\n";
 		
-		computed_js += "var pages = new Array(\n" + printout_mixed_arr(pages, allow_diff, page_attrs) + ");\n\n";
+		computed_js += "var pages = [\n" + printout_mixed_arr(pages, allow_diff, page_attrs) + "];\n\n";
 		
 		computed_js += "/* " + new_marker + " */\n";
 	}
