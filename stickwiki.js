@@ -806,7 +806,7 @@ function img_display(id, visible) {
 
 function menu_display(id, visible) {
 	_gen_display(id, visible, "menu");
-	log("menu_"+id+" is "+el("menu_"+id).style.display);
+//	log("menu_"+id+" is "+el("menu_"+id).style.display);
 }
 
 function create_alt_buttons() {
