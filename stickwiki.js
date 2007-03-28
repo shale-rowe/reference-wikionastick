@@ -93,7 +93,7 @@ function _get_tags(text) {
 		tags.push(text.substring(5));
 	} else if (text.indexOf("Tags::")==0) {
 		var alltags = text.substring(6).split(",");
-		for(i=0;i<alltags.length;i++) {
+		for(var i=0;i<alltags.length;i++) {
 			tags.push(alltags[i].replace(/^\s/g, "").replace(/\s$/g, ""));
 		}
 	}
@@ -313,7 +313,7 @@ function parse(text)
 		else
 			s = "<div class=\"taglinks\">";
 		s += "Tags: ";
-		for(i=0;i<tags.length-1;i++) {
+		for(var i=0;i<tags.length-1;i++) {
 			s+="<a class=\"link tag\" onclick=\"go_to('Tagged:"+_sq_esc(tags[i])+"')\">"+tags[i]+"</a>&nbsp;&nbsp;";
 		}
 		if (tags.length>0)
@@ -351,6 +351,13 @@ function _simple_join_list(arr, sorted) {
 // with two trailing double colon
 function _get_namespace(ns) {
 	var pg = new Array();
+	switch (ns) {
+		case "Locked::":
+			return "!Pages in "+ns+" namespace\n" + special_encrypted_pages(true);
+		case "Unlocked::":
+			return "!Pages in "+ns+" namespace\n" + special_encrypted_pages(false);
+	}
+
 	for(var i=0;i<page_titles.length;i++) {
 		if (page_titles[i].indexOf(ns)==0)
 			pg.push( page_titles[i]);
@@ -386,6 +393,15 @@ function _get_tagged(tag) {
 	return "!Pages tagged with " + tag + "\n" + _join_list(pg);
 }
 
+function special_encrypted_pages(locked) {
+	var pg = [];
+	for(var i=0;i<pages.length;i++) {
+		if (locked == is__encrypted(i))
+			pg.push(page_titles[i]);
+	}
+	return _join_list(pg);
+}
+
 // Returns a index of search pages (by miz & legolas558)
 function special_search( str )
 {
@@ -397,7 +413,7 @@ function special_search( str )
 	var reg = new RegExp( ".*" + RegExp.escape(str).replace(/^\s+/, "").
 					replace(/\s+$/, "").replace(/\s+/g, ".*") + ".*", "gi" );
 
-	for(i=0; i<pages.length; i++)
+	for(var i=0; i<pages.length; i++)
 	{
 		if (is_special(page_titles[i]) && (page_titles[i] != "Special::Menu"))
 			continue;
@@ -430,7 +446,7 @@ function special_all_pages()
 {
 	var pg = new Array();
 	var text = "";
-	for(i=0; i<page_titles.length; i++)
+	for(var i=0; i<page_titles.length; i++)
 	{
 		if (!is_special(page_titles[i]))
 			pg.push( page_titles[i] );
@@ -457,7 +473,7 @@ function special_dead_pages () { // Returns a index of all dead pages
 				p = $1;
 				if (!page_exists(p) && ((up = p.toUpperCase)!=page_titles[j].toUpperCase())) {
 //					up = p.toUpperCase();
-					for(i=0;i<dead_pages.length;i++) {
+					for(var i=0;i<dead_pages.length;i++) {
 						if (dead_pages[i].toUpperCase()==up) {
 							from_pages[i].push(page_titles[j]);
 							page_done = true;
@@ -476,7 +492,7 @@ function special_dead_pages () { // Returns a index of all dead pages
 	}
 
 	var pg = new Array();
-	for(i=0;i<dead_pages.length;i++) {
+	for(var i=0;i<dead_pages.length;i++) {
 		s = "[["+dead_pages[i]+"]] from ";
 		var from = from_pages[i];
 		for(j=0;j<from.length-1;j++) {
@@ -502,7 +518,7 @@ function special_orphaned_pages()
 		if (is_special(page_titles[j]))
 			continue;
 		// search for pages that link to it
-		for(i=0; i<pages.length; i++) {
+		for(var i=0; i<pages.length; i++) {
 			if ((i==j) /*|| is_special(page_titles[i])*/)
 				continue;
 			if( (pages[i].toUpperCase().indexOf("[[" + page_titles[j].toUpperCase() + "]]") != -1)
@@ -668,6 +684,8 @@ function _create_page(ns, cr, ask) {
 		switch (ns) {
 //			case "Special::":
 			case "Lock::":
+			case "Locked::":
+			case "Unlocked::":
 			case "Unlock::":
 			case "Tag::":
 			case "Tagged::":
@@ -700,7 +718,7 @@ function _get_special(cr) {
 				else {
 					cr = title;
 					if (cr.substring(cr.length-2)=="::") {
-						alert("You cannot create a page for a namespace");
+						alert("You cannot create a page as a namespace");
 					} else {
 						var p = cr.indexOf("::");
 						if (p!=-1) {
@@ -794,10 +812,6 @@ function set_current(cr)
 						text = _get_tagged(cr);
 						if (text == null)
 							return;
-						break;
-					case "Locked":
-					case "Unlocked":
-						text = "Not yet implemented";
 						break;
 					case "Lock":
 						pi = page_index(cr);
@@ -1258,7 +1272,7 @@ function edit_page(page) {
 function rename_page(previous, newpage)
 {
 	log("Renaming "+previous+" to "+newpage);
-	for(i=0; i<pages.length; i++)
+	for(var i=0; i<pages.length; i++)
 	{
 		if(page_titles[i] == previous)
 		{
@@ -1274,7 +1288,7 @@ function rename_page(previous, newpage)
 // when a page is deleted
 function delete_page(page)
 {
-	for(i=0; i<pages.length; i++)
+	for(var i=0; i<pages.length; i++)
 	{
 		if(page_titles[i].toUpperCase() == page.toUpperCase())
 		{
@@ -1757,7 +1771,7 @@ function import_wiki()
 	// import the variables
 	var new_main_page = main_page;
 	var old_block_edits = !permit_edits;
-	for(i=0;i<var_names.length;i++) {
+	for(var i=0;i<var_names.length;i++) {
 		if (var_names[i] == "main_page_")
 			new_main_page = (version!=2) ? unescape(var_values[i]) : var_values[i];
 		else if (var_names[i] == "permit_edits")
@@ -1771,7 +1785,7 @@ function import_wiki()
 	//note: before v0.04 permit_edits didnt exist
 	//note: in version 2 pages were not escaped
 	
-	for(i=0; i<page_names.length; i++)
+	for(var i=0; i<page_names.length; i++)
 	{
 		if (!is_special(page_names[i]) || (page_names[i] == "Special:Menu") || (page_names[i] == "Special:Search"))
 		{
