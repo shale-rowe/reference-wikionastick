@@ -455,7 +455,7 @@ function special_all_pages()
 }
 
 // Returns a index of all dead pages
-function special_dead_pages () { // Returns a index of all dead pages
+function special_dead_pages () {
 	var dead_pages = new Array();
 	var from_pages = new Array();
 	var page_done = false;
@@ -1268,7 +1268,6 @@ function edit_page(page) {
 	el("wiki_editor").value = get_text(page);
 }
 
-// renames a page
 function rename_page(previous, newpage)
 {
 	log("Renaming "+previous+" to "+newpage);
