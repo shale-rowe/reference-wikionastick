@@ -850,8 +850,36 @@ function _setup_options() {
 
 function _setup_lock_page(page) {
 	el("btn_lock").value = "Lock "+page;
-	el("btn_lock").onclick = "alert('hello')";
+	el("btn_lock").onclick = "lock_page('"+_sq_esc(page)+"')";
 	el("pw1").focus();
+}
+
+function lock_page(page) {
+	var pwd = el("pw1").value;
+	if (!pwd.length) {
+		pw1.focus();
+		return;
+	}
+	if (pwd!=el("pw2").value) {
+		pw2.focus();
+		return;
+	}
+	var pi = page_index(page);
+	if (debug) {
+		if (pi==-1) {
+			alert("Cannot encrypt unexisting page!");
+			return;
+		}
+		if (is__encrypted(pi)) {
+			alert("Page already encrypted!");
+			return;
+		}
+	}
+	AES_setKey(pwd);
+	pages[pi] = AES_encrypt(pages[pi]);
+	page_attrs[pi] += 2;
+	save_to_file(true);
+	go_to(page);
 }
 
 var _pw_q_lock = false;
@@ -1085,6 +1113,12 @@ function update_lock_icons(can_edit) {
 	var cyphered = is_encrypted(current);
 	menu_display("lock", !kbd_hooking && can_edit && cyphered);
 	menu_display("unlock", !kbd_hooking && can_edit && !cyphered);
+	var cls;
+	if (cyphered)
+		cls = "text_area locked";
+	else
+		cls = "text_area";
+	el("wiki_text").className = cls;
 }
 
 // Adjusts the menu buttons
