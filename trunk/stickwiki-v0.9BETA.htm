@@ -7,7 +7,7 @@
 
 var version = "0.9B";
 
-var __marker = "xMIhLLcMqQimxDiTcJ";
+var __marker = "gbhqbGdcISpezASDox";
 
 var permit_edits = true;
 
@@ -17,45 +17,35 @@ var save_on_quit = false;
 
 var allow_diff = true;
 
-var current = "Special::About";
+var current = "Main Page";
 
 var main_page = "Main Page";
 
-var backstack = new Array(
-);
+var backstack = [
+"MyPages::Page 1",
+"Main Page",
+"Special::About"
+];
 
-var page_titles = new Array(
+var page_titles = [
 "Special::Menu",
 "Special::Advanced",
 "Special::Import",
 "Special::About",
 "Main Page",
 "Special::Search",
-"MyPages::Page 1",
 "MyPages::Page 2",
 "MyPages::Approved::Page 3",
 "Hello there!",
 "Special::Lock",
-"Special::Security"
-);
+"Special::Security",
+"MyPages::Page 1"
+];
 
-/* xMIhLLcMqQimxDiTcJ */
-var page_attrs = new Array(
-0x0,
-0x0,
-0x0,
-0x0,
-0x0,
-0x0,
-0x0,
-0x0,
-0x0,
-0x0,
-0x0,
-0x0
-);
+/* gbhqbGdcISpezASDox */
+var page_attrs = [0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0];
 
-var pages = new Array(
+var pages = [
 "[[Main Page]]\n" +
 "\n" +
 "[[Special::Advanced]]\n" +
@@ -97,18 +87,20 @@ var pages = new Array(
 "Original version (v0.01 &tilde; v0.04) by Andr\u00e9 Wagner\n" +
 "Wiki on a Stick is licensed under the [[http://www.gnu.org/copyleft/gpl.html|GNU/GPL]] license.\n" +
 "\n" +
-"!!Contributes\n" +
-"This project wouldn't be what it is without the help of other people. If you contributed to Wiki on a Stick and your name is not here, please send an email to <a class=\"world\" href=\"mailto:legolas558 _AT_ users.sourceforge.net\">this email address</a>.\n" +
+"!!Thanks to\n" +
+"This project wouldn't be what it is without the help of other people. If you contributed to Wiki on a Stick and your name is not here, please send an email to <a class=\"world\" href=\"mailto:legolas558 _AT_ users.sourceforge.net\">this email address</a>. If, for any reason, you don't want your name listed here, just send an email.\n" +
 "\n" +
 "* *Jeremy Ruston* - the creator of the wonderful [[http://www.tiddlywiki.com/|TiddlyWiki]], who served as inspiration for Wiki on a Stick. He also kindly allowed the usage of his saving/loading routines.\n" +
 "* *Philip O'Donnel* - creator of the table syntax & parsing code\n" +
 "* *Tim Lord*\n" +
 "* *Knut Kohl*\n" +
 "* *Rob Schmersel*\n" +
+"* *Michiel van Everdingen* - original javascript implementation of AES encryption\n" +
 "* *Cyril Mazard* - search feature\n" +
-"* *the StickWiki google group* for their support, advices and testing\n" +
 "\n" +
-"If, for any reason, you don't want your name listed here, just send an email.\n" +
+"And, last but not least:\n" +
+"\n" +
+"* *the StickWiki google group* users for their support, advices and testing which has pushed WoaS development up to the current status.\n" +
 "\n" +
 "!!Contributing\n" +
 "\n" +
@@ -215,9 +207,6 @@ var pages = new Array(
 "\n" +
 "<input id=\"string_to_search\" type=\"text\" onfocus=\"search_focus(true)\" onblur=\"search_focus(false)\" />&nbsp;<input type=\"button\" value=\"Search\" onclick=\"do_search()\" />&nbsp;<input type=\"button\" value=\"Clear\" onclick=\"clear_search()\" />\n" +
 "",
-"Hello there! I am indeed a better page than [[MyPages::Page 2]]\n" +
-"\n" +
-"[[Tags:: Nice]]",
 "Hey, don't tell anyone around but...I am better than [[MyPages::Page 1]]!",
 "This is a page in a subnamespace!\n" +
 "\n" +
@@ -233,13 +222,15 @@ var pages = new Array(
 "!!Password\n" +
 "Enter your password for AES encryption. The more complex your password is, the more difficult it will be to attack the encryption. It is suggested *not* to use passwords whose textbox color is <span style=\"background-color:red\">&nbsp;red&nbsp;</span>, and to accept passwords only when the textbox color is <span style=\"background-color:lime\">&nbsp;green&nbsp;</span>.\n" +
 "\n" +
+" *If you forget the password there is no way to retrieve it or your data, FOREVER.*\n" +
+"\n" +
 "  <input type=\"password\" id=\"pw1\" style=\"background-color:red\" value=\"\" size=\"50\" onfocus=\"custom_focus(true)\" onblur=\"custom_focus(false)\" onkeyup=\"pw_quality()\" />&nbsp;<span id=\"txtBits\">&nbsp;</span>\n" +
 "  <input type=\"password\" id=\"pw2\" value=\"\" size=\"50\" onfocus=\"custom_focus(true)\" onblur=\"custom_focus(false)\" />\n" +
 "  <input id=\"btn_lock\" type=\"button\" value=\"\" />",
 "!!AES encryption\n" +
 "Since Wiki on a Stick v0.9 the [[http://en.wikipedia.org/wiki/Advanced_Encryption_Standard|AES]] 256-bit high security data encryption standard is supported to protect a single page or groups of them.\n" +
 "\n" +
-" *If you forget your key there is no way to retrieve it or your data, FOREVER*.\n" +
+" *If you forget the password there is no way to retrieve it or your data, FOREVER*.\n" +
 "\n" +
 "!!How Do I Encrypt a page?\n" +
 "In order to encrypt a page you will have to click on the /lock/ icon on the top-right navigation panel; if your page is already encrypted you will first have to unlock it.\n" +
@@ -254,10 +245,13 @@ var pages = new Array(
 "* The implementation of the encryption may contain a bug which makes its results insecure. This is why transparency is essential. Wiki on a Stick is open-source. You can judge for yourself whether the tool merits your confidence.\n" +
 "* Your computer's security may have been compromised physically; when's the last time you checked that a bug that transmits your keystrokes and/or screen contents to that white van parked down the street wasn't lurking inside your computer cabinet?\n" +
 "\n" +
-"Apart from the above, your normal usage of encrypted pages can be considered secure. They will be even more secure if you do not open them."
-);
+"Apart from the above, your normal usage of encrypted pages can be considered secure. They will be even more secure if you do not open them.",
+"[[Tag::Nice]]\n" +
+"\n" +
+"This is indeed the better page of the wiki, and is _cryptographically protected_ too!"
+];
 
-/* xMIhLLcMqQimxDiTcJ */
+/* gbhqbGdcISpezASDox */
 
 /* ]]> */ </script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -272,12 +266,6 @@ p.title {
   margin-bottom: 0pt;
   margin-top: 0pt;
 }
-
-/* Text */
-/*
-.text_area {
-  font-family: "Arial";
-} */
 
 /* Left menu */
 div.menu_area {
@@ -370,6 +358,13 @@ div.search_results {
 a.link.tag {
   color: navy;
 }
+
+/* main wiki pane when locked */
+div.text_area.locked {
+	background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAEAQMAAACTPww9AAAAB3RJTUUH1wMcDgM7DjiDLQAAAAlwSFlzAAAuIgAALiIBquLdkgAAAARnQU1BAACxjwv8YQUAAAAGUExURf%2F%2F%2F93d3RxnYCYAAAAQSURBVHjaYzBgmMBwgCEBAAbIAeGwZobHAAAAAElFTkSuQmCC);
+	background-color: #eeeeee;
+}
+
 </style>
 <script language="javascript" type="text/javascript">
 /* <![CDATA[ */
@@ -520,8 +515,8 @@ function parseList(str, type) {
         var old = 0;
         var reItems = /^([\*#]+)[ \t]([^\n]+)/mg;
 
-        try 
-        {   var stk =[]
+        try {
+		var stk =[]
 	        str.replace
             (
                 reItems,
@@ -917,6 +912,32 @@ function special_links_here()
 		return "!!Links to "+current+"\n"+_join_list(pg);
 }
 
+function is_readonly(page) {
+	return is__readonly(page_index(page));
+}
+
+function is__readonly(pi) {
+	if (page_attrs[pi] & 1)
+		return true;
+	return false;
+}
+
+function is__encrypted(pi) {
+	if (debug) {
+		if (pi==-1) {
+			alert("Invalid page index!");
+			return;
+		}
+	}
+	log(page_titles[pi]+" flags: "+page_attrs[pi].toString(16)+" (enc:"+(page_attrs[pi] & 2)+")");
+	if (page_attrs[pi] & 2)
+		return true;
+	return false;
+}
+function is_encrypted(page) {
+	return is__encrypted(page_index(page));
+}
+
 // retrieve a stored page
 function get_text(title)
 {
@@ -927,20 +948,21 @@ function get_text(title)
 	if (!is__encrypted(pi))
 		return pages[pi];
 	decrypt_failed = true;
-	var retry = false;
+	var retry = 0;		
 	var pg = null;
 	do {
-		if (!key.length) {
+		if (retry || !key.length) {
 			var pw = prompt('The latest entered password (if any) was not correct for page "'+title+"'\n\nPlease enter the correct password.", '');
 			if (pw==null)
 				return null;
 			if (!pw.length)
 				return null;
 			AES_setKey(pw);
-			retry = true;
+			retry++;
 		}
+		log("Decrypting page "+title);
 		pg = AES_decrypt(pages[pi]);
-	} while (retry);
+	} while (retry<3);
 	if (pg != null)
 		decrypt_failed = false;
 	return pg;
@@ -1196,7 +1218,7 @@ function load_as_current(title, text) {
 	el("wiki_title").innerHTML = title;
 	el("wiki_text").innerHTML = parse(text);
 	document.title = title;
-	update_nav_icons();
+	update_nav_icons(title);
 	if (post_dom_render.length!=0) {
 		eval(post_dom_render);
 		post_dom_render = "";
@@ -1224,8 +1246,38 @@ function _setup_options() {
 
 function _setup_lock_page(page) {
 	el("btn_lock").value = "Lock "+page;
-	el("btn_lock").onclick = "alert('hello')";
 	el("pw1").focus();
+	el("btn_lock").setAttribute("onclick", "lock_page('"+_sq_esc(page)+"')");
+}
+
+function lock_page(page) {
+	return;
+	var pwd = el("pw1").value;
+	if (!pwd.length) {
+		el("pw1").focus();
+		return;
+	}
+	if (pwd!=el("pw2").value) {
+		el("pw2").focus();
+		return;
+	}
+	var pi = page_index(page);
+	if (debug) {
+		if (pi==-1) {
+			alert("Cannot encrypt unexisting page!");
+			return;
+		}
+		if (is__encrypted(pi)) {
+			alert("Page already encrypted!");
+			return;
+		}
+	}
+	AES_setKey(pwd);
+	pages[pi] = AES_encrypt(pages[pi]);
+	alert(pages[pi]);
+	page_attrs[pi] += 2;
+	save_to_file(true);
+	go_to(page);
 }
 
 var _pw_q_lock = false;
@@ -1446,19 +1498,31 @@ function on_resize()
 	}
 }
 
-function update_nav_icons() {
+function update_nav_icons(page) {
 	menu_display("back", (backstack.length > 0));
 	menu_display("forward", (forstack.length > 0));
-	menu_display("advanced", (current != "Special::Advanced"));
-	var can_edit = edit_allowed(current);
+	menu_display("advanced", (page != "Special::Advanced"));
+	var can_edit = edit_allowed(page);
 	menu_display("edit", can_edit);
-	update_lock_icons(can_edit);
+	update_lock_icons(page, can_edit);
 }
 
-function update_lock_icons(can_edit) {
-	var cyphered = is_encrypted(current);
+function update_lock_icons(page, can_edit) {
+	var pi = page_index(page);
+	if (pi==-1) {
+		menu_display("lock", false);
+		menu_display("unlock", false);
+		return;
+	}
+	var cyphered = is_encrypted(page);
 	menu_display("lock", !kbd_hooking && can_edit && cyphered);
 	menu_display("unlock", !kbd_hooking && can_edit && !cyphered);
+	var cls;
+	if (cyphered)
+		cls = "text_area locked";
+	else
+		cls = "text_area";
+	el("wiki_text").className = cls;
 }
 
 // Adjusts the menu buttons
@@ -1467,7 +1531,7 @@ function disable_edit()
 	log("DISABLING edit mode");
 	kbd_hooking = false;
 	// check for back and forward buttons - TODO grey out icons
-	update_nav_icons();
+	update_nav_icons(current);
 	menu_display("home", true);
 	menu_display("save", false);
 	menu_display("cancel", false);
@@ -1513,25 +1577,12 @@ var edit_override = false;
 
 function edit_allowed(page) {
 	if (edit_override)
-		return true;
+		return (page_exists(page) != -1);
 	if (!permit_edits)
 		return false;
 	if (is_special(page) && (page!="Special::Menu"))
 		return false;
 	return !is_readonly(page);
-}
-
-function is_readonly(page) {
-	return (page_attrs[page_index(page)] & 1 != 0);
-}
-
-function is__encrypted(pi) {
-	if (page_attrs[pi] & 2 != 0)
-		return true;
-	return false;
-}
-function is_encrypted(page) {
-	return is__encrypted(page_index(page));
 }
 
 // setup the title boxes and gets ready to edit text
@@ -1551,7 +1602,7 @@ function current_editing(page, disabled) {
 	menu_display("edit", false);
 	menu_display("save", true);
 	menu_display("cancel", true);
-	update_lock_icons(true);
+	update_lock_icons(page, true);
 	el("text_area").style.display = "none";
 
 	// FIXME!
@@ -1748,22 +1799,46 @@ function js_encode(s, split_lines) {
 }
 
 function printout_arr(arr, split_lines) {
+
+	function elem_print(e) {
+		return "\"" + js_encode(e, split_lines) + "\"";
+	}
+
 	var s = "";
 	for(var i=0;i<arr.length-1;i++) {
-		s += "\"" + js_encode(arr[i], split_lines) + "\",\n";
+		s += elem_print(arr[i]) + ",\n";
 	}
 	if (arr.length>1)
-		s += "\"" + js_encode(arr[arr.length-1], split_lines) + "\"\n";
+		s += elem_print(arr[arr.length-1]) + "\n";
 	return s;
 }
 
+function printout_mixed_arr(arr, split_lines, attrs) {
+
+	function elem_print(e, attr) {
+		if (attr & 2) {
+			return "[" + printout_num_arr(e) + "]";
+		}
+		return "\"" + js_encode(e, split_lines) + "\"";
+	}
+
+	var s = "";
+	for(var i=0;i<arr.length-1;i++) {
+		s += elem_print(arr[i], attrs[i]) + ",\n";
+	}
+	if (arr.length>1)
+		s += elem_print(arr[arr.length-1], attrs[arr.length-1]) + "\n";
+	return s;
+}
+
+// used to print out encrypted pages bytes and attributes
 function printout_num_arr(arr) {
 	var s = "";
 	for(var i=0;i<arr.length-1;i++) {
-		s += "0x"+arr[i].toString(16) + ",\n";
+		s += "0x"+arr[i].toString(16) + ",";
 	}
 	if (arr.length>1)
-		s += "0x"+arr[i].toString(16) + "\n";
+		s += "0x"+arr[i].toString(16);
 	return s;
 }
 
@@ -1794,17 +1869,17 @@ function save_to_file(full) {
 	";\n\nvar current = \"" + js_encode(current)+
 	"\";\n\nvar main_page = \"" + main_page + "\";\n\n";
 	
-	computed_js += "var backstack = new Array(\n" + printout_arr(backstack, false) + ");\n\n";
+	computed_js += "var backstack = [\n" + printout_arr(backstack, false) + "];\n\n";
 
-	computed_js += "var page_titles = new Array(\n" + printout_arr(page_titles, false) + ");\n\n";
+	computed_js += "var page_titles = [\n" + printout_arr(page_titles, false) + "];\n\n";
 	
 	computed_js += "/* " + new_marker + " */\n";
 	
 	if (full) {
 	
-		computed_js += "var page_attrs = new Array(\n" + printout_num_arr(page_attrs) + ");\n\n";
+		computed_js += "var page_attrs = [" + printout_num_arr(page_attrs) + "];\n\n";
 		
-		computed_js += "var pages = new Array(\n" + printout_arr(pages, allow_diff) + ");\n\n";
+		computed_js += "var pages = [\n" + printout_mixed_arr(pages, allow_diff, page_attrs) + "];\n\n";
 		
 		computed_js += "/* " + new_marker + " */\n";
 	}
@@ -2323,7 +2398,7 @@ var i;
 var j;
 var tot;
 var key = [];
-var lenInd = true;	// length indicator (to remove padding bytes)
+var lenInd = false;	// length indicator (to remove padding bytes)
 
 var wMax = 0xFFFFFFFF;
 function rotb(b,n){ return ( b<<n | b>>>( 8-n) ) & 0xFF; }
@@ -2389,7 +2464,11 @@ function utf8Decrypt(){
     k=0; while(c&0x80){ c=(c<<1)&0xFF; k++; }
     c >>= k;
     if (k==1||k>4) {
-		throw('UTF-8: invalid first byte '+e+'.');
+//		throw
+		log('UTF-8: invalid first byte '+e+'.');
+		sData = null;
+		i=tot;
+		return;
 	}
     for (var n=1;n<k;n++){
       d = bData[i++];
@@ -2398,7 +2477,11 @@ function utf8Decrypt(){
       c=(c<<6)+(d&0x3F);
     }
     if ( (k==2&&c<0x80) || (k>2&&c<utf8sets[k-3]) ) {
-		throw("UTF-8: invalid sequence "+e+'.');
+//		throw
+		log("UTF-8: invalid sequence "+e+'.');
+		sData = null;
+		i=tot;
+		return;
 	}
     sData+=String.fromCharCode(c);
   }
@@ -2602,7 +2685,7 @@ function blcDecrypt(dec){
     //if (cbc)
 	{ i=16; }
     tot = bData.length;
-    if ( (tot%16) || tot<i ) throw 'AES: Incorrect length.';
+    if ( (tot%16) || tot<i ) throw 'AES: Incorrect length (tot='+tot+', i='+i+')';
     aesInit();
   }else{
     //if (cbc)
@@ -2651,19 +2734,23 @@ function setData(d) {
 	sData = null;
 }
 
+var _magic_check = true;
+
 // returns an array of encrypted characters
 function AES_encrypt(raw_data) {
 	setData(raw_data);
 
-	// save 2 random characters for decryption control
-	var magic_pos = _rand( Math.max(0, bData.length-2));
-	var magic_len = 2 + _rand(4);
-	bData.push(0);
-	for(a=0;a<magic_len;a++)
-		bData.push(bData[magic_pos+a]);
+	if (_magic_check) {
+		// save 2 random characters for decryption control
+		var magic_pos = _rand( Math.max(0, bData.length-2));
+		var magic_len = 2 + _rand(4);
+		bData.push(0);
+		for(a=0;a<magic_len;a++)
+			bData.push(bData[magic_pos+a]);
 
-	setW(bData, bData.length, magic_pos);
-	setW(bData, bData.length, magic_len);
+		setW(bData, bData.length, magic_pos);
+		setW(bData, bData.length, magic_len);
+	}
 	
 	i=tot=0;
 	do{ blcEncrypt(aesEncrypt); } while (i<tot);
@@ -2679,19 +2766,21 @@ function AES_decrypt(raw_data) {
 	i=tot=0;
 	do{ blcDecrypt(aesDecrypt); } while (i<tot);
 
-	// check if the magic characters were saved
-	if (bData.length < 10)
-		return null;
-	var magic_pos = getW(bData.length-8);
-	var magic_len = getW(bData.length-4);
-	if ((magic_pos >= bData.length - 9) ||
-		(magic_pos + magic_len >= bData.length - 9))
-		return null;
-	for(a=0;a<magic_len;a++)
-		if (bData[magic_pos+a] != bData[bData.length-8-magic_len+a])
+	if (_magic_check) {
+		// check if the magic characters were saved
+		if (bData.length < 10)
 			return null;
-			
-	bData.splice(bData.length-8 - magic_len, 8 + magic_len + 1);
+		var magic_pos = getW(bData.length-8);
+		var magic_len = getW(bData.length-4);
+		if ((magic_pos >= bData.length - 9) ||
+			(magic_pos + magic_len >= bData.length - 9))
+			return null;
+		for(a=0;a<magic_len;a++)
+			if (bData[magic_pos+a] != bData[bData.length-8-magic_len+a])
+				return null;
+				
+		bData.splice(bData.length-8 - magic_len, 8 + magic_len + 1);
+	}
 	
 	i=tot=0;
 	do{ utf8Decrypt(); } while (i<tot);
@@ -2699,13 +2788,17 @@ function AES_decrypt(raw_data) {
 	return sData;
 }
 
+//var test_key = "a very good password";
+//AES_setKey(test_key);
+//alert(AES_decrypt(AES_encrypt(pages[0])));
+
 /* ]]> */
 </script></head><body style="cursor: wait;" id="body" onload="on_load()" onunload="before_quit()">
 <table cellspacing="0">
 <tbody>
 <tr>
 <td style="width: 100%;" valign="bottom">
-<p class="title" id="wiki_title">Editing Special::About</p></td>
+<p class="title" id="wiki_title">Editing Main Page</p></td>
 <td class="menu" onclick="go_back()">
 <div id="menu_back" style="display: none; cursor: pointer;"><img id="img_back" style="display: inline;" alt="Back" src="data:image/png;base64,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"><span id="alt_back" style="display: none; font-size: 24pt; font-family: wingdings;"></span></div></td>
 <td class="menu" onclick="go_forward()">
@@ -2743,7 +2836,7 @@ function AES_decrypt(raw_data) {
 <tr>
 <td>&nbsp;</td></tr></tbody></table><!-- Editor -->
 <div id="edit_area" style="display: block;">
-<div id="edit_page_title" style="display: block;">Page title: <input disabled="disabled" id="wiki_page_title" value="Main Page" size="50"></div><textarea id="wiki_editor" style="width: 994px; height: 430px;" rows="0" cols="0"></textarea> 
+<div id="edit_page_title" style="display: block;">Page title: <input id="wiki_page_title" value="Main Page" size="50"></div><textarea id="wiki_editor" style="width: 994px; height: 430px;" rows="0" cols="0"></textarea> 
 <table style="font-size: 8pt;">
 <tbody>
 <tr>
