@@ -115,77 +115,58 @@ function header_replace(hdr, text) {
 // This is a bit of a monster, if you know an easier way please tell me!
 // There is no limit to the level of nesting and it produces
 // valid xhtml markup.
-var reListItems = /([\*#]+)\s+([^\n]*)\n/g;
-var reReapLists = /(?:^|\n)[\*#]\s[^\n]+\n(?:[\*#]+\s[^\n]+\n)*/g;
-function parseList(str) {
-        var o_or_u = (str.charAt(1)=='*'?'ul':'ol'),
-		open_o_or_u = '<' + o_or_u + '>',
-		close_o_or_u = '</' + o_or_u + '>',
-		old = 0,
-		stk = [];
+var reReapLists = /(?:^|\n)([\*#])[ \t].*(?:\n\1+[ \t][^\n]+)*/g;
+function parseList(str, type) {
+        var uoro = (type=='#')?'ol':'ul';
+        var suoro = '<' + uoro + '>';
+        var euoro = '</' + uoro + '>';
 
-        function toStr(item)
-        {
-            var s, i;
-            if (typeof(item) === 'string')
+        var sublist = function (lst, ll)
+        {   
+            var s = '';
+            var item, sub
+
+            while (lst.length && lst[0][1].length == ll )
             {
-                return '<li>' + item + '</li>';
-            }
-            if (item instanceof Array)
-            {
-                s = open_o_or_u;
-                for ( i=0; i<item.length; i++)
+                item = lst.shift();
+                sub = sublist(lst, ll + 1);
+                if (sub.length)
                 {
-                    s += toStr(item[i]);
-                }
-                return s + close_o_or_u;
-
-            }
-            return '<li>' + item.data + toStr(item.lst) + '</li>';
-        }
-
-        function collapse(to, from)
-        {
-            var nos, tos
-            while (to < from)
-            {
-                nos = stk[from-1].pop();
-                tos = stk[from];
-                if (typeof(nos)==='string')
-                {
-                    stk[from-1].push({data: nos, lst: tos});
+                    s += '<li>' + item[2] + suoro + sub + euoro + '</li>' ;
                 }
                 else
                 {
-                    stk[from-1].push(tos);
+                    s += '<li>' + item[2] + '</li>';
                 }
-                stk[from] = [];
-                from -= 1;
-             }
+            }
+            return s;  
+        }
 
+        var old = 0;
+        var reItems = /^([\*#]+)[ \t]([^\n]+)/mg;
+
+        try 
+        {   var stk =[]
+	        str.replace
+            (
+                reItems,
+                function(str, p1, p2)
+                {
+                    level = p1.length;
+                    if ((level - old) > 1)
+                    {
+                        throw 'ListNestingError';
+                    }
+                    old = level;
+                    stk.push([str, p1, p2]);
+                }
+            );
+            return suoro + sublist(stk, 1) + euoro;
         }
-        function collect(str, p1, data)
+        catch (e )
         {
-            var nos, tos, type;
-            var level = p1.length;
-            while (stk.length <= level)
-            {
-                stk.push([])
-            }
-            if (level >= old)
-            {
-                stk[level].push(data);
-                old = level;
-            }
-            else
-            {
-                collapse(level, old)
-                stk[level].push(data);
-            }
+            return '\n*** ListNestingError  ***\n' + str;
         }
-        str.replace(reListItems, collect);
-        collapse(1, old)
-        return toStr(stk[1]);
     }
 
 // single quote escaping for page titles	
@@ -810,10 +791,10 @@ function set_current(cr)
 						save_to_file(true);
 						return;
 					default:
-						text = get_text(namespace+":"+cr);
+						text = get_text(namespace+"::"+cr);
 				}
 
-			ns = namespace+":";
+			ns = namespace+"::";
 		} else {
 			ns = "";
 			text = get_text(cr);
