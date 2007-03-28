@@ -1,6 +1,8 @@
 /* <![CDATA[ */
 /*** stickwiki.js ***/
 
+// page attributes are mapped to (readonly, encrypted, ...)
+
 var debug = true;			// toggle debug mode (and console)
 var save_override = true;	// allow to save when debug mode is active
 var end_trim = true;		// trim pages from the end
@@ -10,6 +12,8 @@ var cached_search = "";
 var cfg_changed = false;	// true when configuration has been changed
 var search_focused = false;
 var prev_title = current;	// used when entering/exiting edit mode
+var decrypt_failed = false;
+var last_key = "";
 
 // Browser
 var ie = false;
@@ -201,7 +205,7 @@ function parse(text)
 	});
 	
 	// <b>
-	text = text.replace(/\*([^\*\n]+)\*/g, parse_marker+"bS#$1"+parse_marker+"bE#");
+	text = text.replace(/([^\n])\*([^\*\n]+)\*/g, "$1"+parse_marker+"bS#$2"+parse_marker+"bE#");
 	// <u>
 	text = text.replace(/(^|[^\w])_([^_]+)_/g, "$1"+parse_marker+"uS#$2"+parse_marker+"uE#");
 	
@@ -337,10 +341,8 @@ function parse(text)
 }
 
 // prepends and appends a newline character to workaround plumloco's XHTML lists parsing bug
-function _join_list(arr, sorted) {
-	if (sorted)
-		arr = arr.sort();
-	return "\n* [["+arr.join("]]\n* [[")+"]]\n";
+function _join_list(arr) {
+	return "\n* [["+arr.sort().join("]]\n* [[")+"]]\n";
 }
 
 function _simple_join_list(arr, sorted) {
@@ -355,7 +357,7 @@ function _get_namespace(ns) {
 		if (page_titles[i].indexOf(ns+":")==0)
 			pg.push( page_titles[i]);
 	}
-	return "!Pages in "+ns+" namespace\n" + _join_list(pg, true);
+	return "!Pages in "+ns+" namespace\n" + _join_list(pg);
 }
 
 function _get_tagged(tag) {
@@ -383,7 +385,7 @@ function _get_tagged(tag) {
 	
 	if (!pg.length)
 		return "No pages tagged with *"+tag+"*";
-	return "!Pages tagged with " + tag + "\n" + _join_list(pg, true);
+	return "!Pages tagged with " + tag + "\n" + _join_list(pg);
 }
 
 // Returns a index of search pages (by miz & legolas558)
@@ -415,7 +417,7 @@ function special_search( str )
 		if (res_body!=null) {
 			count = res_body.length;
 			res_body = res_body.join(" ").replace( /\n/g, " ");
-			pg_body.push( "* [[" + page_titles[i] + "]]: *found " + count + " times :* <div class=\"search_results\"><i>...</i><br />" + res_body +"<br/><i>...</i></div>");
+			pg_body.push( "* [[" + page_titles[i] + "]]: found *" + count + "* times :<div class=\"search_results\"><i>...</i><br />" + res_body +"<br/><i>...</i></div>");
 		}
 	}
 	
@@ -435,7 +437,7 @@ function special_all_pages()
 		if (!is_special(page_titles[i]))
 			pg.push( page_titles[i] );
 	}
-	return _join_list(pg, true);
+	return _join_list(pg);
 }
 
 // Returns a index of all dead pages
@@ -522,7 +524,7 @@ function special_orphaned_pages()
 	if (!pg.length)
 		return "/No orphaned pages found/";
 	else
-		return _join_list(pg, true); // TODO - Delete repeated data
+		return _join_list(pg); // TODO - Delete repeated data
 }
 
 function special_links_here()
@@ -540,7 +542,7 @@ function special_links_here()
 	if(pg.length == 0)
 		return "/No page links here/";
 	else
-		return "!!Links to "+current+"\n"+_join_list(pg, true);
+		return "!!Links to "+current+"\n"+_join_list(pg);
 }
 
 // retrieve a stored page
@@ -549,7 +551,14 @@ function get_text(title)
 	var pi = page_index(title);
 	if (pi==-1)
 		return null;
-	return pages[pi];
+	// is the page encrypted or plain?
+	if ((page_attrs[pi] & 2) == 0)
+		return pages[pi];
+	if (!last_key.length) {
+		//TODO: ask for the key
+	}
+	decrypt_failed = true;
+	return null;
 }
 
 // Sets text typed by user
@@ -682,6 +691,23 @@ function set_current(cr)
 					if (text == null)
 						return;
 					break;
+				case "Lock":
+					cr = namespace+":"+cr;
+					if (page_index(cr)==-1)
+						return;
+					if (is_encrypted(cr)) {
+						//TODO: ask previous password
+					}
+					//TODO: set a password encryption
+					return;
+				case "Unlock":
+					cr = namespace+":"+cr;
+					if (page_index(cr)==-1)
+						return;
+					if (!is_encrypted(cr))
+						return;
+					//TODO: ask previous password and remove it
+					return;
 				default:
 					text = get_text(namespace+":"+cr);
 			}
@@ -694,6 +720,8 @@ function set_current(cr)
 	
 	if(text == null)
 	{
+		if (decrypt_failed)
+			return;
 		if (ns == "Special") {
 			alert("You are not allowed to create a page titled \""+ns+cr+"\" because namespace \""+namespace+"\" is reserved");
 			return;
@@ -900,7 +928,11 @@ function update_nav_icons() {
 	menu_display("back", (backstack.length > 0));
 	menu_display("forward", (forstack.length > 0));
 	menu_display("advanced", (current != "Special:Advanced"));
-	menu_display("edit", !is_special(current) && (edit_allowed(current)));
+	var can_edit = edit_allowed(current);
+	menu_display("edit", can_edit);
+	var cyphered = is_encrypted(current);
+	menu_display("lock", !kbd_hooking & can_edit & cyphered);
+	menu_display("unlock", !kbd_hooking & can_edit & !cyphered);
 }
 
 // Adjusts the menu buttons
@@ -937,6 +969,14 @@ function edit_menu() {
 	edit_page("Special:Menu");
 }
 
+function lock() {
+	go_to("Lock:" + current);
+}
+
+function unlock() {
+	go_to("Unlock:" + current);
+}
+
 // when edit is clicked
 function edit()
 {
@@ -952,7 +992,15 @@ function edit_allowed(page) {
 		return false;
 	if (is_special(page) && (page!="Special:Menu"))
 		return false;
-	return true;
+	return !is_readonly(page);
+}
+
+function is_readonly(page) {
+	return (page_attrs[page_index(page)] & 1 != 0);
+}
+
+function is_encrypted(page) {
+	return (page_attrs[page_index(page)] & 2 != 0);
 }
 
 // setup the title boxes and gets ready to edit text
@@ -2089,6 +2137,16 @@ function setData(d) {
 function AES_encrypt(sKey, raw_data) {
 	setKey(sKey);
 	setData(raw_data);
+
+	// save 2 random characters for decryption control
+	var magic_pos = Math.floor(Math.random() * Math.max(0, bData.length-2));
+	var magic_len = 2;
+	bData.push(0);
+	for(a=0;a<magic_len;a++)
+		bData.push(bData[magic_pos+a]);
+
+	setW(bData, bData.length, magic_pos);
+	setW(bData, bData.length, magic_len);
 	
 	i=tot=0;
 	do{ blcEncrypt(aesEncrypt); } while (i<tot);
@@ -2097,12 +2155,25 @@ function AES_encrypt(sKey, raw_data) {
 }
 
 // decrypts an array of encrypted characters
+// returns null if magic check fails
 function AES_decrypt(sKey, raw_data) {
 	setKey(sKey);
 	bData = raw_data;
 	
 	i=tot=0;
 	do{ blcDecrypt(aesDecrypt); } while (i<tot);
+
+	// check if the magic characters were saved
+	if (bData.length < 10)
+		return null;
+	var magic_pos = getW(bData.length-8);
+	var magic_len = getW(bData.length-4);
+	if ((magic_pos >= bData.length - 9) ||
+		(magic_pos + magic_len >= bData.length - 9))
+		return null;
+	for(a=0;a<magic_len;a++)
+		if (bData[magic_pos+a] != bData[bData.length-8-magic_len+a])
+			return null;
 	
 	i=tot=0;
 	do{ utf8Decrypt(); } while (i<tot);
@@ -2110,7 +2181,7 @@ function AES_decrypt(sKey, raw_data) {
 	return sData;
 }
 
-//var test_key = "a very good password";
+var test_key = "a very good password";
 
 //alert(AES_decrypt(test_key, AES_encrypt(test_key, "Hello World!")));
 
