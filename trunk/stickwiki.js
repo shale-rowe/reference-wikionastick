@@ -142,7 +142,7 @@ function parseList(str, type) {
             }
             return s;  
         }
-
+		
         var old = 0;
         var reItems = /^([\*#]+)[ \t]([^\n]+)/mg;
 
@@ -286,10 +286,11 @@ function parse(text)
 	if (ie)
 		text = text.replace("\r\n", "\n");
 		
-	// fix double newlines
-	text = text.replace(/\n\n/g, "<\/p><p>");
 	// ordered/unordered lists parsing (code by plumloco)
 	text = text.replace(reReapLists, parseList);
+	
+	// fix double newlines
+	text = text.replace(/\n\n/g, "<\/p><p>");
 	
 	// end-trim
 	if (end_trim)
