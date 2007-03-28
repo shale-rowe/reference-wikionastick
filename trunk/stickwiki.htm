@@ -7,7 +7,7 @@
 
 var version = "0.9B";
 
-var __marker = "ItyhTurBLVhANfCAKN";
+var __marker = "PuvLGcDKVQJfhPCArk";
 
 var permit_edits = true;
 
@@ -21,47 +21,28 @@ var current = "MyPages::Page 1";
 
 var main_page = "Main Page";
 
-var backstack = new Array(
-"Special::About",
-"Lock::Special::About",
-"Special::Advanced",
-"Special::",
-"Special::Lock",
-"Main Page"
-);
+var backstack = [
+];
 
-var page_titles = new Array(
+var page_titles = [
 "Special::Menu",
 "Special::Advanced",
 "Special::Import",
 "Special::About",
 "Main Page",
 "Special::Search",
-"MyPages::Page 1",
 "MyPages::Page 2",
 "MyPages::Approved::Page 3",
 "Hello there!",
 "Special::Lock",
-"Special::Security"
-);
+"Special::Security",
+"MyPages::Page 1"
+];
 
-/* ItyhTurBLVhANfCAKN */
-var page_attrs = new Array(
-0x0,
-0x0,
-0x0,
-0x0,
-0x0,
-0x0,
-0x0,
-0x0,
-0x0,
-0x0,
-0x0,
-0x0
-);
+/* PuvLGcDKVQJfhPCArk */
+var page_attrs = [0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0];
 
-var pages = new Array(
+var pages = [
 "[[Main Page]]\n" +
 "\n" +
 "[[Special::Advanced]]\n" +
@@ -221,9 +202,6 @@ var pages = new Array(
 "\n" +
 "<input id=\"string_to_search\" type=\"text\" onfocus=\"search_focus(true)\" onblur=\"search_focus(false)\" />&nbsp;<input type=\"button\" value=\"Search\" onclick=\"do_search()\" />&nbsp;<input type=\"button\" value=\"Clear\" onclick=\"clear_search()\" />\n" +
 "",
-"Hello there! I am indeed a better page than [[MyPages::Page 2]]\n" +
-"\n" +
-"[[Tags:: Nice]]",
 "Hey, don't tell anyone around but...I am better than [[MyPages::Page 1]]!",
 "This is a page in a subnamespace!\n" +
 "\n" +
@@ -262,10 +240,13 @@ var pages = new Array(
 "* The implementation of the encryption may contain a bug which makes its results insecure. This is why transparency is essential. Wiki on a Stick is open-source. You can judge for yourself whether the tool merits your confidence.\n" +
 "* Your computer's security may have been compromised physically; when's the last time you checked that a bug that transmits your keystrokes and/or screen contents to that white van parked down the street wasn't lurking inside your computer cabinet?\n" +
 "\n" +
-"Apart from the above, your normal usage of encrypted pages can be considered secure. They will be even more secure if you do not open them."
-);
+"Apart from the above, your normal usage of encrypted pages can be considered secure. They will be even more secure if you do not open them.",
+"[[Tag::Nice]]\n" +
+"\n" +
+"This is indeed the better page of the wiki, and is _cryptographically protected_ too!"
+];
 
-/* ItyhTurBLVhANfCAKN */
+/* PuvLGcDKVQJfhPCArk */
 
 /* ]]> */ </script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
