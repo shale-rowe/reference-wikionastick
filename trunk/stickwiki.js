@@ -1387,7 +1387,7 @@ function save_to_file(full) {
 	// fully remove the first <script> tag
 	var offset;
 	if (full)
-		offset = document.documentElement.innerHTML.indexOf("/* ]]> */ </script>");
+		offset = document.documentElement.innerHTML.indexOf("/* ]]> */ <"+"/script>");
 	else
 		offset = document.documentElement.innerHTML.indexOf("/* "+__marker+ " */") + 6 + __marker.length;
 	
