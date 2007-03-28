@@ -819,7 +819,7 @@ function create_alt_buttons() {
 
 // save configuration on exit
 function before_quit() {
-	if (save_on_quit)
+	if (save_on_quit && cfg_changed)
 		save_to_file(false);
 	return true;
 }
