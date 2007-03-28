@@ -579,20 +579,21 @@ function get_text(title)
 	if (!is__encrypted(pi))
 		return pages[pi];
 	decrypt_failed = true;
-	var retry = false;
+	var retry = 0;		
 	var pg = null;
 	do {
-		if (!key.length) {
+		if (retry || !key.length) {
 			var pw = prompt('The latest entered password (if any) was not correct for page "'+title+"'\n\nPlease enter the correct password.", '');
 			if (pw==null)
 				return null;
 			if (!pw.length)
 				return null;
 			AES_setKey(pw);
-			retry = true;
+			retry++;
 		}
+		log("Decrypting page "+title);
 		pg = AES_decrypt(pages[pi]);
-	} while (retry);
+	} while (retry<3);
 	if (pg != null)
 		decrypt_failed = false;
 	return pg;
