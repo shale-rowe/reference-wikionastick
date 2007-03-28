@@ -13,7 +13,6 @@ var cfg_changed = false;	// true when configuration has been changed
 var search_focused = false;
 var prev_title = current;	// used when entering/exiting edit mode
 var decrypt_failed = false;
-var last_key = "";
 
 // Browser
 var ie = false;
@@ -560,13 +559,26 @@ function get_text(title)
 	if (pi==-1)
 		return null;
 	// is the page encrypted or plain?
-	if ((page_attrs[pi] & 2) == 0)
+	if (!is__encrypted(pi))
 		return pages[pi];
-	if (!last_key.length) {
-		//TODO: ask for the key
-	}
 	decrypt_failed = true;
-	return null;
+	var retry = false;
+	var pg = null;
+	do {
+		if (!key.length) {
+			var pw = prompt('The latest entered password (if any) was not correct for page "'+title+"'\n\nPlease enter the correct password.", '');
+			if (pw==null)
+				return null;
+			if (!pw.length)
+				return null;
+			AES_setKey(pw);
+			retry = true;
+		}
+		pg = AES_decrypt(pages[pi]);
+	} while (retry);
+	if (pg != null)
+		decrypt_failed = false;
+	return pg;
 }
 
 // Sets text typed by user
@@ -577,7 +589,12 @@ function set_text(text)
 		log("current page \""+current+"\" is not cached!");
 		return;
 	}
-	pages[pi] = _new_syntax_patch(text);
+	text = _new_syntax_patch(text);
+	if (!is__encrypted(pi)) {
+		pages[pi] = text;
+		return;
+	}
+	pages[pi] = AES_encrypt(text);
 }
 
 // thanks to S.Willison
@@ -700,22 +717,35 @@ function set_current(cr)
 						if (text == null)
 							return;
 						break;
+					case "Locked":
+					case "Unlocked":
+						text = "Not yet implemented";
+						break;
 					case "Lock":
-						cr = namespace+":"+cr;
-						if (page_index(cr)==-1)
+						pi = page_index(namespace+":"+cr);
+						if (pi==-1)
 							return;
-						if (is_encrypted(cr)) {
-							//TODO: ask previous password
+						if (is__encrypted(pi)) {
+//							alert("Page is already encrypted! First remove the previous password");
+							return;
 						}
-						//TODO: set a password encryption
-						return;
+						text = get_text("Special:Lock");
+						post_dom_render = "_setup_lock_page('"+_sq_enc(cr)+"')";
+						break;
 					case "Unlock":
 						cr = namespace+":"+cr;
-						if (page_index(cr)==-1)
+						pi = page_index(cr);
 							return;
-						if (!is_encrypted(cr))
+						if (!is__encrypted(pi))
 							return;
-						//TODO: ask previous password and remove it
+						text = get_text(cr);
+						if (decrypt_failed) {
+							decrypt_failed = false;
+							return;
+						}
+						pages[pi] = text;
+						page_attrs[pi] -= 2;
+						save_to_file(true);
 						return;
 					default:
 						text = get_text(namespace+":"+cr);
@@ -730,10 +760,17 @@ function set_current(cr)
 	
 	if(text == null)
 	{
-		if (decrypt_failed)
+		if (decrypt_failed) {
+			decrypt_failed = false;
 			return;
-		if (ns == "Special") {
-			alert("You are not allowed to create a page titled \""+ns+cr+"\" because namespace \""+namespace+"\" is reserved");
+		}
+		switch (ns) {
+			case "Special:":
+			case "Lock:":
+			case "Unlock:":
+			case "Tag:":
+			case "Tagged:":
+				alert("You are not allowed to create a page titled \""+ns+cr+"\" because namespace \""+ns+"\" is reserved");
 			return;
 		}
 		if(confirm("Page not found. Do you want to create it?"))
@@ -1016,8 +1053,11 @@ function is_readonly(page) {
 	return (page_attrs[page_index(page)] & 1 != 0);
 }
 
+function is__encrypted(pi) {
+	return (page_attrs[pi] & 2 != 0);
+}
 function is_encrypted(page) {
-	return (page_attrs[page_index(page)] & 2 != 0);
+	return is__encrypted(page_index(page));
 }
 
 // setup the title boxes and gets ready to edit text
@@ -1264,10 +1304,10 @@ function printout_arr(arr, split_lines) {
 function printout_num_arr(arr) {
 	var s = "";
 	for(var i=0;i<arr.length-1;i++) {
-		s += arr[i] + ",\n";
+		s += "0x"+arr[i].toString(16) + ",\n";
 	}
 	if (arr.length>1)
-		s += arr[arr.length-1] + "\n";
+		s += "0x"+arr[i].toString(16) + "\n";
 	return s;
 }
 
@@ -1826,7 +1866,7 @@ var sData;
 var i;
 var j;
 var tot;
-var key;
+var key = [];
 var lenInd = true;	// length indicator (to remove padding bytes)
 
 var wMax = 0xFFFFFFFF;
@@ -2134,13 +2174,17 @@ function blcDecrypt(dec){
 }
 
 // sets global key to the utf-8 encoded key
-function setKey(p){
+function AES_setKey(sKey) {
   sData=p;
   i=tot=0;
   do{ utf8Encrypt(); } while (i<tot);
   sData = null;
   key = bData;
   bData = null;
+}
+
+function AES_clearKey() {
+	key = [];
 }
 
 // sets global bData to the utf-8 encoded binary data extracted from d
@@ -2152,8 +2196,7 @@ function setData(d) {
 }
 
 // returns an array of encrypted characters
-function AES_encrypt(sKey, raw_data) {
-	setKey(sKey);
+function AES_encrypt(raw_data) {
 	setData(raw_data);
 
 	// save 2 random characters for decryption control
@@ -2174,8 +2217,7 @@ function AES_encrypt(sKey, raw_data) {
 
 // decrypts an array of encrypted characters
 // returns null if magic check fails
-function AES_decrypt(sKey, raw_data) {
-	setKey(sKey);
+function AES_decrypt(raw_data) {
 	bData = raw_data;
 	
 	i=tot=0;
