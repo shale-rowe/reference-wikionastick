@@ -7,7 +7,7 @@
 
 var version = "0.9B";
 
-var __marker = "FnTPnwoThNRrwhrmiL";
+var __marker = "gmWTPuwMdfNaVnuoRo";
 
 var permit_edits = true;
 
@@ -17,14 +17,16 @@ var save_on_quit = false;
 
 var allow_diff = true;
 
-var current = "Special:Advanced";
+var current = "Main Page";
 
 var main_page = "Main Page";
 
 var backstack = new Array(
 "Main Page",
 "Special:Search",
-"Main Page"
+"Main Page",
+"Special:Advanced",
+"Special:About"
 );
 
 var page_titles = new Array(
@@ -38,7 +40,7 @@ var page_titles = new Array(
 "MyPages:Page 2"
 );
 
-/* FnTPnwoThNRrwhrmiL */
+/* gmWTPuwMdfNaVnuoRo */
 var page_attrs = new Array(
 0,
 0,
@@ -56,6 +58,10 @@ var pages = new Array(
 "[[Special:Advanced]]\n" +
 "[[Special:Backlinks]]\n" +
 "[[Special:Search]]",
+"!Info\n" +
+"  [[Special:About|About Wiki on a Stick]]\n" +
+"  This wiki was last modified in <span id=\"lastDate\"></span>.\n" +
+"\n" +
 "!Pages\n" +
 "  [[Special:All Pages|All Pages]]: a list of all user created pages in this wiki\n" +
 "  [[Special:|All Special Pages]]: list of all system pages\n" +
@@ -76,11 +82,7 @@ var pages = new Array(
 "  <label for=\"cb_permit_edits\"><input type=\"checkbox\" id=\"cb_permit_edits\" onclick=\"permit_edits = !el_eval('cb_permit_edits')\" />Disable edit mode for all pages (useful when publishing the Wiki On a Stick file on a web server)<br />\n" +
 "  <label for=\"cb_dblclick_edit\"><input type=\"checkbox\" id=\"cb_dblclick_edit\" onclick=\"dblclick_edit = el_eval('cb_dblclick_edit')\" />Double click to edit pages/menu<br />\n" +
 "  <label for=\"cb_save_on_quit\"><input type=\"checkbox\" id=\"cb_save_on_quit\" onclick=\"save_on_quit = el_eval('cb_save_on_quit')\" />Automatically save options (if changed) before quitting<br />\n" +
-"  <input type=\"button\" onclick=\"save_options()\" value=\"Save options\" />\n" +
-"\n" +
-"!Info\n" +
-"  [[Special:About|About Wiki on a Stick]]\n" +
-"  This wiki was last modified in <span id=\"lastDate\"></span>.",
+"  <input type=\"button\" onclick=\"save_options()\" value=\"Save options\" />",
 "Import a wiki from an early (or current) version:\n" +
 "\n" +
 "File: <input id=\"filename_\" type=\"file\" /><input type=\"button\" value=\"Import\" onclick=\"import_wiki()\" />\n" +
@@ -95,13 +97,13 @@ var pages = new Array(
 "!!Contributes\n" +
 "This project wouldn't be what it is without the help of other people. If you contributed to Wiki on a Stick and your name is not here, please send an email to <a class=\"world\" href=\"mailto:legolas558 _AT_ users.sourceforge.net\">this email address</a>.\n" +
 "\n" +
-"+ *Jeremy Ruston* - the creator of the wonderful [[http://www.tiddlywiki.com/|TiddlyWiki]], who served as inspiration for Wiki on a Stick. He also kindly allowed the usage of his saving/loading routines.\n" +
-"+ *Philip O'Donnel* - creator of the table syntax & parsing code\n" +
-"+ *Tim Lord*\n" +
-"+ *Knut Kohl*\n" +
-"+ *Rob Schmersel*\n" +
-"+ *Cyril Mazard* - search feature\n" +
-"+ *plumloco* - XHTML lists parsing and other improvements\n" +
+"* *Jeremy Ruston* - the creator of the wonderful [[http://www.tiddlywiki.com/|TiddlyWiki]], who served as inspiration for Wiki on a Stick. He also kindly allowed the usage of his saving/loading routines.\n" +
+"* *Philip O'Donnel* - creator of the table syntax & parsing code\n" +
+"* *Tim Lord*\n" +
+"* *Knut Kohl*\n" +
+"* *Rob Schmersel*\n" +
+"* *Cyril Mazard* - search feature\n" +
+"* *plumloco* - XHTML lists\n" +
 "\n" +
 "If, for any reason, you don't want your name listed here, just send an email.\n" +
 "\n" +
@@ -201,7 +203,7 @@ var pages = new Array(
 "Hey, don't tell anyone around but...I am better than [[MyPages:Page 1]]!"
 );
 
-/* FnTPnwoThNRrwhrmiL */
+/* gmWTPuwMdfNaVnuoRo */
 
 /* ]]> */ </script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -320,7 +322,7 @@ a.link.tag {
 <tbody>
 <tr>
 <td style="width: 100%;" valign="bottom">
-<p class="title" id="wiki_title">Editing Special:Advanced</p></td>
+<p class="title" id="wiki_title">Editing Main Page</p></td>
 <td class="menu" onclick="go_back()">
 <div id="menu_back" style="display: none; cursor: pointer;"><img id="img_back" style="display: inline;" alt="Back" src="data:image/png;base64,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"><span id="alt_back" style="display: none; font-size: 24pt; font-family: wingdings;"></span></div></td>
 <td class="menu" onclick="go_forward()">
@@ -358,7 +360,7 @@ a.link.tag {
 <tr>
 <td>&nbsp;</td></tr></tbody></table><!-- Editor -->
 <div id="edit_area" style="display: block;">
-<div id="edit_page_title" style="display: block;">Page title: <input disabled="disabled" id="wiki_page_title" value="Main Page"></div><textarea id="wiki_editor" style="width: 994px; height: 430px;" rows="0" cols="0"></textarea> 
+<div id="edit_page_title" style="display: block;">Page title: <input id="wiki_page_title" value="Main Page"></div><textarea id="wiki_editor" style="width: 994px; height: 430px;" rows="0" cols="0"></textarea> 
 <table style="font-size: 8pt;">
 <tbody>
 <tr>
