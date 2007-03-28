@@ -1,5 +1,5 @@
 
-* password page-locking feature (deprecates permit_edits)
+* password page-locking feature
 
 * Export page as HTML
 
@@ -16,7 +16,5 @@
 * import images (embedding)
 
 * import files ("attachments", ASCII-javascript/binary-base64 encoding options)
-
-* on-the-fly syntax patching
 
 * XHTML compliance
