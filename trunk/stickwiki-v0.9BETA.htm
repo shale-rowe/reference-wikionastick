@@ -7,7 +7,7 @@
 
 var version = "0.9B";
 
-var __marker = "ahnqOIpkoVvmsfvLNp";
+var __marker = "tAmcQkzvTXJepKMfTV";
 
 var permit_edits = true;
 
@@ -41,7 +41,7 @@ var page_titles = [
 "MyPages::Page 1"
 ];
 
-/* ahnqOIpkoVvmsfvLNp */
+/* tAmcQkzvTXJepKMfTV */
 var page_attrs = [0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x2];
 
 var pages = [
@@ -77,6 +77,7 @@ var pages = [
   <label for=\"cb_dblclick_edit\"><input type=\"checkbox\" id=\"cb_dblclick_edit\" onclick=\"dblclick_edit = el_eval('cb_dblclick_edit')\" />Double click to edit pages/menu<br />\n\
   <label for=\"cb_save_on_quit\"><input type=\"checkbox\" id=\"cb_save_on_quit\" onclick=\"save_on_quit = el_eval('cb_save_on_quit')\" />Automatically save options (if changed) before quitting<br />\n\
   <label for=\"cb_key_cache\"><input type=\"checkbox\" id=\"cb_key_cache\" onclick=\"key_cache = !el_eval('cb_key_cache')\" />Do not temporarily cache the AES key (will have to enter it for each encrypted page, useful if you leave WoaS open to possible unauthorized access)<br />\n\
+  <label for=\"cb_fixed_layout\"><input type=\"checkbox\" id=\"cb_fixed_layout\" onclick=\"_set_layout(el_eval('cb_fixed_layout'))\" />Fixed menu area and topbar<br />\n\
   <input type=\"button\" onclick=\"save_options()\" value=\"Save options\" />",
 "Import a wiki from an early (or current) version:\n\
 \n\
@@ -124,9 +125,12 @@ If you have an older Wiki on a Stick (v0.01 &tilde; v0.04), [[Special::Import|im
 There have been a few changes in the wiki syntax, they will be automatically applied on import or saving (except the wiki link parts inversion).\n\
 \n\
 * bullet lists are recognized using a plus sign '+' (previous stickwiki syntax) or an asterisk '*' (0.9 stickwiki syntax), with preference for asterisk lists\n\
-* the namespace separator is '::', when using it you will take advantage of the namespaces feature\n\
 * wiki link parts are inverted, e.g. no more [<!-- -->[the label|WikiActualPage]] but [<!-- -->[WikiActualPage|the label]]\n\
 * lines ending with a backslash '' will be joined\n\
+\n\
+!!!New features\n\
+* namespaces support through the separator '::'\n\
+* tags support through [<!-- -->[Tag:Sometag]] or [<!-- -->[Tags:Sometag, Somethingelse]] syntax\n\
 \n\
 !Syntax examples \n\
 \n\
@@ -253,25 +257,11 @@ Apart from the above, your normal usage of encrypted pages can be considered sec
 [0x11,0xf9,0x97,0xb5,0x56,0x3c,0x60,0x7b,0x58,0x25,0x45,0x78,0x6e,0xd6,0x13,0xb2,0x38,0x75,0x3e,0x20,0xcc,0x3c,0x6f,0x2e,0x24,0x59,0xa7,0x7,0xd1,0x9c,0xc7,0xd,0xe0,0xf9,0xee,0xd4,0x2e,0xc3,0xc8,0xb3,0x88,0x59,0xbe,0x21,0x1d,0x27,0x77,0x85,0x4d,0x21,0x44,0xdf,0x3b,0x90,0x88,0xde,0xe7,0x4a,0xb3,0xf9,0x9a,0x13,0x5d,0x62,0x7f,0xc8,0x47,0x6a,0x8d,0x7a,0xbe,0x69,0x17,0x9,0xa8,0x92,0x34,0xf4,0x1e,0xd0,0x3e,0x4e,0xf2,0xf3,0xb6,0xb9,0xf8,0xf6,0x53,0x9e,0x10,0x89,0xe5,0x31,0x24,0x6,0x40,0xc6,0xc5,0x12,0xe3,0xa2,0x44,0x47,0x96,0x7d,0x35,0x93,0x3,0x32,0xf7,0xae,0xc2,0xe,0x78,0xbf,0x68,0x1a,0x4c,0x11,0xe6,0x16,0x48,0x96,0xa8,0xea,0xd,0xb3]
 ];
 
-/* ahnqOIpkoVvmsfvLNp */
+/* tAmcQkzvTXJepKMfTV */
 
 /* ]]> */ </script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <style type="text/css">
-
-/* Left menu */
-div.menu_area {
-  border-width: 1pt;
-  border-color: grey;
-  border-style: solid;
-  font-size: 9pt;
-  background-color: white;
-  padding: 5pt;
-  width: 80pt;
-  position: fixed;
-  left: 8px;
-}
-
 
 /* existent link */
 a.link {
@@ -309,19 +299,6 @@ div.text_area {
   padding: 10pt;
 }
 
-table.text_area {
-	border-color: black;
-	border-spacing: 0px;
-	border-style: solid; 
-	border-width: 1px;
-}
-
-table.text_area td {
-	border-style: solid; 	 
-	border-width: 1px;	
-	padding: 5px;
-}
-
 /* since v0.9 */
 h1 { font-size: 23px; }
 
@@ -357,15 +334,6 @@ div.text_area.locked {
 	background-color: #eeeeee;
 }
 
-div.wiki_header {
-	position:fixed;
-	top: 0px;
-	left: 2px;
-	border: 1px solid #aaa;
-	filter:alpha(opacity=75);-moz-opacity:.75;opacity:.75;
-	z-index: 1;
-}
-
 div.menu {
 }
 
@@ -388,6 +356,39 @@ div.menu {
 	left: 14%;
 	width: 83%;
 	z-index: 0;
+}
+
+table.text_area {
+	border-color: black;
+	border-spacing: 0px;
+	border-style: solid; 
+	border-width: 1px;
+}
+
+table.text_area td {
+	border-style: solid; 	 
+	border-width: 1px;	
+	padding: 5px;
+}
+
+/* Left menu */
+div.menu_area {
+	border-width: 1pt;
+	border-color: grey;
+	border-style: solid;
+	font-size: 9pt;
+	background-color: white;
+	padding: 5pt;
+	width: 80pt;
+	left: 8px;
+}
+
+div.wiki_header {
+	top: 0px;
+	left: 2px;
+	border: 1px solid #aaa;
+	filter:alpha(opacity=75);-moz-opacity:.75;opacity:.75;
+	z-index: 1;
 }
 
 </style>
@@ -560,6 +561,35 @@ function parseList(str, type) {
             return '\n*** ListNestingError  ***\n' + str;
         }
     }
+	
+    var reReapTables = /(?:^|\n)\{\|.*((?:\n\|.*)*)(?:\n|$)/g
+        function parseTables(str, p1)
+        {
+            var caption = false;
+            var stk = [];
+            p1.replace
+            (
+                /\n\|([+ -])(.*)/g,
+                function(str, pp1, pp2)
+                {
+                    if (pp1 == '-')
+                    {
+                        return;
+                    }
+                    if (pp1 == '+')
+                    {
+                        caption = caption || pp2;
+                        return;
+                    }
+                    stk.push('<td>' + pp2.split(' ||').join('</td><td>') + '</td>');
+                } 
+            );
+            return  '<table class="text_area">' +
+                        (caption?('<caption>' + caption + '</caption>'):'') +
+                        '<tr>' + stk.join('</tr><tr>') + '</tr>' +
+                    '</table>' 
+        }
+
 
 // single quote escaping for page titles	
 function _sq_esc(s) {
@@ -580,8 +610,8 @@ function parse(text)
 	if (ie)
 		text = text.replace("\r\n", "\n");
 
-	var prefmt = new Array();
-	var tags = new Array();
+	var prefmt = [];
+	var tags = [];
 	// put away stuff contained in <pre> tags
 	text = text.replace(/\<pre.*?\>(.*?)\<\/pre\>/g, function (str, $1) {
 		var r = "<!-- "+parse_marker+prefmt.length+" -->";
@@ -589,8 +619,12 @@ function parse(text)
 		return r;
 	});
 	
-	// ordered/unordered lists parsing (code by plumloco)
-	text = text.replace(reReapLists, parseList);
+	var html_tags = [];
+	text = text.replace(/\<\w+[^>]*>/g, function (tag) {
+		var r = "<!-- "+parse_marker+'::'+html_tags.length+" -->";
+		html_tags.push(tag);
+		return r;
+	});
 	
 	// <b>
 	text = text.replace(/\*([^\*\n]+)\*/g, parse_marker+"bS#$1"+parse_marker+"bE#");
@@ -618,33 +652,20 @@ function parse(text)
 		text = header_replace(str_rep("!", i), text);
 	}
 	
-	// cleanup closing </hx> vs <br /> tags
+	// ordered/unordered lists parsing (code by plumloco)
+	text = text.replace(reReapLists, parseList);
+	
+	// cleanup closing /hx vs br tags
 	text = text.replace(/(<\/h\d>)\n/g, "$1");
+
 	
 	// <hr>
 	text = text.replace(/(^|\n)\-\-\-/g, "<hr />");
 	// <strike>
 	//text = text.replace(/(^|\n|\s|\>|\*)\-(.*?)\-/g, "$1<strike>$2<\/strike>");
 	// <br />
-
-	// table start
-	text = text.replace(/(^|\n)\{\|([^\n]*)/g, "$1<table class=\"text_area\" $2><tr>");
-    
-	// table end
-	text = text.replace (/(^|\n)\|\}/g, "$1<\/tr><\/table>");
-    
-	// table caption
-	text = text.replace(/(^|\n)\|\+([^\n]*)/g, "<caption>$2<\/caption>");
-    
-	// table new row
-	text = text.replace(/(^|\n)\|\-/g, "<\/tr><tr>");
 	
-	// table data
-	text = text.replace(/(^|\n)\|\s([^\n]*)/g, function(str, $1, $2)
-		{
-		$2 = $2.replace(/(\|\|)/g, "<\/td><td>");
-			return "<td>" + $2 + "<\/td>";
-		});
+    text = text.replace(reReapTables, parseTables);
 
 	// links with | 
 	text = text.replace(/\[\[([^\]\]]*?)\|(.*?)\]\]/g, function(str, $1, $2)
@@ -695,8 +716,14 @@ function parse(text)
 //			log("Replacing prefmt block #"+$1);
 			return prefmt[$1];
 		});
-		prefmt = new Array();
 	}
+	
+	if (html_tags.length>0) {
+		text = text.replace(new RegExp("<\\!-- "+parse_marker+"::(\\d+) -->", "g"), function (str, $1) {
+			return html_tags[$1];
+		});
+	}
+
 	
 	if (tags.length) {
 		if (force_inline)
@@ -1314,6 +1341,12 @@ function _setup_options() {
 	el("cb_dblclick_edit").checked = bool2chk(dblclick_edit);
 	el("cb_permit_edits").checked = bool2chk(!permit_edits);
 	el("cb_save_on_quit").checked = bool2chk(save_on_quit);
+	el("cb_fixed_layout").checked = (el("sw_wiki_header").style.position == "fixed");
+}
+
+function _set_layout(fixed) {
+	el("sw_wiki_header").style.position = (fixed ? "fixed" : "absolute");
+	el("sw_menu_area").style.position = (fixed ? "fixed" : "absolute");
 }
 
 function _setup_lock_page(page) {
@@ -1608,7 +1641,7 @@ function disable_edit()
 	menu_display("home", true);
 	menu_display("save", false);
 	menu_display("cancel", false);
-	el("text_area").style.display = "block";
+	el("text_area").style.display = "inline";
 	el("edit_area").style.display = "none";
 	log("setting back title to "+prev_title);
 	document.title = el("wiki_title").innerHTML = prev_title;
@@ -1683,7 +1716,7 @@ function current_editing(page, disabled) {
 		el("wiki_editor").style.width = window.innerWidth - 30 + "px";
 		el("wiki_editor").style.height = window.innerHeight - 150 + "px";
 	}
-	el("edit_area").style.display = "block";
+	el("edit_area").style.display = "inline";
 
 	el("wiki_editor").focus();
 	current = page;
@@ -1920,7 +1953,7 @@ function save_page(page_to_save) {
 }
 
 function save_options() {
-	save_to_file(false);
+	save_to_file(true);
 	set_current("Special::Advanced");
 }
 
@@ -2879,7 +2912,7 @@ function AES_decrypt(raw_data) {
 
 /* ]]> */
 </script></head><body style="cursor: wait;" id="body" onload="on_load()" onunload="before_quit()" class="bg">
-<div class="wiki_header bg">
+<div style="position: fixed;" class="wiki_header bg" id="sw_wiki_header">
 <table cellspacing="0" width="100%">
 <tbody><tr><td width="80%">
 <span class="title" id="wiki_title">Editing Main Page</span></td>
@@ -2900,11 +2933,12 @@ function AES_decrypt(raw_data) {
 <br>
 <div id="unsupported_browser" style="display: none;"><i>Your browser is not supported. You can access the wiki but you won't be able to save.</i></div>
 <div id="text_area" style="display: none;">
-	<div class="menu_area"><div class="wiki" id="menu_area" ondblclick="menu_dblclick()"></div>
+	<div style="position: fixed;" class="menu_area" id="sw_menu_area">
+	<div class="wiki" id="menu_area" ondblclick="menu_dblclick()"></div>
 	<div id="menu_edit_button" style="display: inline;"><hr><div style="text-align: center;"><a class="link" onclick="edit_menu()">[Edit]</a></div></div></div>
 	<div class="text_area" id="wiki_text" ondblclick="page_dblclick()"></div>
 </div>
-<div id="edit_area" style="display: block;">
+<div id="edit_area" style="display: inline;">
 <div id="edit_page_title" style="display: block;">Page title: <input id="wiki_page_title" value="Main Page" size="50"></div><textarea id="wiki_editor" style="width: 994px; height: 430px;" rows="0" cols="0"></textarea> 
 <table style="font-size: 8pt;">
 <tbody>
