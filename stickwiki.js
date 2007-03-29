@@ -1800,12 +1800,14 @@ function operaSaveFile(filePath, content)
 function erase_wiki() {
 	if(confirm("This will ERASE all your pages.\n\nAre you sure you want to continue?") == false)
 		return false;
+	var pg_about = get_text("Special::About");
 	var pg_advanced = get_text("Special::Advanced");
 	var pg_import = get_text("Special::Import");
+	var pg_lock = get_text("Special::Lock");
 	var pg_search = get_text("Special::Search");
-	var pg_about = get_text("Special::About");
-	page_titles = new Array("Main Page", "Special::Menu", "Special::Advanced", "Special::Import", "Special::Search", "Special::About");
-	pages = new Array("This is your empty main page", "[[Main Page]]\n\n[[Special::Advanced]]\n[[Special::Backlinks]]\n[[Special::Search]]", pg_advanced, pg_import, pg_search, pg_about);
+	var pg_security = get_text("Special::Security");
+	page_titles = new Array("Main Page", "Special::Menu", "Special::Advanced", "Special::Import", "Special::Search", "Special::Security", "Special::Lock", "Special::About");
+	pages = new Array("This is your empty main page", "[[Main Page]]\n\n[[Special::Advanced]]\n[[Special::Backlinks]]\n[[Special::Search]]", pg_advanced, pg_import, pg_search, pg_security, pg_lock, pg_about);
 	current = main_page = "Main Page";
 	backstack = new Array();
 	forstack = new Array();	
@@ -1858,7 +1860,7 @@ function import_wiki()
 	// get only the needed part
 	var wiki;
 	try {
-		wiki = ct.match(/\<div .*id=\"wiki\"\>((.|\n|\t|\s)*)\<\/div\>/)[0];
+		wiki = ct.match(/\<div .*id=\"?wiki\"?\>((.|\n|\t|\s)*)\<\/div\>/)[0];
 	} catch(e) {
 		alert("Unrecognized file");
 		document.body.style.cursor= "auto";
@@ -1871,14 +1873,14 @@ function import_wiki()
 	// separate variables from wiki
 	var vars;
 	try {
-		vars = wiki.match(/\<div .*id=\"variables\"\>((.|\n|\t|\s)*)\<\/div\>/)[0];
+		vars = wiki.match(/\<div .*id=\"?variables\"?\>((.|\n|\t|\s)*)\<\/div\>/)[0];
 	} catch(e) {
 		vars = "";
 	}
 	if(old_version == 2)
 	{
 		try {
-			vars = wiki.match(/\<div.*id=\"main_page\".*\>(.*)\<\/div\>/)[0];
+			vars = wiki.match(/\<div.*id="?main_page"?.*\>(.*)\<\/div\>/)[0];
 		} catch(e) {
 		}
 	}
@@ -1893,10 +1895,10 @@ function import_wiki()
 	var pc = 0;
 
 	// eliminate headers
-	wiki = wiki.replace(/\<div.*?id=\"wiki\".*?\>/, "");
-	vars = vars.replace(/\<div.*?id=\"variables\".*?\>/, "");
+	wiki = wiki.substring(wiki.indexOf(">")+1);
+	vars = vars.substring(wiki.indexOf(">")+1);
 
-	vars.replace(/\<div.*?id=\"(.*?)\".*?\>((\n|.)*?)\<\/div\>/g, function(str, $1, $2)
+	vars.replace(/\<div.*?id="?([^>"\s]+)"?.*?\>((\n|.)*?)\<\/div\>/g, function(str, $1, $2)
 			{
 				if(old_version == 2)
 					var_names[vc] = "main_page_";
@@ -1906,7 +1908,7 @@ function import_wiki()
 				vc++;
 			});
 			
-	wiki.replace(/\<div.*?id=\"(.*?)\".*?\>((\n|.)*?)\<\/div\>/g, function(str, $1, $2, $3)
+	wiki.replace(/\<div.*?id="?([^>"\s]+)"?.*?\>((\n|.)*?)\<\/div\>/g, function(str, $1, $2, $3)
 			{
 				if (old_version != 2) {
 					page_names[pc] = unescape($1);
@@ -1936,13 +1938,13 @@ function import_wiki()
 	//TODO: import the variables and the CSS from v0.04
 	if (old_version>=4) {
 		var css = null;
-		ct.replace(/\<style.*?type=\"text\/css\".*?\>((\n|.)*?)\<\/style\>/, function (str, $1) {
+		ct.replace(/\<style.*?type="?text\/css"?.*?\>((\n|.)*?)\<\/style\>/, function (str, $1) {
 			css = $1;
 		});
 		if (css!=null) {
 			log("Imported "+css.length+" bytes of CSS");
 			if (old_version<9)
-				css += "/* since v0.9 */\nh1 { font-size: 23px; }\nh2 { font-size: 20px; }\nh3 { font-size: 17px; }\nh4 { font-size: 14px; }\ndiv.taglinks {\n	border: 1px solid #aaa;\n	padding: 5px;\n	margin-top: 1em;\n	clear: both;\n}\n\ndiv.search_results {\n	border: 1px solid #aaa;\n	background-color: #f9f9f9;\n	padding: 5px;\n	margin-top: 1em;\n	clear: both;\n}\n\na.link.tag {\n  color: navy;\n}";
+				css += "/* since v0.9 */\nh1 { font-size: 23px; }\nh2 { font-size: 20px; }\nh3 { font-size: 17px; }\nh4 { font-size: 14px; }\ndiv.taglinks {\n	border: 1px solid #aaa;\n	padding: 5px;\n	margin-top: 1em;\n	clear: both;\n}\n\ndiv.search_results {\n	border: 1px solid #aaa;\n	background-color: #f9f9f9;\n	padding: 5px;\n	margin-top: 1em;\n	clear: both;\n}\n\na.link.tag {\n  color: navy;\n}\n/* main wiki pane when locked */\ndiv.text_area.locked {\n	background-image:\nurl(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAAAAACMmsGiAAAALHRFWHRDcmVhdGlvbiBUaW1lAGdpbyAyOSBtYXIgMjAwNyAxMTo1MToxMCArMDEwME%2BTNUAAAAAHdElNRQfXAx0JNByGxueSAAAACXBIWXMAAAsSAAALEgHS3X78AAAABGdBTUEAALGPC%2FxhBQAAABlJREFUeNpj%2FM%2FwmYHpMwMvAxOQwcvECyQBO1oE%2BlG5iisAAAAASUVORK5CYII%3D);\n	background-color: #eeeeee;\n}";
 			document.getElementsByTagName("style")[0].innerHTML = css;
 		}
 	}
@@ -1966,7 +1968,7 @@ function import_wiki()
 	
 	for(var i=0; i<page_names.length; i++)
 	{
-		if (!is_special(page_names[i]) || (page_names[i] == "Special:Menu") || (page_names[i] == "Special:Search"))
+		if ( !is_special(page_names[i]) || (page_names[i] == "Special::Menu") )
 		{
 			pi = page_index(page_names[i]);
 			if (pi == -1) {
