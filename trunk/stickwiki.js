@@ -166,6 +166,35 @@ function parseList(str, type) {
             return '\n*** ListNestingError  ***\n' + str;
         }
     }
+	
+    var reReapTables = /(?:^|\n)\{\|.*((?:\n\|.*)*)(?:\n|$)/g
+        function parseTables(str, p1)
+        {
+            var caption = false;
+            var stk = [];
+            p1.replace
+            (
+                /\n\|([+ -])(.*)/g,
+                function(str, pp1, pp2)
+                {
+                    if (pp1 == '-')
+                    {
+                        return;
+                    }
+                    if (pp1 == '+')
+                    {
+                        caption = caption || pp2;
+                        return;
+                    }
+                    stk.push('<td>' + pp2.split(' ||').join('</td><td>') + '</td>');
+                } 
+            );
+            return  '<table class="text_area">' +
+                        (caption?('<caption>' + caption + '</caption>'):'') +
+                        '<tr>' + stk.join('</tr><tr>') + '</tr>' +
+                    '</table>' 
+        }
+
 
 // single quote escaping for page titles	
 function _sq_esc(s) {
@@ -198,7 +227,7 @@ function parse(text)
 	// <b>
 	text = text.replace(/\*([^\*\n]+)\*/g, parse_marker+"bS#$1"+parse_marker+"bE#");
 	// <u>
-	text = text.replace(/(^|[^\w])_([^_]+)_/g, "$1"+parse_marker+"uS#$2"+parse_marker+"uE#");
+	text = text.replace(/(^|[\s])_([^_]+)_/g, "$1"+parse_marker+"uS#$2"+parse_marker+"uE#");
 	
 	// italics
 	text = text.replace(/(^|[^\w])\/([^\/]+)\/($|[^\w\>])/g, function (str, $1, $2, $3) {
@@ -233,25 +262,8 @@ function parse(text)
 	// <strike>
 	//text = text.replace(/(^|\n|\s|\>|\*)\-(.*?)\-/g, "$1<strike>$2<\/strike>");
 	// <br />
-
-	// table start
-	text = text.replace(/(^|\n)\{\|([^\n]*)/g, "$1<table class=\"text_area\" $2><tr>");
-    
-	// table end
-	text = text.replace (/(^|\n)\|\}/g, "$1<\/tr><\/table>");
-    
-	// table caption
-	text = text.replace(/(^|\n)\|\+([^\n]*)/g, "<caption>$2<\/caption>");
-    
-	// table new row
-	text = text.replace(/(^|\n)\|\-/g, "<\/tr><tr>");
 	
-	// table data
-	text = text.replace(/(^|\n)\|\s([^\n]*)/g, function(str, $1, $2)
-		{
-		$2 = $2.replace(/(\|\|)/g, "<\/td><td>");
-			return "<td>" + $2 + "<\/td>";
-		});
+    text = text.replace(reReapTables, parseTables);
 
 	// links with | 
 	text = text.replace(/\[\[([^\]\]]*?)\|(.*?)\]\]/g, function(str, $1, $2)
@@ -921,6 +933,12 @@ function _setup_options() {
 	el("cb_dblclick_edit").checked = bool2chk(dblclick_edit);
 	el("cb_permit_edits").checked = bool2chk(!permit_edits);
 	el("cb_save_on_quit").checked = bool2chk(save_on_quit);
+	el("cb_fixed_layout").checked = (el("sw_wiki_header").style.position == "fixed");
+}
+
+function _set_layout(fixed) {
+	el("sw_wiki_header").style.position = (fixed ? "fixed" : "absolute");
+	el("sw_menu_area").style.position = (fixed ? "fixed" : "absolute");
 }
 
 function _setup_lock_page(page) {
