@@ -100,16 +100,14 @@ function _get_tags(text) {
 
 function header_replace(hdr_char, len, text) {
 	var esc_hdr_char = RegExp.escape(hdr_char);
-	return text.replace( new RegExp("(^|\n)"+str_rep(esc_hdr_char, len)+"([^"+esc_hdr_char+"\n].*)(\n.?|$)", "g"), 	function (str, $1, $2, $3) {
+	return text.replace( new RegExp("(^|\n)"+str_rep(esc_hdr_char, len)+"([^"+esc_hdr_char+"\n].*)(\n"+esc_hdr_char+"?)?", "g"), 	function (str, $1, $2, $3) {
 		if ($2.indexOf(str_rep(hdr_char, len))==$2.length-len)
 			header = $2.substr(0, $2.length-len);
 		else
 			header = $2;
 		var tmp = $3;
-		if (tmp.length>1) {
-			if (tmp.charAt(1)!=hdr_char)
-				tmp = tmp.charAt(1);
-		}
+		if (tmp.length==1)
+			tmp = "";
 		return "</p>"+"<h"+len+">"+header+"</h"+len+"><p class=level"+len+">"+tmp;
 	});
 }
@@ -173,10 +171,7 @@ function parseList(str, type, $2) {
     {
         var caption = false;
         var stk = [];
-        p1.replace
-        (
-            /\n\|([+ -])(.*)/g,
-            function(str, pp1, pp2)
+        p1.replace( /\n\|([+ -])(.*)/g, function(str, pp1, pp2)
             {
                 if (pp1 == '-')
                 {
@@ -222,7 +217,7 @@ function parse(text)
 	var html_tags = [];
 
 	// put away stuff contained in <pre> tags
-	text = text.replace(/(\<pre.*?>(.|\n)*<\/pre>)/g, function (str, $1) {
+	text = text.replace(/(\<pre.*?>(.|\n)*?<\/pre>)/g, function (str, $1) {
 		var r = "<!-- "+parse_marker+prefmt.length+" -->";
 		prefmt.push($1);
 		return r;
@@ -444,8 +439,8 @@ function special_search( str )
 
 	var count = 0;
 	// matches the search string and nearby text
-	var reg = new RegExp( ".*" + RegExp.escape(str).replace(/^\s+/, "").
-					replace(/\s+$/, "").replace(/\s+/g, ".*") + ".*", "gi" );
+	var reg = new RegExp( ".*?" + RegExp.escape(str).replace(/^\s+/, "").
+					replace(/\s+$/, "").replace(/\s+/g, ".*?") + ".*", "gi" );
 
 	var tmp;
 	for(var i=0; i<pages.length; i++)
@@ -860,7 +855,7 @@ function _get_special(cr) {
 function set_current(cr)
 {
 	var text;
-	log("Setting \""+cr+"\" as current page");
+//	log("Setting \""+cr+"\" as current page");
 	if (cr.substring(cr.length-2)=="::") {
 		text = _get_namespace(cr);
 		ns = "";
@@ -1255,7 +1250,7 @@ function update_lock_icons(page, can_edit) {
 // Adjusts the menu buttons
 function disable_edit()
 {
-	log("DISABLING edit mode");
+//	log("DISABLING edit mode");
 	kbd_hooking = false;
 	// check for back and forward buttons - TODO grey out icons
 	update_nav_icons(current);
@@ -1264,7 +1259,7 @@ function disable_edit()
 	menu_display("cancel", false);
 	el("text_area").style.display = "inline";
 	el("edit_area").style.display = "none";
-	log("setting back title to "+prev_title);
+//	log("setting back title to "+prev_title);
 	document.title = el("wiki_title").innerHTML = prev_title;
 }
 
@@ -1320,7 +1315,7 @@ function current_editing(page, disabled) {
 	el("wiki_page_title").value = page;
 	document.title = el("wiki_title").innerHTML = "Editing "+page;
 	// current must be set BEFORE calling enabling menu edit
-	log("ENABLING edit mode");
+//	log("ENABLING edit mode");
 	kbd_hooking = true;
 	menu_display("back", false);
 	menu_display("forward", false);
@@ -1887,9 +1882,10 @@ function import_wiki()
 	var ct = loadFile(filename);
 	
 	// get version
-	var old_version, ver_str;
-	try {
-		ver_str = ct.match(/<div id="?version_"?>([^<]*)<\/div>/i)[1];
+	var old_version;
+	var ver_str = ct.match(/<div .*?id=("version_"|version_).*?>([^<]+)<\/div>/i);
+	if (ver_str && ver_str.length>1) {
+		ver_str = ver_str[2];
 		log("Importing wiki with version string \""+ver_str+"\"");
 		switch(ver_str)
 		{
@@ -1906,15 +1902,16 @@ function import_wiki()
 				alert("Incompatible version: " + ver_str);
 				return false;
 		}
-	} catch(e) {
+	} else {
+		log("Maybe version 0.02?");
 		old_version = 2;
 		if(ct.match("<div id=\"?"+escape("Special::Advanced")))
 			old_version = 3;
 	}
-
+	
 	var wiki;
 	try {
-		wiki = ct.match(/<div .*?id=("wiki"|wiki)[^_>]*>((.|\n|\t|\s)*)<\/div>/i)[0];
+		wiki = ct.match(/<div .*?id=(wiki|"wiki")[^_\\]*?>((.|\n|\t|\s)*)<\/div>/i)[0];
 	} catch(e) {
 		alert("Unrecognized file");
 		document.body.style.cursor= "auto";
@@ -1922,23 +1919,21 @@ function import_wiki()
 	}
 	
 	// eliminate comments
-	wiki = wiki.replace(/\<\!\-\-.*\-\-\>/g, "");
-	
-//	alert(wiki);
+	wiki = wiki.replace(/\<\!\-\-.*?\-\-\>/g, "");
 	
 	// separate variables from wiki
 	var vars;
-	var p = wiki.search(/<div .*id="?variables"?[^>]*>/i);
+	var p = wiki.search(/<div .*?id=("variables"|variables)[^>]*?>/i);
 	if (p!=-1) {
 		vars = wiki.substring(p);
 		wiki = wiki.substring(0, p);
 	} else
 		vars = "";
-
+		
 	if(old_version == 2)
 	{
 		try {
-			vars = wiki.match(/\<div .*id="?main_page"?[^>]*>(.*)\<\/div\>/i)[1];
+			vars = wiki.match(/\<div .*?id=("main_page"|main_page)>(.*?)\<\/div\>/i)[1];
 		} catch(e) {
 			log("No variables found");
 		}
@@ -1956,11 +1951,8 @@ function import_wiki()
 	wiki = wiki.substring(wiki.indexOf(">")+1);
 	vars = vars.substring(vars.indexOf(">")+1);
 	
-	vars.replace(/<div.*?id=([^>\s]+)[^>]*>((\n|.)*?)<\/div>/gi, function(str, $1, $2)
+	vars.replace(/<div id="?(version_|main_page_|permit_edits_|[\w_]+)"?>((\n|.)*?)<\/div>/gi, function(str, $1, $2)
 			{
-				var vid = $1;
-				if (vid.charAt(0)=='"')
-					vid = vid.substring(0, vid.length-2);
 				if(old_version == 2)
 					var_names[vc] = "main_page_";
 				else
@@ -1969,13 +1961,12 @@ function import_wiki()
 				vc++;
 			});
 			
-	log("Variables are "+var_names);
-	if (!var_names.length)
-		return;
+	log("Variables are ("+var_names+")");
 
 	// now extract the pages
-	wiki.replace(/<div .*id="?([^>"\s]+)"?[^>]*>((\n|.)*?)\<\/div\>/gi, function(str, $1, $2, $3)
+	wiki.replace(/<div .*?id="?([^">]+)"?>((\n|.)*?)<\/div>/gi, function(str, $1, $2, $3)
 			{
+				log("Parsing old page "+$1);
 				if (old_version != 2) {
 					page_names[pc] = unescape($1);
 					page_contents[pc] = unescape($2);
@@ -1983,6 +1974,13 @@ function import_wiki()
 					page_names[pc] = $1;
 					page_contents[pc] = $2;
 				}
+				// dismiss special pages
+				if (page_names[pc].indexOf("Special::")==0) {
+					if (page_names[pc] == "Special::Edit Menu")
+						page_names[pc] = "Special::Menu";
+					else return;
+				}
+
 				if (old_version < 9) {	// apply compatibility changes to stickwiki versions below v0.9
 					page_contents[pc] = _new_syntax_patch(page_contents[pc].replace(new RegExp("(\\[\\[|\\|)Special::Import wiki\\]\\]", "ig"), "$1Special::Import]]").replace(/\[\[([^\]\]]*?)(\|([^\]\]]+))?\]\]/g,
 					function (str, $1, $2, $3) {
@@ -1991,21 +1989,19 @@ function import_wiki()
 						else
 							return str;
 					}));
-					if (page_names[pc] == "Special::Edit Menu")
-						page_names[pc] = "Special::Menu";
 				}
 				pc++;
 			}
 			);
 
-	log("pages are "+page_names);
-			
+	log("page_names is ("+page_names+")");
+
 	// add new data
 	var pages_imported = 0;
 	
 	if (old_version==9) {
 		var css = null;
-		ct.replace(/<style.*?type="?text\/css"?[^>]*>((\n|.)*?)<\/style>/i, function (str, $1) {
+		ct.replace(/<style\s.*?type="?text\/css"?[^>]*>((\n|.)*?)<\/style>/i, function (str, $1) {
 			css = $1;
 		});
 		if (css!=null) {
@@ -2057,8 +2053,8 @@ function import_wiki()
 	current = main_page;
 	// save everything
 	save_to_file(true);
-
-	back_or("Special:Import");
+	
+	set_current(main_page);
 }
 
 function open_table_help()
