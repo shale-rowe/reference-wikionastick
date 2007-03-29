@@ -60,7 +60,7 @@ function page_index(page) {
 
 function page_exists(page)
 {
-	return (is_special(page) || (page.indexOf("Tagged::")==0) || (page.substring(page.length-2)=="::") || (page_index(page)!=-1));
+	return (is_reserved(page) || (page.substring(page.length-2)=="::") || (page_index(page)!=-1));
 }
 
 function str_rep(s, n) {
@@ -105,7 +105,7 @@ function header_replace(hdr, text) {
 			header = $2.substr(0, $2.length-l);
 		else
 			header = $2;
-		return "<h"+l+">"+header+"<\/h"+l+">";
+		return "</span>"+"<h"+l+">"+header+"</h"+l+"><span class=level"+l+">";
 	});
 }
 
@@ -217,14 +217,15 @@ function parse(text)
 
 	var prefmt = [];
 	var tags = [];
+	var html_tags = [];
+
 	// put away stuff contained in <pre> tags
-	text = text.replace(/\<pre.*?\>(.*?)\<\/pre\>/g, function (str, $1) {
+	text = text.replace(/(\<pre.*?>(.|\n)*<\/pre>)/g, function (str, $1) {
 		var r = "<!-- "+parse_marker+prefmt.length+" -->";
 		prefmt.push($1);
 		return r;
 	});
 	
-	var html_tags = [];
 	text = text.replace(/\<\w+[^>]*>/g, function (tag) {
 		var r = "<!-- "+parse_marker+'::'+html_tags.length+" -->";
 		html_tags.push(tag);
@@ -308,13 +309,14 @@ function parse(text)
 					return "<a class=\"unlink\" onclick=\"go_to('" + _sq_esc($1) +"')\">" + $1 + "<\/a>";
 					}); //"<a class=\"wiki\" onclick='go_to(\"$1\")'>$1<\/a>");
 
-	// fix double newlines
-	text = text.replace(/\n\n/g, "<\/p><p>");
-	
 	// end-trim
 	if (end_trim)
 		text = text.replace(/[\n\s]*$/, "");
-	
+
+	// fix double newlines
+	text = text.replace(/\n\n/g, "<\/p><p>");
+
+	// convert newlines (wrapped and plain) to br tags
 	text = text.replace(/\\?\n/g, "<br />");
 	
 	if (prefmt.length>0) {
@@ -323,6 +325,8 @@ function parse(text)
 //			log("Replacing prefmt block #"+$1);
 			return prefmt[$1];
 		});
+		// make some newlines cleanup - disabled
+		text = text.replace(/(<br \/>)?(<\/?pre>)(<br \/>)?/gi, "$2");
 	}
 	
 	if (html_tags.length>0) {
@@ -357,7 +361,7 @@ function parse(text)
 	if (force_inline)
 		force_inline = false;
 	
-	return "<p>" + text + "</p>";
+	return "<span class=\"level0\">" + text + "</span>";
 }
 
 // prepends and appends a newline character to workaround plumloco's XHTML lists parsing bug
@@ -445,7 +449,7 @@ function special_search( str )
 	var tmp;
 	for(var i=0; i<pages.length; i++)
 	{
-		if (is_special(page_titles[i]) && (page_titles[i] != "Special::Menu"))
+		if (is_reserved(page_titles[i]) && (page_titles[i] != "Special::Menu"))
 			continue;
 			
 		tmp = get_page(i);
@@ -482,7 +486,7 @@ function special_all_pages()
 	var text = "";
 	for(var i=0; i<page_titles.length; i++)
 	{
-		if (!is_special(page_titles[i]))
+		if (!is_reserved(page_titles[i]))
 			pg.push( page_titles[i] );
 	}
 	return _join_list(pg);
@@ -552,12 +556,12 @@ function special_orphaned_pages()
 	var found = false;
 	for(j=0; j<pages.length; j++)
 	{
-		if (is_special(page_titles[j]))
+		if (is_reserved(page_titles[j]))
 			continue;
 		// search for pages that link to it
 		var tmp;
 		for(var i=0; i<pages.length; i++) {
-			if ((i==j) /*|| is_special(page_titles[i])*/)
+			if ((i==j) /*|| is_reserved(page_titles[i])*/)
 				continue;
 			tmp = get_page(i);
 			if (tmp==null)
@@ -569,7 +573,7 @@ function special_orphaned_pages()
 			}
 		}
 		if(found == false) {
-			if (!is_special(page_titles[j]))
+			if (!is_reserved(page_titles[j]))
 				pg.push( page_titles[j] );
 		} else found = false;
 	}
@@ -735,33 +739,37 @@ function do_search()
 	assert_current("Special::Search");
 }
 
-function is_special(page) {
-	return (page.search(/Special::/i)==0);
+var reserved_namespaces = [
+"Special", "Lock", "Locked", "Unlocked", "Unlock", "Tag", "Tagged"];
+
+var reserved_rx = "^";
+for(var i=0;i<reserved_namespaces.length;i++) {
+	reserved_rx += /*RegExp.Escape(*/reserved_namespaces[i] + "::";
+	if (i<reserved_namespaces.length-1)
+		reserved_rx += "|";
+}
+reserved_rx = new RegExp(reserved_rx, "i");
+
+function is_reserved(page) {
+	return (page.search(reserved_rx)==0);
 }
 
 function _create_page(ns, cr, ask) {
-		switch (ns) {
-//			case "Special::":
-			case "Lock::":
-			case "Locked::":
-			case "Unlocked::":
-			case "Unlock::":
-			case "Tag::":
-			case "Tagged::":
-				alert("You are not allowed to create a page titled \""+ns+cr+"\" because namespace \""+ns+"\" is reserved");
+	if (is_reserved(ns)) {
+		alert("You are not allowed to create a page titled \""+ns+cr+"\" because namespace \""+ns+"\" is reserved");
 			return false;
 		}
-		if (ask && !confirm("Page not found. Do you want to create it?"))
-			return false;
-		// create and edit the new page
-		cr = ns+cr;
-		pages.push("Insert text here");
-		page_attrs.push(0);
-		page_titles.push(cr);
-		current = cr;
-		log("Now pages list is: "+page_titles);
-		edit_page(cr);
-		return true;
+	if (ask && !confirm("Page not found. Do you want to create it?"))
+		return false;
+	// create and edit the new page
+	cr = ns+cr;
+	pages.push("Insert text here");
+	page_attrs.push(0);
+	page_titles.push(cr);
+	current = cr;
+	log("Now pages list is: "+page_titles);
+	edit_page(cr);
+	return true;
 //			save_page(cr);
 }
 
@@ -1061,7 +1069,7 @@ function _hex_col(tone) {
 function refresh_menu_area() {
 /*
 	var bl_src = "\n\n[[Special::Backlinks]]";
-	if (is_special(current)) {
+	if (is_reserved(current)) {
 		pre_src = "";
 		post_src = bl_src;
 	} else {
@@ -1298,7 +1306,7 @@ function edit_allowed(page) {
 		return (page_exists(page) != -1);
 	if (!permit_edits)
 		return false;
-	if (is_special(page) && (page!="Special::Menu"))
+	if (is_reserved(page) && (page!="Special::Menu"))
 		return false;
 	return !is_readonly(page);
 }
@@ -1341,7 +1349,7 @@ function edit_page(page) {
 	if (tmp == null)
 		return;
 	// setup the wiki editor textbox
-	current_editing(page, is_special(page));
+	current_editing(page, is_reserved(page));
 	el("wiki_editor").value = tmp;
 }
 
@@ -1420,7 +1428,7 @@ function save()
 					refresh_menu_area();
 					back_to = prev_title;
 //					alert(prev_title);
-				} else { if (!is_special(new_title) && (new_title != current))
+				} else { if (!is_reserved(new_title) && (new_title != current))
 							rename_page(current, new_title);
 					back_to = new_title;
 				}				
@@ -2027,7 +2035,7 @@ function import_wiki()
 	
 	for(var i=0; i<page_names.length; i++)
 	{
-		if ( !is_special(page_names[i]) || (page_names[i] == "Special::Menu") )
+		if ( !is_reserved(page_names[i]) || (page_names[i] == "Special::Menu") )
 		{
 			pi = page_index(page_names[i]);
 			if (pi == -1) {
