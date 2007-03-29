@@ -1,7 +1,7 @@
 /* <![CDATA[ */
 /*** stickwiki.js ***/
 
-// page attributes are mapped to (readonly, encrypted, ...)
+// page attributes bits are mapped to (readonly, encrypted, ...)
 
 var debug = true;			// toggle debug mode (and console)
 var save_override = true;	// allow to save when debug mode is active
@@ -16,7 +16,6 @@ var prev_title = current;	// used when entering/exiting edit mode
 var decrypt_failed = false;
 var post_dom_render = "";
 
-// Browser
 var ie = false;
 var firefox = false;
 var opera = false;
@@ -59,7 +58,6 @@ function page_index(page) {
 	return -1;
 }
 
-// Returns if a page exists
 function page_exists(page)
 {
 	return (is_special(page) || (page.indexOf("Tagged::")==0) || (page.substring(page.length-2)=="::") || (page_index(page)!=-1));
@@ -216,7 +214,7 @@ function parse(text)
 		return tag;
 	});
 	
-	// headers (from h1 to h6, defined by the HTML 3.2 standard)
+	// headers (from h1 to h6, as defined by the HTML 3.2 standard)
 	for(i=1;i<7;i++) {
 		text = header_replace(str_rep("!", i), text);
 	}
@@ -918,7 +916,7 @@ function lock_page(page) {
 	}
 	AES_setKey(pwd);
 	pages[pi] = AES_encrypt(pages[pi]);
-	alert(pages[pi]);
+	alert(AES_decrypt(pages[pi]));
 	page_attrs[pi] += 2;
 	save_to_file(true);
 	go_to(page);
@@ -1581,6 +1579,7 @@ function save_to_file(full) {
 	return r;
 }
 
+/*** loadsave.js ***/
 // save this file
 function saveThisFile(data, offset)
 {
@@ -1616,6 +1615,153 @@ function saveFile(fileUrl, content)
 		r = operaSaveFile(fileUrl, content);
 	return(r);
 }
+
+function loadFile(filePath)
+{
+	var r = null;
+	r = mozillaLoadFile(filePath);
+	if((r == null) || (r == false))
+		r = ieLoadFile(filePath);
+	if((r == null) || (r == false))
+		r = operaLoadFile(filePath);
+	return(r);
+}
+
+// Returns null if it can't do it, false if there's an error, true if it saved OK
+function ieSaveFile(filePath, content)
+{
+	try
+	{
+		var fso = new ActiveXObject("Scripting.FileSystemObject");
+	}
+	catch(e)
+	{
+		alert("Exception while attempting to save\n\n" + e.toString());
+		return(null);
+	}
+	var file = fso.OpenTextFile(filePath,2,-1,0);
+	file.Write(content);
+	file.Close();
+	return(true);
+}
+
+// Returns null if it can't do it, false if there's an error, or a string of the content if successful
+function ieLoadFile(filePath)
+{
+	try
+	{
+		var fso = new ActiveXObject("Scripting.FileSystemObject");
+		var file = fso.OpenTextFile(filePath,1);
+		var content = file.ReadAll();
+		file.Close();
+	}
+	catch(e)
+	{
+		alert("Exception while attempting to load\n\n" + e.toString());
+		return(null);
+	}
+	return(content);
+}
+
+// Returns null if it can't do it, false if there's an error, or a string of the content if successful
+function mozillaLoadFile(filePath)
+{
+	if(window.Components)
+		try
+		{
+			netscape.security.PrivilegeManager.enablePrivilege("UniversalXPConnect");
+			var file = Components.classes["@mozilla.org/file/local;1"].createInstance(Components.interfaces.nsILocalFile);
+			file.initWithPath(filePath);
+			if (!file.exists())
+				return(null);
+			var inputStream = Components.classes["@mozilla.org/network/file-input-stream;1"].createInstance(Components.interfaces.nsIFileInputStream);
+			inputStream.init(file, 0x01, 00004, null);
+			var sInputStream = Components.classes["@mozilla.org/scriptableinputstream;1"].createInstance(Components.interfaces.nsIScriptableInputStream);
+			sInputStream.init(inputStream);
+			return(sInputStream.read(sInputStream.available()));
+		}
+		catch(e)
+		{
+			alert("Exception while attempting to load\n\n" + e);
+			return(false);
+		}
+	return(null);
+}
+
+// Returns null if it can't do it, false if there's an error, true if it saved OK
+function mozillaSaveFile(filePath, content)
+{
+	if(window.Components)
+		try
+		{
+			netscape.security.PrivilegeManager.enablePrivilege("UniversalXPConnect");
+			var file = Components.classes["@mozilla.org/file/local;1"].createInstance(Components.interfaces.nsILocalFile);
+			file.initWithPath(filePath);
+			if (!file.exists())
+				file.create(0, 0664);
+			var out = Components.classes["@mozilla.org/network/file-output-stream;1"].createInstance(Components.interfaces.nsIFileOutputStream);
+			out.init(file, 0x20 | 0x02, 00004,null);
+			out.write(content, content.length);
+			out.flush();
+			out.close();
+			return(true);
+		}
+		catch(e)
+		{
+			alert("Exception while attempting to save\n\n" + e);
+			return(false);
+		}
+	return(null);
+}
+
+function operaUrlToFilename(url)
+{
+	var f = "//localhost";
+	if(url.indexOf(f) == 0)
+		return url.substring(f.length);
+	var i = url.indexOf(":");
+	if(i > 0)
+		return url.substring(i-1);
+	return url;
+}
+
+function operaLoadFile(filePath)
+{
+	var content = [];
+	try
+	{
+		var r = new java.io.BufferedReader(new java.io.FileReader(operaUrlToFilename(filePath)));
+		var line;
+		while ((line = r.readLine()) != null)
+			content.push(new String(line));
+		r.close();
+	}
+	catch(e)
+	{
+		if(window.opera)
+			opera.postError(e);
+		return null;
+	}
+	return content.join("\n");
+}
+
+function operaSaveFile(filePath, content)
+{
+	try
+	{
+		var s = new java.io.PrintStream(new java.io.FileOutputStream(operaUrlToFilename(filePath)));
+		s.print(content);
+		s.close();
+	}
+	catch(e)
+	{
+		if(window.opera)
+			opera.postError(e);
+		return null;
+	}
+	return true;
+}
+/* end of loadsave.js */
 
 function erase_wiki() {
 	if(confirm("This will ERASE all your pages.\n\nAre you sure you want to continue?") == false)
@@ -1814,152 +1960,6 @@ function import_wiki()
 	back_or("Special:Import");
 }
 
-function loadFile(filePath)
-{
-	var r = null;
-	r = mozillaLoadFile(filePath);
-	if((r == null) || (r == false))
-		r = ieLoadFile(filePath);
-	if((r == null) || (r == false))
-		r = operaLoadFile(filePath);
-	return(r);
-}
-
-// Returns null if it can't do it, false if there's an error, true if it saved OK
-function ieSaveFile(filePath, content)
-{
-	try
-	{
-		var fso = new ActiveXObject("Scripting.FileSystemObject");
-	}
-	catch(e)
-	{
-		alert("Exception while attempting to save\n\n" + e.toString());
-		return(null);
-	}
-	var file = fso.OpenTextFile(filePath,2,-1,0);
-	file.Write(content);
-	file.Close();
-	return(true);
-}
-
-// Returns null if it can't do it, false if there's an error, or a string of the content if successful
-function ieLoadFile(filePath)
-{
-	try
-	{
-		var fso = new ActiveXObject("Scripting.FileSystemObject");
-		var file = fso.OpenTextFile(filePath,1);
-		var content = file.ReadAll();
-		file.Close();
-	}
-	catch(e)
-	{
-		alert("Exception while attempting to load\n\n" + e.toString());
-		return(null);
-	}
-	return(content);
-}
-
-// Returns null if it can't do it, false if there's an error, or a string of the content if successful
-function mozillaLoadFile(filePath)
-{
-	if(window.Components)
-		try
-		{
-			netscape.security.PrivilegeManager.enablePrivilege("UniversalXPConnect");
-			var file = Components.classes["@mozilla.org/file/local;1"].createInstance(Components.interfaces.nsILocalFile);
-			file.initWithPath(filePath);
-			if (!file.exists())
-				return(null);
-			var inputStream = Components.classes["@mozilla.org/network/file-input-stream;1"].createInstance(Components.interfaces.nsIFileInputStream);
-			inputStream.init(file, 0x01, 00004, null);
-			var sInputStream = Components.classes["@mozilla.org/scriptableinputstream;1"].createInstance(Components.interfaces.nsIScriptableInputStream);
-			sInputStream.init(inputStream);
-			return(sInputStream.read(sInputStream.available()));
-		}
-		catch(e)
-		{
-			alert("Exception while attempting to load\n\n" + e);
-			return(false);
-		}
-	return(null);
-}
-
-// Returns null if it can't do it, false if there's an error, true if it saved OK
-function mozillaSaveFile(filePath, content)
-{
-	if(window.Components)
-		try
-		{
-			netscape.security.PrivilegeManager.enablePrivilege("UniversalXPConnect");
-			var file = Components.classes["@mozilla.org/file/local;1"].createInstance(Components.interfaces.nsILocalFile);
-			file.initWithPath(filePath);
-			if (!file.exists())
-				file.create(0, 0664);
-			var out = Components.classes["@mozilla.org/network/file-output-stream;1"].createInstance(Components.interfaces.nsIFileOutputStream);
-			out.init(file, 0x20 | 0x02, 00004,null);
-			out.write(content, content.length);
-			out.flush();
-			out.close();
-			return(true);
-		}
-		catch(e)
-		{
-			alert("Exception while attempting to save\n\n" + e);
-			return(false);
-		}
-	return(null);
-}
-
-function operaUrlToFilename(url)
-{
-	var f = "//localhost";
-	if(url.indexOf(f) == 0)
-		return url.substring(f.length);
-	var i = url.indexOf(":");
-	if(i > 0)
-		return url.substring(i-1);
-	return url;
-}
-
-function operaLoadFile(filePath)
-{
-	var content = [];
-	try
-	{
-		var r = new java.io.BufferedReader(new java.io.FileReader(operaUrlToFilename(filePath)));
-		var line;
-		while ((line = r.readLine()) != null)
-			content.push(new String(line));
-		r.close();
-	}
-	catch(e)
-	{
-		if(window.opera)
-			opera.postError(e);
-		return null;
-	}
-	return content.join("\n");
-}
-
-function operaSaveFile(filePath, content)
-{
-	try
-	{
-		var s = new java.io.PrintStream(new java.io.FileOutputStream(operaUrlToFilename(filePath)));
-		s.print(content);
-		s.close();
-	}
-	catch(e)
-	{
-		if(window.opera)
-			opera.postError(e);
-		return null;
-	}
-	return true;
-}
-
 function open_table_help()
 {
 	w = window.open("about:blank", "help", "height=200px, width=350px, menubar=no, toolbar=no, location=no, status=no, dialog=yes");
@@ -2025,7 +2025,6 @@ function js_hex_encode(s) {
 				return "\\x" + s;
 	});
 }
-
 	
 /*** aes.js ***/
 
@@ -2434,5 +2433,8 @@ function AES_decrypt(raw_data) {
 //var test_key = "a very good password";
 //AES_setKey(test_key);
 //alert(AES_decrypt(AES_encrypt(pages[0])));
+
+//AES_setKey("test");
+//AES_decrypt(pages[pages.length-1]);
 
 /* ]]> */
