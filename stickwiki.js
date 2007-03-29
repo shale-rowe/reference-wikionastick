@@ -311,10 +311,10 @@ function parse(text)
 			s = "<div class=\"taglinks\">";
 		s += "Tags: ";
 		for(var i=0;i<tags.length-1;i++) {
-			s+="<a class=\"link tag\" onclick=\"go_to('Tagged:"+_sq_esc(tags[i])+"')\">"+tags[i]+"</a>&nbsp;&nbsp;";
+			s+="<a class=\"link tag\" onclick=\"go_to('Tagged::"+_sq_esc(tags[i])+"')\">"+tags[i]+"</a>&nbsp;&nbsp;";
 		}
 		if (tags.length>0)
-			s+="<a class=\"link tag\" onclick=\"go_to('Tagged:"+_sq_esc(tags[tags.length-1])+"')\">"+tags[tags.length-1]+"</a>";
+			s+="<a class=\"link tag\" onclick=\"go_to('Tagged::"+_sq_esc(tags[tags.length-1])+"')\">"+tags[tags.length-1]+"</a>";
 		if (!force_inline) {
 			s+="</div>";
 			text += s;
@@ -365,9 +365,13 @@ function _get_namespace(ns) {
 function _get_tagged(tag) {
 	var pg = new Array();
 
+	var tmp;
 	for(var i=0; i<pages.length; i++)
 	{
-		pages[i].replace(/\[\[([^\|]*?)\]\]/g, function(str, $1)
+		tmp = get_page(i);
+		if (tmp==null)
+			continue;
+		tmp.replace(/\[\[([^\|]*?)\]\]/g, function(str, $1)
 			{
 				if($1.match("://"))
 					return;
@@ -410,9 +414,14 @@ function special_search( str )
 	var reg = new RegExp( ".*" + RegExp.escape(str).replace(/^\s+/, "").
 					replace(/\s+$/, "").replace(/\s+/g, ".*") + ".*", "gi" );
 
+	var tmp;
 	for(var i=0; i<pages.length; i++)
 	{
 		if (is_special(page_titles[i]) && (page_titles[i] != "Special::Menu"))
+			continue;
+			
+		tmp = get_page(i);
+		if (tmp==null)
 			continue;
 //		log("Searching into "+page_titles[i]);
 		
@@ -423,7 +432,7 @@ function special_search( str )
 			title_result += "* [[" + page_titles[i] + "]]\n";
 
 		//Look for str in body
-		res_body = pages[i].match( reg );
+		res_body = tmp.match( reg );
 //		log("res_body = "+res_body);
 		if (res_body!=null) {
 			count = res_body.length;
@@ -456,9 +465,12 @@ function special_dead_pages () {
 	var dead_pages = new Array();
 	var from_pages = new Array();
 	var page_done = false;
+	var tmp;
 	for (j=0;j<pages.length;j++) {
-
-		pages[j].replace(/\[\[([^\]\]]*?)(\|([^\]\]]+))?\]\]/g,
+		tmp = get_page(j);
+		if (tmp==null)
+			continue;
+		tmp.replace(/\[\[([^\]\]]*?)(\|([^\]\]]+))?\]\]/g,
 			function (str, $1, $2, $3) {
 				if (page_done)
 					return false;
@@ -515,12 +527,12 @@ function special_orphaned_pages()
 		if (is_special(page_titles[j]))
 			continue;
 		// search for pages that link to it
+		var tmp;
 		for(var i=0; i<pages.length; i++) {
 			if ((i==j) /*|| is_special(page_titles[i])*/)
 				continue;
-			if( (pages[i].toUpperCase().indexOf("[[" + page_titles[j].toUpperCase() + "]]") != -1)
-				|| (pages[i].toUpperCase().indexOf("|" + page_titles[j].toUpperCase() + "]]") != -1)
-				) {
+			tmp = get_page(i);
+			if (tmp.match(new RegExp("\\[\\["+RegExp.escape(page_titles[i])+"(\\||\\]\\])", "gi"))) {
 //					log("Page \""+page_titles[j]+"\" linked from page \""+page_titles[i]+"\"");
 					found = true;
 					break;
@@ -541,13 +553,14 @@ function special_orphaned_pages()
 function special_links_here()
 {
 	var pg = new Array();
+	var tmp;
+	var reg = new RegExp("\\[\\["+RegExp.escape(current)+"(\\||\\]\\])", "gi");
 	for(j=0; j<pages.length; j++)
 	{
 		// search for pages that link to it
-		if(	(pages[j].toUpperCase().indexOf("[[" + current.toUpperCase() + "]]")!=-1) ||
-				(pages[j].toUpperCase().indexOf("|" + current.toUpperCase() + "]]") != -1)
-				) {
-					pg.push( page_titles[j] );
+		tmp = get_page(j);
+		if (tmp.match(reg)) {
+			pg.push( page_titles[j] );
 		}
 	}
 	if(pg.length == 0)
@@ -582,9 +595,17 @@ function is_encrypted(page) {
 	return is__encrypted(page_index(page));
 }
 
-// retrieve a stored page
-function get_text(title)
-{
+// return a plain page or a decrypted one if available through the latest key
+function get_page(pi) {
+	if (!is__encrypted(pi))
+		return pages[pi];
+	if (!key.length)
+		return null;
+	var pg = AES_decrypt(pages[pi].slice(0));	/*WARNING: may not be supported by all browsers*/
+	return pg;	
+}
+
+function get_text(title) {
 	var pi = page_index(title);
 	if (pi==-1)
 		return null;
