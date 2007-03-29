@@ -977,8 +977,10 @@ function get_text(title)
 	} while (retry<2);
 	if (pg != null)
 		decrypt_failed = false;
-	else
+	else {
 		alert("Access denied");
+		AES_clearKey();
+	}
 	return pg;
 }
 
