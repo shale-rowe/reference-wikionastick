@@ -1859,8 +1859,9 @@ function import_wiki()
 
 	// get only the needed part
 	var wiki;
+	var rx = /<div id="?wiki"?[^>]*>((.|\n|\t|\s)*)<\/div>/i;
 	try {
-		wiki = ct.match(/\<div .*id=\"?wiki\"?\>((.|\n|\t|\s)*)\<\/div\>/)[0];
+		wiki = ct.match(rx)[1];
 	} catch(e) {
 		alert("Unrecognized file");
 		document.body.style.cursor= "auto";
@@ -1873,7 +1874,7 @@ function import_wiki()
 	// separate variables from wiki
 	var vars;
 	try {
-		vars = wiki.match(/\<div .*id=\"?variables\"?\>((.|\n|\t|\s)*)\<\/div\>/)[0];
+		vars = wiki.match(/<div .*id="?variables"?[^>]*>((.|\n|\t|\s)*)<\/div>/)[0];
 	} catch(e) {
 		vars = "";
 	}
