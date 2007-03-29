@@ -7,7 +7,7 @@
 
 var version = "0.9B";
 
-var __marker = "ODbWwCIZpqypZSlWgd";
+var __marker = "itMFBZkARKOncAKTMs";
 
 var permit_edits = true;
 
@@ -17,14 +17,18 @@ var save_on_quit = false;
 
 var allow_diff = true;
 
-var current = "CryptoTest";
+var current = "Main Page";
 
 var main_page = "Main Page";
 
 var backstack = [
 "Main Page",
 "MyPages::Page 1",
-"Main Page"
+"Main Page",
+"CryptoTest",
+"Lock::CryptoTest",
+"Main Page",
+"Special::Menu"
 ];
 
 var page_titles = [
@@ -39,226 +43,221 @@ var page_titles = [
 "Hello there!",
 "Special::Lock",
 "Special::Security",
-"MyPages::Page 1",
-"CryptoTest"
+"MyPages::Page 1"
 ];
 
-/* ODbWwCIZpqypZSlWgd */
-var page_attrs = [0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0];
+/* itMFBZkARKOncAKTMs */
+var page_attrs = [0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0];
 
 var pages = [
-"[[Main Page]]\n" +
-"[[CryptoTest]]\n" +
-"\n" +
-"[[Special::Advanced]]\n" +
-"[[Special::Backlinks]]\n" +
-"[[Special::Search]]",
-"!Info\n" +
-"  [[Special::About|About Wiki on a Stick]]\n" +
-"  This wiki was last modified in <span id=\"lastDate\"></span>.\n" +
-"\n" +
-"!Pages\n" +
-"  [[Special::All Pages|All Pages]]: a list of all user created pages in this wiki\n" +
-"  [[Locked::|All encryted pages]]: a list of all encrypted pages\n" +
-"  [[Unlocked::|All plain pages]]: a list of all plain pages\n" +
-"  [[Special::|All Special Pages]]: list of all system pages\n" +
-"  [[Special::Pages not yet created|Pages not yet created]]: a list of pages that have links to them, but were still not created \n" +
-"  [[Special::Orphaned Pages|Orphaned Pages]]: a list of pages that once were linked to, but now no page links to them anymore\n" +
-"  [[Special::Search|Search]]: search all wiki pages\n" +
-"\n" +
-"!Maintenance\n" +
-"  [[Special::Import|Import wiki]] from an early (or current) version.\n" +
-"  [[Special::Erase Wiki|Erase Wiki]]: delete ALL wiki pages and reset with default data\n" +
-"\n" +
-"!Special edits\n" +
-"  [[Special::Edit CSS|Edit CSS]]: edit the global CSS styles\n" +
-"  [[Special::Edit Menu|Edit Menu]]: edit main menu (on the left)\n" +
-"\n" +
-"!Options\n" +
-"  <label for=\"cb_allow_diff\"><input type=\"checkbox\" id=\"cb_allow_diff\" onclick=\"allow_diff = el_eval('cb_allow_diff')\" />Diff mode (consistent newlines splitting in saved data, useful for versioning)<br />\n" +
-"  <label for=\"cb_permit_edits\"><input type=\"checkbox\" id=\"cb_permit_edits\" onclick=\"permit_edits = !el_eval('cb_permit_edits')\" />Disable edit mode for all pages (useful when publishing the Wiki On a Stick file on a web server)<br />\n" +
-"  <label for=\"cb_dblclick_edit\"><input type=\"checkbox\" id=\"cb_dblclick_edit\" onclick=\"dblclick_edit = el_eval('cb_dblclick_edit')\" />Double click to edit pages/menu<br />\n" +
-"  <label for=\"cb_save_on_quit\"><input type=\"checkbox\" id=\"cb_save_on_quit\" onclick=\"save_on_quit = el_eval('cb_save_on_quit')\" />Automatically save options (if changed) before quitting<br />\n" +
-"  <input type=\"button\" onclick=\"save_options()\" value=\"Save options\" />",
-"Import a wiki from an early (or current) version:\n" +
-"\n" +
-"File: <input id=\"filename_\" type=\"file\" /><input type=\"button\" value=\"Import\" onclick=\"import_wiki()\" />\n" +
-"\n" +
-"*Important:* CSS will not be imported from versions below v0.04",
-"!Wiki on a Stick version 0.9\n" +
-"\n" +
-"Current version *v0.9B* by Daniele C. ([[http://sf.net/users/legolas558/|legolas558]])\n" +
-"Original version (v0.01 &tilde; v0.04) by Andr\u00e9 Wagner\n" +
-"Wiki on a Stick is licensed under the [[http://www.gnu.org/copyleft/gpl.html|GNU/GPL]] license.\n" +
-"\n" +
-"!!Thanks to\n" +
-"This project wouldn't be what it is without the help of other people. If you contributed to Wiki on a Stick and your name is not here, please send an email to <a class=\"world\" href=\"mailto:legolas558 _AT_ users.sourceforge.net\">this email address</a>. If, for any reason, you don't want your name listed here, just send an email.\n" +
-"\n" +
-"* *Jeremy Ruston* - the creator of the wonderful [[http://www.tiddlywiki.com/|TiddlyWiki]], who served as inspiration for Wiki on a Stick. He also kindly allowed the usage of his saving/loading routines.\n" +
-"* *Philip O'Donnel* - creator of the table syntax & parsing code\n" +
-"* *Tim Lord*\n" +
-"* *Knut Kohl*\n" +
-"* *Rob Schmersel*\n" +
-"* *Michiel van Everdingen* - original javascript implementation of AES encryption\n" +
-"* *Cyril Mazard* - search feature\n" +
-"\n" +
-"And, last but not least:\n" +
-"\n" +
-"* *the StickWiki google group* users for their support, advices and testing which has pushed WoaS development up to the current status.\n" +
-"\n" +
-"!!Contributing\n" +
-"\n" +
-"Read more at [[http://sf.net/projects/stickwiki/|Our SourceForge Project]]\n" +
-"We also have an active [[http://groups.google.com/group/stickwiki/|Google dicussion group]]",
-"!Welcome to Wiki on a Stick!\n" +
-"A self-containing XHTML/javascript wiki.\n" +
-"\n" +
-"!!How to use\n" +
-"/(click on the pencil icon on the top right corner to edit the wiki source)/\n" +
-"\n" +
-"You can also double click anywhere on the text to edit (if this option is enabled from [[Special::Advanced]]), and you can use escape to cancel editing or to go backward.\n" +
-"\n" +
-"!!Upgrading\n" +
-"\n" +
-"If you have an older Wiki on a Stick (v0.01 &tilde; v0.04), [[Special::Import|import it]]!\n" +
-"\n" +
-"!!!Syntax changes in v0.9\n" +
-"There have been a few changes in the wiki syntax, they will be automatically applied on import or saving (except the wiki link parts inversion).\n" +
-"\n" +
-"* bullet lists are recognized using a plus sign '+' (previous stickwiki syntax) or an asterisk '*' (0.9 stickwiki syntax), with preference for asterisk lists\n" +
-"* the namespace separator is '::', when using it you will take advantage of the namespaces feature\n" +
-"* wiki link parts are inverted, e.g. no more [<!-- -->[the label|WikiActualPage]] but [<!-- -->[WikiActualPage|the label]]\n" +
-"\n" +
-"!Syntax examples \n" +
-"\n" +
-"Follows a brief example of all the capabilities of Wiki on a Stick syntax.\n" +
-"\n" +
-"!!Formatting\n" +
-"!!!Subheader of third level\n" +
-"!!!!Subheader of fourth level\n" +
-"<pre>\n" +
-"This is pre-formatted text!\n" +
-"</pre>\n" +
-"\n" +
-"<pre style=\"color:gray\">\n" +
-"This is pre-formatted text with CSS style!\n" +
-"</pre>\n" +
-"!!Some specials\n" +
-"\n" +
-"Using [[Special::Main Page]] you will always link to the main page, no matters what its name is.\n" +
-"\n" +
-"New pages have red links, like this [[New page]], but you can use [[Special::New page]] to automatically create a new one.\n" +
-"\n" +
-"!!Tags and namespaces\n" +
-"There is support for [[Tagged::Nice|tags]] and namespaces. For example, see [[MyPages::Page 1]] and [[MyPages::Page 2]], both belonging to the [[MyPages::]] namespace. You can also use subnamespaces, like in [[MyPages::Approved::Page 3]]\n" +
-"\n" +
-"!!Syntax parser testcases\n" +
-"\n" +
-"On my right there is some _underlined text_, followed by *bold text* and /italics/.\n" +
-"\n" +
-"Now I will use /*italics and bold*/, followed by */bold and italics/* and finally _*/underlined bold italics/*_.\n" +
-"\n" +
-"Maybe you want to see some *_/bold underlined italics/_* or also some */_bold italics underlined_/*?\n" +
-"\n" +
-"And here is, just for you, a partial *bold-/italics/*!!!\n" +
-"\n" +
-"!!Syntax\n" +
-"\n" +
-"External links: [[http://stickwiki.sourceforge.net/|Wiki on a Stick]]\n" +
-"\n" +
-"As you can see, /an/unix/path/ is correctly recognized.\n" +
-"\n" +
-"Boldface: *Boldface text*\n" +
-"Italics: /italics text/\n" +
-"Underline: _underlined text_\n" +
-"\n" +
-"Ruler:\n" +
-"---\n" +
-"\n" +
-"List:\n" +
-"* Item 1\n" +
-"** Subitem a\n" +
-"** Subitem b\n" +
-"* Item 2\n" +
-"** Subitem c\n" +
-"*** Subsubitem d\n" +
-"* Item 3\n" +
-"\n" +
-"Numbered list:\n" +
-"# Item A\n" +
-"## Subitem i\n" +
-"## Subitem ii\n" +
-"# Item B\n" +
-"## Subitem iii\n" +
-"### Subsubitem iv\n" +
-"# Item C\n" +
-"\n" +
-"!!Tables\n" +
-"\n" +
-"{|\n" +
-"|+ Telephone Table\n" +
-"| *Column Name* || *Type* || *Other* || *Description*\n" +
-"|-\n" +
-"| id || INT || PRIMARY KEY || Row ID\n" +
-"|-\n" +
-"| contact_id || INT || KEY || References FOREIGN KEY(Contacts.id)\n" +
-"|-\n" +
-"| type || ENUM('Home','Work','Mobile','Pager','Other') || || Defines type of Telephone record\n" +
-"|-\n" +
-"| number || CHAR(32) || || Contains actual Telephone number\n" +
-"|}",
-"!Search in Wiki\n" +
-"\n" +
-"<input id=\"string_to_search\" type=\"text\" onfocus=\"search_focus(true)\" onblur=\"search_focus(false)\" />&nbsp;<input type=\"button\" value=\"Search\" onclick=\"do_search()\" />&nbsp;<input type=\"button\" value=\"Clear\" onclick=\"clear_search()\" />\n" +
-"",
+"[[Main Page]]\n\
+\n\
+[[Special::Advanced]]\n\
+[[Special::Backlinks]]\n\
+[[Special::Search]]",
+"!Info\n\
+  [[Special::About|About Wiki on a Stick]]\n\
+  This wiki was last modified in <span id=\"lastDate\"></span>.\n\
+\n\
+!Pages\n\
+  [[Special::All Pages|All Pages]]: a list of all user created pages in this wiki\n\
+  [[Locked::|All encryted pages]]: a list of all encrypted pages\n\
+  [[Unlocked::|All plain pages]]: a list of all plain pages\n\
+  [[Special::|All Special Pages]]: list of all system pages\n\
+  [[Special::Pages not yet created|Pages not yet created]]: a list of pages that have links to them, but were still not created \n\
+  [[Special::Orphaned Pages|Orphaned Pages]]: a list of pages that once were linked to, but now no page links to them anymore\n\
+  [[Special::Search|Search]]: search all wiki pages\n\
+\n\
+!Maintenance\n\
+  [[Special::Import|Import wiki]] from an early (or current) version.\n\
+  [[Special::Erase Wiki|Erase Wiki]]: delete ALL wiki pages and reset with default data\n\
+\n\
+!Special edits\n\
+  [[Special::Edit CSS|Edit CSS]]: edit the global CSS styles\n\
+  [[Special::Edit Menu|Edit Menu]]: edit main menu (on the left)\n\
+\n\
+!Options\n\
+  <label for=\"cb_allow_diff\"><input type=\"checkbox\" id=\"cb_allow_diff\" onclick=\"allow_diff = el_eval('cb_allow_diff')\" />Diff mode (consistent newlines splitting in saved data, useful for versioning)<br />\n\
+  <label for=\"cb_permit_edits\"><input type=\"checkbox\" id=\"cb_permit_edits\" onclick=\"permit_edits = !el_eval('cb_permit_edits')\" />Disable edit mode for all pages (useful when publishing the Wiki On a Stick file on a web server)<br />\n\
+  <label for=\"cb_dblclick_edit\"><input type=\"checkbox\" id=\"cb_dblclick_edit\" onclick=\"dblclick_edit = el_eval('cb_dblclick_edit')\" />Double click to edit pages/menu<br />\n\
+  <label for=\"cb_save_on_quit\"><input type=\"checkbox\" id=\"cb_save_on_quit\" onclick=\"save_on_quit = el_eval('cb_save_on_quit')\" />Automatically save options (if changed) before quitting<br />\n\
+  <input type=\"button\" onclick=\"save_options()\" value=\"Save options\" />",
+"Import a wiki from an early (or current) version:\n\
+\n\
+File: <input id=\"filename_\" type=\"file\" /><input type=\"button\" value=\"Import\" onclick=\"import_wiki()\" />\n\
+\n\
+*Important:* CSS will not be imported from versions below v0.04",
+"!Wiki on a Stick version 0.9\n\
+\n\
+Current version *v0.9B* by Daniele C. ([[http://sf.net/users/legolas558/|legolas558]])\n\
+Original version (v0.01 &tilde; v0.04) by Andr\u00e9 Wagner\n\
+Wiki on a Stick is licensed under the [[http://www.gnu.org/copyleft/gpl.html|GNU/GPL]] license.\n\
+\n\
+!!Thanks to\n\
+This project wouldn't be what it is without the help of other people. If you contributed to Wiki on a Stick and your name is not here, please send an email to <a class=\"world\" href=\"mailto:legolas558 _AT_ users.sourceforge.net\">this email address</a>. If, for any reason, you don't want your name listed here, just send an email.\n\
+\n\
+* *Jeremy Ruston* - the creator of the wonderful [[http://www.tiddlywiki.com/|TiddlyWiki]], who served as inspiration for Wiki on a Stick. He also kindly allowed the usage of his saving/loading routines.\n\
+* *Philip O'Donnel* - creator of the table syntax & parsing code\n\
+* *Tim Lord*\n\
+* *Knut Kohl*\n\
+* *Rob Schmersel*\n\
+* *Michiel van Everdingen* - original javascript implementation of AES encryption\n\
+* *Cyril Mazard* - search feature\n\
+\n\
+And, last but not least:\n\
+\n\
+* *the StickWiki google group* users for their support, advices and testing which has pushed WoaS development up to the current status.\n\
+\n\
+!!Contributing\n\
+\n\
+Read more at [[http://sf.net/projects/stickwiki/|Our SourceForge Project]]\n\
+We also have an active [[http://groups.google.com/group/stickwiki/|Google dicussion group]]",
+"!Welcome to Wiki on a Stick!\n\
+A self-containing XHTML/javascript wiki.\n\
+\n\
+!!How to use\n\
+/(click on the pencil icon on the top right corner to edit the wiki source)/\n\
+\n\
+You can also double click anywhere on the text to edit (if this option is enabled from [[Special::Advanced]]), and you can use escape to cancel editing or to go backward.\n\
+\n\
+!!Upgrading\n\
+\n\
+If you have an older Wiki on a Stick (v0.01 &tilde; v0.04), [[Special::Import|import it]]!\n\
+\n\
+!!!Syntax changes in v0.9\n\
+There have been a few changes in the wiki syntax, they will be automatically applied on import or saving (except the wiki link parts inversion).\n\
+\n\
+* bullet lists are recognized using a plus sign '+' (previous stickwiki syntax) or an asterisk '*' (0.9 stickwiki syntax), with preference for asterisk lists\n\
+* the namespace separator is '::', when using it you will take advantage of the namespaces feature\n\
+* wiki link parts are inverted, e.g. no more [<!-- -->[the label|WikiActualPage]] but [<!-- -->[WikiActualPage|the label]]\n\
+\n\
+!Syntax examples \n\
+\n\
+Follows a brief example of all the capabilities of Wiki on a Stick syntax.\n\
+\n\
+!!Formatting\n\
+!!!Subheader of third level\n\
+!!!!Subheader of fourth level\n\
+<pre>\n\
+This is pre-formatted text!\n\
+</pre>\n\
+\n\
+<pre style=\"color:gray\">\n\
+This is pre-formatted text with CSS style!\n\
+</pre>\n\
+!!Some specials\n\
+\n\
+Using [[Special::Main Page]] you will always link to the main page, no matters what its name is.\n\
+\n\
+New pages have red links, like this [[New page]], but you can use [[Special::New page]] to automatically create a new one.\n\
+\n\
+!!Tags and namespaces\n\
+There is support for [[Tagged::Nice|tags]] and namespaces. For example, see [[MyPages::Page 1]] and [[MyPages::Page 2]], both belonging to the [[MyPages::]] namespace. You can also use subnamespaces, like in [[MyPages::Approved::Page 3]]\n\
+\n\
+!!Syntax parser testcases\n\
+\n\
+On my right there is some _underlined text_, followed by *bold text* and /italics/.\n\
+\n\
+Now I will use /*italics and bold*/, followed by */bold and italics/* and finally _*/underlined bold italics/*_.\n\
+\n\
+Maybe you want to see some *_/bold underlined italics/_* or also some */_bold italics underlined_/*?\n\
+\n\
+And here is, just for you, a partial *bold-/italics/*!!!\n\
+\n\
+!!Syntax\n\
+\n\
+External links: [[http://stickwiki.sourceforge.net/|Wiki on a Stick]]\n\
+\n\
+As you can see, /an/unix/path/ is correctly recognized.\n\
+\n\
+Boldface: *Boldface text*\n\
+Italics: /italics text/\n\
+Underline: _underlined text_\n\
+\n\
+Ruler:\n\
+---\n\
+\n\
+List:\n\
+* Item 1\n\
+** Subitem a\n\
+** Subitem b\n\
+* Item 2\n\
+** Subitem c\n\
+*** Subsubitem d\n\
+* Item 3\n\
+\n\
+Numbered list:\n\
+# Item A\n\
+## Subitem i\n\
+## Subitem ii\n\
+# Item B\n\
+## Subitem iii\n\
+### Subsubitem iv\n\
+# Item C\n\
+\n\
+!!Tables\n\
+\n\
+{|\n\
+|+ Telephone Table\n\
+| *Column Name* || *Type* || *Other* || *Description*\n\
+|-\n\
+| id || INT || PRIMARY KEY || Row ID\n\
+|-\n\
+| contact_id || INT || KEY || References FOREIGN KEY(Contacts.id)\n\
+|-\n\
+| type || ENUM('Home','Work','Mobile','Pager','Other') || || Defines type of Telephone record\n\
+|-\n\
+| number || CHAR(32) || || Contains actual Telephone number\n\
+|}",
+"!Search in Wiki\n\
+\n\
+<input id=\"string_to_search\" type=\"text\" onfocus=\"search_focus(true)\" onblur=\"search_focus(false)\" />&nbsp;<input type=\"button\" value=\"Search\" onclick=\"do_search()\" />&nbsp;<input type=\"button\" value=\"Clear\" onclick=\"clear_search()\" />\n\
+",
 "Hey, don't tell anyone around but...I am better than [[MyPages::Page 1]]!",
-"This is a page in a subnamespace!\n" +
-"\n" +
-"The parent namespace is [[MyPages::]] while the subnamespace is [[MyPages::Approved::]]\n" +
-"\n" +
-"",
-"saadadsasd\n" +
-"\n" +
-"dasasd",
-"!!AES encryption\n" +
-"Read more about the [[Special::Security|embedded AES encryption]] used in Wiki On a Stick.\n" +
-"\n" +
-"!!Password\n" +
-"Enter your password for AES encryption. The more complex your password is, the more difficult it will be to attack the encryption. It is suggested *not* to use passwords whose textbox color is <span style=\"background-color:red\">&nbsp;red&nbsp;</span>, and to accept passwords only when the textbox color is <span style=\"background-color:lime\">&nbsp;green&nbsp;</span>.\n" +
-"\n" +
-" *If you forget the password there is no way to retrieve it or your data, FOREVER.*\n" +
-"\n" +
-"  <input type=\"password\" id=\"pw1\" style=\"background-color:red\" value=\"\" size=\"50\" onfocus=\"custom_focus(true)\" onblur=\"custom_focus(false)\" onkeyup=\"pw_quality()\" />&nbsp;<span id=\"txtBits\">&nbsp;</span>\n" +
-"  <input type=\"password\" id=\"pw2\" value=\"\" size=\"50\" onfocus=\"custom_focus(true)\" onblur=\"custom_focus(false)\" />\n" +
-"  <input id=\"btn_lock\" type=\"button\" value=\"\" />",
-"!!AES encryption\n" +
-"Since Wiki on a Stick v0.9 the [[http://en.wikipedia.org/wiki/Advanced_Encryption_Standard|AES]] 256-bit high security data encryption standard is supported to protect a single page or groups of them.\n" +
-"\n" +
-" *If you forget the password there is no way to retrieve it or your data, FOREVER*.\n" +
-"\n" +
-"!!How Do I Encrypt a page?\n" +
-"In order to encrypt a page you will have to click on the /lock/ icon on the top-right navigation panel; if your page is already encrypted you will first have to unlock it.\n" +
-"\n" +
-"!!Security level\n" +
-"Security is never absolute. Data encrypted with these pages might be compromised in a variety of ways, including but not limited to the following:\n" +
-"\n" +
-"* Your Web browser and/or JavaScript interpreter may contain bugs or deliberate security violations which report activity on your computer back to some other Internet site.\n" +
-"* Some other applet running on another page in your browser, perhaps without your being aware of its existence, is spying on other windows.\n" +
-"* Some other \"spyware\" application running on your computer may have compromised your system's security and be snooping on your activity.\n" +
-"* Your Web browser may be keeping a \"history log\" or \"cache\" of data you generate. Somebody may come along later and recover a copy of your data from that log.\n" +
-"* The implementation of the encryption may contain a bug which makes its results insecure. This is why transparency is essential. Wiki on a Stick is open-source. You can judge for yourself whether the tool merits your confidence.\n" +
-"* Your computer's security may have been compromised physically; when's the last time you checked that a bug that transmits your keystrokes and/or screen contents to that white van parked down the street wasn't lurking inside your computer cabinet?\n" +
-"\n" +
-"Apart from the above, your normal usage of encrypted pages can be considered secure. They will be even more secure if you do not open them.",
-"[[Tag::Nice]]\n" +
-"\n" +
-"This is indeed the better page of the wiki, and is _cryptographically protected_ too!",
-"Hello World!\n" +
-"\n" +
-"."
+"This is a page in a subnamespace!\n\
+\n\
+The parent namespace is [[MyPages::]] while the subnamespace is [[MyPages::Approved::]]\n\
+\n\
+",
+"saadadsasd\n\
+\n\
+dasasd",
+"!!AES encryption\n\
+Read more about the [[Special::Security|embedded AES encryption]] used in Wiki On a Stick.\n\
+\n\
+!!Password\n\
+Enter your password for AES encryption. The more complex your password is, the more difficult it will be to attack the encryption. It is suggested *not* to use passwords whose textbox color is <span style=\"background-color:red\">&nbsp;red&nbsp;</span>, and to accept passwords only when the textbox color is <span style=\"background-color:lime\">&nbsp;green&nbsp;</span>.\n\
+\n\
+ *If you forget the password there is no way to retrieve it or your data, FOREVER.*\n\
+\n\
+  <input type=\"password\" id=\"pw1\" style=\"background-color:red\" value=\"\" size=\"50\" onfocus=\"custom_focus(true)\" onblur=\"custom_focus(false)\" onkeyup=\"pw_quality()\" />&nbsp;<span id=\"txtBits\">&nbsp;</span>\n\
+  <input type=\"password\" id=\"pw2\" value=\"\" size=\"50\" onfocus=\"custom_focus(true)\" onblur=\"custom_focus(false)\" />\n\
+  <input id=\"btn_lock\" type=\"button\" value=\"\" />",
+"!!AES encryption\n\
+Since Wiki on a Stick v0.9 the [[http://en.wikipedia.org/wiki/Advanced_Encryption_Standard|AES]] 256-bit high security data encryption standard is supported to protect a single page or groups of them.\n\
+\n\
+ *If you forget the password there is no way to retrieve it or your data, FOREVER*.\n\
+\n\
+!!How Do I Encrypt a page?\n\
+In order to encrypt a page you will have to click on the /lock/ icon on the top-right navigation panel; if your page is already encrypted you will first have to unlock it.\n\
+\n\
+!!Security level\n\
+Security is never absolute. Data encrypted with these pages might be compromised in a variety of ways, including but not limited to the following:\n\
+\n\
+* Your Web browser and/or JavaScript interpreter may contain bugs or deliberate security violations which report activity on your computer back to some other Internet site.\n\
+* Some other applet running on another page in your browser, perhaps without your being aware of its existence, is spying on other windows.\n\
+* Some other \"spyware\" application running on your computer may have compromised your system's security and be snooping on your activity.\n\
+* Your Web browser may be keeping a \"history log\" or \"cache\" of data you generate. Somebody may come along later and recover a copy of your data from that log.\n\
+* The implementation of the encryption may contain a bug which makes its results insecure. This is why transparency is essential. Wiki on a Stick is open-source. You can judge for yourself whether the tool merits your confidence.\n\
+* Your computer's security may have been compromised physically; when's the last time you checked that a bug that transmits your keystrokes and/or screen contents to that white van parked down the street wasn't lurking inside your computer cabinet?\n\
+\n\
+Apart from the above, your normal usage of encrypted pages can be considered secure. They will be even more secure if you do not open them.",
+"[[Tag::Nice]]\n\
+\n\
+This is indeed the better page of the wiki, and is _cryptographically protected_ too!"
 ];
 
-/* ODbWwCIZpqypZSlWgd */
+/* itMFBZkARKOncAKTMs */
 
 /* ]]> */ </script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -368,7 +367,7 @@ a.link.tag {
 
 /* main wiki pane when locked */
 div.text_area.locked {
-	background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAEAQMAAACTPww9AAAAB3RJTUUH1wMcDgM7DjiDLQAAAAlwSFlzAAAuIgAALiIBquLdkgAAAARnQU1BAACxjwv8YQUAAAAGUExURf%2F%2F%2F93d3RxnYCYAAAAQSURBVHjaYzBgmMBwgCEBAAbIAeGwZobHAAAAAElFTkSuQmCC);
+	background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAAAAACMmsGiAAAALHRFWHRDcmVhdGlvbiBUaW1lAGdpbyAyOSBtYXIgMjAwNyAxMTo1MToxMCArMDEwME%2BTNUAAAAAHdElNRQfXAx0JNByGxueSAAAACXBIWXMAAAsSAAALEgHS3X78AAAABGdBTUEAALGPC%2FxhBQAAABlJREFUeNpj%2FM%2FwmYHpMwMvAxOQwcvECyQBO1oE%2BlG5iisAAAAASUVORK5CYII%3D);
 	background-color: #eeeeee;
 }
 
@@ -378,7 +377,7 @@ div.text_area.locked {
 <tbody>
 <tr>
 <td style="width: 100%;" valign="bottom">
-<p class="title" id="wiki_title">Editing CryptoTest</p></td>
+<p class="title" id="wiki_title">Editing Main Page</p></td>
 <td class="menu" onclick="go_back()">
 <div id="menu_back" style="display: none; cursor: pointer;"><img id="img_back" style="display: inline;" alt="Back" src="data:image/png;base64,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"><span id="alt_back" style="display: none; font-size: 24pt; font-family: wingdings;"></span></div></td>
 <td class="menu" onclick="go_forward()">
@@ -395,9 +394,9 @@ div.text_area.locked {
 <div id="menu_save" style="display: inline; cursor: pointer;"><img id="img_save" style="display: inline;" alt="Save" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAAK/INwWK6QAAAAZiS0dEAP8A/wD/oL2nkwAAA0FJREFUeNq1lc+KHFUUxn/n3qqu6h7tGdPByTBOEjQunK26EQRdhAGRuHGE2agLH8C1j5AXCFnkAYyBEIKoRHeabWQyJKIm+IdAdwSd0HZPdVXdc1xU9UynbZIe/xy4XG5R93z3fN937hWqeALYqGcFhH8WBkTAD8DXTCS64n18Jo6ToFo4792hAEQEVUUVc87baDR0ZvYBcEFAngO7eeatD5vHjq2XKysDee/dNxkOc9zcOIJzgXPnrhD0mfDVl+cbt29f/0zEvREBHqD9ZIckWfCdIwnLy8v0+3t47x7PiRkAcexoLy6SZW1arTaAQyq+ACSEAtVAURQyGo3I8/krMANVoSxLQigtaKjKsgkAREAEmRjOzVeBCDgnCPXecU7g8Rn+ZfzvANHkYprxsYD/GYABiExAzS+yWcX/IwEATEu8V7w3vNc5skvVvt7Qyj2zAVSVVqvJj3d6nD37MeAxJimSh+qxuj5DMVNUA7t/wFNHInSC2mhyh6AkyQrd3gOKYhcRv2/V6dOJCBoCjWSJNG2jqiSpAPrQUaLpTXk+4mhnyObma4QAWTZABNJ0AdWDk5mB98bFi9fJ8gWSxBFCybQt/gagqjSbTU6cOMknl66xvd0DjJdfWmNj41WGwwznBFVIU0+z1WQwDMRRNNMUUyJXzIYQyPOMbvcB8DSqSre7S1mOKIoc5xxmRp57NITaebMjmvlVqmq8czingOJ8Zd8DK8pB3ke0y34n26y/qutp8n45dEQ1fPA+qkU0MzMxM4q8JMsCqkpelJgZqoZz4xvU6m6vZqs6bnxYA4hEBDNz/f7vliQtnBuQNBJL0xbr68cpw6+Asf7CsyRJimpFk1klcqOR4HxEVIvsfSzeRQAmApGZfQ9c/uLz81tpupB3Oidd736X7e0dVlc7rK4u1g6LuHXru30NzMA55f5vPfLc0CCEMkgIZTkY7Hog7PebiHNLS8uXKlQpqR5+O+wQEQVCvX6/lrHq+M13PmplWf760c7QnT79Cnt7h3nRFO+Fq1e/saLoRDd3rv10986Nb0WECMTAiOMkWzv+4qfPnyrY2nqb/p97+DletDFdcSz8/EtgNFrj3r0d7nJDRMT+AqKAkRUl/oStAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAABJRU5ErkJggg=="><span id="alt_save" style="display: none; font-size: 24pt; font-family: wingdings;">&lt;</span></div>
 </td>
 <td>
-<div id="menu_lock" style="display: none; cursor: pointer;" onclick="unlock()"><img id="img_lock" style="display: inline;" alt="Lock" src="locked.png"><span id="alt_lock" style="display: none; font-size: 24pt; font-family: wingdings;">I</span></div>
+<div id="menu_unlock" style="display: none; cursor: pointer;" onclick="unlock()"><img id="img_lock" style="display: inline;" alt="Unlock" src="locked.png"><span id="alt_lock" style="display: none; font-size: 24pt; font-family: wingdings;">I</span></div>
 </td><td>
-<div id="menu_unlock" style="display: none; cursor: pointer;" onclick="lock()"><img id="img_unlock" style="display: inline;" alt="Unlock" src="unlocked.png"><span id="alt_unlock" style="display: none; font-size: 24pt; font-family: wingdings;">C</span></div>
+<div id="menu_lock" style="display: none; cursor: pointer;" onclick="lock()"><img id="img_unlock" style="display: inline;" alt="Lock" src="unlocked.png"><span id="alt_unlock" style="display: none; font-size: 24pt; font-family: wingdings;">C</span></div>
 </td></tr></tbody></table>
 <hr>
 <div id="unsupported_browser" style="display: none;"><i>Your browser is not supported. You can access the wiki but you won't be able to save.</i></div>
@@ -433,7 +432,7 @@ div.text_area.locked {
 <td># numbered list</td>
 <td>!!subheader</td>
 <td><a class="world" onclick="open_table_help()">(tables)</a></td></tr></tbody></table></div>
-<div id="debug_info" style="display: block;"><h2>Debug console</h2><p>This is a development BETA version of Wiki On a Stick; it is not suggested to use it with important data. If you want to disable this debug console, you will have to find the line that says <b><tt>var debug = true;</tt></b> and change it to <b><tt>false</tt></b>. Note: in the currently active debug mode changes will be saved only if <b><tt>var save_override</tt></b> is set to <b><tt>true</tt></b></p><div align="center"><textarea id="swlogger" cols="70" rows="12" style="width: 90%; background-color: lightgray;" readonly="true"></textarea></div>
+<div id="debug_info" style="display: block;"><h2>Debug console</h2><p>This is a development BETA version of Wiki On a Stick; it is not suggested to use it with important data. If you want to disable this debug console, you will have to find the line that says <b><tt>var debug = true;</tt></b> and change it to <b><tt>false</tt></b>. Note: in the currently active debug mode changes will be saved only if <b><tt>var save_override</tt></b> is set to <b><tt>true</tt></b></p><div align="center"><textarea id="swlogger" cols="70" rows="12" style="width: 90%; background-color: lightgray;" readonly="true"></textarea><br><input value="Clear" onclick="el('swlogger').value=''" type="button"></div>
 </div>
 <hr>
 <div align="center"><sub><a class="link" onclick="go_to('Special::About')">About Wiki on a Stick v0.9B</a></sub></div>

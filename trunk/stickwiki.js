@@ -105,7 +105,6 @@ function header_replace(hdr, text) {
 			header = $2.substr(0, $2.length-l);
 		else
 			header = $2;
-		log("Header is "+header);
 		return "<h"+l+">"+header+"<\/h"+l+">";
 	});
 }
@@ -605,8 +604,10 @@ function get_text(title)
 			AES_setKey(pw);
 			retry++;
 		}
-		log("Decrypting page "+title);
-		pg = AES_decrypt(pages[pi]);
+		// pass a copied instance to the decrypt function
+		pg = AES_decrypt(pages[pi].slice(0));	/*WARNING: may not be supported by all browsers*/
+		if (pg != null)
+			break;
 	} while (retry<3);
 	if (pg != null)
 		decrypt_failed = false;
@@ -614,6 +615,7 @@ function get_text(title)
 }
 
 function _set_text(pi, text) {
+	log("Setting wiki text for page #"+pi+" \""+page_titles[pi]+"\"");
 	text = _new_syntax_patch(text);
 	if (!is__encrypted(pi)) {
 		pages[pi] = text;
@@ -848,7 +850,8 @@ function set_current(cr)
 			decrypt_failed = false;
 			return;
 		}
-		_create_page(ns, cr, true);
+		if (!_create_page(ns, cr, true))
+			return;
 	}
 
 	load_as_current(ns+cr, text);
@@ -916,7 +919,7 @@ function lock_page(page) {
 	}
 	AES_setKey(pwd);
 	pages[pi] = AES_encrypt(pages[pi]);
-	alert(AES_decrypt(pages[pi]));
+	log("E: encrypted length is "+pages[pi].length);
 	page_attrs[pi] += 2;
 	save_to_file(true);
 	go_to(page);
@@ -1157,8 +1160,8 @@ function update_lock_icons(page, can_edit) {
 		return;
 	}
 	var cyphered = is_encrypted(page);
-	menu_display("lock", !kbd_hooking && can_edit && cyphered);
-	menu_display("unlock", !kbd_hooking && can_edit && !cyphered);
+	menu_display("lock", !kbd_hooking && can_edit && !cyphered);
+	menu_display("unlock", !kbd_hooking && can_edit && cyphered);
 	var cls;
 	if (cyphered)
 		cls = "text_area locked";
@@ -1215,7 +1218,7 @@ function edit()
 	edit_page(current);
 }
 
-var edit_override = true;
+var edit_override = false;
 
 function edit_allowed(page) {
 	if (edit_override)
@@ -1428,7 +1431,7 @@ function js_encode(s, split_lines) {
 	if (!split_lines)
 		s = s.replace(new RegExp("\r\n|\n", "g"), "\\n");
 	else
-		s = s.replace(new RegExp("\r\n|\n", "g"), "\\n\" +\n\"");
+		s = s.replace(new RegExp("\r\n|\n", "g"), "\\n\\\n");
 	// and fix also the >= 128 ascii chars (to prevent UTF-8 characters corruption)
 	return s.replace(new RegExp("([^\u0000-\u007F])", "g"), function(str, $1) {
 				var s = $1.charCodeAt(0).toString(16);
@@ -2036,11 +2039,11 @@ function js_hex_encode(s) {
 
 var bData;
 var sData;
-var i;
-var j;
+var aes_i;
+var aes_j;
 var tot;
 var key = [];
-var lenInd = false;	// length indicator (to remove padding bytes)
+var lenInd = true;	// length indicator (to remove padding bytes)
 
 var wMax = 0xFFFFFFFF;
 function rotb(b,n){ return ( b<<n | b>>>( 8-n) ) & 0xFF; }
@@ -2078,30 +2081,30 @@ function unExpChar(c){
 }
 
 function utf8Encrypt(){
-  if (i==0) { /* prgr='UTF-8'; */ bData=[]; tot=sData.length; j=0; }
-  var z = Math.min(i+100,tot);
+  if (aes_i==0) { /* prgr='UTF-8'; */ bData=[]; tot=sData.length; aes_j=0; }
+  var z = Math.min(aes_i+100,tot);
   var c = 0;
   var k = 0;
-  while (i<z) {
-    c = sData.charCodeAt(i++);
-    if (c<0x80){ bData[j++]=c; continue; }
+  while (aes_i<z) {
+    c = sData.charCodeAt(aes_i++);
+    if (c<0x80){ bData[aes_j++]=c; continue; }
     k=0; while(k<utf8sets.length && c>=utf8sets[k]) k++;
     if (k>=utf8sets.length) throw( "UTF-8: "+unExpChar(c) );
-    for (var n=j+k+1;n>j;n--){ bData[n]=0x80|(c&0x3F); c>>>=6; }
-    bData[j]=c+((0xFF<<(6-k))&0xFF);
-    j += k+2;
+    for (var n=aes_j+k+1;n>aes_j;n--){ bData[n]=0x80|(c&0x3F); c>>>=6; }
+    bData[aes_j]=c+((0xFF<<(6-k))&0xFF);
+    aes_j += k+2;
   }
 }
 
 function utf8Decrypt(){
-  if (i==0){ /* prgr='UTF-8'; */ sData=""; tot=bData.length; }
-  var z=Math.min(i+100,tot);
+  if (aes_i==0){ /* prgr='UTF-8'; */ sData=""; tot=bData.length; }
+  var z=Math.min(aes_i+100,tot);
   var c = 0;
   var e = "";
   var k = 0;
   var d = 0;
-  while (i<z){
-    c = bData[i++];
+  while (aes_i<z){
+    c = bData[aes_i++];
     e = '0x'+c.toString(16);
     k=0; while(c&0x80){ c=(c<<1)&0xFF; k++; }
     c >>= k;
@@ -2109,11 +2112,11 @@ function utf8Decrypt(){
 //		throw
 		log('UTF-8: invalid first byte '+e+'.');
 		sData = null;
-		i=tot;
+		aes_i=tot;
 		return;
 	}
     for (var n=1;n<k;n++){
-      d = bData[i++];
+      d = bData[aes_i++];
       e+=',0x'+d.toString(16);
       if (d<0x80||d>0xBF) break;
       c=(c<<6)+(d&0x3F);
@@ -2122,7 +2125,7 @@ function utf8Decrypt(){
 //		throw
 		log("UTF-8: invalid sequence "+e+'.');
 		sData = null;
-		i=tot;
+		aes_i=tot;
 		return;
 	}
     sData+=String.fromCharCode(c);
@@ -2147,11 +2150,11 @@ var aesRkey;
 function aesMult(x, y){ return (x&&y) ? aesPows[(aesLogs[x]+aesLogs[y])%255]:0; }
 
 function aesPackBlock() {
-  return [ getW(bData,i), getW(bData,i+4), getW(bData,i+8), getW(bData,i+12) ];
+  return [ getW(bData,aes_i), getW(bData,aes_i+4), getW(bData,aes_i+8), getW(bData,aes_i+12) ];
 }
 
 function aesUnpackBlock(packed){
-  for ( var mj=0; mj<4; mj++,i+=4) setW( bData, i, packed[mj] );
+  for ( var mj=0; mj<4; mj++,aes_i+=4) setW( bData, aes_i, packed[mj] );
 }
 
 function aesXTime(p){
@@ -2308,16 +2311,16 @@ function blcEncrypt(enc){
     if (key.length<1) return;
     if (lenInd) insLen( bData.length%16, 4 );
     //if (cbc)
-	for (i=0; i<16; i++) bData.unshift( Math.floor(Math.random()*256) );
+	for (aes_i=0; aes_i<16; aes_i++) bData.unshift( Math.floor(Math.random()*256) );
     while( bData.length%16!=0 ) bData.push(0);
     tot = bData.length;
     aesInit();
   }else{
     //if (cbc)
-	for (j=i; j<i+16; j++) bData[j] ^= bData[j-16];
+	for (aes_j=aes_i; aes_j<aes_i+16; aes_j++) bData[aes_j] ^= bData[aes_j-16];
     enc();
   }
-  if (i>=tot) aesClose();
+  if (aes_i>=tot) aesClose();
 }
 
 function blcDecrypt(dec){
@@ -2325,21 +2328,21 @@ function blcDecrypt(dec){
 //    prgr = name;
     if (key.length<1) return;
     //if (cbc)
-	{ i=16; }
+	{ aes_i=16; }
     tot = bData.length;
-    if ( (tot%16) || tot<i ) throw 'AES: Incorrect length (tot='+tot+', i='+i+')';
+    if ( (tot%16) || tot<aes_i ) throw 'AES: Incorrect length (tot='+tot+', aes_i='+aes_i+')';
     aesInit();
   }else{
     //if (cbc)
-	i=tot-i;
+	aes_i=tot-aes_i;
     dec();
     //if (cbc)
 	{
-      for (j=i-16; j<i; j++) bData[j] ^= bData[j-16];
-      i = tot+32-i;
+      for (aes_j=aes_i-16; aes_j<aes_i; aes_j++) bData[aes_j] ^= bData[aes_j-16];
+      aes_i = tot+32-aes_i;
     }
   }
-  if (i>=tot){
+  if (aes_i>=tot){
     aesClose();
     //if (cbc)
 	bData.splice(0,16);
@@ -2357,8 +2360,8 @@ function blcDecrypt(dec){
 // sets global key to the utf-8 encoded key
 function AES_setKey(sKey) {
   sData=sKey;
-  i=tot=0;
-  do{ utf8Encrypt(); } while (i<tot);
+  aes_i=tot=0;
+  do{ utf8Encrypt(); } while (aes_i<tot);
   sData = null;
   key = bData;
   bData = null;
@@ -2371,12 +2374,12 @@ function AES_clearKey() {
 // sets global bData to the utf-8 encoded binary data extracted from d
 function setData(d) {
 	sData = d;
-	i=tot=0;
-	do{ utf8Encrypt(); } while (i<tot);
+	aes_i=tot=0;
+	do{ utf8Encrypt(); } while (aes_i<tot);
 	sData = null;
 }
 
-var _magic_check = true;
+var _magic_check = false;
 
 // returns an array of encrypted characters
 function AES_encrypt(raw_data) {
@@ -2394,8 +2397,8 @@ function AES_encrypt(raw_data) {
 		setW(bData, bData.length, magic_len);
 	}
 	
-	i=tot=0;
-	do{ blcEncrypt(aesEncrypt); } while (i<tot);
+	aes_i=tot=0;
+	do{ blcEncrypt(aesEncrypt); } while (aes_i<tot);
 
 	return bData;
 }
@@ -2405,9 +2408,9 @@ function AES_encrypt(raw_data) {
 function AES_decrypt(raw_data) {
 	bData = raw_data;
 	
-	i=tot=0;
-	do{ blcDecrypt(aesDecrypt); } while (i<tot);
-
+	aes_i=tot=0;
+	do{ blcDecrypt(aesDecrypt); } while (aes_i<tot);
+	
 	if (_magic_check) {
 		// check if the magic characters were saved
 		if (bData.length < 10)
@@ -2424,8 +2427,8 @@ function AES_decrypt(raw_data) {
 		bData.splice(bData.length-8 - magic_len, 8 + magic_len + 1);
 	}
 	
-	i=tot=0;
-	do{ utf8Decrypt(); } while (i<tot);
+	aes_i=tot=0;
+	do{ utf8Decrypt(); } while (aes_i<tot);
 	
 	return sData;
 }
