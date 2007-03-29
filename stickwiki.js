@@ -98,14 +98,19 @@ function _get_tags(text) {
 	return tags;
 }
 
-function header_replace(hdr, text) {
-	return text.replace( new RegExp("(^|\n)"+RegExp.escape(hdr)+"([^"+RegExp.escape(hdr.charAt(0))+"].*)", "g"), 	function (str, $1, $2) {
-		var l = hdr.length;
-		if ($2.indexOf(hdr)==$2.length-l)
-			header = $2.substr(0, $2.length-l);
+function header_replace(hdr_char, len, text) {
+	var esc_hdr_char = RegExp.escape(hdr_char);
+	return text.replace( new RegExp("(^|\n)"+str_rep(esc_hdr_char, len)+"([^"+esc_hdr_char+"\n].*)(\n.?|$)", "g"), 	function (str, $1, $2, $3) {
+		if ($2.indexOf(str_rep(hdr_char, len))==$2.length-len)
+			header = $2.substr(0, $2.length-len);
 		else
 			header = $2;
-		return "</span>"+"<h"+l+">"+header+"</h"+l+"><span class=level"+l+">";
+		var tmp = $3;
+		if (tmp.length>1) {
+			if (tmp.charAt(1)!=hdr_char)
+				tmp = tmp.charAt(1);
+		}
+		return "</p>"+"<h"+len+">"+header+"</h"+len+"><p class=level"+len+">"+tmp;
 	});
 }
 
@@ -114,12 +119,12 @@ function header_replace(hdr, text) {
 // There is no limit to the level of nesting and it produces
 // valid xhtml markup.
 var reReapLists = /(?:^|\n)([\*#])[ \t].*(?:\n\1+[ \t][^\n]+)*/g;
-function parseList(str, type) {
+function parseList(str, type, $2) {
         var uoro = (type=='#')?'ol':'ul';
         var suoro = '<' + uoro + '>';
         var euoro = '</' + uoro + '>';
 
-        var sublist = function (lst, ll)
+        function sublist(lst, ll)
         {   
             var s = '';
             var item, sub
@@ -143,29 +148,25 @@ function parseList(str, type) {
         var old = 0;
         var reItems = /^([\*#]+)[ \t]([^\n]+)/mg;
 
-        try {
-		var stk =[]
-	        str.replace
-            (
-                reItems,
+		var stk = [];
+	    str.replace( reItems,
                 function(str, p1, p2)
                 {
+//					log("p1 = "+p1+", p2 = "+p2);
                     level = p1.length;
-                    if ((level - old) > 1)
-                    {
-                        throw 'ListNestingError';
-                    }
+					if (debug) {
+	                    if ((level - old) > 1)
+	                    {
+	                        alert('ListNestingError');
+	                    }
+					}
                     old = level;
                     stk.push([str, p1, p2]);
                 }
             );
-            return suoro + sublist(stk, 1) + euoro;
-        }
-        catch (e )
-        {
-            return '\n*** ListNestingError  ***\n' + str;
-        }
-    }
+
+		return "\n"+suoro + sublist(stk, 1) + euoro;
+	}
 
 	var reReapTables = /(?:^|\n)\{\|.*((?:\n\|.*)*)(?:\n|$)/g;	
     function parseTables(str, p1)
@@ -212,6 +213,7 @@ function parse(text)
 		return;
 	} //else		log("typeof(text) = "+typeof(text));
 
+	// thank you IE, really thank you
 	if (ie)
 		text = text.replace("\r\n", "\n");
 
@@ -226,16 +228,12 @@ function parse(text)
 		return r;
 	});
 	
+	// save html tags attributes
 	text = text.replace(/\<\w+[^>]*>/g, function (tag) {
 		var r = "<!-- "+parse_marker+'::'+html_tags.length+" -->";
 		html_tags.push(tag);
 		return r;
 	});
-	
-	// <b>
-	text = text.replace(/\*([^\*\n]+)\*/g, parse_marker+"bS#$1"+parse_marker+"bE#");
-	// <u>
-	text = text.replace(/(^|[^\w])_([^_]+)_/g, "$1"+parse_marker+"uS#$2"+parse_marker+"uE#");
 	
 	// italics
 	text = text.replace(/(^|[^\w])\/([^\/]+)\/($|[^\w\>])/g, function (str, $1, $2, $3) {
@@ -244,6 +242,24 @@ function parse(text)
 		}
 		return $1+"<i>"+$2+"</i>"+$3;
 	});
+	
+	// ordered/unordered lists parsing (code by plumloco)
+	text = text.replace(reReapLists, parseList);
+	
+	// headers (from h1 to h6, as defined by the HTML 3.2 standard)
+	for(i=1;i<7;i++) {
+		text = header_replace("!", i, text);
+	}
+	
+	// <b>
+	text = text.replace(/\*([^\*\n]+)\*/g, parse_marker+"bS#$1"+parse_marker+"bE#");
+
+	// <u>
+	text = text.replace(/(^|[^\w])_([^_]+)_/g, "$1"+parse_marker+"uS#$2"+parse_marker+"uE#");
+	
+	// <strike>
+	//text = text.replace(/(^|\n|\s|\>|\*)\-(.*?)\-/g, "$1<strike>$2<\/strike>");
+	// <br />
 	
 	text = text.replace(new RegExp(parse_marker+"([ub])([SE])#", "g"), function (str, $1, $2) {
 		if ($2=='E')
@@ -254,24 +270,9 @@ function parse(text)
 			tag = "<span style=\"font-weight: bold;\">";
 		return tag;
 	});
-	
-	// headers (from h1 to h6, as defined by the HTML 3.2 standard)
-	for(i=1;i<7;i++) {
-		text = header_replace(str_rep("!", i), text);
-	}
-	
-	// ordered/unordered lists parsing (code by plumloco)
-	text = text.replace(reReapLists, parseList);
-	
-	// cleanup closing /hx vs br tags
-	text = text.replace(/(<\/h\d>)\n/g, "$1");
 
-	
 	// <hr>
 	text = text.replace(/(^|\n)\-\-\-/g, "<hr />");
-	// <strike>
-	//text = text.replace(/(^|\n|\s|\>|\*)\-(.*?)\-/g, "$1<strike>$2<\/strike>");
-	// <br />
 	
     text = text.replace(reReapTables, parseTables);
 
@@ -361,7 +362,7 @@ function parse(text)
 	if (force_inline)
 		force_inline = false;
 	
-	return "<span class=\"level0\">" + text + "</span>";
+	return "<p class=\"level0\">" + text + "</p>";
 }
 
 // prepends and appends a newline character to workaround plumloco's XHTML lists parsing bug
