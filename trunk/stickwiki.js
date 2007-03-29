@@ -293,7 +293,7 @@ function parse(text)
 	if (end_trim)
 		text = text.replace(/[\n\s]*$/, "");
 	
-	text = text.replace(/\n/g, "<br />");
+	text = text.replace(/\\?\n/g, "<br />");
 	
 	if (prefmt.length>0) {
 //		log("Replacing "+prefmt.length+" preformatted blocks");
