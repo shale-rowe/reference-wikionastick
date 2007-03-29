@@ -573,7 +573,7 @@ function is__encrypted(pi) {
 			return;
 		}
 	}
-	log(page_titles[pi]+" flags: "+page_attrs[pi].toString(16)+" (enc:"+(page_attrs[pi] & 2)+")");
+//	log(page_titles[pi]+" flags: "+page_attrs[pi].toString(16)+" (enc:"+(page_attrs[pi] & 2)+")");
 	if (page_attrs[pi] & 2)
 		return true;
 	return false;
