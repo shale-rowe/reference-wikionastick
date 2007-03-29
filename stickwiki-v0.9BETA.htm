@@ -903,6 +903,8 @@ function special_orphaned_pages()
 			if ((i==j) /*|| is_special(page_titles[i])*/)
 				continue;
 			tmp = get_page(i);
+			if (tmp==null)
+				continue;
 			if (tmp.match(new RegExp("\\[\\["+RegExp.escape(page_titles[i])+"(\\||\\]\\])", "gi"))) {
 //					log("Page \""+page_titles[j]+"\" linked from page \""+page_titles[i]+"\"");
 					found = true;
@@ -930,6 +932,8 @@ function special_links_here()
 	{
 		// search for pages that link to it
 		tmp = get_page(j);
+		if (tmp==null)
+			continue;
 		if (tmp.match(reg)) {
 			pg.push( page_titles[j] );
 		}
