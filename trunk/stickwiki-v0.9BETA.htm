@@ -7,7 +7,7 @@
 
 var version = "0.9B";
 
-var __marker = "tAmcQkzvTXJepKMfTV";
+var __marker = "yEqLEHhgrupSCufdZl";
 
 var permit_edits = true;
 
@@ -24,6 +24,8 @@ var current = "Main Page";
 var main_page = "Main Page";
 
 var backstack = [
+"Main Page",
+"Special::Advanced"
 ];
 
 var page_titles = [
@@ -41,8 +43,8 @@ var page_titles = [
 "MyPages::Page 1"
 ];
 
-/* tAmcQkzvTXJepKMfTV */
-var page_attrs = [0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x2];
+/* yEqLEHhgrupSCufdZl */
+var page_attrs = [0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0];
 
 var pages = [
 "[[Main Page]]\n\
@@ -140,12 +142,13 @@ Follows a brief example of all the capabilities of Wiki on a Stick syntax.\n\
 !!!Subheader of third level\n\
 !!!!Subheader of fourth level\n\
 <pre>\n\
-This is pre-formatted text!\n\
+This is pre-formatted text! This text does not get _underlined_, as you can see\n\
 </pre>\n\
 \n\
 <pre style=\"color:gray\">\n\
 This is pre-formatted text with CSS style!\n\
 </pre>\n\
+\n\
 !!Some specials\n\
 \n\
 Using [[Special::Main Page]] you will always link to the main page, no matters what its name is.\n\
@@ -254,10 +257,12 @@ Security is never absolute. Data encrypted with these pages might be compromised
 * Your computer's security may have been compromised physically; when's the last time you checked that a bug that transmits your keystrokes and/or screen contents to that white van parked down the street wasn't lurking inside your computer cabinet?\n\
 \n\
 Apart from the above, your normal usage of encrypted pages can be considered secure. They will be even more secure if you do not open them.",
-[0x11,0xf9,0x97,0xb5,0x56,0x3c,0x60,0x7b,0x58,0x25,0x45,0x78,0x6e,0xd6,0x13,0xb2,0x38,0x75,0x3e,0x20,0xcc,0x3c,0x6f,0x2e,0x24,0x59,0xa7,0x7,0xd1,0x9c,0xc7,0xd,0xe0,0xf9,0xee,0xd4,0x2e,0xc3,0xc8,0xb3,0x88,0x59,0xbe,0x21,0x1d,0x27,0x77,0x85,0x4d,0x21,0x44,0xdf,0x3b,0x90,0x88,0xde,0xe7,0x4a,0xb3,0xf9,0x9a,0x13,0x5d,0x62,0x7f,0xc8,0x47,0x6a,0x8d,0x7a,0xbe,0x69,0x17,0x9,0xa8,0x92,0x34,0xf4,0x1e,0xd0,0x3e,0x4e,0xf2,0xf3,0xb6,0xb9,0xf8,0xf6,0x53,0x9e,0x10,0x89,0xe5,0x31,0x24,0x6,0x40,0xc6,0xc5,0x12,0xe3,0xa2,0x44,0x47,0x96,0x7d,0x35,0x93,0x3,0x32,0xf7,0xae,0xc2,0xe,0x78,0xbf,0x68,0x1a,0x4c,0x11,0xe6,0x16,0x48,0x96,0xa8,0xea,0xd,0xb3]
+"[[Tag::Nice]]\n\
+\n\
+This is indeed the better page of the wiki, and it is _cryptographically protected_ too!"
 ];
 
-/* tAmcQkzvTXJepKMfTV */
+/* yEqLEHhgrupSCufdZl */
 
 /* ]]> */ </script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -455,7 +460,7 @@ function page_index(page) {
 
 function page_exists(page)
 {
-	return (is_special(page) || (page.indexOf("Tagged::")==0) || (page.substring(page.length-2)=="::") || (page_index(page)!=-1));
+	return (is_reserved(page) || (page.substring(page.length-2)=="::") || (page_index(page)!=-1));
 }
 
 function str_rep(s, n) {
@@ -500,7 +505,7 @@ function header_replace(hdr, text) {
 			header = $2.substr(0, $2.length-l);
 		else
 			header = $2;
-		return "<h"+l+">"+header+"<\/h"+l+">";
+		return "</span>"+"<h"+l+">"+header+"</h"+l+"><span class=level"+l+">";
 	});
 }
 
@@ -561,34 +566,34 @@ function parseList(str, type) {
             return '\n*** ListNestingError  ***\n' + str;
         }
     }
-	
-    var reReapTables = /(?:^|\n)\{\|.*((?:\n\|.*)*)(?:\n|$)/g
-        function parseTables(str, p1)
-        {
-            var caption = false;
-            var stk = [];
-            p1.replace
-            (
-                /\n\|([+ -])(.*)/g,
-                function(str, pp1, pp2)
+
+	var reReapTables = /(?:^|\n)\{\|.*((?:\n\|.*)*)(?:\n|$)/g;	
+    function parseTables(str, p1)
+    {
+        var caption = false;
+        var stk = [];
+        p1.replace
+        (
+            /\n\|([+ -])(.*)/g,
+            function(str, pp1, pp2)
+            {
+                if (pp1 == '-')
                 {
-                    if (pp1 == '-')
-                    {
-                        return;
-                    }
-                    if (pp1 == '+')
-                    {
-                        caption = caption || pp2;
-                        return;
-                    }
-                    stk.push('<td>' + pp2.split(' ||').join('</td><td>') + '</td>');
-                } 
-            );
-            return  '<table class="text_area">' +
-                        (caption?('<caption>' + caption + '</caption>'):'') +
-                        '<tr>' + stk.join('</tr><tr>') + '</tr>' +
-                    '</table>' 
-        }
+                    return;
+                }
+                if (pp1 == '+')
+                {
+                    caption = caption || pp2;
+                    return;
+                }
+                stk.push('<td>' + pp2.split(' ||').join('</td><td>') + '</td>');
+            } 
+        );
+        return  '<table class="text_area">' +
+                    (caption?('<caption>' + caption + '</caption>'):'') +
+                    '<tr>' + stk.join('</tr><tr>') + '</tr>' +
+                '</table>' 
+    }
 
 
 // single quote escaping for page titles	
@@ -612,14 +617,15 @@ function parse(text)
 
 	var prefmt = [];
 	var tags = [];
+	var html_tags = [];
+
 	// put away stuff contained in <pre> tags
-	text = text.replace(/\<pre.*?\>(.*?)\<\/pre\>/g, function (str, $1) {
+	text = text.replace(/(\<pre.*?>(.|\n)*<\/pre>)/g, function (str, $1) {
 		var r = "<!-- "+parse_marker+prefmt.length+" -->";
 		prefmt.push($1);
 		return r;
 	});
 	
-	var html_tags = [];
 	text = text.replace(/\<\w+[^>]*>/g, function (tag) {
 		var r = "<!-- "+parse_marker+'::'+html_tags.length+" -->";
 		html_tags.push(tag);
@@ -640,10 +646,12 @@ function parse(text)
 	});
 	
 	text = text.replace(new RegExp(parse_marker+"([ub])([SE])#", "g"), function (str, $1, $2) {
-		var tag = "<";
-		if ($2=="E")
-			tag += "/";
-		tag += $1+">";
+		if ($2=='E')
+			return "</span>";
+		if ($1=='u')
+			tag = "<span style=\"text-decoration:underline;\">";
+		else
+			tag = "<span style=\"font-weight: bold;\">";
 		return tag;
 	});
 	
@@ -701,13 +709,14 @@ function parse(text)
 					return "<a class=\"unlink\" onclick=\"go_to('" + _sq_esc($1) +"')\">" + $1 + "<\/a>";
 					}); //"<a class=\"wiki\" onclick='go_to(\"$1\")'>$1<\/a>");
 
-	// fix double newlines
-	text = text.replace(/\n\n/g, "<\/p><p>");
-	
 	// end-trim
 	if (end_trim)
 		text = text.replace(/[\n\s]*$/, "");
-	
+
+	// fix double newlines
+	text = text.replace(/\n\n/g, "<\/p><p>");
+
+	// convert newlines (wrapped and plain) to br tags
 	text = text.replace(/\\?\n/g, "<br />");
 	
 	if (prefmt.length>0) {
@@ -716,6 +725,8 @@ function parse(text)
 //			log("Replacing prefmt block #"+$1);
 			return prefmt[$1];
 		});
+		// make some newlines cleanup - disabled
+		text = text.replace(/(<br \/>)?(<\/?pre>)(<br \/>)?/gi, "$2");
 	}
 	
 	if (html_tags.length>0) {
@@ -750,7 +761,7 @@ function parse(text)
 	if (force_inline)
 		force_inline = false;
 	
-	return "<p>" + text + "</p>";
+	return "<span class=\"level0\">" + text + "</span>";
 }
 
 // prepends and appends a newline character to workaround plumloco's XHTML lists parsing bug
@@ -838,7 +849,7 @@ function special_search( str )
 	var tmp;
 	for(var i=0; i<pages.length; i++)
 	{
-		if (is_special(page_titles[i]) && (page_titles[i] != "Special::Menu"))
+		if (is_reserved(page_titles[i]) && (page_titles[i] != "Special::Menu"))
 			continue;
 			
 		tmp = get_page(i);
@@ -875,7 +886,7 @@ function special_all_pages()
 	var text = "";
 	for(var i=0; i<page_titles.length; i++)
 	{
-		if (!is_special(page_titles[i]))
+		if (!is_reserved(page_titles[i]))
 			pg.push( page_titles[i] );
 	}
 	return _join_list(pg);
@@ -945,12 +956,12 @@ function special_orphaned_pages()
 	var found = false;
 	for(j=0; j<pages.length; j++)
 	{
-		if (is_special(page_titles[j]))
+		if (is_reserved(page_titles[j]))
 			continue;
 		// search for pages that link to it
 		var tmp;
 		for(var i=0; i<pages.length; i++) {
-			if ((i==j) /*|| is_special(page_titles[i])*/)
+			if ((i==j) /*|| is_reserved(page_titles[i])*/)
 				continue;
 			tmp = get_page(i);
 			if (tmp==null)
@@ -962,7 +973,7 @@ function special_orphaned_pages()
 			}
 		}
 		if(found == false) {
-			if (!is_special(page_titles[j]))
+			if (!is_reserved(page_titles[j]))
 				pg.push( page_titles[j] );
 		} else found = false;
 	}
@@ -1128,33 +1139,37 @@ function do_search()
 	assert_current("Special::Search");
 }
 
-function is_special(page) {
-	return (page.search(/Special::/i)==0);
+var reserved_namespaces = [
+"Special", "Lock", "Locked", "Unlocked", "Unlock", "Tag", "Tagged"];
+
+var reserved_rx = "^";
+for(var i=0;i<reserved_namespaces.length;i++) {
+	reserved_rx += /*RegExp.Escape(*/reserved_namespaces[i] + "::";
+	if (i<reserved_namespaces.length-1)
+		reserved_rx += "|";
+}
+reserved_rx = new RegExp(reserved_rx, "i");
+
+function is_reserved(page) {
+	return (page.search(reserved_rx)==0);
 }
 
 function _create_page(ns, cr, ask) {
-		switch (ns) {
-//			case "Special::":
-			case "Lock::":
-			case "Locked::":
-			case "Unlocked::":
-			case "Unlock::":
-			case "Tag::":
-			case "Tagged::":
-				alert("You are not allowed to create a page titled \""+ns+cr+"\" because namespace \""+ns+"\" is reserved");
+	if (is_reserved(ns)) {
+		alert("You are not allowed to create a page titled \""+ns+cr+"\" because namespace \""+ns+"\" is reserved");
 			return false;
 		}
-		if (ask && !confirm("Page not found. Do you want to create it?"))
-			return false;
-		// create and edit the new page
-		cr = ns+cr;
-		pages.push("Insert text here");
-		page_attrs.push(0);
-		page_titles.push(cr);
-		current = cr;
-		log("Now pages list is: "+page_titles);
-		edit_page(cr);
-		return true;
+	if (ask && !confirm("Page not found. Do you want to create it?"))
+		return false;
+	// create and edit the new page
+	cr = ns+cr;
+	pages.push("Insert text here");
+	page_attrs.push(0);
+	page_titles.push(cr);
+	current = cr;
+	log("Now pages list is: "+page_titles);
+	edit_page(cr);
+	return true;
 //			save_page(cr);
 }
 
@@ -1276,6 +1291,8 @@ function set_current(cr)
 						pi = page_index(cr);
 						if ((pi==-1) || !is__encrypted(pi))
 							return;
+						if (!confirm("Do you want to remove encryption for page \""+cr+"\"?"))
+							return;
 						text = get_text(cr);
 						if (decrypt_failed) {
 							decrypt_failed = false;
@@ -1283,7 +1300,10 @@ function set_current(cr)
 						}
 						pages[pi] = text;
 						page_attrs[pi] -= 2;
+						if (!key_cache)
+							AES_clearKey();
 						save_to_file(true);
+						set_current(cr);
 						return;
 					default:
 						text = get_text(namespace+"::"+cr);
@@ -1449,7 +1469,7 @@ function _hex_col(tone) {
 function refresh_menu_area() {
 /*
 	var bl_src = "\n\n[[Special::Backlinks]]";
-	if (is_special(current)) {
+	if (is_reserved(current)) {
 		pre_src = "";
 		post_src = bl_src;
 	} else {
@@ -1686,7 +1706,7 @@ function edit_allowed(page) {
 		return (page_exists(page) != -1);
 	if (!permit_edits)
 		return false;
-	if (is_special(page) && (page!="Special::Menu"))
+	if (is_reserved(page) && (page!="Special::Menu"))
 		return false;
 	return !is_readonly(page);
 }
@@ -1725,9 +1745,12 @@ function current_editing(page, disabled) {
 function edit_page(page) {
 	if (!edit_allowed(page))
 		return;
+	var tmp = get_text(page);
+	if (tmp == null)
+		return;
 	// setup the wiki editor textbox
-	current_editing(page, is_special(page));
-	el("wiki_editor").value = get_text(page);
+	current_editing(page, is_reserved(page));
+	el("wiki_editor").value = tmp;
 }
 
 function rename_page(previous, newpage)
@@ -1805,7 +1828,7 @@ function save()
 					refresh_menu_area();
 					back_to = prev_title;
 //					alert(prev_title);
-				} else { if (!is_special(new_title) && (new_title != current))
+				} else { if (!is_reserved(new_title) && (new_title != current))
 							rename_page(current, new_title);
 					back_to = new_title;
 				}				
@@ -2379,16 +2402,13 @@ function import_wiki()
 	// add new data
 	var pages_imported = 0;
 	
-	//TODO: import the variables and the CSS from v0.04
-	if (old_version>=4) {
+	if (old_version==9) {
 		var css = null;
 		ct.replace(/<style.*?type="?text\/css"?[^>]*>((\n|.)*?)<\/style>/i, function (str, $1) {
 			css = $1;
 		});
 		if (css!=null) {
 			log("Imported "+css.length+" bytes of CSS");
-			if (old_version<9)
-				css += "/* since v0.9 */\nh1 { font-size: 23px; }\nh2 { font-size: 20px; }\nh3 { font-size: 17px; }\nh4 { font-size: 14px; }\ndiv.taglinks {\n	border: 1px solid #aaa;\n	padding: 5px;\n	margin-top: 1em;\n	clear: both;\n}\n\ndiv.search_results {\n	border: 1px solid #aaa;\n	background-color: #f9f9f9;\n	padding: 5px;\n	margin-top: 1em;\n	clear: both;\n}\n\na.link.tag {\n  color: navy;\n}\n/* main wiki pane when locked */\ndiv.text_area.locked {\n	background-image:\nurl(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAAAAACMmsGiAAAALHRFWHRDcmVhdGlvbiBUaW1lAGdpbyAyOSBtYXIgMjAwNyAxMTo1MToxMCArMDEwME%2BTNUAAAAAHdElNRQfXAx0JNByGxueSAAAACXBIWXMAAAsSAAALEgHS3X78AAAABGdBTUEAALGPC%2FxhBQAAABlJREFUeNpj%2FM%2FwmYHpMwMvAxOQwcvECyQBO1oE%2BlG5iisAAAAASUVORK5CYII%3D);\n	background-color: #eeeeee;\n}";
 			document.getElementsByTagName("style")[0].innerHTML = css;
 		}
 	}
@@ -2412,7 +2432,7 @@ function import_wiki()
 	
 	for(var i=0; i<page_names.length; i++)
 	{
-		if ( !is_special(page_names[i]) || (page_names[i] == "Special::Menu") )
+		if ( !is_reserved(page_names[i]) || (page_names[i] == "Special::Menu") )
 		{
 			pi = page_index(page_names[i]);
 			if (pi == -1) {
