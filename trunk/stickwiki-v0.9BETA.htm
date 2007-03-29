@@ -552,8 +552,11 @@ function parse(text)
 	if (text == null) {
 		log("text = null while parsing current page \""+current+"\"");
 		return;
-	} else
-//		log("typeof(text) = "+typeof(text));
+	} //else		log("typeof(text) = "+typeof(text));
+
+	if (ie)
+		text = text.replace("\r\n", "\n");
+
 	var prefmt = new Array();
 	var tags = new Array();
 	// put away stuff contained in <pre> tags
@@ -563,8 +566,11 @@ function parse(text)
 		return r;
 	});
 	
+	// ordered/unordered lists parsing (code by plumloco)
+	text = text.replace(reReapLists, parseList);
+	
 	// <b>
-	text = text.replace(/([^\n])\*([^\*\n]+)\*/g, "$1"+parse_marker+"bS#$2"+parse_marker+"bE#");
+	text = text.replace(/\*([^\*\n]+)\*/g, parse_marker+"bS#$1"+parse_marker+"bE#");
 	// <u>
 	text = text.replace(/(^|[^\w])_([^_]+)_/g, "$1"+parse_marker+"uS#$2"+parse_marker+"uE#");
 	
@@ -651,12 +657,6 @@ function parse(text)
 					return "<a class=\"unlink\" onclick=\"go_to('" + _sq_esc($1) +"')\">" + $1 + "<\/a>";
 					}); //"<a class=\"wiki\" onclick='go_to(\"$1\")'>$1<\/a>");
 
-	if (ie)
-		text = text.replace("\r\n", "\n");
-		
-	// ordered/unordered lists parsing (code by plumloco)
-	text = text.replace(reReapLists, parseList);
-	
 	// fix double newlines
 	text = text.replace(/\n\n/g, "<\/p><p>");
 	
