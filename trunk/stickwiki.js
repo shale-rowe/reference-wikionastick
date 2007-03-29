@@ -2002,16 +2002,13 @@ function import_wiki()
 	// add new data
 	var pages_imported = 0;
 	
-	//TODO: import the variables and the CSS from v0.04
-	if (old_version>=4) {
+	if (old_version==9) {
 		var css = null;
 		ct.replace(/<style.*?type="?text\/css"?[^>]*>((\n|.)*?)<\/style>/i, function (str, $1) {
 			css = $1;
 		});
 		if (css!=null) {
 			log("Imported "+css.length+" bytes of CSS");
-			if (old_version<9)
-				css += "/* since v0.9 */\nh1 { font-size: 23px; }\nh2 { font-size: 20px; }\nh3 { font-size: 17px; }\nh4 { font-size: 14px; }\ndiv.taglinks {\n	border: 1px solid #aaa;\n	padding: 5px;\n	margin-top: 1em;\n	clear: both;\n}\n\ndiv.search_results {\n	border: 1px solid #aaa;\n	background-color: #f9f9f9;\n	padding: 5px;\n	margin-top: 1em;\n	clear: both;\n}\n\na.link.tag {\n  color: navy;\n}\n/* main wiki pane when locked */\ndiv.text_area.locked {\n	background-image:\nurl(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAAAAACMmsGiAAAALHRFWHRDcmVhdGlvbiBUaW1lAGdpbyAyOSBtYXIgMjAwNyAxMTo1MToxMCArMDEwME%2BTNUAAAAAHdElNRQfXAx0JNByGxueSAAAACXBIWXMAAAsSAAALEgHS3X78AAAABGdBTUEAALGPC%2FxhBQAAABlJREFUeNpj%2FM%2FwmYHpMwMvAxOQwcvECyQBO1oE%2BlG5iisAAAAASUVORK5CYII%3D);\n	background-color: #eeeeee;\n}";
 			document.getElementsByTagName("style")[0].innerHTML = css;
 		}
 	}
