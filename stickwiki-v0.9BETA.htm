@@ -7,7 +7,7 @@
 
 var version = "0.9B";
 
-var __marker = "yEqLEHhgrupSCufdZl";
+var __marker = "ZeENsxRmctIATTncLr";
 
 var permit_edits = true;
 
@@ -24,8 +24,6 @@ var current = "Main Page";
 var main_page = "Main Page";
 
 var backstack = [
-"Main Page",
-"Special::Advanced"
 ];
 
 var page_titles = [
@@ -40,11 +38,12 @@ var page_titles = [
 "Hello there!",
 "Special::Lock",
 "Special::Security",
-"MyPages::Page 1"
+"MyPages::Page 1",
+"Thanks"
 ];
 
-/* yEqLEHhgrupSCufdZl */
-var page_attrs = [0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0];
+/* ZeENsxRmctIATTncLr */
+var page_attrs = [0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0];
 
 var pages = [
 "[[Main Page]]\n\
@@ -168,6 +167,8 @@ Maybe you want to see some *_/bold underlined italics/_* or also some */_bold it
 \n\
 And here is, just for you, a partial *bold-/italics/*!!!\n\
 \n\
+*Some bold text* on a line beginning\n\
+\n\
 !!Syntax\n\
 \n\
 External links: [[http://stickwiki.sourceforge.net/|Wiki on a Stick]]\n\
@@ -259,10 +260,21 @@ Security is never absolute. Data encrypted with these pages might be compromised
 Apart from the above, your normal usage of encrypted pages can be considered secure. They will be even more secure if you do not open them.",
 "[[Tag::Nice]]\n\
 \n\
-This is indeed the better page of the wiki, and it is _cryptographically protected_ too!"
+This is indeed the better page of the wiki, and it is _cryptographically protected_ too!",
+"This project wouldn't be what it is without the help of other people. I'll try not be unfair, if you contributed to Wiki on a Stick and your name is not here, please send me a <a class=\"world\" href=\"mailto:andre_nho@users.sourceforge.net\">e-mail</a>.\n\
+\n\
+* *Jeremy Ruston* - the creator of the wonderful [[http://www.tiddlywiki.com/|TiddlyWiki]], who served as inspiration for StickWiki. He also kindly allowed me to use his saving/loading routines.\n\
+* *Philip O'Donnel* - creator of the table routines\n\
+* *Tim Lord*\n\
+* *Knut Kohl*\n\
+* *Rob Schmersel*\n\
+\n\
+If, for any reason, you don't want your name listed here, please send me a <a class=\"world\" href=\"mailto:andre_nho@users.sourceforge.net\">e-mail</a>.\n\
+\n\
+Some of you sent me changes but I still hadn't the time to test them and add them. Please stay tuned! :-) Also, be sure to check the CVS version before suggesting changes, since what you suggest might already be implemented!"
 ];
 
-/* yEqLEHhgrupSCufdZl */
+/* ZeENsxRmctIATTncLr */
 
 /* ]]> */ </script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -498,14 +510,17 @@ function _get_tags(text) {
 	return tags;
 }
 
-function header_replace(hdr, text) {
-	return text.replace( new RegExp("(^|\n)"+RegExp.escape(hdr)+"([^"+RegExp.escape(hdr.charAt(0))+"].*)", "g"), 	function (str, $1, $2) {
-		var l = hdr.length;
-		if ($2.indexOf(hdr)==$2.length-l)
-			header = $2.substr(0, $2.length-l);
+function header_replace(hdr_char, len, text) {
+	var esc_hdr_char = RegExp.escape(hdr_char);
+	return text.replace( new RegExp("(^|\n)"+str_rep(esc_hdr_char, len)+"([^"+esc_hdr_char+"\n].*)(\n"+esc_hdr_char+"?)?", "g"), 	function (str, $1, $2, $3) {
+		if ($2.indexOf(str_rep(hdr_char, len))==$2.length-len)
+			header = $2.substr(0, $2.length-len);
 		else
 			header = $2;
-		return "</span>"+"<h"+l+">"+header+"</h"+l+"><span class=level"+l+">";
+		var tmp = $3;
+		if (tmp.length==1)
+			tmp = "";
+		return "</p>"+"<h"+len+">"+header+"</h"+len+"><p class=level"+len+">"+tmp;
 	});
 }
 
@@ -514,12 +529,12 @@ function header_replace(hdr, text) {
 // There is no limit to the level of nesting and it produces
 // valid xhtml markup.
 var reReapLists = /(?:^|\n)([\*#])[ \t].*(?:\n\1+[ \t][^\n]+)*/g;
-function parseList(str, type) {
+function parseList(str, type, $2) {
         var uoro = (type=='#')?'ol':'ul';
         var suoro = '<' + uoro + '>';
         var euoro = '</' + uoro + '>';
 
-        var sublist = function (lst, ll)
+        function sublist(lst, ll)
         {   
             var s = '';
             var item, sub
@@ -543,39 +558,32 @@ function parseList(str, type) {
         var old = 0;
         var reItems = /^([\*#]+)[ \t]([^\n]+)/mg;
 
-        try {
-		var stk =[]
-	        str.replace
-            (
-                reItems,
+		var stk = [];
+	    str.replace( reItems,
                 function(str, p1, p2)
                 {
+//					log("p1 = "+p1+", p2 = "+p2);
                     level = p1.length;
-                    if ((level - old) > 1)
-                    {
-                        throw 'ListNestingError';
-                    }
+					if (debug) {
+	                    if ((level - old) > 1)
+	                    {
+	                        alert('ListNestingError');
+	                    }
+					}
                     old = level;
                     stk.push([str, p1, p2]);
                 }
             );
-            return suoro + sublist(stk, 1) + euoro;
-        }
-        catch (e )
-        {
-            return '\n*** ListNestingError  ***\n' + str;
-        }
-    }
+
+		return "\n"+suoro + sublist(stk, 1) + euoro;
+	}
 
 	var reReapTables = /(?:^|\n)\{\|.*((?:\n\|.*)*)(?:\n|$)/g;	
     function parseTables(str, p1)
     {
         var caption = false;
         var stk = [];
-        p1.replace
-        (
-            /\n\|([+ -])(.*)/g,
-            function(str, pp1, pp2)
+        p1.replace( /\n\|([+ -])(.*)/g, function(str, pp1, pp2)
             {
                 if (pp1 == '-')
                 {
@@ -612,6 +620,7 @@ function parse(text)
 		return;
 	} //else		log("typeof(text) = "+typeof(text));
 
+	// thank you IE, really thank you
 	if (ie)
 		text = text.replace("\r\n", "\n");
 
@@ -620,22 +629,18 @@ function parse(text)
 	var html_tags = [];
 
 	// put away stuff contained in <pre> tags
-	text = text.replace(/(\<pre.*?>(.|\n)*<\/pre>)/g, function (str, $1) {
+	text = text.replace(/(\<pre.*?>(.|\n)*?<\/pre>)/g, function (str, $1) {
 		var r = "<!-- "+parse_marker+prefmt.length+" -->";
 		prefmt.push($1);
 		return r;
 	});
 	
+	// save html tags attributes
 	text = text.replace(/\<\w+[^>]*>/g, function (tag) {
 		var r = "<!-- "+parse_marker+'::'+html_tags.length+" -->";
 		html_tags.push(tag);
 		return r;
 	});
-	
-	// <b>
-	text = text.replace(/\*([^\*\n]+)\*/g, parse_marker+"bS#$1"+parse_marker+"bE#");
-	// <u>
-	text = text.replace(/(^|[^\w])_([^_]+)_/g, "$1"+parse_marker+"uS#$2"+parse_marker+"uE#");
 	
 	// italics
 	text = text.replace(/(^|[^\w])\/([^\/]+)\/($|[^\w\>])/g, function (str, $1, $2, $3) {
@@ -644,6 +649,24 @@ function parse(text)
 		}
 		return $1+"<i>"+$2+"</i>"+$3;
 	});
+	
+	// ordered/unordered lists parsing (code by plumloco)
+	text = text.replace(reReapLists, parseList);
+	
+	// headers (from h1 to h6, as defined by the HTML 3.2 standard)
+	for(i=1;i<7;i++) {
+		text = header_replace("!", i, text);
+	}
+	
+	// <b>
+	text = text.replace(/\*([^\*\n]+)\*/g, parse_marker+"bS#$1"+parse_marker+"bE#");
+
+	// <u>
+	text = text.replace(/(^|[^\w])_([^_]+)_/g, "$1"+parse_marker+"uS#$2"+parse_marker+"uE#");
+	
+	// <strike>
+	//text = text.replace(/(^|\n|\s|\>|\*)\-(.*?)\-/g, "$1<strike>$2<\/strike>");
+	// <br />
 	
 	text = text.replace(new RegExp(parse_marker+"([ub])([SE])#", "g"), function (str, $1, $2) {
 		if ($2=='E')
@@ -654,24 +677,9 @@ function parse(text)
 			tag = "<span style=\"font-weight: bold;\">";
 		return tag;
 	});
-	
-	// headers (from h1 to h6, as defined by the HTML 3.2 standard)
-	for(i=1;i<7;i++) {
-		text = header_replace(str_rep("!", i), text);
-	}
-	
-	// ordered/unordered lists parsing (code by plumloco)
-	text = text.replace(reReapLists, parseList);
-	
-	// cleanup closing /hx vs br tags
-	text = text.replace(/(<\/h\d>)\n/g, "$1");
 
-	
 	// <hr>
 	text = text.replace(/(^|\n)\-\-\-/g, "<hr />");
-	// <strike>
-	//text = text.replace(/(^|\n|\s|\>|\*)\-(.*?)\-/g, "$1<strike>$2<\/strike>");
-	// <br />
 	
     text = text.replace(reReapTables, parseTables);
 
@@ -761,7 +769,7 @@ function parse(text)
 	if (force_inline)
 		force_inline = false;
 	
-	return "<span class=\"level0\">" + text + "</span>";
+	return "<p class=\"level0\">" + text + "</p>";
 }
 
 // prepends and appends a newline character to workaround plumloco's XHTML lists parsing bug
@@ -843,8 +851,8 @@ function special_search( str )
 
 	var count = 0;
 	// matches the search string and nearby text
-	var reg = new RegExp( ".*" + RegExp.escape(str).replace(/^\s+/, "").
-					replace(/\s+$/, "").replace(/\s+/g, ".*") + ".*", "gi" );
+	var reg = new RegExp( ".*?" + RegExp.escape(str).replace(/^\s+/, "").
+					replace(/\s+$/, "").replace(/\s+/g, ".*?") + ".*", "gi" );
 
 	var tmp;
 	for(var i=0; i<pages.length; i++)
@@ -1259,7 +1267,7 @@ function _get_special(cr) {
 function set_current(cr)
 {
 	var text;
-	log("Setting \""+cr+"\" as current page");
+//	log("Setting \""+cr+"\" as current page");
 	if (cr.substring(cr.length-2)=="::") {
 		text = _get_namespace(cr);
 		ns = "";
@@ -1654,7 +1662,7 @@ function update_lock_icons(page, can_edit) {
 // Adjusts the menu buttons
 function disable_edit()
 {
-	log("DISABLING edit mode");
+//	log("DISABLING edit mode");
 	kbd_hooking = false;
 	// check for back and forward buttons - TODO grey out icons
 	update_nav_icons(current);
@@ -1663,7 +1671,7 @@ function disable_edit()
 	menu_display("cancel", false);
 	el("text_area").style.display = "inline";
 	el("edit_area").style.display = "none";
-	log("setting back title to "+prev_title);
+//	log("setting back title to "+prev_title);
 	document.title = el("wiki_title").innerHTML = prev_title;
 }
 
@@ -1719,7 +1727,7 @@ function current_editing(page, disabled) {
 	el("wiki_page_title").value = page;
 	document.title = el("wiki_title").innerHTML = "Editing "+page;
 	// current must be set BEFORE calling enabling menu edit
-	log("ENABLING edit mode");
+//	log("ENABLING edit mode");
 	kbd_hooking = true;
 	menu_display("back", false);
 	menu_display("forward", false);
@@ -2286,9 +2294,10 @@ function import_wiki()
 	var ct = loadFile(filename);
 	
 	// get version
-	var old_version, ver_str;
-	try {
-		ver_str = ct.match(/<div id="?version_"?>([^<]*)<\/div>/i)[1];
+	var old_version;
+	var ver_str = ct.match(/<div .*?id=("version_"|version_).*?>([^<]+)<\/div>/i);
+	if (ver_str && ver_str.length>1) {
+		ver_str = ver_str[2];
 		log("Importing wiki with version string \""+ver_str+"\"");
 		switch(ver_str)
 		{
@@ -2305,15 +2314,16 @@ function import_wiki()
 				alert("Incompatible version: " + ver_str);
 				return false;
 		}
-	} catch(e) {
+	} else {
+		log("Maybe version 0.02?");
 		old_version = 2;
 		if(ct.match("<div id=\"?"+escape("Special::Advanced")))
 			old_version = 3;
 	}
-
+	
 	var wiki;
 	try {
-		wiki = ct.match(/<div .*?id=("wiki"|wiki)[^_>]*>((.|\n|\t|\s)*)<\/div>/i)[0];
+		wiki = ct.match(/<div .*?id=(wiki|"wiki")[^_\\]*?>((.|\n|\t|\s)*)<\/div>/i)[0];
 	} catch(e) {
 		alert("Unrecognized file");
 		document.body.style.cursor= "auto";
@@ -2321,23 +2331,21 @@ function import_wiki()
 	}
 	
 	// eliminate comments
-	wiki = wiki.replace(/\<\!\-\-.*\-\-\>/g, "");
-	
-//	alert(wiki);
+	wiki = wiki.replace(/\<\!\-\-.*?\-\-\>/g, "");
 	
 	// separate variables from wiki
 	var vars;
-	var p = wiki.search(/<div .*id="?variables"?[^>]*>/i);
+	var p = wiki.search(/<div .*?id=("variables"|variables)[^>]*?>/i);
 	if (p!=-1) {
 		vars = wiki.substring(p);
 		wiki = wiki.substring(0, p);
 	} else
 		vars = "";
-
+		
 	if(old_version == 2)
 	{
 		try {
-			vars = wiki.match(/\<div .*id="?main_page"?[^>]*>(.*)\<\/div\>/i)[1];
+			vars = wiki.match(/\<div .*?id=("main_page"|main_page)>(.*?)\<\/div\>/i)[1];
 		} catch(e) {
 			log("No variables found");
 		}
@@ -2355,11 +2363,8 @@ function import_wiki()
 	wiki = wiki.substring(wiki.indexOf(">")+1);
 	vars = vars.substring(vars.indexOf(">")+1);
 	
-	vars.replace(/<div.*?id=([^>\s]+)[^>]*>((\n|.)*?)<\/div>/gi, function(str, $1, $2)
+	vars.replace(/<div id="?(version_|main_page_|permit_edits_|[\w_]+)"?>((\n|.)*?)<\/div>/gi, function(str, $1, $2)
 			{
-				var vid = $1;
-				if (vid.charAt(0)=='"')
-					vid = vid.substring(0, vid.length-2);
 				if(old_version == 2)
 					var_names[vc] = "main_page_";
 				else
@@ -2368,13 +2373,12 @@ function import_wiki()
 				vc++;
 			});
 			
-	log("Variables are "+var_names);
-	if (!var_names.length)
-		return;
+	log("Variables are ("+var_names+")");
 
 	// now extract the pages
-	wiki.replace(/<div .*id="?([^>"\s]+)"?[^>]*>((\n|.)*?)\<\/div\>/gi, function(str, $1, $2, $3)
+	wiki.replace(/<div .*?id="?([^">]+)"?>((\n|.)*?)<\/div>/gi, function(str, $1, $2, $3)
 			{
+				log("Parsing old page "+$1);
 				if (old_version != 2) {
 					page_names[pc] = unescape($1);
 					page_contents[pc] = unescape($2);
@@ -2382,6 +2386,13 @@ function import_wiki()
 					page_names[pc] = $1;
 					page_contents[pc] = $2;
 				}
+				// dismiss special pages
+				if (page_names[pc].indexOf("Special::")==0) {
+					if (page_names[pc] == "Special::Edit Menu")
+						page_names[pc] = "Special::Menu";
+					else return;
+				}
+
 				if (old_version < 9) {	// apply compatibility changes to stickwiki versions below v0.9
 					page_contents[pc] = _new_syntax_patch(page_contents[pc].replace(new RegExp("(\\[\\[|\\|)Special::Import wiki\\]\\]", "ig"), "$1Special::Import]]").replace(/\[\[([^\]\]]*?)(\|([^\]\]]+))?\]\]/g,
 					function (str, $1, $2, $3) {
@@ -2390,21 +2401,19 @@ function import_wiki()
 						else
 							return str;
 					}));
-					if (page_names[pc] == "Special::Edit Menu")
-						page_names[pc] = "Special::Menu";
 				}
 				pc++;
 			}
 			);
 
-	log("pages are "+page_names);
-			
+	log("page_names is ("+page_names+")");
+
 	// add new data
 	var pages_imported = 0;
 	
 	if (old_version==9) {
 		var css = null;
-		ct.replace(/<style.*?type="?text\/css"?[^>]*>((\n|.)*?)<\/style>/i, function (str, $1) {
+		ct.replace(/<style\s.*?type="?text\/css"?[^>]*>((\n|.)*?)<\/style>/i, function (str, $1) {
 			css = $1;
 		});
 		if (css!=null) {
@@ -2456,8 +2465,8 @@ function import_wiki()
 	current = main_page;
 	// save everything
 	save_to_file(true);
-
-	back_or("Special:Import");
+	
+	set_current(main_page);
 }
 
 function open_table_help()
@@ -2932,7 +2941,7 @@ function AES_decrypt(raw_data) {
 
 /* ]]> */
 </script></head><body style="cursor: wait;" id="body" onload="on_load()" onunload="before_quit()" class="bg">
-<div style="position: fixed;" class="wiki_header bg" id="sw_wiki_header">
+<div style="position: absolute;" class="wiki_header bg" id="sw_wiki_header">
 <table cellspacing="0" width="100%">
 <tbody><tr><td width="80%">
 <span class="title" id="wiki_title">Editing Main Page</span></td>
@@ -2953,7 +2962,7 @@ function AES_decrypt(raw_data) {
 <br>
 <div id="unsupported_browser" style="display: none;"><i>Your browser is not supported. You can access the wiki but you won't be able to save.</i></div>
 <div id="text_area" style="display: none;">
-	<div style="position: fixed;" class="menu_area" id="sw_menu_area">
+	<div style="position: absolute;" class="menu_area" id="sw_menu_area">
 	<div class="wiki" id="menu_area" ondblclick="menu_dblclick()"></div>
 	<div id="menu_edit_button" style="display: inline;"><hr><div style="text-align: center;"><a class="link" onclick="edit_menu()">[Edit]</a></div></div></div>
 	<div class="text_area" id="wiki_text" ondblclick="page_dblclick()"></div>
