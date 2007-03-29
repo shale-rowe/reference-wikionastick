@@ -1834,8 +1834,8 @@ function import_wiki()
 	// get version
 	var old_version, ver_str;
 	try {
-		ver_str = ct.match(/<div id="?version_"?>(.*)<\/div>/i)[1];
-		log("Old wiki contains version string \""+ver_str+"\"");
+		ver_str = ct.match(/<div id="?version_"?>([^<]*)<\/div>/i)[1];
+		log("Importing wiki with version string \""+ver_str+"\"");
 		switch(ver_str)
 		{
 			case "0.03":
@@ -1857,11 +1857,9 @@ function import_wiki()
 			old_version = 3;
 	}
 
-	// get only the needed part
 	var wiki;
-	var rx = /<div .*?id="?wiki"?[^>]*>((.|\n|\t|\s)*)<\/div>/i;
 	try {
-		wiki = ct.match(rx)[0];
+		wiki = ct.match(/<div .*?id=("wiki"|wiki)[^_>]*>((.|\n|\t|\s)*)<\/div>/i)[0];
 	} catch(e) {
 		alert("Unrecognized file");
 		document.body.style.cursor= "auto";
@@ -1870,6 +1868,8 @@ function import_wiki()
 	
 	// eliminate comments
 	wiki = wiki.replace(/\<\!\-\-.*\-\-\>/g, "");
+	
+//	alert(wiki);
 	
 	// separate variables from wiki
 	var vars;
@@ -1917,8 +1917,9 @@ function import_wiki()
 	log("Variables are "+var_names);
 	if (!var_names.length)
 		return;
-			
-	wiki.replace(/<div.*?id="?([^>"\s]+)"?[^>]*>((\n|.)*?)\<\/div\>/gi, function(str, $1, $2, $3)
+
+	// now extract the pages
+	wiki.replace(/<div .*id="?([^>"\s]+)"?[^>]*>((\n|.)*?)\<\/div\>/gi, function(str, $1, $2, $3)
 			{
 				if (old_version != 2) {
 					page_names[pc] = unescape($1);
