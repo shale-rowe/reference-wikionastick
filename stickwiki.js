@@ -630,9 +630,11 @@ function get_text(title) {
 		if (pg != null)
 			break;
 	} while (retry<2);
-	if (pg != null)
+	if (pg != null) {
 		decrypt_failed = false;
-	else {
+		if (!key_cache)
+			AES_clearKey();
+	} else {
 		alert("Access denied");
 		AES_clearKey();
 	}
@@ -910,6 +912,7 @@ function el_eval(name) {
 
 function _setup_options() {
 	el("cb_allow_diff").checked = bool2chk(allow_diff);
+	el("cb_key_cache").checked = bool2chk(!key_cache);
 	el("cb_dblclick_edit").checked = bool2chk(dblclick_edit);
 	el("cb_permit_edits").checked = bool2chk(!permit_edits);
 	el("cb_save_on_quit").checked = bool2chk(save_on_quit);
@@ -948,6 +951,8 @@ function lock_page(page) {
 	page_attrs[pi] += 2;
 	save_to_file(true);
 	go_to(page);
+	if (!key_cache)
+		AES_clearKey();
 }
 
 var _pw_q_lock = false;
@@ -1243,7 +1248,7 @@ function edit()
 	edit_page(current);
 }
 
-var edit_override = false;
+var edit_override = true;
 
 function edit_allowed(page) {
 	if (edit_override)
@@ -1535,6 +1540,7 @@ function save_to_file(full) {
 	";\n\nvar dblclick_edit = "+dblclick_edit+
 	";\n\nvar save_on_quit = "+save_on_quit+
 	";\n\nvar allow_diff = "+allow_diff+
+	";\n\nvar key_cache = "+key_cache+
 	";\n\nvar current = \"" + js_encode(current)+
 	"\";\n\nvar main_page = \"" + main_page + "\";\n\n";
 	
