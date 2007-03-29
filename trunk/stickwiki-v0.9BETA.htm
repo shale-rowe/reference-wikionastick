@@ -7,15 +7,17 @@
 
 var version = "0.9B";
 
-var __marker = "QdmnnUZMUcTsiVvIyq";
+var __marker = "EXdAkaeDgLtzXGDCMB";
 
 var permit_edits = true;
 
-var dblclick_edit = false;
+var dblclick_edit = true;
 
 var save_on_quit = false;
 
 var allow_diff = true;
+
+var key_cache = true;
 
 var current = "Main Page";
 
@@ -39,7 +41,7 @@ var page_titles = [
 "MyPages::Page 1"
 ];
 
-/* QdmnnUZMUcTsiVvIyq */
+/* EXdAkaeDgLtzXGDCMB */
 var page_attrs = [0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x2];
 
 var pages = [
@@ -74,6 +76,7 @@ var pages = [
   <label for=\"cb_permit_edits\"><input type=\"checkbox\" id=\"cb_permit_edits\" onclick=\"permit_edits = !el_eval('cb_permit_edits')\" />Disable edit mode for all pages (useful when publishing the Wiki On a Stick file on a web server)<br />\n\
   <label for=\"cb_dblclick_edit\"><input type=\"checkbox\" id=\"cb_dblclick_edit\" onclick=\"dblclick_edit = el_eval('cb_dblclick_edit')\" />Double click to edit pages/menu<br />\n\
   <label for=\"cb_save_on_quit\"><input type=\"checkbox\" id=\"cb_save_on_quit\" onclick=\"save_on_quit = el_eval('cb_save_on_quit')\" />Automatically save options (if changed) before quitting<br />\n\
+  <label for=\"cb_key_cache\"><input type=\"checkbox\" id=\"cb_key_cache\" onclick=\"key_cache = !el_eval('cb_key_cache')\" />Do not temporarily cache the AES key (will have to enter it for each encrypted page, useful if you leave WoaS open to possible unauthorized access)<br />\n\
   <input type=\"button\" onclick=\"save_options()\" value=\"Save options\" />",
 "Import a wiki from an early (or current) version:\n\
 \n\
@@ -123,6 +126,7 @@ There have been a few changes in the wiki syntax, they will be automatically app
 * bullet lists are recognized using a plus sign '+' (previous stickwiki syntax) or an asterisk '*' (0.9 stickwiki syntax), with preference for asterisk lists\n\
 * the namespace separator is '::', when using it you will take advantage of the namespaces feature\n\
 * wiki link parts are inverted, e.g. no more [<!-- -->[the label|WikiActualPage]] but [<!-- -->[WikiActualPage|the label]]\n\
+* lines ending with a backslash '' will be joined\n\
 \n\
 !Syntax examples \n\
 \n\
@@ -211,7 +215,7 @@ Numbered list:\n\
 \n\
 The parent namespace is [[MyPages::]] while the subnamespace is [[MyPages::Approved::]]\n\
 \n\
-",
+[[Tag::Useful]]",
 "saadadsasd\n\
 \n\
 dasasd",
@@ -237,6 +241,7 @@ In order to encrypt a page you will have to click on the /lock/ icon on the top-
 !!Security level\n\
 Security is never absolute. Data encrypted with these pages might be compromised in a variety of ways, including but not limited to the following:\n\
 \n\
+* You have not disabled the AES key cache, so when you will enter the password for the first time other users (if not you) will be able to see encrypted pages and could possibly get your key\n\
 * Your Web browser and/or JavaScript interpreter may contain bugs or deliberate security violations which report activity on your computer back to some other Internet site.\n\
 * Some other applet running on another page in your browser, perhaps without your being aware of its existence, is spying on other windows.\n\
 * Some other \"spyware\" application running on your computer may have compromised your system's security and be snooping on your activity.\n\
@@ -248,7 +253,7 @@ Apart from the above, your normal usage of encrypted pages can be considered sec
 [0x11,0xf9,0x97,0xb5,0x56,0x3c,0x60,0x7b,0x58,0x25,0x45,0x78,0x6e,0xd6,0x13,0xb2,0x38,0x75,0x3e,0x20,0xcc,0x3c,0x6f,0x2e,0x24,0x59,0xa7,0x7,0xd1,0x9c,0xc7,0xd,0xe0,0xf9,0xee,0xd4,0x2e,0xc3,0xc8,0xb3,0x88,0x59,0xbe,0x21,0x1d,0x27,0x77,0x85,0x4d,0x21,0x44,0xdf,0x3b,0x90,0x88,0xde,0xe7,0x4a,0xb3,0xf9,0x9a,0x13,0x5d,0x62,0x7f,0xc8,0x47,0x6a,0x8d,0x7a,0xbe,0x69,0x17,0x9,0xa8,0x92,0x34,0xf4,0x1e,0xd0,0x3e,0x4e,0xf2,0xf3,0xb6,0xb9,0xf8,0xf6,0x53,0x9e,0x10,0x89,0xe5,0x31,0x24,0x6,0x40,0xc6,0xc5,0x12,0xe3,0xa2,0x44,0x47,0x96,0x7d,0x35,0x93,0x3,0x32,0xf7,0xae,0xc2,0xe,0x78,0xbf,0x68,0x1a,0x4c,0x11,0xe6,0x16,0x48,0x96,0xa8,0xea,0xd,0xb3]
 ];
 
-/* QdmnnUZMUcTsiVvIyq */
+/* EXdAkaeDgLtzXGDCMB */
 
 /* ]]> */ </script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -996,9 +1001,11 @@ function get_text(title) {
 		if (pg != null)
 			break;
 	} while (retry<2);
-	if (pg != null)
+	if (pg != null) {
 		decrypt_failed = false;
-	else {
+		if (!key_cache)
+			AES_clearKey();
+	} else {
 		alert("Access denied");
 		AES_clearKey();
 	}
@@ -1276,6 +1283,7 @@ function el_eval(name) {
 
 function _setup_options() {
 	el("cb_allow_diff").checked = bool2chk(allow_diff);
+	el("cb_key_cache").checked = bool2chk(!key_cache);
 	el("cb_dblclick_edit").checked = bool2chk(dblclick_edit);
 	el("cb_permit_edits").checked = bool2chk(!permit_edits);
 	el("cb_save_on_quit").checked = bool2chk(save_on_quit);
@@ -1314,6 +1322,8 @@ function lock_page(page) {
 	page_attrs[pi] += 2;
 	save_to_file(true);
 	go_to(page);
+	if (!key_cache)
+		AES_clearKey();
 }
 
 var _pw_q_lock = false;
@@ -1883,7 +1893,7 @@ function save_page(page_to_save) {
 }
 
 function save_options() {
-	save_to_file(true);
+	save_to_file(false);
 	set_current("Special::Advanced");
 }
 
@@ -1901,6 +1911,7 @@ function save_to_file(full) {
 	";\n\nvar dblclick_edit = "+dblclick_edit+
 	";\n\nvar save_on_quit = "+save_on_quit+
 	";\n\nvar allow_diff = "+allow_diff+
+	";\n\nvar key_cache = "+key_cache+
 	";\n\nvar current = \"" + js_encode(current)+
 	"\";\n\nvar main_page = \"" + main_page + "\";\n\n";
 	
@@ -2160,12 +2171,14 @@ function operaSaveFile(filePath, content)
 function erase_wiki() {
 	if(confirm("This will ERASE all your pages.\n\nAre you sure you want to continue?") == false)
 		return false;
+	var pg_about = get_text("Special::About");
 	var pg_advanced = get_text("Special::Advanced");
 	var pg_import = get_text("Special::Import");
+	var pg_lock = get_text("Special::Lock");
 	var pg_search = get_text("Special::Search");
-	var pg_about = get_text("Special::About");
-	page_titles = new Array("Main Page", "Special::Menu", "Special::Advanced", "Special::Import", "Special::Search", "Special::About");
-	pages = new Array("This is your empty main page", "[[Main Page]]\n\n[[Special::Advanced]]\n[[Special::Backlinks]]\n[[Special::Search]]", pg_advanced, pg_import, pg_search, pg_about);
+	var pg_security = get_text("Special::Security");
+	page_titles = new Array("Main Page", "Special::Menu", "Special::Advanced", "Special::Import", "Special::Search", "Special::Security", "Special::Lock", "Special::About");
+	pages = new Array("This is your empty main page", "[[Main Page]]\n\n[[Special::Advanced]]\n[[Special::Backlinks]]\n[[Special::Search]]", pg_advanced, pg_import, pg_search, pg_security, pg_lock, pg_about);
 	current = main_page = "Main Page";
 	backstack = new Array();
 	forstack = new Array();	
@@ -2218,7 +2231,7 @@ function import_wiki()
 	// get only the needed part
 	var wiki;
 	try {
-		wiki = ct.match(/\<div .*id=\"wiki\"\>((.|\n|\t|\s)*)\<\/div\>/)[0];
+		wiki = ct.match(/\<div .*id=\"?wiki\"?\>((.|\n|\t|\s)*)\<\/div\>/)[0];
 	} catch(e) {
 		alert("Unrecognized file");
 		document.body.style.cursor= "auto";
@@ -2231,14 +2244,14 @@ function import_wiki()
 	// separate variables from wiki
 	var vars;
 	try {
-		vars = wiki.match(/\<div .*id=\"variables\"\>((.|\n|\t|\s)*)\<\/div\>/)[0];
+		vars = wiki.match(/\<div .*id=\"?variables\"?\>((.|\n|\t|\s)*)\<\/div\>/)[0];
 	} catch(e) {
 		vars = "";
 	}
 	if(old_version == 2)
 	{
 		try {
-			vars = wiki.match(/\<div.*id=\"main_page\".*\>(.*)\<\/div\>/)[0];
+			vars = wiki.match(/\<div.*id="?main_page"?.*\>(.*)\<\/div\>/)[0];
 		} catch(e) {
 		}
 	}
@@ -2253,10 +2266,10 @@ function import_wiki()
 	var pc = 0;
 
 	// eliminate headers
-	wiki = wiki.replace(/\<div.*?id=\"wiki\".*?\>/, "");
-	vars = vars.replace(/\<div.*?id=\"variables\".*?\>/, "");
+	wiki = wiki.substring(wiki.indexOf(">")+1);
+	vars = vars.substring(wiki.indexOf(">")+1);
 
-	vars.replace(/\<div.*?id=\"(.*?)\".*?\>((\n|.)*?)\<\/div\>/g, function(str, $1, $2)
+	vars.replace(/\<div.*?id="?([^>"\s]+)"?.*?\>((\n|.)*?)\<\/div\>/g, function(str, $1, $2)
 			{
 				if(old_version == 2)
 					var_names[vc] = "main_page_";
@@ -2266,7 +2279,7 @@ function import_wiki()
 				vc++;
 			});
 			
-	wiki.replace(/\<div.*?id=\"(.*?)\".*?\>((\n|.)*?)\<\/div\>/g, function(str, $1, $2, $3)
+	wiki.replace(/\<div.*?id="?([^>"\s]+)"?.*?\>((\n|.)*?)\<\/div\>/g, function(str, $1, $2, $3)
 			{
 				if (old_version != 2) {
 					page_names[pc] = unescape($1);
@@ -2296,13 +2309,13 @@ function import_wiki()
 	//TODO: import the variables and the CSS from v0.04
 	if (old_version>=4) {
 		var css = null;
-		ct.replace(/\<style.*?type=\"text\/css\".*?\>((\n|.)*?)\<\/style\>/, function (str, $1) {
+		ct.replace(/\<style.*?type="?text\/css"?.*?\>((\n|.)*?)\<\/style\>/, function (str, $1) {
 			css = $1;
 		});
 		if (css!=null) {
 			log("Imported "+css.length+" bytes of CSS");
 			if (old_version<9)
-				css += "/* since v0.9 */\nh1 { font-size: 23px; }\nh2 { font-size: 20px; }\nh3 { font-size: 17px; }\nh4 { font-size: 14px; }\ndiv.taglinks {\n	border: 1px solid #aaa;\n	padding: 5px;\n	margin-top: 1em;\n	clear: both;\n}\n\ndiv.search_results {\n	border: 1px solid #aaa;\n	background-color: #f9f9f9;\n	padding: 5px;\n	margin-top: 1em;\n	clear: both;\n}\n\na.link.tag {\n  color: navy;\n}";
+				css += "/* since v0.9 */\nh1 { font-size: 23px; }\nh2 { font-size: 20px; }\nh3 { font-size: 17px; }\nh4 { font-size: 14px; }\ndiv.taglinks {\n	border: 1px solid #aaa;\n	padding: 5px;\n	margin-top: 1em;\n	clear: both;\n}\n\ndiv.search_results {\n	border: 1px solid #aaa;\n	background-color: #f9f9f9;\n	padding: 5px;\n	margin-top: 1em;\n	clear: both;\n}\n\na.link.tag {\n  color: navy;\n}\n/* main wiki pane when locked */\ndiv.text_area.locked {\n	background-image:\nurl(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAAAAACMmsGiAAAALHRFWHRDcmVhdGlvbiBUaW1lAGdpbyAyOSBtYXIgMjAwNyAxMTo1MToxMCArMDEwME%2BTNUAAAAAHdElNRQfXAx0JNByGxueSAAAACXBIWXMAAAsSAAALEgHS3X78AAAABGdBTUEAALGPC%2FxhBQAAABlJREFUeNpj%2FM%2FwmYHpMwMvAxOQwcvECyQBO1oE%2BlG5iisAAAAASUVORK5CYII%3D);\n	background-color: #eeeeee;\n}";
 			document.getElementsByTagName("style")[0].innerHTML = css;
 		}
 	}
@@ -2326,7 +2339,7 @@ function import_wiki()
 	
 	for(var i=0; i<page_names.length; i++)
 	{
-		if (!is_special(page_names[i]) || (page_names[i] == "Special:Menu") || (page_names[i] == "Special:Search"))
+		if ( !is_special(page_names[i]) || (page_names[i] == "Special::Menu") )
 		{
 			pi = page_index(page_names[i]);
 			if (pi == -1) {
@@ -2847,9 +2860,9 @@ function AES_decrypt(raw_data) {
 <div id="menu_save" style="display: inline; cursor: pointer;"><img id="img_save" style="display: inline;" alt="Save" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAAK/INwWK6QAAAAZiS0dEAP8A/wD/oL2nkwAAA0FJREFUeNq1lc+KHFUUxn/n3qqu6h7tGdPByTBOEjQunK26EQRdhAGRuHGE2agLH8C1j5AXCFnkAYyBEIKoRHeabWQyJKIm+IdAdwSd0HZPdVXdc1xU9UynbZIe/xy4XG5R93z3fN937hWqeALYqGcFhH8WBkTAD8DXTCS64n18Jo6ToFo4792hAEQEVUUVc87baDR0ZvYBcEFAngO7eeatD5vHjq2XKysDee/dNxkOc9zcOIJzgXPnrhD0mfDVl+cbt29f/0zEvREBHqD9ZIckWfCdIwnLy8v0+3t47x7PiRkAcexoLy6SZW1arTaAQyq+ACSEAtVAURQyGo3I8/krMANVoSxLQigtaKjKsgkAREAEmRjOzVeBCDgnCPXecU7g8Rn+ZfzvANHkYprxsYD/GYABiExAzS+yWcX/IwEATEu8V7w3vNc5skvVvt7Qyj2zAVSVVqvJj3d6nD37MeAxJimSh+qxuj5DMVNUA7t/wFNHInSC2mhyh6AkyQrd3gOKYhcRv2/V6dOJCBoCjWSJNG2jqiSpAPrQUaLpTXk+4mhnyObma4QAWTZABNJ0AdWDk5mB98bFi9fJ8gWSxBFCybQt/gagqjSbTU6cOMknl66xvd0DjJdfWmNj41WGwwznBFVIU0+z1WQwDMRRNNMUUyJXzIYQyPOMbvcB8DSqSre7S1mOKIoc5xxmRp57NITaebMjmvlVqmq8czingOJ8Zd8DK8pB3ke0y34n26y/qutp8n45dEQ1fPA+qkU0MzMxM4q8JMsCqkpelJgZqoZz4xvU6m6vZqs6bnxYA4hEBDNz/f7vliQtnBuQNBJL0xbr68cpw6+Asf7CsyRJimpFk1klcqOR4HxEVIvsfSzeRQAmApGZfQ9c/uLz81tpupB3Oidd736X7e0dVlc7rK4u1g6LuHXru30NzMA55f5vPfLc0CCEMkgIZTkY7Hog7PebiHNLS8uXKlQpqR5+O+wQEQVCvX6/lrHq+M13PmplWf760c7QnT79Cnt7h3nRFO+Fq1e/saLoRDd3rv10986Nb0WECMTAiOMkWzv+4qfPnyrY2nqb/p97+DletDFdcSz8/EtgNFrj3r0d7nJDRMT+AqKAkRUl/oStAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAABJRU5ErkJggg=="><span id="alt_save" style="display: none; font-size: 24pt; font-family: wingdings;">&lt;</span></div>
 </td>
 <td>
-<div id="menu_unlock" style="display: none; cursor: pointer;" onclick="unlock()"><img id="img_lock" style="display: inline;" alt="Unlock" src="locked.png"><span id="alt_lock" style="display: none; font-size: 24pt; font-family: wingdings;">I</span></div>
+<div id="menu_unlock" style="display: none; cursor: pointer;" onclick="unlock()"><img id="img_lock" style="display: inline;" alt="Unlock" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA%2FwD%2FAP%2BgvaeTAAAEnUlEQVR42o2WX2wUVRTGf3NnZ7a7tkvTdA1rlxSWthgwEpoawh9jS8SHxofqAyaGBzBBE15IBLTxwfgCGBITfZAXk%2FYBjDE09QGJpqKFGBKiDYkuVChd7KbbbbtLy3bb2dk%2Fs3N96M52t63ASU5m5t7c853zne%2FeOwoV9vDhwxpWWSgUypVelYphWfKnmnACrxd8z549rwB2yYslfwuoB9zAayWgXYBrXQQneKU3NzfvcrLs7%2B%2BXsVhMTk1NyVu3bsmK7N8EZCqVcr4PlUDXVlBpBw4ceDEajd7u7e0tJpNJDh48SDqdJpVK4ff7iUQi9Pf3A1wBWFpa4s6dOwDfA92rQdYAzM3NvQRw%2BvRp9erVq1YwGGT79u3s2LGDrVu3Eg6H87t376avr6%2B8ZnZ2lgcPHgAMAi2V%2FaribXp6WllcXLw4MTHByMgIR44ccW3YsOFDr9c76vP54vF4vKOnp6cvGo3S1NRUlVhrayvAp6vEsLYCALd7pUqPx3O%2FpaVl9OjRoxPnzp27%2FH9qOX78OMAMMF2psKoKxsfHBYBpmuUxr9c729raagQCAftJcrxw4QKACeQrx8sA4XBYDAwM1K5eaBiGb3h4uOn69es2z2bFdQG%2B%2FOiDd4bvz%2FQBDA4OkkgknAb%2BtjrCsWPHqK1dyUXXdS5dusThw4cvAreBfxyaFGeDhUIhMxUfJT8%2Fibn4iHzGIJtZYPFxCjOTAUDTNPQaN8Klorlr2NXTSywWI5FI0N7eDvAV8DUQKW3O6h4ouTS59AxGIkrWWCLzOMlcMsGSsQQSPJ4adK8HVRVo6spJUVdXx82bN9m3b98J4LsSwFoV2baNLC5TKG2wFXtZcxKEEKAoKELBtiWvn%2FqBzz45iRCCuro6VFV1wmwCtHVVBBIpJUiJlEViMynGJmYxM1kE0FBfy6aNcPZKnEgkghCCTIm%2BxsZGhoeH6erqugy8CvwJ5KopEipCCBShIIQk8Hw9HpEjs7CIRCBqdHq%2FvceNGzcoFAqMj49jWRaKoqDrOps3b2ZkZISOjo7fgZ3AXREKhbIrHBWxihZWvoCVL%2FDocZrJxBJT81kSCxne%2FfxXzp45g5TLlWqaRltbG21tbWzZsoX6%2Bnr8fj%2Fnz58H%2BAtocJUUlF0mSEFVVFSXC6G6aPR5EVkPGbeNXVJ3Z1cXhmGgKArbtm1D1%2FXl6hWl%2FOzs7HRS3ljdA9tCFjIUcovkc2mi8QTzyXlMw0RzucoBHDdNk0AgAEA0Gi2PO6BA%2FaoeKEhVQwg3Lk0nuLGBWlVimu4qwTmBQqEQwBeAbG5uPjU5OYmiKOTz%2Bf857Io2kiKyWMAqFLByuVJPLGTRAuCXoaEyHQCH3mg%2FeeLtnaecHW1ZFkNDQ870QtU9%2B%2FM3HzPx7zjZhSRZM0sulyWfzVKwiggUajw6g6Murl27hmEYaJpGMBgEIBaLoes6Y2Nj7N%2B%2FH%2BA94McywMt%2B%2FYW%2Fk%2FmpZznN9u7dy8DAALa9cv6Fw2GklHR3dwP0Aj8BdysrUAAV0EvP1X8Slfacz%2BeLp9Pp9ebeB%2F4A7gE55SnJPmneBTQAAaDO4bx06cwDFsB%2F1pf2UYdfB6cAAAAASUVORK5CYII%3D"><span id="alt_lock" style="display: none; font-size: 24pt; font-family: wingdings;">I</span></div>
 </td><td>
-<div id="menu_lock" style="display: none; cursor: pointer;" onclick="lock()"><img id="img_unlock" style="display: inline;" alt="Lock" src="unlocked.png"><span id="alt_unlock" style="display: none; font-size: 24pt; font-family: wingdings;">C</span></div>
+<div id="menu_lock" style="display: none; cursor: pointer;" onclick="lock()"><img id="img_unlock" style="display: inline;" alt="Lock" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAB3RJTUUH1wMbFisGhO%2Br5wAAAAlwSFlzAAALEwAACxMBAJqcGAAAAARnQU1BAACxjwv8YQUAAANZSURBVHja3VTPT1NZGD3vvZYWGGqVNgKyEBZqwsRYtRpjJpkdMbNk5YrMZjYQF27c%2Bxe4MCxcIJmdyRAjGxMX%2FohKUGMgMAt%2BTCJ0CtqR2tLS9%2Fp%2B3eu5r8UEZphS48qbnL57b9895%2FvO970LfK%2FjKjFJlIhHxH0i9a3Ib%2Fb396%2BPj4%2FLjY0NOTMzIycmJvxEImHyv1%2BbJTP2rG8PDw9fn5ycjPX19aFYLCIWi6Gnp0cbGBgI5%2FP5XzKZjMb3nn1N5FfS6bRZKBTk%2FPx8ZWho6C337GQymR0ZGbHn5ubk1NSUHBwcLNctbHo8YHRycXFRplKpP7ieIS4TP8Xj8eejo6OmsmtsbMzh3r2m2elxMZfLyenp6QqXK8TPRCuhLEn39vZm19bWpKoN1wsH5dV3Jp2dnZFKpYJyuawIbGKeqBJq%2FSabzYrNzU10d3Wp15MHFQjtTJaWlm6xe4bry8eEl2zVb3UfO3rt71wRoegPePniBeUEWiPhoyFDlwQOd7SjI9EN27ZRyr9HV4eB5Wzx3rYbdJyl7RGMEXHCJ3KEW1h5AiE0eJ6A8F3OHVjFf%2Fj0gtSE70G4Nnzbgl%2B18ObhXfz2%2B7riOkvMhvYIlOr4MjSyWPlVlHKr8Cng2xXYTpWJCEgpKcw9x4S3XYBjbkEEssHo2lWD%2FYYQPiSjrC3okFarOnQdmq5B09QGaTQ1N0j4xRRjVw32HzKIlD9YWPgTy6vrsMxqEJlQbdYWxYnjx5CIePBdZiPkrtMNBTSdUdWjPX%2FpAk6fs%2BDRJk9lRZuEWw1sK7ERAuo9VW2cAS1SZJ7jYPbt7P4ZtNTIQ0aoOQHJUwa9NUJhnLuYxunUKbhsSZ%2BiyjqpCuxWsJ3jnPZE2w%2FzVKYJAeEFNrhOBXOzK%2FtmEIcXNITREm22BjqkEWYdIjh74Qx%2BPHOSNbAhpAgKr%2Fz3XQvlDwZaolG4bqTJGvhsU6hWdWFuleHwg1K9L%2Bqtqz4yzzah0cJo2yGU88Vdx40G9O3p%2FrbLbRo9%2FpiBVSrALH9ClVCdJDybNVDZaAxCh7W9haevlvH6nfmUZ3mv4K%2F%2FZaf6RT7uoHbhHRRPiBvEeeBfXftfGjhC9KD26YcbWlq7xz4SWeJDI4EdEUXccoCAdoZqJZf49Bkd5rOdXLtvgwAAAABJRU5ErkJggg%3D%3D"><span id="alt_unlock" style="display: none; font-size: 24pt; font-family: wingdings;">C</span></div>
 </td></tr></tbody></table>
 <hr>
 <div id="unsupported_browser" style="display: none;"><i>Your browser is not supported. You can access the wiki but you won't be able to save.</i></div>
