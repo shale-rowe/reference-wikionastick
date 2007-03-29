@@ -195,9 +195,6 @@ function parse(text)
 		return r;
 	});
 	
-	// ordered/unordered lists parsing (code by plumloco)
-	text = text.replace(reReapLists, parseList);
-	
 	// <b>
 	text = text.replace(/\*([^\*\n]+)\*/g, parse_marker+"bS#$1"+parse_marker+"bE#");
 	// <u>
@@ -224,8 +221,12 @@ function parse(text)
 		text = header_replace(str_rep("!", i), text);
 	}
 	
-	// cleanup closing </hx> vs <br /> tags
+	// ordered/unordered lists parsing (code by plumloco)
+	text = text.replace(reReapLists, parseList);
+	
+	// cleanup closing /hx vs br tags
 	text = text.replace(/(<\/h\d>)\n/g, "$1");
+
 	
 	// <hr>
 	text = text.replace(/(^|\n)\-\-\-/g, "<hr />");
