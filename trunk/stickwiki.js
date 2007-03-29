@@ -1834,7 +1834,7 @@ function import_wiki()
 	// get version
 	var old_version, ver_str;
 	try {
-		ver_str = ct.match(/\<div id=\"version_\"\>(.*)\<\/div\>/i)[1];
+		ver_str = ct.match(/<div id="?version_"?>(.*)<\/div>/i)[1];
 		log("Old wiki contains version string \""+ver_str+"\"");
 		switch(ver_str)
 		{
@@ -1853,15 +1853,15 @@ function import_wiki()
 		}
 	} catch(e) {
 		old_version = 2;
-		if(ct.match("<div id=\""+escape("Special::Advanced")+"\">"))
+		if(ct.match("<div id=\"?"+escape("Special::Advanced")))
 			old_version = 3;
 	}
 
 	// get only the needed part
 	var wiki;
-	var rx = /<div id="?wiki"?[^>]*>((.|\n|\t|\s)*)<\/div>/i;
+	var rx = /<div .*?id="?wiki"?[^>]*>((.|\n|\t|\s)*)<\/div>/i;
 	try {
-		wiki = ct.match(rx)[1];
+		wiki = ct.match(rx)[0];
 	} catch(e) {
 		alert("Unrecognized file");
 		document.body.style.cursor= "auto";
@@ -1870,22 +1870,24 @@ function import_wiki()
 	
 	// eliminate comments
 	wiki = wiki.replace(/\<\!\-\-.*\-\-\>/g, "");
-
+	
 	// separate variables from wiki
 	var vars;
-	try {
-		vars = wiki.match(/<div .*id="?variables"?[^>]*>((.|\n|\t|\s)*)<\/div>/)[0];
-	} catch(e) {
+	var p = wiki.search(/<div .*id="?variables"?[^>]*>/i);
+	if (p!=-1) {
+		vars = wiki.substring(p);
+		wiki = wiki.substring(0, p);
+	} else
 		vars = "";
-	}
+
 	if(old_version == 2)
 	{
 		try {
-			vars = wiki.match(/\<div.*id="?main_page"?.*\>(.*)\<\/div\>/)[0];
+			vars = wiki.match(/\<div .*id="?main_page"?[^>]*>(.*)\<\/div\>/i)[1];
 		} catch(e) {
+			log("No variables found");
 		}
 	}
-	wiki = wiki.replace(vars, "");
 
 	// get an array of variables and wikis
 	var var_names = new Array();
@@ -1897,10 +1899,13 @@ function import_wiki()
 
 	// eliminate headers
 	wiki = wiki.substring(wiki.indexOf(">")+1);
-	vars = vars.substring(wiki.indexOf(">")+1);
-
-	vars.replace(/\<div.*?id="?([^>"\s]+)"?.*?\>((\n|.)*?)\<\/div\>/g, function(str, $1, $2)
+	vars = vars.substring(vars.indexOf(">")+1);
+	
+	vars.replace(/<div.*?id=([^>\s]+)[^>]*>((\n|.)*?)<\/div>/gi, function(str, $1, $2)
 			{
+				var vid = $1;
+				if (vid.charAt(0)=='"')
+					vid = vid.substring(0, vid.length-2);
 				if(old_version == 2)
 					var_names[vc] = "main_page_";
 				else
@@ -1909,7 +1914,11 @@ function import_wiki()
 				vc++;
 			});
 			
-	wiki.replace(/\<div.*?id="?([^>"\s]+)"?.*?\>((\n|.)*?)\<\/div\>/g, function(str, $1, $2, $3)
+	log("Variables are "+var_names);
+	if (!var_names.length)
+		return;
+			
+	wiki.replace(/<div.*?id="?([^>"\s]+)"?[^>]*>((\n|.)*?)\<\/div\>/gi, function(str, $1, $2, $3)
 			{
 				if (old_version != 2) {
 					page_names[pc] = unescape($1);
@@ -1933,13 +1942,15 @@ function import_wiki()
 			}
 			);
 
+	log("pages are "+page_names);
+			
 	// add new data
 	var pages_imported = 0;
 	
 	//TODO: import the variables and the CSS from v0.04
 	if (old_version>=4) {
 		var css = null;
-		ct.replace(/\<style.*?type="?text\/css"?.*?\>((\n|.)*?)\<\/style\>/, function (str, $1) {
+		ct.replace(/<style.*?type="?text\/css"?[^>]*>((\n|.)*?)<\/style>/i, function (str, $1) {
 			css = $1;
 		});
 		if (css!=null) {
