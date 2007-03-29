@@ -608,9 +608,11 @@ function get_text(title)
 		pg = AES_decrypt(pages[pi].slice(0));	/*WARNING: may not be supported by all browsers*/
 		if (pg != null)
 			break;
-	} while (retry<3);
+	} while (retry<2);
 	if (pg != null)
 		decrypt_failed = false;
+	else
+		alert("Access denied");
 	return pg;
 }
 
