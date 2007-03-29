@@ -168,7 +168,7 @@ function parseList(str, type) {
     }
 
 	var reReapTables = /(?:^|\n)\{\|.*((?:\n\|.*)*)(?:\n|$)/g;	
-    function parseTable(str, p1)
+    function parseTables(str, p1)
     {
         var caption = false;
         var stk = [];
@@ -890,7 +890,10 @@ function set_current(cr)
 						}
 						pages[pi] = text;
 						page_attrs[pi] -= 2;
+						if (!key_cache)
+							AES_clearKey();
 						save_to_file(true);
+						set_current(cr);
 						return;
 					default:
 						text = get_text(namespace+"::"+cr);
@@ -1332,9 +1335,12 @@ function current_editing(page, disabled) {
 function edit_page(page) {
 	if (!edit_allowed(page))
 		return;
+	var tmp = get_text(page);
+	if (tmp == null)
+		return;
 	// setup the wiki editor textbox
 	current_editing(page, is_special(page));
-	el("wiki_editor").value = get_text(page);
+	el("wiki_editor").value = tmp;
 }
 
 function rename_page(previous, newpage)
