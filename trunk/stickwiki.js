@@ -883,6 +883,8 @@ function set_current(cr)
 						pi = page_index(cr);
 						if ((pi==-1) || !is__encrypted(pi))
 							return;
+						if (!confirm("Do you want to remove encryption for page \""+cr+"\"?"))
+							return;
 						text = get_text(cr);
 						if (decrypt_failed) {
 							decrypt_failed = false;
