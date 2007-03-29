@@ -1214,7 +1214,7 @@ function disable_edit()
 	menu_display("home", true);
 	menu_display("save", false);
 	menu_display("cancel", false);
-	el("text_area").style.display = "block";
+	el("text_area").style.display = "inline";
 	el("edit_area").style.display = "none";
 	log("setting back title to "+prev_title);
 	document.title = el("wiki_title").innerHTML = prev_title;
@@ -1289,7 +1289,7 @@ function current_editing(page, disabled) {
 		el("wiki_editor").style.width = window.innerWidth - 30 + "px";
 		el("wiki_editor").style.height = window.innerHeight - 150 + "px";
 	}
-	el("edit_area").style.display = "block";
+	el("edit_area").style.display = "inline";
 
 	el("wiki_editor").focus();
 	current = page;
