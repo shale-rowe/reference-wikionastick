@@ -166,34 +166,34 @@ function parseList(str, type) {
             return '\n*** ListNestingError  ***\n' + str;
         }
     }
-	
-    var reReapTables = /(?:^|\n)\{\|.*((?:\n\|.*)*)(?:\n|$)/g
-        function parseTables(str, p1)
-        {
-            var caption = false;
-            var stk = [];
-            p1.replace
-            (
-                /\n\|([+ -])(.*)/g,
-                function(str, pp1, pp2)
+
+	var reReapTables = /(?:^|\n)\{\|.*((?:\n\|.*)*)(?:\n|$)/g;	
+    function parseTable(str, p1)
+    {
+        var caption = false;
+        var stk = [];
+        p1.replace
+        (
+            /\n\|([+ -])(.*)/g,
+            function(str, pp1, pp2)
+            {
+                if (pp1 == '-')
                 {
-                    if (pp1 == '-')
-                    {
-                        return;
-                    }
-                    if (pp1 == '+')
-                    {
-                        caption = caption || pp2;
-                        return;
-                    }
-                    stk.push('<td>' + pp2.split(' ||').join('</td><td>') + '</td>');
-                } 
-            );
-            return  '<table class="text_area">' +
-                        (caption?('<caption>' + caption + '</caption>'):'') +
-                        '<tr>' + stk.join('</tr><tr>') + '</tr>' +
-                    '</table>' 
-        }
+                    return;
+                }
+                if (pp1 == '+')
+                {
+                    caption = caption || pp2;
+                    return;
+                }
+                stk.push('<td>' + pp2.split(' ||').join('</td><td>') + '</td>');
+            } 
+        );
+        return  '<table class="text_area">' +
+                    (caption?('<caption>' + caption + '</caption>'):'') +
+                    '<tr>' + stk.join('</tr><tr>') + '</tr>' +
+                '</table>' 
+    }
 
 
 // single quote escaping for page titles	
@@ -245,10 +245,12 @@ function parse(text)
 	});
 	
 	text = text.replace(new RegExp(parse_marker+"([ub])([SE])#", "g"), function (str, $1, $2) {
-		var tag = "<";
-		if ($2=="E")
-			tag += "/";
-		tag += $1+">";
+		if ($2=='E')
+			return "</span>";
+		if ($1=='u')
+			tag = "<span style=\"text-decoration:underline;\">";
+		else
+			tag = "<span style=\"font-weight: bold;\">";
 		return tag;
 	});
 	
