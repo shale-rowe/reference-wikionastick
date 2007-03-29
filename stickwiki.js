@@ -215,8 +215,8 @@ function parse(text)
 	if (ie)
 		text = text.replace("\r\n", "\n");
 
-	var prefmt = new Array();
-	var tags = new Array();
+	var prefmt = [];
+	var tags = [];
 	// put away stuff contained in <pre> tags
 	text = text.replace(/\<pre.*?\>(.*?)\<\/pre\>/g, function (str, $1) {
 		var r = "<!-- "+parse_marker+prefmt.length+" -->";
@@ -224,10 +224,17 @@ function parse(text)
 		return r;
 	});
 	
+	var html_tags = [];
+	text = text.replace(/\<\w+[^>]*>/g, function (tag) {
+		var r = "<!-- "+parse_marker+'::'+html_tags.length+" -->";
+		html_tags.push(tag);
+		return r;
+	});
+	
 	// <b>
 	text = text.replace(/\*([^\*\n]+)\*/g, parse_marker+"bS#$1"+parse_marker+"bE#");
 	// <u>
-	text = text.replace(/(^|[\s])_([^_]+)_/g, "$1"+parse_marker+"uS#$2"+parse_marker+"uE#");
+	text = text.replace(/(^|[^\w])_([^_]+)_/g, "$1"+parse_marker+"uS#$2"+parse_marker+"uE#");
 	
 	// italics
 	text = text.replace(/(^|[^\w])\/([^\/]+)\/($|[^\w\>])/g, function (str, $1, $2, $3) {
@@ -314,8 +321,14 @@ function parse(text)
 //			log("Replacing prefmt block #"+$1);
 			return prefmt[$1];
 		});
-		prefmt = new Array();
 	}
+	
+	if (html_tags.length>0) {
+		text = text.replace(new RegExp("<\\!-- "+parse_marker+"::(\\d+) -->", "g"), function (str, $1) {
+			return html_tags[$1];
+		});
+	}
+
 	
 	if (tags.length) {
 		if (force_inline)
