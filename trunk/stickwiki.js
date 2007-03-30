@@ -411,7 +411,9 @@ function parse(text)
 	if (force_inline)
 		force_inline = false;
 	
-	return "<div class=\"level0\">" + text + "</div>";
+	if (text.substring(0,5)!="</div")
+		return "<div class=\"level0\">" + text + "</div>";
+	return text.substring(6)+"</div>";
 }
 
 // prepends and appends a newline character to workaround plumloco's XHTML lists parsing bug
