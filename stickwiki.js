@@ -15,7 +15,7 @@ var _custom_focus = false;
 var prev_title = current;	// used when entering/exiting edit mode
 var decrypt_failed = false;
 var post_dom_render = "";
-var result_pages = [];
+var result_pages;
 var last_AES_page;
 
 var ie = false;
@@ -364,9 +364,9 @@ function parse(text)
 
 // prepends and appends a newline character to workaround plumloco's XHTML lists parsing bug
 function _join_list(arr) {
-	result_pages = arr.slice(0);
 	if (!arr.length)
 		return "";
+	result_pages = arr.slice(0);
 	return "\n* [["+arr.sort().join("]]\n* [[")+"]]\n";
 }
 
@@ -869,6 +869,7 @@ function _get_special(cr) {
 function set_current(cr)
 {
 	var text;
+	result_pages = [];
 //	log("Setting \""+cr+"\" as current page");
 	if (cr.substring(cr.length-2)=="::") {
 		text = _get_namespace(cr);
@@ -879,7 +880,6 @@ function set_current(cr)
 			namespace = cr.substring(0,p);
 			log("namespace of "+cr+" is "+namespace);
 			cr = cr.substring(p+2);
-			result_pages = [];
 				switch (namespace) {
 					case "Special":
 						text = _get_special(cr);
@@ -1259,27 +1259,28 @@ function update_nav_icons(page) {
 	menu_display("forward", (forstack.length > 0));
 	menu_display("advanced", (page != "Special::Advanced"));
 	menu_display("edit", edit_allowed(page));
-	update_lock_icons(page, false);
+	update_lock_icons(page, true);
 }
 
 function update_lock_icons(page, results_only) {
-	var groups, cyphered;
+	var cyphered, can_lock, can_unlock;
 	if (!results_only) {
 		var pi = page_index(page);
 		if (pi==-1) {
-			menu_display("lock", false);
-			menu_display("unlock", false);
-			return;
+			can_lock = can_unlock = false;
+			cyphered = false;
+		} else {
+			can_unlock = cyphered = is__encrypted(pi);
+			can_lock = !can_unlock;
 		}
-		groups = false;
-		cyphered = is__encrypted(page);
 	} else {
-		groups = (result_pages.length>0);
+		log("result_pages is ("+result_pages+")");
+		can_lock = can_unlock = (result_pages.length>0);
 		cyphered = false;
 	}
 	
-	menu_display("lock", !kbd_hooking && (groups || !cyphered));
-	menu_display("unlock", !kbd_hooking && (groups || cyphered));
+	menu_display("lock", !kbd_hooking && can_lock);
+	menu_display("unlock", !kbd_hooking && can_unlock);
 	var cls;
 	if (cyphered || (page.indexOf("Locked::")==0))
 		cls = "text_area locked";
@@ -1323,12 +1324,27 @@ function edit_menu() {
 }
 
 function lock() {
-	go_to("Lock::" + current);
+	if (result_pages.length)
+		_lock_pages(result_pages);
+	else
+		go_to("Lock::" + current);
 }
 
 function unlock() {
-	go_to("Unlock::" + current);
+	if (result_pages.length)
+		_unlock_pages(result_pages);
+	else
+		go_to("Unlock::" + current);
 }
+
+function _lock_pages(arr) {
+	alert("Not yet implemented");
+}
+
+function _unlock_pages(arr) {
+	alert("Not yet implemented");
+}
+
 
 // when edit is clicked
 function edit()
@@ -1365,7 +1381,7 @@ function current_editing(page, disabled) {
 	menu_display("edit", false);
 	menu_display("save", true);
 	menu_display("cancel", true);
-	update_lock_icons(page, true);
+	update_lock_icons(page, false);
 	el("text_area").style.display = "none";
 
 	// FIXME!
