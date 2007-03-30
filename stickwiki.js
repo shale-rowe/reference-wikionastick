@@ -1476,8 +1476,8 @@ function delete_page(page)
 // applies some on-the-fly patches for the syntax changes in v0.9
 function _new_syntax_patch(text) {
 	//BUG: will also modify text contained in <pre> tags
-	text = text.replace(/(^|\n)(\+*)/g, function (str, $1, $2) {
-		return $1+str_rep("*", $2.length);
+	text = text.replace(/(^|\n)(\+*[ \t])/g, function (str, $1, $2) {
+		return $1+str_rep("*", $2.length-1);
 	});
 	
 	return text;
@@ -1991,6 +1991,7 @@ function import_wiki()
 				old_version = 4;
 				break;
 			case "0.9B":
+			case "0.9":
 				old_version = 9;
 			default:
 				alert("Incompatible version: " + ver_str);
@@ -2002,6 +2003,14 @@ function import_wiki()
 		if(ct.match("<div id=\"?"+escape("Special::Advanced")))
 			old_version = 3;
 	}
+
+	var page_names = new Array();
+	var page_contents = new Array();
+	var old_page_attrs = new Array();
+	var pc = 0;
+
+	
+if (old_version	< 9) {
 	
 	var wiki;
 	try {
@@ -2037,10 +2046,8 @@ function import_wiki()
 	var var_names = new Array();
 	var var_values = new Array();
 	var vc = 0;
-	var page_names = new Array();
-	var page_contents = new Array();
-	var pc = 0;
 
+	
 	// eliminate headers
 	wiki = wiki.substring(wiki.indexOf(">")+1);
 	vars = vars.substring(vars.indexOf(">")+1);
@@ -2074,6 +2081,8 @@ function import_wiki()
 						page_names[pc] = "Special::Menu";
 					else return;
 				}
+				
+				old_page_attrs[pc] = 0;
 
 				if (old_version < 9) {	// apply compatibility changes to stickwiki versions below v0.9
 					page_contents[pc] = _new_syntax_patch(page_contents[pc].replace(new RegExp("(\\[\\[|\\|)Special::Import wiki\\]\\]", "ig"), "$1Special::Import]]").replace(/\[\[([^\]\]]*?)(\|([^\]\]]+))?\]\]/g,
@@ -2090,20 +2099,6 @@ function import_wiki()
 
 	log("page_names is ("+page_names+")");
 
-	// add new data
-	var pages_imported = 0;
-	
-	if (old_version==9) {
-		var css = null;
-		ct.replace(/<style\s.*?type="?text\/css"?[^>]*>((\n|.)*?)<\/style>/i, function (str, $1) {
-			css = $1;
-		});
-		if (css!=null) {
-			log("Imported "+css.length+" bytes of CSS");
-			document.getElementsByTagName("style")[0].innerHTML = css;
-		}
-	}
-	
 	// import the variables
 	var new_main_page = main_page;
 	var old_block_edits = !permit_edits;
@@ -2113,14 +2108,29 @@ function import_wiki()
 		else if (var_names[i] == "permit_edits")
 			old_block_edits = (var_values[i]=="0");
 	}
-	if (page_exists(new_main_page))
-		main_page = new_main_page;
-		
-	permit_edits = !old_block_edits;
 	
 	//note: before v0.04 permit_edits didnt exist
 	//note: in version 2 pages were not escaped
+}	else {
+	alert("Import from v0.9 is not yet supported!");
+	document.body.style.cursor= "auto";
+	return;
 	
+	var css = null;
+		ct.replace(/<style\s.*?type="?text\/css"?[^>]*>((\n|.)*?)<\/style>/i, function (str, $1) {
+			css = $1;
+		});
+		if (css!=null) {
+			log("Imported "+css.length+" bytes of CSS");
+			document.getElementsByTagName("style")[0].innerHTML = css;
+		}
+
+
+
+}
+
+	// add new data
+	var pages_imported = 0;
 	for(var i=0; i<page_names.length; i++)
 	{
 		if ( !is_reserved(page_names[i]) || (page_names[i] == "Special::Menu") )
@@ -2129,15 +2139,20 @@ function import_wiki()
 			if (pi == -1) {
 				page_titles.push(page_names[i]);
 				pages.push(page_contents[i]);
-				page_attrs.push(0);
+				page_attrs.push( old_page_attrs[i] );
 			} else {
 				page_titles[pi] = page_names[i];
 				pages[pi] = page_contents[i];
-				page_attrs[pi] = 0;
+				page_attrs[pi] = old_page_attrs[i];
 			}
 			pages_imported++;
 		}
 	}
+	
+	if (page_exists(new_main_page))
+		main_page = new_main_page;
+
+	permit_edits = !old_block_edits;
 
 	// remove hourglass
 	document.body.style.cursor= "auto";
