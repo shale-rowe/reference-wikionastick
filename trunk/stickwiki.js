@@ -100,7 +100,13 @@ function _get_tags(text) {
 	return tags;
 }
 
-function header_replace(hdr_char, len, text) {
+function header_anchor(s) {
+	return escape(s.replace(/ /g, "+"));
+}
+
+var page_TOC = "";
+//var last_h_level;
+function header_replace(hdr_char, len, text, build_toc) {
 	var esc_hdr_char = RegExp.escape(hdr_char);
 	return text.replace( new RegExp("(^|\n)"+str_rep(esc_hdr_char, len)+"([^"+esc_hdr_char+"\n].*)(\n"+esc_hdr_char+"?)?", "g"), 	function (str, $1, $2, $3) {
 		if ($2.indexOf(str_rep(hdr_char, len))==$2.length-len)
@@ -110,7 +116,14 @@ function header_replace(hdr_char, len, text) {
 		var tmp = $3;
 		if (tmp.length==1)
 			tmp = "";
-		return "</p>"+"<h"+len+">"+header+"</h"+len+"><p class=level"+len+">"+tmp;
+		var anchor = header_anchor(header);
+		// automatically build the TOC if needed
+		if (build_toc) {
+//			if (last_h_level!=len) {			}
+			page_TOC += str_rep("#", len)+" [[#"+anchor+"|"+header+"]]\n";
+		}
+		
+		return "</p></div><a name=\""+anchor+"\"></a><h"+len+" class=\"level"+len+"\">"+header+"</h"+len+"><p>"+tmp;
 	});
 }
 
@@ -217,6 +230,14 @@ function parse(text)
 	var prefmt = [];
 	var tags = [];
 	var html_tags = [];
+	
+	var toc_pos = text.indexOf("[[Special::TOC]]");
+	if (toc_pos != -1) {
+		text = text.substring(0, toc_pos) + text.substring(toc_pos+16 + 
+		((text.charAt(toc_pos+16)=="\n") ? 1 : 0)
+		);	
+//		last_h_level = 0;
+	}
 
 	// put away stuff contained in <pre> tags
 	text = text.replace(/(\<pre.*?>(.|\n)*?<\/pre>)/g, function (str, $1) {
@@ -248,8 +269,17 @@ function parse(text)
 	
 	// headers (from h1 to h6, as defined by the HTML 3.2 standard)
 	for(i=1;i<7;i++) {
-		text = header_replace("!", i, text);
+		text = header_replace("!", i, text, (toc_pos!=-1));
 	}
+	
+	if ((toc_pos!=-1) && page_TOC.length) {
+		log("Inserting TOC at offset "+toc_pos);
+		text = text.substring(0, toc_pos) +
+			"<div class=\"wiki_toc\"><p class=\"wiki_toc_title\">Table of Contents</p>" + page_TOC.replace(reReapLists, parseList).replace("\n<", "<") + "</div>" +
+			text.substring(toc_pos);
+		page_TOC = "";
+	}
+
 	
 	// <b>
 	text = text.replace(/\*([^\*\n]+)\*/g, parse_marker+"bS#$1"+parse_marker+"bE#");
@@ -281,8 +311,12 @@ function parse(text)
 				
 				if(page_exists($1))
 					return "<a class=\"link\" onclick='go_to(\"" + _sq_esc($1) +"\")'>" + $2 + "<\/a>";
-				else
-					return "<a class=\"unlink\" onclick='go_to(\"" + _sq_esc($1) +"\")'>" + $2 + "<\/a>";
+				else {
+					if ($1.charAt(0)=="#")
+						return "<a class=\"link\" href=\"#" + header_anchor($1.substring(1)) + "\">" + $2 + "<\/a>";
+					else
+						return "<a class=\"unlink\" onclick='go_to(\"" + _sq_esc($1) +"\")'>" + $2 + "<\/a>";
+				}
 			}); //"<a class=\"wiki\" onclick='go_to(\"$2\")'>$1<\/a>");
 	// links without |
 	var inline_tags = 0;
@@ -303,8 +337,11 @@ function parse(text)
 				
 				if(page_exists($1))
 					return "<a class=\"link\" onclick=\"go_to('" + _sq_esc($1) +"')\">" + $1 + "<\/a>";
-				else
+				else {
+					if ($1.charAt(0)=="#")
+						return "<a class=\"link\" href=\"#" + header_anchor($1.substring(1)) + "\">" + $1.substring(1) + "<\/a>";
 					return "<a class=\"unlink\" onclick=\"go_to('" + _sq_esc($1) +"')\">" + $1 + "<\/a>";
+				}
 					}); //"<a class=\"wiki\" onclick='go_to(\"$1\")'>$1<\/a>");
 
 	// end-trim
@@ -333,7 +370,6 @@ function parse(text)
 		});
 	}
 
-	
 	if (tags.length) {
 		if (force_inline)
 			s = "";
@@ -359,7 +395,7 @@ function parse(text)
 	if (force_inline)
 		force_inline = false;
 	
-	return "<p class=\"level0\">" + text + "</p>";
+	return "<div class=\"level0\"><p>" + text + "</p></div>";
 }
 
 // prepends and appends a newline character to workaround plumloco's XHTML lists parsing bug
