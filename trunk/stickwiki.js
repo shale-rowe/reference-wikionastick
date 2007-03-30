@@ -1696,9 +1696,7 @@ function save_to_file(full) {
 		offset += 6 + 5 + __marker.length;
 	}
 		
-	alert(document.documentElement.innerHTML.substring(offset));
-	
-	if (false && (!debug || save_override))
+	if ( (!debug || save_override) )
 		r = saveThisFile(computed_js, offset);
 	else r = false;
 	document.body.style.cursor= "auto";
