@@ -454,7 +454,7 @@ div.wiki_header {
 <td># numbered list</td>
 <td>!!subheader</td>
 <td><a class="world" onclick="open_table_help()">(tables)</a></td></tr></tbody></table></div>
-<div id="debug_info" style="display: block;"><h2>Debug console</h2><p>This is a development BETA version of Wiki On a Stick; it is not suggested to use it with important data. If you want to disable this debug console, you will have to find the line that says <b><tt>var debug = true;</tt></b> and change it to <b><tt>false</tt></b>. Note: in the currently active debug mode changes will be saved only if <b><tt>var save_override</tt></b> is set to <b><tt>true</tt></b></p><div align="center"><textarea id="swlogger" cols="70" rows="12" style="width: 90%; background-color: lightgray;" readonly="true"></textarea><br><input value="Clear" onclick="el('swlogger').value=''" type="button"></div>
+<div id="debug_info" style="display: block;"><h2>Debug console</h2><p>This is a development BETA version of Wiki On a Stick; it is not suggested to use it with important data. If you want to disable this debug console, you will have to find the line that says <b><tt>var debug = true;</tt></b> and change it to <b><tt>false</tt></b>. Note: in the currently active debug mode changes will be saved only if <b><tt>var save_override</tt></b> is set to <b><tt>true</tt></b></p><div align="center"><textarea id="swlogger" cols="70" rows="12" style="width: 90%; background-color: lightgray;" readonly="true" ondblclick="el('swlogger').value=''"></textarea><br><input value="Clear" onclick="el('swlogger').value=''" type="button"></div>
 </div>
 <hr>
 <div align="center"><sub><a class="link" onclick="go_to('Special::About')">About Wiki on a Stick v0.9B</a></sub></div>

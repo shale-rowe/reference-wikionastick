@@ -15,6 +15,8 @@ var _custom_focus = false;
 var prev_title = current;	// used when entering/exiting edit mode
 var decrypt_failed = false;
 var post_dom_render = "";
+var result_pages = [];
+var last_AES_page;
 
 var ie = false;
 var firefox = false;
@@ -230,8 +232,11 @@ function parse(text)
 		return r;
 	});
 	
+	// <u>
+	text = text.replace(/(^|[^\w])_([^_]+)_/g, "$1"+parse_marker+"uS#$2"+parse_marker+"uE#");
+	
 	// italics
-	text = text.replace(/(^|[^\w])\/([^\/]+)\/($|[^\w\>])/g, function (str, $1, $2, $3) {
+	text = text.replace(/(^|[^\w])\/([^\/]+)\/($|[^\w])/g, function (str, $1, $2, $3) {
 		if (str.indexOf("//")!=-1) {
 			return str;
 		}
@@ -249,9 +254,6 @@ function parse(text)
 	// <b>
 	text = text.replace(/\*([^\*\n]+)\*/g, parse_marker+"bS#$1"+parse_marker+"bE#");
 
-	// <u>
-	text = text.replace(/(^|[^\w])_([^_]+)_/g, "$1"+parse_marker+"uS#$2"+parse_marker+"uE#");
-	
 	// <strike>
 	//text = text.replace(/(^|\n|\s|\>|\*)\-(.*?)\-/g, "$1<strike>$2<\/strike>");
 	// <br />
@@ -362,6 +364,7 @@ function parse(text)
 
 // prepends and appends a newline character to workaround plumloco's XHTML lists parsing bug
 function _join_list(arr) {
+	result_pages = arr.slice(0);
 	if (!arr.length)
 		return "";
 	return "\n* [["+arr.sort().join("]]\n* [[")+"]]\n";
@@ -443,6 +446,7 @@ function special_search( str )
 					replace(/\s+$/, "").replace(/\s+/g, ".*?") + ".*", "gi" );
 
 	var tmp;
+	result_pages = [];
 	for(var i=0; i<pages.length; i++)
 	{
 		if (is_reserved(page_titles[i]) && (page_titles[i] != "Special::Menu"))
@@ -455,9 +459,13 @@ function special_search( str )
 		
 //		log("Regex is \""+reg+"\"");
 
+		var added = false;
 		//look for str in title
-		if(page_titles[i].match(reg))
+		if(page_titles[i].match(reg)) {
 			title_result += "* [[" + page_titles[i] + "]]\n";
+			result_pages.push(page_titles[i]);
+			added = true;
+		}
 
 		//Look for str in body
 		res_body = tmp.match( reg );
@@ -466,6 +474,8 @@ function special_search( str )
 			count = res_body.length;
 			res_body = res_body.join(" ").replace( /\n/g, " ");
 			pg_body.push( "* [[" + page_titles[i] + "]]: found *" + count + "* times :<div class=\"search_results\"><i>...</i><br />" + res_body +"<br/><i>...</i></div>");
+			if (!added)
+				result_pages.push(page_titles[i]);
 		}
 	}
 	
@@ -539,7 +549,8 @@ function special_dead_pages () {
 			s+="[["+from[from.length-1]+"]]";
 		pg.push(s);
 	}
-	
+
+  result_pages = dead_pages;	
   if (!pg.length)
 	return '<i>No dead pages</i>';
   return _simple_join_list(pg, true);
@@ -634,6 +645,7 @@ function get_page(pi) {
 	if (!key.length)
 		return null;
 	var pg = AES_decrypt(pages[pi].slice(0));	/*WARNING: may not be supported by all browsers*/
+	last_AES_page = page_titles[pi];
 	return pg;	
 }
 
@@ -659,6 +671,7 @@ function get_text(title) {
 		}
 		// pass a copied instance to the decrypt function
 		pg = AES_decrypt(pages[pi].slice(0));	/*WARNING: may not be supported by all browsers*/
+		last_AES_page = title;
 		if (pg != null)
 			break;
 	} while (retry<2);
@@ -681,6 +694,7 @@ function _set_text(pi, text) {
 		return;
 	}
 	pages[pi] = AES_encrypt(text);
+	last_AES_page = page_titles[pi];
 }
 
 // Sets text typed by user
@@ -865,6 +879,7 @@ function set_current(cr)
 			namespace = cr.substring(0,p);
 			log("namespace of "+cr+" is "+namespace);
 			cr = cr.substring(p+2);
+			result_pages = [];
 				switch (namespace) {
 					case "Special":
 						text = _get_special(cr);
@@ -878,15 +893,29 @@ function set_current(cr)
 						break;
 					case "Lock":
 						pi = page_index(cr);
-						if ((pi==-1) || is__encrypted(pi))
-							return;
+						if (debug) {
+							if ((pi==-1) || is__encrypted(pi)) {
+								alert("Invalid lock page request");
+								return;
+							}
+						}
+						if (key.length) {
+							if (confirm("Do you want to use the last password (last time used on page \""+latest_AES_page+"\") to lock this page \""+cr+"\"?")) {
+								_perform_lock(pi);
+								return;
+							}
+						}
 						text = get_text("Special::Lock");
 						post_dom_render = "_setup_lock_page('"+_sq_esc(cr)+"')";
 						break;
 					case "Unlock":
 						pi = page_index(cr);
-						if ((pi==-1) || !is__encrypted(pi))
-							return;
+						if (debug) {
+							if ((pi==-1) || !is__encrypted(pi)) {
+								alert("Invalid lock page request");
+								return;
+							}
+						}
 						if (!confirm("Do you want to remove encryption for page \""+cr+"\"?"))
 							return;
 						text = get_text(cr);
@@ -993,13 +1022,18 @@ function lock_page(page) {
 		}
 	}
 	AES_setKey(pwd);
+	_perform_lock(pi);
+	last_AES_page = page;
+	go_to(page);
+	if (!key_cache)
+		AES_clearKey();
+}
+
+function _perform_lock(pi) {
 	pages[pi] = AES_encrypt(pages[pi]);
 	log("E: encrypted length is "+pages[pi].length);
 	page_attrs[pi] += 2;
 	save_to_file(true);
-	go_to(page);
-	if (!key_cache)
-		AES_clearKey();
 }
 
 var _pw_q_lock = false;
@@ -1224,23 +1258,30 @@ function update_nav_icons(page) {
 	menu_display("back", (backstack.length > 0));
 	menu_display("forward", (forstack.length > 0));
 	menu_display("advanced", (page != "Special::Advanced"));
-	var can_edit = edit_allowed(page);
-	menu_display("edit", can_edit);
-	update_lock_icons(page, can_edit);
+	menu_display("edit", edit_allowed(page));
+	update_lock_icons(page, false);
 }
 
-function update_lock_icons(page, can_edit) {
-	var pi = page_index(page);
-	if (pi==-1) {
-		menu_display("lock", false);
-		menu_display("unlock", false);
-		return;
+function update_lock_icons(page, results_only) {
+	var groups, cyphered;
+	if (!results_only) {
+		var pi = page_index(page);
+		if (pi==-1) {
+			menu_display("lock", false);
+			menu_display("unlock", false);
+			return;
+		}
+		groups = false;
+		cyphered = is__encrypted(page);
+	} else {
+		groups = (result_pages.length>0);
+		cyphered = false;
 	}
-	var cyphered = is_encrypted(page);
-	menu_display("lock", !kbd_hooking && can_edit && !cyphered);
-	menu_display("unlock", !kbd_hooking && can_edit && cyphered);
+	
+	menu_display("lock", !kbd_hooking && (groups || !cyphered));
+	menu_display("unlock", !kbd_hooking && (groups || cyphered));
 	var cls;
-	if (cyphered)
+	if (cyphered || (page.indexOf("Locked::")==0))
 		cls = "text_area locked";
 	else
 		cls = "text_area";
@@ -1299,7 +1340,7 @@ var edit_override = true;
 
 function edit_allowed(page) {
 	if (edit_override)
-		return (page_exists(page) != -1);
+		return (page_index(page) != -1);
 	if (!permit_edits)
 		return false;
 	if (is_reserved(page) && (page!="Special::Menu"))
