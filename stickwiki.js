@@ -1695,6 +1695,8 @@ function save_to_file(full) {
 		}
 		offset += 6 + 5 + __marker.length;
 	}
+	
+	offset += 2;
 		
 	if ( (!debug || save_override) )
 		r = saveThisFile(computed_js, offset);
