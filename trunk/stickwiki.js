@@ -21,7 +21,7 @@ var last_AES_page;
 var ie = false;
 var firefox = false;
 var opera = false;
-var unsupported_browser = true;
+//var unsupported_browser = true;
 
 // Returns the element by ID
 function el(name)
@@ -1172,8 +1172,8 @@ function on_load()
 	img_display("lock", true);
 	img_display("unlock", true);
 	
-	unsupported_browser = (!firefox && !ie);
-	document.getElementById("unsupported_browser").style.display = (unsupported_browser ? "block" : "none");
+//	unsupported_browser = (!firefox && !ie);
+//	document.getElementById("unsupported_browser").style.display = (unsupported_browser ? "block" : "none");
 
 	// customized keyboard hook
 	document.onkeydown = kbd_hook;
@@ -1638,7 +1638,7 @@ function save_to_file(full) {
 		new_marker = _random_string(18);
 	else new_marker = __marker;
 
-	var computed_js = "\n/* <![CDATA[ */\n\nvar version = \""+version+
+	var computed_js = "\n/* <![CDATA[ */\n\n/* "+new_marker+"-START */\n\nvar version = \""+version+
 	"\";\n\nvar __marker = \""+new_marker+
 	"\";\n\nvar permit_edits = "+permit_edits+
 	";\n\nvar dblclick_edit = "+dblclick_edit+
@@ -1652,7 +1652,7 @@ function save_to_file(full) {
 
 	computed_js += "var page_titles = [\n" + printout_arr(page_titles, false) + "];\n\n";
 	
-	computed_js += "/* " + new_marker + " */\n";
+	computed_js += "/* " + new_marker + "-DATA */\n";
 	
 	if (full) {
 	
@@ -1660,7 +1660,7 @@ function save_to_file(full) {
 		
 		computed_js += "var pages = [\n" + printout_mixed_arr(pages, allow_diff, page_attrs) + "];\n\n";
 		
-		computed_js += "/* " + new_marker + " */\n";
+		computed_js += "/* " + new_marker + "-END */\n";
 	}
 
 	// not needed: the end tag must not be removed by the offset
@@ -1697,9 +1697,9 @@ function save_to_file(full) {
 	// fully remove the first <script> tag
 	var offset;
 	if (full)
-		offset = document.documentElement.innerHTML.indexOf("/* ]]> */ <"+"/script>");
+		offset = document.documentElement.innerHTML.indexOf("/* "+__marker+ "-END */");
 	else
-		offset = document.documentElement.innerHTML.indexOf("/* "+__marker+ " */") + 6 + __marker.length;
+		offset = document.documentElement.innerHTML.indexOf("/* "+__marker+ "-DATA */") + 6 + 5 + __marker.length;
 	
 	if (!debug || save_override)
 		r = saveThisFile(computed_js, offset);
@@ -1721,11 +1721,11 @@ function save_to_file(full) {
 // save this file
 function saveThisFile(data, offset)
 {
-	if(unsupported_browser)
+/*	if(unsupported_browser)
 	{
 		alert("This browser is not supported and your changes won't be saved on disk.");
 		return false;
-	}
+	}	*/
 	var filename = document.location.toString().split("?")[0];
 	filename = filename.replace("file:///", "");
 	filename = filename.replace(/\s/g, "_");
@@ -1737,8 +1737,10 @@ function saveThisFile(data, offset)
 	
 	r = saveFile(filename,
 	"<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\">\n<head>\n<script type=\"text/javascript\">" + data + "\n" + document.documentElement.innerHTML.substring(offset) + "</html>");
-	if (r)
+	if (r==true)
 		log("\""+filename+"\" saved successfully");
+	else
+		alert("Save to file "+filename+" failed!\n\nMaybe your browser is not supported");
 	return r;
 }
 
@@ -1774,8 +1776,8 @@ function ieSaveFile(filePath, content)
 	}
 	catch(e)
 	{
-		alert("Exception while attempting to save\n\n" + e.toString());
-		return(null);
+		log("Exception while attempting to save\n\n" + e.toString());
+		return(false);
 	}
 	var file = fso.OpenTextFile(filePath,2,-1,0);
 	file.Write(content);
@@ -1893,13 +1895,15 @@ function operaSaveFile(filePath, content)
 	}
 	catch(e)
 	{
-		if(window.opera)
+		if(window.opera) {
 			opera.postError(e);
+			return false;
+		}
 		return null;
 	}
 	return true;
 }
-/* end of loadsave.js */
+/*** end of loadsave.js ***/
 
 function erase_wiki() {
 	if(confirm("This will ERASE all your pages.\n\nAre you sure you want to continue?") == false)
