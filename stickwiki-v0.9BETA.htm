@@ -26,11 +26,6 @@ var current = "Main Page";
 var main_page = "Main Page";
 
 var backstack = [
-"Main Page",
-"Special::Advanced",
-"Special::Pages not yet created",
-"Main Page",
-"Special::Advanced"
 ];
 
 var page_titles = [
@@ -42,51 +37,51 @@ var page_titles = [
 "Special::Search",
 "MyPages::Page 2",
 "MyPages::Approved::Page 3",
-"Hello there!",
 "Special::Lock",
 "Special::Security",
 "MyPages::Page 1",
-"Thanks"
+"Test page"
 ];
 
 /* UUZJizdTQtSsJsMSZA-DATA */
-var page_attrs = [0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0];
+var page_attrs = [0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x2,0x0];
 
 var pages = [
 "[[Main Page]]\n\
+[[Test page]]\n\
 \n\
 [[Special::Advanced]]\n\
 [[Special::Backlinks]]\n\
 [[Special::Search]]",
 "!Info\n\
-  [[Special::About|About Wiki on a Stick]]\n\
-  This wiki was last modified in <span id=\"lastDate\"></span>.\n\
+ [[Special::About|About Wiki on a Stick]]\n\
+ This wiki was last modified in <span id=\"lastDate\"></span>.\n\
 \n\
 !Pages\n\
-  [[Special::All Pages|All Pages]]: a list of all user created pages in this wiki\n\
-  [[Locked::|All encryted pages]]: a list of all encrypted pages\n\
-  [[Unlocked::|All plain pages]]: a list of all plain pages\n\
-  [[Special::|All static Special Pages]]: list of all system pages\n\
-  [[Special::Pages not yet created|Pages not yet created]]: a list of pages that have links to them, but were still not created \n\
-  [[Special::Orphaned Pages|Orphaned Pages]]: a list of pages that once were linked to, but now no page links to them anymore\n\
-  [[Special::Search|Search]]: search all wiki pages\n\
+ [[Special::All Pages|All Pages]]: a list of all user created pages in this wiki\n\
+ [[Locked::|All encryted pages]]: a list of all encrypted pages\n\
+ [[Unlocked::|All plain pages]]: a list of all plain pages\n\
+ [[Special::|All static Special Pages]]: list of all system pages\n\
+ [[Special::Pages not yet created|Pages not yet created]]: a list of pages that have links to them, but were still not created \n\
+ [[Special::Orphaned Pages|Orphaned Pages]]: a list of pages that once were linked to, but now no page links to them anymore\n\
+ [[Special::Search|Search]]: search all wiki pages\n\
 \n\
 !Maintenance\n\
-  [[Special::Import|Import wiki]] from an early (or current) version.\n\
-  [[Special::Erase Wiki|Erase Wiki]]: delete ALL wiki pages and reset with default data\n\
+ [[Special::Import|Import wiki]] from an early (or current) version.\n\
+ [[Special::Erase Wiki|Erase Wiki]]: delete ALL wiki pages and reset with default data\n\
 \n\
 !Special edits\n\
-  [[Special::Edit CSS|Edit CSS]]: edit the global CSS styles\n\
-  [[Special::Edit Menu|Edit Menu]]: edit main menu (on the left)\n\
+ [[Special::Edit CSS|Edit CSS]]: edit the global CSS styles\n\
+ [[Special::Edit Menu|Edit Menu]]: edit main menu (on the left)\n\
 \n\
 !Options\n\
-  <label for=\"cb_allow_diff\"><input type=\"checkbox\" id=\"cb_allow_diff\" onclick=\"allow_diff = el_eval('cb_allow_diff')\" />Diff mode (consistent newlines splitting in saved data, useful for versioning)<br />\n\
-  <label for=\"cb_permit_edits\"><input type=\"checkbox\" id=\"cb_permit_edits\" onclick=\"permit_edits = !el_eval('cb_permit_edits')\" />Disable edit mode for all pages (useful when publishing the Wiki On a Stick file on a web server)<br />\n\
-  <label for=\"cb_dblclick_edit\"><input type=\"checkbox\" id=\"cb_dblclick_edit\" onclick=\"dblclick_edit = el_eval('cb_dblclick_edit')\" />Double click to edit pages/menu<br />\n\
-  <label for=\"cb_save_on_quit\"><input type=\"checkbox\" id=\"cb_save_on_quit\" onclick=\"save_on_quit = el_eval('cb_save_on_quit')\" />Automatically save options (if changed) before quitting<br />\n\
-  <label for=\"cb_key_cache\"><input type=\"checkbox\" id=\"cb_key_cache\" onclick=\"key_cache = !el_eval('cb_key_cache')\" />Do not temporarily cache the AES key (will have to enter it for each encrypted page, useful if you leave WoaS open to possible unauthorized access)<br />\n\
-  <label for=\"cb_fixed_layout\"><input type=\"checkbox\" id=\"cb_fixed_layout\" onclick=\"_set_layout(el_eval('cb_fixed_layout'))\" />Fixed menu area and topbar<br />\n\
-  <input type=\"button\" onclick=\"save_options()\" value=\"Save options\" />",
+ <label for=\"cb_allow_diff\"><input type=\"checkbox\" id=\"cb_allow_diff\" onclick=\"allow_diff = el_eval('cb_allow_diff')\" />Diff mode (consistent newlines splitting in saved data, useful for versioning)<br />\n\
+ <label for=\"cb_permit_edits\"><input type=\"checkbox\" id=\"cb_permit_edits\" onclick=\"permit_edits = !el_eval('cb_permit_edits')\" />Disable edit mode for all pages (useful when publishing the Wiki On a Stick file on a web server)<br />\n\
+ <label for=\"cb_dblclick_edit\"><input type=\"checkbox\" id=\"cb_dblclick_edit\" onclick=\"dblclick_edit = el_eval('cb_dblclick_edit')\" />Double click to edit pages/menu<br />\n\
+ <label for=\"cb_save_on_quit\"><input type=\"checkbox\" id=\"cb_save_on_quit\" onclick=\"save_on_quit = el_eval('cb_save_on_quit')\" />Automatically save options (if changed) before quitting<br />\n\
+ <label for=\"cb_key_cache\"><input type=\"checkbox\" id=\"cb_key_cache\" onclick=\"key_cache = !el_eval('cb_key_cache')\" />Do not temporarily cache the AES key (will have to enter it for each encrypted page, useful if you leave WoaS open to possible unauthorized access)<br />\n\
+ <label for=\"cb_fixed_layout\"><input type=\"checkbox\" id=\"cb_fixed_layout\" onclick=\"_set_layout(el_eval('cb_fixed_layout'))\" />Fixed menu area and topbar<br />\n\
+ <input type=\"button\" onclick=\"save_options()\" value=\"Save options\" />",
 "Import a wiki from an early (or current) version:\n\
 \n\
 File: <input id=\"filename_\" type=\"file\" />&nbsp;<input type=\"button\" value=\"Import\" onclick=\"import_wiki()\" />\n\
@@ -126,38 +121,30 @@ A self-containing XHTML/javascript wiki.\n\
 \n\
 You can also double click anywhere on the text to edit (if this option is enabled from [[Special::Advanced]]), and you can use escape to cancel editing or to go backward.\n\
 \n\
-!!Upgrading\n\
-\n\
+!!Upgrading!!\n\
 If you have an older Wiki on a Stick (v0.01 &tilde; v0.04), [[Special::Import|import it]]!\n\
 \n\
 !!!Syntax changes in v0.9\n\
 There have been a few changes in the wiki syntax, they will be automatically applied on import or saving (except the wiki link parts inversion).\n\
-\n\
 * bullet lists are recognized using an asterisk '*' at the beginning of the line, if you use the previous '+' plus sign it will be automatically converted to an asterisk\n\
 * wiki link parts are inverted, e.g. no more [<!-- -->[the label|WikiActualPage]] but [<!-- -->[WikiActualPage|the label]]\n\
-* lines ending with a backslash '' will be joined\n\
-\n\
 !!!New features\n\
 * namespaces support through the separator '::'\n\
 * tags support through [<!-- -->[Tag:Sometag]] or [<!-- -->[Tags:Sometag, Somethingelse]] syntax\n\
+* line joining through a slash '\\' at the end of the line \n\
 \n\
 !Syntax examples \n\
-\n\
 Follows a brief example of all the capabilities of Wiki on a Stick syntax.\n\
 \n\
 !!Formatting\n\
 !!!Subheader of third level\n\
 !!!!Subheader of fourth level\n\
-<pre>\n\
-This is pre-formatted text! This text does not get _underlined_, as you can see\n\
-</pre>\n\
-\n\
+<pre>This is pre-formatted text! This text does not get _underlined_, as you can see</pre>\n\
 <pre style=\"color:gray\">\n\
 This is pre-formatted text with CSS style!\n\
-</pre>\n\
+And it stands on multiple lines</pre>\n\
 \n\
 !!Some specials\n\
-\n\
 Using [[Special::Main Page]] you will always link to the main page, no matters what its name is.\n\
 \n\
 New pages have red links, like this [[New page]], but you can use [[Special::New page]] to automatically create a new one.\n\
@@ -166,7 +153,6 @@ New pages have red links, like this [[New page]], but you can use [[Special::New
 There is support for [[Tagged::Nice|tags]] and namespaces. For example, see [[MyPages::Page 1]] (password is /test/) and [[MyPages::Page 2]], both belonging to the [[MyPages::]] namespace. You can also use subnamespaces, like in [[MyPages::Approved::Page 3]]\n\
 \n\
 !!Syntax parser testcases\n\
-\n\
 On my right there is some _underlined text_, followed by *bold text* and /italics/.\n\
 \n\
 Now I will use /*italics and bold*/, followed by */bold and italics/* and finally _*/underlined bold italics/*_.\n\
@@ -178,7 +164,6 @@ And here is, just for you, a partial *bold-/italics/*!!!\n\
 *Some bold text* on a line beginning\n\
 \n\
 !!Syntax\n\
-\n\
 External links: [[http://stickwiki.sourceforge.net/|Wiki on a Stick]]\n\
 \n\
 As you can see, /an/unix/path/ is correctly recognized.\n\
@@ -232,9 +217,6 @@ Numbered list:\n\
 The parent namespace is [[MyPages::]] while the subnamespace is [[MyPages::Approved::]]\n\
 \n\
 [[Tag::Useful]]",
-"saadadsasd\n\
-\n\
-dasasd",
 "!!AES encryption\n\
 Read more about the [[Special::Security|embedded AES encryption]] used in Wiki On a Stick.\n\
 \n\
@@ -266,20 +248,18 @@ Security is never absolute. Data encrypted with these pages might be compromised
 * Your computer's security may have been compromised physically; when's the last time you checked that a bug that transmits your keystrokes and/or screen contents to that white van parked down the street wasn't lurking inside your computer cabinet?\n\
 \n\
 Apart from the above, your normal usage of encrypted pages can be considered secure. They will be even more secure if you do not open them.",
-"[[Tag::Nice]]\n\
+[0x2a,0x40,0xda,0xeb,0x3e,0x2,0x37,0xa8,0x3a,0x3c,0xf7,0xca,0x88,0x3e,0x3,0xf5,0xb,0x22,0x5f,0x96,0x9a,0x2,0x2f,0x41,0x73,0xf6,0xcb,0x2a,0x3e,0xe7,0x9f,0xe5,0xda,0x2,0xa8,0x1b,0x2f,0x69,0x7b,0xcf,0x64,0xa2,0xf6,0x8d,0xeb,0x24,0xdd,0x25,0x95,0x22,0xa3,0xeb,0x9,0x2e,0xfe,0x58,0x95,0xb8,0x2b,0xcc,0xd3,0x3,0xa3,0xec,0x64,0xcc,0x95,0x82,0x14,0xd7,0x6d,0xf7,0x3c,0xdc,0xf5,0x8b,0xa0,0x2e,0x55,0x9c,0x78,0x37,0x18,0x41,0xdc,0x0,0x65,0x39,0xf1,0x4a,0x20,0x6d,0x7c,0x6e,0xf7,0x6f,0xa9,0xbd,0xcd,0xb3,0x1,0x13,0x32,0x25,0xef,0x5d,0x86,0xf8,0x29,0xa9,0x91,0x48,0x39,0x85,0xb2,0x9a,0xdb,0xc8,0x55,0x20,0xa3,0x9c,0x39,0x8f,0x5c,0x8c,0x72,0x4c],
+"!!Upgrading!!\n\
+If you have an older Wiki on a Stick (v0.01 &tilde; v0.04), [[Special::Import|import it]]!\n\
 \n\
-This is indeed the better page of the wiki, and it is _cryptographically protected_ too!",
-"This project wouldn't be what it is without the help of other people. I'll try not be unfair, if you contributed to Wiki on a Stick and your name is not here, please send me a <a class=\"world\" href=\"mailto:andre_nho@users.sourceforge.net\">e-mail</a>.\n\
+Test on this page using the syntax you best like.\n\
 \n\
-* *Jeremy Ruston* - the creator of the wonderful [[http://www.tiddlywiki.com/|TiddlyWiki]], who served as inspiration for StickWiki. He also kindly allowed me to use his saving/loading routines.\n\
-* *Philip O'Donnel* - creator of the table routines\n\
-* *Tim Lord*\n\
-* *Knut Kohl*\n\
-* *Rob Schmersel*\n\
+!!Testing newlines consistency (and I can use an exclamation mark here!)\n\
 \n\
-If, for any reason, you don't want your name listed here, please send me a <a class=\"world\" href=\"mailto:andre_nho@users.sourceforge.net\">e-mail</a>.\n\
 \n\
-Some of you sent me changes but I still hadn't the time to test them and add them. Please stay tuned! :-) Also, be sure to check the CVS version before suggesting changes, since what you suggest might already be implemented!"
+\n\
+\n\
+I should be on the 5th paragraph after the title"
 ];
 
 /* UUZJizdTQtSsJsMSZA-END */
@@ -425,7 +405,7 @@ div.wiki_header {
 	top: 0px;
 	left: 0px;
 	border: 1px solid #aaa;
-	filter:alpha(opacity=75);-moz-opacity:.75;opacity:.75;
+	-moz-opacity:.75;opacity:.75;
 	z-index: 1;
 }
 
@@ -448,6 +428,8 @@ p.wiki_toc_title {
 /*** stickwiki.js ***/
 
 // page attributes bits are mapped to (readonly, encrypted, ...)
+
+var core_version = "0.9B";
 
 var debug = true;			// toggle debug mode (and console)
 var save_override = true;	// allow to save when debug mode is active
@@ -495,6 +477,20 @@ if (typeof Array.prototype.splice == "undefined") {
       this[this.length] = temp[i];
     }
   }
+}
+
+// thanks to S.Willison
+RegExp.escape = function(text) {
+  if (!arguments.callee.sRE) {
+    var specials = [
+      '/', '.', '*', '+', '?', '|',
+      '(', ')', '[', ']', '{', '}', '\\'
+    ];
+    arguments.callee.sRE = new RegExp(
+      '(\\' + specials.join('|\\') + ')', 'g'
+    );
+  }
+  return text.replace(arguments.callee.sRE, '\\$1');
 }
 
 function page_index(page) {
@@ -550,30 +546,25 @@ function header_anchor(s) {
 	return escape(s.replace(/ /g, "+"));
 }
 
+var toc_pos;
 var page_TOC = "";
 //var last_h_level;
-function header_replace(hdr_char, len, text, build_toc) {
-	var esc_hdr_char = RegExp.escape(hdr_char);
-	return text.replace( new RegExp("(^|\n)"+str_rep(esc_hdr_char, len)+"([^"+esc_hdr_char+"\n].*)(\n"+esc_hdr_char+"?)?", "g"), 	function (str, $1, $2, $3) {
-		if ($2.indexOf(str_rep(hdr_char, len))==$2.length-len)
-			header = $2.substr(0, $2.length-len);
-		else
-			header = $2;
-		var tmp = $3;
-		if (tmp.length==1)
-			tmp = "";
+var reParseHeaders = /(^|\n)(\!+)\s*([^\n]+)/g;
+function header_replace(str, $1, $2, $3) {
+		var header = $3;
+		var len = $2.length;
+		if (header.indexOf($2)==header.length - len)
+			header = header.substring(0, header.length - len);
 		var anchor = header_anchor(header);
+//		log("h"+len+" = "+header);
 		// automatically build the TOC if needed
-		if (build_toc) {
-//			if (last_h_level!=len) {			}
+		if (toc_pos!=-1) {
 			page_TOC += str_rep("#", len)+" [[#"+anchor+"|"+header+"]]\n";
 		}
-		
-		return "</p></div><a name=\""+anchor+"\"></a><h"+len+" class=\"level"+len+"\">"+header+"</h"+len+"><p>"+tmp;
-	});
+		return "</div><a name=\""+anchor+"\"></a><h"+len+">"+header+"</h"+len+"><div class=\"level"+len+"\">";
 }
 
-// XHTML lists parsing code by plumloco
+// XHTML lists and tables parsing code by plumloco
 // This is a bit of a monster, if you know an easier way please tell me!
 // There is no limit to the level of nesting and it produces
 // valid xhtml markup.
@@ -677,7 +668,7 @@ function parse(text)
 	var tags = [];
 	var html_tags = [];
 	
-	var toc_pos = text.indexOf("[[Special::TOC]]");
+	toc_pos = text.indexOf("[[Special::TOC]]");
 	if (toc_pos != -1) {
 		text = text.substring(0, toc_pos) + text.substring(toc_pos+16 + 
 		((text.charAt(toc_pos+16)=="\n") ? 1 : 0)
@@ -699,6 +690,9 @@ function parse(text)
 		return r;
 	});
 	
+	// allow non-wrapping newlines
+	text = text.replace(/\\\n/g, "");
+	
 	// <u>
 	text = text.replace(/(^|[^\w])_([^_]+)_/g, "$1"+parse_marker+"uS#$2"+parse_marker+"uE#");
 	
@@ -714,9 +708,10 @@ function parse(text)
 	text = text.replace(reReapLists, parseList);
 	
 	// headers (from h1 to h6, as defined by the HTML 3.2 standard)
-	for(i=1;i<7;i++) {
-		text = header_replace("!", i, text, (toc_pos!=-1));
-	}
+	text = text.replace(reParseHeaders, header_replace);
+	
+	// cleanup \n after headers
+	text = text.replace(/(<\/h[1-6]><div class="level[1-6]">)\n/g, "$1");
 	
 	if ((toc_pos!=-1) && page_TOC.length) {
 		log("Inserting TOC at offset "+toc_pos);
@@ -794,12 +789,13 @@ function parse(text)
 	if (end_trim)
 		text = text.replace(/[\n\s]*$/, "");
 
-	// fix double newlines
-	text = text.replace(/\n\n/g, "<\/p><p>");
+	// compress newlines characters into paragraphs (disabled)
+//	text = text.replace(/\n(\n+)/g, "<p>$1</p>");
+//	text = text.replace(/\n(\n*)\n/g, "<p>$1</p>");
+		
+	// convert newlines to br tags
+	text = text.replace(/\n/g, "<br />");
 
-	// convert newlines (wrapped and plain) to br tags
-	text = text.replace(/\\?\n/g, "<br />");
-	
 	if (prefmt.length>0) {
 //		log("Replacing "+prefmt.length+" preformatted blocks");
 		text = text.replace(new RegExp("<\\!-- "+parse_marker+"(\\d+) -->", "g"), function (str, $1) {
@@ -841,7 +837,9 @@ function parse(text)
 	if (force_inline)
 		force_inline = false;
 	
-	return "<div class=\"level0\"><p>" + text + "</p></div>";
+	if (text.substring(0,5)!="</div")
+		return "<div class=\"level0\">" + text + "</div>";
+	return text.substring(6)+"</div>";
 }
 
 // prepends and appends a newline character to workaround plumloco's XHTML lists parsing bug
@@ -916,6 +914,8 @@ function special_encrypted_pages(locked) {
 	return _join_list(pg);
 }
 
+//var hl_reg;
+
 // Returns a index of search pages (by miz & legolas558)
 function special_search( str )
 {
@@ -924,9 +924,16 @@ function special_search( str )
 
 	var count = 0;
 	// matches the search string and nearby text
-	var reg = new RegExp( ".*?" + RegExp.escape(str).replace(/^\s+/, "").
-					replace(/\s+$/, "").replace(/\s+/g, ".*?") + ".*", "gi" );
-
+	var reg = new RegExp( ".*?" + RegExp.escape(str).
+					replace(/^\s+/, "").
+					replace(/\s+$/, "").
+					replace(/\s+/g, ".*?") + ".*", "gi" );
+					
+/*	hl_reg = new RegExp( ".*?" + RegExp.escape(str).
+					replace(/^\s+/, "").
+					replace(/\s+$/, "").
+					replace(/([^\s]+)/g, "($1)").
+					replace(/\s+/g, ".*?") + ".*", "gi" );	*/
 	var tmp;
 	result_pages = [];
 	for(var i=0; i<pages.length; i++)
@@ -950,7 +957,7 @@ function special_search( str )
 		}
 
 		//Look for str in body
-		res_body = tmp.match( reg );
+		res_body = tmp.match(reg);
 //		log("res_body = "+res_body);
 		if (res_body!=null) {
 			count = res_body.length;
@@ -1038,35 +1045,34 @@ function special_dead_pages () {
   return _simple_join_list(pg, true);
 }
 
-// Returns a index of all orphaned pages
 function special_orphaned_pages()
 {
 	var pg = new Array();
 	var found = false;
-	for(j=0; j<pages.length; j++)
+	for(j=0; j<page_titles.length; j++)
 	{
 		if (is_reserved(page_titles[j]))
 			continue;
 		// search for pages that link to it
+//		log("Scanning references to page "+page_titles[j]);
 		var tmp;
-		for(var i=0; i<pages.length; i++) {
-			if ((i==j) /*|| is_reserved(page_titles[i])*/)
+		for(var i=0; i<page_titles.length; i++) {
+			if ((i==j) || (is_reserved(page_titles[i]) && (page_titles[i]!="Special::Menu")))
 				continue;
 			tmp = get_page(i);
 			if (tmp==null)
 				continue;
-			if (tmp.match(new RegExp("\\[\\["+RegExp.escape(page_titles[i])+"(\\||\\]\\])", "gi"))) {
-//					log("Page \""+page_titles[j]+"\" linked from page \""+page_titles[i]+"\"");
-					found = true;
-					break;
+			var re = new RegExp("\\[\\[" + RegExp.escape(page_titles[j]) + "(\\]\\]|\\|)", "i");
+//			log("matching "+re+" into "+page_titles[i]);
+			if (tmp.search(re)!=-1) {
+				found = true;
+				break;
 			}
 		}
 		if(found == false) {
-			if (!is_reserved(page_titles[j]))
-				pg.push( page_titles[j] );
+			pg.push( page_titles[j] );
 		} else found = false;
 	}
-//	alert(pages[0]);
 	if (!pg.length)
 		return "/No orphaned pages found/";
 	else
@@ -1190,20 +1196,6 @@ function set_text(text)
 	_set_text(pi, text);
 }
 
-// thanks to S.Willison
-RegExp.escape = function(text) {
-  if (!arguments.callee.sRE) {
-    var specials = [
-      '/', '.', '*', '+', '?', '|',
-      '(', ')', '[', ']', '{', '}', '\\'
-    ];
-    arguments.callee.sRE = new RegExp(
-      '(\\' + specials.join('|\\') + ')', 'g'
-    );
-  }
-  return text.replace(arguments.callee.sRE, '\\$1');
-}
-
 function clear_search() {
 	if (!cached_search.length)
 		return;
@@ -1226,8 +1218,8 @@ function do_search()
 	if ( !search_string.length )
 		return;
 	
-	cached_search = special_search( search_string )
-
+	cached_search = parse(special_search( search_string ));
+	
 	assert_current("Special::Search");
 }
 
@@ -1304,7 +1296,8 @@ function _get_special(cr) {
 			return;
 		case "Search":
 			text = get_text("Special::"+cr);
-			text += cached_search;
+//			text += cached_search;
+			post_dom_render = "_search_setup()";
 			break;
 		case "Advanced":
 			text = get_text("Special::"+cr);
@@ -1439,6 +1432,7 @@ function set_current(cr)
 }
 
 function load_as_current(title, text) {
+	scrollTo(0,0);
 	log("CURRENT loaded: "+title+", "+text.length+" bytes");
 	current = title;
 	el("wiki_title").innerHTML = title;
@@ -1461,6 +1455,19 @@ function el_eval(name) {
 	if (el(name).checked)
 		return true;
 	return false;
+}
+
+function _search_setup() {
+	el("wiki_text").innerHTML += cached_search
+	/*
+	.replace(hl_reg, function () {
+			var str = arguments[0];
+			for(var i=1;i<arguments.length;i++) {
+				str = str.replace(arguments[i], "<span class=\"search_highlight\">"+arguments[i]+"</span>");
+			}
+			return str; })
+	hl_reg = null;	*/
+	el("string_to_search").focus();
 }
 
 function _setup_options() {
@@ -1631,6 +1638,12 @@ function on_load()
 {
 	log("***** StickWiki started *****");
 	
+	if (version != core_version) {
+		//TODO: try to import if version < core_version
+		el("body").innerHTML = "<h1>Version mismatch</h1><p>You are using a stickwiki.js file of version "+core_version+" while your main HTML file is of version "+version+"</p><p>You can fix this issue getting the latest Wiki on a Stick from <a href=\"http://stickwiki.sourceforge.net/\">http://stickwiki.sourceforge.net/</a> and importing your current HTML file (version "+version+"); don't worry, your data was not lost. You have just messed up with the core stickwiki.js file.";
+		return;
+	}
+	
 	document.body.style.cursor = "auto";
 	
 	if(debug == true)
@@ -1640,6 +1653,9 @@ function on_load()
 		
 	if (!ie) {
 //		setup_uri_pics(el("img_home"),el("img_back"),el("img_forward"),el("img_edit"),el("img_cancel"),el("img_save"),el("img_advanced"));
+	} else {
+		var obj = el("sw_wiki_header");
+		obj.style.filter = "alpha(opacity=75);";
 	}
 
 	img_display("back", true);
@@ -1740,12 +1756,12 @@ function update_nav_icons(page) {
 	menu_display("forward", (forstack.length > 0));
 	menu_display("advanced", (page != "Special::Advanced"));
 	menu_display("edit", edit_allowed(page));
-	update_lock_icons(page, true);
+	update_lock_icons(page);
 }
 
-function update_lock_icons(page, results_only) {
+function update_lock_icons(page) {
 	var cyphered, can_lock, can_unlock;
-	if (!results_only) {
+	if (result_pages.length<2) {
 		var pi = page_index(page);
 		if (pi==-1) {
 			can_lock = can_unlock = false;
@@ -1862,7 +1878,7 @@ function current_editing(page, disabled) {
 	menu_display("edit", false);
 	menu_display("save", true);
 	menu_display("cancel", true);
-	update_lock_icons(page, false);
+	update_lock_icons(page);
 	el("text_area").style.display = "none";
 
 	// FIXME!
@@ -1922,8 +1938,8 @@ function delete_page(page)
 // applies some on-the-fly patches for the syntax changes in v0.9
 function _new_syntax_patch(text) {
 	//BUG: will also modify text contained in <pre> tags
-	text = text.replace(/(^|\n)(\+*)/g, function (str, $1, $2) {
-		return $1+str_rep("*", $2.length);
+	text = text.replace(/(^|\n)(\+*[ \t])/g, function (str, $1, $2) {
+		return $1+str_rep("*", $2.length-1);
 	});
 	
 	return text;
@@ -2042,6 +2058,8 @@ function go_forward()
 }
 
 function js_encode(s, split_lines) {
+	// escape escape characters
+	s = s.replace(/\\/g, "\\\\");
 	// escape double quotes
 	s = s.replace(new RegExp("\"", "g"), "\\\"");
 	// escape newlines (\r\n happens only on the stupid IE) and eventually split the lines accordingly
@@ -2437,6 +2455,7 @@ function import_wiki()
 				old_version = 4;
 				break;
 			case "0.9B":
+			case "0.9":
 				old_version = 9;
 			default:
 				alert("Incompatible version: " + ver_str);
@@ -2448,6 +2467,14 @@ function import_wiki()
 		if(ct.match("<div id=\"?"+escape("Special::Advanced")))
 			old_version = 3;
 	}
+
+	var page_names = new Array();
+	var page_contents = new Array();
+	var old_page_attrs = new Array();
+	var pc = 0;
+
+	
+if (old_version	< 9) {
 	
 	var wiki;
 	try {
@@ -2483,10 +2510,8 @@ function import_wiki()
 	var var_names = new Array();
 	var var_values = new Array();
 	var vc = 0;
-	var page_names = new Array();
-	var page_contents = new Array();
-	var pc = 0;
 
+	
 	// eliminate headers
 	wiki = wiki.substring(wiki.indexOf(">")+1);
 	vars = vars.substring(vars.indexOf(">")+1);
@@ -2520,6 +2545,8 @@ function import_wiki()
 						page_names[pc] = "Special::Menu";
 					else return;
 				}
+				
+				old_page_attrs[pc] = 0;
 
 				if (old_version < 9) {	// apply compatibility changes to stickwiki versions below v0.9
 					page_contents[pc] = _new_syntax_patch(page_contents[pc].replace(new RegExp("(\\[\\[|\\|)Special::Import wiki\\]\\]", "ig"), "$1Special::Import]]").replace(/\[\[([^\]\]]*?)(\|([^\]\]]+))?\]\]/g,
@@ -2536,20 +2563,6 @@ function import_wiki()
 
 	log("page_names is ("+page_names+")");
 
-	// add new data
-	var pages_imported = 0;
-	
-	if (old_version==9) {
-		var css = null;
-		ct.replace(/<style\s.*?type="?text\/css"?[^>]*>((\n|.)*?)<\/style>/i, function (str, $1) {
-			css = $1;
-		});
-		if (css!=null) {
-			log("Imported "+css.length+" bytes of CSS");
-			document.getElementsByTagName("style")[0].innerHTML = css;
-		}
-	}
-	
 	// import the variables
 	var new_main_page = main_page;
 	var old_block_edits = !permit_edits;
@@ -2559,14 +2572,29 @@ function import_wiki()
 		else if (var_names[i] == "permit_edits")
 			old_block_edits = (var_values[i]=="0");
 	}
-	if (page_exists(new_main_page))
-		main_page = new_main_page;
-		
-	permit_edits = !old_block_edits;
 	
 	//note: before v0.04 permit_edits didnt exist
 	//note: in version 2 pages were not escaped
+}	else {
+	alert("Import from v0.9 is not yet supported!");
+	document.body.style.cursor= "auto";
+	return;
 	
+	var css = null;
+		ct.replace(/<style\s.*?type="?text\/css"?[^>]*>((\n|.)*?)<\/style>/i, function (str, $1) {
+			css = $1;
+		});
+		if (css!=null) {
+			log("Imported "+css.length+" bytes of CSS");
+			document.getElementsByTagName("style")[0].innerHTML = css;
+		}
+
+
+
+}
+
+	// add new data
+	var pages_imported = 0;
 	for(var i=0; i<page_names.length; i++)
 	{
 		if ( !is_reserved(page_names[i]) || (page_names[i] == "Special::Menu") )
@@ -2575,15 +2603,20 @@ function import_wiki()
 			if (pi == -1) {
 				page_titles.push(page_names[i]);
 				pages.push(page_contents[i]);
-				page_attrs.push(0);
+				page_attrs.push( old_page_attrs[i] );
 			} else {
 				page_titles[pi] = page_names[i];
 				pages[pi] = page_contents[i];
-				page_attrs[pi] = 0;
+				page_attrs[pi] = old_page_attrs[i];
 			}
 			pages_imported++;
 		}
 	}
+	
+	if (page_exists(new_main_page))
+		main_page = new_main_page;
+
+	permit_edits = !old_block_edits;
 
 	// remove hourglass
 	document.body.style.cursor= "auto";
