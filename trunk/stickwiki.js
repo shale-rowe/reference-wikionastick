@@ -3,6 +3,8 @@
 
 // page attributes bits are mapped to (readonly, encrypted, ...)
 
+var core_version = "0.9B";
+
 var debug = true;			// toggle debug mode (and console)
 var save_override = true;	// allow to save when debug mode is active
 var end_trim = true;		// trim pages from the end
@@ -104,30 +106,25 @@ function header_anchor(s) {
 	return escape(s.replace(/ /g, "+"));
 }
 
+var toc_pos;
 var page_TOC = "";
 //var last_h_level;
-function header_replace(hdr_char, len, text, build_toc) {
-	var esc_hdr_char = RegExp.escape(hdr_char);
-	return text.replace( new RegExp("(^|\n)"+str_rep(esc_hdr_char, len)+"([^"+esc_hdr_char+"\n].*)(\n"+esc_hdr_char+"?)?", "g"), 	function (str, $1, $2, $3) {
-		if ($2.indexOf(str_rep(hdr_char, len))==$2.length-len)
-			header = $2.substr(0, $2.length-len);
-		else
-			header = $2;
-		var tmp = $3;
-		if (tmp.length==1)
-			tmp = "";
+var reParseHeaders = /(^|\n)(\!+)\s*([^\n]+)/g;
+function header_replace(str, $1, $2, $3) {
+		var header = $3;
+		var len = $2.length;
+		if (header.indexOf($2)==header.length - len)
+			header = header.substring(0, header.length - len);
 		var anchor = header_anchor(header);
+//		log("h"+len+" = "+header);
 		// automatically build the TOC if needed
-		if (build_toc) {
-//			if (last_h_level!=len) {			}
+		if (toc_pos!=-1) {
 			page_TOC += str_rep("#", len)+" [[#"+anchor+"|"+header+"]]\n";
 		}
-		
-		return "</p></div><a name=\""+anchor+"\"></a><h"+len+" class=\"level"+len+"\">"+header+"</h"+len+"><p>"+tmp;
-	});
+		return "</div><a name=\""+anchor+"\"></a><h"+len+">"+header+"</h"+len+"><div class=\"level"+len+"\">";
 }
 
-// XHTML lists parsing code by plumloco
+// XHTML lists and tables parsing code by plumloco
 // This is a bit of a monster, if you know an easier way please tell me!
 // There is no limit to the level of nesting and it produces
 // valid xhtml markup.
@@ -231,7 +228,7 @@ function parse(text)
 	var tags = [];
 	var html_tags = [];
 	
-	var toc_pos = text.indexOf("[[Special::TOC]]");
+	toc_pos = text.indexOf("[[Special::TOC]]");
 	if (toc_pos != -1) {
 		text = text.substring(0, toc_pos) + text.substring(toc_pos+16 + 
 		((text.charAt(toc_pos+16)=="\n") ? 1 : 0)
@@ -253,6 +250,9 @@ function parse(text)
 		return r;
 	});
 	
+	// allow non-wrapping newlines
+	text = text.replace(/\\\n/g, "");
+	
 	// <u>
 	text = text.replace(/(^|[^\w])_([^_]+)_/g, "$1"+parse_marker+"uS#$2"+parse_marker+"uE#");
 	
@@ -268,9 +268,10 @@ function parse(text)
 	text = text.replace(reReapLists, parseList);
 	
 	// headers (from h1 to h6, as defined by the HTML 3.2 standard)
-	for(i=1;i<7;i++) {
-		text = header_replace("!", i, text, (toc_pos!=-1));
-	}
+	text = text.replace(reParseHeaders, header_replace);
+	
+	// cleanup \n after headers
+	text = text.replace(/(<\/h[1-6]><div class="level[1-6]">)\n/g, "$1");
 	
 	if ((toc_pos!=-1) && page_TOC.length) {
 		log("Inserting TOC at offset "+toc_pos);
@@ -348,12 +349,13 @@ function parse(text)
 	if (end_trim)
 		text = text.replace(/[\n\s]*$/, "");
 
-	// fix double newlines
-	text = text.replace(/\n\n/g, "<\/p><p>");
+	// compress newlines characters into paragraphs (disabled)
+//	text = text.replace(/\n(\n+)/g, "<p>$1</p>");
+//	text = text.replace(/\n(\n*)\n/g, "<p>$1</p>");
+		
+	// convert newlines to br tags
+	text = text.replace(/\n/g, "<br />");
 
-	// convert newlines (wrapped and plain) to br tags
-	text = text.replace(/\\?\n/g, "<br />");
-	
 	if (prefmt.length>0) {
 //		log("Replacing "+prefmt.length+" preformatted blocks");
 		text = text.replace(new RegExp("<\\!-- "+parse_marker+"(\\d+) -->", "g"), function (str, $1) {
@@ -395,7 +397,7 @@ function parse(text)
 	if (force_inline)
 		force_inline = false;
 	
-	return "<div class=\"level0\"><p>" + text + "</p></div>";
+	return "<div class=\"level0\">" + text + "</div>";
 }
 
 // prepends and appends a newline character to workaround plumloco's XHTML lists parsing bug
@@ -993,6 +995,7 @@ function set_current(cr)
 }
 
 function load_as_current(title, text) {
+	scrollTo(0,0);
 	log("CURRENT loaded: "+title+", "+text.length+" bytes");
 	current = title;
 	el("wiki_title").innerHTML = title;
@@ -1185,6 +1188,12 @@ function on_load()
 {
 	log("***** StickWiki started *****");
 	
+	if (version != core_version) {
+		//TODO: try to import if version < core_version
+		el("body").innerHTML = "<h1>Version mismatch</h1><p>You are using a stickwiki.js file of version "+core_version+" while your main HTML file is of version "+version+"</p><p>You can fix this issue getting the latest Wiki on a Stick from <a href=\"http://stickwiki.sourceforge.net/\">http://stickwiki.sourceforge.net/</a> and importing your current HTML file (version "+version+"); don't worry, your data was not lost. You have just messed up with the core stickwiki.js file.";
+		return;
+	}
+	
 	document.body.style.cursor = "auto";
 	
 	if(debug == true)
@@ -1194,6 +1203,9 @@ function on_load()
 		
 	if (!ie) {
 //		setup_uri_pics(el("img_home"),el("img_back"),el("img_forward"),el("img_edit"),el("img_cancel"),el("img_save"),el("img_advanced"));
+	} else {
+		var obj = el("sw_wiki_header");
+		obj.style.filter = "alpha(opacity=75);";
 	}
 
 	img_display("back", true);
