@@ -625,7 +625,7 @@ function special_orphaned_pages()
 	var found = false;
 	for(j=0; j<page_titles.length; j++)
 	{
-		if (is_reserved(page_titles[j]) && (page_titles[j]!="Special::Menu"))
+		if (is_reserved(page_titles[j]))
 			continue;
 		// search for pages that link to it
 //		log("Scanning references to page "+page_titles[j]);
@@ -636,8 +636,8 @@ function special_orphaned_pages()
 			tmp = get_page(i);
 			if (tmp==null)
 				continue;
-			var re = new RegExp("\\[\\[" + RegExp.escape(page_titles[i]) + "(\\]\\]|\\|)", "i");
-//			log("re = "+re);
+			var re = new RegExp("\\[\\[" + RegExp.escape(page_titles[j]) + "(\\]\\]|\\|)", "i");
+//			log("matching "+re+" into "+page_titles[i]);
 			if (tmp.search(re)!=-1) {
 				found = true;
 				break;
