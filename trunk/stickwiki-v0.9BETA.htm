@@ -26,10 +26,10 @@ var current = "Main Page";
 var main_page = "Main Page";
 
 var backstack = [
+"Main Page",
 "Special::Advanced",
-"Special::Edit CSS",
-"Special::Advanced",
-"Special::Backlinks",
+"Special::Pages not yet created",
+"Main Page",
 "Special::Advanced"
 ];
 
@@ -117,7 +117,8 @@ And, last but not least:\n\
 \n\
 Read more at [[http://sf.net/projects/stickwiki/|Our SourceForge Project]]\n\
 We also have an active [[http://groups.google.com/group/stickwiki/|Google dicussion group]]",
-"!Welcome to Wiki on a Stick!\n\
+"[[Special::TOC]]\n\
+!Welcome to Wiki on a Stick!\n\
 A self-containing XHTML/javascript wiki.\n\
 \n\
 !!How to use\n\
@@ -132,7 +133,7 @@ If you have an older Wiki on a Stick (v0.01 &tilde; v0.04), [[Special::Import|im
 !!!Syntax changes in v0.9\n\
 There have been a few changes in the wiki syntax, they will be automatically applied on import or saving (except the wiki link parts inversion).\n\
 \n\
-* bullet lists are recognized using a plus sign '+' (previous stickwiki syntax) or an asterisk '*' (0.9 stickwiki syntax), with preference for asterisk lists\n\
+* bullet lists are recognized using an asterisk '*' at the beginning of the line, if you use the previous '+' plus sign it will be automatically converted to an asterisk\n\
 * wiki link parts are inverted, e.g. no more [<!-- -->[the label|WikiActualPage]] but [<!-- -->[WikiActualPage|the label]]\n\
 * lines ending with a backslash '' will be joined\n\
 \n\
@@ -285,6 +286,14 @@ Some of you sent me changes but I still hadn't the time to test them and add the
 
 
 
+
+
+
+
+
+
+
+
 /* ]]> */ </script>
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -332,6 +341,10 @@ h2 { font-size: 20px; }
 h3 { font-size: 17px; }
 
 h4 { font-size: 14px; }
+
+h5 { font-size: 12px; }
+
+h6 { font-size: 10px; }
 
 div.taglinks {
 	border: 1px solid #aaa;
@@ -414,8 +427,22 @@ div.wiki_header {
 	border: 1px solid #aaa;
 	filter:alpha(opacity=75);-moz-opacity:.75;opacity:.75;
 	z-index: 1;
-}</style>
+}
 
+div.wiki_toc {
+	border: 1px solid #aaa;
+	background-color: #f9f9f9;
+	padding: 5px;
+	width: 50%;
+	font-size: 95%;
+}
+
+p.wiki_toc_title {
+	font-weight: bold;
+	text-align: center;
+}
+
+</style>
 <script language="javascript" type="text/javascript">
 /* <![CDATA[ */
 /*** stickwiki.js ***/
@@ -519,7 +546,13 @@ function _get_tags(text) {
 	return tags;
 }
 
-function header_replace(hdr_char, len, text) {
+function header_anchor(s) {
+	return escape(s.replace(/ /g, "+"));
+}
+
+var page_TOC = "";
+//var last_h_level;
+function header_replace(hdr_char, len, text, build_toc) {
 	var esc_hdr_char = RegExp.escape(hdr_char);
 	return text.replace( new RegExp("(^|\n)"+str_rep(esc_hdr_char, len)+"([^"+esc_hdr_char+"\n].*)(\n"+esc_hdr_char+"?)?", "g"), 	function (str, $1, $2, $3) {
 		if ($2.indexOf(str_rep(hdr_char, len))==$2.length-len)
@@ -529,7 +562,14 @@ function header_replace(hdr_char, len, text) {
 		var tmp = $3;
 		if (tmp.length==1)
 			tmp = "";
-		return "</p>"+"<h"+len+">"+header+"</h"+len+"><p class=level"+len+">"+tmp;
+		var anchor = header_anchor(header);
+		// automatically build the TOC if needed
+		if (build_toc) {
+//			if (last_h_level!=len) {			}
+			page_TOC += str_rep("#", len)+" [[#"+anchor+"|"+header+"]]\n";
+		}
+		
+		return "</p></div><a name=\""+anchor+"\"></a><h"+len+" class=\"level"+len+"\">"+header+"</h"+len+"><p>"+tmp;
 	});
 }
 
@@ -636,6 +676,14 @@ function parse(text)
 	var prefmt = [];
 	var tags = [];
 	var html_tags = [];
+	
+	var toc_pos = text.indexOf("[[Special::TOC]]");
+	if (toc_pos != -1) {
+		text = text.substring(0, toc_pos) + text.substring(toc_pos+16 + 
+		((text.charAt(toc_pos+16)=="\n") ? 1 : 0)
+		);	
+//		last_h_level = 0;
+	}
 
 	// put away stuff contained in <pre> tags
 	text = text.replace(/(\<pre.*?>(.|\n)*?<\/pre>)/g, function (str, $1) {
@@ -667,8 +715,17 @@ function parse(text)
 	
 	// headers (from h1 to h6, as defined by the HTML 3.2 standard)
 	for(i=1;i<7;i++) {
-		text = header_replace("!", i, text);
+		text = header_replace("!", i, text, (toc_pos!=-1));
 	}
+	
+	if ((toc_pos!=-1) && page_TOC.length) {
+		log("Inserting TOC at offset "+toc_pos);
+		text = text.substring(0, toc_pos) +
+			"<div class=\"wiki_toc\"><p class=\"wiki_toc_title\">Table of Contents</p>" + page_TOC.replace(reReapLists, parseList).replace("\n<", "<") + "</div>" +
+			text.substring(toc_pos);
+		page_TOC = "";
+	}
+
 	
 	// <b>
 	text = text.replace(/\*([^\*\n]+)\*/g, parse_marker+"bS#$1"+parse_marker+"bE#");
@@ -700,8 +757,12 @@ function parse(text)
 				
 				if(page_exists($1))
 					return "<a class=\"link\" onclick='go_to(\"" + _sq_esc($1) +"\")'>" + $2 + "<\/a>";
-				else
-					return "<a class=\"unlink\" onclick='go_to(\"" + _sq_esc($1) +"\")'>" + $2 + "<\/a>";
+				else {
+					if ($1.charAt(0)=="#")
+						return "<a class=\"link\" href=\"#" + header_anchor($1.substring(1)) + "\">" + $2 + "<\/a>";
+					else
+						return "<a class=\"unlink\" onclick='go_to(\"" + _sq_esc($1) +"\")'>" + $2 + "<\/a>";
+				}
 			}); //"<a class=\"wiki\" onclick='go_to(\"$2\")'>$1<\/a>");
 	// links without |
 	var inline_tags = 0;
@@ -722,8 +783,11 @@ function parse(text)
 				
 				if(page_exists($1))
 					return "<a class=\"link\" onclick=\"go_to('" + _sq_esc($1) +"')\">" + $1 + "<\/a>";
-				else
+				else {
+					if ($1.charAt(0)=="#")
+						return "<a class=\"link\" href=\"#" + header_anchor($1.substring(1)) + "\">" + $1.substring(1) + "<\/a>";
 					return "<a class=\"unlink\" onclick=\"go_to('" + _sq_esc($1) +"')\">" + $1 + "<\/a>";
+				}
 					}); //"<a class=\"wiki\" onclick='go_to(\"$1\")'>$1<\/a>");
 
 	// end-trim
@@ -752,7 +816,6 @@ function parse(text)
 		});
 	}
 
-	
 	if (tags.length) {
 		if (force_inline)
 			s = "";
@@ -778,7 +841,7 @@ function parse(text)
 	if (force_inline)
 		force_inline = false;
 	
-	return "<p class=\"level0\">" + text + "</p>";
+	return "<div class=\"level0\"><p>" + text + "</p></div>";
 }
 
 // prepends and appends a newline character to workaround plumloco's XHTML lists parsing bug
@@ -1373,8 +1436,6 @@ function set_current(cr)
 	log("set_current() with ns = \""+ns+"\", cr = \""+cr+"\"");
 
 	load_as_current(ns+cr, text);
-	if(document.getElementById("lastDate"))
-		document.getElementById("lastDate").innerHTML = document.lastModified;
 }
 
 function load_as_current(title, text) {
@@ -1605,6 +1666,9 @@ function on_load()
 	set_current(current);
 	refresh_menu_area();
 	disable_edit();
+	
+	if(document.getElementById("lastDate"))
+		document.getElementById("lastDate").innerHTML = document.lastModified;
 }
 
 function ff_fix_focus() {
@@ -2045,7 +2109,7 @@ function save_page(page_to_save) {
 }
 
 function save_options() {
-	save_to_file(true);
+	save_to_file(false);
 	set_current("Special::Advanced");
 }
 
@@ -2105,17 +2169,16 @@ function save_to_file(full) {
 			alert("END marker not found!");
 			return false;
 		}			
-		offset += 6 + 4 + __marker.length;
+		offset += 6 + 4 + __marker.length + 2;
 	} else {
 		offset = document.documentElement.innerHTML.indexOf("/* "+__marker+ "-DATA */");
 		if (offset == -1) {
 			alert("DATA marker not found!");
 			return false;
 		}
-		offset += 6 + 5 + __marker.length;
+		offset += 6 + 5 + __marker.length + 1;
 	}
-	offset += 2;
-	
+		
 	if ( (!debug || save_override) )
 		r = saveThisFile(computed_js, offset);
 	else r = false;
@@ -2127,8 +2190,11 @@ function save_to_file(full) {
 		create_alt_buttons();
 //	else		setup_uri_pics(el("img_home"),el("img_back"),el("img_forward"),el("img_edit"),el("img_cancel"),el("img_save"),el("img_advanced"))
 
-	if (r)
+	if (r) {
 		cfg_changed = false;
+		if(document.getElementById("lastDate"))
+			document.getElementById("lastDate").innerHTML = document.lastModified;
+	}
 
 	return r;
 }
@@ -3003,7 +3069,7 @@ function AES_decrypt(raw_data) {
 
 /* ]]> */
 </script></head><body class="bg" id="body" style="cursor: wait;" onload="on_load()" onunload="before_quit()">
-<div class="wiki_header bg" id="sw_wiki_header" style="position: absolute;">
+<div class="wiki_header bg" id="sw_wiki_header" style="position: fixed;">
 <table cellspacing="0" width="100%">
 <tbody>
 <tr>
@@ -3019,7 +3085,7 @@ function AES_decrypt(raw_data) {
 <div id="menu_unlock" style="display: none; cursor: pointer;" onclick="unlock()"><img id="img_lock" style="display: inline;" alt="Unlock" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA%2FwD%2FAP%2BgvaeTAAAEnUlEQVR42o2WX2wUVRTGf3NnZ7a7tkvTdA1rlxSWthgwEpoawh9jS8SHxofqAyaGBzBBE15IBLTxwfgCGBITfZAXk%2FYBjDE09QGJpqKFGBKiDYkuVChd7KbbbbtLy3bb2dk%2Fs3N96M52t63ASU5m5t7c853zne%2FeOwoV9vDhwxpWWSgUypVelYphWfKnmnACrxd8z549rwB2yYslfwuoB9zAayWgXYBrXQQneKU3NzfvcrLs7%2B%2BXsVhMTk1NyVu3bsmK7N8EZCqVcr4PlUDXVlBpBw4ceDEajd7u7e0tJpNJDh48SDqdJpVK4ff7iUQi9Pf3A1wBWFpa4s6dOwDfA92rQdYAzM3NvQRw%2BvRp9erVq1YwGGT79u3s2LGDrVu3Eg6H87t376avr6%2B8ZnZ2lgcPHgAMAi2V%2FaribXp6WllcXLw4MTHByMgIR44ccW3YsOFDr9c76vP54vF4vKOnp6cvGo3S1NRUlVhrayvAp6vEsLYCALd7pUqPx3O%2FpaVl9OjRoxPnzp27%2FH9qOX78OMAMMF2psKoKxsfHBYBpmuUxr9c729raagQCAftJcrxw4QKACeQrx8sA4XBYDAwM1K5eaBiGb3h4uOn69es2z2bFdQG%2B%2FOiDd4bvz%2FQBDA4OkkgknAb%2BtjrCsWPHqK1dyUXXdS5dusThw4cvAreBfxyaFGeDhUIhMxUfJT8%2Fibn4iHzGIJtZYPFxCjOTAUDTNPQaN8Klorlr2NXTSywWI5FI0N7eDvAV8DUQKW3O6h4ouTS59AxGIkrWWCLzOMlcMsGSsQQSPJ4adK8HVRVo6spJUVdXx82bN9m3b98J4LsSwFoV2baNLC5TKG2wFXtZcxKEEKAoKELBtiWvn%2FqBzz45iRCCuro6VFV1wmwCtHVVBBIpJUiJlEViMynGJmYxM1kE0FBfy6aNcPZKnEgkghCCTIm%2BxsZGhoeH6erqugy8CvwJ5KopEipCCBShIIQk8Hw9HpEjs7CIRCBqdHq%2FvceNGzcoFAqMj49jWRaKoqDrOps3b2ZkZISOjo7fgZ3AXREKhbIrHBWxihZWvoCVL%2FDocZrJxBJT81kSCxne%2FfxXzp45g5TLlWqaRltbG21tbWzZsoX6%2Bnr8fj%2Fnz58H%2BAtocJUUlF0mSEFVVFSXC6G6aPR5EVkPGbeNXVJ3Z1cXhmGgKArbtm1D1%2FXl6hWl%2FOzs7HRS3ljdA9tCFjIUcovkc2mi8QTzyXlMw0RzucoBHDdNk0AgAEA0Gi2PO6BA%2FaoeKEhVQwg3Lk0nuLGBWlVimu4qwTmBQqEQwBeAbG5uPjU5OYmiKOTz%2Bf857Io2kiKyWMAqFLByuVJPLGTRAuCXoaEyHQCH3mg%2FeeLtnaecHW1ZFkNDQ870QtU9%2B%2FM3HzPx7zjZhSRZM0sulyWfzVKwiggUajw6g6Murl27hmEYaJpGMBgEIBaLoes6Y2Nj7N%2B%2FH%2BA94McywMt%2B%2FYW%2Fk%2FmpZznN9u7dy8DAALa9cv6Fw2GklHR3dwP0Aj8BdysrUAAV0EvP1X8Slfacz%2BeLp9Pp9ebeB%2F4A7gE55SnJPmneBTQAAaDO4bx06cwDFsB%2F1pf2UYdfB6cAAAAASUVORK5CYII%3D"><span id="alt_lock" style="display: none; font-size: 24pt; font-family: wingdings;">I</span></div>
 <div id="menu_lock" style="display: none; cursor: pointer;" onclick="lock()"><img id="img_unlock" style="display: inline;" alt="Lock" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAB3RJTUUH1wMbFisGhO%2Br5wAAAAlwSFlzAAALEwAACxMBAJqcGAAAAARnQU1BAACxjwv8YQUAAANZSURBVHja3VTPT1NZGD3vvZYWGGqVNgKyEBZqwsRYtRpjJpkdMbNk5YrMZjYQF27c%2Bxe4MCxcIJmdyRAjGxMX%2FohKUGMgMAt%2BTCJ0CtqR2tLS9%2Fp%2B3eu5r8UEZphS48qbnL57b9895%2FvO970LfK%2FjKjFJlIhHxH0i9a3Ib%2Fb396%2BPj4%2FLjY0NOTMzIycmJvxEImHyv1%2BbJTP2rG8PDw9fn5ycjPX19aFYLCIWi6Gnp0cbGBgI5%2FP5XzKZjMb3nn1N5FfS6bRZKBTk%2FPx8ZWho6C337GQymR0ZGbHn5ubk1NSUHBwcLNctbHo8YHRycXFRplKpP7ieIS4TP8Xj8eejo6OmsmtsbMzh3r2m2elxMZfLyenp6QqXK8TPRCuhLEn39vZm19bWpKoN1wsH5dV3Jp2dnZFKpYJyuawIbGKeqBJq%2FSabzYrNzU10d3Wp15MHFQjtTJaWlm6xe4bry8eEl2zVb3UfO3rt71wRoegPePniBeUEWiPhoyFDlwQOd7SjI9EN27ZRyr9HV4eB5Wzx3rYbdJyl7RGMEXHCJ3KEW1h5AiE0eJ6A8F3OHVjFf%2Fj0gtSE70G4Nnzbgl%2B18ObhXfz2%2B7riOkvMhvYIlOr4MjSyWPlVlHKr8Cng2xXYTpWJCEgpKcw9x4S3XYBjbkEEssHo2lWD%2FYYQPiSjrC3okFarOnQdmq5B09QGaTQ1N0j4xRRjVw32HzKIlD9YWPgTy6vrsMxqEJlQbdYWxYnjx5CIePBdZiPkrtMNBTSdUdWjPX%2FpAk6fs%2BDRJk9lRZuEWw1sK7ERAuo9VW2cAS1SZJ7jYPbt7P4ZtNTIQ0aoOQHJUwa9NUJhnLuYxunUKbhsSZ%2BiyjqpCuxWsJ3jnPZE2w%2FzVKYJAeEFNrhOBXOzK%2FtmEIcXNITREm22BjqkEWYdIjh74Qx%2BPHOSNbAhpAgKr%2Fz3XQvlDwZaolG4bqTJGvhsU6hWdWFuleHwg1K9L%2Bqtqz4yzzah0cJo2yGU88Vdx40G9O3p%2FrbLbRo9%2FpiBVSrALH9ClVCdJDybNVDZaAxCh7W9haevlvH6nfmUZ3mv4K%2F%2FZaf6RT7uoHbhHRRPiBvEeeBfXftfGjhC9KD26YcbWlq7xz4SWeJDI4EdEUXccoCAdoZqJZf49Bkd5rOdXLtvgwAAAABJRU5ErkJggg%3D%3D"><span id="alt_unlock" style="display: none; font-size: 24pt; font-family: wingdings;">C</span></div></td></tr></tbody></table></div><br><br>
 <div id="text_area" style="display: none;">
-<div class="menu_area" id="sw_menu_area" style="position: absolute;">
+<div class="menu_area" id="sw_menu_area" style="position: fixed;">
 <div class="wiki" id="menu_area" ondblclick="menu_dblclick()"></div>
 <div id="menu_edit_button" style="display: inline;">
 <hr>
