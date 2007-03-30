@@ -26,11 +26,6 @@ var current = "Main Page";
 var main_page = "Main Page";
 
 var backstack = [
-"Main Page",
-"Special::Advanced",
-"Special::Pages not yet created",
-"Main Page",
-"Special::Advanced"
 ];
 
 var page_titles = [
@@ -46,14 +41,16 @@ var page_titles = [
 "Special::Lock",
 "Special::Security",
 "MyPages::Page 1",
-"Thanks"
+"Thanks",
+"Test page"
 ];
 
 /* UUZJizdTQtSsJsMSZA-DATA */
-var page_attrs = [0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0];
+var page_attrs = [0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0];
 
 var pages = [
 "[[Main Page]]\n\
+[[Test page]]\n\
 \n\
 [[Special::Advanced]]\n\
 [[Special::Backlinks]]\n\
@@ -126,38 +123,30 @@ A self-containing XHTML/javascript wiki.\n\
 \n\
 You can also double click anywhere on the text to edit (if this option is enabled from [[Special::Advanced]]), and you can use escape to cancel editing or to go backward.\n\
 \n\
-!!Upgrading\n\
-\n\
+!!Upgrading!!\n\
 If you have an older Wiki on a Stick (v0.01 &tilde; v0.04), [[Special::Import|import it]]!\n\
 \n\
 !!!Syntax changes in v0.9\n\
 There have been a few changes in the wiki syntax, they will be automatically applied on import or saving (except the wiki link parts inversion).\n\
-\n\
 * bullet lists are recognized using an asterisk '*' at the beginning of the line, if you use the previous '+' plus sign it will be automatically converted to an asterisk\n\
 * wiki link parts are inverted, e.g. no more [<!-- -->[the label|WikiActualPage]] but [<!-- -->[WikiActualPage|the label]]\n\
 * lines ending with a backslash '' will be joined\n\
-\n\
 !!!New features\n\
 * namespaces support through the separator '::'\n\
 * tags support through [<!-- -->[Tag:Sometag]] or [<!-- -->[Tags:Sometag, Somethingelse]] syntax\n\
 \n\
 !Syntax examples \n\
-\n\
 Follows a brief example of all the capabilities of Wiki on a Stick syntax.\n\
 \n\
 !!Formatting\n\
 !!!Subheader of third level\n\
 !!!!Subheader of fourth level\n\
-<pre>\n\
-This is pre-formatted text! This text does not get _underlined_, as you can see\n\
-</pre>\n\
-\n\
+<pre>This is pre-formatted text! This text does not get _underlined_, as you can see</pre>\n\
 <pre style=\"color:gray\">\n\
 This is pre-formatted text with CSS style!\n\
-</pre>\n\
+And it stands on multiple lines</pre>\n\
 \n\
 !!Some specials\n\
-\n\
 Using [[Special::Main Page]] you will always link to the main page, no matters what its name is.\n\
 \n\
 New pages have red links, like this [[New page]], but you can use [[Special::New page]] to automatically create a new one.\n\
@@ -166,7 +155,6 @@ New pages have red links, like this [[New page]], but you can use [[Special::New
 There is support for [[Tagged::Nice|tags]] and namespaces. For example, see [[MyPages::Page 1]] (password is /test/) and [[MyPages::Page 2]], both belonging to the [[MyPages::]] namespace. You can also use subnamespaces, like in [[MyPages::Approved::Page 3]]\n\
 \n\
 !!Syntax parser testcases\n\
-\n\
 On my right there is some _underlined text_, followed by *bold text* and /italics/.\n\
 \n\
 Now I will use /*italics and bold*/, followed by */bold and italics/* and finally _*/underlined bold italics/*_.\n\
@@ -178,7 +166,6 @@ And here is, just for you, a partial *bold-/italics/*!!!\n\
 *Some bold text* on a line beginning\n\
 \n\
 !!Syntax\n\
-\n\
 External links: [[http://stickwiki.sourceforge.net/|Wiki on a Stick]]\n\
 \n\
 As you can see, /an/unix/path/ is correctly recognized.\n\
@@ -279,7 +266,18 @@ This is indeed the better page of the wiki, and it is _cryptographically protect
 \n\
 If, for any reason, you don't want your name listed here, please send me a <a class=\"world\" href=\"mailto:andre_nho@users.sourceforge.net\">e-mail</a>.\n\
 \n\
-Some of you sent me changes but I still hadn't the time to test them and add them. Please stay tuned! :-) Also, be sure to check the CVS version before suggesting changes, since what you suggest might already be implemented!"
+Some of you sent me changes but I still hadn't the time to test them and add them. Please stay tuned! :-) Also, be sure to check the CVS version before suggesting changes, since what you suggest might already be implemented!",
+"!!Upgrading!!\n\
+If you have an older Wiki on a Stick (v0.01 &tilde; v0.04), [[Special::Import|import it]]!\n\
+\n\
+Test on this page using the syntax you best like.\n\
+\n\
+!!Testing newlines consistency (and I can use an exclamation mark here!)\n\
+\n\
+\n\
+\n\
+\n\
+I should be on the 5th paragraph after the title"
 ];
 
 /* UUZJizdTQtSsJsMSZA-END */
@@ -425,7 +423,7 @@ div.wiki_header {
 	top: 0px;
 	left: 0px;
 	border: 1px solid #aaa;
-	filter:alpha(opacity=75);-moz-opacity:.75;opacity:.75;
+	-moz-opacity:.75;opacity:.75;
 	z-index: 1;
 }
 
