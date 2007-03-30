@@ -1365,6 +1365,7 @@ function edit_allowed(page) {
 
 // setup the title boxes and gets ready to edit text
 function current_editing(page, disabled) {
+	scrollTo(0,0);
 	log("Currently editing "+page+", title disabled: "+disabled);
 	prev_title = current;
 	el("wiki_page_title").disabled = (disabled ? "disabled" : "");
