@@ -1330,12 +1330,12 @@ function update_nav_icons(page) {
 	menu_display("forward", (forstack.length > 0));
 	menu_display("advanced", (page != "Special::Advanced"));
 	menu_display("edit", edit_allowed(page));
-	update_lock_icons(page, true);
+	update_lock_icons(page);
 }
 
-function update_lock_icons(page, results_only) {
+function update_lock_icons(page) {
 	var cyphered, can_lock, can_unlock;
-	if (!results_only) {
+	if (result_pages.length<2) {
 		var pi = page_index(page);
 		if (pi==-1) {
 			can_lock = can_unlock = false;
@@ -1452,7 +1452,7 @@ function current_editing(page, disabled) {
 	menu_display("edit", false);
 	menu_display("save", true);
 	menu_display("cancel", true);
-	update_lock_icons(page, false);
+	update_lock_icons(page);
 	el("text_area").style.display = "none";
 
 	// FIXME!
@@ -1632,6 +1632,8 @@ function go_forward()
 }
 
 function js_encode(s, split_lines) {
+	// escape escape characters
+	s = s.replace(/\\/g, "\\\\");
 	// escape double quotes
 	s = s.replace(new RegExp("\"", "g"), "\\\"");
 	// escape newlines (\r\n happens only on the stupid IE) and eventually split the lines accordingly
