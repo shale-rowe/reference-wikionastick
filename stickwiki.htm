@@ -26,11 +26,9 @@ var current = "Main Page";
 var main_page = "Main Page";
 
 var backstack = [
+"Main Page",
 "Special::Advanced",
-"Special::Edit CSS",
-"Special::Advanced",
-"Special::Backlinks",
-"Special::Advanced"
+"Special::Pages not yet created"
 ];
 
 var page_titles = [
@@ -117,7 +115,8 @@ And, last but not least:\n\
 \n\
 Read more at [[http://sf.net/projects/stickwiki/|Our SourceForge Project]]\n\
 We also have an active [[http://groups.google.com/group/stickwiki/|Google dicussion group]]",
-"!Welcome to Wiki on a Stick!\n\
+"[[Special::TOC]]\n\
+!Welcome to Wiki on a Stick!\n\
 A self-containing XHTML/javascript wiki.\n\
 \n\
 !!How to use\n\
@@ -132,7 +131,7 @@ If you have an older Wiki on a Stick (v0.01 &tilde; v0.04), [[Special::Import|im
 !!!Syntax changes in v0.9\n\
 There have been a few changes in the wiki syntax, they will be automatically applied on import or saving (except the wiki link parts inversion).\n\
 \n\
-* bullet lists are recognized using a plus sign '+' (previous stickwiki syntax) or an asterisk '*' (0.9 stickwiki syntax), with preference for asterisk lists\n\
+* bullet lists are recognized using an asterisk '*' at the beginning of the line, if you use the previous '+' plus sign it will be automatically converted to an asterisk\n\
 * wiki link parts are inverted, e.g. no more [<!-- -->[the label|WikiActualPage]] but [<!-- -->[WikiActualPage|the label]]\n\
 * lines ending with a backslash '' will be joined\n\
 \n\
@@ -341,6 +340,10 @@ h3 { font-size: 17px; }
 
 h4 { font-size: 14px; }
 
+h5 { font-size: 12px; }
+
+h6 { font-size: 10px; }
+
 div.taglinks {
 	border: 1px solid #aaa;
 /*	background-color: #f9f9f9; */
@@ -422,8 +425,22 @@ div.wiki_header {
 	border: 1px solid #aaa;
 	filter:alpha(opacity=75);-moz-opacity:.75;opacity:.75;
 	z-index: 1;
-}</style>
+}
 
+div.wiki_toc {
+	border: 1px solid #aaa;
+	background-color: #f9f9f9;
+	padding: 5px;
+	width: 50%;
+	font-size: 95%;
+}
+
+p.wiki_toc_title {
+	font-weight: bold;
+	text-align: center;
+}
+
+</style>
 <script src="stickwiki.js" type="text/javascript"></script></head><body class="bg" id="body" style="cursor: wait;" onload="on_load()" onunload="before_quit()">
 <div class="wiki_header bg" id="sw_wiki_header" style="position: absolute;">
 <table cellspacing="0" width="100%">
