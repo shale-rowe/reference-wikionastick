@@ -990,8 +990,6 @@ function set_current(cr)
 	log("set_current() with ns = \""+ns+"\", cr = \""+cr+"\"");
 
 	load_as_current(ns+cr, text);
-	if(document.getElementById("lastDate"))
-		document.getElementById("lastDate").innerHTML = document.lastModified;
 }
 
 function load_as_current(title, text) {
@@ -1222,6 +1220,9 @@ function on_load()
 	set_current(current);
 	refresh_menu_area();
 	disable_edit();
+	
+	if(document.getElementById("lastDate"))
+		document.getElementById("lastDate").innerHTML = document.lastModified;
 }
 
 function ff_fix_focus() {
@@ -1722,17 +1723,15 @@ function save_to_file(full) {
 			alert("END marker not found!");
 			return false;
 		}			
-		offset += 6 + 4 + __marker.length;
+		offset += 6 + 4 + __marker.length + 2;
 	} else {
 		offset = document.documentElement.innerHTML.indexOf("/* "+__marker+ "-DATA */");
 		if (offset == -1) {
 			alert("DATA marker not found!");
 			return false;
 		}
-		offset += 6 + 5 + __marker.length;
+		offset += 6 + 5 + __marker.length + 1;
 	}
-	
-	offset += 2;
 		
 	if ( (!debug || save_override) )
 		r = saveThisFile(computed_js, offset);
@@ -1745,8 +1744,11 @@ function save_to_file(full) {
 		create_alt_buttons();
 //	else		setup_uri_pics(el("img_home"),el("img_back"),el("img_forward"),el("img_edit"),el("img_cancel"),el("img_save"),el("img_advanced"))
 
-	if (r)
+	if (r) {
 		cfg_changed = false;
+		if(document.getElementById("lastDate"))
+			document.getElementById("lastDate").innerHTML = document.lastModified;
+	}
 
 	return r;
 }
