@@ -773,7 +773,7 @@ function _create_page(ns, cr, ask) {
 		return false;
 	// create and edit the new page
 	cr = ns+cr;
-	pages.push("Insert text here");
+	pages.push("!"+cr+"\n");
 	page_attrs.push(0);
 	page_titles.push(cr);
 	current = cr;
@@ -854,7 +854,7 @@ function _get_special(cr) {
 			edit();
 			return null;
 		case "Edit CSS":
-			current_editing(cr, true);
+			current_editing("Special::"+cr, true);
 			el("wiki_editor").value = document.getElementsByTagName("style")[0].innerHTML;
 			return null;
 		default:
@@ -868,7 +868,7 @@ function _get_special(cr) {
 // Load a new current page
 function set_current(cr)
 {
-	var text;
+	var text, namespace, ns;
 	result_pages = [];
 //	log("Setting \""+cr+"\" as current page");
 	if (cr.substring(cr.length-2)=="::") {
@@ -950,6 +950,8 @@ function set_current(cr)
 		if (!_create_page(ns, cr, true))
 			return;
 	}
+	
+	log("set_current() with ns = \""+ns+"\", cr = \""+cr+"\"");
 
 	load_as_current(ns+cr, text);
 	if(document.getElementById("lastDate"))
@@ -957,6 +959,7 @@ function set_current(cr)
 }
 
 function load_as_current(title, text) {
+	log("CURRENT loaded: "+title+", "+text.length+" bytes");
 	current = title;
 	el("wiki_title").innerHTML = title;
 	el("wiki_text").innerHTML = parse(text);
@@ -1178,12 +1181,7 @@ function on_load()
 	// Go straight to page requested
 	var qpage=document.location.href.split("?")[1];
 	if(qpage)
-	{
-//		if(!page_exists(qpage)
-//			current = main_page;
-//		else
-			current = unescape(qpage);
-	}
+		current = unescape(qpage);
 
 	set_current(current);
 	refresh_menu_area();
@@ -1366,7 +1364,7 @@ function edit_allowed(page) {
 // setup the title boxes and gets ready to edit text
 function current_editing(page, disabled) {
 	scrollTo(0,0);
-	log("Currently editing "+page+", title disabled: "+disabled);
+	log("CURRENT editing "+page+", title disabled: "+disabled);
 	prev_title = current;
 	el("wiki_page_title").disabled = (disabled ? "disabled" : "");
 	el("wiki_page_title").value = page;
@@ -1471,9 +1469,7 @@ function save()
 					save_to_file(true);
 				}
 				return;
-			}
-			else
-			{
+			} else {
 				// here the page gets actually saved
 				set_text(el("wiki_editor").value);
 				new_title = el("wiki_page_title").value;
@@ -1488,6 +1484,7 @@ function save()
 			}
 	}
 	save_page(current);
+	
 	if (back_to != null)
 		set_current(back_to);
 	else // used for CSS editing
@@ -1637,7 +1634,7 @@ function save_to_file(full) {
 	document.body.style.cursor = "wait";
 
 	var new_marker;
-	if (full)
+	if (!debug && full)
 		new_marker = _random_string(18);
 	else new_marker = __marker;
 
