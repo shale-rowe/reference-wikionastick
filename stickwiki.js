@@ -1665,23 +1665,7 @@ function save_to_file(full) {
 
 	// not needed: the end tag must not be removed by the offset
 //	computed_js += "/* ]]> */";
-	
-	// attempt to clear the first <script> tag found in the DOM
-	try {
-		var obj = document.documentElement.childNodes[0];
-		var subobj = null;
-		for (var i=0;i<obj.childNodes.length;i++) {
-			subobj = obj.childNodes[i];
-			if (subobj.tagName && subobj.tagName.toUpperCase() == "SCRIPT") {
-				if (ie)
-					subobj.text = "/* ]]> */ ";
-				else
-					subobj.innerHTML = "/* ]]> */ ";
-				break;
-			}
-		}
-	} catch (e) { log(e);}
-	
+
 	// cleanup the DOM before saving
 	el("wiki_editor").value = "";
 	el("wiki_text").innerHTML = "";
@@ -1696,12 +1680,25 @@ function save_to_file(full) {
 	
 	// fully remove the first <script> tag
 	var offset;
-	if (full)
+	if (full) {
 		offset = document.documentElement.innerHTML.indexOf("/* "+__marker+ "-END */");
-	else
-		offset = document.documentElement.innerHTML.indexOf("/* "+__marker+ "-DATA */") + 6 + 5 + __marker.length;
+		if (offset == -1) {
+			alert("END marker not found!");
+			return false;
+		}			
+		offset += 6 + 4 + __marker.length;
+	} else {
+		offset = document.documentElement.innerHTML.indexOf("/* "+__marker+ "-DATA */");
+		if (offset == -1) {
+			alert("DATA marker not found!");
+			return false;
+		}
+		offset += 6 + 5 + __marker.length;
+	}
+		
+	alert(document.documentElement.innerHTML.substring(offset));
 	
-	if (!debug || save_override)
+	if (false && (!debug || save_override))
 		r = saveThisFile(computed_js, offset);
 	else r = false;
 	document.body.style.cursor= "auto";
@@ -1712,7 +1709,8 @@ function save_to_file(full) {
 		create_alt_buttons();
 //	else		setup_uri_pics(el("img_home"),el("img_back"),el("img_forward"),el("img_edit"),el("img_cancel"),el("img_save"),el("img_advanced"))
 
-	cfg_changed = false;
+	if (r)
+		cfg_changed = false;
 
 	return r;
 }
