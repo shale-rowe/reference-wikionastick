@@ -53,6 +53,20 @@ if (typeof Array.prototype.splice == "undefined") {
   }
 }
 
+// thanks to S.Willison
+RegExp.escape = function(text) {
+  if (!arguments.callee.sRE) {
+    var specials = [
+      '/', '.', '*', '+', '?', '|',
+      '(', ')', '[', ']', '{', '}', '\\'
+    ];
+    arguments.callee.sRE = new RegExp(
+      '(\\' + specials.join('|\\') + ')', 'g'
+    );
+  }
+  return text.replace(arguments.callee.sRE, '\\$1');
+}
+
 function page_index(page) {
 	for(var i=0; i<page_titles.length; i++)
 	{
@@ -472,6 +486,8 @@ function special_encrypted_pages(locked) {
 	return _join_list(pg);
 }
 
+//var hl_reg;
+
 // Returns a index of search pages (by miz & legolas558)
 function special_search( str )
 {
@@ -480,9 +496,16 @@ function special_search( str )
 
 	var count = 0;
 	// matches the search string and nearby text
-	var reg = new RegExp( ".*?" + RegExp.escape(str).replace(/^\s+/, "").
-					replace(/\s+$/, "").replace(/\s+/g, ".*?") + ".*", "gi" );
-
+	var reg = new RegExp( ".*?" + RegExp.escape(str).
+					replace(/^\s+/, "").
+					replace(/\s+$/, "").
+					replace(/\s+/g, ".*?") + ".*", "gi" );
+					
+/*	hl_reg = new RegExp( ".*?" + RegExp.escape(str).
+					replace(/^\s+/, "").
+					replace(/\s+$/, "").
+					replace(/([^\s]+)/g, "($1)").
+					replace(/\s+/g, ".*?") + ".*", "gi" );	*/
 	var tmp;
 	result_pages = [];
 	for(var i=0; i<pages.length; i++)
@@ -506,7 +529,7 @@ function special_search( str )
 		}
 
 		//Look for str in body
-		res_body = tmp.match( reg );
+		res_body = tmp.match(reg);
 //		log("res_body = "+res_body);
 		if (res_body!=null) {
 			count = res_body.length;
@@ -594,35 +617,34 @@ function special_dead_pages () {
   return _simple_join_list(pg, true);
 }
 
-// Returns a index of all orphaned pages
 function special_orphaned_pages()
 {
 	var pg = new Array();
 	var found = false;
-	for(j=0; j<pages.length; j++)
+	for(j=0; j<page_titles.length; j++)
 	{
-		if (is_reserved(page_titles[j]))
+		if (is_reserved(page_titles[j]) && (page_titles[j]!="Special::Menu"))
 			continue;
 		// search for pages that link to it
+//		log("Scanning references to page "+page_titles[j]);
 		var tmp;
-		for(var i=0; i<pages.length; i++) {
-			if ((i==j) /*|| is_reserved(page_titles[i])*/)
+		for(var i=0; i<page_titles.length; i++) {
+			if ((i==j) || (is_reserved(page_titles[i]) && (page_titles[i]!="Special::Menu")))
 				continue;
 			tmp = get_page(i);
 			if (tmp==null)
 				continue;
-			if (tmp.match(new RegExp("\\[\\["+RegExp.escape(page_titles[i])+"(\\||\\]\\])", "gi"))) {
-//					log("Page \""+page_titles[j]+"\" linked from page \""+page_titles[i]+"\"");
-					found = true;
-					break;
+			var re = new RegExp("\\[\\[" + RegExp.escape(page_titles[i]) + "(\\]\\]|\\|)", "i");
+//			log("re = "+re);
+			if (tmp.search(re)!=-1) {
+				found = true;
+				break;
 			}
 		}
 		if(found == false) {
-			if (!is_reserved(page_titles[j]))
-				pg.push( page_titles[j] );
+			pg.push( page_titles[j] );
 		} else found = false;
 	}
-//	alert(pages[0]);
 	if (!pg.length)
 		return "/No orphaned pages found/";
 	else
@@ -746,20 +768,6 @@ function set_text(text)
 	_set_text(pi, text);
 }
 
-// thanks to S.Willison
-RegExp.escape = function(text) {
-  if (!arguments.callee.sRE) {
-    var specials = [
-      '/', '.', '*', '+', '?', '|',
-      '(', ')', '[', ']', '{', '}', '\\'
-    ];
-    arguments.callee.sRE = new RegExp(
-      '(\\' + specials.join('|\\') + ')', 'g'
-    );
-  }
-  return text.replace(arguments.callee.sRE, '\\$1');
-}
-
 function clear_search() {
 	if (!cached_search.length)
 		return;
@@ -782,8 +790,8 @@ function do_search()
 	if ( !search_string.length )
 		return;
 	
-	cached_search = special_search( search_string )
-
+	cached_search = parse(special_search( search_string ));
+	
 	assert_current("Special::Search");
 }
 
@@ -860,7 +868,8 @@ function _get_special(cr) {
 			return;
 		case "Search":
 			text = get_text("Special::"+cr);
-			text += cached_search;
+//			text += cached_search;
+			post_dom_render = "_search_setup()";
 			break;
 		case "Advanced":
 			text = get_text("Special::"+cr);
@@ -1018,6 +1027,19 @@ function el_eval(name) {
 	if (el(name).checked)
 		return true;
 	return false;
+}
+
+function _search_setup() {
+	el("wiki_text").innerHTML += cached_search
+	/*
+	.replace(hl_reg, function () {
+			var str = arguments[0];
+			for(var i=1;i<arguments.length;i++) {
+				str = str.replace(arguments[i], "<span class=\"search_highlight\">"+arguments[i]+"</span>");
+			}
+			return str; })
+	hl_reg = null;	*/
+	el("string_to_search").focus();
 }
 
 function _setup_options() {
