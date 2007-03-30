@@ -1345,7 +1345,6 @@ function _unlock_pages(arr) {
 	alert("Not yet implemented");
 }
 
-
 // when edit is clicked
 function edit()
 {
