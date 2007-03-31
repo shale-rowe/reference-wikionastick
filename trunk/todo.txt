@@ -20,3 +20,5 @@
 * incremental save marker
 
 * optional CSS import
+
+* external javascript custom scripts
