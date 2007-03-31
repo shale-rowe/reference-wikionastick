@@ -26,10 +26,11 @@ var current = 'Main Page';
 var main_page = 'Main Page';
 
 var backstack = [
-'Special::Lock',
 'Special::Advanced',
-'Special::',
-'Special::Advanced'
+'Test page',
+'Main Page',
+'Hit the ball',
+'Menu'
 ];
 
 var page_titles = [
@@ -46,15 +47,17 @@ var page_titles = [
 'MyPages::Page 1',
 'Test page',
 'MyPages::Menu',
-'Special::Options'
+'Special::Options',
+'Hit the ball'
 ];
 
 /* UUZJizdTQtSsJsMSZA-DATA */
-var page_attrs = [0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x2,0x0,0x0,0x0];
+var page_attrs = [0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x2,0x0,0x0,0x0,0x0];
 
 var pages = [
 '[[Main Page]]\n\
 [[Test page]]\n\
+[[Hit the ball]]\n\
 \n\
 [[Special::Advanced]]\n\
 [[Special::Options]]\n\
@@ -140,7 +143,7 @@ There have been a few changes in the wiki syntax, they will be automatically app
 * automatic TOC generation in place of [\x3C!-- --\x3E[Special::TOC]]\n\
 * namespace-specific menus creating [\x3C!-- --\x3E[Namespace::Menu]] pages (the main menu is [[::Menu]])\n\
 * alphanumerical lists using \'@\'\n\
-* custom scripts evaluation (see [[Reflex tester]])\n\
+* custom scripts evaluation (see [[Hit the ball]])\n\
 \n\
 !Syntax examples \n\
 Follows a brief example of all the capabilities of Wiki on a Stick syntax.\n\
@@ -316,20 +319,108 @@ el("cb_dblclick_edit").checked = bool2chk(dblclick_edit);\n\
 el("cb_permit_edits").checked = bool2chk(!permit_edits);\n\
 el("cb_save_on_quit").checked = bool2chk(save_on_quit);\n\
 el("cb_fixed_layout").checked = (el("sw_wiki_header").style.position == "fixed");\n\
+\x3C/script\x3E',
+'!Hit the ball\n\
+\n\
+\x3CDIV id="score" align="left"\x3EScore: 0\x3C/DIV\x3E\n\
+\x3CINPUT id="startbutton" type="button" onclick="StartGame();" value="Start Game"\x3E \x3CINPUT id="stopbutton" type="button" onclick="StopGame();" value="Stop Game" disabled\x3E\n\
+\n\
+\x3CTABLE style="width: 300px; height: 300px; background-color: white; border: solid 1px black;"\x3E\x3CTR\x3E\x3CTD width=100% valign="top"\x3E\n\
+\x3Cobject style="display:inline" type="image/svg+xml" id="target" onclick="UpdateScore(true)"\x3E\x3C/object\x3E\x3C/TD\x3E\x3C/TR\x3E\x3C/TABLE\x3E\n\
+\n\
+\x3Cscript\x3E\n\
+// fancygame.js - by roger@killerz-tech.net forums\n\
+// bugfixed & improved by legolas558\n\
+\n\
+// Our global variables:\n\
+var gameRunning = 0;\n\
+var score = 0;\n\
+var xPos = 0;\n\
+var yPos = 0;\n\
+var xSpeed = 15;\n\
+var ySpeed = -15;\n\
+var speedD = 4;\n\
+\n\
+el(\'target\').data = \'data:image/svg+xml,\'+escape(\'\x3Csvg width="54" height="54" version="1.1" xmlns="http://www.w3.org/2000/svg"\x3E\x3Ccircle cx="27" cy="27" r="25" stroke="black" stroke-width="2" fill="red"/\x3E\x3C/svg\x3E\');\n\
+el(\'target\').style.position = \'relative\';\n\
+\n\
+function StartGame() {\n\
+gameRunning = 1;\n\
+score = 0;\n\
+el(\'startbutton\').disabled = true;\n\
+el(\'stopbutton\').disabled = false;\n\
+\n\
+FlyAround();\n\
+\n\
+ScoreDecay();\n\
+}\n\
+\n\
+function StopGame()\n\
+{\n\
+gameRunning = 0;\n\
+el(\'stopbutton\').disabled = true;\n\
+el(\'startbutton\').disabled = false;\n\
+}\n\
+\n\
+function FlyAround()\n\
+{\n\
+if ( Math.round(Math.random()*1) == 0 )\n\
+{\n\
+xSpeed = Math.max(-25, xSpeed - Math.round(Math.random()*speedD));\n\
+} else {\n\
+xSpeed = Math.min(25, xSpeed + Math.round(Math.random()*speedD));\n\
+}\n\
+if ( Math.round(Math.random()*1) == 0 )\n\
+{\n\
+ySpeed = Math.max(-25, ySpeed - Math.round(Math.random()*speedD));\n\
+} else {\n\
+ySpeed = Math.min(25, ySpeed + Math.round(Math.random()*speedD));\n\
+}\n\
+\n\
+xPos += xSpeed;\n\
+yPos += ySpeed;\n\
+\n\
+// make sure the target doesn\'t move out of the playfield\n\
+if ( xPos \x3E 300-60 ) { xPos = 300-60; xSpeed *= -1; }\n\
+if ( yPos \x3E 300-60 ) { yPos = 300-60; ySpeed *= -1; }\n\
+if ( xPos \x3C 0 ) { xPos = 0; xSpeed *= -1; }\n\
+if ( yPos \x3C 0 ) { yPos = 0; ySpeed *= -1; }\n\
+\n\
+el(\'target\').style.top = yPos+\'px\';\n\
+el(\'target\').style.left = xPos+\'px\';\n\
+\n\
+// Repeat the function every tenth of a second, but only if the gamestate is \'on\'\n\
+if ( gameRunning == 1 )\n\
+setTimeout ( "FlyAround()", 100 );\n\
+\n\
+}\n\
+\n\
+function UpdateScore ( has_hit )\n\
+{\n\
+if ( has_hit && gameRunning == 1 )\n\
+{\n\
+score += 10;\n\
+}\n\
+\n\
+el(\'score\').innerHTML = "Score: " + score;\n\
+}\n\
+\n\
+function ScoreDecay ( )\n\
+{\n\
+if ( gameRunning == 1)\n\
+{\n\
+// Detract 20 from the score every 5 seconds\n\
+score -= 20;\n\
+\n\
+UpdateScore ( false );\n\
+\n\
+setTimeout ( "ScoreDecay()", 5000 );\n\
+}\n\
+}\n\
 \x3C/script\x3E'
 ];
 
 /* UUZJizdTQtSsJsMSZA-END */
-
-
-
-
-
-
-
-
-
-
 
 /* ]]> */ </script>
 
@@ -480,7 +571,8 @@ p.wiki_toc_title {
 }
 
 </style>
-<script src="stickwiki.js" type="text/javascript"></script></head><body class="bg" id="body" style="cursor: wait;" onload="on_load()" onunload="before_quit()">
+<script src="stickwiki.js" type="text/javascript"></script>
+<script type="text/javascript" id="sw_custom_script"></script></head><body class="bg" id="body" style="cursor: wait;" onload="on_load()" onunload="before_quit()">
 <div class="wiki_header bg" id="sw_wiki_header" style="position: fixed;">
 <table cellspacing="0" width="100%">
 <tbody>
