@@ -63,7 +63,7 @@ var pages = [
 [[Special::Edit script]]",
 "!Info\n\
 [[Special::About|About Wiki on a Stick]]\n\
-This wiki was last modified in \\x3Cspan id=\"lastDate\"\\x3E\\x3C/span\\x3E.\n\
+This wiki was last modified in \x3Cspan id=\"lastDate\"\x3E\x3C/span\x3E.\n\
 \n\
 !Pages\n\
 [[Special::All Pages|All Pages]]: a list of all user created pages in this wiki\n\
@@ -85,11 +85,11 @@ This wiki was last modified in \\x3Cspan id=\"lastDate\"\\x3E\\x3C/span\\x3E.\n\
 !Options\n\
 You can customize Wiki on a Stick modifying a few [[Special::Options|Options]].  \n\
 \n\
-\\x3Cscript\\x3E\n\
-el(\"lastDate\").innerHTML = document.lastModified;\\x3C/script\\x3E",
+\x3Cscript\x3E\n\
+el(\"lastDate\").innerHTML = document.lastModified;\x3C/script\x3E",
 "Import a wiki from an early (or current) version:\n\
 \n\
-File: \\x3Cinput id=\"filename_\" type=\"file\" /\\x3E&nbsp;\\x3Cinput type=\"button\" value=\"Import\" onclick=\"import_wiki()\" /\\x3E\n\
+File: \x3Cinput id=\"filename_\" type=\"file\" /\x3E&nbsp;\x3Cinput type=\"button\" value=\"Import\" onclick=\"import_wiki()\" /\x3E\n\
 \n\
 *Important:* CSS will not be imported from versions below v0.04",
 "!Wiki on a Stick version 0.9\n\
@@ -99,7 +99,7 @@ Original version (v0.01 &tilde; v0.04) by Andr\u00e9 Wagner\n\
 Wiki on a Stick is licensed under the [[http://www.gnu.org/copyleft/gpl.html|GNU/GPL]] license.\n\
 \n\
 !!Thanks to\n\
-This project wouldn't be what it is without the help of other people. If you contributed to Wiki on a Stick and your name is not here, please send an email to \\x3Ca class=\"world\" href=\"mailto:legolas558 _AT_ users.sourceforge.net\"\\x3Ethis email address\\x3C/a\\x3E. If, for any reason, you don't want your name listed here, just send an email.\n\
+This project wouldn't be what it is without the help of other people. If you contributed to Wiki on a Stick and your name is not here, please send an email to \x3Ca class=\"world\" href=\"mailto:legolas558 _AT_ users.sourceforge.net\"\x3Ethis email address\x3C/a\x3E. If, for any reason, you don't want your name listed here, just send an email.\n\
 \n\
 * *Jeremy Ruston* - the creator of the wonderful [[http://www.tiddlywiki.com/|TiddlyWiki]], who served as inspiration for Wiki on a Stick. He also kindly allowed the usage of his saving/loading routines.\n\
 * *Philip O'Donnel* - creator of the table syntax & parsing code\n\
@@ -132,13 +132,13 @@ If you have an older Wiki on a Stick (v0.01 &tilde; v0.04), [[Special::Import|im
 !!!Syntax changes in v0.9\n\
 There have been a few changes in the wiki syntax, they will be automatically applied on import or saving (except the wiki link parts inversion).\n\
 * bullet lists are recognized using an asterisk '*' at the beginning of the line, if you use the previous '+' plus sign it will be automatically converted to an asterisk\n\
-* wiki link parts are inverted, e.g. no more [\\x3C!-- --\\x3E[the label|WikiActualPage]] but [\\x3C!-- --\\x3E[WikiActualPage|the label]]\n\
+* wiki link parts are inverted, e.g. no more [\x3C!-- --\x3E[the label|WikiActualPage]] but [\x3C!-- --\x3E[WikiActualPage|the label]]\n\
 !!!New features\n\
 * namespaces support through the separator '::'\n\
-* tags support through [\\x3C!-- --\\x3E[Tag::Sometag]] or [\\x3C!-- --\\x3E[Tags::Sometag, Somethingelse]] syntax\n\
+* tags support through [\x3C!-- --\x3E[Tag::Sometag]] or [\x3C!-- --\x3E[Tags::Sometag, Somethingelse]] syntax\n\
 * line joining through a slash '\\' at the end of the line\n\
-* automatic TOC generation in place of [\\x3C!-- --\\x3E[Special::TOC]]\n\
-* namespace-specific menus creating [\\x3C!-- --\\x3E[Namespace::Menu]] pages (the main menu is [[::Menu]])\n\
+* automatic TOC generation in place of [\x3C!-- --\x3E[Special::TOC]]\n\
+* namespace-specific menus creating [\x3C!-- --\x3E[Namespace::Menu]] pages (the main menu is [[::Menu]])\n\
 * alphanumerical lists using '@'\n\
 * custom scripts evaluation (see [[Reflex tester]])\n\
 \n\
@@ -148,10 +148,10 @@ Follows a brief example of all the capabilities of Wiki on a Stick syntax.\n\
 !!Formatting\n\
 !!!Subheader of third level\n\
 !!!!Subheader of fourth level\n\
-\\x3Cpre\\x3EThis is pre-formatted text! This text does not get _underlined_, as you can see\\x3C/pre\\x3E\n\
-\\x3Cpre style=\"color:gray\"\\x3E\n\
+\x3Cpre\x3EThis is pre-formatted text! This text does not get _underlined_, as you can see\x3C/pre\x3E\n\
+\x3Cpre style=\"color:gray\"\x3E\n\
 This is pre-formatted text with CSS style!\n\
-And it stands on multiple lines too\\x3C/pre\\x3E\n\
+And it stands on multiple lines too\x3C/pre\x3E\n\
 \n\
 !!Some specials\n\
 Using [[Special::Main Page]] you will always link to the main page, no matters what its name is.\n\
@@ -225,20 +225,20 @@ Alphanumerically ordered list:\n\
 |}",
 "!Search in Wiki\n\
 \n\
-\\x3Cinput id=\"string_to_search\" type=\"text\" onfocus=\"search_focus(true)\" onblur=\"search_focus(false)\" /\\x3E&nbsp;\\x3Cinput type=\"button\" value=\"Search\" onclick=\"do_search()\" /\\x3E&nbsp;\\x3Cinput type=\"button\" value=\"Clear\" onclick=\"clear_search()\" /\\x3E\n\
+\x3Cinput id=\"string_to_search\" type=\"text\" onfocus=\"search_focus(true)\" onblur=\"search_focus(false)\" /\x3E&nbsp;\x3Cinput type=\"button\" value=\"Search\" onclick=\"do_search()\" /\x3E&nbsp;\x3Cinput type=\"button\" value=\"Clear\" onclick=\"clear_search()\" /\x3E\n\
 \n\
-\\x3Cscript\\x3E\n\
+\x3Cscript\x3E\n\
 el(\"wiki_text\").innerHTML += cached_search\n\
 /*\n\
 .replace(hl_reg, function () {\n\
 	var str = arguments[0];\n\
-	for(var i=1;i\\x3Carguments.length;i++) {\n\
-		str = str.replace(arguments[i], \"\\x3Cspan class=\\\"search_highlight\\\"\\x3E\"+arguments[i]+\"\\x3C/span\\x3E\");\n\
+	for(var i=1;i\x3Carguments.length;i++) {\n\
+		str = str.replace(arguments[i], \"\x3Cspan class=\\\"search_highlight\\\"\x3E\"+arguments[i]+\"\x3C/span\x3E\");\n\
 	}\n\
 	return str; })\n\
 hl_reg = null;	*/\n\
 el(\"string_to_search\").focus();\n\
-\\x3C/script\\x3E",
+\x3C/script\x3E",
 "Hey, don't tell anyone around but...I am better than [[MyPages::Page 1]]!",
 "This is a page in a subnamespace!\n\
 \n\
@@ -249,21 +249,21 @@ The parent namespace is [[MyPages::]] while the subnamespace is [[MyPages::Appro
 Read more about the [[Special::Security|embedded AES encryption]] used in Wiki On a Stick.\n\
 \n\
 !!Password\n\
-Enter your password for AES encryption. The more complex your password is, the more difficult it will be to attack the encryption. It is suggested *not* to use passwords whose textbox color is \\x3Cspan style=\"background-color:red\"\\x3E&nbsp;red&nbsp;\\x3C/span\\x3E, and to accept passwords only when the textbox color is \\x3Cspan style=\"background-color:lime\"\\x3E&nbsp;green&nbsp;\\x3C/span\\x3E.\n\
+Enter your password for AES encryption. The more complex your password is, the more difficult it will be to attack the encryption. It is suggested *not* to use passwords whose textbox color is \x3Cspan style=\"background-color:red\"\x3E&nbsp;red&nbsp;\x3C/span\x3E, and to accept passwords only when the textbox color is \x3Cspan style=\"background-color:lime\"\x3E&nbsp;green&nbsp;\x3C/span\x3E.\n\
 \n\
 *If you forget the password there is no way to retrieve it or your data, FOREVER.*\n\
 \n\
- \\x3Cinput type=\"password\" id=\"pw1\" style=\"background-color:red\" value=\"\" size=\"50\" onfocus=\"custom_focus(true)\" onblur=\"custom_focus(false)\" onkeyup=\"pw_quality()\" /\\x3E&nbsp;\\x3Cspan id=\"txtBits\"\\x3E&nbsp;\\x3C/span\\x3E\n\
- \\x3Cinput type=\"password\" id=\"pw2\" value=\"\" size=\"50\" onfocus=\"custom_focus(true)\" onblur=\"custom_focus(false)\" /\\x3E\n\
- \\x3Cinput id=\"btn_lock\" type=\"button\" value=\"\" /\\x3E\n\
+ \x3Cinput type=\"password\" id=\"pw1\" style=\"background-color:red\" value=\"\" size=\"50\" onfocus=\"custom_focus(true)\" onblur=\"custom_focus(false)\" onkeyup=\"pw_quality()\" /\x3E&nbsp;\x3Cspan id=\"txtBits\"\x3E&nbsp;\x3C/span\x3E\n\
+ \x3Cinput type=\"password\" id=\"pw2\" value=\"\" size=\"50\" onfocus=\"custom_focus(true)\" onblur=\"custom_focus(false)\" /\x3E\n\
+ \x3Cinput id=\"btn_lock\" type=\"button\" value=\"\" /\x3E\n\
 \n\
-\\x3Cscript\\x3E\n\
+\x3Cscript\x3E\n\
 var page = title.substring(title.indexOf(\"::\")+2);\n\
 \n\
 el(\"btn_lock\").value = \"Lock \"+page;\n\
 el(\"pw1\").focus();\n\
 el(\"btn_lock\").setAttribute(\"onclick\", \"lock_page('\"+_sq_esc(page)+\"')\");\n\
-\\x3C/script\\x3E",
+\x3C/script\x3E",
 "!!AES encryption\n\
 Since Wiki on a Stick v0.9 the [[http://en.wikipedia.org/wiki/Advanced_Encryption_Standard|AES]] 256-bit high security data encryption standard is supported to protect a single page or groups of them.\n\
 \n\
@@ -301,22 +301,22 @@ I should be on the 5th paragraph after the title",
 [[Special::New page]]",
 "!Options\n\
 \n\
-\\x3Clabel for=\"cb_allow_diff\"\\x3E\\x3Cinput type=\"checkbox\" id=\"cb_allow_diff\" onclick=\"allow_diff = el_eval('cb_allow_diff')\" /\\x3EDiff mode (consistent newlines splitting in saved data, useful for versioning)\\x3Cbr /\\x3E\n\
-\\x3Clabel for=\"cb_permit_edits\"\\x3E\\x3Cinput type=\"checkbox\" id=\"cb_permit_edits\" onclick=\"permit_edits = !el_eval('cb_permit_edits')\" /\\x3EDisable edit mode for all pages (useful when publishing the Wiki On a Stick file on a web server)\\x3Cbr /\\x3E\n\
-\\x3Clabel for=\"cb_dblclick_edit\"\\x3E\\x3Cinput type=\"checkbox\" id=\"cb_dblclick_edit\" onclick=\"dblclick_edit = el_eval('cb_dblclick_edit')\" /\\x3EDouble click to edit pages/menu\\x3Cbr /\\x3E\n\
-\\x3Clabel for=\"cb_save_on_quit\"\\x3E\\x3Cinput type=\"checkbox\" id=\"cb_save_on_quit\" onclick=\"save_on_quit = el_eval('cb_save_on_quit')\" /\\x3EAutomatically save options (if changed) before quitting\\x3Cbr /\\x3E\n\
-\\x3Clabel for=\"cb_key_cache\"\\x3E\\x3Cinput type=\"checkbox\" id=\"cb_key_cache\" onclick=\"key_cache = !el_eval('cb_key_cache')\" /\\x3EDo not temporarily cache the AES key (will have to enter it for each encrypted page, useful if you leave WoaS open to possible unauthorized access)\\x3Cbr /\\x3E\n\
-\\x3Clabel for=\"cb_fixed_layout\"\\x3E\\x3Cinput type=\"checkbox\" id=\"cb_fixed_layout\" onclick=\"_set_layout(el_eval('cb_fixed_layout'))\" /\\x3EFixed menu area and topbar\\x3Cbr /\\x3E\n\
-\\x3Cinput type=\"button\" onclick=\"save_options()\" value=\"Save options\" /\\x3E\n\
+\x3Clabel for=\"cb_allow_diff\"\x3E\x3Cinput type=\"checkbox\" id=\"cb_allow_diff\" onclick=\"allow_diff = el_eval('cb_allow_diff')\" /\x3EDiff mode (consistent newlines splitting in saved data, useful for versioning)\x3Cbr /\x3E\n\
+\x3Clabel for=\"cb_permit_edits\"\x3E\x3Cinput type=\"checkbox\" id=\"cb_permit_edits\" onclick=\"permit_edits = !el_eval('cb_permit_edits')\" /\x3EDisable edit mode for all pages (useful when publishing the Wiki On a Stick file on a web server)\x3Cbr /\x3E\n\
+\x3Clabel for=\"cb_dblclick_edit\"\x3E\x3Cinput type=\"checkbox\" id=\"cb_dblclick_edit\" onclick=\"dblclick_edit = el_eval('cb_dblclick_edit')\" /\x3EDouble click to edit pages/menu\x3Cbr /\x3E\n\
+\x3Clabel for=\"cb_save_on_quit\"\x3E\x3Cinput type=\"checkbox\" id=\"cb_save_on_quit\" onclick=\"save_on_quit = el_eval('cb_save_on_quit')\" /\x3EAutomatically save options (if changed) before quitting\x3Cbr /\x3E\n\
+\x3Clabel for=\"cb_key_cache\"\x3E\x3Cinput type=\"checkbox\" id=\"cb_key_cache\" onclick=\"key_cache = !el_eval('cb_key_cache')\" /\x3EDo not temporarily cache the AES key (will have to enter it for each encrypted page, useful if you leave WoaS open to possible unauthorized access)\x3Cbr /\x3E\n\
+\x3Clabel for=\"cb_fixed_layout\"\x3E\x3Cinput type=\"checkbox\" id=\"cb_fixed_layout\" onclick=\"_set_layout(el_eval('cb_fixed_layout'))\" /\x3EFixed menu area and topbar\x3Cbr /\x3E\n\
+\x3Cinput type=\"button\" onclick=\"save_options()\" value=\"Save options\" /\x3E\n\
 \n\
-\\x3Cscript\\x3E\n\
+\x3Cscript\x3E\n\
 el(\"cb_allow_diff\").checked = bool2chk(allow_diff);\n\
 el(\"cb_key_cache\").checked = bool2chk(!key_cache);\n\
 el(\"cb_dblclick_edit\").checked = bool2chk(dblclick_edit);\n\
 el(\"cb_permit_edits\").checked = bool2chk(!permit_edits);\n\
 el(\"cb_save_on_quit\").checked = bool2chk(save_on_quit);\n\
 el(\"cb_fixed_layout\").checked = (el(\"sw_wiki_header\").style.position == \"fixed\");\n\
-\\x3C/script\\x3E"
+\x3C/script\x3E"
 ];
 
 /* UUZJizdTQtSsJsMSZA-END */
