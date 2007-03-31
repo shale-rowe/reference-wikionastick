@@ -21,84 +21,86 @@ var allow_diff = true;
 
 var key_cache = true;
 
-var current = "Main Page";
+var current = 'Main Page';
 
-var main_page = "Main Page";
+var main_page = 'Main Page';
 
 var backstack = [
 ];
 
 var page_titles = [
-"::Menu",
-"Special::Advanced",
-"Special::Import",
-"Special::About",
-"Main Page",
-"Special::Search",
-"MyPages::Page 2",
-"MyPages::Approved::Page 3",
-"Special::Lock",
-"Special::Security",
-"MyPages::Page 1",
-"Test page",
-"MyPages::Menu"
+'::Menu',
+'Special::Advanced',
+'Special::Import',
+'Special::About',
+'Main Page',
+'Special::Search',
+'MyPages::Page 2',
+'MyPages::Approved::Page 3',
+'Special::Lock',
+'Special::Security',
+'MyPages::Page 1',
+'Test page',
+'MyPages::Menu',
+'Special::Options',
+'Hit the ball'
 ];
 
 /* UUZJizdTQtSsJsMSZA-DATA */
-var page_attrs = [0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x2,0x0,0x0];
+var page_attrs = [0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x2,0x0,0x0,0x0,0x0];
 
 var pages = [
-"[[Main Page]]\n\
+'[[Main Page]]\n\
 [[Test page]]\n\
+[[Hit the ball]]\n\
 \n\
 [[Special::Advanced]]\n\
+[[Special::Options]]\n\
 [[Special::Backlinks]]\n\
-[[Special::Search]]",
-"!Info\n\
- [[Special::About|About Wiki on a Stick]]\n\
- This wiki was last modified in <span id=\"lastDate\"></span>.\n\
+[[Special::Search]]\n\
+[[Special::Edit script]]',
+'!Info\n\
+[[Special::About|About Wiki on a Stick]]\n\
+This wiki was last modified in \x3Cspan id="lastDate"\x3E\x3C/span\x3E.\n\
 \n\
 !Pages\n\
- [[Special::All Pages|All Pages]]: a list of all user created pages in this wiki\n\
- [[Locked::|All encryted pages]]: a list of all encrypted pages\n\
- [[Unlocked::|All plain pages]]: a list of all plain pages\n\
- [[Special::|All static Special Pages]]: list of all system pages\n\
- [[Special::Pages not yet created|Pages not yet created]]: a list of pages that have links to them, but were still not created \n\
- [[Special::Orphaned Pages|Orphaned Pages]]: a list of pages that once were linked to, but now no page links to them anymore\n\
- [[Special::Search|Search]]: search all wiki pages\n\
+[[Special::All Pages|All Pages]]: a list of all user created pages in this wiki\n\
+[[Locked::|All encryted pages]]: a list of all encrypted pages\n\
+[[Unlocked::|All plain pages]]: a list of all plain pages\n\
+[[Special::|All static Special Pages]]: list of all system pages\n\
+[[Special::Pages not yet created|Pages not yet created]]: a list of pages that have links to them, but were still not created \n\
+[[Special::Orphaned Pages|Orphaned Pages]]: a list of pages that once were linked to, but now no page links to them anymore\n\
+[[Special::Search|Search]]: search all wiki pages\n\
 \n\
 !Maintenance\n\
- [[Special::Import|Import wiki]] from an early (or current) version.\n\
- [[Special::Erase Wiki|Erase Wiki]]: delete ALL wiki pages and reset with default data\n\
+[[Special::Import|Import wiki]] from an early (or current) version.\n\
+[[Special::Erase Wiki|Erase Wiki]]: delete ALL wiki pages and reset with default data\n\
 \n\
 !Special edits\n\
- [[Special::Edit CSS|Edit CSS]]: edit the global CSS styles\n\
- [[Special::Edit Menu|Edit Menu]]: edit main menu (on the left)\n\
+[[Special::Edit CSS|Edit CSS]]: edit the global CSS styles\n\
+[[Special::Edit Menu|Edit Menu]]: edit main menu (on the left)\n\
 \n\
 !Options\n\
- <label for=\"cb_allow_diff\"><input type=\"checkbox\" id=\"cb_allow_diff\" onclick=\"allow_diff = el_eval('cb_allow_diff')\" />Diff mode (consistent newlines splitting in saved data, useful for versioning)<br />\n\
- <label for=\"cb_permit_edits\"><input type=\"checkbox\" id=\"cb_permit_edits\" onclick=\"permit_edits = !el_eval('cb_permit_edits')\" />Disable edit mode for all pages (useful when publishing the Wiki On a Stick file on a web server)<br />\n\
- <label for=\"cb_dblclick_edit\"><input type=\"checkbox\" id=\"cb_dblclick_edit\" onclick=\"dblclick_edit = el_eval('cb_dblclick_edit')\" />Double click to edit pages/menu<br />\n\
- <label for=\"cb_save_on_quit\"><input type=\"checkbox\" id=\"cb_save_on_quit\" onclick=\"save_on_quit = el_eval('cb_save_on_quit')\" />Automatically save options (if changed) before quitting<br />\n\
- <label for=\"cb_key_cache\"><input type=\"checkbox\" id=\"cb_key_cache\" onclick=\"key_cache = !el_eval('cb_key_cache')\" />Do not temporarily cache the AES key (will have to enter it for each encrypted page, useful if you leave WoaS open to possible unauthorized access)<br />\n\
- <label for=\"cb_fixed_layout\"><input type=\"checkbox\" id=\"cb_fixed_layout\" onclick=\"_set_layout(el_eval('cb_fixed_layout'))\" />Fixed menu area and topbar<br />\n\
- <input type=\"button\" onclick=\"save_options()\" value=\"Save options\" />",
-"Import a wiki from an early (or current) version:\n\
+You can customize Wiki on a Stick modifying a few [[Special::Options|Options]].  \n\
 \n\
-File: <input id=\"filename_\" type=\"file\" />&nbsp;<input type=\"button\" value=\"Import\" onclick=\"import_wiki()\" />\n\
+\x3Cscript\x3E\n\
+el("lastDate").innerHTML = document.lastModified;\x3C/script\x3E',
+'Import a wiki from an early (or current) version:\n\
 \n\
-*Important:* CSS will not be imported from versions below v0.04",
-"!Wiki on a Stick version 0.9\n\
+File: \x3Cinput id="filename_" type="file" /\x3E&nbsp;\x3Cinput type="button" value="Import" onclick="import_wiki()" /\x3E\n\
+\n\
+*Important:* CSS will not be imported from versions below v0.04',
+'!Wiki on a Stick version 0.9\n\
 \n\
 Current version *v0.9B* by Daniele C. ([[http://sf.net/users/legolas558/|legolas558]])\n\
 Original version (v0.01 &tilde; v0.04) by Andr\u00e9 Wagner\n\
 Wiki on a Stick is licensed under the [[http://www.gnu.org/copyleft/gpl.html|GNU/GPL]] license.\n\
 \n\
 !!Thanks to\n\
-This project wouldn't be what it is without the help of other people. If you contributed to Wiki on a Stick and your name is not here, please send an email to <a class=\"world\" href=\"mailto:legolas558 _AT_ users.sourceforge.net\">this email address</a>. If, for any reason, you don't want your name listed here, just send an email.\n\
+This project wouldn\'t be what it is without the help of other people. If you contributed to Wiki on a Stick and your name is not here, please send an email to \x3Ca class="world" href="mailto:legolas558 _AT_ users.sourceforge.net"\x3Ethis email address\x3C/a\x3E. If, for any reason, you don\'t want your name listed here, just send an email.\n\
 \n\
 * *Jeremy Ruston* - the creator of the wonderful [[http://www.tiddlywiki.com/|TiddlyWiki]], who served as inspiration for Wiki on a Stick. He also kindly allowed the usage of his saving/loading routines.\n\
-* *Philip O'Donnel* - creator of the table syntax & parsing code\n\
+* *Philip O\'Donnel* - creator of the table syntax & parsing code\n\
 * *Tim Lord*\n\
 * *Knut Kohl*\n\
 * *Rob Schmersel*\n\
@@ -112,8 +114,8 @@ And, last but not least:\n\
 !!Contributing\n\
 \n\
 Read more at [[http://sf.net/projects/stickwiki/|Our SourceForge Project]]\n\
-We also have an active [[http://groups.google.com/group/stickwiki/|Google dicussion group]]",
-"[[Special::TOC]]\n\
+We also have an active [[http://groups.google.com/group/stickwiki/|Google dicussion group]]',
+'[[Special::TOC]]\n\
 !Welcome to Wiki on a Stick!\n\
 A self-containing XHTML/javascript wiki.\n\
 \n\
@@ -127,15 +129,16 @@ If you have an older Wiki on a Stick (v0.01 &tilde; v0.04), [[Special::Import|im
 \n\
 !!!Syntax changes in v0.9\n\
 There have been a few changes in the wiki syntax, they will be automatically applied on import or saving (except the wiki link parts inversion).\n\
-* bullet lists are recognized using an asterisk '*' at the beginning of the line, if you use the previous '+' plus sign it will be automatically converted to an asterisk\n\
-* wiki link parts are inverted, e.g. no more [<!-- -->[the label|WikiActualPage]] but [<!-- -->[WikiActualPage|the label]]\n\
+* bullet lists are recognized using an asterisk \'*\' at the beginning of the line, if you use the previous \'+\' plus sign it will be automatically converted to an asterisk\n\
+* wiki link parts are inverted, e.g. no more [\x3C!-- --\x3E[the label|WikiActualPage]] but [\x3C!-- --\x3E[WikiActualPage|the label]]\n\
 !!!New features\n\
-* namespaces support through the separator '::'\n\
-* tags support through [<!-- -->[Tag::Sometag]] or [<!-- -->[Tags::Sometag, Somethingelse]] syntax\n\
-* line joining through a slash '\\' at the end of the line\n\
-* automatic TOC generation in place of [<!-- -->[Special::TOC]]\n\
-* namespace-specific menus creating [<!-- -->[Namespace::Menu]] pages (the main menu is [[::Menu]])\n\
-* alphanumerical lists using '@'\n\
+* namespaces support through the separator \'::\'\n\
+* tags support through [\x3C!-- --\x3E[Tag::Sometag]] or [\x3C!-- --\x3E[Tags::Sometag, Somethingelse]] syntax\n\
+* line joining through a slash \'\\\' at the end of the line\n\
+* automatic TOC generation in place of [\x3C!-- --\x3E[Special::TOC]]\n\
+* namespace-specific menus creating [\x3C!-- --\x3E[Namespace::Menu]] pages (the main menu is [[::Menu]])\n\
+* alphanumerical lists using \'@\'\n\
+* custom scripts evaluation (see [[Hit the ball]])\n\
 \n\
 !Syntax examples \n\
 Follows a brief example of all the capabilities of Wiki on a Stick syntax.\n\
@@ -143,10 +146,10 @@ Follows a brief example of all the capabilities of Wiki on a Stick syntax.\n\
 !!Formatting\n\
 !!!Subheader of third level\n\
 !!!!Subheader of fourth level\n\
-<pre>This is pre-formatted text! This text does not get _underlined_, as you can see</pre>\n\
-<pre style=\"color:gray\">\n\
+\x3Cpre\x3EThis is pre-formatted text! This text does not get _underlined_, as you can see\x3C/pre\x3E\n\
+\x3Cpre style="color:gray"\x3E\n\
 This is pre-formatted text with CSS style!\n\
-And it stands on multiple lines too</pre>\n\
+And it stands on multiple lines too\x3C/pre\x3E\n\
 \n\
 !!Some specials\n\
 Using [[Special::Main Page]] you will always link to the main page, no matters what its name is.\n\
@@ -214,32 +217,52 @@ Alphanumerically ordered list:\n\
 |-\n\
 | contact_id || INT || KEY || References FOREIGN KEY(Contacts.id)\n\
 |-\n\
-| type || ENUM('Home','Work','Mobile','Pager','Other') || || Defines type of Telephone record\n\
+| type || ENUM(\'Home\',\'Work\',\'Mobile\',\'Pager\',\'Other\') || || Defines type of Telephone record\n\
 |-\n\
 | number || CHAR(32) || || Contains actual Telephone number\n\
-|}",
-"!Search in Wiki\n\
+|}',
+'!Search in Wiki\n\
 \n\
-<input id=\"string_to_search\" type=\"text\" onfocus=\"search_focus(true)\" onblur=\"search_focus(false)\" />&nbsp;<input type=\"button\" value=\"Search\" onclick=\"do_search()\" />&nbsp;<input type=\"button\" value=\"Clear\" onclick=\"clear_search()\" />\n\
-",
-"Hey, don't tell anyone around but...I am better than [[MyPages::Page 1]]!",
-"This is a page in a subnamespace!\n\
+\x3Cinput id="string_to_search" type="text" onfocus="search_focus(true)" onblur="search_focus(false)" /\x3E&nbsp;\x3Cinput type="button" value="Search" onclick="do_search()" /\x3E&nbsp;\x3Cinput type="button" value="Clear" onclick="clear_search()" /\x3E\n\
+\n\
+\x3Cscript\x3E\n\
+el("wiki_text").innerHTML += cached_search\n\
+/*\n\
+.replace(hl_reg, function () {\n\
+	var str = arguments[0];\n\
+	for(var i=1;i\x3Carguments.length;i++) {\n\
+		str = str.replace(arguments[i], "\x3Cspan class=\\"search_highlight\\"\x3E"+arguments[i]+"\x3C/span\x3E");\n\
+	}\n\
+	return str; })\n\
+hl_reg = null;	*/\n\
+el("string_to_search").focus();\n\
+\x3C/script\x3E',
+'Hey, don\'t tell anyone around but...I am better than [[MyPages::Page 1]]!',
+'This is a page in a subnamespace!\n\
 \n\
 The parent namespace is [[MyPages::]] while the subnamespace is [[MyPages::Approved::]]\n\
 \n\
-[[Tag::Useful]]",
-"!!AES encryption\n\
+[[Tag::Useful]]',
+'!!AES encryption\n\
 Read more about the [[Special::Security|embedded AES encryption]] used in Wiki On a Stick.\n\
 \n\
 !!Password\n\
-Enter your password for AES encryption. The more complex your password is, the more difficult it will be to attack the encryption. It is suggested *not* to use passwords whose textbox color is <span style=\"background-color:red\">&nbsp;red&nbsp;</span>, and to accept passwords only when the textbox color is <span style=\"background-color:lime\">&nbsp;green&nbsp;</span>.\n\
+Enter your password for AES encryption. The more complex your password is, the more difficult it will be to attack the encryption. It is suggested *not* to use passwords whose textbox color is \x3Cspan style="background-color:red"\x3E&nbsp;red&nbsp;\x3C/span\x3E, and to accept passwords only when the textbox color is \x3Cspan style="background-color:lime"\x3E&nbsp;green&nbsp;\x3C/span\x3E.\n\
 \n\
- *If you forget the password there is no way to retrieve it or your data, FOREVER.*\n\
+*If you forget the password there is no way to retrieve it or your data, FOREVER.*\n\
 \n\
-  <input type=\"password\" id=\"pw1\" style=\"background-color:red\" value=\"\" size=\"50\" onfocus=\"custom_focus(true)\" onblur=\"custom_focus(false)\" onkeyup=\"pw_quality()\" />&nbsp;<span id=\"txtBits\">&nbsp;</span>\n\
-  <input type=\"password\" id=\"pw2\" value=\"\" size=\"50\" onfocus=\"custom_focus(true)\" onblur=\"custom_focus(false)\" />\n\
-  <input id=\"btn_lock\" type=\"button\" value=\"\" />",
-"!!AES encryption\n\
+ \x3Cinput type="password" id="pw1" style="background-color:red" value="" size="50" onfocus="custom_focus(true)" onblur="custom_focus(false)" onkeyup="pw_quality()" /\x3E&nbsp;\x3Cspan id="txtBits"\x3E&nbsp;\x3C/span\x3E\n\
+ \x3Cinput type="password" id="pw2" value="" size="50" onfocus="custom_focus(true)" onblur="custom_focus(false)" /\x3E\n\
+ \x3Cinput id="btn_lock" type="button" value="" /\x3E\n\
+\n\
+\x3Cscript\x3E\n\
+var page = title.substring(title.indexOf("::")+2);\n\
+\n\
+el("btn_lock").value = "Lock "+page;\n\
+el("pw1").focus();\n\
+el("btn_lock").setAttribute("onclick", "lock_page(\'"+_sq_esc(page)+"\')");\n\
+\x3C/script\x3E',
+'!!AES encryption\n\
 Since Wiki on a Stick v0.9 the [[http://en.wikipedia.org/wiki/Advanced_Encryption_Standard|AES]] 256-bit high security data encryption standard is supported to protect a single page or groups of them.\n\
 \n\
  *If you forget the password there is no way to retrieve it or your data, FOREVER*.\n\
@@ -253,14 +276,14 @@ Security is never absolute. Data encrypted with these pages might be compromised
 * You have not disabled the AES key cache, so when you will enter the password for the first time other users (if not you) will be able to see encrypted pages and could possibly get your key\n\
 * Your Web browser and/or JavaScript interpreter may contain bugs or deliberate security violations which report activity on your computer back to some other Internet site.\n\
 * Some other applet running on another page in your browser, perhaps without your being aware of its existence, is spying on other windows.\n\
-* Some other \"spyware\" application running on your computer may have compromised your system's security and be snooping on your activity.\n\
-* Your Web browser may be keeping a \"history log\" or \"cache\" of data you generate. Somebody may come along later and recover a copy of your data from that log.\n\
+* Some other "spyware" application running on your computer may have compromised your system\'s security and be snooping on your activity.\n\
+* Your Web browser may be keeping a "history log" or "cache" of data you generate. Somebody may come along later and recover a copy of your data from that log.\n\
 * The implementation of the encryption may contain a bug which makes its results insecure. This is why transparency is essential. Wiki on a Stick is open-source. You can judge for yourself whether the tool merits your confidence.\n\
-* Your computer's security may have been compromised physically; when's the last time you checked that a bug that transmits your keystrokes and/or screen contents to that white van parked down the street wasn't lurking inside your computer cabinet?\n\
+* Your computer\'s security may have been compromised physically; when\'s the last time you checked that a bug that transmits your keystrokes and/or screen contents to that white van parked down the street wasn\'t lurking inside your computer cabinet?\n\
 \n\
-Apart from the above, your normal usage of encrypted pages can be considered secure. They will be even more secure if you do not open them.",
+Apart from the above, your normal usage of encrypted pages can be considered secure. They will be even more secure if you do not open them.',
 [0x2a,0x40,0xda,0xeb,0x3e,0x2,0x37,0xa8,0x3a,0x3c,0xf7,0xca,0x88,0x3e,0x3,0xf5,0xb,0x22,0x5f,0x96,0x9a,0x2,0x2f,0x41,0x73,0xf6,0xcb,0x2a,0x3e,0xe7,0x9f,0xe5,0xda,0x2,0xa8,0x1b,0x2f,0x69,0x7b,0xcf,0x64,0xa2,0xf6,0x8d,0xeb,0x24,0xdd,0x25,0x95,0x22,0xa3,0xeb,0x9,0x2e,0xfe,0x58,0x95,0xb8,0x2b,0xcc,0xd3,0x3,0xa3,0xec,0x64,0xcc,0x95,0x82,0x14,0xd7,0x6d,0xf7,0x3c,0xdc,0xf5,0x8b,0xa0,0x2e,0x55,0x9c,0x78,0x37,0x18,0x41,0xdc,0x0,0x65,0x39,0xf1,0x4a,0x20,0x6d,0x7c,0x6e,0xf7,0x6f,0xa9,0xbd,0xcd,0xb3,0x1,0x13,0x32,0x25,0xef,0x5d,0x86,0xf8,0x29,0xa9,0x91,0x48,0x39,0x85,0xb2,0x9a,0xdb,0xc8,0x55,0x20,0xa3,0x9c,0x39,0x8f,0x5c,0x8c,0x72,0x4c],
-"!!Upgrading!!\n\
+'!!Upgrading!!\n\
 If you have an older Wiki on a Stick (v0.01 &tilde; v0.04), [[Special::Import|import it]]!\n\
 \n\
 Test on this page using the syntax you best like.\n\
@@ -270,23 +293,129 @@ Test on this page using the syntax you best like.\n\
 \n\
 \n\
 \n\
-I should be on the 5th paragraph after the title",
-"[[Special::]]\n\
+I should be on the 5th paragraph after the title',
+'[[Special::]]\n\
 [[MyPages::]]\n\
-[[Special::New page]]"
+[[Special::New page]]',
+'!Options\n\
+\n\
+\x3Clabel for="cb_allow_diff"\x3E\x3Cinput type="checkbox" id="cb_allow_diff" onclick="allow_diff = el_eval(\'cb_allow_diff\')" /\x3EDiff mode (consistent newlines splitting in saved data, useful for versioning)\x3Cbr /\x3E\n\
+\x3Clabel for="cb_permit_edits"\x3E\x3Cinput type="checkbox" id="cb_permit_edits" onclick="permit_edits = !el_eval(\'cb_permit_edits\')" /\x3EDisable edit mode for all pages (useful when publishing the Wiki On a Stick file on a web server)\x3Cbr /\x3E\n\
+\x3Clabel for="cb_dblclick_edit"\x3E\x3Cinput type="checkbox" id="cb_dblclick_edit" onclick="dblclick_edit = el_eval(\'cb_dblclick_edit\')" /\x3EDouble click to edit pages/menu\x3Cbr /\x3E\n\
+\x3Clabel for="cb_save_on_quit"\x3E\x3Cinput type="checkbox" id="cb_save_on_quit" onclick="save_on_quit = el_eval(\'cb_save_on_quit\')" /\x3EAutomatically save options (if changed) before quitting\x3Cbr /\x3E\n\
+\x3Clabel for="cb_key_cache"\x3E\x3Cinput type="checkbox" id="cb_key_cache" onclick="key_cache = !el_eval(\'cb_key_cache\')" /\x3EDo not temporarily cache the AES key (will have to enter it for each encrypted page, useful if you leave WoaS open to possible unauthorized access)\x3Cbr /\x3E\n\
+\x3Clabel for="cb_fixed_layout"\x3E\x3Cinput type="checkbox" id="cb_fixed_layout" onclick="_set_layout(el_eval(\'cb_fixed_layout\'))" /\x3EFixed menu area and topbar\x3Cbr /\x3E\n\
+\x3Cinput type="button" onclick="save_options()" value="Save options" /\x3E\n\
+\n\
+\x3Cscript\x3E\n\
+el("cb_allow_diff").checked = bool2chk(allow_diff);\n\
+el("cb_key_cache").checked = bool2chk(!key_cache);\n\
+el("cb_dblclick_edit").checked = bool2chk(dblclick_edit);\n\
+el("cb_permit_edits").checked = bool2chk(!permit_edits);\n\
+el("cb_save_on_quit").checked = bool2chk(save_on_quit);\n\
+el("cb_fixed_layout").checked = (el("sw_wiki_header").style.position == "fixed");\n\
+\x3C/script\x3E',
+'!Hit the ball\n\
+\n\
+\x3CDIV id="score" align="left"\x3EScore: 0\x3C/DIV\x3E\n\
+\x3CINPUT id="startbutton" type="button" onclick="StartGame();" value="Start Game"\x3E \x3CINPUT id="stopbutton" type="button" onclick="StopGame();" value="Stop Game" disabled\x3E\n\
+\n\
+\x3CTABLE style="width: 300px; height: 300px; background-color: white; border: solid 1px black;"\x3E\x3CTR\x3E\x3CTD width=100% valign="top"\x3E\n\
+\x3Cobject style="display:inline" type="image/svg+xml" id="target" onclick="UpdateScore(true)"\x3E\x3C/object\x3E\x3C/TD\x3E\x3C/TR\x3E\x3C/TABLE\x3E\n\
+\n\
+\x3Cscript\x3E\n\
+// fancygame.js - by roger@killerz-tech.net forums\n\
+// bugfixed & improved by legolas558\n\
+\n\
+// Our global variables:\n\
+var gameRunning = 0;\n\
+var score = 0;\n\
+var xPos = 0;\n\
+var yPos = 0;\n\
+var xSpeed = 15;\n\
+var ySpeed = -15;\n\
+var speedD = 4;\n\
+\n\
+el(\'target\').data = \'data:image/svg+xml,\'+escape(\'\x3Csvg width="54" height="54" version="1.1" xmlns="http://www.w3.org/2000/svg"\x3E\x3Ccircle cx="27" cy="27" r="25" stroke="black" stroke-width="2" fill="red"/\x3E\x3C/svg\x3E\');\n\
+el(\'target\').style.position = \'relative\';\n\
+\n\
+function StartGame() {\n\
+gameRunning = 1;\n\
+score = 0;\n\
+el(\'startbutton\').disabled = true;\n\
+el(\'stopbutton\').disabled = false;\n\
+\n\
+FlyAround();\n\
+\n\
+ScoreDecay();\n\
+}\n\
+\n\
+function StopGame()\n\
+{\n\
+gameRunning = 0;\n\
+el(\'stopbutton\').disabled = true;\n\
+el(\'startbutton\').disabled = false;\n\
+}\n\
+\n\
+function FlyAround()\n\
+{\n\
+if ( Math.round(Math.random()*1) == 0 )\n\
+{\n\
+xSpeed = Math.max(-25, xSpeed - Math.round(Math.random()*speedD));\n\
+} else {\n\
+xSpeed = Math.min(25, xSpeed + Math.round(Math.random()*speedD));\n\
+}\n\
+if ( Math.round(Math.random()*1) == 0 )\n\
+{\n\
+ySpeed = Math.max(-25, ySpeed - Math.round(Math.random()*speedD));\n\
+} else {\n\
+ySpeed = Math.min(25, ySpeed + Math.round(Math.random()*speedD));\n\
+}\n\
+\n\
+xPos += xSpeed;\n\
+yPos += ySpeed;\n\
+\n\
+// make sure the target doesn\'t move out of the playfield\n\
+if ( xPos \x3E 300-60 ) { xPos = 300-60; xSpeed *= -1; }\n\
+if ( yPos \x3E 300-60 ) { yPos = 300-60; ySpeed *= -1; }\n\
+if ( xPos \x3C 0 ) { xPos = 0; xSpeed *= -1; }\n\
+if ( yPos \x3C 0 ) { yPos = 0; ySpeed *= -1; }\n\
+\n\
+el(\'target\').style.top = yPos+\'px\';\n\
+el(\'target\').style.left = xPos+\'px\';\n\
+\n\
+// Repeat the function every tenth of a second, but only if the gamestate is \'on\'\n\
+if ( gameRunning == 1 )\n\
+setTimeout ( "FlyAround()", 100 );\n\
+\n\
+}\n\
+\n\
+function UpdateScore ( has_hit )\n\
+{\n\
+if ( has_hit && gameRunning == 1 )\n\
+{\n\
+score += 10;\n\
+}\n\
+\n\
+el(\'score\').innerHTML = "Score: " + score;\n\
+}\n\
+\n\
+function ScoreDecay ( )\n\
+{\n\
+if ( gameRunning == 1)\n\
+{\n\
+// Detract 20 from the score every 5 seconds\n\
+score -= 20;\n\
+\n\
+UpdateScore ( false );\n\
+\n\
+setTimeout ( "ScoreDecay()", 5000 );\n\
+}\n\
+}\n\
+\x3C/script\x3E'
 ];
 
 /* UUZJizdTQtSsJsMSZA-END */
-
-
-
-
-
-
-
-
-
-
 
 /* ]]> */ </script>
 
@@ -456,10 +585,10 @@ var search_focused = false;
 var _custom_focus = false;
 var prev_title = current;	// used when entering/exiting edit mode
 var decrypt_failed = false;
-var post_dom_render = "";
 var result_pages;
 var last_AES_page;
 var current_namespace = "";
+var post_dom_render = null;
 
 var ie = false;
 var firefox = false;
@@ -515,6 +644,24 @@ function page_index(page) {
 			return i;
 	}
 	return -1;
+}
+
+var edit_override = false;
+
+var reserved_namespaces = [
+"Special", "Lock", "Locked", "Unlocked", "Unlock", "Tag", "Tagged", "Image", "File"];
+
+var reserved_rx = "^";
+var i = (edit_override ? 1 : 0);
+for(;i<reserved_namespaces.length;i++) {
+	reserved_rx += /*RegExp.Escape(*/reserved_namespaces[i] + "::";
+	if (i<reserved_namespaces.length-1)
+		reserved_rx += "|";
+}
+reserved_rx = new RegExp(reserved_rx, "i");
+
+function is_reserved(page) {
+	return (page.search(reserved_rx)==0);
 }
 
 function page_exists(page)
@@ -682,6 +829,7 @@ function parse(text)
 	var prefmt = [];
 	var tags = [];
 	var html_tags = [];
+	var script_tags = [];
 	
 	toc_pos = text.indexOf("[[Special::TOC]]");
 	if (toc_pos != -1) {
@@ -690,6 +838,12 @@ function parse(text)
 		);	
 //		last_h_level = 0;
 	}
+
+	// gather all script tags
+	text = text.replace(/<script[^>]*>((.|\n)*?)<\/script>/gi, function (str, $1) {
+		script_tags.push($1);
+		return "";
+	});
 
 	// put away stuff contained in <pre> tags
 	text = text.replace(/(\<pre.*?>(.|\n)*?<\/pre>)/g, function (str, $1) {
@@ -735,7 +889,6 @@ function parse(text)
 			text.substring(toc_pos);
 		page_TOC = "";
 	}
-
 	
 	// <b>
 	text = text.replace(/\*([^\*\n]+)\*/g, parse_marker+"bS#$1"+parse_marker+"bE#");
@@ -851,6 +1004,9 @@ function parse(text)
 	}
 	if (force_inline)
 		force_inline = false;
+		
+	if (script_tags.length)
+		post_dom_render = script_tags.join("\n");
 	
 	if (text.substring(0,5)!="</div")
 		return "<div class=\"level0\">" + text + "</div>";
@@ -1242,22 +1398,8 @@ function do_search()
 	assert_current("Special::Search");
 }
 
-var reserved_namespaces = [
-"Special", "Lock", "Locked", "Unlocked", "Unlock", "Tag", "Tagged"];
-
-var reserved_rx = "^";
-for(var i=0;i<reserved_namespaces.length;i++) {
-	reserved_rx += /*RegExp.Escape(*/reserved_namespaces[i] + "::";
-	if (i<reserved_namespaces.length-1)
-		reserved_rx += "|";
-}
-reserved_rx = new RegExp(reserved_rx, "i");
-
-function is_reserved(page) {
-	return (page.search(reserved_rx)==0);
-}
-
 function _create_page(ns, cr, ask) {
+	log("_create_page("+ns+",...)");
 	if (is_reserved(ns)) {
 		alert("You are not allowed to create a page titled \""+ns+cr+"\" because namespace \""+ns+"\" is reserved");
 			return false;
@@ -1299,7 +1441,7 @@ function _get_special(cr) {
 						} else ns="";
 						if (!_create_page(ns, cr, false))
 							return;
-						if (confirm("Do you want to add a link in the main menu?")) {
+						if (confirm("Do you want to add a link from the main menu?")) {
 							var menu = get_text("::Menu");
 							var p = menu.indexOf("\n\n");
 							if (p==-1)
@@ -1316,12 +1458,6 @@ function _get_special(cr) {
 			return;
 		case "Search":
 			text = get_text("Special::"+cr);
-//			text += cached_search;
-			post_dom_render = "_search_setup()";
-			break;
-		case "Advanced":
-			text = get_text("Special::"+cr);
-			post_dom_render = "_setup_options()";
 			break;
 		case "Erase Wiki":
 			if (erase_wiki()) {
@@ -1354,8 +1490,13 @@ function _get_special(cr) {
 			return null;
 		default:
 			text = get_text("Special::"+cr);
-			if(text == null)
+			if(text == null) {
+				if (edit_override) {
+					_create_page("Special", cr, true);
+					return null;
+				}
 				alert("Invalid special page.");
+			}
 	}
 	return text;
 }
@@ -1402,7 +1543,6 @@ function set_current(cr)
 							}
 						}
 						text = get_text("Special::Lock");
-						post_dom_render = "_setup_lock_page('"+_sq_esc(cr)+"')";
 						break;
 					case "Unlock":
 						pi = page_index(cr);
@@ -1452,18 +1592,37 @@ function set_current(cr)
 	load_as_current(cr, text);
 }
 
+var swcs = null;
+
+function _clear_swcs() {
+	if (swcs != null) {
+		document.getElementsByTagName("head")[0].removeChild(swcs);
+		swcs = null;
+	}
+}
+
 function load_as_current(title, text) {
 	scrollTo(0,0);
 	log("CURRENT loaded: "+title+", "+text.length+" bytes");
-	current = title;
 	el("wiki_title").innerHTML = title;
 	el("wiki_text").innerHTML = parse(text);
 	document.title = title;
 	update_nav_icons(title);
-	if (post_dom_render.length!=0) {
-		eval(post_dom_render);
-		post_dom_render = "";
+	current = title;
+	// eventually remove the previous custom script
+	_clear_swcs();
+	if (post_dom_render!=null) {
+		log("Executing "+post_dom_render.length+" bytes of custom javascript");
+//		eval(post_dom_render);
+		swcs = document.createElement("script");
+		swcs.type="text/javascript";
+		if (ie)
+			swcs.text = post_dom_render;
+		else
+			swcs.innerHTML = post_dom_render;
+	   document.getElementsByTagName("head")[0].appendChild(swcs);
 	}
+	post_dom_render = null;
 }
 
 function bool2chk(b) {
@@ -1478,40 +1637,9 @@ function el_eval(name) {
 	return false;
 }
 
-function _search_setup() {
-	el("wiki_text").innerHTML += cached_search
-	/*
-	.replace(hl_reg, function () {
-			var str = arguments[0];
-			for(var i=1;i<arguments.length;i++) {
-				str = str.replace(arguments[i], "<span class=\"search_highlight\">"+arguments[i]+"</span>");
-			}
-			return str; })
-	hl_reg = null;	*/
-	el("string_to_search").focus();
-}
-
-function _setup_options() {
-
-	el("lastDate").innerHTML = document.lastModified
-
-	el("cb_allow_diff").checked = bool2chk(allow_diff);
-	el("cb_key_cache").checked = bool2chk(!key_cache);
-	el("cb_dblclick_edit").checked = bool2chk(dblclick_edit);
-	el("cb_permit_edits").checked = bool2chk(!permit_edits);
-	el("cb_save_on_quit").checked = bool2chk(save_on_quit);
-	el("cb_fixed_layout").checked = (el("sw_wiki_header").style.position == "fixed");
-}
-
 function _set_layout(fixed) {
 	el("sw_wiki_header").style.position = (fixed ? "fixed" : "absolute");
 	el("sw_menu_area").style.position = (fixed ? "fixed" : "absolute");
-}
-
-function _setup_lock_page(page) {
-	el("btn_lock").value = "Lock "+page;
-	el("pw1").focus();
-	el("btn_lock").setAttribute("onclick", "lock_page('"+_sq_esc(page)+"')");
 }
 
 function lock_page(page) {
@@ -1907,8 +2035,6 @@ function edit()
 	edit_page(current);
 }
 
-var edit_override = false;
-
 function edit_allowed(page) {
 	if (edit_override)
 		return (page_index(page) != -1);
@@ -2117,10 +2243,20 @@ function go_forward()
 }
 
 function js_encode(s, split_lines) {
-	// escape escape characters
-	s = s.replace(/\\/g, "\\\\");
-	// escape double quotes
-	s = s.replace(new RegExp("\"", "g"), "\\\"");
+	// not to counfound browsers with saved tags
+	s = s.replace(/([\\<>'])/g, function (str, ch) {
+//		return "\\x"+ch.charCodeAt(0).toString(16);
+		switch (ch) {
+			case "<":
+				return	"\\x3C";
+			case ">":
+				return "\\x3E";
+			case "'":
+				return "\\'";
+//			case "\\":
+		}
+		return "\\\\";
+	});
 	// escape newlines (\r\n happens only on the stupid IE) and eventually split the lines accordingly
 	if (!split_lines)
 		s = s.replace(new RegExp("\r\n|\n", "g"), "\\n");
@@ -2139,7 +2275,7 @@ function js_encode(s, split_lines) {
 function printout_arr(arr, split_lines) {
 
 	function elem_print(e) {
-		return "\"" + js_encode(e, split_lines) + "\"";
+		return "'" + js_encode(e, split_lines) + "'";
 	}
 
 	var s = "";
@@ -2157,7 +2293,7 @@ function printout_mixed_arr(arr, split_lines, attrs) {
 		if (attr & 2) {
 			return "[" + printout_num_arr(e) + "]";
 		}
-		return "\"" + js_encode(e, split_lines) + "\"";
+		return "'" + js_encode(e, split_lines) + "'";
 	}
 
 	var s = "";
@@ -2205,8 +2341,8 @@ function save_to_file(full) {
 	";\n\nvar save_on_quit = "+save_on_quit+
 	";\n\nvar allow_diff = "+allow_diff+
 	";\n\nvar key_cache = "+key_cache+
-	";\n\nvar current = \"" + js_encode(current)+
-	"\";\n\nvar main_page = \"" + main_page + "\";\n\n";
+	";\n\nvar current = '" + js_encode(current)+
+	"';\n\nvar main_page = '" + js_encode(main_page) + "';\n\n";
 	
 	computed_js += "var backstack = [\n" + printout_arr(backstack, false) + "];\n\n";
 
@@ -2255,7 +2391,9 @@ function save_to_file(full) {
 		}
 		offset += 6 + 5 + __marker.length + 1;
 	}
-		
+
+	_clear_swcs();
+
 	if ( (!debug || save_override) )
 		r = saveThisFile(computed_js, offset);
 	else r = false;
@@ -3157,8 +3295,7 @@ function AES_decrypt(raw_data) {
 	return sData;
 }
 
-/* ]]> */
-</script></head><body class="bg" id="body" style="cursor: wait;" onload="on_load()" onunload="before_quit()">
+/* ]]> */</script></head><body class="bg" id="body" style="cursor: wait;" onload="on_load()" onunload="before_quit()">
 <div class="wiki_header bg" id="sw_wiki_header" style="position: fixed;">
 <table cellspacing="0" width="100%">
 <tbody>
