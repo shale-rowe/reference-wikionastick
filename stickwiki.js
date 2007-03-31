@@ -513,7 +513,7 @@ function special_search( str )
 	result_pages = [];
 	for(var i=0; i<pages.length; i++)
 	{
-		if (is_reserved(page_titles[i]) && (page_titles[i] != "Special::Menu"))
+		if (is_reserved(page_titles[i]))
 			continue;
 			
 		tmp = get_page(i);
@@ -632,7 +632,7 @@ function special_orphaned_pages()
 //		log("Scanning references to page "+page_titles[j]);
 		var tmp;
 		for(var i=0; i<page_titles.length; i++) {
-			if ((i==j) || (is_reserved(page_titles[i]) && (page_titles[i]!="Special::Menu")))
+			if ((i==j) || is_reserved(page_titles[i]))
 				continue;
 			tmp = get_page(i);
 			if (tmp==null)
@@ -825,7 +825,8 @@ function _create_page(ns, cr, ask) {
 	if (ask && !confirm("Page not found. Do you want to create it?"))
 		return false;
 	// create and edit the new page
-	cr = ns+cr;
+	if (ns.length)
+		cr = ns+"::"+cr;
 	pages.push("!"+cr+"\n");
 	page_attrs.push(0);
 	page_titles.push(cr);
@@ -852,20 +853,20 @@ function _get_special(cr) {
 					} else {
 						var p = cr.indexOf("::");
 						if (p!=-1) {
-							ns = cr.substring(0,p+2);
+							ns = cr.substring(0,p);
 							log("namespace of "+cr+" is "+ns);
 							cr = cr.substring(p+2);
 						} else ns="";
 						if (!_create_page(ns, cr, false))
 							return;
 						if (confirm("Do you want to add a link in the main menu?")) {
-							var menu = get_text("Special::Menu");
+							var menu = get_text("::Menu");
 							var p = menu.indexOf("\n\n");
 							if (p==-1)
 								menu += "\n[["+ns+cr+"]]";
 							else
 								menu = menu.substring(0,p)+"\n[["+title+"]]"+menu.substring(p);
-							_set_text(page_index("Special::Menu"), menu);
+							_set_text(page_index("::Menu"), menu);
 							refresh_menu_area();
 						}
 					}
@@ -904,7 +905,7 @@ function _get_special(cr) {
 			text = special_links_here();
 			break;
 		case "Edit Menu":
-			go_to("Special::Menu");
+			go_to("::Menu");
 			edit();
 			return null;
 		case "Edit CSS":
@@ -919,40 +920,15 @@ function _get_special(cr) {
 	return text;
 }
 
-function _add_namespace_menu(namespace) {
-	if (current_namespace == namespace)
-		return;
-	var pi;
-	if (namespace=="Special::")
-		pi = -1;
-	else
-		pi = page_index(namespace+"Menu");
-	if (pi==-1) {
-		el("ns_menu_area").innerHTML = "";
-		if (current_namespace!="") {
-			el("ns_menu_area").style.display = "none";
-			el("ns_menu_edit_button").style.display = "none";
-		}
-		current_namespace = namespace;
-		return;
-	}
-	el("ns_menu_area").innerHTML = parse(get__text(pi));
-	if (current_namespace=="") {
-		el("ns_menu_area").style.display = "inline";
-		el("ns_menu_edit_button").style.display = "inline";
-	}
-	current_namespace = namespace;	
-}
-
 // Load a new current page
 function set_current(cr)
 {
-	var text, namespace, ns;
+	var text, namespace;
 	result_pages = [];
 //	log("Setting \""+cr+"\" as current page");
 	if (cr.substring(cr.length-2)=="::") {
 		text = _get_namespace(cr);
-		ns = cr;
+		namespace = cr.substring(0,cr.length-2);
 		cr = "";
 	} else {
 		var p = cr.indexOf("::");
@@ -1014,9 +990,8 @@ function set_current(cr)
 						text = get_text(namespace+"::"+cr);
 				}
 
-			ns = namespace+"::";
 		} else {
-			ns = "";
+			namespace = "";
 			text = get_text(cr);
 		}
 	}
@@ -1027,14 +1002,14 @@ function set_current(cr)
 			decrypt_failed = false;
 			return;
 		}
-		if (!_create_page(ns, cr, true))
+		if (!_create_page(namespace, cr, true))
 			return;
 	}
 	
-	log("set_current() with ns = \""+ns+"\", cr = \""+cr+"\"");
-
-	_add_namespace_menu(ns);
-	load_as_current(ns+cr, text);
+	_add_namespace_menu(namespace);
+	if (namespace.length)
+		cr = namespace + "::" + cr;
+	load_as_current(cr, text);
 }
 
 function load_as_current(title, text) {
@@ -1195,17 +1170,32 @@ function _hex_col(tone) {
 	_pw_q_lock = false;
 }
 
+function _add_namespace_menu(namespace) {
+	if (current_namespace == namespace)
+		return;
+	var pi = page_index(namespace+"::Menu");
+	if (pi==-1) {
+		el("ns_menu_area").innerHTML = "";
+		if (current_namespace!="") {
+			el("ns_menu_area").style.display = "none";
+			el("ns_menu_edit_button").style.display = "none";
+		}
+		current_namespace = namespace;
+		return;
+	}
+	el("ns_menu_area").innerHTML = parse(get__text(pi));
+	if (current_namespace=="") {
+		el("ns_menu_area").style.display = "inline";
+		el("ns_menu_edit_button").style.display = "inline";
+	}
+	current_namespace = namespace;	
+}
+
 function refresh_menu_area() {
-/*
-	var bl_src = "\n\n[[Special::Backlinks]]";
-	if (is_reserved(current)) {
-		pre_src = "";
-		post_src = bl_src;
-	} else {
-		post_src = "";
-		pre_src = bl_src;
-	}	*/
-	el("menu_area").innerHTML = parse(get_text("Special::Menu")/*+pre_src)+post_src*/);
+	var tmp = current_namespace;
+	current_namespace=parse_marker;
+	_add_namespace_menu(tmp);	
+	el("menu_area").innerHTML = parse(get_text("::Menu"));
 }
 
 function _gen_display(id, visible, prefix) {
@@ -1430,7 +1420,7 @@ function page_dblclick() {
 }
 
 function edit_menu() {
-	edit_page("Special::Menu");
+	edit_page("::Menu");
 }
 
 function edit_ns_menu() {
@@ -1472,7 +1462,7 @@ function edit_allowed(page) {
 		return (page_index(page) != -1);
 	if (!permit_edits)
 		return false;
-	if (is_reserved(page) && (page!="Special::Menu"))
+	if (is_reserved(page))
 		return false;
 	return !is_readonly(page);
 }
@@ -1589,7 +1579,7 @@ function save()
 				// here the page gets actually saved
 				set_text(el("wiki_editor").value);
 				new_title = el("wiki_page_title").value;
-				if (new_title=="Special::Menu") {
+				if (new_title.indexOf("::Menu")!=-1) {
 					refresh_menu_area();
 					back_to = prev_title;
 //					alert(prev_title);
@@ -2029,7 +2019,7 @@ function erase_wiki() {
 	var pg_lock = get_text("Special::Lock");
 	var pg_search = get_text("Special::Search");
 	var pg_security = get_text("Special::Security");
-	page_titles = new Array("Main Page", "Special::Menu", "Special::Advanced", "Special::Import", "Special::Search", "Special::Security", "Special::Lock", "Special::About");
+	page_titles = new Array("Main Page", "::Menu", "Special::Advanced", "Special::Import", "Special::Search", "Special::Security", "Special::Lock", "Special::About");
 	pages = new Array("This is your empty main page", "[[Main Page]]\n\n[[Special::Advanced]]\n[[Special::Backlinks]]\n[[Special::Search]]", pg_advanced, pg_import, pg_search, pg_security, pg_lock, pg_about);
 	current = main_page = "Main Page";
 	backstack = new Array();
@@ -2157,7 +2147,7 @@ if (old_version	< 9) {
 				// dismiss special pages
 				if (page_names[pc].indexOf("Special::")==0) {
 					if (page_names[pc] == "Special::Edit Menu")
-						page_names[pc] = "Special::Menu";
+						page_names[pc] = "::Menu";
 					else return;
 				}
 				
@@ -2212,7 +2202,7 @@ if (old_version	< 9) {
 	var pages_imported = 0;
 	for(var i=0; i<page_names.length; i++)
 	{
-		if ( !is_reserved(page_names[i]) || (page_names[i] == "Special::Menu") )
+		if ( !is_reserved(page_names[i]))
 		{
 			pi = page_index(page_names[i]);
 			if (pi == -1) {
