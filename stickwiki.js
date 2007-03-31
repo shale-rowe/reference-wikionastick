@@ -1575,7 +1575,7 @@ function delete_page(page)
 function _new_syntax_patch(text) {
 	//BUG: will also modify text contained in <pre> tags
 	text = text.replace(/(^|\n)(\+*[ \t])/g, function (str, $1, $2) {
-		return $1+str_rep("*", $2.length-1);
+		return $1+" "+str_rep("*", $2.length-1);
 	});
 	
 	return text;
