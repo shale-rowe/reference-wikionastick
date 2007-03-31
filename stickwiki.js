@@ -268,8 +268,8 @@ function parse(text)
 	var p = text.indexOf("[[Special::TOC]]");
 	if (p != -1) {
 		has_toc = true;
-		text = text.substring(0, p) + "<!-- "+parse_marker+":TOC -->" + text.substring(p+16 + 
-		((text.charAt(p+16)=="\n") ? 1 : 0)
+		text = text.substring(0, p) + "<!-- "+parse_marker+":TOC -->" + text.substring(p+16
+//		+ 	((text.charAt(p+16)=="\n") ? 1 : 0)
 		);	
 //		last_h_level = 0;
 	} else has_toc = false;
@@ -317,6 +317,12 @@ function parse(text)
 	// cleanup \n after headers
 	text = text.replace(/(<\/h[1-6]><div class="level[1-6]">)\n/g, "$1");
 	
+	if (has_toc) {
+		text = text.replace("<!-- "+parse_marker+":TOC -->", "<div class=\"wiki_toc\"><p class=\"wiki_toc_title\">Table of Contents</p>" + page_TOC.replace(reReapLists, parseList)
+		.replace("\n<", "<") + "</div>" );
+		page_TOC = "";
+	}
+	
 	// <b>
 	text = text.replace(/\*([^\*\n]+)\*/g, parse_marker+"bS#$1"+parse_marker+"bE#");
 
@@ -341,12 +347,6 @@ function parse(text)
 	text = text.replace(/(^|\n)\-\-\-/g, "<hr />");
 	
     text = text.replace(reReapTables, parseTables);
-	
-		if (has_toc) {
-			text = text.replace("<!-- "+parse_marker+":TOC -->", "<div class=\"wiki_toc\"><p class=\"wiki_toc_title\">Table of Contents</p>" + page_TOC.replace(reReapLists, parseList).replace("\n<", "<") + "</div>" );
-			page_TOC = "";
-		}
-
 
 	// links with | 
 	text = text.replace(/\[\[([^\]\]]*?)\|(.*?)\]\]/g, function(str, $1, $2)
