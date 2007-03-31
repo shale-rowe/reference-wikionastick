@@ -19,6 +19,7 @@ var decrypt_failed = false;
 var post_dom_render = "";
 var result_pages;
 var last_AES_page;
+var current_namespace = "";
 
 var ie = false;
 var firefox = false;
@@ -715,6 +716,10 @@ function get_text(title) {
 	var pi = page_index(title);
 	if (pi==-1)
 		return null;
+	return get__text(pi);
+}
+
+function get__text(pi) {
 	// is the page encrypted or plain?
 	if (!is__encrypted(pi))
 		return pages[pi];
@@ -723,7 +728,7 @@ function get_text(title) {
 	var pg = null;
 	do {
 		if (retry || !key.length) {
-			var pw = prompt('The latest entered password (if any) was not correct for page "'+title+"'\n\nPlease enter the correct password.", '');
+			var pw = prompt('The latest entered password (if any) was not correct for page "'+page_titles[pi]+"'\n\nPlease enter the correct password.", '');
 			if (pw==null)
 				return null;
 			if (!pw.length)
@@ -733,7 +738,7 @@ function get_text(title) {
 		}
 		// pass a copied instance to the decrypt function
 		pg = AES_decrypt(pages[pi].slice(0));	/*WARNING: may not be supported by all browsers*/
-		last_AES_page = title;
+		last_AES_page = page_titles[pi];
 		if (pg != null)
 			break;
 	} while (retry<2);
@@ -914,6 +919,31 @@ function _get_special(cr) {
 	return text;
 }
 
+function _add_namespace_menu(namespace) {
+	if (current_namespace == namespace)
+		return;
+	var pi;
+	if (namespace=="Special::")
+		pi = -1;
+	else
+		pi = page_index(namespace+"Menu");
+	if (pi==-1) {
+		el("ns_menu_area").innerHTML = "";
+		if (current_namespace!="") {
+			el("ns_menu_area").style.display = "none";
+			el("ns_menu_edit_button").style.display = "none";
+		}
+		current_namespace = namespace;
+		return;
+	}
+	el("ns_menu_area").innerHTML = parse(get__text(pi));
+	if (current_namespace=="") {
+		el("ns_menu_area").style.display = "inline";
+		el("ns_menu_edit_button").style.display = "inline";
+	}
+	current_namespace = namespace;	
+}
+
 // Load a new current page
 function set_current(cr)
 {
@@ -922,7 +952,8 @@ function set_current(cr)
 //	log("Setting \""+cr+"\" as current page");
 	if (cr.substring(cr.length-2)=="::") {
 		text = _get_namespace(cr);
-		ns = "";
+		ns = cr;
+		cr = "";
 	} else {
 		var p = cr.indexOf("::");
 		if (p!=-1) {
@@ -1002,6 +1033,7 @@ function set_current(cr)
 	
 	log("set_current() with ns = \""+ns+"\", cr = \""+cr+"\"");
 
+	_add_namespace_menu(ns);
 	load_as_current(ns+cr, text);
 }
 
@@ -1383,6 +1415,13 @@ function menu_dblclick() {
 	return true;
 }
 
+function ns_menu_dblclick() {
+	if (!dblclick_edit)
+		return false;
+	edit_ns_menu();
+	return true;
+}
+
 function page_dblclick() {
 	if (!dblclick_edit)
 		return false;
@@ -1392,6 +1431,10 @@ function page_dblclick() {
 
 function edit_menu() {
 	edit_page("Special::Menu");
+}
+
+function edit_ns_menu() {
+	edit_page(current_namespace+"Menu");
 }
 
 function lock() {
