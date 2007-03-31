@@ -1077,6 +1077,9 @@ function _search_setup() {
 }
 
 function _setup_options() {
+
+	el("lastDate").innerHTML = document.lastModified
+
 	el("cb_allow_diff").checked = bool2chk(allow_diff);
 	el("cb_key_cache").checked = bool2chk(!key_cache);
 	el("cb_dblclick_edit").checked = bool2chk(dblclick_edit);
@@ -1288,9 +1291,6 @@ function on_load()
 	set_current(current);
 	refresh_menu_area();
 	disable_edit();
-	
-	if(document.getElementById("lastDate"))
-		document.getElementById("lastDate").innerHTML = document.lastModified;
 }
 
 function ff_fix_focus() {
@@ -1827,8 +1827,6 @@ function save_to_file(full) {
 
 	if (r) {
 		cfg_changed = false;
-		if(document.getElementById("lastDate"))
-			document.getElementById("lastDate").innerHTML = document.lastModified;
 	}
 
 	return r;
