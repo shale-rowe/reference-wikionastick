@@ -32,15 +32,6 @@ function el(name)
 	return document.getElementById(name);
 }
 
-if (ie) {
-	function setHTML(elem, html) {
-		elem.text = html;
-	}
-} else {
-	function setHTML(elem, html) {
-		elem.innerHTML = html;
-	}
-}
 // fixes the array.push and array.splice methods
 if (typeof Array.prototype.push == "undefined") {
   Array.prototype.push = function(str) {
@@ -1058,8 +1049,8 @@ function load_as_current(title, text) {
 		swcs = document.createElement("script");
 		swcs.type="text/javascript";
 		swcs.id = "sw_custom_script";
+		document.getElementsByTagName("head")[0].appendChild(swcs);
 		setHTML(swcs, post_dom_render);
-	   document.getElementsByTagName("head")[0].appendChild(swcs);
 	}
 //	setHTML(swcs, post_dom_render);
 	post_dom_render = "";
@@ -1252,6 +1243,8 @@ function before_quit() {
 	return true;
 }
 
+var setHTML;
+
 // when the page is loaded
 function on_load()
 {
@@ -1270,11 +1263,13 @@ function on_load()
 	else
 		el("debug_info").style.display = "none";
 		
-	if (!ie) {
-//		setup_uri_pics(el("img_home"),el("img_back"),el("img_forward"),el("img_edit"),el("img_cancel"),el("img_save"),el("img_advanced"));
-	} else {
+	if (ie) {
+		setHTML = function(elem, html) {elem.text = html;};
 		var obj = el("sw_wiki_header");
 		obj.style.filter = "alpha(opacity=75);";
+	} else {
+		setHTML = function(elem, html) {elem.innerHTML = html;};
+//		setup_uri_pics(el("img_home"),el("img_back"),el("img_forward"),el("img_edit"),el("img_cancel"),el("img_save"),el("img_advanced"));
 	}
 
 	img_display("back", true);
