@@ -32,7 +32,7 @@ function el(name)
 	return document.getElementById(name);
 }
 
-// fixes the array.push and array.splice methods
+// fixes the Array prototype for older browsers
 if (typeof Array.prototype.push == "undefined") {
   Array.prototype.push = function(str) {
     this[this.length] = str;
@@ -54,6 +54,16 @@ if (typeof Array.prototype.splice == "undefined") {
   }
 }
 
+if (typeof Array.prototype.indexOf == "undefined") {
+	Array.prototype.indexOf = function(val, fromIndex) {
+		if (typeof(fromIndex) != 'number') fromIndex = 0;
+		for (var index = fromIndex,len = this.length; index < len; index++)
+			if (this[index] == val) return index;
+		return -1;
+	}
+}
+
+
 // thanks to S.Willison
 RegExp.escape = function(text) {
   if (!arguments.callee.sRE) {
@@ -69,12 +79,7 @@ RegExp.escape = function(text) {
 }
 
 function page_index(page) {
-	for(var i=0; i<page_titles.length; i++)
-	{
-		if(page_titles[i].toUpperCase() == page.toUpperCase())
-			return i;
-	}
-	return -1;
+	return page_titles.indexOf(page);
 }
 
 var edit_override = true;
@@ -780,7 +785,7 @@ function get__text(pi) {
 	return pg;
 }
 
-function _set_text(pi, text) {
+function set__text(pi, text) {
 	log("Setting wiki text for page #"+pi+" \""+page_titles[pi]+"\"");
 	text = _new_syntax_patch(text);
 	if (!is__encrypted(pi)) {
@@ -799,7 +804,7 @@ function set_text(text)
 		log("current page \""+current+"\" is not cached!");
 		return;
 	}
-	_set_text(pi, text);
+	set__text(pi, text);
 }
 
 function clear_search() {
@@ -879,7 +884,7 @@ function _get_special(cr) {
 								menu += "\n[["+ns+cr+"]]";
 							else
 								menu = menu.substring(0,p)+"\n[["+title+"]]"+menu.substring(p);
-							_set_text(page_index("::Menu"), menu);
+							set__text(page_index("::Menu"), menu);
 							refresh_menu_area();
 						}
 					}
@@ -1528,17 +1533,32 @@ function edit_page(page) {
 function rename_page(previous, newpage)
 {
 	log("Renaming "+previous+" to "+newpage);
+	if (page_index(newpage)!=-1) {
+		alert("A page with title \""+newpage+"\" already exists!");
+		return false;
+	}
+	var pi = page_index(previous);
+	page_titles[pi] = newpage;
+	var re = new RegExp("\\[\\[" + RegExp.escape(previous) + "(\\]\\]|\\|)", "gi");
+	var changed;
 	for(var i=0; i<pages.length; i++)
 	{
-		if(page_titles[i] == previous)
-		{
-			page_titles[i] = newpage;
-			// TODO - change all references
-			break;
-		}
+		var tmp = get_page(i);
+		if (tmp==null)
+			continue;
+		changed = false;
+		tmp = tmp.replace(re, function (str) {
+			changed = true;
+			return "[["+newpage+str.substring(previous.length+2);
+		});
+		if (changed)
+			set__text(i, tmp);
 	}
 	if (previous == main_page)
 		main_page = newpage;
+	if (prev_title == previous)
+		prev_title = newpage;
+	return true;
 }
 
 // when a page is deleted
@@ -1598,8 +1618,10 @@ function save()
 					refresh_menu_area();
 					back_to = prev_title;
 //					alert(prev_title);
-				} else { if (!is_reserved(new_title) && (new_title != current))
-							rename_page(current, new_title);
+				} else { if (!is_reserved(new_title) && (new_title != current)) {
+						if (!rename_page(current, new_title))
+							return false;
+					}
 					back_to = new_title;
 				}				
 			}
@@ -1800,6 +1822,11 @@ function save_to_file(full) {
 	if (!debug && full)
 		new_marker = _random_string(18);
 	else new_marker = __marker;
+	
+	var safe_current;
+	if (!page_exists(current)) {
+		safe_current = main_page;
+	} else safe_current = current;
 
 	var computed_js = "\n/* <![CDATA[ */\n\n/* "+new_marker+"-START */\n\nvar version = \""+version+
 	"\";\n\nvar __marker = \""+new_marker+
@@ -1808,7 +1835,7 @@ function save_to_file(full) {
 	";\n\nvar save_on_quit = "+save_on_quit+
 	";\n\nvar allow_diff = "+allow_diff+
 	";\n\nvar key_cache = "+key_cache+
-	";\n\nvar current = '" + js_encode(current)+
+	";\n\nvar current = '" + js_encode(safe_current)+
 	"';\n\nvar main_page = '" + js_encode(main_page) + "';\n\n";
 	
 	computed_js += "var backstack = [\n" + printout_arr(backstack, false) + "];\n\n";
@@ -1818,16 +1845,12 @@ function save_to_file(full) {
 	computed_js += "/* " + new_marker + "-DATA */\n";
 	
 	if (full) {
-	
 		computed_js += "var page_attrs = [" + printout_num_arr(page_attrs) + "];\n\n";
 		
 		computed_js += "var pages = [\n" + printout_mixed_arr(pages, allow_diff, page_attrs) + "];\n\n";
 		
 		computed_js += "/* " + new_marker + "-END */\n";
 	}
-
-	// not needed: the end tag must not be removed by the offset
-//	computed_js += "/* ]]> */";
 
 	// cleanup the DOM before saving
 	el("wiki_editor").value = "";
