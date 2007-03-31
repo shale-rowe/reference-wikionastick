@@ -438,8 +438,6 @@ function parse(text)
 		
 	if (script_tags.length)
 		post_dom_render = script_tags.join("\n");
-	else
-		post_dom_render = null;
 	
 	if (text.substring(0,5)!="</div")
 		return "<div class=\"level0\">" + text + "</div>";
@@ -1034,10 +1032,23 @@ function load_as_current(title, text) {
 	update_nav_icons(title);
 	current = title;
 	// execute custom user scripts
+
+	var swcs = el('sw_custom_script');
 	if (post_dom_render!=null) {
 		log("Executing "+post_dom_render.length+" bytes of custom javascript");
-		eval(post_dom_render);
+//		eval(post_dom_render);
+		if (ie)
+			swcs.text = post_dom_render;
+		else
+			swcs.innerHTML = post_dom_render;
+	   document.getElementsByTagName("head")[0].appendChild(e);
+	} else {
+		if (ie)
+			swcs.text = "";
+		else
+			swcs.innerHTML = "";
 	}
+	post_dom_render = null;
 }
 
 function bool2chk(b) {
@@ -1806,7 +1817,13 @@ function save_to_file(full) {
 		}
 		offset += 6 + 5 + __marker.length + 1;
 	}
-		
+
+	var swcs = el('sw_custom_script');
+	if (ie)
+		swcs.text = "";
+	else
+		swcs.innerHTML = "";
+
 	if ( (!debug || save_override) )
 		r = saveThisFile(computed_js, offset);
 	else r = false;
