@@ -26,7 +26,7 @@ var firefox = false;
 var opera = false;
 //var unsupported_browser = true;
 
-// Returns the element by ID
+// Returns element by ID
 function el(name)
 {
 	return document.getElementById(name);
@@ -1173,7 +1173,11 @@ function _hex_col(tone) {
 function _add_namespace_menu(namespace) {
 	if (current_namespace == namespace)
 		return;
-	var pi = page_index(namespace+"::Menu");
+	var pi;
+	if (namespace == "")
+		pi = -1;
+	else
+		pi = page_index(namespace+"::Menu");
 	if (pi==-1) {
 		el("ns_menu_area").innerHTML = "";
 		if (current_namespace!="") {
@@ -1183,7 +1187,11 @@ function _add_namespace_menu(namespace) {
 		current_namespace = namespace;
 		return;
 	}
-	el("ns_menu_area").innerHTML = parse(get__text(pi));
+	var menu = get__text(pi);
+	if (menu == null)
+		el("ns_menu_area").innerHTML = "";
+	else
+		el("ns_menu_area").innerHTML = parse(menu);
 	if (current_namespace=="") {
 		el("ns_menu_area").style.display = "inline";
 		el("ns_menu_edit_button").style.display = "inline";
@@ -1194,8 +1202,12 @@ function _add_namespace_menu(namespace) {
 function refresh_menu_area() {
 	var tmp = current_namespace;
 	current_namespace=parse_marker;
-	_add_namespace_menu(tmp);	
-	el("menu_area").innerHTML = parse(get_text("::Menu"));
+	_add_namespace_menu(tmp);
+	var menu = get_text("::Menu");
+	if (menu == null)
+		el("menu_area").innerHTML = "";
+	else
+		el("menu_area").innerHTML = parse(menu);
 }
 
 function _gen_display(id, visible, prefix) {
