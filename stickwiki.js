@@ -1023,6 +1023,15 @@ function set_current(cr)
 	load_as_current(cr, text);
 }
 
+var swcs = null;
+
+function _clear_swcs() {
+	if (swcs != null) {
+		document.getElementsByTagName("head")[0].removeChild(swcs);
+		swcs = null;
+	}
+}
+
 function load_as_current(title, text) {
 	scrollTo(0,0);
 	log("CURRENT loaded: "+title+", "+text.length+" bytes");
@@ -1031,22 +1040,18 @@ function load_as_current(title, text) {
 	document.title = title;
 	update_nav_icons(title);
 	current = title;
-	// execute custom user scripts
-
-	var swcs = el('sw_custom_script');
+	// eventually remove the previous custom script
+	_clear_swcs();
 	if (post_dom_render!=null) {
 		log("Executing "+post_dom_render.length+" bytes of custom javascript");
 //		eval(post_dom_render);
+		swcs = document.createElement("script");
+		swcs.type="text/javascript";
 		if (ie)
 			swcs.text = post_dom_render;
 		else
 			swcs.innerHTML = post_dom_render;
-	   document.getElementsByTagName("head")[0].appendChild(e);
-	} else {
-		if (ie)
-			swcs.text = "";
-		else
-			swcs.innerHTML = "";
+	   document.getElementsByTagName("head")[0].appendChild(swcs);
 	}
 	post_dom_render = null;
 }
@@ -1818,11 +1823,7 @@ function save_to_file(full) {
 		offset += 6 + 5 + __marker.length + 1;
 	}
 
-	var swcs = el('sw_custom_script');
-	if (ie)
-		swcs.text = "";
-	else
-		swcs.innerHTML = "";
+	_clear_swcs();
 
 	if ( (!debug || save_override) )
 		r = saveThisFile(computed_js, offset);
