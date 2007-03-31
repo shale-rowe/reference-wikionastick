@@ -26,13 +26,6 @@ var current = "Main Page";
 var main_page = "Main Page";
 
 var backstack = [
-"MyPages::Page 1",
-"Lock::MyPages::Page 1",
-"MyPages::Page 1",
-"Main Page",
-"MyPages::Page 1",
-"Main Page",
-"MyPages::Menu"
 ];
 
 var page_titles = [
@@ -458,8 +451,8 @@ p.wiki_toc_title {
 <hr>
 <div style="text-align: center;"><a class="link" onclick="edit_menu()">[Edit]</a></div>
 </div>
-<div style="display: none;" class="wiki" id="ns_menu_area" ondblclick="ns_menu_dblclick()"></div>
-<div id="ns_menu_edit_button" style="display: none;">
+<div style="display: inline;" class="wiki" id="ns_menu_area" ondblclick="ns_menu_dblclick()"><div class="level0"><a class="link" onclick="go_to('Main Page')">Main Page</a><br><a class="link" onclick="go_to('Test page')">Test page</a><br><br><a class="link" onclick="go_to('Special::Advanced')">Special::Advanced</a><br><a class="link" onclick="go_to('Special::Backlinks')">Special::Backlinks</a><br><a class="link" onclick="go_to('Special::Search')">Special::Search</a></div></div>
+<div id="ns_menu_edit_button" style="display: inline;">
 <hr>
 <div style="text-align: center;"><a class="link" onclick="edit_ns_menu()">[Edit]</a></div></div>
 </div>
