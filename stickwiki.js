@@ -3,8 +3,6 @@
 
 // page attributes bits are mapped to (readonly, encrypted, ...)
 
-var core_version = "0.9B";
-
 var debug = true;			// toggle debug mode (and console)
 var save_override = true;	// allow to save when debug mode is active
 var end_trim = true;		// trim pages from the end
@@ -1257,12 +1255,6 @@ var setHTML;
 function on_load()
 {
 	log("***** StickWiki started *****");
-	
-	if (version != core_version) {
-		//TODO: try to import if version < core_version
-		el("body").innerHTML = "<h1>Version mismatch</h1><p>You are using a stickwiki.js file of version "+core_version+" while your main HTML file is of version "+version+"</p><p>You can fix this issue getting the latest Wiki on a Stick from <a href=\"http://stickwiki.sourceforge.net/\">http://stickwiki.sourceforge.net/</a> and importing your current HTML file (version "+version+"); don't worry, your data was not lost. You have just messed up with the core stickwiki.js file.";
-		return;
-	}
 	
 	document.body.style.cursor = "auto";
 	
