@@ -22,3 +22,5 @@
 * optional CSS import
 
 * external javascript custom scripts
+
+* add license
