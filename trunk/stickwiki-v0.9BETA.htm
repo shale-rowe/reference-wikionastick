@@ -29,7 +29,7 @@ var backstack = [
 ];
 
 var page_titles = [
-"Special::Menu",
+"::Menu",
 "Special::Advanced",
 "Special::Import",
 "Special::About",
@@ -40,11 +40,12 @@ var page_titles = [
 "Special::Lock",
 "Special::Security",
 "MyPages::Page 1",
-"Test page"
+"Test page",
+"MyPages::Menu"
 ];
 
 /* UUZJizdTQtSsJsMSZA-DATA */
-var page_attrs = [0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x2,0x0];
+var page_attrs = [0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x2,0x0,0x0];
 
 var pages = [
 "[[Main Page]]\n\
@@ -130,8 +131,10 @@ There have been a few changes in the wiki syntax, they will be automatically app
 * wiki link parts are inverted, e.g. no more [<!-- -->[the label|WikiActualPage]] but [<!-- -->[WikiActualPage|the label]]\n\
 !!!New features\n\
 * namespaces support through the separator '::'\n\
-* tags support through [<!-- -->[Tag:Sometag]] or [<!-- -->[Tags:Sometag, Somethingelse]] syntax\n\
-* line joining through a slash '\\' at the end of the line \n\
+* tags support through [<!-- -->[Tag::Sometag]] or [<!-- -->[Tags::Sometag, Somethingelse]] syntax\n\
+* line joining through a slash '\\' at the end of the line\n\
+* automatic TOC generation in place of [<!-- -->[Special::TOC]]\n\
+* namespace-specific menus creating [<!-- -->[Namespace::Menu]] pages (the main menu is [[::Menu]])\n\
 \n\
 !Syntax examples \n\
 Follows a brief example of all the capabilities of Wiki on a Stick syntax.\n\
@@ -142,7 +145,7 @@ Follows a brief example of all the capabilities of Wiki on a Stick syntax.\n\
 <pre>This is pre-formatted text! This text does not get _underlined_, as you can see</pre>\n\
 <pre style=\"color:gray\">\n\
 This is pre-formatted text with CSS style!\n\
-And it stands on multiple lines</pre>\n\
+And it stands on multiple lines too</pre>\n\
 \n\
 !!Some specials\n\
 Using [[Special::Main Page]] you will always link to the main page, no matters what its name is.\n\
@@ -259,7 +262,10 @@ Test on this page using the syntax you best like.\n\
 \n\
 \n\
 \n\
-I should be on the 5th paragraph after the title"
+I should be on the 5th paragraph after the title",
+"[[Special::]]\n\
+[[MyPages::]]\n\
+[[Special::New page]]"
 ];
 
 /* UUZJizdTQtSsJsMSZA-END */
@@ -445,13 +451,14 @@ var decrypt_failed = false;
 var post_dom_render = "";
 var result_pages;
 var last_AES_page;
+var current_namespace = "";
 
 var ie = false;
 var firefox = false;
 var opera = false;
 //var unsupported_browser = true;
 
-// Returns the element by ID
+// Returns element by ID
 function el(name)
 {
 	return document.getElementById(name);
@@ -938,7 +945,7 @@ function special_search( str )
 	result_pages = [];
 	for(var i=0; i<pages.length; i++)
 	{
-		if (is_reserved(page_titles[i]) && (page_titles[i] != "Special::Menu"))
+		if (is_reserved(page_titles[i]))
 			continue;
 			
 		tmp = get_page(i);
@@ -1057,7 +1064,7 @@ function special_orphaned_pages()
 //		log("Scanning references to page "+page_titles[j]);
 		var tmp;
 		for(var i=0; i<page_titles.length; i++) {
-			if ((i==j) || (is_reserved(page_titles[i]) && (page_titles[i]!="Special::Menu")))
+			if ((i==j) || is_reserved(page_titles[i]))
 				continue;
 			tmp = get_page(i);
 			if (tmp==null)
@@ -1141,6 +1148,10 @@ function get_text(title) {
 	var pi = page_index(title);
 	if (pi==-1)
 		return null;
+	return get__text(pi);
+}
+
+function get__text(pi) {
 	// is the page encrypted or plain?
 	if (!is__encrypted(pi))
 		return pages[pi];
@@ -1149,7 +1160,7 @@ function get_text(title) {
 	var pg = null;
 	do {
 		if (retry || !key.length) {
-			var pw = prompt('The latest entered password (if any) was not correct for page "'+title+"'\n\nPlease enter the correct password.", '');
+			var pw = prompt('The latest entered password (if any) was not correct for page "'+page_titles[pi]+"'\n\nPlease enter the correct password.", '');
 			if (pw==null)
 				return null;
 			if (!pw.length)
@@ -1159,7 +1170,7 @@ function get_text(title) {
 		}
 		// pass a copied instance to the decrypt function
 		pg = AES_decrypt(pages[pi].slice(0));	/*WARNING: may not be supported by all browsers*/
-		last_AES_page = title;
+		last_AES_page = page_titles[pi];
 		if (pg != null)
 			break;
 	} while (retry<2);
@@ -1246,7 +1257,8 @@ function _create_page(ns, cr, ask) {
 	if (ask && !confirm("Page not found. Do you want to create it?"))
 		return false;
 	// create and edit the new page
-	cr = ns+cr;
+	if (ns.length)
+		cr = ns+"::"+cr;
 	pages.push("!"+cr+"\n");
 	page_attrs.push(0);
 	page_titles.push(cr);
@@ -1273,20 +1285,20 @@ function _get_special(cr) {
 					} else {
 						var p = cr.indexOf("::");
 						if (p!=-1) {
-							ns = cr.substring(0,p+2);
+							ns = cr.substring(0,p);
 							log("namespace of "+cr+" is "+ns);
 							cr = cr.substring(p+2);
 						} else ns="";
 						if (!_create_page(ns, cr, false))
 							return;
 						if (confirm("Do you want to add a link in the main menu?")) {
-							var menu = get_text("Special::Menu");
+							var menu = get_text("::Menu");
 							var p = menu.indexOf("\n\n");
 							if (p==-1)
 								menu += "\n[["+ns+cr+"]]";
 							else
 								menu = menu.substring(0,p)+"\n[["+title+"]]"+menu.substring(p);
-							_set_text(page_index("Special::Menu"), menu);
+							_set_text(page_index("::Menu"), menu);
 							refresh_menu_area();
 						}
 					}
@@ -1325,7 +1337,7 @@ function _get_special(cr) {
 			text = special_links_here();
 			break;
 		case "Edit Menu":
-			go_to("Special::Menu");
+			go_to("::Menu");
 			edit();
 			return null;
 		case "Edit CSS":
@@ -1343,12 +1355,13 @@ function _get_special(cr) {
 // Load a new current page
 function set_current(cr)
 {
-	var text, namespace, ns;
+	var text, namespace;
 	result_pages = [];
 //	log("Setting \""+cr+"\" as current page");
 	if (cr.substring(cr.length-2)=="::") {
 		text = _get_namespace(cr);
-		ns = "";
+		namespace = cr.substring(0,cr.length-2);
+		cr = "";
 	} else {
 		var p = cr.indexOf("::");
 		if (p!=-1) {
@@ -1409,9 +1422,8 @@ function set_current(cr)
 						text = get_text(namespace+"::"+cr);
 				}
 
-			ns = namespace+"::";
 		} else {
-			ns = "";
+			namespace = "";
 			text = get_text(cr);
 		}
 	}
@@ -1422,13 +1434,14 @@ function set_current(cr)
 			decrypt_failed = false;
 			return;
 		}
-		if (!_create_page(ns, cr, true))
+		if (!_create_page(namespace, cr, true))
 			return;
 	}
 	
-	log("set_current() with ns = \""+ns+"\", cr = \""+cr+"\"");
-
-	load_as_current(ns+cr, text);
+	_add_namespace_menu(namespace);
+	if (namespace.length)
+		cr = namespace + "::" + cr;
+	load_as_current(cr, text);
 }
 
 function load_as_current(title, text) {
@@ -1471,6 +1484,9 @@ function _search_setup() {
 }
 
 function _setup_options() {
+
+	el("lastDate").innerHTML = document.lastModified
+
 	el("cb_allow_diff").checked = bool2chk(allow_diff);
 	el("cb_key_cache").checked = bool2chk(!key_cache);
 	el("cb_dblclick_edit").checked = bool2chk(dblclick_edit);
@@ -1586,17 +1602,44 @@ function _hex_col(tone) {
 	_pw_q_lock = false;
 }
 
+function _add_namespace_menu(namespace) {
+	if (current_namespace == namespace)
+		return;
+	var pi;
+	if (namespace == "")
+		pi = -1;
+	else
+		pi = page_index(namespace+"::Menu");
+	if (pi==-1) {
+		el("ns_menu_area").innerHTML = "";
+		if (current_namespace!="") {
+			el("ns_menu_area").style.display = "none";
+			el("ns_menu_edit_button").style.display = "none";
+		}
+		current_namespace = namespace;
+		return;
+	}
+	var menu = get__text(pi);
+	if (menu == null)
+		el("ns_menu_area").innerHTML = "";
+	else
+		el("ns_menu_area").innerHTML = parse(menu);
+	if (current_namespace=="") {
+		el("ns_menu_area").style.display = "inline";
+		el("ns_menu_edit_button").style.display = "inline";
+	}
+	current_namespace = namespace;	
+}
+
 function refresh_menu_area() {
-/*
-	var bl_src = "\n\n[[Special::Backlinks]]";
-	if (is_reserved(current)) {
-		pre_src = "";
-		post_src = bl_src;
-	} else {
-		post_src = "";
-		pre_src = bl_src;
-	}	*/
-	el("menu_area").innerHTML = parse(get_text("Special::Menu")/*+pre_src)+post_src*/);
+	var tmp = current_namespace;
+	current_namespace=parse_marker;
+	_add_namespace_menu(tmp);
+	var menu = get_text("::Menu");
+	if (menu == null)
+		el("menu_area").innerHTML = "";
+	else
+		el("menu_area").innerHTML = parse(menu);
 }
 
 function _gen_display(id, visible, prefix) {
@@ -1682,9 +1725,6 @@ function on_load()
 	set_current(current);
 	refresh_menu_area();
 	disable_edit();
-	
-	if(document.getElementById("lastDate"))
-		document.getElementById("lastDate").innerHTML = document.lastModified;
 }
 
 function ff_fix_focus() {
@@ -1809,6 +1849,13 @@ function menu_dblclick() {
 	return true;
 }
 
+function ns_menu_dblclick() {
+	if (!dblclick_edit)
+		return false;
+	edit_ns_menu();
+	return true;
+}
+
 function page_dblclick() {
 	if (!dblclick_edit)
 		return false;
@@ -1817,7 +1864,11 @@ function page_dblclick() {
 }
 
 function edit_menu() {
-	edit_page("Special::Menu");
+	edit_page("::Menu");
+}
+
+function edit_ns_menu() {
+	edit_page(current_namespace+"Menu");
 }
 
 function lock() {
@@ -1855,7 +1906,7 @@ function edit_allowed(page) {
 		return (page_index(page) != -1);
 	if (!permit_edits)
 		return false;
-	if (is_reserved(page) && (page!="Special::Menu"))
+	if (is_reserved(page))
 		return false;
 	return !is_readonly(page);
 }
@@ -1972,7 +2023,7 @@ function save()
 				// here the page gets actually saved
 				set_text(el("wiki_editor").value);
 				new_title = el("wiki_page_title").value;
-				if (new_title=="Special::Menu") {
+				if (new_title.indexOf("::Menu")!=-1) {
 					refresh_menu_area();
 					back_to = prev_title;
 //					alert(prev_title);
@@ -2210,8 +2261,6 @@ function save_to_file(full) {
 
 	if (r) {
 		cfg_changed = false;
-		if(document.getElementById("lastDate"))
-			document.getElementById("lastDate").innerHTML = document.lastModified;
 	}
 
 	return r;
@@ -2414,7 +2463,7 @@ function erase_wiki() {
 	var pg_lock = get_text("Special::Lock");
 	var pg_search = get_text("Special::Search");
 	var pg_security = get_text("Special::Security");
-	page_titles = new Array("Main Page", "Special::Menu", "Special::Advanced", "Special::Import", "Special::Search", "Special::Security", "Special::Lock", "Special::About");
+	page_titles = new Array("Main Page", "::Menu", "Special::Advanced", "Special::Import", "Special::Search", "Special::Security", "Special::Lock", "Special::About");
 	pages = new Array("This is your empty main page", "[[Main Page]]\n\n[[Special::Advanced]]\n[[Special::Backlinks]]\n[[Special::Search]]", pg_advanced, pg_import, pg_search, pg_security, pg_lock, pg_about);
 	current = main_page = "Main Page";
 	backstack = new Array();
@@ -2542,7 +2591,7 @@ if (old_version	< 9) {
 				// dismiss special pages
 				if (page_names[pc].indexOf("Special::")==0) {
 					if (page_names[pc] == "Special::Edit Menu")
-						page_names[pc] = "Special::Menu";
+						page_names[pc] = "::Menu";
 					else return;
 				}
 				
@@ -2597,7 +2646,7 @@ if (old_version	< 9) {
 	var pages_imported = 0;
 	for(var i=0; i<page_names.length; i++)
 	{
-		if ( !is_reserved(page_names[i]) || (page_names[i] == "Special::Menu") )
+		if ( !is_reserved(page_names[i]))
 		{
 			pi = page_index(page_names[i]);
 			if (pi == -1) {
@@ -3112,18 +3161,24 @@ function AES_decrypt(raw_data) {
 <div id="menu_forward" style="display: none; cursor: pointer;" onclick="go_forward()"><img id="img_forward" style="display: inline;" alt="Forward" src="data:image/png;base64,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"><span id="alt_forward" style="display: none; font-size: 24pt; font-family: wingdings;"></span></div>
 <div id="menu_advanced" style="display: none; cursor: pointer;" onclick="advanced()"><img id="img_advanced" style="display: inline;" alt="Advanced" src="data:image/png;base64,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"><span id="alt_advanced" style="display: none; font-size: 24pt; font-family: wingdings;">:</span></div>
 <div id="menu_home" style="display: none; cursor: pointer;" onclick="home()"><img id="img_home" style="display: inline;" alt="Home" src="data:image/png;base64,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"><span id="alt_home" style="display: none; font-size: 24pt; font-family: wingdings;">G</span></div>
+<div id="menu_unlock" style="display: none; cursor: pointer;" onclick="unlock()"><img id="img_lock" style="display: inline;" alt="Unlock" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA%2FwD%2FAP%2BgvaeTAAAEnUlEQVR42o2WX2wUVRTGf3NnZ7a7tkvTdA1rlxSWthgwEpoawh9jS8SHxofqAyaGBzBBE15IBLTxwfgCGBITfZAXk%2FYBjDE09QGJpqKFGBKiDYkuVChd7KbbbbtLy3bb2dk%2Fs3N96M52t63ASU5m5t7c853zne%2FeOwoV9vDhwxpWWSgUypVelYphWfKnmnACrxd8z549rwB2yYslfwuoB9zAayWgXYBrXQQneKU3NzfvcrLs7%2B%2BXsVhMTk1NyVu3bsmK7N8EZCqVcr4PlUDXVlBpBw4ceDEajd7u7e0tJpNJDh48SDqdJpVK4ff7iUQi9Pf3A1wBWFpa4s6dOwDfA92rQdYAzM3NvQRw%2BvRp9erVq1YwGGT79u3s2LGDrVu3Eg6H87t376avr6%2B8ZnZ2lgcPHgAMAi2V%2FaribXp6WllcXLw4MTHByMgIR44ccW3YsOFDr9c76vP54vF4vKOnp6cvGo3S1NRUlVhrayvAp6vEsLYCALd7pUqPx3O%2FpaVl9OjRoxPnzp27%2FH9qOX78OMAMMF2psKoKxsfHBYBpmuUxr9c729raagQCAftJcrxw4QKACeQrx8sA4XBYDAwM1K5eaBiGb3h4uOn69es2z2bFdQG%2B%2FOiDd4bvz%2FQBDA4OkkgknAb%2BtjrCsWPHqK1dyUXXdS5dusThw4cvAreBfxyaFGeDhUIhMxUfJT8%2Fibn4iHzGIJtZYPFxCjOTAUDTNPQaN8Klorlr2NXTSywWI5FI0N7eDvAV8DUQKW3O6h4ouTS59AxGIkrWWCLzOMlcMsGSsQQSPJ4adK8HVRVo6spJUVdXx82bN9m3b98J4LsSwFoV2baNLC5TKG2wFXtZcxKEEKAoKELBtiWvn%2FqBzz45iRCCuro6VFV1wmwCtHVVBBIpJUiJlEViMynGJmYxM1kE0FBfy6aNcPZKnEgkghCCTIm%2BxsZGhoeH6erqugy8CvwJ5KopEipCCBShIIQk8Hw9HpEjs7CIRCBqdHq%2FvceNGzcoFAqMj49jWRaKoqDrOps3b2ZkZISOjo7fgZ3AXREKhbIrHBWxihZWvoCVL%2FDocZrJxBJT81kSCxne%2FfxXzp45g5TLlWqaRltbG21tbWzZsoX6%2Bnr8fj%2Fnz58H%2BAtocJUUlF0mSEFVVFSXC6G6aPR5EVkPGbeNXVJ3Z1cXhmGgKArbtm1D1%2FXl6hWl%2FOzs7HRS3ljdA9tCFjIUcovkc2mi8QTzyXlMw0RzucoBHDdNk0AgAEA0Gi2PO6BA%2FaoeKEhVQwg3Lk0nuLGBWlVimu4qwTmBQqEQwBeAbG5uPjU5OYmiKOTz%2Bf857Io2kiKyWMAqFLByuVJPLGTRAuCXoaEyHQCH3mg%2FeeLtnaecHW1ZFkNDQ870QtU9%2B%2FM3HzPx7zjZhSRZM0sulyWfzVKwiggUajw6g6Murl27hmEYaJpGMBgEIBaLoes6Y2Nj7N%2B%2FH%2BA94McywMt%2B%2FYW%2Fk%2FmpZznN9u7dy8DAALa9cv6Fw2GklHR3dwP0Aj8BdysrUAAV0EvP1X8Slfacz%2BeLp9Pp9ebeB%2F4A7gE55SnJPmneBTQAAaDO4bx06cwDFsB%2F1pf2UYdfB6cAAAAASUVORK5CYII%3D"><span id="alt_lock" style="display: none; font-size: 24pt; font-family: wingdings;">I</span></div>
+<div id="menu_lock" style="display: none; cursor: pointer;" onclick="lock()"><img id="img_unlock" style="display: inline;" alt="Lock" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAB3RJTUUH1wMbFisGhO%2Br5wAAAAlwSFlzAAALEwAACxMBAJqcGAAAAARnQU1BAACxjwv8YQUAAANZSURBVHja3VTPT1NZGD3vvZYWGGqVNgKyEBZqwsRYtRpjJpkdMbNk5YrMZjYQF27c%2Bxe4MCxcIJmdyRAjGxMX%2FohKUGMgMAt%2BTCJ0CtqR2tLS9%2Fp%2B3eu5r8UEZphS48qbnL57b9895%2FvO970LfK%2FjKjFJlIhHxH0i9a3Ib%2Fb396%2BPj4%2FLjY0NOTMzIycmJvxEImHyv1%2BbJTP2rG8PDw9fn5ycjPX19aFYLCIWi6Gnp0cbGBgI5%2FP5XzKZjMb3nn1N5FfS6bRZKBTk%2FPx8ZWho6C337GQymR0ZGbHn5ubk1NSUHBwcLNctbHo8YHRycXFRplKpP7ieIS4TP8Xj8eejo6OmsmtsbMzh3r2m2elxMZfLyenp6QqXK8TPRCuhLEn39vZm19bWpKoN1wsH5dV3Jp2dnZFKpYJyuawIbGKeqBJq%2FSabzYrNzU10d3Wp15MHFQjtTJaWlm6xe4bry8eEl2zVb3UfO3rt71wRoegPePniBeUEWiPhoyFDlwQOd7SjI9EN27ZRyr9HV4eB5Wzx3rYbdJyl7RGMEXHCJ3KEW1h5AiE0eJ6A8F3OHVjFf%2Fj0gtSE70G4Nnzbgl%2B18ObhXfz2%2B7riOkvMhvYIlOr4MjSyWPlVlHKr8Cng2xXYTpWJCEgpKcw9x4S3XYBjbkEEssHo2lWD%2FYYQPiSjrC3okFarOnQdmq5B09QGaTQ1N0j4xRRjVw32HzKIlD9YWPgTy6vrsMxqEJlQbdYWxYnjx5CIePBdZiPkrtMNBTSdUdWjPX%2FpAk6fs%2BDRJk9lRZuEWw1sK7ERAuo9VW2cAS1SZJ7jYPbt7P4ZtNTIQ0aoOQHJUwa9NUJhnLuYxunUKbhsSZ%2BiyjqpCuxWsJ3jnPZE2w%2FzVKYJAeEFNrhOBXOzK%2FtmEIcXNITREm22BjqkEWYdIjh74Qx%2BPHOSNbAhpAgKr%2Fz3XQvlDwZaolG4bqTJGvhsU6hWdWFuleHwg1K9L%2Bqtqz4yzzah0cJo2yGU88Vdx40G9O3p%2FrbLbRo9%2FpiBVSrALH9ClVCdJDybNVDZaAxCh7W9haevlvH6nfmUZ3mv4K%2F%2FZaf6RT7uoHbhHRRPiBvEeeBfXftfGjhC9KD26YcbWlq7xz4SWeJDI4EdEUXccoCAdoZqJZf49Bkd5rOdXLtvgwAAAABJRU5ErkJggg%3D%3D"><span id="alt_unlock" style="display: none; font-size: 24pt; font-family: wingdings;">C</span></div>
 <div id="menu_edit" style="display: none; cursor: pointer;" onclick="edit()"><img id="img_edit" style="display: inline;" alt="Edit" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAAK/INwWK6QAAAAZiS0dEAP8A/wD/oL2nkwAABSVJREFUeNqVlX9oXFUWxz/3vvfmR6aZyZB0YqKhlTUIldK0ILgisv6s9Rdrq1Y32P4hRcXUij/YNuLSFP3H+ttqtFiwTVfRrtbowhpo1iK7BbWg0qildfwRMzGTkNTxdd5kZt67Z//YmWnSpIoXDvdxL+98z/l+zzlXcWqFgAuBGGD4fUu01kPGmCxgAUH1QlVMgL3hcLgzGo0GIqIr56c8iMzrGMD3feV5Xk5rfZcx5k3ABvwqAEqplIik9+3bt2DlypUml8spy7JqTn9tFxEcx5GdO3eqnp4epbVeb4zZA2jA2JVINEBLSwuO46C1BsC27dq3Umpeq9yprVu3mnA4THd3926llIhIH1D5uwJijKFYLKogCFQ8HldKKVUsFpXv+yoIglnm+37t3Pd9JicnrS1btqienh5E5CWl1DmA0aeT6jgO+Xyevr4+RkdHicfjBEFAoVCgVCrNa+VyWWmtxfM8vWHDBj8ejy8QkXalFPZM50EQUFdXx+DgIF1dXbS2trJmzRrWrl1Lc3Mz4+PjGGOwbbtGW3Vva2tTlmVJoVBQFVpVjftaSSmF7/ssW7aM1tZW2s45m97eXjo7O3n22eewbZtEIk65XK4JPFP0qi4zK24OQKFQYPny5axYsYJ0Os2mTRt5/59vMzr6LTfccCMff3KYC5YsYeHChbS0tNTMcZzTy1nNdHwWkD948KC4rmvy+bzs3r1HOjouEGPyEgRGRET+PbhXzmpeIIcOfSwiRnK5nOTzefE8T1zXlWKxaNLptJ9IJAS4QinFHJEty8J1Xa6++iq0DvHFF5+idZGCd5LLLl/L80+sYt0dnfz8cw6lqIpcY+D0hpwFICI1HYLAZ+nSDvr6/g5EcCILmMh8yepVi7juyhC33LqekyddhoeHGRkZwff9Ws+cEaAahWVZnDhxgtWrb+If+97nyKHtlCYPkD78FIf/c4zt267BnfwvL+zYRTKZwPO8eQWeNwMArTWRSJSLL76Irvs2s/q2R5g4upOIU2C6pPnu6Div7/ozr+16iuPffE97+3mzOvs3KVJKkUqlsG2Hhx/axOXXb+TOv37I4rZGImGL0ZFfaIg4PP34RWzs2kQkEiUSCc87EOelqKqDMYapqSlefnE7pdAKHn1ikPP/0Igdsjjy+U+suXYJl1zosW79PYRC4VpvnLEPZmYwNjZGJpMhk8lw7NhxXtrxJPsP+rz13hDti5Og4LNPfuSZx1aRPtrPq7v2YFkWQRD8egbVVS6XKRaL+L6P67o4jkNv7w42P3mEr45N0NYaJ/dLkYmMy/33LueDf31QCdKcGaCagdaaZDJJU1MTjY2NpFIpHCfEZX+6lGeef4V1DxzAGKH93EakLPS/8yWLFi+q+Jgd6JxhFwQBxhiSyeSc2e/7AevvuJ10+juuW/c3tj34R/oHjjP0Q4revgdPJ0FmAijA1NfXEwqFTENDg7Isaw5tVQG3be0mtbCRNw4coL7xPD56bTtNTU0ANDQ0yMyGqwKUgGD//v0MDw+rfD6vbdtGKUWpVKqlrtT/34vp6WmaU0n+ctvNCEJ//7tMT08TiURkYmJCe54HUBCRWY/+5mg0ep9SqqSUUuVyGSOGumgUYwQQjAnwvGnq6+OUy6VTQmpdHRNijIl4nvcucPes2gcYGBgIZ7PZWCaTqRsYGIh1dCyNjY+nY647FZs6MRHz8l/Hrrliceyhh7tjnpePjYyMxMbGxmLZbDaWzWZjU1NTsaGhoWgikaj5/R958KLgEIeBwgAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAAASUVORK5CYII="><span id="alt_edit" style="display: none; font-size: 24pt; font-family: wingdings;">!</span></div>
 <div id="menu_cancel" style="display: inline; cursor: pointer;" onclick="cancel()"><img id="img_cancel" style="display: inline;" alt="Cancel" src="data:image/png;base64,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"><span id="alt_cancel" style="display: none; font-size: 24pt; font-family: wingdings;"></span></div>
 <div id="menu_save" style="display: inline; cursor: pointer;" onclick="save()"><img id="img_save" style="display: inline;" alt="Save" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAAK/INwWK6QAAAAZiS0dEAP8A/wD/oL2nkwAAA0FJREFUeNq1lc+KHFUUxn/n3qqu6h7tGdPByTBOEjQunK26EQRdhAGRuHGE2agLH8C1j5AXCFnkAYyBEIKoRHeabWQyJKIm+IdAdwSd0HZPdVXdc1xU9UynbZIe/xy4XG5R93z3fN937hWqeALYqGcFhH8WBkTAD8DXTCS64n18Jo6ToFo4792hAEQEVUUVc87baDR0ZvYBcEFAngO7eeatD5vHjq2XKysDee/dNxkOc9zcOIJzgXPnrhD0mfDVl+cbt29f/0zEvREBHqD9ZIckWfCdIwnLy8v0+3t47x7PiRkAcexoLy6SZW1arTaAQyq+ACSEAtVAURQyGo3I8/krMANVoSxLQigtaKjKsgkAREAEmRjOzVeBCDgnCPXecU7g8Rn+ZfzvANHkYprxsYD/GYABiExAzS+yWcX/IwEATEu8V7w3vNc5skvVvt7Qyj2zAVSVVqvJj3d6nD37MeAxJimSh+qxuj5DMVNUA7t/wFNHInSC2mhyh6AkyQrd3gOKYhcRv2/V6dOJCBoCjWSJNG2jqiSpAPrQUaLpTXk+4mhnyObma4QAWTZABNJ0AdWDk5mB98bFi9fJ8gWSxBFCybQt/gagqjSbTU6cOMknl66xvd0DjJdfWmNj41WGwwznBFVIU0+z1WQwDMRRNNMUUyJXzIYQyPOMbvcB8DSqSre7S1mOKIoc5xxmRp57NITaebMjmvlVqmq8czingOJ8Zd8DK8pB3ke0y34n26y/qutp8n45dEQ1fPA+qkU0MzMxM4q8JMsCqkpelJgZqoZz4xvU6m6vZqs6bnxYA4hEBDNz/f7vliQtnBuQNBJL0xbr68cpw6+Asf7CsyRJimpFk1klcqOR4HxEVIvsfSzeRQAmApGZfQ9c/uLz81tpupB3Oidd736X7e0dVlc7rK4u1g6LuHXru30NzMA55f5vPfLc0CCEMkgIZTkY7Hog7PebiHNLS8uXKlQpqR5+O+wQEQVCvX6/lrHq+M13PmplWf760c7QnT79Cnt7h3nRFO+Fq1e/saLoRDd3rv10986Nb0WECMTAiOMkWzv+4qfPnyrY2nqb/p97+DletDFdcSz8/EtgNFrj3r0d7nJDRMT+AqKAkRUl/oStAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAABJRU5ErkJggg=="><span id="alt_save" style="display: none; font-size: 24pt; font-family: wingdings;">&lt;</span></div>
-<div id="menu_unlock" style="display: none; cursor: pointer;" onclick="unlock()"><img id="img_lock" style="display: inline;" alt="Unlock" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA%2FwD%2FAP%2BgvaeTAAAEnUlEQVR42o2WX2wUVRTGf3NnZ7a7tkvTdA1rlxSWthgwEpoawh9jS8SHxofqAyaGBzBBE15IBLTxwfgCGBITfZAXk%2FYBjDE09QGJpqKFGBKiDYkuVChd7KbbbbtLy3bb2dk%2Fs3N96M52t63ASU5m5t7c853zne%2FeOwoV9vDhwxpWWSgUypVelYphWfKnmnACrxd8z549rwB2yYslfwuoB9zAayWgXYBrXQQneKU3NzfvcrLs7%2B%2BXsVhMTk1NyVu3bsmK7N8EZCqVcr4PlUDXVlBpBw4ceDEajd7u7e0tJpNJDh48SDqdJpVK4ff7iUQi9Pf3A1wBWFpa4s6dOwDfA92rQdYAzM3NvQRw%2BvRp9erVq1YwGGT79u3s2LGDrVu3Eg6H87t376avr6%2B8ZnZ2lgcPHgAMAi2V%2FaribXp6WllcXLw4MTHByMgIR44ccW3YsOFDr9c76vP54vF4vKOnp6cvGo3S1NRUlVhrayvAp6vEsLYCALd7pUqPx3O%2FpaVl9OjRoxPnzp27%2FH9qOX78OMAMMF2psKoKxsfHBYBpmuUxr9c729raagQCAftJcrxw4QKACeQrx8sA4XBYDAwM1K5eaBiGb3h4uOn69es2z2bFdQG%2B%2FOiDd4bvz%2FQBDA4OkkgknAb%2BtjrCsWPHqK1dyUXXdS5dusThw4cvAreBfxyaFGeDhUIhMxUfJT8%2Fibn4iHzGIJtZYPFxCjOTAUDTNPQaN8Klorlr2NXTSywWI5FI0N7eDvAV8DUQKW3O6h4ouTS59AxGIkrWWCLzOMlcMsGSsQQSPJ4adK8HVRVo6spJUVdXx82bN9m3b98J4LsSwFoV2baNLC5TKG2wFXtZcxKEEKAoKELBtiWvn%2FqBzz45iRCCuro6VFV1wmwCtHVVBBIpJUiJlEViMynGJmYxM1kE0FBfy6aNcPZKnEgkghCCTIm%2BxsZGhoeH6erqugy8CvwJ5KopEipCCBShIIQk8Hw9HpEjs7CIRCBqdHq%2FvceNGzcoFAqMj49jWRaKoqDrOps3b2ZkZISOjo7fgZ3AXREKhbIrHBWxihZWvoCVL%2FDocZrJxBJT81kSCxne%2FfxXzp45g5TLlWqaRltbG21tbWzZsoX6%2Bnr8fj%2Fnz58H%2BAtocJUUlF0mSEFVVFSXC6G6aPR5EVkPGbeNXVJ3Z1cXhmGgKArbtm1D1%2FXl6hWl%2FOzs7HRS3ljdA9tCFjIUcovkc2mi8QTzyXlMw0RzucoBHDdNk0AgAEA0Gi2PO6BA%2FaoeKEhVQwg3Lk0nuLGBWlVimu4qwTmBQqEQwBeAbG5uPjU5OYmiKOTz%2Bf857Io2kiKyWMAqFLByuVJPLGTRAuCXoaEyHQCH3mg%2FeeLtnaecHW1ZFkNDQ870QtU9%2B%2FM3HzPx7zjZhSRZM0sulyWfzVKwiggUajw6g6Murl27hmEYaJpGMBgEIBaLoes6Y2Nj7N%2B%2FH%2BA94McywMt%2B%2FYW%2Fk%2FmpZznN9u7dy8DAALa9cv6Fw2GklHR3dwP0Aj8BdysrUAAV0EvP1X8Slfacz%2BeLp9Pp9ebeB%2F4A7gE55SnJPmneBTQAAaDO4bx06cwDFsB%2F1pf2UYdfB6cAAAAASUVORK5CYII%3D"><span id="alt_lock" style="display: none; font-size: 24pt; font-family: wingdings;">I</span></div>
-<div id="menu_lock" style="display: none; cursor: pointer;" onclick="lock()"><img id="img_unlock" style="display: inline;" alt="Lock" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAB3RJTUUH1wMbFisGhO%2Br5wAAAAlwSFlzAAALEwAACxMBAJqcGAAAAARnQU1BAACxjwv8YQUAAANZSURBVHja3VTPT1NZGD3vvZYWGGqVNgKyEBZqwsRYtRpjJpkdMbNk5YrMZjYQF27c%2Bxe4MCxcIJmdyRAjGxMX%2FohKUGMgMAt%2BTCJ0CtqR2tLS9%2Fp%2B3eu5r8UEZphS48qbnL57b9895%2FvO970LfK%2FjKjFJlIhHxH0i9a3Ib%2Fb396%2BPj4%2FLjY0NOTMzIycmJvxEImHyv1%2BbJTP2rG8PDw9fn5ycjPX19aFYLCIWi6Gnp0cbGBgI5%2FP5XzKZjMb3nn1N5FfS6bRZKBTk%2FPx8ZWho6C337GQymR0ZGbHn5ubk1NSUHBwcLNctbHo8YHRycXFRplKpP7ieIS4TP8Xj8eejo6OmsmtsbMzh3r2m2elxMZfLyenp6QqXK8TPRCuhLEn39vZm19bWpKoN1wsH5dV3Jp2dnZFKpYJyuawIbGKeqBJq%2FSabzYrNzU10d3Wp15MHFQjtTJaWlm6xe4bry8eEl2zVb3UfO3rt71wRoegPePniBeUEWiPhoyFDlwQOd7SjI9EN27ZRyr9HV4eB5Wzx3rYbdJyl7RGMEXHCJ3KEW1h5AiE0eJ6A8F3OHVjFf%2Fj0gtSE70G4Nnzbgl%2B18ObhXfz2%2B7riOkvMhvYIlOr4MjSyWPlVlHKr8Cng2xXYTpWJCEgpKcw9x4S3XYBjbkEEssHo2lWD%2FYYQPiSjrC3okFarOnQdmq5B09QGaTQ1N0j4xRRjVw32HzKIlD9YWPgTy6vrsMxqEJlQbdYWxYnjx5CIePBdZiPkrtMNBTSdUdWjPX%2FpAk6fs%2BDRJk9lRZuEWw1sK7ERAuo9VW2cAS1SZJ7jYPbt7P4ZtNTIQ0aoOQHJUwa9NUJhnLuYxunUKbhsSZ%2BiyjqpCuxWsJ3jnPZE2w%2FzVKYJAeEFNrhOBXOzK%2FtmEIcXNITREm22BjqkEWYdIjh74Qx%2BPHOSNbAhpAgKr%2Fz3XQvlDwZaolG4bqTJGvhsU6hWdWFuleHwg1K9L%2Bqtqz4yzzah0cJo2yGU88Vdx40G9O3p%2FrbLbRo9%2FpiBVSrALH9ClVCdJDybNVDZaAxCh7W9haevlvH6nfmUZ3mv4K%2F%2FZaf6RT7uoHbhHRRPiBvEeeBfXftfGjhC9KD26YcbWlq7xz4SWeJDI4EdEUXccoCAdoZqJZf49Bkd5rOdXLtvgwAAAABJRU5ErkJggg%3D%3D"><span id="alt_unlock" style="display: none; font-size: 24pt; font-family: wingdings;">C</span></div></td></tr></tbody></table></div><br><br>
+</td></tr></tbody></table></div><br><br>
 <div id="text_area" style="display: none;">
 <div class="menu_area" id="sw_menu_area" style="position: fixed;">
 <div class="wiki" id="menu_area" ondblclick="menu_dblclick()"></div>
 <div id="menu_edit_button" style="display: inline;">
 <hr>
-
-<div style="text-align: center;"><a class="link" onclick="edit_menu()">[Edit]</a></div></div></div>
+<div style="text-align: center;"><a class="link" onclick="edit_menu()">[Edit]</a></div>
+</div>
+<div style="display: none;" class="wiki" id="ns_menu_area" ondblclick="ns_menu_dblclick()"></div>
+<div id="ns_menu_edit_button" style="display: none;">
+<hr>
+<div style="text-align: center;"><a class="link" onclick="edit_ns_menu()">[Edit]</a></div></div>
+</div>
 <div class="text_area" id="wiki_text" ondblclick="page_dblclick()"></div></div>
 <div id="edit_area" style="display: inline;">
 <div id="edit_page_title" style="display: block;">Page title: <input id="wiki_page_title" size="50" value="Main Page"></div><textarea id="wiki_editor" style="width: 994px; height: 430px;" rows="0" cols="0"></textarea> 
