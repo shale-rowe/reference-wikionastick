@@ -288,8 +288,8 @@ function parse(text)
 		return r;
 	});
 	
-	// save html tags attributes
-	text = text.replace(/\<\w+[^>]*>/g, function (tag) {
+	// put away big enough HTML tags (with attributes)
+	text = text.replace(/\<\w+\s[^>]+>/g, function (tag) {
 		var r = "<!-- "+parse_marker+'::'+html_tags.length+" -->";
 		html_tags.push(tag);
 		return r;
@@ -334,12 +334,15 @@ function parse(text)
 	// <br />
 	
 	text = text.replace(new RegExp(parse_marker+"([ub])([SE])#", "g"), function (str, $1, $2) {
-		if ($2=='E')
-			return "</span>";
+		if ($2=='E') {
+			if ($1=='u')
+				return "</span>";
+			return "</strong>";
+		}
 		if ($1=='u')
 			tag = "<span style=\"text-decoration:underline;\">";
 		else
-			tag = "<span style=\"font-weight: bold;\">";
+			tag = "<strong>";
 		return tag;
 	});
 
