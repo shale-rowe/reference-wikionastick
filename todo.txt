@@ -1,13 +1,9 @@
 
-* password page-locking feature
-
 * Export page as HTML
 
 * Export entire wiki as XML (StickWiki 0.9 format|MediaWiki format)
 
 * Import wiki from XML (StickWiki 0.9 format|MediaWiki format)
-
-* customizable user interface
 
 * hotkeys
 
@@ -18,3 +14,5 @@
 * import files ("attachments", ASCII-javascript/binary-base64 encoding options)
 
 * XHTML compliance
+
+* cumulative save feature
