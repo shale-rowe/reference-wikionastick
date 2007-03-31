@@ -1659,15 +1659,15 @@ function go_forward()
 
 function js_encode(s, split_lines) {
 	// not to counfound browsers with saved tags
-	s = s.replace(/([\\<>"])/g, function (str, ch) {
+	s = s.replace(/([\\<>'])/g, function (str, ch) {
 //		return "\\x"+ch.charCodeAt(0).toString(16);
 		switch (ch) {
 			case "<":
 				return	"\\x3C";
 			case ">":
 				return "\\x3E";
-			case '"':
-				return '\\"';
+			case "'":
+				return "\\'";
 //			case "\\":
 		}
 		return "\\\\";
@@ -1690,7 +1690,7 @@ function js_encode(s, split_lines) {
 function printout_arr(arr, split_lines) {
 
 	function elem_print(e) {
-		return "\"" + js_encode(e, split_lines) + "\"";
+		return "'" + js_encode(e, split_lines) + "'";
 	}
 
 	var s = "";
@@ -1708,7 +1708,7 @@ function printout_mixed_arr(arr, split_lines, attrs) {
 		if (attr & 2) {
 			return "[" + printout_num_arr(e) + "]";
 		}
-		return "\"" + js_encode(e, split_lines) + "\"";
+		return "'" + js_encode(e, split_lines) + "'";
 	}
 
 	var s = "";
@@ -1756,8 +1756,8 @@ function save_to_file(full) {
 	";\n\nvar save_on_quit = "+save_on_quit+
 	";\n\nvar allow_diff = "+allow_diff+
 	";\n\nvar key_cache = "+key_cache+
-	";\n\nvar current = \"" + js_encode(current)+
-	"\";\n\nvar main_page = \"" + main_page + "\";\n\n";
+	";\n\nvar current = '" + js_encode(current)+
+	"';\n\nvar main_page = '" + js_encode(main_page) + "';\n\n";
 	
 	computed_js += "var backstack = [\n" + printout_arr(backstack, false) + "];\n\n";
 
