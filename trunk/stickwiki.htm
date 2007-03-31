@@ -21,7 +21,7 @@ var allow_diff = true;
 
 var key_cache = true;
 
-var current = "Main Page";
+var current = "MyPages::Test script";
 
 var main_page = "Main Page";
 
@@ -42,15 +42,12 @@ var page_titles = [
 "MyPages::Page 1",
 "Test page",
 "MyPages::Menu",
-"Special::Search::Script",
 "Special::Options",
-"Special::Options::Script",
-"Special::Advanced::Script",
-"Special::Lock::Script"
+"MyPages::Test script"
 ];
 
 /* UUZJizdTQtSsJsMSZA-DATA */
-var page_attrs = [0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x2,0x0,0x0,0x0,0x0,0x0,0x0,0x0];
+var page_attrs = [0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x2,0x0,0x0,0x0,0x0];
 
 var pages = [
 "[[Main Page]]\n\
@@ -63,7 +60,7 @@ var pages = [
 [[Special::Edit script]]",
 "!Info\n\
 [[Special::About|About Wiki on a Stick]]\n\
-This wiki was last modified in <span id=\"lastDate\"></span>.\n\
+This wiki was last modified in \x3Cspan id=\"lastDate\"\x3E\x3C/span\x3E.\n\
 \n\
 !Pages\n\
 [[Special::All Pages|All Pages]]: a list of all user created pages in this wiki\n\
@@ -84,10 +81,12 @@ This wiki was last modified in <span id=\"lastDate\"></span>.\n\
 \n\
 !Options\n\
 You can customize Wiki on a Stick modifying a few [[Special::Options|Options]].  \n\
-",
+\x3Cscript\x3E\n\
+el(\"lastDate\").innerHTML = document.lastModified;\n\
+\x3C/script\x3E",
 "Import a wiki from an early (or current) version:\n\
 \n\
-File: <input id=\"filename_\" type=\"file\" />&nbsp;<input type=\"button\" value=\"Import\" onclick=\"import_wiki()\" />\n\
+File: \x3Cinput id=\"filename_\" type=\"file\" /\x3E&nbsp;\x3Cinput type=\"button\" value=\"Import\" onclick=\"import_wiki()\" /\x3E\n\
 \n\
 *Important:* CSS will not be imported from versions below v0.04",
 "!Wiki on a Stick version 0.9\n\
@@ -97,7 +96,7 @@ Original version (v0.01 &tilde; v0.04) by Andr\u00e9 Wagner\n\
 Wiki on a Stick is licensed under the [[http://www.gnu.org/copyleft/gpl.html|GNU/GPL]] license.\n\
 \n\
 !!Thanks to\n\
-This project wouldn't be what it is without the help of other people. If you contributed to Wiki on a Stick and your name is not here, please send an email to <a class=\"world\" href=\"mailto:legolas558 _AT_ users.sourceforge.net\">this email address</a>. If, for any reason, you don't want your name listed here, just send an email.\n\
+This project wouldn't be what it is without the help of other people. If you contributed to Wiki on a Stick and your name is not here, please send an email to \x3Ca class=\"world\" href=\"mailto:legolas558 _AT_ users.sourceforge.net\"\x3Ethis email address\x3C/a\x3E. If, for any reason, you don't want your name listed here, just send an email.\n\
 \n\
 * *Jeremy Ruston* - the creator of the wonderful [[http://www.tiddlywiki.com/|TiddlyWiki]], who served as inspiration for Wiki on a Stick. He also kindly allowed the usage of his saving/loading routines.\n\
 * *Philip O'Donnel* - creator of the table syntax & parsing code\n\
@@ -130,14 +129,15 @@ If you have an older Wiki on a Stick (v0.01 &tilde; v0.04), [[Special::Import|im
 !!!Syntax changes in v0.9\n\
 There have been a few changes in the wiki syntax, they will be automatically applied on import or saving (except the wiki link parts inversion).\n\
 * bullet lists are recognized using an asterisk '*' at the beginning of the line, if you use the previous '+' plus sign it will be automatically converted to an asterisk\n\
-* wiki link parts are inverted, e.g. no more [<!-- -->[the label|WikiActualPage]] but [<!-- -->[WikiActualPage|the label]]\n\
+* wiki link parts are inverted, e.g. no more [\x3C!-- --\x3E[the label|WikiActualPage]] but [\x3C!-- --\x3E[WikiActualPage|the label]]\n\
 !!!New features\n\
 * namespaces support through the separator '::'\n\
-* tags support through [<!-- -->[Tag::Sometag]] or [<!-- -->[Tags::Sometag, Somethingelse]] syntax\n\
+* tags support through [\x3C!-- --\x3E[Tag::Sometag]] or [\x3C!-- --\x3E[Tags::Sometag, Somethingelse]] syntax\n\
 * line joining through a slash '\\' at the end of the line\n\
-* automatic TOC generation in place of [<!-- -->[Special::TOC]]\n\
-* namespace-specific menus creating [<!-- -->[Namespace::Menu]] pages (the main menu is [[::Menu]])\n\
+* automatic TOC generation in place of [\x3C!-- --\x3E[Special::TOC]]\n\
+* namespace-specific menus creating [\x3C!-- --\x3E[Namespace::Menu]] pages (the main menu is [[::Menu]])\n\
 * alphanumerical lists using '@'\n\
+* custom javascript addons (see [[MyPages::Test script]])\n\
 \n\
 !Syntax examples \n\
 Follows a brief example of all the capabilities of Wiki on a Stick syntax.\n\
@@ -145,10 +145,10 @@ Follows a brief example of all the capabilities of Wiki on a Stick syntax.\n\
 !!Formatting\n\
 !!!Subheader of third level\n\
 !!!!Subheader of fourth level\n\
-<pre>This is pre-formatted text! This text does not get _underlined_, as you can see</pre>\n\
-<pre style=\"color:gray\">\n\
+\x3Cpre\x3EThis is pre-formatted text! This text does not get _underlined_, as you can see\x3C/pre\x3E\n\
+\x3Cpre style=\"color:gray\"\x3E\n\
 This is pre-formatted text with CSS style!\n\
-And it stands on multiple lines too</pre>\n\
+And it stands on multiple lines too\x3C/pre\x3E\n\
 \n\
 !!Some specials\n\
 Using [[Special::Main Page]] you will always link to the main page, no matters what its name is.\n\
@@ -222,8 +222,20 @@ Alphanumerically ordered list:\n\
 |}",
 "!Search in Wiki\n\
 \n\
-<input id=\"string_to_search\" type=\"text\" onfocus=\"search_focus(true)\" onblur=\"search_focus(false)\" />&nbsp;<input type=\"button\" value=\"Search\" onclick=\"do_search()\" />&nbsp;<input type=\"button\" value=\"Clear\" onclick=\"clear_search()\" />\n\
-",
+\x3Cinput id=\"string_to_search\" type=\"text\" onfocus=\"search_focus(true)\" onblur=\"search_focus(false)\" /\x3E&nbsp;\x3Cinput type=\"button\" value=\"Search\" onclick=\"do_search()\" /\x3E&nbsp;\x3Cinput type=\"button\" value=\"Clear\" onclick=\"clear_search()\" /\x3E\n\
+\n\
+\x3Cscript\x3E\n\
+el(\"wiki_text\").innerHTML += cached_search\n\
+/*\n\
+.replace(hl_reg, function () {\n\
+	var str = arguments[0];\n\
+	for(var i=1;i\x3Carguments.length;i++) {\n\
+		str = str.replace(arguments[i], \"\x3Cspan class=\\\"search_highlight\\\"\x3E\"+arguments[i]+\"\x3C/span\x3E\");\n\
+	}\n\
+	return str; })\n\
+hl_reg = null;	*/\n\
+el(\"string_to_search\").focus();\n\
+\x3C/script\x3E",
 "Hey, don't tell anyone around but...I am better than [[MyPages::Page 1]]!",
 "This is a page in a subnamespace!\n\
 \n\
@@ -234,13 +246,21 @@ The parent namespace is [[MyPages::]] while the subnamespace is [[MyPages::Appro
 Read more about the [[Special::Security|embedded AES encryption]] used in Wiki On a Stick.\n\
 \n\
 !!Password\n\
-Enter your password for AES encryption. The more complex your password is, the more difficult it will be to attack the encryption. It is suggested *not* to use passwords whose textbox color is <span style=\"background-color:red\">&nbsp;red&nbsp;</span>, and to accept passwords only when the textbox color is <span style=\"background-color:lime\">&nbsp;green&nbsp;</span>.\n\
+Enter your password for AES encryption. The more complex your password is, the more difficult it will be to attack the encryption. It is suggested *not* to use passwords whose textbox color is \x3Cspan style=\"background-color:red\"\x3E&nbsp;red&nbsp;\x3C/span\x3E, and to accept passwords only when the textbox color is \x3Cspan style=\"background-color:lime\"\x3E&nbsp;green&nbsp;\x3C/span\x3E.\n\
 \n\
- *If you forget the password there is no way to retrieve it or your data, FOREVER.*\n\
+*If you forget the password there is no way to retrieve it or your data, FOREVER.*\n\
 \n\
-  <input type=\"password\" id=\"pw1\" style=\"background-color:red\" value=\"\" size=\"50\" onfocus=\"custom_focus(true)\" onblur=\"custom_focus(false)\" onkeyup=\"pw_quality()\" />&nbsp;<span id=\"txtBits\">&nbsp;</span>\n\
-  <input type=\"password\" id=\"pw2\" value=\"\" size=\"50\" onfocus=\"custom_focus(true)\" onblur=\"custom_focus(false)\" />\n\
-  <input id=\"btn_lock\" type=\"button\" value=\"\" />",
+ \x3Cinput type=\"password\" id=\"pw1\" style=\"background-color:red\" value=\"\" size=\"50\" onfocus=\"custom_focus(true)\" onblur=\"custom_focus(false)\" onkeyup=\"pw_quality()\" /\x3E&nbsp;\x3Cspan id=\"txtBits\"\x3E&nbsp;\x3C/span\x3E\n\
+ \x3Cinput type=\"password\" id=\"pw2\" value=\"\" size=\"50\" onfocus=\"custom_focus(true)\" onblur=\"custom_focus(false)\" /\x3E\n\
+ \x3Cinput id=\"btn_lock\" type=\"button\" value=\"\" /\x3E\n\
+\n\
+\x3Cscript\x3E\n\
+var page = title.substring(title.indexOf(\"::\")+2);\n\
+\n\
+el(\"btn_lock\").value = \"Lock \"+page;\n\
+el(\"pw1\").focus();\n\
+el(\"btn_lock\").setAttribute(\"onclick\", \"lock_page('\"+_sq_esc(page)+\"')\");\n\
+\x3C/script\x3E",
 "!!AES encryption\n\
 Since Wiki on a Stick v0.9 the [[http://en.wikipedia.org/wiki/Advanced_Encryption_Standard|AES]] 256-bit high security data encryption standard is supported to protect a single page or groups of them.\n\
 \n\
@@ -276,52 +296,153 @@ I should be on the 5th paragraph after the title",
 "[[Special::]]\n\
 [[MyPages::]]\n\
 [[Special::New page]]",
-"el(\"wiki_text\").innerHTML += cached_search\n\
-/*\n\
-.replace(hl_reg, function () {\n\
-		var str = arguments[0];\n\
-		for(var i=1;i<arguments.length;i++) {\n\
-			str = str.replace(arguments[i], \"<span class=\\\"search_highlight\\\">\"+arguments[i]+\"</span>\");\n\
-		}\n\
-		return str; })\n\
-hl_reg = null;	*/\n\
-el(\"string_to_search\").focus();\n\
-",
 "!Options\n\
 \n\
-<label for=\"cb_allow_diff\"><input type=\"checkbox\" id=\"cb_allow_diff\" onclick=\"allow_diff = el_eval('cb_allow_diff')\" />Diff mode (consistent newlines splitting in saved data, useful for versioning)<br />\n\
-<label for=\"cb_permit_edits\"><input type=\"checkbox\" id=\"cb_permit_edits\" onclick=\"permit_edits = !el_eval('cb_permit_edits')\" />Disable edit mode for all pages (useful when publishing the Wiki On a Stick file on a web server)<br />\n\
-<label for=\"cb_dblclick_edit\"><input type=\"checkbox\" id=\"cb_dblclick_edit\" onclick=\"dblclick_edit = el_eval('cb_dblclick_edit')\" />Double click to edit pages/menu<br />\n\
-<label for=\"cb_save_on_quit\"><input type=\"checkbox\" id=\"cb_save_on_quit\" onclick=\"save_on_quit = el_eval('cb_save_on_quit')\" />Automatically save options (if changed) before quitting<br />\n\
-<label for=\"cb_key_cache\"><input type=\"checkbox\" id=\"cb_key_cache\" onclick=\"key_cache = !el_eval('cb_key_cache')\" />Do not temporarily cache the AES key (will have to enter it for each encrypted page, useful if you leave WoaS open to possible unauthorized access)<br />\n\
-<label for=\"cb_fixed_layout\"><input type=\"checkbox\" id=\"cb_fixed_layout\" onclick=\"_set_layout(el_eval('cb_fixed_layout'))\" />Fixed menu area and topbar<br />\n\
-<input type=\"button\" onclick=\"save_options()\" value=\"Save options\" />",
-"el(\"cb_allow_diff\").checked = bool2chk(allow_diff);\n\
+\x3Clabel for=\"cb_allow_diff\"\x3E\x3Cinput type=\"checkbox\" id=\"cb_allow_diff\" onclick=\"allow_diff = el_eval('cb_allow_diff')\" /\x3EDiff mode (consistent newlines splitting in saved data, useful for versioning)\x3Cbr /\x3E\n\
+\x3Clabel for=\"cb_permit_edits\"\x3E\x3Cinput type=\"checkbox\" id=\"cb_permit_edits\" onclick=\"permit_edits = !el_eval('cb_permit_edits')\" /\x3EDisable edit mode for all pages (useful when publishing the Wiki On a Stick file on a web server)\x3Cbr /\x3E\n\
+\x3Clabel for=\"cb_dblclick_edit\"\x3E\x3Cinput type=\"checkbox\" id=\"cb_dblclick_edit\" onclick=\"dblclick_edit = el_eval('cb_dblclick_edit')\" /\x3EDouble click to edit pages/menu\x3Cbr /\x3E\n\
+\x3Clabel for=\"cb_save_on_quit\"\x3E\x3Cinput type=\"checkbox\" id=\"cb_save_on_quit\" onclick=\"save_on_quit = el_eval('cb_save_on_quit')\" /\x3EAutomatically save options (if changed) before quitting\x3Cbr /\x3E\n\
+\x3Clabel for=\"cb_key_cache\"\x3E\x3Cinput type=\"checkbox\" id=\"cb_key_cache\" onclick=\"key_cache = !el_eval('cb_key_cache')\" /\x3EDo not temporarily cache the AES key (will have to enter it for each encrypted page, useful if you leave WoaS open to possible unauthorized access)\x3Cbr /\x3E\n\
+\x3Clabel for=\"cb_fixed_layout\"\x3E\x3Cinput type=\"checkbox\" id=\"cb_fixed_layout\" onclick=\"_set_layout(el_eval('cb_fixed_layout'))\" /\x3EFixed menu area and topbar\x3Cbr /\x3E\n\
+\x3Cinput type=\"button\" onclick=\"save_options()\" value=\"Save options\" /\x3E\n\
+\n\
+\x3Cscript\x3E\n\
+el(\"cb_allow_diff\").checked = bool2chk(allow_diff);\n\
 el(\"cb_key_cache\").checked = bool2chk(!key_cache);\n\
 el(\"cb_dblclick_edit\").checked = bool2chk(dblclick_edit);\n\
 el(\"cb_permit_edits\").checked = bool2chk(!permit_edits);\n\
 el(\"cb_save_on_quit\").checked = bool2chk(save_on_quit);\n\
 el(\"cb_fixed_layout\").checked = (el(\"sw_wiki_header\").style.position == \"fixed\");\n\
-",
-"el(\"lastDate\").innerHTML = document.lastModified;",
-"var page = title.substring(title.indexOf(\"::\")+2);\n\
+\x3C/script\x3E",
+"\x3Cp\x3ETest your Response time!\x3C/p\x3E\n\
+Click on \"Start\" first, and wait until the background color changes. As soon as it changes, hit \"stop!\"\n\
 \n\
-el(\"btn_lock\").value = \"Lock \"+page;\n\
-el(\"pw1\").focus();\n\
-el(\"btn_lock\").setAttribute(\"onclick\", \"lock_page('\"+_sq_esc(page)+\"')\");\n\
-"
+\x3Cscript language=\"JavaScript\"\x3E\n\
+\x3C!--\n\
+\n\
+//Reflext Tester- By Andy Scott (based on script by Jasper van Zandbeek)\n\
+//http://www.geocities.com/SiliconValley/Station/4320/\n\
+//Submitted to Dynamic Drive for inclusion\n\
+//Visit http://www.dynamicdrive.com for this script\n\
+\n\
+var startTime=new Date();\n\
+var endTime=new Date();\n\
+var startPressed=false;\n\
+var bgChangeStarted=false;\n\
+var maxWait=20;\n\
+var timerID;\n\
+\n\
+\n\
+var colors=new Array(\"tomato\",\"chocolate\",\"limegreen\",\"crimson\",\"darkslategray\",\n\
+\"aliceblue\",\"mediumslateblue\",\"cornflowerblue\",\"darkorchid\",\"darkkhaki\",\"coral\",\n\
+\"darkolivegreen\",\"cadetblue\")\n\
+\n\
+if (document.all||document.getElementById)\n\
+document.write('\x3Cdiv id=\"reflex\" style=\"width:135px;height:135px;border:1px solid black\" onClick=\"stopTest()\"\x3E\x3C/div\x3E')\n\
+\n\
+function startTest()\n\
+{\n\
+       if (document.all)\n\
+       document.all.reflex.style.backgroundColor=colors[Math.floor(Math.random()*colors.length)];\n\
+       else if (document.getElementById)\n\
+document.getElementById(\"reflex\").style.backgroundColor=colors[Math.floor(Math.random()*colors.length)];\n\
+       else if (document.layers)\n\
+       document.reflexns.document.reflexns_sub.document.bgColor=colors[Math.floor(Math.random()*colors.length)];\n\
+bgChangeStarted=true;\n\
+startTime=new Date();\n\
+}\n\
+\n\
+function remark(responseTime)\n\
+{\n\
+var responseString=\"\";\n\
+if (responseTime \x3C 0.10)\n\
+	responseString=\"Well done!\";\n\
+if (responseTime \x3E= 0.10 && responseTime \x3C 0.20)\n\
+	responseString=\"Nice!\";\n\
+if (responseTime \x3E=0.20 && responseTime \x3C 0.30)\n\
+	responseString=\"Could be better...\";\n\
+if (responseTime \x3E=0.30 && responseTime \x3C 0.60)\n\
+	responseString=\"Keep practising!\";\n\
+if (responseTime \x3E=0.60 && responseTime \x3C 1)\n\
+	responseString=\"Have you been drinking?\";\n\
+if (responseTime \x3E=1)\n\
+	responseString=\"Did you fall asleep?\";\n\
+\n\
+return responseString;\n\
+}\n\
+\n\
+function stopTest()\n\
+{\n\
+if(bgChangeStarted)\n\
+{\n\
+	endTime=new Date();\n\
+	var responseTime=(endTime.getTime()-startTime.getTime())/1000;\n\
+               if (document.all)\n\
+	document.all.reflex.style.backgroundColor=\"white\";\n\
+               else if (document.getElementById)\n\
+	document.getElementById(\"reflex\").style.backgroundColor=\"white\";\n\
+               else if (document.layers)\n\
+               document.reflexns.document.reflexns_sub.document.bgColor=\"white\";      \n\
+	alert(\"Your response time is: \" + responseTime + \" seconds \" + \"\\n\" + remark(responseTime));\n\
+	startPressed=false;\n\
+	bgChangeStarted=false;\n\
+}\n\
+else\n\
+{\n\
+	if (!startPressed)\n\
+	{\n\
+		alert(\"press start first to start test\");\n\
+	}\n\
+	else\n\
+	{       \n\
+		clearTimeout(timerID);\n\
+		startPressed=false;             \n\
+		alert(\"cheater! you pressed too early!\");\n\
+	}               \n\
+}\n\
+}\n\
+\n\
+var randMULTIPLIER=0x015a4e35;\n\
+var randINCREMENT=1;\n\
+var today=new Date();\n\
+var randSeed=today.getSeconds();\n\
+function randNumber()\n\
+{\n\
+randSeed = (randMULTIPLIER * randSeed + randINCREMENT) % (1 \x3C\x3C 31);\n\
+return((randSeed \x3E\x3E 15) & 0x7fff) / 32767;\n\
+}\n\
+\n\
+function startit()\n\
+{\n\
+if(startPressed)\n\
+{\n\
+	alert(\"Already started. Press stop to stop\");\n\
+	return;\n\
+}\n\
+else\n\
+{\n\
+	startPressed=true; \n\
+	timerID=setTimeout('startTest()', 6000*randNumber());\n\
+}\n\
+}\n\
+// --\x3E \n\
+\x3C/script\x3E\n\
+\x3Cbr\x3E\n\
+\n\
+\n\
+\x3Cilayer id=\"reflexns\" width=135; height=135;\x3E\x3Clayer id=\"reflexns_sub\" width=135; height=135; left=0 top=0 bgColor=yellow\x3E\x3C/layer\x3E\x3C/ilayer\x3E\n\
+\n\
+\x3Cform name=\"response\"\x3E\n\
+\n\
+\x3Cinput type=\"button\" value=\"  start  \" onClick=\"startit()\" style=\"font-weight:bold\"\x3E\n\
+\x3Cinput type=\"button\" value=\"  stop  \" onClick=\"stopTest()\" style=\"font-weight:bold\"\x3E\n\
+\x3C/form\x3E\n\
+\n\
+\x3Cp align=\"center\"\x3E\x3Cfont face=\"Arial\" size=\"-2\"\x3EFree DHTML scripts provided by\x3Cbr\x3E\n\
+\x3Ca href=\"http://www.dynamicdrive.com\"\x3EDynamic Drive\x3C/a\x3E\x3C/font\x3E\x3C/p\x3E"
 ];
 
 /* UUZJizdTQtSsJsMSZA-END */
-
-
-
-
-
-
-
-
-
 
 
 /* ]]> */ </script>
@@ -478,7 +599,7 @@ p.wiki_toc_title {
 <table cellspacing="0" width="100%">
 <tbody>
 <tr>
-<td width="80%"><span class="title" id="wiki_title">Editing Main Page</span></td>
+<td width="80%"><span class="title" id="wiki_title">Editing MyPages::Test script</span></td>
 <td align="right" width="20%">
 <div id="menu_back" style="display: none; cursor: pointer;" onclick="go_back()"><img id="img_back" style="display: inline;" alt="Back" src="data:image/png;base64,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"><span id="alt_back" style="display: none; font-size: 24pt; font-family: wingdings;"></span></div>
 <div id="menu_forward" style="display: none; cursor: pointer;" onclick="go_forward()"><img id="img_forward" style="display: inline;" alt="Forward" src="data:image/png;base64,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"><span id="alt_forward" style="display: none; font-size: 24pt; font-family: wingdings;"></span></div>
@@ -497,8 +618,8 @@ p.wiki_toc_title {
 <hr>
 <div style="text-align: center;"><a class="link" onclick="edit_menu()">[Edit]</a></div>
 </div>
-<div style="display: none;" class="wiki" id="ns_menu_area" ondblclick="ns_menu_dblclick()"></div>
-<div id="ns_menu_edit_button" style="display: none;">
+<div style="display: inline;" class="wiki" id="ns_menu_area" ondblclick="ns_menu_dblclick()"><div class="level0"><a class="link" onclick="go_to('Special::')">Special::</a><br><a class="link" onclick="go_to('MyPages::')">MyPages::</a><br><a class="unlink" onclick="go_to('Special::New page')">Special::New page</a></div></div>
+<div id="ns_menu_edit_button" style="display: inline;">
 <hr>
 <div style="text-align: center;"><a class="link" onclick="edit_ns_menu()">[Edit]</a></div></div>
 </div>
