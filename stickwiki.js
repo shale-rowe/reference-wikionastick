@@ -16,10 +16,10 @@ var search_focused = false;
 var _custom_focus = false;
 var prev_title = current;	// used when entering/exiting edit mode
 var decrypt_failed = false;
-var post_dom_render = "";
 var result_pages;
 var last_AES_page;
 var current_namespace = "";
+var post_dom_render = null;
 
 var ie = false;
 var firefox = false;
@@ -75,6 +75,24 @@ function page_index(page) {
 			return i;
 	}
 	return -1;
+}
+
+var edit_override = true;
+
+var reserved_namespaces = [
+"Special", "Lock", "Locked", "Unlocked", "Unlock", "Tag", "Tagged", "Image", "File"];
+
+var reserved_rx = "^";
+var i = (edit_override ? 1 : 0);
+for(;i<reserved_namespaces.length;i++) {
+	reserved_rx += /*RegExp.Escape(*/reserved_namespaces[i] + "::";
+	if (i<reserved_namespaces.length-1)
+		reserved_rx += "|";
+}
+reserved_rx = new RegExp(reserved_rx, "i");
+
+function is_reserved(page) {
+	return (page.search(reserved_rx)==0);
 }
 
 function page_exists(page)
@@ -802,22 +820,8 @@ function do_search()
 	assert_current("Special::Search");
 }
 
-var reserved_namespaces = [
-"Special", "Lock", "Locked", "Unlocked", "Unlock", "Tag", "Tagged"];
-
-var reserved_rx = "^";
-for(var i=0;i<reserved_namespaces.length;i++) {
-	reserved_rx += /*RegExp.Escape(*/reserved_namespaces[i] + "::";
-	if (i<reserved_namespaces.length-1)
-		reserved_rx += "|";
-}
-reserved_rx = new RegExp(reserved_rx, "i");
-
-function is_reserved(page) {
-	return (page.search(reserved_rx)==0);
-}
-
 function _create_page(ns, cr, ask) {
+	log("_create_page("+ns+",...)");
 	if (is_reserved(ns)) {
 		alert("You are not allowed to create a page titled \""+ns+cr+"\" because namespace \""+ns+"\" is reserved");
 			return false;
@@ -841,6 +845,10 @@ function _get_special(cr) {
 	var text = null;
 	log("Getting special page "+cr);
 	switch(cr) {
+		case "Edit script":
+//			if (current.substring(current.length-8)!="::Script")
+				set_current(current+"::Script");
+			return;
 		case "New page":
 			var title = prompt("Insert new page title", "");
 			if ((title!=null) && title.length) {
@@ -859,7 +867,7 @@ function _get_special(cr) {
 						} else ns="";
 						if (!_create_page(ns, cr, false))
 							return;
-						if (confirm("Do you want to add a link in the main menu?")) {
+						if (confirm("Do you want to add a link from the main menu?")) {
 							var menu = get_text("::Menu");
 							var p = menu.indexOf("\n\n");
 							if (p==-1)
@@ -876,12 +884,6 @@ function _get_special(cr) {
 			return;
 		case "Search":
 			text = get_text("Special::"+cr);
-//			text += cached_search;
-			post_dom_render = "_search_setup()";
-			break;
-		case "Advanced":
-			text = get_text("Special::"+cr);
-			post_dom_render = "_setup_options()";
 			break;
 		case "Erase Wiki":
 			if (erase_wiki()) {
@@ -914,8 +916,13 @@ function _get_special(cr) {
 			return null;
 		default:
 			text = get_text("Special::"+cr);
-			if(text == null)
+			if(text == null) {
+				if (edit_override) {
+					_create_page("Special", cr, true);
+					return null;
+				}
 				alert("Invalid special page.");
+			}
 	}
 	return text;
 }
@@ -962,7 +969,7 @@ function set_current(cr)
 							}
 						}
 						text = get_text("Special::Lock");
-						post_dom_render = "_setup_lock_page('"+_sq_esc(cr)+"')";
+						post_dom_render = get_text("Special::Lock::Script");
 						break;
 					case "Unlock":
 						pi = page_index(cr);
@@ -1015,14 +1022,21 @@ function set_current(cr)
 function load_as_current(title, text) {
 	scrollTo(0,0);
 	log("CURRENT loaded: "+title+", "+text.length+" bytes");
-	current = title;
 	el("wiki_title").innerHTML = title;
 	el("wiki_text").innerHTML = parse(text);
 	document.title = title;
 	update_nav_icons(title);
-	if (post_dom_render.length!=0) {
-		eval(post_dom_render);
-		post_dom_render = "";
+	var pg;
+	if (post_dom_render!=null) {
+		pg = post_dom_render;
+		post_dom_render = null;
+	} else
+		pg = get_text(title+"::Script");
+	current = title;
+	// execute custom user scripts
+	if (pg!=null) {
+		log("Executing "+pg.length+" bytes of custom javascript");
+		eval(pg);
 	}
 }
 
@@ -1038,40 +1052,9 @@ function el_eval(name) {
 	return false;
 }
 
-function _search_setup() {
-	el("wiki_text").innerHTML += cached_search
-	/*
-	.replace(hl_reg, function () {
-			var str = arguments[0];
-			for(var i=1;i<arguments.length;i++) {
-				str = str.replace(arguments[i], "<span class=\"search_highlight\">"+arguments[i]+"</span>");
-			}
-			return str; })
-	hl_reg = null;	*/
-	el("string_to_search").focus();
-}
-
-function _setup_options() {
-
-	el("lastDate").innerHTML = document.lastModified
-
-	el("cb_allow_diff").checked = bool2chk(allow_diff);
-	el("cb_key_cache").checked = bool2chk(!key_cache);
-	el("cb_dblclick_edit").checked = bool2chk(dblclick_edit);
-	el("cb_permit_edits").checked = bool2chk(!permit_edits);
-	el("cb_save_on_quit").checked = bool2chk(save_on_quit);
-	el("cb_fixed_layout").checked = (el("sw_wiki_header").style.position == "fixed");
-}
-
 function _set_layout(fixed) {
 	el("sw_wiki_header").style.position = (fixed ? "fixed" : "absolute");
 	el("sw_menu_area").style.position = (fixed ? "fixed" : "absolute");
-}
-
-function _setup_lock_page(page) {
-	el("btn_lock").value = "Lock "+page;
-	el("pw1").focus();
-	el("btn_lock").setAttribute("onclick", "lock_page('"+_sq_esc(page)+"')");
 }
 
 function lock_page(page) {
@@ -1466,8 +1449,6 @@ function edit()
 {
 	edit_page(current);
 }
-
-var edit_override = true;
 
 function edit_allowed(page) {
 	if (edit_override)
