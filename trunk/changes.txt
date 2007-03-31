@@ -3,14 +3,22 @@ Version 0.9 (legolas558 - official)
 -------------
 
 * rewritten core javascript functions
-* DOM is cleaned up before saving
-* import feature working ok
+* import feature working ok also from IE saved files
 * history gets saved
 * embedded pictures
 * new data storage format (faster & allow diffs)
 * much better syntax parsing
 * backlinks
 * erase wiki
+* possible versioning through consistent newlines splitting of saved data
+* fixed topbar and menu
+* automatic TOC generation
+* tags
+* namespaces
+* namespace specific additional menus
+* AES page encryption
+* support of HTML tags
+* support of <pre> tag whose content is not parsed for wiki syntax
 
 Version 0.04G (legolas558's unofficial)
 -------------

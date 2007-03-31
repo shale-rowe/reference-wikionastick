@@ -143,10 +143,10 @@ function header_replace(str, $1, $2, $3) {
 // This is a bit of a monster, if you know an easier way please tell me!
 // There is no limit to the level of nesting and it produces
 // valid xhtml markup.
-var reReapLists = /(?:^|\n)([\*#])[ \t].*(?:\n\1+[ \t][^\n]+)*/g;
+var reReapLists = /(?:^|\n)([\*#@])[ \t].*(?:\n\1+[ \t][^\n]+)*/g;
 function parseList(str, type, $2) {
-        var uoro = (type=='#')?'ol':'ul';
-        var suoro = '<' + uoro + '>';
+        var uoro = (type!='*')?'ol':'ul';
+        var suoro = '<' + uoro + ((type=='@') ? " type=\"a\"":"")+'>';
         var euoro = '</' + uoro + '>';
 
         function sublist(lst, ll)
@@ -171,7 +171,7 @@ function parseList(str, type, $2) {
         }
 		
         var old = 0;
-        var reItems = /^([\*#]+)[ \t]([^\n]+)/mg;
+        var reItems = /^([\*#@]+)[ \t]([^\n]+)/mg;
 
 		var stk = [];
 	    str.replace( reItems,
