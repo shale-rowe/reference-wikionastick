@@ -21,49 +21,49 @@ var allow_diff = true;
 
 var key_cache = true;
 
-var current = "Main Page";
+var current = 'Main Page';
 
-var main_page = "Main Page";
+var main_page = 'Main Page';
 
 var backstack = [
-"Special::Lock",
-"Special::Advanced",
-"Special::",
-"Special::Advanced"
+'Special::Lock',
+'Special::Advanced',
+'Special::',
+'Special::Advanced'
 ];
 
 var page_titles = [
-"::Menu",
-"Special::Advanced",
-"Special::Import",
-"Special::About",
-"Main Page",
-"Special::Search",
-"MyPages::Page 2",
-"MyPages::Approved::Page 3",
-"Special::Lock",
-"Special::Security",
-"MyPages::Page 1",
-"Test page",
-"MyPages::Menu",
-"Special::Options"
+'::Menu',
+'Special::Advanced',
+'Special::Import',
+'Special::About',
+'Main Page',
+'Special::Search',
+'MyPages::Page 2',
+'MyPages::Approved::Page 3',
+'Special::Lock',
+'Special::Security',
+'MyPages::Page 1',
+'Test page',
+'MyPages::Menu',
+'Special::Options'
 ];
 
 /* UUZJizdTQtSsJsMSZA-DATA */
 var page_attrs = [0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x2,0x0,0x0,0x0];
 
 var pages = [
-"[[Main Page]]\n\
+'[[Main Page]]\n\
 [[Test page]]\n\
 \n\
 [[Special::Advanced]]\n\
 [[Special::Options]]\n\
 [[Special::Backlinks]]\n\
 [[Special::Search]]\n\
-[[Special::Edit script]]",
-"!Info\n\
+[[Special::Edit script]]',
+'!Info\n\
 [[Special::About|About Wiki on a Stick]]\n\
-This wiki was last modified in \x3cspan id=\x22lastDate\x22\x3e\x3c/span\x3e.\n\
+This wiki was last modified in \x3Cspan id="lastDate"\x3E\x3C/span\x3E.\n\
 \n\
 !Pages\n\
 [[Special::All Pages|All Pages]]: a list of all user created pages in this wiki\n\
@@ -85,24 +85,24 @@ This wiki was last modified in \x3cspan id=\x22lastDate\x22\x3e\x3c/span\x3e.\n\
 !Options\n\
 You can customize Wiki on a Stick modifying a few [[Special::Options|Options]].  \n\
 \n\
-\x3cscript\x3e\n\
-el(\x22lastDate\x22).innerHTML = document.lastModified;\x3c/script\x3e",
-"Import a wiki from an early (or current) version:\n\
+\x3Cscript\x3E\n\
+el("lastDate").innerHTML = document.lastModified;\x3C/script\x3E',
+'Import a wiki from an early (or current) version:\n\
 \n\
-File: \x3cinput id=\x22filename_\x22 type=\x22file\x22 /\x3e&nbsp;\x3cinput type=\x22button\x22 value=\x22Import\x22 onclick=\x22import_wiki()\x22 /\x3e\n\
+File: \x3Cinput id="filename_" type="file" /\x3E&nbsp;\x3Cinput type="button" value="Import" onclick="import_wiki()" /\x3E\n\
 \n\
-*Important:* CSS will not be imported from versions below v0.04",
-"!Wiki on a Stick version 0.9\n\
+*Important:* CSS will not be imported from versions below v0.04',
+'!Wiki on a Stick version 0.9\n\
 \n\
 Current version *v0.9B* by Daniele C. ([[http://sf.net/users/legolas558/|legolas558]])\n\
 Original version (v0.01 &tilde; v0.04) by Andr\u00e9 Wagner\n\
 Wiki on a Stick is licensed under the [[http://www.gnu.org/copyleft/gpl.html|GNU/GPL]] license.\n\
 \n\
 !!Thanks to\n\
-This project wouldn't be what it is without the help of other people. If you contributed to Wiki on a Stick and your name is not here, please send an email to \x3ca class=\x22world\x22 href=\x22mailto:legolas558 _AT_ users.sourceforge.net\x22\x3ethis email address\x3c/a\x3e. If, for any reason, you don't want your name listed here, just send an email.\n\
+This project wouldn\'t be what it is without the help of other people. If you contributed to Wiki on a Stick and your name is not here, please send an email to \x3Ca class="world" href="mailto:legolas558 _AT_ users.sourceforge.net"\x3Ethis email address\x3C/a\x3E. If, for any reason, you don\'t want your name listed here, just send an email.\n\
 \n\
 * *Jeremy Ruston* - the creator of the wonderful [[http://www.tiddlywiki.com/|TiddlyWiki]], who served as inspiration for Wiki on a Stick. He also kindly allowed the usage of his saving/loading routines.\n\
-* *Philip O'Donnel* - creator of the table syntax & parsing code\n\
+* *Philip O\'Donnel* - creator of the table syntax & parsing code\n\
 * *Tim Lord*\n\
 * *Knut Kohl*\n\
 * *Rob Schmersel*\n\
@@ -116,8 +116,8 @@ And, last but not least:\n\
 !!Contributing\n\
 \n\
 Read more at [[http://sf.net/projects/stickwiki/|Our SourceForge Project]]\n\
-We also have an active [[http://groups.google.com/group/stickwiki/|Google dicussion group]]",
-"[[Special::TOC]]\n\
+We also have an active [[http://groups.google.com/group/stickwiki/|Google dicussion group]]',
+'[[Special::TOC]]\n\
 !Welcome to Wiki on a Stick!\n\
 A self-containing XHTML/javascript wiki.\n\
 \n\
@@ -131,15 +131,15 @@ If you have an older Wiki on a Stick (v0.01 &tilde; v0.04), [[Special::Import|im
 \n\
 !!!Syntax changes in v0.9\n\
 There have been a few changes in the wiki syntax, they will be automatically applied on import or saving (except the wiki link parts inversion).\n\
-* bullet lists are recognized using an asterisk '*' at the beginning of the line, if you use the previous '+' plus sign it will be automatically converted to an asterisk\n\
-* wiki link parts are inverted, e.g. no more [\x3c!-- --\x3e[the label|WikiActualPage]] but [\x3c!-- --\x3e[WikiActualPage|the label]]\n\
+* bullet lists are recognized using an asterisk \'*\' at the beginning of the line, if you use the previous \'+\' plus sign it will be automatically converted to an asterisk\n\
+* wiki link parts are inverted, e.g. no more [\x3C!-- --\x3E[the label|WikiActualPage]] but [\x3C!-- --\x3E[WikiActualPage|the label]]\n\
 !!!New features\n\
-* namespaces support through the separator '::'\n\
-* tags support through [\x3c!-- --\x3e[Tag::Sometag]] or [\x3c!-- --\x3e[Tags::Sometag, Somethingelse]] syntax\n\
-* line joining through a slash '\x5c' at the end of the line\n\
-* automatic TOC generation in place of [\x3c!-- --\x3e[Special::TOC]]\n\
-* namespace-specific menus creating [\x3c!-- --\x3e[Namespace::Menu]] pages (the main menu is [[::Menu]])\n\
-* alphanumerical lists using '@'\n\
+* namespaces support through the separator \'::\'\n\
+* tags support through [\x3C!-- --\x3E[Tag::Sometag]] or [\x3C!-- --\x3E[Tags::Sometag, Somethingelse]] syntax\n\
+* line joining through a slash \'\\\' at the end of the line\n\
+* automatic TOC generation in place of [\x3C!-- --\x3E[Special::TOC]]\n\
+* namespace-specific menus creating [\x3C!-- --\x3E[Namespace::Menu]] pages (the main menu is [[::Menu]])\n\
+* alphanumerical lists using \'@\'\n\
 * custom scripts evaluation (see [[Reflex tester]])\n\
 \n\
 !Syntax examples \n\
@@ -148,10 +148,10 @@ Follows a brief example of all the capabilities of Wiki on a Stick syntax.\n\
 !!Formatting\n\
 !!!Subheader of third level\n\
 !!!!Subheader of fourth level\n\
-\x3cpre\x3eThis is pre-formatted text! This text does not get _underlined_, as you can see\x3c/pre\x3e\n\
-\x3cpre style=\x22color:gray\x22\x3e\n\
+\x3Cpre\x3EThis is pre-formatted text! This text does not get _underlined_, as you can see\x3C/pre\x3E\n\
+\x3Cpre style="color:gray"\x3E\n\
 This is pre-formatted text with CSS style!\n\
-And it stands on multiple lines too\x3c/pre\x3e\n\
+And it stands on multiple lines too\x3C/pre\x3E\n\
 \n\
 !!Some specials\n\
 Using [[Special::Main Page]] you will always link to the main page, no matters what its name is.\n\
@@ -219,52 +219,52 @@ Alphanumerically ordered list:\n\
 |-\n\
 | contact_id || INT || KEY || References FOREIGN KEY(Contacts.id)\n\
 |-\n\
-| type || ENUM('Home','Work','Mobile','Pager','Other') || || Defines type of Telephone record\n\
+| type || ENUM(\'Home\',\'Work\',\'Mobile\',\'Pager\',\'Other\') || || Defines type of Telephone record\n\
 |-\n\
 | number || CHAR(32) || || Contains actual Telephone number\n\
-|}",
-"!Search in Wiki\n\
+|}',
+'!Search in Wiki\n\
 \n\
-\x3cinput id=\x22string_to_search\x22 type=\x22text\x22 onfocus=\x22search_focus(true)\x22 onblur=\x22search_focus(false)\x22 /\x3e&nbsp;\x3cinput type=\x22button\x22 value=\x22Search\x22 onclick=\x22do_search()\x22 /\x3e&nbsp;\x3cinput type=\x22button\x22 value=\x22Clear\x22 onclick=\x22clear_search()\x22 /\x3e\n\
+\x3Cinput id="string_to_search" type="text" onfocus="search_focus(true)" onblur="search_focus(false)" /\x3E&nbsp;\x3Cinput type="button" value="Search" onclick="do_search()" /\x3E&nbsp;\x3Cinput type="button" value="Clear" onclick="clear_search()" /\x3E\n\
 \n\
-\x3cscript\x3e\n\
-el(\x22wiki_text\x22).innerHTML += cached_search\n\
+\x3Cscript\x3E\n\
+el("wiki_text").innerHTML += cached_search\n\
 /*\n\
 .replace(hl_reg, function () {\n\
 	var str = arguments[0];\n\
-	for(var i=1;i\x3carguments.length;i++) {\n\
-		str = str.replace(arguments[i], \x22\x3cspan class=\x5c\x22search_highlight\x5c\x22\x3e\x22+arguments[i]+\x22\x3c/span\x3e\x22);\n\
+	for(var i=1;i\x3Carguments.length;i++) {\n\
+		str = str.replace(arguments[i], "\x3Cspan class=\\"search_highlight\\"\x3E"+arguments[i]+"\x3C/span\x3E");\n\
 	}\n\
 	return str; })\n\
 hl_reg = null;	*/\n\
-el(\x22string_to_search\x22).focus();\n\
-\x3c/script\x3e",
-"Hey, don't tell anyone around but...I am better than [[MyPages::Page 1]]!",
-"This is a page in a subnamespace!\n\
+el("string_to_search").focus();\n\
+\x3C/script\x3E',
+'Hey, don\'t tell anyone around but...I am better than [[MyPages::Page 1]]!',
+'This is a page in a subnamespace!\n\
 \n\
 The parent namespace is [[MyPages::]] while the subnamespace is [[MyPages::Approved::]]\n\
 \n\
-[[Tag::Useful]]",
-"!!AES encryption\n\
+[[Tag::Useful]]',
+'!!AES encryption\n\
 Read more about the [[Special::Security|embedded AES encryption]] used in Wiki On a Stick.\n\
 \n\
 !!Password\n\
-Enter your password for AES encryption. The more complex your password is, the more difficult it will be to attack the encryption. It is suggested *not* to use passwords whose textbox color is \x3cspan style=\x22background-color:red\x22\x3e&nbsp;red&nbsp;\x3c/span\x3e, and to accept passwords only when the textbox color is \x3cspan style=\x22background-color:lime\x22\x3e&nbsp;green&nbsp;\x3c/span\x3e.\n\
+Enter your password for AES encryption. The more complex your password is, the more difficult it will be to attack the encryption. It is suggested *not* to use passwords whose textbox color is \x3Cspan style="background-color:red"\x3E&nbsp;red&nbsp;\x3C/span\x3E, and to accept passwords only when the textbox color is \x3Cspan style="background-color:lime"\x3E&nbsp;green&nbsp;\x3C/span\x3E.\n\
 \n\
 *If you forget the password there is no way to retrieve it or your data, FOREVER.*\n\
 \n\
- \x3cinput type=\x22password\x22 id=\x22pw1\x22 style=\x22background-color:red\x22 value=\x22\x22 size=\x2250\x22 onfocus=\x22custom_focus(true)\x22 onblur=\x22custom_focus(false)\x22 onkeyup=\x22pw_quality()\x22 /\x3e&nbsp;\x3cspan id=\x22txtBits\x22\x3e&nbsp;\x3c/span\x3e\n\
- \x3cinput type=\x22password\x22 id=\x22pw2\x22 value=\x22\x22 size=\x2250\x22 onfocus=\x22custom_focus(true)\x22 onblur=\x22custom_focus(false)\x22 /\x3e\n\
- \x3cinput id=\x22btn_lock\x22 type=\x22button\x22 value=\x22\x22 /\x3e\n\
+ \x3Cinput type="password" id="pw1" style="background-color:red" value="" size="50" onfocus="custom_focus(true)" onblur="custom_focus(false)" onkeyup="pw_quality()" /\x3E&nbsp;\x3Cspan id="txtBits"\x3E&nbsp;\x3C/span\x3E\n\
+ \x3Cinput type="password" id="pw2" value="" size="50" onfocus="custom_focus(true)" onblur="custom_focus(false)" /\x3E\n\
+ \x3Cinput id="btn_lock" type="button" value="" /\x3E\n\
 \n\
-\x3cscript\x3e\n\
-var page = title.substring(title.indexOf(\x22::\x22)+2);\n\
+\x3Cscript\x3E\n\
+var page = title.substring(title.indexOf("::")+2);\n\
 \n\
-el(\x22btn_lock\x22).value = \x22Lock \x22+page;\n\
-el(\x22pw1\x22).focus();\n\
-el(\x22btn_lock\x22).setAttribute(\x22onclick\x22, \x22lock_page('\x22+_sq_esc(page)+\x22')\x22);\n\
-\x3c/script\x3e",
-"!!AES encryption\n\
+el("btn_lock").value = "Lock "+page;\n\
+el("pw1").focus();\n\
+el("btn_lock").setAttribute("onclick", "lock_page(\'"+_sq_esc(page)+"\')");\n\
+\x3C/script\x3E',
+'!!AES encryption\n\
 Since Wiki on a Stick v0.9 the [[http://en.wikipedia.org/wiki/Advanced_Encryption_Standard|AES]] 256-bit high security data encryption standard is supported to protect a single page or groups of them.\n\
 \n\
  *If you forget the password there is no way to retrieve it or your data, FOREVER*.\n\
@@ -278,14 +278,14 @@ Security is never absolute. Data encrypted with these pages might be compromised
 * You have not disabled the AES key cache, so when you will enter the password for the first time other users (if not you) will be able to see encrypted pages and could possibly get your key\n\
 * Your Web browser and/or JavaScript interpreter may contain bugs or deliberate security violations which report activity on your computer back to some other Internet site.\n\
 * Some other applet running on another page in your browser, perhaps without your being aware of its existence, is spying on other windows.\n\
-* Some other \x22spyware\x22 application running on your computer may have compromised your system's security and be snooping on your activity.\n\
-* Your Web browser may be keeping a \x22history log\x22 or \x22cache\x22 of data you generate. Somebody may come along later and recover a copy of your data from that log.\n\
+* Some other "spyware" application running on your computer may have compromised your system\'s security and be snooping on your activity.\n\
+* Your Web browser may be keeping a "history log" or "cache" of data you generate. Somebody may come along later and recover a copy of your data from that log.\n\
 * The implementation of the encryption may contain a bug which makes its results insecure. This is why transparency is essential. Wiki on a Stick is open-source. You can judge for yourself whether the tool merits your confidence.\n\
-* Your computer's security may have been compromised physically; when's the last time you checked that a bug that transmits your keystrokes and/or screen contents to that white van parked down the street wasn't lurking inside your computer cabinet?\n\
+* Your computer\'s security may have been compromised physically; when\'s the last time you checked that a bug that transmits your keystrokes and/or screen contents to that white van parked down the street wasn\'t lurking inside your computer cabinet?\n\
 \n\
-Apart from the above, your normal usage of encrypted pages can be considered secure. They will be even more secure if you do not open them.",
+Apart from the above, your normal usage of encrypted pages can be considered secure. They will be even more secure if you do not open them.',
 [0x2a,0x40,0xda,0xeb,0x3e,0x2,0x37,0xa8,0x3a,0x3c,0xf7,0xca,0x88,0x3e,0x3,0xf5,0xb,0x22,0x5f,0x96,0x9a,0x2,0x2f,0x41,0x73,0xf6,0xcb,0x2a,0x3e,0xe7,0x9f,0xe5,0xda,0x2,0xa8,0x1b,0x2f,0x69,0x7b,0xcf,0x64,0xa2,0xf6,0x8d,0xeb,0x24,0xdd,0x25,0x95,0x22,0xa3,0xeb,0x9,0x2e,0xfe,0x58,0x95,0xb8,0x2b,0xcc,0xd3,0x3,0xa3,0xec,0x64,0xcc,0x95,0x82,0x14,0xd7,0x6d,0xf7,0x3c,0xdc,0xf5,0x8b,0xa0,0x2e,0x55,0x9c,0x78,0x37,0x18,0x41,0xdc,0x0,0x65,0x39,0xf1,0x4a,0x20,0x6d,0x7c,0x6e,0xf7,0x6f,0xa9,0xbd,0xcd,0xb3,0x1,0x13,0x32,0x25,0xef,0x5d,0x86,0xf8,0x29,0xa9,0x91,0x48,0x39,0x85,0xb2,0x9a,0xdb,0xc8,0x55,0x20,0xa3,0x9c,0x39,0x8f,0x5c,0x8c,0x72,0x4c],
-"!!Upgrading!!\n\
+'!!Upgrading!!\n\
 If you have an older Wiki on a Stick (v0.01 &tilde; v0.04), [[Special::Import|import it]]!\n\
 \n\
 Test on this page using the syntax you best like.\n\
@@ -295,28 +295,28 @@ Test on this page using the syntax you best like.\n\
 \n\
 \n\
 \n\
-I should be on the 5th paragraph after the title",
-"[[Special::]]\n\
+I should be on the 5th paragraph after the title',
+'[[Special::]]\n\
 [[MyPages::]]\n\
-[[Special::New page]]",
-"!Options\n\
+[[Special::New page]]',
+'!Options\n\
 \n\
-\x3clabel for=\x22cb_allow_diff\x22\x3e\x3cinput type=\x22checkbox\x22 id=\x22cb_allow_diff\x22 onclick=\x22allow_diff = el_eval('cb_allow_diff')\x22 /\x3eDiff mode (consistent newlines splitting in saved data, useful for versioning)\x3cbr /\x3e\n\
-\x3clabel for=\x22cb_permit_edits\x22\x3e\x3cinput type=\x22checkbox\x22 id=\x22cb_permit_edits\x22 onclick=\x22permit_edits = !el_eval('cb_permit_edits')\x22 /\x3eDisable edit mode for all pages (useful when publishing the Wiki On a Stick file on a web server)\x3cbr /\x3e\n\
-\x3clabel for=\x22cb_dblclick_edit\x22\x3e\x3cinput type=\x22checkbox\x22 id=\x22cb_dblclick_edit\x22 onclick=\x22dblclick_edit = el_eval('cb_dblclick_edit')\x22 /\x3eDouble click to edit pages/menu\x3cbr /\x3e\n\
-\x3clabel for=\x22cb_save_on_quit\x22\x3e\x3cinput type=\x22checkbox\x22 id=\x22cb_save_on_quit\x22 onclick=\x22save_on_quit = el_eval('cb_save_on_quit')\x22 /\x3eAutomatically save options (if changed) before quitting\x3cbr /\x3e\n\
-\x3clabel for=\x22cb_key_cache\x22\x3e\x3cinput type=\x22checkbox\x22 id=\x22cb_key_cache\x22 onclick=\x22key_cache = !el_eval('cb_key_cache')\x22 /\x3eDo not temporarily cache the AES key (will have to enter it for each encrypted page, useful if you leave WoaS open to possible unauthorized access)\x3cbr /\x3e\n\
-\x3clabel for=\x22cb_fixed_layout\x22\x3e\x3cinput type=\x22checkbox\x22 id=\x22cb_fixed_layout\x22 onclick=\x22_set_layout(el_eval('cb_fixed_layout'))\x22 /\x3eFixed menu area and topbar\x3cbr /\x3e\n\
-\x3cinput type=\x22button\x22 onclick=\x22save_options()\x22 value=\x22Save options\x22 /\x3e\n\
+\x3Clabel for="cb_allow_diff"\x3E\x3Cinput type="checkbox" id="cb_allow_diff" onclick="allow_diff = el_eval(\'cb_allow_diff\')" /\x3EDiff mode (consistent newlines splitting in saved data, useful for versioning)\x3Cbr /\x3E\n\
+\x3Clabel for="cb_permit_edits"\x3E\x3Cinput type="checkbox" id="cb_permit_edits" onclick="permit_edits = !el_eval(\'cb_permit_edits\')" /\x3EDisable edit mode for all pages (useful when publishing the Wiki On a Stick file on a web server)\x3Cbr /\x3E\n\
+\x3Clabel for="cb_dblclick_edit"\x3E\x3Cinput type="checkbox" id="cb_dblclick_edit" onclick="dblclick_edit = el_eval(\'cb_dblclick_edit\')" /\x3EDouble click to edit pages/menu\x3Cbr /\x3E\n\
+\x3Clabel for="cb_save_on_quit"\x3E\x3Cinput type="checkbox" id="cb_save_on_quit" onclick="save_on_quit = el_eval(\'cb_save_on_quit\')" /\x3EAutomatically save options (if changed) before quitting\x3Cbr /\x3E\n\
+\x3Clabel for="cb_key_cache"\x3E\x3Cinput type="checkbox" id="cb_key_cache" onclick="key_cache = !el_eval(\'cb_key_cache\')" /\x3EDo not temporarily cache the AES key (will have to enter it for each encrypted page, useful if you leave WoaS open to possible unauthorized access)\x3Cbr /\x3E\n\
+\x3Clabel for="cb_fixed_layout"\x3E\x3Cinput type="checkbox" id="cb_fixed_layout" onclick="_set_layout(el_eval(\'cb_fixed_layout\'))" /\x3EFixed menu area and topbar\x3Cbr /\x3E\n\
+\x3Cinput type="button" onclick="save_options()" value="Save options" /\x3E\n\
 \n\
-\x3cscript\x3e\n\
-el(\x22cb_allow_diff\x22).checked = bool2chk(allow_diff);\n\
-el(\x22cb_key_cache\x22).checked = bool2chk(!key_cache);\n\
-el(\x22cb_dblclick_edit\x22).checked = bool2chk(dblclick_edit);\n\
-el(\x22cb_permit_edits\x22).checked = bool2chk(!permit_edits);\n\
-el(\x22cb_save_on_quit\x22).checked = bool2chk(save_on_quit);\n\
-el(\x22cb_fixed_layout\x22).checked = (el(\x22sw_wiki_header\x22).style.position == \x22fixed\x22);\n\
-\x3c/script\x3e"
+\x3Cscript\x3E\n\
+el("cb_allow_diff").checked = bool2chk(allow_diff);\n\
+el("cb_key_cache").checked = bool2chk(!key_cache);\n\
+el("cb_dblclick_edit").checked = bool2chk(dblclick_edit);\n\
+el("cb_permit_edits").checked = bool2chk(!permit_edits);\n\
+el("cb_save_on_quit").checked = bool2chk(save_on_quit);\n\
+el("cb_fixed_layout").checked = (el("sw_wiki_header").style.position == "fixed");\n\
+\x3C/script\x3E'
 ];
 
 /* UUZJizdTQtSsJsMSZA-END */
