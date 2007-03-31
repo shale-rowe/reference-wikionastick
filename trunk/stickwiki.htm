@@ -26,8 +26,6 @@ var current = "Main Page";
 var main_page = "Main Page";
 
 var backstack = [
-"Main Page",
-"MyPages::"
 ];
 
 var page_titles = [
@@ -43,48 +41,50 @@ var page_titles = [
 "Special::Security",
 "MyPages::Page 1",
 "Test page",
-"MyPages::Menu"
+"MyPages::Menu",
+"Special::Search::Script",
+"Special::Options",
+"Special::Options::Script",
+"Special::Advanced::Script",
+"Special::Lock::Script"
 ];
 
 /* UUZJizdTQtSsJsMSZA-DATA */
-var page_attrs = [0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x2,0x0,0x0];
+var page_attrs = [0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x2,0x0,0x0,0x0,0x0,0x0,0x0,0x0];
 
 var pages = [
 "[[Main Page]]\n\
 [[Test page]]\n\
 \n\
 [[Special::Advanced]]\n\
+[[Special::Options]]\n\
 [[Special::Backlinks]]\n\
-[[Special::Search]]",
+[[Special::Search]]\n\
+[[Special::Edit script]]",
 "!Info\n\
- [[Special::About|About Wiki on a Stick]]\n\
- This wiki was last modified in <span id=\"lastDate\"></span>.\n\
+[[Special::About|About Wiki on a Stick]]\n\
+This wiki was last modified in <span id=\"lastDate\"></span>.\n\
 \n\
 !Pages\n\
- [[Special::All Pages|All Pages]]: a list of all user created pages in this wiki\n\
- [[Locked::|All encryted pages]]: a list of all encrypted pages\n\
- [[Unlocked::|All plain pages]]: a list of all plain pages\n\
- [[Special::|All static Special Pages]]: list of all system pages\n\
- [[Special::Pages not yet created|Pages not yet created]]: a list of pages that have links to them, but were still not created \n\
- [[Special::Orphaned Pages|Orphaned Pages]]: a list of pages that once were linked to, but now no page links to them anymore\n\
- [[Special::Search|Search]]: search all wiki pages\n\
+[[Special::All Pages|All Pages]]: a list of all user created pages in this wiki\n\
+[[Locked::|All encryted pages]]: a list of all encrypted pages\n\
+[[Unlocked::|All plain pages]]: a list of all plain pages\n\
+[[Special::|All static Special Pages]]: list of all system pages\n\
+[[Special::Pages not yet created|Pages not yet created]]: a list of pages that have links to them, but were still not created \n\
+[[Special::Orphaned Pages|Orphaned Pages]]: a list of pages that once were linked to, but now no page links to them anymore\n\
+[[Special::Search|Search]]: search all wiki pages\n\
 \n\
 !Maintenance\n\
- [[Special::Import|Import wiki]] from an early (or current) version.\n\
- [[Special::Erase Wiki|Erase Wiki]]: delete ALL wiki pages and reset with default data\n\
+[[Special::Import|Import wiki]] from an early (or current) version.\n\
+[[Special::Erase Wiki|Erase Wiki]]: delete ALL wiki pages and reset with default data\n\
 \n\
 !Special edits\n\
- [[Special::Edit CSS|Edit CSS]]: edit the global CSS styles\n\
- [[Special::Edit Menu|Edit Menu]]: edit main menu (on the left)\n\
+[[Special::Edit CSS|Edit CSS]]: edit the global CSS styles\n\
+[[Special::Edit Menu|Edit Menu]]: edit main menu (on the left)\n\
 \n\
 !Options\n\
- <label for=\"cb_allow_diff\"><input type=\"checkbox\" id=\"cb_allow_diff\" onclick=\"allow_diff = el_eval('cb_allow_diff')\" />Diff mode (consistent newlines splitting in saved data, useful for versioning)<br />\n\
- <label for=\"cb_permit_edits\"><input type=\"checkbox\" id=\"cb_permit_edits\" onclick=\"permit_edits = !el_eval('cb_permit_edits')\" />Disable edit mode for all pages (useful when publishing the Wiki On a Stick file on a web server)<br />\n\
- <label for=\"cb_dblclick_edit\"><input type=\"checkbox\" id=\"cb_dblclick_edit\" onclick=\"dblclick_edit = el_eval('cb_dblclick_edit')\" />Double click to edit pages/menu<br />\n\
- <label for=\"cb_save_on_quit\"><input type=\"checkbox\" id=\"cb_save_on_quit\" onclick=\"save_on_quit = el_eval('cb_save_on_quit')\" />Automatically save options (if changed) before quitting<br />\n\
- <label for=\"cb_key_cache\"><input type=\"checkbox\" id=\"cb_key_cache\" onclick=\"key_cache = !el_eval('cb_key_cache')\" />Do not temporarily cache the AES key (will have to enter it for each encrypted page, useful if you leave WoaS open to possible unauthorized access)<br />\n\
- <label for=\"cb_fixed_layout\"><input type=\"checkbox\" id=\"cb_fixed_layout\" onclick=\"_set_layout(el_eval('cb_fixed_layout'))\" />Fixed menu area and topbar<br />\n\
- <input type=\"button\" onclick=\"save_options()\" value=\"Save options\" />",
+You can customize Wiki on a Stick modifying a few [[Special::Options|Options]].  \n\
+",
 "Import a wiki from an early (or current) version:\n\
 \n\
 File: <input id=\"filename_\" type=\"file\" />&nbsp;<input type=\"button\" value=\"Import\" onclick=\"import_wiki()\" />\n\
@@ -275,7 +275,41 @@ Test on this page using the syntax you best like.\n\
 I should be on the 5th paragraph after the title",
 "[[Special::]]\n\
 [[MyPages::]]\n\
-[[Special::New page]]"
+[[Special::New page]]",
+"el(\"wiki_text\").innerHTML += cached_search\n\
+/*\n\
+.replace(hl_reg, function () {\n\
+		var str = arguments[0];\n\
+		for(var i=1;i<arguments.length;i++) {\n\
+			str = str.replace(arguments[i], \"<span class=\\\"search_highlight\\\">\"+arguments[i]+\"</span>\");\n\
+		}\n\
+		return str; })\n\
+hl_reg = null;	*/\n\
+el(\"string_to_search\").focus();\n\
+",
+"!Options\n\
+\n\
+<label for=\"cb_allow_diff\"><input type=\"checkbox\" id=\"cb_allow_diff\" onclick=\"allow_diff = el_eval('cb_allow_diff')\" />Diff mode (consistent newlines splitting in saved data, useful for versioning)<br />\n\
+<label for=\"cb_permit_edits\"><input type=\"checkbox\" id=\"cb_permit_edits\" onclick=\"permit_edits = !el_eval('cb_permit_edits')\" />Disable edit mode for all pages (useful when publishing the Wiki On a Stick file on a web server)<br />\n\
+<label for=\"cb_dblclick_edit\"><input type=\"checkbox\" id=\"cb_dblclick_edit\" onclick=\"dblclick_edit = el_eval('cb_dblclick_edit')\" />Double click to edit pages/menu<br />\n\
+<label for=\"cb_save_on_quit\"><input type=\"checkbox\" id=\"cb_save_on_quit\" onclick=\"save_on_quit = el_eval('cb_save_on_quit')\" />Automatically save options (if changed) before quitting<br />\n\
+<label for=\"cb_key_cache\"><input type=\"checkbox\" id=\"cb_key_cache\" onclick=\"key_cache = !el_eval('cb_key_cache')\" />Do not temporarily cache the AES key (will have to enter it for each encrypted page, useful if you leave WoaS open to possible unauthorized access)<br />\n\
+<label for=\"cb_fixed_layout\"><input type=\"checkbox\" id=\"cb_fixed_layout\" onclick=\"_set_layout(el_eval('cb_fixed_layout'))\" />Fixed menu area and topbar<br />\n\
+<input type=\"button\" onclick=\"save_options()\" value=\"Save options\" />",
+"el(\"cb_allow_diff\").checked = bool2chk(allow_diff);\n\
+el(\"cb_key_cache\").checked = bool2chk(!key_cache);\n\
+el(\"cb_dblclick_edit\").checked = bool2chk(dblclick_edit);\n\
+el(\"cb_permit_edits\").checked = bool2chk(!permit_edits);\n\
+el(\"cb_save_on_quit\").checked = bool2chk(save_on_quit);\n\
+el(\"cb_fixed_layout\").checked = (el(\"sw_wiki_header\").style.position == \"fixed\");\n\
+",
+"el(\"lastDate\").innerHTML = document.lastModified;",
+"var page = title.substring(title.indexOf(\"::\")+2);\n\
+\n\
+el(\"btn_lock\").value = \"Lock \"+page;\n\
+el(\"pw1\").focus();\n\
+el(\"btn_lock\").setAttribute(\"onclick\", \"lock_page('\"+_sq_esc(page)+\"')\");\n\
+"
 ];
 
 /* UUZJizdTQtSsJsMSZA-END */

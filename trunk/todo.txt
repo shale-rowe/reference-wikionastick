@@ -16,3 +16,9 @@
 * XHTML compliance
 
 * cumulative save feature
+
+* incremental save marker
+
+* optional CSS import
+
+* custom script pages
