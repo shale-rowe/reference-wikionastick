@@ -142,7 +142,7 @@ function header_anchor(s) {
 	return escape(s.replace(/ /g, "+"));
 }
 
-var toc_pos;
+var has_toc;
 var page_TOC = "";
 //var last_h_level;
 var reParseHeaders = /(^|\n)(\!+)\s*([^\n]+)/g;
@@ -154,7 +154,7 @@ function header_replace(str, $1, $2, $3) {
 		var anchor = header_anchor(header);
 //		log("h"+len+" = "+header);
 		// automatically build the TOC if needed
-		if (toc_pos!=-1) {
+		if (has_toc) {
 			page_TOC += str_rep("#", len)+" [[#"+anchor+"|"+header+"]]\n";
 		}
 		return "</div><a name=\""+anchor+"\"></a><h"+len+">"+header+"</h"+len+"><div class=\"level"+len+"\">";
@@ -265,13 +265,14 @@ function parse(text)
 	var html_tags = [];
 	var script_tags = [];
 	
-	toc_pos = text.indexOf("[[Special::TOC]]");
-	if (toc_pos != -1) {
-		text = text.substring(0, toc_pos) + text.substring(toc_pos+16 + 
-		((text.charAt(toc_pos+16)=="\n") ? 1 : 0)
+	var p = text.indexOf("[[Special::TOC]]");
+	if (p != -1) {
+		has_toc = true;
+		text = text.substring(0, p) + "<!-- "+parse_marker+":TOC -->" + text.substring(p+16 + 
+		((text.charAt(p+16)=="\n") ? 1 : 0)
 		);	
 //		last_h_level = 0;
-	}
+	} else has_toc = false;
 
 	// gather all script tags
 	text = text.replace(/<script[^>]*>((.|\n)*?)<\/script>/gi, function (str, $1) {
@@ -316,14 +317,6 @@ function parse(text)
 	// cleanup \n after headers
 	text = text.replace(/(<\/h[1-6]><div class="level[1-6]">)\n/g, "$1");
 	
-	if ((toc_pos!=-1) && page_TOC.length) {
-		log("Inserting TOC at offset "+toc_pos);
-		text = text.substring(0, toc_pos) +
-			"<div class=\"wiki_toc\"><p class=\"wiki_toc_title\">Table of Contents</p>" + page_TOC.replace(reReapLists, parseList).replace("\n<", "<") + "</div>" +
-			text.substring(toc_pos);
-		page_TOC = "";
-	}
-	
 	// <b>
 	text = text.replace(/\*([^\*\n]+)\*/g, parse_marker+"bS#$1"+parse_marker+"bE#");
 
@@ -348,6 +341,12 @@ function parse(text)
 	text = text.replace(/(^|\n)\-\-\-/g, "<hr />");
 	
     text = text.replace(reReapTables, parseTables);
+	
+		if (has_toc) {
+			text = text.replace("<!-- "+parse_marker+":TOC -->", "<div class=\"wiki_toc\"><p class=\"wiki_toc_title\">Table of Contents</p>" + page_TOC.replace(reReapLists, parseList).replace("\n<", "<") + "</div>" );
+			page_TOC = "";
+		}
+
 
 	// links with | 
 	text = text.replace(/\[\[([^\]\]]*?)\|(.*?)\]\]/g, function(str, $1, $2)
