@@ -1659,7 +1659,7 @@ function go_forward()
 
 function js_encode(s, split_lines) {
 	// not to counfound browsers with saved tags
-	s = s.replace(/</g, "\\0x3C").replace(/>/g, "\\0x3E");
+	s = s.replace(/</g, "\\x3C").replace(/>/g, "\\x3E");
 	// escape escape characters
 	s = s.replace(/\\/g, "\\\\");
 	// escape double quotes
