@@ -260,6 +260,7 @@ function parse(text)
 	var prefmt = [];
 	var tags = [];
 	var html_tags = [];
+	var script_tags = [];
 	
 	toc_pos = text.indexOf("[[Special::TOC]]");
 	if (toc_pos != -1) {
@@ -268,6 +269,12 @@ function parse(text)
 		);	
 //		last_h_level = 0;
 	}
+
+	// gather all script tags
+	text = text.replace(/<script[^>]*>((.|\n)*?)<\/script>/gi, function (str, $1) {
+		script_tags.push($1);
+		return "";
+	});
 
 	// put away stuff contained in <pre> tags
 	text = text.replace(/(\<pre.*?>(.|\n)*?<\/pre>)/g, function (str, $1) {
@@ -313,7 +320,6 @@ function parse(text)
 			text.substring(toc_pos);
 		page_TOC = "";
 	}
-
 	
 	// <b>
 	text = text.replace(/\*([^\*\n]+)\*/g, parse_marker+"bS#$1"+parse_marker+"bE#");
@@ -429,6 +435,11 @@ function parse(text)
 	}
 	if (force_inline)
 		force_inline = false;
+		
+	if (script_tags.length)
+		post_dom_render = script_tags.join("\n");
+	else
+		post_dom_render = null;
 	
 	if (text.substring(0,5)!="</div")
 		return "<div class=\"level0\">" + text + "</div>";
@@ -845,10 +856,6 @@ function _get_special(cr) {
 	var text = null;
 	log("Getting special page "+cr);
 	switch(cr) {
-		case "Edit script":
-//			if (current.substring(current.length-8)!="::Script")
-				set_current(current+"::Script");
-			return;
 		case "New page":
 			var title = prompt("Insert new page title", "");
 			if ((title!=null) && title.length) {
@@ -969,7 +976,6 @@ function set_current(cr)
 							}
 						}
 						text = get_text("Special::Lock");
-						post_dom_render = get_text("Special::Lock::Script");
 						break;
 					case "Unlock":
 						pi = page_index(cr);
@@ -1026,17 +1032,11 @@ function load_as_current(title, text) {
 	el("wiki_text").innerHTML = parse(text);
 	document.title = title;
 	update_nav_icons(title);
-	var pg;
-	if (post_dom_render!=null) {
-		pg = post_dom_render;
-		post_dom_render = null;
-	} else
-		pg = get_text(title+"::Script");
 	current = title;
 	// execute custom user scripts
-	if (pg!=null) {
-		log("Executing "+pg.length+" bytes of custom javascript");
-		eval(pg);
+	if (post_dom_render!=null) {
+		log("Executing "+post_dom_render.length+" bytes of custom javascript");
+		eval(post_dom_render);
 	}
 }
 
@@ -1658,6 +1658,8 @@ function go_forward()
 }
 
 function js_encode(s, split_lines) {
+	// not to counfound browsers with saved tags
+	s = s.replace(/</g, "\\0x3C").replace(/>/g, "\\0x3E");
 	// escape escape characters
 	s = s.replace(/\\/g, "\\\\");
 	// escape double quotes

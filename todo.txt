@@ -20,5 +20,3 @@
 * incremental save marker
 
 * optional CSS import
-
-* custom script pages
