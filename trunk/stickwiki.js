@@ -19,7 +19,7 @@ var decrypt_failed = false;
 var result_pages;
 var last_AES_page;
 var current_namespace = "";
-var post_dom_render = null;
+var post_dom_render = "";
 
 var ie = false;
 var firefox = false;
@@ -32,6 +32,15 @@ function el(name)
 	return document.getElementById(name);
 }
 
+if (ie) {
+	function setHTML(elem, html) {
+		elem.text = html;
+	}
+} else {
+	function setHTML(elem, html) {
+		elem.innerHTML = html;
+	}
+}
 // fixes the array.push and array.splice methods
 if (typeof Array.prototype.push == "undefined") {
   Array.prototype.push = function(str) {
@@ -937,6 +946,8 @@ function set_current(cr)
 {
 	var text, namespace;
 	result_pages = [];
+	// eventually remove the previous custom script
+	_clear_swcs();
 //	log("Setting \""+cr+"\" as current page");
 	if (cr.substring(cr.length-2)=="::") {
 		text = _get_namespace(cr);
@@ -1026,10 +1037,10 @@ function set_current(cr)
 var swcs = null;
 
 function _clear_swcs() {
-	if (swcs != null) {
-		document.getElementsByTagName("head")[0].removeChild(swcs);
-		swcs = null;
-	}
+//	setHTML(swcs, "");
+	if (swcs == null) return;
+	document.getElementsByTagName("head")[0].removeChild(swcs);
+	swcs = null;
 }
 
 function load_as_current(title, text) {
@@ -1040,20 +1051,18 @@ function load_as_current(title, text) {
 	document.title = title;
 	update_nav_icons(title);
 	current = title;
-	// eventually remove the previous custom script
-	_clear_swcs();
-	if (post_dom_render!=null) {
+	// add the custom script (if any)
+	if (post_dom_render!="") {
 		log("Executing "+post_dom_render.length+" bytes of custom javascript");
 //		eval(post_dom_render);
 		swcs = document.createElement("script");
 		swcs.type="text/javascript";
-		if (ie)
-			swcs.text = post_dom_render;
-		else
-			swcs.innerHTML = post_dom_render;
+		swcs.id = "sw_custom_script";
+		setHTML(swcs, post_dom_render);
 	   document.getElementsByTagName("head")[0].appendChild(swcs);
 	}
-	post_dom_render = null;
+//	setHTML(swcs, post_dom_render);
+	post_dom_render = "";
 }
 
 function bool2chk(b) {
@@ -1288,6 +1297,8 @@ function on_load()
 	var qpage=document.location.href.split("?")[1];
 	if(qpage)
 		current = unescape(qpage);
+		
+//	swcs = el("sw_custom_script");
 
 	set_current(current);
 	refresh_menu_area();
@@ -1835,9 +1846,9 @@ function save_to_file(full) {
 //		free_uri_pics(el("img_home"),el("img_back"),el("img_forward"),el("img_edit"),el("img_cancel"),el("img_save"),el("img_advanced"))
 	}
 
-	var data = _get_data(__marker, document.documentElement.innerHTML, full);
-
 	_clear_swcs();
+	
+	var data = _get_data(__marker, document.documentElement.innerHTML, full);
 
 	if ( (!debug || save_override) )
 		r = saveThisFile(computed_js, data);
