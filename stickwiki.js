@@ -1757,6 +1757,36 @@ function save_options() {
 	set_current("Special::Advanced");
 }
 
+function _get_data(marker, source, full, start) {
+	var offset;
+	if (full) {
+		offset = source.indexOf("/* "+marker+ "-END */");
+		if (offset == -1) {
+			alert("END marker not found!");
+			return false;
+		}			
+		offset += 6 + 4 + marker.length + 2;
+		
+		if (start) {
+			var s_offset = source.indexOf("/* "+marker+ "-START */");
+			if (s_offset == -1) {
+				alert("START marker not found!");
+				return false;
+			}
+			return source.substring(s_offset, offset);
+		}
+		
+	} else {
+		offset = source.indexOf("/* "+marker+ "-DATA */");
+		if (offset == -1) {
+			alert("DATA marker not found!");
+			return false;
+		}
+		offset += 6 + 5 + marker.length + 1;
+	}
+	return source.substring(offset);
+}
+
 function save_to_file(full) {
 	document.body.style.cursor = "wait";
 
@@ -1804,29 +1834,13 @@ function save_to_file(full) {
 	} else {
 //		free_uri_pics(el("img_home"),el("img_back"),el("img_forward"),el("img_edit"),el("img_cancel"),el("img_save"),el("img_advanced"))
 	}
-	
-	// fully remove the first <script> tag
-	var offset;
-	if (full) {
-		offset = document.documentElement.innerHTML.indexOf("/* "+__marker+ "-END */");
-		if (offset == -1) {
-			alert("END marker not found!");
-			return false;
-		}			
-		offset += 6 + 4 + __marker.length + 2;
-	} else {
-		offset = document.documentElement.innerHTML.indexOf("/* "+__marker+ "-DATA */");
-		if (offset == -1) {
-			alert("DATA marker not found!");
-			return false;
-		}
-		offset += 6 + 5 + __marker.length + 1;
-	}
+
+	var data = _get_data(__marker, document.documentElement.innerHTML, full);
 
 	_clear_swcs();
 
 	if ( (!debug || save_override) )
-		r = saveThisFile(computed_js, offset);
+		r = saveThisFile(computed_js, data);
 	else r = false;
 	document.body.style.cursor= "auto";
 	
@@ -1845,7 +1859,7 @@ function save_to_file(full) {
 
 /*** loadsave.js ***/
 // save this file
-function saveThisFile(data, offset)
+function saveThisFile(new_data, old_data)
 {
 /*	if(unsupported_browser)
 	{
@@ -1862,7 +1876,7 @@ function saveThisFile(data, offset)
 		filename = "/" + filename;
 	
 	r = saveFile(filename,
-	"<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\">\n<head>\n<script type=\"text/javascript\">" + data + "\n" + document.documentElement.innerHTML.substring(offset) + "</html>");
+	"<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\">\n<head>\n<script type=\"text/javascript\">" + new_data + "\n" + old_data + "</html>");
 	if (r==true)
 		log("\""+filename+"\" saved successfully");
 	else
@@ -2080,20 +2094,37 @@ function import_wiki()
 			case "0.04G":
 				old_version = 4;
 				break;
-			case "0.9B":
-			case "0.9":
-				old_version = 9;
 			default:
 				alert("Incompatible version: " + ver_str);
+				document.body.style.cursor= "auto";
 				return false;
 		}
 	} else {
-		log("Maybe version 0.02?");
-		old_version = 2;
-		if(ct.match("<div id=\"?"+escape("Special::Advanced")))
-			old_version = 3;
+		var ver_str = ct.match(/var version = "([^"]*)";\n/);
+		if (ver_str && ver_str.length) {
+			ver_str = ver_str[1];
+			switch (ver_str) {
+				case "0.9B":
+				case "0.9":
+					old_version = 9;
+				break;
+				default:
+					alert("Incompatible version: " + ver_str);
+					document.body.style.cursor= "auto";
+					return false;
+			}
+		} else {
+			log("Maybe version 0.02?");
+			old_version = 2;
+			if(ct.match("<div id=\"?"+escape("Special::Advanced")))
+				old_version = 3;
+		}
 	}
 
+	
+	// import the variables
+	var new_main_page = main_page;
+	var old_block_edits = !permit_edits;
 	var page_names = new Array();
 	var page_contents = new Array();
 	var old_page_attrs = new Array();
@@ -2189,9 +2220,6 @@ if (old_version	< 9) {
 
 	log("page_names is ("+page_names+")");
 
-	// import the variables
-	var new_main_page = main_page;
-	var old_block_edits = !permit_edits;
 	for(var i=0;i<var_names.length;i++) {
 		if (var_names[i] == "main_page_")
 			new_main_page = (version!=2) ? unescape(var_values[i]) : var_values[i];
@@ -2202,21 +2230,66 @@ if (old_version	< 9) {
 	//note: before v0.04 permit_edits didnt exist
 	//note: in version 2 pages were not escaped
 }	else {
-	alert("Import from v0.9 is not yet supported!");
-	document.body.style.cursor= "auto";
-	return;
-	
+
+	try {
+		var old_marker = ct.match(/\nvar __marker = "([A-Za-z\-\d]+)";\n/)[1];
+	} catch (e) {
+		alert("Marker not found!");
+		document.body.style.cursor= "auto";
+		return false;
+	}
+
+	// import from versions 0.9 and above
 	var css = null;
-		ct.replace(/<style\s.*?type="?text\/css"?[^>]*>((\n|.)*?)<\/style>/i, function (str, $1) {
-			css = $1;
-		});
-		if (css!=null) {
-			log("Imported "+css.length+" bytes of CSS");
-			document.getElementsByTagName("style")[0].innerHTML = css;
-		}
+	ct.replace(/<style\s.*?type="?text\/css"?[^>]*>((\n|.)*?)<\/style>/i, function (str, $1) {
+		css = $1;
+	});
+	if (css!=null) {
+		log("Imported "+css.length+" bytes of CSS");
+		document.getElementsByTagName("style")[0].innerHTML = css;
+	}
 
+	var data = _get_data(old_marker, ct, true, true);
+	var collected = [];
+	
+	// rename the variables
+	data = data.replace(/([^\\])\nvar (\w+) = /g, function (str, $1, $2) {
+		collected.push('sw_import_'+$2);
+		return $1+"\nvar sw_import_"+$2+" = ";
+	});//.replace(/\\\n/g, '');
+	
+	log("collected = "+collected);
+	
+	collected = eval(data+"\n["+collected+"];");
+	data = ct = null;
 
+	if (collected.length!=13) {
+		alert("Invalid collected data!");
+		document.body.style.cursor= "auto";
+		return false;
+	}
+	
+	old_block_edits = !collected[2];
+	
+	dblclick_edit = collected[3];
+	
+	save_on_quit = collected[4];
+	
+sw_import_allow_diff,sw_import_key_cache,sw_import_current,sw_import_main_page,sw_import_backstack,sw_import_page_titles,sw_import_page_attrs,sw_import_pages
 
+	allow_diff = collected[5];
+	
+	key_cache = collected[6];
+	
+	new_main_page = collected[8];
+	
+	page_names = collected[10];
+	
+	old_page_attrs = collected[11];
+	
+	page_contents = collected[12];
+	
+	collected = null;
 }
 
 	// add new data
