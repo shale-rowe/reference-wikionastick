@@ -248,9 +248,8 @@ function _sq_esc(s) {
 // used not to break layout when presenting search results
 var force_inline = false;
 
-// Parse typed code into HTML
-function parse(text)
-{
+// Parse typed code into HTML - allows overriding
+var parse = function(text) {
 	if (text == null) {
 		log("text = null while parsing current page \""+current+"\"");
 		return;
@@ -2482,56 +2481,51 @@ if (utf8mf) {
 	  return "unexpected character '"+String.fromCharCode(c)+"' (code 0x"+c.toString(16)+").";
 	}
 
-	function utf8Encrypt(){
-	  if (aes_i==0) { /* prgr='UTF-8'; */ bData=[]; tot=sData.length; aes_j=0; }
-	  var z = Math.min(aes_i+100,tot);
-	  var c = 0;
-	  var k = 0;
-	  while (aes_i<z) {
-	    c = sData.charCodeAt(aes_i++);
-	    if (c<0x80){ bData[aes_j++]=c; continue; }
+	function utf8Encrypt(sData){
+	  var k, i=0, z=sData.length;
+	  var bData = [];
+	  while (i<z) {
+	    c = sData.charCodeAt(i++);
+	    if (c<0x80){ bData.push(c); continue; }
 	    k=0; while(k<utf8sets.length && c>=utf8sets[k]) k++;
-	    if (k>=utf8sets.length) throw( "UTF-8: "+unExpChar(c) );
-	    for (var n=aes_j+k+1;n>aes_j;n--){ bData[n]=0x80|(c&0x3F); c>>>=6; }
-	    bData[aes_j]=c+((0xFF<<(6-k))&0xFF);
-	    aes_j += k+2;
+	    if (k>=utf8sets.length) {
+			alert("UTF-8: "+unExpChar(c));
+			return null;
+		}
+		j=bData.length;
+	    for (var n=j+k+1;n>j;n--){ bData[n]=0x80|(c&0x3F); c>>>=6; }
+	    bData[j]=c+((0xFF<<(6-k))&0xFF);
+	    j += k+2;
 	  }
+	  return bData;
 	}
 
-	function utf8Decrypt(){
-	  if (aes_i==0){ /* prgr='UTF-8'; */ sData=""; tot=bData.length; }
-	  var z=Math.min(aes_i+100,tot);
-	  var c = 0;
-	  var e = "";
-	  var k = 0;
-	  var d = 0;
-	  while (aes_i<z){
-	    c = bData[aes_i++];
-	    e = '0x'+c.toString(16);
+	function utf8Decrypt(bData){
+	  var z=bData.length;
+	  var c;
+	  var k, d = 0, i = 0;
+	  var sData = "";
+	  while (i<z) {
+	    c = bData[i++];
 	    k=0; while(c&0x80){ c=(c<<1)&0xFF; k++; }
 	    c >>= k;
 	    if (k==1||k>4) {
 	//		throw
-			log('UTF-8: invalid first byte '+e+'.');
-			sData = null;
-			aes_i=tot;
-			return;
+			log('UTF-8: invalid first byte');
+			return null;
 		}
 	    for (var n=1;n<k;n++){
-	      d = bData[aes_i++];
-	      e+=',0x'+d.toString(16);
+	      d = bData[i++];
 	      if (d<0x80||d>0xBF) break;
 	      c=(c<<6)+(d&0x3F);
 	    }
 	    if ( (k==2&&c<0x80) || (k>2&&c<utf8sets[k-3]) ) {
-	//		throw
-			log("UTF-8: invalid sequence "+e+'.');
-			sData = null;
-			aes_i=tot;
-			return;
+			log("UTF-8: invalid sequence");
+			return null;
 		}
 	    sData+=String.fromCharCode(c);
 	  }
+	  return sData;
 	}
 } else { // no utf8
 	
@@ -2773,13 +2767,8 @@ function blcDecrypt(dec){
 
 // sets global key to the utf-8 encoded key
 function AES_setKey(sKey) {
-  if (utf8mf && sKey.test(/[\u007F-\uFFFF]/)) {
-  sData=sKey;
-	  aes_i=tot=0;
-	  do{ utf8Encrypt(); } while (aes_i<tot);
-  sData = null;
-  key = bData;
-  bData = null;
+  if (utf8mf) {
+	key = utf8Encrypt(sKey);
   } else {
 	key = split_bytes(sKey);
   }
@@ -2790,17 +2779,6 @@ function AES_clearKey() {
 }
 
 var legocheck = false;
-
-// sets global bData to the utf-8 encoded binary data extracted from d
-function setData(d) {
-  if (utf8mf && d.test(/[\u007F-\uFFFF]/)) {
-		sData = d;
-		aes_i=tot=0;
-		do{ utf8Encrypt(); } while (aes_i<tot);
-		sData = null;
-	} else
-		bData = split_bytes(d);
-}
 
 // returns an array of encrypted characters
 function AES_encrypt(raw_data) {
@@ -2827,7 +2805,10 @@ function AES_encrypt(raw_data) {
 		setW(bData, bData.length, ew);
 	}
 	
-	setData(raw_data);
+	if (utf8mf) {
+		bData = utf8Encrypt(raw_data);
+	} else
+		bData = split_bytes(d);
 	
 	aes_i=tot=0;
 	do{ blcEncrypt(aesEncrypt); } while (aes_i<tot);
@@ -2864,12 +2845,10 @@ function AES_decrypt(raw_data) {
 		bData.splice(0, 4);
 	}
 
-	
-  if (utf8mf ) {
-		aes_i=tot=0;
-		do{ utf8Decrypt(); } while (aes_i<tot);
+	if (utf8mf) {
+		sData = utf8Decrypt(bData);
 	} else
-		sData = merge_bytes(bData);
+		sData = merge_bytes(d);
 	bData = [];
 	return sData;
 }
