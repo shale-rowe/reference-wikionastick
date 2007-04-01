@@ -1105,13 +1105,13 @@ function lock_page(page) {
 	go_to(page);
 	if (!key_cache)
 		AES_clearKey();
+	save__page(pi);
 }
 
 function _perform_lock(pi) {
 	pages[pi] = AES_encrypt(pages[pi]);
 	log("E: encrypted length is "+pages[pi].length);
 	page_attrs[pi] += 2;
-	save__page(pi);
 }
 
 var _pw_q_lock = false;
@@ -1566,6 +1566,7 @@ function delete_page(page)
 			page_titles.splice(i,1);
 			pages.splice(i,1);
 			page_attrs.splice(i,1);
+			refresh_menu_area();
 			break;
 		}
 	}
@@ -1626,6 +1627,7 @@ function save()
 		set_current(back_to);
 	else // used for CSS editing
 		back_or(main_page);
+	refresh_menu_area();
 	disable_edit();
 	save_page(saved);
 }
@@ -1771,6 +1773,14 @@ function printout_num_arr(arr) {
 
 function save_page(page_to_save) {
 	log("Saving modified page \""+page_to_save+"\"");
+	var pi = page_index(page_to_save);
+	if (pi==-1)
+		log("Invalid page queued for save: "+page_to_save+" (possible page deletion)");
+	save__page(pi);
+}
+
+function save__page(pi) {
+	//this is the dummy function that will allow more efficient file saving in future
 	save_to_file(true);
 }
 
