@@ -1659,9 +1659,8 @@ function advanced()
 
 function history_mem(page) {
 	if (backstack.length>6)
-		backstack = new Array(page);
-	else
-		backstack.push(page);
+		backstack = backstack.slice(1);
+	backstack.push(page);
 }
 
 // follows a link
