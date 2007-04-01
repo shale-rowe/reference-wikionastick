@@ -849,10 +849,10 @@ function _create_page(ns, cr, ask) {
 	page_attrs.push(0);
 	page_titles.push(cr);
 	current = cr;
-	log("Now pages list is: "+page_titles);
+//	log("Now pages list is: "+page_titles);
+//	save_page(cr);	// do not save
 	edit_page(cr);
 	return true;
-//			save_page(cr);
 }
 
 function _get_special(cr) {
@@ -1001,8 +1001,8 @@ function set_current(cr)
 						page_attrs[pi] -= 2;
 						if (!key_cache)
 							AES_clearKey();
-						save_to_file(true);
 						set_current(cr);
+						save_page(cr);
 						return;
 					default:
 						text = get_text(namespace+"::"+cr);
@@ -1111,7 +1111,7 @@ function _perform_lock(pi) {
 	pages[pi] = AES_encrypt(pages[pi]);
 	log("E: encrypted length is "+pages[pi].length);
 	page_attrs[pi] += 2;
-	save_to_file(true);
+	save__page(pi);
 }
 
 var _pw_q_lock = false;
@@ -1598,10 +1598,11 @@ function save()
 			{
 				if(confirm("Are you sure you want to DELETE this page?"))
 				{
+					var deleted = current;
 					delete_page(current);
 					disable_edit();
 					back_or(main_page);
-					save_to_file(true);
+					save_page(deleted);
 				}
 				return;
 			} else {
@@ -1620,13 +1621,13 @@ function save()
 				}				
 			}
 	}
-	save_page(current);
-	
+	var saved = current;
 	if (back_to != null)
 		set_current(back_to);
 	else // used for CSS editing
 		back_or(main_page);
 	disable_edit();
+	save_page(saved);
 }
 
 // when cancel is clicked
@@ -1770,7 +1771,7 @@ function printout_num_arr(arr) {
 }
 
 function save_page(page_to_save) {
-	log("Saving page \""+page_to_save+"\"");
+	log("Saving modified page \""+page_to_save+"\"");
 	save_to_file(true);
 }
 
@@ -1811,7 +1812,7 @@ function _get_data(marker, source, full, start) {
 
 function save_to_file(full) {
 	document.body.style.cursor = "wait";
-
+	
 	var new_marker;
 	if (!debug && full)
 		new_marker = _random_string(18);
@@ -1847,9 +1848,14 @@ function save_to_file(full) {
 	}
 
 	// cleanup the DOM before saving
+	var bak_ed = el("wiki_editor").value;
+	var bak_tx = el("wiki_text").innerHTML;
+	var bak_mn = el("menu_area").innerHTML;
+
 	el("wiki_editor").value = "";
 	el("wiki_text").innerHTML = "";
 	el("menu_area").innerHTML = "";
+
 	if (ie) {	// to prevent their usual UTF-8 corruption
 		el("alt_back").innerHTML = "";
 		el("alt_forward").innerHTML = "";
@@ -1863,11 +1869,8 @@ function save_to_file(full) {
 	var data = _get_data(__marker, document.documentElement.innerHTML, full);
 
 	if ( (!debug || save_override) )
-		r = saveThisFile(computed_js, data);
+		r = _saveThisFile(computed_js, data);
 	else r = false;
-	document.body.style.cursor= "auto";
-	
-	refresh_menu_area();
 	
 	if (ie)
 		create_alt_buttons();
@@ -1876,13 +1879,18 @@ function save_to_file(full) {
 	if (r) {
 		cfg_changed = false;
 	}
+	
+	el("wiki_editor").value = bak_ed;
+	el("wiki_text").innerHTML = bak_tx;
+	el("menu_area").innerHTML = bak_mn;
+	
+	document.body.style.cursor= "auto";
 
 	return r;
 }
 
 /*** loadsave.js ***/
-// save this file
-function saveThisFile(new_data, old_data)
+function _saveThisFile(new_data, old_data)
 {
 /*	if(unsupported_browser)
 	{
