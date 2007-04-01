@@ -766,6 +766,7 @@ function get__text(pi) {
 			var pw = prompt('The latest entered password (if any) was not correct for page "'+page_titles[pi]+"'\n\nPlease enter the correct password.", '');
 			if ((pw==null) || !pw.length) {
 				latest_AES_page = "";
+				AES_clearKey();
 				document.body.style.cursor = "auto";
 				return null;
 			}
@@ -2464,7 +2465,7 @@ var aes_i;
 var aes_j;
 var tot;
 var key = [];
-var utf8mf = false;
+var utf8mf = true;
 
 var wMax = 0xFFFFFFFF;
 function rotb(b,n){ return ( b<<n | b>>>( 8-n) ) & 0xFF; }
@@ -2788,7 +2789,7 @@ function AES_clearKey() {
 	key = [];
 }
 
-var legocheck = true;
+var legocheck = false;
 
 // sets global bData to the utf-8 encoded binary data extracted from d
 function setData(d) {
@@ -2803,16 +2804,34 @@ function setData(d) {
 
 // returns an array of encrypted characters
 function AES_encrypt(raw_data) {
+	if (legocheck) {
+		/* legolas558's random marker pattern */
+		var ew, sw;
+		if (bData.length % 2) {
+			ew = _rand(0xFFFFFFFF);
+			sw = ew ^ bData.length;
+			if (!(sw % 2))
+				sw++;
+			if (ew % 2)
+				ew++;
+		} else {
+			sw = _rand(0xFFFFFFFF);
+			ew = sw ^ bData.length;
+			if (!(ew % 2))
+				ew++;
+			if (sw % 2)
+				sw++;
+		}
+		bData = bData.concat([0,0,0,0], bData);
+		setW(bData, 0, sw);
+		setW(bData, bData.length, ew);
+	}
+	
 	setData(raw_data);
-
+	
 	aes_i=tot=0;
 	do{ blcEncrypt(aesEncrypt); } while (aes_i<tot);
 	
-	if (legocheck) {
-	// add random markers to see if encryption was successful
-		
-	}
-
 	return bData;
 }
 
@@ -2824,8 +2843,25 @@ function AES_decrypt(raw_data) {
 	do{ blcDecrypt(aesDecrypt); } while (aes_i<tot);
 	
 	if (legocheck) {
-	// add random markers to see if encryption was successful
-	
+		var sw = getW(bData, 0);
+		var sw = getW(bData, bData.length-4);
+		var len = bData.length-8;
+		if (len % 2) {
+			sw = ew ^ bData.length;
+			if (!(sw % 2))
+				return null;
+			if (ew % 2)
+				return null;
+		} else {
+			sw = _rand(0xFFFFFFFF);
+			ew = sw ^ len;
+			if (!(ew % 2))
+				return null;
+			if (sw % 2)
+				return null;
+		}
+		bData.splice(len-4, 4);
+		bData.splice(0, 4);
 	}
 
 	
