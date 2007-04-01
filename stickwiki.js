@@ -737,8 +737,10 @@ function is_encrypted(page) {
 function get_page(pi) {
 	if (!is__encrypted(pi))
 		return pages[pi];
-	if (!key.length)
+	if (!key.length) {
+		latest_AES_page = "";
 		return null;
+	}
 	var pg = AES_decrypt(pages[pi].slice(0));	/*WARNING: may not be supported by all browsers*/
 	last_AES_page = page_titles[pi];
 	return pg;	
@@ -755,16 +757,18 @@ function get__text(pi) {
 	// is the page encrypted or plain?
 	if (!is__encrypted(pi))
 		return pages[pi];
+	document.body.style.cursor = "wait";
 	decrypt_failed = true;
 	var retry = 0;		
 	var pg = null;
 	do {
 		if (retry || !key.length) {
 			var pw = prompt('The latest entered password (if any) was not correct for page "'+page_titles[pi]+"'\n\nPlease enter the correct password.", '');
-			if (pw==null)
+			if ((pw==null) || !pw.length) {
+				latest_AES_page = "";
+				document.body.style.cursor = "auto";
 				return null;
-			if (!pw.length)
-				return null;
+			}
 			AES_setKey(pw);
 			retry++;
 		}
@@ -778,10 +782,14 @@ function get__text(pi) {
 		decrypt_failed = false;
 		if (!key_cache)
 			AES_clearKey();
+		else
+			latest_AES_page = page_titles[pi];
 	} else {
 		alert("Access denied");
 		AES_clearKey();
+		latest_AES_page = "";
 	}
+	document.body.style.cursor = "auto";
 	return pg;
 }
 
@@ -976,7 +984,7 @@ function set_current(cr)
 						}
 						if (key.length) {
 							if (confirm("Do you want to use the last password (last time used on page \""+latest_AES_page+"\") to lock this page \""+cr+"\"?")) {
-								_perform_lock(pi);
+								_finalize_lock(pi);
 								return;
 							}
 						}
@@ -1100,11 +1108,18 @@ function lock_page(page) {
 		}
 	}
 	AES_setKey(pwd);
+	_finalize_lock(pi);
+}
+
+function _finalize_lock(pi) {
 	_perform_lock(pi);
-	last_AES_page = page;
-	go_to(page);
-	if (!key_cache)
+	var title = page_titles[pi];
+	set_current(title);
+	if (!key_cache) {
 		AES_clearKey();
+		latest_AES_page = "";
+	} else
+		last_AES_page = title;
 	save__page(pi);
 }
 
