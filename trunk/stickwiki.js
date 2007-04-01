@@ -2464,7 +2464,7 @@ var aes_i;
 var aes_j;
 var tot;
 var key = [];
-var lenInd = true;	// length indicator (to remove padding bytes)
+var utf8mf = false;
 
 var wMax = 0xFFFFFFFF;
 function rotb(b,n){ return ( b<<n | b>>>( 8-n) ) & 0xFF; }
@@ -2474,84 +2474,84 @@ function setW(a,i,w){ a.splice(i,4,w&0xFF,(w>>>8)&0xFF,(w>>>16)&0xFF,(w>>>24)&0x
 function setWInv(a,i,w){ a.splice(i,4,(w>>>24)&0xFF,(w>>>16)&0xFF,(w>>>8)&0xFF,w&0xFF); }
 function getB(x,n){ return (x>>>(n*8))&0xFF; }
 
-function getNrBits(i){ var n=0; while (i>0){ n++; i>>>=1; } return n; }
-function getMask(n){ return (1<<n)-1; }
+if (utf8mf) {
+	var utf8sets = [0x800,0x10000,0x110000];
 
-function getLen(bits){
-  var n = (bits+7)>>>3;
-  var r=0;
-  for (var i=0; i<n; i++) r += bData.shift()<<(i*8);
-  return r&getMask(bits);
-}
-
-var bMax=0xFFFF;
-var bMaxBits=getNrBits(bMax);
-
-function bGetNrBits(a){ return (a.length-1)*bMaxBits+getNrBits(a[a.length-1]); }
-
-function insLen(len, bits){
-  var n=(bits+7)>>>3;
-  while (bits<n*8){ len=((len&0xFF)<<bits)|len; bits*=2; }
-  while (n-->0) bData.unshift( (len>>>(n*8))&0xFF );
-}
-
-var utf8sets = [0x800,0x10000,0x110000];
-
-function unExpChar(c){
-  return "unexpected character '"+String.fromCharCode(c)+"' (code 0x"+c.toString(16)+").";
-}
-
-function utf8Encrypt(){
-  if (aes_i==0) { /* prgr='UTF-8'; */ bData=[]; tot=sData.length; aes_j=0; }
-  var z = Math.min(aes_i+100,tot);
-  var c = 0;
-  var k = 0;
-  while (aes_i<z) {
-    c = sData.charCodeAt(aes_i++);
-    if (c<0x80){ bData[aes_j++]=c; continue; }
-    k=0; while(k<utf8sets.length && c>=utf8sets[k]) k++;
-    if (k>=utf8sets.length) throw( "UTF-8: "+unExpChar(c) );
-    for (var n=aes_j+k+1;n>aes_j;n--){ bData[n]=0x80|(c&0x3F); c>>>=6; }
-    bData[aes_j]=c+((0xFF<<(6-k))&0xFF);
-    aes_j += k+2;
-  }
-}
-
-function utf8Decrypt(){
-  if (aes_i==0){ /* prgr='UTF-8'; */ sData=""; tot=bData.length; }
-  var z=Math.min(aes_i+100,tot);
-  var c = 0;
-  var e = "";
-  var k = 0;
-  var d = 0;
-  while (aes_i<z){
-    c = bData[aes_i++];
-    e = '0x'+c.toString(16);
-    k=0; while(c&0x80){ c=(c<<1)&0xFF; k++; }
-    c >>= k;
-    if (k==1||k>4) {
-//		throw
-		log('UTF-8: invalid first byte '+e+'.');
-		sData = null;
-		aes_i=tot;
-		return;
+	function unExpChar(c){
+	  return "unexpected character '"+String.fromCharCode(c)+"' (code 0x"+c.toString(16)+").";
 	}
-    for (var n=1;n<k;n++){
-      d = bData[aes_i++];
-      e+=',0x'+d.toString(16);
-      if (d<0x80||d>0xBF) break;
-      c=(c<<6)+(d&0x3F);
-    }
-    if ( (k==2&&c<0x80) || (k>2&&c<utf8sets[k-3]) ) {
-//		throw
-		log("UTF-8: invalid sequence "+e+'.');
-		sData = null;
-		aes_i=tot;
-		return;
+
+	function utf8Encrypt(){
+	  if (aes_i==0) { /* prgr='UTF-8'; */ bData=[]; tot=sData.length; aes_j=0; }
+	  var z = Math.min(aes_i+100,tot);
+	  var c = 0;
+	  var k = 0;
+	  while (aes_i<z) {
+	    c = sData.charCodeAt(aes_i++);
+	    if (c<0x80){ bData[aes_j++]=c; continue; }
+	    k=0; while(k<utf8sets.length && c>=utf8sets[k]) k++;
+	    if (k>=utf8sets.length) throw( "UTF-8: "+unExpChar(c) );
+	    for (var n=aes_j+k+1;n>aes_j;n--){ bData[n]=0x80|(c&0x3F); c>>>=6; }
+	    bData[aes_j]=c+((0xFF<<(6-k))&0xFF);
+	    aes_j += k+2;
+	  }
 	}
-    sData+=String.fromCharCode(c);
-  }
+
+	function utf8Decrypt(){
+	  if (aes_i==0){ /* prgr='UTF-8'; */ sData=""; tot=bData.length; }
+	  var z=Math.min(aes_i+100,tot);
+	  var c = 0;
+	  var e = "";
+	  var k = 0;
+	  var d = 0;
+	  while (aes_i<z){
+	    c = bData[aes_i++];
+	    e = '0x'+c.toString(16);
+	    k=0; while(c&0x80){ c=(c<<1)&0xFF; k++; }
+	    c >>= k;
+	    if (k==1||k>4) {
+	//		throw
+			log('UTF-8: invalid first byte '+e+'.');
+			sData = null;
+			aes_i=tot;
+			return;
+		}
+	    for (var n=1;n<k;n++){
+	      d = bData[aes_i++];
+	      e+=',0x'+d.toString(16);
+	      if (d<0x80||d>0xBF) break;
+	      c=(c<<6)+(d&0x3F);
+	    }
+	    if ( (k==2&&c<0x80) || (k>2&&c<utf8sets[k-3]) ) {
+	//		throw
+			log("UTF-8: invalid sequence "+e+'.');
+			sData = null;
+			aes_i=tot;
+			return;
+		}
+	    sData+=String.fromCharCode(c);
+	  }
+	}
+} else { // no utf8
+	
+	function split_bytes(s) {
+		var l=s.length;
+		var arr=[];
+		for(var i=0;i<l;i++)
+			arr.push(s.charCodeAt(i));
+		return arr;
+	}
+	
+	function merge_bytes(arr) {
+		var l=arr.length;
+		var s="";
+		for(var i=0;i<l;i++)
+			s+=String.fromCharCode(arr[i]);
+		return s;
+	}
+	
 }
+
 
 var aesNk;
 var aesNr;
@@ -2730,9 +2730,8 @@ function blcEncrypt(enc){
   if (tot==0){
 //    prgr = name;
     if (key.length<1) return;
-    if (lenInd) insLen( bData.length%16, 4 );
     //if (cbc)
-	for (aes_i=0; aes_i<16; aes_i++) bData.unshift( Math.floor(Math.random()*256) );
+	for (aes_i=0; aes_i<16; aes_i++) bData.unshift( _rand(256) );
     while( bData.length%16!=0 ) bData.push(0);
     tot = bData.length;
     aesInit();
@@ -2767,98 +2766,76 @@ function blcDecrypt(dec){
     aesClose();
     //if (cbc)
 	bData.splice(0,16);
-    if (lenInd){
-      var ol = bData.length;
-      var k = getLen(getNrBits(15));
-      while((k+ol-bData.length)%16!=0) bData.pop();
-    }
-    else{
-      while(bData[bData.length-1]==0) bData.pop();
-    }
+	while(bData[bData.length-1]==0) bData.pop();
   }
 }
 
 // sets global key to the utf-8 encoded key
 function AES_setKey(sKey) {
+  if (utf8mf) {
   sData=sKey;
-  aes_i=tot=0;
-  do{ utf8Encrypt(); } while (aes_i<tot);
+	  aes_i=tot=0;
+	  do{ utf8Encrypt(); } while (aes_i<tot);
   sData = null;
   key = bData;
   bData = null;
+  } else {
+	key = split_bytes(sKey);
+  }
 }
 
 function AES_clearKey() {
 	key = [];
 }
 
+var legocheck = true;
+
 // sets global bData to the utf-8 encoded binary data extracted from d
 function setData(d) {
-	sData = d;
-	aes_i=tot=0;
-	do{ utf8Encrypt(); } while (aes_i<tot);
-	sData = null;
+	if (utf8mf) {
+		sData = d;
+		aes_i=tot=0;
+		do{ utf8Encrypt(); } while (aes_i<tot);
+		sData = null;
+	} else
+		bData = split_bytes(d);
 }
-
-var _magic_check = false;
 
 // returns an array of encrypted characters
 function AES_encrypt(raw_data) {
 	setData(raw_data);
 
-	if (_magic_check) {
-		// save 2 random characters for decryption control
-		var magic_pos = _rand( Math.max(0, bData.length-2));
-		var magic_len = 2 + _rand(4);
-		bData.push(0);
-		for(a=0;a<magic_len;a++)
-			bData.push(bData[magic_pos+a]);
-
-		setW(bData, bData.length, magic_pos);
-		setW(bData, bData.length, magic_len);
-	}
-	
 	aes_i=tot=0;
 	do{ blcEncrypt(aesEncrypt); } while (aes_i<tot);
+	
+	if (legocheck) {
+	// add random markers to see if encryption was successful
+		
+	}
 
 	return bData;
 }
 
 // decrypts an array of encrypted characters
-// returns null if magic check fails
 function AES_decrypt(raw_data) {
 	bData = raw_data;
 	
 	aes_i=tot=0;
 	do{ blcDecrypt(aesDecrypt); } while (aes_i<tot);
 	
-	if (_magic_check) {
-		// check if the magic characters were saved
-		if (bData.length < 10)
-			return null;
-		var magic_pos = getW(bData.length-8);
-		var magic_len = getW(bData.length-4);
-		if ((magic_pos >= bData.length - 9) ||
-			(magic_pos + magic_len >= bData.length - 9))
-			return null;
-		for(a=0;a<magic_len;a++)
-			if (bData[magic_pos+a] != bData[bData.length-8-magic_len+a])
-				return null;
-				
-		bData.splice(bData.length-8 - magic_len, 8 + magic_len + 1);
+	if (legocheck) {
+	// add random markers to see if encryption was successful
+	
 	}
+
 	
-	aes_i=tot=0;
-	do{ utf8Decrypt(); } while (aes_i<tot);
-	
+	if (utf8mf) {
+		aes_i=tot=0;
+		do{ utf8Decrypt(); } while (aes_i<tot);
+	} else
+		sData = merge_bytes(bData);
+	bData = [];
 	return sData;
 }
-
-//var test_key = "a very good password";
-//AES_setKey(test_key);
-//alert(AES_decrypt(AES_encrypt(pages[0])));
-
-//AES_setKey("test");
-//AES_decrypt(pages[pages.length-1]);
 
 /* ]]> */
