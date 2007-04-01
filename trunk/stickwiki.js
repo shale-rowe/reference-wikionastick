@@ -2773,7 +2773,7 @@ function blcDecrypt(dec){
 
 // sets global key to the utf-8 encoded key
 function AES_setKey(sKey) {
-  if (utf8mf) {
+  if (utf8mf && sKey.test(/[\u007F-\uFFFF]/)) {
   sData=sKey;
 	  aes_i=tot=0;
 	  do{ utf8Encrypt(); } while (aes_i<tot);
@@ -2793,7 +2793,7 @@ var legocheck = false;
 
 // sets global bData to the utf-8 encoded binary data extracted from d
 function setData(d) {
-	if (utf8mf) {
+  if (utf8mf && d.test(/[\u007F-\uFFFF]/)) {
 		sData = d;
 		aes_i=tot=0;
 		do{ utf8Encrypt(); } while (aes_i<tot);
@@ -2865,7 +2865,7 @@ function AES_decrypt(raw_data) {
 	}
 
 	
-	if (utf8mf) {
+  if (utf8mf ) {
 		aes_i=tot=0;
 		do{ utf8Decrypt(); } while (aes_i<tot);
 	} else
