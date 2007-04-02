@@ -1104,10 +1104,11 @@ function el_eval(name) {
 }
 
 function _set_layout(fixed) {
-	el("sw_wiki_header").style.position = (fixed ? "fixed" : "absolute");
-	el("sw_menu_area").style.position = (fixed ? "fixed" : "absolute");
 	if (ie6) {
 		document.body.style = (fixed ? "height:100%; overflow-y:auto;" : "");
+	} else {
+		el("sw_wiki_header").style.position = (fixed ? "fixed" : "absolute");
+		el("sw_menu_area").style.position = (fixed ? "fixed" : "absolute");
 	}
 }
 
@@ -2456,6 +2457,10 @@ else */ if(navigator.appName == "Netscape")
 else if((navigator.appName).indexOf("Microsoft")!=-1) {
 	ie = true;
 	ie6 = (navigator.userAgent.search(/msie 6\./i)!=-1);
+	if (ie6) {
+		el("sw_wiki_header").style.position = "absolute";
+		el("sw_menu_area").style.position = "absolute";
+	}
 }
 
 // finds out if Opera is trying to look like Mozilla
