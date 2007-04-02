@@ -1779,10 +1779,18 @@ function printout_mixed_arr(arr, split_lines, attrs) {
 function printout_num_arr(arr) {
 	var s = "";
 	for(var i=0;i<arr.length-1;i++) {
-		s += "0x"+arr[i].toString(16) + ",";
+		if (arr[i]>=1000)
+			s += "0x"+arr[i].toString(16) + ",";
+		else
+			s+=arr[i].toString() + ",";
 	}
-	if (arr.length>1)
-		s += "0x"+arr[i].toString(16);
+	if (arr.length>1) {
+		if (arr[arr.length-1]>=1000)
+			s += "0x"+arr[arr.length-1].toString(16) + ",";
+		else
+			s+=arr[arr.length-1].toString();
+	}
+
 	return s;
 }
 
