@@ -20,6 +20,7 @@ var current_namespace = "";
 var post_dom_render = "";
 
 var ie = false;
+var ie6 = false;
 var firefox = false;
 var opera = false;
 //var unsupported_browser = true;
@@ -463,7 +464,7 @@ function _simple_join_list(arr, sorted) {
 }
 
 // with two trailing double colon
-function _get_namespace(ns) {
+function _get_namespace_pages(ns) {
 	var pg = new Array();
 	switch (ns) {
 		case "Locked::":
@@ -651,6 +652,17 @@ function special_dead_pages () {
   return _simple_join_list(pg, true);
 }
 
+function is_menu(page) {
+	return (page.indexOf("::Menu")==page.length-6);
+}
+
+// returns namespace with trailing ::
+function _get_namespace(page) {
+	var p = page.lastIndexOf("::");
+	if (p==-1) return "";
+	return page.substring(0,p+2);	
+}
+
 function special_orphaned_pages()
 {
 	var pg = new Array();
@@ -659,20 +671,31 @@ function special_orphaned_pages()
 	{
 		if (is_reserved(page_titles[j]))
 			continue;
-		// search for pages that link to it
+		if (is_menu(page_titles[j])) {	// check if the namespace has some pages
+			var ns = _get_namespace(page_titles[j]);
+			if (ns == "") continue;
+			for(var i=0;i<page_titles.length;i++) {
+				if (page_titles[i].indexOf(ns)==0) {
+					found = true;
+					break;
+				}
+			}
+		} else {
+			// search for pages that link to it
 //		log("Scanning references to page "+page_titles[j]);
-		var tmp;
-		for(var i=0; i<page_titles.length; i++) {
-			if ((i==j) || is_reserved(page_titles[i]))
-				continue;
-			tmp = get_page(i);
-			if (tmp==null)
-				continue;
-			var re = new RegExp("\\[\\[" + RegExp.escape(page_titles[j]) + "(\\]\\]|\\|)", "i");
+			var tmp;
+			for(var i=0; i<page_titles.length; i++) {
+				if ((i==j) || is_reserved(page_titles[i]))
+					continue;
+				tmp = get_page(i);
+				if (tmp==null)
+					continue;
+				var re = new RegExp("\\[\\[" + RegExp.escape(page_titles[j]) + "(\\]\\]|\\|)", "i");
 //			log("matching "+re+" into "+page_titles[i]);
-			if (tmp.search(re)!=-1) {
-				found = true;
-				break;
+				if (tmp.search(re)!=-1) {
+					found = true;
+					break;
+				}
 			}
 		}
 		if(found == false) {
@@ -954,7 +977,7 @@ function set_current(cr)
 	_clear_swcs();
 //	log("Setting \""+cr+"\" as current page");
 	if (cr.substring(cr.length-2)=="::") {
-		text = _get_namespace(cr);
+		text = _get_namespace_pages(cr);
 		namespace = cr.substring(0,cr.length-2);
 		cr = "";
 	} else {
@@ -1084,6 +1107,9 @@ function el_eval(name) {
 function _set_layout(fixed) {
 	el("sw_wiki_header").style.position = (fixed ? "fixed" : "absolute");
 	el("sw_menu_area").style.position = (fixed ? "fixed" : "absolute");
+	if (ie6) {
+		document.body.style = (fixed ? "height:100%; overflow-y:auto;" : "");
+	}
 }
 
 function lock_page(page) {
@@ -1455,7 +1481,7 @@ function edit_menu() {
 }
 
 function edit_ns_menu() {
-	edit_page(current_namespace+"Menu");
+	edit_page(current_namespace+"::Menu");
 }
 
 function lock() {
@@ -1625,10 +1651,9 @@ function save()
 				// here the page gets actually saved
 				set_text(el("wiki_editor").value);
 				new_title = el("wiki_page_title").value;
-				if (new_title.indexOf("::Menu")!=-1) {
+				if (is_menu(new_title)) {
 					refresh_menu_area();
 					back_to = prev_title;
-//					alert(prev_title);
 				} else { if (!is_reserved(new_title) && (new_title != current)) {
 						if (!rename_page(current, new_title))
 							return false;
@@ -1898,14 +1923,22 @@ function save_to_file(full) {
 
 	_clear_swcs();
 	
+	if (ie6) {
+		var bak_bs = document.body.style;
+		document.body.style = "";
+	}
+	
 	var data = _get_data(__marker, document.documentElement.innerHTML, full);
 
 	if ( (!debug || save_override) )
 		r = _saveThisFile(computed_js, data);
 	else r = false;
 	
-	if (ie)
+	if (ie) {
 		create_alt_buttons();
+		if (ie6)
+			document.body.style = bak_bs;
+	}
 //	else		setup_uri_pics(el("img_home"),el("img_back"),el("img_forward"),el("img_edit"),el("img_cancel"),el("img_save"),el("img_advanced"))
 
 	if (r) {
@@ -1931,7 +1964,6 @@ function _saveThisFile(new_data, old_data)
 	}	*/
 	var filename = unescape(document.location.toString().split("?")[0]);
 	filename = filename.replace("file:///", "");
-	filename = filename.replace(/\s/g, "_");
 	filename = filename.replace(/#.*/g, "");
 	if(navigator.appVersion.indexOf("Win")!=-1)
 		filename = filename.replace(/\//g, "\\");
@@ -2422,8 +2454,10 @@ function open_table_help()
 	opera = true;
 else */ if(navigator.appName == "Netscape")
 	firefox = true;
-else if((navigator.appName).indexOf("Microsoft")!=-1)
+else if((navigator.appName).indexOf("Microsoft")!=-1) {
 	ie = true;
+	ie6 = (navigator.userAgent.search(/msie 6\./i)!=-1);
+}
 
 // finds out if Opera is trying to look like Mozilla
 if(firefox == true && navigator.product != "Gecko")
