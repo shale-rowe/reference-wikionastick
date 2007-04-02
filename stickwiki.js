@@ -140,7 +140,7 @@ function _get_tags(text) {
 }
 
 function header_anchor(s) {
-	return escape(s.replace(/ /g, "+"));
+	return escape(s).replace("%20", "_");
 }
 
 var has_toc;
@@ -152,13 +152,12 @@ function header_replace(str, $1, $2, $3) {
 		var len = $2.length;
 		if (header.indexOf($2)==header.length - len)
 			header = header.substring(0, header.length - len);
-		var anchor = header_anchor(header);
 //		log("h"+len+" = "+header);
 		// automatically build the TOC if needed
 		if (has_toc) {
-			page_TOC += str_rep("#", len)+" [[#"+anchor+"|"+header+"]]\n";
+			page_TOC += str_rep("#", len)+" [[#"+header+"]]\n";
 		}
-		return "</div><a name=\""+anchor+"\"></a><h"+len+">"+header+"</h"+len+"><div class=\"level"+len+"\">";
+		return "</div><a name=\""+header_anchor(header)+"\"></a><h"+len+">"+header+"</h"+len+"><div class=\"level"+len+"\">";
 }
 
 // XHTML lists and tables parsing code by plumloco
