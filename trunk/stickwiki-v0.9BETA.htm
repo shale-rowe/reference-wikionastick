@@ -367,7 +367,7 @@ function _get_tags(text) {
 }
 
 function header_anchor(s) {
-	return escape(s).replace("%20", "_");
+	return escape(s).replace(/%20/g, "_");
 }
 
 var has_toc;
