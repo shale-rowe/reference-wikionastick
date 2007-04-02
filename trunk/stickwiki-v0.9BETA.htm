@@ -210,6 +210,10 @@ div.wiki_toc {
 	font-size: 95%;
 }
 
+div.wiki_toc ol {
+
+}
+
 p.wiki_toc_title {
 	font-weight: bold;
 	text-align: center;
@@ -2141,7 +2145,7 @@ function _saveThisFile(new_data, old_data)
 		alert("This browser is not supported and your changes won't be saved on disk.");
 		return false;
 	}	*/
-	var filename = document.location.toString().split("?")[0];
+	var filename = unescape(document.location.toString().split("?")[0]);
 	filename = filename.replace("file:///", "");
 	filename = filename.replace(/\s/g, "_");
 	filename = filename.replace(/#.*/g, "");
@@ -2323,15 +2327,23 @@ function operaSaveFile(filePath, content)
 function erase_wiki() {
 	if(confirm("This will ERASE all your pages.\n\nAre you sure you want to continue?") == false)
 		return false;
-	var pg_about = get_text("Special::About");
-	var pg_advanced = get_text("Special::Advanced");
-	var pg_import = get_text("Special::Import");
-	var pg_lock = get_text("Special::Lock");
-	var pg_search = get_text("Special::Search");
-	var pg_security = get_text("Special::Security");
-	page_titles = new Array("Main Page", "::Menu", "Special::Advanced", "Special::Import", "Special::Search", "Special::Security", "Special::Lock", "Special::About");
-	pages = new Array("This is your empty main page", "[[Main Page]]\n\n[[Special::Advanced]]\n[[Special::Backlinks]]\n[[Special::Search]]", pg_advanced, pg_import, pg_search, pg_security, pg_lock, pg_about);
+	var static_pg = ["Special::About", "Special::Advanced", "Special::Options","Special::Import",
+						"Special::Lock","Special::Search","Special::Security"];
+	var backup_pages = [];
+	for(var i=0;i<static_pg.length;i++) {
+		var pi = page_index(static_pg[i]);
+		if (pi==-1) {
+			alert(static_pg[i]+" not found!");
+			return false;
+		}
+		backup_pages.push(pages[pi]);
+	}
+	page_titles = ["Main Page", "::Menu"];
+	page_titles = page_titles.concat(static_pg);
+	pages = ["This is your empty main page", "[[Main Page]]\n\n[[Special::Advanced]]\n[[Special::Backlinks]]\n[[Special::Search]]"];
+	pages = pages.concat(backup_pages);
 	current = main_page = "Main Page";
+	refresh_menu_area();
 	backstack = new Array();
 	forstack = new Array();	
 	return true;
@@ -2473,7 +2485,7 @@ if (old_version	< 9) {
 				}
 				// dismiss special pages
 				if (page_names[pc].indexOf("Special::")==0) {
-					if (page_names[pc] == "Special::Edit Menu")
+					if (page_names[pc].search(/Special::Edit Menu/i)==0)
 						page_names[pc] = "::Menu";
 					else return;
 				}
@@ -2601,6 +2613,7 @@ sw_import_allow_diff,sw_import_key_cache,sw_import_current,sw_import_main_page,s
 	// save everything
 	save_to_file(true);
 	
+	refresh_menu_area();
 	set_current(main_page);
 }
 
