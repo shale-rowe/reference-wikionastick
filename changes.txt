@@ -15,12 +15,16 @@ Version 0.9 (legolas558 - official)
 * automatic TOC generation
 * tags
 * namespaces
-* namespace specific additional menus
+* namespace-specific additional menus
 * AES page encryption
 * support of HTML tags
 * support of <pre> tag whose content is not parsed for wiki syntax
-* custom script pages
+* custom scripts support
 * page titles are case sensitive
+* new special pages for backlinks
+* new special page to automatically create new pages
+* new special page to always reference the Main page
+* search feature (thanks to C.Mazard)
 
 Version 0.04G (legolas558's unofficial)
 -------------
