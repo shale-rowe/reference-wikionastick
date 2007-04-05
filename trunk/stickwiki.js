@@ -1105,7 +1105,13 @@ function el_eval(name) {
 
 function _set_layout(fixed) {
 	if (ie6) {
-		document.body.style = (fixed ? "height:100%; overflow-y:auto;" : "");
+		if (fixed) {
+			document.body.style.height = "100%";
+			document.body.style.overflowY = "auto";
+		} else {
+			document.body.style.height = "";
+			document.body.style.overflowY = "";
+		}
 	} else {
 		el("sw_wiki_header").style.position = (fixed ? "fixed" : "absolute");
 		el("sw_menu_area").style.position = (fixed ? "fixed" : "absolute");
@@ -1303,10 +1309,14 @@ function on_load()
 	else
 		el("debug_info").style.display = "none";
 		
-	if (ie) {
+	if (ie) {	// some hacks for IE
 		setHTML = function(elem, html) {elem.text = html;};
 		var obj = el("sw_wiki_header");
 		obj.style.filter = "alpha(opacity=75);";
+		if (ie6) {
+			el("sw_wiki_header").style.position = "absolute";
+			el("sw_menu_area").style.position = "absolute";
+		}
 	} else {
 		setHTML = function(elem, html) {elem.innerHTML = html;};
 //		setup_uri_pics(el("img_home"),el("img_back"),el("img_forward"),el("img_edit"),el("img_cancel"),el("img_save"),el("img_advanced"));
@@ -1914,19 +1924,21 @@ function save_to_file(full) {
 	el("menu_area").innerHTML = "";
 
 	if (ie) {	// to prevent their usual UTF-8 corruption
+		var p_h, p_oy;
 		el("alt_back").innerHTML = "";
 		el("alt_forward").innerHTML = "";
 		el("alt_cancel").innerHTML = "";
+		if (ie6) {
+			p_h = document.body.style.height;
+			p_oy = document.body.style.overflowY;
+			document.body.style.height = "";
+			document.body.style.overflowY = "";
+		}
 	} else {
 //		free_uri_pics(el("img_home"),el("img_back"),el("img_forward"),el("img_edit"),el("img_cancel"),el("img_save"),el("img_advanced"))
 	}
 
 	_clear_swcs();
-	
-	if (ie6) {
-		var bak_bs = document.body.style;
-		document.body.style = "";
-	}
 	
 	var data = _get_data(__marker, document.documentElement.innerHTML, full);
 
@@ -1936,8 +1948,10 @@ function save_to_file(full) {
 	
 	if (ie) {
 		create_alt_buttons();
-		if (ie6)
-			document.body.style = bak_bs;
+		if (ie6) {
+			document.body.style.height = p_h;
+			document.body.style.overflowY = p_oy;
+		}
 	}
 //	else		setup_uri_pics(el("img_home"),el("img_back"),el("img_forward"),el("img_edit"),el("img_cancel"),el("img_save"),el("img_advanced"))
 
@@ -2311,7 +2325,7 @@ if (old_version	< 9) {
 				if (old_version < 9) {	// apply compatibility changes to stickwiki versions below v0.9
 					page_contents[pc] = _new_syntax_patch(page_contents[pc].replace(new RegExp("(\\[\\[|\\|)Special::Import wiki\\]\\]", "ig"), "$1Special::Import]]").replace(/\[\[([^\]\]]*?)(\|([^\]\]]+))?\]\]/g,
 					function (str, $1, $2, $3) {
-						if ($3.length)
+						if ($3)
 							return "[["+$3+"|"+$1+"]]";
 						else
 							return str;
@@ -2349,7 +2363,7 @@ if (old_version	< 9) {
 	});
 	if (css!=null) {
 		log("Imported "+css.length+" bytes of CSS");
-		document.getElementsByTagName("style")[0].innerHTML = css;
+		setHTML(document.getElementsByTagName("style")[0], css);
 	}
 
 	var data = _get_data(old_marker, ct, true, true);
@@ -2457,10 +2471,6 @@ else */ if(navigator.appName == "Netscape")
 else if((navigator.appName).indexOf("Microsoft")!=-1) {
 	ie = true;
 	ie6 = (navigator.userAgent.search(/msie 6\./i)!=-1);
-	if (ie6) {
-		el("sw_wiki_header").style.position = "absolute";
-		el("sw_menu_area").style.position = "absolute";
-	}
 }
 
 // finds out if Opera is trying to look like Mozilla
@@ -2471,19 +2481,20 @@ if(firefox == true && navigator.product != "Gecko")
 if(ie == true && navigator.userAgent.indexOf("Opera") != -1)
 	ie = false;
 
+var log;
 if (debug) {
 	// logging function - used in development
 
-	function log(aMessage)
+	log = function (aMessage)
 	{
-	    var logbox = document.getElementById("swlogger");
+	    var logbox = el("swlogger");
 		nls = logbox.value.match(new RegExp("\n", "g"));
 		if (nls!=null && typeof(nls)=='object' && nls.length>11)
 			logbox.value = "";
 		logbox.value += aMessage + "\n";
-	}
+	};
 } else {
-	function log(aMessage) { }
+	log = function(aMessage) { };
 }
 
 if (!ie)
