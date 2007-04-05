@@ -1431,7 +1431,7 @@ function update_lock_icons(page) {
 			cyphered = false;
 		} else {
 			can_unlock = cyphered = is__encrypted(pi);
-			can_lock = !can_unlock;
+			can_lock = !can_unlock && permit_edits;
 		}
 	} else {
 		log("result_pages is ("+result_pages+")");
