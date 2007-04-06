@@ -1104,18 +1104,8 @@ function el_eval(name) {
 }
 
 function _set_layout(fixed) {
-	if (ie6) {
-		if (fixed) {
-			document.body.style.height = "100%";
-			document.body.style.overflowY = "auto";
-		} else {
-			document.body.style.height = "";
-			document.body.style.overflowY = "";
-		}
-	} else {
-		el("sw_wiki_header").style.position = (fixed ? "fixed" : "absolute");
-		el("sw_menu_area").style.position = (fixed ? "fixed" : "absolute");
-	}
+	el("sw_wiki_header").style.position = (fixed ? "fixed" : "absolute");
+	el("sw_menu_area").style.position = (fixed ? "fixed" : "absolute");
 }
 
 function lock_page(page) {
@@ -1928,12 +1918,6 @@ function save_to_file(full) {
 		el("alt_back").innerHTML = "";
 		el("alt_forward").innerHTML = "";
 		el("alt_cancel").innerHTML = "";
-		if (ie6) {
-			p_h = document.body.style.height;
-			p_oy = document.body.style.overflowY;
-			document.body.style.height = "";
-			document.body.style.overflowY = "";
-		}
 	} else {
 //		free_uri_pics(el("img_home"),el("img_back"),el("img_forward"),el("img_edit"),el("img_cancel"),el("img_save"),el("img_advanced"))
 	}
@@ -1948,10 +1932,6 @@ function save_to_file(full) {
 	
 	if (ie) {
 		create_alt_buttons();
-		if (ie6) {
-			document.body.style.height = p_h;
-			document.body.style.overflowY = p_oy;
-		}
 	}
 //	else		setup_uri_pics(el("img_home"),el("img_back"),el("img_forward"),el("img_edit"),el("img_cancel"),el("img_save"),el("img_advanced"))
 
