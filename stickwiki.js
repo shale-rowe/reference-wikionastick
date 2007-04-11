@@ -2150,6 +2150,7 @@ function erase_wiki() {
 	var static_pg = ["Special::About", "Special::Advanced", "Special::Options","Special::Import",
 						"Special::Lock","Special::Search","Special::Security"];
 	var backup_pages = [];
+	page_attrs = [];
 	for(var i=0;i<static_pg.length;i++) {
 		var pi = page_index(static_pg[i]);
 		if (pi==-1) {
@@ -2157,7 +2158,9 @@ function erase_wiki() {
 			return false;
 		}
 		backup_pages.push(pages[pi]);
+		page_attrs.push(0);
 	}
+	page_attrs.push(0); page_attrs.push(0);
 	page_titles = ["Main Page", "::Menu"];
 	page_titles = page_titles.concat(static_pg);
 	pages = ["This is your empty main page", "[[Main Page]]\n\n[[Special::Advanced]]\n[[Special::Backlinks]]\n[[Special::Search]]"];
