@@ -1222,8 +1222,8 @@ function _add_namespace_menu(namespace) {
 	if (pi==-1) {
 		el("ns_menu_area").innerHTML = "";
 		if (current_namespace!="") {
-			el("ns_menu_area").style.display = "none";
-			el("ns_menu_edit_button").style.display = "none";
+			elHide("ns_menu_area");
+			elHide("ns_menu_edit_button");
 		}
 		current_namespace = namespace;
 		return;
@@ -1234,8 +1234,8 @@ function _add_namespace_menu(namespace) {
 	else
 		el("ns_menu_area").innerHTML = parse(menu);
 	if (current_namespace=="") {
-		el("ns_menu_area").style.display = "inline";
-		el("ns_menu_edit_button").style.display = "inline";
+		elShow("ns_menu_area");
+		elShow("ns_menu_edit_button");
 	}
 	current_namespace = namespace;	
 }
@@ -1252,7 +1252,20 @@ function refresh_menu_area() {
 }
 
 function _gen_display(id, visible, prefix) {
-	el(prefix+"_"+id).style.display = (visible ? "inline" : "none");
+	if (visible)
+		elShow(prefix+"_"+id);
+	else
+		elHide(prefix+"_"+id);
+}
+
+function elHide(id) {
+	el(id).style.display = "none";
+	el(id).style.visibility = "hidden";
+}
+
+function elShow(id) {
+	el(id).style.display = "inline";
+	el(id).style.visibility = "visible";
 }
 
 function img_display(id, visible) {
@@ -1293,11 +1306,11 @@ function on_load()
 	log("***** StickWiki started *****");
 	
 	document.body.style.cursor = "auto";
-	
-	if(debug == true)
-		el("debug_info").style.display = "block";
+
+	if (debug)
+		elShow("debug_info");
 	else
-		el("debug_info").style.display = "none";
+		elHide("debug_info");
 		
 	if (ie) {	// some hacks for IE
 		setHTML = function(elem, html) {elem.text = html;};
@@ -1322,9 +1335,6 @@ function on_load()
 	img_display("lock", true);
 	img_display("unlock", true);
 	
-//	unsupported_browser = (!firefox && !ie);
-//	document.getElementById("unsupported_browser").style.display = (unsupported_browser ? "block" : "none");
-
 	// customized keyboard hook
 	document.onkeydown = kbd_hook;
 
@@ -1449,8 +1459,8 @@ function disable_edit()
 	menu_display("home", true);
 	menu_display("save", false);
 	menu_display("cancel", false);
-	el("text_area").style.display = "inline";
-	el("edit_area").style.display = "none";
+	elShow("text_area");
+	elHide("edit_area");
 //	log("setting back title to "+prev_title);
 	document.title = el("wiki_title").innerHTML = prev_title;
 }
@@ -1541,14 +1551,14 @@ function current_editing(page, disabled) {
 	menu_display("save", true);
 	menu_display("cancel", true);
 	update_lock_icons(page);
-	el("text_area").style.display = "none";
+	elHide("text_area");
 
 	// FIXME!
 	if(!ie)	{
 		el("wiki_editor").style.width = window.innerWidth - 30 + "px";
 		el("wiki_editor").style.height = window.innerHeight - 150 + "px";
 	}
-	el("edit_area").style.display = "inline";
+	elShow("edit_area");
 
 	el("wiki_editor").focus();
 	current = page;
