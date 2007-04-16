@@ -1867,7 +1867,7 @@ function save()
 	switch(current)
 	{
 		case "Special::Edit CSS":
-			document.getElementsByTagName("style")[0].innerHTML = el("wiki_editor").value;
+			setHTML(document.getElementsByTagName("style")[0], el("wiki_editor").value);
 			back_to = null;
 			current = "Special::Advanced";
 			el("wiki_page_title").disabled = "";
