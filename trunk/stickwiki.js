@@ -304,7 +304,7 @@ var parse = function(text) {
 		if (str.indexOf("//")!=-1) {
 			return str;
 		}
-		return $1+"<i>"+$2+"</i>"+$3;
+		return $1+"<em>"+$2+"</em>"+$3;
 	});
 	
 	// ordered/unordered lists parsing (code by plumloco)
