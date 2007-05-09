@@ -875,7 +875,10 @@ function _create_page(ns, cr, ask) {
 	// create and edit the new page
 	if (ns.length)
 		cr = ns+"::"+cr;
-	pages.push("!"+cr+"\n");
+	if (cr!="Menu")
+		pages.push("!"+cr+"\n");
+	else
+		pages.push("\n");
 	page_attrs.push(0);
 	page_titles.push(cr);
 	current = cr;
@@ -907,7 +910,8 @@ function _get_special(cr) {
 						} else ns="";
 						if (!_create_page(ns, cr, false))
 							return;
-						if (confirm("Do you want to add a link from the main menu?")) {
+						var upd_menu = (cr=='Menu');
+						if (!upd_menu && confirm("Do you want to add a link into the main menu?")) {
 							var menu = get_text("::Menu");
 							var p = menu.indexOf("\n\n");
 							if (p==-1)
@@ -915,8 +919,10 @@ function _get_special(cr) {
 							else
 								menu = menu.substring(0,p)+"\n[["+title+"]]"+menu.substring(p);
 							set__text(page_index("::Menu"), menu);
-							refresh_menu_area();
+							upd_menu = true;
 						}
+						if (upd_menu)
+							refresh_menu_area();
 					}
 
 				}
@@ -2163,7 +2169,7 @@ function erase_wiki() {
 	page_attrs.push(0); page_attrs.push(0);
 	page_titles = ["Main Page", "::Menu"];
 	page_titles = page_titles.concat(static_pg);
-	pages = ["This is your empty main page", "[[Main Page]]\n\n[[Special::Advanced]]\n[[Special::Backlinks]]\n[[Special::Search]]"];
+	pages = ["This is your empty main page", "[[Main Page]]\n\n[[Special::New page]]\n[[Special::Backlinks]]\n[[Special::Search]]"];
 	pages = pages.concat(backup_pages);
 	current = main_page = "Main Page";
 	refresh_menu_area();
