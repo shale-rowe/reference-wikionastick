@@ -1893,16 +1893,21 @@ function save_to_file(full) {
 		new_marker = _random_string(18);
 	else new_marker = __marker;
 	
+	// setup the page to be opened on next start
 	var safe_current;
-	if (!page_exists(current)) {
+	if (open_last_page) {
+		if (!page_exists(current)) {
+			safe_current = main_page;
+		} else safe_current = current;
+	} else
 		safe_current = main_page;
-	} else safe_current = current;
 
 	var computed_js = "\n/* <![CDATA[ */\n\n/* "+new_marker+"-START */\n\nvar version = \""+version+
 	"\";\n\nvar __marker = \""+new_marker+
 	"\";\n\nvar permit_edits = "+permit_edits+
 	";\n\nvar dblclick_edit = "+dblclick_edit+
 	";\n\nvar save_on_quit = "+save_on_quit+
+	";\n\nvar open_last_page = "+open_last_page+
 	";\n\nvar allow_diff = "+allow_diff+
 	";\n\nvar key_cache = "+key_cache+
 	";\n\nvar current = '" + js_encode(safe_current)+
