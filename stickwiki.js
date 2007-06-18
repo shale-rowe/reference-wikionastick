@@ -608,6 +608,8 @@ function special_dead_pages () {
 				if (page_done)
 					return false;
 //				log("In "+page_titles[j]+": "+$1+" -> "+$3);
+				if ($1.charAt(0)=="#")
+					return;
 				if ($1.indexOf("://")!=-1)
 					return;
 				if ($1.match(/Tag(s|ged)?:/gi))
