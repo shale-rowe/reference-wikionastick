@@ -140,7 +140,7 @@ function _get_tags(text) {
 }
 
 function header_anchor(s) {
-	return escape(s).replace(/%20/g, "_");
+	return escape(s.replace(/[^\u0000-\u007F]+/, '_')).replace(/%20/g, "_");
 }
 
 var has_toc;
