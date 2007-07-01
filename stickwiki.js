@@ -1904,13 +1904,14 @@ function save_to_file(full) {
 	
 	// output the javascript header and configuration flags
 	var computed_js = "\n/* <![CDATA[ */\n\n/* "+new_marker+"-START */\n\nvar version = \""+version+
-	"\";\n\nvar __marker = \""+new_marker+"\";\n\nvar __config={\n";
+	"\";\n\nvar __marker = \""+new_marker+"\";\n\nvar __config = {";
 	for (param in __config) {
-		computed_js += param+"="+(__config[param] ? "true" : "false")+",\n";
+		computed_js += "\n\""+param+"\":"+(__config[param] ? "true" : "false")+",";
 	}
+	computed_js = computed_js.substr(0,computed_js.length-1);
 	computed_js += "};\n";
 	
-	computed_js *= "\nvar current = '" + js_encode(safe_current)+
+	computed_js += "\nvar current = '" + js_encode(safe_current)+
 	"';\n\nvar main_page = '" + js_encode(main_page) + "';\n\n";
 	
 	computed_js += "var backstack = [\n" + printout_arr(backstack, false) + "];\n\n";
@@ -2393,7 +2394,8 @@ if (old_version	< 9) {
 		collected = eval(data+"\n["+collected+"];");
 		data = ct = null;
 
-		if (collected.length!=14) {
+		var has_last_page_flag = (collected.length==14) ? 1 : 0;
+		if (!has_last_page_flag && (collected.length!=13)) {
 			alert("Invalid collected data!");
 			document.body.style.cursor= "auto";
 			return false;
@@ -2405,22 +2407,23 @@ if (old_version	< 9) {
 		
 		__config.save_on_quit = collected[4];
 		
-		__config.open_last_page = collected[5];
+		if (has_last_page_flag)
+			__config.open_last_page = collected[5];
 
 /*	
 sw_import_allow_diff,sw_import_key_cache,sw_import_current,sw_import_main_page,sw_import_backstack,sw_import_page_titles,sw_import_page_attrs,sw_import_pages
 */
-		__config.allow_diff = collected[6];
+		__config.allow_diff = collected[5+has_last_page_flag];
 		
-		__config.key_cache = collected[7];
+		__config.key_cache = collected[6+has_last_page_flag];
 		
-		new_main_page = collected[9];
+		new_main_page = collected[8+has_last_page_flag];
 		
-		page_names = collected[11];
+		page_names = collected[10+has_last_page_flag];
 		
-		old_page_attrs = collected[12];
+		old_page_attrs = collected[11+has_last_page_flag];
 		
-		page_contents = collected[13];
+		page_contents = collected[12+has_last_page_flag];
 		
 		collected = null;
 	} else {	// we are importing from v0.9.2 and above which has a __config object for all the config flags
