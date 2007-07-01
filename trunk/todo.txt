@@ -24,3 +24,5 @@
 * external javascript custom scripts
 
 * add license
+
+* put all options into a JSON object
