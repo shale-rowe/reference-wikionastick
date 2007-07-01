@@ -242,7 +242,7 @@ function parseList(str, type, $2) {
 
 // single quote escaping for page titles	
 function _sq_esc(s) {
-	return s.replace(/'/g, "\\'");
+	return s.replace(/\\/g, "\\\\").replace(/'/g, "\\'");
 }
 
 // used not to break layout when presenting search results
