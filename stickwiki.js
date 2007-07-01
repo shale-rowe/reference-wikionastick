@@ -1575,6 +1575,8 @@ function current_editing(page, disabled) {
 function edit_page(page) {
 	if (!edit_allowed(page))
 		return;
+	if (__config.server_mode)
+		alert("You are using Wiki on a Stick on a REMOTE server, your changes will not be saved neither remotely or locally.\n\nThe correct usage of Wiki on a Stick is LOCAL, so you should use a local copy of this page to exploit the save features. All changes made to this copy of Wiki on a Stick will be lost.");
 	var tmp = get_text(page);
 	if (tmp == null)
 		return;
@@ -1950,9 +1952,13 @@ function save_to_file(full) {
 	
 	var data = _get_data(__marker, document.documentElement.innerHTML, full);
 
-	if ( (!debug || save_override) )
-		r = _saveThisFile(computed_js, data);
-	else r = false;
+	if (__config.server_mode) {
+		r = false;
+	} else {
+		if ( (!debug || save_override) )
+			r = _saveThisFile(computed_js, data);
+		else r = false;
+	}
 	
 	if (ie) {
 		create_alt_buttons();
@@ -2447,6 +2453,8 @@ sw_import_allow_diff,sw_import_key_cache,sw_import_current,sw_import_main_page,s
 		} collected = null;
 		
 		__config = _sw_import___config;
+		
+		__config["server_mode"] = false;
 		
 		current = _sw_import_current;
 		
