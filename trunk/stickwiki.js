@@ -5,6 +5,7 @@
 
 var debug = true;			// toggle debug mode (and console)
 var save_override = true;	// allow to save when debug mode is active
+var was_local = !__config.server_mode;	// to save the server_mode flag once
 var end_trim = true;		// trim pages from the end
 
 var forstack = new Array();
@@ -1952,13 +1953,12 @@ function save_to_file(full) {
 	
 	var data = _get_data(__marker, document.documentElement.innerHTML, full);
 
-	if (__config.server_mode) {
-		r = false;
-	} else {
-		if ( (!debug || save_override) )
+	if ( (!debug || save_override) ) {
+		if (!__config.server_mode || (was_local && __config.server_mode)) {
 			r = _saveThisFile(computed_js, data);
-		else r = false;
-	}
+			was_local = false;
+		}
+	} else r = false;
 	
 	if (ie) {
 		create_alt_buttons();
