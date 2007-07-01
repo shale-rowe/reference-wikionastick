@@ -804,7 +804,7 @@ function get__text(pi) {
 	} while (retry<2);
 	if (pg != null) {
 		decrypt_failed = false;
-		if (!key_cache)
+		if (!__config.key_cache)
 			AES_clearKey();
 		else
 			latest_AES_page = page_titles[pi];
@@ -1037,7 +1037,7 @@ function set_current(cr)
 						}
 						pages[pi] = text;
 						page_attrs[pi] -= 2;
-						if (!key_cache)
+						if (!__config.key_cache)
 							AES_clearKey();
 						set_current(cr);
 						save_page(cr);
@@ -1145,7 +1145,7 @@ function _finalize_lock(pi) {
 	_perform_lock(pi);
 	var title = page_titles[pi];
 	set_current(title);
-	if (!key_cache) {
+	if (!__config.key_cache) {
 		AES_clearKey();
 		latest_AES_page = "";
 	} else
@@ -1301,7 +1301,7 @@ function create_alt_buttons() {
 
 // save configuration on exit
 function before_quit() {
-	if (save_on_quit && cfg_changed)
+	if (__config.save_on_quit && cfg_changed)
 		save_to_file(false);
 	return true;
 }
@@ -1439,7 +1439,7 @@ function update_lock_icons(page) {
 			cyphered = false;
 		} else {
 			can_unlock = cyphered = is__encrypted(pi);
-			can_lock = !can_unlock && permit_edits;
+			can_lock = !can_unlock && __config.permit_edits;
 		}
 	} else {
 		log("result_pages is ("+result_pages+")");
@@ -1474,21 +1474,21 @@ function disable_edit()
 }
 
 function menu_dblclick() {
-	if (!dblclick_edit)
+	if (!__config.dblclick_edit)
 		return false;
 	edit_menu();
 	return true;
 }
 
 function ns_menu_dblclick() {
-	if (!dblclick_edit)
+	if (!__config.dblclick_edit)
 		return false;
 	edit_ns_menu();
 	return true;
 }
 
 function page_dblclick() {
-	if (!dblclick_edit)
+	if (!__config.dblclick_edit)
 		return false;
 	edit();
 	return true;
@@ -1533,7 +1533,7 @@ function edit()
 function edit_allowed(page) {
 	if (edit_override)
 		return (page_index(page) != -1);
-	if (!permit_edits)
+	if (!__config.permit_edits)
 		return false;
 	if (is_reserved(page))
 		return false;
@@ -1895,22 +1895,22 @@ function save_to_file(full) {
 	
 	// setup the page to be opened on next start
 	var safe_current;
-	if (open_last_page) {
+	if (__config.open_last_page) {
 		if (!page_exists(current)) {
 			safe_current = main_page;
 		} else safe_current = current;
 	} else
 		safe_current = main_page;
-
+	
+	// output the javascript header and configuration flags
 	var computed_js = "\n/* <![CDATA[ */\n\n/* "+new_marker+"-START */\n\nvar version = \""+version+
-	"\";\n\nvar __marker = \""+new_marker+
-	"\";\n\nvar permit_edits = "+permit_edits+
-	";\n\nvar dblclick_edit = "+dblclick_edit+
-	";\n\nvar save_on_quit = "+save_on_quit+
-	";\n\nvar open_last_page = "+open_last_page+
-	";\n\nvar allow_diff = "+allow_diff+
-	";\n\nvar key_cache = "+key_cache+
-	";\n\nvar current = '" + js_encode(safe_current)+
+	"\";\n\nvar __marker = \""+new_marker+"\";\n\nvar __config={\n";
+	for (param in __config) {
+		computed_js += param+"="+(__config[param] ? "true" : "false")+",\n";
+	}
+	computed_js += "};\n";
+	
+	computed_js *= "\nvar current = '" + js_encode(safe_current)+
 	"';\n\nvar main_page = '" + js_encode(main_page) + "';\n\n";
 	
 	computed_js += "var backstack = [\n" + printout_arr(backstack, false) + "];\n\n";
@@ -1922,7 +1922,7 @@ function save_to_file(full) {
 	if (full) {
 		computed_js += "var page_attrs = [" + printout_num_arr(page_attrs) + "];\n\n";
 		
-		computed_js += "var pages = [\n" + printout_mixed_arr(pages, allow_diff, page_attrs) + "];\n\n";
+		computed_js += "var pages = [\n" + printout_mixed_arr(pages, __config.allow_diff, page_attrs) + "];\n\n";
 		
 		computed_js += "/* " + new_marker + "-END */\n";
 	}
@@ -2231,6 +2231,9 @@ function import_wiki()
 				case "0.9":
 					old_version = 9;
 				break;
+				case "0.9.2B":
+					old_version = 92;
+				break;
 				default:
 					alert("Incompatible version: " + ver_str);
 					document.body.style.cursor= "auto";
@@ -2247,7 +2250,7 @@ function import_wiki()
 	
 	// import the variables
 	var new_main_page = main_page;
-	var old_block_edits = !permit_edits;
+	var old_block_edits = !__config.permit_edits;
 	var page_names = new Array();
 	var page_contents = new Array();
 	var old_page_attrs = new Array();
@@ -2352,8 +2355,10 @@ if (old_version	< 9) {
 	
 	//note: before v0.04 permit_edits didnt exist
 	//note: in version 2 pages were not escaped
-}	else {
 
+}	else {	// we are importing a v0.9.x Beta
+
+	// locate the random marker
 	try {
 		var old_marker = ct.match(/\nvar __marker = "([A-Za-z\-\d]+)";\n/)[1];
 	} catch (e) {
@@ -2362,7 +2367,7 @@ if (old_version	< 9) {
 		return false;
 	}
 
-	// import from versions 0.9 and above
+	// import the CSS head tag
 	var css = null;
 	ct.replace(/<style\s.*?type="?text\/css"?[^>]*>((\n|.)*?)<\/style>/i, function (str, $1) {
 		css = $1;
@@ -2373,46 +2378,83 @@ if (old_version	< 9) {
 	}
 
 	var data = _get_data(old_marker, ct, true, true);
-	var collected = [];
-	
-	// rename the variables
-	data = data.replace(/([^\\])\nvar (\w+) = /g, function (str, $1, $2) {
-		collected.push('sw_import_'+$2);
-		return $1+"\nvar sw_import_"+$2+" = ";
-	});//.replace(/\\\n/g, '');
-	
-	log("collected = "+collected);
-	
-	collected = eval(data+"\n["+collected+"];");
-	data = ct = null;
 
-	if (collected.length!=13) {
-		alert("Invalid collected data!");
-		document.body.style.cursor= "auto";
-		return false;
-	}
-	
-	old_block_edits = !collected[2];
-	
-	dblclick_edit = collected[3];
-	
-	save_on_quit = collected[4];
-	
+	if (old_version < 92) {
+		var collected = [];
+		
+		// rename the variables
+		data = data.replace(/([^\\])\nvar (\w+) = /g, function (str, $1, $2) {
+			collected.push('sw_import_'+$2);
+			return $1+"\nvar sw_import_"+$2+" = ";
+		});//.replace(/\\\n/g, '');
+		
+		log("collected config variables = "+collected);
+		
+		collected = eval(data+"\n["+collected+"];");
+		data = ct = null;
+
+		if (collected.length!=14) {
+			alert("Invalid collected data!");
+			document.body.style.cursor= "auto";
+			return false;
+		}
+		
+		old_block_edits = !collected[2];
+		
+		__config.dblclick_edit = collected[3];
+		
+		__config.save_on_quit = collected[4];
+		
+		__config.open_last_page = collected[5];
+
+/*	
 sw_import_allow_diff,sw_import_key_cache,sw_import_current,sw_import_main_page,sw_import_backstack,sw_import_page_titles,sw_import_page_attrs,sw_import_pages
+*/
+		__config.allow_diff = collected[6];
+		
+		__config.key_cache = collected[7];
+		
+		new_main_page = collected[9];
+		
+		page_names = collected[11];
+		
+		old_page_attrs = collected[12];
+		
+		page_contents = collected[13];
+		
+		collected = null;
+	} else {	// we are importing from v0.9.2 and above which has a __config object for all the config flags
+		var collected = [];
+		
+		// rename the variables
+		data = data.replace(/([^\\])\nvar (\w+) = /g, function (str, $1, $2) {
+			collected.push('sw_import_'+$2);
+			return $1+"\nvar sw_import_"+$2+" = ";
+		});//.replace(/\\\n/g, '');
+		
+		log("collected config variables = "+collected);
+		
+		collected = eval(data+"\n["+collected+"];");
+		data = ct = null;
 
-	allow_diff = collected[5];
-	
-	key_cache = collected[6];
-	
-	new_main_page = collected[8];
-	
-	page_names = collected[10];
-	
-	old_page_attrs = collected[11];
-	
-	page_contents = collected[12];
-	
-	collected = null;
+		if (collected.length!=9) {
+			alert("Invalid collected data!");
+			document.body.style.cursor= "auto";
+			return false;
+		} collected = null;
+		
+		__config = _sw_import___config;
+		
+		current = _sw_import_current;
+		
+		new_main_page = _sw_import_main_page;
+		
+		page_names = _sw_import_page_titles;
+		
+		old_page_attrs = _sw_import_page_attrs;
+		
+		page_contents = _sw_import_pages;
+	}
 }
 
 	// add new data
@@ -2438,7 +2480,7 @@ sw_import_allow_diff,sw_import_key_cache,sw_import_current,sw_import_main_page,s
 	if (page_exists(new_main_page))
 		main_page = new_main_page;
 
-	permit_edits = !old_block_edits;
+	__config.permit_edits = !old_block_edits;
 
 	// remove hourglass
 	document.body.style.cursor= "auto";
