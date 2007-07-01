@@ -5,23 +5,20 @@
 <script type="text/javascript">
 /* <![CDATA[ */
 
-/* sPXPGCRsZcSmmBWTpT-START */
+/* UUZJizdTQtSsJsMSZA-START */
 
-var version = "0.9B";
+var version = "0.9.2B";
 
-var __marker = "sPXPGCRsZcSmmBWTpT";
+var __marker = "UUZJizdTQtSsJsMSZA";
 
-var permit_edits = true;
-
-var dblclick_edit = false;
-
-var save_on_quit = false;
-
-var open_last_page = true;
-
-var allow_diff = false;
-
-var key_cache = true;
+var __config = {
+"permit_edits":true,
+"dblclick_edit":false,
+"save_on_quit":false,
+"open_last_page":true,
+"allow_diff":false,
+"key_cache":true
+};
 
 var current = 'Main Page';
 
@@ -48,15 +45,15 @@ var page_titles = [
 'Wiki on a Stick syntax'
 ];
 
-/* sPXPGCRsZcSmmBWTpT-DATA */
+/* UUZJizdTQtSsJsMSZA-DATA */
 var page_attrs = [0,0,0,0,0,0,0,0,0,0,2,0,0,0,0];
 
 var pages = [
-'[[Main Page]]\n[[Wiki on a Stick syntax|Syntax]]\n[[Hit the ball]]\n\n[[Special::New page]]\n[[Special::Backlinks]]\n[[Special::Search]]\n\n\x3Ca href="http://sourceforge.net"\x3E\x3Cimg src="http://sflogo.sourceforge.net/sflogo.php?group_id=155218&amp;type=1" alt="SourceForge.net Logo" border="0" height="31" width="88"\x3E\x3C/a\x3E',
+'[[Main Page]]\n[[Wiki on a Stick syntax|Syntax]]\n[[Hit the ball]]\n\n[[Special::New page]]\n[[Special::Backlinks]]\n[[Special::Search]]\n\x3Cp style="text-align:center"\x3E\x3Ca href="http://sourceforge.net/"\x3E\x3Cimg src="http://sflogo.sourceforge.net/sflogo.php?group_id=155218" alt="SourceForge.net Logo" border="0"\x3E\x3C/p\x3E',
 '!Info\n[[Special::About|About Wiki on a Stick]]\nThis wiki was last modified in \x3Cspan id="lastDate"\x3E\x3C/span\x3E.\n\n!Pages\n[[Special::All Pages|All Pages]]: a list of all user created pages in this wiki\n[[Locked::|All encrypted pages]]: a list of all encrypted pages\n[[Unlocked::|All plain pages]]: a list of all plain pages\n[[Special::|All static Special Pages]]: list of all system pages\n[[Special::Pages not yet created|Pages not yet created]]: a list of pages that have links to them, but were still not created \n[[Special::Orphaned Pages|Orphaned Pages]]: a list of pages that once were linked to, but now no page links to them anymore\n[[Special::Search|Search]]: search all wiki pages\n\n!Maintenance\n[[Special::Import|Import wiki]] from an early (or current) version.\n[[Special::Erase Wiki|Erase Wiki]]: delete ALL wiki pages and reset with default data\n\n!Special edits\n[[Special::Edit CSS|Edit CSS]]: edit the global CSS styles\n[[Special::Edit Menu|Edit Menu]]: edit main menu (on the left)\n\n!Options\nYou can customize Wiki on a Stick modifying a few [[Special::Options|Options]].  \n\n\x3Cscript\x3Eel("lastDate").innerHTML = document.lastModified;\x3C/script\x3E',
 'Import a wiki from an early (or current) version:\n\nFile: \x3Cinput id="filename_" type="file" /\x3E&nbsp;\x3Cinput type="button" value="Import" onclick="import_wiki()" /\x3E\n\n\x3Clabel for="cb_import_css"\x3E\x3Cinput type="checkbox" id="cb_import_css" checked="checked"\x3E&nbsp;import also CSS (available only for versions v0.9 and above)\x3C/label\x3E',
-'!Wiki on a Stick version 0.9\n\nCurrent version *v0.9B* by Daniele C. ([[http://sf.net/users/legolas558/|legolas558]])\nOriginal version (v0.01 &tilde; v0.04) by Andr\u00e9 Wagner\n\n\x3Ccenter\x3E\x3Cbig\x3EWiki on a Stick is licensed under the [[http://www.gnu.org/copyleft/gpl.html|GNU/GPL]] license.\x3C/big\x3E\x3C/center\x3E\n\n!!Thanks to\nThis project wouldn\'t be what it is without the help of other people. If you contributed to Wiki on a Stick and your name is not here (or if you do not want it to be listed here), please send an email to \x3Ca class="world" href="mailto:legolas558 _AT_ users.sourceforge.net"\x3Ethis email address\x3C/a\x3E.\n\n* *Jeremy Ruston* - the creator of the wonderful [[http://www.tiddlywiki.com/|TiddlyWiki]], who served as inspiration for Wiki on a Stick. He also kindly allowed the usage of his saving/loading routines.\n* *Philip O\'Donnel* - creator of the table syntax & parsing code\n* *Tim Lord*\n* *Knut Kohl*\n* *Rob Schmersel*\n* *Michiel van Everdingen* - original javascript implementation of AES encryption\n* *Cyril Mazard* - search feature\n\nAnd, last but not least:\n\n* *the StickWiki google group* users for their support, advices and testing which has pushed WoaS development up to the current status.\n\n!Download\n\nYou can [[http://sourceforge.net/project/showfiles.php?group_id=155218|download the file from here]]. The first time you run, the browser will ask for permission to save data on disk - you should grant that permission, so that the file can modify itself on your disk.\n\n!!Contributing\n[[http://sf.net/projects/stickwiki/|SourceForge project home page]]\n\nIf you find a bug, please file it to our project\'s [[http://sourceforge.net/tracker/?group_id=155218&atid=794925|SourceForge bug tracker]]\n\nIf you have suggestions for improvements feel free to use [[http://sourceforge.net/tracker/?group_id=155218&atid=794928|our SourceForge project facilities]] and/or to join our active [[http://groups.google.com/group/stickwiki/|Google discussion group]]',
-'[[Special::TOC]]\n!Welcome to Wiki on a Stick!\nWelcome to *Wiki on a Stick*! This projects is a [[http://en.wikipedia.org/wiki/Wiki|wiki]] that lives in *one self-modifying HTML file*. It\'s perfect to use in your home or office computer, laptop, USB pen drive (along with [[http://portableapps.com/apps/internet/browsers/portable_firefox|Portable Firefox]] if you want) and even in a diskette! It can be used as a personal notepad, calendar, repository for software documentation, and many other things.\n\n!!How to use\nJust click on the pencil icon at the top and start editing! You can also double click anywhere on the text to edit (if this option is enabled from [[Special::Advanced]]), and you can use escape to cancel editing or to go backward.\n\nWhen you\'re done editing, click on the disk icon to save. Your changes will be permanent if the file you\'re editing is on your own disk.\n\nAre you ready to work with Wiki on a Stick? [[Special::Erase Wiki|Erase all the default content]] and begin to customize it!\n\n!!Upgrading!!\nIf you have an older Wiki on a Stick (v0.01 &tilde; v0.04), [[Special::Import|import it]]!\n\n!!Syntax changes in v0.9\nThere have been a few changes in the wiki syntax, they will be automatically applied on import or saving (except the wiki link parts inversion).\n* bullet lists are recognized using an asterisk \'*\' at the beginning of the line, if you use the previous \'+\' plus sign it will be automatically converted to an asterisk\n* wiki link parts are inverted, e.g. no more [\x3C!-- --\x3E[label of main page link|_Main Page_]] but [\x3C!-- --\x3E[_Main Page_|label of main page link]]\n!!!New features\n* namespaces support through the separator \'::\'\n* tags support through [\x3C!-- --\x3E[Tag::Sometag]] or [\x3C!-- --\x3E[Tags::Sometag, Somethingelse]] syntax\n* line joining through a slash \'\\\' at the end of the line\n* automatic TOC generation in place of [\x3C!-- --\x3E[Special::TOC]]\n* section links using the syntax [\x3C!-- --\x3E[\x3C!-- --\x3E#[[#Syntax changes in v0.9]]]]\n* anchors for all headers\n* customization of blocks of text under headers through CSS classes /level1-level6/\n* namespace-specific menus creating [\x3C!-- --\x3E[Namespace::Menu]] pages (the main menu is [[::Menu]])\n* alphanumerical lists using \'@\'\n* custom scripts evaluation (see [[Hit the ball]])\n* custom parsing rules through (careful) override of the /parse()/ core function\n* &lt;pre&gt; tag support (to disallow wiki syntax on a block of text)\n\nSee also [[Wiki on a Stick syntax]]\n\n!!Examples of the new syntax\n!!!Special pages\nUsing [[Special::Main Page]] you will always link to the main page, no matters what its name is.\n\nNew pages have red links, like this [[New page]], but you can use [[Special::New page]] to automatically create a new one.\n\n!!!Tags, namespaces and encryption\nThere is support for [[Tagged::Nice|tags]] and namespaces. For example, see [[MyPages::Page 1]] (which is encrypted with password /test/) and [[MyPages::Page 2]], both belonging to the [[MyPages::]] namespace. You can also use subnamespaces, like in [[MyPages::Approved::Page 3]].\n\nSee [[Special::Security]] for more information about the embedded AES encryption.\n\n!!Other info\nFor informations about credits, bugs/suggestions and download location see [[Special::About]]',
+'!Wiki on a Stick version 0.9\n\nCurrent version *v0.9.x B* by Daniele C. ([[http://sf.net/users/legolas558/|legolas558]])\nOriginal version (v0.01 &tilde; v0.04) by Andr\u00e9 Wagner\n\n\x3Ccenter\x3E\x3Cbig\x3EWiki on a Stick is licensed under the [[http://www.gnu.org/copyleft/gpl.html|GNU/GPL]] license.\x3C/big\x3E\x3C/center\x3E\n\n!!Thanks to\nThis project wouldn\'t be what it is without the help of other people. If you contributed to Wiki on a Stick and your name is not here (or if you do not want it to be listed here), please send an email to \x3Ca class="world" href="mailto:legolas558 _AT_ users.sourceforge.net"\x3Ethis email address\x3C/a\x3E.\n\n* *Jeremy Ruston* - the creator of the wonderful [[http://www.tiddlywiki.com/|TiddlyWiki]], who served as inspiration for Wiki on a Stick. He also kindly allowed the usage of his saving/loading routines.\n* *Philip O\'Donnel* - creator of the table syntax & parsing code\n* *Tim Lord*\n* *Knut Kohl*\n* *Rob Schmersel*\n* *Michiel van Everdingen* - original javascript implementation of AES encryption\n* *Cyril Mazard* - search feature\n\nAnd, last but not least:\n\n* *the StickWiki google group* users for their support, advices and testing which has pushed WoaS development up to the current status.\n\n!Download\n\nYou can [[http://sourceforge.net/project/showfiles.php?group_id=155218|download the file from here]]. The first time you run, the browser will ask for permission to save data on disk - you should grant that permission, so that the file can modify itself on your disk.\n\n!!Contributing\n[[http://sf.net/projects/stickwiki/|SourceForge project home page]]\n\nIf you find a bug, please file it to our project\'s [[http://sourceforge.net/tracker/?group_id=155218&atid=794925|SourceForge bug tracker]]\n\nIf you have suggestions for improvements feel free to use [[http://sourceforge.net/tracker/?group_id=155218&atid=794928|our SourceForge project facilities]] and/or to join our active [[http://groups.google.com/group/stickwiki/|Google discussion group]]',
+'[[Special::TOC]]\n!Welcome to Wiki on a Stick!\nWelcome to *Wiki on a Stick*! This projects is a [[http://en.wikipedia.org/wiki/Wiki|wiki]] that lives in *one self-modifying HTML file*. It\'s perfect to use in your home or office computer, laptop, USB pen drive (along with [[http://portableapps.com/apps/internet/browsers/portable_firefox|Portable Firefox]] if you want) and even in a diskette! It can be used as a personal notepad, calendar, repository for software documentation, and many other things.\n\n!!Where to download\nWiki on a Stick can always be downloaded through the Sourceforge.net file download service:\n\x3Cp style="text-align:center"\x3E\x3Cbig\x3E[[http://sourceforge.net/project/showfiles.php?group_id=155218|Download Wiki on a Stick]]\x3C/big\x3E\x3C/p\x3E\n!!How to use\nJust click on the pencil icon at the top and start editing! You can also double click anywhere on the text to edit (if this option is enabled from [[Special::Advanced]]), and you can use escape to cancel editing or to go backward.\n\nWhen you\'re done editing, click on the disk icon to save. Your changes will be permanent if the file you\'re editing is on your own disk.\n\nAre you ready to work with Wiki on a Stick? [[Special::Erase Wiki|Erase all the default content]] and begin to customize it!\n\n!!Upgrading!!\nIf you have an older Wiki on a Stick (v0.01 &tilde; v0.04), [[Special::Import|import it]]!\n\n!!Syntax changes in v0.9\nThere have been a few changes in the wiki syntax, they will be automatically applied on import or saving (except the wiki link parts inversion).\n* bullet lists are recognized using an asterisk \'*\' at the beginning of the line, if you use the previous \'+\' plus sign it will be automatically converted to an asterisk\n* wiki link parts are inverted, e.g. no more [\x3C!-- --\x3E[label of main page link|_Main Page_]] but [\x3C!-- --\x3E[_Main Page_|label of main page link]]\n!!!New features\n* namespaces support through the separator \'::\'\n* tags support through [\x3C!-- --\x3E[Tag::Sometag]] or [\x3C!-- --\x3E[Tags::Sometag, Somethingelse]] syntax\n* line joining through a slash \'\\\' at the end of the line\n* automatic TOC generation in place of [\x3C!-- --\x3E[Special::TOC]]\n* section links using the syntax [\x3C!-- --\x3E[\x3C!-- --\x3E#[[#Syntax changes in v0.9]]]]\n* anchors for all headers\n* customization of blocks of text under headers through CSS classes /level1-level6/\n* namespace-specific menus creating [\x3C!-- --\x3E[Namespace::Menu]] pages (the main menu is [[::Menu]])\n* alphanumerical lists using \'@\'\n* custom scripts evaluation (see [[Hit the ball]])\n* custom parsing rules through (careful) override of the /parse()/ core function\n* &lt;pre&gt; tag support (to disallow wiki syntax on a block of text)\n\nSee also [[Wiki on a Stick syntax]]\n\n!!Examples of the new syntax\n!!!Special pages\nUsing [[Special::Main Page]] you will always link to the main page, no matters what its name is.\n\nNew pages have red links, like this [[New page]], but you can use [[Special::New page]] to automatically create a new one.\n\n!!!Tags, namespaces and encryption\nThere is support for [[Tagged::Nice|tags]] and namespaces. For example, see [[MyPages::Page 1]] (which is encrypted with password /test/) and [[MyPages::Page 2]], both belonging to the [[MyPages::]] namespace. You can also use subnamespaces, like in [[MyPages::Approved::Page 3]].\n\nSee [[Special::Security]] for more information about the embedded AES encryption.\n\n!!Other info\nFor informations about credits, bugs/suggestions and download location see [[Special::About]]',
 '!Search in Wiki\n\n\x3Cinput id="string_to_search" type="text" onfocus="search_focus(true)" onblur="search_focus(false)" /\x3E&nbsp;\x3Cinput type="button" value="Search" onclick="do_search()" /\x3E&nbsp;\x3Cinput type="button" value="Clear" onclick="clear_search()" /\x3E\n\n\x3Cscript\x3E\nel("wiki_text").innerHTML += cached_search\n/*\n.replace(hl_reg, function () {\n	var str = arguments[0];\n	for(var i=1;i\x3Carguments.length;i++) {\n		str = str.replace(arguments[i], "\x3Cspan class=\\"search_highlight\\"\x3E"+arguments[i]+"\x3C/span\x3E");\n	}\n	return str; })\nhl_reg = null;	*/\nel("string_to_search").focus();\n\x3C/script\x3E',
 'Hey, don\'t tell anyone around but...I am better than [[MyPages::Page 1]]!',
 'This is a page in a subnamespace!\n\nThe parent namespace is [[MyPages::]] while the subnamespace is [[MyPages::Approved::]]\n\n[[Tag::Useful]]',
@@ -69,7 +66,7 @@ var pages = [
 '!Wiki on a Stick syntax\nFollows a brief example of all the capabilities of Wiki on a Stick syntax.\n\n!!Formatting\n!!!Subheader of third level\n!!!!Subheader of fourth level\n\x3Cpre\x3EThis is pre-formatted text! This text does not get _underlined_, as you can see\x3C/pre\x3E\n\x3Cpre style="color:gray"\x3E\nThis is pre-formatted text with CSS style!\nAnd it stands on multiple lines too\x3C/pre\x3E\n\nYou can also use any HTML tag: \x3Cspan style="color:red"\x3ESchr\u00f6dinger\'s cat is \x3Cblink style="font-weight:bold"\x3Enot\x3C/blink\x3E dead.\x3C/span\x3E\n\n!!Syntax parser testcases\nOn my right there is some _underlined text_, followed by *bold text* and /italics/.\n\nNow I will use /*italics and bold*/, followed by */bold and italics/* and finally _*/underlined bold italics/*_.\n\nMaybe you want to see some *_/bold underlined italics/_* or also some */_bold italics underlined_/*?\n\nAnd here is, just for you, a partial *bold-/italics/*!!!\n\n*Some bold text* on a line beginning\n\n!!Syntax\nExternal links: [[http://stickwiki.sourceforge.net/|Wiki on a Stick]]\n\nAs you can see, /an/unix/path/ is correctly recognized.\n\nBoldface: *Boldface text*\nItalics: /italics text/\nUnderline: _underlined text_\n\nRuler:\n---\n\nList:\n* Item 1\n** Subitem a\n** Subitem b\n* Item 2\n** Subitem c\n*** Subsubitem d\n* Item 3\n\nNumbered list:\n# Item A\n## Subitem i\n## Subitem ii\n# Item B\n## Subitem iii\n### Subsubitem iv\n# Item C\n\nAlphanumerically ordered list:\n@ Paragraph A\n@ Paragraph B\n@@ Subparagraph 1\n@@ Subparagraph 2\n\n\n!!Tables\n\n{|\n|+ Telephone Table\n| *Column Name* || *Type* || *Other* || *Description*\n|-\n| id || INT || PRIMARY KEY || Row ID\n|-\n| contact_id || INT || KEY || References FOREIGN KEY(Contacts.id)\n|-\n| type || ENUM(\'Home\',\'Work\',\'Mobile\',\'Pager\',\'Other\') || || Defines type of Telephone record\n|-\n| number || CHAR(32) || || Contains actual Telephone number\n|}'
 ];
 
-/* sPXPGCRsZcSmmBWTpT-END */
+/* UUZJizdTQtSsJsMSZA-END */
 
 /* ]]> */ </script>
 
@@ -311,7 +308,7 @@ function page_index(page) {
 	return page_titles.indexOf(page);
 }
 
-var edit_override = false;
+var edit_override = true;
 
 var reserved_namespaces = [
 "Special", "Lock", "Locked", "Unlocked", "Unlock", "Tag", "Tagged", "Image", "File"];
@@ -472,7 +469,7 @@ function parseList(str, type, $2) {
 
 // single quote escaping for page titles	
 function _sq_esc(s) {
-	return s.replace(/'/g, "\\'");
+	return s.replace(/\\/g, "\\\\").replace(/'/g, "\\'");
 }
 
 // used not to break layout when presenting search results
@@ -1034,7 +1031,7 @@ function get__text(pi) {
 	} while (retry<2);
 	if (pg != null) {
 		decrypt_failed = false;
-		if (!key_cache)
+		if (!__config.key_cache)
 			AES_clearKey();
 		else
 			latest_AES_page = page_titles[pi];
@@ -1267,7 +1264,7 @@ function set_current(cr)
 						}
 						pages[pi] = text;
 						page_attrs[pi] -= 2;
-						if (!key_cache)
+						if (!__config.key_cache)
 							AES_clearKey();
 						set_current(cr);
 						save_page(cr);
@@ -1375,7 +1372,7 @@ function _finalize_lock(pi) {
 	_perform_lock(pi);
 	var title = page_titles[pi];
 	set_current(title);
-	if (!key_cache) {
+	if (!__config.key_cache) {
 		AES_clearKey();
 		latest_AES_page = "";
 	} else
@@ -1531,7 +1528,7 @@ function create_alt_buttons() {
 
 // save configuration on exit
 function before_quit() {
-	if (save_on_quit && cfg_changed)
+	if (__config.save_on_quit && cfg_changed)
 		save_to_file(false);
 	return true;
 }
@@ -1669,7 +1666,7 @@ function update_lock_icons(page) {
 			cyphered = false;
 		} else {
 			can_unlock = cyphered = is__encrypted(pi);
-			can_lock = !can_unlock && permit_edits;
+			can_lock = !can_unlock && __config.permit_edits;
 		}
 	} else {
 		log("result_pages is ("+result_pages+")");
@@ -1704,21 +1701,21 @@ function disable_edit()
 }
 
 function menu_dblclick() {
-	if (!dblclick_edit)
+	if (!__config.dblclick_edit)
 		return false;
 	edit_menu();
 	return true;
 }
 
 function ns_menu_dblclick() {
-	if (!dblclick_edit)
+	if (!__config.dblclick_edit)
 		return false;
 	edit_ns_menu();
 	return true;
 }
 
 function page_dblclick() {
-	if (!dblclick_edit)
+	if (!__config.dblclick_edit)
 		return false;
 	edit();
 	return true;
@@ -1763,7 +1760,7 @@ function edit()
 function edit_allowed(page) {
 	if (edit_override)
 		return (page_index(page) != -1);
-	if (!permit_edits)
+	if (!__config.permit_edits)
 		return false;
 	if (is_reserved(page))
 		return false;
@@ -2125,22 +2122,23 @@ function save_to_file(full) {
 	
 	// setup the page to be opened on next start
 	var safe_current;
-	if (open_last_page) {
+	if (__config.open_last_page) {
 		if (!page_exists(current)) {
 			safe_current = main_page;
 		} else safe_current = current;
 	} else
 		safe_current = main_page;
-
+	
+	// output the javascript header and configuration flags
 	var computed_js = "\n/* <![CDATA[ */\n\n/* "+new_marker+"-START */\n\nvar version = \""+version+
-	"\";\n\nvar __marker = \""+new_marker+
-	"\";\n\nvar permit_edits = "+permit_edits+
-	";\n\nvar dblclick_edit = "+dblclick_edit+
-	";\n\nvar save_on_quit = "+save_on_quit+
-	";\n\nvar open_last_page = "+open_last_page+
-	";\n\nvar allow_diff = "+allow_diff+
-	";\n\nvar key_cache = "+key_cache+
-	";\n\nvar current = '" + js_encode(safe_current)+
+	"\";\n\nvar __marker = \""+new_marker+"\";\n\nvar __config = {";
+	for (param in __config) {
+		computed_js += "\n\""+param+"\":"+(__config[param] ? "true" : "false")+",";
+	}
+	computed_js = computed_js.substr(0,computed_js.length-1);
+	computed_js += "};\n";
+	
+	computed_js += "\nvar current = '" + js_encode(safe_current)+
 	"';\n\nvar main_page = '" + js_encode(main_page) + "';\n\n";
 	
 	computed_js += "var backstack = [\n" + printout_arr(backstack, false) + "];\n\n";
@@ -2152,7 +2150,7 @@ function save_to_file(full) {
 	if (full) {
 		computed_js += "var page_attrs = [" + printout_num_arr(page_attrs) + "];\n\n";
 		
-		computed_js += "var pages = [\n" + printout_mixed_arr(pages, allow_diff, page_attrs) + "];\n\n";
+		computed_js += "var pages = [\n" + printout_mixed_arr(pages, __config.allow_diff, page_attrs) + "];\n\n";
 		
 		computed_js += "/* " + new_marker + "-END */\n";
 	}
@@ -2461,6 +2459,9 @@ function import_wiki()
 				case "0.9":
 					old_version = 9;
 				break;
+				case "0.9.2B":
+					old_version = 92;
+				break;
 				default:
 					alert("Incompatible version: " + ver_str);
 					document.body.style.cursor= "auto";
@@ -2477,7 +2478,7 @@ function import_wiki()
 	
 	// import the variables
 	var new_main_page = main_page;
-	var old_block_edits = !permit_edits;
+	var old_block_edits = !__config.permit_edits;
 	var page_names = new Array();
 	var page_contents = new Array();
 	var old_page_attrs = new Array();
@@ -2582,8 +2583,10 @@ if (old_version	< 9) {
 	
 	//note: before v0.04 permit_edits didnt exist
 	//note: in version 2 pages were not escaped
-}	else {
 
+}	else {	// we are importing a v0.9.x Beta
+
+	// locate the random marker
 	try {
 		var old_marker = ct.match(/\nvar __marker = "([A-Za-z\-\d]+)";\n/)[1];
 	} catch (e) {
@@ -2592,7 +2595,7 @@ if (old_version	< 9) {
 		return false;
 	}
 
-	// import from versions 0.9 and above
+	// import the CSS head tag
 	var css = null;
 	ct.replace(/<style\s.*?type="?text\/css"?[^>]*>((\n|.)*?)<\/style>/i, function (str, $1) {
 		css = $1;
@@ -2603,46 +2606,85 @@ if (old_version	< 9) {
 	}
 
 	var data = _get_data(old_marker, ct, true, true);
-	var collected = [];
-	
-	// rename the variables
-	data = data.replace(/([^\\])\nvar (\w+) = /g, function (str, $1, $2) {
-		collected.push('sw_import_'+$2);
-		return $1+"\nvar sw_import_"+$2+" = ";
-	});//.replace(/\\\n/g, '');
-	
-	log("collected = "+collected);
-	
-	collected = eval(data+"\n["+collected+"];");
-	data = ct = null;
 
-	if (collected.length!=13) {
-		alert("Invalid collected data!");
-		document.body.style.cursor= "auto";
-		return false;
-	}
-	
-	old_block_edits = !collected[2];
-	
-	dblclick_edit = collected[3];
-	
-	save_on_quit = collected[4];
-	
+	if (old_version < 92) {
+		var collected = [];
+		
+		// rename the variables
+		data = data.replace(/([^\\])\nvar (\w+) = /g, function (str, $1, $2) {
+			collected.push('sw_import_'+$2);
+			return $1+"\nvar sw_import_"+$2+" = ";
+		});//.replace(/\\\n/g, '');
+		
+		log("collected config variables = "+collected);
+		
+		collected = eval(data+"\n["+collected+"];");
+		data = ct = null;
+
+		var has_last_page_flag = (collected.length==14) ? 1 : 0;
+		if (!has_last_page_flag && (collected.length!=13)) {
+			alert("Invalid collected data!");
+			document.body.style.cursor= "auto";
+			return false;
+		}
+		
+		old_block_edits = !collected[2];
+		
+		__config.dblclick_edit = collected[3];
+		
+		__config.save_on_quit = collected[4];
+		
+		if (has_last_page_flag)
+			__config.open_last_page = collected[5];
+
+/*	
 sw_import_allow_diff,sw_import_key_cache,sw_import_current,sw_import_main_page,sw_import_backstack,sw_import_page_titles,sw_import_page_attrs,sw_import_pages
+*/
+		__config.allow_diff = collected[5+has_last_page_flag];
+		
+		__config.key_cache = collected[6+has_last_page_flag];
+		
+		new_main_page = collected[8+has_last_page_flag];
+		
+		page_names = collected[10+has_last_page_flag];
+		
+		old_page_attrs = collected[11+has_last_page_flag];
+		
+		page_contents = collected[12+has_last_page_flag];
+		
+		collected = null;
+	} else {	// we are importing from v0.9.2 and above which has a __config object for all the config flags
+		var collected = [];
+		
+		// rename the variables
+		data = data.replace(/([^\\])\nvar (\w+) = /g, function (str, $1, $2) {
+			collected.push('sw_import_'+$2);
+			return $1+"\nvar sw_import_"+$2+" = ";
+		});//.replace(/\\\n/g, '');
+		
+		log("collected config variables = "+collected);
+		
+		collected = eval(data+"\n["+collected+"];");
+		data = ct = null;
 
-	allow_diff = collected[5];
-	
-	key_cache = collected[6];
-	
-	new_main_page = collected[8];
-	
-	page_names = collected[10];
-	
-	old_page_attrs = collected[11];
-	
-	page_contents = collected[12];
-	
-	collected = null;
+		if (collected.length!=9) {
+			alert("Invalid collected data!");
+			document.body.style.cursor= "auto";
+			return false;
+		} collected = null;
+		
+		__config = _sw_import___config;
+		
+		current = _sw_import_current;
+		
+		new_main_page = _sw_import_main_page;
+		
+		page_names = _sw_import_page_titles;
+		
+		old_page_attrs = _sw_import_page_attrs;
+		
+		page_contents = _sw_import_pages;
+	}
 }
 
 	// add new data
@@ -2668,7 +2710,7 @@ sw_import_allow_diff,sw_import_key_cache,sw_import_current,sw_import_main_page,s
 	if (page_exists(new_main_page))
 		main_page = new_main_page;
 
-	permit_edits = !old_block_edits;
+	__config.permit_edits = !old_block_edits;
 
 	// remove hourglass
 	document.body.style.cursor= "auto";
@@ -3186,7 +3228,7 @@ function AES_decrypt(raw_data) {
 <div style="text-align: center;"><a class="link" onclick="edit_ns_menu()">[Edit]</a></div></div></div>
 <div class="text_area" id="wiki_text" ondblclick="page_dblclick()"></div></div>
 <div id="edit_area" style="display: none; visibility: hidden;">
-<div id="edit_page_title" style="display: block;">Page title: <input id="wiki_page_title" size="50" value="Hit the ball"></div><textarea id="wiki_editor" style="width: 994px; height: 431px;" rows="0" cols="0"></textarea> 
+<div id="edit_page_title" style="display: block;">Page title: <input id="wiki_page_title" size="50" value="Hit the ball"></div><textarea id="wiki_editor" style="width: 994px; height: 403px;" rows="0" cols="0"></textarea> 
 <table style="font-size: 8pt;">
 <tbody>
 <tr>
@@ -3205,10 +3247,10 @@ function AES_decrypt(raw_data) {
 <td>!!subheader</td>
 <td></td>
 <td><a class="world" onclick="open_table_help()">(tables)</a></td></tr></tbody></table></div>
-<div id="debug_info" style="display: none; visibility: hidden;">
+<div id="debug_info" style="display: inline; visibility: visible;">
 <h2>Debug console</h2>
 <p>This is a development BETA version of Wiki On a Stick; it is not suggested to use it with important data. If you want to disable this debug console, you will have to find the line that says <b><tt>var debug = true;</tt></b> and change it to <b><tt>false</tt></b>. Note: in the currently active debug mode changes will be saved only if <b><tt>var save_override</tt></b> is set to <b><tt>true</tt></b></p>
 <div align="center"><textarea id="swlogger" ondblclick="el('swlogger').value=''" style="width: 90%; background-color: rgb(204, 204, 204);" rows="12" readonly="readonly" cols="70"></textarea><br><input onclick="el('swlogger').value=''" value="Clear" type="button"></div></div>
 <hr>
 
-<div align="center"><sub><a class="link" onclick="go_to('Special::About')">About Wiki on a Stick v0.9B</a></sub></div></body></html>
+<div align="center"><sub><a class="link" onclick="go_to('Special::About')">About Wiki on a Stick v0.9</a></sub></div></body></html>
