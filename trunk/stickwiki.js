@@ -85,7 +85,7 @@ function page_index(page) {
 var edit_override = true;
 
 var reserved_namespaces = [
-"Special", "Lock", "Locked", "Unlocked", "Unlock", "Tag", "Tagged", "Image", "File"];
+"Special", "Lock", "Locked", "Unlocked", "Unlock", "Tag", "Tagged", "Image", "File", "Include"];
 
 var reserved_rx = "^";
 var i = (edit_override ? 1 : 0);
@@ -255,7 +255,31 @@ var parse = function(text) {
 		log("text = null while parsing current page \""+current+"\"");
 		return;
 	} //else		log("typeof(text) = "+typeof(text));
-
+	
+	// transclusion code originally provided by martinellison
+	if (!force_inline) {
+		var trans_level = 0;
+		do {
+			var trans = 0;
+			text = text.replace(/\[\[Include::([^\]]+)\]\]/g, function (str, $1) {
+				log("Transcluding template "+$1);
+				var parts = $1.split(/\|/);
+				var templname = parts[0];  
+				var templtext = get_text(templname);
+				if (templtext == null)
+					return "[<!-- -->[Include::"+$1+"]]";
+				templtext = templtext.replace(/%(\d+)/g,	function(param, paramno) {
+					if (paramno < parts.length)
+						return parts[paramno];
+					else
+						return param;
+				} );
+				trans = 1;
+				return templtext;	
+			});
+		} while (trans && (++trans_level < 16));
+	}
+	
 	// thank you IE, really thank you
 	if (ie)
 		text = text.replace("\r\n", "\n");

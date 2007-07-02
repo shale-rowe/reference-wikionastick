@@ -24,3 +24,11 @@
 * external javascript custom scripts
 
 * add license
+
+* check deletion of pages through "erase all" feature
+
+* brackets in page titles
+
+* group operations on page lists (deletion, encryption, decryption etc.) maybe also with checkboxes
+
+* possibility to delete an encrypted page even when password is not available (maybe through the above group operations)
