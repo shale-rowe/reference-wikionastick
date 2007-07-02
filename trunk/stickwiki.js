@@ -351,16 +351,22 @@ var parse = function(text) {
 	// links with | 
 	text = text.replace(/\[\[([^\]\]]*?)\|(.*?)\]\]/g, function(str, $1, $2)
 			{
-				if($1.indexOf("://")!=-1)
-					return "<a class=\"world\" href=\"" + $1 + "\" target=\"_blank\">" + $2 + "<\/a>";
-				
-				if(page_exists($1))
-					return "<a class=\"link\" onclick='go_to(\"" + _sq_esc($1) +"\")'>" + $2 + "<\/a>";
+			if($1.indexOf("://")!=-1)
+				return "<a class=\"world\" href=\"" + $1 + "\" target=\"_blank\">" + $2 + "<\/a>";
+				var page = $1;
+				var hashloc = $1.indexOf("#");
+				var gotohash = "";
+				if (hashloc > 0) {
+					page = $1.substr(0, hashloc);
+					gotohash = "; window.location.hash= \"" + $1.substr(hashloc) + "\"";
+				}
+				if(page_exists(page))
+					return "<a class=\"link\" onclick='go_to(\"" + _sq_esc(page) +	"\")" + gotohash + "'>" + $2 + "<\/a>";
 				else {
 					if ($1.charAt(0)=="#")
-						return "<a class=\"link\" href=\"#" + header_anchor($1.substring(1)) + "\">" + $2 + "<\/a>";
-					else
-						return "<a class=\"unlink\" onclick='go_to(\"" + _sq_esc($1) +"\")'>" + $2 + "<\/a>";
+						return "<a class=\"link\" href=\"#" +header_anchor($1.substring(1)) + "\">" + $2 + "<\/a>";
+				else
+					return "<a class=\"unlink\" onclick='go_to(\"" + _sq_esc($1)+"\")'>" + $2 + "<\/a>";
 				}
 			}); //"<a class=\"wiki\" onclick='go_to(\"$2\")'>$1<\/a>");
 	// links without |
