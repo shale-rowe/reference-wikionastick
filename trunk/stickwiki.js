@@ -257,15 +257,14 @@ var parse = function(text) {
 	} //else		log("typeof(text) = "+typeof(text));
 	
 	// transclusion code originally provided by martinellison
-	// transclusion code originally provided by martinellison
 	if (!force_inline) {
-		var transcluded = [];
+		var trans_level = 0;
 		do {
 			var trans = 0;
 			text = text.replace(/\[\[Include::([^\]]+)\]\]/g, function (str, $1) {
-				log("Transcluding template "+$1);
 				var parts = $1.split(/\|/);
 				var templname = parts[0];
+				log("Transcluding "+templname+"("+parts.slice(0).toString()+")");
 				var templtext = get_text(templname);
 				if (templtext == null) {
 					var templs="[["+templname+"]]";
@@ -273,11 +272,6 @@ var parse = function(text) {
 						templs += "|"+parts.slice(1).join("|");
 					return "[<!-- -->[Include::"+templs+"]]";
 				}
-				// prevent infinite recursion
-				if (transcluded[templname]!=null)
-					return "[<!-- -->"+str.substr(1);
-				else
-					transcluded[templname] = true;
 				templtext = templtext.replace(/%(\d+)/g,	function(param, paramno) {
 					if (paramno < parts.length)
 						return parts[paramno];
@@ -287,7 +281,8 @@ var parse = function(text) {
 				trans = 1;
 				return templtext;	
 			});
-		} while (trans);
+			// keep transcluding when a transclusion was made and when transcluding depth is not excessive
+		} while (trans && (++trans_level < 16));
 	}
 	
 	// thank you IE, really thank you
