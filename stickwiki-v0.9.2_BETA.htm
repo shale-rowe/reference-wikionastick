@@ -497,8 +497,12 @@ var parse = function(text) {
 				var parts = $1.split(/\|/);
 				var templname = parts[0];  
 				var templtext = get_text(templname);
-				if (templtext == null)
-					return "[<!-- -->[Include::"+$1+"]]";
+				if (templtext == null) {
+					var templs="[["+templname+"]]";
+					if (parts.length>1)
+						templs += "|"+parts.slice(1).join("|");
+					return "[<!-- -->[Include::"+templs+"]]";
+				}
 				templtext = templtext.replace(/%(\d+)/g,	function(param, paramno) {
 					if (paramno < parts.length)
 						return parts[paramno];
