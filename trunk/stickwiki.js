@@ -1992,12 +1992,13 @@ function save_to_file(full) {
 	
 	var data = _get_data(__marker, document.documentElement.innerHTML, full);
 
+	var r=false;
 	if ( (!debug || save_override) ) {
 		if (!__config.server_mode || (was_local && __config.server_mode)) {
 			r = _saveThisFile(computed_js, data);
 			was_local = false;
 		}
-	} else r = false;
+	}
 	
 	if (ie) {
 		create_alt_buttons();
