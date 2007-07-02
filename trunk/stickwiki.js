@@ -587,11 +587,41 @@ function special_search( str )
 	return "Results for *" + str + "*\n" + title_result + "\n\n---\n" + _simple_join_list(pg_body, false);
 }
 
+function special_all_tags() {
+	var tags_tree = [];
+	var tmp = null;
+	for(var i=0; i<pages.length; i++)
+	{
+		tmp = get_page(i);
+		if (tmp==null)
+			continue;
+		tmp.replace(/\[\[Tags?::([^\]]*?)\]\]/g,
+			function (str, $1) {
+				var tmp=$1.split(",");
+				for(var j=0;j<tmp.length; j++) {
+					var tag=tmp[j].replace(/(^\s*)|(\s*$)/, '');
+					if (tags_tree[tag]==null)
+						tags_tree[tag] = [];
+					tags_tree[tag].push(page_titles[i]);
+				}
+			});
+	}
+	var s="!All Tags\n";
+	var tag = null, obj = null;
+	for(tag in tags_tree) {
+		obj = tags_tree[tag].sort();
+		s += "\n!![[Tagged::"+tag+"]]\n";
+		for(var i=0;i<obj.length;i++) {
+			s+="* [["+obj[i]+"]]\n";
+		}
+	}
+	return s;
+}
+
 // Returns a index of all pages
 function special_all_pages()
 {
 	var pg = new Array();
-	var text = "";
 	for(var i=0; i<page_titles.length; i++)
 	{
 		if (!is_reserved(page_titles[i]))
@@ -951,6 +981,9 @@ function _get_special(cr) {
 			return null;
 		case "All Pages":
 			text = special_all_pages();
+			break;
+		case "All Tags":
+			text = special_all_tags();
 			break;
 		case "Orphaned Pages":
 			text = special_orphaned_pages();
