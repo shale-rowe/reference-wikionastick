@@ -330,7 +330,7 @@ var parse = function(text) {
 	var inline_tags = 0;
 	text = text.replace(/\[\[([^\]]*?)\]\]/g, function(str, $1)
 			{
-				if($1.indexOf("://")==0) {
+				if($1.indexOf("://")!=-1) {
 					var r="<!-- "+parse_marker+'::'+html_tags.length+" -->";
 					html_tags.push("<a class=\"world\" href=\"" + $1 + "\" target=\"_blank\">" + $1 + "<\/a>");
 					return r;
@@ -1136,10 +1136,22 @@ function _clear_swcs() {
 	swcs = null;
 }
 
+function create_breadcrumb(title) {
+	var tmp=title.split("::");
+	if (tmp.length==1)
+		return title;
+	var s="", partial="";
+	for(var i=0;i<tmp.length-1;i++) {
+		partial += tmp[i]+"::";
+		s += "<a href=\"#\" onclick=\"go_to('"+_sq_esc(partial)+"')\">"+tmp[i]+"</a> :: ";		
+	}
+	return s+tmp[tmp.length-1];
+}
+
 function load_as_current(title, text) {
 	scrollTo(0,0);
 	log("CURRENT loaded: "+title+", "+text.length+" bytes");
-	el("wiki_title").innerHTML = title;
+	el("wiki_title").innerHTML = create_breadcrumb(title);
 	el("wiki_text").innerHTML = parse(text);
 	document.title = title;
 	update_nav_icons(title);
