@@ -156,7 +156,7 @@ function header_replace(str, $1, $2, $3) {
 //		log("h"+len+" = "+header);
 		// automatically build the TOC if needed
 		if (has_toc) {
-			page_TOC += str_rep("#", len)+" [[#"+header+"]]\n";
+			page_TOC += str_rep("#", len)+" <a class=\"link\" href=\"#" + header_anchor(header) + "\">" + header + "<\/a>\n";
 		}
 		return "</div><a name=\""+header_anchor(header)+"\"></a><h"+len+">"+header+"</h"+len+"><div class=\"level"+len+"\">";
 }
@@ -260,7 +260,6 @@ var parse = function(text) {
 	if (ie)
 		text = text.replace("\r\n", "\n");
 
-	var prefmt = [];
 	var tags = [];
 	var html_tags = [];
 	var script_tags = [];
@@ -281,9 +280,9 @@ var parse = function(text) {
 	});
 
 	// put away stuff contained in <pre> tags
-	text = text.replace(/(\<pre.*?>(.|\n)*?<\/pre>)/g, function (str, $1) {
-		var r = "<!-- "+parse_marker+prefmt.length+" -->";
-		prefmt.push($1);
+	text = text.replace(/(\<pre.*?>(.|\n)*?<\/pre>)/g, function (str) {
+		var r = "<!-- "+parse_marker+"::"+html_tags.length+" -->";
+		html_tags.push(str);
 		return r;
 	});
 	
@@ -294,6 +293,75 @@ var parse = function(text) {
 		return r;
 	});
 	
+	// links with | 
+	text = text.replace(/\[\[([^\]\]]*?)\|(.*?)\]\]/g, function(str, $1, $2)
+			{
+			if($1.indexOf("://")!=-1) {
+				var r="<!-- "+parse_marker+'::'+html_tags.length+" -->";
+				html_tags.push("<a class=\"world\" href=\"" + $1 + "\" target=\"_blank\">" + $2 + "<\/a>");
+				return r;
+			}
+				var page = $1;
+				var hashloc = $1.indexOf("#");
+				var gotohash = "";
+				if (hashloc > 0) {
+					page = $1.substr(0, hashloc);
+					gotohash = "; window.location.hash= \"" + $1.substr(hashloc) + "\"";
+				}
+				if(page_exists(page)) {
+					var r="<!-- "+parse_marker+'::'+html_tags.length+" -->";
+					html_tags.push("<a class=\"link\" onclick='go_to(\"" + _sq_esc(page) +	"\")" + gotohash + "'>" + $2 + "<\/a>");
+					return r;
+				}
+				else {
+					if ($1.charAt(0)=="#") {
+						var r="<!-- "+parse_marker+'::'+html_tags.length+" -->";
+						html_tags.push("<a class=\"link\" href=\"#" +header_anchor($1.substring(1)) + "\">" + $2 + "<\/a>");
+						return r;
+					}
+				else {
+					var r="<!-- "+parse_marker+'::'+html_tags.length+" -->";
+					html_tags.push("<a class=\"unlink\" onclick='go_to(\"" + _sq_esc($1)+"\")'>" + $2 + "<\/a>");
+					return r;
+				}
+				}
+			}); //"<a class=\"wiki\" onclick='go_to(\"$2\")'>$1<\/a>");
+	// links without |
+	var inline_tags = 0;
+	text = text.replace(/\[\[([^\]]*?)\]\]/g, function(str, $1)
+			{
+				if($1.indexOf("://")==0) {
+					var r="<!-- "+parse_marker+'::'+html_tags.length+" -->";
+					html_tags.push("<a class=\"world\" href=\"" + $1 + "\" target=\"_blank\">" + $1 + "<\/a>");
+					return r;
+				}
+					
+				found_tags = _get_tags($1);
+				
+				if (found_tags.length>0) {
+					tags = tags.concat(found_tags);
+					if (!force_inline)
+						return "";
+					inline_tags++;
+					return "<!-- "+parse_marker+":"+inline_tags+" -->";
+				}
+				
+				if(page_exists($1)) {
+					var r="<!-- "+parse_marker+'::'+html_tags.length+" -->";
+					html_tags.push("<a class=\"link\" onclick=\"go_to('" + _sq_esc($1) +"')\">" + $1 + "<\/a>");
+					return r;
+				} else {
+					var r="<!-- "+parse_marker+'::'+html_tags.length+" -->";
+					if ($1.charAt(0)=="#") {
+						html_tags.push("<a class=\"link\" href=\"#" + header_anchor($1.substring(1)) + "\">" + $1.substring(1) + "<\/a>");
+						return r;
+					}
+//					log("Unlinked link: "+$1);
+					html_tags.push("<a class=\"unlink\" onclick=\"go_to('" + _sq_esc($1) +"')\">" + $1 + "<\/a>");
+					return r;
+				}
+					}); //"<a class=\"wiki\" onclick='go_to(\"$1\")'>$1<\/a>");
+
 	// allow non-wrapping newlines
 	text = text.replace(/\\\n/g, "");
 	
@@ -318,8 +386,12 @@ var parse = function(text) {
 	text = text.replace(/(<\/h[1-6]><div class="level[1-6]">)\n/g, "$1");
 	
 	if (has_toc) {
-		text = text.replace("<!-- "+parse_marker+":TOC -->", "<div class=\"wiki_toc\"><p class=\"wiki_toc_title\">Table of Contents</p>" + page_TOC.replace(reReapLists, parseList)
-		.replace("\n<", "<") + "</div>" );
+		// remove the trailing newline
+		page_TOC = page_TOC.substr(0, page_TOC.length-2);
+		// replace the TOC placeholder with the real TOC
+		text = text.replace("<!-- "+parse_marker+":TOC -->",
+				"<div class=\"wiki_toc\"><p class=\"wiki_toc_title\">Table of Contents</p>" +
+				page_TOC.replace(reReapLists, parseList).replace("\n<", "<") + "</div>" );
 		page_TOC = "";
 	}
 	
@@ -346,54 +418,8 @@ var parse = function(text) {
 	// <hr>
 	text = text.replace(/(^|\n)\-\-\-/g, "<hr />");
 	
+	// tables-parsing pass
     text = text.replace(reReapTables, parseTables);
-
-	// links with | 
-	text = text.replace(/\[\[([^\]\]]*?)\|(.*?)\]\]/g, function(str, $1, $2)
-			{
-			if($1.indexOf("://")!=-1)
-				return "<a class=\"world\" href=\"" + $1 + "\" target=\"_blank\">" + $2 + "<\/a>";
-				var page = $1;
-				var hashloc = $1.indexOf("#");
-				var gotohash = "";
-				if (hashloc > 0) {
-					page = $1.substr(0, hashloc);
-					gotohash = "; window.location.hash= \"" + $1.substr(hashloc) + "\"";
-				}
-				if(page_exists(page))
-					return "<a class=\"link\" onclick='go_to(\"" + _sq_esc(page) +	"\")" + gotohash + "'>" + $2 + "<\/a>";
-				else {
-					if ($1.charAt(0)=="#")
-						return "<a class=\"link\" href=\"#" +header_anchor($1.substring(1)) + "\">" + $2 + "<\/a>";
-				else
-					return "<a class=\"unlink\" onclick='go_to(\"" + _sq_esc($1)+"\")'>" + $2 + "<\/a>";
-				}
-			}); //"<a class=\"wiki\" onclick='go_to(\"$2\")'>$1<\/a>");
-	// links without |
-	var inline_tags = 0;
-	text = text.replace(/\[\[([^\|]*?)\]\]/g, function(str, $1)
-			{
-				if($1.match("://"))
-					return "<a class=\"world\" href=\"" + $1 + "\" target=\"_blank\">" + $1 + "<\/a>";
-					
-				found_tags = _get_tags($1);
-				
-				if (found_tags.length>0) {
-					tags = tags.concat(found_tags);
-					if (!force_inline)
-						return "";
-					inline_tags++;
-					return "<!-- "+parse_marker+":"+inline_tags+" -->";
-				}
-				
-				if(page_exists($1))
-					return "<a class=\"link\" onclick=\"go_to('" + _sq_esc($1) +"')\">" + $1 + "<\/a>";
-				else {
-					if ($1.charAt(0)=="#")
-						return "<a class=\"link\" href=\"#" + header_anchor($1.substring(1)) + "\">" + $1.substring(1) + "<\/a>";
-					return "<a class=\"unlink\" onclick=\"go_to('" + _sq_esc($1) +"')\">" + $1 + "<\/a>";
-				}
-					}); //"<a class=\"wiki\" onclick='go_to(\"$1\")'>$1<\/a>");
 
 	// end-trim
 	if (end_trim)
@@ -406,15 +432,8 @@ var parse = function(text) {
 	// convert newlines to br tags
 	text = text.replace(/\n/g, "<br />");
 
-	if (prefmt.length>0) {
-//		log("Replacing "+prefmt.length+" preformatted blocks");
-		text = text.replace(new RegExp("<\\!-- "+parse_marker+"(\\d+) -->", "g"), function (str, $1) {
-//			log("Replacing prefmt block #"+$1);
-			return prefmt[$1];
-		});
-		// make some newlines cleanup - disabled
-		text = text.replace(/(<br \/>)?(<\/?pre>)(<br \/>)?/gi, "$2");
-	}
+	// make some newlines cleanup after pre tags - disabled
+//	text = text.replace(/(<br \/>)?(<\/?pre>)(<br \/>)?/gi, "$2");
 	
 	if (html_tags.length>0) {
 		text = text.replace(new RegExp("<\\!-- "+parse_marker+"::(\\d+) -->", "g"), function (str, $1) {
@@ -532,7 +551,7 @@ function special_encrypted_pages(locked) {
 // Returns a index of search pages (by miz & legolas558)
 function special_search( str )
 {
-	var pg_body = new Array();
+	var pg_body = [];
 	var title_result = "";
 
 	var count = 0;
@@ -574,15 +593,15 @@ function special_search( str )
 //		log("res_body = "+res_body);
 		if (res_body!=null) {
 			count = res_body.length;
-			res_body = res_body.join(" ").replace( /\n/g, " ");
-			pg_body.push( "* [[" + page_titles[i] + "]]: found *" + count + "* times :<div class=\"search_results\"><i>...</i><br />" + res_body +"<br/><i>...</i></div>");
+			res_body = res_body.join(" ").replace(/\n/g, " ");
+			pg_body.push( "* [[" + page_titles[i] + "]]: found *" + count + "* times :<div class=\"search_results\"><em>...</em><br />" + res_body +"<br/><em>...</em></div>");
 			if (!added)
 				result_pages.push(page_titles[i]);
 		}
 	}
 	
 	if (!pg_body.length && !title_result.length)
-		return "No results found for *"+str+"*";
+		return "<em>No results found for *"+str+"*</em>";
 	force_inline = true;
 	return "Results for *" + str + "*\n" + title_result + "\n\n---\n" + _simple_join_list(pg_body, false);
 }
@@ -686,7 +705,7 @@ function special_dead_pages () {
 
   result_pages = dead_pages;	
   if (!pg.length)
-	return '<i>No dead pages</i>';
+	return '<em>No dead pages</em>';
   return _simple_join_list(pg, true);
 }
 
