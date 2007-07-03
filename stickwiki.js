@@ -2581,19 +2581,19 @@ sw_import_allow_diff,sw_import_key_cache,sw_import_current,sw_import_main_page,s
 			return false;
 		} collected = null;
 		
-		__config = _sw_import___config;
+		__config = sw_import___config;
 		
 		__config["server_mode"] = false;
 		
-		current = _sw_import_current;
+		current = sw_import_current;
 		
-		new_main_page = _sw_import_main_page;
+		new_main_page = sw_import_main_page;
 		
-		page_names = _sw_import_page_titles;
+		page_names = sw_import_page_titles;
 		
-		old_page_attrs = _sw_import_page_attrs;
+		old_page_attrs = sw_import_page_attrs;
 		
-		page_contents = _sw_import_pages;
+		page_contents = sw_import_pages;
 		
 		// replace the pre tags with the new nowiki syntax
 		if (old_version==92) {
