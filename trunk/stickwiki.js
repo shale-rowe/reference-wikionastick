@@ -552,6 +552,8 @@ function _get_namespace_pages(ns) {
 			return "!Pages in "+ns+" namespace\n" + special_encrypted_pages(true);
 		case "Unlocked::":
 			return "!Pages in "+ns+" namespace\n" + special_encrypted_pages(false);
+		case "Tagged::":
+			return "!Pages in "+ns+" namespace\n" + special_tagged_pages(false);
 	}
 
 	for(var i=0;i<page_titles.length;i++) {
@@ -662,7 +664,7 @@ function special_search( str )
 	return "Results for *" + str + "*\n" + title_result + "\n\n---\n" + _simple_join_list(pg_body, false);
 }
 
-function special_all_tags() {
+function special_tagged_pages() {
 	var tags_tree = [];
 	var tmp = null;
 	for(var i=0; i<pages.length; i++)
@@ -681,7 +683,7 @@ function special_all_tags() {
 				}
 			});
 	}
-	var s="!All Tags\n";
+	var s="";
 	var tag = null, obj = null;
 	for(tag in tags_tree) {
 		obj = tags_tree[tag].sort();
@@ -1056,9 +1058,6 @@ function _get_special(cr) {
 			return null;
 		case "All Pages":
 			text = special_all_pages();
-			break;
-		case "All Tags":
-			text = special_all_tags();
 			break;
 		case "Orphaned Pages":
 			text = special_orphaned_pages();
