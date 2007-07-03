@@ -2355,9 +2355,10 @@ function import_wiki()
 				return false;
 		}
 	} else {
-		var ver_str = ct.match(/var version = "([^"]*)";\n/);
+		var ver_str = ct.match(/var version = "([^"]*)";(\r\n|\n)/);
 		if (ver_str && ver_str.length) {
 			ver_str = ver_str[1];
+			log("Version string: "+ver_str);
 			switch (ver_str) {
 				case "0.9B":
 				case "0.9":
@@ -2365,6 +2366,9 @@ function import_wiki()
 				break;
 				case "0.9.2B":
 					old_version = 92;
+				break;
+				case "0.9.3B":
+					old_version = 93;
 				break;
 				default:
 					alert("Incompatible version: " + ver_str);
@@ -2492,7 +2496,7 @@ if (old_version	< 9) {
 
 	// locate the random marker
 	try {
-		var old_marker = ct.match(/\nvar __marker = "([A-Za-z\-\d]+)";\n/)[1];
+		var old_marker = ct.match(/\nvar __marker = "([A-Za-z\-\d]+)";(\r\n|\n)/)[1];
 	} catch (e) {
 		alert("Marker not found!");
 		document.body.style.cursor= "auto";
@@ -2590,6 +2594,22 @@ sw_import_allow_diff,sw_import_key_cache,sw_import_current,sw_import_main_page,s
 		old_page_attrs = _sw_import_page_attrs;
 		
 		page_contents = _sw_import_pages;
+		
+		// replace the pre tags with the new nowiki syntax
+		if (old_version==92) {
+			for(var i=0;i<page_contents.length;i++) {
+				// page is encrypted, leave it as is
+				if (page_attrs[i] & 2)
+					continue;
+				page_contents[i] = page_contents[i].replace(/<pre(.*?)>((.|\n)*?)<\/pre>/g,
+								function (str, $1, $2) {
+									var s="{{{"+$2+"}}}";
+									if ($1.length)
+										s = "<span"+$1+">"+s+"</span>";
+									return s;
+								});
+			}
+		}
 	}
 }
 
