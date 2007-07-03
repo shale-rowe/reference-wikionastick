@@ -351,9 +351,9 @@ var parse = function(text) {
 	// links with | 
 	text = text.replace(/\[\[([^\]\]]*?)\|(.*?)\]\]/g, function(str, $1, $2)
 			{
-			if($1.indexOf("://")!=-1) {
+			if ($1.search(/^\w+:\/\//)==0) {
 				var r="<!-- "+parse_marker+'::'+html_tags.length+" -->";
-				html_tags.push("<a class=\"world\" href=\"" + $1 + "\" target=\"_blank\">" + $2 + "<\/a>");
+				html_tags.push("<a class=\"world\" href=\"" + $1.replace(/^mailto:\/\//, "mailto:") + "\" target=\"_blank\">" + $2 + "<\/a>");
 				return r;
 			}
 				var page = $1;
@@ -385,8 +385,9 @@ var parse = function(text) {
 	var inline_tags = 0;
 	text = text.replace(/\[\[([^\]]*?)\]\]/g, function(str, $1)
 			{
-				if($1.indexOf("://")!=-1) {
+				if ($1.search(/^\w+:\/\//)==0) {
 					var r="<!-- "+parse_marker+'::'+html_tags.length+" -->";
+					$1 = $1.replace(/^mailto:\/\//, "mailto:");
 					html_tags.push("<a class=\"world\" href=\"" + $1 + "\" target=\"_blank\">" + $1 + "<\/a>");
 					return r;
 				}
@@ -574,7 +575,7 @@ function _get_tagged(tag) {
 			continue;
 		tmp.replace(/\[\[([^\|]*?)\]\]/g, function(str, $1)
 			{
-				if($1.match("://"))
+				if ($1.search(/^\w+:\/\//)==0)
 					return;
 					
 				found_tags = _get_tags($1);
@@ -724,7 +725,7 @@ function special_dead_pages () {
 //				log("In "+page_titles[j]+": "+$1+" -> "+$3);
 				if ($1.charAt(0)=="#")
 					return;
-				if ($1.indexOf("://")!=-1)
+				if ($1.search(/^\w+:\/\//)==0)
 					return;
 				if ($1.match(/Tag(s|ged)?:/gi))
 					return;
