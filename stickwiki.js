@@ -147,7 +147,8 @@ function header_anchor(s) {
 var has_toc;
 var page_TOC = "";
 //var last_h_level;
-var reParseHeaders = /(^|\n)(\!+)\s*([^\n]+)/g;
+var reParseOldHeaders = /(^|\n)(\!+)\s*([^\n]+)/g;
+var reParseHeaders = /(^|\n)(=+)\s*([^\n]+)/g;
 function header_replace(str, $1, $2, $3) {
 		var header = $3;
 		var len = $2.length;
@@ -434,6 +435,7 @@ var parse = function(text) {
 	text = text.replace(reReapLists, parseList);
 	
 	// headers (from h1 to h6, as defined by the HTML 3.2 standard)
+	text = text.replace(reParseOldHeaders, header_replace);
 	text = text.replace(reParseHeaders, header_replace);
 	
 	// cleanup \n after headers
