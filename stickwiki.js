@@ -293,6 +293,44 @@ var parse = function(text) {
 	var html_tags = [];
 	var script_tags = [];
 	
+	// put away stuff contained in nowiki tags {{{ * }}}
+	text = text.replace(/\{\{\{((.|\n)*?)\}\}\}/g, function (str, $1) {
+		var r = "<!-- "+parse_marker+"::"+html_tags.length+" -->";
+		// perform a 2-pass raw HTML encoding
+		html_tags.push("<pre class=\"wiki_preformatted\">"+$1.replace(/[<>&]+/g, function ($1) {
+			var l=$1.length;
+			var s="";
+			for(var i=0;i<l;i++) {
+				switch ($1.charAt(i)) {
+					case '<':
+						s+="&lt;";
+						break;
+					case '>':
+						s+="&gt;";
+						break;
+//					case '&':
+					default:
+						s+="&amp;";
+				}
+			}
+			return s;
+		}).replace(/[^\u0000-\u007F]+/g, function ($1) {
+			var l=$1.length;
+			var s="";
+			for(var i=0;i<l;i++) {
+				s+="&#"+$1.charCodeAt(i)+";";
+			}
+			return s;
+		})+"</pre>");
+		return r;
+	});
+	
+	// gather all script tags
+	text = text.replace(/<script[^>]*>((.|\n)*?)<\/script>/gi, function (str, $1) {
+		script_tags.push($1);
+		return "";
+	});
+	
 	var p = text.indexOf("[[Special::TOC]]");
 	if (p != -1) {
 		has_toc = true;
@@ -302,19 +340,6 @@ var parse = function(text) {
 //		last_h_level = 0;
 	} else has_toc = false;
 
-	// gather all script tags
-	text = text.replace(/<script[^>]*>((.|\n)*?)<\/script>/gi, function (str, $1) {
-		script_tags.push($1);
-		return "";
-	});
-
-	// put away stuff contained in <pre> tags
-	text = text.replace(/(\<pre.*?>(.|\n)*?<\/pre>)/g, function (str) {
-		var r = "<!-- "+parse_marker+"::"+html_tags.length+" -->";
-		html_tags.push(str);
-		return r;
-	});
-	
 	// put away big enough HTML tags (with attributes)
 	text = text.replace(/\<\w+\s[^>]+>/g, function (tag) {
 		var r = "<!-- "+parse_marker+'::'+html_tags.length+" -->";
