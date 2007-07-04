@@ -956,15 +956,21 @@ function set_text(text)
 
 // triggered by UI graphic button
 function page_print() {
-	var fw=Math.ceil(screen.width/2);
-	var fh=Math.ceil(screen.height/2);
+	var fw=Math.ceil(screen.width*0.75);
+	var fh=Math.ceil(screen.height*0.75);
 	var hpos=Math.ceil((screen.width-fw)/2);
-	var vpos=Math.ceil((screen.height-fw)/2);
-	var wnd=window.open("about:blank","print_popup","width="+fw+",height="+fh+",status=no,menubar=no,resizable=yes,scrollbars=no,left="+hpos+",top="+vpos);
+	var vpos=Math.ceil((screen.height-fh)/2);
+	var wnd=window.open("about:blank","print_popup","width="+fw+",height="+fh+",status=yes,menubar=yes,resizable=yes,scrollbars=yes,left="+hpos+",top="+vpos);
 	wnd.focus();
+	var css_payload = "";
+	if (ie)
+		css_payload = "div.wiki_toc { align: center;}";
+	else
+		css_payload = "div.wiki_toc { margin: 0 auto;}\n";
 	wnd.document.writeln("<html><head><title>"+el("wiki_title").innerHTML+"</title>"+
-	"<style type=\"text/css\">"+document.getElementsByTagName("style")[0].innerHTML+"</style></head><body>"+
-	el("wiki_text").innerHTML+"</body></html>");
+	"<style type=\"text/css\">"+css_payload+document.getElementsByTagName("style")[0].innerHTML+"</style><script type=\"text/javascript\">function go_to(page) { alert(\"Sorry, you cannot browse the wiki while in print mode\");}</script></head><body>"+
+	el("wiki_text").innerHTML+"</body></html>\n");
+	wnd.document.close();
 }
 
 function clear_search() {
@@ -1477,6 +1483,7 @@ function on_load()
 	img_display("forward", true);
 	img_display("home", true);
 	img_display("edit", true);
+	img_display("print", true);
 	img_display("advanced", true);
 	img_display("cancel", true);
 	img_display("save", true);
@@ -1607,6 +1614,7 @@ function disable_edit()
 	menu_display("home", true);
 	menu_display("save", false);
 	menu_display("cancel", false);
+	menu_display("print", true);
 	elShow("text_area");
 	elHide("edit_area");
 //	log("setting back title to "+prev_title);
@@ -1696,6 +1704,7 @@ function current_editing(page, disabled) {
 	menu_display("advanced", false);
 	menu_display("home", false);
 	menu_display("edit", false);
+	menu_display("print", false);
 	menu_display("save", true);
 	menu_display("cancel", true);
 	update_lock_icons(page);
