@@ -1205,9 +1205,9 @@ function page_print() {
 		css_payload = "div.wiki_toc { align: center;}";
 	else
 		css_payload = "div.wiki_toc { margin: 0 auto;}\n";
-	wnd.document.writeln("<html><head><title>"+el("wiki_title").innerHTML+"</title>"+
-	"<style type=\"text/css\">"+css_payload+document.getElementsByTagName("style")[0].innerHTML+"</style><script type=\"text/javascript\">function go_to(page) { alert(\"Sorry, you cannot browse the wiki while in print mode\");}</script></head><body>"+
-	el("wiki_text").innerHTML+"</body></html>\n");
+	wnd.document.writeln("<ht"+"ml><he"+"ad><title>"+el("wiki_title").innerHTML+"</title>"+
+	"<st"+"yle type=\"text/css\">"+css_payload+document.getElementsByTagName("style")[0].innerHTML+"</sty"+"le><scr"+"ipt type=\"text/javascript\">function go_to(page) { alert(\"Sorry, you cannot browse the wiki while in print mode\");}</sc"+"ript></h"+"ead><"+"body>"+
+	el("wiki_text").innerHTML+"</bod"+"y></h"+"tml>\n");
 	wnd.document.close();
 }
 
