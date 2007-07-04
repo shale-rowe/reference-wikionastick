@@ -425,7 +425,7 @@ var parse = function(text) {
 	text = text.replace(/(^|[^\w])_([^_]+)_/g, "$1"+parse_marker+"uS#$2"+parse_marker+"uE#");
 	
 	// italics
-	text = text.replace(/(^|[^\w])\/([^\/]+)\/($|[^\w])/g, function (str, $1, $2, $3) {
+	text = text.replace(/(^|[^\w:])\/([^\/]+)\/($|[^\w])/g, function (str, $1, $2, $3) {
 		if (str.indexOf("//")!=-1) {
 			return str;
 		}
@@ -452,8 +452,8 @@ var parse = function(text) {
 		page_TOC = "";
 	}
 	
-	// <b>
-	text = text.replace(/\*([^\*\n]+)\*/g, parse_marker+"bS#$1"+parse_marker+"bE#");
+	// <strong> for bold text
+	text = text.replace(/(^|[^\w\/\\])\*([^\*\n]+)\*/g, "$1"+parse_marker+"bS#$2"+parse_marker+"bE#");
 
 	// <strike>
 	//text = text.replace(/(^|\n|\s|\>|\*)\-(.*?)\-/g, "$1<strike>$2<\/strike>");
@@ -952,6 +952,19 @@ function set_text(text)
 		return;
 	}
 	set__text(pi, text);
+}
+
+// triggered by UI graphic button
+function page_print() {
+	var fw=Math.ceil(screen.width/2);
+	var fh=Math.ceil(screen.height/2);
+	var hpos=Math.ceil((screen.width-fw)/2);
+	var vpos=Math.ceil((screen.height-fw)/2);
+	var wnd=window.open("about:blank","print_popup","width="+fw+",height="+fh+",status=no,menubar=no,resizable=yes,scrollbars=no,left="+hpos+",top="+vpos);
+	wnd.focus();
+	wnd.document.writeln("<html><head><title>"+el("wiki_title").innerHTML+"</title>"+
+	"<style type=\"text/css\">"+document.getElementsByTagName("style")[0].innerHTML+"</style></head><body>"+
+	el("wiki_text").innerHTML+"</body></html>");
 }
 
 function clear_search() {
