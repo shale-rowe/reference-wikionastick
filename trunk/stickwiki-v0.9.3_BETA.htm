@@ -260,7 +260,7 @@ var decrypt_failed = false;
 var result_pages;
 var last_AES_page;
 var current_namespace = "";
-var post_dom_render = "";
+
 
 var ie = false;
 var ie6 = false;
@@ -521,7 +521,7 @@ function raw_source_escape(src) {
 // used not to break layout when presenting search results
 var force_inline = false;
 // external javascript files to be loaded
-var external_scripts = [];
+var script_extension = [];
 
 // Parse typed code into HTML - allows overriding
 var parse = function(text) {
@@ -565,7 +565,6 @@ var parse = function(text) {
 
 	var tags = [];
 	var html_tags = [];
-	var script_tags = [];
 	
 	// put away stuff contained in nowiki tags {{{ * }}}
 	text = text.replace(/\{\{\{(.*?)\}\}\}/g, function (str, $1) {
@@ -580,13 +579,14 @@ var parse = function(text) {
 		return r;
 	});
 	
-	external_scripts = [];
+	script_extension = [];
 	// gather all script tags
 	text = text.replace(/<script([^>]*)>((.|\n)*?)<\/script>/gi, function (str, $1, $2) {
 		var m=$1.match(/src=(?:"|')([^\s'">]+)/);
 		if (m!=null)
-			external_scripts.push(m[1]);
-		script_tags.push($2);
+			script_extension.push(new Array(m[1]));
+		else
+			script_extension.push($2);
 		return "";
 	});
 	
@@ -780,9 +780,6 @@ var parse = function(text) {
 	}
 	if (force_inline)
 		force_inline = false;
-		
-	if (script_tags.length)
-		post_dom_render = script_tags.join("\n");
 		
 	if (text.substring(0,5)!="</div")
 		return "<div class=\"level0\">" + text + "</div>";
@@ -1492,24 +1489,20 @@ function load_as_current(title, text) {
 	update_nav_icons(title);
 	current = title;
 	// add the custom script (if any)
-	if ((post_dom_render!="") || external_scripts.length) {
-		log("Executing "+post_dom_render.length+" bytes of custom javascript and including "+external_scripts.length + " external javascript files");
-//		eval(post_dom_render);
-		if (post_dom_render.length) {
-			var s_elem = document.createElement("script");
-			s_elem.type="text/javascript";
-			s_elem.id = "sw_custom_script";
-			document.getElementsByTagName("head")[0].appendChild(s_elem);
-			setHTML(s_elem, post_dom_render);
-			swcs.push(s_elem);
-		}
-		var s_elem;
-		for (var i=0;i<external_scripts.length;i++) {
+	if (script_extension.length) {
+		log(script_extension.length + " javascript files to process");
+		var s_elem, is_inline;
+		for (var i=0;i<script_extension.length;i++) {
 			s_elem = document.createElement("script");
 			s_elem.type="text/javascript";
 			s_elem.id = "sw_custom_script_"+i;
-			s_elem.src = external_scripts[i];
+			is_inline = new String(typeof(script_extension[i]));
+			is_inline = (is_inline.toLowerCase()=="string");
+			if (!is_inline)
+				s_elem.src = script_extension[i][0];
 			document.getElementsByTagName("head")[0].appendChild(s_elem);
+			if (is_inline)
+				setHTML(s_elem, script_extension[i]);
 			swcs.push(s_elem);
 		}
 	}
