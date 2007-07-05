@@ -483,7 +483,7 @@ var parse = function(text) {
 	});
 
 	// <hr>
-	text = text.replace(/(^|\n)\-\-\-/g, "<hr />");
+	text = text.replace(/(^|\n)\-{3,}/g, "<hr />");
 	
 	// tables-parsing pass
     text = text.replace(reReapTables, parseTables);
