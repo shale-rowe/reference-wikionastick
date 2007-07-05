@@ -47,14 +47,16 @@ var page_titles = [
 'Test template',
 'Infinite recursion template',
 'Creole 0.1 testcases',
-'Creole 0.1 testcases (2)'
+'Creole 0.1 testcases(2)',
+'Deprecated syntax',
+'External javascript'
 ];
 
 /* UUZJizdTQtSsJsMSZA-DATA */
-var page_attrs = [0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0];
+var page_attrs = [0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0];
 
 var pages = [
-'[[Main Page]]\n[[Wiki on a Stick syntax|Syntax]]\n[[Hit the ball]]\n[[Creole 0.1 testcases]]\n[[Creole 0.1 testcases (2)]]\n\n[[Special::New page]]\n[[Special::Backlinks]]\n[[Special::Search]]\n\x3Cp style="text-align:center"\x3E\x3Ca href="http://sourceforge.net/"\x3E\x3Cimg src="http://sflogo.sourceforge.net/sflogo.php?group_id=155218" alt="SourceForge.net Logo" border="0"\x3E\x3C/p\x3E',
+'[[Main Page]]\n[[Wiki on a Stick syntax|Syntax]]\n[[Deprecated syntax]]\n[[Hit the ball]]\n[[Creole 0.1 testcases]]\n[[Creole 0.1 testcases(2)]]\n[[External javascript]]\n\n\n[[Special::New page]]\n[[Special::Backlinks]]\n[[Special::Search]]\n\x3Cp style="text-align:center"\x3E\x3Ca href="http://sourceforge.net/"\x3E\x3Cimg src="http://sflogo.sourceforge.net/sflogo.php?group_id=155218" alt="SourceForge.net Logo" border="0"\x3E\x3C/p\x3E',
 '!Info\n[[Special::About|About Wiki on a Stick]]\nThis wiki was last modified in \x3Cspan id="lastDate"\x3E\x3C/span\x3E.\n\n!Pages\n[[Special::All Pages|All Pages]]: a list of all user created pages in this wiki\n[[Locked::|All encrypted pages]]: a list of all encrypted pages\n[[Unlocked::|All plain pages]]: a list of all plain pages\n[[Tagged::|All tagged pages]]: a list of all tagged pages\n[[Special::|All static Special Pages]]: list of all system pages\n[[Special::Pages not yet created|Pages not yet created]]: a list of pages that have links to them, but were still not created \n[[Special::Orphaned Pages|Orphaned Pages]]: a list of pages that once were linked to, but now no page links to them anymore\n[[Special::Search|Search]]: search all wiki pages\n\n!Maintenance\n[[Special::Import|Import wiki]] from an early (or current) version.\n[[Special::Erase Wiki|Erase Wiki]]: delete ALL wiki pages and reset with default data\n\n!Special edits\n[[Special::Edit CSS|Edit CSS]]: edit the global CSS styles\n[[Special::Edit Menu|Edit Menu]]: edit main menu (on the left)\n\n!Options\nYou can customize Wiki on a Stick modifying a few [[Special::Options|Options]].  \n\n\x3Cscript\x3Eel("lastDate").innerHTML = document.lastModified;\x3C/script\x3E',
 'Import a wiki from an early (or current) version:\n\nFile: \x3Cinput id="filename_" type="file" /\x3E&nbsp;\x3Cinput type="button" value="Import" onclick="import_wiki()" /\x3E\n\n\x3Clabel for="cb_import_css"\x3E\x3Cinput type="checkbox" id="cb_import_css" checked="checked"\x3E&nbsp;import also CSS (available only for versions v0.9 and above)\x3C/label\x3E',
 '!Wiki on a Stick version 0.9.3\n\nCurrent version *v0.9.x B* by Daniele C. ([[http://sf.net/users/legolas558/|legolas558]])\nOriginal version (v0.01 &tilde; v0.04) by Andr\u00e9 Wagner\n\n\x3Ccenter\x3E\x3Cbig\x3EWiki on a Stick is licensed under the [[http://www.gnu.org/copyleft/gpl.html|GNU/GPL]] license.\x3C/big\x3E\x3C/center\x3E\n\n!!Thanks to\nThis project wouldn\'t be what it is without the help of other people. If you contributed to Wiki on a Stick and your name is not here (or if you do not want it to be listed here), please send an email to \x3Ca class="world" href="mailto:legolas558 _AT_ users.sourceforge.net"\x3Ethis email address\x3C/a\x3E.\n\n* *Jeremy Ruston* - the creator of the wonderful [[http://www.tiddlywiki.com/|TiddlyWiki]], who served as inspiration for Wiki on a Stick. He also kindly allowed the usage of his saving/loading routines.\n* *Philip O\'Donnel* - creator of the table syntax & parsing code\n* *Tim Lord*\n* *Knut Kohl*\n* *Rob Schmersel*\n* *Michiel van Everdingen* - original javascript implementation of AES encryption\n* *Cyril Mazard* - search feature\n* *jimmac* - author of [[http://jimmac.musichall.cz/i.php?i=gorilla-stock|the icons set]] which we are currently using in WoaS\nAnd, last but not least:\n* [[http://groups.google.com/group/stickwiki/|the StickWiki google group]] users for their support, advices and testing which has pushed WoaS development up to the current status.\n\n!Download\n\nYou can [[http://sourceforge.net/project/showfiles.php?group_id=155218|download the file from here]]. The first time you run, the browser will ask for permission to save data on disk - you should grant that permission, so that the file can modify itself on your disk.\n\n!!Contributing\n[[http://sf.net/projects/stickwiki/|SourceForge project home page]]\n\nIf you find a bug, please file it to our project\'s [[http://sourceforge.net/tracker/?group_id=155218&atid=794925|SourceForge bug tracker]]\n\nIf you have suggestions for improvements please use [[http://sourceforge.net/tracker/?group_id=155218&atid=794928|our SourceForge project facilities]]',
@@ -73,7 +75,9 @@ var pages = [
 '\x3Cbig style="color:orange"\x3E%1 had a little %2\x3C/big\x3E\n\n[[Include::Infinite recursion template]]',
 'This template attempts to trigger infinite recursion\n\n[[Include::Test template]]',
 '!Creole 0.1 testcases\n\nSee also [[http://www.wikicreole.org/wiki/Creole0.1TestCases]]\n\n== This a test for creole 0.1 (1)\n=== This is a Subheading (2)\n==== Subsub (3)\n===== Subsubsub (4)\n\nYou can make things **bold** or //italic// or **//both//**.\n\nCharacter formatting extends across line breaks: **bold,\nthis is still bold. This line deliberately does not end in star-star.\n\nNot bold. Character formatting does not cross paragraph boundaries.\n\nYou can use [[InternalLinks]] or [[http://www.wikicreole.org|external Links]], give the link a [[InternalLinks| different]] name.\n\nHere\'s another sentence: This Wisdom is taken from [[Ward Cunninghams]] [[http://www.c2.com/doc/wikisym/WikiSym2006.pdf|Presentation at the Wikisym 06]]\n\nHere\'s a external link without a description...\n[[http://www.wikicreole.org]]\n\nyou can use this to draw a line to seperate the page\n----\n\nyou can format a adress by simply adding linebreaks\n\nMy contact dates:\nPone: xyz\nFax: +45\nMobile: abc\n\nYou can use lists, start it at the first column for now, please...\n\nunnumbered lists are like\n* item a\n* item b\n* **bold item c**\n\nor you can number them\n# [[item a]]\n# item b\n# // italic item c //\n\nup to five levels\n* 1\n** 2\n*** 3\n**** 4\n***** 5\n\nyou can use nowiki syntax if you would like do stuff like this\n\n{{{\nGuitar Chord C:\n\n||---|---|---|\n||-0-|---|---|\n||---|-0-|---|\n||---|---|-0-|\n||---|---|---|\n}}}\n\nor if you need that {{{ in a sentence }}} like this.',
-'!Creole 0.1 testcases (2)\n\n== Headings\n\n== Heading2\n=== Heading3\n==== Heading4\n===== Heading5\n\n==Heading2\n===Heading3\n====Heading4\n=====Heading5\n\n== Heading2 =\n=== Heading3 =\n==== Heading4 =====\n===== Heading5 ==\n\n\n\n== Bold and Italic\n\n**bold**\n//italic//\n**//bolditalic//**\n\nA normal sentence. **A bold sentence\nthat continues in bold over a line break.** And another normal sentence.\n\nA normal sentence. **A bold sentence that is not terminated by star-star, but is instead is terminated by a paragraph break.\n\nA normal sentence.\n\nA normal sentence. //An italic sentence\nthat continues in italic over a line break.// And another normal sentence.\n\nA normal sentence. //An italic sentence that is not terminated by slash-slash, but is instead is terminated by a paragraph break.\n\nA normal sentence.\n\n== Preformatted text\n\nNormal text {{{preformatted text}}} Normal text.\n\n{{{\nA block\nof preformatted text\n}}}\n\n== Links\n[[explicitlink]]\n\n[[link|explicitlinkTitle]]\n\nhttp://www.wikicreole.org\n\n[[http://www.wikicreole.org|Wiki Creole Site]]\n\n== Misc\n\nA horizontal rule follows\n----\n\n== Lists\n* bulleted list\n* bullet 2\n** bullet level 2\n*** bullet level 3\n\n# numbered list\n# item 2\n## item 2.1\n### item 2.1.1\n#### item 2.1.1.1\n##### item 2.1.1.1.1\n# item 3\n# item 4\n'
+'!Creole 0.1 testcases (2)\n\n== Headings\n\n== Heading2\n=== Heading3\n==== Heading4\n===== Heading5\n\n==Heading2\n===Heading3\n====Heading4\n=====Heading5\n\n== Heading2 =\n=== Heading3 =\n==== Heading4 =====\n===== Heading5 ==\n\n\n\n== Bold and Italic\n\n**bold**\n//italic//\n**//bolditalic//**\n\nA normal sentence. **A bold sentence\nthat continues in bold over a line break.** And another normal sentence.\n\nA normal sentence. **A bold sentence that is not terminated by star-star, but is instead is terminated by a paragraph break.\n\nA normal sentence.\n\nA normal sentence. //An italic sentence\nthat continues in italic over a line break.// And another normal sentence.\n\nA normal sentence. //An italic sentence that is not terminated by slash-slash, but is instead is terminated by a paragraph break.\n\nA normal sentence.\n\n== Preformatted text\n\nNormal text {{{preformatted text}}} Normal text.\n\n{{{\nA block\nof preformatted text\n}}}\n\n== Links\n[[explicitlink]]\n\n[[link|explicitlinkTitle]]\n\nhttp://www.wikicreole.org\n\n[[http://www.wikicreole.org|Wiki Creole Site]]\n\n== Misc\n\nA horizontal rule follows\n----\n\n== Lists\n* bulleted list\n* bullet 2\n** bullet level 2\n*** bullet level 3\n\n# numbered list\n# item 2\n## item 2.1\n### item 2.1.1\n#### item 2.1.1.1\n##### item 2.1.1.1.1\n# item 3\n# item 4\n',
+'!Deprecated syntax\n\n{{{\n\n* unordered lists with + sign instead of asterisk (automatically replaced)\n* unordered lists with + sign (automatically replaced)\n\n! headers using the exclamation mark\n\nhorizontal rulers using only 3 hyphens --- you are invited to use at least 4 hyphens ----\n\n}}}',
+'!External javascript\n\nThis page attempts to include an external example.js file\n\n\x3Cscript src="example.js"\x3E\x3C/script\x3E'
 ];
 
 /* UUZJizdTQtSsJsMSZA-END */
@@ -516,6 +520,8 @@ function raw_source_escape(src) {
 
 // used not to break layout when presenting search results
 var force_inline = false;
+// external javascript files to be loaded
+var external_scripts = [];
 
 // Parse typed code into HTML - allows overriding
 var parse = function(text) {
@@ -574,9 +580,13 @@ var parse = function(text) {
 		return r;
 	});
 	
+	external_scripts = [];
 	// gather all script tags
-	text = text.replace(/<script[^>]*>((.|\n)*?)<\/script>/gi, function (str, $1) {
-		script_tags.push($1);
+	text = text.replace(/<script([^>]*)>((.|\n)*?)<\/script>/gi, function (str, $1, $2) {
+		var m=$1.match(/src=(?:"|')([^\s'">]+)/);
+		if (m!=null)
+			external_scripts.push(m[1]);
+		script_tags.push($2);
 		return "";
 	});
 	
@@ -773,7 +783,7 @@ var parse = function(text) {
 		
 	if (script_tags.length)
 		post_dom_render = script_tags.join("\n");
-	
+		
 	if (text.substring(0,5)!="</div")
 		return "<div class=\"level0\">" + text + "</div>";
 	return text.substring(6)+"</div>";
@@ -1450,13 +1460,15 @@ function set_current(cr)
 	load_as_current(cr, text);
 }
 
-var swcs = null;
+var swcs = [];
 
 function _clear_swcs() {
 //	setHTML(swcs, "");
-	if (swcs == null) return;
-	document.getElementsByTagName("head")[0].removeChild(swcs);
-	swcs = null;
+	if (!swcs.length) return;
+	for(var i=0;i<swcs.length;i++) {
+		document.getElementsByTagName("head")[0].removeChild(swcs[i]);
+	}
+	swcs = [];
 }
 
 function create_breadcrumb(title) {
@@ -1480,14 +1492,26 @@ function load_as_current(title, text) {
 	update_nav_icons(title);
 	current = title;
 	// add the custom script (if any)
-	if (post_dom_render!="") {
-		log("Executing "+post_dom_render.length+" bytes of custom javascript");
+	if ((post_dom_render!="") || external_scripts.length) {
+		log("Executing "+post_dom_render.length+" bytes of custom javascript and including "+external_scripts.length + " external javascript files");
 //		eval(post_dom_render);
-		swcs = document.createElement("script");
-		swcs.type="text/javascript";
-		swcs.id = "sw_custom_script";
-		document.getElementsByTagName("head")[0].appendChild(swcs);
-		setHTML(swcs, post_dom_render);
+		if (post_dom_render.length) {
+			var s_elem = document.createElement("script");
+			s_elem.type="text/javascript";
+			s_elem.id = "sw_custom_script";
+			document.getElementsByTagName("head")[0].appendChild(s_elem);
+			setHTML(s_elem, post_dom_render);
+			swcs.push(s_elem);
+		}
+		var s_elem;
+		for (var i=0;i<external_scripts.length;i++) {
+			s_elem = document.createElement("script");
+			s_elem.type="text/javascript";
+			s_elem.id = "sw_custom_script_"+i;
+			s_elem.src = external_scripts[i];
+			document.getElementsByTagName("head")[0].appendChild(s_elem);
+			swcs.push(s_elem);
+		}
 	}
 //	setHTML(swcs, post_dom_render);
 	post_dom_render = "";
@@ -3401,7 +3425,7 @@ function AES_decrypt(raw_data) {
 <table cellspacing="0" width="100%">
 <tbody>
 <tr>
-<td width="80%"><span class="title" id="wiki_title">Creole 0.1 testcases (2)</span></td>
+<td width="80%"><span class="title" id="wiki_title">External javascript</span></td>
 <td align="right" width="20%">
 <div id="menu_back" style="display: inline; cursor: pointer; visibility: visible;" onclick="go_back()"><img id="img_back" style="display: inline; visibility: visible;" alt="Back" src="data:image/png;base64,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"><span id="alt_back" style="display: none; font-size: 24pt; font-family: wingdings; visibility: hidden;"></span></div>
 <div id="menu_forward" style="display: none; cursor: pointer; visibility: hidden;" onclick="go_forward()"><img id="img_forward" style="display: inline; visibility: visible;" alt="Forward" src="data:image/png;base64,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"><span id="alt_forward" style="display: none; font-size: 24pt; font-family: wingdings; visibility: hidden;"></span></div>
@@ -3428,7 +3452,7 @@ function AES_decrypt(raw_data) {
 <div style="text-align: center;"><a class="link" onclick="edit_ns_menu()">[Edit]</a></div></div></div>
 <div class="text_area" id="wiki_text" ondblclick="page_dblclick()"></div></div>
 <div id="edit_area" style="display: none; visibility: hidden;">
-<div id="edit_page_title" style="display: block;">Page title: <input id="wiki_page_title" size="50" value="Hit the ball"></div><textarea id="wiki_editor" style="width: 994px; height: 403px;" rows="0" cols="0"></textarea> 
+<div id="edit_page_title" style="display: block;">Page title: <input id="wiki_page_title" size="50" value="Hit the ball"></div><textarea id="wiki_editor" style="width: 994px; height: 431px;" rows="0" cols="0"></textarea> 
 <table style="font-size: 8pt;">
 <tbody>
 <tr>

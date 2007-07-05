@@ -278,6 +278,8 @@ function raw_source_escape(src) {
 
 // used not to break layout when presenting search results
 var force_inline = false;
+// external javascript files to be loaded
+var external_scripts = [];
 
 // Parse typed code into HTML - allows overriding
 var parse = function(text) {
@@ -336,9 +338,13 @@ var parse = function(text) {
 		return r;
 	});
 	
+	external_scripts = [];
 	// gather all script tags
-	text = text.replace(/<script[^>]*>((.|\n)*?)<\/script>/gi, function (str, $1) {
-		script_tags.push($1);
+	text = text.replace(/<script([^>]*)>((.|\n)*?)<\/script>/gi, function (str, $1, $2) {
+		var m=$1.match(/src=(?:"|')([^\s'">]+)/);
+		if (m!=null)
+			external_scripts.push(m[1]);
+		script_tags.push($2);
 		return "";
 	});
 	
@@ -535,7 +541,7 @@ var parse = function(text) {
 		
 	if (script_tags.length)
 		post_dom_render = script_tags.join("\n");
-	
+		
 	if (text.substring(0,5)!="</div")
 		return "<div class=\"level0\">" + text + "</div>";
 	return text.substring(6)+"</div>";
@@ -1212,13 +1218,15 @@ function set_current(cr)
 	load_as_current(cr, text);
 }
 
-var swcs = null;
+var swcs = [];
 
 function _clear_swcs() {
 //	setHTML(swcs, "");
-	if (swcs == null) return;
-	document.getElementsByTagName("head")[0].removeChild(swcs);
-	swcs = null;
+	if (!swcs.length) return;
+	for(var i=0;i<swcs.length;i++) {
+		document.getElementsByTagName("head")[0].removeChild(swcs[i]);
+	}
+	swcs = [];
 }
 
 function create_breadcrumb(title) {
@@ -1242,14 +1250,26 @@ function load_as_current(title, text) {
 	update_nav_icons(title);
 	current = title;
 	// add the custom script (if any)
-	if (post_dom_render!="") {
-		log("Executing "+post_dom_render.length+" bytes of custom javascript");
+	if ((post_dom_render!="") || external_scripts.length) {
+		log("Executing "+post_dom_render.length+" bytes of custom javascript and including "+external_scripts.length + " external javascript files");
 //		eval(post_dom_render);
-		swcs = document.createElement("script");
-		swcs.type="text/javascript";
-		swcs.id = "sw_custom_script";
-		document.getElementsByTagName("head")[0].appendChild(swcs);
-		setHTML(swcs, post_dom_render);
+		if (post_dom_render.length) {
+			var s_elem = document.createElement("script");
+			s_elem.type="text/javascript";
+			s_elem.id = "sw_custom_script";
+			document.getElementsByTagName("head")[0].appendChild(s_elem);
+			setHTML(s_elem, post_dom_render);
+			swcs.push(s_elem);
+		}
+		var s_elem;
+		for (var i=0;i<external_scripts.length;i++) {
+			s_elem = document.createElement("script");
+			s_elem.type="text/javascript";
+			s_elem.id = "sw_custom_script_"+i;
+			s_elem.src = external_scripts[i];
+			document.getElementsByTagName("head")[0].appendChild(s_elem);
+			swcs.push(s_elem);
+		}
 	}
 //	setHTML(swcs, post_dom_render);
 	post_dom_render = "";

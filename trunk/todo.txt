@@ -21,8 +21,6 @@
 
 * optional CSS import
 
-* external javascript custom scripts
-
 * add license
 
 * check deletion of pages through "erase all" feature
