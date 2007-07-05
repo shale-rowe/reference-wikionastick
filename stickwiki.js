@@ -247,6 +247,35 @@ function _sq_esc(s) {
 	return s.replace(/\\/g, "\\\\").replace(/'/g, "\\'");
 }
 
+// used to escape blocks of source into HTML-valid output
+function raw_source_escape(src) {
+	return src.replace(/[<>&]+/g, function ($1) {
+		var l=$1.length;
+		var s="";
+		for(var i=0;i<l;i++) {
+			switch ($1.charAt(i)) {
+				case '<':
+					s+="&lt;";
+					break;
+				case '>':
+					s+="&gt;";
+					break;
+//				case '&':
+				default:
+					s+="&amp;";
+			}
+		}
+		return s;
+	}).replace(/[^\u0000-\u007F]+/g, function ($1) {
+		var l=$1.length;
+		var s="";
+		for(var i=0;i<l;i++) {
+			s+="&#"+$1.charCodeAt(i)+";";
+		}
+		return s;
+	});
+}
+
 // used not to break layout when presenting search results
 var force_inline = false;
 
@@ -295,34 +324,15 @@ var parse = function(text) {
 	var script_tags = [];
 	
 	// put away stuff contained in nowiki tags {{{ * }}}
+	text = text.replace(/\{\{\{(.*?)\}\}\}/g, function (str, $1) {
+		var r = "<!-- "+parse_marker+"::"+html_tags.length+" -->";
+		html_tags.push("<tt class=\"wiki_preformatted\">"+raw_source_escape($1)+"</tt>");
+		return r;
+	});
+
 	text = text.replace(/\{\{\{((.|\n)*?)\}\}\}/g, function (str, $1) {
 		var r = "<!-- "+parse_marker+"::"+html_tags.length+" -->";
-		// perform a 2-pass raw HTML encoding
-		html_tags.push("<pre class=\"wiki_preformatted\">"+$1.replace(/[<>&]+/g, function ($1) {
-			var l=$1.length;
-			var s="";
-			for(var i=0;i<l;i++) {
-				switch ($1.charAt(i)) {
-					case '<':
-						s+="&lt;";
-						break;
-					case '>':
-						s+="&gt;";
-						break;
-//					case '&':
-					default:
-						s+="&amp;";
-				}
-			}
-			return s;
-		}).replace(/[^\u0000-\u007F]+/g, function ($1) {
-			var l=$1.length;
-			var s="";
-			for(var i=0;i<l;i++) {
-				s+="&#"+$1.charCodeAt(i)+";";
-			}
-			return s;
-		})+"</pre>");
+		html_tags.push("<pre class=\"wiki_preformatted\">"+raw_source_escape($1)+"</pre>");
 		return r;
 	});
 	
