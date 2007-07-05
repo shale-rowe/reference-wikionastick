@@ -129,15 +129,24 @@ var parse_marker = "#"+_random_string(8);
 
 function _get_tags(text) {
 	var tags = new Array();
-	if (text.indexOf("Tag::")==0) {
-		tags.push(text.substring(5));
-	} else if (text.indexOf("Tags::")==0) {
-		var alltags = text.substring(6).split(",");
+	if (text.indexOf("Tag::")==0)
+		tags.push(sw_trim(text.substring(5)));
+	else if (text.indexOf("Tags::")==0) {
+		text = text.substring(6);
+		var alltags;
+		if (text.indexOf("|")!=-1)
+			alltags = text.split("|");
+		else
+			alltags = text.split(",");
 		for(var i=0;i<alltags.length;i++) {
-			tags.push(alltags[i].replace(/^\s/g, "").replace(/\s$/g, ""));
+			tags.push(sw_trim(alltags[i]));
 		}
 	}
 	return tags;
+}
+
+function sw_trim(s) {
+	return s.replace(/(^\s*)|(\s*$)/, '');
 }
 
 function header_anchor(s) {
@@ -276,6 +285,13 @@ function raw_source_escape(src) {
 	});
 }
 
+function _filter_wiki(s) {
+	return s.replace(/\{\{\{((.|\n)*?)\}\}\}/g, "").
+		replace(/<script[^>]*>((.|\n)*?)<\/script>/gi, "").
+		replace(/\<\w+\s[^>]+>/g, "").
+		replace(/\<\/\w[^>]+>/g, "");
+}
+
 // used not to break layout when presenting search results
 var force_inline = false;
 // external javascript files to be loaded
@@ -294,7 +310,7 @@ var parse = function(text) {
 		do {
 			var trans = 0;
 			text = text.replace(/\[\[Include::([^\]]+)\]\]/g, function (str, $1) {
-				var parts = $1.split(/\|/);
+				var parts = $1.split("|");
 				var templname = parts[0];
 				log("Transcluding "+templname+"("+parts.slice(0).toString()+")");
 				var templtext = get_text(templname);
@@ -304,7 +320,7 @@ var parse = function(text) {
 						templs += "|"+parts.slice(1).join("|");
 					return "[<!-- -->[Include::"+templs+"]]";
 				}
-				templtext = templtext.replace(/%(\d+)/g,	function(param, paramno) {
+				templtext = templtext.replace(/%(\d+)/g, function(param, paramno) {
 					if (paramno < parts.length)
 						return parts[paramno];
 					else
@@ -365,8 +381,7 @@ var parse = function(text) {
 	});
 	
 	// links with | 
-	text = text.replace(/\[\[([^\]\]]*?)\|(.*?)\]\]/g, function(str, $1, $2)
-			{
+	text = text.replace(/\[\[([^\]\]]*?)\|(.*?)\]\]/g, function(str, $1, $2) {
 			if ($1.search(/^\w+:\/\//)==0) {
 				var r="<!-- "+parse_marker+'::'+html_tags.length+" -->";
 				html_tags.push("<a class=\"world\" href=\"" + $1.replace(/^mailto:\/\//, "mailto:") + "\" target=\"_blank\">" + $2 + "<\/a>");
@@ -383,56 +398,54 @@ var parse = function(text) {
 					var r="<!-- "+parse_marker+'::'+html_tags.length+" -->";
 					html_tags.push("<a class=\"link\" onclick='go_to(\"" + _sq_esc(page) +	"\")" + gotohash + "'>" + $2 + "<\/a>");
 					return r;
-				}
-				else {
+				} else {
 					if ($1.charAt(0)=="#") {
 						var r="<!-- "+parse_marker+'::'+html_tags.length+" -->";
 						html_tags.push("<a class=\"link\" href=\"#" +header_anchor($1.substring(1)) + "\">" + $2 + "<\/a>");
 						return r;
+					} else {
+						var r="<!-- "+parse_marker+'::'+html_tags.length+" -->";
+						html_tags.push("<a class=\"unlink\" onclick='go_to(\"" +
+									_sq_esc($1)+"\")'>" + $2 + "<\/a>");
+						return r;
 					}
-				else {
-					var r="<!-- "+parse_marker+'::'+html_tags.length+" -->";
-					html_tags.push("<a class=\"unlink\" onclick='go_to(\"" + _sq_esc($1)+"\")'>" + $2 + "<\/a>");
-					return r;
-				}
 				}
 			}); //"<a class=\"wiki\" onclick='go_to(\"$2\")'>$1<\/a>");
 	// links without |
 	var inline_tags = 0;
-	text = text.replace(/\[\[([^\]]*?)\]\]/g, function(str, $1)
-			{
-				if ($1.search(/^\w+:\/\//)==0) {
-					var r="<!-- "+parse_marker+'::'+html_tags.length+" -->";
-					$1 = $1.replace(/^mailto:\/\//, "mailto:");
-					html_tags.push("<a class=\"world\" href=\"" + $1 + "\" target=\"_blank\">" + $1 + "<\/a>");
-					return r;
-				}
-					
-				found_tags = _get_tags($1);
-				
-				if (found_tags.length>0) {
-					tags = tags.concat(found_tags);
-					if (!force_inline)
-						return "";
-					inline_tags++;
-					return "<!-- "+parse_marker+":"+inline_tags+" -->";
-				}
-				
-				if(page_exists($1)) {
-					var r="<!-- "+parse_marker+'::'+html_tags.length+" -->";
-					html_tags.push("<a class=\"link\" onclick=\"go_to('" + _sq_esc($1) +"')\">" + $1 + "<\/a>");
-					return r;
-				} else {
-					var r="<!-- "+parse_marker+'::'+html_tags.length+" -->";
-					if ($1.charAt(0)=="#") {
-						html_tags.push("<a class=\"link\" href=\"#" + header_anchor($1.substring(1)) + "\">" + $1.substring(1) + "<\/a>");
-						return r;
-					}
-//					log("Unlinked link: "+$1);
-					html_tags.push("<a class=\"unlink\" onclick=\"go_to('" + _sq_esc($1) +"')\">" + $1 + "<\/a>");
-					return r;
-				}
-					}); //"<a class=\"wiki\" onclick='go_to(\"$1\")'>$1<\/a>");
+	text = text.replace(/\[\[([^\]]*?)\]\]/g, function(str, $1) {
+		if ($1.search(/^\w+:\/\//)==0) {
+			var r="<!-- "+parse_marker+'::'+html_tags.length+" -->";
+			$1 = $1.replace(/^mailto:\/\//, "mailto:");
+			html_tags.push("<a class=\"world\" href=\"" + $1 + "\" target=\"_blank\">" + $1 + "<\/a>");
+			return r;
+		}
+		
+		found_tags = _get_tags($1);
+		
+		if (found_tags.length>0) {
+			tags = tags.concat(found_tags);
+			if (!force_inline)
+				return "";
+			inline_tags++;
+			return "<!-- "+parse_marker+":"+inline_tags+" -->";
+		}
+		
+		if(page_exists($1)) {
+			var r="<!-- "+parse_marker+'::'+html_tags.length+" -->";
+			html_tags.push("<a class=\"link\" onclick=\"go_to('" + _sq_esc($1) +"')\">" + $1 + "<\/a>");
+			return r;
+		} else {
+			var r="<!-- "+parse_marker+'::'+html_tags.length+" -->";
+			if ($1.charAt(0)=="#") {
+				html_tags.push("<a class=\"link\" href=\"#" + header_anchor($1.substring(1)) + "\">" + $1.substring(1) + "<\/a>");
+				return r;
+			}
+//			log("Unlinked link: "+$1);
+			html_tags.push("<a class=\"unlink\" onclick=\"go_to('" + _sq_esc($1) +"')\">" + $1 + "<\/a>");
+			return r;
+		}
+	}); //"<a class=\"wiki\" onclick='go_to(\"$1\")'>$1<\/a>");
 
 	// allow non-wrapping newlines
 	text = text.replace(/\\\n/g, "");
@@ -472,7 +485,7 @@ var parse = function(text) {
 	text = text.replace(/(^|[^\w\/\\])\*([^\*\n]+)\*/g, "$1"+parse_marker+"bS#$2"+parse_marker+"bE#");
 
 	// <strike>
-	//text = text.replace(/(^|\n|\s|\>|\*)\-(.*?)\-/g, "$1<strike>$2<\/strike>");
+	//text = text.replace(/(^|\n|\s|\>|\*)\--(.*?)\--/g, "$1<strike>$2<\/strike>");
 	// <br />
 	
 	text = text.replace(new RegExp(parse_marker+"([ub])([SE])#", "g"), function (str, $1, $2) {
@@ -521,10 +534,10 @@ var parse = function(text) {
 			s = "<div class=\"taglinks\">";
 		s += "Tags: ";
 		for(var i=0;i<tags.length-1;i++) {
-			s+="<a class=\"link tag\" onclick=\"go_to('Tagged::"+_sq_esc(tags[i])+"')\">"+tags[i]+"</a>&nbsp;&nbsp;";
+			s+="<a class=\"link tag\" onclick=\"go_to('Tags::"+_sq_esc(tags[i])+"')\">"+tags[i]+"</a>&nbsp;&nbsp;";
 		}
 		if (tags.length>0)
-			s+="<a class=\"link tag\" onclick=\"go_to('Tagged::"+_sq_esc(tags[tags.length-1])+"')\">"+tags[tags.length-1]+"</a>";
+			s+="<a class=\"link tag\" onclick=\"go_to('Tags::"+_sq_esc(tags[tags.length-1])+"')\">"+tags[tags.length-1]+"</a>";
 		if (!force_inline) {
 			s+="</div>";
 			text += s;
@@ -566,7 +579,8 @@ function _get_namespace_pages(ns) {
 			return "!Pages in "+ns+" namespace\n" + special_encrypted_pages(true);
 		case "Unlocked::":
 			return "!Pages in "+ns+" namespace\n" + special_encrypted_pages(false);
-		case "Tagged::":
+		case "Tagged::": // to be used in wiki source
+		case "Tags::": // to be used in links
 			return "!Pages in "+ns+" namespace\n" + special_tagged_pages(false);
 	}
 
@@ -586,6 +600,7 @@ function _get_tagged(tag) {
 		tmp = get_page(i);
 		if (tmp==null)
 			continue;
+		tmp = _filter_wiki(tmp);
 		tmp.replace(/\[\[([^\|]*?)\]\]/g, function(str, $1)
 			{
 				if ($1.search(/^\w+:\/\//)==0)
@@ -686,11 +701,12 @@ function special_tagged_pages() {
 		tmp = get_page(i);
 		if (tmp==null)
 			continue;
+		tmp = _filter_wiki(tmp);
 		tmp.replace(/\[\[Tags?::([^\]]*?)\]\]/g,
 			function (str, $1) {
 				var tmp=$1.split(",");
 				for(var j=0;j<tmp.length; j++) {
-					var tag=tmp[j].replace(/(^\s*)|(\s*$)/, '');
+					var tag=sw_trim(tmp[j]);
 					if (tags_tree[tag]==null)
 						tags_tree[tag] = [];
 					tags_tree[tag].push(page_titles[i]);
@@ -701,7 +717,7 @@ function special_tagged_pages() {
 	var tag = null, obj = null;
 	for(tag in tags_tree) {
 		obj = tags_tree[tag].sort();
-		s += "\n!![[Tagged::"+tag+"]]\n";
+		s += "\n== [[Tagged::"+tag+"]]\n";
 		for(var i=0;i<obj.length;i++) {
 			s+="* [["+obj[i]+"]]\n";
 		}
@@ -855,7 +871,7 @@ function special_links_here()
 	if(pg.length == 0)
 		return "/No page links here/";
 	else
-		return "!!Links to "+current+"\n"+_join_list(pg);
+		return "== Links to "+current+"\n"+_join_list(pg);
 }
 
 function is_readonly(page) {
@@ -1146,7 +1162,8 @@ function set_current(cr)
 						if (text == null)
 							return;
 						break;
-					case "Tagged":
+					case "Tagged": // deprecated
+					case "Tags":
 						text = _get_tagged(cr);
 						if (text == null)
 							return;
