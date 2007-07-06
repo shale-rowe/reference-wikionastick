@@ -1,6 +1,4 @@
 
-* Export page as HTML
-
 * Export entire wiki as XML (StickWiki 0.9 format|MediaWiki format)
 
 * Import wiki from XML (StickWiki 0.9 format|MediaWiki format)
@@ -18,8 +16,6 @@
 * cumulative save feature
 
 * incremental save marker
-
-* optional CSS import
 
 * add license
 
