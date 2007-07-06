@@ -373,8 +373,8 @@ var parse = function(text) {
 //		last_h_level = 0;
 	} else has_toc = false;
 
-	// put away big enough HTML tags (with attributes)
-	text = text.replace(/\<\w+\s[^>]+>/g, function (tag) {
+	// put away big enough HTML tags sequences (with attributes)
+	text = text.replace(/(<\/?\w+[^>]+>\s*)+/g, function (tag) {
 		var r = "<!-- "+parse_marker+'::'+html_tags.length+" -->";
 		html_tags.push(tag);
 		return r;
@@ -1255,14 +1255,7 @@ function create_breadcrumb(title) {
 	return s+tmp[tmp.length-1];
 }
 
-function load_as_current(title, text) {
-	scrollTo(0,0);
-	log("CURRENT loaded: "+title+", "+text.length+" bytes");
-	el("wiki_title").innerHTML = create_breadcrumb(title);
-	el("wiki_text").innerHTML = parse(text);
-	document.title = title;
-	update_nav_icons(title);
-	current = title;
+function _activate_scripts() {
 	// add the custom script (if any)
 	if (script_extension.length) {
 		log(script_extension.length + " javascript files to process");
@@ -1281,8 +1274,17 @@ function load_as_current(title, text) {
 			swcs.push(s_elem);
 		}
 	}
-//	setHTML(swcs, post_dom_render);
-	post_dom_render = "";
+}
+
+function load_as_current(title, text) {
+	scrollTo(0,0);
+	log("CURRENT loaded: "+title+", "+text.length+" bytes");
+	el("wiki_title").innerHTML = create_breadcrumb(title);
+	el("wiki_text").innerHTML = parse(text);
+	document.title = title;
+	update_nav_icons(title);
+	current = title;
+	_activate_scripts();
 }
 
 function bool2chk(b) {
@@ -1441,8 +1443,10 @@ function refresh_menu_area() {
 	var menu = get_text("::Menu");
 	if (menu == null)
 		el("menu_area").innerHTML = "";
-	else
+	else {
 		el("menu_area").innerHTML = parse(menu);
+		_activate_scripts();
+	}
 }
 
 function _gen_display(id, visible, prefix) {
