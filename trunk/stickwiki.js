@@ -749,6 +749,7 @@ function _get_namespace_pages(ns) {
 		case "Unlocked::":
 			return "= Pages in "+ns+" namespace\n" + special_encrypted_pages(false);
 		case "Tagged::": // to be used in wiki source
+		case "Tags::":
 			return "= Pages in "+ns+" namespace\n" + special_tagged_pages(false);
 	}
 
@@ -862,8 +863,9 @@ function special_search( str )
 }
 
 function special_tagged_pages() {
+	var utags = [];
 	var tags_tree = [];
-	var tmp = null;
+	var tmp = null, ipos;
 	for(var i=0; i<pages.length; i++)
 	{
 		tmp = get_src_page(i);
@@ -874,17 +876,23 @@ function special_tagged_pages() {
 				var tmp=$1.split(",");
 				for(var j=0;j<tmp.length; j++) {
 					var tag=sw_trim(tmp[j]);
-					if (tags_tree[tag]==null)
-						tags_tree[tag] = [];
-					tags_tree[tag].push(page_titles[i]);
+					if (!tag.length) continue;
+					ipos = utags.indexOf(tag);
+					if (ipos==-1) {
+						ipos = utags.length;
+						utags.push(tag);						
+						tags_tree[ipos] = [];
+					}
+					tags_tree[ipos].push(page_titles[i]);
 				}
 			});
 	}
 	var s="";
 	var tag = null, obj = null;
-	for(tag in tags_tree) {
-		obj = tags_tree[tag].sort();
-		s += "\n== [[Tagged::"+tag+"]]\n";
+	var l=utags.length;
+	for(var j=0;j<l;j++) {
+		obj = tags_tree[j].sort();
+		s += "\n== [[Tagged::"+utags[j]+"]]\n";
 		for(var i=0;i<obj.length;i++) {
 			s+="* [["+obj[i]+"]]\n";
 		}
