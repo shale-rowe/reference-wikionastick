@@ -7,22 +7,18 @@
 
 * hotkey to insert timestamp
 
-* import images (embedding)
-
-* import files ("attachments", ASCII-javascript/binary-base64 encoding options)
-
 * XHTML compliance
 
-* cumulative save feature
-
-* incremental save marker
+* cumulative save feature (will be available in v0.9.4B)
 
 * add license
 
-* check deletion of pages through "erase all" feature
+* check deletion of pages through "erase all" feature (seems ok)
 
-* brackets in page titles
+* check effect of square brackets in page titles
 
 * group operations on page lists (deletion, encryption, decryption etc.) maybe also with checkboxes
 
-* possibility to delete an encrypted page even when password is not available (maybe through the above group operations)
+* possibility to delete an encrypted page even when password is not available (maybe through the group operations)
+
+* CSS import flag evaluation + add missing stuff from v0.9 and v0.9.2

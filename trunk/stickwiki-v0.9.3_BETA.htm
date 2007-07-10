@@ -5,16 +5,16 @@
 <script type="text/javascript">
 /* <![CDATA[ */
 
-/* UUZJizdTQtSsJsMSZA-START */
+/* DFQRCTsKlU-0000038-START */
 
 var version = "0.9.3B";
 
-var __marker = "UUZJizdTQtSsJsMSZA";
+var __marker = "DFQRCTsKlU-0000038";
 
 var __config = {
-"permit_edits":true,
+"permit_edits":false,
 "dblclick_edit":false,
-"save_on_quit":false,
+"save_on_quit":true,
 "open_last_page":true,
 "allow_diff":false,
 "key_cache":true,
@@ -41,46 +41,60 @@ var page_titles = [
 'MyPages::Page 1',
 'MyPages::Menu',
 'Special::Options',
-'Hit the ball',
-'Wiki on a Stick syntax',
+'Feature::Custom javascript',
+'Syntax',
 'Transclusion example',
 'Test template',
 'Infinite recursion template',
-'Creole 0.1 testcases',
-'Creole 0.1 testcases(2)',
+'Testcase::Creole 0.1',
 'Deprecated syntax',
-'External javascript'
+'Feature::External javascript',
+'Testcase::WoaS testcases',
+'Features',
+'Options',
+'Test template 2',
+'Special::Embed',
+'File::life snippet.c',
+'Image::alert.png',
+'Special::Bootscript'
 ];
 
-/* UUZJizdTQtSsJsMSZA-DATA */
-var page_attrs = [0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0];
+/* DFQRCTsKlU-0000038-DATA */
+var page_attrs = [0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,12,4];
 
 var pages = [
-'[[Main Page]]\n[[Wiki on a Stick syntax|Syntax]]\n[[Deprecated syntax]]\n[[Hit the ball]]\n[[Creole 0.1 testcases]]\n[[Creole 0.1 testcases(2)]]\n[[External javascript]]\n\n[[Special::New page]]\n[[Special::Backlinks]]\n[[Special::Search]]\n\x3Cp style="text-align:center"\x3E\x3Ca href="http://sourceforge.net/"\x3E\x3Cimg src="http://sflogo.sourceforge.net/sflogo.php?group_id=155218" alt="SourceForge.net Logo" border="0"\x3E\x3C/a\x3E\x3C/p\x3E\n\n\x3Cinput id="menu_string_to_search" type="text" size="6" onfocus="menu_search_focus(true)" onblur="menu_search_focus(false)" /\x3E&nbsp;\x3Cinput style="font-size: 10px;" type="button" value="Search" onclick="menu_do_search()" /\x3E\n\n\x3Cscript\x3E\nfunction menu_search_focus(f) {\n    if (f) {\n       if (current == "Special::Search") {\n//          ff_fix_focus();\n          el(\'string_to_search\').focus();\n       } else\n          search_focused = true;\n    } else {\n       if (current != "Special::Search")\n           search_focused = false;\n    }\n}\n\nfunction menu_do_search() {\n    if (current == "Special::Search") {\n       el(\'string_to_search\').value = el(\'menu_string_to_search\').value;\n       do_search();\n    } else {\n       cached_search = parse(special_search( el(\'menu_string_to_search\').value ));\n       assert_current("Special::Search");\n    }\n}\n\nfunction menu_key_hook(orig_e) {\n    var e;\n    if (!orig_e)\n        e = window.event;\n    else\n        e = orig_e;\n	\n    if (e.keyCode==13) {\n	ff_fix_focus();\n        cached_search = parse(special_search( el(\'menu_string_to_search\').value ));\n        assert_current("Special::Search");\n        return false;\n     }\n     return orig_e;\n}\n\nel(\'menu_string_to_search\').onkeydown = menu_key_hook;\n\n\x3C/script\x3E\n',
-'!Info\n[[Special::About|About Wiki on a Stick]]\nThis wiki was last modified in \x3Cspan id="lastDate"\x3E\x3C/span\x3E.\n\n!Pages\n[[Special::All Pages|All Pages]]: a list of all user created pages in this wiki\n[[Locked::|All encrypted pages]]: a list of all encrypted pages\n[[Unlocked::|All plain pages]]: a list of all plain pages\n[[Tags::|All tagged pages]]: a list of all tagged pages\n[[Special::|All static Special Pages]]: list of all system pages\n[[Special::Pages not yet created|Pages not yet created]]: a list of pages that have links to them, but were still not created \n[[Special::Orphaned Pages|Orphaned Pages]]: a list of pages that once were linked to, but now no page links to them anymore\n[[Special::Search|Search]]: search all wiki pages\n\n!Maintenance\n[[Special::Import|Import wiki]] from an early (or current) version.\n[[Special::Erase Wiki|Erase Wiki]]: delete ALL wiki pages and reset with default data\n\n!Special edits\n[[Special::Edit CSS|Edit CSS]]: edit the global CSS styles\n[[Special::Edit Menu|Edit Menu]]: edit main menu (on the left)\n\n!Options\nYou can customize Wiki on a Stick modifying a few [[Special::Options|Options]].  \n\n\x3Cscript\x3Eel("lastDate").innerHTML = document.lastModified;\x3C/script\x3E',
+'[[Main Page]]\n* [[Syntax]]\n** [[Deprecated syntax|Deprecated]]\n* [[Features]]\n* [[Feature::]]\n** [[Feature::Custom javascript|Custom javascript]]\n** [[Feature::External javascript|External javascript]]\n** [[Image::alert.png|Embedded image]]\n** [[File::life snippet.c|Embedded file]]\n* [[Testcase::]]\n** [[Testcase::WoaS testcases|WoaS testcases]]\n** [[Testcase::Creole 0.1|Creole 0.1]]\n* [[Options]]\n\n* [[Special::]]\n** [[Special::New page|New page]]\n** [[Special::Backlinks|Backlinks]]\n** [[Special::Search|Search]]\n** [[Special::Advanced|Advanced]]\n*** [[Special::Options|Options]]\n\n\x3Cp style="text-align:center"\x3E\x3Ca href="http://sourceforge.net/"\x3E\x3Cimg src="http://sflogo.sourceforge.net/sflogo.php?group_id=155218" alt="SourceForge.net Logo" border="0"\x3E\x3C/a\x3E\x3C/p\x3E\n\n\x3Cinput id="menu_string_to_search" type="text" size="6" onfocus="menu_search_focus(true)" onblur="menu_search_focus(false)" /\x3E&nbsp;\x3Cinput style="font-size: 10px;" type="button" value="Search" onclick="menu_do_search()" /\x3E\n\n\x3Cscript\x3E\nfunction menu_search_focus(f) {\n    if (f) {\n       if (current == "Special::Search") {\n//          ff_fix_focus();\n          el(\'string_to_search\').focus();\n       } else\n          search_focused = true;\n    } else {\n       if (current != "Special::Search")\n           search_focused = false;\n    }\n}\n\nfunction menu_do_search() {\n    if (current == "Special::Search") {\n       el(\'string_to_search\').value = el(\'menu_string_to_search\').value;\n       do_search();\n    } else {\n       cached_search = parse(special_search( el(\'menu_string_to_search\').value ));\n       assert_current("Special::Search");\n    }\n}\n\nfunction menu_key_hook(orig_e) {\n    var e;\n    if (!orig_e)\n        e = window.event;\n    else\n        e = orig_e;\n	\n    if (e.keyCode==13) {\n	ff_fix_focus();\n        cached_search = parse(special_search( el(\'menu_string_to_search\').value ));\n        assert_current("Special::Search");\n        return false;\n     }\n     return orig_e;\n}\n\nel(\'menu_string_to_search\').onkeydown = menu_key_hook;\n\n\x3C/script\x3E\n',
+'== Options\nYou can customize Wiki on a Stick modifying a few [[Special::Options|Options]].  \n\n== Pages\n* [[Special::All Pages]]: a list of all user created pages in this wiki\n* [[Locked::]]: a list of all encrypted pages\n* [[Unlocked::]]: a list of all plain pages\n* [[Tags::]]: a list of all tagged pages\n* [[Special::Search]]: search all wiki pages\n\n== Maintenance\n* [[Special::Pages not yet created|Pages not yet created]]: a list of pages that have links to them, but were still not created \n* [[Special::Orphaned Pages|Orphaned Pages]]: a list of pages that once were linked to, but now no page links to them anymore\n* [[Special::Import|Import wiki]] from an early (or current) version.\n* [[Special::Erase Wiki|Erase Wiki]]: delete ALL wiki pages and reset with default data\n\n== Special edits\n* [[Special::Edit CSS]]: edit the global CSS styles\n* [[Special::Edit Menu]]: edit main menu (on the left)\n* [[Special::Edit Bootscript]]: edit the custom script run once when WoaS is being loaded\n\n== Info\nThis wiki was last modified in \x3Cspan id="lastDate"\x3E\x3C/span\x3E\n\x3Cscript\x3Eel("lastDate").innerHTML = document.lastModified;\x3C/script\x3E',
 'Import a wiki from an early (or current) version:\n\nFile: \x3Cinput id="filename_" type="file" /\x3E&nbsp;\x3Cinput type="button" value="Import" onclick="import_wiki()" /\x3E\n\n\x3Clabel for="cb_import_css"\x3E\x3Cinput type="checkbox" id="cb_import_css" checked="checked"\x3E&nbsp;import also CSS (available only for versions v0.9 and above)\x3C/label\x3E',
-'!Wiki on a Stick version 0.9.3\n\nCurrent version *v0.9.x B* by Daniele C. ([[http://sf.net/users/legolas558/|legolas558]])\nOriginal version (v0.01 &tilde; v0.04) by Andr\u00e9 Wagner\n\n\x3Ccenter\x3E\x3Cbig\x3EWiki on a Stick is licensed under the [[http://www.gnu.org/copyleft/gpl.html|GNU/GPL]] license.\x3C/big\x3E\x3C/center\x3E\n\n!!Thanks to\nThis project wouldn\'t be what it is without the help of other people. If you contributed to Wiki on a Stick and your name is not here (or if you do not want it to be listed here), please send an email to \x3Ca class="world" href="mailto:legolas558 _AT_ users.sourceforge.net"\x3Ethis email address\x3C/a\x3E.\n\n* *Jeremy Ruston* - the creator of the wonderful [[http://www.tiddlywiki.com/|TiddlyWiki]], who served as inspiration for Wiki on a Stick. He also kindly allowed the usage of his saving/loading routines.\n* *Philip O\'Donnel* - creator of the table syntax & parsing code\n* *Tim Lord*\n* *Knut Kohl*\n* *Rob Schmersel*\n* *Michiel van Everdingen* - original javascript implementation of AES encryption\n* *Cyril Mazard* - search feature\n* *jimmac* - author of [[http://jimmac.musichall.cz/i.php?i=gorilla-stock|the icons set]] which we are currently using in WoaS\nAnd, last but not least:\n* [[http://groups.google.com/group/stickwiki/|the StickWiki google group]] users for their support, advices and testing which has pushed WoaS development up to the current status.\n\n!Download\n\nYou can [[http://sourceforge.net/project/showfiles.php?group_id=155218|download the file from here]]. The first time you run, the browser will ask for permission to save data on disk - you should grant that permission, so that the file can modify itself on your disk.\n\n== Important links\n* [[http://sf.net/projects/stickwiki/|SourceForge project home page]] - useful for contributing\n* [[http://woas.iragan.com/|Official WoaS forums]] - our discussion forums where you can also partecipate to the decision processes\n* [[http://sourceforge.net/tracker/?group_id=155218&atid=794925|SF.net WoaS project bug tracker]] - if you find a bug, post it here\n* [[http://sourceforge.net/tracker/?group_id=155218&atid=794928|SF.net WoaS project feature tracker]] - if you have have suggestions for improvements',
-'[[Special::TOC]]\n= Welcome to Wiki on a Stick!\nWelcome to *Wiki on a Stick*! This projects is a [[http://en.wikipedia.org/wiki/Wiki|wiki]] that lives in *one self-modifying HTML file*. It\'s perfect to use in your home or office computer, laptop, USB pen drive (along with [[http://portableapps.com/apps/internet/browsers/portable_firefox|Portable Firefox]] if you want) and even in a diskette! It can be used as a personal notepad, calendar, repository for software documentation, and many other things.\n\n== Where to download\nWiki on a Stick can always be downloaded through the Sourceforge.net file download service:\n\x3Cp style="text-align:center"\x3E\x3Cbig\x3E[[http://sourceforge.net/project/showfiles.php?group_id=155218|Download Wiki on a Stick]]\x3C/big\x3E\x3C/p\x3E\n== How to use\nJust click on the pencil icon at the top and start editing! You can also double click anywhere on the text to edit (if this option is enabled from [[Special::Advanced]]), and you can use escape to cancel editing or to go backward.\n\nWhen you\'re done editing, click on the disk icon to save. Your changes will be permanent if the file you\'re editing is on your own disk.\n\nAre you ready to work with Wiki on a Stick? [[Special::Erase Wiki|Erase all the default content]] and begin to customize it!\n\n== Upgrading\nIf you have an older Wiki on a Stick (v0.01 &tilde; v0.04), [[Special::Import|import it]]!\n\n== Syntax changes in v0.9\nThere have been a few changes in the wiki syntax, they will be automatically applied on import or saving (except the wiki link parts inversion).\n* bullet lists are recognized using an asterisk \'*\' at the beginning of the line, if you use the previous \'+\' plus sign it will be automatically converted to an asterisk\n* wiki link parts are inverted, e.g. no more [\x3C!-- --\x3E[label of main page link|_Main Page_]] but [\x3C!-- --\x3E[_Main Page_|label of main page link]]\n=== New features\n* namespaces support through the separator \'::\'\n* tags support through [\x3C!-- --\x3E[Tag::Sometag]] or [\x3C!-- --\x3E[Tags::Sometag, Somethingelse]] syntax\n* line joining through a slash \'\\\' at the end of the line\n* automatic TOC generation in place of [\x3C!-- --\x3E[Special::TOC]]\n* section links using the syntax [\x3C!-- --\x3E[\x3C!-- --\x3E#[[#Syntax changes in v0.9]]]]\n* anchors for all headers\n* customization of blocks of text under headers through CSS classes /level1-level6/\n* namespace-specific menus creating [\x3C!-- --\x3E[Namespace::Menu]] pages (the main menu is [[::Menu]])\n* alphanumerical lists using \'@\'\n* custom scripts evaluation (see [[Hit the ball]])\n* custom parsing rules through (careful) override of the /parse()/ core function\n* {{\x3C!-- --\x3E{ }}} syntax to disable html/wiki in a block of raw text\n* transclusion support (see [[Transclusion example]] and [[Test template]])\n\nSee also [[Wiki on a Stick syntax]]\n\n== Examples of the new syntax\n=== Special pages\nUsing [[Special::Main Page]] you will always link to the main page, no matters what its name is.\n\nNew pages have red links, like this [[New page]], but you can use [[Special::New page]] to automatically create a new one.\n\n=== Tags, namespaces and encryption\nThere is support for [[Tagged::Nice|tags]] and namespaces. For example, see [[MyPages::Page 1]] (which is encrypted with password /test/) and [[MyPages::Page 2]], both belonging to the [[MyPages::]] namespace. You can also use subnamespaces, like in [[MyPages::Approved::Page 3]].\n\nSee [[Special::Security]] for more information about the embedded AES encryption.\n\n== Other info\nFor informations about credits, bugs/suggestions and download location see [[Special::About]]',
-'!Search in Wiki\n\n\x3Cinput id="string_to_search" type="text" onfocus="search_focus(true)" onblur="search_focus(false)" /\x3E&nbsp;\x3Cinput type="button" value="Search" onclick="do_search()" /\x3E&nbsp;\x3Cinput type="button" value="Clear" onclick="clear_search()" /\x3E\n\n\x3Cscript\x3E\nel("wiki_text").innerHTML += cached_search\n/*\n.replace(hl_reg, function () {\n	var str = arguments[0];\n	for(var i=1;i\x3Carguments.length;i++) {\n		str = str.replace(arguments[i], "\x3Cspan class=\\"search_highlight\\"\x3E"+arguments[i]+"\x3C/span\x3E");\n	}\n	return str; })\nhl_reg = null;	*/\nel("string_to_search").focus();\n\x3C/script\x3E',
-'Hey, don\'t tell anyone around but...I am better than [[MyPages::Page 1]]!',
-'This is a page in a subnamespace!\n\nThe parent namespace is [[MyPages::]] while the subnamespace is [[MyPages::Approved::]]\n\n[[Tag::Useful]]',
-'!!AES encryption\nRead more about the [[Special::Security|embedded AES encryption]] used in Wiki On a Stick.\n\n!!Password\nEnter your password for AES encryption. The more complex your password is, the more difficult it will be to attack the encryption. It is suggested *not* to use passwords whose textbox color is \x3Cspan style="background-color:red"\x3E&nbsp;red&nbsp;\x3C/span\x3E, and to accept passwords only when the textbox color is \x3Cspan style="background-color:lime"\x3E&nbsp;green&nbsp;\x3C/span\x3E. Punctuation and Mixed case characters will exponentially increase the strength of your password.\n\n \x3Cinput type="password" id="pw1" style="background-color:red" value="" size="50" onfocus="custom_focus(true)" onblur="custom_focus(false)" onkeyup="pw_quality()" /\x3E&nbsp;\x3Cspan id="txtBits"\x3E&nbsp;\x3C/span\x3E\n \x3Cinput type="password" id="pw2" value="" size="50" onfocus="custom_focus(true)" onblur="custom_focus(false)" /\x3E\n \x3Cinput id="btn_lock" type="button" value="" /\x3E\n\n\x3Cscript\x3E\nfunction _lock_page() {\nif (current.indexOf("Lock::")!=0) return;\nvar page = current.substring(6);\n\nel("btn_lock").value = "Lock "+page;\nel("pw1").focus();\nel("btn_lock").setAttribute("onclick", "lock_page(\'"+_sq_esc(page)+"\')");\n}\n_lock_page();\n\x3C/script\x3E',
-'!!AES encryption\nSince Wiki on a Stick v0.9 the [[http://en.wikipedia.org/wiki/Advanced_Encryption_Standard|AES]] 256-bit high security data encryption standard is supported to protect a single page or groups of them.\n\nThe first password you enter after having started Wiki on a Stick gets cached (unless you have specified not to do it) and you will no more be asked for it. Further encryptions and decryptions will always use the last password entered; such password is not anyway stored in your saved files (true AES encryption is used).\n\n\x3Ccenter\x3E*If you forget the password there is no way to retrieve it or your data, FOREVER*\x3C/center\x3E\n\n!!How Do I Encrypt a page?\nIn order to encrypt a page you will have to click on the /lock/ icon on the top-right navigation panel; if your page is already encrypted and you want to change the encryption key you will first have to unlock it.\n\n!!Security level\nSecurity is never absolute. Data encrypted with these pages might be compromised in a variety of ways, including but not limited to the following:\n\n* You have not disabled the AES key cache, so when you will enter the password for the first time other users (if not you) will be able to see encrypted pages and could possibly get your key\n* Your Web browser and/or JavaScript interpreter may contain bugs or deliberate security violations which report activity on your computer back to some other Internet site\n* Some other applet running on another page in your browser, perhaps without your being aware of its existence, is spying on other windows\n* Some other "spyware" application running on your computer may have compromised your system\'s security and be snooping on your activity\n* The implementation of the encryption may contain a bug which makes its results insecure, Wiki on a Stick is open-source, you can judge for yourself whether the tool merits your confidence.\n* Your computer\'s security may have been compromised physically; when\'s the last time you checked that a bug that transmits your keystrokes and/or screen contents to that white van parked down the street wasn\'t lurking inside your computer cabinet?\n\nApart from the above, your normal usage of encrypted pages can be considered secure.',
-[110,125,18,70,141,141,28,193,219,118,1,182,8,32,15,89,152,165,40,20,76,58,182,113,64,55,80,235,219,138,81,139,59,108,161,45,246,236,82,228,19,6,56,128,67,225,19,150,192,158,2,187,147,241,207,87,222,95,100,17,250,69,149,248,80,154,219,162,121,204,47,12,71,242,207,133,21,33,253,33,163,105,252,182,159,140,70,151,63,1,145,22,180,181,145,114,10,17,36,133,6,189,153,49,27,199,7,219,207,133,132,112,204,76,136,23,63,160,181,16,45,37,178,88,108,46,170,228],
+'[[Special::TOC]]\n= Welcome to Wiki on a Stick!\nWiki on a Stick (in short *WoaS*) is a [[http://en.wikipedia.org/wiki/Wiki|wiki]] that lives in *one self-modifying XHTML file*. It\'s perfect to be used at home or at office, on your laptop or USB pen drive (along with [[http://portableapps.com/apps/internet/browsers/portable_firefox|Portable Firefox]] if you want) and even in a floppy disk! It can be used as a personal notepad, calendar, repository for software documentation and many other things; it allows full customization and extension by your own scripts or libraries. It also offers [[Special::Security|true AES encryption]] of pages.\n\n== Where to download\nWiki on a Stick can always be downloaded through the official SF.net WoaS project file download service:\n\x3Cdiv style="text-align:center"\x3E\n\x3Cbig\x3E[[http://sourceforge.net/project/showfiles.php?group_id=155218|Download Wiki on a Stick]]\x3C/big\x3E\x3C/div\x3E\n\n== Where to get support\n\nYou can use the [[http://woas.iragan.com/|official WoaS forums]] and/or the [[http://sf.net/projects/stickwiki/|SF.net WoaS project facilities]].\n\n== Version\n\nCurrent version is *v0.9.3 B*\nVersions 0.9&tilde;0.9.3 by Daniele C. ([[http://sf.net/users/legolas558/|legolas558]])\nOriginal version (v0.01 &tilde; v0.04) by Andr\u00e9 Wagner\n\n\x3Ccenter\x3E\x3Cbig\x3EWiki on a Stick is licensed under the [[http://www.gnu.org/copyleft/gpl.html|GNU/GPL]] license.\x3C/big\x3E\x3C/center\x3E\n\n== Thanks to\nThis project wouldn\'t be what it is without the help of other people. If you contributed to Wiki on a Stick and your name is not here (or if you do not want it to be listed here), please send an email to \x3Ca class="world" href="mailto:legolas558 _AT_ users.sourceforge.net"\x3Ethis email address\x3C/a\x3E.\n\n* *Jeremy Ruston* - the creator of the wonderful [[http://www.tiddlywiki.com/|TiddlyWiki]], who served as inspiration for Wiki on a Stick. He also kindly allowed the usage of his saving/loading routines.\n* *Philip O\'Donnel* - creator of the table syntax & parsing code\n* *Tim Lord*\n* *Knut Kohl*\n* *Rob Schmersel*\n* *Michiel van Everdingen* - [[http://home.versatel.nl/MAvanEverdingen/Code/|original javascript implementation]] of AES encryption\n* *Cyril Mazard* - search feature\n* *jimmac* - author of [[http://jimmac.musichall.cz/i.php?i=gorilla-stock|the icons set]] which we are currently using in WoaS\n* *martinellison* - transclusion patch\n\nAnd, last but not least:\n* [[http://groups.google.com/group/stickwiki/|the StickWiki google group]] users for their support, advices and testing which has pushed WoaS development up to the current status.\n\n== Important links\n* [[http://sf.net/projects/stickwiki/|SourceForge project home page]] - useful for contributing\n* [[http://woas.iragan.com/|Official WoaS forums]] - our discussion forums where you can also partecipate to the decision processes\n* [[http://sourceforge.net/tracker/?group_id=155218&atid=794925|SF.net WoaS project bug tracker]] - if you find a bug, post it here\n* [[http://sourceforge.net/tracker/?group_id=155218&atid=794928|SF.net WoaS project feature tracker]] - if you have have suggestions for improvements',
+'[[Include::Special::About]]\n\n\n== How to use\nJust click on the pencil icon at the top and start editing! You can also double click anywhere on the text to edit (if this option is enabled from [[Special::Options]]), and you can use the escape key to cancel editing or to go backward.\n\nWhen you\'re done editing, click on the disk icon to save.\n\n== Client and server interaction\nWoaS is a /client-side application/, you cannot use it on a remote server; your changes will be permanent *only* if the file you\'re editing is on your own disk. The first time you run, the browser will ask for permission to save data on disk - you should grant that permission, so that the file can modify itself on your disk.\n\n== Documentation\nYou are invited to read the following pages to know more about WoaS:\n\n# [[Syntax]]\n# [[Features]]\n# [[Options]]\n\nWhen finished, you can proceed to [[Special::Erase Wiki|erase all pages]] and start from a clean WoaS.\n\n== Upgrading\nIf you have an older Wiki on a Stick you can [[Special::Import|import it]] now.\n',
+'= Search in Wiki\n\n\x3Cinput id="string_to_search" type="text" onfocus="search_focus(true)" onblur="search_focus(false)" /\x3E&nbsp;\x3Cinput type="button" value="Search" onclick="do_search()" /\x3E&nbsp;\x3Cinput type="button" value="Clear" onclick="clear_search()" /\x3E\n\n\x3Cscript\x3E\nvar tmp = el(\'wiki_text\');\nvar pre = \'\x3Cpre class="wiki_preformatted"\x3E\';\nsetHTML(tmp, getHTML(tmp) + cached_search.replace(/\x3Cdiv class="search_results"\x3E((.|\\n)*?)\x3C\\/div\x3E/g,\nfunction (str, ct) {\n    return \'\x3Cdiv class="search_results"\x3E\'+pre+ct.substr(pre.length).replace(_hl_reg, \'\x3Cspan class="search_highlight"\x3E$1\x3C/span\x3E\')+\'\x3C/div\x3E\';\n}));\n//_hl_reg = null;\n// el("string_to_search").focus();\n\x3C/script\x3E',
+'Hey, don\'t tell anyone around but...I am better than [[MyPages::Page 1]]!\n\n[[Tags::example]]',
+'This is a page in a subnamespace!\n\nThe parent namespace is [[MyPages::]] while the subnamespace is [[MyPages::Approved::]]\n\n[[Tag::example]]',
+'== AES encryption\nRead more about the [[Special::Security|embedded AES encryption]] used in Wiki On a Stick.\n\n== Password\nEnter your password for AES encryption. The more complex your password is, the more difficult it will be to attack the encryption. It is suggested *not* to use passwords whose textbox color is \x3Cspan style="background-color:red"\x3E&nbsp;red&nbsp;\x3C/span\x3E, and to accept passwords only when the textbox color is \x3Cspan style="background-color:lime"\x3E&nbsp;green&nbsp;\x3C/span\x3E. Punctuation and Mixed case characters will exponentially increase the strength of your password.\n\n \x3Cinput type="password" id="pw1" style="background-color:red" value="" size="50" onfocus="custom_focus(true)" onblur="custom_focus(false)" onkeyup="pw_quality()" /\x3E&nbsp;\x3Cspan id="txtBits"\x3E&nbsp;\x3C/span\x3E\n \x3Cinput type="password" id="pw2" value="" size="50" onfocus="custom_focus(true)" onblur="custom_focus(false)" /\x3E\n \x3Cinput id="btn_lock" type="button" value="" /\x3E\n\n\x3Cscript\x3E\nfunction _lock_page() {\nif (current.indexOf("Lock::")!=0) return;\nvar page = current.substring(6);\n\nel("btn_lock").value = "Lock "+page;\nel("pw1").focus();\nel("btn_lock").setAttribute("onclick", "lock_page(\'"+_sq_esc(page)+"\')");\n}\n_lock_page();\n\x3C/script\x3E',
+'== AES encryption\nSince Wiki on a Stick v0.9 the [[http://en.wikipedia.org/wiki/Advanced_Encryption_Standard|AES]] 256-bit high security data encryption standard is supported to protect a single page or groups of them.\n\nThe first password you enter after having started Wiki on a Stick gets cached (unless you have specified not to do it) and you will no more be asked for it. Further encryptions and decryptions will always use the last password entered; such password is not anyway stored in your saved files (true AES encryption is used).\n\n\x3Ccenter\x3E*If you forget the password there is no way to retrieve it or your data, FOREVER*\x3C/center\x3E\n\n== How do I encrypt a page?\nIn order to encrypt a page you will have to click on the /lock/ icon on the top-right navigation panel; if your page is already encrypted and you want to change the encryption key you will first have to unlock it.\n\n== Security level\nSecurity is never absolute. Data encrypted with these pages might be compromised in a variety of ways, including but not limited to the following:\n\n* You have not disabled the AES key cache, so when you will enter the password for the first time other users (if not you) will be able to see encrypted pages and could possibly get your key\n* Your Web browser and/or JavaScript interpreter may contain bugs or deliberate security violations which report activity on your computer back to some other Internet site\n* Some other applet running on another page in your browser, perhaps without you being aware of its existence, is spying on other windows\n* Some other "spyware" application running on your computer may have compromised your system\'s security and be snooping on your activity\n* The implementation of the encryption may contain a bug which makes its results insecure, Wiki on a Stick is open-source, you can judge for yourself whether the tool merits your confidence.\n* Your computer\'s security may have been compromised physically; when\'s the last time you checked that a bug that transmits your keystrokes and/or screen contents to that white van parked down the street wasn\'t lurking inside your computer cabinet?\n\nApart from the above, your normal usage of encrypted pages can be considered secure.',
+[56,23,125,70,172,242,22,108,27,244,120,26,172,227,77,111,20,83,29,219,99,60,238,41,115,66,170,108,81,113,66,142,122,114,248,176,130,113,153,125,218,174,81,16,134,24,59,43,220,146,215,140,2,49,157,62,253,126,215,63,28,53,108,107,186,199,149,237,242,166,13,27,6,225,200,185,129,185,75,132,8,250,77,215,2,12,70,41,184,64,102,74,40,4,211,42,160,165,239,72,154,194,14,230,238,35,173,2,171,122,104,58,180,150,108,98,226,194,134,39,214,91,7,59,138,141,40,113],
 '[[Special::]]\n[[MyPages::]]\n[[Special::New page]]',
-'!Options\n\n\x3Clabel for="cb_allow_diff"\x3E\x3Cinput type="checkbox" id="cb_allow_diff" onclick="__config.allow_diff = el_eval(\'cb_allow_diff\')" /\x3EDiff mode (consistent newlines splitting in saved data, useful for versioning)\x3Cbr /\x3E\n\x3Clabel for="cb_permit_edits"\x3E\x3Cinput type="checkbox" id="cb_permit_edits" onclick="__config.permit_edits = !el_eval(\'cb_permit_edits\')" /\x3EDisable edit mode for all pages (useful when publishing the Wiki On a Stick file on a web server)\x3Cbr /\x3E\n\x3Clabel for="cb_dblclick_edit"\x3E\x3Cinput type="checkbox" id="cb_dblclick_edit" onclick="__config.dblclick_edit = el_eval(\'cb_dblclick_edit\')" /\x3EDouble click to edit pages/menu\x3Cbr /\x3E\n\x3Clabel for="cb_save_on_quit"\x3E\x3Cinput type="checkbox" id="cb_save_on_quit" onclick="__config.save_on_quit = el_eval(\'cb_save_on_quit\')" /\x3EAutomatically save options (if changed) before quitting\x3Cbr /\x3E\n\x3Clabel for="cb_key_cache"\x3E\x3Cinput type="checkbox" id="cb_key_cache" onclick="__config.key_cache = !el_eval(\'cb_key_cache\')" /\x3EDo not temporarily cache the AES key (will have to enter it for each encrypted page, useful if you leave WoaS open to possible unauthorized access)\x3Cbr /\x3E\n\x3Clabel for="cb_fixed_layout"\x3E\x3Cinput type="checkbox" id="cb_fixed_layout" onclick="_set_layout(el_eval(\'cb_fixed_layout\'))" /\x3EFixed menu area and topbar\x3Cbr /\x3E\n\x3Clabel for="cb_open_last_page"\x3E\x3Cinput type="checkbox" id="cb_open_last_page" onclick="__config.open_last_page = el_eval(\'cb_open_last_page\')" /\x3EOpen last saved page\x3Cbr /\x3E\n\x3Clabel for="cb_server_mode"\x3E\x3Cinput type="checkbox" id="cb_server_mode" onclick="__config.server_mode = el_eval(\'cb_server_mode\')" /\x3EThis file is currently on a remote server (server-mode)\x3Cbr /\x3E\n\x3Cinput type="button" onclick="save_options()" value="Save options" /\x3E\n\n\x3Cscript\x3E\nel("cb_allow_diff").checked = bool2chk(__config.allow_diff);\nel("cb_open_last_page").checked = bool2chk(__config.open_last_page);\nel("cb_key_cache").checked = bool2chk(!__config.key_cache);\nel("cb_dblclick_edit").checked = bool2chk(__config.dblclick_edit);\nel("cb_permit_edits").checked = bool2chk(!__config.permit_edits);\nel("cb_save_on_quit").checked = bool2chk(__config.save_on_quit);\nel("cb_fixed_layout").checked = (el("sw_wiki_header").style.position == "fixed");\nif (ie6) el("cb_fixed_layout").disabled = true;\n\x3C/script\x3E',
-'!Hit the ball\n\nThis small demo is implemented using a /&lt;script&gt;/ tag in the wiki source.\n\n\x3CDIV id="score" align="center" style="width: 300px; font-weight: bold"\x3EScore: 0\x3C/DIV\x3E\n\x3CINPUT id="startbutton" type="button" onclick="StartGame();" value="Start Game"\x3E \x3CINPUT id="stopbutton" type="button" onclick="StopGame();" value="Stop Game" disabled\x3E\n\n\x3CTABLE style="width: 300px; height: 300px; background-color: white; border: solid 1px black;"\x3E\x3CTR\x3E\x3CTD width="100%" valign="top"\x3E\x3Cimg id="ball" alt="I am a ball" onclick="UpdateScore(10)" ondblclick="UpdateScore(10); return false;" style="position: relative; style:\'text-align: center; font-family: "Comics Sans MS"; width:55px; height:55px;\' src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADQAAAA0BAMAAAA3VgbYAAAAB3RJTUUH1wMfDhQh5GxRLwAAAAlwSFlzAAALEgAACxIB0t1%2B%2FAAAAARnQU1BAACxjwv8YQUAAAAwUExURfdK1t7e3pWVlTk5ORAICAgAAAAAAM7OziEAAHUCAtYAAO8AAPcAAP8AAP%2F%2F%2F94AAA0a9%2BoAAAABdFJOUwBA5thmAAABLklEQVR42mNggAFGJWPXEGMlAQYMIGSWBgbJiugyxWkZM1ftOb1qZluaObpM59q7YHBrBqrco7TOs3eh4M6MND2EDKNZJFwGKDc1GeGWkoy1d5HArTZ3mAy72%2By7KGBnSgFMU%2BZdNDANqo3RbS661M0UiG2PMTQBtdmBpdS6MaV2JIEdkboWU%2BpWGMghzFjMA5poAJQq68EmdSIdKGU2F5vUzWSg0zPOYpO60ybAwITVKqBlCgzMWdillhkwiPVil7qRyKA2F7vUzSR8UmZrsUvdSmYw%2B4td6n4yg9te7FK3UxjCzmKXupOKTwqPgXicgcfx5IUGnuDFEyl4ohJPAsCTbPAlNjxJFE%2FCxpMd8GUiPFkPT4bFl83xFA74ihQ8BRG%2B4gtfoYevqMRSwAIARAJMeDmEvSYAAAAASUVORK5CYII%3D" /\x3E\x3C/TD\x3E\x3C/TR\x3E\x3C/TABLE\x3E\n\n\x3Cscript\x3E\n// fancygame.js - by roger@killerz-tech.net forums\n// bugfixed & improved by legolas558\n\n// Our global variables:\nvar gameRunning = false;\nvar score, difficulty;\nvar xPos = 0;\nvar yPos = 0;\nvar max_speed = 15;\nvar base_speedD = max_speed/2;\nvar xSpeed = max_speed;\nvar ySpeed = -max_speed;\n\nvar targ = "ball";\n\nfunction StartGame() {\ngameRunning = true;\nscore = 1;\ndifficulty = 0;\nel(\'startbutton\').disabled = true;\nel(\'stopbutton\').disabled = false;\n\nFlyAround();\n\nScoreDecay();\n}\n\nfunction StopGame()\n{\ngameRunning = false;\nel(\'stopbutton\').disabled = true;\nel(\'startbutton\').disabled = false;\n}\n\nfunction FlyAround()\n{\nvar speedD = base_speedD + Math.floor(Math.random()*base_speedD-(base_speedD/2));\nif ( Math.round(Math.random()*1) == 0 )\n{\nxSpeed = Math.max(-max_speed, xSpeed - (1-Math.random())*speedD - difficulty/60);\n} else {\nxSpeed = Math.min(max_speed, xSpeed + (1-Math.random())*speedD + difficulty/60);\n}\nif ( Math.round(Math.random()*1) == 0 )\n{\nySpeed = Math.max(-max_speed, ySpeed - (1-Math.random())*speedD - difficulty/60);\n} else {\nySpeed = Math.min(max_speed, ySpeed + (1-Math.random())*speedD + difficulty/60);\n}\n\nxPos += Math.round(xSpeed);\nyPos += Math.round(ySpeed);\n\n// make sure the target doesn\'t move out of the playfield\nif ( xPos \x3E 300-60 ) { xPos = 300-60; xSpeed *= -1; }\nif ( yPos \x3E 300-60 ) { yPos = 300-60; ySpeed *= -1; }\nif ( xPos \x3C 0 ) { xPos = 0; xSpeed *= -1; }\nif ( yPos \x3C 0 ) { yPos = 0; ySpeed *= -1; }\n\nel(targ).style.top = yPos+\'px\';\nel(targ).style.left = xPos+\'px\';\n\n// Repeat the function every tenth of a second, but only if the gamestate is \'on\'\nif ( gameRunning  )\nsetTimeout ( "FlyAround()", 100 );\n\n}\n\nfunction UpdateScore ( delta )\n{\nif (!gameRunning) return;\nscore += delta;\nel(\'score\').innerHTML = "Score: " + score;\n}\n\nfunction ScoreDecay ( )\n{\nif(!gameRunning) return;\nUpdateScore(-1);\ndifficulty += 10;\nsetTimeout ( "ScoreDecay()", 3000);\n}\n\x3C/script\x3E',
-'!Wiki on a Stick syntax\nFollows a brief example of all the capabilities of Wiki on a Stick syntax.\n\n!!Formatting\n!!!Subheader of third level\n!!!!Subheader of fourth level\n{{{This text is rendered without any HTML/wiki parsing, and it does not get _underlined_, as you can see}}}\n\x3Cpre style="color:gray"\x3E\nThis is pre-formatted text (using a &lt;pre&gt; tag) with CSS style!\nAnd it stands on multiple lines too\x3C/pre\x3E\n\nYou can also use any HTML tag: \x3Cspan style="color:red"\x3ESchr\u00f6dinger\'s cat is \x3Cblink style="font-weight:bold"\x3Enot\x3C/blink\x3E dead.\x3C/span\x3E\n\n!!Syntax parser testcases\nOn my right there is some _underlined text_, followed by *bold text* and /italics/.\n\nNow I will use /*italics and bold*/, followed by */bold and italics/* and finally _*/underlined bold italics/*_.\n\nMaybe you want to see some *_/bold underlined italics/_* or also some */_bold italics underlined_/*?\n\nAnd here is, just for you, a partial *bold-/italics/*!!!\n\n*Some bold text* on a line beginning\n\nA windows unix-style path: C:/My_Files/*.ini and C:/My_Files/*.u\nA windows path: C:\\My_Files\\*.ini and C:\\My_Files\\*.u\n\n!!Syntax\nExternal links: [[http://stickwiki.sourceforge.net/|Wiki on a Stick]]\n\nAs you can see, /an/unix/path/ is correctly recognized.\n\nBoldface: *Boldface text*\nItalics: /italics text/\nUnderline: _underlined text_\n\nRuler:\n---\n\nList:\n* Item 1\n** Subitem a\n** Subitem b\n* Item 2\n** Subitem c\n*** Subsubitem d\n* Item 3\n\nNumbered list:\n# Item A\n## Subitem i\n## Subitem ii\n# Item B\n## Subitem iii\n### Subsubitem iv\n# Item C\n\nAlphanumerically ordered list:\n@ Paragraph A\n@ Paragraph B\n@@ Subparagraph 1\n@@ Subparagraph 2\n\n\n!!Tables\n\n{|\n|+ Telephone Table\n| *Column Name* || *Type* || *Other* || *Description*\n|-\n| id || INT || PRIMARY KEY || Row ID\n|-\n| contact_id || INT || KEY || References FOREIGN KEY(Contacts.id)\n|-\n| type || ENUM(\'Home\',\'Work\',\'Mobile\',\'Pager\',\'Other\') || || Defines type of Telephone record\n|-\n| number || CHAR(32) || || Contains actual Telephone number\n|}',
-'!Transclusion example\n\nThis page is partially generated by transclusion, edit it to see the undergoing magic.\n\n[[Include::Test template|Mary|lamb]]\n\n[[Include::Non-existing template|param1]]\n\n!!Related pages\n* [[Test template]]\n* [[Infinite recursion template]]\n* [[Main Page]]',
-'\x3Cbig style="color:orange"\x3E%1 had a little %2\x3C/big\x3E\n\n[[Include::Infinite recursion template]]',
-'This template attempts to trigger infinite recursion\n\n[[Include::Test template]]',
-'!Creole 0.1 testcases\n\nSee also [[http://www.wikicreole.org/wiki/Creole0.1TestCases]]\n\n== This a test for creole 0.1 (1)\n=== This is a Subheading (2)\n==== Subsub (3)\n===== Subsubsub (4)\n\nYou can make things **bold** or //italic// or **//both//**.\n\nCharacter formatting extends across line breaks: **bold,\nthis is still bold. This line deliberately does not end in star-star.\n\nNot bold. Character formatting does not cross paragraph boundaries.\n\nYou can use [[InternalLinks]] or [[http://www.wikicreole.org|external Links]], give the link a [[InternalLinks| different]] name.\n\nHere\'s another sentence: This Wisdom is taken from [[Ward Cunninghams]] [[http://www.c2.com/doc/wikisym/WikiSym2006.pdf|Presentation at the Wikisym 06]]\n\nHere\'s a external link without a description...\n[[http://www.wikicreole.org]]\n\nyou can use this to draw a line to seperate the page\n----\n\nyou can format a adress by simply adding linebreaks\n\nMy contact dates:\nPone: xyz\nFax: +45\nMobile: abc\n\nYou can use lists, start it at the first column for now, please...\n\nunnumbered lists are like\n* item a\n* item b\n* **bold item c**\n\nor you can number them\n# [[item a]]\n# item b\n# // italic item c //\n\nup to five levels\n* 1\n** 2\n*** 3\n**** 4\n***** 5\n\nyou can use nowiki syntax if you would like do stuff like this\n\n{{{\nGuitar Chord C:\n\n||---|---|---|\n||-0-|---|---|\n||---|-0-|---|\n||---|---|-0-|\n||---|---|---|\n}}}\n\nor if you need that {{{ in a sentence }}} like this.',
-'!Creole 0.1 testcases (2)\n\n== Headings\n\n== Heading2\n=== Heading3\n==== Heading4\n===== Heading5\n\n==Heading2\n===Heading3\n====Heading4\n=====Heading5\n\n== Heading2 =\n=== Heading3 =\n==== Heading4 =====\n===== Heading5 ==\n\n\n\n== Bold and Italic\n\n**bold**\n//italic//\n**//bolditalic//**\n\nA normal sentence. **A bold sentence\nthat continues in bold over a line break.** And another normal sentence.\n\nA normal sentence. **A bold sentence that is not terminated by star-star, but is instead is terminated by a paragraph break.\n\nA normal sentence.\n\nA normal sentence. //An italic sentence\nthat continues in italic over a line break.// And another normal sentence.\n\nA normal sentence. //An italic sentence that is not terminated by slash-slash, but is instead is terminated by a paragraph break.\n\nA normal sentence.\n\n== Preformatted text\n\nNormal text {{{preformatted text}}} Normal text.\n\n{{{\nA block\nof preformatted text\n}}}\n\n== Links\n[[explicitlink]]\n\n[[link|explicitlinkTitle]]\n\nhttp://www.wikicreole.org\n\n[[http://www.wikicreole.org|Wiki Creole Site]]\n\n== Misc\n\nA horizontal rule follows\n----\n\n== Lists\n* bulleted list\n* bullet 2\n** bullet level 2\n*** bullet level 3\n\n# numbered list\n# item 2\n## item 2.1\n### item 2.1.1\n#### item 2.1.1.1\n##### item 2.1.1.1.1\n# item 3\n# item 4\n',
-'!Deprecated syntax\n\n{{{\n\n* unordered lists with + sign instead of asterisk (automatically replaced)\n* unordered lists with + sign (automatically replaced)\n\n! headers using the exclamation mark\n\n---\nhorizontal rulers using only 3 hyphens\n\nYou are invited to use at least 4 hyphens\n----\n\n[[Tags::some tag, some other tag]] and [[Tag::some tag]] is deprecated\nin favor of [[Tags::some tag|other tag]]\n\n}}}',
-'!External javascript\n\nThis page attempts to include an external example.js file\n\n\x3Cscript src="example.js"\x3E\x3C/script\x3E'
+'= Options\n\n\x3Clabel for="cb_allow_diff"\x3E\x3Cinput type="checkbox" id="cb_allow_diff" onclick="__config.allow_diff = el_eval(\'cb_allow_diff\')" /\x3EDiff mode (consistent newlines splitting in saved data, useful for versioning)\x3Cbr /\x3E\n\x3Clabel for="cb_permit_edits"\x3E\x3Cinput type="checkbox" id="cb_permit_edits" onclick="__config.permit_edits = !el_eval(\'cb_permit_edits\')" /\x3EDisable edit mode for all pages (useful when publishing the Wiki On a Stick file on a web server)\x3Cbr /\x3E\n\x3Clabel for="cb_dblclick_edit"\x3E\x3Cinput type="checkbox" id="cb_dblclick_edit" onclick="__config.dblclick_edit = el_eval(\'cb_dblclick_edit\')" /\x3EDouble click to edit pages/menu\x3Cbr /\x3E\n\x3Clabel for="cb_save_on_quit"\x3E\x3Cinput type="checkbox" id="cb_save_on_quit" onclick="__config.save_on_quit = el_eval(\'cb_save_on_quit\')" /\x3EAutomatically save options (if changed) before quitting\x3Cbr /\x3E\n\x3Clabel for="cb_key_cache"\x3E\x3Cinput type="checkbox" id="cb_key_cache" onclick="__config.key_cache = !el_eval(\'cb_key_cache\')" /\x3EDo not temporarily cache the AES key (will have to enter it for each encrypted page, useful if you leave WoaS open to possible unauthorized access)\x3Cbr /\x3E\n\x3Clabel for="cb_fixed_layout"\x3E\x3Cinput type="checkbox" id="cb_fixed_layout" onclick="_set_layout(el_eval(\'cb_fixed_layout\'))" /\x3EFixed menu area and topbar\x3Cbr /\x3E\n\x3Clabel for="cb_open_last_page"\x3E\x3Cinput type="checkbox" id="cb_open_last_page" onclick="__config.open_last_page = el_eval(\'cb_open_last_page\')" /\x3EOpen last saved page\x3Cbr /\x3E\n\x3Clabel for="cb_server_mode"\x3E\x3Cinput type="checkbox" id="cb_server_mode" onclick="__config.server_mode = el_eval(\'cb_server_mode\')" /\x3EThis file is currently on a remote server (server-mode)\x3Cbr /\x3E\n\x3Cinput type="button" onclick="save_options()" value="Save options" /\x3E\n\n\x3Cscript\x3E\nel("cb_allow_diff").checked = bool2chk(__config.allow_diff);\nel("cb_open_last_page").checked = bool2chk(__config.open_last_page);\nel("cb_key_cache").checked = bool2chk(!__config.key_cache);\nel("cb_dblclick_edit").checked = bool2chk(__config.dblclick_edit);\nel("cb_permit_edits").checked = bool2chk(!__config.permit_edits);\nel("cb_save_on_quit").checked = bool2chk(__config.save_on_quit);\nel("cb_fixed_layout").checked = (el("sw_wiki_header").style.position == "fixed");\nif (ie6) el("cb_fixed_layout").disabled = true;\n\x3C/script\x3E',
+'!Hit the ball\n\nThis small demo is implemented using a /&lt;script&gt;/ tag in the wiki source.\n\n\x3CDIV id="score" align="center" style="width: 300px; font-weight: bold"\x3EScore: 0\x3C/DIV\x3E\n\x3CINPUT id="startbutton" type="button" onclick="StartGame();" value="Start Game"\x3E \x3CINPUT id="stopbutton" type="button" onclick="StopGame();" value="Stop Game" disabled\x3E\n\n\x3CTABLE style="width: 300px; height: 300px; background-color: white; border: solid 1px black;"\x3E\x3CTR\x3E\x3CTD width="100%" valign="top"\x3E\x3Cimg id="ball" alt="I am a ball" onclick="UpdateScore(10)" ondblclick="UpdateScore(10); return false;" style="position: relative; style:\'text-align: center; font-family: "Comics Sans MS"; width:55px; height:55px;\' src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADQAAAA0BAMAAAA3VgbYAAAAB3RJTUUH1wMfDhQh5GxRLwAAAAlwSFlzAAALEgAACxIB0t1%2B%2FAAAAARnQU1BAACxjwv8YQUAAAAwUExURfdK1t7e3pWVlTk5ORAICAgAAAAAAM7OziEAAHUCAtYAAO8AAPcAAP8AAP%2F%2F%2F94AAA0a9%2BoAAAABdFJOUwBA5thmAAABLklEQVR42mNggAFGJWPXEGMlAQYMIGSWBgbJiugyxWkZM1ftOb1qZluaObpM59q7YHBrBqrco7TOs3eh4M6MND2EDKNZJFwGKDc1GeGWkoy1d5HArTZ3mAy72%2By7KGBnSgFMU%2BZdNDANqo3RbS661M0UiG2PMTQBtdmBpdS6MaV2JIEdkboWU%2BpWGMghzFjMA5poAJQq68EmdSIdKGU2F5vUzWSg0zPOYpO60ybAwITVKqBlCgzMWdillhkwiPVil7qRyKA2F7vUzSR8UmZrsUvdSmYw%2B4td6n4yg9te7FK3UxjCzmKXupOKTwqPgXicgcfx5IUGnuDFEyl4ohJPAsCTbPAlNjxJFE%2FCxpMd8GUiPFkPT4bFl83xFA74ihQ8BRG%2B4gtfoYevqMRSwAIARAJMeDmEvSYAAAAASUVORK5CYII%3D" /\x3E\x3C/TD\x3E\x3C/TR\x3E\x3C/TABLE\x3E\n\n\x3Cscript\x3E\n// fancygame.js - by roger@killerz-tech.net forums\n// bugfixed & improved by legolas558\n\n// Our global variables:\nvar gameRunning = false;\nvar score, difficulty;\nvar xPos = 0;\nvar yPos = 0;\nvar max_speed = 15;\nvar base_speedD = max_speed/2;\nvar xSpeed = max_speed;\nvar ySpeed = -max_speed;\n\nvar targ = "ball";\n\nfunction StartGame() {\ngameRunning = true;\nscore = 1;\ndifficulty = 0;\nel(\'startbutton\').disabled = true;\nel(\'stopbutton\').disabled = false;\n\nFlyAround();\n\nScoreDecay();\n}\n\nfunction StopGame()\n{\ngameRunning = false;\nel(\'stopbutton\').disabled = true;\nel(\'startbutton\').disabled = false;\n}\n\nfunction FlyAround()\n{\nvar speedD = base_speedD + Math.floor(Math.random()*base_speedD-(base_speedD/2));\nif ( Math.round(Math.random()*1) == 0 )\n{\nxSpeed = Math.max(-max_speed, xSpeed - (1-Math.random())*speedD - difficulty/60);\n} else {\nxSpeed = Math.min(max_speed, xSpeed + (1-Math.random())*speedD + difficulty/60);\n}\nif ( Math.round(Math.random()*1) == 0 )\n{\nySpeed = Math.max(-max_speed, ySpeed - (1-Math.random())*speedD - difficulty/60);\n} else {\nySpeed = Math.min(max_speed, ySpeed + (1-Math.random())*speedD + difficulty/60);\n}\n\nxPos += Math.round(xSpeed);\nyPos += Math.round(ySpeed);\n\n// make sure the target doesn\'t move out of the playfield\nif ( xPos \x3E 300-60 ) { xPos = 300-60; xSpeed *= -1; }\nif ( yPos \x3E 300-60 ) { yPos = 300-60; ySpeed *= -1; }\nif ( xPos \x3C 0 ) { xPos = 0; xSpeed *= -1; }\nif ( yPos \x3C 0 ) { yPos = 0; ySpeed *= -1; }\n\nvar tmp = el(targ);\ntmp.style.top = yPos+\'px\';\ntmp.style.left = xPos+\'px\';\n\n// Repeat the function every tenth of a second, but only if the gamestate is \'on\'\nif ( gameRunning  )\nsetTimeout ( "FlyAround()", 100 );\n\n}\n\nfunction UpdateScore ( delta )\n{\nif (!gameRunning) return;\nscore += delta;\nel(\'score\').innerHTML = "Score: " + score;\n}\n\nfunction ScoreDecay ( )\n{\nif(!gameRunning) return;\nUpdateScore(-1);\ndifficulty += 10;\nsetTimeout ( "ScoreDecay()", 3000);\n}\n\x3C/script\x3E\n\n[[Tags::example]]',
+'[[Special::TOC]]\n= Wiki on a Stick syntax\nIn this page you will find examples of all the WoaS wiki syntax.\n\nNew pages have red links, like this [[New page]], but you can use [[Special::New page]] to automatically create a new one through a simple dialog.\n\n== Header of second level\nSome text here\n=== Subheader of third level\nSome text here\n==== Subheader of fourth level\nSome text here\n\n== Formatting\nExternal links: [[http://stickwiki.sourceforge.net/|Wiki on a Stick]]\n\nBoldface: *Boldface text*\nItalics: /italics text/\nUnderline: _underlined text_\n\n{{{This text is rendered without any HTML/wiki parsing, and it does not get _underlined_, as you can see}}}\n\x3Cpre style="color:gray"\x3E\nThis is pre-formatted text (using a &lt;pre&gt; tag) with CSS style!\nAnd it stands on multiple lines too\x3C/pre\x3E\nYou can also use any HTML tag: \x3Cspan style="color:navy"\x3ESchr\u00f6dinger\'s cat is \x3Cblink style="font-weight:bold"\x3Enot\x3C/blink\x3E dead.\x3C/span\x3E\n\n\nRuler:\n---\n\n== Lists\n* Item 1\n** Subitem a\n** Subitem b\n* Item 2\n** Subitem c\n*** Subsubitem d\n* Item 3\n\nNumbered list:\n# Item A\n## Subitem i\n## Subitem ii\n# Item B\n## Subitem iii\n### Subsubitem iv\n# Item C\n\nAlphanumerically ordered list:\n@ Paragraph A\n@ Paragraph B\n@@ Subparagraph 1\n@@ Subparagraph 2\n\n\n== Tables\n\n{|\n|+ Telephone Table\n| *Column Name* || *Type* || *Other* || *Description*\n|-\n| id || INT || PRIMARY KEY || Row ID\n|-\n| contact_id || INT || KEY || References FOREIGN KEY(Contacts.id)\n|-\n| type || ENUM(\'Home\',\'Work\',\'Mobile\',\'Pager\',\'Other\') || || Defines type of Telephone record\n|-\n| number || CHAR(32) || || Contains actual Telephone number\n|}\n\n== New syntax features\n* line joining through a slash \'\\\' at the end of the line\n* automatic TOC generation in place of [\x3C!-- --\x3E[Special::TOC]]\n* section links using the syntax [\x3C!-- --\x3E[\x3C!-- --\x3E#[[Syntax#Syntax changes in v0.9]]]]\n* anchors for all headers (through id attribute)\n* customization of blocks of text under headers through CSS classes /level1-level6/\n* alphanumerical lists using \'@\'\n* custom parsing rules through (careful) override of the /parse()/ core function\n* nowiki syntax {{\x3C!-- --\x3E{ }}\x3C!-- --\x3E} to disable html/wiki in a block of raw text (also works inline)\n\n== Syntax changes since v0.9\nThere have been a few changes in the wiki syntax, they will be automatically applied on import or saving (except the wiki link parts inversion).\n* bullet lists are recognized using an asterisk \'*\' at the beginning of the line, if you use the previous \'+\' plus sign it will be automatically converted to an asterisk\n* wiki link parts are inverted, e.g. no more [\x3C!-- --\x3E[label of main page link|_Main Page_]] but [\x3C!-- --\x3E[_Main Page_|label of main page link]]\n\nSome syntax has also been deprecated, see [[Deprecated syntax]].\n\n[[Tags::help]]',
+'!Transclusion example\n\nThis page is partially generated by transclusion, edit it to see the undergoing magic.\n\n== Existing template\nAn existing template is included here below using the wiki source {{{[[Include::Test template|Mary|lamb]]}}}:\n\n[[Include::Test template|Mary|lamb]]\n\n== Non-existing template\nA non-existing template is included here below:\n\n[[Include::Non-existing template|param1]]\n\n== Related pages\n* [[Test template]]\n* [[Test template 2]]\n* [[Infinite recursion template]]\n* [[Features]]\n\n[[Tags::example]]',
+'\x3Cbig style="color:orange"\x3E%1 had a little %2\x3C/big\x3E\n\n[[Tags::example]]',
+'This template attempts to trigger infinite recursion\n\n[[Include::Test template 2]]\n\n[[Tags::example]]',
+'= Creole 0.1 testcases\n\nSee also [[http://www.wikicreole.org/wiki/Creole0.1TestCases]]\n\n== This a test for creole 0.1 (1)\n=== This is a Subheading (2)\n==== Subsub (3)\n===== Subsubsub (4)\n\nYou can make things **bold** or //italic// or **//both//**.\n\nCharacter formatting extends across line breaks: **bold,\nthis is still bold. This line deliberately does not end in star-star.\n\nNot bold. Character formatting does not cross paragraph boundaries.\n\nYou can use [[InternalLinks]] or [[http://www.wikicreole.org|external Links]], give the link a [[InternalLinks| different]] name.\n\nHere\'s another sentence: This Wisdom is taken from [[Ward Cunninghams]] [[http://www.c2.com/doc/wikisym/WikiSym2006.pdf|Presentation at the Wikisym 06]]\n\nHere\'s a external link without a description...\n[[http://www.wikicreole.org]]\n\nyou can use this to draw a line to seperate the page\n----\n\nyou can format a adress by simply adding linebreaks\n\nMy contact dates:\nPone: xyz\nFax: +45\nMobile: abc\n\nYou can use lists, start it at the first column for now, please...\n\nunnumbered lists are like\n* item a\n* item b\n* **bold item c**\n\nor you can number them\n# [[item a]]\n# item b\n# // italic item c //\n\nup to five levels\n* 1\n** 2\n*** 3\n**** 4\n***** 5\n\nyou can use nowiki syntax if you would like do stuff like this\n\n{{{\nGuitar Chord C:\n\n||---|---|---|\n||-0-|---|---|\n||---|-0-|---|\n||---|---|-0-|\n||---|---|---|\n}}}\n\nor if you need that {{{ in a sentence }}} like this.\n\n!Creole 0.1 testcases (2)\n\n== Headings\n\n== Heading2\n=== Heading3\n==== Heading4\n===== Heading5\n\n==Heading2\n===Heading3\n====Heading4\n=====Heading5\n\n== Heading2 =\n=== Heading3 =\n==== Heading4 =====\n===== Heading5 ==\n\n\n\n== Bold and Italic\n\n**bold**\n//italic//\n**//bolditalic//**\n\nA normal sentence. **A bold sentence\nthat continues in bold over a line break.** And another normal sentence.\n\nA normal sentence. **A bold sentence that is not terminated by star-star, but is instead is terminated by a paragraph break.\n\nA normal sentence.\n\nA normal sentence. //An italic sentence\nthat continues in italic over a line break.// And another normal sentence.\n\nA normal sentence. //An italic sentence that is not terminated by slash-slash, but is instead is terminated by a paragraph break.\n\nA normal sentence.\n\n== Preformatted text\n\nNormal text {{{preformatted text}}} Normal text.\n\n{{{\nA block\nof preformatted text\n}}}\n\n== Links\n[[explicitlink]]\n\n[[link|explicitlinkTitle]]\n\nhttp://www.wikicreole.org\n\n[[http://www.wikicreole.org|Wiki Creole Site]]\n\n== Misc\n\nA horizontal rule follows\n----\n\n== Lists\n* bulleted list\n* bullet 2\n** bullet level 2\n*** bullet level 3\n\n# numbered list\n# item 2\n## item 2.1\n### item 2.1.1\n#### item 2.1.1.1\n##### item 2.1.1.1.1\n# item 3\n# item 4\n\n[[Tags::example]]',
+'= Deprecated syntax\n\nThis page briefly summarizes WoaS deprecated syntax; the below deprecated syntax rules are still supported (unless otherwise specified), but you are invited to _no more_ use them since in version 1.x they will probably be removed.\n\n{{{\n\nBAD:\n+ unordered lists with + sign instead of asterisk\n+ unordered lists with + sign\n\nOnly asterisk lists are parsed:\nGOOD:\n* unordered element 1\n* unordered element 2\n\nBAD:\n! headers using the exclamation mark\nGOOD:\n= header which uses the equal sign\n\nBAD:\n\x3Cpre /\x3E tags with nowiki meaning. Now \x3Cpre /\x3E tags have no special meaning and are treated\nas any other XHTML tag\n\nGOOD:\nYou should use { {{nowiki}} } blocks to achieve the same result\n\nBAD:\n---\nhorizontal rulers using only 3 hyphens\n\nGOOD:\n----\nYou are invited to use at least 4 hyphens\n\nBAD:\n[[Tags::some tag, some other tag]] and [[Tag::some tag]] is deprecated\n\nGOOD:\nIn favor of [[Tags::some tag|other tag|another tag]]\n\n}}}\n\n[[Tags::help]]',
+'!External javascript\n\nThis page attempts to include an external example.js file\n\n\x3Cscript src="example.js"\x3E\x3C/script\x3E\n\n[[Tags::example]]',
+'== Bold vs lists testcase\n\n*bold text*\\\\\n * bold text*\\\\\n* bold text*\\\\\n\n* first level\n** second level *bold text* or * with space*\n*** third level\n** *second level* - beginning with bold\n**second level with no space (see [[Creole:Require Space After Bullet Proposal]])\n** this text does not close, see what happens * not closing\n* first level\n\n== Syntax parsing testcase\nOn my right there is some _underlined text_, followed by *bold text* and /italics/.\n\nNow I will use /*italics and bold*/, followed by */bold and italics/* and finally _*/underlined bold italics/*_.\n\nMaybe you want to see some *_/bold underlined italics/_* or also some */_bold italics underlined_/*?\n\nAnd here is, just for you, a partial *bold-/italics/*!!!\n\n*Some bold text* on a line beginning\n\nAs you can see, /an/unix/path/ is correctly recognized.\n\nA windows unix-style path: C:/My_Files/*.ini and C:/My_Files/*.u\nA windows path: C:\\My_Files\\*.ini and C:\\My_Files\\*.u\n\n[[http://example.com/url*with*asterisks]]\n\n[[Tags::example]]',
+'[[Special::TOC]]\n= Features\n\nThis is a list of the new features implemented during the v0.9.x development cycle.\n\n== Custom javascript\n\nIt is possible to add &lt;script/&gt; tags to your wiki source and they will be correctly rendered in the document &lt;head/&gt; tag upon page loading; also external scripts (using the /src/ attribute) will be parsed and actived, always respecting the order of declaration of the &lt;script /&gt; tags.\n\n*Note:* since the javascript tags are actived from within the &lt;head /&gt; tag, you cannot use document.write() or similar inline javascript statements.\n\nSee also [[Feature::Custom javascript]] and [[Feature::External javascript]]\n\n== Encryption\n\nPages can be locked/unlocked through the apposite icons available on each user page. When a page is /locked/, it gets encrypted with true AES encryption; see [[Special::Security]] for more informations.\n\nAn example encrypted page is [[MyPages::Page 1]]. The password is: *test*\n\n== Namespaces\n\nWhenever you use the \'::\' separator on a page title, namespaces will apply.\nFor example, see [[MyPages::Page 1]] and [[MyPages::Page 2]] both belonging to the [[MyPages::]] namespace.\n\nYou can also use subnamespaces, like in [[MyPages::Approved::Page 3]].\n\nIf you define a page called [\x3C!-- --\x3E[Namespace::Menu]] (where the /::Menu/ postfix is the relevant part), a submenu will be added to the main left menu when pages belonging to /Namespace/ are actived.\n\n=== Reserved namespaces\n\nSome namespaces are reserved for current and future use:\n\n* [[Tagged::]] for all the tagged pages (*note:* also /Tags::/ is reserved)\n* [[Locked::]] for all locked (encrypted) pages and [[Unlocked::]] for plain pages\n* [[Lock::]] and [[Unlock::]] (used internally)\n* [[Special::]] for all the special pages\n* [[WoaS::]] (reserved for future use, will probably take the role of [[Special::]])\n* [[Image::]] for the embedded images\n* [[File::]] for the embedded files\n* [[Include::]] for transclusion\n\n== Tags\n\nThere is support for tags, which are listed in the [[Tagged::]] special namespace page.\n\nAll the example/test pages and documentation available in this default WoaS distribution are tagged with one or more of the following tags:\n\n* [[Tagged::help]]\n* [[Tagged::example]]\n\n== Transclusion\n\nYou can include a page within another using a specific syntax:\n\n[\x3C!-- --\x3E[Include::Test template|parameter 1|parameter 2|...]]\n\nSuch transclusions are *parametric*, e.g. they allow to specify parameters which will be replaced into the transcluded page in place of %1, %2, %3...\n\nTransclusion has a special meaning when used for pages relative to the [[File::]] and [[Image::]] namespaces, see below paragraph [[#Embedding]] for more informations.\n\nSee also [[Transclusion example]] and [[Test template]]\n\n== Embedding\n\nYou can embed files and images within WoaS.\n\n=== Files\n\nThis is an example of an existing embedded file : [[File::life snippet.c]]\nThis is an example of a not-yet-embedded file: [[File::report.log]]. You can embed the file when accessing the not-yet-existing page.\n\nYou can also transclude an embedded file and its content will not be parsed as wiki source.\n\n=== Images\n\nThis is an example of an existing embedded image: [[Image::alert.png]]\n\nYou can transclude such image using the wiki syntax {{{[[Include::Image::alert.png]]}}}, which results in:\n\n[[Include::Image::alert.png]]\n\nYou can also specify additional attributes for the &lt;img /&gt; tag using a pipe \'|\' after the image name.\nFor example, {{{[[Include::Image::alert.png|border="1" style="width:44px; height:44px"]]}}} results in:\n\n[[Include::Image::alert.png|border="1" style="width:44px; height:44px"]]\n\nThis is an example of clickable image, rendered through the wiki syntax {{{[[Include::Image::alert.png|border="0" onclick="go_to(\'Image::alert.png\')" style="cursor:pointer"]]}}}\n\n[[Include::Image::alert.png|border="0" onclick="go_to(\'Image::alert.png\')" style="cursor:pointer"]]\n\nThis is an example of not-yet-embedded image: [[Image::photo.jpg]]\n\nRemember that images are base64-encoded when embedded and become 33% bigger in size; it is suggested to not embed too much big images or files because they can slow down the application (remember that everything is contained in a single file), but that highly depends from the javascript engine of your browser.\n\n[[Tags::help]]',
+'= Options\n\n== Documented options\n\n=== Diff mode\n\nWhen enabled, forces the plain pages to be saved using consistent newlines splitting. This is particularly useful if you use a versioning system like Subversion (SVN) or CVS.\n\n=== Read-only mode\n\nDisable edit mode for all pages; useful when publishing the Wiki On a Stick file on a web server or when distributing it as a browsable-only medium.\n\n=== Double click to edit pages/menu\nAllows to switch to edit mode when double-clicking the page content or menu area\n\n=== Options auto-save\nAutomatically save options (if changed) before quitting\n\n=== AES key cache\nDo not temporarily cache the AES key (will have to enter it for each encrypted page, useful if you leave WoaS open to possible unauthorized access)\n\n=== Fixed menus\nFixed menu area and topbar\n\n=== Open last saved page\nAutomatically opens the last saved page\n\n=== Server mode\nWhen you publish WoaS on a webserver, you should enable server mode; with this option users will be told that it is not possible to save their changes but will be allowed to make them for sandbox purposes.\n\n== Javascript core flags\n\n=== debug_mode\nWhen active shows the debug console and activates other debug-specific code.\n\n=== end_trim\nTrims final newlines and spaces from pages\' wiki source. This flag is likely to be dropped in future versions.\n\n== Related pages\n\n* [[Special::Options]]\n\n[[Tags::help]]',
+'\x3Cbig style="color:lime; font-size: large; font-weight: bold"\x3E%1 had a little %2\x3C/big\x3E\n\n[[Include::Infinite recursion template]]\n\n[[Tags::example]]',
+'= Embed %1\n\n\x3Cinput id="filename_" type="file" /\x3E&nbsp;\x3Cinput type="button" value="Embed" onclick="_embed_process(\'%1\')" /\x3E\n',
+'void LifeFrame::OnSamples(wxCommandEvent& WXUNUSED(event))\n{\n    // stop if it was running\n    OnStop();\n\n    // dialog box\n    LifeSamplesDialog dialog(this);\n\n    if (dialog.ShowModal() == wxID_OK)\n    {\n        const LifePattern pattern = dialog.GetPattern();\n\n        // put the pattern\n        m_life-\x3EClear();\n        m_life-\x3ESetPattern(pattern);\n\n        // recenter canvas\n        m_canvas-\x3ERecenter(0, 0);\n        m_tics = 0;\n        UpdateInfoText();\n    }\n}\n',
+'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAMAAADzapwJAAAAB3RJTUUH1wcHEBwwMJCsHwAAAAlwSFlzAAAewQAAHsEBw2lUUwAAAARnQU1BAACxjwv8YQUAAAJzUExURf8f7evr67W1taWlpdbW1uzs7J6enmouJGosI4ODg93d3TcyMdQdB9EUBzYxMcXFxenp6Y+Pj402G+0VAN4MAIwlGnd3d9ra2tXV1UA1L+Y7Be4eAekRANYQAz8wLrCwsOXl5YCAgKdRGPdEA/QxAfIdAeERAaEjFW1tbe/v71hAKvlpB/pbBfZDA/IuAu0bAd0UAlYwKZOTk+Dg4F5eXsxqEvt3CflwCf////IpAuoYAcIjDVNTU9DQ0JaWlnlOI/uEDPuFEPqEEfU9BO0kAugYAXYyIX5+fu3t7Tc0MeZ7DvuTFvuZHPqXHvqKGft3EfZTB+81A+ohAdwpB+jo6ImJiZFXHvuYGPyjJ/ysM/ytOfpwDfdOBfAwAu8lAo87HHR0dNjY2MnJyUc6LvKLE/ypKfy2P/y9S/y/UfuGGPliCvJFBPIzA+s5BUc3LaampuPj43V1dbRmF/ymJfy3Of3DU/3KYv3MY/ubJPt4EvpUCfVCA/E2A7NNFmRkZNPT06ioqGFFKPuVFPytLv2+Sf3KYf3Qbf3PafuiKfuKFfppC/lQBfg+A/U8A2FBKIuLi9/f3zQzMtV2E/yhH/yxNf2+R/3HXP3LZ/3NafykJ/yOF/lxC/pcBvZGBPU3A9VRDTQzMdfX15qamn5QIvuSEfyfHPysL/y6QfzBTfzDV/zBU/ydH/yLE/t2DPpgB/dLA/Y6A/U6A3tIIvPz8zs2MPuSE/ydGPymJPyyNfy0OfyzN/ysKfyhIPuUF/uGDft0CvtlB/taBfZPA/ZFA+RXCjs1MPDw8E49LIJSIYJRIYJPIYJOIYJNIIJMIIJMIU47LKysrKzWV/gAAAABdFJOUwBA5thmAAABNUlEQVR42mNgwAGML2AAY6Do8RNQcPLkyVOnz5w9e+7ceWOGzVu8tm7b3rxj567de/bu23/g4KHDR44eY2BYtHjJ0mXLV6xcZWGxes3ades3bNwkuBlo+MRJk6dMnTZ9hoXFzFmz58ydN3/BQpCdDY1NzS2tbe0WFh2dXd09vX39E8BuKSwqLiktK7ewqKisqq6prauHODEpOSU1LT3DwiIzKzsnNy+/AOr00LDwiMgoC4vomNi4+IREmI88PL28fXz9/AMCg4K5+UPgPrWzd3B0srBwdnF1c+dCCgETUzNzCwtLK2sbW1YkYXktbR1dPX0DQyNjlABTVFJWUVVT15DQRBGWkJSSlpGVk1dAC19BIWERUTFxjHDn5uHl4xfAEGZj5+DkYsAETMwsrFiEGRgZGQgAAEPKcWQFSaWtAAAAAElFTkSuQmCCAAA=',
+'/* insert here your boot script (javascript)\n\nIf you instead want to add an external file,\nit is suggested to manually insert it before the \x3C/head\x3E tag\n\n*/'
 ];
 
-/* UUZJizdTQtSsJsMSZA-END */
+/* DFQRCTsKlU-0000038-END */
 
 /* ]]> */ </script>
 
@@ -91,7 +105,6 @@ a.link {
 }
 a.link:hover {
   text-decoration: underline;
-  cursor: pointer;
 }
 
 /* unexistent link */
@@ -100,7 +113,6 @@ a.unlink {
 }
 a.unlink:hover {
   text-decoration: underline;
-  cursor: pointer;
 }
 
 /* outside world link */
@@ -108,7 +120,7 @@ a.world {
   color: darkgreen;
   text-decoration: underline;
 }
-a.world:hover {
+a {
   cursor: pointer;
 }
 
@@ -175,7 +187,6 @@ div.menu {
 }
 
 .bg {
-/*	background-color: #CCFFCC;	*/
 	background-color: #F0F0F5;
 }
 
@@ -238,6 +249,28 @@ p.wiki_toc_title {
 	text-align: center;
 }
 
+/* since v0.9.3 Beta */
+.search_highlight { background-color: yellow; }
+
+#loading_overlay {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	text-align: center;
+	padding-top: 25%;
+	z-index: 100;
+	background-color: white;
+	font-size: large;
+	left: 0px;
+	top: 0px;
+	cursor: wait;
+}
+
+div.menu_area ul li, div.menu_area ol li,
+div.ns_menu_area ul li, div.ns_menu_area ol li {
+	margin-left: -2em;
+}
+
 </style>
 <script type="text/javascript">
 /* <![CDATA[ */
@@ -246,27 +279,72 @@ p.wiki_toc_title {
 // page attributes bits are mapped to (readonly, encrypted, ...)
 
 var debug = true;			// toggle debug mode (and console)
-var save_override = true;	// allow to save when debug mode is active
-var was_local = !__config.server_mode;	// to save the server_mode flag once
-var end_trim = true;		// trim pages from the end
+var end_trim = false;		// trim pages from the end
 
-var forstack = new Array();
+var forstack = [];			// forward history stack, discarded when saving
 var cached_search = "";
 var cfg_changed = false;	// true when configuration has been changed
 var search_focused = false;
 var _custom_focus = false;
-var prev_title = current;	// used when entering/exiting edit mode
-var decrypt_failed = false;
-var result_pages;
+var _prev_title = current;	// used when entering/exiting edit mode
+var _decrypt_failed = false;
+var result_pages = [];
 var last_AES_page;
 var current_namespace = "";
-
+var was_local = !__config.server_mode;	// to save the server_mode flag once
+var floating_pages = [];				// pages which need to be saved and are waiting in the queue
+var _bootscript = null;					// bootscript
+var _hl_reg = null;						// search highlighting regex
 
 var ie = false;
 var ie6 = false;
 var firefox = false;
 var opera = false;
-//var unsupported_browser = true;
+
+// will be published in v0.9.4B
+var n__config = {};
+n__config["cumulative_save"] = false;
+n__config["auto_save"] = 5 * 60 * 1000;
+
+// Automatic-Save TimeOut object
+var _asto = null;
+
+/* HERE BEGINS FRAMEWORK CODE */
+
+if((navigator.userAgent).indexOf("Opera")!=-1)
+	opera = true;
+else if(navigator.appName == "Netscape")
+	firefox = true;
+else if((navigator.appName).indexOf("Microsoft")!=-1) {
+	ie = true;
+	ie6 = (navigator.userAgent.search(/msie 6\./i)!=-1);
+}
+
+// finds out if Opera is trying to look like Mozilla
+if (firefox && (navigator.product != "Gecko"))
+	firefox = false;
+
+// finds out if Opera is trying to look like IE
+if (ie && (navigator.userAgent.indexOf("Opera") != -1))
+	ie = false;
+
+var log;
+if (debug) {
+	// logging function - used in development
+	log = function (aMessage)
+	{
+	    var logbox = el("swlogger");
+		nls = logbox.value.match(/\n/g);
+		if (nls!=null && typeof(nls)=='object' && nls.length>11)
+			logbox.value = "";
+		logbox.value += aMessage + "\n";
+	};
+} else {
+	log = function(aMessage) { };
+}
+
+if (!ie)
+	window.onresize = on_resize;
 
 // Returns element by ID
 function el(name)
@@ -274,11 +352,36 @@ function el(name)
 	return document.getElementById(name);
 }
 
+function elHide(id) {
+	el(id).style.display = "none";
+	el(id).style.visibility = "hidden";
+}
+
+function elShow(id) {
+	el(id).style.display = "inline";
+	el(id).style.visibility = "visible";
+}
+
 // fixes the Array prototype for older browsers
 if (typeof Array.prototype.push == "undefined") {
   Array.prototype.push = function(str) {
     this[this.length] = str;
   }
+}
+
+// implements a function which returns an array with unique elements
+Array.prototype.toUnique = function() {
+	var a_o = {}, new_arr = [];
+	var l=this.length;
+	for(var i=0; i<l;i++) {
+		if (a_o[this[i]]==null) {
+			a_o[this[i]] = true;
+			new_arr.push(this[i]);
+		}
+	}
+	if (new_arr.length!=l)
+		return new_arr;
+	return this;
 }
 
 if (typeof Array.prototype.splice == "undefined") {
@@ -305,7 +408,6 @@ if (typeof Array.prototype.indexOf == "undefined") {
 	}
 }
 
-
 // thanks to S.Willison
 RegExp.escape = function(text) {
   if (!arguments.callee.sRE) {
@@ -320,18 +422,145 @@ RegExp.escape = function(text) {
   return text.replace(arguments.callee.sRE, '\\$1');
 }
 
+function str_rep(s, n) {
+	var r = "";
+	while (--n >= 0) r += s;
+	return r;
+}
+
+function _rand(scale) {
+	return Math.floor(Math.random() * scale);
+}
+
+function sw_trim(s) {
+	return s.replace(/(^\s*)|(\s*$)/, '');
+}
+
+function _random_string(string_length) {
+	var chars = "ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
+	var randomstring = '';
+	for (var i=0; i<string_length; i++) {
+		var rnum = _rand(chars.length);
+		randomstring += chars.charAt(rnum);
+	}
+	return randomstring;
+}
+
+// function used to store encrypted pages into javascript strings
+function js_hex_encode(s) {
+	// escape double quotes
+	s = s.replace(new RegExp("\"", "g"), "\\\"");
+	// escape newlines (\r\n happens only on the stupid IE) and eventually split the lines accordingly
+	s = s.replace(new RegExp("\r\n|\n", "g"), "\\n");
+	// and fix also the >= 128 ascii chars (to prevent UTF-8 characters corruption)
+	return s.replace(new RegExp("([^\u0000-\u007F])", "g"), function(str, $1) {
+				var s = $1.charCodeAt(0).toString(16);
+				for(var i=2-s.length;i>0;i--) {
+					s = "0"+s;
+				}
+				return "\\x" + s;
+	});
+}
+
+function js_encode(s, split_lines) {
+	// not to counfound browsers with saved tags
+	s = s.replace(/([\\<>'])/g, function (str, ch) {
+//		return "\\x"+ch.charCodeAt(0).toString(16);
+		switch (ch) {
+			case "<":
+				return	"\\x3C";
+			case ">":
+				return "\\x3E";
+			case "'":
+				return "\\'";
+//			case "\\":
+		}
+		return "\\\\";
+	});
+	// escape newlines (\r\n happens only on the stupid IE) and eventually split the lines accordingly
+	if (!split_lines)
+		s = s.replace(new RegExp("\r\n|\n", "g"), "\\n");
+	else
+		s = s.replace(new RegExp("\r\n|\n", "g"), "\\n\\\n");
+	// and fix also the >= 128 ascii chars (to prevent UTF-8 characters corruption)
+	return s.replace(new RegExp("([^\u0000-\u007F])", "g"), function(str, $1) {
+				var s = $1.charCodeAt(0).toString(16);
+				for(var i=4-s.length;i>0;i--) {
+					s = "0"+s;
+				}
+				return "\\u" + s;
+	});
+}
+
+// used to escape blocks of source into HTML-valid output
+function xhtml_encode(src) {
+	return src.replace(/[<>&]+/g, function ($1) {
+		var l=$1.length;
+		var s="";
+		for(var i=0;i<l;i++) {
+			switch ($1.charAt(i)) {
+				case '<':
+					s+="&lt;";
+					break;
+				case '>':
+					s+="&gt;";
+					break;
+//				case '&':
+				default:
+					s+="&amp;";
+			}
+		}
+		return s;
+	}).replace(/[^\u0000-\u007F]+/g, function ($1) {
+		var l=$1.length;
+		var s="";
+		for(var i=0;i<l;i++) {
+			s+="&#"+$1.charCodeAt(i)+";";
+		}
+		return s;
+	});
+}
+
+function _create_centered_popup(name,fw,fh,extra) {
+	var hpos=Math.ceil((screen.width-fw)/2);
+	var vpos=Math.ceil((screen.height-fh)/2);
+	var wnd = window.open("about:blank",name,"width="+fw+",height="+fh+		
+	",left="+hpos+",top="+vpos+extra);
+	wnd.focus();
+	return wnd;
+}
+
+function _number_format(n, prec) {
+	return n.toString().replace(new RegExp("(\\."+str_rep("\\d", prec)+")\\d*$"), "$1");
+}
+
+function _convert_bytes(bytes) {
+	log("Converting "+bytes+" bytes");
+	if (bytes < 1024)
+		return Math.ceil(bytes)+ " bytes";
+	var k = bytes / 1024, n;
+	if (k >= 1024) {
+		var m = k / 1024;
+		if (m >= 1024)
+			n = _number_format(m/1024,2)+' GB';
+		else
+			n = _number_format(m,2)+' MB';
+	} else
+		n = _number_format(k,2)+' KB';
+	return n.replace(/\.00/, "");
+}
+/* HERE ENDS FRAMEWORK CODE */
+
 function page_index(page) {
 	return page_titles.indexOf(page);
 }
 
 var edit_override = false;
 
-var reserved_namespaces = [
-"Special", "Lock", "Locked", "Unlocked", "Unlock", "Tag", "Tagged", "Image", "File", "Include"];
+var reserved_namespaces = ["Special", "Lock", "Locked", "Unlocked", "Unlock", "Tags", "Tagged", "Include"];
 
 var reserved_rx = "^";
-var i = (edit_override ? 1 : 0);
-for(;i<reserved_namespaces.length;i++) {
+for(var i = (edit_override ? 1 : 0);i<reserved_namespaces.length;i++) {
 	reserved_rx += /*RegExp.Escape(*/reserved_namespaces[i] + "::";
 	if (i<reserved_namespaces.length-1)
 		reserved_rx += "|";
@@ -347,34 +576,16 @@ function page_exists(page)
 	return (is_reserved(page) || (page.substring(page.length-2)=="::") || (page_index(page)!=-1));
 }
 
-function str_rep(s, n) {
-  var r = "";
-   while (--n >= 0) r += s;
-   return r;
-}
-
-function _rand(scale) {
-	return Math.floor(Math.random() * scale);
-}
-
-function _random_string(string_length) {
-	var chars = "ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
-	var randomstring = '';
-	for (var i=0; i<string_length; i++) {
-		var rnum = _rand(chars.length);
-		randomstring += chars.charAt(rnum);
-	}
-	return randomstring;
-}
-
 var parse_marker = "#"+_random_string(8);
 
 function _get_tags(text) {
-	var tags = new Array();
+	var tags = [];
 	if (text.indexOf("Tag::")==0)
 		tags.push(sw_trim(text.substring(5)));
 	else if (text.indexOf("Tags::")==0) {
-		text = text.substring(6);
+		text = sw_trim(text.substring(6));
+		if (!text.length)
+			return tags;
 		var alltags;
 		if (text.indexOf("|")!=-1)
 			alltags = text.split("|");
@@ -387,17 +598,13 @@ function _get_tags(text) {
 	return tags;
 }
 
-function sw_trim(s) {
-	return s.replace(/(^\s*)|(\s*$)/, '');
-}
-
 function header_anchor(s) {
-	return escape(s.replace(/[^\u0000-\u007F]+/, '_')).replace(/%20/g, "_");
+	// apply a hard normalization - will not preserve header ids uniqueness
+	return s.replace(/[^a-zA-Z0-9]/g, '_');
 }
 
 var has_toc;
 var page_TOC = "";
-//var last_h_level;
 var reParseOldHeaders = /(^|\n)(\!+)\s*([^\n]+)/g;
 var reParseHeaders = /(^|\n)(=+)\s*([^\n]+)/g;
 function header_replace(str, $1, $2, $3) {
@@ -410,7 +617,7 @@ function header_replace(str, $1, $2, $3) {
 		if (has_toc) {
 			page_TOC += str_rep("#", len)+" <a class=\"link\" href=\"#" + header_anchor(header) + "\">" + header + "<\/a>\n";
 		}
-		return "</div><a name=\""+header_anchor(header)+"\"></a><h"+len+">"+header+"</h"+len+"><div class=\"level"+len+"\">";
+		return "</div><h"+len+" id=\""+header_anchor(header)+"\">"+header+"</h"+len+"><div class=\"level"+len+"\">";
 }
 
 // XHTML lists and tables parsing code by plumloco
@@ -493,40 +700,6 @@ function parseList(str, type, $2) {
     }
 
 
-// single quote escaping for page titles	
-function _sq_esc(s) {
-	return s.replace(/\\/g, "\\\\").replace(/'/g, "\\'");
-}
-
-// used to escape blocks of source into HTML-valid output
-function raw_source_escape(src) {
-	return src.replace(/[<>&]+/g, function ($1) {
-		var l=$1.length;
-		var s="";
-		for(var i=0;i<l;i++) {
-			switch ($1.charAt(i)) {
-				case '<':
-					s+="&lt;";
-					break;
-				case '>':
-					s+="&gt;";
-					break;
-//				case '&':
-				default:
-					s+="&amp;";
-			}
-		}
-		return s;
-	}).replace(/[^\u0000-\u007F]+/g, function ($1) {
-		var l=$1.length;
-		var s="";
-		for(var i=0;i<l;i++) {
-			s+="&#"+$1.charCodeAt(i)+";";
-		}
-		return s;
-	});
-}
-
 function _filter_wiki(s) {
 	return s.replace(/\{\{\{((.|\n)*?)\}\}\}/g, "").
 		replace(/<script[^>]*>((.|\n)*?)<\/script>/gi, "").
@@ -546,6 +719,15 @@ var parse = function(text) {
 		return;
 	} //else		log("typeof(text) = "+typeof(text));
 	
+	var html_tags = [];
+	
+	// put away stuff contained in inline nowiki blocks {{{ }}}
+	text = text.replace(/\{\{\{(.*?)\}\}\}/g, function (str, $1) {
+		var r = "<!-- "+parse_marker+"::"+html_tags.length+" -->";
+		html_tags.push("<tt class=\"wiki_preformatted\">"+xhtml_encode($1)+"</tt>");
+		return r;
+	});
+	
 	// transclusion code originally provided by martinellison
 	if (!force_inline) {
 		var trans_level = 0;
@@ -562,12 +744,26 @@ var parse = function(text) {
 						templs += "|"+parts.slice(1).join("|");
 					return "[<!-- -->[Include::"+templs+"]]";
 				}
-				templtext = templtext.replace(/%(\d+)/g, function(param, paramno) {
-					if (paramno < parts.length)
-						return parts[paramno];
-					else
-						return param;
-				} );
+				// in case of embedded file, add the inline file or add the image
+				if (is_embedded(templname)) {
+					var r = "<!-- "+parse_marker+"::"+html_tags.length+" -->";
+					log("Embedded file transclusion: "+templname);
+					if (is_image(templname)) {
+						var img = "<img class=\"embedded\" src=\""+templtext+"\" ";
+						if (parts.length>1)
+							img += parts[1];
+						html_tags.push(img+" />");
+					} else
+						html_tags.push("<pre class=\"embedded\">"+xhtml_encode(templtext)+"</pre>");
+					templtext = r;
+				} else {
+					templtext = templtext.replace(/%(\d+)/g, function(param, paramno) {
+						if (paramno < parts.length)
+							return parts[paramno];
+						else
+							return param;
+					} );
+				}
 				trans = 1;
 				return templtext;	
 			});
@@ -580,21 +776,15 @@ var parse = function(text) {
 		text = text.replace("\r\n", "\n");
 
 	var tags = [];
-	var html_tags = [];
-	
-	// put away stuff contained in nowiki tags {{{ * }}}
-	text = text.replace(/\{\{\{(.*?)\}\}\}/g, function (str, $1) {
-		var r = "<!-- "+parse_marker+"::"+html_tags.length+" -->";
-		html_tags.push("<tt class=\"wiki_preformatted\">"+raw_source_escape($1)+"</tt>");
-		return r;
-	});
 
+	// put away raw text contained in multi-line nowiki blocks {{{ }}}
 	text = text.replace(/\{\{\{((.|\n)*?)\}\}\}/g, function (str, $1) {
 		var r = "<!-- "+parse_marker+"::"+html_tags.length+" -->";
-		html_tags.push("<pre class=\"wiki_preformatted\">"+raw_source_escape($1)+"</pre>");
+		html_tags.push("<pre class=\"wiki_preformatted\">"+xhtml_encode($1)+"</pre>");
 		return r;
 	});
 	
+	// reset the array of custom scripts
 	script_extension = [];
 	// gather all script tags
 	text = text.replace(/<script([^>]*)>((.|\n)*?)<\/script>/gi, function (str, $1, $2) {
@@ -606,17 +796,17 @@ var parse = function(text) {
 		return "";
 	});
 	
+	// put a placeholder for the TOC
 	var p = text.indexOf("[[Special::TOC]]");
 	if (p != -1) {
 		has_toc = true;
 		text = text.substring(0, p) + "<!-- "+parse_marker+":TOC -->" + text.substring(p+16
 //		+ 	((text.charAt(p+16)=="\n") ? 1 : 0)
 		);	
-//		last_h_level = 0;
 	} else has_toc = false;
 
 	// put away big enough HTML tags sequences (with attributes)
-	text = text.replace(/(<\/?\w+[^>]+>\s*)+/g, function (tag) {
+	text = text.replace(/(<\/?\w+[^>]+>[ \t]*)+/g, function (tag) {
 		var r = "<!-- "+parse_marker+'::'+html_tags.length+" -->";
 		html_tags.push(tag);
 		return r;
@@ -636,9 +826,9 @@ var parse = function(text) {
 					page = $1.substr(0, hashloc);
 					gotohash = "; window.location.hash= \"" + $1.substr(hashloc) + "\"";
 				}
-				if(page_exists(page)) {
+				if (page_exists(page)) {
 					var r="<!-- "+parse_marker+'::'+html_tags.length+" -->";
-					html_tags.push("<a class=\"link\" onclick='go_to(\"" + _sq_esc(page) +	"\")" + gotohash + "'>" + $2 + "<\/a>");
+					html_tags.push("<a class=\"link\" onclick='go_to(\"" + js_encode(page) +	"\")" + gotohash + "'>" + $2 + "<\/a>");
 					return r;
 				} else {
 					if ($1.charAt(0)=="#") {
@@ -648,7 +838,7 @@ var parse = function(text) {
 					} else {
 						var r="<!-- "+parse_marker+'::'+html_tags.length+" -->";
 						html_tags.push("<a class=\"unlink\" onclick='go_to(\"" +
-									_sq_esc($1)+"\")'>" + $2 + "<\/a>");
+									js_encode($1)+"\")'>" + $2 + "<\/a>");
 						return r;
 					}
 				}
@@ -664,6 +854,7 @@ var parse = function(text) {
 		}
 		
 		found_tags = _get_tags($1);
+//		log("Found tags = ("+found_tags+")");
 		
 		if (found_tags.length>0) {
 			tags = tags.concat(found_tags);
@@ -675,7 +866,7 @@ var parse = function(text) {
 		
 		if(page_exists($1)) {
 			var r="<!-- "+parse_marker+'::'+html_tags.length+" -->";
-			html_tags.push("<a class=\"link\" onclick=\"go_to('" + _sq_esc($1) +"')\">" + $1 + "<\/a>");
+			html_tags.push("<a class=\"link\" onclick=\"go_to('" + js_encode($1) +"')\">" + $1 + "<\/a>");
 			return r;
 		} else {
 			var r="<!-- "+parse_marker+'::'+html_tags.length+" -->";
@@ -684,7 +875,7 @@ var parse = function(text) {
 				return r;
 			}
 //			log("Unlinked link: "+$1);
-			html_tags.push("<a class=\"unlink\" onclick=\"go_to('" + _sq_esc($1) +"')\">" + $1 + "<\/a>");
+			html_tags.push("<a class=\"unlink\" onclick=\"go_to('" + js_encode($1) +"')\">" + $1 + "<\/a>");
 			return r;
 		}
 	}); //"<a class=\"wiki\" onclick='go_to(\"$1\")'>$1<\/a>");
@@ -696,7 +887,7 @@ var parse = function(text) {
 	text = text.replace(/(^|[^\w])_([^_]+)_/g, "$1"+parse_marker+"uS#$2"+parse_marker+"uE#");
 	
 	// italics
-	text = text.replace(/(^|[^\w:])\/([^\/]+)\/($|[^\w])/g, function (str, $1, $2, $3) {
+	text = text.replace(/(^|[^\w:])\/([^\n\/]+)\/($|[^\w])/g, function (str, $1, $2, $3) {
 		if (str.indexOf("//")!=-1) {
 			return str;
 		}
@@ -707,19 +898,18 @@ var parse = function(text) {
 	text = text.replace(reReapLists, parseList);
 	
 	// headers (from h1 to h6, as defined by the HTML 3.2 standard)
-	text = text.replace(reParseOldHeaders, header_replace);
 	text = text.replace(reParseHeaders, header_replace);
-	
-	// cleanup \n after headers
-	text = text.replace(/(<\/h[1-6]><div class="level[1-6]">)\n/g, "$1");
+	text = text.replace(reParseOldHeaders, header_replace);
 	
 	if (has_toc) {
 		// remove the trailing newline
-		page_TOC = page_TOC.substr(0, page_TOC.length-2);
+//		page_TOC = page_TOC.substr(0, page_TOC.length-2);
 		// replace the TOC placeholder with the real TOC
 		text = text.replace("<!-- "+parse_marker+":TOC -->",
 				"<div class=\"wiki_toc\"><p class=\"wiki_toc_title\">Table of Contents</p>" +
-				page_TOC.replace(reReapLists, parseList).replace("\n<", "<") + "</div>" );
+				page_TOC.replace(reReapLists, parseList)
+				/*.replace("\n<", "<") */
+				+ "</div>" );
 		page_TOC = "";
 	}
 	
@@ -743,32 +933,43 @@ var parse = function(text) {
 		return tag;
 	});
 
-	// <hr>
+	// <hr> horizontal rulers made with 3 hyphens. 4 suggested
 	text = text.replace(/(^|\n)\s*\-{3,}\s*(\n|$)/g, "<hr />");
 	
 	// tables-parsing pass
     text = text.replace(reReapTables, parseTables);
+	
+	// cleanup \n after headers and lists
+	text = text.replace(/((<\/h[1-6]><div class="level[1-6]">)|(<\/[uo]l>))(\n+)/g, function (str, $1, $2, $3, trailing_nl) {
+		if (trailing_nl.length>2)
+			return $1+trailing_nl.substr(2);
+		return $1;
+	});
+	
+	// remove \n before list start tags
+	text = text.replace(/\n(<[uo]l>)/g, "$1");
 
 	// end-trim
 	if (end_trim)
-		text = text.replace(/[\n\s]*$/, "");
+		text = text.replace(/\s*$/, "");
 
 	// compress newlines characters into paragraphs (disabled)
 //	text = text.replace(/\n(\n+)/g, "<p>$1</p>");
 //	text = text.replace(/\n(\n*)\n/g, "<p>$1</p>");
-		
+
+	// make some newlines cleanup after pre tags
+	text = text.replace(/(<\/?pre>)\n/gi, "$1");
+
 	// convert newlines to br tags
 	text = text.replace(/\n/g, "<br />");
 
-	// make some newlines cleanup after pre tags - disabled
-//	text = text.replace(/(<br \/>)?(<\/?pre>)(<br \/>)?/gi, "$2");
-	
 	if (html_tags.length>0) {
 		text = text.replace(new RegExp("<\\!-- "+parse_marker+"::(\\d+) -->", "g"), function (str, $1) {
 			return html_tags[$1];
 		});
 	}
-
+	
+	tags = tags.toUnique();
 	if (tags.length) {
 		if (force_inline)
 			s = "";
@@ -776,10 +977,10 @@ var parse = function(text) {
 			s = "<div class=\"taglinks\">";
 		s += "Tags: ";
 		for(var i=0;i<tags.length-1;i++) {
-			s+="<a class=\"link tag\" onclick=\"go_to('Tags::"+_sq_esc(tags[i])+"')\">"+tags[i]+"</a>&nbsp;&nbsp;";
+			s+="<a class=\"link tag\" onclick=\"go_to('Tagged::"+js_encode(tags[i])+"')\">"+tags[i]+"</a>&nbsp;&nbsp;";
 		}
 		if (tags.length>0)
-			s+="<a class=\"link tag\" onclick=\"go_to('Tags::"+_sq_esc(tags[tags.length-1])+"')\">"+tags[tags.length-1]+"</a>";
+			s+="<a class=\"link tag\" onclick=\"go_to('Tagged::"+js_encode(tags[tags.length-1])+"')\">"+tags[tags.length-1]+"</a>";
 		if (!force_inline) {
 			s+="</div>";
 			text += s;
@@ -799,50 +1000,49 @@ var parse = function(text) {
 	return text.substring(6)+"</div>";
 }
 
-// prepends and appends a newline character to workaround plumloco's XHTML lists parsing bug
+// prepends and appends a newline character to workaround plumloco's XHTML lists parsing bug - no more needed
 function _join_list(arr) {
 	if (!arr.length)
 		return "";
 	result_pages = arr.slice(0);
-	return "\n* [["+arr.sort().join("]]\n* [[")+"]]\n";
+	return "* [["+arr.sort().join("]]\n* [[")+"]]";
 }
 
 function _simple_join_list(arr, sorted) {
 	if (sorted)
 		arr = arr.sort();
+	// a newline is added here
 	return arr.join("\n")+"\n";
 }
 
 // with two trailing double colon
 function _get_namespace_pages(ns) {
-	var pg = new Array();
+	var pg = [];
 	switch (ns) {
 		case "Locked::":
-			return "!Pages in "+ns+" namespace\n" + special_encrypted_pages(true);
+			return "= Pages in "+ns+" namespace\n" + special_encrypted_pages(true);
 		case "Unlocked::":
-			return "!Pages in "+ns+" namespace\n" + special_encrypted_pages(false);
+			return "= Pages in "+ns+" namespace\n" + special_encrypted_pages(false);
 		case "Tagged::": // to be used in wiki source
-		case "Tags::": // to be used in links
-			return "!Pages in "+ns+" namespace\n" + special_tagged_pages(false);
+			return "= Pages in "+ns+" namespace\n" + special_tagged_pages(false);
 	}
 
 	for(var i=0;i<page_titles.length;i++) {
 		if (page_titles[i].indexOf(ns)==0)
 			pg.push( page_titles[i]);
 	}
-	return "!Pages in "+ns+" namespace\n" + _join_list(pg);
+	return "= Pages in "+ns+" namespace\n" + _join_list(pg);
 }
 
 function _get_tagged(tag) {
-	var pg = new Array();
+	var pg = [];
 
 	var tmp;
 	for(var i=0; i<pages.length; i++)
 	{
-		tmp = get_page(i);
+		tmp = get_src_page(i);
 		if (tmp==null)
 			continue;
-		tmp = _filter_wiki(tmp);
 		tmp.replace(/\[\[([^\|]*?)\]\]/g, function(str, $1)
 			{
 				if ($1.search(/^\w+:\/\//)==0)
@@ -863,7 +1063,7 @@ function _get_tagged(tag) {
 	
 	if (!pg.length)
 		return "No pages tagged with *"+tag+"*";
-	return "!Pages tagged with " + tag + "\n" + _join_list(pg);
+	return "= Pages tagged with " + tag + "\n" + _join_list(pg);
 }
 
 function special_encrypted_pages(locked) {
@@ -880,16 +1080,17 @@ function special_encrypted_pages(locked) {
 // Returns a index of search pages (by miz & legolas558)
 function special_search( str )
 {
+	document.body.style.cursor = "wait";
 	var pg_body = [];
 	var title_result = "";
+	
+	str = xhtml_encode(str);
 
 	var count = 0;
 	// matches the search string and nearby text
-	var reg = new RegExp( ".*?" + RegExp.escape(str).
-					replace(/^\s+/, "").
-					replace(/\s+$/, "").
-					replace(/\s+/g, ".*?") + ".*", "gi" );
-					
+	var reg = new RegExp( ".{0,30}" + RegExp.escape(sw_trim(str)).
+					replace(/\s+/g, ".*?") + ".{0,30}", "gi" );
+	_hl_reg = new RegExp("("+RegExp.escape(str)+")", "gi");
 /*	hl_reg = new RegExp( ".*?" + RegExp.escape(str).
 					replace(/^\s+/, "").
 					replace(/\s+$/, "").
@@ -901,8 +1102,8 @@ function special_search( str )
 	{
 		if (is_reserved(page_titles[i]))
 			continue;
-			
-		tmp = get_page(i);
+		
+		tmp = get_src_page(i);
 		if (tmp==null)
 			continue;
 //		log("Searching into "+page_titles[i]);
@@ -921,18 +1122,18 @@ function special_search( str )
 		res_body = tmp.match(reg);
 //		log("res_body = "+res_body);
 		if (res_body!=null) {
-			count = res_body.length;
-			res_body = res_body.join(" ").replace(/\n/g, " ");
-			pg_body.push( "* [[" + page_titles[i] + "]]: found *" + count + "* times :<div class=\"search_results\"><em>...</em><br />" + res_body +"<br/><em>...</em></div>");
 			if (!added)
 				result_pages.push(page_titles[i]);
+			count = res_body.length;
+			res_body = "..."+res_body.join("...\n")+"..."; //.replace(/\n/g, " ");
+			pg_body.push( "* [[" + page_titles[i] + "]]: found *" + count + "* times :<div class=\"search_results\">{{{" + res_body +"\n}}}\n</div>");
 		}
 	}
-	
+	document.body.style.cursor = "auto";
 	if (!pg_body.length && !title_result.length)
-		return "<em>No results found for *"+str+"*</em>";
+		return "/No results found for *"+str+"*/";
 	force_inline = true;
-	return "Results for *" + str + "*\n" + title_result + "\n\n---\n" + _simple_join_list(pg_body, false);
+	return "Results for *" + str + "*\n" + title_result + "\n\n----\n" + _simple_join_list(pg_body, false);
 }
 
 function special_tagged_pages() {
@@ -940,10 +1141,9 @@ function special_tagged_pages() {
 	var tmp = null;
 	for(var i=0; i<pages.length; i++)
 	{
-		tmp = get_page(i);
+		tmp = get_src_page(i);
 		if (tmp==null)
 			continue;
-		tmp = _filter_wiki(tmp);
 		tmp.replace(/\[\[Tags?::([^\]]*?)\]\]/g,
 			function (str, $1) {
 				var tmp=$1.split(",");
@@ -970,7 +1170,7 @@ function special_tagged_pages() {
 // Returns a index of all pages
 function special_all_pages()
 {
-	var pg = new Array();
+	var pg = [];
 	for(var i=0; i<page_titles.length; i++)
 	{
 		if (!is_reserved(page_titles[i]))
@@ -981,12 +1181,12 @@ function special_all_pages()
 
 // Returns a index of all dead pages
 function special_dead_pages () {
-	var dead_pages = new Array();
-	var from_pages = new Array();
+	var dead_pages = [];
+	var from_pages = [];
 	var page_done = false;
 	var tmp;
 	for (j=0;j<pages.length;j++) {
-		tmp = get_page(j);
+		tmp = get_src_page(j);
 		if (tmp==null)
 			continue;
 		tmp.replace(/\[\[([^\]\]]*?)(\|([^\]\]]+))?\]\]/g,
@@ -1001,10 +1201,9 @@ function special_dead_pages () {
 				if ($1.match(/Tag(s|ged)?:/gi))
 					return;
 				p = $1;
-				if (!page_exists(p) && ((up = p.toUpperCase)!=page_titles[j].toUpperCase())) {
-//					up = p.toUpperCase();
+				if (!page_exists(p) && (p!=page_titles[j])) {
 					for(var i=0;i<dead_pages.length;i++) {
-						if (dead_pages[i].toUpperCase()==up) {
+						if (dead_pages[i]==p) {
 							from_pages[i].push(page_titles[j]);
 							page_done = true;
 							break;
@@ -1021,7 +1220,7 @@ function special_dead_pages () {
 		page_done = false;
 	}
 
-	var pg = new Array();
+	var pg = [];
 	for(var i=0;i<dead_pages.length;i++) {
 		s = "[["+dead_pages[i]+"]] from ";
 		var from = from_pages[i];
@@ -1035,7 +1234,7 @@ function special_dead_pages () {
 
   result_pages = dead_pages;	
   if (!pg.length)
-	return '<em>No dead pages</em>';
+	return '/No dead pages/';
   return _simple_join_list(pg, true);
 }
 
@@ -1052,7 +1251,7 @@ function _get_namespace(page) {
 
 function special_orphaned_pages()
 {
-	var pg = new Array();
+	var pg = [];
 	var found = false;
 	for(j=0; j<page_titles.length; j++)
 	{
@@ -1074,7 +1273,7 @@ function special_orphaned_pages()
 			for(var i=0; i<page_titles.length; i++) {
 				if ((i==j) || is_reserved(page_titles[i]))
 					continue;
-				tmp = get_page(i);
+				tmp = get_src_page(i);
 				if (tmp==null)
 					continue;
 				var re = new RegExp("\\[\\[" + RegExp.escape(page_titles[j]) + "(\\]\\]|\\|)", "i");
@@ -1097,13 +1296,13 @@ function special_orphaned_pages()
 
 function special_links_here()
 {
-	var pg = new Array();
+	var pg = [];
 	var tmp;
 	var reg = new RegExp("\\[\\["+RegExp.escape(current)+"(\\||\\]\\])", "gi");
 	for(j=0; j<pages.length; j++)
 	{
 		// search for pages that link to it
-		tmp = get_page(j);
+		tmp = get_src_page(j);
 		if (tmp==null)
 			continue;
 		if (tmp.match(reg)) {
@@ -1142,8 +1341,40 @@ function is_encrypted(page) {
 	return is__encrypted(page_index(page));
 }
 
+function is__embedded(pi) {
+	if (debug) {
+		if (pi==-1) {
+			alert("Invalid page index!");
+			return;
+		}
+	}
+//	log(page_titles[pi]+" flags: "+page_attrs[pi].toString(16)+" (enc:"+(page_attrs[pi] & 2)+")");
+	if (page_attrs[pi] & 4)
+		return true;
+	return false;
+}
+function is_embedded(page) {
+	return is__embedded(page_index(page));
+}
+
+function is__image(pi) {
+	if (debug) {
+		if (pi==-1) {
+			alert("Invalid page index!");
+			return;
+		}
+	}
+//	log(page_titles[pi]+" flags: "+page_attrs[pi].toString(16)+" (enc:"+(page_attrs[pi] & 2)+")");
+	if (page_attrs[pi] & 8)
+		return true;
+	return false;
+}
+function is_image(page) { return is__image(page_index(page)); }
+
 // return a plain page or a decrypted one if available through the latest key
 function get_page(pi) {
+	if (is__embedded(pi))
+		return null;
 	if (!is__encrypted(pi))
 		return pages[pi];
 	if (!key.length) {
@@ -1153,6 +1384,12 @@ function get_page(pi) {
 	var pg = AES_decrypt(pages[pi].slice(0));	/*WARNING: may not be supported by all browsers*/
 	last_AES_page = page_titles[pi];
 	return pg;	
+}
+
+function get_src_page(pi) {
+	var pg = get_page(pi);
+	if (pg==null) return pg;
+	return _filter_wiki(pg);
 }
 
 function get_text(title) {
@@ -1167,7 +1404,7 @@ function get__text(pi) {
 	if (!is__encrypted(pi))
 		return pages[pi];
 	document.body.style.cursor = "wait";
-	decrypt_failed = true;
+	_decrypt_failed = true;
 	var retry = 0;		
 	var pg = null;
 	do {
@@ -1189,7 +1426,7 @@ function get__text(pi) {
 			break;
 	} while (retry<2);
 	if (pg != null) {
-		decrypt_failed = false;
+		_decrypt_failed = false;
 		if (!__config.key_cache)
 			AES_clearKey();
 		else
@@ -1205,7 +1442,7 @@ function get__text(pi) {
 
 function set__text(pi, text) {
 	log("Setting wiki text for page #"+pi+" \""+page_titles[pi]+"\"");
-	text = _new_syntax_patch(text);
+//	text = _new_syntax_patch(text);
 	if (!is__encrypted(pi)) {
 		pages[pi] = text;
 		return;
@@ -1227,18 +1464,17 @@ function set_text(text)
 
 // triggered by UI graphic button
 function page_print() {
-	var fw=Math.ceil(screen.width*0.75);
-	var fh=Math.ceil(screen.height*0.75);
-	var hpos=Math.ceil((screen.width-fw)/2);
-	var vpos=Math.ceil((screen.height-fh)/2);
-	var wnd=window.open("about:blank","print_popup","width="+fw+",height="+fh+",status=yes,menubar=yes,resizable=yes,scrollbars=yes,left="+hpos+",top="+vpos);
-	wnd.focus();
+	var wnd = _create_centered_popup("print_popup", Math.ceil(screen.width*0.75),Math.ceil(screen.height*0.75),
+	",status=yes,menubar=yes,resizable=yes,scrollbars=yes");
 	var css_payload = "";
-	if (ie)
-		css_payload = "div.wiki_toc { align: center;}";
-	else
+	if (ie) {
+		if (ie6)
+			css_payload = "div.wiki_toc { align: center;}";
+		else
+			css_payload = "div.wiki_toc { position: relative; left:25%; right: 25%;}";
+	} else
 		css_payload = "div.wiki_toc { margin: 0 auto;}\n";
-	wnd.document.writeln("<ht"+"ml><he"+"ad><title>"+el("wiki_title").innerHTML+"</title>"+
+	wnd.document.writeln("<ht"+"ml><he"+"ad><title>"+current+"</title>"+
 	"<st"+"yle type=\"text/css\">"+css_payload+document.getElementsByTagName("style")[0].innerHTML+"</sty"+"le><scr"+"ipt type=\"text/javascript\">function go_to(page) { alert(\"Sorry, you cannot browse the wiki while in print mode\");}</sc"+"ript></h"+"ead><"+"body>"+
 	el("wiki_text").innerHTML+"</bod"+"y></h"+"tml>\n");
 	wnd.document.close();
@@ -1272,18 +1508,22 @@ function do_search()
 }
 
 function _create_page(ns, cr, ask) {
-	log("_create_page("+ns+",...)");
-	if (is_reserved(ns)) {
-		alert("You are not allowed to create a page titled \""+ns+cr+"\" because namespace \""+ns+"\" is reserved");
+	log("_create_page("+ns+","+cr+",...)");
+	if (is_reserved(ns+"::")) {
+		alert("You are not allowed to create a page titled \""+ns+"::"+cr+"\" because namespace \""+ns+"\" is reserved");
 			return false;
-		}
+	}
+	if ((ns=="File") || (ns=="Image")) {
+		go_to(cr);
+		return false;
+	}
 	if (ask && !confirm("Page not found. Do you want to create it?"))
 		return false;
 	// create and edit the new page
 	if (ns.length)
 		cr = ns+"::"+cr;
 	if (cr!="Menu")
-		pages.push("!"+cr+"\n");
+		pages.push("= "+cr+"\n");
 	else
 		pages.push("\n");
 	page_attrs.push(0);
@@ -1291,7 +1531,127 @@ function _create_page(ns, cr, ask) {
 	current = cr;
 //	log("Now pages list is: "+page_titles);
 //	save_page(cr);	// do not save
+	// proceed with a normal wiki source page
 	edit_page(cr);
+	return true;
+}
+
+function _get_embedded(cr, etype) {
+	log("Retrieving embedded source "+cr);
+	var pi=page_index(cr);
+	if (pi==-1) {
+		return parse("[[Include::Special::Embed|"+etype+"]]");
+	}
+	var text=get__text(pi);
+	if (text==null) return text;
+	var xhtml = "";
+	var slash_c = (navigator.appVersion.indexOf("Win")!=-1)?"\\":"/";
+	if (etype=="file") {
+		var fn = cr.substr(cr.indexOf("::")+2);
+		xhtml = "<pre class=\"embedded\">"+xhtml_encode(text)+"</pre>"+
+		"<br /><hr />File size: "+_convert_bytes(text.length)+"<br /><br />Raw transclusion:"+
+		parse("\n{{{[[Include::"+cr+"]]}}}"+
+		"\n\n<a href=\"javascript:query_delete_file()\">Delete embedded file</a>\n"+
+		"\n<a href=\"javascript:query_export_file()\">Export file</a>\n"+
+		"<script>function query_delete_file() {if (confirm('Are you sure you want to delete this file?')){delete_page('"+js_encode(cr)+"');back_or(main_page);save_page('"+js_encode(cr)+"');}}\n"+
+		"function query_export_file() {\nvar exp_path = _get_this_filename().replace(/\\"+slash_c+"[^\\"+
+		slash_c+"]*$/, \""+(slash_c=="\\"?"\\\\":"/")+"\")+'"+js_encode(fn)+"';if (confirm('Do you want to export this file in the below specified path?'+\"\\n\\n\"+exp_path)){export_file('"+js_encode(cr)+"', exp_path);}}"+
+		"</sc"+"ript>"
+		);
+	} else {
+		var img_name = cr.substr(cr.indexOf("::")+2);
+		xhtml = parse("= "+img_name+"\n\n"+
+		"<img id=\"img_tag\" class=\"embedded\" src=\""+text+"\" alt=\""+xhtml_encode(img_name)+"\" />"+
+		"\n\n<div id=\"img_desc\">Loading...</div>"+
+		"<script>function _to_img_display() { var img=el('img_tag');\nsetHTML(el('img_desc'), 'Mime type: "+text.match(/^data:\s*([^;]+);/)[1]+"<br />File size: "+_convert_bytes(((text.length-(text.match(/^data:\s*[^;]*;\s*[^,]*,\s*/)[0]).length)*3)/4)+
+		" (requires "+_convert_bytes(text.length)+" due to base64 encoding)"+
+		"<br />Width: '+img.width+'px<br />Height: '+img.height+'px');} setTimeout('_to_img_display()', 0); function query_delete_image() {if (confirm('Are you sure you want to delete this image?')){delete_page('"+js_encode(cr)+"');back_or(main_page);save_page('"+js_encode(cr)+"');}}\n"+
+		"function query_export_image() {\nvar exp_path = _get_this_filename().replace(/\\"+slash_c+"[^\\"+
+		slash_c+"]*$/, \""+(slash_c=="\\"?"\\\\":"/")+"\")+'"+js_encode(img_name)+"';if (confirm('Do you want to export this image in the below specified path?'+\"\\n\\n\"+exp_path)){export_image('"+js_encode(cr)+"', exp_path);}}"+
+		"</sc"+"ript>"+
+		"\nSimple transclusion:\n\n{{{[[Include::"+cr+"]]}}}\n\nTransclusion with additional attributes:\n\n{{{[[Include::"+cr+"|border=\"0\" onclick=\"go_to('"+
+		js_encode(cr)+"')\" style=\"cursor:pointer\"]]}}}\n"+
+		"\n<a href=\"javascript:query_delete_image()\">Delete embedded image</a>\n"+
+		"\n<a href=\"javascript:query_export_image()\">Export image</a>\n");
+	}
+	return xhtml;
+}
+
+function export_image(page, dest_path) {
+	var pi=page_index(page);
+	if (pi==-1)
+		return false;
+	var data=get__text(pi);
+	if (data==null)
+		return false;
+	// decode the base64-encoded data
+	data = merge_bytes(b64_decode(data.replace(/^data:\s*[^;]*;\s*base64,\s*/, '')));
+	// attempt to save the file
+	_force_binary = true;
+	var r = saveFile(dest_path, data);	
+	_force_binary = false;
+	return r;
+}
+
+function export_file(page, dest_path) {
+	var pi=page_index(page);
+	if (pi==-1)
+		return false;
+	var data=get__text(pi);
+	if (data==null)
+		return false;
+	// attempt to save the file (text mode)
+	return saveFile(dest_path, data);	
+}
+
+function _embed_process(etype) {
+	var filename = el("filename_").value;
+	if(filename == "")
+	{
+		alert("A file must be selected");
+		return false;
+	}
+
+	_force_binary = true;
+	var ct = loadFile(filename);
+	_force_binary = false;
+	if (ct == null || !ct.length) {
+		alert("Could not load file "+filename);
+		return false;
+	}
+	
+	// calculate the flags for the embedded file
+	if (etype == "image") {
+		var m=filename.match(/\.(\w+)$/);
+		if (m==null) m = "";
+		else m=m[1].toLowerCase();
+		var guess_mime = "image";
+		switch (m) {
+			case "png":
+				guess_mime = "image/png";
+			break;
+			case "gif":
+				guess_mime = "image/gif";
+				break;
+			case "jpg":
+			case "jpeg":
+				guess_mime = "image/jpeg";
+				break;
+		}
+		ct = "data:"+guess_mime+";base64,"+b64_encode(split_bytes(ct));
+		etype = 12;
+	} else etype = 4;
+	
+	pages.push(ct);
+	page_attrs.push(etype);
+	page_titles.push(current);
+	
+	// save everything
+	save_to_file(true);
+	
+	refresh_menu_area();
+	set_current(current);
+	
 	return true;
 }
 
@@ -1367,11 +1727,34 @@ function _get_special(cr) {
 			current_editing("Special::"+cr, true);
 			el("wiki_editor").value = document.getElementsByTagName("style")[0].innerHTML;
 			return null;
+		case "Edit Bootscript":
+			cr = "Special::Bootscript";
+			var tmp = get_text(cr);
+			if (tmp == null)
+				return;
+			current_editing(cr, true);
+			// setup the wiki editor textbox
+			current_editing(cr, __config.permit_edits | __config.server_mode);
+			el("wiki_editor").value = tmp;
+			return null;
 		default:
-			text = get_text("Special::"+cr);
+			cr = "Special::" + cr;
+			if (is_embedded(cr)) {
+				text = _get_embedded(cr, is_image(cr) ? "image":"file");
+				if (text == null) {
+					if (_decrypt_failed)
+						_decrypt_failed = false;
+					return;
+				}
+				_add_namespace_menu("Special");
+				
+				load_as_current(cr, text);
+				return;
+			}
+			text = get_text(cr);
 			if(text == null) {
 				if (edit_override) {
-					_create_page("Special", cr, true);
+					_create_page("Special", cr.substr(9), true);
 					return null;
 				}
 				alert("Invalid special page.");
@@ -1437,8 +1820,8 @@ function set_current(cr)
 						if (!confirm("Do you want to remove encryption for page \""+cr+"\"?"))
 							return;
 						text = get_text(cr);
-						if (decrypt_failed) {
-							decrypt_failed = false;
+						if (_decrypt_failed) {
+							_decrypt_failed = false;
 							return;
 						}
 						pages[pi] = text;
@@ -1448,6 +1831,20 @@ function set_current(cr)
 						set_current(cr);
 						save_page(cr);
 						return;
+					case "File":
+					case "Image":
+						text = _get_embedded(namespace+"::"+cr, namespace.toLowerCase());
+						if(text == null) {
+							if (_decrypt_failed)
+								_decrypt_failed = false;
+							return;
+						}
+						_add_namespace_menu(namespace);
+						if (namespace.length)
+							cr = namespace + "::" + cr;
+						load_as_current(cr, text);
+						return;
+						break;
 					default:
 						text = get_text(namespace+"::"+cr);
 				}
@@ -1460,8 +1857,8 @@ function set_current(cr)
 	
 	if(text == null)
 	{
-		if (decrypt_failed) {
-			decrypt_failed = false;
+		if (_decrypt_failed) {
+			_decrypt_failed = false;
 			return;
 		}
 		if (!_create_page(namespace, cr, true))
@@ -1471,7 +1868,7 @@ function set_current(cr)
 	_add_namespace_menu(namespace);
 	if (namespace.length)
 		cr = namespace + "::" + cr;
-	load_as_current(cr, text);
+	load_as_current(cr, parse(text));
 }
 
 var swcs = [];
@@ -1492,15 +1889,15 @@ function create_breadcrumb(title) {
 	var s="", partial="";
 	for(var i=0;i<tmp.length-1;i++) {
 		partial += tmp[i]+"::";
-		s += "<a href=\"#\" onclick=\"go_to('"+_sq_esc(partial)+"')\">"+tmp[i]+"</a> :: ";		
+		s += "<a href=\"#\" onclick=\"go_to('"+js_encode(partial)+"')\">"+tmp[i]+"</a> :: ";		
 	}
 	return s+tmp[tmp.length-1];
 }
 
 function _activate_scripts() {
-	// add the custom script (if any)
+	// add the custom scripts (if any)
 	if (script_extension.length) {
-		log(script_extension.length + " javascript files to process");
+		log(script_extension.length + " javascript files/blocks to process");
 		var s_elem, is_inline;
 		for (var i=0;i<script_extension.length;i++) {
 			s_elem = document.createElement("script");
@@ -1518,11 +1915,11 @@ function _activate_scripts() {
 	}
 }
 
-function load_as_current(title, text) {
+function load_as_current(title, xhtml) {
 	scrollTo(0,0);
-	log("CURRENT loaded: "+title+", "+text.length+" bytes");
+	log("CURRENT loaded: "+title+", "+xhtml.length+" bytes");
 	el("wiki_title").innerHTML = create_breadcrumb(title);
-	el("wiki_text").innerHTML = parse(text);
+	el("wiki_text").innerHTML = xhtml;
 	document.title = title;
 	update_nav_icons(title);
 	current = title;
@@ -1605,12 +2002,7 @@ function _hex_col(tone) {
 	return s;
 }
 
-	// from http://lxr.mozilla.org/seamonkey/source/security/manager/pki/resources/content/password.js
-	// Here is how we weigh the quality of the password
-	// number of characters
-	// numbers
-	// non-alpha-numeric chars
-	// upper and lower case characters
+	// original code from http://lxr.mozilla.org/seamonkey/source/security/manager/pki/resources/content/password.js
 	var pw=el('pw1').value;
 
 	//length of the password
@@ -1619,22 +2011,32 @@ function _hex_col(tone) {
 	if (pwlength!=0) {
 
 	//use of numbers in the password
-	  var numnumeric = pw.replace (/[0-9]/g, "");
-	  var numeric=numnumeric.length/pwlength;
+	  var numnumeric = pw.match(/[0-9]/g);
+	  var numeric=(numnumeric!=null)?numnumeric.length/pwlength:0;
 
 	//use of symbols in the password
-	  var symbols = pw.replace (/\W/g, "");
-	  var numsymbols= symbols.length/pwlength;
+	  var symbols = pw.match(/\W/g);
+	  var numsymbols= (symbols!=null)?symbols.length/pwlength:0;
 
 	//use of uppercase in the password
-	  var numupper = pw.replace (/[A-Z]/g, "");
-	  var upper=numupper.length/pwlength;
-	  // end of modified code from Mozilla
+	  var numupper = pw.match(/[^A-Z]/g);
+	  var upper=numupper!=null?numupper.length/pwlength:0;
+	// end of modified code from Mozilla
+	
+	var numlower = pw.match(/[^a-z]/g);
+	var lower = numlower!=null?numlower.length/pwlength:0;
+	
+	var u_lo = upper+lower;
 
 	//   var pwstrength=((pwlength*10)-20) + (numeric*10) + (numsymbols*15) + (upper*10);
 	  
 		// 80% of security defined by length (at least 16, best 22 chars), 10% by symbols, 5% by numeric presence and 5% by upper case presence
-		var pwstrength = ((pwlength/18) * 80) + (numsymbols * 10 + upper*5 + numeric*5);
+		var pwstrength = ((pwlength/18) * 65) + (numsymbols * 10 + u_lo*20 + numeric*5);
+		
+		var repco = split_bytes(pw).toUnique().length/pwlength;
+		if (repco<0.8)
+			pwstrength *= (repco+0.2);
+		log("pwstrength = "+_number_format(pwstrength/100, 2)+", repco = "+repco);
 	} else
 		var pwstrength = 0;
   
@@ -1698,16 +2100,6 @@ function _gen_display(id, visible, prefix) {
 		elHide(prefix+"_"+id);
 }
 
-function elHide(id) {
-	el(id).style.display = "none";
-	el(id).style.visibility = "hidden";
-}
-
-function elShow(id) {
-	el(id).style.display = "inline";
-	el(id).style.visibility = "visible";
-}
-
 function img_display(id, visible) {
 	if (!ie) {
 		_gen_display(id, visible, "img");
@@ -1731,14 +2123,27 @@ function create_alt_buttons() {
 	}
 }
 
+function _auto_saver() {
+	if (floating_pages.length && !kbd_hooking) {
+		save_to_file(true);
+		menu_display("save", false);
+	}
+	if (n__config.auto_save)
+		_asto = setTimeout("_auto_saver()", n__config.auto_save);
+}
+
 // save configuration on exit
 function before_quit() {
-	if (__config.save_on_quit && cfg_changed)
-		save_to_file(false);
+	if (floating_pages.length)
+		save_to_file(true);
+	else {
+		if (__config.save_on_quit && cfg_changed)
+			save_to_file(false);
+	}
 	return true;
 }
 
-var setHTML;
+var setHTML, getHTML;
 
 // when the page is loaded
 function on_load()
@@ -1754,6 +2159,7 @@ function on_load()
 		
 	if (ie) {	// some hacks for IE
 		setHTML = function(elem, html) {elem.text = html;};
+		getHTML = function(elem) {return elem.text};
 		var obj = el("sw_wiki_header");
 		obj.style.filter = "alpha(opacity=75);";
 		if (ie6) {
@@ -1762,6 +2168,7 @@ function on_load()
 		}
 	} else {
 		setHTML = function(elem, html) {elem.innerHTML = html;};
+		getHTML = function(elem) {return elem.innerHTML;};
 //		setup_uri_pics(el("img_home"),el("img_back"),el("img_forward"),el("img_edit"),el("img_cancel"),el("img_save"),el("img_advanced"));
 	}
 
@@ -1789,7 +2196,35 @@ function on_load()
 	set_current(current);
 	refresh_menu_area();
 	disable_edit();
+	
+	if (__config.permit_edits)
+		elShow("menu_edit_button");
+	else
+		elHide("menu_edit_button");
+	
+	if (n__config.cumulative_save && n__config.auto_save)
+		_asto = setTimeout("_auto_saver()", n__config.auto_save);
+		
+	_create_bs();
+	
+	elHide("loading_overlay");
 }
+
+function _create_bs() {
+	var s=get_text("Special::Bootscript");
+	if (s==null || !s.length) return false;
+	// remove the comments
+	s = s.replace(/^\s*\/\*(.|\n)*?\*\/\s*/g, '');
+	if (!s.length) return false;
+	_bootscript = document.createElement("script");
+	_bootscript.type="text/javascript";
+	_bootscript.id = "woas_bootscript";
+	document.getElementsByTagName("head")[0].appendChild(_bootscript);
+	setHTML(_bootscript, s);
+	return true;
+}
+
+function _clear_bs() { if (_bootscript!=null) document.getElementsByTagName("head")[0].removeChild(_bootscript); }
 
 function ff_fix_focus() {
 //runtime fix for Firefox bug 374786
@@ -1898,13 +2333,16 @@ function disable_edit()
 	// check for back and forward buttons - TODO grey out icons
 	update_nav_icons(current);
 	menu_display("home", true);
-	menu_display("save", false);
+	if (n__config.cumulative_save)
+		menu_display("save", floating_pages.length!=0);
+	else
+		menu_display("save", false);
 	menu_display("cancel", false);
 	menu_display("print", true);
 	elShow("text_area");
 	elHide("edit_area");
-//	log("setting back title to "+prev_title);
-	document.title = el("wiki_title").innerHTML = prev_title;
+//	log("setting back title to "+_prev_title);
+	document.title = el("wiki_title").innerHTML = _prev_title;
 }
 
 function menu_dblclick() {
@@ -1978,7 +2416,7 @@ function edit_allowed(page) {
 function current_editing(page, disabled) {
 	scrollTo(0,0);
 	log("CURRENT editing "+page+", title disabled: "+disabled);
-	prev_title = current;
+	_prev_title = current;
 	el("wiki_page_title").disabled = (disabled ? "disabled" : "");
 	el("wiki_page_title").value = page;
 	document.title = el("wiki_title").innerHTML = "Editing "+page;
@@ -1997,7 +2435,7 @@ function current_editing(page, disabled) {
 	elHide("text_area");
 
 	// FIXME!
-	if(!ie)	{
+	if (!ie)	{
 		el("wiki_editor").style.width = window.innerWidth - 30 + "px";
 		el("wiki_editor").style.height = window.innerHeight - 150 + "px";
 	}
@@ -2033,6 +2471,7 @@ function rename_page(previous, newpage)
 	var changed;
 	for(var i=0; i<pages.length; i++)
 	{
+		//FIXME: should not replace within the nowiki blocks!
 		var tmp = get_page(i);
 		if (tmp==null)
 			continue;
@@ -2046,8 +2485,8 @@ function rename_page(previous, newpage)
 	}
 	if (previous == main_page)
 		main_page = newpage;
-	if (prev_title == previous)
-		prev_title = newpage;
+	if (_prev_title == previous)
+		_prev_title = newpage;
 	return true;
 }
 
@@ -2056,7 +2495,7 @@ function delete_page(page)
 {
 	for(var i=0; i<pages.length; i++)
 	{
-		if(page_titles[i].toUpperCase() == page.toUpperCase())
+		if (page_titles[i] == page)
 		{
 			log("DELETED page "+page);
 			page_titles.splice(i,1);
@@ -2070,7 +2509,7 @@ function delete_page(page)
 
 // applies some on-the-fly patches for the syntax changes in v0.9
 function _new_syntax_patch(text) {
-	//BUG: will also modify text contained in <pre> tags
+	//BUG: will also modify text contained in nowiki blocks
 	text = text.replace(/(^|\n)(\+*)([ \t])/g, function (str, $1, $2, $3) {
 		return $1+str_rep("*", $2.length)+$3;
 	});
@@ -2081,6 +2520,11 @@ function _new_syntax_patch(text) {
 // when save is clicked
 function save()
 {
+	if (n__config.cumulative_save && !kbd_hooking) {
+		save_to_file(true);
+		menu_display("save", false);
+		return;
+	}
 	switch(current)
 	{
 		case "Special::Edit CSS":
@@ -2108,7 +2552,7 @@ function save()
 				new_title = el("wiki_page_title").value;
 				if (is_menu(new_title)) {
 					refresh_menu_area();
-					back_to = prev_title;
+					back_to = _prev_title;
 				} else { if (!is_reserved(new_title) && (new_title != current)) {
 						if (!rename_page(current, new_title))
 							return false;
@@ -2166,7 +2610,7 @@ function go_to(cr)
 	if(cr == current)
 		return;
 	history_mem(current);
-	forstack = new Array();
+	forstack = [];
 	set_current(cr);
 }
 
@@ -2190,36 +2634,6 @@ function go_forward()
 		history_mem(current);
 		set_current(forstack.pop());
 	}
-}
-
-function js_encode(s, split_lines) {
-	// not to counfound browsers with saved tags
-	s = s.replace(/([\\<>'])/g, function (str, ch) {
-//		return "\\x"+ch.charCodeAt(0).toString(16);
-		switch (ch) {
-			case "<":
-				return	"\\x3C";
-			case ">":
-				return "\\x3E";
-			case "'":
-				return "\\'";
-//			case "\\":
-		}
-		return "\\\\";
-	});
-	// escape newlines (\r\n happens only on the stupid IE) and eventually split the lines accordingly
-	if (!split_lines)
-		s = s.replace(new RegExp("\r\n|\n", "g"), "\\n");
-	else
-		s = s.replace(new RegExp("\r\n|\n", "g"), "\\n\\\n");
-	// and fix also the >= 128 ascii chars (to prevent UTF-8 characters corruption)
-	return s.replace(new RegExp("([^\u0000-\u007F])", "g"), function(str, $1) {
-				var s = $1.charCodeAt(0).toString(16);
-				for(var i=4-s.length;i>0;i--) {
-					s = "0"+s;
-				}
-				return "\\u" + s;
-	});
 }
 
 function printout_arr(arr, split_lines) {
@@ -2284,9 +2698,21 @@ function save_page(page_to_save) {
 
 function save__page(pi) {
 	//this is the dummy function that will allow more efficient file saving in future
+	if (n__config.cumulative_save) {
+		if (!floating_pages.length) {
+			floating_pages.push(pi);
+			menu_display("save", true);
+		} else {
+			if (floating_pages.indexOf(pi)==-1)
+				floating_pages.push(pi);
+		}
+		log("floating_pages = ("+floating_pages+")");
+		return;
+	}
 	save_to_file(true);
 }
 
+// UNUSED!
 function save_options() {
 	save_to_file(false);
 	set_current("Special::Advanced");
@@ -2322,13 +2748,23 @@ function _get_data(marker, source, full, start) {
 	return source.substring(offset);
 }
 
+function _inc_marker(old_marker) {
+	var m = old_marker.match(/([^\-]*)\-(\d{7,7})$/);
+	if (m==null) {
+		return _random_string(10)+"-0000001";
+	}
+	var n = new Number(m[2].replace(/^0+/, '')) + 1;
+	n = n.toString();
+	return m[1]+"-"+str_rep("0", 7-n.length)+n;
+}
+
 function save_to_file(full) {
-	document.body.style.cursor = "wait";
+	elShow("loading_overlay");
 	
 	var new_marker;
-	if (!debug && full)
-		new_marker = _random_string(18);
-	else new_marker = __marker;
+	if (full) {
+		new_marker = _inc_marker(__marker);
+	} else new_marker = __marker;
 	
 	// setup the page to be opened on next start
 	var safe_current;
@@ -2343,7 +2779,11 @@ function save_to_file(full) {
 	var computed_js = "\n/* <![CDATA[ */\n\n/* "+new_marker+"-START */\n\nvar version = \""+version+
 	"\";\n\nvar __marker = \""+new_marker+"\";\n\nvar __config = {";
 	for (param in __config) {
-		computed_js += "\n\""+param+"\":"+(__config[param] ? "true" : "false")+",";
+		computed_js += "\n\""+param+"\":";
+		if (typeof(__config[param])=="boolean")
+			computed_js += (__config[param] ? "true" : "false")+",";
+		else // for numbers
+			computed_js += __config[param]+",";
 	}
 	computed_js = computed_js.substr(0,computed_js.length-1);
 	computed_js += "};\n";
@@ -2375,66 +2815,62 @@ function save_to_file(full) {
 	el("menu_area").innerHTML = "";
 
 	if (ie) {	// to prevent their usual UTF-8 corruption
-		var p_h, p_oy;
 		el("alt_back").innerHTML = "";
 		el("alt_forward").innerHTML = "";
 		el("alt_cancel").innerHTML = "";
-	} else {
-//		free_uri_pics(el("img_home"),el("img_back"),el("img_forward"),el("img_edit"),el("img_cancel"),el("img_save"),el("img_advanced"))
 	}
 
 	_clear_swcs();
+	_clear_bs();
 	
 	var data = _get_data(__marker, document.documentElement.innerHTML, full);
 
 	var r=false;
-	if ( (!debug || save_override) ) {
-		if (!__config.server_mode || (was_local && __config.server_mode)) {
-			r = _saveThisFile(computed_js, data);
-			was_local = false;
-		}
+	if (!__config.server_mode || (was_local && __config.server_mode)) {
+		r = _saveThisFile(computed_js, data);
+		was_local = false;
 	}
 	
-	if (ie) {
+	if (ie)
 		create_alt_buttons();
-	}
-//	else		setup_uri_pics(el("img_home"),el("img_back"),el("img_forward"),el("img_edit"),el("img_cancel"),el("img_save"),el("img_advanced"))
 
 	if (r) {
 		cfg_changed = false;
+		floating_pages = [];
 	}
 	
 	el("wiki_editor").value = bak_ed;
 	el("wiki_text").innerHTML = bak_tx;
 	el("menu_area").innerHTML = bak_mn;
 	
-	document.body.style.cursor= "auto";
-
+	_create_bs();
+	
+	elHide("loading_overlay");
+	
 	return r;
 }
 
 /*** loadsave.js ***/
-function _saveThisFile(new_data, old_data)
-{
-/*	if(unsupported_browser)
-	{
-		alert("This browser is not supported and your changes won't be saved on disk.");
-		return false;
-	}	*/
+
+function _get_this_filename() {
 	var filename = unescape(document.location.toString().split("?")[0]);
-	filename = filename.replace("file:///", "");
-	filename = filename.replace(/#.*/g, "");
-	if(navigator.appVersion.indexOf("Win")!=-1)
+	filename = filename.replace(/^file:\/\/\//, "").replace(/#.*$/g, "");
+	if (navigator.appVersion.indexOf("Win")!=-1)
 		filename = filename.replace(/\//g, "\\");
 	else
 		filename = "/" + filename;
-	
+	return filename;
+}
+
+function _saveThisFile(new_data, old_data)
+{
+	var filename = _get_this_filename();
 	r = saveFile(filename,
 	"<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\">\n<head>\n<script type=\"text/javascript\">" + new_data + "\n" + old_data + "</html>");
 	if (r==true)
 		log("\""+filename+"\" saved successfully");
 	else
-		alert("Save to file "+filename+" failed!\n\nMaybe your browser is not supported");
+		alert("Save to file \""+filename+"\" failed!\n\nMaybe your browser is not supported");
 	return r;
 }
 
@@ -2473,9 +2909,14 @@ function ieSaveFile(filePath, content)
 		log("Exception while attempting to save\n\n" + e.toString());
 		return(false);
 	}
-	var file = fso.OpenTextFile(filePath,2,-1,0);
-	file.Write(content);
-	file.Close();
+	if (!_force_binary) {
+		var file = fso.OpenTextFile(filePath,2,-1,0);
+		file.Write(content);
+		file.Close();
+	} else {
+		alert("Binary write with Internet Explorer is not supported");
+		return false;
+	}
 	return(true);
 }
 
@@ -2497,6 +2938,8 @@ function ieLoadFile(filePath)
 	return(content);
 }
 
+var _force_binary = false;
+
 // Returns null if it can't do it, false if there's an error, or a string of the content if successful
 function mozillaLoadFile(filePath)
 {
@@ -2512,7 +2955,16 @@ function mozillaLoadFile(filePath)
 			inputStream.init(file, 0x01, 00004, null);
 			var sInputStream = Components.classes["@mozilla.org/scriptableinputstream;1"].createInstance(Components.interfaces.nsIScriptableInputStream);
 			sInputStream.init(inputStream);
-			return(sInputStream.read(sInputStream.available()));
+			if (!_force_binary)
+				return sInputStream.read(sInputStream.available());
+			// this byte-by-byte read allows retrieval of binary files
+			var tot=sInputStream.available(), i=tot;
+			var rd=[];
+			while (i-->=0) {
+				var c=sInputStream.read(1);
+				rd.push(c.charCodeAt(0));
+			}
+			return(merge_bytes(rd));
 		}
 		catch(e)
 		{
@@ -2533,6 +2985,8 @@ function mozillaSaveFile(filePath, content)
 			file.initWithPath(filePath);
 			if (!file.exists())
 				file.create(0, 0664);
+			else
+				log("File exists, overwriting");
 			var out = Components.classes["@mozilla.org/network/file-output-stream;1"].createInstance(Components.interfaces.nsIFileOutputStream);
 			out.init(file, 0x20 | 0x02, 00004,null);
 			out.write(content, content.length);
@@ -2600,10 +3054,12 @@ function operaSaveFile(filePath, content)
 /*** end of loadsave.js ***/
 
 function erase_wiki() {
-	if(confirm("This will ERASE all your pages.\n\nAre you sure you want to continue?") == false)
+	if (!confirm("Are you going to ERASE all your pages?"))
+		return false;
+	if (!confirm("This is the last confirm needed in order to ERASE all your pages.\n\nALL YOUR PAGES WILL BE LOST\n\nAre you sure you want to continue?"))
 		return false;
 	var static_pg = ["Special::About", "Special::Advanced", "Special::Options","Special::Import",
-						"Special::Lock","Special::Search","Special::Security"];
+						"Special::Lock","Special::Search","Special::Security", "Special::Embed"];
 	var backup_pages = [];
 	page_attrs = [];
 	for(var i=0;i<static_pg.length;i++) {
@@ -2615,15 +3071,15 @@ function erase_wiki() {
 		backup_pages.push(pages[pi]);
 		page_attrs.push(0);
 	}
-	page_attrs.push(0); page_attrs.push(0);
-	page_titles = ["Main Page", "::Menu"];
+	page_attrs.push(0); page_attrs.push(0); page_attrs.push(4);
+	page_titles = ["Main Page", "::Menu", "Special::Bootscript"];
 	page_titles = page_titles.concat(static_pg);
-	pages = ["This is your empty main page", "[[Main Page]]\n\n[[Special::New page]]\n[[Special::Backlinks]]\n[[Special::Search]]"];
+	pages = ["This is your empty main page", "[[Main Page]]\n\n[[Special::New page]]\n[[Special::Backlinks]]\n[[Special::Search]]", "/* insert here your boot script */"];
 	pages = pages.concat(backup_pages);
 	current = main_page = "Main Page";
 	refresh_menu_area();
-	backstack = new Array();
-	forstack = new Array();	
+	backstack = [];
+	forstack = [];	
 	return true;
 }
 
@@ -2637,7 +3093,7 @@ function import_wiki()
 	}
 
 	if(confirm("This will OVERWRITE pages with the same title.\n\nAre you sure you want to continue?") == false)
-		return;
+		return false;
 
 	// set hourglass
 	document.body.style.cursor= "wait";
@@ -2697,9 +3153,9 @@ function import_wiki()
 	// import the variables
 	var new_main_page = main_page;
 	var old_block_edits = !__config.permit_edits;
-	var page_names = new Array();
-	var page_contents = new Array();
-	var old_page_attrs = new Array();
+	var page_names = [];
+	var page_contents = [];
+	var old_page_attrs = [];
 	var pc = 0;
 
 	
@@ -2736,8 +3192,8 @@ if (old_version	< 9) {
 	}
 
 	// get an array of variables and wikis
-	var var_names = new Array();
-	var var_values = new Array();
+	var var_names = [];
+	var var_values = [];
 	var vc = 0;
 
 	
@@ -2854,10 +3310,6 @@ if (old_version	< 9) {
 		
 		if (has_last_page_flag)
 			__config.open_last_page = collected[5];
-
-/*	
-sw_import_allow_diff,sw_import_key_cache,sw_import_current,sw_import_main_page,sw_import_backstack,sw_import_page_titles,sw_import_page_attrs,sw_import_pages
-*/
 		__config.allow_diff = collected[5+has_last_page_flag];
 		
 		__config.key_cache = collected[6+has_last_page_flag];
@@ -2894,6 +3346,11 @@ sw_import_allow_diff,sw_import_key_cache,sw_import_current,sw_import_main_page,s
 		__config = sw_import___config;
 		
 		__config["server_mode"] = false;
+		
+/*		if (old_version==94) {
+			__config["auto_save"] = 5 * 60 * 1000;
+			__config["cumulative_save"] = false;
+		}	*/
 		
 		current = sw_import_current;
 		
@@ -2940,6 +3397,14 @@ sw_import_allow_diff,sw_import_key_cache,sw_import_current,sw_import_main_page,s
 				page_attrs[pi] = old_page_attrs[i];
 			}
 			pages_imported++;
+		} else { // special pages
+			if (old_version==94) {
+				if (page_names[i]=="Special::Bootscript") {
+					page_titles.push("Special::Bootscript");
+					pages.push(page_contents[i]);
+					page_attrs.push(4);
+				}
+			}
 		}
 	}
 	
@@ -2961,9 +3426,8 @@ sw_import_allow_diff,sw_import_key_cache,sw_import_current,sw_import_main_page,s
 	set_current(main_page);
 }
 
-function open_table_help()
-{
-	w = window.open("about:blank", "help", "height=200px, width=350px, menubar=no, toolbar=no, location=no, status=no, dialog=yes");
+function open_table_help() {
+	var w = _create_centered_popup("help", 350, 200, ",menubar=no,toolbar=no,location=no,status=no,dialog=yes");
 	w.document.writeln("<html><head><title>Building tables<\/title><\/head><body>");
 	w.document.writeln("<u>Building tables:<\/u><br /><br />");
 	w.document.writeln("<tt>{|   <\/tt><br />");
@@ -2978,58 +3442,6 @@ function open_table_help()
 	w.document.close();
 }
 
-/* if((navigator.userAgent).indexOf("Opera")!=-1)
-	opera = true;
-else */ if(navigator.appName == "Netscape")
-	firefox = true;
-else if((navigator.appName).indexOf("Microsoft")!=-1) {
-	ie = true;
-	ie6 = (navigator.userAgent.search(/msie 6\./i)!=-1);
-}
-
-// finds out if Opera is trying to look like Mozilla
-if(firefox == true && navigator.product != "Gecko")
-	firefox = false;
-
-// finds out if Opera is trying to look like IE
-if(ie == true && navigator.userAgent.indexOf("Opera") != -1)
-	ie = false;
-
-var log;
-if (debug) {
-	// logging function - used in development
-
-	log = function (aMessage)
-	{
-	    var logbox = el("swlogger");
-		nls = logbox.value.match(new RegExp("\n", "g"));
-		if (nls!=null && typeof(nls)=='object' && nls.length>11)
-			logbox.value = "";
-		logbox.value += aMessage + "\n";
-	};
-} else {
-	log = function(aMessage) { };
-}
-
-if (!ie)
-	window.onresize = on_resize;
-
-// function used to store encrypted pages into javascript strings
-function js_hex_encode(s) {
-	// escape double quotes
-	s = s.replace(new RegExp("\"", "g"), "\\\"");
-	// escape newlines (\r\n happens only on the stupid IE) and eventually split the lines accordingly
-	s = s.replace(new RegExp("\r\n|\n", "g"), "\\n");
-	// and fix also the >= 128 ascii chars (to prevent UTF-8 characters corruption)
-	return s.replace(new RegExp("([^\u0000-\u007F])", "g"), function(str, $1) {
-				var s = $1.charCodeAt(0).toString(16);
-				for(var i=2-s.length;i>0;i--) {
-					s = "0"+s;
-				}
-				return "\\x" + s;
-	});
-}
-	
 /*** aes.js ***/
 
 // AES encryption for StickWiki
@@ -3044,7 +3456,6 @@ var aes_i;
 var aes_j;
 var tot;
 var key = [];
-var utf8mf = true;
 
 var wMax = 0xFFFFFFFF;
 function rotb(b,n){ return ( b<<n | b>>>( 8-n) ) & 0xFF; }
@@ -3054,7 +3465,6 @@ function setW(a,i,w){ a.splice(i,4,w&0xFF,(w>>>8)&0xFF,(w>>>16)&0xFF,(w>>>24)&0x
 function setWInv(a,i,w){ a.splice(i,4,(w>>>24)&0xFF,(w>>>16)&0xFF,(w>>>8)&0xFF,w&0xFF); }
 function getB(x,n){ return (x>>>(n*8))&0xFF; }
 
-if (utf8mf) {
 	var utf8sets = [0x800,0x10000,0x110000];
 
 	function unExpChar(c){
@@ -3107,26 +3517,61 @@ if (utf8mf) {
 	  }
 	  return sData;
 	}
-} else { // no utf8
+
+function split_bytes(s) {
+	var l=s.length;
+	var arr=[];
+	for(var i=0;i<l;i++)
+		arr.push(s.charCodeAt(i));
+	return arr;
+}
 	
-	function split_bytes(s) {
-		var l=s.length;
-		var arr=[];
-		for(var i=0;i<l;i++)
-			arr.push(s.charCodeAt(i));
-		return arr;
-	}
-	
-	function merge_bytes(arr) {
-		var l=arr.length;
-		var s="";
-		for(var i=0;i<l;i++)
-			s+=String.fromCharCode(arr[i]);
-		return s;
-	}
-	
+function merge_bytes(arr) {
+	var l=arr.length;
+	var s="";
+	for(var i=0;i<l;i++)
+		s+=String.fromCharCode(arr[i]);
+	return s;
 }
 
+// used to embed images
+function b64_encode(bData) {
+	var sData="", z=bData.length, i=0, tot=z;
+	while (i<z){
+		var x = [ bData[i]>>2, (bData[i]&3)<<4, 64, 64 ];
+		if (++i<tot){x[1]+=(bData[i]&240)>>4;x[2]=(bData[i]&15)<<2;}
+		if (++i<tot){x[2]+=(bData[i]&192)>>6;x[3]=bData[i]&63;}
+		for (j=0;j<4;j++){
+			var y=x[j];
+		    sData += String.fromCharCode(y<26?65+y:y<52?71+y:y<62?y-4:y<63?43:y<64?47:61);
+		}
+		i++;
+	}
+	return sData;
+}
+
+// used to export images
+function b64_decode(sData){
+	var x = new Array(4);
+	var z = sData.length, tot=z;
+	var bData=[], i=0;
+	while (i<z) {
+		for (var k=0;k<4;k++){
+		var c=0; while (c<33&&i<z){ c=sData.charCodeAt(i++); }
+		if (c<33){
+			if (k!=0) throw( "Base64: unexpected #chars." );
+			return;
+		}
+		x[k] = c==43?62:c==47?63:c==61?64:c>47&&c<58?c+4:c>64&&c<91?c-65:c>96&&c<123?c-71:-1;
+		if (x[k]<0||(x[k]==64&&k<2)) throw( "Base64: "+unExpChar(c)
+			+"\nAllowed characters regex range is [A-Za-z0-9\\+\\-=]"  );
+		}
+	    bData.push( (x[0]<<2)+(x[1]>>4) );
+	    if (x[2]<64) bData.push( ((x[1]&15)<<4)+(x[2]>>2) );
+	    if (x[3]<64) bData.push( ((x[2]&3)<<6)+x[3] );
+	}
+	return bData;
+}
 
 var aesNk;
 var aesNr;
@@ -3276,9 +3721,9 @@ function aesRounds( block, key, table, inc, box ){
   for ( i=1; i<aesNr; i++ ){
     for (j=m=0;j<4;j++,m+=3){
       tmp[j]=key[r++]^table[block[j]&0xFF]^
-             rotw(table[(block[inc[m]]>>>8)&0xFF], 8)^
-             rotw(table[(block[inc[m+1]]>>>16)&0xFF], 16)^
-             rotw(table[(block[inc[m+2]]>>>24)&0xFF], 24);
+			rotw(table[(block[inc[m  ]]>>> 8)&0xFF], 8)^
+			rotw(table[(block[inc[m+1]]>>>16)&0xFF],16)^
+			rotw(table[(block[inc[m+2]]>>>24)&0xFF],24);
     }
     var t=block; block=tmp; tmp=t;
   }
@@ -3347,48 +3792,18 @@ function blcDecrypt(dec){
 
 // sets global key to the utf-8 encoded key
 function AES_setKey(sKey) {
-  if (utf8mf) {
 	key = utf8Encrypt(sKey);
-  } else {
-	key = split_bytes(sKey);
-  }
+//	key = split_bytes(sKey);
 }
 
 function AES_clearKey() {
 	key = [];
 }
 
-var legocheck = false;
-
 // returns an array of encrypted characters
 function AES_encrypt(raw_data) {
-	if (legocheck) {
-		/* legolas558's random marker pattern */
-		var ew, sw;
-		if (bData.length % 2) {
-			ew = _rand(0xFFFFFFFF);
-			sw = ew ^ bData.length;
-			if (!(sw % 2))
-				sw++;
-			if (ew % 2)
-				ew++;
-		} else {
-			sw = _rand(0xFFFFFFFF);
-			ew = sw ^ bData.length;
-			if (!(ew % 2))
-				ew++;
-			if (sw % 2)
-				sw++;
-		}
-		bData = bData.concat([0,0,0,0], bData);
-		setW(bData, 0, sw);
-		setW(bData, bData.length, ew);
-	}
 	
-	if (utf8mf) {
-		bData = utf8Encrypt(raw_data);
-	} else
-		bData = split_bytes(d);
+	bData = utf8Encrypt(raw_data);
 	
 	aes_i=tot=0;
 	do{ blcEncrypt(aesEncrypt); } while (aes_i<tot);
@@ -3403,62 +3818,38 @@ function AES_decrypt(raw_data) {
 	aes_i=tot=0;
 	do{ blcDecrypt(aesDecrypt); } while (aes_i<tot);
 	
-	if (legocheck) {
-		var sw = getW(bData, 0);
-		var sw = getW(bData, bData.length-4);
-		var len = bData.length-8;
-		if (len % 2) {
-			sw = ew ^ bData.length;
-			if (!(sw % 2))
-				return null;
-			if (ew % 2)
-				return null;
-		} else {
-			sw = _rand(0xFFFFFFFF);
-			ew = sw ^ len;
-			if (!(ew % 2))
-				return null;
-			if (sw % 2)
-				return null;
-		}
-		bData.splice(len-4, 4);
-		bData.splice(0, 4);
-	}
-
-	if (utf8mf) {
-		sData = utf8Decrypt(bData);
-	} else
-		sData = merge_bytes(d);
+	sData = utf8Decrypt(bData);
 	bData = [];
 	return sData;
 }
 
 /* ]]> */
-</script></head><body class="bg" id="body" style="cursor: wait;" onload="on_load()" onunload="before_quit()">
+</script></head><body class="bg" id="body" style="cursor: auto;" onload="on_load()" onunload="before_quit()">
+<div id="loading_overlay" style="display: inline; visibility: visible;">Loading...</div>
 <div class="wiki_header bg" id="sw_wiki_header" style="position: fixed;">
 <table cellspacing="0" width="100%">
 <tbody>
 <tr>
-<td width="80%"><span class="title" id="wiki_title">Main Page</span></td>
+<td width="80%"><span class="title" id="wiki_title">Feature::Custom javascript</span></td>
 <td align="right" width="20%">
-<div id="menu_back" style="display: none; cursor: pointer; visibility: hidden;" onclick="go_back()"><img id="img_back" style="display: inline; visibility: visible;" alt="Back" src="data:image/png;base64,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"><span id="alt_back" style="display: none; font-size: 24pt; font-family: wingdings; visibility: hidden;"></span></div>
+<div id="menu_back" style="display: inline; cursor: pointer; visibility: visible;" onclick="go_back()"><img id="img_back" style="display: inline; visibility: visible;" alt="Back" src="data:image/png;base64,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"><span id="alt_back" style="display: none; font-size: 24pt; font-family: wingdings; visibility: hidden;"></span></div>
 <div id="menu_forward" style="display: none; cursor: pointer; visibility: hidden;" onclick="go_forward()"><img id="img_forward" style="display: inline; visibility: visible;" alt="Forward" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAAK/INwWK6QAAAAZiS0dEAP8A/wD/oL2nkwAABf1JREFUeNp9lX+MVUcVxz9n7r3v7ntvd4G3CywL7KLBCJWlYLGmKWgBtVGM0Yj80zSaqLVp0n+0/qDxD00kjU2aaKoxKm1CYqJNq6kQuiFCkBawKVS2uIYohYUFusvuwr4f+37ce2fm+Mc+ZKPGSSYzZybne86ZM+d8hf8e0p6+Law3hu0CQwrL2ueTqpzzynFgrK0XtO+U/zNMGxyBXYHhOJC0lfyC9c6+bgwHgQf/U3+htwvBPbDMCC8ofFYVv6RTZNs9gd+4xmipG0ktjE97ffuil3OXvUktiCAoLyo8CTTauLrQwB3wdcYw7D1rerrI9n4pJ1/eEQW9PSIKijViHZpaS6WujI479h+x7venPF4JRTiryi5g6o4RWWBtVWA46TyDW9eb7Hd7i+HKNQXxjVA1taKagpuj0XQ0fJEktSiqYpDhs06fPpBls3PkRHhLlR1A/U5i5kMQXvbKfds3BNmRH3dFpZ4SabJUJCpJkOvG+ozx+iCmOEDeXsFLTJKpVBuqH1gpbF5rwmMjPm2lDDD/GQ4BJmi/06MKT/WXJBvel49Ki7s0c8skKvahuWWYKORyZZD4/v30DH0V7Bx26hTedKCqUq6r9PeIrigRHB1RD2wBTgBjASBG2K/Q/9zXYh76SCRZq0vCQi8a90FuNUYdPr+K3nVfIHBlpO9h1NVoTZzCSoxXpVKH968QuXJT/dhNjBEWK7wUiLBdlb3vWy7606/HEqtgooJouASJFoMpoAj5dBRVh5a2QXKLqO8T+KxG/cZfsBKTOS/Oo90FzJG3VRRWAi8HgeExVbbt3hr6PVsjaSVIlAsQcYgmiC9j7DSS3SJ47zcYTaFnKy6pEPfvwGVVKtfewklEM1HpKsDpC95X6nSIMBICmwA2rjFkFjxKuVzldnQvYXE5SAiq4FcgDJL87Tid3E/PwGay5iw9H/4eSWa5evYA1ueII2VwqTA+pQhsClVZDlDqRBJnpFWvcrXrCdbu3EdkLJgcIsF81ajHuwxxZXzWBASbzLJiy1PMVW9zeeQQHYUcizrdnTLu/3dpWw+ZVRopLO8fZFF3kVwIcSTEEXSEShx6Ch1CnAvxzgKKuhQRQ2ffFjILzovo3W4koQgzKEzOqiaZVSeR5K78hGpBCAt9gAMMqmCM0Jgr0+wYondpH2nSJMgVacyOMXbm16iBNHM6W2vDK1MhMAp88p0xT2KVZhagtVskb36HIACR+RSICM26csk/wL2f+yjezhGEMUltgvOHnqAycx2ViGrTMT6tbXxGjVeOAbzxdyeTs57MqTasoUmRhi/QcEVadFFpKhdlJ5t3v8Di7hBPQDI3yfk/Pk55ZhxncoDXsQm4PkMAtFR53ahyzAgXrs9gDp9xGoZQa3qaiaWROBqpp9WscS1Zx9BnnqE7qpBlSjo3yTuvfoPyzDjexDQThwJHz+k8jwingFHTtvRLgF8cdu7ypBdAa02lmSiNVKk2oNBVorSoiEqBdG6Cc68+zuz0ONbE1BqWOIee+YfK6QvzKVblZwub3TkRdjUSVl24pvZjQyYwBm20EOsUqyFZ7Spps0zaqjJ69IeUp8dxkqPedORj9NKEyvMHfZZmRMBB4Afzgdzlgo1GeMMr3RvWiP32bhOu7hVtJJBZRBWy1GIdqBjUBKBOw0Dkr+8qvxr2WaVOJMKYKg8CE4AEbVIwwOR9a82bwBcvTWj+xHmyzELvIqTQAYERgiiUIAwwAWqdl+sz8MpJ9S+dUNdMiPqWcC2f49ONhLG247qQMoOR5wsuF5oPff5Hrd/+84YdAnx3Ae4ZED+wDOnsQKyH2zWjY5PoxRvOpHaeTtavlj8/85XgkT+N+Pd+fsgbI3ivQGDm0R8aCsj+0Gnsa13UD6/OPfvYwJODffl3/wfR35XF+LX98fnv7zGPnH4uJ68/G8mBbwWm2LGA9EMz3yae3hOx79GYWl1NoStP0Nvva7Od+aNnqjuOnp3+1Ojl6obZWtaLWt+7amhq46YtIzt3fHz4gQ/qycqZb9rrN6tmrmVURPW7LzpGrypG4F/y5h6hh4BiQgAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAAASUVORK5CYII="><span id="alt_forward" style="display: none; font-size: 24pt; font-family: wingdings; visibility: hidden;"></span></div>
 <div id="menu_advanced" style="display: inline; cursor: pointer; visibility: visible;" onclick="advanced()"><img id="img_advanced" style="display: inline; visibility: visible;" alt="Advanced" src="data:image/png;base64,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"><span id="alt_advanced" style="display: none; font-size: 24pt; font-family: wingdings; visibility: hidden;">:</span></div>
 <div id="menu_home" style="display: inline; cursor: pointer; visibility: visible;" onclick="home()"><img id="img_home" style="display: inline; visibility: visible;" alt="Home" src="data:image/png;base64,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"><span id="alt_home" style="display: none; font-size: 24pt; font-family: wingdings; visibility: hidden;">G</span></div>
 <div id="menu_unlock" style="display: none; cursor: pointer; visibility: hidden;" onclick="unlock()"><img id="img_lock" style="display: inline; visibility: visible;" alt="Unlock" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA%2FwD%2FAP%2BgvaeTAAAEnUlEQVR42o2WX2wUVRTGf3NnZ7a7tkvTdA1rlxSWthgwEpoawh9jS8SHxofqAyaGBzBBE15IBLTxwfgCGBITfZAXk%2FYBjDE09QGJpqKFGBKiDYkuVChd7KbbbbtLy3bb2dk%2Fs3N96M52t63ASU5m5t7c853zne%2FeOwoV9vDhwxpWWSgUypVelYphWfKnmnACrxd8z549rwB2yYslfwuoB9zAayWgXYBrXQQneKU3NzfvcrLs7%2B%2BXsVhMTk1NyVu3bsmK7N8EZCqVcr4PlUDXVlBpBw4ceDEajd7u7e0tJpNJDh48SDqdJpVK4ff7iUQi9Pf3A1wBWFpa4s6dOwDfA92rQdYAzM3NvQRw%2BvRp9erVq1YwGGT79u3s2LGDrVu3Eg6H87t376avr6%2B8ZnZ2lgcPHgAMAi2V%2FaribXp6WllcXLw4MTHByMgIR44ccW3YsOFDr9c76vP54vF4vKOnp6cvGo3S1NRUlVhrayvAp6vEsLYCALd7pUqPx3O%2FpaVl9OjRoxPnzp27%2FH9qOX78OMAMMF2psKoKxsfHBYBpmuUxr9c729raagQCAftJcrxw4QKACeQrx8sA4XBYDAwM1K5eaBiGb3h4uOn69es2z2bFdQG%2B%2FOiDd4bvz%2FQBDA4OkkgknAb%2BtjrCsWPHqK1dyUXXdS5dusThw4cvAreBfxyaFGeDhUIhMxUfJT8%2Fibn4iHzGIJtZYPFxCjOTAUDTNPQaN8Klorlr2NXTSywWI5FI0N7eDvAV8DUQKW3O6h4ouTS59AxGIkrWWCLzOMlcMsGSsQQSPJ4adK8HVRVo6spJUVdXx82bN9m3b98J4LsSwFoV2baNLC5TKG2wFXtZcxKEEKAoKELBtiWvn%2FqBzz45iRCCuro6VFV1wmwCtHVVBBIpJUiJlEViMynGJmYxM1kE0FBfy6aNcPZKnEgkghCCTIm%2BxsZGhoeH6erqugy8CvwJ5KopEipCCBShIIQk8Hw9HpEjs7CIRCBqdHq%2FvceNGzcoFAqMj49jWRaKoqDrOps3b2ZkZISOjo7fgZ3AXREKhbIrHBWxihZWvoCVL%2FDocZrJxBJT81kSCxne%2FfxXzp45g5TLlWqaRltbG21tbWzZsoX6%2Bnr8fj%2Fnz58H%2BAtocJUUlF0mSEFVVFSXC6G6aPR5EVkPGbeNXVJ3Z1cXhmGgKArbtm1D1%2FXl6hWl%2FOzs7HRS3ljdA9tCFjIUcovkc2mi8QTzyXlMw0RzucoBHDdNk0AgAEA0Gi2PO6BA%2FaoeKEhVQwg3Lk0nuLGBWlVimu4qwTmBQqEQwBeAbG5uPjU5OYmiKOTz%2Bf857Io2kiKyWMAqFLByuVJPLGTRAuCXoaEyHQCH3mg%2FeeLtnaecHW1ZFkNDQ870QtU9%2B%2FM3HzPx7zjZhSRZM0sulyWfzVKwiggUajw6g6Murl27hmEYaJpGMBgEIBaLoes6Y2Nj7N%2B%2FH%2BA94McywMt%2B%2FYW%2Fk%2FmpZznN9u7dy8DAALa9cv6Fw2GklHR3dwP0Aj8BdysrUAAV0EvP1X8Slfacz%2BeLp9Pp9ebeB%2F4A7gE55SnJPmneBTQAAaDO4bx06cwDFsB%2F1pf2UYdfB6cAAAAASUVORK5CYII%3D"><span id="alt_lock" style="display: none; font-size: 24pt; font-family: wingdings; visibility: hidden;">I</span></div>
-<div id="menu_lock" style="display: inline; cursor: pointer; visibility: visible;" onclick="lock()"><img id="img_unlock" style="display: inline; visibility: visible;" alt="Lock" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAB3RJTUUH1wMbFisGhO%2Br5wAAAAlwSFlzAAALEwAACxMBAJqcGAAAAARnQU1BAACxjwv8YQUAAANZSURBVHja3VTPT1NZGD3vvZYWGGqVNgKyEBZqwsRYtRpjJpkdMbNk5YrMZjYQF27c%2Bxe4MCxcIJmdyRAjGxMX%2FohKUGMgMAt%2BTCJ0CtqR2tLS9%2Fp%2B3eu5r8UEZphS48qbnL57b9895%2FvO970LfK%2FjKjFJlIhHxH0i9a3Ib%2Fb396%2BPj4%2FLjY0NOTMzIycmJvxEImHyv1%2BbJTP2rG8PDw9fn5ycjPX19aFYLCIWi6Gnp0cbGBgI5%2FP5XzKZjMb3nn1N5FfS6bRZKBTk%2FPx8ZWho6C337GQymR0ZGbHn5ubk1NSUHBwcLNctbHo8YHRycXFRplKpP7ieIS4TP8Xj8eejo6OmsmtsbMzh3r2m2elxMZfLyenp6QqXK8TPRCuhLEn39vZm19bWpKoN1wsH5dV3Jp2dnZFKpYJyuawIbGKeqBJq%2FSabzYrNzU10d3Wp15MHFQjtTJaWlm6xe4bry8eEl2zVb3UfO3rt71wRoegPePniBeUEWiPhoyFDlwQOd7SjI9EN27ZRyr9HV4eB5Wzx3rYbdJyl7RGMEXHCJ3KEW1h5AiE0eJ6A8F3OHVjFf%2Fj0gtSE70G4Nnzbgl%2B18ObhXfz2%2B7riOkvMhvYIlOr4MjSyWPlVlHKr8Cng2xXYTpWJCEgpKcw9x4S3XYBjbkEEssHo2lWD%2FYYQPiSjrC3okFarOnQdmq5B09QGaTQ1N0j4xRRjVw32HzKIlD9YWPgTy6vrsMxqEJlQbdYWxYnjx5CIePBdZiPkrtMNBTSdUdWjPX%2FpAk6fs%2BDRJk9lRZuEWw1sK7ERAuo9VW2cAS1SZJ7jYPbt7P4ZtNTIQ0aoOQHJUwa9NUJhnLuYxunUKbhsSZ%2BiyjqpCuxWsJ3jnPZE2w%2FzVKYJAeEFNrhOBXOzK%2FtmEIcXNITREm22BjqkEWYdIjh74Qx%2BPHOSNbAhpAgKr%2Fz3XQvlDwZaolG4bqTJGvhsU6hWdWFuleHwg1K9L%2Bqtqz4yzzah0cJo2yGU88Vdx40G9O3p%2FrbLbRo9%2FpiBVSrALH9ClVCdJDybNVDZaAxCh7W9haevlvH6nfmUZ3mv4K%2F%2FZaf6RT7uoHbhHRRPiBvEeeBfXftfGjhC9KD26YcbWlq7xz4SWeJDI4EdEUXccoCAdoZqJZf49Bkd5rOdXLtvgwAAAABJRU5ErkJggg%3D%3D"><span id="alt_unlock" style="display: none; font-size: 24pt; font-family: wingdings; visibility: hidden;">C</span></div>
+<div id="menu_lock" style="display: none; cursor: pointer; visibility: hidden;" onclick="lock()"><img id="img_unlock" style="display: inline; visibility: visible;" alt="Lock" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAB3RJTUUH1wMbFisGhO%2Br5wAAAAlwSFlzAAALEwAACxMBAJqcGAAAAARnQU1BAACxjwv8YQUAAANZSURBVHja3VTPT1NZGD3vvZYWGGqVNgKyEBZqwsRYtRpjJpkdMbNk5YrMZjYQF27c%2Bxe4MCxcIJmdyRAjGxMX%2FohKUGMgMAt%2BTCJ0CtqR2tLS9%2Fp%2B3eu5r8UEZphS48qbnL57b9895%2FvO970LfK%2FjKjFJlIhHxH0i9a3Ib%2Fb396%2BPj4%2FLjY0NOTMzIycmJvxEImHyv1%2BbJTP2rG8PDw9fn5ycjPX19aFYLCIWi6Gnp0cbGBgI5%2FP5XzKZjMb3nn1N5FfS6bRZKBTk%2FPx8ZWho6C337GQymR0ZGbHn5ubk1NSUHBwcLNctbHo8YHRycXFRplKpP7ieIS4TP8Xj8eejo6OmsmtsbMzh3r2m2elxMZfLyenp6QqXK8TPRCuhLEn39vZm19bWpKoN1wsH5dV3Jp2dnZFKpYJyuawIbGKeqBJq%2FSabzYrNzU10d3Wp15MHFQjtTJaWlm6xe4bry8eEl2zVb3UfO3rt71wRoegPePniBeUEWiPhoyFDlwQOd7SjI9EN27ZRyr9HV4eB5Wzx3rYbdJyl7RGMEXHCJ3KEW1h5AiE0eJ6A8F3OHVjFf%2Fj0gtSE70G4Nnzbgl%2B18ObhXfz2%2B7riOkvMhvYIlOr4MjSyWPlVlHKr8Cng2xXYTpWJCEgpKcw9x4S3XYBjbkEEssHo2lWD%2FYYQPiSjrC3okFarOnQdmq5B09QGaTQ1N0j4xRRjVw32HzKIlD9YWPgTy6vrsMxqEJlQbdYWxYnjx5CIePBdZiPkrtMNBTSdUdWjPX%2FpAk6fs%2BDRJk9lRZuEWw1sK7ERAuo9VW2cAS1SZJ7jYPbt7P4ZtNTIQ0aoOQHJUwa9NUJhnLuYxunUKbhsSZ%2BiyjqpCuxWsJ3jnPZE2w%2FzVKYJAeEFNrhOBXOzK%2FtmEIcXNITREm22BjqkEWYdIjh74Qx%2BPHOSNbAhpAgKr%2Fz3XQvlDwZaolG4bqTJGvhsU6hWdWFuleHwg1K9L%2Bqtqz4yzzah0cJo2yGU88Vdx40G9O3p%2FrbLbRo9%2FpiBVSrALH9ClVCdJDybNVDZaAxCh7W9haevlvH6nfmUZ3mv4K%2F%2FZaf6RT7uoHbhHRRPiBvEeeBfXftfGjhC9KD26YcbWlq7xz4SWeJDI4EdEUXccoCAdoZqJZf49Bkd5rOdXLtvgwAAAABJRU5ErkJggg%3D%3D"><span id="alt_unlock" style="display: none; font-size: 24pt; font-family: wingdings; visibility: hidden;">C</span></div>
 <div id="menu_print" style="cursor: pointer; display: inline; visibility: visible;" onclick="page_print()"><img id="img_print" style="display: inline; visibility: visible;" alt="Print" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAMAAADXqc3KAAAAB3RJTUUH1wcECDIDhMeZAwAAAAlwSFlzAAAewQAAHsEBw2lUUwAAAARnQU1BAACxjwv8YQUAAABjUExURf8f7XNzc1JSUmNjY1paWmtra3t7e0pKSggICCkpKSEhIRgYGBAQEDExMcbGxgAAADk5OYSEhK2trYyMjJycnJSUlKWlpc7OzkJCQr29vdbW1rW1td7e3v%2F%2F%2F%2Ff39%2Bfn5%2B%2Fv7w37xZMAAAABdFJOUwBA5thmAAABKUlEQVR42n2S2a6DIBRFZRKhBRkPU9X%2B%2F1de1A7el64HcsLKDmTDMPzCcnyB1vc%2BTJgSxgg9IMK8hRfLWsDVZWddvPwIBRkzrHKrWqeLsDMHz1hkMq3P5zWRGzeICIvysl4FCRRv69ZEzOH5%2BIoHB1OXddssZWjZE%2Bd986xiTqnqYunIdVnsPN3LMLTJGm%2BaLi0RhEjVXQRFhsFNGjNmitbegIJHerCpZrqLxu6BiGwyRGEIply1U7iC5BhtABKbxA3A6VdCp2gMz0qIWASr%2FbRTWNApuRhKyrduUHVBHWIMuleUUl%2FyLThVXDyFjfDGKUUUxI8IX7Cx4F9i9CF%2BCBCi9bvQs7F2%2FIelE%2BpdoUlIeduR8hikuKujRYRJrxXtj94HNhJOf%2F2cP%2B6HGtUMDq8TAAAAAElFTkSuQmCC"><span id="alt_print" style="visibility: hidden; display: none; font-size: 24pt; font-family: wingdings;">4</span></div>
 <div id="menu_edit" style="display: inline; cursor: pointer; visibility: visible;" onclick="edit()"><img id="img_edit" style="display: inline; visibility: visible;" alt="Edit" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAAK/INwWK6QAAAAZiS0dEAP8A/wD/oL2nkwAABSVJREFUeNqVlX9oXFUWxz/3vvfmR6aZyZB0YqKhlTUIldK0ILgisv6s9Rdrq1Y32P4hRcXUij/YNuLSFP3H+ttqtFiwTVfRrtbowhpo1iK7BbWg0qildfwRMzGTkNTxdd5kZt67Z//YmWnSpIoXDvdxL+98z/l+zzlXcWqFgAuBGGD4fUu01kPGmCxgAUH1QlVMgL3hcLgzGo0GIqIr56c8iMzrGMD3feV5Xk5rfZcx5k3ABvwqAEqplIik9+3bt2DlypUml8spy7JqTn9tFxEcx5GdO3eqnp4epbVeb4zZA2jA2JVINEBLSwuO46C1BsC27dq3Umpeq9yprVu3mnA4THd3926llIhIH1D5uwJijKFYLKogCFQ8HldKKVUsFpXv+yoIglnm+37t3Pd9JicnrS1btqienh5E5CWl1DmA0aeT6jgO+Xyevr4+RkdHicfjBEFAoVCgVCrNa+VyWWmtxfM8vWHDBj8ejy8QkXalFPZM50EQUFdXx+DgIF1dXbS2trJmzRrWrl1Lc3Mz4+PjGGOwbbtGW3Vva2tTlmVJoVBQFVpVjftaSSmF7/ssW7aM1tZW2s45m97eXjo7O3n22eewbZtEIk65XK4JPFP0qi4zK24OQKFQYPny5axYsYJ0Os2mTRt5/59vMzr6LTfccCMff3KYC5YsYeHChbS0tNTMcZzTy1nNdHwWkD948KC4rmvy+bzs3r1HOjouEGPyEgRGRET+PbhXzmpeIIcOfSwiRnK5nOTzefE8T1zXlWKxaNLptJ9IJAS4QinFHJEty8J1Xa6++iq0DvHFF5+idZGCd5LLLl/L80+sYt0dnfz8cw6lqIpcY+D0hpwFICI1HYLAZ+nSDvr6/g5EcCILmMh8yepVi7juyhC33LqekyddhoeHGRkZwff9Ws+cEaAahWVZnDhxgtWrb+If+97nyKHtlCYPkD78FIf/c4zt267BnfwvL+zYRTKZwPO8eQWeNwMArTWRSJSLL76Irvs2s/q2R5g4upOIU2C6pPnu6Div7/ozr+16iuPffE97+3mzOvs3KVJKkUqlsG2Hhx/axOXXb+TOv37I4rZGImGL0ZFfaIg4PP34RWzs2kQkEiUSCc87EOelqKqDMYapqSlefnE7pdAKHn1ikPP/0Igdsjjy+U+suXYJl1zosW79PYRC4VpvnLEPZmYwNjZGJpMhk8lw7NhxXtrxJPsP+rz13hDti5Og4LNPfuSZx1aRPtrPq7v2YFkWQRD8egbVVS6XKRaL+L6P67o4jkNv7w42P3mEr45N0NYaJ/dLkYmMy/33LueDf31QCdKcGaCagdaaZDJJU1MTjY2NpFIpHCfEZX+6lGeef4V1DxzAGKH93EakLPS/8yWLFi+q+Jgd6JxhFwQBxhiSyeSc2e/7AevvuJ10+juuW/c3tj34R/oHjjP0Q4revgdPJ0FmAijA1NfXEwqFTENDg7Isaw5tVQG3be0mtbCRNw4coL7xPD56bTtNTU0ANDQ0yMyGqwKUgGD//v0MDw+rfD6vbdtGKUWpVKqlrtT/34vp6WmaU0n+ctvNCEJ//7tMT08TiURkYmJCe54HUBCRWY/+5mg0ep9SqqSUUuVyGSOGumgUYwQQjAnwvGnq6+OUy6VTQmpdHRNijIl4nvcucPes2gcYGBgIZ7PZWCaTqRsYGIh1dCyNjY+nY647FZs6MRHz8l/Hrrliceyhh7tjnpePjYyMxMbGxmLZbDaWzWZjU1NTsaGhoWgikaj5/R958KLgEIeBwgAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAAASUVORK5CYII="><span id="alt_edit" style="display: none; font-size: 24pt; font-family: wingdings; visibility: hidden;">!</span></div>
-<div id="menu_cancel" style="display: none; cursor: pointer; visibility: hidden;" onclick="cancel()"><img id="img_cancel" style="display: inline; visibility: visible;" alt="Cancel" src="data:image/png;base64,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"><span id="alt_cancel" style="display: none; font-size: 24pt; font-family: wingdings; visibility: hidden;"></span></div>
+<div id="menu_cancel" style="display: none; cursor: pointer; visibility: hidden;" onclick="cancel()"><img id="img_cancel" style="display: inline; visibility: visible;" alt="Cancel" src="data:image/png;base64,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"><span id="alt_cancel" style="display: none; font-size: 24pt; font-family: wingdings; visibility: hidden;">ý</span></div>
 <div id="menu_save" style="display: none; cursor: pointer; visibility: hidden;" onclick="save()"><img id="img_save" style="display: inline; visibility: visible;" alt="Save" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAAK/INwWK6QAAAAZiS0dEAP8A/wD/oL2nkwAAA0FJREFUeNq1lc+KHFUUxn/n3qqu6h7tGdPByTBOEjQunK26EQRdhAGRuHGE2agLH8C1j5AXCFnkAYyBEIKoRHeabWQyJKIm+IdAdwSd0HZPdVXdc1xU9UynbZIe/xy4XG5R93z3fN937hWqeALYqGcFhH8WBkTAD8DXTCS64n18Jo6ToFo4792hAEQEVUUVc87baDR0ZvYBcEFAngO7eeatD5vHjq2XKysDee/dNxkOc9zcOIJzgXPnrhD0mfDVl+cbt29f/0zEvREBHqD9ZIckWfCdIwnLy8v0+3t47x7PiRkAcexoLy6SZW1arTaAQyq+ACSEAtVAURQyGo3I8/krMANVoSxLQigtaKjKsgkAREAEmRjOzVeBCDgnCPXecU7g8Rn+ZfzvANHkYprxsYD/GYABiExAzS+yWcX/IwEATEu8V7w3vNc5skvVvt7Qyj2zAVSVVqvJj3d6nD37MeAxJimSh+qxuj5DMVNUA7t/wFNHInSC2mhyh6AkyQrd3gOKYhcRv2/V6dOJCBoCjWSJNG2jqiSpAPrQUaLpTXk+4mhnyObma4QAWTZABNJ0AdWDk5mB98bFi9fJ8gWSxBFCybQt/gagqjSbTU6cOMknl66xvd0DjJdfWmNj41WGwwznBFVIU0+z1WQwDMRRNNMUUyJXzIYQyPOMbvcB8DSqSre7S1mOKIoc5xxmRp57NITaebMjmvlVqmq8czingOJ8Zd8DK8pB3ke0y34n26y/qutp8n45dEQ1fPA+qkU0MzMxM4q8JMsCqkpelJgZqoZz4xvU6m6vZqs6bnxYA4hEBDNz/f7vliQtnBuQNBJL0xbr68cpw6+Asf7CsyRJimpFk1klcqOR4HxEVIvsfSzeRQAmApGZfQ9c/uLz81tpupB3Oidd736X7e0dVlc7rK4u1g6LuHXru30NzMA55f5vPfLc0CCEMkgIZTkY7Hog7PebiHNLS8uXKlQpqR5+O+wQEQVCvX6/lrHq+M13PmplWf760c7QnT79Cnt7h3nRFO+Fq1e/saLoRDd3rv10986Nb0WECMTAiOMkWzv+4qfPnyrY2nqb/p97+DletDFdcSz8/EtgNFrj3r0d7nJDRMT+AqKAkRUl/oStAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAABJRU5ErkJggg=="><span id="alt_save" style="display: none; font-size: 24pt; font-family: wingdings; visibility: hidden;">&lt;</span></div>
 </td></tr></tbody></table></div><br><br>
 <div id="text_area" style="display: inline; visibility: visible;">
 <div class="menu_area" id="sw_menu_area" style="position: fixed;">
 <div class="wiki" id="menu_area" ondblclick="menu_dblclick()"></div>
-<div id="menu_edit_button" style="display: inline;">
+<div id="menu_edit_button" style="display: none; visibility: hidden;">
 <hr>
 
-<div style="text-align: center;"><a class="link" onclick="edit_menu()">[Edit]</a></div></div>
+<div id="menu_edit_button" style="text-align: center;"><a class="link" onclick="edit_menu()">[Edit]</a></div></div>
 <div class="wiki" id="ns_menu_area" ondblclick="ns_menu_dblclick()" style="display: none; visibility: hidden;"></div>
 <div id="ns_menu_edit_button" style="display: none; visibility: hidden;">
 <hr>
@@ -3466,7 +3857,7 @@ function AES_decrypt(raw_data) {
 <div style="text-align: center;"><a class="link" onclick="edit_ns_menu()">[Edit]</a></div></div></div>
 <div class="text_area" id="wiki_text" ondblclick="page_dblclick()"></div></div>
 <div id="edit_area" style="display: none; visibility: hidden;">
-<div id="edit_page_title" style="display: block;">Page title: <input id="wiki_page_title" size="50" value="Hit the ball"></div><textarea id="wiki_editor" style="width: 994px; height: 431px;" rows="0" cols="0"></textarea> 
+<div id="edit_page_title" style="display: block;">Page title: <input id="wiki_page_title" size="50" value=""></div><textarea id="wiki_editor" style="width: 994px; height: 431px;" rows="0" cols="0"></textarea> 
 <table style="font-size: 8pt;">
 <tbody>
 <tr>
@@ -3483,11 +3874,12 @@ function AES_decrypt(raw_data) {
 <td># ordinal list</td>
 <td>@ alpha list</td>
 <td>== subheader</td>
+<td>{{{ nowiki }}}</td>
 <td></td>
 <td><a class="world" onclick="open_table_help()">(tables)</a></td></tr></tbody></table></div>
 <div id="debug_info" style="display: inline; visibility: visible;">
 <h2>Debug console</h2>
-<p>This is a development BETA version of Wiki On a Stick; it is not suggested to use it with important data. If you want to disable this debug console, you will have to find the line that says <b><tt>var debug = true;</tt></b> and change it to <b><tt>false</tt></b>. Note: in the currently active debug mode changes will be saved only if <b><tt>var save_override</tt></b> is set to <b><tt>true</tt></b></p>
+<p>This is a development BETA version of Wiki On a Stick; it is not suggested to use it with important data. If you want to disable this debug message and console, you will have to find the line that says <b><tt>var debug = true;</tt></b> and change it to <b><tt>false</tt></b>.</p>
 <div align="center"><textarea id="swlogger" ondblclick="el('swlogger').value=''" style="width: 90%; background-color: rgb(204, 204, 204);" rows="12" readonly="readonly" cols="70"></textarea><br><input onclick="el('swlogger').value=''" value="Clear" type="button"></div></div>
 <hr>
 
