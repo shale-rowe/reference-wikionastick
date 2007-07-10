@@ -871,7 +871,7 @@ function special_tagged_pages() {
 		tmp = get_src_page(i);
 		if (tmp==null)
 			continue;
-		tmp.replace(/\[\[Tags?::([^\]]*?)\]\]/g,
+		tmp.replace(/\[\[Tags?::([^\]]+)\]\]/g,
 			function (str, $1) {
 				var tmp=$1.split(",");
 				for(var j=0;j<tmp.length; j++) {
