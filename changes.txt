@@ -10,6 +10,11 @@ Version 0.9.3 (legolas558 - official)
 * added search box to left menu
 * added Creole 0.1 testcases
 * implemented print preview mode
+* implemented file embedding
+* implemened raw file transclusion
+* implemented images embedding
+* internal marker gets automatically incremented after save
+* more realistic password quality estimation
 
 Version 0.9.2 (legolas558 - official)
 
