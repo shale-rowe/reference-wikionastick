@@ -1,3 +1,8 @@
+Version 0.9.4 (legolas558 - official)
+
+* cumulative save feature
+* auto-save feature
+
 Version 0.9.3 (legolas558 - official)
 
 * introduced alternative equal sign '=' syntax for headers (WikiCreole compliance)
@@ -15,6 +20,8 @@ Version 0.9.3 (legolas558 - official)
 * implemented images embedding
 * internal marker gets automatically incremented after save
 * more realistic password quality estimation
+* implemented Special::Bootscript
+* added "Loading..." message
 
 Version 0.9.2 (legolas558 - official)
 
