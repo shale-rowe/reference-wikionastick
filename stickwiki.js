@@ -31,6 +31,8 @@ var _asto = null;
 
 /* HERE BEGINS FRAMEWORK CODE */
 
+var _doctype = "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n";
+
 if((navigator.userAgent).indexOf("Opera")!=-1)
 	opera = true;
 else if(navigator.appName == "Netscape")
@@ -434,11 +436,11 @@ var script_extension = [];
 
 // Parse typed code into HTML - allows overriding
 var parse = function(text) {
-	return _i_parse(text, false, true);
+	return _i_parse(text, false, 1);
 }
 
 // will be replaced by a better parse engine in future
-function _i_parse(text, wiki_links, js_replace) {
+function _i_parse(text, wiki_links, js_mode) {
 	if (text == null) {
 		log("text = null while parsing current page \""+current+"\"");
 		return;
@@ -474,13 +476,16 @@ function _i_parse(text, wiki_links, js_replace) {
 					var r = "<!-- "+parse_marker+"::"+html_tags.length+" -->";
 					log("Embedded file transclusion: "+templname);
 					if (is_image(templname)) {
-						var img;
+						var img, img_name = xhtml_encode(templname.substr(templname.indexOf("::")+2));
 						if (wiki_links)
-							img = "<img class=\"embedded\" src=\""+_export_get_fname(templname.substr(templname.indexOf("::")+2))+"\" ";
+							img = "<img class=\"embedded\" src=\""+_export_get_fname(templname)+"\" alt=\""+img_name+"\" ";
 						else
 							img = "<img class=\"embedded\" src=\""+templtext+"\" ";
-						if (parts.length>1)
+						if (parts.length>1) {
 							img += parts[1];
+							if (!wiki_links && !parts[1].match(/alt=('|").*?\1/))
+								img += " alt=\""+img_name+"\"";
+						}
 						html_tags.push(img+" />");
 					} else
 						html_tags.push("<pre class=\"embedded\">"+xhtml_encode(templtext)+"</pre>");
@@ -515,9 +520,14 @@ function _i_parse(text, wiki_links, js_replace) {
 	
 	// reset the array of custom scripts
 	script_extension = [];
-	if (js_replace) {
+	if (js_mode) {
 		// gather all script tags
 		text = text.replace(/<script([^>]*)>((.|\n)*?)<\/script>/gi, function (str, $1, $2) {
+			if (js_mode==2) {
+				var r = "<!-- "+parse_marker+"::"+html_tags.length+" -->";
+				html_tags.push(str);
+				return r;
+			}
 			var m=$1.match(/src=(?:"|')([^\s'">]+)/);
 			if (m!=null)
 				script_extension.push(new Array(m[1]));
@@ -560,9 +570,11 @@ function _i_parse(text, wiki_links, js_replace) {
 				if (page_exists(page)) {
 					var r="<!-- "+parse_marker+'::'+html_tags.length+" -->";
 					var wl;
-					if (wiki_links)
-						wl = " href=\""+_export_get_fname(page)+_export_get_ext(page_index(page))+"\"";
-					else
+					if (wiki_links) {
+//						if (page_index(page)==-1)
+//							wl = " onclick=\"alert('not yet implemented');\"";		else
+							wl = " href=\""+_export_get_fname(page)+"\"";
+					} else
 						wl = " onclick='go_to(\"" + js_encode(page) +	"\")" + gotohash + "'";
 					html_tags.push("<a class=\"link\""+ wl + " >" + $2 + "<\/a>");
 					return r;
@@ -571,7 +583,7 @@ function _i_parse(text, wiki_links, js_replace) {
 						var r="<!-- "+parse_marker+'::'+html_tags.length+" -->";
 						var wl;
 						if (wiki_links)
-							wl = _export_get_fname(page)+_export_get_ext(page_index(page));
+							wl = _export_get_fname(page);
 						else wl = "";
 						html_tags.push("<a class=\"link\" href=\""+wl+"#" +header_anchor($1.substring(1)) + "\">" + $2 + "<\/a>");
 						return r;
@@ -580,7 +592,7 @@ function _i_parse(text, wiki_links, js_replace) {
 						var wl;
 						if (wiki_links)
 							wl = " onclick='go_to(\"" +js_encode($1)+"\")'";
-						else wl=" href=\#\"";
+						else wl=" href=\"#\"";
 						html_tags.push("<a class=\"unlink\" "+wl+">" + $2 + "<\/a>");
 						return r;
 					}
@@ -607,9 +619,14 @@ function _i_parse(text, wiki_links, js_replace) {
 			return "<!-- "+parse_marker+":"+inline_tags+" -->";
 		}
 		
-		if(page_exists($1)) {
+		if (page_exists($1)) {
 			var r="<!-- "+parse_marker+'::'+html_tags.length+" -->";
-			html_tags.push("<a class=\"link\" onclick=\"go_to('" + js_encode($1) +"')\">" + $1 + "<\/a>");
+			var wl;
+			if (!wiki_links)
+				wl = " onclick=\"go_to('" + js_encode($1) +"')\"";
+			else
+				wl = " href=\""+_export_get_fname($1)+"\"";
+			html_tags.push("<a class=\"link\""+wl+">" + $1 + "<\/a>");
 			return r;
 		} else {
 			var r="<!-- "+parse_marker+'::'+html_tags.length+" -->";
@@ -717,7 +734,7 @@ function _i_parse(text, wiki_links, js_replace) {
 	}
 	
 	tags = tags.toUnique();
-	if (tags.length) {
+	if (tags.length && wiki_links) {
 		if (force_inline)
 			s = "";
 		else
@@ -1229,7 +1246,7 @@ function page_print() {
 			css_payload = "div.wiki_toc { position: relative; left:25%; right: 25%;}";
 	} else
 		css_payload = "div.wiki_toc { margin: 0 auto;}\n";
-	wnd.document.writeln("<ht"+"ml><he"+"ad><title>"+current+"</title>"+
+	wnd.document.writeln(_doctype+"<ht"+"ml><he"+"ad><title>"+current+"</title>"+
 	"<st"+"yle type=\"text/css\">"+css_payload+document.getElementsByTagName("style")[0].innerHTML+"</sty"+"le><scr"+"ipt type=\"text/javascript\">function go_to(page) { alert(\"Sorry, you cannot browse the wiki while in print mode\");}</sc"+"ript></h"+"ead><"+"body>"+
 	el("wiki_text").innerHTML+"</bod"+"y></h"+"tml>\n");
 	wnd.document.close();
@@ -2625,7 +2642,7 @@ function _saveThisFile(new_data, old_data)
 {
 	var filename = _get_this_filename();
 	r = saveFile(filename,
-	"<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\">\n<head>\n<script type=\"text/javascript\">" + new_data + "\n" + old_data + "</html>");
+	_doctype+"<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\">\n<head>\n<script type=\"text/javascript\">" + new_data + "\n" + old_data + "</html>");
 	if (r==true)
 		log("\""+filename+"\" saved successfully");
 	else
@@ -2858,14 +2875,26 @@ function _export_get_page(pi) {
 	return pg;	
 }
 
-function _export_get_fname(title) {
-	return escape(title).replace(/%20/g, " ").replace(/%3A%3A/g, " - ");
-}
+var _export_main_index = false, _export_default_ext;
 
-function _export_get_ext(pi) {
+function _export_get_fname(title) {
+	if (title.match(/::$/)) {
+		return "#";
+	}
+	if (is_reserved(title))
+		return "#";
+	var pi=page_index(title);
+	if (pi==-1) {
+		alert(title);
+		return "#";
+	}
+	if (_export_main_index && (title==main_page))
+		return "index."+_export_default_ext;
+	var ext = "";
 	if (is__embedded(pi))
-		return "";
-	return ".htm";
+		title = title.substr(title.indexOf("::")+2);
+	else ext = "."+_export_default_ext;
+	return escape(title).replace(/%20/g, " ").replace(/%3A%3A/g, " - ")+ext;
 }
 
 // by legolas558
@@ -2873,15 +2902,21 @@ function export_wiki() {
 	try {
 		var xhtml_path = el("woas_ep_xhtml").value;
 		var img_path = el("woas_ep_img").value;
-		var dyn_js = el("woas_cb_js_dyn").checked;
+		var js_mode = 0;
+		if (el("woas_cb_js_dyn").checked)
+			js_mode = 1;
+		else if (el("woas_cb_js_exp").checked)
+			js_mode = 2;
 		var sep_css = el("woas_cb_sep_css").checked;
-	} catch (e) { return false; }
+		_export_main_index = el("woas_cb_index_main").checked;
+		_export_default_ext = el("woas_ep_ext").value;
+	} catch (e) { alert(e); return false; }
 	
 	elShow("loading_overlay");
 	el("loading_overlay").focus();
 	var css = document.getElementsByTagName("style")[0].innerHTML;
 	if (sep_css) {
-		var css_path = _export_get_fname(main_page)+".css";
+		var css_path = "woas.css";
 		saveFile(xhtml_path+css_path, css);
 		css = '<link rel="stylesheet" type="text/css" media="all" href="'+css_path+'" />';
 	} else
@@ -2889,12 +2924,12 @@ function export_wiki() {
 
 	var l=page_titles.length, data = null, fname = "", done=0, wt=null;
 	for (var pi=0;pi<l;pi++) {
+		if (page_titles[pi].match(/^Special::/)) continue;
 		data = _export_get_page(pi);
 		if (data == null) continue;
 		if (page_titles[pi].indexOf("::Menu")==page_titles[pi].length-6) continue;
 		fname = _export_get_fname(page_titles[pi]);
 		if (is__embedded(pi)) {
-			fname = page_titles[pi].substr(page_titles[pi].indexOf("::")+2);
 			if (is__image(pi)) {
 				if (!_b64_export(data, img_path+fname))
 					break;
@@ -2902,8 +2937,8 @@ function export_wiki() {
 			} else
 				data = '<pre class="wiki_preformatted">'+xhtml_encode(data)+"</pre>";
 		} else {
-			data = _i_parse(data, true, !dyn_js);
-			if (dyn_js) {
+			data = _i_parse(data, true, js_mode);
+			if (js_mode) {
 				wt = el("wiki_text");
 				setHTML(wt, data);
 				_activate_scripts();
@@ -2911,11 +2946,17 @@ function export_wiki() {
 			}			
 		}
 		data = "<ht"+"ml><he"+"ad><title>"+page_titles[pi]+"</title>"+css+"</h"+"ead><"+"body>"+data+"</bod"+"y></h"+"tml>\n";
-		if (!saveFile(xhtml_path+fname+".htm", data))
+		if (!saveFile(xhtml_path+fname, _doctype+data))
 			break;
 		++done;
 	}
-	if (dyn_js) {
+/*		if (js_mode==2) {
+			data = _export_get_page(page_index("Special::Bootscript"));
+			if (data!=null) {
+				saveFile(xhtml_path+"bootscript.js", data);
+			}
+		}	*/
+	if (js_mode) {
 		refresh_menu_area();
 		set_current(current);
 	}
