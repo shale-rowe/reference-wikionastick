@@ -434,6 +434,11 @@ var script_extension = [];
 
 // Parse typed code into HTML - allows overriding
 var parse = function(text) {
+	return _i_parse(text, false, true);
+}
+
+// will be replaced by a better parse engine in future
+function _i_parse(text, wiki_links, js_replace) {
 	if (text == null) {
 		log("text = null while parsing current page \""+current+"\"");
 		return;
@@ -469,7 +474,11 @@ var parse = function(text) {
 					var r = "<!-- "+parse_marker+"::"+html_tags.length+" -->";
 					log("Embedded file transclusion: "+templname);
 					if (is_image(templname)) {
-						var img = "<img class=\"embedded\" src=\""+templtext+"\" ";
+						var img;
+						if (wiki_links)
+							img = "<img class=\"embedded\" src=\""+_export_get_fname(templname.substr(templname.indexOf("::")+2))+"\" ";
+						else
+							img = "<img class=\"embedded\" src=\""+templtext+"\" ";
 						if (parts.length>1)
 							img += parts[1];
 						html_tags.push(img+" />");
@@ -506,15 +515,17 @@ var parse = function(text) {
 	
 	// reset the array of custom scripts
 	script_extension = [];
-	// gather all script tags
-	text = text.replace(/<script([^>]*)>((.|\n)*?)<\/script>/gi, function (str, $1, $2) {
-		var m=$1.match(/src=(?:"|')([^\s'">]+)/);
-		if (m!=null)
-			script_extension.push(new Array(m[1]));
-		else
-			script_extension.push($2);
-		return "";
-	});
+	if (js_replace) {
+		// gather all script tags
+		text = text.replace(/<script([^>]*)>((.|\n)*?)<\/script>/gi, function (str, $1, $2) {
+			var m=$1.match(/src=(?:"|')([^\s'">]+)/);
+			if (m!=null)
+				script_extension.push(new Array(m[1]));
+			else
+				script_extension.push($2);
+			return "";
+		});
+	}
 	
 	// put a placeholder for the TOC
 	var p = text.indexOf("[[Special::TOC]]");
@@ -548,17 +559,29 @@ var parse = function(text) {
 				}
 				if (page_exists(page)) {
 					var r="<!-- "+parse_marker+'::'+html_tags.length+" -->";
-					html_tags.push("<a class=\"link\" onclick='go_to(\"" + js_encode(page) +	"\")" + gotohash + "'>" + $2 + "<\/a>");
+					var wl;
+					if (wiki_links)
+						wl = " href=\""+_export_get_fname(page)+_export_get_ext(page_index(page))+"\"";
+					else
+						wl = " onclick='go_to(\"" + js_encode(page) +	"\")" + gotohash + "'";
+					html_tags.push("<a class=\"link\""+ wl + " >" + $2 + "<\/a>");
 					return r;
 				} else {
 					if ($1.charAt(0)=="#") {
 						var r="<!-- "+parse_marker+'::'+html_tags.length+" -->";
-						html_tags.push("<a class=\"link\" href=\"#" +header_anchor($1.substring(1)) + "\">" + $2 + "<\/a>");
+						var wl;
+						if (wiki_links)
+							wl = _export_get_fname(page)+_export_get_ext(page_index(page));
+						else wl = "";
+						html_tags.push("<a class=\"link\" href=\""+wl+"#" +header_anchor($1.substring(1)) + "\">" + $2 + "<\/a>");
 						return r;
 					} else {
 						var r="<!-- "+parse_marker+'::'+html_tags.length+" -->";
-						html_tags.push("<a class=\"unlink\" onclick='go_to(\"" +
-									js_encode($1)+"\")'>" + $2 + "<\/a>");
+						var wl;
+						if (wiki_links)
+							wl = " onclick='go_to(\"" +js_encode($1)+"\")'";
+						else wl=" href=\#\"";
+						html_tags.push("<a class=\"unlink\" "+wl+">" + $2 + "<\/a>");
 						return r;
 					}
 				}
@@ -591,11 +614,15 @@ var parse = function(text) {
 		} else {
 			var r="<!-- "+parse_marker+'::'+html_tags.length+" -->";
 			if ($1.charAt(0)=="#") {
-				html_tags.push("<a class=\"link\" href=\"#" + header_anchor($1.substring(1)) + "\">" + $1.substring(1) + "<\/a>");
-				return r;
+				html_tags.push("<a class=\"link\" href=\"#" +header_anchor($1.substring(1)) + "\">" + $1.substring(1) + "<\/a>");
+			} else {
+				var r="<!-- "+parse_marker+'::'+html_tags.length+" -->";
+				var wl;
+				if (wiki_links)
+					wl = " onclick='go_to(\"" +js_encode($1)+"\")'";
+				else wl=" href=\#\"";
+				html_tags.push("<a class=\"unlink\" "+wl+">" + $1 + "<\/a>");
 			}
-//			log("Unlinked link: "+$1);
-			html_tags.push("<a class=\"unlink\" onclick=\"go_to('" + js_encode($1) +"')\">" + $1 + "<\/a>");
 			return r;
 		}
 	}); //"<a class=\"wiki\" onclick='go_to(\"$1\")'>$1<\/a>");
@@ -1312,6 +1339,10 @@ function export_image(page, dest_path) {
 	var data=get__text(pi);
 	if (data==null)
 		return false;
+	return _b64_export(data, dest_path);
+}
+
+function _b64_export(data, dest_path) {
 	// decode the base64-encoded data
 	data = merge_bytes(b64_decode(data.replace(/^data:\s*[^;]*;\s*base64,\s*/, '')));
 	// attempt to save the file
@@ -2807,6 +2838,89 @@ function erase_wiki() {
 	refresh_menu_area();
 	backstack = [];
 	forstack = [];	
+	return true;
+}
+
+function _get_this_path() {
+	var slash_c = (navigator.appVersion.indexOf("Win")!=-1)?"\\\\":"/";
+	return _get_this_filename().replace(new RegExp("("+slash_c+")"+"[^"+slash_c+"]*$"), "$1");
+}
+
+function _export_get_page(pi) {
+	if (!is__encrypted(pi))
+		return pages[pi];
+	if (!key.length) {
+		latest_AES_page = "";
+		return null;
+	}
+	var pg = AES_decrypt(pages[pi].slice(0));	/*WARNING: may not be supported by all browsers*/
+	last_AES_page = page_titles[pi];
+	return pg;	
+}
+
+function _export_get_fname(title) {
+	return escape(title).replace(/%20/g, " ").replace(/%3A%3A/g, " - ");
+}
+
+function _export_get_ext(pi) {
+	if (is__embedded(pi))
+		return "";
+	return ".htm";
+}
+
+// by legolas558
+function export_wiki() {
+	try {
+		var xhtml_path = el("woas_ep_xhtml").value;
+		var img_path = el("woas_ep_img").value;
+		var dyn_js = el("woas_cb_js_dyn").checked;
+		var sep_css = el("woas_cb_sep_css").checked;
+	} catch (e) { return false; }
+	
+	elShow("loading_overlay");
+	el("loading_overlay").focus();
+	var css = document.getElementsByTagName("style")[0].innerHTML;
+	if (sep_css) {
+		var css_path = _export_get_fname(main_page)+".css";
+		saveFile(xhtml_path+css_path, css);
+		css = '<link rel="stylesheet" type="text/css" media="all" href="'+css_path+'" />';
+	} else
+		css = '<style type="text/css">'+css+'</style>';
+
+	var l=page_titles.length, data = null, fname = "", done=0, wt=null;
+	for (var pi=0;pi<l;pi++) {
+		data = _export_get_page(pi);
+		if (data == null) continue;
+		if (page_titles[pi].indexOf("::Menu")==page_titles[pi].length-6) continue;
+		fname = _export_get_fname(page_titles[pi]);
+		if (is__embedded(pi)) {
+			fname = page_titles[pi].substr(page_titles[pi].indexOf("::")+2);
+			if (is__image(pi)) {
+				if (!_b64_export(data, img_path+fname))
+					break;
+				else continue;
+			} else
+				data = '<pre class="wiki_preformatted">'+xhtml_encode(data)+"</pre>";
+		} else {
+			data = _i_parse(data, true, !dyn_js);
+			if (dyn_js) {
+				wt = el("wiki_text");
+				setHTML(wt, data);
+				_activate_scripts();
+				data = getHTML(wt);
+			}			
+		}
+		data = "<ht"+"ml><he"+"ad><title>"+page_titles[pi]+"</title>"+css+"</h"+"ead><"+"body>"+data+"</bod"+"y></h"+"tml>\n";
+		if (!saveFile(xhtml_path+fname+".htm", data))
+			break;
+		++done;
+	}
+	if (dyn_js) {
+		refresh_menu_area();
+		set_current(current);
+	}
+	elHide("loading_overlay");
+	alert(done+" pages exported successfully");
 	return true;
 }
 
