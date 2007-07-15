@@ -26,11 +26,6 @@ var ie6 = false;
 var firefox = false;
 var opera = false;
 
-// will be published in v0.9.4B
-var n__config = {};
-n__config["cumulative_save"] = false;
-n__config["auto_save"] = 5 * 60 * 1000;
-
 // Automatic-Save TimeOut object
 var _asto = null;
 
@@ -1861,8 +1856,8 @@ function _auto_saver() {
 		save_to_file(true);
 		menu_display("save", false);
 	}
-	if (n__config.auto_save)
-		_asto = setTimeout("_auto_saver()", n__config.auto_save);
+	if (__config.auto_save)
+		_asto = setTimeout("_auto_saver()", __config.auto_save);
 }
 
 // save configuration on exit
@@ -1935,8 +1930,8 @@ function on_load()
 	else
 		elHide("menu_edit_button");
 	
-	if (n__config.cumulative_save && n__config.auto_save)
-		_asto = setTimeout("_auto_saver()", n__config.auto_save);
+	if (__config.cumulative_save && __config.auto_save)
+		_asto = setTimeout("_auto_saver()", __config.auto_save);
 		
 	_create_bs();
 	
@@ -2066,7 +2061,7 @@ function disable_edit()
 	// check for back and forward buttons - TODO grey out icons
 	update_nav_icons(current);
 	menu_display("home", true);
-	if (n__config.cumulative_save)
+	if (__config.cumulative_save)
 		menu_display("save", floating_pages.length!=0);
 	else
 		menu_display("save", false);
@@ -2253,7 +2248,7 @@ function _new_syntax_patch(text) {
 // when save is clicked
 function save()
 {
-	if (n__config.cumulative_save && !kbd_hooking) {
+	if (__config.cumulative_save && !kbd_hooking) {
 		save_to_file(true);
 		menu_display("save", false);
 		return;
@@ -2431,7 +2426,7 @@ function save_page(page_to_save) {
 
 function save__page(pi) {
 	//this is the dummy function that will allow more efficient file saving in future
-	if (n__config.cumulative_save) {
+	if (__config.cumulative_save) {
 		if (!floating_pages.length) {
 			floating_pages.push(pi);
 			menu_display("save", true);
@@ -2868,6 +2863,9 @@ function import_wiki()
 				case "0.9.3B":
 					old_version = 93;
 				break;
+				case "0.9.4B":
+					old_version = 94;
+				break;
 				default:
 					alert("Incompatible version: " + ver_str);
 					document.body.style.cursor= "auto";
@@ -3079,10 +3077,10 @@ if (old_version	< 9) {
 		
 		__config["server_mode"] = false;
 		
-/*		if (old_version==94) {
+		if (old_version==94) {
 			__config["auto_save"] = 5 * 60 * 1000;
 			__config["cumulative_save"] = false;
-		}	*/
+		}
 		
 		current = sw_import_current;
 		
