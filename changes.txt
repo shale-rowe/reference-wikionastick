@@ -2,6 +2,7 @@ Version 0.9.4 (legolas558 - official)
 
 * cumulative save feature
 * auto-save feature
+* export feature
 
 Version 0.9.3 (legolas558 - official)
 
