@@ -2863,6 +2863,51 @@ function _get_this_path() {
 	return _get_this_filename().replace(new RegExp("("+slash_c+")"+"[^"+slash_c+"]*$"), "$1");
 }
 
+var max_keywords_length = 250;
+var max_description_length = 250;
+
+// proper autokeywords generation functions begin here
+
+function sortN(a,b)
+{return b.w - a.w}
+
+var common_words = ['a', 'the', 'is', 'for', 'of', 'to', 'in', 'an', 'be', 'that', 'all', 'or'];
+
+function _auto_keywords(source) {
+	if (!source.length) return "";
+	var words = source.match(new RegExp("[^\\s\x01-\x2F\x3A-\x40\x5B-\x60\x7B-\x7E]{2,}", "g"));
+	if (!words.length) return "";
+	var nu_words = new Array();
+	var density = new Array();
+	var wp=0;
+	for(var i=0;i<words.length;i++) {
+		if (words[i].length==0)
+			continue;
+		cond = (common_words.indexOf(words[i].toLowerCase())<0);
+		if (cond) {
+			wp = nu_words.indexOf(words[i]);
+			if (wp < 0) {
+				nu_words = nu_words.concat(new Array(words[i]));
+				density[nu_words.length-1] = {"i":nu_words.length-1, "w":1};
+			} else
+				density[wp].w = density[wp].w + 1;
+		}
+	}
+	if (!density.length) return "";
+	words = new Array();
+	var keywords = "", nw = "";
+	density = density.sort(sortN);
+	var ol=0;
+	for(i=0;i<density.length;i++) {
+		nw = nu_words[density[i].i];
+		if (ol+nw.length>max_keywords_length)
+			break;
+		keywords = keywords+","+nw;
+		ol+=nw.length;
+	}
+	return keywords.substr(1);
+}
+
 function _export_get_page(pi) {
 	if (!is__encrypted(pi))
 		return pages[pi];
@@ -2895,6 +2940,10 @@ function _export_get_fname(title) {
 		title = title.substr(title.indexOf("::")+2);
 	else ext = "."+_export_default_ext;
 	return escape(title).replace(/%20/g, " ").replace(/%3A%3A/g, " - ")+ext;
+}
+
+function xhtml_to_text(s) {
+	return s.replace(/<br\s?\/?>/g, "\n").replace(/<\/?\w+[^>]*>/g, ' ').replace(/&#?([^;]+);/g, function(str, $1) { if (!isNaN($1)) return String.fromCharCode($1); else return ""; });
 }
 
 // by legolas558
@@ -2945,7 +2994,14 @@ function export_wiki() {
 				data = getHTML(wt);
 			}			
 		}
-		data = "<ht"+"ml><he"+"ad><title>"+page_titles[pi]+"</title>"+css+"</h"+"ead><"+"body>"+data+"</bod"+"y></h"+"tml>\n";
+		var raw_text = sw_trim(xhtml_to_text(data));
+		data = "<ht"+"ml><he"+"ad><title>"+page_titles[pi]+"</title>"+css+
+		'<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />'+"\n"+
+		'<meta name="generator" content="Wiki on a Stick v'+version+'" />'+"\n"+
+		'<meta name="keywords" content="'+_auto_keywords(raw_text)+'" />'+"\n"+
+		'<meta name="description" content="'+
+		raw_text.replace(/\s+/g, " ").substr(0,max_description_length)+'" />'+"\n"+
+		"</h"+"ead><"+"body>"+data+"</bod"+"y></h"+"tml>\n"; raw_text = null;
 		if (!saveFile(xhtml_path+fname, _doctype+data))
 			break;
 		++done;
