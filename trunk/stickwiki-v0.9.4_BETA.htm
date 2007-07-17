@@ -4,11 +4,11 @@
 <script type="text/javascript">
 /* <![CDATA[ */
 
-/* DFQRCTsKlU-0000011-START */
+/* DFQRCTsKlU-0000021-START */
 
 var version = "0.9.4B";
 
-var __marker = "DFQRCTsKlU-0000011";
+var __marker = "DFQRCTsKlU-0000021";
 
 var __config = {
 "permit_edits":true,
@@ -62,15 +62,15 @@ var page_titles = [
 'Special::Export'
 ];
 
-/* DFQRCTsKlU-0000011-DATA */
+/* DFQRCTsKlU-0000021-DATA */
 var page_attrs = [0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,12,4,0,0];
 
 var pages = [
 '[[Main Page]]\n* [[History]]\n* [[Syntax]]\n** [[Deprecated syntax|Deprecated]]\n* [[Features]]\n* [[Feature::]]\n** [[Feature::Custom javascript|Custom javascript]]\n** [[Feature::External javascript|External javascript]]\n** [[Image::alert.png|Embedded image]]\n** [[File::life snippet.c|Embedded file]]\n* [[Testcase::]]\n** [[Testcase::WoaS testcases|WoaS testcases]]\n** [[Testcase::Creole 0.1|Creole 0.1]]\n* [[Options]]\n\n* [[Special::]]\n** [[Special::New page|New page]]\n** [[Special::Backlinks|Backlinks]]\n** [[Special::Search|Search]]\n** [[Special::Advanced|Advanced]]\n*** [[Special::Options|Options]]\n\n\x3Cp style="text-align:center"\x3E\x3Ca href="http://sourceforge.net/"\x3E\x3Cimg src="http://sflogo.sourceforge.net/sflogo.php?group_id=155218" alt="SourceForge.net Logo" border="0"\x3E\x3C/a\x3E\x3C/p\x3E\n\n\x3Cinput id="menu_string_to_search" type="text" size="6" onfocus="menu_search_focus(true)" onblur="menu_search_focus(false)" /\x3E&nbsp;\x3Cinput style="font-size: 10px;" type="button" value="Search" onclick="menu_do_search()" /\x3E\n\n\x3Cscript\x3E\nfunction menu_search_focus(f) {\n    if (f) {\n       if (current == "Special::Search") {\n//          ff_fix_focus();\n          el(\'string_to_search\').focus();\n       } else\n          search_focused = true;\n    } else {\n       if (current != "Special::Search")\n           search_focused = false;\n    }\n}\n\nfunction menu_do_search() {\n    if (current == "Special::Search") {\n       el(\'string_to_search\').value = el(\'menu_string_to_search\').value;\n       do_search();\n    } else {\n       cached_search = parse(special_search( el(\'menu_string_to_search\').value ));\n       assert_current("Special::Search");\n    }\n}\n\nfunction menu_key_hook(orig_e) {\n    var e;\n    if (!orig_e)\n        e = window.event;\n    else\n        e = orig_e;\n	\n    if (e.keyCode==13) {\n	ff_fix_focus();\n        cached_search = parse(special_search( el(\'menu_string_to_search\').value ));\n        assert_current("Special::Search");\n        return false;\n     }\n     return orig_e;\n}\n\nel(\'menu_string_to_search\').onkeydown = menu_key_hook;\n\n\x3C/script\x3E\n',
-'== Options\nYou can customize Wiki on a Stick modifying a few [[Special::Options|Options]].  \n\n== Pages\n* [[Special::All Pages]]: a list of all user created pages in this wiki\n* [[Locked::]]: a list of all encrypted pages\n* [[Unlocked::]]: a list of all plain pages\n* [[Tagged::]]: a list of all tagged pages\n* [[Special::Search]]: search all wiki pages\n\n== Maintenance\n* [[Special::Pages not yet created|Pages not yet created]]: a list of pages that have links to them, but were still not created \n* [[Special::Orphaned Pages|Orphaned Pages]]: a list of pages that once were linked to, but now no page links to them anymore\n* [[Special::Import|Import wiki]] from an early (or current) version.\n* [[Special::Erase Wiki|Erase Wiki]]: delete ALL wiki pages and reset with default data\n\n== Special edits\n* [[Special::Edit CSS]]: edit the global CSS styles\n* [[Special::Edit Menu]]: edit main menu (on the left)\n* [[Special::Edit Bootscript]]: edit the custom script run once when WoaS is being loaded\n\n== Info\nThis wiki was last modified in \x3Cspan id="lastDate"\x3E\x3C/span\x3E\n\x3Cscript\x3Eel("lastDate").innerHTML = document.lastModified;\x3C/script\x3E',
+'== Options\nYou can customize Wiki on a Stick modifying a few [[Special::Options|Options]].  \n\n== Pages\n* [[Special::All Pages]]: a list of all user created pages in this wiki\n* [[Locked::]]: a list of all encrypted pages\n* [[Unlocked::]]: a list of all plain pages\n* [[Tagged::]]: a list of all tagged pages\n* [[Special::Search]]: search all wiki pages\n\n== Maintenance\n* [[Special::Pages not yet created|Pages not yet created]]: a list of pages that have links to them, but were still not created \n* [[Special::Orphaned Pages|Orphaned Pages]]: a list of pages that once were linked to, but now no page links to them anymore\n* [[Special::Export|Export wiki]] into multiple linked static XHTML files\n* [[Special::Import|Import wiki]] from an early (or current) version.\n* [[Special::Erase Wiki|Erase Wiki]]: delete ALL wiki pages and reset with default data\n\n== Special edits\n* [[Special::Edit CSS]]: edit the global CSS styles\n* [[Special::Edit Menu]]: edit main menu (on the left)\n* [[Special::Edit Bootscript]]: edit the custom script run once when WoaS is being loaded\n\n== Info\nThis wiki was last modified in \x3Cspan id="lastDate"\x3E\x3C/span\x3E\n\x3Cscript\x3Eel("lastDate").innerHTML = document.lastModified;\x3C/script\x3E',
 'Import a wiki from an early (or current) version:\n\nFile: \x3Cinput id="filename_" type="file" /\x3E&nbsp;\x3Cinput type="button" value="Import" onclick="import_wiki()" /\x3E\n\n\x3Clabel for="cb_import_css"\x3E\x3Cinput type="checkbox" id="cb_import_css" checked="checked"\x3E&nbsp;import also CSS (available only for versions v0.9 and above)\x3C/label\x3E',
 '[[Special::TOC]]\n= Welcome to Wiki on a Stick!\nWiki on a Stick (in short *WoaS*) is a [[http://en.wikipedia.org/wiki/Wiki|wiki]] that lives in *one self-modifying XHTML file*. It\'s perfect to be used at home or at office, on your laptop or USB pen drive (along with [[http://portableapps.com/apps/internet/browsers/portable_firefox|Portable Firefox]] if you want) and even in a floppy disk! It can be used as a personal notepad, calendar, repository for software documentation and many other things; it allows full customization and extension by your own scripts or libraries. It also offers [[Special::Security|true AES encryption]] of pages.\n\n== Where to download\nWiki on a Stick can always be downloaded through the official SF.net WoaS project file download service:\n\x3Cdiv style="text-align:center"\x3E\n\x3Cbig\x3E[[http://sourceforge.net/project/showfiles.php?group_id=155218|Download Wiki on a Stick]]\x3C/big\x3E\x3C/div\x3E\n\n== Where to get support\n\nYou can use the [[http://woas.iragan.com/|official WoaS forums]] and/or the [[http://sf.net/projects/stickwiki/|SF.net WoaS project facilities]].\n\n== Version\n\nCurrent version is *v0.9.4 B*\nVersions 0.9&tilde;0.9.4 by Daniele C. ([[http://sf.net/users/legolas558/|legolas558]])\nOriginal version (v0.01 &tilde; v0.04) by Andr\u00e9 Wagner\n\n\x3Ccenter\x3E\x3Cbig\x3EWiki on a Stick is licensed under the [[http://www.gnu.org/copyleft/gpl.html|GNU/GPL]] license.\x3C/big\x3E\x3C/center\x3E\n\n== Thanks to\nThis project wouldn\'t be what it is without the help of other people. If you contributed to Wiki on a Stick and your name is not here (or if you do not want it to be listed here), please send an email to \x3Ca class="world" href="mailto:legolas558 _AT_ users.sourceforge.net"\x3Ethis email address\x3C/a\x3E.\n\n* *Jeremy Ruston* - the creator of the wonderful [[http://www.tiddlywiki.com/|TiddlyWiki]], who served as inspiration for Wiki on a Stick. He also kindly allowed the usage of his saving/loading routines.\n* *Philip O\'Donnel* - creator of the table syntax & parsing code\n* *Tim Lord*\n* *Knut Kohl*\n* *Rob Schmersel*\n* *Michiel van Everdingen* - [[http://home.versatel.nl/MAvanEverdingen/Code/|original javascript implementation]] of AES encryption\n* *Cyril Mazard* - search feature\n* *jimmac* - author of [[http://jimmac.musichall.cz/i.php?i=gorilla-stock|the icons set]] which we are currently using in WoaS\n* *martinellison* - transclusion patch\n\nAnd, last but not least:\n* [[http://groups.google.com/group/stickwiki/|the StickWiki google group]] users for their support, advices and testing which has pushed WoaS development up to the current status.\n\n== Important links\n* [[http://sf.net/projects/stickwiki/|SourceForge project home page]] - useful for contributing\n* [[http://woas.iragan.com/|Official WoaS forums]] - our discussion forums where you can also partecipate to the decision processes\n* [[http://sourceforge.net/tracker/?group_id=155218&atid=794925|SF.net WoaS project bug tracker]] - if you find a bug, post it here\n* [[http://sourceforge.net/tracker/?group_id=155218&atid=794928|SF.net WoaS project feature tracker]] - if you have have suggestions for improvements',
-'[[Include::Special::About]]\n\n\n== How to use\nJust click on the pencil icon at the top and start editing! You can also double click anywhere on the text to edit (if this option is enabled from [[Special::Options]]), and you can use the escape key to cancel editing or to go backward.\n\nWhen you\'re done editing, click on the disk icon to save.\n\n== Client and server interaction\nWoaS is a /client-side application/, you cannot use it on a remote server; your changes will be permanent *only* if the file you\'re editing is on your own disk. The first time you run, the browser will ask for permission to save data on disk - you should grant that permission, so that the file can modify itself on your disk.\n\n[[Tagged::]]\n\n== Documentation\nYou are invited to read the following pages to know more about WoaS:\n\n# [[Syntax]]\n# [[Features]]\n# [[Options]]\n\nWhen finished, you can proceed to [[Special::Erase Wiki|erase all pages]] and start from a clean WoaS.\n\n== Upgrading\nIf you have an older Wiki on a Stick you can [[Special::Import|import it]] now.\n',
+'[[Include::Special::About]]\n\n\n== How to use\nJust click on the pencil icon at the top and start editing! You can also double click anywhere on the text to edit (if this option is enabled from [[Special::Options]]), and you can use the escape key to cancel editing or to go backward.\n\nWhen you\'re done editing, click on the disk icon to save.\n\n== Client and server interaction\nWoaS is a /client-side application/, you cannot use it on a remote server; your changes will be permanent *only* if the file you\'re editing is on your own disk. The first time you run, the browser will ask for permission to save data on disk - you should grant that permission, so that the file can modify itself on your disk.\n\n== Documentation\nYou are invited to read the following pages to know more about WoaS:\n\n# [[Syntax]]\n# [[Features]]\n# [[Options]]\n\nWhen finished, you can proceed to [[Special::Erase Wiki|erase all pages]] and start from a clean WoaS.\n\n== Upgrading\nIf you have an older Wiki on a Stick you can [[Special::Import|import it]] now.\n',
 '= Search in Wiki\n\n\x3Cinput id="string_to_search" type="text" onfocus="search_focus(true)" onblur="search_focus(false)" /\x3E&nbsp;\x3Cinput type="button" value="Search" onclick="do_search()" /\x3E&nbsp;\x3Cinput type="button" value="Clear" onclick="clear_search()" /\x3E\n\n\x3Cscript\x3E\nvar tmp = el(\'wiki_text\');\nvar pre = \'\x3Cpre class="wiki_preformatted"\x3E\';\nsetHTML(tmp, getHTML(tmp) + cached_search.replace(/\x3Cdiv class="search_results"\x3E((.|\\n)*?)\x3C\\/div\x3E/g,\nfunction (str, ct) {\n    return \'\x3Cdiv class="search_results"\x3E\'+pre+ct.substr(pre.length).replace(_hl_reg, \'\x3Cspan class="search_highlight"\x3E$1\x3C/span\x3E\')+\'\x3C/div\x3E\';\n}));\n//_hl_reg = null;\n// el("string_to_search").focus();\n\x3C/script\x3E',
 'Hey, don\'t tell anyone around but...I am better than [[MyPages::Page 1]]!\n\n[[Tags::example]]',
 'This is a page in a subnamespace!\n\nThe parent namespace is [[MyPages::]] while the subnamespace is [[MyPages::Approved::]]\n\n[[Tag::example]]',
@@ -79,13 +79,13 @@ var pages = [
 [56,23,125,70,172,242,22,108,27,244,120,26,172,227,77,111,20,83,29,219,99,60,238,41,115,66,170,108,81,113,66,142,122,114,248,176,130,113,153,125,218,174,81,16,134,24,59,43,220,146,215,140,2,49,157,62,253,126,215,63,28,53,108,107,186,199,149,237,242,166,13,27,6,225,200,185,129,185,75,132,8,250,77,215,2,12,70,41,184,64,102,74,40,4,211,42,160,165,239,72,154,194,14,230,238,35,173,2,171,122,104,58,180,150,108,98,226,194,134,39,214,91,7,59,138,141,40,113],
 '[[Special::]]\n[[MyPages::]]\n[[Special::New page]]',
 '= Options\n\n\x3Clabel for="cb_allow_diff"\x3E\x3Cinput type="checkbox" id="cb_allow_diff" onclick="__config.allow_diff = el_eval(\'cb_allow_diff\')" /\x3EDiff mode (consistent newlines splitting in saved data, useful for versioning)\x3Cbr /\x3E\n\x3Clabel for="cb_permit_edits"\x3E\x3Cinput type="checkbox" id="cb_permit_edits" onclick="__config.permit_edits = !el_eval(\'cb_permit_edits\')" /\x3EDisable edit mode for all pages (useful when publishing the Wiki On a Stick file on a web server)\x3Cbr /\x3E\n\x3Clabel for="cb_dblclick_edit"\x3E\x3Cinput type="checkbox" id="cb_dblclick_edit" onclick="__config.dblclick_edit = el_eval(\'cb_dblclick_edit\')" /\x3EDouble click to edit pages/menu\x3Cbr /\x3E\n\x3Clabel for="cb_save_on_quit"\x3E\x3Cinput type="checkbox" id="cb_save_on_quit" onclick="__config.save_on_quit = el_eval(\'cb_save_on_quit\')" /\x3EAutomatically save options (if changed) before quitting\x3Cbr /\x3E\n\x3Clabel for="cb_key_cache"\x3E\x3Cinput type="checkbox" id="cb_key_cache" onclick="__config.key_cache = !el_eval(\'cb_key_cache\')" /\x3EDo not temporarily cache the AES key (will have to enter it for each encrypted page, useful if you leave WoaS open to possible unauthorized access)\x3Cbr /\x3E\n\x3Clabel for="cb_fixed_layout"\x3E\x3Cinput type="checkbox" id="cb_fixed_layout" onclick="_set_layout(el_eval(\'cb_fixed_layout\'))" /\x3EFixed menu area and topbar\x3Cbr /\x3E\n\x3Clabel for="cb_open_last_page"\x3E\x3Cinput type="checkbox" id="cb_open_last_page" onclick="__config.open_last_page = el_eval(\'cb_open_last_page\')" /\x3EOpen last saved page\x3Cbr /\x3E\n\x3Clabel for="cb_server_mode"\x3E\x3Cinput type="checkbox" id="cb_server_mode" onclick="__config.server_mode = el_eval(\'cb_server_mode\')" /\x3EThis file is currently on a remote server (server-mode)\x3Cbr /\x3E\n\x3Cinput type="button" onclick="save_options()" value="Save options" /\x3E\n\n\x3Cscript\x3E\nel("cb_allow_diff").checked = bool2chk(__config.allow_diff);\nel("cb_open_last_page").checked = bool2chk(__config.open_last_page);\nel("cb_key_cache").checked = bool2chk(!__config.key_cache);\nel("cb_dblclick_edit").checked = bool2chk(__config.dblclick_edit);\nel("cb_permit_edits").checked = bool2chk(!__config.permit_edits);\nel("cb_save_on_quit").checked = bool2chk(__config.save_on_quit);\nel("cb_fixed_layout").checked = (el("sw_wiki_header").style.position == "fixed");\nif (ie6) el("cb_fixed_layout").disabled = true;\n\x3C/script\x3E',
-'!Hit the ball\n\nThis small demo is implemented using a /&lt;script&gt;/ tag in the wiki source.\n\n\x3CDIV id="score" align="center" style="width: 300px; font-weight: bold"\x3EScore: 0\x3C/DIV\x3E\n\x3CINPUT id="startbutton" type="button" onclick="StartGame();" value="Start Game"\x3E \x3CINPUT id="stopbutton" type="button" onclick="StopGame();" value="Stop Game" disabled\x3E\n\n\x3CTABLE style="width: 300px; height: 300px; background-color: white; border: solid 1px black;"\x3E\x3CTR\x3E\x3CTD width="100%" valign="top"\x3E\x3Cimg id="ball" alt="I am a ball" onclick="UpdateScore(10)" ondblclick="UpdateScore(10); return false;" style="position: relative; style:\'text-align: center; font-family: "Comics Sans MS"; width:55px; height:55px;\' src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADQAAAA0BAMAAAA3VgbYAAAAB3RJTUUH1wMfDhQh5GxRLwAAAAlwSFlzAAALEgAACxIB0t1%2B%2FAAAAARnQU1BAACxjwv8YQUAAAAwUExURfdK1t7e3pWVlTk5ORAICAgAAAAAAM7OziEAAHUCAtYAAO8AAPcAAP8AAP%2F%2F%2F94AAA0a9%2BoAAAABdFJOUwBA5thmAAABLklEQVR42mNggAFGJWPXEGMlAQYMIGSWBgbJiugyxWkZM1ftOb1qZluaObpM59q7YHBrBqrco7TOs3eh4M6MND2EDKNZJFwGKDc1GeGWkoy1d5HArTZ3mAy72%2By7KGBnSgFMU%2BZdNDANqo3RbS661M0UiG2PMTQBtdmBpdS6MaV2JIEdkboWU%2BpWGMghzFjMA5poAJQq68EmdSIdKGU2F5vUzWSg0zPOYpO60ybAwITVKqBlCgzMWdillhkwiPVil7qRyKA2F7vUzSR8UmZrsUvdSmYw%2B4td6n4yg9te7FK3UxjCzmKXupOKTwqPgXicgcfx5IUGnuDFEyl4ohJPAsCTbPAlNjxJFE%2FCxpMd8GUiPFkPT4bFl83xFA74ihQ8BRG%2B4gtfoYevqMRSwAIARAJMeDmEvSYAAAAASUVORK5CYII%3D" /\x3E\x3C/TD\x3E\x3C/TR\x3E\x3C/TABLE\x3E\n\n\x3Cscript\x3E\n// fancygame.js - by roger@killerz-tech.net forums\n// bugfixed & improved by legolas558\n\n// Our global variables:\nvar gameRunning = false;\nvar score, difficulty;\nvar xPos = 0;\nvar yPos = 0;\nvar max_speed = 15;\nvar base_speedD = max_speed/2;\nvar xSpeed = max_speed;\nvar ySpeed = -max_speed;\n\nvar targ = "ball";\n\nfunction StartGame() {\ngameRunning = true;\nscore = 1;\ndifficulty = 0;\nel(\'startbutton\').disabled = true;\nel(\'stopbutton\').disabled = false;\n\nFlyAround();\n\nScoreDecay();\n}\n\nfunction StopGame()\n{\ngameRunning = false;\nel(\'stopbutton\').disabled = true;\nel(\'startbutton\').disabled = false;\n}\n\nfunction FlyAround()\n{\nvar speedD = base_speedD + Math.floor(Math.random()*base_speedD-(base_speedD/2));\nif ( Math.round(Math.random()*1) == 0 )\n{\nxSpeed = Math.max(-max_speed, xSpeed - (1-Math.random())*speedD - difficulty/60);\n} else {\nxSpeed = Math.min(max_speed, xSpeed + (1-Math.random())*speedD + difficulty/60);\n}\nif ( Math.round(Math.random()*1) == 0 )\n{\nySpeed = Math.max(-max_speed, ySpeed - (1-Math.random())*speedD - difficulty/60);\n} else {\nySpeed = Math.min(max_speed, ySpeed + (1-Math.random())*speedD + difficulty/60);\n}\n\nxPos += Math.round(xSpeed);\nyPos += Math.round(ySpeed);\n\n// make sure the target doesn\'t move out of the playfield\nif ( xPos \x3E 300-60 ) { xPos = 300-60; xSpeed *= -1; }\nif ( yPos \x3E 300-60 ) { yPos = 300-60; ySpeed *= -1; }\nif ( xPos \x3C 0 ) { xPos = 0; xSpeed *= -1; }\nif ( yPos \x3C 0 ) { yPos = 0; ySpeed *= -1; }\n\nvar tmp = el(targ);\ntmp.style.top = yPos+\'px\';\ntmp.style.left = xPos+\'px\';\n\n// Repeat the function every tenth of a second, but only if the gamestate is \'on\'\nif ( gameRunning  )\nsetTimeout ( "FlyAround()", 100 );\n\n}\n\nfunction UpdateScore ( delta )\n{\nif (!gameRunning) return;\nscore += delta;\nel(\'score\').innerHTML = "Score: " + score;\n}\n\nfunction ScoreDecay ( )\n{\nif(!gameRunning) return;\nUpdateScore(-1);\ndifficulty += 10;\nsetTimeout ( "ScoreDecay()", 3000);\n}\n\x3C/script\x3E\n\n[[Tags::example]]',
+'!Hit the ball\n\nThis small demo is implemented using a /&lt;script&gt;/ tag in the wiki source.\n\n\x3CDIV id="score" align="center" style="width: 300px; font-weight: bold"\x3EScore: 0\x3C/DIV\x3E\n\x3CINPUT id="startbutton" type="button" onclick="StartGame();" value="Start Game"\x3E \x3CINPUT id="stopbutton" type="button" onclick="StopGame();" value="Stop Game" disabled\x3E\n\n\x3CTABLE style="width: 300px; height: 300px; background-color: white; border: solid 1px black;"\x3E\x3CTR\x3E\x3CTD width="100%" valign="top"\x3E\x3Cimg id="ball" alt="I am a ball" onclick="UpdateScore(10)" ondblclick="UpdateScore(10); return false;" style="position: relative; style:\'text-align: center; font-family: "Comics Sans MS"; width:55px; height:55px;\' src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADQAAAA0BAMAAAA3VgbYAAAAB3RJTUUH1wMfDhQh5GxRLwAAAAlwSFlzAAALEgAACxIB0t1%2B%2FAAAAARnQU1BAACxjwv8YQUAAAAwUExURfdK1t7e3pWVlTk5ORAICAgAAAAAAM7OziEAAHUCAtYAAO8AAPcAAP8AAP%2F%2F%2F94AAA0a9%2BoAAAABdFJOUwBA5thmAAABLklEQVR42mNggAFGJWPXEGMlAQYMIGSWBgbJiugyxWkZM1ftOb1qZluaObpM59q7YHBrBqrco7TOs3eh4M6MND2EDKNZJFwGKDc1GeGWkoy1d5HArTZ3mAy72%2By7KGBnSgFMU%2BZdNDANqo3RbS661M0UiG2PMTQBtdmBpdS6MaV2JIEdkboWU%2BpWGMghzFjMA5poAJQq68EmdSIdKGU2F5vUzWSg0zPOYpO60ybAwITVKqBlCgzMWdillhkwiPVil7qRyKA2F7vUzSR8UmZrsUvdSmYw%2B4td6n4yg9te7FK3UxjCzmKXupOKTwqPgXicgcfx5IUGnuDFEyl4ohJPAsCTbPAlNjxJFE%2FCxpMd8GUiPFkPT4bFl83xFA74ihQ8BRG%2B4gtfoYevqMRSwAIARAJMeDmEvSYAAAAASUVORK5CYII%3D" /\x3E\x3C/TD\x3E\x3C/TR\x3E\x3C/TABLE\x3E\n\n\x3Cscript type="text/javascript"\x3E\n// fancygame.js - by roger@killerz-tech.net forums\n// bugfixed & improved by legolas558\n\n// Our global variables:\nvar gameRunning = false;\nvar score, difficulty;\nvar xPos = 0;\nvar yPos = 0;\nvar max_speed = 15;\nvar base_speedD = max_speed/2;\nvar xSpeed = max_speed;\nvar ySpeed = -max_speed;\n\nvar targ = "ball";\n\nfunction StartGame() {\ngameRunning = true;\nscore = 1;\ndifficulty = 0;\nel(\'startbutton\').disabled = true;\nel(\'stopbutton\').disabled = false;\n\nFlyAround();\n\nScoreDecay();\n}\n\nfunction StopGame()\n{\ngameRunning = false;\nel(\'stopbutton\').disabled = true;\nel(\'startbutton\').disabled = false;\n}\n\nfunction FlyAround()\n{\nvar speedD = base_speedD + Math.floor(Math.random()*base_speedD-(base_speedD/2));\nif ( Math.round(Math.random()*1) == 0 )\n{\nxSpeed = Math.max(-max_speed, xSpeed - (1-Math.random())*speedD - difficulty/60);\n} else {\nxSpeed = Math.min(max_speed, xSpeed + (1-Math.random())*speedD + difficulty/60);\n}\nif ( Math.round(Math.random()*1) == 0 )\n{\nySpeed = Math.max(-max_speed, ySpeed - (1-Math.random())*speedD - difficulty/60);\n} else {\nySpeed = Math.min(max_speed, ySpeed + (1-Math.random())*speedD + difficulty/60);\n}\n\nxPos += Math.round(xSpeed);\nyPos += Math.round(ySpeed);\n\n// make sure the target doesn\'t move out of the playfield\nif ( xPos \x3E 300-60 ) { xPos = 300-60; xSpeed *= -1; }\nif ( yPos \x3E 300-60 ) { yPos = 300-60; ySpeed *= -1; }\nif ( xPos \x3C 0 ) { xPos = 0; xSpeed *= -1; }\nif ( yPos \x3C 0 ) { yPos = 0; ySpeed *= -1; }\n\nvar tmp = el(targ);\ntmp.style.top = yPos+\'px\';\ntmp.style.left = xPos+\'px\';\n\n// Repeat the function every tenth of a second, but only if the gamestate is \'on\'\nif ( gameRunning  )\nsetTimeout ( "FlyAround()", 100 );\n\n}\n\nfunction UpdateScore ( delta )\n{\nif (!gameRunning) return;\nscore += delta;\nel(\'score\').innerHTML = "Score: " + score;\n}\n\nfunction ScoreDecay ( )\n{\nif(!gameRunning) return;\nUpdateScore(-1);\ndifficulty += 10;\nsetTimeout ( "ScoreDecay()", 3000);\n}\n\x3C/script\x3E\n\n[[Tags::example]]',
 '[[Special::TOC]]\n= Wiki on a Stick syntax\nIn this page you will find examples of all the WoaS wiki syntax.\n\nNew pages have red links, like this [[New page]], but you can use [[Special::New page]] to automatically create a new one through a simple dialog.\n\n== Header of second level\nSome text here\n=== Subheader of third level\nSome text here\n==== Subheader of fourth level\nSome text here\n\n== Formatting\nExternal links: [[http://stickwiki.sourceforge.net/|Wiki on a Stick]]\n\nBoldface: *Boldface text*\nItalics: /italics text/\nUnderline: _underlined text_\n\n{{{This text is rendered without any HTML/wiki parsing, and it does not get _underlined_, as you can see}}}\n\x3Cpre style="color:gray"\x3E\nThis is pre-formatted text (using a &lt;pre&gt; tag) with CSS style!\nAnd it stands on multiple lines too\x3C/pre\x3E\nYou can also use any HTML tag: \x3Cspan style="color:navy"\x3ESchr\u00f6dinger\'s cat is \x3Cblink style="font-weight:bold"\x3Enot\x3C/blink\x3E dead.\x3C/span\x3E\n\n\nRuler:\n---\n\n== Lists\n* Item 1\n** Subitem a\n** Subitem b\n* Item 2\n** Subitem c\n*** Subsubitem d\n* Item 3\n\nNumbered list:\n# Item A\n## Subitem i\n## Subitem ii\n# Item B\n## Subitem iii\n### Subsubitem iv\n# Item C\n\nAlphanumerically ordered list:\n@ Paragraph A\n@ Paragraph B\n@@ Subparagraph 1\n@@ Subparagraph 2\n\n\n== Tables\n\n{|\n|+ Telephone Table\n| *Column Name* || *Type* || *Other* || *Description*\n|-\n| id || INT || PRIMARY KEY || Row ID\n|-\n| contact_id || INT || KEY || References FOREIGN KEY(Contacts.id)\n|-\n| type || ENUM(\'Home\',\'Work\',\'Mobile\',\'Pager\',\'Other\') || || Defines type of Telephone record\n|-\n| number || CHAR(32) || || Contains actual Telephone number\n|}\n\n== New syntax features\n* line joining through a slash \'\\\' at the end of the line\n* automatic TOC generation in place of [\x3C!-- --\x3E[Special::TOC]]\n* section links using the syntax [\x3C!-- --\x3E[\x3C!-- --\x3E#[[Syntax#Syntax changes in v0.9]]]]\n* anchors for all headers (through id attribute)\n* customization of blocks of text under headers through CSS classes /level1-level6/\n* alphanumerical lists using \'@\'\n* custom parsing rules through (careful) override of the /parse()/ core function\n* nowiki syntax {{\x3C!-- --\x3E{ }}\x3C!-- --\x3E} to disable html/wiki in a block of raw text (also works inline)\n\n== Syntax changes since v0.9\nThere have been a few changes in the wiki syntax, they will be automatically applied on import or saving (except the wiki link parts inversion).\n* bullet lists are recognized using an asterisk \'*\' at the beginning of the line, if you use the previous \'+\' plus sign it will be automatically converted to an asterisk\n* wiki link parts are inverted, e.g. no more [\x3C!-- --\x3E[label of main page link|_Main Page_]] but [\x3C!-- --\x3E[_Main Page_|label of main page link]]\n\nSome syntax has also been deprecated, see [[Deprecated syntax]].\n\n[[Tags::help]]',
 '!Transclusion example\n\nThis page is partially generated by transclusion, edit it to see the undergoing magic.\n\n== Existing template\nAn existing template is included here below using the wiki source {{{[[Include::Test template|Mary|lamb]]}}}:\n\n[[Include::Test template|Mary|lamb]]\n\n== Non-existing template\nA non-existing template is included here below:\n\n[[Include::Non-existing template|param1]]\n\n== Related pages\n* [[Test template]]\n* [[Test template 2]]\n* [[Infinite recursion template]]\n* [[Features]]\n\n[[Tags::example]]',
 '\x3Cbig style="color:orange"\x3E%1 had a little %2\x3C/big\x3E\n\n[[Tags::example]]',
 'This template attempts to trigger infinite recursion\n\n[[Include::Test template 2]]\n\n[[Tags::example]]',
 '= Creole 0.1 testcases\n\nSee also [[http://www.wikicreole.org/wiki/Creole0.1TestCases]]\n\n== This a test for creole 0.1 (1)\n=== This is a Subheading (2)\n==== Subsub (3)\n===== Subsubsub (4)\n\nYou can make things **bold** or //italic// or **//both//**.\n\nCharacter formatting extends across line breaks: **bold,\nthis is still bold. This line deliberately does not end in star-star.\n\nNot bold. Character formatting does not cross paragraph boundaries.\n\nYou can use [[InternalLinks]] or [[http://www.wikicreole.org|external Links]], give the link a [[InternalLinks| different]] name.\n\nHere\'s another sentence: This Wisdom is taken from [[Ward Cunninghams]] [[http://www.c2.com/doc/wikisym/WikiSym2006.pdf|Presentation at the Wikisym 06]]\n\nHere\'s a external link without a description...\n[[http://www.wikicreole.org]]\n\nyou can use this to draw a line to seperate the page\n----\n\nyou can format a adress by simply adding linebreaks\n\nMy contact dates:\nPone: xyz\nFax: +45\nMobile: abc\n\nYou can use lists, start it at the first column for now, please...\n\nunnumbered lists are like\n* item a\n* item b\n* **bold item c**\n\nor you can number them\n# [[item a]]\n# item b\n# // italic item c //\n\nup to five levels\n* 1\n** 2\n*** 3\n**** 4\n***** 5\n\nyou can use nowiki syntax if you would like do stuff like this\n\n{{{\nGuitar Chord C:\n\n||---|---|---|\n||-0-|---|---|\n||---|-0-|---|\n||---|---|-0-|\n||---|---|---|\n}}}\n\nor if you need that {{{ in a sentence }}} like this.\n\n!Creole 0.1 testcases (2)\n\n== Headings\n\n== Heading2\n=== Heading3\n==== Heading4\n===== Heading5\n\n==Heading2\n===Heading3\n====Heading4\n=====Heading5\n\n== Heading2 =\n=== Heading3 =\n==== Heading4 =====\n===== Heading5 ==\n\n\n\n== Bold and Italic\n\n**bold**\n//italic//\n**//bolditalic//**\n\nA normal sentence. **A bold sentence\nthat continues in bold over a line break.** And another normal sentence.\n\nA normal sentence. **A bold sentence that is not terminated by star-star, but is instead is terminated by a paragraph break.\n\nA normal sentence.\n\nA normal sentence. //An italic sentence\nthat continues in italic over a line break.// And another normal sentence.\n\nA normal sentence. //An italic sentence that is not terminated by slash-slash, but is instead is terminated by a paragraph break.\n\nA normal sentence.\n\n== Preformatted text\n\nNormal text {{{preformatted text}}} Normal text.\n\n{{{\nA block\nof preformatted text\n}}}\n\n== Links\n[[explicitlink]]\n\n[[link|explicitlinkTitle]]\n\nhttp://www.wikicreole.org\n\n[[http://www.wikicreole.org|Wiki Creole Site]]\n\n== Misc\n\nA horizontal rule follows\n----\n\n== Lists\n* bulleted list\n* bullet 2\n** bullet level 2\n*** bullet level 3\n\n# numbered list\n# item 2\n## item 2.1\n### item 2.1.1\n#### item 2.1.1.1\n##### item 2.1.1.1.1\n# item 3\n# item 4\n\n[[Tags::example]]\n\n== Italics and URLs\n\nThis is an /italic/ text.\nThis is a url: http://www.wikicreole.org.\nThis is what can go wrong:/this should be an italic text/.\nHow about /a link, like http://example.org, in italic/ text?\nFormated fruits, for example:/apples/, oranges, *pears* ...',
-'= Deprecated syntax\n\nThis page briefly summarizes WoaS deprecated syntax; the below deprecated syntax rules are still supported (unless otherwise specified), but you are invited to _no more_ use them since in version 1.x they will probably be removed.\n\n{{{\n\nBAD:\n+ unordered lists with + sign instead of asterisk\n+ unordered lists with + sign\n\nOnly asterisk lists are parsed:\nGOOD:\n* unordered element 1\n* unordered element 2\n\nBAD:\n! headers using the exclamation mark\nGOOD:\n= header which uses the equal sign\n\nBAD:\n\x3Cpre /\x3E tags with nowiki meaning. Now \x3Cpre /\x3E tags have no special meaning and are treated\nas any other XHTML tag\n\nGOOD:\nYou should use { {{nowiki}} } blocks to achieve the same result\n\nBAD:\n---\nhorizontal rulers using only 3 hyphens\n\nGOOD:\n----\nYou are invited to use at least 4 hyphens\n\nBAD:\n[[Tags::some tag, some other tag]] and [[Tag::some tag]] is deprecated\n\nGOOD:\nIn favor of [[Tags::some tag|other tag|another tag]]\n\n}}}\n\n[[Tags::help]]',
+'= Deprecated syntax\n\nThis page briefly summarizes WoaS deprecated syntax; the below deprecated syntax rules are still supported (unless otherwise specified), but you are invited to _no more_ use them since in version 1.x they will probably be removed.\n\n{{{\n\nBAD:\n+ unordered lists with + sign instead of asterisk\n+ unordered lists with + sign\n\nOnly asterisk lists are parsed:\nGOOD:\n* unordered element 1\n* unordered element 2\n\nBAD:\n! headers using the exclamation mark\nGOOD:\n= header which uses the equal sign\n\nBAD:\n\x3Cpre /\x3E tags with nowiki meaning. Now \x3Cpre /\x3E tags have no special meaning and are treated\nas any other XHTML tag\n\nGOOD:\nYou should use { {{nowiki}} } blocks to achieve the same result\n\nBAD:\n---\nhorizontal rulers using only 3 hyphens\n\nGOOD:\n----\nYou are invited to use at least 4 hyphens\n\nBAD:\n[[Tags::some tag, some other tag]] and [[Tag::some tag]] is deprecated\n\nGOOD:\nIn favor of [[Tags::some tag|other tag|another tag]]\n\nBAD:\n\x3Cscript\x3E and \x3Cscript\x3E\n\nGOOD:\n\x3Cscript type="text/javascript"\x3E and \x3C/script\x3E\n\n}}}\n\n[[Tags::help]]',
 '!External javascript\n\nThis page attempts to include an external example.js file\n\n\x3Cscript src="example.js"\x3E\x3C/script\x3E\n\n[[Tags::example]]',
 '== Bold vs lists testcase\n\n*bold text*\\\\\n * bold text*\\\\\n* bold text*\\\\\n\n* first level\n** second level *bold text* or * with space*\n*** third level\n** *second level* - beginning with bold\n**second level with no space (see [[Creole:Require Space After Bullet Proposal]])\n** this text does not close, see what happens * not closing\n* first level\n\n== Syntax parsing testcase\nOn my right there is some _underlined text_, followed by *bold text* and /italics/.\n\nNow I will use /*italics and bold*/, followed by */bold and italics/* and finally _*/underlined bold italics/*_.\n\nMaybe you want to see some *_/bold underlined italics/_* or also some */_bold italics underlined_/*?\n\nAnd here is, just for you, a partial *bold-/italics/*!!!\n\n*Some bold text* on a line beginning\n\nAs you can see, /an/unix/path/ is correctly recognized.\n\nA windows unix-style path: C:/My_Files/*.ini and C:/My_Files/*.u\nA windows path: C:\\My_Files\\*.ini and C:\\My_Files\\*.u\n\n[[http://example.com/url*with*asterisks]]\n\n[[Tags::example]]',
 '[[Special::TOC]]\n= Features\n\nThis is a list of the new features implemented during the v0.9.x development cycle.\n\n== Custom javascript\n\nIt is possible to add &lt;script/&gt; tags to your wiki source and they will be correctly rendered in the document &lt;head/&gt; tag upon page loading; also external scripts (using the /src/ attribute) will be parsed and actived, always respecting the order of declaration of the &lt;script /&gt; tags.\n\n*Note:* since the javascript tags are actived from within the &lt;head /&gt; tag, you cannot use document.write() or similar inline javascript statements.\n\nSee also [[Feature::Custom javascript]] and [[Feature::External javascript]]\n\n== Encryption\n\nPages can be locked/unlocked through the apposite icons available on each user page. When a page is /locked/, it gets encrypted with true AES encryption; see [[Special::Security]] for more informations.\n\nAn example encrypted page is [[MyPages::Page 1]]. The password is: *test*\n\n== Namespaces\n\nWhenever you use the \'::\' separator on a page title, namespaces will apply.\nFor example, see [[MyPages::Page 1]] and [[MyPages::Page 2]] both belonging to the [[MyPages::]] namespace.\n\nYou can also use subnamespaces, like in [[MyPages::Approved::Page 3]].\n\nIf you define a page called [\x3C!-- --\x3E[Namespace::Menu]] (where the /::Menu/ postfix is the relevant part), a submenu will be added to the main left menu when pages belonging to /Namespace/ are actived.\n\n=== Reserved namespaces\n\nSome namespaces are reserved for current and future use:\n\n* [[Tagged::]] for all the tagged pages (*note:* also /Tags::/ is reserved)\n* [[Locked::]] for all locked (encrypted) pages and [[Unlocked::]] for plain pages\n* [[Lock::]] and [[Unlock::]] (used internally)\n* [[Special::]] for all the special pages\n* [[WoaS::]] (reserved for future use, will probably take the role of [[Special::]])\n* [[Image::]] for the embedded images\n* [[File::]] for the embedded files\n* [[Include::]] for transclusion\n\n== Tags\n\nThere is support for tags, which are listed in the [[Tagged::]] special namespace page.\n\nAll the example/test pages and documentation available in this default WoaS distribution are tagged with one or more of the following tags:\n\n* [[Tagged::help]]\n* [[Tagged::example]]\n\n== Transclusion\n\nYou can include a page within another using a specific syntax:\n\n[\x3C!-- --\x3E[Include::Test template|parameter 1|parameter 2|...]]\n\nSuch transclusions are *parametric*, e.g. they allow to specify parameters which will be replaced into the transcluded page in place of %1, %2, %3...\n\nTransclusion has a special meaning when used for pages relative to the [[File::]] and [[Image::]] namespaces, see below paragraph [[#Embedding]] for more informations.\n\nSee also [[Transclusion example]] and [[Test template]]\n\n== Embedding\n\nYou can embed files and images within WoaS.\n\n=== Files\n\nThis is an example of an existing embedded file : [[File::life snippet.c]]\nThis is an example of a not-yet-embedded file: [[File::report.log]]. You can embed the file when accessing the not-yet-existing page.\n\nYou can also transclude an embedded file and its content will not be parsed as wiki source.\n\n=== Images\n\nThis is an example of an existing embedded image: [[Image::alert.png]]\n\nYou can transclude such image using the wiki syntax {{{[[Include::Image::alert.png]]}}}, which results in:\n\n[[Include::Image::alert.png]]\n\nYou can also specify additional attributes for the &lt;img /&gt; tag using a pipe \'|\' after the image name.\nFor example, {{{[[Include::Image::alert.png|border="1" style="width:44px; height:44px"]]}}} results in:\n\n[[Include::Image::alert.png|border="1" style="width:44px; height:44px"]]\n\nThis is an example of clickable image, rendered through the wiki syntax {{{[[Include::Image::alert.png|border="0" onclick="go_to(\'Image::alert.png\')" style="cursor:pointer"]]}}}\n\n[[Include::Image::alert.png|border="0" onclick="go_to(\'Image::alert.png\')" style="cursor:pointer"]]\n\nThis is an example of not-yet-embedded image: [[Image::photo.jpg]]\n\nRemember that images are base64-encoded when embedded and become 33% bigger in size; it is suggested to not embed too much big images or files because they can slow down the application (remember that everything is contained in a single file), but that highly depends from the javascript engine of your browser.\n\n[[Tags::help]]',
@@ -95,11 +95,11 @@ var pages = [
 'void LifeFrame::OnSamples(wxCommandEvent& WXUNUSED(event))\n{\n    // stop if it was running\n    OnStop();\n\n    // dialog box\n    LifeSamplesDialog dialog(this);\n\n    if (dialog.ShowModal() == wxID_OK)\n    {\n        const LifePattern pattern = dialog.GetPattern();\n\n        // put the pattern\n        m_life-\x3EClear();\n        m_life-\x3ESetPattern(pattern);\n\n        // recenter canvas\n        m_canvas-\x3ERecenter(0, 0);\n        m_tics = 0;\n        UpdateInfoText();\n    }\n}\n',
 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAMAAADzapwJAAAAB3RJTUUH1wcHEBwwMJCsHwAAAAlwSFlzAAAewQAAHsEBw2lUUwAAAARnQU1BAACxjwv8YQUAAAJzUExURf8f7evr67W1taWlpdbW1uzs7J6enmouJGosI4ODg93d3TcyMdQdB9EUBzYxMcXFxenp6Y+Pj402G+0VAN4MAIwlGnd3d9ra2tXV1UA1L+Y7Be4eAekRANYQAz8wLrCwsOXl5YCAgKdRGPdEA/QxAfIdAeERAaEjFW1tbe/v71hAKvlpB/pbBfZDA/IuAu0bAd0UAlYwKZOTk+Dg4F5eXsxqEvt3CflwCf////IpAuoYAcIjDVNTU9DQ0JaWlnlOI/uEDPuFEPqEEfU9BO0kAugYAXYyIX5+fu3t7Tc0MeZ7DvuTFvuZHPqXHvqKGft3EfZTB+81A+ohAdwpB+jo6ImJiZFXHvuYGPyjJ/ysM/ytOfpwDfdOBfAwAu8lAo87HHR0dNjY2MnJyUc6LvKLE/ypKfy2P/y9S/y/UfuGGPliCvJFBPIzA+s5BUc3LaampuPj43V1dbRmF/ymJfy3Of3DU/3KYv3MY/ubJPt4EvpUCfVCA/E2A7NNFmRkZNPT06ioqGFFKPuVFPytLv2+Sf3KYf3Qbf3PafuiKfuKFfppC/lQBfg+A/U8A2FBKIuLi9/f3zQzMtV2E/yhH/yxNf2+R/3HXP3LZ/3NafykJ/yOF/lxC/pcBvZGBPU3A9VRDTQzMdfX15qamn5QIvuSEfyfHPysL/y6QfzBTfzDV/zBU/ydH/yLE/t2DPpgB/dLA/Y6A/U6A3tIIvPz8zs2MPuSE/ydGPymJPyyNfy0OfyzN/ysKfyhIPuUF/uGDft0CvtlB/taBfZPA/ZFA+RXCjs1MPDw8E49LIJSIYJRIYJPIYJOIYJNIIJMIIJMIU47LKysrKzWV/gAAAABdFJOUwBA5thmAAABNUlEQVR42mNgwAGML2AAY6Do8RNQcPLkyVOnz5w9e+7ceWOGzVu8tm7b3rxj567de/bu23/g4KHDR44eY2BYtHjJ0mXLV6xcZWGxes3ades3bNwkuBlo+MRJk6dMnTZ9hoXFzFmz58ydN3/BQpCdDY1NzS2tbe0WFh2dXd09vX39E8BuKSwqLiktK7ewqKisqq6prauHODEpOSU1LT3DwiIzKzsnNy+/AOr00LDwiMgoC4vomNi4+IREmI88PL28fXz9/AMCg4K5+UPgPrWzd3B0srBwdnF1c+dCCgETUzNzCwtLK2sbW1YkYXktbR1dPX0DQyNjlABTVFJWUVVT15DQRBGWkJSSlpGVk1dAC19BIWERUTFxjHDn5uHl4xfAEGZj5+DkYsAETMwsrFiEGRgZGQgAAEPKcWQFSaWtAAAAAElFTkSuQmCCAAA=',
 '/* insert here your boot script (javascript)\n\nIf you instead want to add an external file,\nit is suggested to manually insert it before the \x3C/head\x3E tag\n\n*/',
-'= History\n\n== Versions 0.01 &tilde; 0.04\n\x3Csub\x3Eby Andr\u00e9 Wagner\x3C/sub\x3E\n\nAs they say, /"necessity is the mother of invention"/. I needed a way to store information in a tree-like structure, but every software I tested felt like it was something missing. I tested a few mindmap software, tree structure software and personal wikis, but they were too complicated to install; I didn\'t yet have what I was looking for, or the tool wasn\'t closs-platform.\n\nThe closest thing I found was [[http://www.tiddlywiki.com/|TiddlyWiki]], but it still wasn\'t perfect: it was too much blog-like, and what I needed was something wiki-like. So TiddlyWiki served as inspiration for the software I was about to create (I even used their saving routines).\n\nThe core part of the code was written in one rainy afternoon. A few days later (after correcting most problems) I released it and the feedback I received was much more than I could ever expect. I guess that many other people had my same needs  :-) So this gave me motivation to continue working on Wiki on a Stick and to release three more versions.\n\n=== The principles\nSince the beginning I followed two basic principles: *simplicity* and *stability*. For simplicity I mean that the software should be easy enough for anyone to use, and the interface should be as plain as possible. And for stability I mean that the user data is sacred above all things, and the user should never loose his data, no matter what happens. I think these were the two facts that brought the good acceptance from the users.\n\nUnfortunatly, the duties of my graduation thesis made me stop working on WoaS and the software became dormant for a couple of months. It made me feel bad, since the mailing lists were at full throttle, with many people requesting features and sending patches that I couldn\'t even test.\n\nSo I was very glad when Daniele offered himself to take over the task of managing the project. He did a great work and now WoaS is a much more rich application, with a even greater userbase. It feels really nice to see that people all around the world are using the software I created, and my desire is to see that WoaS grows in quality, features and userbase, and to remain a simple yet useful tool to everyone.\n\n== Versions 0.9.x\n\x3Csub\x3Eby Daniele C.\x3C/sub\x3E\n\nWhen I first found WoaS I felt that this software has a great potential; my first contribute to WoaS was to resolve all the bug tracker items and review the patches; the result was put into a v0.04G released in a SF.net patches tracker item (as attachment). That modified version was mostly a bug-fix and feature-fix modification, with small new features like custom keys for navigation and edits cancelling. V0.04G also missed the import feature (I forgot to add it back) and had a nasty double-click to edit feature which was not really good. That was my experimentation, I did not expect people to really use my modified version but since Andr\u00e9 had no time to review it, people was actually starting to use it.\n\nSome time later I took courage and asked to take-over the project; Andr\u00e9 Wagner kindly added me to the project as a developer and a project admin and I could start working on WoaS for real.\n\nMy first big project management change was to switch to [[http://subversion.tigris.org/|Subversion (SVN)]] for the versioning of all our WoaS files; development could this way be fully documented and followed "live" by the Google Group partecipants, which are the first solid community gathered around WoaS.\n\nVersion 0.9B was the first official version on which I worked. My first big change was to have storage of pages not in urlencoded-divs but in the javascript code itself; this brought more speed to the page loading process. I also had to solve some problems inherent to the double file vs single file compatibility (WoaS can still now work with the 2-files version and single file version) and some IE saving issues, but finally the result was good enough.\n\nAlmost all of the features implemented during the (still current) v0.9 development cycle were direct suggestions or patches of WoaS users; we are still gathering the users\' feedback to bring improvements to WoaS. \n',
-'= Export content into XHTML files\n\n==Paths\nSpecify the destination folder which will contain all the exported XHTML files. *The folder must exist*\n\n\x3Cinput id="woas_ep_xhtml" type="text" size="80" /\x3E\n\nSpecify the destination folder which will contain all the exported embedded pictures. *The folder must exist*\n\n\x3Cinput id="woas_ep_img" type="text" size="80" /\x3E\n\n==Default extension\n\nDefault extension for generated XHTML files\n\n\x3Cinput id="woas_ep_ext" type="text" size="8" value="htm" /\x3E\n\n==Custom JavaScripts\n\x3Clabel for="woas_cb_js_ign"\x3E\x3Cinput type="radio" id="woas_cb_js_ign" name="woas_cb_js" checked="checked"\x3EIgnore custom javascript blocks\x3C/label\x3E\n\x3Clabel for="woas_cb_js_dyn"\x3E\x3Cinput type="radio" id="woas_cb_js_dyn" name="woas_cb_js"\x3ERender custom javascript blocks before export\x3C/label\x3E\n\x3Clabel for="woas_cb_js_exp"\x3E\x3Cinput type="radio" id="woas_cb_js_exp" name="woas_cb_js"\x3EExport javascript blocks as they are\x3C/label\x3E\n\n==Other options\n\x3Clabel for="woas_cb_sep_css"\x3E\x3Cinput type="checkbox" id="woas_cb_sep_css" checked="checked"\x3EPlace CSS into shared file\x3C/label\x3E\n\x3Clabel for="woas_cb_sep_css" style="color:gray"\x3E\x3Cinput type="checkbox" id="woas_cb_sep_css" disabled="disabled"\x3EExport as WIF ([[http://www.wikisym.org/wiki/index.php/WSR_3|Wiki Interchange Format]])\x3C/label\x3E\n\x3Clabel for="woas_cb_index_main"\x3E\x3Cinput type="checkbox" id="woas_cb_index_main" checked="checked"\x3EThe main page will be named index.htm\x3C/label\x3E\n\n\x3Cinput type="button" value="Export XHTML" onclick="export_wiki()" /\x3E\n\n\x3Cscript\x3E\nvar path = _get_this_path() + "export\\\\";\nel(\'woas_ep_xhtml\').value = path;\nel(\'woas_ep_img\').value = path;\n\x3C/script\x3E'
+'= History\n\n== Versions 0.01 &tilde; 0.04\n\x3Csub\x3Eby Andr\u00e9 Wagner\x3C/sub\x3E\n\nAs they say, /"necessity is the mother of invention"/. I needed a way to store information in a tree-like structure, but every software I tested felt like it was something missing. I tested a few mindmap software, tree structure software and personal wikis, but they were too complicated to install; I didn\'t yet have what I was looking for, or the tool wasn\'t closs-platform.\n\nThe closest thing I found was [[http://www.tiddlywiki.com/|TiddlyWiki]], but it still wasn\'t perfect: it was too much blog-like, and what I needed was something wiki-like. So TiddlyWiki served as inspiration for the software I was about to create (I even used their saving routines).\n\nThe core part of the code was written in one rainy afternoon. A few days later (after correcting most problems) I released it and the feedback I received was much more than I could ever expect. I guess that many other people had my same needs  :-) So this gave me motivation to continue working on Wiki on a Stick and to release three more versions.\n\n=== The principles\nSince the beginning I followed two basic principles: *simplicity* and *stability*. For simplicity I mean that the software should be easy enough for anyone to use, and the interface should be as plain as possible. And for stability I mean that the user data is sacred above all things, and the user should never loose his data, no matter what happens. I think these were the two facts that brought the good acceptance from the users.\n\nUnfortunatly, the duties of my graduation thesis made me stop working on WoaS and the software became dormant for a couple of months. It made me feel bad, since the mailing lists were at full throttle, with many people requesting features and sending patches that I couldn\'t even test.\n\nSo I was very glad when Daniele offered himself to take over the task of managing the project. He did a great work and now WoaS is a much more rich application, with a even greater userbase. It feels really nice to see that people all around the world are using the software I created, and my desire is to see that WoaS grows in quality, features and userbase, and to remain a simple yet useful tool to everyone.\n\n== Versions 0.9.x\n\x3Csub\x3Eby Daniele C.\x3C/sub\x3E\n\nWhen I first found WoaS I felt that this software has a great potential; my first contribute to WoaS was to resolve all the bug tracker items and review the patches; the result was put into a v0.04G released in a SF.net patches tracker item (as attachment). That modified version was mostly a bug-fix and feature-fix modification, with small new features like custom keys for navigation and edits cancelling. V0.04G also missed the import feature (I forgot to add it back) and had a nasty double-click to edit feature which was not really good. That was my experimentation, I did not expect people to really use my modified version but since Andr\u00e9 had no time to review it, people was actually starting to use it.\n\nSome time later I took courage and asked to take-over the project; Andr\u00e9 Wagner kindly added me to the project as a developer and a project admin and I could start working on WoaS for real.\n\nMy first big project management change was to switch to [[http://subversion.tigris.org/|Subversion (SVN)]] for the versioning of all our WoaS files; development could this way be fully documented and followed "live" by the Google Group partecipants, which are the first solid community gathered around WoaS.\n\nVersion 0.9B was the first official version which I worked on. My first big change was to have storage of pages not in content-escaped hidden divs but as javascript strings; this brought more speed to the page loading process. I also had to solve some problems inherent to the double file vs single file compatibility (WoaS can since then work with the 2-files version and single file version) and some IE saving issues, but finally the result was good enough.\n\nA lot of features and improvements have been implemented during the (still current) v0.9.x development cycle, without never slowing down some parts of WoaS for each new feature implemented (otherwise there are on-going optimizations where the code proves to be stable); we are as always gathering the users\' feedback to add usability and more powerful features (those coherent with the base philosophy) to WoaS.',
+'= Export content into XHTML files\n\n==Paths\nSpecify the destination folder which will contain all the exported XHTML files. *The folder must exist*\n\n\x3Cinput id="woas_ep_xhtml" type="text" size="80" /\x3E\n\nSpecify the destination folder which will contain all the exported embedded pictures. *The folder must exist*\n\n\x3Cinput id="woas_ep_img" type="text" size="80" /\x3E\n\n==File naming\n\nDefault extension for generated XHTML files\n\n\x3Cinput id="woas_ep_ext" type="text" size="8" value="htm" /\x3E\n\n\x3Clabel for="woas_cb_index_main"\x3E\x3Cinput type="checkbox" id="woas_cb_index_main" checked="checked"\x3EThe main page will be named index.htm\x3C/label\x3E\n\x3Clabel for="woas_cb_unix_norm"\x3E\x3Cinput type="checkbox" id="woas_cb_unix_norm" checked="checked"\x3EApply UNIX-style normalization (lowercase and spaces replaced by underscores) to generated filenames\x3C/label\x3E\n\n==Custom JavaScripts\n\x3Clabel for="woas_cb_js_ign"\x3E\x3Cinput type="radio" id="woas_cb_js_ign" name="woas_cb_js" checked="checked"\x3EDo not export\x3C/label\x3E\n\x3Clabel for="woas_cb_js_dyn"\x3E\x3Cinput type="radio" id="woas_cb_js_dyn" name="woas_cb_js"\x3ERun before exporting but do not export the javascript\x3C/label\x3E\n\x3Clabel for="woas_cb_js_exp"\x3E\x3Cinput type="radio" id="woas_cb_js_exp" name="woas_cb_js"\x3EExport javascript as is (you might need to include the framework code)\x3C/label\x3E\n\x3Clabel for="woas_cb_js_head"\x3E\x3Cinput type="radio" id="woas_cb_js_head" name="woas_cb_js" disabled="disabled"\x3EExport javascript into &lt;head /&gt; (you might need to include the framework code)\x3C/label\x3E\n\n\x3Clabel for="woas_cb_js_fw"\x3E\x3Cinput type="checkbox" id="woas_cb_js_fw" disabled="disabled"\x3EExport the javascript framework too\x3C/label\x3E\n\n==Other options\nMETA author (optional)\n\n\x3Cinput id="woas_ep_author" type="text" size="12" value="" /\x3E\n\n\x3Clabel for="woas_cb_sep_css"\x3E\x3Cinput type="checkbox" id="woas_cb_sep_css" checked="checked"\x3EExport CSS into shared file\x3C/label\x3E\n\x3Clabel for="woas_cb_wif" style="color:gray"\x3E\x3Cinput type="checkbox" id="woas_cb_wif" disabled="disabled"\x3EExport as WIF ([[http://www.wikisym.org/wiki/index.php/WSR_3|Wiki Interchange Format]])\x3C/label\x3E\n\x3Clabel for="woas_cb_export_menu"\x3E\x3Cinput type="checkbox" id="woas_cb_export_menu" checked="checked"\x3EExport menu and submenus\x3C/label\x3E\n\n\x3Cinput type="button" value="Export XHTML" onclick="export_wiki()" /\x3E\n\n\x3Cscript\x3E\nvar path = _get_this_path() + "export\\\\";\nel(\'woas_ep_xhtml\').value = path;\nel(\'woas_ep_img\').value = path;\n\x3C/script\x3E'
 ];
 
-/* DFQRCTsKlU-0000011-END */
+/* DFQRCTsKlU-0000021-END */
 
 /* ]]> */ </script>
 
@@ -557,7 +557,7 @@ function page_index(page) {
 	return page_titles.indexOf(page);
 }
 
-var edit_override = true;
+var edit_override = false;
 
 var reserved_namespaces = ["Special", "Lock", "Locked", "Unlocked", "Unlock", "Tags", "Tagged", "Include"];
 
@@ -720,7 +720,7 @@ var parse = function(text) {
 }
 
 // will be replaced by a better parse engine in future
-function _i_parse(text, wiki_links, js_mode) {
+function _i_parse(text, export_links, js_mode) {
 	if (text == null) {
 		log("text = null while parsing current page \""+current+"\"");
 		return;
@@ -757,13 +757,13 @@ function _i_parse(text, wiki_links, js_mode) {
 					log("Embedded file transclusion: "+templname);
 					if (is_image(templname)) {
 						var img, img_name = xhtml_encode(templname.substr(templname.indexOf("::")+2));
-						if (wiki_links)
+						if (export_links)
 							img = "<img class=\"embedded\" src=\""+_export_get_fname(templname)+"\" alt=\""+img_name+"\" ";
 						else
 							img = "<img class=\"embedded\" src=\""+templtext+"\" ";
 						if (parts.length>1) {
 							img += parts[1];
-							if (!wiki_links && !parts[1].match(/alt=('|").*?\1/))
+							if (!export_links && !parts[1].match(/alt=('|").*?\1/))
 								img += " alt=\""+img_name+"\"";
 						}
 						html_tags.push(img+" />");
@@ -850,10 +850,10 @@ function _i_parse(text, wiki_links, js_mode) {
 				if (page_exists(page)) {
 					var r="<!-- "+parse_marker+'::'+html_tags.length+" -->";
 					var wl;
-					if (wiki_links) {
+					if (export_links) {
 //						if (page_index(page)==-1)
 //							wl = " onclick=\"alert('not yet implemented');\"";		else
-							wl = " href=\""+_export_get_fname(page)+"\"";
+						wl = " href=\""+_export_get_fname(page)+"\"";
 					} else
 						wl = " onclick='go_to(\"" + js_encode(page) +	"\")" + gotohash + "'";
 					html_tags.push("<a class=\"link\""+ wl + " >" + $2 + "<\/a>");
@@ -862,7 +862,7 @@ function _i_parse(text, wiki_links, js_mode) {
 					if ($1.charAt(0)=="#") {
 						var r="<!-- "+parse_marker+'::'+html_tags.length+" -->";
 						var wl;
-						if (wiki_links)
+						if (export_links)
 							wl = _export_get_fname(page);
 						else wl = "";
 						html_tags.push("<a class=\"link\" href=\""+wl+"#" +header_anchor($1.substring(1)) + "\">" + $2 + "<\/a>");
@@ -870,9 +870,9 @@ function _i_parse(text, wiki_links, js_mode) {
 					} else {
 						var r="<!-- "+parse_marker+'::'+html_tags.length+" -->";
 						var wl;
-						if (wiki_links)
-							wl = " onclick='go_to(\"" +js_encode($1)+"\")'";
-						else wl=" href=\"#\"";
+						if (export_links)
+							wl=" href=\"#\"";
+						else wl = " onclick='go_to(\"" +js_encode($1)+"\")'";
 						html_tags.push("<a class=\"unlink\" "+wl+">" + $2 + "<\/a>");
 						return r;
 					}
@@ -902,10 +902,11 @@ function _i_parse(text, wiki_links, js_mode) {
 		if (page_exists($1)) {
 			var r="<!-- "+parse_marker+'::'+html_tags.length+" -->";
 			var wl;
-			if (!wiki_links)
-				wl = " onclick=\"go_to('" + js_encode($1) +"')\"";
-			else
+			if (export_links)
 				wl = " href=\""+_export_get_fname($1)+"\"";
+			else
+				wl = " onclick=\"go_to('" + js_encode($1) +"')\"";
+				
 			html_tags.push("<a class=\"link\""+wl+">" + $1 + "<\/a>");
 			return r;
 		} else {
@@ -915,9 +916,10 @@ function _i_parse(text, wiki_links, js_mode) {
 			} else {
 				var r="<!-- "+parse_marker+'::'+html_tags.length+" -->";
 				var wl;
-				if (wiki_links)
+				if (export_links)
+					wl=" href=\#\"";
+				else
 					wl = " onclick='go_to(\"" +js_encode($1)+"\")'";
-				else wl=" href=\#\"";
 				html_tags.push("<a class=\"unlink\" "+wl+">" + $1 + "<\/a>");
 			}
 			return r;
@@ -1014,7 +1016,7 @@ function _i_parse(text, wiki_links, js_mode) {
 	}
 	
 	tags = tags.toUnique();
-	if (tags.length && wiki_links) {
+	if (tags.length && !export_links) {
 		if (force_inline)
 			s = "";
 		else
@@ -1605,7 +1607,7 @@ function _get_embedded(cr, etype) {
 		parse("\n{{{[[Include::"+cr+"]]}}}"+
 		"\n\n<a href=\"javascript:query_delete_file()\">Delete embedded file</a>\n"+
 		"\n<a href=\"javascript:query_export_file()\">Export file</a>\n"+
-		"<script>function query_delete_file() {if (confirm('Are you sure you want to delete this file?')){delete_page('"+js_encode(cr)+"');back_or(main_page);save_page('"+js_encode(cr)+"');}}\n"+
+		"<sc"+"ript>function query_delete_file() {if (confirm('Are you sure you want to delete this file?')){delete_page('"+js_encode(cr)+"');back_or(main_page);save_page('"+js_encode(cr)+"');}}\n"+
 		"function query_export_file() {\nvar exp_path = _get_this_filename().replace(/\\"+slash_c+"[^\\"+
 		slash_c+"]*$/, \""+(slash_c=="\\"?"\\\\":"/")+"\")+'"+js_encode(fn)+"';if (confirm('Do you want to export this file in the below specified path?'+\"\\n\\n\"+exp_path)){export_file('"+js_encode(cr)+"', exp_path);}}"+
 		"</sc"+"ript>"
@@ -1615,7 +1617,7 @@ function _get_embedded(cr, etype) {
 		xhtml = parse("= "+img_name+"\n\n"+
 		"<img id=\"img_tag\" class=\"embedded\" src=\""+text+"\" alt=\""+xhtml_encode(img_name)+"\" />"+
 		"\n\n<div id=\"img_desc\">Loading...</div>"+
-		"<script>function _to_img_display() { var img=el('img_tag');\nsetHTML(el('img_desc'), 'Mime type: "+text.match(/^data:\s*([^;]+);/)[1]+"<br />File size: "+_convert_bytes(((text.length-(text.match(/^data:\s*[^;]*;\s*[^,]*,\s*/)[0]).length)*3)/4)+
+		"<sc"+"ript>function _to_img_display() { var img=el('img_tag');\nsetHTML(el('img_desc'), 'Mime type: "+text.match(/^data:\s*([^;]+);/)[1]+"<br />File size: "+_convert_bytes(((text.length-(text.match(/^data:\s*[^;]*;\s*[^,]*,\s*/)[0]).length)*3)/4)+
 		" (requires "+_convert_bytes(text.length)+" due to base64 encoding)"+
 		"<br />Width: '+img.width+'px<br />Height: '+img.height+'px');} setTimeout('_to_img_display()', 0); function query_delete_image() {if (confirm('Are you sure you want to delete this image?')){delete_page('"+js_encode(cr)+"');back_or(main_page);save_page('"+js_encode(cr)+"');}}\n"+
 		"function query_export_image() {\nvar exp_path = _get_this_filename().replace(/\\"+slash_c+"[^\\"+
@@ -2922,7 +2924,7 @@ function _saveThisFile(new_data, old_data)
 {
 	var filename = _get_this_filename();
 	r = saveFile(filename,
-	_doctype+"<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\">\n<head>\n<script type=\"text/javascript\">" + new_data + "\n" + old_data + "</html>");
+	_doctype+"<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\">\n<head>\n<sc"+"ript type=\"text/javascript\">" + new_data + "\n" + old_data + "</html>");
 	if (r==true)
 		log("\""+filename+"\" saved successfully");
 	else
@@ -3143,6 +3145,51 @@ function _get_this_path() {
 	return _get_this_filename().replace(new RegExp("("+slash_c+")"+"[^"+slash_c+"]*$"), "$1");
 }
 
+var max_keywords_length = 250;
+var max_description_length = 250;
+
+// proper autokeywords generation functions begin here
+
+function sortN(a,b)
+{return b.w - a.w}
+
+var common_words = ['a', 'the', 'is', 'for', 'of', 'to', 'in', 'an', 'be', 'that', 'all', 'or'];
+
+function _auto_keywords(source) {
+	if (!source.length) return "";
+	var words = source.match(new RegExp("[^\\s\x01-\x2F\x3A-\x40\x5B-\x60\x7B-\x7E]{2,}", "g"));
+	if (!words.length) return "";
+	var nu_words = new Array();
+	var density = new Array();
+	var wp=0;
+	for(var i=0;i<words.length;i++) {
+		if (words[i].length==0)
+			continue;
+		cond = (common_words.indexOf(words[i].toLowerCase())<0);
+		if (cond) {
+			wp = nu_words.indexOf(words[i]);
+			if (wp < 0) {
+				nu_words = nu_words.concat(new Array(words[i]));
+				density[nu_words.length-1] = {"i":nu_words.length-1, "w":1};
+			} else
+				density[wp].w = density[wp].w + 1;
+		}
+	}
+	if (!density.length) return "";
+	words = new Array();
+	var keywords = "", nw = "";
+	density = density.sort(sortN);
+	var ol=0;
+	for(i=0;i<density.length;i++) {
+		nw = nu_words[density[i].i];
+		if (ol+nw.length>max_keywords_length)
+			break;
+		keywords = keywords+","+nw;
+		ol+=nw.length;
+	}
+	return keywords.substr(1);
+}
+
 function _export_get_page(pi) {
 	if (!is__encrypted(pi))
 		return pages[pi];
@@ -3155,7 +3202,10 @@ function _export_get_page(pi) {
 	return pg;	
 }
 
-var _export_main_index = false, _export_default_ext;
+var _export_main_index = false, _export_unix_norm = false,
+	_export_create_mode = false, _export_default_ext;
+
+var _export_fnames_array = [], _export_replace_fname = {};
 
 function _export_get_fname(title) {
 	if (title.match(/::$/)) {
@@ -3171,10 +3221,34 @@ function _export_get_fname(title) {
 	if (_export_main_index && (title==main_page))
 		return "index."+_export_default_ext;
 	var ext = "";
-	if (is__embedded(pi))
+	if (is__embedded(pi)) {
 		title = title.substr(title.indexOf("::")+2);
-	else ext = "."+_export_default_ext;
-	return escape(title).replace(/%20/g, " ").replace(/%3A%3A/g, " - ")+ext;
+		if (!is__image(pi))
+			ext = "."+_export_default_ext;
+	} else ext = "."+_export_default_ext;
+	var fname;
+	if (_export_unix_norm)
+		fname = escape(title.toLowerCase().replace(/\s+/g, "_")).replace(/%3A%3A/g, "-");
+	else
+		fname = escape(title).replace(/%20/g, " ").replace(/%3A%3A/g, " - ");
+	if (!_export_create_mode) {
+		if (_export_replace_fname[fname+ext]!=null)
+			return _export_replace_fname[fname+ext];
+		return fname+ext;
+	}
+	var test_fname = fname+ext, i=0;
+	while (_export_fnames_array.indexOf(test_fname)!=-1) {
+		log(test_fname+" already exists, checking next fname");
+		test_fname = fname+str_rep("_", ++i)+ext;
+	}
+	if (i)
+		_export_replace_fname[fname+str_rep("_", i-1)+ext] = test_fname;
+	_export_fnames_array.push(test_fname);
+	return test_fname;
+}
+
+function xhtml_to_text(s) {
+	return s.replace(/<br\s?\/?>/g, "\n").replace(/<\/?\w+[^>]*>/g, ' ').replace(/&#?([^;]+);/g, function(str, $1) { if (!isNaN($1)) return String.fromCharCode($1); else return ""; });
 }
 
 // by legolas558
@@ -3187,20 +3261,39 @@ function export_wiki() {
 			js_mode = 1;
 		else if (el("woas_cb_js_exp").checked)
 			js_mode = 2;
-		var sep_css = el("woas_cb_sep_css").checked;
+		var sep_css = el("woas_cb_sep_css").checked,
+			exp_menus = el("woas_cb_export_menu").checked;
 		_export_main_index = el("woas_cb_index_main").checked;
 		_export_default_ext = el("woas_ep_ext").value;
+		var meta_author = el("woas_ep_author").value;
+		meta_author = sw_trim(meta_author);
+		if (meta_author.length)
+			meta_author = '<meta name="author" content="'+xhtml_encode(meta_author)+'" />'+"\n";
+		_export_unix_norm = el("woas_cb_unix_norm").checked;
 	} catch (e) { alert(e); return false; }
 	
 	elShow("loading_overlay");
 	el("loading_overlay").focus();
 	var css = document.getElementsByTagName("style")[0].innerHTML;
+	// reset some export globals
+	_export_fnames_array = [];
+	_export_replace_fname = {}
 	if (sep_css) {
 		var css_path = "woas.css";
+		_export_fnames_array.push(css_path);
 		saveFile(xhtml_path+css_path, css);
 		css = '<link rel="stylesheet" type="text/css" media="all" href="'+css_path+'" />';
 	} else
 		css = '<style type="text/css">'+css+'</style>';
+	
+	var custom_bs = "";
+	if (js_mode==2) {
+		data = _export_get_page(page_index("Special::Bootscript"));
+		if (data!=null && data.length) {
+			saveFile(xhtml_path+"bootscript.js", data);
+			custom_bs = '<sc'+'ript type="text/javascript" src="bootscript.js"></sc'+'ript>';
+		}
+	}
 
 	var l=page_titles.length, data = null, fname = "", done=0, wt=null;
 	for (var pi=0;pi<l;pi++) {
@@ -3208,12 +3301,14 @@ function export_wiki() {
 		data = _export_get_page(pi);
 		if (data == null) continue;
 		if (page_titles[pi].indexOf("::Menu")==page_titles[pi].length-6) continue;
+		_export_create_mode = true;
 		fname = _export_get_fname(page_titles[pi]);
+		_export_create_mode = false;
 		if (is__embedded(pi)) {
 			if (is__image(pi)) {
 				if (!_b64_export(data, img_path+fname))
 					break;
-				else continue;
+				else { ++done; continue; }
 			} else
 				data = '<pre class="wiki_preformatted">'+xhtml_encode(data)+"</pre>";
 		} else {
@@ -3225,17 +3320,40 @@ function export_wiki() {
 				data = getHTML(wt);
 			}			
 		}
-		data = "<ht"+"ml><he"+"ad><title>"+page_titles[pi]+"</title>"+css+"</h"+"ead><"+"body>"+data+"</bod"+"y></h"+"tml>\n";
+		var raw_text = sw_trim(xhtml_to_text(data));
+		if (exp_menus) {
+			var _exp_menu = get_text("::Menu");
+			if (_exp_menu == null)
+				_exp_menu = "";
+			var _ns = _get_namespace(page_titles[pi]);
+			if (_ns.length) {
+				var mpi = page_index(_ns+"::Menu");
+				if (mpi != -1) {
+					var tmp=_export_get_page(mpi);
+					if (tmp!=null)
+						_exp_menu += tmp;
+				}
+			}
+			if (_exp_menu.length) {
+				_exp_menu = _i_parse(_exp_menu, true, js_mode);
+				if (js_mode)
+					_activate_scripts();
+			}
+			data = '<div class="menu_area" id="sw_menu_area" style="position: fixed;"><div class="wiki" id="menu_area">'+_exp_menu+'</div></div><div class="text_area" id="wiki_text">'+data+'</div>';
+		}
+		data = "<ht"+"ml><he"+"ad><title>"+xhtml_encode(page_titles[pi])+"</title>"+css+
+		'<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />'+"\n"+
+		'<meta name="generator" content="Wiki on a Stick v'+version+'" />'+"\n"+
+		'<meta name="keywords" content="'+_auto_keywords(raw_text)+'" />'+"\n"+
+		'<meta name="description" content="'+
+		raw_text.replace(/\s+/g, " ").substr(0,max_description_length)+'" />'+"\n"+
+		meta_author+
+		custom_bs+
+		"</h"+"ead><"+"body>"+data+"</bod"+"y></h"+"tml>\n"; raw_text = null;
 		if (!saveFile(xhtml_path+fname, _doctype+data))
 			break;
 		++done;
 	}
-/*		if (js_mode==2) {
-			data = _export_get_page(page_index("Special::Bootscript"));
-			if (data!=null) {
-				saveFile(xhtml_path+"bootscript.js", data);
-			}
-		}	*/
 	if (js_mode) {
 		refresh_menu_area();
 		set_current(current);
@@ -4042,7 +4160,7 @@ function AES_decrypt(raw_data) {
 <td>{{{ nowiki }}}</td>
 <td></td>
 <td><a class="world" onclick="open_table_help()">(tables)</a></td></tr></tbody></table></div>
-<div id="debug_info" style="display: inline; visibility: visible;">
+<div id="debug_info" style="display: inline; visibility: visible; z-index: 101;">
 <h2>Debug console</h2>
 <p>This is a development BETA version of Wiki On a Stick; it is not suggested to use it with important data. If you want to disable this debug message and console, you will have to find the line that says <b><tt>var debug = true;</tt></b> and change it to <b><tt>false</tt></b>.</p>
 <div align="center"><textarea id="swlogger" ondblclick="el('swlogger').value=''" style="width: 90%; background-color: rgb(204, 204, 204);" rows="12" readonly="readonly" cols="70"></textarea><br><input onclick="el('swlogger').value=''" value="Clear" type="button"></div></div>
