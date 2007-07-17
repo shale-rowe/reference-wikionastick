@@ -440,7 +440,7 @@ var parse = function(text) {
 }
 
 // will be replaced by a better parse engine in future
-function _i_parse(text, wiki_links, js_mode) {
+function _i_parse(text, export_links, js_mode) {
 	if (text == null) {
 		log("text = null while parsing current page \""+current+"\"");
 		return;
@@ -477,13 +477,13 @@ function _i_parse(text, wiki_links, js_mode) {
 					log("Embedded file transclusion: "+templname);
 					if (is_image(templname)) {
 						var img, img_name = xhtml_encode(templname.substr(templname.indexOf("::")+2));
-						if (wiki_links)
+						if (export_links)
 							img = "<img class=\"embedded\" src=\""+_export_get_fname(templname)+"\" alt=\""+img_name+"\" ";
 						else
 							img = "<img class=\"embedded\" src=\""+templtext+"\" ";
 						if (parts.length>1) {
 							img += parts[1];
-							if (!wiki_links && !parts[1].match(/alt=('|").*?\1/))
+							if (!export_links && !parts[1].match(/alt=('|").*?\1/))
 								img += " alt=\""+img_name+"\"";
 						}
 						html_tags.push(img+" />");
@@ -570,10 +570,10 @@ function _i_parse(text, wiki_links, js_mode) {
 				if (page_exists(page)) {
 					var r="<!-- "+parse_marker+'::'+html_tags.length+" -->";
 					var wl;
-					if (wiki_links) {
+					if (export_links) {
 //						if (page_index(page)==-1)
 //							wl = " onclick=\"alert('not yet implemented');\"";		else
-							wl = " href=\""+_export_get_fname(page)+"\"";
+						wl = " href=\""+_export_get_fname(page)+"\"";
 					} else
 						wl = " onclick='go_to(\"" + js_encode(page) +	"\")" + gotohash + "'";
 					html_tags.push("<a class=\"link\""+ wl + " >" + $2 + "<\/a>");
@@ -582,7 +582,7 @@ function _i_parse(text, wiki_links, js_mode) {
 					if ($1.charAt(0)=="#") {
 						var r="<!-- "+parse_marker+'::'+html_tags.length+" -->";
 						var wl;
-						if (wiki_links)
+						if (export_links)
 							wl = _export_get_fname(page);
 						else wl = "";
 						html_tags.push("<a class=\"link\" href=\""+wl+"#" +header_anchor($1.substring(1)) + "\">" + $2 + "<\/a>");
@@ -590,9 +590,9 @@ function _i_parse(text, wiki_links, js_mode) {
 					} else {
 						var r="<!-- "+parse_marker+'::'+html_tags.length+" -->";
 						var wl;
-						if (wiki_links)
-							wl = " onclick='go_to(\"" +js_encode($1)+"\")'";
-						else wl=" href=\"#\"";
+						if (export_links)
+							wl=" href=\"#\"";
+						else wl = " onclick='go_to(\"" +js_encode($1)+"\")'";
 						html_tags.push("<a class=\"unlink\" "+wl+">" + $2 + "<\/a>");
 						return r;
 					}
@@ -622,10 +622,11 @@ function _i_parse(text, wiki_links, js_mode) {
 		if (page_exists($1)) {
 			var r="<!-- "+parse_marker+'::'+html_tags.length+" -->";
 			var wl;
-			if (!wiki_links)
-				wl = " onclick=\"go_to('" + js_encode($1) +"')\"";
-			else
+			if (export_links)
 				wl = " href=\""+_export_get_fname($1)+"\"";
+			else
+				wl = " onclick=\"go_to('" + js_encode($1) +"')\"";
+				
 			html_tags.push("<a class=\"link\""+wl+">" + $1 + "<\/a>");
 			return r;
 		} else {
@@ -635,9 +636,10 @@ function _i_parse(text, wiki_links, js_mode) {
 			} else {
 				var r="<!-- "+parse_marker+'::'+html_tags.length+" -->";
 				var wl;
-				if (wiki_links)
+				if (export_links)
+					wl=" href=\#\"";
+				else
 					wl = " onclick='go_to(\"" +js_encode($1)+"\")'";
-				else wl=" href=\#\"";
 				html_tags.push("<a class=\"unlink\" "+wl+">" + $1 + "<\/a>");
 			}
 			return r;
@@ -734,7 +736,7 @@ function _i_parse(text, wiki_links, js_mode) {
 	}
 	
 	tags = tags.toUnique();
-	if (tags.length && wiki_links) {
+	if (tags.length && !export_links) {
 		if (force_inline)
 			s = "";
 		else
@@ -2920,7 +2922,10 @@ function _export_get_page(pi) {
 	return pg;	
 }
 
-var _export_main_index = false, _export_default_ext;
+var _export_main_index = false, _export_unix_norm = false,
+	_export_create_mode = false, _export_default_ext;
+
+var _export_fnames_array = [], _export_replace_fname = {};
 
 function _export_get_fname(title) {
 	if (title.match(/::$/)) {
@@ -2936,10 +2941,30 @@ function _export_get_fname(title) {
 	if (_export_main_index && (title==main_page))
 		return "index."+_export_default_ext;
 	var ext = "";
-	if (is__embedded(pi))
+	if (is__embedded(pi)) {
 		title = title.substr(title.indexOf("::")+2);
-	else ext = "."+_export_default_ext;
-	return escape(title).replace(/%20/g, " ").replace(/%3A%3A/g, " - ")+ext;
+		if (!is__image(pi))
+			ext = "."+_export_default_ext;
+	} else ext = "."+_export_default_ext;
+	var fname;
+	if (_export_unix_norm)
+		fname = escape(title.toLowerCase().replace(/\s+/g, "_")).replace(/%3A%3A/g, "-");
+	else
+		fname = escape(title).replace(/%20/g, " ").replace(/%3A%3A/g, " - ");
+	if (!_export_create_mode) {
+		if (_export_replace_fname[fname+ext]!=null)
+			return _export_replace_fname[fname+ext];
+		return fname+ext;
+	}
+	var test_fname = fname+ext, i=0;
+	while (_export_fnames_array.indexOf(test_fname)!=-1) {
+		log(test_fname+" already exists, checking next fname");
+		test_fname = fname+str_rep("_", ++i)+ext;
+	}
+	if (i)
+		_export_replace_fname[fname+str_rep("_", i-1)+ext] = test_fname;
+	_export_fnames_array.push(test_fname);
+	return test_fname;
 }
 
 function xhtml_to_text(s) {
@@ -2956,20 +2981,39 @@ function export_wiki() {
 			js_mode = 1;
 		else if (el("woas_cb_js_exp").checked)
 			js_mode = 2;
-		var sep_css = el("woas_cb_sep_css").checked;
+		var sep_css = el("woas_cb_sep_css").checked,
+			exp_menus = el("woas_cb_export_menu").checked;
 		_export_main_index = el("woas_cb_index_main").checked;
 		_export_default_ext = el("woas_ep_ext").value;
+		var meta_author = el("woas_ep_author").value;
+		meta_author = sw_trim(meta_author);
+		if (meta_author.length)
+			meta_author = '<meta name="author" content="'+xhtml_encode(meta_author)+'" />'+"\n";
+		_export_unix_norm = el("woas_cb_unix_norm").checked;
 	} catch (e) { alert(e); return false; }
 	
 	elShow("loading_overlay");
 	el("loading_overlay").focus();
 	var css = document.getElementsByTagName("style")[0].innerHTML;
+	// reset some export globals
+	_export_fnames_array = [];
+	_export_replace_fname = {}
 	if (sep_css) {
 		var css_path = "woas.css";
+		_export_fnames_array.push(css_path);
 		saveFile(xhtml_path+css_path, css);
 		css = '<link rel="stylesheet" type="text/css" media="all" href="'+css_path+'" />';
 	} else
 		css = '<style type="text/css">'+css+'</style>';
+	
+	var custom_bs = "";
+	if (js_mode==2) {
+		data = _export_get_page(page_index("Special::Bootscript"));
+		if (data!=null && data.length) {
+			saveFile(xhtml_path+"bootscript.js", data);
+			custom_bs = '<script type="text/javascript" src="bootscript.js"></script>';
+		}
+	}
 
 	var l=page_titles.length, data = null, fname = "", done=0, wt=null;
 	for (var pi=0;pi<l;pi++) {
@@ -2977,12 +3021,14 @@ function export_wiki() {
 		data = _export_get_page(pi);
 		if (data == null) continue;
 		if (page_titles[pi].indexOf("::Menu")==page_titles[pi].length-6) continue;
+		_export_create_mode = true;
 		fname = _export_get_fname(page_titles[pi]);
+		_export_create_mode = false;
 		if (is__embedded(pi)) {
 			if (is__image(pi)) {
 				if (!_b64_export(data, img_path+fname))
 					break;
-				else continue;
+				else { ++done; continue; }
 			} else
 				data = '<pre class="wiki_preformatted">'+xhtml_encode(data)+"</pre>";
 		} else {
@@ -2995,23 +3041,39 @@ function export_wiki() {
 			}			
 		}
 		var raw_text = sw_trim(xhtml_to_text(data));
-		data = "<ht"+"ml><he"+"ad><title>"+page_titles[pi]+"</title>"+css+
+		if (exp_menus) {
+			var _exp_menu = get_text("::Menu");
+			if (_exp_menu == null)
+				_exp_menu = "";
+			var _ns = _get_namespace(page_titles[pi]);
+			if (_ns.length) {
+				var mpi = page_index(_ns+"::Menu");
+				if (mpi != -1) {
+					var tmp=_export_get_page(mpi);
+					if (tmp!=null)
+						_exp_menu += tmp;
+				}
+			}
+			if (_exp_menu.length) {
+				_exp_menu = _i_parse(_exp_menu, true, js_mode);
+				if (js_mode)
+					_activate_scripts();
+			}
+			data = '<div class="menu_area" id="sw_menu_area" style="position: fixed;"><div class="wiki" id="menu_area">'+_exp_menu+'</div></div><div class="text_area" id="wiki_text">'+data+'</div>';
+		}
+		data = "<ht"+"ml><he"+"ad><title>"+xhtml_encode(page_titles[pi])+"</title>"+css+
 		'<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />'+"\n"+
 		'<meta name="generator" content="Wiki on a Stick v'+version+'" />'+"\n"+
 		'<meta name="keywords" content="'+_auto_keywords(raw_text)+'" />'+"\n"+
 		'<meta name="description" content="'+
 		raw_text.replace(/\s+/g, " ").substr(0,max_description_length)+'" />'+"\n"+
+		meta_author+
+		custom_bs+
 		"</h"+"ead><"+"body>"+data+"</bod"+"y></h"+"tml>\n"; raw_text = null;
 		if (!saveFile(xhtml_path+fname, _doctype+data))
 			break;
 		++done;
 	}
-/*		if (js_mode==2) {
-			data = _export_get_page(page_index("Special::Bootscript"));
-			if (data!=null) {
-				saveFile(xhtml_path+"bootscript.js", data);
-			}
-		}	*/
 	if (js_mode) {
 		refresh_menu_area();
 		set_current(current);
