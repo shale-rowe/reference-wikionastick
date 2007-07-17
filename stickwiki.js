@@ -1327,7 +1327,7 @@ function _get_embedded(cr, etype) {
 		parse("\n{{{[[Include::"+cr+"]]}}}"+
 		"\n\n<a href=\"javascript:query_delete_file()\">Delete embedded file</a>\n"+
 		"\n<a href=\"javascript:query_export_file()\">Export file</a>\n"+
-		"<script>function query_delete_file() {if (confirm('Are you sure you want to delete this file?')){delete_page('"+js_encode(cr)+"');back_or(main_page);save_page('"+js_encode(cr)+"');}}\n"+
+		"<sc"+"ript>function query_delete_file() {if (confirm('Are you sure you want to delete this file?')){delete_page('"+js_encode(cr)+"');back_or(main_page);save_page('"+js_encode(cr)+"');}}\n"+
 		"function query_export_file() {\nvar exp_path = _get_this_filename().replace(/\\"+slash_c+"[^\\"+
 		slash_c+"]*$/, \""+(slash_c=="\\"?"\\\\":"/")+"\")+'"+js_encode(fn)+"';if (confirm('Do you want to export this file in the below specified path?'+\"\\n\\n\"+exp_path)){export_file('"+js_encode(cr)+"', exp_path);}}"+
 		"</sc"+"ript>"
@@ -1337,7 +1337,7 @@ function _get_embedded(cr, etype) {
 		xhtml = parse("= "+img_name+"\n\n"+
 		"<img id=\"img_tag\" class=\"embedded\" src=\""+text+"\" alt=\""+xhtml_encode(img_name)+"\" />"+
 		"\n\n<div id=\"img_desc\">Loading...</div>"+
-		"<script>function _to_img_display() { var img=el('img_tag');\nsetHTML(el('img_desc'), 'Mime type: "+text.match(/^data:\s*([^;]+);/)[1]+"<br />File size: "+_convert_bytes(((text.length-(text.match(/^data:\s*[^;]*;\s*[^,]*,\s*/)[0]).length)*3)/4)+
+		"<sc"+"ript>function _to_img_display() { var img=el('img_tag');\nsetHTML(el('img_desc'), 'Mime type: "+text.match(/^data:\s*([^;]+);/)[1]+"<br />File size: "+_convert_bytes(((text.length-(text.match(/^data:\s*[^;]*;\s*[^,]*,\s*/)[0]).length)*3)/4)+
 		" (requires "+_convert_bytes(text.length)+" due to base64 encoding)"+
 		"<br />Width: '+img.width+'px<br />Height: '+img.height+'px');} setTimeout('_to_img_display()', 0); function query_delete_image() {if (confirm('Are you sure you want to delete this image?')){delete_page('"+js_encode(cr)+"');back_or(main_page);save_page('"+js_encode(cr)+"');}}\n"+
 		"function query_export_image() {\nvar exp_path = _get_this_filename().replace(/\\"+slash_c+"[^\\"+
@@ -2644,7 +2644,7 @@ function _saveThisFile(new_data, old_data)
 {
 	var filename = _get_this_filename();
 	r = saveFile(filename,
-	_doctype+"<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\">\n<head>\n<script type=\"text/javascript\">" + new_data + "\n" + old_data + "</html>");
+	_doctype+"<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\">\n<head>\n<sc"+"ript type=\"text/javascript\">" + new_data + "\n" + old_data + "</html>");
 	if (r==true)
 		log("\""+filename+"\" saved successfully");
 	else
@@ -3011,7 +3011,7 @@ function export_wiki() {
 		data = _export_get_page(page_index("Special::Bootscript"));
 		if (data!=null && data.length) {
 			saveFile(xhtml_path+"bootscript.js", data);
-			custom_bs = '<script type="text/javascript" src="bootscript.js"></script>';
+			custom_bs = '<sc'+'ript type="text/javascript" src="bootscript.js"></sc'+'ript>';
 		}
 	}
 

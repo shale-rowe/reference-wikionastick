@@ -21,18 +21,11 @@ var __config = {
 "cumulative_save":false,
 "auto_save":300000};
 
-var current = 'Special::Export';
+var current = 'Main Page';
 
 var main_page = 'Main Page';
 
 var backstack = [
-'Special::',
-'Special::Export',
-'Special::Search',
-'Special::Advanced',
-'History',
-'Main Page',
-'Special::'
 ];
 
 var page_titles = [
@@ -337,7 +330,7 @@ div.ns_menu_area ul li, div.ns_menu_area ol li {
 <td>{{{ nowiki }}}</td>
 <td></td>
 <td><a class="world" onclick="open_table_help()">(tables)</a></td></tr></tbody></table></div>
-<div id="debug_info" style="display: inline; visibility: visible;">
+<div id="debug_info" style="display: inline; visibility: visible; z-index: 101;">
 <h2>Debug console</h2>
 <p>This is a development BETA version of Wiki On a Stick; it is not suggested to use it with important data. If you want to disable this debug message and console, you will have to find the line that says <b><tt>var debug = true;</tt></b> and change it to <b><tt>false</tt></b>.</p>
 <div align="center"><textarea id="swlogger" ondblclick="el('swlogger').value=''" style="width: 90%; background-color: rgb(204, 204, 204);" rows="12" readonly="readonly" cols="70"></textarea><br><input onclick="el('swlogger').value=''" value="Clear" type="button"></div></div>
