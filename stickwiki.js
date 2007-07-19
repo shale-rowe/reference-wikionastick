@@ -1322,7 +1322,7 @@ function _get_embedded(cr, etype) {
 	var slash_c = (navigator.appVersion.indexOf("Win")!=-1)?"\\":"/";
 	if (etype=="file") {
 		var fn = cr.substr(cr.indexOf("::")+2);
-		xhtml = "<pre class=\"embedded\">"+xhtml_encode(text)+"</pre>"+
+		xhtml = "<pre class=\"embedded\">"+xhtml_encode(merge_bytes(b64_decode(text)))+"</pre>"+
 		"<br /><hr />File size: "+_convert_bytes(text.length)+"<br /><br />Raw transclusion:"+
 		parse("\n{{{[[Include::"+cr+"]]}}}"+
 		"\n\n<a href=\"javascript:query_delete_file()\">Delete embedded file</a>\n"+
@@ -1398,6 +1398,8 @@ function _embed_process(etype) {
 		return false;
 	}
 	
+	ct = b64_encode(split_bytes(ct));
+	
 	// calculate the flags for the embedded file
 	if (etype == "image") {
 		var m=filename.match(/\.(\w+)$/);
@@ -1416,7 +1418,7 @@ function _embed_process(etype) {
 				guess_mime = "image/jpeg";
 				break;
 		}
-		ct = "data:"+guess_mime+";base64,"+b64_encode(split_bytes(ct));
+		ct = "data:"+guess_mime+";base64,"+ct;
 		etype = 12;
 	} else etype = 4;
 	
