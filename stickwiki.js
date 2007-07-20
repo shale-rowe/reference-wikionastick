@@ -1322,12 +1322,18 @@ function _get_embedded(cr, etype) {
 	var slash_c = (navigator.appVersion.indexOf("Win")!=-1)?"\\":"/";
 	if (etype=="file") {
 		var fn = cr.substr(cr.indexOf("::")+2);
-		xhtml = "<pre class=\"embedded\">"+xhtml_encode(merge_bytes(b64_decode(text)))+"</pre>"+
-		"<br /><hr />File size: "+_convert_bytes(text.length)+"<br /><br />Raw transclusion:"+
+		var pview_data = merge_bytes(b64_decode(text, 1024)), pview_link = "";
+		var ext_size = Math.ceil((text.length*3)/4);
+		if (ext_size-pview_data.length>10)
+			pview_link = "<div id='_part_display'><em>Only the first 1024 bytes are displayed</em><br /><a href='javascript:show_full_file("+pi+")'>Display full file</a></div>";
+		xhtml = "<pre id='_file_ct' class=\"embedded\">"+xhtml_encode(pview_data)+"</pre>"+
+		pview_link+
+		"<br /><hr />File size: "+_convert_bytes(ext_size)+"<br /><br />Raw transclusion:"+
 		parse("\n{{{[[Include::"+cr+"]]}}}"+
 		"\n\n<a href=\"javascript:query_delete_file()\">Delete embedded file</a>\n"+
 		"\n<a href=\"javascript:query_export_file()\">Export file</a>\n"+
-		"<sc"+"ript>function query_delete_file() {if (confirm('Are you sure you want to delete this file?')){delete_page('"+js_encode(cr)+"');back_or(main_page);save_page('"+js_encode(cr)+"');}}\n"+
+		"<sc"+"ript>function query_delete_file() {if (confirm('Are you sure you want to delete this file?')){delete_page('"+js_encode(cr)+"');back_or(main_page);save_page('"+js_encode(cr)+"');}}\n"
+		+(pview_link.length?"function show_full_file(pi) { var text = get__text(pi); if (text==null) return; elShow('loading_overlay'); setHTML(el('_part_display'), ''); setHTML(el('_file_ct'), merge_bytes(b64_decode(text))); elHide('loading_overlay'); }\n":'')+
 		"function query_export_file() {\nvar exp_path = _get_this_filename().replace(/\\"+slash_c+"[^\\"+
 		slash_c+"]*$/, \""+(slash_c=="\\"?"\\\\":"/")+"\")+'"+js_encode(fn)+"';if (confirm('Do you want to export this file in the below specified path?'+\"\\n\\n\"+exp_path)){export_file('"+js_encode(cr)+"', exp_path);}}"+
 		"</sc"+"ript>"
@@ -2634,7 +2640,9 @@ function save_to_file(full) {
 
 function _get_this_filename() {
 	var filename = unescape(document.location.toString().split("?")[0]);
-	filename = filename.replace(/^file:\/\/\//, "").replace(/#.*$/g, "");
+	filename = filename.replace(/^file:\/\/\//, '').replace(/#.*$/g, "");
+//	if (ie && (filename.search(/^file:\/\//)===0))
+//		filename = "//?/"+filename.substr(7);
 	if (navigator.appVersion.indexOf("Win")!=-1)
 		filename = filename.replace(/\//g, "\\");
 	else
@@ -3556,9 +3564,10 @@ function b64_encode(bData) {
 }
 
 // used to export images
-function b64_decode(sData){
+function b64_decode(sData, z){
 	var x = new Array(4);
-	var z = sData.length, tot=z;
+	var tot=sData.length;
+	if (!z) z = tot;
 	var bData=[], i=0;
 	while (i<z) {
 		for (var k=0;k<4;k++){
