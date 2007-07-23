@@ -639,7 +639,7 @@ function _i_parse(text, export_links, js_mode) {
 				if (export_links)
 					wl=" href=\#\"";
 				else
-					wl = " onclick='go_to(\"" +js_encode($1)+"\")'";
+					wl = " onclick=\"go_to('" +js_encode($1)+"')\"";
 				html_tags.push("<a class=\"unlink\" "+wl+">" + $1 + "<\/a>");
 			}
 			return r;
