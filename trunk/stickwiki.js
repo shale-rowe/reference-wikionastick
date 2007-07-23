@@ -3406,7 +3406,14 @@ if (old_version	< 9) {
 				page_attrs.push( old_page_attrs[i] );
 			} else {
 				page_titles[pi] = page_names[i];
-				pages[pi] = page_contents[i];
+				if (old_version==94) {
+					// convert embedded files to base64 encoding
+					if (old_page_attrs[i] & 4)
+						pages[pi] = page_contents[i];
+					else
+						pages[pi] = b64_encode(split_bytes(page_contents[i]));
+				} else
+					pages[pi] = page_contents[i];
 				page_attrs[pi] = old_page_attrs[i];
 			}
 			pages_imported++;
