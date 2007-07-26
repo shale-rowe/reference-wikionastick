@@ -3,24 +3,25 @@
 
 // page attributes bits are mapped to (readonly, encrypted, ...)
 
-var debug = true;			// toggle debug mode (and console)
+var debug = false;			// toggle debug mode (and console)
 var end_trim = false;		// trim pages from the end
 
 var forstack = [];			// forward history stack, discarded when saving
-var cached_search = "";
+var cached_search = "";		// cached XHTML content of last search
 var cfg_changed = false;	// true when configuration has been changed
-var search_focused = false;
-var _custom_focus = false;
+var search_focused = false;	// true when a search box is currently focused
+var _custom_focus = false;	// true when an user control is currently focused
 var _prev_title = current;	// used when entering/exiting edit mode
-var _decrypt_failed = false;
-var result_pages = [];
-var last_AES_page;
-var current_namespace = "";
+var _decrypt_failed = false;	// the last decryption failed due to wrong password attempts (pretty unused)
+var result_pages = [];			// the pages indexed by the last result page
+var last_AES_page;				// the last page on which the cached AES key was used on
+var current_namespace = "";		// the namespace(+subnamespaces) of the current page
 var was_local = !__config.server_mode;	// to save the server_mode flag once
 var floating_pages = [];				// pages which need to be saved and are waiting in the queue
 var _bootscript = null;					// bootscript
 var _hl_reg = null;						// search highlighting regex
 
+// browser flags
 var ie = false;
 var ie6 = false;
 var firefox = false;
@@ -68,7 +69,7 @@ if (debug) {
 if (!ie)
 	window.onresize = on_resize;
 
-// Returns element by ID
+// returns the DOM element object given its id
 function el(name)
 {
 	return document.getElementById(name);
@@ -91,7 +92,7 @@ if (typeof Array.prototype.push == "undefined") {
   }
 }
 
-// implements a function which returns an array with unique elements
+// implements a function which returns an array with unique elements - deprecated
 Array.prototype.toUnique = function() {
 	var a_o = {}, new_arr = [];
 	var l=this.length;
@@ -106,6 +107,7 @@ Array.prototype.toUnique = function() {
 	return this;
 }
 
+// the following methods complete the Array object for non-compliant browsers
 if (typeof Array.prototype.splice == "undefined") {
   Array.prototype.splice = function(offset, length) {
     var temp = [];
@@ -130,6 +132,7 @@ if (typeof Array.prototype.indexOf == "undefined") {
 	}
 }
 
+// provide regex escaping
 // thanks to S.Willison
 RegExp.escape = function(text) {
   if (!arguments.callee.sRE) {
@@ -144,20 +147,24 @@ RegExp.escape = function(text) {
   return text.replace(arguments.callee.sRE, '\\$1');
 }
 
+// repeat string s for n times
 function str_rep(s, n) {
 	var r = "";
 	while (--n >= 0) r += s;
 	return r;
 }
 
+// return a random integer given the maximum value (scale)
 function _rand(scale) {
 	return Math.floor(Math.random() * scale);
 }
 
+// left and right trim
 function sw_trim(s) {
 	return s.replace(/(^\s*)|(\s*$)/, '');
 }
 
+// returns a random string of given string_length
 function _random_string(string_length) {
 	var chars = "ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
 	var randomstring = '';
@@ -184,6 +191,8 @@ function js_hex_encode(s) {
 	});
 }
 
+// general javascript-safe string quoting
+// NOTE: not completely binary safe!
 function js_encode(s, split_lines) {
 	// not to counfound browsers with saved tags
 	s = s.replace(/([\\<>'])/g, function (str, ch) {
@@ -243,6 +252,7 @@ function xhtml_encode(src) {
 	});
 }
 
+// create a centered popup given some options
 function _create_centered_popup(name,fw,fh,extra) {
 	var hpos=Math.ceil((screen.width-fw)/2);
 	var vpos=Math.ceil((screen.height-fh)/2);
@@ -252,10 +262,12 @@ function _create_centered_popup(name,fw,fh,extra) {
 	return wnd;
 }
 
+// format a decimal number to specified decimal precision
 function _number_format(n, prec) {
 	return n.toString().replace(new RegExp("(\\."+str_rep("\\d", prec)+")\\d*$"), "$1");
 }
 
+// converts the number of bytes to a human readable form
 function _convert_bytes(bytes) {
 	log("Converting "+bytes+" bytes");
 	if (bytes < 1024)
@@ -281,6 +293,7 @@ var edit_override = true;
 
 var reserved_namespaces = ["Special", "Lock", "Locked", "Unlocked", "Unlock", "Tags", "Tagged", "Include"];
 
+// create the regex for reserved namespaces
 var reserved_rx = "^";
 for(var i = (edit_override ? 1 : 0);i<reserved_namespaces.length;i++) {
 	reserved_rx += /*RegExp.Escape(*/reserved_namespaces[i] + "::";
@@ -293,6 +306,7 @@ function is_reserved(page) {
 	return (page.search(reserved_rx)==0);
 }
 
+// a page physically exists if it is not part of a reserved namespace, if it is not a (sub)namespace and if it actually exists
 function page_exists(page)
 {
 	return (is_reserved(page) || (page.substring(page.length-2)=="::") || (page_index(page)!=-1));
