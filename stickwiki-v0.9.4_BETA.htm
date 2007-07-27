@@ -763,7 +763,7 @@ function _i_parse(text, export_links, js_mode) {
 					return "[<!-- -->[Include::"+templs+"]]";
 				}
 				// in case of embedded file, add the inline file or add the image
-				if (is_embedded(templname)) {
+				if (!is_reserved(templname) && is_embedded(templname)) {
 					var r = "<!-- "+parse_marker+"::"+html_tags.length+" -->";
 					log("Embedded file transclusion: "+templname);
 					if (is_image(templname)) {
