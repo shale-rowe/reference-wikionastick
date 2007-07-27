@@ -3,7 +3,7 @@
 
 // page attributes bits are mapped to (readonly, encrypted, ...)
 
-var debug = false;			// toggle debug mode (and console)
+var debug = true;			// toggle debug mode (and console)
 var end_trim = false;		// trim pages from the end
 
 var forstack = [];			// forward history stack, discarded when saving
@@ -478,7 +478,7 @@ function _i_parse(text, export_links, js_mode) {
 				var parts = $1.split("|");
 				var templname = parts[0];
 				log("Transcluding "+templname+"("+parts.slice(0).toString()+")");
-				var templtext = get_text(templname);
+				var templtext = advanced_get_text(templname);
 				if (templtext == null) {
 					var templs="[["+templname+"]]";
 					if (parts.length>1)
@@ -1185,6 +1185,32 @@ function get_text(title) {
 	if (pi==-1)
 		return null;
 	return get__text(pi);
+}
+
+//TODO: check consistency of special pages inclusion
+function advanced_get_text(title) {
+	var p = title.indexOf("::");
+	var text = null;
+	if (p!=-1) {
+		var namespace = title.substring(0,p);
+		log("namespace of "+title+" is "+namespace);
+		title = title.substring(p+2);
+		if (!title.length) return _get_namespace_pages(namespace+"::");
+		switch (namespace) {
+			case "Special":
+				text = _get_special(title);
+			break;
+			case "Tagged": // deprecated
+			case "Tags":
+				text = _get_tagged(title);
+			break;
+			default:
+				text = get_text(title);
+		}
+	} else
+		text = get_text(title);
+	return text;
+
 }
 
 function get__text(pi) {
