@@ -1205,7 +1205,7 @@ function advanced_get_text(title) {
 				text = _get_tagged(title);
 			break;
 			default:
-				text = get_text(title);
+				text = get_text(namespace+"::"+title);
 		}
 	} else
 		text = get_text(title);
