@@ -81,8 +81,6 @@ function elHide(id) {
 }
 
 function elShow(id) {
-	if (!el(id))
-		alert(id);
 	el(id).style.display = "inline";
 	el(id).style.visibility = "visible";
 }
@@ -1291,7 +1289,7 @@ function page_print() {
 	} else
 		css_payload = "div.wiki_toc { margin: 0 auto;}\n";
 	wnd.document.writeln(_doctype+"<ht"+"ml><he"+"ad><title>"+current+"</title>"+
-	"<st"+"yle type=\"text/css\">"+css_payload+document.getElementsByTagName("style")[0].innerHTML+"</sty"+"le><scr"+"ipt type=\"text/javascript\">function go_to(page) { alert(\"Sorry, you cannot browse the wiki while in print mode\");}</sc"+"ript></h"+"ead><"+"body>"+
+	"<st"+"yle type=\"text/css\">"+css_payload+_css_obj().innerHTML+"</sty"+"le><scr"+"ipt type=\"text/javascript\">function go_to(page) { alert(\"Sorry, you cannot browse the wiki while in print mode\");}</sc"+"ript></h"+"ead><"+"body>"+
 	el("wiki_text").innerHTML+"</bod"+"y></h"+"tml>\n");
 	wnd.document.close();
 }
@@ -1553,7 +1551,7 @@ function _get_special(cr) {
 			return null;
 		case "Edit CSS":
 			current_editing("Special::"+cr, true);
-			el("wiki_editor").value = document.getElementsByTagName("style")[0].innerHTML;
+			el("wiki_editor").value = _css_obj().innerHTML;
 			return null;
 		case "Edit Bootscript":
 			cr = "Special::Bootscript";
@@ -2006,6 +2004,7 @@ function on_load()
 		setHTML = function(elem, html) {elem.innerHTML = html;};
 		getHTML = function(elem) {return elem.innerHTML;};
 //		setup_uri_pics(el("img_home"),el("img_back"),el("img_forward"),el("img_edit"),el("img_cancel"),el("img_save"),el("img_advanced"));
+//		_css_obj().innerHTML+="\na {  cursor: pointer;}";
 	}
 
 	img_display("back", true);
@@ -2353,6 +2352,10 @@ function _new_syntax_patch(text) {
 	return text;
 }
 
+function _css_obj() {
+	return document.getElementsByTagName("style")[0];
+}
+
 // when save is clicked
 function save()
 {
@@ -2364,7 +2367,7 @@ function save()
 	switch(current)
 	{
 		case "Special::Edit CSS":
-			setHTML(document.getElementsByTagName("style")[0], el("wiki_editor").value);
+			setHTML(_css_obj(), el("wiki_editor").value);
 			back_to = null;
 			current = "Special::Advanced";
 			el("wiki_page_title").disabled = "";
@@ -3054,7 +3057,7 @@ function export_wiki() {
 	
 	elShow("loading_overlay");
 	el("loading_overlay").focus();
-	var css = document.getElementsByTagName("style")[0].innerHTML;
+	var css = _css_obj().innerHTML;
 	// reset some export globals
 	_export_fnames_array = [];
 	_export_replace_fname = {}
@@ -3339,7 +3342,7 @@ if (old_version	< 9) {
 	});
 	if (css!=null) {
 		log("Imported "+css.length+" bytes of CSS");
-		setHTML(document.getElementsByTagName("style")[0], css);
+		setHTML(_css_obj(), css);
 	}
 
 	var data = _get_data(old_marker, ct, true, true);
