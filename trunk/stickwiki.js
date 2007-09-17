@@ -1878,6 +1878,8 @@ function _hex_col(tone) {
 }
 
 function _add_namespace_menu(namespace) {
+	log("adding namespace menu for \""+namespace+"\"");
+	log("current namespace is \""+current_namespace+"\"");
 	if (current_namespace == namespace)
 		return;
 	var pi;
@@ -1886,6 +1888,7 @@ function _add_namespace_menu(namespace) {
 	else
 		pi = page_index(namespace+"::Menu");
 	if (pi==-1) {
+		log("no namespace menu found");
 		el("ns_menu_area").innerHTML = "";
 		if (current_namespace!="") {
 			elHide("ns_menu_area");
@@ -1895,14 +1898,18 @@ function _add_namespace_menu(namespace) {
 		return;
 	}
 	var menu = get__text(pi);
-	if (menu == null)
+	if (menu == null) {
+		log("Could not retrieve namespace menu");
 		el("ns_menu_area").innerHTML = "";
-	else
+	} else {
+		log("Parsing "+menu.length+" bytes for namespace menu");
 		el("ns_menu_area").innerHTML = parse(menu);
-	if (current_namespace=="") {
+	}
+	// if the previous namespace was empty, then show the submenu areas
+//	if (current_namespace=="") {
 		elShow("ns_menu_area");
 		elShow("ns_menu_edit_button");
-	}
+//	}
 	current_namespace = namespace;	
 }
 
@@ -1943,9 +1950,9 @@ function menu_display(id, visible) {
 
 function create_alt_buttons() {
 	if (ie) {
-		el("alt_back").innerHTML = "&#223;";
-		el("alt_forward").innerHTML = "&#222;";
-		el("alt_cancel").innerHTML = "&#251;";
+		el("alt_back").innerHTML = "Back";
+		el("alt_forward").innerHTML = "Forward";
+		el("alt_cancel").innerHTML = "Cancel";
 	}
 }
 
