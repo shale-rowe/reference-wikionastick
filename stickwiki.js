@@ -81,6 +81,8 @@ function elHide(id) {
 }
 
 function elShow(id) {
+	if (!el(id))
+		alert(id);
 	el(id).style.display = "inline";
 	el(id).style.visibility = "visible";
 }
@@ -1950,9 +1952,9 @@ function menu_display(id, visible) {
 
 function create_alt_buttons() {
 	if (ie) {
-		el("alt_back").innerHTML = "Back";
-		el("alt_forward").innerHTML = "Forward";
-		el("alt_cancel").innerHTML = "Cancel";
+		el("alt_back").innerHTML = "&nbsp;[Back]&nbsp;";
+		el("alt_forward").innerHTML = "&nbsp;[Forward]&nbsp;";
+		el("alt_cancel").innerHTML = "&nbsp;[Cancel]&nbsp;";
 	}
 }
 
@@ -1999,6 +2001,7 @@ function on_load()
 			el("sw_wiki_header").style.position = "absolute";
 			el("sw_menu_area").style.position = "absolute";
 		}
+		create_alt_buttons();
 	} else {
 		setHTML = function(elem, html) {elem.innerHTML = html;};
 		getHTML = function(elem) {return elem.innerHTML;};
