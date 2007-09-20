@@ -501,8 +501,13 @@ function _i_parse(text, export_links, js_mode) {
 								img += " alt=\""+img_name+"\"";
 						}
 						html_tags.push(img+" />");
-					} else
-						html_tags.push("<pre class=\"embedded\">"+xhtml_encode(templtext)+"</pre>");
+					} else {
+						if ((parts.length>1) && (parts[1]=="raw"))
+							html_tags.push(decode64(templtext));
+						else
+							html_tags.push("<pre class=\"embedded\">"+
+									xhtml_encode(decode64(templtext))+"</pre>");
+					}
 					templtext = r;
 				} else {
 					templtext = templtext.replace(/%(\d+)/g, function(param, paramno) {
@@ -1370,12 +1375,12 @@ function _get_embedded(cr, etype) {
 			pview_link = "<div id='_part_display'><em>Only the first 1024 bytes are displayed</em><br /><a href='javascript:show_full_file("+pi+")'>Display full file</a></div>";
 		xhtml = "<pre id='_file_ct' class=\"embedded\">"+xhtml_encode(pview_data)+"</pre>"+
 		pview_link+
-		"<br /><hr />File size: "+_convert_bytes(ext_size)+"<br /><br />Raw transclusion:"+
-		parse("\n{{{[[Include::"+cr+"]]}}}"+
+		"<br /><hr />File size: "+_convert_bytes(ext_size)+"<br /><br />XHTML transclusion:"+
+		parse("\n{{{[[Include::"+cr+"]]}}}"+"\n\nRaw transclusion:\n\n{{{[[Include::"+cr+"|raw]]}}}"+
 		"\n\n<a href=\"javascript:query_delete_file()\">Delete embedded file</a>\n"+
 		"\n<a href=\"javascript:query_export_file()\">Export file</a>\n"+
 		"<sc"+"ript>function query_delete_file() {if (confirm('Are you sure you want to delete this file?')){delete_page('"+js_encode(cr)+"');back_or(main_page);save_page('"+js_encode(cr)+"');}}\n"
-		+(pview_link.length?"function show_full_file(pi) { var text = get__text(pi); if (text==null) return; elShow('loading_overlay'); setHTML(el('_part_display'), ''); setHTML(el('_file_ct'), decode64(text)); elHide('loading_overlay'); }\n":'')+
+		+(pview_link.length?"function show_full_file(pi) { var text = get__text(pi); if (text==null) return; elShow('loading_overlay'); setHTML(el('_part_display'), ''); setHTML(el('_file_ct'), xhtml_encode(decode64(text))); elHide('loading_overlay'); }\n":'')+
 		"function query_export_file() {\nvar exp_path = _get_this_filename().replace(/\\"+slash_c+"[^\\"+
 		slash_c+"]*$/, \""+(slash_c=="\\"?"\\\\":"/")+"\")+'"+js_encode(fn)+"';if (confirm('Do you want to export this file in the below specified path?'+\"\\n\\n\"+exp_path)){export_file('"+js_encode(cr)+"', exp_path);}}"+
 		"</sc"+"ript>"
