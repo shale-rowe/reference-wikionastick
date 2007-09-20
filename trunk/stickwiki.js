@@ -714,7 +714,7 @@ function _i_parse(text, export_links, js_mode) {
 	});
 
 	// <hr> horizontal rulers made with 3 hyphens. 4 suggested
-	text = text.replace(/(^|\n)\s*\-{3,}\s*(\n|$)/g, "<hr />");
+	text = text.replace(/(^|\n)\s*\-{3,}\s*(\n|$)/g, "<hr />$2");
 	
 	// tables-parsing pass
     text = text.replace(reReapTables, parseTables);
@@ -865,8 +865,6 @@ function special_search( str )
 	var pg_body = [];
 	var title_result = "";
 	
-	str = xhtml_encode(str);
-
 	var count = 0;
 	// matches the search string and nearby text
 	var reg = new RegExp( ".{0,30}" + RegExp.escape(sw_trim(str)).
@@ -914,7 +912,7 @@ function special_search( str )
 	if (!pg_body.length && !title_result.length)
 		return "/No results found for *"+str+"*/";
 	force_inline = true;
-	return "Results for *" + str + "*\n" + title_result + "\n\n----\n" + _simple_join_list(pg_body, false);
+	return "Results for *" + xhtmlstr + "*\n" + title_result + "\n\n----\n" + _simple_join_list(pg_body, false);
 }
 
 function special_tagged_pages() {
@@ -1214,6 +1212,9 @@ function advanced_get_text(title) {
 }
 
 function get__text(pi) {
+/*	if (pi==38) {
+		alert(page_attrs[pi]);
+	}	*/
 	// is the page encrypted or plain?
 	if (!is__encrypted(pi))
 		return pages[pi];
@@ -1342,6 +1343,7 @@ function _create_page(ns, cr, ask) {
 		pages.push("\n");
 	page_attrs.push(0);
 	page_titles.push(cr);
+	log("Page "+cr+" added to internal array");
 	current = cr;
 //	log("Now pages list is: "+page_titles);
 //	save_page(cr);	// do not save
@@ -1362,7 +1364,7 @@ function _get_embedded(cr, etype) {
 	var slash_c = (navigator.appVersion.indexOf("Win")!=-1)?"\\":"/";
 	if (etype=="file") {
 		var fn = cr.substr(cr.indexOf("::")+2);
-		var pview_data = merge_bytes(b64_decode(text, 1024)), pview_link = "";
+		var pview_data = decode64(text, 1024), pview_link = "";
 		var ext_size = Math.ceil((text.length*3)/4);
 		if (ext_size-pview_data.length>10)
 			pview_link = "<div id='_part_display'><em>Only the first 1024 bytes are displayed</em><br /><a href='javascript:show_full_file("+pi+")'>Display full file</a></div>";
@@ -1373,7 +1375,7 @@ function _get_embedded(cr, etype) {
 		"\n\n<a href=\"javascript:query_delete_file()\">Delete embedded file</a>\n"+
 		"\n<a href=\"javascript:query_export_file()\">Export file</a>\n"+
 		"<sc"+"ript>function query_delete_file() {if (confirm('Are you sure you want to delete this file?')){delete_page('"+js_encode(cr)+"');back_or(main_page);save_page('"+js_encode(cr)+"');}}\n"
-		+(pview_link.length?"function show_full_file(pi) { var text = get__text(pi); if (text==null) return; elShow('loading_overlay'); setHTML(el('_part_display'), ''); setHTML(el('_file_ct'), merge_bytes(b64_decode(text))); elHide('loading_overlay'); }\n":'')+
+		+(pview_link.length?"function show_full_file(pi) { var text = get__text(pi); if (text==null) return; elShow('loading_overlay'); setHTML(el('_part_display'), ''); setHTML(el('_file_ct'), decode64(text)); elHide('loading_overlay'); }\n":'')+
 		"function query_export_file() {\nvar exp_path = _get_this_filename().replace(/\\"+slash_c+"[^\\"+
 		slash_c+"]*$/, \""+(slash_c=="\\"?"\\\\":"/")+"\")+'"+js_encode(fn)+"';if (confirm('Do you want to export this file in the below specified path?'+\"\\n\\n\"+exp_path)){export_file('"+js_encode(cr)+"', exp_path);}}"+
 		"</sc"+"ript>"
@@ -1409,7 +1411,7 @@ function export_image(page, dest_path) {
 
 function _b64_export(data, dest_path) {
 	// decode the base64-encoded data
-	data = merge_bytes(b64_decode(data.replace(/^data:\s*[^;]*;\s*base64,\s*/, '')));
+	data = decode64(data.replace(/^data:\s*[^;]*;\s*base64,\s*/, ''));
 	// attempt to save the file
 	_force_binary = true;
 	var r = saveFile(dest_path, data);	
@@ -1444,7 +1446,7 @@ function _embed_process(etype) {
 		return false;
 	}
 	
-	ct = b64_encode(split_bytes(ct));
+	ct = encode64(ct);
 	
 	// calculate the flags for the embedded file
 	if (etype == "image") {
@@ -1689,6 +1691,8 @@ function set_current(cr)
 		}
 		if (!_create_page(namespace, cr, true))
 			return;
+		log("Editing new page "+namespace+cr);
+		return;
 	}
 	
 	_add_namespace_menu(namespace);
@@ -2281,13 +2285,17 @@ function current_editing(page, disabled) {
 }
 
 function edit_page(page) {
-	if (!edit_allowed(page))
+	if (!edit_allowed(page)) {
+		log("Not allowed to edit page "+page);
 		return;
+	}
 	if (__config.server_mode)
 		alert("You are using Wiki on a Stick on a REMOTE server, your changes will not be saved neither remotely or locally.\n\nThe correct usage of Wiki on a Stick is LOCAL, so you should use a local copy of this page to exploit the save features. All changes made to this copy of Wiki on a Stick will be lost.");
 	var tmp = get_text(page);
-	if (tmp == null)
+	if (tmp == null) {
+		log("Cannot edit page "+page+" with null content");
 		return;
+	}
 	// setup the wiki editor textbox
 	current_editing(page, is_reserved(page));
 	el("wiki_editor").value = tmp;
@@ -3464,7 +3472,7 @@ if (old_version	< 9) {
 					if (old_page_attrs[i] & 4)
 						pages[pi] = page_contents[i];
 					else
-						pages[pi] = b64_encode(split_bytes(page_contents[i]));
+						pages[pi] = encode64(page_contents[i]);
 				} else
 					pages[pi] = page_contents[i];
 				page_attrs[pi] = old_page_attrs[i];
@@ -3607,6 +3615,10 @@ function merge_bytes(arr) {
 	return s;
 }
 
+/*
+
+function encode64(s) { return b64_encode(split_bytes(s)); }
+
 // used to embed images
 function b64_encode(bData) {
 	var sData="", z=bData.length, i=0, tot=z;
@@ -3622,6 +3634,8 @@ function b64_encode(bData) {
 	}
 	return sData;
 }
+
+function decode64(s, n) { return merge_bytes(b64_decode(s, n)); }
 
 // used to export images
 function b64_decode(sData, z){
@@ -3645,7 +3659,82 @@ function b64_decode(sData, z){
 	    if (x[3]<64) bData.push( ((x[2]&3)<<6)+x[3] );
 	}
 	return bData;
+} */
+
+// This code was written by Tyler Akins and has been placed in the
+// public domain.  It would be nice if you left this header intact.
+// Base64 code from Tyler Akins -- http://rumkin.com
+
+var keyStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
+
+function encode64(input) {
+   var output = "";
+   var chr1, chr2, chr3;
+   var enc1, enc2, enc3, enc4;
+   var i = 0;
+
+   do {
+      chr1 = input.charCodeAt(i++);
+      chr2 = input.charCodeAt(i++);
+      chr3 = input.charCodeAt(i++);
+
+      enc1 = chr1 >> 2;
+      enc2 = ((chr1 & 3) << 4) | (chr2 >> 4);
+      if (isNaN(chr2)) {
+         enc3 = enc4 = 64;
+      } else {
+      if (isNaN(chr3)) {
+         enc4 = 64;
+      } else {
+		enc3 = ((chr2 & 15) << 2) | (chr3 >> 6);
+		enc4 = chr3 & 63;
+	}
+      }
+
+      output = output + keyStr.charAt(enc1) + keyStr.charAt(enc2) + 
+         keyStr.charAt(enc3) + keyStr.charAt(enc4);
+   } while (i < input.length);
+   
+   return output;
 }
+
+function decode64(input, z) {
+   var output = "";
+   var chr1, chr2, chr3;
+   var enc1, enc2, enc3, enc4;
+   var i = 0;
+   if (!z) z = input.length;
+   else {
+	var l=input.length;
+	if (l<z) z=l;
+	}
+
+   // remove all characters that are not A-Z, a-z, 0-9, +, /, or =
+//   input = input.replace(/[^A-Za-z0-9\+\/\=]/g, ""); // might cause bugs!
+
+   do {
+      enc1 = keyStr.indexOf(input.charAt(i++));
+      enc2 = keyStr.indexOf(input.charAt(i++));
+      enc3 = keyStr.indexOf(input.charAt(i++));
+      enc4 = keyStr.indexOf(input.charAt(i++));
+
+      chr1 = (enc1 << 2) | (enc2 >> 4);
+      chr2 = ((enc2 & 15) << 4) | (enc3 >> 2);
+      chr3 = ((enc3 & 3) << 6) | enc4;
+
+      output = output + String.fromCharCode(chr1);
+
+      if (enc3 != 64) {
+         output = output + String.fromCharCode(chr2);
+      }
+      if (enc4 != 64) {
+         output = output + String.fromCharCode(chr3);
+      }
+   } while (i < z);
+
+   return output;
+}
+
 
 var aesNk;
 var aesNr;
