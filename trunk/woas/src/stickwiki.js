@@ -1591,7 +1591,7 @@ function delete_page(page) {
 			page_titles.splice(i,1);
 			pages.splice(i,1);
 			page_attrs.splice(i,1);
-			this.refresh_menu_area();
+			woas.refresh_menu_area();
 			break;
 		}
 	}
@@ -1662,11 +1662,6 @@ woas["save"] = function() {
 	this.refresh_menu_area();
 	this.disable_edit();
 	this.save_page(saved);
-}
-
-function back_or(or_page) {
-	if (!go_back())
-		this.set_current(or_page);
 }
 
 // push a page into history
@@ -1901,7 +1896,7 @@ function erase_wiki() {
 	pages = ["This is your empty main page", "[[Main Page]]\n\n[[Special::New page]]\n[[Special::Backlinks]]\n[[Special::Search]]", "/* insert here your boot script */"];
 	pages = pages.concat(backup_pages);
 	current = main_page = "Main Page";
-	this.refresh_menu_area();
+	woas.refresh_menu_area();
 	backstack = [];
 	forstack = [];	
 	return true;
