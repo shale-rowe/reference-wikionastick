@@ -23,6 +23,11 @@ function go_to(cr)
 	woas.set_current(cr);
 }
 
+function back_or(or_page) {
+	if (!go_back())
+		woas.set_current(or_page);
+}
+
 // when Back button is clicked
 function go_back()
 {
