@@ -93,9 +93,62 @@ function page_dblclick() {
 }
 
 function edit_menu() {
-	edit_page("::Menu");
+	woas.edit_page("::Menu");
 }
 
 function edit_ns_menu() {
-	edit_page(current_namespace+"::Menu");
+	woas.edit_page(current_namespace+"::Menu");
+}
+
+/** Used by search box **/
+
+function menu_search_focus(f) {
+    if (f) {
+       if (current == "Special::Search") {
+//          ff_fix_focus();
+          $('string_to_search').focus();
+       } else
+          search_focused = true;
+    } else {
+       if (current != "Special::Search")
+           search_focused = false;
+    }
+}
+
+function menu_do_search() {
+    if (current == "Special::Search") {
+       $('string_to_search').value = $('menu_string_to_search').value;
+       do_search($('menu_string_to_search').value);
+    } else {
+    _raw_do_search($('menu_string_to_search').value);
+    }
+}
+
+function menu_key_hook(orig_e) {
+    var e;
+    if (!orig_e)
+        e = window.event;
+    else
+        e = orig_e;
+	
+    if (e.keyCode==13) {
+	ff_fix_focus();
+	_raw_do_search($('menu_string_to_search').value);
+        return false;
+     }
+     return orig_e;
+}
+
+function _raw_do_search(str) {
+       cached_search = woas.parser.parse(woas.special_search( str ));
+       woas.assert_current("Special::Search");
+}
+
+// Used by Special::Search
+// make the actual search and cache the results
+function do_search() {
+	var search_string = $("string_to_search").value;
+	if ( !search_string.length )
+		return;
+	_raw_do_search(search_string);
 }
