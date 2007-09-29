@@ -197,7 +197,7 @@ woas["_join_list"] = function(arr) {
 	return "* [["+arr.sort().join("]]\n* [[")+"]]";
 }
 
-woas["_join_list"] = function(arr, sorted) {
+woas["_simple_join_list"] = function(arr, sorted) {
 	if (sorted)
 		arr = arr.sort();
 	// a newline is added here
@@ -218,8 +218,8 @@ woas["_get_namespace_pages"] = function (ns) {
 	}
 
 	for(var i=0;i<page_titles.length;i++) {
-		if (page_titles[i].indexOf(ns)==0)
-			pg.push( page_titles[i]);
+		if (page_titles[i].indexOf(ns)===0)
+			pg.push(page_titles[i]);
 	}
 	return "= Pages in "+ns+" namespace\n" + this._join_list(pg);
 }
@@ -238,7 +238,7 @@ woas["_get_tagged"] = function(tag) {
 				if ($1.search(/^\w+:\/\//)==0)
 					return;
 					
-				found_tags = this._get_tags($1);
+				found_tags = woas._get_tags($1);
 				
 //				alert(found_tags);
 				
@@ -387,7 +387,7 @@ woas["special_search"] = function( str )
 	if (!pg_body.length && !title_result.length)
 		return "/No results found for *"+str+"*/";
 	woas.parser.force_inline = true;
-	return "Results for *" + xhtmlstr + "*\n" + title_result + "\n\n----\n" + this._simple_join_list(pg_body, false);
+	return "Results for *" + woas.xhtml_encode(str) + "*\n" + title_result + "\n\n----\n" + this._simple_join_list(pg_body, false);
 }
 
 woas["special_tagged_pages"] = function() {
@@ -649,18 +649,6 @@ woas["assert_current"] = function(page) {
 		go_to( page ) ;
 	else
 		this.set_current( page );
-}
-
-// make the actual search and cache the results
-woas["do_search"] = function() {
-	var search_string = $("string_to_search").value;
-
-	if ( !search_string.length )
-		return;
-	
-	cached_search = this.parser.parse(this.special_search( search_string ));
-	
-	this.assert_current("Special::Search");
 }
 
 woas["_create_page"] = function (ns, cr, ask) {
@@ -1763,7 +1751,7 @@ woas["save__page"] = function(pi) {
 
 // Used by Special::Options page
 function save_options() {
-	this.save_to_file(false);
+	woas.save_to_file(false);
 	woas.set_current("Special::Advanced");
 }
 

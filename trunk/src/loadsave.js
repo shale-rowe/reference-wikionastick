@@ -23,7 +23,7 @@ function _saveThisFile(new_data, old_data)
 	return r;
 }
 
-// Copied from TiddyWiki
+
 function saveFile(fileUrl, content)
 {
 	var r = null;
@@ -31,19 +31,22 @@ function saveFile(fileUrl, content)
 	if((r == null) || (r == false))
 		r = ieSaveFile(fileUrl, content);
 	if((r == null) || (r == false))
-		r = operaSaveFile(fileUrl, content);
-	return(r);
+		r = javaSaveFile(fileUrl, content);
+	return r;
 }
 
-function loadFile(filePath)
+// Copied from TiddyWiki
+
+function loadFile(fileUrl)
 {
 	var r = null;
-	r = mozillaLoadFile(filePath);
 	if((r == null) || (r == false))
-		r = ieLoadFile(filePath);
+		r = mozillaLoadFile(fileUrl);
 	if((r == null) || (r == false))
-		r = operaLoadFile(filePath);
-	return(r);
+		r = ieLoadFile(fileUrl);
+	if((r == null) || (r == false))
+		r = operaLoadFile(fileUrl);
+	return r;
 }
 
 // Returns null if it can't do it, false if there's an error, true if it saved OK
@@ -79,16 +82,42 @@ function ieLoadFile(filePath)
 		var content = file.ReadAll();
 		file.Close();
 	}
-	catch(e)
-	{
+	catch(e) {
 		alert("Exception while attempting to load\n\n" + e.toString());
 		return(null);
 	}
 	return(content);
 }
 
-var _force_binary = false;
+// Returns null if it can't do it, false if there's an error, true if it saved OK
+function mozillaSaveFile(filePath, content)
+{
+	if(window.Components)
+		try
+		{
+			netscape.security.PrivilegeManager.enablePrivilege("UniversalXPConnect");
+			var file = Components.classes["@mozilla.org/file/local;1"].createInstance(Components.interfaces.nsILocalFile);
+			file.initWithPath(filePath);
+			if (!file.exists())
+				file.create(0, 0664);
+			else
+				log("File exists, overwriting");
+			var out = Components.classes["@mozilla.org/network/file-output-stream;1"].createInstance(Components.interfaces.nsIFileOutputStream);
+			out.init(file, 0x20 | 0x02, 00004,null);
+			out.write(content, content.length);
+			out.flush();
+			out.close();
+			return(true);
+		}
+		catch(e)
+		{
+			alert("Exception while attempting to save\n\n" + e);
+			return(false);
+		}
+	return(null);
+}
 
+// Returns null if it can't do it, false if there's an error, or a string of the content if successful
 // Returns null if it can't do it, false if there's an error, or a string of the content if successful
 function mozillaLoadFile(filePath)
 {
@@ -123,35 +152,7 @@ function mozillaLoadFile(filePath)
 	return(null);
 }
 
-// Returns null if it can't do it, false if there's an error, true if it saved OK
-function mozillaSaveFile(filePath, content)
-{
-	if(window.Components)
-		try
-		{
-			netscape.security.PrivilegeManager.enablePrivilege("UniversalXPConnect");
-			var file = Components.classes["@mozilla.org/file/local;1"].createInstance(Components.interfaces.nsILocalFile);
-			file.initWithPath(filePath);
-			if (!file.exists())
-				file.create(0, 0664);
-			else
-				log("File exists, overwriting");
-			var out = Components.classes["@mozilla.org/network/file-output-stream;1"].createInstance(Components.interfaces.nsIFileOutputStream);
-			out.init(file, 0x20 | 0x02, 00004,null);
-			out.write(content, content.length);
-			out.flush();
-			out.close();
-			return(true);
-		}
-		catch(e)
-		{
-			alert("Exception while attempting to save\n\n" + e);
-			return(false);
-		}
-	return(null);
-}
-
-function operaUrlToFilename(url)
+function _javaUrlToFilename(url)
 {
 	var f = "//localhost";
 	if(url.indexOf(f) == 0)
@@ -162,36 +163,18 @@ function operaUrlToFilename(url)
 	return url;
 }
 
-function operaLoadFile(filePath)
+function javaSaveFile(filePath,content)
 {
-	var content = [];
-	try
-	{
-		var r = new java.io.BufferedReader(new java.io.FileReader(operaUrlToFilename(filePath)));
-		var line;
-		while ((line = r.readLine()) != null)
-			content.push(new String(line));
-		r.close();
+	try {
+		if(document.applets["TiddlySaver"])
+			return document.applets["TiddlySaver"].saveFile(_javaUrlToFilename(filePath),"UTF-8",content);
+	} catch(ex) {
 	}
-	catch(e)
-	{
-		if(window.opera)
-			opera.postError(e);
-		return null;
-	}
-	return content.join("\n");
-}
-
-function operaSaveFile(filePath, content)
-{
-	try
-	{
-		var s = new java.io.PrintStream(new java.io.FileOutputStream(operaUrlToFilename(filePath)));
+	try {
+		var s = new java.io.PrintStream(new java.io.FileOutputStream(_javaUrlToFilename(filePath)));
 		s.print(content);
 		s.close();
-	}
-	catch(e)
-	{
+	} catch(ex) {
 		if(window.opera) {
 			opera.postError(e);
 			return false;
@@ -200,3 +183,28 @@ function operaSaveFile(filePath, content)
 	}
 	return true;
 }
+
+function javaLoadFile(filePath)
+{
+	try {
+		if(document.applets["TiddlySaver"])
+			return String(document.applets["TiddlySaver"].loadFile(_javaUrlToFilename(filePath),"UTF-8"));
+	} catch(ex) {
+	}
+	var content = [];
+	try {
+		var r = new java.io.BufferedReader(new java.io.FileReader(_javaUrlToFilename(filePath)));
+		var line;
+		while((line = r.readLine()) != null)
+			content.push(new String(line));
+		r.close();
+	} catch(ex) {
+		if(window.opera)
+			opera.postError(e);
+		return null;
+	}
+	return content.join("\n");
+}
+
+// force binary file write
+var _force_binary = false;
