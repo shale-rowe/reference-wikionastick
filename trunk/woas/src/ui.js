@@ -165,3 +165,13 @@ function save_options() {
 	woas.save_to_file(false);
 	woas.set_current("Special::Advanced");
 }
+
+function ro_woas() {
+	if (!woas.config.permit_edits) {
+		alert("Sorry, this WoaS is already write-protected");
+		return false;
+	}
+	woas.config.permit_edits = false;
+	woas.save_to_file(false);
+	woas.set_current("Special::Advanced");
+}
