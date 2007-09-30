@@ -1089,7 +1089,7 @@ woas["load_as_current"] = function(title, xhtml) {
 	scrollTo(0,0);
 	log("CURRENT loaded: "+title+", "+xhtml.length+" bytes");
 	this.setHTML($("wiki_title"), this.create_breadcrumb(title));
-	this.setHTML($("wiki_text"), xhtml);
+	$("wiki_text").innerHTML = xhtml;
 	document.title = title;
 	this.update_nav_icons(title);
 	current = title;
