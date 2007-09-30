@@ -1438,7 +1438,7 @@ woas["update_nav_icons"] = function(page) {
 	this.menu_display("back", (backstack.length > 0));
 	this.menu_display("forward", (forstack.length > 0));
 	this.menu_display("advanced", (page != "Special::Advanced"));
-	this.menu_display("edit", edit_allowed(page));
+	this.menu_display("edit", this.edit_allowed(page));
 	this.update_lock_icons(page);
 }
 
@@ -1497,7 +1497,7 @@ function _unlock_pages(arr) {
 	alert("Not yet implemented");
 }
 
-function edit_allowed(page) {
+woas["edit_allowed"] = function(page) {
 	if (edit_override)
 		return (page_titles.indexOf(page) != -1);
 	if (!this.config.permit_edits)
@@ -1542,7 +1542,7 @@ woas["current_editing"] = function(page, disabled) {
 }
 
 woas["edit_page"] = function(page) {
-	if (!edit_allowed(page)) {
+	if (!this.edit_allowed(page)) {
 		log("Not allowed to edit page "+page);
 		return;
 	}
@@ -1748,12 +1748,6 @@ woas["save__page"] = function(pi) {
 		return;
 	}
 	this.save_to_file(true);
-}
-
-// Used by Special::Options page
-function save_options() {
-	woas.save_to_file(false);
-	woas.set_current("Special::Advanced");
 }
 
 function _get_data(marker, source, full, start) {

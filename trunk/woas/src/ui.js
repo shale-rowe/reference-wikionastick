@@ -157,3 +157,11 @@ function do_search() {
 		return;
 	_raw_do_search(search_string);
 }
+
+// Used by Special::Options page
+function save_options() {
+	if (!woas.config.permit_edits)
+		return false;
+	woas.save_to_file(false);
+	woas.set_current("Special::Advanced");
+}
