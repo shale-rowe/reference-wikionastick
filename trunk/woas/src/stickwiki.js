@@ -1526,7 +1526,6 @@ woas["edit_allowed"] = function(page) {
 
 // setup the title boxes and gets ready to edit text
 woas["current_editing"] = function(page, disabled) {
-	scrollTo(0,0);
 	log("CURRENT editing "+page+", title disabled: "+disabled);
 	_prev_title = current;
 	$("wiki_page_title").disabled = (disabled ? "disabled" : "");
@@ -1556,6 +1555,7 @@ woas["current_editing"] = function(page, disabled) {
 
 	$("wiki_editor").focus();
 	current = page;
+	scrollTo(0,0);
 }
 
 function _servm_alert() {

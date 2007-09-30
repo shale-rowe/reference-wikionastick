@@ -1,13 +1,18 @@
 
 function _get_this_filename() {
 	var filename = unescape(document.location.toString().split("?")[0]);
-	filename = filename.replace(/^file:\/\/\//, '').replace(/#.*$/g, "");
-//	if (ie && (filename.search(/^file:\/\//)===0))
-//		filename = "//?/"+filename.substr(7);
-	if (navigator.appVersion.indexOf("Win")!=-1)
+	if (filename.indexOf("file://") === 0)
+		filename = filename.substr(7);
+	filename = filename.replace(/#.*$/g, "");
+	if (navigator.appVersion.indexOf("Win")!=-1) {
 		filename = filename.replace(/\//g, "\\");
-	else
-		filename = "/" + filename;
+		if (filename.substr(0,2)!="\\") {
+			if (filename.charAt(1)!=':') {
+				filename = "\\\\"+filename;
+				if (ie) alert("You are attempting to save to a network path with IE, and it probably won't work");
+			}
+		}
+	}// else		filename = "/" + filename;
 	return filename;
 }
 
