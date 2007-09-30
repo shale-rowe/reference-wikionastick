@@ -100,7 +100,7 @@ woas["popup"] = function (name,fw,fh,extra) {
 	return wnd;
 }
 
-var edit_override = true;
+var edit_override = false;
 
 var reserved_namespaces = ["Special", "Lock", "Locked", "Unlocked", "Unlock", "Tags", "Tagged", "Include"];
 
@@ -822,7 +822,14 @@ woas["_get_special"] = function(cr) {
 	log("Getting special page "+cr);
 	switch(cr) {
 		case "New page":
-			var title = prompt("Insert new page title", "");
+			var title = "";
+			do {
+				title = prompt("Insert new page title", title);
+				if (title == null) break;
+				if (!title.match(/\[\[/) && !title.match(/\]\]/))
+					break;
+				alert("Cannot use \"[[\" or \"]]\" in a page title");
+			} while (1);
 			if ((title!=null) && title.length) {
 				if (page_titles.indexOf(title)!=-1)
 					alert("A page with title \""+title+"\" already exists!");
@@ -886,10 +893,20 @@ woas["_get_special"] = function(cr) {
 			this.edit_page(current);
 			return null;
 		case "Edit CSS":
+			if (!this.config.permit_edits && !edit_override) {
+				alert("This Wiki on a Stick is read-only");
+				return null;
+			}
+			_servm_alert();
 			this.current_editing("Special::"+cr, true);
 			$("wiki_editor").value = _css_obj().innerHTML;
 			return null;
 		case "Edit Bootscript":
+			if (!this.config.permit_edits && !edit_override) {
+				alert("This Wiki on a Stick is read-only");
+				return null;
+			}
+			_servm_alert();
 			cr = "Special::Bootscript";
 			var tmp = this.get_text(cr);
 			if (tmp == null)
@@ -897,7 +914,7 @@ woas["_get_special"] = function(cr) {
 			this.current_editing(cr, true);
 			// setup the wiki editor textbox
 			this.current_editing(cr, this.config.permit_edits | this.config.server_mode);
-			$("wiki_editor").value = tmp;
+			$("wiki_editor").value = decode64(tmp);
 			return null;
 		default:
 			cr = "Special::" + cr;
@@ -1504,7 +1521,7 @@ woas["edit_allowed"] = function(page) {
 		return false;
 	if (this.is_reserved(page))
 		return false;
-	return !is_readonly(page);
+	return !this.is_readonly(page);
 }
 
 // setup the title boxes and gets ready to edit text
@@ -1541,13 +1558,17 @@ woas["current_editing"] = function(page, disabled) {
 	current = page;
 }
 
+function _servm_alert() {
+	if (woas.config.server_mode)
+		alert("You are using Wiki on a Stick on a REMOTE server, your changes will not be saved neither remotely or locally.\n\nThe correct usage of Wiki on a Stick is LOCAL, so you should use a local copy of this page to exploit the save features. All changes made to this copy of Wiki on a Stick will be lost.");
+}
+
 woas["edit_page"] = function(page) {
 	if (!this.edit_allowed(page)) {
 		log("Not allowed to edit page "+page);
 		return;
 	}
-	if (this.config.server_mode)
-		alert("You are using Wiki on a Stick on a REMOTE server, your changes will not be saved neither remotely or locally.\n\nThe correct usage of Wiki on a Stick is LOCAL, so you should use a local copy of this page to exploit the save features. All changes made to this copy of Wiki on a Stick will be lost.");
+	_servm_alert();
 	var tmp;
 	if (this.is_embedded(page) && !this.is_image(page))
 		tmp = decode64(this.get_text(page));
@@ -1560,6 +1581,10 @@ woas["edit_page"] = function(page) {
 
 woas["rename_page"] = function(previous, newpage) {
 	log("Renaming "+previous+" to "+newpage);
+	if (newpage.match(/\[\[/) || newpage.match(/\]\]/)) {
+		alert("Cannot use \"[[\" or \"]]\" in a page title");
+		return false;
+	}
 	if (page_titles.indexOf(newpage)!=-1) {
 		alert("A page with title \""+newpage+"\" already exists!");
 		return false;
@@ -1648,7 +1673,7 @@ woas["save"] = function() {
 			} else {
 				// here the page gets actually saved
 				this.set_text($("wiki_editor").value);
-				new_title = $("wiki_page_title").value;
+				new_title = woas.trim($("wiki_page_title").value);
 				if (this.is_menu(new_title)) {
 					this.refresh_menu_area();
 					back_to = _prev_title;
@@ -1874,6 +1899,10 @@ woas["save_to_file"] = function(full) {
 }
 
 function erase_wiki() {
+	if (!woas.config.permit_edits) {
+		alert("This Wiki on a Stick is read-only");
+		return false;
+	}
 	if (!confirm("Are you going to ERASE all your pages?"))
 		return false;
 	if (!confirm("This is the last confirm needed in order to ERASE all your pages.\n\nALL YOUR PAGES WILL BE LOST\n\nAre you sure you want to continue?"))
