@@ -9,10 +9,6 @@
 
 * XHTML compliance
 
-* cumulative save feature (will be available in v0.9.4B)
-
-* add license
-
 * group operations on page lists (deletion, encryption, decryption etc.) maybe also with checkboxes
 
 * possibility to delete an encrypted page even when password is not available (maybe through the group operations)
