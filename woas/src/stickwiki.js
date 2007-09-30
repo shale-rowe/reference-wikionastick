@@ -403,7 +403,7 @@ woas["special_tagged_pages"] = function() {
 			function (str, $1) {
 				var tmp=$1.split(",");
 				for(var j=0;j<tmp.length; j++) {
-					var tag=this.trim(tmp[j]);
+					var tag=woas.trim(tmp[j]);
 					if (!tag.length) continue;
 					ipos = utags.indexOf(tag);
 					if (ipos==-1) {
