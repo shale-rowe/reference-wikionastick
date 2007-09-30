@@ -1908,7 +1908,8 @@ function erase_wiki() {
 	if (!confirm("This is the last confirm needed in order to ERASE all your pages.\n\nALL YOUR PAGES WILL BE LOST\n\nAre you sure you want to continue?"))
 		return false;
 	var static_pg = ["Special::About", "Special::Advanced", "Special::Options","Special::Import",
-						"Special::Lock","Special::Search","Special::Security", "Special::Embed"];
+						"Special::Lock","Special::Search","Special::Security", "Special::Embed",
+						"Special::Export" ];
 	var backup_pages = [];
 	page_attrs = [0, 0, 4];
 	for(var i=0;i<static_pg.length;i++) {
@@ -1922,7 +1923,7 @@ function erase_wiki() {
 	}
 	page_titles = ["Main Page", "::Menu", "Special::Bootscript"];
 	page_titles = page_titles.concat(static_pg);
-	pages = ["This is your empty main page", "[[Main Page]]\n\n[[Special::New page]]\n[[Special::Backlinks]]\n[[Special::Search]]", "/* insert here your boot script */"];
+	pages = ["This is your empty main page", "[[Main Page]]\n\n[[Special::New page]]\n[[Special::Backlinks]]\n[[Special::Search]]", encode64("/* insert here your boot script */")];
 	pages = pages.concat(backup_pages);
 	current = main_page = "Main Page";
 	woas.refresh_menu_area();
