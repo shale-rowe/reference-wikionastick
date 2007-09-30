@@ -177,3 +177,20 @@ function ro_woas() {
 	woas.save_to_file(false);
 	woas.set_current("Special::Advanced");
 }
+
+//TODO: make procedural
+function open_table_help() {
+	var w = woas.popup("help", 350, 200, ",menubar=no,toolbar=no,location=no,status=no,dialog=yes");
+	w.document.writeln("<html><head><title>Building tables<\/title><\/head><body>");
+	w.document.writeln("<u>Building tables:<\/u><br /><br />");
+	w.document.writeln("<tt>{|   <\/tt><br />");
+	w.document.writeln("<tt>|+ Table Caption<\/tt><br />");
+	w.document.writeln("<tt>| *colum 1* || *column 2* || *column 3*<\/tt><br />");
+	w.document.writeln("<tt>|-<\/tt><br />");
+	w.document.writeln("<tt>| line 2 || [[a link]] || something<\/tt><br />");
+	w.document.writeln("<tt>|-<\/tt><br />");
+	w.document.writeln("<tt>| line 3 || || more stuff<\/tt><br />");
+	w.document.writeln("<tt>|}   <\/tt>");
+	w.document.writeln("<\/body><\/html>");
+	w.document.close();
+}

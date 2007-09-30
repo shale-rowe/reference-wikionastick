@@ -1,5 +1,12 @@
-Version 0.9.4 (legolas558 - official)
+Version 0.9.5 (legolas558 - official)
+* object oriented whole code
+* added support of raw transclusion (for SVG for example - not yet working)
+* fixed some UI bugs
+* added License in <iframe />
 
+Version 0.9.4 (legolas558 - official)
+* tooltip text on icons
+* fixed icons for IE (no more Wingdings)
 * cumulative save feature
 * auto-save feature
 * export feature
