@@ -696,13 +696,19 @@ woas["_get_embedded"] = function(cr, etype) {
 		var ext_size = Math.ceil((text.length*3)/4);
 		if (ext_size-pview_data.length>10)
 			pview_link = "<div id='_part_display'><em>Only the first 1024 bytes are displayed</em><br /><a href='javascript:show_full_file("+pi+")'>Display full file</a></div>";
+		var _del_cmd;
+		if (cr.indexOf("Special::")!=0) {
+			_del_cmd = "function query_delete_file() {if (confirm('Are you sure you want to delete this file?')){delete_page('"+this.js_encode(cr)+"');back_or(main_page);this.save_page('"+this.js_encode(cr)+"');}}\n";
+			_del_lbl = "\n\n<a href=\"javascript:query_delete_file()\">Delete embedded file</a>\n";
+		} else
+			_del_lbl = _del_cmd = ""
 		xhtml = "<pre id='_file_ct' class=\"embedded\">"+this.xhtml_encode(pview_data)+"</pre>"+
 		pview_link+
 		"<br /><hr />File size: "+_convert_bytes(ext_size)+"<br /><br />XHTML transclusion:"+
 		this.parser.parse("\n{{{[[Include::"+cr+"]]}}}"+"\n\nRaw transclusion:\n\n{{{[[Include::"+cr+"|raw]]}}}"+
-		"\n\n<a href=\"javascript:query_delete_file()\">Delete embedded file</a>\n"+
+		_del_lbl+
 		"\n<a href=\"javascript:query_export_file()\">Export file</a>\n"+
-		"<sc"+"ript>function query_delete_file() {if (confirm('Are you sure you want to delete this file?')){delete_page('"+this.js_encode(cr)+"');back_or(main_page);this.save_page('"+this.js_encode(cr)+"');}}\n"
+		"<sc"+"ript>"+_del_cmd
 		+(pview_link.length?"function show_full_file(pi) { var text = this.get__text(pi); if (text==null) return; $.show('loading_overlay'); woas.setHTML($('_part_display'), ''); woas.setHTML($('_file_ct'), this.xhtml_encode(decode64(text))); $.hide('loading_overlay'); }\n":'')+
 		"function query_export_file() {\nvar exp_path = _get_this_filename().replace(/\\"+slash_c+"[^\\"+
 		slash_c+"]*$/, \""+(slash_c=="\\"?"\\\\":"/")+"\")+'"+this.js_encode(fn)+"';if (confirm('Do you want to export this file in the below specified path?'+\"\\n\\n\"+exp_path)){woas.export_file('"+this.js_encode(cr)+"', exp_path);}}"+
@@ -1353,7 +1359,7 @@ woas["_create_bs"] = function() {
 	var s=this.get_text("Special::Bootscript");
 	if (s==null || !s.length) return false;
 	// remove the comments
-	s = s.replace(/^\s*\/\*(.|\n)*?\*\/\s*/g, '');
+	s = decode64(s).replace(/^\s*\/\*(.|\n)*?\*\/\s*/g, '');
 	if (!s.length) return false;
 	_bootscript = document.createElement("script");
 	_bootscript.type="text/javascript";
