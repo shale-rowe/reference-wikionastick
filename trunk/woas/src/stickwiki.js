@@ -1071,8 +1071,8 @@ woas["_activate_scripts"] = function() {
 woas["load_as_current"] = function(title, xhtml) {
 	scrollTo(0,0);
 	log("CURRENT loaded: "+title+", "+xhtml.length+" bytes");
-	$("wiki_title").innerHTML = this.create_breadcrumb(title);
-	$("wiki_text").innerHTML = xhtml;
+	this.setHTML($("wiki_title"), this.create_breadcrumb(title));
+	this.setHTML($("wiki_text"), xhtml);
 	document.title = title;
 	this.update_nav_icons(title);
 	current = title;
@@ -1486,7 +1486,7 @@ woas["disable_edit"] = function() {
 	$.hide("edit_area");
 //	log("setting back title to "+_prev_title);
 	document.title = _prev_title;
-	this.setHTML($("wiki_title"), _prev_title);
+	this.setHTML($("wiki_title"), this.create_breadcrumb(_prev_title));
 }
 
 function _lock_pages(arr) {
@@ -1514,7 +1514,8 @@ woas["current_editing"] = function(page, disabled) {
 	_prev_title = current;
 	$("wiki_page_title").disabled = (disabled ? "disabled" : "");
 	$("wiki_page_title").value = page;
-	document.title = $("wiki_title").innerHTML = "Editing "+page;
+	document.title = "Editing "+page;
+	this.setHTML($("wiki_title"), document.title);
 	// current must be set BEFORE calling enabling menu edit
 //	log("ENABLING edit mode");
 	kbd_hooking = true;
@@ -1557,8 +1558,7 @@ woas["edit_page"] = function(page) {
 	$("wiki_editor").value = tmp;
 }
 
-function rename_page(previous, newpage)
-{
+woas["rename_page"] = function(previous, newpage) {
 	log("Renaming "+previous+" to "+newpage);
 	if (page_titles.indexOf(newpage)!=-1) {
 		alert("A page with title \""+newpage+"\" already exists!");
@@ -1653,7 +1653,7 @@ woas["save"] = function() {
 					this.refresh_menu_area();
 					back_to = _prev_title;
 				} else { if (!this.is_reserved(new_title) && (new_title != current)) {
-						if (!rename_page(current, new_title))
+						if (!this.rename_page(current, new_title))
 							return false;
 					}
 					back_to = new_title;
