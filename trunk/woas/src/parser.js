@@ -147,7 +147,7 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 					if (woas.is_image(templname)) {
 						var img, img_name = woas.xhtml_encode(templname.substr(templname.indexOf("::")+2));
 						if (export_links)
-							img = "<img class=\"embedded\" src=\""+_export_get_fname(templname)+"\" alt=\""+img_name+"\" ";
+							img = "<img class=\"embedded\" src=\""+woas._export_get_fname(templname)+"\" alt=\""+img_name+"\" ";
 						else
 							img = "<img class=\"embedded\" src=\""+templtext+"\" ";
 						if (parts.length>1) {
@@ -250,7 +250,7 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 					if (export_links) {
 //						if (page_titles.indexOf(page)==-1)
 //							wl = " onclick=\"alert('not yet implemented');\"";		else
-						wl = " href=\""+_export_get_fname(page)+"\"";
+						wl = " href=\""+woas._export_get_fname(page)+"\"";
 					} else
 						wl = " onclick=\"go_to('" + woas.js_encode(page) +	"')" + gotohash + "\"";
 					html_tags.push("<a class=\"link\""+ wl + " >" + $2 + "<\/a>");
@@ -260,7 +260,7 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 						var r="<!-- "+parse_marker+'::'+html_tags.length+" -->";
 						var wl;
 						if (export_links)
-							wl = _export_get_fname(page);
+							wl = woas._export_get_fname(page);
 						else wl = "";
 						html_tags.push("<a class=\"link\" href=\""+wl+"#" +this.header_anchor($1.substring(1)) + "\">" + $2 + "<\/a>");
 						return r;
@@ -300,7 +300,7 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 			var r="<!-- "+parse_marker+'::'+html_tags.length+" -->";
 			var wl;
 			if (export_links)
-				wl = " href=\""+_export_get_fname($1)+"\"";
+				wl = " href=\""+woas._export_get_fname($1)+"\"";
 			else
 				wl = " onclick=\"go_to('" + woas.js_encode($1) +"')\"";
 				
