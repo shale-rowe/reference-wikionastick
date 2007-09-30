@@ -160,8 +160,10 @@ function do_search() {
 
 // Used by Special::Options page
 function save_options() {
-	if (!woas.config.permit_edits)
+	if (!woas.config.permit_edits) {
+		alert("This Wiki on a Stick is read-only");
 		return false;
+	}
 	woas.save_to_file(false);
 	woas.set_current("Special::Advanced");
 }

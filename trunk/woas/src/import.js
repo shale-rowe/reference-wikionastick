@@ -1,5 +1,9 @@
 
 function import_wiki() {
+	if (!woas.config.permit_edits) {
+		alert("This Wiki on a Stick is read-only");
+		return false;
+	}
 	var filename = $("filename_").value;
 	if(filename == "")
 	{
