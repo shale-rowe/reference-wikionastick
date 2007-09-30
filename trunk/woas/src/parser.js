@@ -178,6 +178,8 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 			});
 			// keep transcluding when a transclusion was made and when transcluding depth is not excessive
 		} while (trans && (++trans_level < 16));
+		if (trans_level == 16) // remove Include:: from the remaining inclusions
+			text = text.replace(/\[\[Include::([^\]\|]+)(\|[\]]+)?\]\]/g, "[<!-- -->[Include::[[$1]]$2]]");
 	}
 	
 	// thank you IE, really thank you
