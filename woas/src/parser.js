@@ -152,11 +152,12 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 							img = "<img class=\"embedded\" src=\""+templtext+"\" ";
 						if (parts.length>1) {
 							img += parts[1];
+							// always add the alt attribute to images
 							if (!export_links && !parts[1].match(/alt=('|").*?\1/))
 								img += " alt=\""+img_name+"\"";
 						}
 						html_tags.push(img+" />");
-					} else {
+					} else { // embedded file but not image
 						if ((parts.length>1) && (parts[1]=="raw"))
 							html_tags.push(decode64(templtext));
 						else
@@ -164,7 +165,7 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 									woas.xhtml_encode(decode64(templtext))+"</pre>");
 					}
 					templtext = r;
-				} else {
+				} else { // wiki source transclusion
 					templtext = templtext.replace(/%(\d+)/g, function(param, paramno) {
 						if (paramno < parts.length)
 							return parts[paramno];
