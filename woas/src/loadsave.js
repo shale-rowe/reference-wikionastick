@@ -1,18 +1,20 @@
 
 function _get_this_filename() {
 	var filename = unescape(document.location.toString().split("?")[0]);
-	if (filename.indexOf("file://") === 0)
+	if (filename.indexOf("file://") === 0) // all browsers
 		filename = filename.substr(7);
-	filename = filename.replace(/#.*$/g, "");
-	if (navigator.appVersion.indexOf("Win")!=-1) {
+	if (filename.indexOf("///")===0) // firefox
+		filename = filename.substr(1);
+	filename = filename.replace(/#.*$/g, ""); // remove fragment
+	if (navigator.appVersion.indexOf("Win")!=-1) { // convert unix path to windows path
 		filename = filename.replace(/\//g, "\\");
-		if (filename.substr(0,2)!="\\") {
+		if (filename.substr(0,2)!="\\\\") { // if this is not a network path - will be true in case of Firefox for example
 			if (filename.charAt(1)!=':') {
-				filename = "\\\\"+filename;
-				if (ie) alert("You are attempting to save to a network path with IE, and it probably won't work");
+				if (ie)
+					filename = "\\\\"+filename;
 			}
 		}
-	}// else		filename = "/" + filename;
+	}
 	return filename;
 }
 
@@ -66,14 +68,14 @@ function ieSaveFile(filePath, content)
 		log("Exception while attempting to save\n\n" + e.toString());
 		return(false);
 	}
-	if (!_force_binary) {
-		var file = fso.OpenTextFile(filePath,2,-1,0);
+//	if (!_force_binary) {
+		var file = fso.OpenTextFile(filePath,2,-1,_force_binary ? -1:0);
 		file.Write(content);
 		file.Close();
-	} else {
+/*	} else {
 		alert("Binary write with Internet Explorer is not supported");
 		return false;
-	}
+	}	*/
 	return(true);
 }
 
