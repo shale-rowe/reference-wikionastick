@@ -4,11 +4,11 @@
 <script type="text/javascript">
 /* <![CDATA[ */
 
-/* DFQRCTsKlU-0000097-START */
+/* DFQRCTsKlU-0000101-START */
 
 var woas = {"version": "0.9.5B"};
 
-var __marker = "DFQRCTsKlU-0000097";
+var __marker = "DFQRCTsKlU-0000101";
 
 woas["config"] = {
 "permit_edits":true,
@@ -21,18 +21,17 @@ woas["config"] = {
 "cumulative_save":false,
 "auto_save":0};
 
-var current = 'Nowiki dummy';
+var current = 'Main Page';
 
 var main_page = 'Main Page';
 
 var backstack = [
-'Main Page',
-'Feature::Summary',
-'Testcase::WoaS testcases',
 'Testcase::Case-sensitiveness',
 'Di\u00e2critics',
 'Testcase::Creole 0.1',
-'Testcase::WoaS testcases'
+'Testcase::WoaS testcases',
+'Nowiki dummy',
+'Nowiki dummy 2'
 ];
 
 var page_titles = [
@@ -77,11 +76,11 @@ var page_titles = [
 'Browsers support',
 'Feature::Bootscript',
 'Special::License',
-'Nowiki dummy'
+'Nowiki dummy 2'
 ];
 
-/* DFQRCTsKlU-0000097-DATA */
-var page_attrs = [0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,12,4,0,0,0,0,0,0,0,4,0,4,0,0,0,0];
+/* DFQRCTsKlU-0000101-DATA */
+var page_attrs = [0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,12,4,0,0,0,0,0,0,0,4,0,4,0,0,0,2];
 
 var pages = [
 '[[Main Page]]\n* [[History]]\n* [[Syntax]]\n** [[Deprecated syntax|Deprecated]]\n* [[Browsers support]]\n* [[Feature::]]\n** [[Feature::Summary|Summary]]\n** [[Feature::Bootscript|Bootscript]]\n** [[Feature::Custom javascript|Custom javascript]]\n** [[Feature::External javascript|External javascript]]\n** [[Image::alert.png|Embedded image]]\n** [[File::life snippet.c|Embedded file]]\n** [[Embedded SVG]]\n* [[Testcase::]]\n** [[Testcase::WoaS testcases|WoaS testcases]]\n** [[Testcase::Creole 0.1|Creole 0.1]]\n** [[Di\u00e2critics]]\n** [[Testcase::Case-sensitiveness|Case-sens.]]\n** [[Testcase::Apostrophe \' in title|Apostrophe]]\n* [[Options]]\n\n* [[Special::]]\n** [[Special::New page|New page]]\n** [[Special::Backlinks|Backlinks]]\n** [[Special::Search|Search]]\n** [[Special::Advanced|Advanced]]\n*** [[Special::Options|Options]]\n\n\x3Cp style="text-align:center"\x3E\x3Ca href="http://sourceforge.net/"\x3E\x3Cimg src="http://sflogo.sourceforge.net/sflogo.php?group_id=155218" alt="SourceForge.net Logo" border="0"\x3E\x3C/a\x3E\x3C/p\x3E\n\n\x3Cinput id="menu_string_to_search" type="text" size="6" onfocus="menu_search_focus(true)" onblur="menu_search_focus(false)" /\x3E&nbsp;\x3Cinput style="font-size: 10px;" type="button" value="Search" onclick="menu_do_search()" /\x3E\n\n\x3Cscript\x3E\n$(\'menu_string_to_search\').onkeydown = menu_key_hook;\n\x3C/script\x3E\n',
@@ -92,7 +91,7 @@ var pages = [
 '= Search in Wiki\n\n\x3Cinput id="string_to_search" type="text" onfocus="search_focus(true)" onblur="search_focus(false)" /\x3E&nbsp;\x3Cinput type="button" value="Search" onclick="do_search()" /\x3E&nbsp;\x3Cinput type="button" value="Clear" onclick="clear_search()" /\x3E\n\n\x3Cscript\x3E\nvar tmp = $(\'wiki_text\');\nvar pre = \'\x3Cpre class="wiki_preformatted"\x3E\';\nwoas.setHTML(tmp, woas.getHTML(tmp) + cached_search.replace(/\x3Cdiv class="search_results"\x3E((.|\\n)*?)\x3C\\/div\x3E/g,\nfunction (str, ct) {\n    return \'\x3Cdiv class="search_results"\x3E\'+pre+ct.substr(pre.length).replace(_hl_reg, \'\x3Cspan class="search_highlight"\x3E$1\x3C/span\x3E\')+\'\x3C/div\x3E\';\n}));\n//_hl_reg = null;\n// $("string_to_search").focus();\n\x3C/script\x3E',
 'Hey, don\'t tell anyone around but...I am better than [[MyPages::Page 1]]!\n\n[[Tags::example]]',
 'This is a page in a subnamespace!\n\nThe parent namespace is [[MyPages::]] while the subnamespace is [[MyPages::Approved::]]\n\n[[Tag::example]]',
-'== AES encryption\nRead more about the [[Special::Security|embedded AES encryption]] used in Wiki On a Stick.\n\n== Password\nEnter your password for AES encryption. The more complex your password is, the more difficult it will be to attack the encryption. It is suggested *not* to use passwords whose textbox color is \x3Cspan style="background-color:red"\x3E&nbsp;red&nbsp;\x3C/span\x3E, and to accept passwords only when the textbox color is \x3Cspan style="background-color:lime"\x3E&nbsp;green&nbsp;\x3C/span\x3E. Punctuation and Mixed case characters will exponentially increase the strength of your password.\n\n \x3Cinput type="password" id="pw1" style="background-color:red" value="" size="50" onfocus="custom_focus(true)" onblur="custom_focus(false)" onkeyup="pw_quality()" /\x3E&nbsp;\x3Cspan id="txtBits"\x3E&nbsp;\x3C/span\x3E\n \x3Cinput type="password" id="pw2" value="" size="50" onfocus="custom_focus(true)" onblur="custom_focus(false)" /\x3E\n \x3Cinput id="btn_lock" type="button" value="" /\x3E\n\n\x3Cscript\x3E\nfunction _lock_page() {\nif (current.indexOf("Lock::")!=0) return;\nvar page = current.substring(6);\n\n$("btn_lock").value = "Lock "+page;\n$("pw1").focus();\n$("btn_lock").setAttribute("onclick", "lock_page(\'"+js_encode(page)+"\')");\n}\n_lock_page();\n\x3C/script\x3E',
+'== AES encryption\nRead more about the [[Special::Security|embedded AES encryption]] used in Wiki On a Stick.\n\n== Password\nEnter your password for AES encryption. The more complex your password is, the more difficult it will be to attack the encryption. It is suggested *not* to use passwords whose textbox color is \x3Cspan style="background-color:red"\x3E&nbsp;red&nbsp;\x3C/span\x3E, and to accept passwords only when the textbox color is \x3Cspan style="background-color:lime"\x3E&nbsp;green&nbsp;\x3C/span\x3E. Punctuation and Mixed case characters will exponentially increase the strength of your password.\n\n \x3Cinput type="password" id="pw1" style="background-color:red" value="" size="50" onfocus="custom_focus(true)" onblur="custom_focus(false)" onkeyup="pw_quality()" /\x3E&nbsp;\x3Cspan id="txtBits"\x3E&nbsp;\x3C/span\x3E\n \x3Cinput type="password" id="pw2" value="" size="50" onfocus="custom_focus(true)" onblur="custom_focus(false)" /\x3E\n \x3Cinput id="btn_lock" type="button" value="" /\x3E\n\n\x3Cscript\x3E\nfunction _lock_page() {\nif (current.indexOf("Lock::")!=0) return;\nvar page = current.substring(6);\n\n$("btn_lock").value = "Lock "+page;\n$("pw1").focus();\n$("btn_lock").setAttribute("onclick", "lock_page(\'"+woas.js_encode(page)+"\')");\n}\n_lock_page();\n\x3C/script\x3E',
 '== AES encryption\nSince Wiki on a Stick v0.9 the [[http://en.wikipedia.org/wiki/Advanced_Encryption_Standard|AES]] 256-bit high security data encryption standard is supported to protect a single page or groups of them.\n\nThe first password you enter after having started Wiki on a Stick gets cached (unless you have specified not to do it) and you will no more be asked for it. Further encryptions and decryptions will always use the last password entered; such password is not anyway stored in your saved files (true AES encryption is used).\n\n\x3Ccenter\x3E*If you forget the password there is no way to retrieve it or your data, FOREVER*\x3C/center\x3E\n\n== How do I encrypt a page?\nIn order to encrypt a page you will have to click on the /lock/ icon on the top-right navigation panel; if your page is already encrypted and you want to change the encryption key you will first have to unlock it.\n\n== Security level\nSecurity is never absolute. Data encrypted with these pages might be compromised in a variety of ways, including but not limited to the following:\n\n* You have not disabled the AES key cache, so when you will enter the password for the first time other users (if not you) will be able to see encrypted pages and could possibly get your key\n* Your Web browser and/or JavaScript interpreter may contain bugs or deliberate security violations which report activity on your computer back to some other Internet site\n* Some other applet running on another page in your browser, perhaps without you being aware of its existence, is spying on other windows\n* Some other "spyware" application running on your computer may have compromised your system\'s security and be snooping on your activity\n* The implementation of the encryption may contain a bug which makes its results insecure, Wiki on a Stick is open-source, you can judge for yourself whether the tool merits your confidence.\n* Your computer\'s security may have been compromised physically; when\'s the last time you checked that a bug that transmits your keystrokes and/or screen contents to that white van parked down the street wasn\'t lurking inside your computer cabinet?\n\nApart from the above, your normal usage of encrypted pages can be considered secure.',
 [56,23,125,70,172,242,22,108,27,244,120,26,172,227,77,111,20,83,29,219,99,60,238,41,115,66,170,108,81,113,66,142,122,114,248,176,130,113,153,125,218,174,81,16,134,24,59,43,220,146,215,140,2,49,157,62,253,126,215,63,28,53,108,107,186,199,149,237,242,166,13,27,6,225,200,185,129,185,75,132,8,250,77,215,2,12,70,41,184,64,102,74,40,4,211,42,160,165,239,72,154,194,14,230,238,35,173,2,171,122,104,58,180,150,108,98,226,194,134,39,214,91,7,59,138,141,40,113],
 '[[Special::]]\n[[MyPages::]]\n[[Special::New page]]',
@@ -125,10 +124,10 @@ var pages = [
 '= Browsers support\n\nWiki on a Stick is supported on Mozilla Firefox, Microsoft Internet Explorer\n\n==TiddlySaver\n\x3Csub\x3Eoriginal text by J.Ruston, 13 August 2007 (created 21 August 2006)\x3C/sub\x3E\n\x3Csub\x3Emodified by Daniele C. on 29 September 2007\x3C/sub\x3E\n\nThe TiddlySaver Java applet allows Wiki on a Stick from a file:// URL to save changes when using Safari, Opera and other Java-enabled browsers.\n\nThe Java applet "TiddlySaver.jar", a very small file, must be placed in the same directory as your WoaS file. In order to use it you will need to give it the necessary privileges by editing your .java.policy file.\n\nFor Windows, the file will be at C:\\Documents and Settings\\your-user-name\\.java.policy. Add the following lines (substituting the directory  as appropriate):\n{{{\ngrant codeBase "file:${user.home}/My Documents/tiddlywiki-folder/*" {\n  permission java.io.FilePermission "${user.home}${/}My Documents${/}stickwiki-folder${/}*", "read,write";\n};\n}}}\n\nOn Mac OS X, the file is found at /Users/your-user-name/.java.policy:\n{{{\ngrant codeBase "file:${user.home}/Documents/tiddlywiki-folder/*" {\n  permission java.io.FilePermission "${user.home}${/}Documents${/}stickwiki-folder${/}*", "read,write";\n};\n}}}\nIt can be tricky creating files whose name starts with a period, so you can use this \x3Ca href="http://stickwiki.sourceforge.net/src/.java.policy"\x3Epre-built .java.policy file\x3C/a\x3E. The same file is suitable for Macs too, just edit it and delete the "My " bit, leaving just "Documents". Make sure you save it in the right place for each operating system!\n\nIf you have trouble setting up the permissions correctly, you can try granting broader permissions to the applet like this:\n{{{\ngrant codeBase "file://localhost/home/users/Desktop/\nTiddlySaver.jar"\n { permission java.security.AllPermission; };\n}}}\n\nThe TiddlySaver java applet was written by J.Rouston.',
 '= Feature::Bootscript\n\nIf you want to execute some javascript at boot time (when WoaS is loaded into the browser), you should modify the [[Special::Bootscript]] page.\n\nBe careful not to break javascript execution during this stage; in order to debug your boot-time javascript, you might use blocks like:\n{{{\n    try {\n       your_code(here);\n   }\n   catch (e) {\n       alert(e);\n   }\n}}}\n\nYou can edit the bootscript using the [[Special::Edit Bootscript]] page',
 '= Special::License\n\nRetrieved from [[http://www.gnu.org/licenses/gpl2.txt]]:\n\n\x3Ciframe border="0" width="100%" height="300" src="http://www.gnu.org/licenses/gpl2.txt"\x3E\x3C/iframe\x3E',
-'{{{\n\ntest stuff\n\n}}}'
+[63,84,12,39,159,148,194,93,186,10,21,8,144,182,126,230,98,226,254,83,79,195,193,194,112,196,1,89,4,141,180,243,17,149,22,151,207,210,212,77,63,176,175,88,182,134,229,101]
 ];
 
-/* DFQRCTsKlU-0000097-END */
+/* DFQRCTsKlU-0000101-END */
 
 /* ]]> */ </script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -331,7 +330,7 @@ div.ns_menu_area ul li, div.ns_menu_area ol li {
 <table cellspacing="0" width="100%">
 <tbody>
 <tr>
-<td width="80%"><span class="title" id="wiki_title">Nowiki dummy</span></td>
+<td width="80%"><span class="title" id="wiki_title">Main Page</span></td>
 <td align="right" width="20%">
 <div id="menu_back" style="display: inline; cursor: pointer; visibility: visible;"><a title="Back" onclick="go_back()"><img id="img_back" style="display: inline; visibility: visible;" alt="Back" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAAK/INwWK6QAAAAZiS0dEAP8A/wD/oL2nkwAABexJREFUeNp9lWuMlkcVx39n5nned9+9sO6yLCy3XSg1LAVES2Itoi1YoynGJtbGhDQa+8VUqyFqtI0aYiQWEz/VSzTapImJmlY/tIENASzQ7SVtdVfcpiqUTYGyyy6yu+x7eZ5nLscP70u6UeMkk5kzk/P/zzkzc/7Cfzdp9dgyho3hboFtCv2t9WlVxqLyPDDZ8rOtPeX/NNMCR+Bea3geyFtOccl4c14zhmeBXf/pv/S0S8Ej0G+EXyvsUyX2dIrs3mLj9iGjvcuQwsPF2ah/Phdl7EI0hQcRBOVJhUeAegtXlxLcBN9sDCMxMrS8C/foZ0vy+T2p7VsuoogSjAQfNfeBhZoycTHwq2M+/OHFSFQSEV5X5V5g5iaJLGFbaw2jITL44WHjfvdoR7JmqF1i3Wp0KibWcdkCDZ+ShTK5C6ioiiAjrwd97Cnn5qqURHhVlT1A7ebFNEMQno7K7Xdvte7Y4a60d3kvRb5CSPskKZeZb1RY6N5HR+qxxRTRlMiLKDfqqreuEd6/ySQnx2ORFayn+RieA4xt5elBhW+s7hU3cqiS9r6nS13ol6RjAFtZzuyNNm4MfY+VOw9g+j8KV0fw2XUiCarIfA1ZvRwd6MWeGNcI7AROA5MGEBG+CnBwf8msGbDq8rLYchemrYeZah/1Dd9lw7aPkbgZbMcgptyLISAiiEAphbkq7N5qZM/7RFsZ+VpzFO6Kys4NK0XvvzMxsapYazDGM3u9oLH2IQY330FwOVoZwJw7BPPjkC4DERALGIwgzqOf+mAzK1HZC2wyRrgHYO8OG3s6hcwhhgVmr1Wpr32YwffuJIYcY8skfzsAE48TvCdm84SsSshqhKKBCGQFsmGVsL6fAHSJsDsBdgBsHzK4IBA9s/NlasPfZ3B4FyGbw5S7WZweo/GvKnHVl3HOU3hP4Rw+CKY6Sbg8ig+WcgqDK4SLM4rAjkSVlQC9nUjhReq1BgsbD7Jhy1587SpiK8R8gfaeW2jb9QSEAo0FMWREX6AxQzRw7uS3mTt7lLb2Et2d4eY3Xp3c/Gw+Qu4juYfuSkGMnhgcRiwKiClj8CgF4BANGAlEdaSlLpKOAZyHNIrou9VIEhGuoTA9p1q4oAVtYv9+mKx7HeW1+4jFdSTtwl09Q3H1DJp0412ODxEfAj5CY3GWS2efAWvIXdC5xRa8MpMAE8A9f52M5F7JnIDmuNEv0X3nz2hb+wlCPo9UVlO9dIrFS2MEK+ROyRxkBWQOCixRDfWGcnFWW/hMmKicBHjhjSDTcxEXotZ9Sr2IXD39MLW3j4BpI9pOeu76Dcm6j9Dw4Gwn3lYISRsxKVN4AVGdnFIuX8MCmSpnjConjfDm5WuYI68FTRJYbHga3lIvApf+9BUWL44gRohukZUfOgTt66nVqmRFICs8eRHInKLAiTFt6ojwIjBhWky/APj5kRAuTEcBdLHuaThLLQ+cP36AucljpOVl2KSdgg4aeTM1uYNqppRT9LV/qLz0ZvOKVfnJ0nJdEuFlVT6wY6P4w19MknKCZgWSJAaNHqTEytseoL7wDtPnThBIKJzScFApoW9NqRx+OrrFOinwLPDpZiDvasF2I7wQlWVbh8R/836TrOsTrefgg0iMSpH5po7aBB8UETSxyF/OK78ciW6hRirCpCq7gClahUSlSTJ9+ybzCvCZt6a0cvosznmhrxtpLyvWCjZNxSQWIaqPyOVryjOjGn9/WkMjJ13Vw6VKiU/WcyZbB9elkmnHn2gPpcTcdt8Pst/+8x2/DYjL2oUtgzauX6HS2RbFR7i+iF6YUj1/BVP4ppwMr5NTP/yC3X98PF756XPRGCFGBaxpot+1zeL+2Gnc0S7qR9eXHn9o4JFV/T3n/4fQL7XjLQNy9jufS/a/9OOSnPlRKk993ZqOtiWin5hmmXjsgZRDD5a5URfT1Q4L3ffFfOPBysuvvLrn+MlTH58YG906N/VGH2Jib6fMDK+T8Ts2m5Gdt5rRUqr+ynU11YaqiOq3ngxMvK0YgX8Db1YRHvYQ7IQAAAAZdEVYdFNvZnR3YXJlAEFkb2JlIEltYWdlUmVhZHlxyWU8AAAAAElFTkSuQmCC"><span id="alt_back" style="display: none; visibility: hidden;"></span></a></div>
 <div id="menu_forward" style="display: none; cursor: pointer; visibility: hidden;"><a title="Forward" onclick="go_forward()"><img id="img_forward" style="display: inline; visibility: visible;" alt="Forward" src="data:image/png;base64,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"><span id="alt_forward" style="display: none; visibility: hidden;"></span></a></div>
@@ -358,7 +357,7 @@ div.ns_menu_area ul li, div.ns_menu_area ol li {
 <div style="text-align: center;"><a class="link" onclick="edit_ns_menu()">[Edit]</a></div></div></div>
 <div class="text_area" id="wiki_text" ondblclick="page_dblclick()"></div></div>
 <div id="edit_area" style="display: none; visibility: hidden;">
-<div id="edit_page_title" style="display: block;">Page title: <input id="wiki_page_title" size="50" value=""></div><textarea id="wiki_editor" style="width: 994px; height: 391px;" rows="0" cols="0"></textarea> 
+<div id="edit_page_title" style="display: block;">Page title: <input id="wiki_page_title" size="50" value=""></div><textarea id="wiki_editor" style="width: 994px; height: 405px;" rows="0" cols="0"></textarea> 
 <table style="font-size: 8pt;">
 <tbody>
 <tr>
