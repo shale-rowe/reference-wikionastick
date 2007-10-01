@@ -1114,23 +1114,7 @@ function _set_layout(fixed) {
 	$("sw_menu_area").style.position = $("sw_wiki_header").style.position = (fixed ? "fixed" : "absolute");
 }
 
-// Used by Special::Lock
-function lock_page(page) {
-	var pwd = $("pw1").value;
-	if (!pwd.length) {
-		$("pw1").focus();
-		return;
-	}
-	if (pwd!=$("pw2").value) {
-		$("pw2").focus();
-		return;
-	}
-	var pi = page_titles.indexOf(page);
-	AES_setKey(pwd);
-	this._finalize_lock(pi);
-}
-
-woas["finalize_lock"] = function(pi) {
+woas["_finalize_lock"] = function(pi) {
 	this._perform_lock(pi);
 	var title = page_titles[pi];
 	this.set_current(title);
@@ -1569,11 +1553,10 @@ woas["edit_page"] = function(page) {
 		return;
 	}
 	_servm_alert();
-	var tmp;
+	var tmp = this.get_text(page);
+	if (tmp===null) return;
 	if (this.is_embedded(page) && !this.is_image(page))
-		tmp = decode64(this.get_text(page));
-	else
-		tmp = this.get_text(page);
+		tmp = decode64(tmp);
 	// setup the wiki editor textbox
 	this.current_editing(page, this.is_reserved(page));
 	$("wiki_editor").value = tmp;

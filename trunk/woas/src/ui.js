@@ -194,3 +194,19 @@ function open_table_help() {
 	w.document.writeln("<\/body><\/html>");
 	w.document.close();
 }
+
+// Used by Special::Lock
+function lock_page(page) {
+	var pwd = $("pw1").value;
+	if (!pwd.length) {
+		$("pw1").focus();
+		return;
+	}
+	if (pwd!=$("pw2").value) {
+		$("pw2").focus();
+		return;
+	}
+	var pi = page_titles.indexOf(page);
+	AES_setKey(pwd);
+	woas._finalize_lock(pi);
+}
