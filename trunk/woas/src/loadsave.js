@@ -6,7 +6,7 @@ function _get_this_filename() {
 	if (filename.indexOf("///")===0) // firefox
 		filename = filename.substr(1);
 	filename = filename.replace(/#.*$/g, ""); // remove fragment
-	if (navigator.appVersion.indexOf("Win")!=-1) { // convert unix path to windows path
+	if (navigator.appVersion.toLowerCase().indexOf("Windows")!=-1) { // convert unix path to windows path
 		filename = filename.replace(/\//g, "\\");
 		if (filename.substr(0,2)!="\\\\") { // if this is not a network path - will be true in case of Firefox for example
 			if (filename.charAt(1)!=':') {
