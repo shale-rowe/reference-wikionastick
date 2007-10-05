@@ -1084,13 +1084,17 @@ woas["_activate_scripts"] = function() {
 	}
 }
 
+woas["_set_title"] = function (new_title) {
+	this.setHTML($("wiki_title"), this.create_breadcrumb(new_title));
+	document.title = title;
+}
+
 // actually load a page given the title and the proper XHTML
 woas["load_as_current"] = function(title, xhtml) {
 	scrollTo(0,0);
 	log("CURRENT loaded: "+title+", "+xhtml.length+" bytes");
-	this.setHTML($("wiki_title"), this.create_breadcrumb(title));
 	$("wiki_text").innerHTML = xhtml;
-	document.title = title;
+	this._set_title(title);
 	this.update_nav_icons(title);
 	current = title;
 	this._activate_scripts();
@@ -1313,6 +1317,9 @@ woas["after_load"] = function() {
 //		_css_obj().innerHTML+="\na {  cursor: pointer;}";
 	}
 	
+	$('a_home').title = main_page;
+	$('img_home').alt = main_page;
+	
 	if (this.debug)
 		$.show("debug_info");
 	else
@@ -1486,8 +1493,7 @@ woas["disable_edit"] = function() {
 	$.show("text_area");
 	$.hide("edit_area");
 //	log("setting back title to "+_prev_title);
-	document.title = _prev_title;
-	this.setHTML($("wiki_title"), this.create_breadcrumb(_prev_title));
+	this._set_title(_prev_title);
 }
 
 function _lock_pages(arr) {
@@ -1514,8 +1520,7 @@ woas["current_editing"] = function(page, disabled) {
 	_prev_title = current;
 	$("wiki_page_title").disabled = (disabled ? "disabled" : "");
 	$("wiki_page_title").value = page;
-	document.title = "Editing "+page;
-	this.setHTML($("wiki_title"), document.title);
+	this._set_title("Editing "+page);
 	// current must be set BEFORE calling enabling menu edit
 //	log("ENABLING edit mode");
 	kbd_hooking = true;
