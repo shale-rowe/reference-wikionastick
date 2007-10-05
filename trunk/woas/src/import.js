@@ -19,6 +19,10 @@ function import_wiki() {
 	
 	var ct = loadFile(filename);
 	
+	var import_css = $('cb_import_css').checked;
+	var import_content = $('cb_import_content').checked;
+	var import_icons = $('cb_import_icons').checked;
+	
 	// get version
 	var old_version;
 	var ver_str = ct.match(/<div .*?id=("version_"|version_).*?>([^<]+)<\/div>/i);
@@ -121,7 +125,6 @@ if (old_version	< 9) {
 	var var_values = [];
 	var vc = 0;
 
-	
 	// eliminate headers
 	wiki = wiki.substring(wiki.indexOf(">")+1);
 	vars = vars.substring(vars.indexOf(">")+1);
@@ -139,7 +142,8 @@ if (old_version	< 9) {
 	log("Variables are ("+var_names+")");
 
 	// now extract the pages
-	wiki.replace(/<div .*?id="?([^">]+)"?>((\n|.)*?)<\/div>/gi, function(str, $1, $2, $3)
+	if (import_content) {
+		wiki.replace(/<div .*?id="?([^">]+)"?>((\n|.)*?)<\/div>/gi, function(str, $1, $2, $3)
 			{
 				log("Parsing old page "+$1);
 				if (old_version != 2) {
@@ -171,7 +175,8 @@ if (old_version	< 9) {
 			}
 			);
 
-	log("page_names is ("+page_names+")");
+		log("page_names is ("+page_names+")");
+	} // do not import content pages
 
 	for(var i=0;i<var_names.length;i++) {
 		if (var_names[i] == "main_page_")
@@ -194,14 +199,16 @@ if (old_version	< 9) {
 		return false;
 	}
 
-	// import the CSS head tag
-	var css = null;
-	ct.replace(/<style\s.*?type="?text\/css"?[^>]*>((\n|.)*?)<\/style>/i, function (str, $1) {
-		css = $1;
-	});
-	if (css!=null) {
-		log("Imported "+css.length+" bytes of CSS");
-		this.setHTML(_css_obj(), css);
+	if (import_css) {
+		// import the CSS head tag
+		var css = null;
+		ct.replace(/<style\s.*?type="?text\/css"?[^>]*>((\n|.)*?)<\/style>/i, function (str, $1) {
+			css = $1;
+		});
+		if (css!=null) {
+			log("Imported "+css.length+" bytes of CSS");
+			this.setHTML(_css_obj(), css);
+		}
 	}
 
 	var data = _get_data(old_marker, ct, true, true);
@@ -260,78 +267,87 @@ if (old_version	< 9) {
 			
 			// retrieve the object containing all woas data & config
 			var i__woas = eval(data+"\ni__woas");
-			data = ct = null;
+			data = null;
+			
+			//TODO: do not import content pages if import_content is false
 			
 			// import everything as is
 			for(var a=0;a<collected.length;a++) {
 				woas[collected[a]] = i__woas[collected[a]];
 			}
+			
+			if (import_icons) {
+				//TODO: import the icons
+			} ct = null;
 
 			i__woas = null;
 		} else { // for versions 0.9.2, 0.9.3, 0.9.4
-			
-			old_page_attrs = sw_import_page_attrs;
-			
-			page_contents = sw_import_pages;
-			
-			// replace the pre tags with the new nowiki syntax
-			if (old_version==92) {
-				for(var i=0;i<page_contents.length;i++) {
-					// page is encrypted, leave it as is
-					if (this.is__encrypted(i))
-						continue;
-					page_contents[i] = page_contents[i].replace(/<pre(.*?)>((.|\n)*?)<\/pre>/g,
-									function (str, $1, $2) {
-										var s="{{{"+$2+"}}}";
-										if ($1.length)
-											s = "<span"+$1+">"+s+"</span>";
-										return s;
-									});
+			if (import_content) {
+				old_page_attrs = sw_import_page_attrs;
+				
+				page_contents = sw_import_pages;
+				
+				// replace the pre tags with the new nowiki syntax
+				if (old_version==92) {
+					for(var i=0;i<page_contents.length;i++) {
+						// page is encrypted, leave it as is
+						if (this.is__encrypted(i))
+							continue;
+						page_contents[i] = page_contents[i].replace(/<pre(.*?)>((.|\n)*?)<\/pre>/g,
+										function (str, $1, $2) {
+											var s="{{{"+$2+"}}}";
+											if ($1.length)
+												s = "<span"+$1+">"+s+"</span>";
+											return s;
+										});
+					}
 				}
-			}
+			} // do not import content pages
 		} // end of v0.9.2 and above import
 		collected = null;
 	}
 }
 
-	// add new data
-	var pages_imported = 0;
-	for(var i=0; i<page_names.length; i++)
-	{
-		if ( !this.is_reserved(page_names[i]))
+	if (import_content) {
+		// add new data
+		var pages_imported = 0;
+		for(var i=0; i<page_names.length; i++)
 		{
-			pi = page_titles.indexOf(page_names[i]);
-			if (pi == -1) {
-				page_titles.push(page_names[i]);
-				pages.push(page_contents[i]);
-				page_attrs.push( old_page_attrs[i] );
-			} else {
-				page_titles[pi] = page_names[i];
-				if (old_version==94) {
-					// convert embedded files to base64 encoding
-					if (old_page_attrs[i] & 4)
-						pages[pi] = page_contents[i];
-					else
-						pages[pi] = encode64(page_contents[i]);
-				} else
-					pages[pi] = page_contents[i];
-				page_attrs[pi] = old_page_attrs[i];
-			}
-			pages_imported++;
-		} else { // special pages
-			if (old_version==94) {
-				if (page_names[i]=="Special::Bootscript") {
-					page_titles.push("Special::Bootscript");
+			if ( !this.is_reserved(page_names[i]))
+			{
+				pi = page_titles.indexOf(page_names[i]);
+				if (pi == -1) {
+					page_titles.push(page_names[i]);
 					pages.push(page_contents[i]);
-					page_attrs.push(4);
+					page_attrs.push( old_page_attrs[i] );
+				} else {
+					page_titles[pi] = page_names[i];
+					if (old_version==94) {
+						// convert embedded files to base64 encoding
+						if (old_page_attrs[i] & 4)
+							pages[pi] = page_contents[i];
+						else
+							pages[pi] = encode64(page_contents[i]);
+					} else
+						pages[pi] = page_contents[i];
+					page_attrs[pi] = old_page_attrs[i];
+				}
+				pages_imported++;
+			} else { // special pages
+				if (old_version==94) {
+					if (page_names[i]=="Special::Bootscript") {
+						page_titles.push("Special::Bootscript");
+						pages.push(page_contents[i]);
+						page_attrs.push(4);
+					}
 				}
 			}
 		}
-	}
 	
-	if (this.page_exists(new_main_page))
-		main_page = new_main_page;
-
+		if (this.page_exists(new_main_page))
+			main_page = new_main_page;
+	} // do not import content pages
+	
 	this.config.permit_edits = !old_block_edits;
 
 	// remove hourglass
