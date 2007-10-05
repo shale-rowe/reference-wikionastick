@@ -1086,7 +1086,7 @@ woas["_activate_scripts"] = function() {
 
 woas["_set_title"] = function (new_title) {
 	this.setHTML($("wiki_title"), this.create_breadcrumb(new_title));
-	document.title = title;
+	document.title = new_title;
 }
 
 // actually load a page given the title and the proper XHTML
