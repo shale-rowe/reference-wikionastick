@@ -210,3 +210,17 @@ function lock_page(page) {
 	AES_setKey(pwd);
 	woas._finalize_lock(pi);
 }
+
+
+function import_wiki() {
+	if (!woas.config.permit_edits) {
+		alert("This Wiki on a Stick is read-only");
+		return false;
+	}
+	var filename = $("filename_").value;
+	if(filename == "") {
+		alert("A file must be selected");
+		return false;
+	}
+	return woas.import_wiki(filename);
+}
