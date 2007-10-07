@@ -63,7 +63,7 @@ woas["js_encode"] = function (s, split_lines) {
 
 // used to escape blocks of source into HTML-valid output
 woas["xhtml_encode"] = function(src) {
-	return src.replace(/[<>&]+/g, function ($1) {
+	return this.utf8_encode(src.replace(/[<>&]+/g, function ($1) {
 		var l=$1.length;
 		var s="";
 		for(var i=0;i<l;i++) {
@@ -80,7 +80,11 @@ woas["xhtml_encode"] = function(src) {
 			}
 		}
 		return s;
-	}).replace(/[^\u0000-\u007F]+/g, function ($1) {
+	}));
+}
+
+woas["utf8_encode"] = function(src) {
+	return src.replace(/[^\u0000-\u007F]+/g, function ($1) {
 		var l=$1.length;
 		var s="";
 		for(var i=0;i<l;i++) {
@@ -167,7 +171,7 @@ woas["page_exists"] = function(page) {
 	return (this.is_reserved(page) || (page.substring(page.length-2)=="::") || (page_titles.indexOf(page)!=-1));
 }
 
-var parse_marker = "#"+_random_string(8);
+var	parse_marker = "#"+_random_string(8);
 
 woas["_get_tags"] = function(text) {
 	var tags = [];
@@ -283,8 +287,7 @@ woas["special_orphaned_pages"] = function() {
 				}
 			}
 		} else {
-			// search for pages that link to it
-//		log("Scanning references to page "+page_titles[j]);
+		// search for pages that link to it
 			var tmp;
 			for(var i=0; i<page_titles.length; i++) {
 				if ((i==j) || this.is_reserved(page_titles[i]))
@@ -293,7 +296,7 @@ woas["special_orphaned_pages"] = function() {
 				if (tmp==null)
 					continue;
 				var re = new RegExp("\\[\\[" + RegExp.escape(page_titles[j]) + "(\\]\\]|\\|)", "i");
-//			log("matching "+re+" into "+page_titles[i]);
+//			log("matching "+re+" into "+page_titles[i]);	// log:0
 				if (tmp.search(re)!=-1) {
 					found = true;
 					break;
@@ -360,10 +363,8 @@ woas["special_search"] = function( str )
 		tmp = this.get_src_page(i);
 		if (tmp==null)
 			continue;
-//		log("Searching into "+page_titles[i]);
+//		log("Searching into "+page_titles[i]);	// log:0
 		
-//		log("Regex is \""+reg+"\"");
-
 		var added = false;
 		//look for str in title
 		if(page_titles[i].match(reg)) {
@@ -374,7 +375,6 @@ woas["special_search"] = function( str )
 
 		//Look for str in body
 		res_body = tmp.match(reg);
-//		log("res_body = "+res_body);
 		if (res_body!=null) {
 			if (!added)
 				result_pages.push(page_titles[i]);
@@ -453,7 +453,6 @@ woas["special_dead_pages"] = function() {
 			function (str, $1, $2, $3) {
 				if (page_done)
 					return false;
-//				log("In "+page_titles[j]+": "+$1+" -> "+$3);
 				if ($1.charAt(0)=="#")
 					return;
 				if ($1.search(/^\w+:\/\//)==0)
@@ -534,7 +533,7 @@ woas["get_text_special"] = function(title) {
 	var text = null;
 	if (p!=-1) {
 		var namespace = title.substring(0,p);
-		log("namespace of "+title+" is "+namespace);
+		log("namespace of "+title+" is "+namespace);	// log:1
 		title = title.substring(p+2);
 		if (!title.length) return this._get_namespace_pages(namespace+"::");
 		switch (namespace) {
@@ -596,7 +595,7 @@ woas["get__text"] = function(pi) {
 }
 
 woas["set__text"] = function(pi, text) {
-	log("Setting wiki text for page #"+pi+" \""+page_titles[pi]+"\"");
+	log("Setting wiki text for page #"+pi+" \""+page_titles[pi]+"\"");	// log:1
 	if (this.is__embedded(pi) && !this.is__image(pi))
 		text = encode64(text);
 //	text = _new_syntax_patch(text);
@@ -613,7 +612,7 @@ woas["set_text"] = function(text)
 {
 	var pi = page_titles.indexOf(current);
 	if (pi==-1) {
-		log("current page \""+current+"\" is not cached!");
+		log("current page \""+current+"\" is not cached!");	// log:1
 		return;
 	}
 	this.set__text(pi, text);
@@ -671,9 +670,8 @@ woas["_create_page"] = function (ns, cr, ask) {
 		pages.push("\n");
 	page_attrs.push(0);
 	page_titles.push(cr);
-	log("Page "+cr+" added to internal array");
+	log("Page "+cr+" added to internal array");	// log:1
 	current = cr;
-//	log("Now pages list is: "+page_titles);
 //	this.save_page(cr);	// do not save
 	// proceed with a normal wiki source page
 	this.edit_page(cr);
@@ -681,7 +679,7 @@ woas["_create_page"] = function (ns, cr, ask) {
 }
 
 woas["_get_embedded"] = function(cr, etype) {
-	log("Retrieving embedded source "+cr);
+	log("Retrieving embedded source "+cr);	// log:1
 	var pi=page_titles.indexOf(cr);
 	if (pi==-1) {
 		return this.parser.parse("[[Include::Special::Embed|"+etype+"]]");
@@ -819,7 +817,7 @@ woas["_embed_process"] = function(etype) {
 
 woas["_get_special"] = function(cr) {
 	var text = null;
-	log("Getting special page "+cr);
+//	log("Getting special page "+cr);	// log:0
 	switch(cr) {
 		case "New page":
 			var title = "";
@@ -841,7 +839,7 @@ woas["_get_special"] = function(cr) {
 						var p = cr.indexOf("::");
 						if (p!=-1) {
 							ns = cr.substring(0,p);
-							log("namespace of "+cr+" is "+ns);
+//							log("namespace of "+cr+" is "+ns);	// log:0
 							cr = cr.substring(p+2);
 						} else ns="";
 						if (!this._create_page(ns, cr, false))
@@ -949,7 +947,6 @@ woas["set_current"] = function (cr)
 	result_pages = [];
 	// eventually remove the previous custom script
 	this._clear_swcs();
-//	log("Setting \""+cr+"\" as current page");
 	if (cr.substring(cr.length-2)=="::") {
 		text = this._get_namespace_pages(cr);
 		namespace = cr.substring(0,cr.length-2);
@@ -958,7 +955,7 @@ woas["set_current"] = function (cr)
 		var p = cr.indexOf("::");
 		if (p!=-1) {
 			namespace = cr.substring(0,p);
-			log("namespace of "+cr+" is "+namespace);
+//			log("namespace of "+cr+" is "+namespace);	// log:0
 			cr = cr.substring(p+2);
 				switch (namespace) {
 					case "Special":
@@ -1030,7 +1027,7 @@ woas["set_current"] = function (cr)
 		}
 		if (!this._create_page(namespace, cr, true))
 			return;
-		log("Editing new page "+namespace+cr);
+//		log("Editing new page "+namespace+cr);	// log:0
 		return;
 	}
 	
@@ -1066,7 +1063,7 @@ woas["create_breadcrumb"] = function(title) {
 woas["_activate_scripts"] = function() {
 	// add the custom scripts (if any)
 	if (this.parser.script_extension.length) {
-		log(this.parser.script_extension.length + " javascript files/blocks to process");
+//		log(this.parser.script_extension.length + " javascript files/blocks to process");	// log:0
 		var s_elem, is_inline;
 		for (var i=0;i<this.parser.script_extension.length;i++) {
 			s_elem = document.createElement("script");
@@ -1092,7 +1089,7 @@ woas["_set_title"] = function (new_title) {
 // actually load a page given the title and the proper XHTML
 woas["load_as_current"] = function(title, xhtml) {
 	scrollTo(0,0);
-	log("CURRENT loaded: "+title+", "+xhtml.length+" bytes");
+	log("load_as_current(\""+title+"\") - "+xhtml.length+" bytes");	// log:1
 	$("wiki_text").innerHTML = xhtml;
 	this._set_title(title);
 	this.update_nav_icons(title);
@@ -1132,7 +1129,7 @@ woas["_finalize_lock"] = function(pi) {
 
 woas["_perform_lock"] = function(pi) {
 	pages[pi] = AES_encrypt(pages[pi]);
-	log("E: encrypted length is "+pages[pi].length);
+//	log("E: encrypted length is "+pages[pi].length);	// log:0
 	page_attrs[pi] += 2;
 }
 
@@ -1187,7 +1184,7 @@ function _hex_col(tone) {
 		var repco = split_bytes(pw).toUnique().length/pwlength;
 		if (repco<0.8)
 			pwstrength *= (repco+0.2);
-		log("pwstrength = "+_number_format(pwstrength/100, 2)+", repco = "+repco);
+		log("pwstrength = "+_number_format(pwstrength/100, 2)+", repco = "+repco);	// log:1
 	} else
 		var pwstrength = 0;
   
@@ -1203,8 +1200,8 @@ function _hex_col(tone) {
 }
 
 woas["_add_namespace_menu"] = function(namespace) {
-	log("adding namespace menu for \""+namespace+"\"");
-	log("current namespace is \""+current_namespace+"\"");
+//	log("adding namespace menu for \""+namespace+"\"");	// log:0
+//	log("current namespace is \""+current_namespace+"\"");	// log:0
 	if (current_namespace == namespace)
 		return;
 	var pi;
@@ -1213,7 +1210,7 @@ woas["_add_namespace_menu"] = function(namespace) {
 	else
 		pi = page_titles.indexOf(namespace+"::Menu");
 	if (pi==-1) {
-		log("no namespace menu found");
+//		log("no namespace menu found");	// log:0
 		$("ns_menu_area").innerHTML = "";
 		if (current_namespace!="") {
 			$.hide("ns_menu_area");
@@ -1224,10 +1221,10 @@ woas["_add_namespace_menu"] = function(namespace) {
 	}
 	var menu = this.get__text(pi);
 	if (menu == null) {
-		log("Could not retrieve namespace menu");
+//		log("Could not retrieve namespace menu");	// log:0
 		$("ns_menu_area").innerHTML = "";
 	} else {
-		log("Parsing "+menu.length+" bytes for namespace menu");
+//		log("Parsing "+menu.length+" bytes for namespace menu");	// log:0
 		$("ns_menu_area").innerHTML = this.parser.parse(menu);
 	}
 	// if the previous namespace was empty, then show the submenu areas
@@ -1297,7 +1294,7 @@ woas["setHTML"] = woas["getHTML"] = null;
 
 // when the page is loaded
 woas["after_load"] = function() {
-	log("***** StickWiki started *****");
+	log("***** StickWiki started *****");	// log:1
 	
 	document.body.style.cursor = "auto";
 
@@ -1462,7 +1459,7 @@ woas["update_lock_icons"] = function(page) {
 			can_lock = !can_unlock && this.config.permit_edits;
 		}
 	} else {
-		log("result_pages is ("+result_pages+")");
+		log("result_pages is ("+result_pages+")");	// log:1
 		can_lock = can_unlock = (result_pages.length>0);
 		cyphered = false;
 	}
@@ -1479,7 +1476,7 @@ woas["update_lock_icons"] = function(page) {
 
 // Adjusts the menu buttons
 woas["disable_edit"] = function() {
-//	log("DISABLING edit mode");
+//	log("DISABLING edit mode");	// log:0
 	kbd_hooking = false;
 	// check for back and forward buttons - TODO grey out icons
 	this.update_nav_icons(current);
@@ -1492,7 +1489,7 @@ woas["disable_edit"] = function() {
 	this.menu_display("print", true);
 	$.show("text_area");
 	$.hide("edit_area");
-//	log("setting back title to "+_prev_title);
+//	log("setting back title to "+_prev_title);	// log:0
 	this._set_title(_prev_title);
 }
 
@@ -1516,13 +1513,13 @@ woas["edit_allowed"] = function(page) {
 
 // setup the title boxes and gets ready to edit text
 woas["current_editing"] = function(page, disabled) {
-	log("CURRENT editing "+page+", title disabled: "+disabled);
+	log("current_editing(\""+page+"\", disabled: "+disabled+")");	// log:1
 	_prev_title = current;
 	$("wiki_page_title").disabled = (disabled ? "disabled" : "");
 	$("wiki_page_title").value = page;
 	this._set_title("Editing "+page);
 	// current must be set BEFORE calling enabling menu edit
-//	log("ENABLING edit mode");
+//	log("ENABLING edit mode");	// log:0
 	kbd_hooking = true;
 	this.menu_display("back", false);
 	this.menu_display("forward", false);
@@ -1554,7 +1551,7 @@ function _servm_alert() {
 
 woas["edit_page"] = function(page) {
 	if (!this.edit_allowed(page)) {
-		log("Not allowed to edit page "+page);
+		log("Not allowed to edit page "+page);	// log:1
 		return;
 	}
 	_servm_alert();
@@ -1568,7 +1565,7 @@ woas["edit_page"] = function(page) {
 }
 
 woas["rename_page"] = function(previous, newpage) {
-	log("Renaming "+previous+" to "+newpage);
+	log("Renaming "+previous+" to "+newpage);	// log:1
 	if (newpage.match(/\[\[/) || newpage.match(/\]\]/)) {
 		alert("Cannot use \"[[\" or \"]]\" in a page title");
 		return false;
@@ -1606,7 +1603,7 @@ woas["rename_page"] = function(previous, newpage) {
 function delete_page(page) {
 	for(var i=0; i<pages.length; i++) {
 		if (page_titles[i] == page) {
-			log("DELETED page "+page);
+			log("DELETED page "+page);	// log:1
 			page_titles.splice(i,1);
 			pages.splice(i,1);
 			page_attrs.splice(i,1);
@@ -1743,7 +1740,7 @@ function printout_num_arr(arr) {
 }
 
 woas["save_page"] = function(page_to_save) {
-	log("Saving modified page \""+page_to_save+"\"");
+	log("Saving modified page \""+page_to_save+"\"");	// log:1
 	this.save__page(page_titles.indexOf(page_to_save));
 }
 
@@ -1757,7 +1754,7 @@ woas["save__page"] = function(pi) {
 			if (floating_pages.indexOf(pi)==-1)
 				floating_pages.push(pi);
 		}
-		log("floating_pages = ("+floating_pages+")");
+		log("floating_pages = ("+floating_pages+")");	// log:1
 		return;
 	}
 	this.save_to_file(true);

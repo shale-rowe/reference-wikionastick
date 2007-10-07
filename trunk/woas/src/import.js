@@ -28,7 +28,7 @@ function import_wiki() {
 	var ver_str = ct.match(/<div .*?id=("version_"|version_).*?>([^<]+)<\/div>/i);
 	if (ver_str && ver_str.length>1) {
 		ver_str = ver_str[2];
-		log("Importing wiki with version string \""+ver_str+"\"");
+		log("Importing wiki with version string \""+ver_str+"\"");	// log:1
 		switch(ver_str)
 		{
 			case "0.03":
@@ -47,7 +47,7 @@ function import_wiki() {
 		var ver_str = ct.match(/var version = "([^"]*)";(\r\n|\n)/);
 		if (ver_str && ver_str.length) {
 			ver_str = ver_str[1];
-			log("Version string: "+ver_str);
+			log("Version string: "+ver_str);	// log:1
 			switch (ver_str) {
 				case "0.9B":
 				case "0.9":
@@ -71,7 +71,7 @@ function import_wiki() {
 					return false;
 			}
 		} else {
-			log("Maybe version 0.02?");
+			log("Maybe version 0.02?");	// log:1
 			old_version = 2;
 			if(ct.match("<div id=\"?"+escape("Special::Advanced")))
 				old_version = 3;
@@ -116,7 +116,7 @@ if (old_version	< 9) {
 		try {
 			vars = wiki.match(/\<div .*?id=("main_page"|main_page)>(.*?)\<\/div\>/i)[1];
 		} catch(e) {
-			log("No variables found");
+//			log("No variables found");	// log:0
 		}
 	}
 
@@ -139,13 +139,13 @@ if (old_version	< 9) {
 				vc++;
 			});
 			
-	log("Variables are ("+var_names+")");
+//	log("Variables are ("+var_names+")");	// log:0
 
 	// now extract the pages
 	if (import_content) {
 		wiki.replace(/<div .*?id="?([^">]+)"?>((\n|.)*?)<\/div>/gi, function(str, $1, $2, $3)
 			{
-				log("Parsing old page "+$1);
+//				log("Parsing old page "+$1);	// log:0
 				if (old_version != 2) {
 					page_names[pc] = unescape($1);
 					page_contents[pc] = unescape($2);
@@ -175,7 +175,7 @@ if (old_version	< 9) {
 			}
 			);
 
-		log("page_names is ("+page_names+")");
+//		log("page_names is ("+page_names+")");	// log:0
 	} // do not import content pages
 
 	for(var i=0;i<var_names.length;i++) {
@@ -206,7 +206,7 @@ if (old_version	< 9) {
 			css = $1;
 		});
 		if (css!=null) {
-			log("Imported "+css.length+" bytes of CSS");
+			log("Imported "+css.length+" bytes of CSS");	// log:1
 			this.setHTML(_css_obj(), css);
 		}
 	}
@@ -222,7 +222,7 @@ if (old_version	< 9) {
 			return $1+"\nvar sw_import_"+$2+" = ";
 		});//.replace(/\\\n/g, '');
 		
-		log("collected config variables = "+collected);
+//		log("collected config variables = "+collected);	// log:0
 		
 		collected = eval(data+"\n["+collected+"];");
 		data = ct = null;

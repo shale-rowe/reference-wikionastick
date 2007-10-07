@@ -147,7 +147,7 @@ function _number_format(n, prec) {
 
 // converts the number of bytes to a human readable form
 function _convert_bytes(bytes) {
-	log("Converting "+bytes+" bytes");
+//	log("Converting "+bytes+" bytes");	// log:0
 	if (bytes < 1024)
 		return Math.ceil(bytes)+ " bytes";
 	var k = bytes / 1024, n;

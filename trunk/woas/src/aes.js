@@ -57,7 +57,7 @@ function getB(x,n){ return (x>>>(n*8))&0xFF; }
 	    c >>= k;
 	    if (k==1||k>4) {
 	//		throw
-			log('UTF-8: invalid first byte');
+			log('UTF-8: invalid first byte');	// log:1
 			return null;
 		}
 	    for (var n=1;n<k;n++){
@@ -66,7 +66,7 @@ function getB(x,n){ return (x>>>(n*8))&0xFF; }
 	      c=(c<<6)+(d&0x3F);
 	    }
 	    if ( (k==2&&c<0x80) || (k>2&&c<utf8sets[k-3]) ) {
-			log("UTF-8: invalid sequence");
+			log("UTF-8: invalid sequence");	// log:1
 			return null;
 		}
 	    sData+=String.fromCharCode(c);
