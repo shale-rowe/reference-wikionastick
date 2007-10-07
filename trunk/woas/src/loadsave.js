@@ -11,7 +11,8 @@ function _get_this_filename() {
 		filename = filename.replace(/\//g, "\\");
 		if (filename.substr(0,2)!="\\\\") { // if this is not a network path - will be true in case of Firefox for example
 			// remove leading slash before unit:
-			filename = filename.substr(1);
+			if (filename.match(/^\\\w:\\/))
+				filename = filename.substr(1);
 			if (filename.charAt(1)!=':') {
 				if (ie)
 					filename = "\\\\"+filename;
@@ -68,19 +69,18 @@ function ieSaveFile(filePath, content)
 	{
 		var fso = new ActiveXObject("Scripting.FileSystemObject");
 	}
-	catch(e)
-	{
-		log("Exception while attempting to save\n\n" + e.toString());	// log:1
+	catch(e) {
+		log("Exception while attempting to save: " + e.toString());	// log:1
 		return(false);
 	}
-//	if (!_force_binary) {
-		var file = fso.OpenTextFile(filePath,2,-1,_force_binary ? -1:0);
-		file.Write(content);
-		file.Close();
-/*	} else {
+/*	if (_force_binary) {
 		alert("Binary write with Internet Explorer is not supported");
 		return false;
 	}	*/
+	var mode = _force_binary ? -1:0;
+	var file = fso.OpenTextFile(filePath,2,-1, mode);
+	file.Write(content);
+	file.Close();
 	return(true);
 }
 

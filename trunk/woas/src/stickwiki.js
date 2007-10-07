@@ -1541,7 +1541,7 @@ woas["current_editing"] = function(page, disabled) {
 
 	$("wiki_editor").focus();
 	current = page;
-	scrollTo(0,0);
+	scrollTo(-1,0);
 }
 
 function _servm_alert() {
