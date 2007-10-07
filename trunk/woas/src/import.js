@@ -1,16 +1,5 @@
 
-function import_wiki() {
-	if (!woas.config.permit_edits) {
-		alert("This Wiki on a Stick is read-only");
-		return false;
-	}
-	var filename = $("filename_").value;
-	if(filename == "")
-	{
-		alert("A file must be selected");
-		return false;
-	}
-
+woas["import_wiki"] = function(filename) {
 	if(confirm("This will OVERWRITE pages with the same title.\n\nAre you sure you want to continue?") == false)
 		return false;
 
@@ -45,6 +34,8 @@ function import_wiki() {
 		}
 	} else {
 		var ver_str = ct.match(/var version = "([^"]*)";(\r\n|\n)/);
+		if (!ver_str)
+			ver_str = ct.match(/var woas = \{"version":\s+"([^"]+)"\s*\};(\r\n|\n)/);
 		if (ver_str && ver_str.length) {
 			ver_str = ver_str[1];
 			log("Version string: "+ver_str);	// log:1
@@ -180,7 +171,7 @@ if (old_version	< 9) {
 
 	for(var i=0;i<var_names.length;i++) {
 		if (var_names[i] == "main_page_")
-			new_main_page = (this.version!=2) ? unescape(var_values[i]) : var_values[i];
+			new_main_page = (old_version!=2) ? unescape(var_values[i]) : var_values[i];
 		else if (var_names[i] == "permit_edits")
 			old_block_edits = (var_values[i]=="0");
 	}
@@ -357,7 +348,7 @@ if (old_version	< 9) {
 	
 	current = main_page;
 	// save everything
-	save_to_file(true);
+	this.save_to_file(true);
 	
 	this.refresh_menu_area();
 	this.set_current(main_page);
