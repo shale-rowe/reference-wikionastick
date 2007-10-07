@@ -6,7 +6,7 @@ function _get_this_filename() {
 	if (filename.indexOf("///")===0) // firefox
 		filename = filename.substr(1);
 	filename = filename.replace(/#.*$/g, ""); // remove fragment
-	if (navigator.appVersion.toLowerCase().indexOf("Windows")!=-1) { // convert unix path to windows path
+	if (navigator.appVersion.toLowerCase().indexOf("windows")!=-1) { // convert unix path to windows path
 		filename = filename.replace(/\//g, "\\");
 		if (filename.substr(0,2)!="\\\\") { // if this is not a network path - will be true in case of Firefox for example
 			if (filename.charAt(1)!=':') {
@@ -42,7 +42,7 @@ function saveFile(fileUrl, content)
 	return r;
 }
 
-// Copied from TiddyWiki
+// original source was from TiddyWiki
 
 function loadFile(fileUrl)
 {
@@ -90,7 +90,7 @@ function ieLoadFile(filePath)
 		file.Close();
 	}
 	catch(e) {
-		alert("Exception while attempting to load\n\n" + e.toString());
+		log("Exception while attempting to load\n\n" + e.toString());	// log:1
 		return(null);
 	}
 	return(content);
@@ -118,7 +118,7 @@ function mozillaSaveFile(filePath, content)
 		}
 		catch(e)
 		{
-			alert("Exception while attempting to save\n\n" + e);
+			log("Exception while attempting to save\n\n" + e);	// log:1
 			return(false);
 		}
 	return(null);
@@ -153,7 +153,7 @@ function mozillaLoadFile(filePath)
 		}
 		catch(e)
 		{
-			alert("Exception while attempting to load\n\n" + e);
+			log("Exception while attempting to load\n\n" + e);	// log:1
 			return(false);
 		}
 	return(null);
@@ -208,6 +208,7 @@ function javaLoadFile(filePath)
 	} catch(ex) {
 		if(window.opera)
 			opera.postError(e);
+		log("Exception in javaLoadFile(\""+filePath+"\"): "+e)
 		return null;
 	}
 	return content.join("\n");
