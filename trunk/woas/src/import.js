@@ -249,6 +249,8 @@ if (old_version	< 9) {
 		// from version v0.9.5B+ we have an object oriented WoaS
 		if (old_version >= 95) {
 			alert("Import from version 0.9.5B not yet supported!");
+			// remove hourglass
+			document.body.style.cursor= "auto";
 			return false;
 			// rename the members
 			data = data.replace(/([^\\])\nwoas\\["(\w+)"\\] = /g, function (str, $1, $2) {
