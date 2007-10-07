@@ -3,6 +3,9 @@ Version 0.9.5 (legolas558 - official)
 * added support of raw transclusion (for SVG for example - not yet working)
 * fixed some UI bugs
 * added License in <iframe />
+* save over network paths also works with IE
+* icon themes support
+* fixed bugs in UTF8 exporting
 
 Version 0.9.4 (legolas558 - official)
 * tooltip text on icons

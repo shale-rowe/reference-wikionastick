@@ -19,7 +19,6 @@ woas.parser["header_replace"] = function(str, $1, $2, $3) {
 		var len = $2.length;
 		if (header.indexOf($2)==header.length - len)
 			header = header.substring(0, header.length - len);
-//		log("h"+len+" = "+header);
 		// automatically build the TOC if needed
 		if (woas.parser.has_toc) {
 			woas.parser.toc += str_rep("#", len)+" <a class=\"link\" href=\"#" +
@@ -59,7 +58,6 @@ woas.parser["parse_lists"] = function(str, type, $2) {
 	    str.replace( reItems,
                 function(str, p1, p2)
                 {
-//					log("p1 = "+p1+", p2 = "+p2);
                     level = p1.length;
                     old = level;
                     stk.push([str, p1, p2]);
@@ -108,6 +106,11 @@ function _filter_wiki(s) {
 // js_mode can be 0 = leave script tags as they are (for exporting), 1 - place script tags in <head /> (dynamic),
 //		2 - re-add script tags after parsing
 woas.parser["parse"] = function(text, export_links, js_mode) {
+	if (this.debug) {
+		if (text===null)
+			log("Called parse() with null text!");	// log:1
+		return null;
+	}
 	// default fallback
 	if (typeof export_links == "undefined") {
 		export_links = false;
@@ -132,7 +135,7 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 			text = text.replace(/\[\[Include::([^\]]+)\]\]/g, function (str, $1) {
 				var parts = $1.split("|");
 				var templname = parts[0];
-				log("Transcluding "+templname+"("+parts.slice(0).toString()+")");
+				log("Transcluding "+templname+"("+parts.slice(0).toString()+")");	// log:1
 				var templtext = woas.get_text_special(templname);
 				if (templtext == null) {
 					var templs="[["+templname+"]]";
@@ -143,7 +146,7 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 				// in case of embedded file, add the inline file or add the image
 				if (!woas.is_reserved(templname) && woas.is_embedded(templname)) {
 					var r = "<!-- "+parse_marker+"::"+html_tags.length+" -->";
-					log("Embedded file transclusion: "+templname);
+					log("Embedded file transclusion: "+templname);	// log:1
 					if (woas.is_image(templname)) {
 						var img, img_name = woas.xhtml_encode(templname.substr(templname.indexOf("::")+2));
 						if (export_links)
@@ -286,7 +289,6 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 		}
 		
 		found_tags = woas._get_tags($1);
-//		log("Found tags = ("+found_tags+")");
 		
 		if (found_tags.length>0) {
 			tags = tags.concat(found_tags);

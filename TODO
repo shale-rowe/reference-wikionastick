@@ -14,3 +14,7 @@
 * possibility to delete an encrypted page even when password is not available (maybe through the group operations)
 
 * CSS import flag evaluation + add missing stuff from v0.9 and v0.9.2
+
+* icon themes (importing and changing of defaul graphics)
+
+* export of some special pages and namespace pages

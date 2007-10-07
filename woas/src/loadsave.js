@@ -24,7 +24,7 @@ function _saveThisFile(new_data, old_data)
 	r = saveFile(filename,
 	_doctype+"<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\">\n<head>\n<sc"+"ript type=\"text/javascript\">" + new_data + "\n" + old_data + "</html>");
 	if (r==true)
-		log("\""+filename+"\" saved successfully");
+		log("\""+filename+"\" saved successfully");	// log:1
 	else
 		alert("Save to file \""+filename+"\" failed!\n\nMaybe your browser is not supported");
 	return r;
@@ -65,7 +65,7 @@ function ieSaveFile(filePath, content)
 	}
 	catch(e)
 	{
-		log("Exception while attempting to save\n\n" + e.toString());
+		log("Exception while attempting to save\n\n" + e.toString());	// log:1
 		return(false);
 	}
 //	if (!_force_binary) {
@@ -108,7 +108,7 @@ function mozillaSaveFile(filePath, content)
 			if (!file.exists())
 				file.create(0, 0664);
 			else
-				log("File exists, overwriting");
+				log("File \""+filePath+"\" exists, overwriting");	// log:1
 			var out = Components.classes["@mozilla.org/network/file-output-stream;1"].createInstance(Components.interfaces.nsIFileOutputStream);
 			out.init(file, 0x20 | 0x02, 00004,null);
 			out.write(content, content.length);
