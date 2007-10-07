@@ -26,6 +26,8 @@ if (firefox && (navigator.product != "Gecko"))
 if (ie && opera)
 	ie = false;
 	
+var is_windows = (navigator.appVersion.toLowerCase().indexOf("windows")!=-1);
+	
 // returns the DOM element object given its id
 function $(id){return document.getElementById(id);}
 
