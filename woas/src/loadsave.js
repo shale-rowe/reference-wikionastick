@@ -6,9 +6,12 @@ function _get_this_filename() {
 	if (filename.indexOf("///")===0) // firefox
 		filename = filename.substr(1);
 	filename = filename.replace(/#.*$/g, ""); // remove fragment
-	if (navigator.appVersion.toLowerCase().indexOf("windows")!=-1) { // convert unix path to windows path
+	if (is_windows) {
+		// convert unix path to windows path
 		filename = filename.replace(/\//g, "\\");
 		if (filename.substr(0,2)!="\\\\") { // if this is not a network path - will be true in case of Firefox for example
+			// remove leading slash before unit:
+			filename = filename.substr(1);
 			if (filename.charAt(1)!=':') {
 				if (ie)
 					filename = "\\\\"+filename;
@@ -17,6 +20,8 @@ function _get_this_filename() {
 	}
 	return filename;
 }
+
+//alert(_get_this_filename());
 
 function _saveThisFile(new_data, old_data)
 {
