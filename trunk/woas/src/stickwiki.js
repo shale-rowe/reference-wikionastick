@@ -15,7 +15,6 @@ var _decrypt_failed = false;	// the last decryption failed due to wrong password
 var result_pages = [];			// the pages indexed by the last result page
 var last_AES_page;				// the last page on which the cached AES key was used on
 var current_namespace = "";		// the namespace(+subnamespaces) of the current page
-var was_local = !woas.config.server_mode;	// to save the server_mode flag once
 var floating_pages = [];				// pages which need to be saved and are waiting in the queue
 var _bootscript = null;					// bootscript
 var _hl_reg = null;						// search highlighting regex
@@ -911,7 +910,7 @@ woas["_get_special"] = function(cr) {
 				return;
 			this.current_editing(cr, true);
 			// setup the wiki editor textbox
-			this.current_editing(cr, this.config.permit_edits | this.config.server_mode);
+			this.current_editing(cr, this.config.permit_edits | this._server_mode);
 			$("wiki_editor").value = decode64(tmp);
 			return null;
 		default:
@@ -1545,7 +1544,7 @@ woas["current_editing"] = function(page, disabled) {
 }
 
 function _servm_alert() {
-	if (woas.config.server_mode)
+	if (woas._server_mode)
 		alert("You are using Wiki on a Stick on a REMOTE server, your changes will not be saved neither remotely or locally.\n\nThe correct usage of Wiki on a Stick is LOCAL, so you should use a local copy of this page to exploit the save features. All changes made to this copy of Wiki on a Stick will be lost.");
 }
 
@@ -1862,10 +1861,11 @@ woas["save_to_file"] = function(full) {
 	var data = _get_data(__marker, document.documentElement.innerHTML, full);
 
 	var r=false;
-	if (!this.config.server_mode || (was_local && this.config.server_mode)) {
+//	if (!this.config.server_mode || (was_local && this.config.server_mode)) {
+	if (!this._server_mode)
 		r = _saveThisFile(computed_js, data);
-		was_local = false;
-	}
+//		was_local = false;
+//	}
 	
 	if (r) {
 		cfg_changed = false;
