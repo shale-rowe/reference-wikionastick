@@ -1,74 +1,69 @@
 ﻿
-//TODO: shold be uniform to the other get_page variants
-woas["export_get_page"] = function(pi) {
-	if (!this.is__encrypted(pi))
-		return pages[pi];
-	if (!key.length) {
-		latest_AES_page = "";
-		return null;
-	}
-	var pg = AES_decrypt(pages[pi].slice(0));	/*WARNING: may not be supported by all browsers*/
-	last_AES_page = page_titles[pi];
-	if (pg===null) return null;
-	if (this.is_embedded(pi))
-		return decode64(pg);
-	return pg;
-}
-
 var _export_main_index = false, _export_unix_norm = false,
 	_export_default_ext;
 
 var _title2fn;
 
-var _export_fnames_array = [], _export_replace_fname = {};
+var _export_fnames_array = [];
 
-/*
-var utf8_marker = "-"+_random_string(5).toLowerCase()+"-",
-	utf8_marker_rx = new RegExp(utf8_marker, "g");
-*/
+var _further_pages = [];
 
 woas["_attrib_escape"] = function(s) {
 	return s.replace(/"/g, '&quot;');
 }
 
 woas["_export_get_fname"] = function (title, create_mode) {
-	// return a cached title
 	if (typeof(_title2fn[title]) != 'undefined') {
+		// return a cached title
 		if (!create_mode)
 			return escape(_title2fn[title]);
 		return _title2fn[title];
 	}
 	var orig_title = title;
-	if (title.match(/::$/)) {
-		//TODO: offer namespace index page
-		_title2fn[title] = "#";
-		return "#";
+	// handle the valid exportable secial pages
+	var sp;
+	if (title.match(/::$/))
+		sp = true;
+	else if (this.is_reserved(title)) {
+		if (title.match(/^Special::/)) {
+			if (page_titles.indexOf(title)==-1)
+				sp = true;
+			else {
+				_title2fn[title] = "#";
+				return "#";
+			}
+		} else {
+			_title2fn[title] = "#";
+			return "#";
+		}
 	}
-	if (this.is_reserved(title)) {
-		//TODO: offer some special pages
-		_title2fn[title] = "#";
-		return "#";
+	if (sp) {
+		// save a reference to this namespace or reserved page
+		if (_further_pages.indexOf(title)==-1)
+			_further_pages.push(title);
+	} else {
+		var pi=page_titles.indexOf(title);
+		if (pi==-1) {
+			alert("Page does not exist: "+title);
+			_title2fn[title] = "#";
+			return "#";
+		}
+		// beware: a special page or namespace index page cannot be main page considering the below code
+		if (_export_main_index && (title==main_page)) {
+			_title2fn[title] = "index."+_export_default_ext;
+			_export_fnames_array.push(_title2fn[title]);
+			return _title2fn[title];
+		}
 	}
-	var pi=page_titles.indexOf(title);
-	if (pi==-1) {
-		alert("Page does not exist: "+title);
-		_title2fn[title] = "#";
-		return "#";
-	}
-	if (_export_main_index && (title==main_page)) {
-		_title2fn[title] = "index."+_export_default_ext;
-		_export_fnames_array.push(_title2fn[title]);
-		return _title2fn[title];
-	}
-	var ext = "", emb;
-	if (this.is__embedded(pi)) {
+	var ext = "";
+	if (!sp && this.is__embedded(pi)) {
 		title = title.substr(title.indexOf("::")+2);
 		if (!this.is__image(pi))
 			ext = "."+_export_default_ext;
-		emb = true;
+//		emb = true;
 	} else {
 		ext = "."+_export_default_ext;
-		emb = false;
+//		emb = false;
 	}
 	var fname = title
 	// convert UTF8 characters to something else (cross-browser safe cheap solution)
@@ -95,26 +90,6 @@ woas["_export_get_fname"] = function (title, create_mode) {
 		fname = fname.toLowerCase().replace(/\s+/g, "_").replace(/::/g, "-");
 	else
 		fname = fname.replace(/::/g, " - ");
-/*
-	// place back UTF8 tokens
-	if (tokens.length) {
-		var token_i = 0;
-		fname = fname.replace(utf8_marker_rx, function ($1) {
-			var a=split_bytes(tokens[token_i++]);
-			var l=a.length, t, r="";
-			for(var i=0;i<l;i++) {
-				t = a[i].toString(16).toUpperCase();
-				r += "%25%"+str_rep("0", 2-t.length)+t;
-			}
-			return r;
-		});
-	}	*/
-	// be sure that filename is unique - FIXME
-/*	if (!create_mode) {
-		if (_export_replace_fname[fname+ext]!=null)
-			return _export_replace_fname[fname+ext];
-		return fname+ext;
-	}	*/
 	var test_fname = fname+ext, i=0;
 	while (_export_fnames_array.indexOf(test_fname)!=-1) {
 		log(test_fname+" already created, checking next fname");	// log:1
@@ -152,7 +127,7 @@ woas["export_wiki"] = function () {
 	$("loading_overlay").focus();
 	var css = _css_obj().innerHTML;
 	// reset some export globals
-	_export_fnames_array = [];
+	_further_pages = _export_fnames_array = [];
 	_title2fn = {};
 	if (sep_css) {
 		var css_path = "woas.css";
@@ -173,19 +148,24 @@ woas["export_wiki"] = function () {
 
 	var l=page_titles.length, data = null, fname = "", done=0, wt=null;
 	for (var pi=0;pi<l;pi++) {
+		// do skip physical special pages
 		if (page_titles[pi].match(/^Special::/)) continue;
-		data = this.export_get_page(pi);
-		if (data == null) continue;
+		// do skip menu pages (they are included in each page)
 		if (page_titles[pi].indexOf("::Menu")==page_titles[pi].length-6) continue;
+		data = this.get_text_special(page_titles[pi]);
+		if (data == null) continue;
 		fname = this._export_get_fname(page_titles[pi], true);
 		if (this.is__embedded(pi)) {
 			if (this.is__image(pi)) {
 				if (!this._b64_export(data, img_path+fname))
 					break;
+				// image export was successful, continue to next page
 				else { ++done; continue; }
 			} else
+				// show the embedded files inline
 				data = '<pre class="wiki_preformatted">'+this.xhtml_encode(data)+"</pre>";
 		} else {
+			// a normal wiki page, parse it and eventually execute the attached javascript
 			data = this.parser.parse(data, true, js_mode);
 			if (js_mode) {
 				wt = $("wiki_text");
@@ -206,7 +186,7 @@ woas["export_wiki"] = function () {
 			if (_ns.length) {
 				var mpi = page_titles.indexOf(_ns+"::Menu");
 				if (mpi != -1) {
-					var tmp=this.export_get_page(mpi);
+					var tmp=this.get_text_special(ns+"::Menu");
 					if (tmp!=null)
 						_exp_menu += tmp;
 				}
@@ -233,6 +213,7 @@ woas["export_wiki"] = function () {
 			break;
 		++done;
 	}
+	log("pages not processed: "+_further_pages);	// log:1
 	if (js_mode) {
 		this.refresh_menu_area();
 		this.set_current(current);

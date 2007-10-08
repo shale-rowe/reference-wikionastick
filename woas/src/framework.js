@@ -27,7 +27,9 @@ if (ie && opera)
 	ie = false;
 	
 var is_windows = (navigator.appVersion.toLowerCase().indexOf("windows")!=-1);
-	
+
+woas["_server_mode"] = (document.location.toString().match(/^file:\/\//) ? false:true);
+
 // returns the DOM element object given its id
 function $(id){return document.getElementById(id);}
 

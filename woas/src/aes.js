@@ -1,4 +1,3 @@
-/*** aes.js ***/
 
 // AES encryption for StickWiki
 // adapted by legolas558
@@ -293,8 +292,7 @@ function blcDecrypt(dec){
     //if (cbc)
 	aes_i=tot-aes_i;
     dec();
-    //if (cbc)
-	{
+    //if (cbc) {
       for (aes_j=aes_i-16; aes_j<aes_i; aes_j++) bData[aes_j] ^= bData[aes_j-16];
       aes_i = tot+32-aes_i;
     }

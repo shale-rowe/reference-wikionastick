@@ -77,7 +77,6 @@ woas["import_wiki"] = function(filename) {
 	var page_contents = [];
 	var old_page_attrs = [];
 	var pc = 0;
-
 	
 if (old_version	< 9) {
 	
@@ -101,7 +100,7 @@ if (old_version	< 9) {
 		wiki = wiki.substring(0, p);
 	} else
 		vars = "";
-		
+	
 	if(old_version == 2)
 	{
 		try {
@@ -110,6 +109,17 @@ if (old_version	< 9) {
 //			log("No variables found");	// log:0
 		}
 	}
+	
+	/* NOTES ABOUT OLD VERSIONS
+	v0.9.5B
+		* object orientation of code
+		* server_mode disappears
+	v0.04
+		* permit_edits variable appeared here
+	v0.02
+		* pages were not escaped
+	*/
+
 
 	// get an array of variables and wikis
 	var var_names = [];
@@ -176,9 +186,6 @@ if (old_version	< 9) {
 			old_block_edits = (var_values[i]=="0");
 	}
 	
-	//note: before v0.04 permit_edits didnt exist
-	//note: in version 2 pages were not escaped
-
 }	else {	// we are importing a v0.9.x Beta
 
 	// locate the random marker
