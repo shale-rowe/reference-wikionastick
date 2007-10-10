@@ -10,6 +10,7 @@ woas["import_wiki"] = function(filename) {
 	
 	var import_css = $('cb_import_css').checked;
 	var import_content = $('cb_import_content').checked;
+	log("import_content = "+import_content); // log:1
 	var import_icons = $('cb_import_icons').checked;
 	
 	// get version
@@ -289,7 +290,7 @@ if (old_version	< 9) {
 			//2:sw_import_backstack,3:sw_import_page_titles,4:sw_import_page_attrs,5:sw_import_pages
 
 			new_main_page = collected[1];
-			if (import_contents) {
+			if (import_content) {
 				page_contents = collected[5];
 				page_names = collected[3];
 				old_page_attrs = collected[4];
@@ -362,18 +363,20 @@ if (old_version	< 9) {
 				}
 			}
 		}
-	
-		if (this.page_exists(new_main_page))
-			main_page = new_main_page;
 	} // do not import content pages
+	
+	// apply the new main page if that page exists
+	if (this.page_exists(new_main_page))
+		main_page = new_main_page;
 	
 	this.config.permit_edits = !old_block_edits;
 
 	// remove hourglass
 	document.body.style.cursor= "auto";
 	
-	alert("Import completed: " + pages_imported + " pages imported.");
+	alert("Import completed: " + pages_imported +"/"+page_names.length.toString()+" pages imported.");
 	
+	// move to main page
 	current = main_page;
 	// save everything
 	this.save_to_file(true);
