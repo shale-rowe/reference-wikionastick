@@ -50,9 +50,23 @@ function go_forward()
 	}
 }
 
+woas["editor_hit"] = function(a) {
+//	$('wiki_editor').onkeyup = null;
+//	$('wiki_editor').onmouseup = null;
+	if (this._editor_changed) return false;
+	log("wiki editor changed"); // log:1
+	this._editor_changed = true;
+	return false;
+}
+
+woas["_editor_changed"] = false;
+
 // when cancel is clicked
 function cancel() {
-//	if(confirm("Are you sure you want to cancel this edit?")) 
+	if(woas._editor_changed) {
+		if (!confirm("Are you sure you want to cancel this edit?"))
+			return;
+	}
 	if (kbd_hooking)
 		woas.disable_edit();
 }

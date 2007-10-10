@@ -657,7 +657,7 @@ woas["_get_special"] = function(cr) {
 			}
 			_servm_alert();
 			this.current_editing("Special::"+cr, true);
-			$("wiki_editor").value = _css_obj().innerHTML;
+			this.edit_ready(_css_obj().innerHTML);
 			return null;
 		case "Edit Bootscript":
 			if (!this.config.permit_edits && !edit_override) {
@@ -672,7 +672,7 @@ woas["_get_special"] = function(cr) {
 			this.current_editing(cr, true);
 			// setup the wiki editor textbox
 			this.current_editing(cr, this.config.permit_edits | this._server_mode);
-			$("wiki_editor").value = decode64(tmp);
+			this.edit_ready(decode64(tmp));
 			return null;
 		default:
 			cr = "Special::" + cr;
@@ -1099,7 +1099,7 @@ woas["after_load"] = function() {
 	
 	this._create_bs();
 	
-	this["_editor"] = new TextAreaSelectionHelper(document.getElementById("wiki_editor"));
+	this["_editor"] = new TextAreaSelectionHelper($("wiki_editor"));
 	
 	$.hide("loading_overlay");
 }
@@ -1281,11 +1281,18 @@ woas["current_editing"] = function(page, disabled) {
 		$("wiki_editor").style.width = window.innerWidth - 30 + "px";
 		$("wiki_editor").style.height = window.innerHeight - 150 + "px";
 	}
+	
 	$.show("edit_area");
 
 	$("wiki_editor").focus();
 	current = page;
-	scrollTo(-1,0);
+	scrollTo(0,0);
+}
+
+// sets the text and allows changes monitoring
+woas["edit_ready"] = function (txt) {
+	$("wiki_editor").value = txt;
+	this._editor_changed = false;
 }
 
 function _servm_alert() {
@@ -1305,7 +1312,7 @@ woas["edit_page"] = function(page) {
 		tmp = decode64(tmp);
 	// setup the wiki editor textbox
 	this.current_editing(page, this.is_reserved(page));
-	$("wiki_editor").value = tmp;
+	this.edit_ready(tmp);
 }
 
 woas["rename_page"] = function(previous, newpage) {
@@ -1421,7 +1428,8 @@ woas["save"] = function() {
 		back_or(main_page);
 	this.refresh_menu_area();
 	this.disable_edit();
-	this.save_page(saved);
+	if (this._editor_changed)
+		this.save_page(saved);
 }
 
 // push a page into history

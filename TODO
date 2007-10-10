@@ -19,6 +19,15 @@
 
 * export of some special pages and namespace pages (almost complete)
 
+== For v0.9.6B
+
 * remember export settings
 
-* show/hide format buttons
+* show/hide format buttons option
+
+* convert Special::Bootscript to WoaS::Bootscript
+
+* implement Special::Scripts
+
+* pluggable Special::Group:: namespace (each special function is called from there)
+
