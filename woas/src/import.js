@@ -334,15 +334,23 @@ if (old_version	< 9) {
 					page_attrs.push( old_page_attrs[i] );
 				} else {
 					log("replacing "+page_names[i]);
-					page_titles[pi] = page_names[i];
 					if (old_version==94) {
 						// convert embedded files to base64 encoding
-						if (old_page_attrs[i] & 4)
-							pages[pi] = page_contents[i];
-						else
+						if (old_page_attrs[i] & 4) {
+							// plain copy images, which were already b64-encoded
+							if (old_page_attrs[i] & 8)
+								pages[pi] = page_contents[i];
+							else {
+								// page is encrypted, skip it
+								if (old_page_attrs[i] & 2)
+									continue;
+							}
 							pages[pi] = encode64(page_contents[i]);
-					} else
+						}
+					} else {
+						page_titles[pi] = page_names[i];
 						pages[pi] = page_contents[i];
+					}
 					page_attrs[pi] = old_page_attrs[i];
 				}
 				pages_imported++;
