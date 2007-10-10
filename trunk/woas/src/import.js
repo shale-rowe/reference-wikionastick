@@ -213,7 +213,6 @@ if (old_version	< 9) {
 	var collected = [];
 
 	if (old_version < 92) {
-		
 		// rename the variables
 		data = data.replace(/([^\\])\nvar (\w+) = /g, function (str, $1, $2) {
 			collected.push('sw_import_'+$2);
@@ -254,11 +253,11 @@ if (old_version	< 9) {
 		
 	} else {	// we are importing from v0.9.2 and above which has a config object for all the config flags
 		// from version v0.9.5B+ we have an object oriented WoaS
-		if (old_version >= 95) {
-			alert("Import from version 0.9.5B not yet supported!");
+		if (old_version == 95) {
+/*			alert("Import from version 0.9.5B not yet supported!");
 			// remove hourglass
 			document.body.style.cursor= "auto";
-			return false;
+			return false;	*/
 			// rename the members
 			data = data.replace(/([^\\])\nwoas\\["(\w+)"\\] = /g, function (str, $1, $2) {
 				collected.push($2);
@@ -267,13 +266,33 @@ if (old_version	< 9) {
 			
 			// retrieve the object containing all woas data & config
 			var i__woas = eval(data+"\ni__woas");
-			data = null;
-			
-			//TODO: do not import content pages if import_content is false
 			
 			// import everything as is
 			for(var a=0;a<collected.length;a++) {
 				woas[collected[a]] = i__woas[collected[a]];
+			} collected = [];
+			
+			// old-style import
+			// rename the variables
+			data = data.replace(/([^\\])\nvar (\w+) = /g, function (str, $1, $2) {
+				if (($2=="woas") || ($2=="__marker"))
+					return "\nvar ignoreme_"+$2+" = ";
+				collected.push('sw_import_'+$2);
+				return $1+"\nvar sw_import_"+$2+" = ";
+			});//.replace(/\\\n/g, '');
+			log("collected config variables = "+collected);	// log:1
+			
+			collected = eval(data+"\n["+collected+"];");
+			data = null;
+			
+			//0:sw_import_current,1:sw_import_main_page,
+			//2:sw_import_backstack,3:sw_import_page_titles,4:sw_import_page_attrs,5:sw_import_pages
+
+			new_main_page = collected[1];
+			if (import_contents) {
+				page_contents = collected[5];
+				page_names = collected[3];
+				old_page_attrs = collected[4];
 			}
 			
 			if (import_icons) {
