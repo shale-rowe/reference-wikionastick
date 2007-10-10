@@ -320,6 +320,7 @@ div.ns_menu_area ul li, div.ns_menu_area ol li {
 <script src="src/stickwiki.js" type="text/javascript"></script>
 <script src="src/import.js" type="text/javascript"></script>
 <script src="src/export.js" type="text/javascript"></script>
+<script src="src/editor.js" type="text/javascript"></script>
 <script src="src/ui.js" type="text/javascript"></script></head><body class="bg" id="body" style="cursor: auto;" onload="woas.after_load()" onunload="woas.before_quit()">
 <div id="loading_overlay" style="display: inline; visibility: visible;"><noscript><h1>If you are seeing this text, your browser is not javascript-enabled. Sorry, WoaS is a javascript application</h1></noscript>Loading...</div>
 <div class="wiki_header bg" id="sw_wiki_header" style="position: absolute;">
@@ -353,30 +354,47 @@ div.ns_menu_area ul li, div.ns_menu_area ol li {
 <div style="text-align: center;"><a class="link" onclick="edit_ns_menu()">[Edit]</a></div></div></div>
 <div class="text_area" id="wiki_text" ondblclick="page_dblclick()"></div></div>
 <div id="edit_area" style="display: none; visibility: hidden;">
-<div id="edit_page_title" style="display: block;">Page title: <input id="wiki_page_title" size="50" value=""></div><textarea id="wiki_editor" style="width: 994px; height: 435px;" rows="0" cols="0"></textarea> 
-<table style="font-size: 8pt;">
-<tbody>
-<tr>
-<td>[[link]]</td>
-<td>[[http://example.com]]</td>
-<td>*bold*</td>
-<td>_underline_</td>
-<td>/italic/</td>
-<td>= header</td>
-<td>--- (ruler)</td></tr>
-<tr>
-<td>[[link|label]]</td>
-<td>* unordered list</td>
-<td># ordinal list</td>
-<td>@ alpha list</td>
-<td>== subheader</td>
-<td>{{{ nowiki }}}</td>
-<td></td>
-<td><a class="world" onclick="open_table_help()">(tables)</a></td></tr></tbody></table></div>
+<div id="edit_page_title" style="display: block;">Page title: <input id="wiki_page_title" size="50" value=""></div>
+<div id="wiki_format_buttons" style="display: block; visibility: visible;">
+Wiki Code:
+<input class="wiki_button" name="btn1" value=" B " style="font-weight: bold; width: 30px;" onclick="TagThis('*', '*')" type="button">
+<input class="wiki_button" name="btn2" value=" i " style="font-style: italic; width: 30px;" onclick="TagThis('/', '/')" type="button">
+<input class="wiki_button" name="btn3" value=" u " style="text-decoration: underline; width: 30px;" onclick="TagThis('_', '_')" type="button">
+<input class="wiki_button" name="btn4" value="{{{ nowiki }}}" style="width: 82px;" onclick="TagThis('{{{\n', '\n}}}')" type="button">
+<input class="wiki_button" name="btn5" value="*" style="width: 40px;" onclick="TagThis('* ','')" type="button">
+<input class="wiki_button" name="btn6" value="#" style="width: 40px;" onclick="TagThis('# ','')" type="button">
+<input class="wiki_button" name="btn7" value="@" style="width: 40px;" onclick="TagThis('@ ','')" type="button">
+<input class="wiki_button" name="btn8" value="---" style="width: 40px;" onclick="TagThis('--- ','')" type="button">
+<input class="wiki_button" name="btn9" value="Img" style="width: 40px;" onclick="setImage('[[Image::',']]')" type="button">
+<input class="wiki_button" name="btn10" value="URL" style="text-decoration: underline; width: 40px;" onclick="setUrl('[[','|',']]')" type="button">
+<input class="wiki_button" name="btn7" value="=" style="width: 40px;" onclick="TagThis('= ','')" type="button">
+<input class="wiki_button" name="btn8" value="==" style="width: 40px;" onclick="TagThis('== ','')" type="button">
+<input class="wiki_button" name="btn9" value="Tags" style="width: 40px;" onclick="setTag()" type="button">
+<a class="world" onclick="open_table_help()">About tables</a>
+</div>
+<div id="html_format_buttons" style="display: block; visibility: visible;">HTML Code:
+  <input class="wiki_button" name="b" id="b" value="B" style="font-weight: bold;" onclick="TagThis('<strong>', '</strong>')" type="submit">
+  <input class="wiki_button" name="i" id="i" value="i" style="font-style: italic;" onclick="TagThis('<em>', '</em>')" type="submit">
+  <input class="wiki_button" name="u" id="u" value="u" style="text-decoration: underline;" onclick="TagThis('<u>', '</u>')" type="submit">
+  <input class="wiki_button" name="s" id="s" value="S" style="text-decoration: overline;" onclick="TagThis('<s>', '</s>')" type="submit">
+  <input class="wiki_button" name="sup" id="sup" value="Sup" onclick="TagThis('<sup>', '</sup>')" type="submit">
+  <input class="wiki_button" name="sub" id="sub" value="Sub" onclick="TagThis('<sub>', '</sub>')" type="submit">
+  <input class="wiki_button" name="left" id="left" value="Left" onclick="TagThis('<div align=\'left\'>', '</div>')" type="submit">
+  <input class="wiki_button" name="center" id="center" value="Center" onclick="TagThis('<div align=\'center\'>', '</div>')" type="submit">
+  <input class="wiki_button" name="right" id="right" value="Right" onclick="TagThis('<div align=\'right\'>', '</div>')" type="submit">
+  <input class="wiki_button" name="justify" id="justify" value="Justify" onclick="TagThis('<div align=\'justify\'>', '</div>')" type="submit">
+  <input class="wiki_button" name="list" id="list" value="List" onclick="TagThis('<ul>', '</ul>')" type="submit">
+  <input class="wiki_button" name="list=" id="list=" value="List=" onclick="TagThis('<ol>', '</ol>')" type="submit">
+  <input class="wiki_button" name="li" id="li" value="&lt;li&gt; [*]" onclick="TagThis('<li>', '</li>')" type="submit">
+  <input class="wiki_button" name="blockquote" id="blockquote" value="Blockquote" onclick="TagThis('<blockquote>\n', '\n</blockquote>')" type="submit">
+  <input class="wiki_button" name="img" id="img" value="Image" onclick="setImage('<img src=',' />')" type="submit">
+  <input class="wiki_button" name="url" id="url" value="Link" onclick="setUrl('<a href=',' target=_blank>','</a>')" type="submit">
+</div>
+<textarea id="wiki_editor" style="width: 994px; height: 435px;" rows="0" cols="0"></textarea> 
+</div>
 <div id="debug_info" style="display: inline; visibility: visible; z-index: 101;" align="center">
 <h2>Debug console</h2>
 <p style="width: 50%;">This is a development BETA version of Wiki On a Stick; it is not suggested to use it with important data. If you want to disable this debug message and console, you will have to find the line that says <b><tt>var debug = true;</tt></b> and change it to <b><tt>false</tt></b>.</p>
 <div align="right"><textarea id="swlogger" ondblclick="$('swlogger').value=''" style="width: 80%; background-color: rgb(204, 204, 204);" rows="12" readonly="readonly" cols="70"></textarea><br><input onclick="$('swlogger').value=''" value="Clear" type="button"></div></div>
 <hr>
-
 <div align="center"><sub><a class="link" onclick="go_to('Special::About')">About Wiki on a Stick v0.9.5B</a></sub></div></body></html>

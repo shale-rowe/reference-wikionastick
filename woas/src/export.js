@@ -146,9 +146,9 @@ woas["export_one_page"] = function (
 		data = "<ht"+"ml><he"+"ad><title>"+this.xhtml_encode(title)+"</title>"+exp.css+
 		'<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />'+"\n"+
 		'<meta name="generator" content="Wiki on a Stick v'+this.version+'" />'+"\n"+
-		'<meta name="keywords" content="'+this._attrib_escape(_auto_keywords(raw_text))+'" />'+"\n"+
+		'<meta name="keywords" content="'+this.utf8_encode(this._attrib_escape(_auto_keywords(raw_text)))+'" />'+"\n"+
 		'<meta name="description" content="'+
-		this._attrib_escape(raw_text.replace(/\s+/g, " ").substr(0,max_description_length))+'" />'+"\n"+
+		this.utf8_encode(this._attrib_escape(raw_text.replace(/\s+/g, " ").substr(0,max_description_length)))+'" />'+"\n"+
 		exp.meta_author+
 		exp.custom_bs+
 		"</h"+"ead><"+"body>"+data+"</bod"+"y></h"+"tml>\n"; raw_text = null;
