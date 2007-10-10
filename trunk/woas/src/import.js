@@ -1,4 +1,20 @@
 
+	function get_import_vars(data, ignore) {
+		var c=[];
+		// rename the variables
+		data = data.replace(/([^\\])\nvar (\w+) = /g, function (str, $1, $2) {
+			if (ignore && ignore.indexOf($2)!=-1)
+				return "\nvar ignoreme = ";
+			c.push('sw_import_'+$2);
+			return $1+"\nvar sw_import_"+$2+" = ";
+		});//.replace(/\\\n/g, '');
+		log("collected variables = "+c);	// log:1
+		
+		c = eval(data+"\n["+c+"];");
+		return c;
+	}
+
+
 woas["import_wiki"] = function(filename) {
 	if(confirm("This will OVERWRITE pages with the same title.\n\nAre you sure you want to continue?") == false)
 		return false;
@@ -212,17 +228,10 @@ if (old_version	< 9) {
 
 	var data = _get_data(old_marker, ct, true, true);
 	var collected = [];
-
+	
+	// for versions before v0.9.2B
 	if (old_version < 92) {
-		// rename the variables
-		data = data.replace(/([^\\])\nvar (\w+) = /g, function (str, $1, $2) {
-			collected.push('sw_import_'+$2);
-			return $1+"\nvar sw_import_"+$2+" = ";
-		});//.replace(/\\\n/g, '');
-		
-//		log("collected config variables = "+collected);	// log:0
-		
-		collected = eval(data+"\n["+collected+"];");
+		collected = get_import_vars(data);
 		data = ct = null;
 
 		var has_last_page_flag = (collected.length==14) ? 1 : 0;
@@ -254,7 +263,7 @@ if (old_version	< 9) {
 		
 	} else {	// we are importing from v0.9.2 and above which has a config object for all the config flags
 		// from version v0.9.5B+ we have an object oriented WoaS
-		if (old_version == 95) {
+		if (old_version >= 95) {
 /*			alert("Import from version 0.9.5B not yet supported!");
 			// remove hourglass
 			document.body.style.cursor= "auto";
@@ -273,22 +282,12 @@ if (old_version	< 9) {
 				woas[collected[a]] = i__woas[collected[a]];
 			} collected = [];
 			
-			// old-style import
-			// rename the variables
-			data = data.replace(/([^\\])\nvar (\w+) = /g, function (str, $1, $2) {
-				if (($2=="woas") || ($2=="__marker"))
-					return "\nvar ignoreme_"+$2+" = ";
-				collected.push('sw_import_'+$2);
-				return $1+"\nvar sw_import_"+$2+" = ";
-			});//.replace(/\\\n/g, '');
-			log("collected config variables = "+collected);	// log:1
-			
-			collected = eval(data+"\n["+collected+"];");
+			// old-style import for content, skipping the main woas object and the marker
+			collected = get_import_vars(data, new Array('woas', '__marker'));
 			data = null;
 			
 			//0:sw_import_current,1:sw_import_main_page,
 			//2:sw_import_backstack,3:sw_import_page_titles,4:sw_import_page_attrs,5:sw_import_pages
-
 			new_main_page = collected[1];
 			if (import_content) {
 				page_contents = collected[5];
@@ -302,16 +301,21 @@ if (old_version	< 9) {
 
 			i__woas = null;
 		} else { // for versions 0.9.2, 0.9.3, 0.9.4
+			collected = get_import_vars(data, new Array('version', '__marker', '__config'));
+			data = null;
+			//v0.9.3B: 0:sw_import_current,1:sw_import_main_page,2:sw_import_backstack,
+			//3:sw_import_page_titles,4:sw_import_page_attrs,5:sw_import_pages
+
 			if (import_content) {
-				old_page_attrs = sw_import_page_attrs;
-				
-				page_contents = sw_import_pages;
+				old_page_attrs = collected[4];
+				page_contents = collected[5];
+				page_names = collected[3];
 				
 				// replace the pre tags with the new nowiki syntax
 				if (old_version==92) {
 					for(var i=0;i<page_contents.length;i++) {
 						// page is encrypted, leave it as is
-						if (this.is__encrypted(i))
+						if (old_page_attrs(i) & 2)
 							continue;
 						page_contents[i] = page_contents[i].replace(/<pre(.*?)>((.|\n)*?)<\/pre>/g,
 										function (str, $1, $2) {
@@ -341,6 +345,7 @@ if (old_version	< 9) {
 					pages.push(page_contents[i]);
 					page_attrs.push( old_page_attrs[i] );
 				} else {
+					log("replacing "+page_names[i]);
 					page_titles[pi] = page_names[i];
 					if (old_version==94) {
 						// convert embedded files to base64 encoding
@@ -354,7 +359,7 @@ if (old_version	< 9) {
 				}
 				pages_imported++;
 			} else { // special pages
-				if (old_version==94) {
+				if (old_version>=94) {
 					if (page_names[i]=="Special::Bootscript") {
 						page_titles.push("Special::Bootscript");
 						pages.push(page_contents[i]);
