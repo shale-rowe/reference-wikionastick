@@ -27,7 +27,7 @@ function TextAreaSelectionHelper(obj) {
 }
 
 TextAreaSelectionHelper.prototype.getSelectedText=function() {
-  return this.iesel? this.iesel.text: (this.start>=0&&this.end>this.start)? this.target.value.substring(this.start,this.end): "";
+	return this.iesel? this.iesel.text: (this.start>=0&&this.end>this.start)? this.target.value.substring(this.start,this.end): "";
 }
 
 TextAreaSelectionHelper.prototype.setSelectedText=function(text, secondtag) {
@@ -84,17 +84,21 @@ function TagThis(starttag, endtag){
 }
 
 function setUrl(starttag,centerteg,endtag) {
-         url=prompt('Link:','http://');
-         comm=prompt('Link text:','');
-		 woas._editor.setSelectedText(starttag+url+centerteg,comm+endtag);
-        }
+	var url=prompt('Link:','http://');
+	if (url===null) return;
+	var comm=prompt('Link text:','');
+	if (comm===null) return;
+		woas._editor.setSelectedText(starttag+url+centerteg,comm+endtag);
+}
 
 function setImage(starttag,endtag) {
-         pic=prompt('Image:','');
-		 woas._editor.setSelectedText(starttag,pic+endtag);
-        }
+	var pic=prompt('Image:','');
+	if (pic!==null)
+		woas._editor.setSelectedText(starttag,pic+endtag);
+}
 
 function setTag() {
-         tag=prompt('Set tag:','');
-         woas._editor.setSelectedText("[[Tag::",tag+"]]");
-        }
+        var tag=prompt('Set tag:','');
+	if (tag!==null)
+	woas._editor.setSelectedText("[[Tag::",tag+"]]");
+}
