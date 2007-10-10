@@ -293,7 +293,7 @@ woas["get_text_special"] = function(title) {
 	var text = null;
 	if (p!=-1) {
 		var namespace = title.substring(0,p);
-		log("namespace of "+title+" is "+namespace);	// log:1
+//		log("namespace of "+title+" is "+namespace);	// log:0
 		title = title.substring(p+2);
 		if (!title.length) return this._get_namespace_pages(namespace+"::");
 		switch (namespace) {
