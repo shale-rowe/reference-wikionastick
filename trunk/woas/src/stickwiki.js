@@ -1034,7 +1034,7 @@ woas["before_quit"] = function () {
 
 woas["setHTML"] = woas["getHTML"] = null;
 
-// when the page is loaded
+// when the page is loaded - onload, on_load
 woas["after_load"] = function() {
 	log("***** StickWiki started *****");	// log:1
 	
@@ -1098,6 +1098,8 @@ woas["after_load"] = function() {
 		this._asto = setTimeout("_auto_saver(woas)", this.config.auto_save);
 	
 	this._create_bs();
+	
+	this["_editor"] = new TextAreaSelectionHelper(document.getElementById("wiki_editor"));
 	
 	$.hide("loading_overlay");
 }
