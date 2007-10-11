@@ -88,13 +88,13 @@ function setUrl(starttag,centertag,endtag) {
 	if (url===null) return;
 	var comm=prompt('Link text:','');
 	if (comm===null) return;
-		woas._editor.setSelectedText(starttag+escape(url)+centertag,comm+endtag);
+		woas._editor.setSelectedText(starttag+woas.js_encode(url)+centertag,comm+endtag);
 }
 
 function setImage(starttag,endtag) {
 	var pic=prompt('Image:','');
 	if (pic!==null)
-		woas._editor.setSelectedText(starttag,escape(pic)+endtag);
+		woas._editor.setSelectedText(starttag,woas.js_escape(pic)+endtag);
 }
 
 function setTag() {
