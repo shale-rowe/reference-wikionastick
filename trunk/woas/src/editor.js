@@ -83,18 +83,18 @@ function TagThis(starttag, endtag){
 	woas._editor.setSelectedText(starttag, endtag);
 }
 
-function setUrl(starttag,centerteg,endtag) {
+function setUrl(starttag,centertag,endtag) {
 	var url=prompt('Link:','http://');
 	if (url===null) return;
 	var comm=prompt('Link text:','');
 	if (comm===null) return;
-		woas._editor.setSelectedText(starttag+url+centerteg,comm+endtag);
+		woas._editor.setSelectedText(starttag+escape(url)+centertag,comm+endtag);
 }
 
 function setImage(starttag,endtag) {
 	var pic=prompt('Image:','');
 	if (pic!==null)
-		woas._editor.setSelectedText(starttag,pic+endtag);
+		woas._editor.setSelectedText(starttag,escape(pic)+endtag);
 }
 
 function setTag() {
