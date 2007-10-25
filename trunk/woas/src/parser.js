@@ -418,6 +418,7 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 	
 	tags = tags.toUnique();
 	if (tags.length && !export_links) {
+		var s;
 		if (this.force_inline)
 			s = "";
 		else
