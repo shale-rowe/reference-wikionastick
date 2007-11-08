@@ -519,8 +519,14 @@ woas["export_file"] = function(page, dest_path) {
 	var data=this.get__text(pi);
 	if (data==null)
 		return false;
-	// attempt to save the file (text mode)
-	return saveFile(dest_path, data);	
+	// attempt to save the file (binary mode)
+	data = decode64(data);
+	_force_binary = true;
+	var r = saveFile(dest_path, data);	
+	_force_binary = false;
+	if (r)
+		alert("Written "+data.length+" bytes");
+	return r;
 }
 
 woas["_embed_process"] = function(etype) {
