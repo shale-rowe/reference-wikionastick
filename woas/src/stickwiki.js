@@ -456,7 +456,7 @@ woas["_get_embedded"] = function(cr, etype) {
 			pview_link = "<div id='_part_display'><em>Only the first 1024 bytes are displayed</em><br /><a href='javascript:show_full_file("+pi+")'>Display full file</a></div>";
 		var _del_cmd;
 		if (cr.indexOf("Special::")!=0) {
-			_del_cmd = "function query_delete_file() {if (confirm('Are you sure you want to delete this file?')){delete_page('"+this.js_encode(cr)+"');back_or(main_page);this.save_page('"+this.js_encode(cr)+"');}}\n";
+			_del_cmd = "function query_delete_file() {if (confirm('Are you sure you want to delete this file?')){delete_page('"+this.js_encode(cr)+"');back_or(main_page);woas.save_page('"+this.js_encode(cr)+"');}}\n";
 			_del_lbl = "\n\n<a href=\"javascript:query_delete_file()\">Delete embedded file</a>\n";
 		} else
 			_del_lbl = _del_cmd = ""
@@ -479,7 +479,7 @@ woas["_get_embedded"] = function(cr, etype) {
 		"\n\n<div id=\"img_desc\">Loading...</div>"+
 		"<sc"+"ript>function _to_img_display() { var img=$('img_tag');\nwoas.setHTML($('img_desc'), 'Mime type: "+text.match(/^data:\s*([^;]+);/)[1]+"<br />File size: "+_convert_bytes(((text.length-(text.match(/^data:\s*[^;]*;\s*[^,]*,\s*/)[0]).length)*3)/4)+
 		" (requires "+_convert_bytes(text.length)+" due to base64 encoding)"+
-		"<br />Width: '+img.width+'px<br />Height: '+img.height+'px');} setTimeout('_to_img_display()', 0); function query_delete_image() {if (confirm('Are you sure you want to delete this image?')){delete_page('"+this.js_encode(cr)+"');back_or(main_page);this.save_page('"+this.js_encode(cr)+"');}}\n"+
+		"<br />Width: '+img.width+'px<br />Height: '+img.height+'px');} setTimeout('_to_img_display()', 0); function query_delete_image() {if (confirm('Are you sure you want to delete this image?')){delete_page('"+this.js_encode(cr)+"');back_or(main_page);woas.save_page('"+this.js_encode(cr)+"');}}\n"+
 		"function query_export_image() {\nvar exp_path = _get_this_filename().replace(/\\"+slash_c+"[^\\"+
 		slash_c+"]*$/, \""+(slash_c=="\\"?"\\\\":"/")+"\")+'"+this.js_encode(img_name)+"';if (confirm('Do you want to export this image in the below specified path?'+\"\\n\\n\"+exp_path)){woas.export_image('"+this.js_encode(cr)+"', exp_path);}}"+
 		"</sc"+"ript>"+
