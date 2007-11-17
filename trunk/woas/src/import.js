@@ -71,6 +71,7 @@ woas["import_wiki"] = function(filename) {
 					old_version = 94;
 				break;
 				case "0.9.5B":
+				case "0.9.5C":
 					old_version = 95;
 				break;
 				default:
