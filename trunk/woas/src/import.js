@@ -280,9 +280,8 @@ if (old_version	< 9) {
 					// page is encrypted, leave it as is
 					if (old_page_attrs[i] & 2)
 						continue;
-					// throw away special pages, except the Bootscript
+					// ignore special pages
 					if (page_names[i].indexOf("Special::")===0)
-						// no bootscript yet to import
 						continue;
 					page_contents[i] = page_contents[i].replace(/<pre(.*?)>((.|\n)*?)<\/pre>/g,
 									function (str, $1, $2) {
@@ -330,6 +329,7 @@ if (old_version	< 9) {
 		// add new data
 		var pages_imported = 0;
 		for(var i=0; i<page_names.length; i++) {
+			// we are not using is_reserved() because will create chaos in case of edit_override
 			if (page_names[i].indexOf("Special::")===0) {
 				if (old_version>=94) {
 					if (page_names[i]=="Special::Bootscript") {
