@@ -103,7 +103,8 @@ woas["popup"] = function (name,fw,fh,extra) {
 	return wnd;
 }
 
-var edit_override = true;
+//DANGER: will corrupt your WoaS!
+var edit_override = false;
 
 var reserved_namespaces = ["Special", "Lock", "Locked", "Unlocked", "Unlock", "Tags", "Tagged", "Include"];
 
