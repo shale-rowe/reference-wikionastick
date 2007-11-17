@@ -1043,7 +1043,7 @@ woas["setHTML"] = woas["getHTML"] = null;
 
 // when the page is loaded - onload, on_load
 woas["after_load"] = function() {
-	log("***** StickWiki started *****");	// log:1
+	log("***** Woas v"+this.version+" started *****");	// log:1
 	
 	document.body.style.cursor = "auto";
 	
