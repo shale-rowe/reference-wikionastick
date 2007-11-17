@@ -1045,7 +1045,7 @@ woas["after_load"] = function() {
 	log("***** StickWiki started *****");	// log:1
 	
 	document.body.style.cursor = "auto";
-
+	
 	if (ie) {	// some hacks for IE
 		this.setHTML = function(elem, html) {elem.text = html;};
 		this.getHTML = function(elem) {return elem.text};
