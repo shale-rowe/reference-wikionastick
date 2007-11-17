@@ -6,7 +6,7 @@
 # run 'php -q make_woas.php' to create a single-file version from the multiple files version
 # additional understood pameters are:
 # 
-# woas=woas/path		path to WoaS HTML file - defaults to woas.htm
+# woas=path/woas.htm		path to WoaS HTML file - defaults to woas.htm
 # log=[0|1|2]		0 - fully disable log, 1 - keep logging as is, 2 - enable all log lines
 # debug=[0|1]		specify 1 to enable debugging code
 # edit_override=[0|1]	specify 1 to enable the edit override
@@ -95,7 +95,7 @@ $ct = substr_replace($ct, $tail, $p, $ep-$p);
 
 file_put_contents('woas-merged.htm', $ct);
 
-echo "WoaS merged into single file\n";
+echo "WoaS merged into single file woas-merged.htm\n";
 
 exit(0);
 
