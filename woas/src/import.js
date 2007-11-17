@@ -94,7 +94,8 @@ woas["import_wiki"] = function(filename) {
 	var page_contents = [];
 	var old_page_attrs = [];
 	var pc = 0;
-	
+
+// old versions parsing
 if (old_version	< 9) {
 	
 	var wiki;
@@ -118,8 +119,7 @@ if (old_version	< 9) {
 	} else
 		vars = "";
 	
-	if(old_version == 2)
-	{
+	if(old_version == 2) {
 		try {
 			vars = wiki.match(/\<div .*?id=("main_page"|main_page)>(.*?)\<\/div\>/i)[1];
 		} catch(e) {
@@ -131,6 +131,8 @@ if (old_version	< 9) {
 	v0.9.5B
 		* object orientation of code
 		* server_mode disappears
+	v0.9.4B
+		* introduced Special::Bootscript
 	v0.04
 		* permit_edits variable appeared here
 	v0.02
@@ -147,8 +149,7 @@ if (old_version	< 9) {
 	wiki = wiki.substring(wiki.indexOf(">")+1);
 	vars = vars.substring(vars.indexOf(">")+1);
 	
-	vars.replace(/<div id="?(version_|main_page_|permit_edits_|[\w_]+)"?>((\n|.)*?)<\/div>/gi, function(str, $1, $2)
-			{
+	vars.replace(/<div id="?(version_|main_page_|permit_edits_|[\w_]+)"?>((\n|.)*?)<\/div>/gi, function(str, $1, $2) {
 				if(old_version == 2)
 					var_names[vc] = "main_page_";
 				else
@@ -156,13 +157,12 @@ if (old_version	< 9) {
 				var_values[vc] = $2;
 				vc++;
 			});
-			
+	
 //	log("Variables are ("+var_names+")");	// log:0
 
-	// now extract the pages
+	// now extract the pages from old versions
 	if (import_content) {
-		wiki.replace(/<div .*?id="?([^">]+)"?>((\n|.)*?)<\/div>/gi, function(str, $1, $2, $3)
-			{
+		wiki.replace(/<div .*?id="?([^">]+)"?>((\n|.)*?)<\/div>/gi, function(str, $1, $2, $3) {
 //				log("Parsing old page "+$1);	// log:0
 				if (old_version != 2) {
 					page_names[pc] = unescape($1);
@@ -171,8 +171,8 @@ if (old_version	< 9) {
 					page_names[pc] = $1;
 					page_contents[pc] = $2;
 				}
-				// dismiss special pages
-				if (page_names[pc].indexOf("Special::")==0) {
+				// throw away old special pages
+				if (page_names[pc].indexOf("Special::")===0) {
 					if (page_names[pc].search(/Special::Edit Menu/i)==0)
 						page_names[pc] = "::Menu";
 					else return;
@@ -278,7 +278,11 @@ if (old_version	< 9) {
 				// replace the pre tags with the new nowiki syntax
 				for(var i=0;i<page_contents.length;i++) {
 					// page is encrypted, leave it as is
-					if (old_page_attrs(i) & 2)
+					if (old_page_attrs[i] & 2)
+						continue;
+					// throw away special pages, except the Bootscript
+					if (page_names[i].indexOf("Special::")===0)
+						// no bootscript yet to import
 						continue;
 					page_contents[i] = page_contents[i].replace(/<pre(.*?)>((.|\n)*?)<\/pre>/g,
 									function (str, $1, $2) {
@@ -288,6 +292,7 @@ if (old_version	< 9) {
 										return s;
 									});
 				}
+				// done pre tags fixing
 			}
 		} // do not import content pages
 
@@ -317,16 +322,23 @@ if (old_version	< 9) {
 		} else data=null;
 		// DO NOT delete the arrays! They're referenced
 //		collected = null;
-	} // importing from v0.9.2B+
+	} // done importing from v0.9.2B+
 }
 
+	// this is the common import procedure
 	if (import_content) {
 		// add new data
 		var pages_imported = 0;
-		for(var i=0; i<page_names.length; i++)
-		{
-			if ( !this.is_reserved(page_names[i]))
-			{
+		for(var i=0; i<page_names.length; i++) {
+			if (page_names[i].indexOf("Special::")===0) {
+				if (old_version>=94) {
+					if (page_names[i]=="Special::Bootscript") {
+						page_titles.push("Special::Bootscript");
+						pages.push(page_contents[i]);
+						page_attrs.push(4);
+					}
+				}
+			} else {
 				pi = page_titles.indexOf(page_names[i]);
 				if (pi == -1) {
 					page_titles.push(page_names[i]);
@@ -354,14 +366,6 @@ if (old_version	< 9) {
 					page_attrs[pi] = old_page_attrs[i];
 				}
 				pages_imported++;
-			} else { // special pages
-				if (old_version>=94) {
-					if (page_names[i]=="Special::Bootscript") {
-						page_titles.push("Special::Bootscript");
-						pages.push(page_contents[i]);
-						page_attrs.push(4);
-					}
-				}
 			}
 		}
 	} // do not import content pages
