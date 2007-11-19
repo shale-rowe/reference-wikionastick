@@ -1,5 +1,3 @@
-/* <![CDATA[ */
-/*** stickwiki.js ***/
 
 // page attributes bits are mapped to (readonly, encrypted, ...)
 
@@ -1731,5 +1729,3 @@ function _auto_keywords(source) {
 woas["xhtml_to_text"] = function(s) {
 	return s.replace(/<br\s?\/?>/g, "\n").replace(/<\/?\w+[^>]*>/g, ' ').replace(/&#?([^;]+);/g, function(str, $1) { if (!isNaN($1)) return String.fromCharCode($1); else return ""; });
 }
-
-/* ]]> */

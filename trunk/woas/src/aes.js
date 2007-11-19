@@ -1,4 +1,3 @@
-
 // AES encryption for StickWiki
 // adapted by legolas558
 // license: GNU/GPL

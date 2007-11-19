@@ -76,12 +76,14 @@ function _script_replace($m) {
 		return $m[0];
 	}
 	$ct = file_get_contents($base_dir.$m[1]);
+	// remove BOM if present
+	$ct = preg_replace('/\\x'.dechex(239).'\\x'.dechex(187).'\\x'.dechex(191).'/A', '', $ct);
 	//TODO: apply modifications now
 	++$replaced;
 	echo "Replaced ".$m[1]."\n";
 	return '<script language="javascript" type="text/javascript">'.
 		"\n/* <![CDATA[ */\n/*** ".basename($m[1])." ***/\n".$ct.
-		"\n/* ]]> */ </script>\n";
+		"\n/* ]]> */ </script>";
 }
 
 $tail = preg_replace_callback('/<script src=\"([^"]+)" type="text\\/javascript"><\\/script>/', '_script_replace', $tail);
