@@ -9,7 +9,7 @@ woas["html_buttons_display"] = function (v) {
 	$('html_format_buttons').style.visibility = v ? 'visible' : 'hidden';
 }
 
-// submit by pr0xy
+// submitted by pr0xy
 
 function TextAreaSelectionHelper(obj) {
  this.target=obj;

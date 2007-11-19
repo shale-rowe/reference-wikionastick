@@ -1,4 +1,5 @@
-// Here begin the special pages' code
+// Here begins the special pages' code
+
 woas["special_encrypted_pages"] = function(locked) {
 	var pg = [];
 	for(var i=0;i<pages.length;i++) {
