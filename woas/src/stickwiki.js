@@ -847,7 +847,9 @@ woas["_activate_scripts"] = function() {
 }
 
 woas["_set_title"] = function (new_title) {
-	this.setHTML($("wiki_title"), this.create_breadcrumb(new_title));
+	var wt=$("wiki_title");
+	// works with IE6, FF, etc.
+	wt.innerHTML = this.create_breadcrumb(new_title);
 	document.title = new_title;
 }
 
