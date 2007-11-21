@@ -7,13 +7,16 @@ var _doctype = "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\"
 var ie = false;
 var ie6 = false;
 var firefox = false;
+//var ff3 = false;
 var opera = false;
 
 if((navigator.userAgent).indexOf("Opera")!=-1)
 	opera = true;
-else if(navigator.appName == "Netscape")
+else if(navigator.appName == "Netscape") {
 	firefox = true;
-else if((navigator.appName).indexOf("Microsoft")!=-1) {
+//	if (navigator.userAgent.match("Firefox/3"))
+//		ff3 = true;
+} else if((navigator.appName).indexOf("Microsoft")!=-1) {
 	ie = true;
 	ie6 = (navigator.userAgent.search(/msie 6\./i)!=-1);
 }
