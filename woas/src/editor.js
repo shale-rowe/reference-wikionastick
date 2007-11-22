@@ -79,6 +79,10 @@ this.carretHandler.scroll=this.scrollTop;
  } else {this.carretHandler.start=this.carretHandler.end=-1;}
 }
 
+function	DivTagThis(align) {
+	TagThis('<div align="'+align+'" />', '</div>');
+}
+
 function TagThis(starttag, endtag){
 	woas._editor.setSelectedText(starttag, endtag);
 }
@@ -93,6 +97,22 @@ function setUrl(starttag,centertag,endtag) {
 	var comm=prompt('Link text:','');
 	if (comm===null) return;
 		woas._editor.setSelectedText(starttag+woas.js_encode(url)+centertag,comm+endtag);
+}
+
+function setWikiImage() {
+	setImage('[[Image::',']]');
+}
+
+function setHTMLImage() {
+	setImage('<img src=\'','\' />');
+}
+
+function setWikiUrl() {
+	setUrl('[[','|',']]');
+}
+
+function setHTMLUrl() {
+	setUrl('<a href=\'','\' target=_blank>','</a>');
 }
 
 function setImage(starttag,endtag) {
