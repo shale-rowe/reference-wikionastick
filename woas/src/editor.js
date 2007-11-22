@@ -118,7 +118,7 @@ function setHTMLUrl() {
 function setImage(starttag,endtag) {
 	var pic=prompt('Image:','');
 	if (pic!==null)
-		woas._editor.setSelectedText(starttag,woas.js_escape(pic)+endtag);
+		woas._editor.setSelectedText(starttag,woas.js_encode(pic)+endtag);
 }
 
 function setTag() {
