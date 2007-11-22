@@ -1524,14 +1524,32 @@ woas["save__page"] = function(pi) {
 
 function _get_data(marker, source, full, start) {
 	var offset;
+	// always find the end marker to make the XHTML fixes
+	offset = source.indexOf("/* "+marker+ "-END */");
+	if (offset == -1) {
+		alert("END marker not found!");
+		return false;
+	}			
+	offset += 6 + 4 + marker.length + 2;
+	
+	// IE ...
+	var body_ofs = source.indexOf("</head>", offset);
+	if (body_ofs == -1)
+		body_ofs = source.indexOf("</HEAD>", offset);
+	if (body_ofs != -1) {
+		// XHTML hotfixes (FF doesn't either save correctly)
+		source = source.substring(0, body_ofs) + source.substring(body_ofs).
+				replace(/<(img|hr|br|input|meta)[^>]*>/gi, function(str, tag) {
+		var l=str.length;
+		if (str.charAt(l-1)!='/')
+			str = str.substr(0, l-1)+" />";
+		return str;
+	});
+
+	}
+	
 	if (full) {
-		offset = source.indexOf("/* "+marker+ "-END */");
-		if (offset == -1) {
-			alert("END marker not found!");
-			return false;
-		}			
-		offset += 6 + 4 + marker.length + 2;
-		
+		// offset was previously calculated
 		if (start) {
 			var s_offset = source.indexOf("/* "+marker+ "-START */");
 			if (s_offset == -1) {
@@ -1540,7 +1558,6 @@ function _get_data(marker, source, full, start) {
 			}
 			return source.substring(s_offset, offset);
 		}
-		
 	} else {
 		offset = source.indexOf("/* "+marker+ "-DATA */");
 		if (offset == -1) {
