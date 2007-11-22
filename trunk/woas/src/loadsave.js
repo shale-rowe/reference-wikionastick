@@ -27,7 +27,8 @@ function _get_this_filename() {
 function _saveThisFile(new_data, old_data) {
 	var filename = _get_this_filename();
 	
-	old_data = old_data.replace(/<(img|hr|br|input)[^>]*>/g, function(str, tag) {
+	// XHTML hotfixes (FF doesn't either save correctly)
+	old_data = old_data.replace(/<(img|hr|br|input|meta)[^>]*>/g, function(str, tag) {
 		var l=str.length;
 		if (str.charAt(l-1)!='/')
 			str = str.substr(0, l-1)+" />";
