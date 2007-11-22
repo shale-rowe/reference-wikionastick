@@ -71,7 +71,9 @@ function cancel() {
 		woas.disable_edit();
 }
 
-function save() { woas.save(); }
+function save() {
+	woas.save();
+}
 
 // when edit is clicked
 function edit() {	woas.edit_page(current);	}
