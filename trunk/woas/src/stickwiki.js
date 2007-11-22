@@ -1392,8 +1392,7 @@ woas["save"] = function() {
 		this.menu_display("save", false);
 		return;
 	}
-	switch(current)
-	{
+	switch(current) {
 		case "Special::Edit CSS":
 			this.setHTML(_css_obj(), $("wiki_editor").value);
 			back_to = null;
@@ -1402,8 +1401,7 @@ woas["save"] = function() {
 			break;
 		default:
 			// check if text is empty
-			if($("wiki_editor").value == "")
-			{
+			if($("wiki_editor").value == "") {
 				if(confirm("Are you sure you want to DELETE this page?"))
 				{
 					var deleted = current;
