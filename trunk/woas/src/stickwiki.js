@@ -1388,13 +1388,15 @@ function _css_obj() {
 // when save is clicked
 woas["save"] = function() {
 	if (this.config.cumulative_save && !kbd_hooking) {
-		this.save_to_file(true);
+		if (this._editor_changed)
+			this.save_to_file(true);
 		this.menu_display("save", false);
 		return;
 	}
 	switch(current) {
 		case "Special::Edit CSS":
-			this.setHTML(_css_obj(), $("wiki_editor").value);
+			if (this._editor_changed)
+				this.setHTML(_css_obj(), $("wiki_editor").value);
 			back_to = null;
 			current = "Special::Advanced";
 			$("wiki_page_title").disabled = "";
@@ -1413,7 +1415,8 @@ woas["save"] = function() {
 				return;
 			} else {
 				// here the page gets actually saved
-				this.set_text($("wiki_editor").value);
+				if (this._editor_changed)
+					this.set_text($("wiki_editor").value);
 				new_title = woas.trim($("wiki_page_title").value);
 				if (this.is_menu(new_title)) {
 					this.refresh_menu_area();
@@ -1435,6 +1438,8 @@ woas["save"] = function() {
 	this.disable_edit();
 	if (this._editor_changed)
 		this.save_page(saved);
+	else
+		log("skipping save because textarea was not changed");
 }
 
 // push a page into history
