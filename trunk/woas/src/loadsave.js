@@ -26,6 +26,14 @@ function _get_this_filename() {
 
 function _saveThisFile(new_data, old_data) {
 	var filename = _get_this_filename();
+	
+	old_data = old_data.replace(/<(img|hr|br|input)[^>]*>/g, function(str, tag) {
+		var l=str.length;
+		if (str.charAt(l-1)!='/')
+			str = str.substr(0, l-1)+" />";
+		return str;
+	});
+	
 	r = saveFile(filename,
 	_doctype+"<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\">\n<head>\n<sc"+"ript type=\"text/javascript\">" + new_data + "\n" + old_data + "</html>");
 	if (r==true)
@@ -34,7 +42,6 @@ function _saveThisFile(new_data, old_data) {
 		alert("Save to file \""+filename+"\" failed!\n\nMaybe your browser is not supported");
 	return r;
 }
-
 
 function saveFile(fileUrl, content)
 {

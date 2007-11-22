@@ -372,8 +372,8 @@ Wiki Code:
 <input class="wiki_button" name="btn6" value="#" style="width: 40px;" onclick="TagThis('# ','')" type="button" />
 <input class="wiki_button" name="btn7" value="@" style="width: 40px;" onclick="TagThis('@ ','')" type="button" />
 <input class="wiki_button" name="btn8" value="---" style="width: 40px;" onclick="TagThis('--- ','')" type="button" />
-<input class="wiki_button" name="btn9" value="Img" style="width: 40px;" onclick="setImage('[[Image::',']]')" type="button" />
-<input class="wiki_button" name="btn10" value="URL" style="text-decoration: underline; width: 40px;" onclick="setUrl('[[','|',']]')" type="button" />
+<input class="wiki_button" name="btn9" value="Img" style="width: 40px;" onclick="setWikiImage()" type="button" />
+<input class="wiki_button" name="btn10" value="URL" style="text-decoration: underline; width: 40px;" onclick="setWikiUrl()" type="button" />
 <input class="wiki_button" name="btn7" value="=" style="width: 40px;" onclick="TagThis('= ','')" type="button" />
 <input class="wiki_button" name="btn8" value="==" style="width: 40px;" onclick="TagThis('== ','')" type="button" />
 <input class="wiki_button" name="btn9" value="Tags" style="width: 40px;" onclick="setTag()" type="button" />
@@ -386,16 +386,16 @@ Wiki Code:
   <input class="wiki_button" name="s" id="s" value="S" style="text-decoration: overline;" onclick="FullTagThis('s')" type="submit" />
   <input class="wiki_button" name="sup" id="sup" value="Sup" onclick="FullTagThis('sup'')" type="submit" />
   <input class="wiki_button" name="sub" id="sub" value="Sub" onclick="FullTagThis('sub')" type="submit" />
-  <input class="wiki_button" name="left" id="left" value="Left" onclick="TagThis('<div align=\'left\'>', '</div>')" type="submit" />
-  <input class="wiki_button" name="center" id="center" value="Center" onclick="TagThis('<div align=\'center\'>', '</div>')" type="submit" />
-  <input class="wiki_button" name="right" id="right" value="Right" onclick="TagThis('<div align=\'right\'>', '</div>')" type="submit" />
-  <input class="wiki_button" name="justify" id="justify" value="Justify" onclick="TagThis('<div align=\'justify\'>', '</div>')" type="submit" />
+  <input class="wiki_button" name="left" id="left" value="Left" onclick="DivTagThis('left')" type="submit" />
+  <input class="wiki_button" name="center" id="center" value="Center" onclick="DivTagThis('center')" type="submit" />
+  <input class="wiki_button" name="right" id="right" value="Right" onclick="DivTagThis('right')" type="submit" />
+  <input class="wiki_button" name="justify" id="justify" value="Justify" onclick="DivTagThis('justify')" type="submit" />
   <input class="wiki_button" name="list" id="list" value="List" onclick="FullTagThis('ul')" type="submit" />
   <input class="wiki_button" name="list_eq" id="list_eq" value="List=" onclick="FullTagThis('ol')" type="submit" />
   <input class="wiki_button" name="li" id="li" value="&lt;li&gt; [*]" onclick="FullTagThis('li')" type="submit" />
   <input class="wiki_button" name="blockquote" id="blockquote" value="Blockquote" onclick="FullTagThis('blockquote')" type="submit" />
-  <input class="wiki_button" name="img" id="img" value="Image" onclick="setImage('<img src=\'','\' />')" type="submit" />
-  <input class="wiki_button" name="url" id="url" value="Link" onclick="setUrl('<a href=\'','\' target=_blank>','</a>')" type="submit" />
+  <input class="wiki_button" name="img" id="img" value="Image" onclick="setHTMLImage()" type="submit" />
+  <input class="wiki_button" name="url" id="url" value="Link" onclick="setHTMLUrl()" type="submit" />
 </div>
 <textarea onkeyup="return woas.editor_hit()" onmouseup="return woas.editor_hit()" id="wiki_editor" style="width: 994px; height: 441px;" rows="0" cols="0"></textarea> 
 </div>
