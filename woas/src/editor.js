@@ -83,6 +83,10 @@ function TagThis(starttag, endtag){
 	woas._editor.setSelectedText(starttag, endtag);
 }
 
+function FullTagThis(tag){
+	woas._editor.setSelectedText('<'+tag+'>','<'+tag+' />');
+}
+
 function setUrl(starttag,centertag,endtag) {
 	var url=prompt('Link:','http://');
 	if (url===null) return;
