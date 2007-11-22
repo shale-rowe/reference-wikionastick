@@ -24,8 +24,7 @@ function _get_this_filename() {
 
 //alert(_get_this_filename());
 
-function _saveThisFile(new_data, old_data)
-{
+function _saveThisFile(new_data, old_data) {
 	var filename = _get_this_filename();
 	r = saveFile(filename,
 	_doctype+"<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\">\n<head>\n<sc"+"ript type=\"text/javascript\">" + new_data + "\n" + old_data + "</html>");
