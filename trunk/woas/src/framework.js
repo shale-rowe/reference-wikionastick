@@ -1,7 +1,7 @@
 
 woas["debug"] = true;			// toggle debug mode (and console)
 
-var _doctype = "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n";
+var _doctype = "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\" \"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\">\n";
 
 // browser flags - not to be in WoaS object
 var ie = false;
