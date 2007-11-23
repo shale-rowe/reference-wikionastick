@@ -102,9 +102,9 @@ woas["popup"] = function (name,fw,fh,extra) {
 }
 
 //DANGER: will corrupt your WoaS!
-var edit_override = false;
+var edit_override = true;
 
-var reserved_namespaces = ["Special", "Lock", "Locked", "Unlocked", "Unlock", "Tags", "Tagged", "Include"];
+var reserved_namespaces = ["Special", "Lock", "Locked", "Unlocked", "Unlock", "Tags", "Tagged", "Include", "Javascript"];
 
 // create the regex for reserved namespaces
 var reserved_rx = "^";
@@ -580,11 +580,7 @@ woas["_embed_process"] = function(etype) {
 	return true;
 }
 
-woas["_get_special"] = function(cr) {
-	var text = null;
-//	log("Getting special page "+cr);	// log:0
-	switch(cr) {
-		case "New page":
+woas["special_new_page"] = function() {
 			var title = "";
 			do {
 				title = prompt("Insert new page title", title);
@@ -626,44 +622,44 @@ woas["_get_special"] = function(cr) {
 
 				}
 			}
-			return;
-		case "Search":
-			text = this.get_text("Special::"+cr);
-			break;
-		case "Erase Wiki":
-			if (erase_wiki()) {
-				this.save_to_file(true);
-				back_or(main_page);
-			}
-			return null;
-		case "Main Page":
-			go_to(main_page);
-			return null;
-		case "All Pages":
-			text = this.special_all_pages();
-			break;
-		case "Orphaned Pages":
-			text = this.special_orphaned_pages();
-			break;
-		case "Pages not yet created":
-			text = this.special_dead_pages();
-			break;
-		case "Backlinks":
-			text = this.special_links_here();
-			break;
-		case "Edit Menu":
-			go_to("::Menu");
-			this.edit_page(current);
-			return null;
-		case "Edit CSS":
-			if (!this.config.permit_edits && !edit_override) {
-				alert("This Wiki on a Stick is read-only");
-				return null;
-			}
-			_servm_alert();
-			this.current_editing("Special::"+cr, true);
-			this.edit_ready(_css_obj().innerHTML);
-			return null;
+
+}
+
+woas["special_edit_menu"] = function() {
+	woas.edit_page("::Menu");
+}
+
+woas["special_erase_wiki"] = function() {
+	if (erase_wiki()) {
+		this.save_to_file(true);
+		back_or(main_page);
+	}
+	return null;
+}
+
+woas["special_main_page"] = function() {
+	go_to(main_page);
+	return null;
+}
+
+woas["special_edit_css"] = function() {
+	if (!this.config.permit_edits && !edit_override) {
+		alert("This Wiki on a Stick is read-only");
+		return null;
+	}
+	_servm_alert();
+	this.current_editing("Special::Edit CSS", true);
+	this.edit_ready(_css_obj().innerHTML);
+	return null;
+}
+
+woas["_get_special"] = function(cr) {
+	var text = null;
+//	log("Getting special page "+cr);	// log:0
+	switch(cr) {
+//		case "Search":
+//			text = this.get_text("Special::"+cr);
+//			break;
 		case "Edit Bootscript":
 			if (!this.config.permit_edits && !edit_override) {
 				alert("This Wiki on a Stick is read-only");
@@ -723,6 +719,22 @@ woas["set_current"] = function (cr)
 //			log("namespace of "+cr+" is "+namespace);	// log:0
 			cr = cr.substring(p+2);
 				switch (namespace) {
+					case "Javascript":
+						// this namespace will deprecate many others
+						var emsg = "-";
+						try {
+							text = eval(cr);
+							if (text == null)
+								return;
+						}
+						catch (e) {
+							emsg = e.toString();
+						}
+						if (text == null) {
+							alert("Dynamic evaluation of '"+cr+"' failed!\n\nError message:\n\n"+emsg);
+							return;
+						}
+						break;
 					case "Special":
 						text = this._get_special(cr);
 						if (text == null)
@@ -784,8 +796,7 @@ woas["set_current"] = function (cr)
 		}
 	}
 	
-	if(text == null)
-	{
+	if(text == null) {
 		if (_decrypt_failed) {
 			_decrypt_failed = false;
 			return;

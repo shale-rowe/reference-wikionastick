@@ -12,8 +12,7 @@ woas["special_encrypted_pages"] = function(locked) {
 woas["special_orphaned_pages"] = function() {
 	var pg = [];
 	var found = false;
-	for(j=0; j<page_titles.length; j++)
-	{
+	for(j=0; j<page_titles.length; j++) {
 		if (this.is_reserved(page_titles[j]))
 			continue;
 		if (this.is_menu(page_titles[j])) {	// check if the namespace has some pages
@@ -52,7 +51,7 @@ woas["special_orphaned_pages"] = function() {
 		return this._join_list(pg); // TODO - Delete repeated data
 }
 
-woas["special_links_here"] = function()
+woas["special_backlinks"] = function()
 {
 	var pg = [];
 	var tmp;
@@ -199,7 +198,7 @@ woas["special_dead_pages"] = function() {
 				if ($1.match(/Tag(s|ged)?:/gi))
 					return;
 				p = $1;
-				if (!this.page_exists(p) && (p!=page_titles[j])) {
+				if (!woas.page_exists(p) && (p!=page_titles[j])) {
 					for(var i=0;i<dead_pages.length;i++) {
 						if (dead_pages[i]==p) {
 							from_pages[i].push(page_titles[j]);
