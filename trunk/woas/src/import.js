@@ -72,6 +72,7 @@ woas["import_wiki"] = function(filename) {
 				break;
 				case "0.9.5B":
 				case "0.9.5C":
+				case "0.9.5D":
 					old_version = 95;
 				break;
 				default:
@@ -129,6 +130,9 @@ if (old_version	< 9) {
 	}
 	
 	/* NOTES ABOUT OLD VERSIONS
+	v0.9.5D
+		* Javascript:: reserved namespace
+		* some Special:: pages no more work
 	v0.9.5B
 		* object orientation of code
 		* server_mode disappears
