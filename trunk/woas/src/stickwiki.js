@@ -653,29 +653,26 @@ woas["special_edit_css"] = function() {
 	return null;
 }
 
+woas["special_edit_bootscript"] = function() {
+	if (!this.config.permit_edits && !edit_override) {
+		alert("This Wiki on a Stick is read-only");
+		return null;
+	}
+	_servm_alert();
+	cr = "Special::Bootscript";
+	var tmp = this.get_text(cr);
+	if (tmp == null)
+		return;
+	this.current_editing(cr, true);
+	// setup the wiki editor textbox
+	this.current_editing(cr, this.config.permit_edits | this._server_mode);
+	this.edit_ready(decode64(tmp));
+	return null;
+}
+
 woas["_get_special"] = function(cr) {
 	var text = null;
 //	log("Getting special page "+cr);	// log:0
-	switch(cr) {
-//		case "Search":
-//			text = this.get_text("Special::"+cr);
-//			break;
-		case "Edit Bootscript":
-			if (!this.config.permit_edits && !edit_override) {
-				alert("This Wiki on a Stick is read-only");
-				return null;
-			}
-			_servm_alert();
-			cr = "Special::Bootscript";
-			var tmp = this.get_text(cr);
-			if (tmp == null)
-				return;
-			this.current_editing(cr, true);
-			// setup the wiki editor textbox
-			this.current_editing(cr, this.config.permit_edits | this._server_mode);
-			this.edit_ready(decode64(tmp));
-			return null;
-		default:
 			cr = "Special::" + cr;
 			if (this.is_embedded(cr)) {
 				text = this._get_embedded(cr, this.is_image(cr) ? "image":"file");
@@ -697,7 +694,6 @@ woas["_get_special"] = function(cr) {
 				}
 				alert("Invalid special page.");
 			}
-	}
 	return text;
 }
 
