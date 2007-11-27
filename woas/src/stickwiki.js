@@ -1183,7 +1183,9 @@ woas["_create_bs"] = function() {
 	return true;
 }
 
-woas["_clear_bs"] = function() { if (_bootscript!=null) document.getElementsByTagName("head")[0].removeChild(_bootscript); }
+woas["_clear_bs"] = function() {
+	if (_bootscript!=null) document.getElementsByTagName("head")[0].removeChild(_bootscript);
+}
 
 function ff_fix_focus() {
 //runtime fix for Firefox bug 374786
