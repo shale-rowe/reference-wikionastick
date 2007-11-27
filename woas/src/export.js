@@ -246,7 +246,7 @@ woas["export_wiki"] = function () {
 //	_further_pages = [];
 	if (exp.js_mode) {
 		this.refresh_menu_area();
-		this.set_current(current);
+		this.set_current(current, false);
 	}
 	$.hide("loading_overlay");
 	alert(done+" pages exported successfully");

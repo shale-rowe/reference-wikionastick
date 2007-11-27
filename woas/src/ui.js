@@ -20,12 +20,12 @@ function go_to(cr)
 		return;
 	history_mem(current);
 	forstack = [];
-	woas.set_current(cr);
+	woas.set_current(cr, true);
 }
 
 function back_or(or_page) {
 	if (!go_back())
-		woas.set_current(or_page);
+		woas.set_current(or_page, true);
 }
 
 // when Back button is clicked
@@ -34,7 +34,7 @@ function go_back()
 	if(backstack.length > 0)
 	{
 		forstack.push(current);
-		woas.set_current(backstack.pop());
+		woas.set_current(backstack.pop(), true);
 		return true;
 	}
 	return false;
@@ -46,7 +46,7 @@ function go_forward()
 	if(forstack.length > 0)
 	{
 		history_mem(current);
-		woas.set_current(forstack.pop());
+		woas.set_current(forstack.pop(), true);
 	}
 }
 
@@ -153,7 +153,7 @@ function save_options() {
 		return false;
 	}
 	woas.save_to_file(false);
-	woas.set_current("Special::Advanced");
+	woas.set_current("Special::Advanced", true);
 }
 
 function ro_woas() {
@@ -163,7 +163,7 @@ function ro_woas() {
 	}
 	woas.config.permit_edits = false;
 	woas.save_to_file(false);
-	woas.set_current("Special::Advanced");
+	woas.set_current("Special::Advanced", true);
 }
 
 //TODO: make procedural

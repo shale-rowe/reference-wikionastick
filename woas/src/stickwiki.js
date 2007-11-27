@@ -306,7 +306,7 @@ woas["get_text_special"] = function(title) {
 		if (!title.length) return this._get_namespace_pages(namespace+"::");
 		switch (namespace) {
 			case "Special":
-				text = this._get_special(title);
+				text = this._get_special(title, false);
 			break;
 			case "Tagged": // deprecated
 			case "Tags":
@@ -415,7 +415,7 @@ woas["assert_current"] = function(page) {
 	if( current != page )
 		go_to( page ) ;
 	else
-		this.set_current( page );
+		this.set_current( page, true);
 }
 
 woas["_create_page"] = function (ns, cr, ask) {
@@ -588,12 +588,12 @@ woas["_embed_process"] = function(etype) {
 	this.save_to_file(true);
 	
 	this.refresh_menu_area();
-	this.set_current(current);
+	this.set_current(current, true);
 	
 	return true;
 }
 
-woas["special_new_page"] = function() {
+woas["cmd_new_page"] = function() {
 			var title = "";
 			do {
 				title = prompt("Insert new page title", title);
@@ -638,11 +638,7 @@ woas["special_new_page"] = function() {
 
 }
 
-woas["special_edit_menu"] = function() {
-	woas.edit_page("::Menu");
-}
-
-woas["special_erase_wiki"] = function() {
+woas["cmd_erase_wiki"] = function() {
 	if (erase_wiki()) {
 		this.save_to_file(true);
 		back_or(main_page);
@@ -650,12 +646,12 @@ woas["special_erase_wiki"] = function() {
 	return null;
 }
 
-woas["special_main_page"] = function() {
+woas["cmd_main_page"] = function() {
 	go_to(main_page);
 	return null;
 }
 
-woas["special_edit_css"] = function() {
+woas["cmd_edit_css"] = function() {
 	if (!this.config.permit_edits && !edit_override) {
 		alert("This Wiki on a Stick is read-only");
 		return null;
@@ -666,6 +662,7 @@ woas["special_edit_css"] = function() {
 	return null;
 }
 
+/*
 woas["special_edit_bootscript"] = function() {
 	if (!this.config.permit_edits && !edit_override) {
 		alert("This Wiki on a Stick is read-only");
@@ -682,20 +679,24 @@ woas["special_edit_bootscript"] = function() {
 	this.edit_ready(decode64(tmp));
 	return null;
 }
+*/
 
-woas["shortcuts"] = ["New Page", "All Pages", "Orphaned Pages", "Backlinks", "Dead Pages", "Erase Wiki",
-				"Edit CSS"];
-woas["shortcuts_js"] = ["special_new_page", "special_all_pages", "special_orphaned_pages", "special_backlinks",
-					"special_dead_pages", "special_erase_wiki", "special_edit_css"];
+woas["shortcuts"] = ["New Page", "All Pages", "Orphaned Pages", "Backlinks", "Dead Pages", "Erase Wiki", "Edit CSS", "Main Page"];
+woas["shortcuts_js"] = ["cmd_new_page", "special_all_pages", "special_orphaned_pages", "special_backlinks",
+					"special_dead_pages", "cmd_erase_wiki", "cmd_edit_css", "cmd_main_page"];
 
-woas["_get_special"] = function(cr) {
+woas["_get_special"] = function(cr, interactive) {
 	var text = null;
 	var pi = this.shortcuts.indexOf(cr);
 	cr = "Special::" + cr;
 	if (pi != -1) {
-		text = this[this.shortcuts_js[pi]]();
+		var fn = this.shortcuts_js[pi];
+		// skip the cmd shortcuts
+		if (!interactive && (fn.substr(0,4)=="cmd_"))
+			return null;
+		text = this[fn]();
 		if (text == null)
-			return;
+			return null;
 	}
 //	log("Getting special page "+cr);	// log:0
 /*			if (this.is_embedded(cr)) {
@@ -712,11 +713,12 @@ woas["_get_special"] = function(cr) {
 			}	*/
 			text = this.get_text(cr);
 	if(text == null) {
-		if (edit_override) {
+		if (edit_override & interactive) {
 			this._create_page("Special", cr.substr(9), true);
 			return null;
 		}
-		alert("Invalid special page.");
+		if (interactive)
+			alert("Invalid special page.");
 	}
 	return text;
 }
@@ -739,7 +741,7 @@ woas["get_javascript_page"] = function(cr) {
 }
 
 // Load a new current page
-woas["set_current"] = function (cr)
+woas["set_current"] = function (cr, interactive)
 {
 	var text, namespace;
 	result_pages = [];
@@ -763,7 +765,7 @@ woas["set_current"] = function (cr)
 						return;
 					break;
 					case "Special":
-						text = this._get_special(cr);
+						text = this._get_special(cr, interactive);
 						if (text == null)
 							return;
 						break;
@@ -796,7 +798,7 @@ woas["set_current"] = function (cr)
 						page_attrs[pi] -= 2;
 						if (!this.config.key_cache)
 							AES_clearKey();
-						this.set_current(cr);
+						this.set_current(cr, true);
 						this.save_page(cr);
 						return;
 					case "WoaS":
@@ -922,7 +924,7 @@ woas["load_as_current"] = function(title, xhtml) {
 woas["_finalize_lock"] = function(pi) {
 	this._perform_lock(pi);
 	var title = page_titles[pi];
-	this.set_current(title);
+	this.set_current(title, true);
 	if (!this.config.key_cache) {
 		AES_clearKey();
 		latest_AES_page = "";
@@ -1147,7 +1149,7 @@ woas["after_load"] = function() {
 		
 //	this.swcs = $("sw_custom_script");
 
-	this.set_current(current);
+	this.set_current(current, true);
 	this.refresh_menu_area();
 	this.disable_edit();
 	
@@ -1294,6 +1296,7 @@ woas["disable_edit"] = function() {
 	this.menu_display("cancel", false);
 	this.menu_display("print", true);
 	$.show("text_area");
+	// aargh, FF eats the focus when cancelling edit
 	$.hide("edit_area");
 //	log("setting back title to "+_prev_title);	// log:0
 	this._set_title(_prev_title);
@@ -1482,7 +1485,7 @@ woas["save"] = function() {
 	}
 	var saved = current;
 	if (back_to != null)
-		this.set_current(back_to);
+		this.set_current(back_to, true);
 	else // used for CSS editing
 		back_or(main_page);
 	this.refresh_menu_area();
