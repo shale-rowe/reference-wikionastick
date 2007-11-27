@@ -75,11 +75,11 @@ woas["special_backlinks"] = function()
 //var hl_reg;
 
 // Returns a index of search pages (by miz & legolas558)
-woas["special_search"] = function( str )
-{
+woas["special_search"] = function( str ) {
 	document.body.style.cursor = "wait";
 	var pg_body = [];
 	var title_result = "";
+	log("Searching "+str);
 	
 	var count = 0;
 	// matches the search string and nearby text
@@ -93,8 +93,7 @@ woas["special_search"] = function( str )
 					replace(/\s+/g, ".*?") + ".*", "gi" );	*/
 	var tmp;
 	result_pages = [];
-	for(var i=0; i<pages.length; i++)
-	{
+	for(var i=0; i<pages.length; i++) {
 		if (this.is_reserved(page_titles[i]))
 			continue;
 		

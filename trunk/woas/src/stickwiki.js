@@ -1051,6 +1051,7 @@ woas["setHTML"] = woas["getHTML"] = null;
 // when the page is loaded - onload, on_load
 woas["after_load"] = function() {
 	log("***** Woas v"+this.version+" started *****");	// log:1
+	alert('ss');
 	
 	document.body.style.cursor = "auto";
 	

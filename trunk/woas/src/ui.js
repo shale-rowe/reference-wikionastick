@@ -124,40 +124,25 @@ function edit_ns_menu() {
 /** Used by search box **/
 
 function menu_search_focus(f) {
-    if (f) {
-       if (current == "Special::Search") {
-//          ff_fix_focus();
-          $('string_to_search').focus();
-       } else
-          search_focused = true;
-    } else {
-       if (current != "Special::Search")
-           search_focused = false;
-    }
+	if (f) {
+		if (current == "Special::Search") {
+//		ff_fix_focus();
+			$('string_to_search').focus();
+		} else
+			search_focused = true;
+	} else {
+		if (current != "Special::Search")
+			search_focused = false;
+	}
 }
 
 function menu_do_search() {
     if (current == "Special::Search") {
-       $('string_to_search').value = $('menu_string_to_search').value;
+	$('string_to_search').value = $('menu_string_to_search').value;
        do_search($('menu_string_to_search').value);
     } else {
-    _raw_do_search($('menu_string_to_search').value);
-    }
-}
-
-function menu_key_hook(orig_e) {
-    var e;
-    if (!orig_e)
-        e = window.event;
-    else
-        e = orig_e;
-	
-    if (e.keyCode==13) {
-	ff_fix_focus();
 	_raw_do_search($('menu_string_to_search').value);
-        return false;
-     }
-     return orig_e;
+    }
 }
 
 function _raw_do_search(str) {
