@@ -741,8 +741,7 @@ woas["get_javascript_page"] = function(cr) {
 }
 
 // Load a new current page
-woas["set_current"] = function (cr, interactive)
-{
+woas["set_current"] = function (cr, interactive) {
 	var text, namespace;
 	result_pages = [];
 	// eventually remove the previous custom script
@@ -1151,6 +1150,7 @@ woas["after_load"] = function() {
 
 	this.set_current(current, true);
 	this.refresh_menu_area();
+	_prev_title = current;
 	this.disable_edit();
 	
 	if (this.config.permit_edits)
