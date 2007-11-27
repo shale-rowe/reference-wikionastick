@@ -216,7 +216,7 @@ woas["special_dead_pages"] = function() {
 		page_done = false;
 	}
 
-	var pg = [];
+	var pg = [], s;
 	for(var i=0;i<dead_pages.length;i++) {
 		s = "[["+dead_pages[i]+"]] from ";
 		var from = from_pages[i];
