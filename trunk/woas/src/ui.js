@@ -80,14 +80,14 @@ function unlock() {
 }
 
 function menu_dblclick() {
-	if (!this.config.dblclick_edit)
+	if (!woas.config.dblclick_edit)
 		return false;
 	edit_menu();
 	return true;
 }
 
 function ns_menu_dblclick() {
-	if (!this.config.dblclick_edit)
+	if (!woas.config.dblclick_edit)
 		return false;
 	edit_ns_menu();
 	return true;
