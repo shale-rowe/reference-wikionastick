@@ -364,7 +364,6 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 
 	// <strike>
 	//text = text.replace(/(^|\n|\s|\>|\*)\--(.*?)\--/g, "$1<strike>$2<\/strike>");
-	// <br />
 	
 	text = text.replace(new RegExp(parse_marker+"([ub])([SE])#", "g"), function (str, $1, $2) {
 		if ($2=='E') {
