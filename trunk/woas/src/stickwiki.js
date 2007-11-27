@@ -696,9 +696,7 @@ woas["_get_special"] = function(cr, interactive) {
 		if (!interactive && (fn.substr(0,4)=="cmd_"))
 			return null;
 		text = this[fn]();
-		if (text == null)
-			return null;
-	}
+	} else
 //	log("Getting special page "+cr);	// log:0
 /*			if (this.is_embedded(cr)) {
 				text = this._get_embedded(cr, this.is_image(cr) ? "image":"file");
@@ -712,7 +710,7 @@ woas["_get_special"] = function(cr, interactive) {
 				this.load_as_current(cr, text);
 				return;
 			}	*/
-			text = this.get_text(cr);
+		text = this.get_text(cr);
 	if(text == null) {
 		if (edit_override & interactive) {
 			this._create_page("Special", cr.substr(9), true);
