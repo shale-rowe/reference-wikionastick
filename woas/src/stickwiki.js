@@ -430,12 +430,12 @@ woas["_create_page"] = function (ns, cr, ask) {
 	if (ask && !confirm("Page not found. Do you want to create it?"))
 		return false;
 	// create and edit the new page
-	if (ns.length)
-		cr = ns+"::"+cr;
 	if (cr!="Menu")
 		pages.push("= "+cr+"\n");
 	else
 		pages.push("\n");
+	if (ns.length)
+		cr = ns+"::"+cr;
 	page_attrs.push(0);
 	page_titles.push(cr);
 	log("Page "+cr+" added to internal array");	// log:1
