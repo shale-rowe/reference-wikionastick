@@ -28,16 +28,23 @@ woas.parser["header_replace"] = function(str, $1, $2, $3) {
 }
 
 woas.parser["sublist"] = function (lst, ll, suoro, euoro) {   
+	if (!lst.length)
+		return '';
+	
+	if (lst[0][1].length > ll)
+		return this.sublist(lst, ll+1, suoro, euoro);
+	
 	var item, sub;
 	var s = '';
-	
-	while (lst.length && lst[0][1].length == ll ) {
+	while (lst[0][1].length == ll ) {
                 item = lst.shift();
                 sub = this.sublist(lst, ll + 1, suoro, euoro);
                 if (sub.length)
                     s += '<li>' + item[2] + suoro + sub + euoro + '</li>' ;
                 else
                     s += '<li>' + item[2] + '</li>';
+		if (!lst.length)
+			break;
 	}
 	return s;  
 }
