@@ -692,9 +692,11 @@ woas["_get_special"] = function(cr) {
 	var text = null;
 	var pi = this.shortcuts.indexOf(cr);
 	cr = "Special::" + cr;
-	if (pi != -1)
+	if (pi != -1) {
 		text = this[this.shortcuts_js[pi]]();
-	else
+		if (text == null)
+			return;
+	}
 //	log("Getting special page "+cr);	// log:0
 /*			if (this.is_embedded(cr)) {
 				text = this._get_embedded(cr, this.is_image(cr) ? "image":"file");
