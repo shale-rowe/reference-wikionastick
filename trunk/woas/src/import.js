@@ -72,9 +72,12 @@ woas["import_wiki"] = function(filename) {
 				break;
 				case "0.9.5B":
 				case "0.9.5C":
-				case "0.9.5D":
+//				case "0.9.5D":
 					old_version = 95;
 				break;
+				case "0.9.6B":
+					old_version = 96;
+					break;
 				default:
 					alert("Incompatible version: " + ver_str);
 					document.body.style.cursor= "auto";
@@ -130,7 +133,10 @@ if (old_version	< 9) {
 	}
 	
 	/* NOTES ABOUT OLD VERSIONS
-	v0.9.5D
+	v0.9.6:
+		* Special::Bootscript -> WoaS::Bootscript
+		
+	v0.9.5D (not released)
 		* Javascript:: reserved namespace
 		* some Special:: pages no more work
 	v0.9.5B
