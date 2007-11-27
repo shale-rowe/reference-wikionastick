@@ -1245,7 +1245,7 @@ function kbd_hook(orig_e)
 woas["_onresize"] = function() {
 	var we = $("wiki_editor");
 	if (!we) {
-		alert("no wiki_editor!");
+		log("no wiki_editor");
 		return;
 	}
 	we.style.width = window.innerWidth - 30 + "px";
