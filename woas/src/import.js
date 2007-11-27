@@ -338,13 +338,13 @@ if (old_version	< 9) {
 			if (page_names[i].indexOf("Special::")===0) {
 				if (old_version>=94) {
 					if (page_names[i]=="Special::Bootscript") {
-						page_titles.push("Special::Bootscript");
+						page_titles.push("WoaS::Bootscript");
 						pages.push(page_contents[i]);
 						page_attrs.push(4);
 					}
 				}
 			} else {
-				pi = page_titles.indexOf(page_names[i]);
+				pi = this.page_index(page_names[i]);
 				if (pi == -1) {
 					page_titles.push(page_names[i]);
 					pages.push(page_contents[i]);

@@ -26,7 +26,7 @@ woas["_export_get_fname"] = function (title, create_mode) {
 		sp = true;
 	else if (this.is_reserved(title)) {
 		if (title.match(/^Special::/)) {
-			if (page_titles.indexOf(title)==-1)
+			if (this.page_index(title)==-1)
 				sp = true;
 			else {
 				_title2fn[title] = "#";
@@ -42,7 +42,7 @@ woas["_export_get_fname"] = function (title, create_mode) {
 		if (_further_pages.indexOf(title)==-1)
 			_further_pages.push(title);
 	} else {
-		var pi=page_titles.indexOf(title);
+		var pi=this.page_index(title);
 		if (pi==-1) {
 			alert("Page does not exist: "+title);
 			_title2fn[title] = "#";
@@ -127,7 +127,7 @@ woas["export_one_page"] = function (
 			_exp_menu = "";
 		var _ns = this.get_namespace(title);
 			if (_ns.length) {
-				var mpi = page_titles.indexOf(_ns+"::Menu");
+				var mpi = this.page_index(_ns+"::Menu");
 				if (mpi != -1) {
 					var tmp=this.get_text_special(ns+"::Menu");
 					if (tmp!=null)
@@ -191,7 +191,7 @@ woas["export_wiki"] = function () {
 		exp.css = '<style type="text/css">'+exp.css+'</style>';
 	exp["custom_bs"] = "";
 	if (exp.js_mode==2) {
-		data = pages[page_titles.indexOf("Special::Bootscript")];
+		data = pages[this.page_index("WoaS::Bootscript")];
 		if (data!=null && data.length) {
 			saveFile(exp.xhtml_path+"bootscript.js", data);
 			exp.custom_bs = '<sc'+'ript type="text/javascript" src="bootscript.js"></sc'+'ript>';

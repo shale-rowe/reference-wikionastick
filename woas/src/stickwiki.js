@@ -115,6 +115,15 @@ for(var i = (edit_override ? 1 : 0);i<reserved_namespaces.length;i++) {
 }
 woas["_reserved_rx"] = new RegExp(reserved_rx, "i"); reserved_namespaces = reserved_rx = null;
 
+woas["aliases"] = [];
+
+woas["page_index"] = function(title) {
+	for(var i=0;i<this.aliases.length;++i) {
+		title = title.replace(this.aliases[i].rx, this.aliases[i].exp);
+	}
+	return page_titles.indexOf(title);
+}
+
 woas["is_reserved"] = function(page) {
 	return (page.search(this._reserved_rx)==0);
 }
@@ -131,7 +140,7 @@ woas["get_namespace"] = function(page) {
 }
 
 woas["is_readonly"] = function(page) {
-	return this.is_readonly_id(page_titles.indexOf(page));
+	return this.is_readonly_id(this.page_index(page));
 }
 
 woas["is_readonly_id"] = function(pi) {
@@ -147,7 +156,7 @@ woas["is__encrypted"] = function (pi) {
 }
 
 woas["is_encrypted"] = function(page) {
-	return this.is__encrypted(page_titles.indexOf(page));
+	return this.is__encrypted(this.page_index(page));
 }
 
 woas["is__embedded"] = function(pi) {
@@ -155,18 +164,18 @@ woas["is__embedded"] = function(pi) {
 		return true;
 	return false;
 }
-woas["is_embedded"] = function(page) {return this.is__embedded(page_titles.indexOf(page));}
+woas["is_embedded"] = function(page) {return this.is__embedded(this.page_index(page));}
 
 woas["is__image"] = function(pi) {
 	if (page_attrs[pi] & 8)
 		return true;
 	return false;
 }
-woas["is_image"] = function(page) { return this.is__image(page_titles.indexOf(page)); }
+woas["is_image"] = function(page) { return this.is__image(this.page_index(page)); }
 
 // a page physically exists if it is not part of a reserved namespace, if it is not a (sub)namespace and if it actually exists
 woas["page_exists"] = function(page) {
-	return (this.is_reserved(page) || (page.substring(page.length-2)=="::") || (page_titles.indexOf(page)!=-1));
+	return (this.is_reserved(page) || (page.substring(page.length-2)=="::") || (this.page_index(page)!=-1));
 }
 
 var	parse_marker = "#"+_random_string(8);
@@ -280,7 +289,7 @@ woas["get_src_page"] = function(pi) {
 }
 
 woas["get_text"] = function (title) {
-	var pi = page_titles.indexOf(title);
+	var pi = this.page_index(title);
 	if (pi==-1)
 		return null;
 	return this.get__text(pi);
@@ -369,7 +378,7 @@ woas["set__text"] = function(pi, text) {
 // Sets text typed by user
 woas["set_text"] = function(text)
 {
-	var pi = page_titles.indexOf(current);
+	var pi = this.page_index(current);
 	if (pi==-1) {
 		log("current page \""+current+"\" is not cached!");	// log:1
 		return;
@@ -439,12 +448,16 @@ woas["_create_page"] = function (ns, cr, ask) {
 
 woas["_get_embedded"] = function(cr, etype) {
 	log("Retrieving embedded source "+cr);	// log:1
-	var pi=page_titles.indexOf(cr);
+	var pi=this.page_index(cr);
 	if (pi==-1) {
 		return this.parser.parse("[[Include::Special::Embed|"+etype+"]]");
 	}
+	return this._get__embedded(cr, pi, etype);
+}
+
+woas["_get__embedded"] = function (cr, pi, etype) {
 	var text=this.get__text(pi);
-	if (text==null) return text;
+	if (text==null) return null;
 	var xhtml = "";
 	var slash_c = (navigator.appVersion.indexOf("Win")!=-1)?"\\":"/";
 	if (etype=="file") {
@@ -453,8 +466,8 @@ woas["_get_embedded"] = function(cr, etype) {
 		var ext_size = Math.ceil((text.length*3)/4);
 		if (ext_size-pview_data.length>10)
 			pview_link = "<div id='_part_display'><em>Only the first 1024 bytes are displayed</em><br /><a href='javascript:show_full_file("+pi+")'>Display full file</a></div>";
-		var _del_cmd;
-		if (cr.indexOf("Special::")!=0) {
+		var _del_cmd, _del_lbl;
+		if (!this.is_reserved(cr)) {
 			_del_cmd = "function query_delete_file() {if (confirm('Are you sure you want to delete this file?')){delete_page('"+this.js_encode(cr)+"');back_or(main_page);woas.save_page('"+this.js_encode(cr)+"');}}\n";
 			_del_lbl = "\n\n<a href=\"javascript:query_delete_file()\">Delete embedded file</a>\n";
 		} else
@@ -491,7 +504,7 @@ woas["_get_embedded"] = function(cr, etype) {
 }
 
 woas["export_image"] = function(page, dest_path) {
-	var pi=page_titles.indexOf(page);
+	var pi=this.page_index(page);
 	if (pi==-1)
 		return false;
 	var data=this.get__text(pi);
@@ -512,7 +525,7 @@ woas["_b64_export"] = function(data, dest_path) {
 }
 
 woas["export_file"] = function(page, dest_path) {
-	var pi=page_titles.indexOf(page);
+	var pi=this.page_index(page);
 	if (pi==-1)
 		return false;
 	var data=this.get__text(pi);
@@ -590,7 +603,7 @@ woas["special_new_page"] = function() {
 				alert("Cannot use \"[[\" or \"]]\" in a page title");
 			} while (1);
 			if ((title!=null) && title.length) {
-				if (page_titles.indexOf(title)!=-1)
+				if (this.page_index(title)!=-1)
 					alert("A page with title \""+title+"\" already exists!");
 				else {
 					cr = title;
@@ -613,7 +626,7 @@ woas["special_new_page"] = function() {
 								menu += "\n[["+ns+cr+"]]";
 							else
 								menu = menu.substring(0,p)+"\n[["+title+"]]"+menu.substring(p);
-							this.set__text(page_titles.indexOf("::Menu"), menu);
+							this.set__text(this.page_index("::Menu"), menu);
 							upd_menu = true;
 						}
 						if (upd_menu)
@@ -659,7 +672,7 @@ woas["special_edit_bootscript"] = function() {
 		return null;
 	}
 	_servm_alert();
-	cr = "Special::Bootscript";
+	cr = "WoaS::Bootscript";
 	var tmp = this.get_text(cr);
 	if (tmp == null)
 		return;
@@ -674,7 +687,7 @@ woas["_get_special"] = function(cr) {
 	var text = null;
 //	log("Getting special page "+cr);	// log:0
 			cr = "Special::" + cr;
-			if (this.is_embedded(cr)) {
+/*			if (this.is_embedded(cr)) {
 				text = this._get_embedded(cr, this.is_image(cr) ? "image":"file");
 				if (text == null) {
 					if (_decrypt_failed)
@@ -685,7 +698,7 @@ woas["_get_special"] = function(cr) {
 				
 				this.load_as_current(cr, text);
 				return;
-			}
+			}	*/
 			text = this.get_text(cr);
 			if(text == null) {
 				if (edit_override) {
@@ -743,7 +756,7 @@ woas["set_current"] = function (cr)
 							return;
 						break;
 					case "Lock":
-						pi = page_titles.indexOf(cr);
+						pi = this.page_index(cr);
 						if (key.length) {
 							if (confirm("Do you want to use the last password (last time used on page \""+latest_AES_page+"\") to lock this page \""+cr+"\"?")) {
 								this._finalize_lock(pi);
@@ -753,7 +766,7 @@ woas["set_current"] = function (cr)
 						text = this.get_text("Special::Lock");
 						break;
 					case "Unlock":
-						pi = page_titles.indexOf(cr);
+						pi = this.page_index(cr);
 						if (!confirm("Do you want to remove encryption for page \""+cr+"\"?"))
 							return;
 						text = this.get_text(cr);
@@ -767,6 +780,23 @@ woas["set_current"] = function (cr)
 							AES_clearKey();
 						this.set_current(cr);
 						this.save_page(cr);
+						return;
+					case "WoaS":
+						pi = woas.page_index(namespace+"::"+cr);
+						if (this.is__embedded(pi)) {
+							//TODO: do not use namespace to guess the embedded file type
+							text = this._get__embedded(namespace+"::"+cr, pi, "file");
+						} else
+							text = this.get_text(namespace+"::"+cr);
+						if(text == null) {
+							if (_decrypt_failed)
+								_decrypt_failed = false;
+							return;
+						}
+						this._add_namespace_menu(namespace);
+						if (namespace.length)
+							cr = namespace + "::" + cr;
+						this.load_as_current(cr, text);
 						return;
 					case "File":
 					case "Image":
@@ -964,7 +994,7 @@ woas["_add_namespace_menu"] = function(namespace) {
 	if (namespace == "")
 		pi = -1;
 	else
-		pi = page_titles.indexOf(namespace+"::Menu");
+		pi = this.page_index(namespace+"::Menu");
 	if (pi==-1) {
 //		log("no namespace menu found");	// log:0
 		$("ns_menu_area").innerHTML = "";
@@ -1051,7 +1081,6 @@ woas["setHTML"] = woas["getHTML"] = null;
 // when the page is loaded - onload, on_load
 woas["after_load"] = function() {
 	log("***** Woas v"+this.version+" started *****");	// log:1
-	alert('ss');
 	
 	document.body.style.cursor = "auto";
 	
@@ -1120,7 +1149,7 @@ woas["after_load"] = function() {
 }
 
 woas["_create_bs"] = function() {
-	var s=this.get_text("Special::Bootscript");
+	var s=this.get_text("WoaS::Bootscript");
 	if (s==null || !s.length) return false;
 	// remove the comments
 	s = decode64(s).replace(/^\s*\/\*(.|\n)*?\*\/\s*/g, '');
@@ -1209,7 +1238,7 @@ woas["update_nav_icons"] = function(page) {
 woas["update_lock_icons"] = function(page) {
 	var cyphered, can_lock, can_unlock;
 	if (result_pages.length<2) {
-		var pi = page_titles.indexOf(page);
+		var pi = this.page_index(page);
 		if (pi==-1) {
 			can_lock = can_unlock = false;
 			cyphered = false;
@@ -1262,7 +1291,7 @@ function _unlock_pages(arr) {
 
 woas["edit_allowed"] = function(page) {
 	if (edit_override)
-		return (page_titles.indexOf(page) != -1);
+		return (this.page_index(page) != -1);
 	if (!this.config.permit_edits)
 		return false;
 	if (this.is_reserved(page))
@@ -1307,7 +1336,6 @@ woas["current_editing"] = function(page, disabled) {
 // sets the text and allows changes monitoring
 woas["edit_ready"] = function (txt) {
 	$("wiki_editor").value = txt;
-	this._editor_changed = false;
 }
 
 function _servm_alert() {
@@ -1336,11 +1364,11 @@ woas["rename_page"] = function(previous, newpage) {
 		alert("Cannot use \"[[\" or \"]]\" in a page title");
 		return false;
 	}
-	if (page_titles.indexOf(newpage)!=-1) {
+	if (this.page_index(newpage)!=-1) {
 		alert("A page with title \""+newpage+"\" already exists!");
 		return false;
 	}
-	var pi = page_titles.indexOf(previous);
+	var pi = this.page_index(previous);
 	page_titles[pi] = newpage;
 	var re = new RegExp("\\[\\[" + RegExp.escape(previous) + "(\\]\\]|\\|)", "gi");
 	var changed;
@@ -1396,15 +1424,13 @@ function _css_obj() {
 // when save is clicked
 woas["save"] = function() {
 	if (this.config.cumulative_save && !kbd_hooking) {
-		if (this._editor_changed)
-			this.save_to_file(true);
+		this.save_to_file(true);
 		this.menu_display("save", false);
 		return;
 	}
 	switch(current) {
 		case "Special::Edit CSS":
-			if (this._editor_changed)
-				this.setHTML(_css_obj(), $("wiki_editor").value);
+			this.setHTML(_css_obj(), $("wiki_editor").value);
 			back_to = null;
 			current = "Special::Advanced";
 			$("wiki_page_title").disabled = "";
@@ -1423,8 +1449,7 @@ woas["save"] = function() {
 				return;
 			} else {
 				// here the page gets actually saved
-				if (this._editor_changed)
-					this.set_text($("wiki_editor").value);
+				this.set_text($("wiki_editor").value);
 				new_title = woas.trim($("wiki_page_title").value);
 				if (this.is_menu(new_title)) {
 					this.refresh_menu_area();
@@ -1444,10 +1469,7 @@ woas["save"] = function() {
 		back_or(main_page);
 	this.refresh_menu_area();
 	this.disable_edit();
-	if (this._editor_changed)
-		this.save_page(saved);
-	else
-		log("skipping save because textarea was not changed");
+	this.save_page(saved);
 }
 
 // push a page into history
@@ -1511,7 +1533,7 @@ function printout_num_arr(arr) {
 
 woas["save_page"] = function(page_to_save) {
 	log("Saving modified page \""+page_to_save+"\"");	// log:1
-	this.save__page(page_titles.indexOf(page_to_save));
+	this.save__page(this.page_index(page_to_save));
 }
 
 woas["save__page"] = function(pi) {
@@ -1686,7 +1708,7 @@ function erase_wiki() {
 	var backup_pages = [];
 	page_attrs = [0, 0, 4];
 	for(var i=0;i<static_pg.length;i++) {
-		var pi = page_titles.indexOf(static_pg[i]);
+		var pi = this.page_index(static_pg[i]);
 		if (pi==-1) {
 			alert(static_pg[i]+" not found!");
 			return false;
@@ -1694,7 +1716,7 @@ function erase_wiki() {
 		backup_pages.push(pages[pi]);
 		page_attrs.push(0);
 	}
-	page_titles = ["Main Page", "::Menu", "Special::Bootscript"];
+	page_titles = ["Main Page", "::Menu", "WoaS::Bootscript"];
 	page_titles = page_titles.concat(static_pg);
 	pages = ["This is your empty main page", "[[Main Page]]\n\n[[Special::New page]]\n[[Special::Backlinks]]\n[[Special::Search]]", encode64("/* insert here your boot script */")];
 	pages = pages.concat(backup_pages);

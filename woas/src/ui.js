@@ -50,23 +50,10 @@ function go_forward()
 	}
 }
 
-woas["editor_hit"] = function(a) {
-//	$('wiki_editor').onkeyup = null;
-//	$('wiki_editor').onmouseup = null;
-	if (this._editor_changed) return false;
-	log("wiki editor changed"); // log:1
-	this._editor_changed = true;
-	return false;
-}
-
-woas["_editor_changed"] = false;
-
 // when cancel is clicked
 function cancel() {
-	if(woas._editor_changed) {
-		if (!confirm("Are you sure you want to cancel this edit?"))
-			return;
-	}
+	if (!confirm("Are you sure you want to cancel this edit?"))
+		return;
 	if (kbd_hooking)
 		woas.disable_edit();
 }
@@ -207,7 +194,7 @@ function lock_page(page) {
 		$("pw2").focus();
 		return;
 	}
-	var pi = page_titles.indexOf(page);
+	var pi = woas.page_index(page);
 	AES_setKey(pwd);
 	woas._finalize_lock(pi);
 }
