@@ -102,7 +102,7 @@ woas["popup"] = function (name,fw,fh,extra) {
 }
 
 //DANGER: will corrupt your WoaS!
-var edit_override = true;
+var edit_override = false;
 
 var reserved_namespaces = ["Special", "Lock", "Locked", "Unlocked", "Unlock", "Tags", "Tagged", "Include", "Javascript"];
 
@@ -683,10 +683,19 @@ woas["special_edit_bootscript"] = function() {
 	return null;
 }
 
+woas["shortcuts"] = ["New Page", "All Pages", "Orphaned Pages", "Backlinks", "Dead Pages", "Erase Wiki",
+				"Edit CSS"];
+woas["shortcuts_js"] = ["special_new_page", "special_all_pages", "special_orphaned_pages", "special_backlinks",
+					"special_dead_pages", "special_erase_wiki", "special_edit_css"];
+
 woas["_get_special"] = function(cr) {
 	var text = null;
+	var pi = this.shortcuts.indexOf(cr);
+	cr = "Special::" + cr;
+	if (pi != -1)
+		text = this[this.shortcuts_js[pi]]();
+	else
 //	log("Getting special page "+cr);	// log:0
-			cr = "Special::" + cr;
 /*			if (this.is_embedded(cr)) {
 				text = this._get_embedded(cr, this.is_image(cr) ? "image":"file");
 				if (text == null) {
@@ -700,13 +709,30 @@ woas["_get_special"] = function(cr) {
 				return;
 			}	*/
 			text = this.get_text(cr);
-			if(text == null) {
-				if (edit_override) {
-					this._create_page("Special", cr.substr(9), true);
-					return null;
-				}
-				alert("Invalid special page.");
-			}
+	if(text == null) {
+		if (edit_override) {
+			this._create_page("Special", cr.substr(9), true);
+			return null;
+		}
+		alert("Invalid special page.");
+	}
+	return text;
+}
+
+woas["get_javascript_page"] = function(cr) {
+	var emsg = "-", text;
+	try {
+		text = eval(cr);
+		if (text == null)
+			return null;
+	}
+	catch (e) {
+		emsg = e.toString();
+	}
+	if (text == null) {
+		alert("Dynamic evaluation of '"+cr+"' failed!\n\nError message:\n\n"+emsg);
+		return null;
+	}
 	return text;
 }
 
@@ -729,21 +755,11 @@ woas["set_current"] = function (cr)
 			cr = cr.substring(p+2);
 				switch (namespace) {
 					case "Javascript":
-						// this namespace will deprecate many others
-						var emsg = "-";
-						try {
-							text = eval(cr);
-							if (text == null)
-								return;
-						}
-						catch (e) {
-							emsg = e.toString();
-						}
-						if (text == null) {
-							alert("Dynamic evaluation of '"+cr+"' failed!\n\nError message:\n\n"+emsg);
-							return;
-						}
-						break;
+					// this namespace will deprecate many others
+					text = this.get_javascript_page(cr);
+					if (text == null)
+						return;
+					break;
 					case "Special":
 						text = this._get_special(cr);
 						if (text == null)
