@@ -251,7 +251,7 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 					var r="<!-- "+parse_marker+'::'+html_tags.length+" -->";
 					var wl;
 					if (export_links) {
-//						if (page_titles.indexOf(page)==-1)
+//						if (this.page_index(page)==-1)
 //							wl = " onclick=\"alert('not yet implemented');\"";		else
 						wl = " href=\""+woas._export_get_fname(page)+"\"";
 					} else
