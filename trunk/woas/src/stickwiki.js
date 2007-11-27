@@ -1726,7 +1726,7 @@ function erase_wiki() {
 	var backup_pages = [];
 	page_attrs = [0, 0, 4];
 	for(var i=0;i<static_pg.length;i++) {
-		var pi = this.page_index(static_pg[i]);
+		var pi = woas.page_index(static_pg[i]);
 		if (pi==-1) {
 			alert(static_pg[i]+" not found!");
 			return false;
