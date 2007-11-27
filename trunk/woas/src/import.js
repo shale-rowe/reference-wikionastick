@@ -392,5 +392,5 @@ if (old_version	< 9) {
 	this.save_to_file(true);
 	
 	this.refresh_menu_area();
-	this.set_current(main_page);
+	this.set_current(main_page, true);
 }
