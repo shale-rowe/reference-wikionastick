@@ -104,7 +104,7 @@ woas["popup"] = function (name,fw,fh,extra) {
 //DANGER: will corrupt your WoaS!
 var edit_override = false;
 
-var reserved_namespaces = ["Special", "Lock", "Locked", "Unlocked", "Unlock", "Tags", "Tagged", "Include", "Javascript"];
+var reserved_namespaces = ["Special", "Lock", "Locked", "Unlocked", "Unlock", "Tags", "Tagged", "Untagged", "Include", "Javascript", "WoaS"];
 
 // create the regex for reserved namespaces
 var reserved_rx = "^";
@@ -223,9 +223,11 @@ woas["_get_namespace_pages"] = function (ns) {
 			return "= Pages in "+ns+" namespace\n" + this.special_encrypted_pages(true);
 		case "Unlocked::":
 			return "= Pages in "+ns+" namespace\n" + this.special_encrypted_pages(false);
+		case "Untagged::":
+			return "= Pages in "+ns+" namespace\n" + this.special_untagged(false);
 		case "Tagged::": // to be used in wiki source
 		case "Tags::":
-			return "= Pages in "+ns+" namespace\n" + this.special_tagged_pages(false);
+			return "= Pages in "+ns+" namespace\n" + this.special_tagged(false);
 	}
 
 	for(var i=0;i<page_titles.length;i++) {
@@ -308,7 +310,7 @@ woas["get_text_special"] = function(title) {
 			case "Special":
 				text = this._get_special(title, false);
 			break;
-			case "Tagged": // deprecated
+			case "Tagged": // deprecated?
 			case "Tags":
 				text = this._get_tagged(title);
 			break;
@@ -662,8 +664,7 @@ woas["cmd_edit_css"] = function() {
 	return null;
 }
 
-/*
-woas["special_edit_bootscript"] = function() {
+woas["cmd_edit_bootscript"] = function() {
 	if (!this.config.permit_edits && !edit_override) {
 		alert("This Wiki on a Stick is read-only");
 		return null;
@@ -679,11 +680,11 @@ woas["special_edit_bootscript"] = function() {
 	this.edit_ready(decode64(tmp));
 	return null;
 }
-*/
 
-woas["shortcuts"] = ["New Page", "All Pages", "Orphaned Pages", "Backlinks", "Dead Pages", "Erase Wiki", "Edit CSS", "Main Page"];
+woas["shortcuts"] = ["New Page", "All Pages", "Orphaned Pages", "Backlinks", "Dead Pages", "Erase Wiki", "Edit CSS", "Main Page", "Edit Bootscript"];
 woas["shortcuts_js"] = ["cmd_new_page", "special_all_pages", "special_orphaned_pages", "special_backlinks",
-					"special_dead_pages", "cmd_erase_wiki", "cmd_edit_css", "cmd_main_page"];
+					"special_dead_pages", "cmd_erase_wiki", "cmd_edit_css", "cmd_main_page",
+					"cmd_edit_bootscript"];
 
 woas["_get_special"] = function(cr, interactive) {
 	var text = null;
@@ -768,7 +769,7 @@ woas["set_current"] = function (cr, interactive) {
 						if (text == null)
 							return;
 						break;
-					case "Tagged": // deprecated
+					case "Tagged": // deprecated?
 					case "Tags":
 						text = this._get_tagged(cr);
 						if (text == null)
@@ -1240,8 +1241,13 @@ function kbd_hook(orig_e)
 
 // when the page is resized
 woas["_onresize"] = function() {
-	$("wiki_editor").style.width = window.innerWidth - 30 + "px";
-	$("wiki_editor").style.height = window.innerHeight - 150 + "px";
+	var we = $("wiki_editor");
+	if (!we) {
+		alert("no wiki_editor!");
+		return;
+	}
+	we.style.width = window.innerWidth - 30 + "px";
+	we.style.height = window.innerHeight - 150 + "px";
 }
 
 if (!ie)

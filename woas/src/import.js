@@ -171,7 +171,7 @@ if (old_version	< 9) {
 	
 //	log("Variables are ("+var_names+")");	// log:0
 
-	// now extract the pages from old versions
+	// now extract the pages from old versions < 0.9
 	if (import_content) {
 		wiki.replace(/<div .*?id="?([^">]+)"?>((\n|.)*?)<\/div>/gi, function(str, $1, $2, $3) {
 //				log("Parsing old page "+$1);	// log:0
@@ -303,10 +303,10 @@ if (old_version	< 9) {
 									});
 				}
 				// done pre tags fixing
-			}
+			} // v0.9.2 only
 		} // do not import content pages
 
-		// from version v0.9.5B+ we have an object oriented WoaS
+		// since version v0.9.5B+ we have an object oriented WoaS
 		if (old_version >= 95) {
 			// rename the members
 			collected = [];
@@ -344,12 +344,15 @@ if (old_version	< 9) {
 			if (page_names[i].indexOf("Special::")===0) {
 				if (old_version>=94) {
 					if (page_names[i]=="Special::Bootscript") {
-						page_titles.push("WoaS::Bootscript");
-						pages.push(page_contents[i]);
-						page_attrs.push(4);
+						pi = this.page_index("WoaS::Bootscript");
+						pages[pi] = page_contents[i];
+						page_attrs[pi] = 4;
+						pages_imported++;
+						continue;
 					}
 				}
-			} else {
+				// skip special pages
+			} else { // not importing a special page
 				pi = this.page_index(page_names[i]);
 				if (pi == -1) {
 					page_titles.push(page_names[i]);
@@ -377,8 +380,8 @@ if (old_version	< 9) {
 					page_attrs[pi] = old_page_attrs[i];
 				}
 				pages_imported++;
-			}
-		}
+			} // not importing a special page
+		} // for cycle
 	} // do not import content pages
 	
 	// apply the new main page if that page exists
