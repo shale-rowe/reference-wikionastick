@@ -191,7 +191,7 @@ woas["export_wiki"] = function () {
 		exp.css = '<style type="text/css">'+exp.css+'</style>';
 	exp["custom_bs"] = "";
 	if (exp.js_mode==2) {
-		data = this.(page_titles.indexOf("Special::Bootscript"));
+		data = pages[page_titles.indexOf("Special::Bootscript")];
 		if (data!=null && data.length) {
 			saveFile(exp.xhtml_path+"bootscript.js", data);
 			exp.custom_bs = '<sc'+'ript type="text/javascript" src="bootscript.js"></sc'+'ript>';
