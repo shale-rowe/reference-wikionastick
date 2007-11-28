@@ -401,7 +401,7 @@ function page_print() {
 	} else
 		css_payload = "div.wiki_toc { margin: 0 auto;}\n";
 	wnd.document.writeln(_doctype+"<ht"+"ml><he"+"ad><title>"+current+"</title>"+
-	"<st"+"yle type=\"text/css\">"+css_payload+_css_obj().innerHTML+"</sty"+"le><scr"+"ipt type=\"text/javascript\">function go_to(page) { alert(\"Sorry, you cannot browse the wiki while in print mode\");}</sc"+"ript></h"+"ead><"+"body>"+
+	"<st"+"yle type=\"text/css\">"+css_payload+this.getHTML(_css_obj())+"</sty"+"le><scr"+"ipt type=\"text/javascript\">function go_to(page) { alert(\"Sorry, you cannot browse the wiki while in print mode\");}</sc"+"ript></h"+"ead><"+"body>"+
 	$("wiki_text").innerHTML+"</bod"+"y></h"+"tml>\n");
 	wnd.document.close();
 }
@@ -660,7 +660,7 @@ woas["cmd_edit_css"] = function() {
 	}
 	_servm_alert();
 	this.current_editing("Special::Edit CSS", true);
-	this.edit_ready(_css_obj().innerHTML);
+	this.edit_ready(this.getHTML(_css_obj()));
 	return null;
 }
 
@@ -1118,7 +1118,7 @@ woas["after_load"] = function() {
 		this.setHTML = function(elem, html) {elem.innerHTML = html;};
 		this.getHTML = function(elem) {return elem.innerHTML;};
 //		setup_uri_pics($("img_home"),$("img_back"),$("img_forward"),$("img_edit"),$("img_cancel"),$("img_save"),$("img_advanced"));
-//		_css_obj().innerHTML+="\na {  cursor: pointer;}";
+//		setHTML(_css_obj(), getHTML(_css_obj()) + "\na {  cursor: pointer;}";
 	}
 	
 	$('a_home').title = main_page;
@@ -1748,7 +1748,7 @@ function erase_wiki() {
 	}
 	page_titles = ["Main Page", "::Menu", "WoaS::Bootscript"];
 	page_titles = page_titles.concat(static_pg);
-	pages = ["This is your empty main page", "[[Main Page]]\n\n[[Special::New page]]\n[[Special::Backlinks]]\n[[Special::Search]]", encode64("/* insert here your boot script */")];
+	pages = ["This is your empty main page", "[[Main Page]]\n\n[[Special::New Page]]\n[[Special::Backlinks]]\n[[Special::Search]]", encode64("/* insert here your boot script */")];
 	pages = pages.concat(backup_pages);
 	current = main_page = "Main Page";
 	woas.refresh_menu_area();
