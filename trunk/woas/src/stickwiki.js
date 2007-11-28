@@ -692,9 +692,12 @@ woas["_get_special"] = function(cr, interactive) {
 	cr = "Special::" + cr;
 	if (pi != -1) {
 		var fn = this.shortcuts_js[pi];
+		var is_cmd = (fn.substr(0,4)=="cmd_");
+		if (!interactive && is_cmd)
+			return null;
 		text = this[fn]();
 		// skip the cmd shortcuts
-		if (fn.substr(0,4)=="cmd_")
+		if (is_cmd)
 			return null;
 	} else
 //	log("Getting special page "+cr);	// log:0
