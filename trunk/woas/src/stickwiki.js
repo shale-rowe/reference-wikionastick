@@ -1188,6 +1188,7 @@ woas["_clear_bs"] = function() {
 	if (_bootscript!=null) {
 		var head = document.getElementsByTagName("head")[0];
 		head.removeChild(_bootscript);
+		_bootscript = null;
 	}
 }
 
