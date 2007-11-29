@@ -1819,7 +1819,7 @@ function _auto_keywords(source) {
 	return keywords.substr(1);
 }
 
-var _br_rx = new RegExp("<"+"br\\s?\\/?>", "g");
+var _br_rx = new RegExp("<"+"br\\s?\\/?>", "gi");
 woas["xhtml_to_text"] = function(s) {
 	return s.replace(_br_rx, "\n").replace(/<\/?\w+[^>]*>/g, ' ').replace(/&#?([^;]+);/g, function(str, $1) { if (!isNaN($1)) return String.fromCharCode($1); else return ""; });
 }
