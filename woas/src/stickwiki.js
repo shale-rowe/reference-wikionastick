@@ -1185,7 +1185,10 @@ woas["_create_bs"] = function() {
 }
 
 woas["_clear_bs"] = function() {
-	if (_bootscript!=null) document.getElementsByTagName("head")[0].removeChild(_bootscript);
+	if (_bootscript!=null) {
+		var head = document.getElementsByTagName("head")[0];
+		head.removeChild(_bootscript);
+	}
 }
 
 function ff_fix_focus() {
