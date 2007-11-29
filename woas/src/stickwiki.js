@@ -401,7 +401,7 @@ function page_print() {
 	} else
 		css_payload = "div.wiki_toc { margin: 0 auto;}\n";
 	wnd.document.writeln(_doctype+"<ht"+"ml><he"+"ad><title>"+current+"</title>"+
-	"<st"+"yle type=\"text/css\">"+css_payload+this.getHTML(_css_obj())+"</sty"+"le><scr"+"ipt type=\"text/javascript\">function go_to(page) { alert(\"Sorry, you cannot browse the wiki while in print mode\");}</sc"+"ript></h"+"ead><"+"body>"+
+	"<st"+"yle type=\"text/css\">"+css_payload+_css_obj().innerHTML+"</sty"+"le><scr"+"ipt type=\"text/javascript\">function go_to(page) { alert(\"Sorry, you cannot browse the wiki while in print mode\");}</sc"+"ript></h"+"ead><"+"body>"+
 	$("wiki_text").innerHTML+"</bod"+"y></h"+"tml>\n");
 	wnd.document.close();
 }
@@ -660,7 +660,7 @@ woas["cmd_edit_css"] = function() {
 	}
 	_servm_alert();
 	this.current_editing("Special::Edit CSS", true);
-	this.edit_ready(this.getHTML(_css_obj()));
+	this.edit_ready(_css_obj().innerHTML);
 	return null;
 }
 
@@ -1118,7 +1118,7 @@ woas["after_load"] = function() {
 		this.setHTML = function(elem, html) {elem.innerHTML = html;};
 		this.getHTML = function(elem) {return elem.innerHTML;};
 //		setup_uri_pics($("img_home"),$("img_back"),$("img_forward"),$("img_edit"),$("img_cancel"),$("img_save"),$("img_advanced"));
-//		setHTML(_css_obj(), getHTML(_css_obj()) + "\na {  cursor: pointer;}";
+//		WONT WORK _css_obj().innerHTML += "\na {  cursor: pointer;}";
 	}
 	
 	$('a_home').title = main_page;
@@ -1447,8 +1447,20 @@ function _new_syntax_patch(text) {
 	return text;
 }
 
+// to set CSS, use setCSS(). To read CSS, always use .innerHTML
+// it is a big IE6 inconsistency
 function _css_obj() {
 	return document.getElementsByTagName("style")[0];
+}
+
+woas["setCSS"] = function(new_css) {
+	if (!ie) {
+		_css_obj().innerHTML = new_css;
+		return;
+	}
+	var head=document.getElementsByTagName('head')[0];
+	var sty=document.styleSheets[0];
+	sty.cssText = new_css;
 }
 
 // when save is clicked
@@ -1460,7 +1472,7 @@ woas["save"] = function() {
 	}
 	switch(current) {
 		case "Special::Edit CSS":
-			this.setHTML(_css_obj(), $("wiki_editor").value);
+			this.setCSS($("wiki_editor").value);
 			back_to = null;
 			current = "Special::Advanced";
 			$("wiki_page_title").disabled = "";
@@ -1468,8 +1480,7 @@ woas["save"] = function() {
 		default:
 			// check if text is empty
 			if($("wiki_editor").value == "") {
-				if(confirm("Are you sure you want to DELETE this page?"))
-				{
+				if(confirm("Are you sure you want to DELETE this page?")) {
 					var deleted = current;
 					delete_page(current);
 					this.disable_edit();

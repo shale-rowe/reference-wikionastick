@@ -233,7 +233,7 @@ if (old_version	< 9) {
 		});
 		if (css!=null) {
 			log("Imported "+css.length+" bytes of CSS");	// log:1
-			this.setHTML(_css_obj(), css);
+			this.setCSS(css);
 		}
 	}
 
