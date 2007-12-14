@@ -100,7 +100,7 @@ function setUrl(starttag,centertag,endtag) {
 }
 
 function setWikiImage() {
-	setImage('[[Image::',']]');
+	setImage('[[Include::Image::',']]');
 }
 
 function setHTMLImage() {
