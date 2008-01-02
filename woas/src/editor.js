@@ -88,7 +88,7 @@ function TagThis(starttag, endtag){
 }
 
 function FullTagThis(tag){
-	woas._editor.setSelectedText('<'+tag+'>','<'+tag+' />');
+	woas._editor.setSelectedText('<'+tag+'>','</'+tag+'>');
 }
 
 function setUrl(starttag,centertag,endtag) {
