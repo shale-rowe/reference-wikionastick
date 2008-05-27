@@ -237,8 +237,13 @@ woas["_get_namespace_pages"] = function (ns) {
 	return "= Pages in "+ns+" namespace\n" + this._join_list(pg);
 }
 
-woas["_get_tagged"] = function(tag) {
+woas["_get_tagged"] = function(tag_filter) {
 	var pg = [];
+	
+	// allow tags filtering
+	var tags = tag_filter.split(',');
+	alert(tags);
+	
 
 	var tmp;
 	for(var i=0; i<pages.length; i++)
