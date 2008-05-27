@@ -80,7 +80,7 @@ this.carretHandler.scroll=this.scrollTop;
 }
 
 function	DivTagThis(align) {
-	TagThis('<div align="'+align+'" />', '</div>');
+	TagThis('<div align="'+align+'">', '</div>');
 }
 
 function TagThis(starttag, endtag){
