@@ -5,11 +5,11 @@
 <script type="text/javascript">
 /* <![CDATA[ */
 
-/* DFQRCTsKlU-0000460-START */
+/* DFQRCTsKlU-0000461-START */
 
 var woas = {"version": "0.9.7B"};
 
-var __marker = "DFQRCTsKlU-0000460";
+var __marker = "DFQRCTsKlU-0000461";
 
 woas["config"] = {
 "permit_edits":true,
@@ -26,6 +26,12 @@ var current = 'Main Page';
 var main_page = 'Main Page';
 
 var backstack = [
+'Main Page',
+'Feature::Summary',
+'Feature::Summary',
+'WoaS::Aliases',
+'Main Page',
+'Feature::Summary'
 ];
 
 var page_titles = [
@@ -79,7 +85,7 @@ var page_titles = [
 'WoaS::Aliases'
 ];
 
-/* DFQRCTsKlU-0000460-DATA */
+/* DFQRCTsKlU-0000461-DATA */
 var page_attrs = [0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,12,4,0,0,0,0,0,0,0,4,0,4,0,0,0,2,0,0,0,0,0,0];
 
 var pages = [
@@ -889,6 +895,12 @@ Also, you can specify multiple tags and tags to be filtered out.\n\
 * [[Tagged::example]]\n\
 * [[Tagged::!example]]\n\
 \n\
+== Aliases\n\
+\n\
+You can define global wiki name aliases in [[Special::Aliases]]. Such aliases will be replaced automatically before looking up for the page name.\n\
+\n\
+[[$HOME]]\n\
+\n\
 == Transclusion\n\
 \n\
 You can include a page within another using a specific syntax:\n\
@@ -1268,11 +1280,10 @@ asdf',
 ### third level A\n\
 ### third level B\n\
 ',
-'$ROOT    file:///\n\
-$AUTHOR  Daniele C.'
+'$HOME  Main Page'
 ];
 
-/* DFQRCTsKlU-0000460-END */
+/* DFQRCTsKlU-0000461-END */
 
 /* ]]> */ </script>
 <style type="text/css">/* existent link */
