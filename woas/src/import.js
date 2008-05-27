@@ -76,8 +76,12 @@ woas["import_wiki"] = function(filename) {
 					old_version = 95;
 				break;
 				case "0.9.6B":
-				case "0.9.6C": // development only
+//				case "0.9.6C": // development only
 					old_version = 96;
+					break;
+				case "0.9.7B":
+//				case "0.9.6C": // development only
+					old_version = 97;
 					break;
 				default:
 					alert("Incompatible version: " + ver_str);
@@ -134,6 +138,8 @@ if (old_version	< 9) {
 	}
 	
 	/* NOTES ABOUT OLD VERSIONS
+	v0.9.7:
+		* introduced WoaS::Aliases
 	v0.9.6:
 		* Special::Bootscript -> WoaS::Bootscript
 		
@@ -343,7 +349,7 @@ if (old_version	< 9) {
 		for(var i=0; i<page_names.length; i++) {
 			// we are not using is_reserved() because will create chaos in case of edit_override
 			if (page_names[i].indexOf("Special::")===0) {
-				if (old_version>=94) {
+				if ((old_version>=94) && (old_version<=96)) {
 					if (page_names[i]=="Special::Bootscript") {
 						pi = this.page_index("WoaS::Bootscript");
 						pages[pi] = page_contents[i];
@@ -383,6 +389,12 @@ if (old_version	< 9) {
 				pages_imported++;
 			} // not importing a special page
 		} // for cycle
+		// added in v0.9.7
+		if (old_version <= 96) {
+			page_titles.push("WoaS::Aliases");
+			pages.push("");
+			page_attrs.push(0);
+		}
 	} // do not import content pages
 	
 	// apply the new main page if that page exists

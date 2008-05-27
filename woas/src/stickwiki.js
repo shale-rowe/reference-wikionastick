@@ -102,7 +102,7 @@ woas["popup"] = function (name,fw,fh,extra) {
 }
 
 //DANGER: will corrupt your WoaS!
-var edit_override = true;
+var edit_override = false;
 
 var reserved_namespaces = ["Special", "Lock", "Locked", "Unlocked", "Unlock", "Tags", "Tagged", "Untagged", "Include", "Javascript", "WoaS"];
 
@@ -779,10 +779,27 @@ woas["cmd_edit_bootscript"] = function() {
 	return null;
 }
 
-woas["shortcuts"] = ["New Page", "Duplicate Page", "All Pages", "Orphaned Pages", "Backlinks", "Dead Pages", "Erase Wiki", "Edit CSS", "Main Page", "Edit Bootscript"];
+woas["cmd_edit_aliases"] = function() {
+	if (!this.config.permit_edits && !edit_override) {
+		alert("This Wiki on a Stick is read-only");
+		return null;
+	}
+	_servm_alert();
+	cr = "WoaS::Aliases";
+	var tmp = this.get_text(cr);
+	if (tmp == null)
+		return;
+	this.current_editing(cr, true);
+	// setup the wiki editor textbox
+	this.current_editing(cr, this.config.permit_edits | this._server_mode);
+	this.edit_ready(tmp);
+	return null;
+}
+
+woas["shortcuts"] = ["New Page", "Duplicate Page", "All Pages", "Orphaned Pages", "Backlinks", "Dead Pages", "Erase Wiki", "Edit CSS", "Main Page", "Edit Bootscript", "Aliases"];
 woas["shortcuts_js"] = ["cmd_new_page", "cmd_duplicate_page", "special_all_pages", "special_orphaned_pages", "special_backlinks",
 					"special_dead_pages", "cmd_erase_wiki", "cmd_edit_css", "cmd_main_page",
-					"cmd_edit_bootscript"];
+					"cmd_edit_bootscript", "cmd_edit_aliases"];
 
 woas["_get_special"] = function(cr, interactive) {
 	var text = null;
@@ -1248,6 +1265,8 @@ woas["after_load"] = function() {
 		
 //	this.swcs = $("sw_custom_script");
 
+	this._load_aliases(this.get_text("WoaS::Aliases"));
+
 	this._create_bs();	//moved here to fix bug 1898587
 	this.set_current(current, true);
 	this.refresh_menu_area();
@@ -1269,7 +1288,23 @@ woas["after_load"] = function() {
 	$.hide("loading_overlay");
 }
 
+woas["_load_aliases"] = function(s) {
+	if (s==null || !s.length) return;
+	var tmpl = s.split("\n"), cp, cpok;
+	this.aliases = [];
+	for(var i=0;i<tmpl.length;++i) {
+		cp = tmpl[i].split(/\s+/);
+		if (cp.length < 2) {
+			alert("Invalid alias \""+tmpl[i]+"\", ignoring it.");
+			continue;
+		}
+		cpok = [ "/"+RegExp.escape(cp[0])+"/g", tmpl[i].substr(cp[0].length).replace(/^\s+/, '') ];
+		this.aliases.push(cpok);
+	}
+}
+
 woas["_create_bs"] = function() {
+
 	var s=this.get_text("WoaS::Bootscript");
 	if (s==null || !s.length) return false;
 	// remove the comments
@@ -1573,6 +1608,7 @@ woas["save"] = function() {
 		this.menu_display("save", false);
 		return;
 	}
+	var can_be_empty = false;
 	switch(current) {
 		case "Special::Edit CSS":
 			this.setCSS($("wiki_editor").value);
@@ -1580,9 +1616,14 @@ woas["save"] = function() {
 			current = "Special::Advanced";
 			$("wiki_page_title").disabled = "";
 			break;
+		case "WoaS::Bootscript":
+		case "WoaS::Aliases":
+			this._load_aliases($("wiki_editor").value);
+			back_to = null;
+			can_be_empty = true;
 		default:
 			// check if text is empty
-			if($("wiki_editor").value == "") {
+			if (!can_be_empty && ($("wiki_editor").value == "")) {
 				if(confirm("Are you sure you want to DELETE this page?")) {
 					var deleted = current;
 					delete_page(current);
@@ -1860,9 +1901,9 @@ function erase_wiki() {
 		backup_pages.push(pages[pi]);
 		page_attrs.push(0);
 	}
-	page_titles = ["Main Page", "::Menu", "WoaS::Bootscript"];
+	page_titles = ["Main Page", "::Menu", "WoaS::Bootscript", "WoaS::Aliases"];
 	page_titles = page_titles.concat(static_pg);
-	pages = ["This is your empty main page", "[[Main Page]]\n\n[[Special::New Page]]\n[[Special::Duplicate Page]]\n[[Special::Backlinks]]\n[[Special::Search]]", encode64("/* insert here your boot script */")];
+	pages = ["This is your empty main page", "[[Main Page]]\n\n[[Special::New Page]]\n[[Special::Duplicate Page]]\n[[Special::Backlinks]]\n[[Special::Search]]", encode64("/* insert here your boot script */"), ""];
 	pages = pages.concat(backup_pages);
 	current = main_page = "Main Page";
 	woas.refresh_menu_area();
