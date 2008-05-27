@@ -119,7 +119,7 @@ woas["aliases"] = [];
 
 woas["page_index"] = function(title) {
 	for(var i=0;i<this.aliases.length;++i) {
-		title = title.replace(this.aliases[i].rx, this.aliases[i].exp);
+		title = title.replace(this.aliases[i][0], this.aliases[i][1]);
 	}
 	return page_titles.indexOf(title);
 }
@@ -454,8 +454,7 @@ woas["set__text"] = function(pi, text) {
 }
 
 // Sets text typed by user
-woas["set_text"] = function(text)
-{
+woas["set_text"] = function(text) {
 	var pi = this.page_index(current);
 	if (pi==-1) {
 		log("current page \""+current+"\" is not cached!");	// log:1
@@ -931,11 +930,12 @@ woas["set_current"] = function (cr, interactive) {
 						return;
 					case "WoaS":
 						pi = woas.page_index(namespace+"::"+cr);
+						var real_t = page_titles[pi];
 						if (this.is__embedded(pi)) {
 							//TODO: do not use namespace to guess the embedded file type
-							text = this._get__embedded(namespace+"::"+cr, pi, "file");
+							text = this._get__embedded(real_t, pi, "file");
 						} else
-							text = this.get_text(namespace+"::"+cr);
+							text = this.get_text(real_t);
 						if(text == null) {
 							if (_decrypt_failed)
 								_decrypt_failed = false;
@@ -943,7 +943,7 @@ woas["set_current"] = function (cr, interactive) {
 						}
 						this._add_namespace_menu(namespace);
 						if (namespace.length)
-							cr = namespace + "::" + cr;
+							cr = real_t;
 						this.load_as_current(cr, text);
 						return;
 					case "File":
@@ -983,7 +983,9 @@ woas["set_current"] = function (cr, interactive) {
 	
 	this._add_namespace_menu(namespace);
 	if (namespace.length)
-		cr = namespace + "::" + cr;
+		cr = page_titles[this.page_index(namespace + "::" + cr)];
+	else
+		cr = page_titles[this.page_index(cr)];
 	this.load_as_current(cr, this.parser.parse(text));
 }
 
@@ -1310,9 +1312,10 @@ woas["_load_aliases"] = function(s) {
 			alert("Invalid alias \""+tmpl[i]+"\", ignoring it.");
 			continue;
 		}
-		cpok = [ "/"+RegExp.escape(cp[0])+"/g", tmpl[i].substr(cp[0].length).replace(/^\s+/, '') ];
+		cpok = [ new RegExp(RegExp.escape(cp[0]), "g"), tmpl[i].substr(cp[0].length).replace(/^\s+/, '') ];
 		this.aliases.push(cpok);
 	}
+	s = "$HOME";
 }
 
 woas["_create_bs"] = function() {
