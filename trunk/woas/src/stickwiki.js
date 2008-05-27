@@ -322,24 +322,35 @@ woas["get_text_special"] = function(title) {
 	return text;
 }
 
+woas["__last_title"] = null;
+
 woas["__password_finalize"] = function(pwd_obj) {
 //	this.setHTML($("woas_pwd_msg"), msg);
-	$.show("wiki_text");
+//	$.show("wiki_text");
+	document.title = this.__last_title;
+	$("wiki_text").style.visibility = "visible";
 	$("woas_pwd_query").style.visibility = "hidden";
 	$("woas_pwd_mask").style.visibility = "hidden";
 //	scrollTo(0,0);
 	// hide input form
 	pwd_obj.value = "";
+	pwd_obj.blur();
+	custom_focus(false);
 }
 
 woas["_set_password"] = function() {
+	this.__last_title = document.title;
+	document.title = "Enter password";
 	// hide browser scrollbars and show mask
 	$("woas_pwd_mask").style.visibility = "visible";
 //	this.setHTML($("woas_pwd_msg"), msg);
-	$.hide("wiki_text");
+//	$.hide("wiki_text");
+	$("wiki_text").style.visibility = "hidden";
 	scrollTo(0,0);
 	// show input form
 	$("woas_pwd_query").style.visibility = "visible";
+	custom_focus(true);
+	$("woas_password").focus();	
 }
 
 woas["_password_cancel"] = function(pwd_obj) {
