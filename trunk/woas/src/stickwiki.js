@@ -1202,6 +1202,7 @@ woas["after_load"] = function() {
 		
 //	this.swcs = $("sw_custom_script");
 
+	this._create_bs();	//moved here to fix bug 1898587
 	this.set_current(current, true);
 	this.refresh_menu_area();
 	_prev_title = current;
@@ -1215,7 +1216,7 @@ woas["after_load"] = function() {
 	if (this.config.cumulative_save && this.config.auto_save)
 		this._asto = setTimeout("_auto_saver(woas)", this.config.auto_save);
 	
-	this._create_bs();
+//	this._create_bs();
 	
 	this["_editor"] = new TextAreaSelectionHelper($("wiki_editor"));
 	
