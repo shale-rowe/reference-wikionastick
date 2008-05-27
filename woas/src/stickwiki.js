@@ -241,13 +241,18 @@ woas["_get_tagged"] = function(tag_filter) {
 	var pg = [];
 	
 	// allow tags filtering
-	var tags = tag_filter.split(',');
-	alert(tags);
-	
+	var tags = tag_filter.split(','), tags_ok = [], tags_not = [];
+	for(var i=0;i<tags.length;++i) {
+		if (!tags[i].length)
+			continue;
+		if (tags[i].charAt(0)=='!')
+			tags_not.push( tags[i] );
+		else
+			tags_ok.push(tags[i]);
+	} tags = null;
 
-	var tmp;
-	for(var i=0; i<pages.length; i++)
-	{
+	var tmp, b, fail;
+	for(var i=0; i<pages.length; i++) {
 		tmp = this.get_src_page(i);
 		if (tmp==null)
 			continue;
@@ -259,9 +264,23 @@ woas["_get_tagged"] = function(tag_filter) {
 				found_tags = woas._get_tags($1);
 				
 //				alert(found_tags);
-				
+				fail = false;
 				for (var t=0;t<found_tags.length;t++) {
-					if (found_tags[t] == tag)
+					for (b=0;b<tags_ok.length;++b) {
+						if (found_tags[t] != tags_ok[b]) {
+							fail = true;
+							break;
+						}
+					}
+					if (!fail) {
+						for (b=0;b<tags_not.length;++b) {
+							if (found_tags[t] == tags_not[b]) {
+								fail = true;
+								break;
+							}
+						}
+					}
+					if (!fail)
 						pg.push(page_titles[i]);
 				}
 
@@ -270,8 +289,8 @@ woas["_get_tagged"] = function(tag_filter) {
 	}
 	
 	if (!pg.length)
-		return "No pages tagged with *"+tag+"*";
-	return "= Pages tagged with " + tag + "\n" + this._join_list(pg);
+		return "No pages tagged with *"+tag_filter+"*";
+	return "= Pages tagged with " + tag_filter + "\n" + this._join_list(pg);
 }
 
 // return a plain page or a decrypted one if available through the latest key
