@@ -72,10 +72,11 @@ woas["import_wiki"] = function(filename) {
 				break;
 				case "0.9.5B":
 				case "0.9.5C":
-//				case "0.9.5D":
+//				case "0.9.5D": // development only
 					old_version = 95;
 				break;
 				case "0.9.6B":
+				case "0.9.6C": // development only
 					old_version = 96;
 					break;
 				default:
@@ -84,7 +85,7 @@ woas["import_wiki"] = function(filename) {
 					return false;
 			}
 		} else {
-			log("Maybe version 0.02?");	// log:1
+			log("Maybe version 0.02? Please report as a bug");	// log:1
 			old_version = 2;
 			if(ct.match("<div id=\"?"+escape("Special::Advanced")))
 				old_version = 3;
