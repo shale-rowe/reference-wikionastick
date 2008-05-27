@@ -496,16 +496,19 @@ woas["assert_current"] = function(page) {
 		this.set_current( page, true);
 }
 
-woas["_create_page"] = function (ns, cr, ask) {
+woas["_create_page"] = function (ns, cr, ask, fill_mode) {
 	if (this.is_reserved(ns+"::")) {
 		alert("You are not allowed to create a page titled \""+ns+"::"+cr+"\" because namespace \""+ns+"\" is reserved");
 			return false;
 	}
 	if ((ns=="File") || (ns=="Image")) {
-		go_to(cr);
+		if (!fill_mode)
+			alert("Cannot duplicate into File:: or Image:: namespace!");
+		else
+			go_to(cr);
 		return false;
 	}
-	if (ask && !confirm("Page not found. Do you want to create it?"))
+	if (!fill_mode && ask && !confirm("Page not found. Do you want to create it?"))
 		return false;
 	// create and edit the new page
 	if (cr!="Menu")
@@ -517,10 +520,12 @@ woas["_create_page"] = function (ns, cr, ask) {
 	page_attrs.push(0);
 	page_titles.push(cr);
 	log("Page "+cr+" added to internal array");	// log:1
-	current = cr;
-//	this.save_page(cr);	// do not save
-	// proceed with a normal wiki source page
-	this.edit_page(cr);
+	if (!fill_mode) {
+		current = cr;
+//		this.save_page(cr);	// do not save
+		// proceed with a normal wiki source page
+		this.edit_page(cr);
+	}
 	return true;
 }
 
@@ -671,49 +676,66 @@ woas["_embed_process"] = function(etype) {
 	return true;
 }
 
+woas["cmd_duplicate_page"] = function() {
+	var pname = this._new_page("Insert duplicate page title", true, current+" (duplicate)");
+	if (pname == null)
+		return;
+	var pi = this.page_index(current);
+	var dpi = this.page_index(pname);
+	// duplicate the page
+	pages[dpi] = pages[pi]; // .slice ?
+	page_attrs[dpi] = page_attrs[pi];	
+	// go to new page
+	go_to(pname);
+}
+
 woas["cmd_new_page"] = function() {
-			var title = "";
-			do {
-				title = prompt("Insert new page title", title);
-				if (title == null) break;
-				if (!title.match(/\[\[/) && !title.match(/\]\]/))
-					break;
-				alert("Cannot use \"[[\" or \"]]\" in a page title");
-			} while (1);
-			if ((title!=null) && title.length) {
-				if (this.page_index(title)!=-1)
-					alert("A page with title \""+title+"\" already exists!");
-				else {
-					cr = title;
-					if (cr.substring(cr.length-2)=="::") {
-						alert("You cannot create a page as a namespace");
-					} else {
-						var p = cr.indexOf("::");
-						if (p!=-1) {
-							ns = cr.substring(0,p);
-//							log("namespace of "+cr+" is "+ns);	// log:0
-							cr = cr.substring(p+2);
-						} else ns="";
-						if (!this._create_page(ns, cr, false))
-							return;
-						var upd_menu = (cr=='Menu');
-						if (!upd_menu && confirm("Do you want to add a link into the main menu?")) {
-							var menu = this.get_text("::Menu");
-							var p = menu.indexOf("\n\n");
-							if (p==-1)
-								menu += "\n[["+ns+cr+"]]";
-							else
-								menu = menu.substring(0,p)+"\n[["+title+"]]"+menu.substring(p);
-							this.set__text(this.page_index("::Menu"), menu);
-							upd_menu = true;
-						}
-						if (upd_menu)
-							this.refresh_menu_area();
-					}
+	this._new_page("Insert new page title", false, '');
+}
 
+woas["_new_page"] = function(msg, fill_mode, def_title) {
+	var title = def_title;
+	do {
+		title = prompt(msg, title);
+		if (title == null) break;
+		if (!title.match(/\[\[/) && !title.match(/\]\]/))
+			break;
+		alert("Cannot use \"[[\" or \"]]\" in a page title");
+	} while (1);
+	if ((title!=null) && title.length) {
+		if (this.page_index(title)!=-1)
+			alert("A page with title \""+title+"\" already exists!");
+		else {
+			cr = title;
+			if (cr.substring(cr.length-2)=="::") {
+				alert("You cannot create a page as a namespace");
+			} else {
+				var p = cr.indexOf("::");
+				if (p!=-1) {
+					ns = cr.substring(0,p);
+//					log("namespace of "+cr+" is "+ns);	// log:0
+					cr = cr.substring(p+2);
+				} else ns="";
+				if (!this._create_page(ns, cr, false, fill_mode))
+					return ns+cr;
+				var upd_menu = (cr=='Menu');
+				if (!upd_menu && confirm("Do you want to add a link into the main menu?")) {
+					var menu = this.get_text("::Menu");
+					var p = menu.indexOf("\n\n");
+					if (p==-1)
+						menu += "\n[["+ns+cr+"]]";
+					else
+						menu = menu.substring(0,p)+"\n[["+title+"]]"+menu.substring(p);
+					this.set__text(this.page_index("::Menu"), menu);
+					upd_menu = true;
 				}
+				if (upd_menu)
+					this.refresh_menu_area();
+				return ns+cr;
 			}
-
+		}
+	}
+	return null;
 }
 
 woas["cmd_erase_wiki"] = function() {
@@ -757,8 +779,8 @@ woas["cmd_edit_bootscript"] = function() {
 	return null;
 }
 
-woas["shortcuts"] = ["New Page", "All Pages", "Orphaned Pages", "Backlinks", "Dead Pages", "Erase Wiki", "Edit CSS", "Main Page", "Edit Bootscript"];
-woas["shortcuts_js"] = ["cmd_new_page", "special_all_pages", "special_orphaned_pages", "special_backlinks",
+woas["shortcuts"] = ["New Page", "Duplicate Page", "All Pages", "Orphaned Pages", "Backlinks", "Dead Pages", "Erase Wiki", "Edit CSS", "Main Page", "Edit Bootscript"];
+woas["shortcuts_js"] = ["cmd_new_page", "cmd_duplicate_page", "special_all_pages", "special_orphaned_pages", "special_backlinks",
 					"special_dead_pages", "cmd_erase_wiki", "cmd_edit_css", "cmd_main_page",
 					"cmd_edit_bootscript"];
 
@@ -792,7 +814,7 @@ woas["_get_special"] = function(cr, interactive) {
 		text = this.get_text(cr);
 	if(text == null) {
 		if (edit_override & interactive) {
-			this._create_page("Special", cr.substr(9), true);
+			this._create_page("Special", cr.substr(9), true, false);
 			return null;
 		}
 		if (interactive)
@@ -924,7 +946,7 @@ woas["set_current"] = function (cr, interactive) {
 			_decrypt_failed = false;
 			return;
 		}
-		if (!this._create_page(namespace, cr, true))
+		if (!this._create_page(namespace, cr, true, false))
 			return;
 //		log("Editing new page "+namespace+cr);	// log:0
 		return;
@@ -1840,7 +1862,7 @@ function erase_wiki() {
 	}
 	page_titles = ["Main Page", "::Menu", "WoaS::Bootscript"];
 	page_titles = page_titles.concat(static_pg);
-	pages = ["This is your empty main page", "[[Main Page]]\n\n[[Special::New Page]]\n[[Special::Backlinks]]\n[[Special::Search]]", encode64("/* insert here your boot script */")];
+	pages = ["This is your empty main page", "[[Main Page]]\n\n[[Special::New Page]]\n[[Special::Duplicate Page]]\n[[Special::Backlinks]]\n[[Special::Search]]", encode64("/* insert here your boot script */")];
 	pages = pages.concat(backup_pages);
 	current = main_page = "Main Page";
 	woas.refresh_menu_area();
