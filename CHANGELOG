@@ -1,4 +1,12 @@
-Version 0.9.5 (legolas558 - official)
+Version 0.9.7 (legolas558 - official - NOT YET RELEASED)
+* implemented password scrambling
+* added multiple tags and tags filtering
+* added Duplicate Page feature
+* fixed some syntax and editor bugs
+* added aliases support (WoaS::Aliases and Special::Aliases command)
+* implemented Special::Go To 
+
+Version 0.9.5
 * object oriented whole code
 * added support of raw transclusion (for SVG for example - not yet working)
 * fixed some UI bugs
