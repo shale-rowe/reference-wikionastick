@@ -796,10 +796,22 @@ woas["cmd_edit_aliases"] = function() {
 	return null;
 }
 
-woas["shortcuts"] = ["New Page", "Duplicate Page", "All Pages", "Orphaned Pages", "Backlinks", "Dead Pages", "Erase Wiki", "Edit CSS", "Main Page", "Edit Bootscript", "Aliases"];
+woas["cmd_go_to"] = function() {
+	var pname = prompt("Go to page:", current);
+	if ((pname === null) || !pname.length)
+		return;
+	var pi = this.page_index(pname);
+	if (pi == -1) {
+		alert("Page \""+pname+"\" does not exist!");
+		return;
+	}
+	go_to(pname);
+}
+
+woas["shortcuts"] = ["New Page", "Duplicate Page", "All Pages", "Orphaned Pages", "Backlinks", "Dead Pages", "Erase Wiki", "Edit CSS", "Main Page", "Edit Bootscript", "Aliases", "Go to"];
 woas["shortcuts_js"] = ["cmd_new_page", "cmd_duplicate_page", "special_all_pages", "special_orphaned_pages", "special_backlinks",
 					"special_dead_pages", "cmd_erase_wiki", "cmd_edit_css", "cmd_main_page",
-					"cmd_edit_bootscript", "cmd_edit_aliases"];
+					"cmd_edit_bootscript", "cmd_edit_aliases", "cmd_go_to"];
 
 woas["_get_special"] = function(cr, interactive) {
 	var text = null;
