@@ -161,9 +161,11 @@ function ro_woas() {
 		alert("Sorry, this WoaS is already write-protected");
 		return false;
 	}
-	woas.config.permit_edits = false;
-	woas.save_to_file(false);
-	woas.set_current("Special::Advanced", true);
+	if (confirm("Are you sure you want to set this WoaS as read-only? You will have to manually edit the file to revert this change.")) {
+		woas.config.permit_edits = false;
+		woas.save_to_file(false);
+		woas.set_current("Special::Advanced", true);
+	}
 }
 
 //TODO: make procedural
@@ -211,4 +213,8 @@ function import_wiki() {
 		return false;
 	}
 	return woas.import_wiki(filename);
+}
+
+function set_key() {
+	woas._set_password();
 }

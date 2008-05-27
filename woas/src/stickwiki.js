@@ -102,7 +102,7 @@ woas["popup"] = function (name,fw,fh,extra) {
 }
 
 //DANGER: will corrupt your WoaS!
-var edit_override = false;
+var edit_override = true;
 
 var reserved_namespaces = ["Special", "Lock", "Locked", "Unlocked", "Unlock", "Tags", "Tagged", "Untagged", "Include", "Javascript", "WoaS"];
 
@@ -322,19 +322,58 @@ woas["get_text_special"] = function(title) {
 	return text;
 }
 
+woas["__password_finalize"] = function(pwd_obj) {
+//	this.setHTML($("woas_pwd_msg"), msg);
+	$.show("wiki_text");
+	$("woas_pwd_query").style.visibility = "hidden";
+	$("woas_pwd_mask").style.visibility = "hidden";
+//	scrollTo(0,0);
+	// hide input form
+	pwd_obj.value = "";
+}
+
+woas["_set_password"] = function() {
+	// hide browser scrollbars and show mask
+	$("woas_pwd_mask").style.visibility = "visible";
+//	this.setHTML($("woas_pwd_msg"), msg);
+	$.hide("wiki_text");
+	scrollTo(0,0);
+	// show input form
+	$("woas_pwd_query").style.visibility = "visible";
+}
+
+woas["_password_cancel"] = function(pwd_obj) {
+	this.__password_finalize(pwd_obj);
+}
+
+woas["_password_ok"] = function(pwd_obj) {
+	var pw = pwd_obj.value;
+	if (!pw.length) {
+		alert("Please enter a password.");
+		return;
+	}
+	AES_setKey(pw);
+	this.__password_finalize(pwd_obj);
+}
+
+//TODO: specify interactive-mode
 woas["get__text"] = function(pi) {
 	// is the page encrypted or plain?
 	if (!this.is__encrypted(pi))
 		return pages[pi];
-	document.body.style.cursor = "wait";
 	_decrypt_failed = true;
-	var retry = 0;		
-	var pg = null;
-	do {
-		if (retry || !key.length) {
+	if (!key.length) {
+		alert("No password set for decryption of page \""+page_titles[pi]+"\"");
+		return null;
+	}
+	document.body.style.cursor = "wait";
+//	var pg = null;
 			//TODO: use form-based password input
-			var pw = prompt('The latest entered password (if any) was not correct for page "'+page_titles[pi]+"'\n\nPlease enter the correct password.", '');
-			if ((pw==null) || !pw.length) {
+//			this._get_password('The latest entered password (if any) was not correct for page "'+page_titles[pi]+"\"");
+//			var pw = prompt('The latest entered password (if any) was not correct for page "'+page_titles[pi]+"'\n\nPlease enter the correct password.", '');
+//			if ((pw==null) || !pw.length) {
+			// we are waiting for the password to be set programmatically
+/*			if (!pw.length) {
 				latest_AES_page = "";
 				AES_clearKey();
 				document.body.style.cursor = "auto";
@@ -342,13 +381,15 @@ woas["get__text"] = function(pi) {
 			}
 			AES_setKey(pw);
 			retry++;
-		}
+*/
+//			return null;
+//		}
 		// pass a copied instance to the decrypt function
-		pg = AES_decrypt(pages[pi].slice(0));	/*WARNING: may not be supported by all browsers*/
+		var pg = AES_decrypt(pages[pi].slice(0));	/*WARNING: may not be supported by all browsers*/
 		last_AES_page = page_titles[pi];
-		if (pg != null)
-			break;
-	} while (retry<2);
+//		if (pg != null)
+//			break;
+
 	if (pg != null) {
 		_decrypt_failed = false;
 		if (!this.config.key_cache)
@@ -356,7 +397,7 @@ woas["get__text"] = function(pi) {
 		else
 			latest_AES_page = page_titles[pi];
 	} else {
-		alert("Access denied");
+		alert("Access denied to page \""+page_titles[pi]+"\"");
 		AES_clearKey();
 		latest_AES_page = "";
 	}
