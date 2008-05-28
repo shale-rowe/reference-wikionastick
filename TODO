@@ -1,4 +1,6 @@
 
+* Fix bug with Javascript:: namespace and breadcrumb (current is not changed)
+
 * Export entire wiki as XML (StickWiki 0.9 format|MediaWiki format)
 
 * Import wiki from XML (StickWiki 0.9 format|MediaWiki format)
@@ -11,11 +13,11 @@
 
 * group operations on page lists (deletion, encryption, decryption etc.) maybe also with checkboxes
 
-* possibility to delete an encrypted page even when password is not available (maybe through the group operations)
+* possibility to delete an encrypted page even when password is not available (maybe through the group operations) (DONE)
 
 * CSS import flag evaluation + add missing stuff from v0.9 and v0.9.2
 
-* icon themes (importing and changing of defaul graphics)
+* icon themes (importing and changing of default graphics)
 
 * export of some special pages and namespace pages (almost complete)
 
@@ -27,7 +29,7 @@
 
 * convert Special::Bootscript to WoaS::Bootscript (done)
 
-* implement Special::Scripts
+* implement magic Javascript:: namespace (done)
 
 * pluggable Special::Group:: namespace (each special function is called from there)
 
