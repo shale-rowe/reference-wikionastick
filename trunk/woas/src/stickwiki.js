@@ -424,16 +424,14 @@ woas["get__text"] = function(pi) {
 		last_AES_page = page_titles[pi];
 //		if (pg != null)
 //			break;
-
+	if (!this.config.key_cache)
+		AES_clearKey();
 	if (pg != null) {
 		_decrypt_failed = false;
-		if (!this.config.key_cache)
-			AES_clearKey();
-		else
-			latest_AES_page = page_titles[pi];
+//		if (this.config.key_cache)			latest_AES_page = page_titles[pi];
 	} else {
 		alert("Access denied to page \""+page_titles[pi]+"\"");
-		AES_clearKey();
+//		AES_clearKey();
 		latest_AES_page = "";
 	}
 	document.body.style.cursor = "auto";
