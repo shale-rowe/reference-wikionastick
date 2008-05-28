@@ -1517,10 +1517,10 @@ z-index: 100;
 <div id="loading_overlay" style="display: inline; visibility: visible;"><noscript><h1>If you are seeing this text, your browser is not javascript-enabled. Sorry, WoaS is a javascript application</h1></noscript>Loading...</div>
 <div id="woas_pwd_mask">
 <div id="woas_pwd_query">
-<form name="stealthpwd" action="" onsubmit="woas._password_ok(this.woas_password); return false">
+<form name="stealthpwd" action="" onsubmit="woas._password_ok(); return false">
 <h3>Enter a decryption password</h3>
 <input name="woas_password" id="woas_password" size="16" type="password"><br><br>
-<input value="OK" type="submit">&nbsp;<input value="Cancel" onclick="woas._password_cancel(this.woas_password)" type="button"><br>
+<input value="OK" type="submit">&nbsp;<input value="Cancel" onclick="woas._password_cancel()" type="button"><br>
 </form>
 </div>
 </div>

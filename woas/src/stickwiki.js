@@ -377,11 +377,12 @@ woas["_set_password"] = function() {
 	$("woas_password").focus();	
 }
 
-woas["_password_cancel"] = function(pwd_obj) {
-	this.__password_finalize(pwd_obj);
+woas["_password_cancel"] = function() {
+	this.__password_finalize($("woas_password"));
 }
 
-woas["_password_ok"] = function(pwd_obj) {
+woas["_password_ok"] = function() {
+	var pwd_obj = $("woas_password");
 	var pw = pwd_obj.value;
 	if (!pw.length) {
 		alert("Please enter a password.");
