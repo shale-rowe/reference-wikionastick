@@ -797,19 +797,29 @@ woas["cmd_edit_aliases"] = function() {
 woas["cmd_go_to"] = function() {
 	var pname = prompt("Go to page:", current);
 	if ((pname === null) || !pname.length)
+		return null;
+	go_to(pname);
+}
+
+woas["cmd_delete"] = function() {
+	var pname = prompt("Delete page:", current);
+	if ((pname === null) || !pname.length)
 		return;
 	var pi = this.page_index(pname);
 	if (pi == -1) {
 		alert("Page \""+pname+"\" does not exist!");
 		return;
 	}
-	go_to(pname);
+	if ((pname != null) && confirm("Are you sure you want to DELETE page \""+pname+"\"?")) {
+		delete_page(pname);
+		this.save_page(pname);
+	}
 }
 
-woas["shortcuts"] = ["New Page", "Duplicate Page", "All Pages", "Orphaned Pages", "Backlinks", "Dead Pages", "Erase Wiki", "Edit CSS", "Main Page", "Edit Bootscript", "Aliases", "Go to"];
+woas["shortcuts"] = ["New Page", "Duplicate Page", "All Pages", "Orphaned Pages", "Backlinks", "Dead Pages", "Erase Wiki", "Edit CSS", "Main Page", "Edit Bootscript", "Aliases", "Go to", "Delete Page"];
 woas["shortcuts_js"] = ["cmd_new_page", "cmd_duplicate_page", "special_all_pages", "special_orphaned_pages", "special_backlinks",
 					"special_dead_pages", "cmd_erase_wiki", "cmd_edit_css", "cmd_main_page",
-					"cmd_edit_bootscript", "cmd_edit_aliases", "cmd_go_to"];
+					"cmd_edit_bootscript", "cmd_edit_aliases", "cmd_go_to", "cmd_delete"];
 
 woas["_get_special"] = function(cr, interactive) {
 	var text = null;
@@ -1915,7 +1925,7 @@ function erase_wiki() {
 	}
 	page_titles = ["Main Page", "::Menu", "WoaS::Bootscript", "WoaS::Aliases"];
 	page_titles = page_titles.concat(static_pg);
-	pages = ["This is your empty main page", "[[Main Page]]\n\n[[Special::New Page]]\n[[Special::Duplicate Page]]\n[[Special::Go to]]\n[[Special::Backlinks]]\n[[Special::Search]]", encode64("/* insert here your boot script */"), ""];
+	pages = ["This is your empty main page", "[[Main Page]]\n\n[[Special::New Page]]\n[[Special::Duplicate Page]]\n[[Special::Go to]]\n[[Special::Delete]]\n[[Special::Backlinks]]\n[[Special::Search]]", encode64("/* insert here your boot script */"), ""];
 	pages = pages.concat(backup_pages);
 	current = main_page = "Main Page";
 	woas.refresh_menu_area();
