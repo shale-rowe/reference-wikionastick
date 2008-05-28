@@ -1766,17 +1766,16 @@ function _get_data(marker, source, full, start) {
 	var body_ofs = source.indexOf("</head>", offset);
 	if (body_ofs == -1)
 		body_ofs = source.indexOf("</HEAD>", offset);
-	if (body_ofs != -1) {
+/*	if (body_ofs != -1) {
 		// XHTML hotfixes (FF doesn't either save correctly)
 		source = source.substring(0, body_ofs) + source.substring(body_ofs).
 				replace(/<(img|hr|br|input|meta)[^>]*>/gi, function(str, tag) {
-		var l=str.length;
-		if (str.charAt(l-1)!='/')
-			str = str.substr(0, l-1)+" />";
-		return str;
-	});
-
-	}
+					var l=str.length;
+					if (str.charAt(l-1)!='/')
+						str = str.substr(0, l-1)+" />";
+					return str;
+		});
+	} */
 	
 	if (full) {
 		// offset was previously calculated
