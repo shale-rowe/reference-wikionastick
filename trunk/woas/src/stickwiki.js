@@ -1232,6 +1232,8 @@ woas["setHTML"] = woas["getHTML"] = null;
 woas["after_load"] = function() {
 	log("***** Woas v"+this.version+" started *****");	// log:1
 	
+//	alert("page_titles: "+page_titles.length+"\npages: "+pages.length+"\npage_attrs: "+page_attrs.length);
+	
 	document.body.style.cursor = "auto";
 	
 	if (ie) {	// some hacks for IE
@@ -1315,7 +1317,6 @@ woas["_load_aliases"] = function(s) {
 		cpok = [ new RegExp(RegExp.escape(cp[0]), "g"), tmpl[i].substr(cp[0].length).replace(/^\s+/, '') ];
 		this.aliases.push(cpok);
 	}
-	s = "$HOME";
 }
 
 woas["_create_bs"] = function() {
@@ -1361,8 +1362,7 @@ function custom_focus(focused) {
 
 var kbd_hooking=false;
 
-function kbd_hook(orig_e)
-{
+function kbd_hook(orig_e) {
 	if (!orig_e)
 		e = window.event;
 	else
@@ -1631,10 +1631,9 @@ woas["save"] = function() {
 			current = "Special::Advanced";
 			$("wiki_page_title").disabled = "";
 			break;
-		case "WoaS::Bootscript":
 		case "WoaS::Aliases":
 			this._load_aliases($("wiki_editor").value);
-			back_to = null;
+		case "WoaS::Bootscript":
 			can_be_empty = true;
 		default:
 			// check if text is empty
@@ -1917,7 +1916,7 @@ function erase_wiki() {
 	}
 	page_titles = ["Main Page", "::Menu", "WoaS::Bootscript", "WoaS::Aliases"];
 	page_titles = page_titles.concat(static_pg);
-	pages = ["This is your empty main page", "[[Main Page]]\n\n[[Special::New Page]]\n[[Special::Duplicate Page]]\n[[Special::Backlinks]]\n[[Special::Search]]", encode64("/* insert here your boot script */"), ""];
+	pages = ["This is your empty main page", "[[Main Page]]\n\n[[Special::New Page]]\n[[Special::Duplicate Page]]\n[[Special::Go to]]\n[[Special::Backlinks]]\n[[Special::Search]]", encode64("/* insert here your boot script */"), ""];
 	pages = pages.concat(backup_pages);
 	current = main_page = "Main Page";
 	woas.refresh_menu_area();
