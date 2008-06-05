@@ -1771,10 +1771,14 @@ function _get_data(marker, source, full, start) {
 	offset += 6 + 4 + marker.length + 2;
 	
 	// IE ...
-	var body_ofs = source.indexOf("</head>", offset);
-	if (body_ofs == -1)
-		body_ofs = source.indexOf("</HEAD>", offset);
-/*	if (body_ofs != -1) {
+	var body_ofs;
+	var re = new RegExp("<\\/"+"head>", "i");
+	var m = re.exec(source);
+	if (m != null)
+		body_ofs = m.index;
+	else
+		body_ofs = -1;
+	if (body_ofs != -1) {
 		// XHTML hotfixes (FF doesn't either save correctly)
 		source = source.substring(0, body_ofs) + source.substring(body_ofs).
 				replace(/<(img|hr|br|input|meta)[^>]*>/gi, function(str, tag) {
@@ -1783,7 +1787,7 @@ function _get_data(marker, source, full, start) {
 						str = str.substr(0, l-1)+" />";
 					return str;
 		});
-	} */
+	}
 	
 	if (full) {
 		// offset was previously calculated
