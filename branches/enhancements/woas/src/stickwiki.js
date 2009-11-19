@@ -623,44 +623,52 @@ woas["export_file"] = function(page, dest_path) {
 }
 
 woas["_embed_process"] = function(etype) {
-	var filename = $("filename_").value;
+	var field_id = "filename_";
+	var filename = $(field_id).value;
 	if(filename == "") {
 		alert("A file must be selected");
 		return false;
 	}
-
-	_force_binary = true;
-	var ct = loadFile(filename);
-	_force_binary = false;
-	if (ct == null || !ct.length) {
-		alert("Could not load file "+filename);
-		return false;
-	}
 	
-	ct = encode64(ct);
-	
-	// calculate the flags for the embedded file
-	if (etype == "image") {
-		var m=filename.match(/\.(\w+)$/);
-		if (m==null) m = "";
-		else m=m[1].toLowerCase();
-		var guess_mime = "image";
-		switch (m) {
-			case "png":
-				guess_mime = "image/png";
-			break;
-			case "gif":
-				guess_mime = "image/gif";
-				break;
-			case "jpg":
-			case "jpeg":
-				guess_mime = "image/jpeg";
-				break;
+	var ct = mozillaLoadFileID(field_id);
+	if(ct){
+		if (etype == "image")
+			etype = 12;
+		else
+			etype = 4;
+	}else{
+		_force_binary = true;
+		ct = loadFile(filename, field_id);
+		_force_binary = false;
+		if (ct == null || !ct.length) {
+			alert("Could not load file "+filename);
+			return false;
 		}
-		ct = "data:"+guess_mime+";base64,"+ct;
-		etype = 12;
-	} else etype = 4;
-	
+		
+		ct = encode64(ct);
+		
+		// calculate the flags for the embedded file
+		if (etype == "image") {
+			var m=filename.match(/\.(\w+)$/);
+			if (m==null) m = "";
+			else m=m[1].toLowerCase();
+			var guess_mime = "image";
+			switch (m) {
+				case "png":
+					guess_mime = "image/png";
+				break;
+				case "gif":
+					guess_mime = "image/gif";
+					break;
+				case "jpg":
+				case "jpeg":
+					guess_mime = "image/jpeg";
+					break;
+			}
+			ct = "data:"+guess_mime+";base64,"+ct;
+			etype = 12;
+		} else etype = 4;
+	}
 	pages.push(ct);
 	page_attrs.push(etype);
 	page_titles.push(current);

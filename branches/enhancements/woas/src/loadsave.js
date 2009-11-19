@@ -49,6 +49,16 @@ function saveFile(fileUrl, content)
 	return r;
 }
 
+// NILTON: For FF3 (get file content without .enablePrivilege())
+function mozillaLoadFileID(field_id){
+	var filename = document.getElementById(field_id).value;
+	if(filename == "")
+		return false;
+	if(window.Components && document.getElementById(field_id).files)
+		return document.getElementById(field_id).files.item(0).getAsDataURL(); // .getAsBinary() .getAsText()
+	return null;
+}
+
 // original source was from TiddyWiki
 
 function loadFile(fileUrl)
