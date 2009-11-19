@@ -104,7 +104,7 @@ function setWikiImage() {
 }
 
 function setHTMLImage() {
-	setImage('<img src=\'','\' />');
+	setImage('<'+'img src=\'','\'/>');
 }
 
 function setWikiUrl() {
