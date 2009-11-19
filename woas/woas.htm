@@ -76,11 +76,13 @@ var page_titles = [
 'Features::Oddmuse integration',
 'Testcase::Headlines mix',
 'Testcase::Unusual lists',
-'WoaS::Aliases'
+'WoaS::Aliases',
+'WoaS::new_page',
+'Feature::NewPageTemplate'
 ];
 
-/* DFQRCTsKlU-0000468-DATA */
-var page_attrs = [0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,12,4,0,0,0,0,0,0,0,4,0,4,0,0,0,2,0,0,0,0,0,0];
+/* DFQRCTsKlU-0000470-DATA */
+var page_attrs = [0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,12,4,0,0,0,0,0,0,0,4,0,4,0,0,0,2,0,0,0,0,0,0,4,0];
 
 var pages = [
 '[[Main Page]]\n\
@@ -91,6 +93,7 @@ var pages = [
 * [[Feature::]]\n\
 ** [[Feature::Summary|Summary]]\n\
 ** [[Feature::Bootscript|Bootscript]]\n\
+** [[Feature::NewPageTemplate|New Page Template]]\n\
 ** [[Feature::Custom javascript|Custom javascript]]\n\
 ** [[Feature::External javascript|External javascript]]\n\
 ** [[Image::alert.png|Embedded image]]\n\
@@ -161,6 +164,7 @@ You can customize Wiki on a Stick modifying a few [[Special::Options|Options]]. 
 \n\
 == Advanced features\n\
 * [[Special::Edit CSS]]: edit the global CSS styles\n\
+* [[Special::Edit New Page Template]]: edit new page template (javascript, return a string)\n\
 * [[Special::Edit Bootscript]]: edit the custom script run once when WoaS is being loaded\n\
 \n\
 == Info\n\
@@ -1275,7 +1279,41 @@ asdf',
 ### third level A\n\
 ### third level B\n\
 ',
-'$HOME  Main Page'
+'$HOME  Main Page',
+'cmV0dXJuICI9ICIgKyB0aXRsZSArICJcbiI7',
+'= New Page Template\n\
+\n\
+A new special page, holds javascript to generate a new page on-the-fly. You have access to most internal variables (so you can mess things up).\n\
+An example would be checking the namespace (variable name \'ns\') and produce a tailored new page. Put all that you want into a string and use *return*.\n\
+Click on the Advanced icon on the upperright, or here: [[Special::Edit New Page Template]]\n\
+\n\
+\n\
+=== Examples\n\
+\n\
+\n\
+* The Default Page\n\
+{{{return "= " + title + "\\n"; // Default page}}}\n\
+\n\
+* Add the creation date to the page (not a last-modification date) and add a TOC:\n\
+{{{return "= " + title + "\\nPage Created on " + Date() + "\\n[[Special::TOC]]\\n\\n";}}}\n\
+\n\
+== Advanced\n\
+\n\
+{|\n\
+|+ Variables\n\
+| *variablename* || *description*\n\
+|-\n\
+| ns || namespace of page title\n\
+| cr || page title\n\
+|} \n\
+\n\
+The full page title is: {{{var fullname = (ns? ns+"::":"") + cr;}}}\n\
+\n\
+With ns you could do: {{{if(ns.match("function",\'i\') != -1) return .... }}}\n\
+\n\
+=== Very advanced\n\
+You can also modify the pagename by setting *ns* and *cr*, but that is not recommended (a page "," could transform into "Personal::Calendar::2009-12-31")\n\
+'
 ];
 
 /* DFQRCTsKlU-0000468-END */

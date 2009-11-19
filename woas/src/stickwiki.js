@@ -509,10 +509,18 @@ woas["_create_page"] = function (ns, cr, ask, fill_mode) {
 	if (!fill_mode && ask && !confirm("Page not found. Do you want to create it?"))
 		return false;
 	// create and edit the new page
-	if (cr!="Menu")
-		pages.push("= "+cr+"\n");
-	else
-		pages.push("\n");
+	if (cr!="Menu"){
+		var msg;
+		try {
+			var TFn = Function('title', decode64(this.get_text_special("WoaS::new_page")));
+			msg=TFn(cr);
+		}catch(e){
+			alert("Error in new_page template: "+e);
+			return false
+		}
+		pages.push( msg );
+	} else
+		pages.push("\n");		
 	if (ns.length)
 		cr = ns+"::"+cr;
 	page_attrs.push(0);
@@ -723,13 +731,23 @@ woas["_new_page"] = function(msg, fill_mode, def_title) {
 					cr = cr.substring(p+2);
 				} else ns="";
 				if (!this._create_page(ns, cr, false, fill_mode))
-					return ns+cr;
+					return;
+				if( title != (ns? ns+"::":"") + cr){  // new page template modified the title
+					title= (ns? ns+"::":"") + cr;
+					if (this.page_index(title)!=-1){
+						alert("A page with title '"+title+"' already exists! Your new page template needs to check for that!");
+						this._set_title("Editing "+title+". Manually change Page title!");
+						return false
+					}
+					$("wiki_page_title").value = title;
+					this._set_title("Editing "+title);
+				};
 				var upd_menu = (cr=='Menu');
 				if (!upd_menu && confirm("Do you want to add a link into the main menu?")) {
 					var menu = this.get_text("::Menu");
 					var p = menu.indexOf("\n\n");
 					if (p==-1)
-						menu += "\n[["+ns+cr+"]]";
+						menu += "\n[["+title+"]]";
 					else
 						menu = menu.substring(0,p)+"\n[["+title+"]]"+menu.substring(p);
 					this.set__text(this.page_index("::Menu"), menu);
@@ -737,7 +755,6 @@ woas["_new_page"] = function(msg, fill_mode, def_title) {
 				}
 				if (upd_menu)
 					this.refresh_menu_area();
-				return ns+cr;
 			}
 		}
 	}
@@ -824,10 +841,27 @@ woas["cmd_delete"] = function() {
 	}
 }
 
-woas["shortcuts"] = ["New Page", "Duplicate Page", "All Pages", "Orphaned Pages", "Backlinks", "Dead Pages", "Erase Wiki", "Edit CSS", "Main Page", "Edit Bootscript", "Aliases", "Go to", "Delete Page"];
+woas["cmd_edit_new_page"] = function() {
+	if (!this.config.permit_edits && !edit_override) {
+		alert("This Wiki on a Stick is read-only");
+		return null;
+	}
+	_servm_alert();
+	cr = "WoaS::new_page";
+	var tmp = this.get_text(cr);
+	if (tmp == null)
+		return;
+	this.current_editing(cr, true);
+	// setup the wiki editor textbox
+	this.current_editing(cr, this.config.permit_edits | this._server_mode);
+	this.edit_ready(decode64(tmp));
+	return null;
+}
+
+woas["shortcuts"] = ["New Page", "Duplicate Page", "All Pages", "Orphaned Pages", "Backlinks", "Dead Pages", "Erase Wiki", "Edit CSS", "Main Page", "Edit Bootscript", "Aliases", "Go to", "Delete Page", "Edit New Page Template"];
 woas["shortcuts_js"] = ["cmd_new_page", "cmd_duplicate_page", "special_all_pages", "special_orphaned_pages", "special_backlinks",
 					"special_dead_pages", "cmd_erase_wiki", "cmd_edit_css", "cmd_main_page",
-					"cmd_edit_bootscript", "cmd_edit_aliases", "cmd_go_to", "cmd_delete"];
+					"cmd_edit_bootscript", "cmd_edit_aliases", "cmd_go_to", "cmd_delete", "cmd_edit_new_page"];
 
 woas["_get_special"] = function(cr, interactive) {
 	var text = null;
