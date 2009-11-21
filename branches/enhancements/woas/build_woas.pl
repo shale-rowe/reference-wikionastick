@@ -1,4 +1,10 @@
 #!/usr/bin/perl
+#use JavaScript::Packer;
+
+my $size = 0;
+my $compressed_size = 0;
+my $totalsize = 0;
+my $bytes_saved = 0;
 
 
 my $woas = shift || 'woas.htm';
@@ -25,7 +31,7 @@ substr($ct, $p, $ep-$p, $tail);
 
 file_put_contents('woas-merged.htm', $ct);
 
-print "WoaS merged into single file woas-merged.htm " . length($ct) .  " bytes\n";
+print "WoaS merged into single file woas-merged.htm " . length($ct) .  " bytes (saved  $bytes_saved bytes)\n";
 
 exit 0;
 
@@ -69,7 +75,18 @@ sub script_replace {
 	# remove BOM if present
 	my $BOM = sprintf ("\\x%X\\x%X\\x%X/A", 239, 187, 191);
 	$ct =~ s/$BOM//;
-
+	$size = length($ct);
+	#JavaScript::Packer::minify( \$ct, { 'compress' => 'clean' } );
+	#$ct = `perl jsjam.pl -g -i -n -b< $jsm`;
+	$ct = Squeeze($ct);
+	$compressed_size = length($ct);
+	if(!$compressed_size || $?){
+		$compressed_size = length($ct = slurp($jsm));
+		warn "Could not compress $jsm ". ($??$!:'') ."\n";
+	}
+	$bytes_saved += $size - $compressed_size;
+	print "Injecting $jsm: $size ".($size - $compressed_size>0?'->':'=')." $compressed_size\n";
+	
 	#$ct=~s/\n\n//gm;
 	#$ct=~s/^\s*//gs;
 	++$replaced;
@@ -83,4 +100,26 @@ sub file_put_contents {
 	open(FPC, '>', $destination) or crash("Unable to save to '$destination', $!");
 	print FPC $content;
 	close(FPC);
+}
+
+sub Squeeze{
+	$_ = shift;
+	s/^\s+//gm; # remove leading spaces
+	s/\s+$//gm; # remove trailing spaces
+	s`//\s+.*$``gm; # remove trailing comments (tries to)
+	s`^\s*//.*$``gm; # remove full line comments
+	s%\s*\n{%{%gm;
+	s%\s*\n({|})%$1%gm;
+	#s%;\n(?!else)%;%gm;
+	s%{\n%{%gm;
+	s%(if|function|while|do)\s*\(%$1(%gm;
+	s`\s*=\s*(function|true|false|new)`=$1`gm;
+	s`(data|fname|current|woas|pages?|_menu|text|\]|edits|wiki|tags|enc\d)\s*=\s*`$1=`gm;
+	s`\n\n+`\n`gm;
+	s`^/\*.*?^\*/``gms; # multiline comments (certain type)
+	s%(\.,\+)\n%$1%gms; # join concatenate
+	s%\n(\.,\+)%$1%gms; # join concatenate
+	#s%(?<!\n)else%\nelse%gms;
+	
+	return $_;
 }
