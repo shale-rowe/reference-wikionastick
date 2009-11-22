@@ -11,6 +11,17 @@ my $woas = shift || 'woas.htm';
 crash(-1, "Consumed with anger because woas hml file '$woas' does not exist!") if (! -f $woas);
 my $ct = slurp($woas);
 
+# Compact named buttons (saves up 6 bytes! gasp! cough cough!)
+for(my $i=0;$i<12;$i++){
+	my $search = "id=\"pb$i\" ". 'value="[^"]*"';
+	my $replace= "id=\"pb$i\" value=\"P$i\"";
+	#print "$search => $replace\n";
+	$ct=~s/$search/$replace/gems;
+}
+
+# Someday we will compress \n\ 
+#$ct=~s/\\n\\$//gm;
+
 crash(-2, "Could not find marker\n") unless ($ct =~ /\nvar __marker = "([^"]+)";/ );
 my $marker = $1;
 
@@ -19,12 +30,13 @@ $ep = index($ct, '</head>', $p);
 
 my $tail = substr($ct, $p, $ep-$p);
 
+crash(-10, "tail too short (".(length($tail))." bytes), no scripts there! (corrupt $woas?)\n".$tail) if(length($tail) < 10);
+
 $base_dir = dirname($woas).'/';
 
 my $replaced = 0;
 
 $tail =~ s`<script src="([^"]+)" type="text/javascript"></script>`&script_replace($1)`gems;
-
 crash(-3, "Could not find any script tag to replace\n".$tail) unless($replaced);
 
 substr($ct, $p, $ep-$p, $tail);
@@ -105,16 +117,16 @@ sub file_put_contents {
 sub Squeeze{
 	$_ = shift;
 	return $_ if(grep( /(-nc|--no_compression)/, @ARGV));
-	s/^\s+//gm; # remove leading spaces
-	s/\s+$//gm; # remove trailing spaces
 	s`//\s+.*$``gm; # remove trailing comments (tries to)
 	s`^\s*//.*$``gm; # remove full line comments
+	s/^\s+//gm; # remove leading spaces
+	s/\s+$//gm; # remove trailing spaces
 	s%\s*\n{%{%gm;
 	s%\s*\n({|})%$1%gm;
 	#s%;\n(?!else)%;%gm;
 	s%{\n%{%gm;
 	s%(if|function|while|do)\s*\(%$1(%gm;
-	s`(try)\s+\{`$1\{`gm;
+	s`(try)\s+\{\s*`$1\{`gm;
 	s`\s+(\+=|\!=|==)\s+`$1`gm;
 	s`\s*=\s*(function|true|false|new|null|document|\$\(")`=$1`gm;
 	s`(data|innerHTML|cursor|fname|current|woas|pages?|tmp|pos|ility|_menu|var\s+\w+|stack|title|text|\]|edits|wiki|tags?|img|hash|enc\d)\s*=\s*`$1=`gm;
@@ -125,13 +137,14 @@ sub Squeeze{
 	s%\n(\.,\+)%$1%gms; # join concatenate
 	s%;\n(return)%;$1%gms; #
 	#s%(?<!\n)else%\nelse%gms;
-	s`function\(([^)]+)\)\s*`"function(".&stripspace($1).")"`egm;
+	s`(function|_new_page|sublist|str_rep|substring|sublist|substr|_list)\s*\(([^)]*)\)\s*`$1."(".&stripspace($2).")"`egm;
 	s`function\s+(\w+)\s*\(([^)]+)\)\s*`"function ".$1."(".&stripspace($2).")"`egm;
 	return $_;
 }
 
 sub stripspace{
 	my $s = shift;
-	$s=~s/\s+//g;
+	$s=~s/^\s+|\s+$//g;
+	$s=~s/\s*,\s*/,/g;
 	return $s;
 }

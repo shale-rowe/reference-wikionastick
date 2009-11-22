@@ -392,7 +392,7 @@ woas["_password_ok"] = function() {
 	this.__password_finalize(pwd_obj);
 }
 
-//TODO: specify interactive-mode
+// TODO: specify interactive-mode
 woas["get__text"] = function(pi) {
 	// is the page encrypted or plain?
 	if (!this.is__encrypted(pi))
@@ -404,7 +404,7 @@ woas["get__text"] = function(pi) {
 	}
 	document.body.style.cursor = "wait";
 //	var pg = null;
-			//TODO: use form-based password input
+			// TODO: use form-based password input
 //			this._get_password('The latest entered password (if any) was not correct for page "'+page_titles[pi]+"\"");
 //			var pw = prompt('The latest entered password (if any) was not correct for page "'+page_titles[pi]+"'\n\nPlease enter the correct password.", '');
 //			if ((pw==null) || !pw.length) {
@@ -1000,7 +1000,7 @@ woas["set_current"] = function (cr, interactive) {
 						pi = woas.page_index(namespace+"::"+cr);
 						var real_t = page_titles[pi];
 						if (this.is__embedded(pi)) {
-							//TODO: do not use namespace to guess the embedded file type
+							// TODO: do not use namespace to guess the embedded file type
 							text = this._get__embedded(real_t, pi, "file");
 						} else
 							text = this.get_text(real_t);
@@ -1157,20 +1157,20 @@ function _hex_col(tone) {
 	// original code from http://lxr.mozilla.org/seamonkey/source/security/manager/pki/resources/content/password.js
 	var pw=$('pw1').value;
 
-	//length of the password
+	// length of the password
 	var pwlength=pw.length;
 	
 	if (pwlength!=0) {
 
-	//use of numbers in the password
+	// use of numbers in the password
 	  var numnumeric = pw.match(/[0-9]/g);
 	  var numeric=(numnumeric!=null)?numnumeric.length/pwlength:0;
 
-	//use of symbols in the password
+	// use of symbols in the password
 	  var symbols = pw.match(/\W/g);
 	  var numsymbols= (symbols!=null)?symbols.length/pwlength:0;
 
-	//use of uppercase in the password
+	// use of uppercase in the password
 	  var numupper = pw.match(/[^A-Z]/g);
 	  var upper=numupper!=null?numupper.length/pwlength:0;
 	// end of modified code from Mozilla
@@ -1351,7 +1351,7 @@ woas["after_load"] = function() {
 
 	this._load_aliases(this.get_text("WoaS::Aliases"));
 
-	this._create_bs();	//moved here to fix bug 1898587
+	this._create_bs();	// moved here to fix bug 1898587
 	this.set_current(current, true);
 	this.refresh_menu_area();
 	_prev_title = current;
@@ -1415,7 +1415,7 @@ woas["_clear_bs"] = function() {
 }
 
 function ff_fix_focus() {
-//runtime fix for Firefox bug 374786
+// runtime fix for Firefox bug 374786
 	if (firefox)
 		$("wiki_text").blur();
 }
@@ -1583,12 +1583,22 @@ woas["current_editing"] = function(page, disabled) {
 
 	if( woas["editbutton"] )
 		for(var button=0;button<woas["editbutton"].length;++button){
-			var b_el = document.getElementById('pb'+button);
-			if(b_el){
-				b_el.value = woas["editbutton"][button].label;
-				b_el.onclick = woas["editbutton"][button].onclick;
+			var E = document.getElementById('pb'+button);
+			var B = woas["editbutton"][button];
+			if(E){
+				//alert(B.label+B.style);
+				E.value = B.label;
+				E.onclick = B.onclick;
+				if(!B.style)
+					B.style="width: 50px";
+				try{
+					E.setAttribute('style', B.style); // Standards base browsers
+				}catch(e){
+					try{E.style.setAttribute('cssText', B.style); // Non Standards based IE browser}};
+					}catch(e){}
+				}
 			}else
-				alert("Something is wrong with the definition of 'editbutton' "+$button);
+				alert("Something is wrong with the definition of 'editbutton' "+button);
 		}else
 			alert('no editbutton?')
 	
@@ -1639,7 +1649,7 @@ woas["rename_page"] = function(previous, newpage) {
 	var changed;
 	for(var i=0; i<pages.length; i++)
 	{
-		//FIXME: should not replace within the nowiki blocks!
+		// FIXME: should not replace within the nowiki blocks!
 		var tmp = this.get_page(i);
 		if (tmp==null)
 			continue;
@@ -1674,7 +1684,7 @@ function delete_page(page) {
 
 // applies some on-the-fly patches for the syntax changes in v0.9
 function _new_syntax_patch(text) {
-	//BUG: will also modify text contained in nowiki blocks
+	// BUG: will also modify text contained in nowiki blocks
 	text = text.replace(/(^|\n)(\+*)([ \t])/g, function (str, $1, $2, $3) {
 		return $1+str_rep("*", $2.length)+$3;
 	});
@@ -1818,7 +1828,7 @@ woas["save_page"] = function(page_to_save) {
 }
 
 woas["save__page"] = function(pi) {
-	//this is the dummy function that will allow more efficient file saving in future
+	// this is the dummy function that will allow more efficient file saving in future
 	if (this.config.cumulative_save) {
 		if (!floating_pages.length) {
 			floating_pages.push(pi);
@@ -2025,7 +2035,7 @@ var max_description_length = 250;
 
 function sortN(a,b){return b.w - a.w}
 
-//TODO: have Special::Common Words contain all the common words
+// TODO: have Special::Common Words contain all the common words
 var common_words = ['a', 'the', 'is', 'for', 'of', 'to', 'in', 'an', 'be', 'that', 'all', 'or'];
 
 function _auto_keywords(source) {

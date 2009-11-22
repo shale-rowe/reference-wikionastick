@@ -284,7 +284,7 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 						return r;
 					}
 				}
-			}); //"<a class=\"wiki\" onclick='go_to(\"$2\")'>$1<\/a>");
+			}); // "<a class=\"wiki\" onclick='go_to(\"$2\")'>$1<\/a>");
 	// links without |
 	var inline_tags = 0;
 	text = text.replace(/\[\[([^\]]*?)\]\]/g, function(str, $1) {
@@ -330,7 +330,7 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 			}
 			return r;
 		}
-	}); //"<a class=\"wiki\" onclick='go_to(\"$1\")'>$1<\/a>");
+	}); // "<a class=\"wiki\" onclick='go_to(\"$1\")'>$1<\/a>");
 
 	// allow non-wrapping newlines
 	text = text.replace(/\\\n/g, "");
@@ -370,7 +370,7 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 	text = text.replace(/(^|[^\w\/\\])\*([^\*\n]+)\*/g, "$1"+parse_marker+"bS#$2"+parse_marker+"bE#");
 
 	// <strike>
-	//text = text.replace(/(^|\n|\s|\>|\*)\--(.*?)\--/g, "$1<strike>$2<\/strike>");
+	// text = text.replace(/(^|\n|\s|\>|\*)\--(.*?)\--/g, "$1<strike>$2<\/strike>");
 	
 	text = text.replace(new RegExp(parse_marker+"([ub])([SE])#", "g"), function (str, $1, $2) {
 		if ($2=='E') {

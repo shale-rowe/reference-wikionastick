@@ -7,7 +7,7 @@
 				return "\nvar ignoreme = ";
 			c.push('sw_import_'+$2);
 			return $1+"\nvar sw_import_"+$2+" = ";
-		});//.replace(/\\\n/g, '');
+		});// .replace(/\\\n/g, '');
 		log("collected variables = "+c);	// log:1
 		
 		c = eval(data+"\n["+c+"];");
@@ -285,8 +285,8 @@ if (old_version	< 9) {
 		// shared with v0.9.5B
 		collected = get_import_vars(data, new Array('woas', '__marker', 'version', '__config'));
 
-		//0:sw_import_current,1:sw_import_main_page,
-		//2:sw_import_backstack,3:sw_import_page_titles,4:sw_import_page_attrs,5:sw_import_pages
+		// 0:sw_import_current,1:sw_import_main_page,
+		// 2:sw_import_backstack,3:sw_import_page_titles,4:sw_import_page_attrs,5:sw_import_pages
 		new_main_page = collected[1];
 		if (import_content) {
 			page_contents = collected[5];
@@ -320,7 +320,7 @@ if (old_version	< 9) {
 			data = data.replace(/([^\\])\nwoas\\["(\w+)"\\] = /g, function (str, $1, $2) {
 				collected.push($2);
 				return $1+"\ni__woas[\""+$2+"\"] = ";
-			});//.replace(/\\\n/g, '');
+			});// .replace(/\\\n/g, '');
 			data = null;
 			
 			// retrieve the object containing all woas data & config
@@ -332,7 +332,7 @@ if (old_version	< 9) {
 			}
 			
 			if (import_icons) {
-				//TODO: import the icons
+				// TODO: import the icons
 			} ct = null;
 
 			i__woas = null;

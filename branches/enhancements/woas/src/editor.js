@@ -1,12 +1,11 @@
-
-woas["wiki_buttons_display"] = function (v) {
-	$('wiki_format_buttons').style.display = v ? 'block' : 'none';
-	$('wiki_format_buttons').style.visibility = v ? 'visible' : 'hidden';
+woas["setDisplay"] = function (id, showorhide) {
+	$(id).style.display = showorhide ? 'block' : 'none';
+	$(id).style.visibility = showorhide ? 'visible' : 'hidden';
 }
 
-woas["html_buttons_display"] = function (v) {
-	$('html_format_buttons').style.display = v ? 'block' : 'none';
-	$('html_format_buttons').style.visibility = v ? 'visible' : 'hidden';
+woas["toggleDisplay"] = function (id) {
+	var showorhide = $(id).style.display != 'block';
+	woas["setDisplay"](id, showorhide);
 }
 
 // submitted by pr0xy
@@ -84,9 +83,9 @@ this.carretHandler.scroll=this.scrollTop;
  } else {this.carretHandler.start=this.carretHandler.end=-1;}
 }
 
-function	DivTagThis(align, prop) {
+function	DivTagThis(value, prop) {
 	if(!prop) prop='align';
-	TagThis('<div '+prop+'="'+align+'">', '</div>');
+	TagThis('<div '+prop+'="'+value+'">', '</div>');
 }
 
 function TagThis(starttag, endtag){

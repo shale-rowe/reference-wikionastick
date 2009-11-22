@@ -7,7 +7,7 @@ var _doctype = "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\" \"http://www
 var ie = false;
 var ie6 = false;
 var firefox = false;
-//var ff3 = false;
+// var ff3 = false;
 var opera = false;
 
 if((navigator.userAgent).indexOf("Opera")!=-1)
