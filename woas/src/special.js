@@ -90,7 +90,8 @@ woas["special_search"] = function( str ) {
 					replace(/^\s+/, "").
 					replace(/\s+$/, "").
 					replace(/([^\s]+)/g, "($1)").
-					replace(/\s+/g, ".*?") + ".*", "gi" );	*/
+					replace(/\s+/g, ".*?") + ".*", "gi" );
+*/
 	var tmp;
 	result_pages = [];
 	for(var i=0; i<pages.length; i++) {
