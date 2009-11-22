@@ -22,7 +22,7 @@ function _get_this_filename() {
 	return filename;
 }
 
-//alert(_get_this_filename());
+// alert(_get_this_filename());
 
 function _saveThisFile(new_data, old_data) {
 	var filename = _get_this_filename();

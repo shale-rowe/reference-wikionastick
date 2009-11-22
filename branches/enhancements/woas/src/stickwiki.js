@@ -1559,9 +1559,19 @@ woas["current_editing"] = function(page, disabled) {
 		$("wiki_editor").style.width = window.innerWidth - 30 + "px";
 		$("wiki_editor").style.height = window.innerHeight - 150 + "px";
 	}
+
+	if( woas["editbutton"] )
+		for(var button=0;button<woas["editbutton"].length;++button){
+			var b_el = document.getElementById('pb'+button);
+			if(b_el){
+				b_el.value = woas["editbutton"][button].label;
+				b_el.onclick = woas["editbutton"][button].onclick;
+			}else
+				alert("Something is wrong with the definition of 'editbutton' "+$button);
+		}else
+			alert('no editbutton?')
 	
 	$.show("edit_area");
-
 	$("wiki_editor").focus();
 	current = page;
 	scrollTo(0,0);
