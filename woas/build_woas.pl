@@ -114,14 +114,24 @@ sub Squeeze{
 	#s%;\n(?!else)%;%gm;
 	s%{\n%{%gm;
 	s%(if|function|while|do)\s*\(%$1(%gm;
+	s`(try)\s+\{`$1\{`gm;
+	s`\s+(\+=|\!=|==)\s+`$1`gm;
 	s`\s*=\s*(function|true|false|new|null|document|\$\(")`=$1`gm;
-	s`(data|fname|current|woas|pages?|tmp|pos|ility|_menu|var\s+\w+|stack|title|text|\]|edits|wiki|tags?|img|hash|enc\d)\s*=\s*`$1=`gm;
+	s`(data|innerHTML|cursor|fname|current|woas|pages?|tmp|pos|ility|_menu|var\s+\w+|stack|title|text|\]|edits|wiki|tags?|img|hash|enc\d)\s*=\s*`$1=`gm;
 	s`\n\n+`\n`gm;
+	s`",\s+"`","`gm; # remove spaces between array elements
 	s`^/\*.*?^\*/``gms; # multiline comments (certain type)
 	s%(\.,\+)\n%$1%gms; # join concatenate
 	s%\n(\.,\+)%$1%gms; # join concatenate
 	s%;\n(return)%;$1%gms; #
 	#s%(?<!\n)else%\nelse%gms;
-	
+	s`function\(([^)]+)\)\s*`"function(".&stripspace($1).")"`egm;
+	s`function\s+(\w+)\s*\(([^)]+)\)\s*`"function ".$1."(".&stripspace($2).")"`egm;
 	return $_;
+}
+
+sub stripspace{
+	my $s = shift;
+	$s=~s/\s+//g;
+	return $s;
 }
