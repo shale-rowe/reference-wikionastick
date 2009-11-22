@@ -1832,13 +1832,13 @@ function _get_data(marker, source, full, start) {
 		body_ofs = -1;
 	if (body_ofs != -1) {
 		// XHTML hotfixes (FF doesn't either save correctly)
-		source = source.substring(0, body_ofs) + source.substring(body_ofs).
+		source = source.substring(0, body_ofs).
 				replace(/<(img|hr|br|input|meta)[^>]*>/gi, function(str, tag) {
 					var l=str.length;
 					if (str.charAt(l-1)!='/')
 						str = str.substr(0, l-1)+" />";
 					return str;
-		});
+		}) + source.substring(body_ofs);
 	}
 	
 	if (full) {
