@@ -71,7 +71,7 @@ woas["_export_get_fname"] = function (title, create_mode) {
 		var l=$1.length, r="";
 		for(var i=0;i<l;i++) {
 			switch ($1[i]) {
-				//TODO: add most common diacritics
+				// TODO: add most common diacritics
 				case "\u00e2":
 					r+="a";
 					break;
@@ -236,7 +236,7 @@ woas["export_wiki"] = function () {
 				log("cannot process "+title);
 				continue;
 			}
-			//TODO: allow special pages to have extended attributes
+			// TODO: allow special pages to have extended attributes
 			data = this.export_parse(data, exp.js_mode);
 			if (this.export_one_page(data, title, _title2fn[title], exp))
 				++done;

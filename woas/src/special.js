@@ -72,7 +72,7 @@ woas["special_backlinks"] = function()
 		return "== Links to "+current+"\n"+this._join_list(pg);
 }
 
-//var hl_reg;
+// var hl_reg;
 
 // Returns a index of search pages (by miz & legolas558)
 woas["special_search"] = function( str ) {
@@ -104,14 +104,14 @@ woas["special_search"] = function( str ) {
 //		log("Searching into "+page_titles[i]);	// log:0
 		
 		var added = false;
-		//look for str in title
+		// look for str in title
 		if(page_titles[i].match(reg)) {
 			title_result += "* [[" + page_titles[i] + "]]\n";
 			result_pages.push(page_titles[i]);
 			added = true;
 		}
 
-		//Look for str in body
+		// Look for str in body
 		res_body = tmp.match(reg);
 		if (res_body!=null) {
 			if (!added)
