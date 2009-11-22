@@ -104,6 +104,7 @@ sub file_put_contents {
 
 sub Squeeze{
 	$_ = shift;
+	return $_ if(grep( /(-nc|--no_compression)/, @ARGV));
 	s/^\s+//gm; # remove leading spaces
 	s/\s+$//gm; # remove trailing spaces
 	s`//\s+.*$``gm; # remove trailing comments (tries to)
@@ -113,12 +114,13 @@ sub Squeeze{
 	#s%;\n(?!else)%;%gm;
 	s%{\n%{%gm;
 	s%(if|function|while|do)\s*\(%$1(%gm;
-	s`\s*=\s*(function|true|false|new)`=$1`gm;
-	s`(data|fname|current|woas|pages?|_menu|text|\]|edits|wiki|tags|enc\d)\s*=\s*`$1=`gm;
+	s`\s*=\s*(function|true|false|new|null|document|\$\(")`=$1`gm;
+	s`(data|fname|current|woas|pages?|tmp|pos|ility|_menu|var\s+\w+|stack|title|text|\]|edits|wiki|tags?|img|hash|enc\d)\s*=\s*`$1=`gm;
 	s`\n\n+`\n`gm;
 	s`^/\*.*?^\*/``gms; # multiline comments (certain type)
 	s%(\.,\+)\n%$1%gms; # join concatenate
 	s%\n(\.,\+)%$1%gms; # join concatenate
+	s%;\n(return)%;$1%gms; #
 	#s%(?<!\n)else%\nelse%gms;
 	
 	return $_;
