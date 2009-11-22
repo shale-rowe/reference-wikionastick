@@ -858,10 +858,27 @@ woas["cmd_edit_new_page"] = function() {
 	return null;
 }
 
-woas["shortcuts"] = ["New Page", "Duplicate Page", "All Pages", "Orphaned Pages", "Backlinks", "Dead Pages", "Erase Wiki", "Edit CSS", "Main Page", "Edit Bootscript", "Aliases", "Go to", "Delete Page", "Edit New Page Template"];
+woas["cmd_edit_buttons"] = function() {
+	if (!this.config.permit_edits && !edit_override) {
+		alert("This Wiki on a Stick is read-only");
+		return null;
+	}
+	_servm_alert();
+	cr = "WoaS::Buttons";
+	var tmp = this.get_text(cr);
+	if (tmp == null)
+		return;
+	this.current_editing(cr, true);
+	// setup the wiki editor textbox
+	this.current_editing(cr, this.config.permit_edits | this._server_mode);
+	this.edit_ready(decode64(tmp));
+	return null;
+}
+
+woas["shortcuts"] = ["New Page", "Duplicate Page", "All Pages", "Orphaned Pages", "Backlinks", "Dead Pages", "Erase Wiki", "Edit CSS", "Main Page", "Edit Bootscript", "Aliases", "Go to", "Delete Page", "Edit New Page Template", "Buttons"];
 woas["shortcuts_js"] = ["cmd_new_page", "cmd_duplicate_page", "special_all_pages", "special_orphaned_pages", "special_backlinks",
 					"special_dead_pages", "cmd_erase_wiki", "cmd_edit_css", "cmd_main_page",
-					"cmd_edit_bootscript", "cmd_edit_aliases", "cmd_go_to", "cmd_delete", "cmd_edit_new_page"];
+					"cmd_edit_bootscript", "cmd_edit_aliases", "cmd_go_to", "cmd_delete", "cmd_edit_new_page", "cmd_edit_buttons"];
 
 woas["_get_special"] = function(cr, interactive) {
 	var text = null;
@@ -1373,9 +1390,13 @@ woas["_load_aliases"] = function(s) {
 woas["_create_bs"] = function() {
 
 	var s=this.get_text("WoaS::Bootscript");
-	if (s==null || !s.length) return false;
+	var k=this.get_text("WoaS::Buttons");
+//	if (s==null || !s.length) return false;
+	if (s==null || !s.length || k==null || !k.length) return false;
 	// remove the comments
 	s = decode64(s).replace(/^\s*\/\*(.|\n)*?\*\/\s*/g, '');
+	k = decode64(k).replace(/^\s*\/\*(.|\n)*?\*\/\s*/g, '');
+	s = s +";"+ k;
 	if (!s.length) return false;
 	_bootscript = document.createElement("script");
 	_bootscript.type="text/javascript";
@@ -1832,13 +1853,14 @@ function _get_data(marker, source, full, start) {
 		body_ofs = -1;
 	if (body_ofs != -1) {
 		// XHTML hotfixes (FF doesn't either save correctly)
-		source = source.substring(0, body_ofs).
-				replace(/<(img|hr|br|input|meta)[^>]*>/gi, function(str, tag) {
-					var l=str.length;
-					if (str.charAt(l-1)!='/')
-						str = str.substr(0, l-1)+" />";
-					return str;
-		}) + source.substring(body_ofs);
+		source = source.substring(0, body_ofs)
+//		.replace(/<(img|hr|br|input|meta)[^>]*>/gi, function(str, tag) {
+//					var l=str.length;
+//					if (str.charAt(l-1)!='/')
+//						str = str.substr(0, l-1)+" />";
+//					return str;
+//		}) 
+		+ source.substring(body_ofs);
 	}
 	
 	if (full) {
@@ -1967,7 +1989,7 @@ function erase_wiki() {
 		return false;
 	var static_pg = ["Special::About", "Special::Advanced", "Special::Options","Special::Import",
 						"Special::Lock","Special::Search","Special::Security", "Special::Embed",
-						"Special::Export", "Special::License" ];
+						"Special::Export", "Special::License", "WoaS::new_page", "WoaS::Buttons"  ];
 	var backup_pages = [];
 	page_attrs = [0, 0, 4];
 	for(var i=0;i<static_pg.length;i++) {
@@ -1979,9 +2001,9 @@ function erase_wiki() {
 		backup_pages.push(pages[pi]);
 		page_attrs.push(0);
 	}
-	page_titles = ["Main Page", "::Menu", "WoaS::Bootscript", "WoaS::Aliases"];
+	page_titles = ["Main Page", "::Menu", "WoaS::Bootscript", "WoaS::Aliases" ];
 	page_titles = page_titles.concat(static_pg);
-	pages = ["This is your empty main page", "[[Main Page]]\n\n[[Special::New Page]]\n[[Special::Duplicate Page]]\n[[Special::Go to]]\n[[Special::Delete]]\n[[Special::Backlinks]]\n[[Special::Search]]", encode64("/* insert here your boot script */"), ""];
+	pages = ["This is your empty main page", "[[Main Page]]\n\n[[Special::New Page]]\n[[Special::Duplicate Page]]\n[[Special::Edit New Page Template]]\n[[Special::Buttons]]\n\n[[Special::Go to]]\n[[Special::Delete]]\n[[Special::Backlinks]]\n[[Special::Search]]", encode64("/* insert here your boot script */"), ""];
 	pages = pages.concat(backup_pages);
 	current = main_page = "Main Page";
 	woas.refresh_menu_area();
