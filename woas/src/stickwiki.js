@@ -1586,6 +1586,7 @@ woas["current_editing"] = function(page, disabled) {
 			var E = document.getElementById('pb'+button);
 			var B = woas["editbutton"][button];
 			if(E){
+				if(!B)continue; // Fixes IE6 bug when last array element ends with ,
 				//alert(B.label+B.style);
 				E.value = B.label;
 				E.onclick = B.onclick;
