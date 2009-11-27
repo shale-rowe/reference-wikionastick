@@ -5,7 +5,7 @@
 <script type="text/javascript">
 /* <![CDATA[ */
 
-/* DFQRCTsKlU-0000470-START */
+/* DFQRCTsKlU-0000485-START */
 
 var woas = {"version": "0.9.7B"};
 
@@ -85,11 +85,12 @@ var page_titles = [
 'WoaS::new_page',
 'WoaS::Buttons',
 'Feature::NewPageTemplate',
-'Feature::Buttons'
+'Feature::Buttons',
+'Template::tooltip'
 ];
 
-/* DFQRCTsKlU-0000470-DATA */
-var page_attrs = [0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,12,4,0,0,0,0,0,0,0,4,0,4,0,0,0,2,0,0,0,0,0,0,4,4,0,0];
+/* DFQRCTsKlU-0000485-DATA */
+var page_attrs = [0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,12,4,0,0,0,0,0,0,0,4,0,4,0,0,0,2,0,0,0,0,0,0,4,4,0,0,0];
 
 var pages = [
 '[[Main Page]]\n\
@@ -558,6 +559,9 @@ An existing template is included here below using the wiki source {{{[[Include::
 \n\
 [[Include::Test template|Mary|lamb]]\n\
 \n\
+== Another Example\n\
+Hover over [[Include::Template::tooltip|this text|This is a tooltip description]] to see a tooltip. To see how it is done, go to [[Template::tooltip]] and edit that page. To use it, embed this: {{{[[Include::Template::tooltip|this text|This is a tooltip description]]}}}\n\
+\n\
 == Non-existing template\n\
 A non-existing template is included here below:\n\
 \n\
@@ -578,7 +582,7 @@ It is also possible to transclude a special page or namespace index:\n\
 [[Tags::example]]',
 '\x3Cbig style="color:orange"\x3E%1 had a little %2\x3C/big\x3E\n\
 \n\
-[[Tags::example]]',
+[[Tags::example,template]]',
 'This template attempts to trigger infinite recursion\n\
 \n\
 [[Include::Test template 2]]\n\
@@ -1292,7 +1296,7 @@ asdf',
 ',
 '$HOME  Main Page',
 'cmV0dXJuICI9ICIgKyB0aXRsZSArICJcbiI7',
-'Ly8gRGVmYXVsdCAncHJvZ3JhbW1hYmxlJyBidXR0b25zCgp3b2FzWyJlZGl0YnV0dG9uIl0gPSBbCgogIHtuYW1lOidUYWJsZSBvZiBDb250ZW50JywKICAgbGFiZWw6J1RPQycsCiAgIG9uY2xpY2s6IGZ1bmN0aW9uKCl7IHNldFNlbGVjdGVkVGV4dCgiW1tTcGVjaWFsOjpUT0NdXSIpOyB9CiAgfSwKCiAge25hbWU6J3NvcnQgc2VsZWN0ZWQgbGluZXMnLAogICBsYWJlbDonc29ydCcsCiAgIG9uY2xpY2s6IGZ1bmN0aW9uKCl7CiAgICAgICAgIHdvYXMuX2VkaXRvci5zZXRTZWxlY3RlZFRleHQoIHdvYXMuX2VkaXRvci5nZXRTZWxlY3RlZFRleHQoKS5zcGxpdCgiXG4iKS5zb3J0KCkuam9pbigiXG4iKSk7IAogICAgICB9CiAgfSwKICAKICB7bmFtZTonZ3JheS1ib3hlZCB0ZXh0JywKICAgbGFiZWw6J25vdGUnLAogICBvbmNsaWNrOiBmdW5jdGlvbigpeyBGdWxsVGFnVGhpcygiZGl2IiwgImNsYXNzPVwidGV4dF9hcmVhXCIiKTsgfQogIH0sCgogIHtuYW1lOidzaWduYXR1cmUnLAogICBsYWJlbDonc2lnJywKICAgb25jbGljazogZnVuY3Rpb24oKXsgc2V0U2VsZWN0ZWRUZXh0KCI8YnIvPmtpbmQgcmVnYXJkcyw8YnIvPlRoZSAqV09BUyogdGVhbS4iKTsgfQogIH0sCgogIHtuYW1lOidoaWdobGlnaHQnLAogICBsYWJlbDonbWFyaycsCiAgIC8vc3R5bGU6ICdmb250LXdlaWdodDogYm9sZDtiYWNrZ3JvdW5kLWNvbG9yOiB5ZWxsb3c7d2lkdGg6IDQwcHg7JywKICAgb25jbGljazogZnVuY3Rpb24oKXsgRnVsbFRhZ1RoaXMoInNwYW4iLCAiY2xhc3M9XCJzZWFyY2hfaGlnaGxpZ2h0XCIiKTsgfQogIH0sCgpdOw==',
+'Ly8gRGVmYXVsdCAncHJvZ3JhbW1hYmxlJyBidXR0b25zCgp3b2FzWyJlZGl0YnV0dG9uIl0gPSBbCgogIHtuYW1lOidUYWJsZSBvZiBDb250ZW50JywKICAgbGFiZWw6J1RPQycsCiAgIG9uY2xpY2s6IGZ1bmN0aW9uKCl7IHNldFNlbGVjdGVkVGV4dCgiW1tTcGVjaWFsOjpUT0NdXSIpOyB9CiAgfSwKCiAge25hbWU6J3NvcnQgc2VsZWN0ZWQgbGluZXMnLAogICBsYWJlbDonc29ydCcsCiAgIG9uY2xpY2s6IGZ1bmN0aW9uKCl7CiAgICAgICAgIHdvYXMuX2VkaXRvci5zZXRTZWxlY3RlZFRleHQoIHdvYXMuX2VkaXRvci5nZXRTZWxlY3RlZFRleHQoKS5zcGxpdCgiXG4iKS5zb3J0KCkuam9pbigiXG4iKSk7IAogICAgICB9CiAgfSwKICAKICB7bmFtZTonZ3JheS1ib3hlZCB0ZXh0JywKICAgbGFiZWw6J25vdGUnLAogICBvbmNsaWNrOiBmdW5jdGlvbigpeyBGdWxsVGFnVGhpcygiZGl2IiwgImNsYXNzPVwidGV4dF9hcmVhXCIiKTsgfQogIH0sCgogIHtuYW1lOidzaWduYXR1cmUnLAogICBsYWJlbDonc2lnJywKICAgb25jbGljazogZnVuY3Rpb24oKXsgc2V0U2VsZWN0ZWRUZXh0KCI8YnIvPmtpbmQgcmVnYXJkcyw8YnIvPlRoZSAqV09BUyogdGVhbS4iKTsgfQogIH0sCgogIHtuYW1lOidoaWdobGlnaHQnLAogICBsYWJlbDonbWFyaycsCiAgIC8vc3R5bGU6ICdmb250LXdlaWdodDogYm9sZDtiYWNrZ3JvdW5kLWNvbG9yOiB5ZWxsb3c7d2lkdGg6IDQwcHg7JywKICAgb25jbGljazogZnVuY3Rpb24oKXsgRnVsbFRhZ1RoaXMoInNwYW4iLCAiY2xhc3M9XCJzZWFyY2hfaGlnaGxpZ2h0XCIiKTsgfQogIH0sCgogIHtuYW1lOidzZWxlY3QgY29sb3InLAogICBsYWJlbDonY29sb3InLAogICBvbmNsaWNrOiBmdW5jdGlvbigpeyAKLy9Db2xvcml6ZXIucGljaygncGI1Jyk7Q29sb3JpemVyLnJlbGF0ZUNvbG9yKCdwYjUnLCBDb2xvcml6ZXIuZ2V0T2JqKCdwYjYnKS5iYWNrZ3JvdW5kLWNvbG9yKTsgCiAgICAgaWYoZ2V0U2VsZWN0ZWRUZXh0KCkpe0Z1bGxUYWdUaGlzKCdmb250JywgJ2NvbG9yPScrQ29sb3JpemVyLnJnYik7fQogICAgIGVsc2V7Q29sb3JpemVyLnBpY2soJ3BiNScsICJDb2xvcml6ZXIuZ2V0T2JqKCdwYjUnKS5zdHlsZS5iYWNrZ3JvdW5kQ29sb3I9Q29sb3JpemVyLnJnYiIpfQp9CiAgfSwKCgoKXTsKCgoJQ29sb3JpemVyID0geyAKCQlkaXZTZXQ6IGZhbHNlLAoJCXJnYjogdW5kZWZpbmVkLAoJCWRhZDogdW5kZWZpbmVkLAoJCXNldDogdW5kZWZpbmVkLAoJCW9uY2hhbmdlOiB1bmRlZmluZWQsCgkJZ2V0T2JqOiBmdW5jdGlvbihpZCkge3JldHVybiBkb2N1bWVudC5hbGwgPyBkb2N1bWVudC5hbGxbaWRdIDogZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoaWQpO30sCgkJc2V0Q29sb3I6IGZ1bmN0aW9uKGNvbG9yKSB7CgkJCXZhciBwaWNrZXIgPSB0aGlzLmdldE9iaignY29sb3JwaWNrZXInKTsKCQkJdGhpcy5yZ2IgPSBjb2xvcjsKCQkJaWYodGhpcy5zZXQpeyBldmFsKHRoaXMuc2V0KTt9CgkJCWlmKHRoaXMub25jaGFuZ2UpeyB0aGlzLm9uY2hhbmdlKCk7fQoJCQlwaWNrZXIuc3R5bGUuZGlzcGxheSA9ICdub25lJzsKCQl9LAogICAgIAogICAgIHBpY2s6IGZ1bmN0aW9uKGlkLCBzZXQsb25jaGFuZ2UpIHsKCQl0aGlzLnNldCA9IHNldDsKCQl0aGlzLm9uY2hhbmdlID0gb25jaGFuZ2U7CiAgICAgCWlmICghdGhpcy5kaXZTZXQpIHsKCQkJaWYgKCFkb2N1bWVudC5jcmVhdGVFbGVtZW50KQoJCQkJcmV0dXJuOwoJCQl2YXIgZWxlbURpdiA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoJ2RpdicpOwoJCQlpZiAodHlwZW9mKGVsZW1EaXYuaW5uZXJIVE1MKSAhPSAnc3RyaW5nJykKCQkJCXJldHVybjsKCgkJCWVsZW1EaXYuaWQgPSAnY29sb3JwaWNrZXInOwoJCQllbGVtRGl2LnN0eWxlLnBvc2l0aW9uID0gJ2Fic29sdXRlJzsKCQkJZWxlbURpdi5zdHlsZS5kaXNwbGF5ID0gJ25vbmUnOwoJCQllbGVtRGl2LnN0eWxlLmJvcmRlciA9ICcjMDAwIDFweCBzb2xpZCc7CgkJCS8vZWxlbURpdi5zdHlsZS5vcGFjaXR5OiAwLjc1OwoJCQkvL2VsZW1EaXYuc3R5bGUuYmFja2dyb3VuZCA9ICcjRkZGJzsKCQkJZWxlbURpdi5pbm5lckhUTUwgPSBDb2xvcml6ZXIuY29sb3JCb3goKSAKCQkJZG9jdW1lbnQuYm9keS5hcHBlbmRDaGlsZChlbGVtRGl2KTsKCQkJdGhpcy5kaXZTZXQgPSB0cnVlOwoJCX0KICAgICAJdmFyIHBpY2tlciA9IHRoaXMuZ2V0T2JqKCdjb2xvcnBpY2tlcicpOyAKCQkvL2FsZXJ0KCdwaWNrZXI9JytwaWNrZXIpOwoJCWlmIChpZCA9PSBDb2xvcml6ZXIuZGFkICYmIHBpY2tlci5zdHlsZS5kaXNwbGF5ID09ICdibG9jaycpIHsKCQkJcGlja2VyLnN0eWxlLmRpc3BsYXkgPSAnbm9uZSc7CgkJCXJldHVybjsKCQl9CiAgICAgCUNvbG9yaXplci5kYWQgPSBpZDsKICAgICAJdmFyIG8gPSB0aGlzLmdldE9iaihpZCk7CgkJdmFyIFA9dGhpcy5maW5kUG9zKG8pOwogICAgIAlwaWNrZXIuc3R5bGUubGVmdCA9IFAubGVmdCsncHgnOyAKICAgICAJcGlja2VyLnN0eWxlLnRvcCA9IFAudG9wICsncHgnOyAKCQkvL3BpY2tlci5zdHlsZS5ib3R0b209IDA7CgkJLy9waWNrZXIuc3R5bGUucmlnaHQ9ICI1MHB4IjsgICAKCQlwaWNrZXIuc3R5bGUuekluZGV4ID0xOwoJCXBpY2tlci5zdHlsZS5kaXNwbGF5ID0gJ2Jsb2NrJzsKICAgICB9LAogICAgIAogICAgIGNvbG9yQm94OiBmdW5jdGlvbigpIHsKCQkvLyBHZW5lcmF0ZSBDb2xvdXJzCgkJdmFyIENDID0gW107CgkJdmFyIEMgPSBbJzAnLCAnMycsICc2JywgJzknLCAnQycsICdGJ107CgkJIGZvciAodmFyIGEgPSAwLCBjPTA7IGEgPCBDLmxlbmd0aCxjID0gQ1thXTsgKythKQoJCQlDQy5wdXNoKCcjJytjK2MrYywgJyMwMCcrYywgJyMwJytjKycwJywgJyMnK2MrJzAwJywgJyMwJytjK2MsICcjJytjKycwJytjLCAnIycrYytjKycwJyk7CgkJIENDLnNwbGljZSgxLDYsICdNZWRpdW1CbHVlJywgJ1NlYUdyZWVuJywgJ09yYW5nZVJlZCcsICdTcHJpbmdHcmVlbicsICdDcmltc29uJywgJ1NhZGRsZUJyb3duJyk7CgkJLy8gdGFibGUKICAgICAgCSB2YXIgY2MgPSAnPHRhYmxlIGNlbGxzcGFjaW5nPSIwIj48dHI+JzsKICAgICAgICAgZm9yICh2YXIgaSA9IDA7IGkgPCBDQy5sZW5ndGg7IGkrKykgewogICAgICAgICAgICAgIGkgJSA3IHx8IChjYyArPSAnPHRyLz48dHI+Jyk7CiAgICAgICAgICAgICAgY2MgKz0gJzx0ZCBiZ2NvbG9yPSIjMDAwIj48YSBzdHlsZT0ib3V0bGluZTogMXB4IHNvbGlkOyBjb2xvcjogJyArIENDW2ldICsgJzsgYmFja2dyb3VuZDogJyArIENDW2ldICsgJzsiIHRpdGxlPSInICsgQ0NbaV0gKyAnIiBocmVmPSJqYXZhc2NyaXB0OkNvbG9yaXplci5zZXRDb2xvcihcJycgKyBDQ1tpXSArICdcJyk7Ij5fXzwvYT48L3RkPic7CiAgICAgICAgIH0KICAgICAgICAgY2MgKz0gJzwvdHI+PC90YWJsZT4nOwogICAgICAJIHJldHVybiBjYzsKICAgICB9LAoJIAoJIAoJZmluZFBvczogZnVuY3Rpb24ob2JqKSB7CgkJdmFyIG8gPSBvYmo7CgkJdmFyIF9sZWZ0ID0gX3RvcCA9IDA7CgkJaWYgKG8ub2Zmc2V0UGFyZW50KSB7CgkJZG8gewoJCQkJCV9sZWZ0ICs9IG8ub2Zmc2V0TGVmdDsKCQkJCQlfdG9wICs9IG8ub2Zmc2V0VG9wOwoJCX0gd2hpbGUgKG8gPSBvLm9mZnNldFBhcmVudCk7CgkJX3RvcCArPSBvYmoub2Zmc2V0Qm90dG9tPyBvYmoub2Zmc2V0Qm90dG9tIDogMjU7IC8vbWFyZ2luLXRvcCAKCQkvL2FsZXJ0KCdmaW5kUG9zIGxlZnQ9JytfbGVmdCsiIHRvcD0iK190b3ApOwoJCQlyZXR1cm4ge2xlZnQ6X2xlZnQsdG9wOl90b3B9OwoJCQkvL3JldHVybiBbY3VybGVmdCxjdXJ0b3BdOwoJCX0KCX0KCn0KCg==',
 '= New Page Template\n\
 \n\
 A new special page, holds javascript to generate a new page on-the-fly. You have access to most internal variables (so you can mess things up).\n\
@@ -1330,9 +1334,9 @@ You can also modify the pagename by setting *ns* and *cr*, but that is not recom
 \n\
 When editing a Wiki page, you can set up to 12 User Programmable buttons. WOAS comes with an example set of 5, which you can modify at will.\n\
 You can set three values:\n\
-* label \x3Cblockquote\x3EThis is the text displayed on the button\x3C/blockquote\x3E\n\
-* onclick \x3Cblockquote\x3Ea function containing some action. Some functions you can use: setSelectedText(text), FullTagThis(tag, attributes), DivTagThis(class), TagThis(pre, post).\x3Cbr/\x3E This API is not yet fully defined, but you can add to this, see API\x3C/blockquote\x3E\n\
-* style \x3Cblockquote\x3EA string representing style. It replaces ALL the default style from the class \'wiki_button\'.\x3C/blockquote\x3E\n\
+* \x3Cspan title="A descriptive String" style="cursor: help; border-bottom: 1px dashed #000000;"\x3Elabel\x3C/span\x3E \x3Cblockquote\x3EThis is the text displayed on the button\x3C/blockquote\x3E\n\
+* [[Include::Template::tooltip|onclick|a function containing some action]]\x3Cblockquote\x3Ea function containing some action. Some functions you can use: setSelectedText(text), FullTagThis(tag, attributes), DivTagThis(class), TagThis(pre, post).\x3Cbr/\x3E This API is not yet fully defined, but you can add to this, see API\x3C/blockquote\x3E\n\
+* [[Include::Template::tooltip|style|a style string]]\x3Cblockquote\x3EA string representing style. It replaces ALL the default style from the class \'wiki_button\'.\x3C/blockquote\x3E\n\
 \n\
 == Default Buttons\n\
 {{{\n\
@@ -1354,7 +1358,7 @@ woas["editbutton"] = [\n\
   \n\
   {name:\'gray-boxed text\',\n\
    label:\'note\',\n\
-   onclick: function(){ FullTagThis("div", "class=\\"text_area\\""); }\n\
+   onclick: function(){ FullTagThis("div", "class="text_area""); }\n\
   },\n\
 \n\
   {name:\'signature\',\n\
@@ -1365,12 +1369,11 @@ woas["editbutton"] = [\n\
   {name:\'highlight\',\n\
    label:\'mark\',\n\
    // style: \'font-weight: bold;background-color: yellow;width: 40px;\',\n\
-   onclick: function(){ FullTagThis("span", "class=\\"search_highlight\\""); }\n\
+   onclick: function(){ FullTagThis("span", "class="search_highlight""); }\n\
   },\n\
 \n\
 ];\n\
 }}}\n\
-\n\
 \n\
 === Tips & Tricks\n\
 You can Edit the defaults in the [[Special::Buttons]] or even redefine them on-the-fly, in the [[Special::Edit New Page Template]].\n\
@@ -1381,15 +1384,14 @@ woas["editbutton"][4] = {\n\
   onclick:function(){ setSelectedText("Once upon a time, in a Galaxy far, far away..."); } \n\
 };\n\
 }}}\n\
+\n\
 If you put this code in the [[Special::Edit New Page Template]], it will activate for new pages only (if the page already exists, it will use the default values defined in [[Special::Buttons]]. And if you put an *if* statement around it (and checking the ns variable (namespace)), you can make special edit buttons for certain new pages.\n\
-Use a try-catch block to debug/test your modifications: {{{ try{ ...\x3Cyour code here\x3E... }catch(e){alert(e)}; }}\n\
+Use a try-catch block to debug/test your modifications: {{{ try{ ...\x3Cyour code here\x3E... }catch(e){alert(e)}; }}}\n\
 \n\
 === Default button style\n\
+\\If you want to set the style of ALL the edit buttons at once, add a style to the [Special::Edit CSS], for example:\n\
+{{{.wiki_button { background-color: yellow; } }}}\n\
 \n\
-If you want to set the style of ALL the edit buttons at once, add a style to the [[Special::Edit CSS|CSS]], for example:\n\
-{{{\n\
-.wiki_button { background-color: yellow; }\n\
-}}}\n\
 \n\
 === API\n\
 You can add to the Button functions by adding them to the [[Special::Edit Bootscript]].\n\
@@ -1397,12 +1399,14 @@ For example:\n\
 {{{\n\
 // this function was added by Little Girl for unusual list types\n\
 function ListTagThis(style) {\n\
-  TagThis(\'\x3Cli style="list-style-type:\'+style+\';"\x3E\', \'\x3C/li\x3E\\n\');\n\
+  TagThis(\'\x3Cli style="list-style-type:\'+style+\';"\x3E\', \'\x3C/li\x3E\n\
+\');\n\
 }\n\
 \n\
 // this function was added by Little Girl for special treatment of list line-height\n\
 function FullSpecialTagThis(tag){\n\
-  woas._editor.setSelectedText(\'\x3C\'+tag+\' style="line-height:50%;"\x3E\\n\',\'\x3C/\'+tag+\'\x3E\');\n\
+  woas._editor.setSelectedText(\'\x3C\'+tag+\' style="line-height:50%;"\x3E\n\
+\',\'\x3C/\'+tag+\'\x3E\');\n\
 }\n\
 }}}\n\
 \n\
@@ -1419,7 +1423,8 @@ Then, in [[Special::Buttons]], you can use this function like so:\n\
 \n\
 You will need to edit the content of the document in a text editor like Kate, [[http://notepad-plus.sourceforge.net/uk/site.htm|Notepad++]] or [[http://www.winvi.de/en/|WinVi]]. Search for {{{\x3Cdiv id="user_format_buttons" }}} and add/remove buttons at will (but mind the strict numbering). Save then reload your WOAS. Oh, and backup your file first! (but you already did that, right?)\n\
 \n\
-'
+',
+'\x3Cspan title="%2" style="cursor: help; border-bottom: 1px dashed #000000;"\x3E%1\x3C/span\x3E[[Tags::example,template]]'
 ];
 
 /* DFQRCTsKlU-0000470-END */
