@@ -22,72 +22,35 @@ woas["_asto"] = null;
 
 // left and right trim
 woas["trim"] = function(s) {
-	return s.replace(/(^\s*)|(\s*$)/, '');
+	return s.replace(/(^\s*)|(\s*$)/, ''); // http://blog.stevenlevithan.com/archives/faster-trim-javascript
 }
 
 // general javascript-safe string quoting
 // NOTE: not completely binary safe!
 // should be used only for titles (which ought not to contain binary bytes)
 woas["js_encode"] = function (s, split_lines) {
-	// not to counfound browsers with saved tags
-	s = s.replace(/([\\<>'])/g, function (str, ch) {
-//		return "\\x"+ch.charCodeAt(0).toString(16);
-		switch (ch) {
-			case "<":
-				return	"\\x3C";
-			case ">":
-				return "\\x3E";
-			case "'":
-				return "\\'";
-//			case "\\":
-		}
-		return "\\\\";
-	});
+	// not to confound browsers with saved tags and
 	// escape newlines (\r\n happens only on the stupid IE) and eventually split the lines accordingly
 	if (!split_lines)
-		s = s.replace(new RegExp("\r\n|\n", "g"), "\\n");
+		s = s.replace(/\\/g, "\\\\").replace(/</g, "\\x3C").replace(/>/g, "\\x3E").replace(/'/g, "\\'").replace(/\r\n|\n/g, "\\n");
 	else
-		s = s.replace(new RegExp("\r\n|\n", "g"), "\\n\\\n");
+		s = s.replace(/\\/g, "\\\\").replace(/</g, "\\x3C").replace(/>/g, "\\x3E").replace(/'/g, "\\'").replace(/\r\n|\n/g, "\\n\\\n");
+
 	// and fix also the >= 128 ascii chars (to prevent UTF-8 characters corruption)
-	return s.replace(new RegExp("([^\u0000-\u007F])", "g"), function(str, $1) {
-				var s = $1.charCodeAt(0).toString(16);
-				for(var i=4-s.length;i>0;i--) {
-					s = "0"+s;
-				}
-				return "\\u" + s;
+	return s.replace(/[^\u0000-\u007F]/g, function(c) {
+				return '\\u' + ('0000' + c.charCodeAt(0).toString(16)).slice(-4);
 	});
 }
 
 // used to escape blocks of source into HTML-valid output
 woas["xhtml_encode"] = function(src) {
-	return this.utf8_encode(src.replace(/[<>&]+/g, function ($1) {
-		var l=$1.length;
-		var s="";
-		for(var i=0;i<l;i++) {
-			switch ($1.charAt(i)) {
-				case '<':
-					s+="&lt;";
-					break;
-				case '>':
-					s+="&gt;";
-					break;
-//				case '&':
-				default:
-					s+="&amp;";
-			}
-		}
-		return s;
-	}));
-}
+	return this.utf8_encode(src.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')); // .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+}	
 
 woas["utf8_encode"] = function(src) {
-	return src.replace(/[^\u0000-\u007F]+/g, function ($1) {
-		var l=$1.length;
-		var s="";
-		for(var i=0;i<l;i++) {
-			s+="&#"+$1.charCodeAt(i)+";";
-		}
-		return s;
+	return src.replace(/[^\u0000-\u007F]/g, function(c){
+		return '&#' + c.charCodeAt(0).toString()+";";
+		// Or do we mean: return '&#' + ('0000' + c.charCodeAt(0).toString()).slice(-4)+";"; so euro \u0080 becomes &#0128; instead of &#128;
 	});
 }
 
@@ -200,7 +163,10 @@ woas["_get_tags"] = function(text) {
 	return tags;
 }
 
-// joins a list of pages
+// NILTON TODO
+woas["_get_footnotes"] = function(){}
+
+// joins a list of pages, sorted case sensitive.
 woas["_join_list"] = function(arr) {
 	if (!arr.length)
 		return "";
