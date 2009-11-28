@@ -863,7 +863,29 @@ This is a list of the new features implemented during the v0.9.x development cyc
 \n\
 It is possible to add &lt;script/&gt; tags to your wiki source and they will be correctly rendered in the document &lt;head/&gt; tag upon page loading; also external scripts (using the /src/ attribute) will be parsed and actived, always respecting the order of declaration of the &lt;script /&gt; tags.\n\
 \n\
-*Note:* since the javascript tags are actived from within the &lt;head /&gt; tag, you cannot use document.write() or similar inline javascript statements.\n\
+*Note:* since the javascript tags are actived from within the &lt;head /&gt; tag, you cannot use document.write() or similar inline javascript statements. You can, however, create an empty &lt;div&gt; tag and use .innerHTML to \'write\' to it, see this example:\n\
+\n\
+\x3Cdiv id=\'ascii\'\x3E\n\
+\x3Cinput value="ShowUniCode Table" style="width: 200px;" onclick="javascript:FillDiv(32,4096)" type="button"\x3E\n\
+\x3Cinput value="ShowASCII Table" style="width: 200px;" onclick="javascript:FillDiv(32,256)" type="button"\x3E\n\
+\x3C/div\x3E\n\
+\n\
+\x3Cscript type="text/javascript"\x3E\n\
+/* \x3C![CDATA[ */\n\
+function Asc(String){return String.charCodeAt(0);}\n\
+function Chr(AsciiNum){return String.fromCharCode(AsciiNum)}\n\
+\n\
+function FillDiv(START,STOP){\n\
+  var s="\x3Ch1\x3EUnicode Table from "+START+" to "+STOP+"\x3C/h1\x3E\x3Cbr/\x3E";\n\
+  for(var i=START;i\x3CSTOP;i++){\n\
+    s+= Chr(i);\n\
+    if(i%64 == 0) s+="\x3Cbr/\x3E";\n\
+  }\n\
+  $(\'ascii\').innerHTML=s;\n\
+}\n\
+/* ]]\x3E */\n\
+\x3C/script\x3E\n\
+\n\
 \n\
 See also [[Feature::Custom javascript]] and [[Feature::External javascript]]\n\
 \n\
@@ -1375,6 +1397,8 @@ woas["editbutton"] = [\n\
 ];\n\
 }}}\n\
 \n\
+\x3Cdiv class="text_area"\x3EA color button has been added. To use it, make sure you have no text selected. By clicking on the button you get a colorpicker. Now select some text. By clicking on the button you get a font tag with your selected color around your text.\x3C/div\x3E\n\
+\n\
 === Tips & Tricks\n\
 You can Edit the defaults in the [[Special::Buttons]] or even redefine them on-the-fly, in the [[Special::Edit New Page Template]].\n\
 For example: To edit the fifth edit button only (note: index starts at 0 for the first button up to 4 for the fifth), you can type:\n\
@@ -1391,6 +1415,8 @@ Use a try-catch block to debug/test your modifications: {{{ try{ ...\x3Cyour cod
 === Default button style\n\
 \\If you want to set the style of ALL the edit buttons at once, add a style to the [Special::Edit CSS], for example:\n\
 {{{.wiki_button { background-color: yellow; } }}}\n\
+Or even highlight when hovering over the button with the mouse:\n\
+{{{.wiki_button:hover { background-color: white; } }}}\n\
 \n\
 \n\
 === API\n\
@@ -1419,9 +1445,13 @@ Then, in [[Special::Buttons]], you can use this function like so:\n\
   },\n\
 }}}\n\
 \n\
+=== Known bugs\n\
+\n\
+When deleting a button from the {{{woas["editbutton"]}}} array, the old label stays on the button, you need to edit your WOAS.html file to fix that.\n\
+\n\
 === In need of more User defined buttons?\n\
 \n\
-You will need to edit the content of the document in a text editor like Kate, [[http://notepad-plus.sourceforge.net/uk/site.htm|Notepad++]] or [[http://www.winvi.de/en/|WinVi]]. Search for {{{\x3Cdiv id="user_format_buttons" }}} and add/remove buttons at will (but mind the strict numbering). Save then reload your WOAS. Oh, and backup your file first! (but you already did that, right?)\n\
+You will need to edit the content of the document in a text editor like [[http://kate-editor.org/|Kate]], [[http://notepad-plus.sourceforge.net/uk/site.htm|Notepad++]] or [[http://www.winvi.de/en/|WinVi]]. Search for {{{\x3Cdiv id="user_format_buttons" }}} and add/remove buttons at will (but mind the strict numbering). Save then reload your WOAS. Oh, and backup your file first! (but you already did that, right?)\n\
 \n\
 ',
 '\x3Cspan title="%2" style="cursor: help; border-bottom: 1px dashed #000000;"\x3E%1\x3C/span\x3E[[Tags::example,template]]'
