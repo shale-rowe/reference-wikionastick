@@ -230,11 +230,12 @@ woas["_get_namespace_pages"] = function (ns) {
 			return "= Pages in "+ns+" namespace\n" + this.special_tagged(false);
 	}
 
+	var ms = ns.substr(0,ns.length-2); // Also check for the parent page.
 	for(var i=0;i<page_titles.length;i++) {
-		if (page_titles[i].indexOf(ns)===0)
+		if (page_titles[i].indexOf(ns)===0 || page_titles[i] == ms)
 			pg.push(page_titles[i]);
 	}
-	return "= Pages in "+ns+" namespace\n" + this._join_list(pg);
+	return "= Pages in "+ns+" namespace\n" + this._join_list(pg.sort());
 }
 
 woas["_get_tagged"] = function(tag_filter) {

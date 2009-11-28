@@ -155,6 +155,7 @@ woas["special_tagged"] = function() {
 	}
 	var s="";
 	var tag = null, obj = null;
+	utags = utags.sort(); // SORTED? Put this inside the (): function(x,y){var a=String(x).toUpperCase();var b = String(y).toUpperCase();if (a>b)return 1;if (a<b)return -1;return 0;}
 	var l=utags.length;
 	for(var j=0;j<l;j++) {
 		obj = tags_tree[j].sort();
