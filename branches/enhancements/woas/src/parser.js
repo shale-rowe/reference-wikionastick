@@ -422,7 +422,7 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 		});
 	}
 	
-	tags = tags.toUnique();
+	tags = tags.toUnique().sort();
 	if (tags.length && !export_links) {
 		var s;
 		if (this.force_inline)
