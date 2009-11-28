@@ -128,40 +128,36 @@ woas["special_search"] = function( str ) {
 	return "Results for *" + woas.xhtml_encode(str) + "*\n" + title_result + "\n\n----\n" + this._simple_join_list(pg_body, false);
 }
 
+
 woas["special_tagged"] = function() {
-	var utags = [];
-	var tags_tree = [];
-	var tmp = null, ipos;
-	for(var i=0; i<pages.length; i++)
-	{
-		tmp = this.get_src_page(i);
-		if (tmp==null)
+	var tag_tree = {}; // new Object();
+	var utags = []; // new Array();
+	var src,t,tag;
+	for (var page = pages.length-1; page > -1; page--) {
+		src = this.get_src_page(page);
+		if(!src)
 			continue;
-		tmp.replace(/\[\[Tags?::([^\]]+)\]\]/g,
+		src.replace(/\[\[Tags?::([^\]]+)\]\]/g,
 			function (str, $1) {
-				var tmp=$1.split(",");
-				for(var j=0;j<tmp.length; j++) {
-					var tag=woas.trim(tmp[j]);
-					if (!tag.length) continue;
-					ipos = utags.indexOf(tag);
-					if (ipos==-1) {
-						ipos = utags.length;
-						utags.push(tag);						
-						tags_tree[ipos] = [];
+				var str=$1.split(",");
+				for(var j=str.length-1;j>-1;j--){
+					tag=woas.trim(str[j]);
+					if(!tag_tree[tag]){
+						utags.push(tag);
+						tag_tree[tag] = [];
 					}
-					tags_tree[ipos].push(page_titles[i]);
+					tag_tree[tag].push(page_titles[page]);	
 				}
-			});
+			}
+		);
 	}
 	var s="";
-	var tag = null, obj = null;
-	utags = utags.sort(); // SORTED? Put this inside the (): function(x,y){var a=String(x).toUpperCase();var b = String(y).toUpperCase();if (a>b)return 1;if (a<b)return -1;return 0;}
-	var l=utags.length;
-	for(var j=0;j<l;j++) {
-		obj = tags_tree[j].sort();
+	utags = utags.sort(); // Case Insensitive sort? put inside the sort:  .sort($["i_sort"])
+	for(var j=0, l=utags.length;j<l;j++) {
 		s += "\n== [[Tagged::"+utags[j]+"]]\n";
-		for(var i=0;i<obj.length;i++) {
-			s+="* [["+obj[i]+"]]\n";
+		t = tag_tree[utags[j]].sort();
+		for(var i=0;i<t.length;i++) {
+			s+="* [["+t[i]+"]]\n";
 		}
 	}
 	return s;
