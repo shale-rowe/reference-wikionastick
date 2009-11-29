@@ -1021,6 +1021,7 @@ woas["set_current"] = function (cr, interactive) {
 		cr = page_titles[this.page_index(namespace + "::" + cr)];
 	else
 		cr = page_titles[this.page_index(cr)];
+	if(!cr) cr = namespace + "::";
 	this.load_as_current(cr, this.parser.parse(text));
 }
 
