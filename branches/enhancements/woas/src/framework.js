@@ -168,3 +168,6 @@ function _convert_bytes(bytes) {
 		n = _number_format(k,2)+' KB';
 	return n.replace(/\.00/, "");
 }
+
+// Sort Case insensitive (put inside the sort:  .sort($["i_sort"])
+$["i_sort"] =  function(x,y){var a=String(x).toUpperCase();var b = String(y).toUpperCase();if (a>b)return 1;if (a<b)return -1;return 0;}
