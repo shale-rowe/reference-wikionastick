@@ -133,6 +133,21 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 		html_tags.push("<tt class=\"wiki_preformatted\">"+woas.xhtml_encode($1)+"</tt>");
 		return r;
 	});
+
+	// Indent :  <div style="margin-left:2em"> or http://meyerweb.com/eric/css/tests/css2/sec08-03c.htm
+	text = text.replace(/(?:^|\n)(:+)\s*([^\n]+)/g, function (str, $1,$2) {
+		var r = "<!-- "+parse_marker+"::"+html_tags.length+" -->";
+		html_tags.push("<div style=\"border:1px;margin-bottom:-1em;margin-left:"+(2*$1.length)+"em\">"+$2+"</div>");
+		return r;
+	});
+
+	// expandable include (Little Girl + MicBerlin)
+	text = text.replace(/\[\{([^\}\]\|]+)\|?([^\}\]]*)\}\]/g, function(str, $1, $2) {
+		var r = "<!-- "+parse_marker+"::"+html_tags.length+" -->\n" + '[[Include::'+$1+']]</div></div>';
+		html_tags.push('<a href="javascript:woas[\'toggleDisplay\'](\''+ $1 + '\')">' + ($2?$2:$1) + '</a>\n<div id="'+ $1 + '" style="display:none;"><div>');
+		return r;
+	});
+	
 	
 	// transclusion code - originally provided by martinellison
 	if (!this.force_inline) {
