@@ -133,6 +133,7 @@ woas["special_tagged"] = function() {
 	var tag_tree = {}; // new Object();
 	var utags = []; // new Array();
 	var src,t,tag;
+	// making use of faster reverse-for-loop: http://javascript.about.com/library/blloop.htm
 	for (var page = pages.length-1; page > -1; page--) {
 		src = this.get_src_page(page);
 		if(!src)
