@@ -1970,7 +1970,7 @@ function erase_wiki() {
 						"Special::Lock","Special::Search","Special::Security", "Special::Embed",
 						"Special::Export", "Special::License", "WoaS::new_page", "WoaS::Buttons"  ];
 	var backup_pages = [];
-	page_attrs = [0, 0, 4];
+	page_attrs = [0, 0, 4,4,4];
 	for(var i=0;i<static_pg.length;i++) {
 		var pi = woas.page_index(static_pg[i]);
 		if (pi==-1) {
@@ -1980,9 +1980,9 @@ function erase_wiki() {
 		backup_pages.push(pages[pi]);
 		page_attrs.push(0);
 	}
-	page_titles = ["Main Page", "::Menu", "WoaS::Bootscript", "WoaS::Aliases" ];
+	page_titles = ["Main Page", "::Menu", "WoaS::Bootscript", "WoaS::Aliases", "WoaS::new_page" ];
 	page_titles = page_titles.concat(static_pg);
-	pages = ["This is your empty main page", "[[Main Page]]\n\n[[Special::New Page]]\n[[Special::Duplicate Page]]\n[[Special::Edit New Page Template]]\n[[Special::Buttons]]\n\n[[Special::Go to]]\n[[Special::Delete]]\n[[Special::Backlinks]]\n[[Special::Search]]", encode64("/* insert here your boot script */"), ""];
+	pages = ["This is your empty main page", "[[Main Page]]\n\n[[Special::New Page]]\n[[Special::Duplicate Page]]\n[[Special::Edit New Page Template]]\n[[Special::Buttons]]\n\n[[Special::Go to]]\n[[Special::Delete]]\n[[Special::Backlinks]]\n[[Special::Search]]", encode64("/* insert here your boot script */"), "", encode64('return "= " + title + "\\n";')];
 	pages = pages.concat(backup_pages);
 	current = main_page = "Main Page";
 	woas.refresh_menu_area();
