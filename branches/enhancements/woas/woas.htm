@@ -569,11 +569,13 @@ An existing [[Test template|template]] is included here below using the wiki sou
 [[Include::Test template|Mary|lamb]]\n\
 \n\
 == Another Example\n\
-Hover over [[Include::Template::tooltip|this text|This is a tooltip description]] to see a tooltip. To see how it is done, go to [[Template::tooltip]] and edit that page. To use it, embed this: {{{[[Include::Template::tooltip|this text|This is a tooltip description]]}}}\n\
+Hover over [[Include::Template::tooltip|this text|This is a tooltip description]] to see a tooltip. To see how it is done, go to [[Template::tooltip]] and edit that page.\n\
+To use it, embed this: {{{[[Include::Template::tooltip|this text|This is a tooltip description]]}}}\n\
 \n\
 == Folding Includes\n\
 By using the template [[fold]] (edit the page to see the \'code\') we can toggle inclusion of the page Di\u00e2critics, click [[Include::fold|here|Di\u00e2critics| to toggle fold/unfold.]]\n\
-Unfortunately, the TOC does not work well if content is hidden. To make a link that will show the folded include and go to an anchor in it, you can use \x3Ca href="#b2" onclick="$.show(\'Di\u00e2critics\'); return true;"\x3Eunfold and jump\x3C/a\x3E\n\
+Unfortunately, the TOC does not work well if content is hidden. To make a link that will show the folded include and go to an anchor in it, you can use \x3Ca href="#Di\u00e2critics" onclick="$.show(\'Di\u00e2critics\'); return true;"\x3Eunfold and jump\x3C/a\x3E\n\
+This is it\'s code: {{{\x3Ca href="#ANCHOR" onclick="$.show(\'PAGENAME\'); return true;"\x3ELINKTEXT\x3C/a\x3E}}}\n\
 the template *fold* uses 3 parameters:\n\
 # The name of the link \x3Cem\x3E\'here\'\x3C/em\x3E\n\
 # the pagename \x3Cem\x3E\'Di\u00e2critics\'\x3C/em\x3E\n\
@@ -598,6 +600,7 @@ It is also possible to transclude a special page or namespace index:\n\
 * [[Infinite recursion template]]\n\
 * [[Feature::Summary]]\n\
 \n\
+\x3C!-- Did you notice that transcluded tags get added to this list? --\x3E\n\
 [[Tags::example]]',
 '\x3Cbig style="color:orange"\x3E%1 had a little %2\x3C/big\x3E\n\
 [[Tags::example,template]]',
@@ -966,11 +969,6 @@ Such transclusions are *parametric*, e.g. they allow to specify parameters which
 Transclusion has a special meaning when used for pages relative to the [[File::]] and [[Image::]] namespaces, see below paragraph [[#Embedding]] for more informations.\n\
 \n\
 See also [[Transclusion example]] and [[Test template]]\n\
-\n\
-== Foldable includes\n\
-\n\
-You can also embed a [{Transclusion example|foldable page}]\n\
-\n\
 \n\
 == Embedding\n\
 \n\
