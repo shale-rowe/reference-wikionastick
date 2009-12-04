@@ -1,13 +1,3 @@
-woas["setDisplay"] = function (id, showorhide) {
-	$(id).style.display = showorhide ? 'block' : 'none';
-	$(id).style.visibility = showorhide ? 'visible' : 'hidden';
-}
-
-woas["toggleDisplay"] = function (id) {
-	var showorhide = $(id).style.display != 'block';
-	woas["setDisplay"](id, showorhide);
-}
-
 // submitted by pr0xy
 
 function TextAreaSelectionHelper(obj) {
@@ -29,8 +19,8 @@ TextAreaSelectionHelper.prototype.getSelectedText=function() {
 	if(this.iesel)
 		return this.iesel.text;
 // Fixes a problem in FF3 where the selection was not being stored in this.start and this.end when selecting multilines.	
-	this.start = document.getElementById("wiki_editor").selectionStart;
-	this.end = document.getElementById("wiki_editor").selectionEnd;
+	this.start = $("wiki_editor").selectionStart;
+	this.end = $("wiki_editor").selectionEnd;
 	return (this.start>=0&&this.end>this.start)? this.target.value.substring(this.start,this.end): "";
 }
 

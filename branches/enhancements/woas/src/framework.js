@@ -34,16 +34,36 @@ var is_windows = (navigator.appVersion.toLowerCase().indexOf("windows")!=-1);
 woas["_server_mode"] = (document.location.toString().match(/^file:\/\//) ? false:true);
 
 // returns the DOM element object given its id
-function $(id){return document.getElementById(id);}
+function $(id){ try{ return document.getElementById(id);}catch(e){ alert("element id '"+id+"' not found."); } }
 
 $["hide"] = function(id) {
 	$(id).style.display = "none";
 	$(id).style.visibility = "hidden";
 }
 
-$["show"] = function(id) {
-	$(id).style.display = "inline";
+/*
+* All HTML elements are naturally displayed in one of the following ways:
+* 
+* Block
+*	Takes up the full width available, with a new line before and after (display:block;)
+* 
+* Inline
+*	Takes up only as much width as it needs, and does not force new lines (display:inline;)
+* 
+* Not displayed, see $["hide"](id)
+ *	Not visible (display:none;)
+ */
+$["show"] = function(id, asBlock) {
+	$(id).style.display = asBlock? "block" : "inline";
 	$(id).style.visibility = "visible";
+}
+
+$["toggle"] = function (id, asBlock) {
+	$[ $(id).style.display!='none'? 'hide':'show'](id, asBlock); 
+}
+
+$["hidden"] = function (id) {
+	return !!($(id).style.display=='none');
 }
 
 // logging function has not to be in WoaS object
