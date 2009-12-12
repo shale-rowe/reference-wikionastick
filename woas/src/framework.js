@@ -70,7 +70,7 @@ $["hide"] = function(id) {
 
 // Toggle the element
 $["toggle"] = function (id, asBlock) {
-	$[ $.hidden(id)? 'hide':'show'](id, asBlock); 
+	$[ $.hidden(id)? 'show':'hide'](id, asBlock); 
 }
 
 // is the element hidden?
