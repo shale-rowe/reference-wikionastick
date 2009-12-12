@@ -3,6 +3,8 @@ woas["debug"] = true;			// toggle debug mode (and console)
 
 var _doctype = "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\" \"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\">\n";
 
+// DETERMINE BROWSER, OS AND SERVERMODE
+
 // browser flags - not to be in WoaS object
 var ie = false;
 var ie6 = false;
@@ -33,13 +35,7 @@ var is_windows = (navigator.appVersion.toLowerCase().indexOf("windows")!=-1);
 
 woas["_server_mode"] = (document.location.toString().match(/^file:\/\//) ? false:true);
 
-// returns the DOM element object given its id
-function $(id){ try{ return document.getElementById(id);}catch(e){ alert("element id '"+id+"' not found."); } }
-
-$["hide"] = function(id) {
-	$(id).style.display = "none";
-	$(id).style.visibility = "hidden";
-}
+// BASIC ELEMENT FUNCTIONS using their id
 
 /*
 * All HTML elements are naturally displayed in one of the following ways:
@@ -53,21 +49,37 @@ $["hide"] = function(id) {
 * Not displayed, see $["hide"](id)
  *	Not visible (display:none;)
  */
-$["show"] = function(id, asBlock) {
+
+ // returns the DOM element object given its id, alerting if the element is not found (but that would never happen, right?)
+function $(id){ try{return document.getElementById(id);}catch(e){alert("element id '"+id+"' not found.");} }
+// function $(id){ return document.getElementById(id);} // This version is much faster than the one with try/catch
+
+// Hide an element. use like this:
+// 1)  $.hide('id-string');
+// 2)  $['hide']('id-string');
+$["hide"] = function(id) {
+	$(id).style.display = "none";
+	$(id).style.visibility = "hidden";
+}
+
+// Show the element, the parameter asBlock must be trueish to be 'block'. Default is 'inline'.
+ $["show"] = function(id, asBlock) {
 	$(id).style.display = asBlock? "block" : "inline";
 	$(id).style.visibility = "visible";
 }
 
+// Toggle the element
 $["toggle"] = function (id, asBlock) {
-	$[ $(id).style.display!='none'? 'hide':'show'](id, asBlock); 
+	$[ $.hidden(id)? 'hide':'show'](id, asBlock); 
 }
 
+// is the element hidden?
 $["hidden"] = function (id) {
-	return !!($(id).style.display=='none');
+	return ($(id).style.display=='none');
 }
 
 // logging function has not to be in WoaS object
-var log;
+var log = function(aMessage) { };
 if (woas.debug) {
 	// logging function - used in development
 	log = function (aMessage)
@@ -78,8 +90,6 @@ if (woas.debug) {
 			logbox.value = "";
 		logbox.value += aMessage + "\n";
 	};
-} else {
-	log = function(aMessage) { };
 }
 
 // fixes the Array prototype for older browsers
@@ -133,10 +143,7 @@ Array.prototype.toUnique = function() {
 // thanks to S.Willison
 RegExp.escape = function(text) {
   if (!arguments.callee.sRE) {
-    var specials = [
-      '/', '.', '*', '+', '?', '|', '$',
-      '(', ')', '[', ']', '{', '}', '\\'
-    ];
+    var specials = [ '/', '.', '*', '+', '?', '|', '$', '(', ')', '[', ']', '{', '}', '\\' ];
     arguments.callee.sRE = new RegExp(
       '(\\' + specials.join('|\\') + ')', 'g'
     );
@@ -144,11 +151,12 @@ RegExp.escape = function(text) {
   return text.replace(arguments.callee.sRE, '\\$1');
 }
 
-// repeat string s for n times
-function str_rep(s, n) {
-	var r = "";
-	while (--n >= 0) r += s;
-	return r;
+// repeat string s for n times (replaces str_rep from http://www.webreference.com/javascript/reference/core_ref/function.html)
+if (typeof String.prototype.repeat == "undefined") {
+	String.prototype.repeat = function( num ){
+		if(num<=0)return "";
+		return new Array( num + 1 ).join( this );
+	}
 }
 
 // return a random integer given the maximum value (scale)
@@ -167,27 +175,18 @@ function _random_string(string_length) {
 	return randomstring;
 }
 
-// format a decimal number to specified decimal precision
-function _number_format(n, prec) {
-	return n.toString().replace(new RegExp("(\\."+str_rep("\\d", prec)+")\\d*$"), "$1");
+
+function _convert_bytes(bytes){
+	var U=['bytes','Kb','Mb','Gb','Pb'];
+	var n = 0;
+	bytes=Math.ceil(bytes);
+	while(bytes>=1024){
+		++n;
+		bytes/=1024;
+	}
+	return bytes.toFixed(2).replace(/\.00$/, "") +' '+ U[n];
 }
 
-// converts the number of bytes to a human readable form
-function _convert_bytes(bytes) {
-//	log("Converting "+bytes+" bytes");	// log:0
-	if (bytes < 1024)
-		return Math.ceil(bytes)+ " bytes";
-	var k = bytes / 1024, n;
-	if (k >= 1024) {
-		var m = k / 1024;
-		if (m >= 1024)
-			n = _number_format(m/1024,2)+' GB';
-		else
-			n = _number_format(m,2)+' MB';
-	} else
-		n = _number_format(k,2)+' KB';
-	return n.replace(/\.00/, "");
-}
 
 // Sort Case insensitive (put inside the sort:  .sort($["i_sort"])
 $["i_sort"] =  function(x,y){var a=String(x).toUpperCase();var b = String(y).toUpperCase();if (a>b)return 1;if (a<b)return -1;return 0;}

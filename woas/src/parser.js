@@ -21,7 +21,7 @@ woas.parser["header_replace"] = function(str, $1, $2, $3) {
 			header = header.substring(0, header.length - len);
 		// automatically build the TOC if needed
 		if (woas.parser.has_toc) {
-			woas.parser.toc += str_rep("#", len)+" <a class=\"link\" href=\"#" +
+			woas.parser.toc += "#".repeat(len)+" <a class=\"link\" href=\"#" +
 			woas.parser.header_anchor(header) + "\">" + header + "<\/a>\n";
 		}
 		return "</div><h"+len+" id=\""+woas.parser.header_anchor(header)+"\">"+header+"</h"+len+"><div class=\"level"+len+"\">";
@@ -100,12 +100,17 @@ woas.parser["parse_tables"] =  function (str, p1)
     }
 
 // remove wiki and html that should not be viewed when previewing wiki snippets
-function _filter_wiki(s) {
-	return s.replace(/\{\{\{((.|\n)*?)\}\}\}/g, "").
+function _filter_wiki(s,mode) {
+	var nowiki;
+	if(mode==1)
+		s = s.replace (/\{\{\{|\}\}\}/g, "");
+	var t = s.replace(/\{\{\{((.|\n)*?)\}\}\}/g, "").
 		replace(/<script[^>]*>((.|\n)*?)<\/script>/gi, "").
 		replace(/\<\w+\s[^>]+>/g, "").
 		replace(/\<\/\w[^>]+>/g, "");
-}
+	return t;
+};
+
 
 // THIS is the method that you should override for your custom parsing needs
 // text is the raw wiki source
@@ -141,14 +146,6 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 		return r;
 	});
 
-	// expandable include (Little Girl + MicBerlin)
-	text = text.replace(/\[\{([^\}\]\|]+)\|?([^\}\]]*)\}\]/g, function(str, $1, $2) {
-		var r = "<!-- "+parse_marker+"::"+html_tags.length+" -->\n" + '[[Include::'+$1+']]</div></div>';
-		html_tags.push('<a href="javascript:woas[\'toggleDisplay\'](\''+ $1 + '\')">' + ($2?$2:$1) + '</a>\n<div id="'+ $1 + '" style="display:none;"><div>');
-		return r;
-	});
-	
-	
 	// transclusion code - originally provided by martinellison
 	if (!this.force_inline) {
 		var trans_level = 0;
@@ -212,6 +209,7 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 		text = text.replace("\r\n", "\n");
 
 	var tags = [];
+	var footnotes = [];
 
 	// put away raw text contained in multi-line nowiki blocks {{{ }}}
 	text = text.replace(/\{\{\{((.|\n)*?)\}\}\}/g, function (str, $1) {
@@ -310,7 +308,8 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 			return r;
 		}
 		
-		found_tags = woas._get_tags($1);
+		var found_tags = woas._get_tags($1); 
+		var found_footnotes = woas._get_footnotes($1); // nilton is here <span class="footnote">1</span>
 		
 		if (found_tags.length>0) {
 			tags = tags.concat(found_tags);

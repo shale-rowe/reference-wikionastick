@@ -98,7 +98,7 @@ woas["special_search"] = function( str ) {
 		if (this.is_reserved(page_titles[i]))
 			continue;
 		
-		tmp = this.get_src_page(i);
+		tmp = this.get_src_page(i, 1);
 		if (tmp==null)
 			continue;
 //		log("Searching into "+page_titles[i]);	// log:0
