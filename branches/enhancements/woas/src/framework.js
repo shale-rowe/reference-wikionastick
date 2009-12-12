@@ -143,7 +143,10 @@ Array.prototype.toUnique = function() {
 // thanks to S.Willison
 RegExp.escape = function(text) {
   if (!arguments.callee.sRE) {
-    var specials = [ '/', '.', '*', '+', '?', '|', '$', '(', ')', '[', ']', '{', '}', '\\' ];
+    var specials = [
+      '/', '.', '*', '+', '?', '|', '$',
+      '(', ')', '[', ']', '{', '}', '\\'
+    ];
     arguments.callee.sRE = new RegExp(
       '(\\' + specials.join('|\\') + ')', 'g'
     );
@@ -175,7 +178,7 @@ function _random_string(string_length) {
 	return randomstring;
 }
 
-
+// converts the number of bytes to a human readable form
 function _convert_bytes(bytes){
 	var U=['bytes','Kb','Mb','Gb','Pb'];
 	var n = 0;
