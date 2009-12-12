@@ -1,4 +1,3 @@
-﻿
 var _export_main_index = false, _export_unix_norm = false,
 	_export_default_ext;
 
