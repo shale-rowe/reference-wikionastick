@@ -212,7 +212,7 @@ function import_wiki() {
 		alert("A file must be selected");
 		return false;
 	}
-	return woas.import_wiki(filename);
+	return woas.import_wiki(filename, "filename_");
 }
 
 function set_key() {

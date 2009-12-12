@@ -50,26 +50,30 @@ function saveFile(fileUrl, content)
 }
 
 // NILTON: For FF3 (get file content without .enablePrivilege())
-function mozillaLoadFileID(field_id){
+function mozillaLoadFileID(field_id,asType){
 	var filename = document.getElementById(field_id).value;
 	if(filename == "")
 		return false;
-	if(window.Components && document.getElementById(field_id).files)
-		return document.getElementById(field_id).files.item(0).getAsDataURL(); // .getAsBinary() .getAsText()
-	return null;
+	if(!window.Components || !document.getElementById(field_id).files)
+		return null;
+	var D=document.getElementById(field_id).files.item(0);
+	if(asType==1)
+		return D.getAsText("utf-8");
+	return D.getAsDataURL(); // .getAsBinary() .getAsText()
 }
 
 // original source was from TiddyWiki
-
-function loadFile(fileUrl)
-{
+function loadFile(fileUrl, id){
 	var r = null;
-	if((r == null) || (r == false))
+	if(id)
+		r=mozillaLoadFileID(id,1);
+	else
 		r = mozillaLoadFile(fileUrl);
-	if((r == null) || (r == false))
+	if(!r)
 		r = ieLoadFile(fileUrl);
-	if((r == null) || (r == false))
-		r = operaLoadFile(fileUrl);
+	if(!r)
+		alert('Could not load "'+fileUrl+'"');
+		//r = operaLoadFile(fileUrl); // TODO
 	return r;
 }
 
@@ -140,7 +144,6 @@ function mozillaSaveFile(filePath, content)
 	return(null);
 }
 
-// Returns null if it can't do it, false if there's an error, or a string of the content if successful
 // Returns null if it can't do it, false if there's an error, or a string of the content if successful
 function mozillaLoadFile(filePath)
 {

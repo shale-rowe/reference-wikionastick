@@ -15,14 +15,14 @@
 	}
 
 
-woas["import_wiki"] = function(filename) {
+woas["import_wiki"] = function(filename, id) {
 	if(confirm("This will OVERWRITE pages with the same title.\n\nAre you sure you want to continue?") == false)
 		return false;
 
 	// set hourglass
 	document.body.style.cursor= "wait";
 	
-	var ct = loadFile(filename);
+	var ct = loadFile(filename, id);
 	
 	var import_css = $('cb_import_css').checked;
 	var import_content = $('cb_import_content').checked;
@@ -50,9 +50,10 @@ woas["import_wiki"] = function(filename) {
 				return false;
 		}
 	} else {
-		var ver_str = ct.match(/var version = "([^"]*)";(\r\n|\n)/);
+		var ver_str = ct.match(/var version = "([^"]*)";(?:\r\n|\n)/);
 		if (!ver_str)
-			ver_str = ct.match(/var woas = \{"version":\s+"([^"]+)"\s*\};(\r\n|\n)/);
+			ver_str = ct.match(/var woas\s*=\s*\{"version": "([^"]+)"\};/i);
+
 		if (ver_str && ver_str.length) {
 			ver_str = ver_str[1];
 			log("Version string: "+ver_str);	// log:1
@@ -225,7 +226,7 @@ if (old_version	< 9) {
 
 	// locate the random marker
 	try {
-		var old_marker = ct.match(/\nvar __marker = "([A-Za-z\-\d]+)";(\r\n|\n)/)[1];
+		var old_marker = ct.match(/var __marker\s*=\s*"([A-Za-z\-\d]+)";(?:\r\n|\n)/)[1];
 	} catch (e) {
 		alert("Marker not found!");
 		document.body.style.cursor= "auto";
