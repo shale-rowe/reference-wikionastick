@@ -100,12 +100,18 @@ woas.parser["parse_tables"] =  function (str, p1)
     }
 
 // remove wiki and html that should not be viewed when previewing wiki snippets
+// woas["xhtml_encode"]
 function _filter_wiki(s,mode) {
-	if(mode==1)
-		s = s.replace (/\{\{\{|\}\}\}/g, "");
-	var t = s.replace(/\{\{\{((.|\n)*?)\}\}\}/g, "").
-		replace(/\<\/?\w+\s*[^>]*>/g, "");
-	return t;
+	if(mode==1){
+		var W= new Array();
+		var X= s.replace(/\{\{\{((.|\n)*?)\}\}\}/g, 
+			function (str, $1) { W.push($1); return "{_%%_}"; }
+			).replace(/\<\/?\w+\s*[^>]*>/g, "").replace(/{_%%_}/g, W.shift());
+		return X;
+	}else{
+		return s.replace(/\{\{\{((.|\n)*?)\}\}\}/g, "").
+			replace(/\<\/?\w+\s*[^>]*>/g, "");
+	}
 };
 
 
