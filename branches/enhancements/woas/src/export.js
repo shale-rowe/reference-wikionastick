@@ -83,7 +83,7 @@ woas["_export_get_fname"] = function (title, create_mode) {
 	})
 	// escape some path-unsafe characters
 	.replace(/[:\\\/<>?#=!]+/g, function($1) {
-		return str_rep("_", $1.length);
+		return "_".repeat($1.length);
 	});
 	
 	if (_export_unix_norm)
@@ -93,9 +93,9 @@ woas["_export_get_fname"] = function (title, create_mode) {
 	var test_fname = fname+ext, i=0;
 	while (_export_fnames_array.indexOf(test_fname)!=-1) {
 		log(test_fname+" already created, checking next fname");	// log:1
-		test_fname = fname+str_rep("_", ++i)+ext;
+		test_fname = fname+"_".repeat(++i)+ext;
 	}
-//	if (i)		_export_replace_fname[fname+str_rep("_", i-1)+ext] = test_fname;
+//	if (i)		_export_replace_fname[fname+"_".repeat(i-1)+ext] = test_fname;
 	_export_fnames_array.push(test_fname);
 	_title2fn[orig_title] = test_fname;
 	if (!create_mode)

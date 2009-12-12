@@ -275,10 +275,10 @@ woas["get_page"] = function(pi) {
 	return pg;	
 }
 
-woas["get_src_page"] = function(pi) {
+woas["get_src_page"] = function(pi,mode) {
 	var pg = this.get_page(pi);
 	if (pg===null) return null;
-	return _filter_wiki(pg);
+	return _filter_wiki(pg,mode);
 }
 
 woas["get_text"] = function (title) {
@@ -1156,7 +1156,7 @@ function _hex_col(tone) {
 		var repco = split_bytes(pw).toUnique().length/pwlength;
 		if (repco<0.8)
 			pwstrength *= (repco+0.2);
-		log("pwstrength = "+_number_format(pwstrength/100, 2)+", repco = "+repco);	// log:1
+		log("pwstrength = "+(pwstrength/100).toFixed(2)+", repco = "+repco);	// log:1
 	} else
 		var pwstrength = 0;
   
@@ -1655,7 +1655,7 @@ function delete_page(page) {
 function _new_syntax_patch(text) {
 	// BUG: will also modify text contained in nowiki blocks
 	text = text.replace(/(^|\n)(\+*)([ \t])/g, function (str, $1, $2, $3) {
-		return $1+str_rep("*", $2.length)+$3;
+		return $1+"*".repeat($2.length)+$3;
 	});
 	
 	return text;
@@ -1870,7 +1870,7 @@ function _inc_marker(old_marker) {
 	}
 	var n = new Number(m[2].replace(/^0+/, '')) + 1;
 	n = n.toString();
-	return m[1]+"-"+str_rep("0", 7-n.length)+n;
+	return m[1]+"-"+"0".repeat(7-n.length)+n;
 }
 
 woas["save_to_file"] = function(full) {
@@ -1980,9 +1980,9 @@ function erase_wiki() {
 		backup_pages.push(pages[pi]);
 		page_attrs.push(0);
 	}
-	page_titles = ["Main Page", "::Menu", "WoaS::Bootscript", "WoaS::Aliases", "WoaS::new_page" ];
+	page_titles = ["Main Page", "::Menu", "WoaS::Bootscript", "WoaS::Aliases", "WoaS::new_page", 'WoaS::Buttons' ];
 	page_titles = page_titles.concat(static_pg);
-	pages = ["This is your empty main page", "[[Main Page]]\n\n[[Special::New Page]]\n[[Special::Duplicate Page]]\n[[Special::Edit New Page Template]]\n[[Special::Buttons]]\n\n[[Special::Go to]]\n[[Special::Delete]]\n[[Special::Backlinks]]\n[[Special::Search]]", encode64("/* insert here your boot script */"), "", encode64('return "= " + title + "\\n";')];
+	pages = ["This is your empty main page", "[[Main Page]]\n\n[[Special::New Page]]\n[[Special::Duplicate Page]]\n[[Special::Edit New Page Template]]\n[[Special::Buttons]]\n\n[[Special::Go to]]\n[[Special::Delete]]\n[[Special::Backlinks]]\n[[Special::Search]]", encode64("/* insert here your boot script */"), "", encode64('return "= " + title + "\\n";'), ""];
 	pages = pages.concat(backup_pages);
 	current = main_page = "Main Page";
 	woas.refresh_menu_area();
@@ -1991,21 +1991,19 @@ function erase_wiki() {
 	return true;
 }
 
-// globla function
+// global function
 function _get_this_path() {
 	var slash_c = (navigator.appVersion.indexOf("Win")!=-1)?"\\\\":"/";
 	return _get_this_filename().replace(new RegExp("("+slash_c+")"+"[^"+slash_c+"]*$"), "$1");
 }
 
-var max_keywords_length = 250;
-var max_description_length = 250;
+var max_keywords_length = 256;
+var max_description_length = 256;
 
 // proper autokeywords generation functions begin here
 
-function sortN(a,b){return b.w - a.w}
-
-// TODO: have Special::Common Words contain all the common words
-var common_words = ['a', 'the', 'is', 'for', 'of', 'to', 'in', 'an', 'be', 'that', 'all', 'or'];
+// TODO: have Special::Common Words contain all the common words http://www.world-english.org/english500.htm
+var common_words = [ 'the','of','to' ,'and' ,'a' ,'in' ,'is' ,'it' ,'you' ,'that' ,'he' ,'was' ,'for','on' ,'are' ,'with' ,'as' ,'I' ,'his' ,'they' ,'be' ,'at' ,'one' ,'have' ,'this' ,'from' ,'or' ,'had' ,'by' , 'an', 'all' ]
 
 function _auto_keywords(source) {
 	if (!source.length) return "";
@@ -2030,7 +2028,7 @@ function _auto_keywords(source) {
 	if (!density.length) return "";
 	words = new Array();
 	var keywords = "", nw = "";
-	density = density.sort(sortN);
+	density = density.sort(function(a,b){return b.w - a.w});
 	var ol=0;
 	for(i=0;i<density.length;i++) {
 		nw = nu_words[density[i].i];
