@@ -104,8 +104,7 @@ function _filter_wiki(s,mode) {
 	if(mode==1)
 		s = s.replace (/\{\{\{|\}\}\}/g, "");
 	var t = s.replace(/\{\{\{((.|\n)*?)\}\}\}/g, "").
-		replace(/<script[^>]*>((.|\n)*?)<\/script>/gi, "").
-		replace(/\<\/?\w+\s*[^>]+>/g, "");
+		replace(/\<\/?\w+\s*[^>]*>/g, "");
 	return t;
 };
 
