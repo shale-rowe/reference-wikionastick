@@ -1017,8 +1017,8 @@ woas["set_current"] = function (cr, interactive) {
 	}
 	
 	this._add_namespace_menu(namespace);
-	if (namespace.length)
-		cr = page_titles[this.page_index(namespace + "::" + cr)];
+	if (namespace)
+		cr = cr? page_titles[this.page_index(namespace + "::" + cr)] : namespace;
 	else
 		cr = page_titles[this.page_index(cr)];
 	if(!cr) cr = namespace + "::";
