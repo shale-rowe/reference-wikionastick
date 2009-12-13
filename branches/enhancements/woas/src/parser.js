@@ -139,9 +139,9 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 		html_tags.push("<tt class=\"wiki_preformatted\">"+woas.xhtml_encode($1)+"</tt>");
 		return r;
 	});
-	
-	// put away code contained in single-line "emphasized paragraph" blocks [[[ ]]] 「「「 」」」 
-	text = text.replace(/(\[|「){3}(.*?)(\]|」){3}/g, function (str, $1, $2) {
+
+	// put away code contained in single-line "emphasized paragraph" blocks [[[ ]]] 「「「 &#12300; or \u300C 」」」 &#12301; or \u300D
+	text = text.replace(/(\[|\u300C){3}(.*?)(\]|\u300D){3}/g, function (str, $1, $2) {
 		var r = "<!-- "+parse_marker+"::"+html_tags.length+" -->";
 		html_tags.push("<span class=\""+($1=='['?'note':'citation')+"\">"+$2+"</span>");
 		return r;
@@ -227,13 +227,13 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 	});
 	
 	// put away code contained in multi-line "emphasized paragraph" blocks [[[ ]]] 「「「 」」」 
-	text = text.replace(/(\[|「){3}((.|\n)*?)(\]|」){3}/g, function (str, $1, $2) {
+	text = text.replace(/(\[|\u300C){3}((.|\n)*?)(\]|\u300D){3}/g, function (str, $1, $2) {
 		var r = "<!-- "+parse_marker+"::"+html_tags.length+" -->";
 		html_tags.push("<div class=\""+($1=='['?'note':'citation')+"\">"+$2+"</div>");
 		return r;
 	});
 //	// blocks dont allow for wiki, but do allow for html tags. If this is a problem, change it to:
-//	text = text.replace(/(\[|「){3}((.|\n)*?)(\]|」){3}/g, function (str, $1, $2) {
+//	text = text.replace(/(\[|\u300C){3}((.|\n)*?)(\]|\u300D){3}/g, function (str, $1, $2) {
 //		return "<div class=\""+($1=='['?'note':'citation')+"\">"+$2+"</div>";
 //	});
 	
