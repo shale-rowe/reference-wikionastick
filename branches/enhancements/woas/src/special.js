@@ -2,7 +2,7 @@
 
 woas["special_encrypted_pages"] = function(locked) {
 	var pg = [];
-	for(var i=0;i<pages.length;i++) {
+	for(var i=0,l=pages.length;i<l;i++) {
 		if (locked == this.is__encrypted(i))
 			pg.push(page_titles[i]);
 	}
@@ -12,7 +12,7 @@ woas["special_encrypted_pages"] = function(locked) {
 woas["special_orphaned_pages"] = function() {
 	var pg = [];
 	var found = false;
-	for(j=0; j<page_titles.length; j++) {
+	for(j=0,l=page_titles.length; j<l; j++) {
 		if (this.is_reserved(page_titles[j]))
 			continue;
 		if (this.is_menu(page_titles[j])) {	// check if the namespace has some pages
@@ -27,7 +27,7 @@ woas["special_orphaned_pages"] = function() {
 		} else {
 		// search for pages that link to it
 			var tmp;
-			for(var i=0; i<page_titles.length; i++) {
+			for(var i=0,l=page_titles.length; i<l; i++) {
 				if ((i==j) || this.is_reserved(page_titles[i]))
 					continue;
 				tmp = this.get_src_page(i);
@@ -94,7 +94,7 @@ woas["special_search"] = function( str ) {
 */
 	var tmp;
 	result_pages = [];
-	for(var i=0; i<pages.length; i++) {
+	for(var i=0,l=pages.length; i<l; i++) {
 		if (this.is_reserved(page_titles[i]))
 			continue;
 		
@@ -167,7 +167,7 @@ woas["special_tagged"] = function() {
 woas["special_untagged"] = function() {
 	var tmp;
 	var pg = [];
-	for(var i=0; i<pages.length; i++) {
+	for(var i=0,l=pages.length; i<l; i++) {
 		tmp = this.get_src_page(i);
 		if (tmp==null)
 			continue;
@@ -182,7 +182,7 @@ woas["special_untagged"] = function() {
 // Returns a index of all pages
 woas["special_all_pages"] = function() {
 	var pg = [];
-	for(var i=0; i<page_titles.length; i++)
+	for(var i=0,l=page_titles.length; i<l; i++)
 	{
 		if (!this.is_reserved(page_titles[i]))
 			pg.push( page_titles[i] );
@@ -196,7 +196,7 @@ woas["special_dead_pages"] = function() {
 	var from_pages = [];
 	var page_done = false;
 	var tmp;
-	for (j=0;j<pages.length;j++) {
+	for (j=0,l=pages.length;j<l;j++) {
 		tmp = this.get_src_page(j);
 		if (tmp==null)
 			continue;
