@@ -5,11 +5,11 @@
 <script type="text/javascript">
 /* <![CDATA[ */
 
-/* DFQRCTsKlU-0000475-START */
+/* DFQRCTsKlU-0000479-START */
 
 var woas = {"version": "0.9.7B"};
 
-var __marker = "DFQRCTsKlU-0000475";
+var __marker = "DFQRCTsKlU-0000479";
 
 woas["config"] = {
 "permit_edits":true,
@@ -26,13 +26,13 @@ var current = 'Main Page';
 var main_page = 'Main Page';
 
 var backstack = [
-'History',
-'Special::Advanced',
-'WoaS::Buttons',
-'Main Page',
-'History',
-'Main Page',
-'Syntax'
+'Syntax',
+'todo\'s',
+'Feature::',
+'Syntax',
+'Feature::Custom javascript',
+'Feature::Summary',
+'todo\'s'
 ];
 
 var page_titles = [
@@ -90,11 +90,13 @@ var page_titles = [
 'Feature::Buttons',
 'Template::tooltip',
 'fold',
-'blackpage'
+'blackpage',
+'todo\'s',
+'TODO'
 ];
 
-/* DFQRCTsKlU-0000475-DATA */
-var page_attrs = [0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,12,4,0,0,0,0,0,0,0,4,0,4,0,0,0,2,0,0,0,0,0,0,4,4,0,0,0,0,0];
+/* DFQRCTsKlU-0000479-DATA */
+var page_attrs = [0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,12,4,0,0,0,0,0,0,0,4,0,4,0,0,0,2,0,0,0,0,0,0,4,4,0,0,0,0,0,0,0];
 
 var pages = [
 '[[Main Page]]\n\
@@ -125,6 +127,7 @@ var pages = [
 * [[Options]]\n\
 [[Escaped \x3E page]]\n\
 [[Google sitesearch]]\n\
+[[todo\'s]]\n\
 \n\
 * [[Special::]]\n\
 ** [[Special::Backlinks|Backlinks]]\n\
@@ -570,6 +573,11 @@ Multiline citation\n\
 Getting the {{{\u300c\u300c\u300c}}} and {{{\u300d\u300d\u300d}}} on the \u300cscreen\u300d, that\'s a bit tricky...\n\
 To still use these symbols, without generating a citation, use: {{{&#12300;}}} and {{{&#12301;}}}\n\
 \n\
+== Footnotes\n\
+\n\
+TODO\n\
+[[Include::TODO|fn|implement footnotes]]\n\
+\n\
 == Regular HTML\n\
 \n\
  \x3Cdiv class=bluebox\x3E\n\
@@ -634,6 +642,13 @@ You can click on the red link to create this non-existing template (which is act
 It is also possible to transclude a special page or namespace index:\n\
 \n\
 [[Include::Special::]]\n\
+\n\
+== A TODO transclusion example\n\
+You can also create a [[TODO]] transclusion: {{{[[Include::TODO|anchor_label|text related to this "todo" ]]}}}.\n\
+It will look like this:\n\
+[[Include::TODO|anchor_label|text related to this "todo" ]]\n\
+And you can generate a list by looking in [[todo\'s]], which contains some inline javascript to generate the TODO list on-the-fly. Made by Martin.\n\
+\n\
 \n\
 == Related pages\n\
 * [[Test template]]\n\
@@ -1555,10 +1570,40 @@ even better than it was\x3Cbr\x3E\n\
 \n\
 Christmas\x3C/font\x3E\x3C/p\x3E\n\
 \x3C/div\x3E\n\
-'
+',
+'= todo\'s\n\
+\n\
+\x3Cdiv id=\'todos\'\x3E\x3C/div\x3E\n\
+\n\
+\x3Cscript\x3E\n\
+function listtodo() {\n\
+	var x=0;\n\
+	var resx = \'\x3Ctable cellspacing=\\\'2\\\' cellpadding=\\\'2\\\'\x3E\';\n\
+	var re = /\\[\\[Include::TODO\\|([^\\|]+)\\|([^\\]]+)/g;\n\
+	for (var i = 0,l=pages.length; i \x3C l; ++i) {\n\
+		var pagetxt = pages[i];\n\
+		var res = pagetxt.toString().match(re);\n\
+		if (res != null) {\n\
+			for (var j = 0,rl=res.length; j\x3Crl ; ++j) {\n\
+				var parts = res[j].split(\'|\');\n\
+				var anchor = parts[1].replace(/ /,\'_\');\n\
+				resx += \'\x3Ctr\x3E\x3Ctd\x3E\' + woas.parser.parse(parts[2]) \n\
+					+ \'\x3C/td\x3E\x3Ctd\x3E\' + "\x3Ca class=\\"link\\" onclick=\\"go_to(\'" \n\
+					+ RegExp.escape(page_titles[i]) + "\'); window.location.hash=\'"+anchor +"\'\\"\x3E"\n\
+					+ page_titles[i] + "\x3C\\/a\x3E" + \'\x3C/td\x3E\x3C/tr\x3E\';\n\
+			}\n\
+		}\n\
+	}\n\
+	$(\'todos\').innerHTML = resx + \'\x3C/table\x3E\';\n\
+}\n\
+listtodo();\n\
+\x3C/script\x3E \n\
+\n\
+\x3Cform\x3E\x3Cinput type=\'button\' onclick=\'listtodo();\' value=\'Refresh TODO list\'/\x3E\x3C/form\x3E',
+'\x3Cp\x3E\x3CA CLASS="TODO" NAME="%1" href="javascript:go_to(\'todo\\\'s\')"\x3E\x3Cstrong\x3E\x3Cfont color="red"\x3ETODO:\x3C/font\x3E\x3C/strong\x3E\x3C/A\x3E \x3Cb\x3E%2\x3C/b\x3E\x3C/p\x3E'
 ];
 
-/* DFQRCTsKlU-0000475-END */
+/* DFQRCTsKlU-0000479-END */
 
 /* ]]> */ </script>
 <style type="text/css">/* user defined */
