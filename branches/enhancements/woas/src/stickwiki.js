@@ -1569,7 +1569,7 @@ woas["current_editing"] = function(page, disabled) {
 			}else
 				alert("Something is wrong with the definition of 'editbutton' "+button);
 		}else
-			alert('no editbutton?')
+			log('no User Defined buttons?')
 	
 	$.show("edit_area");
 	$("wiki_editor").focus();

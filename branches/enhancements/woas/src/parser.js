@@ -139,7 +139,14 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 		html_tags.push("<tt class=\"wiki_preformatted\">"+woas.xhtml_encode($1)+"</tt>");
 		return r;
 	});
-
+	
+	// put away code contained in single-line "emphasized paragraph" blocks [[[ ]]] 「「「 」」」 
+	text = text.replace(/(\[|「){3}(.*?)(\]|」){3}/g, function (str, $1, $2) {
+		var r = "<!-- "+parse_marker+"::"+html_tags.length+" -->";
+		html_tags.push("<span class=\""+($1=='['?'note':'citation')+"\">"+$2+"</span>");
+		return r;
+	});
+	
 	// Indent :  <div style="margin-left:2em"> or http://meyerweb.com/eric/css/tests/css2/sec08-03c.htm
 	text = text.replace(/(?:^|\n)(:+)\s*([^\n]+)/g, function (str, $1,$2) {
 		var r = "<!-- "+parse_marker+"::"+html_tags.length+" -->";
@@ -219,6 +226,17 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 		return r;
 	});
 	
+	// put away code contained in multi-line "emphasized paragraph" blocks [[[ ]]] 「「「 」」」 
+	text = text.replace(/(\[|「){3}((.|\n)*?)(\]|」){3}/g, function (str, $1, $2) {
+		var r = "<!-- "+parse_marker+"::"+html_tags.length+" -->";
+		html_tags.push("<div class=\""+($1=='['?'note':'citation')+"\">"+$2+"</div>");
+		return r;
+	});
+//	// blocks dont allow for wiki, but do allow for html tags. If this is a problem, change it to:
+//	text = text.replace(/(\[|「){3}((.|\n)*?)(\]|」){3}/g, function (str, $1, $2) {
+//		return "<div class=\""+($1=='['?'note':'citation')+"\">"+$2+"</div>";
+//	});
+	
 	// reset the array of custom scripts
 	this.script_extension = [];
 	if (js_mode) {
@@ -266,7 +284,7 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 				var gotohash = "";
 				if (hashloc > 0) {
 					page = $1.substr(0, hashloc);
-					gotohash = "; window.location.hash= \"" + $1.substr(hashloc) + "\"";
+					gotohash = "; window.location.hash= '" + $1.substr(hashloc) + "'";
 				}
 				if (woas.page_exists(page)) {
 					var r="<!-- "+parse_marker+'::'+html_tags.length+" -->";

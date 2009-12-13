@@ -204,11 +204,11 @@ woas["special_dead_pages"] = function() {
 			function (str, $1, $2, $3) {
 				if (page_done)
 					return false;
-				if ($1.charAt(0)=="#")
+				if ($1.charAt(0)=="#" || $1.charAt(0)=="[")
 					return;
 				if ($1.search(/^\w+:\/\//)==0)
 					return;
-				if ($1.match(/Tag(s|ged)?:/gi))
+				if ($1.match(/(?:Tag(?:s|ged)?|mailto)?:/gi))
 					return;
 				p = $1;
 				if (!woas.page_exists(p) && (p!=page_titles[j])) {
