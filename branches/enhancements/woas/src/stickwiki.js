@@ -1677,6 +1677,8 @@ woas["setCSS"] = function(new_css) {
 	sty.cssText = new_css;
 }
 
+woas["before_save"] = function(){}; // User definable, used mainly for page-last-modified.
+
 // when save is clicked
 woas["save"] = function() {
 	if (this.config.cumulative_save && !kbd_hooking) {
@@ -1709,6 +1711,7 @@ woas["save"] = function() {
 				return;
 			} else {
 				// here the page gets actually saved
+				woas["before_save"]();
 				this.set_text($("wiki_editor").value);
 				new_title = woas.trim($("wiki_page_title").value);
 				if (this.is_menu(new_title)) {
