@@ -129,7 +129,9 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 		export_links = false;
 		js_mode=1;
 	}
-	
+	if(typeof(woas["before_parser"])=='function')
+		text = woas["before_parser"](text);
+
 	// this array will contain all the HTML snippets that will not be parsed by the wiki engine
 	var html_tags = [];
 	
@@ -218,6 +220,13 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 
 	var tags = [];
 	var footnotes = [];
+
+	// put away stuff contained in user-defined multi-line blocks «««»»» 171 187 alert ("»".charCodeAt(0)); \xAB \xBB
+	text = text.replace(/\xAB{3}((.|\n)*?)\xBB{3}/g, function (str, $1) {
+		var r = "<!-- "+parse_marker+"::"+html_tags.length+" -->";
+		html_tags.push(woas.user_parse($1));
+		return r;
+	});
 
 	// put away raw text contained in multi-line nowiki blocks {{{ }}}
 	text = text.replace(/\{\{\{((.|\n)*?)\}\}\}/g, function (str, $1) {

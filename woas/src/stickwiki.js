@@ -1677,7 +1677,9 @@ woas["setCSS"] = function(new_css) {
 	sty.cssText = new_css;
 }
 
-woas["before_save"] = function(){}; // User definable, used mainly for page-last-modified.
+woas["before_save"] = function(){}; // User definable, used mainly for page-last-modified. by reading/setting $("wiki_editor").value
+woas["before_parser"] = undefined; // User definable, used mainly to expand macro's before the parser starts rendering (must return the text, a do-nothing would be:  woas["before_parser"] = function(text){return text}; )
+woas["user_parse"] = function(text){return "\xAB"+text+"\xBB"}; // User definable, used mainly for user macro's: «««like this»»»
 
 // when save is clicked
 woas["save"] = function() {
