@@ -5,11 +5,11 @@
 <script type="text/javascript">
 /* <![CDATA[ */
 
-/* DFQRCTsKlU-0000484-START */
+/* DFQRCTsKlU-0000490-START */
 
 var woas = {"version": "0.9.7B"};
 
-var __marker = "DFQRCTsKlU-0000484";
+var __marker = "DFQRCTsKlU-0000490";
 
 woas["config"] = {
 "permit_edits":true,
@@ -21,18 +21,18 @@ woas["config"] = {
 "cumulative_save":false,
 "auto_save":0};
 
-var current = 'Transclusion example';
+var current = 'Main Page';
 
 var main_page = 'Main Page';
 
 var backstack = [
-'Feature::Summary',
-'Transclusion example',
-'Transclusion example',
-'TIMEDATE',
+'WoaS::Bootscript',
 'History',
-'Transclusion example',
-'TIMEDATE'
+'Special::Advanced',
+'WoaS::Bootscript',
+'History',
+'Special::Advanced',
+'WoaS::Bootscript'
 ];
 
 var page_titles = [
@@ -96,7 +96,7 @@ var page_titles = [
 'TIMEDATE'
 ];
 
-/* DFQRCTsKlU-0000484-DATA */
+/* DFQRCTsKlU-0000490-DATA */
 var page_attrs = [0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,12,4,0,0,0,0,0,0,0,4,0,4,0,0,0,2,0,0,0,0,0,0,4,4,0,0,0,0,0,0,0,0];
 
 var pages = [
@@ -563,7 +563,7 @@ Notes \x3Cb\x3Ecan\x3C/b\x3E contain html markup, but no *wiki* markup.\n\
 \n\
 If that is a problem, just use the /note/ div class yourself:\n\
 \x3Cdiv class="note"\x3EThis note /does/ allow *wiki* syntax.\x3C/div\x3E\n\
-\n\
+\x3Cdiv class="text_area"\x3EA more *sober* note\x3C/div\x3E\n\
 == Citations\n\
 Citations, just like notes, are a div or span of {{{class=citation}}}. \n\
 This is an example of an \u300c\u300c\u300cinline quote\u300d\u300d\u300d and\n\
@@ -652,17 +652,42 @@ And you can generate a list by looking in [[todo\'s]], which contains some inlin
 \n\
 == Page Last Modified example\n\
 This one makes use of the [[Special::Edit Bootscript]] to update a TIMEDATE transclusion tag just before saving, how cool is that?.\n\
-[[Include::TIMEDATE|Mon Dec 14 2009 00:26:18 GMT+0100]] That blue thing will be updated if you save this page!\n\
+[[Include::TIMEDATE|2009/12/14 13:42:38 GMT+0100]] That blue thing will be updated if you save this page!\n\
 The code to do this trick must be in the Bootscript:\n\
 {{{\n\
 woas["before_save"] = function(){\n\
+try{\n\
   var M = $("wiki_editor").value;\n\
-  var now = "["+"[Include::TIMEDATE|"+Date()+"]"+"]";\n\
-  M = M.replace(/\\[\\[Include::TIMEDATE\\|([^\\]]*?)\\]\\]/, now);\n\
+  var now = new Date();\n\
+  // var datestring = now.toString(); // This will give you the time without having to get each field separately\n\
+  var datestring = now.getFullYear() +\'/\'+ (1+now.getMonth()) +\'/\'+ now.getDate() + \' \' + now.toTimeString();\n\
+  M = M.replace(/\\[\\[Include::TIMEDATE\\|([^\\]]*?)\\]\\]/, "["+"[Include::TIMEDATE|"+datestring+"]"+"]" );\n\
   $("wiki_editor").value = M;\n\
+}catch(e){alert(e);}\n\
 }\n\
 }}}\n\
+It is not hard to change the date format, for a reference look at [[http://www.w3schools.com/jsref/jsref_obj_date.asp]]\n\
+\n\
+[[[If you play around with this code, make sure to make a backup and use try-catch\x3Cbr/\x3E\n\
+\x3Cpre\x3E\n\
+woas["before_save"] = function(){\n\
+  try{\n\
+  /* your code here */\n\
+  }catch(e){\n\
+    alert(e);\n\
+  }\n\
+}\x3C/pre\x3E]]]\n\
+\n\
 And To format the date position and colors you use a template page: {{{[[Include::}}}[[TIMEDATE]]{{{|xxx]]}}}\n\
+You can format it any way you like. For example: Select a sober topright corner of the page:\n\
+{{{\n\
+\x3Cspan id="cornernote" style="position:absolute;right:10px; top:3px"\x3Epage last modified: %1\x3C/span\x3E\n\
+}}}\n\
+Or a more screaming inline blue:\n\
+{{{\n\
+\x3Cspan style="float: right; text-align: left; background:#AAF; border: dashed; font-style: italic"\x3Epage last modified: %1\x3C/span\x3E\n\
+}}}\n\
+\n\
 \n\
 == Related pages\n\
 * [[Test template]]\n\
@@ -1095,6 +1120,36 @@ function myfunc(arg) {\n\
 You can easily change the appearance of this wiki by changing the embedded CSS: [[Special::Edit CSS]]\n\
 I recommend "Topstyle light" to visually edit css and to copy paste between this wiki and that application.\n\
 \n\
+== API\n\
+\n\
+Many internal functions are available for use inside javascripts. You have a few places where you can define these scripts:\n\
+\n\
+* [[Special::Buttons]] \x3Cblockquote\x3EA page where you can write Javascript dedicated to edit buttons. Runs each time you edit a page\x3C/blockquote\x3E\n\
+** woas["editbutton"]= new Array();\n\
+An array that can hold up to 12 user definable buttons.\n\
+See [[Feature::Buttons]]\n\
+Things you could do with it: Depending on the pagename, you can define different user buttons.\n\
+* [[WoaS::Bootscript]]\n\
+\n\
+Runs only once when the wiki page is started (or reloaded with shift-reload).\n\
+See also [[Feature::Bootscript]]\n\
+\n\
+* [[Special::Edit New Page Template]]\n\
+\n\
+* woas["editbutton"]= new Array();\n\
+\n\
+* woas["before_save"] = function(){};\n\
+User definable, used mainly for page-last-modified. by reading/setting $("wiki_editor").value\n\
+\n\
+* woas["before_parser"]\n\
+User definable, used mainly to expand macro\'s before the parser starts rendering (must return the text, a do-nothing would be:  woas["before_parser"] = function(text){return text}; )\n\
+\n\
+* woas["user_parse"]\n\
+User definable Wiki tag, used mainly for user macro\'s.\n\
+Receives a text between {{{\u00ab\u00ab\u00abthese things\u00bb\u00bb\u00bb}}} and returns the output you choose. This output is not further processed by WOAS.\n\
+A \'do nothing\' function would be:\n\
+{{{woas["user_parse"] = function(text){return "\\xAB"+text+"\\xBB"};}}}\n\
+\n\
 [[Tags::help]]',
 '= Options\n\
 \n\
@@ -1149,13 +1204,13 @@ Trims final newlines and spaces from pages\' wiki source. This flag is likely to
 \x3Cinput id="filename_" type="file" /\x3E&nbsp;\x3Cinput type="button" value="Embed" onclick="woas._embed_process(\'%1\')" /\x3E\n\
 ',
 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAMAAADzapwJAAAAB3RJTUUH1wcHEBwwMJCsHwAAAAlwSFlzAAAewQAAHsEBw2lUUwAAAARnQU1BAACxjwv8YQUAAAJzUExURf8f7evr67W1taWlpdbW1uzs7J6enmouJGosI4ODg93d3TcyMdQdB9EUBzYxMcXFxenp6Y+Pj402G+0VAN4MAIwlGnd3d9ra2tXV1UA1L+Y7Be4eAekRANYQAz8wLrCwsOXl5YCAgKdRGPdEA/QxAfIdAeERAaEjFW1tbe/v71hAKvlpB/pbBfZDA/IuAu0bAd0UAlYwKZOTk+Dg4F5eXsxqEvt3CflwCf////IpAuoYAcIjDVNTU9DQ0JaWlnlOI/uEDPuFEPqEEfU9BO0kAugYAXYyIX5+fu3t7Tc0MeZ7DvuTFvuZHPqXHvqKGft3EfZTB+81A+ohAdwpB+jo6ImJiZFXHvuYGPyjJ/ysM/ytOfpwDfdOBfAwAu8lAo87HHR0dNjY2MnJyUc6LvKLE/ypKfy2P/y9S/y/UfuGGPliCvJFBPIzA+s5BUc3LaampuPj43V1dbRmF/ymJfy3Of3DU/3KYv3MY/ubJPt4EvpUCfVCA/E2A7NNFmRkZNPT06ioqGFFKPuVFPytLv2+Sf3KYf3Qbf3PafuiKfuKFfppC/lQBfg+A/U8A2FBKIuLi9/f3zQzMtV2E/yhH/yxNf2+R/3HXP3LZ/3NafykJ/yOF/lxC/pcBvZGBPU3A9VRDTQzMdfX15qamn5QIvuSEfyfHPysL/y6QfzBTfzDV/zBU/ydH/yLE/t2DPpgB/dLA/Y6A/U6A3tIIvPz8zs2MPuSE/ydGPymJPyyNfy0OfyzN/ysKfyhIPuUF/uGDft0CvtlB/taBfZPA/ZFA+RXCjs1MPDw8E49LIJSIYJRIYJPIYJOIYJNIIJMIIJMIU47LKysrKzWV/gAAAABdFJOUwBA5thmAAABNUlEQVR42mNgwAGML2AAY6Do8RNQcPLkyVOnz5w9e+7ceWOGzVu8tm7b3rxj567de/bu23/g4KHDR44eY2BYtHjJ0mXLV6xcZWGxes3ades3bNwkuBlo+MRJk6dMnTZ9hoXFzFmz58ydN3/BQpCdDY1NzS2tbe0WFh2dXd09vX39E8BuKSwqLiktK7ewqKisqq6prauHODEpOSU1LT3DwiIzKzsnNy+/AOr00LDwiMgoC4vomNi4+IREmI88PL28fXz9/AMCg4K5+UPgPrWzd3B0srBwdnF1c+dCCgETUzNzCwtLK2sbW1YkYXktbR1dPX0DQyNjlABTVFJWUVVT15DQRBGWkJSSlpGVk1dAC19BIWERUTFxjHDn5uHl4xfAEGZj5+DkYsAETMwsrFiEGRgZGQgAAEPKcWQFSaWtAAAAAElFTkSuQmCCAAA=',
-'d29hc1siYmVmb3JlX3NhdmUiXSA9IGZ1bmN0aW9uKCl7CnZhciBNID0gJCgid2lraV9lZGl0b3IiKS52YWx1ZTsKdmFyIG5vdyA9ICJbIisiW0luY2x1ZGU6OlRJTUVEQVRFfCIrRGF0ZSgpKyJdIisiXSI7Ck0gPSBNLnRvU3RyaW5nKCkucmVwbGFjZSgvXFtcW0luY2x1ZGU6OlRJTUVEQVRFXHwoW15cXV0qPylcXVxdLywgbm93KTsKJCgid2lraV9lZGl0b3IiKS52YWx1ZSA9IE07Cn0=',
+'LyogUEFHRSBMQVNUIE1PRElGSUVEICovCndvYXNbImJlZm9yZV9zYXZlIl0gPSBmdW5jdGlvbigpewogIHZhciBNID0gJCgid2lraV9lZGl0b3IiKS52YWx1ZTsKICB2YXIgbm93ID0gbmV3IERhdGUoKTsKICB2YXIgZGF0ZXN0cmluZyA9IG5vdy5nZXRGdWxsWWVhcigpICsnLycrICgxK25vdy5nZXRNb250aCgpKSArJy8nKyBub3cuZ2V0RGF0ZSgpICsgJyAnICsgbm93LnRvVGltZVN0cmluZygpOwogIE0gPSBNLnJlcGxhY2UoL1xbXFtJbmNsdWRlOjpUSU1FREFURVx8KFteXF1dKj8pXF1cXS8sICJbIisiW0luY2x1ZGU6OlRJTUVEQVRFfCIrZGF0ZXN0cmluZysiXSIrIl0iICk7CiAgJCgid2lraV9lZGl0b3IiKS52YWx1ZSA9IE07Cn0KCi8qIEZPT1ROT1RFUyAqLwp3b2FzWyJiZWZvcmVfcGFyc2VyIl0gPSBmdW5jdGlvbih0eHQpewogIHRyeXsKICAgIHdvYXNbIkZPT1ROT1RFUyJdID0gW107Cgl2YXIgbiA9IDA7CiAgICB0eHQ9IHR4dC5yZXBsYWNlKC88PDwoKC58XG4pKj8pPj4+L2csIGZ1bmN0aW9uKHMsJDEpewoJICB3b2FzWyJGT09UTk9URVMiXS5wdXNoKCQxKTsKCSAgbiA9d29hc1siRk9PVE5PVEVTIl0ubGVuZ3RoOwoJICByZXR1cm4gJzxlbT48c3VwPjxhIG5hbWU9Il9ub3RlZm9vdCcrbisnImhyZWY9IiNfZm9vdG5vdGUnK24rJyI+JytuKyc8L2E+PC9zdXA+PC9lbT4nOwogICAgfSk7CiAgdmFyIGZuPSIiOwogIGZvcih2YXIgaT0wLGw9d29hc1siRk9PVE5PVEVTIl0ubGVuZ3RoO2k8bDtpKyspewogICAgbiA9IGkrMTsKICAgIGZuICs9ICc8dHI+PHRkIFZBTElHTj0idG9wIj48YSBuYW1lPSJfZm9vdG5vdGUnK24rJyIgaHJlZj0iI19ub3RlZm9vdCcrbisnIj4nICtuKyAiPC9hPjo8L3RkPjx0ZD4iICsgd29hc1siRk9PVE5PVEVTIl1baV0gICsiPC90ZD48L3RyPiI7CiAgfQogIHJldHVybiB0eHQgKyc8YnIvPjxkaXYgY2xhc3M9ImZvb3Rub3RlIj48dGFibGUgYm9yZGVyPTE+JyArZm4rICc8L3RhYmxlPjwvZGl2PicgOwogIH1jYXRjaChlKXthbGVydChlKX0KfQo=',
 '= History\n\
 \n\
 == Versions 0.01 &tilde; 0.04\n\
 \x3Csub\x3Eby Andr\u00e9 Wagner\x3C/sub\x3E\n\
 \n\
-As they say, /"necessity is the mother of invention"/. I needed a way to store information in a tree-like structure, but every software I tested felt like it was something missing. I tested a few mindmap software, tree structure software and personal wikis, but they were too complicated to install; I didn\'t yet have what I was looking for, or the tool wasn\'t closs-platform.\n\
+As they say, \u300c\u300c\u300cnecessity is the mother of invention\u300d\u300d\u300d \x3C\x3C\x3CPlato, The Republic\x3Cbr/\x3EGreek author & philosopher in Athens (427 BC - 347 BC)\x3E\x3E\x3E. I needed a way to store information in a tree-like structure, but every software I tested felt like it was something missing. I tested a few mindmap software, tree structure software and personal wikis, but they were too complicated to install; I didn\'t yet have what I was looking for, or the tool wasn\'t cross-platform\x3C\x3C\x3CWindows/Mac/*ux\x3E\x3E\x3E.\n\
 \n\
 The closest thing I found was [[http://www.tiddlywiki.com/|TiddlyWiki]], but it still wasn\'t perfect: it was too much blog-like, and what I needed was something wiki-like. So TiddlyWiki served as inspiration for the software I was about to create (I even used their saving routines).\n\
 \n\
@@ -1164,22 +1219,29 @@ The core part of the code was written in one rainy afternoon. A few days later (
 === The principles\n\
 Since the beginning I followed two basic principles: *simplicity* and *stability*. For simplicity I mean that the software should be easy enough for anyone to use, and the interface should be as plain as possible. And for stability I mean that the user data is sacred above all things, and the user should never loose his data, no matter what happens. I think these were the two facts that brought the good acceptance from the users.\n\
 \n\
-Unfortunatly, the duties of my graduation thesis made me stop working on WoaS and the software became dormant for a couple of months. It made me feel bad, since the mailing lists were at full throttle, with many people requesting features and sending patches that I couldn\'t even test.\n\
+Unfortunately, the duties of my graduation thesis made me stop working on WoaS and the software became dormant for a couple of months. It made me feel bad, since the mailing lists were at full throttle, with many people requesting features and sending patches that I couldn\'t even test.\n\
 \n\
 So I was very glad when Daniele offered himself to take over the task of managing the project. He did a great work and now WoaS is a much more rich application, with a even greater userbase. It feels really nice to see that people all around the world are using the software I created, and my desire is to see that WoaS grows in quality, features and userbase, and to remain a simple yet useful tool to everyone.\n\
 \n\
 == Versions 0.9.x\n\
 \x3Csub\x3Eby Daniele C.\x3C/sub\x3E\n\
 \n\
-When I first found WoaS I felt that this software has a great potential; my first contribute to WoaS was to resolve all the bug tracker items and review the patches; the result was put into a v0.04G released in a SF.net patches tracker item (as attachment). That modified version was mostly a bug-fix and feature-fix modification, with small new features like custom keys for navigation and edits cancelling. V0.04G also missed the import feature (I forgot to add it back) and had a nasty double-click to edit feature which was not really good. That was my experimentation, I did not expect people to really use my modified version but since Andr\u00e9 had no time to review it, people was actually starting to use it.\n\
+When I first found WoaS I felt that this software has a great potential; my first contribute to WoaS was to resolve all the bug tracker items and review the patches; the result was put into a v0.04G released in a SF.net patches tracker item (as attachment). That modified version was mostly a bug-fix and feature-fix modification, with small new features like custom keys for navigation and edits canceling. V0.04G also missed the import feature (I forgot to add it back) and had a nasty double-click to edit feature which was not really good. That was my experimentation, I did not expect people to really use my modified version but since Andr\u00e9 had no time to review it, people was actually starting to use it.\n\
 \n\
 Some time later I took courage and asked to take-over the project; Andr\u00e9 Wagner kindly added me to the project as a developer and a project admin and I could start working on WoaS for real.\n\
 \n\
-My first big project management change was to switch to [[http://subversion.tigris.org/|Subversion (SVN)]] for the versioning of all our WoaS files; development could this way be fully documented and followed "live" by the Google Group partecipants, which are the first solid community gathered around WoaS.\n\
+My first big project management change was to switch to [[http://subversion.tigris.org/|Subversion (SVN)]] for the versioning of all our WoaS files; development could this way be fully documented and followed "live" by the Google Group participants, which are the first solid community gathered around WoaS.\n\
 \n\
 Version 0.9B was the first official version which I worked on. My first big change was to have storage of pages not in content-escaped hidden divs but as javascript strings; this brought more speed to the page loading process. I also had to solve some problems inherent to the double file vs single file compatibility (WoaS can since then work with the 2-files version and single file version) and some IE saving issues, but finally the result was good enough.\n\
 \n\
 A lot of features and improvements have been implemented during the (still current) v0.9.x development cycle, without never slowing down some parts of WoaS for each new feature implemented (further speed optimizations will be engineered when the codebase is stable enough); we are as always gathering the users\' feedback to add usability and more powerful features to WoaS. Such features must of course be coherent with WoaS principles and base philosophy.\n\
+\n\
+== Versions 0.9.8 onwards\n\
+\x3Csub\x3Eby N. Castillo\x3C/sub\x3E\n\
+I felt immediately comfortable with WOAS. Editing pages is really easy as is searching them, making it an ideal tool for me to store project information, but also procedures, and code snippets. Although WOAS had interfaces to add user defined behaviour, it did not include these. At first I started removing annoyances, but soon, cheered on by the Community, I started adding features, thing I and others were missing. With my Javascript background I reviewed the code, did a few optimizations, rewrote some parts to keep WOAS lean and mean, despite having more features added to them. \n\
+\n\
+My goals for WOAS are *speed* and *usability*\n\
+(I also took it upon myself to push Daniele to finish the development cycle and get to v1.0)\n\
 \n\
 === Object orienting\n\
 \n\
@@ -1258,6 +1320,12 @@ This page has an apostrophe in title but should still be searchable',
 '= Di\u00e2critics\n\
 \n\
 Simon wonders if a page with di\u00e2critics will be found \u00e4nyw\u00e1y.\n\
+\n\
+== \u00bfu\u028dop-\u01ddp\u0131sdn\n\
+\n\
+upside-down?\n\
+\n\
+\n\
 \n\
 [[Tags::dummy]]',
 'dm9pZCBMaWZlRnJhbWU6Ok9uU2FtcGxlcyh3eENvbW1hbmRFdmVudCYgV1hVTlVTRUQoZXZlbnQpKQp7CiAgICAvLyBzdG9wIGlmIGl0IHdhcyBydW5uaW5nCiAgICBPblN0b3AoKTsKCiAgICAvLyBkaWFsb2cgYm94CiAgICBMaWZlU2FtcGxlc0RpYWxvZyBkaWFsb2codGhpcyk7CgogICAgaWYgKGRpYWxvZy5TaG93TW9kYWwoKSA9PSB3eElEX09LKQogICAgewogICAgICAgIGNvbnN0IExpZmVQYXR0ZXJuIHBhdHRlcm4gPSBkaWFsb2cuR2V0UGF0dGVybigpOwoKICAgICAgICAvLyBwdXQgdGhlIHBhdHRlcm4KICAgICAgICBtX2xpZmUtPkNsZWFyKCk7CiAgICAgICAgbV9saWZlLT5TZXRQYXR0ZXJuKHBhdHRlcm4pOwoKICAgICAgICAvLyByZWNlbnRlciBjYW52YXMKICAgICAgICBtX2NhbnZhcy0+UmVjZW50ZXIoMCwgMCk7CiAgICAgICAgbV90aWNzID0gMDsKICAgICAgICBVcGRhdGVJbmZvVGV4dCgpOwogICAgfQp9AAo=',
@@ -1611,6 +1679,7 @@ function listtodo() {\n\
 	}\n\
 	$(\'todos\').innerHTML = resx + \'\x3C/table\x3E\';\n\
 }\n\
+\n\
 listtodo();\n\
 \x3C/script\x3E \n\
 \n\
@@ -1620,7 +1689,7 @@ listtodo();\n\
 '
 ];
 
-/* DFQRCTsKlU-0000484-END */
+/* DFQRCTsKlU-0000490-END */
 
 /* ]]> */ </script>
 <style type="text/css">/* user defined */
@@ -1704,7 +1773,7 @@ a.world { /* outside world link */
 	text-decoration: underline;
 }
 
-.footnote { font-size: 0.75em; line-height: 0.5em; font-style: italic; vertical-align:super }
+.footnote { background-color:  #EEF; font-size: 0.75em; line-height: 1em; font-style: italic; vertical-align:super }
 
 .note {
 	border: 1px groove #AA3;
@@ -1919,6 +1988,7 @@ div.text_area.locked,
 
 
 </style><title>Main Page</title>
+<link href="./favicon.ico" rel="shortcut icon">
 <script src="src/aes.js" type="text/javascript"></script>
 <script src="src/framework.js" type="text/javascript"></script>
 <script src="src/loadsave.js" type="text/javascript"></script>
@@ -1949,7 +2019,7 @@ div.text_area.locked,
 <div id="menu_forward" style="display: none; cursor: pointer; visibility: hidden;"><a title="Forward" onclick="go_forward()"><img id="img_forward" style="display: inline; visibility: visible;" alt="Forward" src="data:image/png;base64,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"><span id="alt_forward" style="display: none; visibility: hidden;">&nbsp;<strong>[Forward]</strong>&nbsp;</span></a></div>
 <div id="menu_advanced" style="display: inline; cursor: pointer; visibility: visible;"><a title="Advanced" onclick="advanced()"><img id="img_advanced" style="display: inline; visibility: visible;" alt="Advanced" src="data:image/png;base64,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"><span id="alt_advanced" style="display: none; visibility: hidden;">&nbsp;<strong>[Advanced]</strong>&nbsp;</span></a></div>
 <div id="menu_home" style="display: inline; cursor: pointer; visibility: visible;"><a id="a_home" title="Main Page" onclick="home()"><img id="img_home" style="display: inline; visibility: visible;" alt="Main Page" src="data:image/png;base64,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"><span id="alt_home" style="display: none; visibility: hidden;">&nbsp;<strong>[Home]</strong>&nbsp;</span></a></div>
-<div id="menu_unlock" style="display: inline; cursor: pointer; visibility: visible;"><a title="Unlock" onclick="unlock()"><img id="img_lock" style="display: inline; visibility: visible;" alt="Unlock" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA%2FwD%2FAP%2BgvaeTAAAEnUlEQVR42o2WX2wUVRTGf3NnZ7a7tkvTdA1rlxSWthgwEpoawh9jS8SHxofqAyaGBzBBE15IBLTxwfgCGBITfZAXk%2FYBjDE09QGJpqKFGBKiDYkuVChd7KbbbbtLy3bb2dk%2Fs3N96M52t63ASU5m5t7c853zne%2FeOwoV9vDhwxpWWSgUypVelYphWfKnmnACrxd8z549rwB2yYslfwuoB9zAayWgXYBrXQQneKU3NzfvcrLs7%2B%2BXsVhMTk1NyVu3bsmK7N8EZCqVcr4PlUDXVlBpBw4ceDEajd7u7e0tJpNJDh48SDqdJpVK4ff7iUQi9Pf3A1wBWFpa4s6dOwDfA92rQdYAzM3NvQRw%2BvRp9erVq1YwGGT79u3s2LGDrVu3Eg6H87t376avr6%2B8ZnZ2lgcPHgAMAi2V%2FaribXp6WllcXLw4MTHByMgIR44ccW3YsOFDr9c76vP54vF4vKOnp6cvGo3S1NRUlVhrayvAp6vEsLYCALd7pUqPx3O%2FpaVl9OjRoxPnzp27%2FH9qOX78OMAMMF2psKoKxsfHBYBpmuUxr9c729raagQCAftJcrxw4QKACeQrx8sA4XBYDAwM1K5eaBiGb3h4uOn69es2z2bFdQG%2B%2FOiDd4bvz%2FQBDA4OkkgknAb%2BtjrCsWPHqK1dyUXXdS5dusThw4cvAreBfxyaFGeDhUIhMxUfJT8%2Fibn4iHzGIJtZYPFxCjOTAUDTNPQaN8Klorlr2NXTSywWI5FI0N7eDvAV8DUQKW3O6h4ouTS59AxGIkrWWCLzOMlcMsGSsQQSPJ4adK8HVRVo6spJUVdXx82bN9m3b98J4LsSwFoV2baNLC5TKG2wFXtZcxKEEKAoKELBtiWvn%2FqBzz45iRCCuro6VFV1wmwCtHVVBBIpJUiJlEViMynGJmYxM1kE0FBfy6aNcPZKnEgkghCCTIm%2BxsZGhoeH6erqugy8CvwJ5KopEipCCBShIIQk8Hw9HpEjs7CIRCBqdHq%2FvceNGzcoFAqMj49jWRaKoqDrOps3b2ZkZISOjo7fgZ3AXREKhbIrHBWxihZWvoCVL%2FDocZrJxBJT81kSCxne%2FfxXzp45g5TLlWqaRltbG21tbWzZsoX6%2Bnr8fj%2Fnz58H%2BAtocJUUlF0mSEFVVFSXC6G6aPR5EVkPGbeNXVJ3Z1cXhmGgKArbtm1D1%2FXl6hWl%2FOzs7HRS3ljdA9tCFjIUcovkc2mi8QTzyXlMw0RzucoBHDdNk0AgAEA0Gi2PO6BA%2FaoeKEhVQwg3Lk0nuLGBWlVimu4qwTmBQqEQwBeAbG5uPjU5OYmiKOTz%2Bf857Io2kiKyWMAqFLByuVJPLGTRAuCXoaEyHQCH3mg%2FeeLtnaecHW1ZFkNDQ870QtU9%2B%2FM3HzPx7zjZhSRZM0sulyWfzVKwiggUajw6g6Murl27hmEYaJpGMBgEIBaLoes6Y2Nj7N%2B%2FH%2BA94McywMt%2B%2FYW%2Fk%2FmpZznN9u7dy8DAALa9cv6Fw2GklHR3dwP0Aj8BdysrUAAV0EvP1X8Slfacz%2BeLp9Pp9ebeB%2F4A7gE55SnJPmneBTQAAaDO4bx06cwDFsB%2F1pf2UYdfB6cAAAAASUVORK5CYII%3D"><span id="alt_unlock" style="display: none; visibility: hidden;">&nbsp;<strong>[Unlock]</strong>&nbsp;</span></a></div>
+<div id="menu_unlock" style="display: none; cursor: pointer; visibility: hidden;"><a title="Unlock" onclick="unlock()"><img id="img_lock" style="display: inline; visibility: visible;" alt="Unlock" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA%2FwD%2FAP%2BgvaeTAAAEnUlEQVR42o2WX2wUVRTGf3NnZ7a7tkvTdA1rlxSWthgwEpoawh9jS8SHxofqAyaGBzBBE15IBLTxwfgCGBITfZAXk%2FYBjDE09QGJpqKFGBKiDYkuVChd7KbbbbtLy3bb2dk%2Fs3N96M52t63ASU5m5t7c853zne%2FeOwoV9vDhwxpWWSgUypVelYphWfKnmnACrxd8z549rwB2yYslfwuoB9zAayWgXYBrXQQneKU3NzfvcrLs7%2B%2BXsVhMTk1NyVu3bsmK7N8EZCqVcr4PlUDXVlBpBw4ceDEajd7u7e0tJpNJDh48SDqdJpVK4ff7iUQi9Pf3A1wBWFpa4s6dOwDfA92rQdYAzM3NvQRw%2BvRp9erVq1YwGGT79u3s2LGDrVu3Eg6H87t376avr6%2B8ZnZ2lgcPHgAMAi2V%2FaribXp6WllcXLw4MTHByMgIR44ccW3YsOFDr9c76vP54vF4vKOnp6cvGo3S1NRUlVhrayvAp6vEsLYCALd7pUqPx3O%2FpaVl9OjRoxPnzp27%2FH9qOX78OMAMMF2psKoKxsfHBYBpmuUxr9c729raagQCAftJcrxw4QKACeQrx8sA4XBYDAwM1K5eaBiGb3h4uOn69es2z2bFdQG%2B%2FOiDd4bvz%2FQBDA4OkkgknAb%2BtjrCsWPHqK1dyUXXdS5dusThw4cvAreBfxyaFGeDhUIhMxUfJT8%2Fibn4iHzGIJtZYPFxCjOTAUDTNPQaN8Klorlr2NXTSywWI5FI0N7eDvAV8DUQKW3O6h4ouTS59AxGIkrWWCLzOMlcMsGSsQQSPJ4adK8HVRVo6spJUVdXx82bN9m3b98J4LsSwFoV2baNLC5TKG2wFXtZcxKEEKAoKELBtiWvn%2FqBzz45iRCCuro6VFV1wmwCtHVVBBIpJUiJlEViMynGJmYxM1kE0FBfy6aNcPZKnEgkghCCTIm%2BxsZGhoeH6erqugy8CvwJ5KopEipCCBShIIQk8Hw9HpEjs7CIRCBqdHq%2FvceNGzcoFAqMj49jWRaKoqDrOps3b2ZkZISOjo7fgZ3AXREKhbIrHBWxihZWvoCVL%2FDocZrJxBJT81kSCxne%2FfxXzp45g5TLlWqaRltbG21tbWzZsoX6%2Bnr8fj%2Fnz58H%2BAtocJUUlF0mSEFVVFSXC6G6aPR5EVkPGbeNXVJ3Z1cXhmGgKArbtm1D1%2FXl6hWl%2FOzs7HRS3ljdA9tCFjIUcovkc2mi8QTzyXlMw0RzucoBHDdNk0AgAEA0Gi2PO6BA%2FaoeKEhVQwg3Lk0nuLGBWlVimu4qwTmBQqEQwBeAbG5uPjU5OYmiKOTz%2Bf857Io2kiKyWMAqFLByuVJPLGTRAuCXoaEyHQCH3mg%2FeeLtnaecHW1ZFkNDQ870QtU9%2B%2FM3HzPx7zjZhSRZM0sulyWfzVKwiggUajw6g6Murl27hmEYaJpGMBgEIBaLoes6Y2Nj7N%2B%2FH%2BA94McywMt%2B%2FYW%2Fk%2FmpZznN9u7dy8DAALa9cv6Fw2GklHR3dwP0Aj8BdysrUAAV0EvP1X8Slfacz%2BeLp9Pp9ebeB%2F4A7gE55SnJPmneBTQAAaDO4bx06cwDFsB%2F1pf2UYdfB6cAAAAASUVORK5CYII%3D"><span id="alt_unlock" style="display: none; visibility: hidden;">&nbsp;<strong>[Unlock]</strong>&nbsp;</span></a></div>
 <div id="menu_lock" style="display: inline; cursor: pointer; visibility: visible;"><a title="Lock" onclick="lock()"><img id="img_unlock" style="display: inline; visibility: visible;" alt="Lock" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAB3RJTUUH1wMbFisGhO%2Br5wAAAAlwSFlzAAALEwAACxMBAJqcGAAAAARnQU1BAACxjwv8YQUAAANZSURBVHja3VTPT1NZGD3vvZYWGGqVNgKyEBZqwsRYtRpjJpkdMbNk5YrMZjYQF27c%2Bxe4MCxcIJmdyRAjGxMX%2FohKUGMgMAt%2BTCJ0CtqR2tLS9%2Fp%2B3eu5r8UEZphS48qbnL57b9895%2FvO970LfK%2FjKjFJlIhHxH0i9a3Ib%2Fb396%2BPj4%2FLjY0NOTMzIycmJvxEImHyv1%2BbJTP2rG8PDw9fn5ycjPX19aFYLCIWi6Gnp0cbGBgI5%2FP5XzKZjMb3nn1N5FfS6bRZKBTk%2FPx8ZWho6C337GQymR0ZGbHn5ubk1NSUHBwcLNctbHo8YHRycXFRplKpP7ieIS4TP8Xj8eejo6OmsmtsbMzh3r2m2elxMZfLyenp6QqXK8TPRCuhLEn39vZm19bWpKoN1wsH5dV3Jp2dnZFKpYJyuawIbGKeqBJq%2FSabzYrNzU10d3Wp15MHFQjtTJaWlm6xe4bry8eEl2zVb3UfO3rt71wRoegPePniBeUEWiPhoyFDlwQOd7SjI9EN27ZRyr9HV4eB5Wzx3rYbdJyl7RGMEXHCJ3KEW1h5AiE0eJ6A8F3OHVjFf%2Fj0gtSE70G4Nnzbgl%2B18ObhXfz2%2B7riOkvMhvYIlOr4MjSyWPlVlHKr8Cng2xXYTpWJCEgpKcw9x4S3XYBjbkEEssHo2lWD%2FYYQPiSjrC3okFarOnQdmq5B09QGaTQ1N0j4xRRjVw32HzKIlD9YWPgTy6vrsMxqEJlQbdYWxYnjx5CIePBdZiPkrtMNBTSdUdWjPX%2FpAk6fs%2BDRJk9lRZuEWw1sK7ERAuo9VW2cAS1SZJ7jYPbt7P4ZtNTIQ0aoOQHJUwa9NUJhnLuYxunUKbhsSZ%2BiyjqpCuxWsJ3jnPZE2w%2FzVKYJAeEFNrhOBXOzK%2FtmEIcXNITREm22BjqkEWYdIjh74Qx%2BPHOSNbAhpAgKr%2Fz3XQvlDwZaolG4bqTJGvhsU6hWdWFuleHwg1K9L%2Bqtqz4yzzah0cJo2yGU88Vdx40G9O3p%2FrbLbRo9%2FpiBVSrALH9ClVCdJDybNVDZaAxCh7W9haevlvH6nfmUZ3mv4K%2F%2FZaf6RT7uoHbhHRRPiBvEeeBfXftfGjhC9KD26YcbWlq7xz4SWeJDI4EdEUXccoCAdoZqJZf49Bkd5rOdXLtvgwAAAABJRU5ErkJggg%3D%3D"><span id="alt_lock" style="display: none; visibility: hidden;">&nbsp;<strong>[Lock]</strong>&nbsp;</span></a></div>
 <div id="menu_print" style="cursor: pointer; display: inline; visibility: visible;"><a title="Print" onclick="page_print()"><img id="img_print" style="display: inline; visibility: visible;" alt="Print" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAMAAADXqc3KAAAAB3RJTUUH1wcECDIDhMeZAwAAAAlwSFlzAAAewQAAHsEBw2lUUwAAAARnQU1BAACxjwv8YQUAAABjUExURf8f7XNzc1JSUmNjY1paWmtra3t7e0pKSggICCkpKSEhIRgYGBAQEDExMcbGxgAAADk5OYSEhK2trYyMjJycnJSUlKWlpc7OzkJCQr29vdbW1rW1td7e3v%2F%2F%2F%2Ff39%2Bfn5%2B%2Fv7w37xZMAAAABdFJOUwBA5thmAAABKUlEQVR42n2S2a6DIBRFZRKhBRkPU9X%2B%2F1de1A7el64HcsLKDmTDMPzCcnyB1vc%2BTJgSxgg9IMK8hRfLWsDVZWddvPwIBRkzrHKrWqeLsDMHz1hkMq3P5zWRGzeICIvysl4FCRRv69ZEzOH5%2BIoHB1OXddssZWjZE%2Bd986xiTqnqYunIdVnsPN3LMLTJGm%2BaLi0RhEjVXQRFhsFNGjNmitbegIJHerCpZrqLxu6BiGwyRGEIply1U7iC5BhtABKbxA3A6VdCp2gMz0qIWASr%2FbRTWNApuRhKyrduUHVBHWIMuleUUl%2FyLThVXDyFjfDGKUUUxI8IX7Cx4F9i9CF%2BCBCi9bvQs7F2%2FIelE%2BpdoUlIeduR8hikuKujRYRJrxXtj94HNhJOf%2F2cP%2B6HGtUMDq8TAAAAAElFTkSuQmCC"><span id="alt_print" style="visibility: hidden; display: none;">&nbsp;<strong>[Print]</strong>&nbsp;</span></a></div>
 <div id="menu_key" style="display: inline; cursor: pointer; visibility: visible;"><a title="Set password" onclick="set_key()"><img id="img_key" style="display: inline; visibility: visible;" alt="Key" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAFWklEQVR4Xn2Wa2xURRTH/3Mfe3db%0A2tLabQHBtgnGDy1ioSKYCBRIIdLWNLXwiWdRLCAJGIMKYqAYP4gfeEUSFqiLsYACSoPEvmwkPmKhUJOWR61IwVKkwpbd7vPee5w7ZNdui/ySs3tOdub/n3t2dmZBRHFhGAbpuk7RuqOjg/bt20tVb6ym8vIyqqgopzfXraWDLhd1d3fHxkUiEbLmDteLK7hwbFBdXR0VFs4iVVUJwCPD4XBQaWkxnTt3jobNH2kQXXVfXx+VFC8UAowxSh3FqPQFG21Z7KBPVtnpo+V2WlOs0fRnFLIp/5mtXLGCfD6f0BhqEife2dlJOTlZYkJmqkI7Kx30tzuRzDOJZJxJIuN0MoVPJpH3eALdOuygs9tstOgllVRFFnMKCqYSX2CcSSzp6emhnOynxMCZeTa6WZNEZouT9G/HUvibTNJPJVOgFnTviEK9NYl0/YCd/nDZ6fpBjfatUSkjVbSSpk17nrxeb+wJmHDhLJhfRN/VN2DusxrqqjXYE1IRjqRAUh1QpADue4KQ/N2I4jftGAzo8AUBhwac7zawwcXQ74mgsrISLpeLWYsXBm63m5YtW4YJGSp+2qniycwURMwxkBMyIWkJuNvvB/U3YjgBXYU/ZGLAT8LkbJuBLW6CaZpobm5GYWEhU3hBe/fshsV7FQzjxsqIBDXIo5IhOdJw7cIJpCWEwRhGwCQbD8BmA+75CDPzGAonMzRdNLFn9y7LAFJLSwtaz19AdgZDxYsKTB/BN2Ypglnr4U8vh7NgE4aTqMmAmgzhyngOCbIE3lLg5QKCRUNjE7q6ukhpamyAxbx8FXxLwjNuI0ZP2YoojqxX4AFgdFaLOk0l+HUdZngARggQEbG8VITCQM4YhqxMCTfu+MB/H1AutV+CxaRsCRGDQXtisqjdb9tgsfTjsDD0QIABCKACGC1CgPb6auiGDE0BspyMGwDtXFu508czTloiCQOGGJjxtBpNhcnjsJbVcmI7NIcNyaMMWNy+3Qspuk11Ewjxl//D07ZdRJRH5Q/CEgwTIILA0lbSnemi6POA99AA+6dd9J23Jk7gdO0OkVeIFsKq4/Io1iI9Xgiczgwoebl5qK9vxG9/mvxDCfV8cCkQ+y5C3NASmJhuxmqLvLFmLE93mAhDQijC4A0Qeu4SLHK5NrNOzZKSEoxPZzj+jgK7ytB+Q8cQhLgzVUOUgcEQDCmRCxo8SIQ/aMAE4UoPUF1rQtM0tLa2gvn9fiqYOgWdl69g82IJi2cqYhV2mwxGOhgkDIYxgkAwDB0qFzfF/h8MEVQV+LSO4cdOA3PnzkFjYxOT+JnOXnt9NSw+PGbi+h0TRIDXryMQkflEA0PxhZiIQAgIRsANAF+QYFOB81cJv1yFYO3adbBQwKmqqsKRI260tV3Eti+40VKCpjAM+AwoigwydYDZMBgIIooBGWFuHogADo2hu9fEZ80yDEOH1fKysjJmHUOSdeLxfrFDhw4jJTkJbb/r2FQD3Og3xBkTjJi8RRK8XCkYBPxWWE8WJOjE4LABbV0mdp2Wcf+BjpycbOzfvx9R4i6c1p+baeKEJAJAztEqrSxS6eAGmU5tlenrDxQ6+b6Nvtys0tF3Zap5S6IdyyWaky+TXVPEnPzc8XTlcgcN1cTQS5uDQH8HLZzzXOzKTEmUaEauRotmqbSiSKIl8yQqni5TXrZMmsrEGAC05NXZNOi5FSc+4tLn/SPxrgfp14YDNK0gnwA8NhbMnkQXf/hcXPYiouLxBvEmVkTz3r9u0rGjtbR+zXIqK5pE5QvyaeOq+fSVaxP1XvueC4ajYx/5t+Vf59fSOI3DumAAAAAASUVORK5CYII="><span id="alt_key" style="display: none; visibility: hidden;">&nbsp;<strong>[Password]</strong>&nbsp;</span></a></div>
@@ -2020,13 +2090,13 @@ User Code:
 <input class="wiki_button" id="pb5" value="color" style="width: 50px;" onclick="woas['editbutton'][5].onclick()" type="button">
 <input class="wiki_button" id="pb6" value="&quot;" style="width: 50px;" onclick="woas['editbutton'][6].onclick()" type="button">
 <input class="wiki_button" id="pb7" value="..." style="width: 50px;" onclick="woas['editbutton'][7].onclick()" type="button">
-<input class="wiki_button" id="pb8" value="P8" style="width: 50px;" onclick="woas['editbutton'][8].onclick()" type="button">
+<input class="wiki_button" id="pb8" value="&lt;&lt;&gt;&gt;" style="width: 50px;" onclick="woas['editbutton'][8].onclick()" type="button">
 <input class="wiki_button" id="pb9" value="P9" style="width: 50px;" onclick="woas['editbutton'][9].onclick()" type="button">
 <input class="wiki_button" id="pb10" value="P10" style="width: 50px;" onclick="woas['editbutton'][10].onclick()" type="button">
 <input class="wiki_button" id="pb11" value="P11" style="width: 50px;" onclick="woas['editbutton'][11].onclick()" type="button">
 <input class="wiki_button" id="pb12" value="P12" style="width: 50px;" onclick="woas['editbutton'][12].onclick()" type="button">
 </div>
-<textarea id="wiki_editor" style="width: 973px; height: 568px;" rows="0" cols="0"></textarea> 
+<textarea id="wiki_editor" style="width: 1044px; height: 568px;" rows="0" cols="0"></textarea> 
 </div>
 <div id="debug_info" style="display: inline; visibility: visible; z-index: 101; text-align: right; width: 300px;">
 <h2>Debug console</h2>
