@@ -104,7 +104,7 @@ woas.parser["parse_tables"] =  function (str, p1)
 function _filter_wiki(s,mode) {
 	if(mode){
 		var A = [];
-		return s.replace(/\{\{\{((.|\n)*?)\}\}\}/g, 
+		return s.replace(/[\{\xAB\u300C]{3}((.|\n)*?)[\}\xBB\u300D]{3}/g, 
 			function (str, $1) { A.push($1); return "{_%%_}"; }
 			).replace(/\<\/?\w+\s*[^>]*>/g, "").replace(/{_%%_}/g, A.shift());
 	}else
