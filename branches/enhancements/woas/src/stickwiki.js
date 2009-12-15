@@ -163,9 +163,6 @@ woas["_get_tags"] = function(text) {
 	return tags;
 }
 
-// NILTON TODO
-woas["_get_footnotes"] = function(){}
-
 // joins a list of pages, sorted case sensitive.
 woas["_join_list"] = function(arr) {
 	if (!arr.length)

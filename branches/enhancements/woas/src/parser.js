@@ -219,7 +219,6 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 		text = text.replace("\r\n", "\n");
 
 	var tags = [];
-	var footnotes = [];
 
 	// put away stuff contained in user-defined multi-line blocks «««»»» 171 187 alert ("»".charCodeAt(0)); \xAB \xBB
 	text = text.replace(/\xAB{3}((.|\n)*?)\xBB{3}/g, function (str, $1) {
@@ -337,7 +336,6 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 		}
 		
 		var found_tags = woas._get_tags($1); 
-		var found_footnotes = woas._get_footnotes($1); // nilton is here <span class="footnote">1</span>
 		
 		if (found_tags.length>0) {
 			tags = tags.concat(found_tags);
