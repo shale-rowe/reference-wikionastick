@@ -149,7 +149,7 @@ function do_search() {
 // Used by Special::Options page
 function save_options() {
 	if (!woas.config.permit_edits) {
-		alert("This Wiki on a Stick is read-only");
+		alert(L10n.READONLY);
 		return false;
 	}
 	woas.save_to_file(false);
@@ -204,7 +204,7 @@ function lock_page(page) {
 
 function import_wiki() {
 	if (!woas.config.permit_edits) {
-		alert("This Wiki on a Stick is read-only");
+		alert(L10n.READONLY);
 		return false;
 	}
 	var filename = $("filename_").value;

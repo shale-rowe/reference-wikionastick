@@ -3,6 +3,18 @@ woas["debug"] = true;			// toggle debug mode (and console)
 
 var _doctype = "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\" \"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\">\n";
 
+L10n={
+	READONLY: "This Wiki on a Stick is read-only",
+	INVALIDSPECIAL: "Invalid special page.",
+	INVALIDDATA:"Invalid collected data!",
+	SUREDELETE:"Are you sure you want to DELETE page",
+	ALLDELETE: "Are you going to ERASE all your pages?",
+	ALLLOST: "This is the last confirm needed in order to ERASE all your pages.\n\nALL YOUR PAGES WILL BE LOST\n\nAre you sure you want to continue?",
+	DELETE:"Delete page:",
+	DELETEIMAGE:"Delete embedded image",
+	EXPORTIMAGE:"Export image"
+}
+
 // DETERMINE BROWSER, OS AND SERVERMODE
 
 // browser flags - not to be in WoaS object
@@ -51,8 +63,8 @@ woas["_server_mode"] = (document.location.toString().match(/^file:\/\//) ? false
  */
 
  // returns the DOM element object given its id, alerting if the element is not found (but that would never happen, right?)
-function $(id){ try{return document.getElementById(id);}catch(e){alert("element id '"+id+"' not found.");} }
-// function $(id){ return document.getElementById(id);} // This version is much faster than the one with try/catch
+// function $(id){ try{return document.getElementById(id);}catch(e){alert("element id '"+id+"' not found.");} }
+function $(id){ return document.getElementById(id);} // This version is much faster than the one with try/catch
 
 // Hide an element. use like this:
 // 1)  $.hide('id-string');
