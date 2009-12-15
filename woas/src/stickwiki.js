@@ -548,10 +548,10 @@ woas["_get__embedded"] = function (cr, pi, etype) {
 		"function query_export_image() {\nvar exp_path = _get_this_filename().replace(/\\"+slash_c+"[^\\"+
 		slash_c+"]*$/, \""+(slash_c=="\\"?"\\\\":"/")+"\")+'"+this.js_encode(img_name)+"';if (confirm('Do you want to export this image in the below specified path?'+\"\\n\\n\"+exp_path)){woas.export_image('"+this.js_encode(cr)+"', exp_path);}}"+
 		"</sc"+"ript>"+
-		"\nSimple transclusion:\n\n{{{[[Include::"+cr+"]]}}}\n\nTransclusion with additional attributes:\n\n{{{[[Include::"+cr+"|border=\"0\" onclick=\"go_to('"+
+		"\nSimple transclusion:\n\n{{{[[Include::"+cr+"]]}}}\n\or with additional attributes:\n\n{{{[[Include::"+cr+"|border=\"0\" onclick=\"go_to('"+
 		this.js_encode(cr)+"')\" style=\"cursor:pointer\"]]}}}\n"+
-		"\n<a href=\"javascript:query_delete_image()\">Delete embedded image</a>\n"+
-		"\n<a href=\"javascript:query_export_image()\">Export image</a>\n");
+		"\n<a href=\"javascript:query_delete_image()\">"+L10n.DELETEIMAGE+"</a>\n"+
+		"\n<a href=\"javascript:query_export_image()\">"+L10n.EXPORTIMAGE+"</a>\n");
 	}
 	return xhtml;
 }
@@ -740,7 +740,7 @@ woas["cmd_main_page"] = function() {
 
 woas["cmd_edit_css"] = function() {
 	if (!this.config.permit_edits && !edit_override) {
-		alert("This Wiki on a Stick is read-only");
+		alert(L10n.READONLY);
 		return null;
 	}
 	_servm_alert();
@@ -749,38 +749,31 @@ woas["cmd_edit_css"] = function() {
 	return null;
 }
 
-woas["cmd_edit_bootscript"] = function() {
+woas["cmd_edit"] = function(cr, decode) {
 	if (!this.config.permit_edits && !edit_override) {
-		alert("This Wiki on a Stick is read-only");
+		alert(L10n.READONLY);
 		return null;
 	}
 	_servm_alert();
-	cr = "WoaS::Bootscript";
 	var tmp = this.get_text(cr);
 	if (tmp == null)
 		return;
 	this.current_editing(cr, true);
 	// setup the wiki editor textbox
 	this.current_editing(cr, this.config.permit_edits | this._server_mode);
-	this.edit_ready(decode64(tmp));
+	if(decode)
+		this.edit_ready(decode64(tmp));
+	else
+		this.edit_ready(tmp);
 	return null;
 }
 
+woas["cmd_edit_bootscript"] = function() {
+	return this.cmd_edit("WoaS::Bootscript", 1);
+}
+
 woas["cmd_edit_aliases"] = function() {
-	if (!this.config.permit_edits && !edit_override) {
-		alert("This Wiki on a Stick is read-only");
-		return null;
-	}
-	_servm_alert();
-	cr = "WoaS::Aliases";
-	var tmp = this.get_text(cr);
-	if (tmp == null)
-		return;
-	this.current_editing(cr, true);
-	// setup the wiki editor textbox
-	this.current_editing(cr, this.config.permit_edits | this._server_mode);
-	this.edit_ready(tmp);
-	return null;
+	return this.cmd_edit("WoaS::Aliases");
 }
 
 woas["cmd_go_to"] = function() {
@@ -791,52 +784,26 @@ woas["cmd_go_to"] = function() {
 }
 
 woas["cmd_delete"] = function() {
-	var pname = prompt("Delete page:", current);
+	var pname = prompt(L10n.DELETE, current);
 	if ((pname === null) || !pname.length)
 		return;
 	var pi = this.page_index(pname);
 	if (pi == -1) {
-		alert("Page \""+pname+"\" does not exist!");
+		alert("Page \""+pname+"\" does not exist!"); // TODO: L10n with parameter
 		return;
 	}
-	if ((pname != null) && confirm("Are you sure you want to DELETE page \""+pname+"\"?")) {
+	if ((pname != null) && confirm(L10n.SUREDELETE+" \""+pname+"\"?")) {
 		delete_page(pname);
 		this.save_page(pname);
 	}
 }
 
 woas["cmd_edit_new_page"] = function() {
-	if (!this.config.permit_edits && !edit_override) {
-		alert("This Wiki on a Stick is read-only");
-		return null;
-	}
-	_servm_alert();
-	cr = "WoaS::new_page";
-	var tmp = this.get_text(cr);
-	if (tmp == null)
-		return;
-	this.current_editing(cr, true);
-	// setup the wiki editor textbox
-	this.current_editing(cr, this.config.permit_edits | this._server_mode);
-	this.edit_ready(decode64(tmp));
-	return null;
+	return this.cmd_edit("WoaS::new_page",1);
 }
 
 woas["cmd_edit_buttons"] = function() {
-	if (!this.config.permit_edits && !edit_override) {
-		alert("This Wiki on a Stick is read-only");
-		return null;
-	}
-	_servm_alert();
-	cr = "WoaS::Buttons";
-	var tmp = this.get_text(cr);
-	if (tmp == null)
-		return;
-	this.current_editing(cr, true);
-	// setup the wiki editor textbox
-	this.current_editing(cr, this.config.permit_edits | this._server_mode);
-	this.edit_ready(decode64(tmp));
-	return null;
+	return this.cmd_edit("WoaS::Buttons",1);
 }
 
 woas["shortcuts"] = ["New Page", "Duplicate Page", "All Pages", "Orphaned Pages", "Backlinks", "Dead Pages", "Erase Wiki", "Edit CSS", "Main Page", "Edit Bootscript", "Aliases", "Go to", "Delete Page", "Edit New Page Template", "Buttons"];
@@ -878,7 +845,7 @@ woas["_get_special"] = function(cr, interactive) {
 			return null;
 		}
 		if (interactive)
-			alert("Invalid special page.");
+			alert(L10n.INVALIDSPECIAL);
 	}
 	return text;
 }
@@ -1352,12 +1319,11 @@ woas["_load_aliases"] = function(s) {
 	}
 }
 
-woas["_create_bs"] = function() {
-
+// We create a startup script and include Bootscript and user defined Buttons
+woas["_create_bs"] = function(get_text,id,script) {
 	var s=this.get_text("WoaS::Bootscript");
 	var k=this.get_text("WoaS::Buttons");
-//	if (s==null || !s.length) return false;
-	if (s==null || !s.length || k==null || !k.length) return false;
+	if ((s==null || !s.length) && (k==null || !k.length)) return false;
 	// remove the comments
 	s = decode64(s).replace(/^\s*\/\*(.|\n)*?\*\/\s*/g, '');
 	k = decode64(k).replace(/^\s*\/\*(.|\n)*?\*\/\s*/g, '');
@@ -1371,6 +1337,7 @@ woas["_create_bs"] = function() {
 	return true;
 }
 
+// remove Bootscript and Buttons
 woas["_clear_bs"] = function() {
 	if (_bootscript!=null) {
 		var head = document.getElementsByTagName("head")[0];
@@ -1961,18 +1928,18 @@ woas["save_to_file"] = function(full) {
 
 function erase_wiki() {
 	if (!woas.config.permit_edits) {
-		alert("This Wiki on a Stick is read-only");
+		alert(L10n.READONLY);
 		return false;
 	}
-	if (!confirm("Are you going to ERASE all your pages?"))
+	if (!confirm(L10n.ALLDELETE))
 		return false;
-	if (!confirm("This is the last confirm needed in order to ERASE all your pages.\n\nALL YOUR PAGES WILL BE LOST\n\nAre you sure you want to continue?"))
+	if (!confirm(L10n.ALLLOST))
 		return false;
 	var static_pg = ["Special::About", "Special::Advanced", "Special::Options","Special::Import",
 						"Special::Lock","Special::Search","Special::Security", "Special::Embed",
-						"Special::Export", "Special::License", "WoaS::new_page", "WoaS::Buttons"  ];
+						"Special::Export", "Special::License" ];
 	var backup_pages = [];
-	page_attrs = [0, 0, 4,4,4];
+	page_attrs = [4,4,4,4,0,0];
 	for(var i=0;i<static_pg.length;i++) {
 		var pi = woas.page_index(static_pg[i]);
 		if (pi==-1) {
@@ -1982,9 +1949,9 @@ function erase_wiki() {
 		backup_pages.push(pages[pi]);
 		page_attrs.push(0);
 	}
-	page_titles = ["Main Page", "::Menu", "WoaS::Bootscript", "WoaS::Aliases", "WoaS::new_page", 'WoaS::Buttons' ];
+	page_titles = ["WoaS::Bootscript", "WoaS::Aliases", "WoaS::new_page", "WoaS::Buttons", "Main Page", "::Menu" ];
 	page_titles = page_titles.concat(static_pg);
-	pages = ["This is your empty main page", "[[Main Page]]\n\n[[Special::New Page]]\n[[Special::Duplicate Page]]\n[[Special::Edit New Page Template]]\n[[Special::Buttons]]\n\n[[Special::Go to]]\n[[Special::Delete]]\n[[Special::Backlinks]]\n[[Special::Search]]", encode64("/* insert here your boot script */"), "", encode64('return "= " + title + "\\n";'), ""];
+	pages = [ encode64("/* insert here your boot script */"), "", encode64('return "= " + title + "\\n";'), encode64('woas["editbutton"] = [];'), "This is your empty main page", "[[Main Page]]\n\n[[Special::New Page]]\n[[Special::Duplicate Page]]\n[[Special::Edit New Page Template]]\n[[Special::Buttons]]\n\n[[Special::Go to]]\n[[Special::Delete]]\n[[Special::Backlinks]]\n[[Special::Search]]"];
 	pages = pages.concat(backup_pages);
 	current = main_page = "Main Page";
 	woas.refresh_menu_area();
@@ -1993,7 +1960,7 @@ function erase_wiki() {
 	return true;
 }
 
-// global function
+// global function. Get the path of the current woas.
 function _get_this_path() {
 	var slash_c = (navigator.appVersion.indexOf("Win")!=-1)?"\\\\":"/";
 	return _get_this_filename().replace(new RegExp("("+slash_c+")"+"[^"+slash_c+"]*$"), "$1");
