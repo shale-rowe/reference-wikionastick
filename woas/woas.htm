@@ -81,16 +81,27 @@ var page_titles = [
 'WoaS::Buttons',
 'Feature::NewPageTemplate',
 'Feature::Buttons',
-'Template::tooltip',
+'tooltip',
 'fold',
 'blackpage',
 'todo\'s',
 'TODO',
-'TIMEDATE'
+'TIMEDATE',
+'Skin',
+'CHANGES',
+'Embedding external html',
+'game::variables',
+'game::start',
+'game::page1',
+'game::page2',
+'game::page3',
+'game::page4',
+'SANDBOX',
+'Testcase::Tables'
 ];
 
 /* DFQRCTsKlU-0000490-DATA */
-var page_attrs = [0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,12,4,0,0,0,0,0,0,0,4,0,4,0,0,0,2,0,0,0,0,0,0,4,4,0,0,0,0,0,0,0,0];
+var page_attrs = [0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,12,4,0,0,0,0,0,0,0,4,0,4,0,0,0,2,0,0,0,0];
 
 var pages = [
 '[[Main Page]]\n\
@@ -108,6 +119,7 @@ var pages = [
 ** [[Feature::External javascript|External javascript]]\n\
 ** [[Image::alert.png|Embedded image]]\n\
 ** [[File::life snippet.c|Embedded file]]\n\
+** [[Embedding external html]]\n\
 ** [[Embedded SVG]]\n\
 ** [[Features::Oddmuse integration|Oddmuse integration]]\n\
 * [[Testcase::]]\n\
@@ -118,10 +130,19 @@ var pages = [
 ** [[Testcase::Apostrophe \' in title|Apostrophe]]\n\
 ** [[Testcase::Headlines mix|Headlines mix]]\n\
 ** [[Testcase::Unusual lists|Unusual lists]]\n\
+** [[Testcase::Tables|new table syntax]]\n\
 * [[Options]]\n\
+* [[Skin]]\n\
 [[Escaped \x3E page]]\n\
 [[Google sitesearch]]\n\
 [[todo\'s]]\n\
+[[CHANGES]]\n\
+\n\
+[[game::variables]]\n\
+[[game::start]]\n\
+\n\
+\x3Ca href="javascript:woas.ShowPageSource()"\x3EShow Page Source\x3C/a\x3E\n\
+[[SANDBOX]]\n\
 \n\
 * [[Special::]]\n\
 ** [[Special::Backlinks|Backlinks]]\n\
@@ -464,7 +485,7 @@ setTimeout ( "ScoreDecay()", 3000);\n\
 [[Tags::example]]',
 '[[Special::TOC]]\n\
 = Wiki on a Stick syntax\n\
-In this page you will find examples\x3Cspan class="footnote"\x3E1\x3C/span\x3E of all the WoaS wiki syntax.\n\
+In this page you will find examples of all the WoaS wiki syntax.\n\
 \n\
 New pages have red links, like this [[New page]], but you can use [[Javascript::woas.special_new_page()]] to automatically create a new one through a simple dialog.\n\
 \n\
@@ -582,7 +603,7 @@ When you erase your wiki, you can choose to add them back.\n\
 \x3C/div\x3E \n\
 \n\
 \x3Cdiv class="bubble"\x3EThis text is inside a bubble, but it only gets displayed correctly in FireFox.\x3C/div\x3E\n\
-\n\
+Can be made to work in safari by changing the CSS \u201c.bubble\u201d See [[http://www.the-art-of-web.com/css/border-radius/]]\n\
 \n\
 \n\
 == New syntax features\n\
@@ -594,6 +615,7 @@ When you erase your wiki, you can choose to add them back.\n\
 * alphanumerical lists using \'@\'\n\
 * custom parsing rules through (careful) override of the /parse()/ core function\n\
 * nowiki syntax {{\x3C!-- --\x3E{ }}\x3C!-- --\x3E} to disable html/wiki in a block of raw text (also works inline)\n\
+* mailto links have to be written as: {{{ [[mailto://nil@cha.nl]]}}}\n\
 \n\
 == Syntax changes since v0.9\n\
 There have been a few changes in the wiki syntax, they will be automatically applied on import or saving (except the wiki link parts inversion).\n\
@@ -613,8 +635,8 @@ An existing [[Test template|template]] is included here below using the wiki sou
 [[Include::Test template|Mary|lamb]]\n\
 \n\
 == Another Example\n\
-Hover over [[Include::Template::tooltip|this text|This is a tooltip description]] to see a tooltip. To see how it is done, go to [[Template::tooltip]] and edit that page.\n\
-To use it, embed this: {{{[[Include::Template::tooltip|this text|This is a tooltip description]]}}}\n\
+Hover over [[Include::tooltip|this text|This is a tooltip description]] to see a tooltip. To see how it is done, go to [[tooltip]] and edit that page.\n\
+To use it, embed this: {{{[[Include::tooltip|this text|This is a tooltip description]]}}}\n\
 \n\
 == Folding Includes\n\
 By using the template [[fold]] (edit the page to see the \'code\') we can toggle inclusion of the page Di\u00e2critics, click [[Include::fold|here|Di\u00e2critics| to toggle fold/unfold.]]\n\
@@ -646,7 +668,7 @@ And you can generate a list by looking in [[todo\'s]], which contains some inlin
 \n\
 == Page Last Modified example\n\
 This one makes use of the [[Special::Edit Bootscript]] to update a TIMEDATE transclusion tag just before saving, how cool is that?.\n\
-[[Include::TIMEDATE|2009/12/14 13:42:38 GMT+0100]] That blue thing will be updated if you save this page!\n\
+[[Include::TIMEDATE|2009/12/18 22:34:30 GMT+0100]] That blue thing will be updated if you save this page!\n\
 The code to do this trick must be in the Bootscript:\n\
 {{{\n\
 woas["before_save"] = function(){\n\
@@ -677,11 +699,14 @@ You can format it any way you like. For example: Select a sober topright corner 
 {{{\n\
 \x3Cspan id="cornernote" style="position:absolute;right:10px; top:3px"\x3Epage last modified: %1\x3C/span\x3E\n\
 }}}\n\
-Or a more screaming inline blue:\n\
+Or a more screaming inline blue (as in this page):\n\
 {{{\n\
 \x3Cspan style="float: right; text-align: left; background:#AAF; border: dashed; font-style: italic"\x3Epage last modified: %1\x3C/span\x3E\n\
 }}}\n\
 \n\
+== Alternative syntax\n\
+You can replace the word \u201cInclude\u201d with a shorter version using Aliases, so {{{[[Include::Special::]]}}} can be written as {{{[[$$:Special::]]}}} if you have an alias like this: {{{$: Include::}}}\n\
+and {{{[[Include::Image::alert.png]]}}} can be written as {{{[[$IMG:alert.png]]}}} if you have an alias like this: {{{$IMG: IMAGE::}}}\n\
 \n\
 == Related pages\n\
 * [[Test template]]\n\
@@ -996,6 +1021,19 @@ function FillDiv(START,STOP){\n\
 /* ]]\x3E */\n\
 \x3C/script\x3E\n\
 \n\
+=== Create your Daily Diary entry\n\
+\x3Cdiv id="daily_diary"\x3E\x3C/div\x3E\n\
+\x3Cscript\x3E\n\
+var D = new Date();\n\
+var DAYNAMES = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];\n\
+var MONTHNAMES = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];\n\
+\n\
+var day  = D.getDate();\n\
+if(day \x3C 10) day = "0" + day;\n\
+\n\
+var newpagename = "Diary::" + D.getFullYear() +"::"+ MONTHNAMES[D.getMonth()] +"::"+ day +" "+DAYNAMES[D.getDay()];\n\
+$("daily_diary").innerHTML = "Click here to create (or edit) a diary entry for today: \x3Ca href=\\"javascript:woas.set_current(\'" + newpagename + "\', true);\\"\x3E" + newpagename + "\x3C/a\x3E"\n\
+\x3C/script\x3E\n\
 \n\
 See also [[Feature::Custom javascript]] and [[Feature::External javascript]]\n\
 \n\
@@ -1041,12 +1079,6 @@ Also, you can specify multiple tags and tags to be filtered out.\n\
 * [[Tagged::example]]\n\
 * [[Tagged::!example]]\n\
 \n\
-== Aliases\n\
-\n\
-You can define global wiki name aliases in [[Special::Aliases]]. Such aliases will be replaced automatically before looking up for the page name.\n\
-\n\
-[[$HOME]]\n\
-\n\
 == Transclusion\n\
 \n\
 You can include a page within another using a specific syntax:\n\
@@ -1058,6 +1090,18 @@ Such transclusions are *parametric*, e.g. they allow to specify parameters which
 Transclusion has a special meaning when used for pages relative to the [[File::]] and [[Image::]] namespaces, see below paragraph [[#Embedding]] for more informations.\n\
 \n\
 See also [[Transclusion example]] and [[Test template]]\n\
+\n\
+== Aliases\n\
+\n\
+You can define global wiki name aliases in [[Special::Aliases]]. Such aliases will be replaced automatically before looking up for the page name. \n\
+[[$HOME]]\n\
+\n\
+You can also create aliases to make transclusions shorter.\n\
+\n\
+[[$$?|hello|world!]] written as:{{{[[$$?|hello|world!]]}}} alias:{{{^$? tooltip}}} instead of {{{[[Include::tooltip|hello|world!]]}}}\n\
+[[$$IMG:alert.png]] written as:{{{[[$$IMG:alert.png]]}}} alias:{{{^$IMG: Image::}}} instead of {{{[[Include::Image::alert.png]]}}}\n\
+\n\
+Be careful with aliases, if you define {{{u U}}} then Buttons will become BUttons, and your wiki will not load anymore. The Leading ^ is to mark the start of the alias. For example: {{{^$HOME Main Page}}} replaces $HOMELESS into \u201cMain PageLESS\u201d, without the ^, it would also match and replace {{{FOO$HOME}}}.\n\
 \n\
 == Embedding\n\
 \n\
@@ -1093,7 +1137,12 @@ This is an example of clickable image, rendered through the wiki syntax {{{[[Inc
 \n\
 This is an example of not-yet-embedded image: [[Image::photo.jpg]]\n\
 \n\
-Remember that images are base64-encoded when embedded and become 33% bigger in size; it is suggested to not embed too much big images or files because they can slow down the application (remember that everything is contained in a single file), but that highly depends from the javascript engine of your browser.\n\
+Remember that images are base64-encoded when embedded and become 33% bigger in size; it is suggested to not embed too many big images or files because they can slow down the application (remember that everything is contained in a single file), but that highly depends from the javascript engine of your browser.\n\
+\n\
+\n\
+== mailto\n\
+\n\
+Do not write: {{{[[mailto:user@server.com]]}}} but instead write {{{[[mailto://user@server.com]]}}}\n\
 \n\
 == Exporting\n\
 \n\
@@ -1198,7 +1247,7 @@ Trims final newlines and spaces from pages\' wiki source. This flag is likely to
 \x3Cinput id="filename_" type="file" /\x3E&nbsp;\x3Cinput type="button" value="Embed" onclick="woas._embed_process(\'%1\')" /\x3E\n\
 ',
 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAMAAADzapwJAAAAB3RJTUUH1wcHEBwwMJCsHwAAAAlwSFlzAAAewQAAHsEBw2lUUwAAAARnQU1BAACxjwv8YQUAAAJzUExURf8f7evr67W1taWlpdbW1uzs7J6enmouJGosI4ODg93d3TcyMdQdB9EUBzYxMcXFxenp6Y+Pj402G+0VAN4MAIwlGnd3d9ra2tXV1UA1L+Y7Be4eAekRANYQAz8wLrCwsOXl5YCAgKdRGPdEA/QxAfIdAeERAaEjFW1tbe/v71hAKvlpB/pbBfZDA/IuAu0bAd0UAlYwKZOTk+Dg4F5eXsxqEvt3CflwCf////IpAuoYAcIjDVNTU9DQ0JaWlnlOI/uEDPuFEPqEEfU9BO0kAugYAXYyIX5+fu3t7Tc0MeZ7DvuTFvuZHPqXHvqKGft3EfZTB+81A+ohAdwpB+jo6ImJiZFXHvuYGPyjJ/ysM/ytOfpwDfdOBfAwAu8lAo87HHR0dNjY2MnJyUc6LvKLE/ypKfy2P/y9S/y/UfuGGPliCvJFBPIzA+s5BUc3LaampuPj43V1dbRmF/ymJfy3Of3DU/3KYv3MY/ubJPt4EvpUCfVCA/E2A7NNFmRkZNPT06ioqGFFKPuVFPytLv2+Sf3KYf3Qbf3PafuiKfuKFfppC/lQBfg+A/U8A2FBKIuLi9/f3zQzMtV2E/yhH/yxNf2+R/3HXP3LZ/3NafykJ/yOF/lxC/pcBvZGBPU3A9VRDTQzMdfX15qamn5QIvuSEfyfHPysL/y6QfzBTfzDV/zBU/ydH/yLE/t2DPpgB/dLA/Y6A/U6A3tIIvPz8zs2MPuSE/ydGPymJPyyNfy0OfyzN/ysKfyhIPuUF/uGDft0CvtlB/taBfZPA/ZFA+RXCjs1MPDw8E49LIJSIYJRIYJPIYJOIYJNIIJMIIJMIU47LKysrKzWV/gAAAABdFJOUwBA5thmAAABNUlEQVR42mNgwAGML2AAY6Do8RNQcPLkyVOnz5w9e+7ceWOGzVu8tm7b3rxj567de/bu23/g4KHDR44eY2BYtHjJ0mXLV6xcZWGxes3ades3bNwkuBlo+MRJk6dMnTZ9hoXFzFmz58ydN3/BQpCdDY1NzS2tbe0WFh2dXd09vX39E8BuKSwqLiktK7ewqKisqq6prauHODEpOSU1LT3DwiIzKzsnNy+/AOr00LDwiMgoC4vomNi4+IREmI88PL28fXz9/AMCg4K5+UPgPrWzd3B0srBwdnF1c+dCCgETUzNzCwtLK2sbW1YkYXktbR1dPX0DQyNjlABTVFJWUVVT15DQRBGWkJSSlpGVk1dAC19BIWERUTFxjHDn5uHl4xfAEGZj5+DkYsAETMwsrFiEGRgZGQgAAEPKcWQFSaWtAAAAAElFTkSuQmCCAAA=',
-'LyogUEFHRSBMQVNUIE1PRElGSUVEICovCndvYXNbImJlZm9yZV9zYXZlIl0gPSBmdW5jdGlvbigpewogIHZhciBNID0gJCgid2lraV9lZGl0b3IiKS52YWx1ZTsKICB2YXIgbm93ID0gbmV3IERhdGUoKTsKICB2YXIgZGF0ZXN0cmluZyA9IG5vdy5nZXRGdWxsWWVhcigpICsnLycrICgxK25vdy5nZXRNb250aCgpKSArJy8nKyBub3cuZ2V0RGF0ZSgpICsgJyAnICsgbm93LnRvVGltZVN0cmluZygpOwogIE0gPSBNLnJlcGxhY2UoL1xbXFtJbmNsdWRlOjpUSU1FREFURVx8KFteXF1dKj8pXF1cXS8sICJbIisiW0luY2x1ZGU6OlRJTUVEQVRFfCIrZGF0ZXN0cmluZysiXSIrIl0iICk7CiAgJCgid2lraV9lZGl0b3IiKS52YWx1ZSA9IE07Cn0KCi8qIEZPT1ROT1RFUyAqLwp3b2FzWyJiZWZvcmVfcGFyc2VyIl0gPSBmdW5jdGlvbih0eHQpewogIHRyeXsKICAgIHdvYXNbIkZPT1ROT1RFUyJdID0gW107Cgl2YXIgbiA9IDA7CiAgICB0eHQ9IHR4dC5yZXBsYWNlKC88PDwoKC58XG4pKj8pPj4+L2csIGZ1bmN0aW9uKHMsJDEpewoJICB3b2FzWyJGT09UTk9URVMiXS5wdXNoKCQxKTsKCSAgbiA9d29hc1siRk9PVE5PVEVTIl0ubGVuZ3RoOwoJICByZXR1cm4gJzxlbT48c3VwPjxhIG5hbWU9Il9ub3RlZm9vdCcrbisnImhyZWY9IiNfZm9vdG5vdGUnK24rJyI+JytuKyc8L2E+PC9zdXA+PC9lbT4nOwogICAgfSk7CiAgdmFyIGZuPSIiOwogIGZvcih2YXIgaT0wLGw9d29hc1siRk9PVE5PVEVTIl0ubGVuZ3RoO2k8bDtpKyspewogICAgbiA9IGkrMTsKICAgIGZuICs9ICc8dHI+PHRkIFZBTElHTj0idG9wIj48YSBuYW1lPSJfZm9vdG5vdGUnK24rJyIgaHJlZj0iI19ub3RlZm9vdCcrbisnIj4nICtuKyAiPC9hPjo8L3RkPjx0ZD4iICsgd29hc1siRk9PVE5PVEVTIl1baV0gICsiPC90ZD48L3RyPiI7CiAgfQogIHJldHVybiB0eHQgKyc8YnIvPjxkaXYgY2xhc3M9ImZvb3Rub3RlIj48dGFibGUgYm9yZGVyPTE+JyArZm4rICc8L3RhYmxlPjwvZGl2PicgOwogIH1jYXRjaChlKXthbGVydChlKX0KfQo=',
+'d29hc1siZGVidWciXT0wOwoKLyogUEFHRSBMQVNUIE1PRElGSUVEICovCndvYXNbImJlZm9yZV9zYXZlIl0gPSBmdW5jdGlvbigpewoKICAvKiBQQUdFIExBU1QgTU9ESUZJRUQgKi8KICB2YXIgTSA9ICQoIndpa2lfZWRpdG9yIikudmFsdWU7CiAgdmFyIG5vdyA9IG5ldyBEYXRlKCk7CiAgdmFyIGRhdGVzdHJpbmcgPSBub3cuZ2V0RnVsbFllYXIoKSArJy8nKyAoMStub3cuZ2V0TW9udGgoKSkgKycvJysgbm93LmdldERhdGUoKSArICcgJyArIG5vdy50b1RpbWVTdHJpbmcoKTsKICBNID0gTS5yZXBsYWNlKC9cW1xbSW5jbHVkZTo6VElNRURBVEVcfChbXlxdXSo/KVxdXF0vLCAiWyIrIltJbmNsdWRlOjpUSU1FREFURXwiK2RhdGVzdHJpbmcrIl0iKyJdIiApOwogICQoIndpa2lfZWRpdG9yIikudmFsdWUgPSBNOwoKICAvKiBDSEFOR0VTIExPRyAqLyAKICB2YXIgaW5kZXggPSB3b2FzLnBhZ2VfaW5kZXgoJ0NIQU5HRVMnKTsKICBpZihpbmRleD4wKXsgLy8gUGFnZSBleGlzdHMKICAgIHZhciBwYWdlbmFtZSA9ICQoIndpa2lfcGFnZV90aXRsZSIpLnZhbHVlOwogICAgdmFyIGRhdGUgPSBEYXRlKCk7CiAgICBwYWdlc1tpbmRleF0gKz0iXG5bWyIrIHBhZ2VuYW1lKyJdXSB7e3siK2RhdGUgKyJ9fX0iOwogIH0KfQoKLyogRk9PVE5PVEVTICovCndvYXNbImJlZm9yZV9wYXJzZXIiXSA9IGZ1bmN0aW9uKHR4dCl7CiAgdHJ5ewogICAgd29hc1siRk9PVE5PVEVTIl0gPSBbXTsKCXZhciBuID0gMDsKICAgIHR4dD0gdHh0LnJlcGxhY2UoLzw8PCgoLnxcbikqPyk+Pj4vZywgZnVuY3Rpb24ocywkMSl7CgkgIHdvYXNbIkZPT1ROT1RFUyJdLnB1c2goJDEpOwoJICBuID13b2FzWyJGT09UTk9URVMiXS5sZW5ndGg7CgkgIHJldHVybiAnPGVtPjxzdXA+PGEgbmFtZT0iX25vdGVmb290JytuKyciaHJlZj0iI19mb290bm90ZScrbisnIj4nK24rJzwvYT48L3N1cD48L2VtPic7CiAgICB9KTsKICB2YXIgZm49IiI7CiAgZm9yKHZhciBpPTAsbD13b2FzWyJGT09UTk9URVMiXS5sZW5ndGg7aTxsO2krKyl7CiAgICBuID0gaSsxOwogICAgZm4gKz0gJzx0cj48dGQgVkFMSUdOPSJ0b3AiPjxhIG5hbWU9Il9mb290bm90ZScrbisnIiBocmVmPSIjX25vdGVmb290JytuKyciPicgK24rICI8L2E+OjwvdGQ+PHRkPiIgKyB3b2FzWyJGT09UTk9URVMiXVtpXSAgKyI8L3RkPjwvdHI+IjsKICB9CiAgcmV0dXJuIHR4dCArIChmbj8nPGJyLz48ZGl2IGNsYXNzPSJmb290bm90ZSI+PHRhYmxlIGJvcmRlcj0wPicgK2ZuKyAnPC90YWJsZT48L2Rpdj4nIDonJyk7CiAgfWNhdGNoKGUpe2FsZXJ0KGUpfQp9CgoKCndvYXNbIlNob3dQYWdlU291cmNlIl0gPSBmdW5jdGlvbigpewoJdmFyIHcgPSB3b2FzLnBvcHVwKCJQYWdlIFNvdXJjZSIsIDM1MCwgMjAwLCAiLG1lbnViYXI9bm8sdG9vbGJhcj1ubyxsb2NhdGlvbj15ZXMsc3RhdHVzPXllcyxkaWFsb2c9eWVzIik7Cgl3LmRvY3VtZW50LndyaXRlbG4od29hcy54aHRtbF9lbmNvZGUoJCgid2lraV90ZXh0IikuaW5uZXJIVE1MKSk7Cgl3LmRvY3VtZW50LmNsb3NlKCk7Cn0KCgp3b2FzWyJib29rbWFyayJdID0gZnVuY3Rpb24oYil7Cgl3b2FzLnNhdmVfdG9fZmlsZShiKTsKCXZhciBwYWdlbmFtZSA9IGN1cnJlbnQ7IC8vIElmIGVkaXRpbmcsIHlvdSBjYW4gdXNlOiAkKCJ3aWtpX3BhZ2VfdGl0bGUiKS52YWx1ZTsKCXdvYXMuc2V0X2N1cnJlbnQocGFnZW5hbWUsIHRydWUpOwp9CgoKLyogQ2hvb3NlWW91ckFkdmVudHVyZSBHQU1FICovCgpNWT17fTsKCmZ1bmN0aW9uIEdhbWVMb2FkVmFycygpewoJdmFyIFZBUlBBR0UgPSAnZ2FtZTo6dmFyaWFibGVzJzsKCXZhciBwYWdldGV4dCA9IHdvYXMuZ2V0X3RleHQoVkFSUEFHRSk7Cgl2YXIgaW5kZXggPSB3b2FzLnBhZ2VfaW5kZXgoVkFSUEFHRSk7CgoJaWYocGFnZXRleHQ9PT1udWxsKXsKCQlhbGVydCgiRkFUQUw6IHBhZ2UgJyIrVkFSUEFHRSsiJyBoYXMgbm90IGJlZW4gY3JlYXRlZCEiKTsKCQlyZXR1cm4gZmFsc2U7Cgl9CgkvLyBQYWdlIGV4aXN0cywgc28gJ2FjdGl2YXRlJyB2YXJpYWJsZXMKCXRyeXsKCQlldmFsKHBhZ2V0ZXh0KTsKCQlyZXR1cm4gdHJ1ZTsKCX1jYXRjaChlKXsKCQlhbGVydCgiRkFUQUw6IHBhZ2UgJyIrVkFSUEFHRSsiJyBoYXMgc3ludGF4IGVycm9yczoiICsgZSk7Cgl9CglyZXR1cm4gZmFsc2U7Cn0KCi8vIEFsc286IGlmKHdvYXNbInNldF90ZXh0Il0oVkFSUEFHRSwgc2VyaWFsaXplKE1ZKSk9PS0xKSBhbGVydCgiRkFUQUw6IHBhZ2UgJyIrVkFSUEFHRSsiJyBoYXMgbm90IGJlZW4gY3JlYXRlZCEiKTsKZnVuY3Rpb24gR2FtZVNhdmVWYXJzKCl7Cgl2YXIgVkFSUEFHRSA9ICdnYW1lOjp2YXJpYWJsZXMnOwoJdmFyIGluZGV4ID0gd29hcy5wYWdlX2luZGV4KFZBUlBBR0UpOwoKLy8gTWljcm8gSlNPTgpmdW5jdGlvbiBzZXJpYWxpemUodil7CiB2YXIgYSA9IFtdOwogZm9yICh2YXIgZSBpbiB2KXsKICBhLnB1c2goJyAnICsgZSArICc6ICInICsgdltlXSArICciJyk7CiB9Ci8vYWxlcnQoInNlcmlhbGl6ZToiK2Euam9pbigiLFxuIikpOwogcmV0dXJuICJNWT17XG4iICthLmpvaW4oIixcbiIpKyAiXG59IjsKfQoKCWlmKGluZGV4PjApeyAvLyBQYWdlIGV4aXN0cywgc28gd3JpdGUgdmFyaWFibGVzCgkJdHJ5ewoJCQlwYWdlc1tpbmRleF09c2VyaWFsaXplKE1ZKTsKCQkJLy9hbGVydCgnR2FtZVNhdmVWYXJzOiBzYXZlZDonK3BhZ2VzW2luZGV4XSkKCQl9Y2F0Y2goZSl7CgkJCWFsZXJ0KCJGQVRBTDogY291bGQgbm90IHNhdmUgIiArIGUpOwoJCX0KCX1lbHNlewoJCWFsZXJ0KCJGQVRBTDogcGFnZSAnIitWQVJQQUdFKyInIGhhcyBub3QgYmVlbiBjcmVhdGVkISIpCgl9Ci8vYWxlcnQoIkdhbWVTYXZlVmFyczoiK2krIj0iK3BhZ2VzW2luZGV4XSk7CndvYXMuc2F2ZV90b19maWxlKHRydWUpOwpHYW1lTG9hZFZhcnMoKTsKfQoKZnVuY3Rpb24gR2FtZVJlc2V0KCl7CnZhciBWQVJQQUdFID0gJ2dhbWU6OnZhcmlhYmxlcyc7CnZhciBpbmRleCA9IHdvYXMucGFnZV9pbmRleChWQVJQQUdFKTsKaWYoaW5kZXg+MCl7IC8vIFBhZ2UgZXhpc3RzLCBzbyB3cml0ZSB2YXJpYWJsZXMKICB0cnl7CiAgICBwYWdlc1tpbmRleF09ICJNWT17XG53ZWFwb246J25vdGhpbmcnLFxuaGVhbHRoOjEwMCxcbm1vbnN0ZXI6J2h1bmdyeSdcbn0iOwogICAgZXZhbChwYWdlc1tpbmRleF0pOwogIH1jYXRjaChlKXsKICAgIGFsZXJ0KCJGQVRBTDogY291bGQgbm90IHJlc2V0IHZhcmlhYmxlcyBpbiAnIitWQVJQQUdFKyInOiIgKyBlKTsKICB9Cn1lbHNlewogIGFsZXJ0KCJGQVRBTDogcGFnZSAnIitWQVJQQUdFKyInIGhhcyBub3QgYmVlbiBjcmVhdGVkISIpCn0KLy9hbGVydCgiR2FtZVJlc2V0OiIraSsiPSIrcGFnZXNbaW5kZXhdKTsKR2FtZVNhdmVWYXJzKCk7Cn0KCgovLyBFbmFibGVzIHlvdSB0byB3cml0ZSBpbmxpbmUgamF2YXNjcmlwdCwgYW5kIHVzZSBwcmludCgiIikgdG8gcHJpbnQgdG8gdGhlIHBhZ2UgaW5zdGVhZCBvZiB1c2luZyAuaW5uZXJIVE1MCndvYXNbInVzZXJfcGFyc2UiXSA9IGZ1bmN0aW9uKHRleHQpewp2YXIgTT10ZXh0Lm1hdGNoKC9eJShcdyspOigoLnxcbikqKSQvbSk7CmlmKE0pewovLyBhbGVydChNLmpvaW4oInwiKSkKIHN3aXRjaCAoTVsxXSl7CiAgY2FzZSAicHJlIjogcmV0dXJuICI8cHJlPiIrTVsyXSsiPC9wcmU+IjticmVhazsgLy9UT0RPOiA8YnI+IFN0aWxsIGdldHMgaW5zZXJ0ZWQhCiAgY2FzZSAibm9iciI6IHJldHVybiBNWzJdLnJlcGxhY2UoL1xuL2csIiIpO2JyZWFrOwogIGNhc2UgImpzIjoKICBkZWZhdWx0OgogICAgdGV4dD1NWzJdOwogIGJyZWFrOwogfQp9IAoJdmFyIF9wcmludD0iIjsKCWZ1bmN0aW9uIHByaW50KHQpe19wcmludCs9dDt9Cgl0cnl7CgkJZXZhbCh0ZXh0KTsKCQlyZXR1cm4gX3ByaW50OwoJfWNhdGNoKGUpewoJCWFsZXJ0KGUrIlxuIit0ZXh0KTsKCX0KfQo=',
 '= History\n\
 \n\
 == Versions 0.01 &tilde; 0.04\n\
@@ -1232,6 +1281,7 @@ A lot of features and improvements have been implemented during the (still curre
 \n\
 == Versions 0.9.8 onwards\n\
 \x3Csub\x3Eby N. Castillo\x3C/sub\x3E\n\
+\n\
 I felt immediately comfortable with WOAS. Editing pages is really easy as is searching them, making it an ideal tool for me to store project information, but also procedures, and code snippets. Although WOAS had interfaces to add user defined behaviour, it did not include these. At first I started removing annoyances, but soon, cheered on by the Community, I started adding features, thing I and others were missing. With my Javascript background I reviewed the code, did a few optimizations, rewrote some parts to keep WOAS lean and mean, despite having more features added to them. \n\
 \n\
 My goals for WOAS are *speed* and *usability*\n\
@@ -1319,7 +1369,16 @@ Simon wonders if a page with di\u00e2critics will be found \u00e4nyw\u00e1y.\n\
 \n\
 upside-down?\n\
 \n\
+== Chinese \n\
+The Chinese translation of \u201cTranslation server error\u201d is:\n\
 \n\
+\u7ffb\u8bd1\u670d\u52a1\u5668\u9519\u8bef\n\
+\n\
+== Hebrew\n\
+In the beginning God created the heavens and the earth.\n\
+\u05d0 \u05d1\u05e8\u05d0\u05e9\u05d9\u05ea \u05d1\u05e8\u05d0 \u05d0\u05dc\u05d4\u05d9\u05dd \u05d0\u05ea \u05d4\u05e9\u05de\u05d9\u05dd \u05d5\u05d0\u05ea \u05d4\u05d0\u05e8\u05e5\n\
+\n\
+[[Include::TODO|syntaxhighlighterror|Syntax highlighting for unicode is br0ken]]\n\
 \n\
 [[Tags::dummy]]',
 'dm9pZCBMaWZlRnJhbWU6Ok9uU2FtcGxlcyh3eENvbW1hbmRFdmVudCYgV1hVTlVTRUQoZXZlbnQpKQp7CiAgICAvLyBzdG9wIGlmIGl0IHdhcyBydW5uaW5nCiAgICBPblN0b3AoKTsKCiAgICAvLyBkaWFsb2cgYm94CiAgICBMaWZlU2FtcGxlc0RpYWxvZyBkaWFsb2codGhpcyk7CgogICAgaWYgKGRpYWxvZy5TaG93TW9kYWwoKSA9PSB3eElEX09LKQogICAgewogICAgICAgIGNvbnN0IExpZmVQYXR0ZXJuIHBhdHRlcm4gPSBkaWFsb2cuR2V0UGF0dGVybigpOwoKICAgICAgICAvLyBwdXQgdGhlIHBhdHRlcm4KICAgICAgICBtX2xpZmUtPkNsZWFyKCk7CiAgICAgICAgbV9saWZlLT5TZXRQYXR0ZXJuKHBhdHRlcm4pOwoKICAgICAgICAvLyByZWNlbnRlciBjYW52YXMKICAgICAgICBtX2NhbnZhcy0+UmVjZW50ZXIoMCwgMCk7CiAgICAgICAgbV90aWNzID0gMDsKICAgICAgICBVcGRhdGVJbmZvVGV4dCgpOwogICAgfQp9AAo=',
@@ -1475,9 +1534,11 @@ asdf',
 ### third level A\n\
 ### third level B\n\
 ',
-'$HOME  Main Page',
+'^$HOME Main Page\n\
+^$? tooltip\n\
+^$IMG: Image::',
 'cmV0dXJuICI9ICIgKyB0aXRsZSArICJcbiI7',
-'Ly8gRGVmYXVsdCAncHJvZ3JhbW1hYmxlJyBidXR0b25zCgp3b2FzWyJlZGl0YnV0dG9uIl0gPSBbCgogIHtuYW1lOidUYWJsZSBvZiBDb250ZW50JywKICAgbGFiZWw6J1RPQycsCiAgIG9uY2xpY2s6IGZ1bmN0aW9uKCl7IHNldFNlbGVjdGVkVGV4dCgiW1tTcGVjaWFsOjpUT0NdXSIpOyB9CiAgfSwKCiAge25hbWU6J3NvcnQgc2VsZWN0ZWQgbGluZXMnLAogICBsYWJlbDonc29ydCcsCiAgIG9uY2xpY2s6IGZ1bmN0aW9uKCl7CiAgICAgICAgIHdvYXMuX2VkaXRvci5zZXRTZWxlY3RlZFRleHQoIHdvYXMuX2VkaXRvci5nZXRTZWxlY3RlZFRleHQoKS5zcGxpdCgiXG4iKS5zb3J0KCkuam9pbigiXG4iKSk7IAogICAgICB9CiAgfSwKICAKICB7bmFtZTonZ3JheS1ib3hlZCB0ZXh0JywKICAgbGFiZWw6J25vdGUnLAogICBvbmNsaWNrOiBmdW5jdGlvbigpeyBGdWxsVGFnVGhpcygiZGl2IiwgImNsYXNzPVwidGV4dF9hcmVhXCIiKTsgfQogIH0sCgogIHtuYW1lOidzaWduYXR1cmUnLAogICBsYWJlbDonc2lnJywKICAgb25jbGljazogZnVuY3Rpb24oKXsgc2V0U2VsZWN0ZWRUZXh0KCI8YnIvPmtpbmQgcmVnYXJkcyw8YnIvPlRoZSAqV09BUyogdGVhbS4iKTsgfQogIH0sCgogIHtuYW1lOidoaWdobGlnaHQnLAogICBsYWJlbDonbWFyaycsCiAgIC8vc3R5bGU6ICdmb250LXdlaWdodDogYm9sZDtiYWNrZ3JvdW5kLWNvbG9yOiB5ZWxsb3c7d2lkdGg6IDQwcHg7JywKICAgb25jbGljazogZnVuY3Rpb24oKXsgRnVsbFRhZ1RoaXMoInNwYW4iLCAiY2xhc3M9XCJzZWFyY2hfaGlnaGxpZ2h0XCIiKTsgfQogIH0sCgogIHtuYW1lOidzZWxlY3QgY29sb3InLAogICBsYWJlbDonY29sb3InLAogICBvbmNsaWNrOiBmdW5jdGlvbigpeyAKLy9Db2xvcml6ZXIucGljaygncGI1Jyk7Q29sb3JpemVyLnJlbGF0ZUNvbG9yKCdwYjUnLCBDb2xvcml6ZXIuZ2V0T2JqKCdwYjYnKS5iYWNrZ3JvdW5kLWNvbG9yKTsgCiAgICAgaWYoZ2V0U2VsZWN0ZWRUZXh0KCkpe0Z1bGxUYWdUaGlzKCdmb250JywgJ2NvbG9yPScrQ29sb3JpemVyLnJnYik7fQogICAgIGVsc2V7Q29sb3JpemVyLnBpY2soJ3BiNScsICJDb2xvcml6ZXIuZ2V0T2JqKCdwYjUnKS5zdHlsZS5iYWNrZ3JvdW5kQ29sb3I9Q29sb3JpemVyLnJnYiIpfQp9CiAgfSwKCgogIHtuYW1lOidSZWFsIFF1b3RlcycsCiAgIGxhYmVsOiciJywKICAgb25jbGljazogZnVuY3Rpb24oKXsgVGFnVGhpcyhTdHJpbmcuZnJvbUNoYXJDb2RlKDgyMjApLCBTdHJpbmcuZnJvbUNoYXJDb2RlKDgyMjEpKTsgfSAvLyBjb3VsZCBhbHNvIGhhdmUgdXNlZDogIiYjODIyMTsiCiAgfSwKCiAge25hbWU6J0NpdGF0aW9uJywKICAgbGFiZWw6Jy4uLicsCiAgIG9uY2xpY2s6IGZ1bmN0aW9uKCl7IFRhZ1RoaXMoU3RyaW5nLmZyb21DaGFyQ29kZSgxMjMwMCkucmVwZWF0KDMpLCBTdHJpbmcuZnJvbUNoYXJDb2RlKDEyMzAxKS5yZXBlYXQoMykpOyB9CiAgfSwKCiAge25hbWU6J3VzZXJfcGFyc2UnLAogICBsYWJlbDonPDw+PicsCiAgIG9uY2xpY2s6IGZ1bmN0aW9uKCl7IFRhZ1RoaXMoU3RyaW5nLmZyb21DaGFyQ29kZSgxNzEpLnJlcGVhdCgzKSwgU3RyaW5nLmZyb21DaGFyQ29kZSgxODcpLnJlcGVhdCgzKSk7IH0KICB9LAoKXTsKCgoJQ29sb3JpemVyID0geyAKCQlkaXZTZXQ6IGZhbHNlLAoJCXJnYjogdW5kZWZpbmVkLAoJCWRhZDogdW5kZWZpbmVkLAoJCXNldDogdW5kZWZpbmVkLAoJCW9uY2hhbmdlOiB1bmRlZmluZWQsCgkJZ2V0T2JqOiBmdW5jdGlvbihpZCkge3JldHVybiBkb2N1bWVudC5hbGwgPyBkb2N1bWVudC5hbGxbaWRdIDogZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoaWQpO30sCgkJc2V0Q29sb3I6IGZ1bmN0aW9uKGNvbG9yKSB7CgkJCXZhciBwaWNrZXIgPSB0aGlzLmdldE9iaignY29sb3JwaWNrZXInKTsKCQkJdGhpcy5yZ2IgPSBjb2xvcjsKCQkJaWYodGhpcy5zZXQpeyBldmFsKHRoaXMuc2V0KTt9CgkJCWlmKHRoaXMub25jaGFuZ2UpeyB0aGlzLm9uY2hhbmdlKCk7fQoJCQlwaWNrZXIuc3R5bGUuZGlzcGxheSA9ICdub25lJzsKCQl9LAogICAgIAogICAgIHBpY2s6IGZ1bmN0aW9uKGlkLCBzZXQsb25jaGFuZ2UpIHsKCQl0aGlzLnNldCA9IHNldDsKCQl0aGlzLm9uY2hhbmdlID0gb25jaGFuZ2U7CiAgICAgCWlmICghdGhpcy5kaXZTZXQpIHsKCQkJaWYgKCFkb2N1bWVudC5jcmVhdGVFbGVtZW50KQoJCQkJcmV0dXJuOwoJCQl2YXIgZWxlbURpdiA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoJ2RpdicpOwoJCQlpZiAodHlwZW9mKGVsZW1EaXYuaW5uZXJIVE1MKSAhPSAnc3RyaW5nJykKCQkJCXJldHVybjsKCgkJCWVsZW1EaXYuaWQgPSAnY29sb3JwaWNrZXInOwoJCQllbGVtRGl2LnN0eWxlLnBvc2l0aW9uID0gJ2Fic29sdXRlJzsKCQkJZWxlbURpdi5zdHlsZS5kaXNwbGF5ID0gJ25vbmUnOwoJCQllbGVtRGl2LnN0eWxlLmJvcmRlciA9ICcjMDAwIDFweCBzb2xpZCc7CgkJCS8vZWxlbURpdi5zdHlsZS5vcGFjaXR5OiAwLjc1OwoJCQkvL2VsZW1EaXYuc3R5bGUuYmFja2dyb3VuZCA9ICcjRkZGJzsKCQkJZWxlbURpdi5pbm5lckhUTUwgPSBDb2xvcml6ZXIuY29sb3JCb3goKSAKCQkJZG9jdW1lbnQuYm9keS5hcHBlbmRDaGlsZChlbGVtRGl2KTsKCQkJdGhpcy5kaXZTZXQgPSB0cnVlOwoJCX0KICAgICAJdmFyIHBpY2tlciA9IHRoaXMuZ2V0T2JqKCdjb2xvcnBpY2tlcicpOyAKCQkvL2FsZXJ0KCdwaWNrZXI9JytwaWNrZXIpOwoJCWlmIChpZCA9PSBDb2xvcml6ZXIuZGFkICYmIHBpY2tlci5zdHlsZS5kaXNwbGF5ID09ICdibG9jaycpIHsKCQkJcGlja2VyLnN0eWxlLmRpc3BsYXkgPSAnbm9uZSc7CgkJCXJldHVybjsKCQl9CiAgICAgCUNvbG9yaXplci5kYWQgPSBpZDsKICAgICAJdmFyIG8gPSB0aGlzLmdldE9iaihpZCk7CgkJdmFyIFA9dGhpcy5maW5kUG9zKG8pOwogICAgIAlwaWNrZXIuc3R5bGUubGVmdCA9IFAubGVmdCsncHgnOyAKICAgICAJcGlja2VyLnN0eWxlLnRvcCA9IFAudG9wICsncHgnOyAKCQkvL3BpY2tlci5zdHlsZS5ib3R0b209IDA7CgkJLy9waWNrZXIuc3R5bGUucmlnaHQ9ICI1MHB4IjsgICAKCQlwaWNrZXIuc3R5bGUuekluZGV4ID0xOwoJCXBpY2tlci5zdHlsZS5kaXNwbGF5ID0gJ2Jsb2NrJzsKICAgICB9LAogICAgIAogICAgIGNvbG9yQm94OiBmdW5jdGlvbigpIHsKCQkvLyBHZW5lcmF0ZSBDb2xvdXJzCgkJdmFyIENDID0gW107CgkJdmFyIEMgPSBbJzAnLCAnMycsICc2JywgJzknLCAnQycsICdGJ107CgkJIGZvciAodmFyIGEgPSAwLCBjPTA7IGEgPCBDLmxlbmd0aCxjID0gQ1thXTsgKythKQoJCQlDQy5wdXNoKCcjJytjK2MrYywgJyMwMCcrYywgJyMwJytjKycwJywgJyMnK2MrJzAwJywgJyMwJytjK2MsICcjJytjKycwJytjLCAnIycrYytjKycwJyk7CgkJIENDLnNwbGljZSgxLDYsICdNZWRpdW1CbHVlJywgJ1NlYUdyZWVuJywgJ09yYW5nZVJlZCcsICdTcHJpbmdHcmVlbicsICdDcmltc29uJywgJ1NhZGRsZUJyb3duJyk7CgkJLy8gdGFibGUKICAgICAgCSB2YXIgY2MgPSAnPHRhYmxlIGNlbGxzcGFjaW5nPSIwIj48dHI+JzsKICAgICAgICAgZm9yICh2YXIgaSA9IDA7IGkgPCBDQy5sZW5ndGg7IGkrKykgewogICAgICAgICAgICAgIGkgJSA3IHx8IChjYyArPSAnPHRyLz48dHI+Jyk7CiAgICAgICAgICAgICAgY2MgKz0gJzx0ZCBiZ2NvbG9yPSIjMDAwIj48YSBzdHlsZT0ib3V0bGluZTogMXB4IHNvbGlkOyBjb2xvcjogJyArIENDW2ldICsgJzsgYmFja2dyb3VuZDogJyArIENDW2ldICsgJzsiIHRpdGxlPSInICsgQ0NbaV0gKyAnIiBocmVmPSJqYXZhc2NyaXB0OkNvbG9yaXplci5zZXRDb2xvcihcJycgKyBDQ1tpXSArICdcJyk7Ij5fXzwvYT48L3RkPic7CiAgICAgICAgIH0KICAgICAgICAgY2MgKz0gJzwvdHI+PC90YWJsZT4nOwogICAgICAJIHJldHVybiBjYzsKICAgICB9LAoJIAoJIAoJZmluZFBvczogZnVuY3Rpb24ob2JqKSB7CgkJdmFyIG8gPSBvYmo7CgkJdmFyIF9sZWZ0ID0gX3RvcCA9IDA7CgkJaWYgKG8ub2Zmc2V0UGFyZW50KSB7CgkJZG8gewoJCQkJCV9sZWZ0ICs9IG8ub2Zmc2V0TGVmdDsKCQkJCQlfdG9wICs9IG8ub2Zmc2V0VG9wOwoJCX0gd2hpbGUgKG8gPSBvLm9mZnNldFBhcmVudCk7CgkJX3RvcCArPSBvYmoub2Zmc2V0Qm90dG9tPyBvYmoub2Zmc2V0Qm90dG9tIDogMjU7IC8vbWFyZ2luLXRvcCAKCQkvL2FsZXJ0KCdmaW5kUG9zIGxlZnQ9JytfbGVmdCsiIHRvcD0iK190b3ApOwoJCQlyZXR1cm4ge2xlZnQ6X2xlZnQsdG9wOl90b3B9OwoJCQkvL3JldHVybiBbY3VybGVmdCxjdXJ0b3BdOwoJCX0KCX0KCn0KCg==',
+'Ly8gRGVmYXVsdCAncHJvZ3JhbW1hYmxlJyBidXR0b25zCgp3b2FzWyJlZGl0YnV0dG9uIl0gPSBbCgogIHtuYW1lOidUYWJsZSBvZiBDb250ZW50JywKICAgbGFiZWw6J1RPQycsCiAgIG9uY2xpY2s6IGZ1bmN0aW9uKCl7IHNldFNlbGVjdGVkVGV4dCgiW1tTcGVjaWFsOjpUT0NdXSIpOyB9CiAgfSwKCiAge25hbWU6J3NvcnQgc2VsZWN0ZWQgbGluZXMnLAogICBsYWJlbDonc29ydCcsCiAgIG9uY2xpY2s6IGZ1bmN0aW9uKCl7CiAgICAgICAgIHdvYXMuX2VkaXRvci5zZXRTZWxlY3RlZFRleHQoIHdvYXMuX2VkaXRvci5nZXRTZWxlY3RlZFRleHQoKS5zcGxpdCgiXG4iKS5zb3J0KCkuam9pbigiXG4iKSk7IAogICAgICB9CiAgfSwKICAKICB7bmFtZTonZ3JheS1ib3hlZCB0ZXh0JywKICAgbGFiZWw6J25vdGUnLAogICBvbmNsaWNrOiBmdW5jdGlvbigpeyBGdWxsVGFnVGhpcygiZGl2IiwgImNsYXNzPVwidGV4dF9hcmVhXCIiKTsgfQogIH0sCgogIHtuYW1lOidzaWduYXR1cmUnLAogICBsYWJlbDonc2lnJywKICAgb25jbGljazogZnVuY3Rpb24oKXsgc2V0U2VsZWN0ZWRUZXh0KCI8YnIvPmtpbmQgcmVnYXJkcyw8YnIvPlRoZSAqV09BUyogdGVhbS4iKTsgfQogIH0sCgogIHtuYW1lOidoaWdobGlnaHQnLAogICBsYWJlbDonbWFyaycsCiAgIC8vc3R5bGU6ICdmb250LXdlaWdodDogYm9sZDtiYWNrZ3JvdW5kLWNvbG9yOiB5ZWxsb3c7d2lkdGg6IDQwcHg7JywKICAgb25jbGljazogZnVuY3Rpb24oKXsgRnVsbFRhZ1RoaXMoInNwYW4iLCAiY2xhc3M9XCJzZWFyY2hfaGlnaGxpZ2h0XCIiKTsgfQogIH0sCgogIHtuYW1lOidzZWxlY3QgY29sb3InLAogICBsYWJlbDonY29sb3InLAogICBvbmNsaWNrOiBmdW5jdGlvbigpeyAKLy9Db2xvcml6ZXIucGljaygncGI1Jyk7Q29sb3JpemVyLnJlbGF0ZUNvbG9yKCdwYjUnLCBDb2xvcml6ZXIuZ2V0T2JqKCdwYjYnKS5iYWNrZ3JvdW5kLWNvbG9yKTsgCiAgICAgaWYoZ2V0U2VsZWN0ZWRUZXh0KCkpe0Z1bGxUYWdUaGlzKCdmb250JywgJ2NvbG9yPScrQ29sb3JpemVyLnJnYik7fQogICAgIGVsc2V7Q29sb3JpemVyLnBpY2soJ3BiNScsICJDb2xvcml6ZXIuZ2V0T2JqKCdwYjUnKS5zdHlsZS5iYWNrZ3JvdW5kQ29sb3I9Q29sb3JpemVyLnJnYiIpfQp9CiAgfSwKCgogIHtuYW1lOidSZWFsIFF1b3RlcycsCiAgIGxhYmVsOiciJywKICAgb25jbGljazogZnVuY3Rpb24oKXsgVGFnVGhpcyhTdHJpbmcuZnJvbUNoYXJDb2RlKDgyMjApLCBTdHJpbmcuZnJvbUNoYXJDb2RlKDgyMjEpKTsgfSAvLyBjb3VsZCBhbHNvIGhhdmUgdXNlZDogIiYjODIyMTsiCiAgfSwKCiAge25hbWU6J0NpdGF0aW9uJywKICAgbGFiZWw6Jy4uLicsCiAgIG9uY2xpY2s6IGZ1bmN0aW9uKCl7IFRhZ1RoaXMoU3RyaW5nLmZyb21DaGFyQ29kZSgxMjMwMCkucmVwZWF0KDMpLCBTdHJpbmcuZnJvbUNoYXJDb2RlKDEyMzAxKS5yZXBlYXQoMykpOyB9CiAgfSwKCiAge25hbWU6J3VzZXJfcGFyc2UnLAogICBsYWJlbDonPDw+PicsCiAgIG9uY2xpY2s6IGZ1bmN0aW9uKCl7IFRhZ1RoaXMoU3RyaW5nLmZyb21DaGFyQ29kZSgxNzEpLnJlcGVhdCgzKSwgU3RyaW5nLmZyb21DaGFyQ29kZSgxODcpLnJlcGVhdCgzKSk7IH0KICB9LAoKXTsKCgoKCkNvbG9yaXplciA9IHsgCglkaXZTZXQ6IGZhbHNlLAoJcmdiOiB1bmRlZmluZWQsCglkYWQ6IHVuZGVmaW5lZCwKCXNldDogdW5kZWZpbmVkLAoJb25jaGFuZ2U6IHVuZGVmaW5lZCwKCglnZXRPYmo6IGZ1bmN0aW9uKGlkKSB7cmV0dXJuIGRvY3VtZW50LmFsbCA/IGRvY3VtZW50LmFsbFtpZF0gOiBkb2N1bWVudC5nZXRFbGVtZW50QnlJZChpZCk7fSwKCglzZXRDb2xvcjogZnVuY3Rpb24oY29sb3IpIHsKCQl2YXIgcGlja2VyID0gdGhpcy5nZXRPYmooJ2NvbG9ycGlja2VyJyk7CgkJdGhpcy5yZ2IgPSBjb2xvcjsKCQlpZih0aGlzLnNldCl7IGV2YWwodGhpcy5zZXQpO30KCQlpZih0aGlzLm9uY2hhbmdlKXsgdGhpcy5vbmNoYW5nZSgpO30KCQlwaWNrZXIuc3R5bGUuZGlzcGxheSA9ICdub25lJzsKCQlwaWNrZXIuaW5uZXJIVE1MID0gIiI7Cgl9LAoKCXBpY2s6IGZ1bmN0aW9uKGlkLCBzZXQsb25jaGFuZ2UpIHsKCQl0aGlzLnNldCA9IHNldDsKCQl0aGlzLm9uY2hhbmdlID0gb25jaGFuZ2U7CgkJaWYgKCF0aGlzLmdldE9iaignY29sb3JwaWNrZXInKSkgewoJCQlpZiAoIWRvY3VtZW50LmNyZWF0ZUVsZW1lbnQpCgkJCQlyZXR1cm47CgkJCXZhciBlbGVtRGl2ID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudCgnZGl2Jyk7CgkJCWlmICh0eXBlb2YoZWxlbURpdi5pbm5lckhUTUwpICE9ICdzdHJpbmcnKQoJCQkJcmV0dXJuOwoJCQlkb2N1bWVudC5ib2R5LmFwcGVuZENoaWxkKGVsZW1EaXYpOwoJCQllbGVtRGl2LmlkID0gJ2NvbG9ycGlja2VyJzsKCQkJZWxlbURpdi5zdHlsZS5wb3NpdGlvbiA9ICdhYnNvbHV0ZSc7CgkJCWVsZW1EaXYuc3R5bGUuZGlzcGxheSA9ICdub25lJzsKCQkJZWxlbURpdi5zdHlsZS5ib3JkZXIgPSAnIzAwMCAxcHggc29saWQnOwoJCQkvL2VsZW1EaXYuc3R5bGUub3BhY2l0eTogMC43NTsKCQkJLy9lbGVtRGl2LnN0eWxlLmJhY2tncm91bmQgPSAnI0ZGRic7CgkJfQoKCQl2YXIgcGlja2VyID0gdGhpcy5nZXRPYmooJ2NvbG9ycGlja2VyJyk7IAoJCXBpY2tlci5pbm5lckhUTUwgPSBDb2xvcml6ZXIuY29sb3JCb3goKTsKCgkJLy9hbGVydCgncGlja2VyPScrcGlja2VyKTsKCQlpZiAoaWQgPT0gQ29sb3JpemVyLmRhZCAmJiBwaWNrZXIuc3R5bGUuZGlzcGxheSA9PSAnYmxvY2snKSB7CgkJCXBpY2tlci5zdHlsZS5kaXNwbGF5ID0gJ25vbmUnOwoJCQlwaWNrZXIuaW5uZXJIVE1MID0gIiI7CgkJCXJldHVybjsKCQl9CgoJCUNvbG9yaXplci5kYWQgPSBpZDsKCQl2YXIgbyA9IHRoaXMuZ2V0T2JqKGlkKTsKCQl2YXIgUD10aGlzLmZpbmRQb3Mobyk7CgkJcGlja2VyLnN0eWxlLmxlZnQgPSBQLmxlZnQrJ3B4JzsgCgkJcGlja2VyLnN0eWxlLnRvcCA9IFAudG9wKydweCc7IAoJCS8vcGlja2VyLnN0eWxlLmJvdHRvbT0gMDsKCQkvL3BpY2tlci5zdHlsZS5yaWdodD0gIjUwcHgiOwoJCXBpY2tlci5zdHlsZS56SW5kZXggPTE7CgkJcGlja2VyLnN0eWxlLmRpc3BsYXkgPSAnYmxvY2snOwoJfSwKCgljb2xvckJveDogZnVuY3Rpb24oKSB7CgkJLy8gR2VuZXJhdGUgQ29sb3VycwoJCXZhciBDQyA9IFtdOwoJCXZhciBDID0gWycwJywgJzMnLCAnNicsICc5JywgJ0MnLCAnRiddOwoJCSBmb3IgKHZhciBhID0gMCwgYz0wOyBhIDwgQy5sZW5ndGgsYyA9IENbYV07ICsrYSkKCQkJQ0MucHVzaCgnIycrYytjK2MsICcjMDAnK2MsICcjMCcrYysnMCcsICcjJytjKycwMCcsICcjMCcrYytjLCAnIycrYysnMCcrYywgJyMnK2MrYysnMCcpOwoJCSBDQy5zcGxpY2UoMSw2LCAnTWVkaXVtQmx1ZScsICdTZWFHcmVlbicsICdPcmFuZ2VSZWQnLCAnU3ByaW5nR3JlZW4nLCAnQ3JpbXNvbicsICdTYWRkbGVCcm93bicpOwoJCS8vIHRhYmxlCgkJdmFyIGNjID0gJzx0YWJsZSBjZWxsc3BhY2luZz0iMCI+PHRyPic7CgkJZm9yICh2YXIgaSA9IDA7IGkgPCBDQy5sZW5ndGg7IGkrKykgewoJCQlpICUgNyB8fCAoY2MgKz0gJzx0ci8+PHRyPicpOwoJCQljYyArPSAnPHRkIGJnY29sb3I9IiMwMDAiPjxhIHN0eWxlPSJvdXRsaW5lOiAxcHggc29saWQ7IGNvbG9yOiAnICsgQ0NbaV0gKyAnOyBiYWNrZ3JvdW5kOiAnICsgQ0NbaV0gKyAnOyIgdGl0bGU9IicgKyBDQ1tpXSArICciIGhyZWY9ImphdmFzY3JpcHQ6Q29sb3JpemVyLnNldENvbG9yKFwnJyArIENDW2ldICsgJ1wnKTsiPl9fPC9hPjwvdGQ+JzsKCQl9CgkJY2MgKz0gJzwvdHI+PC90YWJsZT4nOwoJCXJldHVybiBjYzsKCX0sCgoJZmluZFBvczogZnVuY3Rpb24ob2JqKSB7CgkJdmFyIG8gPSBvYmo7CgkJdmFyIF9sZWZ0ID0gX3RvcCA9IDA7CgkJaWYgKG8ub2Zmc2V0UGFyZW50KSB7CgkJCWRvIHsKCQkJCV9sZWZ0ICs9IG8ub2Zmc2V0TGVmdDsKCQkJCV90b3AgKz0gby5vZmZzZXRUb3A7CgkJCX0gd2hpbGUgKG8gPSBvLm9mZnNldFBhcmVudCk7CgkJCV90b3AgKz0gb2JqLm9mZnNldEJvdHRvbT8gb2JqLm9mZnNldEJvdHRvbSA6IDI1OyAvL21hcmdpbi10b3AgCgkJCS8vYWxlcnQoJ2ZpbmRQb3MgbGVmdD0nK19sZWZ0KyIgdG9wPSIrX3RvcCk7CgkJCXJldHVybiB7bGVmdDpfbGVmdCx0b3A6X3RvcH07CgkJfQoJfQoKfQoK',
 '= New Page Template\n\
 \n\
 A new special page, holds javascript to generate a new page on-the-fly. You have access to most internal variables (so you can mess things up).\n\
@@ -1516,8 +1577,8 @@ You can also modify the pagename by setting *ns* and *cr*, but that is not recom
 When editing a Wiki page, you can set up to 12 User Programmable buttons. WOAS comes with an example set of 5, which you can modify at will.\n\
 You can set three values:\n\
 * \x3Cspan title="A descriptive String" style="cursor: help; border-bottom: 1px dashed #000000;"\x3Elabel\x3C/span\x3E \x3Cblockquote\x3EThis is the text displayed on the button\x3C/blockquote\x3E\n\
-* [[Include::Template::tooltip|onclick|a function containing some action]]\x3Cblockquote\x3Ea function containing some action. Some functions you can use: setSelectedText(text), FullTagThis(tag, attributes), DivTagThis(class), TagThis(pre, post).\x3Cbr/\x3E This API is not yet fully defined, but you can add to this, see API\x3C/blockquote\x3E\n\
-* [[Include::Template::tooltip|style|a style string]]\x3Cblockquote\x3EA string representing style. It replaces ALL the default style from the class \'wiki_button\'.\x3C/blockquote\x3E\n\
+* [[$$?|onclick|a function containing some action]]\x3Cblockquote\x3Ea function containing some action. Some functions you can use: setSelectedText(text), FullTagThis(tag, attributes), DivTagThis(class), TagThis(pre, post).\x3Cbr/\x3E This API is not yet fully defined, but you can add to this, see API\x3C/blockquote\x3E\n\
+* [[$$?|style|a style string]]\x3Cblockquote\x3EA string representing style. It replaces ALL the default style from the class \'wiki_button\'.\x3C/blockquote\x3E\n\
 \n\
 == Default Buttons\n\
 {{{\n\
@@ -1613,7 +1674,7 @@ When deleting a button from the {{{woas["editbutton"]}}} array, the old label st
 You will need to edit the content of the document in a text editor like [[http://kate-editor.org/|Kate]], [[http://notepad-plus.sourceforge.net/uk/site.htm|Notepad++]] or [[http://www.winvi.de/en/|WinVi]]. Search for {{{\x3Cdiv id="user_format_buttons" }}} and add/remove buttons at will (but mind the strict numbering). Save then reload your WOAS. Oh, and backup your file first! (but you already did that, right?)\n\
 \n\
 ',
-'\x3Cspan title="%2" style="cursor: help; border-bottom: 1px dashed #000000;"\x3E%1\x3C/span\x3E[[Tags::example,template]]',
+'\x3Cabbr title="%2" id="abbr_%1" style="cursor: help; border-bottom: 1px dashed #000000;"\x3E%1\x3C/abbr\x3E[[Tags::example,template]]',
 '\x3Ca id="%1_%2" onclick="return true;" href="javascript:$.toggle(\'%2\')"\x3E%1\x3C/a\x3E%3\x3Cdiv id="%2" style="display:none;"\x3E\x3Cdiv\x3E\n\
 [[Include::%2]]\x3C/div\x3E\x3C/div\x3E',
 '= blackpage (todo: add snow to it)\n\
@@ -1654,8 +1715,7 @@ Christmas\x3C/font\x3E\x3C/p\x3E\n\
 \n\
 \x3Cscript\x3E\n\
 function listtodo() {\n\
-	var x=0;\n\
-	var resx = \'\x3Ctable cellspacing=\\\'2\\\' cellpadding=\\\'2\\\'\x3E\';\n\
+	var resx = [];\n\
 	var re = /\\[\\[Include::TODO\\|([^\\|]+)\\|([^\\]]+)/g;\n\
 	for (var i = 0,l=pages.length; i \x3C l; ++i) {\n\
 		var pagetxt = pages[i];\n\
@@ -1664,29 +1724,518 @@ function listtodo() {\n\
 			for (var j = 0,rl=res.length; j\x3Crl ; ++j) {\n\
 				var parts = res[j].split(\'|\');\n\
 				var anchor = parts[1].replace(/ /,\'_\');\n\
-				resx += \'\x3Ctr\x3E\x3Ctd\x3E\' + woas.parser.parse(parts[2]) \n\
-					+ \'\x3C/td\x3E\x3Ctd\x3E\' + "\x3Ca class=\\"link\\" onclick=\\"go_to(\'" \n\
+				resx.push( \'\x3Ctr\x3E\x3Ctd\x3E\' + "\x3Ca class=\\"link\\" onclick=\\"go_to(\'" \n\
 					+ RegExp.escape(page_titles[i]) + "\'); window.location.hash=\'"+anchor +"\'\\"\x3E"\n\
-					+ page_titles[i] + "\x3C\\/a\x3E" + \'\x3C/td\x3E\x3C/tr\x3E\';\n\
+					+ page_titles[i] + "\x3C\\/a\x3E" + \'\x3C/td\x3E\x3Ctd\x3E\' + woas.parser.parse(parts[2]) \n\
+					+ \'\x3C/td\x3E\x3C/tr\x3E\');\n\
 			}\n\
 		}\n\
 	}\n\
-	$(\'todos\').innerHTML = resx + \'\x3C/table\x3E\';\n\
+	$(\'todos\').innerHTML = \'\x3Ctable cellspacing=\\\'2\\\' cellpadding=\\\'2\\\'\x3E\'+ resx.sort($["i_sort"]).join("") + \'\x3C/table\x3E\';\n\
 }\n\
 \n\
 listtodo();\n\
-\x3C/script\x3E \n\
-\n\
-\x3Cform\x3E\x3Cinput type=\'button\' onclick=\'listtodo();\' value=\'Refresh TODO list\'/\x3E\x3C/form\x3E',
+\x3C/script\x3E ',
 '\x3Cp\x3E\x3CA CLASS="TODO" NAME="%1" href="javascript:go_to(\'todo\\\'s\')"\x3E\x3Cstrong\x3E\x3Cfont color="red"\x3ETODO:\x3C/font\x3E\x3C/strong\x3E\x3C/A\x3E \x3Cb\x3E%2\x3C/b\x3E\x3C/p\x3E',
 '\x3Cspan style="float: right; text-align: left; background:#AAF; border: dashed; font-style: italic"\x3Epage last modified: %1\x3C/span\x3E\n\
-'
+',
+'= Skin\n\
+Change Buttons currently used in WOAS.\n\
+\n\
+Instructions: Select a file, then press on one of the buttons to replace it.\n\
+note: Old images can stay cached, shift-reload your browser if this happens.\n\
+\n\
+\x3Cinput id="filename_" type="file"\x3E\n\
+\n\
+\x3Cscript\x3E\n\
+woas["ReplaceButtonFromFile"] = function(button){\n\
+	try{\n\
+	$(button).src = woas._embed_process(\'image\', true);\n\
+	this.save_to_file(true);\n\
+	this.refresh_menu_area();\n\
+	this.set_current(current, true);\n\
+	}catch(e){alert(e)}\n\
+}\n\
+\x3C/script\x3E\n\
+\n\
+\x3Cdiv id=\'CSKIN\'\x3E\x3C/div\x3E\n\
+\n\
+\x3Cscript\x3E\n\
+var B = function(id) {\n\
+  return \'\x3Cimg src="\' + $(id).src + \'" onclick="javascript:woas.ReplaceButtonFromFile(\\\'\' +id+ \'\\\');" alt="\' +id+ \'"/\x3E\';\n\
+}\n\
+\n\
+$(\'CSKIN\').innerHTML = B(\'img_back\') + B(\'img_forward\') + B(\'img_advanced\') + B(\'img_home\') + B(\'img_lock\') + B(\'img_unlock\') + B(\'img_print\') + B(\'img_key\') + B(\'img_edit\') + B(\'img_cancel\') + B(\'img_save\');\n\
+\n\
+\x3C/script\x3E\n\
+',
+'= CHANGES\n\
+\n\
+This changes page is updated through the function *woas["before_save"]* inside the [[Special::Edit Bootscript|Bootscript]].\n\
+It could be made more pretty using [[http://www.developertutorials.com/tutorials/javascript/javascript-diff-algorithm-060822/page1.html|javascript-diff-algorithm]] or [[http://blog.lotusnotes.be/domino/archive/2007-10-29-js-diff.html|js-diff]]\n\
+\n\
+\x3C!--LIST--\x3E\n\
+\n\
+[[Skin]] {{{Sat Dec 19 2009 01:12:04 GMT+0100}}}\n\
+[[Main Page]] {{{Sat Dec 19 2009 01:39:54 GMT+0100}}}\n\
+[[SANDBOX]] {{{Sat Dec 19 2009 03:00:32 GMT+0100}}}\n\
+[[SANDBOX]] {{{Sat Dec 19 2009 03:00:58 GMT+0100}}}\n\
+[[::Menu]] {{{Sat Dec 19 2009 11:59:33 GMT+0100}}}\n\
+[[Testcase::Tables]] {{{Sat Dec 19 2009 11:59:57 GMT+0100}}}\n\
+[[Testcase::Tables]] {{{Sat Dec 19 2009 12:00:32 GMT+0100}}}\n\
+[[Testcase::Tables]] {{{Sat Dec 19 2009 12:01:38 GMT+0100}}}\n\
+[[Testcase::Tables]] {{{Sat Dec 19 2009 12:01:44 GMT+0100}}}\n\
+[[WoaS::Bootscript]] {{{Sat Dec 19 2009 12:04:30 GMT+0100}}}\n\
+[[Testcase::Tables]] {{{Sat Dec 19 2009 12:04:44 GMT+0100}}}\n\
+[[WoaS::Bootscript]] {{{Sat Dec 19 2009 12:14:11 GMT+0100}}}\n\
+[[Testcase::Tables]] {{{Sat Dec 19 2009 12:17:44 GMT+0100}}}\n\
+[[Skin]] {{{Sat Dec 19 2009 12:35:24 GMT+0100}}}\n\
+[[Skin]] {{{Sat Dec 19 2009 12:41:05 GMT+0100}}}\n\
+[[Skin]] {{{Sat Dec 19 2009 12:41:37 GMT+0100}}}\n\
+[[Skin]] {{{Sat Dec 19 2009 12:42:03 GMT+0100}}}\n\
+[[Skin]] {{{Sat Dec 19 2009 12:42:29 GMT+0100}}}\n\
+[[Skin]] {{{Sat Dec 19 2009 12:43:08 GMT+0100}}}\n\
+[[Skin]] {{{Sat Dec 19 2009 12:47:17 GMT+0100}}}\n\
+[[Skin]] {{{Sat Dec 19 2009 12:48:53 GMT+0100}}}\n\
+[[Skin]] {{{Sat Dec 19 2009 12:49:16 GMT+0100}}}\n\
+[[Skin]] {{{Sat Dec 19 2009 12:49:36 GMT+0100}}}\n\
+[[Skin]] {{{Sat Dec 19 2009 12:50:02 GMT+0100}}}\n\
+[[Skin]] {{{Sat Dec 19 2009 12:51:08 GMT+0100}}}\n\
+[[Skin]] {{{Sat Dec 19 2009 12:51:20 GMT+0100}}}\n\
+[[Skin]] {{{Sat Dec 19 2009 12:53:26 GMT+0100}}}\n\
+[[Testcase::Tables]] {{{Sat Dec 19 2009 12:56:36 GMT+0100}}}\n\
+[[Testcase::Tables]] {{{Sat Dec 19 2009 12:58:22 GMT+0100}}}\n\
+[[Testcase::Tables]] {{{Sat Dec 19 2009 13:01:13 GMT+0100}}}\n\
+[[Testcase::Tables]] {{{Sat Dec 19 2009 13:01:52 GMT+0100}}}\n\
+[[Testcase::Tables]] {{{Sat Dec 19 2009 13:04:46 GMT+0100}}}\n\
+[[Testcase::Tables]] {{{Sat Dec 19 2009 13:13:12 GMT+0100}}}\n\
+[[Testcase::Tables]] {{{Sat Dec 19 2009 13:19:29 GMT+0100}}}\n\
+[[Testcase::Tables]] {{{Sat Dec 19 2009 13:19:40 GMT+0100}}}\n\
+[[WoaS::Bootscript]] {{{Sat Dec 19 2009 14:31:37 GMT+0100}}}\n\
+[[Testcase::Tables]] {{{Sat Dec 19 2009 14:32:13 GMT+0100}}}\n\
+[[Testcase::Tables]] {{{Sat Dec 19 2009 14:32:24 GMT+0100}}}\n\
+[[WoaS::Bootscript]] {{{Sat Dec 19 2009 14:33:14 GMT+0100}}}\n\
+[[Testcase::Tables]] {{{Sat Dec 19 2009 14:33:34 GMT+0100}}}\n\
+[[WoaS::Bootscript]] {{{Sat Dec 19 2009 14:34:08 GMT+0100}}}\n\
+[[WoaS::Bootscript]] {{{Sat Dec 19 2009 14:38:34 GMT+0100}}}\n\
+[[WoaS::Bootscript]] {{{Sat Dec 19 2009 14:39:09 GMT+0100}}}\n\
+[[WoaS::Bootscript]] {{{Sat Dec 19 2009 14:39:40 GMT+0100}}}\n\
+[[Testcase::Tables]] {{{Sat Dec 19 2009 14:40:40 GMT+0100}}}\n\
+[[WoaS::Bootscript]] {{{Sat Dec 19 2009 14:41:12 GMT+0100}}}\n\
+[[WoaS::Bootscript]] {{{Sat Dec 19 2009 14:41:50 GMT+0100}}}\n\
+[[Testcase::Tables]] {{{Sat Dec 19 2009 14:42:04 GMT+0100}}}\n\
+[[Testcase::Tables]] {{{Sat Dec 19 2009 14:42:23 GMT+0100}}}\n\
+[[WoaS::Bootscript]] {{{Sat Dec 19 2009 14:42:49 GMT+0100}}}\n\
+[[WoaS::Bootscript]] {{{Sat Dec 19 2009 14:43:13 GMT+0100}}}\n\
+[[WoaS::Bootscript]] {{{Sat Dec 19 2009 14:44:27 GMT+0100}}}\n\
+[[WoaS::Bootscript]] {{{Sat Dec 19 2009 14:44:42 GMT+0100}}}\n\
+[[Testcase::Tables]] {{{Sat Dec 19 2009 14:45:08 GMT+0100}}}\n\
+[[WoaS::Bootscript]] {{{Sat Dec 19 2009 14:48:19 GMT+0100}}}\n\
+[[Testcase::Tables]] {{{Sat Dec 19 2009 14:48:33 GMT+0100}}}\n\
+[[WoaS::Bootscript]] {{{Sat Dec 19 2009 14:49:54 GMT+0100}}}\n\
+[[WoaS::Bootscript]] {{{Sat Dec 19 2009 14:50:23 GMT+0100}}}\n\
+[[Testcase::Tables]] {{{Sat Dec 19 2009 14:50:46 GMT+0100}}}\n\
+[[WoaS::Bootscript]] {{{Sat Dec 19 2009 14:52:33 GMT+0100}}}\n\
+[[WoaS::Bootscript]] {{{Sat Dec 19 2009 14:53:42 GMT+0100}}}\n\
+[[WoaS::Bootscript]] {{{Sat Dec 19 2009 14:54:01 GMT+0100}}}\n\
+[[WoaS::Bootscript]] {{{Sat Dec 19 2009 14:56:05 GMT+0100}}}\n\
+[[WoaS::Bootscript]] {{{Sat Dec 19 2009 14:58:18 GMT+0100}}}\n\
+[[WoaS::Bootscript]] {{{Sat Dec 19 2009 14:58:58 GMT+0100}}}\n\
+[[WoaS::Bootscript]] {{{Sat Dec 19 2009 14:59:50 GMT+0100}}}\n\
+[[WoaS::Bootscript]] {{{Sat Dec 19 2009 15:00:35 GMT+0100}}}\n\
+[[WoaS::Bootscript]] {{{Sat Dec 19 2009 15:01:15 GMT+0100}}}\n\
+[[WoaS::Bootscript]] {{{Sat Dec 19 2009 15:02:28 GMT+0100}}}\n\
+[[WoaS::Bootscript]] {{{Sat Dec 19 2009 15:04:41 GMT+0100}}}\n\
+[[WoaS::Bootscript]] {{{Sat Dec 19 2009 15:05:32 GMT+0100}}}\n\
+[[Testcase::Tables]] {{{Sat Dec 19 2009 15:06:02 GMT+0100}}}\n\
+[[Testcase::Tables]] {{{Sat Dec 19 2009 15:06:44 GMT+0100}}}\n\
+[[WoaS::Bootscript]] {{{Sat Dec 19 2009 15:33:16 GMT+0100}}}\n\
+[[Testcase::Tables]] {{{Sat Dec 19 2009 15:34:07 GMT+0100}}}\n\
+[[Di\u00e2critics]] {{{Mon Dec 21 2009 15:01:34 GMT+0100}}}\n\
+[[Skin]] {{{Mon Dec 21 2009 15:34:33 GMT+0100}}}\n\
+[[Skin]] {{{Mon Dec 21 2009 15:35:10 GMT+0100}}}\n\
+[[WoaS::Bootscript]] {{{Mon Dec 21 2009 18:17:23 GMT+0100}}}\n\
+[[WoaS::Bootscript]] {{{Mon Dec 21 2009 18:26:50 GMT+0100}}}\n\
+[[game::page3]] {{{Mon Dec 21 2009 18:28:14 GMT+0100}}}\n\
+[[Main Page]] {{{Mon Dec 21 2009 18:41:04 GMT+0100}}}\n\
+[[Feature::Buttons]] {{{Mon Dec 21 2009 19:19:18 GMT+0100}}}\n\
+[[Feature::Buttons]] {{{Mon Dec 21 2009 19:20:59 GMT+0100}}}',
+'= Embedding external html\n\
+\n\
+You can embed a local html file, like this:\n\
+\n\
+{{{\n\
+\x3Chtml\x3E\n\
+ \x3Cobject data="project/list.html" style="width:100%; height:630px;"\x3E\n\
+ "File Not Found"\n\
+ \x3C/object\x3E\n\
+\x3C/html\x3E\n\
+}}}\n\
+Or external url\'s, like so:\n\
+{{{\n\
+\x3Chtml\x3E\n\
+ \x3Cobject data="http://tigoo.com" style="width:100%; height:630px;"\x3E\n\
+ "URL Not Found"\n\
+ \x3C/object\x3E\n\
+\x3C/html\x3E\n\
+}}}\n\
+\n\
+\x3Chr/\x3E\n\
+\n\
+\x3Chtml\x3E\n\
+\x3Cobject data="http://tigoo.com" style="width:100%; height:630px;"\x3E\n\
+"Sorry, the file could not be displayed"\n\
+\x3C/object\x3E\n\
+\x3C/html\x3E',
+'MY={\n\
+ weapon: "nothing",\n\
+ health: "100",\n\
+ monster: "hungry"\n\
+}',
+'\u00ab\u00ab\u00abGameLoadVars();\u00bb\u00bb\u00bb\n\
+= start\n\
+\x3Cscript\x3E\n\
+function GameAction(){\n\
+ GameReset();\n\
+go_to(\'game::start\'); \n\
+woas.bookmark();\n\
+}\n\
+\x3C/script\x3E\n\
+\x3Cinput value="Reset Game" style="width: 200px;" onclick="javascript:GameAction()" type="button"\x3E\n\
+----\n\
+\u00ab\u00ab\u00ab\n\
+\n\
+print("\x3Chr/\x3E");\n\
+if(MY.weapon=="nothing")\n\
+  print("You are unarmed");\n\
+else\n\
+  print("You have a "+MY.weapon);\n\
+print("\x3Cbr/\x3EYour health is "+MY.health)\n\
+\u00bb\u00bb\u00bb\n\
+\n\
+Continue to: [[game::page1]]',
+'\u00ab\u00ab\u00abGameLoadVars();\u00bb\u00bb\u00bb\n\
+\n\
+= page1\n\
+\n\
+You are in a clearing. There are some trees in the distance.\n\
+\u00ab\u00ab\u00ab\n\
+if(MY.weapon!=\'knife\')\n\
+ print("There is a knife on the ground.");\n\
+\u00bb\u00bb\u00bb\n\
+You can go West or East\n\
+----\n\
+\u00ab\u00ab\u00ab\n\
+if(MY.weapon=="nothing")\n\
+  print("You are unarmed");\n\
+else\n\
+  print("You have a "+MY.weapon);\n\
+print("\x3Cbr/\x3EYour health is "+MY.health)\u00bb\u00bb\u00bb\n\
+\n\
+What do you want to do?\n\
+----\n\
+\u00ab\u00ab\u00ab\n\
+if(MY.weapon!=\'knife\')\n\
+print("\x3Ca href=\\"javascript:MY.weapon=\'knife\'; GameSaveVars(); go_to(\'game::page1\'); woas.bookmark();\\"\x3EGrab knife\x3C/a\x3E ")\n\
+print("\x3Ca href=\\"javascript:go_to(\'game::page2\'); woas.bookmark();\\"\x3EGo West\x3C/a\x3E ")\n\
+print("\x3Ca href=\\"javascript:go_to(\'game::page3\'); woas.bookmark();\\"\x3EGo East\x3C/a\x3E ")\n\
+\n\
+\u00bb\u00bb\u00bb\n\
+\n\
+\n\
+',
+'\u00ab\u00ab\u00abGameLoadVars();\u00bb\u00bb\u00bb\n\
+\n\
+= page2 West of the clearing\n\
+\n\
+There is a fluffy bunny\u00ab\u00ab\u00ab\n\
+if(MY.weapon!="carrot")\n\
+  print(" and a carrot");\n\
+\u00bb\u00bb\u00bb here.\n\
+\n\
+You can go back East\n\
+----\n\
+\u00ab\u00ab\u00ab\n\
+if(MY.weapon=="nothing")\n\
+  print("You are unarmed");\n\
+else\n\
+  print("You have a "+MY.weapon);\n\
+print("\x3Cbr/\x3EYour health is "+MY.health)\u00bb\u00bb\u00bb\n\
+\n\
+What do you want to do?\n\
+----\n\
+\u00ab\u00ab\u00ab\n\
+if(MY.weapon!=\'carrot\')\n\
+print("\x3Ca href=\\"javascript:MY.weapon=\'carrot\'; GameSaveVars(); go_to(\'game::page2\'); woas.bookmark();\\"\x3EGrab carrot\x3C/a\x3E ")\n\
+print("\x3Ca href=\\"javascript:GameSaveVars(); go_to(\'game::page1\'); woas.bookmark();\\"\x3EGo East\x3C/a\x3E ")\n\
+\u00bb\u00bb\u00bb\n\
+\n\
+\n\
+',
+'\u00ab\u00ab\u00abGameLoadVars();if(MY.health===undefined)go_to("game::start"); \u00bb\u00bb\u00bb\n\
+= page3 Monster cave\n\
+\n\
+There is a \u00ab\u00ab\u00abprint(MY.monster)\u00bb\u00bb\u00bb monster here.\n\
+\u00ab\u00ab\u00ab\n\
+if(MY.monster==\'happy\'){\n\
+  print("The monster stares happily at you! Behind him, west of you, you see a pathway.");\n\
+}else{\n\
+	if(MY.monster==\'hungry\')\n\
+		print("A hungry monster! And he\'s in a bad mood too! ");\n\
+	if(MY.weapon==\'knife\')\n\
+		print("The monster stares at your knife, he feels threatened. ");\n\
+	if(MY.weapon==\'nothing\')\n\
+		print("The monster stares at you... as if you were a meal... ");\n\
+	if(MY.weapon==\'carrot\')\n\
+		print("The monster stares at your carrot. His stomach growls, poor monster! ");\n\
+}\n\
+\u00bb\u00bb\u00bb\n\
+----\n\
+\u00ab\u00ab\u00ab\n\
+if(MY.weapon=="nothing")\n\
+  print("You are unarmed");\n\
+else\n\
+  print("You have a "+MY.weapon);\n\
+print("\x3Cbr/\x3EYour health is "+MY.health)\n\
+\u00bb\u00bb\u00bb\n\
+----\n\
+\u00ab\u00ab\u00ab\n\
+if(MY.monster==\'happy\'){\n\
+  print("\x3Ca href=\\"javascript:GameSaveVars(); go_to(\'game::page1\'); woas.bookmark();\\"\x3EGo West\x3C/a\x3E ");\n\
+  print("\x3Ca href=\\"javascript:GameSaveVars(); go_to(\'game::page4\'); woas.bookmark();\\"\x3EGo East\x3C/a\x3E ");\n\
+}else{\n\
+if(MY.weapon==\'knife\')\n\
+  print("\x3Ca href=\\"javascript:GameSaveVars(); go_to(\'game::page1\'); woas.bookmark();\\"\x3ESlowly walk out of the cave\x3C/a\x3E ")\n\
+if(MY.weapon==\'nothing\')\n\
+  print("\x3Ca href=\\"javascript:GameSaveVars(); go_to(\'game::page1\'); woas.bookmark();\\"\x3ERun out of the cave as fast as you can!\x3C/a\x3E ")\n\
+if(MY.weapon==\'carrot\')\n\
+  print("\x3Ca href=\\"javascript:MY.monster=\'happy\'; MY.weapon=\'nothing\'; GameSaveVars(); go_to(\'game::page3\'); woas.bookmark();\\"\x3EFeed the monster the carrot\x3C/a\x3E ");\n\
+}\n\
+\u00bb\u00bb\u00bb\n\
+  \n\
+',
+'= page4 End of the game!\n\
+\n\
+Hurray! You made it!\n\
+If the game programmers were not that lazy, you would have seen graphics made with [[http://www.walterzorn.com/jsgraphics/jsgraphics_e.htm|jsgraphics]], but alas, due to budget constraints we only can offer [[http://www.p01.org/releases/Drawing_lines_in_JavaScript/|Drawing_lines_in_JavaScript]]\n\
+\n\
+\x3Cdiv id="endgame_canvas"\x3E\x3C/div\x3E\n\
+\x3Cscript\x3E\n\
+var pencil="";\n\
+function drawLine(Ax,Ay,Bx,By){\n\
+	\n\
+	var lineLength = Math.sqrt( (Ax-Bx)*(Ax-Bx)+(Ay-By)*(Ay-By) );\n\
+for( var i=0; i\x3ClineLength; i++ )\n\
+	pencil += "\x3Cdiv style=\'position:absolute;left:"+ Math.round( Ax+(Bx-Ax)*i/lineLength  ) +"px;top:"+ Math.round( Ay+(By-Ay)*i/lineLength  ) +"px;width:1px;height:1px;background:#000\'\x3E\x3C/div\x3E";\n\
+}\n\
+drawLine(100,100,200,150);\n\
+drawLine(200,150,400,90);\n\
+drawLine(400,90, 430,260);\n\
+$("endgame_canvas").innerHTML=pencil;\n\
+\x3C/script\x3E\n\
+',
+'= SANDBOX\n\
+\n\
+\n\
+[[Namespace::Menu]]\n\
+\n\
+== Let WOAS remind you how many seconds it is \'till certain date\n\
+\n\
+\u00ab\u00ab\u00ab\n\
+Date.prototype.getDaysBetween = function(d) {\n\
+  var d2;\n\
+\n\
+  // Extra code for argument options\n\
+    d2 = new Date(d.getTime());\n\
+\n\
+  if (d2 == "Invalid Date")\n\
+    return d2;\n\
+  // End of extra code\n\
+\n\
+  d2.setHours(this.getHours(), this.getMinutes(), this.getSeconds(), this.getMilliseconds());\n\
+\n\
+  var diff = d2.getTime() - this.getTime();\n\
+  return (diff)/this.msPERDAY;\n\
+};\n\
+\n\
+now = new Date();\n\
+birthday = new Date(2009,11,1);\n\
+print(now.getDaysBetween(birthday));\n\
+\u00bb\u00bb\u00bb\n\
+\n\
+\n\
+\x3Cform\x3E\n\
+Char: \x3Cinput type="text" id="char" size="15" /\x3E Keycode: \x3Cinput type="text" id="keycode" size="15" /\x3E\n\
+\x3C/form\x3E\n\
+\n\
+\x3Cscript type="text/javascript"\x3E\n\
+\n\
+var charfield=document.getElementById("char")\n\
+charfield.onkeydown=function(e){\n\
+var e=window.event || e\n\
+document.getElementById("keycode").value=e.keyCode\n\
+}\n\
+\n\
+\x3C/script\x3E',
+'= Tables\n\
+\n\
+[[Special::Edit CSS]]\n\
+{|\n\
+|+ Table Caption\n\
+| *colum 1* || *column 2* || *column 3*\n\
+|-\n\
+| line 2 || [[a link]] || something\n\
+|-\n\
+| line 3 || || more stuff\n\
+|} \n\
+\n\
+[[Special::Edit Bootscript]]\n\
+\u00ab\u00ab\u00ab%js:print("EHW")\u00bb\u00bb\u00bb\n\
+\u00ab\u00ab\u00ab%pre:print("EHW")\u00bb\u00bb\u00bb\n\
+\n\
+\u00ab\u00ab\u00ab%nobr:\n\
+\x3Ctable border="1"\x3E\n\
+\x3Ctr\x3E\n\
+ \x3Ctd\x3EA1\x3C/td\x3E\n\
+ \x3Ctd\x3EB1\x3C/td\x3E\x3Ctd\x3EC1\x3C/td\x3E\n\
+\x3C/tr\x3E\n\
+\x3Ctr\x3E\n\
+ \x3Ctd\x3EA2\x3C/td\x3E\x3Ctd\x3EB2\x3C/td\x3E\x3Ctd\x3EC2\x3C/td\x3E\n\
+\x3C/tr\x3E\n\
+\x3C/table\x3E\n\
+\u00bb\u00bb\u00bb\n\
+\n\
+\x3Cdiv\x3E\n\
+\x3Ctable class="stats" cellspacing="0" border=0\x3E\n\
+\x3Ctr\x3E\n\
+ \x3Ctd class="hed" colspan="4"\x3EThese stats here are good\x3C/td\x3E\n\
+\x3C/tr\x3E\n\
+\x3Ctr\x3E\n\
+ \x3Ctd\x3EThe thing\x3C/td\x3E\n\
+ \x3Ctd\x3E10.0\x3C/td\x3E\n\
+ \x3Ctd\x3E9.8\x3C/td\x3E\n\
+ \x3Ctd\x3E6.7\x3C/td\x3E\n\
+\x3C/tr\x3E\n\
+\x3Ctr\x3E\n\
+ \x3Ctd\x3EOther thing\x3C/td\x3E\n\
+ \x3Ctd\x3E6.5\x3C/td\x3E\n\
+ \x3Ctd\x3E8.9\x3C/td\x3E\n\
+ \x3Ctd\x3E9.9\x3C/td\x3E\n\
+\x3C/tr\x3E\n\
+\x3C/table\x3E\n\
+\x3C/div\x3E\n\
+\n\
+\u00ab\u00ab\u00ab%nobr:\n\
+\x3Ctable summary="Software or other data table" class="sofT" cellspacing="0"\x3E\n\
+\x3Ctr\x3E\n\
+	\x3Ctd colspan="4" class="helpHed"\x3EData table template, e.g., software list\x3C/td\x3E\n\
+\x3C/tr\x3E\n\
+\x3Ctr\x3E\n\
+	\x3Ctd class="helpHed"\x3EProgram\x3C/td\x3E\n\
+	\x3Ctd class="helpHed"\x3EPlatform\x3C/td\x3E\n\
+	\x3Ctd class="helpHed"\x3EVersion\x3C/td\x3E\n\
+	\x3Ctd class="helpHed"\x3ESupport Level\x3C/td\x3E\n\
+\x3C/tr\x3E\n\
+\x3Ctr\x3E\n\
+	\x3Ctd class="sup"\x3EAdobe Acrobat\x3C/td\x3E\n\
+	\x3Ctd\x3EMac & PC\x3C/td\x3E  \n\
+	\x3Ctd\x3E5.0 or higher\x3C/td\x3E \n\
+	\x3Ctd\x3E2\x3C/td\x3E \n\
+\x3C/tr\x3E \n\
+\x3Ctr\x3E \n\
+	\x3Ctd\x3EAdobe Illustrator\x3C/td\x3E \n\
+	\x3Ctd\x3EMac & PC\x3C/td\x3E  \n\
+	\x3Ctd\x3E8.0 or higher\x3C/td\x3E \n\
+	\x3Ctd\x3E3\x3C/td\x3E \n\
+\x3C/tr\x3E \n\
+\x3Ctr\x3E \n\
+	\x3Ctd\x3EAdobe Imageready\x3C/td\x3E \n\
+	\x3Ctd\x3EMac & PC\x3C/td\x3E  \n\
+	\x3Ctd\x3E2 or higher\x3C/td\x3E \n\
+	\x3Ctd\x3E3\x3C/td\x3E \n\
+\x3C/tr\x3E \n\
+\x3Ctr\x3E\n\
+ 	\x3Ctd\x3EAdobe Pagemaker\x3C/td\x3E \n\
+ 	\x3Ctd\x3EMac & PC\x3C/td\x3E  \n\
+ 	\x3Ctd\x3E6.5\x3C/td\x3E \n\
+ 	\x3Ctd\x3E3\x3C/td\x3E\n\
+ 	\x3C/tr\x3E \n\
+\x3Ctr\x3E \n\
+	\x3Ctd\x3EAdobe Photoshop\x3C/td\x3E \n\
+	\x3Ctd\x3EMac & PC\x3C/td\x3E \n\
+	\x3Ctd\x3E5.5 or higher\x3C/td\x3E \n\
+	\x3Ctd\x3E1\x3C/td\x3E \n\
+\x3C/tr\x3E \n\
+\x3Ctr\x3E \n\
+	\x3Ctd\x3EAdobe Reader\x3C/td\x3E \n\
+	\x3Ctd\x3EMac & PC\x3C/td\x3E \n\
+	\x3Ctd\x3E5.0 or higher\x3C/td\x3E \n\
+	\x3Ctd\x3E2\x3C/td\x3E\n\
+\x3C/tr\x3E \n\
+\x3Ctr\x3E \n\
+	\x3Ctd class="sup"\x3EAladdin Stuffit Expander\x3C/td\x3E  \n\
+	\x3Ctd\x3EMac\x3C/td\x3E \n\
+	\x3Ctd\x3E6.5.1 or higher\x3C/td\x3E  \n\
+	\x3Ctd\x3E2\x3C/td\x3E \n\
+\x3C/tr\x3E \n\
+\x3C/table\x3E\n\
+\u00bb\u00bb\u00bb'
 ];
 
 /* DFQRCTsKlU-0000490-END */
 
 /* ]]> */ </script>
 <style type="text/css">/* user defined */
+
+/* needed in: an alternative table */
+table.helpT
+{ text-align: center;
+font-family: Verdana;
+font-weight: normal;
+font-size: 11px;
+color: #404040;
+width: 500px;
+background-color: #fafafa;
+border: 1px #6699CC solid;
+border-collapse: collapse;
+border-spacing: 0px; }
+
+td.helpHed
+{ border-bottom: 2px solid #6699CC;
+border-left: 1px solid #6699CC;
+background-color: #BEC8D1;
+text-align: left;
+text-indent: 5px;
+font-family: Verdana;
+font-weight: bold;
+font-size: 11px;
+color: #404040; }
+
+td.helpBod
+{ border-bottom: 1px solid #9CF;
+border-top: 0px;
+border-left: 1px solid #9CF;
+border-right: 0px;
+text-align: left;
+text-indent: 10px;
+font-family: Verdana, sans-serif, Arial;
+font-weight: normal;
+font-size: 11px;
+color: #404040;
+background-color: #fafafa; }
+
+table.sofT
+{ text-align: center;
+font-family: Verdana;
+font-weight: normal;
+font-size: 11px;
+color: #404040;
+width: 580px;
+background-color: #fafafa;
+border: 1px #6699CC solid;
+border-collapse: collapse;
+border-spacing: 0px; } 
+
 
 #content h2 {
 font-size:1.75em;
@@ -1743,30 +2292,6 @@ display: inline;
 background-color: #99bbdd;
 } 
 
-
-/* links */
-a.link {
-	color: blue;
-}
-a.link:hover {
-	text-decoration: underline;
-}
-a.unlink { /* unexisting */
-	color: red;
-}
-a.unlink:hover {
-	text-decoration: underline;
-}
-a {
-	cursor: pointer;
-	/* FOR IE5.5/IE6 */
-	/* cursor: hand; */
-}
-a.world { /* outside world link */
-	color: darkgreen;
-	text-decoration: underline;
-}
-
 .footnote { background-color:  #EEF; font-size: 0.75em; line-height: 1em; font-style: italic; vertical-align:super }
 
 .note {
@@ -1794,6 +2319,35 @@ a.world { /* outside world link */
 .citation:before { content: open-quote "... " }
 .citation:after { content: " ..." close-quote; }
 
+
+/* === Here starts Wiki CSS  === */
+
+
+/* links */
+a.link {
+	color: blue;
+}
+a.link:hover {
+	text-decoration: underline;
+}
+a.unlink { /* unexisting */
+	color: red;
+}
+a.unlink:hover {
+	text-decoration: underline;
+}
+a {
+	cursor: pointer;
+	/* FOR IE5.5/IE6 */
+	/* cursor: hand; */
+}
+a.world { /* outside world link */
+	color: darkgreen;
+	text-decoration: underline;
+}
+
+/* http://www.socialgeek.be/blog/read/highlighting-thumbnails-using-transparency */
+.menu_button:hover {background:#DDD;}
 
 /* Main text */
 div.text_area {
@@ -1881,9 +2435,10 @@ div.menu_area {
 	border-style: solid;
 	font-size: 9pt;
 	background-color: white;
-	padding: 5pt;
+	padding: 4pt;
 	width: 13%;
 	left: 1%;
+	top: 35px;
 }
 
 div.wiki_header {
@@ -1893,6 +2448,7 @@ div.wiki_header {
 	-moz-opacity:.75;opacity:.75;
 	z-index: 1;
 	width: 99%;
+	/* background: url(background.png) 0% 0% repeat-x; */
 }
 
 div.wiki_toc {
@@ -2009,18 +2565,18 @@ div.text_area.locked,
 <tbody><tr>
 <td><span class="title" id="wiki_title">Main Page</span></td>
 <td align="right">
-<div id="menu_back" style="display: inline; cursor: pointer; visibility: visible;"><a title="Back" onclick="go_back()"><img id="img_back" style="display: inline; visibility: visible;" alt="Back" src="data:image/png;base64,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"><span id="alt_back" style="display: none; visibility: hidden;">&nbsp;<strong>[Back]</strong>&nbsp;</span></a></div>
-<div id="menu_forward" style="display: none; cursor: pointer; visibility: hidden;"><a title="Forward" onclick="go_forward()"><img id="img_forward" style="display: inline; visibility: visible;" alt="Forward" src="data:image/png;base64,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"><span id="alt_forward" style="display: none; visibility: hidden;">&nbsp;<strong>[Forward]</strong>&nbsp;</span></a></div>
-<div id="menu_advanced" style="display: inline; cursor: pointer; visibility: visible;"><a title="Advanced" onclick="advanced()"><img id="img_advanced" style="display: inline; visibility: visible;" alt="Advanced" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAAK/INwWK6QAAAAZiS0dEAP8A/wD/oL2nkwAABcZJREFUeNqNVW1MlFcWfs657ywdhqXIsJRkDNuFTmKklXZTR6g7Wxs1BQsmVRvaNE2JydYlrOy6MTGrpg20KT/Kpqi7bnRd+0cEbWs/BJtqSIpJK5GMFLrQbUH5mhEWmJ2BwMI473tPf8w7Feyy6Ulubm5yz3me+9zzAaxgRORi5mKlVBoRAQDba0UXAGrJ+f/dhRPAJQACYBDAH5nZuSTQvaYSnAjM/HMiKl7pLttsz+fl5cnFixfj+/fvt9LT0wXAN0T0yP9wTDyP+T4AhwDM2MTevPd5DICYGQA6fT6fjIyMmOFw2Ors7IwVFRUJgGEiylziQ7ac2wHcdLlcsmfPHqu6utokIgFQv0RyAjMb9mEdgEmfzyc3btywpqenpbu7O5aamioAnrd9HPb+SwC6rKxMWlpa4pcuXbI6OzutTZs2CYBvkh/hFJELWut/MfNGEek1DKPy+vXrmJ6eFrfbLatWrWKn0wkAypYxuZd4vV46fPhwzDAMg4hoYGBArl27BgAnmRK3znu93mdLS0vztdYfK6W2m6b5jMfjQV5eHiKRCHp6eoxwOAwAfSICAJYNsBEA0tLSVFZWluTm5lpNTU0qFot1M/MxMPM6APFz585Z8/Pz8fLycguA5OTk6EOHDklfX5/09vZaFRUVAmDMMAyXLSMAHGFmOXXqlHnkyBGzrq5OV1VVWcwsAHYm8kupVAADBw4ckKmpKWtoaMhqb2+PDw0NmaFQSPr7+3UwGNRnz541U1JSBMDf7EQ4CkBOnz4dP3bsmAlA22uciO5mkM2kITc3V0ZHR2MzMzMyNzenZ2dn9dzcnBWJRPTw8LCIiL58+bKkpqaaAL4kIvPEiRNWY2PjHQBCRCeZ+SFmdi1NX2XncH80Gn1pYGAgff369WY0GkUgEKD6+npmZvj9fnzW0UEOQ8nI8IjcvHUz5/jx47KwsIB9+/YZRHQCwB4R+Y+IxO24ellJE9GTACZSUlLE6XRqADEAQ1lZPzPLysqECRqAKIN0Y+PbZkNDg2kzf/vHtJJkNWYAKAGwnYgeNAwjnYlHwSSZrqes1T95QbYW10hdXZ1mJhOAMHPNPXWxovEPMImaAMi65/5gnvl8WNdVN0k2fiNAjhQVP67feqvBskGqbSfjx4AoAASi8wCk4NnfmS19E7p/flFebPxIHnLv04BH/+rXRSIi+uDBgyYAUUrtToLYkq0oFYGoxQ5+p+Xrf+veqVn9ctNnuvS1d+ThxytMAOarr70q4+PjEg6HrZqamqRcLySJrgRCAJYHn5zRlc0d+umD/5B1RbtMgDQr1q2trdbg4KB0dXXJ2NiYtXv3bguAdrvd21avXv0DyZOHvwIkBTv3xpr7JnTv1Gwi+J9OSeETz90hsBDRewA6PB6PtLW1xQOBgFy5ckUCgUDc7/dLdnZ2d3NzM/Lz878PTAC0UioXQOX9jo3Y/9u9jsK8Vfjz5RsY/2qQJjo+jfd+8b5DoD8SkV1EtCsUCv2zqqrKuH37dnxiYgK3bt1S27Ztw+TkpCc9PT0zMzMTAEjZICIiXgDVufc/qfMdLjrX8y0i4WlMtH9i9nzxruPRxwo/mJ2d3RWPxxnAHDN/HI1Gy7q6urI3bNgQdzgcZkNDg+HxeL5yu91/OXPmTKJL2N0UO3bszMx+IHPSRY+IR1XFfvHTvfGHH62IAZAtW7ZcqK2tTY7F5HCCUupBAP1KKXE4HJKRkRE+evRo8Zo1a+5+tN24uK2tDbW1tb9PVGeGxZxtApDi4uILIyOjqrKykgCQYSRSnW1Hv9+fVl9fv8PhcLxYUFDwgNfr/b5wYbMAAJSXl9Pi4iJOnvz70yWlW5o3PbXxw9ffeP2VsbExIxgMUigUos2bNy/z8fl8dPXqVSopKYHdbpYHX5ZGzGhtbWURwfz8f7GwsIhIJIpgMMjj4+MUjUYRDodRWFgIAFi7di3a29uxdetWIDHdDKKkgnftO1VKiuX0HbQtAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAABJRU5ErkJggg=="><span id="alt_advanced" style="display: none; visibility: hidden;">&nbsp;<strong>[Advanced]</strong>&nbsp;</span></a></div>
-<div id="menu_home" style="display: inline; cursor: pointer; visibility: visible;"><a id="a_home" title="Main Page" onclick="home()"><img id="img_home" style="display: inline; visibility: visible;" alt="Main Page" src="data:image/png;base64,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"><span id="alt_home" style="display: none; visibility: hidden;">&nbsp;<strong>[Home]</strong>&nbsp;</span></a></div>
-<div id="menu_unlock" style="display: none; cursor: pointer; visibility: hidden;"><a title="Unlock" onclick="unlock()"><img id="img_lock" style="display: inline; visibility: visible;" alt="Unlock" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA%2FwD%2FAP%2BgvaeTAAAEnUlEQVR42o2WX2wUVRTGf3NnZ7a7tkvTdA1rlxSWthgwEpoawh9jS8SHxofqAyaGBzBBE15IBLTxwfgCGBITfZAXk%2FYBjDE09QGJpqKFGBKiDYkuVChd7KbbbbtLy3bb2dk%2Fs3N96M52t63ASU5m5t7c853zne%2FeOwoV9vDhwxpWWSgUypVelYphWfKnmnACrxd8z549rwB2yYslfwuoB9zAayWgXYBrXQQneKU3NzfvcrLs7%2B%2BXsVhMTk1NyVu3bsmK7N8EZCqVcr4PlUDXVlBpBw4ceDEajd7u7e0tJpNJDh48SDqdJpVK4ff7iUQi9Pf3A1wBWFpa4s6dOwDfA92rQdYAzM3NvQRw%2BvRp9erVq1YwGGT79u3s2LGDrVu3Eg6H87t376avr6%2B8ZnZ2lgcPHgAMAi2V%2FaribXp6WllcXLw4MTHByMgIR44ccW3YsOFDr9c76vP54vF4vKOnp6cvGo3S1NRUlVhrayvAp6vEsLYCALd7pUqPx3O%2FpaVl9OjRoxPnzp27%2FH9qOX78OMAMMF2psKoKxsfHBYBpmuUxr9c729raagQCAftJcrxw4QKACeQrx8sA4XBYDAwM1K5eaBiGb3h4uOn69es2z2bFdQG%2B%2FOiDd4bvz%2FQBDA4OkkgknAb%2BtjrCsWPHqK1dyUXXdS5dusThw4cvAreBfxyaFGeDhUIhMxUfJT8%2Fibn4iHzGIJtZYPFxCjOTAUDTNPQaN8Klorlr2NXTSywWI5FI0N7eDvAV8DUQKW3O6h4ouTS59AxGIkrWWCLzOMlcMsGSsQQSPJ4adK8HVRVo6spJUVdXx82bN9m3b98J4LsSwFoV2baNLC5TKG2wFXtZcxKEEKAoKELBtiWvn%2FqBzz45iRCCuro6VFV1wmwCtHVVBBIpJUiJlEViMynGJmYxM1kE0FBfy6aNcPZKnEgkghCCTIm%2BxsZGhoeH6erqugy8CvwJ5KopEipCCBShIIQk8Hw9HpEjs7CIRCBqdHq%2FvceNGzcoFAqMj49jWRaKoqDrOps3b2ZkZISOjo7fgZ3AXREKhbIrHBWxihZWvoCVL%2FDocZrJxBJT81kSCxne%2FfxXzp45g5TLlWqaRltbG21tbWzZsoX6%2Bnr8fj%2Fnz58H%2BAtocJUUlF0mSEFVVFSXC6G6aPR5EVkPGbeNXVJ3Z1cXhmGgKArbtm1D1%2FXl6hWl%2FOzs7HRS3ljdA9tCFjIUcovkc2mi8QTzyXlMw0RzucoBHDdNk0AgAEA0Gi2PO6BA%2FaoeKEhVQwg3Lk0nuLGBWlVimu4qwTmBQqEQwBeAbG5uPjU5OYmiKOTz%2Bf857Io2kiKyWMAqFLByuVJPLGTRAuCXoaEyHQCH3mg%2FeeLtnaecHW1ZFkNDQ870QtU9%2B%2FM3HzPx7zjZhSRZM0sulyWfzVKwiggUajw6g6Murl27hmEYaJpGMBgEIBaLoes6Y2Nj7N%2B%2FH%2BA94McywMt%2B%2FYW%2Fk%2FmpZznN9u7dy8DAALa9cv6Fw2GklHR3dwP0Aj8BdysrUAAV0EvP1X8Slfacz%2BeLp9Pp9ebeB%2F4A7gE55SnJPmneBTQAAaDO4bx06cwDFsB%2F1pf2UYdfB6cAAAAASUVORK5CYII%3D"><span id="alt_unlock" style="display: none; visibility: hidden;">&nbsp;<strong>[Unlock]</strong>&nbsp;</span></a></div>
-<div id="menu_lock" style="display: inline; cursor: pointer; visibility: visible;"><a title="Lock" onclick="lock()"><img id="img_unlock" style="display: inline; visibility: visible;" alt="Lock" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAB3RJTUUH1wMbFisGhO%2Br5wAAAAlwSFlzAAALEwAACxMBAJqcGAAAAARnQU1BAACxjwv8YQUAAANZSURBVHja3VTPT1NZGD3vvZYWGGqVNgKyEBZqwsRYtRpjJpkdMbNk5YrMZjYQF27c%2Bxe4MCxcIJmdyRAjGxMX%2FohKUGMgMAt%2BTCJ0CtqR2tLS9%2Fp%2B3eu5r8UEZphS48qbnL57b9895%2FvO970LfK%2FjKjFJlIhHxH0i9a3Ib%2Fb396%2BPj4%2FLjY0NOTMzIycmJvxEImHyv1%2BbJTP2rG8PDw9fn5ycjPX19aFYLCIWi6Gnp0cbGBgI5%2FP5XzKZjMb3nn1N5FfS6bRZKBTk%2FPx8ZWho6C337GQymR0ZGbHn5ubk1NSUHBwcLNctbHo8YHRycXFRplKpP7ieIS4TP8Xj8eejo6OmsmtsbMzh3r2m2elxMZfLyenp6QqXK8TPRCuhLEn39vZm19bWpKoN1wsH5dV3Jp2dnZFKpYJyuawIbGKeqBJq%2FSabzYrNzU10d3Wp15MHFQjtTJaWlm6xe4bry8eEl2zVb3UfO3rt71wRoegPePniBeUEWiPhoyFDlwQOd7SjI9EN27ZRyr9HV4eB5Wzx3rYbdJyl7RGMEXHCJ3KEW1h5AiE0eJ6A8F3OHVjFf%2Fj0gtSE70G4Nnzbgl%2B18ObhXfz2%2B7riOkvMhvYIlOr4MjSyWPlVlHKr8Cng2xXYTpWJCEgpKcw9x4S3XYBjbkEEssHo2lWD%2FYYQPiSjrC3okFarOnQdmq5B09QGaTQ1N0j4xRRjVw32HzKIlD9YWPgTy6vrsMxqEJlQbdYWxYnjx5CIePBdZiPkrtMNBTSdUdWjPX%2FpAk6fs%2BDRJk9lRZuEWw1sK7ERAuo9VW2cAS1SZJ7jYPbt7P4ZtNTIQ0aoOQHJUwa9NUJhnLuYxunUKbhsSZ%2BiyjqpCuxWsJ3jnPZE2w%2FzVKYJAeEFNrhOBXOzK%2FtmEIcXNITREm22BjqkEWYdIjh74Qx%2BPHOSNbAhpAgKr%2Fz3XQvlDwZaolG4bqTJGvhsU6hWdWFuleHwg1K9L%2Bqtqz4yzzah0cJo2yGU88Vdx40G9O3p%2FrbLbRo9%2FpiBVSrALH9ClVCdJDybNVDZaAxCh7W9haevlvH6nfmUZ3mv4K%2F%2FZaf6RT7uoHbhHRRPiBvEeeBfXftfGjhC9KD26YcbWlq7xz4SWeJDI4EdEUXccoCAdoZqJZf49Bkd5rOdXLtvgwAAAABJRU5ErkJggg%3D%3D"><span id="alt_lock" style="display: none; visibility: hidden;">&nbsp;<strong>[Lock]</strong>&nbsp;</span></a></div>
-<div id="menu_print" style="display: inline; cursor: pointer;  visibility: visible;"><a title="Print" onclick="page_print()"><img id="img_print" style="display: inline; visibility: visible;" alt="Print" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAMAAADXqc3KAAAAB3RJTUUH1wcECDIDhMeZAwAAAAlwSFlzAAAewQAAHsEBw2lUUwAAAARnQU1BAACxjwv8YQUAAABjUExURf8f7XNzc1JSUmNjY1paWmtra3t7e0pKSggICCkpKSEhIRgYGBAQEDExMcbGxgAAADk5OYSEhK2trYyMjJycnJSUlKWlpc7OzkJCQr29vdbW1rW1td7e3v%2F%2F%2F%2Ff39%2Bfn5%2B%2Fv7w37xZMAAAABdFJOUwBA5thmAAABKUlEQVR42n2S2a6DIBRFZRKhBRkPU9X%2B%2F1de1A7el64HcsLKDmTDMPzCcnyB1vc%2BTJgSxgg9IMK8hRfLWsDVZWddvPwIBRkzrHKrWqeLsDMHz1hkMq3P5zWRGzeICIvysl4FCRRv69ZEzOH5%2BIoHB1OXddssZWjZE%2Bd986xiTqnqYunIdVnsPN3LMLTJGm%2BaLi0RhEjVXQRFhsFNGjNmitbegIJHerCpZrqLxu6BiGwyRGEIply1U7iC5BhtABKbxA3A6VdCp2gMz0qIWASr%2FbRTWNApuRhKyrduUHVBHWIMuleUUl%2FyLThVXDyFjfDGKUUUxI8IX7Cx4F9i9CF%2BCBCi9bvQs7F2%2FIelE%2BpdoUlIeduR8hikuKujRYRJrxXtj94HNhJOf%2F2cP%2B6HGtUMDq8TAAAAAElFTkSuQmCC"><span id="alt_print" style="visibility: hidden; display: none;">&nbsp;<strong>[Print]</strong>&nbsp;</span></a></div>
-<div id="menu_key" style="display: inline; cursor: pointer; visibility: visible;"><a title="Set password" onclick="set_key()"><img id="img_key" style="display: inline; visibility: visible;" alt="Key" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAFWklEQVR4Xn2Wa2xURRTH/3Mfe3db%0A2tLabQHBtgnGDy1ioSKYCBRIIdLWNLXwiWdRLCAJGIMKYqAYP4gfeEUSFqiLsYACSoPEvmwkPmKhUJOWR61IwVKkwpbd7vPee5w7ZNdui/ySs3tOdub/n3t2dmZBRHFhGAbpuk7RuqOjg/bt20tVb6ym8vIyqqgopzfXraWDLhd1d3fHxkUiEbLmDteLK7hwbFBdXR0VFs4iVVUJwCPD4XBQaWkxnTt3jobNH2kQXXVfXx+VFC8UAowxSh3FqPQFG21Z7KBPVtnpo+V2WlOs0fRnFLIp/5mtXLGCfD6f0BhqEife2dlJOTlZYkJmqkI7Kx30tzuRzDOJZJxJIuN0MoVPJpH3eALdOuygs9tstOgllVRFFnMKCqYSX2CcSSzp6emhnOynxMCZeTa6WZNEZouT9G/HUvibTNJPJVOgFnTviEK9NYl0/YCd/nDZ6fpBjfatUSkjVbSSpk17nrxeb+wJmHDhLJhfRN/VN2DusxrqqjXYE1IRjqRAUh1QpADue4KQ/N2I4jftGAzo8AUBhwac7zawwcXQ74mgsrISLpeLWYsXBm63m5YtW4YJGSp+2qniycwURMwxkBMyIWkJuNvvB/U3YjgBXYU/ZGLAT8LkbJuBLW6CaZpobm5GYWEhU3hBe/fshsV7FQzjxsqIBDXIo5IhOdJw7cIJpCWEwRhGwCQbD8BmA+75CDPzGAonMzRdNLFn9y7LAFJLSwtaz19AdgZDxYsKTB/BN2Ypglnr4U8vh7NgE4aTqMmAmgzhyngOCbIE3lLg5QKCRUNjE7q6ukhpamyAxbx8FXxLwjNuI0ZP2YoojqxX4AFgdFaLOk0l+HUdZngARggQEbG8VITCQM4YhqxMCTfu+MB/H1AutV+CxaRsCRGDQXtisqjdb9tgsfTjsDD0QIABCKACGC1CgPb6auiGDE0BspyMGwDtXFu508czTloiCQOGGJjxtBpNhcnjsJbVcmI7NIcNyaMMWNy+3Qspuk11Ewjxl//D07ZdRJRH5Q/CEgwTIILA0lbSnemi6POA99AA+6dd9J23Jk7gdO0OkVeIFsKq4/Io1iI9Xgiczgwoebl5qK9vxG9/mvxDCfV8cCkQ+y5C3NASmJhuxmqLvLFmLE93mAhDQijC4A0Qeu4SLHK5NrNOzZKSEoxPZzj+jgK7ytB+Q8cQhLgzVUOUgcEQDCmRCxo8SIQ/aMAE4UoPUF1rQtM0tLa2gvn9fiqYOgWdl69g82IJi2cqYhV2mwxGOhgkDIYxgkAwDB0qFzfF/h8MEVQV+LSO4cdOA3PnzkFjYxOT+JnOXnt9NSw+PGbi+h0TRIDXryMQkflEA0PxhZiIQAgIRsANAF+QYFOB81cJv1yFYO3adbBQwKmqqsKRI260tV3Eti+40VKCpjAM+AwoigwydYDZMBgIIooBGWFuHogADo2hu9fEZ80yDEOH1fKysjJmHUOSdeLxfrFDhw4jJTkJbb/r2FQD3Og3xBkTjJi8RRK8XCkYBPxWWE8WJOjE4LABbV0mdp2Wcf+BjpycbOzfvx9R4i6c1p+baeKEJAJAztEqrSxS6eAGmU5tlenrDxQ6+b6Nvtys0tF3Zap5S6IdyyWaky+TXVPEnPzc8XTlcgcN1cTQS5uDQH8HLZzzXOzKTEmUaEauRotmqbSiSKIl8yQqni5TXrZMmsrEGAC05NXZNOi5FSc+4tLn/SPxrgfp14YDNK0gnwA8NhbMnkQXf/hcXPYiouLxBvEmVkTz3r9u0rGjtbR+zXIqK5pE5QvyaeOq+fSVaxP1XvueC4ajYx/5t+Vf59fSOI3DumAAAAAASUVORK5CYII="><span id="alt_key" style="display: none; visibility: hidden;">&nbsp;<strong>[Password]</strong>&nbsp;</span></a></div>
-<div id="menu_edit" style="display: inline; cursor: pointer; visibility: visible;"><a title="Edit" onclick="edit()"><img id="img_edit" style="display: inline; visibility: visible;" alt="Edit" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAAK/INwWK6QAAAAZiS0dEAP8A/wD/oL2nkwAABSVJREFUeNqVlX9oXFUWxz/3vvfmR6aZyZB0YqKhlTUIldK0ILgisv6s9Rdrq1Y32P4hRcXUij/YNuLSFP3H+ttqtFiwTVfRrtbowhpo1iK7BbWg0qildfwRMzGTkNTxdd5kZt67Z//YmWnSpIoXDvdxL+98z/l+zzlXcWqFgAuBGGD4fUu01kPGmCxgAUH1QlVMgL3hcLgzGo0GIqIr56c8iMzrGMD3feV5Xk5rfZcx5k3ABvwqAEqplIik9+3bt2DlypUml8spy7JqTn9tFxEcx5GdO3eqnp4epbVeb4zZA2jA2JVINEBLSwuO46C1BsC27dq3Umpeq9yprVu3mnA4THd3926llIhIH1D5uwJijKFYLKogCFQ8HldKKVUsFpXv+yoIglnm+37t3Pd9JicnrS1btqienh5E5CWl1DmA0aeT6jgO+Xyevr4+RkdHicfjBEFAoVCgVCrNa+VyWWmtxfM8vWHDBj8ejy8QkXalFPZM50EQUFdXx+DgIF1dXbS2trJmzRrWrl1Lc3Mz4+PjGGOwbbtGW3Vva2tTlmVJoVBQFVpVjftaSSmF7/ssW7aM1tZW2s45m97eXjo7O3n22eewbZtEIk65XK4JPFP0qi4zK24OQKFQYPny5axYsYJ0Os2mTRt5/59vMzr6LTfccCMff3KYC5YsYeHChbS0tNTMcZzTy1nNdHwWkD948KC4rmvy+bzs3r1HOjouEGPyEgRGRET+PbhXzmpeIIcOfSwiRnK5nOTzefE8T1zXlWKxaNLptJ9IJAS4QinFHJEty8J1Xa6++iq0DvHFF5+idZGCd5LLLl/L80+sYt0dnfz8cw6lqIpcY+D0hpwFICI1HYLAZ+nSDvr6/g5EcCILmMh8yepVi7juyhC33LqekyddhoeHGRkZwff9Ws+cEaAahWVZnDhxgtWrb+If+97nyKHtlCYPkD78FIf/c4zt267BnfwvL+zYRTKZwPO8eQWeNwMArTWRSJSLL76Irvs2s/q2R5g4upOIU2C6pPnu6Div7/ozr+16iuPffE97+3mzOvs3KVJKkUqlsG2Hhx/axOXXb+TOv37I4rZGImGL0ZFfaIg4PP34RWzs2kQkEiUSCc87EOelqKqDMYapqSlefnE7pdAKHn1ikPP/0Igdsjjy+U+suXYJl1zosW79PYRC4VpvnLEPZmYwNjZGJpMhk8lw7NhxXtrxJPsP+rz13hDti5Og4LNPfuSZx1aRPtrPq7v2YFkWQRD8egbVVS6XKRaL+L6P67o4jkNv7w42P3mEr45N0NYaJ/dLkYmMy/33LueDf31QCdKcGaCagdaaZDJJU1MTjY2NpFIpHCfEZX+6lGeef4V1DxzAGKH93EakLPS/8yWLFi+q+Jgd6JxhFwQBxhiSyeSc2e/7AevvuJ10+juuW/c3tj34R/oHjjP0Q4revgdPJ0FmAijA1NfXEwqFTENDg7Isaw5tVQG3be0mtbCRNw4coL7xPD56bTtNTU0ANDQ0yMyGqwKUgGD//v0MDw+rfD6vbdtGKUWpVKqlrtT/34vp6WmaU0n+ctvNCEJ//7tMT08TiURkYmJCe54HUBCRWY/+5mg0ep9SqqSUUuVyGSOGumgUYwQQjAnwvGnq6+OUy6VTQmpdHRNijIl4nvcucPes2gcYGBgIZ7PZWCaTqRsYGIh1dCyNjY+nY647FZs6MRHz8l/Hrrliceyhh7tjnpePjYyMxMbGxmLZbDaWzWZjU1NTsaGhoWgikaj5/R958KLgEIeBwgAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAAASUVORK5CYII="><span id="alt_edit" style="display: none; visibility: hidden;">&nbsp;<strong>[Edit]</strong>&nbsp;</span></a></div>
-<div id="menu_cancel" style="display: none; cursor: pointer; visibility: hidden;"><a title="Cancel" onclick="cancel()"><img id="img_cancel" style="display: inline; visibility: visible;" alt="Cancel" src="data:image/png;base64,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"><span id="alt_cancel" style="display: none; visibility: hidden;">&nbsp;[Cancel]&nbsp;</span></a></div>
-<div id="menu_save" style="display: none; cursor: pointer; visibility: hidden;"><a title="Save" onclick="save()"><img id="img_save" style="display: inline; visibility: visible;" alt="Save" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAAK/INwWK6QAAAAZiS0dEAP8A/wD/oL2nkwAAA0FJREFUeNq1lc+KHFUUxn/n3qqu6h7tGdPByTBOEjQunK26EQRdhAGRuHGE2agLH8C1j5AXCFnkAYyBEIKoRHeabWQyJKIm+IdAdwSd0HZPdVXdc1xU9UynbZIe/xy4XG5R93z3fN937hWqeALYqGcFhH8WBkTAD8DXTCS64n18Jo6ToFo4792hAEQEVUUVc87baDR0ZvYBcEFAngO7eeatD5vHjq2XKysDee/dNxkOc9zcOIJzgXPnrhD0mfDVl+cbt29f/0zEvREBHqD9ZIckWfCdIwnLy8v0+3t47x7PiRkAcexoLy6SZW1arTaAQyq+ACSEAtVAURQyGo3I8/krMANVoSxLQigtaKjKsgkAREAEmRjOzVeBCDgnCPXecU7g8Rn+ZfzvANHkYprxsYD/GYABiExAzS+yWcX/IwEATEu8V7w3vNc5skvVvt7Qyj2zAVSVVqvJj3d6nD37MeAxJimSh+qxuj5DMVNUA7t/wFNHInSC2mhyh6AkyQrd3gOKYhcRv2/V6dOJCBoCjWSJNG2jqiSpAPrQUaLpTXk+4mhnyObma4QAWTZABNJ0AdWDk5mB98bFi9fJ8gWSxBFCybQt/gagqjSbTU6cOMknl66xvd0DjJdfWmNj41WGwwznBFVIU0+z1WQwDMRRNNMUUyJXzIYQyPOMbvcB8DSqSre7S1mOKIoc5xxmRp57NITaebMjmvlVqmq8czingOJ8Zd8DK8pB3ke0y34n26y/qutp8n45dEQ1fPA+qkU0MzMxM4q8JMsCqkpelJgZqoZz4xvU6m6vZqs6bnxYA4hEBDNz/f7vliQtnBuQNBJL0xbr68cpw6+Asf7CsyRJimpFk1klcqOR4HxEVIvsfSzeRQAmApGZfQ9c/uLz81tpupB3Oidd736X7e0dVlc7rK4u1g6LuHXru30NzMA55f5vPfLc0CCEMkgIZTkY7Hog7PebiHNLS8uXKlQpqR5+O+wQEQVCvX6/lrHq+M13PmplWf760c7QnT79Cnt7h3nRFO+Fq1e/saLoRDd3rv10986Nb0WECMTAiOMkWzv+4qfPnyrY2nqb/p97+DletDFdcSz8/EtgNFrj3r0d7nJDRMT+AqKAkRUl/oStAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAABJRU5ErkJggg=="><span id="alt_save" style="display: none; visibility: hidden;">&nbsp;<strong>[Save]</strong>&nbsp;</span></a></div>
-</td></tr></tbody></table></div><p style="font-size: 20px;">&nbsp;</p>
+<div id="menu_back" style="display: inline; cursor: pointer; visibility: visible;"><a title="Back" onclick="go_back()"><img id="img_back" class="menu_button" style="display: inline; visibility: visible;" alt="Back" src="data:image/png;base64,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"><span id="alt_back" style="display: none; visibility: hidden;">&nbsp;<strong>[Back]</strong>&nbsp;</span></a></div>
+<div id="menu_forward" style="display: none; cursor: pointer; visibility: hidden;"><a title="Forward" onclick="go_forward()"><img id="img_forward" class="menu_button" style="display: inline; visibility: visible;" alt="Forward" src="data:image/png;base64,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"><span id="alt_forward" style="display: none; visibility: hidden;">&nbsp;<strong>[Forward]</strong>&nbsp;</span></a></div>
+<div id="menu_advanced" style="display: inline; cursor: pointer; visibility: visible;"><a title="Advanced" onclick="advanced()"><img id="img_advanced" class="menu_button" style="display: inline; visibility: visible;" alt="Advanced" src="data:image/png;base64,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"><span id="alt_advanced" style="display: none; visibility: hidden;">&nbsp;<strong>[Advanced]</strong>&nbsp;</span></a></div>
+<div id="menu_home" style="display: inline; cursor: pointer; visibility: visible;"><a id="a_home" title="Main Page" onclick="home()"><img id="img_home" class="menu_button" style="display: inline; visibility: visible;" alt="Main Page" src="data:image/png;base64,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"><span id="alt_home" style="display: none; visibility: hidden;">&nbsp;<strong>[Home]</strong>&nbsp;</span></a></div>
+<div id="menu_unlock" style="display: none; cursor: pointer; visibility: hidden;"><a title="Unlock" onclick="unlock()"><img id="img_lock" class="menu_button" style="display: inline; visibility: visible;" alt="Unlock" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA%2FwD%2FAP%2BgvaeTAAAEnUlEQVR42o2WX2wUVRTGf3NnZ7a7tkvTdA1rlxSWthgwEpoawh9jS8SHxofqAyaGBzBBE15IBLTxwfgCGBITfZAXk%2FYBjDE09QGJpqKFGBKiDYkuVChd7KbbbbtLy3bb2dk%2Fs3N96M52t63ASU5m5t7c853zne%2FeOwoV9vDhwxpWWSgUypVelYphWfKnmnACrxd8z549rwB2yYslfwuoB9zAayWgXYBrXQQneKU3NzfvcrLs7%2B%2BXsVhMTk1NyVu3bsmK7N8EZCqVcr4PlUDXVlBpBw4ceDEajd7u7e0tJpNJDh48SDqdJpVK4ff7iUQi9Pf3A1wBWFpa4s6dOwDfA92rQdYAzM3NvQRw%2BvRp9erVq1YwGGT79u3s2LGDrVu3Eg6H87t376avr6%2B8ZnZ2lgcPHgAMAi2V%2FaribXp6WllcXLw4MTHByMgIR44ccW3YsOFDr9c76vP54vF4vKOnp6cvGo3S1NRUlVhrayvAp6vEsLYCALd7pUqPx3O%2FpaVl9OjRoxPnzp27%2FH9qOX78OMAMMF2psKoKxsfHBYBpmuUxr9c729raagQCAftJcrxw4QKACeQrx8sA4XBYDAwM1K5eaBiGb3h4uOn69es2z2bFdQG%2B%2FOiDd4bvz%2FQBDA4OkkgknAb%2BtjrCsWPHqK1dyUXXdS5dusThw4cvAreBfxyaFGeDhUIhMxUfJT8%2Fibn4iHzGIJtZYPFxCjOTAUDTNPQaN8Klorlr2NXTSywWI5FI0N7eDvAV8DUQKW3O6h4ouTS59AxGIkrWWCLzOMlcMsGSsQQSPJ4adK8HVRVo6spJUVdXx82bN9m3b98J4LsSwFoV2baNLC5TKG2wFXtZcxKEEKAoKELBtiWvn%2FqBzz45iRCCuro6VFV1wmwCtHVVBBIpJUiJlEViMynGJmYxM1kE0FBfy6aNcPZKnEgkghCCTIm%2BxsZGhoeH6erqugy8CvwJ5KopEipCCBShIIQk8Hw9HpEjs7CIRCBqdHq%2FvceNGzcoFAqMj49jWRaKoqDrOps3b2ZkZISOjo7fgZ3AXREKhbIrHBWxihZWvoCVL%2FDocZrJxBJT81kSCxne%2FfxXzp45g5TLlWqaRltbG21tbWzZsoX6%2Bnr8fj%2Fnz58H%2BAtocJUUlF0mSEFVVFSXC6G6aPR5EVkPGbeNXVJ3Z1cXhmGgKArbtm1D1%2FXl6hWl%2FOzs7HRS3ljdA9tCFjIUcovkc2mi8QTzyXlMw0RzucoBHDdNk0AgAEA0Gi2PO6BA%2FaoeKEhVQwg3Lk0nuLGBWlVimu4qwTmBQqEQwBeAbG5uPjU5OYmiKOTz%2Bf857Io2kiKyWMAqFLByuVJPLGTRAuCXoaEyHQCH3mg%2FeeLtnaecHW1ZFkNDQ870QtU9%2B%2FM3HzPx7zjZhSRZM0sulyWfzVKwiggUajw6g6Murl27hmEYaJpGMBgEIBaLoes6Y2Nj7N%2B%2FH%2BA94McywMt%2B%2FYW%2Fk%2FmpZznN9u7dy8DAALa9cv6Fw2GklHR3dwP0Aj8BdysrUAAV0EvP1X8Slfacz%2BeLp9Pp9ebeB%2F4A7gE55SnJPmneBTQAAaDO4bx06cwDFsB%2F1pf2UYdfB6cAAAAASUVORK5CYII%3D"><span id="alt_unlock" style="display: none; visibility: hidden;">&nbsp;<strong>[Unlock]</strong>&nbsp;</span></a></div>
+<div id="menu_lock" style="display: inline; cursor: pointer; visibility: visible;"><a title="Lock" onclick="lock()"><img id="img_unlock" class="menu_button" style="display: inline; visibility: visible;" alt="Lock" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAB3RJTUUH1wMbFisGhO%2Br5wAAAAlwSFlzAAALEwAACxMBAJqcGAAAAARnQU1BAACxjwv8YQUAAANZSURBVHja3VTPT1NZGD3vvZYWGGqVNgKyEBZqwsRYtRpjJpkdMbNk5YrMZjYQF27c%2Bxe4MCxcIJmdyRAjGxMX%2FohKUGMgMAt%2BTCJ0CtqR2tLS9%2Fp%2B3eu5r8UEZphS48qbnL57b9895%2FvO970LfK%2FjKjFJlIhHxH0i9a3Ib%2Fb396%2BPj4%2FLjY0NOTMzIycmJvxEImHyv1%2BbJTP2rG8PDw9fn5ycjPX19aFYLCIWi6Gnp0cbGBgI5%2FP5XzKZjMb3nn1N5FfS6bRZKBTk%2FPx8ZWho6C337GQymR0ZGbHn5ubk1NSUHBwcLNctbHo8YHRycXFRplKpP7ieIS4TP8Xj8eejo6OmsmtsbMzh3r2m2elxMZfLyenp6QqXK8TPRCuhLEn39vZm19bWpKoN1wsH5dV3Jp2dnZFKpYJyuawIbGKeqBJq%2FSabzYrNzU10d3Wp15MHFQjtTJaWlm6xe4bry8eEl2zVb3UfO3rt71wRoegPePniBeUEWiPhoyFDlwQOd7SjI9EN27ZRyr9HV4eB5Wzx3rYbdJyl7RGMEXHCJ3KEW1h5AiE0eJ6A8F3OHVjFf%2Fj0gtSE70G4Nnzbgl%2B18ObhXfz2%2B7riOkvMhvYIlOr4MjSyWPlVlHKr8Cng2xXYTpWJCEgpKcw9x4S3XYBjbkEEssHo2lWD%2FYYQPiSjrC3okFarOnQdmq5B09QGaTQ1N0j4xRRjVw32HzKIlD9YWPgTy6vrsMxqEJlQbdYWxYnjx5CIePBdZiPkrtMNBTSdUdWjPX%2FpAk6fs%2BDRJk9lRZuEWw1sK7ERAuo9VW2cAS1SZJ7jYPbt7P4ZtNTIQ0aoOQHJUwa9NUJhnLuYxunUKbhsSZ%2BiyjqpCuxWsJ3jnPZE2w%2FzVKYJAeEFNrhOBXOzK%2FtmEIcXNITREm22BjqkEWYdIjh74Qx%2BPHOSNbAhpAgKr%2Fz3XQvlDwZaolG4bqTJGvhsU6hWdWFuleHwg1K9L%2Bqtqz4yzzah0cJo2yGU88Vdx40G9O3p%2FrbLbRo9%2FpiBVSrALH9ClVCdJDybNVDZaAxCh7W9haevlvH6nfmUZ3mv4K%2F%2FZaf6RT7uoHbhHRRPiBvEeeBfXftfGjhC9KD26YcbWlq7xz4SWeJDI4EdEUXccoCAdoZqJZf49Bkd5rOdXLtvgwAAAABJRU5ErkJggg%3D%3D"><span id="alt_lock" style="display: none; visibility: hidden;">&nbsp;<strong>[Lock]</strong>&nbsp;</span></a></div>
+<div id="menu_print" style="display: inline; cursor: pointer; visibility: visible;"><a title="Print" onclick="page_print()"><img id="img_print" class="menu_button" style="display: inline; visibility: visible;" alt="Print" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAMAAADXqc3KAAAAB3RJTUUH1wcECDIDhMeZAwAAAAlwSFlzAAAewQAAHsEBw2lUUwAAAARnQU1BAACxjwv8YQUAAABjUExURf8f7XNzc1JSUmNjY1paWmtra3t7e0pKSggICCkpKSEhIRgYGBAQEDExMcbGxgAAADk5OYSEhK2trYyMjJycnJSUlKWlpc7OzkJCQr29vdbW1rW1td7e3v%2F%2F%2F%2Ff39%2Bfn5%2B%2Fv7w37xZMAAAABdFJOUwBA5thmAAABKUlEQVR42n2S2a6DIBRFZRKhBRkPU9X%2B%2F1de1A7el64HcsLKDmTDMPzCcnyB1vc%2BTJgSxgg9IMK8hRfLWsDVZWddvPwIBRkzrHKrWqeLsDMHz1hkMq3P5zWRGzeICIvysl4FCRRv69ZEzOH5%2BIoHB1OXddssZWjZE%2Bd986xiTqnqYunIdVnsPN3LMLTJGm%2BaLi0RhEjVXQRFhsFNGjNmitbegIJHerCpZrqLxu6BiGwyRGEIply1U7iC5BhtABKbxA3A6VdCp2gMz0qIWASr%2FbRTWNApuRhKyrduUHVBHWIMuleUUl%2FyLThVXDyFjfDGKUUUxI8IX7Cx4F9i9CF%2BCBCi9bvQs7F2%2FIelE%2BpdoUlIeduR8hikuKujRYRJrxXtj94HNhJOf%2F2cP%2B6HGtUMDq8TAAAAAElFTkSuQmCC"><span id="alt_print" style="visibility: hidden; display: none;">&nbsp;<strong>[Print]</strong>&nbsp;</span></a></div>
+<div id="menu_key" style="display: inline; cursor: pointer; visibility: visible;"><a title="Set password" onclick="set_key()"><img id="img_key" class="menu_button" style="display: inline; visibility: visible;" alt="Key" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAFWklEQVR4Xn2Wa2xURRTH/3Mfe3db%0A2tLabQHBtgnGDy1ioSKYCBRIIdLWNLXwiWdRLCAJGIMKYqAYP4gfeEUSFqiLsYACSoPEvmwkPmKhUJOWR61IwVKkwpbd7vPee5w7ZNdui/ySs3tOdub/n3t2dmZBRHFhGAbpuk7RuqOjg/bt20tVb6ym8vIyqqgopzfXraWDLhd1d3fHxkUiEbLmDteLK7hwbFBdXR0VFs4iVVUJwCPD4XBQaWkxnTt3jobNH2kQXXVfXx+VFC8UAowxSh3FqPQFG21Z7KBPVtnpo+V2WlOs0fRnFLIp/5mtXLGCfD6f0BhqEife2dlJOTlZYkJmqkI7Kx30tzuRzDOJZJxJIuN0MoVPJpH3eALdOuygs9tstOgllVRFFnMKCqYSX2CcSSzp6emhnOynxMCZeTa6WZNEZouT9G/HUvibTNJPJVOgFnTviEK9NYl0/YCd/nDZ6fpBjfatUSkjVbSSpk17nrxeb+wJmHDhLJhfRN/VN2DusxrqqjXYE1IRjqRAUh1QpADue4KQ/N2I4jftGAzo8AUBhwac7zawwcXQ74mgsrISLpeLWYsXBm63m5YtW4YJGSp+2qniycwURMwxkBMyIWkJuNvvB/U3YjgBXYU/ZGLAT8LkbJuBLW6CaZpobm5GYWEhU3hBe/fshsV7FQzjxsqIBDXIo5IhOdJw7cIJpCWEwRhGwCQbD8BmA+75CDPzGAonMzRdNLFn9y7LAFJLSwtaz19AdgZDxYsKTB/BN2Ypglnr4U8vh7NgE4aTqMmAmgzhyngOCbIE3lLg5QKCRUNjE7q6ukhpamyAxbx8FXxLwjNuI0ZP2YoojqxX4AFgdFaLOk0l+HUdZngARggQEbG8VITCQM4YhqxMCTfu+MB/H1AutV+CxaRsCRGDQXtisqjdb9tgsfTjsDD0QIABCKACGC1CgPb6auiGDE0BspyMGwDtXFu508czTloiCQOGGJjxtBpNhcnjsJbVcmI7NIcNyaMMWNy+3Qspuk11Ewjxl//D07ZdRJRH5Q/CEgwTIILA0lbSnemi6POA99AA+6dd9J23Jk7gdO0OkVeIFsKq4/Io1iI9Xgiczgwoebl5qK9vxG9/mvxDCfV8cCkQ+y5C3NASmJhuxmqLvLFmLE93mAhDQijC4A0Qeu4SLHK5NrNOzZKSEoxPZzj+jgK7ytB+Q8cQhLgzVUOUgcEQDCmRCxo8SIQ/aMAE4UoPUF1rQtM0tLa2gvn9fiqYOgWdl69g82IJi2cqYhV2mwxGOhgkDIYxgkAwDB0qFzfF/h8MEVQV+LSO4cdOA3PnzkFjYxOT+JnOXnt9NSw+PGbi+h0TRIDXryMQkflEA0PxhZiIQAgIRsANAF+QYFOB81cJv1yFYO3adbBQwKmqqsKRI260tV3Eti+40VKCpjAM+AwoigwydYDZMBgIIooBGWFuHogADo2hu9fEZ80yDEOH1fKysjJmHUOSdeLxfrFDhw4jJTkJbb/r2FQD3Og3xBkTjJi8RRK8XCkYBPxWWE8WJOjE4LABbV0mdp2Wcf+BjpycbOzfvx9R4i6c1p+baeKEJAJAztEqrSxS6eAGmU5tlenrDxQ6+b6Nvtys0tF3Zap5S6IdyyWaky+TXVPEnPzc8XTlcgcN1cTQS5uDQH8HLZzzXOzKTEmUaEauRotmqbSiSKIl8yQqni5TXrZMmsrEGAC05NXZNOi5FSc+4tLn/SPxrgfp14YDNK0gnwA8NhbMnkQXf/hcXPYiouLxBvEmVkTz3r9u0rGjtbR+zXIqK5pE5QvyaeOq+fSVaxP1XvueC4ajYx/5t+Vf59fSOI3DumAAAAAASUVORK5CYII="><span id="alt_key" style="display: none; visibility: hidden;">&nbsp;<strong>[Password]</strong>&nbsp;</span></a></div>
+<div id="menu_edit" style="display: inline; cursor: pointer; visibility: visible;"><a title="Edit" onclick="edit()"><img id="img_edit" class="menu_button" style="display: inline; visibility: visible;" alt="Edit" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAAK/INwWK6QAAAAZiS0dEAP8A/wD/oL2nkwAABSVJREFUeNqVlX9oXFUWxz/3vvfmR6aZyZB0YqKhlTUIldK0ILgisv6s9Rdrq1Y32P4hRcXUij/YNuLSFP3H+ttqtFiwTVfRrtbowhpo1iK7BbWg0qildfwRMzGTkNTxdd5kZt67Z//YmWnSpIoXDvdxL+98z/l+zzlXcWqFgAuBGGD4fUu01kPGmCxgAUH1QlVMgL3hcLgzGo0GIqIr56c8iMzrGMD3feV5Xk5rfZcx5k3ABvwqAEqplIik9+3bt2DlypUml8spy7JqTn9tFxEcx5GdO3eqnp4epbVeb4zZA2jA2JVINEBLSwuO46C1BsC27dq3Umpeq9yprVu3mnA4THd3926llIhIH1D5uwJijKFYLKogCFQ8HldKKVUsFpXv+yoIglnm+37t3Pd9JicnrS1btqienh5E5CWl1DmA0aeT6jgO+Xyevr4+RkdHicfjBEFAoVCgVCrNa+VyWWmtxfM8vWHDBj8ejy8QkXalFPZM50EQUFdXx+DgIF1dXbS2trJmzRrWrl1Lc3Mz4+PjGGOwbbtGW3Vva2tTlmVJoVBQFVpVjftaSSmF7/ssW7aM1tZW2s45m97eXjo7O3n22eewbZtEIk65XK4JPFP0qi4zK24OQKFQYPny5axYsYJ0Os2mTRt5/59vMzr6LTfccCMff3KYC5YsYeHChbS0tNTMcZzTy1nNdHwWkD948KC4rmvy+bzs3r1HOjouEGPyEgRGRET+PbhXzmpeIIcOfSwiRnK5nOTzefE8T1zXlWKxaNLptJ9IJAS4QinFHJEty8J1Xa6++iq0DvHFF5+idZGCd5LLLl/L80+sYt0dnfz8cw6lqIpcY+D0hpwFICI1HYLAZ+nSDvr6/g5EcCILmMh8yepVi7juyhC33LqekyddhoeHGRkZwff9Ws+cEaAahWVZnDhxgtWrb+If+97nyKHtlCYPkD78FIf/c4zt267BnfwvL+zYRTKZwPO8eQWeNwMArTWRSJSLL76Irvs2s/q2R5g4upOIU2C6pPnu6Div7/ozr+16iuPffE97+3mzOvs3KVJKkUqlsG2Hhx/axOXXb+TOv37I4rZGImGL0ZFfaIg4PP34RWzs2kQkEiUSCc87EOelqKqDMYapqSlefnE7pdAKHn1ikPP/0Igdsjjy+U+suXYJl1zosW79PYRC4VpvnLEPZmYwNjZGJpMhk8lw7NhxXtrxJPsP+rz13hDti5Og4LNPfuSZx1aRPtrPq7v2YFkWQRD8egbVVS6XKRaL+L6P67o4jkNv7w42P3mEr45N0NYaJ/dLkYmMy/33LueDf31QCdKcGaCagdaaZDJJU1MTjY2NpFIpHCfEZX+6lGeef4V1DxzAGKH93EakLPS/8yWLFi+q+Jgd6JxhFwQBxhiSyeSc2e/7AevvuJ10+juuW/c3tj34R/oHjjP0Q4revgdPJ0FmAijA1NfXEwqFTENDg7Isaw5tVQG3be0mtbCRNw4coL7xPD56bTtNTU0ANDQ0yMyGqwKUgGD//v0MDw+rfD6vbdtGKUWpVKqlrtT/34vp6WmaU0n+ctvNCEJ//7tMT08TiURkYmJCe54HUBCRWY/+5mg0ep9SqqSUUuVyGSOGumgUYwQQjAnwvGnq6+OUy6VTQmpdHRNijIl4nvcucPes2gcYGBgIZ7PZWCaTqRsYGIh1dCyNjY+nY647FZs6MRHz8l/Hrrliceyhh7tjnpePjYyMxMbGxmLZbDaWzWZjU1NTsaGhoWgikaj5/R958KLgEIeBwgAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAAASUVORK5CYII="><span id="alt_edit" style="display: none; visibility: hidden;">&nbsp;<strong>[Edit]</strong>&nbsp;</span></a></div>
+<div id="menu_cancel" style="display: none; cursor: pointer; visibility: hidden;"><a title="Cancel" onclick="cancel()"><img id="img_cancel" class="menu_button" style="display: inline; visibility: visible;" alt="Cancel" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAAK/INwWK6QAAAAZiS0dEAP8A/wD/oL2nkwAABlhJREFUeNp1lW2M3FUVh59z739mdmZ2d2a324XutkWEbl8otEpFm0LbKBVSX6IEgoKpRYONfDAKopA2MdHaqDHWQARCVCIfSDFaEiFCiWkbamybVKyUtltb3G7ftt3dbvdlZuf/cu89ftipCQZPcpOb++H3u/fcc84jfHBYwBtAhC6v3AF8BOgBDDACvGtgH8LpoNA81+b6vyFNcYywCPgtMJo36A1tJtw2Owofnx2FvnYbShYF6sBrAmuE/5rI/wq+by+gIvwgKFuWVG30jcUt+qmevM4pmZATkSwotVT1fC3I/uHM7BiIOXTZi8BLwDcVJptGgQ9wyym8nDd8ceuKkvvWslYKBWtCFiTJPIlTEg+ZBx8UCVDLvH/1TMbPjjaisVTfFbhb4XxTW68aiIAq7Kjk5P6dd7Wnn1xQySVSFm9yKsGLSetoPE2aeRoOGl6IM9GGC1JQr/3jPnv07/X8YD28I7BGYRwQ28x5AB4z8Ogrd7Wn6/oquWlbkSxX1JAvSVQsQ76IBI/xKYpAEjNdr0lIGkwFS0chilZ02HT3payn4ZkvsBMwFlArzFfY8eTyUsumZWVpUJIrpW4m1j4ihZX3IY1JZPISGEPkU9zUGIO9Kyg/9HOKNywn6z8gU7HTWQVru/Li9w67ZQIHgFNWZq7/+LyyWfeb1a1ZIcpFDmF8zSNy42e+RrF7HtHiO3Bnj2IvnUKnxniv5xPM3/wH5i65lfZbbieIMLH/dambIteV4NiENxdi7TTwkjFCDvjCfdcX6C4am3hVCU6q7e0AhCzGtJRo+fI23LV9nLrmVuY9+TId1U6mJ8ZwQGF+Hxi52gJm3bV5mPmHRVFQbgL61szJ0XCIipMoMpT++gL+5tXYWb0ElyItZXTjr5gblLZKJ0l9Cim242vjjOx8GpUIQGKP9rUaX7aU657bjcKi1ojc3JIN05nivBK8x549QvbMBtzlc0iUx6UJhWoX5Y4ukkYdKZTQrM75nzzAxKE9UCij3pMFpS0SulsMwM0GmN2aMxQMGntIPSSJwwXFnv4H6bb1TF4YwOQK+CzDZRnYHG5yhIs/vpeJA29CuQPnPV7Bh5lstUYC0B0BIaiSOsgiJSioCkGULG4w2NHBPJtHQyAERTWAKMEHGmPjZF7xKvig+ABeQVUJqgDBABenMmUs8eI8xA7SYKhNjNPfu4q5m1+h0t1DFjfAWojy+KSBqcymZ+trRAtuozE+hsPiguIVYq9MZgowZASONzzxyQlvfAg0nGhcr3Om52PcuHkH1UqVuF5DCkX85ChuZBApteFq49hShet/+EcKCz5KMl3HqQFVRpMgw4kCHDZGOAYc3Xsxw3tC7JUrU9N0fPohZnV20Zi8guSLhGSKC7/YyL+/fzfp0ACmtUo6PkKu4xp6H/wuaZqRBtSgHJsMJgmMG9hnmrP8929cyBiYCkEDknhUTx/BA7nqLEIyxemtX2L0wG5qF87R/73P0jh3inz3PKKCJR4+S+pRF1Rih9874gB2KQza5hDvjwNfaTitrp5tQ52CSU4c0mTismSTo5x97nEuH9xDKFZxNk995CIjf/szWMPowV2ceHE79dRTtMLuESe7R5wIPKxw7ipgvMAGhd89saQl+1xvIRpLg5hGTQUVyeWRlhLBe0JQvFiyJCGpx2SKprkCpSiSkzWf/vREnI8DvwS+w0xZoE1AHC5HUn1r2K2q5CRbWokkiYomi1rUSSTOeVyALEDqlAxLlm/REOWlbIX+KZ9tPxXnvfKXoGxsTmi1TR4oYHbe2f5GV8l0bD8WrxqqO11Uyfs2CyEEyfyMeNasdzSQQzVT8a9eSPTZgTS3pGLf3HJT6Z59Iy5OwgzMrJEZ9bVzcvqjFWW7/sOl12dXWgee+5dbu/N0rXx+PJEoEiJrA4h6RetedLDuZdeZWJ55L7H/rIm//0P5bU8sKT7cWzTppVjl+KRXA4iVme57emUrmxa3MK3GViotfmDB57t+PX7dpheef/aBocGBhaA230Rg2nxyW2fX2Xse/OqfNnRPPNXx1osnh33RBB/0+ITXxw5Pvw/07FlfZXlXBKLk8nlbqFSD/fpTmi68Mzp8cP/St985csu580NzvPemq2vW6NKFfcdWrFx1uPNKf/34lnu5ODRmUyKfukAtU779dp2RVPkPYy9lOpej6EMAAAAZdEVYdFNvZnR3YXJlAEFkb2JlIEltYWdlUmVhZHlxyWU8AAAAAElFTkSuQmCC"><span id="alt_cancel" style="display: none; visibility: hidden;">&nbsp;[Cancel]&nbsp;</span></a></div>
+<div id="menu_save" style="display: none; cursor: pointer; visibility: hidden;"><a title="Save" onclick="save()"><img id="img_save" class="menu_button" style="display: inline; visibility: visible;" alt="Save" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAAK/INwWK6QAAAAZiS0dEAP8A/wD/oL2nkwAAA0FJREFUeNq1lc+KHFUUxn/n3qqu6h7tGdPByTBOEjQunK26EQRdhAGRuHGE2agLH8C1j5AXCFnkAYyBEIKoRHeabWQyJKIm+IdAdwSd0HZPdVXdc1xU9UynbZIe/xy4XG5R93z3fN937hWqeALYqGcFhH8WBkTAD8DXTCS64n18Jo6ToFo4792hAEQEVUUVc87baDR0ZvYBcEFAngO7eeatD5vHjq2XKysDee/dNxkOc9zcOIJzgXPnrhD0mfDVl+cbt29f/0zEvREBHqD9ZIckWfCdIwnLy8v0+3t47x7PiRkAcexoLy6SZW1arTaAQyq+ACSEAtVAURQyGo3I8/krMANVoSxLQigtaKjKsgkAREAEmRjOzVeBCDgnCPXecU7g8Rn+ZfzvANHkYprxsYD/GYABiExAzS+yWcX/IwEATEu8V7w3vNc5skvVvt7Qyj2zAVSVVqvJj3d6nD37MeAxJimSh+qxuj5DMVNUA7t/wFNHInSC2mhyh6AkyQrd3gOKYhcRv2/V6dOJCBoCjWSJNG2jqiSpAPrQUaLpTXk+4mhnyObma4QAWTZABNJ0AdWDk5mB98bFi9fJ8gWSxBFCybQt/gagqjSbTU6cOMknl66xvd0DjJdfWmNj41WGwwznBFVIU0+z1WQwDMRRNNMUUyJXzIYQyPOMbvcB8DSqSre7S1mOKIoc5xxmRp57NITaebMjmvlVqmq8czingOJ8Zd8DK8pB3ke0y34n26y/qutp8n45dEQ1fPA+qkU0MzMxM4q8JMsCqkpelJgZqoZz4xvU6m6vZqs6bnxYA4hEBDNz/f7vliQtnBuQNBJL0xbr68cpw6+Asf7CsyRJimpFk1klcqOR4HxEVIvsfSzeRQAmApGZfQ9c/uLz81tpupB3Oidd736X7e0dVlc7rK4u1g6LuHXru30NzMA55f5vPfLc0CCEMkgIZTkY7Hog7PebiHNLS8uXKlQpqR5+O+wQEQVCvX6/lrHq+M13PmplWf760c7QnT79Cnt7h3nRFO+Fq1e/saLoRDd3rv10986Nb0WECMTAiOMkWzv+4qfPnyrY2nqb/p97+DletDFdcSz8/EtgNFrj3r0d7nJDRMT+AqKAkRUl/oStAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAABJRU5ErkJggg=="><span id="alt_save" style="display: none; visibility: hidden;">&nbsp;<strong>[Save]</strong>&nbsp;</span></a></div>
+</td></tr></tbody></table></div><p style="background: transparent url(background.png) no-repeat fixed 0pt 50%; font-size: 17px; -moz-background-clip: border; -moz-background-origin: padding; -moz-background-inline-policy: continuous;">&nbsp;</p>
 <div id="text_area" style="display: inline; visibility: visible;">
 <div class="menu_area" id="sw_menu_area" style="position: absolute;">
 <div class="wiki" id="menu_area" ondblclick="menu_dblclick()"></div>
@@ -2035,12 +2591,12 @@ div.text_area.locked,
 <div style="text-align: center;"><a class="link" onclick="edit_ns_menu()">[Edit]</a></div></div></div>
 <div style="visibility: visible;" class="text_area" id="wiki_text" ondblclick="page_dblclick()"></div></div>
 <div id="edit_area" style="display: none; visibility: hidden;">
-<div id="edit_page_title" style="display: block;">Page title: <input id="wiki_page_title" size="50" value="">&nbsp;
-<a style="color: blue;" onclick="$.toggle('wiki_format_buttons',1)">Show/Hide wiki buttons</a>&nbsp;|&nbsp;
-<a style="color: blue;" onclick="$.toggle('html_format_buttons',1)">Show/Hide HTML buttons</a>&nbsp;|&nbsp;
-<a style="color: blue;" onclick="$.toggle('user_format_buttons',1)">Show/Hide User-defined buttons</a></div>
+<div id="edit_page_title" style="display: block;">Page title: <input id="wiki_page_title" size="50" value="">&nbsp;Show/Hide: 
+<a style="color: blue;" onclick="$.toggle('wiki_format_buttons',1)">wiki buttons</a>&nbsp;|&nbsp;
+<a style="color: blue;" onclick="$.toggle('html_format_buttons',1)">HTML buttons</a>&nbsp;|&nbsp;
+<a style="color: blue;" onclick="$.toggle('user_format_buttons',1)">User-defined buttons</a></div>
 <div id="wiki_format_buttons" style="display: block; visibility: visible;">
-Wiki Code:
+Wiki:
 <input class="wiki_button" name="wb1" value=" B " style="font-weight: bold; width: 30px;" onclick="TagThis('*', '*')" type="button">
 <input class="wiki_button" name="wb2" value=" i " style="font-style: italic; width: 30px;" onclick="TagThis('/', '/')" type="button">
 <input class="wiki_button" name="wb3" value=" u " style="text-decoration: underline; width: 30px;" onclick="TagThis('_', '_')" type="button">
@@ -2056,7 +2612,7 @@ Wiki Code:
 <input class="wiki_button" name="wbD" value="Tags" style="width: 40px;" onclick="setTag()" type="button">
 <a class="world" onclick="open_table_help()">About tables</a>
 </div>
-<div id="html_format_buttons" style="display: block; visibility: visible;">HTML Code:
+<div id="html_format_buttons" style="display: block; visibility: visible;">HTML:
   <input class="wiki_button" name="b" id="b" value="B" style="font-weight: bold;" onclick="FullTagThis('strong')" type="submit">
   <input class="wiki_button" name="i" id="i" value="i" style="font-style: italic;" onclick="FullTagThis('em')" type="submit">
   <input class="wiki_button" name="u" id="u" value="u" style="text-decoration: underline;" onclick="FullTagThis('u')" type="submit">
@@ -2075,7 +2631,7 @@ Wiki Code:
   <input class="wiki_button" name="url" id="url" value="Link" onclick="setHTMLUrl()" type="submit">
 </div>
 <div id="user_format_buttons" style="display: block; visibility: visible;">
-User Code:
+User:
 <input class="wiki_button" id="pb0" value="TOC" style="width: 50px;" onclick="woas['editbutton'][0].onclick()" type="button">
 <input class="wiki_button" id="pb1" value="sort" style="width: 50px;" onclick="woas['editbutton'][1].onclick()" type="button">
 <input class="wiki_button" id="pb2" value="note" style="width: 50px;" onclick="woas['editbutton'][2].onclick()" type="button">
@@ -2090,11 +2646,11 @@ User Code:
 <input class="wiki_button" id="pb11" value="P11" style="width: 50px;" onclick="woas['editbutton'][11].onclick()" type="button">
 <input class="wiki_button" id="pb12" value="P12" style="width: 50px;" onclick="woas['editbutton'][12].onclick()" type="button">
 </div>
-<textarea id="wiki_editor" style="width: 1044px; height: 568px;" rows="0" cols="0"></textarea> 
+<textarea id="wiki_editor" style="width: 1172px; height: 548px;" rows="0" cols="0"></textarea> 
 </div>
 <div id="debug_info" style="display: inline; visibility: visible; z-index: 101; text-align: right; width: 300px;">
 <h2>Debug console</h2>
 <p>This is a development BETA version of Wiki On a Stick; it is not suggested to use it with important data. If you want to disable this debug message and console, you will have to find the line that says <b><tt>woas["debug"] = true;</tt></b> and change it to <b><tt>false</tt></b>.</p>
 <textarea id="swlogger" ondblclick="$('swlogger').value=''" style="width: 60%; background-color: rgb(204, 204, 204);" rows="12" readonly="readonly" cols="60"></textarea><p>&nbsp;</p><input onclick="$('swlogger').value=''" value="Clear" type="button"></div>
 <hr>
-<div style="text-align: center;"><sub><a class="link" onclick="go_to('Special::About')">About Wiki on a Stick v0.9.7B</a></sub></div><div style="border: 1px solid rgb(0, 0, 0); position: absolute; display: none; left: 367px; top: 178px; z-index: 1;" id="colorpicker"><table cellspacing="0"><tbody><tr></tr><tr></tr><tr><td bgcolor="#000000"><a style="background: rgb(0, 0, 0) none repeat scroll 0% 0%; outline-color: -moz-use-text-color; outline-style: solid; outline-width: 1px; color: rgb(0, 0, 0); -moz-background-clip: border; -moz-background-origin: padding; -moz-background-inline-policy: continuous;" title="#000" href="javascript:Colorizer.setColor('#000');">__</a></td><td bgcolor="#000000"><a style="background: MediumBlue none repeat scroll 0% 0%; outline-color: -moz-use-text-color; outline-style: solid; outline-width: 1px; color: MediumBlue; -moz-background-clip: border; -moz-background-origin: padding; -moz-background-inline-policy: continuous;" title="MediumBlue" href="javascript:Colorizer.setColor('MediumBlue');">__</a></td><td bgcolor="#000000"><a style="background: SeaGreen none repeat scroll 0% 0%; outline-color: -moz-use-text-color; outline-style: solid; outline-width: 1px; color: SeaGreen; -moz-background-clip: border; -moz-background-origin: padding; -moz-background-inline-policy: continuous;" title="SeaGreen" href="javascript:Colorizer.setColor('SeaGreen');">__</a></td><td bgcolor="#000000"><a style="background: OrangeRed none repeat scroll 0% 0%; outline-color: -moz-use-text-color; outline-style: solid; outline-width: 1px; color: OrangeRed; -moz-background-clip: border; -moz-background-origin: padding; -moz-background-inline-policy: continuous;" title="OrangeRed" href="javascript:Colorizer.setColor('OrangeRed');">__</a></td><td bgcolor="#000000"><a style="background: SpringGreen none repeat scroll 0% 0%; outline-color: -moz-use-text-color; outline-style: solid; outline-width: 1px; color: SpringGreen; -moz-background-clip: border; -moz-background-origin: padding; -moz-background-inline-policy: continuous;" title="SpringGreen" href="javascript:Colorizer.setColor('SpringGreen');">__</a></td><td bgcolor="#000000"><a style="background: Crimson none repeat scroll 0% 0%; outline-color: -moz-use-text-color; outline-style: solid; outline-width: 1px; color: Crimson; -moz-background-clip: border; -moz-background-origin: padding; -moz-background-inline-policy: continuous;" title="Crimson" href="javascript:Colorizer.setColor('Crimson');">__</a></td><td bgcolor="#000000"><a style="background: SaddleBrown none repeat scroll 0% 0%; outline-color: -moz-use-text-color; outline-style: solid; outline-width: 1px; color: SaddleBrown; -moz-background-clip: border; -moz-background-origin: padding; -moz-background-inline-policy: continuous;" title="SaddleBrown" href="javascript:Colorizer.setColor('SaddleBrown');">__</a></td></tr><tr></tr><tr><td bgcolor="#000000"><a style="background: rgb(51, 51, 51) none repeat scroll 0% 0%; outline-color: -moz-use-text-color; outline-style: solid; outline-width: 1px; color: rgb(51, 51, 51); -moz-background-clip: border; -moz-background-origin: padding; -moz-background-inline-policy: continuous;" title="#333" href="javascript:Colorizer.setColor('#333');">__</a></td><td bgcolor="#000000"><a style="background: rgb(0, 0, 51) none repeat scroll 0% 0%; outline-color: -moz-use-text-color; outline-style: solid; outline-width: 1px; color: rgb(0, 0, 51); -moz-background-clip: border; -moz-background-origin: padding; -moz-background-inline-policy: continuous;" title="#003" href="javascript:Colorizer.setColor('#003');">__</a></td><td bgcolor="#000000"><a style="background: rgb(0, 51, 0) none repeat scroll 0% 0%; outline-color: -moz-use-text-color; outline-style: solid; outline-width: 1px; color: rgb(0, 51, 0); -moz-background-clip: border; -moz-background-origin: padding; -moz-background-inline-policy: continuous;" title="#030" href="javascript:Colorizer.setColor('#030');">__</a></td><td bgcolor="#000000"><a style="background: rgb(51, 0, 0) none repeat scroll 0% 0%; outline-color: -moz-use-text-color; outline-style: solid; outline-width: 1px; color: rgb(51, 0, 0); -moz-background-clip: border; -moz-background-origin: padding; -moz-background-inline-policy: continuous;" title="#300" href="javascript:Colorizer.setColor('#300');">__</a></td><td bgcolor="#000000"><a style="background: rgb(0, 51, 51) none repeat scroll 0% 0%; outline-color: -moz-use-text-color; outline-style: solid; outline-width: 1px; color: rgb(0, 51, 51); -moz-background-clip: border; -moz-background-origin: padding; -moz-background-inline-policy: continuous;" title="#033" href="javascript:Colorizer.setColor('#033');">__</a></td><td bgcolor="#000000"><a style="background: rgb(51, 0, 51) none repeat scroll 0% 0%; outline-color: -moz-use-text-color; outline-style: solid; outline-width: 1px; color: rgb(51, 0, 51); -moz-background-clip: border; -moz-background-origin: padding; -moz-background-inline-policy: continuous;" title="#303" href="javascript:Colorizer.setColor('#303');">__</a></td><td bgcolor="#000000"><a style="background: rgb(51, 51, 0) none repeat scroll 0% 0%; outline-color: -moz-use-text-color; outline-style: solid; outline-width: 1px; color: rgb(51, 51, 0); -moz-background-clip: border; -moz-background-origin: padding; -moz-background-inline-policy: continuous;" title="#330" href="javascript:Colorizer.setColor('#330');">__</a></td></tr><tr></tr><tr><td bgcolor="#000000"><a style="background: rgb(102, 102, 102) none repeat scroll 0% 0%; outline-color: -moz-use-text-color; outline-style: solid; outline-width: 1px; color: rgb(102, 102, 102); -moz-background-clip: border; -moz-background-origin: padding; -moz-background-inline-policy: continuous;" title="#666" href="javascript:Colorizer.setColor('#666');">__</a></td><td bgcolor="#000000"><a style="background: rgb(0, 0, 102) none repeat scroll 0% 0%; outline-color: -moz-use-text-color; outline-style: solid; outline-width: 1px; color: rgb(0, 0, 102); -moz-background-clip: border; -moz-background-origin: padding; -moz-background-inline-policy: continuous;" title="#006" href="javascript:Colorizer.setColor('#006');">__</a></td><td bgcolor="#000000"><a style="background: rgb(0, 102, 0) none repeat scroll 0% 0%; outline-color: -moz-use-text-color; outline-style: solid; outline-width: 1px; color: rgb(0, 102, 0); -moz-background-clip: border; -moz-background-origin: padding; -moz-background-inline-policy: continuous;" title="#060" href="javascript:Colorizer.setColor('#060');">__</a></td><td bgcolor="#000000"><a style="background: rgb(102, 0, 0) none repeat scroll 0% 0%; outline-color: -moz-use-text-color; outline-style: solid; outline-width: 1px; color: rgb(102, 0, 0); -moz-background-clip: border; -moz-background-origin: padding; -moz-background-inline-policy: continuous;" title="#600" href="javascript:Colorizer.setColor('#600');">__</a></td><td bgcolor="#000000"><a style="background: rgb(0, 102, 102) none repeat scroll 0% 0%; outline-color: -moz-use-text-color; outline-style: solid; outline-width: 1px; color: rgb(0, 102, 102); -moz-background-clip: border; -moz-background-origin: padding; -moz-background-inline-policy: continuous;" title="#066" href="javascript:Colorizer.setColor('#066');">__</a></td><td bgcolor="#000000"><a style="background: rgb(102, 0, 102) none repeat scroll 0% 0%; outline-color: -moz-use-text-color; outline-style: solid; outline-width: 1px; color: rgb(102, 0, 102); -moz-background-clip: border; -moz-background-origin: padding; -moz-background-inline-policy: continuous;" title="#606" href="javascript:Colorizer.setColor('#606');">__</a></td><td bgcolor="#000000"><a style="background: rgb(102, 102, 0) none repeat scroll 0% 0%; outline-color: -moz-use-text-color; outline-style: solid; outline-width: 1px; color: rgb(102, 102, 0); -moz-background-clip: border; -moz-background-origin: padding; -moz-background-inline-policy: continuous;" title="#660" href="javascript:Colorizer.setColor('#660');">__</a></td></tr><tr></tr><tr><td bgcolor="#000000"><a style="background: rgb(153, 153, 153) none repeat scroll 0% 0%; outline-color: -moz-use-text-color; outline-style: solid; outline-width: 1px; color: rgb(153, 153, 153); -moz-background-clip: border; -moz-background-origin: padding; -moz-background-inline-policy: continuous;" title="#999" href="javascript:Colorizer.setColor('#999');">__</a></td><td bgcolor="#000000"><a style="background: rgb(0, 0, 153) none repeat scroll 0% 0%; outline-color: -moz-use-text-color; outline-style: solid; outline-width: 1px; color: rgb(0, 0, 153); -moz-background-clip: border; -moz-background-origin: padding; -moz-background-inline-policy: continuous;" title="#009" href="javascript:Colorizer.setColor('#009');">__</a></td><td bgcolor="#000000"><a style="background: rgb(0, 153, 0) none repeat scroll 0% 0%; outline-color: -moz-use-text-color; outline-style: solid; outline-width: 1px; color: rgb(0, 153, 0); -moz-background-clip: border; -moz-background-origin: padding; -moz-background-inline-policy: continuous;" title="#090" href="javascript:Colorizer.setColor('#090');">__</a></td><td bgcolor="#000000"><a style="background: rgb(153, 0, 0) none repeat scroll 0% 0%; outline-color: -moz-use-text-color; outline-style: solid; outline-width: 1px; color: rgb(153, 0, 0); -moz-background-clip: border; -moz-background-origin: padding; -moz-background-inline-policy: continuous;" title="#900" href="javascript:Colorizer.setColor('#900');">__</a></td><td bgcolor="#000000"><a style="background: rgb(0, 153, 153) none repeat scroll 0% 0%; outline-color: -moz-use-text-color; outline-style: solid; outline-width: 1px; color: rgb(0, 153, 153); -moz-background-clip: border; -moz-background-origin: padding; -moz-background-inline-policy: continuous;" title="#099" href="javascript:Colorizer.setColor('#099');">__</a></td><td bgcolor="#000000"><a style="background: rgb(153, 0, 153) none repeat scroll 0% 0%; outline-color: -moz-use-text-color; outline-style: solid; outline-width: 1px; color: rgb(153, 0, 153); -moz-background-clip: border; -moz-background-origin: padding; -moz-background-inline-policy: continuous;" title="#909" href="javascript:Colorizer.setColor('#909');">__</a></td><td bgcolor="#000000"><a style="background: rgb(153, 153, 0) none repeat scroll 0% 0%; outline-color: -moz-use-text-color; outline-style: solid; outline-width: 1px; color: rgb(153, 153, 0); -moz-background-clip: border; -moz-background-origin: padding; -moz-background-inline-policy: continuous;" title="#990" href="javascript:Colorizer.setColor('#990');">__</a></td></tr><tr></tr><tr><td bgcolor="#000000"><a style="background: rgb(204, 204, 204) none repeat scroll 0% 0%; outline-color: -moz-use-text-color; outline-style: solid; outline-width: 1px; color: rgb(204, 204, 204); -moz-background-clip: border; -moz-background-origin: padding; -moz-background-inline-policy: continuous;" title="#CCC" href="javascript:Colorizer.setColor('#CCC');">__</a></td><td bgcolor="#000000"><a style="background: rgb(0, 0, 204) none repeat scroll 0% 0%; outline-color: -moz-use-text-color; outline-style: solid; outline-width: 1px; color: rgb(0, 0, 204); -moz-background-clip: border; -moz-background-origin: padding; -moz-background-inline-policy: continuous;" title="#00C" href="javascript:Colorizer.setColor('#00C');">__</a></td><td bgcolor="#000000"><a style="background: rgb(0, 204, 0) none repeat scroll 0% 0%; outline-color: -moz-use-text-color; outline-style: solid; outline-width: 1px; color: rgb(0, 204, 0); -moz-background-clip: border; -moz-background-origin: padding; -moz-background-inline-policy: continuous;" title="#0C0" href="javascript:Colorizer.setColor('#0C0');">__</a></td><td bgcolor="#000000"><a style="background: rgb(204, 0, 0) none repeat scroll 0% 0%; outline-color: -moz-use-text-color; outline-style: solid; outline-width: 1px; color: rgb(204, 0, 0); -moz-background-clip: border; -moz-background-origin: padding; -moz-background-inline-policy: continuous;" title="#C00" href="javascript:Colorizer.setColor('#C00');">__</a></td><td bgcolor="#000000"><a style="background: rgb(0, 204, 204) none repeat scroll 0% 0%; outline-color: -moz-use-text-color; outline-style: solid; outline-width: 1px; color: rgb(0, 204, 204); -moz-background-clip: border; -moz-background-origin: padding; -moz-background-inline-policy: continuous;" title="#0CC" href="javascript:Colorizer.setColor('#0CC');">__</a></td><td bgcolor="#000000"><a style="background: rgb(204, 0, 204) none repeat scroll 0% 0%; outline-color: -moz-use-text-color; outline-style: solid; outline-width: 1px; color: rgb(204, 0, 204); -moz-background-clip: border; -moz-background-origin: padding; -moz-background-inline-policy: continuous;" title="#C0C" href="javascript:Colorizer.setColor('#C0C');">__</a></td><td bgcolor="#000000"><a style="background: rgb(204, 204, 0) none repeat scroll 0% 0%; outline-color: -moz-use-text-color; outline-style: solid; outline-width: 1px; color: rgb(204, 204, 0); -moz-background-clip: border; -moz-background-origin: padding; -moz-background-inline-policy: continuous;" title="#CC0" href="javascript:Colorizer.setColor('#CC0');">__</a></td></tr><tr></tr><tr><td bgcolor="#000000"><a style="background: rgb(255, 255, 255) none repeat scroll 0% 0%; outline-color: -moz-use-text-color; outline-style: solid; outline-width: 1px; color: rgb(255, 255, 255); -moz-background-clip: border; -moz-background-origin: padding; -moz-background-inline-policy: continuous;" title="#FFF" href="javascript:Colorizer.setColor('#FFF');">__</a></td><td bgcolor="#000000"><a style="background: rgb(0, 0, 255) none repeat scroll 0% 0%; outline-color: -moz-use-text-color; outline-style: solid; outline-width: 1px; color: rgb(0, 0, 255); -moz-background-clip: border; -moz-background-origin: padding; -moz-background-inline-policy: continuous;" title="#00F" href="javascript:Colorizer.setColor('#00F');">__</a></td><td bgcolor="#000000"><a style="background: rgb(0, 255, 0) none repeat scroll 0% 0%; outline-color: -moz-use-text-color; outline-style: solid; outline-width: 1px; color: rgb(0, 255, 0); -moz-background-clip: border; -moz-background-origin: padding; -moz-background-inline-policy: continuous;" title="#0F0" href="javascript:Colorizer.setColor('#0F0');">__</a></td><td bgcolor="#000000"><a style="background: rgb(255, 0, 0) none repeat scroll 0% 0%; outline-color: -moz-use-text-color; outline-style: solid; outline-width: 1px; color: rgb(255, 0, 0); -moz-background-clip: border; -moz-background-origin: padding; -moz-background-inline-policy: continuous;" title="#F00" href="javascript:Colorizer.setColor('#F00');">__</a></td><td bgcolor="#000000"><a style="background: rgb(0, 255, 255) none repeat scroll 0% 0%; outline-color: -moz-use-text-color; outline-style: solid; outline-width: 1px; color: rgb(0, 255, 255); -moz-background-clip: border; -moz-background-origin: padding; -moz-background-inline-policy: continuous;" title="#0FF" href="javascript:Colorizer.setColor('#0FF');">__</a></td><td bgcolor="#000000"><a style="background: rgb(255, 0, 255) none repeat scroll 0% 0%; outline-color: -moz-use-text-color; outline-style: solid; outline-width: 1px; color: rgb(255, 0, 255); -moz-background-clip: border; -moz-background-origin: padding; -moz-background-inline-policy: continuous;" title="#F0F" href="javascript:Colorizer.setColor('#F0F');">__</a></td><td bgcolor="#000000"><a style="background: rgb(255, 255, 0) none repeat scroll 0% 0%; outline-color: -moz-use-text-color; outline-style: solid; outline-width: 1px; color: rgb(255, 255, 0); -moz-background-clip: border; -moz-background-origin: padding; -moz-background-inline-policy: continuous;" title="#FF0" href="javascript:Colorizer.setColor('#FF0');">__</a></td></tr></tbody></table></div></body></html>
+<div style="text-align: center;"><sub><a class="link" onclick="go_to('Special::About')">About Wiki on a Stick v0.9.7B</a></sub></div><div style="border: 1px solid rgb(0, 0, 0); position: absolute; display: none; left: 371px; top: 163px; z-index: 1;" id="colorpicker"></div><div></div><div></div></body></html>
