@@ -81,10 +81,13 @@ woas["_reserved_rx"] = new RegExp(reserved_rx, "i"); reserved_namespaces = reser
 woas["aliases"] = [];
 
 woas["page_index"] = function(title) {
-	for(var i=0;i<this.aliases.length;++i) {
-		title = title.replace(this.aliases[i][0], this.aliases[i][1]);
-	}
+	for(var i=this.aliases.length-1;i>=0;--i) {title=title.replace(this.aliases[i][0], this.aliases[i][1])}; // inline for speed sake.
 	return page_titles.indexOf(title);
+}
+
+woas["parse_alias"] = function(title) {
+for(var i=this.aliases.length-1;i>=0;--i) {title=title.replace(this.aliases[i][0], this.aliases[i][1])};
+return title;
 }
 
 woas["is_reserved"] = function(page) {
@@ -92,14 +95,14 @@ woas["is_reserved"] = function(page) {
 }
 
 woas["is_menu"] = function(page) {
-	return (page.indexOf("::Menu")==page.length-6);
+	return (page.indexOf("::Menu")==page.length-6); // NILTON: todo simplify
 }
 
-// returns namespace with trailing ::
-woas["get_namespace"] = function(page) {
+// returns namespace with or without trailing ::
+woas["get_namespace"] = function(page, without) {
 	var p = page.lastIndexOf("::");
 	if (p==-1) return "";
-	return page.substring(0,p+2);	
+	return page.substring(0,p+(without?2:0));
 }
 
 woas["is_readonly"] = function(page) {
@@ -229,15 +232,15 @@ woas["_get_tagged"] = function(tag_filter) {
 				
 //				alert(found_tags);
 				fail = false;
-				for (var t=0;t<found_tags.length;t++) {
-					for (b=0;b<tags_ok.length;++b) {
+				for (var t=0,ftl=found_tags.length;t<ftl;t++) {
+					for (b=0,tol=tags_ok.length;b<tol;++b) {
 						if (found_tags[t] != tags_ok[b]) {
 							fail = true;
 							break;
 						}
 					}
 					if (!fail) {
-						for (b=0;b<tags_not.length;++b) {
+						for (b=0,tnl=tags_not.length;b<tnl;++b) {
 							if (found_tags[t] == tags_not[b]) {
 								fail = true;
 								break;
@@ -272,6 +275,7 @@ woas["get_page"] = function(pi) {
 	return pg;	
 }
 
+// get the text of the page, stripped of html tags.
 woas["get_src_page"] = function(pi,mode) {
 	var pg = this.get_page(pi);
 	if (pg===null) return null;
@@ -287,6 +291,7 @@ woas["get_text"] = function (title) {
 
 //TODO: check consistency of special pages inclusion
 woas["get_text_special"] = function(title) {
+	// title = this.parse_alias(title);
 	var p = title.indexOf("::");
 	var text = null;
 	if (p!=-1) {
@@ -419,11 +424,11 @@ woas["set__text"] = function(pi, text) {
 // Sets text typed by user
 woas["set_text"] = function(text) {
 	var pi = this.page_index(current);
-	if (pi==-1) {
+	if (pi==-1)
 		log("current page \""+current+"\" is not cached!");	// log:1
-		return;
-	}
-	this.set__text(pi, text);
+	else
+		this.set__text(pi, text);
+	return pi;
 }
 
 // triggered by UI graphic button
@@ -458,6 +463,7 @@ woas["assert_current"] = function(page) {
 		this.set_current( page, true);
 }
 
+// Internal function. Page must not exist or duplicate pages will be created
 woas["_create_page"] = function (ns, cr, ask, fill_mode) {
 	if (this.is_reserved(ns+"::")) {
 		alert("You are not allowed to create a page titled \""+ns+"::"+cr+"\" because namespace \""+ns+"\" is reserved");
@@ -492,7 +498,7 @@ woas["_create_page"] = function (ns, cr, ask, fill_mode) {
 	log("Page "+cr+" added to internal array");	// log:1
 	if (!fill_mode) {
 		current = cr;
-//		this.save_page(cr);	// do not save
+//		this.save_page(cr);	// do not save: user can make up his mind and reload wiki
 		// proceed with a normal wiki source page
 		this.edit_page(cr);
 	}
@@ -518,17 +524,17 @@ woas["_get__embedded"] = function (cr, pi, etype) {
 		var pview_data = decode64(text, 1024), pview_link = "";
 		var ext_size = Math.ceil((text.length*3)/4);
 		if (ext_size-pview_data.length>10)
-			pview_link = "<div id='_part_display'><em>Only the first 1024 bytes are displayed</em><br /><a href='javascript:show_full_file("+pi+")'>Display full file</a></div>";
+			pview_link = "<div id='_part_display'><em>Only the first 1024 bytes are displayed</em><br /><a href='javascript:show_full_file("+pi+")'>Display full file</a></div>"; // NILTON:TODO: L10n
 		var _del_cmd, _del_lbl;
 		if (!this.is_reserved(cr)) {
-			_del_cmd = "function query_delete_file() {if (confirm('Are you sure you want to delete this file?')){delete_page('"+this.js_encode(cr)+"');back_or(main_page);woas.save_page('"+this.js_encode(cr)+"');}}\n";
+			_del_cmd = "function query_delete_file() {if (confirm('"+L10n.DELETEFILE+"')){delete_page('"+this.js_encode(cr)+"');back_or(main_page);woas.save_page('"+this.js_encode(cr)+"');}}\n";
 			_del_lbl = "\n\n<a href=\"javascript:query_delete_file()\">Delete embedded file</a>\n";
 		} else
 			_del_lbl = _del_cmd = ""
 		xhtml = "<pre id='_file_ct' class=\"embedded\">"+this.xhtml_encode(pview_data)+"</pre>"+
 		pview_link+
 		"<br /><hr />File size: "+_convert_bytes(ext_size)+"<br /><br />XHTML transclusion:"+
-		this.parser.parse("\n{{{[[Include::"+cr+"]]}}}"+"\n\nRaw transclusion:\n\n{{{[[Include::"+cr+"|raw]]}}}"+
+		this.parser.parse("\n{{{[[Include::"+cr+"]]}}}"+"\n\nRaw transclusion:\n\n{{{[[Include::"+cr+"|raw]]}}}"+ // NILTON:TODO: L10n
 		_del_lbl+
 		"\n<a href=\"javascript:query_export_file()\">Export file</a>\n"+
 		"<sc"+"ript>"+_del_cmd
@@ -594,7 +600,7 @@ woas["export_file"] = function(page, dest_path) {
 	return r;
 }
 
-woas["_embed_process"] = function(etype) {
+woas["_embed_process"] = function(etype, dump) {
 	var field_id = "filename_";
 	var filename = $(field_id).value;
 	if(filename == "") {
@@ -641,6 +647,9 @@ woas["_embed_process"] = function(etype) {
 			etype = 12;
 		} else etype = 4;
 	}
+	if(dump)
+		return ct;
+
 	pages.push(ct);
 	page_attrs.push(etype);
 	page_titles.push(current);
@@ -1017,7 +1026,7 @@ woas["_activate_scripts"] = function() {
 	if (this.parser.script_extension.length) {
 //		log(this.parser.script_extension.length + " javascript files/blocks to process");	// log:0
 		var s_elem, is_inline;
-		for (var i=0;i<this.parser.script_extension.length;i++) {
+		for (var i=0,l=this.parser.script_extension.length;i<l;i++) {
 			s_elem = document.createElement("script");
 			s_elem.type="text/javascript";
 			s_elem.id = "sw_custom_script_"+i;
@@ -1079,6 +1088,8 @@ function pw_quality() {
 		
 	_pw_q_lock = true;
 
+// Number to hexadecimal. (Used for password strength visualization (red to green)
+// tone can be 0 to 255, returns 00 to FF
 function _hex_col(tone) {
 	var s=Math.floor(tone).toString(16);
 	if (s.length==1)
@@ -1308,7 +1319,7 @@ woas["_load_aliases"] = function(s) {
 	if (s==null || !s.length) return;
 	var tmpl = s.split("\n"), cp, cpok;
 	this.aliases = [];
-	for(var i=0;i<tmpl.length;++i) {
+	for(var i=0,l=tmpl.length;i<l;++i) {
 		cp = tmpl[i].split(/\s+/);
 		if (cp.length < 2) {
 			alert("Invalid alias \""+tmpl[i]+"\", ignoring it.");
@@ -1371,26 +1382,27 @@ function kbd_hook(orig_e) {
 		e = window.event;
 	else
 		e = orig_e;
-		
 	if (!kbd_hooking) {
 		if (_custom_focus)
 			return orig_e;
 		if (search_focused) {
-			if (e.keyCode==13) {
+			if (e.keyCode==13) { // Enter 
 				ff_fix_focus();
 				do_search();
 				return false;
 			}
 			return orig_e;
 		}
-		if ((e.keyCode==8) || (e.keyCode==27)) {
+		if ((e.keyCode==8) || (e.keyCode==27)) { // Escape
 			go_back();
 			ff_fix_focus();
 			return false;
 		}
+		if(e.keyCode==113)
+		 edit();
 	}
 
-	if (e.keyCode==27) {
+	if (e.keyCode==27) { // Escape
 		cancel();
 		ff_fix_focus();
 		return false;
@@ -1509,12 +1521,12 @@ woas["current_editing"] = function(page, disabled) {
 
 	// FIXME!
 	if (!ie)	{
-		$("wiki_editor").style.width = window.innerWidth - 30 + "px";
-		$("wiki_editor").style.height = window.innerHeight - 150 + "px";
+		$("wiki_editor").style.width = window.innerWidth - 35 + "px";
+		$("wiki_editor").style.height = window.innerHeight - 180 + "px";
 	}
 
 	if( woas["editbutton"] )
-		for(var button=0;button<woas["editbutton"].length;++button){
+		for(var button=0,l=woas["editbutton"].length;button<l;++button){
 			var E = document.getElementById('pb'+button);
 			var B = woas["editbutton"][button];
 			if(E){

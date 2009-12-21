@@ -22,7 +22,7 @@ for(my $i=0;$i<12;$i++){
 # Someday we will compress \n\ 
 #$ct=~s/\\n\\$//gm;
 
-crash(-2, "Could not find marker\n") unless ($ct =~ /\nvar __marker = "([^"]+)";/ );
+crash(-2, "Could not find marker 'var __marker = ...' in file '$woas'\n") unless ($ct =~ /\nvar __marker = "([^"]+)";/ );
 my $marker = $1;
 
 $p = index($ct, '/* '.$marker.'-END */', 0);
@@ -125,14 +125,19 @@ sub Squeeze{
 	s%\s*\n({|})%$1%gm;
 	#s%;\n(?!else)%;%gm;
 	s%{\n%{%gm;
-	s%(if|function|while|do)\s*\(%$1(%gm;
+	s%(if|function|while|do|for)\s*\(\s*%$1(%gm;
 	s`(try)\s+\{\s*`$1\{`gm;
 	s`\s+(\+=|\!=|==)\s+`$1`gm;
-	s`\s*=\s*(function|true|false|new|null|document|\$\(")`=$1`gm;
+	s`\s*=\s*(_ofs|source|function|true|false|new|null|document|\$\(")`=$1`gm;
+	s`(\.value|\.disabled|_marker|vars|css|_edit|_quit|_diff|_cache|_names|_attrs|_contents)\s*=\s*`$1=`gm;
 	s`(data|innerHTML|cursor|fname|current|woas|pages?|tmp|pos|ility|_menu|var\s+\w+|stack|title|text|\]|edits|wiki|tags?|img|hash|enc\d)\s*=\s*`$1=`gm;
 	s`\n\n+`\n`gm;
-	s`",\s+"`","`gm; # remove spaces between array elements
-	s`^/\*.*?^\*/``gms; # multiline comments (certain type)
+	s`",\s+"`","`gm; # remove spaces between array elements "
+	s`",\s+'`','`gm; # remove spaces between array elements '
+	s`,\s+false\)`,false\)`gm; # remove spaces between a false parameter
+	s`,}\s+else\s+{`,}else{`gm; # shrink inline else block
+	s`^\s*/\*.*?^\*/``gms; # multiline comments (certain type)
+	s`^\s*/\*.*?\*/\s*$``gms; # multiline comments (certain type)
 	s%(\.,\+)\n%$1%gms; # join concatenate
 	s%\n(\.,\+)%$1%gms; # join concatenate
 	s%;\n(return)%;$1%gms; #

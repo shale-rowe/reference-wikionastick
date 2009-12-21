@@ -161,9 +161,10 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 		var trans_level = 0;
 		do {
 			var trans = 0;
-			text = text.replace(/\[\[Include::([^\]]+)\]\]/g, function (str, $1) {
-				var parts = $1.split("|");
+			text = text.replace(/\[\[(Include::|\$\$)([^\]]+)\]\]/g, function (str, $1, $2) {
+				var parts = woas.parse_alias($1[0]=='$'? '$'+$2:$2).split("|");
 				var templname = parts[0];
+// alert("Transcluding "+templname+"("+parts.slice(0).toString()+")"); // NILTON
 				log("Transcluding "+templname+"("+parts.slice(0).toString()+")");	// log:1
 				var templtext = woas.get_text_special(templname);
 				if (templtext == null) {
@@ -211,7 +212,7 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 			// keep transcluding when a transclusion was made and when transcluding depth is not excessive
 		} while (trans && (++trans_level < 16));
 		if (trans_level == 16) // remove Include:: from the remaining inclusions
-			text = text.replace(/\[\[Include::([^\]\|]+)(\|[\]]+)?\]\]/g, "[<!-- -->[Include::[[$1]]$2]]");
+			text = text.replace(/\[\[(?:Include::|\$\$)([^\]\|]+)(\|[\]]+)?\]\]/g, "[<!-- -->[Include::[[$1]]$2]]");
 	}
 	
 	// thank you IE, really thank you
@@ -490,7 +491,13 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 		this.force_inline = false;
 		
 	if (text.substring(0,5)!="</div")
-		return "<div class=\"level0\">" + text + "</div>";
-	return text.substring(6)+"</div>";
+		text =  "<div class=\"level0\">" + text + "</div>";
+	else
+		text = text.substring(6)+"</div>";
+
+	if(typeof(woas["after_parser"])=='function')
+		text = woas["after_parser"](text);
+
+	return text;
 }
 

@@ -12,7 +12,8 @@ L10n={
 	ALLLOST: "This is the last confirm needed in order to ERASE all your pages.\n\nALL YOUR PAGES WILL BE LOST\n\nAre you sure you want to continue?",
 	DELETE:"Delete page:",
 	DELETEIMAGE:"Delete embedded image",
-	EXPORTIMAGE:"Export image"
+	EXPORTIMAGE:"Export image",
+	DELETEFILE: "Are you sure you want to delete this file?"
 }
 
 // DETERMINE BROWSER, OS AND SERVERMODE
@@ -152,7 +153,7 @@ Array.prototype.toUnique = function() {
 }
 
 // provide regex escaping
-// thanks to S.Willison
+// thanks to S.Willison // Note Nilton: ^ could be missing? => nevermind, I'm using it!
 RegExp.escape = function(text) {
   if (!arguments.callee.sRE) {
     var specials = [
