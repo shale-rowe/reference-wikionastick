@@ -118,7 +118,7 @@ function _filter_wiki(s,mode) {
 // export_links is set to true when exporting wiki pages and is used to generate proper href for hyperlinks
 // js_mode can be 0 = leave script tags as they are (for exporting), 1 - place script tags in <head /> (dynamic),
 //		2 - re-add script tags after parsing
-woas.parser["parse"] = function(text, export_links, js_mode) {
+woas.parser["parse"] = function(text, export_links, js_mode, title) {
 	if (this.debug) {
 		if (text===null)
 			log("Called parse() with null text!");	// log:1
@@ -129,8 +129,8 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 		export_links = false;
 		js_mode=1;
 	}
-	if(typeof(woas["before_parser"])=='function')
-		text = woas["before_parser"](text);
+	if(title && typeof(woas["before_parser"])=='function')
+		text = woas["before_parser"](text,title);
 
 	// this array will contain all the HTML snippets that will not be parsed by the wiki engine
 	var html_tags = [];
@@ -495,8 +495,8 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 	else
 		text = text.substring(6)+"</div>";
 
-	if(typeof(woas["after_parser"])=='function')
-		text = woas["after_parser"](text);
+	if(title && typeof(woas["after_parser"])=='function')
+		text = woas["after_parser"](text,title);
 
 	return text;
 }
