@@ -91,6 +91,14 @@ $["hidden"] = function (id) {
 	return ($(id).style.display=='none');
 }
 
+// This will keep the element used space in the layout, but make it visible/invisible
+$["visibility"] = function (id,set) {
+	if(set!==undefined)
+		$(id).style.visibility=set?'visible':'hidden';
+	else
+		return ($(id).style.visibility=='visible');
+}
+
 // logging function has not to be in WoaS object
 var log = function(aMessage) { };
 if (woas.debug) {
