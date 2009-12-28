@@ -142,20 +142,13 @@ woas.parser["parse"] = function(text, export_links, js_mode, title) {
 		return r;
 	});
 
-	// put away code contained in single-line "emphasized paragraph" blocks [[[ ]]] 「「「 &#12300; or \u300C 」」」 &#12301; or \u300D
+	// put away code contained in single-line "emphasized paragraph" blocks [[[ ]]]  and &#12300; or \u300C &#12301; or \u300D
 	text = text.replace(/(\[|\u300C){3}(.*?)(\]|\u300D){3}/g, function (str, $1, $2) {
 		var r = "<!-- "+parse_marker+"::"+html_tags.length+" -->";
 		html_tags.push("<span class=\""+($1=='['?'note':'citation')+"\">"+$2+"</span>");
 		return r;
 	});
 	
-	// Indent :  <div style="margin-left:2em"> or http://meyerweb.com/eric/css/tests/css2/sec08-03c.htm
-	text = text.replace(/(?:^|\n)(:+)\s*([^\n]+)/g, function (str, $1,$2) {
-		var r = "<!-- "+parse_marker+"::"+html_tags.length+" -->";
-		html_tags.push("<div style=\"border:1px;margin-bottom:-1em;margin-left:"+(2*$1.length)+"em\">"+$2+"</div>");
-		return r;
-	});
-
 	// transclusion code - originally provided by martinellison
 	if (!this.force_inline) {
 		var trans_level = 0;
@@ -235,7 +228,7 @@ woas.parser["parse"] = function(text, export_links, js_mode, title) {
 		return r;
 	});
 	
-	// put away code contained in multi-line "emphasized paragraph" blocks [[[ ]]] 「「「 」」」 
+	// put away code contained in multi-line "emphasized paragraph" blocks [[[ ]]]  and &#12300; or \u300C &#12301; or \u300D
 	text = text.replace(/(\[|\u300C){3}((.|\n)*?)(\]|\u300D){3}/g, function (str, $1, $2) {
 		var r = "<!-- "+parse_marker+"::"+html_tags.length+" -->";
 		html_tags.push("<div class=\""+($1=='['?'note':'citation')+"\">"+$2+"</div>");
@@ -394,7 +387,14 @@ woas.parser["parse"] = function(text, export_links, js_mode, title) {
 	// headers (from h1 to h6, as defined by the HTML 3.2 standard)
 	text = text.replace(reParseHeaders, this.header_replace);
 	text = text.replace(reParseOldHeaders, this.header_replace);
-	
+
+	// Indent :  <div style="margin-left:2em"> or http://meyerweb.com/eric/css/tests/css2/sec08-03c.htm
+	text = text.replace(/(?:^|\n)(:+)\s*([^\n]+)/g, function (str, $1,$2) {
+		var r = "\n<!-- "+parse_marker+"::"+html_tags.length+" -->";
+		html_tags.push("<span style=\"margin-left:"+(2*$1.length)+"em\">"+$2+"</span>");
+		return r;
+	});
+		
 	if (this.has_toc) {
 		// remove the trailing newline
 //		this.parser.toc = this.parser.toc.substr(0, this.parser.toc.length-2);
@@ -426,8 +426,8 @@ woas.parser["parse"] = function(text, export_links, js_mode, title) {
 		return tag;
 	});
 
-	// <hr> horizontal rulers made with 3 hyphens. 4 suggested
-	text = text.replace(/(^|\n)\s*\-{3,}\s*(\n|$)/g, "<hr />$2");
+	// <hr> horizontal rulers made with 3 hyphens. 4 suggested. \s matches whitespace (short for  [\f\n\r\t\v\u00A0\u2028\u2029]) will eat all \n and leave nothing...
+	text=text.replace(/(?:^|\n)[ \f\t\v\u00A0\u2028\u2029]*\-{3,}[ \f\t\v\u00A0\u2028\u2029]*(\n+)/g, function(str,$1) { return "<hr />"+$1.substr(2);});	
 	
 	// tables-parsing pass
 	text = text.replace(reReapTables, this.parse_tables);
