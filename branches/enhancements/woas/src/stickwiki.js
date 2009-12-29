@@ -669,8 +669,8 @@ woas["cmd_duplicate_page"] = function() {
 	go_to(pname);
 }
 
-woas["cmd_new_page"] = function() {
-	this._new_page("Insert new page title", false, '');
+woas["cmd_new_page"] = function(name) {
+	this._new_page(L10n.INSERTNEWPAGE, false, name||'');
 }
 
 woas["_new_page"] = function(msg, fill_mode, def_title) {
@@ -1647,7 +1647,8 @@ woas["setCSS"] = function(new_css) {
 }
 
 woas["before_save"] = function(){}; // User definable, used mainly for page-last-modified. by reading/setting $("wiki_editor").value
-woas["before_parser"] = undefined; // User definable, used mainly to expand macro's before the parser starts rendering (must return the text, a do-nothing would be:  woas["before_parser"] = function(text){return text}; )
+woas["before_parser"] = undefined; // User definable, used mainly to expand macro's before the parser starts rendering (must return the text, a do-nothing would be:  woas["before_parser"] = function(text,title){return text}; )
+woas["after_parser"] = undefined; // must return the text, a do-nothing would be:  woas["after_parser"] = function(text,title){return text}; 
 woas["user_parse"] = function(text){return "\xAB"+text+"\xBB"}; // User definable, used mainly for user macro's: «««like this»»»
 
 // when save is clicked
@@ -1736,10 +1737,18 @@ function printout_mixed_arr(arr, split_lines, attrs) {
 		}
 		return "'" + woas.js_encode(e, split_lines) + "'";
 	}
+	function elem_print(e, attr,pageindex) {
+		if(typeof e=='object' && !(attr & 2))alert(pageindex+" ("+attr+"):"+ (typeof e))
+		if(typeof e=='string' && (attr & 2))alert(pageindex+" ("+attr+"):"+ (typeof e))
+		if (attr & 2) {
+			return "[" + printout_num_arr(e) + "]";
+		}
+		return "'" + woas.js_encode(e, split_lines) + "'";
+	}
 
 	var s = "";
-	for(var i=0;i<arr.length-1;i++) {
-		s += elem_print(arr[i], attrs[i]) + ",\n";
+	for(var i=0,l=arr.length-1;i<l;++i) {
+		s += elem_print(arr[i], attrs[i],i) + ",\n";
 	}
 	if (arr.length>1)
 		s += elem_print(arr[arr.length-1], attrs[arr.length-1]) + "\n";
@@ -1749,7 +1758,7 @@ function printout_mixed_arr(arr, split_lines, attrs) {
 // used to print out encrypted pages bytes and attributes
 function printout_num_arr(arr) {
 	var s = "";
-	for(var i=0;i<arr.length-1;i++) {
+	for(var i=0,l=arr.length-1;i<l;++i) {
 		if (arr[i]>=1000)
 			s += "0x"+arr[i].toString(16) + ",";
 		else
