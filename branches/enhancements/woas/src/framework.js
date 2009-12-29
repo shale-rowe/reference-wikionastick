@@ -13,7 +13,8 @@ L10n={
 	DELETE:"Delete page:",
 	DELETEIMAGE:"Delete embedded image",
 	EXPORTIMAGE:"Export image",
-	DELETEFILE: "Are you sure you want to delete this file?"
+	DELETEFILE: "Are you sure you want to delete this file?",
+	INSERTNEWPAGE:"Insert new page title"
 }
 
 // DETERMINE BROWSER, OS AND SERVERMODE
