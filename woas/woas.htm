@@ -491,7 +491,7 @@ setTimeout ( "ScoreDecay()", 3000);\n\
 = Wiki on a Stick syntax\n\
 In this page you will find examples of all the WoaS wiki syntax.\n\
 \n\
-New pages have red links, like this [[New page]], but you can use [[Javascript::woas.special_new_page()]] to automatically create a new one through a simple dialog.\n\
+New pages have red links, like this [[New page]], but you can use [[Javascript::woas.cmd_new_page()]] to automatically create a new one through a simple dialog. (Or even use a default name: [[Javascript::woas.cmd_new_page(\'story::page-\')]]) (use single quotes only!). You can even edit the default page [[Javascript::woas.cmd_edit_new_page()]] that generates the empty page template.\n\
 \n\
 Click on \x3Ca class="link" onclick="javascript:edit()" title="Edit this page"\x3Ethis link\x3C/a\x3E to edit the wiki source of this page.\n\
 \n\
