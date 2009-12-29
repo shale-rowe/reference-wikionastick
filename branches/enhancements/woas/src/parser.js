@@ -390,9 +390,7 @@ woas.parser["parse"] = function(text, export_links, js_mode, title) {
 
 	// Indent :  <div style="margin-left:2em"> or http://meyerweb.com/eric/css/tests/css2/sec08-03c.htm
 	text = text.replace(/(?:^|\n)(:+)\s*([^\n]+)/g, function (str, $1,$2) {
-		var r = "\n<!-- "+parse_marker+"::"+html_tags.length+" -->";
-		html_tags.push("<span style=\"margin-left:"+(2*$1.length)+"em\">"+$2+"</span>");
-		return r;
+		return "\n<span style=\"margin-left:"+($1.length)+"em\">"+$2+"</span>";
 	});
 		
 	if (this.has_toc) {
