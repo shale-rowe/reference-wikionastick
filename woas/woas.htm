@@ -98,11 +98,12 @@ var page_titles = [
 'game::page4',
 'SANDBOX',
 'Testcase::Tables',
-'Import txt2wiki'
+'Import txt2wiki',
+'Feature::Hotkeys'
 ];
 
 /* DFQRCTsKlU-0000493-DATA */
-var page_attrs = [12,4,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,4,0,0,0,2,0];
+var page_attrs = [12,4,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,4,0,0,0,2,0,0];
 
 var pages = [
 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAMAAADzapwJAAAAB3RJTUUH1wcHEBwwMJCsHwAAAAlwSFlzAAAewQAAHsEBw2lUUwAAAARnQU1BAACxjwv8YQUAAAJzUExURf8f7evr67W1taWlpdbW1uzs7J6enmouJGosI4ODg93d3TcyMdQdB9EUBzYxMcXFxenp6Y+Pj402G+0VAN4MAIwlGnd3d9ra2tXV1UA1L+Y7Be4eAekRANYQAz8wLrCwsOXl5YCAgKdRGPdEA/QxAfIdAeERAaEjFW1tbe/v71hAKvlpB/pbBfZDA/IuAu0bAd0UAlYwKZOTk+Dg4F5eXsxqEvt3CflwCf////IpAuoYAcIjDVNTU9DQ0JaWlnlOI/uEDPuFEPqEEfU9BO0kAugYAXYyIX5+fu3t7Tc0MeZ7DvuTFvuZHPqXHvqKGft3EfZTB+81A+ohAdwpB+jo6ImJiZFXHvuYGPyjJ/ysM/ytOfpwDfdOBfAwAu8lAo87HHR0dNjY2MnJyUc6LvKLE/ypKfy2P/y9S/y/UfuGGPliCvJFBPIzA+s5BUc3LaampuPj43V1dbRmF/ymJfy3Of3DU/3KYv3MY/ubJPt4EvpUCfVCA/E2A7NNFmRkZNPT06ioqGFFKPuVFPytLv2+Sf3KYf3Qbf3PafuiKfuKFfppC/lQBfg+A/U8A2FBKIuLi9/f3zQzMtV2E/yhH/yxNf2+R/3HXP3LZ/3NafykJ/yOF/lxC/pcBvZGBPU3A9VRDTQzMdfX15qamn5QIvuSEfyfHPysL/y6QfzBTfzDV/zBU/ydH/yLE/t2DPpgB/dLA/Y6A/U6A3tIIvPz8zs2MPuSE/ydGPymJPyyNfy0OfyzN/ysKfyhIPuUF/uGDft0CvtlB/taBfZPA/ZFA+RXCjs1MPDw8E49LIJSIYJRIYJPIYJOIYJNIIJMIIJMIU47LKysrKzWV/gAAAABdFJOUwBA5thmAAABNUlEQVR42mNgwAGML2AAY6Do8RNQcPLkyVOnz5w9e+7ceWOGzVu8tm7b3rxj567de/bu23/g4KHDR44eY2BYtHjJ0mXLV6xcZWGxes3ades3bNwkuBlo+MRJk6dMnTZ9hoXFzFmz58ydN3/BQpCdDY1NzS2tbe0WFh2dXd09vX39E8BuKSwqLiktK7ewqKisqq6prauHODEpOSU1LT3DwiIzKzsnNy+/AOr00LDwiMgoC4vomNi4+IREmI88PL28fXz9/AMCg4K5+UPgPrWzd3B0srBwdnF1c+dCCgETUzNzCwtLK2sbW1YkYXktbR1dPX0DQyNjlABTVFJWUVVT15DQRBGWkJSSlpGVk1dAC19BIWERUTFxjHDn5uHl4xfAEGZj5+DkYsAETMwsrFiEGRgZGQgAAEPKcWQFSaWtAAAAAElFTkSuQmCCAAA=',
@@ -120,6 +121,7 @@ var pages = [
 ** [[Feature::Buttons|Buttons]]\n\
 ** [[Feature::Custom javascript|Custom javascript]]\n\
 ** [[Feature::External javascript|External javascript]]\n\
+** [[Feature::Hotkeys|Hotkeys]]\n\
 ** [[Image::alert.png|Embedded image]]\n\
 ** [[File::life snippet.c|Embedded file]]\n\
 ** [[Embedding external html]]\n\
@@ -491,7 +493,7 @@ setTimeout ( "ScoreDecay()", 3000);\n\
 = Wiki on a Stick syntax\n\
 In this page you will find examples of all the WoaS wiki syntax.\n\
 \n\
-New pages have red links, like this [[New page]], but you can use [[Javascript::woas.cmd_new_page()]] to automatically create a new one through a simple dialog. (Or even use a default name: [[Javascript::woas.cmd_new_page(\'story::page-\')]]) (use single quotes only!). You can even edit the default page [[Javascript::woas.cmd_edit_new_page()]] that generates the empty page template.\n\
+New pages have red links, like this [[New page]], but you can use [[Javascript::woas.cmd_new_page()]] to automatically create a new one through a simple dialog. (Or even use a default name: [[Javascript::woas.cmd_new_page(\'story::page-\')]]) (single quotes only!). You can even edit the default page [[Javascript::woas.cmd_edit_new_page()]] that generates the empty page template.\n\
 \n\
 Click on \x3Ca class="link" onclick="javascript:edit()" title="Edit this page"\x3Ethis link\x3C/a\x3E to edit the wiki source of this page.\n\
 \n\
@@ -616,6 +618,9 @@ When you erase your wiki, you can choose to add them back.\n\
 \n\
 \x3Cdiv class="bubble"\x3EThis text is inside a bubble, but it only gets displayed correctly in FireFox.\x3C/div\x3E\n\
 Can be made to work in safari by changing the CSS \u201c.bubble\u201d See [[http://www.the-art-of-web.com/css/border-radius/]]\n\
+\n\
+You can use HTML to make text \x3Cspan style="background-color:green"\x3Egreen\x3C/span\x3E or even \x3Cfont color=green\x3Egreen\x3C/font\x3E.\n\
+To find more colors to use, look at [[http://html-color-codes.info/color-names|color-names]] or at [[http://html-color-codes.info/|HTML Colorcode chart]].\n\
 \n\
 \n\
 == New syntax features\n\
@@ -1952,6 +1957,8 @@ if(MY.weapon==\'carrot\')\n\
 ',
 '= page4 End of the game!\n\
 \n\
+\x3Cdiv align="center"\x3E\x3Cfont face="Monotype Corsiva, Verdana" size=20\x3EThe End\x3C/font\x3E\x3C/div\x3E\n\
+\n\
 Hurray! You made it!\n\
 If the game programmers were not that lazy, you would have seen graphics made with [[http://www.walterzorn.com/jsgraphics/jsgraphics_e.htm|jsgraphics]], but alas, due to budget constraints we only can offer [[http://www.p01.org/releases/Drawing_lines_in_JavaScript/|Drawing_lines_in_JavaScript]].. Need more? [[http://neil.fraser.name/software/bmp_lib/|bmp_lib]] and [[http://www.kevlindev.com/gui/utilities/js_png/index.htm|js_png]] could also be helpful. And maybe [[http://forums.techarena.in/software-development/1268277.htm|this one]]\n\
 \n\
@@ -2201,7 +2208,16 @@ function Import_T2W(){\n\
 \x3Cinput value="Import Text to Wiki" style="width: 300px;" onclick="javascript:Import_T2W()" type="button"\x3E\n\
 \n\
 \x3Cdiv id="IMPORTLOG"\x3E\x3C/div\x3E\n\
-'
+',
+'= Hotkeys\n\
+\n\
+To an extend, WoaS can be navigated using hotkeys.\n\
+For example: Backspace or Escape will take you to the previous page.\n\
+F2 will edit the current page.\n\
+\n\
+These are WoaS keys, Firefox also has its own, space will scroll a full page down, etc.\n\
+\n\
+In a future release of WoaS it will be possible to edit these hotkeys through the interface.'
 ];
 
 /* DFQRCTsKlU-0000493-END */
