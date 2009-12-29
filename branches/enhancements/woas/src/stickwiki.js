@@ -110,15 +110,11 @@ woas["is_readonly"] = function(page) {
 }
 
 woas["is_readonly_id"] = function(pi) {
-	if (page_attrs[pi] & 1)
-		return true;
-	return false;
+	return !!(page_attrs[pi] & 1)
 }
 
 woas["is__encrypted"] = function (pi) {
-	if (page_attrs[pi] & 2)
-		return true;
-	return false;
+	return !!(page_attrs[pi] & 2)
 }
 
 woas["is_encrypted"] = function(page) {
@@ -126,16 +122,13 @@ woas["is_encrypted"] = function(page) {
 }
 
 woas["is__embedded"] = function(pi) {
-	if (page_attrs[pi] & 4)
-		return true;
-	return false;
+	return !!(page_attrs[pi] & 4)
 }
+
 woas["is_embedded"] = function(page) {return this.is__embedded(this.page_index(page));}
 
 woas["is__image"] = function(pi) {
-	if (page_attrs[pi] & 8)
-		return true;
-	return false;
+	return !!(page_attrs[pi] & 8)
 }
 woas["is_image"] = function(page) { return this.is__image(this.page_index(page)); }
 
@@ -538,9 +531,9 @@ woas["_get__embedded"] = function (cr, pi, etype) {
 		_del_lbl+
 		"\n<a href=\"javascript:query_export_file()\">Export file</a>\n"+
 		"<sc"+"ript>"+_del_cmd
-		+(pview_link.length?"function show_full_file(pi) { var text = this.get__text(pi); if (text==null) return; $.show('loading_overlay'); woas.setHTML($('_part_display'), ''); woas.setHTML($('_file_ct'), this.xhtml_encode(decode64(text))); $.hide('loading_overlay'); }\n":'')+
+		+(pview_link.length?"function show_full_file(pi) { var text = woas.get__text(pi); if (text==null) return; $.show('loading_overlay'); woas.setHTML($('_part_display'), ''); woas.setHTML($('_file_ct'), woas.xhtml_encode(decode64(text))); $.hide('loading_overlay'); }\n":'')+
 		"function query_export_file() {\nvar exp_path = _get_this_filename().replace(/\\"+slash_c+"[^\\"+
-		slash_c+"]*$/, \""+(slash_c=="\\"?"\\\\":"/")+"\")+'"+this.js_encode(fn)+"';if (confirm('Do you want to export this file in the below specified path?'+\"\\n\\n\"+exp_path)){woas.export_file('"+this.js_encode(cr)+"', exp_path);}}"+
+		slash_c+"]*$/, \""+(slash_c=="\\"?"\\\\":"/")+"\")+'"+woas.js_encode(fn)+"';if (confirm('Do you want to export this file in the below specified path?'+\"\\n\\n\"+exp_path)){woas.export_file('"+woas.js_encode(cr)+"', exp_path);}}"+
 		"</sc"+"ript>"
 		);
 	} else {
