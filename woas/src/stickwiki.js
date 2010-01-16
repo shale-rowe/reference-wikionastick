@@ -45,28 +45,33 @@ woas["js_encode"] = function (s, split_lines) {
 // used to escape blocks of source into HTML-valid output
 woas["xhtml_encode"] = function(src) {
 	return this.utf8_encode(src.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')); // .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
-}	
+}
 
+// ANSI is left alone, the rest is encoded
+// note: if you want to convert Di‚critics into Di%E2critics use escape(); and use unescape() to revert it.
 woas["utf8_encode"] = function(src) {
 	return src.replace(/[^\u0000-\u007F]/g, function(c){
 		return '&#' + c.charCodeAt(0).toString()+";";
-		// Or do we mean: return '&#' + ('0000' + c.charCodeAt(0).toString()).slice(-4)+";"; so euro \u0080 becomes &#0128; instead of &#128;
 	});
 }
+// Or do we mean: return '&#' + ('0000' + c.charCodeAt(0).toString()).slice(-4)+";"; so euro \u0080 becomes &#0128; instead of &#128;
+// Note: there is an other, official utf8_encode, that encodes Di‚critics to: Di√¢critics
+
 
 // create a centered popup given some options
-woas["popup"] = function (name,fw,fh,extra) {
+woas["popup"] = function (name,fw,fh,extra, content) {
 	var hpos=Math.ceil((screen.width-fw)/2);
 	var vpos=Math.ceil((screen.height-fh)/2);
 	var wnd = window.open("about:blank",name,"width="+fw+",height="+fh+		
 	",left="+hpos+",top="+vpos+extra);
 	wnd.focus();
+	if(content) { wnd.document.writeln(content); wnd.document.close(); }
 	return wnd;
 }
 
 //DANGER: will corrupt your WoaS!
 var edit_override = false;
-
+// Add and remove namespaces here to enable/disable editing the pages in the namespaces, and to hide/show the pages when doing a listing of all pages. Note that the content of any pages included in this section will not be available when performing a search of the wiki. To have the power to edit all pages in the wiki, remove all namespaces from this list temporarily.
 var reserved_namespaces = ["Special", "Lock", "Locked", "Unlocked", "Unlock", "Tags", "Tagged", "Untagged", "Include", "Javascript", "WoaS"];
 
 // create the regex for reserved namespaces
@@ -198,56 +203,67 @@ woas["_get_namespace_pages"] = function (ns) {
 }
 
 woas["_get_tagged"] = function(tag_filter) {
-	var pg = [];
+	var pg = []; // hold the pages that we found (and match the tag_filter criteria)
 	
-	// allow tags filtering
+	// allow tags filtering (which tags we are searching for)
 	var tags = tag_filter.split(','), tags_ok = [], tags_not = [];
 	for(var i=0;i<tags.length;++i) {
 		if (!tags[i].length)
 			continue;
 		if (tags[i].charAt(0)=='!')
-			tags_not.push( tags[i] );
+			tags_not.push( tags[i].slice(1) );
 		else
 			tags_ok.push(tags[i]);
-	} tags = null;
+	}
+	tags = null; // undefine, not needed anymore (garbage collector will free the memory)
 
+	// loop throuh all pages and get their tags
 	var tmp, b, fail;
-	for(var i=0; i<pages.length; i++) {
+	for(var i=pages.length-1;i>=0; --i) {
 		tmp = this.get_src_page(i);
+		// Skip empty pages (but that's, like, impossible...)
 		if (tmp==null)
 			continue;
-		tmp.replace(/\[\[([^\|]*?)\]\]/g, function(str, $1)
-			{
-				if ($1.search(/^\w+:\/\//)==0)
-					return;
-					
-				found_tags = woas._get_tags($1);
-				
-//				alert(found_tags);
-				fail = false;
-				for (var t=0,ftl=found_tags.length;t<ftl;t++) {
-					for (b=0,tol=tags_ok.length;b<tol;++b) {
-						if (found_tags[t] != tags_ok[b]) {
-							fail = true;
-							break;
-						}
-					}
-					if (!fail) {
-						for (b=0,tnl=tags_not.length;b<tnl;++b) {
-							if (found_tags[t] == tags_not[b]) {
-								fail = true;
-								break;
-							}
-						}
-					}
-					if (!fail)
-						pg.push(page_titles[i]);
-				}
+		var found_tags = [],t;
+		// Inside the page, read all [[Tag:: and [[Tags::
+		tmp.replace(/\[\[(Tags?::[^\|]*?)\]\]/g, 
+			function(str, $1){
+				t=woas._get_tags($1);
+				if(t.length==0 && !t[0])alert(i);
+				found_tags=found_tags.concat(t); // An array with all found tags
+			}
+		);
 
-				
-			});
+		// Got all tags, skip pages without any tags...
+		if(found_tags.length==0)
+			continue;
+			
+		// now all tags from the page are in the array found_tags. Loop through all tags_ok, check if its there
+		fail = true;
+		for(var  t=tags_ok.length-1; t>=0;--t){
+			if(found_tags.indexOf(tags_ok[t])!=-1){
+				fail=false;
+				continue;
+			}
+		}
+
+		var  n=tags_not.length-1;
+		if(n>=0){ // Only process tag_not if its defined
+			if(!fail || tags_ok.length==0) { // And only if tags_ok was found or tags_ok is empty, so there was nothing to search for
+				fail=false;
+				for(;n>=0;--n){
+					if(found_tags.indexOf(tags_not[n])!=-1){
+						fail=true;
+						continue;
+					}
+				}
+			}
+		}
+		// Yeah, now fail says if we have or dont have a match
+		if(!fail)
+			pg.push(page_titles[i]);
 	}
-	
+
 	if (!pg.length)
 		return "No pages tagged with *"+tag_filter+"*";
 	return "= Pages tagged with " + tag_filter + "\n" + this._join_list(pg);
@@ -426,8 +442,6 @@ woas["set_text"] = function(text) {
 
 // triggered by UI graphic button
 function page_print() {
-	var wnd = woas.popup("print_popup", Math.ceil(screen.width*0.75),Math.ceil(screen.height*0.75),
-	",status=yes,menubar=yes,resizable=yes,scrollbars=yes");
 	var css_payload = "";
 	if (ie) {
 		if (ie6)
@@ -436,10 +450,12 @@ function page_print() {
 			css_payload = "div.wiki_toc { position: relative; left:25%; right: 25%;}";
 	} else
 		css_payload = "div.wiki_toc { margin: 0 auto;}\n";
-	wnd.document.writeln(_doctype+"<ht"+"ml><he"+"ad><title>"+current+"</title>"+
+
+	var wnd = woas.popup("print_popup", Math.ceil(screen.width*0.75),Math.ceil(screen.height*0.75),
+	",status=yes,menubar=yes,resizable=yes,scrollbars=yes",
+	_doctype+"<ht"+"ml><he"+"ad><title>"+current+"</title>"+
 	"<st"+"yle type=\"text/css\">"+css_payload+_css_obj().innerHTML+"</sty"+"le><scr"+"ipt type=\"text/javascript\">function go_to(page) { alert(\"Sorry, you cannot browse the wiki while in print mode\");}</sc"+"ript></h"+"ead><"+"body>"+
 	$("wiki_text").innerHTML+"</bod"+"y></h"+"tml>\n");
-	wnd.document.close();
 }
 
 woas["clear_search"] = function() {
@@ -763,10 +779,7 @@ woas["cmd_edit"] = function(cr, decode) {
 	this.current_editing(cr, true);
 	// setup the wiki editor textbox
 	this.current_editing(cr, this.config.permit_edits | this._server_mode);
-	if(decode)
-		this.edit_ready(decode64(tmp));
-	else
-		this.edit_ready(tmp);
+	this.edit_ready( decode? decode64(tmp):tmp);
 	return null;
 }
 
@@ -1009,7 +1022,7 @@ woas["create_breadcrumb"] = function(title) {
 	var s="", partial="";
 	for(var i=0;i<tmp.length-1;i++) {
 		partial += tmp[i]+"::";
-		s += "<a href=\"#\" onclick=\"go_to('"+this.js_encode(partial)+"')\">"+tmp[i]+"</a> :: ";		
+		s += "<a href=\"#\" onclick=\"go_to('"+this.js_encode(partial)+"')\">"+tmp[i]+"</a> :: ";
 	}
 	return s+tmp[tmp.length-1];
 }
@@ -1036,9 +1049,8 @@ woas["_activate_scripts"] = function() {
 }
 
 woas["_set_title"] = function (new_title) {
-	var wt=$("wiki_title");
 	// works with IE6, FF, etc.
-	wt.innerHTML = this.create_breadcrumb(new_title);
+	$("wiki_title").innerHTML = this.create_breadcrumb(new_title);
 	document.title = new_title;
 }
 
@@ -1255,34 +1267,29 @@ woas["after_load"] = function() {
 //		setup_uri_pics($("img_home"),$("img_back"),$("img_forward"),$("img_edit"),$("img_cancel"),$("img_save"),$("img_advanced"));
 //		WONT WORK _css_obj().innerHTML += "\na {  cursor: pointer;}";
 	}
-	
-	$('a_home').title = main_page;
-	$('img_home').alt = main_page;
-	
+
+	$('a_home').title = $('img_home').alt = main_page;
+
 	if (this.debug)
 		$.show("debug_info");
 	else
 		$.hide("debug_info");
 
-	this.img_display("back", true);
-	this.img_display("forward", true);
-	this.img_display("home", true);
-	this.img_display("edit", true);
-	this.img_display("print", true);
-	this.img_display("advanced", true);
-	this.img_display("cancel", true);
-	this.img_display("save", true);
-	this.img_display("lock", true);
-	this.img_display("unlock", true);
+	var Btns = ["back","forward","home","edit","print","advanced","cancel","save","lock","unlock","key"];
+	for(var i=Btns.length-1;i>=0;--i){
+		this.img_display(Btns[i], true);
+	}
+
 	
 	// customized keyboard hook
-	document.onkeydown = kbd_hook;
+	document.onkeydown = kbd_hook_down;
+	document.onkeyup = kbd_hook_up;
 
 	// Go straight to page requested
 	var qpage=document.location.href.split("?")[1];
 	if(qpage)
-		current = unescape(qpage);
-		
+		current = unescape(qpage.split("#")[0]);
+
 //	this.swcs = $("sw_custom_script");
 
 	this._load_aliases(this.get_text("WoaS::Aliases"));
@@ -1331,7 +1338,7 @@ woas["_create_bs"] = function(get_text,id,script) {
 	// remove the comments
 	s = decode64(s).replace(/^\s*\/\*(.|\n)*?\*\/\s*/g, '');
 	k = decode64(k).replace(/^\s*\/\*(.|\n)*?\*\/\s*/g, '');
-	s = s +";"+ k;
+	s = s +"\n"+ k;
 	if (!s.length) return false;
 	_bootscript = document.createElement("script");
 	_bootscript.type="text/javascript";
@@ -1340,6 +1347,7 @@ woas["_create_bs"] = function(get_text,id,script) {
 	this.setHTML(_bootscript, s);
 	return true;
 }
+
 
 // remove Bootscript and Buttons
 woas["_clear_bs"] = function() {
@@ -1351,6 +1359,7 @@ woas["_clear_bs"] = function() {
 }
 
 function ff_fix_focus() {
+	kbd.META=0;
 // runtime fix for Firefox bug 374786
 	if (firefox)
 		$("wiki_text").blur();
@@ -1370,35 +1379,70 @@ function custom_focus(focused) {
 
 var kbd_hooking=false;
 
-function kbd_hook(orig_e) {
-	if (!orig_e)
-		e = window.event;
-	else
-		e = orig_e;
-	if (!kbd_hooking) {
-		if (_custom_focus)
-			return orig_e;
+// Will record which key is pressed in kbd.KEY (a number or false on key up) . META will hold meta keys. So if SHIFT and ALT are pressed then META=5
+// n is true-ish for key up. http://www.beansoftware.com/ASP.NET-Tutorials/Examples/Shift-Ctrl-Alt-Detect.aspx
+function kbd(key,n){
+	switch(key){
+		case(16): kbd.META = n? kbd.META|= 1:kbd.META^= 1; break; // SHIFT
+		case(17): kbd.META = n? kbd.META|= 2:kbd.META^= 2; break; // CTRL
+		case(18): kbd.META = n? kbd.META|= 4:kbd.META^= 4; break; // ALT
+		default: kbd.KEY = n? key : false;
+	}
+	log("kbd "+(n?"DOWN ":"UP ")+kbd.META+" "+kbd.KEY+" _custom_focus="+_custom_focus+" kbd_hooking="+kbd_hooking+" search_focused="+search_focused);
+	return kbd.KEY;
+}
+
+// resets the kbd.META value
+function kbd_blur(){kbd.META=0;}
+kbd_blur();
+
+// On key up
+function kbd_hook_up(orig_e) {
+	kbd(orig_e ? orig_e.keyCode : window.event.keyCode,0);
+	return orig_e;
+}
+
+// helper function for keypresses
+function kbd_is(k,m){if(kbd.KEY==k&&kbd.META==(m||0))return 1}
+
+// To get the keycodes use this text in a page:
+// <form>Char: <input type="text" id="char" size="15" /> Keycode: <input type="text" id="keycode" size="15" /></form>
+// <script type="text/javascript">
+// $('char').onkeydown=function(e){var e=window.event || e; document.getElementById("keycode").value=e.keyCode;}
+// </script>
+function kbd_hook_down(orig_e) {
+	var e = kbd( orig_e ? orig_e.keyCode : window.event.keyCode, 1);
+	if(!e) return orig_e;
+	
+	if (kbd_hooking) { // EDIT MODE
+		if (kbd_is(e,27)) { // Escape pressed during edit mode
+			cancel();
+			ff_fix_focus();
+			return false; // cancel this input key from the keyboard ( so the Browser doesn't processes it )
+		}
+		 if(kbd_is(113)){save();return false} // Pressing F2 while editing will save your page
+	}else{
+		if (_custom_focus){
+			if(kbd_is(113)){save();return false} // Pressing F2 while viewing and editing a form will edit the  page
+			return orig_e; // Just return the pressed key if _custom_focus
+		}
 		if (search_focused) {
-			if (e.keyCode==13) { // Enter 
+			if (e==13) { // Enter pressed in search input box
 				ff_fix_focus();
 				do_search();
 				return false;
 			}
 			return orig_e;
 		}
-		if ((e.keyCode==8) || (e.keyCode==27)) { // Escape
-			go_back();
-			ff_fix_focus();
-			return false;
+		if(kbd.META==0){  // No ALT/CTRL/SHIFT pressed
+			switch(e){
+				case(8):case(27): go_back();ff_fix_focus();return false; // Backspace or Escape.  When in a form, don't forget to set onfocus="custom_focus(true)" onblur="custom_focus(false)" (or else backspace will go back a page!)
+				case(113): edit();return false; // Pressing F2 while viewing will edit the  page
+				case(115): go_to('Special::Search');return false;  // Pressing F4 will bring up the search
+			}
 		}
-		if(e.keyCode==113)
-		 edit();
-	}
-
-	if (e.keyCode==27) { // Escape
-		cancel();
-		ff_fix_focus();
-		return false;
+		if(kbd_is(113,1))
+				woas.cmd_new_page(current.replace(/::$/,'')+'::'); return false // Pressing SHIFT+F2 will create a new subpage
 	}
 
 	return orig_e;
@@ -1991,7 +2035,7 @@ var common_words = [ 'the','of','to' ,'and' ,'a' ,'in' ,'is' ,'it' ,'you' ,'that
 function _auto_keywords(source) {
 	if (!source.length) return "";
 	var words = source.match(new RegExp("[^\\s\x01-\x2F\x3A-\x40\x5B-\x60\x7B-\x7E]{2,}", "g"));
-	if (!words.length) return "";
+	if (!words || !words.length) return "";
 	var nu_words = new Array();
 	var density = new Array();
 	var wp=0;
