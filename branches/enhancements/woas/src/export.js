@@ -128,7 +128,7 @@ woas["export_one_page"] = function (
 			if (_ns.length) {
 				var mpi = this.page_index(_ns+"::Menu");
 				if (mpi != -1) {
-					var tmp=this.get_text_special(ns+"::Menu");
+					var tmp=this.get_text_special(_ns+"::Menu");
 					if (tmp!=null)
 						_exp_menu += tmp;
 				}
