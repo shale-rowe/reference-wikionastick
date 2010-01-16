@@ -66,6 +66,7 @@ woas["_server_mode"] = (document.location.toString().match(/^file:\/\//) ? false
 
  // returns the DOM element object given its id, alerting if the element is not found (but that would never happen, right?)
 // function $(id){ try{return document.getElementById(id);}catch(e){alert("element id '"+id+"' not found.");} }
+// proposal to: return document.all ? document.all[id] : document.getElementById(id);
 function $(id){ return document.getElementById(id);} // This version is much faster than the one with try/catch
 
 // Hide an element. use like this:
@@ -215,3 +216,33 @@ function _convert_bytes(bytes){
 
 // Sort Case insensitive (put inside the sort:  .sort($["i_sort"])
 $["i_sort"] =  function(x,y){var a=String(x).toUpperCase();var b = String(y).toUpperCase();if (a>b)return 1;if (a<b)return -1;return 0;}
+
+// read or set the vertical scrollbar. Should work for IE6 in quircks and nonquircks mode.  sigh!
+function scrollTop(v) {
+	var x=0;
+	function f_filterResults(w, d, b) {
+		var r = w || 0;
+		if (d && (!r || (r > d))){
+			r = d;
+			x=1;
+		}
+		if(b && (!r || (r > b))){
+			x=2;
+			return b;
+		}
+		return r;
+	}
+	var F = f_filterResults(
+		window.pageYOffset ? window.pageYOffset : 0,
+		document.documentElement ? document.documentElement.scrollTop : 0,
+		document.body ? document.body.scrollTop : 0
+	);
+	if(v===undefined)
+		return F;
+	if(firefox) return window.scrollBy(0,v);
+	switch(x){
+		case(0): return window.pageYOffset+=v; break;
+		case(1): return document.documentElement.scrollTop+=v; break;
+		case(2): return document.body.scrollTop+=v; break;
+	}
+}
