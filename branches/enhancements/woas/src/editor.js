@@ -7,6 +7,7 @@ function TextAreaSelectionHelper(obj) {
  this.target.onclick=_textareaSaver;
  this.target.onkeyup=_textareaSaver;
  this.target.onfocus=_textareaSaver;
+ this.target.onblur=kbd_blur;
  if(!document.selection) this.target.onSelect=_textareaSaver; // ?
  
  this.start=-1;
@@ -24,6 +25,7 @@ TextAreaSelectionHelper.prototype.getSelectedText=function() {
 	return (this.start>=0&&this.end>this.start)? this.target.value.substring(this.start,this.end): "";
 }
 
+// todo: add third param, if true, it will do {{{\n \n}}} if a newline is in the selection else an inline {{{ }}}
 TextAreaSelectionHelper.prototype.setSelectedText=function(text, secondtag) {
  if(this.iesel) {
 	if(typeof(secondtag)=="string") {
@@ -85,9 +87,6 @@ function TagThis(starttag, endtag){
 function FullTagThis(tag,param){
 	woas._editor.setSelectedText('<'+tag+(param?' '+param:'')+'>','</'+tag+'>');
 }
-
-function getSelectedText(){return woas._editor.getSelectedText();}
-function setSelectedText(txt){return woas._editor.setSelectedText(txt);}
 
 function setUrl(starttag,centertag,endtag) {
 	var url=prompt('Link:','http://');
