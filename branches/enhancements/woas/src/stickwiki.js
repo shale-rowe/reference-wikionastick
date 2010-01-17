@@ -1415,7 +1415,7 @@ function kbd_hook_down(orig_e) {
 	if(!e) return orig_e;
 	
 	if (kbd_hooking) { // EDIT MODE
-		if (kbd_is(e,27)) { // Escape pressed during edit mode
+		if (kbd_is(27)) { // Escape pressed during edit mode
 			cancel();
 			ff_fix_focus();
 			return false; // cancel this input key from the keyboard ( so the Browser doesn't processes it )
