@@ -1407,9 +1407,8 @@ function kbd_is(k,m){if(kbd.KEY==k&&kbd.META==(m||0))return 1}
 
 // To get the keycodes use this text in a page:
 // <form>Char: <input type="text" id="char" size="15" /> Keycode: <input type="text" id="keycode" size="15" /></form>
-// <script type="text/javascript">
+// And inside a script:
 // $('char').onkeydown=function(e){var e=window.event || e; document.getElementById("keycode").value=e.keyCode;}
-// </script>
 function kbd_hook_down(orig_e) {
 	var e = kbd( orig_e ? orig_e.keyCode : window.event.keyCode, 1);
 	if(!e) return orig_e;
