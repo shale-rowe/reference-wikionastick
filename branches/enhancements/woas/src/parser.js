@@ -12,9 +12,9 @@ woas.parser["header_anchor"] = function(s) {
 	return s.replace(/[^a-zA-Z0-9]/g, '_');
 }
 
-var reParseOldHeaders = /(^|\n)(\!+)\s*([^\n]+)/g;
-var reParseHeaders = /(^|\n)(=+)\s*([^\n]+)/g;
-woas.parser["header_replace"] = function(str, $1, $2, $3) {
+// var reParseOldHeaders = /(^|\n)(\!+)\s*([^\n]+)/g;
+var reParseHeaders = /(^|\n)(=+|\!+)[ \t]([^\n]+)(\n?)/g;
+woas.parser["header_replace"] = function(str, $1, $2, $3,$4) {
 		var header = $3;
 		var len = $2.length;
 		if (header.indexOf($2)==header.length - len)
@@ -24,55 +24,64 @@ woas.parser["header_replace"] = function(str, $1, $2, $3) {
 			woas.parser.toc += "#".repeat(len)+" <a class=\"link\" href=\"#" +
 			woas.parser.header_anchor(header) + "\">" + header + "<\/a>\n";
 		}
-		return "</div><h"+len+" id=\""+woas.parser.header_anchor(header)+"\">"+header+"</h"+len+"><div class=\"level"+len+"\">";
+		return "</div><h"+len+" id=\""+woas.parser.header_anchor(header)+"\">"+header+"</h"+len+"><div class=\"level"+len+"\">"+$4;
 }
 
-woas.parser["sublist"] = function (lst, ll, suoro, euoro) {   
-	if (!lst.length)
-		return '';
+woas.parser["sublist"] = function (s) {   
+	var A=s.split(/\n/);
+	var firstline = A.shift();
+	var fl= "";
+	var close="";
+	firstline=firstline.replace(/^((?:\*|#|@[ia1])+)[ \t](.*)$/i,
+			function(str,a,b,c){
+					fl=a;
+					var open="";
+					if(a == '*'){
+						open="<ul>"; close="</ul>"
+					}else{
+						open="<ol>"; close="</ol>"
+						var w = a.split("");
+						if(w[1])
+							open="<ol TYPE=\""+w[1]+"\">";
+					}
+					return open+"<li>"+b;
+	});
 	
-	if (lst[0][1].length > ll)
-		return this.sublist(lst, ll+1, suoro, euoro);
-	
-	var item, sub;
-	var s = '';
-	while (lst[0][1].length == ll ) {
-                item = lst.shift();
-                sub = this.sublist(lst, ll + 1, suoro, euoro);
-                if (sub.length)
-                    s += '<li>' + item[2] + suoro + sub + euoro + '</li>' ;
-                else
-                    s += '<li>' + item[2] + '</li>';
-		if (!lst.length)
-			break;
+	// Search for brothers and children
+	while(A.length>0){
+		var CHILD= "";
+		if(A[0] == ""){
+			// firstline += "</li>";
+			A.shift();
+		}else if(!A[0].replace(fl,"").match(/^(?:\*|#|@[ia1])/i)){
+			firstline += "<li>" + A.shift().replace(fl,"");
+		}else{
+			while (A.length>0 && A[0].replace(fl,"").match(/^(?:\*|#|@[ia1])/i)) {
+				CHILD += A.shift().replace(fl,"")+"\n";
+			}
+			if(CHILD)
+				// firstline += "</li>"+this.sublist(CHILD);
+				firstline += this.sublist(CHILD);
+		}
 	}
-	return s;  
+	return firstline+close;
 }
 
-// XHTML lists and tables parsing code by plumloco
+// XHTML lists and tables parsing.  Original code by plumloco.
 // This is a bit of a monster, if you know an easier way please tell me!
 // There is no limit to the level of nesting and it produces
-// valid xhtml markup.
-var reReapLists = /(?:^|\n)([\*#@])[ \t].*(?:\n\1+[ \t][^\n]+)*/g;
-woas.parser["parse_lists"] = function(str, type, $2) {
-        var uoro = (type!='*')?'ol':'ul';
-        var suoro = '<' + uoro + ((type=='@') ? " type=\"a\"":"")+'>';
-        var euoro = '</' + uoro + '>';
-        var old = 0;
-        var reItems = /^([\*#@]+)[ \t]([^\n]+)/mg;
-
-		var stk = [];
-	    str.replace( reItems,
-                function(str, p1, p2)
-                {
-                    level = p1.length;
-                    old = level;
-                    stk.push([str, p1, p2]);
-                }
-            );
-
-		return "\n"+suoro + woas.parser.sublist(stk, 1, suoro, euoro) + euoro;
-	}
+// valid xhtml markup. text=text.replace(reReapLists, this.parse_lists);
+/*
+type=* item=level1 <!-- #CTUugobt::0 --> $2=
+*# level2-2 <!-- #CTUugobt::2 --> $3=# $4=16 str=
+* level1 <!-- #CTUugobt::0 -->
+*# level2-1 <!-- #CTUugobt::1 -->
+*# level2-2 <!-- #CTUugobt::2 -->
+*/
+var reReapLists = /(^|\n)(\*|#|\@[iIaA1])[ \t](.*)((?:\n)(\*|#|\@[iIaA1])+[ \t][^\n]+)*/g;
+woas.parser["parse_lists"] = function(str, enter) {
+ return enter+woas.parser.sublist(str);
+}
 
 var reReapTables = /(?:^|\n)\{\|.*((?:\n\|.*)*)(?:\n|$)/g;	
 woas.parser["parse_tables"] =  function (str, p1)
@@ -106,7 +115,7 @@ function _filter_wiki(s,mode) {
 		var A = [];
 		return s.replace(/[\{\xAB\u300C]{3}((.|\n)*?)[\}\xBB\u300D]{3}/g, 
 			function (str, $1) { A.push($1); return "{_%%_}"; }
-			).replace(/\<\/?\w+\s*[^>]*>/g, "").replace(/{_%%_}/g, A.shift());
+			).replace(/<\/>/, "").replace(/\<\/?\w+\s*[^>]*>/g, "").replace(/{_%%_}/g, A.shift());
 	}else
 		return s.replace(/\{\{\{((.|\n)*?)\}\}\}/g, "").
 			replace(/\<\/?\w+\s*[^>]*>/g, "");
@@ -134,7 +143,7 @@ woas.parser["parse"] = function(text, export_links, js_mode, title) {
 
 	// this array will contain all the HTML snippets that will not be parsed by the wiki engine
 	var html_tags = [];
-	
+		
 	// put away stuff contained in inline nowiki blocks {{{ }}}
 	text = text.replace(/\{\{\{(.*?)\}\}\}/g, function (str, $1) {
 		var r = "<!-- "+parse_marker+"::"+html_tags.length+" -->";
@@ -142,10 +151,20 @@ woas.parser["parse"] = function(text, export_links, js_mode, title) {
 		return r;
 	});
 
+	// Escape wiki
+	text = text.replace(/<\/>/g, "<!-- -->");
+	
+	// thank you IE, really thank you
+	if (ie)
+		text = text.replace("\r\n", "\n");
+	
+	// user defined before_parser
+
 	// put away code contained in single-line "emphasized paragraph" blocks [[[ ]]]  and &#12300; or \u300C &#12301; or \u300D
 	text = text.replace(/(\[|\u300C){3}(.*?)(\]|\u300D){3}/g, function (str, $1, $2) {
 		var r = "<!-- "+parse_marker+"::"+html_tags.length+" -->";
-		html_tags.push("<span class=\""+($1=='['?'note':'citation')+"\">"+$2+"</span>");
+		var t = $1=='['?'span':'q';
+		html_tags.push("<"+t+" class=\""+($1=='['?'note':'citation')+"\">"+$2+"</"+t+">");
 		return r;
 	});
 	
@@ -172,10 +191,11 @@ woas.parser["parse"] = function(text, export_links, js_mode, title) {
 					log("Embedded file transclusion: "+templname);	// log:1
 					if (woas.is_image(templname)) {
 						var img, img_name = woas.xhtml_encode(templname.substr(templname.indexOf("::")+2));
+						var p = parts.length>1? parts.slice(1).join(" ") : "";
 						if (export_links)
-							img = "<img class=\"embedded\" src=\""+woas._export_get_fname(templname)+"\" alt=\""+img_name+"\" ";
+							img = "<img class=\"embedded\" src=\""+woas._export_get_fname(templname)+"\" alt=\""+img_name+"\" "+p;
 						else
-							img = "<img class=\"embedded\" src=\""+templtext+"\" ";
+							img = "<img class=\"embedded\" src=\""+templtext+"\" "+p;
 						if (parts.length>1) {
 							img += parts[1];
 							// always add the alt attribute to images
@@ -192,7 +212,12 @@ woas.parser["parse"] = function(text, export_links, js_mode, title) {
 					}
 					templtext = r;
 				} else { // wiki source transclusion
+					parts[0]=title; // %0 is the pagename that called the transclusion
 					templtext = templtext.replace(/%(\d+)/g, function(param, paramno) {
+						if (paramno == 'page') return title; // maybe also add? %namespace% = this.get_namespace(title); -> not right now.
+						// if we did %01 instead of %1 we want to parse a multiline parameter with \n replaced as <br>
+						if (parseInt(paramno)+"" != paramno && parseInt(paramno) < parts.length)
+							return parts[parseInt(paramno)].replace(/\n/g, "<br>");
 						if (paramno < parts.length)
 							return parts[paramno];
 						else
@@ -207,27 +232,25 @@ woas.parser["parse"] = function(text, export_links, js_mode, title) {
 		if (trans_level == 16) // remove Include:: from the remaining inclusions
 			text = text.replace(/\[\[(?:Include::|\$\$)([^\]\|]+)(\|[\]]+)?\]\]/g, "[<!-- -->[Include::[[$1]]$2]]");
 	}
-	
-	// thank you IE, really thank you
-	if (ie)
-		text = text.replace("\r\n", "\n");
 
 	var tags = [];
-
-	// put away stuff contained in user-defined multi-line blocks «««»»» 171 187 alert ("»".charCodeAt(0)); \xAB \xBB
-	text = text.replace(/\xAB{3}((.|\n)*?)\xBB{3}/g, function (str, $1) {
-		var r = "<!-- "+parse_marker+"::"+html_tags.length+" -->";
-		html_tags.push(woas.user_parse($1));
-		return r;
-	});
-
+	
 	// put away raw text contained in multi-line nowiki blocks {{{ }}}
 	text = text.replace(/\{\{\{((.|\n)*?)\}\}\}/g, function (str, $1) {
 		var r = "<!-- "+parse_marker+"::"+html_tags.length+" -->";
 		html_tags.push("<pre class=\"wiki_preformatted\">"+woas.xhtml_encode($1)+"</pre>");
 		return r;
 	});
-	
+
+	// put away stuff contained in user-defined multi-line blocks «««»»» 171 187 alert ("»".charCodeAt(0)); \xAB \xBB
+	text = text.replace(/\xAB{3}((.|\n)*?)\xBB{3}/g, function (str, $1) {
+		var t = woas.user_parse(title,$1);
+		if(woas.user_parse.post) return t; // if woas.user_parse.post is set by the user, then allow further parser postprocessing 
+		html_tags.push(t);
+		return "<!-- "+parse_marker+"::"+(html_tags.length-1)+" -->";
+	});
+
+
 	// put away code contained in multi-line "emphasized paragraph" blocks [[[ ]]]  and &#12300; or \u300C &#12301; or \u300D
 	text = text.replace(/(\[|\u300C){3}((.|\n)*?)(\]|\u300D){3}/g, function (str, $1, $2) {
 		var r = "<!-- "+parse_marker+"::"+html_tags.length+" -->";
@@ -296,7 +319,7 @@ woas.parser["parse"] = function(text, export_links, js_mode, title) {
 //							wl = " onclick=\"alert('not yet implemented');\"";		else
 						wl = " href=\""+woas._export_get_fname(page)+"\"";
 					} else
-						wl = " onclick=\"go_to('" + woas.js_encode(page) +	"')" + gotohash + "\"";
+						wl = " href=\"?"+escape(page)+(hashloc>0?escape($1.substr(hashloc)):"")+"\" "+ " onclick=\"go_to('" + woas.js_encode(page) +	"')" + gotohash + ";return false;\"";
 					html_tags.push("<a class=\"link\""+ wl + " >" + $2 + "<\/a>");
 					return r;
 				} else {
@@ -313,7 +336,7 @@ woas.parser["parse"] = function(text, export_links, js_mode, title) {
 						var wl;
 						if (export_links)
 							wl=" href=\"#\"";
-						else wl = " onclick=\"go_to('" +woas.js_encode($1)+"')\"";
+						else wl = "href=\"?"+escape($1)+"\" "+ " onclick=\"go_to('" +woas.js_encode($1)+"');return false;\"";
 						html_tags.push("<a class=\"unlink\" "+wl+">" + $2 + "<\/a>");
 						return r;
 					}
@@ -321,7 +344,9 @@ woas.parser["parse"] = function(text, export_links, js_mode, title) {
 			}); // "<a class=\"wiki\" onclick='go_to(\"$2\")'>$1<\/a>");
 	// links without |
 	var inline_tags = 0;
-	text = text.replace(/\[\[([^\]]*?)\]\]/g, function(str, $1) {
+	// Allow use of Array's, for example: [[Javascript::alert(A[0])]] . Still need to check performance.
+	// text = text.replace(/\[\[([^\]]*?)\]\]/g, function(str, $1) {
+	text = text.replace(/\[\[(.*?)\]\]/g, function(str, $1) {
 		if ($1.search(/^\w+:\/\//)==0) {
 			var r="<!-- "+parse_marker+'::'+html_tags.length+" -->";
 			$1 = $1.replace(/^mailto:\/\//, "mailto:");
@@ -345,8 +370,7 @@ woas.parser["parse"] = function(text, export_links, js_mode, title) {
 			if (export_links)
 				wl = " href=\""+woas._export_get_fname($1)+"\"";
 			else
-				wl = " onclick=\"go_to('" + woas.js_encode($1) +"')\"";
-				
+				wl = " href=\"?"+escape($1)+"\" "+ " onclick=\"go_to('" + woas.js_encode($1) +"');return false;\"";				
 			html_tags.push("<a class=\"link\""+wl+">" + $1 + "<\/a>");
 			return r;
 		} else {
@@ -371,7 +395,12 @@ woas.parser["parse"] = function(text, export_links, js_mode, title) {
 	
 	// <u>
 	text = text.replace(/(^|[^\w])_([^_]+)_/g, "$1"+parse_marker+"uS#$2"+parse_marker+"uE#");
-	
+
+
+	// <strike>
+	// <!-- #VRQXBzqc::2 -->, because <!-- #VRQXBzqc::3 -->
+	text = text.replace(/(^|[^\w\/\\\<\>!\-])\-\-([^ >\-].*?[^ !])\-\-/g, "$1<strike>$2</strike>");
+		
 	// italics
 	// need a space after ':'
 	text = text.replace(/(^|[^\w:])\/([^\n\/]+)\/($|[^\w])/g, function (str, $1, $2, $3) {
@@ -381,17 +410,19 @@ woas.parser["parse"] = function(text, export_links, js_mode, title) {
 		return $1+"<em>"+$2+"</em>"+$3;
 	});
 	
-	// ordered/unordered lists parsing (code by plumloco)
+	// ordered/unordered lists parsing
 	text = text.replace(reReapLists, this.parse_lists);
+
+
+	// Indent :  <div style="margin-left:2em"> or http://meyerweb.com/eric/css/tests/css2/sec08-03c.htm
+	text = text.replace(/(^|\n)(:+)\s*([^\n]+)/g, function (str, $1,$2,$3) {
+		return $1+"<span style=\"margin-left:"+($2.length)+"em\">"+$3+"</span>";
+	});
 	
 	// headers (from h1 to h6, as defined by the HTML 3.2 standard)
 	text = text.replace(reParseHeaders, this.header_replace);
-	text = text.replace(reParseOldHeaders, this.header_replace);
+	// text = text.replace(reParseOldHeaders, this.header_replace);
 
-	// Indent :  <div style="margin-left:2em"> or http://meyerweb.com/eric/css/tests/css2/sec08-03c.htm
-	text = text.replace(/(?:^|\n)(:+)\s*([^\n]+)/g, function (str, $1,$2) {
-		return "\n<span style=\"margin-left:"+($1.length)+"em\">"+$2+"</span>";
-	});
 		
 	if (this.has_toc) {
 		// remove the trailing newline
@@ -399,7 +430,7 @@ woas.parser["parse"] = function(text, export_links, js_mode, title) {
 		// replace the TOC placeholder with the real TOC
 		text = text.replace("<!-- "+parse_marker+":TOC -->",
 				"<div class=\"wiki_toc\"><p class=\"wiki_toc_title\">Table of Contents</p>" +
-				this.toc.replace(reReapLists, this.parse_lists)
+				this.toc.replace(reReapLists, this.parse_lists) //.replace(/#/g, "?"+title+"#")
 				/*.replace("\n<", "<") */
 				+ "</div>" );
 		this.toc = "";
@@ -407,11 +438,8 @@ woas.parser["parse"] = function(text, export_links, js_mode, title) {
 	
 	// <strong> for bold text
 	text = text.replace(/(^|[^\w\/\\])\*([^\*\n]+)\*/g, "$1"+parse_marker+"bS#$2"+parse_marker+"bE#");
-
-	// <strike>
-	// text = text.replace(/(^|\n|\s|\>|\*)\--(.*?)\--/g, "$1<strike>$2<\/strike>");
 	
-	text = text.replace(new RegExp(parse_marker+"([ub])([SE])#", "g"), function (str, $1, $2) {
+	text = text.replace(new RegExp(parse_marker+"([ub])([SE])#", "g"), function (str, $1, $2) { // TODO: remove this replace code must be in bold parser and underscore parser
 		if ($2=='E') {
 			if ($1=='u')
 				return "</span>";
@@ -460,7 +488,8 @@ woas.parser["parse"] = function(text, export_links, js_mode, title) {
 			return html_tags[$1];
 		});
 	}
-	
+
+	// sort the tags and append them to the page
 	tags = tags.toUnique().sort();
 	if (tags.length && !export_links) {
 		var s;
@@ -493,6 +522,7 @@ woas.parser["parse"] = function(text, export_links, js_mode, title) {
 	else
 		text = text.substring(6)+"</div>";
 
+	// user defined after_parser
 	if(title && typeof(woas["after_parser"])=='function')
 		text = woas["after_parser"](text,title);
 
