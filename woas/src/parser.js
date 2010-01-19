@@ -32,7 +32,7 @@ woas.parser["sublist"] = function (s) {
 	var firstline = A.shift();
 	var fl= "";
 	var close="";
-	firstline=firstline.replace(/^((?:\*|#|@[ia1])+)[ \t](.*)$/i,
+	firstline=firstline.replace(/^((?:\*|#|@[ia1]?)+)[ \t](.*)$/i,
 			function(str,a,b,c){
 					fl=a;
 					var open="";
@@ -41,8 +41,8 @@ woas.parser["sublist"] = function (s) {
 					}else{
 						open="<ol>"; close="</ol>"
 						var w = a.split("");
-						if(w[1])
-							open="<ol TYPE=\""+w[1]+"\">";
+						if(w[1] || a=='@')
+							open="<ol TYPE=\""+(w[1]||'a')+"\">";
 					}
 					return open+"<li>"+b;
 	});
@@ -53,10 +53,10 @@ woas.parser["sublist"] = function (s) {
 		if(A[0] == ""){
 			// firstline += "</li>";
 			A.shift();
-		}else if(!A[0].replace(fl,"").match(/^(?:\*|#|@[ia1])/i)){
+		}else if(!A[0].replace(fl,"").match(/^(?:\*|#|@[ia1]?)/i)){
 			firstline += "<li>" + A.shift().replace(fl,"");
 		}else{
-			while (A.length>0 && A[0].replace(fl,"").match(/^(?:\*|#|@[ia1])/i)) {
+			while (A.length>0 && A[0].replace(fl,"").match(/^(?:\*|#|@[ia1]?)/i)) {
 				CHILD += A.shift().replace(fl,"")+"\n";
 			}
 			if(CHILD)
@@ -78,7 +78,7 @@ type=* item=level1 <!-- #CTUugobt::0 --> $2=
 *# level2-1 <!-- #CTUugobt::1 -->
 *# level2-2 <!-- #CTUugobt::2 -->
 */
-var reReapLists = /(^|\n)(\*|#|\@[iIaA1])[ \t](.*)((?:\n)(\*|#|\@[iIaA1])+[ \t][^\n]+)*/g;
+var reReapLists = /(^|\n)(?:\*|#|@[iIaA1]?)[ \t].*(?:(?:\n)(?:\*|#|@[iIaA1]?)+[ \t][^\n]+)*/g;
 woas.parser["parse_lists"] = function(str, enter) {
  return enter+woas.parser.sublist(str);
 }
@@ -400,6 +400,13 @@ woas.parser["parse"] = function(text, export_links, js_mode, title) {
 	// <strike>
 	// <!-- #VRQXBzqc::2 -->, because <!-- #VRQXBzqc::3 -->
 	text = text.replace(/(^|[^\w\/\\\<\>!\-])\-\-([^ >\-].*?[^ !])\-\-/g, "$1<strike>$2</strike>");
+	
+	// <sub> subscript and <sup> superscript
+	text = text.replace(/(,,|\^\^)(\S.*?)\1/g, function(str,$1,$2){
+		var t = $1==',,'? "sub":"sup";
+		return "<"+t+">"+$2+"</"+t+">";
+	});
+	// text = text.replace(/\^\^(\S.*?)\^\^/g, "<sup>$1</sup>");
 		
 	// italics
 	// need a space after ':'
