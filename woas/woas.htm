@@ -5,11 +5,11 @@
 <script type="text/javascript">
 /* <![CDATA[ */
 
-/* DFQRCTsKlU-0000493-START */
+/* DFQRCTsKlU-0000645-START */
 
 var woas = {"version": "0.9.7B"};
 
-var __marker = "DFQRCTsKlU-0000493";
+var __marker = "DFQRCTsKlU-0000645";
 
 woas["config"] = {
 "permit_edits":true,
@@ -21,11 +21,18 @@ woas["config"] = {
 "cumulative_save":false,
 "auto_save":0};
 
-var current = 'Main Page';
+var current = 'Syntax';
 
 var main_page = 'Main Page';
 
 var backstack = [
+'Special::Advanced',
+'Special::',
+'SANDBOX::inc',
+'SANDBOX::',
+'SANDBOX::sandbox',
+'SANDBOX::',
+'SANDBOX::bat#box'
 ];
 
 var page_titles = [
@@ -99,15 +106,30 @@ var page_titles = [
 'SANDBOX',
 'Testcase::Tables',
 'Import txt2wiki',
-'Feature::Hotkeys'
+'Feature::Hotkeys',
+'indent',
+'subpage',
+'SANDBOX::sandbox',
+'Projects::myProject',
+'Projects::myProject::progress',
+'Projects::myProject::contacts',
+'progressbar',
+'PLUGINS',
+'Image::separator.jpg',
+'\u7d44\u307f\u8fbc\u307f\u4f8b',
+'Feature::Build-in editor',
+'SANDBOX::bat#box',
+'whocalledme',
+'Testcase::Unusual lists::rest',
+'SANDBOX::inc'
 ];
 
-/* DFQRCTsKlU-0000493-DATA */
-var page_attrs = [12,4,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,4,0,0,0,2,0,0];
+/* DFQRCTsKlU-0000645-DATA */
+var page_attrs = [12,4,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,4,0,0,0,2,0,0,0,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,12,0,0,0,0,0,0];
 
 var pages = [
 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAMAAADzapwJAAAAB3RJTUUH1wcHEBwwMJCsHwAAAAlwSFlzAAAewQAAHsEBw2lUUwAAAARnQU1BAACxjwv8YQUAAAJzUExURf8f7evr67W1taWlpdbW1uzs7J6enmouJGosI4ODg93d3TcyMdQdB9EUBzYxMcXFxenp6Y+Pj402G+0VAN4MAIwlGnd3d9ra2tXV1UA1L+Y7Be4eAekRANYQAz8wLrCwsOXl5YCAgKdRGPdEA/QxAfIdAeERAaEjFW1tbe/v71hAKvlpB/pbBfZDA/IuAu0bAd0UAlYwKZOTk+Dg4F5eXsxqEvt3CflwCf////IpAuoYAcIjDVNTU9DQ0JaWlnlOI/uEDPuFEPqEEfU9BO0kAugYAXYyIX5+fu3t7Tc0MeZ7DvuTFvuZHPqXHvqKGft3EfZTB+81A+ohAdwpB+jo6ImJiZFXHvuYGPyjJ/ysM/ytOfpwDfdOBfAwAu8lAo87HHR0dNjY2MnJyUc6LvKLE/ypKfy2P/y9S/y/UfuGGPliCvJFBPIzA+s5BUc3LaampuPj43V1dbRmF/ymJfy3Of3DU/3KYv3MY/ubJPt4EvpUCfVCA/E2A7NNFmRkZNPT06ioqGFFKPuVFPytLv2+Sf3KYf3Qbf3PafuiKfuKFfppC/lQBfg+A/U8A2FBKIuLi9/f3zQzMtV2E/yhH/yxNf2+R/3HXP3LZ/3NafykJ/yOF/lxC/pcBvZGBPU3A9VRDTQzMdfX15qamn5QIvuSEfyfHPysL/y6QfzBTfzDV/zBU/ydH/yLE/t2DPpgB/dLA/Y6A/U6A3tIIvPz8zs2MPuSE/ydGPymJPyyNfy0OfyzN/ysKfyhIPuUF/uGDft0CvtlB/taBfZPA/ZFA+RXCjs1MPDw8E49LIJSIYJRIYJPIYJOIYJNIIJMIIJMIU47LKysrKzWV/gAAAABdFJOUwBA5thmAAABNUlEQVR42mNgwAGML2AAY6Do8RNQcPLkyVOnz5w9e+7ceWOGzVu8tm7b3rxj567de/bu23/g4KHDR44eY2BYtHjJ0mXLV6xcZWGxes3ades3bNwkuBlo+MRJk6dMnTZ9hoXFzFmz58ydN3/BQpCdDY1NzS2tbe0WFh2dXd09vX39E8BuKSwqLiktK7ewqKisqq6prauHODEpOSU1LT3DwiIzKzsnNy+/AOr00LDwiMgoC4vomNi4+IREmI88PL28fXz9/AMCg4K5+UPgPrWzd3B0srBwdnF1c+dCCgETUzNzCwtLK2sbW1YkYXktbR1dPX0DQyNjlABTVFJWUVVT15DQRBGWkJSSlpGVk1dAC19BIWERUTFxjHDn5uHl4xfAEGZj5+DkYsAETMwsrFiEGRgZGQgAAEPKcWQFSaWtAAAAAElFTkSuQmCCAAA=',
-'d29hc1siZGVidWciXT0wOwoKLyogUEFHRSBMQVNUIE1PRElGSUVEICovCndvYXNbImJlZm9yZV9zYXZlIl0gPSBmdW5jdGlvbigpewoKICAvKiBQQUdFIExBU1QgTU9ESUZJRUQgKi8KICB2YXIgTSA9ICQoIndpa2lfZWRpdG9yIikudmFsdWU7CiAgdmFyIG5vdyA9IG5ldyBEYXRlKCk7CiAgdmFyIGRhdGVzdHJpbmcgPSBub3cuZ2V0RnVsbFllYXIoKSArJy8nKyAoMStub3cuZ2V0TW9udGgoKSkgKycvJysgbm93LmdldERhdGUoKSArICcgJyArIG5vdy50b1RpbWVTdHJpbmcoKTsKICBNID0gTS5yZXBsYWNlKC9cW1xbSW5jbHVkZTo6VElNRURBVEVcfChbXlxdXSo/KVxdXF0vLCAiWyIrIltJbmNsdWRlOjpUSU1FREFURXwiK2RhdGVzdHJpbmcrIl0iKyJdIiApOwogICQoIndpa2lfZWRpdG9yIikudmFsdWUgPSBNOwoKICAvKiBDSEFOR0VTIExPRyAqLyAKICB2YXIgaW5kZXggPSB3b2FzLnBhZ2VfaW5kZXgoJ0NIQU5HRVMnKTsKICBpZihpbmRleD4wKXsgLy8gUGFnZSBleGlzdHMKICAgIHZhciBwYWdlbmFtZSA9ICQoIndpa2lfcGFnZV90aXRsZSIpLnZhbHVlOwogICAgdmFyIGRhdGUgPSBEYXRlKCk7CiAgICBwYWdlc1tpbmRleF0gKz0iXG5bWyIrIHBhZ2VuYW1lKyJdXSB7e3siK2RhdGUgKyJ9fX0iOwogIH0KfQoKLyogRk9PVE5PVEVTICovCndvYXNbImJlZm9yZV9wYXJzZXIiXSA9IGZ1bmN0aW9uKHR4dCl7CiAgdHJ5ewogICAgd29hc1siRk9PVE5PVEVTIl0gPSBbXTsKCXZhciBuID0gMDsKICAgIHR4dD0gdHh0LnJlcGxhY2UoLzw8PCgoLnxcbikqPyk+Pj4vZywgZnVuY3Rpb24ocywkMSl7CgkgIHdvYXNbIkZPT1ROT1RFUyJdLnB1c2goJDEpOwoJICBuID13b2FzWyJGT09UTk9URVMiXS5sZW5ndGg7CgkgIHJldHVybiAnPGVtPjxzdXA+PGEgbmFtZT0iX25vdGVmb290JytuKyciaHJlZj0iI19mb290bm90ZScrbisnIj4nK24rJzwvYT48L3N1cD48L2VtPic7CiAgICB9KTsKICB2YXIgZm49IiI7CiAgZm9yKHZhciBpPTAsbD13b2FzWyJGT09UTk9URVMiXS5sZW5ndGg7aTxsO2krKyl7CiAgICBuID0gaSsxOwogICAgZm4gKz0gJzx0cj48dGQgVkFMSUdOPSJ0b3AiPjxhIG5hbWU9Il9mb290bm90ZScrbisnIiBocmVmPSIjX25vdGVmb290JytuKyciPicgK24rICI8L2E+OjwvdGQ+PHRkPiIgKyB3b2FzWyJGT09UTk9URVMiXVtpXSAgKyI8L3RkPjwvdHI+IjsKICB9CiAgcmV0dXJuIHR4dCArIChmbj8nPGJyLz48ZGl2IGNsYXNzPSJmb290bm90ZSI+PHRhYmxlIGJvcmRlcj0wPicgK2ZuKyAnPC90YWJsZT48L2Rpdj4nIDonJyk7CiAgfWNhdGNoKGUpe2FsZXJ0KGUpfQp9CgoKCndvYXNbIlNob3dQYWdlU291cmNlIl0gPSBmdW5jdGlvbigpewoJdmFyIHcgPSB3b2FzLnBvcHVwKCJQYWdlIFNvdXJjZSIsIDM1MCwgMjAwLCAiLG1lbnViYXI9bm8sdG9vbGJhcj1ubyxsb2NhdGlvbj15ZXMsc3RhdHVzPXllcyxkaWFsb2c9eWVzIik7Cgl3LmRvY3VtZW50LndyaXRlbG4od29hcy54aHRtbF9lbmNvZGUoJCgid2lraV90ZXh0IikuaW5uZXJIVE1MKSk7Cgl3LmRvY3VtZW50LmNsb3NlKCk7Cn0KCgp3b2FzWyJib29rbWFyayJdID0gZnVuY3Rpb24oYil7Cgl3b2FzLnNhdmVfdG9fZmlsZShiKTsKCXZhciBwYWdlbmFtZSA9IGN1cnJlbnQ7IC8vIElmIGVkaXRpbmcsIHlvdSBjYW4gdXNlOiAkKCJ3aWtpX3BhZ2VfdGl0bGUiKS52YWx1ZTsKCXdvYXMuc2V0X2N1cnJlbnQocGFnZW5hbWUsIHRydWUpOwp9CgoKLyogQ2hvb3NlWW91ckFkdmVudHVyZSBHQU1FICovCgpNWT17fTsKCmZ1bmN0aW9uIEdhbWVMb2FkVmFycygpewoJdmFyIFZBUlBBR0UgPSAnZ2FtZTo6dmFyaWFibGVzJzsKCXZhciBwYWdldGV4dCA9IHdvYXMuZ2V0X3RleHQoVkFSUEFHRSk7Cgl2YXIgaW5kZXggPSB3b2FzLnBhZ2VfaW5kZXgoVkFSUEFHRSk7CgoJaWYocGFnZXRleHQ9PT1udWxsKXsKCQlhbGVydCgiRkFUQUw6IHBhZ2UgJyIrVkFSUEFHRSsiJyBoYXMgbm90IGJlZW4gY3JlYXRlZCEiKTsKCQlyZXR1cm4gZmFsc2U7Cgl9CgkvLyBQYWdlIGV4aXN0cywgc28gJ2FjdGl2YXRlJyB2YXJpYWJsZXMKCXRyeXsKCQlldmFsKHBhZ2V0ZXh0KTsKCQlyZXR1cm4gdHJ1ZTsKCX1jYXRjaChlKXsKCQlhbGVydCgiRkFUQUw6IHBhZ2UgJyIrVkFSUEFHRSsiJyBoYXMgc3ludGF4IGVycm9yczoiICsgZSk7Cgl9CglyZXR1cm4gZmFsc2U7Cn0KCi8vIEFsc286IGlmKHdvYXNbInNldF90ZXh0Il0oVkFSUEFHRSwgc2VyaWFsaXplKE1ZKSk9PS0xKSBhbGVydCgiRkFUQUw6IHBhZ2UgJyIrVkFSUEFHRSsiJyBoYXMgbm90IGJlZW4gY3JlYXRlZCEiKTsKZnVuY3Rpb24gR2FtZVNhdmVWYXJzKCl7Cgl2YXIgVkFSUEFHRSA9ICdnYW1lOjp2YXJpYWJsZXMnOwoJdmFyIGluZGV4ID0gd29hcy5wYWdlX2luZGV4KFZBUlBBR0UpOwoKLy8gTWljcm8gSlNPTgpmdW5jdGlvbiBzZXJpYWxpemUodil7CiB2YXIgYSA9IFtdOwogZm9yICh2YXIgZSBpbiB2KXsKICBhLnB1c2goJyAnICsgZSArICc6ICInICsgdltlXSArICciJyk7CiB9Ci8vYWxlcnQoInNlcmlhbGl6ZToiK2Euam9pbigiLFxuIikpOwogcmV0dXJuICJNWT17XG4iICthLmpvaW4oIixcbiIpKyAiXG59IjsKfQoKCWlmKGluZGV4PjApeyAvLyBQYWdlIGV4aXN0cywgc28gd3JpdGUgdmFyaWFibGVzCgkJdHJ5ewoJCQlwYWdlc1tpbmRleF09c2VyaWFsaXplKE1ZKTsKCQkJLy9hbGVydCgnR2FtZVNhdmVWYXJzOiBzYXZlZDonK3BhZ2VzW2luZGV4XSkKCQl9Y2F0Y2goZSl7CgkJCWFsZXJ0KCJGQVRBTDogY291bGQgbm90IHNhdmUgIiArIGUpOwoJCX0KCX1lbHNlewoJCWFsZXJ0KCJGQVRBTDogcGFnZSAnIitWQVJQQUdFKyInIGhhcyBub3QgYmVlbiBjcmVhdGVkISIpCgl9Ci8vYWxlcnQoIkdhbWVTYXZlVmFyczoiK2krIj0iK3BhZ2VzW2luZGV4XSk7CndvYXMuc2F2ZV90b19maWxlKHRydWUpOwpHYW1lTG9hZFZhcnMoKTsKfQoKZnVuY3Rpb24gR2FtZVJlc2V0KCl7CnZhciBWQVJQQUdFID0gJ2dhbWU6OnZhcmlhYmxlcyc7CnZhciBpbmRleCA9IHdvYXMucGFnZV9pbmRleChWQVJQQUdFKTsKaWYoaW5kZXg+MCl7IC8vIFBhZ2UgZXhpc3RzLCBzbyB3cml0ZSB2YXJpYWJsZXMKICB0cnl7CiAgICBwYWdlc1tpbmRleF09ICJNWT17XG53ZWFwb246J25vdGhpbmcnLFxuaGVhbHRoOjEwMCxcbm1vbnN0ZXI6J2h1bmdyeSdcbn0iOwogICAgZXZhbChwYWdlc1tpbmRleF0pOwogIH1jYXRjaChlKXsKICAgIGFsZXJ0KCJGQVRBTDogY291bGQgbm90IHJlc2V0IHZhcmlhYmxlcyBpbiAnIitWQVJQQUdFKyInOiIgKyBlKTsKICB9Cn1lbHNlewogIGFsZXJ0KCJGQVRBTDogcGFnZSAnIitWQVJQQUdFKyInIGhhcyBub3QgYmVlbiBjcmVhdGVkISIpCn0KLy9hbGVydCgiR2FtZVJlc2V0OiIraSsiPSIrcGFnZXNbaW5kZXhdKTsKR2FtZVNhdmVWYXJzKCk7Cn0KCgovLyBFbmFibGVzIHlvdSB0byB3cml0ZSBpbmxpbmUgamF2YXNjcmlwdCwgYW5kIHVzZSBwcmludCgiIikgdG8gcHJpbnQgdG8gdGhlIHBhZ2UgaW5zdGVhZCBvZiB1c2luZyAuaW5uZXJIVE1MCndvYXNbInVzZXJfcGFyc2UiXSA9IGZ1bmN0aW9uKHRleHQpewp2YXIgTT10ZXh0Lm1hdGNoKC9eJShcdyspOigoLnxcbikqKSQvbSk7CmlmKE0pewovLyBhbGVydChNLmpvaW4oInwiKSkKIHN3aXRjaCAoTVsxXSl7CiAgY2FzZSAicHJlIjogcmV0dXJuICI8cHJlPiIrTVsyXSsiPC9wcmU+IjticmVhazsgLy9UT0RPOiA8YnI+IFN0aWxsIGdldHMgaW5zZXJ0ZWQhCiAgY2FzZSAibm9iciI6IHJldHVybiBNWzJdLnJlcGxhY2UoL1xuL2csIiIpO2JyZWFrOwogIGNhc2UgImpzIjoKICBkZWZhdWx0OgogICAgdGV4dD1NWzJdOwogIGJyZWFrOwogfQp9IAoJdmFyIF9wcmludD0iIjsKCWZ1bmN0aW9uIHByaW50KHQpe19wcmludCs9dDt9Cgl0cnl7CgkJZXZhbCh0ZXh0KTsKCQlyZXR1cm4gX3ByaW50OwoJfWNhdGNoKGUpewoJCWFsZXJ0KGUrIlxuIit0ZXh0KTsKCX0KfQoKCndvYXNbImFmdGVyX3BhcnNlciJdID0gZnVuY3Rpb24odGV4dCx0aXRsZSl7CiAgaWYgKHRpdGxlLnN1YnN0cigwLDkpICE9ICJTcGVjaWFsOjoiKXsKICAgdmFyIGNvcHlyaWdodCA9ICI8aHI+PGRpdiBzdHlsZT0ndGV4dC1hbGlnbjpjZW50ZXInPkNvcHlyaWdodCBtZXNzYWdlPC9kaXY+IjsKICAgcmV0dXJuIHRleHQrIGNvcHlyaWdodDsKIH0KIHJldHVybiB0ZXh0Cn0=',
+'IC8vIHdvYXNbImRlYnVnIl09MDsgLy8gVGhpcyB3b250IHdvcmsKLy8gJC5oaWRlKCJkZWJ1Z19pbmZvIik7IC8vIFRoaXMgZG9lcyBoaWRlIHRoZSBkZWJ1ZyBpbmZvCgovKiBQQUdFIExBU1QgTU9ESUZJRUQgKi8Kd29hc1siYmVmb3JlX3NhdmUiXSA9IGZ1bmN0aW9uKCl7CgogIC8qIFBBR0UgTEFTVCBNT0RJRklFRCAqLwogIHZhciBNID0gJCgid2lraV9lZGl0b3IiKS52YWx1ZTsKICB2YXIgbm93ID0gbmV3IERhdGUoKTsKICB2YXIgZGF0ZXN0cmluZyA9IG5vdy5nZXRGdWxsWWVhcigpICsnLycrICgxK25vdy5nZXRNb250aCgpKSArJy8nKyBub3cuZ2V0RGF0ZSgpICsgJyAnICsgbm93LnRvVGltZVN0cmluZygpOwogIE0gPSBNLnJlcGxhY2UoL1xbXFtJbmNsdWRlOjpUSU1FREFURVx8KFteXF1dKj8pXF1cXS8sICJbIisiW0luY2x1ZGU6OlRJTUVEQVRFfCIrZGF0ZXN0cmluZysiXSIrIl0iICk7CiAgJCgid2lraV9lZGl0b3IiKS52YWx1ZSA9IE07CgogIC8qIENIQU5HRVMgTE9HICovIAogIHZhciBpbmRleCA9IHdvYXMucGFnZV9pbmRleCgnQ0hBTkdFUycpOwogIGlmKGluZGV4PjApeyAvLyBQYWdlIGV4aXN0cwogICAgdmFyIHBhZ2VuYW1lID0gJCgid2lraV9wYWdlX3RpdGxlIikudmFsdWU7CiAgICB2YXIgZGF0ZSA9IERhdGUoKTsKICAgIHBhZ2VzW2luZGV4XSArPSJcbltbIisgcGFnZW5hbWUrIl1dIHt7eyIrZGF0ZSArIn19fSI7CiAgfQp9CgovKiBGT09UTk9URVMgKi8Kd29hc1siYmVmb3JlX3BhcnNlciJdID0gZnVuY3Rpb24odHh0KXsKICB0cnl7CiAgICB3b2FzWyJGT09UTk9URVMiXSA9IFtdOwoJdmFyIG4gPSAwOwogICAgdHh0PSB0eHQucmVwbGFjZSgvPDw8KCgufFxuKSo/KT4+Pi9nLCBmdW5jdGlvbihzLCQxKXsKCSAgd29hc1siRk9PVE5PVEVTIl0ucHVzaCgkMSk7CgkgIG4gPXdvYXNbIkZPT1ROT1RFUyJdLmxlbmd0aDsKCSAgcmV0dXJuICc8ZW0+PHN1cD48YSBuYW1lPSJfbm90ZWZvb3QnK24rJyJocmVmPSIjX2Zvb3Rub3RlJytuKyciPicrbisnPC9hPjwvc3VwPjwvZW0+JzsKICAgIH0pOwogIHZhciBmbj0iIjsKICBmb3IodmFyIGk9MCxsPXdvYXNbIkZPT1ROT1RFUyJdLmxlbmd0aDtpPGw7aSsrKXsKICAgIG4gPSBpKzE7CiAgICBmbiArPSAnPHRyPjx0ZCBWQUxJR049InRvcCI+PGEgbmFtZT0iX2Zvb3Rub3RlJytuKyciIGhyZWY9IiNfbm90ZWZvb3QnK24rJyI+JyArbisgIjwvYT46PC90ZD48dGQ+IiArIHdvYXNbIkZPT1ROT1RFUyJdW2ldICArIjwvdGQ+PC90cj4iOwogIH0KICByZXR1cm4gdHh0ICsgKGZuPyc8YnIvPjxkaXYgY2xhc3M9ImZvb3Rub3RlIj48dGFibGUgYm9yZGVyPTA+JyArZm4rICc8L3RhYmxlPjwvZGl2PicgOicnKTsKICB9Y2F0Y2goZSl7YWxlcnQoZSl9Cn0KCgoKd29hc1siU2hvd1BhZ2VTb3VyY2UiXSA9IGZ1bmN0aW9uKCl7Cgl2YXIgdyA9IHdvYXMucG9wdXAoIlBhZ2UgU291cmNlIiwgMzUwLCAyMDAsICIsbWVudWJhcj1ubyx0b29sYmFyPW5vLGxvY2F0aW9uPXllcyxzdGF0dXM9eWVzLGRpYWxvZz15ZXMiKTsKCXcuZG9jdW1lbnQud3JpdGVsbih3b2FzLnhodG1sX2VuY29kZSgkKCJ3aWtpX3RleHQiKS5pbm5lckhUTUwpKTsKCXcuZG9jdW1lbnQuY2xvc2UoKTsKfQoKCndvYXNbImJvb2ttYXJrIl0gPSBmdW5jdGlvbihiKXsKCXdvYXMuc2F2ZV90b19maWxlKGIpOwoJdmFyIHBhZ2VuYW1lID0gY3VycmVudDsgLy8gSWYgZWRpdGluZywgeW91IGNhbiB1c2U6ICQoIndpa2lfcGFnZV90aXRsZSIpLnZhbHVlOwoJd29hcy5zZXRfY3VycmVudChwYWdlbmFtZSwgdHJ1ZSk7Cn0KCgovKiBDaG9vc2VZb3VyQWR2ZW50dXJlIEdBTUUgKi8KCk1ZPXt9OwoKZnVuY3Rpb24gR2FtZUxvYWRWYXJzKCl7Cgl2YXIgVkFSUEFHRSA9ICdnYW1lOjp2YXJpYWJsZXMnOwoJdmFyIHBhZ2V0ZXh0ID0gd29hcy5nZXRfdGV4dChWQVJQQUdFKTsKCXZhciBpbmRleCA9IHdvYXMucGFnZV9pbmRleChWQVJQQUdFKTsKCglpZihwYWdldGV4dD09PW51bGwpewoJCWFsZXJ0KCJGQVRBTDogcGFnZSAnIitWQVJQQUdFKyInIGhhcyBub3QgYmVlbiBjcmVhdGVkISIpOwoJCXJldHVybiBmYWxzZTsKCX0KCS8vIFBhZ2UgZXhpc3RzLCBzbyAnYWN0aXZhdGUnIHZhcmlhYmxlcwoJdHJ5ewoJCWV2YWwocGFnZXRleHQpOwoJCXJldHVybiB0cnVlOwoJfWNhdGNoKGUpewoJCWFsZXJ0KCJGQVRBTDogcGFnZSAnIitWQVJQQUdFKyInIGhhcyBzeW50YXggZXJyb3JzOiIgKyBlKTsKCX0KCXJldHVybiBmYWxzZTsKfQoKLy8gQWxzbzogaWYod29hc1sic2V0X3RleHQiXShWQVJQQUdFLCBzZXJpYWxpemUoTVkpKT09LTEpIGFsZXJ0KCJGQVRBTDogcGFnZSAnIitWQVJQQUdFKyInIGhhcyBub3QgYmVlbiBjcmVhdGVkISIpOwpmdW5jdGlvbiBHYW1lU2F2ZVZhcnMoKXsKCXZhciBWQVJQQUdFID0gJ2dhbWU6OnZhcmlhYmxlcyc7Cgl2YXIgaW5kZXggPSB3b2FzLnBhZ2VfaW5kZXgoVkFSUEFHRSk7CgovLyBNaWNybyBKU09OCmZ1bmN0aW9uIHNlcmlhbGl6ZSh2KXsKIHZhciBhID0gW107CiBmb3IgKHZhciBlIGluIHYpewogIGEucHVzaCgnICcgKyBlICsgJzogIicgKyB2W2VdICsgJyInKTsKIH0KLy9hbGVydCgic2VyaWFsaXplOiIrYS5qb2luKCIsXG4iKSk7CiByZXR1cm4gIk1ZPXtcbiIgK2Euam9pbigiLFxuIikrICJcbn0iOwp9CgoJaWYoaW5kZXg+MCl7IC8vIFBhZ2UgZXhpc3RzLCBzbyB3cml0ZSB2YXJpYWJsZXMKCQl0cnl7CgkJCXBhZ2VzW2luZGV4XT1zZXJpYWxpemUoTVkpOwoJCQkvL2FsZXJ0KCdHYW1lU2F2ZVZhcnM6IHNhdmVkOicrcGFnZXNbaW5kZXhdKQoJCX1jYXRjaChlKXsKCQkJYWxlcnQoIkZBVEFMOiBjb3VsZCBub3Qgc2F2ZSAiICsgZSk7CgkJfQoJfWVsc2V7CgkJYWxlcnQoIkZBVEFMOiBwYWdlICciK1ZBUlBBR0UrIicgaGFzIG5vdCBiZWVuIGNyZWF0ZWQhIikKCX0KLy9hbGVydCgiR2FtZVNhdmVWYXJzOiIraSsiPSIrcGFnZXNbaW5kZXhdKTsKd29hcy5zYXZlX3RvX2ZpbGUodHJ1ZSk7CkdhbWVMb2FkVmFycygpOwp9CgpmdW5jdGlvbiBHYW1lUmVzZXQoKXsKdmFyIFZBUlBBR0UgPSAnZ2FtZTo6dmFyaWFibGVzJzsKdmFyIGluZGV4ID0gd29hcy5wYWdlX2luZGV4KFZBUlBBR0UpOwppZihpbmRleD4wKXsgLy8gUGFnZSBleGlzdHMsIHNvIHdyaXRlIHZhcmlhYmxlcwogIHRyeXsKICAgIHBhZ2VzW2luZGV4XT0gIk1ZPXtcbndlYXBvbjonbm90aGluZycsXG5oZWFsdGg6MTAwLFxubW9uc3RlcjonaHVuZ3J5J1xufSI7CiAgICBldmFsKHBhZ2VzW2luZGV4XSk7CiAgfWNhdGNoKGUpewogICAgYWxlcnQoIkZBVEFMOiBjb3VsZCBub3QgcmVzZXQgdmFyaWFibGVzIGluICciK1ZBUlBBR0UrIic6IiArIGUpOwogIH0KfWVsc2V7CiAgYWxlcnQoIkZBVEFMOiBwYWdlICciK1ZBUlBBR0UrIicgaGFzIG5vdCBiZWVuIGNyZWF0ZWQhIikKfQovL2FsZXJ0KCJHYW1lUmVzZXQ6IitpKyI9IitwYWdlc1tpbmRleF0pOwpHYW1lU2F2ZVZhcnMoKTsKfQoKCi8vIEVuYWJsZXMgeW91IHRvIHdyaXRlIGlubGluZSBqYXZhc2NyaXB0LCBhbmQgdXNlIHByaW50KCIiKSB0byBwcmludCB0byB0aGUgcGFnZSBpbnN0ZWFkIG9mIHVzaW5nIC5pbm5lckhUTUwKd29hc1sidXNlcl9wYXJzZSJdID0gZnVuY3Rpb24odGl0bGUsdGV4dCl7CnZhciBNPXRleHQubWF0Y2goL14lKFx3Kyk6KCgufFxuKSopJC9tKTsKd29hcy51c2VyX3BhcnNlLnBvc3Q9MDsKaWYoTSl7Ci8vIGFsZXJ0KE0uam9pbigifCIpKQogc3dpdGNoIChNWzFdKXsKICBjYXNlICJwcmUiOiByZXR1cm4gIjxwcmU+IitNWzJdKyI8L3ByZT4iO2JyZWFrOyAvL1RPRE86IDxicj4gU3RpbGwgZ2V0cyBpbnNlcnRlZCEKICBjYXNlICJub2JyIjogcmV0dXJuIE1bMl0ucmVwbGFjZSgvXG4vZywiIik7YnJlYWs7CiAgY2FzZSAianMiOgogICAgd29hcy51c2VyX3BhcnNlLnBvc3QrKzsKICBkZWZhdWx0OgogICAgdGV4dD1NWzJdOwogIGJyZWFrOwogfQp9IAoJdmFyIF9wcmludD0iIjsKCWZ1bmN0aW9uIHByaW50KHQpe19wcmludCs9dDt9Cgl0cnl7CgkJZXZhbCh0ZXh0KTsKCQlyZXR1cm4gX3ByaW50OwoJfWNhdGNoKGUpewoJCWFsZXJ0KCJ1c2VyX3BhcnNlIEpTOiIrZSsiXG4iK3RleHQpOwoJfQp9CgoKd29hc1siYWZ0ZXJfcGFyc2VyIl0gPSBmdW5jdGlvbih0ZXh0LHRpdGxlKXsKICBpZiAodGl0bGUuc3Vic3RyKDAsOSkgIT0gIlNwZWNpYWw6OiIpewogICB2YXIgY29weXJpZ2h0ID0gIjxocj48ZGl2IHN0eWxlPSd0ZXh0LWFsaWduOmNlbnRlcic+Q29weXJpZ2h0IG1lc3NhZ2U8L2Rpdj4iOwogICByZXR1cm4gdGV4dCsgY29weXJpZ2h0OwogfQogcmV0dXJuIHRleHQKfQ==',
 '[[Main Page]]\n\
 * [[History]]\n\
 * [[Syntax]]\n\
@@ -118,7 +140,8 @@ var pages = [
 ** [[Transclusion example]]\n\
 ** [[Feature::Bootscript|Bootscript]]\n\
 ** [[Feature::NewPageTemplate|New Page Template]]\n\
-** [[Feature::Buttons|Buttons]]\n\
+** [[Feature::Build-in editor|Build-in editor]]\n\
+** [[Feature::Buttons|Editor Buttons]]\n\
 ** [[Feature::Custom javascript|Custom javascript]]\n\
 ** [[Feature::External javascript|External javascript]]\n\
 ** [[Feature::Hotkeys|Hotkeys]]\n\
@@ -143,16 +166,22 @@ var pages = [
 [[Google sitesearch]]\n\
 [[todo\'s]]\n\
 [[CHANGES]]\n\
+[[PLUGINS]]\n\
+[[SANDBOX::bat#box]]\n\
+[[Projects::myProject]]\n\
 \n\
 [[game::variables]]\n\
 [[game::start]]\n\
 \n\
-\x3Ca href="javascript:woas.ShowPageSource()"\x3EShow Page Source\x3C/a\x3E\n\
+[[Javascript::woas.ShowPageSource()|Show Page Source]]\n\
 [[SANDBOX]]\n\
+[[Javascript::alert(f_scrollTop())|scrollbar]] [[Javascript::scrollTop(100)|100]]\n\
+\n\
 \n\
 * [[Special::]]\n\
 ** [[Special::Backlinks|Backlinks]]\n\
-** [[Special::New Page|New Page]]\n\
+** New [[Special::New Page|Page]] | [[Javascript::woas.cmd_new_page(current.replace(/::$/,\'\')+\'::\')|Subpage]]\n\
+** [[Javascript::alert(woas.get_namespace(current))|OWOWOWOWO]]\n\
 ** [[Special::Edit New Page Template|Page Template]]\n\
 ** [[Special::Duplicate Page|Duplicate Page]]\n\
 ** [[Special::Delete Page|Delete Page]]\n\
@@ -215,7 +244,7 @@ You can customize Wiki on a Stick modifying a few [[Special::Options|Options]]. 
 * [[Special::Aliases]]: edit tag aliases\n\
 \n\
 == Info\n\
-This wiki was last modified in \x3Cspan id="lastDate"\x3E\x3C/span\x3E\n\
+This wiki was last modified on \x3Cspan id="lastDate"\x3E\x3C/span\x3E\n\
 \x3Cscript\x3E$("lastDate").innerHTML = document.lastModified;\x3C/script\x3E',
 'Import a wiki from an early (or current) version:\n\
 \n\
@@ -493,52 +522,92 @@ setTimeout ( "ScoreDecay()", 3000);\n\
 = Wiki on a Stick syntax\n\
 In this page you will find examples of all the WoaS wiki syntax.\n\
 \n\
-New pages have red links, like this [[New page]], but you can use [[Javascript::woas.cmd_new_page()]] to automatically create a new one through a simple dialog. (Or even use a default name: [[Javascript::woas.cmd_new_page(\'story::page-\')]]) (single quotes only!). You can even edit the default page [[Javascript::woas.cmd_edit_new_page()]] that generates the empty page template.\n\
+:: New pages have red links, like this [[New page]], but you can use [[Javascript::woas.cmd_new_page()]] to automatically create a new one through a simple dialog. (Or even use a default name: [[Javascript::woas.cmd_new_page(\'story::page-\')]]) (single quotes only!). You can even edit the default page [[Javascript::woas.cmd_edit_new_page()]] that generates the empty page template.\n\
 \n\
 Click on \x3Ca class="link" onclick="javascript:edit()" title="Edit this page"\x3Ethis link\x3C/a\x3E to edit the wiki source of this page.\n\
 \n\
 == Links\n\
-An internal wiki link is created using {{{[[Special::Main Page]]}}}, which results in [[Special::Main Page]].\n\
-Each header leave an anchor, you can make a link to it by replacing all spaces of that title with underscores and prepending a #, so to go to [[#Formatting]], one would write {{{[[#Formatting]]}}}\n\
-To go to an anchor on another page (for example: [[History#The_principles|the principles]]), you need to use a label in the link: {{{[[History#The_principles|the principles]]}}}, because {{{[[History#The_principles]]}}} goes to a page named "History#The_principles".\n\
 \n\
+:: An internal wiki link is created using {{{[[Special::Main Page]]}}}, which results in [[Special::Main Page]].\n\
+Each header becomes an anchor. You can make a link to it by replacing all spaces of that title with underscores and adding a # at the beginning, so to link to [[#Formatting]], you would write {{{[[#Formatting]]}}}.\n\
+To go to an anchor on another page (for example: [[History#The_principles|the principles]]), you need to use a label in the link: {{{ [[History#The_principles|the principles]] }}}, because {{{[[History#The_principles]]}}} goes to a page named "History#The_principles".\n\
+Note that {{{[[#History#The_principles]]}}} does not work either.\n\
+Link directly to anchor from another webpage: {{{\x3Ca href="woas.htm?History#The_principles"\x3Ego to woas\x3C/a\x3E}}}\n\
 \n\
-== Header of second level\n\
-Some text here\n\
-=== Subheader of third level\n\
-Some text here\n\
-==== Subheader of fourth level\n\
-Some text here\n\
+{{{== Header}}} produces:\n\
+== Second-level Header\n\
+Some text here;\n\
+\n\
+{{{=== Header}}} produces:\n\
+=== Third-level Subheader\n\
+Some text here;\n\
+\n\
+{{{=== Header}}} produces:\n\
+==== Fourth-level Subheader\n\
+Some text here; six header levels is the maximum.\n\
 \n\
 == Formatting\n\
-External links: [[http://stickwiki.sourceforge.net/|Wiki on a Stick]]\n\
+External links: {{{[[http://stickwiki.sourceforge.net/|Wiki on a Stick]]\n\
+}}} displays as: [[http://stickwiki.sourceforge.net/|Wiki on a Stick]]\n\
 \n\
-Boldface: *Boldface text*\n\
-Italics: /italics text/\n\
-Underline: _underlined text_\n\
+Boldface: {{{*Boldface*}}} becomes *Boldface* text.\n\
+Italics: {{{/Italic/}}} displays as: /Italic/ text.\n\
+Underline: Surrounding the text with underscores, {{{_Underlined_}}}, makes: _Underlined text_.\n\
+Strikethrough: Use double dashes, {{{--Strikethrough--}}}, for: --Strikethrough-- text.  Surround -- with spaces for a normal dash.\n\
 \n\
-{{{Example usage of \\{\\{\\{ and \\}\\}\\}\n\
+{{{Example usage of \\{\\{\\{ and \\}\\}\\}:\n\
 This text is rendered without any HTML/wiki parsing, and it does not get _underlined_, as you can see\n\
 \n\
 A really long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long line here}}}\n\
 \x3Cpre style="color:gray"\x3E\n\
 This is pre-formatted text (using a &lt;pre&gt; tag) with CSS style!\n\
 And it stands on multiple lines too\x3C/pre\x3E\n\
-You can also use any HTML tag: \x3Cspan style="color:navy"\x3ESchr\u00f6dinger\'s cat is \x3Cblink style="font-weight:bold"\x3Enot\x3C/blink\x3E dead.\x3C/span\x3E\n\
+You can also use any HTML tag: {{{\x3Cspan style="color:navy"\x3ESchr\u00f6dinger\'s cat is \x3Cblink style="font-weight:bold"\x3Enot\x3C/blink\x3E dead.\x3C/span\x3E}}}\n\
+\x3Cspan style="color:navy"\x3ESchr\u00f6dinger\'s cat is \x3Cblink style="font-weight:bold"\x3Enot\x3C/blink\x3E dead.\x3C/span\x3E\n\
 \n\
 \n\
-Ruler:\n\
+Three dashes (or four) make a horizontal rule:\n\
+{{{---}}}\n\
 ---\n\
 \n\
 == Indentation\n\
-* BlockQuotes \x3Cblockquote\x3EThis is written inside a {{{\x3Cquoteblock\x3E}}}. QuoteBlocks indent from left /and/ right.\x3C/blockquote\x3E\n\
+* BlockQuotes \x3Cblockquote\x3EThis is written inside a {{{\x3Cblockquote\x3E}}}. QuoteBlocks indent from left /and/ right.\x3Cbr\x3EAnd you can use {{{\x3Cbr\x3E}}} to emulate a newline\x3C/blockquote\x3E\n\
 * Starting colon syntax \x3Cblockquote\x3EIf a line starts with {{{:}}} The full line will be indented. Use it multiple times to increase the indentation, for example:\x3C/blockquote\x3E\n\
+\x3Ctable style="border:none; width: 50%;"\x3E\x3Ctr\x3E\x3Ctd\x3E\n\
+{{{:one\n\
+::two\n\
+::: three\n\
+:::: four}}}\n\
+\x3C/td\x3E\x3Ctd\x3E\n\
 :one\n\
 ::two\n\
 ::: three\n\
 :::: four, etc...\n\
+\x3C/td\x3E\x3C/tr\x3E\x3C/table\x3E\n\
+\n\
+You can write \n\
+{{{::Once upon a time}}} \n\
+or \n\
+{{{:: Once upon a time}}}, \n\
+the spaces don\'t matter; they get rendered the same.\n\
+\n\
+If you need pixel perfect indentation, create your own [[indent]] transclusion page. and use it like so: {{{[[Include::indent|12]]}}}\n\
+[[Include::indent|12]]Indented 12 pixels[[Include::indent|28]]With a gap of 28 pixels.\n\
+\n\
+tip: use \x3Cblockquote\x3E{{{a no-wiki tag inside a blockquote for indented text\n\
+with real newlines in it!\n\
+}}}\x3C/blockquote\x3E\n\
 \n\
 == Lists\n\
+\x3Ctable style="border:none; width: 50%;"\x3E\x3Ctr\x3E\x3Ctd\x3E\n\
+{{{* Item 1\n\
+** Subitem a\n\
+** Subitem b\n\
+* Item 2\n\
+** Subitem c\n\
+*** Subsubitem d\n\
+* Item 3}}}\n\
+\x3C/td\x3E\x3Ctd\x3E\n\
 * Item 1\n\
 ** Subitem a\n\
 ** Subitem b\n\
@@ -546,8 +615,17 @@ Ruler:\n\
 ** Subitem c\n\
 *** Subsubitem d\n\
 * Item 3\n\
-\n\
-Numbered list:\n\
+\x3C/td\x3E\x3C/tr\x3E\x3C/table\x3E\n\
+=== Numbered list:\n\
+\x3Ctable style="border:none; width: 50%;"\x3E\x3Ctr\x3E\x3Ctd\x3E\n\
+{{{# Item A\n\
+## Subitem i\n\
+## Subitem ii\n\
+# Item B\n\
+## Subitem iii\n\
+### Subsubitem iv\n\
+# Item C}}}\n\
+\x3C/td\x3E\x3Ctd\x3E\n\
 # Item A\n\
 ## Subitem i\n\
 ## Subitem ii\n\
@@ -555,15 +633,46 @@ Numbered list:\n\
 ## Subitem iii\n\
 ### Subsubitem iv\n\
 # Item C\n\
-\n\
-Alphanumerically ordered list:\n\
+\x3C/td\x3E\x3C/tr\x3E\x3C/table\x3E\n\
+=== Alphanumerically ordered list:\n\
+\x3Ctable style="border:none; width: 50%;"\x3E\x3Ctr\x3E\x3Ctd\x3E\n\
+{{{@ Paragraph A\n\
+@ Paragraph B\n\
+@@ Subparagraph 1\n\
+@@ Subparagraph 2}}}\n\
+\x3C/td\x3E\x3Ctd\x3E\n\
 @ Paragraph A\n\
 @ Paragraph B\n\
 @@ Subparagraph 1\n\
 @@ Subparagraph 2\n\
+\x3C/td\x3E\x3C/tr\x3E\x3C/table\x3E\n\
+=== Mixed lists:\n\
+\x3Ctable style="border:none; width: 50%;"\x3E\x3Ctr\x3E\x3Ctd\x3E\n\
+{{{@1 Paragraph 1\n\
+@I Paragraph I\n\
+@i Paragraph i\n\
+@a Paragraph a\n\
 \n\
+@A Paragraph A\n\
+@A# Subparagraph 1\n\
+@A# Subparagraph 2\n\
+@A Paragraph B\n\
+@A* Subparagraph 1\n\
+@A* Subparagraph 2}}}\n\
+\x3C/td\x3E\x3Ctd\x3E\n\
+@1 Paragraph 1\n\
+@I Paragraph I\n\
+@i Paragraph i\n\
+@a Paragraph a\n\
 \n\
-== Tables\n\
+@A Paragraph A\n\
+@A# Subparagraph 1\n\
+@A# Subparagraph 2\n\
+@A Paragraph B\n\
+@A* Subparagraph 1\n\
+@A* Subparagraph 2\x3C/td\x3E\x3C/tr\x3E\x3C/table\x3E\n\
+\n\
+== \x3Ca onclick="javascript:open_table_help()" style="color:blue"\x3ETables\x3Ca\x3E\n\
 \n\
 {|\n\
 |+ Telephone Table\n\
@@ -578,20 +687,20 @@ Alphanumerically ordered list:\n\
 | number || CHAR(32) || || Contains actual Telephone number\n\
 |}\n\
 \n\
-\n\
+= Advanced markup\n\
 == Notes\n\
 A div (block) or span (inline) for which you can define the style yourself inside the [[Special::Edit CSS|CSS]].\n\
 To use them, enclose your text in blockquotes, {{{[[[ like so ]]]}}}\n\
-This should be [[[ an inline note ]]] and\n\
+This should be {{{[[[}}}[[[ an inline note ]]]{{{]]]}}} and\n\
 \n\
-[[[\n\
+{{{[[[}}}[[[\n\
 This is a multiline note.\x3Cbr/\x3E\n\
 Notes \x3Cb\x3Ecan\x3C/b\x3E contain html markup, but no *wiki* markup.\n\
-]]]\n\
+]]]{{{]]]}}}\n\
 \n\
 If that is a problem, just use the /note/ div class yourself:\n\
-\x3Cdiv class="note"\x3EThis note /does/ allow *wiki* syntax.\x3C/div\x3E\n\
-\x3Cdiv class="text_area"\x3EA more *sober* note\x3C/div\x3E\n\
+{{{\x3Cdiv class="note"\x3E}}}\x3Cdiv class="note"\x3EThis note /does/ allow *wiki* syntax.\x3C/div\x3E{{{\x3C/div\x3E}}}\n\
+{{{\x3Cdiv class="text_area"\x3E}}}\x3Cdiv class="text_area"\x3EA more *sober* note\x3C/div\x3E{{{\x3C/div\x3E}}}\n\
 == Citations\n\
 Citations, just like notes, are a div or span of {{{class=citation}}}. \n\
 This is an example of an \u300c\u300c\u300cinline quote\u300d\u300d\u300d and\n\
@@ -602,28 +711,38 @@ Multiline citation\n\
 Getting the {{{\u300c\u300c\u300c}}} and {{{\u300d\u300d\u300d}}} on the \u300cscreen\u300d, that\'s a bit tricky...\n\
 To still use these symbols, without generating a citation, use: {{{&#12300;}}} and {{{&#12301;}}}\n\
 \n\
+You can also use html for citations: {{{\x3Cq class="citation"\x3Ethis is a \n\
+quote\x3C/q\x3E}}} displays like: \x3Cq class="citation"\x3Ethis is a \n\
+quote\x3C/q\x3E\n\
+\n\
 == Footnotes\n\
 \n\
 [[Include::TODO|fn|implement footnotes]]\n\
-Footnotes\x3C\x3C\x3CDo not confuse with money where you have stepped upon\x3E\x3E\x3E are implemented as a user definable function woas["before_parser"]() inside the {{{[[WoaS::Bootscript]]}}}\x3C\x3C\x3CDo not confuse with a script in a boot, or for a boot, for that matter\x3E\x3E\x3E With a tiny amount of footnote [[Special::Edit CSS]].\n\
+Footnotes\x3C\x3C\x3CDo not confuse with banknotes underfoot\x3E\x3E\x3E are implemented as a user definable function woas["before_parser"]() inside the {{{[[WoaS::Bootscript]]}}}\x3C\x3C\x3CDo not confuse with a doctor\'s prescription stuffed into a boot, or one for an ortho boot, for that matter\x3E\x3E\x3E With a tiny amount of footnote [[Special::Edit CSS]].\n\
 When you erase your wiki, you can choose to add them back.\n\
 \n\
-== Regular HTML\n\
+= Regular HTML\n\
 \n\
- \x3Cdiv class=bluebox\x3E\n\
+ {{{ \x3Cdiv class=bluebox\x3E}}}\x3Cdiv class=bluebox\x3E\n\
  \x3Ch1\x3EA story in blue\x3C/h1\x3E\n\
 \x3Cp\x3E\x3Cspan class="first-letter"\x3EO\x3C/span\x3Ence upon a time in a blueberry bubblegum land where the fishes had wings and the birds could swim, there was this bluefish that had a dream. In this dream he saw a big span of water, but he did not know where it was. When he woke up, he could clearly remember his dream, and even remember the breeze, even though he must have imagined it all, because, how can so much water exist? he asked himself...[Big load of text]...a lost sunfish from the Sweet Spaghetti River swam towards the open sea. Incredible! - Said the frog.\x3C/p\x3E\n\
 \x3Ch2\x3EAnd\x3C/h2\x3E there it was\n\
-\x3C/div\x3E \n\
+\x3C/div\x3E{{{\x3C/div\x3E}}} \n\
 \n\
-\x3Cdiv class="bubble"\x3EThis text is inside a bubble, but it only gets displayed correctly in FireFox.\x3C/div\x3E\n\
+Even the more exotic html tags, like:\n\
+\x3Ccode\x3Ecode: var A=5\x3C/code\x3E\n\
+\x3Cvar\x3Evar: A=6\x3C/var\x3E\n\
+\x3Cxmp\x3Exmp\x3C/xmp\x3E\n\
+\n\
+{{{\x3Cdiv class="bubble"\x3E}}}\x3Cdiv class="bubble"\x3EThis text is inside a bubble, but it only gets displayed correctly in FireFox.\x3C/div\x3E{{{\x3C/div\x3E}}}\n\
 Can be made to work in safari by changing the CSS \u201c.bubble\u201d See [[http://www.the-art-of-web.com/css/border-radius/]]\n\
 \n\
-You can use HTML to make text \x3Cspan style="background-color:green"\x3Egreen\x3C/span\x3E or even \x3Cfont color=green\x3Egreen\x3C/font\x3E.\n\
-To find more colors to use, look at [[http://html-color-codes.info/color-names|color-names]] or at [[http://html-color-codes.info/|HTML Colorcode chart]].\n\
+You can use HTML to make text {{{\x3Cspan style="background-color:green"\x3E}}}\x3Cspan style="background-color:green"\x3Egreen\x3C/span\x3E{{{\x3C/span\x3E}}} or even {{{\x3Cfont color=green\x3E}}}\x3Cfont color=green\x3Egreen\x3C/font\x3E{{{\x3C/font\x3E}}}.\n\
+To find more colors to use, look at [[http://html-color-codes.info/color-names|color-names]], [[http://www.computerhope.com/htmcolor.htm|more color-names]] or at [[http://html-color-codes.info/|HTML Colorcode chart]]. For more about html tags [[http://htmlhelp.com/reference/wilbur/phrase/samp.html|samp]]\n\
 \n\
 \n\
-== New syntax features\n\
+= New syntax features\n\
+\n\
 * line joining through a slash \'\\\' at the end of the line\n\
 * automatic TOC generation in place of [\x3C!-- --\x3E[Special::TOC]]\n\
 * section links using the syntax [\x3C!-- --\x3E[\x3C!-- --\x3E#[[Syntax#Syntax changes in v0.9]]]]\n\
@@ -643,6 +762,8 @@ Some syntax has also been deprecated, see [[Deprecated syntax]].\n\
 \n\
 [[Tags::help]]',
 '!Transclusion example\n\
+\n\
+:: You can embed other WoaS pages into your page by transcluding them. When doing so you can give it parameters (which will be named {{{%1}}}, {{{%2}}}), and so on. There is a default variable {{{%0}}}, it will give you the page requesting the transclusion (the parent page). For example: [[Include::whocalledme]] Dont use {{{[[Special::TOC]]}}} in a transcluded page  (will look funny if there is more than one in the resulting page).\n\
 \n\
 This page is partially generated by transclusion, edit it to see the undergoing magic.\n\
 \n\
@@ -685,7 +806,7 @@ And you can generate a list by looking in [[todo\'s]], which contains some inlin
 \n\
 == Page Last Modified example\n\
 This one makes use of the [[Special::Edit Bootscript]] to update a TIMEDATE transclusion tag just before saving, how cool is that?.\n\
-[[Include::TIMEDATE|2009/12/18 22:34:30 GMT+0100]] That blue thing will be updated if you save this page!\n\
+[[Include::TIMEDATE|2010/1/9 09:54:25 GMT+0100]] That blue thing will be updated if you save this page!\n\
 The code to do this trick must be in the Bootscript:\n\
 {{{\n\
 woas["before_save"] = function(){\n\
@@ -722,8 +843,13 @@ Or a more screaming inline blue (as in this page):\n\
 }}}\n\
 \n\
 == Alternative syntax\n\
-You can replace the word \u201cInclude\u201d with a shorter version using Aliases, so {{{[[Include::Special::]]}}} can be written as {{{[[$$:Special::]]}}} if you have an alias like this: {{{$: Include::}}}\n\
-and {{{[[Include::Image::alert.png]]}}} can be written as {{{[[$IMG:alert.png]]}}} if you have an alias like this: {{{$IMG: IMAGE::}}}\n\
+You can replace the word \u201cInclude\u201d with a shorter version using Aliases, so {{{[[Include::Special::]]}}} can be written as {{{[[$$:Special::]]}}} if you have an alias like this: {{{$: Include::}}}.\n\
+This means that {{{[[Include::Image::alert.png]]}}} can be written as {{{[[$IMG:alert.png]]}}} if you have an alias like this: {{{$IMG: IMAGE::}}}.\n\
+And if you set this alias: {{{$! IMAGE::alert.png}}}, all you need to write is:  {{{[[$$!]]}}} to display this image.\n\
+\n\
+== Progress bar \n\
+An example of a more advanced transclusion is when you use javascript to generate the transcluded text.  [[progressbar]] contains code, you can give it parameters  and it will look like this:\n\
+[[Include::progressbar|tutorial;5/8]]\n\
 \n\
 == Related pages\n\
 * [[Test template]]\n\
@@ -1270,22 +1396,23 @@ Trims final newlines and spaces from pages\' wiki source. This flag is likely to
 \x3Cinput id="filename_" type="file" /\x3E&nbsp;\x3Cinput type="button" value="Embed" onclick="woas._embed_process(\'%1\')" /\x3E\n\
 ',
 '= History\n\
-\n\
 == Versions 0.01 &tilde; 0.04\n\
 \x3Csub\x3Eby Andr\u00e9 Wagner\x3C/sub\x3E\n\
 \n\
-As they say, \u300c\u300c\u300cnecessity is the mother of invention\u300d\u300d\u300d \x3C\x3C\x3CPlato, The Republic\x3Cbr/\x3EGreek author & philosopher in Athens (427 BC - 347 BC)\x3E\x3E\x3E. I needed a way to store information in a tree-like structure, but every software I tested felt like it was something missing. I tested a few mindmap software, tree structure software and personal wikis, but they were too complicated to install; I didn\'t yet have what I was looking for, or the tool wasn\'t cross-platform\x3C\x3C\x3CWindows/Mac/*ux\x3E\x3E\x3E.\n\
+:: As they say, \u300c\u300c\u300cnecessity is the mother of invention\u300d\u300d\u300d \x3C\x3C\x3CPlato, The Republic\x3Cbr/\x3EGreek author & philosopher in Athens (427 BC - 347 BC)\x3E\x3E\x3E. I needed a way to store information in a tree-like structure, but every software I tested felt like it was something missing. I tested a few mindmap software, tree structure software and personal wikis, but they were too complicated to install; I didn\'t yet have what I was looking for, or the tool wasn\'t cross-platform\x3C\x3C\x3CWindows/Mac/*ux\x3E\x3E\x3E.\n\
 \n\
 The closest thing I found was [[http://www.tiddlywiki.com/|TiddlyWiki]], but it still wasn\'t perfect: it was too much blog-like, and what I needed was something wiki-like. So TiddlyWiki served as inspiration for the software I was about to create (I even used their saving routines).\n\
 \n\
 The core part of the code was written in one rainy afternoon. A few days later (after correcting most problems) I released it and the feedback I received was much more than I could ever expect. I guess that many other people had my same needs  :-) So this gave me motivation to continue working on Wiki on a Stick and to release three more versions.\n\
 \n\
 === The principles\n\
-Since the beginning I followed two basic principles: *simplicity* and *stability*. For simplicity I mean that the software should be easy enough for anyone to use, and the interface should be as plain as possible. And for stability I mean that the user data is sacred above all things, and the user should never loose his data, no matter what happens. I think these were the two facts that brought the good acceptance from the users.\n\
+::Since the beginning I followed two basic principles: *simplicity* and *stability*. For simplicity I mean that the software should be easy enough for anyone to use, and the interface should be as plain as possible. And for stability I mean that the user data is sacred above all things, and the user should never loose his data, no matter what happens. I think these were the two facts that brought the good acceptance from the users.\n\
 \n\
 Unfortunately, the duties of my graduation thesis made me stop working on WoaS and the software became dormant for a couple of months. It made me feel bad, since the mailing lists were at full throttle, with many people requesting features and sending patches that I couldn\'t even test.\n\
 \n\
 So I was very glad when Daniele offered himself to take over the task of managing the project. He did a great work and now WoaS is a much more rich application, with a even greater userbase. It feels really nice to see that people all around the world are using the software I created, and my desire is to see that WoaS grows in quality, features and userbase, and to remain a simple yet useful tool to everyone.\n\
+\n\
+\x3Cdiv style="text-align:center"\x3E[[Include::Image::separator.jpg]]\x3C/div\x3E\n\
 \n\
 == Versions 0.9.x\n\
 \x3Csub\x3Eby Daniele C.\x3C/sub\x3E\n\
@@ -1389,7 +1516,7 @@ Simon wonders if a page with di\u00e2critics will be found \u00e4nyw\u00e1y.\n\
 \n\
 == \u00bfu\u028dop-\u01ddp\u0131sdn\n\
 \n\
-upside-down?\n\
+upside-down? ((: \u02d9dn \u0279\u01dd\u028c\ufeffo\u0254 \u01dd\u0254\u0131u \u028e\u0279\u01dd\u028c\ufeff\n\
 \n\
 == Chinese \n\
 The Chinese translation of \u201cTranslation server error\u201d is:\n\
@@ -1545,22 +1672,62 @@ asdf\n\
 === test, second\n\
 asdf',
 '= Unusual lists\n\
+* level1\n\
+*# level2-1\n\
+*# level2-2\n\
 \n\
-# first level A\n\
-# first level B\n\
-## second level A\n\
-## second level B\n\
-## second level C\n\
-# first level C\n\
-## second level D\n\
-### third level A\n\
-### third level B\n\
-',
+= Unusual lists\n\
+\n\
+* level1\n\
+** level2-1\n\
+*** level2-2\n\
+***@I level2-3\n\
+\n\
+\n\
+== Schedule for Monday\n\
+@I Suppress Gaul  \n\
+@I@A Two more legions or three?\n\
+@I@A Where to put victory arch? Forum\'s looking crowded...\n\
+@I Have Cicero killed\n\
+@I Lunch\n\
+@I Head-and-hands-on-pike viewing at the Forum (casual dress ok?)\n\
+\n\
+* A WWWWWWWWWWWWWWWWWWW\n\
+** B WWWWWWWWWWWWWWWWWWW\n\
+* C WWWWWWWWWWWWWWWWWWW\n\
+** D WWWWWWWWWWWWWWWWWWW\n\
+* E WWWWWWWWWWWWWWWWWWW\n\
+\n\
+   1. \x3Ch3\x3ESchedule for Monday\x3C/h3\x3E  \n\
+   2. \x3Col style="list-style-type: upper-roman"\x3E  \n\
+   3. \x3Cli\x3ESuppress Gaul  \n\
+   4. \x3Col style="list-style-type: upper-alpha"\x3E  \n\
+   5. \x3Cli\x3ETwo more legions or three?\x3C/li\x3E  \n\
+   6. \x3Cli\x3EWhere to put victory arch? Forum\'s looking crowded...\x3C/li\x3E  \n\
+   7. \x3C/ol\x3E  \n\
+   8. \x3C/li\x3E  \n\
+   9. \x3Cli\x3EHave Cicero killed\x3C/li\x3E  \n\
+  10. \x3Cli\x3ELunch\x3C/li\x3E  \n\
+  11. \x3Cli\x3EHead-and-hands-on-pike viewing at the Forum (casual dress ok?)\x3C/li\x3E  \n\
+  12. \x3C/ol\x3E  \n\
+\n\
+{{{\n\
+C:\\TEMP\x3Eecho "hello world" \x3E h.txt\n\
+\n\
+C:\\TEMP\x3Egzip h.txt\n\
+\n\
+C:\\TEMP\x3Ebase64 h.txt.gz\n\
+H4sICPaaUUsAA2gudHh0AFPKSM3JyVcozy/KSVFS4OUCAMor+l4QAAAA\n\
+}}}\n\
+\n\
+http://moronicbajebus.com/playground/cssplay/explorer-list/files/',
 '^$HOME Main Page\n\
 ^$? tooltip\n\
-^$IMG: Image::',
+^$IMG: Image::\n\
+^$+ subpage\n\
+^$progressbar progressbar',
 'cmV0dXJuICI9ICIgKyB0aXRsZSArICJcbiI7',
-'Ly8gRGVmYXVsdCAncHJvZ3JhbW1hYmxlJyBidXR0b25zCgp3b2FzWyJlZGl0YnV0dG9uIl0gPSBbCgogIHtuYW1lOidUYWJsZSBvZiBDb250ZW50JywKICAgbGFiZWw6J1RPQycsCiAgIG9uY2xpY2s6IGZ1bmN0aW9uKCl7IHNldFNlbGVjdGVkVGV4dCgiW1tTcGVjaWFsOjpUT0NdXSIpOyB9CiAgfSwKCiAge25hbWU6J3NvcnQgc2VsZWN0ZWQgbGluZXMnLAogICBsYWJlbDonc29ydCcsCiAgIG9uY2xpY2s6IGZ1bmN0aW9uKCl7CiAgICAgICAgIHdvYXMuX2VkaXRvci5zZXRTZWxlY3RlZFRleHQoIHdvYXMuX2VkaXRvci5nZXRTZWxlY3RlZFRleHQoKS5zcGxpdCgiXG4iKS5zb3J0KCkuam9pbigiXG4iKSk7IAogICAgICB9CiAgfSwKICAKICB7bmFtZTonZ3JheS1ib3hlZCB0ZXh0JywKICAgbGFiZWw6J25vdGUnLAogICBvbmNsaWNrOiBmdW5jdGlvbigpeyBGdWxsVGFnVGhpcygiZGl2IiwgImNsYXNzPVwidGV4dF9hcmVhXCIiKTsgfQogIH0sCgogIHtuYW1lOidzaWduYXR1cmUnLAogICBsYWJlbDonc2lnJywKICAgb25jbGljazogZnVuY3Rpb24oKXsgc2V0U2VsZWN0ZWRUZXh0KCI8YnIvPmtpbmQgcmVnYXJkcyw8YnIvPlRoZSAqV09BUyogdGVhbS4iKTsgfQogIH0sCgogIHtuYW1lOidoaWdobGlnaHQnLAogICBsYWJlbDonbWFyaycsCiAgIC8vc3R5bGU6ICdmb250LXdlaWdodDogYm9sZDtiYWNrZ3JvdW5kLWNvbG9yOiB5ZWxsb3c7d2lkdGg6IDQwcHg7JywKICAgb25jbGljazogZnVuY3Rpb24oKXsgRnVsbFRhZ1RoaXMoInNwYW4iLCAiY2xhc3M9XCJzZWFyY2hfaGlnaGxpZ2h0XCIiKTsgfQogIH0sCgogIHtuYW1lOidzZWxlY3QgY29sb3InLAogICBsYWJlbDonY29sb3InLAogICBvbmNsaWNrOiBmdW5jdGlvbigpeyAKLy9Db2xvcml6ZXIucGljaygncGI1Jyk7Q29sb3JpemVyLnJlbGF0ZUNvbG9yKCdwYjUnLCBDb2xvcml6ZXIuZ2V0T2JqKCdwYjYnKS5iYWNrZ3JvdW5kLWNvbG9yKTsgCiAgICAgaWYoZ2V0U2VsZWN0ZWRUZXh0KCkpe0Z1bGxUYWdUaGlzKCdmb250JywgJ2NvbG9yPScrQ29sb3JpemVyLnJnYik7fQogICAgIGVsc2V7Q29sb3JpemVyLnBpY2soJ3BiNScsICJDb2xvcml6ZXIuZ2V0T2JqKCdwYjUnKS5zdHlsZS5iYWNrZ3JvdW5kQ29sb3I9Q29sb3JpemVyLnJnYiIpfQp9CiAgfSwKCgogIHtuYW1lOidSZWFsIFF1b3RlcycsCiAgIGxhYmVsOiciJywKICAgb25jbGljazogZnVuY3Rpb24oKXsgVGFnVGhpcyhTdHJpbmcuZnJvbUNoYXJDb2RlKDgyMjApLCBTdHJpbmcuZnJvbUNoYXJDb2RlKDgyMjEpKTsgfSAvLyBjb3VsZCBhbHNvIGhhdmUgdXNlZDogIiYjODIyMTsiCiAgfSwKCiAge25hbWU6J0NpdGF0aW9uJywKICAgbGFiZWw6Jy4uLicsCiAgIG9uY2xpY2s6IGZ1bmN0aW9uKCl7IFRhZ1RoaXMoU3RyaW5nLmZyb21DaGFyQ29kZSgxMjMwMCkucmVwZWF0KDMpLCBTdHJpbmcuZnJvbUNoYXJDb2RlKDEyMzAxKS5yZXBlYXQoMykpOyB9CiAgfSwKCiAge25hbWU6J3VzZXJfcGFyc2UnLAogICBsYWJlbDonPDw+PicsCiAgIG9uY2xpY2s6IGZ1bmN0aW9uKCl7IFRhZ1RoaXMoU3RyaW5nLmZyb21DaGFyQ29kZSgxNzEpLnJlcGVhdCgzKSwgU3RyaW5nLmZyb21DaGFyQ29kZSgxODcpLnJlcGVhdCgzKSk7IH0KICB9LAoKXTsKCgoKCkNvbG9yaXplciA9IHsgCglkaXZTZXQ6IGZhbHNlLAoJcmdiOiB1bmRlZmluZWQsCglkYWQ6IHVuZGVmaW5lZCwKCXNldDogdW5kZWZpbmVkLAoJb25jaGFuZ2U6IHVuZGVmaW5lZCwKCglnZXRPYmo6IGZ1bmN0aW9uKGlkKSB7cmV0dXJuIGRvY3VtZW50LmFsbCA/IGRvY3VtZW50LmFsbFtpZF0gOiBkb2N1bWVudC5nZXRFbGVtZW50QnlJZChpZCk7fSwKCglzZXRDb2xvcjogZnVuY3Rpb24oY29sb3IpIHsKCQl2YXIgcGlja2VyID0gdGhpcy5nZXRPYmooJ2NvbG9ycGlja2VyJyk7CgkJdGhpcy5yZ2IgPSBjb2xvcjsKCQlpZih0aGlzLnNldCl7IGV2YWwodGhpcy5zZXQpO30KCQlpZih0aGlzLm9uY2hhbmdlKXsgdGhpcy5vbmNoYW5nZSgpO30KCQlwaWNrZXIuc3R5bGUuZGlzcGxheSA9ICdub25lJzsKCQlwaWNrZXIuaW5uZXJIVE1MID0gIiI7Cgl9LAoKCXBpY2s6IGZ1bmN0aW9uKGlkLCBzZXQsb25jaGFuZ2UpIHsKCQl0aGlzLnNldCA9IHNldDsKCQl0aGlzLm9uY2hhbmdlID0gb25jaGFuZ2U7CgkJaWYgKCF0aGlzLmdldE9iaignY29sb3JwaWNrZXInKSkgewoJCQlpZiAoIWRvY3VtZW50LmNyZWF0ZUVsZW1lbnQpCgkJCQlyZXR1cm47CgkJCXZhciBlbGVtRGl2ID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudCgnZGl2Jyk7CgkJCWlmICh0eXBlb2YoZWxlbURpdi5pbm5lckhUTUwpICE9ICdzdHJpbmcnKQoJCQkJcmV0dXJuOwoJCQlkb2N1bWVudC5ib2R5LmFwcGVuZENoaWxkKGVsZW1EaXYpOwoJCQllbGVtRGl2LmlkID0gJ2NvbG9ycGlja2VyJzsKCQkJZWxlbURpdi5zdHlsZS5wb3NpdGlvbiA9ICdhYnNvbHV0ZSc7CgkJCWVsZW1EaXYuc3R5bGUuZGlzcGxheSA9ICdub25lJzsKCQkJZWxlbURpdi5zdHlsZS5ib3JkZXIgPSAnIzAwMCAxcHggc29saWQnOwoJCQkvL2VsZW1EaXYuc3R5bGUub3BhY2l0eTogMC43NTsKCQkJLy9lbGVtRGl2LnN0eWxlLmJhY2tncm91bmQgPSAnI0ZGRic7CgkJfQoKCQl2YXIgcGlja2VyID0gdGhpcy5nZXRPYmooJ2NvbG9ycGlja2VyJyk7IAoJCXBpY2tlci5pbm5lckhUTUwgPSBDb2xvcml6ZXIuY29sb3JCb3goKTsKCgkJLy9hbGVydCgncGlja2VyPScrcGlja2VyKTsKCQlpZiAoaWQgPT0gQ29sb3JpemVyLmRhZCAmJiBwaWNrZXIuc3R5bGUuZGlzcGxheSA9PSAnYmxvY2snKSB7CgkJCXBpY2tlci5zdHlsZS5kaXNwbGF5ID0gJ25vbmUnOwoJCQlwaWNrZXIuaW5uZXJIVE1MID0gIiI7CgkJCXJldHVybjsKCQl9CgoJCUNvbG9yaXplci5kYWQgPSBpZDsKCQl2YXIgbyA9IHRoaXMuZ2V0T2JqKGlkKTsKCQl2YXIgUD10aGlzLmZpbmRQb3Mobyk7CgkJcGlja2VyLnN0eWxlLmxlZnQgPSBQLmxlZnQrJ3B4JzsgCgkJcGlja2VyLnN0eWxlLnRvcCA9IFAudG9wKydweCc7IAoJCS8vcGlja2VyLnN0eWxlLmJvdHRvbT0gMDsKCQkvL3BpY2tlci5zdHlsZS5yaWdodD0gIjUwcHgiOwoJCXBpY2tlci5zdHlsZS56SW5kZXggPTE7CgkJcGlja2VyLnN0eWxlLmRpc3BsYXkgPSAnYmxvY2snOwoJfSwKCgljb2xvckJveDogZnVuY3Rpb24oKSB7CgkJLy8gR2VuZXJhdGUgQ29sb3VycwoJCXZhciBDQyA9IFtdOwoJCXZhciBDID0gWycwJywgJzMnLCAnNicsICc5JywgJ0MnLCAnRiddOwoJCSBmb3IgKHZhciBhID0gMCwgYz0wOyBhIDwgQy5sZW5ndGgsYyA9IENbYV07ICsrYSkKCQkJQ0MucHVzaCgnIycrYytjK2MsICcjMDAnK2MsICcjMCcrYysnMCcsICcjJytjKycwMCcsICcjMCcrYytjLCAnIycrYysnMCcrYywgJyMnK2MrYysnMCcpOwoJCSBDQy5zcGxpY2UoMSw2LCAnTWVkaXVtQmx1ZScsICdTZWFHcmVlbicsICdPcmFuZ2VSZWQnLCAnU3ByaW5nR3JlZW4nLCAnQ3JpbXNvbicsICdTYWRkbGVCcm93bicpOwoJCS8vIHRhYmxlCgkJdmFyIGNjID0gJzx0YWJsZSBjZWxsc3BhY2luZz0iMCI+PHRyPic7CgkJZm9yICh2YXIgaSA9IDA7IGkgPCBDQy5sZW5ndGg7IGkrKykgewoJCQlpICUgNyB8fCAoY2MgKz0gJzx0ci8+PHRyPicpOwoJCQljYyArPSAnPHRkIGJnY29sb3I9IiMwMDAiPjxhIHN0eWxlPSJvdXRsaW5lOiAxcHggc29saWQ7IGNvbG9yOiAnICsgQ0NbaV0gKyAnOyBiYWNrZ3JvdW5kOiAnICsgQ0NbaV0gKyAnOyIgdGl0bGU9IicgKyBDQ1tpXSArICciIGhyZWY9ImphdmFzY3JpcHQ6Q29sb3JpemVyLnNldENvbG9yKFwnJyArIENDW2ldICsgJ1wnKTsiPl9fPC9hPjwvdGQ+JzsKCQl9CgkJY2MgKz0gJzwvdHI+PC90YWJsZT4nOwoJCXJldHVybiBjYzsKCX0sCgoJZmluZFBvczogZnVuY3Rpb24ob2JqKSB7CgkJdmFyIG8gPSBvYmo7CgkJdmFyIF9sZWZ0ID0gX3RvcCA9IDA7CgkJaWYgKG8ub2Zmc2V0UGFyZW50KSB7CgkJCWRvIHsKCQkJCV9sZWZ0ICs9IG8ub2Zmc2V0TGVmdDsKCQkJCV90b3AgKz0gby5vZmZzZXRUb3A7CgkJCX0gd2hpbGUgKG8gPSBvLm9mZnNldFBhcmVudCk7CgkJCV90b3AgKz0gb2JqLm9mZnNldEJvdHRvbT8gb2JqLm9mZnNldEJvdHRvbSA6IDI1OyAvL21hcmdpbi10b3AgCgkJCS8vYWxlcnQoJ2ZpbmRQb3MgbGVmdD0nK19sZWZ0KyIgdG9wPSIrX3RvcCk7CgkJCXJldHVybiB7bGVmdDpfbGVmdCx0b3A6X3RvcH07CgkJfQoJfQoKfQoK',
+'ZnVuY3Rpb24gZ2V0U2VsZWN0ZWRUZXh0KCl7cmV0dXJuIHdvYXMuX2VkaXRvci5nZXRTZWxlY3RlZFRleHQoKTt9CmZ1bmN0aW9uIHNldFNlbGVjdGVkVGV4dCh0eHQpe3JldHVybiB3b2FzLl9lZGl0b3Iuc2V0U2VsZWN0ZWRUZXh0KHR4dCk7fQoKLy8gRGVmYXVsdCAncHJvZ3JhbW1hYmxlJyBidXR0b25zCgp3b2FzWyJlZGl0YnV0dG9uIl0gPSBbCgogIHtuYW1lOidUYWJsZSBvZiBDb250ZW50JywKICAgbGFiZWw6J1RPQycsCiAgIG9uY2xpY2s6IGZ1bmN0aW9uKCl7IHNldFNlbGVjdGVkVGV4dCgiW1tTcGVjaWFsOjpUT0NdXSIpOyB9CiAgfSwKCiAge25hbWU6J3NvcnQgc2VsZWN0ZWQgbGluZXMnLAogICBsYWJlbDonc29ydCcsCiAgIG9uY2xpY2s6IGZ1bmN0aW9uKCl7CiAgICAgICAgIHdvYXMuX2VkaXRvci5zZXRTZWxlY3RlZFRleHQoIHdvYXMuX2VkaXRvci5nZXRTZWxlY3RlZFRleHQoKS5zcGxpdCgiXG4iKS5zb3J0KCkuam9pbigiXG4iKSk7IAogICAgICB9CiAgfSwKICAKICB7bmFtZTonZ3JheS1ib3hlZCB0ZXh0JywKICAgbGFiZWw6J25vdGUnLAogICBvbmNsaWNrOiBmdW5jdGlvbigpeyBGdWxsVGFnVGhpcygiZGl2IiwgImNsYXNzPVwidGV4dF9hcmVhXCIiKTsgfQogIH0sCgogIHtuYW1lOidzaWduYXR1cmUnLAogICBsYWJlbDonc2lnJywKICAgb25jbGljazogZnVuY3Rpb24oKXsgc2V0U2VsZWN0ZWRUZXh0KCI8YnIvPmtpbmQgcmVnYXJkcyw8YnIvPlRoZSAqV09BUyogdGVhbS4iKTsgfQogIH0sCgogIHtuYW1lOidoaWdobGlnaHQnLAogICBsYWJlbDonbWFyaycsCiAgIC8vc3R5bGU6ICdmb250LXdlaWdodDogYm9sZDtiYWNrZ3JvdW5kLWNvbG9yOiB5ZWxsb3c7d2lkdGg6IDQwcHg7JywKICAgb25jbGljazogZnVuY3Rpb24oKXsgRnVsbFRhZ1RoaXMoInNwYW4iLCAiY2xhc3M9XCJzZWFyY2hfaGlnaGxpZ2h0XCIiKTsgfQogIH0sCgogIHtuYW1lOidzZWxlY3QgY29sb3InLAogICBsYWJlbDonY29sb3InLAogICBvbmNsaWNrOiBmdW5jdGlvbigpeyAKLy9Db2xvcml6ZXIucGljaygncGI1Jyk7Q29sb3JpemVyLnJlbGF0ZUNvbG9yKCdwYjUnLCBDb2xvcml6ZXIuZ2V0T2JqKCdwYjYnKS5iYWNrZ3JvdW5kLWNvbG9yKTsgCiAgICAgaWYoZ2V0U2VsZWN0ZWRUZXh0KCkpe0Z1bGxUYWdUaGlzKCdmb250JywgJ2NvbG9yPScrQ29sb3JpemVyLnJnYik7fQogICAgIGVsc2V7Q29sb3JpemVyLnBpY2soJ3BiNScsICJDb2xvcml6ZXIuZ2V0T2JqKCdwYjUnKS5zdHlsZS5iYWNrZ3JvdW5kQ29sb3I9Q29sb3JpemVyLnJnYiIpfQp9CiAgfSwKCgogIHtuYW1lOidSZWFsIFF1b3RlcycsCiAgIGxhYmVsOiciJywKICAgb25jbGljazogZnVuY3Rpb24oKXsgVGFnVGhpcyhTdHJpbmcuZnJvbUNoYXJDb2RlKDgyMjApLCBTdHJpbmcuZnJvbUNoYXJDb2RlKDgyMjEpKTsgfSAvLyBjb3VsZCBhbHNvIGhhdmUgdXNlZDogIiYjODIyMTsiCiAgfSwKCiAge25hbWU6J0NpdGF0aW9uJywKICAgbGFiZWw6Jy4uLicsCiAgIG9uY2xpY2s6IGZ1bmN0aW9uKCl7IFRhZ1RoaXMoU3RyaW5nLmZyb21DaGFyQ29kZSgxMjMwMCkucmVwZWF0KDMpLCBTdHJpbmcuZnJvbUNoYXJDb2RlKDEyMzAxKS5yZXBlYXQoMykpOyB9CiAgfSwKCiAge25hbWU6J3VzZXJfcGFyc2UnLAogICBsYWJlbDonPDw+PicsCiAgIG9uY2xpY2s6IGZ1bmN0aW9uKCl7IFRhZ1RoaXMoU3RyaW5nLmZyb21DaGFyQ29kZSgxNzEpLnJlcGVhdCgzKSwgU3RyaW5nLmZyb21DaGFyQ29kZSgxODcpLnJlcGVhdCgzKSk7IH0KICB9LAoKXTsKCgoKCkNvbG9yaXplciA9IHsgCglkaXZTZXQ6IGZhbHNlLAoJcmdiOiB1bmRlZmluZWQsCglkYWQ6IHVuZGVmaW5lZCwKCXNldDogdW5kZWZpbmVkLAoJb25jaGFuZ2U6IHVuZGVmaW5lZCwKCglnZXRPYmo6IGZ1bmN0aW9uKGlkKSB7cmV0dXJuIGRvY3VtZW50LmFsbCA/IGRvY3VtZW50LmFsbFtpZF0gOiBkb2N1bWVudC5nZXRFbGVtZW50QnlJZChpZCk7fSwKCglzZXRDb2xvcjogZnVuY3Rpb24oY29sb3IpIHsKCQl2YXIgcGlja2VyID0gdGhpcy5nZXRPYmooJ2NvbG9ycGlja2VyJyk7CgkJdGhpcy5yZ2IgPSBjb2xvcjsKCQlpZih0aGlzLnNldCl7IGV2YWwodGhpcy5zZXQpO30KCQlpZih0aGlzLm9uY2hhbmdlKXsgdGhpcy5vbmNoYW5nZSgpO30KCQlwaWNrZXIuc3R5bGUuZGlzcGxheSA9ICdub25lJzsKCQlwaWNrZXIuaW5uZXJIVE1MID0gIiI7CgkJZGVsZXRlIHBpY2tlci5wYXJlbnROb2RlLnJlbW92ZUNoaWxkKHBpY2tlcik7CgoJfSwKCglwaWNrOiBmdW5jdGlvbihpZCwgc2V0LG9uY2hhbmdlKSB7CgkJdGhpcy5zZXQgPSBzZXQ7CgkJdGhpcy5vbmNoYW5nZSA9IG9uY2hhbmdlOwoJCWlmICghdGhpcy5nZXRPYmooJ2NvbG9ycGlja2VyJykpIHsKCQkJaWYgKCFkb2N1bWVudC5jcmVhdGVFbGVtZW50KQoJCQkJcmV0dXJuOwoJCQl2YXIgZWxlbURpdiA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoJ2RpdicpOwoJCQlpZiAodHlwZW9mKGVsZW1EaXYuaW5uZXJIVE1MKSAhPSAnc3RyaW5nJykKCQkJCXJldHVybjsKCQkJZG9jdW1lbnQuYm9keS5hcHBlbmRDaGlsZChlbGVtRGl2KTsKCQkJZWxlbURpdi5pZCA9ICdjb2xvcnBpY2tlcic7CgkJCWVsZW1EaXYuc3R5bGUucG9zaXRpb24gPSAnYWJzb2x1dGUnOwoJCQllbGVtRGl2LnN0eWxlLmRpc3BsYXkgPSAnbm9uZSc7CgkJCWVsZW1EaXYuc3R5bGUuYm9yZGVyID0gJyMwMDAgMXB4IHNvbGlkJzsKCQkJLy9lbGVtRGl2LnN0eWxlLm9wYWNpdHk6IDAuNzU7CgkJCS8vZWxlbURpdi5zdHlsZS5iYWNrZ3JvdW5kID0gJyNGRkYnOwoJCX0KCgkJdmFyIHBpY2tlciA9IHRoaXMuZ2V0T2JqKCdjb2xvcnBpY2tlcicpOyAKCQlwaWNrZXIuaW5uZXJIVE1MID0gQ29sb3JpemVyLmNvbG9yQm94KCk7CgoJCS8vYWxlcnQoJ3BpY2tlcj0nK3BpY2tlcik7CgkJaWYgKGlkID09IENvbG9yaXplci5kYWQgJiYgcGlja2VyLnN0eWxlLmRpc3BsYXkgPT0gJ2Jsb2NrJykgewoJCQlwaWNrZXIuc3R5bGUuZGlzcGxheSA9ICdub25lJzsKCQkJcGlja2VyLmlubmVySFRNTCA9ICIiOwoJCQlyZXR1cm47CgkJfQoKCQlDb2xvcml6ZXIuZGFkID0gaWQ7CgkJdmFyIG8gPSB0aGlzLmdldE9iaihpZCk7CgkJdmFyIFA9dGhpcy5maW5kUG9zKG8pOwoJCXBpY2tlci5zdHlsZS5sZWZ0ID0gUC5sZWZ0KydweCc7IAoJCXBpY2tlci5zdHlsZS50b3AgPSBQLnRvcCsncHgnOyAKCQkvL3BpY2tlci5zdHlsZS5ib3R0b209IDA7CgkJLy9waWNrZXIuc3R5bGUucmlnaHQ9ICI1MHB4IjsKCQlwaWNrZXIuc3R5bGUuekluZGV4ID0xOwoJCXBpY2tlci5zdHlsZS5kaXNwbGF5ID0gJ2Jsb2NrJzsKCX0sCgoJY29sb3JCb3g6IGZ1bmN0aW9uKCkgewoJCS8vIEdlbmVyYXRlIENvbG91cnMKCQl2YXIgQ0MgPSBbXTsKCQl2YXIgQyA9IFsnMCcsICczJywgJzYnLCAnOScsICdDJywgJ0YnXTsKCQkgZm9yICh2YXIgYSA9IDAsIGM9MDsgYSA8IEMubGVuZ3RoLGMgPSBDW2FdOyArK2EpCgkJCUNDLnB1c2goJyMnK2MrYytjLCAnIzAwJytjLCAnIzAnK2MrJzAnLCAnIycrYysnMDAnLCAnIzAnK2MrYywgJyMnK2MrJzAnK2MsICcjJytjK2MrJzAnKTsKCQkgQ0Muc3BsaWNlKDEsNiwgJ01lZGl1bUJsdWUnLCAnU2VhR3JlZW4nLCAnT3JhbmdlUmVkJywgJ1NwcmluZ0dyZWVuJywgJ0NyaW1zb24nLCAnU2FkZGxlQnJvd24nKTsKCQkvLyB0YWJsZQoJCXZhciBjYyA9ICc8dGFibGUgY2VsbHNwYWNpbmc9IjAiPjx0cj4nOwoJCWZvciAodmFyIGkgPSAwOyBpIDwgQ0MubGVuZ3RoOyBpKyspIHsKCQkJaSAlIDcgfHwgKGNjICs9ICc8dHIvPjx0cj4nKTsKCQkJY2MgKz0gJzx0ZCBiZ2NvbG9yPSIjMDAwIj48YSBzdHlsZT0ib3V0bGluZTogMXB4IHNvbGlkOyBjb2xvcjogJyArIENDW2ldICsgJzsgYmFja2dyb3VuZDogJyArIENDW2ldICsgJzsiIHRpdGxlPSInICsgQ0NbaV0gKyAnIiBocmVmPSJqYXZhc2NyaXB0OkNvbG9yaXplci5zZXRDb2xvcihcJycgKyBDQ1tpXSArICdcJyk7Ij5fXzwvYT48L3RkPic7CgkJfQoJCWNjICs9ICc8L3RyPjwvdGFibGU+JzsKCQlyZXR1cm4gY2M7Cgl9LAoKCWZpbmRQb3M6IGZ1bmN0aW9uKG9iaikgewoJCXZhciBvID0gb2JqOwoJCXZhciBfbGVmdCA9IF90b3AgPSAwOwoJCWlmIChvLm9mZnNldFBhcmVudCkgewoJCQlkbyB7CgkJCQlfbGVmdCArPSBvLm9mZnNldExlZnQ7CgkJCQlfdG9wICs9IG8ub2Zmc2V0VG9wOwoJCQl9IHdoaWxlIChvID0gby5vZmZzZXRQYXJlbnQpOwoJCQlfdG9wICs9IG9iai5vZmZzZXRCb3R0b20/IG9iai5vZmZzZXRCb3R0b20gOiAyNTsgLy9tYXJnaW4tdG9wIAoJCQkvL2FsZXJ0KCdmaW5kUG9zIGxlZnQ9JytfbGVmdCsiIHRvcD0iK190b3ApOwoJCQlyZXR1cm4ge2xlZnQ6X2xlZnQsdG9wOl90b3B9OwoJCX0KCX0KCn0KCg==',
 '= New Page Template\n\
 \n\
 A new special page, holds javascript to generate a new page on-the-fly. You have access to most internal variables (so you can mess things up).\n\
@@ -1757,17 +1924,24 @@ function listtodo() {\n\
 }\n\
 \n\
 listtodo();\n\
-\x3C/script\x3E ',
+\x3C/script\x3E \n\
+\n\
+* use cached_search for tag searc. decide:merge both search pages\n\
+* span style: instead of font color for colorizer: {{{\x3Cfont color=OrangeRed\x3Ered\x3C/font\x3E \x3Cspan style="color:#FF0000;"\x3ERed Text\x3C/span\x3E}}}\n\
+* http://developer.yahoo.com/yui/compressor/ -\x3E might be better than my compress, try it\n\
+\n\
+',
 '\x3Cp\x3E\x3CA CLASS="TODO" NAME="%1" href="javascript:go_to(\'todo\\\'s\')"\x3E\x3Cstrong\x3E\x3Cfont color="red"\x3ETODO:\x3C/font\x3E\x3C/strong\x3E\x3C/A\x3E \x3Cb\x3E%2\x3C/b\x3E\x3C/p\x3E',
 '\x3Cspan style="float: right; text-align: left; background:#AAF; border: dashed; font-style: italic"\x3Epage last modified: %1\x3C/span\x3E\n\
 ',
 '= Skin\n\
+\n\
 Change Buttons currently used in WOAS.\n\
 \n\
 Instructions: Select a file, then press on one of the buttons to replace it.\n\
 note: Old images can stay cached, shift-reload your browser if this happens.\n\
 \n\
-\x3Cinput id="filename_" type="file"\x3E\n\
+\x3Cinput id="filename_" type="file" onfocus="custom_focus(true)" onblur="custom_focus(false)"\x3E\n\
 \n\
 \x3Cscript\x3E\n\
 woas["ReplaceButtonFromFile"] = function(button){\n\
@@ -1798,9 +1972,198 @@ It could be made more pretty using [[http://www.developertutorials.com/tutorials
 \n\
 \x3C!--LIST--\x3E\n\
 \n\
-\n\
-[[Syntax]] {{{Tue Dec 29 2009 01:14:18 GMT+0100}}}\n\
-',
+[[WoaS::Buttons]] {{{Thu Jan 14 2010 19:15:24 GMT+0100}}}\n\
+[[Syntax]] {{{Thu Jan 14 2010 20:57:46 GMT+0100}}}\n\
+[[Testcase::Unusual lists]] {{{Thu Jan 14 2010 21:00:29 GMT+0100}}}\n\
+[[Testcase::Unusual lists]] {{{Thu Jan 14 2010 21:12:33 GMT+0100}}}\n\
+[[Testcase::Unusual lists]] {{{Thu Jan 14 2010 21:12:34 GMT+0100}}}\n\
+[[Testcase::Unusual lists]] {{{Thu Jan 14 2010 21:18:44 GMT+0100}}}\n\
+[[Testcase::Unusual lists]] {{{Thu Jan 14 2010 21:18:51 GMT+0100}}}\n\
+[[Testcase::Unusual lists]] {{{Thu Jan 14 2010 21:19:02 GMT+0100}}}\n\
+[[Testcase::Unusual lists]] {{{Thu Jan 14 2010 21:21:25 GMT+0100}}}\n\
+[[Testcase::Unusual lists]] {{{Thu Jan 14 2010 21:21:50 GMT+0100}}}\n\
+[[Testcase::Unusual lists]] {{{Thu Jan 14 2010 21:22:15 GMT+0100}}}\n\
+[[Testcase::Unusual lists]] {{{Thu Jan 14 2010 21:22:32 GMT+0100}}}\n\
+[[Testcase::Unusual lists]] {{{Thu Jan 14 2010 21:35:57 GMT+0100}}}\n\
+[[Testcase::Unusual lists]] {{{Thu Jan 14 2010 21:39:02 GMT+0100}}}\n\
+[[Testcase::Unusual lists]] {{{Thu Jan 14 2010 21:39:55 GMT+0100}}}\n\
+[[Testcase::Unusual lists]] {{{Thu Jan 14 2010 21:47:08 GMT+0100}}}\n\
+[[Testcase::Unusual lists]] {{{Thu Jan 14 2010 21:47:23 GMT+0100}}}\n\
+[[Testcase::Unusual lists]] {{{Thu Jan 14 2010 21:52:33 GMT+0100}}}\n\
+[[Testcase::Unusual lists]] {{{Thu Jan 14 2010 21:53:31 GMT+0100}}}\n\
+[[Testcase::Unusual lists]] {{{Thu Jan 14 2010 21:53:40 GMT+0100}}}\n\
+[[Testcase::Unusual lists]] {{{Thu Jan 14 2010 21:53:49 GMT+0100}}}\n\
+[[Testcase::Unusual lists]] {{{Thu Jan 14 2010 21:56:05 GMT+0100}}}\n\
+[[Testcase::Unusual lists]] {{{Thu Jan 14 2010 21:56:40 GMT+0100}}}\n\
+[[Testcase::Unusual lists]] {{{Thu Jan 14 2010 22:00:32 GMT+0100}}}\n\
+[[Testcase::Unusual lists]] {{{Thu Jan 14 2010 22:00:45 GMT+0100}}}\n\
+[[Testcase::Unusual lists]] {{{Thu Jan 14 2010 22:01:00 GMT+0100}}}\n\
+[[Testcase::Unusual lists]] {{{Thu Jan 14 2010 22:01:14 GMT+0100}}}\n\
+[[Testcase::Unusual lists]] {{{Thu Jan 14 2010 22:01:28 GMT+0100}}}\n\
+[[Testcase::Unusual lists]] {{{Thu Jan 14 2010 22:01:35 GMT+0100}}}\n\
+[[Testcase::Unusual lists]] {{{Thu Jan 14 2010 22:02:00 GMT+0100}}}\n\
+[[Testcase::Unusual lists]] {{{Thu Jan 14 2010 22:02:14 GMT+0100}}}\n\
+[[Testcase::Unusual lists]] {{{Thu Jan 14 2010 22:02:18 GMT+0100}}}\n\
+[[Testcase::Unusual lists]] {{{Thu Jan 14 2010 22:02:24 GMT+0100}}}\n\
+[[Testcase::Unusual lists]] {{{Thu Jan 14 2010 22:02:31 GMT+0100}}}\n\
+[[Testcase::Unusual lists]] {{{Thu Jan 14 2010 22:02:38 GMT+0100}}}\n\
+[[Testcase::Unusual lists]] {{{Thu Jan 14 2010 22:04:47 GMT+0100}}}\n\
+[[Testcase::Unusual lists]] {{{Thu Jan 14 2010 22:05:11 GMT+0100}}}\n\
+[[Testcase::Unusual lists]] {{{Thu Jan 14 2010 22:06:36 GMT+0100}}}\n\
+[[Testcase::Unusual lists]] {{{Thu Jan 14 2010 22:07:28 GMT+0100}}}\n\
+[[Testcase::Unusual lists]] {{{Thu Jan 14 2010 22:09:11 GMT+0100}}}\n\
+[[Testcase::Unusual lists]] {{{Thu Jan 14 2010 22:09:29 GMT+0100}}}\n\
+[[Testcase::Unusual lists]] {{{Thu Jan 14 2010 22:12:18 GMT+0100}}}\n\
+[[Testcase::Unusual lists]] {{{Thu Jan 14 2010 23:32:24 GMT+0100}}}\n\
+[[Testcase::Unusual lists]] {{{Fri Jan 15 2010 00:19:23 GMT+0100}}}\n\
+[[Testcase::Unusual lists]] {{{Fri Jan 15 2010 00:19:51 GMT+0100}}}\n\
+[[Testcase::Unusual lists]] {{{Fri Jan 15 2010 00:22:23 GMT+0100}}}\n\
+[[Testcase::Unusual lists::rest]] {{{Fri Jan 15 2010 00:22:54 GMT+0100}}}\n\
+[[Testcase::Unusual lists]] {{{Fri Jan 15 2010 00:23:48 GMT+0100}}}\n\
+[[Testcase::Unusual lists]] {{{Fri Jan 15 2010 08:38:12 GMT+0100}}}\n\
+[[Testcase::Unusual lists]] {{{Fri Jan 15 2010 21:44:48 GMT+0100}}}\n\
+[[::Menu]] {{{Fri Jan 15 2010 22:06:16 GMT+0100}}}\n\
+[[History]] {{{Fri Jan 15 2010 22:07:47 GMT+0100}}}\n\
+[[SANDBOX]] {{{Fri Jan 15 2010 22:07:59 GMT+0100}}}\n\
+[[todo\'s]] {{{Fri Jan 15 2010 22:14:16 GMT+0100}}}\n\
+[[::Menu]] {{{Fri Jan 15 2010 22:24:15 GMT+0100}}}\n\
+[[::Menu]] {{{Fri Jan 15 2010 22:32:10 GMT+0100}}}\n\
+[[::Menu]] {{{Fri Jan 15 2010 22:33:32 GMT+0100}}}\n\
+[[Testcase::Unusual lists]] {{{Fri Jan 15 2010 22:40:13 GMT+0100}}}\n\
+[[SANDBOX]] {{{Sat Jan 16 2010 11:06:28 GMT+0100}}}\n\
+[[SANDBOX]] {{{Sat Jan 16 2010 11:28:15 GMT+0100}}}\n\
+[[Testcase::Unusual lists]] {{{Sat Jan 16 2010 11:45:40 GMT+0100}}}\n\
+[[Testcase::Unusual lists]] {{{Sat Jan 16 2010 11:57:06 GMT+0100}}}\n\
+[[WoaS::Buttons]] {{{Sat Jan 16 2010 12:17:48 GMT+0100}}}\n\
+[[Testcase::Unusual lists]] {{{Sat Jan 16 2010 12:18:22 GMT+0100}}}\n\
+[[WoaS::Buttons]] {{{Sat Jan 16 2010 12:41:28 GMT+0100}}}\n\
+[[Testcase::Unusual lists]] {{{Sat Jan 16 2010 12:42:25 GMT+0100}}}\n\
+[[todo\'s]] {{{Sat Jan 16 2010 12:43:38 GMT+0100}}}\n\
+[[SANDBOX]] {{{Sat Jan 16 2010 12:48:32 GMT+0100}}}\n\
+[[Testcase::Unusual lists]] {{{Sat Jan 16 2010 12:49:57 GMT+0100}}}\n\
+[[Testcase::Unusual lists]] {{{Sat Jan 16 2010 13:00:39 GMT+0100}}}\n\
+[[todo\'s]] {{{Sat Jan 16 2010 13:01:26 GMT+0100}}}\n\
+[[Testcase::Unusual lists]] {{{Sat Jan 16 2010 13:02:23 GMT+0100}}}\n\
+[[Import txt2wiki]] {{{Sat Jan 16 2010 13:14:32 GMT+0100}}}\n\
+[[Import txt2wiki]] {{{Sat Jan 16 2010 13:22:47 GMT+0100}}}\n\
+[[Import txt2wiki]] {{{Sat Jan 16 2010 13:31:16 GMT+0100}}}\n\
+[[Import txt2wiki]] {{{Sat Jan 16 2010 13:32:05 GMT+0100}}}\n\
+[[Import txt2wiki]] {{{Sat Jan 16 2010 13:33:20 GMT+0100}}}\n\
+[[Import txt2wiki]] {{{Sat Jan 16 2010 15:02:05 GMT+0100}}}\n\
+[[Import txt2wiki]] {{{Sat Jan 16 2010 15:02:34 GMT+0100}}}\n\
+[[Import txt2wiki]] {{{Sat Jan 16 2010 15:04:23 GMT+0100}}}\n\
+[[Import txt2wiki]] {{{Sat Jan 16 2010 15:08:24 GMT+0100}}}\n\
+[[Import txt2wiki]] {{{Sat Jan 16 2010 15:11:37 GMT+0100}}}\n\
+[[Import txt2wiki]] {{{Sat Jan 16 2010 15:11:55 GMT+0100}}}\n\
+[[Import txt2wiki]] {{{Sat Jan 16 2010 15:23:23 GMT+0100}}}\n\
+[[Import txt2wiki]] {{{Sat Jan 16 2010 15:26:12 GMT+0100}}}\n\
+[[Import txt2wiki]] {{{Sat Jan 16 2010 15:27:23 GMT+0100}}}\n\
+[[Import txt2wiki]] {{{Sat Jan 16 2010 15:29:50 GMT+0100}}}\n\
+[[Import txt2wiki]] {{{Sat Jan 16 2010 15:30:46 GMT+0100}}}\n\
+[[Import txt2wiki]] {{{Sat Jan 16 2010 15:32:34 GMT+0100}}}\n\
+[[Import txt2wiki]] {{{Sat Jan 16 2010 15:33:21 GMT+0100}}}\n\
+[[Import txt2wiki]] {{{Sat Jan 16 2010 15:34:01 GMT+0100}}}\n\
+[[Import txt2wiki]] {{{Sat Jan 16 2010 15:35:02 GMT+0100}}}\n\
+[[Import txt2wiki]] {{{Sat Jan 16 2010 15:37:12 GMT+0100}}}\n\
+[[Import txt2wiki]] {{{Sat Jan 16 2010 15:38:17 GMT+0100}}}\n\
+[[Import txt2wiki]] {{{Sat Jan 16 2010 15:44:50 GMT+0100}}}\n\
+[[Import txt2wiki]] {{{Sat Jan 16 2010 16:29:16 GMT+0100}}}\n\
+[[Import txt2wiki]] {{{Sat Jan 16 2010 16:38:31 GMT+0100}}}\n\
+[[Import txt2wiki]] {{{Sat Jan 16 2010 16:42:01 GMT+0100}}}\n\
+[[Import txt2wiki]] {{{Sat Jan 16 2010 16:45:01 GMT+0100}}}\n\
+[[Import txt2wiki]] {{{Sat Jan 16 2010 17:00:01 GMT+0100}}}\n\
+[[Import txt2wiki]] {{{Sun Jan 17 2010 18:35:54 GMT+0100}}}\n\
+[[Import txt2wiki]] {{{Sun Jan 17 2010 18:41:33 GMT+0100}}}\n\
+[[Import txt2wiki]] {{{Sun Jan 17 2010 18:42:02 GMT+0100}}}\n\
+[[Import txt2wiki]] {{{Sun Jan 17 2010 18:48:00 GMT+0100}}}\n\
+[[Import txt2wiki]] {{{Sun Jan 17 2010 18:48:24 GMT+0100}}}\n\
+[[Import txt2wiki]] {{{Sun Jan 17 2010 18:48:40 GMT+0100}}}\n\
+[[Import txt2wiki]] {{{Sun Jan 17 2010 18:52:24 GMT+0100}}}\n\
+[[Import txt2wiki]] {{{Sun Jan 17 2010 18:52:26 GMT+0100}}}\n\
+[[Import txt2wiki]] {{{Sun Jan 17 2010 18:52:32 GMT+0100}}}\n\
+[[Import txt2wiki]] {{{Sun Jan 17 2010 18:58:36 GMT+0100}}}\n\
+[[::Menu]] {{{Mon Jan 18 2010 00:06:27 GMT+0100}}}\n\
+[[SANDBOX::inc]] {{{Mon Jan 18 2010 00:07:10 GMT+0100}}}\n\
+[[SANDBOX::bat#box]] {{{Mon Jan 18 2010 00:07:50 GMT+0100}}}\n\
+[[SANDBOX::inc]] {{{Mon Jan 18 2010 00:09:01 GMT+0100}}}\n\
+[[SANDBOX::bat#box]] {{{Mon Jan 18 2010 00:12:18 GMT+0100}}}\n\
+[[::Menu]] {{{Mon Jan 18 2010 13:34:11 GMT+0100}}}\n\
+[[Testcase::Unusual lists]] {{{Mon Jan 18 2010 13:40:21 GMT+0100}}}\n\
+[[Syntax]] {{{Mon Jan 18 2010 13:47:57 GMT+0100}}}\n\
+[[Testcase::Unusual lists]] {{{Mon Jan 18 2010 13:49:07 GMT+0100}}}\n\
+[[Testcase::Unusual lists]] {{{Mon Jan 18 2010 13:49:23 GMT+0100}}}\n\
+[[Testcase::Unusual lists]] {{{Mon Jan 18 2010 13:58:32 GMT+0100}}}\n\
+[[Testcase::Unusual lists]] {{{Mon Jan 18 2010 13:58:41 GMT+0100}}}\n\
+[[Testcase::Unusual lists]] {{{Mon Jan 18 2010 13:58:47 GMT+0100}}}\n\
+[[Testcase::Unusual lists]] {{{Mon Jan 18 2010 13:59:13 GMT+0100}}}\n\
+[[Testcase::Unusual lists]] {{{Mon Jan 18 2010 13:59:21 GMT+0100}}}\n\
+[[Testcase::Unusual lists]] {{{Mon Jan 18 2010 13:59:33 GMT+0100}}}\n\
+[[Testcase::Unusual lists]] {{{Mon Jan 18 2010 13:59:39 GMT+0100}}}\n\
+[[SANDBOX::bat#box]] {{{Mon Jan 18 2010 14:48:55 GMT+0100}}}\n\
+[[Testcase::Unusual lists]] {{{Mon Jan 18 2010 14:53:46 GMT+0100}}}\n\
+[[Testcase::Unusual lists]] {{{Mon Jan 18 2010 15:00:04 GMT+0100}}}\n\
+[[Testcase::Unusual lists]] {{{Mon Jan 18 2010 15:03:41 GMT+0100}}}\n\
+[[Testcase::Unusual lists]] {{{Mon Jan 18 2010 15:07:13 GMT+0100}}}\n\
+[[Testcase::Unusual lists]] {{{Mon Jan 18 2010 15:08:55 GMT+0100}}}\n\
+[[Testcase::Unusual lists]] {{{Mon Jan 18 2010 15:09:02 GMT+0100}}}\n\
+[[Testcase::Unusual lists]] {{{Mon Jan 18 2010 15:09:10 GMT+0100}}}\n\
+[[Testcase::Unusual lists]] {{{Mon Jan 18 2010 15:09:19 GMT+0100}}}\n\
+[[Testcase::Unusual lists]] {{{Mon Jan 18 2010 15:09:52 GMT+0100}}}\n\
+[[Testcase::Unusual lists]] {{{Mon Jan 18 2010 15:10:21 GMT+0100}}}\n\
+[[Testcase::Unusual lists]] {{{Mon Jan 18 2010 15:10:58 GMT+0100}}}\n\
+[[Testcase::Unusual lists]] {{{Mon Jan 18 2010 15:27:33 GMT+0100}}}\n\
+[[Testcase::Unusual lists]] {{{Mon Jan 18 2010 15:33:00 GMT+0100}}}\n\
+[[SANDBOX::inc]] {{{Mon Jan 18 2010 22:11:13 GMT+0100}}}\n\
+[[SANDBOX::bat#box]] {{{Mon Jan 18 2010 22:40:13 GMT+0100}}}\n\
+[[SANDBOX::bat#box]] {{{Mon Jan 18 2010 22:43:42 GMT+0100}}}\n\
+[[SANDBOX::bat#box]] {{{Mon Jan 18 2010 22:44:03 GMT+0100}}}\n\
+[[SANDBOX::bat#box]] {{{Mon Jan 18 2010 22:46:58 GMT+0100}}}\n\
+[[SANDBOX::bat#box]] {{{Mon Jan 18 2010 22:54:24 GMT+0100}}}\n\
+[[SANDBOX::bat#box]] {{{Mon Jan 18 2010 22:55:04 GMT+0100}}}\n\
+[[SANDBOX::bat#box]] {{{Mon Jan 18 2010 22:57:09 GMT+0100}}}\n\
+[[SANDBOX::bat#box]] {{{Mon Jan 18 2010 22:57:35 GMT+0100}}}\n\
+[[SANDBOX::bat#box]] {{{Mon Jan 18 2010 23:00:58 GMT+0100}}}\n\
+[[SANDBOX::bat#box]] {{{Mon Jan 18 2010 23:01:06 GMT+0100}}}\n\
+[[SANDBOX::bat#box]] {{{Mon Jan 18 2010 23:01:18 GMT+0100}}}\n\
+[[SANDBOX::bat#box]] {{{Mon Jan 18 2010 23:01:27 GMT+0100}}}\n\
+[[SANDBOX::bat#box]] {{{Mon Jan 18 2010 23:01:32 GMT+0100}}}\n\
+[[SANDBOX::bat#box]] {{{Mon Jan 18 2010 23:01:46 GMT+0100}}}\n\
+[[SANDBOX::bat#box]] {{{Mon Jan 18 2010 23:08:24 GMT+0100}}}\n\
+[[SANDBOX::bat#box]] {{{Mon Jan 18 2010 23:08:37 GMT+0100}}}\n\
+[[SANDBOX::bat#box]] {{{Mon Jan 18 2010 23:09:03 GMT+0100}}}\n\
+[[SANDBOX::bat#box]] {{{Mon Jan 18 2010 23:09:31 GMT+0100}}}\n\
+[[SANDBOX::bat#box]] {{{Tue Jan 19 2010 22:12:17 GMT+0100}}}\n\
+[[SANDBOX::bat#box]] {{{Tue Jan 19 2010 22:12:39 GMT+0100}}}\n\
+[[SANDBOX::bat#box]] {{{Tue Jan 19 2010 22:24:57 GMT+0100}}}\n\
+[[SANDBOX::bat#box]] {{{Tue Jan 19 2010 22:30:14 GMT+0100}}}\n\
+[[SANDBOX::bat#box]] {{{Tue Jan 19 2010 22:32:21 GMT+0100}}}\n\
+[[SANDBOX::bat#box]] {{{Tue Jan 19 2010 22:32:58 GMT+0100}}}\n\
+[[SANDBOX::bat#box]] {{{Tue Jan 19 2010 22:35:44 GMT+0100}}}\n\
+[[SANDBOX::bat#box]] {{{Tue Jan 19 2010 22:35:59 GMT+0100}}}\n\
+[[SANDBOX::bat#box]] {{{Tue Jan 19 2010 22:36:07 GMT+0100}}}\n\
+[[SANDBOX::bat#box]] {{{Tue Jan 19 2010 22:38:22 GMT+0100}}}\n\
+[[SANDBOX::bat#box]] {{{Tue Jan 19 2010 22:47:12 GMT+0100}}}\n\
+[[SANDBOX::bat#box]] {{{Tue Jan 19 2010 22:48:01 GMT+0100}}}\n\
+[[SANDBOX::bat#box]] {{{Tue Jan 19 2010 22:48:10 GMT+0100}}}\n\
+[[SANDBOX::bat#box]] {{{Tue Jan 19 2010 22:48:23 GMT+0100}}}\n\
+[[SANDBOX::bat#box]] {{{Tue Jan 19 2010 22:48:31 GMT+0100}}}\n\
+[[SANDBOX::bat#box]] {{{Tue Jan 19 2010 22:48:36 GMT+0100}}}\n\
+[[SANDBOX::bat#box]] {{{Tue Jan 19 2010 22:48:45 GMT+0100}}}\n\
+[[SANDBOX::bat#box]] {{{Tue Jan 19 2010 22:48:49 GMT+0100}}}\n\
+[[SANDBOX::bat#box]] {{{Tue Jan 19 2010 22:48:53 GMT+0100}}}\n\
+[[SANDBOX::bat#box]] {{{Tue Jan 19 2010 22:49:22 GMT+0100}}}\n\
+[[SANDBOX::bat#box]] {{{Tue Jan 19 2010 22:49:45 GMT+0100}}}\n\
+[[SANDBOX::bat#box]] {{{Tue Jan 19 2010 22:50:03 GMT+0100}}}\n\
+[[SANDBOX::bat#box]] {{{Tue Jan 19 2010 22:50:32 GMT+0100}}}\n\
+[[SANDBOX::bat#box]] {{{Tue Jan 19 2010 22:50:41 GMT+0100}}}\n\
+[[Syntax]] {{{Tue Jan 19 2010 23:12:34 GMT+0100}}}\n\
+[[Syntax]] {{{Tue Jan 19 2010 23:14:35 GMT+0100}}}\n\
+[[Syntax]] {{{Tue Jan 19 2010 23:17:17 GMT+0100}}}\n\
+[[Syntax]] {{{Tue Jan 19 2010 23:18:06 GMT+0100}}}\n\
+[[Syntax]] {{{Tue Jan 19 2010 23:21:15 GMT+0100}}}\n\
+[[Syntax]] {{{Tue Jan 19 2010 23:22:41 GMT+0100}}}\n\
+[[Syntax]] {{{Tue Jan 19 2010 23:23:45 GMT+0100}}}\n\
+[[Syntax]] {{{Tue Jan 19 2010 23:24:15 GMT+0100}}}',
 '= Embedding external html\n\
 \n\
 You can embed a local html file, like this:\n\
@@ -1977,7 +2340,104 @@ drawLine(400,90, 430,260);\n\
 $("endgame_canvas").innerHTML=pencil;\n\
 \x3C/script\x3E\n\
 ',
-'= SANDBOX\n\
+'\u00a7 A cheese called: Come-and-bare\n\
+\u00ab\u00ab\u00ab\n\
+B=A=1;\n\
+B|=2;\n\
+print("A="+A+" B="+B)\u00bb\u00bb\u00bb \n\
+\n\
+\u00ab\u00ab\u00ab\n\
+print("page_attrs.length="+page_attrs.length);\n\
+print("pages.length="+pages.length);\n\
+\u00bb\u00bb\u00bb\n\
+\n\
+= SANDBOX\n\
+::Type here what you want, this is a sandbox. [[Javascript::woas.cmd_edit(current)|quick-edit]]\n\
+\u00ab\u00ab\u00ab%js:print("/hi/")\u00bb\u00bb\u00bb {{{\u00ab\u00ab\u00ab%js:print("/hi/")\u00bb\u00bb\u00bb}}}\n\
+\u00ab\u00ab\u00abprint("/hi/")\u00bb\u00bb\u00bb  {{{\u00ab\u00ab\u00abprint("/hi/")\u00bb\u00bb\u00bb}}}\n\
+\n\
+\x3Ca class="link" href="?SANDBOX#XYZ" onclick="alert(\'ddd\');;return false;"\x3EOWOWOWOWO\x3C/a\x3E\n\
+\n\
+\x3CA HREF="#TOC" onMouseOver="window.status=\'this will take you to the top!\'; return true"\x3ETo the Table of Contents\x3C/A\x3E\n\
+\n\
+Sure --we can-- do --that-- {{{Sure --we can-- do --that--}}}\n\
+this --is-- a *warning* {{{this --is-- a *warning*}}}\n\
+this -- is -- a warning  {{{this -- is -- a warning}}}\n\
+\n\
+\x3C!-- this is my united --\x3Estates of whatever\n\
+\x3C!-- this is my united --\x3E\n\
+\x3C!-- this is my united --\x3Estates of whatever\x3C!-- this is my united --\x3E\n\
+\n\
+[[Di\u00e2critics]] [[\u7d44\u307f\u8fbc\u307f\u4f8b]]\n\
+\n\
+\u00ab\u00ab\u00ab print("MY INDEX IS:"+woas.page_index(current))\u00bb\u00bb\u00bb\n\
+\x3Cscript\x3E\n\
+function go_to_index(id){\n\
+  go_to(page_titles[67])\n\
+}\n\
+\x3C/script\x3E\n\
+[[Javascript::go_to_index(67)]]\n\
+[[Javascript::alert(woas.get_namespace(current))|get_namespace]]\n\
+[[\u00ab\u00ab\u00ab%js:print(page_titles[67])\u00bb\u00bb\u00bb|soogo]]\n\
+[[subpage]]\n\
+[[$$+|sandbox]]\n\
+\n\
+{{{\n\
+// follows a link\n\
+function go_to(cr)\n\
+{\n\
+	if(cr == current)\n\
+		return;\n\
+	history_mem(current);\n\
+	forstack = [];\n\
+	woas.set_current(cr, true);\n\
+}\n\
+\n\
+function readCookie(name)\n\
+\n\
+{\n\
+\n\
+  var cookieValue = "";\n\
+\n\
+  var search = name + "=";\n\
+\n\
+  if(document.cookie.length \x3E 0)\n\
+\n\
+  { \n\
+\n\
+    offset = document.cookie.indexOf(search);\n\
+\n\
+    if (offset != -1)\n\
+\n\
+    { \n\
+\n\
+      offset += search.length;\n\
+\n\
+      end = document.cookie.indexOf(";", offset);\n\
+\n\
+      if (end == -1) end = document.cookie.length;\n\
+\n\
+      cookieValue = unescape(document.cookie.substring(offset, end))\n\
+\n\
+    }\n\
+\n\
+  }\n\
+\n\
+  return cookieValue;\n\
+\n\
+}\n\
+}}}\n\
+\n\
+[[Javascript::woas.cmd_edit_page(woas.get_namespace(current))|New subpage]]\n\
+\n\
+AAAAAAAAAAAAAAAAAAAAAAAA\n\
+AAAA\x3Cpre\x3EAAAAAAAAAA\x3C/pre\x3EAAAAAAAAAAA\n\
+AAAA{{{AAAAAAAAAAAA}}}AAAAAAAAA\n\
+AAAAAAAAAAAAAAAAAAAAAAAAAA\n\
+\n\
+history_mem("SANDBOX#shoe");\n\
+\n\
+= SANDBOX\n\
 \n\
 [[Include::Image::alert.png|id="Alerttest" style="display: inline; visibility: hidden;" height=32 width=32]]\n\
 \x3Ca href="javascript:$.visibility(\'Alerttest\',false)"\x3EAhide alert img\x3C/a\x3E\n\
@@ -2030,14 +2490,50 @@ Char: \x3Cinput type="text" id="char" size="15" /\x3E Keycode: \x3Cinput type="t
 \x3C/form\x3E\n\
 \n\
 \x3Cscript type="text/javascript"\x3E\n\
+$(\'char\').onkeydown=function(e){var e=window.event || e; document.getElementById("keycode").value=e.keyCode;}\n\
+\x3C/script\x3E\n\
 \n\
-var charfield=document.getElementById("char")\n\
-charfield.onkeydown=function(e){\n\
-var e=window.event || e\n\
-document.getElementById("keycode").value=e.keyCode\n\
-}\n\
+= shoe\n\
 \n\
-\x3C/script\x3E',
+\x3CP\x3E\x3CA name="XYZ"\x3EDit is het deel "XYZ".\x3C/A\x3E\x3C/P\x3E\n\
+----\n\
+= myProject\n\
+[[Special::TOC]]\n\
+This project is made out of subpages, transcluded in this page. Each subpage is called with a transclusion template called \'subpage\', it will create an \'edit\' button at the beginning of each transclusion.\n\
+Click here to go to the transclusion template [[subpage]] \n\
+\n\
+\x3Chr\x3E\x3Cspan id="progress"style="float: right; text-align: left; background:#AAF; border: normal; font-style: italic"\x3E[ [[Javascript::woas.cmd_edit(\'Projects::myProject::progress\');|edit]] ]\x3C/span\x3E\n\
+= progress (title inside the page, is not needed)\n\
+This page is called \x3C!-- #UcbBmboT::0 --\x3E. It uses a [[progressbar]] transclusion template, check  it out:\n\
+[[Include::progressbar|\n\
+initialization;8/30\n\
+requirements;8/10\n\
+build;1.6/24\n\
+test;0/8\n\
+]]\n\
+\n\
+You can also include single line things:\n\
+[[$$progressbar|deploy;0/16]]\n\
+\n\
+\n\
+\x3Chr\x3E\x3Cspan id="contacts"style="float: right; text-align: left; background:#AAF; border: normal; font-style: italic"\x3E[ [[Javascript::woas.cmd_edit(\'Projects::myProject::contacts\');|edit]] ]\x3C/span\x3E\n\
+{|\n\
+|+ contacts\n\
+| *name* || *email* || *phone*\n\
+|-\n\
+| J. Doe || [[mail://jdoe@mail.com]] || 00 12345\n\
+|} \n\
+[[Projects::myProject::detaileddesign]]\n\
+\n\
+\n\
+\n\
+Content-Type: text/html\n\
+Content-Encoding: gzip\n\
+\n\
+But here\u2019s what happens when you just zip the file and point directly to it:\n\
+\n\
+Content-Type: application/x-gzip\n\
+',
 '= Tables\n\
 \n\
 [[Special::Edit CSS]]\n\
@@ -2141,13 +2637,77 @@ document.getElementById("keycode").value=e.keyCode\n\
 \x3C/tr\x3E \n\
 \x3C/table\x3E\n\
 \u00bb\u00bb\u00bb',
-'= Import txt2wiki\n\
+'[[Javascript::alert(escape(\'#\'))]]\n\
 \n\
-\x3Cinput id="filename_" type="file"\x3E\n\
+[[Javascript::document.body.contentEditable=\'true\'; document.designMode=\'on\'; void 0;]]\n\
+\n\
+----\n\
+hello --there is--\n\
+----\n\
+\n\
+= Import txt2wiki\n\
+\n\
+\x3Cinput id="filename_" type="file" onfocus="custom_focus(true)" onblur="custom_focus(false)" /\x3E\n\
 \x3Cinput type="checkbox" checked="yes" id="overwrite" value="overwrite" /\x3E overwrite pages\n\
 \n\
 \x3Cscript language="javascript" type="text/javascript"\x3E\n\
 /* \x3C![CDATA[ */\n\
+\n\
+woas["nonascii_encode"] = function(src) {\n\
+	return src.replace(/[^\\u0000-\\u00FF]/g, function(c){\n\
+		return \'&#\' + c.charCodeAt(0).toString()+";";\n\
+	});\n\
+}\n\
+\n\
+function utf8_encode ( string ) {  \n\
+    // Encodes an ISO-8859-1 string to UTF-8    \n\
+    //   \n\
+    // version: 812.316  \n\
+    // discuss at: http://phpjs.org/functions/utf8_encode  \n\
+    // +   original by: Webtoolkit.info (http://www.webtoolkit.info/)  \n\
+    // +   improved by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)  \n\
+    // +   improved by: sowberry  \n\
+    // +    tweaked by: Jack  \n\
+    // +   bugfixed by: Onno Marsman  \n\
+    // +   improved by: Yves Sucaet  \n\
+    // +   bugfixed by: Onno Marsman  \n\
+    // *     example 1: utf8_encode(\'Tom van Mikes\');  \n\
+    // *     returns 1: \'Tom van Mikes\'  \n\
+    string = (string+\'\').replace(/\\r\\n/g, "\\n").replace(/\\r/g, "\\n");  \n\
+  \n\
+    var utftext = "";  \n\
+    var start, end;  \n\
+    var stringl = 0;  \n\
+  \n\
+    start = end = 0;  \n\
+    stringl = string.length;  \n\
+    for (var n = 0; n \x3C stringl; n++) {  \n\
+        var c1 = string.charCodeAt(n);  \n\
+        var enc = null;  \n\
+  \n\
+        if (c1 \x3C 128) {  \n\
+            end++;  \n\
+        } else if((c1 \x3E 127) && (c1 \x3C 2048)) {  \n\
+            enc = String.fromCharCode((c1 \x3E\x3E 6) | 192) + String.fromCharCode((c1 & 63) | 128);  \n\
+        } else {  \n\
+            enc = String.fromCharCode((c1 \x3E\x3E 12) | 224) + String.fromCharCode(((c1 \x3E\x3E 6) & 63) | 128) + String.fromCharCode((c1 & 63) | 128);  \n\
+        }  \n\
+        if (enc != null) {  \n\
+            if (end \x3E start) {  \n\
+                utftext += string.substring(start, end);  \n\
+            }  \n\
+            utftext += enc;  \n\
+            start = end = n+1;  \n\
+        }  \n\
+    }  \n\
+  \n\
+    if (end \x3E start) {  \n\
+        utftext += string.substring(start, string.length);  \n\
+    }  \n\
+  \n\
+    return utftext;  \n\
+}  \n\
+\n\
 function Import_T2W(){\n\
 	// Read overwrite yes/no from checkbox\n\
 	var overwrite=false;\n\
@@ -2203,24 +2763,373 @@ function Import_T2W(){\n\
 	IMPORTLOG+="done."\n\
 	woas.setHTML($(\'IMPORTLOG\'), IMPORTLOG)\n\
 }\n\
+\n\
+function Export_T2W(){\n\
+	// Read regexp modifier first\n\
+	var modifier="";\n\
+	try{\n\
+		modifier=$(\'modifier_regexp_\').value;\n\
+	}catch(e){\n\
+		alert("inputbox named \'modifier_regexp_\' not found!\\n"+e)\n\
+	};\n\
+	var text="";\n\
+	var asANSI = $(\'exportansi\').checked; \n\
+	text="asANSI="+asANSI;\n\
+	// Read the regexp\n\
+	var regexp;\n\
+	try{\n\
+		var regexp_str=$(\'pages_regexp_\').value;\n\
+		regexp = new RegExp(regexp_str, modifier);\n\
+		var title="";\n\
+		var pageheader="";\n\
+		var pagetext="";\n\
+		for(var i=0,l=pages.length;i\x3Cl;++i){\n\
+			title = page_titles[i];\n\
+			if(title.match(regexp)){\n\
+				log("match "+title+" ("+page_attrs[i]+")");\n\
+				pageheader = "\\n{%"+page_attrs[i]+"%"+title+"%}\\n";\n\
+				alert(typeof(pages[i])+" "+pageheader);\n\
+				if(woas.is__encrypted(i))\n\
+					pagetext = pages[i].join(",");\n\
+				else\n\
+					pagetext = page_attrs[i]&&4? decode64(pages[i]).toString() : pages[i].toString();\n\
+				if(asANSI && !woas.is__encrypted(i) && !woas.is__image(i) )\n\
+					pagetext = woas.nonascii_encode(pagetext);\n\
+			\n\
+				text +=  pageheader + pagetext;\n\
+			}\n\
+		}\n\
+		$(\'exported\').value=text;		\n\
+	}catch(e){\n\
+		alert(title+" Exporting error!\\n"+e)\n\
+	};\n\
+}\n\
+\n\
 /* ]]\x3E */ \x3C/script\x3E\n\
 \n\
 \x3Cinput value="Import Text to Wiki" style="width: 300px;" onclick="javascript:Import_T2W()" type="button"\x3E\n\
 \n\
 \x3Cdiv id="IMPORTLOG"\x3E\x3C/div\x3E\n\
+\n\
+----\n\
+\n\
+= Export\n\
+Which pages? (regexp)\x3Cinput id="pages_regexp_" type="input" onfocus="custom_focus(true)" onblur="custom_focus(false)" /\x3E modifier:\x3Cinput id="modifier_regexp_" type="input" value="i" onfocus="custom_focus(true)" onblur="custom_focus(false)"/\x3E\n\
+\x3Cinput value="Export Text to Wiki" style="width: 300px;" onclick="javascript:Export_T2W()" type="button"\x3E\n\
+Output Format: \x3Cinput type="radio" id=\'exportansi\' name="exportformat" value="ASCII" /\x3E ASCII \x3Cinput type="radio" name="exportformat" value="Unicode" checked/\x3E Unicode Without BOM\n\
+\n\
+[[Javascript::alert($(\'exportansi\').checked)]]\n\
+== Copy the textarea:\n\
+\x3Ctextarea id="exported" onfocus="custom_focus(true)" onblur="custom_focus(false)"\x3E\x3C/textarea\x3E\n\
+\n\
 ',
 '= Hotkeys\n\
 \n\
 To an extend, WoaS can be navigated using hotkeys.\n\
-For example: Backspace or Escape will take you to the previous page.\n\
-F2 will edit the current page.\n\
+For example:  Escape will take you to the previous page.\n\
+F2 will edit the current page (and save it when in edit mode). F4 will bring up the search page.\n\
 \n\
 These are WoaS keys, Firefox also has its own, space will scroll a full page down, etc.\n\
 \n\
-In a future release of WoaS it will be possible to edit these hotkeys through the interface.'
+In a future release of WoaS it will be possible to edit these hotkeys through the interface. For now, you can edit the {{{kbd_hook_down()}}} function (by opening up this html file with a normal text editor).',
+'\x3Cspan style="margin-left:%1px"/\x3E',
+'\u00ab\u00ab\u00ab\n\
+var subpage = title+"::"+"%1";\n\
+if("%1" != "%"+"1"){\n\
+ var editsubpage = "\x3Cspan style=\\"float:right; position:relative; top:2.5em; text-align:left; background:#AAF; border:normal; font-style:italic\\"\x3E"\n\
+ +"[[Javascript::woas.cmd_edit(\'"+subpage+"\')|edit]]"\n\
+ +"\x3C/span\x3E\\n";\n\
+ if(woas.page_exists(subpage))\n\
+   print( woas.parser["parse"](editsubpage));\n\
+} \u00bb\u00bb\u00bb\n\
+[[Include::%0::%1]]',
+'= sandbox\n\
+= Search tagged pages in Wiki\n\
+\n\
+Search for tags. for example: "a,!b" will find pages containing tag \'a\' yet not tag \'b\'.\n\
+\n\
+\x3Cscript\x3E\n\
+function do_search() {\n\
+	var search_string = $("string_to_search").value;\n\
+	if ( !search_string.length )\n\
+		return;\n\
+	$(\'search_results\').innerHTML = woas.parser.parse( woas._get_tagged(search_string) );\n\
+}\n\
+\n\
+function clear_search(){\n\
+	$("string_to_search").value="";\n\
+	$("string_to_search").focus();\n\
+}\n\
+\n\
+$("string_to_search").focus();\n\
+\x3C/script\x3E\n\
+\n\
+\x3Cinput id="string_to_search" type="text" onfocus="search_focus(true)" onblur="search_focus(false)" /\x3E&nbsp;\x3Cinput type="button" value="Search" onclick="do_search()" /\x3E&nbsp;\x3Cinput type="button" value="Clear" onclick="clear_search()" /\x3E\n\
+\n\
+\x3Cdiv id="search_results"\x3E\x3C/div\x3E\n\
+\n\
+\u00ab\u00ab\u00ab%js: print(woas["_get_tagged"](\'b,!a\'))\u00bb\u00bb\u00bb\n\
+\n\
+[[Tags::b]]\n\
+\n\
+\n\
+',
+'= myProject\n\
+[[Special::TOC]]\n\
+This project is made out of subpages, transcluded in this page. Each subpage is called with a transclusion template called \'subpage\' (for example: {{{[[Include::subpage|progress]]}}}, or using an alias, {{{[[$$+|progress]]}}}), it will create an \'edit\' button at the beginning of each transclusion. After editing you will see the updated subpage, to go back to the project page, just click the WoaS back button (or Backspace)\n\
+Click here to go to the transclusion template [[subpage]] \n\
+\n\
+[[$$+|progress]]\n\
+[[$$+|contacts]]\n\
+\n\
+This subpage does not exist: it will display as a non created page, just click on it to create it.\n\
+[[$$+|detaileddesign]]',
+'= progress\n\
+This page is called {{{Projects::myProject::progress}}}. It features a [[progressbar]] transclusion template, check  it out:\n\
+[[Include::progressbar|\n\
+initialization;8/30\n\
+requirements;8/10\n\
+build;1.6/24\n\
+test;0/8\n\
+]]\n\
+\n\
+You can also include single line things:\n\
+[[$$progressbar|deploy;0/16]]',
+'= Contacts\n\
+[[Special::TOC]]\n\
+This header gets added to the TOC, but if transcluded as a subpage, it gets added to the main TOC, but you still see something just above this text. It\'s a feature.\n\
+It also messes up the TOC title names before the anchors. That\'s a bug.\n\
+{|\n\
+|+ contacts\n\
+| *name* || *email* || *phone*\n\
+|-\n\
+| J. Doe || [[mail://jdoe@mail.com]] || 00 12345\n\
+|} ',
+'\u00ab\u00ab\u00ab\n\
+var lines= ""+\x3Cr\x3E\x3C![CDATA[%1]]\x3E\x3C/r\x3E; // catch possible Multiline String\n\
+if(lines != "%"+"1"){ // prevents an error when viewing this page, when there are no transcluded parameters and the page \'crashes\'.\n\
+  lines=lines.split("\\n");\n\
+  function TwoDec(n){return Math.round(n*100)/100};\n\
+  var ztable=\'\x3Ctable border="0" cellspacing="0" cellpadding="0"\x3E\';\n\
+  var ztd=\'\x3Ctd style="border-bottom: 2px solid #6699CC;border-left: 1px solid #6699CC;background-color: #BEC8D1;text-align: left;text-indent: 5px;font-family: Verdana;font-weight: bold;font-size: 11px;color: #404040;"\x3E\';\n\
+  var table=\'\x3Ctable border="0" cellspacing="1" cellpadding="0"\x3E\x3Ctr\x3E\' +ztd+\'label\x3C/td\x3E\'+ztd+\'progress\x3C/td\x3E\'+ztd+\'total hours\x3C/td\x3E\'+ztd+\'hours to go\x3C/td\x3E\'+ztd+\'%done\x3C/td\x3E\x3C/tr\x3E\';\n\
+  var totalhours=0;\n\
+  var totalprogress=0;\n\
+  for(var i=0;i\x3Clines.length;i++){\n\
+    var item=lines[i].split(";")\n\
+    var label=item[0];\n\
+    if(!label)continue;\n\
+    item=item[1].split("/");\n\
+    var hours=parseFloat(item[1]);\n\
+    var progress=parseFloat(item[0]);\n\
+    if(progress\x3Ehours) hours=progress;\n\
+    totalhours+=hours;\n\
+    totalprogress+=progress;\n\
+    table+=\'\x3Ctr bgcolor=Gainsboro\x3E\x3Ctd\x3E\'+label+\'\x3C/td\x3E\x3Ctd\x3E\';\n\
+    var green = Math.round(progress/hours*100);\n\
+    var red = 100 - green;\n\
+\n\
+    table+=ztable+\'\x3Ctr height="12"\x3E\x3Ctd width="\'+green+\'" bgcolor="green"\x3E\x3C/td\x3E\x3Ctd width="\'+red+\'" bgcolor="red"\x3E\x3C/td\x3E\x3C/tr\x3E\x3C/table\x3E\'\n\
+    +\'\x3C/td\x3E\x3Ctd style="text-align: right;"\x3E\'+hours+\'\x3C/td\x3E\x3Ctd style="text-align: right;"\x3E\'+TwoDec(hours-progress)+\'\x3C/td\x3E\x3Ctd style="text-align: right;"\x3E\'+TwoDec(green)+\'%\x3C/td\x3E\x3C/tr\x3E\';\n\
+  }\n\
+  if(lines.length\x3E1)\n\
+    table+=\'\x3Ctr\x3E\x3Ctd\x3E\x3C/td\x3E\x3Ctd\x3E\x3C/td\x3E\x3Ctd style="text-align: right;font-weight:bold;font-family: Verdana;font-size: 11px"\x3E\'+TwoDec(totalhours)\n\
+      +\'\x3C/td\x3E\x3Ctd style="text-align: right;font-weight:bold;font-family: Verdana;font-size: 11px"\x3E\'+TwoDec(totalprogress)\n\
+      +\'\x3C/td\x3E\x3Ctd style="text-align: right;font-weight:bold;font-family: Verdana;font-size: 11px"\x3E\'+TwoDec(totalprogress/totalhours*100)+\'%\x3C/td\x3E\x3C/tr\x3E\';\n\
+\n\
+  table+=\'\x3C/table\x3E\';\n\
+  print( woas.parser.parse(table) ); \n\
+\n\
+}else{\n\
+  print("Edit me to see the source")\n\
+}\u00bb\u00bb\u00bb',
+'= PLUGINS\n\
+\n\
+Select the plugin to run\n\
+\x3Cinput id="filename_" type="file" /\x3E\n\
+\n\
+\n\
+\n\
+\x3Cscript language="javascript" type="text/javascript"\x3E\n\
+/* \x3C![CDATA[ */\n\
+function RUN_PLUGIN(){\n\
+var $f = "file:///" + _get_this_path() +"plugins/"+ $("filename_").value;\n\
+$f = $f.replace(/\\\\/g,"/");\n\
+alert($f)\n\
+woas.setHTML($(\'PLUGIN\'), \'\x3Chtml\x3E\x3Cobject data="\'+$f+\'" style="width:100%; height:630px;"\x3E"Plugin File Not Found"\x3C/object\x3E\x3C/html\x3E\');\n\
+}\n\
+woas.setHTML($(\'PLUGIN\'), "Select a plugin to run")\n\
+/* ]]\x3E */ \x3C/script\x3E\n\
+\n\
+\x3Cinput value="Run Plugin" style="width: 300px;" onclick="javascript:RUN_PLUGIN()" type="button"\x3E\n\
+\n\
+\x3Cdiv id="PLUGIN"\x3E\x3C/div\x3E',
+'data:image/jpeg;base64,/9j/4AAQSkZJRgABAgAAZABkAAD/7AARRHVja3kAAQAEAAAAMgAA/+4AIUFkb2JlAGTAAAAAAQMAEAMDBgkAAAHtAAACrwAAAyr/2wCEAAgGBgYGBggGBggMCAcIDA4KCAgKDhANDQ4NDRARDA4NDQ4MEQ8SExQTEg8YGBoaGBgjIiIiIycnJycnJycnJycBCQgICQoJCwkJCw4LDQsOEQ4ODg4REw0NDg0NExgRDw8PDxEYFhcUFBQXFhoaGBgaGiEhICEhJycnJycnJycnJ//CABEIAAoAPAMBIgACEQEDEQH/xACkAAACAwEAAAAAAAAAAAAAAAAEBwEDBgUBAQEAAAAAAAAAAAAAAAAAAAABEAABAwQCAwAAAAAAAAAAAAAEAQMFABACBiAVMTITEQACAQIFAgILAAAAAAAAAAABAgMREwAhMRIEIjKBFBAg8EFRYaEjM1MVEgEAAAAAAAAAAAAAAAAAAAAgEwACAgIBBQEAAAAAAAAAAAABESExAEEQIPBhcZHB/9oADAMBAAIRAxEAAABnA7+BSlMiyliQw7jHc5hzH//aAAgBAgABBQHh/9oACAEDAAEFAeH/2gAIAQEAAQUBENlDnsZst2l2SRaYe2QvKndmN+zU3JuZiGHnp30l0ls/C0vul//aAAgBAgIGPwEf/9oACAEDAgY/AR//2gAIAQEBBj8B50dnyflXKQ3kJWTWjBqioyzoMfY480yKSr8hOOwUkZHYrvU544zPDvlEg87HQLKqdVV2OV6tDiBouPJGsnIspWP8lexM2yy1PxxDFFw3U3zduBUFjOgq7d2nyxM0XHk5EQdbLRwnYVp1UYkaHLw1xNLFLaWHpaB+OySiQdW0h3IIIIpQ4/o/zZfM3bVjYd239tvX6+k9mvvwumvtTA7fHX1P/9oACAECAwE/EOj/2gAIAQMDAT8Q6P/aAAgBAQMBPxAOTIi0nmoHQN4IA0EHbQwBGF4zd7DJhk4BAFPeMganLTh9q4gow88bomAAsGbEemAt4WzyfSVwzMJZI0QyOCdiRh+shysjpbbXPYIoX5ynjXVH7zvXzlNWaq+f/9k=',
+'= \u7d44\u307f\u8fbc\u307f\u4f8b\n\
+\n\
+hello',
+'= Build-in editor\n\
+\n\
+:: Woas features a small build-in editor to edit your Wiki pages.\n\
+The build in editor has a few buttons to help you type your text. (Press F2 to see them)\n\
+One row (with 12 buttons) can be totally [[Feature::Buttons|customized]] to meet your own needs. ([[Special::Buttons|Edit User-defined Buttons]])\n\
+And if you don\'t use them, you can even hide them!\n\
+\n\
+== Hotkeys\n\
+\n\
+* F2 will save your page\n\
+* ESC will cancel your edit (will ask for confirmation)\n\
+\n\
+== Use your own editor!\n\
+\n\
+If you are using Firefox, you can use a Firefox extension called [[http://trac.gerf.org/itsalltext|It\u2019s All Text!]]\n\
+it will create a small \'edit\' button in your textarea. With just one extra click it will open the text into your favorite editor!\n\
+',
+'{{\x3C/\x3E{ hello }}\x3C!-- --\x3E}\n\
+/asd/ /\x3C/\x3Easd/sd apl~eal\n\
+\n\
+aX^^2^^ + bX + c = H,,2,,O\n\
+\n\
+asd,,a\n\
+asd,,sdf,,qweq,,x ,,ma\n\
+\n\
+a\x3C/\x3Ea\x3Cb\x3Eaa\x3C/\x3Ea\x3C/b\x3Ea\x3C/\x3Ea {{{ a\x3C/\x3Ea\x3Cb\x3Eaa\x3C/\x3Ea\x3C/b\x3Ea\x3C/\x3Ea}}}\n\
+aa\x3C/\x3Eaaa\n\
+\n\
+= bat#box\n\
+{{{[[Include::SANDBOX::inc|Pow]]\n\
+[[Include::SANDBOX::inc|WHOO\n\
+PS]]}}}\n\
+\n\
+:: shoo\n\
+== why\n\
+::is\n\
+this\n\
+== why\n\
+is\n\
+this\n\
+\n\
+# hi\n\
+## ih\n\
+# hi\n\
+### hi\n\
+\n\
+@A one\n\
+@@ two\n\
+@ one\n\
+@@ two\n\
+\n\
+* a \\\n\
+unborn\n\
+** aa\n\
+* a\n\
+** aa\n\
+\n\
+\n\
+\n\
+a\n\
+:a\n\
+a\n\
+\n\
+[[Tags::a,b,c]]\n\
+\n\
+Non-breaking space	 	&nbsp;\n\
+Copyright	\u00a9	&copy;\n\
+Trademark	\u2122	&#153;\n\
+Registered	\u00ae	&reg; or &#174;\n\
+Less Than	\x3C	&lt;\n\
+Greater Than	\x3E	&gt;\n\
+Ampersand	&	&amp;\n\
+Quote	"	&quot;\n\
+Apostrophe	\'	&#39;\n\
+Cent	\u00a2	&#162;\n\
+Euro	\u20ac	&euro; or &#8364;\n\
+One quarter	\u00bc	&#188;\n\
+One half	\u00bd	&#189;\n\
+Three quarters	\u00be	&#190;\n\
+Degrees	\u00b0	&#176;\n\
+Larger middle dot	\u2022	&#149; ',
+'my caller was: \u201c%0\u201d.',
+'= Unusual lists::rest\n\
+\n\
+\n\
+# first level A\n\
+# first level B\n\
+## second level A\n\
+## second level B\n\
+## second level C\n\
+# first level C\n\
+## second level D\n\
+### third level A\n\
+### third level B\n\
+\n\
+* * http://www.richinstyle.com/masterclass/perfection.html\n\
+\n\
+#n #\n\
+\n\
+@a @\n\
+\n\
++ +\n\
+\n\
+# First level A\n\
+** Second level A\n\
+## Sexond\n\
+@@ foto [iIaA]\n\
+\n\
+\x3Cli\x3EFirst level A\n\
+  \x3Cul\x3E\x3Cli\x3ESecond level A\x3C/li\x3E\n\
+   \x3Cli\x3ESexond\x3C/li\x3E\n\
+  \x3C/ul\x3E\n\
+   \x3Col\x3E\n\
+   \x3Cli\x3Efoto\x3C/li\x3E\n\
+  \x3C/lo\x3E\n\
+\x3C/li\x3E\n\
+\n\
+\n\
+\x3CUL TYPE=DISC\x3E\n\
+\x3CLI\x3E disc\n\
+\x3CLI TYPE=SQUARE\x3E square\n\
+\x3CLI TYPE=CIRCLE\x3E circle\n\
+\x3CLI TYPE=DISC\x3E circle\n\
+\x3C/UL\x3E\n\
+\n\
+\u00ab\u00ab\u00ab%nobr:\n\
+\x3Col type="I"\x3E\n\
+  \x3Cli\x3ERock\x3C/li\x3E\n\
+    \x3Col type="a"\x3E\n\
+      \x3Cli\x3ESandra\x3C/li\x3E\n\
+      \x3Cli\x3ETaylor Dayne\n\
+        \x3Col\x3E\n\
+          \x3Cli\x3ETell It To My Heart\x3C/li\x3E\n\
+          \x3Cli\x3ENaked Without You\x3C/li\x3E\n\
+          \x3Cli\x3ECan\'t Fight Fate\x3C/li\x3E\n\
+        \x3C/lo\x3E\n\
+      \x3C/li\x3E\n\
+    \x3C/ol\x3E\n\
+  \x3Cli\x3ESalsa\x3C/li\x3E\n\
+  \x3Cli\x3ENew Age\n\
+    \x3Col type="A"\x3E\n\
+      \x3Cli\x3EJean Michel Jarre\x3C/li\x3E\n\
+      \x3Cli\x3EYanni\x3C/li\x3E\n\
+    \x3C/ol\x3E\n\
+  \x3C/li\x3E\n\
+  \x3Cli\x3Eindian Jazz\n\
+    \x3Col type="i"\x3E\n\
+      \x3Cli\x3EAli Akbar Khan\x3C/li\x3E\n\
+      \x3Cli\x3EUstad Ali Akbar Khan\x3C/li\x3E\n\
+    \x3C/ol\x3E\n\
+  \x3C/li\x3E\n\
+  \x3Cli\x3ESoukous\x3C/li\x3E\n\
+\x3C/ol\x3E\n\
+\u00bb\u00bb\u00bb',
+'SAY:(%0;%1;%01):YAS\n\
+\x3Cscript\x3E\n\
+$VARIABLE="%01".replace(/\x3Cbr\x3E/, "\\n");\n\
+alert($VARIABLE)\n\
+\x3C/script\x3E'
 ];
 
-/* DFQRCTsKlU-0000493-END */
+/* DFQRCTsKlU-0000645-END */
 
 /* ]]> */ </script>
 <style type="text/css">/* user defined */
@@ -2344,6 +3253,34 @@ background-color: #99bbdd;
 	padding-bottom: 0px;
 }
 
+#debug_info {
+         /* z-index: 1; */
+         text-align: right;
+		 position:relative;
+		 width: 83%;
+}
+
+#swlogger {
+        width: 75%;
+        background-color: rgb(204, 204, 204);
+}
+
+
+
+
+
+.spoiler {background-color:black; color:black;}
+.spoiler:hover {color:white; background-color:black;}
+.spoilerblock a:link {text-decoration:none;}
+.spoilerblock a:visited {text-decoration:none;}
+.spoilerblock a:hover .show {display:block; background-color:black; color:white;}
+.spoilerblock a:active {text-decoration:none;}
+.spoilerblock a span {display:none;}
+.spoilerinline a:link {text-decoration:none;}
+.spoilerinline a:visited {text-decoration:none;}
+.spoilerinline a:hover .show {display:inline; background-color:black; color:white;}
+.spoilerinline a:active {text-decoration:none;}
+.spoilerinline a span {display:none;}
 
 
 .citation {
@@ -2368,21 +3305,56 @@ a.link {
 a.link:hover {
 	text-decoration: underline;
 }
-a.unlink { /* unexisting */
+
+/* non-existent link */
+a.unlink {
 	color: red;
 }
 a.unlink:hover {
 	text-decoration: underline;
 }
+
+/* outside world link */
+a.world {
+	color: darkgreen;
+	text-decoration: underline;
+}
+
 a {
 	cursor: pointer;
 	/* FOR IE5.5/IE6 */
 	/* cursor: hand; */
 }
-a.world { /* outside world link */
-	color: darkgreen;
-	text-decoration: underline;
+
+/* HEADERS */
+
+h1 { font-size: 1.4em; text-shadow: 0.1em 0.1em #aaa; }
+
+h2 { font-size: 1.2em; }
+
+h3 { font-size: 1em; }
+
+h4 { font-size: 0.85em; }
+
+h5 { font-size: 0.75em; }
+
+h6 { font-size: 0.6em; }
+
+/* BODY */
+
+.bg {
+	background-color: #F0F0F5;
+/* Moved from core to CSS 12/09 */
+        cursor: auto;
 }
+
+/* font-size Recommended by W3Schools.com to fix IE rendering of em font sizes */
+body {
+	font-family: tahoma;
+	font-size: 0.75em;    /* 0.75 is font-size: 12px; instead of the 16px which is font-size: 100%; */ 
+}
+
+
 
 /* http://www.socialgeek.be/blog/read/highlighting-thumbnails-using-transparency */
 .menu_button:hover {background:#DDD;}
@@ -2396,19 +3368,6 @@ div.text_area {
 	padding: 10pt;
 }
 
-body { font-family: tahoma; }
-
-h1 { font-size: 23px; text-shadow: 0.1em 0.1em #aaa;}
-
-h2 { font-size: 20px; }
-
-h3 { font-size: 17px; }
-
-h4 { font-size: 14px; }
-
-h5 { font-size: 12px; }
-
-h6 { font-size: 10px; }
 
 div.taglinks {
 	border: 1px solid #aaa;
@@ -2447,7 +3406,7 @@ div.search_results {
 #wiki_text {
 	position: relative;
 	left: 16%;
-	width: 81%;
+	width: 81.7%;
 	z-index: 0;
 	top: -20px;
 	text-align:justify;
@@ -2474,9 +3433,10 @@ div.menu_area {
 	font-size: 9pt;
 	background-color: white;
 	padding: 4pt;
-	width: 13%;
-	left: 1%;
+	width: 14%;
+	left: 0.7%;
 	top: 35px;
+	z-index:2;
 }
 
 div.wiki_header {
@@ -2517,6 +3477,8 @@ div.ns_menu_area ul li, div.ns_menu_area ol li {
 	margin-left: -2em;
 }
 
+
+
 .wiki_preformatted {
 	overflow-x: auto; /* Use horizontal scroller if needed; for Firefox 2, not needed in Firefox 3 */
 	white-space: pre-wrap; /* css-3 */
@@ -2525,7 +3487,9 @@ div.ns_menu_area ul li, div.ns_menu_area ol li {
 	white-space: -o-pre-wrap; /* Opera 7 */
 	/* width: 99%; */
 	word-wrap: break-word; /* Internet Explorer 5.5+ */
+	padding:1px;
 }
+
 
 /* main wiki pane when locked */
 div.text_area.locked,
@@ -2574,8 +3538,11 @@ div.text_area.locked,
 	cursor: wait;
 }
 
+.wiki_button {color:darkblue; background-color:#F5F5F5; border:1px solid grey; margin-top:3px; margin-bottom:3px; font-size:10pt; cursor:pointer;}
+.wiki_button:hover {background-color:darkgrey;}
 
-</style><title>Main Page</title>
+/* Font-size conversions used:  1em = 16.4px = 12pt */
+</style><title>Syntax</title>
 <link href="./favicon.ico" rel="shortcut icon">
 <script src="src/aes.js" type="text/javascript"></script>
 <script src="src/framework.js" type="text/javascript"></script>
@@ -2587,7 +3554,7 @@ div.text_area.locked,
 <script src="src/import.js" type="text/javascript"></script>
 <script src="src/export.js" type="text/javascript"></script>
 <script src="src/editor.js" type="text/javascript"></script>
-<script src="src/ui.js" type="text/javascript"></script></head><body class="bg" id="body" style="cursor: auto;" onload="woas.after_load()" onunload="woas.before_quit()">
+<script src="src/ui.js" type="text/javascript"></script><script id="sw_custom_script_0" type="text/javascript"></script></head><body class="bg" id="body" style="cursor: auto;" onload="woas.after_load()" onunload="woas.before_quit()">
 <div id="loading_overlay" style="display: inline; visibility: visible;"><noscript><h1>If you are seeing this text, your browser is not javascript-enabled. Sorry, WoaS is a javascript application</h1></noscript>Loading...</div>
 <div style="visibility: hidden;" id="woas_pwd_mask">
 <div style="visibility: hidden;" id="woas_pwd_query">
@@ -2601,7 +3568,7 @@ div.text_area.locked,
 <div class="wiki_header bg" id="sw_wiki_header" style="position: absolute;">
 <table cellspacing="0" width="100%">
 <tbody><tr>
-<td><span class="title" id="wiki_title">Main Page</span></td>
+<td><span class="title" id="wiki_title">Syntax</span></td>
 <td align="right">
 <div id="menu_back" style="display: inline; cursor: pointer; visibility: visible;"><a title="Back" onclick="go_back()"><img id="img_back" class="menu_button" style="display: inline; visibility: visible;" alt="Back" src="data:image/png;base64,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"><span id="alt_back" style="display: none; visibility: hidden;">&nbsp;<strong>[Back]</strong>&nbsp;</span></a></div>
 <div id="menu_forward" style="display: none; cursor: pointer; visibility: hidden;"><a title="Forward" onclick="go_forward()"><img id="img_forward" class="menu_button" style="display: inline; visibility: visible;" alt="Forward" src="data:image/png;base64,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"><span id="alt_forward" style="display: none; visibility: hidden;">&nbsp;<strong>[Forward]</strong>&nbsp;</span></a></div>
@@ -2614,7 +3581,8 @@ div.text_area.locked,
 <div id="menu_edit" style="display: inline; cursor: pointer; visibility: visible;"><a title="Edit" onclick="edit()"><img id="img_edit" class="menu_button" style="display: inline; visibility: visible;" alt="Edit" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAACpUlEQVRIibWVz08TQRTHv/OjpSn1IMUL6H8hIUHiAfVmE87GC3ryto0NXrx4M+CBA/oHqCf/ANtoQGvKXUlTulsPNKktUI2JJQXanRkPdNbZMF0w4ksmmdm89/28efNmllybmcHs7HWk02l0Dw+gpITwBQAFoSRijENCgdMYfv5oo/ipiM+bmxgZGcHR0REIIYgyLoWAEAK+78Pv9zE1dVVFBczduhkpqG1+fp4AANcflFLQyplMBv1+P8iOEBIa2qSUwRCDRBOJBPL5/J8d2OiEEFBKI8UBgDEGSimUUqCUglKKWCwW8rECAEAIcULYnOsEbEmdCQAcl80U0Gs9jwKeCtACJsTmQym1lk+bHTsIllIGcxNkrrXPsF1EArSAFtSj1+thb28PQghrAmcG2LLudDpYXV3F+tpaUMJ/Aug+V0qhWCyCMYYbc3O4ncmEfMySmvFWgHl59LxarWJ0NIWN0gbyhQLi8fgJHxOgzdpFmq5L4LoeDg4P8a3RhOtuIZd7GCRy6lsUBQCAmldDZ38frVYLrltFNpsNfMz7MOwMIi+a63r4td/BTnMXtVoVjuOAcx4AgONLp3di2034DAZBSilUKhWkUhfQ3v0Oz9uC4zhgjJ1oWWXE2HYRAsiBQ7lcxsX0OJqtHZTLX+A4TnCJbKLm2gpQCpBSQQgf7XYbyWQKzUYD79+9RTabDfV7FMQG4NpJSgFK6N3p6Rk0Gg0UCnnkcrlQ5tpsD98w44RQUEqglLq/sHDv+XZ9Gx8/rGNxcTE4UNuTfZYnHAB4IpGIA3h05fLEk3q9Ll6/eomVlRW/2+2i1+sNFTQ7xvJTCrqTf/W8ZzHOH1waHyNPl5beLC8v3ymVSpHt+1dGCElyxh+nx9IvALBzEzYtzjgmJyb/i/ZvEcrmZKbFvRsAAAAASUVORK5CYII="><span id="alt_edit" style="display: none; visibility: hidden;">&nbsp;<strong>[Edit]</strong>&nbsp;</span></a></div>
 <div id="menu_cancel" style="display: none; cursor: pointer; visibility: hidden;"><a title="Cancel" onclick="cancel()"><img id="img_cancel" class="menu_button" style="display: inline; visibility: visible;" alt="Cancel" src="data:image/png;base64,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"><span id="alt_cancel" style="display: none; visibility: hidden;">&nbsp;[Cancel]&nbsp;</span></a></div>
 <div id="menu_save" style="display: none; cursor: pointer; visibility: hidden;"><a title="Save" onclick="save()"><img id="img_save" class="menu_button" style="display: inline; visibility: visible;" alt="Save" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAADkUlEQVRIiZ2Uy4scVRTGf+fe7qmepMfEcUKcGAia4CKSuJG4kEAMPjCIgvhXuHfpyr0Ld25EXIgLBdGF+AdkIyQQV8mAEZcmjEYydD3uebio6k73RBftpW7dep3z3a/O9x05e/b5rVk9++nY8afOPffsmXL16pUWggjWGill7t3/Y+eH7388yDl998utGx8AyIkTu9sIPx+dPnH2yWNHuXnzxnqZl8alSy+zs/scRzY3+ebrzwVgZOGMUualS6/w694t1MFNiTUpVBtjAMIDX4odEU6E8ODB3xBBUSPM1gZIeUQAZoqbLQEgRIC7E0DbKW5l7RqEZIjAzLAVgAiC/gUBRQ03X5uBZB0YHAIIgOipBUHbFUy79RkgCwaqugwQSDimPWopirutL1M1AlDVRa4ewINI0jMI6IpiqmsDQIYAN8NsiQFARKBqQNAVxf8HgKTc11L10C8aMs13vXfnNufPv7Ck5ZgfqwlXT+zt3QagqDLSx1QEkoT9e/t8/NGHyBA0X/rLpRtiFTD6b/f3/2R75/S/qaiX6vbOM9RtIaWEmZOSkFJCJA1rn8yjl7F7v45yxt05vr2LCJiVx3+Rav+wqjbIOTM7+IssmZwyII9awJxcQBYwN/Joi1Cn61ryaEzO6RCAMBgtUGCrmvLuO9e4cuVVNiYTiKCqKjYnFV3XIdKj5Jy5fv06X371LdpoD6BKNZks1YC+QWl5REtNuXz5Mrfv7PHJp58RHrz15lXef+9t6rpZAKSU2D11aqAk5JR7o5XDKorotRtCEGhRmqZBVRmlRKTA3Wiahq7r+rpGICLUsxotBS0FM8PdV2swL3ApivRuR7Uwm82o63owYFBKoesKTdMs+lTOma7rKKXXvrstRLGkoiAGBsLcdIVSCm3bUkohIujalrqe0bbdIrhXm+FmqJYFK3dfAvAgIsIG90WAqdHMk7vj4agpbdvStt0qg1JQLfTxQYlY6cSjtp09FJG9tq3PuUffqr10Fy9cGL948aK88fprBMF4NGY8Hq0Eiwj37t/n4OCA2WxGzgn3IKVHphQgAWc2Nja+mEw2R23bnJ5Op7+ffPrkqZyypJREetnIkFSGIse82Hfv/lZFBBEeERFmdqtpmmu9X5Z2pKri7ps5pa2AIymlqYhMRWQKbAIVkIfPDWgjohaRGngY4Q/N/MDMHlRV1T0GMOwyD/44PPPAds4/AB+A9D8m/wC9w6gWKsHTowAAAABJRU5ErkJggg=="><span id="alt_save" style="display: none; visibility: hidden;">&nbsp;<strong>[Save]</strong>&nbsp;</span></a></div>
-</td></tr></tbody></table></div><p style="background: transparent url(background.png) no-repeat fixed 0pt 50%; font-size: 17px; -moz-background-clip: border; -moz-background-origin: padding; -moz-background-inline-policy: continuous;">&nbsp;</p>
+</td></tr></tbody></table></div>
+<p style="background: transparent url(background.png) no-repeat fixed 0pt 50%; font-size: 17px; -moz-background-clip: border; -moz-background-origin: padding; -moz-background-inline-policy: continuous;">&nbsp;</p>
 <div id="text_area" style="display: inline; visibility: visible;">
 <div class="menu_area" id="sw_menu_area" style="position: absolute;">
 <div class="wiki" id="menu_area" ondblclick="menu_dblclick()"></div>
@@ -2627,7 +3595,7 @@ div.text_area.locked,
 <hr>
 
 <div style="text-align: center;"><a class="link" onclick="edit_ns_menu()">[Edit]</a></div></div></div>
-<div style="visibility: visible;" class="text_area" id="wiki_text" ondblclick="page_dblclick()"></div></div>
+<div class="text_area" id="wiki_text" style="visibility: visible;" onblur="kbd_blur()" ondblclick="page_dblclick()"></div></div>
 <div id="edit_area" style="display: none; visibility: hidden;">
 <div id="edit_page_title" style="display: block;">Page title: <input id="wiki_page_title" size="50" value="">&nbsp;Show/Hide: 
 <a style="color: blue;" onclick="$.toggle('wiki_format_buttons',1)">wiki buttons</a>&nbsp;|&nbsp;
@@ -2684,11 +3652,12 @@ User:
 <input class="wiki_button" id="pb11" value="P11" style="width: 50px;" onclick="woas['editbutton'][11].onclick()" type="button">
 <input class="wiki_button" id="pb12" value="P12" style="width: 50px;" onclick="woas['editbutton'][12].onclick()" type="button">
 </div>
-<textarea id="wiki_editor" style="width: 1132px; height: 504px;" rows="0" cols="0"></textarea> 
+<textarea id="wiki_editor" style="width: 995px; height: 500px;" rows="0" cols="0"></textarea> 
 </div>
-<div id="debug_info" style="display: inline; visibility: visible; z-index: 101; text-align: right; width: 300px;">
+<div style="display: inline; visibility: visible;" id="debug_info" class="debug_console">
 <h2>Debug console</h2>
-<p>This is a development BETA version of Wiki On a Stick; it is not suggested to use it with important data. If you want to disable this debug message and console, you will have to find the line that says <b><tt>woas["debug"] = true;</tt></b> and change it to <b><tt>false</tt></b>.</p>
-<textarea id="swlogger" ondblclick="$('swlogger').value=''" style="width: 60%; background-color: rgb(204, 204, 204);" rows="12" readonly="readonly" cols="60"></textarea><p>&nbsp;</p><input onclick="$('swlogger').value=''" value="Clear" type="button"></div>
-<hr>
-<div style="text-align: center;"><sub><a class="link" onclick="go_to('Special::About')">About Wiki on a Stick v0.9.7B</a></sub></div><div style="border: 1px solid rgb(0, 0, 0); position: absolute; display: none; left: 371px; top: 163px; z-index: 1;" id="colorpicker"></div><div></div><div></div></body></html>
+<p>This is a development BETA version of Wiki On a Stick; it is not suggested to use it with important data. <br>To disable this debug message and console, find the line that says <b><tt>woas["debug"] = true;</tt></b> and change it to <b><tt>false</tt></b>.</p>
+<div><textarea id="swlogger" rows="12" readonly="readonly" cols="60"></textarea><br><br><input value="Clear" type="button"></div>
+</div>
+<hr style="text-align: right; margin-right: 0pt; width: 84%;">
+<div style="width: 84%; float: right; text-align: center;"><sub><a class="link" onclick="go_to('Special::About')">About Wiki on a Stick v0.9.7B</a></sub></div><div></div><div></div></body></html>
