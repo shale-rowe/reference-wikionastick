@@ -1440,8 +1440,8 @@ function kbd_hook_down(orig_e) {
 				case(115): go_to('Special::Search');return false;  // Pressing F4 will bring up the search
 			}
 		}
-		if(kbd_is(113,1))
-				woas.cmd_new_page(current.replace(/::$/,'')+'::'); return false // Pressing SHIFT+F2 will create a new subpage
+		if(kbd_is(113,1)){
+			woas.cmd_new_page(current.replace(/::$/,'')+'::'); return false} // Pressing SHIFT+F2 will create a new subpage
 	}
 
 	return orig_e;
