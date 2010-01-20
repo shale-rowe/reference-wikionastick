@@ -170,19 +170,19 @@ function ro_woas() {
 
 //TODO: make procedural
 function open_table_help() {
-	var w = woas.popup("help", 350, 200, ",menubar=no,toolbar=no,location=no,status=no,dialog=yes");
-	w.document.writeln("<html><head><title>Building tables<\/title><\/head><body>");
-	w.document.writeln("<u>Building tables:<\/u><br /><br />");
-	w.document.writeln("<tt>{|   <\/tt><br />");
-	w.document.writeln("<tt>|+ Table Caption<\/tt><br />");
-	w.document.writeln("<tt>| *colum 1* || *column 2* || *column 3*<\/tt><br />");
-	w.document.writeln("<tt>|-<\/tt><br />");
-	w.document.writeln("<tt>| line 2 || [[a link]] || something<\/tt><br />");
-	w.document.writeln("<tt>|-<\/tt><br />");
-	w.document.writeln("<tt>| line 3 || || more stuff<\/tt><br />");
-	w.document.writeln("<tt>|}   <\/tt>");
-	w.document.writeln("<\/body><\/html>");
-	w.document.close();
+	var w = woas.popup("help", 350, 200, ",menubar=no,toolbar=no,location=no,status=no,dialog=yes", 
+	"<html><head><title>Building tables<\/title><\/head><body>"
+	+"<u>Building tables:<\/u><br /><br />"
+	+"<tt>{|   <\/tt><br />"
+	+"<tt>|+ Table Caption<\/tt><br />"
+	+"<tt>| *colum 1* || *column 2* || *column 3*<\/tt><br />"
+	+"<tt>|-<\/tt><br />"
+	+"<tt>| line 2 || [[a link]] || something<\/tt><br />"
+	+"<tt>|-<\/tt><br />"
+	+"<tt>| line 3 || || more stuff<\/tt><br />"
+	+"<tt>|}   <\/tt>"
+	+"<\/body><\/html>"
+	);
 }
 
 // Used by Special::Lock

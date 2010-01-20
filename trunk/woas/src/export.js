@@ -1,4 +1,3 @@
-﻿
 var _export_main_index = false, _export_unix_norm = false,
 	_export_default_ext;
 
@@ -71,7 +70,7 @@ woas["_export_get_fname"] = function (title, create_mode) {
 		var l=$1.length, r="";
 		for(var i=0;i<l;i++) {
 			switch ($1[i]) {
-				//TODO: add most common diacritics
+				// TODO: add most common diacritics
 				case "\u00e2":
 					r+="a";
 					break;
@@ -83,7 +82,7 @@ woas["_export_get_fname"] = function (title, create_mode) {
 	})
 	// escape some path-unsafe characters
 	.replace(/[:\\\/<>?#=!]+/g, function($1) {
-		return str_rep("_", $1.length);
+		return "_".repeat($1.length);
 	});
 	
 	if (_export_unix_norm)
@@ -93,9 +92,9 @@ woas["_export_get_fname"] = function (title, create_mode) {
 	var test_fname = fname+ext, i=0;
 	while (_export_fnames_array.indexOf(test_fname)!=-1) {
 		log(test_fname+" already created, checking next fname");	// log:1
-		test_fname = fname+str_rep("_", ++i)+ext;
+		test_fname = fname+"_".repeat(++i)+ext;
 	}
-//	if (i)		_export_replace_fname[fname+str_rep("_", i-1)+ext] = test_fname;
+//	if (i)		_export_replace_fname[fname+"_".repeat(i-1)+ext] = test_fname;
 	_export_fnames_array.push(test_fname);
 	_title2fn[orig_title] = test_fname;
 	if (!create_mode)
@@ -129,7 +128,7 @@ woas["export_one_page"] = function (
 			if (_ns.length) {
 				var mpi = this.page_index(_ns+"::Menu");
 				if (mpi != -1) {
-					var tmp=this.get_text_special(ns+"::Menu");
+					var tmp=this.get_text_special(_ns+"::Menu");
 					if (tmp!=null)
 						_exp_menu += tmp;
 				}
@@ -236,7 +235,7 @@ woas["export_wiki"] = function () {
 				log("cannot process "+title);
 				continue;
 			}
-			//TODO: allow special pages to have extended attributes
+			// TODO: allow special pages to have extended attributes
 			data = this.export_parse(data, exp.js_mode);
 			if (this.export_one_page(data, title, _title2fn[title], exp))
 				++done;
