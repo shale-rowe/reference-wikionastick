@@ -13,8 +13,8 @@ woas.parser["header_anchor"] = function(s) {
 }
 
 // var reParseOldHeaders = /(^|\n)(\!+)\s*([^\n]+)/g;
-var reParseHeaders = /(^|\n)(=+|\!+)[ \t]([^\n]+)(\n?)/g;
-woas.parser["header_replace"] = function(str, $1, $2, $3,$4) {
+var reParseHeaders = /(^|\n)(=+|\!+)[ \t]([^\n]+)/g;
+woas.parser["header_replace"] = function(str, $1, $2, $3) {
 		var header = $3;
 		var len = $2.length;
 		if (header.indexOf($2)==header.length - len)
@@ -24,7 +24,7 @@ woas.parser["header_replace"] = function(str, $1, $2, $3,$4) {
 			woas.parser.toc += "#".repeat(len)+" <a class=\"link\" href=\"#" +
 			woas.parser.header_anchor(header) + "\">" + header + "<\/a>\n";
 		}
-		return "</div><h"+len+" id=\""+woas.parser.header_anchor(header)+"\">"+header+"</h"+len+"><div class=\"level"+len+"\">"+$4;
+		return "</div><h"+len+" id=\""+woas.parser.header_anchor(header)+"\">"+header+"</h"+len+"><div class=\"level"+len+"\">";
 }
 
 woas.parser["sublist"] = function (s) {   
@@ -460,7 +460,7 @@ woas.parser["parse"] = function(text, export_links, js_mode, title) {
 	});
 
 	// <hr> horizontal rulers made with 3 hyphens. 4 suggested. \s matches whitespace (short for  [\f\n\r\t\v\u00A0\u2028\u2029]) will eat all \n and leave nothing...
-	text=text.replace(/(?:^|\n)[ \f\t\v\u00A0\u2028\u2029]*\-{3,}[ \f\t\v\u00A0\u2028\u2029]*(\n+)/g, function(str,$1) { return "<hr />"+$1.substr(2);});	
+	text=text.replace(/(?:^|\n)[ \f\t\v\u00A0\u2028\u2029]*\-{3,}[ \f\t\v\u00A0\u2028\u2029]*(\n)/g, function(str,$1) { return "<hr />"+$1.substr(2);});	
 	
 	// tables-parsing pass
 	text = text.replace(reReapTables, this.parse_tables);
