@@ -1422,7 +1422,7 @@ function kbd_hook_down(orig_e) {
 		 if(kbd_is(113)){save();return false} // Pressing F2 while editing will save your page
 	}else{
 		if (_custom_focus){
-			if(kbd_is(113)){save();return false} // Pressing F2 while viewing and editing a form will edit the  page
+			if(kbd_is(113)){edit();return false} // Pressing F2 while viewing and editing a form will edit the  page
 			return orig_e; // Just return the pressed key if _custom_focus
 		}
 		if (search_focused) {
