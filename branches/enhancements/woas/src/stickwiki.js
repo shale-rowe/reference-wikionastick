@@ -226,10 +226,9 @@ woas["_get_tagged"] = function(tag_filter) {
 			continue;
 		var found_tags = [],t;
 		// Inside the page, read all [[Tag:: and [[Tags::
-		tmp.replace(/\[\[(Tags?::[^\|]*?)\]\]/g, 
+		tmp.replace(/\[\[(Tags?::[^\|]+?)\]\]/g, 
 			function(str, $1){
 				t=woas._get_tags($1);
-				if(t.length==0 && !t[0])alert(i);
 				found_tags=found_tags.concat(t); // An array with all found tags
 			}
 		);
