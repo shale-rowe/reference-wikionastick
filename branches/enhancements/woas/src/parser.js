@@ -244,7 +244,7 @@ woas.parser["parse"] = function(text, export_links, js_mode, title) {
 	});
 
 	// <sub> subscript and <sup> superscript
-	text = text.replace(/(,,|\^\^)(.*?)\1/g, function(str,$1,$2){
+	text = text.replace(/(,,|\^\^)(\S.*?)\1/g, function(str,$1,$2){
 		var t = $1==',,'? "sub":"sup";
 		return "<"+t+">"+$2+"</"+t+">";
 	});
