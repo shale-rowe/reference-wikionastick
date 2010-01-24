@@ -1,4 +1,3 @@
-
 woas["parser"] = {
 	"has_toc":null,
 	"toc":"",
@@ -13,13 +12,11 @@ woas.parser["header_anchor"] = function(s) {
 }
 
 // var reParseOldHeaders = /(^|\n)(\!+)\s*([^\n]+)/g;
-var reParseHeaders = /(^|\n)(=+|\!+)[ \t]([^\n]+)/g;
+var reParseHeaders = /(?:^|\n)(=+|\!+)[ \t](?:([^\n]+)[ \t]\1|([^\n]+))/g;
 woas.parser["header_replace"] = function(str, $1, $2, $3) {
-		var header = $3;
-		var len = $2.length;
-		if (header.indexOf($2)==header.length - len)
-			header = header.substring(0, header.length - len);
+		header = $2 || $3;
 		// automatically build the TOC if needed
+		var len = $1.length;
 		if (woas.parser.has_toc) {
 			woas.parser.toc += "#".repeat(len)+" <a class=\"link\" href=\"#" +
 			woas.parser.header_anchor(header) + "\">" + header + "<\/a>\n";
@@ -28,7 +25,7 @@ woas.parser["header_replace"] = function(str, $1, $2, $3) {
 }
 
 woas.parser["sublist"] = function (s) {   
-	var A=s.split(/\n/);
+	var A=s.replace(/\\\\\n/, "<br/>").split(/\n/);
 	var firstline = A.shift();
 	var fl= "";
 	var close="";
@@ -113,11 +110,11 @@ woas.parser["parse_tables"] =  function (str, p1)
 function _filter_wiki(s,mode) {
 	if(mode){
 		var A = [];
-		return s.replace(/[\{\xAB\u300C]{3}((.|\n)*?)[\}\xBB\u300D]{3}/g, 
+		return s.replace(/([\{<]{3}[\s\S]*?[\}>]{3})/g, 
 			function (str, $1) { A.push($1); return "{_%%_}"; }
-			).replace(/<\/>/, "").replace(/\<\/?\w+\s*[^>]*>/g, "").replace(/{_%%_}/g, A.shift());
+			).replace(/\<\/?\w+\s*[^>]*>/g, "").replace(/{_%%_}/g, A.shift());
 	}else
-		return s.replace(/\{\{\{((.|\n)*?)\}\}\}/g, "").
+		return s.replace(/[\{<]{3}([\s\S]*?)[\}>]{3}/g, "").
 			replace(/\<\/?\w+\s*[^>]*>/g, "");
 };
 
@@ -143,6 +140,10 @@ woas.parser["parse"] = function(text, export_links, js_mode, title) {
 
 	// this array will contain all the HTML snippets that will not be parsed by the wiki engine
 	var html_tags = [];
+
+	// thank you IE, really thank you
+	if (ie)
+		text = text.replace("\r\n", "\n");
 		
 	// put away stuff contained in inline nowiki blocks {{{ }}}
 	text = text.replace(/\{\{\{(.*?)\}\}\}/g, function (str, $1) {
@@ -152,20 +153,15 @@ woas.parser["parse"] = function(text, export_links, js_mode, title) {
 	});
 
 	// Escape wiki
-	text = text.replace(/<\/>/g, "<!-- -->");
+	text = text.replace(/~([^\nA-Za-z0-9])/g, "<!-- -->$1<!-- -->");
 	
-	// thank you IE, really thank you
-	if (ie)
-		text = text.replace("\r\n", "\n");
-	
-	// user defined before_parser
-
-	// put away code contained in single-line "emphasized paragraph" blocks [[[ ]]]  and &#12300; or \u300C &#12301; or \u300D
-	text = text.replace(/(\[|\u300C){3}(.*?)(\]|\u300D){3}/g, function (str, $1, $2) {
-		var r = "<!-- "+parse_marker+"::"+html_tags.length+" -->";
-		var t = $1=='['?'span':'q';
-		html_tags.push("<"+t+" class=\""+($1=='['?'note':'citation')+"\">"+$2+"</"+t+">");
-		return r;
+	// put away code contained in single-line "emphasized paragraph" blocks [[[ ]]]  and ,,polish-quotes'' (was before: &#12300; or \u300C &#12301; or \u300D)
+	text = text.replace(/(\[{3}|,,)(.*?)(\]{3}|'')/g, function (str, $1, $2) {
+		var t = $1=='[[['?'span':'q';
+		return "<"+t+" class=\""+($1=='[[['?'note':'citation')+"\">"+$2+"</"+t+">";
+		// var r = "<!-- "+parse_marker+"::"+html_tags.length+" -->";
+		// html_tags.push("<"+t+" class=\""+($1=='['?'note':'citation')+"\">"+$2+"</"+t+">");
+		// return r;
 	});
 	
 	// transclusion code - originally provided by martinellison
@@ -192,10 +188,7 @@ woas.parser["parse"] = function(text, export_links, js_mode, title) {
 					if (woas.is_image(templname)) {
 						var img, img_name = woas.xhtml_encode(templname.substr(templname.indexOf("::")+2));
 						var p = parts.length>1? parts.slice(1).join(" ") : "";
-						if (export_links)
-							img = "<img class=\"embedded\" src=\""+woas._export_get_fname(templname)+"\" alt=\""+img_name+"\" "+p;
-						else
-							img = "<img class=\"embedded\" src=\""+templtext+"\" "+p;
+						img = "<img class=\"embedded\" src=\""+ (export_links? woas._export_get_fname(templname)+"\" alt=\""+img_name : templtext) +"\" "+p;
 						if (parts.length>1) {
 							img += parts[1];
 							// always add the alt attribute to images
@@ -214,14 +207,14 @@ woas.parser["parse"] = function(text, export_links, js_mode, title) {
 				} else { // wiki source transclusion
 					parts[0]=title; // %0 is the pagename that called the transclusion
 					templtext = templtext.replace(/%(\d+)/g, function(param, paramno) {
-						if (paramno == 'page') return title; // maybe also add? %namespace% = this.get_namespace(title); -> not right now.
-						// if we did %01 instead of %1 we want to parse a multiline parameter with \n replaced as <br>
-						if (parseInt(paramno)+"" != paramno && parseInt(paramno) < parts.length)
-							return parts[parseInt(paramno)].replace(/\n/g, "<br>");
-						if (paramno < parts.length)
-							return parts[paramno];
-						else
-							return param;
+						if(parseInt(paramno) >= parts.length)
+							return param; // No parameter, don't replace
+						else{
+							// if we did %01 instead of %1 we want to parse a multiline parameter with \n replaced as <br>.
+							if ("0"+parseInt(paramno) == paramno)
+								return parts[parseInt(paramno)].replace(/\n/g, "<br>");
+							return parts[parseInt(paramno)];
+						}
 					} );
 				}
 				trans = 1;
@@ -235,33 +228,38 @@ woas.parser["parse"] = function(text, export_links, js_mode, title) {
 
 	var tags = [];
 	
-	// put away raw text contained in multi-line nowiki blocks {{{ }}}
-	text = text.replace(/\{\{\{((.|\n)*?)\}\}\}/g, function (str, $1) {
+	// put away raw text contained in multi-line nowiki blocks {{{ }}}    http://blog.stevenlevithan.com/archives/singleline-multiline-confusing
+	text = text.replace(/\{\{\{([\s\S]*?)\}\}\}/g, function (str, $1) {
 		var r = "<!-- "+parse_marker+"::"+html_tags.length+" -->";
 		html_tags.push("<pre class=\"wiki_preformatted\">"+woas.xhtml_encode($1)+"</pre>");
 		return r;
 	});
 
-	// put away stuff contained in user-defined multi-line blocks «««»»» 171 187 alert ("»".charCodeAt(0)); \xAB \xBB
-	text = text.replace(/\xAB{3}((.|\n)*?)\xBB{3}/g, function (str, $1) {
+	// put away stuff contained in user-defined macro multi-line blocks <<< >>> (previously: "»".charCodeAt(0)); 171 187 \xAB \xBB
+	text = text.replace(/<<<([\s\S]*?)>>>/g, function (str, $1) {
 		var t = woas.user_parse(title,$1);
 		if(woas.user_parse.post) return t; // if woas.user_parse.post is set by the user, then allow further parser postprocessing 
 		html_tags.push(t);
 		return "<!-- "+parse_marker+"::"+(html_tags.length-1)+" -->";
 	});
 
-
-	// put away code contained in multi-line "emphasized paragraph" blocks [[[ ]]]  and &#12300; or \u300C &#12301; or \u300D
-	text = text.replace(/(\[|\u300C){3}((.|\n)*?)(\]|\u300D){3}/g, function (str, $1, $2) {
-		var r = "<!-- "+parse_marker+"::"+html_tags.length+" -->";
-		html_tags.push("<div class=\""+($1=='['?'note':'citation')+"\">"+$2+"</div>");
-		return r;
+	// <sub> subscript and <sup> superscript
+	text = text.replace(/(,,|\^\^)(.*?)\1/g, function(str,$1,$2){
+		var t = $1==',,'? "sub":"sup";
+		return "<"+t+">"+$2+"</"+t+">";
 	});
-//	// blocks dont allow for wiki, but do allow for html tags. If this is a problem, change it to:
-//	text = text.replace(/(\[|\u300C){3}((.|\n)*?)(\]|\u300D){3}/g, function (str, $1, $2) {
-//		return "<div class=\""+($1=='['?'note':'citation')+"\">"+$2+"</div>";
-//	});
-	
+	// text = text.replace(/\^\^(\S.*?)\^\^/g, "<sup>$1</sup>");
+
+	// put away code contained in multi-line "emphasized paragraph" blocks [[[ ]]]  and ,, '' (polish quotes) which were before: &#12300; or \u300C and &#12301; or \u300D
+	text = text.replace(/(\[{3}|,,)([\s\S]*?)(\]{3}|'')/g, function (str, $1, $2) {
+		var T= $1=='[[[' ? ["div","note"] : ['blockquote', 'citation'];
+		return "<"+T[0]+" class=\""+T[1]+"\">"+$2+"</"+T[0]+">";
+		//	// blocks allow for html, AND allow for wiki. If this is a problem, change this function back to:
+		// var r = "<!-- "+parse_marker+"::"+html_tags.length+" -->";
+		// html_tags.push("<div class=\""+($1=='['?'note':'citation')+"\">"+$2+"</div>");
+		// return r;
+	});
+
 	// reset the array of custom scripts
 	this.script_extension = [];
 	if (js_mode) {
@@ -390,27 +388,26 @@ woas.parser["parse"] = function(text, export_links, js_mode, title) {
 		}
 	}); // "<a class=\"wiki\" onclick='go_to(\"$1\")'>$1<\/a>");
 
+
+	// Indent :  <div style="margin-left:2em"> or http://meyerweb.com/eric/css/tests/css2/sec08-03c.htm
+	//alert(text);
+	text = text.replace(/(^|\n|<br\/>)(:+)\s*([^\n]+)/g, function (str, $1,$2,$3) {
+		return $1+"<span style=\"margin-left:"+($2.length)+"em\">"+$3+"</span>";
+	});
+	
 	// allow non-wrapping newlines
-	text = text.replace(/\\\n/g, "");
+	text = text.replace(/\\\\\n/g, "<br/>").replace(/\\\n/g, "");
 	
 	// <u>
 	text = text.replace(/(^|[^\w])_([^_]+)_/g, "$1"+parse_marker+"uS#$2"+parse_marker+"uE#");
-
 
 	// <strike>
 	// <!-- #VRQXBzqc::2 -->, because <!-- #VRQXBzqc::3 -->
 	text = text.replace(/(^|[^\w\/\\\<\>!\-])\-\-([^ >\-].*?[^ !])\-\-/g, "$1<strike>$2</strike>");
 	
-	// <sub> subscript and <sup> superscript
-	text = text.replace(/(,,|\^\^)(\S.*?)\1/g, function(str,$1,$2){
-		var t = $1==',,'? "sub":"sup";
-		return "<"+t+">"+$2+"</"+t+">";
-	});
-	// text = text.replace(/\^\^(\S.*?)\^\^/g, "<sup>$1</sup>");
-		
 	// italics
 	// need a space after ':'
-	text = text.replace(/(^|[^\w:])\/([^\n\/]+)\/($|[^\w])/g, function (str, $1, $2, $3) {
+	text = text.replace(/(^|[^\w:<])\/([^\n\/]+)\/($|[^\w>])/g, function (str, $1, $2, $3) {
 		if (str.indexOf("//")!=-1) {
 			return str;
 		}
@@ -419,12 +416,6 @@ woas.parser["parse"] = function(text, export_links, js_mode, title) {
 	
 	// ordered/unordered lists parsing
 	text = text.replace(reReapLists, this.parse_lists);
-
-
-	// Indent :  <div style="margin-left:2em"> or http://meyerweb.com/eric/css/tests/css2/sec08-03c.htm
-	text = text.replace(/(^|\n)(:+)\s*([^\n]+)/g, function (str, $1,$2,$3) {
-		return $1+"<span style=\"margin-left:"+($2.length)+"em\">"+$3+"</span>";
-	});
 	
 	// headers (from h1 to h6, as defined by the HTML 3.2 standard)
 	text = text.replace(reParseHeaders, this.header_replace);
@@ -445,7 +436,7 @@ woas.parser["parse"] = function(text, export_links, js_mode, title) {
 	
 	// <strong> for bold text
 	text = text.replace(/(^|[^\w\/\\])\*([^\*\n]+)\*/g, "$1"+parse_marker+"bS#$2"+parse_marker+"bE#");
-	
+
 	text = text.replace(new RegExp(parse_marker+"([ub])([SE])#", "g"), function (str, $1, $2) { // TODO: remove this replace code must be in bold parser and underscore parser
 		if ($2=='E') {
 			if ($1=='u')
