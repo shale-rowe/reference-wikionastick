@@ -29,11 +29,11 @@ woas.parser["sublist"] = function (s) {
 	var firstline = A.shift();
 	var fl= "";
 	var close="";
-	firstline=firstline.replace(/^((?:\*|#|@[ia1]?)+)[ \t](.*)$/i,
+	firstline=firstline.replace(/^((?:\*|#|@[ia1#\*]?)+)[ \t](.*)$/i,
 			function(str,a,b,c){
 					fl=a;
 					var open="";
-					if(a == '*'){
+					if(a == '*'||a=='@*'){
 						open="<ul>"; close="</ul>"
 					}else{
 						open="<ol>"; close="</ol>"
@@ -50,10 +50,10 @@ woas.parser["sublist"] = function (s) {
 		if(A[0] == ""){
 			// firstline += "</li>";
 			A.shift();
-		}else if(!A[0].replace(fl,"").match(/^(?:\*|#|@[ia1]?)/i)){
+		}else if(!A[0].replace(fl,"").match(/^(?:\*|#|@[ia1#\*]?)/i)){
 			firstline += "<li>" + A.shift().replace(fl,"");
 		}else{
-			while (A.length>0 && A[0].replace(fl,"").match(/^(?:\*|#|@[ia1]?)/i)) {
+			while (A.length>0 && A[0].replace(fl,"").match(/^(?:\*|#|@[ia1#\*]?)/i)) {
 				CHILD += A.shift().replace(fl,"")+"\n";
 			}
 			if(CHILD)
@@ -75,35 +75,46 @@ type=* item=level1 <!-- #CTUugobt::0 --> $2=
 *# level2-1 <!-- #CTUugobt::1 -->
 *# level2-2 <!-- #CTUugobt::2 -->
 */
-var reReapLists = /(^|\n)(?:\*|#|@[iIaA1]?)[ \t].*(?:(?:\n)(?:\*|#|@[iIaA1]?)+[ \t][^\n]+)*/g;
-woas.parser["parse_lists"] = function(str, enter) {
- return enter+woas.parser.sublist(str);
+var reReapLists = /^(?:\*|#|@[iIaA1#\*]?)[ \t].*(?:(?:\n)(?:\*|#|@[iIaA1#\*]?)+[ \t][^\n]+)*$/gm;
+woas.parser["parse_lists"] = function(str) {
+ return woas.parser.sublist(str);
 }
 
-var reReapTables = /(?:^|\n)\{\|.*((?:\n\|.*)*)(?:\n|$)/g;	
-woas.parser["parse_tables"] =  function (str, p1)
-    {
-        var caption = false;
-        var stk = [];
-        p1.replace( /\n\|([+ -])(.*)/g, function(str, pp1, pp2)
-            {
-                if (pp1 == '-')
-                {
-                    return;
-                }
-                if (pp1 == '+')
-                {
-                    caption = caption || pp2;
-                    return;
-                }
-                stk.push('<td>' + pp2.split(' ||').join('</td><td>') + '</td>');
-            } 
-        );
-        return  '<table class="text_area">' +
-                    (caption?('<caption>' + caption + '</caption>'):'') +
-                    '<tr>' + stk.join('</tr><tr>') + '</tr>' +
-                '</table>' 
-    }
+
+var reReapTables = /^\{\|.*((?:\n\|.*)*)$/gm;
+woas.parser["parse_tables"] =  function (str, p1) {
+	var caption = '';
+	var stk = [];
+	p1.replace( /\n\|([+ -])(.*)/g, function(str, pp1, pp2) {
+		if (pp1 == '-') // currently a remark, but could be used for meta information in the future
+			return;
+		if (pp1 == '+'){ // set the caption
+			caption = caption || ('<caption' + (stk.length>0? ' style="caption-side:bottom">':'>') + pp2+ '</caption>');
+			return;
+		}
+		var cells = pp2.replace(/\|\|\s*\|\|/g,"||  ||").replace(/(^\s)|(\s$)/, '').split(/\s\|\|\s/);
+		var row = [];       // table row
+		var stag = "";      // start tag
+		var cs = 0;         // counter for spanned columns
+		for (var i=cells.length - 1; i >= 0; --i){
+			var C = cells[i].match(/^(\s*)(=\s*)?(.*?)(\s*)$/);
+		   if (i && !C[3]) { // if empty and not first column, increase span counter.
+				++cs;
+				continue;
+			}
+			stag = '<'+ (C[2]?'th':'td') + (cs? ' colspan=' + ++cs : '') + (C[1]?' align='+(C[4]? 'center':'right'):'') + '>';
+			cs = 0;
+			row.unshift( stag + C[3] + (C[2]?'</th>':'</td>') );
+		}
+		stk.push(row.join(""));
+		}
+	);
+	return  '<table class="text_area">'
+		+ caption
+		+ '<tr>' + stk.join('</tr><tr>') + '</tr>'
+		+ '</table>'
+}
+
 
 // remove wiki and html that should not be viewed when previewing wiki snippets
 // woas["xhtml_encode"]
