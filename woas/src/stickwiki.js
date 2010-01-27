@@ -1699,7 +1699,6 @@ woas["user_parse"] = function(title,text){
 		M=[0,'default',text];
 	var U = woas.user_parse;
 	U.post=0;
-	//alert("> "+text+"=>\n"+M);return 'XXX';
 	switch(typeof(U[M[1]])){
 		case 'function': return U[M[1]](M[2]);
 		case 'string':	return U[M[1]];
@@ -2024,7 +2023,7 @@ function erase_wiki() {
 						"Special::Lock","Special::Search","Special::Security", "Special::Embed",
 						"Special::Export", "Special::License" ];
 	var backup_pages = [];
-	page_attrs = [4,4,4,4,0,0];
+	page_attrs = [4,0,4,4,0,0];
 	for(var i=0;i<static_pg.length;i++) {
 		var pi = woas.page_index(static_pg[i]);
 		if (pi==-1) {
