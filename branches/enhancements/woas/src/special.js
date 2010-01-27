@@ -51,25 +51,24 @@ woas["special_orphaned_pages"] = function() {
 		return this._join_list(pg); // TODO - Delete repeated data
 }
 
-woas["special_backlinks"] = function()
+woas["special_backlinks"] = function(page)
 {
 	var pg = [];
 	var tmp;
-	var reg = new RegExp("\\[\\["+RegExp.escape(current)+"(\\||\\]\\])", "gi");
-	for(j=0; j<pages.length; j++)
+	var reg = new RegExp("\\[\\["+RegExp.escape(page||current)+"(\\||\\]\\])", "gi");
+	for(j=0,l=pages.length; j<l; j++)
 	{
 		// search for pages that link to it
 		tmp = this.get_src_page(j);
 		if (tmp==null)
 			continue;
-		if (tmp.match(reg)) {
+		if (tmp.match(reg))
 			pg.push( page_titles[j] );
-		}
 	}
 	if(pg.length == 0)
 		return "/No page links here/";
 	else
-		return "== Links to "+current+"\n"+this._join_list(pg);
+		return "== Links to "+(page||current)+"\n"+this._join_list(pg);
 }
 
 // var hl_reg;
