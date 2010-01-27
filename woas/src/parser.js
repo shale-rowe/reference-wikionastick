@@ -92,7 +92,7 @@ woas.parser["parse_tables"] =  function (str, p1) {
 			caption = caption || ('<caption' + (stk.length>0? ' style="caption-side:bottom">':'>') + pp2+ '</caption>');
 			return;
 		}
-		var cells = pp2.replace(/\|\|\s*\|\|/g,"||  ||").replace(/(^\s)|(\s$)/, '').split(/\s\|\|\s/);
+		var cells = pp2.replace(/\|\|\s*\|\|/g,"||  ||").replace(/(^\s)|(\s$)/, '').split(/\s\|\|\s?/);
 		var row = [];       // table row
 		var stag = "";      // start tag
 		var cs = 0;         // counter for spanned columns
