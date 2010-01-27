@@ -117,6 +117,13 @@ sub file_put_contents {
 sub Squeeze{
 	$_ = shift;
 	return $_ if(grep( /(-nc|--no_compression)/, @ARGV));
+	if(grep( /(-yc|--yui_compression)/, @ARGV)){
+		file_put_contents("_tmp", $_);
+		my $cmd = "java -jar yuicompressor-2.4.2.jar --type js -o _tmp_out _tmp";
+		print $cmd."\n";
+		print `$cmd`;
+		return $_ = slurp("_tmp_out");
+	}
 	s`//\s+.*$``gm; # remove trailing comments (tries to)
 	s`^\s*//.*$``gm; # remove full line comments
 	s/^\s+//gm; # remove leading spaces
