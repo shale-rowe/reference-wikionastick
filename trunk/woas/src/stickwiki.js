@@ -29,8 +29,7 @@ woas["trim"] = function(s) {
 // NOTE: not completely binary safe!
 // should be used only for titles (which ought not to contain binary bytes)
 woas["js_encode"] = function (s, split_lines) {
-	// not to counfound browsers with saved tags
-	s = s.replace(/([\\<>'])/g, function (str, ch) {
+/*	s = s.replace(/([\\<>'])/g, function (str, ch) {
 //		return "\\x"+ch.charCodeAt(0).toString(16);
 		switch (ch) {
 			case "<":
@@ -42,7 +41,10 @@ woas["js_encode"] = function (s, split_lines) {
 //			case "\\":
 		}
 		return "\\\\";
-	});
+	}); */
+	// not to counfound browsers with saved tags
+	s = s.replace(/\\/g, "\\\\").replace(/</g, "\\x3C").replace(/>/g, "\\x3E").
+		replace(/'/g, "\\'");
 	// escape newlines (\r\n happens only on the stupid IE) and eventually split the lines accordingly
 	if (!split_lines)
 		s = s.replace(new RegExp("\r\n|\n", "g"), "\\n");
@@ -629,6 +631,7 @@ woas["_embed_process"] = function(etype) {
 		return false;
 	}
 
+	// load the data in binary mode
 	_force_binary = true;
 	var ct = loadFile(filename);
 	_force_binary = false;
