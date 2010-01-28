@@ -519,6 +519,8 @@ woas["_create_page"] = function (ns, cr, ask, fill_mode) {
 		cr = ns+"::"+cr;
 	page_attrs.push(0);
 	page_titles.push(cr);
+	// set modified timestamp
+	page_mts.push(Math.round(new Date().getTime()/1000));
 	log("Page "+cr+" added to internal array");	// log:1
 	if (!fill_mode) {
 		current = cr;
@@ -659,6 +661,8 @@ woas["_embed_process"] = function(etype) {
 	pages.push(ct);
 	page_attrs.push(etype);
 	page_titles.push(current);
+	// set modified timestamp to now
+	page_mts.push(Math.round(new Date().getTime()/1000));
 	
 	// save everything
 	this.save_to_file(true);
@@ -1687,6 +1691,8 @@ woas["save__page"] = function(pi) {
 		log("floating_pages = ("+floating_pages+")");	// log:1
 		return;
 	}
+	// update the modified time timestamp
+	this.page_mts[pi] = Math.round(new Date().getTime()/1000);
 	this.save_to_file(true);
 }
 
@@ -1856,6 +1862,8 @@ function erase_wiki() {
 		}
 		backup_pages.push(pages[pi]);
 		page_attrs.push(0);
+		// keep old timestamp
+		page_mts.push(page_mts[pi]);
 	}
 	page_titles = ["Main Page", "::Menu", "WoaS::Bootscript", "WoaS::Aliases"];
 	page_titles = page_titles.concat(static_pg);
