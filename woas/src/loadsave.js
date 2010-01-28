@@ -1,4 +1,8 @@
 
+// force binary file write - this is a hack for some testing
+var _force_binary = false;
+
+// get filename of currently open file in browser
 function _get_this_filename() {
 	var filename = unescape(document.location.toString().split("?")[0]);
 	if (filename.indexOf("file://") === 0) // all browsers
@@ -22,8 +26,7 @@ function _get_this_filename() {
 	return filename;
 }
 
-//alert(_get_this_filename());
-
+// save the currently open WoaS
 function _saveThisFile(new_data, old_data) {
 	var filename = _get_this_filename();
 	
@@ -38,6 +41,7 @@ function _saveThisFile(new_data, old_data) {
 	return r;
 }
 
+// save-file handler
 function saveFile(fileUrl, content)
 {
 	var r = null;
@@ -49,17 +53,36 @@ function saveFile(fileUrl, content)
 	return r;
 }
 
-// original source was from TiddyWiki
+// get file content in FF3 without .enablePrivilege() (fbnil)
+function mozillaLoadFileID(field_id,asType){
+	var filename = document.getElementById(field_id).value;
+	if(filename == "")
+		return false;
+	if(!window.Components || !document.getElementById(field_id).files)
+		return null;
+	var D=document.getElementById(field_id).files.item(0);
+	if(asType==1)
+		return D.getAsText("utf-8");
+	return D.getAsDataURL(); // .getAsBinary() .getAsText()
+}
 
-function loadFile(fileUrl)
-{
+// *** original source of below functions was from TiddyWiki ***
+
+// load-file handler
+function loadFile(fileUrl, id){
 	var r = null;
-	if((r == null) || (r == false))
+	// try loading the file without using the path (FF3+)
+	if (id)
+		r=mozillaLoadFileID(id,1);
+	else // load file using file absolute path
 		r = mozillaLoadFile(fileUrl);
-	if((r == null) || (r == false))
+	// no mozillas here, attempt the IE way
+	if(!r)
 		r = ieLoadFile(fileUrl);
-	if((r == null) || (r == false))
-		r = operaLoadFile(fileUrl);
+	if(!r)
+		alert('Could not load "'+fileUrl+'"');
+	//L: seems like this is not yet implemented
+	//r = operaLoadFile(fileUrl); // TODO
 	return r;
 }
 
@@ -130,7 +153,6 @@ function mozillaSaveFile(filePath, content)
 	return(null);
 }
 
-// Returns null if it can't do it, false if there's an error, or a string of the content if successful
 // Returns null if it can't do it, false if there's an error, or a string of the content if successful
 function mozillaLoadFile(filePath)
 {
@@ -219,6 +241,3 @@ function javaLoadFile(filePath)
 	}
 	return content.join("\n");
 }
-
-// force binary file write
-var _force_binary = false;
