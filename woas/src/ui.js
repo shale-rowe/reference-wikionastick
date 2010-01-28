@@ -340,7 +340,7 @@ function _img_properties_show(mime, tot_len, enc_len) {
 }
 
 function query_delete_image(cr) {
-	if (!confirm(woas.i18n.CONFIRM_DELETE_IMAGE.sprintf(cr))
+	if (!confirm(woas.i18n.CONFIRM_DELETE_IMAGE.sprintf(cr)))
 		return;
 	delete_page(cr);
 	back_or(main_page);
