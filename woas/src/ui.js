@@ -201,7 +201,7 @@ function lock_page(page) {
 	woas._finalize_lock(pi);
 }
 
-
+// import wiki from external file
 function import_wiki() {
 	if (!woas.config.permit_edits) {
 		alert("This Wiki on a Stick is read-only");
@@ -209,7 +209,7 @@ function import_wiki() {
 	}
 	var filename = $("filename_").value;
 	if(filename == "") {
-		alert("A file must be selected");
+		alert(woas.i18n.FILE_SELECT_ERR);
 		return false;
 	}
 	return woas.import_wiki(filename);
