@@ -152,11 +152,6 @@ function _random_string(string_length) {
 	return randomstring;
 }
 
-// format a decimal number to specified decimal precision
-function _number_format(n, prec) {
-	return n.toString().replace(new RegExp("(\\."+String("\\d").repeat(prec)+")\\d*$"), "$1");
-}
-
 // converts the number of bytes to a human readable form
 function _convert_bytes(bytes) {
 	var U=['bytes','Kb','Mb','Gb','Pb'];

@@ -17,3 +17,6 @@ woas['i18n'] = {
 	LOAD_ERR: "Could not load file ",
 	FILE_SELECT_ERR: "A file must be selected"
 }
+
+// do not use any copyrighted list here
+woas.i18n['common_words'] = ['the','of','to' ,'and' ,'a' ,'in' ,'is' ,'it' ,'you' ,'that' ,'he' ,'was' ,'for','on' ,'are' ,'with' ,'as' ,'I' ,'his' ,'they' ,'be' ,'at' ,'one' ,'have' ,'this' ,'from' ,'or' ,'had' ,'by' , 'an', 'all' ];

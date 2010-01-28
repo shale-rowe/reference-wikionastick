@@ -62,7 +62,7 @@ woas["js_encode"] = function (s, split_lines) {
 
 // used to escape blocks of source into HTML-valid output
 woas["xhtml_encode"] = function(src) {
-	return this.utf8_encode(src.replace(/[<>&]+/g, function ($1) {
+/*	return this.utf8_encode(src.replace(/[<>&]+/g, function ($1) {
 		var l=$1.length;
 		var s="";
 		for(var i=0;i<l;i++) {
@@ -79,7 +79,9 @@ woas["xhtml_encode"] = function(src) {
 			}
 		}
 		return s;
-	}));
+	})); */
+	return this.utf8_encode(src.replace(/&/g, '&amp;').replace(/</g, '&lt;').
+			replace(/>/g, '&gt;')); // .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 }
 
 woas["utf8_encode"] = function(src) {
@@ -994,6 +996,13 @@ woas["set_current"] = function (cr, interactive) {
 	}
 	
 	this._add_namespace_menu(namespace);
+
+	// for Beni's bug and other namespace quirks
+	// for title of Tagged:: type of non 'real' pages.
+	if (!cr) {
+		alert("WARN: cr is " + cr);
+	}
+	
 	if (namespace.length)
 		cr = page_titles[this.page_index(namespace + "::" + cr)];
 	else
@@ -1132,7 +1141,7 @@ function _hex_col(tone) {
 		var repco = split_bytes(pw).toUnique().length/pwlength;
 		if (repco<0.8)
 			pwstrength *= (repco+0.2);
-		log("pwstrength = "+_number_format(pwstrength/100, 2)+", repco = "+repco);	// log:1
+		log("pwstrength = "+(pwstrength/100).toFixed(2)+", repco = "+repco);	// log:1
 	} else
 		var pwstrength = 0;
   
@@ -1941,7 +1950,7 @@ function erase_wiki() {
 	return true;
 }
 
-// globla function
+// global function
 function _get_this_path() {
 	var slash_c = (navigator.appVersion.indexOf("Win")!=-1)?"\\\\":"/";
 	return _get_this_filename().replace(new RegExp("("+slash_c+")"+"[^"+slash_c+"]*$"), "$1");
@@ -1951,11 +1960,6 @@ var max_keywords_length = 250;
 var max_description_length = 250;
 
 // proper autokeywords generation functions begin here
-
-function sortN(a,b){return b.w - a.w}
-
-//TODO: have Special::Common Words contain all the common words
-var common_words = ['a', 'the', 'is', 'for', 'of', 'to', 'in', 'an', 'be', 'that', 'all', 'or'];
 
 function _auto_keywords(source) {
 	if (!source.length) return "";
@@ -1967,7 +1971,7 @@ function _auto_keywords(source) {
 	for(var i=0;i<words.length;i++) {
 		if (words[i].length==0)
 			continue;
-		cond = (common_words.indexOf(words[i].toLowerCase())<0);
+		cond = (woas.i18n.common_words.indexOf(words[i].toLowerCase())<0);
 		if (cond) {
 			wp = nu_words.indexOf(words[i]);
 			if (wp < 0) {
@@ -1980,7 +1984,7 @@ function _auto_keywords(source) {
 	if (!density.length) return "";
 	words = new Array();
 	var keywords = "", nw = "";
-	density = density.sort(sortN);
+	density = density.sort(function(a,b){return b.w - a.w});
 	var ol=0;
 	for(i=0;i<density.length;i++) {
 		nw = nu_words[density[i].i];
