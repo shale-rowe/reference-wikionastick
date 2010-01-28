@@ -5,11 +5,11 @@
 <script type="text/javascript">
 /* <![CDATA[ */
 
-/* DFQRCTsKlU-0000473-START */
+/* DFQRCTsKlU-0000474-START */
 
 var woas = {"version": "0.9.7B"};
 
-var __marker = "DFQRCTsKlU-0000473";
+var __marker = "DFQRCTsKlU-0000474";
 
 woas["config"] = {
 "permit_edits":true,
@@ -79,10 +79,10 @@ var page_titles = [
 'WoaS::Aliases'
 ];
 
-/* DFQRCTsKlU-0000473-DATA */
+/* DFQRCTsKlU-0000474-DATA */
 var page_attrs = [0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,12,4,0,0,0,0,0,0,0,4,0,4,0,0,0,2,0,0,0,0,0,0];
 
-var page_mts = [0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,];
+var page_mts = [0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cdf9,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,];
 
 var pages = [
 '[[Main Page]]\n\
@@ -1281,7 +1281,7 @@ asdf',
 '$HOME  Main Page'
 ];
 
-/* DFQRCTsKlU-0000473-END */
+/* DFQRCTsKlU-0000474-END */
 
 /* ]]> */ </script>
 <style type="text/css">/* existent link */
@@ -1511,6 +1511,14 @@ z-index: 100;
 	top: 0px;
 }
 
+.woas_page_mts {
+	position: relative;
+	left: 16%;
+	width: 81%;
+	z-index: 0;
+	font-size: small;
+}
+
 </style><title>Main Page</title>
 <script src="src/aes.js" type="text/javascript"></script>
 <script src="src/framework.js" type="text/javascript"></script>
@@ -1563,7 +1571,8 @@ z-index: 100;
 <hr />
 
 <div style="text-align: center;"><a class="link" onclick="edit_ns_menu()">[Edit]</a></div></div></div>
-<div class="text_area" id="wiki_text" ondblclick="page_dblclick()"></div></div>
+<div class="text_area" id="wiki_text" ondblclick="page_dblclick()"></div>
+<div class="woas_page_mts" id="wiki_mts"></div></div>
 <div id="edit_area" style="display: none; visibility: hidden;">
 <div id="edit_page_title" style="display: block;">Page title: <input id="wiki_page_title" size="50" value="" />&nbsp;<a style="color: blue;" onclick="woas.wiki_buttons_display($('wiki_format_buttons').style.display != 'block')">Show/Hide wiki buttons</a>&nbsp;|&nbsp;<a style="color: blue;" onclick="woas.html_buttons_display($('html_format_buttons').style.display != 'block')">Show/Hide HTML buttons</a></div>
 <div id="wiki_format_buttons" style="display: block; visibility: visible;">
@@ -1605,8 +1614,8 @@ Wiki Code:
 </div>
 <div id="debug_info" style="display: inline; visibility: visible; z-index: 101; text-align: right; width: 300px;">
 <h2>Debug console</h2>
-<p><input type="button" onclick="$.toggle('debug_panel')" value="Toggle" /></p>
-<span id="debug_panel" style="visibility: hidden; display:none;">
+<p><input onclick="$.toggle('debug_panel')" value="Toggle" type="button" /></p>
+<span id="debug_panel" style="visibility: hidden; display: none;">
 This is a development BETA version of Wiki On a Stick; it is not suggested to use it with important data. If you want to disable this debug message and console, you will have to find the line that says <b><tt>woas["debug"] = true;</tt></b> and change it to <b><tt>false</tt></b>.<br />
 <textarea id="swlogger" ondblclick="$('swlogger').value=''" style="width: 60%; background-color: rgb(204, 204, 204);" rows="12" readonly="readonly" cols="60"></textarea><br /><input onclick="$('swlogger').value=''" value="Clear" type="button" /></span></div>
 <hr />

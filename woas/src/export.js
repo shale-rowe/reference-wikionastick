@@ -115,7 +115,7 @@ woas["export_parse"] = function (data, js_mode) {
 }
 
 woas["export_one_page"] = function (
-		data, title, fname, exp) {
+		data, title, fname, exp, mts) {
 	// convert UTF8 sequences of the XHTML source into &#dddd; sequences
 	data = this.utf8_encode(data);
 	// prepare the raw text for later description/keywords generation
@@ -150,6 +150,7 @@ woas["export_one_page"] = function (
 		this.utf8_encode(this._attrib_escape(raw_text.replace(/\s+/g, " ").substr(0,max_description_length)))+'" />'+"\n"+
 		exp.meta_author+
 		exp.custom_bs+
+		(mts ? "<p><sub>Last Modified: "+ (new Date(mts*1000)).toLocaleString()+"</sub></p>" : "")+
 		"</h"+"ead><"+"body>"+data+"</bod"+"y></h"+"tml>\n"; raw_text = null;
 	return saveFile(exp.xhtml_path+fname, _doctype+data);
 }
@@ -217,7 +218,7 @@ woas["export_wiki"] = function () {
 				data = '<pre class="wiki_preformatted">'+this.xhtml_encode(data)+"</pre>";
 		} else
 			data = this.export_parse(data, exp.js_mode);
-		if (!this.export_one_page(data, page_titles[pi], fname, exp))
+		if (!this.export_one_page(data, page_titles[pi], fname, exp, page_mts[pi]))
 			break;
 		++done;
 	}

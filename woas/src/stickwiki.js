@@ -534,9 +534,8 @@ woas["_create_page"] = function (ns, cr, ask, fill_mode) {
 woas["_get_embedded"] = function(cr, etype) {
 	log("Retrieving embedded source "+cr);	// log:1
 	var pi=this.page_index(cr);
-	if (pi==-1) {
+	if (pi==-1)
 		return this.parser.parse("[[Include::Special::Embed|"+etype+"]]");
-	}
 	return this._get__embedded(cr, pi, etype);
 }
 
@@ -839,7 +838,7 @@ woas["_get_special"] = function(cr, interactive) {
 				}
 				this._add_namespace_menu("Special");
 				
-				this.load_as_current(cr, text);
+				this.load_as_current(cr, text, );
 				return;
 			}	*/
 		text = this.get_text(cr);
@@ -947,7 +946,7 @@ woas["set_current"] = function (cr, interactive) {
 						this._add_namespace_menu(namespace);
 						if (namespace.length)
 							cr = real_t;
-						this.load_as_current(cr, text);
+						this.load_as_current(cr, text, page_mts[pi]);
 						return;
 					case "File":
 					case "Image":
@@ -960,7 +959,7 @@ woas["set_current"] = function (cr, interactive) {
 						this._add_namespace_menu(namespace);
 						if (namespace.length)
 							cr = namespace + "::" + cr;
-						this.load_as_current(cr, text);
+						this.load_as_current(cr, text, page_mts[this.page_index(namespace+"::"+cr, namespace.toLowerCase())]);
 						return;
 						break;
 					default:
@@ -987,12 +986,15 @@ woas["set_current"] = function (cr, interactive) {
 	this._add_namespace_menu(namespace);
 
 	// hard-set the current page to the namespace page
-	if (namespace.length)
+	if (namespace.length) {
+		pi = null;
 		cr = namespace + "::" + cr;
-	else
-		cr = page_titles[this.page_index(cr)];
+	} else {
+		pi = this.page_index(cr);
+		cr = page_titles[pi];
+	}
 	
-	this.load_as_current(cr, this.parser.parse(text));
+	this.load_as_current(cr, this.parser.parse(text), page_mts[pi]);
 }
 
 woas["swcs"] = [];
@@ -1047,10 +1049,17 @@ woas["_set_title"] = function (new_title) {
 }
 
 // actually load a page given the title and the proper XHTML
-woas["load_as_current"] = function(title, xhtml) {
+woas["load_as_current"] = function(title, xhtml, mts) {
 	scrollTo(0,0);
 	log("load_as_current(\""+title+"\") - "+xhtml.length+" bytes");	// log:1
 	$("wiki_text").innerHTML = xhtml;
+	// generate the last modified string to append
+	if (mts) {
+		$("wiki_mts").innerHTML = "Last Modified: "+ (new Date(mts*1000)).toLocaleString();
+		$.show("wiki_mts");
+	} else
+		$.hide("wiki_mts");
+
 	this._set_title(title);
 	this.update_nav_icons(title);
 	current = title;
