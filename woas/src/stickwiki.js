@@ -633,7 +633,7 @@ woas["_embed_process"] = function(etype) {
 	var ct = loadFile(filename);
 	_force_binary = false;
 	if (ct == null || !ct.length) {
-		alert("Could not load file "+filename);
+		alert(this.i18n.LOAD_ERR + filename);
 		return false;
 	}
 	
