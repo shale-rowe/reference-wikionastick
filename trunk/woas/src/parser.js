@@ -384,8 +384,9 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 		return tag;
 	});
 
-	// <hr> horizontal rulers made with 3 hyphens. 4 suggested
-	text = text.replace(/(^|\n)\s*\-{3,}\s*(\n|$)/g, "<hr />$2");
+	// <hr> horizontal rulers made with 3 hyphens, 4 suggested
+	// only white spaces are allowed after the hyphens
+	text = text.replace(/(^|\n)\s*\-{3,}[ ]*$/g, "<hr />");
 	
 	// tables-parsing pass
 	text = text.replace(reReapTables, this.parse_tables);
