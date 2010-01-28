@@ -620,6 +620,8 @@ woas["export_file"] = function(page, dest_path) {
 	return r;
 }
 
+var _got_data_uri = false;
+
 woas["_embed_process"] = function(etype) {
 	var filename = $("filename_").value;
 	if(filename == "") {
@@ -629,6 +631,7 @@ woas["_embed_process"] = function(etype) {
 
 	// load the data in binary mode
 	_force_binary = true;
+	_got_data_uri = false;
 	var ct = loadFile(filename);
 	_force_binary = false;
 	if (ct == null || !ct.length) {
@@ -636,29 +639,36 @@ woas["_embed_process"] = function(etype) {
 		return false;
 	}
 	
-	ct = encode64(ct);
-	
-	// calculate the flags for the embedded file
-	if (etype == "image") {
-		var m=filename.match(/\.(\w+)$/);
-		if (m==null) m = "";
-		else m=m[1].toLowerCase();
-		var guess_mime = "image";
-		switch (m) {
-			case "png":
-				guess_mime = "image/png";
-			break;
-			case "gif":
-				guess_mime = "image/gif";
+	// FF3 gives us a proper data: URI!
+	if (_got_data_uri) {
+		if (etype == "image")
+			etype = 12;
+		else etype = 4;
+	} else {
+		ct = encode64(ct);
+		
+		// calculate the flags for the embedded file
+		if (etype == "image") {
+			var m=filename.match(/\.(\w+)$/);
+			if (m==null) m = "";
+			else m=m[1].toLowerCase();
+			var guess_mime = "image";
+			switch (m) {
+				case "png":
+					guess_mime = "image/png";
 				break;
-			case "jpg":
-			case "jpeg":
-				guess_mime = "image/jpeg";
-				break;
-		}
-		ct = "data:"+guess_mime+";base64,"+ct;
-		etype = 12;
-	} else etype = 4;
+				case "gif":
+					guess_mime = "image/gif";
+					break;
+				case "jpg":
+				case "jpeg":
+					guess_mime = "image/jpeg";
+					break;
+			}
+			ct = "data:"+guess_mime+";base64,"+ct;
+			etype = 12;
+		} else etype = 4;
+	}
 	
 	pages.push(ct);
 	page_attrs.push(etype);
