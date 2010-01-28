@@ -1,7 +1,6 @@
 
 // internationalization language resources
 woas['i18n'] = {
-	LOADING: "Loading Wiki on a Stick...",
 	READ_ONLY: "This Wiki on a Stick is read-only",
 	WRITE_PROTECTED: "Sorry, this Wiki on a Stick is already write-protected",
 	CONFIRM_READ_ONLY: "Are you sure you want to set this WoaS as read-only? You will have to manually edit the file to revert this change.",
@@ -21,8 +20,14 @@ woas['i18n'] = {
 	FILE_SELECT_ERR: "A file must be selected",
 	PAGE_NOT_FOUND: "Page not found. Do you want to create it?",
 	CONFIRM_EXPORT: "Do you want to export this file in the below specified path?",
-	ASK_MENU_LINK: "Do you want to add a link into the main menu?"
-	
+	ASK_MENU_LINK: "Do you want to add a link into the main menu?",
+	BRACKETS_TITLE: "Cannot use \"[[\" or \"]]\" in a page title",
+	PAGE_EXISTS: "A page with title \"%s\" already exists!",
+	FILE_DISPLAY_LIMIT: "Only the first 1024 bytes are displayed",
+	IMAGE_CONFIRM_EXPORT: "Do you want to export this image in the below specified path?",
+	CONFIRM_DELETE_IMAGE: "Are you sure you want to delete image '%s'?",
+	DISPLAY_FULL_FILE: "Display full file",
+	LOADING: "Loading Wiki on a Stick..."
 }
 
 // do not use any copyrighted list here
