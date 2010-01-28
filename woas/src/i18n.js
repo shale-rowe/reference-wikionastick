@@ -2,6 +2,8 @@
 // internationalization language resources
 woas['i18n'] = {
 	READ_ONLY: "This Wiki on a Stick is read-only",
+	WRITE_PROTECTED: "Sorry, this Wiki on a Stick is already write-protected",
+	CONFIRM_READ_ONLY: "Are you sure you want to set this WoaS as read-only? You will have to manually edit the file to revert this change.",
 	INVALID_SPECIAL: "Invalid special page.",
 	INVALID_DATA:"Invalid collected data!",
 	CONFIRM_DELETE:"Are you sure you want to DELETE page",
