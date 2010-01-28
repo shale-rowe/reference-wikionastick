@@ -103,8 +103,7 @@ woas.parser["parse_tables"] =  function (str, p1)
 function _filter_wiki(s) {
 	return s.replace(/\{\{\{((.|\n)*?)\}\}\}/g, "").
 		replace(/<script[^>]*>((.|\n)*?)<\/script>/gi, "").
-		replace(/\<\w+\s[^>]+>/g, "").
-		replace(/\<\/\w[^>]+>/g, "");
+		replace(/\<\/?\w+[^>]+>/g, "");
 }
 
 // THIS is the method that you should override for your custom parsing needs
@@ -295,7 +294,7 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 			return r;
 		}
 		
-		found_tags = woas._get_tags($1);
+		var found_tags = woas._get_tags($1);
 		
 		if (found_tags.length>0) {
 			tags = tags.concat(found_tags);
