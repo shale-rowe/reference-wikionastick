@@ -422,7 +422,8 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 		});
 	}
 	
-	tags = tags.toUnique();
+	// sort tags at bottom of page, also when showing namespaces
+	tags = tags.toUnique().sort();
 	if (tags.length && !export_links) {
 		var s;
 		if (this.force_inline)

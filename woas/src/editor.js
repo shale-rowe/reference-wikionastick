@@ -18,6 +18,7 @@ function TextAreaSelectionHelper(obj) {
  this.target.onclick=_textareaSaver;
  this.target.onkeyup=_textareaSaver;
  this.target.onfocus=_textareaSaver;
+ this.target.onblur=kbd_blur;
  if(!document.selection) this.target.onSelect=_textareaSaver; // ?
  
  this.start=-1;
