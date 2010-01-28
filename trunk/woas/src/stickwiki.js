@@ -108,6 +108,7 @@ woas["popup"] = function (name,fw,fh,extra) {
 //DANGER: will corrupt your WoaS!
 var edit_override = false;
 
+// DO NOT modify this list! these are namespaces that are reserved to WoaS
 var reserved_namespaces = ["Special", "Lock", "Locked", "Unlocked", "Unlock", "Tags", "Tagged", "Untagged", "Include", "Javascript", "WoaS"];
 
 // create the regex for reserved namespaces
@@ -238,7 +239,7 @@ woas["_get_namespace_pages"] = function (ns) {
 woas["_get_tagged"] = function(tag_filter) {
 	var pg = [];
 	
-	// allow tags filtering
+	// allow tags filtering/searching
 	var tags = tag_filter.split(','), tags_ok = [], tags_not = [];
 	for(var i=0;i<tags.length;++i) {
 		if (!tags[i].length)
@@ -252,6 +253,7 @@ woas["_get_tagged"] = function(tag_filter) {
 	var tmp, b, fail;
 	for(var i=0; i<pages.length; i++) {
 		tmp = this.get_src_page(i);
+		// can be null in case of encrypted content w/o key
 		if (tmp==null)
 			continue;
 		tmp.replace(/\[\[([^\|]*?)\]\]/g, function(str, $1)
@@ -681,7 +683,7 @@ woas["cmd_duplicate_page"] = function() {
 }
 
 woas["cmd_new_page"] = function() {
-	this._new_page("Insert new page title", false, '');
+	this._new_page(this.i18n.INSERT_NEW, false, '');
 }
 
 woas["_new_page"] = function(msg, fill_mode, def_title) {
@@ -1311,6 +1313,7 @@ function kbd_hook(orig_e) {
 		if (_custom_focus)
 			return orig_e;
 		if (search_focused) {
+			// return key
 			if (e.keyCode==13) {
 				ff_fix_focus();
 				do_search();
@@ -1318,6 +1321,7 @@ function kbd_hook(orig_e) {
 			}
 			return orig_e;
 		}
+		// backspace or escape
 		if ((e.keyCode==8) || (e.keyCode==27)) {
 			go_back();
 			ff_fix_focus();
@@ -1325,6 +1329,7 @@ function kbd_hook(orig_e) {
 		}
 	}
 
+	// escape
 	if (e.keyCode==27) {
 		cancel();
 		ff_fix_focus();
