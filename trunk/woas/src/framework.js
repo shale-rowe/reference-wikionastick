@@ -154,7 +154,7 @@ function _random_string(string_length) {
 
 // format a decimal number to specified decimal precision
 function _number_format(n, prec) {
-	return n.toString().replace(new RegExp("(\\."+str_rep("\\d", prec)+")\\d*$"), "$1");
+	return n.toString().replace(new RegExp("(\\."+String("\\d").repeat(prec)+")\\d*$"), "$1");
 }
 
 // converts the number of bytes to a human readable form

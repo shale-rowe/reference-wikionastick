@@ -56,8 +56,7 @@ woas["special_backlinks"] = function()
 	var pg = [];
 	var tmp;
 	var reg = new RegExp("\\[\\["+RegExp.escape(current)+"(\\||\\]\\])", "gi");
-	for(j=0; j<pages.length; j++)
-	{
+	for(var j=0,l=pages.length; j<l; j++) {
 		// search for pages that link to it
 		tmp = this.get_src_page(j);
 		if (tmp==null)

@@ -1603,7 +1603,7 @@ function delete_page(page) {
 function _new_syntax_patch(text) {
 	//BUG: will also modify text contained in nowiki blocks
 	text = text.replace(/(^|\n)(\+*)([ \t])/g, function (str, $1, $2, $3) {
-		return $1+str_rep("*", $2.length)+$3;
+		return $1+String("*").repeat($2.length)+$3;
 	});
 	
 	return text;
@@ -1817,7 +1817,7 @@ function _inc_marker(old_marker) {
 	}
 	var n = new Number(m[2].replace(/^0+/, '')) + 1;
 	n = n.toString();
-	return m[1]+"-"+str_rep("0", 7-n.length)+n;
+	return m[1]+"-"+String("0").repeat(7-n.length)+n;
 }
 
 woas["save_to_file"] = function(full) {
