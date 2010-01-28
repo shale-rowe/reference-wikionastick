@@ -757,7 +757,7 @@ woas["cmd_main_page"] = function() {
 
 woas["cmd_edit_css"] = function() {
 	if (!this.config.permit_edits && !edit_override) {
-		alert("This Wiki on a Stick is read-only");
+		alert(this.i18n.READ_ONLY);
 		return null;
 	}
 	_servm_alert();
@@ -766,37 +766,32 @@ woas["cmd_edit_css"] = function() {
 	return null;
 }
 
-woas["cmd_edit_bootscript"] = function() {
-	if (!this.config.permit_edits && !edit_override) {
-		alert("This Wiki on a Stick is read-only");
-		return null;
-	}
-	_servm_alert();
-	cr = "WoaS::Bootscript";
-	var tmp = this.get_text(cr);
-	if (tmp == null)
-		return;
-	this.current_editing(cr, true);
-	// setup the wiki editor textbox
-	this.current_editing(cr, this.config.permit_edits | this._server_mode);
-	this.edit_ready(decode64(tmp));
-	return null;
+woas["cmd_edit_aliases"] = function() {
+	return this.cmd_edit_special("WoaS::Aliases", false);
 }
 
-woas["cmd_edit_aliases"] = function() {
+woas["cmd_edit_bootscript"] = function() {
+	return this.cmd_edit_special("WoaS::Bootscript", true);
+}
+
+// used to edit many special pages
+woas["cmd_edit_special"] = function(cr, decode) {
 	if (!this.config.permit_edits && !edit_override) {
-		alert("This Wiki on a Stick is read-only");
+		alert(this.i18n.READ_ONLY);
 		return null;
 	}
 	_servm_alert();
-	cr = "WoaS::Aliases";
+	// maybe the following line can be 
 	var tmp = this.get_text(cr);
 	if (tmp == null)
-		return;
+		return null;
 	this.current_editing(cr, true);
 	// setup the wiki editor textbox
 	this.current_editing(cr, this.config.permit_edits | this._server_mode);
-	this.edit_ready(tmp);
+	if (decode)
+		this.edit_ready(decode64(tmp));
+	else
+		this.edit_ready(tmp);
 	return null;
 }
 
@@ -1356,6 +1351,7 @@ woas["_create_bs"] = function() {
 	return true;
 }
 
+// remove bootscript (when erasing for example)
 woas["_clear_bs"] = function() {
 	if (_bootscript!=null) {
 		var head = document.getElementsByTagName("head")[0];
@@ -1951,7 +1947,7 @@ function erase_wiki() {
 	return true;
 }
 
-// global function
+// global function - get path of current WoaS file (through browser)
 function _get_this_path() {
 	var slash_c = (navigator.appVersion.indexOf("Win")!=-1)?"\\\\":"/";
 	return _get_this_filename().replace(new RegExp("("+slash_c+")"+"[^"+slash_c+"]*$"), "$1");
