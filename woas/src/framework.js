@@ -33,8 +33,14 @@ var is_windows = (navigator.appVersion.toLowerCase().indexOf("windows")!=-1);
 
 woas["_server_mode"] = (document.location.toString().match(/^file:\/\//) ? false:true);
 
-// returns the DOM element object given its id
-function $(id){return document.getElementById(id);}
+// returns the DOM element object given its id - enables a try/catch mode when debugging
+if (woas.debug) {
+	// returns the DOM element object given its id, alerting if the element is not found (but that would never happen, right?)
+	function $(id){ try{return document.getElementById(id);}catch(e){alert("ERROR: $('"+id+"') invalid reference");} }
+} else {
+	// much faster version
+	function $(id){return document.getElementById(id);}
+}
 
 $["hide"] = function(id) {
 	$(id).style.display = "none";
@@ -113,10 +119,7 @@ Array.prototype.toUnique = function() {
 // thanks to S.Willison
 RegExp.escape = function(text) {
   if (!arguments.callee.sRE) {
-    var specials = [
-      '/', '.', '*', '+', '?', '|', '$',
-      '(', ')', '[', ']', '{', '}', '\\'
-    ];
+    var specials = ['/', '.', '*', '+', '?', '|', '$', '(', ')', '[', ']', '{', '}', '\\' ];
     arguments.callee.sRE = new RegExp(
       '(\\' + specials.join('|\\') + ')', 'g'
     );
@@ -125,10 +128,12 @@ RegExp.escape = function(text) {
 }
 
 // repeat string s for n times
-function str_rep(s, n) {
-	var r = "";
-	while (--n >= 0) r += s;
-	return r;
+ if (typeof String.prototype.repeat == "undefined") {
+	String.prototype.repeat(n) {
+		var r = "";
+		while (--n >= 0) r += this;
+		return r;
+	}
 }
 
 // return a random integer given the maximum value (scale)
@@ -154,17 +159,12 @@ function _number_format(n, prec) {
 
 // converts the number of bytes to a human readable form
 function _convert_bytes(bytes) {
-//	log("Converting "+bytes+" bytes");	// log:0
-	if (bytes < 1024)
-		return Math.ceil(bytes)+ " bytes";
-	var k = bytes / 1024, n;
-	if (k >= 1024) {
-		var m = k / 1024;
-		if (m >= 1024)
-			n = _number_format(m/1024,2)+' GB';
-		else
-			n = _number_format(m,2)+' MB';
-	} else
-		n = _number_format(k,2)+' KB';
-	return n.replace(/\.00/, "");
+	var U=['bytes','Kb','Mb','Gb','Pb'];
+	var n=0;
+	bytes=Math.ceil(bytes);
+	while(bytes>=1024) {
+		 ++n;
+		 bytes /= 1024;
+	}
+	return bytes.toFixed(2).replace(/\.00$/, "") +' '+ U[n];
 }
