@@ -163,3 +163,22 @@ function _convert_bytes(bytes) {
 	}
 	return bytes.toFixed(2).replace(/\.00$/, "") +' '+ U[n];
 }
+
+// implement an sprintf() bare function
+String.prototype.sprintf() {
+	// check that arguments are OK
+	if (typeof arguments == "undefined") { return null; }
+	// next argument to pick
+	var i_pos = 0, max_pos = arguments.length - 1;
+	return this.replace(/%[sd]/g, function(str) {
+		// replace with a strange thing in case of undefined parameter
+		if (i_pos > max_pos)
+			return "(?)";
+		if (str == '%d')
+			return Number(arguments[i_pos++]);
+		// return '%s' string
+		return String(arguments[i_pos++]);
+	});
+}
+
+

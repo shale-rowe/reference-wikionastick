@@ -150,15 +150,11 @@ woas["is_readonly"] = function(page) {
 }
 
 woas["is_readonly_id"] = function(pi) {
-	if (page_attrs[pi] & 1)
-		return true;
-	return false;
+	return !!(page_attrs[pi] & 1);
 }
 
 woas["is__encrypted"] = function (pi) {
-	if (page_attrs[pi] & 2)
-		return true;
-	return false;
+	return !!(page_attrs[pi] & 2);
 }
 
 woas["is_encrypted"] = function(page) {
@@ -166,16 +162,12 @@ woas["is_encrypted"] = function(page) {
 }
 
 woas["is__embedded"] = function(pi) {
-	if (page_attrs[pi] & 4)
-		return true;
-	return false;
+	return !!(page_attrs[pi] & 4);
 }
 woas["is_embedded"] = function(page) {return this.is__embedded(this.page_index(page));}
 
 woas["is__image"] = function(pi) {
-	if (page_attrs[pi] & 8)
-		return true;
-	return false;
+	return !!(page_attrs[pi] & 8);
 }
 woas["is_image"] = function(page) { return this.is__image(this.page_index(page)); }
 
@@ -548,47 +540,38 @@ woas["_get__embedded"] = function (cr, pi, etype) {
 	var text=this.get__text(pi);
 	if (text==null) return null;
 	var xhtml = "";
-	var slash_c = (navigator.appVersion.indexOf("Win")!=-1)?"\\":"/";
+	
 	if (etype=="file") {
 		var fn = cr.substr(cr.indexOf("::")+2);
 		var pview_data = decode64(text, 1024), pview_link = "";
 		var ext_size = Math.ceil((text.length*3)/4);
 		if (ext_size-pview_data.length>10)
-			pview_link = "<div id='_part_display'><em>Only the first 1024 bytes are displayed</em><br /><a href='javascript:show_full_file("+pi+")'>Display full file</a></div>";
-		var _del_cmd, _del_lbl;
-		if (!this.is_reserved(cr)) {
-			_del_cmd = "function query_delete_file() {if (confirm('"+this.i18n.CONFIRM_DELETE+
-				"')){delete_page('"+this.js_encode(cr)+"');back_or(main_page);woas.save_page('"+this.js_encode(cr)+"');}}\n";
-			_del_lbl = "\n\n<a href=\"javascript:query_delete_file()\">"+this.i18n.DELETE_FILE+"</a>\n";
-		} else
-			_del_lbl = _del_cmd = ""
+			pview_link = "<div id='_part_display'><em>"+this.i18n.FILE_DISPLAY_LIMIT+
+			"</em><br /><a href='javascript:show_full_file("+pi+")'>"+this.i18n.DISPLAY_FULL_FILE+"</a></div>";
+		var _del_lbl;
+		if (!this.is_reserved(cr))
+			_del_lbl = "\n\n<a href=\"javascript:query_delete_file('"+this.js_encode(cr)+"')\">"+this.i18n.DELETE_FILE+"</a>\n";
+		else
+			_del_lbl = "";
 		xhtml = "<pre id='_file_ct' class=\"embedded\">"+this.xhtml_encode(pview_data)+"</pre>"+
-		pview_link+
-		"<br /><hr />File size: "+_convert_bytes(ext_size)+"<br /><br />XHTML transclusion:"+
-		this.parser.parse("\n{{{[[Include::"+cr+"]]}}}"+"\n\nRaw transclusion:\n\n{{{[[Include::"+cr+"|raw]]}}}"+
-		_del_lbl+
-		"\n<a href=\"javascript:query_export_file()\">"+this.i18n.EXPORT_FILE+"</a>\n"+
-		"<sc"+"ript>"+_del_cmd
-		+(pview_link.length?"function show_full_file(pi) { var text = this.get__text(pi); if (text==null) return; $.show('loading_overlay'); woas.setHTML($('_part_display'), ''); woas.setHTML($('_file_ct'), this.xhtml_encode(decode64(text))); $.hide('loading_overlay'); }\n":'')+
-		"function query_export_file() {\nvar exp_path = _get_this_filename().replace(/\\"+slash_c+"[^\\"+
-		slash_c+"]*$/, \""+(slash_c=="\\"?"\\\\":"/")+"\")+'"+this.js_encode(fn)+"';if (confirm('"+this.i18n.CONFIRM_EXPORT+'+\"\\n\\n\"+exp_path)){woas.export_file('"+this.js_encode(cr)+"', exp_path);}}"+
-		"</sc"+"ript>"
-		);
+				pview_link+"<br /><hr />File size: "+_convert_bytes(ext_size)+
+				"<br /><br />XHTML transclusion:"+this.parser.parse("\n{{{[[Include::"+cr+"]]}}}"+
+				"\n\nRaw transclusion:\n\n{{{[[Include::"+cr+"|raw]]}}}"+
+				_del_lbl+"\n<a href=\"javascript:query_export_file('"+this.js_encode(cr)+"')\">"+this.i18n.EXPORT_FILE+"</a>\n");
 	} else {
 		var img_name = cr.substr(cr.indexOf("::")+2);
 		xhtml = this.parser.parse("= "+img_name+"\n\n"+
+		"<s"+"cript> setTimeout(\"_img_properties_show('"+
+				text.match(/^data:\s*([^;]+);/)[1] + "', "+
+				text.length + ", " +
+				(text.match(/^data:\s*[^;]*;\s*[^,]*,\s*/)[0]).length+
+		"</s"+"cript>"+		
 		"<img id=\"img_tag\" class=\"embedded\" src=\""+text+"\" alt=\""+this.xhtml_encode(img_name)+"\" />"+
 		"\n\n<div id=\"img_desc\">"+this.i18n.LOADING+"</div>"+
-		"<sc"+"ript>function _to_img_display() { var img=$('img_tag');\nwoas.setHTML($('img_desc'), 'Mime type: "+text.match(/^data:\s*([^;]+);/)[1]+"<br />File size: "+_convert_bytes(((text.length-(text.match(/^data:\s*[^;]*;\s*[^,]*,\s*/)[0]).length)*3)/4)+
-		" (requires "+_convert_bytes(text.length)+" due to base64 encoding)"+
-		"<br />Width: '+img.width+'px<br />Height: '+img.height+'px');} setTimeout('_to_img_display()', 0); function query_delete_image() {if (confirm('Are you sure you want to delete this image?')){delete_page('"+this.js_encode(cr)+"');back_or(main_page);woas.save_page('"+this.js_encode(cr)+"');}}\n"+
-		"function query_export_image() {\nvar exp_path = _get_this_filename().replace(/\\"+slash_c+"[^\\"+
-		slash_c+"]*$/, \""+(slash_c=="\\"?"\\\\":"/")+"\")+'"+this.js_encode(img_name)+"';if (confirm('Do you want to export this image in the below specified path?'+\"\\n\\n\"+exp_path)){woas.export_image('"+this.js_encode(cr)+"', exp_path);}}"+
-		"</sc"+"ript>"+
 		"\nSimple transclusion:\n\n{{{[[Include::"+cr+"]]}}}\n\nTransclusion with additional attributes:\n\n{{{[[Include::"+cr+"|border=\"0\" onclick=\"go_to('"+
 		this.js_encode(cr)+"')\" style=\"cursor:pointer\"]]}}}\n"+
-		"\n<a href=\"javascript:query_delete_image()\">Delete embedded image</a>\n"+
-		"\n<a href=\"javascript:query_export_image()\">Export image</a>\n");
+		"\n<a href=\"javascript:query_delete_image('"+this.js_encode(cr).+"')\">"+this.i18n.DELETE_IMAGE+"</a>\n"+
+		"\n<a href=\"javascript:query_export_image('"+this.js_encode(cr).+"')\">"+this.i18n.EXPORT_IMAGE+"</a>\n");
 	}
 	return xhtml;
 }
@@ -1461,8 +1444,8 @@ woas["current_editing"] = function(page, disabled) {
 
 	// FIXME!
 	if (!ie)	{
-		$("wiki_editor").style.width = window.innerWidth - 30 + "px";
-		$("wiki_editor").style.height = window.innerHeight - 150 + "px";
+		$("wiki_editor").style.width = window.innerWidth - 35 + "px";
+		$("wiki_editor").style.height = window.innerHeight - 180 + "px";
 	}
 	
 	$.show("edit_area");
@@ -1500,19 +1483,18 @@ woas["edit_page"] = function(page) {
 woas["rename_page"] = function(previous, newpage) {
 	log("Renaming "+previous+" to "+newpage);	// log:1
 	if (newpage.match(/\[\[/) || newpage.match(/\]\]/)) {
-		alert("Cannot use \"[[\" or \"]]\" in a page title");
+		alert(this.i18n.BRACKETS_TITLE);
 		return false;
 	}
 	if (this.page_index(newpage)!=-1) {
-		alert("A page with title \""+newpage+"\" already exists!");
+		alert(this.i18n.PAGE_EXISTS.sprintf(newpage));
 		return false;
 	}
 	var pi = this.page_index(previous);
 	page_titles[pi] = newpage;
 	var re = new RegExp("\\[\\[" + RegExp.escape(previous) + "(\\]\\]|\\|)", "gi");
 	var changed;
-	for(var i=0; i<pages.length; i++)
-	{
+	for(var i=0,l=pages.length;i<l;i++) {
 		//FIXME: should not replace within the nowiki blocks!
 		var tmp = this.get_page(i);
 		if (tmp==null)

@@ -204,7 +204,7 @@ function lock_page(page) {
 // import wiki from external file
 function import_wiki() {
 	if (!woas.config.permit_edits) {
-		alert("This Wiki on a Stick is read-only");
+		alert(woas.i18n.READ_ONLY);
 		return false;
 	}
 	var filename = $("filename_").value;
@@ -285,4 +285,64 @@ function _hex_col(tone) {
 	$("txtBits").innerHTML = "Key size: "+(pwlength*8).toString() + " bits";
 	
 	_pw_q_lock = false;
+}
+
+// used by embedded file show page
+function show_full_file(pi) {
+	var text = woas.get__text(pi);
+	if (text==null)
+		return;
+	// put WoaS in loading mode
+	$.show('loading_overlay');
+	// clear the partial display and put in the whole file content
+	woas.setHTML($('_part_display'), '');
+	woas.setHTML($('_file_ct'), this.xhtml_encode(decode64(text)));
+	// finished loading the file
+	$.hide('loading_overlay');
+}
+
+// used in path normalization during export
+var _g_slash_c = (navigator.appVersion.indexOf("Win")!=-1)?"\\":"/";
+
+// the export path used by export feature
+var _g_exp_path = _get_this_filename().
+	replace(new RegExp("\\"+_g_slash_c+"[^\\"+_g_slash_c+"]*$"),
+				(_g_slash_c=="\\"?"\\\\":"/"));
+
+function query_export_file(cr) {
+	var fn = cr.substr(cr.indexOf("::")+2);
+	if (confirm(woas.i18n.CONFIRM_EXPORT+"\n\n\""+_g_exp_path+fn))
+		woas.export_file(cr, _g_exp_path+fn);
+}
+
+function query_export_image(cr) {
+	var img_name = cr.substr(cr.indexOf("::")+2);
+	if (confirm(woas.i18n.IMAGE_CONFIRM_EXPORT+"\n\n\""+_g_exp_path+img_name))
+		woas.export_file(cr, _g_exp_path+img_name);
+}
+
+function query_delete_file(cr) {
+	if (!confirm(woas.i18n.CONFIRM_DELETE+cr))
+		return;
+	delete_page(cr);
+	back_or(main_page);
+	woas.save_page(cr);
+}
+
+// delayed function called after page loads and runs the script tag
+function _img_properties_show(mime, tot_len, enc_len) {
+	var img=$('img_tag');
+	woas.setHTML($('img_desc'),
+		"Mime type: "+mime+"<br /"+
+		">File size: "+_convert_bytes((tot_len-enc_len*3)/4)+
+	" (requires "+_convert_bytes(tot_len)+" due to base64 encoding)"+
+	"<br />Width: "+img.width+"px<br />Height: "+img.height+"px");
+}
+
+function query_delete_image(cr) {
+	if (!confirm(woas.i18n.CONFIRM_DELETE_IMAGE.sprintf(cr))
+		return;
+	delete_page(cr);
+	back_or(main_page);
+	woas.save_page(cr);
 }
