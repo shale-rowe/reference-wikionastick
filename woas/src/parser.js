@@ -20,8 +20,9 @@ woas.parser["header_replace"] = function(str, $1, $2, $3) {
 		if (header.indexOf($2)==header.length - len)
 			header = header.substring(0, header.length - len);
 		// automatically build the TOC if needed
+		len = $1.length;
 		if (woas.parser.has_toc) {
-			woas.parser.toc += str_rep("#", len)+" <a class=\"link\" href=\"#" +
+			woas.parser.toc += String("#").repeat(len)+" <a class=\"link\" href=\"#" +
 			woas.parser.header_anchor(header) + "\">" + header + "<\/a>\n";
 		}
 		return "</div><h"+len+" id=\""+woas.parser.header_anchor(header)+"\">"+header+"</h"+len+"><div class=\"level"+len+"\">";
