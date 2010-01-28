@@ -54,16 +54,19 @@ function saveFile(fileUrl, content)
 }
 
 // get file content in FF3 without .enablePrivilege() (fbnil)
-function mozillaLoadFileID(field_id,asType){
+function mozillaLoadFileID(field_id){
 	var filename = document.getElementById(field_id).value;
 	if(filename == "")
 		return false;
 	if(!window.Components || !document.getElementById(field_id).files)
 		return null;
 	var D=document.getElementById(field_id).files.item(0);
-	if(asType==1)
-		return D.getAsText("utf-8");
-	return D.getAsDataURL(); // .getAsBinary() .getAsText()
+	if (_force_binary) {
+		_got_data_uri = true;
+		return D.getAsDataURL(); // .getAsBinary() .getAsText()
+	}
+//	if(asType==1)
+	return D.getAsText("utf-8");
 }
 
 // *** original source of below functions was from TiddyWiki ***
