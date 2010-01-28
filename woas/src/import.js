@@ -254,7 +254,7 @@ if (old_version	< 9) {
 
 		var has_last_page_flag = (collected.length==14) ? 1 : 0;
 		if (!has_last_page_flag && (collected.length!=13)) {
-			alert("Invalid collected data!");
+			alert(this.i18n.INVALID_DATA);
 			document.body.style.cursor= "auto";
 			return false;
 		}

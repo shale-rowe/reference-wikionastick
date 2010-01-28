@@ -11,5 +11,6 @@ woas['i18n'] = {
  	DELETE_IMAGE:"Delete embedded image",
 	EXPORT_IMAGE:"Export image",
 	DELETE_FILE: "Are you sure you want to delete this file?",
-	INSERT_NEW:"Insert new page title"
+	INSERT_NEW:"Insert new page title",
+	LOAD_ERR: "Could not load file "
 }
