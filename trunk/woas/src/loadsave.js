@@ -69,11 +69,12 @@ function mozillaLoadFileID(field_id,asType){
 // *** original source of below functions was from TiddyWiki ***
 
 // load-file handler
-function loadFile(fileUrl, id){
+function loadFile(fileUrl){
 	var r = null;
 	// try loading the file without using the path (FF3+)
 	if (id)
-		r=mozillaLoadFileID(id,1);
+		// object id hardcoded here
+		r=mozillaLoadFileID("filename_", 1);
 	else // load file using file absolute path
 		r = mozillaLoadFile(fileUrl);
 	// no mozillas here, attempt the IE way
