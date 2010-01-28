@@ -1692,7 +1692,7 @@ woas["save__page"] = function(pi) {
 		return;
 	}
 	// update the modified time timestamp
-	this.page_mts[pi] = Math.round(new Date().getTime()/1000);
+	page_mts[pi] = Math.round(new Date().getTime()/1000);
 	this.save_to_file(true);
 }
 
@@ -1797,6 +1797,8 @@ woas["save_to_file"] = function(full) {
 	
 	if (full) {
 		computed_js += "var page_attrs = [" + printout_num_arr(page_attrs) + "];\n\n";
+		
+		computed_js += "var page_mts = [" + printout_num_arr(page_mts) + "];\n\n";
 		
 		computed_js += "var pages = [\n" + printout_mixed_arr(pages, this.config.allow_diff, page_attrs) + "];\n\n";
 		
