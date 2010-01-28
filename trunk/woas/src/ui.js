@@ -149,7 +149,7 @@ function do_search() {
 // Used by Special::Options page
 function save_options() {
 	if (!woas.config.permit_edits) {
-		alert("This Wiki on a Stick is read-only");
+		alert(woas.i18n.READ_ONLY);
 		return false;
 	}
 	woas.save_to_file(false);
@@ -158,10 +158,10 @@ function save_options() {
 
 function ro_woas() {
 	if (!woas.config.permit_edits) {
-		alert("Sorry, this WoaS is already write-protected");
+		alert(woas.i18n.WRITE_PROTECTED);
 		return false;
 	}
-	if (confirm("Are you sure you want to set this WoaS as read-only? You will have to manually edit the file to revert this change.")) {
+	if (confirm(woas.i18n.CONFIRM_READ_ONLY)) {
 		woas.config.permit_edits = false;
 		woas.save_to_file(false);
 		woas.set_current("Special::Advanced", true);
