@@ -982,16 +982,12 @@ woas["set_current"] = function (cr, interactive) {
 	
 	this._add_namespace_menu(namespace);
 
-	// for Beni's bug and other namespace quirks
-	// for title of Tagged:: type of non 'real' pages.
-	if (!cr) {
-		alert("WARN: cr is " + cr);
-	}
-	
+	// hard-set the current page to the namespace page
 	if (namespace.length)
-		cr = page_titles[this.page_index(namespace + "::" + cr)];
+		cr = namespace + "::" + cr;
 	else
 		cr = page_titles[this.page_index(cr)];
+	
 	this.load_as_current(cr, this.parser.parse(text));
 }
 
