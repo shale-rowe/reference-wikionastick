@@ -558,6 +558,7 @@ woas["_get__embedded"] = function (cr, pi, etype) {
 			_del_lbl = "";
 		xhtml = "<pre id='_file_ct' class=\"embedded\">"+this.xhtml_encode(pview_data)+"</pre>"+
 				pview_link+"<br /><hr />File size: "+_convert_bytes(ext_size)+
+				"<br />" + this.last_modified(page_mts[pi])+
 				"<br /><br />XHTML transclusion:"+this.parser.parse("\n{{{[[Include::"+cr+"]]}}}"+
 				"\n\nRaw transclusion:\n\n{{{[[Include::"+cr+"|raw]]}}}"+
 				_del_lbl+"\n<a href=\"javascript:query_export_file('"+this.js_encode(cr)+"')\">"+this.i18n.EXPORT_FILE+"</a>\n");
@@ -567,7 +568,9 @@ woas["_get__embedded"] = function (cr, pi, etype) {
 		"<s"+"cript> setTimeout(\"_img_properties_show('"+
 				text.match(/^data:\s*([^;]+);/)[1] + "', "+
 				text.length + ", " +
-				(text.match(/^data:\s*[^;]*;\s*[^,]*,\s*/)[0]).length+
+				(text.match(/^data:\s*[^;]*;\s*[^,]*,\s*/)[0]).length+", "+
+				page_mts[pi]+
+				")\");"+
 		"</s"+"cript>"+		
 		"<img id=\"img_tag\" class=\"embedded\" src=\""+text+"\" alt=\""+this.xhtml_encode(img_name)+"\" />"+
 		"\n\n<div id=\"img_desc\">"+this.i18n.LOADING+"</div>"+
@@ -1048,6 +1051,10 @@ woas["_set_title"] = function (new_title) {
 	document.title = new_title;
 }
 
+woas["last_modified"] = function(mts) {
+	return "Last Modified: "+ (new Date(mts*1000)).toLocaleString();
+}
+
 // actually load a page given the title and the proper XHTML
 woas["load_as_current"] = function(title, xhtml, mts) {
 	scrollTo(0,0);
@@ -1055,7 +1062,7 @@ woas["load_as_current"] = function(title, xhtml, mts) {
 	$("wiki_text").innerHTML = xhtml;
 	// generate the last modified string to append
 	if (mts) {
-		$("wiki_mts").innerHTML = "Last Modified: "+ (new Date(mts*1000)).toLocaleString();
+		$("wiki_mts").innerHTML = this.last_modified(mts);
 		$.show("wiki_mts");
 	} else
 		$.hide("wiki_mts");

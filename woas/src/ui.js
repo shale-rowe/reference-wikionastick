@@ -330,12 +330,13 @@ function query_delete_file(cr) {
 }
 
 // delayed function called after page loads and runs the script tag
-function _img_properties_show(mime, tot_len, enc_len) {
+function _img_properties_show(mime, tot_len, enc_len, mts) {
 	var img=$('img_tag');
 	woas.setHTML($('img_desc'),
 		"Mime type: "+mime+"<br /"+
 		">File size: "+_convert_bytes((tot_len-enc_len*3)/4)+
 	" (requires "+_convert_bytes(tot_len)+" due to base64 encoding)"+
+	"<br />"+woas.last_modified(mts)+
 	"<br />Width: "+img.width+"px<br />Height: "+img.height+"px");
 }
 

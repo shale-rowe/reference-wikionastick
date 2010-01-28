@@ -150,7 +150,7 @@ woas["export_one_page"] = function (
 		this.utf8_encode(this._attrib_escape(raw_text.replace(/\s+/g, " ").substr(0,max_description_length)))+'" />'+"\n"+
 		exp.meta_author+
 		exp.custom_bs+
-		(mts ? "<p><sub>Last Modified: "+ (new Date(mts*1000)).toLocaleString()+"</sub></p>" : "")+
+		(mts ? "<p><sub>Last Modified: "+this.last_modified(mts)+"</sub></p>" : "")+
 		"</h"+"ead><"+"body>"+data+"</bod"+"y></h"+"tml>\n"; raw_text = null;
 	return saveFile(exp.xhtml_path+fname, _doctype+data);
 }
