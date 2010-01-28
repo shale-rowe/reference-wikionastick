@@ -18,7 +18,9 @@ else if(navigator.appName == "Netscape") {
 //		ff3 = true;
 } else if((navigator.appName).indexOf("Microsoft")!=-1) {
 	ie = true;
-	ie6 = (navigator.userAgent.search(/msie 6\./i)!=-1);
+	ie8 = (navigator.userAgent.search(/msie 8\./i)!=-1);
+	if (!ie8)
+		ie6 = (navigator.userAgent.search(/msie 6\./i)!=-1);
 }
 
 // finds out if Opera is trying to look like Mozilla

@@ -196,9 +196,8 @@ woas["special_all_pages"] = function() {
 woas["special_dead_pages"] = function() {
 	var dead_pages = [];
 	var from_pages = [];
-	var page_done = false;
 	var tmp;
-	for (var j=0,l=pages.length;j<l;j++) {
+	for(var j=0,l=pages.length;j<l;j++) {
 		tmp = this.get_src_page(j);
 		if (tmp==null)
 			continue;
@@ -217,13 +216,21 @@ woas["special_dead_pages"] = function() {
 					return;
 				p = $1;
 				if (!woas.page_exists(p) && (p!=page_titles[j])) {
+					// true when page has been scanned for referrals
+					var page_done = false;
+					// check that this not-existing page is already in the deads page list
 					for(var i=0;i<dead_pages.length;i++) {
+						// current page contains a link to an already indexed dead page,
+						// save the reference
 						if (dead_pages[i]==p) {
-							from_pages[i].push(page_titles[j]);
+							// add only if not already there
+							if (from_pages[i].indexOf(page_titles[j]) == -1)
+								from_pages[i].push(page_titles[j]);
 							page_done = true;
 							break;
 						}
 					}
+					// we have just found a dead page
 					if (!page_done) {
 						dead_pages.push(p);
 						from_pages.push(new Array(page_titles[j]));
@@ -232,9 +239,10 @@ woas["special_dead_pages"] = function() {
 				}
 	        }
 		);
-		page_done = false;
+//		page_done = false;
 	}
 
+	// format the dead pages
 	var pg = [], s;
 	for(var i=0;i<dead_pages.length;i++) {
 		s = "[["+dead_pages[i]+"]] from ";

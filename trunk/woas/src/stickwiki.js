@@ -1128,7 +1128,7 @@ woas["_gen_display"] = function(id, visible, prefix) {
 }
 
 woas["img_display"] = function(id, visible) {
-	if (!ie) {
+	if (!ie || ie8) {
 		this._gen_display(id, visible, "img");
 		this._gen_display(id, !visible, "alt");
 	} else {
