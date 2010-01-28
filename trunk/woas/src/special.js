@@ -79,11 +79,13 @@ woas["special_search"] = function( str ) {
 	var pg_body = [];
 	var title_result = "";
 	log("Searching "+str);
-	
+
+	// amount of nearby characters to display
+	var nearby_chars = 200;
 	var count = 0;
 	// matches the search string and nearby text
-	var reg = new RegExp( ".{0,30}" + RegExp.escape(this.trim(str)).
-					replace(/\s+/g, ".*?") + ".{0,30}", "gi" );
+	var reg = new RegExp( ".{0,"+nearby_chars+"}" + RegExp.escape(this.trim(str)).
+					replace(/\s+/g, ".*?") + ".{0,"+nearby_chars+"}", "gi" );
 	_hl_reg = new RegExp("("+RegExp.escape(str)+")", "gi");
 /*	hl_reg = new RegExp( ".*?" + RegExp.escape(str).
 					replace(/^\s+/, "").
