@@ -300,7 +300,7 @@ woas["get_text"] = function (title) {
 //TODO: check consistency of special pages inclusion
 woas["get_text_special"] = function(title) {
 	// title = this.parse_alias(title);
-	var p = title.indexOf("::");
+	var p = title.lastIndexOf("::");
 	var text = null;
 	if (p!=-1) {
 		var namespace = title.substring(0,p);
