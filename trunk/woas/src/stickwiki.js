@@ -510,7 +510,7 @@ woas["_create_page"] = function (ns, cr, ask, fill_mode) {
 			go_to(cr);
 		return false;
 	}
-	if (!fill_mode && ask && !confirm("Page not found. Do you want to create it?"))
+	if (!fill_mode && ask && !confirm(this.i18n.PAGE_NOT_FOUND))
 		return false;
 	// create and edit the new page
 	if (cr!="Menu")
@@ -553,8 +553,9 @@ woas["_get__embedded"] = function (cr, pi, etype) {
 			pview_link = "<div id='_part_display'><em>Only the first 1024 bytes are displayed</em><br /><a href='javascript:show_full_file("+pi+")'>Display full file</a></div>";
 		var _del_cmd, _del_lbl;
 		if (!this.is_reserved(cr)) {
-			_del_cmd = "function query_delete_file() {if (confirm('Are you sure you want to delete this file?')){delete_page('"+this.js_encode(cr)+"');back_or(main_page);woas.save_page('"+this.js_encode(cr)+"');}}\n";
-			_del_lbl = "\n\n<a href=\"javascript:query_delete_file()\">Delete embedded file</a>\n";
+			_del_cmd = "function query_delete_file() {if (confirm('"+this.i18n.CONFIRM_DELETE+
+				"')){delete_page('"+this.js_encode(cr)+"');back_or(main_page);woas.save_page('"+this.js_encode(cr)+"');}}\n";
+			_del_lbl = "\n\n<a href=\"javascript:query_delete_file()\">"+this.i18n.DELETE_FILE+"</a>\n";
 		} else
 			_del_lbl = _del_cmd = ""
 		xhtml = "<pre id='_file_ct' class=\"embedded\">"+this.xhtml_encode(pview_data)+"</pre>"+
@@ -562,18 +563,18 @@ woas["_get__embedded"] = function (cr, pi, etype) {
 		"<br /><hr />File size: "+_convert_bytes(ext_size)+"<br /><br />XHTML transclusion:"+
 		this.parser.parse("\n{{{[[Include::"+cr+"]]}}}"+"\n\nRaw transclusion:\n\n{{{[[Include::"+cr+"|raw]]}}}"+
 		_del_lbl+
-		"\n<a href=\"javascript:query_export_file()\">Export file</a>\n"+
+		"\n<a href=\"javascript:query_export_file()\">"+this.i18n.EXPORT_FILE+"</a>\n"+
 		"<sc"+"ript>"+_del_cmd
 		+(pview_link.length?"function show_full_file(pi) { var text = this.get__text(pi); if (text==null) return; $.show('loading_overlay'); woas.setHTML($('_part_display'), ''); woas.setHTML($('_file_ct'), this.xhtml_encode(decode64(text))); $.hide('loading_overlay'); }\n":'')+
 		"function query_export_file() {\nvar exp_path = _get_this_filename().replace(/\\"+slash_c+"[^\\"+
-		slash_c+"]*$/, \""+(slash_c=="\\"?"\\\\":"/")+"\")+'"+this.js_encode(fn)+"';if (confirm('Do you want to export this file in the below specified path?'+\"\\n\\n\"+exp_path)){woas.export_file('"+this.js_encode(cr)+"', exp_path);}}"+
+		slash_c+"]*$/, \""+(slash_c=="\\"?"\\\\":"/")+"\")+'"+this.js_encode(fn)+"';if (confirm('"+this.i18n.CONFIRM_EXPORT+'+\"\\n\\n\"+exp_path)){woas.export_file('"+this.js_encode(cr)+"', exp_path);}}"+
 		"</sc"+"ript>"
 		);
 	} else {
 		var img_name = cr.substr(cr.indexOf("::")+2);
 		xhtml = this.parser.parse("= "+img_name+"\n\n"+
 		"<img id=\"img_tag\" class=\"embedded\" src=\""+text+"\" alt=\""+this.xhtml_encode(img_name)+"\" />"+
-		"\n\n<div id=\"img_desc\">Loading...</div>"+
+		"\n\n<div id=\"img_desc\">"+this.i18n.LOADING+"</div>"+
 		"<sc"+"ript>function _to_img_display() { var img=$('img_tag');\nwoas.setHTML($('img_desc'), 'Mime type: "+text.match(/^data:\s*([^;]+);/)[1]+"<br />File size: "+_convert_bytes(((text.length-(text.match(/^data:\s*[^;]*;\s*[^,]*,\s*/)[0]).length)*3)/4)+
 		" (requires "+_convert_bytes(text.length)+" due to base64 encoding)"+
 		"<br />Width: '+img.width+'px<br />Height: '+img.height+'px');} setTimeout('_to_img_display()', 0); function query_delete_image() {if (confirm('Are you sure you want to delete this image?')){delete_page('"+this.js_encode(cr)+"');back_or(main_page);woas.save_page('"+this.js_encode(cr)+"');}}\n"+
@@ -722,7 +723,7 @@ woas["_new_page"] = function(msg, fill_mode, def_title) {
 				if (!this._create_page(ns, cr, false, fill_mode))
 					return ns+cr;
 				var upd_menu = (cr=='Menu');
-				if (!upd_menu && confirm("Do you want to add a link into the main menu?")) {
+				if (!upd_menu && confirm(this.i18n.ASK_MENU_LINK)) {
 					var menu = this.get_text("::Menu");
 					var p = menu.indexOf("\n\n");
 					if (p==-1)
@@ -815,7 +816,7 @@ woas["cmd_delete"] = function() {
 		alert("Page \""+pname+"\" does not exist!");
 		return;
 	}
-	if ((pname != null) && confirm("Are you sure you want to DELETE page \""+pname+"\"?")) {
+	if ((pname != null) && confirm(this.i18n.CONFIRM_DELETE+" \""+pname+"\"?")) {
 		delete_page(pname);
 		this.save_page(pname);
 	}
