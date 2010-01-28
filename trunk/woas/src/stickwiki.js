@@ -572,8 +572,8 @@ woas["_get__embedded"] = function (cr, pi, etype) {
 		"\n\n<div id=\"img_desc\">"+this.i18n.LOADING+"</div>"+
 		"\nSimple transclusion:\n\n{{{[[Include::"+cr+"]]}}}\n\nTransclusion with additional attributes:\n\n{{{[[Include::"+cr+"|border=\"0\" onclick=\"go_to('"+
 		this.js_encode(cr)+"')\" style=\"cursor:pointer\"]]}}}\n"+
-		"\n<a href=\"javascript:query_delete_image('"+this.js_encode(cr).+"')\">"+this.i18n.DELETE_IMAGE+"</a>\n"+
-		"\n<a href=\"javascript:query_export_image('"+this.js_encode(cr).+"')\">"+this.i18n.EXPORT_IMAGE+"</a>\n");
+		"\n<a href=\"javascript:query_delete_image('"+this.js_encode(cr)+"')\">"+this.i18n.DELETE_IMAGE+"</a>\n"+
+		"\n<a href=\"javascript:query_export_image('"+this.js_encode(cr)+"')\">"+this.i18n.EXPORT_IMAGE+"</a>\n");
 	}
 	return xhtml;
 }

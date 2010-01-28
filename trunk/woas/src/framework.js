@@ -129,7 +129,7 @@ RegExp.escape = function(text) {
 
 // repeat string s for n times
  if (typeof String.prototype.repeat == "undefined") {
-	String.prototype.repeat(n) {
+	String.prototype.repeat = function(n) {
 		var r = "";
 		while (--n >= 0) r += this;
 		return r;
@@ -165,7 +165,7 @@ function _convert_bytes(bytes) {
 }
 
 // implement an sprintf() bare function
-String.prototype.sprintf() {
+String.prototype.sprintf = function() {
 	// check that arguments are OK
 	if (typeof arguments == "undefined") { return null; }
 	// next argument to pick
