@@ -1241,7 +1241,17 @@ woas["after_load"] = function() {
 	
 	this["_editor"] = new TextAreaSelectionHelper($("wiki_editor"));
 	
-	$.hide("loading_overlay");
+	// check integrity of WoaS when finished - only in debug mode
+	if (this.debug) {
+		var len = pages.length;
+		if ((page_attrs.length != len) ||
+			(page_titles.length != len) ||
+			(page_mts.length != len))
+			alert("FATAL: data arrays have mismatching length!");
+		else
+			$.hide("loading_overlay");
+	} else
+		$.hide("loading_overlay");
 }
 
 woas["_load_aliases"] = function(s) {

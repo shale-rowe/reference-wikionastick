@@ -54,6 +54,13 @@ $["show"] = function(id) {
 	$(id).style.visibility = "visible";
 }
 
+$["toggle"] = function(id) {
+	if ($(id).style.visibility == 'visible')
+		$.hide(id);
+	else
+		$.show(id);
+}
+
 // logging function has not to be in WoaS object
 var log;
 if (woas.debug) {

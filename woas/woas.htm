@@ -1605,7 +1605,9 @@ Wiki Code:
 </div>
 <div id="debug_info" style="display: inline; visibility: visible; z-index: 101; text-align: right; width: 300px;">
 <h2>Debug console</h2>
-<p>This is a development BETA version of Wiki On a Stick; it is not suggested to use it with important data. If you want to disable this debug message and console, you will have to find the line that says <b><tt>woas["debug"] = true;</tt></b> and change it to <b><tt>false</tt></b>.</p>
-<textarea id="swlogger" ondblclick="$('swlogger').value=''" style="width: 60%; background-color: rgb(204, 204, 204);" rows="12" readonly="readonly" cols="60"></textarea><p>&nbsp;</p><input onclick="$('swlogger').value=''" value="Clear" type="button" /></div>
+<p><input type="button" onclick="$.toggle('debug_panel')" value="Toggle" /></p>
+<span id="debug_panel" style="visibility: hidden; display:none;">
+This is a development BETA version of Wiki On a Stick; it is not suggested to use it with important data. If you want to disable this debug message and console, you will have to find the line that says <b><tt>woas["debug"] = true;</tt></b> and change it to <b><tt>false</tt></b>.<br />
+<textarea id="swlogger" ondblclick="$('swlogger').value=''" style="width: 60%; background-color: rgb(204, 204, 204);" rows="12" readonly="readonly" cols="60"></textarea><br /><input onclick="$('swlogger').value=''" value="Clear" type="button" /></span></div>
 <hr />
 <div style="text-align: center;"><sub><a class="link" onclick="go_to('Special::About')">About Wiki on a Stick v0.9.7B</a></sub></div></body></html>
