@@ -1553,6 +1553,7 @@ function delete_page(page) {
 			page_titles.splice(i,1);
 			pages.splice(i,1);
 			page_attrs.splice(i,1);
+			page_mts.splice(i,1);
 			woas.refresh_menu_area();
 			break;
 		}
