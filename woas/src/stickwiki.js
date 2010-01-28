@@ -121,8 +121,10 @@ woas["_reserved_rx"] = new RegExp(reserved_rx, "i"); reserved_namespaces = reser
 
 woas["aliases"] = [];
 
+// return page index (progressive number) given its title
 woas["page_index"] = function(title) {
-	for(var i=0;i<this.aliases.length;++i) {
+	// apply aliases on title, from newest to oldest
+	for(var i=0,l=this.aliases.length;i<l;++i) {
 		title = title.replace(this.aliases[i][0], this.aliases[i][1]);
 	}
 	return page_titles.indexOf(title);
@@ -312,6 +314,7 @@ woas["get_page"] = function(pi) {
 	return pg;	
 }
 
+// get the text of the page, stripped of html tags
 woas["get_src_page"] = function(pi) {
 	var pg = this.get_page(pi);
 	if (pg===null) return null;
@@ -459,6 +462,7 @@ woas["set__text"] = function(pi, text) {
 // Sets text typed by user
 woas["set_text"] = function(text) {
 	var pi = this.page_index(current);
+	// this should never happen!
 	if (pi==-1) {
 		log("current page \""+current+"\" is not cached!");	// log:1
 		return;
@@ -1084,72 +1088,6 @@ woas["_perform_lock"] = function(pi) {
 	pages[pi] = AES_encrypt(pages[pi]);
 //	log("E: encrypted length is "+pages[pi].length);	// log:0
 	page_attrs[pi] += 2;
-}
-
-var _pw_q_lock = false;
-
-// Used by Special::Lock
-function pw_quality() {
-
-	if (_pw_q_lock)
-		return;
-		
-	_pw_q_lock = true;
-
-function _hex_col(tone) {
-	var s=Math.floor(tone).toString(16);
-	if (s.length==1)
-		return "0"+s;
-	return s;
-}
-
-	// original code from http://lxr.mozilla.org/seamonkey/source/security/manager/pki/resources/content/password.js
-	var pw=$('pw1').value;
-
-	//length of the password
-	var pwlength=pw.length;
-	
-	if (pwlength!=0) {
-
-	//use of numbers in the password
-	  var numnumeric = pw.match(/[0-9]/g);
-	  var numeric=(numnumeric!=null)?numnumeric.length/pwlength:0;
-
-	//use of symbols in the password
-	  var symbols = pw.match(/\W/g);
-	  var numsymbols= (symbols!=null)?symbols.length/pwlength:0;
-
-	//use of uppercase in the password
-	  var numupper = pw.match(/[^A-Z]/g);
-	  var upper=numupper!=null?numupper.length/pwlength:0;
-	// end of modified code from Mozilla
-	
-	var numlower = pw.match(/[^a-z]/g);
-	var lower = numlower!=null?numlower.length/pwlength:0;
-	
-	var u_lo = upper+lower;
-
-	//   var pwstrength=((pwlength*10)-20) + (numeric*10) + (numsymbols*15) + (upper*10);
-	  
-		// 80% of security defined by length (at least 16, best 22 chars), 10% by symbols, 5% by numeric presence and 5% by upper case presence
-		var pwstrength = ((pwlength/18) * 65) + (numsymbols * 10 + u_lo*20 + numeric*5);
-		
-		var repco = split_bytes(pw).toUnique().length/pwlength;
-		if (repco<0.8)
-			pwstrength *= (repco+0.2);
-		log("pwstrength = "+(pwstrength/100).toFixed(2)+", repco = "+repco);	// log:1
-	} else
-		var pwstrength = 0;
-  
-	if (pwstrength>100)
-		color = "#00FF00";
-	else
-		color = "#" + _hex_col((100-pwstrength)*255/100) + _hex_col((pwstrength*255)/100) + "00";
-  
-	$("pw1").style.backgroundColor = color;
-	$("txtBits").innerHTML = "Key size: "+(pwlength*8).toString() + " bits";
-	
-	_pw_q_lock = false;
 }
 
 woas["_add_namespace_menu"] = function(namespace) {
