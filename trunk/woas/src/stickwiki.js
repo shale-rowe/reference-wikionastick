@@ -1007,14 +1007,18 @@ woas["set_current"] = function (cr, interactive) {
 
 	// hard-set the current page to the namespace page
 	if (namespace.length) {
-		pi = null;
 		cr = namespace + "::" + cr;
+		pi = this.page_index(cr);
+		if (pi)
+			mts = page_mts[pi];
+		else mts = null;
 	} else {
 		pi = this.page_index(cr);
 		cr = page_titles[pi];
+		mts = page_mts[pi];
 	}
 	
-	this.load_as_current(cr, this.parser.parse(text), page_mts[pi]);
+	this.load_as_current(cr, this.parser.parse(text), mts);
 }
 
 woas["swcs"] = [];
