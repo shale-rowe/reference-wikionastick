@@ -389,11 +389,19 @@ woas["_password_cancel"] = function() {
 	this.__password_finalize($("woas_password"));
 }
 
+// function which hooks all messages shown by WoaS
+// can be fed with multiple messages to show consecutively
+woas["alert"] = function() {
+	for(var i=0,l=arguments.length;++i) {
+		alert("WoaS: "+arguments[i]);
+	}
+}
+
 woas["_password_ok"] = function() {
 	var pwd_obj = $("woas_password");
 	var pw = pwd_obj.value;
 	if (!pw.length) {
-		alert("Please enter a password.");
+		this.alert(this.i18n.PWD_QUERY);
 		return;
 	}
 	AES_setKey(pw);
@@ -407,7 +415,7 @@ woas["get__text"] = function(pi) {
 		return pages[pi];
 	_decrypt_failed = true;
 	if (!key.length) {
-		alert("No password set for decryption of page \""+page_titles[pi]+"\"");
+		this.alert(this.i18n.ERR_NO_PWD.sprintf(page_titles[pi]));
 		return null;
 	}
 	document.body.style.cursor = "wait";
@@ -439,7 +447,7 @@ woas["get__text"] = function(pi) {
 		_decrypt_failed = false;
 //		if (this.config.key_cache)			latest_AES_page = page_titles[pi];
 	} else {
-		alert("Access denied to page \""+page_titles[pi]+"\"");
+		this.alert(this.i18n.ACCESS_DENIED.sprintf(page_titles[pi]));
 //		AES_clearKey();
 		latest_AES_page = "";
 	}
@@ -505,12 +513,12 @@ woas["assert_current"] = function(page) {
 
 woas["_create_page"] = function (ns, cr, ask, fill_mode) {
 	if (this.is_reserved(ns+"::")) {
-		alert("You are not allowed to create a page titled \""+ns+"::"+cr+"\" because namespace \""+ns+"\" is reserved");
+		this.alert(this.i18n.ERR_RESERVED_NS.sprintf(ns+"::"+cr, ns));
 			return false;
 	}
 	if ((ns=="File") || (ns=="Image")) {
 		if (!fill_mode)
-			alert("Cannot duplicate into File:: or Image:: namespace!");
+			this.alert(this.i18n.DUP_NS_ERROR);
 		else
 			go_to(cr);
 		return false;
@@ -622,8 +630,8 @@ woas["export_file"] = function(page, dest_path) {
 	_force_binary = true;
 	var r = saveFile(dest_path, data);	
 	_force_binary = false;
-	if (r)
-		alert("Written "+data.length+" bytes");
+//	if (r)
+//		this.alert("Written "+data.length+" bytes");
 	return r;
 }
 
@@ -632,7 +640,7 @@ var _got_data_uri = false;
 woas["_embed_process"] = function(etype) {
 	var filename = $("filename_").value;
 	if(filename == "") {
-		alert("A file must be selected");
+		this.alert(this.i18n.ERR_SEL_FILE);
 		return false;
 	}
 
@@ -642,7 +650,7 @@ woas["_embed_process"] = function(etype) {
 	var ct = loadFile(filename);
 	_force_binary = false;
 	if (ct == null || !ct.length) {
-		alert(this.i18n.LOAD_ERR + filename);
+		this.alert(this.i18n.LOAD_ERR + filename);
 		return false;
 	}
 	
@@ -716,15 +724,15 @@ woas["_new_page"] = function(msg, fill_mode, def_title) {
 		if (title == null) break;
 		if (!title.match(/\[\[/) && !title.match(/\]\]/))
 			break;
-		alert("Cannot use \"[[\" or \"]]\" in a page title");
+		this.alert(this.i18n.BRACKETS_TITLE);
 	} while (1);
 	if ((title!=null) && title.length) {
 		if (this.page_index(title)!=-1)
-			alert("A page with title \""+title+"\" already exists!");
+			this.alert(this.i18n.PAGE_EXIST.sprintf(title));
 		else {
 			cr = title;
 			if (cr.substring(cr.length-2)=="::") {
-				alert("You cannot create a page as a namespace");
+				this.alert(this.i18n.ERR_PAGE_NS);
 			} else {
 				var p = cr.indexOf("::");
 				if (p!=-1) {
@@ -1021,6 +1029,7 @@ woas["set_current"] = function (cr, interactive) {
 	this.load_as_current(cr, this.parser.parse(text), mts);
 }
 
+// StickWiki custom scripts array
 woas["swcs"] = [];
 
 woas["_clear_swcs"] = function () {
@@ -1073,7 +1082,7 @@ woas["_set_title"] = function (new_title) {
 }
 
 woas["last_modified"] = function(mts) {
-	return "Last Modified: "+ (new Date(mts*1000)).toLocaleString();
+	return this.i18n.LAST_MODIFIED + (new Date(mts*1000)).toLocaleString();
 }
 
 // actually load a page given the title and the proper XHTML

@@ -43,7 +43,7 @@ woas["_export_get_fname"] = function (title, create_mode) {
 	} else {
 		var pi=this.page_index(title);
 		if (pi==-1) {
-			alert("Page does not exist: "+title);
+			this.alert(this.i18n.PAGE_NOT_EXISTS+title);
 			_title2fn[title] = "#";
 			return "#";
 		}
@@ -144,13 +144,13 @@ woas["export_one_page"] = function (
 		}
 		data = "<ht"+"ml><he"+"ad><title>"+this.xhtml_encode(title)+"</title>"+exp.css+
 		'<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />'+"\n"+
-		'<meta name="generator" content="Wiki on a Stick v'+this.version+'" />'+"\n"+
+		'<meta name="generator" content="Wiki on a Stick v'+this.version+' - http://stickwiki.sf.net/" />'+"\n"+
 		'<meta name="keywords" content="'+this.utf8_encode(this._attrib_escape(_auto_keywords(raw_text)))+'" />'+"\n"+
 		'<meta name="description" content="'+
 		this.utf8_encode(this._attrib_escape(raw_text.replace(/\s+/g, " ").substr(0,max_description_length)))+'" />'+"\n"+
 		exp.meta_author+
 		exp.custom_bs+
-		(mts ? "<p><sub>Last Modified: "+this.last_modified(mts)+"</sub></p>" : "")+
+		(mts ? "<p><sub>"+this.last_modified(mts)+"</sub></p>" : "")+
 		"</h"+"ead><"+"body>"+data+"</bod"+"y></h"+"tml>\n"; raw_text = null;
 	return saveFile(exp.xhtml_path+fname, _doctype+data);
 }
@@ -249,6 +249,6 @@ woas["export_wiki"] = function () {
 		this.set_current(current, false);
 	}
 	$.hide("loading_overlay");
-	alert(done+" pages exported successfully");
+	this.alert(this.i18n.EXPORT_OK.sprintf(done));
 	return true;
 }

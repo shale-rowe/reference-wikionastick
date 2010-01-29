@@ -28,6 +28,15 @@ woas['i18n'] = {
 	CONFIRM_DELETE_IMAGE: "Are you sure you want to delete image '%s'?",
 	DISPLAY_FULL_FILE: "Display full file",
 	ERR_MARKER: "%s marker not found!",
+	DUP_NS_ERROR: "Cannot duplicate into File:: or Image:: namespace!",
+	PWD_QUERY: "Please enter a password",
+	ERR_NO_PWD: "No password set for decryption of page \"%s\""
+	ACCESS_DENIED: "Access denied to page \"%s\"",
+	ERR_NS_RESERVED: "You are not allowed to create a page titled \"%s\" because namespace \"%s\" is reserved",
+	ERR_SEL_FILE: "A file must be selected",
+	ERR_PAGE_NS: "You cannot create a page as a namespace",
+	PAGE_NOT_EXISTS: "Page does not exist: ",
+	LAST_MODIFIED: "Last Modified: ",
 	LOADING: "Loading Wiki on a Stick..."
 }
 
