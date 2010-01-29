@@ -285,7 +285,7 @@ woas["special_recent_changes"] = function() {
 	var l=page_titles.length, hm = [];
 	for(var i=0;i<l;++i) {
 		// skip pages with the 'magic' timestamp
-		if (page_mts[i] == 0x4b61cbad)
+		if (page_mts[i] == this.MAGIC_MTS)
 			continue;
 		// skip reserved pages
 		if (this.is_reserved(page_titles[i]))
