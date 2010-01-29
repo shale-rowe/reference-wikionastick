@@ -25,6 +25,9 @@ woas["trim"] = function(s) {
 	return s.replace(/(^\s*)|(\s*$)/, '');
 }
 
+// this is a timestamp considered invalid
+woas["MAGIC_MTS"] = 0x4b61cbad;
+
 // general javascript-safe string quoting
 // NOTE: not completely binary safe!
 // should be used only for titles (which ought not to contain binary bytes)
@@ -1091,6 +1094,9 @@ woas["_set_title"] = function (new_title) {
 }
 
 woas["last_modified"] = function(mts) {
+	// do not show anything when the timestamp is magic
+	if (mts == this.MAGIC_MTS)
+		return "";
 	return this.i18n.LAST_MODIFIED + (new Date(mts*1000)).toLocaleString();
 }
 
