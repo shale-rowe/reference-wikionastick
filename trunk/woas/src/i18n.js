@@ -27,6 +27,7 @@ woas['i18n'] = {
 	IMAGE_CONFIRM_EXPORT: "Do you want to export this image in the below specified path?",
 	CONFIRM_DELETE_IMAGE: "Are you sure you want to delete image '%s'?",
 	DISPLAY_FULL_FILE: "Display full file",
+	ERR_MARKER: "%s marker not found!",
 	LOADING: "Loading Wiki on a Stick..."
 }
 

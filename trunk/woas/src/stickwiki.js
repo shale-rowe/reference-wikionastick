@@ -1745,7 +1745,7 @@ function _get_data(marker, source, full, start) {
 	// always find the end marker to make the XHTML fixes
 	offset = source.indexOf("/* "+marker+ "-END */");
 	if (offset == -1) {
-		alert("END marker not found!");
+		alert(woas.i18n.ERR_MARKER.sprintf("END"));
 		return false;
 	}			
 	offset += 6 + 4 + marker.length + 2;
@@ -1774,7 +1774,7 @@ function _get_data(marker, source, full, start) {
 		if (start) {
 			var s_offset = source.indexOf("/* "+marker+ "-START */");
 			if (s_offset == -1) {
-				alert("START marker not found!");
+				alert(woas.i18n.ERR_MARKER.sprintf("START"));
 				return false;
 			}
 			return source.substring(s_offset, offset);
@@ -1782,7 +1782,7 @@ function _get_data(marker, source, full, start) {
 	} else {
 		offset = source.indexOf("/* "+marker+ "-DATA */");
 		if (offset == -1) {
-			alert("DATA marker not found!");
+			alert(woas.i18n.ERR_MARKER.sprintf("DATA"));
 			return false;
 		}
 		offset += 6 + 5 + marker.length + 1;
@@ -1888,12 +1888,12 @@ woas["save_to_file"] = function(full) {
 
 function erase_wiki() {
 	if (!woas.config.permit_edits) {
-		alert("This Wiki on a Stick is read-only");
+		alert(woas.i18n.READ_ONLY);
 		return false;
 	}
-	if (!confirm("Are you going to ERASE all your pages?"))
+	if (!confirm(woas.i18n.CONFIRM_DELETE_ALL1))
 		return false;
-	if (!confirm("This is the last confirm needed in order to ERASE all your pages.\n\nALL YOUR PAGES WILL BE LOST\n\nAre you sure you want to continue?"))
+	if (!confirm(woas.i18n.CONFIRM_DELETE_ALL2))
 		return false;
 	var static_pg = ["Special::About", "Special::Advanced", "Special::Options","Special::Import",
 						"Special::Lock","Special::Search","Special::Security", "Special::Embed",
@@ -1968,7 +1968,7 @@ function _auto_keywords(source) {
 	return keywords.substr(1);
 }
 
-var _br_rx = new RegExp("<"+"br\\s?\\/?>", "gi");
+var _g_br_rx = new RegExp("<"+"br\\s?\\/?>", "gi");
 woas["xhtml_to_text"] = function(s) {
-	return s.replace(_br_rx, "\n").replace(/<\/?\w+[^>]*>/g, ' ').replace(/&#?([^;]+);/g, function(str, $1) { if (!isNaN($1)) return String.fromCharCode($1); else return ""; });
+	return s.replace(_g_br_rx, "\n").replace(/<\/?\w+[^>]*>/g, ' ').replace(/&#?([^;]+);/g, function(str, $1) { if (!isNaN($1)) return String.fromCharCode($1); else return ""; });
 }
