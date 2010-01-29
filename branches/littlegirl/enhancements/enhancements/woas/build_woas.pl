@@ -1,0 +1,162 @@
+#!/usr/bin/perl
+#use JavaScript::Packer;
+
+my $size = 0;
+my $compressed_size = 0;
+my $totalsize = 0;
+my $bytes_saved = 0;
+
+
+my $woas = shift || 'woas.htm';
+crash(-1, "Consumed with anger because woas hml file '$woas' does not exist!") if (! -f $woas);
+my $ct = slurp($woas);
+
+# Compact named buttons (saves up 6 bytes! gasp! cough cough!)
+for(my $i=0;$i<12;$i++){
+	my $search = "id=\"pb$i\" ". 'value="[^"]*"';
+	my $replace= "id=\"pb$i\" value=\"P$i\"";
+	#print "$search => $replace\n";
+	$ct=~s/$search/$replace/gems;
+}
+
+# Someday we will compress \n\ 
+#$ct=~s/\\n\\$//gm;
+
+crash(-2, "Could not find marker 'var __marker = ...' in file '$woas'\n") unless ($ct =~ /\nvar __marker = "([^"]+)";/ );
+my $marker = $1;
+
+$p = index($ct, '/* '.$marker.'-END */', 0);
+$ep = index($ct, '</head>', $p);
+
+my $tail = substr($ct, $p, $ep-$p);
+
+crash(-10, "tail too short (".(length($tail))." bytes), no scripts there! (corrupt $woas?)\n".$tail) if(length($tail) < 10);
+
+$base_dir = dirname($woas).'/';
+
+my $replaced = 0;
+
+$tail =~ s`<script src="([^"]+)" type="text/javascript"></script>`&script_replace($1)`gems;
+crash(-3, "Could not find any script tag to replace\n".$tail) unless($replaced);
+
+substr($ct, $p, $ep-$p, $tail);
+
+file_put_contents('woas-merged.htm', $ct);
+
+print "WoaS merged into single file woas-merged.htm " . length($ct) .  " bytes (saved  $bytes_saved bytes)\n";
+
+exit 0;
+
+sub slurp {
+	my ($filename, $default)=@_;
+	return 0 unless( $filename && -f $filename);
+	open(PLATE, $filename) or crash(2, "Error opening '$filename'");
+	my $slash = $/;
+	undef $/;
+	$spaguetti = <PLATE>;
+	$/ = $slash;
+	return $spaguetti;
+}
+
+sub crash{
+	my($errorcode, $errormessage) = @_;
+	$! = $errorcode;
+	@C = caller();
+	die "@C: " . $errormessage . "\n";
+}
+
+sub dirname{
+	$_ = shift;
+	s`\\`/`g;
+	return $_ if(s`/[^/]*``);
+	return '.';
+}
+
+sub basename{
+	$_ = shift;
+	s`\\`/`g;
+	return $_ if(s`^.*/``);
+	return '.';
+}
+
+sub script_replace {
+	my($t) = @_;
+	my $jsm = "$base_dir/$t";
+	crash($replaced, "Could not locate '$jsm'") unless(-f $jsm);
+	my $ct = slurp($jsm);
+	# remove BOM if present
+	my $BOM = sprintf ("\\x%X\\x%X\\x%X/A", 239, 187, 191);
+	$ct =~ s/$BOM//;
+	$size = length($ct);
+	#JavaScript::Packer::minify( \$ct, { 'compress' => 'clean' } );
+	#$ct = `perl jsjam.pl -g -i -n -b< $jsm`;
+	$ct = Squeeze($ct);
+	$compressed_size = length($ct);
+	if(!$compressed_size || $?){
+		$compressed_size = length($ct = slurp($jsm));
+		warn "Could not compress $jsm ". ($??$!:'') ."\n";
+	}
+	$bytes_saved += $size - $compressed_size;
+	print "Injecting $jsm: $size ".($size - $compressed_size>0?'->':'=')." $compressed_size\n";
+	
+	#$ct=~s/\n\n//gm;
+	#$ct=~s/^\s*//gs;
+	++$replaced;
+	return '<script language="javascript" type="text/javascript">'
+	."\n/* <![CDATA[ */\n/*** ".basename($jsm)." ***/\n".$ct
+	."\n/* ]]> */ </script>";
+}
+
+sub file_put_contents {
+	my($destination, $content) = @_;
+	open(FPC, '>', $destination) or crash("Unable to save to '$destination', $!");
+	print FPC $content;
+	close(FPC);
+}
+
+sub Squeeze{
+	$_ = shift;
+	return $_ if(grep( /(-nc|--no_compression)/, @ARGV));
+	if(grep( /(-yc|--yui_compression)/, @ARGV)){
+		file_put_contents("_tmp", $_);
+		my $cmd = "java -jar yuicompressor-2.4.2.jar --type js -o _tmp_out _tmp";
+		print $cmd."\n";
+		print `$cmd`;
+		return $_ = slurp("_tmp_out");
+	}
+	s`//\s+.*$``gm; # remove trailing comments (tries to)
+	s`^\s*//.*$``gm; # remove full line comments
+	s/^\s+//gm; # remove leading spaces
+	s/\s+$//gm; # remove trailing spaces
+	s%\s*\n{%{%gm;
+	s%\s*\n({|})%$1%gm;
+	#s%;\n(?!else)%;%gm;
+	s%{\n%{%gm;
+	s%(if|function|while|do|for)\s*\(\s*%$1(%gm;
+	s`(try)\s+\{\s*`$1\{`gm;
+	s`\s+(\+=|\!=|==)\s+`$1`gm;
+	s`\s*=\s*(_ofs|source|function|true|false|new|null|document|\$\(")`=$1`gm;
+	s`(\.value|\.disabled|_marker|vars|css|_edit|_quit|_diff|_cache|_names|_attrs|_contents)\s*=\s*`$1=`gm;
+	s`(data|innerHTML|cursor|fname|current|woas|pages?|tmp|pos|ility|_menu|var\s+\w+|stack|title|text|\]|edits|wiki|tags?|img|hash|enc\d)\s*=\s*`$1=`gm;
+	s`\n\n+`\n`gm;
+	s`",\s+"`","`gm; # remove spaces between array elements "
+	s`",\s+'`','`gm; # remove spaces between array elements '
+	s`,\s+false\)`,false\)`gm; # remove spaces between a false parameter
+	s`,}\s+else\s+{`,}else{`gm; # shrink inline else block
+	s`^\s*/\*.*?^\*/``gms; # multiline comments (certain type)
+	s`^\s*/\*.*?\*/\s*$``gms; # multiline comments (certain type)
+	s%(\.,\+)\n%$1%gms; # join concatenate
+	s%\n(\.,\+)%$1%gms; # join concatenate
+	s%;\n(return)%;$1%gms; #
+	#s%(?<!\n)else%\nelse%gms;
+	s`(function|_new_page|sublist|str_rep|substring|sublist|substr|_list)\s*\(([^)]*)\)\s*`$1."(".&stripspace($2).")"`egm;
+	s`function\s+(\w+)\s*\(([^)]+)\)\s*`"function ".$1."(".&stripspace($2).")"`egm;
+	return $_;
+}
+
+sub stripspace{
+	my $s = shift;
+	$s=~s/^\s+|\s+$//g;
+	$s=~s/\s*,\s*/,/g;
+	return $s;
+}
