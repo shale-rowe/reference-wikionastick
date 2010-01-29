@@ -3,7 +3,7 @@ Version 0.10.0 (legolas558 - NOT YET RELEASED)
 * general loop optimizations
 * re-enabled fix for search focus bug
 * added sample WoaS logo to default Main Page
-* moved AES key menu icon to left of edit menu icon
+* moved set key menu icon to left of edit menu icon
 * incremented text returned in search results
 * fixed Special::Dead pages listing which did not show all pages
 * added last modified timestamp to all pages

@@ -40,6 +40,8 @@ woas['i18n'] = {
 	EXPORT_OK: "%d pages exported successfully",
 	STATIC_NOT_FOUND: "Static page \"%s\" not found!",
 	ERR_VAR_MARKER: "Marker variable not found!",
+	LOCK_CONFIRM: "Do you want to use the last password entered to lock this page \"%s\"?",
+	LOCK_CONFIRM_LAST: "The password was last time used on page: %s",
 	LOADING: "Loading Wiki on a Stick..."
 }
 

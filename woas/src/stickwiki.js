@@ -785,7 +785,9 @@ woas["set_current"] = function (cr, interactive) {
 					case "Lock":
 						pi = this.page_index(cr);
 						if (key.length) {
-							if (confirm("Do you want to use the last password (last time used on page \""+latest_AES_page+"\") to lock this page \""+cr+"\"?")) {
+							// display a message
+							if (confirm(this.i18n.LOCK_CONFIRM.sprintf(cr)+
+								(last_AES_page ? this.i18n.LOCK_CONFIRM_LAST.sprintf(last_AES_page) : ''))) {
 								this._finalize_lock(pi);
 								return;
 							}
@@ -1109,6 +1111,7 @@ woas["after_load"] = function() {
 	this.img_display("save", true);
 	this.img_display("lock", true);
 	this.img_display("unlock", true);
+//	this.img_display("setkey", true);
 	
 	// customized keyboard hook
 	document.onkeydown = kbd_hook;
@@ -1287,8 +1290,11 @@ woas["update_lock_icons"] = function(page) {
 		cyphered = false;
 	}
 	
+	// update the encryption icons accordingly
 	this.menu_display("lock", !kbd_hooking && can_lock);
 	this.menu_display("unlock", !kbd_hooking && can_unlock);
+	// we can always input decryption keys by clicking the setkey icon
+	//this.menu_display("setkey", cyphered);
 	var cls;
 	if (cyphered || (page.indexOf("Locked::")==0))
 		cls = "text_area locked";
