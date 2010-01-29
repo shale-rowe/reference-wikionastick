@@ -281,19 +281,25 @@ function _set_layout(fixed) {
 
 //Special::Recentchanges shows a sorted list of pages by modified timestamp
 woas["special_recent_changes"] = function() {
-	// build an array of (key := page_index,val := last_modified_timestamp) couples
+	// build an array of (key := page_index, val := last_modified_timestamp) couples
 	var l=page_titles.length, hm = [];
 	for(var i=0;i<l;++i) {
+		// skip pages with the 'magic' timestamp
+		if (page_mts[i] == 0x4b61cbad)
+			continue;
+		// skip reserved pages
+		if (this.is_reserved(page_titles[i]))
+			continue;
 		hm.push([i,page_mts[i]]);
 	}
 	// sort the array
-	hm.sort(function(a,b) { if (a[1]<b[1]) return -1; else if (a[1]==b[1]) return 0; return 1});
+	hm.sort(function(a,b) { return (b[1]-a[1]); });
 	// display results
 	var pg=[];
-	for(var i=0;i<l;++i) {
-		pg.push(hm[i][0]);
+	for(var i=0,l=hm.length;i<l;++i) {
+		pg.push("* [[" + page_titles[hm[i][0]] + "]] <span style=\"font-size: smaller;\">"+this.last_modified(hm[i][1]))+"</"+"span>";
 	}
-	return this._join_list(pg);
+	return this._simple_join_list(pg);
 }
 
 // End of special pages' code
