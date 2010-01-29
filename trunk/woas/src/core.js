@@ -63,11 +63,54 @@ woas["_new_page"] = function(msg, fill_mode, def_title) {
 }
 
 woas["cmd_erase_wiki"] = function() {
-	if (erase_wiki()) {
+	if (this.erase_wiki()) {
 		this.save_to_file(true);
 		back_or(main_page);
 	}
 	return null;
+}
+
+// pages which shall never be modified
+woas["static_pages"] = ["Special::About", "Special::Advanced", "Special::Options","Special::Import",
+						"Special::Lock","Special::Search","Special::Security", "Special::Embed",
+						"Special::Export", "Special::License" ];
+
+woas["default_pages"] = ["Main Page", "::Menu", "WoaS::Bootscript", "WoaS::Aliases"];
+
+woas["erase_wiki"] = function() {
+	if (!this.config.permit_edits) {
+		alert(this.i18n.READ_ONLY);
+		return false;
+	}
+	if (!confirm(this.i18n.CONFIRM_DELETE_ALL1))
+		return false;
+	if (!confirm(this.i18n.CONFIRM_DELETE_ALL2))
+		return false;
+	var backup_pages = [];
+	// attributes and last modified timestamps for default pages
+	page_attrs = [0, 0, 4, 0];
+	page_mts = [this.MAGIC_MTS, this.MAGIC_MTS, this.MAGIC_MTS, this.MAGIC_MTS];
+	// now pick the static pages
+	for(var i=0;i<this.static_pages.length;i++) {
+		var pi = this.page_index(this.static_pages[i]);
+		if (pi==-1) {
+			alert(static_pg[i]+" not found!");
+			return false;
+		}
+		backup_pages.push(pages[pi]);
+		page_attrs.push(0);
+		// reset timestamp
+		page_mts.push(this.MAGIC_MTS);
+	}
+	page_titles = this.default_pages.concat(this.static_pages);
+	pages = ["This is your empty main page", "[[Main Page]]\n\n[[Special::New Page]]\n[[Special::Duplicate Page]]\n[[Special::Go to]]\n[[Special::Delete]]\n[[Special::Backlinks]]\n[[Special::Search]]", encode64("/* insert here your boot script */"), ""];
+	pages = pages.concat(backup_pages);
+	current = main_page = "Main Page";
+	this.refresh_menu_area();
+	backstack = [];
+	forstack = [];
+//	alert("MTS = "+page_mts.length+", titles = "+page_titles.length+", pages = "+pages.length);
+	return true;
 }
 
 woas["cmd_main_page"] = function() {
