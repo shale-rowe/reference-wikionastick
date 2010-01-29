@@ -1,4 +1,16 @@
-Version 0.9.7 (legolas558 - official - NOT YET RELEASED)
+Version 0.10.0 (legolas558 - NOT YET RELEASED)
+* added some core i18n language resources
+* general loop optimizations
+* re-enabled fix for search focus bug
+* added sample WoaS logo to default Main Page
+* moved AES key menu icon to left of edit menu icon
+* incremented text returned in search results
+* fixed Special::Dead pages listing which did not show all pages
+* added last modified timestamp to all pages
+* added image gallery feature to 'Image::' namespace (fbnil)
+* fixed image embedding with FF3 (fbnil)
+
+Version 0.9.7 (legolas558 - official - NEVER RELEASED but supported)
 * implemented password scrambling
 * added multiple tags and tags filtering
 * added Duplicate Page feature
