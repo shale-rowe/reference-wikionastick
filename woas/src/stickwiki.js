@@ -1666,6 +1666,7 @@ function _inc_marker(old_marker) {
 	return m[1]+"-"+String("0").repeat(7-n.length)+n;
 }
 
+// save full WoaS to file
 woas["save_to_file"] = function(full) {
 	$.show("loading_overlay");
 	
@@ -1719,10 +1720,15 @@ woas["save_to_file"] = function(full) {
 	var bak_ed = $("wiki_editor").value;
 	var bak_tx = $("wiki_text").innerHTML;
 	var bak_mn = $("menu_area").innerHTML;
+	var bak_mts = $("wiki_mts").innerHTML;
+	var bak_mts_shown = $.is_visible("wiki_mts");
 
+	if (bak_mts_shown)
+		$.hide("wiki_mts");
 	$("wiki_editor").value = "";
 	$("wiki_text").innerHTML = "";
 	$("menu_area").innerHTML = "";
+	$("wiki_mts").innerHTML = "";
 
 	this._clear_swcs();
 	this._clear_bs();
@@ -1744,6 +1750,9 @@ woas["save_to_file"] = function(full) {
 	$("wiki_editor").value = bak_ed;
 	$("wiki_text").innerHTML = bak_tx;
 	$("menu_area").innerHTML = bak_mn;
+	$("wiki_mts").innerHTML = bak_mts;
+	if (bak_mts_shown)
+		$.show("wiki_mts");
 	
 	this._create_bs();
 	
