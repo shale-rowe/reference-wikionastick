@@ -392,14 +392,14 @@ woas["_password_cancel"] = function() {
 // function which hooks all messages shown by WoaS
 // can be fed with multiple messages to show consecutively
 woas["alert"] = function() {
-	for(var i=0,l=arguments.length;++i) {
+	for(var i=0,l=arguments.length;i<l;++i) {
 		alert("WoaS: "+arguments[i]);
 	}
 }
 
 // same as above, but for unhandled errors
 woas["crash"] = function() {
-	for(var i=0,l=arguments.length;++i) {
+	for(var i=0,l=arguments.length;i<l;++i) {
 		alert("WoaS Unhandled error\n----\n"+arguments[i]);
 	}
 }
