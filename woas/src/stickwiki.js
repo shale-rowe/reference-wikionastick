@@ -397,6 +397,13 @@ woas["alert"] = function() {
 	}
 }
 
+// same as above, but for unhandled errors
+woas["crash"] = function() {
+	for(var i=0,l=arguments.length;++i) {
+		alert("WoaS Unhandled error\n----\n"+arguments[i]);
+	}
+}
+
 woas["_password_ok"] = function() {
 	var pwd_obj = $("woas_password");
 	var pw = pwd_obj.value;
@@ -777,7 +784,7 @@ woas["cmd_main_page"] = function() {
 
 woas["cmd_edit_css"] = function() {
 	if (!this.config.permit_edits && !edit_override) {
-		alert(this.i18n.READ_ONLY);
+		this.alert(this.i18n.READ_ONLY);
 		return null;
 	}
 	_servm_alert();
@@ -797,7 +804,7 @@ woas["cmd_edit_bootscript"] = function() {
 // used to edit many special pages
 woas["cmd_edit_special"] = function(cr, decode) {
 	if (!this.config.permit_edits && !edit_override) {
-		alert(this.i18n.READ_ONLY);
+		this.alert(this.i18n.READ_ONLY);
 		return null;
 	}
 	_servm_alert();
@@ -828,15 +835,16 @@ woas["cmd_delete"] = function() {
 		return;
 	var pi = this.page_index(pname);
 	if (pi == -1) {
-		alert("Page \""+pname+"\" does not exist!");
+		this.alert(this.i18n.PAGE_NOT_EXISTS+pname);
 		return;
 	}
-	if ((pname != null) && confirm(this.i18n.CONFIRM_DELETE+" \""+pname+"\"?")) {
+	if ((pname != null) && confirm(this.i18n.CONFIRM_DELETE.sprintf(pname))) {
 		delete_page(pname);
 		this.save_page(pname);
 	}
 }
 
+// javascript shortcuts for special pages
 woas["shortcuts"] = ["New Page", "Duplicate Page", "All Pages", "Orphaned Pages", "Backlinks", "Dead Pages", "Erase Wiki", "Edit CSS", "Main Page", "Edit Bootscript", "Aliases", "Go to", "Delete Page"];
 woas["shortcuts_js"] = ["cmd_new_page", "cmd_duplicate_page", "special_all_pages", "special_orphaned_pages", "special_backlinks",
 					"special_dead_pages", "cmd_erase_wiki", "cmd_edit_css", "cmd_main_page",
@@ -876,7 +884,7 @@ woas["_get_special"] = function(cr, interactive) {
 			return null;
 		}
 		if (interactive)
-			alert("Invalid special page.");
+			this.alert(this.i18n.INVALID_SPECIAL);
 	}
 	return text;
 }
@@ -892,7 +900,7 @@ woas["get_javascript_page"] = function(cr) {
 		emsg = e.toString();
 	}
 	if (text == null) {
-		alert("Dynamic evaluation of '"+cr+"' failed!\n\nError message:\n\n"+emsg);
+		this.crash("Dynamic evaluation of '"+cr+"' failed!\n\nError message:\n\n"+emsg);
 		return null;
 	}
 	return text;
