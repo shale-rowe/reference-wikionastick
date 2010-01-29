@@ -184,7 +184,8 @@ String.prototype.sprintf = function() {
 		if (i_pos > max_pos)
 			return "(?)";
 		if (str == '%d')
-			return Number(arguments[i_pos++]);
+			// no number casting here?
+			return arguments[i_pos++];
 		// return '%s' string
 		return String(arguments[i_pos++]);
 	});

@@ -232,7 +232,7 @@ if (old_version	< 9) {
 	try {
 		var old_marker = ct.match(/\nvar __marker = "([A-Za-z\-\d]+)";(\r\n|\n)/)[1];
 	} catch (e) {
-		alert("Marker not found!");
+		this.alert(this.i18n.ERR_MARKER);
 		document.body.style.cursor= "auto";
 		return false;
 	}
@@ -259,7 +259,7 @@ if (old_version	< 9) {
 
 		var has_last_page_flag = (collected.length==14) ? 1 : 0;
 		if (!has_last_page_flag && (collected.length!=13)) {
-			alert(this.i18n.INVALID_DATA);
+			this.alert(this.i18n.INVALID_DATA);
 			document.body.style.cursor= "auto";
 			return false;
 		}
@@ -426,7 +426,7 @@ if (old_version	< 9) {
 	// remove hourglass
 	document.body.style.cursor= "auto";
 	
-	alert("Import completed: " + pages_imported +"/"+page_names.length.toString()+" pages imported.");
+	this.alert("Import completed: " + pages_imported +"/"+page_names.length.toString()+" pages imported.");
 	
 	// move to main page
 	current = main_page;
