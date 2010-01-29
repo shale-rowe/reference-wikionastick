@@ -29,7 +29,7 @@ woas.parser["sublist"] = function (s) {
 	var firstline = A.shift();
 	var fl= "";
 	var close="";
-	firstline=firstline.replace(/^((?:\*|#|@[ia1#\*]?)+)[ \t](.*)$/i,
+	firstline=firstline.replace(/^((?:\*|#|@(?:[iIaA1#\*]|{[^}]+})?)+)[ \t](.*)$/i,
 			function(str,a,b,c){
 					fl=a;
 					var open="";
@@ -38,8 +38,12 @@ woas.parser["sublist"] = function (s) {
 					}else{
 						open="<ol>"; close="</ol>"
 						var w = a.split("");
-						if(w[1] || a=='@')
-							open="<ol TYPE=\""+(w[1]||'a')+"\">";
+						if(w[1] || a=='@'){
+							if(w[1]=='{')
+								open= '<ol style="list-style-type:'+ a.replace(/@{(.*)}/,"$1") +';">'
+							else
+								open="<ol TYPE=\""+(w[1]||'a')+"\">";
+						}
 					}
 					return open+"<li>"+b;
 	});
@@ -50,10 +54,10 @@ woas.parser["sublist"] = function (s) {
 		if(A[0] == ""){
 			// firstline += "</li>";
 			A.shift();
-		}else if(!A[0].replace(fl,"").match(/^(?:\*|#|@[ia1#\*]?)/i)){
+		}else if(!A[0].replace(fl,"").match(/^(?:\*|#|@)/i)){
 			firstline += "<li>" + A.shift().replace(fl,"");
 		}else{
-			while (A.length>0 && A[0].replace(fl,"").match(/^(?:\*|#|@[ia1#\*]?)/i)) {
+			while (A.length>0 && A[0].replace(fl,"").match(/^(?:\*|#|@)/i)) {
 				CHILD += A.shift().replace(fl,"")+"\n";
 			}
 			if(CHILD)
@@ -75,7 +79,7 @@ type=* item=level1 <!-- #CTUugobt::0 --> $2=
 *# level2-1 <!-- #CTUugobt::1 -->
 *# level2-2 <!-- #CTUugobt::2 -->
 */
-var reReapLists = /^(?:\*|#|@[iIaA1#\*]?)[ \t].*(?:(?:\n)(?:\*|#|@[iIaA1#\*]?)+[ \t][^\n]+)*$/gm;
+var reReapLists = /^(?:\*|#|@(?:[iIaA1#\*]|{[^}]+})?)[ \t].*(?:(?:\n)(?:\*|#|@(?:[iIaA1#\*]|{[^}]+})?)+[ \t][^\n]+)*$/gm;
 woas.parser["parse_lists"] = function(str) {
  return woas.parser.sublist(str);
 }
@@ -85,20 +89,20 @@ var reReapTables = /^\{\|.*((?:\n\|.*)*)$/gm;
 woas.parser["parse_tables"] =  function (str, p1) {
 	var caption = '';
 	var stk = [];
-	p1.replace( /\n\|([+ -])(.*)/g, function(str, pp1, pp2) {
+	p1.replace( /\n\|([+ -\|])(.*)/g, function(str, pp1, pp2) {
 		if (pp1 == '-') // currently a remark, but could be used for meta information in the future
 			return;
-		if (pp1 == '+'){ // set the caption
-			caption = caption || ('<caption' + (stk.length>0? ' style="caption-side:bottom">':'>') + pp2+ '</caption>');
-			return;
-		}
-		var cells = pp2.replace(/\|\|\s*\|\|/g,"||  ||").replace(/(^\s)|(\s$)/, '').split(/\s\|\|\s?/);
+		if (pp1 == '+') // set the caption
+			return caption = caption || ('<caption' + (stk.length>0? ' style="caption-side:bottom">':'>') + pp2+ '</caption>');
+		if(pp1 == '|') // fix empty first cell
+			pp2= " |"+pp2;
+		var cells = pp2.replace(/(^|\|\|)\s*(\|\|| $)/g,"$1  $2").split(/\s\|\|\s?/);
 		var row = [];       // table row
 		var stag = "";      // start tag
 		var cs = 0;         // counter for spanned columns
 		for (var i=cells.length - 1; i >= 0; --i){
 			var C = cells[i].match(/^(\s*)(=\s*)?(.*?)(\s*)$/);
-		   if (i && !C[3]) { // if empty and not first column, increase span counter.
+			if (i && !C[3] && !C[1]) { // if empty and not first column, increase span counter.
 				++cs;
 				continue;
 			}
