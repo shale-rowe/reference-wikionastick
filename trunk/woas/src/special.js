@@ -255,9 +255,9 @@ woas["special_dead_pages"] = function() {
 		pg.push(s);
 	}
 
-  result_pages = dead_pages;	
-  if (!pg.length)
-	return '/No dead pages/';
+	result_pages = dead_pages;	
+	if (!pg.length)
+		return '/No dead pages/';
 	return this._simple_join_list(pg, true);
 }
 
@@ -277,6 +277,23 @@ $["checked"] =function(id) {
 // Used by Special::Options
 function _set_layout(fixed) {
 	$("sw_menu_area").style.position = $("sw_wiki_header").style.position = (fixed ? "fixed" : "absolute");
+}
+
+//Special::Recentchanges shows a sorted list of pages by modified timestamp
+woas["special_recent_changes"] = function() {
+	// build an array of (key := page_index,val := last_modified_timestamp) couples
+	var l=page_titles.length, hm = [];
+	for(var i=0;i<l;++i) {
+		hm.push([i,page_mts[i]]);
+	}
+	// sort the array
+	hm.sort(function(a,b) { if (a[1]<b[1]) return -1; else if (a[1]==b[1]) return 0; return 1});
+	// display results
+	var pg=[];
+	for(var i=0;i<l;++i) {
+		pg.push(hm[i][0]);
+	}
+	return this._join_list(pg);
 }
 
 // End of special pages' code

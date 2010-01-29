@@ -845,10 +845,11 @@ woas["cmd_delete"] = function() {
 }
 
 // javascript shortcuts for special pages
-woas["shortcuts"] = ["New Page", "Duplicate Page", "All Pages", "Orphaned Pages", "Backlinks", "Dead Pages", "Erase Wiki", "Edit CSS", "Main Page", "Edit Bootscript", "Aliases", "Go to", "Delete Page"];
+woas["shortcuts"] = ["New Page", "Duplicate Page", "All Pages", "Orphaned Pages", "Backlinks", "Dead Pages", "Erase Wiki", "Edit CSS", "Main Page", "Edit Bootscript", "Aliases", "Go to", "Delete Page", "Recentchanges"];
 woas["shortcuts_js"] = ["cmd_new_page", "cmd_duplicate_page", "special_all_pages", "special_orphaned_pages", "special_backlinks",
 					"special_dead_pages", "cmd_erase_wiki", "cmd_edit_css", "cmd_main_page",
-					"cmd_edit_bootscript", "cmd_edit_aliases", "cmd_go_to", "cmd_delete"];
+					"cmd_edit_bootscript", "cmd_edit_aliases", "cmd_go_to", "cmd_delete",
+					"special_recent_changes"];
 
 woas["_get_special"] = function(cr, interactive) {
 	var text = null;
