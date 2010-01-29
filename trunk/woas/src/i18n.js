@@ -30,7 +30,7 @@ woas['i18n'] = {
 	ERR_MARKER: "%s marker not found!",
 	DUP_NS_ERROR: "Cannot duplicate into File:: or Image:: namespace!",
 	PWD_QUERY: "Please enter a password",
-	ERR_NO_PWD: "No password set for decryption of page \"%s\"",
+	ERR_NO_PWD: "No password set for decryption of page \"%s\"\nPlease click the key icon and enter a password",
 	ACCESS_DENIED: "Access denied to page \"%s\"",
 	ERR_NS_RESERVED: "You are not allowed to create a page titled \"%s\" because namespace \"%s\" is reserved",
 	ERR_SEL_FILE: "A file must be selected",
