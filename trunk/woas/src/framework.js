@@ -54,8 +54,12 @@ $["show"] = function(id) {
 	$(id).style.visibility = "visible";
 }
 
+$["is_visible"] = function(id) {
+	return !!($(id).style.visibility == 'visible');
+}
+
 $["toggle"] = function(id) {
-	if ($(id).style.visibility == 'visible')
+	if ($.is_visible(id))
 		$.hide(id);
 	else
 		$.show(id);
