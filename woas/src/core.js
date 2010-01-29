@@ -79,12 +79,11 @@ woas["default_pages"] = ["Main Page", "::Menu", "WoaS::Bootscript", "WoaS::Alias
 
 woas["erase_wiki"] = function() {
 	if (!this.config.permit_edits) {
-		alert(this.i18n.READ_ONLY);
+		this.alert(this.i18n.READ_ONLY);
 		return false;
 	}
-	if (!confirm(this.i18n.CONFIRM_DELETE_ALL1))
-		return false;
-	if (!confirm(this.i18n.CONFIRM_DELETE_ALL2))
+	if (!confirm(this.i18n.CONFIRM_DELETE_ALL1) &&
+		!confirm(this.i18n.CONFIRM_DELETE_ALL2))
 		return false;
 	var backup_pages = [];
 	// attributes and last modified timestamps for default pages
@@ -94,7 +93,7 @@ woas["erase_wiki"] = function() {
 	for(var i=0;i<this.static_pages.length;i++) {
 		var pi = this.page_index(this.static_pages[i]);
 		if (pi==-1) {
-			alert(static_pg[i]+" not found!");
+			this.alert(this.i18n.STATIC_NOT_FOUND.sprintf(static_pg[i]));
 			return false;
 		}
 		backup_pages.push(pages[pi]);
@@ -109,7 +108,6 @@ woas["erase_wiki"] = function() {
 	this.refresh_menu_area();
 	backstack = [];
 	forstack = [];
-//	alert("MTS = "+page_mts.length+", titles = "+page_titles.length+", pages = "+pages.length);
 	return true;
 }
 

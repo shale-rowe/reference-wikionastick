@@ -38,6 +38,8 @@ woas['i18n'] = {
 	PAGE_NOT_EXISTS: "Page does not exist: ",
 	LAST_MODIFIED: "Last Modified: ",
 	EXPORT_OK: "%d pages exported successfully",
+	STATIC_NOT_FOUND: "Static page \"%s\" not found!",
+	ERR_VAR_MARKER: "Marker variable not found!",
 	LOADING: "Loading Wiki on a Stick..."
 }
 

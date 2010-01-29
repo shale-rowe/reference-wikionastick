@@ -1146,7 +1146,7 @@ woas["after_load"] = function() {
 		if ((page_attrs.length != len) ||
 			(page_titles.length != len) ||
 			(page_mts.length != len))
-			alert("FATAL: data arrays have mismatching length!");
+			this.crash("FATAL: data arrays have mismatching length!");
 		else
 			$.hide("loading_overlay");
 	} else
@@ -1318,11 +1318,11 @@ woas["disable_edit"] = function() {
 }
 
 function _lock_pages(arr) {
-	alert("Not yet implemented");
+	this.alert("Not yet implemented");
 }
 
 function _unlock_pages(arr) {
-	alert("Not yet implemented");
+	this.alert("Not yet implemented");
 }
 
 woas["edit_allowed"] = function(page) {
@@ -1376,7 +1376,7 @@ woas["edit_ready"] = function (txt) {
 
 function _servm_alert() {
 	if (woas._server_mode)
-		alert("You are using Wiki on a Stick on a REMOTE server, your changes will not be saved neither remotely or locally.\n\nThe correct usage of Wiki on a Stick is LOCAL, so you should use a local copy of this page to exploit the save features. All changes made to this copy of Wiki on a Stick will be lost.");
+		this.alert("You are using Wiki on a Stick on a REMOTE server, your changes will not be saved neither remotely or locally.\n\nThe correct usage of Wiki on a Stick is LOCAL, so you should use a local copy of this page to exploit the save features. All changes made to this copy of Wiki on a Stick will be lost.");
 }
 
 woas["edit_page"] = function(page) {
@@ -1397,11 +1397,11 @@ woas["edit_page"] = function(page) {
 woas["rename_page"] = function(previous, newpage) {
 	log("Renaming "+previous+" to "+newpage);	// log:1
 	if (newpage.match(/\[\[/) || newpage.match(/\]\]/)) {
-		alert(this.i18n.BRACKETS_TITLE);
+		this.alert(this.i18n.BRACKETS_TITLE);
 		return false;
 	}
 	if (this.page_index(newpage)!=-1) {
-		alert(this.i18n.PAGE_EXISTS.sprintf(newpage));
+		this.alert(this.i18n.PAGE_EXISTS.sprintf(newpage));
 		return false;
 	}
 	var pi = this.page_index(previous);
@@ -1611,7 +1611,7 @@ function _get_data(marker, source, full, start) {
 	// always find the end marker to make the XHTML fixes
 	offset = source.indexOf("/* "+marker+ "-END */");
 	if (offset == -1) {
-		alert(woas.i18n.ERR_MARKER.sprintf("END"));
+		this.alert(woas.i18n.ERR_MARKER.sprintf("END"));
 		return false;
 	}			
 	offset += 6 + 4 + marker.length + 2;
@@ -1640,7 +1640,7 @@ function _get_data(marker, source, full, start) {
 		if (start) {
 			var s_offset = source.indexOf("/* "+marker+ "-START */");
 			if (s_offset == -1) {
-				alert(woas.i18n.ERR_MARKER.sprintf("START"));
+				this.alert(woas.i18n.ERR_MARKER.sprintf("START"));
 				return false;
 			}
 			return source.substring(s_offset, offset);
@@ -1648,7 +1648,7 @@ function _get_data(marker, source, full, start) {
 	} else {
 		offset = source.indexOf("/* "+marker+ "-DATA */");
 		if (offset == -1) {
-			alert(woas.i18n.ERR_MARKER.sprintf("DATA"));
+			this.alert(woas.i18n.ERR_MARKER.sprintf("DATA"));
 			return false;
 		}
 		offset += 6 + 5 + marker.length + 1;
