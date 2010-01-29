@@ -174,7 +174,7 @@ woas["export_wiki"] = function () {
 		if (exp.meta_author.length)
 			exp.meta_author = '<meta name="author" content="'+this._attrib_escape(this.xhtml_encode(exp.meta_author))+'" />'+"\n";
 		_export_unix_norm = $("woas_cb_unix_norm").checked;
-	} catch (e) { alert(e); return false; }
+	} catch (e) { this.crash(e); return false; }
 	
 	$.show("loading_overlay");
 	$("loading_overlay").focus();

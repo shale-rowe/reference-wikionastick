@@ -6,7 +6,7 @@ woas['i18n'] = {
 	CONFIRM_READ_ONLY: "Are you sure you want to set this WoaS as read-only? You will have to manually edit the file to revert this change.",
 	INVALID_SPECIAL: "Invalid special page.",
 	INVALID_DATA:"Invalid collected data!",
-	CONFIRM_DELETE:"Are you sure you want to DELETE page",
+	CONFIRM_DELETE:"Are you sure you want to DELETE page \"%s\"?",
 	CONFIRM_DELETE_ALL1: "Are you going to ERASE all your pages?",
 	CONFIRM_DELETE_ALL2: "This is the last confirm needed in order to ERASE all your pages.\n\nALL YOUR PAGES WILL BE LOST\n\nAre you sure you want to continue?",
 	DELETE:"Delete page:",
@@ -37,6 +37,7 @@ woas['i18n'] = {
 	ERR_PAGE_NS: "You cannot create a page as a namespace",
 	PAGE_NOT_EXISTS: "Page does not exist: ",
 	LAST_MODIFIED: "Last Modified: ",
+	EXPORT_OK: "%d pages exported successfully",
 	LOADING: "Loading Wiki on a Stick..."
 }
 
