@@ -227,9 +227,16 @@ woas["_get_namespace_pages"] = function (ns) {
 		case "Tagged::": // to be used in wiki source
 		case "Tags::":
 			return "= Pages in "+ns+" namespace\n" + this.special_tagged(false);
+		case "Image::":
+			var iHTML = "";
+			for(var i=0, l=page_titles.length;i<l;++i) {
+				if (page_titles[i].indexOf(ns)===0)
+					iHTML += this.parser.parse("* [[Include::"+page_titles[i]+"]][["+page_titles[i]+"]]\n");
+			}
+			return "= Pages in "+ns+" namespace\n" + iHTML;
 	}
 
-	for(var i=0;i<page_titles.length;i++) {
+	for(var i=0, l=page_titles.length;i<l;++i) {
 		if (page_titles[i].indexOf(ns)===0)
 			pg.push(page_titles[i]);
 	}
@@ -911,7 +918,7 @@ woas["set_current"] = function (cr, interactive) {
 						if (text == null)
 							return;
 						break;
-					case "Tagged": // deprecated?
+					case "Tagged": // deprecated
 					case "Tags":
 						text = this._get_tagged(cr);
 						if (text == null)
