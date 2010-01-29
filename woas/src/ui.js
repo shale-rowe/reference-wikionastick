@@ -347,3 +347,21 @@ function query_delete_image(cr) {
 	back_or(main_page);
 	woas.save_page(cr);
 }
+
+// triggered by UI graphic button
+function page_print() {
+	var wnd = woas.popup("print_popup", Math.ceil(screen.width*0.75),Math.ceil(screen.height*0.75),
+	",status=yes,menubar=yes,resizable=yes,scrollbars=yes");
+	var css_payload = "";
+	if (ie) {
+		if (ie6)
+			css_payload = "div.wiki_toc { align: center;}";
+		else
+			css_payload = "div.wiki_toc { position: relative; left:25%; right: 25%;}";
+	} else
+		css_payload = "div.wiki_toc { margin: 0 auto;}\n";
+	wnd.document.writeln(_doctype+"<ht"+"ml><he"+"ad><title>"+current+"</title>"+
+	"<st"+"yle type=\"text/css\">"+css_payload+_css_obj().innerHTML+"</sty"+"le><scr"+"ipt type=\"text/javascript\">function go_to(page) { alert(\"Sorry, you cannot browse the wiki while in print mode\");}</sc"+"ript></h"+"ead><"+"body>"+
+	$("wiki_text").innerHTML+"</bod"+"y></h"+"tml>\n");
+	wnd.document.close();
+}
