@@ -1752,42 +1752,6 @@ woas["save_to_file"] = function(full) {
 	return r;
 }
 
-function erase_wiki() {
-	if (!woas.config.permit_edits) {
-		alert(woas.i18n.READ_ONLY);
-		return false;
-	}
-	if (!confirm(woas.i18n.CONFIRM_DELETE_ALL1))
-		return false;
-	if (!confirm(woas.i18n.CONFIRM_DELETE_ALL2))
-		return false;
-	var static_pg = ["Special::About", "Special::Advanced", "Special::Options","Special::Import",
-						"Special::Lock","Special::Search","Special::Security", "Special::Embed",
-						"Special::Export", "Special::License" ];
-	var backup_pages = [];
-	page_attrs = [0, 0, 4];
-	for(var i=0;i<static_pg.length;i++) {
-		var pi = woas.page_index(static_pg[i]);
-		if (pi==-1) {
-			alert(static_pg[i]+" not found!");
-			return false;
-		}
-		backup_pages.push(pages[pi]);
-		page_attrs.push(0);
-		// keep old timestamp
-		page_mts.push(page_mts[pi]);
-	}
-	page_titles = ["Main Page", "::Menu", "WoaS::Bootscript", "WoaS::Aliases"];
-	page_titles = page_titles.concat(static_pg);
-	pages = ["This is your empty main page", "[[Main Page]]\n\n[[Special::New Page]]\n[[Special::Duplicate Page]]\n[[Special::Go to]]\n[[Special::Delete]]\n[[Special::Backlinks]]\n[[Special::Search]]", encode64("/* insert here your boot script */"), ""];
-	pages = pages.concat(backup_pages);
-	current = main_page = "Main Page";
-	woas.refresh_menu_area();
-	backstack = [];
-	forstack = [];	
-	return true;
-}
-
 // global function - get path of current WoaS file (through browser)
 function _get_this_path() {
 	var slash_c = (navigator.appVersion.indexOf("Win")!=-1)?"\\\\":"/";
