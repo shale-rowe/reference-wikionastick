@@ -2,7 +2,7 @@
 
 woas["special_encrypted_pages"] = function(locked) {
 	var pg = [];
-	for(var i=0,l=pages.length;i<l;i++) {
+	for(var i=0;i<pages.length;i++) {
 		if (locked == this.is__encrypted(i))
 			pg.push(page_titles[i]);
 	}
@@ -12,7 +12,7 @@ woas["special_encrypted_pages"] = function(locked) {
 woas["special_orphaned_pages"] = function() {
 	var pg = [];
 	var found = false;
-	for(j=0,l=page_titles.length; j<l; j++) {
+	for(j=0; j<page_titles.length; j++) {
 		if (this.is_reserved(page_titles[j]))
 			continue;
 		if (this.is_menu(page_titles[j])) {	// check if the namespace has some pages
@@ -27,7 +27,7 @@ woas["special_orphaned_pages"] = function() {
 		} else {
 		// search for pages that link to it
 			var tmp;
-			for(var i=0,l=page_titles.length; i<l; i++) {
+			for(var i=0; i<page_titles.length; i++) {
 				if ((i==j) || this.is_reserved(page_titles[i]))
 					continue;
 				tmp = this.get_src_page(i);
@@ -56,7 +56,8 @@ woas["special_backlinks"] = function()
 	var pg = [];
 	var tmp;
 	var reg = new RegExp("\\[\\["+RegExp.escape(current)+"(\\||\\]\\])", "gi");
-	for(var j=0,l=pages.length; j<l; j++) {
+	for(j=0; j<pages.length; j++)
+	{
 		// search for pages that link to it
 		tmp = this.get_src_page(j);
 		if (tmp==null)
@@ -79,13 +80,11 @@ woas["special_search"] = function( str ) {
 	var pg_body = [];
 	var title_result = "";
 	log("Searching "+str);
-
-	// amount of nearby characters to display
-	var nearby_chars = 200;
+	
 	var count = 0;
 	// matches the search string and nearby text
-	var reg = new RegExp( ".{0,"+nearby_chars+"}" + RegExp.escape(this.trim(str)).
-					replace(/\s+/g, ".*?") + ".{0,"+nearby_chars+"}", "gi" );
+	var reg = new RegExp( ".{0,30}" + RegExp.escape(this.trim(str)).
+					replace(/\s+/g, ".*?") + ".{0,30}", "gi" );
 	_hl_reg = new RegExp("("+RegExp.escape(str)+")", "gi");
 /*	hl_reg = new RegExp( ".*?" + RegExp.escape(str).
 					replace(/^\s+/, "").
@@ -94,11 +93,10 @@ woas["special_search"] = function( str ) {
 					replace(/\s+/g, ".*?") + ".*", "gi" );	*/
 	var tmp;
 	result_pages = [];
-	for(var i=0,l=pages.length; i<l; i++) {
+	for(var i=0; i<pages.length; i++) {
 		if (this.is_reserved(page_titles[i]))
 			continue;
-
-		// this could be modified for wiki searching issues
+		
 		tmp = this.get_src_page(i);
 		if (tmp==null)
 			continue;
@@ -170,7 +168,7 @@ woas["special_tagged"] = function() {
 woas["special_untagged"] = function() {
 	var tmp;
 	var pg = [];
-	for(var i=0,l=pages.length; i<l; i++) {
+	for(var i=0; i<pages.length; i++) {
 		tmp = this.get_src_page(i);
 		if (tmp==null)
 			continue;
@@ -185,7 +183,8 @@ woas["special_untagged"] = function() {
 // Returns a index of all pages
 woas["special_all_pages"] = function() {
 	var pg = [];
-	for(var i=0, l=page_titles.length; i<l; i++) {
+	for(var i=0; i<page_titles.length; i++)
+	{
 		if (!this.is_reserved(page_titles[i]))
 			pg.push( page_titles[i] );
 	}
@@ -196,8 +195,9 @@ woas["special_all_pages"] = function() {
 woas["special_dead_pages"] = function() {
 	var dead_pages = [];
 	var from_pages = [];
+	var page_done = false;
 	var tmp;
-	for(var j=0,l=pages.length;j<l;j++) {
+	for (j=0;j<pages.length;j++) {
 		tmp = this.get_src_page(j);
 		if (tmp==null)
 			continue;
@@ -211,26 +211,15 @@ woas["special_dead_pages"] = function() {
 					return;
 				if ($1.match(/Tag(s|ged)?:/gi))
 					return;
-				// skip mailto URLs
-				if ($1.match(/^mailto:/gi))
-					return;
 				p = $1;
 				if (!woas.page_exists(p) && (p!=page_titles[j])) {
-					// true when page has been scanned for referrals
-					var page_done = false;
-					// check that this not-existing page is already in the deads page list
 					for(var i=0;i<dead_pages.length;i++) {
-						// current page contains a link to an already indexed dead page,
-						// save the reference
 						if (dead_pages[i]==p) {
-							// add only if not already there
-							if (from_pages[i].indexOf(page_titles[j]) == -1)
-								from_pages[i].push(page_titles[j]);
+							from_pages[i].push(page_titles[j]);
 							page_done = true;
 							break;
 						}
 					}
-					// we have just found a dead page
 					if (!page_done) {
 						dead_pages.push(p);
 						from_pages.push(new Array(page_titles[j]));
@@ -239,10 +228,9 @@ woas["special_dead_pages"] = function() {
 				}
 	        }
 		);
-//		page_done = false;
+		page_done = false;
 	}
 
-	// format the dead pages
 	var pg = [], s;
 	for(var i=0;i<dead_pages.length;i++) {
 		s = "[["+dead_pages[i]+"]] from ";
@@ -255,9 +243,9 @@ woas["special_dead_pages"] = function() {
 		pg.push(s);
 	}
 
-	result_pages = dead_pages;	
-	if (!pg.length)
-		return '/No dead pages/';
+  result_pages = dead_pages;	
+  if (!pg.length)
+	return '/No dead pages/';
 	return this._simple_join_list(pg, true);
 }
 
@@ -277,29 +265,6 @@ $["checked"] =function(id) {
 // Used by Special::Options
 function _set_layout(fixed) {
 	$("sw_menu_area").style.position = $("sw_wiki_header").style.position = (fixed ? "fixed" : "absolute");
-}
-
-//Special::Recentchanges shows a sorted list of pages by modified timestamp
-woas["special_recent_changes"] = function() {
-	// build an array of (key := page_index, val := last_modified_timestamp) couples
-	var l=page_titles.length, hm = [];
-	for(var i=0;i<l;++i) {
-		// skip pages with the 'magic' timestamp
-		if (page_mts[i] == this.MAGIC_MTS)
-			continue;
-		// skip reserved pages
-		if (this.is_reserved(page_titles[i]))
-			continue;
-		hm.push([i,page_mts[i]]);
-	}
-	// sort the array
-	hm.sort(function(a,b) { return (b[1]-a[1]); });
-	// display results
-	var pg=[];
-	for(var i=0,l=hm.length;i<l;++i) {
-		pg.push("* [[" + page_titles[hm[i][0]] + "]] <span style=\"font-size: smaller;\">"+this.last_modified(hm[i][1]))+"</"+"span>";
-	}
-	return this._simple_join_list(pg);
 }
 
 // End of special pages' code

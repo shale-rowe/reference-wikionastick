@@ -20,9 +20,8 @@ woas.parser["header_replace"] = function(str, $1, $2, $3) {
 		if (header.indexOf($2)==header.length - len)
 			header = header.substring(0, header.length - len);
 		// automatically build the TOC if needed
-		len = $1.length;
 		if (woas.parser.has_toc) {
-			woas.parser.toc += String("#").repeat(len)+" <a class=\"link\" href=\"#" +
+			woas.parser.toc += str_rep("#", len)+" <a class=\"link\" href=\"#" +
 			woas.parser.header_anchor(header) + "\">" + header + "<\/a>\n";
 		}
 		return "</div><h"+len+" id=\""+woas.parser.header_anchor(header)+"\">"+header+"</h"+len+"><div class=\"level"+len+"\">";
@@ -104,7 +103,8 @@ woas.parser["parse_tables"] =  function (str, p1)
 function _filter_wiki(s) {
 	return s.replace(/\{\{\{((.|\n)*?)\}\}\}/g, "").
 		replace(/<script[^>]*>((.|\n)*?)<\/script>/gi, "").
-		replace(/\<\/?\w+[^>]+>/g, "");
+		replace(/\<\w+\s[^>]+>/g, "").
+		replace(/\<\/\w[^>]+>/g, "");
 }
 
 // THIS is the method that you should override for your custom parsing needs
@@ -295,7 +295,7 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 			return r;
 		}
 		
-		var found_tags = woas._get_tags($1);
+		found_tags = woas._get_tags($1);
 		
 		if (found_tags.length>0) {
 			tags = tags.concat(found_tags);
@@ -385,9 +385,8 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 		return tag;
 	});
 
-	// <hr> horizontal rulers made with 3 hyphens, 4 suggested
-	// only white spaces are allowed after the hyphens
-	text = text.replace(/(^|\n)\s*\-{3,}[ ]*$/g, "<hr />");
+	// <hr> horizontal rulers made with 3 hyphens. 4 suggested
+	text = text.replace(/(^|\n)\s*\-{3,}\s*(\n|$)/g, "<hr />$2");
 	
 	// tables-parsing pass
 	text = text.replace(reReapTables, this.parse_tables);
@@ -423,8 +422,7 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 		});
 	}
 	
-	// sort tags at bottom of page, also when showing namespaces
-	tags = tags.toUnique().sort();
+	tags = tags.toUnique();
 	if (tags.length && !export_links) {
 		var s;
 		if (this.force_inline)

@@ -18,9 +18,7 @@ else if(navigator.appName == "Netscape") {
 //		ff3 = true;
 } else if((navigator.appName).indexOf("Microsoft")!=-1) {
 	ie = true;
-	ie8 = (navigator.userAgent.search(/msie 8\./i)!=-1);
-	if (!ie8)
-		ie6 = (navigator.userAgent.search(/msie 6\./i)!=-1);
+	ie6 = (navigator.userAgent.search(/msie 6\./i)!=-1);
 }
 
 // finds out if Opera is trying to look like Mozilla
@@ -35,14 +33,8 @@ var is_windows = (navigator.appVersion.toLowerCase().indexOf("windows")!=-1);
 
 woas["_server_mode"] = (document.location.toString().match(/^file:\/\//) ? false:true);
 
-// returns the DOM element object given its id - enables a try/catch mode when debugging
-if (woas.debug) {
-	// returns the DOM element object given its id, alerting if the element is not found (but that would never happen, right?)
-	function $(id){ try{return document.getElementById(id);}catch(e){alert("ERROR: $('"+id+"') invalid reference");} }
-} else {
-	// much faster version
-	function $(id){return document.getElementById(id);}
-}
+// returns the DOM element object given its id
+function $(id){return document.getElementById(id);}
 
 $["hide"] = function(id) {
 	$(id).style.display = "none";
@@ -52,17 +44,6 @@ $["hide"] = function(id) {
 $["show"] = function(id) {
 	$(id).style.display = "inline";
 	$(id).style.visibility = "visible";
-}
-
-$["is_visible"] = function(id) {
-	return !!($(id).style.visibility == 'visible');
-}
-
-$["toggle"] = function(id) {
-	if ($.is_visible(id))
-		$.hide(id);
-	else
-		$.show(id);
 }
 
 // logging function has not to be in WoaS object
@@ -132,7 +113,10 @@ Array.prototype.toUnique = function() {
 // thanks to S.Willison
 RegExp.escape = function(text) {
   if (!arguments.callee.sRE) {
-    var specials = ['/', '.', '*', '+', '?', '|', '$', '(', ')', '[', ']', '{', '}', '\\' ];
+    var specials = [
+      '/', '.', '*', '+', '?', '|', '$',
+      '(', ')', '[', ']', '{', '}', '\\'
+    ];
     arguments.callee.sRE = new RegExp(
       '(\\' + specials.join('|\\') + ')', 'g'
     );
@@ -141,12 +125,10 @@ RegExp.escape = function(text) {
 }
 
 // repeat string s for n times
- if (typeof String.prototype.repeat == "undefined") {
-	String.prototype.repeat = function(n) {
-		var r = "";
-		while (--n >= 0) r += this;
-		return r;
-	}
+function str_rep(s, n) {
+	var r = "";
+	while (--n >= 0) r += s;
+	return r;
 }
 
 // return a random integer given the maximum value (scale)
@@ -165,34 +147,24 @@ function _random_string(string_length) {
 	return randomstring;
 }
 
+// format a decimal number to specified decimal precision
+function _number_format(n, prec) {
+	return n.toString().replace(new RegExp("(\\."+str_rep("\\d", prec)+")\\d*$"), "$1");
+}
+
 // converts the number of bytes to a human readable form
 function _convert_bytes(bytes) {
-	var U=['bytes','Kb','Mb','Gb','Pb'];
-	var n=0;
-	bytes=Math.ceil(bytes);
-	while(bytes>=1024) {
-		 ++n;
-		 bytes /= 1024;
-	}
-	return bytes.toFixed(2).replace(/\.00$/, "") +' '+ U[n];
+//	log("Converting "+bytes+" bytes");	// log:0
+	if (bytes < 1024)
+		return Math.ceil(bytes)+ " bytes";
+	var k = bytes / 1024, n;
+	if (k >= 1024) {
+		var m = k / 1024;
+		if (m >= 1024)
+			n = _number_format(m/1024,2)+' GB';
+		else
+			n = _number_format(m,2)+' MB';
+	} else
+		n = _number_format(k,2)+' KB';
+	return n.replace(/\.00/, "");
 }
-
-// implement an sprintf() bare function
-String.prototype.sprintf = function() {
-	// check that arguments are OK
-	if (typeof arguments == "undefined") { return null; }
-	// next argument to pick
-	var i_pos = 0, max_pos = arguments.length - 1;
-	return this.replace(/%[sd]/g, function(str) {
-		// replace with a strange thing in case of undefined parameter
-		if (i_pos > max_pos)
-			return "(?)";
-		if (str == '%d')
-			// no number casting here?
-			return arguments[i_pos++];
-		// return '%s' string
-		return String(arguments[i_pos++]);
-	});
-}
-
-

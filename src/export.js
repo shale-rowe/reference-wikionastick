@@ -1,3 +1,4 @@
+﻿
 var _export_main_index = false, _export_unix_norm = false,
 	_export_default_ext;
 
@@ -43,7 +44,7 @@ woas["_export_get_fname"] = function (title, create_mode) {
 	} else {
 		var pi=this.page_index(title);
 		if (pi==-1) {
-			this.alert(this.i18n.PAGE_NOT_EXISTS+title);
+			alert("Page does not exist: "+title);
 			_title2fn[title] = "#";
 			return "#";
 		}
@@ -70,7 +71,7 @@ woas["_export_get_fname"] = function (title, create_mode) {
 		var l=$1.length, r="";
 		for(var i=0;i<l;i++) {
 			switch ($1[i]) {
-				// TODO: add most common diacritics
+				//TODO: add most common diacritics
 				case "\u00e2":
 					r+="a";
 					break;
@@ -82,7 +83,7 @@ woas["_export_get_fname"] = function (title, create_mode) {
 	})
 	// escape some path-unsafe characters
 	.replace(/[:\\\/<>?#=!]+/g, function($1) {
-		return "_".repeat($1.length);
+		return str_rep("_", $1.length);
 	});
 	
 	if (_export_unix_norm)
@@ -92,9 +93,9 @@ woas["_export_get_fname"] = function (title, create_mode) {
 	var test_fname = fname+ext, i=0;
 	while (_export_fnames_array.indexOf(test_fname)!=-1) {
 		log(test_fname+" already created, checking next fname");	// log:1
-		test_fname = fname+"_".repeat(++i)+ext;
+		test_fname = fname+str_rep("_", ++i)+ext;
 	}
-//	if (i)		_export_replace_fname[fname+"_".repeat(i-1)+ext] = test_fname;
+//	if (i)		_export_replace_fname[fname+str_rep("_", i-1)+ext] = test_fname;
 	_export_fnames_array.push(test_fname);
 	_title2fn[orig_title] = test_fname;
 	if (!create_mode)
@@ -115,7 +116,7 @@ woas["export_parse"] = function (data, js_mode) {
 }
 
 woas["export_one_page"] = function (
-		data, title, fname, exp, mts) {
+		data, title, fname, exp) {
 	// convert UTF8 sequences of the XHTML source into &#dddd; sequences
 	data = this.utf8_encode(data);
 	// prepare the raw text for later description/keywords generation
@@ -128,7 +129,7 @@ woas["export_one_page"] = function (
 			if (_ns.length) {
 				var mpi = this.page_index(_ns+"::Menu");
 				if (mpi != -1) {
-					var tmp=this.get_text_special(_ns+"::Menu");
+					var tmp=this.get_text_special(ns+"::Menu");
 					if (tmp!=null)
 						_exp_menu += tmp;
 				}
@@ -144,13 +145,12 @@ woas["export_one_page"] = function (
 		}
 		data = "<ht"+"ml><he"+"ad><title>"+this.xhtml_encode(title)+"</title>"+exp.css+
 		'<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />'+"\n"+
-		'<meta name="generator" content="Wiki on a Stick v'+this.version+' - http://stickwiki.sf.net/" />'+"\n"+
+		'<meta name="generator" content="Wiki on a Stick v'+this.version+'" />'+"\n"+
 		'<meta name="keywords" content="'+this.utf8_encode(this._attrib_escape(_auto_keywords(raw_text)))+'" />'+"\n"+
 		'<meta name="description" content="'+
 		this.utf8_encode(this._attrib_escape(raw_text.replace(/\s+/g, " ").substr(0,max_description_length)))+'" />'+"\n"+
 		exp.meta_author+
 		exp.custom_bs+
-		(mts ? "<p><sub>"+this.last_modified(mts)+"</sub></p>" : "")+
 		"</h"+"ead><"+"body>"+data+"</bod"+"y></h"+"tml>\n"; raw_text = null;
 	return saveFile(exp.xhtml_path+fname, _doctype+data);
 }
@@ -174,7 +174,7 @@ woas["export_wiki"] = function () {
 		if (exp.meta_author.length)
 			exp.meta_author = '<meta name="author" content="'+this._attrib_escape(this.xhtml_encode(exp.meta_author))+'" />'+"\n";
 		_export_unix_norm = $("woas_cb_unix_norm").checked;
-	} catch (e) { this.crash(e); return false; }
+	} catch (e) { alert(e); return false; }
 	
 	$.show("loading_overlay");
 	$("loading_overlay").focus();
@@ -218,7 +218,7 @@ woas["export_wiki"] = function () {
 				data = '<pre class="wiki_preformatted">'+this.xhtml_encode(data)+"</pre>";
 		} else
 			data = this.export_parse(data, exp.js_mode);
-		if (!this.export_one_page(data, page_titles[pi], fname, exp, page_mts[pi]))
+		if (!this.export_one_page(data, page_titles[pi], fname, exp))
 			break;
 		++done;
 	}
@@ -236,7 +236,7 @@ woas["export_wiki"] = function () {
 				log("cannot process "+title);
 				continue;
 			}
-			// TODO: allow special pages to have extended attributes
+			//TODO: allow special pages to have extended attributes
 			data = this.export_parse(data, exp.js_mode);
 			if (this.export_one_page(data, title, _title2fn[title], exp))
 				++done;
@@ -249,6 +249,6 @@ woas["export_wiki"] = function () {
 		this.set_current(current, false);
 	}
 	$.hide("loading_overlay");
-	this.alert(this.i18n.EXPORT_OK.sprintf(done));
+	alert(done+" pages exported successfully");
 	return true;
 }

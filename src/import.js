@@ -79,12 +79,9 @@ woas["import_wiki"] = function(filename) {
 //				case "0.9.6C": // development only
 					old_version = 96;
 					break;
-				case "0.9.7B": // never released officially
+				case "0.9.7B":
 //				case "0.9.6C": // development only
 					old_version = 97;
-					break;
-				case "0.10.0":
-					old_version = 100;
 					break;
 				default:
 					alert("Incompatible version: " + ver_str);
@@ -141,8 +138,6 @@ if (old_version	< 9) {
 	}
 	
 	/* NOTES ABOUT OLD VERSIONS
-	v0.10.0:
-	    * introduced page_mts for global page modified timestamp
 	v0.9.7:
 		* introduced WoaS::Aliases
 	v0.9.6:
@@ -232,7 +227,7 @@ if (old_version	< 9) {
 	try {
 		var old_marker = ct.match(/\nvar __marker = "([A-Za-z\-\d]+)";(\r\n|\n)/)[1];
 	} catch (e) {
-		this.alert(this.i18n.ERR_MARKER);
+		alert("Marker not found!");
 		document.body.style.cursor= "auto";
 		return false;
 	}
@@ -259,7 +254,7 @@ if (old_version	< 9) {
 
 		var has_last_page_flag = (collected.length==14) ? 1 : 0;
 		if (!has_last_page_flag && (collected.length!=13)) {
-			this.alert(this.i18n.INVALID_DATA);
+			alert("Invalid collected data!");
 			document.body.style.cursor= "auto";
 			return false;
 		}
@@ -292,16 +287,9 @@ if (old_version	< 9) {
 
 		//0:sw_import_current,1:sw_import_main_page,
 		//2:sw_import_backstack,3:sw_import_page_titles,4:sw_import_page_attrs,5:sw_import_pages
-		// from 0.10.0: sw_page_mts is before sw_import_pages
 		new_main_page = collected[1];
 		if (import_content) {
-			var old_page_mts = [];
-			if (old_version <= 97)
-				page_contents = collected[5];
-			else {
-				old_page_mts = collected[5];
-				page_contents = collected[6];
-			}
+			page_contents = collected[5];
 			page_names = collected[3];
 			old_page_attrs = collected[4];
 			if (old_version==92) {
@@ -354,9 +342,6 @@ if (old_version	< 9) {
 	} // done importing from v0.9.2B+
 }
 
-	// modified timestamp for pages before 0.10.0
-	var current_mts = Math.round(new Date().getTime()/1000);
-
 	// this is the common import procedure
 	if (import_content) {
 		// add new data
@@ -380,10 +365,6 @@ if (old_version	< 9) {
 					page_titles.push(page_names[i]);
 					pages.push(page_contents[i]);
 					page_attrs.push( old_page_attrs[i] );
-					if (old_version < 100)
-						page_mts.push( current_mts );
-					else
-						page_mts.push( old_page_mts[i] );
 				} else {
 					log("replacing "+page_names[i]);
 					if (old_version==94) {
@@ -413,7 +394,6 @@ if (old_version	< 9) {
 			page_titles.push("WoaS::Aliases");
 			pages.push("");
 			page_attrs.push(0);
-			page_mts.push(current_mts);
 		}
 	} // do not import content pages
 	
@@ -426,7 +406,7 @@ if (old_version	< 9) {
 	// remove hourglass
 	document.body.style.cursor= "auto";
 	
-	this.alert("Import completed: " + pages_imported +"/"+page_names.length.toString()+" pages imported.");
+	alert("Import completed: " + pages_imported +"/"+page_names.length.toString()+" pages imported.");
 	
 	// move to main page
 	current = main_page;

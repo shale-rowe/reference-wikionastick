@@ -25,14 +25,12 @@ woas["trim"] = function(s) {
 	return s.replace(/(^\s*)|(\s*$)/, '');
 }
 
-// this is a timestamp considered invalid
-woas["MAGIC_MTS"] = 0x4b61cbad;
-
 // general javascript-safe string quoting
 // NOTE: not completely binary safe!
 // should be used only for titles (which ought not to contain binary bytes)
 woas["js_encode"] = function (s, split_lines) {
-/*	s = s.replace(/([\\<>'])/g, function (str, ch) {
+	// not to counfound browsers with saved tags
+	s = s.replace(/([\\<>'])/g, function (str, ch) {
 //		return "\\x"+ch.charCodeAt(0).toString(16);
 		switch (ch) {
 			case "<":
@@ -44,10 +42,7 @@ woas["js_encode"] = function (s, split_lines) {
 //			case "\\":
 		}
 		return "\\\\";
-	}); */
-	// not to counfound browsers with saved tags
-	s = s.replace(/\\/g, "\\\\").replace(/</g, "\\x3C").replace(/>/g, "\\x3E").
-		replace(/'/g, "\\'");
+	});
 	// escape newlines (\r\n happens only on the stupid IE) and eventually split the lines accordingly
 	if (!split_lines)
 		s = s.replace(new RegExp("\r\n|\n", "g"), "\\n");
@@ -65,7 +60,7 @@ woas["js_encode"] = function (s, split_lines) {
 
 // used to escape blocks of source into HTML-valid output
 woas["xhtml_encode"] = function(src) {
-/*	return this.utf8_encode(src.replace(/[<>&]+/g, function ($1) {
+	return this.utf8_encode(src.replace(/[<>&]+/g, function ($1) {
 		var l=$1.length;
 		var s="";
 		for(var i=0;i<l;i++) {
@@ -82,9 +77,7 @@ woas["xhtml_encode"] = function(src) {
 			}
 		}
 		return s;
-	})); */
-	return this.utf8_encode(src.replace(/&/g, '&amp;').replace(/</g, '&lt;').
-			replace(/>/g, '&gt;')); // .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+	}));
 }
 
 woas["utf8_encode"] = function(src) {
@@ -111,7 +104,6 @@ woas["popup"] = function (name,fw,fh,extra) {
 //DANGER: will corrupt your WoaS!
 var edit_override = false;
 
-// DO NOT modify this list! these are namespaces that are reserved to WoaS
 var reserved_namespaces = ["Special", "Lock", "Locked", "Unlocked", "Unlock", "Tags", "Tagged", "Untagged", "Include", "Javascript", "WoaS"];
 
 // create the regex for reserved namespaces
@@ -125,10 +117,8 @@ woas["_reserved_rx"] = new RegExp(reserved_rx, "i"); reserved_namespaces = reser
 
 woas["aliases"] = [];
 
-// return page index (progressive number) given its title
 woas["page_index"] = function(title) {
-	// apply aliases on title, from newest to oldest
-	for(var i=0,l=this.aliases.length;i<l;++i) {
+	for(var i=0;i<this.aliases.length;++i) {
 		title = title.replace(this.aliases[i][0], this.aliases[i][1]);
 	}
 	return page_titles.indexOf(title);
@@ -154,11 +144,15 @@ woas["is_readonly"] = function(page) {
 }
 
 woas["is_readonly_id"] = function(pi) {
-	return !!(page_attrs[pi] & 1);
+	if (page_attrs[pi] & 1)
+		return true;
+	return false;
 }
 
 woas["is__encrypted"] = function (pi) {
-	return !!(page_attrs[pi] & 2);
+	if (page_attrs[pi] & 2)
+		return true;
+	return false;
 }
 
 woas["is_encrypted"] = function(page) {
@@ -166,12 +160,16 @@ woas["is_encrypted"] = function(page) {
 }
 
 woas["is__embedded"] = function(pi) {
-	return !!(page_attrs[pi] & 4);
+	if (page_attrs[pi] & 4)
+		return true;
+	return false;
 }
 woas["is_embedded"] = function(page) {return this.is__embedded(this.page_index(page));}
 
 woas["is__image"] = function(pi) {
-	return !!(page_attrs[pi] & 8);
+	if (page_attrs[pi] & 8)
+		return true;
+	return false;
 }
 woas["is_image"] = function(page) { return this.is__image(this.page_index(page)); }
 
@@ -230,16 +228,9 @@ woas["_get_namespace_pages"] = function (ns) {
 		case "Tagged::": // to be used in wiki source
 		case "Tags::":
 			return "= Pages in "+ns+" namespace\n" + this.special_tagged(false);
-		case "Image::":
-			var iHTML = "";
-			for(var i=0, l=page_titles.length;i<l;++i) {
-				if (page_titles[i].indexOf(ns)===0)
-					iHTML += this.parser.parse("* [[Include::"+page_titles[i]+"]][["+page_titles[i]+"]]\n");
-			}
-			return "= Pages in "+ns+" namespace\n" + iHTML;
 	}
 
-	for(var i=0, l=page_titles.length;i<l;++i) {
+	for(var i=0;i<page_titles.length;i++) {
 		if (page_titles[i].indexOf(ns)===0)
 			pg.push(page_titles[i]);
 	}
@@ -249,7 +240,7 @@ woas["_get_namespace_pages"] = function (ns) {
 woas["_get_tagged"] = function(tag_filter) {
 	var pg = [];
 	
-	// allow tags filtering/searching
+	// allow tags filtering
 	var tags = tag_filter.split(','), tags_ok = [], tags_not = [];
 	for(var i=0;i<tags.length;++i) {
 		if (!tags[i].length)
@@ -263,7 +254,6 @@ woas["_get_tagged"] = function(tag_filter) {
 	var tmp, b, fail;
 	for(var i=0; i<pages.length; i++) {
 		tmp = this.get_src_page(i);
-		// can be null in case of encrypted content w/o key
 		if (tmp==null)
 			continue;
 		tmp.replace(/\[\[([^\|]*?)\]\]/g, function(str, $1)
@@ -318,7 +308,6 @@ woas["get_page"] = function(pi) {
 	return pg;	
 }
 
-// get the text of the page, stripped of html tags
 woas["get_src_page"] = function(pi) {
 	var pg = this.get_page(pi);
 	if (pg===null) return null;
@@ -392,26 +381,11 @@ woas["_password_cancel"] = function() {
 	this.__password_finalize($("woas_password"));
 }
 
-// function which hooks all messages shown by WoaS
-// can be fed with multiple messages to show consecutively
-woas["alert"] = function() {
-	for(var i=0,l=arguments.length;i<l;++i) {
-		alert("WoaS: "+arguments[i]);
-	}
-}
-
-// same as above, but for unhandled errors
-woas["crash"] = function() {
-	for(var i=0,l=arguments.length;i<l;++i) {
-		alert("WoaS Unhandled error\n----\n"+arguments[i]);
-	}
-}
-
 woas["_password_ok"] = function() {
 	var pwd_obj = $("woas_password");
 	var pw = pwd_obj.value;
 	if (!pw.length) {
-		this.alert(this.i18n.PWD_QUERY);
+		alert("Please enter a password.");
 		return;
 	}
 	AES_setKey(pw);
@@ -425,7 +399,7 @@ woas["get__text"] = function(pi) {
 		return pages[pi];
 	_decrypt_failed = true;
 	if (!key.length) {
-		this.alert(this.i18n.ERR_NO_PWD.sprintf(page_titles[pi]));
+		alert("No password set for decryption of page \""+page_titles[pi]+"\"");
 		return null;
 	}
 	document.body.style.cursor = "wait";
@@ -457,7 +431,7 @@ woas["get__text"] = function(pi) {
 		_decrypt_failed = false;
 //		if (this.config.key_cache)			latest_AES_page = page_titles[pi];
 	} else {
-		this.alert(this.i18n.ACCESS_DENIED.sprintf(page_titles[pi]));
+		alert("Access denied to page \""+page_titles[pi]+"\"");
 //		AES_clearKey();
 		latest_AES_page = "";
 	}
@@ -481,12 +455,29 @@ woas["set__text"] = function(pi, text) {
 // Sets text typed by user
 woas["set_text"] = function(text) {
 	var pi = this.page_index(current);
-	// this should never happen!
 	if (pi==-1) {
 		log("current page \""+current+"\" is not cached!");	// log:1
 		return;
 	}
 	this.set__text(pi, text);
+}
+
+// triggered by UI graphic button
+function page_print() {
+	var wnd = woas.popup("print_popup", Math.ceil(screen.width*0.75),Math.ceil(screen.height*0.75),
+	",status=yes,menubar=yes,resizable=yes,scrollbars=yes");
+	var css_payload = "";
+	if (ie) {
+		if (ie6)
+			css_payload = "div.wiki_toc { align: center;}";
+		else
+			css_payload = "div.wiki_toc { position: relative; left:25%; right: 25%;}";
+	} else
+		css_payload = "div.wiki_toc { margin: 0 auto;}\n";
+	wnd.document.writeln(_doctype+"<ht"+"ml><he"+"ad><title>"+current+"</title>"+
+	"<st"+"yle type=\"text/css\">"+css_payload+_css_obj().innerHTML+"</sty"+"le><scr"+"ipt type=\"text/javascript\">function go_to(page) { alert(\"Sorry, you cannot browse the wiki while in print mode\");}</sc"+"ript></h"+"ead><"+"body>"+
+	$("wiki_text").innerHTML+"</bod"+"y></h"+"tml>\n");
+	wnd.document.close();
 }
 
 woas["clear_search"] = function() {
@@ -505,17 +496,17 @@ woas["assert_current"] = function(page) {
 
 woas["_create_page"] = function (ns, cr, ask, fill_mode) {
 	if (this.is_reserved(ns+"::")) {
-		this.alert(this.i18n.ERR_RESERVED_NS.sprintf(ns+"::"+cr, ns));
+		alert("You are not allowed to create a page titled \""+ns+"::"+cr+"\" because namespace \""+ns+"\" is reserved");
 			return false;
 	}
 	if ((ns=="File") || (ns=="Image")) {
 		if (!fill_mode)
-			this.alert(this.i18n.DUP_NS_ERROR);
+			alert("Cannot duplicate into File:: or Image:: namespace!");
 		else
 			go_to(cr);
 		return false;
 	}
-	if (!fill_mode && ask && !confirm(this.i18n.PAGE_NOT_FOUND))
+	if (!fill_mode && ask && !confirm("Page not found. Do you want to create it?"))
 		return false;
 	// create and edit the new page
 	if (cr!="Menu")
@@ -526,8 +517,6 @@ woas["_create_page"] = function (ns, cr, ask, fill_mode) {
 		cr = ns+"::"+cr;
 	page_attrs.push(0);
 	page_titles.push(cr);
-	// set modified timestamp
-	page_mts.push(Math.round(new Date().getTime()/1000));
 	log("Page "+cr+" added to internal array");	// log:1
 	if (!fill_mode) {
 		current = cr;
@@ -541,8 +530,9 @@ woas["_create_page"] = function (ns, cr, ask, fill_mode) {
 woas["_get_embedded"] = function(cr, etype) {
 	log("Retrieving embedded source "+cr);	// log:1
 	var pi=this.page_index(cr);
-	if (pi==-1)
+	if (pi==-1) {
 		return this.parser.parse("[[Include::Special::Embed|"+etype+"]]");
+	}
 	return this._get__embedded(cr, pi, etype);
 }
 
@@ -550,41 +540,46 @@ woas["_get__embedded"] = function (cr, pi, etype) {
 	var text=this.get__text(pi);
 	if (text==null) return null;
 	var xhtml = "";
-	
+	var slash_c = (navigator.appVersion.indexOf("Win")!=-1)?"\\":"/";
 	if (etype=="file") {
 		var fn = cr.substr(cr.indexOf("::")+2);
 		var pview_data = decode64(text, 1024), pview_link = "";
 		var ext_size = Math.ceil((text.length*3)/4);
 		if (ext_size-pview_data.length>10)
-			pview_link = "<div id='_part_display'><em>"+this.i18n.FILE_DISPLAY_LIMIT+
-			"</em><br /><a href='javascript:show_full_file("+pi+")'>"+this.i18n.DISPLAY_FULL_FILE+"</a></div>";
-		var _del_lbl;
-		if (!this.is_reserved(cr))
-			_del_lbl = "\n\n<a href=\"javascript:query_delete_file('"+this.js_encode(cr)+"')\">"+this.i18n.DELETE_FILE+"</a>\n";
-		else
-			_del_lbl = "";
+			pview_link = "<div id='_part_display'><em>Only the first 1024 bytes are displayed</em><br /><a href='javascript:show_full_file("+pi+")'>Display full file</a></div>";
+		var _del_cmd, _del_lbl;
+		if (!this.is_reserved(cr)) {
+			_del_cmd = "function query_delete_file() {if (confirm('Are you sure you want to delete this file?')){delete_page('"+this.js_encode(cr)+"');back_or(main_page);woas.save_page('"+this.js_encode(cr)+"');}}\n";
+			_del_lbl = "\n\n<a href=\"javascript:query_delete_file()\">Delete embedded file</a>\n";
+		} else
+			_del_lbl = _del_cmd = ""
 		xhtml = "<pre id='_file_ct' class=\"embedded\">"+this.xhtml_encode(pview_data)+"</pre>"+
-				pview_link+"<br /><hr />File size: "+_convert_bytes(ext_size)+
-				"<br />" + this.last_modified(page_mts[pi])+
-				"<br /><br />XHTML transclusion:"+this.parser.parse("\n{{{[[Include::"+cr+"]]}}}"+
-				"\n\nRaw transclusion:\n\n{{{[[Include::"+cr+"|raw]]}}}"+
-				_del_lbl+"\n<a href=\"javascript:query_export_file('"+this.js_encode(cr)+"')\">"+this.i18n.EXPORT_FILE+"</a>\n");
+		pview_link+
+		"<br /><hr />File size: "+_convert_bytes(ext_size)+"<br /><br />XHTML transclusion:"+
+		this.parser.parse("\n{{{[[Include::"+cr+"]]}}}"+"\n\nRaw transclusion:\n\n{{{[[Include::"+cr+"|raw]]}}}"+
+		_del_lbl+
+		"\n<a href=\"javascript:query_export_file()\">Export file</a>\n"+
+		"<sc"+"ript>"+_del_cmd
+		+(pview_link.length?"function show_full_file(pi) { var text = this.get__text(pi); if (text==null) return; $.show('loading_overlay'); woas.setHTML($('_part_display'), ''); woas.setHTML($('_file_ct'), this.xhtml_encode(decode64(text))); $.hide('loading_overlay'); }\n":'')+
+		"function query_export_file() {\nvar exp_path = _get_this_filename().replace(/\\"+slash_c+"[^\\"+
+		slash_c+"]*$/, \""+(slash_c=="\\"?"\\\\":"/")+"\")+'"+this.js_encode(fn)+"';if (confirm('Do you want to export this file in the below specified path?'+\"\\n\\n\"+exp_path)){woas.export_file('"+this.js_encode(cr)+"', exp_path);}}"+
+		"</sc"+"ript>"
+		);
 	} else {
 		var img_name = cr.substr(cr.indexOf("::")+2);
 		xhtml = this.parser.parse("= "+img_name+"\n\n"+
-		"<s"+"cript> setTimeout(\"_img_properties_show('"+
-				text.match(/^data:\s*([^;]+);/)[1] + "', "+
-				text.length + ", " +
-				(text.match(/^data:\s*[^;]*;\s*[^,]*,\s*/)[0]).length+", "+
-				page_mts[pi]+
-				")\");"+
-		"</s"+"cript>"+		
 		"<img id=\"img_tag\" class=\"embedded\" src=\""+text+"\" alt=\""+this.xhtml_encode(img_name)+"\" />"+
-		"\n\n<div id=\"img_desc\">"+this.i18n.LOADING+"</div>"+
+		"\n\n<div id=\"img_desc\">Loading...</div>"+
+		"<sc"+"ript>function _to_img_display() { var img=$('img_tag');\nwoas.setHTML($('img_desc'), 'Mime type: "+text.match(/^data:\s*([^;]+);/)[1]+"<br />File size: "+_convert_bytes(((text.length-(text.match(/^data:\s*[^;]*;\s*[^,]*,\s*/)[0]).length)*3)/4)+
+		" (requires "+_convert_bytes(text.length)+" due to base64 encoding)"+
+		"<br />Width: '+img.width+'px<br />Height: '+img.height+'px');} setTimeout('_to_img_display()', 0); function query_delete_image() {if (confirm('Are you sure you want to delete this image?')){delete_page('"+this.js_encode(cr)+"');back_or(main_page);woas.save_page('"+this.js_encode(cr)+"');}}\n"+
+		"function query_export_image() {\nvar exp_path = _get_this_filename().replace(/\\"+slash_c+"[^\\"+
+		slash_c+"]*$/, \""+(slash_c=="\\"?"\\\\":"/")+"\")+'"+this.js_encode(img_name)+"';if (confirm('Do you want to export this image in the below specified path?'+\"\\n\\n\"+exp_path)){woas.export_image('"+this.js_encode(cr)+"', exp_path);}}"+
+		"</sc"+"ript>"+
 		"\nSimple transclusion:\n\n{{{[[Include::"+cr+"]]}}}\n\nTransclusion with additional attributes:\n\n{{{[[Include::"+cr+"|border=\"0\" onclick=\"go_to('"+
 		this.js_encode(cr)+"')\" style=\"cursor:pointer\"]]}}}\n"+
-		"\n<a href=\"javascript:query_delete_image('"+this.js_encode(cr)+"')\">"+this.i18n.DELETE_IMAGE+"</a>\n"+
-		"\n<a href=\"javascript:query_export_image('"+this.js_encode(cr)+"')\">"+this.i18n.EXPORT_IMAGE+"</a>\n");
+		"\n<a href=\"javascript:query_delete_image()\">Delete embedded image</a>\n"+
+		"\n<a href=\"javascript:query_export_image()\">Export image</a>\n");
 	}
 	return xhtml;
 }
@@ -622,66 +617,53 @@ woas["export_file"] = function(page, dest_path) {
 	_force_binary = true;
 	var r = saveFile(dest_path, data);	
 	_force_binary = false;
-//	if (r)
-//		this.alert("Written "+data.length+" bytes");
+	if (r)
+		alert("Written "+data.length+" bytes");
 	return r;
 }
-
-var _got_data_uri = false;
 
 woas["_embed_process"] = function(etype) {
 	var filename = $("filename_").value;
 	if(filename == "") {
-		this.alert(this.i18n.ERR_SEL_FILE);
+		alert("A file must be selected");
 		return false;
 	}
 
-	// load the data in binary mode
 	_force_binary = true;
-	_got_data_uri = false;
 	var ct = loadFile(filename);
 	_force_binary = false;
 	if (ct == null || !ct.length) {
-		this.alert(this.i18n.LOAD_ERR + filename);
+		alert("Could not load file "+filename);
 		return false;
 	}
 	
-	// FF3 gives us a proper data: URI!
-	if (_got_data_uri) {
-		if (etype == "image")
-			etype = 12;
-		else etype = 4;
-	} else {
-		ct = encode64(ct);
-		
-		// calculate the flags for the embedded file
-		if (etype == "image") {
-			var m=filename.match(/\.(\w+)$/);
-			if (m==null) m = "";
-			else m=m[1].toLowerCase();
-			var guess_mime = "image";
-			switch (m) {
-				case "png":
-					guess_mime = "image/png";
+	ct = encode64(ct);
+	
+	// calculate the flags for the embedded file
+	if (etype == "image") {
+		var m=filename.match(/\.(\w+)$/);
+		if (m==null) m = "";
+		else m=m[1].toLowerCase();
+		var guess_mime = "image";
+		switch (m) {
+			case "png":
+				guess_mime = "image/png";
+			break;
+			case "gif":
+				guess_mime = "image/gif";
 				break;
-				case "gif":
-					guess_mime = "image/gif";
-					break;
-				case "jpg":
-				case "jpeg":
-					guess_mime = "image/jpeg";
-					break;
-			}
-			ct = "data:"+guess_mime+";base64,"+ct;
-			etype = 12;
-		} else etype = 4;
-	}
+			case "jpg":
+			case "jpeg":
+				guess_mime = "image/jpeg";
+				break;
+		}
+		ct = "data:"+guess_mime+";base64,"+ct;
+		etype = 12;
+	} else etype = 4;
 	
 	pages.push(ct);
 	page_attrs.push(etype);
 	page_titles.push(current);
-	// set modified timestamp to now
-	page_mts.push(Math.round(new Date().getTime()/1000));
 	
 	// save everything
 	this.save_to_file(true);
@@ -691,6 +673,153 @@ woas["_embed_process"] = function(etype) {
 	
 	return true;
 }
+
+woas["cmd_duplicate_page"] = function() {
+	var pname = this._new_page("Insert duplicate page title", true, current+" (duplicate)");
+	if (pname == null)
+		return;
+	var pi = this.page_index(current);
+	var dpi = this.page_index(pname);
+	// duplicate the page
+	pages[dpi] = pages[pi]; // .slice ?
+	page_attrs[dpi] = page_attrs[pi];	
+	// go to new page
+	go_to(pname);
+}
+
+woas["cmd_new_page"] = function() {
+	this._new_page("Insert new page title", false, '');
+}
+
+woas["_new_page"] = function(msg, fill_mode, def_title) {
+	var title = def_title;
+	do {
+		title = prompt(msg, title);
+		if (title == null) break;
+		if (!title.match(/\[\[/) && !title.match(/\]\]/))
+			break;
+		alert("Cannot use \"[[\" or \"]]\" in a page title");
+	} while (1);
+	if ((title!=null) && title.length) {
+		if (this.page_index(title)!=-1)
+			alert("A page with title \""+title+"\" already exists!");
+		else {
+			cr = title;
+			if (cr.substring(cr.length-2)=="::") {
+				alert("You cannot create a page as a namespace");
+			} else {
+				var p = cr.indexOf("::");
+				if (p!=-1) {
+					ns = cr.substring(0,p);
+//					log("namespace of "+cr+" is "+ns);	// log:0
+					cr = cr.substring(p+2);
+				} else ns="";
+				if (!this._create_page(ns, cr, false, fill_mode))
+					return ns+cr;
+				var upd_menu = (cr=='Menu');
+				if (!upd_menu && confirm("Do you want to add a link into the main menu?")) {
+					var menu = this.get_text("::Menu");
+					var p = menu.indexOf("\n\n");
+					if (p==-1)
+						menu += "\n[["+ns+cr+"]]";
+					else
+						menu = menu.substring(0,p)+"\n[["+title+"]]"+menu.substring(p);
+					this.set__text(this.page_index("::Menu"), menu);
+					upd_menu = true;
+				}
+				if (upd_menu)
+					this.refresh_menu_area();
+				return ns+cr;
+			}
+		}
+	}
+	return null;
+}
+
+woas["cmd_erase_wiki"] = function() {
+	if (erase_wiki()) {
+		this.save_to_file(true);
+		back_or(main_page);
+	}
+	return null;
+}
+
+woas["cmd_main_page"] = function() {
+	go_to(main_page);
+	return null;
+}
+
+woas["cmd_edit_css"] = function() {
+	if (!this.config.permit_edits && !edit_override) {
+		alert("This Wiki on a Stick is read-only");
+		return null;
+	}
+	_servm_alert();
+	this.current_editing("Special::Edit CSS", true);
+	this.edit_ready(_css_obj().innerHTML);
+	return null;
+}
+
+woas["cmd_edit_bootscript"] = function() {
+	if (!this.config.permit_edits && !edit_override) {
+		alert("This Wiki on a Stick is read-only");
+		return null;
+	}
+	_servm_alert();
+	cr = "WoaS::Bootscript";
+	var tmp = this.get_text(cr);
+	if (tmp == null)
+		return;
+	this.current_editing(cr, true);
+	// setup the wiki editor textbox
+	this.current_editing(cr, this.config.permit_edits | this._server_mode);
+	this.edit_ready(decode64(tmp));
+	return null;
+}
+
+woas["cmd_edit_aliases"] = function() {
+	if (!this.config.permit_edits && !edit_override) {
+		alert("This Wiki on a Stick is read-only");
+		return null;
+	}
+	_servm_alert();
+	cr = "WoaS::Aliases";
+	var tmp = this.get_text(cr);
+	if (tmp == null)
+		return;
+	this.current_editing(cr, true);
+	// setup the wiki editor textbox
+	this.current_editing(cr, this.config.permit_edits | this._server_mode);
+	this.edit_ready(tmp);
+	return null;
+}
+
+woas["cmd_go_to"] = function() {
+	var pname = prompt("Go to page:", current);
+	if ((pname === null) || !pname.length)
+		return null;
+	go_to(pname);
+}
+
+woas["cmd_delete"] = function() {
+	var pname = prompt("Delete page:", current);
+	if ((pname === null) || !pname.length)
+		return;
+	var pi = this.page_index(pname);
+	if (pi == -1) {
+		alert("Page \""+pname+"\" does not exist!");
+		return;
+	}
+	if ((pname != null) && confirm("Are you sure you want to DELETE page \""+pname+"\"?")) {
+		delete_page(pname);
+		this.save_page(pname);
+	}
+}
+
+woas["shortcuts"] = ["New Page", "Duplicate Page", "All Pages", "Orphaned Pages", "Backlinks", "Dead Pages", "Erase Wiki", "Edit CSS", "Main Page", "Edit Bootscript", "Aliases", "Go to", "Delete Page"];
+woas["shortcuts_js"] = ["cmd_new_page", "cmd_duplicate_page", "special_all_pages", "special_orphaned_pages", "special_backlinks",
+					"special_dead_pages", "cmd_erase_wiki", "cmd_edit_css", "cmd_main_page",
+					"cmd_edit_bootscript", "cmd_edit_aliases", "cmd_go_to", "cmd_delete"];
 
 woas["_get_special"] = function(cr, interactive) {
 	var text = null;
@@ -716,7 +845,7 @@ woas["_get_special"] = function(cr, interactive) {
 				}
 				this._add_namespace_menu("Special");
 				
-				this.load_as_current(cr, text, );
+				this.load_as_current(cr, text);
 				return;
 			}	*/
 		text = this.get_text(cr);
@@ -726,7 +855,7 @@ woas["_get_special"] = function(cr, interactive) {
 			return null;
 		}
 		if (interactive)
-			this.alert(this.i18n.INVALID_SPECIAL);
+			alert("Invalid special page.");
 	}
 	return text;
 }
@@ -742,7 +871,7 @@ woas["get_javascript_page"] = function(cr) {
 		emsg = e.toString();
 	}
 	if (text == null) {
-		this.crash("Dynamic evaluation of '"+cr+"' failed!\n\nError message:\n\n"+emsg);
+		alert("Dynamic evaluation of '"+cr+"' failed!\n\nError message:\n\n"+emsg);
 		return null;
 	}
 	return text;
@@ -776,7 +905,7 @@ woas["set_current"] = function (cr, interactive) {
 						if (text == null)
 							return;
 						break;
-					case "Tagged": // deprecated
+					case "Tagged": // deprecated?
 					case "Tags":
 						text = this._get_tagged(cr);
 						if (text == null)
@@ -785,9 +914,7 @@ woas["set_current"] = function (cr, interactive) {
 					case "Lock":
 						pi = this.page_index(cr);
 						if (key.length) {
-							// display a message
-							if (confirm(this.i18n.LOCK_CONFIRM.sprintf(cr)+
-								(last_AES_page ? this.i18n.LOCK_CONFIRM_LAST.sprintf(last_AES_page) : ''))) {
+							if (confirm("Do you want to use the last password (last time used on page \""+latest_AES_page+"\") to lock this page \""+cr+"\"?")) {
 								this._finalize_lock(pi);
 								return;
 							}
@@ -826,7 +953,7 @@ woas["set_current"] = function (cr, interactive) {
 						this._add_namespace_menu(namespace);
 						if (namespace.length)
 							cr = real_t;
-						this.load_as_current(cr, text, page_mts[pi]);
+						this.load_as_current(cr, text);
 						return;
 					case "File":
 					case "Image":
@@ -839,7 +966,7 @@ woas["set_current"] = function (cr, interactive) {
 						this._add_namespace_menu(namespace);
 						if (namespace.length)
 							cr = namespace + "::" + cr;
-						this.load_as_current(cr, text, page_mts[this.page_index(namespace+"::"+cr, namespace.toLowerCase())]);
+						this.load_as_current(cr, text);
 						return;
 						break;
 					default:
@@ -864,24 +991,13 @@ woas["set_current"] = function (cr, interactive) {
 	}
 	
 	this._add_namespace_menu(namespace);
-
-	// hard-set the current page to the namespace page
-	if (namespace.length) {
-		cr = namespace + "::" + cr;
-		pi = this.page_index(cr);
-		if (pi)
-			mts = page_mts[pi];
-		else mts = null;
-	} else {
-		pi = this.page_index(cr);
-		cr = page_titles[pi];
-		mts = page_mts[pi];
-	}
-	
-	this.load_as_current(cr, this.parser.parse(text), mts);
+	if (namespace.length)
+		cr = page_titles[this.page_index(namespace + "::" + cr)];
+	else
+		cr = page_titles[this.page_index(cr)];
+	this.load_as_current(cr, this.parser.parse(text));
 }
 
-// StickWiki custom scripts array
 woas["swcs"] = [];
 
 woas["_clear_swcs"] = function () {
@@ -933,25 +1049,11 @@ woas["_set_title"] = function (new_title) {
 	document.title = new_title;
 }
 
-woas["last_modified"] = function(mts) {
-	// do not show anything when the timestamp is magic
-	if (mts == this.MAGIC_MTS)
-		return "";
-	return this.i18n.LAST_MODIFIED + (new Date(mts*1000)).toLocaleString();
-}
-
 // actually load a page given the title and the proper XHTML
-woas["load_as_current"] = function(title, xhtml, mts) {
+woas["load_as_current"] = function(title, xhtml) {
 	scrollTo(0,0);
 	log("load_as_current(\""+title+"\") - "+xhtml.length+" bytes");	// log:1
 	$("wiki_text").innerHTML = xhtml;
-	// generate the last modified string to append
-	if (mts) {
-		$("wiki_mts").innerHTML = this.last_modified(mts);
-		$.show("wiki_mts");
-	} else
-		$.hide("wiki_mts");
-
 	this._set_title(title);
 	this.update_nav_icons(title);
 	current = title;
@@ -974,6 +1076,72 @@ woas["_perform_lock"] = function(pi) {
 	pages[pi] = AES_encrypt(pages[pi]);
 //	log("E: encrypted length is "+pages[pi].length);	// log:0
 	page_attrs[pi] += 2;
+}
+
+var _pw_q_lock = false;
+
+// Used by Special::Lock
+function pw_quality() {
+
+	if (_pw_q_lock)
+		return;
+		
+	_pw_q_lock = true;
+
+function _hex_col(tone) {
+	var s=Math.floor(tone).toString(16);
+	if (s.length==1)
+		return "0"+s;
+	return s;
+}
+
+	// original code from http://lxr.mozilla.org/seamonkey/source/security/manager/pki/resources/content/password.js
+	var pw=$('pw1').value;
+
+	//length of the password
+	var pwlength=pw.length;
+	
+	if (pwlength!=0) {
+
+	//use of numbers in the password
+	  var numnumeric = pw.match(/[0-9]/g);
+	  var numeric=(numnumeric!=null)?numnumeric.length/pwlength:0;
+
+	//use of symbols in the password
+	  var symbols = pw.match(/\W/g);
+	  var numsymbols= (symbols!=null)?symbols.length/pwlength:0;
+
+	//use of uppercase in the password
+	  var numupper = pw.match(/[^A-Z]/g);
+	  var upper=numupper!=null?numupper.length/pwlength:0;
+	// end of modified code from Mozilla
+	
+	var numlower = pw.match(/[^a-z]/g);
+	var lower = numlower!=null?numlower.length/pwlength:0;
+	
+	var u_lo = upper+lower;
+
+	//   var pwstrength=((pwlength*10)-20) + (numeric*10) + (numsymbols*15) + (upper*10);
+	  
+		// 80% of security defined by length (at least 16, best 22 chars), 10% by symbols, 5% by numeric presence and 5% by upper case presence
+		var pwstrength = ((pwlength/18) * 65) + (numsymbols * 10 + u_lo*20 + numeric*5);
+		
+		var repco = split_bytes(pw).toUnique().length/pwlength;
+		if (repco<0.8)
+			pwstrength *= (repco+0.2);
+		log("pwstrength = "+_number_format(pwstrength/100, 2)+", repco = "+repco);	// log:1
+	} else
+		var pwstrength = 0;
+  
+	if (pwstrength>100)
+		color = "#00FF00";
+	else
+		color = "#" + _hex_col((100-pwstrength)*255/100) + _hex_col((pwstrength*255)/100) + "00";
+  
+	$("pw1").style.backgroundColor = color;
+	$("txtBits").innerHTML = "Key size: "+(pwlength*8).toString() + " bits";
+	
+	_pw_q_lock = false;
 }
 
 woas["_add_namespace_menu"] = function(namespace) {
@@ -1033,7 +1201,7 @@ woas["_gen_display"] = function(id, visible, prefix) {
 }
 
 woas["img_display"] = function(id, visible) {
-	if (!ie || ie8) {
+	if (!ie) {
 		this._gen_display(id, visible, "img");
 		this._gen_display(id, !visible, "alt");
 	} else {
@@ -1097,9 +1265,9 @@ woas["after_load"] = function() {
 	$('img_home').alt = main_page;
 	
 	if (this.debug)
-		$.show("debug_panel");
+		$.show("debug_info");
 	else
-		$.hide("debug_panel");
+		$.hide("debug_info");
 
 	this.img_display("back", true);
 	this.img_display("forward", true);
@@ -1111,7 +1279,6 @@ woas["after_load"] = function() {
 	this.img_display("save", true);
 	this.img_display("lock", true);
 	this.img_display("unlock", true);
-//	this.img_display("setkey", true);
 	
 	// customized keyboard hook
 	document.onkeydown = kbd_hook;
@@ -1143,17 +1310,7 @@ woas["after_load"] = function() {
 	
 	this["_editor"] = new TextAreaSelectionHelper($("wiki_editor"));
 	
-	// check integrity of WoaS when finished - only in debug mode
-	if (this.debug) {
-		var len = pages.length;
-		if ((page_attrs.length != len) ||
-			(page_titles.length != len) ||
-			(page_mts.length != len))
-			this.crash("FATAL: data arrays have mismatching length!");
-		else
-			$.hide("loading_overlay");
-	} else
-		$.hide("loading_overlay");
+	$.hide("loading_overlay");
 }
 
 woas["_load_aliases"] = function(s) {
@@ -1186,7 +1343,6 @@ woas["_create_bs"] = function() {
 	return true;
 }
 
-// remove bootscript (when erasing for example)
 woas["_clear_bs"] = function() {
 	if (_bootscript!=null) {
 		var head = document.getElementsByTagName("head")[0];
@@ -1225,7 +1381,6 @@ function kbd_hook(orig_e) {
 		if (_custom_focus)
 			return orig_e;
 		if (search_focused) {
-			// return key
 			if (e.keyCode==13) {
 				ff_fix_focus();
 				do_search();
@@ -1233,7 +1388,6 @@ function kbd_hook(orig_e) {
 			}
 			return orig_e;
 		}
-		// backspace or escape
 		if ((e.keyCode==8) || (e.keyCode==27)) {
 			go_back();
 			ff_fix_focus();
@@ -1241,7 +1395,6 @@ function kbd_hook(orig_e) {
 		}
 	}
 
-	// escape
 	if (e.keyCode==27) {
 		cancel();
 		ff_fix_focus();
@@ -1290,11 +1443,8 @@ woas["update_lock_icons"] = function(page) {
 		cyphered = false;
 	}
 	
-	// update the encryption icons accordingly
 	this.menu_display("lock", !kbd_hooking && can_lock);
 	this.menu_display("unlock", !kbd_hooking && can_unlock);
-	// we can always input decryption keys by clicking the setkey icon
-	//this.menu_display("setkey", cyphered);
 	var cls;
 	if (cyphered || (page.indexOf("Locked::")==0))
 		cls = "text_area locked";
@@ -1324,11 +1474,11 @@ woas["disable_edit"] = function() {
 }
 
 function _lock_pages(arr) {
-	this.alert("Not yet implemented");
+	alert("Not yet implemented");
 }
 
 function _unlock_pages(arr) {
-	this.alert("Not yet implemented");
+	alert("Not yet implemented");
 }
 
 woas["edit_allowed"] = function(page) {
@@ -1364,8 +1514,8 @@ woas["current_editing"] = function(page, disabled) {
 
 	// FIXME!
 	if (!ie)	{
-		$("wiki_editor").style.width = window.innerWidth - 35 + "px";
-		$("wiki_editor").style.height = window.innerHeight - 180 + "px";
+		$("wiki_editor").style.width = window.innerWidth - 30 + "px";
+		$("wiki_editor").style.height = window.innerHeight - 150 + "px";
 	}
 	
 	$.show("edit_area");
@@ -1382,7 +1532,7 @@ woas["edit_ready"] = function (txt) {
 
 function _servm_alert() {
 	if (woas._server_mode)
-		this.alert("You are using Wiki on a Stick on a REMOTE server, your changes will not be saved neither remotely or locally.\n\nThe correct usage of Wiki on a Stick is LOCAL, so you should use a local copy of this page to exploit the save features. All changes made to this copy of Wiki on a Stick will be lost.");
+		alert("You are using Wiki on a Stick on a REMOTE server, your changes will not be saved neither remotely or locally.\n\nThe correct usage of Wiki on a Stick is LOCAL, so you should use a local copy of this page to exploit the save features. All changes made to this copy of Wiki on a Stick will be lost.");
 }
 
 woas["edit_page"] = function(page) {
@@ -1403,18 +1553,19 @@ woas["edit_page"] = function(page) {
 woas["rename_page"] = function(previous, newpage) {
 	log("Renaming "+previous+" to "+newpage);	// log:1
 	if (newpage.match(/\[\[/) || newpage.match(/\]\]/)) {
-		this.alert(this.i18n.BRACKETS_TITLE);
+		alert("Cannot use \"[[\" or \"]]\" in a page title");
 		return false;
 	}
 	if (this.page_index(newpage)!=-1) {
-		this.alert(this.i18n.PAGE_EXISTS.sprintf(newpage));
+		alert("A page with title \""+newpage+"\" already exists!");
 		return false;
 	}
 	var pi = this.page_index(previous);
 	page_titles[pi] = newpage;
 	var re = new RegExp("\\[\\[" + RegExp.escape(previous) + "(\\]\\]|\\|)", "gi");
 	var changed;
-	for(var i=0,l=pages.length;i<l;i++) {
+	for(var i=0; i<pages.length; i++)
+	{
 		//FIXME: should not replace within the nowiki blocks!
 		var tmp = this.get_page(i);
 		if (tmp==null)
@@ -1442,7 +1593,6 @@ function delete_page(page) {
 			page_titles.splice(i,1);
 			pages.splice(i,1);
 			page_attrs.splice(i,1);
-			page_mts.splice(i,1);
 			woas.refresh_menu_area();
 			break;
 		}
@@ -1453,7 +1603,7 @@ function delete_page(page) {
 function _new_syntax_patch(text) {
 	//BUG: will also modify text contained in nowiki blocks
 	text = text.replace(/(^|\n)(\+*)([ \t])/g, function (str, $1, $2, $3) {
-		return $1+String("*").repeat($2.length)+$3;
+		return $1+str_rep("*", $2.length)+$3;
 	});
 	
 	return text;
@@ -1607,8 +1757,6 @@ woas["save__page"] = function(pi) {
 		log("floating_pages = ("+floating_pages+")");	// log:1
 		return;
 	}
-	// update the modified time timestamp
-	page_mts[pi] = Math.round(new Date().getTime()/1000);
 	this.save_to_file(true);
 }
 
@@ -1617,7 +1765,7 @@ function _get_data(marker, source, full, start) {
 	// always find the end marker to make the XHTML fixes
 	offset = source.indexOf("/* "+marker+ "-END */");
 	if (offset == -1) {
-		this.alert(woas.i18n.ERR_MARKER.sprintf("END"));
+		alert("END marker not found!");
 		return false;
 	}			
 	offset += 6 + 4 + marker.length + 2;
@@ -1646,7 +1794,7 @@ function _get_data(marker, source, full, start) {
 		if (start) {
 			var s_offset = source.indexOf("/* "+marker+ "-START */");
 			if (s_offset == -1) {
-				this.alert(woas.i18n.ERR_MARKER.sprintf("START"));
+				alert("START marker not found!");
 				return false;
 			}
 			return source.substring(s_offset, offset);
@@ -1654,7 +1802,7 @@ function _get_data(marker, source, full, start) {
 	} else {
 		offset = source.indexOf("/* "+marker+ "-DATA */");
 		if (offset == -1) {
-			this.alert(woas.i18n.ERR_MARKER.sprintf("DATA"));
+			alert("DATA marker not found!");
 			return false;
 		}
 		offset += 6 + 5 + marker.length + 1;
@@ -1669,10 +1817,9 @@ function _inc_marker(old_marker) {
 	}
 	var n = new Number(m[2].replace(/^0+/, '')) + 1;
 	n = n.toString();
-	return m[1]+"-"+String("0").repeat(7-n.length)+n;
+	return m[1]+"-"+str_rep("0", 7-n.length)+n;
 }
 
-// save full WoaS to file
 woas["save_to_file"] = function(full) {
 	$.show("loading_overlay");
 	
@@ -1715,8 +1862,6 @@ woas["save_to_file"] = function(full) {
 	if (full) {
 		computed_js += "var page_attrs = [" + printout_num_arr(page_attrs) + "];\n\n";
 		
-		computed_js += "var page_mts = [" + printout_num_arr(page_mts) + "];\n\n";
-		
 		computed_js += "var pages = [\n" + printout_mixed_arr(pages, this.config.allow_diff, page_attrs) + "];\n\n";
 		
 		computed_js += "/* " + new_marker + "-END */\n";
@@ -1726,15 +1871,10 @@ woas["save_to_file"] = function(full) {
 	var bak_ed = $("wiki_editor").value;
 	var bak_tx = $("wiki_text").innerHTML;
 	var bak_mn = $("menu_area").innerHTML;
-	var bak_mts = $("wiki_mts").innerHTML;
-	var bak_mts_shown = $.is_visible("wiki_mts");
 
-	if (bak_mts_shown)
-		$.hide("wiki_mts");
 	$("wiki_editor").value = "";
 	$("wiki_text").innerHTML = "";
 	$("menu_area").innerHTML = "";
-	$("wiki_mts").innerHTML = "";
 
 	this._clear_swcs();
 	this._clear_bs();
@@ -1756,9 +1896,6 @@ woas["save_to_file"] = function(full) {
 	$("wiki_editor").value = bak_ed;
 	$("wiki_text").innerHTML = bak_tx;
 	$("menu_area").innerHTML = bak_mn;
-	$("wiki_mts").innerHTML = bak_mts;
-	if (bak_mts_shown)
-		$.show("wiki_mts");
 	
 	this._create_bs();
 	
@@ -1767,7 +1904,41 @@ woas["save_to_file"] = function(full) {
 	return r;
 }
 
-// global function - get path of current WoaS file (through browser)
+function erase_wiki() {
+	if (!woas.config.permit_edits) {
+		alert("This Wiki on a Stick is read-only");
+		return false;
+	}
+	if (!confirm("Are you going to ERASE all your pages?"))
+		return false;
+	if (!confirm("This is the last confirm needed in order to ERASE all your pages.\n\nALL YOUR PAGES WILL BE LOST\n\nAre you sure you want to continue?"))
+		return false;
+	var static_pg = ["Special::About", "Special::Advanced", "Special::Options","Special::Import",
+						"Special::Lock","Special::Search","Special::Security", "Special::Embed",
+						"Special::Export", "Special::License" ];
+	var backup_pages = [];
+	page_attrs = [0, 0, 4];
+	for(var i=0;i<static_pg.length;i++) {
+		var pi = woas.page_index(static_pg[i]);
+		if (pi==-1) {
+			alert(static_pg[i]+" not found!");
+			return false;
+		}
+		backup_pages.push(pages[pi]);
+		page_attrs.push(0);
+	}
+	page_titles = ["Main Page", "::Menu", "WoaS::Bootscript", "WoaS::Aliases"];
+	page_titles = page_titles.concat(static_pg);
+	pages = ["This is your empty main page", "[[Main Page]]\n\n[[Special::New Page]]\n[[Special::Duplicate Page]]\n[[Special::Go to]]\n[[Special::Delete]]\n[[Special::Backlinks]]\n[[Special::Search]]", encode64("/* insert here your boot script */"), ""];
+	pages = pages.concat(backup_pages);
+	current = main_page = "Main Page";
+	woas.refresh_menu_area();
+	backstack = [];
+	forstack = [];	
+	return true;
+}
+
+// globla function
 function _get_this_path() {
 	var slash_c = (navigator.appVersion.indexOf("Win")!=-1)?"\\\\":"/";
 	return _get_this_filename().replace(new RegExp("("+slash_c+")"+"[^"+slash_c+"]*$"), "$1");
@@ -1777,6 +1948,11 @@ var max_keywords_length = 250;
 var max_description_length = 250;
 
 // proper autokeywords generation functions begin here
+
+function sortN(a,b){return b.w - a.w}
+
+//TODO: have Special::Common Words contain all the common words
+var common_words = ['a', 'the', 'is', 'for', 'of', 'to', 'in', 'an', 'be', 'that', 'all', 'or'];
 
 function _auto_keywords(source) {
 	if (!source.length) return "";
@@ -1788,7 +1964,7 @@ function _auto_keywords(source) {
 	for(var i=0;i<words.length;i++) {
 		if (words[i].length==0)
 			continue;
-		cond = (woas.i18n.common_words.indexOf(words[i].toLowerCase())<0);
+		cond = (common_words.indexOf(words[i].toLowerCase())<0);
 		if (cond) {
 			wp = nu_words.indexOf(words[i]);
 			if (wp < 0) {
@@ -1801,7 +1977,7 @@ function _auto_keywords(source) {
 	if (!density.length) return "";
 	words = new Array();
 	var keywords = "", nw = "";
-	density = density.sort(function(a,b){return b.w - a.w});
+	density = density.sort(sortN);
 	var ol=0;
 	for(i=0;i<density.length;i++) {
 		nw = nu_words[density[i].i];
@@ -1813,7 +1989,7 @@ function _auto_keywords(source) {
 	return keywords.substr(1);
 }
 
-var _g_br_rx = new RegExp("<"+"br\\s?\\/?>", "gi");
+var _br_rx = new RegExp("<"+"br\\s?\\/?>", "gi");
 woas["xhtml_to_text"] = function(s) {
-	return s.replace(_g_br_rx, "\n").replace(/<\/?\w+[^>]*>/g, ' ').replace(/&#?([^;]+);/g, function(str, $1) { if (!isNaN($1)) return String.fromCharCode($1); else return ""; });
+	return s.replace(_br_rx, "\n").replace(/<\/?\w+[^>]*>/g, ' ').replace(/&#?([^;]+);/g, function(str, $1) { if (!isNaN($1)) return String.fromCharCode($1); else return ""; });
 }
