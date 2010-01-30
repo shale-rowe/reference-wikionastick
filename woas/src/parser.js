@@ -96,12 +96,14 @@ woas.parser["parse_tables"] =  function (str, p1) {
 			return caption = caption || ('<caption' + (stk.length>0? ' style="caption-side:bottom">':'>') + pp2+ '</caption>');
 		if(pp1 == '|') // fix empty first cell
 			pp2= " |"+pp2;
-		var cells = pp2.replace(/(^|\|\|)\s*(\|\|| $)/g,"$1  $2").split(/\s\|\|\s?/);
+		var cells = pp2.replace(/(\|\|)\s{0,1}(\s?)(?=\|\|)/g,"$1$2  ").replace(/(\|\|\s*)$/, "$1 ").split(" || "); // allow for zero (or single) spaced cells, then split them
+		//alert("CELLS="+cells.join("*").replace(/ /g, "~")+"=")
 		var row = [];       // table row
 		var stag = "";      // start tag
 		var cs = 0;         // counter for spanned columns
 		for (var i=cells.length - 1; i >= 0; --i){
-			var C = cells[i].match(/^(\s*)(=\s*)?(.*?)(\s*)$/);
+			var C = cells[i].match(/^(\s*)(=\s*)?(.*?)(\s*)$/) ; // ||[]; // if we fail to parse, at least dont crash
+			//alert("C="+C.join("*").replace(/ /g, "~")+"=")
 			if (i && !C[3] && !C[1]) { // if empty and not first column, increase span counter.
 				++cs;
 				continue;
