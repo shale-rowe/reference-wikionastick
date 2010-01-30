@@ -180,28 +180,6 @@ woas["page_exists"] = function(page) {
 	return (this.is_reserved(page) || (page.substring(page.length-2)=="::") || (this.page_index(page)!=-1));
 }
 
-var	parse_marker = "#"+_random_string(8);
-
-woas["_get_tags"] = function(text) {
-	var tags = [];
-	if (text.indexOf("Tag::")==0)
-		tags.push(this.trim(text.substring(5)));
-	else if (text.indexOf("Tags::")==0) {
-		text = this.trim(text.substring(6));
-		if (!text.length)
-			return tags;
-		var alltags;
-		if (text.indexOf("|")!=-1)
-			alltags = text.split("|");
-		else
-			alltags = text.split(",");
-		for(var i=0;i<alltags.length;i++) {
-			tags.push(this.trim(alltags[i]));
-		}
-	}
-	return tags;
-}
-
 // joins a list of pages
 woas["_join_list"] = function(arr) {
 	if (!arr.length)
