@@ -1149,7 +1149,10 @@ woas["after_load"] = function() {
 		if ((page_attrs.length != len) ||
 			(page_titles.length != len) ||
 			(page_mts.length != len))
-			this.crash("FATAL: data arrays have mismatching length!");
+			this.crash("FATAL: data arrays have mismatching length!\n"+
+						"#pages = %d, #page_attrs = %d, #page_titles = %d, #page_mts = %d".
+						sprintf(pages.length, page_attrs.length, page_titles.length,
+						page_mts.length));
 		else
 			$.hide("loading_overlay");
 	} else
