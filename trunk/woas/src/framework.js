@@ -184,16 +184,14 @@ String.prototype.sprintf = function() {
 	if (typeof arguments == "undefined") { return null; }
 	// next argument to pick
 	var i_pos = 0, max_pos = arguments.length - 1;
-	return this.replace(/%[sd]/g, function(str) {
+	var fmt_args = arguments;
+	return this.replace(/(%[sd])/g, function(str, $1) {
 		// replace with a strange thing in case of undefined parameter
 		if (i_pos > max_pos)
 			return "(?)";
-		if (str == '%d')
-			// no number casting here?
-			return arguments[i_pos++];
+/*		if ($1 == '%d')
+			return Number(arguments[i_pos++]); */
 		// return '%s' string
-		return String(arguments[i_pos++]);
+		return String(fmt_args[i_pos++]);
 	});
 }
-
-
