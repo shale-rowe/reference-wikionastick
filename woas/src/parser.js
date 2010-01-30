@@ -107,6 +107,28 @@ function _filter_wiki(s) {
 		replace(/\<\/?\w+[^>]+>/g, "");
 }
 
+var	parse_marker = "#"+_random_string(8);
+
+woas["_get_tags"] = function(text) {
+	var tags = [];
+	if (text.indexOf("Tag::")==0)
+		tags.push(this.trim(text.substring(5)));
+	else if (text.indexOf("Tags::")==0) {
+		text = this.trim(text.substring(6));
+		if (!text.length)
+			return tags;
+		var alltags;
+		if (text.indexOf("|")!=-1)
+			alltags = text.split("|");
+		else
+			alltags = text.split(",");
+		for(var i=0;i<alltags.length;i++) {
+			tags.push(this.trim(alltags[i]));
+		}
+	}
+	return tags;
+}
+
 // THIS is the method that you should override for your custom parsing needs
 // text is the raw wiki source
 // export_links is set to true when exporting wiki pages and is used to generate proper href for hyperlinks
@@ -196,8 +218,6 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 	if (ie)
 		text = text.replace("\r\n", "\n");
 
-	var tags = [];
-
 	// put away raw text contained in multi-line nowiki blocks {{{ }}}
 	text = text.replace(/\{\{\{((.|\n)*?)\}\}\}/g, function (str, $1) {
 		var r = "<!-- "+parse_marker+"::"+html_tags.length+" -->";
@@ -239,25 +259,39 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 		html_tags.push(tag);
 		return r;
 	});
+
+	// wiki tags
+	var tags = [], inline_tags = 0;
 	
 	// links with | 
 	text = text.replace(/\[\[([^\]\]]*?)\|(.*?)\]\]/g, function(str, $1, $2) {
-			if ($1.search(/^\w+:\/\//)==0) {
-				var r="<!-- "+parse_marker+'::'+html_tags.length+" -->";
-				html_tags.push("<a class=\"world\" href=\"" + $1.replace(/^mailto:\/\//, "mailto:") + "\" target=\"_blank\">" + $2 + "<\/a>");
-				return r;
-			}
-				var page = $1;
-				var hashloc = $1.indexOf("#");
-				var gotohash = "";
-				if (hashloc > 0) {
-					page = $1.substr(0, hashloc);
-					gotohash = "; window.location.hash= \"" + $1.substr(hashloc) + "\"";
-				}
-				if (woas.page_exists(page)) {
-					var r="<!-- "+parse_marker+'::'+html_tags.length+" -->";
-					var wl;
-					if (export_links) {
+		if ($1.search(/^\w+:\/\//)==0) {
+			var r="<!-- "+parse_marker+'::'+html_tags.length+" -->";
+			html_tags.push("<a class=\"world\" href=\"" + $1.replace(/^mailto:\/\//, "mailto:") + "\" target=\"_blank\">" + $2 + "<\/a>");
+			return r;
+		}
+			
+		// is this a tag definition?
+		var found_tags = woas._get_tags($1);
+		if (found_tags.length>0) {
+			tags = tags.concat(found_tags);
+			if (!this.force_inline)
+				return "";
+			inline_tags++;
+			return "<!-- "+parse_marker+":"+inline_tags+" -->";
+		}
+
+		var page = $1;
+		var hashloc = $1.indexOf("#");
+		var gotohash = "";
+		if (hashloc > 0) {
+			page = $1.substr(0, hashloc);
+			gotohash = "; window.location.hash= \"" + $1.substr(hashloc) + "\"";
+		}
+		if (woas.page_exists(page)) {
+			var r="<!-- "+parse_marker+'::'+html_tags.length+" -->";
+			var wl;
+			if (export_links) {
 //						if (this.page_index(page)==-1)
 //							wl = " onclick=\"alert('not yet implemented');\"";		else
 						wl = " href=\""+woas._export_get_fname(page)+"\"";
@@ -285,8 +319,8 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 					}
 				}
 			}); //"<a class=\"wiki\" onclick='go_to(\"$2\")'>$1<\/a>");
+
 	// links without |
-	var inline_tags = 0;
 	text = text.replace(/\[\[([^\]]*?)\]\]/g, function(str, $1) {
 		if ($1.search(/^\w+:\/\//)==0) {
 			var r="<!-- "+parse_marker+'::'+html_tags.length+" -->";
@@ -295,8 +329,8 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 			return r;
 		}
 		
+		// is this a tag definition?
 		var found_tags = woas._get_tags($1);
-		
 		if (found_tags.length>0) {
 			tags = tags.concat(found_tags);
 			if (!this.force_inline)
@@ -455,4 +489,3 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 		return "<div class=\"level0\">" + text + "</div>";
 	return text.substring(6)+"</div>";
 }
-
