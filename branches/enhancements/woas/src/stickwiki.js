@@ -1696,7 +1696,7 @@ woas["after_parser"] = undefined; // must return the text, a do-nothing would be
 woas["user_parse"] = function(title,text){
 	var M=text.match(/^%([^:]+):([\s\S]*)$/);
 	if(M==null)
-		M=[0,'default',text];
+		M=[0,'_default',text];
 	var U = woas.user_parse;
 	U.post=0;
 	switch(typeof(U[M[1]])){
@@ -1708,8 +1708,8 @@ woas["user_parse"] = function(title,text){
 woas["user_parse"].pre = function(m){return "<pre>"+woas.xhtml_encode(m)+"</pre>"}
 woas["user_parse"].nobr = function(m){return m.replace(/\n/g,"")}
 woas["user_parse"].verbatim = function(m){return m}
-woas["user_parse"].js = function(m){this.post++;return this.default(m)}
-woas["user_parse"].default = function(text){
+woas["user_parse"].js = function(m){this.post++;return this._default(m)}
+woas["user_parse"]._default = function(text){
 	var _print="";
 	function print(t){_print+=t;}
 	try{
