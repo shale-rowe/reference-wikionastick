@@ -96,7 +96,8 @@ woas.parser["parse_tables"] =  function (str, p1) {
 			return caption = caption || ('<caption' + (stk.length>0? ' style="caption-side:bottom">':'>') + pp2+ '</caption>');
 		if(pp1 == '|') // fix empty first cell
 			pp2= " |"+pp2;
-		var cells = pp2.replace(/(\|\|)\s{0,1}(\s?)(?=\|\|)/g,"$1$2  ").replace(/(\|\|\s*)$/, "$1 ").split(" || "); // allow for zero (or single) spaced cells, then split them
+		//var cells = pp2.replace(/(\|\|)\s{0,1}(\s?)(?=\|\|)/g,"$1$2  ").replace(/(\|\|\s*)$/, "$1 ").split(" || "); // allow for zero (or single) spaced SPAN cells, then split them	
+		var cells = pp2.replace(/(\|\|)(\s{0,1})(\s?)(?=\|\|)/g,"$1$2$3  ").replace(/(\|\|\s*)$/, "$1 ").split(" || "); // allow for zero spaced cells, then split them
 		//alert("CELLS="+cells.join("*").replace(/ /g, "~")+"=")
 		var row = [];       // table row
 		var stag = "";      // start tag
