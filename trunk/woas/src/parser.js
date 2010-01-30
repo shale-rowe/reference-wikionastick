@@ -12,12 +12,12 @@ woas.parser["header_anchor"] = function(s) {
 	return s.replace(/[^a-zA-Z0-9]/g, '_');
 }
 
-var reParseOldHeaders = /(^|\n)(\!+)\s*([^\n]+)/g;
-var reParseHeaders = /(^|\n)(=+)\s*([^\n]+)/g;
-woas.parser["header_replace"] = function(str, $1, $2, $3) {
-		var header = $3;
-		var len = $2.length;
-		if (header.indexOf($2)==header.length - len)
+var reParseOldHeaders = /^(\!+)\s*(.*)$/gm;
+var reParseHeaders = /^(=+)\s*(.*)$/gm;
+woas.parser["header_replace"] = function(str, $1, $2) {
+		var header = $2;
+		var len = $1.length;
+		if (header.indexOf($1)==header.length - len)
 			header = header.substring(0, header.length - len);
 		// automatically build the TOC if needed
 		len = $1.length;
@@ -54,7 +54,7 @@ woas.parser["sublist"] = function (lst, ll, suoro, euoro) {
 // This is a bit of a monster, if you know an easier way please tell me!
 // There is no limit to the level of nesting and it produces
 // valid xhtml markup.
-var reReapLists = /(?:^|\n)([\*#@])[ \t].*(?:\n\1+[ \t][^\n]+)*/g;
+var reReapLists = /^([\*#@])[ \t].*(?:\n\1+[ \t].+)*/gm;
 woas.parser["parse_lists"] = function(str, type, $2) {
         var uoro = (type!='*')?'ol':'ul';
         var suoro = '<' + uoro + ((type=='@') ? " type=\"a\"":"")+'>';
@@ -75,7 +75,7 @@ woas.parser["parse_lists"] = function(str, type, $2) {
 		return "\n"+suoro + woas.parser.sublist(stk, 1, suoro, euoro) + euoro;
 	}
 
-var reReapTables = /(?:^|\n)\{\|.*((?:\n\|.*)*)(?:\n|$)/g;	
+var reReapTables = /^\{\|.*((?:\n\|.*)*)$/gm;	
 woas.parser["parse_tables"] =  function (str, p1)
     {
         var caption = false;
@@ -387,7 +387,7 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 
 	// <hr> horizontal rulers made with 3 hyphens, 4 suggested
 	// only white spaces are allowed after the hyphens
-	text = text.replace(/(^|\n)\s*\-{3,}[ ]*$/g, "<hr />");
+	text = text.replace(/^\s*\-{3,}[ ]*$/gm, "<hr class=\"woas_ruler\" />");
 	
 	// tables-parsing pass
 	text = text.replace(reReapTables, this.parse_tables);
