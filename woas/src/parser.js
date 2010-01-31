@@ -181,9 +181,14 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 					log("Embedded file transclusion: "+templname);	// log:1
 					if (woas.is_image(templname)) {
 						var img, img_name = woas.xhtml_encode(templname.substr(templname.indexOf("::")+2));
-						if (export_links)
-							img = "<img class=\"embedded\" src=\""+woas._export_get_fname(templname)+"\" alt=\""+img_name+"\" ";
-						else
+						if (export_links) {
+							// check that the URI is valid
+							var uri=woas._export_get_fname(templname);
+							if (uri == '#')
+								img = '<!-- missing image '+img_name+' -->';
+							else
+								img = "<img class=\"embedded\" src=\""+uri+"\" alt=\""+img_name+"\" ";
+						} else
 							img = "<img class=\"embedded\" src=\""+templtext+"\" ";
 						if (parts.length>1) {
 							img += parts[1];
@@ -304,20 +309,29 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 					html_tags.push("<a class=\"link\""+ wl + " >" + $2 + "<\/a>");
 					return r;
 				} else {
+					// section reference URIs
 					if ($1.charAt(0)=="#") {
 						var r="<!-- "+parse_marker+'::'+html_tags.length+" -->";
 						var wl;
 						if (export_links)
 							wl = woas._export_get_fname(page);
-						else wl = "";
-						html_tags.push("<a class=\"link\" href=\""+wl+"#" +this.header_anchor($1.substring(1)) + "\">" + $2 + "<\/a>");
+						else
+							wl = '';
+						if (wl == '#')
+							html_tags.push("<span class=\"broken_link\">" + $2 + "<\/span>");
+						else {
+							html_tags.push("<a class=\"link\" href=\""+
+							wl+"#" +
+							this.header_anchor($1.substring(1)) + "\">" + $2 + "<\/a>");
+						}
 						return r;
 					} else {
 						var r="<!-- "+parse_marker+'::'+html_tags.length+" -->";
-						var wl;
-						if (export_links)
-							wl=" href=\"#\"";
-						else wl = " onclick=\"go_to('" +woas.js_encode($1)+"')\"";
+						if (export_links) {
+							html_tags.push("<span class=\"broken_link\">" + $2 + "<\/span>");
+							return r;
+						}
+						var wl = " onclick=\"go_to('" +woas.js_encode($1)+"')\"";
 						html_tags.push("<a class=\"unlink\" "+wl+">" + $2 + "<\/a>");
 						return r;
 					}
@@ -347,11 +361,15 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 		if (woas.page_exists($1)) {
 			var r="<!-- "+parse_marker+'::'+html_tags.length+" -->";
 			var wl;
-			if (export_links)
-				wl = " href=\""+woas._export_get_fname($1)+"\"";
-			else
+			if (export_links) {
+				wl = woas._export_get_fname($1);
+				if (wl == '#') {
+					html_tags.push("<span class=\"broken_link\">" + $1 + "<\/span>");
+					return r;
+				}
+				wl = " href=\""+wl+"\"";
+			} else
 				wl = " onclick=\"go_to('" + woas.js_encode($1) +"')\"";
-				
 			html_tags.push("<a class=\"link\""+wl+">" + $1 + "<\/a>");
 			return r;
 		} else {
@@ -360,11 +378,11 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 				html_tags.push("<a class=\"link\" href=\"#" +woas.parser.header_anchor($1.substring(1)) + "\">" + $1.substring(1) + "<\/a>");
 			} else {
 				var r="<!-- "+parse_marker+'::'+html_tags.length+" -->";
-				var wl;
-				if (export_links)
-					wl=" href=\#\"";
-				else
-					wl = " onclick=\"go_to('" +woas.js_encode($1)+"')\"";
+				if (export_links) {
+					html_tags.push("<span class=\"unlink broken_link\">" + $1 + "<\/span>");
+					return r;
+				}
+				var wl = " onclick=\"go_to('" + woas.js_encode($1) +"')\"";
 				html_tags.push("<a class=\"unlink\" "+wl+">" + $1 + "<\/a>");
 			}
 			return r;

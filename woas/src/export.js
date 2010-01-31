@@ -14,12 +14,16 @@ woas["_attrib_escape"] = function(s) {
 woas["_export_get_fname"] = function (title, create_mode) {
 	if (typeof(_title2fn[title]) != 'undefined') {
 		// return a cached title
-		if (!create_mode)
+		if (!create_mode) {
+			// do not escape the null-page URL
+			if (_title2fn[title] == '#')
+				return '#';
 			return escape(_title2fn[title]);
+		}
 		return _title2fn[title];
 	}
 	var orig_title = title;
-	// handle the valid exportable secial pages
+	// handle the valid exportable special pages
 	var sp;
 	if (title.match(/::$/))
 		sp = true;
@@ -47,7 +51,8 @@ woas["_export_get_fname"] = function (title, create_mode) {
 			_title2fn[title] = "#";
 			return "#";
 		}
-		// beware: a special page or namespace index page cannot be main page considering the below code
+		// beware: a special page or namespace index page cannot be main page
+		// considering the below code
 		if (_export_main_index && (title==main_page)) {
 			_title2fn[title] = "index."+_export_default_ext;
 			_export_fnames_array.push(_title2fn[title]);
@@ -57,8 +62,8 @@ woas["_export_get_fname"] = function (title, create_mode) {
 	var ext = "";
 	if (!sp && this.is__embedded(pi)) {
 		title = title.substr(title.indexOf("::")+2);
-		if (!this.is__image(pi))
-			ext = "."+_export_default_ext;
+//		if (!this.is__image(pi))
+//			ext = "."+_export_default_ext;
 //		emb = true;
 	} else {
 		ext = "."+_export_default_ext;
@@ -84,7 +89,7 @@ woas["_export_get_fname"] = function (title, create_mode) {
 	.replace(/[:\\\/<>?#=!]+/g, function($1) {
 		return "_".repeat($1.length);
 	});
-	
+	// fix the directory separator chars
 	if (_export_unix_norm)
 		fname = fname.toLowerCase().replace(/\s+/g, "_").replace(/::/g, "-");
 	else
@@ -186,6 +191,8 @@ woas["export_wiki"] = function () {
 	$.show("loading_overlay");
 	$("loading_overlay").focus();
 	exp["css"] = _css_obj().innerHTML;
+	// add some other CSS which is not used by live WoaS
+	exp["css"] += "\n.broken_link { color: red; font-decoration: strike-through;}\n";
 	// reset export globals - remember that arrays are object and cannot be initialized in 1 line
 	_export_fnames_array = [];
 	_title2fn = {};
@@ -220,9 +227,13 @@ woas["export_wiki"] = function () {
 					break;
 				// image export was successful, continue to next page
 				else { ++done; continue; }
-			} else
-				// show the embedded files inline
-				data = '<pre class="wiki_preformatted">'+this.xhtml_encode(data)+"</pre>";
+			} else {
+				// fully export the file
+				if (!this._b64_export(data, exp.xhtml_path+fname))
+					break;
+				// image export was successful, continue to next page
+				else { ++done; continue; }
+			}
 		} else
 			data = this.export_parse(data, exp.js_mode);
 		if (!this.export_one_page(data, page_titles[pi], fname, exp, page_mts[pi]))
@@ -236,8 +247,10 @@ woas["export_wiki"] = function () {
 	var eatable = _further_pages.slice(0);
 	while (eatable.length) {
 		_further_pages = [];
-		for(var i=0;i<eatable.length;i++) {
+		for(var i=0,el=eatable.length;i<el;i++) {
 			title = eatable[i];
+//			if (_title2fn[title] == '#')
+//				alert(title+" has no real page");
 			data = this.get_text_special(title);
 			if (data===null) {
 				log("cannot process "+title);
