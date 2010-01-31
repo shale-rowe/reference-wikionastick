@@ -24,7 +24,19 @@ woas.parser["header_replace"] = function(str, $1, $2, $3) {
 		return "</div><h"+len+" id=\""+woas.parser.header_anchor(header)+"\">"+header+"</h"+len+"><div class=\"level"+len+"\">";
 }
 
-woas.parser["sublist"] = function (s) {   
+
+// XHTML lists and tables parsing.  Original code by plumloco.
+// There is no limit to the level of nesting and it produces
+// valid xhtml markup. text=text.replace(reReapLists, this.parse_lists);
+/*
+type=* item=level1 <!-- #CTUugobt::0 --> $2=
+*# level2-2 <!-- #CTUugobt::2 --> $3=# $4=16 str=
+* level1 <!-- #CTUugobt::0 -->
+*# level2-1 <!-- #CTUugobt::1 -->
+*# level2-2 <!-- #CTUugobt::2 -->
+*/
+var reReapLists = /^(?:\*|#|@(?:[iIaA1#\*]|{[^}]+})?)[ \t].*(?:(?:\n)(?:\*|#|@(?:[iIaA1#\*]|{[^}]+})?)+[ \t][^\n]+)*$/gm;
+woas.parser["parse_lists"] = function(s) {
 	var A=s.replace(/\\\\\n/, "<br/>").split(/\n/);
 	var firstline = A.shift();
 	var fl= "";
@@ -61,63 +73,55 @@ woas.parser["sublist"] = function (s) {
 				CHILD += A.shift().replace(fl,"")+"\n";
 			}
 			if(CHILD)
-				// firstline += "</li>"+this.sublist(CHILD);
-				firstline += this.sublist(CHILD);
+				// firstline += "</li>"+this.parse_lists(CHILD);
+				firstline += woas.parser["parse_lists"](CHILD);
 		}
 	}
 	return firstline+close;
 }
 
-// XHTML lists and tables parsing.  Original code by plumloco.
-// This is a bit of a monster, if you know an easier way please tell me!
-// There is no limit to the level of nesting and it produces
-// valid xhtml markup. text=text.replace(reReapLists, this.parse_lists);
-/*
-type=* item=level1 <!-- #CTUugobt::0 --> $2=
-*# level2-2 <!-- #CTUugobt::2 --> $3=# $4=16 str=
-* level1 <!-- #CTUugobt::0 -->
-*# level2-1 <!-- #CTUugobt::1 -->
-*# level2-2 <!-- #CTUugobt::2 -->
-*/
-var reReapLists = /^(?:\*|#|@(?:[iIaA1#\*]|{[^}]+})?)[ \t].*(?:(?:\n)(?:\*|#|@(?:[iIaA1#\*]|{[^}]+})?)+[ \t][^\n]+)*$/gm;
-woas.parser["parse_lists"] = function(str) {
- return woas.parser.sublist(str);
-}
 
-
-var reReapTables = /^\{\|.*((?:\n\|.*)*)$/gm;
-woas.parser["parse_tables"] =  function (str, p1) {
+var reReapTables = /^\{\|(.*)((?:\n\|.*)*)$/gm;
+woas.parser["parse_tables"] =  function (str, prop, p1) {
 	var caption = '';
+	var colgroup='';
 	var stk = [];
-	p1.replace( /\n\|([+ -\|])(.*)/g, function(str, pp1, pp2) {
+	var CC = [];
+	p1.replace( /\n\|([+ \t-\|])(.*)/g, function(str, pp1, pp2) {
 		if (pp1 == '-') // currently a remark, but could be used for meta information in the future
 			return;
 		if (pp1 == '+') // set the caption
 			return caption = caption || ('<caption' + (stk.length>0? ' style="caption-side:bottom">':'>') + pp2+ '</caption>');
+		if (pp1 == '*') // colgroup
+			return colgroup=pp2;
+		if (pp1 == '=') // Cell information
+			return CC.push(pp2);
 		if(pp1 == '|') // fix empty first cell
 			pp2= " |"+pp2;
 		//var cells = pp2.replace(/(\|\|)\s{0,1}(\s?)(?=\|\|)/g,"$1$2  ").replace(/(\|\|\s*)$/, "$1 ").split(" || "); // allow for zero (or single) spaced SPAN cells, then split them	
-		var cells = pp2.replace(/(\|\|)(\s{0,1})(\s?)(?=\|\|)/g,"$1$2$3  ").replace(/(\|\|\s*)$/, "$1 ").split(" || "); // allow for zero spaced cells, then split them
+		var cells = pp2.replace(/(\|\|)(\s{0,1})(\s?)(?=\|\|)/g,"$1$2$3  ").replace(/(\|\|\s*)$/, "$1 ").replace(/\|\|\t/g, "|| ").replace(/\t\|\|/g, " ||").split(" || "); // allow for zero spaced SPAN cells, then split them
 		//alert("CELLS="+cells.join("*").replace(/ /g, "~")+"=")
 		var row = [];       // table row
 		var stag = "";      // start tag
 		var cs = 0;         // counter for spanned columns
 		for (var i=cells.length - 1; i >= 0; --i){
-			var C = cells[i].match(/^(\s*)(=\s*)?(.*?)(\s*)$/) ; // ||[]; // if we fail to parse, at least dont crash
+			var C = cells[i].match(/^(\s*)(?:(=+)\s*)?(.*?)(\s*)$/) ; // ||[]; // if we fail to parse, at least dont crash
 			//alert("C="+C.join("*").replace(/ /g, "~")+"=")
 			if (i && !C[3] && !C[1]) { // if empty and not first column, increase span counter.
 				++cs;
 				continue;
 			}
-			stag = '<'+ (C[2]?'th':'td') + (cs? ' colspan=' + ++cs : '') + (C[1]?' align='+(C[4]? 'center':'right'):'') + '>';
+			var CL = C[2]?C[2].length:0;
+			//alert("CKL="+CL);
+			stag = '<'+ (CL==1?'th':'td') + (CL>1?' '+CC[CL-2]||'':'')+ (cs? ' colspan=' + ++cs : '') + (C[1]?' align='+(C[4]? 'center':'right'):'') + '>';
 			cs = 0;
-			row.unshift( stag + C[3] + (C[2]?'</th>':'</td>') );
+			row.unshift( stag + C[3] + (CL==1?'</th>':'</td>') );
 		}
 		stk.push(row.join(""));
 		}
 	);
-	return  '<table class="text_area">'
-		+ caption
+	return  '<table ' + (prop.match(/class=/)? '' : 'class="text_area" ' )+prop+'>'
+		+ caption + colgroup
 		+ '<tr>' + stk.join('</tr><tr>') + '</tr>'
 		+ '</table>'
 }
