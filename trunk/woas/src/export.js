@@ -148,7 +148,7 @@ woas["export_one_page"] = function (
 			data = '<div class="menu_area" id="sw_menu_area" style="position: absolute;"><div class="wiki" id="menu_area">'+_exp_menu+'</div></div><div class="text_area" id="wiki_text">'+data+'</div>';
 		}
 		// craft a nice XHTML page
-		data = woas.DOC_START+"<title>"+this.xhtml_encode(title)+"</title>"+
+		data = "<title>"+this.xhtml_encode(title)+"</title>"+
 				// add the exported CSS
 				exp.css+
 				// add the last-modified header
@@ -164,7 +164,7 @@ woas["export_one_page"] = function (
 		"</h"+"ead><"+"body>"+data+
 		(mts ? "<p><sub>"+this.last_modified(mts)+"</sub></p>" : "")+
 		"</bod"+"y></h"+"tml>\n"; raw_text = null;
-	return saveFile(exp.xhtml_path+fname, woas.DOCTYPE+data);
+	return saveFile(exp.xhtml_path+fname, woas.DOCTYPE+woas.DOC_START+data);
 }
 
 woas["export_wiki"] = function () {
@@ -221,6 +221,11 @@ woas["export_wiki"] = function () {
 		data = this.get_text_special(page_titles[pi]);
 		if (data == null) continue;
 		fname = this._export_get_fname(page_titles[pi], true);
+		// will skip WoaS::Bootscript and WoaS::Aliases
+		if (fname == '#') {
+//			log("skipping "+page_titles[pi]);
+			continue;
+		}
 		if (this.is__embedded(pi)) {
 			if (this.is__image(pi)) {
 				if (!this._b64_export(data, img_path+fname))
@@ -249,8 +254,6 @@ woas["export_wiki"] = function () {
 		_further_pages = [];
 		for(var i=0,el=eatable.length;i<el;i++) {
 			title = eatable[i];
-//			if (_title2fn[title] == '#')
-//				alert(title+" has no real page");
 			data = this.get_text_special(title);
 			if (data===null) {
 				log("cannot process "+title);
