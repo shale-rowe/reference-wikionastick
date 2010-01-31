@@ -31,8 +31,7 @@ function _saveThisFile(new_data, old_data) {
 	var filename = _get_this_filename();
 	
 	r = saveFile(filename,
-	_doctype+"<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\">\n<head>\n"+
-	"<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\n"+
+	woas.DOCTYPE + woas.DOC_START +
 	"<sc"+"ript type=\"text/javascript\">" + new_data + "\n" + old_data + "</html>");
 	if (r==true)
 		log("\""+filename+"\" saved successfully");	// log:1

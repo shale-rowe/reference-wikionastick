@@ -28,6 +28,13 @@ woas["trim"] = function(s) {
 // this is a timestamp considered invalid
 woas["MAGIC_MTS"] = 0x4b61cbad;
 
+// used to craft XHTML pages
+woas["DOCTYPE"] = "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\" \"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\">\n";
+woas["DOC_START"] = "<"+"html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\">\n<head>\n"+
+	"<m"+"eta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\n";
+	
+	
+
 // general javascript-safe string quoting
 // NOTE: not completely binary safe!
 // should be used only for titles (which ought not to contain binary bytes)
@@ -556,7 +563,7 @@ woas["_get__embedded"] = function (cr, pi, etype) {
 				(text.match(/^data:\s*[^;]*;\s*[^,]*,\s*/)[0]).length+", "+
 				page_mts[pi]+
 				")\");"+
-		"</s"+"cript>"+		
+		"</s"+"cript>"+
 		"<img id=\"img_tag\" class=\"embedded\" src=\""+text+"\" alt=\""+this.xhtml_encode(img_name)+"\" />"+
 		"\n\n<div id=\"img_desc\">"+this.i18n.LOADING+"</div>"+
 		"\nSimple transclusion:\n\n{{{[[Include::"+cr+"]]}}}\n\nTransclusion with additional attributes:\n\n{{{[[Include::"+cr+"|border=\"0\" onclick=\"go_to('"+
@@ -1746,12 +1753,6 @@ woas["save_to_file"] = function(full) {
 	$.hide("loading_overlay");
 	
 	return r;
-}
-
-// global function - get path of current WoaS file (through browser)
-function _get_this_path() {
-	var slash_c = (navigator.appVersion.indexOf("Win")!=-1)?"\\\\":"/";
-	return _get_this_filename().replace(new RegExp("("+slash_c+")"+"[^"+slash_c+"]*$"), "$1");
 }
 
 var max_keywords_length = 250;

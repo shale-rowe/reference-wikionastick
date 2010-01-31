@@ -140,19 +140,26 @@ woas["export_one_page"] = function (
 				// fix also the encoding in the menus
 				_exp_menu = this.utf8_encode(_exp_menu);
 			}
-			data = '<div class="menu_area" id="sw_menu_area" style="position: fixed;"><div class="wiki" id="menu_area">'+_exp_menu+'</div></div><div class="text_area" id="wiki_text">'+data+'</div>';
+			data = '<div class="menu_area" id="sw_menu_area" style="position: absolute;"><div class="wiki" id="menu_area">'+_exp_menu+'</div></div><div class="text_area" id="wiki_text">'+data+'</div>';
 		}
-		data = "<ht"+"ml><he"+"ad><title>"+this.xhtml_encode(title)+"</title>"+exp.css+
-		'<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />'+"\n"+
+		// craft a nice XHTML page
+		data = woas.DOC_START+"<title>"+this.xhtml_encode(title)+"</title>"+
+				// add the exported CSS
+				exp.css+
+				// add the last-modified header
+				(mts ? '<meta http-equiv="last-modified" content="'+
+				(new Date(mts*1000)).toGMTString()+'" />'+"\n" : '')+
+				// other useful META stuff
 		'<meta name="generator" content="Wiki on a Stick v'+this.version+' - http://stickwiki.sf.net/" />'+"\n"+
 		'<meta name="keywords" content="'+this.utf8_encode(this._attrib_escape(_auto_keywords(raw_text)))+'" />'+"\n"+
 		'<meta name="description" content="'+
 		this.utf8_encode(this._attrib_escape(raw_text.replace(/\s+/g, " ").substr(0,max_description_length)))+'" />'+"\n"+
 		exp.meta_author+
 		exp.custom_bs+
+		"</h"+"ead><"+"body>"+data+
 		(mts ? "<p><sub>"+this.last_modified(mts)+"</sub></p>" : "")+
-		"</h"+"ead><"+"body>"+data+"</bod"+"y></h"+"tml>\n"; raw_text = null;
-	return saveFile(exp.xhtml_path+fname, _doctype+data);
+		"</bod"+"y></h"+"tml>\n"; raw_text = null;
+	return saveFile(exp.xhtml_path+fname, woas.DOCTYPE+data);
 }
 
 woas["export_wiki"] = function () {
