@@ -1704,6 +1704,9 @@ woas["save_to_file"] = function(full) {
 	if (full) {
 		computed_js += "var page_attrs = [" + printout_num_arr(page_attrs) + "];\n\n";
 		
+		// used to reset MTS
+//		for(var ip=0,ipl=pages.length;ip<ipl;++ip) { page_mts[ip] = this.MAGIC_MTS; }
+		
 		computed_js += "var page_mts = [" + printout_num_arr(page_mts) + "];\n\n";
 		
 		computed_js += "var pages = [\n" + printout_mixed_arr(pages, this.config.allow_diff, page_attrs) + "];\n\n";
