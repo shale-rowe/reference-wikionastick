@@ -299,6 +299,8 @@ woas["special_recent_changes"] = function() {
 	for(var i=0,l=hm.length;i<l;++i) {
 		pg.push("* [[" + page_titles[hm[i][0]] + "]] <span style=\"font-size: smaller;\">"+this.last_modified(hm[i][1]))+"</"+"span>";
 	}
+	if (!pg.length)
+		return "/No recently modified pages/";
 	return this._simple_join_list(pg);
 }
 
