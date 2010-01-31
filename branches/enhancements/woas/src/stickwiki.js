@@ -1691,18 +1691,18 @@ woas["setCSS"] = function(new_css) {
 woas["before_save"] = function(){}; // User definable, used mainly for page-last-modified. by reading/setting $("wiki_editor").value
 woas["before_parser"] = undefined; // User definable, used mainly to expand macro's before the parser starts rendering (must return the text, a do-nothing would be:  woas["before_parser"] = function(text,title){return text}; )
 woas["after_parser"] = undefined; // must return the text, a do-nothing would be:  woas["after_parser"] = function(text,title){return text}; 
-// User definable, used mainly for user macro's: «««like this»»»
+// User definable, used mainly for user macro's: <<<like this>>>
 // Enables you to write inline javascript, and use print("") to print to the page instead of using .innerHTML
 woas["user_parse"] = function(title,text){
-	var M=text.match(/^%([^:]+):([\s\S]*)$/);
+	var M=text.match(/^%([^:]+)(?:|:([\s\S]*))$/);
 	if(M==null)
 		M=[0,'_default',text];
 	var U = woas.user_parse;
 	U.post=0;
 	switch(typeof(U[M[1]])){
 		case 'function': return U[M[1]](M[2]);
-		case 'string':	return U[M[1]];
-		default: alert("user_parse: Unknown macro:"+M);
+		case 'undefined': if(woas["debug"]) alert("user_parse: Unknown macro:"+text+"\n"+M);
+		default: return U[M[1]];
 	}
 }
 woas["user_parse"].pre = function(m){return "<pre>"+woas.xhtml_encode(m)+"</pre>"}
