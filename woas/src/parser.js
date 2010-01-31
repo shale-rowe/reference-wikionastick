@@ -3,7 +3,7 @@ woas["parser"] = {
 	"has_toc":null,
 	"toc":"",
 	"force_inline":false,		// used not to break layout when presenting search results
-	"script_extension":[]	// external javascript files to be loaded
+	"script_extension":[]		// external javascript files to be loaded
 };
 
 woas.parser["header_anchor"] = function(s) {
@@ -109,22 +109,25 @@ function _filter_wiki(s) {
 
 var	parse_marker = "#"+_random_string(8);
 
+// extract the wiki tags from a wiki URL
 woas["_get_tags"] = function(text) {
 	var tags = [];
+	// remove the starting part
 	if (text.indexOf("Tag::")==0)
-		tags.push(this.trim(text.substring(5)));
-	else if (text.indexOf("Tags::")==0) {
+		text = this.trim(text.substring(5));
+	else if (text.indexOf("Tags::")==0)
 		text = this.trim(text.substring(6));
-		if (!text.length)
-			return tags;
-		var alltags;
-		if (text.indexOf("|")!=-1)
-			alltags = text.split("|");
-		else
-			alltags = text.split(",");
-		for(var i=0;i<alltags.length;i++) {
-			tags.push(this.trim(alltags[i]));
-		}
+	else // not a valid tagging
+		return tags;
+	if (!text.length)
+		return tags;
+	var alltags;
+	if (text.indexOf("|")!=-1)
+		alltags = text.split("|");
+	else //DEPRECATED
+		alltags = text.split(",");
+	for(var i=0;i<alltags.length;i++) {
+		tags.push(this.trim(alltags[i]));
 	}
 	return tags;
 }
@@ -263,8 +266,9 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 	// wiki tags
 	var tags = [], inline_tags = 0;
 	
-	// links with | 
+	// links with pipe e.g. [[Page|Title]]
 	text = text.replace(/\[\[([^\]\]]*?)\|(.*?)\]\]/g, function(str, $1, $2) {
+		// check for protocol
 		if ($1.search(/^\w+:\/\//)==0) {
 			var r="<!-- "+parse_marker+'::'+html_tags.length+" -->";
 			html_tags.push("<a class=\"world\" href=\"" + $1.replace(/^mailto:\/\//, "mailto:") + "\" target=\"_blank\">" + $2 + "<\/a>");
@@ -272,12 +276,12 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 		}
 			
 		// is this a tag definition?
-		var found_tags = woas._get_tags($1);
+		var found_tags = woas._get_tags(str.substring(2, str.length-2));
 		if (found_tags.length>0) {
 			tags = tags.concat(found_tags);
 			if (!this.force_inline)
 				return "";
-			inline_tags++;
+			++inline_tags;
 			return "<!-- "+parse_marker+":"+inline_tags+" -->";
 		}
 
@@ -320,8 +324,9 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 				}
 			}); //"<a class=\"wiki\" onclick='go_to(\"$2\")'>$1<\/a>");
 
-	// links without |
+	// links without pipe e.g. [[Page]]
 	text = text.replace(/\[\[([^\]]*?)\]\]/g, function(str, $1) {
+		// check for protocol
 		if ($1.search(/^\w+:\/\//)==0) {
 			var r="<!-- "+parse_marker+'::'+html_tags.length+" -->";
 			$1 = $1.replace(/^mailto:\/\//, "mailto:");
@@ -335,7 +340,7 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 			tags = tags.concat(found_tags);
 			if (!this.force_inline)
 				return "";
-			inline_tags++;
+			++inline_tags;
 			return "<!-- "+parse_marker+":"+inline_tags+" -->";
 		}
 		
@@ -474,7 +479,7 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 		if (!this.force_inline) {
 			s+="</div>";
 			text += s;
-		} else {
+		} else { // re-print the inline tags (works only on last tag definition?)
 			text = text.replace(new RegExp("<\\!-- "+parse_marker+":(\\d+) -->", "g"), function (str, $1) {
 				if ($1==inline_tags)
 					return s;
