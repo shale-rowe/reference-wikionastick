@@ -1567,9 +1567,10 @@ function printout_num_arr(arr) {
 		else
 			s+=arr[i].toString() + ",";
 	}
+	// add the last element (without comma due to IE6 bug)
 	if (arr.length>1) {
 		if (arr[arr.length-1]>=1000)
-			s += "0x"+arr[arr.length-1].toString(16) + ",";
+			s += "0x"+arr[arr.length-1].toString(16);
 		else
 			s+=arr[arr.length-1].toString();
 	}
