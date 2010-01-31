@@ -1,5 +1,7 @@
 
-* Fix bug with Javascript:: namespace and breadcrumb (current is not changed)
+== For 0.10.x
+
+* WSIF format
 
 * Export entire wiki as XML (StickWiki 0.9 format|MediaWiki format)
 
@@ -21,15 +23,5 @@
 
 * export of some special pages and namespace pages (almost complete)
 
-== For v0.9.6B
-
 * remember export settings
-
-* show/hide format buttons option (done)
-
-* convert Special::Bootscript to WoaS::Bootscript (done)
-
-* implement magic Javascript:: namespace (done)
-
-* pluggable Special::Group:: namespace (each special function is called from there)
 
