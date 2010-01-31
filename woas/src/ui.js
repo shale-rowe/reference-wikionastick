@@ -360,8 +360,18 @@ function page_print() {
 			css_payload = "div.wiki_toc { position: relative; left:25%; right: 25%;}";
 	} else
 		css_payload = "div.wiki_toc { margin: 0 auto;}\n";
-	wnd.document.writeln(_doctype+"<ht"+"ml><he"+"ad><title>"+current+"</title>"+
-	"<st"+"yle type=\"text/css\">"+css_payload+_css_obj().innerHTML+"</sty"+"le><scr"+"ipt type=\"text/javascript\">function go_to(page) { alert(\"Sorry, you cannot browse the wiki while in print mode\");}</sc"+"ript></h"+"ead><"+"body>"+
+	wnd.document.writeln(woas.DOCTYPE+"<ht"+"ml><he"+"ad><title>"+current+"</title>"+
+	"<st"+"yle type=\"text/css\">"+css_payload+_css_obj().innerHTML+"</sty"+"le>"+
+	woas.raw_js("function go_to(page) { alert(\"Sorry, you cannot browse the wiki while in print mode\");}")+"</h"+"ead><"+"body>"+
 	$("wiki_text").innerHTML+"</bod"+"y></h"+"tml>\n");
 	wnd.document.close();
 }
+
+// below functions used by Special::Export
+
+// get path of current WoaS file (through browser)
+function _get_this_path() {
+	var slash_c = (navigator.appVersion.indexOf("Win")!=-1)?"\\\\":"/";
+	return _get_this_filename().replace(new RegExp("("+slash_c+")"+"[^"+slash_c+"]*$"), "$1");
+}
+
