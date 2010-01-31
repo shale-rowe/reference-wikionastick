@@ -1,4 +1,6 @@
 Version 0.10.0 (legolas558 - NOT YET RELEASED)
+* fixed XHTML export feature
+* fixed tags recognition
 * added some core i18n language resources
 * general loop optimizations
 * re-enabled fix for search focus bug
