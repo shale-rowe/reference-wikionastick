@@ -102,7 +102,7 @@ woas["erase_wiki"] = function() {
 		page_mts.push(this.MAGIC_MTS);
 	}
 	page_titles = this.default_pages.concat(this.static_pages);
-	pages = ["This is your empty main page", "[[Main Page]]\n\n[[Special::New Page]]\n[[Special::Duplicate Page]]\n[[Special::Go to]]\n[[Special::Delete]]\n[[Special::Backlinks]]\n[[Special::Search]]", encode64("/* insert here your boot script */"), ""];
+	pages = ["This is your empty main page", "[[Main Page]]\n\n[[Special::New Page]]\n[[Special::Duplicate Page]]\n[[Special::Go to]]\n[[Special::Delete Page]]\n[[Special::Backlinks]]\n[[Special::Search]]", encode64("/* insert here your boot script */"), ""];
 	pages = pages.concat(backup_pages);
 	current = main_page = "Main Page";
 	this.refresh_menu_area();
