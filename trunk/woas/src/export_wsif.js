@@ -1,6 +1,6 @@
 
 // a class for some general WSIF operations
-woas["wsif" ] = {};
+woas["wsif" ] = {version: "1.0.0"};
 
 woas["wsif"]["header"] = function(header_name, value) {
 	return header_name+": "+value+"\n";
@@ -35,7 +35,7 @@ woas["export_wiki_wsif"] = function () {
 	var blob_counter = 0;
 	
 	// prepare the extra headers
-	var extra = this.wsif.header('woas.version', this.version);
+	var extra = this.wsif.header('wsif.version', this.wsif.version);
 	if (wsif_exp.author.length)
 		extra += this.wsif.header('woas.author', wsif_exp.author);
 
@@ -48,9 +48,11 @@ woas["export_wiki_wsif"] = function () {
 		if (!this._native_wsif) {
 			if (page_titles[pi].match(/^Special::/)) continue;
 		}
-		var record = this.wsif.header("woas.page.title", page_titles[pi])+
-					this.wsif.header("woas.page.attributes", page_attrs[pi])+
-					this.wsif.header("woas.page.last_modified", page_mts[pi]),
+		// the attributes prefix
+		var pfx = "woas.page"+pi.toString()+".";
+		var record = this.wsif.header(pfx+"title", page_titles[pi])+
+					this.wsif.header(pfx+"attributes", page_attrs[pi])+
+					this.wsif.header(pfx+"last_modified", page_mts[pi]),
 					ct = null;
 		
 		// normalize the page content, set encoding&disposition
@@ -73,14 +75,14 @@ woas["export_wiki_wsif"] = function () {
 			}
 		}
 		// update record
-		record += this.wsif.header("woas.page.length", ct.length);
-		record += this.wsif.header("woas.page.encoding", encoding);
-		record += this.wsif.header("woas.page.disposition", disposition);
+		record += this.wsif.header(pfx+"length", ct.length);
+		record += this.wsif.header(pfx+"encoding", encoding);
+		record += this.wsif.header(pfx+"disposition", disposition);
 		// note: when disposition is inline, encoding cannot be 8bit/plain for embedded/encrypted files
 		if (disposition == "inline") {
 			// create the inline page
 			boundary = _generate_random_boundary(boundary, ct);
-			record += this.wsif.header("woas.page.boundary", boundary);
+			record += this.wsif.header(pfx+"boundary", boundary);
 			// add a newline for spacing purposes
 			record += "\n";
 			// add the inline content
@@ -90,7 +92,7 @@ woas["export_wiki_wsif"] = function () {
 			var blob_fn = "blob" + (++blob_counter).toString()+
 						_file_ext(page_titles[pi]);
 			// specify path to external filename
-			record += this.wsif.header("woas.page.disposition.filename", blob_fn);
+			record += this.wsif.header(pfx+"disposition.filename", blob_fn);
 			//TODO: some error checking?
 			this.save_file(wsif_exp.path + blob_fn,
 							(encoding == "8bit/plain") ?
@@ -101,19 +103,21 @@ woas["export_wiki_wsif"] = function () {
 			full_wsif += record;
 			++done;
 		} else {
-			if (this.save_file(wsif_exp.path+pi.toString()+".wsif",
+			if (this.save_file(extra + wsif_exp.path+pi.toString()+".wsif",
 								this.file_mode.UTF8_TEXT,
-								record))
+								extra + "\n" + record))
 				++done;
 		}
 		// reset the record
 		record = "";
 	}
 	if (wsif_exp.single) {
+		// add the total pages number
+		extra += this.wsif.header('woas.pages', done);
 		// output the full single WSIF file now
-		if (!this.save_file(wsif_exp.path+"full_woas.wsif",
+		if (!this.save_file(wsif_exp.path+"index.wsif",
 							this.file_mode.UTF8_TEXT,
-							full_wsif))
+							extra + "\n" + full_wsif))
 			done = 0;
 	}
 
