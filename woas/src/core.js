@@ -17,7 +17,6 @@ woas["cmd_new_page"] = function() {
 	this._new_page(this.i18n.INSERT_NEW, false, '');
 }
 
-// used to create a new page in the wiki
 woas["_new_page"] = function(msg, fill_mode, def_title) {
 	var title = def_title;
 	do {

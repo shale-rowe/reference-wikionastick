@@ -42,19 +42,8 @@ woas['i18n'] = {
 	ERR_VAR_MARKER: "Marker variable not found!",
 	LOCK_CONFIRM: "Do you want to use the last password entered to lock this page \"%s\"?",
 	LOCK_CONFIRM_LAST: "The password was last time used on page: %s",
-	EMPTY_TITLE: "Pages with empty title are not allowed",
-	INVALID_ALIAS: "Invalid alias \"%s\", ignoring it",
-	SERVER_MODE: "You are using Wiki on a Stick on a REMOTE server, your changes will not be saved neither remotely or locally.\n\n"+
-					"The correct usage of Wiki on a Stick is LOCAL, so you should use a local copy of this page to exploit the save features.\n"+
-					"All changes made to this copy of Wiki on a Stick will be lost.",
-	PRINT_MODE_WARN: "Sorry, you cannot browse the wiki while in print mode",
-	MIME_TYPE: "Mime type",
-	FILE_SIZE: "File size",
-	B64_REQ: " (requires %s due to base64 encoding)",
-	WIDTH: "Width",
-	HEIGHT: "Height",
 	LOADING: "Loading Wiki on a Stick..."
 }
 
-// do not use any copyrighted wordlist here
+// do not use any copyrighted list here
 woas.i18n['common_words'] = ['the','of','to' ,'and' ,'a' ,'in' ,'is' ,'it' ,'you' ,'that' ,'he' ,'was' ,'for','on' ,'are' ,'with' ,'as' ,'I' ,'his' ,'they' ,'be' ,'at' ,'one' ,'have' ,'this' ,'from' ,'or' ,'had' ,'by' , 'an', 'all' ];
