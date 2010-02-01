@@ -65,7 +65,7 @@ woas["_new_page"] = function(msg, fill_mode, def_title) {
 
 woas["cmd_erase_wiki"] = function() {
 	if (this.erase_wiki()) {
-		this.save_to_file(true);
+		this.full_commit();
 		back_or(main_page);
 	}
 	return null;

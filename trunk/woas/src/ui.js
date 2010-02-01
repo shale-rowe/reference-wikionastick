@@ -152,7 +152,7 @@ function save_options() {
 		alert(woas.i18n.READ_ONLY);
 		return false;
 	}
-	woas.save_to_file(false);
+	woas.cfg_commit();
 	woas.set_current("Special::Advanced", true);
 }
 
@@ -163,7 +163,7 @@ function ro_woas() {
 	}
 	if (confirm(woas.i18n.CONFIRM_READ_ONLY)) {
 		woas.config.permit_edits = false;
-		woas.save_to_file(false);
+		woas.cfg_commit();
 		woas.set_current("Special::Advanced", true);
 	}
 }

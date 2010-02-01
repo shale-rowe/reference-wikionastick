@@ -301,7 +301,8 @@ woas["javaLoadFile"] = function(filePath, load_mode) {
 }
 
 // save full WoaS to file
-woas["save_to_file"] = function(full) {
+woas["_save_to_file"] = function(full) {
+	// put in busy mode
 	$.show("loading_overlay");
 	
 	var new_marker;
@@ -448,6 +449,7 @@ function _get_data(marker, source, full, start) {
 	return source.substring(offset);
 }
 
+// increment the save-counter portion of the marker
 function _inc_marker(old_marker) {
 	var m = old_marker.match(/([^\-]*)\-(\d{7,7})$/);
 	if (m==null) {
@@ -455,5 +457,6 @@ function _inc_marker(old_marker) {
 	}
 	var n = new Number(m[2].replace(/^0+/, '')) + 1;
 	n = n.toString();
+	// marker part + 0-padded save count number
 	return m[1]+"-"+String("0").repeat(7-n.length)+n;
 }

@@ -618,8 +618,8 @@ woas["_embed_process"] = function(etype) {
 	// set modified timestamp to now
 	page_mts.push(Math.round(new Date().getTime()/1000));
 	
-	// save everything
-	this.save_to_file(true);
+	// save this last page
+	this.commit(page_titles.length-1);
 	
 	this.refresh_menu_area();
 	this.set_current(current, true);
@@ -982,9 +982,10 @@ woas["menu_display"] = function(id, visible) {
 //	log("menu_"+id+" is "+$("menu_"+id).style.display);
 }
 
+// auto-save thread
 function _auto_saver() {
 	if (floating_pages.length && !kbd_hooking) {
-		this.save_to_file(true);
+		this.full_commit();
 		this.menu_display("save", false);
 	}
 	if (_this.config.auto_save)
@@ -994,10 +995,10 @@ function _auto_saver() {
 // save configuration on exit
 woas["before_quit"] = function () {
 	if (floating_pages.length)
-		this.save_to_file(true);
+		this.full_commit();
 	else {
 		if (this.config.save_on_quit && cfg_changed)
-			this.save_to_file(false);
+			this.cfg_commit();
 	}
 	return true;
 }
@@ -1421,7 +1422,7 @@ woas["setCSS"] = function(new_css) {
 // when save is clicked
 woas["save"] = function() {
 	if (this.config.cumulative_save && !kbd_hooking) {
-		this.save_to_file(true);
+		this.full_commit();
 		this.menu_display("save", false);
 		return;
 	}
@@ -1558,7 +1559,7 @@ woas["save__page"] = function(pi) {
 	}
 	// update the modified time timestamp
 	page_mts[pi] = Math.round(new Date().getTime()/1000);
-	this.save_to_file(true);
+	this.commit(pi);
 }
 
 var max_keywords_length = 250;
