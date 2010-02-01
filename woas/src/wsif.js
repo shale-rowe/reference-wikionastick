@@ -110,7 +110,7 @@ woas["export_wiki_wsif"] = function () {
 		}
 		// reset the record
 		record = "";
-	}
+	} // foreach page
 	if (wsif_exp.single) {
 		// add the total pages number
 		extra += this.wsif.header('woas.pages', done);
