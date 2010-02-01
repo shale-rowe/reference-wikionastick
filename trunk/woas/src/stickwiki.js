@@ -575,14 +575,6 @@ woas["export_image"] = function(page, dest_path) {
 	return this._b64_export(data, dest_path);
 }
 
-// save a base64 data: stream into an external file
-woas["_b64_export"] = function(data, dest_path) {
-	// decode the base64-encoded data
-	data = decode64(data.replace(/^data:\s*[^;]*;\s*base64,\s*/, ''));
-	// attempt to save the file
-	return this.save_file(dest_path, this.file_mode.BINARY, data);
-}
-
 woas["export_file"] = function(page, dest_path) {
 	var pi=this.page_index(page);
 	if (pi==-1)
