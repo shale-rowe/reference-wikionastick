@@ -1,6 +1,7 @@
 
 // native WSIF-saving mode used during development - use with CARE!
-woas["_native_wsif"] = true;
+// set to null to disable
+woas["_native_wsif"] = "data/";
 
 // a class for some general WSIF operations
 woas["wsif" ] = {version: "1.0.0"};
@@ -10,7 +11,7 @@ woas["wsif"]["header"] = function(header_name, value) {
 }
 
 woas["wsif"]["inline"] = function(boundary, content) {
-	return "--"+boundary+"\n"+content+"\n--"+boundary+"\n";
+	return "\n--"+boundary+"\n"+content+"\n--"+boundary+"\n";
 }
 
 // default behaviour:
@@ -38,7 +39,8 @@ woas["export_wiki_wsif"] = function () {
 	return true;
 }
 
-woas["_native_wsif_save"] = function(path, single_wsif, inline_wsif, author, save_all) {
+woas["_native_wsif_save"] = function(path, single_wsif, inline_wsif, author,
+							save_all, plist) {
 	// the number of blobs which we have already created
 	var blob_counter = 0;
 	
@@ -51,8 +53,20 @@ woas["_native_wsif_save"] = function(path, single_wsif, inline_wsif, author, sav
 	// boundary used for inline attachments
 	var full_wsif = "", boundary = "";
 
-	var l=page_titles.length, done = 0;
-	for (var pi=0;pi<l;pi++) {
+	var l, done = 0, full_save;
+	if (typeof plist == "undefined") {
+		full_save = true;
+		l = page_titles.length;
+	} else {
+		l = plist.length;
+		full_save = false;
+	}
+	var pi;
+	for (var ipi=0;ipi < l;++ipi) {
+		if (full_save)
+			pi = ipi;
+		else
+			pi = plist[ipi];
 		// do skip physical special pages
 		if (!save_all) {
 			if (page_titles[pi].match(/^Special::/)) continue;
@@ -104,8 +118,6 @@ woas["_native_wsif_save"] = function(path, single_wsif, inline_wsif, author, sav
 			boundary = _generate_random_boundary(boundary, ct);
 			record += this.wsif.header(pfx+"boundary", boundary);
 			// assign the mime/type
-			// add a newline for spacing purposes
-			record += "\n";
 			// add the inline content
 			record += this.wsif.inline(boundary, ct); ct = null;
 		} else {
@@ -158,4 +170,8 @@ function _generate_random_boundary(old_boundary, text) {
 		b = _random_string(20);
 	}
 	return b;
+}
+
+woas["_native_load"] = function() {
+	return false;
 }

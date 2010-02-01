@@ -1048,6 +1048,14 @@ woas["after_load"] = function() {
 	if(qpage)
 		current = unescape(qpage);
 		
+	// first thing to do: load the actual pages!
+	if (this._native_wsif != null) {
+		if (!this._native_load()) {
+//			this.fatal("Could not load WSIF pages data!");
+//			return;
+		}
+	}
+		
 //	this.swcs = $("sw_custom_script");
 
 	this._load_aliases(this.get_text("WoaS::Aliases"));
