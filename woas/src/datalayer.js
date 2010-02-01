@@ -1,7 +1,21 @@
 // this file contains API for the data layer abstraction
 
+// private function used during development for page contents versioning
+woas["_native_save"] = function(plist) {
+	// if we have a native sub-path, trigger the native WSIF data export
+	if (this._native_wsif == null)
+		return;
+	var done, path = _get_this_path()+this._native_wsif;
+	if (typeof plist == "undefined" )
+		done = this._native_wsif_save(path,	false, false, "", true);
+	else
+		done = this._native_wsif_save(path,	false, false, "", true, plist);
+	log("saved "+done+" pages natively"); // log:1
+}
+
 //API1.0: save all pages
 woas["full_commit"] = function() {
+	this._native_save();
 	return this._save_to_file(true);
 }
 
@@ -13,6 +27,7 @@ woas["cfg_commit"] = function() {
 //API1.0: save specific list of pages
 // plist is a list of page indexes which need to be saved
 woas["commit"] = function(plist) {
+	this._native_save(plist);
 	// performs full save, while the single page + global header could be saved instead
 	return this._save_to_file(true);
 }
