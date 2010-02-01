@@ -36,6 +36,7 @@ woas["export_wiki_wsif"] = function () {
 	
 	// prepare the extra headers
 	var extra = this.wsif.header('wsif.version', this.wsif.version);
+	extra += this.wsif.header('woas.version', this.version);
 	if (wsif_exp.author.length)
 		extra += this.wsif.header('woas.author', wsif_exp.author);
 
@@ -68,9 +69,20 @@ woas["export_wiki_wsif"] = function () {
 					disposition = "external";
 					encoding = "8bit/plain";
 					// decode the base64-encoded data
-					ct = decode64(ct.replace(/^data:\s*[^;]*;\s*base64,\s*/, ''));
+					if (this.is__image(pi))
+						ct = decode64(ct.replace(/^data:\s*[^;]*;\s*base64,\s*/, ''));
+					else // no data:uri for files
+						ct = decode64(ct);
 				} else {
 					encoding = "8bit/base64";
+					if (this.is__image(pi)) {
+						var m = ct.match(/^data:\s*([^;]*);\s*base64,\s*/);
+						if (m == null)
+							alert(ct);
+						record += this.wsif.header(pfx+"mime", m[1]);
+						// remove the matched part
+						ct = ct.substr(m[0].length);
+					}
 				}
 			}
 		}
@@ -83,6 +95,7 @@ woas["export_wiki_wsif"] = function () {
 			// create the inline page
 			boundary = _generate_random_boundary(boundary, ct);
 			record += this.wsif.header(pfx+"boundary", boundary);
+			// assign the mime/type
 			// add a newline for spacing purposes
 			record += "\n";
 			// add the inline content
@@ -103,7 +116,7 @@ woas["export_wiki_wsif"] = function () {
 			full_wsif += record;
 			++done;
 		} else {
-			if (this.save_file(extra + wsif_exp.path+pi.toString()+".wsif",
+			if (this.save_file(wsif_exp.path+pi.toString()+".wsif",
 								this.file_mode.UTF8_TEXT,
 								extra + "\n" + record))
 				++done;
