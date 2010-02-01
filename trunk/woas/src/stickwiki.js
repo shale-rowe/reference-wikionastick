@@ -1480,7 +1480,7 @@ woas["save"] = function() {
 		default:
 			// check if text is empty
 			if (!can_be_empty && ($("wiki_editor").value == "")) {
-				if(confirm("Are you sure you want to DELETE this page?")) {
+				if (confirm(this.i18n.CONFIRM_DELETE.sprintf(current))) {
 					var deleted = current;
 					delete_page(current);
 					this.disable_edit();
