@@ -1,0 +1,74 @@
+wsif.version: 1.0.0
+woas.version: 0.10.1
+
+woas.page0.title: ::Menu
+woas.page0.attributes: 0
+woas.page0.last_modified: 1264700333
+woas.page0.length: 1931
+woas.page0.encoding: 8bit/plain
+woas.page0.disposition: inline
+woas.page0.boundary: hWDTUncUuoLECKXbMKTD
+
+--hWDTUncUuoLECKXbMKTD
+[[Main Page]]
+* [[History]]
+* [[Syntax]]
+** [[Deprecated syntax|Deprecated]]
+* [[Browsers support]]
+* [[Feature::]]
+** [[Feature::Summary|Summary]]
+** [[Feature::Bootscript|Bootscript]]
+** [[Feature::Custom javascript|Custom javascript]]
+** [[Feature::External javascript|External javascript]]
+** [[Image::alert.png|Embedded image]]
+** [[File::life snippet.c|Embedded file]]
+** [[Embedded SVG]]
+** [[Features::Oddmuse integration|Oddmuse integration]]
+* [[Testcase::]]
+** [[Testcase::WoaS testcases|WoaS testcases]]
+** [[Testcase::Creole 0.1|Creole 0.1]]
+** [[Diâcritics]]
+** [[Testcase::Case-sensitiveness|Case-sens.]]
+** [[Testcase::Apostrophe ' in title|Apostrophe]]
+** [[Testcase::Headlines mix|Headlines mix]]
+** [[Testcase::Unusual lists|Unusual lists]]
+* [[Options]]
+[[Escaped > page]]
+[[Google sitesearch]]
+
+* [[Special::]]
+** [[Special::Recentchanges|Recentchanges]]
+** [[Special::Backlinks|Backlinks]]
+** [[Special::New Page|New Page]]
+** [[Special::Duplicate Page|Duplicate Page]]
+** [[Special::Delete Page|Delete Page]]
+** [[Special::Aliases|Aliases]]
+** [[Special::Go to|Go to...]]
+** [[Special::Search|Search]]
+** [[Special::Advanced|Advanced]]
+*** [[Special::Options|Options]]
+
+<p style="text-align:center"><a href="http://sourceforge.net/"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=155218" alt="SourceForge.net Logo" border="0"></a></p>
+
+<input id="menu_string_to_search" type="text" size="6" onfocus="menu_search_focus(true)" onblur="menu_search_focus(false)" />&nbsp;<input style="font-size: 10px;" type="button" value="Search" onclick="menu_do_search()" />
+
+<script>
+function menu_key_hook(orig_e) {
+    var e;
+    if (!orig_e)
+        e = window.event;
+    else
+        e = orig_e;
+	
+    if (e.keyCode==13) {
+	ff_fix_focus();
+	_raw_do_search($('menu_string_to_search').value);
+        return false;
+     }
+     return orig_e;
+}
+
+$('menu_string_to_search').onkeydown = menu_key_hook;
+</script>
+
+--hWDTUncUuoLECKXbMKTD

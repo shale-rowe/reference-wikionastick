@@ -1,0 +1,63 @@
+wsif.version: 1.0.0
+woas.version: 0.10.1
+
+woas.page37.title: Browsers support
+woas.page37.attributes: 0
+woas.page37.last_modified: 1264700333
+woas.page37.length: 2578
+woas.page37.encoding: 8bit/plain
+woas.page37.disposition: inline
+woas.page37.boundary: hWDTUncUuoLECKXbMKTD
+
+--hWDTUncUuoLECKXbMKTD
+= Browsers support
+
+Wiki on a Stick is actively supported on the following browsers:
+
+* Firefox 1.5
+* Firefox 2
+* Firefox 3 & Firefox 3.5+
+* Opera
+* Internet Explorer 5.5
+* Internet Explorer 6
+* Internet Explorer 7
+* Internet Explorer 8
+
+== Limitations
+
+Internet Explorer does not support embedded images (that's why you will not see button icons); also, Internet Explorer does not allow saving to a network path in the form /\\machina\share\woas.htm/. It is necessary to map network paths to network drives, in order to use WoaS over a network with IE (if you have informations about how to overcome to this limitation, please report us). IE6 does not allow to have a fixed menus.
+
+Firefox (and possibly other browsers too) cannot save to filenames which contain UTF8 characters. Keep your filenames as unix-style.
+
+==TiddlySaver
+<sub>original text by J.Ruston, 13 August 2007 (created 21 August 2006)</sub>
+<sub>modified by Daniele C. on 29 September 2007</sub>
+
+The TiddlySaver Java applet allows Wiki on a Stick from a file:// URL to save changes when using Safari, Opera and other Java-enabled browsers.
+
+The Java applet "TiddlySaver.jar", a very small file, must be placed in the same directory as your WoaS file. In order to use it you will need to give it the necessary privileges by editing your .java.policy file.
+
+For Windows, the file will be at C:\Documents and Settings\your-user-name\.java.policy. Add the following lines (substituting the directory  as appropriate):
+{{{
+grant codeBase "file:${user.home}/My Documents/tiddlywiki-folder/*" {
+  permission java.io.FilePermission "${user.home}${/}My Documents${/}stickwiki-folder${/}*", "read,write";
+};
+}}}
+
+On Mac OS X, the file is found at /Users/your-user-name/.java.policy:
+{{{
+grant codeBase "file:${user.home}/Documents/tiddlywiki-folder/*" {
+  permission java.io.FilePermission "${user.home}${/}Documents${/}stickwiki-folder${/}*", "read,write";
+};
+}}}
+It can be tricky creating files whose name starts with a period, so you can use this <a href="http://stickwiki.sourceforge.net/src/.java.policy">pre-built .java.policy file</a>. The same file is suitable for Macs too, just edit it and delete the "My " bit, leaving just "Documents". Make sure you save it in the right place for each operating system!
+
+If you have trouble setting up the permissions correctly, you can try granting broader permissions to the applet like this:
+{{{
+grant codeBase "file://localhost/home/users/Desktop/
+TiddlySaver.jar"
+ { permission java.security.AllPermission; };
+}}}
+
+The TiddlySaver java applet was written by J.Rouston.
+--hWDTUncUuoLECKXbMKTD

@@ -1,0 +1,18 @@
+wsif.version: 1.0.0
+woas.version: 0.10.1
+
+woas.page41.title: Escaped > page
+woas.page41.attributes: 0
+woas.page41.last_modified: 1264700333
+woas.page41.length: 152
+woas.page41.encoding: 8bit/plain
+woas.page41.disposition: inline
+woas.page41.boundary: hWDTUncUuoLECKXbMKTD
+
+--hWDTUncUuoLECKXbMKTD
+= Escaped > page
+
+This page should be exported correctly even if it contains a ">" sign in the title.
+
+Other commonly escaped characters are % < > | : #
+--hWDTUncUuoLECKXbMKTD

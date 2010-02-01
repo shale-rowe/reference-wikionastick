@@ -1,0 +1,167 @@
+wsif.version: 1.0.0
+woas.version: 0.10.1
+
+woas.page18.title: Testcase::Creole 0.1
+woas.page18.attributes: 0
+woas.page18.last_modified: 1264700333
+woas.page18.length: 2991
+woas.page18.encoding: 8bit/plain
+woas.page18.disposition: inline
+woas.page18.boundary: hWDTUncUuoLECKXbMKTD
+
+--hWDTUncUuoLECKXbMKTD
+= Creole 0.1 testcases
+
+See also [[http://www.wikicreole.org/wiki/Creole0.1TestCases]]
+
+== This a test for creole 0.1 (1)
+=== This is a Subheading (2)
+==== Subsub (3)
+===== Subsubsub (4)
+
+You can make things **bold** or //italic// or **//both//**.
+
+Character formatting extends across line breaks: **bold,
+this is still bold. This line deliberately does not end in star-star.
+
+Not bold. Character formatting does not cross paragraph boundaries.
+
+You can use [[InternalLinks]] or [[http://www.wikicreole.org|external Links]], give the link a [[InternalLinks| different]] name.
+
+Here's another sentence: This Wisdom is taken from [[Ward Cunninghams]] [[http://www.c2.com/doc/wikisym/WikiSym2006.pdf|Presentation at the Wikisym 06]]
+
+Here's a external link without a description...
+[[http://www.wikicreole.org]]
+
+you can use this to draw a line to seperate the page
+----
+
+you can format a adress by simply adding linebreaks
+
+My contact dates:
+Pone: xyz
+Fax: +45
+Mobile: abc
+
+You can use lists, start it at the first column for now, please...
+
+unnumbered lists are like
+* item a
+* item b
+* **bold item c**
+
+or you can number them
+# [[item a]]
+# item b
+# // italic item c //
+
+up to five levels
+* 1
+** 2
+*** 3
+**** 4
+***** 5
+
+you can use nowiki syntax if you would like do stuff like this
+
+{{{
+Guitar Chord C:
+
+||---|---|---|
+||-0-|---|---|
+||---|-0-|---|
+||---|---|-0-|
+||---|---|---|
+}}}
+
+or if you need that {{{ in a sentence }}} like this.
+
+!Creole 0.1 testcases (2)
+
+== Headings
+
+== Heading2
+=== Heading3
+==== Heading4
+===== Heading5
+
+==Heading2
+===Heading3
+====Heading4
+=====Heading5
+
+== Heading2 =
+=== Heading3 =
+==== Heading4 =====
+===== Heading5 ==
+
+
+
+== Bold and Italic
+
+**bold**
+//italic//
+**//bolditalic//**
+
+A normal sentence. **A bold sentence
+that continues in bold over a line break.** And another normal sentence.
+
+A normal sentence. **A bold sentence that is not terminated by star-star, but is instead is terminated by a paragraph break.
+
+A normal sentence.
+
+A normal sentence. //An italic sentence
+that continues in italic over a line break.// And another normal sentence.
+
+A normal sentence. //An italic sentence that is not terminated by slash-slash, but is instead is terminated by a paragraph break.
+
+A normal sentence.
+
+== Preformatted text
+
+Normal text {{{preformatted text}}} Normal text.
+
+{{{
+A block
+of preformatted text
+}}}
+
+== Links
+[[explicitlink]]
+
+[[link|explicitlinkTitle]]
+
+http://www.wikicreole.org
+
+[[http://www.wikicreole.org|Wiki Creole Site]]
+
+== Misc
+
+A horizontal rule follows
+----
+
+== Lists
+* bulleted list
+* bullet 2
+** bullet level 2
+*** bullet level 3
+
+# numbered list
+# item 2
+## item 2.1
+### item 2.1.1
+#### item 2.1.1.1
+##### item 2.1.1.1.1
+# item 3
+# item 4
+
+[[Tags::example]]
+
+== Italics and URLs
+
+This is an /italic/ text.
+This is a url: http://www.wikicreole.org.
+This is what can go wrong:/this should be an italic text/.
+How about /a link, like http://example.org, in italic/ text?
+Formated fruits, for example:/apples/, oranges, *pears* ...
+--hWDTUncUuoLECKXbMKTD

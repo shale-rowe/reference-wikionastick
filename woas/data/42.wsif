@@ -1,0 +1,28 @@
+wsif.version: 1.0.0
+woas.version: 0.10.1
+
+woas.page42.title: Google sitesearch
+woas.page42.attributes: 0
+woas.page42.last_modified: 1264700333
+woas.page42.length: 850
+woas.page42.encoding: 8bit/plain
+woas.page42.disposition: inline
+woas.page42.boundary: hWDTUncUuoLECKXbMKTD
+
+--hWDTUncUuoLECKXbMKTD
+= Google sitesearch
+
+<FORM method="GET" action="http://www.google.com/custom" target="_blank">
+<TABLE bgcolor="#FFFFFF" cellspacing="0" border="0">
+<tr valign="top"><td>
+<A HREF="http://www.google.com/search">
+<IMG SRC="http://www.google.com/logos/Logo_40wht.gif" border="0" ALT="Google" align="middle"></A>
+</td>
+<td>
+<INPUT TYPE="text" name="q" size="31" maxlength="255" value="">
+<INPUT type=submit name="sa" VALUE="Google Search">
+<INPUT type=hidden name="cof" VALUE="S:http://stickwiki.sourceforge.net;GL:2;AH:center;BGC:#0C304E;LC:#F7F7F7;T:#D2E4F8;AWFID:removedtheid;">
+<input type=hidden name=domains value="stickwiki.sourceforge.net"><br><input type="radio" name="sitesearch" value=""> Google search <input type="radio" name=sitesearch value="stickwiki.sourceforge.net" checked="checked"> Search WoaS official site</td></tr></TABLE>
+
+</FORM>
+--hWDTUncUuoLECKXbMKTD
