@@ -1,6 +1,10 @@
 
-// force binary file write - this is a hack for some testing
-var _force_binary = false;
+// load modes which should be supported
+woas["file_mode"] = {
+	UTF8_TEXT: 0,
+	DATA_URI: 1,
+	BINARY: 2
+}
 
 // get filename of currently open file in browser
 function _get_this_filename() {
@@ -30,7 +34,7 @@ function _get_this_filename() {
 function _saveThisFile(new_data, old_data) {
 	var filename = _get_this_filename();
 	
-	r = saveFile(filename,
+	r = woas.save_file(filename, woas.file_mode.UTF8_TEXT,
 	woas.DOCTYPE + woas.DOC_START +
 	"<sc"+"ript type=\"text/javascript\">" + new_data + "\n" + old_data + "</html>");
 	if (r==true)
@@ -40,83 +44,93 @@ function _saveThisFile(new_data, old_data) {
 	return r;
 }
 
-// save-file handler
-function saveFile(fileUrl, content)
-{
+//API1.0: save-file handler
+woas["save_file"] = function(fileUrl, save_mode, content) {
 	var r = null;
-	r = mozillaSaveFile(fileUrl, content);
+	r = this.mozillaSaveFile(fileUrl, save_mode, content);
 	if((r == null) || (r == false))
-		r = ieSaveFile(fileUrl, content);
+		r = this.ieSaveFile(fileUrl, save_mode, content);
 	if((r == null) || (r == false))
-		r = javaSaveFile(fileUrl, content);
+		r = this.javaSaveFile(fileUrl, save_mode, content);
 	return r;
 }
 
 // get file content in FF3 without .enablePrivilege() (fbnil)
-function mozillaLoadFileID(field_id){
+woas["mozillaLoadFileID"] = function(field_id, load_mode){
 	var filename = document.getElementById(field_id).value;
 	if(filename == "")
 		return false;
 	if(!window.Components || !document.getElementById(field_id).files)
 		return null;
 	var D=document.getElementById(field_id).files.item(0);
-	if (_force_binary) {
-		_got_data_uri = true;
-		return D.getAsDataURL(); // .getAsBinary() .getAsText()
+	switch (load_mode) {
+		case this.file_mode.DATA_URI:
+			return D.getAsDataURL();
+		break;
+		case this.file_mode.BINARY:
+			return D.getAsBinary();
+		//.getAsText()
+//		default:
 	}
-//	if(asType==1)
+	// return UTF-8 text by default
 	return D.getAsText("utf-8");
 }
 
 // *** original source of below functions was from TiddyWiki ***
 
-// load-file handler
-function loadFile(fileUrl){
+// API1.0: load-file handler
+woas["load_file"] = function(fileUrl, load_mode){
+	// parameter consistency check
+	if (!load_mode)
+		load_mode = this.file_mode.UTF8_TEXT;
 	var r = null;
 	// try loading the file without using the path (FF3+)
 	// (object id hardcoded here)
-	r=mozillaLoadFileID("filename_", 1);
+	r = this.mozillaLoadFileID("filename_", load_mode);
 	if (!r) // load file using file absolute path
-		r = mozillaLoadFile(fileUrl);
+		r = this.mozillaLoadFile(fileUrl, load_mode);
 	// no mozillas here, attempt the IE way
 	if(!r)
-		r = ieLoadFile(fileUrl);
+		r = this.ieLoadFile(fileUrl, load_mode);
+	// finally attempt to use Java
+	r = this.javaLoadFile(fileUrl, load_mode);
 	if(!r)
-		alert('Could not load "'+fileUrl+'"');
-	//L: seems like this is not yet implemented
-	//r = operaLoadFile(fileUrl); // TODO
+		this.alert('Could not load "'+fileUrl+'"');
 	return r;
 }
 
 // Returns null if it can't do it, false if there's an error, true if it saved OK
-function ieSaveFile(filePath, content)
-{
-	try
-	{
+woas["ieSaveFile"] = function(filePath, save_mode, content) {
+	var s_mode;
+	if (save_mode == this.file_mode.BINARY)
+		s_mode = 0; // ASCII
+	else
+		s_mode = -1; // Unicode used for DATA_URI and UTF8_TEXT modes
+	try	{
 		var fso = new ActiveXObject("Scripting.FileSystemObject");
+		var file = fso.OpenTextFile(filePath, 2, true, s_mode);
+		file.Write(content);
+		file.Close();
 	}
 	catch(e) {
 		log("Exception while attempting to save: " + e.toString());	// log:1
 		return(false);
 	}
-/*	if (_force_binary) {
-		alert("Binary write with Internet Explorer is not supported");
-		return false;
-	}	*/
-	var mode = _force_binary ? -1:0;
-	var file = fso.OpenTextFile(filePath,2,-1, mode);
-	file.Write(content);
-	file.Close();
 	return(true);
 }
 
 // Returns null if it can't do it, false if there's an error, or a string of the content if successful
-function ieLoadFile(filePath)
-{
-	try
-	{
+woas["ieLoadFile"] = function(filePath, load_mode) {
+	var o_mode;
+	if (load_mode == this.file_mode.BINARY)
+		o_mode = 0; // ASCII
+	else
+		o_mode = -1; // Unicode used for DATA_URI and UTF8_TEXT modes
+	var content = null;
+	try {
 		var fso = new ActiveXObject("Scripting.FileSystemObject");
-		var file = fso.OpenTextFile(filePath,1);
+		// attempt to open as unicode
+		var file = fso.OpenTextFile(filePath,1,false,o_mode);
 		var content = file.ReadAll();
 		file.Close();
 	}
@@ -124,12 +138,16 @@ function ieLoadFile(filePath)
 		log("Exception while attempting to load\n\n" + e.toString());	// log:1
 		return(null);
 	}
+	// return a valid DATA:URI
+	if (load_mode == this.file_mode.DATA_URI)
+		return this._data_uri_enc(filePath, content);
+	// fallback for UTF8_TEXT
 	return(content);
 }
 
 // Returns null if it can't do it, false if there's an error, true if it saved OK
-function mozillaSaveFile(filePath, content)
-{
+woas["mozillaSaveFile"] = function(filePath, save_mode, content) {
+	//FIXME: save_mode is not considered here
 	if(window.Components)
 		try
 		{
@@ -155,9 +173,10 @@ function mozillaSaveFile(filePath, content)
 	return(null);
 }
 
-// Returns null if it can't do it, false if there's an error, or a string of the content if successful
-function mozillaLoadFile(filePath)
-{
+// Returns null if it can't do it, false if there's an error, or a string
+// with the content if successful
+woas["mozillaLoadFile"] = function(filePath, load_mode) {
+	// this is available on Mozilla browsers
 	if(window.Components)
 		try
 		{
@@ -170,7 +189,7 @@ function mozillaLoadFile(filePath)
 			inputStream.init(file, 0x01, 00004, null);
 			var sInputStream = Components.classes["@mozilla.org/scriptableinputstream;1"].createInstance(Components.interfaces.nsIScriptableInputStream);
 			sInputStream.init(inputStream);
-			if (!_force_binary)
+			if (load_mode == this.file_mode.UTF8_TEXT)
 				return sInputStream.read(sInputStream.available());
 			// this byte-by-byte read allows retrieval of binary files
 			var tot=sInputStream.available(), i=tot;
@@ -179,7 +198,10 @@ function mozillaLoadFile(filePath)
 				var c=sInputStream.read(1);
 				rd.push(c.charCodeAt(0));
 			}
-			return(merge_bytes(rd));
+			if (load_mode == this.file_mode.BINARY)
+				return(merge_bytes(rd));
+			else if (load_mode == this.file_mode.DATA_URI)
+				return this._data_uri_enc(filePath, merge_bytes(rd));
 		}
 		catch(e)
 		{
@@ -187,6 +209,30 @@ function mozillaLoadFile(filePath)
 			return(false);
 		}
 	return(null);
+}
+
+// creates a DATA:URI from a plain content stream
+woas["_data_uri_enc"] = function(filename, ct) {
+	// perform base64 encoding
+	ct = encode64(ct);
+		
+	var m=filename.match(/\.(\w+)$/);
+	if (m==null) m = "";
+	else m=m[1].toLowerCase();
+	var guess_mime = "image";
+	switch (m) {
+		case "png":
+			guess_mime = "image/png";
+		break;
+		case "gif":
+			guess_mime = "image/gif";
+			break;
+		case "jpg":
+		case "jpeg":
+			guess_mime = "image/jpeg";
+			break;
+	}
+	return "data:"+guess_mime+";base64,"+ct;
 }
 
 function _javaUrlToFilename(url)
@@ -200,8 +246,8 @@ function _javaUrlToFilename(url)
 	return url;
 }
 
-function javaSaveFile(filePath,content)
-{
+woas["javaSaveFile"] = function(filePath,save_mode,content) {
+	//FIXME: save_mode is not considered here
 	try {
 		if(document.applets["TiddlySaver"])
 			return document.applets["TiddlySaver"].saveFile(_javaUrlToFilename(filePath),"UTF-8",content);
@@ -221,25 +267,35 @@ function javaSaveFile(filePath,content)
 	return true;
 }
 
-function javaLoadFile(filePath)
-{
+woas["javaLoadFile"] = function(filePath, load_mode) {
+	//FIXME: UTF8_TEXT/BINARY is not separated here!!
+	var content = null;
 	try {
-		if(document.applets["TiddlySaver"])
-			return String(document.applets["TiddlySaver"].loadFile(_javaUrlToFilename(filePath),"UTF-8"));
+		if(document.applets["TiddlySaver"]) {
+			content = String(document.applets["TiddlySaver"].loadFile(_javaUrlToFilename(filePath),"UTF-8"));
+			if (load_mode == this.file_mode.DATA_URI)
+				return this._data_uri_enc(filePath, content);
+			return content;
+		}
 	} catch(ex) {
+		log("TiddlySaver not working: "+e)
 	}
-	var content = [];
+	var a_content = [];
 	try {
 		var r = new java.io.BufferedReader(new java.io.FileReader(_javaUrlToFilename(filePath)));
 		var line;
 		while((line = r.readLine()) != null)
-			content.push(new String(line));
+			a_content.push(new String(line));
 		r.close();
 	} catch(ex) {
-		if(window.opera)
-			opera.postError(e);
+//		if(window.opera)
+//			opera.postError(e);
 		log("Exception in javaLoadFile(\""+filePath+"\"): "+e)
-		return null;
+		return false;
 	}
-	return content.join("\n");
+	// re-normalize input
+	content = a_content.join("\n");
+	if (load_mode == this.file_mode.DATA_URI)
+		return this._data_uri_enc(filePath, content);
+	return content;
 }

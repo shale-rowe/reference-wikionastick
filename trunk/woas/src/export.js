@@ -164,7 +164,7 @@ woas["export_one_page"] = function (
 		"</h"+"ead><"+"body>"+data+
 		(mts ? "<p><sub>"+this.last_modified(mts)+"</sub></p>" : "")+
 		"</bod"+"y></h"+"tml>\n"; raw_text = null;
-	return saveFile(exp.xhtml_path+fname, woas.DOCTYPE+woas.DOC_START+data);
+	return this.save_file(exp.xhtml_path+fname, this.file_mode.UTF8_TEXT, woas.DOCTYPE+woas.DOC_START+data);
 }
 
 woas["export_wiki"] = function () {
@@ -199,7 +199,7 @@ woas["export_wiki"] = function () {
 	if (sep_css) {
 		var css_path = "woas.css";
 		_export_fnames_array.push(css_path);
-		saveFile(exp.xhtml_path+css_path, exp.css);
+		this.save_file(exp.xhtml_path+css_path, this.file_mode.UTF8_TEXT, exp.css);
 		exp.css = '<link rel="stylesheet" type="text/css" media="all" href="'+css_path+'" />';
 	} else
 		exp.css = '<style type="text/css">'+exp.css+'</style>';
@@ -207,7 +207,7 @@ woas["export_wiki"] = function () {
 	if (exp.js_mode==2) {
 		data = pages[this.page_index("WoaS::Bootscript")];
 		if (data!=null && data.length) {
-			saveFile(exp.xhtml_path+"bootscript.js", data);
+			this.save_file(exp.xhtml_path+"bootscript.js", this.file_mode.UTF8_TEXT, data);
 			exp.custom_bs = '<sc'+'ript type="text/javascript" src="bootscript.js"></sc'+'ript>';
 		}
 	}

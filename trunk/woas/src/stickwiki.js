@@ -579,10 +579,7 @@ woas["_b64_export"] = function(data, dest_path) {
 	// decode the base64-encoded data
 	data = decode64(data.replace(/^data:\s*[^;]*;\s*base64,\s*/, ''));
 	// attempt to save the file
-	_force_binary = true;
-	var r = saveFile(dest_path, data);	
-	_force_binary = false;
-	return r;
+	return this.save_file(dest_path, this.file_mode.BINARY, data);
 }
 
 woas["export_file"] = function(page, dest_path) {
@@ -593,16 +590,8 @@ woas["export_file"] = function(page, dest_path) {
 	if (data==null)
 		return false;
 	// attempt to save the file (binary mode)
-	data = decode64(data);
-	_force_binary = true;
-	var r = saveFile(dest_path, data);	
-	_force_binary = false;
-//	if (r)
-//		this.alert("Written "+data.length+" bytes");
-	return r;
+	return this.save_file(dest_path, this.file_mode.BINARY, decode64(data));
 }
-
-var _got_data_uri = false;
 
 woas["_embed_process"] = function(etype) {
 	var filename = $("filename_").value;
@@ -611,46 +600,17 @@ woas["_embed_process"] = function(etype) {
 		return false;
 	}
 
-	// load the data in binary mode
-	_force_binary = true;
-	_got_data_uri = false;
-	var ct = loadFile(filename);
-	_force_binary = false;
+	// load the data in DATA:URI mode
+	var ct = this.load_file(filename, this.file_mode.DATA_URI);
 	if (ct == null || !ct.length) {
 		this.alert(this.i18n.LOAD_ERR + filename);
 		return false;
 	}
 	
-	// FF3 gives us a proper data: URI!
-	if (_got_data_uri) {
-		if (etype == "image")
-			etype = 12;
-		else etype = 4;
-	} else {
-		ct = encode64(ct);
-		
-		// calculate the flags for the embedded file
-		if (etype == "image") {
-			var m=filename.match(/\.(\w+)$/);
-			if (m==null) m = "";
-			else m=m[1].toLowerCase();
-			var guess_mime = "image";
-			switch (m) {
-				case "png":
-					guess_mime = "image/png";
-				break;
-				case "gif":
-					guess_mime = "image/gif";
-					break;
-				case "jpg":
-				case "jpeg":
-					guess_mime = "image/jpeg";
-					break;
-			}
-			ct = "data:"+guess_mime+";base64,"+ct;
-			etype = 12;
-		} else etype = 4;
-	}
+	// normalize etype to the correspondant binary flag value
+	if (etype == "image")
+		etype = 12;
+	else etype = 4;
 	
 	pages.push(ct);
 	page_attrs.push(etype);

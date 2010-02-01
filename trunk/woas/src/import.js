@@ -22,7 +22,8 @@ woas["import_wiki"] = function(filename) {
 	// set hourglass
 	document.body.style.cursor= "wait";
 	
-	var ct = loadFile(filename);
+	// load the file as UTF-8
+	var ct = woas.load_file(filename);
 	
 	var import_css = $('cb_import_css').checked;
 	var import_content = $('cb_import_content').checked;
