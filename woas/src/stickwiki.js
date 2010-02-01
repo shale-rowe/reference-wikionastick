@@ -16,7 +16,7 @@ var current_namespace = "";		// the namespace(+subnamespaces) of the current pag
 var _bootscript = null;					// bootscript
 var _hl_reg = null;						// search highlighting regex
 
-woas["floating_pages"] = [];		// pages which need to be saved and are waiting in the queue
+woas["save_queue"] = [];		// pages which need to be saved and are waiting in the queue
 
 // Automatic-Save TimeOut object
 woas["_asto"] = null;
@@ -903,7 +903,7 @@ woas["_finalize_lock"] = function(pi) {
 		latest_AES_page = "";
 	} else
 		last_AES_page = title;
-	this.save__page(pi);
+	this.save_page_i(pi);
 }
 
 woas["_perform_lock"] = function(pi) {
@@ -985,8 +985,8 @@ woas["menu_display"] = function(id, visible) {
 
 // auto-save thread
 function _auto_saver() {
-	if (woas.floating_pages.length && !kbd_hooking) {
-		woas.commit(woas.floating_pages);
+	if (woas.save_queue.length && !kbd_hooking) {
+		woas.commit(woas.save_queue);
 		woas.menu_display("save", false);
 	}
 	if (_this.config.auto_save)
@@ -995,8 +995,8 @@ function _auto_saver() {
 
 // save configuration on exit
 woas["before_quit"] = function () {
-	if (this.floating_pages.length)
-		this.commit(this.floating_pages);
+	if (this.save_queue.length)
+		this.commit(this.save_queue);
 	else {
 		if (this.config.save_on_quit && cfg_changed)
 			this.cfg_commit();
@@ -1071,6 +1071,7 @@ woas["after_load"] = function() {
 	else
 		$.hide("menu_edit_button");
 	
+	// enable the auto-saver hook
 	if (this.config.cumulative_save && this.config.auto_save)
 		this._asto = setTimeout("_auto_saver(woas)", this.config.auto_save);
 	
@@ -1249,7 +1250,7 @@ woas["disable_edit"] = function() {
 	this.update_nav_icons(current);
 	this.menu_display("home", true);
 	if (this.config.cumulative_save)
-		this.menu_display("save", this.floating_pages.length!=0);
+		this.menu_display("save", this.save_queue.length!=0);
 	else
 		this.menu_display("save", false);
 	this.menu_display("cancel", false);
@@ -1420,8 +1421,9 @@ woas["setCSS"] = function(new_css) {
 	sty.cssText = new_css;
 }
 
-// when save is clicked
+// action performed when save is clicked
 woas["save"] = function() {
+	// when cumulative save is enabled things change a bit
 	if (this.config.cumulative_save && !kbd_hooking) {
 		this.full_commit();
 		this.menu_display("save", false);
@@ -1437,8 +1439,10 @@ woas["save"] = function() {
 			break;
 		case "WoaS::Aliases":
 			this._load_aliases($("wiki_editor").value);
+			// fallback wanted
 		case "WoaS::Bootscript":
 			can_be_empty = true;
+			// fallback wanted
 		default:
 			// check if text is empty
 			if (!can_be_empty && ($("wiki_editor").value == "")) {
@@ -1487,80 +1491,27 @@ function history_mem(page) {
 	backstack.push(page);
 }
 
-function printout_arr(arr, split_lines) {
-
-	function elem_print(e) {
-		return "'" + woas.js_encode(e, split_lines) + "'";
-	}
-
-	var s = "";
-	for(var i=0;i<arr.length-1;i++) {
-		s += elem_print(arr[i]) + ",\n";
-	}
-	if (arr.length>1)
-		s += elem_print(arr[arr.length-1]) + "\n";
-	return s;
-}
-
-function printout_mixed_arr(arr, split_lines, attrs) {
-
-	function elem_print(e, attr) {
-		if (attr & 2) {
-			return "[" + printout_num_arr(e) + "]";
-		}
-		return "'" + woas.js_encode(e, split_lines) + "'";
-	}
-
-	var s = "";
-	for(var i=0;i<arr.length-1;i++) {
-		s += elem_print(arr[i], attrs[i]) + ",\n";
-	}
-	if (arr.length>1)
-		s += elem_print(arr[arr.length-1], attrs[arr.length-1]) + "\n";
-	return s;
-}
-
-// used to print out encrypted pages bytes and attributes
-function printout_num_arr(arr) {
-	var s = "";
-	for(var i=0;i<arr.length-1;i++) {
-		if (arr[i]>=1000)
-			s += "0x"+arr[i].toString(16) + ",";
-		else
-			s+=arr[i].toString() + ",";
-	}
-	// add the last element (without comma due to IE6 bug)
-	if (arr.length>1) {
-		if (arr[arr.length-1]>=1000)
-			s += "0x"+arr[arr.length-1].toString(16);
-		else
-			s+=arr[arr.length-1].toString();
-	}
-
-	return s;
-}
-
 woas["save_page"] = function(page_to_save) {
-	log("Saving modified page \""+page_to_save+"\"");	// log:1
-	this.save__page(this.page_index(page_to_save));
+	return this.save_page_i(this.page_index(page_to_save));
 }
 
-woas["save__page"] = function(pi) {
-	//this is the dummy function that will allow more efficient file saving in future
-	if (this.config.cumulative_save) {
-		if (!this.floating_pages.length) {
-			this.floating_pages.push(pi);
-			this.menu_display("save", true);
-		} else {
-			if (this.floating_pages.indexOf(pi)==-1)
-				this.floating_pages.push(pi);
-		}
-		log("floating_pages = ("+this.floating_pages+")");	// log:1
-		return;
-	}
+woas["save_page_i"] = function(pi) {
 	// update the modified time timestamp
 	page_mts[pi] = Math.round(new Date().getTime()/1000);
-	this.commit(pi);
+	// this is the dummy function that will allow more efficient file saving in future
+	if (this.config.cumulative_save) {
+		// add the page to the bucket, if it isn't already in
+		if (!this.save_queue.length) {
+			this.save_queue.push(pi);
+			this.menu_display("save", true);
+		} else {
+			if (this.save_queue.indexOf(pi)==-1)
+				this.save_queue.push(pi);
+		}
+		log("save_queue = ("+this.save_queue+")");	// log:1
+		return true;
+	}
+	return this.commit([pi]);
 }
 
 var max_keywords_length = 250;
