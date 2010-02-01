@@ -1,0 +1,34 @@
+wsif.version: 1.0.0
+woas.version: 0.10.1
+
+woas.page8.title: Special::Lock
+woas.page8.attributes: 0
+woas.page8.last_modified: 1264700333
+woas.page8.length: 1222
+woas.page8.encoding: 8bit/plain
+woas.page8.disposition: inline
+woas.page8.boundary: hWDTUncUuoLECKXbMKTD
+
+--hWDTUncUuoLECKXbMKTD
+== AES encryption
+Read more about the [[Special::Security|embedded AES encryption]] used in Wiki On a Stick.
+
+== Password
+Enter your password for AES encryption. The more complex your password is, the more difficult it will be to attack the encryption. It is suggested *not* to use passwords whose textbox color is <span style="background-color:red">&nbsp;red&nbsp;</span>, and to accept passwords only when the textbox color is <span style="background-color:lime">&nbsp;green&nbsp;</span>. Punctuation and Mixed case characters will exponentially increase the strength of your password.
+
+ <input type="password" id="pw1" style="background-color:red" value="" size="50" onfocus="custom_focus(true)" onblur="custom_focus(false)" onkeyup="pw_quality()" />&nbsp;<span id="txtBits">&nbsp;</span>
+ <input type="password" id="pw2" value="" size="50" onfocus="custom_focus(true)" onblur="custom_focus(false)" />
+ <input id="btn_lock" type="button" value="" />
+
+<script>
+function _lock_page() {
+if (current.indexOf("Lock::")!=0) return;
+var page = current.substring(6);
+
+$("btn_lock").value = "Lock "+page;
+$("pw1").focus();
+$("btn_lock").setAttribute("onclick", "lock_page('"+woas.js_encode(page)+"')");
+}
+_lock_page();
+</script>
+--hWDTUncUuoLECKXbMKTD

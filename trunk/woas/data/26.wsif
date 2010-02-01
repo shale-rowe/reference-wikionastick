@@ -1,0 +1,10 @@
+wsif.version: 1.0.0
+woas.version: 0.10.1
+
+woas.page26.title: Image::alert.png
+woas.page26.attributes: 12
+woas.page26.last_modified: 1264700333
+woas.page26.length: 1076
+woas.page26.encoding: 8bit/plain
+woas.page26.disposition: external
+woas.page26.disposition.filename: blob1.png

@@ -1,0 +1,42 @@
+wsif.version: 1.0.0
+woas.version: 0.10.1
+
+woas.page23.title: Options
+woas.page23.attributes: 0
+woas.page23.last_modified: 1264700333
+woas.page23.length: 1336
+woas.page23.encoding: 8bit/plain
+woas.page23.disposition: inline
+woas.page23.boundary: hWDTUncUuoLECKXbMKTD
+
+--hWDTUncUuoLECKXbMKTD
+= Options
+Below are explations of the options on the [[Special::Options]] page.
+
+=== Use consistent newlines in saved data
+When enabled, forces the plain pages to be saved using consistent newlines splitting. This is particularly useful if you use a versioning system like Subversion (SVN) or CVS.
+
+=== Double click to edit pages/menu
+When enabled, allows to switch to edit mode when double-clicking the page content or menu area.
+
+=== Automatically save options (if changed) before quitting
+When enabled, allows option changes to be automatically saved without having to click the *Save options* button at the bottom of the page.
+
+=== Do not temporarily cache the AES key
+When enabled, forces the use of a key for each encrypted page (useful if you leave WoaS open to possible unauthorized access).
+
+=== Fixed menu area and topbar
+When enabled, fixes the menu and banner in place, while allowing the page to scroll.
+
+=== Save last page visited when quitting
+When enabled, automatically opens the last saved page.
+
+=== Enable cumulative save
+When enabled, will save to disk only when quitting.
+
+=== Disallow edits (button)
+When clicked, puts the wiki into server mode. With this option users will be told that it is not possible to save their changes, but that changes will be allowed to for sandbox (testing) purposes.
+
+[[Tags::Help]]
+
+--hWDTUncUuoLECKXbMKTD

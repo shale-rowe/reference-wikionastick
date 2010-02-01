@@ -1,0 +1,18 @@
+wsif.version: 1.0.0
+woas.version: 0.10.1
+
+woas.page17.title: Infinite recursion template
+woas.page17.attributes: 0
+woas.page17.last_modified: 1264700333
+woas.page17.length: 101
+woas.page17.encoding: 8bit/plain
+woas.page17.disposition: inline
+woas.page17.boundary: hWDTUncUuoLECKXbMKTD
+
+--hWDTUncUuoLECKXbMKTD
+This template attempts to trigger infinite recursion
+
+[[Include::Test template 2]]
+
+[[Tags::example]]
+--hWDTUncUuoLECKXbMKTD

@@ -1,0 +1,34 @@
+wsif.version: 1.0.0
+woas.version: 0.10.1
+
+woas.page1.title: Special::Advanced
+woas.page1.attributes: 0
+woas.page1.last_modified: 1265020729
+woas.page1.length: 1053
+woas.page1.encoding: 8bit/plain
+woas.page1.disposition: inline
+woas.page1.boundary: hWDTUncUuoLECKXbMKTD
+
+--hWDTUncUuoLECKXbMKTD
+== Options
+You can customize Wiki on a Stick modifying a few [[Special::Options|Options]].  
+
+== Pages
+* [[Special::All Pages]]: a list of all user created pages in this wiki
+* [[Locked::]], [[Unlocked::]]: an index of all encrypted/plain pages
+* [[Tagged::]], [[Untagged::]]: an index of all tagged/untagged pages
+* [[Special::Search]]: search all wiki pages
+
+== Maintenance
+* [[Special::Dead Pages]]: a list of pages that have links to them, but were still not created 
+* [[Special::Orphaned Pages]]: a list of pages that once were linked to, but now no page links to them anymore
+* [[Special::Export]] wiki into multiple linked static XHTML files
+* [[Special::ExportWSIF]] export wiki into multiple or single [[Special::WSIF|WSIF]] files
+* [[Special::Import]] wiki or theme from an early (or current) version
+* [[Special::Erase Wiki]]: delete ALL wiki pages and reset with default data
+
+== Advanced features
+* [[Special::Edit CSS]]: edit the global CSS styles
+* [[Special::Edit Bootscript]]: edit the custom script run once when WoaS is being loaded
+
+--hWDTUncUuoLECKXbMKTD

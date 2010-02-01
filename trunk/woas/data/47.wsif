@@ -1,0 +1,48 @@
+wsif.version: 1.0.0
+woas.version: 0.10.1
+
+woas.page47.title: Special::ExportWSIF
+woas.page47.attributes: 0
+woas.page47.last_modified: 1265024731
+woas.page47.length: 1031
+woas.page47.encoding: 8bit/plain
+woas.page47.disposition: inline
+woas.page47.boundary: hWDTUncUuoLECKXbMKTD
+
+--hWDTUncUuoLECKXbMKTD
+= Export into WSIF format
+
+See also [[Special::WSIF]].
+
+== Destination path
+Destination directory that will contain the exported WSIF file(s).
+
+Note: *Directory must exist*
+
+<input id="woas_ep_wsif" type="text" size="80" />
+
+== File generation
+
+<label for="woas_cb_single_wsif"><input type="checkbox" id="woas_cb_single_wsif" checked="checked">Export all pages into a single WSIF file</label>
+<label for="woas_cb_inline_wsif"><input type="checkbox" id="woas_cb_inline_wsif">Do not export embedded files as external file blobs</label>
+
+==Other options
+WoaS Author (optional)
+
+<input id="woas_ep_author" type="text" size="12" value="" />
+
+<input type="button" value="Export WSIF" onclick="woas.export_wiki_wsif()" />
+
+<script type="text/javascript">
+var path = _get_this_path();
+path += "wsif" + path[path.length-1];
+$('woas_ep_wsif').value = path;
+
+function _ep_focus() { search_focused = true; }
+function _ep_blur() { search_focused = false; }
+
+$('woas_ep_wsif').onfocus = _ep_focus;
+$('woas_ep_wsif').onblur = _ep_blur;
+
+</script>
+--hWDTUncUuoLECKXbMKTD

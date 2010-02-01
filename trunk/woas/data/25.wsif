@@ -1,0 +1,17 @@
+wsif.version: 1.0.0
+woas.version: 0.10.1
+
+woas.page25.title: Special::Embed
+woas.page25.attributes: 0
+woas.page25.last_modified: 1264700333
+woas.page25.length: 128
+woas.page25.encoding: 8bit/plain
+woas.page25.disposition: inline
+woas.page25.boundary: hWDTUncUuoLECKXbMKTD
+
+--hWDTUncUuoLECKXbMKTD
+= Embed %1
+
+<input id="filename_" type="file" />&nbsp;<input type="button" value="Embed" onclick="woas._embed_process('%1')" />
+
+--hWDTUncUuoLECKXbMKTD
