@@ -178,8 +178,7 @@ woas["mozillaSaveFile"] = function(filePath, save_mode, content) {
 woas["mozillaLoadFile"] = function(filePath, load_mode) {
 	// this is available on Mozilla browsers
 	if(window.Components)
-		try
-		{
+		try	{
 			netscape.security.PrivilegeManager.enablePrivilege("UniversalXPConnect");
 			var file = Components.classes["@mozilla.org/file/local;1"].createInstance(Components.interfaces.nsILocalFile);
 			file.initWithPath(filePath);
@@ -379,11 +378,6 @@ woas["_save_to_file"] = function(full) {
 		r = _saveThisFile(computed_js, data);
 //		was_local = false;
 //	}
-	
-	if (r) {
-		cfg_changed = false;
-		floating_pages = [];
-	}
 	
 	$("wiki_editor").value = bak_ed;
 	$("wiki_text").innerHTML = bak_tx;

@@ -13,9 +13,10 @@ var _decrypt_failed = false;	// the last decryption failed due to wrong password
 var result_pages = [];			// the pages indexed by the last result page
 var last_AES_page;				// the last page on which the cached AES key was used on
 var current_namespace = "";		// the namespace(+subnamespaces) of the current page
-var floating_pages = [];				// pages which need to be saved and are waiting in the queue
 var _bootscript = null;					// bootscript
 var _hl_reg = null;						// search highlighting regex
+
+woas["floating_pages"] = [];		// pages which need to be saved and are waiting in the queue
 
 // Automatic-Save TimeOut object
 woas["_asto"] = null;
@@ -984,9 +985,9 @@ woas["menu_display"] = function(id, visible) {
 
 // auto-save thread
 function _auto_saver() {
-	if (floating_pages.length && !kbd_hooking) {
-		this.full_commit();
-		this.menu_display("save", false);
+	if (woas.floating_pages.length && !kbd_hooking) {
+		woas.commit(woas.floating_pages);
+		woas.menu_display("save", false);
 	}
 	if (_this.config.auto_save)
 		woas._asto = setTimeout("_auto_saver()", woas.config.auto_save);
@@ -994,8 +995,8 @@ function _auto_saver() {
 
 // save configuration on exit
 woas["before_quit"] = function () {
-	if (floating_pages.length)
-		this.full_commit();
+	if (this.floating_pages.length)
+		this.commit(this.floating_pages);
 	else {
 		if (this.config.save_on_quit && cfg_changed)
 			this.cfg_commit();
@@ -1248,7 +1249,7 @@ woas["disable_edit"] = function() {
 	this.update_nav_icons(current);
 	this.menu_display("home", true);
 	if (this.config.cumulative_save)
-		this.menu_display("save", floating_pages.length!=0);
+		this.menu_display("save", this.floating_pages.length!=0);
 	else
 		this.menu_display("save", false);
 	this.menu_display("cancel", false);
@@ -1547,14 +1548,14 @@ woas["save_page"] = function(page_to_save) {
 woas["save__page"] = function(pi) {
 	//this is the dummy function that will allow more efficient file saving in future
 	if (this.config.cumulative_save) {
-		if (!floating_pages.length) {
-			floating_pages.push(pi);
+		if (!this.floating_pages.length) {
+			this.floating_pages.push(pi);
 			this.menu_display("save", true);
 		} else {
-			if (floating_pages.indexOf(pi)==-1)
-				floating_pages.push(pi);
+			if (this.floating_pages.indexOf(pi)==-1)
+				this.floating_pages.push(pi);
 		}
-		log("floating_pages = ("+floating_pages+")");	// log:1
+		log("floating_pages = ("+this.floating_pages+")");	// log:1
 		return;
 	}
 	// update the modified time timestamp
