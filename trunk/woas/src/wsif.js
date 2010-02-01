@@ -1,4 +1,7 @@
 
+// native WSIF-saving mode used during development - use with CARE!
+woas["_native_wsif"] = true;
+
 // a class for some general WSIF operations
 woas["wsif" ] = {version: "1.0.0"};
 
@@ -10,35 +13,40 @@ woas["wsif"]["inline"] = function(boundary, content) {
 	return "--"+boundary+"\n"+content+"\n--"+boundary+"\n";
 }
 
-// native WSIF-saving mode used during development - use with CARE!
-woas["_native_wsif"] = true;
-
 // default behaviour:
 // - wiki pages go inline (utf-8), no container encoding
 // - embedded files/images go outside as blobs
 // - encrypted pages go inline in base64
 woas["export_wiki_wsif"] = function () {
 	// export settings object
-	var wsif_exp = {};
+	var path, author, single_wsif, inline_wsif;
 	try {
-		wsif_exp["path"] = $("woas_ep_wsif").value;
-		wsif_exp["author"] = this.trim($("woas_ep_author").value);
-		wsif_exp["single"] = $("woas_cb_single_wsif").checked ? true : false;
-		wsif_exp["inline"] = $("woas_cb_inline_wsif").checked ? true : false;
+		path = $("woas_ep_wsif").value;
+		author = this.trim($("woas_ep_author").value);
+		single_wsif = $("woas_cb_single_wsif").checked ? true : false;
+		inline_wsif = $("woas_cb_inline_wsif").checked ? true : false;
 	} catch (e) { this.crash(e); return false; }
 	
 	// block interaction for a while
 	$.show("loading_overlay");
 	$("loading_overlay").focus();
 	
+	var done = this._native_wsif_save(path, single_wsif, inline_wsif, author, false);
+
+	$.hide("loading_overlay");
+	this.alert(this.i18n.EXPORT_OK.sprintf(done));
+	return true;
+}
+
+woas["_native_wsif_save"] = function(path, single_wsif, inline_wsif, author, save_all) {
 	// the number of blobs which we have already created
 	var blob_counter = 0;
 	
 	// prepare the extra headers
 	var extra = this.wsif.header('wsif.version', this.wsif.version);
 	extra += this.wsif.header('woas.version', this.version);
-	if (wsif_exp.author.length)
-		extra += this.wsif.header('woas.author', wsif_exp.author);
+	if (author.length)
+		extra += this.wsif.header('woas.author', author);
 
 	// boundary used for inline attachments
 	var full_wsif = "", boundary = "";
@@ -46,7 +54,7 @@ woas["export_wiki_wsif"] = function () {
 	var l=page_titles.length, done = 0;
 	for (var pi=0;pi<l;pi++) {
 		// do skip physical special pages
-		if (!this._native_wsif) {
+		if (!save_all) {
 			if (page_titles[pi].match(/^Special::/)) continue;
 		}
 		// the attributes prefix
@@ -65,7 +73,7 @@ woas["export_wiki_wsif"] = function () {
 			ct = pages[pi];
 			if (this.is__embedded(pi)) {
 				// if not forced to do them inline, convert for export
-				if (!wsif_exp.inline) {
+				if (!inline_wsif) {
 					disposition = "external";
 					encoding = "8bit/plain";
 					// decode the base64-encoded data
@@ -107,16 +115,16 @@ woas["export_wiki_wsif"] = function () {
 			// specify path to external filename
 			record += this.wsif.header(pfx+"disposition.filename", blob_fn);
 			//TODO: some error checking?
-			this.save_file(wsif_exp.path + blob_fn,
+			this.save_file(path + blob_fn,
 							(encoding == "8bit/plain") ?
 							this.file_mode.BINARY : this.file_mode.UTF8_TEXT, ct);
 		}
 		// the page record is now ready, proceed to save
-		if (wsif_exp.single) {// append to main page record
+		if (single_wsif) {// append to main page record
 			full_wsif += record;
 			++done;
 		} else {
-			if (this.save_file(wsif_exp.path+pi.toString()+".wsif",
+			if (this.save_file(path+pi.toString()+".wsif",
 								this.file_mode.UTF8_TEXT,
 								extra + "\n" + record))
 				++done;
@@ -124,20 +132,16 @@ woas["export_wiki_wsif"] = function () {
 		// reset the record
 		record = "";
 	} // foreach page
-	if (wsif_exp.single) {
+	if (single_wsif) {
 		// add the total pages number
 		extra += this.wsif.header('woas.pages', done);
 		// output the full single WSIF file now
-		if (!this.save_file(wsif_exp.path+"index.wsif",
+		if (!this.save_file(path+"index.wsif",
 							this.file_mode.UTF8_TEXT,
 							extra + "\n" + full_wsif))
 			done = 0;
 	}
-
-	$.hide("loading_overlay");
-	this.alert(this.i18n.EXPORT_OK.sprintf(done));
-	return true;
-
+	return done;
 }
 
 function _file_ext(fn) {
