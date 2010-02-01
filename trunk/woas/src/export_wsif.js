@@ -124,9 +124,9 @@ woas["export_wiki_wsif"] = function () {
 }
 
 function _file_ext(fn) {
-	var m=filename.match(/\.(\w+)$/);
+	var m=fn.match(/\.(\w+)$/);
 	if (m == null) return "";
-	return m[1];
+	return "."+m[1];
 }
 
 function _generate_random_boundary(old_boundary, text) {
