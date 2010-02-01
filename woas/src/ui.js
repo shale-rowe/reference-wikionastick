@@ -322,7 +322,7 @@ function query_export_image(cr) {
 }
 
 function query_delete_file(cr) {
-	if (!confirm(woas.i18n.CONFIRM_DELETE+cr))
+	if (!confirm(woas.i18n.CONFIRM_DELETE.sprintf(cr)))
 		return;
 	delete_page(cr);
 	back_or(main_page);
