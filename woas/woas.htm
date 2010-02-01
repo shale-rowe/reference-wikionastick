@@ -5,11 +5,11 @@
 <script type="text/javascript">
 /* <![CDATA[ */
 
-/* DFQRCTsKlU-0000009-START */
+/* DFQRCTsKlU-0000010-START */
 
 var woas = {"version": "0.10.1"};
 
-var __marker = "DFQRCTsKlU-0000009";
+var __marker = "DFQRCTsKlU-0000010";
 
 woas["config"] = {
 "permit_edits":true,
@@ -21,11 +21,13 @@ woas["config"] = {
 "cumulative_save":false,
 "auto_save":0};
 
-var current = 'Main Page';
+var current = 'Special::ExportWSIF';
 
 var main_page = 'Main Page';
 
 var backstack = [
+'Main Page',
+'Special::Advanced'
 ];
 
 var page_titles = [
@@ -80,10 +82,10 @@ var page_titles = [
 'Special::WSIF'
 ];
 
-/* DFQRCTsKlU-0000009-DATA */
+/* DFQRCTsKlU-0000010-DATA */
 var page_attrs = [0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,12,4,0,0,0,0,0,0,0,4,0,0,0,0,2,0,0,0,0,0,0,0,0];
 
-var page_mts = [0x4b61cbad,0x4b66af39,0x4b61cbad,0x4b61cbad,0x4b66ab79,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b66aeb2,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b668937,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b66b1e5,0x4b66afb0];
+var page_mts = [0x4b61cbad,0x4b66af39,0x4b61cbad,0x4b61cbad,0x4b66ab79,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b66aeb2,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b668937,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b61cbad,0x4b66bedb,0x4b66afb0];
 
 var pages = [
 '[[Main Page]]\n\
@@ -1277,7 +1279,7 @@ asdf',
 '$HOME  Main Page',
 '= Export into WSIF format\n\
 \n\
-[[Include::Special::WSIF]]\n\
+See also [[Special::WSIF]].\n\
 \n\
 == Destination path\n\
 Destination directory that will contain the exported WSIF file(s).\n\
@@ -1289,7 +1291,7 @@ Note: *Directory must exist*\n\
 == File generation\n\
 \n\
 \x3Clabel for="woas_cb_single_wsif"\x3E\x3Cinput type="checkbox" id="woas_cb_single_wsif" checked="checked"\x3EExport all pages into a single WSIF file\x3C/label\x3E\n\
-\x3Clabel for="woas_cb_unix_norm"\x3E\x3Cinput type="checkbox" id="woas_cb_unix_norm" checked="checked"\x3EApply UNIX-style normalization (lowercase and spaces replaced by underscores) to generated filenames\x3C/label\x3E\n\
+\x3Clabel for="woas_cb_inline_wsif"\x3E\x3Cinput type="checkbox" id="woas_cb_inline_wsif"\x3EDo not export embedded files as external file blobs\x3C/label\x3E\n\
 \n\
 ==Other options\n\
 WoaS Author (optional)\n\
@@ -1315,7 +1317,7 @@ $(\'woas_ep_wsif\').onblur = _ep_blur;\n\
 *W*iki on a *S*tick *I*nterchange *F*ormat is the preferred format for exporting full WoaS data into a single file and share it with whoever you like.'
 ];
 
-/* DFQRCTsKlU-0000009-END */
+/* DFQRCTsKlU-0000010-END */
 
 /* ]]> */ </script>
 <style type="text/css">/* existent link */

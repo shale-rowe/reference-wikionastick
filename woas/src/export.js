@@ -7,6 +7,14 @@ var _export_fnames_array = [];
 
 var _further_pages = [];
 
+// save a base64 data: stream into an external file
+woas["_b64_export"] = function(data, dest_path) {
+	// decode the base64-encoded data
+	data = decode64(data.replace(/^data:\s*[^;]*;\s*base64,\s*/, ''));
+	// attempt to save the file
+	return this.save_file(dest_path, this.file_mode.BINARY, data);
+}
+
 woas["_attrib_escape"] = function(s) {
 	return s.replace(/"/g, '&quot;');
 }
