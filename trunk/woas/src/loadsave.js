@@ -299,3 +299,161 @@ woas["javaLoadFile"] = function(filePath, load_mode) {
 		return this._data_uri_enc(filePath, content);
 	return content;
 }
+
+// save full WoaS to file
+woas["save_to_file"] = function(full) {
+	$.show("loading_overlay");
+	
+	var new_marker;
+	if (full) {
+		new_marker = _inc_marker(__marker);
+	} else new_marker = __marker;
+	
+	// setup the page to be opened on next start
+	var safe_current;
+	if (this.config.open_last_page) {
+		if (!this.page_exists(current)) {
+			safe_current = main_page;
+		} else safe_current = current;
+	} else
+		safe_current = main_page;
+	
+	// output the javascript header and configuration flags
+	var computed_js = "\n/* <![CDATA[ */\n\n/* "+new_marker+"-START */\n\nvar woas = {\"version\": \""+this.version+
+	"\"};\n\nvar __marker = \""+new_marker+"\";\n\nwoas[\"config\"] = {";
+	for (param in this.config) {
+		computed_js += "\n\""+param+"\":";
+		if (typeof(this.config[param])=="boolean")
+			computed_js += (this.config[param] ? "true" : "false")+",";
+		else // for numbers
+			computed_js += this.config[param]+",";
+	}
+	computed_js = computed_js.substr(0,computed_js.length-1);
+	computed_js += "};\n";
+	
+	computed_js += "\nvar current = '" + this.js_encode(safe_current)+
+	"';\n\nvar main_page = '" + this.js_encode(main_page) + "';\n\n";
+	
+	computed_js += "var backstack = [\n" + printout_arr(backstack, false) + "];\n\n";
+
+	computed_js += "var page_titles = [\n" + printout_arr(page_titles, false) + "];\n\n";
+	
+	computed_js += "/* " + new_marker + "-DATA */\n";
+	
+	if (full) {
+		computed_js += "var page_attrs = [" + printout_num_arr(page_attrs) + "];\n\n";
+		
+		// used to reset MTS
+//		for(var ip=0,ipl=pages.length;ip<ipl;++ip) { page_mts[ip] = this.MAGIC_MTS; }
+		
+		computed_js += "var page_mts = [" + printout_num_arr(page_mts) + "];\n\n";
+		
+		computed_js += "var pages = [\n" + printout_mixed_arr(pages, this.config.allow_diff, page_attrs) + "];\n\n";
+		
+		computed_js += "/* " + new_marker + "-END */\n";
+	}
+
+	// cleanup the DOM before saving
+	var bak_ed = $("wiki_editor").value;
+	var bak_tx = $("wiki_text").innerHTML;
+	var bak_mn = $("menu_area").innerHTML;
+	var bak_mts = $("wiki_mts").innerHTML;
+	var bak_mts_shown = $.is_visible("wiki_mts");
+
+	if (bak_mts_shown)
+		$.hide("wiki_mts");
+	$("wiki_editor").value = "";
+	$("wiki_text").innerHTML = "";
+	$("menu_area").innerHTML = "";
+	$("wiki_mts").innerHTML = "";
+
+	this._clear_swcs();
+	this._clear_bs();
+	
+	var data = _get_data(__marker, document.documentElement.innerHTML, full);
+
+	var r=false;
+//	if (!this.config.server_mode || (was_local && this.config.server_mode)) {
+	if (!this._server_mode)
+		r = _saveThisFile(computed_js, data);
+//		was_local = false;
+//	}
+	
+	if (r) {
+		cfg_changed = false;
+		floating_pages = [];
+	}
+	
+	$("wiki_editor").value = bak_ed;
+	$("wiki_text").innerHTML = bak_tx;
+	$("menu_area").innerHTML = bak_mn;
+	$("wiki_mts").innerHTML = bak_mts;
+	if (bak_mts_shown)
+		$.show("wiki_mts");
+	
+	this._create_bs();
+	
+	$.hide("loading_overlay");
+	
+	return r;
+}
+
+function _get_data(marker, source, full, start) {
+	var offset;
+	// always find the end marker to make the XHTML fixes
+	offset = source.indexOf("/* "+marker+ "-END */");
+	if (offset == -1) {
+		this.alert(woas.i18n.ERR_MARKER.sprintf("END"));
+		return false;
+	}			
+	offset += 6 + 4 + marker.length + 2;
+	
+	// IE ...
+	var body_ofs;
+	var re = new RegExp("<\\/"+"head>", "i");
+	var m = re.exec(source);
+	if (m != null)
+		body_ofs = m.index;
+	else
+		body_ofs = -1;
+	if (body_ofs != -1) {
+		// XHTML hotfixes (FF doesn't either save correctly)
+		source = source.substring(0, body_ofs) + source.substring(body_ofs).
+				replace(/<(img|hr|br|input|meta)[^>]*>/gi, function(str, tag) {
+					var l=str.length;
+					if (str.charAt(l-1)!='/')
+						str = str.substr(0, l-1)+" />";
+					return str;
+		});
+	}
+	
+	if (full) {
+		// offset was previously calculated
+		if (start) {
+			var s_offset = source.indexOf("/* "+marker+ "-START */");
+			if (s_offset == -1) {
+				this.alert(woas.i18n.ERR_MARKER.sprintf("START"));
+				return false;
+			}
+			return source.substring(s_offset, offset);
+		}
+	} else {
+		offset = source.indexOf("/* "+marker+ "-DATA */");
+		if (offset == -1) {
+			this.alert(woas.i18n.ERR_MARKER.sprintf("DATA"));
+			return false;
+		}
+		offset += 6 + 5 + marker.length + 1;
+	}
+	return source.substring(offset);
+}
+
+function _inc_marker(old_marker) {
+	var m = old_marker.match(/([^\-]*)\-(\d{7,7})$/);
+	if (m==null) {
+		return _random_string(10)+"-0000001";
+	}
+	var n = new Number(m[2].replace(/^0+/, '')) + 1;
+	n = n.toString();
+	return m[1]+"-"+String("0").repeat(7-n.length)+n;
+}
