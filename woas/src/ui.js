@@ -296,7 +296,7 @@ function show_full_file(pi) {
 	$.show('loading_overlay');
 	// clear the partial display and put in the whole file content
 	woas.setHTML($('_part_display'), '');
-	woas.setHTML($('_file_ct'), this.xhtml_encode(decode64(text)));
+	woas.setHTML($('_file_ct'), woas.xhtml_encode(decode64(text)));
 	// finished loading the file
 	$.hide('loading_overlay');
 }
