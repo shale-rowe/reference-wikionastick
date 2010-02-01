@@ -1,20 +1,24 @@
 // this file contains API for the data layer abstraction
 
-// save all pages
+//API1.0: save all pages
 woas["full_commit"] = function() {
 	return this._save_to_file(true);
 }
 
+//API1.0: save WoaS configuration
 woas["cfg_commit"] = function() {
 	return this._save_to_file(false);
 }
 
-// arguments is a list of page indexes which need to be saved
+//API1.0: save specific list of pages
+// plist is a list of page indexes which need to be saved
 woas["commit"] = function(plist) {
 	// performs full save, while the single page + global header could be saved instead
 	return this._save_to_file(true);
 }
 
+//API1.0: event called after some page is being saved
+// plist can be undefined if all pages were saved
 woas["after_pages_saved"] = function(plist) {
 	// we assume that everything was saved
 	if (typeof plist == "undefined") {
@@ -29,7 +33,7 @@ woas["after_pages_saved"] = function(plist) {
 	}
 }
 
-// event called when the config was successfully saved
+//API1.0: event called when the config was successfully saved
 woas["after_config_saved"] = function() {
 	cfg_changed = false;
 }
