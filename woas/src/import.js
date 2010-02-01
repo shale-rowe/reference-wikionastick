@@ -432,7 +432,7 @@ if (old_version	< 9) {
 	// move to main page
 	current = main_page;
 	// save everything
-	this.save_to_file(true);
+	this.full_commit();
 	
 	this.refresh_menu_area();
 	this.set_current(main_page, true);
