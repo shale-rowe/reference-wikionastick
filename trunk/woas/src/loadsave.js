@@ -299,6 +299,59 @@ woas["javaLoadFile"] = function(filePath, load_mode) {
 	return content;
 }
 
+function printout_arr(arr, split_lines) {
+
+	function elem_print(e) {
+		return "'" + woas.js_encode(e, split_lines) + "'";
+	}
+
+	var s = "";
+	for(var i=0;i<arr.length-1;i++) {
+		s += elem_print(arr[i]) + ",\n";
+	}
+	if (arr.length>1)
+		s += elem_print(arr[arr.length-1]) + "\n";
+	return s;
+}
+
+function printout_mixed_arr(arr, split_lines, attrs) {
+
+	function elem_print(e, attr) {
+		if (attr & 2) {
+			return "[" + printout_num_arr(e) + "]";
+		}
+		return "'" + woas.js_encode(e, split_lines) + "'";
+	}
+
+	var s = "";
+	for(var i=0;i<arr.length-1;i++) {
+		s += elem_print(arr[i], attrs[i]) + ",\n";
+	}
+	if (arr.length>1)
+		s += elem_print(arr[arr.length-1], attrs[arr.length-1]) + "\n";
+	return s;
+}
+
+// used to print out encrypted pages bytes and attributes
+function printout_num_arr(arr) {
+	var s = "";
+	for(var i=0;i<arr.length-1;i++) {
+		if (arr[i]>=1000)
+			s += "0x"+arr[i].toString(16) + ",";
+		else
+			s+=arr[i].toString() + ",";
+	}
+	// add the last element (without comma due to IE6 bug)
+	if (arr.length>1) {
+		if (arr[arr.length-1]>=1000)
+			s += "0x"+arr[arr.length-1].toString(16);
+		else
+			s+=arr[arr.length-1].toString();
+	}
+
+	return s;
+}
+
 // save full WoaS to file
 woas["_save_to_file"] = function(full) {
 	// put in busy mode
@@ -378,6 +431,14 @@ woas["_save_to_file"] = function(full) {
 		r = _saveThisFile(computed_js, data);
 //		was_local = false;
 //	}
+
+	// save was successful - trigger some events
+	if (r) {
+		this.after_config_saved();
+		if (full)
+			this.after_pages_saved();
+	}
+
 	
 	$("wiki_editor").value = bak_ed;
 	$("wiki_text").innerHTML = bak_tx;
