@@ -333,11 +333,11 @@ function query_delete_file(cr) {
 function _img_properties_show(mime, tot_len, enc_len, mts) {
 	var img=$('img_tag');
 	woas.setHTML($('img_desc'),
-		"Mime type: "+mime+"<br /"+
-		">File size: "+_convert_bytes((tot_len-enc_len*3)/4)+
-	" (requires "+_convert_bytes(tot_len)+" due to base64 encoding)"+
+		woas.i18n.MIME_TYPE+": "+mime+"<br /"+
+		">"+woas.i18n.FILE_SIZE+": "+_convert_bytes((tot_len-enc_len*3)/4)+
+		woas.i18n.B64_REQ.sprintf(_convert_bytes(tot_len))+
 	"<br />"+woas.last_modified(mts)+
-	"<br />Width: "+img.width+"px<br />Height: "+img.height+"px");
+	"<br />"+woas.i18n.WIDTH+": "+img.width+"px<br />"+woas.i18n.HEIGHT+": "+img.height+"px");
 }
 
 function query_delete_image(cr) {
@@ -350,21 +350,23 @@ function query_delete_image(cr) {
 
 // triggered by UI graphic button
 function page_print() {
-	var wnd = woas.popup("print_popup", Math.ceil(screen.width*0.75),Math.ceil(screen.height*0.75),
-	",status=yes,menubar=yes,resizable=yes,scrollbars=yes");
 	var css_payload = "";
-	if (ie) {
+	if (ie && !ie8) {
 		if (ie6)
 			css_payload = "div.wiki_toc { align: center;}";
 		else
 			css_payload = "div.wiki_toc { position: relative; left:25%; right: 25%;}";
 	} else
 		css_payload = "div.wiki_toc { margin: 0 auto;}\n";
-	wnd.document.writeln(woas.DOCTYPE+"<ht"+"ml><he"+"ad><title>"+current+"</title>"+
-	"<st"+"yle type=\"text/css\">"+css_payload+_css_obj().innerHTML+"</sty"+"le>"+
-	woas.raw_js("function go_to(page) { alert(\"Sorry, you cannot browse the wiki while in print mode\");}")+"</h"+"ead><"+"body>"+
-	$("wiki_text").innerHTML+"</bod"+"y></h"+"tml>\n");
-	wnd.document.close();
+	// create the popup
+	woas.popup("print_popup", Math.ceil(screen.width*0.75),Math.ceil(screen.height*0.75),
+						",status=yes,menubar=yes,resizable=yes,scrollbars=yes",
+						// head
+						"<title>"+current+"</title>"+"<st"+"yle type=\"text/css\">"+
+						css_payload+_css_obj().innerHTML+"</sty"+"le>"+
+						woas.raw_js("function go_to(page) { alert(\""+woas.js_encode(woas.i18n.PRINT_MODE_WARN)+"\");}"),
+						// body
+						$("wiki_text").innerHTML);
 }
 
 // below functions used by Special::Export
@@ -374,4 +376,3 @@ function _get_this_path() {
 	var slash_c = (navigator.appVersion.indexOf("Win")!=-1)?"\\\\":"/";
 	return _get_this_filename().replace(new RegExp("("+slash_c+")"+"[^"+slash_c+"]*$"), "$1");
 }
-

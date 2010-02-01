@@ -105,16 +105,6 @@ woas["utf8_encode"] = function(src) {
 	});
 }
 
-// create a centered popup given some options
-woas["popup"] = function (name,fw,fh,extra) {
-	var hpos=Math.ceil((screen.width-fw)/2);
-	var vpos=Math.ceil((screen.height-fh)/2);
-	var wnd = window.open("about:blank",name,"width="+fw+",height="+fh+		
-	",left="+hpos+",top="+vpos+extra);
-	wnd.focus();
-	return wnd;
-}
-
 //DANGER: will corrupt your WoaS!
 var edit_override = false;
 
@@ -1058,8 +1048,6 @@ woas["setHTML"] = woas["getHTML"] = null;
 woas["after_load"] = function() {
 	log("***** Woas v"+this.version+" started *****");	// log:1
 	
-//	alert("page_titles: "+page_titles.length+"\npages: "+pages.length+"\npage_attrs: "+page_attrs.length);
-	
 	document.body.style.cursor = "auto";
 	
 	if (ie) {	// some hacks for IE
@@ -1151,7 +1139,7 @@ woas["_load_aliases"] = function(s) {
 	for(var i=0;i<tmpl.length;++i) {
 		cp = tmpl[i].split(/\s+/);
 		if (cp.length < 2) {
-			alert("Invalid alias \""+tmpl[i]+"\", ignoring it.");
+			this.alert(this.i18n.INVALID_ALIAS.sprintf(tmpl[i]));
 			continue;
 		}
 		cpok = [ new RegExp(RegExp.escape(cp[0]), "g"), tmpl[i].substr(cp[0].length).replace(/^\s+/, '') ];
@@ -1368,9 +1356,16 @@ woas["edit_ready"] = function (txt) {
 	$("wiki_editor").value = txt;
 }
 
+var _servm_shown = false;
+
 function _servm_alert() {
-	if (woas._server_mode)
-		this.alert("You are using Wiki on a Stick on a REMOTE server, your changes will not be saved neither remotely or locally.\n\nThe correct usage of Wiki on a Stick is LOCAL, so you should use a local copy of this page to exploit the save features. All changes made to this copy of Wiki on a Stick will be lost.");
+	if (woas._server_mode) {
+		// show the message only once
+		if (!_servm_shown) {
+			this.alert(this.i18n.SERVER_MODE);
+			_servm_shown = true;
+		}
+	}
 }
 
 woas["edit_page"] = function(page) {
@@ -1497,6 +1492,11 @@ woas["save"] = function() {
 				// here the page gets actually saved
 				this.set_text($("wiki_editor").value);
 				new_title = woas.trim($("wiki_page_title").value);
+				// disallow empty titles
+				if (!new_title.length) {
+					this.alert(this.i18n.EMPTY_TITLE);
+					return false;
+				}
 				if (this.is_menu(new_title)) {
 					this.refresh_menu_area();
 					back_to = _prev_title;
