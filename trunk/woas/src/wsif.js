@@ -245,6 +245,8 @@ woas["_native_wsif_load"] = function(path, overwrite) {
 					pi = page_titles.indexOf(title);
 					if (pi != -1)
 						imported.push(pi);
+					else
+						return 0;
 					// delete this whole entry to free up some memory to GC
 					ct = ct.substr(p);
 					p = 0;
@@ -381,13 +383,15 @@ woas["_native_page_def"] = function(ct,p,overwrite, title,attrs,last_mod,len,enc
 				// update the page record
 				pages[pi] = page;
 				page_attrs[pi] = attrs;
-				page_mts.push(last_mod);
+				page_mts[pi] = last_mod;
+				// page title does not change
 			} else
 				log("Skipping page "+title); //log:1
 		} else { // creating a new page
 			pages.push(page);
 			page_attrs.push(attrs);
 			page_mts.push(last_mod);
+			page_titles.push(title);
 		}
 	} // !fail
 	// return updated offset
