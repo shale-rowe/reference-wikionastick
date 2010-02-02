@@ -2,7 +2,8 @@
 // native WSIF-saving mode used during development - use with CARE!
 // set to null to disable
 // empty string will save index.wsif in same directory of WoaS XHTML file
-woas["_native_wsif"] = "";
+//woas["_native_wsif"] = "";
+woas["_native_wsif"] = null;
 
 // a class for some general WSIF operations
 woas["wsif" ] = {version: "1.0.0"};
@@ -204,4 +205,8 @@ function _generate_random_boundary(old_boundary, text) {
 
 woas["_native_load"] = function() {
 	return false;
+}
+
+woas["import_wiki_wsif"] = function() {
+	this.alert("Not yet implemented");
 }
