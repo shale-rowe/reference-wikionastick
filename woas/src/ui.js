@@ -324,9 +324,8 @@ function query_export_image(cr) {
 function query_delete_file(cr) {
 	if (!confirm(woas.i18n.CONFIRM_DELETE.sprintf(cr)))
 		return;
-	delete_page(cr);
+	woas.delete_page(cr);
 	back_or(main_page);
-	woas.save_page(cr);
 }
 
 // delayed function called after page loads and runs the script tag
@@ -343,9 +342,8 @@ function _img_properties_show(mime, tot_len, enc_len, mts) {
 function query_delete_image(cr) {
 	if (!confirm(woas.i18n.CONFIRM_DELETE_IMAGE.sprintf(cr)))
 		return;
-	delete_page(cr);
+	woas.delete_page(cr);
 	back_or(main_page);
-	woas.save_page(cr);
 }
 
 // triggered by UI graphic button

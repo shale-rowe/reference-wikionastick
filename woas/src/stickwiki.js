@@ -1380,21 +1380,6 @@ woas["rename_page"] = function(previous, newpage) {
 	return true;
 }
 
-// when a page is deleted
-function delete_page(page) {
-	for(var i=0; i<pages.length; i++) {
-		if (page_titles[i] == page) {
-			log("DELETED page "+page);	// log:1
-			page_titles.splice(i,1);
-			pages.splice(i,1);
-			page_attrs.splice(i,1);
-			page_mts.splice(i,1);
-			woas.refresh_menu_area();
-			break;
-		}
-	}
-}
-
 // applies some on-the-fly patches for the syntax changes in v0.9
 function _new_syntax_patch(text) {
 	//BUG: will also modify text contained in nowiki blocks
@@ -1448,10 +1433,9 @@ woas["save"] = function() {
 			if (!can_be_empty && ($("wiki_editor").value == "")) {
 				if (confirm(this.i18n.CONFIRM_DELETE.sprintf(current))) {
 					var deleted = current;
-					delete_page(current);
+					this.delete_page(current);
 					this.disable_edit();
 					back_or(main_page);
-					this.save_page(deleted);
 				}
 				return;
 			} else {

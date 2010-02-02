@@ -174,10 +174,8 @@ woas["cmd_delete"] = function() {
 		this.alert(this.i18n.PAGE_NOT_EXISTS+pname);
 		return;
 	}
-	if ((pname != null) && confirm(this.i18n.CONFIRM_DELETE.sprintf(pname))) {
-		delete_page(pname);
-		this.save_page(pname);
-	}
+	if ((pname != null) && confirm(this.i18n.CONFIRM_DELETE.sprintf(pname))) 
+		this.delete_page_i(pi);
 }
 
 // javascript shortcuts for special pages
@@ -190,4 +188,27 @@ woas["shortcuts_js"] = ["cmd_new_page", "cmd_duplicate_page", "special_all_pages
 // return raw javascript tag to be included in XHTML page
 woas["raw_js"] = function(code) {
 	return "<scr"+"ipt type=\"text/javascript\">\n"+code+"\n<"+"/s"+"cript>";
+}
+
+//API1.0: delete a page given title (without aliases)
+woas["delete_page"] = function(title) {
+	var pi = page_titles.indexOf(page);
+	//DEBUG line
+	if (pi == -1) {
+		this.crash("Requesting deletion of unexisting page!");
+		return false;
+	}
+	return this.delete_page_i(pi);
+}
+
+//API1.0: delete a page given absolute page index
+woas["delete_page_i"] = function(pi) {
+	log("DELETED page "+page_titles[pi]);	// log:1
+	page_titles.splice(i,1);
+	pages.splice(i,1);
+	page_attrs.splice(i,1);
+	page_mts.splice(i,1);
+	this.refresh_menu_area();
+	//TODO: send proper save notification
+	return this.commit();
 }
