@@ -408,14 +408,17 @@ function import_wiki_wsif() {
 	// block interaction for a while
 	$.show("loading_overlay");
 	$("loading_overlay").focus();
-	var done = false;
-	if (confirm(woas.i18n.CONFIRM_IMPORT_OVERWRITE))
+	var done;
+	if (!confirm(woas.i18n.CONFIRM_IMPORT_OVERWRITE))
+		done = false;
+	else {
 		done = woas._native_wsif_load(filename, true);
+		if (done === false)
+			woas.crash(woas.wsif.emsg);
+	}
 
 	$.hide("loading_overlay");
-	if (done === false)
-		woas.crash(woas.wsif.emsg);
-	else
-		woas.alert(woas.i18n.EXPORT_OK.sprintf(done));
+	if (done !== false)
+		woas.alert(woas.i18n.IMPORT_OK.sprintf(done));
 	return done;
 }

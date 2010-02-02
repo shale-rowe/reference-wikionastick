@@ -240,6 +240,7 @@ woas["_native_wsif_load"] = function(path, overwrite) {
 						fail = true;
 						break;
 					}
+					// check if page was really imported, and if yes then
 					// add page to list of imported pages
 					pi = page_titles.indexOf(title);
 					if (pi != -1)
