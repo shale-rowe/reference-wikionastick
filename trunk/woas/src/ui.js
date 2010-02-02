@@ -374,3 +374,24 @@ function _get_this_path() {
 	var slash_c = (navigator.appVersion.indexOf("Win")!=-1)?"\\\\":"/";
 	return _get_this_filename().replace(new RegExp("("+slash_c+")"+"[^"+slash_c+"]*$"), "$1");
 }
+
+woas["export_wiki_wsif"] = function () {
+	// export settings object
+	var path, author, single_wsif, inline_wsif;
+	try {
+		path = $("woas_ep_wsif").value;
+		author = this.trim($("woas_ep_author").value);
+		single_wsif = $("woas_cb_single_wsif").checked ? true : false;
+		inline_wsif = $("woas_cb_inline_wsif").checked ? true : false;
+	} catch (e) { this.crash(e); return false; }
+	
+	// block interaction for a while
+	$.show("loading_overlay");
+	$("loading_overlay").focus();
+	
+	var done = this._native_wsif_save(path, single_wsif, inline_wsif, author, false);
+
+	$.hide("loading_overlay");
+	this.alert(this.i18n.EXPORT_OK.sprintf(done));
+	return true;
+}
