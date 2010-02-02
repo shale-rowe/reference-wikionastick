@@ -6,10 +6,10 @@ woas["_native_save"] = function(plist) {
 	if (this._native_wsif == null)
 		return;
 	var done, path = _get_this_path()+this._native_wsif;
-	if (typeof plist == "undefined" )
-		done = this._native_wsif_save(path,	false, false, "", true);
-	else
-		done = this._native_wsif_save(path,	false, false, "", true, plist);
+//	if (typeof plist == "undefined" )
+		done = this._native_wsif_save(path,	true, true, "", true);
+//	else
+//		done = this._native_wsif_save(path,	true, true, "", true, plist);
 	log("saved "+done+" pages natively"); // log:1
 }
 
