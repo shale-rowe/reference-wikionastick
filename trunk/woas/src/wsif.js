@@ -200,7 +200,8 @@ woas["_native_wsif_load"] = function(path, overwrite) {
 		woas.wsif.emsg = "Corrupted WSIF file";
 	var title = null,	attrs = null,
 		last_mod = null,	len = null,
-		encoding = null,	disposition = null, boundary = null;
+		encoding = null,	disposition = null, boundary = null,
+		mime = null;
 	while (p != -1) {
 		// remove prefix
 		sep = ct.indexOf(":", p+pfx_len);
@@ -230,9 +231,9 @@ woas["_native_wsif_load"] = function(path, overwrite) {
 				// we have just jumped over a page definition
 				if (title !== null) {
 					p = this._native_page_def(ct,bak_p,overwrite,
-							title,attrs,last_mod,len,encoding,disposition,boundary);
+							title,attrs,last_mod,len,encoding,disposition,boundary,mime);
 					title = attrs = last_mod = encoding = len =
-						 boundary = disposition = null;
+						 boundary = disposition = mime = null;
 					if (p == -1) {
 						fail = true;
 						break;
@@ -264,6 +265,9 @@ woas["_native_wsif_load"] = function(path, overwrite) {
 			case "boundary":
 				boundary = v;
 			break;
+			case "mime":
+				mime = v;
+			break;
 			default:
 				log("Unknown WSIF header: "+s);
 		} // end switch(s)
@@ -282,7 +286,7 @@ woas["_native_wsif_load"] = function(path, overwrite) {
 }
 
 woas["_native_page_def"] = function(ct,p,overwrite, title,attrs,last_mod,len,encoding,
-											disposition,boundary) {
+											disposition,boundary,mime) {
 	// craft the exact boundary match string
 	boundary = "\n--"+boundary+"\n";
 	// locate start and ending boundaries
@@ -296,15 +300,17 @@ woas["_native_page_def"] = function(ct,p,overwrite, title,attrs,last_mod,len,enc
 		this.wsif.emsg = "Failed to find end boundary "+boundary+" for page "+title;
 		return -1;
 	}
+	var fail = false;
 	// attributes must be defined
 	if (attrs === null) {
-		this.wsif.emsg = "No attributes defined for page "+title;
-		return -1;
+		log("No attributes defined for page "+title);
+		fail = true;
 	}
 	// last modified timestamp can be omitted
 	if (last_mod === null)
 		last_mod = this.MAGIC_MTS;
 	if (disposition == "inline") {
+		while (!fail) { // used to break away
 		// retrieve full page content
 		var page = ct.substring(bpos_s+boundary.length, bpos_e);
 	/*	this.alert("title = "+title+"\nattrs = "+attrs+"\nlast_mod = "+last_mod+"\n"+
@@ -315,6 +321,48 @@ woas["_native_page_def"] = function(ct,p,overwrite, title,attrs,last_mod,len,enc
 			if (len != page.length)
 				this.alert("Length mismatch for page %s: ought to be %d but was %d".sprintf(title, len, page.length));
 		}
+		// split encrypted pages into byte arrays
+		if (attrs & 2) {
+			if (encoding != "8bit/base64") {
+				log("Encrypted page "+title+" is not encoded as 8bit/base64");
+				fail = true;
+				break;
+			}
+			page = decode64_array(page);
+		} else if (attrs & 8) { // embedded image, not encrypted
+			// NOTE: encrypted images are not obviously processed, as per previous 'if'
+			if (encoding != "8bit/base64") {
+				log("Image "+title+" is not encoded as 8bit/base64");
+				fail = true;
+				break;
+			}
+			if (mime === null) {
+				log("Image "+title+"has no mime type defined");
+				fail = true;
+				break;
+			}
+			// re-add data:uri to images
+			page = "data:"+mime+";base64,"+page;
+		} else if (attrs == 0) { // a normal wiki page
+			if (encoding == "8bit/base64") {
+				// who encoded it? we process it anyway
+				page = decode64(page);
+			} else if (encoding != "8bit/plain") {
+				log("Normal page "+title+" comes with unknown encoding "+encoding);
+				fail = true;
+				break;
+			}
+		}
+		// has to break anyway
+		break;
+		} // wend
+		
+	} else if (disposition == "external") {
+		log("external WSIF not yet implemented");
+		fail = true;
+	}
+	
+	if (!fail) {
 		// check if page already exists
 		var pi = page_titles.indexOf(title);
 		if (pi != -1) {
@@ -322,7 +370,7 @@ woas["_native_page_def"] = function(ct,p,overwrite, title,attrs,last_mod,len,enc
 				// update the page record
 				pages[pi] = page;
 				page_attrs[pi] = attrs;
-				page_mts = last_mod;
+				page_mts.push(last_mod);
 			} else
 				log("Skipping page "+title); //log:1
 		} else { // creating a new page
@@ -330,7 +378,7 @@ woas["_native_page_def"] = function(ct,p,overwrite, title,attrs,last_mod,len,enc
 			page_attrs.push(attrs);
 			page_mts.push(last_mod);
 		}
-	}
+	} // !fail
 	// return updated offset
 	return bpos_e+boundary.length;
 }
