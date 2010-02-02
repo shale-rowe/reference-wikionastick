@@ -108,6 +108,16 @@ woas["_native_wsif_save"] = function(path, single_wsif, inline_wsif, author,
 				}
 			}
 		}
+		// update the index (if needed)
+		if (!single_wsif && full_save) {
+			full_wsif += this.wsif.header(pfx+"title", page_titles[pi]);
+			// a new mime type
+			full_wsif += this.wsif.header(pfx+"encoding", "text/wsif");
+			full_wsif += this.wsif.header(pfx+"disposition", "external");
+			// add reference to the external WSIF file
+			full_wsif += this.wsif.header(pfx+"disposition.filename", pi.toString()+".wsif")+
+							"\n";
+		}
 		// update record
 		record += this.wsif.header(pfx+"length", ct.length);
 		record += this.wsif.header(pfx+"encoding", encoding);
@@ -135,7 +145,7 @@ woas["_native_wsif_save"] = function(path, single_wsif, inline_wsif, author,
 		if (single_wsif) {// append to main page record
 			full_wsif += record;
 			++done;
-		} else {
+		} else { // save each page separately
 			if (this.save_file(path+pi.toString()+".wsif",
 								this.file_mode.UTF8_TEXT,
 								extra + "\n" + record))
@@ -144,15 +154,28 @@ woas["_native_wsif_save"] = function(path, single_wsif, inline_wsif, author,
 		// reset the record
 		record = "";
 	} // foreach page
-	if (single_wsif) {
-		// add the total pages number
-		extra += this.wsif.header('woas.pages', done);
-		// output the full single WSIF file now
-		if (!this.save_file(path+"index.wsif",
-							this.file_mode.UTF8_TEXT,
-							extra + "\n" + full_wsif))
-			done = 0;
+	// add the total pages number
+	extra += this.wsif.header('woas.pages', done);
+	// build (artificially) an index of all pages
+	if (!full_save && !single_wsif) {
+		for (var pi=0,pl=page_titles.length;pi<pl;++pi) {
+			pfx = "woas.page"+pi.toString()+".";
+			full_wsif += this.wsif.header(pfx+"title", page_titles[pi]);
+			// a new mime type
+			full_wsif += this.wsif.header(pfx+"encoding", "text/wsif");
+			full_wsif += this.wsif.header(pfx+"disposition", "external");
+			// add reference to the external WSIF file
+			full_wsif += this.wsif.header(pfx+"disposition.filename", pi.toString()+".wsif")+
+							"\n";
+		}
 	}
+	// output the index WSIF file now
+	if (!this.save_file(path+"index.wsif",
+						this.file_mode.UTF8_TEXT,
+						extra + "\n" + full_wsif)) {
+		if (single_wsif)
+			done = 0;
+	} // we do not increment page counter when saving index.wsif
 	return done;
 }
 
