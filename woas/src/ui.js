@@ -376,7 +376,6 @@ function _get_this_path() {
 }
 
 woas["export_wiki_wsif"] = function () {
-	// export settings object
 	var path, author, single_wsif, inline_wsif;
 	try {
 		path = $("woas_ep_wsif").value;
@@ -394,4 +393,26 @@ woas["export_wiki_wsif"] = function () {
 	$.hide("loading_overlay");
 	this.alert(this.i18n.EXPORT_OK.sprintf(done));
 	return true;
+}
+
+function import_wiki_wsif = function() {
+	if (!woas.config.permit_edits) {
+		this.alert(woas.i18n.READ_ONLY);
+		return false;
+	}
+	var filename = $("filename_").value;
+	if (!filename.length) {
+		woas.alert(woas.i18n.FILE_SELECT_ERR);
+		return false;
+	}
+	// block interaction for a while
+	$.show("loading_overlay");
+	$("loading_overlay").focus();
+	var rv = false;
+	if (confirm(woas.i18n.CONFIRM_IMPORT_OVERWRITE))
+		rv = woas._native_wsif_load(filename, true);
+
+	$.hide("loading_overlay");
+	woas.alert(woas.i18n.EXPORT_OK.sprintf(done));
+	return rv;
 }

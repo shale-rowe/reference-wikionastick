@@ -16,14 +16,14 @@
 
 
 woas["import_wiki"] = function(filename) {
-	if(confirm("This will OVERWRITE pages with the same title.\n\nAre you sure you want to continue?") == false)
+	if(confirm(this.i18n.CONFIRM_IMPORT_OVERWRITE) == false)
 		return false;
 
 	// set hourglass
 	document.body.style.cursor= "wait";
 	
 	// load the file as UTF-8
-	var ct = woas.load_file(filename);
+	var ct = this.load_file(filename, this.file_mode.UTF8_TEXT);
 	
 	var import_css = $('cb_import_css').checked;
 	var import_content = $('cb_import_content').checked;
