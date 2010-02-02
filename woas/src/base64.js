@@ -78,3 +78,30 @@ function decode64(input, z) {
 
 	return output;
 }
+
+function decode64_array(input, z) {
+	var c1, c2, c3, enc1, enc2, enc3, enc4, i = 0;
+	var output = [];
+	
+	var l=input.length;
+	if (typeof z=='undefined') z = l;
+	else if (z>l) z=l;
+
+	do {
+		enc1 = _b64arr.indexOf(input.charAt(i++));
+		enc2 = _b64arr.indexOf(input.charAt(i++));
+		enc3 = _b64arr.indexOf(input.charAt(i++));
+		enc4 = _b64arr.indexOf(input.charAt(i++));
+
+		c1 = (enc1 << 2) | (enc2 >> 4);
+		c2 = ((enc2 & 15) << 4) | (enc3 >> 2);
+		c3 = ((enc3 & 3) << 6) | enc4;
+
+		output.push(c1);
+		if (enc3 != 64)
+			output.push(c2);
+		if (enc4 != 64)
+			output.push(c3);
+	} while (i < z);
+	return output;
+}
