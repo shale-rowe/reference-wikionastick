@@ -51,7 +51,11 @@ woas["_native_wsif_save"] = function(path, single_wsif, inline_wsif, author,
 		extra += this.wsif.header('woas.author', author);
 
 	// boundary used for inline attachments
-	var full_wsif = "", boundary = "";
+	var full_wsif = "", boundary = __marker;
+	// use the 1st part of the global marker
+	var p = boundary.indexOf("-");
+	if (p !== -1)
+		boundary = boundary.substr(0,p);
 
 	var l, done = 0, full_save;
 	if (typeof plist == "undefined") {
