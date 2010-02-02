@@ -57,13 +57,10 @@ woas["save_file"] = function(fileUrl, save_mode, content) {
 }
 
 // get file content in FF3 without .enablePrivilege() (fbnil)
-woas["mozillaLoadFileID"] = function(field_id, load_mode){
-	var filename = document.getElementById(field_id).value;
-	if(filename == "")
-		return false;
-	if(!window.Components || !document.getElementById(field_id).files)
+woas["mozillaLoadFileID"] = function(obj, load_mode){
+	if(!window.Components || !obj.files)
 		return null;
-	var D=document.getElementById(field_id).files.item(0);
+	var D=obj.files.item(0);
 	switch (load_mode) {
 		case this.file_mode.DATA_URI:
 			return D.getAsDataURL();
@@ -90,9 +87,13 @@ woas["load_file"] = function(fileUrl, load_mode){
 		load_mode = this.file_mode.UTF8_TEXT;
 	// try loading the file without using the path (FF3+)
 	// (object id hardcoded here)
-	var r = this.mozillaLoadFileID("filename_", load_mode);
-	if (r === false)
-		return false;
+	var obj = $('filename_'), r = null;
+	if (obj !== null) {
+		// we hope that obj.value === fileUrl!
+		var r = this.mozillaLoadFileID(obj, load_mode);
+		if (r === false)
+			return false;
+	}
 	if (r === null) // load file using file absolute path
 		r = this.mozillaLoadFile(fileUrl, load_mode);
 	else return r;
