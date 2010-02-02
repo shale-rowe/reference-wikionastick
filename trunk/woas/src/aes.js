@@ -24,9 +24,14 @@ function getB(x,n){ return (x>>>(n*8))&0xFF; }
 	function unExpChar(c){
 	  return "unexpected character '"+String.fromCharCode(c)+"' (code 0x"+c.toString(16)+").";
 	}
+	
+	function utf8Encrypt_s(sData) {
+		return unescape( encodeURIComponent( sData ) );
+	}
 
 	function utf8Encrypt(sData){
-	  var k, i=0, z=sData.length;
+		return split_bytes(utf8Encrypt_s(sData));
+/*	  var k, i=0, z=sData.length;
 	  var bData = [];
 	  while (i<z) {
 	    c = sData.charCodeAt(i++);
@@ -41,11 +46,16 @@ function getB(x,n){ return (x>>>(n*8))&0xFF; }
 	    bData[j]=c+((0xFF<<(6-k))&0xFF);
 	    j += k+2;
 	  }
-	  return bData;
+	  return bData; */
+	}
+
+	function utf8Decrypt_s(sData) {
+		return decodeURIComponent( escape( sData ) );
 	}
 
 	function utf8Decrypt(bData){
-	  var z=bData.length;
+		return utf8Decrypt_s(merge_bytes(bData));
+/*	  var z=bData.length;
 	  var c;
 	  var k, d = 0, i = 0;
 	  var sData = "";
@@ -69,7 +79,7 @@ function getB(x,n){ return (x>>>(n*8))&0xFF; }
 		}
 	    sData+=String.fromCharCode(c);
 	  }
-	  return sData;
+	  return sData; */
 	}
 
 function split_bytes(s) {

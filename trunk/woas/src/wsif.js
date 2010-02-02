@@ -363,6 +363,11 @@ woas["_native_page_def"] = function(ct,p,overwrite, title,attrs,last_mod,len,enc
 				page = decode64(page);
 			} else if (encoding == "utf8/plain") {
 				page = utf8Decrypt(split_bytes(page));
+				if (page === null) {
+					log("Page "+title+": could not read");
+					fail = true;
+					break;
+				}
 			} else {
 				log("Normal page "+title+" comes with unknown encoding "+encoding);
 				fail = true;
