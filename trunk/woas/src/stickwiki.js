@@ -1475,8 +1475,8 @@ function history_mem(page) {
 	backstack.push(page);
 }
 
-woas["save_page"] = function(page_to_save) {
-	return this.save_page_i(this.page_index(page_to_save));
+woas["save_page"] = function(title) {
+	return this.save_page_i(this.page_index(title));
 }
 
 woas["save_page_i"] = function(pi) {

@@ -61,6 +61,8 @@ woas["_native_wsif_save"] = function(path, single_wsif, inline_wsif, author,
 		l = plist.length;
 		full_save = false;
 	}
+	// the attributes prefix, we do not use the page index here for better versioning
+	var pfx = "woas.page.";
 	var pi;
 	for (var ipi=0;ipi < l;++ipi) {
 		if (full_save)
@@ -71,8 +73,6 @@ woas["_native_wsif_save"] = function(path, single_wsif, inline_wsif, author,
 		if (!save_all) {
 			if (page_titles[pi].match(/^Special::/)) continue;
 		}
-		// the attributes prefix
-		var pfx = "woas.page"+pi.toString()+".";
 		var record = this.wsif.header(pfx+"title", page_titles[pi])+
 					this.wsif.header(pfx+"attributes", page_attrs[pi])+
 					this.wsif.header(pfx+"last_modified", page_mts[pi]),
@@ -155,11 +155,13 @@ woas["_native_wsif_save"] = function(path, single_wsif, inline_wsif, author,
 		record = "";
 	} // foreach page
 	// add the total pages number
-	extra += this.wsif.header('woas.pages', done);
+	if (full_save || single_wsif)
+		extra += this.wsif.header('woas.pages', done);
+	else
+		extra += this.wsif.header('woas.pages', page_titles.length);
 	// build (artificially) an index of all pages
 	if (!full_save && !single_wsif) {
 		for (var pi=0,pl=page_titles.length;pi<pl;++pi) {
-			pfx = "woas.page"+pi.toString()+".";
 			full_wsif += this.wsif.header(pfx+"title", page_titles[pi]);
 			// a new mime type
 			full_wsif += this.wsif.header(pfx+"encoding", "text/wsif");
