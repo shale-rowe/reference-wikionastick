@@ -203,13 +203,13 @@ woas["delete_page"] = function(title) {
 
 //API1.0: delete a page given absolute page index
 //API1.0: @protected
-woas["delete_page_i"] = function(pi) {
-	log("DELETED page "+page_titles[pi]);	// log:1
+woas["delete_page_i"] = function(i) {
+	log("DELETED page "+page_titles[i]);	// log:1
 	page_titles.splice(i,1);
 	pages.splice(i,1);
 	page_attrs.splice(i,1);
 	page_mts.splice(i,1);
 	this.refresh_menu_area();
 	//TODO: send proper save notification
-	return this.commit_delete([pi]);
+	return this.commit_delete([i]);
 }
