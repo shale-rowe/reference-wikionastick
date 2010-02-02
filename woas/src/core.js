@@ -174,7 +174,7 @@ woas["cmd_delete"] = function() {
 		this.alert(this.i18n.PAGE_NOT_EXISTS+pname);
 		return;
 	}
-	if ((pname != null) && confirm(this.i18n.CONFIRM_DELETE.sprintf(pname))) 
+	if (confirm(this.i18n.CONFIRM_DELETE.sprintf(pname)))
 		this.delete_page_i(pi);
 }
 
@@ -192,7 +192,7 @@ woas["raw_js"] = function(code) {
 
 //API1.0: delete a page given title (without aliases)
 woas["delete_page"] = function(title) {
-	var pi = page_titles.indexOf(page);
+	var pi = page_titles.indexOf(title);
 	//DEBUG line
 	if (pi == -1) {
 		this.crash("Requesting deletion of unexisting page!");
@@ -202,6 +202,7 @@ woas["delete_page"] = function(title) {
 }
 
 //API1.0: delete a page given absolute page index
+//API1.0: @protected
 woas["delete_page_i"] = function(pi) {
 	log("DELETED page "+page_titles[pi]);	// log:1
 	page_titles.splice(i,1);
