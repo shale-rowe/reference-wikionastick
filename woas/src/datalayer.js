@@ -32,6 +32,15 @@ woas["commit"] = function(plist) {
 	return this._save_to_file(true);
 }
 
+//API1.0: delete specific list of pages
+// plist is a list of page indexes which need to be saved (not allowed to be empty)
+woas["commit_delete"] = function(plist) {
+	// update only the native WSIF index (leaves back deleted pages)
+	this._native_save([]);
+	// performs full save, while the single page + global header could be saved instead
+	return this._save_to_file(true);
+}
+
 //API1.0: event called after some page is being saved
 // plist can be undefined if all pages were saved
 woas["after_pages_saved"] = function(plist) {
