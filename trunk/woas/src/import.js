@@ -87,6 +87,9 @@ woas["import_wiki"] = function(filename) {
 				case "0.10.0":
 					old_version = 100;
 					break;
+				case "0.10.1":
+					old_version = 101;
+					break;
 				default:
 					alert("Incompatible version: " + ver_str);
 					document.body.style.cursor= "auto";
