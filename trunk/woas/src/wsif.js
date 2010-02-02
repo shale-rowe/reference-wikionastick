@@ -234,6 +234,8 @@ woas["_native_wsif_load"] = function(path, overwrite) {
 				if (title !== null) {
 					p = this._native_page_def(ct,bak_p,overwrite,
 							title,attrs,last_mod,len,encoding,disposition,boundary,mime);
+					// save page index for later analysis
+					var pi = page_titles.indexOf(title);
 					title = attrs = last_mod = encoding = len =
 						 boundary = disposition = mime = null;
 					if (p == -1) {
@@ -242,11 +244,8 @@ woas["_native_wsif_load"] = function(path, overwrite) {
 					}
 					// check if page was really imported, and if yes then
 					// add page to list of imported pages
-					pi = page_titles.indexOf(title);
 					if (pi != -1)
 						imported.push(pi);
-					else
-						return 0;
 					// delete this whole entry to free up some memory to GC
 					ct = ct.substr(p);
 					p = 0;
