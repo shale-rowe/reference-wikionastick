@@ -192,9 +192,11 @@ woas["_native_wsif_load"] = function(path, overwrite) {
 	if (typeof ct != "string") {
 		return false;
 	}
+	// the imported pages
+	var imported = [];
 	var pfx = "\nwoas.page.", pfx_len = pfx.length;
 	// start looping to find each page
-	var bak_p = 0, p = ct.indexOf(pfx), fail = false, done = 0;
+	var bak_p = 0, p = ct.indexOf(pfx), fail = false;
 	// too early failure
 	if (p == -1)
 		woas.wsif.emsg = "Corrupted WSIF file";
@@ -238,11 +240,13 @@ woas["_native_wsif_load"] = function(path, overwrite) {
 						fail = true;
 						break;
 					}
+					// add page to list of imported pages
+					pi = page_titles.indexOf(title);
+					if (pi != -1)
+						imported.push(pi);
 					// delete this whole entry to free up some memory to GC
 					ct = ct.substr(p);
 					p = 0;
-					// increment page imported counter
-					++done;
 				}
 				// let's start with the next page
 				title = v;
@@ -282,7 +286,13 @@ woas["_native_wsif_load"] = function(path, overwrite) {
 											disposition,boundary);
 	if (fail)
 		return false;
-	return done;
+	// save imported pages
+	if (imported.length) {
+		this.commit(imported);
+		return imported.length;
+	}
+	// no pages were changed
+	return 0;
 }
 
 woas["_native_page_def"] = function(ct,p,overwrite, title,attrs,last_mod,len,encoding,
