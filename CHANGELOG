@@ -1,4 +1,11 @@
-Version 0.10.0 (legolas558 - NOT YET RELEASED)
+Version 0.10.1 (legolas558) released 2010-02-02
+* major API1.0 improvements
+* fixed file embedding bugs
+* fixed file deletion bugs
+* fixed tagging bugs
+* support for WSIF export and native WSIF (not yet documented)
+
+Version 0.10.0 (legolas558) released 2010-01-31
 * fixed XHTML export feature
 * fixed tags recognition
 * added some core i18n language resources

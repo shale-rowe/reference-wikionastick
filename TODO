@@ -1,6 +1,8 @@
 
 == For 0.10.x
 
+* disallow pages with empty title
+
 * WSIF format
 
 * Export entire wiki as XML (StickWiki 0.9 format|MediaWiki format)
