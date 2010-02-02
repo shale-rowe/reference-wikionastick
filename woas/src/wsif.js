@@ -2,8 +2,8 @@
 // native WSIF-saving mode used during development - use with CARE!
 // set to null to disable
 // empty string will save index.wsif in same directory of WoaS XHTML file
-//woas["_native_wsif"] = "";
-woas["_native_wsif"] = null;
+woas["_native_wsif"] = "";
+//woas["_native_wsif"] = null;
 
 // a class for some general WSIF operations
 woas["wsif" ] = {version: "1.0.0", emsg: "No error"};

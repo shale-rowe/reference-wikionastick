@@ -4,7 +4,7 @@ woas["debug"] = true;			// toggle debug mode (and console)
 // browser flags - not to be in WoaS object
 var ie = false;
 var ie6 = false;
-var firefox = false;
+var firefox = false, firefox2 = false;
 //var ff3 = false;
 var opera = false;
 
@@ -12,8 +12,8 @@ if((navigator.userAgent).indexOf("Opera")!=-1)
 	opera = true;
 else if(navigator.appName == "Netscape") {
 	firefox = true;
-//	if (navigator.userAgent.match("Firefox/3"))
-//		ff3 = true;
+	if (navigator.userAgent.match("Firefox/2"))
+		firefox2 = true;
 } else if((navigator.appName).indexOf("Microsoft")!=-1) {
 	ie = true;
 	ie8 = (navigator.userAgent.search(/msie 8\./i)!=-1);
