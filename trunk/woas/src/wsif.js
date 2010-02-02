@@ -65,7 +65,7 @@ woas["_native_wsif_save"] = function(path, single_wsif, inline_wsif, author,
 					ct = null;
 		
 		// normalize the page content, set encoding&disposition
-		var encoding = "8bit/plain", disposition = "inline";
+		var encoding = "utf8/plain", disposition = "inline";
 		if (this.is__encrypted(pi)) {
 			ct = encode64_array(pages[pi]);
 			encoding = "8bit/base64";
@@ -113,9 +113,11 @@ woas["_native_wsif_save"] = function(path, single_wsif, inline_wsif, author,
 			// create the inline page
 			boundary = _generate_random_boundary(boundary, ct);
 			record += this.wsif.header(pfx+"boundary", boundary);
-			// assign the mime/type
-			// add the inline content - properly UTF8-encoded
-			record += this.wsif.inline(boundary, merge_bytes(utf8Encrypt(ct))); ct = null;
+			// add the inline content
+			// properly UTF8-encoded, if needed
+			if (encoding == "utf8/plain")
+				ct = merge_bytes(utf8Encrypt(ct));
+			record += this.wsif.inline(boundary, ct); ct = null;
 		} else {
 			// create the blob filename
 			var blob_fn = "blob" + (++blob_counter).toString()+
@@ -359,7 +361,7 @@ woas["_native_page_def"] = function(ct,p,overwrite, title,attrs,last_mod,len,enc
 			if (encoding == "8bit/base64") {
 				// who encoded it? we process it anyway
 				page = decode64(page);
-			} else if (encoding == "8bit/plain") {
+			} else if (encoding == "utf8/plain") {
 				page = utf8Decrypt(split_bytes(page));
 			} else {
 				log("Normal page "+title+" comes with unknown encoding "+encoding);
