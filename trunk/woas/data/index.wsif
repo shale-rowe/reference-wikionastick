@@ -1,6 +1,6 @@
 wsif.version: 1.0.0
 woas.version: 0.10.1
-woas.pages: 50
+woas.pages: 49
 
 woas.page.title: ::Menu
 woas.page.encoding: text/wsif
@@ -177,78 +177,73 @@ woas.page.encoding: text/wsif
 woas.page.disposition: external
 woas.page.disposition.filename: 34.wsif
 
-woas.page.title: File::life snippet.c
+woas.page.title: Embedded SVG
 woas.page.encoding: text/wsif
 woas.page.disposition: external
 woas.page.disposition.filename: 35.wsif
 
-woas.page.title: Embedded SVG
+woas.page.title: Browsers support
 woas.page.encoding: text/wsif
 woas.page.disposition: external
 woas.page.disposition.filename: 36.wsif
 
-woas.page.title: Browsers support
+woas.page.title: Feature::Bootscript
 woas.page.encoding: text/wsif
 woas.page.disposition: external
 woas.page.disposition.filename: 37.wsif
 
-woas.page.title: Feature::Bootscript
+woas.page.title: Special::License
 woas.page.encoding: text/wsif
 woas.page.disposition: external
 woas.page.disposition.filename: 38.wsif
 
-woas.page.title: Special::License
+woas.page.title: Nowiki dummy 2
 woas.page.encoding: text/wsif
 woas.page.disposition: external
 woas.page.disposition.filename: 39.wsif
 
-woas.page.title: Nowiki dummy 2
+woas.page.title: Escaped > page
 woas.page.encoding: text/wsif
 woas.page.disposition: external
 woas.page.disposition.filename: 40.wsif
 
-woas.page.title: Escaped > page
+woas.page.title: Google sitesearch
 woas.page.encoding: text/wsif
 woas.page.disposition: external
 woas.page.disposition.filename: 41.wsif
 
-woas.page.title: Google sitesearch
+woas.page.title: Features::Oddmuse integration
 woas.page.encoding: text/wsif
 woas.page.disposition: external
 woas.page.disposition.filename: 42.wsif
 
-woas.page.title: Features::Oddmuse integration
+woas.page.title: Testcase::Headlines mix
 woas.page.encoding: text/wsif
 woas.page.disposition: external
 woas.page.disposition.filename: 43.wsif
 
-woas.page.title: Testcase::Headlines mix
+woas.page.title: Testcase::Unusual lists
 woas.page.encoding: text/wsif
 woas.page.disposition: external
 woas.page.disposition.filename: 44.wsif
 
-woas.page.title: Testcase::Unusual lists
+woas.page.title: WoaS::Aliases
 woas.page.encoding: text/wsif
 woas.page.disposition: external
 woas.page.disposition.filename: 45.wsif
 
-woas.page.title: WoaS::Aliases
+woas.page.title: Special::ExportWSIF
 woas.page.encoding: text/wsif
 woas.page.disposition: external
 woas.page.disposition.filename: 46.wsif
 
-woas.page.title: Special::ExportWSIF
+woas.page.title: Special::WSIF
 woas.page.encoding: text/wsif
 woas.page.disposition: external
 woas.page.disposition.filename: 47.wsif
 
-woas.page.title: Special::WSIF
-woas.page.encoding: text/wsif
-woas.page.disposition: external
-woas.page.disposition.filename: 48.wsif
-
 woas.page.title: Special::ImportWSIF
 woas.page.encoding: text/wsif
 woas.page.disposition: external
-woas.page.disposition.filename: 49.wsif
+woas.page.disposition.filename: 48.wsif
 

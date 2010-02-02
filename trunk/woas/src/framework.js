@@ -100,6 +100,7 @@ if (typeof Array.prototype.splice == "undefined") {
     for (i = temp.length - 1; i >= 0; i--) {
       this[this.length] = temp[i];
     }
+    return this;
   }
 }
 
