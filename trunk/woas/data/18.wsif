@@ -1,137 +1,167 @@
 wsif.version: 1.0.0
 woas.version: 0.10.1
 
-woas.page.title: Feature::Summary
+woas.page.title: Testcase::Creole 0.1
 woas.page.attributes: 0
-woas.page.last_modified: 1264700333
-woas.page.length: 5182
+woas.page.last_modified: 1265110075
+woas.page.length: 3082
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-[[Special::TOC]]
-= Features
+= Creole 0.1 testcases
 
-This is a list of the new features implemented during the v0.9.x development cycle.
+See also [[http://www.wikicreole.org/wiki/Creole0.1TestCases]]
 
-== Custom javascript
+== This a test for creole 0.1 (1)
+=== This is a Subheading (2)
+==== Subsub (3)
+===== Subsubsub (4)
 
-It is possible to add &lt;script/&gt; tags to your wiki source and they will be correctly rendered in the document &lt;head/&gt; tag upon page loading; also external scripts (using the /src/ attribute) will be parsed and actived, always respecting the order of declaration of the &lt;script /&gt; tags.
+You can make things **bold** or //italic// or **//both//**.
 
-*Note:* since the javascript tags are actived from within the &lt;head /&gt; tag, you cannot use document.write() or similar inline javascript statements.
+Character formatting extends across line breaks: **bold,
+this is still bold. This line deliberately does not end in star-star.
 
-See also [[Feature::Custom javascript]] and [[Feature::External javascript]]
+Not bold. Character formatting does not cross paragraph boundaries.
 
-== Encryption
+You can use [[Unexisting page|InternalLinks]] or [[http://www.wikicreole.org|external Links]], give the link a [[Unexisting page|InternalLinks| different]] name.
 
-Pages can be locked/unlocked through the apposite icons available on each user page. When a page is /locked/, it gets encrypted with true AES encryption; see [[Special::Security]] for more informations.
+Here's another sentence: This Wisdom is taken from [[Unexisting page|Ward Cunninghams]] [[http://www.c2.com/doc/wikisym/WikiSym2006.pdf|Presentation at the Wikisym 06]]
 
-An example encrypted page is [[MyPages::Page 1]]. The password is: *test*
+Here's a external link without a description...
+[[http://www.wikicreole.org]]
 
-== Namespaces
+you can use this to draw a line to seperate the page
+----
 
-Whenever you use the '::' separator on a page title, namespaces will apply.
-For example, see [[MyPages::Page 1]] and [[MyPages::Page 2]] both belonging to the [[MyPages::]] namespace.
+you can format a adress by simply adding linebreaks
 
-You can also use subnamespaces, like in [[MyPages::Approved::Page 3]].
+My contact dates:
+Pone: xyz
+Fax: +45
+Mobile: abc
 
-If you define a page called [<!-- -->[Namespace::Menu]] (where the /::Menu/ postfix is the relevant part), a submenu will be added to the main left menu when pages belonging to /Namespace/ are actived.
+You can use lists, start it at the first column for now, please...
 
-=== Reserved namespaces
+unnumbered lists are like
+* item a
+* item b
+* **bold item c**
 
-Some namespaces are reserved for current and future use:
+or you can number them
+# [[Unexisting page|item a]]
+# item b
+# // italic item c //
 
-* [[Tagged::]] for all the tagged pages (*note:* also /Tags::/ is reserved)
-* [[Locked::]] for all locked (encrypted) pages and [[Unlocked::]] for plain pages
-* [[Lock::]] and [[Unlock::]] (used internally)
-* [[Special::]] for all the special pages
-* [[WoaS::]] (reserved for future use, will probably take the role of [[Special::]])
-* [[Image::]] for the embedded images
-* [[File::]] for the embedded files
-* [[Include::]] for transclusion
+up to five levels
+* 1
+** 2
+*** 3
+**** 4
+***** 5
 
-== Tags
+you can use nowiki syntax if you would like do stuff like this
 
-There is support for tags, which are listed in the [[Tagged::]] special namespace page.
+{{{
+Guitar Chord C:
 
-All the example/test pages and documentation available in this default WoaS distribution are tagged with one or more of the following tags:
+||---|---|---|
+||-0-|---|---|
+||---|-0-|---|
+||---|---|-0-|
+||---|---|---|
+}}}
 
-* [[Tagged::help]]
-* [[Tagged::example]]
+or if you need that {{{ in a sentence }}} like this.
 
-Also, you can specify multiple tags and tags to be filtered out.
+!Creole 0.1 testcases (2)
 
-* [[Tagged::example]]
-* [[Tagged::!example]]
+== Headings
 
-== Aliases
+== Heading2
+=== Heading3
+==== Heading4
+===== Heading5
 
-You can define global wiki name aliases in [[Special::Aliases]]. Such aliases will be replaced automatically before looking up for the page name.
+==Heading2
+===Heading3
+====Heading4
+=====Heading5
 
-[[$HOME]]
+== Heading2 =
+=== Heading3 =
+==== Heading4 =====
+===== Heading5 ==
 
-== Transclusion
 
-You can include a page within another using a specific syntax:
 
-[<!-- -->[Include::Test template|parameter 1|parameter 2|...]]
+== Bold and Italic
 
-Such transclusions are *parametric*, e.g. they allow to specify parameters which will be replaced into the transcluded page in place of %1, %2, %3...
+**bold**
+//italic//
+**//bolditalic//**
 
-Transclusion has a special meaning when used for pages relative to the [[File::]] and [[Image::]] namespaces, see below paragraph [[#Embedding]] for more informations.
+A normal sentence. **A bold sentence
+that continues in bold over a line break.** And another normal sentence.
 
-See also [[Transclusion example]] and [[Test template]]
+A normal sentence. **A bold sentence that is not terminated by star-star, but is instead is terminated by a paragraph break.
 
-== Embedding
+A normal sentence.
 
-You can embed files and images within WoaS.
+A normal sentence. //An italic sentence
+that continues in italic over a line break.// And another normal sentence.
 
-=== Files
+A normal sentence. //An italic sentence that is not terminated by slash-slash, but is instead is terminated by a paragraph break.
 
-This is an example of an existing embedded file : [[File::life snippet.c]]
-This is an example of a not-yet-embedded file: [[File::report.log]]. You can embed the file when accessing the not-yet-existing page.
+A normal sentence.
 
-You can also transclude an embedded file and its content will not be parsed as wiki source.
+== Preformatted text
 
-=== Images
+Normal text {{{preformatted text}}} Normal text.
 
-You can include external images:
+{{{
+A block
+of preformatted text
+}}}
 
-<iframe src="http://weatherreports.com/banners/234x60_lblue.html?location=Rome_Fiumicino&units=C" width="234" height="60" frameborder="0" scrolling="no"></iframe>
+== Links
+[[Unexisting page|explicitlink]]
 
-This is an example of an existing embedded image: [[Image::alert.png]]
+[[Unexisting page|explicitlinkTitle]]
 
-You can transclude such image using the wiki syntax {{{[[Include::Image::alert.png]]}}}, which results in:
+http://www.wikicreole.org
 
-[[Include::Image::alert.png]]
+[[http://www.wikicreole.org|Wiki Creole Site]]
 
-You can also specify additional attributes for the &lt;img /&gt; tag using a pipe '|' after the image name.
-For example, {{{[[Include::Image::alert.png|border="1" style="width:44px; height:44px"]]}}} results in:
+== Misc
 
-[[Include::Image::alert.png|border="1" style="width:44px; height:44px"]]
+A horizontal rule follows
+----
 
-This is an example of clickable image, rendered through the wiki syntax {{{[[Include::Image::alert.png|border="0" onclick="go_to('Image::alert.png')" style="cursor:pointer"]]}}}
+== Lists
+* bulleted list
+* bullet 2
+** bullet level 2
+*** bullet level 3
 
-[[Include::Image::alert.png|border="0" onclick="go_to('Image::alert.png')" style="cursor:pointer"]]
+# numbered list
+# item 2
+## item 2.1
+### item 2.1.1
+#### item 2.1.1.1
+##### item 2.1.1.1.1
+# item 3
+# item 4
 
-This is an example of not-yet-embedded image: [[Image::photo.jpg]]
+[[Tags::example]]
 
-Remember that images are base64-encoded when embedded and become 33% bigger in size; it is suggested to not embed too much big images or files because they can slow down the application (remember that everything is contained in a single file), but that highly depends from the javascript engine of your browser.
+== Italics and URLs
 
-== Exporting
-
-Since v0.9.5B it is possible to export all the WoaS content into multiple XHTML, CSS and image files. The export interface is always available at the [[Special::Export]] page
-
-== Javascript:: magic namespace
-
-<script>
-function myfunc(arg) {
- return "This page was dynamically created using *"+arg+"* as content!";
-}
-</script>
-
-[[Javascript::myfunc('test')]]
-
-[[Tags::help]]
+This is an /italic/ text.
+This is a url: http://www.wikicreole.org.
+This is what can go wrong:/this should be an italic text/.
+How about /a link, like http://example.org, in italic/ text?
+Formated fruits, for example:/apples/, oranges, *pears* ...
 --DFQRCTsKlU
