@@ -3,7 +3,8 @@
 woas["file_mode"] = {
 	UTF8_TEXT: 0,
 	DATA_URI: 1,
-	BINARY: 2
+	BINARY: 2,
+	BASE64: 3
 }
 
 // get filename of currently open file in browser
@@ -66,6 +67,10 @@ woas["mozillaLoadFileID"] = function(field_id, load_mode){
 	switch (load_mode) {
 		case this.file_mode.DATA_URI:
 			return D.getAsDataURL();
+		break;
+		case this.file_mode.BASE64:
+			// remove the data: part
+			return D.getAsDataURL().replace(/^data:\s*([^;]*);\s*base64,\s*/, '');
 		break;
 		case this.file_mode.BINARY:
 			return D.getAsBinary();
@@ -145,7 +150,7 @@ woas["ieLoadFile"] = function(filePath, load_mode) {
 	if (load_mode == this.file_mode.BINARY)
 		o_mode = 0; // ASCII
 	else
-		o_mode = -1; // Unicode used for DATA_URI and UTF8_TEXT modes
+		o_mode = -1; // Unicode used for DATA_URI, BASE64 and UTF8_TEXT modes
 	var content = null;
 	// first let's see if we can do ActiveX
 	var fso;
@@ -168,6 +173,8 @@ woas["ieLoadFile"] = function(filePath, load_mode) {
 	// return a valid DATA:URI
 	if (load_mode == this.file_mode.DATA_URI)
 		return this._data_uri_enc(filePath, content);
+	else if (load_mode == this.file_mode.BASE64)
+		return encode64(content);
 	// fallback for UTF8_TEXT
 	return(content);
 }
@@ -229,6 +236,8 @@ woas["mozillaLoadFile"] = function(filePath, load_mode) {
 				return(merge_bytes(rd));
 		else if (load_mode == this.file_mode.DATA_URI)
 			return this._data_uri_enc(filePath, merge_bytes(rd));
+		else if (load_mode == this.file_mode.BASE64)
+			return encode64_array(rd);
 	}
 	catch(e) {
 		log("Exception while attempting to load\n\n" + e);	// log:1
@@ -301,6 +310,8 @@ woas["javaLoadFile"] = function(filePath, load_mode) {
 			content = String(document.applets["TiddlySaver"].loadFile(_javaUrlToFilename(filePath),"UTF-8"));
 			if (load_mode == this.file_mode.DATA_URI)
 				return this._data_uri_enc(filePath, content);
+			else if (load_mode == this.file_mode.BASE6)
+				return encode64(content);
 			return content;
 		}
 	} catch(ex) {
@@ -327,6 +338,8 @@ woas["javaLoadFile"] = function(filePath, load_mode) {
 	content = a_content.join("\n");
 	if (load_mode == this.file_mode.DATA_URI)
 		return this._data_uri_enc(filePath, content);
+	else if (load_mode == this.file_mode.BASE64)
+		return encode64(content);
 	return content;
 }
 

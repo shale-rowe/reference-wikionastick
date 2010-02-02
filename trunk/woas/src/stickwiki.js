@@ -540,7 +540,7 @@ woas["_get__embedded"] = function (cr, pi, etype) {
 		else
 			_del_lbl = "";
 		xhtml = "<pre id='_file_ct' class=\"embedded\">"+this.xhtml_encode(pview_data)+"</pre>"+
-				pview_link+"<br /><hr />File size: "+_convert_bytes(ext_size)+
+				pview_link+"<br /><hr />"+this.i18n.FILE_SIZE+": "+_convert_bytes(ext_size)+
 				"<br />" + this.last_modified(page_mts[pi])+
 				"<br /><br />XHTML transclusion:"+this.parser.parse("\n{{{[[Include::"+cr+"]]}}}"+
 				"\n\nRaw transclusion:\n\n{{{[[Include::"+cr+"|raw]]}}}"+
@@ -592,18 +592,24 @@ woas["_embed_process"] = function(etype) {
 		this.alert(this.i18n.ERR_SEL_FILE);
 		return false;
 	}
+	
+	// pick the correct mode for file inclusion
+	// normalize etype to the correspondant binary flag value
+	var desired_mode;
+	if (etype == "image") {
+		desired_mode = this.file_mode.DATA_URI;
+		etype = 12;
+	} else {
+		desired_mode = this.file_mode.BASE64;
+		etype = 4;
+	}
 
 	// load the data in DATA:URI mode
-	var ct = this.load_file(filename, this.file_mode.DATA_URI);
+	var ct = this.load_file(filename, desired_mode);
 	if (ct == null || !ct.length) {
 		this.alert(this.i18n.LOAD_ERR + filename);
 		return false;
 	}
-	
-	// normalize etype to the correspondant binary flag value
-	if (etype == "image")
-		etype = 12;
-	else etype = 4;
 	
 	pages.push(ct);
 	page_attrs.push(etype);
