@@ -1,15 +1,15 @@
 wsif.version: 1.0.0
 woas.version: 0.10.1
 
-woas.page0.title: ::Menu
-woas.page0.attributes: 0
-woas.page0.last_modified: 1264700333
-woas.page0.length: 1931
-woas.page0.encoding: 8bit/plain
-woas.page0.disposition: inline
-woas.page0.boundary: hWDTUncUuoLECKXbMKTD
+woas.page.title: ::Menu
+woas.page.attributes: 0
+woas.page.last_modified: 1264700333
+woas.page.length: 1931
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: tvNsbCGTWeGWVRSZNNNB
 
---hWDTUncUuoLECKXbMKTD
+--tvNsbCGTWeGWVRSZNNNB
 [[Main Page]]
 * [[History]]
 * [[Syntax]]
@@ -71,4 +71,4 @@ function menu_key_hook(orig_e) {
 $('menu_string_to_search').onkeydown = menu_key_hook;
 </script>
 
---hWDTUncUuoLECKXbMKTD
+--tvNsbCGTWeGWVRSZNNNB

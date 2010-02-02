@@ -1,18 +1,63 @@
 wsif.version: 1.0.0
 woas.version: 0.10.1
 
-woas.page17.title: Infinite recursion template
-woas.page17.attributes: 0
-woas.page17.last_modified: 1264700333
-woas.page17.length: 101
-woas.page17.encoding: 8bit/plain
-woas.page17.disposition: inline
-woas.page17.boundary: hWDTUncUuoLECKXbMKTD
+woas.page.title: Deprecated syntax
+woas.page.attributes: 0
+woas.page.last_modified: 1264700333
+woas.page.length: 1043
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: tvNsbCGTWeGWVRSZNNNB
 
---hWDTUncUuoLECKXbMKTD
-This template attempts to trigger infinite recursion
+--tvNsbCGTWeGWVRSZNNNB
+= Deprecated syntax
 
-[[Include::Test template 2]]
+This page briefly summarizes WoaS deprecated syntax; the below deprecated syntax rules are still supported (unless otherwise specified), but you are invited to _no more_ use them since in version 1.x they will probably be removed.
 
-[[Tags::example]]
---hWDTUncUuoLECKXbMKTD
+{{{
+
+BAD:
++ unordered lists with + sign instead of asterisk
++ unordered lists with + sign
+
+Only asterisk lists are parsed:
+GOOD:
+* unordered element 1
+* unordered element 2
+
+BAD:
+! headers using the exclamation mark
+GOOD:
+= header which uses the equal sign
+
+BAD:
+<pre /> tags with nowiki meaning. Now <pre /> tags have no special meaning and are treated
+as any other XHTML tag
+
+GOOD:
+You should use { {{nowiki}} } blocks to achieve the same result
+
+BAD:
+---
+horizontal rulers using only 3 hyphens
+
+GOOD:
+----
+You are invited to use at least 4 hyphens
+
+BAD:
+[[Tags::some tag, some other tag]] and [[Tag::some tag]] is deprecated
+
+GOOD:
+In favor of [[Tags::some tag|other tag|another tag]]
+
+BAD:
+<script> and </script>
+
+GOOD:
+<script type="text/javascript"> and </script>
+
+}}}
+
+[[Tags::help]]
+--tvNsbCGTWeGWVRSZNNNB

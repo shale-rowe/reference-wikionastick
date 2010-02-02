@@ -1,137 +1,18 @@
 wsif.version: 1.0.0
 woas.version: 0.10.1
 
-woas.page22.title: Feature::Summary
-woas.page22.attributes: 0
-woas.page22.last_modified: 1264700333
-woas.page22.length: 5182
-woas.page22.encoding: 8bit/plain
-woas.page22.disposition: inline
-woas.page22.boundary: hWDTUncUuoLECKXbMKTD
+woas.page.title: Test template 2
+woas.page.attributes: 0
+woas.page.last_modified: 1264700333
+woas.page.length: 146
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: tvNsbCGTWeGWVRSZNNNB
 
---hWDTUncUuoLECKXbMKTD
-[[Special::TOC]]
-= Features
+--tvNsbCGTWeGWVRSZNNNB
+<big style="color:lime; font-size: large; font-weight: bold">%1 had a little %2</big>
 
-This is a list of the new features implemented during the v0.9.x development cycle.
+[[Include::Infinite recursion template]]
 
-== Custom javascript
-
-It is possible to add &lt;script/&gt; tags to your wiki source and they will be correctly rendered in the document &lt;head/&gt; tag upon page loading; also external scripts (using the /src/ attribute) will be parsed and actived, always respecting the order of declaration of the &lt;script /&gt; tags.
-
-*Note:* since the javascript tags are actived from within the &lt;head /&gt; tag, you cannot use document.write() or similar inline javascript statements.
-
-See also [[Feature::Custom javascript]] and [[Feature::External javascript]]
-
-== Encryption
-
-Pages can be locked/unlocked through the apposite icons available on each user page. When a page is /locked/, it gets encrypted with true AES encryption; see [[Special::Security]] for more informations.
-
-An example encrypted page is [[MyPages::Page 1]]. The password is: *test*
-
-== Namespaces
-
-Whenever you use the '::' separator on a page title, namespaces will apply.
-For example, see [[MyPages::Page 1]] and [[MyPages::Page 2]] both belonging to the [[MyPages::]] namespace.
-
-You can also use subnamespaces, like in [[MyPages::Approved::Page 3]].
-
-If you define a page called [<!-- -->[Namespace::Menu]] (where the /::Menu/ postfix is the relevant part), a submenu will be added to the main left menu when pages belonging to /Namespace/ are actived.
-
-=== Reserved namespaces
-
-Some namespaces are reserved for current and future use:
-
-* [[Tagged::]] for all the tagged pages (*note:* also /Tags::/ is reserved)
-* [[Locked::]] for all locked (encrypted) pages and [[Unlocked::]] for plain pages
-* [[Lock::]] and [[Unlock::]] (used internally)
-* [[Special::]] for all the special pages
-* [[WoaS::]] (reserved for future use, will probably take the role of [[Special::]])
-* [[Image::]] for the embedded images
-* [[File::]] for the embedded files
-* [[Include::]] for transclusion
-
-== Tags
-
-There is support for tags, which are listed in the [[Tagged::]] special namespace page.
-
-All the example/test pages and documentation available in this default WoaS distribution are tagged with one or more of the following tags:
-
-* [[Tagged::help]]
-* [[Tagged::example]]
-
-Also, you can specify multiple tags and tags to be filtered out.
-
-* [[Tagged::example]]
-* [[Tagged::!example]]
-
-== Aliases
-
-You can define global wiki name aliases in [[Special::Aliases]]. Such aliases will be replaced automatically before looking up for the page name.
-
-[[$HOME]]
-
-== Transclusion
-
-You can include a page within another using a specific syntax:
-
-[<!-- -->[Include::Test template|parameter 1|parameter 2|...]]
-
-Such transclusions are *parametric*, e.g. they allow to specify parameters which will be replaced into the transcluded page in place of %1, %2, %3...
-
-Transclusion has a special meaning when used for pages relative to the [[File::]] and [[Image::]] namespaces, see below paragraph [[#Embedding]] for more informations.
-
-See also [[Transclusion example]] and [[Test template]]
-
-== Embedding
-
-You can embed files and images within WoaS.
-
-=== Files
-
-This is an example of an existing embedded file : [[File::life snippet.c]]
-This is an example of a not-yet-embedded file: [[File::report.log]]. You can embed the file when accessing the not-yet-existing page.
-
-You can also transclude an embedded file and its content will not be parsed as wiki source.
-
-=== Images
-
-You can include external images:
-
-<iframe src="http://weatherreports.com/banners/234x60_lblue.html?location=Rome_Fiumicino&units=C" width="234" height="60" frameborder="0" scrolling="no"></iframe>
-
-This is an example of an existing embedded image: [[Image::alert.png]]
-
-You can transclude such image using the wiki syntax {{{[[Include::Image::alert.png]]}}}, which results in:
-
-[[Include::Image::alert.png]]
-
-You can also specify additional attributes for the &lt;img /&gt; tag using a pipe '|' after the image name.
-For example, {{{[[Include::Image::alert.png|border="1" style="width:44px; height:44px"]]}}} results in:
-
-[[Include::Image::alert.png|border="1" style="width:44px; height:44px"]]
-
-This is an example of clickable image, rendered through the wiki syntax {{{[[Include::Image::alert.png|border="0" onclick="go_to('Image::alert.png')" style="cursor:pointer"]]}}}
-
-[[Include::Image::alert.png|border="0" onclick="go_to('Image::alert.png')" style="cursor:pointer"]]
-
-This is an example of not-yet-embedded image: [[Image::photo.jpg]]
-
-Remember that images are base64-encoded when embedded and become 33% bigger in size; it is suggested to not embed too much big images or files because they can slow down the application (remember that everything is contained in a single file), but that highly depends from the javascript engine of your browser.
-
-== Exporting
-
-Since v0.9.5B it is possible to export all the WoaS content into multiple XHTML, CSS and image files. The export interface is always available at the [[Special::Export]] page
-
-== Javascript:: magic namespace
-
-<script>
-function myfunc(arg) {
- return "This page was dynamically created using *"+arg+"* as content!";
-}
-</script>
-
-[[Javascript::myfunc('test')]]
-
-[[Tags::help]]
---hWDTUncUuoLECKXbMKTD
+[[Tags::example]]
+--tvNsbCGTWeGWVRSZNNNB

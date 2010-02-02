@@ -1,15 +1,15 @@
 wsif.version: 1.0.0
 woas.version: 0.10.1
 
-woas.page4.title: Main Page
-woas.page4.attributes: 0
-woas.page4.last_modified: 1265104049
-woas.page4.length: 1247
-woas.page4.encoding: 8bit/plain
-woas.page4.disposition: inline
-woas.page4.boundary: yRmWLcaVspsdlvgPniyE
+woas.page.title: Main Page
+woas.page.attributes: 0
+woas.page.last_modified: 1265106567
+woas.page.length: 1247
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: ZBsDmrgROPEwqsWneFuX
 
---yRmWLcaVspsdlvgPniyE
+--ZBsDmrgROPEwqsWneFuX
 [[Include::Special::About]]
 
 == How to use
@@ -40,4 +40,4 @@ A nicely written tutorial is available at:
 == Upgrading
 If you have an older Wiki on a Stick you can [[Special::Import|import it]] now.
 
---yRmWLcaVspsdlvgPniyE
+--ZBsDmrgROPEwqsWneFuX

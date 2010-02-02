@@ -1,254 +1,244 @@
 wsif.version: 1.0.0
 woas.version: 0.10.1
-woas.pages: 1
+woas.pages: 48
 
-woas.page0.title: ::Menu
-woas.page0.encoding: text/wsif
-woas.page0.disposition: external
-woas.page0.disposition.filename: 0.wsif
+woas.page.title: ::Menu
+woas.page.encoding: text/wsif
+woas.page.disposition: external
+woas.page.disposition.filename: 0.wsif
 
-woas.page1.title: Special::Advanced
-woas.page1.encoding: text/wsif
-woas.page1.disposition: external
-woas.page1.disposition.filename: 1.wsif
+woas.page.title: Special::Advanced
+woas.page.encoding: text/wsif
+woas.page.disposition: external
+woas.page.disposition.filename: 1.wsif
 
-woas.page2.title: Special::Import
-woas.page2.encoding: text/wsif
-woas.page2.disposition: external
-woas.page2.disposition.filename: 2.wsif
+woas.page.title: Special::Import
+woas.page.encoding: text/wsif
+woas.page.disposition: external
+woas.page.disposition.filename: 2.wsif
 
-woas.page3.title: Special::About
-woas.page3.encoding: text/wsif
-woas.page3.disposition: external
-woas.page3.disposition.filename: 3.wsif
+woas.page.title: Special::About
+woas.page.encoding: text/wsif
+woas.page.disposition: external
+woas.page.disposition.filename: 3.wsif
 
-woas.page4.title: Main Page
-woas.page4.encoding: text/wsif
-woas.page4.disposition: external
-woas.page4.disposition.filename: 4.wsif
+woas.page.title: Main Page
+woas.page.encoding: text/wsif
+woas.page.disposition: external
+woas.page.disposition.filename: 4.wsif
 
-woas.page5.title: Special::Search
-woas.page5.encoding: text/wsif
-woas.page5.disposition: external
-woas.page5.disposition.filename: 5.wsif
+woas.page.title: Special::Search
+woas.page.encoding: text/wsif
+woas.page.disposition: external
+woas.page.disposition.filename: 5.wsif
 
-woas.page6.title: MyPages::Page 2
-woas.page6.encoding: text/wsif
-woas.page6.disposition: external
-woas.page6.disposition.filename: 6.wsif
+woas.page.title: MyPages::Page 2
+woas.page.encoding: text/wsif
+woas.page.disposition: external
+woas.page.disposition.filename: 6.wsif
 
-woas.page7.title: MyPages::Approved::Page 3
-woas.page7.encoding: text/wsif
-woas.page7.disposition: external
-woas.page7.disposition.filename: 7.wsif
+woas.page.title: MyPages::Approved::Page 3
+woas.page.encoding: text/wsif
+woas.page.disposition: external
+woas.page.disposition.filename: 7.wsif
 
-woas.page8.title: Special::Lock
-woas.page8.encoding: text/wsif
-woas.page8.disposition: external
-woas.page8.disposition.filename: 8.wsif
+woas.page.title: Special::Lock
+woas.page.encoding: text/wsif
+woas.page.disposition: external
+woas.page.disposition.filename: 8.wsif
 
-woas.page9.title: Special::Security
-woas.page9.encoding: text/wsif
-woas.page9.disposition: external
-woas.page9.disposition.filename: 9.wsif
+woas.page.title: Special::Security
+woas.page.encoding: text/wsif
+woas.page.disposition: external
+woas.page.disposition.filename: 9.wsif
 
-woas.page10.title: MyPages::Page 1
-woas.page10.encoding: text/wsif
-woas.page10.disposition: external
-woas.page10.disposition.filename: 10.wsif
+woas.page.title: MyPages::Page 1
+woas.page.encoding: text/wsif
+woas.page.disposition: external
+woas.page.disposition.filename: 10.wsif
 
-woas.page11.title: MyPages::Menu
-woas.page11.encoding: text/wsif
-woas.page11.disposition: external
-woas.page11.disposition.filename: 11.wsif
+woas.page.title: Feature::Custom javascript
+woas.page.encoding: text/wsif
+woas.page.disposition: external
+woas.page.disposition.filename: 11.wsif
 
-woas.page12.title: Special::Options
-woas.page12.encoding: text/wsif
-woas.page12.disposition: external
-woas.page12.disposition.filename: 12.wsif
+woas.page.title: Syntax
+woas.page.encoding: text/wsif
+woas.page.disposition: external
+woas.page.disposition.filename: 12.wsif
 
-woas.page13.title: Feature::Custom javascript
-woas.page13.encoding: text/wsif
-woas.page13.disposition: external
-woas.page13.disposition.filename: 13.wsif
+woas.page.title: Transclusion example
+woas.page.encoding: text/wsif
+woas.page.disposition: external
+woas.page.disposition.filename: 13.wsif
 
-woas.page14.title: Syntax
-woas.page14.encoding: text/wsif
-woas.page14.disposition: external
-woas.page14.disposition.filename: 14.wsif
+woas.page.title: Test template
+woas.page.encoding: text/wsif
+woas.page.disposition: external
+woas.page.disposition.filename: 14.wsif
 
-woas.page15.title: Transclusion example
-woas.page15.encoding: text/wsif
-woas.page15.disposition: external
-woas.page15.disposition.filename: 15.wsif
+woas.page.title: Infinite recursion template
+woas.page.encoding: text/wsif
+woas.page.disposition: external
+woas.page.disposition.filename: 15.wsif
 
-woas.page16.title: Test template
-woas.page16.encoding: text/wsif
-woas.page16.disposition: external
-woas.page16.disposition.filename: 16.wsif
+woas.page.title: Testcase::Creole 0.1
+woas.page.encoding: text/wsif
+woas.page.disposition: external
+woas.page.disposition.filename: 16.wsif
 
-woas.page17.title: Infinite recursion template
-woas.page17.encoding: text/wsif
-woas.page17.disposition: external
-woas.page17.disposition.filename: 17.wsif
+woas.page.title: Deprecated syntax
+woas.page.encoding: text/wsif
+woas.page.disposition: external
+woas.page.disposition.filename: 17.wsif
 
-woas.page18.title: Testcase::Creole 0.1
-woas.page18.encoding: text/wsif
-woas.page18.disposition: external
-woas.page18.disposition.filename: 18.wsif
+woas.page.title: Feature::External javascript
+woas.page.encoding: text/wsif
+woas.page.disposition: external
+woas.page.disposition.filename: 18.wsif
 
-woas.page19.title: Deprecated syntax
-woas.page19.encoding: text/wsif
-woas.page19.disposition: external
-woas.page19.disposition.filename: 19.wsif
+woas.page.title: Testcase::WoaS testcases
+woas.page.encoding: text/wsif
+woas.page.disposition: external
+woas.page.disposition.filename: 19.wsif
 
-woas.page20.title: Feature::External javascript
-woas.page20.encoding: text/wsif
-woas.page20.disposition: external
-woas.page20.disposition.filename: 20.wsif
+woas.page.title: Feature::Summary
+woas.page.encoding: text/wsif
+woas.page.disposition: external
+woas.page.disposition.filename: 20.wsif
 
-woas.page21.title: Testcase::WoaS testcases
-woas.page21.encoding: text/wsif
-woas.page21.disposition: external
-woas.page21.disposition.filename: 21.wsif
+woas.page.title: Options
+woas.page.encoding: text/wsif
+woas.page.disposition: external
+woas.page.disposition.filename: 21.wsif
 
-woas.page22.title: Feature::Summary
-woas.page22.encoding: text/wsif
-woas.page22.disposition: external
-woas.page22.disposition.filename: 22.wsif
+woas.page.title: Test template 2
+woas.page.encoding: text/wsif
+woas.page.disposition: external
+woas.page.disposition.filename: 22.wsif
 
-woas.page23.title: Options
-woas.page23.encoding: text/wsif
-woas.page23.disposition: external
-woas.page23.disposition.filename: 23.wsif
+woas.page.title: Special::Embed
+woas.page.encoding: text/wsif
+woas.page.disposition: external
+woas.page.disposition.filename: 23.wsif
 
-woas.page24.title: Test template 2
-woas.page24.encoding: text/wsif
-woas.page24.disposition: external
-woas.page24.disposition.filename: 24.wsif
+woas.page.title: Image::alert.png
+woas.page.encoding: text/wsif
+woas.page.disposition: external
+woas.page.disposition.filename: 24.wsif
 
-woas.page25.title: Special::Embed
-woas.page25.encoding: text/wsif
-woas.page25.disposition: external
-woas.page25.disposition.filename: 25.wsif
+woas.page.title: WoaS::Bootscript
+woas.page.encoding: text/wsif
+woas.page.disposition: external
+woas.page.disposition.filename: 25.wsif
 
-woas.page26.title: Image::alert.png
-woas.page26.encoding: text/wsif
-woas.page26.disposition: external
-woas.page26.disposition.filename: 26.wsif
+woas.page.title: History
+woas.page.encoding: text/wsif
+woas.page.disposition: external
+woas.page.disposition.filename: 26.wsif
 
-woas.page27.title: WoaS::Bootscript
-woas.page27.encoding: text/wsif
-woas.page27.disposition: external
-woas.page27.disposition.filename: 27.wsif
+woas.page.title: Special::Export
+woas.page.encoding: text/wsif
+woas.page.disposition: external
+woas.page.disposition.filename: 27.wsif
 
-woas.page28.title: History
-woas.page28.encoding: text/wsif
-woas.page28.disposition: external
-woas.page28.disposition.filename: 28.wsif
+woas.page.title: Testcase::Case-sensitiveness
+woas.page.encoding: text/wsif
+woas.page.disposition: external
+woas.page.disposition.filename: 28.wsif
 
-woas.page29.title: Special::Export
-woas.page29.encoding: text/wsif
-woas.page29.disposition: external
-woas.page29.disposition.filename: 29.wsif
+woas.page.title: Testcase::page1
+woas.page.encoding: text/wsif
+woas.page.disposition: external
+woas.page.disposition.filename: 29.wsif
 
-woas.page30.title: Testcase::Case-sensitiveness
-woas.page30.encoding: text/wsif
-woas.page30.disposition: external
-woas.page30.disposition.filename: 30.wsif
+woas.page.title: Testcase::Page1
+woas.page.encoding: text/wsif
+woas.page.disposition: external
+woas.page.disposition.filename: 30.wsif
 
-woas.page31.title: Testcase::page1
-woas.page31.encoding: text/wsif
-woas.page31.disposition: external
-woas.page31.disposition.filename: 31.wsif
+woas.page.title: Testcase::Apostrophe ' in title
+woas.page.encoding: text/wsif
+woas.page.disposition: external
+woas.page.disposition.filename: 31.wsif
 
-woas.page32.title: Testcase::Page1
-woas.page32.encoding: text/wsif
-woas.page32.disposition: external
-woas.page32.disposition.filename: 32.wsif
+woas.page.title: Diâcritics
+woas.page.encoding: text/wsif
+woas.page.disposition: external
+woas.page.disposition.filename: 32.wsif
 
-woas.page33.title: Testcase::Apostrophe ' in title
-woas.page33.encoding: text/wsif
-woas.page33.disposition: external
-woas.page33.disposition.filename: 33.wsif
+woas.page.title: File::life snippet.c
+woas.page.encoding: text/wsif
+woas.page.disposition: external
+woas.page.disposition.filename: 33.wsif
 
-woas.page34.title: Diâcritics
-woas.page34.encoding: text/wsif
-woas.page34.disposition: external
-woas.page34.disposition.filename: 34.wsif
+woas.page.title: Embedded SVG
+woas.page.encoding: text/wsif
+woas.page.disposition: external
+woas.page.disposition.filename: 34.wsif
 
-woas.page35.title: File::life snippet.c
-woas.page35.encoding: text/wsif
-woas.page35.disposition: external
-woas.page35.disposition.filename: 35.wsif
+woas.page.title: Browsers support
+woas.page.encoding: text/wsif
+woas.page.disposition: external
+woas.page.disposition.filename: 35.wsif
 
-woas.page36.title: Embedded SVG
-woas.page36.encoding: text/wsif
-woas.page36.disposition: external
-woas.page36.disposition.filename: 36.wsif
+woas.page.title: Feature::Bootscript
+woas.page.encoding: text/wsif
+woas.page.disposition: external
+woas.page.disposition.filename: 36.wsif
 
-woas.page37.title: Browsers support
-woas.page37.encoding: text/wsif
-woas.page37.disposition: external
-woas.page37.disposition.filename: 37.wsif
+woas.page.title: Special::License
+woas.page.encoding: text/wsif
+woas.page.disposition: external
+woas.page.disposition.filename: 37.wsif
 
-woas.page38.title: Feature::Bootscript
-woas.page38.encoding: text/wsif
-woas.page38.disposition: external
-woas.page38.disposition.filename: 38.wsif
+woas.page.title: Nowiki dummy 2
+woas.page.encoding: text/wsif
+woas.page.disposition: external
+woas.page.disposition.filename: 38.wsif
 
-woas.page39.title: Special::License
-woas.page39.encoding: text/wsif
-woas.page39.disposition: external
-woas.page39.disposition.filename: 39.wsif
+woas.page.title: Escaped > page
+woas.page.encoding: text/wsif
+woas.page.disposition: external
+woas.page.disposition.filename: 39.wsif
 
-woas.page40.title: Nowiki dummy 2
-woas.page40.encoding: text/wsif
-woas.page40.disposition: external
-woas.page40.disposition.filename: 40.wsif
+woas.page.title: Google sitesearch
+woas.page.encoding: text/wsif
+woas.page.disposition: external
+woas.page.disposition.filename: 40.wsif
 
-woas.page41.title: Escaped > page
-woas.page41.encoding: text/wsif
-woas.page41.disposition: external
-woas.page41.disposition.filename: 41.wsif
+woas.page.title: Features::Oddmuse integration
+woas.page.encoding: text/wsif
+woas.page.disposition: external
+woas.page.disposition.filename: 41.wsif
 
-woas.page42.title: Google sitesearch
-woas.page42.encoding: text/wsif
-woas.page42.disposition: external
-woas.page42.disposition.filename: 42.wsif
+woas.page.title: Testcase::Headlines mix
+woas.page.encoding: text/wsif
+woas.page.disposition: external
+woas.page.disposition.filename: 42.wsif
 
-woas.page43.title: Features::Oddmuse integration
-woas.page43.encoding: text/wsif
-woas.page43.disposition: external
-woas.page43.disposition.filename: 43.wsif
+woas.page.title: Testcase::Unusual lists
+woas.page.encoding: text/wsif
+woas.page.disposition: external
+woas.page.disposition.filename: 43.wsif
 
-woas.page44.title: Testcase::Headlines mix
-woas.page44.encoding: text/wsif
-woas.page44.disposition: external
-woas.page44.disposition.filename: 44.wsif
+woas.page.title: WoaS::Aliases
+woas.page.encoding: text/wsif
+woas.page.disposition: external
+woas.page.disposition.filename: 44.wsif
 
-woas.page45.title: Testcase::Unusual lists
-woas.page45.encoding: text/wsif
-woas.page45.disposition: external
-woas.page45.disposition.filename: 45.wsif
+woas.page.title: Special::ExportWSIF
+woas.page.encoding: text/wsif
+woas.page.disposition: external
+woas.page.disposition.filename: 45.wsif
 
-woas.page46.title: WoaS::Aliases
-woas.page46.encoding: text/wsif
-woas.page46.disposition: external
-woas.page46.disposition.filename: 46.wsif
+woas.page.title: Special::WSIF
+woas.page.encoding: text/wsif
+woas.page.disposition: external
+woas.page.disposition.filename: 46.wsif
 
-woas.page47.title: Special::ExportWSIF
-woas.page47.encoding: text/wsif
-woas.page47.disposition: external
-woas.page47.disposition.filename: 47.wsif
-
-woas.page48.title: Special::WSIF
-woas.page48.encoding: text/wsif
-woas.page48.disposition: external
-woas.page48.disposition.filename: 48.wsif
-
-woas.page49.title: Special::ImportWSIF
-woas.page49.encoding: text/wsif
-woas.page49.disposition: external
-woas.page49.disposition.filename: 49.wsif
+woas.page.title: Special::ImportWSIF
+woas.page.encoding: text/wsif
+woas.page.disposition: external
+woas.page.disposition.filename: 47.wsif
 

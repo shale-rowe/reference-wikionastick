@@ -1,18 +1,18 @@
 wsif.version: 1.0.0
 woas.version: 0.10.1
 
-woas.page39.title: Special::License
-woas.page39.attributes: 0
-woas.page39.last_modified: 1264700333
-woas.page39.length: 175
-woas.page39.encoding: 8bit/plain
-woas.page39.disposition: inline
-woas.page39.boundary: hWDTUncUuoLECKXbMKTD
+woas.page.title: Escaped > page
+woas.page.attributes: 0
+woas.page.last_modified: 1264700333
+woas.page.length: 152
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: tvNsbCGTWeGWVRSZNNNB
 
---hWDTUncUuoLECKXbMKTD
-= Special::License
+--tvNsbCGTWeGWVRSZNNNB
+= Escaped > page
 
-Retrieved from [[http://www.gnu.org/licenses/gpl2.txt]]:
+This page should be exported correctly even if it contains a ">" sign in the title.
 
-<iframe border="0" width="100%" height="300" src="http://www.gnu.org/licenses/gpl2.txt"></iframe>
---hWDTUncUuoLECKXbMKTD
+Other commonly escaped characters are % < > | : #
+--tvNsbCGTWeGWVRSZNNNB

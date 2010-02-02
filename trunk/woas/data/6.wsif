@@ -1,16 +1,16 @@
 wsif.version: 1.0.0
 woas.version: 0.10.1
 
-woas.page6.title: MyPages::Page 2
-woas.page6.attributes: 0
-woas.page6.last_modified: 1264700333
-woas.page6.length: 92
-woas.page6.encoding: 8bit/plain
-woas.page6.disposition: inline
-woas.page6.boundary: hWDTUncUuoLECKXbMKTD
+woas.page.title: MyPages::Page 2
+woas.page.attributes: 0
+woas.page.last_modified: 1264700333
+woas.page.length: 92
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: tvNsbCGTWeGWVRSZNNNB
 
---hWDTUncUuoLECKXbMKTD
+--tvNsbCGTWeGWVRSZNNNB
 Hey, don't tell anyone around but...I am better than [[MyPages::Page 1]]!
 
 [[Tags::example]]
---hWDTUncUuoLECKXbMKTD
+--tvNsbCGTWeGWVRSZNNNB
