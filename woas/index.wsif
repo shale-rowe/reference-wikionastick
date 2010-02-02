@@ -1393,8 +1393,8 @@ Simon wonders if a page with diâcritics will be found änywáy.
 --DFQRCTsKlU
 woas.page.title: Embedded SVG
 woas.page.attributes: 0
-woas.page.last_modified: 1265114355
-woas.page.length: 206
+woas.page.last_modified: 1265114974
+woas.page.length: 585
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1404,9 +1404,20 @@ woas.page.boundary: DFQRCTsKlU
 
 This page contains an embedded SVG snippet
 
-[[File::seed_of_life.svg]] is transcluded in this page as raw, and it happens that the browser can render it:
+[[File::seed_of_life.svg]] is rendered in this page through a small script
 
-[[Include::File::seed_of_life.svg]]
+<div id="generated_SVG" style="width:100%"></div>
+
+<script type="text/javascript">
+var str = decode64(woas.get_text('File::seed_of_life.svg'));
+var svgObject = document.createElement('object');
+/*svgObject.setAttribute('width', '800');
+svgObject.setAttribute('height', '350');*/
+svgObject.setAttribute('type', 'image/svg+xml');
+svgObject.setAttribute('data', 'data:image/svg+xml,'+ escape(str));
+$("generated_SVG").appendChild(svgObject);
+</script>
+
 --DFQRCTsKlU
 woas.page.title: Browsers support
 woas.page.attributes: 0
@@ -1738,7 +1749,7 @@ dm9pZCBMaWZlRnJhbWU6Ok9uU2FtcGxlcyh3eENvbW1hbmRFdmVudCYgV1hVTlVTRUQoZXZlbnQpKQp7
 --DFQRCTsKlU
 woas.page.title: File::seed_of_life.svg
 woas.page.attributes: 4
-woas.page.last_modified: 1265114328
+woas.page.last_modified: 1265114799
 woas.page.length: 1412
 woas.page.encoding: 8bit/base64
 woas.page.disposition: inline
