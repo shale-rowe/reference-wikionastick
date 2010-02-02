@@ -847,8 +847,8 @@ Formated fruits, for example:/apples/, oranges, *pears* ...
 --DFQRCTsKlU
 woas.page.title: Deprecated syntax
 woas.page.attributes: 0
-woas.page.last_modified: 1264700333
-woas.page.length: 1043
+woas.page.last_modified: 1265115998
+woas.page.length: 1150
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -858,8 +858,8 @@ woas.page.boundary: DFQRCTsKlU
 
 This page briefly summarizes WoaS deprecated syntax; the below deprecated syntax rules are still supported (unless otherwise specified), but you are invited to _no more_ use them since in version 1.x they will probably be removed.
 
+== Lists
 {{{
-
 BAD:
 + unordered lists with + sign instead of asterisk
 + unordered lists with + sign
@@ -868,19 +868,28 @@ Only asterisk lists are parsed:
 GOOD:
 * unordered element 1
 * unordered element 2
+}}}
 
+== Headers
+{{{
 BAD:
 ! headers using the exclamation mark
 GOOD:
 = header which uses the equal sign
+}}}
 
+== Pre tags
+{{{
 BAD:
 <pre /> tags with nowiki meaning. Now <pre /> tags have no special meaning and are treated
 as any other XHTML tag
 
 GOOD:
 You should use { {{nowiki}} } blocks to achieve the same result
+}}}
 
+== Rulers
+{{{
 BAD:
 ---
 horizontal rulers using only 3 hyphens
@@ -888,13 +897,19 @@ horizontal rulers using only 3 hyphens
 GOOD:
 ----
 You are invited to use at least 4 hyphens
+}}}
 
+== Tags
+{{{
 BAD:
 [[Tags::some tag, some other tag]] and [[Tag::some tag]] is deprecated
 
 GOOD:
 In favor of [[Tags::some tag|other tag|another tag]]
+}}}
 
+== Inline scripts
+{{{
 BAD:
 <script> and </script>
 
