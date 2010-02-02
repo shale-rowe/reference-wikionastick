@@ -6,7 +6,7 @@
 woas["_native_wsif"] = null;
 
 // a class for some general WSIF operations
-woas["wsif" ] = {version: "1.0.0"};
+woas["wsif" ] = {version: "1.0.0", emsg: "No error"};
 
 woas["wsif"]["header"] = function(header_name, value) {
 	return header_name+": "+value+"\n";
@@ -189,45 +189,61 @@ woas["_native_load"] = function() {
 
 woas["_native_wsif_load"] = function(path, overwrite) {
 	var ct = this.load_file(path, this.file_mode.UTF8_TEXT);
-	if (typeof ct != "String") {
+	if (typeof ct != "string") {
 		return false;
 	}
 	var pfx = "\nwoas.page.", pfx_len = pfx.length;
 	// start looping to find each page
-	var p = ct.indexOf(pfx), fail = false;
-	var title, attrs, last_mod, len, encoding, disposition, boundary;
+	var bak_p = 0, p = ct.indexOf(pfx), fail = false, done = 0;
+	// too early failure
+	if (p == -1)
+		woas.wsif.emsg = "Corrupted WSIF file";
+	var title = null,	attrs = null,
+		last_mod = null,	len = null,
+		encoding = null,	disposition = null, boundary = null;
 	while (p != -1) {
 		// remove prefix
 		sep = ct.indexOf(":", p+pfx_len);
 		if (sep == -1) {
+			this.wsif.emsg = "Could not locate header name";
 			fail = true;
 			break;
 		}
 		// get attribute name
 		var sep, vsep, s, v;
 		s = ct.substring(p+pfx_len, sep);
+		// take backup copy of where last attribute was (used for inline boundaries extraction)
+		bak_p = vsep;
 		// get value
 		vsep = ct.indexOf("\n", sep+1);
 		if (vsep == -1) {
+			this.wsif.emsg = "Could not locate end of header value";
 			fail = true;
 			break;
 		}
-		v = ct.substring(sep+1, vsep);
+		// get value and apply left-trim
+		v = ct.substring(sep+1, vsep).replace(/^\s*/, '');
 		// update pointer
-		p = vsep+1;
+		p = vsep;
 		switch (s) {
 			case "title":
 				// we have just jumped over a page definition
 				if (title !== null) {
-					p = this._native_page_def(ct,p,title,attrs,last_mod,len,encoding,
-											disposition,boundary);
+					p = this._native_page_def(ct,bak_p,overwrite,
+							title,attrs,last_mod,len,encoding,disposition,boundary);
 					title = attrs = last_mod = encoding = len =
 						 boundary = disposition = null;
 					if (p == -1) {
 						fail = true;
 						break;
 					}
+					// delete this whole entry to free up some memory to GC
+					ct = ct.substr(p);
+					p = 0;
+					// increment page imported counter
+					++done;
 				}
+				// let's start with the next page
 				title = v;
 			break;
 			case "attributes":
@@ -251,35 +267,70 @@ woas["_native_wsif_load"] = function(path, overwrite) {
 			default:
 				log("Unknown WSIF header: "+s);
 		} // end switch(s)
+		if (fail)
+			break;
 		// set pointer to next entry
 		p = ct.indexOf(pfx, p);
 	}
 	// process the last page (if any)
 	if (title != null)
 		this._native_page_def(ct,p,title,attrs,last_mod,len,encoding,
-											disposition,boundary)
-	return !fail;
+											disposition,boundary);
+	if (fail)
+		return false;
+	return done;
 }
 
-woas["_native_page_def"] = function(ct,p,title,attrs,last_mod,len,encoding,
+woas["_native_page_def"] = function(ct,p,overwrite, title,attrs,last_mod,len,encoding,
 											disposition,boundary) {
 	// craft the exact boundary match string
 	boundary = "\n--"+boundary+"\n";
 	// locate start and ending boundaries
 	var bpos_s = ct.indexOf(boundary, p);
 	if (bpos_s == -1) {
-		log("Failed to find start boundary "+boundary+" for page "+title); //log:1
+		this.wsif.emsg = "Failed to find start boundary "+boundary+" for page "+title;
 		return -1;
 	}
 	var bpos_e = ct.indexOf(boundary, bpos_s+boundary.length);
 	if (bpos_e == -1) {
-		log("Failed to find end boundary "+boundary+" for page "+title); //log:1
+		this.wsif.emsg = "Failed to find end boundary "+boundary+" for page "+title;
 		return -1;
 	}
-	// retrieve full page content
-	var page = ct.substring(bpos_s, bpos_e);
-	alert(page);
-	return -1;
+	// attributes must be defined
+	if (attrs === null) {
+		this.wsif.emsg = "No attributes defined for page "+title;
+		return -1;
+	}
+	// last modified timestamp can be omitted
+	if (last_mod === null)
+		last_mod = this.MAGIC_MTS;
+	if (disposition == "inline") {
+		// retrieve full page content
+		var page = ct.substring(bpos_s+boundary.length, bpos_e);
+	/*	this.alert("title = "+title+"\nattrs = "+attrs+"\nlast_mod = "+last_mod+"\n"+
+				"len = "+len+"\nencoding = "+encoding+"\ndisposition = "+disposition+
+				"\nboundary = "+boundary+"\n"); */
+		// check length (if any were passed)
+		if (len !== null) {
+			if (len != page.length)
+				this.alert("Length mismatch for page %s: ought to be %d but was %d".sprintf(title, len, page.length));
+		}
+		// check if page already exists
+		var pi = page_titles.indexOf(title);
+		if (pi != -1) {
+			if (overwrite) {
+				// update the page record
+				pages[pi] = page;
+				page_attrs[pi] = attrs;
+				page_mts = last_mod;
+			} else
+				log("Skipping page "+title); //log:1
+		} else { // creating a new page
+			pages.push(page);
+			page_attrs.push(attrs);
+			page_mts.push(last_mod);
+		}
+	}
 	// return updated offset
 	return bpos_e+boundary.length;
 }

@@ -191,7 +191,7 @@ String.prototype.sprintf = function() {
 /*		if ($1 == '%d')
 			return Number(arguments[i_pos++]); */
 		// return '%s' string
-		return String(fmt_args[i_pos++]);
+		return fmt_args[i_pos++];
 	});
 }
 

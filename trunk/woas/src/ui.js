@@ -408,11 +408,14 @@ function import_wiki_wsif() {
 	// block interaction for a while
 	$.show("loading_overlay");
 	$("loading_overlay").focus();
-	var rv = false;
+	var done = false;
 	if (confirm(woas.i18n.CONFIRM_IMPORT_OVERWRITE))
-		rv = woas._native_wsif_load(filename, true);
+		done = woas._native_wsif_load(filename, true);
 
 	$.hide("loading_overlay");
-	woas.alert(woas.i18n.EXPORT_OK.sprintf(done));
-	return rv;
+	if (done === false)
+		woas.crash(woas.wsif.emsg);
+	else
+		woas.alert(woas.i18n.EXPORT_OK.sprintf(done));
+	return done;
 }
