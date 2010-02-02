@@ -65,7 +65,7 @@ woas["_native_wsif_save"] = function(path, single_wsif, inline_wsif, author,
 					ct = null;
 		
 		// normalize the page content, set encoding&disposition
-		var encoding = "utf8/plain", disposition = "inline";
+		var encoding = "ecma/plain", disposition = "inline";
 		if (this.is__encrypted(pi)) {
 			ct = encode64_array(pages[pi]);
 			encoding = "8bit/base64";
@@ -96,7 +96,7 @@ woas["_native_wsif_save"] = function(path, single_wsif, inline_wsif, author,
 		}
 		// update the index (if needed)
 		if (!single_wsif && full_save) {
-			full_wsif += this.wsif.header(pfx+"title", merge_bytes(utf8Encrypt(page_titles[pi])));
+			full_wsif += this.wsif.header(pfx+"title", this.ecma_encode(page_titles[pi]));
 			// a new mime type
 			full_wsif += this.wsif.header(pfx+"encoding", "text/wsif");
 			full_wsif += this.wsif.header(pfx+"disposition", "external");
@@ -114,9 +114,9 @@ woas["_native_wsif_save"] = function(path, single_wsif, inline_wsif, author,
 			boundary = _generate_random_boundary(boundary, ct);
 			record += this.wsif.header(pfx+"boundary", boundary);
 			// add the inline content
-			// properly UTF8-encoded, if needed
-			if (encoding == "utf8/plain")
-				ct = merge_bytes(utf8Encrypt(ct));
+			// properly ECMA-encoded, if needed
+			if (encoding == "ecma/plain")
+				ct = this.ecma_encode(ct);
 			record += this.wsif.inline(boundary, ct); ct = null;
 		} else {
 			// create the blob filename
@@ -253,7 +253,7 @@ woas["_native_wsif_load"] = function(path, overwrite) {
 					p = 0;
 				}
 				// let's start with the next page
-				title = utf8Decrypt(split_bytes(v));
+				title = this.ecma_decode(v);
 			break;
 			case "attributes":
 				attrs = Number(v);
@@ -361,8 +361,8 @@ woas["_native_page_def"] = function(ct,p,overwrite, title,attrs,last_mod,len,enc
 			if (encoding == "8bit/base64") {
 				// who encoded it? we process it anyway
 				page = decode64(page);
-			} else if (encoding == "utf8/plain") {
-				page = utf8Decrypt(split_bytes(page));
+			} else if (encoding == "ecma/plain") {
+				page = this.ecma_decode(page);
 				if (page === null) {
 					log("Page "+title+": could not read");
 					fail = true;
