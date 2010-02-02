@@ -119,17 +119,22 @@ woas["_get_tags"] = function(text) {
 		text = this.trim(text.substring(6));
 	else // not a valid tagging
 		return tags;
+	// check length only after having removed the part we don't need
 	if (!text.length)
 		return tags;
-	var alltags;
-	if (text.indexOf("|")!=-1)
-		alltags = text.split("|");
-	else //DEPRECATED
-		alltags = text.split(",");
+	var alltags = this.split_tags(text);
 	for(var i=0;i<alltags.length;i++) {
 		tags.push(this.trim(alltags[i]));
 	}
 	return tags;
+}
+
+woas["split_tags"] = function(tlist) {
+	var alltags;
+	if (tlist.indexOf("|")!=-1)
+		return tlist.split("|");
+	else //DEPRECATED
+		return tlist.split(",");
 }
 
 // THIS is the method that you should override for your custom parsing needs

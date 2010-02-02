@@ -110,7 +110,8 @@ woas["utf8_encode"] = function(src) {
 var edit_override = false;
 
 // DO NOT modify this list! these are namespaces that are reserved to WoaS
-var reserved_namespaces = ["Special", "Lock", "Locked", "Unlocked", "Unlock", "Tags", "Tagged", "Untagged", "Include", "Javascript", "WoaS"];
+var reserved_namespaces = ["Special", "Lock", "Locked", "Unlocked", "Unlock",
+						"Tags", "Tagged", "Untagged", "Include", "Javascript", "WoaS"];
 
 // create the regex for reserved namespaces
 var reserved_rx = "^";
@@ -204,7 +205,7 @@ woas["_get_namespace_pages"] = function (ns) {
 		case "Untagged::":
 			return "= Pages in "+ns+" namespace\n" + this.special_untagged(false);
 		case "Tagged::": // to be used in wiki source
-		case "Tags::":
+		case "Tags::": // is this deprecated?
 			return "= Pages in "+ns+" namespace\n" + this.special_tagged(false);
 		case "Image::":
 			var iHTML = "";
@@ -226,7 +227,8 @@ woas["_get_tagged"] = function(tag_filter) {
 	var pg = [];
 	
 	// allow tags filtering/searching
-	var tags = tag_filter.split(','), tags_ok = [], tags_not = [];
+	var tags = this.split_tags(tag_filter),
+		tags_ok = [], tags_not = [];
 	for(var i=0;i<tags.length;++i) {
 		if (!tags[i].length)
 			continue;
@@ -236,44 +238,40 @@ woas["_get_tagged"] = function(tag_filter) {
 			tags_ok.push(tags[i]);
 	} tags = null;
 
-	var tmp, b, fail;
-	for(var i=0; i<pages.length; i++) {
+	var tmp, fail;
+	for(var i=0,l=pages.length;i<l;++i) {
 		tmp = this.get_src_page(i);
 		// can be null in case of encrypted content w/o key
 		if (tmp==null)
 			continue;
-		tmp.replace(/\[\[([^\|]*?)\]\]/g, function(str, $1)
-			{
+		tmp.replace(/\[\[Tags?::([^\]]*?)\]\]/g, function(str, $1) {
+				// skip protocol references
 				if ($1.search(/^\w+:\/\//)==0)
 					return;
-					
-				found_tags = woas._get_tags($1);
-				
-//				alert(found_tags);
+				// get array of tags in this wiki link
+				var found_tags = woas.split_tags($1);
 				fail = false;
-				for (var t=0;t<found_tags.length;t++) {
-					for (b=0;b<tags_ok.length;++b) {
-						if (found_tags[t] != tags_ok[b]) {
+				// filter if "OK" tag is not present
+				for (var b=0,bl=tags_ok.length;b<bl;++b) {
+					if (found_tags.indexOf(tags_ok[b]) == -1) {
+						fail = true;
+						break;
+					}
+				}
+				if (!fail) {
+					// filter if "NOT" tag is present
+					for (var b=0,bl=tags_not.length;b<bl;++b) {
+						if (found_tags.indexOf(tags_not[b]) != -1) {
 							fail = true;
 							break;
 						}
 					}
-					if (!fail) {
-						for (b=0;b<tags_not.length;++b) {
-							if (found_tags[t] == tags_not[b]) {
-								fail = true;
-								break;
-							}
-						}
-					}
-					if (!fail)
-						pg.push(page_titles[i]);
 				}
-
-				
+				// no failure, we add this page
+				if (!fail)
+					pg.push(page_titles[i]);
 			});
 	}
-	
 	if (!pg.length)
 		return "No pages tagged with *"+tag_filter+"*";
 	return "= Pages tagged with " + tag_filter + "\n" + this._join_list(pg);

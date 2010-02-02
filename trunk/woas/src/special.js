@@ -133,14 +133,13 @@ woas["special_tagged"] = function() {
 	var utags = [];
 	var tags_tree = [];
 	var tmp = null, ipos;
-	for(var i=0; i<pages.length; i++)
-	{
+	for(var i=0,l=pages.length;i<l;++i) {
 		tmp = this.get_src_page(i);
 		if (tmp==null)
 			continue;
 		tmp.replace(/\[\[Tags?::([^\]]+)\]\]/g,
 			function (str, $1) {
-				var tmp=$1.split(",");
+				var tmp=woas.split_tags($1);
 				for(var j=0;j<tmp.length; j++) {
 					var tag=woas.trim(tmp[j]);
 					if (!tag.length) continue;
