@@ -1,18 +1,18 @@
 wsif.version: 1.0.0
 woas.version: 0.10.1
 
-woas.page.title: Testcase::Case-sensitiveness
+woas.page.title: Testcase::Page1
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
-woas.page.length: 176
+woas.page.length: 64
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
-woas.page.boundary: tvNsbCGTWeGWVRSZNNNB
+woas.page.boundary: DFQRCTsKlU
 
---tvNsbCGTWeGWVRSZNNNB
-= Case-sensitiveness
+--DFQRCTsKlU
+= Testcase::Page1
 
-These are testcases for case-sensitiveness. Wiki on a stick should be *case-sensitive*.
+This is another dummy page!!
 
-Link to [[Testcase::page1]] is different from [[Testcase::Page1]]
---tvNsbCGTWeGWVRSZNNNB
+[[Tags::dummy]]
+--DFQRCTsKlU

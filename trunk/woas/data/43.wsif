@@ -1,25 +1,48 @@
 wsif.version: 1.0.0
 woas.version: 0.10.1
 
-woas.page.title: Testcase::Unusual lists
+woas.page.title: Special::ExportWSIF
 woas.page.attributes: 0
-woas.page.last_modified: 1264700333
-woas.page.length: 173
+woas.page.last_modified: 1265024731
+woas.page.length: 1031
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
-woas.page.boundary: tvNsbCGTWeGWVRSZNNNB
+woas.page.boundary: DFQRCTsKlU
 
---tvNsbCGTWeGWVRSZNNNB
-= Unusual lists
+--DFQRCTsKlU
+= Export into WSIF format
 
-# first level A
-# first level B
-## second level A
-## second level B
-## second level C
-# first level C
-## second level D
-### third level A
-### third level B
+See also [[Special::WSIF]].
 
---tvNsbCGTWeGWVRSZNNNB
+== Destination path
+Destination directory that will contain the exported WSIF file(s).
+
+Note: *Directory must exist*
+
+<input id="woas_ep_wsif" type="text" size="80" />
+
+== File generation
+
+<label for="woas_cb_single_wsif"><input type="checkbox" id="woas_cb_single_wsif" checked="checked">Export all pages into a single WSIF file</label>
+<label for="woas_cb_inline_wsif"><input type="checkbox" id="woas_cb_inline_wsif">Do not export embedded files as external file blobs</label>
+
+==Other options
+WoaS Author (optional)
+
+<input id="woas_ep_author" type="text" size="12" value="" />
+
+<input type="button" value="Export WSIF" onclick="woas.export_wiki_wsif()" />
+
+<script type="text/javascript">
+var path = _get_this_path();
+path += "wsif" + path[path.length-1];
+$('woas_ep_wsif').value = path;
+
+function _ep_focus() { search_focused = true; }
+function _ep_blur() { search_focused = false; }
+
+$('woas_ep_wsif').onfocus = _ep_focus;
+$('woas_ep_wsif').onblur = _ep_blur;
+
+</script>
+--DFQRCTsKlU

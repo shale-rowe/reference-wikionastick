@@ -1,18 +1,18 @@
 wsif.version: 1.0.0
 woas.version: 0.10.1
 
-woas.page.title: Testcase::Page1
+woas.page.title: Diâcritics
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
-woas.page.length: 64
+woas.page.length: 92
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
-woas.page.boundary: tvNsbCGTWeGWVRSZNNNB
+woas.page.boundary: DFQRCTsKlU
 
---tvNsbCGTWeGWVRSZNNNB
-= Testcase::Page1
+--DFQRCTsKlU
+= Diâcritics
 
-This is another dummy page!!
+Simon wonders if a page with diâcritics will be found änywáy.
 
 [[Tags::dummy]]
---tvNsbCGTWeGWVRSZNNNB
+--DFQRCTsKlU

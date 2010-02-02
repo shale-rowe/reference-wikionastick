@@ -7,9 +7,9 @@ woas.page.last_modified: 1265102334
 woas.page.length: 1150
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
-woas.page.boundary: tvNsbCGTWeGWVRSZNNNB
+woas.page.boundary: DFQRCTsKlU
 
---tvNsbCGTWeGWVRSZNNNB
+--DFQRCTsKlU
 == Options
 You can customize Wiki on a Stick modifying a few [[Special::Options|Options]].  
 
@@ -32,4 +32,4 @@ You can customize Wiki on a Stick modifying a few [[Special::Options|Options]].
 * [[Special::Edit CSS]]: edit the global CSS styles
 * [[Special::Edit Bootscript]]: edit the custom script run once when WoaS is being loaded
 
---tvNsbCGTWeGWVRSZNNNB
+--DFQRCTsKlU

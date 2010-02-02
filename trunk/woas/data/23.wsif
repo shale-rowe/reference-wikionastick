@@ -1,17 +1,10 @@
 wsif.version: 1.0.0
 woas.version: 0.10.1
 
-woas.page.title: Special::Embed
-woas.page.attributes: 0
+woas.page.title: WoaS::Bootscript
+woas.page.attributes: 4
 woas.page.last_modified: 1264700333
-woas.page.length: 128
+woas.page.length: 32
 woas.page.encoding: 8bit/plain
-woas.page.disposition: inline
-woas.page.boundary: tvNsbCGTWeGWVRSZNNNB
-
---tvNsbCGTWeGWVRSZNNNB
-= Embed %1
-
-<input id="filename_" type="file" />&nbsp;<input type="button" value="Embed" onclick="woas._embed_process('%1')" />
-
---tvNsbCGTWeGWVRSZNNNB
+woas.page.disposition: external
+woas.page.disposition.filename: blob2

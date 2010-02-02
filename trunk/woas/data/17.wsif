@@ -1,63 +1,68 @@
 wsif.version: 1.0.0
 woas.version: 0.10.1
 
-woas.page.title: Deprecated syntax
+woas.page.title: Testcase::WoaS testcases
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
-woas.page.length: 1043
+woas.page.length: 1332
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
-woas.page.boundary: tvNsbCGTWeGWVRSZNNNB
+woas.page.boundary: DFQRCTsKlU
 
---tvNsbCGTWeGWVRSZNNNB
-= Deprecated syntax
+--DFQRCTsKlU
+== Bold vs lists testcase
 
-This page briefly summarizes WoaS deprecated syntax; the below deprecated syntax rules are still supported (unless otherwise specified), but you are invited to _no more_ use them since in version 1.x they will probably be removed.
+*bold text*\\
+ * bold text*\\
+* bold text*\\
 
-{{{
+* first level
+** second level *bold text* or * with space*
+*** third level
+** *second level* - beginning with bold
+**second level with no space (see [[Creole:Require Space After Bullet Proposal]])
+** this text does not close, see what happens * not closing
+* first level
 
-BAD:
-+ unordered lists with + sign instead of asterisk
-+ unordered lists with + sign
+== Syntax parsing testcase
+On my right there is some _underlined text_, followed by *bold text* and /italics/.
 
-Only asterisk lists are parsed:
-GOOD:
-* unordered element 1
-* unordered element 2
+{{{ do / things / like / this }}}
 
-BAD:
-! headers using the exclamation mark
-GOOD:
-= header which uses the equal sign
+Now I will use /*italics and bold*/, followed by */bold and italics/* and finally _*/underlined bold italics/*_.
 
-BAD:
-<pre /> tags with nowiki meaning. Now <pre /> tags have no special meaning and are treated
-as any other XHTML tag
+Maybe you want to see some *_/bold underlined italics/_* or also some */_bold italics underlined_/*?
 
-GOOD:
-You should use { {{nowiki}} } blocks to achieve the same result
+And here is, just for you, a partial *bold-/italics/*!!!
 
-BAD:
----
-horizontal rulers using only 3 hyphens
+*Some bold text* on a line beginning
 
-GOOD:
+As you can see, /an/unix/path/ is correctly recognized.
+
+A windows unix-style path: C:/My_Files/*.ini and C:/My_Files/*.u
+A windows path: C:\My_Files\*.ini and C:\My_Files\*.u
+
+[[http://example.com/url*with*asterisks]]
+
+== Rulers and tables
+
+Some text above a ruler
 ----
-You are invited to use at least 4 hyphens
+{|
+| 1 || 2
+|-
+| 3 || 4
+|}
 
-BAD:
-[[Tags::some tag, some other tag]] and [[Tag::some tag]] is deprecated
+== Advanced listing
 
-GOOD:
-In favor of [[Tags::some tag|other tag|another tag]]
+# Voltage (v) - j/c <blockquote>voltage can only be taken at two different nodes</blockquote>
+# Current (i) - c/sec
+# Power (w) - vi
 
-BAD:
-<script> and </script>
+== Inclusion of nowiki pages
 
-GOOD:
-<script type="text/javascript"> and </script>
+[[Include::Nowiki dummy]]
 
-}}}
-
-[[Tags::help]]
---tvNsbCGTWeGWVRSZNNNB
+[[Tags::example]]
+--DFQRCTsKlU

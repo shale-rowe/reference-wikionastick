@@ -1,16 +1,10 @@
 wsif.version: 1.0.0
 woas.version: 0.10.1
 
-woas.page.title: Testcase::Apostrophe ' in title
-woas.page.attributes: 0
-woas.page.last_modified: 1264700333
-woas.page.length: 92
+woas.page.title: File::life snippet.c
+woas.page.attributes: 4
+woas.page.last_modified: 1265104350
+woas.page.length: 470
 woas.page.encoding: 8bit/plain
-woas.page.disposition: inline
-woas.page.boundary: tvNsbCGTWeGWVRSZNNNB
-
---tvNsbCGTWeGWVRSZNNNB
-= Apostrophe ' in title
-
-This page has an apostrophe in title but should still be searchable
---tvNsbCGTWeGWVRSZNNNB
+woas.page.disposition: external
+woas.page.disposition.filename: blob3.c

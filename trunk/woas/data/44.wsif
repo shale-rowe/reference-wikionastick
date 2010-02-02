@@ -1,14 +1,16 @@
 wsif.version: 1.0.0
 woas.version: 0.10.1
 
-woas.page.title: WoaS::Aliases
+woas.page.title: Special::WSIF
 woas.page.attributes: 0
-woas.page.last_modified: 1264700333
-woas.page.length: 16
+woas.page.last_modified: 1265020848
+woas.page.length: 158
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
-woas.page.boundary: tvNsbCGTWeGWVRSZNNNB
+woas.page.boundary: DFQRCTsKlU
 
---tvNsbCGTWeGWVRSZNNNB
-$HOME  Main Page
---tvNsbCGTWeGWVRSZNNNB
+--DFQRCTsKlU
+= WSIF
+
+*W*iki on a *S*tick *I*nterchange *F*ormat is the preferred format for exporting full WoaS data into a single file and share it with whoever you like.
+--DFQRCTsKlU

@@ -7,12 +7,12 @@ woas.page.last_modified: 1264700333
 woas.page.length: 140
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
-woas.page.boundary: tvNsbCGTWeGWVRSZNNNB
+woas.page.boundary: DFQRCTsKlU
 
---tvNsbCGTWeGWVRSZNNNB
+--DFQRCTsKlU
 This is a page in a subnamespace!
 
 The parent namespace is [[MyPages::]] while the subnamespace is [[MyPages::Approved::]]
 
 [[Tag::example]]
---tvNsbCGTWeGWVRSZNNNB
+--DFQRCTsKlU

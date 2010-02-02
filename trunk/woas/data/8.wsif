@@ -7,9 +7,9 @@ woas.page.last_modified: 1264700333
 woas.page.length: 1222
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
-woas.page.boundary: tvNsbCGTWeGWVRSZNNNB
+woas.page.boundary: DFQRCTsKlU
 
---tvNsbCGTWeGWVRSZNNNB
+--DFQRCTsKlU
 == AES encryption
 Read more about the [[Special::Security|embedded AES encryption]] used in Wiki On a Stick.
 
@@ -31,4 +31,4 @@ $("btn_lock").setAttribute("onclick", "lock_page('"+woas.js_encode(page)+"')");
 }
 _lock_page();
 </script>
---tvNsbCGTWeGWVRSZNNNB
+--DFQRCTsKlU
