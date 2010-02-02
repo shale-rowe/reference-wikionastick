@@ -96,7 +96,7 @@ woas["_native_wsif_save"] = function(path, single_wsif, inline_wsif, author,
 		}
 		// update the index (if needed)
 		if (!single_wsif && full_save) {
-			full_wsif += this.wsif.header(pfx+"title", page_titles[pi]);
+			full_wsif += this.wsif.header(pfx+"title", merge_bytes(utf8Encrypt(page_titles[pi])));
 			// a new mime type
 			full_wsif += this.wsif.header(pfx+"encoding", "text/wsif");
 			full_wsif += this.wsif.header(pfx+"disposition", "external");
@@ -114,8 +114,8 @@ woas["_native_wsif_save"] = function(path, single_wsif, inline_wsif, author,
 			boundary = _generate_random_boundary(boundary, ct);
 			record += this.wsif.header(pfx+"boundary", boundary);
 			// assign the mime/type
-			// add the inline content
-			record += this.wsif.inline(boundary, ct); ct = null;
+			// add the inline content - properly UTF8-encoded
+			record += this.wsif.inline(boundary, merge_bytes(utf8Encrypt(ct))); ct = null;
 		} else {
 			// create the blob filename
 			var blob_fn = "blob" + (++blob_counter).toString()+
@@ -251,7 +251,7 @@ woas["_native_wsif_load"] = function(path, overwrite) {
 					p = 0;
 				}
 				// let's start with the next page
-				title = v;
+				title = utf8Decrypt(split_bytes(v));
 			break;
 			case "attributes":
 				attrs = Number(v);
@@ -359,7 +359,9 @@ woas["_native_page_def"] = function(ct,p,overwrite, title,attrs,last_mod,len,enc
 			if (encoding == "8bit/base64") {
 				// who encoded it? we process it anyway
 				page = decode64(page);
-			} else if (encoding != "8bit/plain") {
+			} else if (encoding == "8bit/plain") {
+				page = utf8Decrypt(split_bytes(page));
+			} else {
 				log("Normal page "+title+" comes with unknown encoding "+encoding);
 				fail = true;
 				break;

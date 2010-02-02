@@ -216,6 +216,7 @@ woas["delete_page_i"] = function(i) {
 
 // some general integrity tests - for debug purposes
 woas["integrity_test"] = function() {
+	// test integrity of data arrays
 	var len = pages.length;
 	if ((page_attrs.length != len) ||
 			(page_titles.length != len) ||
@@ -226,5 +227,22 @@ woas["integrity_test"] = function() {
 						page_mts.length));
 		return false;
 	}
+	// test integrity of load/save functions
+	var UTF8_TEST = "Di\u00e2critics are here: \u00e4 \u00e1y";
+	var path = _get_this_path();
+	if (!this.save_file(path+"itest.bin", this.file_mode.UTF8_TEXT,
+			merge_bytes(utf8Encrypt(UTF8_TEST))
+//			UTF8_TEST
+			))
+		return false;
+	var ct = this.load_file(path+"itest.bin", this.file_mode.UTF8_TEXT);
+	if ((ct === null)||(ct === false))
+		return false;
+	ct = utf8Decrypt(split_bytes(ct));
+	if (ct !== UTF8_TEST) {
+		this.crash("UTF8 test failed.\nWritten:\n"+UTF8_TEST+"\nRead:\n"+ct);
+		return false;
+	}
+	log("Integrity test successful"); //log:1
 	return true;
 }
