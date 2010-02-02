@@ -61,13 +61,24 @@ woas["js_encode"] = function (s, split_lines) {
 		s = s.replace(new RegExp("\r\n|\n", "g"), "\\n");
 	else
 		s = s.replace(new RegExp("\r\n|\n", "g"), "\\n\\\n");
-	// and fix also the >= 128 ascii chars (to prevent UTF-8 characters corruption)
+	return this.ecma_encode(s);
+}
+
+// perform ECMAScript encoding only on some UTF-8 sequences
+woas["ecma_encode"] = function(s) {
+	// fix the >= 128 ascii chars (to prevent UTF-8 characters corruption)
 	return s.replace(new RegExp("([^\u0000-\u007F])", "g"), function(str, $1) {
 				var s = $1.charCodeAt(0).toString(16);
 				for(var i=4-s.length;i>0;i--) {
 					s = "0"+s;
 				}
 				return "\\u" + s;
+	});
+}
+
+woas["ecma_decode"] = function(s) {
+	return s.replace(new RegExp("\\u([0-9a-f]{2,4}", "g"), function (str, $1) {
+		return String.fromCharCode($1);
 	});
 }
 

@@ -6,7 +6,7 @@ woas.page.title: ::Menu
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
 woas.page.length: 1931
-woas.page.encoding: utf8/plain
+woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -28,7 +28,7 @@ woas.page.boundary: DFQRCTsKlU
 * [[Testcase::]]
 ** [[Testcase::WoaS testcases|WoaS testcases]]
 ** [[Testcase::Creole 0.1|Creole 0.1]]
-** [[Diâcritics]]
+** [[Di\u00e2critics]]
 ** [[Testcase::Case-sensitiveness|Case-sens.]]
 ** [[Testcase::Apostrophe ' in title|Apostrophe]]
 ** [[Testcase::Headlines mix|Headlines mix]]
@@ -77,7 +77,7 @@ woas.page.title: Special::Advanced
 woas.page.attributes: 0
 woas.page.last_modified: 1265102334
 woas.page.length: 1150
-woas.page.encoding: utf8/plain
+woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -109,7 +109,7 @@ woas.page.title: Special::Import
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
 woas.page.length: 612
-woas.page.encoding: utf8/plain
+woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -127,7 +127,7 @@ woas.page.title: Special::About
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
 woas.page.length: 4515
-woas.page.encoding: utf8/plain
+woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -151,7 +151,7 @@ You can use the [[http://woas.iragan.com/|official WoaS forums]] and/or the [[ht
 Current version is *v0.10.1*
 Versions 0.10.0&tilde;0.10.1 by Daniele C. with help of *FBnil* and *littlegirl*
 Versions 0.9&tilde;0.9.7 by Daniele C. ([[http://sf.net/users/legolas558/|legolas558]])
-Original version (v0.01 &tilde; v0.04) by André Wagner
+Original version (v0.01 &tilde; v0.04) by Andr\u00e9 Wagner
 
 <center><big>[[Special::License|Wiki on a Stick is licensed under the GNU/GPL license]].</big></center>
 
@@ -181,9 +181,9 @@ And, last but not least:
 --DFQRCTsKlU
 woas.page.title: Main Page
 woas.page.attributes: 0
-woas.page.last_modified: 1265150110
+woas.page.last_modified: 1265152809
 woas.page.length: 1247
-woas.page.encoding: utf8/plain
+woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -223,7 +223,7 @@ woas.page.title: Special::Search
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
 woas.page.length: 703
-woas.page.encoding: utf8/plain
+woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -251,7 +251,7 @@ woas.page.title: MyPages::Page 2
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
 woas.page.length: 92
-woas.page.encoding: utf8/plain
+woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -264,7 +264,7 @@ woas.page.title: MyPages::Approved::Page 3
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
 woas.page.length: 140
-woas.page.encoding: utf8/plain
+woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -279,7 +279,7 @@ woas.page.title: Special::Lock
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
 woas.page.length: 1222
-woas.page.encoding: utf8/plain
+woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -310,7 +310,7 @@ woas.page.title: Special::Security
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
 woas.page.length: 2207
-woas.page.encoding: utf8/plain
+woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -352,7 +352,7 @@ woas.page.title: MyPages::Menu
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
 woas.page.length: 49
-woas.page.encoding: utf8/plain
+woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -365,7 +365,7 @@ woas.page.title: Special::Options
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
 woas.page.length: 2022
-woas.page.encoding: utf8/plain
+woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -397,7 +397,7 @@ woas.page.title: Feature::Custom javascript
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
 woas.page.length: 3745
-woas.page.encoding: utf8/plain
+woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -514,7 +514,7 @@ woas.page.title: Syntax
 woas.page.attributes: 0
 woas.page.last_modified: 1265109977
 woas.page.length: 3278
-woas.page.encoding: utf8/plain
+woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -551,7 +551,7 @@ A really long long long long long long long long long long long long long long l
 <pre style="color:gray">
 This is pre-formatted text (using a &lt;pre&gt; tag) with CSS style!
 And it stands on multiple lines too</pre>
-You can also use any HTML tag: <span style="color:navy">Schrödinger's cat is <blink style="font-weight:bold">not</blink> dead.</span>
+You can also use any HTML tag: <span style="color:navy">Schr\u00f6dinger's cat is <blink style="font-weight:bold">not</blink> dead.</span>
 
 
 Ruler:
@@ -621,7 +621,7 @@ woas.page.title: Transclusion example
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
 woas.page.length: 644
-woas.page.encoding: utf8/plain
+woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -658,7 +658,7 @@ woas.page.title: Test template
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
 woas.page.length: 69
-woas.page.encoding: utf8/plain
+woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -671,7 +671,7 @@ woas.page.title: Infinite recursion template
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
 woas.page.length: 101
-woas.page.encoding: utf8/plain
+woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -686,7 +686,7 @@ woas.page.title: Testcase::Creole 0.1
 woas.page.attributes: 0
 woas.page.last_modified: 1265110075
 woas.page.length: 3082
-woas.page.encoding: utf8/plain
+woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -850,7 +850,7 @@ woas.page.title: Deprecated syntax
 woas.page.attributes: 0
 woas.page.last_modified: 1265115998
 woas.page.length: 1150
-woas.page.encoding: utf8/plain
+woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -925,7 +925,7 @@ woas.page.title: Feature::External javascript
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
 woas.page.length: 134
-woas.page.encoding: utf8/plain
+woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -942,7 +942,7 @@ woas.page.title: Testcase::WoaS testcases
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
 woas.page.length: 1332
-woas.page.encoding: utf8/plain
+woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -1007,7 +1007,7 @@ woas.page.title: Feature::Summary
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
 woas.page.length: 5182
-woas.page.encoding: utf8/plain
+woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -1141,7 +1141,7 @@ woas.page.title: Options
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
 woas.page.length: 1336
-woas.page.encoding: utf8/plain
+woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -1180,7 +1180,7 @@ woas.page.title: Test template 2
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
 woas.page.length: 146
-woas.page.encoding: utf8/plain
+woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -1195,7 +1195,7 @@ woas.page.title: Special::Embed
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
 woas.page.length: 128
-woas.page.encoding: utf8/plain
+woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -1232,7 +1232,7 @@ woas.page.title: History
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
 woas.page.length: 4666
-woas.page.encoding: utf8/plain
+woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -1240,7 +1240,7 @@ woas.page.boundary: DFQRCTsKlU
 = History
 
 == Versions 0.01 &tilde; 0.04
-<sub>by André Wagner</sub>
+<sub>by Andr\u00e9 Wagner</sub>
 
 As they say, /"necessity is the mother of invention"/. I needed a way to store information in a tree-like structure, but every software I tested felt like it was something missing. I tested a few mindmap software, tree structure software and personal wikis, but they were too complicated to install; I didn't yet have what I was looking for, or the tool wasn't closs-platform.
 
@@ -1258,9 +1258,9 @@ So I was very glad when Daniele offered himself to take over the task of managin
 == Versions 0.9.x
 <sub>by Daniele C.</sub>
 
-When I first found WoaS I felt that this software has a great potential; my first contribute to WoaS was to resolve all the bug tracker items and review the patches; the result was put into a v0.04G released in a SF.net patches tracker item (as attachment). That modified version was mostly a bug-fix and feature-fix modification, with small new features like custom keys for navigation and edits cancelling. V0.04G also missed the import feature (I forgot to add it back) and had a nasty double-click to edit feature which was not really good. That was my experimentation, I did not expect people to really use my modified version but since André had no time to review it, people was actually starting to use it.
+When I first found WoaS I felt that this software has a great potential; my first contribute to WoaS was to resolve all the bug tracker items and review the patches; the result was put into a v0.04G released in a SF.net patches tracker item (as attachment). That modified version was mostly a bug-fix and feature-fix modification, with small new features like custom keys for navigation and edits cancelling. V0.04G also missed the import feature (I forgot to add it back) and had a nasty double-click to edit feature which was not really good. That was my experimentation, I did not expect people to really use my modified version but since Andr\u00e9 had no time to review it, people was actually starting to use it.
 
-Some time later I took courage and asked to take-over the project; André Wagner kindly added me to the project as a developer and a project admin and I could start working on WoaS for real.
+Some time later I took courage and asked to take-over the project; Andr\u00e9 Wagner kindly added me to the project as a developer and a project admin and I could start working on WoaS for real.
 
 My first big project management change was to switch to [[http://subversion.tigris.org/|Subversion (SVN)]] for the versioning of all our WoaS files; development could this way be fully documented and followed "live" by the Google Group partecipants, which are the first solid community gathered around WoaS.
 
@@ -1276,7 +1276,7 @@ woas.page.title: Special::Export
 woas.page.attributes: 0
 woas.page.last_modified: 1265020594
 woas.page.length: 2720
-woas.page.encoding: utf8/plain
+woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -1338,7 +1338,7 @@ woas.page.title: Testcase::Case-sensitiveness
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
 woas.page.length: 176
-woas.page.encoding: utf8/plain
+woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -1353,7 +1353,7 @@ woas.page.title: Testcase::page1
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
 woas.page.length: 55
-woas.page.encoding: utf8/plain
+woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -1368,7 +1368,7 @@ woas.page.title: Testcase::Page1
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
 woas.page.length: 64
-woas.page.encoding: utf8/plain
+woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -1383,7 +1383,7 @@ woas.page.title: Testcase::Apostrophe ' in title
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
 woas.page.length: 92
-woas.page.encoding: utf8/plain
+woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -1396,14 +1396,14 @@ woas.page.title: Di�critics
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
 woas.page.length: 92
-woas.page.encoding: utf8/plain
+woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Diâcritics
+= Di\u00e2critics
 
-Simon wonders if a page with diâcritics will be found änywáy.
+Simon wonders if a page with di\u00e2critics will be found \u00e4nyw\u00e1y.
 
 [[Tags::dummy]]
 --DFQRCTsKlU
@@ -1411,7 +1411,7 @@ woas.page.title: Embedded SVG
 woas.page.attributes: 0
 woas.page.last_modified: 1265114974
 woas.page.length: 585
-woas.page.encoding: utf8/plain
+woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -1439,7 +1439,7 @@ woas.page.title: Browsers support
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
 woas.page.length: 2578
-woas.page.encoding: utf8/plain
+woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -1499,7 +1499,7 @@ woas.page.title: Feature::Bootscript
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
 woas.page.length: 642
-woas.page.encoding: utf8/plain
+woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -1528,7 +1528,7 @@ woas.page.title: Special::License
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
 woas.page.length: 175
-woas.page.encoding: utf8/plain
+woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -1554,7 +1554,7 @@ woas.page.title: Escaped > page
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
 woas.page.length: 152
-woas.page.encoding: utf8/plain
+woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -1569,7 +1569,7 @@ woas.page.title: Google sitesearch
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
 woas.page.length: 850
-woas.page.encoding: utf8/plain
+woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -1594,7 +1594,7 @@ woas.page.title: Features::Oddmuse integration
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
 woas.page.length: 470
-woas.page.encoding: utf8/plain
+woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -1621,7 +1621,7 @@ woas.page.title: Testcase::Headlines mix
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
 woas.page.length: 120
-woas.page.encoding: utf8/plain
+woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -1650,7 +1650,7 @@ woas.page.title: Testcase::Unusual lists
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
 woas.page.length: 173
-woas.page.encoding: utf8/plain
+woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -1672,7 +1672,7 @@ woas.page.title: WoaS::Aliases
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
 woas.page.length: 16
-woas.page.encoding: utf8/plain
+woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -1683,7 +1683,7 @@ woas.page.title: Special::ExportWSIF
 woas.page.attributes: 0
 woas.page.last_modified: 1265024731
 woas.page.length: 1031
-woas.page.encoding: utf8/plain
+woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -1728,7 +1728,7 @@ woas.page.title: Special::WSIF
 woas.page.attributes: 0
 woas.page.last_modified: 1265020848
 woas.page.length: 158
-woas.page.encoding: utf8/plain
+woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -1741,7 +1741,7 @@ woas.page.title: Special::ImportWSIF
 woas.page.attributes: 0
 woas.page.last_modified: 1265102401
 woas.page.length: 176
-woas.page.encoding: utf8/plain
+woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
