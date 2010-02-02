@@ -227,6 +227,13 @@ woas["integrity_test"] = function() {
 						page_mts.length));
 		return false;
 	}
+	// test integrity of ecma encoding
+	var ecmat = ' \u00f6 ';
+	if (this.ecma_decode(this.ecma_encode(ecmat)) !== ecmat) {
+		this.crash("ECMA encoding not working:\n"+this.ecma_decode(this.ecma_encode(ecmat))+
+		"\n"+ecmat);
+		return false;
+	}
 	// test integrity of load/save functions
 	var UTF8_TEST = "Di\u00e2critics are here: \u00e4 \u00e1y";
 	var path = _get_this_path();

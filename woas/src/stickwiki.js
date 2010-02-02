@@ -77,8 +77,10 @@ woas["ecma_encode"] = function(s) {
 }
 
 woas["ecma_decode"] = function(s) {
-	return s.replace(new RegExp("\\u([0-9a-f]{2,4}", "g"), function (str, $1) {
-		return String.fromCharCode($1);
+	return s.replace(new RegExp("\\\\u0*([0-9a-f]{2,4})", "g"), function (str, $1) {
+//		return String.fromCharCode(parseInt($1, 16));
+		var c = parseInt($1, 16); // .substr(2).replace(/^0*/,'')
+		return String.fromCharCode(c);
 	});
 }
 

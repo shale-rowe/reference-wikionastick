@@ -331,9 +331,11 @@ woas["_native_page_def"] = function(ct,p,overwrite, title,attrs,last_mod,len,enc
 				"len = "+len+"\nencoding = "+encoding+"\ndisposition = "+disposition+
 				"\nboundary = "+boundary+"\n"); */
 		// check length (if any were passed)
-		if (len !== null) {
-			if (len != page.length)
-				this.alert("Length mismatch for page %s: ought to be %d but was %d".sprintf(title, len, page.length));
+		if (encoding != "ecma/plain") {
+			if (len !== null) {
+				if (len != page.length)
+					this.alert("Length mismatch for page %s: ought to be %d but was %d".sprintf(title, len, page.length));
+			}
 		}
 		// split encrypted pages into byte arrays
 		if (attrs & 2) {
@@ -363,10 +365,15 @@ woas["_native_page_def"] = function(ct,p,overwrite, title,attrs,last_mod,len,enc
 				page = decode64(page);
 			} else if (encoding == "ecma/plain") {
 				page = this.ecma_decode(page);
-				if (page === null) {
+/*				if (page === null) {
 					log("Page "+title+": could not read");
 					fail = true;
 					break;
+				} */
+				// now length can be checked
+				if (len !== null) {
+					if (len != page.length)
+						this.alert("Length mismatch for page %s: ought to be %d but was %d".sprintf(title, len, page.length));
 				}
 			} else {
 				log("Normal page "+title+" comes with unknown encoding "+encoding);
