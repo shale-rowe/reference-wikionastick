@@ -53,6 +53,7 @@ woas['i18n'] = {
 	B64_REQ: " (requires %s due to base64 encoding)",
 	WIDTH: "Width",
 	HEIGHT: "Height",
+	DELETE_PAGE_PROMPT: "Delete page:",
 	LOADING: "Loading Wiki on a Stick..."
 }
 
