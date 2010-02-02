@@ -1083,17 +1083,13 @@ woas["after_load"] = function() {
 	
 	this["_editor"] = new TextAreaSelectionHelper($("wiki_editor"));
 	
+	// set some fixup CSS with some browsers
+	if (firefox)
+		this.set_css(this.get_css());
+	
 	// check integrity of WoaS when finished - only in debug mode
 	if (this.debug) {
-		var len = pages.length;
-		if ((page_attrs.length != len) ||
-			(page_titles.length != len) ||
-			(page_mts.length != len))
-			this.crash("FATAL: data arrays have mismatching length!\n"+
-						"#pages = %d, #page_attrs = %d, #page_titles = %d, #page_mts = %d".
-						sprintf(pages.length, page_attrs.length, page_titles.length,
-						page_mts.length));
-		else
+		if (this.integrity_test())
 			$.hide("loading_overlay");
 	} else
 		$.hide("loading_overlay");
@@ -1400,7 +1396,27 @@ function _css_obj() {
 	return document.getElementsByTagName("style")[0];
 }
 
-woas["setCSS"] = function(new_css) {
+woas["FF2_CSS_FIXUP"] = "\n.wiki_preformatted { white-space: -moz-pre-wrap !important; } \n";
+
+woas["get_css"] = function() {
+	var co = document.getElementsByTagName("style")[0];
+	var css = co.innerHTML;
+	if (firefox2) {
+		// remove the fixup if present
+		if (css.substr(0, this.FF2_CSS_FIXUP.length) == this.FF2_CSS_FIXUP)
+			css = css.substr(this.FF2_CSS_FIXUP.length);
+	}
+	return css;
+}
+	
+woas["setCSS"] = function(new_css) { this.set_css(new_css); }
+
+//API1.0: set WoaS CSS
+woas["set_css"] = function(new_css) {
+	// with some browsers we have weird hot-fixes
+    // Mozilla, since 1999
+    if (firefox2)
+		new_css = this.FF2_CSS_FIXUP + new_css;
 	if (!ie) {
 		_css_obj().innerHTML = new_css;
 		return;

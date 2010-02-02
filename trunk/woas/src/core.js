@@ -213,3 +213,18 @@ woas["delete_page_i"] = function(i) {
 	//TODO: send proper save notification
 	return this.commit_delete([i]);
 }
+
+// some general integrity tests - for debug purposes
+woas["integrity_test"] = function() {
+	var len = pages.length;
+	if ((page_attrs.length != len) ||
+			(page_titles.length != len) ||
+			(page_mts.length != len)) {
+			this.crash("FATAL: data arrays have mismatching length!\n"+
+						"#pages = %d, #page_attrs = %d, #page_titles = %d, #page_mts = %d".
+						sprintf(pages.length, page_attrs.length, page_titles.length,
+						page_mts.length));
+		return false;
+	}
+	return true;
+}

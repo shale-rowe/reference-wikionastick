@@ -193,7 +193,7 @@ woas["mozillaSaveFile"] = function(filePath, save_mode, content) {
 		else
 			log("File \""+filePath+"\" exists, overwriting");	// log:1
 		var out = Components.classes["@mozilla.org/network/file-output-stream;1"].createInstance(Components.interfaces.nsIFileOutputStream);
-		out.init(file, 0x20 | 0x02, 00004,null);
+		out.init(file, 0x08 | 0x20 | 0x02, 0700, 0);
 		out.write(content, content.length);
 		out.flush();
 		out.close();
@@ -220,7 +220,7 @@ woas["mozillaLoadFile"] = function(filePath, load_mode) {
 			return false;
 		}
 		var inputStream = Components.classes["@mozilla.org/network/file-input-stream;1"].createInstance(Components.interfaces.nsIFileInputStream);
-		inputStream.init(file, 0x01, 00004, null);
+		inputStream.init(file, 0x01, 00004, 0);
 		var sInputStream = Components.classes["@mozilla.org/scriptableinputstream;1"].createInstance(Components.interfaces.nsIScriptableInputStream);
 		sInputStream.init(inputStream);
 		if (load_mode == this.file_mode.UTF8_TEXT)
