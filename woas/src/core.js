@@ -166,7 +166,7 @@ woas["cmd_go_to"] = function() {
 }
 
 woas["cmd_delete"] = function() {
-	var pname = prompt("Delete page:", current);
+	var pname = prompt(this.i18n.DELETE_PAGE_PROMPT, current);
 	if ((pname === null) || !pname.length)
 		return;
 	var pi = this.page_index(pname);
