@@ -1,15 +1,15 @@
 wsif.version: 1.0.0
 woas.version: 0.10.1
 
-woas.page3.title: Special::About
-woas.page3.attributes: 0
-woas.page3.last_modified: 1264700333
-woas.page3.length: 4434
-woas.page3.encoding: 8bit/plain
-woas.page3.disposition: inline
-woas.page3.boundary: hWDTUncUuoLECKXbMKTD
+woas.page.title: Special::About
+woas.page.attributes: 0
+woas.page.last_modified: 1264700333
+woas.page.length: 4434
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: tvNsbCGTWeGWVRSZNNNB
 
---hWDTUncUuoLECKXbMKTD
+--tvNsbCGTWeGWVRSZNNNB
 <img align="right" id="img_print" style="display: inline; visibility: visible;" height="32" alt="WoaS Logo" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAQAAADZc7J%2FAAAAAXNSR0IArs4c6QAAAAJiS0dEAP%2BHj8y%2FAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH2gEcDzUY4t9JowAAABl0RVh0Q29tbWVudABDcmVhdGVkIHdpdGggR0lNUFeBDhcAAAI7SURBVEjHtdVPSFRRFAbw33ujljETWhaGo9YiCGoVuHDTIggE2xRBbgeEoFWQFARBq3ZCELQKgqJtbWtTEAitgqBNCZJFGGb%2B18Hxz20xr3HSmXEU%2Bt7ivnvf%2B757z3feOydSAZNh2QrW0IAm%2Bx2LVMS25e9h0UbFF5u1aI1qCvwMs9ZVRyStK6oq8D3M2xn7HdYSVRAYC3n1ocHRslDi4vCtbjprpspmcTH2BbtBwddQJjATZu0Wi36FvwFZqOk861atbUttvDku1SAHeUsKFb6MueQM8c%2BwUcOuJatVnxYDb8hX3XtFoWZoxZM3LFkpW0wlfmxY29HIvNnQEsV5fQql62IyVqO%2FknPegNtgFfG6wyZ80GtaQRrjcnpdN5eQhvTrNwaG5Tx3S0%2BSH%2BIga9SItA8mZTGs21MZTxKBnMfuJLOsLzLOupL4RJySNeadGyWBT645adAbMO6xnCHvwUNcMmg0cYy4Ubc30vp9NaG7FG1TYueQHve9sAjSBr10xj3QiLhZp1F96PRWJ854ZsIjF8CK07LeYQ4PfJRyCuzTGhEfkJVyAeeMyOKmTy5bkAODbhsw4ZyrGDekz2t3kSnWg5nwWbAXHHcsIm6NDu2J%2FrfMxrRJ7UGgffNvPBQd2TU9UyrzMZyIDu6K3qRja13o0Fw3PaWrrKiWbmbCDwt17d7lSFSlsYyG3zukNKNjS3fa0md%2BhUnzVRPXXqFDVmiZU2HOouV%2Fjn1QRntUV3PdxHRYRUpb5H%2FiD%2FUerIBA%2BEx5AAAAAElFTkSuQmCC">
 [[Special::TOC]]
 = Welcome to Wiki on a Stick!
@@ -55,4 +55,4 @@ And, last but not least:
 * [[http://sourceforge.net/tracker/?group_id=155218&atid=794928|SF.net WoaS project feature tracker]] - if you have have suggestions for improvements
 * [[http://woas.iragan.com/cgi-bin/wiki/|Official WoaS Documentation Wiki]] - under construction
 * [[http://groups.google.com/group/stickwiki/|Official WoaS Google Group]] - for public anonymous discussion (mailing list)
---hWDTUncUuoLECKXbMKTD
+--tvNsbCGTWeGWVRSZNNNB

@@ -1,18 +1,20 @@
 wsif.version: 1.0.0
 woas.version: 0.10.1
 
-woas.page34.title: Diâcritics
-woas.page34.attributes: 0
-woas.page34.last_modified: 1264700333
-woas.page34.length: 92
-woas.page34.encoding: 8bit/plain
-woas.page34.disposition: inline
-woas.page34.boundary: hWDTUncUuoLECKXbMKTD
+woas.page.title: Embedded SVG
+woas.page.attributes: 0
+woas.page.last_modified: 1265010999
+woas.page.length: 171
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: tvNsbCGTWeGWVRSZNNNB
 
---hWDTUncUuoLECKXbMKTD
-= Diâcritics
+--tvNsbCGTWeGWVRSZNNNB
+= Embedded SVG
 
-Simon wonders if a page with diâcritics will be found änywáy.
+This page contains an embedded SVG snippet
 
-[[Tags::dummy]]
---hWDTUncUuoLECKXbMKTD
+[[File::seed_of_life.svg]] is transcluded in this page as raw, and it happens that the browser can render it:
+
+
+--tvNsbCGTWeGWVRSZNNNB

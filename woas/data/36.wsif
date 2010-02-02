@@ -1,20 +1,32 @@
 wsif.version: 1.0.0
 woas.version: 0.10.1
 
-woas.page36.title: Embedded SVG
-woas.page36.attributes: 0
-woas.page36.last_modified: 1265010999
-woas.page36.length: 171
-woas.page36.encoding: 8bit/plain
-woas.page36.disposition: inline
-woas.page36.boundary: hWDTUncUuoLECKXbMKTD
+woas.page.title: Feature::Bootscript
+woas.page.attributes: 0
+woas.page.last_modified: 1264700333
+woas.page.length: 642
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: tvNsbCGTWeGWVRSZNNNB
 
---hWDTUncUuoLECKXbMKTD
-= Embedded SVG
+--tvNsbCGTWeGWVRSZNNNB
+= Feature::Bootscript
 
-This page contains an embedded SVG snippet
+If you want to execute some javascript at boot time (when WoaS is loaded into the browser), you should modify the [[WoaS::Bootscript]] page.
 
-[[File::seed_of_life.svg]] is transcluded in this page as raw, and it happens that the browser can render it:
+Be careful not to break javascript execution during this stage; in order to debug your boot-time javascript, you might use blocks like:
+{{{
+    try {
+       your_code(here);
+   }
+   catch (e) {
+       alert(e);
+   }
+}}}
 
+== Applications
 
---hWDTUncUuoLECKXbMKTD
+The Bootscript can be used to override WoaS core functions in order to replace them with customized functions which finally call the overriden function or perfectly emulate its behaviour.
+
+NOTE: the WoaS javascript API is not yet specified
+--tvNsbCGTWeGWVRSZNNNB

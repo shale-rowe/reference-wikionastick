@@ -1,68 +1,42 @@
 wsif.version: 1.0.0
 woas.version: 0.10.1
 
-woas.page21.title: Testcase::WoaS testcases
-woas.page21.attributes: 0
-woas.page21.last_modified: 1264700333
-woas.page21.length: 1332
-woas.page21.encoding: 8bit/plain
-woas.page21.disposition: inline
-woas.page21.boundary: hWDTUncUuoLECKXbMKTD
+woas.page.title: Options
+woas.page.attributes: 0
+woas.page.last_modified: 1264700333
+woas.page.length: 1336
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: tvNsbCGTWeGWVRSZNNNB
 
---hWDTUncUuoLECKXbMKTD
-== Bold vs lists testcase
+--tvNsbCGTWeGWVRSZNNNB
+= Options
+Below are explations of the options on the [[Special::Options]] page.
 
-*bold text*\\
- * bold text*\\
-* bold text*\\
+=== Use consistent newlines in saved data
+When enabled, forces the plain pages to be saved using consistent newlines splitting. This is particularly useful if you use a versioning system like Subversion (SVN) or CVS.
 
-* first level
-** second level *bold text* or * with space*
-*** third level
-** *second level* - beginning with bold
-**second level with no space (see [[Creole:Require Space After Bullet Proposal]])
-** this text does not close, see what happens * not closing
-* first level
+=== Double click to edit pages/menu
+When enabled, allows to switch to edit mode when double-clicking the page content or menu area.
 
-== Syntax parsing testcase
-On my right there is some _underlined text_, followed by *bold text* and /italics/.
+=== Automatically save options (if changed) before quitting
+When enabled, allows option changes to be automatically saved without having to click the *Save options* button at the bottom of the page.
 
-{{{ do / things / like / this }}}
+=== Do not temporarily cache the AES key
+When enabled, forces the use of a key for each encrypted page (useful if you leave WoaS open to possible unauthorized access).
 
-Now I will use /*italics and bold*/, followed by */bold and italics/* and finally _*/underlined bold italics/*_.
+=== Fixed menu area and topbar
+When enabled, fixes the menu and banner in place, while allowing the page to scroll.
 
-Maybe you want to see some *_/bold underlined italics/_* or also some */_bold italics underlined_/*?
+=== Save last page visited when quitting
+When enabled, automatically opens the last saved page.
 
-And here is, just for you, a partial *bold-/italics/*!!!
+=== Enable cumulative save
+When enabled, will save to disk only when quitting.
 
-*Some bold text* on a line beginning
+=== Disallow edits (button)
+When clicked, puts the wiki into server mode. With this option users will be told that it is not possible to save their changes, but that changes will be allowed to for sandbox (testing) purposes.
 
-As you can see, /an/unix/path/ is correctly recognized.
+[[Tags::Help]]
 
-A windows unix-style path: C:/My_Files/*.ini and C:/My_Files/*.u
-A windows path: C:\My_Files\*.ini and C:\My_Files\*.u
-
-[[http://example.com/url*with*asterisks]]
-
-== Rulers and tables
-
-Some text above a ruler
-----
-{|
-| 1 || 2
-|-
-| 3 || 4
-|}
-
-== Advanced listing
-
-# Voltage (v) - j/c <blockquote>voltage can only be taken at two different nodes</blockquote>
-# Current (i) - c/sec
-# Power (w) - vi
-
-== Inclusion of nowiki pages
-
-[[Include::Nowiki dummy]]
-
-[[Tags::example]]
---hWDTUncUuoLECKXbMKTD
+--tvNsbCGTWeGWVRSZNNNB

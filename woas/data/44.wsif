@@ -1,32 +1,14 @@
 wsif.version: 1.0.0
 woas.version: 0.10.1
 
-woas.page44.title: Testcase::Headlines mix
-woas.page44.attributes: 0
-woas.page44.last_modified: 1264700333
-woas.page44.length: 120
-woas.page44.encoding: 8bit/plain
-woas.page44.disposition: inline
-woas.page44.boundary: hWDTUncUuoLECKXbMKTD
+woas.page.title: WoaS::Aliases
+woas.page.attributes: 0
+woas.page.last_modified: 1264700333
+woas.page.length: 16
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: tvNsbCGTWeGWVRSZNNNB
 
---hWDTUncUuoLECKXbMKTD
-[[Special::TOC]]
-
-== Sandbox
-Hey ya
-
-== test
-asdf
-
-== test
-asdf
-
-= Sandbox
-
-
-=== test, first
-asdf
-
-=== test, second
-asdf
---hWDTUncUuoLECKXbMKTD
+--tvNsbCGTWeGWVRSZNNNB
+$HOME  Main Page
+--tvNsbCGTWeGWVRSZNNNB
