@@ -187,6 +187,99 @@ woas["_native_load"] = function() {
 	return false;
 }
 
-woas["import_wiki_wsif"] = function() {
-	this.alert("Not yet implemented");
+woas["_native_wsif_load" = function(path, overwrite) {
+	var ct = this.load_file(path, this.file_mode.UTF8_TEXT);
+	if (typeof ct != "String") {
+		return false;
+	}
+	var pfx = "\nwoas.page.", pfx_len = pfx.length;
+	// start looping to find each page
+	var p = ct.indexOf(pfx), fail = false;
+	var title, attrs, last_mod, len, encoding, disposition, boundary;
+	while (p != -1) {
+		// remove prefix
+		sep = ct.indexOf(":", p+pfx_len);
+		if (sep == -1) {
+			fail = true;
+			break;
+		}
+		// get attribute name
+		var sep, vsep, s, v;
+		s = ct.substring(p+pfx_len, sep);
+		// get value
+		vsep = ct.indexOf("\n", sep+1);
+		if (vsep == -1) {
+			fail = true;
+			break;
+		}
+		v = ct.substring(sep+1, vsep);
+		// update pointer
+		p = vsep+1;
+		switch (s) {
+			case "title":
+				// we have just jumped over a page definition
+				if (title !== null) {
+					p = this._native_page_def(ct,p,title,attrs,last_mod,len,encoding,
+											disposition,boundary);
+					if (p == -1) {
+						fail = true;
+						break 2;
+					}
+					title = attrs = last_mod = encoding = len =
+						 = boundary = disposition = null;
+				}
+				title = v;
+			break;
+			case "attributes":
+				attrs = Number(v);
+			break;
+			case "last_modified":
+				last_mod = Number(v);
+			break;
+			case "length":
+				len = Number(v);
+			break;
+			case "encoding":
+				encoding = v;
+			break;
+			case "disposition":
+				disposition = v;
+			break;
+			case "boundary":
+				boundary = v;
+			break;
+			default:
+				log("Unknown WSIF header: "+s);
+		} // end switch(s)
+		// set pointer to next entry
+		p = ct.indexOf(pfx, p);
+	}
+	// process the last page (if any)
+	if (title != null)
+		this._native_page_def(ct,p,title,attrs,last_mod,len,encoding,
+											disposition,boundary)
+	return !fail;
+}
+
+woas["_native_page_def"] = function(ct,p,title,attrs,last_mod,len,encoding,
+											disposition,boundary) {
+	// craft the exact boundary match string
+	boundary = "\n--"+boundary+"\n";
+	// locate start and ending boundaries
+	var bpos_s = ct.indexOf(boundary, p);
+	if (bpos_s == -1) {
+		log("Failed to find start boundary "+boundary+" for page "+title); //log:1
+		return -1;
+	}
+	var bpos_e = ct.indexOf(boundary, bpos_s+boundary.length);
+	if (bpos_e == -1) {
+		log("Failed to find end boundary "+boundary+" for page "+title); //log:1
+		return -1;
+	}
+	// retrieve full page content
+	var page = ct.substring(bpos_s, bpos_e);
+	alert(page);
+	return -1;
+	// return updated offset
+	return bpos_e+boundary.length;
 }

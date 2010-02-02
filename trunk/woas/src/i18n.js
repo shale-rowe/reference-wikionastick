@@ -54,6 +54,7 @@ woas['i18n'] = {
 	WIDTH: "Width",
 	HEIGHT: "Height",
 	DELETE_PAGE_PROMPT: "Delete page:",
+	CONFIRM_IMPORT_OVERWRITE: "This will OVERWRITE pages with the same title.\n\nAre you sure you want to continue?",
 	LOADING: "Loading Wiki on a Stick..."
 }
 
