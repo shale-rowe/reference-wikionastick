@@ -210,5 +210,5 @@ woas["delete_page_i"] = function(pi) {
 	page_mts.splice(i,1);
 	this.refresh_menu_area();
 	//TODO: send proper save notification
-	return this.commit();
+	return this.commit_delete([pi]);
 }
