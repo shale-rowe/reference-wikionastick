@@ -395,7 +395,7 @@ woas["export_wiki_wsif"] = function () {
 	return true;
 }
 
-function import_wiki_wsif = function() {
+function import_wiki_wsif() {
 	if (!woas.config.permit_edits) {
 		this.alert(woas.i18n.READ_ONLY);
 		return false;
