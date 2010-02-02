@@ -20,26 +20,6 @@ woas["wsif"]["inline"] = function(boundary, content) {
 // - wiki pages go inline (utf-8), no container encoding
 // - embedded files/images go outside as blobs
 // - encrypted pages go inline in base64
-woas["export_wiki_wsif"] = function () {
-	// export settings object
-	var path, author, single_wsif, inline_wsif;
-	try {
-		path = $("woas_ep_wsif").value;
-		author = this.trim($("woas_ep_author").value);
-		single_wsif = $("woas_cb_single_wsif").checked ? true : false;
-		inline_wsif = $("woas_cb_inline_wsif").checked ? true : false;
-	} catch (e) { this.crash(e); return false; }
-	
-	// block interaction for a while
-	$.show("loading_overlay");
-	$("loading_overlay").focus();
-	
-	var done = this._native_wsif_save(path, single_wsif, inline_wsif, author, false);
-
-	$.hide("loading_overlay");
-	this.alert(this.i18n.EXPORT_OK.sprintf(done));
-	return true;
-}
 
 woas["_native_wsif_save"] = function(path, single_wsif, inline_wsif, author,
 							save_all, plist) {
