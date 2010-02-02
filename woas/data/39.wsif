@@ -1,18 +1,30 @@
 wsif.version: 1.0.0
 woas.version: 0.10.1
 
-woas.page.title: Escaped > page
+woas.page.title: Features::Oddmuse integration
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
-woas.page.length: 152
+woas.page.length: 470
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
-woas.page.boundary: tvNsbCGTWeGWVRSZNNNB
+woas.page.boundary: DFQRCTsKlU
 
---tvNsbCGTWeGWVRSZNNNB
-= Escaped > page
+--DFQRCTsKlU
+= Oddmuse integration
 
-This page should be exported correctly even if it contains a ">" sign in the title.
+You can easily integrate WoaS with [[http://www.oddmuse.org/|Oddmuse]] using [[http://www.jquery.com/|jQuery]].
 
-Other commonly escaped characters are % < > | : #
---tvNsbCGTWeGWVRSZNNNB
+== Posting
+The URL to post is in the form:
+
+{{{http://example.com/cgi-bin/wiki?text=posted%20text;title=HomePage}}}
+
+== Reading
+The URL to retrieve the wiki source is:
+
+{{{http://example.com/cgi-bin/wiki/raw/HomePage}}}
+
+== Overriding
+
+It is theorically possible to use Javascript:: namespace pages to automatize pages retrieval/save.
+--DFQRCTsKlU

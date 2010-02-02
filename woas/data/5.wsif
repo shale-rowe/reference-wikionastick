@@ -7,9 +7,9 @@ woas.page.last_modified: 1264700333
 woas.page.length: 703
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
-woas.page.boundary: tvNsbCGTWeGWVRSZNNNB
+woas.page.boundary: DFQRCTsKlU
 
---tvNsbCGTWeGWVRSZNNNB
+--DFQRCTsKlU
 = Search in Wiki
 
 <input id="string_to_search" type="text" onfocus="search_focus(true)" onblur="search_focus(false)" />&nbsp;<input type="button" value="Search" onclick="do_search()" />&nbsp;<input type="button" value="Clear" onclick="clear_search()" />
@@ -28,4 +28,4 @@ hl_text = null;
 //_hl_reg = null;
  $("string_to_search").focus();
 </script>
---tvNsbCGTWeGWVRSZNNNB
+--DFQRCTsKlU

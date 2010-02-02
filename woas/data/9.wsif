@@ -7,9 +7,9 @@ woas.page.last_modified: 1264700333
 woas.page.length: 2207
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
-woas.page.boundary: tvNsbCGTWeGWVRSZNNNB
+woas.page.boundary: DFQRCTsKlU
 
---tvNsbCGTWeGWVRSZNNNB
+--DFQRCTsKlU
 == AES encryption
 Since Wiki on a Stick v0.9 the [[http://en.wikipedia.org/wiki/Advanced_Encryption_Standard|AES]] 256-bit high security data encryption standard is supported to protect a single page or groups of them.
 
@@ -31,4 +31,4 @@ Security is never absolute. Data encrypted with these pages might be compromised
 * Your computer's security may have been compromised physically; when's the last time you checked that a bug that transmits your keystrokes and/or screen contents to that white van parked down the street wasn't lurking inside your computer cabinet?
 
 Apart from the above, your normal usage of encrypted pages can be considered secure.
---tvNsbCGTWeGWVRSZNNNB
+--DFQRCTsKlU
