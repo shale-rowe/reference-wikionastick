@@ -187,7 +187,7 @@ woas["_native_load"] = function() {
 	return false;
 }
 
-woas["_native_wsif_load" = function(path, overwrite) {
+woas["_native_wsif_load"] = function(path, overwrite) {
 	var ct = this.load_file(path, this.file_mode.UTF8_TEXT);
 	if (typeof ct != "String") {
 		return false;
@@ -221,12 +221,12 @@ woas["_native_wsif_load" = function(path, overwrite) {
 				if (title !== null) {
 					p = this._native_page_def(ct,p,title,attrs,last_mod,len,encoding,
 											disposition,boundary);
+					title = attrs = last_mod = encoding = len =
+						 boundary = disposition = null;
 					if (p == -1) {
 						fail = true;
-						break 2;
+						break;
 					}
-					title = attrs = last_mod = encoding = len =
-						 = boundary = disposition = null;
 				}
 				title = v;
 			break;
