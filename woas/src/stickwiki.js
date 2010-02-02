@@ -67,8 +67,8 @@ woas["js_encode"] = function (s, split_lines) {
 // perform ECMAScript encoding only on some UTF-8 sequences
 woas["ecma_encode"] = function(s) {
 	// fix the >= 128 ascii chars (to prevent UTF-8 characters corruption)
-	return s.replace(new RegExp("([^\u0000-\u007F])", "g"), function(str, $1) {
-				var s = $1.charCodeAt(0).toString(16);
+	return s.replace(new RegExp("[^\u0000-\u007F]", "g"), function(str) {
+				var s = str.charCodeAt(0).toString(16);
 				for(var i=4-s.length;i>0;i--) {
 					s = "0"+s;
 				}
