@@ -3,9 +3,10 @@
 // private function used during development for page contents versioning
 woas["_native_save"] = function(plist) {
 	// if we have a native sub-path, trigger the native WSIF data export
-	if (this._native_wsif == null)
+	if (!this._auto_native_wsif)
 		return;
-	var done, path = _get_this_path()+this._native_wsif;
+	// always save in the root directory
+	var done, path = _get_this_path();
 	// code disabled since we always save the full backup
 //	if (typeof plist != "undefined" )
 //		done = this._native_wsif_save(path,	true, true, "", true, plist); else

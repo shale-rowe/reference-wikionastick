@@ -1,12 +1,9 @@
 
 // native WSIF-saving mode used during development - use with CARE!
-// set to null to disable
-// empty string will save index.wsif in same directory of WoaS XHTML file
-woas["_native_wsif"] = "";
-//woas["_native_wsif"] = null;
+woas["_auto_native_wsif"] = true;
 
 // a class for some general WSIF operations
-woas["wsif" ] = {version: "1.0.0", emsg: "No error"};
+woas["wsif" ] = {version: "1.0.0", DEFAULT_INDEX: "index.wsif", emsg: "No error"};
 
 woas["wsif"]["header"] = function(header_name, value) {
 	return header_name+": "+value+"\n";
@@ -168,7 +165,7 @@ woas["_native_wsif_save"] = function(path, single_wsif, inline_wsif, author,
 		}
 	}
 	// output the index WSIF file now
-	if (!this.save_file(path+"index.wsif",
+	if (!this.save_file(path+this.wsif.DEFAULT_INDEX,
 						this.file_mode.UTF8_TEXT,
 						extra + "\n" + full_wsif)) {
 		if (single_wsif)

@@ -445,7 +445,7 @@ woas["_save_to_file"] = function(full) {
 	
 	// in native WSIF mode we will save empty arrays
 
-	if (this._native_wsif !== null)
+	if (this._auto_native_wsif)
 		computed_js += "var page_titles = [\n" + printout_fixed('""', page_titles.length) + "];\n\n";
 	else
 		computed_js += "var page_titles = [\n" + printout_arr(page_titles, false) + "];\n\n";
@@ -453,7 +453,7 @@ woas["_save_to_file"] = function(full) {
 	computed_js += "/* " + new_marker + "-DATA */\n";
 	
 	if (full) {
-		if (this._native_wsif !== null) {
+		if (this._auto_native_wsif) {
 			computed_js += "var page_attrs = [" + printout_fixed(0, page_attrs.length) + "];\n\n";
 			computed_js += "var page_mts = [" + printout_fixed(0, page_mts.length) + "];\n\n";
 			computed_js += "var pages = [\n" + printout_fixed('""', pages.length) + "];\n\n";
