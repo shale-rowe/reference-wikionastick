@@ -398,6 +398,14 @@ function printout_num_arr(arr) {
 	return s;
 }
 
+function printout_fixed(elem, n) {
+	var s = (elem+",").repeat(n-1);
+	// add the last element (without comma due to IE6 bug)
+	if (n>1)
+		s += elem;
+	return s;
+}
+
 // save full WoaS to file
 woas["_save_to_file"] = function(full) {
 	// put in busy mode
@@ -434,21 +442,28 @@ woas["_save_to_file"] = function(full) {
 	"';\n\nvar main_page = '" + this.js_encode(main_page) + "';\n\n";
 	
 	computed_js += "var backstack = [\n" + printout_arr(backstack, false) + "];\n\n";
+	
+	// in native WSIF mode we will save empty arrays
 
-	computed_js += "var page_titles = [\n" + printout_arr(page_titles, false) + "];\n\n";
+	if (this._native_wsif !== null)
+		computed_js += "var page_titles = [\n" + printout_fixed('""', page_titles.length) + "];\n\n";
+	else
+		computed_js += "var page_titles = [\n" + printout_arr(page_titles, false) + "];\n\n";
 	
 	computed_js += "/* " + new_marker + "-DATA */\n";
 	
 	if (full) {
-		computed_js += "var page_attrs = [" + printout_num_arr(page_attrs) + "];\n\n";
-		
+		if (this._native_wsif !== null) {
+			computed_js += "var page_attrs = [" + printout_fixed(0, page_attrs.length) + "];\n\n";
+			computed_js += "var page_mts = [" + printout_fixed(0, page_mts.length) + "];\n\n";
+			computed_js += "var pages = [\n" + printout_fixed('""', pages.length) + "];\n\n";
+		} else {
 		// used to reset MTS
 //		for(var ip=0,ipl=pages.length;ip<ipl;++ip) { page_mts[ip] = this.MAGIC_MTS; }
-		
-		computed_js += "var page_mts = [" + printout_num_arr(page_mts) + "];\n\n";
-		
-		computed_js += "var pages = [\n" + printout_mixed_arr(pages, this.config.allow_diff, page_attrs) + "];\n\n";
-		
+			computed_js += "var page_attrs = [" + printout_num_arr(page_attrs) + "];\n\n";
+			computed_js += "var page_mts = [" + printout_num_arr(page_mts) + "];\n\n";
+			computed_js += "var pages = [\n" + printout_mixed_arr(pages, this.config.allow_diff, page_attrs) + "];\n\n";
+		}
 		computed_js += "/* " + new_marker + "-END */\n";
 	}
 

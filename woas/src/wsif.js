@@ -292,9 +292,20 @@ woas["_native_wsif_load"] = function(path, overwrite, and_save, obj_id) {
 		p = ct.indexOf(pfx, p);
 	}
 	// process the last page (if any)
-	if (title != null)
-		this._native_page_def(ct,p,title,attrs,last_mod,len,encoding,
-											disposition,boundary);
+	if (title !== null) {
+		p = this._native_page_def(ct,bak_p,overwrite,
+				title,attrs,last_mod,len,encoding,disposition,boundary,mime);
+		// save page index for later analysis
+		var pi = page_titles.indexOf(title);
+		if (p == -1)
+			fail = true;
+		else {
+			// check if page was really imported, and if yes then
+			// add page to list of imported pages
+			if (pi != -1)
+				imported.push(pi);
+		}
+	}
 	if (fail)
 		return false;
 	// save imported pages
