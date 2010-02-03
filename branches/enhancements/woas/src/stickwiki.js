@@ -1411,7 +1411,7 @@ function kbd_is(k,m){if(kbd.KEY==k&&kbd.META==(m||0))return 1}
 function kbd_hook_down(orig_e) {
 	var e = kbd( orig_e ? orig_e.keyCode : window.event.keyCode, 1);
 	if(!e) return orig_e;
-	
+	if(orig_e)orig_e.cancelBubble = true; else window.event.cancelBubble = true; // seems to fix nested functions that dont return here. edit();return false  never returns false... so the key gets 'stuck'
 	if (kbd_hooking) { // EDIT MODE
 		if (kbd_is(27)) { // Escape pressed during edit mode
 			cancel();
@@ -1707,7 +1707,8 @@ woas["user_parse"] = function(title,text){
 }
 woas["user_parse"].pre = function(m){return "<pre>"+woas.xhtml_encode(m)+"</pre>"}
 woas["user_parse"].nobr = function(m){return m.replace(/\n/g,"")}
-woas["user_parse"].verbatim = function(m){return m}
+woas["user_parse"].verbatim = function(m){return m} // protect block 
+woas["user_parse"].parse = function(m){return woas.parser.parse(m) } // protect parsed block (allows lists in tables!)
 woas["user_parse"].js = function(m){this.post++;return this._default(m)}
 woas["user_parse"]._default = function(text){
 	var _print="";
