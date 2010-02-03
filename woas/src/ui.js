@@ -301,24 +301,16 @@ function show_full_file(pi) {
 	$.hide('loading_overlay');
 }
 
-// used in path normalization during export
-var _g_slash_c = (navigator.appVersion.indexOf("Win")!=-1)?"\\":"/";
-
-// the export path used by export feature
-var _g_exp_path = _get_this_filename().
-	replace(new RegExp("\\"+_g_slash_c+"[^\\"+_g_slash_c+"]*$"),
-				(_g_slash_c=="\\"?"\\\\":"/"));
-
 function query_export_file(cr) {
 	var fn = cr.substr(cr.indexOf("::")+2);
-	if (confirm(woas.i18n.CONFIRM_EXPORT+"\n\n\""+_g_exp_path+fn))
-		woas.export_file(cr, _g_exp_path+fn);
+	if (confirm(woas.i18n.CONFIRM_EXPORT+"\n\n\""+woas.ROOT_DIRECTORY+fn))
+		woas.export_file(cr, woas.ROOT_DIRECTORY+fn);
 }
 
 function query_export_image(cr) {
 	var img_name = cr.substr(cr.indexOf("::")+2);
-	if (confirm(woas.i18n.IMAGE_CONFIRM_EXPORT+"\n\n\""+_g_exp_path+img_name))
-		woas.export_file(cr, _g_exp_path+img_name);
+	if (confirm(woas.i18n.IMAGE_CONFIRM_EXPORT+"\n\n\""+woas.ROOT_DIRECTORY+img_name))
+		woas.export_file(cr, woas.ROOT_DIRECTORY+img_name);
 }
 
 function query_delete_file(cr) {
@@ -368,12 +360,6 @@ function page_print() {
 }
 
 // below functions used by Special::Export
-
-// get path of current WoaS file (through browser)
-function _get_this_path() {
-	var slash_c = (navigator.appVersion.indexOf("Win")!=-1)?"\\\\":"/";
-	return _get_this_filename().replace(new RegExp("("+slash_c+")"+"[^"+slash_c+"]*$"), "$1");
-}
 
 woas["export_wiki_wsif"] = function () {
 	var path, author, single_wsif, inline_wsif;

@@ -197,7 +197,7 @@ woas["_native_load"] = function() {
 	page_titles = [];
 	page_mts = [];
 	// get the data
-	var path = _get_this_path()+"index.wsif";
+	var path = woas.ROOT_DIRECTORY+"index.wsif";
 	return this._native_wsif_load(path, false, false);
 }
 
@@ -216,8 +216,9 @@ woas["_native_wsif_load"] = function(path, overwrite, and_save, obj_id) {
 		woas.wsif.emsg = "Corrupted WSIF file";
 	var title = null,	attrs = null,
 		last_mod = null,	len = null,
-		encoding = null,	disposition = null, boundary = null,
-		mime = null;
+		encoding = null,	disposition = null,
+		d_fn = null,
+		boundary = null,	mime = null;
 	while (p != -1) {
 		// remove prefix
 		sep = ct.indexOf(":", p+pfx_len);
@@ -246,12 +247,13 @@ woas["_native_wsif_load"] = function(path, overwrite, and_save, obj_id) {
 			case "title":
 				// we have just jumped over a page definition
 				if (title !== null) {
-					p = this._native_page_def(ct,bak_p,overwrite,
-							title,attrs,last_mod,len,encoding,disposition,boundary,mime);
+					p = this._native_page_def(path,ct,bak_p,overwrite,
+							title,attrs,last_mod,len,encoding,disposition,
+							d_fn,boundary,mime);
 					// save page index for later analysis
 					var pi = page_titles.indexOf(title);
 					title = attrs = last_mod = encoding = len =
-						 boundary = disposition = mime = null;
+						 boundary = disposition = mime = d_fn = null;
 					if (p == -1) {
 						fail = true;
 						break;
@@ -282,6 +284,9 @@ woas["_native_wsif_load"] = function(path, overwrite, and_save, obj_id) {
 			case "disposition":
 				disposition = v;
 			break;
+			case "disposition.filename":
+				d_fn = v;
+			break;
 			case "boundary":
 				boundary = v;
 			break;
@@ -298,8 +303,8 @@ woas["_native_wsif_load"] = function(path, overwrite, and_save, obj_id) {
 	}
 	// process the last page (if any)
 	if (title !== null) {
-		p = this._native_page_def(ct,bak_p,overwrite,
-				title,attrs,last_mod,len,encoding,disposition,boundary,mime);
+		p = this._native_page_def(path,ct,bak_p,overwrite,
+				title,attrs,last_mod,len,encoding,disposition,d_fn,boundary,mime);
 		// save page index for later analysis
 		var pi = page_titles.indexOf(title);
 		if (p == -1)
@@ -323,31 +328,31 @@ woas["_native_wsif_load"] = function(path, overwrite, and_save, obj_id) {
 	return 0;
 }
 
-woas["_native_page_def"] = function(ct,p,overwrite, title,attrs,last_mod,len,encoding,
-											disposition,boundary,mime) {
-	// craft the exact boundary match string
-	boundary = "\n--"+boundary+"\n";
-	// locate start and ending boundaries
-	var bpos_s = ct.indexOf(boundary, p);
-	if (bpos_s == -1) {
-		this.wsif.emsg = "Failed to find start boundary "+boundary+" for page "+title;
-		return -1;
-	}
-	var bpos_e = ct.indexOf(boundary, bpos_s+boundary.length);
-	if (bpos_e == -1) {
-		this.wsif.emsg = "Failed to find end boundary "+boundary+" for page "+title;
-		return -1;
-	}
-	var fail = false;
-	// attributes must be defined
-	if (attrs === null) {
-		log("No attributes defined for page "+title);
-		fail = true;
-	}
-	// last modified timestamp can be omitted
-	if (last_mod === null)
-		last_mod = this.MAGIC_MTS;
+woas["_native_page_def"] = function(path,ct,p,overwrite, title,attrs,last_mod,len,encoding,
+											disposition,d_fn,boundary,mime) {
 	if (disposition == "inline") {
+		// craft the exact boundary match string
+		boundary = "\n--"+boundary+"\n";
+		// locate start and ending boundaries
+		var bpos_s = ct.indexOf(boundary, p);
+		if (bpos_s == -1) {
+			this.wsif.emsg = "Failed to find start boundary "+boundary+" for page "+title;
+			return -1;
+		}
+		var bpos_e = ct.indexOf(boundary, bpos_s+boundary.length);
+		if (bpos_e == -1) {
+			this.wsif.emsg = "Failed to find end boundary "+boundary+" for page "+title;
+			return -1;
+		}
+		var fail = false;
+		// attributes must be defined
+		if (attrs === null) {
+			log("No attributes defined for page "+title);
+			fail = true;
+		}
+		// last modified timestamp can be omitted
+		if (last_mod === null)
+			last_mod = this.MAGIC_MTS;
 		while (!fail) { // used to break away
 		// retrieve full page content
 		var page = ct.substring(bpos_s+boundary.length, bpos_e);
@@ -407,8 +412,22 @@ woas["_native_page_def"] = function(ct,p,overwrite, title,attrs,last_mod,len,enc
 		} // wend
 		
 	} else if (disposition == "external") {
-		log("external WSIF not yet implemented");
-		fail = true;
+		if (encoding != "text/wsif") {
+			this.wsif.emsg = "Page "+title+" is external but not encoded as text/wsif";
+			return -1;
+		}
+		if (d_fn === null) {
+			this.wsif.emsg = "Page "+title+" is external but no filename was specified";
+			return -1;
+		}
+		// check the result of external import
+		var rv = this._native_wsif_load(this.dirname(path)+d_fn, overwrite);
+		if (rv === false) {
+			this.wsif.emsg = "Failed import of external "+d_fn+"\n"+this.wsif.emsg;
+			p = -1;
+		}
+		// do not change the offset
+		return p;
 	}
 	
 	if (!fail) {

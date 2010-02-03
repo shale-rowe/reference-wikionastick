@@ -6,11 +6,11 @@ woas["_native_save"] = function(plist) {
 	if (!this._auto_native_wsif)
 		return;
 	// always save in the root directory
-	var done, path = _get_this_path();
+	var done;
 	// code disabled since we always save the full backup
 //	if (typeof plist != "undefined" )
 //		done = this._native_wsif_save(path,	true, true, "", true, plist); else
-	done = this._native_wsif_save(path,	true, true, "", true);
+	done = this._native_wsif_save(woas.ROOT_DIRECTORY,	true, true, "", true);
 
 	log("saved "+done+" pages natively"); // log:1
 }
