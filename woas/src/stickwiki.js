@@ -1052,9 +1052,9 @@ woas["after_load"] = function() {
 	$('img_home').alt = main_page;
 	
 	if (this.debug)
-		$.show("debug_panel");
+		$.show("woas_debug_panel");
 	else
-		$.hide("debug_panel");
+		$.hide("woas_debug_panel");
 
 	this.img_display("back", true);
 	this.img_display("forward", true);
