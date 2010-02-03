@@ -228,7 +228,7 @@ woas["integrity_test"] = function() {
 		return false;
 	}
 	// test integrity of ecma encoding
-	var ecmat = ' \u00f6 ';
+	var ecmat = 'Di\u00e2critics\\: \u00f6';
 	if (this.ecma_decode(this.ecma_encode(ecmat)) !== ecmat) {
 		this.crash("ECMA encoding not working:\n"+this.ecma_decode(this.ecma_encode(ecmat))+
 		"\n"+ecmat);
