@@ -412,7 +412,7 @@ function import_wiki_wsif() {
 	if (!confirm(woas.i18n.CONFIRM_IMPORT_OVERWRITE))
 		done = false;
 	else {
-		done = woas._native_wsif_load(filename, true, "filename_");
+		done = woas._native_wsif_load(filename, true, true, "filename_");
 		if (done === false)
 			woas.crash(woas.wsif.emsg);
 	}

@@ -1072,10 +1072,10 @@ woas["after_load"] = function() {
 		current = unescape(qpage);
 		
 	// first thing to do: load the actual pages!
-	if (this._native_wsif != null) {
+	if (this._native_wsif !== null) {
 		if (!this._native_load()) {
-//			this.fatal("Could not load WSIF pages data!");
-//			return;
+			this.crash("Could not load WSIF pages data!\n"+this.wsif.emsg);
+			return;
 		}
 	}
 		
