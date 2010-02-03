@@ -180,7 +180,7 @@ And, last but not least:
 --DFQRCTsKlU
 woas.page.title: Main Page
 woas.page.attributes: 0
-woas.page.last_modified: 1265213090
+woas.page.last_modified: 1265218396
 woas.page.length: 1247
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1274,7 +1274,7 @@ Wiki on a Stick codebase has been rewritten as object-oriented in order to be mo
 woas.page.title: Special::Export
 woas.page.attributes: 0
 woas.page.last_modified: 1265020594
-woas.page.length: 2720
+woas.page.length: 2721
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1320,8 +1320,7 @@ META author (optional)
 <input type="button" value="Export XHTML" onclick="woas.export_wiki()" />
 
 <script type="text/javascript">
-var path = _get_this_path();
-path += "export" + path[path.length-1];
+var path = woas.ROOT_DIRECTORY + "export" + woas.DIRECTORY_SEPARATOR;
 $('woas_ep_xhtml').value = path;
 $('woas_ep_img').value = path;
 
@@ -1681,7 +1680,7 @@ $HOME  Main Page
 woas.page.title: Special::ExportWSIF
 woas.page.attributes: 0
 woas.page.last_modified: 1265024731
-woas.page.length: 1031
+woas.page.length: 1032
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1711,8 +1710,7 @@ WoaS Author (optional)
 <input type="button" value="Export WSIF" onclick="woas.export_wiki_wsif()" />
 
 <script type="text/javascript">
-var path = _get_this_path();
-path += "wsif" + path[path.length-1];
+var path = woas.ROOT_DIRECTORY + "wsif" + woas.DIRECTORY_SEPARATOR;
 $('woas_ep_wsif').value = path;
 
 function _ep_focus() { search_focused = true; }
