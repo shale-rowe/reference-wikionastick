@@ -69,7 +69,7 @@ if (woas.debug) {
 	// logging function - used in development
 	log = function (aMessage)
 	{
-	    var logbox = $("swlogger");
+	    var logbox = $("woas_log");
 	    // count lines
 		nls = logbox.value.match(/\n/g);
 		if (nls!=null && typeof(nls)=='object' && nls.length>11)

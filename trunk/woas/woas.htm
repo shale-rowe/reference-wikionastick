@@ -288,19 +288,19 @@ div.ns_menu_area ul li, div.ns_menu_area ol li {
 /* since v0.10.1 */
 
 #debug_info {
-	position: relative;
-	display: inline;
-	visibility: visible;
-	text-align: right;
 	margin-right: 1em;
-	z-index: -10;
+	margin-left: 1em;
+	background-color: gray;
+	border: 2px solid;
+	border-color: black;
 }
 
-#debug_panel {
+#woas_debug_panel {
 }
 
-#swlogger {
+#woas_log {
 	background-color: rgb(204, 204, 204);
+	width: 100%;
 }
 
 </style><title>Main Page</title>
@@ -400,10 +400,9 @@ Wiki Code:
 <textarea id="wiki_editor" style="width: 989px; height: 388px;" rows="0" cols="0"></textarea> 
 </div>
 <div id="debug_info">
-<h2>Debug console</h2>
-<p><input onclick="$.toggle('debug_panel')" value="Toggle" type="button" /></p>
-<p><span id="debug_panel" style="visibility: visible; display: inline;">
-<textarea id="swlogger" ondblclick="$('swlogger').value=''" rows="12" readonly="readonly" cols="60"></textarea><br /><input onclick="$('swlogger').value=''" value="Clear" type="button" />
+<p>&nbsp;<span style="font-size: large; font-weight: bold">Debug console</span>&nbsp;&nbsp;<input type="button" value="Toggle" onclick="$.toggle('woas_debug_panel')" /></p>
+<p><span id="woas_debug_panel" style="visibility: visible; display: inline;">
+<textarea id="woas_log" ondblclick="$('woas_log').value=''" rows="12" readonly="readonly" cols="60"></textarea><br /><input onclick="$('woas_log').value=''" value="Clear" type="button" />
 </span></p>
 </div>
 <hr />
