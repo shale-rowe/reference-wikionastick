@@ -92,11 +92,11 @@ woas["_native_wsif_save"] = function(path, single_wsif, inline_wsif, author,
 				}
 			} else { // normal wiki pages
 				// check if ECMA encoding is necessary
-				this._encoded_count = 0;
-				ct = this.ecma_encode(ct);
-				if (this._encoded_count == 0)
+				if (this.needs_ecma_encoding(ct)) {
+					ct = this.ecma_encode(ct);
+					encoding = "ecma/plain";
+				} else
 					encoding = "8bit/plain";
-				else encoding = "ecma/plain";
 			}
 		}
 		//DEBUG check
