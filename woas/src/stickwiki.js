@@ -63,12 +63,14 @@ woas["js_encode"] = function (s, split_lines) {
 	return this._utf8_js_fix(s);
 }
 
-// counter of Unicode replacements done by _utf8_js_fix()
-woas["_encoded_count"] = 0;
-
 // perform ECMAScript encoding only on some UTF-8 sequences
 woas["ecma_encode"] = function(s) {
 	return this._utf8_js_fix(s.replace(/\\/g, "\\\\"));
+}
+
+// returns true if text needs ECMA encoding
+woas["needs_ecma_encoding"] = function(s) {
+	return s.test(new RegExp("[^\u0000-\u007F]"));
 }
 
 woas["_utf8_js_fix"] = function(s) {
@@ -81,8 +83,6 @@ woas["_utf8_js_fix"] = function(s) {
 				s = "0"+s;
 			}
 			r += "\\u" + s;
-			// increment counter of replacements
-			++woas._encoded_count;
 		}
 		return r;
 	});
