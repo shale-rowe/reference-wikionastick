@@ -77,7 +77,7 @@ woas.page.title: Special::Advanced
 woas.page.attributes: 0
 woas.page.last_modified: 1265102334
 woas.page.length: 1150
-woas.page.encoding: ecma/plain
+woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -109,7 +109,7 @@ woas.page.title: Special::Import
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
 woas.page.length: 612
-woas.page.encoding: ecma/plain
+woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -180,9 +180,9 @@ And, last but not least:
 --DFQRCTsKlU
 woas.page.title: Main Page
 woas.page.attributes: 0
-woas.page.last_modified: 1265158999
+woas.page.last_modified: 1265213090
 woas.page.length: 1247
-woas.page.encoding: ecma/plain
+woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -221,8 +221,8 @@ If you have an older Wiki on a Stick you can [[Special::Import|import it]] now.
 woas.page.title: Special::Search
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
-woas.page.length: 705
-woas.page.encoding: ecma/plain
+woas.page.length: 703
+woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -234,7 +234,7 @@ woas.page.boundary: DFQRCTsKlU
 <script>
 var tmp = $('wiki_text');
 var pre = '<pre class="wiki_preformatted">';
-var hl_text = cached_search.replace(/<div class="search_results">((.|\\n)*?)<\\/div>/g,
+var hl_text = cached_search.replace(/<div class="search_results">((.|\n)*?)<\/div>/g,
 function (str, ct) {
     return '<div class="search_results">'+pre+ct.substr(pre.length).replace(_hl_reg, '<span class="search_highlight">$1</span>')+'</div>';
 });
@@ -250,7 +250,7 @@ woas.page.title: MyPages::Page 2
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
 woas.page.length: 92
-woas.page.encoding: ecma/plain
+woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -263,7 +263,7 @@ woas.page.title: MyPages::Approved::Page 3
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
 woas.page.length: 140
-woas.page.encoding: ecma/plain
+woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -278,7 +278,7 @@ woas.page.title: Special::Lock
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
 woas.page.length: 1222
-woas.page.encoding: ecma/plain
+woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -309,7 +309,7 @@ woas.page.title: Special::Security
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
 woas.page.length: 2207
-woas.page.encoding: ecma/plain
+woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -351,7 +351,7 @@ woas.page.title: MyPages::Menu
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
 woas.page.length: 49
-woas.page.encoding: ecma/plain
+woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -364,7 +364,7 @@ woas.page.title: Special::Options
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
 woas.page.length: 2022
-woas.page.encoding: ecma/plain
+woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -396,7 +396,7 @@ woas.page.title: Feature::Custom javascript
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
 woas.page.length: 3745
-woas.page.encoding: ecma/plain
+woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -620,7 +620,7 @@ woas.page.title: Transclusion example
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
 woas.page.length: 644
-woas.page.encoding: ecma/plain
+woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -657,7 +657,7 @@ woas.page.title: Test template
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
 woas.page.length: 69
-woas.page.encoding: ecma/plain
+woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -670,7 +670,7 @@ woas.page.title: Infinite recursion template
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
 woas.page.length: 101
-woas.page.encoding: ecma/plain
+woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -685,7 +685,7 @@ woas.page.title: Testcase::Creole 0.1
 woas.page.attributes: 0
 woas.page.last_modified: 1265110075
 woas.page.length: 3082
-woas.page.encoding: ecma/plain
+woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -849,7 +849,7 @@ woas.page.title: Deprecated syntax
 woas.page.attributes: 0
 woas.page.last_modified: 1265115998
 woas.page.length: 1150
-woas.page.encoding: ecma/plain
+woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -924,7 +924,7 @@ woas.page.title: Feature::External javascript
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
 woas.page.length: 134
-woas.page.encoding: ecma/plain
+woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -940,17 +940,17 @@ This page attempts to include an external example.js file
 woas.page.title: Testcase::WoaS testcases
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
-woas.page.length: 1342
-woas.page.encoding: ecma/plain
+woas.page.length: 1332
+woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 == Bold vs lists testcase
 
-*bold text*\\\\
- * bold text*\\\\
-* bold text*\\\\
+*bold text*\\
+ * bold text*\\
+* bold text*\\
 
 * first level
 ** second level *bold text* or * with space*
@@ -976,7 +976,7 @@ And here is, just for you, a partial *bold-/italics/*!!!
 As you can see, /an/unix/path/ is correctly recognized.
 
 A windows unix-style path: C:/My_Files/*.ini and C:/My_Files/*.u
-A windows path: C:\\My_Files\\*.ini and C:\\My_Files\\*.u
+A windows path: C:\My_Files\*.ini and C:\My_Files\*.u
 
 [[http://example.com/url*with*asterisks]]
 
@@ -1006,7 +1006,7 @@ woas.page.title: Feature::Summary
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
 woas.page.length: 5182
-woas.page.encoding: ecma/plain
+woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -1140,7 +1140,7 @@ woas.page.title: Options
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
 woas.page.length: 1336
-woas.page.encoding: ecma/plain
+woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -1179,7 +1179,7 @@ woas.page.title: Test template 2
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
 woas.page.length: 146
-woas.page.encoding: ecma/plain
+woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -1194,7 +1194,7 @@ woas.page.title: Special::Embed
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
 woas.page.length: 128
-woas.page.encoding: ecma/plain
+woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -1275,7 +1275,7 @@ woas.page.title: Special::Export
 woas.page.attributes: 0
 woas.page.last_modified: 1265020594
 woas.page.length: 2720
-woas.page.encoding: ecma/plain
+woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -1337,7 +1337,7 @@ woas.page.title: Testcase::Case-sensitiveness
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
 woas.page.length: 176
-woas.page.encoding: ecma/plain
+woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -1352,7 +1352,7 @@ woas.page.title: Testcase::page1
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
 woas.page.length: 55
-woas.page.encoding: ecma/plain
+woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -1367,7 +1367,7 @@ woas.page.title: Testcase::Page1
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
 woas.page.length: 64
-woas.page.encoding: ecma/plain
+woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -1382,7 +1382,7 @@ woas.page.title: Testcase::Apostrophe ' in title
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
 woas.page.length: 92
-woas.page.encoding: ecma/plain
+woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -1410,7 +1410,7 @@ woas.page.title: Embedded SVG
 woas.page.attributes: 0
 woas.page.last_modified: 1265114974
 woas.page.length: 585
-woas.page.encoding: ecma/plain
+woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -1437,8 +1437,8 @@ $("generated_SVG").appendChild(svgObject);
 woas.page.title: Browsers support
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
-woas.page.length: 2585
-woas.page.encoding: ecma/plain
+woas.page.length: 2578
+woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -1458,7 +1458,7 @@ Wiki on a Stick is actively supported on the following browsers:
 
 == Limitations
 
-Internet Explorer does not support embedded images (that's why you will not see button icons); also, Internet Explorer does not allow saving to a network path in the form /\\\\machina\\share\\woas.htm/. It is necessary to map network paths to network drives, in order to use WoaS over a network with IE (if you have informations about how to overcome to this limitation, please report us). IE6 does not allow to have a fixed menus.
+Internet Explorer does not support embedded images (that's why you will not see button icons); also, Internet Explorer does not allow saving to a network path in the form /\\machina\share\woas.htm/. It is necessary to map network paths to network drives, in order to use WoaS over a network with IE (if you have informations about how to overcome to this limitation, please report us). IE6 does not allow to have a fixed menus.
 
 Firefox (and possibly other browsers too) cannot save to filenames which contain UTF8 characters. Keep your filenames as unix-style.
 
@@ -1470,7 +1470,7 @@ The TiddlySaver Java applet allows Wiki on a Stick from a file:// URL to save ch
 
 The Java applet "TiddlySaver.jar", a very small file, must be placed in the same directory as your WoaS file. In order to use it you will need to give it the necessary privileges by editing your .java.policy file.
 
-For Windows, the file will be at C:\\Documents and Settings\\your-user-name\\.java.policy. Add the following lines (substituting the directory  as appropriate):
+For Windows, the file will be at C:\Documents and Settings\your-user-name\.java.policy. Add the following lines (substituting the directory  as appropriate):
 {{{
 grant codeBase "file:${user.home}/My Documents/tiddlywiki-folder/*" {
   permission java.io.FilePermission "${user.home}${/}My Documents${/}stickwiki-folder${/}*", "read,write";
@@ -1498,7 +1498,7 @@ woas.page.title: Feature::Bootscript
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
 woas.page.length: 642
-woas.page.encoding: ecma/plain
+woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -1527,7 +1527,7 @@ woas.page.title: Special::License
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
 woas.page.length: 175
-woas.page.encoding: ecma/plain
+woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -1553,7 +1553,7 @@ woas.page.title: Escaped > page
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
 woas.page.length: 152
-woas.page.encoding: ecma/plain
+woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -1568,7 +1568,7 @@ woas.page.title: Google sitesearch
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
 woas.page.length: 850
-woas.page.encoding: ecma/plain
+woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -1593,7 +1593,7 @@ woas.page.title: Features::Oddmuse integration
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
 woas.page.length: 470
-woas.page.encoding: ecma/plain
+woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -1620,7 +1620,7 @@ woas.page.title: Testcase::Headlines mix
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
 woas.page.length: 120
-woas.page.encoding: ecma/plain
+woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -1649,7 +1649,7 @@ woas.page.title: Testcase::Unusual lists
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
 woas.page.length: 173
-woas.page.encoding: ecma/plain
+woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -1671,7 +1671,7 @@ woas.page.title: WoaS::Aliases
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
 woas.page.length: 16
-woas.page.encoding: ecma/plain
+woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -1682,7 +1682,7 @@ woas.page.title: Special::ExportWSIF
 woas.page.attributes: 0
 woas.page.last_modified: 1265024731
 woas.page.length: 1031
-woas.page.encoding: ecma/plain
+woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -1727,7 +1727,7 @@ woas.page.title: Special::WSIF
 woas.page.attributes: 0
 woas.page.last_modified: 1265020848
 woas.page.length: 158
-woas.page.encoding: ecma/plain
+woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -1740,7 +1740,7 @@ woas.page.title: Special::ImportWSIF
 woas.page.attributes: 0
 woas.page.last_modified: 1265102401
 woas.page.length: 176
-woas.page.encoding: ecma/plain
+woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
