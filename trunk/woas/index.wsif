@@ -181,7 +181,7 @@ And, last but not least:
 --DFQRCTsKlU
 woas.page.title: Main Page
 woas.page.attributes: 0
-woas.page.last_modified: 1265152809
+woas.page.last_modified: 1265155590
 woas.page.length: 1247
 woas.page.encoding: ecma/plain
 woas.page.disposition: inline
@@ -235,7 +235,7 @@ woas.page.boundary: DFQRCTsKlU
 <script>
 var tmp = $('wiki_text');
 var pre = '<pre class="wiki_preformatted">';
-var hl_text = cached_search.replace(/<div class="search_results">((.|\n)*?)<\/div>/g,
+var hl_text = cached_search.replace(/<div class="search_results">((.|\\n)*?)<\\/div>/g,
 function (str, ct) {
     return '<div class="search_results">'+pre+ct.substr(pre.length).replace(_hl_reg, '<span class="search_highlight">$1</span>')+'</div>';
 });
@@ -544,7 +544,7 @@ Boldface: *Boldface text*
 Italics: /italics text/
 Underline: _underlined text_
 
-{{{Example usage of \{\{\{ and \}\}\}
+{{{Example usage of \\{\\{\\{ and \\}\\}\\}
 This text is rendered without any HTML/wiki parsing, and it does not get _underlined_, as you can see
 
 A really long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long line here}}}
@@ -598,7 +598,7 @@ Alphanumerically ordered list:
 |}
 
 == New syntax features
-* line joining through a slash '\' at the end of the line
+* line joining through a slash '\\' at the end of the line
 * automatic TOC generation in place of [<!-- -->[Special::TOC]]
 * section links:
 ** {{{[[#Syntax changes since v0.9]]}}} -> [[#Syntax changes since v0.9]]
@@ -949,9 +949,9 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 == Bold vs lists testcase
 
-*bold text*\\
- * bold text*\\
-* bold text*\\
+*bold text*\\\\
+ * bold text*\\\\
+* bold text*\\\\
 
 * first level
 ** second level *bold text* or * with space*
@@ -977,7 +977,7 @@ And here is, just for you, a partial *bold-/italics/*!!!
 As you can see, /an/unix/path/ is correctly recognized.
 
 A windows unix-style path: C:/My_Files/*.ini and C:/My_Files/*.u
-A windows path: C:\My_Files\*.ini and C:\My_Files\*.u
+A windows path: C:\\My_Files\\*.ini and C:\\My_Files\\*.u
 
 [[http://example.com/url*with*asterisks]]
 
@@ -1459,7 +1459,7 @@ Wiki on a Stick is actively supported on the following browsers:
 
 == Limitations
 
-Internet Explorer does not support embedded images (that's why you will not see button icons); also, Internet Explorer does not allow saving to a network path in the form /\\machina\share\woas.htm/. It is necessary to map network paths to network drives, in order to use WoaS over a network with IE (if you have informations about how to overcome to this limitation, please report us). IE6 does not allow to have a fixed menus.
+Internet Explorer does not support embedded images (that's why you will not see button icons); also, Internet Explorer does not allow saving to a network path in the form /\\\\machina\\share\\woas.htm/. It is necessary to map network paths to network drives, in order to use WoaS over a network with IE (if you have informations about how to overcome to this limitation, please report us). IE6 does not allow to have a fixed menus.
 
 Firefox (and possibly other browsers too) cannot save to filenames which contain UTF8 characters. Keep your filenames as unix-style.
 
@@ -1471,7 +1471,7 @@ The TiddlySaver Java applet allows Wiki on a Stick from a file:// URL to save ch
 
 The Java applet "TiddlySaver.jar", a very small file, must be placed in the same directory as your WoaS file. In order to use it you will need to give it the necessary privileges by editing your .java.policy file.
 
-For Windows, the file will be at C:\Documents and Settings\your-user-name\.java.policy. Add the following lines (substituting the directory  as appropriate):
+For Windows, the file will be at C:\\Documents and Settings\\your-user-name\\.java.policy. Add the following lines (substituting the directory  as appropriate):
 {{{
 grant codeBase "file:${user.home}/My Documents/tiddlywiki-folder/*" {
   permission java.io.FilePermission "${user.home}${/}My Documents${/}stickwiki-folder${/}*", "read,write";
