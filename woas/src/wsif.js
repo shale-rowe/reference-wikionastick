@@ -189,8 +189,8 @@ woas["_native_load"] = function() {
 	return false;
 }
 
-woas["_native_wsif_load"] = function(path, overwrite) {
-	var ct = this.load_file(path, this.file_mode.UTF8_TEXT);
+woas["_native_wsif_load"] = function(path, overwrite, obj_id) {
+	var ct = this.load_file(path, this.file_mode.UTF8_TEXT, obj_id);
 	if (typeof ct != "string") {
 		return false;
 	}
@@ -365,11 +365,11 @@ woas["_native_page_def"] = function(ct,p,overwrite, title,attrs,last_mod,len,enc
 				page = decode64(page);
 			} else if (encoding == "ecma/plain") {
 				page = this.ecma_decode(page);
-/*				if (page === null) {
-					log("Page "+title+": could not read");
+				if (page === null) {
+					alert("Page "+title+": could not read");
 					fail = true;
 					break;
-				} */
+				}
 				// now length can be checked
 				if (len !== null) {
 					if (len != page.length)

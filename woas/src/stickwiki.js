@@ -616,7 +616,7 @@ woas["_embed_process"] = function(etype) {
 	}
 
 	// load the data in DATA:URI mode
-	var ct = this.load_file(filename, desired_mode);
+	var ct = this.load_file(filename, desired_mode, "filename_");
 	if (ct == null || !ct.length) {
 		this.alert(this.i18n.LOAD_ERR + filename);
 		return false;
