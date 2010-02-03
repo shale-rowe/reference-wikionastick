@@ -365,11 +365,11 @@ woas["_native_page_def"] = function(ct,p,overwrite, title,attrs,last_mod,len,enc
 				page = decode64(page);
 			} else if (encoding == "ecma/plain") {
 				page = this.ecma_decode(page);
-				if (page === null) {
+/*				if (page === null) {
 					alert("Page "+title+": could not read");
 					fail = true;
 					break;
-				}
+				} */
 				// now length can be checked
 				if (len !== null) {
 					if (len != page.length)
