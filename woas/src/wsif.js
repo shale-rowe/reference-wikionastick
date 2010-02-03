@@ -65,7 +65,7 @@ woas["_native_wsif_save"] = function(path, single_wsif, inline_wsif, author,
 					ct = null;
 		
 		// normalize the page content, set encoding&disposition
-		var encoding = "ecma/plain", disposition = "inline";
+		var encoding = null, disposition = "inline";
 		if (this.is__encrypted(pi)) {
 			ct = encode64_array(pages[pi]);
 			encoding = "8bit/base64";
@@ -85,14 +85,24 @@ woas["_native_wsif_save"] = function(path, single_wsif, inline_wsif, author,
 					encoding = "8bit/base64";
 					if (this.is__image(pi)) {
 						var m = ct.match(/^data:\s*([^;]*);\s*base64,\s*/);
-						if (m == null)
-							alert(ct);
 						record += this.wsif.header(pfx+"mime", m[1]);
 						// remove the matched part
 						ct = ct.substr(m[0].length);
 					}
 				}
+			} else { // normal wiki pages
+				// check if ECMA encoding is necessary
+				this._encoded_count = 0;
+				ct = this.ecma_encode(ct);
+				if (this._encoded_count == 0)
+					encoding = "8bit/plain";
+				else encoding = "ecma/plain";
 			}
+		}
+		//DEBUG check
+		if (encoding === null) {
+			this.crash("Encoding for page "+page_titles[pi]+" is set to null!");
+			continue;
 		}
 		// update the index (if needed)
 		if (!single_wsif && full_save) {
@@ -114,9 +124,6 @@ woas["_native_wsif_save"] = function(path, single_wsif, inline_wsif, author,
 			boundary = _generate_random_boundary(boundary, ct);
 			record += this.wsif.header(pfx+"boundary", boundary);
 			// add the inline content
-			// properly ECMA-encoded, if needed
-			if (encoding == "ecma/plain")
-				ct = this.ecma_encode(ct);
 			record += this.wsif.inline(boundary, ct); ct = null;
 		} else {
 			// create the blob filename
@@ -124,10 +131,11 @@ woas["_native_wsif_save"] = function(path, single_wsif, inline_wsif, author,
 						_file_ext(page_titles[pi]);
 			// specify path to external filename
 			record += this.wsif.header(pfx+"disposition.filename", blob_fn);
-			//TODO: some error checking?
-			this.save_file(path + blob_fn,
+			// export the blob
+			if (!this.save_file(path + blob_fn,
 							(encoding == "8bit/plain") ?
-							this.file_mode.BINARY : this.file_mode.UTF8_TEXT, ct);
+							this.file_mode.BINARY : this.file_mode.UTF8_TEXT, ct))
+				log("Could not save "+blob_fn);
 		}
 		// the page record is now ready, proceed to save
 		if (single_wsif) {// append to main page record
@@ -346,16 +354,8 @@ woas["_native_page_def"] = function(ct,p,overwrite, title,attrs,last_mod,len,enc
 		while (!fail) { // used to break away
 		// retrieve full page content
 		var page = ct.substring(bpos_s+boundary.length, bpos_e);
-	/*	this.alert("title = "+title+"\nattrs = "+attrs+"\nlast_mod = "+last_mod+"\n"+
-				"len = "+len+"\nencoding = "+encoding+"\ndisposition = "+disposition+
-				"\nboundary = "+boundary+"\n"); */
-		// check length (if any were passed)
-		if (encoding != "ecma/plain") {
-			if (len !== null) {
-				if (len != page.length)
-					this.alert("Length mismatch for page %s: ought to be %d but was %d".sprintf(title, len, page.length));
-			}
-		}
+		// length used to check correctness of data segments
+		var check_len = page.length;
 		// split encrypted pages into byte arrays
 		if (attrs & 2) {
 			if (encoding != "8bit/base64") {
@@ -363,6 +363,7 @@ woas["_native_page_def"] = function(ct,p,overwrite, title,attrs,last_mod,len,enc
 				fail = true;
 				break;
 			}
+//			check_len = page.length;
 			page = decode64_array(page);
 		} else if (attrs & 8) { // embedded image, not encrypted
 			// NOTE: encrypted images are not obviously processed, as per previous 'if'
@@ -378,27 +379,31 @@ woas["_native_page_def"] = function(ct,p,overwrite, title,attrs,last_mod,len,enc
 			}
 			// re-add data:uri to images
 			page = "data:"+mime+";base64,"+page;
-		} else if (attrs == 0) { // a normal wiki page
-			if (encoding == "8bit/base64") {
-				// who encoded it? we process it anyway
-				page = decode64(page);
-			} else if (encoding == "ecma/plain") {
-				page = this.ecma_decode(page);
-/*				if (page === null) {
-					alert("Page "+title+": could not read");
+		} else { // a normal wiki page
+			switch (encoding) {
+				case "8bit/base64":
+					// base64 files will stay encoded
+					if (!(attrs & 4))
+						// WoaS does not encode pages normally, but this is supported by WSIF format
+						page = decode64(page);
+				break;
+				case "ecma/plain":
+					page = this.ecma_decode(page);
+				break;
+				case "8bit/plain": // plain wiki pages are supported
+				break;
+				default:
+					log("Normal page "+title+" comes with unknown encoding "+encoding);
 					fail = true;
 					break;
-				} */
-				// now length can be checked
-				if (len !== null) {
-					if (len != page.length)
-						this.alert("Length mismatch for page %s: ought to be %d but was %d".sprintf(title, len, page.length));
-				}
-			} else {
-				log("Normal page "+title+" comes with unknown encoding "+encoding);
-				fail = true;
-				break;
 			}
+		}
+		if (fail)
+			break;
+		// check length (if any were passed)
+		if (len !== null) {
+			if (len != check_len)
+				this.alert("Length mismatch for page %s: ought to be %d but was %d".sprintf(title, len, check_len));
 		}
 		// has to break anyway
 		break;
