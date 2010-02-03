@@ -70,7 +70,7 @@ woas["ecma_encode"] = function(s) {
 
 // returns true if text needs ECMA encoding
 woas["needs_ecma_encoding"] = function(s) {
-	return s.test(new RegExp("[^\u0000-\u007F]"));
+	return (new RegExp("[^\u0000-\u007F]")).test(s);
 }
 
 woas["_utf8_js_fix"] = function(s) {
@@ -1077,7 +1077,7 @@ woas["after_load"] = function() {
 		current = unescape(qpage);
 		
 	// first thing to do: load the actual pages!
-	if (this._native_wsif !== null) {
+	if (this._auto_native_wsif) {
 		if (!this._native_load()) {
 			this.crash("Could not load WSIF pages data!\n"+this.wsif.emsg);
 			return;
