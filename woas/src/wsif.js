@@ -186,10 +186,17 @@ function _generate_random_boundary(old_boundary, text) {
 }
 
 woas["_native_load"] = function() {
-	return false;
+	// we reset the arrays before loading the real data from index.wsif
+	pages = [];
+	page_attrs = [];
+	page_titles = [];
+	page_mts = [];
+	// get the data
+	var path = _get_this_path()+"index.wsif";
+	return this._native_wsif_load(path, false, false);
 }
 
-woas["_native_wsif_load"] = function(path, overwrite, obj_id) {
+woas["_native_wsif_load"] = function(path, overwrite, and_save, obj_id) {
 	var ct = this.load_file(path, this.file_mode.UTF8_TEXT, obj_id);
 	if (typeof ct != "string") {
 		return false;
@@ -292,7 +299,8 @@ woas["_native_wsif_load"] = function(path, overwrite, obj_id) {
 		return false;
 	// save imported pages
 	if (imported.length) {
-		this.commit(imported);
+		if (and_save)
+			this.commit(imported);
 		return imported.length;
 	}
 	// no pages were changed
