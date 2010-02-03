@@ -41,7 +41,6 @@ woas["DOC_START"] = "<"+"html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"
 // should be used only for titles (which ought not to contain binary bytes)
 woas["js_encode"] = function (s, split_lines) {
 /*	s = s.replace(/([\\<>'])/g, function (str, ch) {
-//		return "\\x"+ch.charCodeAt(0).toString(16);
 		switch (ch) {
 			case "<":
 				return	"\\x3C";

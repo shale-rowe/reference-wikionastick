@@ -59,7 +59,7 @@ woas["_native_wsif_save"] = function(path, single_wsif, inline_wsif, author,
 		if (!save_all) {
 			if (page_titles[pi].match(/^Special::/)) continue;
 		}
-		var record = this.wsif.header(pfx+"title", page_titles[pi])+
+		var record = this.wsif.header(pfx+"title", this.ecma_encode(page_titles[pi]))+
 					this.wsif.header(pfx+"attributes", page_attrs[pi])+
 					this.wsif.header(pfx+"last_modified", page_mts[pi]),
 					ct = null;
@@ -150,7 +150,7 @@ woas["_native_wsif_save"] = function(path, single_wsif, inline_wsif, author,
 	// build (artificially) an index of all pages
 	if (!full_save && !single_wsif) {
 		for (var pi=0,pl=page_titles.length;pi<pl;++pi) {
-			full_wsif += this.wsif.header(pfx+"title", page_titles[pi]);
+			full_wsif += this.wsif.header(pfx+"title", this.ecma_encode(page_titles[pi]));
 			// a new mime type
 			full_wsif += this.wsif.header(pfx+"encoding", "text/wsif");
 			full_wsif += this.wsif.header(pfx+"disposition", "external");
