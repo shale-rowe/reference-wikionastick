@@ -5,7 +5,7 @@ woas.pages: 51
 woas.page.title: ::Menu
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
-woas.page.length: 1931
+woas.page.length: 1936
 woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -126,7 +126,7 @@ File: <input id="filename_" type="file" />&nbsp;<input type="button" value="Impo
 woas.page.title: Special::About
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
-woas.page.length: 4515
+woas.page.length: 4440
 woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -221,7 +221,7 @@ If you have an older Wiki on a Stick you can [[Special::Import|import it]] now.
 woas.page.title: Special::Search
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
-woas.page.length: 703
+woas.page.length: 705
 woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -512,7 +512,7 @@ setTimeout ( "ScoreDecay()", 3000);
 woas.page.title: Syntax
 woas.page.attributes: 0
 woas.page.last_modified: 1265109977
-woas.page.length: 3278
+woas.page.length: 3290
 woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -940,7 +940,7 @@ This page attempts to include an external example.js file
 woas.page.title: Testcase::WoaS testcases
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
-woas.page.length: 1332
+woas.page.length: 1342
 woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1230,7 +1230,7 @@ Ly8gUHV0IGhlcmUgeW91ciBib290IGphdmFzY3JpcHQ=
 woas.page.title: History
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
-woas.page.length: 4666
+woas.page.length: 4681
 woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1394,7 +1394,7 @@ This page has an apostrophe in title but should still be searchable
 woas.page.title: Di\u00e2critics
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
-woas.page.length: 92
+woas.page.length: 112
 woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1437,7 +1437,7 @@ $("generated_SVG").appendChild(svgObject);
 woas.page.title: Browsers support
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
-woas.page.length: 2578
+woas.page.length: 2585
 woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
