@@ -77,7 +77,7 @@ woas.page.title: Special::Advanced
 woas.page.attributes: 0
 woas.page.last_modified: 1265102334
 woas.page.length: 1150
-woas.page.encoding: 8bit/plain
+woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -109,7 +109,7 @@ woas.page.title: Special::Import
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
 woas.page.length: 612
-woas.page.encoding: 8bit/plain
+woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -180,9 +180,9 @@ And, last but not least:
 --DFQRCTsKlU
 woas.page.title: Main Page
 woas.page.attributes: 0
-woas.page.last_modified: 1265205308
+woas.page.last_modified: 1265158999
 woas.page.length: 1247
-woas.page.encoding: 8bit/plain
+woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -222,7 +222,7 @@ woas.page.title: Special::Search
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
 woas.page.length: 705
-woas.page.encoding: 8bit/plain
+woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -250,7 +250,7 @@ woas.page.title: MyPages::Page 2
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
 woas.page.length: 92
-woas.page.encoding: 8bit/plain
+woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -263,7 +263,7 @@ woas.page.title: MyPages::Approved::Page 3
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
 woas.page.length: 140
-woas.page.encoding: 8bit/plain
+woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -278,7 +278,7 @@ woas.page.title: Special::Lock
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
 woas.page.length: 1222
-woas.page.encoding: 8bit/plain
+woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -309,7 +309,7 @@ woas.page.title: Special::Security
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
 woas.page.length: 2207
-woas.page.encoding: 8bit/plain
+woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -351,7 +351,7 @@ woas.page.title: MyPages::Menu
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
 woas.page.length: 49
-woas.page.encoding: 8bit/plain
+woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -364,7 +364,7 @@ woas.page.title: Special::Options
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
 woas.page.length: 2022
-woas.page.encoding: 8bit/plain
+woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -396,7 +396,7 @@ woas.page.title: Feature::Custom javascript
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
 woas.page.length: 3745
-woas.page.encoding: 8bit/plain
+woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -620,7 +620,7 @@ woas.page.title: Transclusion example
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
 woas.page.length: 644
-woas.page.encoding: 8bit/plain
+woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -657,7 +657,7 @@ woas.page.title: Test template
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
 woas.page.length: 69
-woas.page.encoding: 8bit/plain
+woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -670,7 +670,7 @@ woas.page.title: Infinite recursion template
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
 woas.page.length: 101
-woas.page.encoding: 8bit/plain
+woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -685,7 +685,7 @@ woas.page.title: Testcase::Creole 0.1
 woas.page.attributes: 0
 woas.page.last_modified: 1265110075
 woas.page.length: 3082
-woas.page.encoding: 8bit/plain
+woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -849,7 +849,7 @@ woas.page.title: Deprecated syntax
 woas.page.attributes: 0
 woas.page.last_modified: 1265115998
 woas.page.length: 1150
-woas.page.encoding: 8bit/plain
+woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -924,7 +924,7 @@ woas.page.title: Feature::External javascript
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
 woas.page.length: 134
-woas.page.encoding: 8bit/plain
+woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -941,7 +941,7 @@ woas.page.title: Testcase::WoaS testcases
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
 woas.page.length: 1342
-woas.page.encoding: 8bit/plain
+woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -1006,7 +1006,7 @@ woas.page.title: Feature::Summary
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
 woas.page.length: 5182
-woas.page.encoding: 8bit/plain
+woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -1140,7 +1140,7 @@ woas.page.title: Options
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
 woas.page.length: 1336
-woas.page.encoding: 8bit/plain
+woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -1179,7 +1179,7 @@ woas.page.title: Test template 2
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
 woas.page.length: 146
-woas.page.encoding: 8bit/plain
+woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -1194,7 +1194,7 @@ woas.page.title: Special::Embed
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
 woas.page.length: 128
-woas.page.encoding: 8bit/plain
+woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -1275,7 +1275,7 @@ woas.page.title: Special::Export
 woas.page.attributes: 0
 woas.page.last_modified: 1265020594
 woas.page.length: 2720
-woas.page.encoding: 8bit/plain
+woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -1337,7 +1337,7 @@ woas.page.title: Testcase::Case-sensitiveness
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
 woas.page.length: 176
-woas.page.encoding: 8bit/plain
+woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -1352,7 +1352,7 @@ woas.page.title: Testcase::page1
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
 woas.page.length: 55
-woas.page.encoding: 8bit/plain
+woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -1367,7 +1367,7 @@ woas.page.title: Testcase::Page1
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
 woas.page.length: 64
-woas.page.encoding: 8bit/plain
+woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -1382,7 +1382,7 @@ woas.page.title: Testcase::Apostrophe ' in title
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
 woas.page.length: 92
-woas.page.encoding: 8bit/plain
+woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -1410,7 +1410,7 @@ woas.page.title: Embedded SVG
 woas.page.attributes: 0
 woas.page.last_modified: 1265114974
 woas.page.length: 585
-woas.page.encoding: 8bit/plain
+woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -1438,7 +1438,7 @@ woas.page.title: Browsers support
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
 woas.page.length: 2585
-woas.page.encoding: 8bit/plain
+woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -1498,7 +1498,7 @@ woas.page.title: Feature::Bootscript
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
 woas.page.length: 642
-woas.page.encoding: 8bit/plain
+woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -1527,7 +1527,7 @@ woas.page.title: Special::License
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
 woas.page.length: 175
-woas.page.encoding: 8bit/plain
+woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -1553,7 +1553,7 @@ woas.page.title: Escaped > page
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
 woas.page.length: 152
-woas.page.encoding: 8bit/plain
+woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -1568,7 +1568,7 @@ woas.page.title: Google sitesearch
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
 woas.page.length: 850
-woas.page.encoding: 8bit/plain
+woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -1593,7 +1593,7 @@ woas.page.title: Features::Oddmuse integration
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
 woas.page.length: 470
-woas.page.encoding: 8bit/plain
+woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -1620,7 +1620,7 @@ woas.page.title: Testcase::Headlines mix
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
 woas.page.length: 120
-woas.page.encoding: 8bit/plain
+woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -1649,7 +1649,7 @@ woas.page.title: Testcase::Unusual lists
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
 woas.page.length: 173
-woas.page.encoding: 8bit/plain
+woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -1671,7 +1671,7 @@ woas.page.title: WoaS::Aliases
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
 woas.page.length: 16
-woas.page.encoding: 8bit/plain
+woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -1682,7 +1682,7 @@ woas.page.title: Special::ExportWSIF
 woas.page.attributes: 0
 woas.page.last_modified: 1265024731
 woas.page.length: 1031
-woas.page.encoding: 8bit/plain
+woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -1727,7 +1727,7 @@ woas.page.title: Special::WSIF
 woas.page.attributes: 0
 woas.page.last_modified: 1265020848
 woas.page.length: 158
-woas.page.encoding: 8bit/plain
+woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -1740,7 +1740,7 @@ woas.page.title: Special::ImportWSIF
 woas.page.attributes: 0
 woas.page.last_modified: 1265102401
 woas.page.length: 176
-woas.page.encoding: 8bit/plain
+woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
