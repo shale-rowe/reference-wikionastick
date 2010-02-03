@@ -57,7 +57,8 @@ woas["save_file"] = function(fileUrl, save_mode, content) {
 }
 
 // get file content in FF3 without .enablePrivilege() (fbnil)
-woas["mozillaLoadFileID"] = function(obj, load_mode){
+woas["mozillaLoadFileID"] = function(obj_id, load_mode){
+	var obj = document.getElementById(obj_id);
 	if(!window.Components || !obj.files)
 		return null;
 	var D=obj.files.item(0);
@@ -81,16 +82,16 @@ woas["mozillaLoadFileID"] = function(obj, load_mode){
 // *** original source of below functions was from TiddyWiki ***
 
 // API1.0: load-file handler
-woas["load_file"] = function(fileUrl, load_mode){
+woas["load_file"] = function(fileUrl, load_mode, obj_id){
 	// parameter consistency check
 	if (!load_mode)
 		load_mode = this.file_mode.UTF8_TEXT;
 	// try loading the file without using the path (FF3+)
 	// (object id hardcoded here)
-	var obj = $('filename_'), r = null;
-	if (obj !== null) {
+	var r = null;
+	if (typeof obj_id != "undefined") {
 		// we hope that obj.value === fileUrl!
-		var r = this.mozillaLoadFileID(obj, load_mode);
+		r = this.mozillaLoadFileID(obj_id, load_mode);
 		if (r === false)
 			return false;
 	}
