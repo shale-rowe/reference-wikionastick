@@ -181,7 +181,7 @@ And, last but not least:
 --DFQRCTsKlU
 woas.page.title: Main Page
 woas.page.attributes: 0
-woas.page.last_modified: 1265155590
+woas.page.last_modified: 1265157125
 woas.page.length: 1247
 woas.page.encoding: ecma/plain
 woas.page.disposition: inline
@@ -1392,7 +1392,7 @@ woas.page.boundary: DFQRCTsKlU
 
 This page has an apostrophe in title but should still be searchable
 --DFQRCTsKlU
-woas.page.title: Diâcritics
+woas.page.title: Di\u00e2critics
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
 woas.page.length: 92
