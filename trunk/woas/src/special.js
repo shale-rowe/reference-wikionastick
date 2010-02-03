@@ -132,12 +132,13 @@ woas["special_search"] = function( str ) {
 woas["special_tagged"] = function() {
 	var utags = [];
 	var tags_tree = [];
-	var tmp = null, ipos;
+	var src, ipos;
 	for(var i=0,l=pages.length;i<l;++i) {
-		tmp = this.get_src_page(i);
-		if (tmp==null)
+		src = this.get_src_page(i);
+		// encrypted w/o key
+		if (src === null)
 			continue;
-		tmp.replace(/\[\[Tags?::([^\]]+)\]\]/g,
+		src.replace(/\[\[Tags?::([^\]]+)\]\]/g,
 			function (str, $1) {
 				var tmp=woas.split_tags($1);
 				for(var j=0;j<tmp.length; j++) {
@@ -153,10 +154,19 @@ woas["special_tagged"] = function() {
 				}
 			});
 	}
+	// sort alphabetically (case insensitive)
+	utags.sort(function(x,y){
+      var a = String(x).toUpperCase();
+      var b = String(y).toUpperCase();
+      if (a > b)
+         return 1
+      if (a < b)
+         return -1
+      return 0;
+    });
 	var s="";
 	var tag = null, obj = null;
-	var l=utags.length;
-	for(var j=0;j<l;j++) {
+	for(var j=0,l=utags.length;j<l;j++) {
 		obj = tags_tree[j].sort();
 		s += "\n== [[Tagged::"+utags[j]+"]]\n";
 		for(var i=0;i<obj.length;i++) {
