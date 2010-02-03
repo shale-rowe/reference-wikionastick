@@ -1045,7 +1045,6 @@ woas["after_load"] = function() {
 		this.setHTML = function(elem, html) {elem.innerHTML = html;};
 		this.getHTML = function(elem) {return elem.innerHTML;};
 //		setup_uri_pics($("img_home"),$("img_back"),$("img_forward"),$("img_edit"),$("img_cancel"),$("img_save"),$("img_advanced"));
-//		WONT WORK _css_obj().innerHTML += "\na {  cursor: pointer;}";
 	}
 	
 	$('a_home').title = main_page;

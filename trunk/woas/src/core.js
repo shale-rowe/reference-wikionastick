@@ -236,13 +236,12 @@ woas["integrity_test"] = function() {
 	}
 	// test integrity of load/save functions
 	var UTF8_TEST = "Di\u00e2critics are here: \u00e4 \u00e1y";
-	var path = _get_this_path();
-	if (!this.save_file(path+"itest.bin", this.file_mode.UTF8_TEXT,
+	if (!this.save_file(woas.ROOT_DIRECTORY+"itest.bin", this.file_mode.UTF8_TEXT,
 			merge_bytes(utf8Encrypt(UTF8_TEST))
 //			UTF8_TEST
 			))
 		return false;
-	var ct = this.load_file(path+"itest.bin", this.file_mode.UTF8_TEXT);
+	var ct = this.load_file(woas.ROOT_DIRECTORY+"itest.bin", this.file_mode.UTF8_TEXT);
 	if ((ct === null)||(ct === false))
 		return false;
 	ct = utf8Decrypt(split_bytes(ct));
@@ -253,3 +252,15 @@ woas["integrity_test"] = function() {
 	log("Integrity test successful"); //log:1
 	return true;
 }
+
+// used in path normalization during export
+woas["DIRECTORY_SEPARATOR"] = (navigator.appVersion.indexOf("Win")!=-1)?"\\":"/";
+
+// hackish function, might stay private for now
+woas["dirname"] = function(fn) {
+	return fn.replace(new RegExp("\\"+woas.DIRECTORY_SEPARATOR+"[^\\"+woas.DIRECTORY_SEPARATOR+"]*$"),
+				(woas.DIRECTORY_SEPARATOR=="\\"?"\\\\":"/"));
+}
+
+// the export path used by export feature
+woas["ROOT_DIRECTORY"] = woas.dirname(_get_this_filename());
