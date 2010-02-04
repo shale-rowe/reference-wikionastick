@@ -207,12 +207,7 @@ function import_wiki() {
 		alert(woas.i18n.READ_ONLY);
 		return false;
 	}
-	var filename = $("filename_").value;
-	if(filename == "") {
-		alert(woas.i18n.FILE_SELECT_ERR);
-		return false;
-	}
-	return woas.import_wiki(filename);
+	return woas.import_wiki();
 }
 
 function set_key() {
@@ -381,14 +376,26 @@ woas["export_wiki_wsif"] = function () {
 	return true;
 }
 
+// workaround to get full file path on FF3
+// by Chris
+function ff3_getPath(fileBrowser) {
+	try {
+		netscape.security.PrivilegeManager.enablePrivilege("UniversalXPConnect");
+	} catch (e) {
+	    alert('Unable to access local files due to browser security settings. '
+	    +'To overcome this, follow these steps: (1) Enter "about:config" in the URL field; '+ 
+	    '(2) Right click and select New->Boolean; (3) Enter "signed.applets.codebase_principal_support" '+
+	     '(without the quotes) as a new preference name; (4) Click OK and try loading the file'+
+	     ' again.');
+	    return false;
+	}
+	var fileName=fileBrowser.value;
+	return fileName
+}
+
 function import_wiki_wsif() {
 	if (!woas.config.permit_edits) {
 		this.alert(woas.i18n.READ_ONLY);
-		return false;
-	}
-	var filename = $("filename_").value;
-	if (!filename.length) {
-		woas.alert(woas.i18n.FILE_SELECT_ERR);
 		return false;
 	}
 	// block interaction for a while
@@ -398,7 +405,8 @@ function import_wiki_wsif() {
 	if (!confirm(woas.i18n.CONFIRM_IMPORT_OVERWRITE))
 		done = false;
 	else {
-		done = woas._native_wsif_load(filename, true, true, "filename_");
+		// automatically retrieve the filename
+		done = woas._native_wsif_load(null, true, true);
 		if (done === false)
 			woas.crash(woas.wsif.emsg);
 	}

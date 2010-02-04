@@ -201,8 +201,8 @@ woas["_native_load"] = function() {
 	return this._native_wsif_load(path, false, false);
 }
 
-woas["_native_wsif_load"] = function(path, overwrite, and_save, obj_id) {
-	var ct = this.load_file(path, this.file_mode.UTF8_TEXT, obj_id);
+woas["_native_wsif_load"] = function(path, overwrite, and_save) {
+	var ct = this.load_file(path, this.file_mode.UTF8_TEXT);
 	if (typeof ct != "string") {
 		return false;
 	}
@@ -411,7 +411,7 @@ woas["_native_page_def"] = function(path,ct,p,overwrite, title,attrs,last_mod,le
 		break;
 		} // wend
 		
-	} else if (disposition == "external") {
+	} else if (disposition == "external") { // import an external WSIF file
 		if (encoding != "text/wsif") {
 			this.wsif.emsg = "Page "+title+" is external but not encoded as text/wsif";
 			return -1;
@@ -421,6 +421,16 @@ woas["_native_page_def"] = function(path,ct,p,overwrite, title,attrs,last_mod,le
 			return -1;
 		}
 		// check the result of external import
+		if (path === null) {
+			path = ff3_getPath($("filename_"));
+			if (path === false) {
+				this.crash("Cannot retrieve path name in this browser");
+				return -1;
+			}
+		} else {
+			this.wsif.emsg = "Recursive WSIF import not implemented";
+			return -1;
+		}
 		var rv = this._native_wsif_load(this.dirname(path)+d_fn, overwrite);
 		if (rv === false) {
 			this.wsif.emsg = "Failed import of external "+d_fn+"\n"+this.wsif.emsg;
@@ -428,6 +438,9 @@ woas["_native_page_def"] = function(path,ct,p,overwrite, title,attrs,last_mod,le
 		}
 		// do not change the offset
 		return p;
+	} else { // no disposition or unknown disposition
+		this.wsif.emsg = "Page "+title+" has weird disposition: "+disposition;
+		return -1;
 	}
 	
 	if (!fail) {

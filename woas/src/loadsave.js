@@ -82,18 +82,27 @@ woas["mozillaLoadFileID"] = function(obj_id, load_mode){
 // *** original source of below functions was from TiddyWiki ***
 
 // API1.0: load-file handler
-woas["load_file"] = function(fileUrl, load_mode, obj_id){
+woas["load_file"] = function(fileUrl, load_mode){
 	// parameter consistency check
 	if (!load_mode)
 		load_mode = this.file_mode.UTF8_TEXT;
 	// try loading the file without using the path (FF3+)
 	// (object id hardcoded here)
 	var r = null;
-	if (typeof obj_id != "undefined") {
-		// we hope that obj.value === fileUrl!
-		r = this.mozillaLoadFileID(obj_id, load_mode);
-		if (r === false)
-			return false;
+	// we have requested a direct read of the file from the input object
+	if (fileUrl === null) {
+		if (ff3 || ff_new) {
+			r = this.mozillaLoadFileID("filename_", load_mode);
+			if (r === false)
+				return false;
+		} else {
+			fileUrl = $("filename_").value;
+			if (!fileUrl.length) {
+				this.alert(this.i18n.FILE_SELECT_ERR);
+				return false;
+			}
+			// fallthrough is wanted here
+		}
 	}
 	if (r === null) // load file using file absolute path
 		r = this.mozillaLoadFile(fileUrl, load_mode);
