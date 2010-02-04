@@ -609,12 +609,6 @@ woas["export_file"] = function(page, dest_path) {
 }
 
 woas["_embed_process"] = function(etype) {
-	var filename = $("filename_").value;
-	if(filename == "") {
-		this.alert(this.i18n.ERR_SEL_FILE);
-		return false;
-	}
-	
 	// pick the correct mode for file inclusion
 	// normalize etype to the correspondant binary flag value
 	var desired_mode;
@@ -627,7 +621,7 @@ woas["_embed_process"] = function(etype) {
 	}
 
 	// load the data in DATA:URI mode
-	var ct = this.load_file(filename, desired_mode, "filename_");
+	var ct = this.load_file(null, desired_mode);
 	if (ct == null || !ct.length) {
 		this.alert(this.i18n.LOAD_ERR + filename);
 		return false;

@@ -5,15 +5,31 @@ woas["debug"] = true;			// toggle debug mode (and console)
 var ie = false;
 var ie6 = false;
 var firefox = false, firefox2 = false;
-//var ff3 = false;
+var ff3 = false, ff_new = false;
 var opera = false;
 
 if((navigator.userAgent).indexOf("Opera")!=-1)
 	opera = true;
 else if(navigator.appName == "Netscape") {
 	firefox = true;
-	if (navigator.userAgent.match("Firefox/2"))
-		firefox2 = true;
+	// match also development versions of Firefox "Shiretoko" / "Namoroka"
+	var fver = navigator.userAgent.match(/Gecko\/\d+\s*[A-Za-z]+\/(\d+)\.[\.\d]+$/);
+	if (fver !== null) {
+		fver = Number(fver[1]);
+		switch (fver) {
+			case 2:
+				firefox2 = true;
+			break;
+			case 3:
+				ff3 = true;
+			break;
+			default:
+				// a new version of Firefox
+				if (fver > 3)
+					ff_new = true;
+				// unknown browser!
+		}
+	}
 } else if((navigator.appName).indexOf("Microsoft")!=-1) {
 	ie = true;
 	ie8 = (navigator.userAgent.search(/msie 8\./i)!=-1);

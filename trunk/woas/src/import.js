@@ -15,15 +15,17 @@
 	}
 
 
-woas["import_wiki"] = function(filename) {
+woas["import_wiki"] = function() {
 	if(confirm(this.i18n.CONFIRM_IMPORT_OVERWRITE) == false)
 		return false;
-
-	// set hourglass
-	document.body.style.cursor= "wait";
 	
 	// load the file as UTF-8
-	var ct = this.load_file(filename, this.file_mode.UTF8_TEXT, "filename_");
+	var ct = this.load_file(null, this.file_mode.UTF8_TEXT);
+	if ((ct === null) || (ct === false))
+		return false;
+	
+	// set hourglass
+	document.body.style.cursor= "wait";
 	
 	var import_css = $('cb_import_css').checked;
 	var import_content = $('cb_import_content').checked;

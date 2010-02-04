@@ -256,10 +256,11 @@ woas["integrity_test"] = function() {
 // used in path normalization during export
 woas["DIRECTORY_SEPARATOR"] = (navigator.appVersion.indexOf("Win")!=-1)?"\\":"/";
 
+woas["_dirname_regex"] = new RegExp("\\"+woas.DIRECTORY_SEPARATOR+"[^\\"+woas.DIRECTORY_SEPARATOR+"]*$");
+
 // hackish function, might stay private for now
 woas["dirname"] = function(fn) {
-	return fn.replace(new RegExp("\\"+woas.DIRECTORY_SEPARATOR+"[^\\"+woas.DIRECTORY_SEPARATOR+"]*$"),
-				(woas.DIRECTORY_SEPARATOR=="\\"?"\\\\":"/"));
+	return fn.replace(this._dirname_regex, (woas.DIRECTORY_SEPARATOR=="\\"?"\\\\":"/"));
 }
 
 // the export path used by export feature
