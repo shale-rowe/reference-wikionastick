@@ -125,8 +125,8 @@ File: <input id="filename_" type="file" />&nbsp;<input type="button" value="Impo
 --DFQRCTsKlU
 woas.page.title: Special::About
 woas.page.attributes: 0
-woas.page.last_modified: 1264700333
-woas.page.length: 4440
+woas.page.last_modified: 1265337706
+woas.page.length: 4454
 woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -172,11 +172,11 @@ And, last but not least:
 
 == Important links
 * [[http://sf.net/projects/stickwiki/|SourceForge project home page]] - useful for contributing
-* [[http://woas.iragan.com/|Official WoaS forums]] - our discussion forums where you can also partecipate to the decision processes
+* [[http://woas.iragan.com/|Official WoaS forums]] - our discussion forums where you can also participate to the decision processes
 * [[http://sourceforge.net/tracker/?group_id=155218&atid=794925|SF.net WoaS project bug tracker]] - if you find a bug, post it here
 * [[http://sourceforge.net/tracker/?group_id=155218&atid=794928|SF.net WoaS project feature tracker]] - if you have have suggestions for improvements
 * [[http://woas.iragan.com/cgi-bin/wiki/|Official WoaS Documentation Wiki]] - under construction
-* [[http://groups.google.com/group/stickwiki/|Official WoaS Google Group]] - for public anonymous discussion (mailing list)
+* [[https://lists.sourceforge.net/lists/listinfo/stickwiki-devel|SF.net WoaS Development mailing list]] - for public anonymous discussion
 --DFQRCTsKlU
 woas.page.title: Main Page
 woas.page.attributes: 0
