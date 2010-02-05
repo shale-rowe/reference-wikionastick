@@ -3,7 +3,8 @@
 woas["_auto_native_wsif"] = true;
 
 // a class for some general WSIF operations
-woas["wsif" ] = {version: "1.0.0", DEFAULT_INDEX: "index.wsif", emsg: "No error"};
+woas["wsif" ] = {	version: "1.0.0", DEFAULT_INDEX: "index.wsif",
+					emsg: "No error"};
 
 woas["wsif"]["header"] = function(header_name, value) {
 	return header_name+": "+value+"\n";
@@ -201,7 +202,7 @@ woas["_native_load"] = function() {
 	return this._native_wsif_load(path, false, false);
 }
 
-woas["_native_wsif_load"] = function(path, overwrite, and_save) {
+woas["_native_wsif_load"] = function(path, overwrite, and_save, recursing) {
 	var ct = this.load_file(path, this.file_mode.UTF8_TEXT);
 	if (typeof ct != "string") {
 		return false;
@@ -210,16 +211,19 @@ woas["_native_wsif_load"] = function(path, overwrite, and_save) {
 	var imported = [];
 	var pfx = "\nwoas.page.", pfx_len = pfx.length;
 	// start looping to find each page
-	var bak_p = 0, p = ct.indexOf(pfx), fail = false;
+	var p = ct.indexOf(pfx), fail = false;
 	// too early failure
 	if (p == -1)
-		woas.wsif.emsg = "Corrupted WSIF file";
+		this.wsif.emsg = "Corrupted WSIF file";
 	var title = null,	attrs = null,
 		last_mod = null,	len = null,
 		encoding = null,	disposition = null,
 		d_fn = null,
 		boundary = null,	mime = null;
+	// position of last header end-of-line
+	var vsep = p, bak_p = p;
 	while (p != -1) {
+		var sep, s, v;
 		// remove prefix
 		sep = ct.indexOf(":", p+pfx_len);
 		if (sep == -1) {
@@ -228,7 +232,6 @@ woas["_native_wsif_load"] = function(path, overwrite, and_save) {
 			break;
 		}
 		// get attribute name
-		var sep, vsep, s, v;
 		s = ct.substring(p+pfx_len, sep);
 		// take backup copy of where last attribute was (used for inline boundaries extraction)
 		bak_p = vsep;
@@ -260,8 +263,10 @@ woas["_native_wsif_load"] = function(path, overwrite, and_save) {
 					}
 					// check if page was really imported, and if yes then
 					// add page to list of imported pages
-					if (pi != -1)
+					if (pi != -1) {
 						imported.push(pi);
+//						document.title = page_titles[pi];
+					}
 					// delete this whole entry to free up some memory to GC
 					ct = ct.substr(p);
 					p = 0;
@@ -301,10 +306,16 @@ woas["_native_wsif_load"] = function(path, overwrite, and_save) {
 		// set pointer to next entry
 		p = ct.indexOf(pfx, p);
 	}
+	if (recursing) {
+/*		this.alert("title = "+title+"\nattrs = "+attrs+"\nlast_mod = "+last_mod+"\n"+
+  				"len = "+len+"\nencoding = "+encoding+"\ndisposition = "+disposition+
+   				"\nboundary = "+boundary+"\n"); */
+	}
 	// process the last page (if any)
 	if (title !== null) {
 		p = this._native_page_def(path,ct,bak_p,overwrite,
-				title,attrs,last_mod,len,encoding,disposition,d_fn,boundary,mime);
+				title,attrs,last_mod,len,encoding,disposition,
+				d_fn,boundary,mime);
 		// save page index for later analysis
 		var pi = page_titles.indexOf(title);
 		if (p == -1)
@@ -326,6 +337,13 @@ woas["_native_wsif_load"] = function(path, overwrite, and_save) {
 	}
 	// no pages were changed
 	return 0;
+}
+
+woas["get_path"] = function(id) {
+	if (ff3 || ff_new)
+		return ff3_getPath($(id));
+	// on older browsers this was allowed
+	return $(id).value;
 }
 
 woas["_native_page_def"] = function(path,ct,p,overwrite, title,attrs,last_mod,len,encoding,
@@ -420,18 +438,19 @@ woas["_native_page_def"] = function(path,ct,p,overwrite, title,attrs,last_mod,le
 			this.wsif.emsg = "Page "+title+" is external but no filename was specified";
 			return -1;
 		}
-		// check the result of external import
+		// get proper path
 		if (path === null) {
-			path = ff3_getPath($("filename_"));
+			path = this.get_path("filename_");
 			if (path === false) {
-				this.crash("Cannot retrieve path name in this browser");
+				this.wsif.emsg = "Cannot retrieve path name in this browser";
 				return -1;
 			}
 		} else {
 			this.wsif.emsg = "Recursive WSIF import not implemented";
 			return -1;
 		}
-		var rv = this._native_wsif_load(this.dirname(path)+d_fn, overwrite);
+		// check the result of external import
+		var rv = this._native_wsif_load(this.dirname(path)+d_fn, overwrite, false, true);
 		if (rv === false) {
 			this.wsif.emsg = "Failed import of external "+d_fn+"\n"+this.wsif.emsg;
 			p = -1;
@@ -439,7 +458,7 @@ woas["_native_page_def"] = function(path,ct,p,overwrite, title,attrs,last_mod,le
 		// do not change the offset
 		return p;
 	} else { // no disposition or unknown disposition
-		this.wsif.emsg = "Page "+title+" has weird disposition: "+disposition;
+		this.wsif.emsg = "Page "+title+" has invalid disposition: "+disposition;
 		return -1;
 	}
 	

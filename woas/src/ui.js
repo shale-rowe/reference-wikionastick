@@ -406,7 +406,7 @@ function import_wiki_wsif() {
 		done = false;
 	else {
 		// automatically retrieve the filename
-		done = woas._native_wsif_load(null, true, true);
+		done = woas._native_wsif_load(null, $("woas_cb_import_overwrite").checked, true);
 		if (done === false)
 			woas.crash(woas.wsif.emsg);
 	}
