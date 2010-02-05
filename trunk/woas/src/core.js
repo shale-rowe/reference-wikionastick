@@ -90,7 +90,8 @@ woas["erase_wiki"] = function() {
 	var backup_pages = [];
 	// attributes and last modified timestamps for default pages
 	page_attrs = [0, 0, 4, 0];
-	page_mts = [this.MAGIC_MTS, this.MAGIC_MTS, this.MAGIC_MTS, this.MAGIC_MTS];
+	// zero is the magic timestamp
+	page_mts = [0, 0, 0, 0];
 	// now pick the static pages
 	for(var i=0;i<this.static_pages.length;i++) {
 		var pi = this.page_index(this.static_pages[i]);
@@ -101,7 +102,7 @@ woas["erase_wiki"] = function() {
 		backup_pages.push(pages[pi]);
 		page_attrs.push(0);
 		// reset timestamp
-		page_mts.push(this.MAGIC_MTS);
+		page_mts.push(0);
 	}
 	page_titles = this.default_pages.concat(this.static_pages);
 	pages = ["This is your empty main page", "[[Main Page]]\n\n[[Special::New Page]]\n[[Special::Duplicate Page]]\n[[Special::Go to]]\n[[Special::Delete Page]]\n[[Special::Backlinks]]\n[[Special::Search]]", encode64("/* insert here your boot script */"), ""];

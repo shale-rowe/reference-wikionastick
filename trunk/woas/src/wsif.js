@@ -370,7 +370,7 @@ woas["_native_page_def"] = function(path,ct,p,overwrite, title,attrs,last_mod,le
 		}
 		// last modified timestamp can be omitted
 		if (last_mod === null)
-			last_mod = this.MAGIC_MTS;
+			last_mod = 0;
 		while (!fail) { // used to break away
 		// retrieve full page content
 		var page = ct.substring(bpos_s+boundary.length, bpos_e);

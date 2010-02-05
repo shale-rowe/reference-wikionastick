@@ -387,7 +387,7 @@ function printout_mixed_arr(arr, split_lines, attrs) {
 	return s;
 }
 
-// used to print out encrypted pages bytes and attributes
+// used to print out encrypted page bytes and attributes
 function printout_num_arr(arr) {
 	var s = "";
 	for(var i=0;i<arr.length-1;i++) {
@@ -396,7 +396,7 @@ function printout_num_arr(arr) {
 		else
 			s+=arr[i].toString() + ",";
 	}
-	// add the last element (without comma due to IE6 bug)
+	// do not write comma on last element, workaround due to IE6 not recognizing it
 	if (arr.length>1) {
 		if (arr[arr.length-1]>=1000)
 			s += "0x"+arr[arr.length-1].toString(16);
@@ -409,7 +409,7 @@ function printout_num_arr(arr) {
 
 function printout_fixed(elem, n) {
 	var s = (elem+",").repeat(n-1);
-	// add the last element (without comma due to IE6 bug)
+	// do not write comma on last element, workaround due to IE6 not recognizing it
 	if (n>1)
 		s += elem;
 	return s;
@@ -467,8 +467,6 @@ woas["_save_to_file"] = function(full) {
 			computed_js += "var page_mts = [" + printout_fixed(0, page_mts.length) + "];\n\n";
 			computed_js += "var pages = [\n" + printout_fixed('""', pages.length) + "];\n\n";
 		} else {
-		// used to reset MTS
-//		for(var ip=0,ipl=pages.length;ip<ipl;++ip) { page_mts[ip] = this.MAGIC_MTS; }
 			computed_js += "var page_attrs = [" + printout_num_arr(page_attrs) + "];\n\n";
 			computed_js += "var page_mts = [" + printout_num_arr(page_mts) + "];\n\n";
 			computed_js += "var pages = [\n" + printout_mixed_arr(pages, this.config.allow_diff, page_attrs) + "];\n\n";
