@@ -293,8 +293,8 @@ woas["special_recent_changes"] = function() {
 	// build an array of (key := page_index, val := last_modified_timestamp) couples
 	var l=page_titles.length, hm = [];
 	for(var i=0;i<l;++i) {
-		// skip pages with the 'magic' timestamp
-		if (page_mts[i] == this.MAGIC_MTS)
+		// skip pages with the 'magic' zero timestamp
+		if (page_mts[i] == 0)
 			continue;
 		// skip reserved pages
 		if (this.is_reserved(page_titles[i]))

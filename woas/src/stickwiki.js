@@ -26,9 +26,6 @@ woas["trim"] = function(s) {
 	return s.replace(/(^\s*)|(\s*$)/, '');
 }
 
-// this is a timestamp considered invalid
-woas["MAGIC_MTS"] = 0x4b61cbad;
-
 // used to craft XHTML pages
 woas["DOCTYPE"] = "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\" \"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\">\n";
 woas["DOC_START"] = "<"+"html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\">\n<head>\n"+
@@ -884,8 +881,8 @@ woas["_set_title"] = function (new_title) {
 }
 
 woas["last_modified"] = function(mts) {
-	// do not show anything when the timestamp is magic
-	if (mts == this.MAGIC_MTS)
+	// do not show anything when the timestamp is magic (zero)
+	if (mts == 0)
 		return "";
 	return this.i18n.LAST_MODIFIED + (new Date(mts*1000)).toLocaleString();
 }
