@@ -180,7 +180,7 @@ And, last but not least:
 --DFQRCTsKlU
 woas.page.title: Main Page
 woas.page.attributes: 0
-woas.page.last_modified: 1265365536
+woas.page.last_modified: 1265392802
 woas.page.length: 1247
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1436,7 +1436,7 @@ $("generated_SVG").appendChild(svgObject);
 woas.page.title: Browsers support
 woas.page.attributes: 0
 woas.page.last_modified: 1264700333
-woas.page.length: 2578
+woas.page.length: 2690
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1452,12 +1452,14 @@ Wiki on a Stick is actively supported on the following browsers:
 * Opera
 * Internet Explorer 5.5
 * Internet Explorer 6
-* Internet Explorer 7
-* Internet Explorer 8
+* Internet Explorer 7*
+* Internet Explorer 8*
+
+* Note: on IE7-IE8 you might want to rename your application to .hta to enable its trusted priviledges.
 
 == Limitations
 
-Internet Explorer does not support embedded images (that's why you will not see button icons); also, Internet Explorer does not allow saving to a network path in the form /\\machina\share\woas.htm/. It is necessary to map network paths to network drives, in order to use WoaS over a network with IE (if you have informations about how to overcome to this limitation, please report us). IE6 does not allow to have a fixed menus.
+Internet Explorer v6-7 does not support embedded images (that's why you will not see button icons); also, Internet Explorer does not allow saving to a network path in the form /\\machina\share\woas.htm/. It is necessary to map network paths to network drives, in order to use WoaS over a network with IE (if you have informations about how to overcome to this limitation, please report us). IE6 does not allow to have a fixed menus.
 
 Firefox (and possibly other browsers too) cannot save to filenames which contain UTF8 characters. Keep your filenames as unix-style.
 
