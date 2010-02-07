@@ -72,12 +72,11 @@ woas.parser["parse_lists"] = function(str, type, $2) {
                 }
             );
 
-		return "\n"+suoro + woas.parser.sublist(stk, 1, suoro, euoro) + euoro;
+		return suoro + woas.parser.sublist(stk, 1, suoro, euoro) + euoro;
 	}
 
 var reReapTables = /^\{\|.*((?:\n\|.*)*)$/gm;	
-woas.parser["parse_tables"] =  function (str, p1)
-    {
+woas.parser["parse_tables"] =  function (str, p1) {
         var caption = false;
         var stk = [];
         p1.replace( /\n\|([+ -])(.*)/g, function(str, pp1, pp2)
