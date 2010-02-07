@@ -86,6 +86,7 @@ woas.parser["parse_tables"] =  function (str, prop, p1) {
 	var caption = '';
 	var colgroup='';
 	var stk = [];
+	var cols = [];
 	var CC = [];
 	p1.replace( /\n\|([+ \t-\|])(.*)/g, function(str, pp1, pp2) {
 		if (pp1 == '-') // currently a remark, but could be used for meta information in the future
@@ -94,25 +95,26 @@ woas.parser["parse_tables"] =  function (str, prop, p1) {
 			return caption = caption || ('<caption' + (stk.length>0? ' style="caption-side:bottom">':'>') + pp2+ '</caption>');
 		if (pp1 == '*') // colgroup
 			return colgroup=pp2;
-		if (pp1 == '=') // Cell information
+		if (pp1 == '$') // Cell information
 			return CC.push(pp2);
 		if(pp1 == '|') // fix empty first cell
 			pp2= " |"+pp2;
-		//var cells = pp2.replace(/(\|\|)\s{0,1}(\s?)(?=\|\|)/g,"$1$2  ").replace(/(\|\|\s*)$/, "$1 ").split(" || "); // allow for zero (or single) spaced SPAN cells, then split them	
+		// var cells = pp2.replace(/(\|\|)\s{0,1}(\s?)(?=\|\|)/g,"$1$2  ").replace(/(\|\|\s*)$/, "$1 ").split(" || "); // allow for zero (or single) spaced SPAN cells, then split them	
 		var cells = pp2.replace(/(\|\|)(\s{0,1})(\s?)(?=\|\|)/g,"$1$2$3  ").replace(/(\|\|\s*)$/, "$1 ").replace(/\|\|\t/g, "|| ").replace(/\t\|\|/g, " ||").split(" || "); // allow for zero spaced SPAN cells, then split them
-		//alert("CELLS="+cells.join("*").replace(/ /g, "~")+"=")
+		// alert("CELLS="+cells.join("*").replace(/ /g, "~")+"=")
 		var row = [];       // table row
 		var stag = "";      // start tag
 		var cs = 0;         // counter for spanned columns
 		for (var i=cells.length - 1; i >= 0; --i){
 			var C = cells[i].match(/^(\s*)(?:(=+)\s*)?(.*?)(\s*)$/) ; // ||[]; // if we fail to parse, at least dont crash
-			//alert("C="+C.join("*").replace(/ /g, "~")+"=")
+			// alert("C="+C.join("*").replace(/ /g, "~")+"= i="+i)
 			if (i && !C[3] && !C[1]) { // if empty and not first column, increase span counter.
 				++cs;
 				continue;
-			}
+			}else	if(i==0 && !C[3])
+				C[3]="&nbsp;"; // prevent Firefox from skipping an empty table line
 			var CL = C[2]?C[2].length:0;
-			//alert("CKL="+CL);
+			// alert("CKL="+CL);
 			stag = '<'+ (CL==1?'th':'td') + (CL>1?' '+CC[CL-2]||'':'')+ (cs? ' colspan=' + ++cs : '') + (C[1]?' align='+(C[4]? 'center':'right'):'') + '>';
 			cs = 0;
 			row.unshift( stag + C[3] + (CL==1?'</th>':'</td>') );
