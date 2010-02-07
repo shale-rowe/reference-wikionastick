@@ -100,6 +100,7 @@ woas["erase_wiki"] = function() {
 			return false;
 		}
 		backup_pages.push(pages[pi]);
+		// reset attributes
 		page_attrs.push(0);
 		// reset timestamp
 		page_mts.push(0);
@@ -205,11 +206,34 @@ woas["delete_page"] = function(title) {
 //API1.0: delete a page given absolute page index
 //API1.0: @protected
 woas["delete_page_i"] = function(i) {
-	log("DELETED page "+page_titles[i]);	// log:1
+	var old_title = page_titles[i];
+	log("DELETED page "+old_title);	// log:1
+	// remove the elements
 	page_titles.splice(i,1);
 	pages.splice(i,1);
 	page_attrs.splice(i,1);
 	page_mts.splice(i,1);
+	// remove the deleted page from history
+	var prev_page = null;
+	for(var i=0,il=backstack.length;i<il;++i) {
+		// remove also duplicate sequences
+		if ((backstack[i] === old_title) || (prev_page === backstack[i])) {
+			backstack.splice(i,1);
+			// fix the loop
+			--il;--i;
+			continue;
+		}
+		prev_page = backstack[i];
+	}
+	// if we were looking at the deleted page
+	if (current == old_title) {
+		// go back or to main page, do not save history
+		if(backstack.length > 0) {
+			this.set_current(backstack.pop(), true);
+		} else
+			this.set_current(main_page);
+	}
+	// always refresh the menu because it could contain the deleted page link
 	this.refresh_menu_area();
 	//TODO: send proper save notification
 	return this.commit_delete([i]);
