@@ -4,7 +4,6 @@ woas.pages: 51
 
 woas.page.title: ::Menu
 woas.page.attributes: 0
-woas.page.last_modified: 1264700333
 woas.page.length: 1936
 woas.page.encoding: ecma/plain
 woas.page.disposition: inline
@@ -75,7 +74,6 @@ $('menu_string_to_search').onkeydown = menu_key_hook;
 --DFQRCTsKlU
 woas.page.title: Special::Advanced
 woas.page.attributes: 0
-woas.page.last_modified: 1265337073
 woas.page.length: 1150
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -107,7 +105,6 @@ You can customize Wiki on a Stick modifying a few [[Special::Options|Options]].
 --DFQRCTsKlU
 woas.page.title: Special::Import
 woas.page.attributes: 0
-woas.page.last_modified: 1264700333
 woas.page.length: 612
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -125,7 +122,6 @@ File: <input id="filename_" type="file" />&nbsp;<input type="button" value="Impo
 --DFQRCTsKlU
 woas.page.title: Special::About
 woas.page.attributes: 0
-woas.page.last_modified: 1265337706
 woas.page.length: 4454
 woas.page.encoding: ecma/plain
 woas.page.disposition: inline
@@ -180,7 +176,6 @@ And, last but not least:
 --DFQRCTsKlU
 woas.page.title: Main Page
 woas.page.attributes: 0
-woas.page.last_modified: 1265392802
 woas.page.length: 1247
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -220,7 +215,6 @@ If you have an older Wiki on a Stick you can [[Special::Import|import it]] now.
 --DFQRCTsKlU
 woas.page.title: Special::Search
 woas.page.attributes: 0
-woas.page.last_modified: 1264700333
 woas.page.length: 703
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -248,7 +242,6 @@ hl_text = null;
 --DFQRCTsKlU
 woas.page.title: MyPages::Page 2
 woas.page.attributes: 0
-woas.page.last_modified: 1264700333
 woas.page.length: 92
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -261,7 +254,6 @@ Hey, don't tell anyone around but...I am better than [[MyPages::Page 1]]!
 --DFQRCTsKlU
 woas.page.title: MyPages::Approved::Page 3
 woas.page.attributes: 0
-woas.page.last_modified: 1264700333
 woas.page.length: 140
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -276,7 +268,6 @@ The parent namespace is [[MyPages::]] while the subnamespace is [[MyPages::Appro
 --DFQRCTsKlU
 woas.page.title: Special::Lock
 woas.page.attributes: 0
-woas.page.last_modified: 1264700333
 woas.page.length: 1222
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -307,7 +298,6 @@ _lock_page();
 --DFQRCTsKlU
 woas.page.title: Special::Security
 woas.page.attributes: 0
-woas.page.last_modified: 1264700333
 woas.page.length: 2207
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -338,7 +328,6 @@ Apart from the above, your normal usage of encrypted pages can be considered sec
 --DFQRCTsKlU
 woas.page.title: MyPages::Page 1
 woas.page.attributes: 2
-woas.page.last_modified: 1264700333
 woas.page.length: 172
 woas.page.encoding: 8bit/base64
 woas.page.disposition: inline
@@ -349,7 +338,6 @@ OBd9RqzyFmwb9HgarONNbxRTHdtjPO4pc0KqbFFxQo56cviwgnGZfdquURCGGDsr3JLXjAIxnT79ftc/
 --DFQRCTsKlU
 woas.page.title: MyPages::Menu
 woas.page.attributes: 0
-woas.page.last_modified: 1264700333
 woas.page.length: 49
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -362,7 +350,6 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Special::Options
 woas.page.attributes: 0
-woas.page.last_modified: 1264700333
 woas.page.length: 2022
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -394,7 +381,6 @@ if (ie6) $("cb_fixed_layout").disabled = true;
 --DFQRCTsKlU
 woas.page.title: Feature::Custom javascript
 woas.page.attributes: 0
-woas.page.last_modified: 1264700333
 woas.page.length: 3745
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -511,7 +497,6 @@ setTimeout ( "ScoreDecay()", 3000);
 --DFQRCTsKlU
 woas.page.title: Syntax
 woas.page.attributes: 0
-woas.page.last_modified: 1265109977
 woas.page.length: 3290
 woas.page.encoding: ecma/plain
 woas.page.disposition: inline
@@ -618,7 +603,6 @@ Some syntax has also been deprecated, see [[Deprecated syntax]].
 --DFQRCTsKlU
 woas.page.title: Transclusion example
 woas.page.attributes: 0
-woas.page.last_modified: 1264700333
 woas.page.length: 644
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -655,7 +639,6 @@ It is also possible to transclude a special page or namespace index:
 --DFQRCTsKlU
 woas.page.title: Test template
 woas.page.attributes: 0
-woas.page.last_modified: 1264700333
 woas.page.length: 69
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -668,7 +651,6 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Infinite recursion template
 woas.page.attributes: 0
-woas.page.last_modified: 1264700333
 woas.page.length: 101
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -683,7 +665,6 @@ This template attempts to trigger infinite recursion
 --DFQRCTsKlU
 woas.page.title: Testcase::Creole 0.1
 woas.page.attributes: 0
-woas.page.last_modified: 1265110075
 woas.page.length: 3082
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -847,7 +828,6 @@ Formated fruits, for example:/apples/, oranges, *pears* ...
 --DFQRCTsKlU
 woas.page.title: Deprecated syntax
 woas.page.attributes: 0
-woas.page.last_modified: 1265115998
 woas.page.length: 1150
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -922,7 +902,6 @@ GOOD:
 --DFQRCTsKlU
 woas.page.title: Feature::External javascript
 woas.page.attributes: 0
-woas.page.last_modified: 1264700333
 woas.page.length: 134
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -939,7 +918,6 @@ This page attempts to include an external example.js file
 --DFQRCTsKlU
 woas.page.title: Testcase::WoaS testcases
 woas.page.attributes: 0
-woas.page.last_modified: 1264700333
 woas.page.length: 1332
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1004,7 +982,6 @@ Some text above a ruler
 --DFQRCTsKlU
 woas.page.title: Feature::Summary
 woas.page.attributes: 0
-woas.page.last_modified: 1264700333
 woas.page.length: 5182
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1138,7 +1115,6 @@ function myfunc(arg) {
 --DFQRCTsKlU
 woas.page.title: Options
 woas.page.attributes: 0
-woas.page.last_modified: 1264700333
 woas.page.length: 1336
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1177,7 +1153,6 @@ When clicked, puts the wiki into server mode. With this option users will be tol
 --DFQRCTsKlU
 woas.page.title: Test template 2
 woas.page.attributes: 0
-woas.page.last_modified: 1264700333
 woas.page.length: 146
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1192,7 +1167,6 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Special::Embed
 woas.page.attributes: 0
-woas.page.last_modified: 1264700333
 woas.page.length: 128
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1206,7 +1180,6 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Image::alert.png
 woas.page.attributes: 12
-woas.page.last_modified: 1264700333
 woas.page.mime: image/png
 woas.page.length: 1436
 woas.page.encoding: 8bit/base64
@@ -1218,7 +1191,6 @@ iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAMAAADzapwJAAAAB3RJTUUH1wcHEBwwMJCsHwAAAAlwSFlz
 --DFQRCTsKlU
 woas.page.title: WoaS::Bootscript
 woas.page.attributes: 4
-woas.page.last_modified: 1264700333
 woas.page.length: 44
 woas.page.encoding: 8bit/base64
 woas.page.disposition: inline
@@ -1229,7 +1201,6 @@ Ly8gUHV0IGhlcmUgeW91ciBib290IGphdmFzY3JpcHQ=
 --DFQRCTsKlU
 woas.page.title: History
 woas.page.attributes: 0
-woas.page.last_modified: 1264700333
 woas.page.length: 4681
 woas.page.encoding: ecma/plain
 woas.page.disposition: inline
@@ -1273,7 +1244,6 @@ Wiki on a Stick codebase has been rewritten as object-oriented in order to be mo
 --DFQRCTsKlU
 woas.page.title: Special::Export
 woas.page.attributes: 0
-woas.page.last_modified: 1265020594
 woas.page.length: 2721
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1334,7 +1304,6 @@ $('woas_ep_xhtml').onblur = $('woas_ep_img').onblur = $('woas_ep_ext').onblur = 
 --DFQRCTsKlU
 woas.page.title: Testcase::Case-sensitiveness
 woas.page.attributes: 0
-woas.page.last_modified: 1264700333
 woas.page.length: 176
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1349,7 +1318,6 @@ Link to [[Testcase::page1]] is different from [[Testcase::Page1]]
 --DFQRCTsKlU
 woas.page.title: Testcase::page1
 woas.page.attributes: 0
-woas.page.last_modified: 1264700333
 woas.page.length: 55
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1364,7 +1332,6 @@ This is a dummy page
 --DFQRCTsKlU
 woas.page.title: Testcase::Page1
 woas.page.attributes: 0
-woas.page.last_modified: 1264700333
 woas.page.length: 64
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1379,7 +1346,6 @@ This is another dummy page!!
 --DFQRCTsKlU
 woas.page.title: Testcase::Apostrophe ' in title
 woas.page.attributes: 0
-woas.page.last_modified: 1264700333
 woas.page.length: 92
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1392,7 +1358,6 @@ This page has an apostrophe in title but should still be searchable
 --DFQRCTsKlU
 woas.page.title: Di\u00e2critics
 woas.page.attributes: 0
-woas.page.last_modified: 1264700333
 woas.page.length: 112
 woas.page.encoding: ecma/plain
 woas.page.disposition: inline
@@ -1407,7 +1372,6 @@ Simon wonders if a page with di\u00e2critics will be found \u00e4nyw\u00e1y.
 --DFQRCTsKlU
 woas.page.title: Embedded SVG
 woas.page.attributes: 0
-woas.page.last_modified: 1265114974
 woas.page.length: 585
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1435,7 +1399,6 @@ $("generated_SVG").appendChild(svgObject);
 --DFQRCTsKlU
 woas.page.title: Browsers support
 woas.page.attributes: 0
-woas.page.last_modified: 1264700333
 woas.page.length: 2690
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1497,7 +1460,6 @@ The TiddlySaver java applet was written by J.Rouston.
 --DFQRCTsKlU
 woas.page.title: Feature::Bootscript
 woas.page.attributes: 0
-woas.page.last_modified: 1264700333
 woas.page.length: 642
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1526,7 +1488,6 @@ NOTE: the WoaS javascript API is not yet specified
 --DFQRCTsKlU
 woas.page.title: Special::License
 woas.page.attributes: 0
-woas.page.last_modified: 1264700333
 woas.page.length: 175
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1541,7 +1502,6 @@ Retrieved from [[http://www.gnu.org/licenses/gpl2.txt]]:
 --DFQRCTsKlU
 woas.page.title: Nowiki dummy 2
 woas.page.attributes: 2
-woas.page.last_modified: 1264700333
 woas.page.length: 64
 woas.page.encoding: 8bit/base64
 woas.page.disposition: inline
@@ -1552,7 +1512,6 @@ P1QMJ5+Uwl26ChUIkLZ+5mLi/lNPw8HCcMQBWQSNtPMRlRaXz9LUTT+wr1i2huVl
 --DFQRCTsKlU
 woas.page.title: Escaped > page
 woas.page.attributes: 0
-woas.page.last_modified: 1264700333
 woas.page.length: 152
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1567,7 +1526,6 @@ Other commonly escaped characters are % < > | : #
 --DFQRCTsKlU
 woas.page.title: Google sitesearch
 woas.page.attributes: 0
-woas.page.last_modified: 1264700333
 woas.page.length: 850
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1592,7 +1550,6 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Features::Oddmuse integration
 woas.page.attributes: 0
-woas.page.last_modified: 1264700333
 woas.page.length: 470
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1619,7 +1576,6 @@ It is theorically possible to use Javascript:: namespace pages to automatize pag
 --DFQRCTsKlU
 woas.page.title: Testcase::Headlines mix
 woas.page.attributes: 0
-woas.page.last_modified: 1264700333
 woas.page.length: 120
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1648,7 +1604,6 @@ asdf
 --DFQRCTsKlU
 woas.page.title: Testcase::Unusual lists
 woas.page.attributes: 0
-woas.page.last_modified: 1264700333
 woas.page.length: 173
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1670,7 +1625,6 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: WoaS::Aliases
 woas.page.attributes: 0
-woas.page.last_modified: 1264700333
 woas.page.length: 16
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1681,7 +1635,6 @@ $HOME  Main Page
 --DFQRCTsKlU
 woas.page.title: Special::ExportWSIF
 woas.page.attributes: 0
-woas.page.last_modified: 1265024731
 woas.page.length: 1032
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1725,7 +1678,6 @@ $('woas_ep_wsif').onblur = _ep_blur;
 --DFQRCTsKlU
 woas.page.title: Special::WSIF
 woas.page.attributes: 0
-woas.page.last_modified: 1265020848
 woas.page.length: 158
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1738,7 +1690,6 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Special::ImportWSIF
 woas.page.attributes: 0
-woas.page.last_modified: 1265102401
 woas.page.length: 329
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1754,7 +1705,6 @@ File: <input id="filename_" type="file" />&nbsp;<input type="button" value="Impo
 --DFQRCTsKlU
 woas.page.title: File::life snippet.c
 woas.page.attributes: 4
-woas.page.last_modified: 1265114112
 woas.page.length: 628
 woas.page.encoding: 8bit/base64
 woas.page.disposition: inline
@@ -1765,7 +1715,6 @@ dm9pZCBMaWZlRnJhbWU6Ok9uU2FtcGxlcyh3eENvbW1hbmRFdmVudCYgV1hVTlVTRUQoZXZlbnQpKQp7
 --DFQRCTsKlU
 woas.page.title: File::seed_of_life.svg
 woas.page.attributes: 4
-woas.page.last_modified: 1265114799
 woas.page.length: 1412
 woas.page.encoding: 8bit/base64
 woas.page.disposition: inline
