@@ -1379,8 +1379,11 @@ function custom_focus(focused) {
 var kbd_hooking=false;
 
 // Will record which key is pressed in kbd.KEY (a number or false on key up) . META will hold meta keys. So if SHIFT and ALT are pressed then META=5
-// n is true-ish for key up. http://www.beansoftware.com/ASP.NET-Tutorials/Examples/Shift-Ctrl-Alt-Detect.aspx
-function kbd(key,n){
+// n is true-ish for key down. http://www.beansoftware.com/ASP.NET-Tutorials/Examples/Shift-Ctrl-Alt-Detect.aspx
+function kbd(evnt,n){
+	kbd.event = evnt ? evnt : window.event;
+	var key=kbd.event.keyCode;
+	//if(!n)kbd.event=null;
 	switch(key){
 		case(16): kbd.META = n? kbd.META|= 1:kbd.META^= 1; break; // SHIFT
 		case(17): kbd.META = n? kbd.META|= 2:kbd.META^= 2; break; // CTRL
@@ -1397,28 +1400,71 @@ kbd_blur();
 
 // On key up
 function kbd_hook_up(orig_e) {
-	kbd(orig_e ? orig_e.keyCode : window.event.keyCode,0);
-	return orig_e;
+	kbd(orig_e,0);
+	return orig_e; // No custom events for key up
 }
 
 // helper function for keypresses
-function kbd_is(k,m){if(kbd.KEY==k&&kbd.META==(m||0))return 1}
+function kbd_is(k,m){if(kbd.KEY==k&&kbd.META==(m||0)){
+	return 1;
+}}
 
 // To get the keycodes use this text in a page:
 // <form>Char: <input type="text" id="char" size="15" /> Keycode: <input type="text" id="keycode" size="15" /></form>
 // And inside a script:
 // $('char').onkeydown=function(e){var e=window.event || e; document.getElementById("keycode").value=e.keyCode;}
-function kbd_hook_down(orig_e) {
-	var e = kbd( orig_e ? orig_e.keyCode : window.event.keyCode, 1);
+// You can also just look it up: // http://www.webonweboff.com/tips/js/event_key_codes.aspx
+// keys:
+// 		keycode, 
+// 		META(1*SHIFT+2*CTRL+4*ALT)
+// 		mode: (0=none, 1=kbd_hooking (editor), 2=search_focused (search),  3=_custom_focus (form))
+// 		function(){}
+
+// flatten the keycode, meta and mode into one big number
+function  keyindex(keycode,meta,mode){return keycode + (meta<<8) + (mode<<12)}
+
+
+KEYS = []; // Here be keys.
+	// Escape pressed during edit mode
+	KEYS[keyindex(27,0,1)] = function(){cancel();ff_fix_focus();}
+	// Pressing F2 while editing will save your page
+	KEYS[keyindex(113,0,1)] = function(){$("wiki_editor").blur();save();}
+	// Pressing F2 while viewing / editing a form will edit the  page
+	KEYS[keyindex(113,0,3)] = function(){edit();} 
+	// Enter pressed in search input box
+	KEYS[keyindex(13,0,3)]  = function(){ff_fix_focus();do_search();}
+	// Backspace or Escape.  When in a form, don't forget to set onfocus="custom_focus(true)" onblur="custom_focus(false)" (or else backspace will go back a page!)
+	KEYS[keyindex(8,0,0)]  = function(){go_back();ff_fix_focus();}
+	KEYS[keyindex(27,0,0)]  = KEYS[keyindex(8,0,0)];
+	// Pressing F2 while viewing will edit the  page
+	KEYS[keyindex(113,0,0)] = function(){edit();} 
+	// Pressing F4 will bring up the search
+	KEYS[keyindex(115,0,0)] = function(){go_to('Special::Search')} 
+	// Pressing SHIFT+F2 will create a new subpage
+	KEYS[keyindex(113,1,0)] = function(){woas.cmd_new_page(current.replace(/::$/,'')+'::');}
+
+function kbd_hook_down(orig_e) {	
+	var e = kbd( orig_e, 1);
 	if(!e) return orig_e;
-	if(orig_e)orig_e.cancelBubble = true; else window.event.cancelBubble = true; // seems to fix nested functions that dont return here. edit();return false  never returns false... so the key gets 'stuck'
+	var Mode = kbd_hooking? 1 : search_focused? 2: _custom_focus? 3 : 0;
+	if(KEYS[keyindex(e,kbd.META,Mode)]){
+		KEYS[keyindex(e,kbd.META,Mode)]();
+		return false;
+	}
+	return orig_e;
+}
+
+
+function kbd_hook_down_old(orig_e) {
+	var e = kbd( orig_e, 1);
+	if(!e) return orig_e;
 	if (kbd_hooking) { // EDIT MODE
 		if (kbd_is(27)) { // Escape pressed during edit mode
 			cancel();
 			ff_fix_focus();
 			return false; // cancel this input key from the keyboard ( so the Browser doesn't processes it )
 		}
-		 if(kbd_is(113)){save();return false} // Pressing F2 while editing will save your page
+		 if(kbd_is(113)){$("wiki_editor").blur();save();return false} // Pressing F2 while editing will save your page
 	}else{
 		if (_custom_focus){
 			if(kbd_is(113)){edit();return false} // Pressing F2 while viewing and editing a form will edit the  page
@@ -1508,6 +1554,7 @@ woas["disable_edit"] = function() {
 		this.menu_display("save", false);
 	this.menu_display("cancel", false);
 	this.menu_display("print", true);
+	$("edit_area").blur();	
 	$.show("text_area");
 	// aargh, FF eats the focus when cancelling edit
 	$.hide("edit_area");
@@ -1719,6 +1766,7 @@ woas["user_parse"]._default = function(text){
 	}catch(e){
 		alert("user_parse JS:"+e+"\n"+text)
 	}
+	return "";
 }
 
 
