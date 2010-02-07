@@ -58,9 +58,11 @@ woas["_native_wsif_save"] = function(path, single_wsif, inline_wsif, author,
 			if (page_titles[pi].match(/^Special::/)) continue;
 		}
 		var record = this.wsif.header(pfx+"title", this.ecma_encode(page_titles[pi]))+
-					this.wsif.header(pfx+"attributes", page_attrs[pi])+
-					this.wsif.header(pfx+"last_modified", page_mts[pi]),
-					ct = null;
+					this.wsif.header(pfx+"attributes", page_attrs[pi]);
+		// specify timestamp only if not magic
+		if (page_mts[pi] != 0)
+			record += this.wsif.header(pfx+"last_modified", page_mts[pi]);
+		var ct = null;
 		
 		// normalize the page content, set encoding&disposition
 		var encoding = null, disposition = "inline";
