@@ -1,5 +1,7 @@
 
 // native WSIF-saving mode used during development - use with CARE!
+// to switch from native WSIF to normal javascript mode, open loadsave.js
+// and comment the branches "if (this._auto_native_wsif)"
 woas["_auto_native_wsif"] = true;
 
 // a class for some general WSIF operations

@@ -29,10 +29,8 @@ function back_or(or_page) {
 }
 
 // when Back button is clicked
-function go_back()
-{
-	if(backstack.length > 0)
-	{
+function go_back() {
+	if(backstack.length > 0) {
 		forstack.push(current);
 		woas.set_current(backstack.pop(), true);
 		return true;
