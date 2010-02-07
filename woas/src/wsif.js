@@ -216,16 +216,17 @@ woas["_native_wsif_load"] = function(path, overwrite, and_save, recursing) {
 	var pfx = "\nwoas.page.", pfx_len = pfx.length;
 	// start looping to find each page
 	var p = ct.indexOf(pfx), fail = false;
+	// this is used to mark end-of-block
+	var previous_h = null;
 	// too early failure
 	if (p == -1)
-		this.wsif.emsg = "Corrupted WSIF file";
+		this.wsif.emsg = "Invalid WSIF file";
 	var title = null,	attrs = null,
 		last_mod = null,	len = null,
 		encoding = null,	disposition = null,
 		d_fn = null,
 		boundary = null,	mime = null;
 	// position of last header end-of-line
-	var vsep = p, bak_p = p;
 	while (p != -1) {
 		var sep, s, v;
 		// remove prefix
@@ -237,28 +238,31 @@ woas["_native_wsif_load"] = function(path, overwrite, and_save, recursing) {
 		}
 		// get attribute name
 		s = ct.substring(p+pfx_len, sep);
-		// take backup copy of where last attribute was (used for inline boundaries extraction)
-		bak_p = vsep;
 		// get value
-		vsep = ct.indexOf("\n", sep+1);
-		if (vsep == -1) {
+		p = ct.indexOf("\n", sep+1);
+		if (p == -1) {
 			this.wsif.emsg = "Could not locate end of header value";
 			fail = true;
 			break;
 		}
+		// all headers except the title header can mark an end-of-block
+		// the end-of-block is used to find boundaries and content inside
+		// them
+		if (s != "title")
+			// save the last header position
+			previous_h = p;
 		// get value and apply left-trim
-		v = ct.substring(sep+1, vsep).replace(/^\s*/, '');
-		// update pointer
-		p = vsep;
+		v = ct.substring(sep+1, p).replace(/^\s*/, '');
 		switch (s) {
 			case "title":
 				// we have just jumped over a page definition
 				if (title !== null) {
-					p = this._native_page_def(path,ct,bak_p,overwrite,
+					// store the previously parsed page definition
+					p = this._native_page_def(path,ct,previous_h, p,overwrite,
 							title,attrs,last_mod,len,encoding,disposition,
 							d_fn,boundary,mime);
 					// save page index for later analysis
-					var pi = page_titles.indexOf(title);
+					var was_title = title;
 					title = attrs = last_mod = encoding = len =
 						 boundary = disposition = mime = d_fn = null;
 					if (p == -1) {
@@ -267,13 +271,16 @@ woas["_native_wsif_load"] = function(path, overwrite, and_save, recursing) {
 					}
 					// check if page was really imported, and if yes then
 					// add page to list of imported pages
-					if (pi != -1) {
+					var pi = page_titles.indexOf(was_title);
+					if (pi != -1)
 						imported.push(pi);
-//						document.title = page_titles[pi];
-					}
-					// delete this whole entry to free up some memory to GC
+					else
+						log("Import failure for "+was_title); //log:1
+					// delete the whole entry to free up memory to GC
+					// will delete also the last read header
 					ct = ct.substr(p);
 					p = 0;
+					previous_h = null;
 				}
 				// let's start with the next page
 				title = this.ecma_decode(v);
@@ -310,21 +317,22 @@ woas["_native_wsif_load"] = function(path, overwrite, and_save, recursing) {
 		// set pointer to next entry
 		p = ct.indexOf(pfx, p);
 	}
-	if (recursing) {
-/*		this.alert("title = "+title+"\nattrs = "+attrs+"\nlast_mod = "+last_mod+"\n"+
+/*	if (recursing) {
+		this.alert("title = "+title+"\nattrs = "+attrs+"\nlast_mod = "+last_mod+"\n"+
   				"len = "+len+"\nencoding = "+encoding+"\ndisposition = "+disposition+
-   				"\nboundary = "+boundary+"\n"); */
-	}
+   				"\nboundary = "+boundary+"\n");
+	} */
 	// process the last page (if any)
-	if (title !== null) {
-		p = this._native_page_def(path,ct,bak_p,overwrite,
+	if ((previous_h !== null) && (title !== null)) {
+		p = this._native_page_def(path,ct,previous_h,0,overwrite,
 				title,attrs,last_mod,len,encoding,disposition,
 				d_fn,boundary,mime);
 		// save page index for later analysis
 		var pi = page_titles.indexOf(title);
-		if (p == -1)
+		if (p == -1) {
+			this.wsif.emsg = "Cannot find page "+title+" after import!";
 			fail = true;
-		else {
+		} else {
 			// check if page was really imported, and if yes then
 			// add page to list of imported pages
 			if (pi != -1)
@@ -350,7 +358,7 @@ woas["get_path"] = function(id) {
 	return $(id).value;
 }
 
-woas["_native_page_def"] = function(path,ct,p,overwrite, title,attrs,last_mod,len,encoding,
+woas["_native_page_def"] = function(path,ct,p,last_p,overwrite, title,attrs,last_mod,len,encoding,
 											disposition,d_fn,boundary,mime) {
 	if (disposition == "inline") {
 		// craft the exact boundary match string
@@ -459,8 +467,8 @@ woas["_native_page_def"] = function(path,ct,p,overwrite, title,attrs,last_mod,le
 			this.wsif.emsg = "Failed import of external "+d_fn+"\n"+this.wsif.emsg;
 			p = -1;
 		}
-		// do not change the offset
-		return p;
+		// return pointer after last read header
+		return last_p;
 	} else { // no disposition or unknown disposition
 		this.wsif.emsg = "Page "+title+" has invalid disposition: "+disposition;
 		return -1;
@@ -485,6 +493,8 @@ woas["_native_page_def"] = function(path,ct,p,overwrite, title,attrs,last_mod,le
 			page_titles.push(title);
 		}
 	} // !fail
+	// return pointer after last read header
+//	return last_p;
 	// return updated offset
 	return bpos_e+boundary.length;
 }
