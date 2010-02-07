@@ -2,17 +2,21 @@
 ## WoaS compiler
 # @author legolas558
 # @copyright GNU/GPL license
+# @version 1.1
 # 
-# run 'php -q make_woas.php' to create a single-file version from the multiple files version
+# run 'php -q make_woas.php woas.htm' to create a single-file version
+# from the multiple files version
 # additional understood pameters are:
 # 
 # woas=path/woas.htm		path to WoaS HTML file - defaults to woas.htm
 # log=[0|1|2]		0 - fully disable log, 1 - keep logging as is, 2 - enable all log lines
-# debug=[0|1]		specify 1 to enable debugging code
+# debug=[0|1]		specify 1 to enable debugging code, default is 0
+# native_wsif=[0|1]	specify 1 to enable native WSIF saving, default is 0
 # edit_override=[0|1]	specify 1 to enable the edit override
+#
 
 $woas = null;
-$log = $debug = $edit_override = false;
+$log = $debug = $edit_override = $native_wsif = false;
 
 // parse the command line parameters
 for($i=1;$i<$argc;++$i) {
@@ -39,28 +43,32 @@ for($i=1;$i<$argc;++$i) {
 		case 'edit_override':
 			$edit_override = $v?1:0;
 			break;
+		case 'native_wsif':
+			$edit_override = $v?1:0;
+			break;
 		default:
-		echo "Parameter ".$a[0]." is not recognized\n";
+			fprintf(STDERR, "Parameter \"%s\" is not recognized\n", $a[0]);
 	}
 }
 
+// default path
 if (!isset($woas))
 	$woas = 'woas.htm';
 
 if (!file_exists($woas)) {
-	echo "File $woas does not exist\n";
+	fprintf("File \"%s\" does not exist\n", $woas);
 	exit(-1);
 }
 
 $ct = file_get_contents($woas);
 
 if (!preg_match('/\\nvar __marker = "([^"]+)";/', $ct, $m)) {
-	echo "Could not find marker\n";
+	fprintf(STDERR, "Could not find marker\n");
 	exit(-2);
 }
 
 $marker = $m[1];
-
+// locate marker end
 $p=strpos($ct, '/* '.$marker.'-END */');
 $ep = strpos($ct, '</head>', $p);
 
@@ -72,7 +80,7 @@ $base_dir = dirname($woas).'/';
 function _script_replace($m) {
 	global $replaced, $base_dir;
 	if (!file_exists($base_dir.$m[1])) {
-		echo "Could not locate $base_dir".$m[1]."\n";
+		fprintf(STDERR, "Could not locate $base_dir".$m[1]."\n");
 		return $m[0];
 	}
 	$ct = file_get_contents($base_dir.$m[1]);
@@ -81,9 +89,13 @@ function _script_replace($m) {
 	//TODO: apply modifications now
 	++$replaced;
 	echo "Replaced ".$m[1]."\n";
+	return mkscript($ct, basename($m[1]));
+}
+
+function mkscript($ct, $desc = "") {
 	return '<script language="javascript" type="text/javascript">'.
-		"\n/* <![CDATA[ */\n/*** ".basename($m[1])." ***/\n".$ct.
-		"\n/* ]]> */ </script>";
+		"\n/* <![CDATA[ */\n".(strlen($desc) ? "/*** ".$desc." ***/\n" : "")
+		.$ct."\n/* ]]> */ </script>";
 }
 
 $tail = preg_replace_callback('/<script src=\"([^"]+)" type="text\\/javascript"><\\/script>/', '_script_replace', $tail);
@@ -93,7 +105,11 @@ if (!$replaced) {
 	exit(-3);
 }
 
-$ct = substr_replace($ct, $tail, $p, $ep-$p);
+$custom_options = "var edit_override = ".($edit_override ? 'true' : 'false').";\n".
+					"woas[\"_auto_native_wsif\"] = ".($native_wsif ? 'true' : 'false').";\n".
+					"woas[\"debug\"] = ".($debug ? 'true' : 'false').";\n";
+
+$ct = substr_replace($ct, $tail.mkscript($custom_options, "Custom options"), $p, $ep-$p);
 
 file_put_contents('woas-merged.htm', $ct);
 
