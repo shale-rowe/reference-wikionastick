@@ -1021,7 +1021,7 @@ woas["create_breadcrumb"] = function(title) {
 	var s="", partial="";
 	for(var i=0;i<tmp.length-1;i++) {
 		partial += tmp[i]+"::";
-		s += "<a href=\"#\" onclick=\"go_to('"+this.js_encode(partial)+"')\">"+tmp[i]+"</a> :: ";
+		s += '<a class="breadcrumb" href="#" onclick="go_to(\'"+this.js_encode(partial)+"\')">'+tmp[i]+'</a> :: ';
 	}
 	return s+tmp[tmp.length-1];
 }
