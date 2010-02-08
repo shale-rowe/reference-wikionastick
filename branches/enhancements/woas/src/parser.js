@@ -521,10 +521,10 @@ woas.parser["parse"] = function(text, export_links, js_mode, title) {
 			s = "<div class=\"taglinks\">";
 		s += "Tags: ";
 		for(var i=0;i<tags.length-1;i++) {
-			s+="<a class=\"link tag\" onclick=\"go_to('Tagged::"+woas.js_encode(tags[i])+"')\">"+tags[i]+"</a>&nbsp;&nbsp;";
+			s+="<a onclick=\"go_to('Tagged::"+woas.js_encode(tags[i])+"')\">"+tags[i]+"</a>&nbsp;&nbsp;";
 		}
 		if (tags.length>0)
-			s+="<a class=\"link tag\" onclick=\"go_to('Tagged::"+woas.js_encode(tags[tags.length-1])+"')\">"+tags[tags.length-1]+"</a>";
+			s+="<a onclick=\"go_to('Tagged::"+woas.js_encode(tags[tags.length-1])+"')\">"+tags[tags.length-1]+"</a>";
 		if (!this.force_inline) {
 			s+="</div>";
 			text += s;
