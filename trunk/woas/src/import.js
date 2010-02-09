@@ -95,6 +95,9 @@ woas["import_wiki"] = function() {
 				case "0.10.1":
 					old_version = 101;
 					break;
+				case "0.10.2":
+					old_version = 102;
+					break;
 				default:
 				this.alert(this.i18n.IMPORT_INCOMPAT.sprintf(ver_str));
 				fail=true;
