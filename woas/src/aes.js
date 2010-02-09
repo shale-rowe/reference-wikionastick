@@ -24,14 +24,9 @@ function getB(x,n){ return (x>>>(n*8))&0xFF; }
 	function unExpChar(c){
 	  return "unexpected character '"+String.fromCharCode(c)+"' (code 0x"+c.toString(16)+").";
 	}
-	
-	function utf8Encrypt_s(sData) {
-		return unescape( encodeURIComponent( sData ) );
-	}
 
 	function utf8Encrypt(sData){
-		return split_bytes(utf8Encrypt_s(sData));
-/*	  var k, i=0, z=sData.length;
+	  var k, i=0, z=sData.length;
 	  var bData = [];
 	  while (i<z) {
 	    c = sData.charCodeAt(i++);
@@ -46,16 +41,11 @@ function getB(x,n){ return (x>>>(n*8))&0xFF; }
 	    bData[j]=c+((0xFF<<(6-k))&0xFF);
 	    j += k+2;
 	  }
-	  return bData; */
-	}
-
-	function utf8Decrypt_s(sData) {
-		return decodeURIComponent( escape( sData ) );
+	  return bData;
 	}
 
 	function utf8Decrypt(bData){
-		return utf8Decrypt_s(merge_bytes(bData));
-/*	  var z=bData.length;
+	  var z=bData.length;
 	  var c;
 	  var k, d = 0, i = 0;
 	  var sData = "";
@@ -79,7 +69,7 @@ function getB(x,n){ return (x>>>(n*8))&0xFF; }
 		}
 	    sData+=String.fromCharCode(c);
 	  }
-	  return sData; */
+	  return sData;
 	}
 
 function split_bytes(s) {
@@ -275,13 +265,13 @@ function blcEncrypt(enc){
   if (tot==0){
 //    prgr = name;
     if (key.length<1) return;
-    // if (cbc)
+    //if (cbc)
 	for (aes_i=0; aes_i<16; aes_i++) bData.unshift( _rand(256) );
     while( bData.length%16!=0 ) bData.push(0);
     tot = bData.length;
     aesInit();
   }else{
-    // if (cbc)
+    //if (cbc)
 	for (aes_j=aes_i; aes_j<aes_i+16; aes_j++) bData[aes_j] ^= bData[aes_j-16];
     enc();
   }
@@ -292,16 +282,16 @@ function blcDecrypt(dec){
   if (tot==0){
 //    prgr = name;
     if (key.length<1) return;
-    // if (cbc)
+    //if (cbc)
 	{ aes_i=16; }
     tot = bData.length;
     if ( (tot%16) || tot<aes_i ) throw 'AES: Incorrect length (tot='+tot+', aes_i='+aes_i+')';
     aesInit();
   }else{
-    // if (cbc)
+    //if (cbc)
 	aes_i=tot-aes_i;
     dec();
-    // if (cbc)
+    //if (cbc)
 {
       for (aes_j=aes_i-16; aes_j<aes_i; aes_j++) bData[aes_j] ^= bData[aes_j-16];
       aes_i = tot+32-aes_i;
@@ -309,7 +299,7 @@ function blcDecrypt(dec){
   }
   if (aes_i>=tot){
     aesClose();
-    // if (cbc)
+    //if (cbc)
 	bData.splice(0,16);
 	while(bData[bData.length-1]==0) bData.pop();
   }

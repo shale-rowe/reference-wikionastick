@@ -1,40 +1,24 @@
 
 woas["debug"] = true;			// toggle debug mode (and console)
 
+var _doctype = "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\" \"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\">\n";
+
 // browser flags - not to be in WoaS object
 var ie = false;
 var ie6 = false;
-var firefox = false, firefox2 = false;
-var ff3 = false, ff_new = false;
+var firefox = false;
+//var ff3 = false;
 var opera = false;
 
 if((navigator.userAgent).indexOf("Opera")!=-1)
 	opera = true;
 else if(navigator.appName == "Netscape") {
 	firefox = true;
-	// match also development versions of Firefox "Shiretoko" / "Namoroka"
-	var fver = navigator.userAgent.match(/Gecko\/\d+\s*[A-Za-z]+\/(\d+)\.[\.\d]+$/);
-	if (fver !== null) {
-		fver = Number(fver[1]);
-		switch (fver) {
-			case 2:
-				firefox2 = true;
-			break;
-			case 3:
-				ff3 = true;
-			break;
-			default:
-				// a new version of Firefox
-				if (fver > 3)
-					ff_new = true;
-				// unknown browser!
-		}
-	}
+//	if (navigator.userAgent.match("Firefox/3"))
+//		ff3 = true;
 } else if((navigator.appName).indexOf("Microsoft")!=-1) {
 	ie = true;
-	ie8 = (navigator.userAgent.search(/msie 8\./i)!=-1);
-	if (!ie8)
-		ie6 = (navigator.userAgent.search(/msie 6\./i)!=-1);
+	ie6 = (navigator.userAgent.search(/msie 6\./i)!=-1);
 }
 
 // finds out if Opera is trying to look like Mozilla
@@ -49,14 +33,8 @@ var is_windows = (navigator.appVersion.toLowerCase().indexOf("windows")!=-1);
 
 woas["_server_mode"] = (document.location.toString().match(/^file:\/\//) ? false:true);
 
-// returns the DOM element object given its id - enables a try/catch mode when debugging
-if (woas.debug) {
-	// returns the DOM element object given its id, alerting if the element is not found (but that would never happen, right?)
-	function $(id){ try{return document.getElementById(id);}catch(e){alert("ERROR: $('"+id+"') invalid reference");} }
-} else {
-	// much faster version
-	function $(id){return document.getElementById(id);}
-}
+// returns the DOM element object given its id
+function $(id){return document.getElementById(id);}
 
 $["hide"] = function(id) {
 	$(id).style.display = "none";
@@ -68,25 +46,13 @@ $["show"] = function(id) {
 	$(id).style.visibility = "visible";
 }
 
-$["is_visible"] = function(id) {
-	return !!($(id).style.visibility == 'visible');
-}
-
-$["toggle"] = function(id) {
-	if ($.is_visible(id))
-		$.hide(id);
-	else
-		$.show(id);
-}
-
 // logging function has not to be in WoaS object
 var log;
 if (woas.debug) {
 	// logging function - used in development
 	log = function (aMessage)
 	{
-	    var logbox = $("woas_log");
-	    // count lines
+	    var logbox = $("swlogger");
 		nls = logbox.value.match(/\n/g);
 		if (nls!=null && typeof(nls)=='object' && nls.length>11)
 			logbox.value = "";
@@ -116,7 +82,6 @@ if (typeof Array.prototype.splice == "undefined") {
     for (i = temp.length - 1; i >= 0; i--) {
       this[this.length] = temp[i];
     }
-    return this;
   }
 }
 
@@ -148,7 +113,10 @@ Array.prototype.toUnique = function() {
 // thanks to S.Willison
 RegExp.escape = function(text) {
   if (!arguments.callee.sRE) {
-    var specials = ['/', '.', '*', '+', '?', '|', '$', '(', ')', '[', ']', '{', '}', '\\' ];
+    var specials = [
+      '/', '.', '*', '+', '?', '|',
+      '(', ')', '[', ']', '{', '}', '\\'
+    ];
     arguments.callee.sRE = new RegExp(
       '(\\' + specials.join('|\\') + ')', 'g'
     );
@@ -157,12 +125,10 @@ RegExp.escape = function(text) {
 }
 
 // repeat string s for n times
- if (typeof String.prototype.repeat == "undefined") {
-	String.prototype.repeat = function(n) {
-		var r = "";
-		while (--n >= 0) r += this;
-		return r;
-	}
+function str_rep(s, n) {
+	var r = "";
+	while (--n >= 0) r += s;
+	return r;
 }
 
 // return a random integer given the maximum value (scale)
@@ -181,45 +147,24 @@ function _random_string(string_length) {
 	return randomstring;
 }
 
+// format a decimal number to specified decimal precision
+function _number_format(n, prec) {
+	return n.toString().replace(new RegExp("(\\."+str_rep("\\d", prec)+")\\d*$"), "$1");
+}
+
 // converts the number of bytes to a human readable form
 function _convert_bytes(bytes) {
-	var U=['bytes','Kb','Mb','Gb','Pb'];
-	var n=0;
-	bytes=Math.ceil(bytes);
-	while(bytes>=1024) {
-		 ++n;
-		 bytes /= 1024;
-	}
-	return bytes.toFixed(2).replace(/\.00$/, "") +' '+ U[n];
-}
-
-// implement an sprintf() bare function
-String.prototype.sprintf = function() {
-	// check that arguments are OK
-	if (typeof arguments == "undefined") { return null; }
-	// next argument to pick
-	var i_pos = 0, max_pos = arguments.length - 1;
-	var fmt_args = arguments;
-	return this.replace(/(%[sd])/g, function(str, $1) {
-		// replace with a strange thing in case of undefined parameter
-		if (i_pos > max_pos)
-			return "(?)";
-/*		if ($1 == '%d')
-			return Number(arguments[i_pos++]); */
-		// return '%s' string
-		return fmt_args[i_pos++];
-	});
-}
-
-// create a centered popup given some options
-woas["popup"] = function (name,fw,fh,extra,head,body) {
-	var hpos=Math.ceil((screen.width-fw)/2);
-	var vpos=Math.ceil((screen.height-fh)/2);
-	var wnd = window.open("about:blank",name,"width="+fw+",height="+fh+		
-	",left="+hpos+",top="+vpos+extra);
-	wnd.focus();
-	wnd.document.writeln(this.DOCTYPE+"<ht"+"ml><he"+"ad>"+head+"</h"+"ead><"+"body>"+
-						body+"</bod"+"y></h"+"tml>\n");
-	wnd.document.close();
-	return wnd;
+//	log("Converting "+bytes+" bytes");	// log:0
+	if (bytes < 1024)
+		return Math.ceil(bytes)+ " bytes";
+	var k = bytes / 1024, n;
+	if (k >= 1024) {
+		var m = k / 1024;
+		if (m >= 1024)
+			n = _number_format(m/1024,2)+' GB';
+		else
+			n = _number_format(m,2)+' MB';
+	} else
+		n = _number_format(k,2)+' KB';
+	return n.replace(/\.00/, "");
 }

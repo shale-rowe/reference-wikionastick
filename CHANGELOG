@@ -1,33 +1,4 @@
-Version 0.10.1 (legolas558) released 2010-02-02
-* major API1.0 improvements
-* fixed file embedding bugs
-* fixed file deletion bugs
-* fixed tagging bugs
-* support for WSIF export and native WSIF (not yet documented)
-
-Version 0.10.0 (legolas558) released 2010-01-31
-* fixed XHTML export feature
-* fixed tags recognition
-* added some core i18n language resources
-* general loop optimizations
-* re-enabled fix for search focus bug
-* added sample WoaS logo to default Main Page
-* moved set key menu icon to left of edit menu icon
-* incremented text returned in search results
-* fixed Special::Dead pages listing which did not show all pages
-* added last modified timestamp to all pages
-* added image gallery feature to 'Image::' namespace (fbnil)
-* fixed image embedding with FF3 (fbnil)
-
-Version 0.9.7 (legolas558 - official - NEVER RELEASED but supported)
-* implemented password scrambling
-* added multiple tags and tags filtering
-* added Duplicate Page feature
-* fixed some syntax and editor bugs
-* added aliases support (WoaS::Aliases and Special::Aliases command)
-* implemented Special::Go To 
-
-Version 0.9.5
+Version 0.9.5 (legolas558 - official)
 * object oriented whole code
 * added support of raw transclusion (for SVG for example - not yet working)
 * fixed some UI bugs
