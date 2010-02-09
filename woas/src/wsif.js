@@ -5,7 +5,7 @@
 woas["_auto_native_wsif"] = true;
 
 // a class for some general WSIF operations
-woas["wsif" ] = {	version: "1.0.0", DEFAULT_INDEX: "index.wsif",
+woas["wsif" ] = {	version: "1.1.0", DEFAULT_INDEX: "index.wsif",
 					emsg: "No error", imported_page: false};
 
 woas["wsif"]["header"] = function(header_name, value) {
@@ -211,7 +211,6 @@ woas["_native_wsif_load"] = function(path, overwrite, and_save, recursing) {
 	if (typeof ct != "string") {
 		return false;
 	}
-	//TODO: get number of expected page definitions
 	// the imported pages
 	var imported = [];
 	var pfx = "\nwoas.page.", pfx_len = pfx.length;
@@ -222,6 +221,24 @@ woas["_native_wsif_load"] = function(path, overwrite, and_save, recursing) {
 	// too early failure
 	if (p == -1)
 		this.wsif.emsg = "Invalid WSIF file";
+	else { // OK, first page was located, now get some general WSIF info
+		var wsif_v = ct.substring(0,p).match(/^wsif\.version:\s+(.*)$/m);
+		if (wsif_v === null) {
+			this.wsif.emsg = "Could not read WSIF version";
+			p = -1;
+		} else {
+			// convert to a number
+			wsif_v = wsif_v[1];
+			if (Number(wsif_v.replace(".", "")) < Number(this.wsif.version.replace(".", ""))) {
+				this.wsif.emsg = "WSIF version %s not supported!".sprintf(wsif_v);
+				p = -1;
+			} else { // get number of expected pages
+				this.wsif.expected_pages = ct.substring(0,p).match(/^woas\.pages:\s+(\d+)$/m);
+				if (this.wsif.expected_pages !== null)
+					this.wsif.expected_pages = Number(this.wsif.expected_pages[1]);
+			}
+		}
+	}
 	var title = null,	attrs = null,
 		last_mod = null,	len = null,
 		encoding = null,	disposition = null,
