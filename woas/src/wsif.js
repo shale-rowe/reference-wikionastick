@@ -6,7 +6,7 @@ woas["_auto_native_wsif"] = true;
 
 // a class for some general WSIF operations
 woas["wsif" ] = {	version: "1.0.0", DEFAULT_INDEX: "index.wsif",
-					emsg: "No error"};
+					emsg: "No error", imported_page: false};
 
 woas["wsif"]["header"] = function(header_name, value) {
 	return header_name+": "+value+"\n";
@@ -211,6 +211,7 @@ woas["_native_wsif_load"] = function(path, overwrite, and_save, recursing) {
 	if (typeof ct != "string") {
 		return false;
 	}
+	//TODO: get number of expected page definitions
 	// the imported pages
 	var imported = [];
 	var pfx = "\nwoas.page.", pfx_len = pfx.length;
@@ -271,9 +272,8 @@ woas["_native_wsif_load"] = function(path, overwrite, and_save, recursing) {
 					}
 					// check if page was really imported, and if yes then
 					// add page to list of imported pages
-					var pi = page_titles.indexOf(was_title);
-					if (pi != -1)
-						imported.push(pi);
+					if (this.wsif.imported_page !== false)
+						imported.push(this.wsif.imported_page);
 					else
 						log("Import failure for "+was_title); //log:1
 					// delete the whole entry to free up memory to GC
@@ -328,15 +328,14 @@ woas["_native_wsif_load"] = function(path, overwrite, and_save, recursing) {
 				title,attrs,last_mod,len,encoding,disposition,
 				d_fn,boundary,mime);
 		// save page index for later analysis
-		var pi = page_titles.indexOf(title);
 		if (p == -1) {
 			this.wsif.emsg = "Cannot find page "+title+" after import!";
 			fail = true;
 		} else {
 			// check if page was really imported, and if yes then
 			// add page to list of imported pages
-			if (pi != -1)
-				imported.push(pi);
+			if (this.wsif.imported_page !== false)
+				imported.push(this.wsif.imported_page);
 		}
 	}
 	if (fail)
@@ -360,6 +359,7 @@ woas["get_path"] = function(id) {
 
 woas["_native_page_def"] = function(path,ct,p,last_p,overwrite, title,attrs,last_mod,len,encoding,
 											disposition,d_fn,boundary,mime) {
+	this.wsif.imported_page = false;
 	if (disposition == "inline") {
 		// craft the exact boundary match string
 		boundary = "\n--"+boundary+"\n";
@@ -503,6 +503,8 @@ woas["_native_page_def"] = function(path,ct,p,last_p,overwrite, title,attrs,last
 	} // !fail
 	// return pointer after last read header
 //	return last_p;
+	// all OK
+	this.wsif.imported_page = pi;
 	// return updated offset
 	return bpos_e+boundary.length;
 }
