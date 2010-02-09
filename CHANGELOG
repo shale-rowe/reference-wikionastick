@@ -1,3 +1,7 @@
+Version 0.10.2 (legolas558) released 2010-02-09
+* WSIF 1.1.0 format support (import/export)
+* other UI improvements/minor bugfixes
+
 Version 0.10.1 (legolas558) released 2010-02-02
 * major API1.0 improvements
 * fixed file embedding bugs
