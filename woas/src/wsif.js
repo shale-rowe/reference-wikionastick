@@ -132,7 +132,7 @@ woas["_native_wsif_save"] = function(path, single_wsif, inline_wsif, author,
 			var blob_fn = "blob" + (++blob_counter).toString()+
 						_file_ext(page_titles[pi]);
 			// specify path to external filename
-			record += this.wsif.header(pfx+"disposition.filename", blob_fn);
+			record += this.wsif.header(pfx+"disposition.filename", blob_fn)+"\n";
 			// export the blob
 			if (!this.save_file(path + blob_fn,
 							(encoding == "8bit/plain") ?
@@ -442,9 +442,17 @@ woas["_native_page_def"] = function(path,ct,p,last_p,overwrite, title,attrs,last
 		} // wend
 		
 	} else if (disposition == "external") { // import an external WSIF file
-		if (encoding != "text/wsif") {
-			this.wsif.emsg = "Page "+title+" is external but not encoded as text/wsif";
-			return -1;
+		// embedded image, not encrypted
+		if (attrs & 8) {
+			if (encoding != "8bit/plain") {
+				this.wsif.emsg = "Page "+title+" is an external image but not encoded as 8bit/plain";
+				return -1;
+			}
+		} else {
+			if (encoding != "text/wsif") {
+				this.wsif.emsg = "Page "+title+" is external but not encoded as text/wsif";
+				return -1;
+			}
 		}
 		if (d_fn === null) {
 			this.wsif.emsg = "Page "+title+" is external but no filename was specified";
