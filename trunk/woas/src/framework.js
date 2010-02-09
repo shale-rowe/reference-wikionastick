@@ -68,6 +68,14 @@ $["show"] = function(id) {
 	$(id).style.visibility = "visible";
 }
 
+$["hide_ni"] = function(id) {
+	$(id).style.visibility = "hidden";
+}
+
+$["show_ni"] = function(id) {
+	$(id).style.visibility = "visible";
+}
+
 $["is_visible"] = function(id) {
 	return !!($(id).style.visibility == 'visible');
 }
