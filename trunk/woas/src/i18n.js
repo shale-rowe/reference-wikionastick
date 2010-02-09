@@ -56,6 +56,9 @@ woas['i18n'] = {
 	DELETE_PAGE_PROMPT: "Delete page:",
 	CONFIRM_IMPORT_OVERWRITE: "This will OVERWRITE pages with the same title.\n\nAre you sure you want to continue?",
 	IMPORT_OK: "%d pages imported successfully",
+	IMPORT_INCOMPAT: "Incompatible version: %s",
+	IMPORT_UNRECON: "Unrecognized format",
+	IMPORT_COMPLETE: "Import complete: %d/%d pages imported",
 	LOADING: "Loading Wiki on a Stick..."
 }
 
