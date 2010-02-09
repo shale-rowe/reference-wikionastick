@@ -442,10 +442,10 @@ woas["_native_page_def"] = function(path,ct,p,last_p,overwrite, title,attrs,last
 		} // wend
 		
 	} else if (disposition == "external") { // import an external WSIF file
-		// embedded image, not encrypted
-		if (attrs & 8) {
+		// embedded image/file, not encrypted
+		if ((attrs & 4) || (attrs & 8)) {
 			if (encoding != "8bit/plain") {
-				this.wsif.emsg = "Page "+title+" is an external image but not encoded as 8bit/plain";
+				this.wsif.emsg = "Page "+title+" is an external file/image but not encoded as 8bit/plain";
 				return -1;
 			}
 		} else {

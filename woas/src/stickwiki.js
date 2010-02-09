@@ -1102,10 +1102,10 @@ woas["after_load"] = function() {
 		this.set_css(this.get_css());
 	
 	// check integrity of WoaS when finished - only in debug mode
-	if (this.debug) {
+/*	if (this.debug) {
 		if (this.integrity_test())
 			$.hide("loading_overlay");
-	} else
+	} else */
 		$.hide("loading_overlay");
 }
 
