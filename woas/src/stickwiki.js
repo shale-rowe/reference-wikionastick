@@ -1041,10 +1041,13 @@ woas["after_load"] = function() {
 	$('a_home').title = main_page;
 	$('img_home').alt = main_page;
 	
-	if (this.debug)
-		$.show("woas_debug_panel");
-	else
-		$.hide("woas_debug_panel");
+	if (this.debug) {
+		$.show_ni("debug_info");
+		$.show_ni("woas_debug_panel");
+	} else {
+		$.hide_ni("debug_info");
+		$.hide_ni("woas_debug_panel");
+	}
 
 	this.img_display("back", true);
 	this.img_display("forward", true);
