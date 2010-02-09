@@ -410,7 +410,11 @@ function import_wiki_wsif() {
 	}
 
 	$.hide("loading_overlay");
-	if (done !== false)
+	if (done !== false) {
+		// add some info about total pages
+		if (woas.wsif.expected_pages !== null)
+			done = String(done)+"/"+woas.wsif.expected_pages;
 		woas.alert(woas.i18n.IMPORT_OK.sprintf(done));
+	}
 	return done;
 }
