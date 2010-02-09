@@ -358,9 +358,9 @@ woas["__password_finalize"] = function(pwd_obj) {
 //	this.setHTML($("woas_pwd_msg"), msg);
 //	$.show("wiki_text");
 	document.title = this.__last_title;
-	$("wiki_text").style.visibility = "visible";
-	$("woas_pwd_query").style.visibility = "hidden";
-	$("woas_pwd_mask").style.visibility = "hidden";
+	$("wiki_text").show_ni();
+	$("woas_pwd_query").hide_ni();
+	$("woas_pwd_mask").hide_ni();
 //	scrollTo(0,0);
 	// hide input form
 	pwd_obj.value = "";
@@ -372,13 +372,13 @@ woas["_set_password"] = function() {
 	this.__last_title = document.title;
 	document.title = "Enter password";
 	// hide browser scrollbars and show mask
-	$("woas_pwd_mask").style.visibility = "visible";
+	$("woas_pwd_mask").show_ni();
 //	this.setHTML($("woas_pwd_msg"), msg);
 //	$.hide("wiki_text");
-	$("wiki_text").style.visibility = "hidden";
+	$("wiki_text").hide_ni();
 	scrollTo(0,0);
 	// show input form
-	$("woas_pwd_query").style.visibility = "visible";
+	$("woas_pwd_query").show_ni();
 	custom_focus(true);
 	$("woas_password").focus();	
 }
