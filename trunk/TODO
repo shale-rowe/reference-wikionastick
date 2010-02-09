@@ -1,29 +1,27 @@
 
 == For 0.10.x
 
+* "debug mode" option
+
+* CSS inside a special page (better for export)
+
 * disallow pages with empty title
+** needs to be checked
 
-* WSIF format
-
-* Export entire wiki as XML (StickWiki 0.9 format|MediaWiki format)
-
-* Import wiki from XML (StickWiki 0.9 format|MediaWiki format)
-
-* hotkeys
-
-* hotkey to insert timestamp
+* editable hotkeys for various commands
 
 * XHTML compliance
+** seems OK
 
 * group operations on page lists (deletion, encryption, decryption etc.) maybe also with checkboxes
+** possibly done?
 
 * possibility to delete an encrypted page even when password is not available (maybe through the group operations) (DONE)
 
-* CSS import flag evaluation + add missing stuff from v0.9 and v0.9.2
-
 * icon themes (importing and changing of default graphics)
+** all icons should go into attachments
 
 * export of some special pages and namespace pages (almost complete)
+** needs to be checked
 
 * remember export settings
-
