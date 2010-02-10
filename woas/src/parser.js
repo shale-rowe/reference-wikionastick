@@ -99,6 +99,8 @@ woas.parser["parse_tables"] =  function (str, prop, p1) {
 			return CC.push(pp2);
 		if(pp1 == '|') // fix empty first cell
 			pp2= " |"+pp2;
+		if(pp1 == ' ' && pp2.match(/^\|/)) // fix empty first cell
+			pp2= "  "+pp2;
 		// var cells = pp2.replace(/(\|\|)\s{0,1}(\s?)(?=\|\|)/g,"$1$2  ").replace(/(\|\|\s*)$/, "$1 ").split(" || "); // allow for zero (or single) spaced SPAN cells, then split them	
 		var cells = pp2.replace(/(\|\|)(\s{0,1})(\s?)(?=\|\|)/g,"$1$2$3  ").replace(/(\|\|\s*)$/, "$1 ").replace(/\|\|\t/g, "|| ").replace(/\t\|\|/g, " ||").split(" || "); // allow for zero spaced SPAN cells, then split them
 		// alert("CELLS="+cells.join("*").replace(/ /g, "~")+"=")
@@ -106,9 +108,9 @@ woas.parser["parse_tables"] =  function (str, prop, p1) {
 		var stag = "";      // start tag
 		var cs = 0;         // counter for spanned columns
 		for (var i=cells.length - 1; i >= 0; --i){
-			var C = cells[i].match(/^(\s*)(?:(=+)\s*)?(.*?)(\s*)$/) ; // ||[]; // if we fail to parse, at least dont crash
+			var C = cells[i].match(/^(\s*)(?:(=+)\s?)?(.*?)(\s*)$/) ; // ||[]; // if we fail to parse, at least dont crash
 			// alert("C="+C.join("*").replace(/ /g, "~")+"= i="+i)
-			if (i && !C[3] && !C[1]) { // if empty and not first column, increase span counter.
+			if (i && !C[3] && !C[1] && !C[2]) { // if empty and not first column, increase span counter.
 				++cs;
 				continue;
 			}else	if(i==0 && !C[3])
