@@ -14,6 +14,20 @@ define('_WSIF_NO_ERROR', "No error");
 define('_WSIF_NS_VER', "WSIF version %s not supported!");
 define('WSIF_NO_VER', "Could not read WSIF version");
 
+// some constant for WoaS page attributes
+define('_WOAS_ENCRYPTED', 2);
+define('_WOAS_EMB_IMAGE', 8);
+define('_WOAS_EMB_FILE', 8);
+
+// the default hook used after a page has been loaded from WSIF source
+// should return a positive integer if page was successfully created
+// -1 to report failure
+function _WSIF_create_page(&$WSIF, $title, &$page, $attrs) {
+	echo sprintf("Page title:\t%s\nAttributes:\t%x\nLength:\t%d\n---\n",
+				$title, $attrs, strlen($page));
+	return 0;
+}
+
 class WSIF {
 
 	// some private variables
@@ -21,7 +35,11 @@ class WSIF {
 	var $_emsg = _WSIF_NO_ERROR;
 	var $_imported_page = false;
 
-	function Load($path, $pre_page_hook = null, $after_page_hook = null) {
+	function Load($path, $create_page_hook = '_WSIF_create_page') {
+		return $this->_wsif_load($path, $create_page_hook, 0);
+	}
+	
+	function _wsif_load($path, $create_page_hook, $recursion = 0) {
 		$ct = @file_get_contents($path);
 		if ($ct === false)
 			return false;
@@ -84,15 +102,15 @@ class WSIF {
 				// save the last header position
 				$previous_h = $p;
 			// get value and apply left-trim
-			$v = trim(substr($ct, $sep+1, $p-$sep-1);
+			$v = trim(substr($ct, $sep+1, $p-$sep-1));
 			switch ($s) {
 				case "title":
 					// we have just jumped over a page definition
 					if ($title !== null) {
 						// store the previously parsed page definition
-						$p = $this->_page_def($path,$ct,$previous_h,$p,
+						$p = $this->_page_def($create_page_hook, $path,$ct,$previous_h,$p,
 								$title,$attrs,$last_mod,$len,$encoding,$disposition,
-								$d_fn,$boundary,$mime);
+								$d_fn,$boundary,$mime, $recursion);
 						// save page index for later analysis
 						$was_title = title;
 						$title = $attrs = $last_mod = $encoding = $len =
@@ -114,7 +132,7 @@ class WSIF {
 						$previous_h = null;
 					}
 					// let's start with the next page
-					$title = $this->_ecma_decode($v);
+					$title = $this->ecma_decode($v);
 				break;
 				case "attributes":
 					$attrs = (int)$v;
@@ -151,9 +169,9 @@ class WSIF {
 			return false;
 		// process the last page (if any)
 		if (($previous_h !== null) && ($title !== null)) {
-			$p = $this->_page_def($path,$ct,$previous_h,0,
+			$p = $this->_page_def($create_page_hook, $path,$ct,$previous_h,0,
 					$title,$attrs,$last_mod,$len,$encoding,$disposition,
-					$d_fn,$boundary,$mime);
+					$d_fn,$boundary,$mime, $recursion);
 			// save page index for later analysis
 			if ($p === false) {
 				$this->_emsg = sprintf(_WSIF_IMPORT_FAILURE, $title);
@@ -171,158 +189,135 @@ class WSIF {
 		return count($imported);
 	}
 
-	function _page_def($path,&$ct,$p,$last_p,
+	function _page_def($create_page_hook, $path,&$ct,$p,$last_p,
 						$title,$attrs,$last_mod,$len,$encoding,
-						$disposition,$d_fn,$boundary,$mime) {
+						$disposition,$d_fn,$o_boundary,$mime, $recursion = 0) {
 		$this->_imported_page = false;
 		if ($disposition == "inline") {
 			// craft the exact boundary match string
-			$boundary = "\n--".$boundary."\n";
+			$boundary = "\n--".$o_boundary."\n";
 			// locate start and ending boundaries
 			$bpos_s = strpos($ct, $boundary, $p);
-			if (bpos_s == -1) {
-				this.wsif.emsg = "Failed to find start boundary "+boundary+" for page "+title;
+			if ($bpos_s === false) {
+				$this->_emsg = "Failed to find start boundary ".$o_boundary." for page ".$title;
 				return -1;
 			}
-			var bpos_e = ct.indexOf(boundary, bpos_s+boundary.length);
-			if (bpos_e == -1) {
-				this.wsif.emsg = "Failed to find end boundary "+boundary+" for page "+title;
+			$bpos_e = strpos($ct, $boundary, $bpos_s+strlen($boundary));
+			if ($bpos_e === false) {
+				$this->_emsg = "Failed to find end boundary ".$o_boundary." for page ".$title;
 				return -1;
 			}
-			var fail = false;
 			// attributes must be defined
-			if (attrs === null) {
-				log("No attributes defined for page "+title);
-				fail = true;
-			}
+			if ($attrs === null) {
+				$this->_log("No attributes defined for page ".$title);
+				$fail = true;
+			} else
+				$fail = false;
 			// last modified timestamp can be omitted
-			if (last_mod === null)
-				last_mod = 0;
-			while (!fail) { // used to break away
+			if ($last_mod === null)
+				$last_mod = 0;
+			while (!$fail) { // used to easily break away
 			// retrieve full page content
-			var page = ct.substring(bpos_s+boundary.length, bpos_e);
+			$page = substr($ct, $bpos_s+strlen($boundary), $bpos_e-($bpos_s+strlen($boundary)));
 			// length used to check correctness of data segments
-			var check_len = page.length;
+			$check_len = strlen($page);
 			// split encrypted pages into byte arrays
-			if (attrs & 2) {
-				if (encoding != "8bit/base64") {
-					log("Encrypted page "+title+" is not encoded as 8bit/base64");
-					fail = true;
+			if ($attrs & _WOAS_ENCRYPTED) {
+				if ($encoding != "8bit/base64") {
+					$this->_log("Encrypted page ".$title." is not encoded as 8bit/base64");
+					$fail = true;
 					break;
 				}
-	//			check_len = page.length;
-				page = decode64_array(page);
-			} else if (attrs & 8) { // embedded image, not encrypted
+				//NOTE: in original WoaS, the page would be split into an array of bytes
+				$page = base64_decode($page);
+			} else if ($attrs & _WOAS_EMB_IMAGE) { // embedded image, not encrypted
 				// NOTE: encrypted images are not obviously processed, as per previous 'if'
-				if (encoding != "8bit/base64") {
-					log("Image "+title+" is not encoded as 8bit/base64");
-					fail = true;
+				if ($encoding != "8bit/base64") {
+					$this->_log("Image ".title." is not encoded as 8bit/base64");
+					$fail = true;
 					break;
 				}
-				if (mime === null) {
-					log("Image "+title+"has no mime type defined");
-					fail = true;
+				if ($mime === null) {
+					$this->_log("Image ".$title."has no mime type defined");
+					$fail = true;
 					break;
 				}
 				// re-add data:uri to images
-				page = "data:"+mime+";base64,"+page;
+				$page = "data:".$mime.";base64,".$page;
 			} else { // a normal wiki page
-				switch (encoding) {
+				switch ($encoding) {
 					case "8bit/base64":
 						// base64 files will stay encoded
-						if (!(attrs & 4))
+						if (!($attrs & _WOAS_EMB_FILE))
 							// WoaS does not encode pages normally, but this is supported by WSIF format
-							page = decode64(page);
+							$page = base64_decode($page);
 					break;
 					case "ecma/plain":
-						page = this.ecma_decode(page);
+						$page = $this->ecma_decode($page);
 					break;
 					case "8bit/plain": // plain wiki pages are supported
 					break;
 					default:
-						log("Normal page "+title+" comes with unknown encoding "+encoding);
-						fail = true;
+						$this->_log("Normal page ".$title." comes with unknown encoding ".$encoding);
+						$fail = true;
 						break;
 				}
 			}
-			if (fail)
+			if ($fail)
 				break;
 			// check length (if any were passed)
-			if (len !== null) {
-				if (len != check_len)
-					this.alert("Length mismatch for page %s: ought to be %d but was %d".sprintf(title, len, check_len));
+			if ($len !== null) {
+				if ($len != $check_len)
+					$this->_log(sprintf("Length mismatch for page %s: ought to be %d but was %d", $title, $len, $check_len));
 			}
 			// has to break anyway
 			break;
 			} // wend
 			
-		} else if (disposition == "external") { // import an external WSIF file
+		} else if ($disposition == "external") { // import an external WSIF file
 			// embedded image/file, not encrypted
-			if ((attrs & 4) || (attrs & 8)) {
-				if (encoding != "8bit/plain") {
-					this.wsif.emsg = "Page "+title+" is an external file/image but not encoded as 8bit/plain";
+			if (($attrs & _WOAS_EMB_FILE) || (attrs & _WOAS_EMB_IMAGE)) {
+				if ($encoding != "8bit/plain") {
+					$this->_emsg = "Page ".$title." is an external file/image but not encoded as 8bit/plain";
 					return -1;
 				}
 			} else {
-				if (encoding != "text/wsif") {
-					this.wsif.emsg = "Page "+title+" is external but not encoded as text/wsif";
+				if ($encoding != "text/wsif") {
+					$this->_emsg = "Page ".$title." is external but not encoded as text/wsif";
 					return -1;
 				}
 			}
-			if (d_fn === null) {
-				this.wsif.emsg = "Page "+title+" is external but no filename was specified";
+			if ($d_fn === null) {
+				$this->_emsg = "Page ".$title." is external but no filename was specified";
 				return -1;
 			}
-			// get proper path
-			if (path === null) {
-				path = this.get_path("filename_");
-				if (path === false) {
-					this.wsif.emsg = "Cannot retrieve path name in this browser";
-					return -1;
-				}
-			} else {
-				this.wsif.emsg = "Recursive WSIF import not implemented";
+			if ($recursion > 0) {
+				$this->_emsg = "Recursive WSIF import not implemented";
 				return -1;
 			}
 			// check the result of external import
-			var rv = this._native_wsif_load(this.dirname(path)+d_fn, overwrite, false, true);
-			if (rv === false) {
-				this.wsif.emsg = "Failed import of external "+d_fn+"\n"+this.wsif.emsg;
-				p = -1;
+			$rv = $this->_wsif_load(dirname($path).'/'.$d_fn, $recursion+1);
+			if ($rv === false) {
+				$this->_emsg = "Failed import of external ".$d_fn."\n".$this->_emsg;
+				//TODO: some more error logging?
 			}
 			// return pointer after last read header
-			return last_p;
+			return $last_p;
 		} else { // no disposition or unknown disposition
-			this.wsif.emsg = "Page "+title+" has invalid disposition: "+disposition;
+			$this->_emsg = "Page ".$title." has invalid disposition: ".$disposition;
 			return -1;
 		}
 		
-		if (!fail) {
-			// check if page already exists
-			var pi = page_titles.indexOf(title);
-			if (pi != -1) {
-				if (overwrite) {
-					// update the page record
-					pages[pi] = page;
-					page_attrs[pi] = attrs;
-					page_mts[pi] = last_mod;
-					// page title does not change
-				} else
-					log("Skipping page "+title); //log:1
-			} else { // creating a new page
-				pages.push(page);
-				page_attrs.push(attrs);
-				page_mts.push(last_mod);
-				page_titles.push(title);
-			}
+		if (!$fail) {
+			$rv = $create_page_hook($this, $title, $page, $attrs);
+			if ($rv != -1)
+				// all OK
+				$this->_imported_page = $rv;
 		} // !fail
-		// return pointer after last read header
-	//	return last_p;
-		// all OK
-		this.wsif.imported_page = pi;
 		// return updated offset
-		return bpos_e+boundary.length;
+		return $bpos_e+strlen($boundary);
 	}
 
+} // class WSIF
 
 ?>
