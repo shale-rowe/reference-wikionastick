@@ -11,25 +11,29 @@ var opera = false;
 if((navigator.userAgent).indexOf("Opera")!=-1)
 	opera = true;
 else if(navigator.appName == "Netscape") {
-	firefox = true;
+	// check that it is Gecko first
+	firefox = (new RegExp("Gecko\\/\\d+")).test(navigator.userAgent) ? true : false;
 	// match also development versions of Firefox "Shiretoko" / "Namoroka"
-	var fver = navigator.userAgent.match(/Gecko\/\d+\s*[A-Za-z]+\/(\d+)\.[\.\d]+$/);
-	if (fver !== null) {
-		fver = Number(fver[1]);
-		switch (fver) {
-			case 2:
-				firefox2 = true;
-			break;
-			case 3:
-				ff3 = true;
-			break;
-			default:
-				// a new version of Firefox
-				if (fver > 3)
-					ff_new = true;
-				// unknown browser!
+	if (firefox) {
+		// match the last word of userAgent
+		var fver = navigator.userAgent.match(/\s[A-Za-z]+\/(\d+)\.[\.\d]+\s*$/);
+		if (fver !== null) {
+			fver = Number(fver[1]);
+			switch (fver) {
+				case 2:
+					firefox2 = true;
+				break;
+				case 3:
+					ff3 = true;
+				break;
+				default:
+					// a new version of Firefox
+					if (fver > 3)
+						ff_new = true;
+					// unknown browser!
+			}
 		}
-	}
+	} // not Gecko
 } else if((navigator.appName).indexOf("Microsoft")!=-1) {
 	ie = true;
 	ie8 = (navigator.userAgent.search(/msie 8\./i)!=-1);
