@@ -59,6 +59,11 @@ woas['i18n'] = {
 	IMPORT_INCOMPAT: "Incompatible version: %s",
 	IMPORT_UNRECON: "Unrecognized format",
 	IMPORT_COMPLETE: "Import complete: %d/%d pages imported",
+	NO_ERROR: "No error",
+	WSIF_NO_VER: "Could not read WSIF version",
+	WSIF_NS_VER: "WSIF version %s not supported!",
+	WSIF_NO_HN: "Could not locate header name",
+	WSIF_BAD_HV: "Could not locate end of header value",
 	LOADING: "Loading Wiki on a Stick..."
 }
 
