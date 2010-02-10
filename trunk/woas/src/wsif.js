@@ -501,10 +501,8 @@ woas["_native_page_def"] = function(path,ct,p,last_p,overwrite, title,attrs,last
 		}
 		// check the result of external import
 		var rv = this._native_wsif_load(this.dirname(path)+d_fn, overwrite, false, true);
-		if (rv === false) {
+		if (rv === false)
 			this.wsif.emsg = "Failed import of external "+d_fn+"\n"+this.wsif.emsg;
-			p = -1;
-		}
 		// return pointer after last read header
 		return last_p;
 	} else { // no disposition or unknown disposition
@@ -530,11 +528,11 @@ woas["_native_page_def"] = function(path,ct,p,last_p,overwrite, title,attrs,last
 			page_mts.push(last_mod);
 			page_titles.push(title);
 		}
+		// all OK
+		this.wsif.imported_page = pi;
 	} // !fail
 	// return pointer after last read header
 //	return last_p;
-	// all OK
-	this.wsif.imported_page = pi;
 	// return updated offset
 	return bpos_e+boundary.length;
 }
