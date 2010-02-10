@@ -6,7 +6,8 @@ woas["_auto_native_wsif"] = true;
 
 // a class for some general WSIF operations
 woas["wsif" ] = {	version: "1.1.0", DEFAULT_INDEX: "index.wsif",
-					emsg: "No error", imported_page: false};
+					emsg: null, imported_page: false,
+					expected_pages: null};
 
 woas["wsif"]["header"] = function(header_name, value) {
 	return header_name+": "+value+"\n";
@@ -146,7 +147,9 @@ woas["_native_wsif_save"] = function(path, single_wsif, inline_wsif, author,
 		} else { // save each page separately
 			if (this.save_file(path+pi.toString()+".wsif",
 								this.file_mode.UTF8_TEXT,
-								extra + "\n" + record))
+								// also add the pages counter (single)
+								extra + this.wsif.header("woas.pages", 1) +
+								"\n" + record))
 				++done;
 		}
 		// reset the record
@@ -211,6 +214,12 @@ woas["_native_wsif_load"] = function(path, overwrite, and_save, recursing) {
 	if (typeof ct != "string") {
 		return false;
 	}
+	// reset when not recursing
+	if (!recursing) {
+		this.wsif.expected_pages = null;
+		this.wsif.emsg = this.i18n.NO_ERROR;
+		this.wsif.imported_page = false;
+	}
 	// the imported pages
 	var imported = [];
 	var pfx = "\nwoas.page.", pfx_len = pfx.length;
@@ -224,14 +233,16 @@ woas["_native_wsif_load"] = function(path, overwrite, and_save, recursing) {
 	else { // OK, first page was located, now get some general WSIF info
 		var wsif_v = ct.substring(0,p).match(/^wsif\.version:\s+(.*)$/m);
 		if (wsif_v === null) {
-			this.wsif.emsg = "Could not read WSIF version";
+			this.wsif.emsg = this.i18n.WSIF_NO_VER;
 			p = -1;
+			fail = true;
 		} else {
 			// convert to a number
 			wsif_v = wsif_v[1];
 			if (Number(wsif_v.replace(".", "")) < Number(this.wsif.version.replace(".", ""))) {
-				this.wsif.emsg = "WSIF version %s not supported!".sprintf(wsif_v);
+				this.wsif.emsg = this.i18n.WSIF_NS_VER.sprintf(wsif_v);
 				p = -1;
+				fail = true;
 			} else { // get number of expected pages
 				this.wsif.expected_pages = ct.substring(0,p).match(/^woas\.pages:\s+(\d+)$/m);
 				if (this.wsif.expected_pages !== null)
@@ -250,7 +261,7 @@ woas["_native_wsif_load"] = function(path, overwrite, and_save, recursing) {
 		// remove prefix
 		sep = ct.indexOf(":", p+pfx_len);
 		if (sep == -1) {
-			this.wsif.emsg = "Could not locate header name";
+			this.wsif.emsg = this.i18n.WSIF_NO_HN;
 			fail = true;
 			break;
 		}
@@ -259,7 +270,7 @@ woas["_native_wsif_load"] = function(path, overwrite, and_save, recursing) {
 		// get value
 		p = ct.indexOf("\n", sep+1);
 		if (p == -1) {
-			this.wsif.emsg = "Could not locate end of header value";
+			this.wsif.emsg = this.i18n.WSIF_BAD_HV;
 			fail = true;
 			break;
 		}
@@ -339,6 +350,8 @@ woas["_native_wsif_load"] = function(path, overwrite, and_save, recursing) {
   				"len = "+len+"\nencoding = "+encoding+"\ndisposition = "+disposition+
    				"\nboundary = "+boundary+"\n");
 	} */
+	if (fail)
+		return false;
 	// process the last page (if any)
 	if ((previous_h !== null) && (title !== null)) {
 		p = this._native_page_def(path,ct,previous_h,0,overwrite,
@@ -353,10 +366,10 @@ woas["_native_wsif_load"] = function(path, overwrite, and_save, recursing) {
 			// add page to list of imported pages
 			if (this.wsif.imported_page !== false)
 				imported.push(this.wsif.imported_page);
+			else
+				log("Import failure for "+title); //log:1
 		}
 	}
-	if (fail)
-		return false;
 	// save imported pages
 	if (imported.length) {
 		if (and_save)
