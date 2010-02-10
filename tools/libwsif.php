@@ -2,17 +2,21 @@
 ## WSIF support library
 ## @author legolas558
 ## @version 1.0.0
+## @license GNU/GPL
+## (c) 2010 Wiki on a Stick Project
+## @url http://stickwiki.sf.net/
 ##
 ## offers basic support for WSIF format
-## Wiki on a Stick Project
-## @url http://stickwiki.sf.net/
 #
 
 define('_WSIF_VERSION', '1.1.0');
 
 define('_WSIF_NO_ERROR', "No error");
 define('_WSIF_NS_VER', "WSIF version %s not supported!");
-define('WSIF_NO_VER', "Could not read WSIF version");
+define('_WSIF_NO_VER', "Could not read WSIF version");
+define('WSIF_NO_HN', "Could not locate header name");
+define('WSIF_BAD_HV', "Could not locate end of header value");
+define('_WSIF_IMPORT_FAILURE', "Import failure for page %s");
 
 // some constant for WoaS page attributes
 define('_WOAS_ENCRYPTED', 2);
@@ -23,7 +27,7 @@ define('_WOAS_EMB_FILE', 8);
 // should return a positive integer if page was successfully created
 // -1 to report failure
 function _WSIF_create_page(&$WSIF, $title, &$page, $attrs) {
-	echo sprintf("Page title:\t%s\nAttributes:\t%x\nLength:\t%d\n---\n",
+	echo sprintf("Page title:\t%s\nAttributes:\t%x\nLength:\t\t%d\n---\n",
 				$title, $attrs, strlen($page));
 	return 0;
 }
@@ -56,7 +60,7 @@ class WSIF {
 		if ($p === false)
 			$this->_emsg = "Invalid WSIF file";
 		else { // OK, first page was located, now get some general WSIF info
-			if (!preg_match("/^wsif\\.version:\\s+(.*)$/m", substr($ct, 0,p), $wsif_v)) {
+			if (!preg_match("/^wsif\\.version:\\s+(.*)$/m", substr($ct, 0, $p), $wsif_v)) {
 				$this->_emsg = this.i18n.WSIF_NO_VER;
 				$p = false;
 				$fail = true;
@@ -127,7 +131,7 @@ class WSIF {
 							$this->_log("Import failure for "+was_title); //log:1
 						// delete the whole entry to free up memory to GC
 						// will delete also the last read header
-						$ct = substr($ct, p);
+						$ct = substr($ct, $p);
 						$p = 0;
 						$previous_h = null;
 					}
@@ -316,6 +320,28 @@ class WSIF {
 		} // !fail
 		// return updated offset
 		return $bpos_e+strlen($boundary);
+	}
+
+	function _log($msg) {
+		fprintf(STDERR, "%s\n", $msg);
+	}
+
+	function ecma_decode($s) {
+		return str_replace("\\\\", "\\", preg_replace_callback("/\\\\u([0-9a-f]{2,4})/", array(&$this, '_ecma_decode_cb'),
+					$s));
+	}
+	
+	function _ecma_decode_cb($m) {
+		$n = substr($m[1], 2);
+		$l = strlen($n);
+		$p = 0;
+		for($i=0;$i<$l;++$i) {
+			if ($n[$i] != '0')
+				break;
+			else $p = $i;
+		}
+		$n = hexdec(substr($n, $p));
+		return chr($n);
 	}
 
 } // class WSIF
