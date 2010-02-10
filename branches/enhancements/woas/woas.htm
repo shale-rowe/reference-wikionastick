@@ -5,11 +5,11 @@
 <script type="text/javascript">
 /* <![CDATA[ */
 
-/* DFQRCTsKlU-0000759-START */
+/* DFQRCTsKlU-0000760-START */
 
 var woas = {"version": "0.9.7B"};
 
-var __marker = "DFQRCTsKlU-0000759";
+var __marker = "DFQRCTsKlU-0000760";
 
 woas["config"] = {
 "permit_edits":true,
@@ -31,7 +31,8 @@ var backstack = [
 'Bugs',
 'Syntax',
 'ToDo list',
-'Help::JavaScript'
+'Help::JavaScript',
+'Main Page'
 ];
 
 var page_titles = [
@@ -227,7 +228,7 @@ var page_titles = [
 'Template::Footnote'
 ];
 
-/* DFQRCTsKlU-0000759-DATA */
+/* DFQRCTsKlU-0000760-DATA */
 var page_attrs = [12,4,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,4,4,0,2,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,12,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
 
 var pages = [
@@ -1511,24 +1512,17 @@ $("daily_diary").innerHTML = "Click here to create or edit a diary entry for tod
 ',
 '= Bugs\n\
 \n\
-=== Changes page\n\
-# If one person in a different time zone makes changes to the wiki on the same date you do and you exchange files via email, the time-stamps in the [[Changes]] list indicate that their changes occured after your changes even though they appear before your changes in the list.\n\
-\n\
 === Dead Pages listing\n\
-# The [[Special::Dead Pages]] listing is missing some dead links and displaying some valid links. For example:\x3Cbr\x3E\x3Cbr\x3E\n\
-## [[PopGoesTheWeasel::BadLink]] is a link to a nonexistent page, but doesn\'t show up in the list.\x3Cbr\x3E\x3Cbr\x3E\n\
-## [[Include::Nowiki dummy]] from the [[Example::Syntax parsing]] page doesn\'t show up in the list.\x3Cbr\x3E\x3Cbr\x3E\n\
-## Some valid anchor links show up in the [[Special::Dead Pages]] listing.\n\
+The [[Special::Dead Pages]] listing is missing some dead links and displaying some valid links. For example:\x3Cbr\x3E\x3Cbr\x3E\n\
+* [[PopGoesTheWeasel::BadLink]] is a link to a nonexistent page, but doesn\'t show up in the listing.\x3Cbr\x3E\x3Cbr\x3E\n\
+* [[Include::Nowiki dummy]] from the [[Example::Syntax parsing]] page doesn\'t show up in the listing.\x3Cbr\x3E\x3Cbr\x3E\n\
+* Some valid anchor links show up in the listing.\n\
 \n\
 === Delete page link\n\
-# When deleting a page by using the [[Special::Delete Page|Delete page]] link in the menu, you are returned to the deleted page as though it\'s still there. You should either be returned to the page you were on previously or to the main page. Thoughts?\n\
+When deleting a page by using the [[Special::Delete Page|Delete page]] link in the menu, you are returned to the deleted page as though it\'s still there. You should either be returned to the page you were on previously or to the main page. This has been fixed in WoaS 0.10.2. Can the same thing be done to this wiki?\n\
 \n\
 === Folding includes\n\
-# If you create a toggling fold/unfold link that leads to a page with footnotes on it, it will display brackets where the footnote code is in the page. See *Example 1* below.\x3Cbr\x3E\x3Cbr\x3E\n\
-# Folding includes will unfold automatically if placed inside lists. See *Example 2* below.\n\
-==== Example 1\n\
-[[Include::Template::Foldpage|This link|Help::Footnotes|doesn\'t like the footnotes on the [[Help::Footnotes]] page *and* is not allowed to be placed in a numbered list.]]\n\
-==== Example 2 (enable this list to see this bug in action)\n\
+Folding includes will unfold automatically if placed inside lists. Enable this list to see the bug in action:\n\
 * [\x3C!-- --\x3E[Include::Template::Foldtext|LINK|CONTENT]]\n\
 * [\x3C!-- --\x3E[Include::Template::Foldtext|LINK|CONTENT\x3C\x3C!-- --\x3Ebr\x3EMORE CONTENT]]\n\
 * [\x3C!-- --\x3E[Include::Template::Foldpage|LINK|History|]]\n\
@@ -1537,36 +1531,36 @@ $("daily_diary").innerHTML = "Click here to create or edit a diary entry for tod
 Alphanumeric lists have two extra blank lines added above them that bulleted lists and numbered lists don\'t have. See [[Example::Lists]] to see the difference.\n\
 \n\
 === Menu\n\
-# Sometimes when removing content from the menu, when pressing the [[Include::Template::Icon::Save]] icon in the banner, the *Page not found. Do you want to create it?* popup comes up. This is not consistent, and doesn\'t yet present a definite cause or trigger. Just something to keep an eye out for.\n\
+Sometimes when removing content from the menu, when pressing the [[Include::Template::Icon::Save]] icon in the banner, the *Page not found. Do you want to create it?* popup comes up. This is not consistent, and doesn\'t yet present a definite cause or trigger. Just something to keep an eye out for.\n\
 \n\
 === Navigation\n\
-# Navigation is not always correct in the wiki. Using the [[Include::Template::Icon::Back]] icon in the banner should always take us back one page to exactly the page we were on before the current one. Using the [[Include::Template::Icon::Forward]] icon in the banner should always take us forward one page to exactly the page that came after the current one. This is not happening consistently. See below for a couple of examples. There may be other situations in which this occurs, but the common denominator seems to be the [[Special::]] listing:\x3Cbr\x3E\x3Cbr\x3E\n\
-## *Example 1:*\n\
-### Do a [[Special::All Pages]] listing.\n\
-### Click on any page from the list.\n\
-### Click the [[Include::Template::Icon::Back]] icon in the banner.\n\
-### You will not be returned to the [[Special::All Pages]] listing. Instead you will be taken to the [[Special::]] listing.\x3Cbr\x3E\x3Cbr\x3E\n\
-## *Example 2:*\n\
-### Click the [[Special::Backlinks|Backlinks]] link in the menu when on a page that other pages link to (like this one).\n\
-### Click on any page in the list.\n\
-### Click the [[Include::Template::Icon::Back]] icon in the banner.\n\
-### You will not be returned to the [[Special::Backlinks|Backlinks]] listing. Instead you will be taken to the [[Special::]] listing.\n\
+Navigation is not always correct in the wiki. Using the [[Include::Template::Icon::Back]] icon in the banner should always take us back one page to exactly the page we were on before the current one. Using the [[Include::Template::Icon::Forward]] icon in the banner should always take us forward one page to exactly the page that came after the current one. This is not happening consistently. See below for a couple of examples. There may be other situations in which this occurs, but the common denominator seems to be the [[Special::]] listing:\x3Cbr\x3E\x3Cbr\x3E\n\
+* *Example 1:*\n\
+** Do a [[Special::All Pages]] listing.\n\
+** Click on any page from the list.\n\
+** Click the [[Include::Template::Icon::Back]] icon in the banner.\n\
+** You will not be returned to the [[Special::All Pages]] listing. Instead you will be taken to the [[Special::]] listing.\x3Cbr\x3E\x3Cbr\x3E\n\
+* *Example 2:*\n\
+** Click the [[Special::Backlinks|Backlinks]] link in the menu when on a page that other pages link to (like this one).\n\
+** Click on any page in the list.\n\
+** Click the [[Include::Template::Icon::Back]] icon in the banner.\n\
+** You will not be returned to the [[Special::Backlinks|Backlinks]] listing. Instead you will be taken to the [[Special::]] listing.\n\
 \n\
 === Page import and export\n\
-# [[Utility::Import txt2wiki|Page import and export]] will export pages, but not import them.\n\
+[[Utility::Import txt2wiki|Page import and export]] will export pages, but not import them.\n\
 \n\
 === Search box in the menu\n\
-# A press of the *Enter* key when doing a search from the *search box* in the *menu* is not consistently recognized in Firefox. It works flawlessly when first loading the wiki, but after navigating to other pages and using the editor, it no longer works, and the *Search* button must be pressed with the mouse. Shall we just do away with the search box in the menu and have a link to [[Special::Search]] instead?\n\
+A press of the *Enter* key when doing a search from the *search box* in the *menu* is not consistently recognized in Firefox. It works flawlessly when first loading the wiki, but after navigating to other pages and using the editor, it no longer works, and the *Search* button must be pressed with the mouse. Shall we just do away with the search box in the menu and have a link to [[Special::Search]] instead?\n\
 \n\
 === Tagged pages\n\
-# [[[This is not a bug!]]] The deprecated syntax list says that {{{[[Tags::tag1, tag2]]}}} is deprecated in favor of {{{[[Tags::tag1|tag2]]}}}, but pipes don\'t work, while commas do. Was it decided not to change that after all, and should I remove that entry from the list?\x3Cbr\x3E\x3Cbr\x3E\n\
+# [[[This is not a bug!]]] The deprecated syntax list says that {{{[[Tags::tag1, tag2]]}}} is deprecated in favor of {{{[[Tags::tag1|tag2]]}}}, but pipes don\'t work, while commas do. This has been fixed in WoaS 0.10.2, so the change can probably be merged into this wiki.\x3Cbr\x3E\x3Cbr\x3E\n\
 # [[[BACK UP BEFORE TESTING THIS]]] If you create an empty Tags tag like this: {{{[[Tags::]]}}} and then go to the [[Tagged::]] listing, clicking on any tagged category will cause a popup that just has a three-digit number on it. The wiki will unbug when you delete the empty Tags link, but backing it up before trying this might be a good idea anyway.\x3Cbr\x3E\x3Cbr\x3E\n\
 \n\
 === ToDo links\n\
-# Clicking a ToDo link takes you to the page the task is on, but the task itself is hidden by the banner. Can these be styled to show up beneath the banner?\x3Cbr\x3E\x3Cbr\x3E\n\
+Clicking a ToDo link takes you to the page the task is on, but the task itself is hidden by the banner. Can these be styled to show up beneath the banner?\n\
 \n\
 === ToDo list page\n\
-# [[[This is not a bug!]]] Please make it possible to put the [[ToDo list]] in the *Utility::* namespace so the page can be named *Utility::ToDo list*. For some reason if I try to do this, it breaks the code.\n\
+[[[This is not a bug!]]] Please make it possible to put the [[ToDo list]] in the *Utility::* namespace so the page can be named *Utility::ToDo list*. For some reason if I try to do this, it breaks the code.\n\
 ',
 '= Customize the wiki\n\
 * [[Special::Aliases|Aliases]] - Create shortcuts for the things you type often.\n\
@@ -2341,7 +2335,9 @@ It could be made more pretty using [[http://www.developertutorials.com/tutorials
 [[Syntax]] {{{Mon Feb 08 2010 11:56:57 GMT-0500 (EST)}}}\n\
 [[Bugs]] {{{Mon Feb 08 2010 12:04:59 GMT-0500 (EST)}}}\n\
 [[::Menu]] {{{Mon Feb 08 2010 12:06:51 GMT-0500 (EST)}}}\n\
-[[Help::JavaScript]] {{{Tue Feb 09 2010 22:21:33 GMT-0500 (EST)}}}',
+[[Help::JavaScript]] {{{Tue Feb 09 2010 22:21:33 GMT-0500 (EST)}}}\n\
+[[Bugs]] {{{Tue Feb 09 2010 23:38:19 GMT-0500 (EST)}}}\n\
+[[Bugs]] {{{Tue Feb 09 2010 23:38:49 GMT-0500 (EST)}}}',
 '= Bluebox\n\
 \x3Cdiv class=bluebox\x3E\n\
 \x3Ch1\x3ETHE SLEEPING BEAUTY IN THE WOOD\x3C/h1\x3E\n\
@@ -7020,7 +7016,7 @@ if("%"+"0"=="%0"){\n\
 \x3E\x3E\x3E'
 ];
 
-/* DFQRCTsKlU-0000759-END */
+/* DFQRCTsKlU-0000760-END */
 
 /* ]]> */ </script>
 <style type="text/css">/* user defined */
@@ -7498,7 +7494,7 @@ div.text_area.locked,
 <div class="wiki_header bg" id="sw_wiki_header" style="position: absolute;">
 <table cellspacing="0" width="100%">
 <tbody><tr>
-<td><span class="title" id="wiki_title">Changes</span></td>
+<td><span class="title" id="wiki_title">Bugs</span></td>
 <td align="right">
 <div id="menu_back" style="display: inline; cursor: pointer; visibility: visible;"><a title="Back" onclick="go_back()"><img id="img_back" class="menu_button" style="display: inline; visibility: visible;" alt="Back" src="data:image/png;base64,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"><span id="alt_back" style="display: none; visibility: hidden;">&nbsp;<strong>[Back]</strong>&nbsp;</span></a></div>
 <div id="menu_forward" style="display: none; cursor: pointer; visibility: hidden;"><a title="Forward" onclick="go_forward()"><img id="img_forward" class="menu_button" style="display: inline; visibility: visible;" alt="Forward" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAFrUlEQVRIiY2WbYxUVxnHf+fce2fuvO7MvnV32V1gu+xKhNpYKIpuiWlqbGJtkFKrgiS0RapB1KW1JvUDfjG2WK0EsFJJ3CamG0iMBhLTtAVJLLapIZYFWZeyzDIMs8DOzM7Mzn2ZO/f4Ydjtyy7BJ3nuPR/O+f3v85x7nucIpRS3MyE2LteIfiYYCXcghXRKlWyNmX8rNXzmtmtvJSDE+kSidengvV8d2LzuvhWL+/raSCRjCAGFQpmxsSwnj49kTh17+0+FybEXlPrztQVBSql5bppPPPn1wbfsv4woNVZWKlVWaryg1Ae5uo8XlJooK3WhqNTRs0ptfPqEb4a27VyINS+CO+587vc7fjX45JfXJlEW2DagQAiYnSnmHmAGQQvC66cKvPTMr4ezY7sfu2WK2u987sDOAz/ffleXpFQApUDKOlioOlTMpfBDQQREozAy4fPijt2Hr47tfnSeQDSybfPjLz8/tGJpgmK+DhaAZ1dI6pPk3Sb0UHxO4aNC/s1xJApnPihy6AfPDpaL+1+cEzDEhtC6p76Xu//h+81Cxrv5pQIkhO0z/PQ7PVzKlBk6ruEbrZ8IQ9UjEaB8RaRRcvzY3zn5u71tVXVkUgdobO/Z2fu5e82L57K4dhVNkwBIKWk2bIoli6a4wa4NBr85/F8y5SSivjXMZsD3fRQgpyRL717JyKJlTwO7dIDF9619vDA1w9TFFJom0TQNKSRCCiLJCkIK3GoNU9f52dYlvHp0nL++4+IrOReBrxS+7+N7HuHmJB1rVm8FdukRsanrnh/9sPfi+QvMXL+GETA+JtBiOHM5931Fxaqy5eF+ehal2X3wPJWqrIN9H6UUVc9Dy+cJ3NGWjMqtK/VAPL7C00Nkr6TwZgroho6maWhSQ0qB1Szq+zF3cMBxXAZWdXGkv4lNz77BWNpG+T61mk/Nr+ErRePiHgJN8eXSaIi1W6UshfRpZko5LLuKZXtYjovtuNRqPguZUopELMzRfQ/REldYloPluFi2S7ni4ng+eiTcpQtDV7XSNUpjr4EKIBqWoUU6McwERrCBarV1QYFZu5q5Qr4wTbFYwrNLeNYUXiVLLG6jDAPd87yruplAj7bj5TOo4iW8mWt4MoplxKj0rZoHlUIihODdd0+z/vvDZK5cBrcIXgHcHPg2ki/gK3VZOo79vmbGCDf1gxGHYLL+1sMgdFTN+fBYKYWmaxgBjT17hxl45LdkUimoVkDVQBigRZENSwklu3HdyllZzr6U8eyZ0cbeNWDEQIZAj9XHegyph1DUf8WgGaTmVtiyYz/PvPAPXN8EI3pzfhz0KGghGjrvxve4UZrYc1YCZEdHXmntX43RuAwIgIzUXYsgtFC9DISDpNNp1mw4yNCxSZQWAy0OMgpaFGQYhAlmMy2f/iLTk1cOAUiAXDq9V2GVOu/5GgQSIIL1FOkRjKBJQFecfPsMa791hHMpGzQNdAMME4wwaGHQTBAmTf0DBKMNKp9OPT9XiwAaB3756MoHvzF87s0T3Dj/L9AjYJiEwzqrlsc5PVpBCQMhBF6thuM4+L5fL7meC26ZSNsi+r70ABPvHd9+48SPX/6YAEDnxkN7elY9OPift05x48L74NfQzSCJRJJkMkk4HEZKieM4TE9Pk8vlsCoVUIpYaxe9A5/neur00OXhTVtmmfMaTue3/7in57NfGZwcmSAz8h7hgKCjvZ2W5hai8Ria1LAsi1xuiuxklly+SLy7j7a7eslceOcP6Ve/+cRHeQv25OT6fY/1rl63P2a0JqNWhQZN0RiPEo/NClTIFUvk7Sp53WDKyVmps//cmT+87eAnWbdu+g/8ItTSs+Sp7t5Pfbe3e0lfVyJBR0KgCchOQypXYGwidSl1cfSV6+Pj+/y//aSwIOf/urZsPtCtx6L9gZDZgZDCteyMVyqNqqHtqdut/R+XqbCN2h5s0wAAAABJRU5ErkJggg=="><span id="alt_forward" style="display: none; visibility: hidden;">&nbsp;<strong>[Forward]</strong>&nbsp;</span></a></div>
@@ -7582,7 +7578,7 @@ User:
 <input class="wiki_button" id="pb11" value="P11" style="width: 50px;" onclick="woas['editbutton'][11].onclick()" type="button">
 <input class="wiki_button" id="pb12" value="P12" style="width: 50px;" onclick="woas['editbutton'][12].onclick()" type="button">
 </div>
-<textarea id="wiki_editor" style="width: 1405px; height: 471px;" rows="0" cols="0"></textarea> 
+<textarea id="wiki_editor" style="width: 1405px; height: 500px;" rows="0" cols="0"></textarea> 
 </div>
 <div style="display: inline; visibility: visible;" id="debug_info" class="debug_console">
 <h2>Debug console</h2>
