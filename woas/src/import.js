@@ -90,13 +90,10 @@ woas["import_wiki"] = function() {
 					old_version = 97;
 					break;
 				case "0.10.0":
-					old_version = 100;
-					break;
 				case "0.10.1":
-					old_version = 101;
-					break;
 				case "0.10.2":
-					old_version = 102;
+				case "0.10.3":
+					old_version = Number(ver_str.substr(1).replace(/\./g, ""));
 					break;
 				default:
 				this.alert(this.i18n.IMPORT_INCOMPAT.sprintf(ver_str));
