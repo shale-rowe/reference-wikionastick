@@ -1,6 +1,6 @@
 wsif.version: 1.1.0
 woas.version: 0.10.2
-woas.pages: 150
+woas.pages: 149
 
 woas.page.title: ::Menu
 woas.page.attributes: 0
@@ -16,7 +16,7 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Special::Advanced
 woas.page.attributes: 0
-woas.page.last_modified: 1265831908
+woas.page.last_modified: 1265858437
 woas.page.length: 1150
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1121,17 +1121,6 @@ woas.page.boundary: DFQRCTsKlU
 <input id="filename_" type="file" />&nbsp;<input type="button" value="Embed" onclick="woas._embed_process('%1')" />
 
 --DFQRCTsKlU
-woas.page.title: Image::alert.png
-woas.page.attributes: 12
-woas.page.mime: image/png
-woas.page.length: 1436
-woas.page.encoding: 8bit/base64
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAMAAADzapwJAAAAB3RJTUUH1wcHEBwwMJCsHwAAAAlwSFlzAAAewQAAHsEBw2lUUwAAAARnQU1BAACxjwv8YQUAAAJzUExURf8f7evr67W1taWlpdbW1uzs7J6enmouJGosI4ODg93d3TcyMdQdB9EUBzYxMcXFxenp6Y+Pj402G+0VAN4MAIwlGnd3d9ra2tXV1UA1L+Y7Be4eAekRANYQAz8wLrCwsOXl5YCAgKdRGPdEA/QxAfIdAeERAaEjFW1tbe/v71hAKvlpB/pbBfZDA/IuAu0bAd0UAlYwKZOTk+Dg4F5eXsxqEvt3CflwCf////IpAuoYAcIjDVNTU9DQ0JaWlnlOI/uEDPuFEPqEEfU9BO0kAugYAXYyIX5+fu3t7Tc0MeZ7DvuTFvuZHPqXHvqKGft3EfZTB+81A+ohAdwpB+jo6ImJiZFXHvuYGPyjJ/ysM/ytOfpwDfdOBfAwAu8lAo87HHR0dNjY2MnJyUc6LvKLE/ypKfy2P/y9S/y/UfuGGPliCvJFBPIzA+s5BUc3LaampuPj43V1dbRmF/ymJfy3Of3DU/3KYv3MY/ubJPt4EvpUCfVCA/E2A7NNFmRkZNPT06ioqGFFKPuVFPytLv2+Sf3KYf3Qbf3PafuiKfuKFfppC/lQBfg+A/U8A2FBKIuLi9/f3zQzMtV2E/yhH/yxNf2+R/3HXP3LZ/3NafykJ/yOF/lxC/pcBvZGBPU3A9VRDTQzMdfX15qamn5QIvuSEfyfHPysL/y6QfzBTfzDV/zBU/ydH/yLE/t2DPpgB/dLA/Y6A/U6A3tIIvPz8zs2MPuSE/ydGPymJPyyNfy0OfyzN/ysKfyhIPuUF/uGDft0CvtlB/taBfZPA/ZFA+RXCjs1MPDw8E49LIJSIYJRIYJPIYJOIYJNIIJMIIJMIU47LKysrKzWV/gAAAABdFJOUwBA5thmAAABNUlEQVR42mNgwAGML2AAY6Do8RNQcPLkyVOnz5w9e+7ceWOGzVu8tm7b3rxj567de/bu23/g4KHDR44eY2BYtHjJ0mXLV6xcZWGxes3ades3bNwkuBlo+MRJk6dMnTZ9hoXFzFmz58ydN3/BQpCdDY1NzS2tbe0WFh2dXd09vX39E8BuKSwqLiktK7ewqKisqq6prauHODEpOSU1LT3DwiIzKzsnNy+/AOr00LDwiMgoC4vomNi4+IREmI88PL28fXz9/AMCg4K5+UPgPrWzd3B0srBwdnF1c+dCCgETUzNzCwtLK2sbW1YkYXktbR1dPX0DQyNjlABTVFJWUVVT15DQRBGWkJSSlpGVk1dAC19BIWERUTFxjHDn5uHl4xfAEGZj5+DkYsAETMwsrFiEGRgZGQgAAEPKcWQFSaWtAAAAAElFTkSuQmCCAAA=
---DFQRCTsKlU
 woas.page.title: WoaS::Bootscript
 woas.page.attributes: 4
 woas.page.length: 48
@@ -1144,7 +1133,8 @@ LyogaW5zZXJ0IGhlcmUgeW91ciBib290IHNjcmlwdCAqLw==
 --DFQRCTsKlU
 woas.page.title: History
 woas.page.attributes: 0
-woas.page.length: 36353
+woas.page.last_modified: 1265858884
+woas.page.length: 36803
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1157,16 +1147,25 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 * Dynamic theme changer.
 * Editor icons (like a word processor) instead of CSS styled buttons.
 * Enable searching hidden system pages.
-* Export individual pages.
-* Fix the import interface.
 * Include a childrens page with a CSS background and a picture with some text wrapping around it.
 * Include examples for Choose Your Own Adventure.
 * Move banner icons to the left side of the banner.
 * Move some buttons from the menu to the banner.
-* Syntax for anchors inside pages.</div>
+* Syntax for page-to-page anchors inside pages.</div>
+
+=== Version 1.0 (under development)
+* _Interface:_
+** Edited the global CSS.
+** Assigned the {{{woas_clear}}} ID to the debug console *Clear* button so it can be styled from within the wiki CSS settings.
+** Changed *Last Modified:* to *Page last modified:* in the i18n.js file.
+** Now using [[http://sourceforge.net/projects/stickwiki/files/|Wiki on a Stick v0.10.2]] as the base for Book on a Stick.
+
+* _Content:_
+** Updated the [[Help::CSS]] page.
+** Updated the [[History]] page.
 
 <!-- ============================================================================================================================================================================================= -->
-=== Version 0.9 (under development)
+=== Version 0.9 released on February 10, 2010
 * _Interface:_
 ** Added a caution to the wiki erasing option in the *Maintenance* section of the [[Special::Advanced]] page.
 ** Added a line to the {{{woas["save"] = function() {}}} to be used by the [[Changes]] page thanks to code contributed by [[http://woas.iragan.com/viewtopic.php?pid=1585#p1585|FBNil]].
@@ -1218,7 +1217,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Renamed the *Help::Parent and child pages* page to [[Help::Namespaces]].
 ** Renamed the *Template::Fold* page to [[Template::FoldingText]].
 ** Renamed the *Wiki::Tools* page to [[Template::Icon::Advanced]].
-** Renamed the *Wiki::Alert* page to [[Template::Icon::Alert]].
+** Renamed the *Wiki::Alert* page to *Template::Icon::Alert*.
 ** Renamed the *Wiki::Back* page to [[Template::Icon::Back]].
 ** Renamed the *Wiki::Cancel* page to [[Template::Icon::Cancel]].
 ** Renamed the *Wiki::Edit* page to [[Template::Icon::Edit]].
@@ -2471,8 +2470,8 @@ Before making any changes, use your *file manager*, the *command line*, or a *ba
 --DFQRCTsKlU
 woas.page.title: Help::Bootscript
 woas.page.attributes: 0
-woas.page.last_modified: 1265824399
-woas.page.length: 767
+woas.page.last_modified: 1265858654
+woas.page.length: 762
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -2491,7 +2490,7 @@ catch (e) {
 }
 }}}The bootscript can be used to override wiki core functions in order to replace them with customized functions which finally call the overridden functions or perfectly emulate their behavior.
 
-[[Include::Template::Icon::Alert]] The JavaScript API used in this wiki is not yet specified.
+[[Include::Image::alert.png]] The JavaScript API used in this wiki is not yet specified.
 
 [[Tags::Help]]
 
@@ -2722,8 +2721,8 @@ Another method is to interrupt the code by dividing it up between multiple lines
 --DFQRCTsKlU
 woas.page.title: Help::CSS
 woas.page.attributes: 0
-woas.page.last_modified: 1265824399
-woas.page.length: 11834
+woas.page.last_modified: 1265858800
+woas.page.length: 10606
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -2758,10 +2757,10 @@ To return to the default settings if you changed the CSS settings and don't like
 .alertnote {border:0.063em groove #AA3; background-color:pink; font-size:80%; margin-top:0em; margin-bottom:0em; padding-top:0.188em; padding-right:0.313em; padding-bottom:0.188em; padding-left:0.313em;}
 
 /* BANNER - BACKGROUND */
-div.wiki_header {top:0em; left:0em; z-index:1; background-color:gainsboro; width:100%; border-top:0.188em solid grey; border-bottom:0.188em solid grey;}
+div.wiki_header {top:0em; left:0em; z-index:1; background-color:gainsboro; width:100%; border-top:0.188em solid grey; border-bottom:0.188em solid grey; margin-right:0em;}
 
 /* BANNER - PAGE TITLE */
-.title {font-size:2em; font-weight:bold; margin-top:0em; margin-bottom:0em; display:inline; color:black;}
+.title {font-size:2em; font-weight:bold; margin-top:0em; margin-right:0em; margin-bottom:0em; display:inline; color:black;}
 
 /* BLUEBOX */
 .bluebox {margin:1.875em 0.313em 0.938em 0.625em; border:#3c5a86 0.063em dashed; padding:0.313em; font-size:0.75em; font-weight:normal; color:#000000; background-color:#d1e0ef;}
@@ -2773,7 +2772,10 @@ div.wiki_header {top:0em; left:0em; z-index:1; background-color:gainsboro; width
 .bluebox H2 {padding-top:0.188em; padding-bottom:0.188em; padding-left:0.313em; padding-right:0.313em; font-size:1em; font-weight:bold; color:#000000; display:inline;} 
 
 /* BODY */
-body {color:black; background-color:silver; font-family:tahoma;}
+body {font-family:tahoma;}
+
+/* BODY - BACKGROUND COLOR */
+.bg {background-color:silver}
 
 /* CODE INLINE - WIKI - CURLY BRACKETS */
 .wiki_preformatted {color:black; background-color:gainsboro; white-space:-moz-pre-wrap !important; padding-right:0.27em; padding-left:0.27em;}
@@ -2786,51 +2788,22 @@ body {color:black; background-color:silver; font-family:tahoma;}
 /* CODE BLOCKS - HTML - PRE TAGS */
 pre {color:black; background-color:gainsboro; border:0.063em solid grey; padding:0.375em;}
 
-/* CODE BLOCKS - WIKI - SQUARE BRACKETS - SYNTAX HIGHLIGHTING */
-.DlHighlight {font:monospace; padding: 0.625em; border:0.063em solid grey; background-color:gainsboro; padding:0.313em; font-size:95%; white-space:-moz-pre-wrap !important;}
-.DlHighlight pre {margin:0em; padding:0em;}
-.DlHighlight .keyword {color:#00f; font-weight:bold;}
-.DlHighlight .builtin {color:#22a;}
-.DlHighlight .spherefunction {color:#929;}
-.DlHighlight .sphereconstant {color:#299;}
-.DlHighlight .string {color:#282;}
-.DlHighlight .string .before, .DlHighlight .string .after {color:#040;}
-.DlHighlight .regexp {color:#b2c;}
-.DlHighlight .regexp .before, .DlHighlight .regexp .after {color:#509; font-weight:bold;}
-.DlHighlight .comment {color:#080;}
-.DlHighlight .comment .before, .DlHighlight .comment .after {color:#baa;}
-.DlHighlight .hashkey {color:#a51;}
-.DlHighlight .hasharrow {color:#f00;}
-.DlHighlight .paren {font-weight:bold;}
-.DlHighlight .operator {color:#077;}
-.DlHighlight .error {background-color:#c00; color:#fff;}
-.DlHighlight .defun {font-weight:bold;}
-.DlHighlight .line-numbers {float:left; margin-left:-4.5em; width:3em; text-align:right; color:#999; font:0.9em tahoma,verdana,sans-serif; padding-top:0.05em;}
-.DlHighlight .line-numbers:after {content:"."}
-/* XML */
-.DlHighlight .xml-tag-close .before {color:#52a;}
-.DlHighlight .xml-entity {color:#b2a;}
-.DlHighlight .xml-entity .before, .DlHighlight .xml-entity .after {color:#607;}
-/* CSS */
-.DlHighlight .css-class {color:#000; font-style:italic;}
-.DlHighlight .css-pseudo-class {color:#777;}
-.DlHighlight .css-id {font-weight:bold;}
-.DlHighlight .css-color-spec {color:#a51;}
-.DlHighlight .css-length {color:#a19;}
-.DlHighlight .css-length .after {font-weight:bold;}
-.DlHighlight .css-declaration-kw {font-weight:bold;}
-.DlHighlight .css-comma {color:red;}
-
 /* DEBUG CONSOLE */
-div.debug_console {background-color:gainsboro; position:relative; left:20.5%; width:77%; padding:0.813em; margin-top:0.375em; border:0.188em solid grey; text-align:left;}
-#swlogger {background-color:#F4F4F4; width:99.7%;}
+#debug_info {clear:both; background-color:gainsboro; margin-right:0.21em; margin-left:18.05em; border:0.125em solid grey;}
+#woas_debug_panel {}
+#woas_log {background-color:silver; width:95.5%; margin-left:2em;}
+#woas_clear {margin-top:0.5em; margin-left:1.6em;}
 
-/* EDITOR BUTTONS - REGULAR */
+/* EDITOR BUTTONS */
 .wiki_button {color:darkblue; background-color:gainsboro; border:0.063em solid grey; margin-top:0.188em; margin-bottom:0.188em; font-size:0.813em; cursor:pointer;}
 .wiki_button:hover {color:darkblue; background-color:darkgrey; border:0.063em solid grey; margin-top:0.188em; margin-bottom:0.188em; font-size:0.813em; cursor:pointer;}
 
-/* FOOTER */
-div.text_area_footer {background-color:gainsboro; position:relative; left:20.5%; width:77.5%; padding:0.813em; margin-top:0.438em; border:0.188em solid grey; text-align:justify; font-size:80%;}
+/* EDITOR CONTENT */
+#edit_page_title{margin-top:0.625em;}
+
+/* ENCRYPTION INTERFACE */
+#woas_pwd_query {position:absolute; z-index:100; background-color:#D6DFF7; padding-top:25%; top:0px; left:0px;width:100%; height:100%; border:1px solid #666666; font-size:large; text-align:center; visibility:hidden;}
+#woas_pwd_mask {position:absolute; z-index:99; top:0px; left:0px; width:100%; height:100%; font-size:large; text-align:center; visibility:hidden;}
 
 /* HEADERS */
 h1 {color:black; font-size:1.688em;}
@@ -2845,13 +2818,16 @@ div.helpcode {color:black; background-color:gainsboro; border:0.063em solid grey
 /* HELP PAGES - TEXT */
 div.helptext {color:darkcyan; font-weight:bold; font-style:italic;}
 
+/* HORIZONTAL RULE AT BOTTOM OF WIKI */
+hr#finalrule {left:20.5%; margin-right:0.21em; margin-left:18.05em; }
+
 /* LINK - CURSOR WHEN ON A LINK */
 a {cursor:pointer;}
 /* ALTERNATIVE FOR IE 5.5+: a {cursor:hand;}*/
 
 /* LINK - EXTERNAL */
-a.world {color:mediumblue; text-decoration:none;}
-a.world:hover {color:mediumblue; text-decoration:underline;}
+a.world {color:darkgreen; text-decoration:none;}
+a.world:hover {color:darkgreen; text-decoration:underline;}
 
 /* LINK - INTERNAL */
 a.link {color:mediumblue; text-decoration:none;}
@@ -2871,17 +2847,14 @@ a:hover {color:mediumblue; text-decoration:underline;}
 /* MAIN TEXT AREA */
 div.text_area {background-color:white; border:0.188em solid grey; padding-top:0.438em; padding-right:0.813em; padding-bottom:0.813em; padding-left:0.813em;}
 
-/* MAIN TEXT AREA - IMAGES */
-div.text_area img {margin-bottom:-0.188em;}
-
-/* MAIN TEXT AREA - LIST TEXT AND BULLET COLOR (AND TABLE OF CONTENTS LIST BULLET COLOR) */
-div.text_area ul li, div.text_area ol li {color:black;}
+/* MAIN TEXT AREA - IMAGES - THIS MAY OR MAY NOT BE NEEDED WHEN USING WOAS 0.10.2 */
+/* div.text_area img {margin-bottom:-0.188em;} */
 
 /* MAIN TEXT AREA - WIKI TEXT */
 #wiki_text {position:relative; top:0em; left:20.5%; z-index:0; width:77%; text-align:justify;}
 
 /* MAIN WIKI PANE WHEN LOCKED */
-div.text_area.locked {background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAAAAACMmsGiAAAALHRFWHRDcmVhdGlvbiBUaW1lAGdpbyAyOSBtYXIgMjAwNyAxMTo1MToxMCArMDEwME%2BTNUAAAAAHdElNRQfXAx0JNByGxueSAAAACXBIWXMAAAsSAAALEgHS3X78AAAABGdBTUEAALGPC%2FxhBQAAABlJREFUeNpj%2FM%2FwmYHpMwMvAxOQwcvECyQBO1oE%2BlG5iisAAAAASUVORK5CYII%3D); BACKGROUND:#EEEEEE;}
+div.text_area.locked, #woas_pwd_mask {background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAAAAACMmsGiAAAALHRFWHRDcmVhdGlvbiBUaW1lAGdpbyAyOSBtYXIgMjAwNyAxMTo1MToxMCArMDEwME%2BTNUAAAAAHdElNRQfXAx0JNByGxueSAAAACXBIWXMAAAsSAAALEgHS3X78AAAABGdBTUEAALGPC%2FxhBQAAABlJREFUeNpj%2FM%2FwmYHpMwMvAxOQwcvECyQBO1oE%2BlG5iisAAAAASUVORK5CYII%3D); background-color:#EEEEEE;}
 
 /* MENU */
 div.menu {}
@@ -2896,11 +2869,14 @@ div.menu_area {background-color:white; left:0.7%; width:18%; padding:0.438em; bo
 .menu_button_half:hover {color:darkblue; background-color:darkgrey; width:50%; border:0.063em solid grey; text-align:center; font-size:1em; font-variant:normal; cursor:pointer;}
 
 /* MENU - LISTS */
-div.menu_area ul li, div.menu_area ol li {color:black; margin-left:-2em;}
+div.menu_area ul li, div.menu_area ol li, div.ns_menu_area ul li, div.ns_menu_area ol li {color:black; margin-left:-2em;}
+
+/* PAGE LAST MODIFIED (BENEATH MAIN TEXT AREA) */
+.woas_page_mts {position:relative; z-index:0; left:20.5%; width:81%; font-size:small;}
 
 /* SEARCH RESULTS */
 .search_highlight {background-color:yellow;}
-div.search_results {clear:both; margin-top:1em;}
+div.search_results {clear:both;}
 
 /* SPOILERS */
 .spoiler {background-color:black; color:black;}
@@ -2917,7 +2893,7 @@ div.search_results {clear:both; margin-top:1em;}
 .spoilerinline a span {display:none;}
 
 /* TABLE OF CONTENTS */
-div.wiki_toc {background-color:#F5F5F5; width:50%; padding-left:1em; border:0.063em dashed #AAAAAA; text-align:left; font-size:95%;}
+div.wiki_toc {background-color:gainsboro; width:50%; padding-left:1em; border:0.188em solid grey; text-align:left; font-size:95%; margin-top:-0.5em; margin-bottom:-1.5em;}
 
 /* TABLE OF CONTENTS - LINKS */
 div.wiki_toc a.link {color:mediumblue; text-decoration:none;}
@@ -5113,8 +5089,8 @@ If all went well, the number it displays should be *0* and you've successfully r
 --DFQRCTsKlU
 woas.page.title: Sandbox
 woas.page.attributes: 0
-woas.page.last_modified: 1265824399
-woas.page.length: 192
+woas.page.last_modified: 1265858214
+woas.page.length: 213
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -5124,6 +5100,7 @@ woas.page.boundary: DFQRCTsKlU
 This page is for trying out new things without having to create a new page.
 
 [[Include::Template::TODO|this|Delete this task from the Sandbox page to remove it from the ToDo list.]]
+[[Image::alert.png]]
 
 --DFQRCTsKlU
 woas.page.title: Utility::Links for writers
@@ -5338,17 +5315,6 @@ function clearit(){var formcontent=document.getElementById('t1').value='';}
 <div style="text-align:justify;">
 <textarea id="t1" name="t1" rows=12 cols=26></textarea>
 <input type="button" name="b1" id="b1" value="Calculate" onClick="calculate(document.getElementById('t1').value);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" name="b2" id="b2" value="Clear" onClick="clearit();"><div id="report" name="report"></div></div>
---DFQRCTsKlU
-woas.page.title: Template::Icon::Alert
-woas.page.attributes: 0
-woas.page.last_modified: 1265824399
-woas.page.length: 786
-woas.page.encoding: 8bit/plain
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAN1wAADdcBQiibeAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAGxSURBVDiNpVNBaxNREP5m3uzbJO5u3VhKskbdNlSKQlspCD14E/TgP4ggCIIH/4QX69FDEaQ9uqilx/bUQ6j/wVMptmfDphAoGHwdD9HV2iQqHXiHefPNzPe9j0eqivMEn6v7bwPeMbc2RV6Nw9AoCRlRbJgPDZHXd+5eS/XjfzEQ5hdpFHm3a7WSx7yeEQ3FDr3MiOYAPFqcmipdjSKE1tYJeDx0k6qeOR+M2f2UJN+001FV1c7srL5nPnoLhH9izzDIiO57xixdTxIDIgBAHMe4HMdWmJ+PlZARiRjzZqnZvEC+/4ultVhsNssAnmZEMyMHMNGzi0FwKanXob4PPTiA7u9DrUUpDDGXpp4n8vr3nsLGjKhqjDm8u7wcTATBoFqpACJArwcAcCcn2Gq3j7/2+w9aqu1TDETk5bVGw4uqVai1UN+HrKxAVleLnMtl3FpYqIjI2k9b+cf2GwAe3pyf99X3B/SthdvZgdveLnK1Fo3paYRhWCOiJ4WEDWt3q5OTd66kKQ31uhA8KB/lOT7v7fWcc4kAADFvdfP8SzfPx/afenBjus6545F/4V/jO5CJmhHgOc11AAAAAElFTkSuQmCC">
 --DFQRCTsKlU
 woas.page.title: Template::Icon::Back
 woas.page.attributes: 0
@@ -5570,8 +5536,8 @@ The list will refresh automatically as you add and remove ToDo items in your wik
 --DFQRCTsKlU
 woas.page.title: Changes
 woas.page.attributes: 0
-woas.page.last_modified: 1265824399
-woas.page.length: 2426
+woas.page.last_modified: 1265858517
+woas.page.length: 586
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -5580,37 +5546,6 @@ woas.page.boundary: DFQRCTsKlU
 = Changes
 This page automatically creates a time-stamped entry when any page except this one is changed or created in this wiki. Deleting a page from the wiki will not cause an entry to be made on this page. You can edit the list, adding comments or deleting entries.
 <!-- LIST BEGINS HERE -->
-[[Help::Folds]] {{{Sat Feb 06 2010 08:46:32 GMT-0500 (EST)}}}
-[[Help::Folds]] {{{Sat Feb 06 2010 09:13:53 GMT-0500 (EST)}}}
-[[Help::Folds]] {{{Sat Feb 06 2010 11:37:00 GMT-0500 (EST)}}}
-[[Sandbox]] {{{Sat Feb 06 2010 12:46:31 GMT-0500 (EST)}}}
-[[Sandbox]] {{{Sat Feb 06 2010 12:46:42 GMT-0500 (EST)}}}
-[[Help::CSS]] {{{Sat Feb 06 2010 12:56:32 GMT-0500 (EST)}}}
-[[Help::CSS]] {{{Sat Feb 06 2010 12:57:14 GMT-0500 (EST)}}}
-[[Help::CSS]] {{{Sat Feb 06 2010 12:59:38 GMT-0500 (EST)}}}
-[[Help::CSS]] {{{Sat Feb 06 2010 12:59:53 GMT-0500 (EST)}}}
-[[Help::CSS]] {{{Sat Feb 06 2010 13:03:02 GMT-0500 (EST)}}}
-[[Help::CSS]] {{{Sat Feb 06 2010 13:05:32 GMT-0500 (EST)}}}
-[[Help::CSS]] {{{Sat Feb 06 2010 13:06:25 GMT-0500 (EST)}}}
-[[Sandbox]] {{{Sat Feb 06 2010 13:22:10 GMT-0500 (EST)}}}
-[[Sandbox]] {{{Sat Feb 06 2010 14:00:20 GMT-0500 (EST)}}}
-[[Sandbox]] {{{Sat Feb 06 2010 14:19:41 GMT-0500 (EST)}}}
-[[Sandbox]] {{{Sat Feb 06 2010 14:24:10 GMT-0500 (EST)}}}
-[[Sandbox]] {{{Sat Feb 06 2010 14:26:40 GMT-0500 (EST)}}}
-[[History]] {{{Sat Feb 06 2010 14:43:50 GMT-0500 (EST)}}}
-[[Help::Headers]] {{{Sat Feb 06 2010 15:01:56 GMT-0500 (EST)}}}
-[[History]] {{{Sat Feb 06 2010 15:04:15 GMT-0500 (EST)}}}
-[[Sandbox]] {{{Sat Feb 06 2010 15:56:25 GMT-0500 (EST)}}}
-[[Sandbox]] {{{Sat Feb 06 2010 15:59:03 GMT-0500 (EST)}}}
-[[Sandbox]] {{{Sat Feb 06 2010 15:59:19 GMT-0500 (EST)}}}
-[[History]] {{{Sat Feb 06 2010 16:04:16 GMT-0500 (EST)}}}
-[[History]] {{{Sat Feb 06 2010 16:04:30 GMT-0500 (EST)}}}
-[[Help::CSS]] {{{Sat Feb 06 2010 16:06:27 GMT-0500 (EST)}}}
-[[Help::CSS]] {{{Sat Feb 06 2010 16:07:37 GMT-0500 (EST)}}}
-[[Help::CSS]] {{{Sat Feb 06 2010 16:07:58 GMT-0500 (EST)}}}
-[[Help::CSS]] {{{Sat Feb 06 2010 16:08:29 GMT-0500 (EST)}}}
-[[Sandbox]] {{{Sat Feb 06 2010 16:09:42 GMT-0500 (EST)}}}
-[[Help::CSS]] {{{Sat Feb 06 2010 16:16:16 GMT-0500 (EST)}}}
 [[Help::Bugs]] {{{Sun Feb 07 2010 11:11:19 GMT-0500 (EST)}}}
 [[History]] {{{Sun Feb 07 2010 11:14:48 GMT-0500 (EST)}}}
 [[History]] {{{Tue Feb 09 2010 11:39:37 GMT-0500 (EST)}}}
@@ -6126,4 +6061,16 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 = PAGENAME
 
+--DFQRCTsKlU
+woas.page.title: Image::alert.png
+woas.page.attributes: 12
+woas.page.last_modified: 1265858222
+woas.page.mime: image/png
+woas.page.length: 752
+woas.page.encoding: 8bit/base64
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAN1wAADdcBQiibeAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAGxSURBVDiNpVNBaxNREP5m3uzbJO5u3VhKskbdNlSKQlspCD14E/TgP4ggCIIH/4QX69FDEaQ9uqilx/bUQ6j/wVMptmfDphAoGHwdD9HV2iQqHXiHefPNzPe9j0eqivMEn6v7bwPeMbc2RV6Nw9AoCRlRbJgPDZHXd+5eS/XjfzEQ5hdpFHm3a7WSx7yeEQ3FDr3MiOYAPFqcmipdjSKE1tYJeDx0k6qeOR+M2f2UJN+001FV1c7srL5nPnoLhH9izzDIiO57xixdTxIDIgBAHMe4HMdWmJ+PlZARiRjzZqnZvEC+/4ultVhsNssAnmZEMyMHMNGzi0FwKanXob4PPTiA7u9DrUUpDDGXpp4n8vr3nsLGjKhqjDm8u7wcTATBoFqpACJArwcAcCcn2Gq3j7/2+w9aqu1TDETk5bVGw4uqVai1UN+HrKxAVleLnMtl3FpYqIjI2k9b+cf2GwAe3pyf99X3B/SthdvZgdveLnK1Fo3paYRhWCOiJ4WEDWt3q5OTd66kKQ31uhA8KB/lOT7v7fWcc4kAADFvdfP8SzfPx/afenBjus6545F/4V/jO5CJmhHgOc11AAAAAElFTkSuQmCC
 --DFQRCTsKlU

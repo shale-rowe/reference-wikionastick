@@ -36,7 +36,7 @@ woas['i18n'] = {
 	ERR_SEL_FILE: "A file must be selected",
 	ERR_PAGE_NS: "You cannot create a page as a namespace",
 	PAGE_NOT_EXISTS: "Page does not exist: ",
-	LAST_MODIFIED: "Last Modified: ",
+	LAST_MODIFIED: "Page last modified: ",
 	EXPORT_OK: "%d pages exported successfully",
 	STATIC_NOT_FOUND: "Static page \"%s\" not found!",
 	ERR_VAR_MARKER: "Marker variable not found!",
