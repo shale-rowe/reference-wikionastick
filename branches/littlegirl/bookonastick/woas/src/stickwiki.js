@@ -219,28 +219,28 @@ woas["_get_namespace_pages"] = function (ns) {
 	var pg = [];
 	switch (ns) {
 		case "Locked::":
-			return "= Pages in "+ns+" namespace\n" + this.special_encrypted_pages(true);
+			return "=== Pages in "+ns+" namespace\n" + this.special_encrypted_pages(true);
 		case "Unlocked::":
-			return "= Pages in "+ns+" namespace\n" + this.special_encrypted_pages(false);
+			return "=== Pages in "+ns+" namespace\n" + this.special_encrypted_pages(false);
 		case "Untagged::":
-			return "= Pages in "+ns+" namespace\n" + this.special_untagged(false);
+			return "=== Pages in "+ns+" namespace\n" + this.special_untagged(false);
 		case "Tagged::": // to be used in wiki source
 		case "Tags::": // is this deprecated?
-			return "= Pages in "+ns+" namespace\n" + this.special_tagged(false);
+			return "=== Pages in "+ns+" namespace\n" + this.special_tagged(false);
 		case "Image::":
 			var iHTML = "";
 			for(var i=0, l=page_titles.length;i<l;++i) {
 				if (page_titles[i].indexOf(ns)===0)
 					iHTML += this.parser.parse("* [[Include::"+page_titles[i]+"]][["+page_titles[i]+"]]\n");
 			}
-			return "= Pages in "+ns+" namespace\n" + iHTML;
+			return "=== Pages in "+ns+" namespace\n" + iHTML;
 	}
 
 	for(var i=0, l=page_titles.length;i<l;++i) {
 		if (page_titles[i].indexOf(ns)===0)
 			pg.push(page_titles[i]);
 	}
-	return "= Pages in "+ns+" namespace\n" + this._join_list(pg);
+	return "=== Pages in "+ns+" namespace\n" + this._join_list(pg);
 }
 
 woas["_get_tagged"] = function(tag_filter) {
