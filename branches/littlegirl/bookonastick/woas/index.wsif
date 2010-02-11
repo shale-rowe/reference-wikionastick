@@ -1,17 +1,16 @@
 wsif.version: 1.1.0
 woas.version: 0.10.2
-woas.pages: 123
+woas.pages: 124
 
 woas.page.title: ::Menu
 woas.page.attributes: 0
-woas.page.last_modified: 1265824887
-woas.page.length: 74
+woas.page.last_modified: 1265899885
+woas.page.length: 39
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-[[Include::Template::MenuButtons]]
 [[Include::Utility::Links for writers]]
 --DFQRCTsKlU
 woas.page.title: Special::Advanced
@@ -452,8 +451,8 @@ LyogaW5zZXJ0IGhlcmUgeW91ciBib290IHNjcmlwdCAqLw==
 --DFQRCTsKlU
 woas.page.title: History
 woas.page.attributes: 0
-woas.page.last_modified: 1265858884
-woas.page.length: 36803
+woas.page.last_modified: 1265902454
+woas.page.length: 36841
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -481,6 +480,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 
 * _Content:_
 ** Updated the [[Help::CSS]] page.
+** Updated the [[Help::Footer]] page.
 ** Updated the [[History]] page.
 
 <!-- ============================================================================================================================================================================================= -->
@@ -2146,8 +2146,8 @@ Now you can click the *index.htm* file in the export folder to launch the framed
 --DFQRCTsKlU
 woas.page.title: Help::Footer
 woas.page.attributes: 0
-woas.page.last_modified: 1265824399
-woas.page.length: 1445
+woas.page.last_modified: 1265902433
+woas.page.length: 1447
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -2159,7 +2159,7 @@ The footer is a section beneath the main text area in which you can put content 
 == Change the look of the footer
 # Click the [[Include::Template::Icon::Advanced]] icon in the banner.
 # Click the [[Special::Edit CSS|Edit the CSS]] link in the *Advanced* section.
-# Find the {{{/*FOOTER*/}}} entry.
+# Find the {{{/* FOOTER */}}} entry.
 # Make whatever changes you like to the code.
 # Save your changes by clicking on the [[Include::Template::Icon::Save]] icon in the banner.
 
@@ -4207,8 +4207,8 @@ If all went well, the number it displays should be *0* and you've successfully r
 --DFQRCTsKlU
 woas.page.title: Sandbox
 woas.page.attributes: 0
-woas.page.last_modified: 1265866094
-woas.page.length: 192
+woas.page.last_modified: 1265902709
+woas.page.length: 220
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -4218,6 +4218,8 @@ woas.page.boundary: DFQRCTsKlU
 This page is for trying out new things without having to create a new page.
 
 [[Include::Template::TODO|this|Delete this task from the Sandbox page to remove it from the ToDo list.]]
+
+[[Special::Recentchanges]]
 
 --DFQRCTsKlU
 woas.page.title: Utility::Links for writers
@@ -4700,8 +4702,8 @@ A topnote is a note in the upper right corner of a page that doesn't affect the 
 --DFQRCTsKlU
 woas.page.title: Example::Bluebox
 woas.page.attributes: 0
-woas.page.last_modified: 1265824399
-woas.page.length: 10289
+woas.page.last_modified: 1265900909
+woas.page.length: 10293
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -4710,7 +4712,7 @@ woas.page.boundary: DFQRCTsKlU
 = Bluebox
 <div class=bluebox>
 <h1>THE SLEEPING BEAUTY IN THE WOOD</h1>
-<p><span class="first-letter">O</span>nce upon a time there was a king and a queen who grieved sorely that they had no children. When at last the queen gave birth to a daughter the king was so overjoyed that he gave a great christening feast, the like of which had never before been known. He asked all the fairies in the landthere were seven all toldto stand godmothers to the little princess, hoping that each might give her a gift, and so she should have all imaginable perfections.
+<p><span class="first-letter">O</span>nce upon a time there was a king and a queen who grieved sorely that they had no children. When at last the queen gave birth to a daughter the king was so overjoyed that he gave a great christening feast, the like of which had never before been known. He asked all the fairies in the land - there were seven all told - to stand godmothers to the little princess, hoping that each might give her a gift, and so she should have all imaginable perfections.
 <br>
 After the christening, all the company returned to the palace, where a great feast had been spread for the fairy godmothers. Before each was set a magnificent plate, with a gold knife and a gold fork studded with diamonds and rubies. Just as they were seating themselves, however, there entered an old fairy who had not been invited because more than fifty years ago she had shut herself up in a tower and it was supposed that she was either dead or enchanted.
 <br>
@@ -5031,8 +5033,8 @@ For more ways of working with hidden content, see the [[Help::Spoilers]] page.
 --DFQRCTsKlU
 woas.page.title: Template::FoldingPage
 woas.page.attributes: 0
-woas.page.last_modified: 1265824399
-woas.page.length: 121
+woas.page.last_modified: 1265903027
+woas.page.length: 120
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -5043,7 +5045,6 @@ woas.page.boundary: DFQRCTsKlU
 [[Include::%2]]
 </div>
 </div>
-
 --DFQRCTsKlU
 woas.page.title: Template::FoldingTextInline
 woas.page.attributes: 0
@@ -5178,4 +5179,15 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAN1wAADdcBQiibeAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAGxSURBVDiNpVNBaxNREP5m3uzbJO5u3VhKskbdNlSKQlspCD14E/TgP4ggCIIH/4QX69FDEaQ9uqilx/bUQ6j/wVMptmfDphAoGHwdD9HV2iQqHXiHefPNzPe9j0eqivMEn6v7bwPeMbc2RV6Nw9AoCRlRbJgPDZHXd+5eS/XjfzEQ5hdpFHm3a7WSx7yeEQ3FDr3MiOYAPFqcmipdjSKE1tYJeDx0k6qeOR+M2f2UJN+001FV1c7srL5nPnoLhH9izzDIiO57xixdTxIDIgBAHMe4HMdWmJ+PlZARiRjzZqnZvEC+/4ultVhsNssAnmZEMyMHMNGzi0FwKanXob4PPTiA7u9DrUUpDDGXpp4n8vr3nsLGjKhqjDm8u7wcTATBoFqpACJArwcAcCcn2Gq3j7/2+w9aqu1TDETk5bVGw4uqVai1UN+HrKxAVleLnMtl3FpYqIjI2k9b+cf2GwAe3pyf99X3B/SthdvZgdveLnK1Fo3paYRhWCOiJ4WEDWt3q5OTd66kKQ31uhA8KB/lOT7v7fWcc4kAADFvdfP8SzfPx/afenBjus6545F/4V/jO5CJmhHgOc11AAAAAElFTkSuQmCC
+--DFQRCTsKlU
+woas.page.title: Example::Menu
+woas.page.attributes: 0
+woas.page.last_modified: 1265900118
+woas.page.length: 22
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+[[Include::Example::]]
 --DFQRCTsKlU

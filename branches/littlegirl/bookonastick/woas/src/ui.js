@@ -418,3 +418,17 @@ function import_wiki_wsif() {
 	}
 	return done;
 }
+
+// Little Girl (11-18-09): This function was added to create expanding text areas:
+function expanddiv(div){
+var divElementStyle=document.getElementById(div).style;
+if (divElementStyle.display=="none"){divElementStyle.display="block";}
+else {divElementStyle.display="none";}
+}
+
+// Little Girl (11-18-09): This function was added to create expanding inline text:
+function expandspan(span){
+var spanElementStyle=document.getElementById(span).style;
+if (spanElementStyle.display=="none"){spanElementStyle.display="inline";}
+else {spanElementStyle.display="none";}
+}
