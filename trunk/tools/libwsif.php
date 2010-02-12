@@ -295,7 +295,7 @@ class WSIF {
 				$this->_emsg = "Page ".$title." is external but no filename was specified";
 				return -1;
 			}
-			if ($recursion > 0) {
+			if ($recursion > 1) {
 				$this->_emsg = "Recursive WSIF import not implemented";
 				return -1;
 			}
