@@ -294,7 +294,7 @@ woas["_get_tagged"] = function(tag_filter) {
 	}
 	if (!pg.length)
 		return "No pages tagged with *"+tag_filter+"*";
-	return "= Pages tagged with " + tag_filter + "\n" + this._join_list(pg);
+	return "=== Pages tagged with " + tag_filter + "\n" + this._join_list(pg);
 }
 
 // return a plain page or a decrypted one if available through the latest key
