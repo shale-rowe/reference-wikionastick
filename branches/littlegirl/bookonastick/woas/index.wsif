@@ -15,7 +15,7 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Special::Advanced
 woas.page.attributes: 0
-woas.page.last_modified: 1265933311
+woas.page.last_modified: 1265948535
 woas.page.length: 1150
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -451,8 +451,8 @@ LyogaW5zZXJ0IGhlcmUgeW91ciBib290IHNjcmlwdCAqLw==
 --DFQRCTsKlU
 woas.page.title: History
 woas.page.attributes: 0
-woas.page.last_modified: 1265933222
-woas.page.length: 37335
+woas.page.last_modified: 1265955152
+woas.page.length: 37372
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -486,6 +486,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the [[Help::Edit the menu]] page.
 ** Updated the [[Help::Footer]] page.
 ** Updated the [[Help::JavaScript]] page.
+** Updated the [[Help::Links]] page.
 ** Updated the [[Help::Requirements]] page.
 ** Updated the [[History]] page.
 
@@ -2633,8 +2634,8 @@ with the line below it.
 --DFQRCTsKlU
 woas.page.title: Help::Links
 woas.page.attributes: 0
-woas.page.last_modified: 1265863134
-woas.page.length: 10592
+woas.page.last_modified: 1265949597
+woas.page.length: 10578
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -2713,19 +2714,17 @@ I use {{{[[mailto://littlergirl@gmail.com?subject=Book on a Stick|email me]]}}} 
 === Base64 image as link
 See the [[Help::Images]] page.
 === Image as link to wiki page
-[[Include::Template::Icon::Alert]] /This will not work for images on system pages, like those in the *Template::Icon::* namespace./
-
-<div class="helptext">Use this code in a page, replacing IMAGEPAGE with the name of an embedded image page, and PAGENAME with the name of a page in this wiki:</div>
-<div class="helpcode">[<!-- -->[I<!-- -->nclude:<!-- -->:I<!-- -->MAGEPAGE|style="cursor:pointer" oncl<!-- -->ick="go_<!-- -->to('PA<!-- -->GENAME')"]]</div>
-<div class="helptext">To create an image that links to a page in this wiki.</div>
-
-If you have an image embedded in the *Image::My image* page and you want to make a link to the *Main page*, you would use this code:<br>
-<div class="helpcode">[<!-- -->[In<!-- -->clude:<!-- -->:Ima<!-- -->ge:<!-- -->:My image|style="cursor:pointer" border="0" on<!-- -->click="go<!-- -->_to('Ma<!-- -->in page')"]<!-- -->]</div>
+<div class="alertnote">This method will <b>only</b> work for images in the <b>Image::</b> namespace.</div>
+<div class="helptext">Use this code in a page, replacing IMAGENAME with the name of an embedded image page, and PAGENAME with the name of a page in this wiki:</div>
+<div class="helpcode">[<!-- -->[I<!-- -->nclude:<!-- -->:Image:<!-- -->:IMAGENAME|style="cursor:pointer" oncl<!-- -->ick="go_<!-- -->to('PA<!-- -->GENAME')"]]</div>
+<div class="helptext">To create an image that links to a page in this wiki, like this alert image that links to the [[Sandbox]] page:</div>
+[[Include::Image::alert.png|style="cursor:pointer" onclick="go_to('Sandbox')"]]
 
 === Image as link to web page
-<div class="helptext">Use this code in a page, replacing IMAGEPAGE with the name of an embedded image page, and URL with the address of a web page:</div>
-<div class="helpcode">[<!-- -->[In<!-- -->clude:<!-- -->:IMAGE<!-- -->PAGE|style="cursor:pointer" border="0" onc<!-- -->lick="win<!-- -->dow.o<!-- -->pen('URL')"]<!-- -->]</div>
-<div class="helptext">To create an image that links to a web page.</div>
+<div class="helptext">Use this code in a page, replacing IMAGENAME with the name of an embedded image page, and URL with the address of a web page:</div>
+<div class="helpcode">[<!-- -->[In<!-- -->clude:<!-- -->:Image:<!-- -->:IMAGENAME|style="cursor:pointer" border="0" onc<!-- -->lick="win<!-- -->dow.o<!-- -->pen('URL')"]<!-- -->]</div>
+<div class="helptext">To create an image that links to a web page, like this alert image that links to the [[http://www.google.com|Google]] page:</div>
+[[Include::Image::alert.png|style="cursor:pointer" border="0" onclick="window.open('http://www.google.com')"]]
 
 == Include link
 You can include the contents of another page of this wiki in the current page by using an include link.
@@ -4804,8 +4803,8 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Help::Folds
 woas.page.attributes: 0
-woas.page.last_modified: 1265824399
-woas.page.length: 12478
+woas.page.last_modified: 1265948586
+woas.page.length: 12473
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -4817,7 +4816,7 @@ Folds display hidden content when you click the link or button. You can add as m
 
 [[Include::Template::Icon::Info]] /When creating HTML folds, the &lt;div&gt; or &lt;span&gt; container with the hidden content doesn't have to be near the link or button that toggles its display. You can even create the &lt;div&gt; or &lt;span&gt; container somewhere in the wiki source code and use the button link on any page or in the menu to display the content. You can style the &lt;div&gt; or &lt;span&gt; tags to change how the folds look./
 
-[[Include::Template::Icon::Alert]] /Unfortunately, hidden content inside folds can conflict with the Table of Contents and the Tags container at the bottom of the page by being visible in both of them even when the content isn't unfolded./
+[[Include::Image::alert.png]] /Unfortunately, hidden content inside folds can conflict with the Table of Contents and the Tags container at the bottom of the page by being visible in both of them even when the content isn't unfolded./
 
 == Folding page (wiki)
 This method allows wiki [[Help::Text formatting|text formatting]] for the link text.
