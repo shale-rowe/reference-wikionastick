@@ -296,14 +296,14 @@ function show_full_file(pi) {
 
 function query_export_file(cr) {
 	var fn = cr.substr(cr.indexOf("::")+2);
-	if (confirm(woas.i18n.CONFIRM_EXPORT+"\n\n\""+woas.ROOT_DIRECTORY+fn))
+	if (confirm(woas.i18n.CONFIRM_EXPORT.sprintf(cr)+"\n\n"+woas.ROOT_DIRECTORY+fn))
 		woas.export_file(cr, woas.ROOT_DIRECTORY+fn);
 }
 
 function query_export_image(cr) {
 	var img_name = cr.substr(cr.indexOf("::")+2);
-	if (confirm(woas.i18n.IMAGE_CONFIRM_EXPORT+"\n\n\""+woas.ROOT_DIRECTORY+img_name))
-		woas.export_file(cr, woas.ROOT_DIRECTORY+img_name);
+	if (confirm(woas.i18n.CONFIRM_EXPORT.sprintf(img_name)+"\n\n"+woas.ROOT_DIRECTORY+img_name))
+		woas.export_image(cr, woas.ROOT_DIRECTORY+img_name);
 }
 
 function query_delete_file(cr) {
@@ -318,7 +318,7 @@ function _img_properties_show(mime, tot_len, enc_len, mts) {
 	var img=$('img_tag');
 	woas.setHTML($('img_desc'),
 		woas.i18n.MIME_TYPE+": "+mime+"<br /"+
-		">"+woas.i18n.FILE_SIZE+": "+_convert_bytes((tot_len-enc_len*3)/4)+
+		">"+woas.i18n.FILE_SIZE+": about "+_convert_bytes(((tot_len-enc_len)*3)/4)+
 		woas.i18n.B64_REQ.sprintf(_convert_bytes(tot_len))+
 	"<br />"+woas.last_modified(mts)+
 	"<br />"+woas.i18n.WIDTH+": "+img.width+"px<br />"+woas.i18n.HEIGHT+": "+img.height+"px");

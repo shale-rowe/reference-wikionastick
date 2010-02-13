@@ -128,6 +128,8 @@ woas["_get_tags"] = function(text) {
 	return tags;
 }
 
+// split one or more tags
+// note: no trim applied
 woas["split_tags"] = function(tlist) {
 	var alltags;
 	if (tlist.indexOf("|")!=-1)

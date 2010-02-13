@@ -354,12 +354,9 @@ woas["get_text_special"] = function(title) {
 woas["__last_title"] = null;
 
 woas["__password_finalize"] = function(pwd_obj) {
-//	this.setHTML($("woas_pwd_msg"), msg);
-//	$.show("wiki_text");
-	document.title = this.__last_title;
 	$.show_ni("wiki_text");
-	$.hide_ni("wiki_text");
-	$.hide_ni("wiki_text");
+	document.title = this.__last_title;
+	$.hide("woas_pwd_mask");
 //	scrollTo(0,0);
 	// hide input form
 	pwd_obj.value = "";
@@ -371,9 +368,7 @@ woas["_set_password"] = function() {
 	this.__last_title = document.title;
 	document.title = "Enter password";
 	// hide browser scrollbars and show mask
-	$("woas_pwd_mask").show_ni();
-//	this.setHTML($("woas_pwd_msg"), msg);
-//	$.hide("wiki_text");
+	$.show("woas_pwd_mask");
 	$.hide_ni("wiki_text");
 	scrollTo(0,0);
 	// show input form
@@ -563,7 +558,7 @@ woas["_get__embedded"] = function (cr, pi, etype) {
 				"<br /><br />XHTML transclusion:"+this.parser.parse("\n{{{[[Include::"+cr+"]]}}}"+
 				"\n\nRaw transclusion:\n\n{{{[[Include::"+cr+"|raw]]}}}"+
 				_del_lbl+"\n<a href=\"javascript:query_export_file('"+this.js_encode(cr)+"')\">"+this.i18n.EXPORT_FILE+"</a>\n");
-	} else {
+	} else { // etype == image
 		var img_name = cr.substr(cr.indexOf("::")+2);
 		xhtml = this.parser.parse("= "+img_name+"\n\n"+
 		"<s"+"cript> setTimeout(\"_img_properties_show('"+
@@ -593,6 +588,7 @@ woas["export_image"] = function(page, dest_path) {
 	return this._b64_export(data, dest_path);
 }
 
+// used to export files/images
 woas["export_file"] = function(page, dest_path) {
 	var pi=this.page_index(page);
 	if (pi==-1)
