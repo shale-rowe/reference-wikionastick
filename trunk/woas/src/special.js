@@ -131,7 +131,7 @@ woas["special_search"] = function( str ) {
 
 woas["special_tagged"] = function() {
 	var utags = [];
-	var tags_tree = [];
+	var tags_tree = {};
 	var src, ipos;
 	for(var i=0,l=pages.length;i<l;++i) {
 		src = this.get_src_page(i);
@@ -140,17 +140,18 @@ woas["special_tagged"] = function() {
 			continue;
 		src.replace(/\[\[Tags?::([^\]]+)\]\]/g,
 			function (str, $1) {
+				// get the tags and index the page under each tag
 				var tmp=woas.split_tags($1);
-				for(var j=0;j<tmp.length; j++) {
+				for(var j=0,jl=tmp.length;j<jl; ++j) {
 					var tag=woas.trim(tmp[j]);
 					if (!tag.length) continue;
+					// we have a valid tag, check if it is already indexed
 					ipos = utags.indexOf(tag);
 					if (ipos==-1) {
-						ipos = utags.length;
 						utags.push(tag);						
-						tags_tree[ipos] = [];
-					}
-					tags_tree[ipos].push(page_titles[i]);
+						tags_tree[tag] = [page_titles[i]];
+					} else
+						tags_tree[tag].push(page_titles[i]);
 				}
 			});
 	}
@@ -164,16 +165,17 @@ woas["special_tagged"] = function() {
          return -1
       return 0;
     });
-	var s="";
-	var tag = null, obj = null;
+	var pg=[];
 	for(var j=0,l=utags.length;j<l;j++) {
-		obj = tags_tree[j].sort();
-		s += "\n== [[Tagged::"+utags[j]+"]]\n";
+		var obj = tags_tree[utags[j]].sort();
+		pg.push("\n== [[Tagged::"+utags[j]+"]]");
 		for(var i=0;i<obj.length;i++) {
-			s+="* [["+obj[i]+"]]\n";
+			pg.push("* [["+obj[i]+"]]");
 		}
 	}
-	return s;
+	if (pg.length)
+		return this._simple_join_list(pg);
+	return '/No tagged pages/';
 }
 
 woas["special_untagged"] = function() {
