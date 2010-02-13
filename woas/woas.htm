@@ -5,11 +5,11 @@
 <script type="text/javascript">
 /* <![CDATA[ */
 
-/* DFQRCTsKlU-0000761-START */
+/* DFQRCTsKlU-0000762-START */
 
 var woas = {"version": "0.9.7B"};
 
-var __marker = "DFQRCTsKlU-0000761";
+var __marker = "DFQRCTsKlU-0000762";
 
 woas["config"] = {
 "permit_edits":true,
@@ -26,10 +26,10 @@ var current = 'Main Page';
 var main_page = 'Main Page';
 
 var backstack = [
-'Sandbox',
-'Sandbox',
-'Help::',
-'Help::Lists'
+'Template::subpage',
+'whocalledme',
+'Syntax',
+'Feature::Summary'
 ];
 
 var page_titles = [
@@ -225,7 +225,7 @@ var page_titles = [
 'Template::Footnote'
 ];
 
-/* DFQRCTsKlU-0000761-DATA */
+/* DFQRCTsKlU-0000762-DATA */
 var page_attrs = [12,4,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,4,4,0,2,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,12,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
 
 var pages = [
@@ -1572,11 +1572,6 @@ Clicking a ToDo link takes you to the page the task is on, but the task itself i
 ',
 '= Sandbox\n\
 [[Special::TOC]]\n\
-== Export\n\
-Export from the import/export page now works in the format I wanted. Need to add a comment area where you can add your comments before exporting.\n\
-\n\
-== JavaScript alerts\n\
-[[Javascript::alert(A[1])]] now is possible to have {{{[]}}} inside a link without parameters (maybe should enhance that to all type of links\n\
 \n\
 == Lists\n\
 Numbered @ lists now the iIaA1 is optional\n\
@@ -1613,20 +1608,21 @@ Numbered @ lists now the iIaA1 is optional\n\
 * bulleted\n\
 # numbered\n\
 \n\
-\n\
-* test\n\
+=== test\n\
+{{{\n\
 * test\n\
 * test\n\
 @ test\n\
 @ test\n\
+# test\n\
+# test\n\
+}}}\n\
+* test\n\
+* test\n\
+@ test\n\
 @ test\n\
 # test\n\
 # test\n\
-# test\n\
-\n\
-\n\
-\n\
-\n\
 \n\
 === test\n\
 {{{\n\
@@ -1639,7 +1635,6 @@ Numbered @ lists now the iIaA1 is optional\n\
 @a two\n\
 @ one\n\
 @a two\n\
-\n\
 \n\
 === Mixed lists\n\
 * one\n\
@@ -1675,13 +1670,20 @@ What\'s the difference is between these two, and should one of them not be used?
 This: {{{\x3C\x3C\x3C%js:print("/hi/ \x3Ci\x3Ethere\x3C/i\x3E")\x3E\x3E\x3E}}} results in: \x3C\x3C\x3C%js:print("/hi/ \x3Ci\x3Ethere\x3C/i\x3E")\x3E\x3E\x3E\n\
 This: {{{\x3C\x3C\x3Cprint("/hi/ \x3Ci\x3Ethere\x3C/i\x3E")\x3E\x3E\x3E}}} results in: \x3C\x3C\x3Cprint("/hi/ \x3Ci\x3Ethere\x3C/i\x3E")\x3E\x3E\x3E \n\
 \n\
-== ScrollTop\n\
-* Adding {{{scrollTop()}}} to move the vertical scroll bar. The idea is that when "Fixed menu area and topbar" setting is enabled, a jump to an anchor will just be behind the semi-transparent navbar div. It looks complex because IE reverses behaviour depending on quirks mode or not. Press on the link called "100"  to scroll down a bit.  (it\'s somewhere in the menu)\n\
+== From FBNil\n\
+=== Export\n\
+Export from the import/export page now works in the format I wanted. Need to add a comment area where you can add your comments before exporting.\n\
 \n\
-== Tags\n\
+=== JavaScript alerts\n\
+[[Javascript::alert(A[1])]] now is possible to have {{{[]}}} inside a link without parameters (maybe should enhance that to all type of links\n\
+\n\
+=== ScrollTop\n\
+Adding {{{scrollTop()}}} to move the vertical scroll bar. The idea is that when "Fixed menu area and topbar" setting is enabled, a jump to an anchor will just be behind the semi-transparent navbar div. It looks complex because IE reverses behaviour depending on quirks mode or not. Press on the link called "100"  to scroll down a bit.  (it\'s somewhere in the menu)\n\
+\n\
+=== Tags\n\
 Tags now can be found with a more complex tag_filter: {{{woas._get_tagged("a,!b")}}}\n\
 \n\
-== Transclusions\n\
+=== Transclusions\n\
 Transclusions now feature %0 and for multiline entry: %01 instead of %1 (%01 will have all it\'s \\n replaced by {{{\x3Cbr\x3E}}}). See [[SANDBOX::bat#box]] for demo. I\'m halfway implementing this in the progressbar, because multiline JS variables dont work in IE6 . Remember: %01 and %1 (as is %02 and %2) are basically the same value, only the one with the extra zero will be checked for newlines, if found, they will be replaced by break tags ({{{\x3Cbr\x3E}}}), you can capture it in a javascript variable (and convert the {{{\x3Cbr\x3E}}} back to newlines, but this time, correctly assigned to the variable) like this: {{{$VARIABLE="%01".replace(/\x3Cbr\x3E/, "\\n");}}}\n\
 ',
 '= Tag search\n\
@@ -1771,11 +1773,12 @@ Below you will find examples of some WoaS wiki syntax. For more detailed example
 You can also click on \x3Ca class="link" onclick="javascript:edit()" title="Edit this page"\x3Ethis link\x3C/a\x3E to edit the wiki source of this page and study the syntax.\n\
 \n\
 == Anchors\n\
-Each header in this wiki leaves an anchor which you can link to with specially formatted anchor links.\n\
-* To make an anchor link to a header on the current page, create a link using [\x3C!-- --\x3E[double square brackets]\x3C!-- --\x3E], insert a hash mark (*#*), and insert the header name, replacing spaces and/or symbols with underscores (*{{{_}}}*).\n\
-** *Example:* To make an anchor link to the *Text formatting* header on this page, you would type {{{[[#Text_formatting]]}}} to create this: [[#Text_formatting]].\n\
-* To make an anchor link to a header on another page, create a link using [\x3C!-- --\x3E[double square brackets]\x3C!-- --\x3E], insert the page name (spaces and symbols are accepted), insert a hash mark (*#*), insert the header name, replacing spaces and/or symbols with underscores (*{{{_}}}*), insert a pipe (*|*), and insert a label for the link.\n\
-** *Example:* To make an anchor link to the *The principles* header in the *History* page), you would type {{{[[History#The_principles|The principles]]}}} to create this: [[History#The_principles|The principles]].\n\
+Each header in this wiki leaves an anchor which you can link to with specially formatted anchor links. [[[Anchor links to headers on other pages must be labeled.]]]\n\
+* To make a plain anchor link to a header on the current page, create a link using [\x3C!-- --\x3E[double square brackets]\x3C!-- --\x3E], insert a hash mark (*#*), and insert the header name, replacing spaces and/or symbols with underscores (*{{{_}}}*). For example, use {{{[[#Text_formatting]]}}} to create [[#Text_formatting]].\n\
+\n\
+* To make a labeled anchor link to a header on the current page, create a link using [\x3C!-- --\x3E[double square brackets]\x3C!-- --\x3E], insert the current page name (spaces and symbols are accepted), insert a hash mark (*#*), insert the header name, replacing spaces and/or symbols with underscores (*{{{_}}}*), insert a pipe (*|*), and insert a label for the link. For example, use {{{[[Syntax#Text_formatting|Text formatting]]}}} to create [[Syntax#Text_formatting|Text formatting]].\n\
+\n\
+* To make an anchor link to a header on another page, create a link using [\x3C!-- --\x3E[double square brackets]\x3C!-- --\x3E], insert the page name (spaces and symbols are accepted), insert a hash mark (*#*), insert the header name, replacing spaces and/or symbols with underscores (*{{{_}}}*), insert a pipe (*|*), and insert a label for the link. For example, use {{{[[History#The_principles|The principles]]}}} to create [[History#The_principles|The principles]].\n\
 \n\
 == Bluebox\n\
 \x3Cdiv class=bluebox\x3E\n\
@@ -1890,12 +1893,14 @@ An internal wiki link is created using {{{[[double square brackets]]}}} with a w
 \n\
 An external link is created using {{{[[double square brackets]]}}} with a URL inside, like this: {{{[[http://stickwiki.sourceforge.net/}}} which results in [[http://stickwiki.sourceforge.net/]].\n\
 \n\
-Labeled links are created by adding a pipe (*|*) and a label after the page name:\n\
-Use {{{[[Special::Main Page|Home]]}}} to create this: [[Special::Main Page|Home]]\n\
+Labeled links are created by adding a pipe (*|*) and a label after the page name. Use {{{[[Special::Main Page|Home]]}}} to create this: [[Special::Main Page|Home]]\n\
 \n\
 Non-existent pages have red links like this: [[New page]].\n\
+\n\
 You can use [[Javascript::woas.cmd_new_page()]] to automatically create a new page through a simple dialog.\n\
+\n\
 You can also specify the new page name in the link: [[Javascript::woas.cmd_new_page(\'story::page-\')]] [[[Always use single quotes!]]]\n\
+\n\
 You can even edit the default template that generates new pages: [[Javascript::woas.cmd_edit_new_page()]]\n\
 \n\
 == Lists\n\
@@ -1994,12 +1999,10 @@ Enclose your text in {{{[[[triple square brackets]]]}}} to use it as an inline n
 \n\
 [[[like this]]]\n\
 \n\
-Place the triple square brackets above and below your text to create a multi-line note, like this:\n\
+Enclose multiple lines of text with triple square brackets to create a multi-line note, like this:\n\
 \n\
-[[[\n\
-This is a multiline note.\x3Cbr/\x3E\n\
-Notes \x3Cb\x3Ecan\x3C/b\x3E contain html markup, but no *wiki* markup.\n\
-]]]\n\
+[[[This is a multiline note.\x3Cbr/\x3E\n\
+Notes \x3Cb\x3Ecan\x3C/b\x3E contain html markup, but no *wiki* markup.]]]\n\
 For a note that allows wiki markup, use the /note/ class in an HTML span or div tag, like this:\n\
 \n\
 \x3Cspan class="note"\x3EThis note /does/ allow *wiki* syntax.\x3C/span\x3E\n\
@@ -2069,7 +2072,7 @@ There have been a few changes in the wiki syntax, they will be automatically app
 * bullet lists are recognized using an asterisk \'*\' at the beginning of the line, if you use the previous \'+\' plus sign it will be automatically converted to an asterisk\n\
 * wiki link parts are inverted, e.g. no more [\x3C!-- --\x3E[label of main page link|_Main Page_]] but [\x3C!-- --\x3E[_Main Page_|label of main page link]]\n\
 \n\
-Some syntax has also been deprecated, see [[#Deprecated_syntax]].\n\
+Some syntax has also been deprecated, see [[Syntax#Deprecated_syntax|Deprecated syntax]].\n\
 \n\
 [[Include::Template::footnote]]\n\
 [[Tags::Help,Syntax]]\n\
@@ -2140,8 +2143,6 @@ This is a list of the new features implemented during the v0.9.x development cyc
 \n\
 == Aliases\n\
 You can define global wiki name aliases in Special::Aliases. Such aliases will be replaced automatically before looking up for the page name. You can also create aliases to make transclusions shorter: See the [[Help::Alias]] page for more information.\n\
-\n\
-== Anchor links\n\
 \n\
 == API\n\
 Many internal functions are available for use inside JavaScripts. There are a few places where you can define these scripts. See the [[Help::API]] page for more information.\n\
@@ -2384,7 +2385,23 @@ It could be made more pretty using [[http://www.developertutorials.com/tutorials
 [[Sandbox]] {{{Fri Feb 12 2010 19:11:55 GMT-0500 (EST)}}}\n\
 [[Sandbox]] {{{Fri Feb 12 2010 19:12:29 GMT-0500 (EST)}}}\n\
 [[Help::Images]] {{{Fri Feb 12 2010 19:16:58 GMT-0500 (EST)}}}\n\
-[[Sandbox]] {{{Fri Feb 12 2010 19:19:52 GMT-0500 (EST)}}}',
+[[Sandbox]] {{{Fri Feb 12 2010 19:19:52 GMT-0500 (EST)}}}\n\
+[[Sandbox]] {{{Fri Feb 12 2010 19:27:42 GMT-0500 (EST)}}}\n\
+[[Sandbox]] {{{Fri Feb 12 2010 19:28:58 GMT-0500 (EST)}}}\n\
+[[Feature::Summary]] {{{Fri Feb 12 2010 19:41:08 GMT-0500 (EST)}}}\n\
+[[Feature::Summary]] {{{Fri Feb 12 2010 19:44:20 GMT-0500 (EST)}}}\n\
+[[Feature::Summary]] {{{Fri Feb 12 2010 19:45:55 GMT-0500 (EST)}}}\n\
+[[Feature::Summary]] {{{Fri Feb 12 2010 19:50:16 GMT-0500 (EST)}}}\n\
+[[Syntax]] {{{Fri Feb 12 2010 19:51:28 GMT-0500 (EST)}}}\n\
+[[Syntax]] {{{Fri Feb 12 2010 19:52:27 GMT-0500 (EST)}}}\n\
+[[Syntax]] {{{Fri Feb 12 2010 19:55:29 GMT-0500 (EST)}}}\n\
+[[Syntax]] {{{Fri Feb 12 2010 19:56:59 GMT-0500 (EST)}}}\n\
+[[Syntax]] {{{Fri Feb 12 2010 19:58:44 GMT-0500 (EST)}}}\n\
+[[Syntax]] {{{Fri Feb 12 2010 20:05:18 GMT-0500 (EST)}}}\n\
+[[Syntax]] {{{Fri Feb 12 2010 20:05:49 GMT-0500 (EST)}}}\n\
+[[Syntax]] {{{Fri Feb 12 2010 20:07:24 GMT-0500 (EST)}}}\n\
+[[Syntax]] {{{Fri Feb 12 2010 20:08:39 GMT-0500 (EST)}}}\n\
+[[Syntax]] {{{Fri Feb 12 2010 20:08:58 GMT-0500 (EST)}}}',
 '= Bluebox\n\
 \x3Cdiv class=bluebox\x3E\n\
 \x3Ch1\x3ETHE SLEEPING BEAUTY IN THE WOOD\x3C/h1\x3E\n\
@@ -7086,7 +7103,7 @@ if("%"+"0"=="%0"){\n\
 \x3E\x3E\x3E'
 ];
 
-/* DFQRCTsKlU-0000761-END */
+/* DFQRCTsKlU-0000762-END */
 
 /* ]]> */ </script>
 <style type="text/css">/* user defined */
@@ -7564,7 +7581,7 @@ div.text_area.locked,
 <div class="wiki_header bg" id="sw_wiki_header" style="position: absolute;">
 <table cellspacing="0" width="100%">
 <tbody><tr>
-<td><span class="title" id="wiki_title">Sandbox</span></td>
+<td><span class="title" id="wiki_title">Syntax</span></td>
 <td align="right">
 <div id="menu_back" style="display: inline; cursor: pointer; visibility: visible;"><a title="Back" onclick="go_back()"><img id="img_back" class="menu_button" style="display: inline; visibility: visible;" alt="Back" src="data:image/png;base64,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"><span id="alt_back" style="display: none; visibility: hidden;">&nbsp;<strong>[Back]</strong>&nbsp;</span></a></div>
 <div id="menu_forward" style="display: inline; cursor: pointer; visibility: visible;"><a title="Forward" onclick="go_forward()"><img id="img_forward" class="menu_button" style="display: inline; visibility: visible;" alt="Forward" src="data:image/png;base64,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"><span id="alt_forward" style="display: none; visibility: hidden;">&nbsp;<strong>[Forward]</strong>&nbsp;</span></a></div>
