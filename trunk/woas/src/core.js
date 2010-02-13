@@ -274,6 +274,21 @@ woas["integrity_test"] = function() {
 		this.crash("UTF8 test failed.\nWritten:\n"+UTF8_TEST+"\nRead:\n"+ct);
 		return false;
 	}
+	// now test AES encryption
+	AES_setKey("WoaS");
+	var testdata = "sample text here";
+	var enc = AES_encrypt(testdata);
+	if (AES_decrypt(enc) !== testdata) {
+		this.crash("AES encryption is not working two-way!");
+		AES_clearKey();
+		return false;
+	}
+	if (AES_decrypt(AES_encrypt(UTF8_TEST)) !== UTF8_TEST) {
+		this.crash("AES encryption of UTF8 text is not working two-way!");
+		AES_clearKey();
+		return false;
+	}
+	AES_clearKey();
 	log("Integrity test successful"); //log:1
 	return true;
 }

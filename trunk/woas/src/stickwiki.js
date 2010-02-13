@@ -308,7 +308,8 @@ woas["get_page"] = function(pi) {
 		latest_AES_page = "";
 		return null;
 	}
-	var pg = AES_decrypt(pages[pi].slice(0));	/*WARNING: may not be supported by all browsers*/
+	// decrypt by using a copy of the array
+	var pg = AES_decrypt(pages[pi].slice(0));
 	last_AES_page = page_titles[pi];
 	return pg;	
 }
@@ -437,13 +438,14 @@ woas["get__text"] = function(pi) {
 //			return null;
 //		}
 		// pass a copied instance to the decrypt function
-		var pg = AES_decrypt(pages[pi].slice(0));	/*WARNING: may not be supported by all browsers*/
+		// AES_decrypt can return null on failure, but can also return a garbled output
+		var pg = AES_decrypt(pages[pi].slice(0));
 		last_AES_page = page_titles[pi];
 //		if (pg != null)
 //			break;
 	if (!this.config.key_cache)
 		AES_clearKey();
-	if (pg != null) {
+	if (pg !== null) {
 		_decrypt_failed = false;
 //		if (this.config.key_cache)			latest_AES_page = page_titles[pi];
 	} else {
@@ -1101,10 +1103,10 @@ woas["after_load"] = function() {
 		this.set_css(this.get_css());
 	
 	// check integrity of WoaS when finished - only in debug mode
-/*	if (this.debug) {
+	if (this.debug) {
 		if (this.integrity_test())
 			$.hide("loading_overlay");
-	} else */
+	} else
 		$.hide("loading_overlay");
 }
 
