@@ -129,7 +129,7 @@ function setImage(starttag,endtag) {
 }
 
 function setTag() {
-        var tag=prompt('Set tag:','');
+        var tag=prompt('Set tag(s):','');
 	if (tag!==null)
 	woas._editor.setSelectedText("[[Tags::",tag+"]]");
 }
