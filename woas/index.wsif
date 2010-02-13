@@ -176,8 +176,7 @@ And, last but not least:
 --DFQRCTsKlU
 woas.page.title: Main Page
 woas.page.attributes: 0
-woas.page.last_modified: 1266023010
-woas.page.length: 1276
+woas.page.length: 1246
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -212,9 +211,6 @@ A nicely written tutorial is available at:
 
 == Upgrading
 If you have an older Wiki on a Stick you can [[Special::Import|import it]] now.
-
-[[Tags::Help|Syntax|Other]]
-
 --DFQRCTsKlU
 woas.page.title: Special::Search
 woas.page.attributes: 0
