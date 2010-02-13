@@ -564,7 +564,7 @@ woas["_get__embedded"] = function (cr, pi, etype) {
 				"<br /><br />XHTML transclusion:"+this.parser.parse("\n{{{[[Include::"+cr+"]]}}}"+
 				"\n\nRaw transclusion:\n\n{{{[[Include::"+cr+"|raw]]}}}"+
 				_del_lbl+"\n<a href=\"javascript:query_export_file('"+this.js_encode(cr)+"')\">"+this.i18n.EXPORT_FILE+"</a>\n");
-	} else {
+	} else { // etype == image
 		var img_name = cr.substr(cr.indexOf("::")+2);
 		xhtml = this.parser.parse("= "+img_name+"\n\n"+
 		"<s"+"cript> setTimeout(\"_img_properties_show('"+
@@ -594,6 +594,7 @@ woas["export_image"] = function(page, dest_path) {
 	return this._b64_export(data, dest_path);
 }
 
+// used to export files/images
 woas["export_file"] = function(page, dest_path) {
 	var pi=this.page_index(page);
 	if (pi==-1)
