@@ -1,6 +1,6 @@
 wsif.version: 1.1.0
 woas.version: 0.10.2
-woas.pages: 122
+woas.pages: 121
 
 woas.page.title: ::Menu
 woas.page.attributes: 0
@@ -451,8 +451,8 @@ LyogaW5zZXJ0IGhlcmUgeW91ciBib290IHNjcmlwdCAqLw==
 --DFQRCTsKlU
 woas.page.title: History
 woas.page.attributes: 0
-woas.page.last_modified: 1265955152
-woas.page.length: 37372
+woas.page.last_modified: 1266047259
+woas.page.length: 37726
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -478,11 +478,14 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Changed *Last Modified:* to *Page last modified:* in the i18n.js file.
 ** Changed level one headers to level three headers in the {{{woas["_get_namespace_pages"]}}} function so the headers will display without wrapping when used in a sub-menu.
 ** Changed level one header to level three header in the {{{woas["_get_tagged"]}}} function so the header will display without wrapping when used in a sub-menu.
+** Replaced *Tag* with *Tags* in {{{function setTag()}}} so the *Tags* button in the editor will accept multiple tags.
 ** Now using [[http://sourceforge.net/projects/stickwiki/files/|Wiki on a Stick v0.10.2]] as the base for Book on a Stick.
 ** Updated the global CSS.
 
 * _Content:_
+** Removed the obsolete *Changes* page since it's been replaced by the new [[Special::Recentchanges]] page.
 ** Updated the [[Help::CSS]] page.
+** Updated the [[Help::Code blocks (preformatted text)]] page, removing the obsolete *Code blocks with syntax highlighting* section.
 ** Updated the [[Help::Edit the menu]] page.
 ** Updated the [[Help::Footer]] page.
 ** Updated the [[Help::JavaScript]] page.
@@ -494,7 +497,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 === Version 0.9 released on February 10, 2010
 * _Interface:_
 ** Added a caution to the wiki erasing option in the *Maintenance* section of the [[Special::Advanced]] page.
-** Added a line to the {{{woas["save"] = function() {}}} to be used by the [[Changes]] page thanks to code contributed by [[http://woas.iragan.com/viewtopic.php?pid=1585#p1585|FBNil]].
+** Added a line to the {{{woas["save"] = function() {}}} to be used by the *Changes* page thanks to code contributed by [[http://woas.iragan.com/viewtopic.php?pid=1585#p1585|FBNil]].
 ** Added a toggle button to the debug console.
 ** Added {{{<!-- BEGIN MENU -->}}} and {{{<!-- END MENU -->}}} comments in the source code so the menu code can be found more easily.
 ** Added comments for the top and bottom menu buttons in the source code so those sections are easier to edit.
@@ -503,7 +506,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Added the {{{<OL>}}} and {{{<UL>}}} list buttons to the *More lists* row of the editor.
 ** Added the *#swlogger* entry to the global CSS so the debug text area can be styled from within the wiki.
 ** Added the *Utilities* button to the menu.
-** Added the {{{woas["before_save"] = function(){}}} function to be used by the [[Changes]] page thanks to code contributed by [[http://woas.iragan.com/viewtopic.php?pid=1585#p1585|FBNil]].
+** Added the {{{woas["before_save"] = function(){}}} function to be used by the *Changes* page thanks to code contributed by [[http://woas.iragan.com/viewtopic.php?pid=1585#p1585|FBNil]].
 ** Changed all CSS values to em (instead of px or pt) so they will scale properly from one browser to another.
 ** Changed the font size of the paragraph tag between the banner and the menu/main text area to make the gap between them smaller.
 ** Moved the content of the *Utility::Buttons* page to the source code inside the div with the ID of {{{id="menu_edit_button"}}} so the menu no longer requires an include link to show the buttons.
@@ -518,7 +521,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 
 * _Content:_
 ** Added instructions for *email links* to the [[Help::Links]] page, thanks to *FBNil* figuring out how it's done.
-** Added the [[Changes]] page, thanks to code contributed by [[http://woas.iragan.com/viewtopic.php?pid=1585#p1585|FBNil]].
+** Added the *Changes* page, thanks to code contributed by [[http://woas.iragan.com/viewtopic.php?pid=1585#p1585|FBNil]].
 ** Added the [[Example::Bluebox]] page.
 ** Added the [[Example::Folding page button (HTML)]] page.
 ** Added the [[Help::Bluebox]] page to explain how to use Bluebox, which was contributed by *FBNil*, to create styled presentations of your stories.
@@ -1651,8 +1654,8 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Help::Code blocks (preformatted text)
 woas.page.attributes: 0
-woas.page.last_modified: 1265824399
-woas.page.length: 4333
+woas.page.last_modified: 1266046159
+woas.page.length: 3438
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1718,26 +1721,6 @@ or more lines.
 </pre>}}}<div class="helptext">To create this:</div><pre style="color:green">This is a code block
 made of one
 or more lines.
-</pre>
-== Code block with syntax highlighting
-This method currently supports *BASH*, *CSS*, *JavaScript*, and *XML*.
-
-<div class="helptext">Use this code in a page, replacing the YOUR CODE HERE with your code:</div>{{{
-(((
-YOUR CODE HERE
-)))
-}}}<div class="helptext">To create a code block with syntax highlighting like this one:*</div>(((
-!#/bin/bash
-echo "This is a small sample script."
-)))
-*CSS* code can also be displayed using *HTML &lt;pre&gt;* tags:
-
-<div class="helptext">Or use this code in a page, replacing css with the language of your code, and YOUR CODE HERE with your code:</div>{{{
-<pre name="code" class="css">
-YOUR CODE HERE
-</pre>
-}}}<div class="helptext">To create a code block with syntax highlighting like this one:</div><pre name="code" class="css">
-div.cssexample {color:red; background-color:black; font-size:95%; text-align:center; border:1px solid red; padding:5px;}
 </pre>
 == Code blocks containing example wiki syntax
 If you'd like to display syntax in a page without the wiki parsing the code (i.e.: you want the brackets to show), insert an html comment ({{{<!-- -->}}}) between two of the brackets on one or both sides of the code.
@@ -2528,8 +2511,8 @@ The [[Example::Overview|Example Overview]] page displays the contents of the thr
 --DFQRCTsKlU
 woas.page.title: Help::JavaScript
 woas.page.attributes: 0
-woas.page.last_modified: 1265933172
-woas.page.length: 5462
+woas.page.last_modified: 1266046363
+woas.page.length: 5460
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -2598,12 +2581,11 @@ The code below will redirect from the current page to the wiki page you specify 
 setTimeout(onload="go_to('PAGENAME')",10*1000);
 </script>
 }}}<div class="helptext">To redirect the current page to the PAGENAME page 10 seconds after the current page loads.</div>
-
 <div class="alertnote">Note that this will redirect to the next page even if you're in the editor! The only indication you will have if you're in the editor is that name in the the Page title box will change to the name of the redirected page. If you don't check this before saving, your changes will be saved to the redirected page, overwriting its contents.
 
 I recommend that you put this code near the top of any page (preferably directly beneath the first header on the page) so that you can find it quickly. I also recommend that you make the delay at <b>least</b> 10 seconds so that you have time to open the page in the editor, change the <b>PAGENAME</b> portion of the code to a nonexistent page, and then save the page before the timer runs out. Then you can reopen the page safely without risk of it redirecting while you're working on it. All that will happen if you give the script a nonexistent page name is that an alert will pop up asking if you'd like to create the nonexistent page. You can click <b>Cancel</b> when that popup comes up and continue working without further interruption. An even safer method is to open the wiki in a text editor and make changes to the page contents from there.</div>
 
-[[Tags::Help, Syntax]]
+[[Tags::Help|Syntax]]
 
 --DFQRCTsKlU
 woas.page.title: Help::Join lines of text
@@ -4594,19 +4576,6 @@ The list will refresh automatically as you add and remove ToDo items in your wik
 
 [[Tags::Help]]
 
---DFQRCTsKlU
-woas.page.title: Changes
-woas.page.attributes: 0
-woas.page.last_modified: 1265931536
-woas.page.length: 293
-woas.page.encoding: 8bit/plain
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-= Changes
-This page automatically creates a time-stamped entry when any page except this one is changed or created in this wiki. Deleting a page from the wiki will not cause an entry to be made on this page. You can edit the list, adding comments or deleting entries.
-<!-- LIST BEGINS HERE -->
 --DFQRCTsKlU
 woas.page.title: Template::Topnote
 woas.page.attributes: 0
