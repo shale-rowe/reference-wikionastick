@@ -355,12 +355,9 @@ woas["get_text_special"] = function(title) {
 woas["__last_title"] = null;
 
 woas["__password_finalize"] = function(pwd_obj) {
-//	this.setHTML($("woas_pwd_msg"), msg);
-//	$.show("wiki_text");
-	document.title = this.__last_title;
 	$.show_ni("wiki_text");
-	$.hide_ni("wiki_text");
-	$.hide_ni("wiki_text");
+	document.title = this.__last_title;
+	$.hide("woas_pwd_mask");
 //	scrollTo(0,0);
 	// hide input form
 	pwd_obj.value = "";
@@ -372,9 +369,7 @@ woas["_set_password"] = function() {
 	this.__last_title = document.title;
 	document.title = "Enter password";
 	// hide browser scrollbars and show mask
-	$("woas_pwd_mask").show_ni();
-//	this.setHTML($("woas_pwd_msg"), msg);
-//	$.hide("wiki_text");
+	$.show("woas_pwd_mask");
 	$.hide_ni("wiki_text");
 	scrollTo(0,0);
 	// show input form
