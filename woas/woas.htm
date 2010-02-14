@@ -5,11 +5,11 @@
 <script type="text/javascript">
 /* <![CDATA[ */
 
-/* DFQRCTsKlU-0000762-START */
+/* DFQRCTsKlU-0000763-START */
 
 var woas = {"version": "0.9.7B"};
 
-var __marker = "DFQRCTsKlU-0000762";
+var __marker = "DFQRCTsKlU-0000763";
 
 woas["config"] = {
 "permit_edits":true,
@@ -26,10 +26,13 @@ var current = 'Main Page';
 var main_page = 'Main Page';
 
 var backstack = [
-'Template::subpage',
-'whocalledme',
-'Syntax',
-'Feature::Summary'
+'Help::Folds',
+'Help::Spoilers',
+'ToDo list',
+'Help::',
+'Help::Folds',
+'Help::Spoilers',
+'Special::'
 ];
 
 var page_titles = [
@@ -225,7 +228,7 @@ var page_titles = [
 'Template::Footnote'
 ];
 
-/* DFQRCTsKlU-0000762-DATA */
+/* DFQRCTsKlU-0000763-DATA */
 var page_attrs = [12,4,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,4,4,0,2,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,12,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
 
 var pages = [
@@ -2097,8 +2100,9 @@ Some syntax has also been deprecated, see [[Syntax#Deprecated_syntax|Deprecated 
 ',
 '\x3Ca id="%1_%2" onclick="return true;" href="javascript:$.toggle(\'%2\')"\x3E%1\x3C/a\x3E&nbsp;%3\x3Cdiv id="%2" style="display:none;"\x3E\x3Cdiv\x3E\n\
 [[Include::%2]]\x3C/div\x3E\x3C/div\x3E',
-'\x3Ca id="%1_%2" onclick="return true;" href="javascript:$.toggle(\'%2\')"\x3E%1\x3C/a\x3E\x3Cdiv id="%2" style="display:none;"\x3E\x3Cdiv\x3E\n\
-%2\x3C/div\x3E\x3C/div\x3E',
+'\x3Ca id="%1_%2" onclick="return true;" href="javascript:$.toggle(\'%2\')"\x3E%1\x3C/a\x3E&nbsp;%3\x3Cdiv id="%2" style="display:none;"\x3E\x3Cdiv\x3E\n\
+%2\x3C/div\x3E\x3C/div\x3E\n\
+',
 '\x3Cdiv\x3E\x3Ca class="TODO" name="%1" href="javascript:go_to(\'ToDo list\')"\x3E\x3Cstrong\x3E\x3Cfont color="red"\x3EToDo:\x3C/font\x3E\x3C/strong\x3E\x3C/A\x3E \x3Cb\x3E%2\x3C/b\x3E\x3C/div\x3E',
 '\x3Cabbr title="%2" id="abbr_%1" style="cursor: help; border-bottom: 1px dashed #000000;"\x3E%1\x3C/abbr\x3E',
 '\x3Cdiv class="topnote"\x3E%1\x3C/div\x3E',
@@ -2199,8 +2203,7 @@ This is an example of clickable image, rendered through the wiki syntax {{{[[Inc
 \n\
 This is an example of not-yet-embedded image: [[Image::photo.jpg]]\n\
 \n\
-[[[\n\
-Images are base64-encoded when embedded, and become 33% bigger in size. It is suggested to not embed too many big images or files; since everything is contained in a single file and depends on the JavaScript engine your browser uses, they can slow down the application.\n\
+[[[Images are base64-encoded when embedded, and become 33% bigger in size. It is suggested to not embed too many big images or files; since everything is contained in a single file and depends on the JavaScript engine your browser uses, they can slow down the application.\n\
 ]]]\n\
 \n\
 == Embed web pages\n\
@@ -2213,7 +2216,13 @@ An example encrypted page is [[MyPages::Page 1]]. The password is: *test*\n\
 == Export\n\
 Since v0.9.5B it is possible to export all the WoaS content into multiple XHTML, CSS and image files. The export interface is available at the [[Special::Export]] page.\n\
 \n\
-== Folding includes\n\
+== Folds\n\
+Folds are special links that toggle inclusion of additional content in a page by using the [[Template::Foldtext|Foldtext]] and [[Template::Foldpage|Foldpage]] templates.\n\
+\n\
+[[[Unfortunately, hidden content inside folds can conflict with the Table of Contents and the Tags container at the bottom of the page by being visible in both of them even when the content isn\'t unfolded.]]]\n\
+\n\
+Use {{{[[Include::Template::Foldtext|LINK|CONTENT|]]}}} to toggle the display of a single line of hidden text in a page, like [[Include::Template::Foldtext|this.|This is some hidden content.|]]\n\
+\n\
 \n\
 == Hotkeys\n\
 \n\
@@ -2401,7 +2410,21 @@ It could be made more pretty using [[http://www.developertutorials.com/tutorials
 [[Syntax]] {{{Fri Feb 12 2010 20:05:49 GMT-0500 (EST)}}}\n\
 [[Syntax]] {{{Fri Feb 12 2010 20:07:24 GMT-0500 (EST)}}}\n\
 [[Syntax]] {{{Fri Feb 12 2010 20:08:39 GMT-0500 (EST)}}}\n\
-[[Syntax]] {{{Fri Feb 12 2010 20:08:58 GMT-0500 (EST)}}}',
+[[Syntax]] {{{Fri Feb 12 2010 20:08:58 GMT-0500 (EST)}}}\n\
+[[Feature::Summary]] {{{Sun Feb 14 2010 01:25:29 GMT-0500 (EST)}}}\n\
+[[Feature::Summary]] {{{Sun Feb 14 2010 01:25:52 GMT-0500 (EST)}}}\n\
+[[Feature::Summary]] {{{Sun Feb 14 2010 01:34:32 GMT-0500 (EST)}}}\n\
+[[Template::Foldtext]] {{{Sun Feb 14 2010 01:36:31 GMT-0500 (EST)}}}\n\
+[[Help::Folds]] {{{Sun Feb 14 2010 01:37:00 GMT-0500 (EST)}}}\n\
+[[Help::Folds]] {{{Sun Feb 14 2010 01:37:23 GMT-0500 (EST)}}}\n\
+[[Help::Folds]] {{{Sun Feb 14 2010 01:37:47 GMT-0500 (EST)}}}\n\
+[[Feature::Summary]] {{{Sun Feb 14 2010 01:39:31 GMT-0500 (EST)}}}\n\
+[[Feature::Summary]] {{{Sun Feb 14 2010 01:41:18 GMT-0500 (EST)}}}\n\
+[[Help::Folds]] {{{Sun Feb 14 2010 01:45:19 GMT-0500 (EST)}}}\n\
+[[Help::Folds]] {{{Sun Feb 14 2010 01:47:04 GMT-0500 (EST)}}}\n\
+[[Help::Spoilers]] {{{Sun Feb 14 2010 01:51:35 GMT-0500 (EST)}}}\n\
+[[Help::Spoilers]] {{{Sun Feb 14 2010 01:57:16 GMT-0500 (EST)}}}\n\
+[[Help::Spoilers]] {{{Sun Feb 14 2010 01:59:38 GMT-0500 (EST)}}}',
 '= Bluebox\n\
 \x3Cdiv class=bluebox\x3E\n\
 \x3Ch1\x3ETHE SLEEPING BEAUTY IN THE WOOD\x3C/h1\x3E\n\
@@ -3968,17 +3991,25 @@ The [[Template::Foldtext|Foldtext]] template can be used to toggle additional te
 This method allows you to toggle a single line of text.\n\
 \n\
 \x3Cdiv class="helptext"\x3EUse this code on your page, replacing LINK with the link text, and CONTENT with the content you\'d like to display when the link is clicked:\x3C/div\x3E\n\
-\x3Cdiv class="helpcode"\x3E[\x3C!-- --\x3E[Include::Template::Foldtext|LINK|CONTENT]\x3C!-- --\x3E]\x3C/div\x3E\n\
+\x3Cdiv class="helpcode"\x3E[\x3C!-- --\x3E[Include::Template::Foldtext|LINK|CONTENT|]\x3C!-- --\x3E]\x3C/div\x3E\n\
 \x3Cdiv class="helptext"\x3ETo create this:\x3C/div\x3E\n\
-[[Include::Template::Foldtext|LINK|CONTENT]]\n\
+[[Include::Template::Foldtext|LINK|CONTENT|]]\n\
 \n\
 === Folding multi-line text\n\
 This method allows you to toggle more than one line of text by using HTML {{{\x3Cbr\x3E}}} tags.\n\
 \n\
 \x3Cdiv class="helptext"\x3EUse this code on your page, replacing LINK with the link text, and CONTENT&lt;br&gt;MORE CONTENT with the content you\'d like to display when the link is clicked:\x3C/div\x3E\n\
-\x3Cdiv class="helpcode"\x3E[\x3C!-- --\x3E[Include::Template::Foldtext|LINK|CONTENT&lt;br&gt;MORE CONTENT]\x3C!-- --\x3E]\x3C/div\x3E\n\
+\x3Cdiv class="helpcode"\x3E[\x3C!-- --\x3E[Include::Template::Foldtext|LINK|CONTENT&lt;br&gt;MORE CONTENT|]\x3C!-- --\x3E]\x3C/div\x3E\n\
 \x3Cdiv class="helptext"\x3ETo create this:\x3C/div\x3E\n\
-[[Include::Template::Foldtext|LINK|CONTENT\x3Cbr\x3EMORE CONTENT]]\n\
+[[Include::Template::Foldtext|LINK|CONTENT\x3Cbr\x3EMORE CONTENT|]]\n\
+\n\
+=== Folding text inline\n\
+This method allows you to add text after the link on the same line.\n\
+\n\
+\x3Cdiv class="helptext"\x3EUse this code in your page, replacing LINK with the text for the link, CONTENTS with the content you\'d like to display when the link is clicked, and TEXT with the text you\'d like after the link:\x3C/div\x3E\n\
+\x3Cdiv class="helpcode"\x3E[\x3C!-- --\x3E[Include::Template::Foldtext|LINK|CONTENTS|TEXT]\x3C!-- --\x3E]\x3C/div\x3E\n\
+\x3Cdiv class="helptext"\x3ETo create this:\x3C/div\x3E\n\
+[[Include::Template::Foldtext|LINK|CONTENTS|TEXT]]\n\
 \n\
 == Folding page\n\
 The [[Template::Foldpage|Foldpage]] template can be used to toggle inclusion of another wiki page in the current page.\n\
@@ -5726,140 +5757,57 @@ This is a personal wiki that\'s not designed to be used on a server. Any changes
 [[Tags::Help]]\n\
 ',
 '[[Special::TOC]]\n\
-= Spoilers\n\
-Spoilers are permanent areas with content that shows when you hover over them with the mouse, or hidden areas that show when you hover or click over the link that activates them.\n\
+[[Include::Template::TODO|this|Find out if FBNil minds if I add the two template pages needed by wiki spoilers.]]\n\
+= Help::Spoilers\n\
+Spoilers are permanent areas with content that shows when you hover over them with the mouse, or hidden areas that show when you hover over the link that activates them. When creating HTML spoilers, you can substitute other HTML tags (like &lt;div&gt;, &lt;p&gt;, or &lt;td&gt;) for the &lt;span&gt; tags.\n\
 \n\
-== Permanent spoiler box (hover)\n\
-This creates a permanently visible spoiler box for hiding text. The text is hidden in the spoiler box until you hover over it with a mouse. The example here uses an HTML span tag, but this method can also be applied to other HTML tags, like div, p, td, etc.\n\
+== Spoiler (wiki)\n\
+This method displays a permanently visible spoiler box, which can also be used to create an invisible hot spot by customizing the spoiler [[Help::CSS|CSS]] to make the box blend in with the background.\n\
+\n\
+\x3Cdiv class="helptext"\x3EUse this code in a page, replacing CONTENT GOES HERE with your content:\x3C/div\x3E\n\
+\x3Cdiv class="helpcode"\x3E[\x3C!-- --\x3E[Include:\x3C!-- --\x3E:Template::Spoiler|CONTENT GOES HERE]\x3C!-- --\x3E]\x3C/div\x3E\n\
+\x3Cdiv class="helptext"\x3ETo create this:\x3C/div\x3E\n\
+[[Include::Template::Spoiler|CONTENT GOES HERE]]\n\
+\n\
+== Spoiler (HTML)\n\
+This method displays a permanently visible spoiler box, which can also be used to create an invisible hot spot by customizing the spoiler [[Help::CSS|CSS]] to make the box blend in with the background.\n\
 \n\
 \x3Cdiv class="helptext"\x3EUse this code in a page, replacing CONTENT GOES HERE with your content:\x3C/div\x3E{{{\n\
 \x3Cspan class="spoiler"\x3ECONTENT GOES HERE\x3C/span\x3E\n\
 }}}\x3Cdiv class="helptext"\x3ETo create this:\x3C/div\x3E\n\
 \x3Cspan class="spoiler"\x3ECONTENT GOES HERE\x3C/span\x3E\n\
 \n\
-This method could also be used to create an invisible hot spot by [[Help::CSS|customizing the CSS code]] to make the box blend in with the background.\n\
 \n\
-== Dynamic block spoiler (hover)\n\
-This creates a dynamic block spoiler when the mouse hovers over the link.\n\
+== Hidden spoiler (wiki)\n\
+\x3Cdiv class="helptext"\x3EUse this code in a page, replacing LINK with your link text, and CONTENT GOES HERE with your content:\x3C/div\x3E\n\
+\x3Cdiv class="helpcode"\x3E[\x3C!-- --\x3E[Include:\x3C!-- --\x3E:Template::HiddenSpoiler|LINK|CONTENT GOES HERE]\x3C!-- --\x3E]\x3C/div\x3E\n\
+\x3Cdiv class="helptext"\x3ETo create this:\x3C/div\x3E\n\
+[[Include::Template::HiddenSpoiler|LINK|CONTENT GOES HERE]]\n\
+\n\
+== Hidden spoiler (HTML)\n\
+This displays a spoiler box when the mouse hovers over the link.\n\
 \n\
 \x3Cdiv class="helptext"\x3EUse this code in a page, replacing LINK with your link text, and CONTENT GOES HERE with your content:\x3C/div\x3E{{{\n\
 \x3Cspan class="spoilerblock"\x3E\x3Ca href="#"\x3ELINK \x3Cspan class="show"\x3ECONTENT GOES HERE\x3C/span\x3E\x3C/a\x3E\x3C/span\x3E\n\
 }}}\x3Cdiv class="helptext"\x3ETo create this:\x3C/div\x3E\n\
 \x3Cspan class="spoilerblock"\x3E\x3Ca href="#"\x3ELINK \x3Cspan class="show"\x3ECONTENT GOES HERE\x3C/span\x3E\x3C/a\x3E\x3C/span\x3E\n\
 \n\
-== Dynamic inline spoiler (hover)\n\
-This creates a dynamic inline spoiler when the mouse hovers over the link.\n\
+== Hidden spoiler inline (wiki)\n\
+\x3Cdiv class="helptext"\x3EUse this code in a page, replacing LINK with your link text, and CONTENT GOES HERE with your content:\x3C/div\x3E\n\
+\x3Cdiv class="helpcode"\x3E[\x3C!-- --\x3E[Include::Template:\x3C!-- --\x3E:HiddenSpoilerInline|LINK|CONTENT GOES HERE]\x3C!-- --\x3E]\x3C/div\x3E\n\
+\x3Cdiv class="helptext"\x3ETo create this:\x3C/div\x3E\n\
+[[Include::Template::HiddenSpoilerInline|LINK|CONTENT GOES HERE]]\n\
+\n\
+== Hidden spoiler inline (HTML)\n\
+This displays a dynamic inline spoiler box when the mouse hovers over the link.\n\
 \n\
 \x3Cdiv class="helptext"\x3EUse this code in a page, replacing LINK with your link text, and CONTENT GOES HERE with your content:\x3C/div\x3E{{{\n\
 \x3Cspan class="spoilerinline"\x3E\x3Ca href="#"\x3ELINK \x3Cspan class="show"\x3ECONTENT GOES HERE\x3C/span\x3E\x3C/a\x3E\x3C/span\x3E\n\
 }}}\x3Cdiv class="helptext"\x3ETo create this:\x3C/div\x3E\n\
 \x3Cspan class="spoilerinline"\x3E\x3Ca href="#"\x3ELINK \x3Cspan class="show"\x3ECONTENT GOES HERE\x3C/span\x3E\x3C/a\x3E\x3C/span\x3E\n\
-\n\
-[[Include::Template::TODO|this|Find out where my expanddiv and expandspan functions should go in the core code so all the instructions below will work.]]\n\
-== Dynamic block area (click)\n\
-This creates a dynamic area when you click the link. It accepts the same markup you use elsewhere in this wiki, with the exception of include links and headers created with wiki markup (see the *Advanced* section below for how to work with these). You can add as many dynamic block areas as you like to a page. They begin collapsed and expand when you click on them. Each one can be expanded and collapsed as many times as you like, and works independently of the others. This type of spoiler is especially useful for creating expanding menu entries (see *Add expanding menu entries* on the [[Help::Edit the menu]] page).\n\
-\n\
-\x3Cdiv class="note"\x3E*Suggestions:*\n\
-* Place all of the code for the dynamic block area onto one line to remove the blank line between the link and the content. Note that this will not work when the content includes an include link or wiki headers.\x3Cbr\x3E\x3Cbr\x3E\n\
-* Style the div to change how the dynamic block area looks.\n\
-\x3C/div\x3E\n\
-\x3Cdiv class="helptext"\x3EUse this code in a page, replacing both instances of NAME with a unique name to identify the dynamic block area, LINK with whatever you\'d like the link to say, and CONTENT with your content:\x3C/div\x3E{{{\n\
-\x3Ca href="javascript:expanddiv(\'NAME\')"\x3ELINK\x3C/a\x3E\x3Cdiv id="NAME" style="display:none;"\x3E\n\
-CONTENT\n\
-\x3C/div\x3E\n\
-}}}\x3Cdiv class="helptext"\x3ETo create this:\x3C/div\x3E\n\
-\x3Ca href="javascript:expanddiv(\'NAME\')"\x3ELINK\x3C/a\x3E\x3Cdiv id="NAME" style="display:none;"\x3E\n\
-CONTENT\n\
-\x3C/div\x3E\n\
-\n\
-To insert an *include link* into the content of a dynamic block area, surround it with its own set of {{{div}}} tags, like this:\x3Cbr\x3E\x3Cdiv style="margin-top:5px; margin-bottom:5px; background-color:#F5F5F5; padding:5pt;"\x3E\x3Ctt\x3E\x3C\x3C!-- --\x3Ea h\x3C!-- --\x3Eref="ja\x3C!-- --\x3Evascript:ex\x3C!-- --\x3Epanddiv(\'NAME\')"\x3ELINK\x3C\x3C!-- --\x3E/\x3C!-- --\x3Ea\x3E\x3C\x3C!-- --\x3Ed\x3C!-- --\x3Eiv i\x3C!-- --\x3Ed="NAME" s\x3C!-- --\x3Etyle="di\x3C!-- --\x3Esplay:none;"\x3E\x3Cbr\x3E\x3C\x3C!-- --\x3Ediv\x3E\x3Cbr\x3E[\x3C!-- --\x3E[In\x3C!-- --\x3Eclude:\x3C!-- --\x3E:PAGE\x3C!-- --\x3ENAME]\x3C!-- --\x3E]\x3Cbr\x3E\x3C\x3C!-- --\x3E/d\x3C!-- --\x3Eiv\x3E\x3Cbr\x3E\x3C\x3C!-- --\x3E/d\x3C!-- --\x3Eiv\x3E\x3C/tt\x3E\x3C/div\x3E\n\
-\x3Cdiv class="note"\x3EIf the included page contains wiki headers, they will show up in the Table of Contents of the source page if one is present. The Table of Contents links won\'t expand the dynamic block area, and will only work if the dynamic block area is already expanded.\x3C/div\x3E\n\
-This example shows a dynamic block area that includes the [[Sandbox]] page:\n\
-\n\
-\x3Ca href="javascript:expanddiv(\'sandboxpage\')"\x3EToggle the Sandbox page\x3C/a\x3E\x3Cdiv id="sandboxpage" style="display:none;"\x3E\n\
-\x3Cdiv\x3E\n\
-[[Include::Sandbox]]\n\
-\x3C/div\x3E\n\
-\x3C/div\x3E\n\
-\n\
-To insert a *wiki header* into a dynamic block area, surround it with its own set of *{{{\x3Cdiv\x3E}}}* tags, like this:{{{\n\
-\x3Ca href="javascript:expanddiv(\'NAME\')"\x3ELINK\x3C/a\x3E\x3Cdiv id="NAME" style="display:none;"\x3E\n\
-\x3Cdiv\x3E\n\
-= HEADER\n\
-\x3C/div\x3E\n\
-\x3C/div\x3E\n\
-}}}\n\
-\x3Cdiv class="note"\x3EIf you use wiki headers inside a dynamic block area, they will show up in the Table of Contents of the source page if one is present. The Table of Contents links won\'t expand the dynamic block text area, and will only work if the dynamic block text area is already expanded.\x3C/div\x3E\n\
-\n\
-== Multiple dynamic block areas (click)\n\
-When creating multiple dynamic block areas on a page, each one must have two instances of a unique identifying *NAME*. If you use the same *NAME* for more than one dynamic block area, neither will function correctly.\n\
-\n\
-\x3Cdiv class="helptext"\x3EUse this code in a page, replacing both instances of NAME in each dynamic block area with a unique name to identify the dynamic block area, each instance of LINK with whatever you\'d like the link to say, and each instance of CONTENT with your content:\x3C/div\x3E{{{\n\
-\x3Ca href="javascript:expanddiv(\'NAME1\')"\x3ELINK1\x3C/a\x3E\x3Cdiv id="NAME1" style="display:none;"\x3E\n\
-CONTENT1\n\
-\x3C/div\x3E\n\
-\x3Ca href="javascript:expanddiv(\'NAME2\')"\x3ELINK2\x3C/a\x3E\x3Cdiv id="NAME2" style="display:none;"\x3E\n\
-CONTENT2\n\
-\x3C/div\x3E\n\
-}}}\x3Cdiv class="helptext"\x3ETo create this:\x3C/div\x3E\n\
-\x3Ca href="javascript:expanddiv(\'NAME1\')"\x3ELINK1\x3C/a\x3E\x3Cdiv id="NAME1" style="display:none;"\x3E\n\
-CONTENT1\n\
-\x3C/div\x3E\n\
-\x3Ca href="javascript:expanddiv(\'NAME2\')"\x3ELINK2\x3C/a\x3E\x3Cdiv id="NAME2" style="display:none;"\x3E\n\
-CONTENT2\n\
-\x3C/div\x3E\n\
-\n\
-== Dynamic block area (button)\n\
-In the example below, the content and its surrounding *div* don\'t have to be near the button link. You can even create the *div* section somewhere in the wiki source code and use the button link on any page or in the menu to activate the content. These instructions will work equally well if you substitute *span* for *div* when following them.\n\
-\n\
-\x3Cdiv class="helptext"\x3EUse this code in a page, replacing BUTTONTEXT with whatever you\'d like the button to say, both instances of NAME with a unique name to identify the dynamic block area, and CONTENT with your content:\x3C/div\x3E{{{\n\
-\x3Cinput value="BUTTONTEXT" onclick="expandspan(\'NAME\')" type="button"\x3E\n\
-\x3Cdiv id="NAME" style="display: none;"\x3ECONTENT\x3C/div\x3E\n\
-}}}\x3Cdiv class="helptext"\x3ETo create this:\x3C/div\x3E\n\
-\x3Cinput name="NAMED" value="BUTTONTEXT" onclick="expandspan(\'NAMED\')" type="button"\x3E\n\
-\x3Cdiv id="NAMED" style="display: none;"\x3ECONTENT\x3C/div\x3E\n\
-\n\
-== Dynamic block area (styled button)\n\
-\x3Cdiv class="helptext"\x3EUse this code in a page, replacing BUTTONTEXT with whatever you\'d like the button to say, both instances of NAME with a unique name to identify the dynamic block area, and CONTENT with your content:\x3C/div\x3E{{{\n\
-\x3Cinput class="wiki_button" value="BUTTONTEXT" onclick="expandspan(\'NAME\')" type="button"\x3E\n\
-\x3Cdiv id="NAME" style="display: none;"\x3ECONTENT\x3C/div\x3E\n\
-}}}\x3Cdiv class="helptext"\x3ETo create this:\x3C/div\x3E\n\
-\x3Cinput class="wiki_button" name="NAMED" value="BUTTONTEXT" onclick="expandspan(\'NAMEY\')" type="button"\x3E\n\
-\x3Cdiv id="NAMEY" style="display: none;"\x3ECONTENT\x3C/div\x3E\n\
-\n\
-== Dynamic inline area (click)\n\
-This creates an expanding and collapsing inline area that can hold as much text as you like. It accepts [[Help::Text formatting|text formatting]] markup You can add as many dynamic inline areas as you like to a page. They begin collapsed and expand when you click on them. Each one can be expanded and collapsed as many times as you like, and works independently of the others.\n\
-\n\
-\x3Cdiv class="helptext"\x3EUse this code in a page, replacing both instances of NAMETHIS with a unique name to identify the dynamic inline area, LINK with whatever you\'d like the link to say, and CONTENT with your content:\x3C/div\x3E{{{\n\
-\x3Ca href="javascript:expandspan(\'NAMETHIS\')"\x3ELINK\x3C/a\x3E \x3Cspan id="NAMETHIS" style="display:none;"\x3ECONTENT\x3C/span\x3E\n\
-}}}\x3Cdiv class="helptext"\x3ETo create this:\x3C/div\x3E\n\
-\x3Ca href="javascript:expandspan(\'NAMETHIS\')"\x3ELINK\x3C/a\x3E \x3Cspan id="NAMETHIS" style="display:none;"\x3ECONTENT\x3C/span\x3E\n\
-\n\
-== Multiple dynamic inline areas (click)\n\
-When creating multiple dynamic inline areas on a page, each one must have two instances of a unique identifying *NAME*. If you use the same *NAME* for more than one dynamic inline area, neither will function correctly.\n\
-\n\
-\x3Cdiv class="helptext"\x3EUse this code in a page, replacing both instances of NAMETHIS in each text area with a unique name to identify the dynamic inline area, each instance of LINK with whatever you\'d like the link to say, and each instance of CONTENT with your content:\x3C/div\x3E{{{\n\
-\x3Ca href="javascript:expandspan(\'NAMETHIS1\')"\x3ELINK1\x3C/a\x3E \x3Cspan id="NAMETHIS1" style="display:none;"\x3ECONTENT\x3C/span\x3E\n\
-\x3Ca href="javascript:expandspan(\'NAMETHIS2\')"\x3ELINK2\x3C/a\x3E \x3Cspan id="NAMETHIS2" style="display:none;"\x3ECONTENT\x3C/span\x3E\n\
-}}}\x3Cdiv class="helptext"\x3ETo create this:\x3C/div\x3E\x3Cbr\x3E\n\
-\x3Ca href="javascript:expandspan(\'NAMETHIS1\')"\x3ELINK1\x3C/a\x3E \x3Cspan id="NAMETHIS1" style="display:none;"\x3ECONTENT\x3C/span\x3E\n\
-\x3Ca href="javascript:expandspan(\'NAMETHIS2\')"\x3ELINK2\x3C/a\x3E \x3Cspan id="NAMETHIS2" style="display:none;"\x3ECONTENT\x3C/span\x3E\n\
-\n\
-== Nested dynamic inline areas (click)\n\
-Some nested dynamic inline areas for you advanced users:\n\
-\n\
-\x3Cdiv class="helptext"\x3EUse this code in a page:\x3C/div\x3E{{{\n\
-\x3Ca href="javascript:expandspan(\'NEST1\')"\x3ECLICK HERE\x3C/a\x3E \x3Cspan id="NEST1" style="display:none;"\x3ECONTENT1 \x3Ca href="javascript:expandspan(\'NEST2\')"\x3ECLICK HERE\x3C/a\x3E \x3Cspan id="NEST2" style="display:none;"\x3ECONTENT2 \x3C/span\x3E\x3C/span\x3E\n\
-}}}\x3Cdiv class="helptext"\x3ETo create this 2-level nested dynamic inline area:\x3C/div\x3E\n\
-\x3Ca href="javascript:expandspan(\'NEST1\')"\x3ECLICK HERE\x3C/a\x3E \x3Cspan id="NEST1" style="display:none;"\x3ECONTENT1 \x3Ca href="javascript:expandspan(\'NEST2\')"\x3ECLICK HERE\x3C/a\x3E \x3Cspan id="NEST2" style="display:none;"\x3ECONTENT2 \x3C/span\x3E\x3C/span\x3E\n\
-\n\
-\x3Cdiv class="helptext"\x3EUse this code in a page:\x3C/div\x3E{{{\n\
-\x3Ca href="javascript:expandspan(\'SECTION1\')"\x3ELINK1\x3C/a\x3E \x3Cspan id="SECTION1" style="display:none;"\x3ECONTENT1 \x3Ca href="javascript:expandspan(\'SECTION2\')"\x3ELINK2\x3C/a\x3E \x3Cspan id="SECTION2" style="display:none;"\x3ECONTENT2 \x3Ca href="javascript:expandspan(\'SECTION3\')"\x3ELINK3\x3C/a\x3E \x3Cspan id="SECTION3" style="display:none;"\x3ECONTENT3 \x3Ca href="javascript:expandspan(\'SECTION4\')"\x3ELINK4\x3C/a\x3E \x3Cspan id="SECTION4" style="display:none;"\x3ECONTENT4 \x3Ca href="javascript:expandspan(\'SECTION5\')"\x3ELINK5\x3C/a\x3E \x3Cspan id="SECTION5" style="display:none;"\x3ECONTENT5\x3C/span\x3E\x3C/span\x3E\x3C/span\x3E\x3C/span\x3E\x3C/span\x3E\n\
-}}}\x3Cdiv class="helptext"\x3ETo create this 5-level nested dynamic inline area:\x3C/div\x3E\n\
-\x3Ca href="javascript:expandspan(\'SECTION1\')"\x3ELINK1\x3C/a\x3E \x3Cspan id="SECTION1" style="display:none;"\x3ECONTENT1 \x3Ca href="javascript:expandspan(\'SECTION2\')"\x3ELINK2\x3C/a\x3E \x3Cspan id="SECTION2" style="display:none;"\x3ECONTENT2 \x3Ca href="javascript:expandspan(\'SECTION3\')"\x3ELINK3\x3C/a\x3E \x3Cspan id="SECTION3" style="display:none;"\x3ECONTENT3 \x3Ca href="javascript:expandspan(\'SECTION4\')"\x3ELINK4\x3C/a\x3E \x3Cspan id="SECTION4" style="display:none;"\x3ECONTENT4 \x3Ca href="javascript:expandspan(\'SECTION5\')"\x3ELINK5\x3C/a\x3E \x3Cspan id="SECTION5" style="display:none;"\x3ECONTENT5\x3C/span\x3E\x3C/span\x3E\x3C/span\x3E\x3C/span\x3E\x3C/span\x3E\n\
 \n\
 == See also\n\
-See the [[Help::Folds]] page for more ways to display dynamic content in a page.\n\
+For more ways of working with hidden content, see the [[Help::Folds]] page.\n\
 \n\
 [[Tags::Help, Syntax]]\n\
 ',
@@ -7103,7 +7051,7 @@ if("%"+"0"=="%0"){\n\
 \x3E\x3E\x3E'
 ];
 
-/* DFQRCTsKlU-0000762-END */
+/* DFQRCTsKlU-0000763-END */
 
 /* ]]> */ </script>
 <style type="text/css">/* user defined */
@@ -7581,10 +7529,10 @@ div.text_area.locked,
 <div class="wiki_header bg" id="sw_wiki_header" style="position: absolute;">
 <table cellspacing="0" width="100%">
 <tbody><tr>
-<td><span class="title" id="wiki_title">Syntax</span></td>
+<td><span class="title" id="wiki_title"><a href="#" onclick="go_to('Help::')">Help</a> :: Spoilers</span></td>
 <td align="right">
 <div id="menu_back" style="display: inline; cursor: pointer; visibility: visible;"><a title="Back" onclick="go_back()"><img id="img_back" class="menu_button" style="display: inline; visibility: visible;" alt="Back" src="data:image/png;base64,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"><span id="alt_back" style="display: none; visibility: hidden;">&nbsp;<strong>[Back]</strong>&nbsp;</span></a></div>
-<div id="menu_forward" style="display: inline; cursor: pointer; visibility: visible;"><a title="Forward" onclick="go_forward()"><img id="img_forward" class="menu_button" style="display: inline; visibility: visible;" alt="Forward" src="data:image/png;base64,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"><span id="alt_forward" style="display: none; visibility: hidden;">&nbsp;<strong>[Forward]</strong>&nbsp;</span></a></div>
+<div id="menu_forward" style="display: none; cursor: pointer; visibility: hidden;"><a title="Forward" onclick="go_forward()"><img id="img_forward" class="menu_button" style="display: inline; visibility: visible;" alt="Forward" src="data:image/png;base64,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"><span id="alt_forward" style="display: none; visibility: hidden;">&nbsp;<strong>[Forward]</strong>&nbsp;</span></a></div>
 <div id="menu_advanced" style="display: inline; cursor: pointer; visibility: visible;"><a title="Advanced" onclick="advanced()"><img id="img_advanced" class="menu_button" style="display: inline; visibility: visible;" alt="Advanced" src="data:image/png;base64,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"><span id="alt_advanced" style="display: none; visibility: hidden;">&nbsp;<strong>[Advanced]</strong>&nbsp;</span></a></div>
 <div id="menu_home" style="display: inline; cursor: pointer; visibility: visible;"><a id="a_home" title="Main Page" onclick="home()"><img id="img_home" class="menu_button" style="display: inline; visibility: visible;" alt="Main Page" src="data:image/png;base64,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"><span id="alt_home" style="display: none; visibility: hidden;">&nbsp;<strong>[Home]</strong>&nbsp;</span></a></div>
 <div id="menu_unlock" style="display: none; cursor: pointer; visibility: hidden;"><a title="Unlock" onclick="unlock()"><img id="img_lock" class="menu_button" style="display: inline; visibility: visible;" alt="Unlock" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAEt0lEQVRIiZWUTWxUVRTHf/d9zJt5bWlpwba0UFqwCIXyKYEEaxQJcUWiO0kTYmrcuHBpXLCUBTFgQhR0ISviChNcYJCPkIiJRVyAQmHaBkqBAmXamc7X+7j3uACqo1PAm7y85OZ/zi/nf849SkR43jl+/Pj6lpaWd+rr63sAO5PJXMtkMid27dr1y/Ni1bMAhw8fruvt7f2qq6vrPRFRSim01mSzWW7cuMH09PQPtm0P9Pf3P/jfgAMHDrh9fX2nly9f3nf37l3S6fTD27dvn/E8L1i2bNkbHR0dS4aGhhgeHr7i+/62gYGBXLU8zlzkjo6OT7q7u/su/X6JwcHBb8dujX186NChHMDJkye9kZGRvT09PZ8GQbAmnU5/BnxUNZGI/Ofbv3+/Mzo6Ojo4OChHjhw5X00jIpw6derYxP0J2bdv39TBgwcbqmmsalDP8zp93+8cGR3Bsqyv56rStu1vwiCkqampIY7j7he2yHGcVBiGTD2aIoiC4bkA2uhbWmuxLEsZY+pfGACgtaZYKqKUmnPMSsWSRFEkURQpoKquqkXGGIwxFItFLKuqBIBisUgURURxxFzTWDXadV3EGHK5HPYzAHEcE0UhQTlgrgoqLBq8+FuytrZuoHftuhXjd+/xUnMLq1av2TN0Pf16FEUVWtu29dLOrgX3H0yqunn1dHZ27h66nu69NXbr6M4db0091VU8tP2ff/FKU1Pjtfa2NmprawijiBq/BqUe92Q2SKnH1ilFJpNBa43jOExM3KdYLG7/8IP3z1atII5jlS8UGL9zh7a2RbS3LSKZTOLYDspSGGNm5/vpqfFTXL7yB8YIhULh2RYppbCUwrZsyuUysdYYY7ASFp7nzTbfGIPWmjiO0cYACqXAsiyMMXMDYp3AcV0SXgLf9wEfIzUIHknPwcjj5IWiQhsNKiaZhFQqRaxjBA/5V68rAM2NV7h5s5kHnsf4WIq3d1ymLqEoFZL8eKERlCBG2Lxhmho/JptTXPjVZ2JiAoDWlgcoOwJ2/530n3vj0jm1cmNvuyxuXSILGhbLie+SIhrJjinp6W6VtuY2WdDQLmdOeCIhUrijZO2qVmlrbpdFzR2yb29Svj/Gm3PuotoaYfXKEK1tbMfmp7PzIIR5jcLmjQYhgeMkOH2uDjT49cLGdQZtHCxlc/mPOqhsQSVAZ2HDihmCMEQR8PMFyA8DM7BlzQz5QhljSpw/D9EYkIWtq3OUSgHGBPx51SL/8BlTNH6vhyWLU2zZ2ozjOFiWy/B4hpftmFfXe+zc2YRtCSKQvj3J4paQVSsdtr1Wh1KPJ2si86gCUPHQDn15dKXj2lcXtTaxcOFC5s9vwHFqSCQ8kqkErmMw2qCNoVSSJ6uizKPJe0xNZZmazqKNs31P/7uzD63Cos6lzVY+P0WhUKRcLlMulUDKIGVEBwTlgCAICINg9j6OS5TLAflCgelslgWNqYqcFRb5fqrkJRKDURg2zORyjtZxIp8vuK7r2I7jWiKiRIwYI0bEaKNNHEZhOJOficIgiGxF7KeSk1UtunjxorIsy3Zd11NK1QJJpZT35O+KiAUoBSKggRgIgUCQMkIgIsU4jiNjjNm0aZMA/AW1e7J9eYJ9VAAAAABJRU5ErkJggg=="><span id="alt_unlock" style="display: none; visibility: hidden;">&nbsp;<strong>[Unlock]</strong>&nbsp;</span></a></div>
