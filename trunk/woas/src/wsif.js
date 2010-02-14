@@ -434,7 +434,11 @@ woas["_native_page_def"] = function(path,ct,p,last_p,overwrite, title,attrs,last
 			page = decode64_array(page);
 			// trim to correct length
 			// perhaps we could use woas.page.original_length field
+			// also, we could not make this check if version is 0.10.4
+			// but for now it's a good safety
 			var rest = page.length % 16;
+			if (rest)
+				log("removing "+rest+" trailing bytes from page "+title); //log:1
 			while (rest-- > 0) {page.pop();}
 		} else if (attrs & 8) { // embedded image, not encrypted
 			// NOTE: encrypted images are not obviously processed, as per previous 'if'
