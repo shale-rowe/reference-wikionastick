@@ -433,10 +433,9 @@ woas["_native_page_def"] = function(path,ct,p,last_p,overwrite, title,attrs,last
 //			check_len = page.length;
 			page = decode64_array(page);
 			// trim to correct length
-			//TODO: use woas.page.original_length field
+			// perhaps we could use woas.page.original_length field
 			var rest = page.length % 16;
-			if (rest > 0)
-				page = page.slice(0, page.length-rest);
+			while (rest-- > 0) {page.pop();}
 		} else if (attrs & 8) { // embedded image, not encrypted
 			// NOTE: encrypted images are not obviously processed, as per previous 'if'
 			if (encoding != "8bit/base64") {
