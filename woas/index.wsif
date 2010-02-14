@@ -4,7 +4,8 @@ woas.pages: 51
 
 woas.page.title: ::Menu
 woas.page.attributes: 0
-woas.page.length: 1936
+woas.page.last_modified: 1266173165
+woas.page.length: 1973
 woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -27,9 +28,9 @@ woas.page.boundary: DFQRCTsKlU
 * [[Testcase::]]
 ** [[Testcase::WoaS testcases|WoaS testcases]]
 ** [[Testcase::Creole 0.1|Creole 0.1]]
-** [[Di\u00e2critics]]
+** [[Testcase::Di\u00e2critics|Di\u00e2critics]]
 ** [[Testcase::Case-sensitiveness|Case-sens.]]
-** [[Testcase::Apostrophe ' in title|Apostrophe]]
+** [[Testcase::Apostrophe ' in title|Apostrophe ' in title]]
 ** [[Testcase::Headlines mix|Headlines mix]]
 ** [[Testcase::Unusual lists|Unusual lists]]
 * [[Options]]
@@ -176,7 +177,7 @@ And, last but not least:
 --DFQRCTsKlU
 woas.page.title: Main Page
 woas.page.attributes: 0
-woas.page.last_modified: 1266076479
+woas.page.last_modified: 1266173205
 woas.page.length: 1246
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -331,6 +332,7 @@ woas.page.attributes: 2
 woas.page.length: 172
 woas.page.encoding: 8bit/base64
 woas.page.disposition: inline
+woas.page.original_length: 128
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
@@ -1356,7 +1358,7 @@ woas.page.boundary: DFQRCTsKlU
 
 This page has an apostrophe in title but should still be searchable
 --DFQRCTsKlU
-woas.page.title: Di\u00e2critics
+woas.page.title: Testcase::Di\u00e2critics
 woas.page.attributes: 0
 woas.page.length: 112
 woas.page.encoding: ecma/plain
@@ -1505,6 +1507,7 @@ woas.page.attributes: 2
 woas.page.length: 64
 woas.page.encoding: 8bit/base64
 woas.page.disposition: inline
+woas.page.original_length: 48
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
