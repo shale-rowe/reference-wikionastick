@@ -1359,7 +1359,7 @@ This page has an apostrophe in title but should still be searchable
 --DFQRCTsKlU
 woas.page.title: Testcase::Di\u00e2critics
 woas.page.attributes: 0
-woas.page.length: 112
+woas.page.length: 198
 woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1368,6 +1368,8 @@ woas.page.boundary: DFQRCTsKlU
 = Di\u00e2critics
 
 Simon wonders if a page with di\u00e2critics will be found \u00e4nyw\u00e1y.
+
+We can also have them in a huge sequence: \u00e4\u00f6\u00fc\u00df\u00e6\u00e4\u00f6
 
 [[Tags::dummy]]
 --DFQRCTsKlU
