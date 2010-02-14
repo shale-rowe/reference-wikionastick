@@ -1,4 +1,5 @@
 Version 0.10.4 (legolas558) released 2010-02-14
+* fixed export issue of images
 * fixed encryption pages issues
 * fixed UTF8 encoding/decoding issues
 * added some slight CSS improvements
