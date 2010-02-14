@@ -1,9 +1,9 @@
 
 // internationalization language resources
 woas['i18n'] = {
-	READ_ONLY: "This Wiki on a Stick is read-only",
-	WRITE_PROTECTED: "Sorry, this Wiki on a Stick is already write-protected",
-	CONFIRM_READ_ONLY: "Are you sure you want to set this WoaS as read-only? You will have to manually edit the file to revert this change.",
+	READ_ONLY: "This wiki is read-only.",
+	WRITE_PROTECTED: "Sorry, this wiki is already write-protected.",
+	CONFIRM_READ_ONLY: "Are you sure you want to set this wiki as read-only? You will have to manually edit the file to revert this change.",
 	INVALID_SPECIAL: "Invalid special page.",
 	INVALID_DATA:"Invalid collected data!",
 	CONFIRM_DELETE:"Are you sure you want to DELETE page \"%s\"?",
@@ -40,12 +40,12 @@ woas['i18n'] = {
 	STATIC_NOT_FOUND: "Static page \"%s\" not found!",
 	ERR_VAR_MARKER: "Marker variable not found!",
 	LOCK_CONFIRM: "Do you want to use the last password entered to lock this page \"%s\"?",
-	LOCK_CONFIRM_LAST: "The password was last time used on page: %s",
-	EMPTY_TITLE: "Pages with empty title are not allowed",
+	LOCK_CONFIRM_LAST: "The password was last used on page: %s",
+	EMPTY_TITLE: "Pages with empty titles are not allowed",
 	INVALID_ALIAS: "Invalid alias \"%s\", ignoring it",
-	SERVER_MODE: "You are using Wiki on a Stick on a REMOTE server, your changes will not be saved neither remotely or locally.\n\n"+
-					"The correct usage of Wiki on a Stick is LOCAL, so you should use a local copy of this page to exploit the save features.\n"+
-					"All changes made to this copy of Wiki on a Stick will be lost.",
+	SERVER_MODE: "You are using this wiki on a REMOTE server. Your changes will not be saved.\n\n"+
+					"The correct use of this wiki is LOCAL, so you should use a local copy of this page to exploit the save features.\n"+
+					"All changes made to this copy of the wiki will be lost.",
 	PRINT_MODE_WARN: "Sorry, you cannot browse the wiki while in print mode",
 	MIME_TYPE: "Mime type",
 	FILE_SIZE: "File size",
@@ -63,7 +63,7 @@ woas['i18n'] = {
 	WSIF_NS_VER: "WSIF version %s not supported!",
 	WSIF_NO_HN: "Could not locate header name",
 	WSIF_BAD_HV: "Could not locate end of header value",
-	LOADING: "Loading Wiki on a Stick..."
+	LOADING: "Loading the wiki..."
 }
 
 // do not use any copyrighted wordlist here
