@@ -334,16 +334,7 @@ function AES_clearKey() {
 
 // returns an array of encrypted characters
 function AES_encrypt(raw_data) {
-	
 	bData = utf8Encrypt(raw_data);
-	// add 0 padding
-/*	var bl=bData.length;
-	var rest=bl % 16;
-	while ((rest>0) && (++rest<=16)) {
-		bData.push(0);
-	}
-	if (bData.length % 16)
-		alert('fail pre-padding!'); */
 	
 	aes_i=tot=0;
 	do{ blcEncrypt(aesEncrypt); } while (aes_i<tot);

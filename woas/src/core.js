@@ -252,15 +252,21 @@ woas["integrity_test"] = function() {
 						page_mts.length));
 		return false;
 	}
-	// test integrity of ecma encoding
-	var ecmat = 'Di\u00e2critics\\: \u00f6';
-	if (this.ecma_decode(this.ecma_encode(ecmat)) !== ecmat) {
-		this.crash("ECMA encoding not working:\n"+this.ecma_decode(this.ecma_encode(ecmat))+
-		"\n"+ecmat);
+	// test integrity of ecma encoding for normal UTF-8
+	var UTF8_TEST = "Di\u00e2critics are here: \u00e4 \u00e1y";
+	if (this.ecma_decode(this.ecma_encode(UTF8_TEST)) !== UTF8_TEST) {
+		this.crash("ECMA encoding not working:\n"+this.ecma_decode(this.ecma_encode(UTF8_TEST))+
+		"\n"+UTF8_TEST);
+		return false;
+	}
+	// test integrity of ecma encoding for 16bit UTF-8
+	var UTF8_TEST2 = "ラドクリフ";
+	if (this.ecma_decode(this.ecma_encode(UTF8_TEST2)) !== UTF8_TEST2) {
+		this.crash("ECMA encoding/decoding not working:\n"+this.ecma_decode(this.ecma_encode(UTF8_TEST2))+
+		"\n"+UTF8_TEST2);
 		return false;
 	}
 	// test integrity of load/save functions
-	var UTF8_TEST = "Di\u00e2critics are here: \u00e4 \u00e1y";
 	if (!this.save_file(woas.ROOT_DIRECTORY+"itest.bin", this.file_mode.UTF8_TEXT,
 			merge_bytes(utf8Encrypt(UTF8_TEST))
 //			UTF8_TEST
