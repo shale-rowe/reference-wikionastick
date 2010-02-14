@@ -65,13 +65,15 @@ woas["_native_wsif_save"] = function(path, single_wsif, inline_wsif, author,
 		// specify timestamp only if not magic
 		if (page_mts[pi] != 0)
 			record += this.wsif.header(pfx+"last_modified", page_mts[pi]);
-		var ct = null;
+		var ct = null, orig_len = null;
 		
 		// normalize the page content, set encoding&disposition
 		var encoding = null, disposition = "inline";
 		if (this.is__encrypted(pi)) {
 			ct = encode64_array(pages[pi]);
 			encoding = "8bit/base64";
+			// special header used for encrypted pages
+			orig_len = pages[pi].length;
 		} else {
 			ct = pages[pi];
 			if (this.is__embedded(pi)) {
@@ -120,9 +122,12 @@ woas["_native_wsif_save"] = function(path, single_wsif, inline_wsif, author,
 		// update record
 		record += this.wsif.header(pfx+"length", ct.length);
 		record += this.wsif.header(pfx+"encoding", encoding);
+		// output the original length header (if available)
 		record += this.wsif.header(pfx+"disposition", disposition);
 		// note: when disposition is inline, encoding cannot be 8bit/plain for embedded/encrypted files
 		if (disposition == "inline") {
+			if (orig_len !== null)
+				record += this.wsif.header(pfx+"original_length", orig_len);
 			// create the inline page
 			boundary = _generate_random_boundary(boundary, ct);
 			record += this.wsif.header(pfx+"boundary", boundary);
@@ -427,6 +432,11 @@ woas["_native_page_def"] = function(path,ct,p,last_p,overwrite, title,attrs,last
 			}
 //			check_len = page.length;
 			page = decode64_array(page);
+			// trim to correct length
+			//TODO: use woas.page.original_length field
+			var rest = page.length % 16;
+			if (rest > 0)
+				page = page.slice(0, page.length-rest);
 		} else if (attrs & 8) { // embedded image, not encrypted
 			// NOTE: encrypted images are not obviously processed, as per previous 'if'
 			if (encoding != "8bit/base64") {
