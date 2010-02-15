@@ -342,6 +342,10 @@ woas["_native_wsif_load"] = function(path, overwrite, and_save, recursing) {
 			case "mime":
 				mime = v;
 			break;
+			case "original_length":
+				// this should be used for trimming base64 encrypted pages
+				// ignored for now
+			break;
 			default:
 				log("Unknown WSIF header: "+s);
 		} // end switch(s)
