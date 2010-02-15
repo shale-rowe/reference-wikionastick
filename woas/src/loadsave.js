@@ -151,7 +151,7 @@ woas["ieSaveFile"] = function(filePath, save_mode, content) {
 // Returns null if it can't do it, false if there's an error, or a string of the content if successful
 woas["ieLoadFile"] = function(filePath, load_mode) {
 	var o_mode;
-	switch (save_mode) {
+	switch (load_mode) {
 		case this.file_mode.BINARY:
 		case this.file_mode.ASCII_TEXT:
 			o_mode = 0; // ASCII
