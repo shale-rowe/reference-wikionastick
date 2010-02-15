@@ -1,10 +1,10 @@
 wsif.version: 1.1.0
 woas.version: 0.10.4
-woas.pages: 124
+woas.pages: 120
 
 woas.page.title: ::Menu
 woas.page.attributes: 0
-woas.page.last_modified: 1265899885
+woas.page.last_modified: 1266259837
 woas.page.length: 39
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -23,7 +23,7 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 == Options
-You can customize Wiki on a Stick modifying a few [[Special::Options|Options]].  
+You can customize Book on a Stick modifying a few [[Special::Options|Options]].  
 
 == Pages
 * [[Special::All Pages]]: a list of all user created pages in this wiki
@@ -187,20 +187,6 @@ hl_text = null;
  $("string_to_search").focus();
 </script>
 --DFQRCTsKlU
-woas.page.title: MyPages::Approved::Page 3
-woas.page.attributes: 0
-woas.page.length: 140
-woas.page.encoding: 8bit/plain
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-This is a page in a subnamespace!
-
-The parent namespace is [[MyPages::]] while the subnamespace is [[MyPages::Approved::]]
-
-[[Tag::example]]
---DFQRCTsKlU
 woas.page.title: Special::Lock
 woas.page.attributes: 0
 woas.page.length: 1222
@@ -210,7 +196,7 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 == AES encryption
-Read more about the [[Special::Security|embedded AES encryption]] used in Wiki On a Stick.
+Read more about the [[Special::Security|embedded AES encryption]] used in Book on a Stick.
 
 == Password
 Enter your password for AES encryption. The more complex your password is, the more difficult it will be to attack the encryption. It is suggested *not* to use passwords whose textbox color is <span style="background-color:red">&nbsp;red&nbsp;</span>, and to accept passwords only when the textbox color is <span style="background-color:lime">&nbsp;green&nbsp;</span>. Punctuation and Mixed case characters will exponentially increase the strength of your password.
@@ -261,7 +247,7 @@ Security is never absolute. Data encrypted with these pages might be compromised
 
 Apart from the above, your normal usage of encrypted pages can be considered secure.
 --DFQRCTsKlU
-woas.page.title: MyPages::Page 1
+woas.page.title: Example::Encrypted page
 woas.page.attributes: 2
 woas.page.length: 172
 woas.page.encoding: 8bit/base64
@@ -270,7 +256,7 @@ woas.page.original_length: 128
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-OBd9RqzyFmwb9HgarONNbxRTHdtjPO4pc0KqbFFxQo56cviwgnGZfdquURCGGDsr3JLXjAIxnT79ftc/HDVsa7rHle3ypg0bBuHIuYG5S4QI+k3XAgxGKbhAZkooBNMqoKXvSJrCDubuI60Cq3poOrSWbGLiwoYn1lsHO4qNKHEA
+/f+cdfAHEwYYzgR5u2B1F2hdgcrjqvb7j0ebu4pokf/U9Vn5bGgwpCAJovC6GGSC7vkFptKjvp2Bg3rHtW6QrvmdFTvYIxr2UFex9lqbqisusQ/4GR0bjt1YpLdasW37xCmCH1KGqmE4RDFZif6XpIq9wuYT36JWg8I8/bNbLrsA
 --DFQRCTsKlU
 woas.page.title: Special::Options
 woas.page.attributes: 0
@@ -310,116 +296,10 @@ $("cb_fixed_layout").checked = ($("sw_wiki_header").style.position == "fixed");
 if (ie6) $("cb_fixed_layout").disabled = true;
 </script>
 --DFQRCTsKlU
-woas.page.title: Syntax
-woas.page.attributes: 0
-woas.page.length: 3290
-woas.page.encoding: ecma/plain
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-[[Special::TOC]]
-= Wiki on a Stick syntax
-In this page you will find examples of all the WoaS wiki syntax.
-
-New pages have red links, like this [[Unexisting page]], but you can use [[Special::New Page]] to automatically create a new one through a simple dialog.
-
-Click on <a class="link" onclick="javascript:edit()" title="Edit this page">this link</a> to edit the wiki source of this page.
-
-== Links
-An internal wiki link is created using {{{[[Special::Main Page]]}}}, which results in [[Special::Main Page]].
-
-== Header of second level
-Some text here
-=== Subheader of third level
-Some text here
-==== Subheader of fourth level
-Some text here
-
-== Formatting
-External links: [[http://stickwiki.sourceforge.net/|Wiki on a Stick]]
-
-Boldface: *Boldface text*
-Italics: /italics text/
-Underline: _underlined text_
-
-{{{Example usage of \\{\\{\\{ and \\}\\}\\}
-This text is rendered without any HTML/wiki parsing, and it does not get _underlined_, as you can see
-
-A really long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long line here}}}
-<pre style="color:gray">
-This is pre-formatted text (using a &lt;pre&gt; tag) with CSS style!
-And it stands on multiple lines too</pre>
-You can also use any HTML tag: <span style="color:navy">Schr\u00f6dinger's cat is <blink style="font-weight:bold">not</blink> dead.</span>
-
-
-Ruler:
-----
-
-== Lists
-* Item 1
-** Subitem a
-** Subitem b
-* Item 2
-** Subitem c
-*** Subsubitem d
-* Item 3
-
-Numbered list:
-# Item A
-## Subitem i
-## Subitem ii
-# Item B
-## Subitem iii
-### Subsubitem iv
-# Item C
-
-Alphanumerically ordered list:
-@ Paragraph A
-@ Paragraph B
-@@ Subparagraph 1
-@@ Subparagraph 2
-
-
-== Tables
-
-{|
-|+ Telephone Table
-| *Column Name* || *Type* || *Other* || *Description*
-|-
-| id || INT || PRIMARY KEY || Row ID
-|-
-| contact_id || INT || KEY || References FOREIGN KEY(Contacts.id)
-|-
-| type || ENUM('Home','Work','Mobile','Pager','Other') || || Defines type of Telephone record
-|-
-| number || CHAR(32) || || Contains actual Telephone number
-|}
-
-== New syntax features
-* line joining through a slash '\\' at the end of the line
-* automatic TOC generation in place of [<!-- -->[Special::TOC]]
-* section links:
-** {{{[[#Syntax changes since v0.9]]}}} -> [[#Syntax changes since v0.9]]
-* anchors for all headers (through id attribute)
-* customization of blocks of text under headers through CSS classes /level1-level6/
-* alphanumerical lists using '@'
-* custom parsing rules through (careful) override of the /parse()/ core function
-* nowiki syntax {{<!-- -->{ }}<!-- -->} to disable html/wiki in a block of raw text (also works inline)
-
-== Syntax changes since v0.9
-There have been a few changes in the wiki syntax, they will be automatically applied on import or saving (except the wiki link parts inversion).
-* bullet lists are recognized using an asterisk '*' at the beginning of the line, if you use the previous '+' plus sign it will be automatically converted to an asterisk
-* wiki link parts are inverted, e.g. no more [<!-- -->[label of main page link|_Main Page_]] but [<!-- -->[_Main Page_|label of main page link]]
-
-Some syntax has also been deprecated, see [[Deprecated syntax]].
-
-[[Tags::help]]
---DFQRCTsKlU
 woas.page.title: Feature::Summary
 woas.page.attributes: 0
 woas.page.last_modified: 1266218076
-woas.page.length: 2760
+woas.page.length: 2768
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -431,7 +311,7 @@ woas.page.boundary: DFQRCTsKlU
 == Encryption
 Pages can be locked/unlocked through the apposite icons available on each user page. When a page is /locked/, it gets encrypted with true AES encryption; see [[Special::Security]] for more informations.
 
-An example encrypted page is [[MyPages::Page 1]]. The password is: *test*
+An example encrypted page is [[Example::Encrypted page]]. The password is: *test*
 
 == Tags
 There is support for tags, which are listed in the [[Tagged::]] special namespace page.
@@ -487,44 +367,6 @@ Remember that images are base64-encoded when embedded and become 33% bigger in s
 [[Tags::help]]
 
 --DFQRCTsKlU
-woas.page.title: Options
-woas.page.attributes: 0
-woas.page.length: 1336
-woas.page.encoding: 8bit/plain
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-= Options
-Below are explations of the options on the [[Special::Options]] page.
-
-=== Use consistent newlines in saved data
-When enabled, forces the plain pages to be saved using consistent newlines splitting. This is particularly useful if you use a versioning system like Subversion (SVN) or CVS.
-
-=== Double click to edit pages/menu
-When enabled, allows to switch to edit mode when double-clicking the page content or menu area.
-
-=== Automatically save options (if changed) before quitting
-When enabled, allows option changes to be automatically saved without having to click the *Save options* button at the bottom of the page.
-
-=== Do not temporarily cache the AES key
-When enabled, forces the use of a key for each encrypted page (useful if you leave WoaS open to possible unauthorized access).
-
-=== Fixed menu area and topbar
-When enabled, fixes the menu and banner in place, while allowing the page to scroll.
-
-=== Save last page visited when quitting
-When enabled, automatically opens the last saved page.
-
-=== Enable cumulative save
-When enabled, will save to disk only when quitting.
-
-=== Disallow edits (button)
-When clicked, puts the wiki into server mode. With this option users will be told that it is not possible to save their changes, but that changes will be allowed to for sandbox (testing) purposes.
-
-[[Tags::Help]]
-
---DFQRCTsKlU
 woas.page.title: Special::Embed
 woas.page.attributes: 0
 woas.page.length: 128
@@ -562,8 +404,8 @@ LyogaW5zZXJ0IGhlcmUgeW91ciBib290IHNjcmlwdCAqLw==
 --DFQRCTsKlU
 woas.page.title: History
 woas.page.attributes: 0
-woas.page.last_modified: 1266218130
-woas.page.length: 37883
+woas.page.last_modified: 1266277397
+woas.page.length: 38166
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -592,13 +434,19 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Changed level one headers to level three headers in the {{{woas["_get_namespace_pages"]}}} function so the headers will display without wrapping when used in a sub-menu.
 ** Changed level one header to level three header in the {{{woas["_get_tagged"]}}} function so the header will display without wrapping when used in a sub-menu.
 ** Replaced *Set tag:* with *Set tag (or tags separated by pipes):* in {{{function setTag()}}} for clarity in the *Tags* button prompt.
+** Updated some of the system alerts.
 ** Updated the global CSS.
 
 * _Content:_
+** Added the [[Template::Icon::Password]] page.
 ** Removed the obsolete *Changes* page since it's been replaced by the new [[Special::Recentchanges]] page.
+** Renamed the *MyPages::Page 1* page to [[Example::Encrypted page]].
+** Updated the [[Help::Bugs]] page.
 ** Updated the [[Help::CSS]] page.
 ** Updated the [[Help::Code blocks (preformatted text)]] page, removing the obsolete *Code blocks with syntax highlighting* section.
+** Updated the [[Help::Delete a page]] page.
 ** Updated the [[Help::Edit the menu]] page.
+** Updated the [[Help::Encrypt a page]] page.
 ** Updated the [[Help::Footer]] page.
 ** Updated the [[Help::Import pages]] page.
 ** Updated the [[Help::JavaScript]] page.
@@ -826,7 +674,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Renamed the *Help::Footers* page to [[Help::Footer]].
 ** Renamed the *Help::Page tags* page to [[Help::Tags]].
 ** Renamed the *Links for writers* page to [[Utility::Links for writers]].
-** Renamed the *Main Page* to [[Main page]] (changing its case).
+** Renamed the [[Main Page]] to *Main page* (changing its case).
 ** Renamed the *Said* page to [[Utility::Said]].
 ** Updated the content of the *footer*.
 ** Updated the [[Example::Overview]] page.
@@ -1189,17 +1037,6 @@ Retrieved from [[http://www.gnu.org/licenses/gpl2.txt]]:
 
 <iframe border="0" width="100%" height="300" src="http://www.gnu.org/licenses/gpl2.txt"></iframe>
 --DFQRCTsKlU
-woas.page.title: Nowiki dummy 2
-woas.page.attributes: 2
-woas.page.length: 64
-woas.page.encoding: 8bit/base64
-woas.page.disposition: inline
-woas.page.original_length: 48
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-P1QMJ5+Uwl26ChUIkLZ+5mLi/lNPw8HCcMQBWQSNtPMRlRaXz9LUTT+wr1i2huVl
---DFQRCTsKlU
 woas.page.title: WoaS::Aliases
 woas.page.attributes: 0
 woas.page.length: 16
@@ -1299,18 +1136,6 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+CjxzdmcKCXhtbG5zCQk9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIgoJeG1sbnM6c3ZnCT0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciCgl4bWxuczp4bGluawk9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiCgl2ZXJzaW9uCQk9IjEuMCIKCXdpZHRoCQk9IjQwMiIKCWhlaWdodAkJPSI0MDIiCgl2aWV3Qm94CQk9Ii0yMDEgLTIwMSA0MDIgNDAyIgoJaWQJCT0ic3ZnMiI+Cgk8Y2lyY2xlCgkJY3gJPSIwIgoJCWN5CT0iLTEwMCIKCQlyCT0iMTAwIgoJCWlkCT0iY2lyYzAwMSIKCQlzdHlsZQk9ImZpbGw6bm9uZTtzdHJva2U6IzAwMDAwMDtzdHJva2Utd2lkdGg6MSIgLz4KCTx1c2UgeGxpbms6aHJlZj0iI2NpcmMwMDEiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDAsMTAwKSIgLz4KCTx1c2UgeGxpbms6aHJlZj0iI2NpcmMwMDEiIHRyYW5zZm9ybT0icm90YXRlKDMwKSIgLz4KCTx1c2UgeGxpbms6aHJlZj0iI2NpcmMwMDEiIHRyYW5zZm9ybT0icm90YXRlKDYwKSIgLz4KCTx1c2UgeGxpbms6aHJlZj0iI2NpcmMwMDEiIHRyYW5zZm9ybT0icm90YXRlKDkwKSIgLz4KCTx1c2UgeGxpbms6aHJlZj0iI2NpcmMwMDEiIHRyYW5zZm9ybT0icm90YXRlKDEyMCkiIC8+Cgk8dXNlIHhsaW5rOmhyZWY9IiNjaXJjMDAxIiB0cmFuc2Zvcm09InJvdGF0ZSgxNTApIiAvPgoJPHVzZSB4bGluazpocmVmPSIjY2lyYzAwMSIgdHJhbnNmb3JtPSJyb3RhdGUoMTgwKSIgLz4KCTx1c2UgeGxpbms6aHJlZj0iI2NpcmMwMDEiIHRyYW5zZm9ybT0icm90YXRlKDIxMCkiIC8+Cgk8dXNlIHhsaW5rOmhyZWY9IiNjaXJjMDAxIiB0cmFuc2Zvcm09InJvdGF0ZSgyNDApIiAvPgoJPHVzZSB4bGluazpocmVmPSIjY2lyYzAwMSIgdHJhbnNmb3JtPSJyb3RhdGUoMjcwKSIgLz4KCTx1c2UgeGxpbms6aHJlZj0iI2NpcmMwMDEiIHRyYW5zZm9ybT0icm90YXRlKDMwMCkiIC8+Cgk8dXNlIHhsaW5rOmhyZWY9IiNjaXJjMDAxIiB0cmFuc2Zvcm09InJvdGF0ZSgzMzApIiAvPgo8L3N2Zz4K
---DFQRCTsKlU
-woas.page.title: Main page
-woas.page.attributes: 0
-woas.page.last_modified: 1266125711
-woas.page.length: 186
-woas.page.encoding: 8bit/plain
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-[[Include::Special::About]] <!-- Delete all of this text and replace it with whatever you like. You can click the About button in the menu to see the welcome page again at any time. -->
-
 --DFQRCTsKlU
 woas.page.title: Example::Chapter 01
 woas.page.attributes: 0
@@ -1672,8 +1497,8 @@ catch (e) {
 --DFQRCTsKlU
 woas.page.title: Help::Bugs
 woas.page.attributes: 0
-woas.page.last_modified: 1265824399
-woas.page.length: 3439
+woas.page.last_modified: 1266265288
+woas.page.length: 3388
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1733,7 +1558,7 @@ div.debug_console {background-color:gainsboro; position:relative; left:20.5%; wi
 The debug console will no longer be visible.
 
 == Reporting bugs
-This wiki is not supported by [[http://stickwiki.sourceforge.net/|Wiki on a Stick]] since it's a modified version. If you encounter any bugs, [[http://sourceforge.net/project/showfiles.php?group_id=155218|download Wiki on a Stick]] and try to reproduce the bug. If you can reproduce it, then report it on the [[http://woas.iragan.com/|Official Wiki on a Stick forums]] or visit the [[http://groups.google.com/group/stickwiki/|Official Wiki on a Stick Google Group]]. If you can't reproduce it with Wiki on a Stick, <a href="mailto:littlergirl@gmail.com?subject=Book on a Stick bug report">contact me</a> and I'll do my best to solve the problem.
+This wiki is not supported by [[http://stickwiki.sourceforge.net/|Wiki on a Stick]] since it's a modified version. If you encounter any bugs, [[http://sourceforge.net/project/showfiles.php?group_id=155218|download Wiki on a Stick]] and try to reproduce the bug. If you can reproduce it, then report it in the [[https://lists.sourceforge.net/lists/listinfo/stickwiki-devel|Wiki on a Stick development mailing list]]. If you can't reproduce it with Wiki on a Stick, <a href="mailto:littlergirl@gmail.com?subject=Book on a Stick bug report">contact me</a> and I'll do my best to solve the problem.
 
 [[Tags::Help]]
 
@@ -1876,8 +1701,8 @@ Another method is to interrupt the code by dividing it up between multiple lines
 --DFQRCTsKlU
 woas.page.title: Help::CSS
 woas.page.attributes: 0
-woas.page.last_modified: 1265858800
-woas.page.length: 10606
+woas.page.last_modified: 1266275725
+woas.page.length: 10740
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1887,7 +1712,6 @@ woas.page.boundary: DFQRCTsKlU
 The look of most of this wiki can be customized by changing the CSS settings.
 
 [[Include::Template::Icon::Info]] /If you're new to CSS, [[http://www.w3schools.com/css/|this CSS Tutorial]] is wonderful./
-
 == Edit the CSS settings
 # Click the [[Include::Template::Icon::Advanced]] icon in the banner.
 # Click the [[Special::Edit CSS|Edit the CSS]] link in the *Advanced* section.
@@ -1915,7 +1739,7 @@ To return to the default settings if you changed the CSS settings and don't like
 div.wiki_header {top:0em; left:0em; z-index:1; background-color:gainsboro; width:100%; border-top:0.188em solid grey; border-bottom:0.188em solid grey; margin-right:0em;}
 
 /* BANNER - PAGE TITLE */
-.title {font-size:2em; font-weight:bold; margin-top:0em; margin-right:0em; margin-bottom:0em; display:inline; color:black;}
+.title {font-size:2em; font-weight:bold; margin-top:0em; margin-right:0em; margin-bottom:0em; display:inline; color:black; text-shadow: #888 0.13em 0.13em 0.065em;}
 
 /* BLUEBOX */
 .bluebox {margin:1.875em 0.313em 0.938em 0.625em; border:#3c5a86 0.063em dashed; padding:0.313em; font-size:0.75em; font-weight:normal; color:#000000; background-color:#d1e0ef;}
@@ -1960,6 +1784,9 @@ pre {color:black; background-color:gainsboro; border:0.063em solid grey; padding
 #woas_pwd_query {position:absolute; z-index:100; background-color:#D6DFF7; padding-top:25%; top:0px; left:0px;width:100%; height:100%; border:1px solid #666666; font-size:large; text-align:center; visibility:hidden;}
 #woas_pwd_mask {position:absolute; z-index:99; top:0px; left:0px; width:100%; height:100%; font-size:large; text-align:center; visibility:hidden;}
 
+/* FOOTER */
+div.text_area_footer {background-color:gainsboro; position:relative; left:20.5%; width:77.5%; padding:0.813em; margin-top:0.438em; border:0.188em solid grey; text-align:justify; font-size:80%;}
+
 /* HEADERS */
 h1 {color:black; font-size:1.688em;}
 h2 {color:black; font-size:1.25em;}
@@ -1972,9 +1799,6 @@ div.helpcode {color:black; background-color:gainsboro; border:0.063em solid grey
 
 /* HELP PAGES - TEXT */
 div.helptext {color:darkcyan; font-weight:bold; font-style:italic;}
-
-/* HORIZONTAL RULE AT BOTTOM OF WIKI */
-hr#finalrule {left:20.5%; margin-right:0.21em; margin-left:18.05em; }
 
 /* LINK - CURSOR WHEN ON A LINK */
 a {cursor:pointer;}
@@ -1997,7 +1821,7 @@ a {color:mediumblue; text-decoration:none;}
 a:hover {color:mediumblue; text-decoration:underline;}
 
 /* LOADING OVERLAY SHOWN WHILE WIKI IS LOADING OR WHEN IT CAN'T */
-#loading_overlay {background-color:white; position:absolute; top:0em; left:0em; z-index:100; width:100%; height:100%; padding-top:25%; text-align:center; font-size:large; cursor:wait;}
+#loading_overlay {background-color:white; position:absolute; top:0em; left:0em; z-index:100; width:99%; height:100%; padding-top:25%; text-align:center; font-size:large; cursor:wait;}
 
 /* MAIN TEXT AREA */
 div.text_area {background-color:white; border:0.188em solid grey; padding-top:0.438em; padding-right:0.813em; padding-bottom:0.813em; padding-left:0.813em;}
@@ -2048,7 +1872,7 @@ div.search_results {clear:both;}
 .spoilerinline a span {display:none;}
 
 /* TABLE OF CONTENTS */
-div.wiki_toc {background-color:gainsboro; width:50%; padding-left:1em; border:0.188em solid grey; text-align:left; font-size:95%; margin-top:-0.5em; margin-bottom:-1.5em;}
+div.wiki_toc {background-color:gainsboro; width:50%; padding-left:1em; border:0.188em solid grey; text-align:left; font-size:95%; margin-top:0.5em; margin-bottom:0.5em;}
 
 /* TABLE OF CONTENTS - LINKS */
 div.wiki_toc a.link {color:mediumblue; text-decoration:none;}
@@ -2084,8 +1908,8 @@ div.topnote {position:absolute; top:0.188em; right:0.625em;}
 --DFQRCTsKlU
 woas.page.title: Help::Delete a page
 woas.page.attributes: 0
-woas.page.last_modified: 1265824399
-woas.page.length: 793
+woas.page.last_modified: 1266277419
+woas.page.length: 803
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -2093,9 +1917,9 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 = Help::Delete a page
 == From the menu
-# Click the *DELETE PAGE* button in the menu while displaying the page you wish to delete, or click it from any page and type in the name of the page you wish to delete.<br><br>
+# Click the *Delete page* button in the menu while displaying the page you wish to delete, or click it from any page and type in the name of the page you wish to delete.<br><br>
 # You'll be asked for confirmation.<br><br>
-# When the page is deleted, you'll be returned to the [[Main page]].<br><br>
+# When the page is deleted, you'll be returned to the [[Main Page|Main page]].<br><br>
 # You may have to remove any links to the deleted page from the menu or other pages.
 
 == From the editor
@@ -2130,20 +1954,26 @@ Pages that have the [[Include::Template::Icon::Edit]] icon in the banner can be 
 --DFQRCTsKlU
 woas.page.title: Help::Encrypt a page
 woas.page.attributes: 0
-woas.page.last_modified: 1266124942
-woas.page.length: 544
+woas.page.last_modified: 1266275487
+woas.page.length: 2175
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Help::Encrypt a page
-== Lock the page
-Click the [[Include::Template::Icon::Lock]] icon in the banner to encrypt a page. You'll need to provide a password you'd like to use for access to the page.
-== Unlock the page
-Click the [[Include::Template::Icon::Unlock]] icon in the banner to unencrypt a page so you can edit or delete it. You'll need to provide the password you assigned to the page to access it.
+This wiki offers [[Special::Security|AES encryption]] for locking pages. Padlock icons are displayed in the banner to indicate whether pages are encrypted or not. The [[Include::Template::Icon::Unlock]] icon indicates that a page is unencrypted and the [[Include::Template::Icon::Lock]] icon indicates that a page is encrypted.
 
-[[Include::Template::Icon::Info]] /See the [[Special::Security]] page for detailed information on how encryption works./
+== Lock a page
+Click the [[Include::Template::Icon::Unlock]] icon in the banner to encrypt a page. The password interface will open. Type the password into the red box, using punctuation and mixed case, if possible. If the box turns green while you're typing in your password, it's a strong password. If it doesn't, you might wish to reconsider the password and try a stronger one. Once you've chosen and typed in your password, type it into the white box below the now hopefully green one for verification. Then click the *Lock* button (which will automatically include the name of the page you wish to encrypt) to encrypt the page.
+
+When encrypting additional pages during a session, you'll be offered to use the same password you used to encrypt the first page. Accept by pressing the *OK* button or decline by pressing the *Cancel* button. If you decline, the password interface will open, allowing you to set a new password for the page. There is no limit to how many passwords you can use.
+
+== Unlock a page
+Clicking on the link to an encrypted page brings up an alert letting you know that you need to enter a password to view the page. To do so, click the [[Include::Template::Icon::Password]] icon in the banner to enter the password for unencrypting a page. You can now open the page normally to view, edit, or delete it. The password for decrypting a page (or pages) is cached so that you only need to enter it once per session (until you close or reload the wiki). To disable password caching, check the box for *Do not temporarily cache the AES key* in the [[Special::Options]] page. If you've used more than one password for encrypting your pages, you'll need to enter the password to unlock each encrypted page.
+
+The [[Example::Encrypted page]] can be opened by using *test* as the password.
+
 [[Tags::Help]]
 
 --DFQRCTsKlU
@@ -2731,8 +2561,8 @@ with the line below it.
 --DFQRCTsKlU
 woas.page.title: Help::Links
 woas.page.attributes: 0
-woas.page.last_modified: 1265949597
-woas.page.length: 10578
+woas.page.last_modified: 1266278092
+woas.page.length: 10890
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -2830,7 +2660,7 @@ You can include the contents of another page of this wiki in the current page by
 <div class="helpcode">[<!-- -->[Include::PAGENAME]<!-- -->]</div>
 <div class="helptext">To include the contents of another page in the current page.</div>
 
-[[Include::Template::Icon::Info]] /You can create a dynamic include link that toggles the display of the contents of another page in the current page by following the instructions in the *Dynamic block area (click)* section of the [[Help::Spoilers]] page./
+[[Include::Template::Icon::Info]] /You can create a dynamic include link that toggles the display of the contents of another page in the current page by following the instructions in the [[Help::Folds]] page./
 
 == Internal action link (labeled)
 These are internal wiki actions in the form of links:<br><br>
@@ -2845,7 +2675,7 @@ These are internal wiki actions in the form of links:<br><br>
 | {{{[[Special::Go to|Go to...]]}}} || [[Special::Go to|Go to...]]
 | {{{[[Tagged::Help|Help pages]]}}} || [[Tagged::Help|Help pages]]
 | {{{[[Locked::|Locked pages]]}}} || [[Locked::|Locked pages]]
-| {{{[[Special::Main page|Main page]]}}} || [[Special::Main page|Main page]]
+| {{{[[Special::Main Page|Main page]]}}} || [[Special::Main Page|Main page]]
 | {{{[[Special::New Page|New page]]}}} || [[Special::New Page|New page]]
 | {{{[[Special::Orphaned Pages|Orphaned pages]]}}} || [[Special::Orphaned Pages|Orphaned pages]]
 | {{{[[Special::Search|Search]]}}} || [[Special::Search|Search]]
@@ -2874,24 +2704,24 @@ These are internal wiki actions in the form of links:<br><br>
 <input type="button" value="BUTTONTEXT" onClick="setTimeout('go_to(\'PAGENAME\')',5000);">
 
 == Internal link (labeled)
-<div class="helptext">Use this code in a page:</div>{{{
-[[Main page|Click here for the Main Page]]
-}}}<div class="helptext">To create this:</div>
-[[Main page|Click here for the Main Page]]
+<div class="helptext">Use this code in a page, replacing PAGENAME with the page you want to link to and LABEL with the link text:</div>{{{
+[[PAGENAME|LABEL]]
+}}}<div class="helptext">To create a labeled internal link like this one:</div>
+[[Main Page|Click here for the Main page]]
 
 == Internal link (plain)
-<div class="helptext">Use this code in a page:</div>{{{
-[[Main page]]
-}}}<div class="helptext">To create this:</div>
-[[Main page]]
+<div class="helptext">Use this code in a page, replacing PAGENAME withe the page you want to link to:</div>{{{
+[[PAGENAME]]
+}}}<div class="helptext">To create a plain internal link like this one:</div>
+[[Main Page]]
 
 == Menu link (button - styled)
-<div class="helptext">Use this code in a page, replacing BUTTONTEXT with the text you want on the button and PAGENAME with the page you want to link to:</div>{{{
+<div class="helptext">Use this code in the menu, replacing BUTTONTEXT with the text you want on the button and PAGENAME with the page you want to link to:</div>{{{
 <input class="menu_button_full" value="BUTTONTEXT" onclick="go_to('PAGENAME')" type="submit" />
 }}}<div class="helptext">To create this:</div>
 <input class="menu_button_full" value="BUTTONTEXT" onclick="go_to('PAGENAME')" type="submit" />
 
-<div class="helptext">Use this code in a page, replacing BUTTONTEXT with the text you want on the button and PAGENAME with the page you want to link to:</div>{{{
+<div class="helptext">Use this code in the menu, replacing BUTTONTEXT with the text you want on the button and PAGENAME with the page you want to link to:</div>{{{
 <input class="menu_button_half" value="BUTTONTEXT" onclick="go_to('PAGENAME')" type="submit" />
 }}}<div class="helptext">To create this:</div>
 <input class="menu_button_half" value="BUTTONTEXT" onclick="go_to('PAGENAME')" type="submit" />
@@ -2899,16 +2729,16 @@ These are internal wiki actions in the form of links:<br><br>
 [[Include::Template::Icon::Info]] /Note that the full size button will only be as wide as the menu and the half size button will only be half as wide as the menu./
 
 == Menu link (labeled)
-<div class="helptext">Use this code in a page:</div>{{{
-[[Main page|Click here for the Main Page]]
-}}}<div class="helptext">To create this:</div>
-[[Main page|Click here for the Main Page]]
+<div class="helptext">Use this code in the menu, replacing PAGENAME with the page you want to link to and LABEL with the link text:</div>{{{
+[[PAGENAME|LABEL]]
+}}}<div class="helptext">To create this a labeled menu link like this one:</div>
+[[Main Page|Click here for the Main page]]
 
 == Menu link (plain)
-<div class="helptext">Use this code in a page:</div>{{{
-[[Main page]]
-}}}<div class="helptext">To create this:</div>
-[[Main page]]
+<div class="helptext">Use this code in the menu, replacing PAGENAME withe the page you want to link to:</div>{{{
+[[PAGENAME]]
+}}}<div class="helptext">To create a plain menu link like this one:</div>
+[[Main Page]]
 
 [[Tags::Help, Syntax]]
 
@@ -5186,4 +5016,16 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 [[Include::Example::]]
+--DFQRCTsKlU
+woas.page.title: Template::Icon::Password
+woas.page.attributes: 0
+woas.page.last_modified: 1266260286
+woas.page.length: 823
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACFUlEQVQ4jaWSTUjUYRDGf7O7/2XXFVdSN+iQpRFpdSoqiIryJEkSBBFdom5dVuocRBtBEIid+yS6dBEXgqCiQ7cyT+kl0L6oNc1Vc7/++77vdNB13dxLOJcZhpkfDzyPqCobqVBlGBoa0nowYwzGGKy1NT0YDJJKpWQVcPHSBfr6HpBIhHDWAYpzEAwFUBdCJIyIAMr1VA8jw89rFVhr6drlaGqyOOfYf6Cdru4OZmZmmZ2Z483rTzinOOdQVZqbm/8FGKz1WVxUVJXe3h6uDNzFOWXHzhB+Oc/E+A/m5hYYuHqKeLypFmCswdoy5bLSGvvC2NMWTu9x/MnDUg68eIz3uX4ikRhOlcbGxipgcHBQz547Q6HgUHWcPPSQ4+ev4S+9oFD4TTE/S8Hs49nbBkSEXM4nFmuoAlQVYw2lkkVVsRZQU+OGIkSjMUDI/MyzORGtAnzfp2zKZLN5nIP5YguEDxNkE17gKxrM
+MPVxlEjkICLC929LtG/dUgWU/BLWGDwviohw7+Vl7r96t2JbCyKtiOwlEgkgIkx9XuREz7YqoFgoUiyWuH2nH1VFWXZCVZnOTNOWaEOVld1yD3thAKSSvmQyqWuTVi99ldk5h+d5pNNpkXrxvXnrhnbv7mJycmp119GxncePnjAynJa1t6F138DE+ASdnZ0cPXKMcNgjO7/A2IdRpjO/1t3WVfA/FdjQN/AXx8crd1TK1G8AAAAASUVORK5CYII=">
 --DFQRCTsKlU
