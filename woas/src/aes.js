@@ -51,7 +51,13 @@ function getB(x,n){ return (x>>>(n*8))&0xFF; }
 	}
 
 	function utf8Decrypt_s(sData) {
-		return decodeURIComponent( escape( sData ) );
+		try {
+			return decodeURIComponent( escape( sData ) );
+		}
+		catch (e) {
+			log(e);	//log:1
+		}
+		return null;
 	}
 
 	function utf8Decrypt(bData){
