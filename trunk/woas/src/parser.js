@@ -228,7 +228,8 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 			text = text.replace(/\[\[Include::([^\]\|]+)(\|[\]]+)?\]\]/g, "[<!-- -->[Include::[[$1]]$2]]");
 	}
 	
-	// thank you IE, really thank you
+	// remove CR added by some browsers
+	//TODO: check if ie8 still adds these
 	if (woas.browser.ie || woas.browser.opera)
 		text = text.replace("\r\n", "\n");
 
