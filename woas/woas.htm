@@ -5,11 +5,11 @@
 <script type="text/javascript">
 /* <![CDATA[ */
 
-/* DFQRCTsKlU-0000763-START */
+/* DFQRCTsKlU-0000767-START */
 
 var woas = {"version": "0.9.7B"};
 
-var __marker = "DFQRCTsKlU-0000763";
+var __marker = "DFQRCTsKlU-0000767";
 
 woas["config"] = {
 "permit_edits":true,
@@ -26,13 +26,13 @@ var current = 'Main Page';
 var main_page = 'Main Page';
 
 var backstack = [
-'Help::Folds',
-'Help::Spoilers',
-'ToDo list',
-'Help::',
-'Help::Folds',
-'Help::Spoilers',
-'Special::'
+'Main Page',
+'Sandbox',
+'Bugs',
+'Sandbox',
+'Main Page',
+'Bugs',
+'Help::'
 ];
 
 var page_titles = [
@@ -228,7 +228,7 @@ var page_titles = [
 'Template::Footnote'
 ];
 
-/* DFQRCTsKlU-0000763-DATA */
+/* DFQRCTsKlU-0000767-DATA */
 var page_attrs = [12,4,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,4,4,0,2,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,12,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
 
 var pages = [
@@ -1528,7 +1528,40 @@ Folding includes will unfold automatically if placed inside lists. Enable this l
 * [\x3C!-- --\x3E[Include::Template::Foldpage|LINK|History|]]\n\
 \n\
 === Lists\n\
-Alphanumeric lists have two extra blank lines added above them that bulleted lists and numbered lists don\'t have. See [[Example::Lists]] to see the difference.\n\
+Many list items have extra newlines above them. See [[Example::Lists]] to see the difference.\n\
+\n\
+* *List types that are just fine:*\n\
+** standard bulleted\n\
+** standard numbered\n\
+\n\
+* *List types that have one extra newline above them:*\n\
+** plain\n\
+\n\
+* *List types that have two extra newlines above them:*\n\
+** armenian\n\
+** circle\n\
+** decimal\n\
+** decimal-leading-zero\n\
+** disc\n\
+** fancy list-style-type inherit\n\
+** fancy list-style-type lower-alpha\n\
+** fancy list-style-type lower-greek\n\
+** fancy list-style-type lower-latin\n\
+** fancy list-style-type lower-roman\n\
+** fancy list-style-type upper-alpha\n\
+** fancy list-style-type upper-latin\n\
+** fancy list-style-type upper-roman\n\
+** fancy lower alphanumeric\n\
+** fancy upper alphanumeric\n\
+** fancy lower Roman numeral\n\
+** fancy upper Roman numeral\n\
+** georgian\n\
+** hebrew\n\
+** hiragana\n\
+** katakana\n\
+** none\n\
+** standard alphanumeric\n\
+** square\n\
 \n\
 === Menu\n\
 Sometimes when removing content from the menu, when pressing the [[Include::Template::Icon::Save]] icon in the banner, the *Page not found. Do you want to create it?* popup comes up. This is not consistent, and doesn\'t yet present a definite cause or trigger. Just something to keep an eye out for.\n\
@@ -1548,6 +1581,12 @@ Navigation is not always correct in the wiki. Using the [[Include::Template::Ico
 \n\
 === Page import and export\n\
 [[Utility::Import txt2wiki|Page import and export]] will export pages, but not import them.\n\
+\n\
+== Possible junk\n\
+I found this stuff on the Utility::Import txt2wiki page. It looks like Sandbox stuff. Is it?\n\
+\n\
+[[Javascript::alert(escape(\'#\'))]]\n\
+[[Javascript::document.body.contentEditable=\'true\'; document.designMode=\'on\'; void 0;]]\n\
 \n\
 === Search box in the menu\n\
 A press of the *Enter* key when doing a search from the *search box* in the *menu* is not consistently recognized in Firefox. It works flawlessly when first loading the wiki, but after navigating to other pages and using the editor, it no longer works, and the *Search* button must be pressed with the mouse. Shall we just do away with the search box in the menu and have a link to [[Special::Search]] instead?\n\
@@ -1575,103 +1614,6 @@ Clicking a ToDo link takes you to the page the task is on, but the task itself i
 ',
 '= Sandbox\n\
 [[Special::TOC]]\n\
-\n\
-== Lists\n\
-Numbered @ lists now the iIaA1 is optional\n\
-{{{\n\
-* test\n\
-** test\n\
-@ test\n\
-* test\n\
-}}}\n\
-* test\n\
-** test\n\
-@ test\n\
-* test\n\
-\n\
-=== test\n\
-{{{\n\
-* bulleted\n\
-** bulleted\n\
-@ alphanumeric\n\
-@ alphanumeric\n\
-@@ alphanumeric\n\
-@ alphanumeric\n\
-** bulleted\n\
-* bulleted\n\
-# numbered\n\
-}}}\n\
-* bulleted\n\
-** bulleted\n\
-@ alphanumeric\n\
-@ alphanumeric\n\
-@@ alphanumeric\n\
-@ alphanumeric\n\
-** bulleted\n\
-* bulleted\n\
-# numbered\n\
-\n\
-=== test\n\
-{{{\n\
-* test\n\
-* test\n\
-@ test\n\
-@ test\n\
-# test\n\
-# test\n\
-}}}\n\
-* test\n\
-* test\n\
-@ test\n\
-@ test\n\
-# test\n\
-# test\n\
-\n\
-=== test\n\
-{{{\n\
-@A one\n\
-@a two\n\
-@ one\n\
-@a two\n\
-}}}\n\
-@A one\n\
-@a two\n\
-@ one\n\
-@a two\n\
-\n\
-=== Mixed lists\n\
-* one\n\
-*# two\n\
-**# three\n\
-* one\n\
-\n\
-=== Unusual lists\n\
-* one\n\
-** two\n\
-*** three\n\
-***@i four\n\
-****@I five\n\
-** two\n\
-* one\n\
-\n\
-# test\n\
-##@ test\n\
-\n\
-* test\n\
-**# test\n\
-\n\
-\n\
-== Possible junk\n\
-I found this stuff on the Utility::Import txt2wiki page. It looks like Sandbox stuff. Is it?\n\
-\n\
-[[Javascript::alert(escape(\'#\'))]]\n\
-[[Javascript::document.body.contentEditable=\'true\'; document.designMode=\'on\'; void 0;]]\n\
-\n\
-=== Question about the JavaScript print command\n\
-What\'s the difference is between these two, and should one of them not be used?\n\
-\n\
-This: {{{\x3C\x3C\x3C%js:print("/hi/ \x3Ci\x3Ethere\x3C/i\x3E")\x3E\x3E\x3E}}} results in: \x3C\x3C\x3C%js:print("/hi/ \x3Ci\x3Ethere\x3C/i\x3E")\x3E\x3E\x3E\n\
-This: {{{\x3C\x3C\x3Cprint("/hi/ \x3Ci\x3Ethere\x3C/i\x3E")\x3E\x3E\x3E}}} results in: \x3C\x3C\x3Cprint("/hi/ \x3Ci\x3Ethere\x3C/i\x3E")\x3E\x3E\x3E \n\
 \n\
 == From FBNil\n\
 === Export\n\
@@ -2368,49 +2310,6 @@ This page has an apostrophe in title but should still be searchable.\n\
 This changes page is updated through the function *woas["before_save"]* inside the [[Special::Edit Bootscript|Bootscript]].\n\
 It could be made more pretty using [[http://www.developertutorials.com/tutorials/javascript/javascript-diff-algorithm-060822/page1.html|javascript-diff-algorithm]] or [[http://blog.lotusnotes.be/domino/archive/2007-10-29-js-diff.html|js-diff]]\n\
 \x3C!--LIST--\x3E\n\
-\n\
-[[Example::Tables]] {{{Mon Feb 01 2010 00:15:49 GMT+0100}}}\n\
-[[::Menu]] {{{Tue Feb 02 2010 18:09:02 GMT-0500 (EST)}}}\n\
-[[Template::Footnote]] {{{Tue Feb 02 2010 19:48:11 GMT-0500 (EST)}}}\n\
-[[Help::Footnotes]] {{{Mon Feb 08 2010 11:33:32 GMT-0500 (EST)}}}\n\
-[[Syntax]] {{{Mon Feb 08 2010 11:56:57 GMT-0500 (EST)}}}\n\
-[[Bugs]] {{{Mon Feb 08 2010 12:04:59 GMT-0500 (EST)}}}\n\
-[[::Menu]] {{{Mon Feb 08 2010 12:06:51 GMT-0500 (EST)}}}\n\
-[[Help::JavaScript]] {{{Tue Feb 09 2010 22:21:33 GMT-0500 (EST)}}}\n\
-[[Bugs]] {{{Tue Feb 09 2010 23:38:19 GMT-0500 (EST)}}}\n\
-[[Bugs]] {{{Tue Feb 09 2010 23:38:49 GMT-0500 (EST)}}}\n\
-[[Help::Tables]] {{{Fri Feb 12 2010 18:58:34 GMT-0500 (EST)}}}\n\
-[[Help::Tables]] {{{Fri Feb 12 2010 18:58:40 GMT-0500 (EST)}}}\n\
-[[Help::Tables]] {{{Fri Feb 12 2010 18:59:14 GMT-0500 (EST)}}}\n\
-[[Sandbox]] {{{Fri Feb 12 2010 19:01:33 GMT-0500 (EST)}}}\n\
-[[Sandbox]] {{{Fri Feb 12 2010 19:02:03 GMT-0500 (EST)}}}\n\
-[[Sandbox]] {{{Fri Feb 12 2010 19:02:49 GMT-0500 (EST)}}}\n\
-[[Sandbox]] {{{Fri Feb 12 2010 19:03:16 GMT-0500 (EST)}}}\n\
-[[Sandbox]] {{{Fri Feb 12 2010 19:03:42 GMT-0500 (EST)}}}\n\
-[[Sandbox]] {{{Fri Feb 12 2010 19:04:11 GMT-0500 (EST)}}}\n\
-[[Sandbox]] {{{Fri Feb 12 2010 19:05:55 GMT-0500 (EST)}}}\n\
-[[Sandbox]] {{{Fri Feb 12 2010 19:10:18 GMT-0500 (EST)}}}\n\
-[[Sandbox]] {{{Fri Feb 12 2010 19:10:53 GMT-0500 (EST)}}}\n\
-[[Sandbox]] {{{Fri Feb 12 2010 19:11:55 GMT-0500 (EST)}}}\n\
-[[Sandbox]] {{{Fri Feb 12 2010 19:12:29 GMT-0500 (EST)}}}\n\
-[[Help::Images]] {{{Fri Feb 12 2010 19:16:58 GMT-0500 (EST)}}}\n\
-[[Sandbox]] {{{Fri Feb 12 2010 19:19:52 GMT-0500 (EST)}}}\n\
-[[Sandbox]] {{{Fri Feb 12 2010 19:27:42 GMT-0500 (EST)}}}\n\
-[[Sandbox]] {{{Fri Feb 12 2010 19:28:58 GMT-0500 (EST)}}}\n\
-[[Feature::Summary]] {{{Fri Feb 12 2010 19:41:08 GMT-0500 (EST)}}}\n\
-[[Feature::Summary]] {{{Fri Feb 12 2010 19:44:20 GMT-0500 (EST)}}}\n\
-[[Feature::Summary]] {{{Fri Feb 12 2010 19:45:55 GMT-0500 (EST)}}}\n\
-[[Feature::Summary]] {{{Fri Feb 12 2010 19:50:16 GMT-0500 (EST)}}}\n\
-[[Syntax]] {{{Fri Feb 12 2010 19:51:28 GMT-0500 (EST)}}}\n\
-[[Syntax]] {{{Fri Feb 12 2010 19:52:27 GMT-0500 (EST)}}}\n\
-[[Syntax]] {{{Fri Feb 12 2010 19:55:29 GMT-0500 (EST)}}}\n\
-[[Syntax]] {{{Fri Feb 12 2010 19:56:59 GMT-0500 (EST)}}}\n\
-[[Syntax]] {{{Fri Feb 12 2010 19:58:44 GMT-0500 (EST)}}}\n\
-[[Syntax]] {{{Fri Feb 12 2010 20:05:18 GMT-0500 (EST)}}}\n\
-[[Syntax]] {{{Fri Feb 12 2010 20:05:49 GMT-0500 (EST)}}}\n\
-[[Syntax]] {{{Fri Feb 12 2010 20:07:24 GMT-0500 (EST)}}}\n\
-[[Syntax]] {{{Fri Feb 12 2010 20:08:39 GMT-0500 (EST)}}}\n\
-[[Syntax]] {{{Fri Feb 12 2010 20:08:58 GMT-0500 (EST)}}}\n\
 [[Feature::Summary]] {{{Sun Feb 14 2010 01:25:29 GMT-0500 (EST)}}}\n\
 [[Feature::Summary]] {{{Sun Feb 14 2010 01:25:52 GMT-0500 (EST)}}}\n\
 [[Feature::Summary]] {{{Sun Feb 14 2010 01:34:32 GMT-0500 (EST)}}}\n\
@@ -2424,7 +2323,33 @@ It could be made more pretty using [[http://www.developertutorials.com/tutorials
 [[Help::Folds]] {{{Sun Feb 14 2010 01:47:04 GMT-0500 (EST)}}}\n\
 [[Help::Spoilers]] {{{Sun Feb 14 2010 01:51:35 GMT-0500 (EST)}}}\n\
 [[Help::Spoilers]] {{{Sun Feb 14 2010 01:57:16 GMT-0500 (EST)}}}\n\
-[[Help::Spoilers]] {{{Sun Feb 14 2010 01:59:38 GMT-0500 (EST)}}}',
+[[Help::Spoilers]] {{{Sun Feb 14 2010 01:59:38 GMT-0500 (EST)}}}\n\
+[[Help::JavaScript]] {{{Sun Feb 14 2010 12:46:04 GMT-0500 (EST)}}}\n\
+[[Help::JavaScript]] {{{Sun Feb 14 2010 12:48:07 GMT-0500 (EST)}}}\n\
+[[Help::JavaScript]] {{{Sun Feb 14 2010 12:49:17 GMT-0500 (EST)}}}\n\
+[[Sandbox]] {{{Sun Feb 14 2010 12:51:58 GMT-0500 (EST)}}}\n\
+[[Utility::Word count]] {{{Sun Feb 14 2010 12:54:43 GMT-0500 (EST)}}}\n\
+[[Utility::Word frequency]] {{{Sun Feb 14 2010 12:55:23 GMT-0500 (EST)}}}\n\
+[[Example::Lists]] {{{Sun Feb 14 2010 13:01:09 GMT-0500 (EST)}}}\n\
+[[Example::Lists]] {{{Sun Feb 14 2010 13:01:29 GMT-0500 (EST)}}}\n\
+[[Example::Lists]] {{{Sun Feb 14 2010 13:03:02 GMT-0500 (EST)}}}\n\
+[[Example::Lists]] {{{Sun Feb 14 2010 13:05:12 GMT-0500 (EST)}}}\n\
+[[Example::Lists]] {{{Sun Feb 14 2010 13:07:28 GMT-0500 (EST)}}}\n\
+[[Example::Lists]] {{{Sun Feb 14 2010 13:12:28 GMT-0500 (EST)}}}\n\
+[[Example::Lists]] {{{Sun Feb 14 2010 13:15:57 GMT-0500 (EST)}}}\n\
+[[Example::Lists]] {{{Sun Feb 14 2010 13:16:48 GMT-0500 (EST)}}}\n\
+[[Example::Lists]] {{{Sun Feb 14 2010 13:17:47 GMT-0500 (EST)}}}\n\
+[[Example::Lists]] {{{Sun Feb 14 2010 13:18:56 GMT-0500 (EST)}}}\n\
+[[Example::Lists]] {{{Sun Feb 14 2010 13:21:20 GMT-0500 (EST)}}}\n\
+[[Example::Lists]] {{{Sun Feb 14 2010 13:24:03 GMT-0500 (EST)}}}\n\
+[[Example::Lists]] {{{Sun Feb 14 2010 13:24:41 GMT-0500 (EST)}}}\n\
+[[Bugs]] {{{Sun Feb 14 2010 19:27:34 GMT-0500 (EST)}}}\n\
+[[Help::Lists]] {{{Sun Feb 14 2010 19:30:00 GMT-0500 (EST)}}}\n\
+[[Example::Lists]] {{{Sun Feb 14 2010 19:30:58 GMT-0500 (EST)}}}\n\
+[[Sandbox]] {{{Sun Feb 14 2010 19:32:24 GMT-0500 (EST)}}}\n\
+[[Bugs]] {{{Sun Feb 14 2010 19:33:09 GMT-0500 (EST)}}}\n\
+[[Help::Lists]] {{{Sun Feb 14 2010 19:38:22 GMT-0500 (EST)}}}\n\
+[[Help::Lists]] {{{Sun Feb 14 2010 19:39:49 GMT-0500 (EST)}}}',
 '= Bluebox\n\
 \x3Cdiv class=bluebox\x3E\n\
 \x3Ch1\x3ETHE SLEEPING BEAUTY IN THE WOOD\x3C/h1\x3E\n\
@@ -4201,6 +4126,7 @@ Below are examples for creating headers in this wiki. If you prefer HTML, you ca
 [[Tags::Utility]]\n\
 ',
 '= Word count\n\
+This utility is for blocks of text. Content in lists will not be counted accurately.\n\
 # Select text from anywhere on your computer or in this wiki and paste the selection into the box.\n\
 # Press the *Count* button to see how many words are in the selection.\n\
 # Press the *Clear* button to clear the box if you\'d like to paste more content in.\n\
@@ -4210,11 +4136,10 @@ function clearit(){var formcontent=document.wordcount.wordcount2.value; document
 \x3Cform method="POST" name="wordcount"\x3E&nbsp;&nbsp;&nbsp;\x3Ctextarea rows="12" name="wordcount2" cols="26" wrap="virtual"\x3E\x3C/textarea\x3E\n\
 \x3Cdiv\x3E&nbsp;&nbsp;&nbsp;\x3Cinput type="button" value="Count" onClick="countit()"\x3E \x3Cinput type="text" name="wordcount3" size="4"\x3E \x3Cinput type="button" value="Clear" onClick="clearit()"\x3E\n\
 &nbsp;&nbsp;&nbsp;\x3Cfont face="arial" size="-2"\x3EThis free script provided by\x3C/font\x3E \x3Cfont face="arial, helvetica" size="-2"\x3E\x3Ca href="http://javascriptkit.com"\x3EJavaScript Kit\x3C/a\x3E\x3C/font\x3E\x3C/div\x3E\x3C/form\x3E\n\
-[[Include::Template::TODO|this|Fix this script.]]\n\
-\x3Cdiv class="alertnote"\x3E*Content in lists will not be counted accurately. For instance, the list above contains 47 words, but the word count utility will say it\'s 57 words.*\x3C/div\x3E\n\
 [[Tags::Utility]]\n\
 ',
 '= Word frequency\n\
+This utility is for blocks of text. Content in lists will not be counted accurately.\n\
 \x3Cscript language="JavaScript"\x3E\n\
 function cleanWord(word){\n\
 rv = word.toLowerCase();\n\
@@ -4308,8 +4233,6 @@ function clearit(){var formcontent=document.getElementById(\'t1\').value=\'\';}\
 \x3Cdiv style="text-align:justify;"\x3E\n\
 \x3Ctextarea id="t1" name="t1" rows=12 cols=26\x3E\x3C/textarea\x3E\n\
 \x3Cinput type="button" name="b1" id="b1" value="Calculate" onClick="calculate(document.getElementById(\'t1\').value);"\x3E&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\x3Cinput type="button" name="b2" id="b2" value="Clear" onClick="clearit();"\x3E\x3Cdiv id="report" name="report"\x3E\x3C/div\x3E\x3C/div\x3E\n\
-[[Include::Template::TODO|this|Fix this script.]]\n\
-\x3Cdiv class="alertnote"\x3E*Content in lists will not be counted properly.*\x3C/div\x3E\n\
 [[Tags::Utility]]\n\
 ',
 '= Horizontal rules\n\
@@ -4574,6 +4497,31 @@ function FillDiv(START,STOP){\n\
 }\n\
 /* ]]\x3E */\n\
 \x3C/script\x3E\n\
+You can also surround inline JavaScript with triple angled brackets ({{{\x3C\x3C\x3C}}} and {{{\x3E\x3E\x3E}}}). For example:\n\
+* \x3Cdiv class="helptext"\x3EUse this code on a page:\x3C/div\x3E{{{\n\
+\x3C\x3C\x3C\n\
+B=A=1;\n\
+B|=2;\n\
+print("A="+A+" B="+B)\n\
+\x3E\x3E\x3E\n\
+}}}\n\
+** \x3Cdiv class="helptext"\x3ETo create this:\x3C/div\x3E\\\\\n\
+\x3C\x3C\x3C\n\
+B=A=1;\n\
+B|=2;\n\
+print("A="+A+" B="+B)\n\
+\x3E\x3E\x3E\x3Cbr\x3E\x3Cbr\x3E\n\
+* \x3Cdiv class="helptext"\x3EUse this code on a page:\x3C/div\x3E{{{\n\
+\x3C\x3C\x3C\n\
+print("page_attrs.length="+page_attrs.length);\n\
+print("pages.length="+pages.length);\n\
+\x3E\x3E\x3E\n\
+}}}\n\
+** \x3Cdiv class="helptext"\x3ETo create this:\x3C/div\x3E\\\\\n\
+\x3C\x3C\x3C\n\
+print("page_attrs.length="+page_attrs.length);\n\
+print("pages.length="+pages.length);\n\
+\x3E\x3E\x3E\x3Cbr\x3E\x3Cbr\x3E\n\
 \n\
 == Use JavaScript to create a temporary page\n\
 This is quite interesting. Using this code, you can get this wiki to create a link to a dynamically created temporary page with custom content (it accepts HTML tags as part of the content) under the JavaScript [[Help::Namespaces|namespace]]. The temporary page will be created each time the link is clicked, and it will be uncreated as soon as you navigate to another page or close the wiki.\n\
@@ -4663,15 +4611,22 @@ We can even print our MATHNUM array: \x3C\x3C\x3C%MATHNUM\x3E\x3E\x3E\n\
 By putting your definitions into another page and Include:: it into the pages that need it, you get a powerful solution.\n\
 \n\
 == Use JavaScript to print or display plain content\n\
-\x3Cdiv class="helptext"\x3EUse this code on a page, replacing CONTENT with the content you\'d like to display:\x3C/div\x3E\n\
-\x3Cdiv class="helpcode"\x3E{{{\x3C\x3C\x3C}}}%js:print("CONTENT"){{{\x3E\x3E\x3E}}}\x3C/div\x3E\n\
+This method accepts wiki and HTML markup for formatting the text.\n\
+\x3Cdiv class="helptext"\x3EUse this code on a page, replacing {{{/CONTENT/}}} with the content you\'d like to display:\x3C/div\x3E\n\
+\x3Cdiv class="helpcode"\x3E{{{\x3C\x3C\x3C}}}%js:print("/CONTENT/"){{{\x3E\x3E\x3E}}}\x3C/div\x3E\n\
 \x3Cdiv class="helptext"\x3E*To create this:*\x3C/div\x3E\n\
-\x3C\x3C\x3C%js:print("CONTENT")\x3E\x3E\x3E\n\
+\x3C\x3C\x3C%js:print("/CONTENT/")\x3E\x3E\x3E\n\
+\n\
+== Use JavaScript to print or display raw content\n\
+\x3Cdiv class="helptext"\x3EUse this code on a page, replacing {{{/CONTENT/}}} with the content you\'d like to display:\x3C/div\x3E\n\
+\x3Cdiv class="helpcode"\x3E{{{\x3C\x3C\x3C}}}print("/CONTENT/"){{{\x3E\x3E\x3E}}}\x3C/div\x3E\n\
+\x3Cdiv class="helptext"\x3E*To create this:*\x3C/div\x3E\n\
+\x3C\x3C\x3Cprint("/CONTENT/")\x3E\x3E\x3E\n\
 \n\
 == Use JavaScript to print or display raw content as a code block\n\
-\x3Cdiv class="helptext"\x3EUse this code on a page, replacing print("CONTENT") with the content you\'d like to display:\x3C/div\x3E\n\
-\x3Cdiv class="helpcode"\x3E{{{\x3C\x3C\x3C}}}%pre:CONTENT{{{\x3E\x3E\x3E}}}\x3C/div\x3E\n\
-\x3Cdiv class="helptext"\x3ETo create this:\x3C/div\x3E\x3C\x3C\x3C%pre:CONTENT\x3E\x3E\x3E\n\
+\x3Cdiv class="helptext"\x3EUse this code on a page, replacing {{{/CONTENT/}}} with the content you\'d like to display:\x3C/div\x3E\n\
+\x3Cdiv class="helpcode"\x3E{{{\x3C\x3C\x3C}}}%pre:/CONTENT/{{{\x3E\x3E\x3E}}}\x3C/div\x3E\n\
+\x3Cdiv class="helptext"\x3ETo create this:\x3C/div\x3E\x3C\x3C\x3C%pre:/CONTENT/\x3E\x3E\x3E\n\
 \n\
 == Use JavaScript to control the layout of HTML tables\n\
 You can surround a table coded in HTML in these special JavaScript angle quotation mark tags to prevent the wiki from automatically adding line-breaks ({{{\x3Cbr\x3E}}} tags), so the table will be formatted properly:\n\
@@ -4953,91 +4908,54 @@ These are internal wiki actions in the form of links:\x3Cbr\x3E\x3Cbr\x3E\n\
 ',
 '[[Special::TOC]]\n\
 = Lists\n\
-Simple single-level lists can be created by using the three list buttons in the editor ({{{*}}} for bulleted lists, {{{#}}} for numbered lists, and {{{@}}} for alphanumeric lists). If you\'d like to create mixed lists, nested lists, or lists with additional types of list items, the methods below can be used instead.\n\
+Simple single-level lists can be created by using the three list buttons ({{{*}}}, {{{#}}}, and {{{@}}}) in the editor. If you prefer typing your syntax in manually or you\'d like to create mixed lists, nested lists, or lists with additional types of list items, the methods below can be used instead.\n\
 \n\
-== Wiki markup lists\n\
-Wiki markup lists are created with between one and five specific characters ({{{@}}}, {{{*}}}, or {{{#}}}) at the beginning of a line, followed by a space, and then whatever text you\'d like the list item to have. Each list must begin with a list item with only one character at the beginning of the line, and there can be no blank lines between entries in the list. To create a blank line beneath a list item, you can insert two HTML {{{\x3Cbr\x3E}}} tags at the end of of the list item\'s text. Wiki and HTML markup are accepted in list items.\n\
+Lists are created with between one and five specific characters or character combinations (see the wiki markup in the chart below) at the beginning of a line, followed by a space, followed by the list item content. The first entry in a list must contain only *one* character or character combination at the beginning of the line. Actual blank lines are not allowed between list entries, but can be created by inserting two HTML {{{\x3Cbr\x3E}}} tags at the end of a list item\'s text. Wiki and HTML markup are accepted in lists.\n\
 \n\
-=== Alphanumeric List\n\
-\x3Cdiv class="helptext"\x3EUse this code in a page:\x3C/div\x3E{{{\n\
-@ Test\n\
-@ Test\n\
-@@ Test\n\
-@@@ Test\n\
-@@@@ Test\n\
-@@@@@ Test\n\
-@ Test\n\
-@ Test\n\
-}}}\x3Cdiv class="helptext"\x3ETo create this:\x3C/div\x3E\n\
-@ Test\n\
-@ Test\n\
-@@ Test\n\
-@@@ Test\n\
-@@@@ Test\n\
-@@@@@ Test\n\
-@ Test\n\
-@ Test\n\
+== List types\n\
+{|\n\
+| *Wiki markup* || *List type*\n\
+| : || plain list\n\
+| * || standard bullet\n\
+| # || standard numbered\n\
+| @ || standard alphanumeric\n\
+| @* || fancy bullet\n\
+| @1 || fancy numbered\n\
+| @# || fancy numbered (alternative)\n\
+| @a || fancy lower alphanumeric\n\
+| @A || fancy upper alphanumeric\n\
+| @i || fancy lower Roman numeral\n\
+| @I || fancy upper Roman numeral\n\
+| @{} || fancy list-style-type, example: @{lower-greek}\n\
+|}\n\
 \n\
-=== Bulleted List\n\
-\x3Cdiv class="helptext"\x3EUse this code in a page:\x3C/div\x3E{{{\n\
-* Test\n\
-* Test\n\
-** Test\n\
-*** Test\n\
-**** Test\n\
-***** Test\n\
-* Test\n\
-* Test}}}\x3Cdiv class="helptext"\x3ETo create this:\x3C/div\x3E\n\
-* Test\n\
-* Test\n\
-** Test\n\
-*** Test\n\
-**** Test\n\
-***** Test\n\
-* Test\n\
-* Test\n\
+=== About fancy list-style-type\n\
+For the {{{ @{} }}} syntax you can use any of these:\n\
+* none\n\
+* disc\n\
+* circle\n\
+* square\n\
+* decimal\n\
+* decimal-leading-zero\n\
+* armenian\n\
+* georgian\n\
+* hebrew\n\
+* hiragana\n\
+* katakana\n\
+* lower-alpha\n\
+* upper-alpha\n\
+* lower-greek\n\
+* lower-latin\n\
+* upper-latin\n\
+* lower-roman\n\
+* upper-roman\n\
+* inherit\n\
 \n\
-=== Fancy List\n\
-\x3Cdiv class="helptext"\x3EUse this code in a page:\x3C/div\x3E{{{\n\
-* This is a test 01 - This is a test 02 \x3Cblockquote\x3EThis is a test 03\x3C/blockquote\x3E\n\
-* This is a test 01 - This is a test 02 \x3Cblockquote\x3EThis is a test 03\x3C/blockquote\x3E\n\
-* This is a test 01 - This is a test 02 \x3Cblockquote\x3EThis is a test 03\x3C/blockquote\x3E\n\
-}}}\x3Cdiv class="helptext"\x3ETo create this:\x3C/div\x3E\n\
-* This is a test 01 - This is a test 02 \x3Cblockquote\x3EThis is a test 03\x3C/blockquote\x3E\n\
-* This is a test 01 - This is a test 02 \x3Cblockquote\x3EThis is a test 03\x3C/blockquote\x3E\n\
-* This is a test 01 - This is a test 02 \x3Cblockquote\x3EThis is a test 03\x3C/blockquote\x3E\n\
-\n\
-=== Numbered List\n\
-\x3Cdiv class="helptext"\x3EUse this code in a page:\x3C/div\x3E{{{\n\
-# Test\n\
-# Test\n\
-## Test\n\
-### Test\n\
-#### Test\n\
-##### Test\n\
-# Test\n\
-# Test\n\
-}}}\x3Cdiv class="helptext"\x3ETo create this:\x3C/div\x3E\n\
-# Test\n\
-# Test\n\
-## Test\n\
-### Test\n\
-#### Test\n\
-##### Test\n\
-# Test\n\
-# Test\n\
-\n\
-=== Numbered Fancy List\n\
-\x3Cdiv class="helptext"\x3EUse this code in a page:\x3C/div\x3E{{{\n\
-# This is a test 01 - This is a test 02 \x3Cblockquote\x3EThis is a test 03\x3C/blockquote\x3E\n\
-# This is a test 01 - This is a test 02 \x3Cblockquote\x3EThis is a test 03\x3C/blockquote\x3E\n\
-# This is a test 01 - This is a test 02 \x3Cblockquote\x3EThis is a test 03\x3C/blockquote\x3E\n\
-}}}\x3Cdiv class="helptext"\x3ETo create this:\x3C/div\x3E\n\
-# This is a test 01 - This is a test 02 \x3Cblockquote\x3EThis is a test 03\x3C/blockquote\x3E\n\
-# This is a test 01 - This is a test 02 \x3Cblockquote\x3EThis is a test 03\x3C/blockquote\x3E\n\
-# This is a test 01 - This is a test 02 \x3Cblockquote\x3EThis is a test 03\x3C/blockquote\x3E\n\
+These were tested under FireFox 3.5.7. Your browser may even support more! For a complete reference see [[http://www.w3.org/TR/css3-lists/]]\n\
+[[[No versions of Internet Explorer (including IE8) support the property values "decimal-leading-zero", "lower-greek", "lower-latin", "upper-latin", "armenian", or "georgian".]]]\n\
 \n\
 === Plain List\n\
+Plain lists are created by using one or more colons at the beginning of a line. These cannot be used in mixed lists.\n\
 \x3Cdiv class="helptext"\x3EUse this code in a page:\x3C/div\x3E{{{\n\
 : Test\n\
 : Test\n\
@@ -5057,8 +4975,372 @@ Wiki markup lists are created with between one and five specific characters ({{{
 : Test\n\
 : Test\n\
 \n\
+== Standard bulleted list\n\
+\x3Cdiv class="helptext"\x3EUse this code in a page:\x3C/div\x3E{{{\n\
+* Test\n\
+* Test\n\
+** Test\n\
+*** Test\n\
+* Test\n\
+* Test\n\
+}}}\x3Cdiv class="helptext"\x3ETo create this:\x3C/div\x3E\n\
+* Test\n\
+* Test\n\
+** Test\n\
+*** Test\n\
+* Test\n\
+* Test\n\
+\n\
+== Standard numbered list\n\
+\x3Cdiv class="helptext"\x3EUse this code in a page:\x3C/div\x3E{{{\n\
+# Test\n\
+# Test\n\
+## Test\n\
+### Test\n\
+# Test\n\
+# Test\n\
+}}}\x3Cdiv class="helptext"\x3ETo create this:\x3C/div\x3E\n\
+# Test\n\
+# Test\n\
+## Test\n\
+### Test\n\
+# Test\n\
+# Test\n\
+\n\
+== Standard alphanumeric list\n\
+\x3Cdiv class="helptext"\x3EUse this code in a page:\x3C/div\x3E{{{\n\
+@ Test\n\
+@ Test\n\
+@@ Test\n\
+@@@ Test\n\
+@ Test\n\
+@ Test\n\
+}}}\x3Cdiv class="helptext"\x3ETo create this:\x3C/div\x3E\n\
+@ Test\n\
+@ Test\n\
+@@ Test\n\
+@@@ Test\n\
+@ Test\n\
+@ Test\n\
+\n\
+== Fancy bulleted list\n\
+\x3Cdiv class="helptext"\x3EUse this code in a page:\x3C/div\x3E{{{\n\
+@* Test\n\
+@* Test\n\
+@*@* Test\n\
+@*@*@* Test\n\
+@* Test\n\
+@* Test\n\
+}}}\x3Cdiv class="helptext"\x3ETo create this:\x3C/div\x3E\n\
+@* Test\n\
+@* Test\n\
+@*@* Test\n\
+@*@*@* Test\n\
+@* Test\n\
+@* Test\n\
+\n\
+== Fancy numbered list\n\
+\x3Cdiv class="helptext"\x3EUse this code in a page:\x3C/div\x3E{{{\n\
+@1 Test\n\
+@1 Test\n\
+@1@1 Test\n\
+@1@1@1 Test\n\
+@1 Test\n\
+@1 Test\n\
+}}}\x3Cdiv class="helptext"\x3ETo create this:\x3C/div\x3E\n\
+@1 Test\n\
+@1 Test\n\
+@1@1 Test\n\
+@1@1@1 Test\n\
+@1 Test\n\
+@1 Test\n\
+\x3Cdiv class="helptext"\x3EOr use this code in a page:\x3C/div\x3E{{{\n\
+@# Test\n\
+@# Test\n\
+@#@# Test\n\
+@#@#@# Test\n\
+@# Test\n\
+@# Test\n\
+}}}\x3Cdiv class="helptext"\x3ETo create this:\x3C/div\x3E\n\
+@# Test\n\
+@# Test\n\
+@#@# Test\n\
+@#@#@# Test\n\
+@# Test\n\
+@# Test\n\
+\n\
+== Fancy lower alphanumeric list\n\
+\x3Cdiv class="helptext"\x3EUse this code in a page:\x3C/div\x3E{{{\n\
+@a Test\n\
+@a Test\n\
+@a@a Test\n\
+@a@a@a Test\n\
+@a Test\n\
+@a Test\n\
+}}}\x3Cdiv class="helptext"\x3ETo create this:\x3C/div\x3E\n\
+@a Test\n\
+@a Test\n\
+@a@a Test\n\
+@a@a@a Test\n\
+@a Test\n\
+@a Test\n\
+\n\
+== Fancy upper alphanumeric list\n\
+\x3Cdiv class="helptext"\x3EUse this code in a page:\x3C/div\x3E{{{\n\
+@A Test\n\
+@A Test\n\
+@A@A Test\n\
+@A@A@A Test\n\
+@A Test\n\
+@A Test\n\
+}}}\x3Cdiv class="helptext"\x3ETo create this:\x3C/div\x3E\n\
+@A Test\n\
+@A Test\n\
+@A@A Test\n\
+@A@A@A Test\n\
+@A Test\n\
+@A Test\n\
+\n\
+== Fancy lower Roman numeral list\n\
+\x3Cdiv class="helptext"\x3EUse this code in a page:\x3C/div\x3E{{{\n\
+@i Test\n\
+@i Test\n\
+@i@i Test\n\
+@i@i@i Test\n\
+@i Test\n\
+@i Test\n\
+}}}\x3Cdiv class="helptext"\x3ETo create this:\x3C/div\x3E\n\
+@i Test\n\
+@i Test\n\
+@i@i Test\n\
+@i@i@i Test\n\
+@i Test\n\
+@i Test\n\
+\n\
+== Fancy upper Roman numeral list\n\
+\x3Cdiv class="helptext"\x3EUse this code in a page:\x3C/div\x3E{{{\n\
+@I Test\n\
+@I Test\n\
+@I@I Test\n\
+@I@I@I Test\n\
+@I Test\n\
+@I Test\n\
+}}}\x3Cdiv class="helptext"\x3ETo create this:\x3C/div\x3E\n\
+@I Test\n\
+@I Test\n\
+@I@I Test\n\
+@I@I@I Test\n\
+@I Test\n\
+@I Test\n\
+\n\
+== Fancy list-style-type:\n\
+\x3Cdiv class="helptext"\x3EUse this code in a page:\x3C/div\x3E{{{\n\
+@{none} none\n\
+\n\
+@{disc} disc\n\
+\n\
+@{circle} circle\n\
+\n\
+@{square} square\n\
+\n\
+@{decimal} decimal\n\
+\n\
+@{decimal-leading-zero} decimal-leading-zero\n\
+\n\
+@{armenian} armenian\n\
+\n\
+@{georgian} georgian\n\
+\n\
+@{hebrew} hebrew\n\
+\n\
+@{hiragana} hiragana\n\
+\n\
+@{katakana} katakana\n\
+\n\
+@{lower-alpha} lower-alpha\n\
+\n\
+@{upper-alpha} upper-alpha\n\
+\n\
+@{lower-greek} lower-greek\n\
+\n\
+@{lower-latin} lower-latin\n\
+\n\
+@{upper-latin} upper-latin\n\
+\n\
+@{lower-roman} lower-roman\n\
+\n\
+@{upper-roman} upper-roman\n\
+\n\
+@{inherit} inherit\n\
+}}}\x3Cdiv class="helptext"\x3ETo create this:\x3C/div\x3E\n\
+@{none} none\n\
+\n\
+@{disc} disc\n\
+\n\
+@{circle} circle\n\
+\n\
+@{square} square\n\
+\n\
+@{decimal} decimal\n\
+\n\
+@{decimal-leading-zero} decimal-leading-zero\n\
+\n\
+@{armenian} armenian\n\
+\n\
+@{georgian} georgian\n\
+\n\
+@{hebrew} hebrew\n\
+\n\
+@{hiragana} hiragana\n\
+\n\
+@{katakana} katakana\n\
+\n\
+@{lower-alpha} lower-alpha\n\
+\n\
+@{upper-alpha} upper-alpha\n\
+\n\
+@{lower-greek} lower-greek\n\
+\n\
+@{lower-latin} lower-latin\n\
+\n\
+@{upper-latin} upper-latin\n\
+\n\
+@{lower-roman} lower-roman\n\
+\n\
+@{upper-roman} upper-roman\n\
+\n\
+@{inherit} inherit\n\
+\n\
+== Mixed standard list\n\
+Mixed standard lists can be achieved by using the syntax for different standard list types. Each time a different list type is used, the list level will increment by one. If a list type that has already been used is used, the list level will be at the same list level as the highest list level of that type. This type of list mixing can be a bit quirky as far as fine control over list level placement, but for simple lists, it\'s quick and easy to remember.\n\
+\n\
+\x3Cdiv class="helptext"\x3EUse this code in a page:\x3C/div\x3E{{{\n\
+* level one bullet\n\
+# level two numbered\n\
+@ level three alphanumeric\n\
+@ level three alphanumeric\n\
+# level two numbered\n\
+* level one bullet\n\
+}}}\x3Cdiv class="helptext"\x3ETo create this:\x3C/div\x3E\n\
+* level one bullet\n\
+# level two numbered\n\
+@ level three alphanumeric\n\
+@ level three alphanumeric\n\
+# level two numbered\n\
+* level one bullet\n\
+\n\
+== Mixed standard list combined with HTML blockquotes\n\
+You can have indented text beneath each list item by adding an HTML blockquote to a list:\n\
+\n\
+\x3Cdiv class="helptext"\x3EUse this code in a page:\x3C/div\x3E{{{\n\
+* This is a test 01 - This is a test 02 \x3Cblockquote\x3EThis is a test 03\x3C/blockquote\x3E\n\
+* This is a test 01 - This is a test 02 \x3Cblockquote\x3EThis is a test 03\x3C/blockquote\x3E\n\
+* This is a test 01 - This is a test 02 \x3Cblockquote\x3EThis is a test 03\x3C/blockquote\x3E\n\
+}}}\x3Cdiv class="helptext"\x3ETo create this:\x3C/div\x3E\n\
+* This is a test 01 - This is a test 02 \x3Cblockquote\x3EThis is a test 03\x3C/blockquote\x3E\n\
+* This is a test 01 - This is a test 02 \x3Cblockquote\x3EThis is a test 03\x3C/blockquote\x3E\n\
+* This is a test 01 - This is a test 02 \x3Cblockquote\x3EThis is a test 03\x3C/blockquote\x3E\n\
+\n\
+== Mixed fancy list\n\
+Mixed fancy lists can be achieved by using the syntax for different fancy list types. List level placement is determined by how many sets of character combinations are used at the beginning of a line, making this method suited for complex lists.\n\
+\n\
+\x3Cdiv class="helptext"\x3EUse this code in a page:\x3C/div\x3E{{{\n\
+@* level one fancy bullet\n\
+@#@# level two fancy numbered\n\
+@a@a@a level three fancy lower alphanumeric\n\
+@A@A@A@A level four fancy upper alphanumeric\n\
+@i@i@i@i@i level five fancy lower Roman numeral\n\
+@I@I@I@I@I@I level six fancy upper Roman numeral\n\
+@I@I@I@I@I@I level six fancy upper Roman numeral\n\
+@i@i@i@i@i level five fancy lower Roman numeral\n\
+@A@A@A@A level four fancy upper alphanumeric\n\
+@a@a@a level three fancy lower alphanumeric\n\
+@#@# level two fancy numbered\n\
+@* level one fancy bullet\n\
+}}}\x3Cdiv class="helptext"\x3ETo create this:\x3C/div\x3E\n\
+@* level one fancy bullet\n\
+@#@# level two fancy numbered\n\
+@a@a@a level three fancy lower alphanumeric\n\
+@A@A@A@A level four fancy upper alphanumeric\n\
+@i@i@i@i@i level five fancy lower Roman numeral\n\
+@I@I@I@I@I@I level six fancy upper Roman numeral\n\
+@I@I@I@I@I@I level six fancy upper Roman numeral\n\
+@i@i@i@i@i level five fancy lower Roman numeral\n\
+@A@A@A@A level four fancy upper alphanumeric\n\
+@a@a@a level three fancy lower alphanumeric\n\
+@#@# level two fancy numbered\n\
+@* level one fancy bullet\n\
+\n\
+== Mixed standard and fancy list\n\
+Mixed standard and fancy lists can be achieved by a combination of both of the methods for mixed standard and mixed fancy lists. List level placement can be a bit quirky since placement can be affected by the order in which different list types are placed in the list.\n\
+\n\
+\x3Cdiv class="helptext"\x3EUse this code in a page:\x3C/div\x3E{{{\n\
+* level one standard bulleted\n\
+# level two standard numbered\n\
+@ level three standard alphanumeric\n\
+*#@@a level four fancy lower alpha\n\
+*#@@a@A level five fancy upper alpha\n\
+*#@@a@A@i level six fancy lower roman\n\
+*#@@a@A@i@I level seven fancy upper roman\n\
+*#@@a@A@i@I@# level eight fancy numbered\n\
+*#@@a@A@i@I@# level eight fancy numbered\n\
+*#@@a@A@i@I level seven fancy upper roman\n\
+*#@@a@A@i level six fancy lower roman\n\
+*#@@a@A level five fancy upper alpha\n\
+*#@@a level four fancy lower alpha\n\
+@ level three standard alphanumeric\n\
+# level two standard numbered\n\
+* level one standard bulleted\n\
+}}}\x3Cdiv class="helptext"\x3ETo create this:\x3C/div\x3E\n\
+* level one standard bulleted\n\
+# level two standard numbered\n\
+@ level three standard alphanumeric\n\
+*#@@a level four fancy lower alpha\n\
+*#@@a@A level five fancy upper alpha\n\
+*#@@a@A@i level six fancy lower roman\n\
+*#@@a@A@i@I level seven fancy upper roman\n\
+*#@@a@A@i@I@# level eight fancy numbered\n\
+*#@@a@A@i@I@# level eight fancy numbered\n\
+*#@@a@A@i@I level seven fancy upper roman\n\
+*#@@a@A@i level six fancy lower roman\n\
+*#@@a@A level five fancy upper alpha\n\
+*#@@a level four fancy lower alpha\n\
+@ level three standard alphanumeric\n\
+# level two standard numbered\n\
+* level one standard bulleted\n\
+\n\
+== Mixed fancy inline list-style-type\n\
+Mixed fancy inline list-style-type lists can be achieved by combining the base fancy inline character combination at the beginning of each line with other fancy inline character combinations. List level placement is determined by how many sets of character combinations are used at the beginning of a line, making this method suited for complex lists.\n\
+\n\
+\x3Cdiv class="helptext"\x3EUse this code in a page:\x3C/div\x3E{{{\n\
+@{lower-greek} Alpha\n\
+@{lower-greek}@{hebrew} Aleph\n\
+@{lower-greek}@{hebrew}# normal numeric\n\
+@{lower-greek}@{hebrew}# normal numeric\n\
+@{lower-greek}@{hebrew}# normal numeric\n\
+@{lower-greek}@{hebrew} Bet\n\
+@{lower-greek}@{hebrew}@{armenian} armenian\n\
+@{lower-greek}@{hebrew}@{armenian} armenian\n\
+@{lower-greek}@{hebrew}@{armenian} armenian\n\
+@{lower-greek}@{hebrew} Gimel\n\
+@{lower-greek} Beta\n\
+@{lower-greek} Gamma\n\
+}}}\x3Cdiv class="helptext"\x3ETo create this:\x3C/div\x3E\n\
+@{lower-greek} Alpha\n\
+@{lower-greek}@{hebrew} Aleph\n\
+@{lower-greek}@{hebrew}# normal numeric\n\
+@{lower-greek}@{hebrew}# normal numeric\n\
+@{lower-greek}@{hebrew}# normal numeric\n\
+@{lower-greek}@{hebrew} Bet\n\
+@{lower-greek}@{hebrew}@{armenian} armenian\n\
+@{lower-greek}@{hebrew}@{armenian} armenian\n\
+@{lower-greek}@{hebrew}@{armenian} armenian\n\
+@{lower-greek}@{hebrew} Gimel\n\
+@{lower-greek} Beta\n\
+@{lower-greek} Gamma\n\
+\n\
 == HTML Lists\n\
-HTML lists work the same way as they do in any web page. Specifying the list type can be done in the {{{ol}}}, {{{\x3Cul\x3E}}}, or {{{\x3Cli\x3E}}} tags, depending on how you need to use them. Wiki markup is accepted in list items. If you\'d rather not type in the code for HTML lists, there\'s a *More lists* button in the editor that opens a fourth row of buttons for creating fancy lists.\n\
+HTML lists work the same way as they do in any web page. Specifying the list type can be done in the {{{ol}}}, {{{\x3Cul\x3E}}}, or {{{\x3Cli\x3E}}} tags, depending on how you need to use them. Wiki markup is accepted in list items.\n\
 \n\
 === Specifying list type in the &lt;ol&gt; tag\n\
 This method is useful when an entire list will use one list item type. This way you only need to specify the type once, and all the list items can be entered normally.\n\
@@ -5075,92 +5357,8 @@ This method is useful when an entire list will use one list item type. This way 
 \x3Cli\x3Elower-alpha\x3C/li\x3E\n\
 \x3C/ol\x3E\n\
 \n\
-\x3Cdiv class="helptext"\x3EUse this code in a page:\x3C/div\x3E{{{\n\
-\x3Col style="list-style-type:upper-alpha;"\x3E\n\
-\x3Cli\x3Eupper-alpha\x3C/li\x3E\n\
-\x3Cli\x3Eupper-alpha\x3C/li\x3E\n\
-\x3Cli\x3Eupper-alpha\x3C/li\x3E\n\
-\x3C/ol\x3E\n\
-}}}\x3Cdiv class="helptext"\x3ETo create this:\x3C/div\x3E\x3Col style="list-style-type:upper-alpha;"\x3E\n\
-\x3Cli\x3Eupper-alpha\x3C/li\x3E\n\
-\x3Cli\x3Eupper-alpha\x3C/li\x3E\n\
-\x3Cli\x3Eupper-alpha\x3C/li\x3E\n\
-\x3C/ol\x3E\n\
-\n\
-\x3Cdiv class="helptext"\x3EUse this code in a page:\x3C/div\x3E{{{\n\
-\x3Col style="list-style-type:decimal;"\x3E\n\
-\x3Cli\x3Edecimal\x3C/li\x3E\n\
-\x3Cli\x3Edecimal\x3C/li\x3E\n\
-\x3Cli\x3Edecimal\x3C/li\x3E\n\
-\x3C/ol\x3E\n\
-}}}\x3Cdiv class="helptext"\x3ETo create this:\x3C/div\x3E\x3Col style="list-style-type:decimal;"\x3E\n\
-\x3Cli\x3Edecimal\x3C/li\x3E\n\
-\x3Cli\x3Edecimal\x3C/li\x3E\n\
-\x3Cli\x3Edecimal\x3C/li\x3E\n\
-\x3C/ol\x3E\n\
-\n\
-\x3Cdiv class="helptext"\x3EUse this code in a page:\x3C/div\x3E{{{\n\
-\x3Col style="list-style-type:lower-roman;"\x3E\n\
-\x3Cli\x3Elower-roman\x3C/li\x3E\n\
-\x3Cli\x3Elower-roman\x3C/li\x3E\n\
-\x3Cli\x3Elower-roman\x3C/li\x3E\n\
-\x3C/ol\x3E\n\
-}}}\x3Cdiv class="helptext"\x3ETo create this:\x3C/div\x3E\x3Col style="list-style-type:lower-roman;"\x3E\n\
-\x3Cli\x3Elower-roman\x3C/li\x3E\n\
-\x3Cli\x3Elower-roman\x3C/li\x3E\n\
-\x3Cli\x3Elower-roman\x3C/li\x3E\n\
-\x3C/ol\x3E\n\
-\n\
-\x3Cdiv class="helptext"\x3EUse this code in a page:\x3C/div\x3E{{{\n\
-\x3Col style="list-style-type:upper-roman;"\x3E\n\
-\x3Cli\x3Eupper-roman\x3C/li\x3E\n\
-\x3Cli\x3Eupper-roman\x3C/li\x3E\n\
-\x3Cli\x3Eupper-roman\x3C/li\x3E\n\
-\x3C/ol\x3E\n\
-}}}\x3Cdiv class="helptext"\x3ETo create this:\x3C/div\x3E\x3Col style="list-style-type:upper-roman;"\x3E\n\
-\x3Cli\x3Eupper-roman\x3C/li\x3E\n\
-\x3Cli\x3Eupper-roman\x3C/li\x3E\n\
-\x3Cli\x3Eupper-roman\x3C/li\x3E\n\
-\x3C/ol\x3E\n\
-\n\
 === Specifying list type in the &lt;ul&gt; tag\n\
 This method is useful when an entire list will use one list item type. This way you only need to specify the type once, and all the list items can be entered normally.\n\
-\n\
-\x3Cdiv class="helptext"\x3EUse this code in a page:\x3C/div\x3E{{{\n\
-\x3Cul style="list-style-type:circle;"\x3E\n\
-\x3Cli\x3Ecircle\x3C/li\x3E\n\
-\x3Cli\x3Ecircle\x3C/li\x3E\n\
-\x3Cli\x3Ecircle\x3C/li\x3E\n\
-\x3C/ul\x3E\n\
-}}}\x3Cdiv class="helptext"\x3ETo create this:\x3C/div\x3E\x3Cul style="list-style-type:circle;"\x3E\n\
-\x3Cli\x3Ecircle\x3C/li\x3E\n\
-\x3Cli\x3Ecircle\x3C/li\x3E\n\
-\x3Cli\x3Ecircle\x3C/li\x3E\n\
-\x3C/ul\x3E\n\
-\n\
-\x3Cdiv class="helptext"\x3EUse this code in a page:\x3C/div\x3E{{{\n\
-\x3Cul style="list-style-type:disc;"\x3E\n\
-\x3Cli\x3Edisc\x3C/li\x3E\n\
-\x3Cli\x3Edisc\x3C/li\x3E\n\
-\x3Cli\x3Edisc\x3C/li\x3E\n\
-\x3C/ul\x3E\n\
-}}}\x3Cdiv class="helptext"\x3ETo create this:\x3C/div\x3E\x3Cul style="list-style-type:disc;"\x3E\n\
-\x3Cli\x3Edisc\x3C/li\x3E\n\
-\x3Cli\x3Edisc\x3C/li\x3E\n\
-\x3Cli\x3Edisc\x3C/li\x3E\n\
-\x3C/ul\x3E\n\
-\n\
-\x3Cdiv class="helptext"\x3EUse this code in a page:\x3C/div\x3E{{{\n\
-\x3Cul style="list-style-type:none;"\x3E\n\
-\x3Cli\x3Enone\x3C/li\x3E\n\
-\x3Cli\x3Enone\x3C/li\x3E\n\
-\x3Cli\x3Enone\x3C/li\x3E\n\
-\x3C/ul\x3E\n\
-}}}\x3Cdiv class="helptext"\x3ETo create this:\x3C/div\x3E\x3Cul style="list-style-type:none;"\x3E\n\
-\x3Cli\x3Enone\x3C/li\x3E\n\
-\x3Cli\x3Enone\x3C/li\x3E\n\
-\x3Cli\x3Enone\x3C/li\x3E\n\
-\x3C/ul\x3E\n\
 \n\
 \x3Cdiv class="helptext"\x3EUse this code in a page:\x3C/div\x3E{{{\n\
 \x3Cul style="list-style-type:square;"\x3E\n\
@@ -5187,102 +5385,6 @@ This method is useful when an creating a fancy list with more than one list item
 \x3Cli style="list-style-type:lower-alpha;"\x3Elower-alpha\x3C/li\x3E\n\
 \x3Cli style="list-style-type:lower-alpha;"\x3Elower-alpha\x3C/li\x3E\n\
 \x3Cli style="list-style-type:lower-alpha;"\x3Elower-alpha\x3C/li\x3E\n\
-\x3C/ol\x3E\n\
-\n\
-\x3Cdiv class="helptext"\x3EUse this code in a page:\x3C/div\x3E{{{\n\
-\x3Col\x3E\n\
-\x3Cli style="list-style-type:upper-alpha;"\x3Eupper-alpha\x3C/li\x3E\n\
-\x3Cli style="list-style-type:upper-alpha;"\x3Eupper-alpha\x3C/li\x3E\n\
-\x3Cli style="list-style-type:upper-alpha;"\x3Eupper-alpha\x3C/li\x3E\n\
-\x3C/ol\x3E\n\
-}}}\x3Cdiv class="helptext"\x3ETo create this:\x3C/div\x3E\x3Col\x3E\n\
-\x3Cli style="list-style-type:upper-alpha;"\x3Eupper-alpha\x3C/li\x3E\n\
-\x3Cli style="list-style-type:upper-alpha;"\x3Eupper-alpha\x3C/li\x3E\n\
-\x3Cli style="list-style-type:upper-alpha;"\x3Eupper-alpha\x3C/li\x3E\n\
-\x3C/ol\x3E\n\
-\n\
-\x3Cdiv class="helptext"\x3EUse this code in a page:\x3C/div\x3E{{{\n\
-\x3Col\x3E\n\
-\x3Cli style="list-style-type:circle;"\x3Ecircle\x3C/li\x3E\n\
-\x3Cli style="list-style-type:circle;"\x3Ecircle\x3C/li\x3E\n\
-\x3Cli style="list-style-type:circle;"\x3Ecircle\x3C/li\x3E\n\
-\x3C/ol\x3E\n\
-}}}\x3Cdiv class="helptext"\x3ETo create this:\x3C/div\x3E\x3Col\x3E\n\
-\x3Cli style="list-style-type:circle;"\x3Ecircle\x3C/li\x3E\n\
-\x3Cli style="list-style-type:circle;"\x3Ecircle\x3C/li\x3E\n\
-\x3Cli style="list-style-type:circle;"\x3Ecircle\x3C/li\x3E\n\
-\x3C/ol\x3E\n\
-\n\
-\x3Cdiv class="helptext"\x3EUse this code in a page:\x3C/div\x3E{{{\n\
-\x3Col\x3E\n\
-\x3Cli style="list-style-type:decimal;"\x3Edecimal\x3C/li\x3E\n\
-\x3Cli style="list-style-type:decimal;"\x3Edecimal\x3C/li\x3E\n\
-\x3Cli style="list-style-type:decimal;"\x3Edecimal\x3C/li\x3E\n\
-\x3C/ol\x3E\n\
-}}}\x3Cdiv class="helptext"\x3ETo create this:\x3C/div\x3E\x3Col\x3E\n\
-\x3Cli style="list-style-type:decimal;"\x3Edecimal\x3C/li\x3E\n\
-\x3Cli style="list-style-type:decimal;"\x3Edecimal\x3C/li\x3E\n\
-\x3Cli style="list-style-type:decimal;"\x3Edecimal\x3C/li\x3E\n\
-\x3C/ol\x3E\n\
-\n\
-\x3Cdiv class="helptext"\x3EUse this code in a page:\x3C/div\x3E{{{\n\
-\x3Col\x3E\n\
-\x3Cli style="list-style-type:disc;"\x3Edisc\x3C/li\x3E\n\
-\x3Cli style="list-style-type:disc;"\x3Edisc\x3C/li\x3E\n\
-\x3Cli style="list-style-type:disc;"\x3Edisc\x3C/li\x3E\n\
-\x3C/ol\x3E\n\
-}}}\x3Cdiv class="helptext"\x3ETo create this:\x3C/div\x3E\x3Col\x3E\n\
-\x3Cli style="list-style-type:disc;"\x3Edisc\x3C/li\x3E\n\
-\x3Cli style="list-style-type:disc;"\x3Edisc\x3C/li\x3E\n\
-\x3Cli style="list-style-type:disc;"\x3Edisc\x3C/li\x3E\n\
-\x3C/ol\x3E\n\
-\n\
-\x3Cdiv class="helptext"\x3EUse this code in a page:\x3C/div\x3E{{{\n\
-\x3Col\x3E\n\
-\x3Cli style="list-style-type:lower-roman;"\x3Elower-roman\x3C/li\x3E\n\
-\x3Cli style="list-style-type:lower-roman;"\x3Elower-roman\x3C/li\x3E\n\
-\x3Cli style="list-style-type:lower-roman;"\x3Elower-roman\x3C/li\x3E\n\
-\x3C/ol\x3E\n\
-}}}\x3Cdiv class="helptext"\x3ETo create this:\x3C/div\x3E\x3Col\x3E\n\
-\x3Cli style="list-style-type:lower-roman;"\x3Elower-roman\x3C/li\x3E\n\
-\x3Cli style="list-style-type:lower-roman;"\x3Elower-roman\x3C/li\x3E\n\
-\x3Cli style="list-style-type:lower-roman;"\x3Elower-roman\x3C/li\x3E\n\
-\x3C/ol\x3E\n\
-\n\
-\x3Cdiv class="helptext"\x3EUse this code in a page:\x3C/div\x3E{{{\n\
-\x3Col\x3E\n\
-\x3Cli style="list-style-type:none;"\x3Enone\x3C/li\x3E\n\
-\x3Cli style="list-style-type:none;"\x3Enone\x3C/li\x3E\n\
-\x3Cli style="list-style-type:none;"\x3Enone\x3C/li\x3E\n\
-\x3C/ol\x3E\n\
-}}}\x3Cdiv class="helptext"\x3ETo create this:\x3C/div\x3E\x3Col\x3E\n\
-\x3Cli style="list-style-type:none;"\x3Enone\x3C/li\x3E\n\
-\x3Cli style="list-style-type:none;"\x3Enone\x3C/li\x3E\n\
-\x3Cli style="list-style-type:none;"\x3Enone\x3C/li\x3E\n\
-\x3C/ol\x3E\n\
-\n\
-\x3Cdiv class="helptext"\x3EUse this code in a page:\x3C/div\x3E{{{\n\
-\x3Col\x3E\n\
-\x3Cli style="list-style-type:square;"\x3Esquare\x3C/li\x3E\n\
-\x3Cli style="list-style-type:square;"\x3Esquare\x3C/li\x3E\n\
-\x3Cli style="list-style-type:square;"\x3Esquare\x3C/li\x3E\n\
-\x3C/ol\x3E\n\
-}}}\x3Cdiv class="helptext"\x3ETo create this:\x3C/div\x3E\x3Col\x3E\n\
-\x3Cli style="list-style-type:square;"\x3Esquare\x3C/li\x3E\n\
-\x3Cli style="list-style-type:square;"\x3Esquare\x3C/li\x3E\n\
-\x3Cli style="list-style-type:square;"\x3Esquare\x3C/li\x3E\n\
-\x3C/ol\x3E\n\
-\n\
-\x3Cdiv class="helptext"\x3EUse this code in a page:\x3C/div\x3E{{{\n\
-\x3Col\x3E\n\
-\x3Cli style="list-style-type:upper-roman;"\x3Eupper-roman\x3C/li\x3E\n\
-\x3Cli style="list-style-type:upper-roman;"\x3Eupper-roman\x3C/li\x3E\n\
-\x3Cli style="list-style-type:upper-roman;"\x3Eupper-roman\x3C/li\x3E\n\
-\x3C/ol\x3E\n\
-}}}\x3Cdiv class="helptext"\x3ETo create this:\x3C/div\x3E\x3Col\x3E\n\
-\x3Cli style="list-style-type:upper-roman;"\x3Eupper-roman\x3C/li\x3E\n\
-\x3Cli style="list-style-type:upper-roman;"\x3Eupper-roman\x3C/li\x3E\n\
-\x3Cli style="list-style-type:upper-roman;"\x3Eupper-roman\x3C/li\x3E\n\
 \x3C/ol\x3E\n\
 \n\
 === Mixed HTML list\n\
@@ -5341,6 +5443,8 @@ This method is useful when an creating a fancy list with more than one list item
       \x3C/ol\x3E\n\
    \x3C/ol\x3E\n\
 \x3C/ol\x3E\n\
+== See also\n\
+See the [[Example::Lists]] page for many list examples.\n\
 \n\
 [[Tags::Help, Syntax]]\n\
 ',
@@ -6338,47 +6442,34 @@ If you have a wiki page named *mypage::a#b* and you want to link to the Chapter 
 ',
 '[[Special::TOC]]\n\
 = Lists\n\
-{|\n\
-| *Wiki markup* || *List type*\n\
-| * || standard bullet\n\
-| # || standard numbered\n\
-| @ || standard alphanumeric\n\
-| @a || fancy lower alphanumeric\n\
-| @A || fancy upper alphanumeric\n\
-| @i || fancy lower Roman numeral\n\
-| @I || fancy upper Roman numeral\n\
-| @1 || fancy numbered\n\
-| @# || fancy numbered (alternative)\n\
-| @* || fancy bullet\n\
-| @{} || fancy list-style-type, example: @{lower-greek}\n\
-|}\n\
 \n\
-=== list-style-type\n\
-For the {{{ @{} }}} syntax you can use any of these:\n\
-* none\n\
-* disc\n\
-* circle\n\
-* square\n\
-* decimal\n\
-* decimal-leading-zero\n\
-* armenian\n\
-* georgian\n\
-* hebrew\n\
-* hiragana\n\
-* katakana\n\
-* lower-alpha\n\
-* upper-alpha\n\
-* lower-greek\n\
-* lower-latin\n\
-* upper-latin\n\
-* lower-roman\n\
-* upper-roman\n\
-* inherit\n\
-\n\
-These were tested under FireFox 3.5.7. Your browser may even support more! For a complete reference see [[http://www.w3.org/TR/css3-lists/]]\n\
-Remark Note: No versions of Internet Explorer (including IE8) support the property values "decimal-leading-zero", "lower-greek", "lower-latin", "upper-latin", "armenian", or "georgian".\n\
-\n\
-[[Include::Template::TODO|revisit lists|update Help::Lists for new syntax]]\n\
+== Plain list\n\
+{{{\n\
+: level one plain list\n\
+:: level two plain list\n\
+::: level three plain list\n\
+:::: level four plain list\n\
+::::: level five plain list\n\
+:::::: level six plain list\n\
+:::::: level six plain list\n\
+::::: level five plain list\n\
+:::: level four plain list\n\
+::: level three plain list\n\
+:: level two plain list\n\
+: level one plain list\n\
+}}}\n\
+: level one plain list\n\
+:: level two plain list\n\
+::: level three plain list\n\
+:::: level four plain list\n\
+::::: level five plain list\n\
+:::::: level six plain list\n\
+:::::: level six plain list\n\
+::::: level five plain list\n\
+:::: level four plain list\n\
+::: level three plain list\n\
+:: level two plain list\n\
+: level one plain list\n\
 \n\
 == Standard bulleted list\n\
 {{{\n\
@@ -6576,29 +6667,581 @@ Remark Note: No versions of Internet Explorer (including IE8) support the proper
 @I@I level two upper Roman numeral\n\
 @I level one upper Roman numeral\n\
 \n\
+== Fancy list-style-type armenian\n\
+{{{\n\
+@{armenian} level one armenian\n\
+@{armenian}@{armenian} level two armenian\n\
+@{armenian}@{armenian}@{armenian} level three armenian\n\
+@{armenian}@{armenian}@{armenian}@{armenian} level four armenian\n\
+@{armenian}@{armenian}@{armenian}@{armenian}@{armenian} level five armenian\n\
+@{armenian}@{armenian}@{armenian}@{armenian}@{armenian}@{armenian} level six armenian\n\
+@{armenian}@{armenian}@{armenian}@{armenian}@{armenian}@{armenian} level six armenian\n\
+@{armenian}@{armenian}@{armenian}@{armenian}@{armenian} level five armenian\n\
+@{armenian}@{armenian}@{armenian}@{armenian} level four armenian\n\
+@{armenian}@{armenian}@{armenian} level three armenian\n\
+@{armenian}@{armenian} level two armenian\n\
+@{armenian} level one armenian\n\
+}}}\n\
+@{armenian} level one armenian\n\
+@{armenian}@{armenian} level two armenian\n\
+@{armenian}@{armenian}@{armenian} level three armenian\n\
+@{armenian}@{armenian}@{armenian}@{armenian} level four armenian\n\
+@{armenian}@{armenian}@{armenian}@{armenian}@{armenian} level five armenian\n\
+@{armenian}@{armenian}@{armenian}@{armenian}@{armenian}@{armenian} level six armenian\n\
+@{armenian}@{armenian}@{armenian}@{armenian}@{armenian}@{armenian} level six armenian\n\
+@{armenian}@{armenian}@{armenian}@{armenian}@{armenian} level five armenian\n\
+@{armenian}@{armenian}@{armenian}@{armenian} level four armenian\n\
+@{armenian}@{armenian}@{armenian} level three armenian\n\
+@{armenian}@{armenian} level two armenian\n\
+@{armenian} level one armenian\n\
+\n\
+== Fancy list-style-type circle\n\
+{{{\n\
+@{circle} level one circle\n\
+@{circle}@{circle} level two circle\n\
+@{circle}@{circle}@{circle} level three circle\n\
+@{circle}@{circle}@{circle}@{circle} level four circle\n\
+@{circle}@{circle}@{circle}@{circle}@{circle} level five circle\n\
+@{circle}@{circle}@{circle}@{circle}@{circle}@{circle} level six circle\n\
+@{circle}@{circle}@{circle}@{circle}@{circle}@{circle} level six circle\n\
+@{circle}@{circle}@{circle}@{circle}@{circle} level five circle\n\
+@{circle}@{circle}@{circle}@{circle} level four circle\n\
+@{circle}@{circle}@{circle} level three circle\n\
+@{circle}@{circle} level two circle\n\
+@{circle} level one circle\n\
+}}}\n\
+@{circle} level one circle\n\
+@{circle}@{circle} level two circle\n\
+@{circle}@{circle}@{circle} level three circle\n\
+@{circle}@{circle}@{circle}@{circle} level four circle\n\
+@{circle}@{circle}@{circle}@{circle}@{circle} level five circle\n\
+@{circle}@{circle}@{circle}@{circle}@{circle}@{circle} level six circle\n\
+@{circle}@{circle}@{circle}@{circle}@{circle}@{circle} level six circle\n\
+@{circle}@{circle}@{circle}@{circle}@{circle} level five circle\n\
+@{circle}@{circle}@{circle}@{circle} level four circle\n\
+@{circle}@{circle}@{circle} level three circle\n\
+@{circle}@{circle} level two circle\n\
+@{circle} level one circle\n\
+\n\
+== Fancy list-style-type decimal\n\
+{{{\n\
+@{decimal} level one decimal\n\
+@{decimal}@{decimal} level two decimal\n\
+@{decimal}@{decimal}@{decimal} level three decimal\n\
+@{decimal}@{decimal}@{decimal}@{decimal} level four decimal\n\
+@{decimal}@{decimal}@{decimal}@{decimal}@{decimal} level five decimal\n\
+@{decimal}@{decimal}@{decimal}@{decimal}@{decimal}@{decimal} level six decimal\n\
+@{decimal}@{decimal}@{decimal}@{decimal}@{decimal}@{decimal} level six decimal\n\
+@{decimal}@{decimal}@{decimal}@{decimal}@{decimal} level five decimal\n\
+@{decimal}@{decimal}@{decimal}@{decimal} level four decimal\n\
+@{decimal}@{decimal}@{decimal} level three decimal\n\
+@{decimal}@{decimal} level two decimal\n\
+@{decimal} level one decimal\n\
+}}}\n\
+@{decimal} level one decimal\n\
+@{decimal}@{decimal} level two decimal\n\
+@{decimal}@{decimal}@{decimal} level three decimal\n\
+@{decimal}@{decimal}@{decimal}@{decimal} level four decimal\n\
+@{decimal}@{decimal}@{decimal}@{decimal}@{decimal} level five decimal\n\
+@{decimal}@{decimal}@{decimal}@{decimal}@{decimal}@{decimal} level six decimal\n\
+@{decimal}@{decimal}@{decimal}@{decimal}@{decimal}@{decimal} level six decimal\n\
+@{decimal}@{decimal}@{decimal}@{decimal}@{decimal} level five decimal\n\
+@{decimal}@{decimal}@{decimal}@{decimal} level four decimal\n\
+@{decimal}@{decimal}@{decimal} level three decimal\n\
+@{decimal}@{decimal} level two decimal\n\
+@{decimal} level one decimal\n\
+\n\
+== Fancy list-style-type decimal-leading-zero\n\
+{{{\n\
+@{decimal-leading-zero} level one decimal-leading-zero\n\
+@{decimal-leading-zero}@{decimal-leading-zero} level two decimal-leading-zero\n\
+@{decimal-leading-zero}@{decimal-leading-zero}@{decimal-leading-zero} level three decimal-leading-zero\n\
+@{decimal-leading-zero}@{decimal-leading-zero}@{decimal-leading-zero}@{decimal-leading-zero} level four decimal-leading-zero\n\
+@{decimal-leading-zero}@{decimal-leading-zero}@{decimal-leading-zero}@{decimal-leading-zero}@{decimal-leading-zero} level five decimal-leading-zero\n\
+@{decimal-leading-zero}@{decimal-leading-zero}@{decimal-leading-zero}@{decimal-leading-zero}@{decimal-leading-zero}@{decimal-leading-zero} level six decimal-leading-zero\n\
+@{decimal-leading-zero}@{decimal-leading-zero}@{decimal-leading-zero}@{decimal-leading-zero}@{decimal-leading-zero}@{decimal-leading-zero} level six decimal-leading-zero\n\
+@{decimal-leading-zero}@{decimal-leading-zero}@{decimal-leading-zero}@{decimal-leading-zero}@{decimal-leading-zero} level five decimal-leading-zero\n\
+@{decimal-leading-zero}@{decimal-leading-zero}@{decimal-leading-zero}@{decimal-leading-zero} level four decimal-leading-zero\n\
+@{decimal-leading-zero}@{decimal-leading-zero}@{decimal-leading-zero} level three decimal-leading-zero\n\
+@{decimal-leading-zero}@{decimal-leading-zero} level two decimal-leading-zero\n\
+@{decimal-leading-zero} level one decimal-leading-zero\n\
+}}}\n\
+@{decimal-leading-zero} level one decimal-leading-zero\n\
+@{decimal-leading-zero}@{decimal-leading-zero} level two decimal-leading-zero\n\
+@{decimal-leading-zero}@{decimal-leading-zero}@{decimal-leading-zero} level three decimal-leading-zero\n\
+@{decimal-leading-zero}@{decimal-leading-zero}@{decimal-leading-zero}@{decimal-leading-zero} level four decimal-leading-zero\n\
+@{decimal-leading-zero}@{decimal-leading-zero}@{decimal-leading-zero}@{decimal-leading-zero}@{decimal-leading-zero} level five decimal-leading-zero\n\
+@{decimal-leading-zero}@{decimal-leading-zero}@{decimal-leading-zero}@{decimal-leading-zero}@{decimal-leading-zero}@{decimal-leading-zero} level six decimal-leading-zero\n\
+@{decimal-leading-zero}@{decimal-leading-zero}@{decimal-leading-zero}@{decimal-leading-zero}@{decimal-leading-zero}@{decimal-leading-zero} level six decimal-leading-zero\n\
+@{decimal-leading-zero}@{decimal-leading-zero}@{decimal-leading-zero}@{decimal-leading-zero}@{decimal-leading-zero} level five decimal-leading-zero\n\
+@{decimal-leading-zero}@{decimal-leading-zero}@{decimal-leading-zero}@{decimal-leading-zero} level four decimal-leading-zero\n\
+@{decimal-leading-zero}@{decimal-leading-zero}@{decimal-leading-zero} level three decimal-leading-zero\n\
+@{decimal-leading-zero}@{decimal-leading-zero} level two decimal-leading-zero\n\
+@{decimal-leading-zero} level one decimal-leading-zero\n\
+\n\
+== Fancy list-style-type disc\n\
+{{{\n\
+@{disc} level one disc\n\
+@{disc}@{disc} level two disc\n\
+@{disc}@{disc}@{disc} level three disc\n\
+@{disc}@{disc}@{disc}@{disc} level four disc\n\
+@{disc}@{disc}@{disc}@{disc}@{disc} level five disc\n\
+@{disc}@{disc}@{disc}@{disc}@{disc}@{disc} level six disc\n\
+@{disc}@{disc}@{disc}@{disc}@{disc}@{disc} level six disc\n\
+@{disc}@{disc}@{disc}@{disc}@{disc} level five disc\n\
+@{disc}@{disc}@{disc}@{disc} level four disc\n\
+@{disc}@{disc}@{disc} level three disc\n\
+@{disc}@{disc} level two disc\n\
+@{disc} level one disc\n\
+}}}\n\
+@{disc} level one disc\n\
+@{disc}@{disc} level two disc\n\
+@{disc}@{disc}@{disc} level three disc\n\
+@{disc}@{disc}@{disc}@{disc} level four disc\n\
+@{disc}@{disc}@{disc}@{disc}@{disc} level five disc\n\
+@{disc}@{disc}@{disc}@{disc}@{disc}@{disc} level six disc\n\
+@{disc}@{disc}@{disc}@{disc}@{disc}@{disc} level six disc\n\
+@{disc}@{disc}@{disc}@{disc}@{disc} level five disc\n\
+@{disc}@{disc}@{disc}@{disc} level four disc\n\
+@{disc}@{disc}@{disc} level three disc\n\
+@{disc}@{disc} level two disc\n\
+@{disc} level one disc\n\
+\n\
+== Fancy list-style-type georgian\n\
+{{{\n\
+@{georgian} level one georgian\n\
+@{georgian}@{georgian} level two georgian\n\
+@{georgian}@{georgian}@{georgian} level three georgian\n\
+@{georgian}@{georgian}@{georgian}@{georgian} level four georgian\n\
+@{georgian}@{georgian}@{georgian}@{georgian}@{georgian} level five georgian\n\
+@{georgian}@{georgian}@{georgian}@{georgian}@{georgian}@{georgian} level six georgian\n\
+@{georgian}@{georgian}@{georgian}@{georgian}@{georgian}@{georgian} level six georgian\n\
+@{georgian}@{georgian}@{georgian}@{georgian}@{georgian} level five georgian\n\
+@{georgian}@{georgian}@{georgian}@{georgian} level four georgian\n\
+@{georgian}@{georgian}@{georgian} level three georgian\n\
+@{georgian}@{georgian} level two georgian\n\
+@{georgian} level one georgian\n\
+}}}\n\
+@{georgian} level one georgian\n\
+@{georgian}@{georgian} level two georgian\n\
+@{georgian}@{georgian}@{georgian} level three georgian\n\
+@{georgian}@{georgian}@{georgian}@{georgian} level four georgian\n\
+@{georgian}@{georgian}@{georgian}@{georgian}@{georgian} level five georgian\n\
+@{georgian}@{georgian}@{georgian}@{georgian}@{georgian}@{georgian} level six georgian\n\
+@{georgian}@{georgian}@{georgian}@{georgian}@{georgian}@{georgian} level six georgian\n\
+@{georgian}@{georgian}@{georgian}@{georgian}@{georgian} level five georgian\n\
+@{georgian}@{georgian}@{georgian}@{georgian} level four georgian\n\
+@{georgian}@{georgian}@{georgian} level three georgian\n\
+@{georgian}@{georgian} level two georgian\n\
+@{georgian} level one georgian\n\
+\n\
+== Fancy list-style-type hebrew\n\
+{{{\n\
+@{hebrew} level one hebrew\n\
+@{hebrew}@{hebrew} level two hebrew\n\
+@{hebrew}@{hebrew}@{hebrew} level three hebrew\n\
+@{hebrew}@{hebrew}@{hebrew}@{hebrew} level four hebrew\n\
+@{hebrew}@{hebrew}@{hebrew}@{hebrew}@{hebrew} level five hebrew\n\
+@{hebrew}@{hebrew}@{hebrew}@{hebrew}@{hebrew}@{hebrew} level six hebrew\n\
+@{hebrew}@{hebrew}@{hebrew}@{hebrew}@{hebrew}@{hebrew} level six hebrew\n\
+@{hebrew}@{hebrew}@{hebrew}@{hebrew}@{hebrew} level five hebrew\n\
+@{hebrew}@{hebrew}@{hebrew}@{hebrew} level four hebrew\n\
+@{hebrew}@{hebrew}@{hebrew} level three hebrew\n\
+@{hebrew}@{hebrew} level two hebrew\n\
+@{hebrew} level one hebrew\n\
+}}}\n\
+@{hebrew} level one hebrew\n\
+@{hebrew}@{hebrew} level two hebrew\n\
+@{hebrew}@{hebrew}@{hebrew} level three hebrew\n\
+@{hebrew}@{hebrew}@{hebrew}@{hebrew} level four hebrew\n\
+@{hebrew}@{hebrew}@{hebrew}@{hebrew}@{hebrew} level five hebrew\n\
+@{hebrew}@{hebrew}@{hebrew}@{hebrew}@{hebrew}@{hebrew} level six hebrew\n\
+@{hebrew}@{hebrew}@{hebrew}@{hebrew}@{hebrew}@{hebrew} level six hebrew\n\
+@{hebrew}@{hebrew}@{hebrew}@{hebrew}@{hebrew} level five hebrew\n\
+@{hebrew}@{hebrew}@{hebrew}@{hebrew} level four hebrew\n\
+@{hebrew}@{hebrew}@{hebrew} level three hebrew\n\
+@{hebrew}@{hebrew} level two hebrew\n\
+@{hebrew} level one hebrew\n\
+\n\
+== Fancy list-style-type hiragana\n\
+{{{\n\
+@{hiragana} level one hiragana\n\
+@{hiragana}@{hiragana} level two hiragana\n\
+@{hiragana}@{hiragana}@{hiragana} level three hiragana\n\
+@{hiragana}@{hiragana}@{hiragana}@{hiragana} level four hiragana\n\
+@{hiragana}@{hiragana}@{hiragana}@{hiragana}@{hiragana} level five hiragana\n\
+@{hiragana}@{hiragana}@{hiragana}@{hiragana}@{hiragana}@{hiragana} level six hiragana\n\
+@{hiragana}@{hiragana}@{hiragana}@{hiragana}@{hiragana}@{hiragana} level six hiragana\n\
+@{hiragana}@{hiragana}@{hiragana}@{hiragana}@{hiragana} level five hiragana\n\
+@{hiragana}@{hiragana}@{hiragana}@{hiragana} level four hiragana\n\
+@{hiragana}@{hiragana}@{hiragana} level three hiragana\n\
+@{hiragana}@{hiragana} level two hiragana\n\
+@{hiragana} level one hiragana\n\
+}}}\n\
+@{hiragana} level one hiragana\n\
+@{hiragana}@{hiragana} level two hiragana\n\
+@{hiragana}@{hiragana}@{hiragana} level three hiragana\n\
+@{hiragana}@{hiragana}@{hiragana}@{hiragana} level four hiragana\n\
+@{hiragana}@{hiragana}@{hiragana}@{hiragana}@{hiragana} level five hiragana\n\
+@{hiragana}@{hiragana}@{hiragana}@{hiragana}@{hiragana}@{hiragana} level six hiragana\n\
+@{hiragana}@{hiragana}@{hiragana}@{hiragana}@{hiragana}@{hiragana} level six hiragana\n\
+@{hiragana}@{hiragana}@{hiragana}@{hiragana}@{hiragana} level five hiragana\n\
+@{hiragana}@{hiragana}@{hiragana}@{hiragana} level four hiragana\n\
+@{hiragana}@{hiragana}@{hiragana} level three hiragana\n\
+@{hiragana}@{hiragana} level two hiragana\n\
+@{hiragana} level one hiragana\n\
+\n\
+== Fancy list-style-type katakana\n\
+{{{\n\
+@{katakana} level one katakana\n\
+@{katakana}@{katakana} level two katakana\n\
+@{katakana}@{katakana}@{katakana} level three katakana\n\
+@{katakana}@{katakana}@{katakana}@{katakana} level four katakana\n\
+@{katakana}@{katakana}@{katakana}@{katakana}@{katakana} level five katakana\n\
+@{katakana}@{katakana}@{katakana}@{katakana}@{katakana}@{katakana} level six katakana\n\
+@{katakana}@{katakana}@{katakana}@{katakana}@{katakana}@{katakana} level six katakana\n\
+@{katakana}@{katakana}@{katakana}@{katakana}@{katakana} level five katakana\n\
+@{katakana}@{katakana}@{katakana}@{katakana} level four katakana\n\
+@{katakana}@{katakana}@{katakana} level three katakana\n\
+@{katakana}@{katakana} level two katakana\n\
+@{katakana} level one katakana\n\
+}}}\n\
+@{katakana} level one katakana\n\
+@{katakana}@{katakana} level two katakana\n\
+@{katakana}@{katakana}@{katakana} level three katakana\n\
+@{katakana}@{katakana}@{katakana}@{katakana} level four katakana\n\
+@{katakana}@{katakana}@{katakana}@{katakana}@{katakana} level five katakana\n\
+@{katakana}@{katakana}@{katakana}@{katakana}@{katakana}@{katakana} level six katakana\n\
+@{katakana}@{katakana}@{katakana}@{katakana}@{katakana}@{katakana} level six katakana\n\
+@{katakana}@{katakana}@{katakana}@{katakana}@{katakana} level five katakana\n\
+@{katakana}@{katakana}@{katakana}@{katakana} level four katakana\n\
+@{katakana}@{katakana}@{katakana} level three katakana\n\
+@{katakana}@{katakana} level two katakana\n\
+@{katakana} level one katakana\n\
+\n\
+== Fancy list-style-type none\n\
+{{{\n\
+@{none} level one none\n\
+@{none}@{none} level two none\n\
+@{none}@{none}@{none} level three none\n\
+@{none}@{none}@{none}@{none} level four none\n\
+@{none}@{none}@{none}@{none}@{none} level five none\n\
+@{none}@{none}@{none}@{none}@{none}@{none} level six none\n\
+@{none}@{none}@{none}@{none}@{none}@{none} level six none\n\
+@{none}@{none}@{none}@{none}@{none} level five none\n\
+@{none}@{none}@{none}@{none} level four none\n\
+@{none}@{none}@{none} level three none\n\
+@{none}@{none} level two none\n\
+@{none} level one none\n\
+}}}\n\
+@{none} level one none\n\
+@{none}@{none} level two none\n\
+@{none}@{none}@{none} level three none\n\
+@{none}@{none}@{none}@{none} level four none\n\
+@{none}@{none}@{none}@{none}@{none} level five none\n\
+@{none}@{none}@{none}@{none}@{none}@{none} level six none\n\
+@{none}@{none}@{none}@{none}@{none}@{none} level six none\n\
+@{none}@{none}@{none}@{none}@{none} level five none\n\
+@{none}@{none}@{none}@{none} level four none\n\
+@{none}@{none}@{none} level three none\n\
+@{none}@{none} level two none\n\
+@{none} level one none\n\
+\n\
+== Fancy list-style-type square\n\
+{{{\n\
+@{square} level one square\n\
+@{square}@{square} level two square\n\
+@{square}@{square}@{square} level three square\n\
+@{square}@{square}@{square}@{square} level four square\n\
+@{square}@{square}@{square}@{square}@{square} level five square\n\
+@{square}@{square}@{square}@{square}@{square}@{square} level six square\n\
+@{square}@{square}@{square}@{square}@{square}@{square} level six square\n\
+@{square}@{square}@{square}@{square}@{square} level five square\n\
+@{square}@{square}@{square}@{square} level four square\n\
+@{square}@{square}@{square} level three square\n\
+@{square}@{square} level two square\n\
+@{square} level one square\n\
+}}}\n\
+@{square} level one square\n\
+@{square}@{square} level two square\n\
+@{square}@{square}@{square} level three square\n\
+@{square}@{square}@{square}@{square} level four square\n\
+@{square}@{square}@{square}@{square}@{square} level five square\n\
+@{square}@{square}@{square}@{square}@{square}@{square} level six square\n\
+@{square}@{square}@{square}@{square}@{square}@{square} level six square\n\
+@{square}@{square}@{square}@{square}@{square} level five square\n\
+@{square}@{square}@{square}@{square} level four square\n\
+@{square}@{square}@{square} level three square\n\
+@{square}@{square} level two square\n\
+@{square} level one square\n\
+\n\
+== Fancy list-style-type lower-alpha\n\
+{{{\n\
+@{lower-alpha} level one lower-alpha\n\
+@{lower-alpha}@{lower-alpha} level two lower-alpha\n\
+@{lower-alpha}@{lower-alpha}@{lower-alpha} level three lower-alpha\n\
+@{lower-alpha}@{lower-alpha}@{lower-alpha}@{lower-alpha} level four lower-alpha\n\
+@{lower-alpha}@{lower-alpha}@{lower-alpha}@{lower-alpha}@{lower-alpha} level five lower-alpha\n\
+@{lower-alpha}@{lower-alpha}@{lower-alpha}@{lower-alpha}@{lower-alpha}@{lower-alpha} level six lower-alpha\n\
+@{lower-alpha}@{lower-alpha}@{lower-alpha}@{lower-alpha}@{lower-alpha}@{lower-alpha} level six lower-alpha\n\
+@{lower-alpha}@{lower-alpha}@{lower-alpha}@{lower-alpha}@{lower-alpha} level five lower-alpha\n\
+@{lower-alpha}@{lower-alpha}@{lower-alpha}@{lower-alpha} level four lower-alpha\n\
+@{lower-alpha}@{lower-alpha}@{lower-alpha} level three lower-alpha\n\
+@{lower-alpha}@{lower-alpha} level two lower-alpha\n\
+@{lower-alpha} level one lower-alpha\n\
+}}}\n\
+@{lower-alpha} level one lower-alpha\n\
+@{lower-alpha}@{lower-alpha} level two lower-alpha\n\
+@{lower-alpha}@{lower-alpha}@{lower-alpha} level three lower-alpha\n\
+@{lower-alpha}@{lower-alpha}@{lower-alpha}@{lower-alpha} level four lower-alpha\n\
+@{lower-alpha}@{lower-alpha}@{lower-alpha}@{lower-alpha}@{lower-alpha} level five lower-alpha\n\
+@{lower-alpha}@{lower-alpha}@{lower-alpha}@{lower-alpha}@{lower-alpha}@{lower-alpha} level six lower-alpha\n\
+@{lower-alpha}@{lower-alpha}@{lower-alpha}@{lower-alpha}@{lower-alpha}@{lower-alpha} level six lower-alpha\n\
+@{lower-alpha}@{lower-alpha}@{lower-alpha}@{lower-alpha}@{lower-alpha} level five lower-alpha\n\
+@{lower-alpha}@{lower-alpha}@{lower-alpha}@{lower-alpha} level four lower-alpha\n\
+@{lower-alpha}@{lower-alpha}@{lower-alpha} level three lower-alpha\n\
+@{lower-alpha}@{lower-alpha} level two lower-alpha\n\
+@{lower-alpha} level one lower-alpha\n\
+\n\
+== Fancy list-style-type upper-alpha\n\
+{{{\n\
+@{upper-alpha} level one upper-alpha\n\
+@{upper-alpha}@{upper-alpha} level two upper-alpha\n\
+@{upper-alpha}@{upper-alpha}@{upper-alpha} level three upper-alpha\n\
+@{upper-alpha}@{upper-alpha}@{upper-alpha}@{upper-alpha} level four upper-alpha\n\
+@{upper-alpha}@{upper-alpha}@{upper-alpha}@{upper-alpha}@{upper-alpha} level five upper-alpha\n\
+@{upper-alpha}@{upper-alpha}@{upper-alpha}@{upper-alpha}@{upper-alpha}@{upper-alpha} level six upper-alpha\n\
+@{upper-alpha}@{upper-alpha}@{upper-alpha}@{upper-alpha}@{upper-alpha}@{upper-alpha} level six upper-alpha\n\
+@{upper-alpha}@{upper-alpha}@{upper-alpha}@{upper-alpha}@{upper-alpha} level five upper-alpha\n\
+@{upper-alpha}@{upper-alpha}@{upper-alpha}@{upper-alpha} level four upper-alpha\n\
+@{upper-alpha}@{upper-alpha}@{upper-alpha} level three upper-alpha\n\
+@{upper-alpha}@{upper-alpha} level two upper-alpha\n\
+@{upper-alpha} level one upper-alpha\n\
+}}}\n\
+@{upper-alpha} level one upper-alpha\n\
+@{upper-alpha}@{upper-alpha} level two upper-alpha\n\
+@{upper-alpha}@{upper-alpha}@{upper-alpha} level three upper-alpha\n\
+@{upper-alpha}@{upper-alpha}@{upper-alpha}@{upper-alpha} level four upper-alpha\n\
+@{upper-alpha}@{upper-alpha}@{upper-alpha}@{upper-alpha}@{upper-alpha} level five upper-alpha\n\
+@{upper-alpha}@{upper-alpha}@{upper-alpha}@{upper-alpha}@{upper-alpha}@{upper-alpha} level six upper-alpha\n\
+@{upper-alpha}@{upper-alpha}@{upper-alpha}@{upper-alpha}@{upper-alpha}@{upper-alpha} level six upper-alpha\n\
+@{upper-alpha}@{upper-alpha}@{upper-alpha}@{upper-alpha}@{upper-alpha} level five upper-alpha\n\
+@{upper-alpha}@{upper-alpha}@{upper-alpha}@{upper-alpha} level four upper-alpha\n\
+@{upper-alpha}@{upper-alpha}@{upper-alpha} level three upper-alpha\n\
+@{upper-alpha}@{upper-alpha} level two upper-alpha\n\
+@{upper-alpha} level one upper-alpha\n\
+\n\
+== Fancy list-style-type lower-greek\n\
+{{{\n\
+@{lower-greek} level one lower-greek\n\
+@{lower-greek}@{lower-greek} level two lower-greek\n\
+@{lower-greek}@{lower-greek}@{lower-greek} level three lower-greek\n\
+@{lower-greek}@{lower-greek}@{lower-greek}@{lower-greek} level four lower-greek\n\
+@{lower-greek}@{lower-greek}@{lower-greek}@{lower-greek}@{lower-greek} level five lower-greek\n\
+@{lower-greek}@{lower-greek}@{lower-greek}@{lower-greek}@{lower-greek}@{lower-greek} level six lower-greek\n\
+@{lower-greek}@{lower-greek}@{lower-greek}@{lower-greek}@{lower-greek}@{lower-greek} level six lower-greek\n\
+@{lower-greek}@{lower-greek}@{lower-greek}@{lower-greek}@{lower-greek} level five lower-greek\n\
+@{lower-greek}@{lower-greek}@{lower-greek}@{lower-greek} level four lower-greek\n\
+@{lower-greek}@{lower-greek}@{lower-greek} level three lower-greek\n\
+@{lower-greek}@{lower-greek} level two lower-greek\n\
+@{lower-greek} level one lower-greek\n\
+}}}\n\
+@{lower-greek} level one lower-greek\n\
+@{lower-greek}@{lower-greek} level two lower-greek\n\
+@{lower-greek}@{lower-greek}@{lower-greek} level three lower-greek\n\
+@{lower-greek}@{lower-greek}@{lower-greek}@{lower-greek} level four lower-greek\n\
+@{lower-greek}@{lower-greek}@{lower-greek}@{lower-greek}@{lower-greek} level five lower-greek\n\
+@{lower-greek}@{lower-greek}@{lower-greek}@{lower-greek}@{lower-greek}@{lower-greek} level six lower-greek\n\
+@{lower-greek}@{lower-greek}@{lower-greek}@{lower-greek}@{lower-greek}@{lower-greek} level six lower-greek\n\
+@{lower-greek}@{lower-greek}@{lower-greek}@{lower-greek}@{lower-greek} level five lower-greek\n\
+@{lower-greek}@{lower-greek}@{lower-greek}@{lower-greek} level four lower-greek\n\
+@{lower-greek}@{lower-greek}@{lower-greek} level three lower-greek\n\
+@{lower-greek}@{lower-greek} level two lower-greek\n\
+@{lower-greek} level one lower-greek\n\
+\n\
+== Fancy list-style-type lower-latin\n\
+{{{\n\
+@{lower-latin} level one lower-latin\n\
+@{lower-latin}@{lower-latin} level two lower-latin\n\
+@{lower-latin}@{lower-latin}@{lower-latin} level three lower-latin\n\
+@{lower-latin}@{lower-latin}@{lower-latin}@{lower-latin} level four lower-latin\n\
+@{lower-latin}@{lower-latin}@{lower-latin}@{lower-latin}@{lower-latin} level five lower-latin\n\
+@{lower-latin}@{lower-latin}@{lower-latin}@{lower-latin}@{lower-latin}@{lower-latin} level six lower-latin\n\
+@{lower-latin}@{lower-latin}@{lower-latin}@{lower-latin}@{lower-latin}@{lower-latin} level six lower-latin\n\
+@{lower-latin}@{lower-latin}@{lower-latin}@{lower-latin}@{lower-latin} level five lower-latin\n\
+@{lower-latin}@{lower-latin}@{lower-latin}@{lower-latin} level four lower-latin\n\
+@{lower-latin}@{lower-latin}@{lower-latin} level three lower-latin\n\
+@{lower-latin}@{lower-latin} level two lower-latin\n\
+@{lower-latin} level one lower-latin\n\
+}}}\n\
+@{lower-latin} level one lower-latin\n\
+@{lower-latin}@{lower-latin} level two lower-latin\n\
+@{lower-latin}@{lower-latin}@{lower-latin} level three lower-latin\n\
+@{lower-latin}@{lower-latin}@{lower-latin}@{lower-latin} level four lower-latin\n\
+@{lower-latin}@{lower-latin}@{lower-latin}@{lower-latin}@{lower-latin} level five lower-latin\n\
+@{lower-latin}@{lower-latin}@{lower-latin}@{lower-latin}@{lower-latin}@{lower-latin} level six lower-latin\n\
+@{lower-latin}@{lower-latin}@{lower-latin}@{lower-latin}@{lower-latin}@{lower-latin} level six lower-latin\n\
+@{lower-latin}@{lower-latin}@{lower-latin}@{lower-latin}@{lower-latin} level five lower-latin\n\
+@{lower-latin}@{lower-latin}@{lower-latin}@{lower-latin} level four lower-latin\n\
+@{lower-latin}@{lower-latin}@{lower-latin} level three lower-latin\n\
+@{lower-latin}@{lower-latin} level two lower-latin\n\
+@{lower-latin} level one lower-latin\n\
+\n\
+== Fancy list-style-type upper-latin\n\
+{{{\n\
+@{upper-latin} level one upper-latin\n\
+@{upper-latin}@{upper-latin} level two upper-latin\n\
+@{upper-latin}@{upper-latin}@{upper-latin} level three upper-latin\n\
+@{upper-latin}@{upper-latin}@{upper-latin}@{upper-latin} level four upper-latin\n\
+@{upper-latin}@{upper-latin}@{upper-latin}@{upper-latin}@{upper-latin} level five upper-latin\n\
+@{upper-latin}@{upper-latin}@{upper-latin}@{upper-latin}@{upper-latin}@{upper-latin} level six upper-latin\n\
+@{upper-latin}@{upper-latin}@{upper-latin}@{upper-latin}@{upper-latin}@{upper-latin} level six upper-latin\n\
+@{upper-latin}@{upper-latin}@{upper-latin}@{upper-latin}@{upper-latin} level five upper-latin\n\
+@{upper-latin}@{upper-latin}@{upper-latin}@{upper-latin} level four upper-latin\n\
+@{upper-latin}@{upper-latin}@{upper-latin} level three upper-latin\n\
+@{upper-latin}@{upper-latin} level two upper-latin\n\
+@{upper-latin} level one upper-latin\n\
+}}}\n\
+@{upper-latin} level one upper-latin\n\
+@{upper-latin}@{upper-latin} level two upper-latin\n\
+@{upper-latin}@{upper-latin}@{upper-latin} level three upper-latin\n\
+@{upper-latin}@{upper-latin}@{upper-latin}@{upper-latin} level four upper-latin\n\
+@{upper-latin}@{upper-latin}@{upper-latin}@{upper-latin}@{upper-latin} level five upper-latin\n\
+@{upper-latin}@{upper-latin}@{upper-latin}@{upper-latin}@{upper-latin}@{upper-latin} level six upper-latin\n\
+@{upper-latin}@{upper-latin}@{upper-latin}@{upper-latin}@{upper-latin}@{upper-latin} level six upper-latin\n\
+@{upper-latin}@{upper-latin}@{upper-latin}@{upper-latin}@{upper-latin} level five upper-latin\n\
+@{upper-latin}@{upper-latin}@{upper-latin}@{upper-latin} level four upper-latin\n\
+@{upper-latin}@{upper-latin}@{upper-latin} level three upper-latin\n\
+@{upper-latin}@{upper-latin} level two upper-latin\n\
+@{upper-latin} level one upper-latin\n\
+\n\
+== Fancy list-style-type lower-roman\n\
+{{{\n\
+@{lower-roman} level one lower-roman\n\
+@{lower-roman}@{lower-roman} level two lower-roman\n\
+@{lower-roman}@{lower-roman}@{lower-roman} level three lower-roman\n\
+@{lower-roman}@{lower-roman}@{lower-roman}@{lower-roman} level four lower-roman\n\
+@{lower-roman}@{lower-roman}@{lower-roman}@{lower-roman}@{lower-roman} level five lower-roman\n\
+@{lower-roman}@{lower-roman}@{lower-roman}@{lower-roman}@{lower-roman}@{lower-roman} level six lower-roman\n\
+@{lower-roman}@{lower-roman}@{lower-roman}@{lower-roman}@{lower-roman}@{lower-roman} level six lower-roman\n\
+@{lower-roman}@{lower-roman}@{lower-roman}@{lower-roman}@{lower-roman} level five lower-roman\n\
+@{lower-roman}@{lower-roman}@{lower-roman}@{lower-roman} level four lower-roman\n\
+@{lower-roman}@{lower-roman}@{lower-roman} level three lower-roman\n\
+@{lower-roman}@{lower-roman} level two lower-roman\n\
+@{lower-roman} level one lower-roman\n\
+}}}\n\
+@{lower-roman} level one lower-roman\n\
+@{lower-roman}@{lower-roman} level two lower-roman\n\
+@{lower-roman}@{lower-roman}@{lower-roman} level three lower-roman\n\
+@{lower-roman}@{lower-roman}@{lower-roman}@{lower-roman} level four lower-roman\n\
+@{lower-roman}@{lower-roman}@{lower-roman}@{lower-roman}@{lower-roman} level five lower-roman\n\
+@{lower-roman}@{lower-roman}@{lower-roman}@{lower-roman}@{lower-roman}@{lower-roman} level six lower-roman\n\
+@{lower-roman}@{lower-roman}@{lower-roman}@{lower-roman}@{lower-roman}@{lower-roman} level six lower-roman\n\
+@{lower-roman}@{lower-roman}@{lower-roman}@{lower-roman}@{lower-roman} level five lower-roman\n\
+@{lower-roman}@{lower-roman}@{lower-roman}@{lower-roman} level four lower-roman\n\
+@{lower-roman}@{lower-roman}@{lower-roman} level three lower-roman\n\
+@{lower-roman}@{lower-roman} level two lower-roman\n\
+@{lower-roman} level one lower-roman\n\
+\n\
+== Fancy list-style-type upper-roman\n\
+{{{\n\
+@{upper-roman} level one upper-roman\n\
+@{upper-roman}@{upper-roman} level two upper-roman\n\
+@{upper-roman}@{upper-roman}@{upper-roman} level three upper-roman\n\
+@{upper-roman}@{upper-roman}@{upper-roman}@{upper-roman} level four upper-roman\n\
+@{upper-roman}@{upper-roman}@{upper-roman}@{upper-roman}@{upper-roman} level five upper-roman\n\
+@{upper-roman}@{upper-roman}@{upper-roman}@{upper-roman}@{upper-roman}@{upper-roman} level six upper-roman\n\
+@{upper-roman}@{upper-roman}@{upper-roman}@{upper-roman}@{upper-roman}@{upper-roman} level six upper-roman\n\
+@{upper-roman}@{upper-roman}@{upper-roman}@{upper-roman}@{upper-roman} level five upper-roman\n\
+@{upper-roman}@{upper-roman}@{upper-roman}@{upper-roman} level four upper-roman\n\
+@{upper-roman}@{upper-roman}@{upper-roman} level three upper-roman\n\
+@{upper-roman}@{upper-roman} level two upper-roman\n\
+@{upper-roman} level one upper-roman\n\
+}}}\n\
+@{upper-roman} level one upper-roman\n\
+@{upper-roman}@{upper-roman} level two upper-roman\n\
+@{upper-roman}@{upper-roman}@{upper-roman} level three upper-roman\n\
+@{upper-roman}@{upper-roman}@{upper-roman}@{upper-roman} level four upper-roman\n\
+@{upper-roman}@{upper-roman}@{upper-roman}@{upper-roman}@{upper-roman} level five upper-roman\n\
+@{upper-roman}@{upper-roman}@{upper-roman}@{upper-roman}@{upper-roman}@{upper-roman} level six upper-roman\n\
+@{upper-roman}@{upper-roman}@{upper-roman}@{upper-roman}@{upper-roman}@{upper-roman} level six upper-roman\n\
+@{upper-roman}@{upper-roman}@{upper-roman}@{upper-roman}@{upper-roman} level five upper-roman\n\
+@{upper-roman}@{upper-roman}@{upper-roman}@{upper-roman} level four upper-roman\n\
+@{upper-roman}@{upper-roman}@{upper-roman} level three upper-roman\n\
+@{upper-roman}@{upper-roman} level two upper-roman\n\
+@{upper-roman} level one upper-roman\n\
+\n\
+== Fancy list-style-type inherit\n\
+{{{\n\
+@{inherit} level one inherit\n\
+@{inherit}@{inherit} level two inherit\n\
+@{inherit}@{inherit}@{inherit} level three inherit\n\
+@{inherit}@{inherit}@{inherit}@{inherit} level four inherit\n\
+@{inherit}@{inherit}@{inherit}@{inherit}@{inherit} level five inherit\n\
+@{inherit}@{inherit}@{inherit}@{inherit}@{inherit}@{inherit} level six inherit\n\
+@{inherit}@{inherit}@{inherit}@{inherit}@{inherit}@{inherit} level six inherit\n\
+@{inherit}@{inherit}@{inherit}@{inherit}@{inherit} level five inherit\n\
+@{inherit}@{inherit}@{inherit}@{inherit} level four inherit\n\
+@{inherit}@{inherit}@{inherit} level three inherit\n\
+@{inherit}@{inherit} level two inherit\n\
+@{inherit} level one inherit\n\
+}}}\n\
+@{inherit} level one inherit\n\
+@{inherit}@{inherit} level two inherit\n\
+@{inherit}@{inherit}@{inherit} level three inherit\n\
+@{inherit}@{inherit}@{inherit}@{inherit} level four inherit\n\
+@{inherit}@{inherit}@{inherit}@{inherit}@{inherit} level five inherit\n\
+@{inherit}@{inherit}@{inherit}@{inherit}@{inherit}@{inherit} level six inherit\n\
+@{inherit}@{inherit}@{inherit}@{inherit}@{inherit}@{inherit} level six inherit\n\
+@{inherit}@{inherit}@{inherit}@{inherit}@{inherit} level five inherit\n\
+@{inherit}@{inherit}@{inherit}@{inherit} level four inherit\n\
+@{inherit}@{inherit}@{inherit} level three inherit\n\
+@{inherit}@{inherit} level two inherit\n\
+@{inherit} level one inherit\n\
+\n\
+== Mixed standard list\n\
+{{{\n\
+* level one bullet\n\
+# level two numbered\n\
+@ level three alphanumeric\n\
+@ level three alphanumeric\n\
+# level two numbered\n\
+* level one bullet\n\
+}}}\n\
+* level one bullet\n\
+# level two numbered\n\
+@ level three alphanumeric\n\
+@ level three alphanumeric\n\
+# level two numbered\n\
+* level one bullet\n\
+\n\
 == Mixed fancy list\n\
 {{{\n\
-@a level one fancy lower alphanumeric\n\
-@A@A level two fancy upper alphanumeric\n\
-@i@i@i level three fancy lower Roman numeral\n\
-@I@I@I@I level four fancy upper Roman numeral\n\
-@#@#@#@#@# level five fancy numbered\n\
-@#@#@#@#@# level five fancy numbered\n\
-@I@I@I@I level four fancy upper Roman numeral\n\
-@i@i@i level three fancy lower Roman numeral\n\
-@A@A level two fancy upper alphanumeric\n\
-@a level one fancy lower alphanumeric\n\
+@* level one fancy bullet\n\
+@#@# level two fancy numbered\n\
+@a@a@a level three fancy lower alphanumeric\n\
+@A@A@A@A level four fancy upper alphanumeric\n\
+@i@i@i@i@i level five fancy lower Roman numeral\n\
+@I@I@I@I@I@I level six fancy upper Roman numeral\n\
+@I@I@I@I@I@I level six fancy upper Roman numeral\n\
+@i@i@i@i@i level five fancy lower Roman numeral\n\
+@A@A@A@A level four fancy upper alphanumeric\n\
+@a@a@a level three fancy lower alphanumeric\n\
+@#@# level two fancy numbered\n\
+@* level one fancy bullet\n\
 }}}\n\
-@a level one fancy lower alphanumeric\n\
-@A@A level two fancy upper alphanumeric\n\
-@i@i@i level three fancy lower Roman numeral\n\
-@I@I@I@I level four fancy upper Roman numeral\n\
-@#@#@#@#@# level five fancy numbered\n\
-@#@#@#@#@# level five fancy numbered\n\
-@I@I@I@I level four fancy upper Roman numeral\n\
-@i@i@i level three fancy lower Roman numeral\n\
-@A@A level two fancy upper alphanumeric\n\
-@a level one fancy lower alphanumeric\n\
+@* level one fancy bullet\n\
+@#@# level two fancy numbered\n\
+@a@a@a level three fancy lower alphanumeric\n\
+@A@A@A@A level four fancy upper alphanumeric\n\
+@i@i@i@i@i level five fancy lower Roman numeral\n\
+@I@I@I@I@I@I level six fancy upper Roman numeral\n\
+@I@I@I@I@I@I level six fancy upper Roman numeral\n\
+@i@i@i@i@i level five fancy lower Roman numeral\n\
+@A@A@A@A level four fancy upper alphanumeric\n\
+@a@a@a level three fancy lower alphanumeric\n\
+@#@# level two fancy numbered\n\
+@* level one fancy bullet\n\
 \n\
 == Mixed standard and fancy list\n\
 {{{\n\
@@ -6657,60 +7300,7 @@ Remark Note: No versions of Internet Explorer (including IE8) support the proper
 # level two numbered\n\
 * level one bulleted\n\
 \n\
-== Advanced mixed standard and fancy list (broken)\n\
-{{{\n\
-* level one bulleted\n\
-# level two numbered\n\
-@ level three alphanumeric\n\
-*#@* level four bulleted\n\
-*# level two numbered \x3Cfont color="red"\x3Ethis entry messes up the level placement of the remaining entries)\x3C/font\x3E\n\
-*#@* level four bulleted\n\
-@ level three alphanumeric\n\
-# level two numbered\n\
-* level one bulleted\n\
-}}}\n\
-* level one bulleted\n\
-# level two numbered\n\
-@ level three alphanumeric\n\
-*#@* level four bulleted\n\
-*# level two numbered \x3Cfont color="red"\x3Ethis entry messes up the level placement of the remaining entries)\x3C/font\x3E\n\
-*#@* level four bulleted\n\
-@ level three alphanumeric\n\
-# level two numbered\n\
-* level one bulleted\n\
-\n\
-== Then fancy mixed lists\n\
-{{{\n\
-@* level one fancy bullet\n\
-@#@# level two fancy numbered\n\
-@a@a@a level three fancy lower alphanumeric\n\
-@A@A@A@A level four fancy upper alphanumeric\n\
-@i@i@i@i@i level five fancy lower Roman numeral\n\
-@I@I@I@I@I@I level six fancy upper Roman numeral\n\
-@I@I@I@I@I@I level six fancy upper Roman numeral\n\
-@i@i@i@i@i level five fancy lower Roman numeral\n\
-@A@A@A@A level four fancy upper alphanumeric\n\
-@a@a@a level three fancy lower alphanumeric\n\
-@#@# level two fancy numbered\n\
-@* level one fancy bullet\n\
-}}}\n\
-@* level one fancy bullet\n\
-@#@# level two fancy numbered\n\
-@a@a@a level three fancy lower alphanumeric\n\
-@A@A@A@A level four fancy upper alphanumeric\n\
-@i@i@i@i@i level five fancy lower Roman numeral\n\
-@I@I@I@I@I@I level six fancy upper Roman numeral\n\
-@I@I@I@I@I@I level six fancy upper Roman numeral\n\
-@i@i@i@i@i level five fancy lower Roman numeral\n\
-@A@A@A@A level four fancy upper alphanumeric\n\
-@a@a@a level three fancy lower alphanumeric\n\
-@#@# level two fancy numbered\n\
-@* level one fancy bullet\n\
-\n\
-Also, I think we can do away with the @1 syntax entirely since @# works and is easier to distinguish visually from the Roman numeral syntax (i and I and 1 are awfully similar).\n\
-\n\
-\n\
-== Inline list-style-type\n\
+== Mixed fancy inline list-style-type\n\
 {{{\n\
 @{lower-greek} Alpha\n\
 @{lower-greek}@{hebrew} Aleph\n\
@@ -7051,7 +7641,7 @@ if("%"+"0"=="%0"){\n\
 \x3E\x3E\x3E'
 ];
 
-/* DFQRCTsKlU-0000763-END */
+/* DFQRCTsKlU-0000767-END */
 
 /* ]]> */ </script>
 <style type="text/css">/* user defined */
@@ -7529,7 +8119,7 @@ div.text_area.locked,
 <div class="wiki_header bg" id="sw_wiki_header" style="position: absolute;">
 <table cellspacing="0" width="100%">
 <tbody><tr>
-<td><span class="title" id="wiki_title"><a href="#" onclick="go_to('Help::')">Help</a> :: Spoilers</span></td>
+<td><span class="title" id="wiki_title"><a href="#" onclick="go_to('Help::')">Help</a> :: Lists</span></td>
 <td align="right">
 <div id="menu_back" style="display: inline; cursor: pointer; visibility: visible;"><a title="Back" onclick="go_back()"><img id="img_back" class="menu_button" style="display: inline; visibility: visible;" alt="Back" src="data:image/png;base64,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"><span id="alt_back" style="display: none; visibility: hidden;">&nbsp;<strong>[Back]</strong>&nbsp;</span></a></div>
 <div id="menu_forward" style="display: none; cursor: pointer; visibility: hidden;"><a title="Forward" onclick="go_forward()"><img id="img_forward" class="menu_button" style="display: inline; visibility: visible;" alt="Forward" src="data:image/png;base64,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"><span id="alt_forward" style="display: none; visibility: hidden;">&nbsp;<strong>[Forward]</strong>&nbsp;</span></a></div>
