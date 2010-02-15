@@ -56,6 +56,8 @@ if (firefox && (navigator.product != "Gecko"))
 // finds out if Opera is trying to look like IE
 if (ie && woas.browser.opera)
 	ie = false;
+
+woas.browser.ie = ie;
 	
 var is_windows = (navigator.appVersion.toLowerCase().indexOf("windows")!=-1);
 

@@ -531,6 +531,17 @@ function _get_data(marker, source, full, start) {
 						str = str.substr(0, l-1)+" />";
 					return str;
 		});
+		// remove the tail (if any)
+		var s_offset = source.indexOf("<"+"!-- "+marker+"-TAIL-START -->")
+		if (s_offset != -1) {
+			var e_offset = source.indexOf("<"+"!-- "+marker+"-TAIL-END -->", s_offset);
+			if (e_offset == -1)
+				log("Cannot find tail end!");
+			else {
+				// remove the tail
+				source = source.substring(0, s_offset)+souce.substring(e_offset);
+			}
+		}
 	}
 	
 	if (full) {
