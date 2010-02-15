@@ -241,6 +241,7 @@ woas["delete_page_i"] = function(i) {
 
 // some general integrity tests - for debug purposes
 woas["integrity_test"] = function() {
+	log("Starting integrity test"); //log:1
 	// test integrity of data arrays
 	var len = pages.length;
 	if ((page_attrs.length != len) ||

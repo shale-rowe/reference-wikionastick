@@ -229,7 +229,7 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 	}
 	
 	// thank you IE, really thank you
-	if (this.browser.ie || this.browser.opera)
+	if (woas.browser.ie || woas.browser.opera)
 		text = text.replace("\r\n", "\n");
 
 	// put away raw text contained in multi-line nowiki blocks {{{ }}}

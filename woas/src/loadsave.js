@@ -539,7 +539,7 @@ function _get_data(marker, source, full, start) {
 				log("Cannot find tail end!");
 			else {
 				// remove the tail
-				source = source.substring(0, s_offset)+souce.substring(e_offset);
+				source = source.substring(0, s_offset)+source.substring(e_offset);
 			}
 		}
 	}
