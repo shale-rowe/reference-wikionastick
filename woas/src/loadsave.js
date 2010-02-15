@@ -532,14 +532,16 @@ function _get_data(marker, source, full, start) {
 					return str;
 		});
 		// remove the tail (if any)
-		var s_offset = source.indexOf("<"+"!-- "+marker+"-TAIL-START -->")
+		var s_offset = source.indexOf("<"+"!-- "+marker+"-TAIL-START -->"),
+			s_te = "<"+"!-- "+marker+"-TAIL-END -->";
 		if (s_offset != -1) {
-			var e_offset = source.indexOf("<"+"!-- "+marker+"-TAIL-END -->", s_offset);
+			var e_offset = source.indexOf(s_te, s_offset);
 			if (e_offset == -1)
 				log("Cannot find tail end!");
 			else {
 				// remove the tail
-				source = source.substring(0, s_offset)+source.substring(e_offset);
+				source =	source.substring(0, s_offset)+
+							source.substring(e_offset+s_te.length);
 			}
 		}
 	}
