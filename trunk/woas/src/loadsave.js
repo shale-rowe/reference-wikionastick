@@ -1,10 +1,11 @@
 
 // load modes which should be supported
 woas["file_mode"] = {
-	UTF8_TEXT: 0,
-	DATA_URI: 1,
-	BINARY: 2,
-	BASE64: 3
+	UTF8_TEXT:		0,
+	ASCII_TEXT:		1,
+	DATA_URI:		2,
+	BINARY:			3,
+	BASE64:			4
 }
 
 // save the currently open WoaS
@@ -53,9 +54,10 @@ woas["mozillaLoadFileID"] = function(obj_id, load_mode){
 		break;
 		case this.file_mode.BINARY:
 			return D.getAsBinary();
-		//.getAsText()
-//		default:
+		break;
 	}
+	// case UTF8_TEXT:
+	// case ASCII_TEXT:
 	// return UTF-8 text by default
 	return D.getAsText("utf-8");
 }
@@ -66,6 +68,7 @@ woas["mozillaLoadFileID"] = function(obj_id, load_mode){
 woas["load_file"] = function(fileUrl, load_mode){
 	// parameter consistency check
 	if (!load_mode)
+		// perhaps should be ASCII?
 		load_mode = this.file_mode.UTF8_TEXT;
 	// try loading the file without using the path (FF3+)
 	// (object id hardcoded here)
@@ -114,10 +117,17 @@ woas["load_file"] = function(fileUrl, load_mode){
 // Returns null if it can't do it, false if there's an error, true if it saved OK
 woas["ieSaveFile"] = function(filePath, save_mode, content) {
 	var s_mode;
-	if (save_mode == this.file_mode.BINARY)
-		s_mode = 0; // ASCII
-	else
-		s_mode = -1; // Unicode used for DATA_URI and UTF8_TEXT modes
+	switch (save_mode) {
+		case this.file_mode.BINARY:
+		case this.file_mode.ASCII_TEXT:
+			s_mode = 0; // ASCII
+		break;
+		case this.file_mode.UTF8_TEXT:
+		default:
+			// Unicode mode used for DATA_URI and UTF8_TEXT modes
+			s_mode = -1;
+		break;
+	}
 	// first let's see if we can do ActiveX
 	var fso;
 	try	{
@@ -141,10 +151,17 @@ woas["ieSaveFile"] = function(filePath, save_mode, content) {
 // Returns null if it can't do it, false if there's an error, or a string of the content if successful
 woas["ieLoadFile"] = function(filePath, load_mode) {
 	var o_mode;
-	if (load_mode == this.file_mode.BINARY)
-		o_mode = 0; // ASCII
-	else
-		o_mode = -1; // Unicode used for DATA_URI, BASE64 and UTF8_TEXT modes
+	switch (save_mode) {
+		case this.file_mode.BINARY:
+		case this.file_mode.ASCII_TEXT:
+			o_mode = 0; // ASCII
+		break;
+		case this.file_mode.UTF8_TEXT:
+		default:
+			// Unicode mode used for DATA_URI and UTF8_TEXT modes
+			o_mode = -1;
+		break;
+	}
 	var content = null;
 	// first let's see if we can do ActiveX
 	var fso;
@@ -217,7 +234,8 @@ woas["mozillaLoadFile"] = function(filePath, load_mode) {
 		inputStream.init(file, 0x01, 00004, 0);
 		var sInputStream = Components.classes["@mozilla.org/scriptableinputstream;1"].createInstance(Components.interfaces.nsIScriptableInputStream);
 		sInputStream.init(inputStream);
-		if (load_mode == this.file_mode.UTF8_TEXT)
+		if ( (load_mode == this.file_mode.UTF8_TEXT) ||
+			 (load_mode == this.file_mode.ASCII_TEXT))
 			return sInputStream.read(sInputStream.available());
 		// this byte-by-byte read allows retrieval of binary files
 		var tot=sInputStream.available(), i=tot;
