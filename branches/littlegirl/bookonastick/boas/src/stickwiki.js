@@ -65,30 +65,39 @@ woas["ecma_encode"] = function(s) {
 	return this._utf8_js_fix(s.replace(/\\/g, "\\\\"));
 }
 
+woas["_ecma_rx_test"] = new RegExp("[^\u0000-\u007F]");
+
 // returns true if text needs ECMA encoding
+// checks if there are UTF-8 characters
 woas["needs_ecma_encoding"] = function(s) {
-	return (new RegExp("[^\u0000-\u007F]")).test(s);
+	return this._ecma_rx_test.test(s);
 }
 
 woas["_utf8_js_fix"] = function(s) {
 	// fix the >= 128 ascii chars (to prevent UTF-8 characters corruption)
 	return s.replace(new RegExp("[^\u0000-\u007F]+", "g"), function(str) {
 		var r="";
-		for(var i=0,l=str.length;i<l;++i) {
-			var s = str.charCodeAt(i).toString(16);
-			for(var i=4-s.length;i>0;i--) {
-				s = "0"+s;
-			}
-			r += "\\u" + s;
+		for(var a=0,l=str.length;a<l;++a) {
+			var s = str.charCodeAt(a).toString(16);
+			r += "\\u" + "0000".substr(s.length) + s;
 		}
 		return r;
 	});
 }
 
 woas["ecma_decode"] = function(s) {
-	return s.replace(new RegExp("\\\\u([0-9a-f]{2,4})", "g"), function (str, $1) {
-		var c = parseInt($1.substr(2).replace(/^0*/,''), 16);
-		return String.fromCharCode(c);
+	return s.replace(new RegExp("(\\\\u[0-9a-f]{4})+", "g"), function (str, $1) {
+		// this will perform real UTF-8 decoding
+		var r = "";
+		for (var ic=0,totc=str.length;ic<totc;ic+=6) {
+			// get the hexa-numeric part
+			var c = str.substr(ic+2, 4);
+			// remove leading zeroes and convert to base10
+			c = parseInt(c.replace(/^0*/,''), 16);
+			// convert UTF-8 sequence to character
+			r += String.fromCharCode(c);
+		}
+		return r;
 	}).replace(/\\\\/g, "\\");
 }
 
@@ -307,7 +316,8 @@ woas["get_page"] = function(pi) {
 		latest_AES_page = "";
 		return null;
 	}
-	var pg = AES_decrypt(pages[pi].slice(0));	/*WARNING: may not be supported by all browsers*/
+	// decrypt by using a copy of the array
+	var pg = AES_decrypt(pages[pi].slice(0));
 	last_AES_page = page_titles[pi];
 	return pg;	
 }
@@ -436,13 +446,14 @@ woas["get__text"] = function(pi) {
 //			return null;
 //		}
 		// pass a copied instance to the decrypt function
-		var pg = AES_decrypt(pages[pi].slice(0));	/*WARNING: may not be supported by all browsers*/
+		// AES_decrypt can return null on failure, but can also return a garbled output
+		var pg = AES_decrypt(pages[pi].slice(0));
 		last_AES_page = page_titles[pi];
 //		if (pg != null)
 //			break;
 	if (!this.config.key_cache)
 		AES_clearKey();
-	if (pg != null) {
+	if (pg !== null) {
 		_decrypt_failed = false;
 //		if (this.config.key_cache)			latest_AES_page = page_titles[pi];
 	} else {
@@ -1063,6 +1074,11 @@ woas["after_load"] = function() {
 	var qpage=document.location.href.split("?")[1];
 	if(qpage)
 		current = unescape(qpage);
+
+	// check integrity of WoaS when finished - only in debug mode
+	if (this.debug)
+		if (!this.integrity_test())
+			return;
 		
 	// first thing to do: load the actual pages!
 	if (this._auto_native_wsif) {
@@ -1099,12 +1115,7 @@ woas["after_load"] = function() {
 	if (firefox)
 		this.set_css(this.get_css());
 	
-	// check integrity of WoaS when finished - only in debug mode
-/*	if (this.debug) {
-		if (this.integrity_test())
-			$.hide("loading_overlay");
-	} else */
-		$.hide("loading_overlay");
+	$.hide("loading_overlay");
 }
 
 woas["_load_aliases"] = function(s) {

@@ -1,6 +1,6 @@
 wsif.version: 1.1.0
-woas.version: 0.10.2
-woas.pages: 121
+woas.version: 0.10.4
+woas.pages: 124
 
 woas.page.title: ::Menu
 woas.page.attributes: 0
@@ -15,8 +15,8 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Special::Advanced
 woas.page.attributes: 0
-woas.page.last_modified: 1266097709
-woas.page.length: 1218
+woas.page.last_modified: 1266217528
+woas.page.length: 1229
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -38,17 +38,19 @@ You can customize Wiki on a Stick modifying a few [[Special::Options|Options]].
 * [[Special::Export]] wiki into multiple linked static XHTML files
 * [[Special::ExportWSIF]] export wiki into multiple or single [[Special::WSIF|WSIF]] files
 * [[Special::Import]] wiki or theme from an early (or current) version
-* [[Special::ImportWSIF]] import a wiki page (or collection of) in [[Special::WSIF|WSIF]] format
-* [[Special::Orphaned Pages]]: a list of pages that once were linked to, but now no page links to them anymore
+* [[Special::ImportWSIF]] import a wiki page (or collection of pages) in [[Special::WSIF|WSIF]] format
+* [[Special::Orphaned Pages]]: a list of pages that no other page links to
 
 == Advanced features
+* [[Special::Aliases]]: edit the aliases
 * [[Special::Edit CSS]]: edit the global CSS styles
 * [[Special::Edit Bootscript]]: edit the custom script run once when WoaS is being loaded
 
 --DFQRCTsKlU
 woas.page.title: Special::Import
 woas.page.attributes: 0
-woas.page.length: 612
+woas.page.last_modified: 1266197841
+woas.page.length: 651
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -58,14 +60,14 @@ Import a wiki from an early (or current) version:
 
 File: <input id="filename_" type="file" />&nbsp;<input type="button" value="Import" onclick="import_wiki()" />
 
-<label for="cb_import_content"><input type="checkbox" id="cb_import_content" checked="checked">&nbsp;import the wiki pages</label>
-<label for="cb_import_css"><input type="checkbox" id="cb_import_css" checked="checked">&nbsp;import also CSS (available only for versions v0.9 and above)</label>
-<label for="cb_import_icons"><input type="checkbox" id="cb_import_icons" disabled="disabled">&nbsp;import the icons theme (available since v0.9.5B)</label>
+<label for="cb_import_content"><input type="checkbox" id="cb_import_content" checked="checked">&nbsp;Import the wiki pages.</label>
+<label for="cb_import_css"><input type="checkbox" id="cb_import_css">&nbsp;Import also CSS (available only for versions v0.9 and above). /Caution: importing older CSS can garble the layout./</label>
+<label for="cb_import_icons"><input type="checkbox" id="cb_import_icons" disabled="disabled">&nbsp;Import the icons theme (available since v0.9.5B).</label>
 
 --DFQRCTsKlU
 woas.page.title: Special::About
 woas.page.attributes: 0
-woas.page.last_modified: 1265860894
+woas.page.last_modified: 1266214161
 woas.page.length: 4470
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -138,25 +140,24 @@ Write a book in one self-contained file that runs entirely in your browser and c
 
 == See also:
 * [[http://sourceforge.net/tracker/?group_id=155218&atid=794925|Wiki on a Stick bug tracker]]
+* [[https://lists.sourceforge.net/lists/listinfo/stickwiki-devel|Wiki on a Stick development mailing list]]
 * [[http://sourceforge.net/project/showfiles.php?group_id=155218|Wiki on a Stick download]]
 * [[http://sourceforge.net/tracker/?group_id=155218&atid=794928|Wiki on a Stick feature tracker]]
 * [[http://woas.iragan.com/|Wiki on a Stick forums]]
 * [[http://sf.net/projects/stickwiki/|Wiki on a Stick home page]]
-* [[https://lists.sourceforge.net/lists/listinfo/stickwiki-devel|Wiki on a Stick development mailing list]]
 * [[http://stickwiki.sourceforge.net/|Wiki on a Stick online demo]]
 
 --DFQRCTsKlU
 woas.page.title: Main Page
 woas.page.attributes: 0
-woas.page.last_modified: 1265862205
-woas.page.length: 149
+woas.page.last_modified: 1266212982
+woas.page.length: 186
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-[[Include::Template::TODO|this|Replace all references to Main Page with Main page in source and then delete this page.]]
-[[Include::Special::About]]
+[[Include::Special::About]] <!-- Delete all of this text and replace it with whatever you like. You can click the About button in the menu to see the welcome page again at any time. -->
 
 --DFQRCTsKlU
 woas.page.title: Special::Search
@@ -185,6 +186,20 @@ hl_text = null;
 //_hl_reg = null;
  $("string_to_search").focus();
 </script>
+--DFQRCTsKlU
+woas.page.title: MyPages::Approved::Page 3
+woas.page.attributes: 0
+woas.page.length: 140
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+This is a page in a subnamespace!
+
+The parent namespace is [[MyPages::]] while the subnamespace is [[MyPages::Approved::]]
+
+[[Tag::example]]
 --DFQRCTsKlU
 woas.page.title: Special::Lock
 woas.page.attributes: 0
@@ -251,6 +266,7 @@ woas.page.attributes: 2
 woas.page.length: 172
 woas.page.encoding: 8bit/base64
 woas.page.disposition: inline
+woas.page.original_length: 128
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
@@ -258,29 +274,30 @@ OBd9RqzyFmwb9HgarONNbxRTHdtjPO4pc0KqbFFxQo56cviwgnGZfdquURCGGDsr3JLXjAIxnT79ftc/
 --DFQRCTsKlU
 woas.page.title: Special::Options
 woas.page.attributes: 0
-woas.page.last_modified: 1265861438
-woas.page.length: 2695
+woas.page.last_modified: 1266214802
+woas.page.length: 2837
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Options
-<label for="cb_allow_diff"><input type="checkbox" id="cb_allow_diff" onclick="woas.config.allow_diff = $.checked('cb_allow_diff')" /> *Use consistent newlines in saved data*
+
+<label for="cb_allow_diff"><input type="checkbox" id="cb_allow_diff" onclick="woas.config.allow_diff = $.checked('cb_allow_diff')" />Use consistent newlines in saved data<br />
 * /Forces plain (unencrypted) pages to be saved using consistent newlines splitting. Useful with a versioning system like SVN or CVS./<br />
-<label for="cb_dblclick_edit"><input type="checkbox" id="cb_dblclick_edit" onclick="woas.config.dblclick_edit = $.checked('cb_dblclick_edit')" /> *Double click to edit*
+<label for="cb_dblclick_edit"><input type="checkbox" id="cb_dblclick_edit" onclick="woas.config.dblclick_edit = $.checked('cb_dblclick_edit')" />Double click to edit pages/menu<br />
 * /Opens the editor when the main text area or menu are double-clicked./<br />
-<label for="cb_save_on_quit"><input type="checkbox" id="cb_save_on_quit" onclick="woas.config.save_on_quit = $.checked('cb_save_on_quit')" /> *Remember all changes*
+<label for="cb_save_on_quit"><input type="checkbox" id="cb_save_on_quit" onclick="woas.config.save_on_quit = $.checked('cb_save_on_quit')" />Automatically save options (if changed) before quitting<br />
 * /Automatically saves any changes to Options./<br />
-<label for="cb_key_cache"><input type="checkbox" id="cb_key_cache" onclick="woas.config.key_cache = !$.checked('cb_key_cache')" /> *Do not cache the AES key*
+<label for="cb_key_cache"><input type="checkbox" id="cb_key_cache" onclick="woas.config.key_cache = !$.checked('cb_key_cache')" />Do not temporarily cache the AES key<br />
 * /Disables temporary caching of the [[Special::Security|AES key]], forcing you to enter the key each time an encrypted page is opened./<br />
-<label for="cb_fixed_layout"><input type="checkbox" id="cb_fixed_layout" onclick="_set_layout($.checked('cb_fixed_layout'))" />*Fixed banner and menu*<br />
+<label for="cb_fixed_layout"><input type="checkbox" id="cb_fixed_layout" onclick="_set_layout($.checked('cb_fixed_layout'))" />Fixed menu area and topbar<br />
 * /Locks the menu and banner in place while allowing the page to scroll freely./
-<label for="cb_open_last_page"><input type="checkbox" id="cb_open_last_page" onclick="woas.config.open_last_page = $.checked('cb_open_last_page')" /> *Remember last changed page*
+<label for="cb_open_last_page"><input type="checkbox" id="cb_open_last_page" onclick="woas.config.open_last_page = $.checked('cb_open_last_page')" />Save last page visited when quitting<br />
 * /Automatically opens the most recently changed page the next time you open the wiki./<br />
-<label for="cb_cumulative_save"><input type="checkbox" id="cb_cumulative_save" onclick="woas.config.cumulative_save = $.checked('cb_cumulative_save')" /> *Cumulative save*
+<label for="cb_cumulative_save"><input type="checkbox" id="cb_cumulative_save" onclick="woas.config.cumulative_save = $.checked('cb_cumulative_save')" />Enable cumulative save (will save to disk only when quitting)<br />
 * /Saves all changes to disk only on quit. Changes to the currently open wiki will not show when opening the wiki again in another tab or another browser window. Restart the wiki to make this change take effect./<br />
-<p><input type="button" onclick="save_options()" value="Save options" />&nbsp;<input type="button" onclick="ro_woas()" value="Disallow edits" /></p>
+<p><input type="button" onclick="save_options()" value="Save options" />&nbsp;&nbsp;<input type="button" onclick="ro_woas()" value="Disallow edits" /></p>
 
 <script>
 $("cb_allow_diff").checked = bool2chk(woas.config.allow_diff);
@@ -293,10 +310,116 @@ $("cb_fixed_layout").checked = ($("sw_wiki_header").style.position == "fixed");
 if (ie6) $("cb_fixed_layout").disabled = true;
 </script>
 --DFQRCTsKlU
+woas.page.title: Syntax
+woas.page.attributes: 0
+woas.page.length: 3290
+woas.page.encoding: ecma/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+[[Special::TOC]]
+= Wiki on a Stick syntax
+In this page you will find examples of all the WoaS wiki syntax.
+
+New pages have red links, like this [[Unexisting page]], but you can use [[Special::New Page]] to automatically create a new one through a simple dialog.
+
+Click on <a class="link" onclick="javascript:edit()" title="Edit this page">this link</a> to edit the wiki source of this page.
+
+== Links
+An internal wiki link is created using {{{[[Special::Main Page]]}}}, which results in [[Special::Main Page]].
+
+== Header of second level
+Some text here
+=== Subheader of third level
+Some text here
+==== Subheader of fourth level
+Some text here
+
+== Formatting
+External links: [[http://stickwiki.sourceforge.net/|Wiki on a Stick]]
+
+Boldface: *Boldface text*
+Italics: /italics text/
+Underline: _underlined text_
+
+{{{Example usage of \\{\\{\\{ and \\}\\}\\}
+This text is rendered without any HTML/wiki parsing, and it does not get _underlined_, as you can see
+
+A really long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long line here}}}
+<pre style="color:gray">
+This is pre-formatted text (using a &lt;pre&gt; tag) with CSS style!
+And it stands on multiple lines too</pre>
+You can also use any HTML tag: <span style="color:navy">Schr\u00f6dinger's cat is <blink style="font-weight:bold">not</blink> dead.</span>
+
+
+Ruler:
+----
+
+== Lists
+* Item 1
+** Subitem a
+** Subitem b
+* Item 2
+** Subitem c
+*** Subsubitem d
+* Item 3
+
+Numbered list:
+# Item A
+## Subitem i
+## Subitem ii
+# Item B
+## Subitem iii
+### Subsubitem iv
+# Item C
+
+Alphanumerically ordered list:
+@ Paragraph A
+@ Paragraph B
+@@ Subparagraph 1
+@@ Subparagraph 2
+
+
+== Tables
+
+{|
+|+ Telephone Table
+| *Column Name* || *Type* || *Other* || *Description*
+|-
+| id || INT || PRIMARY KEY || Row ID
+|-
+| contact_id || INT || KEY || References FOREIGN KEY(Contacts.id)
+|-
+| type || ENUM('Home','Work','Mobile','Pager','Other') || || Defines type of Telephone record
+|-
+| number || CHAR(32) || || Contains actual Telephone number
+|}
+
+== New syntax features
+* line joining through a slash '\\' at the end of the line
+* automatic TOC generation in place of [<!-- -->[Special::TOC]]
+* section links:
+** {{{[[#Syntax changes since v0.9]]}}} -> [[#Syntax changes since v0.9]]
+* anchors for all headers (through id attribute)
+* customization of blocks of text under headers through CSS classes /level1-level6/
+* alphanumerical lists using '@'
+* custom parsing rules through (careful) override of the /parse()/ core function
+* nowiki syntax {{<!-- -->{ }}<!-- -->} to disable html/wiki in a block of raw text (also works inline)
+
+== Syntax changes since v0.9
+There have been a few changes in the wiki syntax, they will be automatically applied on import or saving (except the wiki link parts inversion).
+* bullet lists are recognized using an asterisk '*' at the beginning of the line, if you use the previous '+' plus sign it will be automatically converted to an asterisk
+* wiki link parts are inverted, e.g. no more [<!-- -->[label of main page link|_Main Page_]] but [<!-- -->[_Main Page_|label of main page link]]
+
+Some syntax has also been deprecated, see [[Deprecated syntax]].
+
+[[Tags::help]]
+--DFQRCTsKlU
 woas.page.title: Feature::Summary
 woas.page.attributes: 0
-woas.page.last_modified: 1266126614
-woas.page.length: 2761
+woas.page.last_modified: 1266218076
+woas.page.length: 2760
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -305,7 +428,6 @@ woas.page.boundary: DFQRCTsKlU
 [[Special::TOC]]
 = Features
 [[Include::Template::TODO|this|Go through this page for anything new and write it up elsewhere before deleting this page.]]
-
 == Encryption
 Pages can be locked/unlocked through the apposite icons available on each user page. When a page is /locked/, it gets encrypted with true AES encryption; see [[Special::Security]] for more informations.
 
@@ -365,6 +487,44 @@ Remember that images are base64-encoded when embedded and become 33% bigger in s
 [[Tags::help]]
 
 --DFQRCTsKlU
+woas.page.title: Options
+woas.page.attributes: 0
+woas.page.length: 1336
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Options
+Below are explations of the options on the [[Special::Options]] page.
+
+=== Use consistent newlines in saved data
+When enabled, forces the plain pages to be saved using consistent newlines splitting. This is particularly useful if you use a versioning system like Subversion (SVN) or CVS.
+
+=== Double click to edit pages/menu
+When enabled, allows to switch to edit mode when double-clicking the page content or menu area.
+
+=== Automatically save options (if changed) before quitting
+When enabled, allows option changes to be automatically saved without having to click the *Save options* button at the bottom of the page.
+
+=== Do not temporarily cache the AES key
+When enabled, forces the use of a key for each encrypted page (useful if you leave WoaS open to possible unauthorized access).
+
+=== Fixed menu area and topbar
+When enabled, fixes the menu and banner in place, while allowing the page to scroll.
+
+=== Save last page visited when quitting
+When enabled, automatically opens the last saved page.
+
+=== Enable cumulative save
+When enabled, will save to disk only when quitting.
+
+=== Disallow edits (button)
+When clicked, puts the wiki into server mode. With this option users will be told that it is not possible to save their changes, but that changes will be allowed to for sandbox (testing) purposes.
+
+[[Tags::Help]]
+
+--DFQRCTsKlU
 woas.page.title: Special::Embed
 woas.page.attributes: 0
 woas.page.length: 128
@@ -378,6 +538,18 @@ woas.page.boundary: DFQRCTsKlU
 <input id="filename_" type="file" />&nbsp;<input type="button" value="Embed" onclick="woas._embed_process('%1')" />
 
 --DFQRCTsKlU
+woas.page.title: Image::alert.png
+woas.page.attributes: 12
+woas.page.last_modified: 1265858222
+woas.page.mime: image/png
+woas.page.length: 752
+woas.page.encoding: 8bit/base64
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAN1wAADdcBQiibeAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAGxSURBVDiNpVNBaxNREP5m3uzbJO5u3VhKskbdNlSKQlspCD14E/TgP4ggCIIH/4QX69FDEaQ9uqilx/bUQ6j/wVMptmfDphAoGHwdD9HV2iQqHXiHefPNzPe9j0eqivMEn6v7bwPeMbc2RV6Nw9AoCRlRbJgPDZHXd+5eS/XjfzEQ5hdpFHm3a7WSx7yeEQ3FDr3MiOYAPFqcmipdjSKE1tYJeDx0k6qeOR+M2f2UJN+001FV1c7srL5nPnoLhH9izzDIiO57xixdTxIDIgBAHMe4HMdWmJ+PlZARiRjzZqnZvEC+/4ultVhsNssAnmZEMyMHMNGzi0FwKanXob4PPTiA7u9DrUUpDDGXpp4n8vr3nsLGjKhqjDm8u7wcTATBoFqpACJArwcAcCcn2Gq3j7/2+w9aqu1TDETk5bVGw4uqVai1UN+HrKxAVleLnMtl3FpYqIjI2k9b+cf2GwAe3pyf99X3B/SthdvZgdveLnK1Fo3paYRhWCOiJ4WEDWt3q5OTd66kKQ31uhA8KB/lOT7v7fWcc4kAADFvdfP8SzfPx/afenBjus6545F/4V/jO5CJmhHgOc11AAAAAElFTkSuQmCC
+--DFQRCTsKlU
 woas.page.title: WoaS::Bootscript
 woas.page.attributes: 4
 woas.page.length: 48
@@ -390,7 +562,7 @@ LyogaW5zZXJ0IGhlcmUgeW91ciBib290IHNjcmlwdCAqLw==
 --DFQRCTsKlU
 woas.page.title: History
 woas.page.attributes: 0
-woas.page.last_modified: 1266126171
+woas.page.last_modified: 1266218130
 woas.page.length: 37883
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -411,7 +583,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 * Syntax for page-to-page anchors inside pages.</div>
 
 === Version 1.0 (under development)
-* Now using [[http://sourceforge.net/projects/stickwiki/files/|Wiki on a Stick v0.10.2]] as the base for Book on a Stick.
+* Now using [[http://sourceforge.net/projects/stickwiki/files/|Wiki on a Stick v0.10.4]] as the base for Book on a Stick.
 
 * _Interface:_
 ** Added the *Edit sub-menu* button for use by namespace sub-menus.
@@ -1022,6 +1194,7 @@ woas.page.attributes: 2
 woas.page.length: 64
 woas.page.encoding: 8bit/base64
 woas.page.disposition: inline
+woas.page.original_length: 48
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
@@ -3602,8 +3775,8 @@ You can't. This is a personal wiki that's not designed to be used on a server. A
 --DFQRCTsKlU
 woas.page.title: Help::Spoilers
 woas.page.attributes: 0
-woas.page.last_modified: 1265824399
-woas.page.length: 3166
+woas.page.last_modified: 1266130422
+woas.page.length: 3163
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -3611,7 +3784,7 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 = Help::Spoilers
 [[Special::TOC]]
-Spoilers are permanent areas with content that shows when you hover over them with the mouse, or hidden areas that show when you hover over the link that activates them. When creating HTML spoilers, you can substitute other HTML tags (like &lt;div&gt;, &lt;p&gt;, &lt;td&gt;, etc.) for the &lt;span&gt; tags.
+Spoilers are permanent areas with content that shows when you hover over them with the mouse, or hidden areas that show when you hover over the link that activates them. When creating HTML spoilers, you can substitute other HTML tags (like &lt;div&gt;, &lt;p&gt;, or &lt;td&gt;) for the &lt;span&gt; tags.
 
 == Spoiler (wiki)
 This method displays a permanently visible spoiler box, which can also be used to create an invisible hot spot by customizing the spoiler [[Help::CSS|CSS]] to make the box blend in with the background.
@@ -5002,18 +5175,6 @@ This button toggles the display of the [[Sandbox]] page in this page.
 
 [[Tags::Example]]
 
---DFQRCTsKlU
-woas.page.title: Image::alert.png
-woas.page.attributes: 12
-woas.page.last_modified: 1265858222
-woas.page.mime: image/png
-woas.page.length: 752
-woas.page.encoding: 8bit/base64
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAN1wAADdcBQiibeAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAGxSURBVDiNpVNBaxNREP5m3uzbJO5u3VhKskbdNlSKQlspCD14E/TgP4ggCIIH/4QX69FDEaQ9uqilx/bUQ6j/wVMptmfDphAoGHwdD9HV2iQqHXiHefPNzPe9j0eqivMEn6v7bwPeMbc2RV6Nw9AoCRlRbJgPDZHXd+5eS/XjfzEQ5hdpFHm3a7WSx7yeEQ3FDr3MiOYAPFqcmipdjSKE1tYJeDx0k6qeOR+M2f2UJN+001FV1c7srL5nPnoLhH9izzDIiO57xixdTxIDIgBAHMe4HMdWmJ+PlZARiRjzZqnZvEC+/4ultVhsNssAnmZEMyMHMNGzi0FwKanXob4PPTiA7u9DrUUpDDGXpp4n8vr3nsLGjKhqjDm8u7wcTATBoFqpACJArwcAcCcn2Gq3j7/2+w9aqu1TDETk5bVGw4uqVai1UN+HrKxAVleLnMtl3FpYqIjI2k9b+cf2GwAe3pyf99X3B/SthdvZgdveLnK1Fo3paYRhWCOiJ4WEDWt3q5OTd66kKQ31uhA8KB/lOT7v7fWcc4kAADFvdfP8SzfPx/afenBjus6545F/4V/jO5CJmhHgOc11AAAAAElFTkSuQmCC
 --DFQRCTsKlU
 woas.page.title: Example::Menu
 woas.page.attributes: 0

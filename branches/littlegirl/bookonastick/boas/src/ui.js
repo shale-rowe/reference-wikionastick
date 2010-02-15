@@ -265,7 +265,7 @@ function _hex_col(tone) {
 		var repco = split_bytes(pw).toUnique().length/pwlength;
 		if (repco<0.8)
 			pwstrength *= (repco+0.2);
-		log("pwstrength = "+(pwstrength/100).toFixed(2)+", repco = "+repco);	// log:1
+//		log("pwstrength = "+(pwstrength/100).toFixed(2)+", repco = "+repco);	// log:1
 	} else
 		var pwstrength = 0;
   

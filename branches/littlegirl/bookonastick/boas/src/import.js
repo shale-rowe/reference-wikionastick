@@ -93,6 +93,7 @@ woas["import_wiki"] = function() {
 				case "0.10.1":
 				case "0.10.2":
 				case "0.10.3":
+				case "0.10.4":
 					old_version = Number(ver_str.substr(1).replace(/\./g, ""));
 					break;
 				default:
@@ -228,7 +229,7 @@ woas["import_wiki"] = function() {
 //		log("page_names is ("+page_names+")");	// log:0
 	} // do not import content pages
 
-	for(var i=0;i<var_names.length;i++) {
+	for(var i=0,il=var_names.length;i<il;++i) {
 		if (var_names[i] == "main_page_")
 			new_main_page = (old_version!=2) ? unescape(var_values[i]) : var_values[i];
 		else if (var_names[i] == "permit_edits")
@@ -342,7 +343,7 @@ woas["import_wiki"] = function() {
 			var i__woas = eval(data+"\ni__woas");
 			
 			// import each member
-			for(var a=0;a<collected.length;a++) {
+			for(var a=0,acl=collected.length;a<acl;++a) {
 				woas[collected[a]] = i__woas[collected[a]];
 			}
 			
@@ -405,6 +406,14 @@ woas["import_wiki"] = function() {
 						}
 					} else {
 						page_titles[pi] = page_names[i];
+						// fix the trailing nul bytes bug in encrypted pages
+						if ((old_version>=102) && (old_version<=103)
+							&& (old_page_attrs[i] & 2)) {
+								var rest = page_contents[i].length % 16;
+								if (rest)
+									log("removing "+rest+" trailing bytes from page "+page_names[i]); //log:1
+								while (rest-- > 0) {page_contents[i].pop();}
+						}
 						pages[pi] = page_contents[i];
 					}
 					page_attrs[pi] = old_page_attrs[i];

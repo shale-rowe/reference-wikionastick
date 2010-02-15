@@ -18,13 +18,14 @@ function getW(a,i){ return a[i]|a[i+1]<<8|a[i+2]<<16|a[i+3]<<24; }
 function setW(a,i,w){ a.splice(i,4,w&0xFF,(w>>>8)&0xFF,(w>>>16)&0xFF,(w>>>24)&0xFF); }
 function setWInv(a,i,w){ a.splice(i,4,(w>>>24)&0xFF,(w>>>16)&0xFF,(w>>>8)&0xFF,w&0xFF); }
 function getB(x,n){ return (x>>>(n*8))&0xFF; }
-
-	var utf8sets = [0x800,0x10000,0x110000];
+/* LITTLE GIRL: IS THIS COMMENT IN THE FOLLOWING LINE NECESSARY SINCE IT HAS NO CLOSING TAG?
+/*	var utf8sets = [0x800,0x10000,0x110000];
 
 	function unExpChar(c){
 	  return "unexpected character '"+String.fromCharCode(c)+"' (code 0x"+c.toString(16)+").";
 	}
-	
+*/
+
 	function utf8Encrypt_s(sData) {
 		return unescape( encodeURIComponent( sData ) );
 	}
@@ -289,20 +290,24 @@ function blcEncrypt(enc){
 }
 
 function blcDecrypt(dec){
+	// initialize length
   if (tot==0){
 //    prgr = name;
-    if (key.length<1) return;
+    if (key.length<1) return false;
     // if (cbc)
 	{ aes_i=16; }
     tot = bData.length;
-    if ( (tot%16) || tot<aes_i ) throw 'AES: Incorrect length (tot='+tot+', aes_i='+aes_i+')';
+    if ( (tot%16) || (tot<aes_i) ) {
+		log('AES: Incorrect length (tot='+tot+', aes_i='+aes_i+')'); //log:1
+		return false;
+	}
     aesInit();
   }else{
     // if (cbc)
 	aes_i=tot-aes_i;
     dec();
     // if (cbc)
-{
+	{
       for (aes_j=aes_i-16; aes_j<aes_i; aes_j++) bData[aes_j] ^= bData[aes_j-16];
       aes_i = tot+32-aes_i;
     }
@@ -311,8 +316,10 @@ function blcDecrypt(dec){
     aesClose();
     // if (cbc)
 	bData.splice(0,16);
+	// remove 0s added for padding
 	while(bData[bData.length-1]==0) bData.pop();
   }
+  return true;
 }
 
 // sets global key to the utf-8 encoded key
@@ -327,7 +334,6 @@ function AES_clearKey() {
 
 // returns an array of encrypted characters
 function AES_encrypt(raw_data) {
-	
 	bData = utf8Encrypt(raw_data);
 	
 	aes_i=tot=0;
@@ -341,7 +347,10 @@ function AES_decrypt(raw_data) {
 	bData = raw_data;
 	
 	aes_i=tot=0;
-	do{ blcDecrypt(aesDecrypt); } while (aes_i<tot);
+	do {
+		if (!blcDecrypt(aesDecrypt))
+			return null;
+	} while (aes_i<tot);
 	
 	sData = utf8Decrypt(bData);
 	bData = [];
