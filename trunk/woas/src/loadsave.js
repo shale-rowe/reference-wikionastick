@@ -7,30 +7,6 @@ woas["file_mode"] = {
 	BASE64: 3
 }
 
-// get filename of currently open file in browser
-function _get_this_filename() {
-	var filename = unescape(document.location.toString().split("?")[0]);
-	if (filename.indexOf("file://") === 0) // all browsers
-		filename = filename.substr(7);
-	if (filename.indexOf("///")===0) // firefox
-		filename = filename.substr(1);
-	filename = filename.replace(/#.*$/g, ""); // remove fragment
-	if (is_windows) {
-		// convert unix path to windows path
-		filename = filename.replace(/\//g, "\\");
-		if (filename.substr(0,2)!="\\\\") { // if this is not a network path - will be true in case of Firefox for example
-			// remove leading slash before unit:
-			if (filename.match(/^\\\w:\\/))
-				filename = filename.substr(1);
-			if (filename.charAt(1)!=':') {
-				if (ie)
-					filename = "\\\\"+filename;
-			}
-		}
-	}
-	return filename;
-}
-
 // save the currently open WoaS
 function _saveThisFile(new_data, old_data) {
 	var filename = _get_this_filename();
@@ -47,10 +23,15 @@ function _saveThisFile(new_data, old_data) {
 
 //API1.0: save-file handler
 woas["save_file"] = function(fileUrl, save_mode, content) {
+//	log("javaSaveFile(\""+fileUrl+"\", "+save_mode+", ...("+content.length+" bytes)...)");	//log:0
 	var r = null;
-	r = this.mozillaSaveFile(fileUrl, save_mode, content);
-	if((r == null) || (r == false))
-		r = this.ieSaveFile(fileUrl, save_mode, content);
+	if (!this.use_java_io) {
+		r = this.mozillaSaveFile(fileUrl, save_mode, content);
+		if((r == null) || (r == false))
+			r = this.ieSaveFile(fileUrl, save_mode, content);
+		// fallback to try also with Java saving
+	} else
+		return this.javaSaveFile(fileUrl, save_mode, content);
 	if((r == null) || (r == false))
 		r = this.javaSaveFile(fileUrl, save_mode, content);
 	return r;
@@ -104,17 +85,19 @@ woas["load_file"] = function(fileUrl, load_mode){
 			// fallthrough is wanted here
 		}
 	}
-	if (r === null) // load file using file absolute path
-		r = this.mozillaLoadFile(fileUrl, load_mode);
-	else return r;
-	if(r === false)
-		return false;
-	// no mozillas here, attempt the IE way
-	if (r === null)
-		r = this.ieLoadFile(fileUrl, load_mode);
-	else return r;
-	if (r === false)
-		return false;
+	if (!this.use_java_io) {
+		if (r === null) // load file using file absolute path
+			r = this.mozillaLoadFile(fileUrl, load_mode);
+		else return r;
+		if(r === false)
+			return false;
+		// no mozillas here, attempt the IE way
+		if (r === null)
+			r = this.ieLoadFile(fileUrl, load_mode);
+		else return r;
+		if (r === false)
+			return false;
+	}
 	if (r === null)
 		// finally attempt to use Java
 		r = this.javaLoadFile(fileUrl, load_mode);
@@ -280,19 +263,18 @@ woas["_data_uri_enc"] = function(filename, ct) {
 	return "data:"+guess_mime+";base64,"+ct;
 }
 
-function _javaUrlToFilename(url)
-{
-	var f = "//localhost";
+function _javaUrlToFilename(url) {
+/*	var f = "//localhost";
 	if(url.indexOf(f) == 0)
 		return url.substring(f.length);
 	var i = url.indexOf(":");
 	if(i > 0)
-		return url.substring(i-1);
+		return url.substring(i-1); */
 	return url;
 }
 
+//FIXME: save_mode is not considered here
 woas["javaSaveFile"] = function(filePath,save_mode,content) {
-	//FIXME: save_mode is not considered here
 	try {
 		if(document.applets["TiddlySaver"])
 			return document.applets["TiddlySaver"].saveFile(_javaUrlToFilename(filePath),"UTF-8",content);
@@ -308,6 +290,7 @@ woas["javaSaveFile"] = function(filePath,save_mode,content) {
 		s.print(content);
 		s.close();
 	} catch(ex) {
+		log(ex.toString());
 		return false;
 	}
 	return true;
@@ -340,8 +323,6 @@ woas["javaLoadFile"] = function(filePath, load_mode) {
 			a_content.push(new String(line));
 		r.close();
 	} catch(ex) {
-//		if(window.opera)
-//			opera.postError(e);
 		log("Exception in javaLoadFile(\""+filePath+"\"): "+e)
 		return false;
 	}

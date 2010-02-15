@@ -418,3 +418,16 @@ function import_wiki_wsif() {
 	}
 	return done;
 }
+
+// create a centered popup given some options
+woas["popup"] = function (name,fw,fh,extra,head,body) {
+	var hpos=Math.ceil((screen.width-fw)/2);
+	var vpos=Math.ceil((screen.height-fh)/2);
+	var wnd = window.open("about:blank",name,"width="+fw+",height="+fh+		
+	",left="+hpos+",top="+vpos+extra);
+	wnd.focus();
+	wnd.document.writeln(this.DOCTYPE+"<ht"+"ml><he"+"ad>"+head+"</h"+"ead><"+"body>"+
+						body+"</bod"+"y></h"+"tml>\n");
+	wnd.document.close();
+	return wnd;
+}
