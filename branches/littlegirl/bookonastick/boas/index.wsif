@@ -404,8 +404,8 @@ LyogaW5zZXJ0IGhlcmUgeW91ciBib290IHNjcmlwdCAqLw==
 --DFQRCTsKlU
 woas.page.title: History
 woas.page.attributes: 0
-woas.page.last_modified: 1266277397
-woas.page.length: 38166
+woas.page.last_modified: 1266302904
+woas.page.length: 38214
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -449,6 +449,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the [[Help::Encrypt a page]] page.
 ** Updated the [[Help::Footer]] page.
 ** Updated the [[Help::Import pages]] page.
+** Updated the [[Help::Include web page]] page.
 ** Updated the [[Help::JavaScript]] page.
 ** Updated the [[Help::Links]] page.
 ** Updated the [[Help::Namespaces]] page.
@@ -2392,8 +2393,8 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Help::Include web page
 woas.page.attributes: 0
-woas.page.last_modified: 1265824399
-woas.page.length: 1341
+woas.page.last_modified: 1266302863
+woas.page.length: 1977
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -2405,18 +2406,22 @@ Web pages can be included inside of iFrames in a wiki page. Some pages may not r
 <div class="helptext">Use this code in a page, replacing URL with the URL of the page you wish to include:</div>{{{
 <iframe height="400" width="100%" src="URL"></iframe>
 }}}<div class="helptext">To include a web page in a wiki page.</div>
-
 *Example:*
 
 <div class="helptext">Use this code in a page:</div>{{{
-<iframe height="400" width="100%" src="http://www.google.com"></iframe>
+<iframe id="myframe" height="400" width="100%" src="http://www.google.com"></iframe>
 }}}<div class="helptext">To create this:</div>
-<iframe  height="400" width="100%" src="http://www.google.com"></iframe>
+<iframe id="myframe" height="400" width="100%" src="http://www.google.com"></iframe>
 <!-- <iframe  height="400" width="100%" src="http://www.google.com" frameborder="0"></iframe> -->
-
 You can also style the iFrame by changing the height and width to whatever you'd like them to be, the border width to whatever thickness you like, the style of border to dotted, dashed, solid, double, groove, ridge, inset, or outset, and the border color to whatever color you like:{{{
 <iframe style="height="400" width="97.5%" border:15px solid red" src="http://www.google.com"></iframe>
 }}}
+== Reload an iframe with a link
+<div class="helptext">Use this code in the same page as an iframe, replacing FRAMENAME with ID of the iFrame you'd like to reload:</div>{{{
+<script type="text/javascript">function Reup () {var f = document.getElementById('FRAMENAME'); f.src = f.src;}</script>
+<a href="javascript:Reup()">Reload the iframe</a>
+}}}<div class="helptext">To create a reload button like this one that refreshes the iFrame above:</div>
+<script type="text/javascript">function Reup () {var f = document.getElementById('myframe'); f.src = f.src;}</script><a href="javascript:Reup()">Reload the iframe</a>
 
 [[Tags::Help, Syntax]]
 
@@ -2456,8 +2461,8 @@ The [[Example::Overview|Example Overview]] page displays the contents of the thr
 --DFQRCTsKlU
 woas.page.title: Help::JavaScript
 woas.page.attributes: 0
-woas.page.last_modified: 1266125629
-woas.page.length: 5459
+woas.page.last_modified: 1266301419
+woas.page.length: 6026
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -2529,6 +2534,17 @@ setTimeout(onload="go_to('PAGENAME')",10*1000);
 <div class="alertnote">Note that this will redirect to the next page even if you're in the editor! The only indication you will have if you're in the editor is that name in the the Page title box will change to the name of the redirected page. If you don't check this before saving, your changes will be saved to the redirected page, overwriting its contents.
 
 I recommend that you put this code near the top of any page (preferably directly beneath the first header on the page) so that you can find it quickly. I also recommend that you make the delay at <b>least</b> 10 seconds so that you have time to open the page in the editor, change the <b>PAGENAME</b> portion of the code to a nonexistent page, and then save the page before the timer runs out. Then you can reopen the page safely without risk of it redirecting while you're working on it. All that will happen if you give the script a nonexistent page name is that an alert will pop up asking if you'd like to create the nonexistent page. You can click <b>Cancel</b> when that popup comes up and continue working without further interruption. An even safer method is to open the wiki in a text editor and make changes to the page contents from there.</div>
+
+== Using JavaScript to reload the wiki
+<div class="helptext">Use this code in a page:</div>{{{
+<input type="button" value="Reload wiki" onClick="history.go(0)">
+}}}<div class="helptext">To create this:</div>
+<input type="button" value="Reload wiki" onClick="history.go(0)">
+
+<div class="helptext">Use this code in a page:</div>{{{
+<input type="button" value="Reload wiki" onClick="window.location.href=window.location.href">
+}}}<div class="helptext">To create this:</div>
+<input type="button" value="Reload wiki" onClick="window.location.href=window.location.href">
 
 [[Tag::Help|Syntax]]
 
@@ -4080,8 +4096,8 @@ If all went well, the number it displays should be *0* and you've successfully r
 --DFQRCTsKlU
 woas.page.title: Sandbox
 woas.page.attributes: 0
-woas.page.last_modified: 1266127949
-woas.page.length: 192
+woas.page.last_modified: 1266303185
+woas.page.length: 1088
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -4091,6 +4107,29 @@ woas.page.boundary: DFQRCTsKlU
 This page is for trying out new things without having to create a new page.
 
 [[Include::Template::TODO|this|Delete this task from the Sandbox page to remove it from the ToDo list.]]
+
+== Next
+<script type="text/javascript">
+function toggleMe(a){
+  var next=document.getElementById(a);
+  var b=new String();
+  b= a-1;
+  var prev=document.getElementById(b);
+  if(!next)return true;
+  if(next.style.display=="none"){
+    next.style.display="block"
+    prev.style.display="none"
+    window.scrollTo(0,0);
+  } else {
+    next.style.display="none"
+  }
+  return true;
+}
+</script>
+<div id="1" style="display:block;">Section 1. <input type="button" onclick="return toggleMe('2')" value="Go to Section 2"></div>
+<div id="2" style="display:none;">Section 2. <input type="button" onclick="return toggleMe('3')" value="Go to Section 3"></div>
+<div id="3" style="display:none;">Section 3. <input type="button" onclick="return toggleMe('4')" value="Go to Section 4"></div>
+<div id="4" style="display:none;">Section 4. <input type="button" onclick="location.reload()" value="Reload page"></div>
 
 --DFQRCTsKlU
 woas.page.title: Utility::Links for writers
@@ -4681,7 +4720,7 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Help::Embed web page
 woas.page.attributes: 0
-woas.page.last_modified: 1265824399
+woas.page.last_modified: 1266302503
 woas.page.length: 962
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
