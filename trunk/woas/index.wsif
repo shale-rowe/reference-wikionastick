@@ -1116,14 +1116,15 @@ function myfunc(arg) {
 --DFQRCTsKlU
 woas.page.title: Options
 woas.page.attributes: 0
-woas.page.length: 1336
+woas.page.last_modified: 1266278627
+woas.page.length: 1338
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Options
-Below are explations of the options on the [[Special::Options]] page.
+Below are explanations of the options on the [[Special::Options]] page.
 
 === Use consistent newlines in saved data
 When enabled, forces the plain pages to be saved using consistent newlines splitting. This is particularly useful if you use a versioning system like Subversion (SVN) or CVS.
