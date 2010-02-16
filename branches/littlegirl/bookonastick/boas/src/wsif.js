@@ -142,7 +142,7 @@ woas["_native_wsif_save"] = function(path, single_wsif, inline_wsif, author,
 			// export the blob
 			if (!this.save_file(path + blob_fn,
 							(encoding == "8bit/plain") ?
-							this.file_mode.BINARY : this.file_mode.UTF8_TEXT, ct))
+							this.file_mode.BINARY : this.file_mode.ASCII_TEXT, ct))
 				log("Could not save "+blob_fn);
 		}
 		// the page record is now ready, proceed to save
@@ -151,7 +151,7 @@ woas["_native_wsif_save"] = function(path, single_wsif, inline_wsif, author,
 			++done;
 		} else { // save each page separately
 			if (this.save_file(path+pi.toString()+".wsif",
-								this.file_mode.UTF8_TEXT,
+								this.file_mode.ASCII_TEXT,
 								// also add the pages counter (single)
 								extra + this.wsif.header("woas.pages", 1) +
 								"\n" + record))
@@ -179,7 +179,7 @@ woas["_native_wsif_save"] = function(path, single_wsif, inline_wsif, author,
 	}
 	// output the index WSIF file now
 	if (!this.save_file(path+this.wsif.DEFAULT_INDEX,
-						this.file_mode.UTF8_TEXT,
+						this.file_mode.ASCII_TEXT,
 						extra + "\n" + full_wsif)) {
 		if (single_wsif)
 			done = 0;
@@ -215,7 +215,7 @@ woas["_native_load"] = function() {
 }
 
 woas["_native_wsif_load"] = function(path, overwrite, and_save, recursing) {
-	var ct = this.load_file(path, this.file_mode.UTF8_TEXT);
+	var ct = this.load_file(path, this.file_mode.ASCII_TEXT);
 	if (typeof ct != "string") {
 		return false;
 	}
@@ -341,6 +341,10 @@ woas["_native_wsif_load"] = function(path, overwrite, and_save, recursing) {
 			break;
 			case "mime":
 				mime = v;
+			break;
+			case "original_length":
+				// this should be used for trimming base64 encrypted pages
+				// ignored for now
 			break;
 			default:
 				log("Unknown WSIF header: "+s);

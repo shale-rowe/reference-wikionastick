@@ -241,6 +241,7 @@ woas["delete_page_i"] = function(i) {
 
 // some general integrity tests - for debug purposes
 woas["integrity_test"] = function() {
+	log("Starting integrity test"); //log:1
 	// test integrity of data arrays
 	var len = pages.length;
 	if ((page_attrs.length != len) ||
@@ -306,7 +307,7 @@ woas["_dirname_regex"] = new RegExp("\\"+woas.DIRECTORY_SEPARATOR+"[^\\"+woas.DI
 
 // hackish function, might stay private for now
 woas["dirname"] = function(fn) {
-	return fn.replace(this._dirname_regex, (woas.DIRECTORY_SEPARATOR=="\\"?"\\\\":"/"));
+	return fn.replace(this._dirname_regex, woas.DIRECTORY_SEPARATOR);
 }
 
 // the export path used by export feature

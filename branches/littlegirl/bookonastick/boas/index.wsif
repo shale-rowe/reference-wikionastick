@@ -3720,7 +3720,7 @@ The Table of Contents link creates a Table of Contents that's automatically popu
 --DFQRCTsKlU
 woas.page.title: Help::Tables
 woas.page.attributes: 0
-woas.page.last_modified: 1265824399
+woas.page.last_modified: 1266280502
 woas.page.length: 1949
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -3773,7 +3773,7 @@ The content inside tables can contain internal and external links, and these kin
 |-
 | CELL1 || [[http://www.google.com|Link to Google]] || CELL3
 |-
-| CELL1 || [[Main page]] || CELL3
+| CELL1 || [[Main Page]] || CELL3
 |-
 | CELL1 || || CELL3
 |}
@@ -3786,7 +3786,7 @@ The content inside tables can contain internal and external links, and these kin
 |-
 | CELL1 || [[http://www.google.com|Link to Google]] || CELL3
 |-
-| CELL1 || [[Main page]] || CELL3
+| CELL1 || [[Main Page]] || CELL3
 |-
 | CELL1 || || CELL3
 |}
@@ -3797,7 +3797,7 @@ The content inside tables can contain internal and external links, and these kin
 | *HEADER1* || *HEADER2* || *HEADER3*
 | CELL1 || CELL2 || CELL3
 | CELL1 || [[http://www.google.com|Link to Google]] || CELL3
-| CELL1 || [[Main page]] || CELL3
+| CELL1 || [[Main Page]] || CELL3
 | CELL1 || || CELL3
 |}
 }}}<div class="helptext">To create this:</div><br><br>
@@ -3806,7 +3806,7 @@ The content inside tables can contain internal and external links, and these kin
 | *HEADER1* || *HEADER2* || *HEADER3*
 | CELL1 || CELL2 || CELL3
 | CELL1 || [[http://www.google.com|Link to Google]] || CELL3
-| CELL1 || [[Main page]] || CELL3
+| CELL1 || [[Main Page]] || CELL3
 | CELL1 || || CELL3
 |}
 

@@ -18,7 +18,7 @@ function getW(a,i){ return a[i]|a[i+1]<<8|a[i+2]<<16|a[i+3]<<24; }
 function setW(a,i,w){ a.splice(i,4,w&0xFF,(w>>>8)&0xFF,(w>>>16)&0xFF,(w>>>24)&0xFF); }
 function setWInv(a,i,w){ a.splice(i,4,(w>>>24)&0xFF,(w>>>16)&0xFF,(w>>>8)&0xFF,w&0xFF); }
 function getB(x,n){ return (x>>>(n*8))&0xFF; }
-/* LITTLE GIRL: IS THIS COMMENT IN THE FOLLOWING LINE NECESSARY SINCE IT HAS NO CLOSING TAG?
+
 /*	var utf8sets = [0x800,0x10000,0x110000];
 
 	function unExpChar(c){
@@ -51,7 +51,13 @@ function getB(x,n){ return (x>>>(n*8))&0xFF; }
 	}
 
 	function utf8Decrypt_s(sData) {
-		return decodeURIComponent( escape( sData ) );
+		try {
+			return decodeURIComponent( escape( sData ) );
+		}
+		catch (e) {
+			log(e);	//log:1
+		}
+		return null;
 	}
 
 	function utf8Decrypt(bData){

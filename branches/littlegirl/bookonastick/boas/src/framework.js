@@ -1,15 +1,21 @@
 
 woas["debug"] = true;			// toggle debug mode (and console)
 
+//TODO: all variables should stay inside this object
+woas["browser"] = { ie: false, ie6: false, ie8: false,
+					firefox: false, firefox2: false,
+					firefox3: false, firefox_new: false,
+					opera: false, safari: false
+				};
+
 // browser flags - not to be in WoaS object
 var ie = false;
 var ie6 = false;
 var firefox = false, firefox2 = false;
 var ff3 = false, ff_new = false;
-var opera = false;
 
 if((navigator.userAgent).indexOf("Opera")!=-1)
-	opera = true;
+	woas.browser.opera = true;
 else if(navigator.appName == "Netscape") {
 	// check that it is Gecko first
 	firefox = (new RegExp("Gecko\\/\\d+")).test(navigator.userAgent) ? true : false;
@@ -39,6 +45,8 @@ else if(navigator.appName == "Netscape") {
 	ie8 = (navigator.userAgent.search(/msie 8\./i)!=-1);
 	if (!ie8)
 		ie6 = (navigator.userAgent.search(/msie 6\./i)!=-1);
+} else if (navigator.userAgent.indexOf("applewebkit") != -1) {
+	woas.browser.safari = true;
 }
 
 // finds out if Opera is trying to look like Mozilla
@@ -46,12 +54,17 @@ if (firefox && (navigator.product != "Gecko"))
 	firefox = false;
 
 // finds out if Opera is trying to look like IE
-if (ie && opera)
+if (ie && woas.browser.opera)
 	ie = false;
+
+woas.browser.ie = ie;
 	
 var is_windows = (navigator.appVersion.toLowerCase().indexOf("windows")!=-1);
 
 woas["_server_mode"] = (document.location.toString().match(/^file:\/\//) ? false:true);
+
+// set to true if we need Java saving
+woas["use_java_io"] = woas.browser.safari || woas.browser.opera;
 
 // returns the DOM element object given its id - enables a try/catch mode when debugging
 if (woas.debug) {
@@ -95,14 +108,15 @@ $["toggle"] = function(id) {
 var log;
 if (woas.debug) {
 	// logging function - used in development
-	log = function (aMessage)
-	{
+	log = function (aMessage) {
 	    var logbox = $("woas_log");
 	    // count lines
 		nls = logbox.value.match(/\n/g);
 		if (nls!=null && typeof(nls)=='object' && nls.length>11)
 			logbox.value = "";
 		logbox.value += aMessage + "\n";
+		if(window.opera)
+			opera.postError(aMessage);
 	};
 } else {
 	log = function(aMessage) { };
@@ -223,15 +237,31 @@ String.prototype.sprintf = function() {
 	});
 }
 
-// create a centered popup given some options
-woas["popup"] = function (name,fw,fh,extra,head,body) {
-	var hpos=Math.ceil((screen.width-fw)/2);
-	var vpos=Math.ceil((screen.height-fh)/2);
-	var wnd = window.open("about:blank",name,"width="+fw+",height="+fh+		
-	",left="+hpos+",top="+vpos+extra);
-	wnd.focus();
-	wnd.document.writeln(this.DOCTYPE+"<ht"+"ml><he"+"ad>"+head+"</h"+"ead><"+"body>"+
-						body+"</bod"+"y></h"+"tml>\n");
-	wnd.document.close();
-	return wnd;
+// get filename of currently open file in browser
+function _get_this_filename() {
+	var filename = unescape(document.location.toString().split("?")[0]);
+	if (woas.browser.opera)
+		filename = filename.replace(/^file:\/\/[^\/]+/, '');
+	else {
+		if (filename.indexOf("file://") === 0) // all browsers
+			filename = filename.substr(7);
+		if (filename.indexOf("///")===0) // firefox
+			filename = filename.substr(1);
+	}
+	//TODO: check that 'g' can be removed
+	filename = filename.replace(/#.*$/g, ""); // remove fragment (if any)
+	if (is_windows) {
+		// convert unix path to windows path
+		filename = filename.replace(/\//g, "\\");
+		if (filename.substr(0,2)!="\\\\") { // if this is not a network path - will be true in case of Firefox for example
+			// remove leading slash before unit:
+			if (filename.match(/^\\\w:\\/))
+				filename = filename.substr(1);
+			if (filename.charAt(1)!=':') {
+				if (ie)
+					filename = "\\\\"+filename;
+			}
+		}
+	}
+	return filename;
 }
