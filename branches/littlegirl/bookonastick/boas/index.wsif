@@ -1,10 +1,10 @@
 wsif.version: 1.1.0
 woas.version: 0.10.4
-woas.pages: 120
+woas.pages: 128
 
 woas.page.title: ::Menu
 woas.page.attributes: 0
-woas.page.last_modified: 1266259837
+woas.page.last_modified: 1266445462
 woas.page.length: 39
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -15,7 +15,7 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Special::Advanced
 woas.page.attributes: 0
-woas.page.last_modified: 1266217528
+woas.page.last_modified: 1266393315
 woas.page.length: 1229
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -412,8 +412,8 @@ LyogaW5zZXJ0IGhlcmUgeW91ciBib290IHNjcmlwdCAqLw==
 --DFQRCTsKlU
 woas.page.title: History
 woas.page.attributes: 0
-woas.page.last_modified: 1266369131
-woas.page.length: 38462
+woas.page.last_modified: 1266445710
+woas.page.length: 39241
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -447,15 +447,29 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the global CSS.
 
 * _Content:_
+** Added the [[Example::Embed web page iFrame]] page.
+** Added the [[Example::Embed web page object]] page.
+** Added the [[Example::Foldawaytext]] page.
+** Added the [[Example::Folding page inline]] page.
+** Added the [[Example::Folding page plain]] page.
+** Added the [[Template::Foldawaylink]] page to be used by Foldaway folds.
+** Added the [[Template::Foldawaypage]] page to be used by Foldaway folds.
+** Added the [[Template::Foldawaytext]] page to be used by Foldaway folds.
 ** Added the [[Template::Icon::Password]] page.
-** Removed the obsolete *Changes* page since it's been replaced by the new [[Special::Recentchanges]] page.
+** Removed the *Changes* page.
+** Removed the *Help::Embed web page* page.
 ** Renamed the *MyPages::Page 1* page to [[Example::Encrypted page]].
+** Renamed the *Template::FoldingPage* page to [[Template::Foldpage]].
+** Renamed the *Template::FoldingText* page to [[Template::Foldtext]].
+** Renamed the *Template::FoldingTextInline* page to [[Template::Foldtextinline]].
 ** Updated the [[Help::Bugs]] page.
 ** Updated the [[Help::CSS]] page.
 ** Updated the [[Help::Code blocks (preformatted text)]] page, removing the obsolete *Code blocks with syntax highlighting* section.
 ** Updated the [[Help::Delete a page]] page.
 ** Updated the [[Help::Edit the menu]] page.
 ** Updated the [[Help::Encrypt a page]] page.
+** Updated the [[Help::Export]] page.
+** Updated the [[Help::Folds]] page, adding instructions for *Foldaway*.
 ** Updated the [[Help::Footer]] page.
 ** Updated the [[Help::Import pages]] page.
 ** Updated the [[Help::Include web page]] page.
@@ -498,12 +512,12 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Added the [[Example::Bluebox]] page.
 ** Added the [[Example::Folding page button (HTML)]] page.
 ** Added the [[Help::Bluebox]] page to explain how to use Bluebox, which was contributed by *FBNil*, to create styled presentations of your stories.
-** Added the [[Help::Embed web page]] page.
+** Added the [[Help::Include web page]] page.
 ** Added the [[Help::Folds]] page.
 ** Added the [[Help::ToDo list]] page with instructions on how to use the [[ToDo list]] page.
 ** Added the [[Help::Topnote]] page to describe *topnotes* and demonstrate how to use them.
-** Added the [[Template::FoldingPage]] page to be used by *Folds*.
-** Added the [[Template::FoldingTextInline]] page to be used by *Folds*.
+** Added the [[Template::Foldpage]] page to be used by *Folds*.
+** Added the [[Template::Foldtextinline]] page to be used by *Folds*.
 ** Added the [[Template::HiddenSpoiler]] page to be used by [[Help::Spoilers|spoilers]].
 ** Added the [[Template::HiddenSpoilerInline]] page to be used by [[Help::Spoilers|spoilers]].
 ** Added the [[Template::Image gallery]] page, thanks to a script by *FBNil*.
@@ -517,7 +531,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Removed the *Utilities* page since it's generated automatically by the *Utilities* button in the menu.
 ** Removed the *Utility::Buttons* page.
 ** Renamed the *Help::Parent and child pages* page to [[Help::Namespaces]].
-** Renamed the *Template::Fold* page to [[Template::FoldingText]].
+** Renamed the *Template::Fold* page to [[Template::Foldtext]].
 ** Renamed the *Wiki::Tools* page to [[Template::Icon::Advanced]].
 ** Renamed the *Wiki::Alert* page to *Template::Icon::Alert*.
 ** Renamed the *Wiki::Back* page to [[Template::Icon::Back]].
@@ -540,7 +554,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the [[Help::CSS]] page.
 ** Updated the [[Help::Edit a page]] page.
 ** Updated the [[Help::Edit the menu]] page.
-** Uodated the [[Help::Embed web page]] page.
+** Uodated the [[Help::Include web page]] page.
 ** Updated the [[Help::Encrypt a page]] page.
 ** Updated the [[Help::Footer]] page.
 ** Updated the [[Help::Getting started]] page.
@@ -2008,8 +2022,8 @@ To erase all user-created pages in this wiki and start fresh:
 --DFQRCTsKlU
 woas.page.title: Help::Export
 woas.page.attributes: 0
-woas.page.last_modified: 1265824399
-woas.page.length: 536
+woas.page.last_modified: 1266441807
+woas.page.length: 484
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -2020,7 +2034,7 @@ You can export this wiki into multiple linked XHTML, CSS, and image files which 
 
 * Click the [[Include::Template::Icon::Advanced]] icon in the banner.
 * Scroll down to the *Maintenance* section.
-* Click the [[Special::Export|Export wiki into multiple linked static XHTML files]] link.
+* Click the [[Special::Export]] link.
 * Choose the settings for the export.
 * Click the *Export XHTML* button. A confirmation will pop up.
 
@@ -2396,41 +2410,6 @@ woas.page.boundary: DFQRCTsKlU
 * Example:{{{
 <iframe height="400" width="100%" src="file:///home/username/Desktop/file.txt"></iframe>
 }}}
-
-[[Tags::Help, Syntax]]
-
---DFQRCTsKlU
-woas.page.title: Help::Include web page
-woas.page.attributes: 0
-woas.page.last_modified: 1266302863
-woas.page.length: 1977
-woas.page.encoding: 8bit/plain
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-= Help::Include web page
-Web pages can be included inside of iFrames in a wiki page. Some pages may not render correctly depending on how they're coded. Including more than one web page in a wiki page will cause the final included web page to steal the focus when the page is loaded, so it's best to have only one per page.
-
-<div class="helptext">Use this code in a page, replacing URL with the URL of the page you wish to include:</div>{{{
-<iframe height="400" width="100%" src="URL"></iframe>
-}}}<div class="helptext">To include a web page in a wiki page.</div>
-*Example:*
-
-<div class="helptext">Use this code in a page:</div>{{{
-<iframe id="myframe" height="400" width="100%" src="http://www.google.com"></iframe>
-}}}<div class="helptext">To create this:</div>
-<iframe id="myframe" height="400" width="100%" src="http://www.google.com"></iframe>
-<!-- <iframe  height="400" width="100%" src="http://www.google.com" frameborder="0"></iframe> -->
-You can also style the iFrame by changing the height and width to whatever you'd like them to be, the border width to whatever thickness you like, the style of border to dotted, dashed, solid, double, groove, ridge, inset, or outset, and the border color to whatever color you like:{{{
-<iframe style="height="400" width="97.5%" border:15px solid red" src="http://www.google.com"></iframe>
-}}}
-== Reload an iframe with a link
-<div class="helptext">Use this code in the same page as an iframe, replacing FRAMENAME with ID of the iFrame you'd like to reload:</div>{{{
-<script type="text/javascript">function Reup () {var f = document.getElementById('FRAMENAME'); f.src = f.src;}</script>
-<a href="javascript:Reup()">Reload the iframe</a>
-}}}<div class="helptext">To create a reload button like this one that refreshes the iFrame above:</div>
-<script type="text/javascript">function Reup () {var f = document.getElementById('myframe'); f.src = f.src;}</script><a href="javascript:Reup()">Reload the iframe</a>
 
 [[Tags::Help, Syntax]]
 
@@ -4105,8 +4084,8 @@ If all went well, the number it displays should be *0* and you've successfully r
 --DFQRCTsKlU
 woas.page.title: Sandbox
 woas.page.attributes: 0
-woas.page.last_modified: 1266304810
-woas.page.length: 1307
+woas.page.last_modified: 1266443163
+woas.page.length: 1306
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -4141,8 +4120,8 @@ function toggleMe(a){
 <div id="4" style="display:none;">Section 4. <input type="button" onclick="location.reload()" value="Reload page"></div>
 
 == Click me
-<a id="MYNAME" href="#" onclick="talkinglink('MYNAME');">Click me</a>
-<script type="text/javascript>function talkinglink(obj) {var el = document.getElementById(obj);  el.innerHTML = 'Thank you.';}</script>
+<a id="MYNAME" href="#" onclick="talkinglink('MYNAME');">click me</a>
+<script type="text/javascript>function talkinglink(obj) {var el = document.getElementById(obj);  el.innerHTML = 'thank you';}</script>
 
 --DFQRCTsKlU
 woas.page.title: Utility::Links for writers
@@ -4718,44 +4697,64 @@ To see a better example, see the [[Example::Bluebox]] page.
 
 [[Tags::Help]]
 --DFQRCTsKlU
-woas.page.title: Template::FoldingText
+woas.page.title: Template::Foldtext
 woas.page.attributes: 0
-woas.page.last_modified: 1265824399
-woas.page.length: 94
+woas.page.last_modified: 1266446279
+woas.page.length: 102
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-<a href="javascript:expanddiv('%1_%2')">%1</a><div id="%1_%2" style="display:none;">
+<a href="javascript:expanddiv('%1_%2')">%1</a>&nbsp;%3<div id="%1_%2" style="display:none;">
 %2
 </div>
 --DFQRCTsKlU
-woas.page.title: Help::Embed web page
+woas.page.title: Help::Include web page
 woas.page.attributes: 0
-woas.page.last_modified: 1266302503
-woas.page.length: 962
+woas.page.last_modified: 1266441595
+woas.page.length: 3194
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Embed web page
-You can embed a web page seamlessly into a wiki page using HTML code. Embedding more than one web page in a wiki page will cause the final embedded web page to steal the focus when the page is loaded, so it's best to have only one per page.
+= Include web page
+Web pages can be included in a page as embedded objects or in iFrames.
 
-<div class="helptext">Use this code in a page, replacing URL with the address of a web page, and changing the height and width to suit your taste:</div>{{{
-<object data="URL" style="width:100%; height:400px;">"Sorry, the file could not be displayed"</object>
-}}}<div class="helptext">To embed a web page into a wiki page.</div>
+[[Include::Template::Icon::Info]] /Some pages may not render correctly depending on how they're coded. Embedding more than one web page in a wiki page will cause the final embedded web page to steal the focus when the page is loaded, so it's best to have only one per page. As a result, this page contains no examples./
+== Embed a local HTML file as an object
+<div class="helptext">Use this code in a page, replacing PATH with the full path to HTML file you wish to include, and changing the width and height to suit your taste:</div>{{{
+<html><object data="PATH" style="width:100%; height:630px;">File not found.</object></html>
+}}}<div class="helptext">To embed a local HTML file in a page.</div>
+For example, if you want to embed the /Work/MyProject.html file as an object, you'd use this command:{{{
+<html><object data="/Work/MyProject.html" style="width:100%; height:630px;">File not found.</object></html>
+}}}
+== Embed a remote URL as an object
+This method makes the embedded web page become a seamless part of the page.
+<div class="helptext">Use this code in a page, replacing URL with the URL of the page you wish to include, and changing the width and height to suit your taste:</div>{{{
+<html><object data="URL" style="width:100%; height:630px;">URL not found.</object></html>
+}}}<div class="helptext">To embed an external URL in a page.</div>
+For example, if you want to embed the Google page at [[http://www.google.com]] as an object, you'd use this command:{{{
+<html><object data="http://www.google.com" style="width:100%; height:630px;">URL not found.</object></html>
+}}}The resulting page would look like [[Example::Embed web page object|this]].
 
-*Example:*
-
-<div class="helptext">Use this code in a page:</div>{{{
-<object data="http://www.google.com" style="width:100%; height:400px;">"Sorry, the file could not be displayed"</object>
-}}}<div class="helptext">To create this:</div>
-
-<object data="http://www.google.com" style="width:100%; height:400px;">"Sorry, the file could not be displayed"</object>
-
-[[Tags::Help]]
+== Embed a remote URL in an iFrame
+This method creates a frame around the embedded web page. The code shown below is for a plain frame, but you can style the iFrame further by adding a border, changing the border style to dotted, dashed, solid, double, groove, ridge, inset, or outset, changing the border width to whatever thickness you like, and the border color to whatever color you like.
+<div class="helptext">Use this code in a page, replacing URL with the URL of the page you wish to include, and changing the width and height to suit your taste:</div>{{{
+<iframe height="400" width="100%" height:630px; src="URL"></iframe>
+}}}<div class="helptext">To include a web page in a wiki page.</div>
+For example, if you want to embed the Google page at [[http://www.google.com]] in an iFrame, you'd use this command:{{{
+<iframe height="400" width="100%" height:630px; src="http://www.google.com"></iframe>
+}}}The resulting page would look like [[Example::Embed web page iFrame|this]].
+<!-- 
+== Reload an iframe with a link
+<div class="helptext">Use this code in the same page as an iframe, replacing FRAMENAME with ID of the iFrame you'd like to reload:</div>{{{
+<script type="text/javascript">function Reup () {var f = document.getElementById('FRAMENAME'); f.src = f.src;}</script>
+<a href="javascript:Reup()">Reload the iframe</a>
+}}}<div class="helptext">To create a reload link that refreshes an iFrame.</div>
+-->
+[[Tags::Help, Syntax]]
 
 --DFQRCTsKlU
 woas.page.title: Template::Icon::Advanced
@@ -4771,8 +4770,8 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Help::Folds
 woas.page.attributes: 0
-woas.page.last_modified: 1265948586
-woas.page.length: 12473
+woas.page.last_modified: 1266446699
+woas.page.length: 15491
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -4780,20 +4779,68 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 = Folds
 [[Special::TOC]]
-Folds display hidden content when you click the link or button. You can add as many folds as you like to a page. They begin collapsed and expand when you click on them. Each is independent of the others, and can be expanded and collapsed as many times as you like.
+Folds are special links that toggle inclusion of additional content in a page when you click the link or button. You can add as many folds as you like to a page. They begin collapsed and expand when you click on them. Each is independent of the others, and can be expanded and collapsed as many times as you like.
 
-[[Include::Template::Icon::Info]] /When creating HTML folds, the &lt;div&gt; or &lt;span&gt; container with the hidden content doesn't have to be near the link or button that toggles its display. You can even create the &lt;div&gt; or &lt;span&gt; container somewhere in the wiki source code and use the button link on any page or in the menu to display the content. You can style the &lt;div&gt; or &lt;span&gt; tags to change how the folds look./
+<div class="alertnote">Unfortunately, hidden content inside folds can conflict with the [[Help::Table of Contents|Table of Contents]] and the [[Help::Tags|Tags]] container at the bottom of the page by being visible in both of them even when the content isn't unfolded.</div>
+== Folding text
+The [[Template::Foldtext|Foldtext]] template can be used to toggle additional text in the current page.
 
-[[Include::Image::alert.png]] /Unfortunately, hidden content inside folds can conflict with the Table of Contents and the Tags container at the bottom of the page by being visible in both of them even when the content isn't unfolded./
+=== Folding single-line text
+This method allows you to toggle a single line of text, and accepts wiki [[Help::Text formatting|text formatting]] for the link text.
 
-== Folding page (wiki)
-This method allows wiki [[Help::Text formatting|text formatting]] for the link text.
+<div class="helptext">Use this code on your page, replacing LINK with the link text, and CONTENT with the content you'd like to display when the link is clicked:</div>
+<div class="helpcode">[<!-- -->[Include::Template::Foldtext|LINK|CONTENT|]<!-- -->]</div>
+<div class="helptext">To create this:</div>
+[[Include::Template::Foldtext|LINK|CONTENT|]]
 
-<div class="helptext">Use this code on a page, replacing LINK with the text for the link, and PAGE with the name of the page you'd like to display when the link is clicked:</div>
-<div class="helpcode">[<!-- -->[Include::Template::FoldingPage|LINK|PAGE]<!-- -->]</div>
-<div class="helptext">To create a folding page link like this one:</div>
-[[Include::Template::FoldingPage|LINK|Template::Logo]]
-== Folding page (HTML)
+=== Folding multi-line text
+This method allows you to toggle more than one line of text by using HTML {{{<br>}}} tags, and accepts wiki [[Help::Text formatting|text formatting]] for the link text.
+
+<div class="helptext">Use this code on your page, replacing LINK with the link text, and CONTENT&lt;br&gt;MORE CONTENT with the content you'd like to display when the link is clicked:</div>
+<div class="helpcode">[<!-- -->[Include::Template::Foldtext|LINK|CONTENT&lt;br&gt;MORE CONTENT|]<!-- -->]</div>
+<div class="helptext">To create this:</div>
+[[Include::Template::Foldtext|LINK|CONTENT<br>MORE CONTENT|]]
+
+=== Folding text inline
+This method allows you to add text after the link on the same line, and accepts wiki [[Help::Text formatting|text formatting]] for the link text.
+
+<div class="helptext">Use this code in your page, replacing LINK with the text for the link, CONTENTS with the content you'd like to display when the link is clicked, and TEXT with the text you'd like after the link:</div>
+<div class="helpcode">[<!-- -->[Include::Template::Foldtext|LINK|CONTENTS|TEXT]<!-- -->]</div>
+<div class="helptext">To create this:</div>
+[[Include::Template::Foldtext|LINK|CONTENTS|TEXT]]
+
+=== Foldaway text
+The [[Template::Foldawaylink|Foldawaylink]] and [[Template::Foldawaytext|Foldawaytext]] templates can be used to toggle inclusion of additional text in the current page. The link and the toggled text can be in different places in the page.
+# Insert a Foldawaylink where you'd like the link to appear in the page:<br><br><div class="helptext">Use this code in your page, replacing LINK with the link text, and NAME with a unique name for the link:</div><br><div class="helpcode">[<!-- -->[Include::Template::Foldawaylink|LINK|NAME]<!-- -->]</div><br><div class="helptext">To create a Foldawaylink link.</div><br>
+# Insert a Foldawaytext link where you'd like the toggled text to appear in the page:<br><br><div class="helptext">Use this code in your page, replacing TEXT with the text you'd like to toggle, and NAME with the same unique name you used in the Foldaway link:</div><br><div class="helpcode">[<!-- -->[Include::Template::Foldawaytext|TEXT|NAME]<!-- -->]</div><br><div class="helptext">To create a Foldawaytext link.</div>
+See [[Example::Foldawaytext|this page]] for an example.
+
+== Folding page
+The [[Template::Foldpage|Foldpage]] template can be used to toggle inclusion of another wiki page in the current page.
+
+=== Folding page plain
+This method works best when the link is at the beginning of a line, or there's no text after it on the same line. If there's text after the link, it will be pushed beneath the unfolded content when the link is clicked.
+
+<div class="helptext">Use this code in your page, replacing LINK with the text for the link, and PAGE with the name of the page you'd like to include when the link is clicked:</div>
+<div class="helpcode">[<!-- -->[Include::Template::Foldpage|LINK|PAGE|]<!-- -->]</div>
+<div class="helptext">To create a Folding page link like the one on [[Example::Folding page plain|this page]].</div>
+
+=== Folding page inline
+This method allows you to add text after the link on the same line.
+
+<div class="helptext">Use this code in your page, replacing LINK with the text for the link, and PAGE with the name of the page you'd like to include when the link is clicked, and TEXT with the text you'd like after the link:</div>
+<div class="helpcode">[<!-- -->[Include::Template::Foldpage|LINK|PAGE|TEXT]<!-- -->]</div>
+<div class="helptext">To create a Folding page link like the one on [[Example::Folding page inline|this page]].</div>
+
+=== Foldaway page
+The [[Template::Foldawaylink|Foldawaylink]] and [[Template::Foldawaypage|Foldawaycontent]] templates can be used to toggle inclusion of another page in the current page. The link and the toggled page can be in different places in the page.
+# Insert a Foldawaylink where you'd like the link to appear in the page:<br><br><div class="helptext">Use this code in your page, replacing LINK with the link text, and NAME with a unique name for the link:</div><br><div class="helpcode">[<!-- -->[Include::Template::Foldawaylink|LINK|NAME]<!-- -->]</div><br><div class="helptext">To create a Foldawaylink link.</div><br>
+# Insert a Foldawaycontent link where you'd like the toggled page to appear in the page:<br><br><div class="helptext">Use this code in your page, replacing PAGE with the name of the page you'd like to include, and NAME with the same unique name you used in the Foldaway link:</div><br><div class="helpcode">[<!-- -->[Include::Template::Foldawaycontent|PAGE|NAME]<!-- -->]</div><br><div class="helptext">To create a Foldawaycontent link.</div>
+See [[Example::Foldaway|this page]] for an example.
+
+== HTML Folds
+
+=== Folding page
 This method uses an additional &lt;div&gt; container to surround the include link. This type of fold is especially useful for creating expanding menu entries (see the [[Help::Edit the menu]] page).
 
 <div class="helptext">Use this code in a page, replacing both instances of NAME with the same unique name for the fold, LINK with the text for the link, and PAGENAME with the name of the page you'd like to display when the link is clicked:</div>
@@ -4805,7 +4852,7 @@ This method uses an additional &lt;div&gt; container to surround the include lin
 </div>
 </div>
 
-== Folding page button (HTML)
+=== Folding page button
 <div class="helptext">Use this code in a page, replacing BUTTONTEXT with the text for your button, both instances of NAME with the same unique name for the fold, and PAGENAME with the name of the page you'd like to include:</div>
 <div class="helpcode"><<!-- -->in<!-- -->put va<!-- -->lue="BUTTONTEXT" on<!-- -->click="expand<!-- -->span('NAME')" ty<!-- -->pe="button"<!-- -->>
 <<!-- -->d<!-- -->iv i<!-- -->d="NA<!-- -->ME" st<!-- -->yle="dis<!-- -->play:n<!-- -->one;"<!-- -->><<!-- -->d<!-- -->iv<!-- -->>
@@ -4813,7 +4860,7 @@ This method uses an additional &lt;div&gt; container to surround the include lin
 <<!-- -->/di<!-- -->v<!-- -->><<!-- -->/<!-- -->di<!-- -->v<!-- -->></div>
 <div class="helptext">To create a folding page button like the one on the [[Example::Folding page button (HTML)]] page.</div>
 
-== Folding page styled button (HTML)
+=== Folding page styled button
 <div class="helptext">Use this code in a page, replacing BUTTONTEXT with the text for your button, both instances of NAME with the same unique name for the fold, and PAGENAME with the name of the page you'd like to include:</div>
 <div class="helpcode"><<!-- -->input class="wiki_button" value="BUTTONTEXT" onclick="expand<!-- -->span('NAME')" ty<!-- -->pe="button"<!-- -->>
 <<!-- -->div id="NAME" style="display:none;"<!-- -->><<!-- -->div<!-- -->>
@@ -4822,20 +4869,7 @@ This method uses an additional &lt;div&gt; container to surround the include lin
 </div>
 <div class="helptext">To create a folding page button like the one on the [[Example::Folding page styled button (HTML)]] page.</div>
 
-== Folding text (wiki)
-This method allows some wiki and HTML markup, like wiki [[Help::Text formatting|text formatting]] tags and HTML &lt;br&gt; tags for multi-line content.
-
-<div class="helptext">Use this code on a page, replacing LINK with the text for the link, and CONTENT with the content you'd like to display when the link is clicked:</div>
-<div class="helpcode">[<!-- -->[Include::Template::FoldingText|LINK|CONTENT]<!-- -->]</div>
-<div class="helptext">To create this:</div>
-[[Include::Template::FoldingText|LINK|CONTENT]]
-
-<div class="helptext">Or use this code on a page, replacing LINK with the text for the link, and CONTENT&lt;br&gt;MORE CONTENT with the content you'd like to display when the link is clicked:</div>
-<div class="helpcode">[<!-- -->[Include::Template::FoldingText|LINK|CONTENT&lt;br&gt;MORE CONTENT]<!-- -->]</div>
-<div class="helptext">To create this:</div>
-[[Include::Template::FoldingText|LINK|CONTENT<br>MORE CONTENT]]
-
-== Folding text (HTML)
+=== Folding text
 This method allows some wiki and HTML markup, like wiki [[Help::Text formatting|text formatting]] tags and HTML &lt;br&gt; tags, with the exception of wiki headers and include links. Placing all of the code for the fold onto one line removes the blank line between the link and the content.
 
 <div class="helptext">Use this code in a page, replacing both instances of NAME with a unique name to identify the fold, LINK with whatever you'd like the link to say, and CONTENT with your content:</div>{{{
@@ -4864,7 +4898,7 @@ CONTENT
 </div>
 }}}
 
-== Folding text button (HTML)
+=== Folding text button
 This method accepts the same type of markup as folding text, with the exception of wiki headers.
 
 <div class="helptext">Use this code in a page, replacing BUTTONTEXT with whatever you'd like the button to say, both instances of NAME with a unique name to identify the fold, and CONTENT with your content:</div>{{{
@@ -4874,7 +4908,7 @@ This method accepts the same type of markup as folding text, with the exception 
 <input name="NAMED" value="BUTTONTEXT" onclick="expandspan('NAMED')" type="button">
 <div id="NAMED" style="display: none;">CONTENT</div>
 
-== Folding text styled button (HTML)
+=== Folding text styled button
 This method accepts the same type of markup as folding text, with the exception of wiki headers.
 
 <div class="helptext">Use this code in a page, replacing BUTTONTEXT with whatever you'd like the button to say, both instances of NAME with a unique name to identify the fold, and CONTENT with your content:</div>{{{
@@ -4884,15 +4918,7 @@ This method accepts the same type of markup as folding text, with the exception 
 <input class="wiki_button" name="NAMED" value="BUTTONTEXT" onclick="expandspan('NAMEY')" type="button">
 <div id="NAMEY" style="display: none;">CONTENT</div>
 
-== Folding text inline (wiki)
-This method accepts wiki [[Help::Text formatting|text formatting]] markup.
-
-<div class="helptext">Use this code on a page, replacing LINK with the text for the link, and CONTENT with the content you'd like to display when the link is clicked:</div>
-<div class="helpcode">[<!-- -->[Include::Template::FoldingTextInline|LINK|CONTENT]<!-- -->]</div>
-<div class="helptext">To create this:</div>
-[[Include::Template::FoldingTextInline|LINK|CONTENT]]
-
-== Folding text inline (HTML)
+=== Folding text inline
 This method accepts wiki [[Help::Text formatting|text formatting]] markup and some HTML markup.
 
 <div class="helptext">Use this code in a page, replacing both instances of NAME with a unique name to identify the dynamic inline area, LINK with whatever you'd like the link to say, and CONTENT with your content:</div>{{{
@@ -4900,7 +4926,7 @@ This method accepts wiki [[Help::Text formatting|text formatting]] markup and so
 }}}<div class="helptext">To create this:</div>
 <a href="javascript:expandspan('NAMETHIS')">LINK</a> <span id="NAMETHIS" style="display:none;">CONTENT</span>
 
-== Folding text inline button (HTML)
+=== Folding text inline button
 This method accepts the same type of markup as folding text inline.
 
 <div class="helptext">Use this code in a page, replacing BUTTONTEXT with whatever you'd like the button to say, both instances of NAME with a unique name to identify the fold, and 
@@ -4909,7 +4935,7 @@ CONTENT with your content:</div>{{{
 }}}<div class="helptext">To create this:</div>
 <input value="BUTTONTEXT" onclick="expandspan('MYNAME')" type="button"> <div id="MYNAME" style="display: none;">CONTENT</div>
 
-== Folding text inline styled button (HTML)
+=== Folding text inline styled button
 This method accepts the same type of markup as folding text inline.
 
 <div class="helptext">Use this code in a page, replacing BUTTONTEXT with whatever you'd like the button to say, both instances of NAME with a unique name to identify the fold, and CONTENT with your content:</div>{{{
@@ -4917,7 +4943,7 @@ This method accepts the same type of markup as folding text inline.
 }}}<div class="helptext">To create this:</div>
 <input class="wiki_button" value="BUTTONTEXT" onclick="expandspan('MYOTHERNAME')" type="button"> <div id="MYOTHERNAME" style="display: none;">CONTENT</div>
 
-== Nested folding text inline (HTML)
+=== Nested folding text inline
 Some nested dynamic inline areas for you advanced users:
 
 <div class="helptext">Use this code in a page:</div>{{{
@@ -4936,22 +4962,25 @@ For more ways of working with hidden content, see the [[Help::Spoilers]] page.
 [[Tags::Help, Syntax]]
 
 --DFQRCTsKlU
-woas.page.title: Template::FoldingPage
+woas.page.title: Template::Foldpage
 woas.page.attributes: 0
-woas.page.last_modified: 1265903027
-woas.page.length: 120
+woas.page.last_modified: 1266443757
+woas.page.length: 283
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-<a href="javascript:expanddiv('%1_%2')">%1</a><div id="%1_%2" style="display:none;">
+<a id="%1_%2" onclick="return true;" href="javascript:$.toggle('%2')">%1</a>&nbsp;%3<div id="%2" style="display:none;"><div>
+[[Include::%2]]</div></div>
+<!-- <a href="javascript:expanddiv('%1_%2')">%1</a><div id="%1_%2" style="display:none;">
 <div>
 [[Include::%2]]
 </div>
-</div>
+</div> -->
+
 --DFQRCTsKlU
-woas.page.title: Template::FoldingTextInline
+woas.page.title: Template::Foldtextinline
 woas.page.attributes: 0
 woas.page.last_modified: 1265824399
 woas.page.length: 110
@@ -5080,4 +5109,138 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACFUlEQVQ4jaWSTUjUYRDGf7O7/2XXFVdSN+iQpRFpdSoqiIryJEkSBBFdom5dVuocRBtBEIid+yS6dBEXgqCiQ7cyT+kl0L6oNc1Vc7/++77vdNB13dxLOJcZhpkfDzyPqCobqVBlGBoa0nowYwzGGKy1NT0YDJJKpWQVcPHSBfr6HpBIhHDWAYpzEAwFUBdCJIyIAMr1VA8jw89rFVhr6drlaGqyOOfYf6Cdru4OZmZmmZ2Z483rTzinOOdQVZqbm/8FGKz1WVxUVJXe3h6uDNzFOWXHzhB+Oc/E+A/m5hYYuHqKeLypFmCswdoy5bLSGvvC2NMWTu9x/MnDUg68eIz3uX4ikRhOlcbGxipgcHBQz547Q6HgUHWcPPSQ4+ev4S+9oFD4TTE/S8Hs49nbBkSEXM4nFmuoAlQVYw2lkkVVsRZQU+OGIkSjMUDI/MyzORGtAnzfp2zKZLN5nIP5YguEDxNkE17gKxrM
 MPVxlEjkICLC929LtG/dUgWU/BLWGDwviohw7+Vl7r96t2JbCyKtiOwlEgkgIkx9XuREz7YqoFgoUiyWuH2nH1VFWXZCVZnOTNOWaEOVld1yD3thAKSSvmQyqWuTVi99ldk5h+d5pNNpkXrxvXnrhnbv7mJycmp119GxncePnjAynJa1t6F138DE+ASdnZ0cPXKMcNgjO7/A2IdRpjO/1t3WVfA/FdjQN/AXx8crd1TK1G8AAAAASUVORK5CYII=">
+--DFQRCTsKlU
+woas.page.title: Example::Embed web page iFrame
+woas.page.attributes: 0
+woas.page.last_modified: 1266441395
+woas.page.length: 138
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Embed a remote URL in an iFrame
+<iframe height="400" width="100%" height:630px; src="http://www.google.com"></iframe>
+[[Tags::Example]]
+
+--DFQRCTsKlU
+woas.page.title: Example::Embed web page object
+woas.page.attributes: 0
+woas.page.last_modified: 1266440852
+woas.page.length: 161
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+== Embed a remote URL as an object
+<html><object data="http://www.google.com" style="width:100%; height:630px;">URL not found.</object></html>
+[[Tags::Example]]
+
+--DFQRCTsKlU
+woas.page.title: Example::Foldaway
+woas.page.attributes: 0
+woas.page.last_modified: 1266446528
+woas.page.length: 251
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Foldaway
+[[Include::Template::Foldawaylink|LINK|MyName]]
+This is some sample content.
+
+It goes between the link above and the unfolded page you see when clicking the link.
+[[Include::Template::Foldawaypage|Special::About|MyName]]
+
+[[Tags::Example]]
+
+--DFQRCTsKlU
+woas.page.title: Template::Foldawaylink
+woas.page.attributes: 0
+woas.page.last_modified: 1266442274
+woas.page.length: 77
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+<a id="%1_%2" onclick="return true;" href="javascript:$.toggle('%2')">%1</a>
+
+--DFQRCTsKlU
+woas.page.title: Template::Foldawaypage
+woas.page.attributes: 0
+woas.page.last_modified: 1266442338
+woas.page.length: 69
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+<div id="%2" style="display:none;"><div>
+[[Include::%1]]</div></div>
+
+--DFQRCTsKlU
+woas.page.title: Example::Folding page plain
+woas.page.attributes: 0
+woas.page.last_modified: 1266444250
+woas.page.length: 125
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Folding page plain
+[[Include::Template::Foldpage|Click here to toggle fold and unfold|Special::About|]]
+
+[[Tags::Example]]
+
+--DFQRCTsKlU
+woas.page.title: Example::Folding page inline
+woas.page.attributes: 0
+woas.page.last_modified: 1266444302
+woas.page.length: 126
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Folding page inline
+Click [[Include::Template::Foldpage|here|Special::About|to toggle fold and unfold.]]
+
+[[Tags::Example]]
+
+--DFQRCTsKlU
+woas.page.title: Template::Foldawaytext
+woas.page.attributes: 0
+woas.page.last_modified: 1266444772
+woas.page.length: 56
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+<div id="%2" style="display:none;"><div>
+%1</div></div>
+
+--DFQRCTsKlU
+woas.page.title: Example::Foldawaytext
+woas.page.attributes: 0
+woas.page.last_modified: 1266444851
+woas.page.length: 288
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Foldawaytext
+[[Include::Template::Foldawaylink|LINK|MyName]]
+This is some sample content.
+
+It goes between the link above and the unfolded text you see when clicking the link.
+[[Include::Template::Foldawaytext|This text *only* shows when you click the link.|MyName]]
+
+[[Tags::Example]]
+
 --DFQRCTsKlU
