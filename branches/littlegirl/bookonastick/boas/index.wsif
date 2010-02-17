@@ -260,41 +260,49 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Special::Options
 woas.page.attributes: 0
-woas.page.last_modified: 1266214802
-woas.page.length: 2837
+woas.page.last_modified: 1266368354
+woas.page.length: 3034
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Options
-
-<label for="cb_allow_diff"><input type="checkbox" id="cb_allow_diff" onclick="woas.config.allow_diff = $.checked('cb_allow_diff')" />Use consistent newlines in saved data<br />
-* /Forces plain (unencrypted) pages to be saved using consistent newlines splitting. Useful with a versioning system like SVN or CVS./<br />
-<label for="cb_dblclick_edit"><input type="checkbox" id="cb_dblclick_edit" onclick="woas.config.dblclick_edit = $.checked('cb_dblclick_edit')" />Double click to edit pages/menu<br />
+<label for="cb_allow_diff"><input type="checkbox" id="cb_allow_diff" checked="false" onclick="woas.config.allow_diff=$.checked('cb_allow_diff');false" />*Use consistent newlines in saved data*
+* /Forces plain (unencrypted) pages to be saved using consistent newline splitting (useful for development)./
+<label for="cb_dblclick_edit"><input type="checkbox" id="cb_dblclick_edit" checked="false" onclick="woas.config.dblclick_edit = $.checked('cb_dblclick_edit');false" />*Double click to edit pages/menu*
 * /Opens the editor when the main text area or menu are double-clicked./<br />
-<label for="cb_save_on_quit"><input type="checkbox" id="cb_save_on_quit" onclick="woas.config.save_on_quit = $.checked('cb_save_on_quit')" />Automatically save options (if changed) before quitting<br />
-* /Automatically saves any changes to Options./<br />
-<label for="cb_key_cache"><input type="checkbox" id="cb_key_cache" onclick="woas.config.key_cache = !$.checked('cb_key_cache')" />Do not temporarily cache the AES key<br />
-* /Disables temporary caching of the [[Special::Security|AES key]], forcing you to enter the key each time an encrypted page is opened./<br />
-<label for="cb_fixed_layout"><input type="checkbox" id="cb_fixed_layout" onclick="_set_layout($.checked('cb_fixed_layout'))" />Fixed menu area and topbar<br />
+<label for="cb_save_on_quit"><input type="checkbox" id="cb_save_on_quit" checked="false" onclick="woas.config.save_on_quit = $.checked('cb_save_on_quit');false" />*Automatically save options (if changed) before quitting*
+* /Automatically saves any changes to Options./
+<label for="cb_key_cache"><input type="checkbox" id="cb_key_cache" checked="false" onclick="woas.config.key_cache = !$.checked('cb_key_cache');false" />*Do not temporarily cache the [[Special::Security|AES key]]*
+* /Forces you to enter the password each time an encrypted page is opened./
+<label for="cb_fixed_layout"><input type="checkbox" id="cb_fixed_layout" onclick="_set_layout($.checked('cb_fixed_layout'))" />*Fixed banner and menu*
 * /Locks the menu and banner in place while allowing the page to scroll freely./
-<label for="cb_open_last_page"><input type="checkbox" id="cb_open_last_page" onclick="woas.config.open_last_page = $.checked('cb_open_last_page')" />Save last page visited when quitting<br />
-* /Automatically opens the most recently changed page the next time you open the wiki./<br />
-<label for="cb_cumulative_save"><input type="checkbox" id="cb_cumulative_save" onclick="woas.config.cumulative_save = $.checked('cb_cumulative_save')" />Enable cumulative save (will save to disk only when quitting)<br />
-* /Saves all changes to disk only on quit. Changes to the currently open wiki will not show when opening the wiki again in another tab or another browser window. Restart the wiki to make this change take effect./<br />
+<label for="cb_open_last_page"><input type="checkbox" id="cb_open_last_page" checked="false" onclick="woas.config.open_last_page = $.checked('cb_open_last_page');false" />*Save last changed page when quitting*
+* /Automatically opens the most recently changed page the next time you open the wiki./
+<label for="cb_cumulative_save"><input type="checkbox" id="cb_cumulative_save" checked="false" onclick="woas.config.cumulative_save = $.checked('cb_cumulative_save');false" />*Enable cumulative save (requires wiki restart to take effect)*
+* /Saves all changes to disk only on quit. Changes will not show in multiple instances of the wiki./
 <p><input type="button" onclick="save_options()" value="Save options" />&nbsp;&nbsp;<input type="button" onclick="ro_woas()" value="Disallow edits" /></p>
-
 <script>
-$("cb_allow_diff").checked = bool2chk(woas.config.allow_diff);
-$("cb_open_last_page").checked = bool2chk(woas.config.open_last_page);
-$("cb_key_cache").checked = bool2chk(!woas.config.key_cache);
-$("cb_dblclick_edit").checked = bool2chk(woas.config.dblclick_edit);
-$("cb_save_on_quit").checked = bool2chk(woas.config.save_on_quit);
-$("cb_cumulative_save").checked = bool2chk(woas.config.cumulative_save);
-$("cb_fixed_layout").checked = ($("sw_wiki_header").style.position == "fixed");
-if (ie6) $("cb_fixed_layout").disabled = true;
+$('cb_allow_diff').checked = woas.config.allow_diff;
+$("cb_dblclick_edit").checked = woas.config.dblclick_edit;
+$("cb_save_on_quit").checked = woas.config.save_on_quit;
+$("cb_key_cache").checked = !woas.config.key_cache;
+$("cb_fixed_layout").checked = ($("sw_wiki_header").style.position == "fixed"); if (ie6) $("cb_fixed_layout").disabled = true;
+$("cb_open_last_page").checked = woas.config.open_last_page;
+$("cb_cumulative_save").checked = woas.config.cumulative_save;
 </script>
+<!--
+== Test options
+[[Javascript::alert(woas.config.allow_diff)]]
+[[Javascript::alert(woas.config.dblclick_edit)]]
+[[Javascript::alert(woas.config.save_on_quit)]]
+[[Javascript::alert(!woas.config.key_cache)]]
+Unknown what the test should be for cb_fixed_layout
+[[Javascript::alert(woas.config.open_last_page)]]
+[[Javascript::alert(woas.config.cumulative_save)]]
+-->
+
 --DFQRCTsKlU
 woas.page.title: Feature::Summary
 woas.page.attributes: 0
@@ -404,8 +412,8 @@ LyogaW5zZXJ0IGhlcmUgeW91ciBib290IHNjcmlwdCAqLw==
 --DFQRCTsKlU
 woas.page.title: History
 woas.page.attributes: 0
-woas.page.last_modified: 1266302904
-woas.page.length: 38214
+woas.page.last_modified: 1266369131
+woas.page.length: 38462
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -433,6 +441,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Changed *Last Modified:* to *Page last modified:* in the i18n.js file.
 ** Changed level one headers to level three headers in the {{{woas["_get_namespace_pages"]}}} function so the headers will display without wrapping when used in a sub-menu.
 ** Changed level one header to level three header in the {{{woas["_get_tagged"]}}} function so the header will display without wrapping when used in a sub-menu.
+** Implemented [[http://sourceforge.net/mailarchive/forum.php?thread_name=DEEC0681896E474FB601D5CEB01A8677360769%40pxs-01.PimaroX.local&forum_name=stickwiki-devel|FBNil's]] syntax for checkboxes and checkbox tests in the [[Special::Options]] page.
 ** Replaced *Set tag:* with *Set tag (or tags separated by pipes):* in {{{function setTag()}}} for clarity in the *Tags* button prompt.
 ** Updated some of the system alerts.
 ** Updated the global CSS.
@@ -4096,8 +4105,8 @@ If all went well, the number it displays should be *0* and you've successfully r
 --DFQRCTsKlU
 woas.page.title: Sandbox
 woas.page.attributes: 0
-woas.page.last_modified: 1266303185
-woas.page.length: 1088
+woas.page.last_modified: 1266304810
+woas.page.length: 1307
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -4130,6 +4139,10 @@ function toggleMe(a){
 <div id="2" style="display:none;">Section 2. <input type="button" onclick="return toggleMe('3')" value="Go to Section 3"></div>
 <div id="3" style="display:none;">Section 3. <input type="button" onclick="return toggleMe('4')" value="Go to Section 4"></div>
 <div id="4" style="display:none;">Section 4. <input type="button" onclick="location.reload()" value="Reload page"></div>
+
+== Click me
+<a id="MYNAME" href="#" onclick="talkinglink('MYNAME');">Click me</a>
+<script type="text/javascript>function talkinglink(obj) {var el = document.getElementById(obj);  el.innerHTML = 'Thank you.';}</script>
 
 --DFQRCTsKlU
 woas.page.title: Utility::Links for writers
