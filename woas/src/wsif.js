@@ -248,10 +248,12 @@ woas["_native_wsif_load"] = function(path, overwrite, and_save, recursing) {
 				this.wsif.emsg = this.i18n.WSIF_NS_VER.sprintf(wsif_v);
 				p = -1;
 				fail = true;
-			} else { // get number of expected pages
-				this.wsif.expected_pages = ct.substring(0,p).match(/^woas\.pages:\s+(\d+)$/m);
-				if (this.wsif.expected_pages !== null)
-					this.wsif.expected_pages = Number(this.wsif.expected_pages[1]);
+			} else { // get number of expected pages (not when recursing)
+				if (!recursing) {
+					this.wsif.expected_pages = ct.substring(0,p).match(/^woas\.pages:\s+(\d+)$/m);
+					if (this.wsif.expected_pages !== null)
+						this.wsif.expected_pages = Number(this.wsif.expected_pages[1]);
+				}
 			}
 		}
 	}
