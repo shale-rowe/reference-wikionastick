@@ -258,12 +258,15 @@ woas["_get_tagged"] = function(tag_filter) {
 	// allow tags filtering/searching
 	var tags = this.split_tags(tag_filter),
 		tags_ok = [], tags_not = [];
-	for(var i=0;i<tags.length;++i) {
+	for(var i=0,tl=tags.length;i<tl;++i) {
+		// skip empty tags
+		var tag = this.trim(tags[i]);
 		if (!tags[i].length)
 			continue;
+		// add a negation tag
 		if (tags[i].charAt(0)=='!')
-			tags_not.push( tags[i] );
-		else
+			tags_not.push( tags[i].substr(1) );
+		else // normal match tag
 			tags_ok.push(tags[i]);
 	} tags = null;
 
@@ -275,8 +278,8 @@ woas["_get_tagged"] = function(tag_filter) {
 			continue;
 		tmp.replace(/\[\[Tags?::([^\]]*?)\]\]/g, function(str, $1) {
 				// skip protocol references
-				if ($1.search(/^\w+:\/\//)==0)
-					return;
+//				if ($1.search(/^\w+:\/\//)==0)
+//					return;
 				// get array of tags in this wiki link
 				var found_tags = woas.split_tags($1);
 				fail = false;
@@ -289,16 +292,18 @@ woas["_get_tagged"] = function(tag_filter) {
 				}
 				if (!fail) {
 					// filter if "NOT" tag is present
+					// we are applying this filter only to tagged pages
+					// so a page without tags at all does not fit into this filtering
 					for (var b=0,bl=tags_not.length;b<bl;++b) {
 						if (found_tags.indexOf(tags_not[b]) != -1) {
 							fail = true;
 							break;
 						}
 					}
+					if (!fail)
+						// no failure, we add this page
+						pg.push(page_titles[i]);
 				}
-				// no failure, we add this page
-				if (!fail)
-					pg.push(page_titles[i]);
 			});
 	}
 	if (!pg.length)
@@ -1076,9 +1081,9 @@ woas["after_load"] = function() {
 		current = unescape(qpage);
 
 	// check integrity of WoaS when finished - only in debug mode
-	if (this.debug)
+/*	if (this.debug)
 		if (!this.integrity_test())
-			return;
+			return; */
 		
 	// first thing to do: load the actual pages!
 	if (this._auto_native_wsif) {
