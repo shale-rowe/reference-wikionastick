@@ -1,8 +1,14 @@
+Version 0.10.5 (legolas558)
+* fixed tags negation bug (found by littlegirl)
+* major improvements for Opera support
+* minor fixes for other browsers (IE)
+
 Version 0.10.4 (legolas558) released 2010-02-14
-* fixed export issue of images
-* fixed encryption pages issues
+* fixed export issue of images (found by D.Strohmayer)
+* fixed encryption dialog UI issue (found by M.Ellison)
+* fixed encryption pages issues (found by D.De Roock)
 * fixed UTF8 encoding/decoding issues
-* added some slight CSS improvements
+* some CSS improvements
 
 Version 0.10.3 (legolas558) released 2010-02-12
 * fixed embedding/import issues with FF3
