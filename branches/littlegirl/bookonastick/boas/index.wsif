@@ -414,8 +414,8 @@ LyogaW5zZXJ0IGhlcmUgeW91ciBib290IHNjcmlwdCAqLw==
 --DFQRCTsKlU
 woas.page.title: History
 woas.page.attributes: 0
-woas.page.last_modified: 1266531131
-woas.page.length: 39594
+woas.page.last_modified: 1266620194
+woas.page.length: 39653
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -465,6 +465,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Renamed the *Template::FoldingPage* page to [[Template::Foldpage]].
 ** Renamed the *Template::FoldingText* page to [[Template::Foldtext]].
 ** Renamed the *Template::FoldingTextInline* page to [[Template::Foldtextinline]].
+** Updated all multiple tags to the new (pipe) tag syntax.
 ** Updated the [[Example::JavaScript]] page.
 ** Updated the [[Help::Bugs]] page.
 ** Updated the [[Help::CSS]] page.
@@ -1535,8 +1536,8 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Help::Code blocks (preformatted text)
 woas.page.attributes: 0
-woas.page.last_modified: 1266046159
-woas.page.length: 3438
+woas.page.last_modified: 1266620291
+woas.page.length: 3436
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1636,7 +1637,7 @@ Another method is to interrupt the code by dividing it up between multiple lines
 [Page Name]\
 ]
 
-[[Tags::Help, Syntax]]
+[[Tag::Help|Syntax]]
 
 --DFQRCTsKlU
 woas.page.title: Help::CSS
@@ -2046,8 +2047,8 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Help::Headers
 woas.page.attributes: 0
-woas.page.last_modified: 1265824399
-woas.page.length: 868
+woas.page.last_modified: 1266620310
+woas.page.length: 866
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -2085,13 +2086,13 @@ Below are examples on how to use wiki markup to create headers in this wiki. You
 }}}<div class="helptext">To create this:</div>
 ===== Header level 5
 
-[[Tags::Help, Syntax]]
+[[Tag::Help|Syntax]]
 
 --DFQRCTsKlU
 woas.page.title: Help::Horizontal rules (lines)
 woas.page.attributes: 0
-woas.page.last_modified: 1266527052
-woas.page.length: 1619
+woas.page.last_modified: 1266620319
+woas.page.length: 1617
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -2135,13 +2136,13 @@ Horizontal rules use the full width of the page by default. They can be styled t
 ----
 </div></center>
 
-[[Tags::Help, Syntax]]
+[[Tag::Help|Syntax]]
 
 --DFQRCTsKlU
 woas.page.title: Help::Images
 woas.page.attributes: 0
-woas.page.last_modified: 1266527379
-woas.page.length: 9878
+woas.page.last_modified: 1266620330
+woas.page.length: 9876
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -2280,7 +2281,7 @@ See the [[Help::Links]] page for a list of all possible internal actions.
 <div class="helptext">To create an image gallery like the one below that displays the images in the Template::Icon:: namespace:</div>
 [[Include::Template::Image gallery|Template::Icon::]]
 
-[[Tags::Help, Syntax]]
+[[Tag::Help|Syntax]]
 
 --DFQRCTsKlU
 woas.page.title: Help::Import
@@ -2323,8 +2324,8 @@ This method is used to import pages that have been exported using the [[Special:
 --DFQRCTsKlU
 woas.page.title: Help::Include text file
 woas.page.attributes: 0
-woas.page.last_modified: 1265824399
-woas.page.length: 408
+woas.page.last_modified: 1266620339
+woas.page.length: 406
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -2339,13 +2340,13 @@ woas.page.boundary: DFQRCTsKlU
 <iframe height="400" width="100%" src="file:///home/username/Desktop/file.txt"></iframe>
 }}}
 
-[[Tags::Help, Syntax]]
+[[Tag::Help|Syntax]]
 
 --DFQRCTsKlU
 woas.page.title: Help::Include wiki page
 woas.page.attributes: 0
-woas.page.last_modified: 1266528383
-woas.page.length: 1279
+woas.page.last_modified: 1266620359
+woas.page.length: 1277
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -2372,7 +2373,7 @@ The *Example::Overview* page displays the contents of the three example chapters
 <div class="helptext">Creates this page:</div>
 [[Example::Overview]]
 
-[[Tags::Help, Syntax]]
+[[Tag::Help|Syntax]]
 
 --DFQRCTsKlU
 woas.page.title: Help::JavaScript
@@ -2467,8 +2468,8 @@ I recommend that you put this code near the top of any page (preferably directly
 --DFQRCTsKlU
 woas.page.title: Help::Join lines of text
 woas.page.attributes: 0
-woas.page.last_modified: 1265824399
-woas.page.length: 875
+woas.page.last_modified: 1266620380
+woas.page.length: 873
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -2488,13 +2489,13 @@ Putting a \ at the end of any line \
 makes it join together \
 with the line below it.
 
-[[Tags::Help, Syntax]]
+[[Tag::Help|Syntax]]
 
 --DFQRCTsKlU
 woas.page.title: Help::Links
 woas.page.attributes: 0
-woas.page.last_modified: 1266528919
-woas.page.length: 10987
+woas.page.last_modified: 1266620390
+woas.page.length: 10985
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -2673,13 +2674,13 @@ These are internal wiki actions in the form of links:<br><br>
 }}}<div class="helptext">To create a plain menu link like this one:</div>
 [[Main Page]]
 
-[[Tags::Help, Syntax]]
+[[Tag::Help|Syntax]]
 
 --DFQRCTsKlU
 woas.page.title: Help::Lists
 woas.page.attributes: 0
-woas.page.last_modified: 1266529313
-woas.page.length: 12325
+woas.page.last_modified: 1266620404
+woas.page.length: 12323
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -3071,7 +3072,7 @@ This method is useful when an creating a fancy list with more than one list item
    </ol>
 </ol>
 
-[[Tags::Help, Syntax]]
+[[Tag::Help|Syntax]]
 
 --DFQRCTsKlU
 woas.page.title: Help::Edit the menu
@@ -3188,8 +3189,8 @@ Use the [[Include::Template::Icon::Back]] icon in the banner to go back one page
 --DFQRCTsKlU
 woas.page.title: Help::Non-breaking spaces
 woas.page.attributes: 0
-woas.page.last_modified: 1265824399
-woas.page.length: 770
+woas.page.last_modified: 1266620410
+woas.page.length: 768
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -3211,7 +3212,7 @@ word&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;word
 Another method is to insert a combination of spaces and non-breaking spaces. To insert 5 spaces between two words, insert 1 space, 3 non-breaking spaces, and 1 space between them, like this:{{{
 word &nbsp;&nbsp;&nbsp; word}}}word &nbsp;&nbsp;&nbsp; word
 
-[[Tags::Help, Syntax]]
+[[Tag::Help|Syntax]]
 
 --DFQRCTsKlU
 woas.page.title: Help::Page creation
@@ -3539,8 +3540,8 @@ This is a personal wiki that's not designed to be used on a server. Any changes 
 --DFQRCTsKlU
 woas.page.title: Help::Spoilers
 woas.page.attributes: 0
-woas.page.last_modified: 1266130422
-woas.page.length: 3163
+woas.page.last_modified: 1266620419
+woas.page.length: 3161
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -3598,13 +3599,13 @@ This displays a dynamic inline spoiler box when the mouse hovers over the link.
 == See also
 For more ways of working with hidden content, see the [[Help::Folds]] page.
 
-[[Tags::Help, Syntax]]
+[[Tag::Help|Syntax]]
 
 --DFQRCTsKlU
 woas.page.title: Help::Syntax
 woas.page.attributes: 0
-woas.page.last_modified: 1266530430
-woas.page.length: 524
+woas.page.last_modified: 1266620427
+woas.page.length: 522
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -3615,13 +3616,13 @@ This wiki accepts [[http://en.wikipedia.org/wiki/Plain_text|plain text]], [[Tagg
 [[Include::Tagged::Syntax]]
 [[Include::Template::Icon::Info]] /Feel free to use the [[Sandbox]] page to test out syntax without having to create a new page each time./
 
-[[Tags::Help, Syntax]]
+[[Tag::Help|Syntax]]
 
 --DFQRCTsKlU
 woas.page.title: Help::Table of Contents
 woas.page.attributes: 0
-woas.page.last_modified: 1265824399
-woas.page.length: 1073
+woas.page.last_modified: 1266620519
+woas.page.length: 1071
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -3649,13 +3650,13 @@ The Table of Contents link creates a Table of Contents that's automatically popu
 
 === Level 3 header
 
-[[Tags::Help, Syntax]]
+[[Tag::Help|Syntax]]
 
 --DFQRCTsKlU
 woas.page.title: Help::Tables
 woas.page.attributes: 0
-woas.page.last_modified: 1266531051
-woas.page.length: 2284
+woas.page.last_modified: 1266620538
+woas.page.length: 2282
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -3763,13 +3764,13 @@ The line that starts with {{{|- }}} is a comment line. You can type some text af
 [[Special::TOC]]
 }}}<div class="helptext">To create an automatically populated Table of Contents like the one at the top of this page.</div>
 
-[[Tags::Help, Syntax]]
+[[Tag::Help|Syntax]]
 
 --DFQRCTsKlU
 woas.page.title: Help::Tags
 woas.page.attributes: 0
-woas.page.last_modified: 1266531324
-woas.page.length: 2295
+woas.page.last_modified: 1266620274
+woas.page.length: 2273
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -3791,7 +3792,7 @@ Tag a page by using a {{{[[Tags::]]}}} link, adding the tag name or names after 
 
 === Add a tag to a page (method 2)
 <div class="helptext">Use this code in a page:</div>
-<div class="helpcode">[<!-- -->[T<!-- -->ags::H<!-- -->elp]<!-- -->]</div>
+<div class="helpcode">[<!-- -->[T<!-- -->ag::H<!-- -->elp]<!-- -->]</div>
 <div class="helptext">To create a tag like the one at the bottom of this page.</div>
 
 === Add more than one tag to a page (method 1)
@@ -3801,24 +3802,24 @@ Tag a page by using a {{{[[Tags::]]}}} link, adding the tag name or names after 
 # Click the *OK* button.
 
 === Add more than one tag to a page (method 2)
-To use more than one tag on a page, use one tag link and add as many tags as you like, separating each from the one before it with a comma and a space. For example: <span class="helpcode">[<!-- -->[T<!-- -->ags:<!-- -->:R<!-- -->ecipes, Ch<!-- -->ocolate, L<!-- -->ayered c<!-- -->akes]<!-- -->]</span>.
+To use more than one tag on a page, use one tag link and add as many tags as you like, separating each from the one before it with a pipe. For example: <span class="helpcode">[<!-- -->[T<!-- -->ag:<!-- -->:R<!-- -->ecipes|Ch<!-- -->ocolate|L<!-- -->ayered c<!-- -->akes]<!-- -->]</span>.
 
 === Choosing tag names
 * Tag names are case sensitive.
-** Example: {{{[[Tags::Recipes]]}}} and {{{[[Tags::recipes]]}}} are two different tags.
+** Example: {{{[[Tag::Recipes]]}}} and {{{[[Tag::recipes]]}}} are two different tags.
 * Tag names can be more than one word long with a space between each word.
-** Example: {{{[[Tags::Layered cakes]]}}}.
+** Example: {{{[[Tag::Layered cakes]]}}}.
 
 === Add a link to tagged pages:
 See the [[Help::Links]] page.
 
-[[Tags::Help, Syntax]]
+[[Tag::Help|Syntax]]
 
 --DFQRCTsKlU
 woas.page.title: Help::Text formatting
 woas.page.attributes: 0
-woas.page.last_modified: 1266531377
-woas.page.length: 2076
+woas.page.last_modified: 1266620557
+woas.page.length: 2074
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -3885,13 +3886,13 @@ _*/This is underlined and bold and italic text./*_
 }}}<div class="helptext">To create this:</div>
 _*/This is underlined and bold and italic text./*_
 
-[[Tags::Help, Syntax]]
+[[Tag::Help|Syntax]]
 
 --DFQRCTsKlU
 woas.page.title: Help::Tooltips
 woas.page.attributes: 0
-woas.page.last_modified: 1265824399
-woas.page.length: 969
+woas.page.last_modified: 1266620564
+woas.page.length: 967
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -3911,7 +3912,7 @@ You can create tooltips by inserting specially formatted include links into a pa
 <div class="helptext">To create this:*</div>
 This is a [[Include::Template::Tooltip|tooltip link|This is a tooltip.]] inside a sentence.
 
-[[Tags::Help, Syntax]]
+[[Tag::Help|Syntax]]
 
 --DFQRCTsKlU
 woas.page.title: Help::Transclusion
@@ -4657,8 +4658,8 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Help::Include web page
 woas.page.attributes: 0
-woas.page.last_modified: 1266441595
-woas.page.length: 3194
+woas.page.last_modified: 1266620351
+woas.page.length: 3192
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -4699,7 +4700,7 @@ For example, if you want to embed the Google page at [[http://www.google.com]] i
 <a href="javascript:Reup()">Reload the iframe</a>
 }}}<div class="helptext">To create a reload link that refreshes an iFrame.</div>
 -->
-[[Tags::Help, Syntax]]
+[[Tag::Help|Syntax]]
 
 --DFQRCTsKlU
 woas.page.title: Template::Icon::Advanced
@@ -4715,8 +4716,8 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Help::Folds
 woas.page.attributes: 0
-woas.page.last_modified: 1266446699
-woas.page.length: 15491
+woas.page.last_modified: 1266620301
+woas.page.length: 15489
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -4904,7 +4905,7 @@ Some nested dynamic inline areas for you advanced users:
 == See also
 For more ways of working with hidden content, see the [[Help::Spoilers]] page.
 
-[[Tags::Help, Syntax]]
+[[Tag::Help|Syntax]]
 
 --DFQRCTsKlU
 woas.page.title: Template::Foldpage
