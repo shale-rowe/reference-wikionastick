@@ -1082,9 +1082,9 @@ woas["after_load"] = function() {
 		current = unescape(qpage);
 
 	// check integrity of WoaS when finished - only in debug mode
-	if (this.debug)
+/*	if (this.debug)
 		if (!this.integrity_test())
-			return;
+			return; */
 		
 	// first thing to do: load the actual pages!
 	if (this._auto_native_wsif) {

@@ -216,10 +216,6 @@ woas["_native_load"] = function() {
 
 woas["_native_wsif_load"] = function(path, overwrite, and_save, recursing) {
 	var ct = this.load_file(path, this.file_mode.ASCII_TEXT);
-	// Opera can fail at reading the file
-	if (ct === null) {
-		return false;
-	}
 	if (typeof ct != "string") {
 		return false;
 	}

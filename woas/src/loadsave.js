@@ -320,12 +320,16 @@ woas["javaLoadFile"] = function(filePath, load_mode) {
 	var content = null;
 	try {
 		if(document.applets["TiddlySaver"]) {
-			content = String(document.applets["TiddlySaver"].loadFile(_javaUrlToFilename(filePath),"UTF-8"));
-			if (load_mode == this.file_mode.DATA_URI)
-				return this._data_uri_enc(filePath, content);
-			else if (load_mode == this.file_mode.BASE6)
-				return encode64(content);
-			return content;
+			content = document.applets["TiddlySaver"].loadFile(_javaUrlToFilename(filePath), "UTF-8");
+			if (content !== null) {
+				// convert to string only after checking that it was successfully loaded
+				content = String(content);
+				if (load_mode == this.file_mode.DATA_URI)
+					return this._data_uri_enc(filePath, content);
+				else if (load_mode == this.file_mode.BASE6)
+					return encode64(content);
+				return content;
+			}
 		}
 	} catch(ex) {
 		// ok TiddlySaver applet not available, check next method
