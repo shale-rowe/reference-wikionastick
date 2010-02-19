@@ -100,9 +100,10 @@ woas["load_file"] = function(fileUrl, load_mode){
 		else return r;
 		if (r === false)
 			return false;
-	}
-	if (r === null)
-		// finally attempt to use Java
+//		if (r === null)
+			// finally attempt to use Java
+//			r = this.javaLoadFile(fileUrl, load_mode);
+	} else
 		r = this.javaLoadFile(fileUrl, load_mode);
 	if (r === false)
 		return false;
