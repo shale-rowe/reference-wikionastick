@@ -312,3 +312,19 @@ woas["dirname"] = function(fn) {
 
 // the export path used by export feature
 woas["ROOT_DIRECTORY"] = woas.dirname(_get_this_filename());
+
+//API1.0: get page attributes - can be overriden by plugins
+//TODO: all code should use this function
+woas["get_page_attrs"] = function(pi) {
+	// no error check
+	return page_attrs[pi];
+}
+
+//API1.0: set page attributes - can be overriden by plugins
+//TODO: all code should use this function
+woas["set_page_attrs"] = function(pi, attrs) {
+	// no error check
+	page_attrs[pi] = attrs;
+	return true;
+}
+
