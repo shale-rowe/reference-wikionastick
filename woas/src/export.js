@@ -196,8 +196,7 @@ woas["export_wiki"] = function () {
 		_export_unix_norm = $("woas_cb_unix_norm").checked;
 	} catch (e) { this.crash(e); return false; }
 	
-	$.show("loading_overlay");
-	$("loading_overlay").focus();
+	this.progress_init("Exporting XHTML");
 	exp["css"] = _css_obj().innerHTML;
 	// add some other CSS which is not used by live WoaS
 	exp["css"] += "\n.broken_link { color: red; font-decoration: strike-through;}\n";
@@ -279,7 +278,7 @@ woas["export_wiki"] = function () {
 		this.refresh_menu_area();
 		this.set_current(current, false);
 	}
-	$.hide("loading_overlay");
+	this.progress_finish();
 	this.alert(this.i18n.EXPORT_OK.sprintf(done));
 	return true;
 }

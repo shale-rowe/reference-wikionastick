@@ -1,4 +1,6 @@
 Version 0.10.5 (legolas558)
+* unified progress status indicators
+* fixed import/export feature on Opera browsers
 * fixed tags negation bug (found by littlegirl)
 * major improvements for Opera support
 * minor fixes for other browsers (IE)
