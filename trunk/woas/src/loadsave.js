@@ -73,22 +73,14 @@ woas["load_file"] = function(fileUrl, load_mode){
 	// try loading the file without using the path (FF3+)
 	// (object id hardcoded here)
 	var r = null;
-	// we have requested a direct read of the file from the input object
-	if (fileUrl === null) {
-		if (ff3 || ff_new) {
-			r = this.mozillaLoadFileID("filename_", load_mode);
-			if (r === false)
-				return false;
-		} else {
-			fileUrl = $("filename_").value;
-			if (!fileUrl.length) {
-				this.alert(this.i18n.FILE_SELECT_ERR);
-				return false;
-			}
-			// fallthrough is wanted here
-		}
-	}
 	if (!this.use_java_io) {
+		// correctly retrieve fileUrl
+		if (fileUrl === null) {
+			if (ff3 || ff_new)
+				r = this.mozillaLoadFileID("filename_", load_mode);
+			else
+				fileUrl = this.get_input_file_url();
+		}
 		if (r === null) // load file using file absolute path
 			r = this.mozillaLoadFile(fileUrl, load_mode);
 		else return r;
@@ -103,8 +95,13 @@ woas["load_file"] = function(fileUrl, load_mode){
 //		if (r === null)
 			// finally attempt to use Java
 //			r = this.javaLoadFile(fileUrl, load_mode);
-	} else
+	} else {
+		if (fileUrl === null)
+			fileUrl = this.get_input_file_url();
+		if (fileUrl === false)
+			return false;
 		r = this.javaLoadFile(fileUrl, load_mode);
+	}
 	if (r === false)
 		return false;
 	if (r === null) {
@@ -294,6 +291,10 @@ function _javaUrlToFilename(url) {
 
 //FIXME: save_mode is not considered here
 woas["javaSaveFile"] = function(filePath,save_mode,content) {
+	if ((save_mode != this.file_mode.ASCII_TEXT) && (save_mode != this.file_mode.UTF8_TEXT)) {
+		log("Only ASCII and UTF8 file modes are supported with Java/TiddlySaver");
+		return false;
+	}
 	try {
 		if(document.applets["TiddlySaver"])
 			return document.applets["TiddlySaver"].saveFile(_javaUrlToFilename(filePath),"UTF-8",content);
@@ -321,15 +322,17 @@ woas["javaLoadFile"] = function(filePath, load_mode) {
 	try {
 		if(document.applets["TiddlySaver"]) {
 			content = document.applets["TiddlySaver"].loadFile(_javaUrlToFilename(filePath), "UTF-8");
-			if (content !== null) {
-				// convert to string only after checking that it was successfully loaded
-				content = String(content);
-				if (load_mode == this.file_mode.DATA_URI)
-					return this._data_uri_enc(filePath, content);
-				else if (load_mode == this.file_mode.BASE6)
-					return encode64(content);
-				return content;
+			if (content === null) {
+				// file does not exist
+				return false;
 			}
+			// convert to string only after checking that it was successfully loaded
+			content = String(content);
+			if (load_mode == this.file_mode.DATA_URI)
+				return this._data_uri_enc(filePath, content);
+			else if (load_mode == this.file_mode.BASE6)
+				return encode64(content);
+			return content;
 		}
 	} catch(ex) {
 		// ok TiddlySaver applet not available, check next method
@@ -346,7 +349,7 @@ woas["javaLoadFile"] = function(filePath, load_mode) {
 			a_content.push(new String(line));
 		r.close();
 	} catch(ex) {
-		log("Exception in javaLoadFile(\""+filePath+"\"): "+e)
+		log("Exception in javaLoadFile(\""+filePath+"\"): "+ex)
 		return false;
 	}
 	// re-normalize input
@@ -421,8 +424,7 @@ function printout_fixed(elem, n) {
 
 // save full WoaS to file
 woas["_save_to_file"] = function(full) {
-	// put in busy mode
-	$.show("loading_overlay");
+	this.progress_init("Saving to file");
 	
 	var new_marker;
 	if (full) {
@@ -522,7 +524,7 @@ woas["_save_to_file"] = function(full) {
 	
 	this._create_bs();
 	
-	$.hide("loading_overlay");
+	this.progress_finish();
 	
 	return r;
 }

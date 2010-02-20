@@ -433,7 +433,7 @@ woas["get__text"] = function(pi) {
 		this.alert(this.i18n.ERR_NO_PWD.sprintf(page_titles[pi]));
 		return null;
 	}
-	document.body.style.cursor = "wait";
+	this.progress_init("AES decryption");
 //	var pg = null;
 			//TODO: use form-based password input
 //			this._get_password('The latest entered password (if any) was not correct for page "'+page_titles[pi]+"\"");
@@ -467,7 +467,7 @@ woas["get__text"] = function(pi) {
 //		AES_clearKey();
 		latest_AES_page = "";
 	}
-	document.body.style.cursor = "auto";
+	this.progress_finish();
 	return pg;
 }
 
@@ -595,6 +595,7 @@ woas["_get__embedded"] = function (cr, pi, etype) {
 	return xhtml;
 }
 
+// export a base64-encoded image to a file
 woas["export_image"] = function(page, dest_path) {
 	var pi=this.page_index(page);
 	if (pi==-1)
@@ -628,7 +629,7 @@ woas["_embed_process"] = function(etype) {
 		desired_mode = this.file_mode.BASE64;
 		etype = 4;
 	}
-
+	
 	// load the data in DATA:URI mode
 	var ct = this.load_file(null, desired_mode);
 	if (ct == null || !ct.length) {
@@ -1118,9 +1119,10 @@ woas["after_load"] = function() {
 	this["_editor"] = new TextAreaSelectionHelper($("wiki_editor"));
 	
 	// set some fixup CSS with some browsers
-	if (firefox)
+	if (firefox || this.browser.opera)
 		this.set_css(this.get_css());
 	
+//	this.progress_finish();
 	$.hide("loading_overlay");
 }
 
@@ -1425,7 +1427,10 @@ function _css_obj() {
 	return document.getElementsByTagName("style")[0];
 }
 
-woas["FF2_CSS_FIXUP"] = "\n.wiki_preformatted { white-space: -moz-pre-wrap !important; } \n";
+woas["FF2_CSS_FIXUP"] = "\n.wiki_preformatted { white-space: -moz-pre-wrap !important; }\n";
+
+// Opera gets 100% as real 100%
+//woas["OPERA_FIXUP"] = "\ndiv.wiki_header, #loading_overlay, #woas_pwd_query, #woas_pwd_mask { width: 100%; }\n";
 
 woas["get_css"] = function() {
 	var co = document.getElementsByTagName("style")[0];
@@ -1435,6 +1440,11 @@ woas["get_css"] = function() {
 		if (css.substr(0, this.FF2_CSS_FIXUP.length) == this.FF2_CSS_FIXUP)
 			css = css.substr(this.FF2_CSS_FIXUP.length);
 	}
+/*	if (this.browser.opera) {
+		// remove the fixup if present
+		if (css.substr(0, this.OPERA_FIXUP.length) == this.OPERA_FIXUP)
+			css = css.substr(this.OPERA_FIXUP.length);
+	} */
 	return css;
 }
 	
@@ -1446,6 +1456,8 @@ woas["set_css"] = function(new_css) {
     // Mozilla, since 1999
     if (firefox2)
 		new_css = this.FF2_CSS_FIXUP + new_css;
+//	if (this.browser.opera)
+//		new_css = this.OPERA_FIXUP + new_css;
 	if (!ie) {
 		_css_obj().innerHTML = new_css;
 		return;

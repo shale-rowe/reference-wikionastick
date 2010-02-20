@@ -173,7 +173,7 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 			text = text.replace(/\[\[Include::([^\]]+)\]\]/g, function (str, $1) {
 				var parts = $1.split("|");
 				var templname = parts[0];
-				log("Transcluding "+templname+"("+parts.slice(0).toString()+")");	// log:1
+//				log("Transcluding "+templname+"("+parts.slice(0).toString()+")");	// log:0
 				var templtext = woas.get_text_special(templname);
 				if (templtext == null) {
 					var templs="[["+templname+"]]";
