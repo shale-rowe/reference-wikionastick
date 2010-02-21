@@ -17,7 +17,7 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Special::Advanced
 woas.page.attributes: 0
-woas.page.last_modified: 1266769923
+woas.page.last_modified: 1266772022
 woas.page.length: 1229
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -5193,8 +5193,8 @@ $("daily_diary").innerHTML = "Click here to create or edit a diary entry for tod
 --DFQRCTsKlU
 woas.page.title: Help::Footnotes
 woas.page.attributes: 0
-woas.page.last_modified: 1266770706
-woas.page.length: 1389
+woas.page.last_modified: 1266772112
+woas.page.length: 1453
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -5207,9 +5207,9 @@ Footnote links can be added to any word in your text by inserting a special tag 
 
 Footnotes from [[Help::Transclusion|transcluded]] pages get added automatically and are numbered properly based on where the transcluded page is inserted in the page.
 
-Punctuation and some HTML syntax<<<This footnote uses HTML <b>bold</b>, <i>italic</i>, <u>underline</u>, and <strike>strike-through</strike> formatting.<br>A &lt;br&gt; tag was used to drop down one line to turn this into a multi-line footnote.>>> is accepted inside footnotes.
+Punctuation and some HTML syntax<<<This footnote uses HTML <b>bold</b>, <i>italic</i>, <u>underline</u>, and <strike>strike-through</strike> formatting.<br>A &lt;br&gt; tag was used to drop down one line to turn this into a multi-line footnote.<br><br>Two &lt;br&gt; tags can be used to insert a blank line.>>> is accepted inside footnotes.
 
-The look of footnotes can be syled by changing the footnote entry in the [[Help::CSS|global CSS settings]].
+The look of footnotes can be styled by changing the footnote entry in the [[Help::CSS|global CSS settings]].
 
 [[Tag::Help|Syntax]]
 
