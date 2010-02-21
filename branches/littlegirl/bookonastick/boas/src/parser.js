@@ -486,7 +486,25 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 			return html_tags[$1];
 		});
 	}
-	
+
+// BEGIN FOOTNOTES
+        try{
+          woas["FOOTNOTES"] = [];
+              var n = 0;
+          text= text.replace(/<<<((.|\n)*?)>>>/g, function(s,$1){
+                woas["FOOTNOTES"].push($1);
+                n =woas["FOOTNOTES"].length;
+                return '<a class="footnote" title="' + $1  + '" name="_notefoot'+n+'"href="#_footnote'+n+'">'+n+'</a>';
+          });
+        var fn="";
+        for(var i=0,l=woas["FOOTNOTES"].length;i<l;i++){
+          n = i+1;
+          fn += '<tr><td valign="top"><a name="_footnote'+n+'" href="#_notefoot'+n+'">' +n+ "</a>)</td><td>" + woas["FOOTNOTES"][i]  +"</td></tr>";
+        }
+        text = text + (fn?'<br/><div class="footnotecontainer"><table border=0>' +fn+ '</table></div>' :'');
+        }catch(e){alert(e)}
+// END FOOTNOTES
+
 	// sort tags at bottom of page, also when showing namespaces
 	tags = tags.toUnique().sort();
 	if (tags.length && !export_links) {

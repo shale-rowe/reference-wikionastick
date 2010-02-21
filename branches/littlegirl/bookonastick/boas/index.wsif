@@ -1,6 +1,6 @@
 wsif.version: 1.1.0
 woas.version: 0.10.4
-woas.pages: 129
+woas.pages: 130
 
 woas.page.title: ::Menu
 woas.page.attributes: 0
@@ -17,7 +17,7 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Special::Advanced
 woas.page.attributes: 0
-woas.page.last_modified: 1266393315
+woas.page.last_modified: 1266769923
 woas.page.length: 1229
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -414,8 +414,8 @@ LyogaW5zZXJ0IGhlcmUgeW91ciBib290IHNjcmlwdCAqLw==
 --DFQRCTsKlU
 woas.page.title: History
 woas.page.attributes: 0
-woas.page.last_modified: 1266721966
-woas.page.length: 39749
+woas.page.last_modified: 1266770912
+woas.page.length: 39993
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -428,7 +428,6 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 * Dynamic theme changer.
 * Editor icons (like a word processor) instead of CSS styled buttons.
 * Search of hidden pages in reserved namespaces.
-* Footnotes
 * Include a children's page with a CSS background and a picture with some text wrapping around it.
 * Include examples for Choose Your Own Adventure.
 * Move some buttons from the menu to the banner.
@@ -439,6 +438,8 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 
 * _Interface:_
 ** Added the *Edit sub-menu* button for use by namespace sub-menus.
+** Added the {{{/* FOOTNOTES */}}} (thanks to *FBNil* and *Stanky*) entry to the global CSS.
+** Added {{{woas["FOOTNOTES"]}}} (thanks to *FBNil* and *Stanky*) to be used by footnotes.
 ** Assigned the {{{woas_clear}}} ID to the debug console *Clear* button so it can be styled from within the wiki CSS settings.
 ** Changed *Last Modified:* to *Page last modified:* in the i18n.js file.
 ** Changed level one headers to level three headers in the {{{woas["_get_namespace_pages"]}}} function so the headers will display without wrapping when used in a sub-menu.
@@ -454,6 +455,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Added the [[Example::Foldawaytext]] page.
 ** Added the [[Example::Folding page inline]] page.
 ** Added the [[Example::Folding page plain]] page.
+** Added the [[Help::Footnotes]] page (thanks to *FBNil* and *Stanky*).
 ** Added the [[Template::Foldawaylink]] page to be used by Foldaway folds.
 ** Added the [[Template::Foldawaypage]] page to be used by Foldaway folds.
 ** Added the [[Template::Foldawaytext]] page to be used by Foldaway folds.
@@ -4030,7 +4032,7 @@ If all went well, the number it displays should be *0* and you've successfully r
 --DFQRCTsKlU
 woas.page.title: Sandbox
 woas.page.attributes: 0
-woas.page.last_modified: 1266720808
+woas.page.last_modified: 1266770974
 woas.page.length: 192
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -5186,5 +5188,28 @@ var newpagename = "Diary::" + D.getFullYear() +"::"+ MONTHNAMES[D.getMonth()] +"
 $("daily_diary").innerHTML = "Click here to create or edit a diary entry for today: <a href=\"javascript:woas.set_current('" + newpagename + "', true);\">" + newpagename + "</a>"
 </script>
 [[Tag::Utility]]
+
+--DFQRCTsKlU
+woas.page.title: Help::Footnotes
+woas.page.attributes: 0
+woas.page.last_modified: 1266770706
+woas.page.length: 1389
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Footnotes
+Footnotes<<<This is a footnote>>> are small, numbered links you can put next to any word on a page. They look like this<<<This is another footnote>>> and take you to a container<<<This is yet another footnote. You're reading it in a footnote container.>>> at the bottom of the page that displays the content of the footnote links. Clicking on a footnote link in the container takes you back up to where its link is on the page.
+
+Footnote links can be added to any word in your text by inserting a special tag to the right of a word, like this{{{<<<This is a footnote.>>>}}}. When you save the page, the wiki will automatically turn that tag into a numbered link next to the word. You can add as many footnotes to a page as you like, and the wiki will number them sequentially for you automatically.
+
+Footnotes from [[Help::Transclusion|transcluded]] pages get added automatically and are numbered properly based on where the transcluded page is inserted in the page.
+
+Punctuation and some HTML syntax<<<This footnote uses HTML <b>bold</b>, <i>italic</i>, <u>underline</u>, and <strike>strike-through</strike> formatting.<br>A &lt;br&gt; tag was used to drop down one line to turn this into a multi-line footnote.>>> is accepted inside footnotes.
+
+The look of footnotes can be syled by changing the footnote entry in the [[Help::CSS|global CSS settings]].
+
+[[Tag::Help|Syntax]]
 
 --DFQRCTsKlU
