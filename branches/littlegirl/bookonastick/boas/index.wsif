@@ -414,8 +414,8 @@ LyogaW5zZXJ0IGhlcmUgeW91ciBib290IHNjcmlwdCAqLw==
 --DFQRCTsKlU
 woas.page.title: History
 woas.page.attributes: 0
-woas.page.last_modified: 1266721446
-woas.page.length: 39713
+woas.page.last_modified: 1266721966
+woas.page.length: 39749
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -489,6 +489,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the [[Help::Requirements]] page.
 ** Updated the [[Help::Run wiki on a server]] page.
 ** Updated the [[Help::Tables]] page.
+** Updated the [[Help::Tags]] page.
 ** Updated the [[Help::Transclusion]] page.
 ** Updated the [[History]] page.
 
@@ -3770,20 +3771,19 @@ The line that starts with {{{|- }}} is a comment line. You can type some text af
 --DFQRCTsKlU
 woas.page.title: Help::Tags
 woas.page.attributes: 0
-woas.page.last_modified: 1266620274
-woas.page.length: 2273
+woas.page.last_modified: 1266721940
+woas.page.length: 2095
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Help::Tags
-[[Include::Template::TODO|this|Update this page with the new Tag syntax.]]
 Tags are special links used by this wiki to group pages together into categories so that they can easily be found again, A tag can be placed anywhere on a page, but it's a good idea to choose a standard location, like the bottom of the page, so you can easily find and edit them as your wiki grows. You can choose any name you like for the tag. You can also give a page more than one tag if the page fits into more than one category.
 
 This page has been tagged with *Help*. If you go to the bottom of this page and click on the *Help* tag, you'll get a listing of all other pages with the same tag.
 
-Tag a page by using a {{{[[Tags::]]}}} link, adding the tag name or names after the double colons. This can be done by using the *Page tag* button in the editor or by typing the tag in manually using the instructions below.
+Tag a page by using a {{{[[Tag::]]}}} link, adding the tag name or names after the double colons. This can be done by using the *Page tag* button in the editor or by typing the tag in manually using the instructions below.
 
 === Add a tag to a page (method 1)
 # Place your cursor at the bottom of the page.
@@ -3795,15 +3795,14 @@ Tag a page by using a {{{[[Tags::]]}}} link, adding the tag name or names after 
 <div class="helptext">Use this code in a page:</div>
 <div class="helpcode">[<!-- -->[T<!-- -->ag::H<!-- -->elp]<!-- -->]</div>
 <div class="helptext">To create a tag like the one at the bottom of this page.</div>
-
 === Add more than one tag to a page (method 1)
 # Place your cursor at the bottom of the page.
 # Click the *Tag* button in the editor.
-# Type in names for the tags, separating each from the one before it with a comma and a space.
+# Type in names for the tags, separating each from the one before it with a pipe.
 # Click the *OK* button.
 
 === Add more than one tag to a page (method 2)
-To use more than one tag on a page, use one tag link and add as many tags as you like, separating each from the one before it with a pipe. For example: <span class="helpcode">[<!-- -->[T<!-- -->ag:<!-- -->:R<!-- -->ecipes|Ch<!-- -->ocolate|L<!-- -->ayered c<!-- -->akes]<!-- -->]</span>.
+To use more than one tag on a page, use one tag link and add as many tags as you like, separating each from the one before it with a pipe. For example: {{{[[Tag::Recipes|Chocolate|Layered cakes]]}}}.
 
 === Choosing tag names
 * Tag names are case sensitive.
