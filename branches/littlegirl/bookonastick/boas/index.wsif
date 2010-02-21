@@ -1943,14 +1943,15 @@ To erase all user-created pages in this wiki and start fresh:
 --DFQRCTsKlU
 woas.page.title: Help::Export
 woas.page.attributes: 0
-woas.page.last_modified: 1266441807
-woas.page.length: 484
+woas.page.last_modified: 1266771562
+woas.page.length: 572
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Help::Export
+[[Include::Template::TODO|this|Add instructions for Special::ExportWSIF to this page.]]
 You can export this wiki into multiple linked XHTML, CSS, and image files which will create a framed web page.
 
 * Click the [[Include::Template::Icon::Advanced]] icon in the banner.
