@@ -1,6 +1,6 @@
 wsif.version: 1.1.0
 woas.version: 0.10.4
-woas.pages: 128
+woas.pages: 129
 
 woas.page.title: ::Menu
 woas.page.attributes: 0
@@ -414,8 +414,8 @@ LyogaW5zZXJ0IGhlcmUgeW91ciBib290IHNjcmlwdCAqLw==
 --DFQRCTsKlU
 woas.page.title: History
 woas.page.attributes: 0
-woas.page.last_modified: 1266620194
-woas.page.length: 39653
+woas.page.last_modified: 1266721446
+woas.page.length: 39713
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -458,6 +458,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Added the [[Template::Foldawaypage]] page to be used by Foldaway folds.
 ** Added the [[Template::Foldawaytext]] page to be used by Foldaway folds.
 ** Added the [[Template::Icon::Password]] page.
+** Added the [[Utility::Diary]] page (created by *FBNili*).
 ** Removed the *Changes* page.
 ** Removed the *Help::Embed web page* page.
 ** Renamed the *Help::Import page* page to [[Help::Import]].
@@ -4030,8 +4031,8 @@ If all went well, the number it displays should be *0* and you've successfully r
 --DFQRCTsKlU
 woas.page.title: Sandbox
 woas.page.attributes: 0
-woas.page.last_modified: 1266443163
-woas.page.length: 1306
+woas.page.last_modified: 1266720808
+woas.page.length: 192
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -4041,33 +4042,6 @@ woas.page.boundary: DFQRCTsKlU
 This page is for trying out new things without having to create a new page.
 
 [[Include::Template::TODO|this|Delete this task from the Sandbox page to remove it from the ToDo list.]]
-
-== Next
-<script type="text/javascript">
-function toggleMe(a){
-  var next=document.getElementById(a);
-  var b=new String();
-  b= a-1;
-  var prev=document.getElementById(b);
-  if(!next)return true;
-  if(next.style.display=="none"){
-    next.style.display="block"
-    prev.style.display="none"
-    window.scrollTo(0,0);
-  } else {
-    next.style.display="none"
-  }
-  return true;
-}
-</script>
-<div id="1" style="display:block;">Section 1. <input type="button" onclick="return toggleMe('2')" value="Go to Section 2"></div>
-<div id="2" style="display:none;">Section 2. <input type="button" onclick="return toggleMe('3')" value="Go to Section 3"></div>
-<div id="3" style="display:none;">Section 3. <input type="button" onclick="return toggleMe('4')" value="Go to Section 4"></div>
-<div id="4" style="display:none;">Section 4. <input type="button" onclick="location.reload()" value="Reload page"></div>
-
-== Click me
-<a id="MYNAME" href="#" onclick="talkinglink('MYNAME');">click me</a>
-<script type="text/javascript>function talkinglink(obj) {var el = document.getElementById(obj);  el.innerHTML = 'thank you';}</script>
 
 --DFQRCTsKlU
 woas.page.title: Utility::Links for writers
@@ -5188,5 +5162,30 @@ It goes between the link above and the unfolded text you see when clicking the l
 [[Include::Template::Foldawaytext|This text *only* shows when you click the link.|MyName]]
 
 [[Tags::Example]]
+
+--DFQRCTsKlU
+woas.page.title: Utility::Diary
+woas.page.attributes: 0
+woas.page.last_modified: 1266721330
+woas.page.length: 680
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Diary
+<div id="daily_diary"></div>
+<script>
+var D = new Date();
+var DAYNAMES = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+var MONTHNAMES = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+var day  = D.getDate();
+if(day < 10) day = "0" + day;
+
+var newpagename = "Diary::" + D.getFullYear() +"::"+ MONTHNAMES[D.getMonth()] +"::"+ day +" "+DAYNAMES[D.getDay()];
+$("daily_diary").innerHTML = "Click here to create or edit a diary entry for today: <a href=\"javascript:woas.set_current('" + newpagename + "', true);\">" + newpagename + "</a>"
+</script>
+[[Tag::Utility]]
 
 --DFQRCTsKlU
