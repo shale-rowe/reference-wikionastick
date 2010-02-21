@@ -17,7 +17,7 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Special::Advanced
 woas.page.attributes: 0
-woas.page.last_modified: 1266772022
+woas.page.last_modified: 1266777452
 woas.page.length: 1229
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -414,8 +414,8 @@ LyogaW5zZXJ0IGhlcmUgeW91ciBib290IHNjcmlwdCAqLw==
 --DFQRCTsKlU
 woas.page.title: History
 woas.page.attributes: 0
-woas.page.last_modified: 1266770912
-woas.page.length: 39993
+woas.page.last_modified: 1266777734
+woas.page.length: 40086
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -437,6 +437,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 * Now using [[http://sourceforge.net/projects/stickwiki/files/|Wiki on a Stick v0.10.4]] as the base for Book on a Stick.
 
 * _Interface:_
+** Added a *Go to top* arrow (thanks to *Stanky*) to the footer at the bottom of every page.
 ** Added the *Edit sub-menu* button for use by namespace sub-menus.
 ** Added the {{{/* FOOTNOTES */}}} (thanks to *FBNil* and *Stanky*) entry to the global CSS.
 ** Added {{{woas["FOOTNOTES"]}}} (thanks to *FBNil* and *Stanky*) to be used by footnotes.
@@ -1967,8 +1968,8 @@ Now you can click the *index.htm* file in the export folder to launch the framed
 --DFQRCTsKlU
 woas.page.title: Help::Footer
 woas.page.attributes: 0
-woas.page.last_modified: 1265902433
-woas.page.length: 1447
+woas.page.last_modified: 1266777429
+woas.page.length: 1404
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1997,16 +1998,16 @@ The footer is a section beneath the main text area in which you can put content 
 # Open this wiki in a text editor.<br><br>
 # Scroll to the bottom of the file.<br><br>
 # Find this section:{{{
-<!-- Begin your content here -->
+<!-- BEGIN FOOTER -->
 }}}
 # Replace it with this section:{{{
-<!-- Begin your content here --><!--
+<!-- BEGIN FOOTER --><!-- 
 }}}
 # Find this section:{{{
-<!-- End your content here -->
+<!-- END FOOTER -->
 }}}
 # Replace it with this section:{{{
---><!-- End your content here -->
+--><!-- END FOOTER -->
 }}}
 # Save the file.<br><br>
 # Close the text editor.<br><br>
