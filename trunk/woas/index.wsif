@@ -1,5 +1,5 @@
 wsif.version: 1.1.0
-woas.version: 0.10.4
+woas.version: 0.10.5
 woas.pages: 52
 
 woas.page.title: ::Menu
@@ -145,8 +145,8 @@ You can use the [[http://woas.iragan.com/|official WoaS forums]] and/or the [[ht
 
 == Version
 
-Current version is *v0.10.4*
-Versions 0.9&tilde;0.10.4 by Daniele C. ([[http://sf.net/users/legolas558/|legolas558]])
+Current version is *v0.10.5*
+Versions 0.9&tilde;0.10.5 by Daniele C. ([[http://sf.net/users/legolas558/|legolas558]])
 Original version (v0.01 &tilde; v0.04) by Andr\u00e9 Wagner
 
 <center><big>[[Special::License|Wiki on a Stick is licensed under the GNU/GPL license]].</big></center>
@@ -351,7 +351,7 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Special::Options
 woas.page.attributes: 0
-woas.page.length: 2022
+woas.page.length: 2035
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -377,7 +377,7 @@ $("cb_dblclick_edit").checked = bool2chk(woas.config.dblclick_edit);
 $("cb_save_on_quit").checked = bool2chk(woas.config.save_on_quit);
 $("cb_cumulative_save").checked = bool2chk(woas.config.cumulative_save);
 $("cb_fixed_layout").checked = ($("sw_wiki_header").style.position == "fixed");
-if (ie6) $("cb_fixed_layout").disabled = true;
+if (woas.browser.ie6) $("cb_fixed_layout").disabled = true;
 </script>
 --DFQRCTsKlU
 woas.page.title: Feature::Custom javascript
@@ -1116,39 +1116,39 @@ function myfunc(arg) {
 --DFQRCTsKlU
 woas.page.title: Options
 woas.page.attributes: 0
-woas.page.last_modified: 1266278627
-woas.page.length: 1338
+woas.page.last_modified: 1266825589
+woas.page.length: 1252
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Options
-Below are explanations of the options on the [[Special::Options]] page.
+Short reference for options found in [[Special::Options]].
 
 === Use consistent newlines in saved data
-When enabled, forces the plain pages to be saved using consistent newlines splitting. This is particularly useful if you use a versioning system like Subversion (SVN) or CVS.
+Forces pages to be saved using consistent newlines splitting. This is particularly useful if you use a versioning system like Subversion (SVN), git or CVS.
 
 === Double click to edit pages/menu
-When enabled, allows to switch to edit mode when double-clicking the page content or menu area.
+Allows to switch to edit mode when double-clicking the page content or menu area.
 
 === Automatically save options (if changed) before quitting
-When enabled, allows option changes to be automatically saved without having to click the *Save options* button at the bottom of the page.
+Allows option changes to be automatically saved without having to click the *Save options* button at the bottom of the page.
 
 === Do not temporarily cache the AES key
-When enabled, forces the use of a key for each encrypted page (useful if you leave WoaS open to possible unauthorized access).
+Clears AES key right after decryption, useful if you leave WoaS open to possible unauthorized access; will require to re-enter the decryption key each time you want to read a page.
 
 === Fixed menu area and topbar
-When enabled, fixes the menu and banner in place, while allowing the page to scroll.
+Fixes the menu and banner in place, while allowing the page to scroll.
 
 === Save last page visited when quitting
-When enabled, automatically opens the last saved page.
+Automatically opens the last saved page.
 
 === Enable cumulative save
-When enabled, will save to disk only when quitting.
+Will save to disk only when quitting
 
 === Disallow edits (button)
-When clicked, puts the wiki into server mode. With this option users will be told that it is not possible to save their changes, but that changes will be allowed to for sandbox (testing) purposes.
+Puts the wiki into /server mode/; users will be told that it is not possible to save their changes, but editing will be allowed for sandbox (testing) purposes.
 
 [[Tags::Help]]
 
@@ -1683,7 +1683,7 @@ $('woas_ep_wsif').onblur = _ep_blur;
 --DFQRCTsKlU
 woas.page.title: Special::WSIF
 woas.page.attributes: 0
-woas.page.length: 158
+woas.page.length: 4620
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1692,6 +1692,83 @@ woas.page.boundary: DFQRCTsKlU
 = WSIF
 
 *W*iki on a *S*tick *I*nterchange *F*ormat is the preferred format for exporting full WoaS data into a single file and share it with whoever you like.
+
+== Format description
+
+WSIF format is similar to MIME email attachments format; each line comes like an /email header/ definition, as in following example:
+
+{{{header.name: header-value}}}
+
+All WSIF content must be ASCII, so /header-value/ must be ECMA-escaped when necessary; this corresponds to escaping slashes "\" to "\\" and any UTF-8 sequence to the corresponding "\u0000" string, where /0000/ is the lowercase hexadecimal value of the UTF-8 character (like in ECMAScript).
+
+WSIF files can contain custom headers, given that the following namespaces are currently reserved for official WSIF format support:
+* *wsif*
+* *woas*
+
+For example you could define a new namespace for header definitions called /custom/:
+{{{custom.x: 100
+custom.y: 200
+custom.content: Hello world!
+}}}
+It is up to you then to parse such header-value couples and give them proper representation.
+== Inline boundaries
+
+A line starting with two dashes (/--/) introduces an *inline boundary*, which is a properly encoded snippet.
+
+Example boundary:
+{{{--my-random-id
+this is the inline snippet
+--my-random-id
+}}}
+/my-random-id/ must be a (usually random) string *unique inside the boundary content*, but it does not need to be unique inside the whole WSIF file, which must be read sequentially (like in a state machine).
+
+= wsif namespace
+
+The *wsif.* namespace currently defines only an information header:
+
+* *wsif.version* - WSIF format version into which content is offered
+Version 1.1.0 and above are currently supported.
+= woas namespace
+
+The *woas.* namespace defines general WoaS content properties and specific WoaS pages; the following headers are defined for general context:
+
+* *woas.version* - version of WoaS used to produce the WSIF file
+* *woas.pages* - total count of WoaS pages stored inside WSIF file
+
+The following are header definitions specific for WoaS pages:
+
+* *woas.page.title* - ECMA-escaped page title; this header has a special meaning because it is the page start marker inside the state machine; it is suggested that WSIF implementations write it as first header for page definition stanzas;
+* *woas.page.attributes* - a positive integer value in decimal format specifying the page attributes;
+* *woas.page.last_modified* - a positive integer value in decimal format representing seconds lasted from the UTC epoch up to last modified time; this header is defined only if data is available from WoaS;
+* *woas.page.length* - content length of the inline snippet; only inline files define it; this is not the decoded page length but the length of the content inside the inline boundaries;
+* *woas.page.original_length* - real page length as seen by WoaS; it is currently defined only for encrypted pages;
+* *woas.page.encoding* - snippet encoding format, see [[#Encoding]];
+* *woas.page.disposition* - tells whether page is /inline/ or /external/;
+* *woas.page.boundary* - string used for inline boundary recognition (without leading dashes); this header is specified only for inline snippets;
+* *woas.page.disposition.filename* - filename used for external page content, not ECMA-escaped; defined only with external pages;
+* *woas.page.mime* - mime type of external pages which have a defined mime type, like images for example;
+
+All headers are mandatory (under their specific state definition branch), except /last_modified/ and /original_length/.
+
+= Encoding
+
+The *woas.page.encoding* header can contain one of the following values:
+
+* *8bit/plain* - data is ASCII text which can use 8bits to represent characters; only ASCII text should be used and not UTF-8;
+* *ecma/plain* - data is ECMA-escaped UTF-8 text;
+* *8bit/base64* - data is base64-encoded binary data;
+* *text/wsif* - data is WSIF (currently used only for external WSIF pages)
+
+Pages or header values are encoded in *ecma/plain* format when UTF-8 sequences are found inside the value string, otherwise *8bit/plain* is used; *8bit/base64* is instead used for binary files or encrypted pages.
+
+= Usage notes
+
+WSIF format is pretty straightforward to produce or interpret, however please consider the following facts:
+
+* *woas.page.disposition.filename* must be plain ASCII (this limitation might be removed in future versions of the format) and should be a relative filename;
+* it is safe to embed a WSIF file inside another, given that boundaries are properly implemented
+
+WoaS project offers an official PHP library (libwsif) for reading/writing WSIF files, as well as a documented example.
 --DFQRCTsKlU
 woas.page.title: Special::ImportWSIF
 woas.page.attributes: 0
