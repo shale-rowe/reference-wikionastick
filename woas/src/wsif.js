@@ -123,10 +123,10 @@ woas["_native_wsif_save"] = function(path, single_wsif, inline_wsif, author,
 		// update record
 		record += this.wsif.header(pfx+"length", ct.length);
 		record += this.wsif.header(pfx+"encoding", encoding);
-		// output the original length header (if available)
 		record += this.wsif.header(pfx+"disposition", disposition);
 		// note: when disposition is inline, encoding cannot be 8bit/plain for embedded/encrypted files
 		if (disposition == "inline") {
+			// output the original length header (if available)
 			if (orig_len !== null)
 				record += this.wsif.header(pfx+"original_length", orig_len);
 			// create the inline page
@@ -406,7 +406,7 @@ woas["_native_wsif_load"] = function(path, overwrite, and_save, recursing) {
 woas["_last_filename"] = null;
 
 woas["_get_path"] = function(id) {
-	if (ff3 || ff_new)
+	if (this.browser.ff3 || this.browser.ff_new)
 		return this.dirname(ff3_getPath($(id)));
 	// use the last used path
 	if (this.browser.opera)

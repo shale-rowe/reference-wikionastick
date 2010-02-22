@@ -993,7 +993,7 @@ woas["_gen_display"] = function(id, visible, prefix) {
 }
 
 woas["img_display"] = function(id, visible) {
-	if (!ie || ie8) {
+	if (!this.browser.ie || this.browser.ie8) {
 		this._gen_display(id, visible, "img");
 		this._gen_display(id, !visible, "alt");
 	} else {
@@ -1036,12 +1036,12 @@ woas["after_load"] = function() {
 	
 	document.body.style.cursor = "auto";
 	
-	if (ie) {	// some hacks for IE
+	if (this.browser.ie) {	// some hacks for IE
 		this.setHTML = function(elem, html) {elem.text = html;};
 		this.getHTML = function(elem) {return elem.text};
 		var obj = $("sw_wiki_header");
 		obj.style.filter = "alpha(opacity=75);";
-		if (ie6) {
+		if (this.browser.ie6) {
 			$("sw_wiki_header").style.position = "absolute";
 			$("sw_menu_area").style.position = "absolute";
 		}
@@ -1119,7 +1119,7 @@ woas["after_load"] = function() {
 	this["_editor"] = new TextAreaSelectionHelper($("wiki_editor"));
 	
 	// set some fixup CSS with some browsers
-	if (firefox || this.browser.opera)
+	if (this.browser.firefox || this.browser.opera)
 		this.set_css(this.get_css());
 	
 //	this.progress_finish();
@@ -1167,7 +1167,7 @@ woas["_clear_bs"] = function() {
 
 function ff_fix_focus() {
 //runtime fix for Firefox bug 374786
-	if (firefox)
+	if (woas.browser.firefox)
 		$("wiki_text").blur();
 }
 
@@ -1232,7 +1232,7 @@ woas["_onresize"] = function() {
 	we.style.height = window.innerHeight - 150 + "px";
 }
 
-if (!ie)
+if (!woas.browser.ie)
 	window.onresize = woas._onresize;
 
 woas["update_nav_icons"] = function(page) {
@@ -1333,7 +1333,7 @@ woas["current_editing"] = function(page, disabled) {
 	$.hide("text_area");
 
 	// FIXME!
-	if (!ie)	{
+	if (!this.browser.ie)	{
 		$("wiki_editor").style.width = window.innerWidth - 35 + "px";
 		$("wiki_editor").style.height = window.innerHeight - 180 + "px";
 	}
@@ -1421,8 +1421,6 @@ function _new_syntax_patch(text) {
 	return text;
 }
 
-// to set CSS, use setCSS(). To read CSS, always use .innerHTML
-// it is a big IE6 inconsistency
 function _css_obj() {
 	return document.getElementsByTagName("style")[0];
 }
@@ -1435,7 +1433,7 @@ woas["FF2_CSS_FIXUP"] = "\n.wiki_preformatted { white-space: -moz-pre-wrap !impo
 woas["get_css"] = function() {
 	var co = document.getElementsByTagName("style")[0];
 	var css = co.innerHTML;
-	if (firefox2) {
+	if (this.browser.firefox2) {
 		// remove the fixup if present
 		if (css.substr(0, this.FF2_CSS_FIXUP.length) == this.FF2_CSS_FIXUP)
 			css = css.substr(this.FF2_CSS_FIXUP.length);
@@ -1454,11 +1452,11 @@ woas["setCSS"] = function(new_css) { this.set_css(new_css); }
 woas["set_css"] = function(new_css) {
 	// with some browsers we have weird hot-fixes
     // Mozilla, since 1999
-    if (firefox2)
+    if (this.browser.firefox2)
 		new_css = this.FF2_CSS_FIXUP + new_css;
 //	if (this.browser.opera)
 //		new_css = this.OPERA_FIXUP + new_css;
-	if (!ie) {
+	if (!this.browser.ie) {
 		_css_obj().innerHTML = new_css;
 		return;
 	}

@@ -334,8 +334,8 @@ function query_delete_image(cr) {
 // triggered by UI graphic button
 function page_print() {
 	var css_payload = "";
-	if (ie && !ie8) {
-		if (ie6)
+	if (woas.browser.ie && !woas.browser.ie8) {
+		if (woas.browser.ie6)
 			css_payload = "div.wiki_toc { align: center;}";
 		else
 			css_payload = "div.wiki_toc { position: relative; left:25%; right: 25%;}";

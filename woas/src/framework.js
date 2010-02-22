@@ -8,62 +8,55 @@ woas["browser"] = { ie: false, ie6: false, ie8: false,
 					opera: false, safari: false
 				};
 
-// browser flags - not to be in WoaS object
-var ie = false;
-var ie6 = false;
-var firefox = false, firefox2 = false;
-var ff3 = false, ff_new = false;
-
 if((navigator.userAgent).indexOf("Opera")!=-1)
 	woas.browser.opera = true;
 else if(navigator.appName == "Netscape") {
 	// check that it is Gecko first
-	firefox = (new RegExp("Gecko\\/\\d+")).test(navigator.userAgent) ? true : false;
+	woas.browser.firefox = (new RegExp("Gecko\\/\\d+")).test(navigator.userAgent) ? true : false;
 	// match also development versions of Firefox "Shiretoko" / "Namoroka"
-	if (firefox) {
+	if (woas.browser.firefox) {
 		// match the last word of userAgent
 		var fver = navigator.userAgent.match(/\s[A-Za-z]+\/(\d+)\.[\.\d]+\s*$/);
 		if (fver !== null) {
 			fver = Number(fver[1]);
 			switch (fver) {
 				case 2:
-					firefox2 = true;
+					woas.browser.firefox2 = true;
 				break;
 				case 3:
-					ff3 = true;
+					woas.browser.firefox3 = true;
 				break;
 				default:
 					// a new version of Firefox
 					if (fver > 3)
-						ff_new = true;
+						woas.browser.firefox_new = true;
 					// unknown browser!
 			}
 		}
 	} // not Gecko
 } else if((navigator.appName).indexOf("Microsoft")!=-1) {
-	ie = true;
-	ie8 = (navigator.userAgent.search(/msie 8\./i)!=-1);
-	if (!ie8)
-		ie6 = (navigator.userAgent.search(/msie 6\./i)!=-1);
+	woas.browser.ie = true;
+	woas.browser.ie8 = (navigator.userAgent.search(/msie 8\./i)!=-1);
+	if (!woas.browser.ie8)
+		woas.browser.ie6 = (navigator.userAgent.search(/msie 6\./i)!=-1);
 } else if (navigator.userAgent.indexOf("applewebkit") != -1) {
 	woas.browser.safari = true;
 }
 
 // finds out if Opera is trying to look like Mozilla
-if (firefox && (navigator.product != "Gecko"))
-	firefox = false;
+if (woas.browser.firefox && (navigator.product != "Gecko"))
+	woas.browser.firefox = woas.browser.firefox2 = woas.browser.firefox3
+							woas.browser.firefox_new = false;
 
 // finds out if Opera is trying to look like IE
-if (ie && woas.browser.opera)
-	ie = false;
+if (woas.browser.ie && woas.browser.opera)
+	woas.browser.ie = false;
 
-woas.browser.ie = ie;
-	
 var is_windows = (navigator.appVersion.toLowerCase().indexOf("windows")!=-1);
 
 woas["_server_mode"] = (document.location.toString().match(/^file:\/\//) ? false:true);
 
-// set to true if we need Java saving
+// set to true if we need Java-based file load/save
 woas["use_java_io"] = woas.browser.safari || woas.browser.opera;
 
 // returns the DOM element object given its id - enables a try/catch mode when debugging
