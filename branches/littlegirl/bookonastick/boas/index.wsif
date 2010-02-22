@@ -414,8 +414,8 @@ LyogaW5zZXJ0IGhlcmUgeW91ciBib290IHNjcmlwdCAqLw==
 --DFQRCTsKlU
 woas.page.title: History
 woas.page.attributes: 0
-woas.page.last_modified: 1266777734
-woas.page.length: 40086
+woas.page.last_modified: 1266816583
+woas.page.length: 40198
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -440,6 +440,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Added a *Go to top* arrow (thanks to *Stanky*) to the footer at the bottom of every page.
 ** Added the *Edit sub-menu* button for use by namespace sub-menus.
 ** Added the {{{/* FOOTNOTES */}}} (thanks to *FBNil* and *Stanky*) entry to the global CSS.
+** Added two blank table cells on the left and right side of the banner to control placement of banner content.
 ** Added {{{woas["FOOTNOTES"]}}} (thanks to *FBNil* and *Stanky*) to be used by footnotes.
 ** Assigned the {{{woas_clear}}} ID to the debug console *Clear* button so it can be styled from within the wiki CSS settings.
 ** Changed *Last Modified:* to *Page last modified:* in the i18n.js file.
@@ -5194,17 +5195,17 @@ $("daily_diary").innerHTML = "Click here to create or edit a diary entry for tod
 --DFQRCTsKlU
 woas.page.title: Help::Footnotes
 woas.page.attributes: 0
-woas.page.last_modified: 1266772112
-woas.page.length: 1453
+woas.page.last_modified: 1266783914
+woas.page.length: 1558
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Footnotes
-Footnotes<<<This is a footnote>>> are small, numbered links you can put next to any word on a page. They look like this<<<This is another footnote>>> and take you to a container<<<This is yet another footnote. You're reading it in a footnote container.>>> at the bottom of the page that displays the content of the footnote links. Clicking on a footnote link in the container takes you back up to where its link is on the page.
+Footnotes<<<This is a footnote>>> are small, numbered links you can put next to any word on a page. They look like this<<<This is another footnote>>> and when you click on them, they take you to a container<<<This is yet another footnote. You're reading it in a footnote container.>>> at the bottom of the page that displays the content of the footnote links. Clicking on a footnote link in the container takes you back up to where its link is on the page.
 
-Footnote links can be added to any word in your text by inserting a special tag to the right of a word, like this{{{<<<This is a footnote.>>>}}}. When you save the page, the wiki will automatically turn that tag into a numbered link next to the word. You can add as many footnotes to a page as you like, and the wiki will number them sequentially for you automatically.
+Footnote links can be added to any word in your text by inserting a special tag made of text surrounded by triple angled brackets ({{{<<<}}} and {{{>>>}}}) to the right of a word, like this{{{<<<This is a footnote.>>>}}}. When you save the page, the wiki will automatically turn that tag into a numbered link next to the word. You can add as many footnotes to a page as you like, and the wiki will number them sequentially for you automatically.
 
 Footnotes from [[Help::Transclusion|transcluded]] pages get added automatically and are numbered properly based on where the transcluded page is inserted in the page.
 
