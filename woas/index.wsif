@@ -117,7 +117,8 @@ Import a wiki from an early (or current) version:
 File: <input id="filename_" type="file" />&nbsp;<input type="button" value="Import" onclick="import_wiki()" />
 
 <label for="cb_import_content"><input type="checkbox" id="cb_import_content" checked="checked">&nbsp;Import the wiki pages.</label>
-<label for="cb_import_css"><input type="checkbox" id="cb_import_css">&nbsp;Import also CSS (available only for versions v0.9 and above). /Caution: importing older CSS can garble the layout./</label>
+<label for="cb_import_css"><input type="checkbox" id="cb_import_css">&nbsp;Import also CSS (available only for versions v0.9 and above).</label>
+/Caution: importing older CSS can garble the layout./
 <label for="cb_import_icons"><input type="checkbox" id="cb_import_icons" disabled="disabled">&nbsp;Import the icons theme (available since v0.9.5B).</label>
 
 --DFQRCTsKlU
