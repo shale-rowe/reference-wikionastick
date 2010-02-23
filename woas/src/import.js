@@ -23,7 +23,7 @@ woas["import_wiki"] = function() {
 	this.progress_init("Import WoaS");
 	
 	var fail=false;
-	var user_pages=0, sys_pages=0;
+	var sys_pages=0;
 	do { // a fake do...while to ease failure return
 	// load the file as UTF-8
 	var ct = this.load_file(null, this.file_mode.UTF8_TEXT);
@@ -455,7 +455,7 @@ woas["import_wiki"] = function() {
 		return false;
 	
 	// inform about the imported pages / total pages present in file
-	this.alert(this.i18n.IMPORT_OK.sprintf(pages_imported, page_names.length-sys_pages, sys_pages));
+	this.alert(this.i18n.IMPORT_OK.sprintf(pages_imported+"/"+(page_names.length-sys_pages).toString(), sys_pages));
 	
 	// move to main page
 	current = main_page;
