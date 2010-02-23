@@ -720,7 +720,8 @@ woas["set_current"] = function (cr, interactive) {
 		cr = "";
 	} else {
 		var p = cr.indexOf("::");
-		if (p!=-1) {
+		// skip not found references but also null namespace references
+		if (p>0) {
 			namespace = cr.substring(0,p);
 //			log("namespace of "+cr+" is "+namespace);	// log:0
 			cr = cr.substring(p+2);
@@ -902,6 +903,10 @@ woas["last_modified"] = function(mts) {
 
 // actually load a page given the title and the proper XHTML
 woas["load_as_current"] = function(title, xhtml, mts) {
+	if (typeof title == "undefined") {
+		this.crash("load_as_current() called with undefined title");
+		return;
+	}
 	scrollTo(0,0);
 	log("load_as_current(\""+title+"\") - "+xhtml.length+" bytes");	// log:1
 	$("wiki_text").innerHTML = xhtml;
