@@ -1,26 +1,26 @@
 
-	function get_import_vars(data, ignore) {
-		var c=[];
-		// rename the variables
-		data = data.replace(/([^\\])\nvar (\w+) = /g, function (str, $1, $2) {
-			if (ignore && ignore.indexOf($2)!=-1)
-				return "\nvar ignoreme = ";
-			c.push('sw_import_'+$2);
-			return $1+"\nvar sw_import_"+$2+" = ";
-		});//.replace(/\\\n/g, '');
-		log("collected variables = "+c);	// log:1
+// function used to collect variables
+function get_import_vars(data, ignore) {
+	var c=[];
+	// rename the variables
+	data = data.replace(/([^\\])\nvar (\w+) = /g, function (str, $1, $2) {
+		if (ignore && ignore.indexOf($2)!=-1)
+			return "\nvar ignoreme = ";
+		c.push('sw_import_'+$2);
+		return $1+"\nvar sw_import_"+$2+" = ";
+	});//.replace(/\\\n/g, '');
+	log("collected variables = "+c);	// log:1
 		
-		c = eval(data+"\n["+c+"];");
-		return c;
-	}
-
+	c = eval(data+"\n["+c+"];");
+	return c;
+}
 
 woas["import_wiki"] = function() {
 	if(confirm(this.i18n.CONFIRM_IMPORT_OVERWRITE) == false)
 		return false;
 
 	// set hourglass
-	document.body.style.cursor= "wait";
+	this.progress_init("Import WoaS");
 	
 	var fail=false;
 	do { // a fake do...while to ease failure return
@@ -94,6 +94,7 @@ woas["import_wiki"] = function() {
 				case "0.10.2":
 				case "0.10.3":
 				case "0.10.4":
+				case "0.10.5":
 					old_version = Number(ver_str.substr(1).replace(/\./g, ""));
 					break;
 				default:
@@ -375,6 +376,7 @@ woas["import_wiki"] = function() {
 						pages[pi] = page_contents[i];
 						page_attrs[pi] = 4;
 						pages_imported++;
+						this.progress_status(pages_imported/page_names.length);
 						continue;
 					}
 				}
@@ -419,6 +421,7 @@ woas["import_wiki"] = function() {
 					page_attrs[pi] = old_page_attrs[i];
 				}
 				++pages_imported;
+				this.progress_status(pages_imported/page_names.length);
 			} // not importing a special page
 		} // for cycle
 		// added in v0.9.7
@@ -438,7 +441,7 @@ woas["import_wiki"] = function() {
 	} while (false); // fake do..while ends here
 	
 	// remove hourglass
-	document.body.style.cursor= "auto";
+	this.progress_finish();
 	
 	// when we fail, we return false
 	if (fail)
