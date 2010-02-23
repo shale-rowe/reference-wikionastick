@@ -1,10 +1,11 @@
 wsif.version: 1.1.0
 woas.version: 0.10.5
-woas.pages: 52
+woas.pages: 53
 
 woas.page.title: ::Menu
 woas.page.attributes: 0
-woas.page.length: 2041
+woas.page.last_modified: 1266917393
+woas.page.length: 2075
 woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -33,6 +34,7 @@ woas.page.boundary: DFQRCTsKlU
 ** [[Testcase::Apostrophe ' in title|Apostrophe]]
 ** [[Testcase::Headlines mix|Headlines mix]]
 ** [[Testcase::Unusual lists|Unusual lists]]
+** [[Testcase::Headers|Headers]]
 * [[Options]]
 [[Escaped > page]]
 [[Google sitesearch]]
@@ -71,6 +73,7 @@ function menu_key_hook(orig_e) {
 
 $('menu_string_to_search').onkeydown = menu_key_hook;
 </script>
+
 
 --DFQRCTsKlU
 woas.page.title: Special::Advanced
@@ -1829,4 +1832,39 @@ The same headline, transliterated to the Latin alphabet:
 The same headline, translated to English:
 
     "Radcliffe to compete in Olympic marathon, also implied to appear in the 10,000 m"
+--DFQRCTsKlU
+woas.page.title: Testcase::Headers
+woas.page.attributes: 0
+woas.page.last_modified: 1266917451
+woas.page.length: 164
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+[[Special::TOC]]
+
+= one
+== two
+=== three
+==== four
+===== five
+
+= 1
+== 2
+=== 3
+==== 4
+===== 5
+
+= my
+== my
+=== my
+==== my
+===== my
+
+= of
+== of
+=== of
+==== of
+===== of
 --DFQRCTsKlU
