@@ -16,21 +16,18 @@ else if(navigator.appName == "Netscape") {
 	// match also development versions of Firefox "Shiretoko" / "Namoroka"
 	if (woas.browser.firefox) {
 		// match the last word of userAgent
-		var fver = navigator.userAgent.match(/\s[A-Za-z]+\/(\d+)\.[\.\d]+\s*$/);
-		if (fver !== null) {
-			fver = Number(fver[1]);
-			switch (fver) {
-				case 2:
+		var gecko_ver = navigator.userAgent.match(/rv:(\d+\.\d+)/);
+		if (gecko_ver !== null) {
+			switch (gecko_ver) {
+				case "1.8":
 					woas.browser.firefox2 = true;
 				break;
-				case 3:
+				case "1.9":
 					woas.browser.firefox3 = true;
 				break;
 				default:
-					// a new version of Firefox
-					if (fver > 3)
-						woas.browser.firefox_new = true;
-					// unknown browser!
+					// possibly Firefox4
+					woas.browser.firefox_new = true;
 			}
 		}
 	} // not Gecko
