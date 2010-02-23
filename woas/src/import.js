@@ -23,6 +23,7 @@ woas["import_wiki"] = function() {
 	this.progress_init("Import WoaS");
 	
 	var fail=false;
+	var user_pages=0, sys_pages=0;
 	do { // a fake do...while to ease failure return
 	// load the file as UTF-8
 	var ct = this.load_file(null, this.file_mode.UTF8_TEXT);
@@ -33,10 +34,10 @@ woas["import_wiki"] = function() {
 	
 	var import_css = $('cb_import_css').checked;
 	var import_content = $('cb_import_content').checked;
-	// not yet implemented
+	//TODO: import icon support
 	var import_icons = $('cb_import_icons').checked;
 	
-	// get version
+	// get WoaS version
 	var old_version;
 	var ver_str = ct.match(/<div .*?id=("version_"|version_).*?>([^<]+)<\/div>/i);
 	if (ver_str && ver_str.length>1) {
@@ -209,7 +210,10 @@ woas["import_wiki"] = function() {
 				if (page_names[pc].indexOf("Special::")===0) {
 					if (page_names[pc].search(/Special::Edit Menu/i)==0)
 						page_names[pc] = "::Menu";
-					else return;
+					else {
+						++sys_pages;
+						return;
+					}
 				}
 				
 				old_page_attrs[pc] = 0;
@@ -316,8 +320,10 @@ woas["import_wiki"] = function() {
 					if (old_page_attrs[i] & 2)
 						continue;
 					// ignore special pages
-					if (page_names[i].indexOf("Special::")===0)
+					if (page_names[i].indexOf("Special::")===0) {
+						++sys_pages;
 						continue;
+					}
 					page_contents[i] = page_contents[i].replace(/<pre(.*?)>((.|\n)*?)<\/pre>/g,
 									function (str, $1, $2) {
 										var s="{{{"+$2+"}}}";
@@ -381,6 +387,7 @@ woas["import_wiki"] = function() {
 					}
 				}
 				// here we are skipping special pages
+				++sys_pages;
 			} else { // not importing a special page
 				pi = this.page_index(page_names[i]);
 				if (pi == -1) {
@@ -448,7 +455,7 @@ woas["import_wiki"] = function() {
 		return false;
 	
 	// inform about the imported pages / total pages present in file
-	this.alert(this.i18n.IMPORT_COMPLETE.sprintf(pages_imported, page_names.length));
+	this.alert(this.i18n.IMPORT_OK.sprintf(pages_imported, page_names.length-sys_pages, sys_pages));
 	
 	// move to main page
 	current = main_page;
