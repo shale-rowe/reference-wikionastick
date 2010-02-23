@@ -18,6 +18,7 @@ else if(navigator.appName == "Netscape") {
 		// match the last word of userAgent
 		var gecko_ver = navigator.userAgent.match(/rv:(\d+\.\d+)/);
 		if (gecko_ver !== null) {
+			gecko_ver = gecko_ver[1];
 			switch (gecko_ver) {
 				case "1.8":
 					woas.browser.firefox2 = true;

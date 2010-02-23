@@ -7,7 +7,8 @@ woas["_auto_native_wsif"] = true;
 // a class for some general WSIF operations
 woas["wsif" ] = {	version: "1.1.0", DEFAULT_INDEX: "index.wsif",
 					emsg: null, imported_page: false,
-					expected_pages: null};
+					expected_pages: null,
+					system_pages: 0};
 
 woas["wsif"]["header"] = function(header_name, value) {
 	return header_name+": "+value+"\n";
@@ -227,6 +228,7 @@ woas["_native_wsif_load"] = function(path, overwrite, and_save, recursing) {
 		this.wsif.expected_pages = null;
 		this.wsif.emsg = this.i18n.NO_ERROR;
 		this.wsif.imported_page = false;
+		this.wsif.system_pages = 0;
 		var	global_progress = 0;
 		this.progress_init("Initializing WSIF import");
 	}
@@ -298,24 +300,30 @@ woas["_native_wsif_load"] = function(path, overwrite, and_save, recursing) {
 			case "title":
 				// we have just jumped over a page definition
 				if (title !== null) {
-					// store the previously parsed page definition
-					p = this._native_page_def(path,ct,previous_h, p,overwrite,
-							title,attrs,last_mod,len,encoding,disposition,
-							d_fn,boundary,mime);
-					// save page index for later analysis
-					var was_title = title;
-					title = attrs = last_mod = encoding = len =
-						 boundary = disposition = mime = d_fn = null;
-					if (p == -1) {
-						fail = true;
-						break;
+					if (title.match(/^Special::/) && and_save) {
+						++this.wsif.system_pages;
+						title = attrs = last_mod = encoding = len =
+							 boundary = disposition = mime = d_fn = null;
+					} else {
+						// store the previously parsed page definition
+						p = this._native_page_def(path,ct,previous_h, p,overwrite,
+								title,attrs,last_mod,len,encoding,disposition,
+								d_fn,boundary,mime);
+						// save page index for later analysis
+						var was_title = title;
+						title = attrs = last_mod = encoding = len =
+							 boundary = disposition = mime = d_fn = null;
+						if (p == -1) {
+							fail = true;
+							break;
+						}
+						// check if page was really imported, and if yes then
+						// add page to list of imported pages
+						if (this.wsif.imported_page !== false)
+							imported.push(this.wsif.imported_page);
+						else
+							log("Import failure for "+was_title); //log:1
 					}
-					// check if page was really imported, and if yes then
-					// add page to list of imported pages
-					if (this.wsif.imported_page !== false)
-						imported.push(this.wsif.imported_page);
-					else
-						log("Import failure for "+was_title); //log:1
 					// delete the whole entry to free up memory to GC
 					// will delete also the last read header
 					ct = ct.substr(p);
@@ -344,6 +352,7 @@ woas["_native_wsif_load"] = function(path, overwrite, and_save, recursing) {
 				disposition = v;
 			break;
 			case "disposition.filename":
+				//TODO: ecma-escape
 				d_fn = v;
 			break;
 			case "boundary":
