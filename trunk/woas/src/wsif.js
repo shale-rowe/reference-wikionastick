@@ -406,7 +406,7 @@ woas["_native_wsif_load"] = function(path, overwrite, and_save, recursing) {
 woas["_last_filename"] = null;
 
 woas["_get_path"] = function(id) {
-	if (this.browser.ff3 || this.browser.ff_new)
+	if (this.browser.firefox3 || this.browser.firefox_new)
 		return this.dirname(ff3_getPath($(id)));
 	// use the last used path
 	if (this.browser.opera)

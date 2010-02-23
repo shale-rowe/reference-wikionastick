@@ -76,7 +76,7 @@ woas["load_file"] = function(fileUrl, load_mode){
 	if (!this.use_java_io) {
 		// correctly retrieve fileUrl
 		if (fileUrl === null) {
-			if (this.browser.ff3 || this.browser.ff_new)
+			if (this.browser.firefox3 || this.browser.firefox_new)
 				r = this.mozillaLoadFileID("filename_", load_mode);
 			else
 				fileUrl = this.get_input_file_url();
