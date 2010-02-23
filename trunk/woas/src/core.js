@@ -48,7 +48,7 @@ woas["_new_page"] = function(msg, fill_mode, def_title) {
 					var menu = this.get_text("::Menu");
 					var p = menu.indexOf("\n\n");
 					if (p==-1)
-						menu += "\n[["+title+"]]";
+						menu += "\n[["+ns+cr+"]]";
 					else
 						menu = menu.substring(0,p)+"\n[["+title+"]]"+menu.substring(p)+"\n";
 					this.set__text(this.page_index("::Menu"), menu);
