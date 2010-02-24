@@ -146,7 +146,6 @@ woas["_native_wsif_save"] = function(path, single_wsif, inline_wsif, author,
 							(encoding == "8bit/plain") ?
 							this.file_mode.BINARY : this.file_mode.ASCII_TEXT, ct))
 				log("Could not save "+blob_fn);
-			this.progress_status(done/l);
 		}
 		// the page record is now ready, proceed to save
 		if (single_wsif) {// append to main page record
@@ -160,6 +159,7 @@ woas["_native_wsif_save"] = function(path, single_wsif, inline_wsif, author,
 								"\n" + record))
 				++done;
 		}
+		this.progress_status(done/l);
 		// reset the record
 		record = "";
 	} // foreach page
