@@ -12,7 +12,8 @@ woas.parser["header_anchor"] = function(s) {
 	return s.replace(/[^a-zA-Z0-9]/g, '_');
 }
 
-var reParseOldHeaders = /^(\!+)\s*(.*)$/gm;
+var reParseOldHeaders = /^(\!+)\s*(.*)$/gm;	//DEPRECATED
+
 var reParseHeaders = /^(=+)\s*(.*)$/gm;
 woas.parser["header_replace"] = function(str, $1, $2) {
 		var header = $2;
@@ -63,9 +64,7 @@ woas.parser["parse_lists"] = function(str, type, $2) {
         var reItems = /^([\*#@]+)[ \t]([^\n]+)/mg;
 
 		var stk = [];
-	    str.replace( reItems,
-                function(str, p1, p2)
-                {
+	    str.replace( reItems, function(str, p1, p2) {
                     level = p1.length;
                     old = level;
                     stk.push([str, p1, p2]);
@@ -79,14 +78,10 @@ var reReapTables = /^\{\|.*((?:\n\|.*)*)$/gm;
 woas.parser["parse_tables"] =  function (str, p1) {
         var caption = false;
         var stk = [];
-        p1.replace( /\n\|([+ -])(.*)/g, function(str, pp1, pp2)
-            {
+        p1.replace( /\n\|([+ -])(.*)/g, function(str, pp1, pp2) {
                 if (pp1 == '-')
-                {
                     return;
-                }
-                if (pp1 == '+')
-                {
+                if (pp1 == '+') {
                     caption = caption || pp2;
                     return;
                 }
