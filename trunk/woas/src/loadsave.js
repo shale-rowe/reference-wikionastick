@@ -487,6 +487,7 @@ woas["_save_to_file"] = function(full) {
 	var bak_mn = $("menu_area").innerHTML;
 	var bak_mts = $("wiki_mts").innerHTML;
 	var bak_mts_shown = $.is_visible("wiki_mts");
+	var bak_wait_text = this.getHTML($("woas_wait_text"));
 
 	if (bak_mts_shown)
 		$.hide("wiki_mts");
@@ -497,8 +498,12 @@ woas["_save_to_file"] = function(full) {
 
 	this._clear_swcs();
 	this._clear_bs();
+
+	this.setHTML($("woas_wait_text"), this.i18n.LOADING);
 	
 	var data = _get_data(__marker, document.documentElement.innerHTML, full);
+	
+	this.setHTML($("woas_wait_text"), bak_wait_text);
 
 	var r=false;
 //	if (!this.config.server_mode || (was_local && this.config.server_mode)) {
