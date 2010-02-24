@@ -224,8 +224,11 @@ woas["export_wiki"] = function () {
 		// do skip physical special pages
 		if (page_titles[pi].match(/^Special::/)) continue;
 		// do skip menu pages (they are included in each page)
-		if (page_titles[pi].indexOf("::Menu")==page_titles[pi].length-6) continue;
+		var mnupos = page_titles[pi].indexOf("::Menu");
+		if ((mnupos != -1) &&
+			(mnupos==page_titles[pi].length-6)) continue;
 		data = this.get_text_special(page_titles[pi]);
+		// skip pages which could not be decrypted
 		if (data == null) continue;
 		fname = this._export_get_fname(page_titles[pi], true);
 		// will skip WoaS::Bootscript and WoaS::Aliases
