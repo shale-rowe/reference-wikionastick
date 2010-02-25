@@ -308,8 +308,8 @@ Unknown what the test should be for cb_fixed_layout
 --DFQRCTsKlU
 woas.page.title: Feature::Summary
 woas.page.attributes: 0
-woas.page.last_modified: 1266218076
-woas.page.length: 2768
+woas.page.last_modified: 1267059934
+woas.page.length: 2767
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -374,7 +374,7 @@ This is an example of not-yet-embedded image: [[Image::photo.jpg]]
 
 Remember that images are base64-encoded when embedded and become 33% bigger in size; it is suggested to not embed too much big images or files because they can slow down the application (remember that everything is contained in a single file), but that highly depends from the javascript engine of your browser.
 
-[[Tags::help]]
+[[Tag::help]]
 
 --DFQRCTsKlU
 woas.page.title: Special::Embed
@@ -414,8 +414,8 @@ LyogaW5zZXJ0IGhlcmUgeW91ciBib290IHNjcmlwdCAqLw==
 --DFQRCTsKlU
 woas.page.title: History
 woas.page.attributes: 0
-woas.page.last_modified: 1266967887
-woas.page.length: 40247
+woas.page.last_modified: 1267061132
+woas.page.length: 40299
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -465,12 +465,13 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Added the [[Utility::Diary]] page (created by *FBNili*).
 ** Removed the *Changes* page.
 ** Removed the *Help::Embed web page* page.
+** Removed the namespace from the title at the top of *Help* pages.
 ** Renamed the *Help::Import page* page to [[Help::Import]].
 ** Renamed the *MyPages::Page 1* page to [[Example::Encrypted page]].
 ** Renamed the *Template::FoldingPage* page to [[Template::Foldpage]].
 ** Renamed the *Template::FoldingText* page to [[Template::Foldtext]].
 ** Renamed the *Template::FoldingTextInline* page to [[Template::Foldtextinline]].
-** Updated all multiple tags to the new (pipe) tag syntax.
+** Updated all tags to the new tag syntax.
 ** Updated the [[Example::JavaScript]] page.
 ** Updated the [[Help::Bugs]] page.
 ** Updated the [[Help::CSS]] page.
@@ -1418,14 +1419,14 @@ Before making any changes, use your *file manager*, the *command line*, or a *ba
 --DFQRCTsKlU
 woas.page.title: Help::Bootscript
 woas.page.attributes: 0
-woas.page.last_modified: 1265858654
-woas.page.length: 762
+woas.page.last_modified: 1267059962
+woas.page.length: 755
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Help::Bootscript
+= Bootscript
 If you want to execute some JavaScript at boot time (when the wiki is loaded into the browser), you can modify the bootscript by clicking the tools icon in the banner and choosing [[Special::Edit Bootscript|Edit the bootscript]] in the Advanced section.
 
 Be careful not to break JavaScript execution during this stage. In order to debug your script, you might use blocks like this:
@@ -1440,19 +1441,19 @@ catch (e) {
 
 [[Include::Image::alert.png]] The JavaScript API used in this wiki is not yet specified.
 
-[[Tags::Help]]
+[[Tag::Help]]
 
 --DFQRCTsKlU
 woas.page.title: Help::Bugs
 woas.page.attributes: 0
-woas.page.last_modified: 1266265288
-woas.page.length: 3388
+woas.page.last_modified: 1267060191
+woas.page.length: 3381
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Help::Bugs
+= Bugs
 This wiki comes with an optional debug console that will be visible at the bottom of every page when enabled.
 
 == Enable the debug console:
@@ -1508,49 +1509,49 @@ The debug console will no longer be visible.
 == Reporting bugs
 This wiki is not supported by [[http://stickwiki.sourceforge.net/|Wiki on a Stick]] since it's a modified version. If you encounter any bugs, [[http://sourceforge.net/project/showfiles.php?group_id=155218|download Wiki on a Stick]] and try to reproduce the bug. If you can reproduce it, then report it in the [[https://lists.sourceforge.net/lists/listinfo/stickwiki-devel|Wiki on a Stick development mailing list]]. If you can't reproduce it with Wiki on a Stick, <a href="mailto:littlergirl@gmail.com?subject=Book on a Stick bug report">contact me</a> and I'll do my best to solve the problem.
 
-[[Tags::Help]]
+[[Tag::Help]]
 
 --DFQRCTsKlU
 woas.page.title: Help::Cancel any action
 woas.page.attributes: 0
-woas.page.last_modified: 1265824399
-woas.page.length: 214
+woas.page.last_modified: 1267060218
+woas.page.length: 207
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Help::Cancel any action
+= Cancel any action
 Cancel any action by clicking the [[Include::Template::Icon::Cancel]] icon in the banner, clicking the *Cancel* button on any alert that pops up, or pressing the *Esc* key.
-[[Tags::Help]]
+[[Tag::Help]]
 
 --DFQRCTsKlU
 woas.page.title: Help::Change wiki settings
 woas.page.attributes: 0
-woas.page.last_modified: 1265824399
-woas.page.length: 253
+woas.page.last_modified: 1267060228
+woas.page.length: 246
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Help::Change wiki settings
+= Change wiki settings
 # Click the [[Include::Template::Icon::Advanced]] icon in the banner.
 # Click the *Options* link.
 # Use the check-boxes to choose the settings you prefer.
 # Click the *Save options* button to save the changes.
-[[Tags::Help]]
+[[Tag::Help]]
 --DFQRCTsKlU
 woas.page.title: Help::Code blocks (preformatted text)
 woas.page.attributes: 0
-woas.page.last_modified: 1266620291
-woas.page.length: 3436
+woas.page.last_modified: 1267060277
+woas.page.length: 3430
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Help::Code blocks (preformatted text)
+= Code blocks (preformatted text)
 [[Special::TOC]]
 
 == Code block
@@ -1649,14 +1650,14 @@ Another method is to interrupt the code by dividing it up between multiple lines
 --DFQRCTsKlU
 woas.page.title: Help::CSS
 woas.page.attributes: 0
-woas.page.last_modified: 1266999557
-woas.page.length: 10753
+woas.page.last_modified: 1267060207
+woas.page.length: 10746
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Help::CSS
+= CSS
 The look of most of this wiki can be customized by changing the CSS settings.
 
 [[Include::Template::Icon::Info]] /If you're new to CSS, [[http://www.w3schools.com/css/|this CSS Tutorial]] is wonderful./
@@ -1851,19 +1852,19 @@ span.tooltip {cursor:help; border-bottom:0.125em dashed mediumblue;}
 div.topnote {position:absolute; top:0.188em; right:0.625em;}
 }}}
 
-[[Tags::Help]]
+[[Tag::Help]]
 
 --DFQRCTsKlU
 woas.page.title: Help::Delete a page
 woas.page.attributes: 0
-woas.page.last_modified: 1266277419
-woas.page.length: 803
+woas.page.last_modified: 1267060287
+woas.page.length: 796
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Help::Delete a page
+= Delete a page
 == From the menu
 # Click the *Delete page* button in the menu while displaying the page you wish to delete, or click it from any page and type in the name of the page you wish to delete.<br><br>
 # You'll be asked for confirmation.<br><br>
@@ -1876,19 +1877,19 @@ woas.page.boundary: DFQRCTsKlU
 # Save your changes by clicking on the [[Include::Template::Icon::Save]] icon in the banner.<br><br>
 # Edit the menu to remove the link to the deleted page if it isn't removed automatically.
 
-[[Tags::Help]]
+[[Tag::Help]]
 
 --DFQRCTsKlU
 woas.page.title: Help::Edit a page
 woas.page.attributes: 0
-woas.page.last_modified: 1265824399
-woas.page.length: 905
+woas.page.last_modified: 1267060297
+woas.page.length: 898
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Help::Edit a page
+= Edit a page
 Pages that have the [[Include::Template::Icon::Edit]] icon in the banner can be edited. This includes any page you created, and any page listed when clicking the *All pages* button in the menu.
 # Click the [[Include::Template::Icon::Edit]] icon in the banner or double-click on the page if you've enabled that setting in *Options*.<br><br>
 # Edit the contents of the main text area by typing normally.<br><br>
@@ -1897,19 +1898,19 @@ Pages that have the [[Include::Template::Icon::Edit]] icon in the banner can be 
 
 [[Include::Template::Icon::Info]] /Feel free to edit the Main page and replace its content with your own. The default information it contains is always available by clicking the *About* button in the menu./
 
-[[Tags::Help]]
+[[Tag::Help]]
 
 --DFQRCTsKlU
 woas.page.title: Help::Encrypt a page
 woas.page.attributes: 0
-woas.page.last_modified: 1266275487
-woas.page.length: 2175
+woas.page.last_modified: 1267060321
+woas.page.length: 2168
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Help::Encrypt a page
+= Encrypt a page
 This wiki offers [[Special::Security|AES encryption]] for locking pages. Padlock icons are displayed in the banner to indicate whether pages are encrypted or not. The [[Include::Template::Icon::Unlock]] icon indicates that a page is unencrypted and the [[Include::Template::Icon::Lock]] icon indicates that a page is encrypted.
 
 == Lock a page
@@ -1922,38 +1923,38 @@ Clicking on the link to an encrypted page brings up an alert letting you know th
 
 The [[Example::Encrypted page]] can be opened by using *test* as the password.
 
-[[Tags::Help]]
+[[Tag::Help]]
 
 --DFQRCTsKlU
 woas.page.title: Help::Erase all pages
 woas.page.attributes: 0
-woas.page.last_modified: 1265824399
-woas.page.length: 456
+woas.page.last_modified: 1267060332
+woas.page.length: 449
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Help::Erase all pages
+= Erase all pages
 To erase all user-created pages in this wiki and start fresh:
 # *Make sure you have a wiki you don't mind losing open. If not, make a copy and erase the copy.*
 # Click the [[Include::Template::Icon::Advanced]] icon in the banner.
 # Click on *Delete ALL wiki pages and reset with default data* in the Maintenance section.
 # You'll be asked for confirmation twice and must click the *OK* button each time to continue.
 
-[[Tags::Help]]
+[[Tag::Help]]
 
 --DFQRCTsKlU
 woas.page.title: Help::Export
 woas.page.attributes: 0
-woas.page.last_modified: 1266771562
-woas.page.length: 572
+woas.page.last_modified: 1267060342
+woas.page.length: 565
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Help::Export
+= Export
 [[Include::Template::TODO|this|Add instructions for Special::ExportWSIF to this page.]]
 You can export this wiki into multiple linked XHTML, CSS, and image files which will create a framed web page.
 
@@ -1965,19 +1966,19 @@ You can export this wiki into multiple linked XHTML, CSS, and image files which 
 
 Now you can click the *index.htm* file in the export folder to launch the framed page.
 
-[[Tags::Help]]
+[[Tag::Help]]
 
 --DFQRCTsKlU
 woas.page.title: Help::Footer
 woas.page.attributes: 0
-woas.page.last_modified: 1266777429
-woas.page.length: 1404
+woas.page.last_modified: 1267060367
+woas.page.length: 1397
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Help::Footer
+= Footer
 The footer is a section beneath the main text area in which you can put content that's visible when viewing any page (see the copyright notice beneath this text area).
 
 == Change the look of the footer
@@ -2015,19 +2016,19 @@ The footer is a section beneath the main text area in which you can put content 
 # Close the text editor.<br><br>
 # Open the wiki and use normally.
 
-[[Tags::Help]]
+[[Tag::Help]]
 
 --DFQRCTsKlU
 woas.page.title: Help::Getting started
 woas.page.attributes: 0
-woas.page.last_modified: 1265824399
-woas.page.length: 675
+woas.page.last_modified: 1267060387
+woas.page.length: 668
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Help::Getting started
+= Getting started
 * The first time you save a change to this wiki, your browser will ask for permission to save data to the disk. This is normal and necessary for the wiki to make changes to itself.
 
 * [[Help::Backup|Back up this wiki]].
@@ -2051,18 +2052,18 @@ woas.page.boundary: DFQRCTsKlU
 * [[Help::Syntax|Learn the syntax]].
 
 * [[Help::Navigation|Navigate in this wiki]].
-[[Tags::Help]]
+[[Tag::Help]]
 --DFQRCTsKlU
 woas.page.title: Help::Headers
 woas.page.attributes: 0
-woas.page.last_modified: 1266620310
-woas.page.length: 866
+woas.page.last_modified: 1267060397
+woas.page.length: 860
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Help::Headers
+= Headers
 Below are examples on how to use wiki markup to create headers in this wiki. You can also use HTML header tags.
 
 <div class="helptext">Use this code in a page:</div>{{{
@@ -2099,14 +2100,14 @@ Below are examples on how to use wiki markup to create headers in this wiki. You
 --DFQRCTsKlU
 woas.page.title: Help::Horizontal rules (lines)
 woas.page.attributes: 0
-woas.page.last_modified: 1266620319
-woas.page.length: 1617
+woas.page.last_modified: 1267060412
+woas.page.length: 1611
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Help::Horizontal rules (lines)
+= Horizontal rules (lines)
 Horizontal rules use the full width of the page by default. They can be styled to a smaller width by surrounding them with *HTML &lt;div&gt;* tags. Styling can also control their position. I haven't yet figured out how to colorize them. Adding {{{color:red;}}} to the style portion of the *&lt;div&gt;* tag doesn't work. If any code wizard out there figures it out, please contact me by using the email link in the footer beneath this page.
 
 [[Include::Image::alert.png]] /Note that you sometimes need a blank line above or below a horizontal rule to get it to work./
@@ -2149,14 +2150,14 @@ Horizontal rules use the full width of the page by default. They can be styled t
 --DFQRCTsKlU
 woas.page.title: Help::Images
 woas.page.attributes: 0
-woas.page.last_modified: 1266620330
-woas.page.length: 9876
+woas.page.last_modified: 1267060424
+woas.page.length: 9870
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Help::Images
+= Images
 [[Special::TOC]]
 
 == Add an alert image to a page
@@ -2294,14 +2295,14 @@ See the [[Help::Links]] page for a list of all possible internal actions.
 --DFQRCTsKlU
 woas.page.title: Help::Import
 woas.page.attributes: 0
-woas.page.last_modified: 1266528197
-woas.page.length: 1448
+woas.page.last_modified: 1267060434
+woas.page.length: 1441
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Help::Import
+= Import
 
 == Import wiki
 This method is used to import the contents of an older (or current) version of Book on a Stick or Wiki on a Stick:
@@ -2327,19 +2328,19 @@ This method is used to import pages that have been exported using the [[Special:
 # Choose whether to check or uncheck the box next to *Overwrite pages with the same title*.
 # Click the *Import WSIF* button.
 
-[[Tags::Help]]
+[[Tag::Help]]
 
 --DFQRCTsKlU
 woas.page.title: Help::Include text file
 woas.page.attributes: 0
-woas.page.last_modified: 1266967855
-woas.page.length: 577
+woas.page.last_modified: 1267060445
+woas.page.length: 571
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Help::Include text file
+= Include text file
 
 <div class="helptext">Use this code in a page, replacing PATH with the full path to the file:</div>{{{
 <iframe height="400" width="100%" src="file:///PATH"></iframe>
@@ -2357,14 +2358,14 @@ Windows users should be able to use:{{{
 --DFQRCTsKlU
 woas.page.title: Help::Include wiki page
 woas.page.attributes: 0
-woas.page.last_modified: 1266620359
-woas.page.length: 1277
+woas.page.last_modified: 1267060464
+woas.page.length: 1271
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Help::Include wiki page
+= Include wiki page
 
 To include the contents of a wiki page inside another wiki page, use an {{{[[Include::]]}}} tag on a line by itself, inserting the name of the page you'd like to include after the double colons in the tag.
 
@@ -2390,15 +2391,15 @@ The *Example::Overview* page displays the contents of the three example chapters
 --DFQRCTsKlU
 woas.page.title: Help::JavaScript
 woas.page.attributes: 0
-woas.page.last_modified: 1266301419
-woas.page.length: 6026
+woas.page.last_modified: 1267060480
+woas.page.length: 6018
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 [[Special::TOC]]
-= Help::JavaScript =
+= JavaScript
 == Adding JavaScript to your page
 To add JavaScript to your page, you must enclose it inside JavaScript tags.
 
@@ -2480,14 +2481,14 @@ I recommend that you put this code near the top of any page (preferably directly
 --DFQRCTsKlU
 woas.page.title: Help::Join lines of text
 woas.page.attributes: 0
-woas.page.last_modified: 1266620380
-woas.page.length: 873
+woas.page.last_modified: 1267060517
+woas.page.length: 867
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Help::Join lines of text
+= Join lines of text
 If you have lengthy content that you'd like to break up into shorter lines in the editor while still being presented as a long line when the page is viewed, you can split the line up into as many pieces as you like, inserting a backslash at the *end* of each line to let the wiki parser know you want that line joined with the one below it. When you save the page, the line will be displayed intact.
 
 [[Include::Template::Icon::Info]] Backslashes *within* a line will be ignored by the wiki parser and will not influence how the text is displayed.
@@ -2506,15 +2507,15 @@ with the line below it.
 --DFQRCTsKlU
 woas.page.title: Help::Links
 woas.page.attributes: 0
-woas.page.last_modified: 1266620390
-woas.page.length: 10985
+woas.page.last_modified: 1267060535
+woas.page.length: 10979
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Help::Links
 [[Special::TOC]]
+= Links
 
 == Alert box link (button)
 <div class="helptext">Use this code in a page, replacing YOUR MESSAGE GOES HERE with the content for the alert, and YOUR BUTTON TEXT GOES HERE with the text for your button:</div>{{{
@@ -2691,16 +2692,15 @@ These are internal wiki actions in the form of links:<br><br>
 --DFQRCTsKlU
 woas.page.title: Help::Lists
 woas.page.attributes: 0
-woas.page.last_modified: 1266620404
-woas.page.length: 12323
+woas.page.last_modified: 1267060562
+woas.page.length: 12316
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Help::Lists
 [[Special::TOC]]
-
+= Lists
 Simple single-level lists can be created by using the three list buttons in the editor. The {{{List *}}} button creates bulleted list items, the {{{List #}}} button creates numbered list items, and the {{{List @}}} button creates alphanumeric list items. If you'd like to create mixed lists, nested lists, or lists with additional types of list items, the methods below can be used instead.
 
 == Wiki markup lists
@@ -3089,14 +3089,14 @@ This method is useful when an creating a fancy list with more than one list item
 --DFQRCTsKlU
 woas.page.title: Help::Edit the menu
 woas.page.attributes: 0
-woas.page.last_modified: 1266124362
-woas.page.length: 3884
+woas.page.last_modified: 1267060310
+woas.page.length: 3877
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Help::Edit the menu
+= Edit the menu
 [[Special::TOC]]
 == Add a go to link to the menu
 If you'd like to have a link in the menu that lets you go to any page you like when you click the button and type in the page name, type this command anywhere in the menu:
@@ -3183,32 +3183,32 @@ nks for wri\
 ters]\
 ]</pre>
 
-[[Tags::Help]]
+[[Tag::Help]]
 
 --DFQRCTsKlU
 woas.page.title: Help::Navigation
 woas.page.attributes: 0
-woas.page.last_modified: 1265824399
-woas.page.length: 393
+woas.page.last_modified: 1267060595
+woas.page.length: 386
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Help::Navigation
+= Navigation
 Use the [[Include::Template::Icon::Back]] icon in the banner to go back one page, the [[Include::Template::Icon::Forward]] icon in the banner to go forward one page, the [[Include::Template::Icon::Home]] icon in the banner to return to the Main page, or click the buttons in the banner, the buttons and links in the menu, or the buttons and links on any page.
-[[Tags::Help]]
+[[Tag::Help]]
 --DFQRCTsKlU
 woas.page.title: Help::Non-breaking spaces
 woas.page.attributes: 0
-woas.page.last_modified: 1266620410
-woas.page.length: 768
+woas.page.last_modified: 1267060637
+woas.page.length: 762
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Help::Non-breaking spaces
+= Non-breaking spaces
 A non-breaking space can add extra space between characters on a line since this is not possible simply by pressing the space bar more than once.
 
 <div class="helptext">Use this code in a page:</div>{{{
@@ -3229,15 +3229,15 @@ word &nbsp;&nbsp;&nbsp; word}}}word &nbsp;&nbsp;&nbsp; word
 --DFQRCTsKlU
 woas.page.title: Help::Page creation
 woas.page.attributes: 0
-woas.page.last_modified: 1265824399
-woas.page.length: 3773
+woas.page.last_modified: 1267060654
+woas.page.length: 3766
 woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Help::Page creation
 [[Special::TOC]]
+= Page creation
 == Create a page
 # Click the *NEW PAGE* button in the menu.<br><br>
 # Type a short name for the page. If the name is too long, the banner can become so large that it interferes with the functions at the top of the page. Page names are case sensitive. Spaces are allowed. Diacritics (a glyph added to a letter - for example: \u00e2) are allowed. Escaped characters (some examples: ' % < > | : #) are allowed.<br><br>
@@ -3277,19 +3277,19 @@ An alternate method of creating a page is to type a new page name inside nested 
 ** The wiki is being run in [[Help::Publish wiki online|read-only mode]], so no changes are allowed. See the [[Help::Wiki is read-only]] page for instructions on how to fix the issue.<br><br>
 ** You are trying to use a namespace that is reserved by the system. See the [[Help::Namespaces]] page.
 
-[[Tags::Help]]
+[[Tag::Help]]
 
 --DFQRCTsKlU
 woas.page.title: Help::Page name too long
 woas.page.attributes: 0
-woas.page.last_modified: 1266529600
-woas.page.length: 1176
+woas.page.last_modified: 1267060671
+woas.page.length: 1169
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Help::Page name too long
+= Page name too long
 [[Include::Template::TODO|this|Add the code for Fixed banner to Special::Options so that step 3 is accurate.]]
 If you created a page with a name that's too long and you can't access the icons at the top of the page or the page title while in the editor:
 # Click the link for any other page in the menu to restore your access to the icons.<br><br>
@@ -3302,53 +3302,53 @@ If you created a page with a name that's too long and you can't access the icons
 # Create the page again - this time with a shorter name.<br><br>
 # Return to the [[Special::Options|Options]] page to restore the *Fixed banner* option.
 
-[[Tags::Help]]
+[[Tag::Help]]
 
 --DFQRCTsKlU
 woas.page.title: Help::Page scrolling
 woas.page.attributes: 0
-woas.page.last_modified: 1266529706
-woas.page.length: 485
+woas.page.last_modified: 1267060687
+woas.page.length: 478
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Help::Page scrolling
+= Page scrolling
 [[Include::Template::TODO|this|Add Fixed banner on the Special::Options page so these instructions are accurate.]]
 By default, this wiki offers two choices for scrolling on the [[Special::Options|Options]] page:
 
 # Disabling *Fixed banner* locks all page elements in place so the entire page scrolls as one connected unit.<br><br>
 # Enabling *Fixed banner* locks the banner in place while allowing the menu and main text area to scroll together.
 
-[[Tags::Help]]
+[[Tag::Help]]
 
 --DFQRCTsKlU
 woas.page.title: Help::Pages linking to this page
 woas.page.attributes: 0
-woas.page.last_modified: 1265824399
-woas.page.length: 154
+woas.page.last_modified: 1267060717
+woas.page.length: 147
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Help::Pages linking to this page
+= Pages linking to this page
 Click the *Back links* button in the menu to see which pages link to the page you currently have open.
 
-[[Tags::Help]]
+[[Tag::Help]]
 
 --DFQRCTsKlU
 woas.page.title: Help::Page with no name
 woas.page.attributes: 0
-woas.page.last_modified: 1265824399
-woas.page.length: 1173
+woas.page.last_modified: 1267060702
+woas.page.length: 1166
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Help::Page with no name
+= Page with no name
 If you accidentally created a page without naming it, or if you accidentally deleted the name of the page, there is a way to recover the page.
 
 <div class="helptext">Replace *PAGENAME* with the name you'd like your page to have when following these instructions:</div>
@@ -3363,19 +3363,19 @@ If you accidentally created a page without naming it, or if you accidentally del
 # Your page will now be back in the list.<br><br>
 # You may have to create a menu entry for it manually by editing the menu and typing {{{[[PAGENAME]]}}} wherever you'd like the entry to be, or if the entry was there, but empty, replacing {{{[[]]}}} with {{{[[PAGENAME]]}}}.
 
-[[Tags::Help]]
+[[Tag::Help]]
 
 --DFQRCTsKlU
 woas.page.title: Help::Namespaces
 woas.page.attributes: 0
-woas.page.last_modified: 1266529449
-woas.page.length: 2736
+woas.page.last_modified: 1267060584
+woas.page.length: 2729
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Help::Namespaces
+= Namespaces
 When you create a page and use the *::* separator in the page name, you will be using a *namespace* to define parent and child pages. For example, {{{[[MyPages::Page One]]}}} and {{{[[MyPages::Page Two]]}}} both belonging to the {{{[[MyPages::]]}}} namespace.
 
 You can also use sub-namespaces, like {{{[[MyPages::Recipes::Desserts::]]}}}.
@@ -3417,35 +3417,35 @@ For example, if you have these pages:
 * {{{[[Recipes::Soups]]}}}
 You can type *My favorite recipes!* into the {{{[[Recipes::Menu]]}}} page, and any time you open any of the Recipes pages, *My favorite recipes!* will appear in the sub-menu of the main menu.
 
-[[Tags::Help]]
+[[Tag::Help]]
 
 --DFQRCTsKlU
 woas.page.title: Help::Print a page
 woas.page.attributes: 0
-woas.page.last_modified: 1265824399
-woas.page.length: 257
+woas.page.last_modified: 1267060730
+woas.page.length: 250
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Help::Print a page
+= Print a page
 # Click the [[Include::Template::Icon::Print]] icon in the banner. A new browser window will open with a printer-friendly version of the page.
 # Use the browser's *print preview* and *print* functions to print the page.
 
-[[Tags::Help]]
+[[Tag::Help]]
 
 --DFQRCTsKlU
 woas.page.title: Help::Publish wiki online
 woas.page.attributes: 0
-woas.page.last_modified: 1266529882
-woas.page.length: 659
+woas.page.last_modified: 1267060743
+woas.page.length: 652
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Help::Publish wiki online
+= Publish wiki online
 This wiki can be published online as a single-file, framed web page by making it read-only:
 # Make a backup copy of this wiki.
 # Click the [[Include::Template::Icon::Advanced]] icon in the banner.
@@ -3457,36 +3457,36 @@ The read-only format is also great for sharing your work with others by email. M
 
 [[Include::Template::Icon::Info]] /To enable wiki editing again, see the [[Help::Wiki is read-only]] page./
 
-[[Tags::Help]]
+[[Tag::Help]]
 
 --DFQRCTsKlU
 woas.page.title: Help::Rename a page
 woas.page.attributes: 0
-woas.page.last_modified: 1265824399
-woas.page.length: 282
+woas.page.last_modified: 1267060754
+woas.page.length: 275
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Help::Rename a page
+= Rename a page
 # Click the [[Include::Template::Icon::Edit]] icon in the banner.
 # Edit the contents of the text inside the *Page title* area at the top of the page.
 # Save your changes by clicking on the [[Include::Template::Icon::Save]] icon in the banner.
 
-[[Tags::Help]]
+[[Tag::Help]]
 
 --DFQRCTsKlU
 woas.page.title: Help::Requirements
 woas.page.attributes: 0
-woas.page.last_modified: 1266530134
-woas.page.length: 2840
+woas.page.last_modified: 1267060770
+woas.page.length: 2831
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Help::Requirements =
+= Requirements
 These are the requirements for [[http://sf.net/projects/stickwiki/|Wiki on a Stick]]. They should be the same for [[http://bookonastick.wordpress.com/|Book on a Stick]].
 
 == Supported Browsers
@@ -3532,35 +3532,35 @@ TiddlySaver.jar"
  { permission java.security.AllPermission; };
 }}}The TiddlySaver java applet was written by J.Rouston.
 
-[[Tags::Help]]
+[[Tag::Help]]
 
 --DFQRCTsKlU
 woas.page.title: Help::Run wiki on a server
 woas.page.attributes: 0
-woas.page.last_modified: 1266530230
-woas.page.length: 307
+woas.page.last_modified: 1267060785
+woas.page.length: 300
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Help::Run wiki on a server
+= Run wiki on a server
 This is a personal wiki that's not designed to be used on a server. Any changes you make to the file will only be permanent if the wiki is on your computer. Advanced users may be able to find a way to get around that, but it's currently not possible by default.
 
-[[Tags::Help]]
+[[Tag::Help]]
 
 --DFQRCTsKlU
 woas.page.title: Help::Spoilers
 woas.page.attributes: 0
-woas.page.last_modified: 1266620419
-woas.page.length: 3161
+woas.page.last_modified: 1267060801
+woas.page.length: 3155
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Help::Spoilers
 [[Special::TOC]]
+= Spoilers
 Spoilers are permanent areas with content that shows when you hover over them with the mouse, or hidden areas that show when you hover over the link that activates them. When creating HTML spoilers, you can substitute other HTML tags (like &lt;div&gt;, &lt;p&gt;, or &lt;td&gt;) for the &lt;span&gt; tags.
 
 == Spoiler (wiki)
@@ -3616,14 +3616,14 @@ For more ways of working with hidden content, see the [[Help::Folds]] page.
 --DFQRCTsKlU
 woas.page.title: Help::Syntax
 woas.page.attributes: 0
-woas.page.last_modified: 1266620427
-woas.page.length: 522
+woas.page.last_modified: 1267060817
+woas.page.length: 516
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Help::Syntax
+= Syntax
 This wiki accepts [[http://en.wikipedia.org/wiki/Plain_text|plain text]], [[Tagged::Syntax|internal wiki syntax]], [[http://www.wikicreole.org/wiki/|Creole 0.1]], [[http://www.w3schools.com/html/default.asp|HTML]], and [[http://www.w3schools.com/js/default.asp|JavaScript]]. See below for pages tagged with *Syntax*:
 [[Include::Tagged::Syntax]]
 [[Include::Template::Icon::Info]] /Feel free to use the [[Sandbox]] page to test out syntax without having to create a new page each time./
@@ -3633,16 +3633,20 @@ This wiki accepts [[http://en.wikipedia.org/wiki/Plain_text|plain text]], [[Tagg
 --DFQRCTsKlU
 woas.page.title: Help::Table of Contents
 woas.page.attributes: 0
-woas.page.last_modified: 1266620519
-woas.page.length: 1071
+woas.page.last_modified: 1267060925
+woas.page.length: 1060
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Help::Table of Contents
 [[Special::TOC]]
-
+= Table of Contents
+= Level 1 header
+== Level 2 header
+== Level 2 header
+=== Level 3 header
+=== Level 3 header
 The Table of Contents link creates a Table of Contents that's automatically populated with all the headers on a page. The Table of Contents expects the first header on a page to be a Level 1 header. If you use any other level header first, that header and any headers after it will be represented by hash marks until a Level 1 header is encountered. From that point on, the headers will be numbered properly. See the [[Example::Table of Contents]] page for an example of a page where a level 1 header isn't the first header on the page.
 
 * Method 1:<br><br>
@@ -3652,30 +3656,21 @@ The Table of Contents link creates a Table of Contents that's automatically popu
 * Method 2:<br><br>
 ** <div class="helptext">Press the Table of Contents button in the editor while the cursor is at the beginning of a line.</div>
 
-= Level 1 header
-
-== Level 2 header
-
-== Level 2 header
-
-=== Level 3 header
-
-=== Level 3 header
 
 [[Tag::Help|Syntax]]
 
 --DFQRCTsKlU
 woas.page.title: Help::Tables
 woas.page.attributes: 0
-woas.page.last_modified: 1266620538
-woas.page.length: 2282
+woas.page.last_modified: 1267060957
+woas.page.length: 2276
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Help::Tables
 [[Special::TOC]]
+= Tables
 The content inside tables can contain internal and external links, and these kinds of [[Help::Text formatting|Text formatting]]:
 * Blinking
 * Bold
@@ -3781,14 +3776,14 @@ The line that starts with {{{|- }}} is a comment line. You can type some text af
 --DFQRCTsKlU
 woas.page.title: Help::Tags
 woas.page.attributes: 0
-woas.page.last_modified: 1266721940
-woas.page.length: 2095
+woas.page.last_modified: 1267060968
+woas.page.length: 2089
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Help::Tags
+= Tags
 Tags are special links used by this wiki to group pages together into categories so that they can easily be found again, A tag can be placed anywhere on a page, but it's a good idea to choose a standard location, like the bottom of the page, so you can easily find and edit them as your wiki grows. You can choose any name you like for the tag. You can also give a page more than one tag if the page fits into more than one category.
 
 This page has been tagged with *Help*. If you go to the bottom of this page and click on the *Help* tag, you'll get a listing of all other pages with the same tag.
@@ -3828,16 +3823,15 @@ See the [[Help::Links]] page.
 --DFQRCTsKlU
 woas.page.title: Help::Text formatting
 woas.page.attributes: 0
-woas.page.last_modified: 1266620557
-woas.page.length: 2074
+woas.page.last_modified: 1267060984
+woas.page.length: 2067
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Help::Text formatting
 [[Special::TOC]]
-
+= Text formatting
 == Blinking
 <div class="helptext">Use this code in a page:</div>{{{
 <blink>This is blinking text.</blink>
@@ -3901,14 +3895,14 @@ _*/This is underlined and bold and italic text./*_
 --DFQRCTsKlU
 woas.page.title: Help::Tooltips
 woas.page.attributes: 0
-woas.page.last_modified: 1266620564
-woas.page.length: 967
+woas.page.last_modified: 1267061006
+woas.page.length: 961
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Help::Tooltips
+= Tooltips
 You can create tooltips by inserting specially formatted include links into a page. Tooltips accept only a single line of text without line breaks. To change the appearance of tooltips, edit the contents of the {{{/*TOOLTIPS*/}}} entry in the [[Help::CSS|CSS]] settings.
 
 <div class="helptext">Use this code in a page, replacing LINK with the link text, and TOOLTIP with the contents of the tooltip:</div>
@@ -3927,14 +3921,14 @@ This is a [[Include::Template::Tooltip|tooltip link|This is a tooltip.]] inside 
 --DFQRCTsKlU
 woas.page.title: Help::Transclusion
 woas.page.attributes: 0
-woas.page.last_modified: 1266997305
-woas.page.length: 2464
+woas.page.last_modified: 1267061027
+woas.page.length: 2457
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Help::Transclusion
+= Transclusion
 Transclusion is a special way of [[Help::Include wiki page|including]] a wiki page in another wiki page. Instead of just displaying the contents of the included page as is, you can change how the content is displayed depending on how you write the link.
 
 This method requires that you create a page to be used as a template. This page must contain variables represented by %1, %2, %3, and so on.
@@ -3968,19 +3962,19 @@ Some wiki code and HTML tags are accepted in the values. For example:
 <div class="helptext">To create this:</div>
 [[Include::Example::Transclusion|*Bob*|*Jane*|*Jack*.<br><br>Please arrive on time to the meeting on Wednesday]]
 
-[[Tags::Help]]
+[[Tag::Help]]
 
 --DFQRCTsKlU
 woas.page.title: Help::Wiki is read-only
 woas.page.attributes: 0
-woas.page.last_modified: 1265824399
-woas.page.length: 387
+woas.page.last_modified: 1267061038
+woas.page.length: 380
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Help::Wiki is read-only
+= Wiki is read-only
 If you clicked the *Disallow edits* button on the [[Special::Options|Options]] page, this wiki became read-only. To undo that:
 # Back up this wiki.
 # Open it in a text editor.
@@ -3990,20 +3984,20 @@ If you clicked the *Disallow edits* button on the [[Special::Options|Options]] p
 # Close the text editor.
 # Open the wiki and use normally.
 
-[[Tags::Help]]
+[[Tag::Help]]
 
 --DFQRCTsKlU
 woas.page.title: Help::Word count
 woas.page.attributes: 0
-woas.page.last_modified: 1266531554
-woas.page.length: 2747
+woas.page.last_modified: 1267061055
+woas.page.length: 2740
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Help::Word count
 [[Special::TOC]]
+= Word count
 == Word count utility
 The [[Utility::Word count]] page contains a utility you can use to count words. Paste your content into the box and press the *Count* button. Press the *Clear* button to clear the box before pasting more content in. Put a link to the word count utility anywhere on a page by pasting {{{[[Utility::Word count]]}}} wherever you like.
 
@@ -4035,7 +4029,7 @@ de::Word count button\
 
 If all went well, the number it displays should be *0* and you've successfully recalibrated the Word Count button. If not, repeat the above steps.
 
-[[Tags::Help]]
+[[Tag::Help]]
 
 --DFQRCTsKlU
 woas.page.title: Sandbox
@@ -4448,8 +4442,8 @@ listtodo();
 --DFQRCTsKlU
 woas.page.title: Help::ToDo list
 woas.page.attributes: 0
-woas.page.last_modified: 1265824399
-woas.page.length: 1692
+woas.page.last_modified: 1267060996
+woas.page.length: 1691
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -4481,7 +4475,7 @@ The list will refresh automatically as you add and remove ToDo items in your wik
 # Complete the task specified in the ToDo item.
 # Remove the ToDo item from the page. It will be automatically cleared from the [[ToDo list]] page.
 
-[[Tags::Help]]
+[[Tag::Help]]
 
 --DFQRCTsKlU
 woas.page.title: Template::Topnote
@@ -4497,8 +4491,8 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Help::Topnote
 woas.page.attributes: 0
-woas.page.last_modified: 1265824399
-woas.page.length: 535
+woas.page.last_modified: 1267061015
+woas.page.length: 534
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -4511,7 +4505,7 @@ A topnote is a note in the upper right corner of a page that doesn't affect the 
 <div class="helpcode">[<!-- -->[In<!-- -->clude:<!-- -->:Ut<!-- -->ility:<!-- -->:To<!-- -->pnote|TEXT]<!-- -->]</div>
 <div class="helptext">To create a topnote like the one in the upper right corner of this page.</div>
 [[Include::Template::Topnote|This is a topnote!]]
-[[Tags::Help]]
+[[Tag::Help]]
 --DFQRCTsKlU
 woas.page.title: Example::Bluebox
 woas.page.attributes: 0
@@ -4979,8 +4973,8 @@ $('imagesGallery').innerHTML = iHTML;
 --DFQRCTsKlU
 woas.page.title: Example::Folding page button (HTML)
 woas.page.attributes: 0
-woas.page.last_modified: 1265824399
-woas.page.length: 266
+woas.page.last_modified: 1267059896
+woas.page.length: 265
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -4994,13 +4988,13 @@ This button toggles the display of the [[Sandbox]] page in this page.
 [[Include::Sandbox]]
 </div></div>
 
-[[Tags::Example]]
+[[Tag::Example]]
 
 --DFQRCTsKlU
 woas.page.title: Example::Folding page styled button (HTML)
 woas.page.attributes: 0
-woas.page.last_modified: 1265824399
-woas.page.length: 293
+woas.page.last_modified: 1267059923
+woas.page.length: 292
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -5014,7 +5008,7 @@ This button toggles the display of the [[Sandbox]] page in this page.
 [[Include::Sandbox]]
 </div></div>
 
-[[Tags::Example]]
+[[Tag::Example]]
 
 --DFQRCTsKlU
 woas.page.title: Example::Menu
@@ -5042,8 +5036,8 @@ MPVxlEjkICLC929LtG/dUgWU/BLWGDwviohw7+Vl7r96t2JbCyKtiOwlEgkgIkx9XuREz7YqoFgoUiyW
 --DFQRCTsKlU
 woas.page.title: Example::Embed web page iFrame
 woas.page.attributes: 0
-woas.page.last_modified: 1266441395
-woas.page.length: 138
+woas.page.last_modified: 1267059860
+woas.page.length: 137
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -5051,13 +5045,13 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 = Embed a remote URL in an iFrame
 <iframe height="400" width="100%" height:630px; src="http://www.google.com"></iframe>
-[[Tags::Example]]
+[[Tag::Example]]
 
 --DFQRCTsKlU
 woas.page.title: Example::Embed web page object
 woas.page.attributes: 0
-woas.page.last_modified: 1266440852
-woas.page.length: 161
+woas.page.last_modified: 1267059870
+woas.page.length: 160
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -5065,13 +5059,13 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 == Embed a remote URL as an object
 <html><object data="http://www.google.com" style="width:100%; height:630px;">URL not found.</object></html>
-[[Tags::Example]]
+[[Tag::Example]]
 
 --DFQRCTsKlU
 woas.page.title: Example::Foldaway
 woas.page.attributes: 0
-woas.page.last_modified: 1266446528
-woas.page.length: 251
+woas.page.last_modified: 1267059878
+woas.page.length: 250
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -5084,7 +5078,7 @@ This is some sample content.
 It goes between the link above and the unfolded page you see when clicking the link.
 [[Include::Template::Foldawaypage|Special::About|MyName]]
 
-[[Tags::Example]]
+[[Tag::Example]]
 
 --DFQRCTsKlU
 woas.page.title: Template::Foldawaylink
@@ -5114,8 +5108,8 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Example::Folding page plain
 woas.page.attributes: 0
-woas.page.last_modified: 1266444250
-woas.page.length: 125
+woas.page.last_modified: 1267059915
+woas.page.length: 124
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -5124,13 +5118,13 @@ woas.page.boundary: DFQRCTsKlU
 = Folding page plain
 [[Include::Template::Foldpage|Click here to toggle fold and unfold|Special::About|]]
 
-[[Tags::Example]]
+[[Tag::Example]]
 
 --DFQRCTsKlU
 woas.page.title: Example::Folding page inline
 woas.page.attributes: 0
-woas.page.last_modified: 1266444302
-woas.page.length: 126
+woas.page.last_modified: 1267059906
+woas.page.length: 125
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -5139,7 +5133,7 @@ woas.page.boundary: DFQRCTsKlU
 = Folding page inline
 Click [[Include::Template::Foldpage|here|Special::About|to toggle fold and unfold.]]
 
-[[Tags::Example]]
+[[Tag::Example]]
 
 --DFQRCTsKlU
 woas.page.title: Template::Foldawaytext
@@ -5157,8 +5151,8 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Example::Foldawaytext
 woas.page.attributes: 0
-woas.page.last_modified: 1266444851
-woas.page.length: 288
+woas.page.last_modified: 1267059887
+woas.page.length: 287
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -5171,7 +5165,7 @@ This is some sample content.
 It goes between the link above and the unfolded text you see when clicking the link.
 [[Include::Template::Foldawaytext|This text *only* shows when you click the link.|MyName]]
 
-[[Tags::Example]]
+[[Tag::Example]]
 
 --DFQRCTsKlU
 woas.page.title: Utility::Diary
