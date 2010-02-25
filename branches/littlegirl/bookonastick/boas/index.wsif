@@ -414,8 +414,8 @@ LyogaW5zZXJ0IGhlcmUgeW91ciBib290IHNjcmlwdCAqLw==
 --DFQRCTsKlU
 woas.page.title: History
 woas.page.attributes: 0
-woas.page.last_modified: 1266816583
-woas.page.length: 40198
+woas.page.last_modified: 1266967887
+woas.page.length: 40247
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -483,6 +483,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the [[Help::Footer]] page.
 ** Updated the [[Help::Images]] page.
 ** Updated the [[Help::Import]] page.
+** Updated the [[Help::Include text file]] page.
 ** Updated the [[Help::Include web page]] page.
 ** Updated the [[Help::Include wiki page]] page.
 ** Updated the [[Help::JavaScript]] page.
@@ -1382,8 +1383,8 @@ The members of the board are %1, %2, and %3.
 --DFQRCTsKlU
 woas.page.title: Help::Add a search box
 woas.page.attributes: 0
-woas.page.last_modified: 1265824399
-woas.page.length: 814
+woas.page.last_modified: 1266908586
+woas.page.length: 813
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1397,13 +1398,13 @@ This page demonstrates a search box, but the code is buggy and seems to interfer
 }}}<div class="helptext">To create this:</div>
 <input id="string_to_search" type="text" size="11" onfocus="search_focus(true)" onblur="search_focus(false)" />&nbsp;<input type="button" value="Search" onclick="do_search()" />
 
-[[Tags::Help]]
+[[Tag::Help]]
 
 --DFQRCTsKlU
 woas.page.title: Help::Backup
 woas.page.attributes: 0
-woas.page.last_modified: 1265824399
-woas.page.length: 257
+woas.page.last_modified: 1266908608
+woas.page.length: 256
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1412,7 +1413,7 @@ woas.page.boundary: DFQRCTsKlU
 = Help::Backup
 Before making any changes, use your *file manager*, the *command line*, or a *backup utility* to make a copy of this wiki in a safe place. Also make regular backups of any copies of this wiki that you're currently working on.
 
-[[Tags::Help]]
+[[Tag::Help]]
 
 --DFQRCTsKlU
 woas.page.title: Help::Bootscript
@@ -1648,8 +1649,8 @@ Another method is to interrupt the code by dividing it up between multiple lines
 --DFQRCTsKlU
 woas.page.title: Help::CSS
 woas.page.attributes: 0
-woas.page.last_modified: 1266275725
-woas.page.length: 10740
+woas.page.last_modified: 1266999557
+woas.page.length: 10753
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1661,7 +1662,7 @@ The look of most of this wiki can be customized by changing the CSS settings.
 [[Include::Template::Icon::Info]] /If you're new to CSS, [[http://www.w3schools.com/css/|this CSS Tutorial]] is wonderful./
 == Edit the CSS settings
 # Click the [[Include::Template::Icon::Advanced]] icon in the banner.
-# Click the [[Special::Edit CSS|Edit the CSS]] link in the *Advanced* section.
+# Click the [[Special::Edit CSS]] link in the *Advanced* section to open the CSS settings in the editor.
 # Make whatever changes you like to the code.
 # Save your changes by clicking on the [[Include::Template::Icon::Save]] icon in the banner.
 
@@ -1669,7 +1670,7 @@ The look of most of this wiki can be customized by changing the CSS settings.
 To return to the default settings if you changed the CSS settings and don't like the changes:
 # Select and copy the default CSS settings from the bottom of this page.
 # Click the [[Include::Template::Icon::Advanced]] icon in the banner.
-# Click the [[Special::Edit CSS|Edit the CSS]] link in the *Advanced* section to open the CSS settings in the editor.
+# Click the [[Special::Edit CSS]] link in the *Advanced* section to open the CSS settings in the editor.
 # Select the contents of the main text area on the page.
 # Delete all of the contents.
 # Paste in the settings you copied from this page.
@@ -2331,8 +2332,8 @@ This method is used to import pages that have been exported using the [[Special:
 --DFQRCTsKlU
 woas.page.title: Help::Include text file
 woas.page.attributes: 0
-woas.page.last_modified: 1266620339
-woas.page.length: 406
+woas.page.last_modified: 1266967855
+woas.page.length: 577
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -2346,6 +2347,10 @@ woas.page.boundary: DFQRCTsKlU
 * Example:{{{
 <iframe height="400" width="100%" src="file:///home/username/Desktop/file.txt"></iframe>
 }}}
+
+Windows users should be able to use:{{{
+<iframe height="400" width="100%" src="file:///C:/PATH/file.txt"></iframe>
+}}}But I'm not sure since I can't test it in Linux. (:
 
 [[Tag::Help|Syntax]]
 
@@ -3922,8 +3927,8 @@ This is a [[Include::Template::Tooltip|tooltip link|This is a tooltip.]] inside 
 --DFQRCTsKlU
 woas.page.title: Help::Transclusion
 woas.page.attributes: 0
-woas.page.last_modified: 1266125465
-woas.page.length: 2516
+woas.page.last_modified: 1266997305
+woas.page.length: 2464
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -3944,22 +3949,22 @@ The members of the board are %1, %2, and %3.
 These examples use the [[Example::Transclusion]] page:
 
 <div class="helptext">Use this code:</div>
-<div style="background:GAINSBORO;">{{{[[Include::Example::Transclusion|Mary|Steve|Dave]]}}}</div>
+<div class="helpcode">{{{[[Include::Example::Transclusion|Mary|Steve|Dave]]}}}</div>
 <div class="helptext">To create this:</div>
 [[Include::Example::Transclusion|Mary|Steve|Dave]]
 <div class="helptext">Or use this code:</div>
-<div style="background:GAINSBORO;">{{{[[Include::Example::Transclusion|Fred|Mrs. Smith|Ryan]]}}}</div>
+<div class="helpcode">{{{[[Include::Example::Transclusion|Fred|Mrs. Smith|Ryan]]}}}</div>
 <div class="helptext">To create this:</div>
 [[Include::Example::Transclusion|Fred|Mrs. Smith|Ryan]]
 <div class="helptext">Or use this code:</div>
-<div style="background:GAINSBORO;">{{{[[Include::Example::Transclusion|Bob|Jane|Jack]]}}}</div>
+<div class="helpcode">{{{[[Include::Example::Transclusion|Bob|Jane|Jack]]}}}</div>
 <div class="helptext">To create this:</div>
 [[Include::Example::Transclusion|Bob|Jane|Jack]]
 == Wiki and HTML code in transclusion
 Some wiki code and HTML tags are accepted in the values. For example:
 
 <div class="helptext">Use this code:</div>
-<div style="background:GAINSBORO;">{{{[[Include::Example::Transclusion|*Bob*|*Jane*|*Jack*.<br><br>Please arrive on time to the meeting on Wednesday]]}}}</div>
+<div class="helpcode">{{{[[Include::Example::Transclusion|*Bob*|*Jane*|*Jack*.<br><br>Please arrive on time to the meeting on Wednesday]]}}}</div>
 <div class="helptext">To create this:</div>
 [[Include::Example::Transclusion|*Bob*|*Jane*|*Jack*.<br><br>Please arrive on time to the meeting on Wednesday]]
 
@@ -4559,7 +4564,7 @@ When they left the castle the next day to return to the prince's home, they were
 --DFQRCTsKlU
 woas.page.title: Help::Bluebox
 woas.page.attributes: 0
-woas.page.last_modified: 1265824399
+woas.page.last_modified: 1266908626
 woas.page.length: 2459
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -4619,7 +4624,8 @@ To put all of that together in its simplest form, you would type this:{{{
 
 To see a better example, see the [[Example::Bluebox]] page.
 
-[[Tags::Help]]
+[[Tag::Help]]
+
 --DFQRCTsKlU
 woas.page.title: Template::Foldtext
 woas.page.attributes: 0
