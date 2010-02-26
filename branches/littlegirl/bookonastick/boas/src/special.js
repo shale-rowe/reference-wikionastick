@@ -285,9 +285,20 @@ $["checked"] =function(id) {
 	return false;
 }
 
+//LITTLE GIRL (02-26-10): COMMENTED THIS FUNCTION OUT TO REPLACE IT WITH FIXED MENU:
 // Used by Special::Options
-function _set_layout(fixed) {
-	$("sw_menu_area").style.position = $("sw_wiki_header").style.position = (fixed ? "fixed" : "absolute");
+//function _set_layout(fixed) {
+//	$("sw_menu_area").style.position = $("sw_wiki_header").style.position = (fixed ? "fixed" : "absolute");
+//}
+
+//LITTLE GIRL (02-26-10): USED BY Special::Options TO FIX THE MENU IN PLACE WHILE ALLOWING THE BANNER AND PAGE TO SCROLL:
+function _set_menu(fixed) {
+	$("sw_menu_area").style.position = (fixed ? "fixed" : "absolute");
+}
+
+// LITTLE GIRL (02-26-10): USED BY Special::Options TO FIX THE BANNER IN PLACE WHILE ALLOWING THE MENU AND PAGE TO SCROLL:
+function _set_banner(fixed) {
+	$("sw_wiki_header").style.position = (fixed ? "fixed" : "absolute");
 }
 
 //Special::Recentchanges shows a sorted list of pages by modified timestamp

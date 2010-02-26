@@ -262,8 +262,8 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Special::Options
 woas.page.attributes: 0
-woas.page.last_modified: 1266368354
-woas.page.length: 3034
+woas.page.last_modified: 1267216759
+woas.page.length: 3359
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -278,8 +278,10 @@ woas.page.boundary: DFQRCTsKlU
 * /Automatically saves any changes to Options./
 <label for="cb_key_cache"><input type="checkbox" id="cb_key_cache" checked="false" onclick="woas.config.key_cache = !$.checked('cb_key_cache');false" />*Do not temporarily cache the [[Special::Security|AES key]]*
 * /Forces you to enter the password each time an encrypted page is opened./
-<label for="cb_fixed_layout"><input type="checkbox" id="cb_fixed_layout" onclick="_set_layout($.checked('cb_fixed_layout'))" />*Fixed banner and menu*
-* /Locks the menu and banner in place while allowing the page to scroll freely./
+<label for="cb_fixed_banner"><input type="checkbox" id="cb_fixed_banner" onclick="_set_banner($.checked('cb_fixed_banner'))" />*Fixed banner*
+* /Locks the banner in place while allowing the menu and page to scroll freely./
+<label for="cb_fixed_menu"><input type="checkbox" id="cb_fixed_menu" onclick="_set_menu($.checked('cb_fixed_menu'))" />*Fixed menu*
+* /Locks the menu in place while allowing the banner and page to scroll freely./
 <label for="cb_open_last_page"><input type="checkbox" id="cb_open_last_page" checked="false" onclick="woas.config.open_last_page = $.checked('cb_open_last_page');false" />*Save last changed page when quitting*
 * /Automatically opens the most recently changed page the next time you open the wiki./
 <label for="cb_cumulative_save"><input type="checkbox" id="cb_cumulative_save" checked="false" onclick="woas.config.cumulative_save = $.checked('cb_cumulative_save');false" />*Enable cumulative save (requires wiki restart to take effect)*
@@ -290,7 +292,8 @@ $('cb_allow_diff').checked = woas.config.allow_diff;
 $("cb_dblclick_edit").checked = woas.config.dblclick_edit;
 $("cb_save_on_quit").checked = woas.config.save_on_quit;
 $("cb_key_cache").checked = !woas.config.key_cache;
-$("cb_fixed_layout").checked = ($("sw_wiki_header").style.position == "fixed"); if (ie6) $("cb_fixed_layout").disabled = true;
+$("cb_fixed_banner").checked = ($("sw_wiki_header").style.position == "fixed"); if (ie6) $("cb_fixed_banner").disabled = true;
+$("cb_fixed_menu").checked = ($("sw_menu_area").style.position == "fixed"); if (ie6) $("cb_fixed_menu").disabled = true;
 $("cb_open_last_page").checked = woas.config.open_last_page;
 $("cb_cumulative_save").checked = woas.config.cumulative_save;
 </script>
@@ -414,8 +417,8 @@ LyogaW5zZXJ0IGhlcmUgeW91ciBib290IHNjcmlwdCAqLw==
 --DFQRCTsKlU
 woas.page.title: History
 woas.page.attributes: 0
-woas.page.last_modified: 1267202878
-woas.page.length: 41627
+woas.page.last_modified: 1267217310
+woas.page.length: 41958
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -440,8 +443,10 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Added a *Go to top* arrow (thanks to *Stanky*) to the footer at the bottom of every page.
 ** Added {{{function FullSpecialTagThis(tag)}}} for special treatment of HTML list line-height.
 ** Added {{{function ListTagThis(style)}}} for unusual HTML list types.
-** Added {{{function open_editor_help()}}} to display an editor Help popup.
+** Added {{{function open_editor_help()}}} to display a pop-up when the *Help* button is clicked in the editor.
+** Added {{{function _set_banner(fixed)}}} so that *Fixed banner* is an option.
 ** Added {{{function setImageLocal(starttag,endtag)}}} so I could create a customized prompt when the *Image* button is clicked in the editor.
+** Added {{{function _set_menu(fixed)}}} so that *Fixed menu* is an option.
 ** Added *location* to the {{{var pic=prompt('Image location:','');}}} line in {{{function setImage(starttag,endtag)}}} to make it more obvious what you need to type in when you click on the *Image link* button in the editor.
 ** Added the CSS {{{/* EDITOR BODY TEXT */}}} entry to style the body text above the editor pane.
 ** Added the *Edit sub-menu* button for use by namespace sub-menus.
@@ -461,6 +466,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Replaced *Set tag:* with *Set tag (or tags separated by pipes):* in {{{function setTag()}}} for clarity in the *Tags* button prompt.
 ** Updated some of the system alerts.
 ** Updated the global CSS.
+** Updated the [[Special::Options]] page to remove the *Fixed menu and banner* option and add the *Fixed banner* and *Fixed menu* options.
 
 * _Content:_
 ** Added the [[Example::Embed web page iFrame]] page.
