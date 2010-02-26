@@ -17,7 +17,7 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Special::Advanced
 woas.page.attributes: 0
-woas.page.last_modified: 1267148788
+woas.page.last_modified: 1267154569
 woas.page.length: 1229
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -414,8 +414,8 @@ LyogaW5zZXJ0IGhlcmUgeW91ciBib290IHNjcmlwdCAqLw==
 --DFQRCTsKlU
 woas.page.title: History
 woas.page.attributes: 0
-woas.page.last_modified: 1267153531
-woas.page.length: 41427
+woas.page.last_modified: 1267154803
+woas.page.length: 41716
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -443,10 +443,12 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Added {{{function open_editor_help()}}} to display an editor Help popup.
 ** Added {{{function setImageLocal(starttag,endtag)}}} so I could create a customized prompt when the *Image* button is clicked in the editor.
 ** Added *location* to the {{{var pic=prompt('Image location:','');}}} line in {{{function setImage(starttag,endtag)}}} to make it more obvious what you need to type in when you click on the *Image link* button in the editor.
+** Added the CSS {{{/* EDITOR BODY TEXT */}}} entry to style the body text above the editor pane.
 ** Added the *Edit sub-menu* button for use by namespace sub-menus.
 ** Added the {{{/* FOOTNOTES */}}} (thanks to *FBNil* and *Stanky*) entry to the global CSS.
 ** Added two blank table cells on the left and right side of the banner to control placement of banner content.
 ** Added {{{woas["FOOTNOTES"]}}} (thanks to *FBNil* and *Stanky*) to be used by footnotes.
+** Assigned the {{{editbodytext}}} class to spans surrounding the *Page title:* and *Online tools:* entries in the editor section of the core code so they can be styled from within the wiki.
 ** Assigned the {{{woas_clear}}} ID to the debug console *Clear* button so it can be styled from within the wiki CSS settings.
 ** Changed *Last Modified:* to *Page last modified:* in the i18n.js file.
 ** Changed level one headers to level three headers in the {{{woas["_get_namespace_pages"]}}} function so the headers will display without wrapping when used in a sub-menu.
