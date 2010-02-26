@@ -414,8 +414,8 @@ LyogaW5zZXJ0IGhlcmUgeW91ciBib290IHNjcmlwdCAqLw==
 --DFQRCTsKlU
 woas.page.title: History
 woas.page.attributes: 0
-woas.page.last_modified: 1267154803
-woas.page.length: 41716
+woas.page.last_modified: 1267202878
+woas.page.length: 41627
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -438,7 +438,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 
 * _Interface:_
 ** Added a *Go to top* arrow (thanks to *Stanky*) to the footer at the bottom of every page.
-** Added function FullSpecialTagThis(tag) to the editor.js file for special treatment of HTML list line-height.
+** Added {{{function FullSpecialTagThis(tag)}}} for special treatment of HTML list line-height.
 ** Added {{{function ListTagThis(style)}}} for unusual HTML list types.
 ** Added {{{function open_editor_help()}}} to display an editor Help popup.
 ** Added {{{function setImageLocal(starttag,endtag)}}} so I could create a customized prompt when the *Image* button is clicked in the editor.
@@ -450,7 +450,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Added {{{woas["FOOTNOTES"]}}} (thanks to *FBNil* and *Stanky*) to be used by footnotes.
 ** Assigned the {{{editbodytext}}} class to spans surrounding the *Page title:* and *Online tools:* entries in the editor section of the core code so they can be styled from within the wiki.
 ** Assigned the {{{woas_clear}}} ID to the debug console *Clear* button so it can be styled from within the wiki CSS settings.
-** Changed *Last Modified:* to *Page last modified:* in the i18n.js file.
+** Changed the *Last Modified:* notification to *Page last modified:*.
 ** Changed level one headers to level three headers in the {{{woas["_get_namespace_pages"]}}} function so the headers will display without wrapping when used in a sub-menu.
 ** Changed level one header to level three header in the {{{woas["_get_tagged"]}}} function so the header will display without wrapping when used in a sub-menu.
 ** Implemented [[http://sourceforge.net/mailarchive/forum.php?thread_name=DEEC0681896E474FB601D5CEB01A8677360769%40pxs-01.PimaroX.local&forum_name=stickwiki-devel|FBNil's]] syntax for checkboxes and checkbox tests in the [[Special::Options]] page.
@@ -461,7 +461,6 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Replaced *Set tag:* with *Set tag (or tags separated by pipes):* in {{{function setTag()}}} for clarity in the *Tags* button prompt.
 ** Updated some of the system alerts.
 ** Updated the global CSS.
-** Updated the [[Help::Images]] page, clarifying base64 instructions.
 
 * _Content:_
 ** Added the [[Example::Embed web page iFrame]] page.
@@ -2519,8 +2518,8 @@ with the line below it.
 --DFQRCTsKlU
 woas.page.title: Help::Links
 woas.page.attributes: 0
-woas.page.last_modified: 1267060535
-woas.page.length: 10979
+woas.page.last_modified: 1267202682
+woas.page.length: 11181
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -2555,7 +2554,7 @@ You can use a special anchor link to link to a header on the current page. After
 [[#Menu link (labeled)]]
 
 == Back links
-To see which pages link back to the current page, click the *BACK LINKS* button in the menu.
+To see which pages link back to the current page, click the *Back links* button in the menu.
 
 == Email link
 <div class="helptext">Use this code in a page, replacing USERNAME with the name of the person, SERVER with the name of their server, and LINK TEXT with the text you'd like displayed as a link:</div>{{{
@@ -2606,6 +2605,7 @@ See the [[Help::Images]] page.
 [[Include::Image::alert.png|style="cursor:pointer" onclick="go_to('Sandbox')"]]
 
 === Image as link to web page
+<div class="alertnote">This method will <b>only</b> work for images in the <b>Image::</b> namespace.</div>
 <div class="helptext">Use this code in a page, replacing IMAGENAME with the name of an embedded image page, and URL with the address of a web page:</div>
 <div class="helpcode">[<!-- -->[In<!-- -->clude:<!-- -->:Image:<!-- -->:IMAGENAME|style="cursor:pointer" border="0" onc<!-- -->lick="win<!-- -->dow.o<!-- -->pen('URL')"]<!-- -->]</div>
 <div class="helptext">To create an image that links to a web page, like this alert image that links to the [[http://www.google.com|Google]] page:</div>
@@ -2637,6 +2637,7 @@ These are internal wiki actions in the form of links:<br><br>
 | {{{[[Special::Main Page|Main page]]}}} || [[Special::Main Page|Main page]]
 | {{{[[Special::New Page|New page]]}}} || [[Special::New Page|New page]]
 | {{{[[Special::Orphaned Pages|Orphaned pages]]}}} || [[Special::Orphaned Pages|Orphaned pages]]
+| {{{[[Special::Recentchanges|Recent changes]]}}} || [[Special::Recentchanges|Recent changes]]
 | {{{[[Special::Search|Search]]}}} || [[Special::Search|Search]]
 | {{{[[Tagged::Syntax|Syntax pages]]}}} || [[Tagged::Syntax|Syntax pages]]
 | {{{[[Tagged::|Tagged pages]]}}} || [[Tagged::|Tagged pages]]
@@ -5207,8 +5208,8 @@ $("daily_diary").innerHTML = "Click here to create or edit a diary entry for tod
 --DFQRCTsKlU
 woas.page.title: Help::Footnotes
 woas.page.attributes: 0
-woas.page.last_modified: 1266783914
-woas.page.length: 1558
+woas.page.last_modified: 1267201510
+woas.page.length: 1556
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -5221,7 +5222,7 @@ Footnote links can be added to any word in your text by inserting a special tag 
 
 Footnotes from [[Help::Transclusion|transcluded]] pages get added automatically and are numbered properly based on where the transcluded page is inserted in the page.
 
-Punctuation and some HTML syntax<<<This footnote uses HTML <b>bold</b>, <i>italic</i>, <u>underline</u>, and <strike>strike-through</strike> formatting.<br>A &lt;br&gt; tag was used to drop down one line to turn this into a multi-line footnote.<br><br>Two &lt;br&gt; tags can be used to insert a blank line.>>> is accepted inside footnotes.
+Punctuation and some HTML syntax<<<This footnote uses HTML <b>bold</b>, <i>italic</i>, <u>underline</u>, and <strike>strike-through</strike> formatting.<br>A &lt;br&gt; tag was used to drop down one line to turn this into a multi-line footnote.<br><br>Two &lt;br&gt; tags were used to insert a blank line.>>> is accepted inside footnotes.
 
 The look of footnotes can be styled by changing the footnote entry in the [[Help::CSS|global CSS settings]].
 
