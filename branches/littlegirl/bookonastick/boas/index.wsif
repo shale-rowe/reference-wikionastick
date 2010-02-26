@@ -17,7 +17,7 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Special::Advanced
 woas.page.attributes: 0
-woas.page.last_modified: 1266777452
+woas.page.last_modified: 1267148788
 woas.page.length: 1229
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -152,7 +152,7 @@ Write a book in one self-contained file that runs entirely in your browser and c
 --DFQRCTsKlU
 woas.page.title: Main Page
 woas.page.attributes: 0
-woas.page.last_modified: 1266212982
+woas.page.last_modified: 1267151770
 woas.page.length: 186
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -414,8 +414,8 @@ LyogaW5zZXJ0IGhlcmUgeW91ciBib290IHNjcmlwdCAqLw==
 --DFQRCTsKlU
 woas.page.title: History
 woas.page.attributes: 0
-woas.page.last_modified: 1267061132
-woas.page.length: 40299
+woas.page.last_modified: 1267153531
+woas.page.length: 41427
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -438,6 +438,11 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 
 * _Interface:_
 ** Added a *Go to top* arrow (thanks to *Stanky*) to the footer at the bottom of every page.
+** Added function FullSpecialTagThis(tag) to the editor.js file for special treatment of HTML list line-height.
+** Added {{{function ListTagThis(style)}}} for unusual HTML list types.
+** Added {{{function open_editor_help()}}} to display an editor Help popup.
+** Added {{{function setImageLocal(starttag,endtag)}}} so I could create a customized prompt when the *Image* button is clicked in the editor.
+** Added *location* to the {{{var pic=prompt('Image location:','');}}} line in {{{function setImage(starttag,endtag)}}} to make it more obvious what you need to type in when you click on the *Image link* button in the editor.
 ** Added the *Edit sub-menu* button for use by namespace sub-menus.
 ** Added the {{{/* FOOTNOTES */}}} (thanks to *FBNil* and *Stanky*) entry to the global CSS.
 ** Added two blank table cells on the left and right side of the banner to control placement of banner content.
@@ -447,9 +452,14 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Changed level one headers to level three headers in the {{{woas["_get_namespace_pages"]}}} function so the headers will display without wrapping when used in a sub-menu.
 ** Changed level one header to level three header in the {{{woas["_get_tagged"]}}} function so the header will display without wrapping when used in a sub-menu.
 ** Implemented [[http://sourceforge.net/mailarchive/forum.php?thread_name=DEEC0681896E474FB601D5CEB01A8677360769%40pxs-01.PimaroX.local&forum_name=stickwiki-devel|FBNil's]] syntax for checkboxes and checkbox tests in the [[Special::Options]] page.
+** Replaced WoaS editor buttons with my BoaS editor buttons.
+** Replaced {{{function open_table_help}}} with my BoaS {{{function open_table_help}}} code.
+** Replaced {{{function setHTMLImage()}}} to remove the XHTML closing slash from the resulting tag.
+** Replaced {{{function setWikiImage()}}} so it will use the new {{{setImageLocal}}} function to customize the prompt you get when you click the *Image* button in the editor.
 ** Replaced *Set tag:* with *Set tag (or tags separated by pipes):* in {{{function setTag()}}} for clarity in the *Tags* button prompt.
 ** Updated some of the system alerts.
 ** Updated the global CSS.
+** Updated the [[Help::Images]] page, clarifying base64 instructions.
 
 * _Content:_
 ** Added the [[Example::Embed web page iFrame]] page.
@@ -2150,8 +2160,8 @@ Horizontal rules use the full width of the page by default. They can be styled t
 --DFQRCTsKlU
 woas.page.title: Help::Images
 woas.page.attributes: 0
-woas.page.last_modified: 1267060424
-woas.page.length: 9870
+woas.page.last_modified: 1267148117
+woas.page.length: 10264
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -2226,8 +2236,8 @@ Get the Base64 code of an image by using an online service like [[http://www.mot
 The resulting Base64 code will be a series of letters and characters similar to this example, but sometimes far longer:{{{
 R0lGODlhBgAFAIABAAAAAP///yH5BAEAAAEALAAAAAAGAAUAAAIJDGJ4ic1qgAwFADs=
 }}}
-<div class="helptext">Use this code in a page, replacing YOUR_CODE_HERE with your Base64 code:</div>{{{
-<img src="data:image/png;base64,YOUR_CODE_HERE">
+<div class="helptext">Use this code in a page, replacing EXTENSION with the extension of the image file (gif, jpg, png, etc.), and YOUR_CODE_HERE with your Base64 code:</div>{{{
+<img src="data:image/EXTENSION;base64,YOUR_CODE_HERE">
 }}}<div class="helptext">To embed an image in a page.</div>
 
 * *Example:*<br><br>
@@ -2243,8 +2253,8 @@ AME]\
 ]</pre>
 
 == Use a Base64 image as a link to an alert
-<div class="helptext">Use this code in a page, replacing YOUR ALERT TEXT HERE with whatever you'd like the alert to say, and YOUR_CODE_HERE with your Base64 code:</div>{{{
-<input type="image" onclick='alert("YOUR ALERT TEXT HERE")' src="data:image/png;base64,YOUR_CODE_HERE">
+<div class="helptext">Use this code in a page, replacing YOUR ALERT TEXT HERE with whatever you'd like the alert to say, EXTENSION with the extension of the image file (gif, jpg, png, etc.), and YOUR_CODE_HERE with your Base64 code:</div>{{{
+<input type="image" onclick='alert("YOUR ALERT TEXT HERE")' src="data:image/EXTENSION;base64,YOUR_CODE_HERE">
 }}}<div class="helptext">To use a Base64 image as a link to an alert.</div>
 
 * *Example:*<br><br>
@@ -2253,8 +2263,8 @@ AME]\
 }}}<div class="helptext">To create this:</div><input type="image" onclick='alert("THIS IS AN ALERT!")' src="data:image/png;base64,R0lGODlhBgAFAIABAAAAAP///yH5BAEAAAEALAAAAAAGAAUAAAIJDGJ4ic1qgAwFADs=">
 
 == Use a Base64 image as a link to an external web page
-<div class="helptext">Use this code in a page, replacing URL with the address of a website, and YOUR_CODE_HERE with your Base64 code:</div>{{{
-<input type="image" onclick="window.open('URL');return false;" src="data:image/png;base64,YOUR_CODE_HERE">
+<div class="helptext">Use this code in a page, replacing URL with the address of a website, EXTENSION with the extension of the image file (gif, jpg, png, etc.), and YOUR_CODE_HERE with your Base64 code:</div>{{{
+<input type="image" onclick="window.open('URL');return false;" src="data:image/EXTENSION;base64,YOUR_CODE_HERE">
 }}}<div class="helptext">To use a Base64 image as a link to a web page.</div>
 
 * *Example:*<br><br>
@@ -2263,8 +2273,8 @@ AME]\
 }}}<div class="helptext">To create this:</div><input type="image" onclick="window.open('http://www.google.com');return false;" src="data:image/png;base64,R0lGODlhBgAFAIABAAAAAP///yH5BAEAAAEALAAAAAAGAAUAAAIJDGJ4ic1qgAwFADs=">
 
 == Use a Base64 image as a link to a page in this wiki
-<div class="helptext">Use this code in a page, replacing PAGENAME with the name of the page you'd like to link to, and YOUR_CODE_HERE with your Base64 code:</div>{{{
-<input type="image" onclick="go_to('PAGENAME')" src="data:image/png;base64,YOUR_CODE_HERE">
+<div class="helptext">Use this code in a page, replacing PAGENAME with the name of the page you'd like to link to, replacing EXTENSION with the extension of the image file (gif, jpg, png, etc.), and YOUR_CODE_HERE with your Base64 code:</div>{{{
+<input type="image" onclick="go_to('PAGENAME')" src="data:image/EXTENSION;base64,YOUR_CODE_HERE">
 }}}<div class="helptext">To create an image that links to a wiki page.</div>
 
 * *Example:*<br><br>
@@ -2275,8 +2285,8 @@ AME]\
 == Use a Base64 image as a link to an internal action
 See the [[Help::Links]] page for a list of all possible internal actions.
 
-<div class="helptext">Use this code in a page, replacing PAGENAME with the name of the page you'd like to link to, and YOUR_CODE_HERE with your Base64 code:</div>{{{
-<input type="image" onclick="go_to('INTERNAL_ACTION')" src="data:image/png;base64,YOUR_CODE_HERE">
+<div class="helptext">Use this code in a page, replacing PAGENAME with the name of the page you'd like to link to, EXTENSION with the extension of the image file (gif, jpg, png, etc.), and YOUR_CODE_HERE with your Base64 code:</div>{{{
+<input type="image" onclick="go_to('INTERNAL_ACTION')" src="data:image/EXTENSION;base64,YOUR_CODE_HERE">
 }}}<div class="helptext">To create an image that links to an internal action.</div>
 
 * *Example:*<br><br>

@@ -167,20 +167,20 @@ function ro_woas() {
 }
 
 //TODO: make procedural
+// Little Girl: I replaced the WoaS popup with my BoaS popup:
 function open_table_help() {
-	var w = woas.popup("help", 350, 200, ",menubar=no,toolbar=no,location=no,status=no,dialog=yes", 
-	"<html><head><title>Building tables<\/title><\/head><body>"
-	+"<u>Building tables:<\/u><br /><br />"
-	+"<tt>{|   <\/tt><br />"
-	+"<tt>|+ Table Caption<\/tt><br />"
-	+"<tt>| *colum 1* || *column 2* || *column 3*<\/tt><br />"
-	+"<tt>|-<\/tt><br />"
-	+"<tt>| line 2 || [[a link]] || something<\/tt><br />"
-	+"<tt>|-<\/tt><br />"
-	+"<tt>| line 3 || || more stuff<\/tt><br />"
-	+"<tt>|}   <\/tt>"
-	+"<\/body><\/html>"
-	);
+	// Little Girl ()10-27-09): I changed the size of the popup from 350x200 to 450x150:
+	var w = woas.popup("help", 450, 150, ",menubar=no,toolbar=no,location=no,status=no,dialog=yes");
+	w.document.writeln("<html><head><title>Building tables<\/title><\/head><body>");
+	w.document.writeln("<p><u>How to build a table:<\/u><\/p>");
+	w.document.writeln("<tt>{|<\/tt><"+"br>");
+	w.document.writeln("<tt>|+ Table Caption<\/tt><"+"br>");
+	w.document.writeln("<tt>| row 1 column 1 || row 1 column 2 || row 1 column 3<\/tt><"+"br>");
+	w.document.writeln("<tt>| row 2 column 1 || row 2 column 2 || row 2 column 3<\/tt><"+"br>");
+	w.document.writeln("<tt>| row 3 column 1 || row 3 column 2 || row 3 column 3<\/tt><"+"br>");
+	w.document.writeln("<tt>|}<\/tt><"+"br>");
+	w.document.writeln("<\/body><\/html>");
+	w.document.close();
 }
 
 // Used by Special::Lock
