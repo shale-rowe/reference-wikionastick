@@ -181,6 +181,7 @@ And, last but not least:
 --DFQRCTsKlU
 woas.page.title: Main Page
 woas.page.attributes: 0
+woas.page.last_modified: 1267156959
 woas.page.length: 1246
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1121,8 +1122,8 @@ function myfunc(arg) {
 --DFQRCTsKlU
 woas.page.title: Options
 woas.page.attributes: 0
-woas.page.last_modified: 1266825589
-woas.page.length: 1252
+woas.page.last_modified: 1267156939
+woas.page.length: 1251
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1155,7 +1156,7 @@ Will save to disk only when quitting
 === Disallow edits (button)
 Puts the wiki into /server mode/; users will be told that it is not possible to save their changes, but editing will be allowed for sandbox (testing) purposes.
 
-[[Tags::Help]]
+[[Tag::help]]
 
 --DFQRCTsKlU
 woas.page.title: Test template 2
