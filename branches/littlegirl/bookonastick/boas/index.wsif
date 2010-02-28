@@ -406,8 +406,8 @@ Ly8gUHV0IGhlcmUgeW91ciBib290IGphdmFzY3JpcHQ=
 --DFQRCTsKlU
 woas.page.title: History
 woas.page.attributes: 0
-woas.page.last_modified: 1267221643
-woas.page.length: 41963
+woas.page.last_modified: 1267372839
+woas.page.length: 42010
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -446,7 +446,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Changed level one headers to level three headers in the {{{woas["_get_namespace_pages"]}}} function so the headers will display without wrapping when used in a sub-menu.
 ** Changed level one header to level three header in the {{{woas["_get_tagged"]}}} function so the header will display without wrapping when used in a sub-menu.
 ** Implemented [[http://sourceforge.net/mailarchive/forum.php?thread_name=DEEC0681896E474FB601D5CEB01A8677360769%40pxs-01.PimaroX.local&forum_name=stickwiki-devel|FBNil's]] syntax for checkboxes and checkbox tests in the [[Special::Options]] page.
-* Now using [[http://sourceforge.net/projects/stickwiki/files/|Wiki on a Stick v0.10.4]] as the foundation for Book on a Stick!
+** Now using [[http://sourceforge.net/projects/stickwiki/files/|Wiki on a Stick v0.10.4]] as the foundation for Book on a Stick!
 ** Replaced WoaS editor buttons with my BoaS editor buttons.
 ** Replaced {{{function open_table_help}}} with my BoaS {{{function open_table_help}}} code.
 ** Replaced {{{function setHTMLImage()}}} to remove the XHTML closing slash from the resulting tag.
@@ -496,6 +496,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the [[Help::Links]] page.
 ** Updated the [[Help::Lists]] page.
 ** Updated the [[Help::Namespaces]] page.
+** Updated the [[Help::Page scrolling]] page.
 ** Updated the [[Help::Publish wiki online]] page.
 ** Updated the [[Help::Requirements]] page.
 ** Updated the [[Help::Run wiki on a server]] page.
@@ -3377,15 +3378,14 @@ An alternate method of creating a page is to type a new page name inside nested 
 --DFQRCTsKlU
 woas.page.title: Help::Page name too long
 woas.page.attributes: 0
-woas.page.last_modified: 1267060671
-woas.page.length: 1169
+woas.page.last_modified: 1267372376
+woas.page.length: 1058
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Page name too long
-[[Include::Template::TODO|this|Add the code for Fixed banner to Special::Options so that step 3 is accurate.]]
 If you created a page with a name that's too long and you can't access the icons at the top of the page or the page title while in the editor:
 # Click the link for any other page in the menu to restore your access to the icons.<br><br>
 # Click the [[Include::Template::Icon::Advanced]] icon in the banner and choose the [[Special::Options|Options]] page.<br><br>
@@ -3402,20 +3402,21 @@ If you created a page with a name that's too long and you can't access the icons
 --DFQRCTsKlU
 woas.page.title: Help::Page scrolling
 woas.page.attributes: 0
-woas.page.last_modified: 1267060687
-woas.page.length: 478
+woas.page.last_modified: 1267372785
+woas.page.length: 732
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Page scrolling
-[[Include::Template::TODO|this|Add Fixed banner on the Special::Options page so these instructions are accurate.]]
-By default, this wiki offers two choices for scrolling on the [[Special::Options|Options]] page:
+By default, this wiki offers a few choices for scrolling that can be enabled by placing a check in the box next to a choice on the [[Special::Options|Options]] page:
 
-# Disabling *Fixed banner* locks all page elements in place so the entire page scrolls as one connected unit.<br><br>
-# Enabling *Fixed banner* locks the banner in place while allowing the menu and main text area to scroll together.
-
+* Disabling *Fixed banner* locks all page elements in place so the entire page scrolls as one connected unit.<br><br>
+* Disabling *Fixed menu* allows the menu to scroll with the page.<br><br>
+* Enabling *Fixed banner* locks the banner in place while allowing the menu and page to scroll together.<br><br>
+* Enabling *Fixed menu* locks the menu in place while allowing the banner and page to scroll together.<br><br>
+* Enabling both *Fixed banner* and *Fixed menu* locks the banner and menu in place while allowing the page to scroll.
 [[Tag::Help]]
 
 --DFQRCTsKlU
