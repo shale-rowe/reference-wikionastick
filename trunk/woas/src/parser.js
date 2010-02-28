@@ -12,13 +12,13 @@ woas.parser["header_anchor"] = function(s) {
 	return s.replace(/[^a-zA-Z0-9]/g, '_');
 }
 
-var reParseOldHeaders = /^(\!+)\s*(.*)$/gm;	//DEPRECATED
-
-var reParseHeaders = /^(=+)\s*(.*)$/gm;
+//DEPRECATED "!" syntax is supported but shall me removed soon
+var reParseHeaders = /^([\!=]+)\s*(.*)$/gm;
 woas.parser["header_replace"] = function(str, $1, $2) {
 		var header = $2;
 		var len = $1.length;
-		if (header.indexOf($1)==header.length - len)
+		var hpos = header.indexOf($1);
+		if ((hpos != -1) && (header.indexOf($1)==header.length - len))
 			header = header.substring(0, header.length - len);
 		// automatically build the TOC if needed
 		len = $1.length;
@@ -36,13 +36,13 @@ woas.parser["sublist"] = function (lst, ll, suoro, euoro) {
 	if (lst[0][1].length > ll)
 		return this.sublist(lst, ll+1, suoro, euoro);
 	
-	var item, sub;
+	var item, subl;
 	var s = '';
 	while (lst[0][1].length == ll ) {
                 item = lst.shift();
-                sub = this.sublist(lst, ll + 1, suoro, euoro);
-                if (sub.length)
-                    s += '<li>' + item[2] + suoro + sub + euoro + '</li>' ;
+                subl = this.sublist(lst, ll + 1, suoro, euoro);
+                if (subl.length)
+                    s += '<li>' + item[2] + suoro + subl + euoro + '</li>' ;
                 else
                     s += '<li>' + item[2] + '</li>';
 		if (!lst.length)
@@ -56,18 +56,17 @@ woas.parser["sublist"] = function (lst, ll, suoro, euoro) {
 // There is no limit to the level of nesting and it produces
 // valid xhtml markup.
 var reReapLists = /^([\*#@])[ \t].*(?:\n\1+[ \t].+)*/gm;
+var reItems = /^([\*#@]+)[ \t]([^\n]+)/mg;
 woas.parser["parse_lists"] = function(str, type, $2) {
         var uoro = (type!='*')?'ol':'ul';
         var suoro = '<' + uoro + ((type=='@') ? " type=\"a\"":"")+'>';
         var euoro = '</' + uoro + '>';
-        var reItems = /^([\*#@]+)[ \t]([^\n]+)/mg;
 
+		// collect all items in a stack
 		var stk = [];
 	    str.replace( reItems, function(str, p1, p2) {
-                    level = p1.length;
-                    stk.push([str, p1, p2]);
-                }
-            );
+			stk.push([str, p1, p2]);
+		} );
 
 		return suoro + woas.parser.sublist(stk, 1, suoro, euoro) + euoro;
 	}
@@ -409,7 +408,7 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 	
 	// headers (from h1 to h6, as defined by the HTML 3.2 standard)
 	text = text.replace(reParseHeaders, this.header_replace);
-	text = text.replace(reParseOldHeaders, this.header_replace);
+//	text = text.replace(reParseOldHeaders, this.header_replace);
 	
 	if (this.has_toc) {
 		// remove the trailing newline
