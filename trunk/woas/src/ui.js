@@ -2,20 +2,17 @@
 // no references to 'this' are allowed - global woas object is used
 
 // when home is clicked
-function home()
-{
+function home() {
 	go_to(main_page);
 }
 
 // when Advanced is clicked
-function advanced()
-{
+function advanced() {
 	go_to("Special::Advanced");
 }
 
 // follows a link
-function go_to(cr)
-{
+function go_to(cr) {
 	if(cr == current)
 		return;
 	history_mem(current);
@@ -39,8 +36,7 @@ function go_back() {
 }
 
 // when Forward button is clicked
-function go_forward()
-{
+function go_forward() {
 	if(forstack.length > 0)
 	{
 		history_mem(current);
@@ -56,13 +52,16 @@ function cancel() {
 		woas.disable_edit();
 }
 
+//DEPRECATED
 function save() {
 	woas.save();
 }
 
 // when edit is clicked
+//DEPRECATED
 function edit() {	woas.edit_page(current);	}
 
+//DEPRECATED
 function lock() {
 	if (result_pages.length)
 		_lock_pages(result_pages);
@@ -70,6 +69,7 @@ function lock() {
 		go_to("Lock::" + current);
 }
 
+//DEPRECATED
 function unlock() {
 	if (result_pages.length)
 		_unlock_pages(result_pages);
@@ -166,11 +166,10 @@ function ro_woas() {
 	}
 }
 
-//TODO: make procedural
 function open_table_help() {
-	var w = woas.popup("help", 350, 200, ",menubar=no,toolbar=no,location=no,status=no,dialog=yes", 
-	"<html><head><title>Building tables<\/title><\/head><body>"
-	+"<u>Building tables:<\/u><br /><br />"
+	woas.popup("help", 350, 200, ",menubar=no,toolbar=no,location=no,status=no,dialog=yes", 
+	"<title>Building tables<\/title>",
+	"<u>Building tables:<\/u><br /><br />"
 	+"<tt>{|   <\/tt><br />"
 	+"<tt>|+ Table Caption<\/tt><br />"
 	+"<tt>| *colum 1* || *column 2* || *column 3*<\/tt><br />"
@@ -178,9 +177,7 @@ function open_table_help() {
 	+"<tt>| line 2 || [[a link]] || something<\/tt><br />"
 	+"<tt>|-<\/tt><br />"
 	+"<tt>| line 3 || || more stuff<\/tt><br />"
-	+"<tt>|}   <\/tt>"
-	+"<\/body><\/html>"
-	);
+	+"<tt>|}   <\/tt>");
 }
 
 // Used by Special::Lock
@@ -412,7 +409,7 @@ function import_wiki_wsif() {
 }
 
 // create a centered popup given some options
-woas["popup"] = function (name,fw,fh,extra,head,body) {
+woas["popup"] = function(name,fw,fh,extra,head,body) {
 	var hpos=Math.ceil((screen.width-fw)/2);
 	var vpos=Math.ceil((screen.height-fh)/2);
 	var wnd = window.open("about:blank",name,"width="+fw+",height="+fh+		
