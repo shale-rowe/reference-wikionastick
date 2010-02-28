@@ -17,8 +17,9 @@ var reParseHeaders = /^([\!=]+)\s*(.*)$/gm;
 woas.parser["header_replace"] = function(str, $1, $2) {
 		var header = $2;
 		var len = $1.length;
+		// remove the mirrored header syntax from right
 		var hpos = header.indexOf($1);
-		if ((hpos != -1) && (header.indexOf($1)==header.length - len))
+		if ((hpos != -1) && (hpos==header.length - len))
 			header = header.substring(0, header.length - len);
 		// automatically build the TOC if needed
 		len = $1.length;
