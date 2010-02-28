@@ -406,8 +406,8 @@ Ly8gUHV0IGhlcmUgeW91ciBib290IGphdmFzY3JpcHQ=
 --DFQRCTsKlU
 woas.page.title: History
 woas.page.attributes: 0
-woas.page.last_modified: 1267386003
-woas.page.length: 42296
+woas.page.last_modified: 1267388567
+woas.page.length: 42151
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -505,7 +505,6 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the [[Help::Tooltips]] page thanks for information provided by [[http://woas.iragan.com/viewtopic.php?pid=2124#p2124|killermist]].
 ** Updated the [[Help::Transclusion]] page.
 ** Updated the [[History]] page.
-** Updated the [[Template::Tooltip]] page thanks for information provided by [[http://woas.iragan.com/viewtopic.php?pid=2124#p2124|killermist]].
 <!-- ============================================================================================================================================================================================= -->
 === Version 0.9 released on February 10, 2010
 * _Interface:_
@@ -3992,15 +3991,15 @@ _*/This is underlined and bold and italic text./*_
 --DFQRCTsKlU
 woas.page.title: Help::Tooltips
 woas.page.attributes: 0
-woas.page.last_modified: 1267386054
-woas.page.length: 1078
+woas.page.last_modified: 1267388509
+woas.page.length: 1209
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Tooltips
-You can create tooltips by inserting specially formatted include links into a page. Tooltips accept only a single line of text without line breaks. Quotes are also accepted inside tooltips. It's not possible to use wiki or HTML text formatting on tooltip text. To change the appearance of tooltip links, edit the contents of the {{{/*TOOLTIPS*/}}} entry in the [[Help::CSS|CSS]] settings.
+You can create tooltips by inserting specially formatted include links into a page. Tooltips accept only a single line of text without line breaks. Apostrophes and other punctuation are also accepted, with the exception of quotes. Quotes can be created by using two apostrophes next to each other (clumsy, but it works). It's not possible to use wiki or HTML text formatting on tooltip text. To change the appearance of tooltip links, edit the contents of the {{{/*TOOLTIPS*/}}} entry in the [[Help::CSS|CSS]] settings.
 
 <div class="helptext">Use this code in a page, replacing LINK with the link text, and TOOLTIP with the contents of the tooltip:</div>
 <div class="helpcode">[<!-- -->[Include::Template::Tooltip|LINK|TOOLTIP]<!-- -->]</div>
@@ -4131,7 +4130,7 @@ If all went well, the number it displays should be *0* and you've successfully r
 --DFQRCTsKlU
 woas.page.title: Sandbox
 woas.page.attributes: 0
-woas.page.last_modified: 1266770974
+woas.page.last_modified: 1267388376
 woas.page.length: 192
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -4224,14 +4223,14 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Template::Tooltip
 woas.page.attributes: 0
-woas.page.last_modified: 1267385904
+woas.page.last_modified: 1267388304
 woas.page.length: 42
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-<span title='%2' class="tooltip">%1</span>
+<span title="%2" class="tooltip">%1</span>
 --DFQRCTsKlU
 woas.page.title: Utility::Word count
 woas.page.attributes: 0
