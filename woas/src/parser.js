@@ -60,13 +60,11 @@ woas.parser["parse_lists"] = function(str, type, $2) {
         var uoro = (type!='*')?'ol':'ul';
         var suoro = '<' + uoro + ((type=='@') ? " type=\"a\"":"")+'>';
         var euoro = '</' + uoro + '>';
-        var old = 0;
         var reItems = /^([\*#@]+)[ \t]([^\n]+)/mg;
 
 		var stk = [];
 	    str.replace( reItems, function(str, p1, p2) {
                     level = p1.length;
-                    old = level;
                     stk.push([str, p1, p2]);
                 }
             );
