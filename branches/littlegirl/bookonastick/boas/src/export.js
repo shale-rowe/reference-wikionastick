@@ -196,8 +196,7 @@ woas["export_wiki"] = function () {
 		_export_unix_norm = $("woas_cb_unix_norm").checked;
 	} catch (e) { this.crash(e); return false; }
 	
-	$.show("loading_overlay");
-	$("loading_overlay").focus();
+	this.progress_init("Exporting XHTML");
 	exp["css"] = _css_obj().innerHTML;
 	// add some other CSS which is not used by live WoaS
 	exp["css"] += "\n.broken_link { color: red; font-decoration: strike-through;}\n";
@@ -225,8 +224,11 @@ woas["export_wiki"] = function () {
 		// do skip physical special pages
 		if (page_titles[pi].match(/^Special::/)) continue;
 		// do skip menu pages (they are included in each page)
-		if (page_titles[pi].indexOf("::Menu")==page_titles[pi].length-6) continue;
+		var mnupos = page_titles[pi].indexOf("::Menu");
+		if ((mnupos != -1) &&
+			(mnupos==page_titles[pi].length-6)) continue;
 		data = this.get_text_special(page_titles[pi]);
+		// skip pages which could not be decrypted
 		if (data == null) continue;
 		fname = this._export_get_fname(page_titles[pi], true);
 		// will skip WoaS::Bootscript and WoaS::Aliases
@@ -279,7 +281,7 @@ woas["export_wiki"] = function () {
 		this.refresh_menu_area();
 		this.set_current(current, false);
 	}
-	$.hide("loading_overlay");
+	this.progress_finish();
 	this.alert(this.i18n.EXPORT_OK.sprintf(done));
 	return true;
 }

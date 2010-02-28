@@ -150,6 +150,7 @@ function setImageLocal(starttag,endtag) {
 }
 
 function setTag() {
+        //Little Girl: I added an aside to the following line for clarity:
         var tag=prompt('Set tag (or tags separated by pipes):','');
 	if (tag!==null)
 	woas._editor.setSelectedText("[[Tag::",tag+"]]");

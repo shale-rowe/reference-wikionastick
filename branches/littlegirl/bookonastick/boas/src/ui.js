@@ -169,7 +169,6 @@ function ro_woas() {
 //TODO: make procedural
 // Little Girl: I replaced the WoaS popup with my BoaS popup:
 function open_table_help() {
-	// Little Girl ()10-27-09): I changed the size of the popup from 350x200 to 450x150:
 	var w = woas.popup("help", 450, 150, ",menubar=no,toolbar=no,location=no,status=no,dialog=yes");
 	w.document.writeln("<html><head><title>Building tables<\/title><\/head><body>");
 	w.document.writeln("<p><u>How to build a table:<\/u><\/p>");
@@ -286,12 +285,12 @@ function show_full_file(pi) {
 	if (text==null)
 		return;
 	// put WoaS in loading mode
-	$.show('loading_overlay');
+	this.progress_init("Loading full file");
 	// clear the partial display and put in the whole file content
 	woas.setHTML($('_part_display'), '');
 	woas.setHTML($('_file_ct'), woas.xhtml_encode(decode64(text)));
 	// finished loading the file
-	$.hide('loading_overlay');
+	this.progress_finish();
 }
 
 function query_export_file(cr) {
@@ -334,8 +333,8 @@ function query_delete_image(cr) {
 // triggered by UI graphic button
 function page_print() {
 	var css_payload = "";
-	if (ie && !ie8) {
-		if (ie6)
+	if (woas.browser.ie && !woas.browser.ie8) {
+		if (woas.browser.ie6)
 			css_payload = "div.wiki_toc { align: center;}";
 		else
 			css_payload = "div.wiki_toc { position: relative; left:25%; right: 25%;}";
@@ -363,13 +362,8 @@ woas["export_wiki_wsif"] = function () {
 		inline_wsif = $("woas_cb_inline_wsif").checked ? true : false;
 	} catch (e) { this.crash(e); return false; }
 	
-	// block interaction for a while
-	$.show("loading_overlay");
-	$("loading_overlay").focus();
-	
 	var done = this._native_wsif_save(path, single_wsif, inline_wsif, author, false);
 
-	$.hide("loading_overlay");
 	this.alert(this.i18n.EXPORT_OK.sprintf(done));
 	return true;
 }
@@ -396,25 +390,22 @@ function import_wiki_wsif() {
 		this.alert(woas.i18n.READ_ONLY);
 		return false;
 	}
-	// block interaction for a while
-	$.show("loading_overlay");
-	$("loading_overlay").focus();
+	
 	var done;
 	if (!confirm(woas.i18n.CONFIRM_IMPORT_OVERWRITE))
 		done = false;
 	else {
-		// automatically retrieve the filename
+		// automatically retrieve the filename (calls load_file())
 		done = woas._native_wsif_load(null, $("woas_cb_import_overwrite").checked, true);
 		if (done === false)
 			woas.crash(woas.wsif.emsg);
 	}
 
-	$.hide("loading_overlay");
 	if (done !== false) {
 		// add some info about total pages
 		if (woas.wsif.expected_pages !== null)
 			done = String(done)+"/"+woas.wsif.expected_pages;
-		woas.alert(woas.i18n.IMPORT_OK.sprintf(done));
+		woas.alert(woas.i18n.IMPORT_OK.sprintf(done, woas.wsif.system_pages));
 	}
 	return done;
 }
@@ -430,6 +421,44 @@ woas["popup"] = function (name,fw,fh,extra,head,body) {
 						body+"</bod"+"y></h"+"tml>\n");
 	wnd.document.close();
 	return wnd;
+}
+
+// tell user how much work was already done
+woas["progress_status"] = function (ratio) {
+	this.setHTML($("woas_wait_text"), this._progress_section + "\n" +
+				Math.ceil(ratio*100)+"% done");
+}
+
+// used to debug progress indicators
+woas["_progress_section"] = false;
+
+// reset progress indicator
+woas["progress_init"] = function(section) {
+	if (this._progress_section !== false) {
+		this.crash("Progress indicator already started for "+this._progress_section+
+					", will not start a new one for "+section)
+		return;
+	}
+	this._progress_section = section;
+	if (typeof section == "undefined")
+		section = "";
+	else section = "\n" + section;
+	this.setHTML($("woas_wait_text"), section);
+	document.body.style.cursor = "wait";
+	// put in busy mode and block interaction for a while
+	$.show("loading_overlay");
+	$("loading_overlay").focus();
+}
+
+woas["progress_finish"] = function(section) {
+	if (this._progress_section === false) {
+		this.crash("Cannot finish an unexisting progress indicator section");
+		return;
+	}
+	$.hide("loading_overlay");
+	document.body.style.cursor = "auto";
+	this.setHTML($("woas_wait_text"), this.i18n.LOADING);
+	this._progress_section = false;
 }
 
 // Little Girl (11-18-09): This function was added to create expanding text areas:

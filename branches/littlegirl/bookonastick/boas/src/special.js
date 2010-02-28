@@ -75,7 +75,7 @@ woas["special_backlinks"] = function()
 
 // Returns a index of search pages (by miz & legolas558)
 woas["special_search"] = function( str ) {
-	document.body.style.cursor = "wait";
+	this.progress_init("Searching");
 	var pg_body = [];
 	var title_result = "";
 	log("Searching "+str);
@@ -122,7 +122,7 @@ woas["special_search"] = function( str ) {
 			pg_body.push( "* [[" + page_titles[i] + "]]: found *" + count + "* times :<div class=\"search_results\">{{{" + res_body +"\n}}}\n</div>");
 		}
 	}
-	document.body.style.cursor = "auto";
+	this.progress_finish();
 	if (!pg_body.length && !title_result.length)
 		return "/No results found for *"+str+"*/";
 	woas.parser.force_inline = true;

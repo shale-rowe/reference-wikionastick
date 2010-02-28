@@ -1,28 +1,29 @@
 
-	function get_import_vars(data, ignore) {
-		var c=[];
-		// rename the variables
-		data = data.replace(/([^\\])\nvar (\w+) = /g, function (str, $1, $2) {
-			if (ignore && ignore.indexOf($2)!=-1)
-				return "\nvar ignoreme = ";
-			c.push('sw_import_'+$2);
-			return $1+"\nvar sw_import_"+$2+" = ";
-		});//.replace(/\\\n/g, '');
-		log("collected variables = "+c);	// log:1
+// function used to collect variables
+function get_import_vars(data, ignore) {
+	var c=[];
+	// rename the variables
+	data = data.replace(/([^\\])\nvar (\w+) = /g, function (str, $1, $2) {
+		if (ignore && ignore.indexOf($2)!=-1)
+			return "\nvar ignoreme = ";
+		c.push('sw_import_'+$2);
+		return $1+"\nvar sw_import_"+$2+" = ";
+	});//.replace(/\\\n/g, '');
+	log("collected variables = "+c);	// log:1
 		
-		c = eval(data+"\n["+c+"];");
-		return c;
-	}
-
+	c = eval(data+"\n["+c+"];");
+	return c;
+}
 
 woas["import_wiki"] = function() {
 	if(confirm(this.i18n.CONFIRM_IMPORT_OVERWRITE) == false)
 		return false;
 
 	// set hourglass
-	document.body.style.cursor= "wait";
+	this.progress_init("Import WoaS");
 	
 	var fail=false;
+	var sys_pages=0;
 	do { // a fake do...while to ease failure return
 	// load the file as UTF-8
 	var ct = this.load_file(null, this.file_mode.UTF8_TEXT);
@@ -33,10 +34,10 @@ woas["import_wiki"] = function() {
 	
 	var import_css = $('cb_import_css').checked;
 	var import_content = $('cb_import_content').checked;
-	// not yet implemented
+	//TODO: import icon support
 	var import_icons = $('cb_import_icons').checked;
 	
-	// get version
+	// get WoaS version
 	var old_version;
 	var ver_str = ct.match(/<div .*?id=("version_"|version_).*?>([^<]+)<\/div>/i);
 	if (ver_str && ver_str.length>1) {
@@ -94,6 +95,7 @@ woas["import_wiki"] = function() {
 				case "0.10.2":
 				case "0.10.3":
 				case "0.10.4":
+				case "0.10.5":
 					old_version = Number(ver_str.substr(1).replace(/\./g, ""));
 					break;
 				default:
@@ -208,7 +210,10 @@ woas["import_wiki"] = function() {
 				if (page_names[pc].indexOf("Special::")===0) {
 					if (page_names[pc].search(/Special::Edit Menu/i)==0)
 						page_names[pc] = "::Menu";
-					else return;
+					else {
+						++sys_pages;
+						return;
+					}
 				}
 				
 				old_page_attrs[pc] = 0;
@@ -315,8 +320,10 @@ woas["import_wiki"] = function() {
 					if (old_page_attrs[i] & 2)
 						continue;
 					// ignore special pages
-					if (page_names[i].indexOf("Special::")===0)
+					if (page_names[i].indexOf("Special::")===0) {
+						++sys_pages;
 						continue;
+					}
 					page_contents[i] = page_contents[i].replace(/<pre(.*?)>((.|\n)*?)<\/pre>/g,
 									function (str, $1, $2) {
 										var s="{{{"+$2+"}}}";
@@ -375,10 +382,12 @@ woas["import_wiki"] = function() {
 						pages[pi] = page_contents[i];
 						page_attrs[pi] = 4;
 						pages_imported++;
+						this.progress_status(pages_imported/page_names.length);
 						continue;
 					}
 				}
 				// here we are skipping special pages
+				++sys_pages;
 			} else { // not importing a special page
 				pi = this.page_index(page_names[i]);
 				if (pi == -1) {
@@ -419,6 +428,7 @@ woas["import_wiki"] = function() {
 					page_attrs[pi] = old_page_attrs[i];
 				}
 				++pages_imported;
+				this.progress_status(pages_imported/page_names.length);
 			} // not importing a special page
 		} // for cycle
 		// added in v0.9.7
@@ -438,14 +448,14 @@ woas["import_wiki"] = function() {
 	} while (false); // fake do..while ends here
 	
 	// remove hourglass
-	document.body.style.cursor= "auto";
+	this.progress_finish();
 	
 	// when we fail, we return false
 	if (fail)
 		return false;
 	
 	// inform about the imported pages / total pages present in file
-	this.alert(this.i18n.IMPORT_COMPLETE.sprintf(pages_imported, page_names.length));
+	this.alert(this.i18n.IMPORT_OK.sprintf(pages_imported+"/"+(page_names.length-sys_pages).toString(), sys_pages));
 	
 	// move to main page
 	current = main_page;

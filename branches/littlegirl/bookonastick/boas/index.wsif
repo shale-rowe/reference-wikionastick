@@ -1,5 +1,5 @@
 wsif.version: 1.1.0
-woas.version: 0.10.4
+woas.version: 0.10.5
 woas.pages: 130
 
 woas.page.title: ::Menu
@@ -17,7 +17,7 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Special::Advanced
 woas.page.attributes: 0
-woas.page.last_modified: 1267154569
+woas.page.last_modified: 1267316778
 woas.page.length: 1229
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -51,7 +51,6 @@ You can customize Book on a Stick modifying a few [[Special::Options|Options]].
 --DFQRCTsKlU
 woas.page.title: Special::Import
 woas.page.attributes: 0
-woas.page.last_modified: 1266197841
 woas.page.length: 651
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -63,13 +62,14 @@ Import a wiki from an early (or current) version:
 File: <input id="filename_" type="file" />&nbsp;<input type="button" value="Import" onclick="import_wiki()" />
 
 <label for="cb_import_content"><input type="checkbox" id="cb_import_content" checked="checked">&nbsp;Import the wiki pages.</label>
-<label for="cb_import_css"><input type="checkbox" id="cb_import_css">&nbsp;Import also CSS (available only for versions v0.9 and above). /Caution: importing older CSS can garble the layout./</label>
+<label for="cb_import_css"><input type="checkbox" id="cb_import_css">&nbsp;Import also CSS (available only for versions v0.9 and above).</label>
+/Caution: importing older CSS can garble the layout./
 <label for="cb_import_icons"><input type="checkbox" id="cb_import_icons" disabled="disabled">&nbsp;Import the icons theme (available since v0.9.5B).</label>
 
 --DFQRCTsKlU
 woas.page.title: Special::About
 woas.page.attributes: 0
-woas.page.last_modified: 1266214161
+woas.page.last_modified: 1267316852
 woas.page.length: 4470
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -152,7 +152,7 @@ Write a book in one self-contained file that runs entirely in your browser and c
 --DFQRCTsKlU
 woas.page.title: Main Page
 woas.page.attributes: 0
-woas.page.last_modified: 1267151770
+woas.page.last_modified: 1267316814
 woas.page.length: 186
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -198,7 +198,7 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 == AES encryption
-Read more about the [[Special::Security|embedded AES encryption]] used in Book on a Stick.
+Read more about the [[Special::Security|embedded AES encryption]] used in Wiki On a Stick.
 
 == Password
 Enter your password for AES encryption. The more complex your password is, the more difficult it will be to attack the encryption. It is suggested *not* to use passwords whose textbox color is <span style="background-color:red">&nbsp;red&nbsp;</span>, and to accept passwords only when the textbox color is <span style="background-color:lime">&nbsp;green&nbsp;</span>. Punctuation and Mixed case characters will exponentially increase the strength of your password.
@@ -249,21 +249,10 @@ Security is never absolute. Data encrypted with these pages might be compromised
 
 Apart from the above, your normal usage of encrypted pages can be considered secure.
 --DFQRCTsKlU
-woas.page.title: Example::Encrypted page
-woas.page.attributes: 2
-woas.page.length: 172
-woas.page.encoding: 8bit/base64
-woas.page.disposition: inline
-woas.page.original_length: 128
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-/f+cdfAHEwYYzgR5u2B1F2hdgcrjqvb7j0ebu4pokf/U9Vn5bGgwpCAJovC6GGSC7vkFptKjvp2Bg3rHtW6QrvmdFTvYIxr2UFex9lqbqisusQ/4GR0bjt1YpLdasW37xCmCH1KGqmE4RDFZif6XpIq9wuYT36JWg8I8/bNbLrsA
---DFQRCTsKlU
 woas.page.title: Special::Options
 woas.page.attributes: 0
-woas.page.last_modified: 1267216759
-woas.page.length: 3359
+woas.page.last_modified: 1267317976
+woas.page.length: 3444
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -282,11 +271,12 @@ woas.page.boundary: DFQRCTsKlU
 * /Locks the banner in place while allowing the menu and page to scroll freely./
 <label for="cb_fixed_menu"><input type="checkbox" id="cb_fixed_menu" onclick="_set_menu($.checked('cb_fixed_menu'))" />*Fixed menu*
 * /Locks the menu in place while allowing the banner and page to scroll freely./
-<label for="cb_open_last_page"><input type="checkbox" id="cb_open_last_page" checked="false" onclick="woas.config.open_last_page = $.checked('cb_open_last_page');false" />*Save last changed page when quitting*
+<label for="cb_open_last_page"><input type="checkbox" id="cb_open_last_page" onclick="woas.config.open_last_page = $.checked('cb_open_last_page');false" />*Save last changed page when quitting*
 * /Automatically opens the most recently changed page the next time you open the wiki./
-<label for="cb_cumulative_save"><input type="checkbox" id="cb_cumulative_save" checked="false" onclick="woas.config.cumulative_save = $.checked('cb_cumulative_save');false" />*Enable cumulative save (requires wiki restart to take effect)*
+<label for="cb_cumulative_save"><input type="checkbox" id="cb_cumulative_save" onclick="woas.config.cumulative_save = $.checked('cb_cumulative_save');false" />*Enable cumulative save (requires wiki restart to take effect)*
 * /Saves all changes to disk only on quit. Changes will not show in multiple instances of the wiki./
-<p><input type="button" onclick="save_options()" value="Save options" />&nbsp;&nbsp;<input type="button" onclick="ro_woas()" value="Disallow edits" /></p>
+<p><input type="button" onclick="ro_woas()" value="Disallow edits" /> [[Include::Image::alert.png]] /To re-enable editing, you will have to [[Help::Wiki is read-only|manually edit]] this wiki./<br>
+<input type="button" onclick="save_options()" value="Save options" /></p>
 <script>
 $('cb_allow_diff').checked = woas.config.allow_diff;
 $("cb_dblclick_edit").checked = woas.config.dblclick_edit;
@@ -395,30 +385,29 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Image::alert.png
 woas.page.attributes: 12
-woas.page.last_modified: 1265858222
 woas.page.mime: image/png
-woas.page.length: 752
+woas.page.length: 1436
 woas.page.encoding: 8bit/base64
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAN1wAADdcBQiibeAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAGxSURBVDiNpVNBaxNREP5m3uzbJO5u3VhKskbdNlSKQlspCD14E/TgP4ggCIIH/4QX69FDEaQ9uqilx/bUQ6j/wVMptmfDphAoGHwdD9HV2iQqHXiHefPNzPe9j0eqivMEn6v7bwPeMbc2RV6Nw9AoCRlRbJgPDZHXd+5eS/XjfzEQ5hdpFHm3a7WSx7yeEQ3FDr3MiOYAPFqcmipdjSKE1tYJeDx0k6qeOR+M2f2UJN+001FV1c7srL5nPnoLhH9izzDIiO57xixdTxIDIgBAHMe4HMdWmJ+PlZARiRjzZqnZvEC+/4ultVhsNssAnmZEMyMHMNGzi0FwKanXob4PPTiA7u9DrUUpDDGXpp4n8vr3nsLGjKhqjDm8u7wcTATBoFqpACJArwcAcCcn2Gq3j7/2+w9aqu1TDETk5bVGw4uqVai1UN+HrKxAVleLnMtl3FpYqIjI2k9b+cf2GwAe3pyf99X3B/SthdvZgdveLnK1Fo3paYRhWCOiJ4WEDWt3q5OTd66kKQ31uhA8KB/lOT7v7fWcc4kAADFvdfP8SzfPx/afenBjus6545F/4V/jO5CJmhHgOc11AAAAAElFTkSuQmCC
+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
 --DFQRCTsKlU
 woas.page.title: WoaS::Bootscript
 woas.page.attributes: 4
-woas.page.length: 48
+woas.page.length: 44
 woas.page.encoding: 8bit/base64
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-LyogaW5zZXJ0IGhlcmUgeW91ciBib290IHNjcmlwdCAqLw==
+Ly8gUHV0IGhlcmUgeW91ciBib290IGphdmFzY3JpcHQ=
 --DFQRCTsKlU
 woas.page.title: History
 woas.page.attributes: 0
-woas.page.last_modified: 1267217310
-woas.page.length: 41958
+woas.page.last_modified: 1267221643
+woas.page.length: 41963
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -437,8 +426,6 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 * Syntax for page-to-page anchors inside pages.</div>
 
 === Version 1.0 (under development)
-* Now using [[http://sourceforge.net/projects/stickwiki/files/|Wiki on a Stick v0.10.4]] as the base for Book on a Stick.
-
 * _Interface:_
 ** Added a *Go to top* arrow (thanks to *Stanky*) to the footer at the bottom of every page.
 ** Added {{{function FullSpecialTagThis(tag)}}} for special treatment of HTML list line-height.
@@ -459,6 +446,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Changed level one headers to level three headers in the {{{woas["_get_namespace_pages"]}}} function so the headers will display without wrapping when used in a sub-menu.
 ** Changed level one header to level three header in the {{{woas["_get_tagged"]}}} function so the header will display without wrapping when used in a sub-menu.
 ** Implemented [[http://sourceforge.net/mailarchive/forum.php?thread_name=DEEC0681896E474FB601D5CEB01A8677360769%40pxs-01.PimaroX.local&forum_name=stickwiki-devel|FBNil's]] syntax for checkboxes and checkbox tests in the [[Special::Options]] page.
+* Now using [[http://sourceforge.net/projects/stickwiki/files/|Wiki on a Stick v0.10.4]] as the foundation for Book on a Stick!
 ** Replaced WoaS editor buttons with my BoaS editor buttons.
 ** Replaced {{{function open_table_help}}} with my BoaS {{{function open_table_help}}} code.
 ** Replaced {{{function setHTMLImage()}}} to remove the XHTML closing slash from the resulting tag.
@@ -1152,7 +1140,7 @@ $('woas_ep_wsif').onblur = _ep_blur;
 --DFQRCTsKlU
 woas.page.title: Special::WSIF
 woas.page.attributes: 0
-woas.page.length: 158
+woas.page.length: 4620
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1161,6 +1149,83 @@ woas.page.boundary: DFQRCTsKlU
 = WSIF
 
 *W*iki on a *S*tick *I*nterchange *F*ormat is the preferred format for exporting full WoaS data into a single file and share it with whoever you like.
+
+== Format description
+
+WSIF format is similar to MIME email attachments format; each line comes like an /email header/ definition, as in following example:
+
+{{{header.name: header-value}}}
+
+All WSIF content must be ASCII, so /header-value/ must be ECMA-escaped when necessary; this corresponds to escaping slashes "\" to "\\" and any UTF-8 sequence to the corresponding "\u0000" string, where /0000/ is the lowercase hexadecimal value of the UTF-8 character (like in ECMAScript).
+
+WSIF files can contain custom headers, given that the following namespaces are currently reserved for official WSIF format support:
+* *wsif*
+* *woas*
+
+For example you could define a new namespace for header definitions called /custom/:
+{{{custom.x: 100
+custom.y: 200
+custom.content: Hello world!
+}}}
+It is up to you then to parse such header-value couples and give them proper representation.
+== Inline boundaries
+
+A line starting with two dashes (/--/) introduces an *inline boundary*, which is a properly encoded snippet.
+
+Example boundary:
+{{{--my-random-id
+this is the inline snippet
+--my-random-id
+}}}
+/my-random-id/ must be a (usually random) string *unique inside the boundary content*, but it does not need to be unique inside the whole WSIF file, which must be read sequentially (like in a state machine).
+
+= wsif namespace
+
+The *wsif.* namespace currently defines only an information header:
+
+* *wsif.version* - WSIF format version into which content is offered
+Version 1.1.0 and above are currently supported.
+= woas namespace
+
+The *woas.* namespace defines general WoaS content properties and specific WoaS pages; the following headers are defined for general context:
+
+* *woas.version* - version of WoaS used to produce the WSIF file
+* *woas.pages* - total count of WoaS pages stored inside WSIF file
+
+The following are header definitions specific for WoaS pages:
+
+* *woas.page.title* - ECMA-escaped page title; this header has a special meaning because it is the page start marker inside the state machine; it is suggested that WSIF implementations write it as first header for page definition stanzas;
+* *woas.page.attributes* - a positive integer value in decimal format specifying the page attributes;
+* *woas.page.last_modified* - a positive integer value in decimal format representing seconds lasted from the UTC epoch up to last modified time; this header is defined only if data is available from WoaS;
+* *woas.page.length* - content length of the inline snippet; only inline files define it; this is not the decoded page length but the length of the content inside the inline boundaries;
+* *woas.page.original_length* - real page length as seen by WoaS; it is currently defined only for encrypted pages;
+* *woas.page.encoding* - snippet encoding format, see [[#Encoding]];
+* *woas.page.disposition* - tells whether page is /inline/ or /external/;
+* *woas.page.boundary* - string used for inline boundary recognition (without leading dashes); this header is specified only for inline snippets;
+* *woas.page.disposition.filename* - filename used for external page content, not ECMA-escaped; defined only with external pages;
+* *woas.page.mime* - mime type of external pages which have a defined mime type, like images for example;
+
+All headers are mandatory (under their specific state definition branch), except /last_modified/ and /original_length/.
+
+= Encoding
+
+The *woas.page.encoding* header can contain one of the following values:
+
+* *8bit/plain* - data is ASCII text which can use 8bits to represent characters; only ASCII text should be used and not UTF-8;
+* *ecma/plain* - data is ECMA-escaped UTF-8 text;
+* *8bit/base64* - data is base64-encoded binary data;
+* *text/wsif* - data is WSIF (currently used only for external WSIF pages)
+
+Pages or header values are encoded in *ecma/plain* format when UTF-8 sequences are found inside the value string, otherwise *8bit/plain* is used; *8bit/base64* is instead used for binary files or encrypted pages.
+
+= Usage notes
+
+WSIF format is pretty straightforward to produce or interpret, however please consider the following facts:
+
+* *woas.page.disposition.filename* must be plain ASCII (this limitation might be removed in future versions of the format) and should be a relative filename;
+* it is safe to embed a WSIF file inside another, given that boundaries are properly implemented
+
+WoaS project offers an official PHP library (libwsif) for reading/writing WSIF files, as well as a documented example.
 --DFQRCTsKlU
 woas.page.title: Special::ImportWSIF
 woas.page.attributes: 0
@@ -1196,6 +1261,17 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+CjxzdmcKCXhtbG5zCQk9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIgoJeG1sbnM6c3ZnCT0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciCgl4bWxuczp4bGluawk9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiCgl2ZXJzaW9uCQk9IjEuMCIKCXdpZHRoCQk9IjQwMiIKCWhlaWdodAkJPSI0MDIiCgl2aWV3Qm94CQk9Ii0yMDEgLTIwMSA0MDIgNDAyIgoJaWQJCT0ic3ZnMiI+Cgk8Y2lyY2xlCgkJY3gJPSIwIgoJCWN5CT0iLTEwMCIKCQlyCT0iMTAwIgoJCWlkCT0iY2lyYzAwMSIKCQlzdHlsZQk9ImZpbGw6bm9uZTtzdHJva2U6IzAwMDAwMDtzdHJva2Utd2lkdGg6MSIgLz4KCTx1c2UgeGxpbms6aHJlZj0iI2NpcmMwMDEiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDAsMTAwKSIgLz4KCTx1c2UgeGxpbms6aHJlZj0iI2NpcmMwMDEiIHRyYW5zZm9ybT0icm90YXRlKDMwKSIgLz4KCTx1c2UgeGxpbms6aHJlZj0iI2NpcmMwMDEiIHRyYW5zZm9ybT0icm90YXRlKDYwKSIgLz4KCTx1c2UgeGxpbms6aHJlZj0iI2NpcmMwMDEiIHRyYW5zZm9ybT0icm90YXRlKDkwKSIgLz4KCTx1c2UgeGxpbms6aHJlZj0iI2NpcmMwMDEiIHRyYW5zZm9ybT0icm90YXRlKDEyMCkiIC8+Cgk8dXNlIHhsaW5rOmhyZWY9IiNjaXJjMDAxIiB0cmFuc2Zvcm09InJvdGF0ZSgxNTApIiAvPgoJPHVzZSB4bGluazpocmVmPSIjY2lyYzAwMSIgdHJhbnNmb3JtPSJyb3RhdGUoMTgwKSIgLz4KCTx1c2UgeGxpbms6aHJlZj0iI2NpcmMwMDEiIHRyYW5zZm9ybT0icm90YXRlKDIxMCkiIC8+Cgk8dXNlIHhsaW5rOmhyZWY9IiNjaXJjMDAxIiB0cmFuc2Zvcm09InJvdGF0ZSgyNDApIiAvPgoJPHVzZSB4bGluazpocmVmPSIjY2lyYzAwMSIgdHJhbnNmb3JtPSJyb3RhdGUoMjcwKSIgLz4KCTx1c2UgeGxpbms6aHJlZj0iI2NpcmMwMDEiIHRyYW5zZm9ybT0icm90YXRlKDMwMCkiIC8+Cgk8dXNlIHhsaW5rOmhyZWY9IiNjaXJjMDAxIiB0cmFuc2Zvcm09InJvdGF0ZSgzMzApIiAvPgo8L3N2Zz4K
+--DFQRCTsKlU
+woas.page.title: Example::Encrypted page
+woas.page.attributes: 2
+woas.page.length: 172
+woas.page.encoding: 8bit/base64
+woas.page.disposition: inline
+woas.page.original_length: 128
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+/f+cdfAHEwYYzgR5u2B1F2hdgcrjqvb7j0ebu4pokf/U9Vn5bGgwpCAJovC6GGSC7vkFptKjvp2Bg3rHtW6QrvmdFTvYIxr2UFex9lqbqisusQ/4GR0bjt1YpLdasW37xCmCH1KGqmE4RDFZif6XpIq9wuYT36JWg8I8/bNbLrsA
 --DFQRCTsKlU
 woas.page.title: Example::Chapter 01
 woas.page.attributes: 0

@@ -269,7 +269,7 @@ woas["_get_tagged"] = function(tag_filter) {
 		else // normal match tag
 			tags_ok.push(tags[i]);
 	} tags = null;
-
+	
 	var tmp, fail;
 	for(var i=0,l=pages.length;i<l;++i) {
 		tmp = this.get_src_page(i);
@@ -432,7 +432,7 @@ woas["get__text"] = function(pi) {
 		this.alert(this.i18n.ERR_NO_PWD.sprintf(page_titles[pi]));
 		return null;
 	}
-	document.body.style.cursor = "wait";
+	this.progress_init("AES decryption");
 //	var pg = null;
 			//TODO: use form-based password input
 //			this._get_password('The latest entered password (if any) was not correct for page "'+page_titles[pi]+"\"");
@@ -466,7 +466,7 @@ woas["get__text"] = function(pi) {
 //		AES_clearKey();
 		latest_AES_page = "";
 	}
-	document.body.style.cursor = "auto";
+	this.progress_finish();
 	return pg;
 }
 
@@ -594,6 +594,7 @@ woas["_get__embedded"] = function (cr, pi, etype) {
 	return xhtml;
 }
 
+// export a base64-encoded image to a file
 woas["export_image"] = function(page, dest_path) {
 	var pi=this.page_index(page);
 	if (pi==-1)
@@ -627,7 +628,7 @@ woas["_embed_process"] = function(etype) {
 		desired_mode = this.file_mode.BASE64;
 		etype = 4;
 	}
-
+	
 	// load the data in DATA:URI mode
 	var ct = this.load_file(null, desired_mode);
 	if (ct == null || !ct.length) {
@@ -718,7 +719,8 @@ woas["set_current"] = function (cr, interactive) {
 		cr = "";
 	} else {
 		var p = cr.indexOf("::");
-		if (p!=-1) {
+		// skip not found references but also null namespace references
+		if (p>0) {
 			namespace = cr.substring(0,p);
 //			log("namespace of "+cr+" is "+namespace);	// log:0
 			cr = cr.substring(p+2);
@@ -900,6 +902,10 @@ woas["last_modified"] = function(mts) {
 
 // actually load a page given the title and the proper XHTML
 woas["load_as_current"] = function(title, xhtml, mts) {
+	if (typeof title == "undefined") {
+		this.crash("load_as_current() called with undefined title");
+		return;
+	}
 	scrollTo(0,0);
 	log("load_as_current(\""+title+"\") - "+xhtml.length+" bytes");	// log:1
 	$("wiki_text").innerHTML = xhtml;
@@ -991,7 +997,7 @@ woas["_gen_display"] = function(id, visible, prefix) {
 }
 
 woas["img_display"] = function(id, visible) {
-	if (!ie || ie8) {
+	if (!this.browser.ie || this.browser.ie8) {
 		this._gen_display(id, visible, "img");
 		this._gen_display(id, !visible, "alt");
 	} else {
@@ -1034,12 +1040,12 @@ woas["after_load"] = function() {
 	
 	document.body.style.cursor = "auto";
 	
-	if (ie) {	// some hacks for IE
+	if (this.browser.ie) {	// some hacks for IE
 		this.setHTML = function(elem, html) {elem.text = html;};
 		this.getHTML = function(elem) {return elem.text};
 		var obj = $("sw_wiki_header");
 		obj.style.filter = "alpha(opacity=75);";
-		if (ie6) {
+		if (this.browser.ie6) {
 			$("sw_wiki_header").style.position = "absolute";
 			$("sw_menu_area").style.position = "absolute";
 		}
@@ -1117,9 +1123,10 @@ woas["after_load"] = function() {
 	this["_editor"] = new TextAreaSelectionHelper($("wiki_editor"));
 	
 	// set some fixup CSS with some browsers
-	if (firefox)
+	if (this.browser.firefox || this.browser.opera)
 		this.set_css(this.get_css());
 	
+//	this.progress_finish();
 	$.hide("loading_overlay");
 }
 
@@ -1164,7 +1171,7 @@ woas["_clear_bs"] = function() {
 
 function ff_fix_focus() {
 //runtime fix for Firefox bug 374786
-	if (firefox)
+	if (woas.browser.firefox)
 		$("wiki_text").blur();
 }
 
@@ -1229,7 +1236,7 @@ woas["_onresize"] = function() {
 	we.style.height = window.innerHeight - 150 + "px";
 }
 
-if (!ie)
+if (!woas.browser.ie)
 	window.onresize = woas._onresize;
 
 woas["update_nav_icons"] = function(page) {
@@ -1330,7 +1337,7 @@ woas["current_editing"] = function(page, disabled) {
 	$.hide("text_area");
 
 	// FIXME!
-	if (!ie)	{
+	if (!this.browser.ie)	{
 		$("wiki_editor").style.width = window.innerWidth - 35 + "px";
 		$("wiki_editor").style.height = window.innerHeight - 180 + "px";
 	}
@@ -1418,22 +1425,28 @@ function _new_syntax_patch(text) {
 	return text;
 }
 
-// to set CSS, use setCSS(). To read CSS, always use .innerHTML
-// it is a big IE6 inconsistency
 function _css_obj() {
 	return document.getElementsByTagName("style")[0];
 }
 
-woas["FF2_CSS_FIXUP"] = "\n.wiki_preformatted { white-space: -moz-pre-wrap !important; } \n";
+woas["FF2_CSS_FIXUP"] = "\n.wiki_preformatted { white-space: -moz-pre-wrap !important; }\n";
+
+// Opera gets 100% as real 100%
+//woas["OPERA_FIXUP"] = "\ndiv.wiki_header, #loading_overlay, #woas_pwd_query, #woas_pwd_mask { width: 100%; }\n";
 
 woas["get_css"] = function() {
 	var co = document.getElementsByTagName("style")[0];
 	var css = co.innerHTML;
-	if (firefox2) {
+	if (this.browser.firefox2) {
 		// remove the fixup if present
 		if (css.substr(0, this.FF2_CSS_FIXUP.length) == this.FF2_CSS_FIXUP)
 			css = css.substr(this.FF2_CSS_FIXUP.length);
 	}
+/*	if (this.browser.opera) {
+		// remove the fixup if present
+		if (css.substr(0, this.OPERA_FIXUP.length) == this.OPERA_FIXUP)
+			css = css.substr(this.OPERA_FIXUP.length);
+	} */
 	return css;
 }
 	
@@ -1443,9 +1456,11 @@ woas["setCSS"] = function(new_css) { this.set_css(new_css); }
 woas["set_css"] = function(new_css) {
 	// with some browsers we have weird hot-fixes
     // Mozilla, since 1999
-    if (firefox2)
+    if (this.browser.firefox2)
 		new_css = this.FF2_CSS_FIXUP + new_css;
-	if (!ie) {
+//	if (this.browser.opera)
+//		new_css = this.OPERA_FIXUP + new_css;
+	if (!this.browser.ie) {
 		_css_obj().innerHTML = new_css;
 		return;
 	}

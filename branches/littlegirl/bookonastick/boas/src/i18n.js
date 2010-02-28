@@ -54,16 +54,16 @@ woas['i18n'] = {
 	HEIGHT: "Height",
 	DELETE_PAGE_PROMPT: "Delete page:",
 	CONFIRM_IMPORT_OVERWRITE: "This will OVERWRITE pages with the same title.\n\nAre you sure you want to continue?",
-	IMPORT_OK: "%s pages imported successfully.",
+	IMPORT_OK: "%s pages imported successfully (%d system pages skipped)",
 	IMPORT_INCOMPAT: "Incompatible version: %s",
-	IMPORT_UNRECON: "Unrecognized format.",
-	IMPORT_COMPLETE: "Import complete: %d/%d pages imported.",
+	IMPORT_UNRECON: "Unrecognized format",
 	NO_ERROR: "No error",
 	WSIF_NO_VER: "Could not read WSIF version.",
 	WSIF_NS_VER: "WSIF version %s not supported!",
-	WSIF_NO_HN: "Could not locate header name.",
-	WSIF_BAD_HV: "Could not locate end of header value.",
-	LOADING: "Loading the wiki..."
+	WSIF_NO_HN: "Could not locate header name",
+	WSIF_BAD_HV: "Could not locate end of header value",
+	ALT_BROWSER_INPUT: "Please specify full path to file \"%s\" because your browser does not allow such path to be read directly for security reasons.",
+	LOADING: "Loading Wiki on a Stick..."
 }
 
 // do not use any copyrighted wordlist here
