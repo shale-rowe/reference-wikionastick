@@ -1095,7 +1095,9 @@ woas["after_load"] = function() {
 	// first thing to do: load the actual pages!
 	if (this._auto_native_wsif) {
 		if (!this._native_load()) {
-			this.crash("Could not load WSIF pages data!\n"+this.wsif.emsg);
+			// the file load error is already documented to user
+			if (this.wsif.emsg !== null)
+				this.crash("Could not load WSIF pages data!\n"+this.wsif.emsg);
 			return;
 		}
 	}

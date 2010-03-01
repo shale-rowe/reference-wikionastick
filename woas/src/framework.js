@@ -5,11 +5,14 @@ woas["debug"] = true;			// toggle debug mode (and console)
 woas["browser"] = { ie: false, ie6: false, ie8: false,
 					firefox: false, firefox2: false,
 					firefox3: false, firefox_new: false,
-					opera: false, safari: false
+					opera: false, safari: false,
+					chrome: false
 				};
 
 if((navigator.userAgent).indexOf("Opera")!=-1)
 	woas.browser.opera = true;
+else if (navigator.userAgent.indexOf("Chrome") != -1)
+	woas.browser.chrome = true;
 else if(navigator.appName == "Netscape") {
 	// check that it is Gecko first
 	woas.browser.firefox = (new RegExp("Gecko\\/\\d+")).test(navigator.userAgent) ? true : false;
@@ -55,7 +58,7 @@ var is_windows = (navigator.appVersion.toLowerCase().indexOf("windows")!=-1);
 woas["_server_mode"] = (document.location.toString().match(/^file:\/\//) ? false:true);
 
 // set to true if we need Java-based file load/save
-woas["use_java_io"] = woas.browser.safari || woas.browser.opera;
+woas["use_java_io"] = woas.browser.chrome || woas.browser.opera || woas.browser.safari;
 
 // returns the DOM element object given its id - enables a try/catch mode when debugging
 if (woas.debug) {
