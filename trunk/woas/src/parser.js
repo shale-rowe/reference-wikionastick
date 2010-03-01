@@ -206,6 +206,15 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 					} );
 				}
 				trans = 1;
+				
+				// this block is duplicated, and it's OK
+				// put away stuff contained in inline nowiki blocks {{{ }}}
+				text = text.replace(/\{\{\{(.*?)\}\}\}/g, function (str, $1) {
+					var r = "<!-- "+parse_marker+"::"+html_tags.length+" -->";
+					html_tags.push("<tt class=\"wiki_preformatted\">"+woas.xhtml_encode($1)+"</tt>");
+					return r;
+				});
+				
 				return templtext;	
 			});
 			// keep transcluding when a transclusion was made and when transcluding depth is not excessive
