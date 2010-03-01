@@ -397,11 +397,11 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 	
 	// italics
 	// need a space after ':'
-	text = text.replace(/(^|[^\w:])\/([^\n\/]+)\/($|[^\w])/g, function (str, $1, $2, $3) {
-		if (str.indexOf("//")!=-1) {
+	text = text.replace(/(^|[^\w:])\/([^\n\/]+)\//g, function (str, $1, $2) {
+		// hotfix for URLs
+		if ($2.indexOf("//")!=-1)
 			return str;
-		}
-		return $1+"<em>"+$2+"</em>"+$3;
+		return $1+"<em>"+$2+"</em>";
 	});
 	
 	// ordered/unordered lists parsing (code by plumloco)

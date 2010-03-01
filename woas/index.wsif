@@ -4,7 +4,6 @@ woas.pages: 53
 
 woas.page.title: ::Menu
 woas.page.attributes: 0
-woas.page.last_modified: 1266917393
 woas.page.length: 2075
 woas.page.encoding: ecma/plain
 woas.page.disposition: inline
@@ -181,7 +180,6 @@ And, last but not least:
 --DFQRCTsKlU
 woas.page.title: Main Page
 woas.page.attributes: 0
-woas.page.last_modified: 1267156959
 woas.page.length: 1246
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -925,7 +923,7 @@ This page attempts to include an external example.js file
 --DFQRCTsKlU
 woas.page.title: Testcase::WoaS testcases
 woas.page.attributes: 0
-woas.page.length: 1332
+woas.page.length: 1403
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -958,11 +956,6 @@ And here is, just for you, a partial *bold-/italics/*!!!
 
 *Some bold text* on a line beginning
 
-As you can see, /an/unix/path/ is correctly recognized.
-
-A windows unix-style path: C:/My_Files/*.ini and C:/My_Files/*.u
-A windows path: C:\My_Files\*.ini and C:\My_Files\*.u
-
 [[http://example.com/url*with*asterisks]]
 
 == Rulers and tables
@@ -980,6 +973,24 @@ Some text above a ruler
 # Voltage (v) - j/c <blockquote>voltage can only be taken at two different nodes</blockquote>
 # Current (i) - c/sec
 # Power (w) - vi
+
+== Italics testcase
+
+/italics/
+/more italics/
+/even more italics/
+/yet more italics/
+
+== Italics spanning multi-line
+
+/you cannot continue italics text in
+the following line/
+
+== Underlined text
+
+_underline me 1_
+_underline me 2_
+_underline me 3_
 
 == Inclusion of nowiki pages
 
@@ -1122,7 +1133,6 @@ function myfunc(arg) {
 --DFQRCTsKlU
 woas.page.title: Options
 woas.page.attributes: 0
-woas.page.last_modified: 1267156939
 woas.page.length: 1251
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1837,7 +1847,6 @@ The same headline, translated to English:
 --DFQRCTsKlU
 woas.page.title: Testcase::Headers
 woas.page.attributes: 0
-woas.page.last_modified: 1266917451
 woas.page.length: 164
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
