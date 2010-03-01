@@ -27,7 +27,7 @@ foreach($argv as $fname) {
 		$done += $rv;
 }
 
-echo sprintf("%d WSIF pages loaded\n", $done);
+echo sprintf("%d WSIF pages processed\n", $done);
 
 exit(0);
 
