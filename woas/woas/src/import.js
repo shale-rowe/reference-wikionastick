@@ -1,49 +1,42 @@
 
-// function used to collect variables
-function get_import_vars(data, ignore) {
-	var c=[];
-	// rename the variables
-	data = data.replace(/([^\\])\nvar (\w+) = /g, function (str, $1, $2) {
-		if (ignore && ignore.indexOf($2)!=-1)
-			return "\nvar ignoreme = ";
-		c.push('sw_import_'+$2);
-		return $1+"\nvar sw_import_"+$2+" = ";
-	});//.replace(/\\\n/g, '');
-	log("collected variables = "+c);	// log:1
+	function get_import_vars(data, ignore) {
+		var c=[];
+		// rename the variables
+		data = data.replace(/([^\\])\nvar (\w+) = /g, function (str, $1, $2) {
+			if (ignore && ignore.indexOf($2)!=-1)
+				return "\nvar ignoreme = ";
+			c.push('sw_import_'+$2);
+			return $1+"\nvar sw_import_"+$2+" = ";
+		});//.replace(/\\\n/g, '');
+		log("collected variables = "+c);	// log:1
 		
-	c = eval(data+"\n["+c+"];");
-	return c;
-}
+		c = eval(data+"\n["+c+"];");
+		return c;
+	}
 
-woas["import_wiki"] = function() {
-	if(confirm(this.i18n.CONFIRM_IMPORT_OVERWRITE) == false)
+
+woas["import_wiki"] = function(filename) {
+	if(confirm("This will OVERWRITE pages with the same title.\n\nAre you sure you want to continue?") == false)
 		return false;
 
 	// set hourglass
-	this.progress_init("Import WoaS");
+	document.body.style.cursor= "wait";
 	
-	var fail=false;
-	var sys_pages=0;
-	do { // a fake do...while to ease failure return
-	// load the file as UTF-8
-	var ct = this.load_file(null, this.file_mode.UTF8_TEXT);
-	if ((ct === null) || (ct === false)) {
-		fail = true;
-		break;
-	}
+	var ct = loadFile(filename);
 	
 	var import_css = $('cb_import_css').checked;
 	var import_content = $('cb_import_content').checked;
-	//TODO: import icon support
+	log("import_content = "+import_content); // log:1
 	var import_icons = $('cb_import_icons').checked;
 	
-	// get WoaS version
+	// get version
 	var old_version;
 	var ver_str = ct.match(/<div .*?id=("version_"|version_).*?>([^<]+)<\/div>/i);
 	if (ver_str && ver_str.length>1) {
 		ver_str = ver_str[2];
 		log("Importing wiki with version string \""+ver_str+"\"");	// log:1
-		switch(ver_str)	{
+		switch(ver_str)
+		{
 			case "0.03":
 				old_version = 3;
 				break;
@@ -52,10 +45,10 @@ woas["import_wiki"] = function() {
 				old_version = 4;
 				break;
 			default:
-				this.alert(this.i18n.IMPORT_INCOMPAT.sprintf(ver_str));
-				fail=true;
+				alert("Incompatible version: " + ver_str);
+				document.body.style.cursor= "auto";
+				return false;
 		}
-		if (fail) break;
 	} else {
 		var ver_str = ct.match(/var version = "([^"]*)";(\r\n|\n)/);
 		if (!ver_str)
@@ -79,34 +72,21 @@ woas["import_wiki"] = function() {
 				break;
 				case "0.9.5B":
 				case "0.9.5C":
-//				case "0.9.5D": // development only
+//				case "0.9.5D":
 					old_version = 95;
 				break;
 				case "0.9.6B":
-//				case "0.9.6C": // development only
 					old_version = 96;
 					break;
-				case "0.9.7B": // never released officially
-//				case "0.9.6C": // development only
-					old_version = 97;
-					break;
-				case "0.10.0":
-				case "0.10.1":
-				case "0.10.2":
-				case "0.10.3":
-				case "0.10.4":
-				case "0.10.5":
-					old_version = Number(ver_str.substr(1).replace(/\./g, ""));
-					break;
 				default:
-				this.alert(this.i18n.IMPORT_INCOMPAT.sprintf(ver_str));
-				fail=true;
+					alert("Incompatible version: " + ver_str);
+					document.body.style.cursor= "auto";
+					return false;
 			}
-		if (fail) break;
-		} else { // below code is not very solid!
-//			log("Maybe version 0.02? Please report as a bug");	// log:2
+		} else {
+			log("Maybe version 0.02?");	// log:1
 			old_version = 2;
-			if (ct.match("<div id=\"?"+escape("Special::Advanced")))
+			if(ct.match("<div id=\"?"+escape("Special::Advanced")))
 				old_version = 3;
 		}
 	}
@@ -120,17 +100,17 @@ woas["import_wiki"] = function() {
 	var old_page_attrs = [];
 	var pc = 0;
 
-	// old versions parsing
-	if (old_version	< 9) {
+// old versions parsing
+if (old_version	< 9) {
 	
 	var wiki;
 	try {
 		wiki = ct.match(/<div .*?id=(wiki|"wiki")[^_\\]*?>((.|\n|\t|\s)*)<\/div>/i)[0];
 	} catch(e) {
-		this.alert(this.i18n.IMPORT_UNRECON);
-		fail = true;
+		alert("Unrecognized file");
+		document.body.style.cursor= "auto";
+		return false;
 	}
-	if (fail) break;
 	
 	// eliminate comments
 	wiki = wiki.replace(/\<\!\-\-.*?\-\-\>/g, "");
@@ -153,10 +133,6 @@ woas["import_wiki"] = function() {
 	}
 	
 	/* NOTES ABOUT OLD VERSIONS
-	v0.10.0:
-	    * introduced page_mts for global page modified timestamp
-	v0.9.7:
-		* introduced WoaS::Aliases
 	v0.9.6:
 		* Special::Bootscript -> WoaS::Bootscript
 		
@@ -210,10 +186,7 @@ woas["import_wiki"] = function() {
 				if (page_names[pc].indexOf("Special::")===0) {
 					if (page_names[pc].search(/Special::Edit Menu/i)==0)
 						page_names[pc] = "::Menu";
-					else {
-						++sys_pages;
-						return;
-					}
+					else return;
 				}
 				
 				old_page_attrs[pc] = 0;
@@ -234,7 +207,7 @@ woas["import_wiki"] = function() {
 //		log("page_names is ("+page_names+")");	// log:0
 	} // do not import content pages
 
-	for(var i=0,il=var_names.length;i<il;++i) {
+	for(var i=0;i<var_names.length;i++) {
 		if (var_names[i] == "main_page_")
 			new_main_page = (old_version!=2) ? unescape(var_values[i]) : var_values[i];
 		else if (var_names[i] == "permit_edits")
@@ -247,10 +220,10 @@ woas["import_wiki"] = function() {
 	try {
 		var old_marker = ct.match(/\nvar __marker = "([A-Za-z\-\d]+)";(\r\n|\n)/)[1];
 	} catch (e) {
-		this.alert(this.i18n.ERR_MARKER);
-		fail = true;
+		alert("Marker not found!");
+		document.body.style.cursor= "auto";
+		return false;
 	}
-	if (fail) break;
 
 	if (import_css) {
 		// import the CSS head tag
@@ -274,23 +247,29 @@ woas["import_wiki"] = function() {
 
 		var has_last_page_flag = (collected.length==14) ? 1 : 0;
 		if (!has_last_page_flag && (collected.length!=13)) {
-			this.alert(this.i18n.INVALID_DATA);
-			fail=true;
-			break;
+			alert("Invalid collected data!");
+			document.body.style.cursor= "auto";
+			return false;
 		}
 		
-		// set collected config options
 		old_block_edits = !collected[2];
+		
 		this.config.dblclick_edit = collected[3];
+		
 		this.config.save_on_quit = collected[4];
+		
 		if (has_last_page_flag)
 			this.config.open_last_page = collected[5];
 		this.config.allow_diff = collected[5+has_last_page_flag];
+		
 		this.config.key_cache = collected[6+has_last_page_flag];
-		// the gathered data
+		
 		new_main_page = collected[8+has_last_page_flag];
+		
 		page_names = collected[10+has_last_page_flag];
+		
 		old_page_attrs = collected[11+has_last_page_flag];
+		
 		page_contents = collected[12+has_last_page_flag];
 		
 	} else {	// we are importing from v0.9.2 and above which has a config object for all the config flags
@@ -301,16 +280,9 @@ woas["import_wiki"] = function() {
 
 		//0:sw_import_current,1:sw_import_main_page,
 		//2:sw_import_backstack,3:sw_import_page_titles,4:sw_import_page_attrs,5:sw_import_pages
-		// from 0.10.0: sw_page_mts is before sw_import_pages
 		new_main_page = collected[1];
 		if (import_content) {
-			var old_page_mts = [];
-			if (old_version <= 97)
-				page_contents = collected[5];
-			else {
-				old_page_mts = collected[5];
-				page_contents = collected[6];
-			}
+			page_contents = collected[5];
 			page_names = collected[3];
 			old_page_attrs = collected[4];
 			if (old_version==92) {
@@ -320,10 +292,8 @@ woas["import_wiki"] = function() {
 					if (old_page_attrs[i] & 2)
 						continue;
 					// ignore special pages
-					if (page_names[i].indexOf("Special::")===0) {
-						++sys_pages;
+					if (page_names[i].indexOf("Special::")===0)
 						continue;
-					}
 					page_contents[i] = page_contents[i].replace(/<pre(.*?)>((.|\n)*?)<\/pre>/g,
 									function (str, $1, $2) {
 										var s="{{{"+$2+"}}}";
@@ -350,7 +320,7 @@ woas["import_wiki"] = function() {
 			var i__woas = eval(data+"\ni__woas");
 			
 			// import each member
-			for(var a=0,acl=collected.length;a<acl;++a) {
+			for(var a=0;a<collected.length;a++) {
 				woas[collected[a]] = i__woas[collected[a]];
 			}
 			
@@ -365,39 +335,29 @@ woas["import_wiki"] = function() {
 	} // done importing from v0.9.2B+
 }
 
-	// modified timestamp for pages before 0.10.0
-	var current_mts = Math.round(new Date().getTime()/1000);
-
-	// **** COMMON IMPORT CODE ****
+	// this is the common import procedure
 	if (import_content) {
 		// add new data
 		var pages_imported = 0;
-		for(var i=0, il=page_names.length; i<il; i++) {
-			// we are not using is_reserved() because will be inconsistant
-			// in case of enabled edit_override
+		for(var i=0; i<page_names.length; i++) {
+			// we are not using is_reserved() because will create chaos in case of edit_override
 			if (page_names[i].indexOf("Special::")===0) {
-				if ((old_version>=94) && (old_version<=96)) {
+				if (old_version>=94) {
 					if (page_names[i]=="Special::Bootscript") {
 						pi = this.page_index("WoaS::Bootscript");
 						pages[pi] = page_contents[i];
 						page_attrs[pi] = 4;
 						pages_imported++;
-						this.progress_status(pages_imported/page_names.length);
 						continue;
 					}
 				}
-				// here we are skipping special pages
-				++sys_pages;
+				// skip special pages
 			} else { // not importing a special page
 				pi = this.page_index(page_names[i]);
 				if (pi == -1) {
 					page_titles.push(page_names[i]);
 					pages.push(page_contents[i]);
 					page_attrs.push( old_page_attrs[i] );
-					if (old_version < 100)
-						page_mts.push( current_mts );
-					else
-						page_mts.push( old_page_mts[i] );
 				} else {
 					log("replacing "+page_names[i]);
 					if (old_version==94) {
@@ -415,29 +375,13 @@ woas["import_wiki"] = function() {
 						}
 					} else {
 						page_titles[pi] = page_names[i];
-						// fix the trailing nul bytes bug in encrypted pages
-						if ((old_version>=102) && (old_version<=103)
-							&& (old_page_attrs[i] & 2)) {
-								var rest = page_contents[i].length % 16;
-								if (rest)
-									log("removing "+rest+" trailing bytes from page "+page_names[i]); //log:1
-								while (rest-- > 0) {page_contents[i].pop();}
-						}
 						pages[pi] = page_contents[i];
 					}
 					page_attrs[pi] = old_page_attrs[i];
 				}
-				++pages_imported;
-				this.progress_status(pages_imported/page_names.length);
+				pages_imported++;
 			} // not importing a special page
 		} // for cycle
-		// added in v0.9.7
-		if (old_version <= 96) {
-			page_titles.push("WoaS::Aliases");
-			pages.push("");
-			page_attrs.push(0);
-			page_mts.push(current_mts);
-		}
 	} // do not import content pages
 	
 	// apply the new main page if that page exists
@@ -445,26 +389,17 @@ woas["import_wiki"] = function() {
 		main_page = new_main_page;
 	
 	this.config.permit_edits = !old_block_edits;
-	} while (false); // fake do..while ends here
-	
+
 	// remove hourglass
-	this.progress_finish();
+	document.body.style.cursor= "auto";
 	
-	// when we fail, we return false
-	if (fail)
-		return false;
-	
-	// inform about the imported pages / total pages present in file
-	this.alert(this.i18n.IMPORT_OK.sprintf(pages_imported+"/"+(page_names.length-sys_pages).toString(), sys_pages));
+	alert("Import completed: " + pages_imported +"/"+page_names.length.toString()+" pages imported.");
 	
 	// move to main page
 	current = main_page;
 	// save everything
-	this.full_commit();
+	this.save_to_file(true);
 	
 	this.refresh_menu_area();
 	this.set_current(main_page, true);
-	
-	// supposedly, everything went OK
-	return true;
 }

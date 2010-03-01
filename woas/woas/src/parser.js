@@ -3,7 +3,7 @@ woas["parser"] = {
 	"has_toc":null,
 	"toc":"",
 	"force_inline":false,		// used not to break layout when presenting search results
-	"script_extension":[]		// external javascript files to be loaded
+	"script_extension":[]	// external javascript files to be loaded
 };
 
 woas.parser["header_anchor"] = function(s) {
@@ -12,19 +12,16 @@ woas.parser["header_anchor"] = function(s) {
 	return s.replace(/[^a-zA-Z0-9]/g, '_');
 }
 
-//DEPRECATED "!" syntax is supported but shall me removed soon
-var reParseHeaders = /^([\!=]+)\s*(.*)$/gm;
-woas.parser["header_replace"] = function(str, $1, $2) {
-		var header = $2;
-		var len = $1.length;
-		// remove the mirrored header syntax from right
-		var hpos = header.indexOf($1);
-		if ((hpos != -1) && (hpos==header.length - len))
+var reParseOldHeaders = /(^|\n)(\!+)\s*([^\n]+)/g;
+var reParseHeaders = /(^|\n)(=+)\s*([^\n]+)/g;
+woas.parser["header_replace"] = function(str, $1, $2, $3) {
+		var header = $3;
+		var len = $2.length;
+		if (header.indexOf($2)==header.length - len)
 			header = header.substring(0, header.length - len);
 		// automatically build the TOC if needed
-		len = $1.length;
 		if (woas.parser.has_toc) {
-			woas.parser.toc += String("#").repeat(len)+" <a class=\"link\" href=\"#" +
+			woas.parser.toc += str_rep("#", len)+" <a class=\"link\" href=\"#" +
 			woas.parser.header_anchor(header) + "\">" + header + "<\/a>\n";
 		}
 		return "</div><h"+len+" id=\""+woas.parser.header_anchor(header)+"\">"+header+"</h"+len+"><div class=\"level"+len+"\">";
@@ -37,13 +34,13 @@ woas.parser["sublist"] = function (lst, ll, suoro, euoro) {
 	if (lst[0][1].length > ll)
 		return this.sublist(lst, ll+1, suoro, euoro);
 	
-	var item, subl;
+	var item, sub;
 	var s = '';
 	while (lst[0][1].length == ll ) {
                 item = lst.shift();
-                subl = this.sublist(lst, ll + 1, suoro, euoro);
-                if (subl.length)
-                    s += '<li>' + item[2] + suoro + subl + euoro + '</li>' ;
+                sub = this.sublist(lst, ll + 1, suoro, euoro);
+                if (sub.length)
+                    s += '<li>' + item[2] + suoro + sub + euoro + '</li>' ;
                 else
                     s += '<li>' + item[2] + '</li>';
 		if (!lst.length)
@@ -56,30 +53,40 @@ woas.parser["sublist"] = function (lst, ll, suoro, euoro) {
 // This is a bit of a monster, if you know an easier way please tell me!
 // There is no limit to the level of nesting and it produces
 // valid xhtml markup.
-var reReapLists = /^([\*#@])[ \t].*(?:\n\1+[ \t].+)*/gm;
-var reItems = /^([\*#@]+)[ \t]([^\n]+)/mg;
+var reReapLists = /(?:^|\n)([\*#@])[ \t].*(?:\n\1+[ \t][^\n]+)*/g;
 woas.parser["parse_lists"] = function(str, type, $2) {
         var uoro = (type!='*')?'ol':'ul';
         var suoro = '<' + uoro + ((type=='@') ? " type=\"a\"":"")+'>';
         var euoro = '</' + uoro + '>';
+        var old = 0;
+        var reItems = /^([\*#@]+)[ \t]([^\n]+)/mg;
 
-		// collect all items in a stack
 		var stk = [];
-	    str.replace( reItems, function(str, p1, p2) {
-			stk.push([str, p1, p2]);
-		} );
+	    str.replace( reItems,
+                function(str, p1, p2)
+                {
+                    level = p1.length;
+                    old = level;
+                    stk.push([str, p1, p2]);
+                }
+            );
 
-		return suoro + woas.parser.sublist(stk, 1, suoro, euoro) + euoro;
+		return "\n"+suoro + woas.parser.sublist(stk, 1, suoro, euoro) + euoro;
 	}
 
-var reReapTables = /^\{\|.*((?:\n\|.*)*)$/gm;	
-woas.parser["parse_tables"] =  function (str, p1) {
+var reReapTables = /(?:^|\n)\{\|.*((?:\n\|.*)*)(?:\n|$)/g;	
+woas.parser["parse_tables"] =  function (str, p1)
+    {
         var caption = false;
         var stk = [];
-        p1.replace( /\n\|([+ -])(.*)/g, function(str, pp1, pp2) {
+        p1.replace( /\n\|([+ -])(.*)/g, function(str, pp1, pp2)
+            {
                 if (pp1 == '-')
+                {
                     return;
-                if (pp1 == '+') {
+                }
+                if (pp1 == '+')
+                {
                     caption = caption || pp2;
                     return;
                 }
@@ -96,39 +103,8 @@ woas.parser["parse_tables"] =  function (str, p1) {
 function _filter_wiki(s) {
 	return s.replace(/\{\{\{((.|\n)*?)\}\}\}/g, "").
 		replace(/<script[^>]*>((.|\n)*?)<\/script>/gi, "").
-		replace(/\<\/?\w+[^>]+>/g, "");
-}
-
-var	parse_marker = "#"+_random_string(8);
-
-// extract the wiki tags from a wiki URL
-woas["_get_tags"] = function(text) {
-	var tags = [];
-	// remove the starting part
-	if (text.indexOf("Tag::")==0)
-		text = this.trim(text.substring(5));
-	else if (text.indexOf("Tags::")==0)
-		text = this.trim(text.substring(6));
-	else // not a valid tagging
-		return tags;
-	// check length only after having removed the part we don't need
-	if (!text.length)
-		return tags;
-	var alltags = this.split_tags(text);
-	for(var i=0;i<alltags.length;i++) {
-		tags.push(this.trim(alltags[i]));
-	}
-	return tags;
-}
-
-// split one or more tags
-// note: no trim applied
-woas["split_tags"] = function(tlist) {
-	var alltags;
-	if (tlist.indexOf("|")!=-1)
-		return tlist.split("|");
-	else //DEPRECATED
-		return tlist.split(",");
+		replace(/\<\w+\s[^>]+>/g, "").
+		replace(/\<\/\w[^>]+>/g, "");
 }
 
 // THIS is the method that you should override for your custom parsing needs
@@ -151,6 +127,13 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 	// this array will contain all the HTML snippets that will not be parsed by the wiki engine
 	var html_tags = [];
 	
+	// put away stuff contained in inline nowiki blocks {{{ }}}
+	text = text.replace(/\{\{\{(.*?)\}\}\}/g, function (str, $1) {
+		var r = "<!-- "+parse_marker+"::"+html_tags.length+" -->";
+		html_tags.push("<tt class=\"wiki_preformatted\">"+woas.xhtml_encode($1)+"</tt>");
+		return r;
+	});
+	
 	// transclusion code - originally provided by martinellison
 	if (!this.force_inline) {
 		var trans_level = 0;
@@ -159,7 +142,7 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 			text = text.replace(/\[\[Include::([^\]]+)\]\]/g, function (str, $1) {
 				var parts = $1.split("|");
 				var templname = parts[0];
-//				log("Transcluding "+templname+"("+parts.slice(0).toString()+")");	// log:0
+				log("Transcluding "+templname+"("+parts.slice(0).toString()+")");	// log:1
 				var templtext = woas.get_text_special(templname);
 				if (templtext == null) {
 					var templs="[["+templname+"]]";
@@ -173,14 +156,9 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 					log("Embedded file transclusion: "+templname);	// log:1
 					if (woas.is_image(templname)) {
 						var img, img_name = woas.xhtml_encode(templname.substr(templname.indexOf("::")+2));
-						if (export_links) {
-							// check that the URI is valid
-							var uri=woas._export_get_fname(templname);
-							if (uri == '#')
-								img = '<!-- missing image '+img_name+' -->';
-							else
-								img = "<img class=\"embedded\" src=\""+uri+"\" alt=\""+img_name+"\" ";
-						} else
+						if (export_links)
+							img = "<img class=\"embedded\" src=\""+woas._export_get_fname(templname)+"\" alt=\""+img_name+"\" ";
+						else
 							img = "<img class=\"embedded\" src=\""+templtext+"\" ";
 						if (parts.length>1) {
 							img += parts[1];
@@ -206,15 +184,6 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 					} );
 				}
 				trans = 1;
-				
-				// this block is duplicated, and it's OK
-				// put away stuff contained in inline nowiki blocks {{{ }}}
-				text = text.replace(/\{\{\{(.*?)\}\}\}/g, function (str, $1) {
-					var r = "<!-- "+parse_marker+"::"+html_tags.length+" -->";
-					html_tags.push("<tt class=\"wiki_preformatted\">"+woas.xhtml_encode($1)+"</tt>");
-					return r;
-				});
-				
 				return templtext;	
 			});
 			// keep transcluding when a transclusion was made and when transcluding depth is not excessive
@@ -223,17 +192,11 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 			text = text.replace(/\[\[Include::([^\]\|]+)(\|[\]]+)?\]\]/g, "[<!-- -->[Include::[[$1]]$2]]");
 	}
 	
-	// put away stuff contained in inline nowiki blocks {{{ }}}
-	text = text.replace(/\{\{\{(.*?)\}\}\}/g, function (str, $1) {
-		var r = "<!-- "+parse_marker+"::"+html_tags.length+" -->";
-		html_tags.push("<tt class=\"wiki_preformatted\">"+woas.xhtml_encode($1)+"</tt>");
-		return r;
-	});
-	
-	// remove CR added by some browsers
-	//TODO: check if ie8 still adds these
-	if (woas.browser.ie || woas.browser.opera)
+	// thank you IE, really thank you
+	if (ie)
 		text = text.replace("\r\n", "\n");
+
+	var tags = [];
 
 	// put away raw text contained in multi-line nowiki blocks {{{ }}}
 	text = text.replace(/\{\{\{((.|\n)*?)\}\}\}/g, function (str, $1) {
@@ -271,45 +234,30 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 	} else this.has_toc = false;
 
 	// put away big enough HTML tags sequences (with attributes)
-	text = text.replace(/(<\/?\w+[^>]*>\s*)+/g, function (tag) {
+	text = text.replace(/(<\/?\w+[^>]+>[ \t]*)+/g, function (tag) {
 		var r = "<!-- "+parse_marker+'::'+html_tags.length+" -->";
 		html_tags.push(tag);
 		return r;
 	});
-
-	// wiki tags
-	var tags = [], inline_tags = 0;
 	
-	// links with pipe e.g. [[Page|Title]]
+	// links with | 
 	text = text.replace(/\[\[([^\]\]]*?)\|(.*?)\]\]/g, function(str, $1, $2) {
-		// check for protocol
-		if ($1.search(/^\w+:\/\//)==0) {
-			var r="<!-- "+parse_marker+'::'+html_tags.length+" -->";
-			html_tags.push("<a class=\"world\" href=\"" + $1.replace(/^mailto:\/\//, "mailto:") + "\" target=\"_blank\">" + $2 + "<\/a>");
-			return r;
-		}
-			
-		// is this a tag definition?
-		var found_tags = woas._get_tags(str.substring(2, str.length-2));
-		if (found_tags.length>0) {
-			tags = tags.concat(found_tags);
-			if (!this.force_inline)
-				return "";
-			++inline_tags;
-			return "<!-- "+parse_marker+":"+inline_tags+" -->";
-		}
-
-		var page = $1;
-		var hashloc = $1.indexOf("#");
-		var gotohash = "";
-		if (hashloc > 0) {
-			page = $1.substr(0, hashloc);
-			gotohash = "; window.location.hash= \"" + $1.substr(hashloc) + "\"";
-		}
-		if (woas.page_exists(page)) {
-			var r="<!-- "+parse_marker+'::'+html_tags.length+" -->";
-			var wl;
-			if (export_links) {
+			if ($1.search(/^\w+:\/\//)==0) {
+				var r="<!-- "+parse_marker+'::'+html_tags.length+" -->";
+				html_tags.push("<a class=\"world\" href=\"" + $1.replace(/^mailto:\/\//, "mailto:") + "\" target=\"_blank\">" + $2 + "<\/a>");
+				return r;
+			}
+				var page = $1;
+				var hashloc = $1.indexOf("#");
+				var gotohash = "";
+				if (hashloc > 0) {
+					page = $1.substr(0, hashloc);
+					gotohash = "; window.location.hash= \"" + $1.substr(hashloc) + "\"";
+				}
+				if (woas.page_exists(page)) {
+					var r="<!-- "+parse_marker+'::'+html_tags.length+" -->";
+					var wl;
+					if (export_links) {
 //						if (this.page_index(page)==-1)
 //							wl = " onclick=\"alert('not yet implemented');\"";		else
 						wl = " href=\""+woas._export_get_fname(page)+"\"";
@@ -318,38 +266,28 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 					html_tags.push("<a class=\"link\""+ wl + " >" + $2 + "<\/a>");
 					return r;
 				} else {
-					// section reference URIs
 					if ($1.charAt(0)=="#") {
 						var r="<!-- "+parse_marker+'::'+html_tags.length+" -->";
 						var wl;
 						if (export_links)
 							wl = woas._export_get_fname(page);
-						else
-							wl = '';
-						if (wl == '#')
-							html_tags.push("<span class=\"broken_link\">" + $2 + "<\/span>");
-						else {
-							html_tags.push("<a class=\"link\" href=\""+
-							wl+"#" +
-							this.header_anchor($1.substring(1)) + "\">" + $2 + "<\/a>");
-						}
+						else wl = "";
+						html_tags.push("<a class=\"link\" href=\""+wl+"#" +this.header_anchor($1.substring(1)) + "\">" + $2 + "<\/a>");
 						return r;
 					} else {
 						var r="<!-- "+parse_marker+'::'+html_tags.length+" -->";
-						if (export_links) {
-							html_tags.push("<span class=\"broken_link\">" + $2 + "<\/span>");
-							return r;
-						}
-						var wl = " onclick=\"go_to('" +woas.js_encode($1)+"')\"";
+						var wl;
+						if (export_links)
+							wl=" href=\"#\"";
+						else wl = " onclick=\"go_to('" +woas.js_encode($1)+"')\"";
 						html_tags.push("<a class=\"unlink\" "+wl+">" + $2 + "<\/a>");
 						return r;
 					}
 				}
 			}); //"<a class=\"wiki\" onclick='go_to(\"$2\")'>$1<\/a>");
-
-	// links without pipe e.g. [[Page]]
+	// links without |
+	var inline_tags = 0;
 	text = text.replace(/\[\[([^\]]*?)\]\]/g, function(str, $1) {
-		// check for protocol
 		if ($1.search(/^\w+:\/\//)==0) {
 			var r="<!-- "+parse_marker+'::'+html_tags.length+" -->";
 			$1 = $1.replace(/^mailto:\/\//, "mailto:");
@@ -357,28 +295,24 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 			return r;
 		}
 		
-		// is this a tag definition?
-		var found_tags = woas._get_tags($1);
+		found_tags = woas._get_tags($1);
+		
 		if (found_tags.length>0) {
 			tags = tags.concat(found_tags);
 			if (!this.force_inline)
 				return "";
-			++inline_tags;
+			inline_tags++;
 			return "<!-- "+parse_marker+":"+inline_tags+" -->";
 		}
 		
 		if (woas.page_exists($1)) {
 			var r="<!-- "+parse_marker+'::'+html_tags.length+" -->";
 			var wl;
-			if (export_links) {
-				wl = woas._export_get_fname($1);
-				if (wl == '#') {
-					html_tags.push("<span class=\"broken_link\">" + $1 + "<\/span>");
-					return r;
-				}
-				wl = " href=\""+wl+"\"";
-			} else
+			if (export_links)
+				wl = " href=\""+woas._export_get_fname($1)+"\"";
+			else
 				wl = " onclick=\"go_to('" + woas.js_encode($1) +"')\"";
+				
 			html_tags.push("<a class=\"link\""+wl+">" + $1 + "<\/a>");
 			return r;
 		} else {
@@ -387,11 +321,11 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 				html_tags.push("<a class=\"link\" href=\"#" +woas.parser.header_anchor($1.substring(1)) + "\">" + $1.substring(1) + "<\/a>");
 			} else {
 				var r="<!-- "+parse_marker+'::'+html_tags.length+" -->";
-				if (export_links) {
-					html_tags.push("<span class=\"unlink broken_link\">" + $1 + "<\/span>");
-					return r;
-				}
-				var wl = " onclick=\"go_to('" + woas.js_encode($1) +"')\"";
+				var wl;
+				if (export_links)
+					wl=" href=\#\"";
+				else
+					wl = " onclick=\"go_to('" +woas.js_encode($1)+"')\"";
 				html_tags.push("<a class=\"unlink\" "+wl+">" + $1 + "<\/a>");
 			}
 			return r;
@@ -406,11 +340,11 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 	
 	// italics
 	// need a space after ':'
-	text = text.replace(/(^|[^\w:])\/([^\n\/]+)\//g, function (str, $1, $2) {
-		// hotfix for URLs
-		if ($2.indexOf("//")!=-1)
+	text = text.replace(/(^|[^\w:])\/([^\n\/]+)\/($|[^\w])/g, function (str, $1, $2, $3) {
+		if (str.indexOf("//")!=-1) {
 			return str;
-		return $1+"<em>"+$2+"</em>";
+		}
+		return $1+"<em>"+$2+"</em>"+$3;
 	});
 	
 	// ordered/unordered lists parsing (code by plumloco)
@@ -418,7 +352,7 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 	
 	// headers (from h1 to h6, as defined by the HTML 3.2 standard)
 	text = text.replace(reParseHeaders, this.header_replace);
-//	text = text.replace(reParseOldHeaders, this.header_replace);
+	text = text.replace(reParseOldHeaders, this.header_replace);
 	
 	if (this.has_toc) {
 		// remove the trailing newline
@@ -451,9 +385,8 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 		return tag;
 	});
 
-	// <hr> horizontal rulers made with 3 hyphens, 4 suggested
-	// only white spaces are allowed after the hyphens
-	text = text.replace(/^\s*\-{3,}[ ]*$/gm, "<hr class=\"woas_ruler\" />");
+	// <hr> horizontal rulers made with 3 hyphens. 4 suggested
+	text = text.replace(/(^|\n)\s*\-{3,}\s*(\n|$)/g, "<hr />$2");
 	
 	// tables-parsing pass
 	text = text.replace(reReapTables, this.parse_tables);
@@ -489,8 +422,7 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 		});
 	}
 	
-	// sort tags at bottom of page, also when showing namespaces
-	tags = tags.toUnique().sort();
+	tags = tags.toUnique();
 	if (tags.length && !export_links) {
 		var s;
 		if (this.force_inline)
@@ -506,7 +438,7 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 		if (!this.force_inline) {
 			s+="</div>";
 			text += s;
-		} else { // re-print the inline tags (works only on last tag definition?)
+		} else {
 			text = text.replace(new RegExp("<\\!-- "+parse_marker+":(\\d+) -->", "g"), function (str, $1) {
 				if ($1==inline_tags)
 					return s;
@@ -521,3 +453,4 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 		return "<div class=\"level0\">" + text + "</div>";
 	return text.substring(6)+"</div>";
 }
+

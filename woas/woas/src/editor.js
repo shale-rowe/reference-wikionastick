@@ -18,8 +18,6 @@ function TextAreaSelectionHelper(obj) {
  this.target.onclick=_textareaSaver;
  this.target.onkeyup=_textareaSaver;
  this.target.onfocus=_textareaSaver;
-// blurring handler disabled until META features are researched more
-// this.target.onblur=kbd_blur;
  if(!document.selection) this.target.onSelect=_textareaSaver; // ?
  
  this.start=-1;
@@ -29,25 +27,20 @@ function TextAreaSelectionHelper(obj) {
 }
 
 TextAreaSelectionHelper.prototype.getSelectedText=function() {
-	if(this.iesel)
-		return this.iesel.text;
-	// Fixes a problem in FF3 where the selection was not being stored in this.start and this.end when selecting multilines
-	this.start = $("wiki_editor").selectionStart;
-	this.end = $("wiki_editor").selectionEnd;
-	return (this.start>=0&&this.end>this.start)? this.target.value.substring(this.start,this.end): "";
+	return this.iesel? this.iesel.text: (this.start>=0&&this.end>this.start)? this.target.value.substring(this.start,this.end): "";
 }
 
 TextAreaSelectionHelper.prototype.setSelectedText=function(text, secondtag) {
  if(this.iesel) {
-	if(typeof(secondtag)=="string") {
-	  var l=this.iesel.text.length;
-		 this.iesel.text=text+this.iesel.text+secondtag;
-	  this.iesel.moveEnd("character", -secondtag.length);
-	   this.iesel.moveStart("character", -l);   
-	} else {
-	  this.iesel.text=text;
-	}
-	this.iesel.select();
+if(typeof(secondtag)=="string") {
+  var l=this.iesel.text.length;
+     this.iesel.text=text+this.iesel.text+secondtag;
+  this.iesel.moveEnd("character", -secondtag.length);
+   this.iesel.moveStart("character", -l);   
+} else {
+  this.iesel.text=text;
+}
+   this.iesel.select();
  } else if(this.start>=0&&this.end>=this.start) {
     var left=this.target.value.substring(0,this.start);
     var right=this.target.value.substr(this.end);
@@ -87,7 +80,7 @@ this.carretHandler.scroll=this.scrollTop;
 }
 
 function	DivTagThis(align) {
-	TagThis('<div align="'+align+'">', '</div>');
+	TagThis('<div align="'+align+'" />', '</div>');
 }
 
 function TagThis(starttag, endtag){
@@ -111,7 +104,7 @@ function setWikiImage() {
 }
 
 function setHTMLImage() {
-	setImage('<'+'img src=\'','\' />');
+	setImage('<img src=\'','\' />');
 }
 
 function setWikiUrl() {
