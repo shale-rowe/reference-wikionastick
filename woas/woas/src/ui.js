@@ -215,6 +215,61 @@ function import_wiki() {
 	return woas.import_wiki(filename);
 }
 
-function set_key() {
-	woas._set_password();
+
+function showtab(id, maxid)
+{
+	for (i=1;i<=maxid;i++) {
+		var objects = document.getElementById('tab' + i).getElementsByTagName('div');
+		for (var j = 0; j < objects.length;j++) {
+			objects[j].style.display = "none";
+			objects[j].style.visibility = "hidden";
+		}
+		document.getElementById('tab' + i).style.display = "none";
+		document.getElementById('tab' + i).style.visibility = "hidden";
+		document.getElementById('tabmenu' + i).style.color = '#F5F5F5';
+		document.getElementById('tabmenu' + i).style.borderColor = '#A4A4A4';
+		document.getElementById('tabmenu' + i).style.backgroundColor = '#CFCFCF';
+	}
+
+	var objects = document.getElementById('tab' + id).getElementsByTagName('div');
+	for (var j = 0; j < objects.length;j++) {
+		objects[j].style.display = "block";
+		objects[j].style.visibility = "visible";
+	}
+	document.getElementById('tab' + id).style.display = "block";
+	document.getElementById('tab' + id).style.visibility = "visible";
+	document.getElementById('tabmenu' + id).style.color = '#A4A4A4';//'white';
+	document.getElementById('tabmenu' + id).style.borderColor = '#A4A4A4';
+	document.getElementById('tabmenu' + id).style.backgroundColor = '#F5F5F5';
+	document.getElementById('tabmenu' + id).style.borderBottom = '#f5f5f5 1px solid';
+}
+
+// Used by Special::Lock
+function lock_page(page) {
+	var pwd = $("pw1").value;
+	if (!pwd.length) {
+		$("pw1").focus();
+		return;
+	}
+	if (pwd!=$("pw2").value) {
+		$("pw2").focus();
+		return;
+	}
+	var pi = woas.page_index(page);
+	AES_setKey(pwd);
+	woas._finalize_lock(pi);
+}
+
+
+function import_wiki() {
+	if (!woas.config.permit_edits) {
+		alert("This Wiki on a Stick is read-only");
+		return false;
+	}
+	var filename = $("filename_").value;
+	if(filename == "") {
+		alert("A file must be selected");
+		return false;
+	}
+	return woas.import_wiki(filename);
 }

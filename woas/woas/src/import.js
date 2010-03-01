@@ -1,3 +1,5 @@
+/*** import.js ***/
+
 
 	function get_import_vars(data, ignore) {
 		var c=[];
@@ -9,7 +11,7 @@
 			return $1+"\nvar sw_import_"+$2+" = ";
 		});//.replace(/\\\n/g, '');
 		log("collected variables = "+c);	// log:1
-		
+
 		c = eval(data+"\n["+c+"];");
 		return c;
 	}
@@ -21,14 +23,14 @@ woas["import_wiki"] = function(filename) {
 
 	// set hourglass
 	document.body.style.cursor= "wait";
-	
+
 	var ct = loadFile(filename);
-	
+
 	var import_css = $('cb_import_css').checked;
 	var import_content = $('cb_import_content').checked;
 	log("import_content = "+import_content); // log:1
 	var import_icons = $('cb_import_icons').checked;
-	
+
 	// get version
 	var old_version;
 	var ver_str = ct.match(/<div .*?id=("version_"|version_).*?>([^<]+)<\/div>/i);
@@ -40,7 +42,7 @@ woas["import_wiki"] = function(filename) {
 			case "0.03":
 				old_version = 3;
 				break;
-			case "0.04": 
+			case "0.04":
 			case "0.04G":
 				old_version = 4;
 				break;
@@ -91,7 +93,7 @@ woas["import_wiki"] = function(filename) {
 		}
 	}
 
-	
+
 	// import the variables
 	var new_main_page = main_page;
 	var old_block_edits = !this.config.permit_edits;
@@ -102,7 +104,7 @@ woas["import_wiki"] = function(filename) {
 
 // old versions parsing
 if (old_version	< 9) {
-	
+
 	var wiki;
 	try {
 		wiki = ct.match(/<div .*?id=(wiki|"wiki")[^_\\]*?>((.|\n|\t|\s)*)<\/div>/i)[0];
@@ -111,10 +113,10 @@ if (old_version	< 9) {
 		document.body.style.cursor= "auto";
 		return false;
 	}
-	
+
 	// eliminate comments
 	wiki = wiki.replace(/\<\!\-\-.*?\-\-\>/g, "");
-	
+
 	// separate variables from wiki
 	var vars;
 	var p = wiki.search(/<div .*?id=("variables"|variables)[^>]*?>/i);
@@ -123,7 +125,7 @@ if (old_version	< 9) {
 		wiki = wiki.substring(0, p);
 	} else
 		vars = "";
-	
+
 	if(old_version == 2) {
 		try {
 			vars = wiki.match(/\<div .*?id=("main_page"|main_page)>(.*?)\<\/div\>/i)[1];
@@ -131,11 +133,11 @@ if (old_version	< 9) {
 //			log("No variables found");	// log:0
 		}
 	}
-	
+
 	/* NOTES ABOUT OLD VERSIONS
 	v0.9.6:
 		* Special::Bootscript -> WoaS::Bootscript
-		
+
 	v0.9.5D (not released)
 		* Javascript:: reserved namespace
 		* some Special:: pages no more work
@@ -159,7 +161,7 @@ if (old_version	< 9) {
 	// eliminate headers
 	wiki = wiki.substring(wiki.indexOf(">")+1);
 	vars = vars.substring(vars.indexOf(">")+1);
-	
+
 	vars.replace(/<div id="?(version_|main_page_|permit_edits_|[\w_]+)"?>((\n|.)*?)<\/div>/gi, function(str, $1, $2) {
 				if(old_version == 2)
 					var_names[vc] = "main_page_";
@@ -168,7 +170,7 @@ if (old_version	< 9) {
 				var_values[vc] = $2;
 				vc++;
 			});
-	
+
 //	log("Variables are ("+var_names+")");	// log:0
 
 	// now extract the pages from old versions < 0.9
@@ -188,7 +190,7 @@ if (old_version	< 9) {
 						page_names[pc] = "::Menu";
 					else return;
 				}
-				
+
 				old_page_attrs[pc] = 0;
 
 				if (old_version < 9) {	// apply compatibility changes to stickwiki versions below v0.9
@@ -213,7 +215,7 @@ if (old_version	< 9) {
 		else if (var_names[i] == "permit_edits")
 			old_block_edits = (var_values[i]=="0");
 	}
-	
+
 }	else {	// we are importing a v0.9.x Beta
 
 	// locate the random marker
@@ -239,7 +241,7 @@ if (old_version	< 9) {
 
 	var data = _get_data(old_marker, ct, true, true);
 	var collected = [];
-	
+
 	// for versions before v0.9.2B
 	if (old_version < 92) {
 		collected = get_import_vars(data);
@@ -251,29 +253,29 @@ if (old_version	< 9) {
 			document.body.style.cursor= "auto";
 			return false;
 		}
-		
+
 		old_block_edits = !collected[2];
-		
+
 		this.config.dblclick_edit = collected[3];
-		
+
 		this.config.save_on_quit = collected[4];
-		
+
 		if (has_last_page_flag)
 			this.config.open_last_page = collected[5];
 		this.config.allow_diff = collected[5+has_last_page_flag];
-		
+
 		this.config.key_cache = collected[6+has_last_page_flag];
-		
+
 		new_main_page = collected[8+has_last_page_flag];
-		
+
 		page_names = collected[10+has_last_page_flag];
-		
+
 		old_page_attrs = collected[11+has_last_page_flag];
-		
+
 		page_contents = collected[12+has_last_page_flag];
-		
+
 	} else {	// we are importing from v0.9.2 and above which has a config object for all the config flags
-	
+
 		// old-style import for content, skipping the main woas object and the marker
 		// shared with v0.9.5B
 		collected = get_import_vars(data, new Array('woas', '__marker', 'version', '__config'));
@@ -315,15 +317,15 @@ if (old_version	< 9) {
 				return $1+"\ni__woas[\""+$2+"\"] = ";
 			});//.replace(/\\\n/g, '');
 			data = null;
-			
+
 			// retrieve the object containing all woas data & config
 			var i__woas = eval(data+"\ni__woas");
-			
+
 			// import each member
 			for(var a=0;a<collected.length;a++) {
 				woas[collected[a]] = i__woas[collected[a]];
 			}
-			
+
 			if (import_icons) {
 				//TODO: import the icons
 			} ct = null;
@@ -383,23 +385,23 @@ if (old_version	< 9) {
 			} // not importing a special page
 		} // for cycle
 	} // do not import content pages
-	
+
 	// apply the new main page if that page exists
 	if (this.page_exists(new_main_page))
 		main_page = new_main_page;
-	
+
 	this.config.permit_edits = !old_block_edits;
 
 	// remove hourglass
 	document.body.style.cursor= "auto";
-	
+
 	alert("Import completed: " + pages_imported +"/"+page_names.length.toString()+" pages imported.");
-	
+
 	// move to main page
 	current = main_page;
 	// save everything
 	this.save_to_file(true);
-	
+
 	this.refresh_menu_area();
 	this.set_current(main_page, true);
 }
