@@ -1,3 +1,5 @@
+/*** stickwiki.js ***/
+
 
 // page attributes bits are mapped to (readonly, encrypted, ...)
 
@@ -95,14 +97,14 @@ woas["utf8_encode"] = function(src) {
 woas["popup"] = function (name,fw,fh,extra) {
 	var hpos=Math.ceil((screen.width-fw)/2);
 	var vpos=Math.ceil((screen.height-fh)/2);
-	var wnd = window.open("about:blank",name,"width="+fw+",height="+fh+		
+	var wnd = window.open("about:blank",name,"width="+fw+",height="+fh+
 	",left="+hpos+",top="+vpos+extra);
 	wnd.focus();
 	return wnd;
 }
 
 //DANGER: will corrupt your WoaS!
-var edit_override = true;
+var edit_override = false;
 
 var reserved_namespaces = ["Special", "Lock", "Locked", "Unlocked", "Unlock", "Tags", "Tagged", "Untagged", "Include", "Javascript", "WoaS"];
 
@@ -136,7 +138,7 @@ woas["is_menu"] = function(page) {
 woas["get_namespace"] = function(page) {
 	var p = page.lastIndexOf("::");
 	if (p==-1) return "";
-	return page.substring(0,p+2);	
+	return page.substring(0,p+2);
 }
 
 woas["is_readonly"] = function(page) {
@@ -250,20 +252,20 @@ woas["_get_tagged"] = function(tag) {
 			{
 				if ($1.search(/^\w+:\/\//)==0)
 					return;
-					
+
 				found_tags = woas._get_tags($1);
-				
+
 //				alert(found_tags);
-				
+
 				for (var t=0;t<found_tags.length;t++) {
 					if (found_tags[t] == tag)
 						pg.push(page_titles[i]);
 				}
 
-				
+
 			});
 	}
-	
+
 	if (!pg.length)
 		return "No pages tagged with *"+tag+"*";
 	return "= Pages tagged with " + tag + "\n" + this._join_list(pg);
@@ -281,7 +283,7 @@ woas["get_page"] = function(pi) {
 	}
 	var pg = AES_decrypt(pages[pi].slice(0));	/*WARNING: may not be supported by all browsers*/
 	last_AES_page = page_titles[pi];
-	return pg;	
+	return pg;
 }
 
 woas["get_src_page"] = function(pi) {
@@ -322,69 +324,19 @@ woas["get_text_special"] = function(title) {
 	return text;
 }
 
-woas["__last_title"] = null;
-
-woas["__password_finalize"] = function(pwd_obj) {
-//	this.setHTML($("woas_pwd_msg"), msg);
-//	$.show("wiki_text");
-	document.title = this.__last_title;
-	$("wiki_text").style.visibility = "visible";
-	$("woas_pwd_query").style.visibility = "hidden";
-	$("woas_pwd_mask").style.visibility = "hidden";
-//	scrollTo(0,0);
-	// hide input form
-	pwd_obj.value = "";
-	pwd_obj.blur();
-	custom_focus(false);
-}
-
-woas["_set_password"] = function() {
-	this.__last_title = document.title;
-	document.title = "Enter password";
-	// hide browser scrollbars and show mask
-	$("woas_pwd_mask").style.visibility = "visible";
-//	this.setHTML($("woas_pwd_msg"), msg);
-//	$.hide("wiki_text");
-	$("wiki_text").style.visibility = "hidden";
-	scrollTo(0,0);
-	// show input form
-	$("woas_pwd_query").style.visibility = "visible";
-	custom_focus(true);
-	$("woas_password").focus();	
-}
-
-woas["_password_cancel"] = function(pwd_obj) {
-	this.__password_finalize(pwd_obj);
-}
-
-woas["_password_ok"] = function(pwd_obj) {
-	var pw = pwd_obj.value;
-	if (!pw.length) {
-		alert("Please enter a password.");
-		return;
-	}
-	AES_setKey(pw);
-	this.__password_finalize(pwd_obj);
-}
-
-//TODO: specify interactive-mode
 woas["get__text"] = function(pi) {
 	// is the page encrypted or plain?
 	if (!this.is__encrypted(pi))
 		return pages[pi];
-	_decrypt_failed = true;
-	if (!key.length) {
-		alert("No password set for decryption of page \""+page_titles[pi]+"\"");
-		return null;
-	}
 	document.body.style.cursor = "wait";
-//	var pg = null;
+	_decrypt_failed = true;
+	var retry = 0;
+	var pg = null;
+	do {
+		if (retry || !key.length) {
 			//TODO: use form-based password input
-//			this._get_password('The latest entered password (if any) was not correct for page "'+page_titles[pi]+"\"");
-//			var pw = prompt('The latest entered password (if any) was not correct for page "'+page_titles[pi]+"'\n\nPlease enter the correct password.", '');
-//			if ((pw==null) || !pw.length) {
-			// we are waiting for the password to be set programmatically
-/*			if (!pw.length) {
+			var pw = prompt('The latest entered password (if any) was not correct for page "'+page_titles[pi]+"'\n\nPlease enter the correct password.", '');
+			if ((pw==null) || !pw.length) {
 				latest_AES_page = "";
 				AES_clearKey();
 				document.body.style.cursor = "auto";
@@ -392,15 +344,13 @@ woas["get__text"] = function(pi) {
 			}
 			AES_setKey(pw);
 			retry++;
-*/
-//			return null;
-//		}
+		}
 		// pass a copied instance to the decrypt function
-		var pg = AES_decrypt(pages[pi].slice(0));	/*WARNING: may not be supported by all browsers*/
+		pg = AES_decrypt(pages[pi].slice(0));	/*WARNING: may not be supported by all browsers*/
 		last_AES_page = page_titles[pi];
-//		if (pg != null)
-//			break;
-
+		if (pg != null)
+			break;
+	} while (retry<2);
 	if (pg != null) {
 		_decrypt_failed = false;
 		if (!this.config.key_cache)
@@ -408,7 +358,7 @@ woas["get__text"] = function(pi) {
 		else
 			latest_AES_page = page_titles[pi];
 	} else {
-		alert("Access denied to page \""+page_titles[pi]+"\"");
+		alert("Access denied");
 		AES_clearKey();
 		latest_AES_page = "";
 	}
@@ -473,6 +423,8 @@ woas["assert_current"] = function(page) {
 }
 
 woas["_create_page"] = function (ns, cr, ask) {
+  var p = ns+"::"+cr;  
+  var fullNamespace = p.substr(0, p.lastIndexOf("::"));
 	if (this.is_reserved(ns+"::")) {
 		alert("You are not allowed to create a page titled \""+ns+"::"+cr+"\" because namespace \""+ns+"\" is reserved");
 			return false;
@@ -484,8 +436,14 @@ woas["_create_page"] = function (ns, cr, ask) {
 	if (ask && !confirm("Page not found. Do you want to create it?"))
 		return false;
 	// create and edit the new page
-	if (cr!="Menu")
-		pages.push("= "+cr+"\n");
+	if (cr!="Menu"){
+    if (this.page_exists(fullNamespace + "::_Template")){    
+      pages.push(this.get_text(fullNamespace + "::_Template").replace(/<pagename>/g, cr.substr(cr.lastIndexOf("::")+2)));
+    }    
+    else {
+		  pages.push("= "+cr+"\n");  
+    }
+  }
 	else
 		pages.push("\n");
 	if (ns.length)
@@ -573,7 +531,7 @@ woas["_b64_export"] = function(data, dest_path) {
 	data = decode64(data.replace(/^data:\s*[^;]*;\s*base64,\s*/, ''));
 	// attempt to save the file
 	_force_binary = true;
-	var r = saveFile(dest_path, data);	
+	var r = saveFile(dest_path, data);
 	_force_binary = false;
 	return r;
 }
@@ -588,7 +546,7 @@ woas["export_file"] = function(page, dest_path) {
 	// attempt to save the file (binary mode)
 	data = decode64(data);
 	_force_binary = true;
-	var r = saveFile(dest_path, data);	
+	var r = saveFile(dest_path, data);
 	_force_binary = false;
 	if (r)
 		alert("Written "+data.length+" bytes");
@@ -609,9 +567,9 @@ woas["_embed_process"] = function(etype) {
 		alert("Could not load file "+filename);
 		return false;
 	}
-	
+
 	ct = encode64(ct);
-	
+
 	// calculate the flags for the embedded file
 	if (etype == "image") {
 		var m=filename.match(/\.(\w+)$/);
@@ -633,24 +591,41 @@ woas["_embed_process"] = function(etype) {
 		ct = "data:"+guess_mime+";base64,"+ct;
 		etype = 12;
 	} else etype = 4;
-	
+
 	pages.push(ct);
 	page_attrs.push(etype);
 	page_titles.push(current);
-	
+
 	// save everything
 	this.save_to_file(true);
-	
+
 	this.refresh_menu_area();
 	this.set_current(current, true);
-	
+
 	return true;
 }
 
+woas["cmd_duplicate_page"] = function() {
+	var pname = this._new_page("Insert duplicate page title", true, current+" (duplicate)");
+	if (pname == null)
+		return;
+	var pi = this.page_index(current);
+	var dpi = this.page_index(pname);
+	// duplicate the page
+	pages[dpi] = pages[pi]; // .slice ?
+	page_attrs[dpi] = page_attrs[pi];	
+	// go to new page
+	go_to(pname);
+}
+
 woas["cmd_new_page"] = function() {
-			var title = "";
+	this._new_page("Insert new page title", false, '');
+}
+
+woas["_new_page"] = function(msg, fill_mode, def_title) {
+	var title = def_title;
 			do {
-				title = prompt("Insert new page title", title);
+		title = prompt(msg, title);
 				if (title == null) break;
 				if (!title.match(/\[\[/) && !title.match(/\]\]/))
 					break;
@@ -670,8 +645,8 @@ woas["cmd_new_page"] = function() {
 //							log("namespace of "+cr+" is "+ns);	// log:0
 							cr = cr.substring(p+2);
 						} else ns="";
-						if (!this._create_page(ns, cr, false))
-							return;
+				if (!this._create_page(ns, cr, false, fill_mode))
+					return ns+cr;
 						var upd_menu = (cr=='Menu');
 						if (!upd_menu && confirm("Do you want to add a link into the main menu?")) {
 							var menu = this.get_text("::Menu");
@@ -685,11 +660,12 @@ woas["cmd_new_page"] = function() {
 						}
 						if (upd_menu)
 							this.refresh_menu_area();
+				return ns+cr;
 					}
 
 				}
 			}
-
+	return null;
 }
 
 woas["cmd_erase_wiki"] = function() {
@@ -733,10 +709,32 @@ woas["cmd_edit_bootscript"] = function() {
 	return null;
 }
 
-woas["shortcuts"] = ["New Page", "All Pages", "Orphaned Pages", "Backlinks", "Dead Pages", "Erase Wiki", "Edit CSS", "Main Page", "Edit Bootscript"];
-woas["shortcuts_js"] = ["cmd_new_page", "special_all_pages", "special_orphaned_pages", "special_backlinks",
+woas["cmd_go_to"] = function() {
+	var pname = prompt("Go to page:", current);
+	if ((pname === null) || !pname.length)
+		return null;
+	go_to(pname);
+}
+
+woas["cmd_delete"] = function() {
+	var pname = prompt("Delete page:", current);
+	if ((pname === null) || !pname.length)
+		return;
+	var pi = this.page_index(pname);
+	if (pi == -1) {
+		alert("Page \""+pname+"\" does not exist!");
+		return;
+	}
+	if ((pname != null) && confirm("Are you sure you want to DELETE page \""+pname+"\"?")) {
+		delete_page(pname);
+		this.save_page(pname);
+	}
+}
+
+woas["shortcuts"] = ["New Page", "Duplicate Page", "All Pages", "Orphaned Pages", "Backlinks", "Dead Pages", "Erase Wiki", "Edit CSS", "Main Page", "Edit Bootscript", "Go to", "Delete Page"];
+woas["shortcuts_js"] = ["cmd_new_page", "cmd_duplicate_page", "special_all_pages", "special_orphaned_pages", "special_backlinks",
 					"special_dead_pages", "cmd_erase_wiki", "cmd_edit_css", "cmd_main_page",
-					"cmd_edit_bootscript"];
+					"cmd_edit_bootscript", "cmd_go_to", "cmd_delete"];
 
 woas["_get_special"] = function(cr, interactive) {
 	var text = null;
@@ -761,7 +759,7 @@ woas["_get_special"] = function(cr, interactive) {
 					return;
 				}
 				this._add_namespace_menu("Special");
-				
+
 				this.load_as_current(cr, text);
 				return;
 			}	*/
@@ -894,7 +892,7 @@ woas["set_current"] = function (cr, interactive) {
 			text = this.get_text(cr);
 		}
 	}
-	
+
 	if(text == null) {
 		if (_decrypt_failed) {
 			_decrypt_failed = false;
@@ -905,7 +903,7 @@ woas["set_current"] = function (cr, interactive) {
 //		log("Editing new page "+namespace+cr);	// log:0
 		return;
 	}
-	
+
 	this._add_namespace_menu(namespace);
 	if (namespace.length)
 		cr = namespace + "::" + cr;
@@ -930,7 +928,7 @@ woas["create_breadcrumb"] = function(title) {
 	var s="", partial="";
 	for(var i=0;i<tmp.length-1;i++) {
 		partial += tmp[i]+"::";
-		s += "<a href=\"#\" onclick=\"go_to('"+this.js_encode(partial)+"')\">"+tmp[i]+"</a> :: ";		
+		s += "<a href=\"#\" onclick=\"go_to('"+this.js_encode(partial)+"')\">"+tmp[i]+"</a> :: ";
 	}
 	return s+tmp[tmp.length-1];
 }
@@ -972,6 +970,8 @@ woas["load_as_current"] = function(title, xhtml) {
 	this.update_nav_icons(title);
 	current = title;
 	this._activate_scripts();
+  sh_highlightDocument('lib/sh/lang/', '.js');
+  initLytebox();
 }
 
 woas["_finalize_lock"] = function(pi) {
@@ -999,7 +999,7 @@ function pw_quality() {
 
 	if (_pw_q_lock)
 		return;
-		
+
 	_pw_q_lock = true;
 
 function _hex_col(tone) {
@@ -1014,7 +1014,7 @@ function _hex_col(tone) {
 
 	//length of the password
 	var pwlength=pw.length;
-	
+
 	if (pwlength!=0) {
 
 	//use of numbers in the password
@@ -1029,32 +1029,32 @@ function _hex_col(tone) {
 	  var numupper = pw.match(/[^A-Z]/g);
 	  var upper=numupper!=null?numupper.length/pwlength:0;
 	// end of modified code from Mozilla
-	
+
 	var numlower = pw.match(/[^a-z]/g);
 	var lower = numlower!=null?numlower.length/pwlength:0;
-	
+
 	var u_lo = upper+lower;
 
 	//   var pwstrength=((pwlength*10)-20) + (numeric*10) + (numsymbols*15) + (upper*10);
-	  
+
 		// 80% of security defined by length (at least 16, best 22 chars), 10% by symbols, 5% by numeric presence and 5% by upper case presence
 		var pwstrength = ((pwlength/18) * 65) + (numsymbols * 10 + u_lo*20 + numeric*5);
-		
+
 		var repco = split_bytes(pw).toUnique().length/pwlength;
 		if (repco<0.8)
 			pwstrength *= (repco+0.2);
 		log("pwstrength = "+_number_format(pwstrength/100, 2)+", repco = "+repco);	// log:1
 	} else
 		var pwstrength = 0;
-  
+
 	if (pwstrength>100)
 		color = "#00FF00";
 	else
 		color = "#" + _hex_col((100-pwstrength)*255/100) + _hex_col((pwstrength*255)/100) + "00";
-  
+
 	$("pw1").style.backgroundColor = color;
 	$("txtBits").innerHTML = "Key size: "+(pwlength*8).toString() + " bits";
-	
+
 	_pw_q_lock = false;
 }
 
@@ -1091,7 +1091,7 @@ woas["_add_namespace_menu"] = function(namespace) {
 		$.show("ns_menu_area");
 		$.show("ns_menu_edit_button");
 //	}
-	current_namespace = namespace;	
+	current_namespace = namespace;
 }
 
 woas["refresh_menu_area"] = function() {
@@ -1115,7 +1115,7 @@ woas["_gen_display"] = function(id, visible, prefix) {
 }
 
 woas["img_display"] = function(id, visible) {
-	if (!ie) {
+	if (!ie || ie8) {
 		this._gen_display(id, visible, "img");
 		this._gen_display(id, !visible, "alt");
 	} else {
@@ -1154,28 +1154,24 @@ woas["setHTML"] = woas["getHTML"] = null;
 // when the page is loaded - onload, on_load
 woas["after_load"] = function() {
 	log("***** Woas v"+this.version+" started *****");	// log:1
-	
+
 	document.body.style.cursor = "auto";
-	
+
 	if (ie) {	// some hacks for IE
 		this.setHTML = function(elem, html) {elem.text = html;};
 		this.getHTML = function(elem) {return elem.text};
 		var obj = $("sw_wiki_header");
 		obj.style.filter = "alpha(opacity=75);";
-		if (ie6) {
-			$("sw_wiki_header").style.position = "absolute";
-			$("sw_menu_area").style.position = "absolute";
-		}
 	} else {
 		this.setHTML = function(elem, html) {elem.innerHTML = html;};
 		this.getHTML = function(elem) {return elem.innerHTML;};
 //		setup_uri_pics($("img_home"),$("img_back"),$("img_forward"),$("img_edit"),$("img_cancel"),$("img_save"),$("img_advanced"));
 //		WONT WORK _css_obj().innerHTML += "\na {  cursor: pointer;}";
 	}
-	
+
 	$('a_home').title = main_page;
 	$('img_home').alt = main_page;
-	
+
 	if (this.debug)
 		$.show("debug_info");
 	else
@@ -1191,7 +1187,9 @@ woas["after_load"] = function() {
 	this.img_display("save", true);
 	this.img_display("lock", true);
 	this.img_display("unlock", true);
-	
+	this.menu_display("new_page", true);
+	this.menu_display("help", true);
+
 	// customized keyboard hook
 	document.onkeydown = kbd_hook;
 
@@ -1199,26 +1197,26 @@ woas["after_load"] = function() {
 	var qpage=document.location.href.split("?")[1];
 	if(qpage)
 		current = unescape(qpage);
-		
+
 //	this.swcs = $("sw_custom_script");
 
 	this.set_current(current, true);
 	this.refresh_menu_area();
 	_prev_title = current;
 	this.disable_edit();
-	
+
 	if (this.config.permit_edits)
 		$.show("menu_edit_button");
 	else
 		$.hide("menu_edit_button");
-	
+
 	if (this.config.cumulative_save && this.config.auto_save)
 		this._asto = setTimeout("_auto_saver(woas)", this.config.auto_save);
-	
+
 	this._create_bs();
-	
+
 	this["_editor"] = new TextAreaSelectionHelper($("wiki_editor"));
-	
+
 	$.hide("loading_overlay");
 }
 
@@ -1270,7 +1268,7 @@ function kbd_hook(orig_e)
 		e = window.event;
 	else
 		e = orig_e;
-		
+
 	if (!kbd_hooking) {
 		if (_custom_focus)
 			return orig_e;
@@ -1305,16 +1303,18 @@ woas["_onresize"] = function() {
 		log("no wiki_editor");
 		return;
 	}
-	we.style.width = window.innerWidth - 30 + "px";
-	we.style.height = window.innerHeight - 150 + "px";
+//	we.style.width = window.innerWidth - 30 + "px";
+//	we.style.height = window.innerHeight - 150 + "px";
 }
 
-if (!ie)
-	window.onresize = woas._onresize;
+//if (!ie)
+//	window.onresize = woas._onresize;
 
 woas["update_nav_icons"] = function(page) {
 	this.menu_display("back", (backstack.length > 0));
 	this.menu_display("forward", (forstack.length > 0));
+	this.menu_display("new_page", true);
+	this.menu_display("help", true);
 	this.menu_display("advanced", (page != "Special::Advanced"));
 	this.menu_display("edit", this.edit_allowed(page));
 	this.update_lock_icons(page);
@@ -1336,7 +1336,7 @@ woas["update_lock_icons"] = function(page) {
 		can_lock = can_unlock = (result_pages.length>0);
 		cyphered = false;
 	}
-	
+
 	this.menu_display("lock", !kbd_hooking && can_lock);
 	this.menu_display("unlock", !kbd_hooking && can_unlock);
 	var cls;
@@ -1391,12 +1391,14 @@ woas["current_editing"] = function(page, disabled) {
 	_prev_title = current;
 	$("wiki_page_title").disabled = (disabled ? "disabled" : "");
 	$("wiki_page_title").value = page;
-	this._set_title("Editing "+page);
+	this._set_title("Editing: "+page);
 	// current must be set BEFORE calling enabling menu edit
 //	log("ENABLING edit mode");	// log:0
 	kbd_hooking = true;
 	this.menu_display("back", false);
 	this.menu_display("forward", false);
+	this.menu_display("new_page", false);
+	this.menu_display("help", true);
 	this.menu_display("advanced", false);
 	this.menu_display("home", false);
 	this.menu_display("edit", false);
@@ -1407,11 +1409,11 @@ woas["current_editing"] = function(page, disabled) {
 	$.hide("text_area");
 
 	// FIXME!
-	if (!ie)	{
-		$("wiki_editor").style.width = window.innerWidth - 30 + "px";
-		$("wiki_editor").style.height = window.innerHeight - 150 + "px";
-	}
-	
+//	if (!ie)	{
+//		$("wiki_editor").style.width = window.innerWidth - 30 + "px";
+//		$("wiki_editor").style.height = window.innerHeight - 150 + "px";
+//	}
+
 	$.show("edit_area");
 
 	$("wiki_editor").focus();
@@ -1499,7 +1501,7 @@ function _new_syntax_patch(text) {
 	text = text.replace(/(^|\n)(\+*)([ \t])/g, function (str, $1, $2, $3) {
 		return $1+str_rep("*", $2.length)+$3;
 	});
-	
+
 	return text;
 }
 
@@ -1556,7 +1558,7 @@ woas["save"] = function() {
 							return false;
 					}
 					back_to = new_title;
-				}				
+				}
 			}
 	}
 	var saved = current;
@@ -1656,9 +1658,9 @@ function _get_data(marker, source, full, start) {
 	if (offset == -1) {
 		alert("END marker not found!");
 		return false;
-	}			
+	}
 	offset += 6 + 4 + marker.length + 2;
-	
+
 	// IE ...
 	var body_ofs = source.indexOf("</head>", offset);
 	if (body_ofs == -1)
@@ -1674,7 +1676,7 @@ function _get_data(marker, source, full, start) {
 	});
 
 	}
-	
+
 	if (full) {
 		// offset was previously calculated
 		if (start) {
@@ -1708,12 +1710,12 @@ function _inc_marker(old_marker) {
 
 woas["save_to_file"] = function(full) {
 	$.show("loading_overlay");
-	
+
 	var new_marker;
 	if (full) {
 		new_marker = _inc_marker(__marker);
 	} else new_marker = __marker;
-	
+
 	// setup the page to be opened on next start
 	var safe_current;
 	if (this.config.open_last_page) {
@@ -1722,7 +1724,7 @@ woas["save_to_file"] = function(full) {
 		} else safe_current = current;
 	} else
 		safe_current = main_page;
-	
+
 	// output the javascript header and configuration flags
 	var computed_js = "\n/* <![CDATA[ */\n\n/* "+new_marker+"-START */\n\nvar woas = {\"version\": \""+this.version+
 	"\"};\n\nvar __marker = \""+new_marker+"\";\n\nwoas[\"config\"] = {";
@@ -1735,21 +1737,21 @@ woas["save_to_file"] = function(full) {
 	}
 	computed_js = computed_js.substr(0,computed_js.length-1);
 	computed_js += "};\n";
-	
+
 	computed_js += "\nvar current = '" + this.js_encode(safe_current)+
 	"';\n\nvar main_page = '" + this.js_encode(main_page) + "';\n\n";
-	
+
 	computed_js += "var backstack = [\n" + printout_arr(backstack, false) + "];\n\n";
 
 	computed_js += "var page_titles = [\n" + printout_arr(page_titles, false) + "];\n\n";
-	
+
 	computed_js += "/* " + new_marker + "-DATA */\n";
-	
+
 	if (full) {
 		computed_js += "var page_attrs = [" + printout_num_arr(page_attrs) + "];\n\n";
-		
+
 		computed_js += "var pages = [\n" + printout_mixed_arr(pages, this.config.allow_diff, page_attrs) + "];\n\n";
-		
+
 		computed_js += "/* " + new_marker + "-END */\n";
 	}
 
@@ -1764,7 +1766,7 @@ woas["save_to_file"] = function(full) {
 
 	this._clear_swcs();
 	this._clear_bs();
-	
+
 	var data = _get_data(__marker, document.documentElement.innerHTML, full);
 
 	var r=false;
@@ -1773,20 +1775,20 @@ woas["save_to_file"] = function(full) {
 		r = _saveThisFile(computed_js, data);
 //		was_local = false;
 //	}
-	
+
 	if (r) {
 		cfg_changed = false;
 		floating_pages = [];
 	}
-	
+
 	$("wiki_editor").value = bak_ed;
 	$("wiki_text").innerHTML = bak_tx;
 	$("menu_area").innerHTML = bak_mn;
-	
+
 	this._create_bs();
-	
+
 	$.hide("loading_overlay");
-	
+
 	return r;
 }
 
@@ -1820,7 +1822,7 @@ function erase_wiki() {
 	current = main_page = "Main Page";
 	woas.refresh_menu_area();
 	backstack = [];
-	forstack = [];	
+	forstack = [];
 	return true;
 }
 
@@ -1873,6 +1875,13 @@ function _auto_keywords(source) {
 		ol+=nw.length;
 	}
 	return keywords.substr(1);
+}
+
+function spoil(id){
+    if (document.getElementById) {
+        var divid = document.getElementById(id);
+        divid.style.display = (divid.style.display=='block'?'none':'block');
+    } 
 }
 
 var _br_rx = new RegExp("<"+"br\\s?\\/?>", "gi");

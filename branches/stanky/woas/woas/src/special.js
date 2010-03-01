@@ -80,7 +80,7 @@ woas["special_search"] = function( str ) {
 	var pg_body = [];
 	var title_result = "";
 	log("Searching "+str);
-	
+
 	var count = 0;
 	// matches the search string and nearby text
 	var reg = new RegExp( ".{0,30}" + RegExp.escape(this.trim(str)).
@@ -96,12 +96,12 @@ woas["special_search"] = function( str ) {
 	for(var i=0; i<pages.length; i++) {
 		if (this.is_reserved(page_titles[i]))
 			continue;
-		
+
 		tmp = this.get_src_page(i);
 		if (tmp==null)
 			continue;
 //		log("Searching into "+page_titles[i]);	// log:0
-		
+
 		var added = false;
 		//look for str in title
 		if(page_titles[i].match(reg)) {
@@ -145,7 +145,7 @@ woas["special_tagged"] = function() {
 					ipos = utags.indexOf(tag);
 					if (ipos==-1) {
 						ipos = utags.length;
-						utags.push(tag);						
+						utags.push(tag);
 						tags_tree[ipos] = [];
 					}
 					tags_tree[ipos].push(page_titles[i]);
@@ -243,7 +243,7 @@ woas["special_dead_pages"] = function() {
 		pg.push(s);
 	}
 
-  result_pages = dead_pages;	
+  result_pages = dead_pages;
   if (!pg.length)
 	return '/No dead pages/';
 	return this._simple_join_list(pg, true);
@@ -263,8 +263,16 @@ $["checked"] =function(id) {
 }
 
 // Used by Special::Options
-function _set_layout(fixed) {
-	$("sw_menu_area").style.position = $("sw_wiki_header").style.position = (fixed ? "fixed" : "absolute");
+//function _set_layout(fixed) {
+//	$("sw_menu_area").style.position = $("sw_wiki_header").style.position = (fixed ? "fixed" : "absolute");
+//}
+
+function _set_menu(fixed) {
+	$("sw_menu_area").style.position = (fixed ? "fixed" : "absolute");
+}
+
+function _set_topbar(fixed) {
+	$("sw_wiki_header").style.position = (fixed ? "fixed" : "absolute");
 }
 
 // End of special pages' code

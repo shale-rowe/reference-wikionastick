@@ -3,7 +3,7 @@ var _b64arr = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=
 function encode64(input) {
 	var c1, c2, c3, enc1, enc2, enc3, enc4, i = 0, z = input.length;
 	var output = "";
-	
+
 	do {
 		c1 = input.charCodeAt(i++);
 		c2 = input.charCodeAt(i++);
@@ -28,7 +28,7 @@ function encode64(input) {
 function decode64(input, z) {
 	var c1, c2, c3, enc1, enc2, enc3, enc4, i = 0;
 	var output = "";
-	
+
 	var l=input.length;
 	if (typeof z=='undefined') z = l;
 	else if (z>l) z=l;

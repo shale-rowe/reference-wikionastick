@@ -1,4 +1,4 @@
-﻿
+
 var _export_main_index = false, _export_unix_norm = false,
 	_export_default_ext;
 
@@ -85,7 +85,7 @@ woas["_export_get_fname"] = function (title, create_mode) {
 	.replace(/[:\\\/<>?#=!]+/g, function($1) {
 		return str_rep("_", $1.length);
 	});
-	
+
 	if (_export_unix_norm)
 		fname = fname.toLowerCase().replace(/\s+/g, "_").replace(/::/g, "-");
 	else
@@ -175,7 +175,7 @@ woas["export_wiki"] = function () {
 			exp.meta_author = '<meta name="author" content="'+this._attrib_escape(this.xhtml_encode(exp.meta_author))+'" />'+"\n";
 		_export_unix_norm = $("woas_cb_unix_norm").checked;
 	} catch (e) { alert(e); return false; }
-	
+
 	$.show("loading_overlay");
 	$("loading_overlay").focus();
 	exp["css"] = _css_obj().innerHTML;

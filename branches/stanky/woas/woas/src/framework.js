@@ -1,11 +1,12 @@
 
-woas["debug"] = true;			// toggle debug mode (and console)
+woas["debug"] = false;			// toggle debug mode (and console)
 
 var _doctype = "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\" \"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\">\n";
 
 // browser flags - not to be in WoaS object
 var ie = false;
 var ie6 = false;
+var ie8 = false;
 var firefox = false;
 //var ff3 = false;
 var opera = false;
@@ -18,7 +19,9 @@ else if(navigator.appName == "Netscape") {
 //		ff3 = true;
 } else if((navigator.appName).indexOf("Microsoft")!=-1) {
 	ie = true;
-	ie6 = (navigator.userAgent.search(/msie 6\./i)!=-1);
+	ie8 = (navigator.userAgent.search(/msie 8\./i)!=-1);
+        if (!ie8)
+          ie6 = (navigator.userAgent.search(/msie 6\./i)!=-1);
 }
 
 // finds out if Opera is trying to look like Mozilla
@@ -28,7 +31,7 @@ if (firefox && (navigator.product != "Gecko"))
 // finds out if Opera is trying to look like IE
 if (ie && opera)
 	ie = false;
-	
+
 var is_windows = (navigator.appVersion.toLowerCase().indexOf("windows")!=-1);
 
 woas["_server_mode"] = (document.location.toString().match(/^file:\/\//) ? false:true);
@@ -114,7 +117,7 @@ Array.prototype.toUnique = function() {
 RegExp.escape = function(text) {
   if (!arguments.callee.sRE) {
     var specials = [
-      '/', '.', '*', '+', '?', '|',
+      '/', '.', '*', '+', '?', '|', '$',
       '(', ')', '[', ']', '{', '}', '\\'
     ];
     arguments.callee.sRE = new RegExp(

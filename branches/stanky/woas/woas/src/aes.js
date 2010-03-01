@@ -79,7 +79,7 @@ function split_bytes(s) {
 		arr.push(s.charCodeAt(i));
 	return arr;
 }
-	
+
 function merge_bytes(arr) {
 	var l=arr.length;
 	var s="";
@@ -187,7 +187,7 @@ function aesInit(){
   aesNr = 6 + aesNk;
 
   var N=4*(aesNr+1);
-  
+
   aesFi = new Array(12);
   aesRi = new Array(12);
   aesFkey = new Array(N);
@@ -317,22 +317,22 @@ function AES_clearKey() {
 
 // returns an array of encrypted characters
 function AES_encrypt(raw_data) {
-	
+
 	bData = utf8Encrypt(raw_data);
-	
+
 	aes_i=tot=0;
 	do{ blcEncrypt(aesEncrypt); } while (aes_i<tot);
-	
+
 	return bData;
 }
 
 // decrypts an array of encrypted characters
 function AES_decrypt(raw_data) {
 	bData = raw_data;
-	
+
 	aes_i=tot=0;
 	do{ blcDecrypt(aesDecrypt); } while (aes_i<tot);
-	
+
 	sData = utf8Decrypt(bData);
 	bData = [];
 	return sData;

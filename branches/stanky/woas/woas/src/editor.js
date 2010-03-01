@@ -1,3 +1,5 @@
+/*** editor.js ***/
+
 
 woas["wiki_buttons_display"] = function (v) {
 	$('wiki_format_buttons').style.display = v ? 'block' : 'none';
@@ -7,6 +9,11 @@ woas["wiki_buttons_display"] = function (v) {
 woas["html_buttons_display"] = function (v) {
 	$('html_format_buttons').style.display = v ? 'block' : 'none';
 	$('html_format_buttons').style.visibility = v ? 'visible' : 'hidden';
+}
+
+woas["list_buttons_display"] = function (v) {
+	$('list_buttons').style.display = v ? 'block' : 'none';
+	$('list_buttons').style.visibility = v ? 'visible' : 'hidden';
 }
 
 // submitted by pr0xy
@@ -19,7 +26,7 @@ function TextAreaSelectionHelper(obj) {
  this.target.onkeyup=_textareaSaver;
  this.target.onfocus=_textareaSaver;
  if(!document.selection) this.target.onSelect=_textareaSaver; // ?
- 
+
  this.start=-1;
  this.end=-1;
  this.scroll=-1;
@@ -36,7 +43,7 @@ if(typeof(secondtag)=="string") {
   var l=this.iesel.text.length;
      this.iesel.text=text+this.iesel.text+secondtag;
   this.iesel.moveEnd("character", -secondtag.length);
-   this.iesel.moveStart("character", -l);   
+   this.iesel.moveStart("character", -l);
 } else {
   this.iesel.text=text;
 }
@@ -48,7 +55,7 @@ if(typeof(secondtag)=="string") {
  if(typeof(secondtag)=="string") {
    this.target.value=left+text+scont+secondtag+right;
    this.end=this.target.selectionEnd=this.start+text.length+scont.length;
-   this.start=this.target.selectionStart=this.start+text.length;    
+   this.start=this.target.selectionStart=this.start+text.length;
  } else {
       this.target.value=left+text+right;
    this.end=this.target.selectionEnd=this.start+text.length;
@@ -80,7 +87,11 @@ this.carretHandler.scroll=this.scrollTop;
 }
 
 function	DivTagThis(align) {
-	TagThis('<div align="'+align+'" />', '</div>');
+	TagThis('<div align="'+align+'">', '</div>');
+}
+
+function	IdTagThis(align) {
+	TagThis('<div id="">', '</div>');
 }
 
 function TagThis(starttag, endtag){
@@ -89,6 +100,14 @@ function TagThis(starttag, endtag){
 
 function FullTagThis(tag){
 	woas._editor.setSelectedText('<'+tag+'>','</'+tag+'>');
+}
+
+function ListTagThis(style) {
+	TagThis('<li style="list-style-type:'+style+';">', '</li>\n');
+}
+
+function FullSpecialTagThis(tag){
+	woas._editor.setSelectedText('<'+tag+' style="line-height:50%;">\n','</'+tag+'>');
 }
 
 function setUrl(starttag,centertag,endtag) {
