@@ -271,7 +271,7 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 	} else this.has_toc = false;
 
 	// put away big enough HTML tags sequences (with attributes)
-	text = text.replace(/(<\/?\w+[^>]+>[ \t]*)+/g, function (tag) {
+	text = text.replace(/(<\/?\w+[^>]*>\s*)+/g, function (tag) {
 		var r = "<!-- "+parse_marker+'::'+html_tags.length+" -->";
 		html_tags.push(tag);
 		return r;
