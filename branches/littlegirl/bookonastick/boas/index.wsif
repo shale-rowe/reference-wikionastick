@@ -383,17 +383,6 @@ woas.page.boundary: DFQRCTsKlU
 <input id="filename_" type="file" />&nbsp;<input type="button" value="Embed" onclick="woas._embed_process('%1')" />
 
 --DFQRCTsKlU
-woas.page.title: Image::alert.png
-woas.page.attributes: 12
-woas.page.mime: image/png
-woas.page.length: 1436
-woas.page.encoding: 8bit/base64
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAMAAADzapwJAAAAB3RJTUUH1wcHEBwwMJCsHwAAAAlwSFlzAAAewQAAHsEBw2lUUwAAAARnQU1BAACxjwv8YQUAAAJzUExURf8f7evr67W1taWlpdbW1uzs7J6enmouJGosI4ODg93d3TcyMdQdB9EUBzYxMcXFxenp6Y+Pj402G+0VAN4MAIwlGnd3d9ra2tXV1UA1L+Y7Be4eAekRANYQAz8wLrCwsOXl5YCAgKdRGPdEA/QxAfIdAeERAaEjFW1tbe/v71hAKvlpB/pbBfZDA/IuAu0bAd0UAlYwKZOTk+Dg4F5eXsxqEvt3CflwCf////IpAuoYAcIjDVNTU9DQ0JaWlnlOI/uEDPuFEPqEEfU9BO0kAugYAXYyIX5+fu3t7Tc0MeZ7DvuTFvuZHPqXHvqKGft3EfZTB+81A+ohAdwpB+jo6ImJiZFXHvuYGPyjJ/ysM/ytOfpwDfdOBfAwAu8lAo87HHR0dNjY2MnJyUc6LvKLE/ypKfy2P/y9S/y/UfuGGPliCvJFBPIzA+s5BUc3LaampuPj43V1dbRmF/ymJfy3Of3DU/3KYv3MY/ubJPt4EvpUCfVCA/E2A7NNFmRkZNPT06ioqGFFKPuVFPytLv2+Sf3KYf3Qbf3PafuiKfuKFfppC/lQBfg+A/U8A2FBKIuLi9/f3zQzMtV2E/yhH/yxNf2+R/3HXP3LZ/3NafykJ/yOF/lxC/pcBvZGBPU3A9VRDTQzMdfX15qamn5QIvuSEfyfHPysL/y6QfzBTfzDV/zBU/ydH/yLE/t2DPpgB/dLA/Y6A/U6A3tIIvPz8zs2MPuSE/ydGPymJPyyNfy0OfyzN/ysKfyhIPuUF/uGDft0CvtlB/taBfZPA/ZFA+RXCjs1MPDw8E49LIJSIYJRIYJPIYJOIYJNIIJMIIJMIU47LKysrKzWV/gAAAABdFJOUwBA5thmAAABNUlEQVR42mNgwAGML2AAY6Do8RNQcPLkyVOnz5w9e+7ceWOGzVu8tm7b3rxj567de/bu23/g4KHDR44eY2BYtHjJ0mXLV6xcZWGxes3ades3bNwkuBlo+MRJk6dMnTZ9hoXFzFmz58ydN3/BQpCdDY1NzS2tbe0WFh2dXd09vX39E8BuKSwqLiktK7ewqKisqq6prauHODEpOSU1LT3DwiIzKzsnNy+/AOr00LDwiMgoC4vomNi4+IREmI88PL28fXz9/AMCg4K5+UPgPrWzd3B0srBwdnF1c+dCCgETUzNzCwtLK2sbW1YkYXktbR1dPX0DQyNjlABTVFJWUVVT15DQRBGWkJSSlpGVk1dAC19BIWERUTFxjHDn5uHl4xfAEGZj5+DkYsAETMwsrFiEGRgZGQgAAEPKcWQFSaWtAAAAAElFTkSuQmCCAAA=
---DFQRCTsKlU
 woas.page.title: WoaS::Bootscript
 woas.page.attributes: 4
 woas.page.length: 44
@@ -406,8 +395,8 @@ Ly8gUHV0IGhlcmUgeW91ciBib290IGphdmFzY3JpcHQ=
 --DFQRCTsKlU
 woas.page.title: History
 woas.page.attributes: 0
-woas.page.last_modified: 1267388567
-woas.page.length: 42151
+woas.page.last_modified: 1267460987
+woas.page.length: 42270
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -476,12 +465,14 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Renamed the *Template::FoldingPage* page to [[Template::Foldpage]].
 ** Renamed the *Template::FoldingText* page to [[Template::Foldtext]].
 ** Renamed the *Template::FoldingTextInline* page to [[Template::Foldtextinline]].
+** Replaced the default [[Image::alert.png]] image with my own alert image.
 ** Updated all tags to the new tag syntax.
 ** Updated the [[Example::JavaScript]] page.
 ** Updated the [[Help::Bugs]] page.
 ** Updated the [[Help::CSS]] page.
 ** Updated the [[Help::Code blocks (preformatted text)]] page, removing the obsolete *Code blocks with syntax highlighting* section.
 ** Updated the [[Help::Delete a page]] page.
+** Updated the [[Help::Edit a page]] page.
 ** Updated the [[Help::Edit the menu]] page.
 ** Updated the [[Help::Encrypt a page]] page.
 ** Updated the [[Help::Export]] page.
@@ -1976,8 +1967,8 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Help::Edit a page
 woas.page.attributes: 0
-woas.page.last_modified: 1267060297
-woas.page.length: 898
+woas.page.last_modified: 1267460920
+woas.page.length: 3107
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1990,7 +1981,29 @@ Pages that have the [[Include::Template::Icon::Edit]] icon in the banner can be 
 # Use the editor's buttons to insert code to format the text, or type the code in manually. Note that the use of plain text doesn't require any code.<br><br>
 # Save your changes by clicking on the [[Include::Template::Icon::Save]] icon in the banner.
 
-[[Include::Template::Icon::Info]] /Feel free to edit the Main page and replace its content with your own. The default information it contains is always available by clicking the *About* button in the menu./
+[[Include::Template::Icon::Info]] /Feel free to edit the [[Main Page]] and replace its content with your own. The information it contained by default is always available by clicking the *About* button in the menu./
+
+== Edit system pages
+System pages don't have the [[Include::Template::Icon::Edit]] icon in the banner because they cannot be edited without making some changes to the core code. You can enable editing of pages in the [[Example::]], [[Help::]], [[Special::]], [[Template::]], or [[Utility::]] namespaces by following these steps:
+# [[Help::Backup|Back up]] your wiki.<br><br>
+# Open the wiki in a text editor.<br><br>
+# Find this section:{{{
+var reserved_namespaces = ["Example", "Help", "Include", "Javascript", "Lock", "Locked", "Special", "Tagged", "Tags", "Template", "Unlock", "Unlocked", "Untagged", "Utility", "WoaS"];
+}}}
+# Remove the namespace(s) you'd like to be able to edit from the list, complete with the quotes, comma, and space following each one ({{{"Example", }}} or {{{"Help", }}} or {{{"Special", }}} or {{{"Template", }}} or {{{"Utility", }}}). Please choose *only* from among these namespaces, and do *not* remove any of the others or you will corrupt your wiki!<br><br>
+# Save the file.
+Now when you open the wiki in your browser, you will see the [[Include::Template::Icon::Edit]] icon in the banner of the pages in the namespace(s) you've enabled. These pages can now be edited from within the wiki. Note that some of the text and links on some of your pages will be red. This is normal while running the wiki in this mode, and is only temporary.
+
+To disable editing of system pages once you're finished editing them, follow these steps:
+# Open the wiki in a text editor.<br><br>
+# Find this section:{{{
+var reserved_namespaces
+}}}
+# Insert the namespaces you removed above back into the list, complete with the quotes, comma, and space following each one ({{{"Example", }}} or {{{"Help", }}} or {{{"Special", }}} or {{{"Template", }}} or {{{"Utility", }}}) so that the section looks like this again:{{{
+var reserved_namespaces = ["Example", "Help", "Include", "Javascript", "Lock", "Locked", "Special", "Tagged", "Tags", "Template", "Unlock", "Unlocked", "Untagged", "Utility", "WoaS"];
+}}}
+# Save the file.
+Now when you open the wiki in your browser, the namespaces you had temporarily enabled should no longer have the [[Include::Template::Icon::Edit]] icon in the banner.
 
 [[Tag::Help]]
 
@@ -4130,8 +4143,8 @@ If all went well, the number it displays should be *0* and you've successfully r
 --DFQRCTsKlU
 woas.page.title: Sandbox
 woas.page.attributes: 0
-woas.page.last_modified: 1267388376
-woas.page.length: 192
+woas.page.last_modified: 1267461328
+woas.page.length: 3496
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -4141,6 +4154,79 @@ woas.page.boundary: DFQRCTsKlU
 This page is for trying out new things without having to create a new page.
 
 [[Include::Template::TODO|this|Delete this task from the Sandbox page to remove it from the ToDo list.]]
+
+== Alternative spoiler
+This alternative way of doing a spoiler is done in two parts - a link and a div or span container. The div or span container doesn't need to be near the link to work. This method accepts wiki and HTML [[Help::Text formatting|text formatting]], but does not accept wiki headers. To insert headers in the text, use HTML header tags.
+
+Use this code:{{{
+<a href="javascript:$.toggle('bluh');">click me</a>
+<div id="bluh" style="display: inline; visibility: hidden;">bluh</div>
+}}}Tp create this:
+
+<a href="javascript:$.toggle('bluh');">click me</a>
+<div id="bluh" style="display: inline; visibility: hidden;">bluh</div>
+Use this code:{{{
+<a href="javascript:$.toggle('bleah');">click me</a> <span id="bleah" style="display: inline; visibility: hidden;">bleah</span>
+}}}Tp create this:
+
+<a href="javascript:$.toggle('bleah');">click me</a> <span id="bleah" style="display: inline; visibility: hidden;">bleah</span>
+
+== Change text temporarily
+<script type="text/javascript">
+function changeText(){
+   document.getElementById('boldStuff').innerHTML = 'Fred Flinstone';
+}
+</script>
+<p>Welcome to the site, <b id='boldStuff'>dude</b> </p> 
+<input type='button' onclick='changeText()' value='Change Text'/>
+
+== Change text based on user input
+<script type="text/javascript">
+function changeText2(){
+   var userInput = document.getElementById('userInput').value;
+   document.getElementById('boldStuff2').innerHTML = userInput;
+}
+</script>
+<p>Welcome to the site <b id='boldStuff2'>dude</b></p> 
+<input type='text' id='userInput' value='Enter Text Here' />
+<input type='button' onclick='changeText2()' value='Change Text'/>
+
+== Change HTML
+<script type="text/javascript">
+function changeText3(){
+   var oldHTML = document.getElementById('para').innerHTML;
+   var newHTML = "<span style='color:#FF00FF'>" + oldHTML + "</span>";
+   document.getElementById('para').innerHTML = newHTML;
+}
+</script>
+<p id='para'>Welcome to the site, <b id='boldStuff3'>dude</b> </p> 
+<input type='button' onclick='changeText3()' value='Change Text'/>
+
+== CHANGE HTML 2
+<script type="text/javascript">
+function showSpoiler(){
+var oneHTML = document.getElementById('spoiler').innerHTML;
+var twoHTML = "<span style='color:black; background-color:yellow;'>" + oneHTML + "</span>";
+document.getElementById('spoiler').innerHTML = twoHTML;
+}
+</script>
+<input type='button' onclick='showSpoiler()' value='Show spoiler'>
+<span id="spoiler" style="color:white; background-color:white;">Welcome to the site, dude</span> 
+
+== Hide and show alert by FBNil
+<a href="javascript:$.hide('Alerttest',true);">hide alert img</a>
+<a href="javascript:$.show('Alerttest',true);">show alert img</a>
+<a href="javascript:$.toggle('Alerttest');">toggle hide/show alert img</a>
+[[Include::Image::alert.png|id="Alerttest" style="display: inline; visibility: hidden;"]]
+
+== Hide and show edit icon in banner by FBNil
+<a href="javascript:$.hide('img_edit');">Hide edit icon</a>
+<a href="javascript:$.show('img_edit');">Show edit icon</a>
+<a href="javascript:$.toggle('img_edit');">Toggle hide/show edit icon</a>
+
+== Hide and show debugger
+Hmmm, it hides it just fine, but corrupts its display when showing it again (not reading the CSS rules?). Must play with this...
+<a href="javascript:$.toggle('debug_info');">Toggle hide/show debugger</a>
 
 --DFQRCTsKlU
 woas.page.title: Utility::Links for writers
@@ -5311,4 +5397,16 @@ The look of footnotes can be styled by changing the footnote entry in the [[Help
 
 [[Tag::Help|Syntax]]
 
+--DFQRCTsKlU
+woas.page.title: Image::alert.png
+woas.page.attributes: 12
+woas.page.last_modified: 1267460348
+woas.page.mime: image/png
+woas.page.length: 752
+woas.page.encoding: 8bit/base64
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAN1wAADdcBQiibeAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAGxSURBVDiNpVNBaxNREP5m3uzbJO5u3VhKskbdNlSKQlspCD14E/TgP4ggCIIH/4QX69FDEaQ9uqilx/bUQ6j/wVMptmfDphAoGHwdD9HV2iQqHXiHefPNzPe9j0eqivMEn6v7bwPeMbc2RV6Nw9AoCRlRbJgPDZHXd+5eS/XjfzEQ5hdpFHm3a7WSx7yeEQ3FDr3MiOYAPFqcmipdjSKE1tYJeDx0k6qeOR+M2f2UJN+001FV1c7srL5nPnoLhH9izzDIiO57xixdTxIDIgBAHMe4HMdWmJ+PlZARiRjzZqnZvEC+/4ultVhsNssAnmZEMyMHMNGzi0FwKanXob4PPTiA7u9DrUUpDDGXpp4n8vr3nsLGjKhqjDm8u7wcTATBoFqpACJArwcAcCcn2Gq3j7/2+w9aqu1TDETk5bVGw4uqVai1UN+HrKxAVleLnMtl3FpYqIjI2k9b+cf2GwAe3pyf99X3B/SthdvZgdveLnK1Fo3paYRhWCOiJ4WEDWt3q5OTd66kKQ31uhA8KB/lOT7v7fWcc4kAADFvdfP8SzfPx/afenBjus6545F/4V/jO5CJmhHgOc11AAAAAElFTkSuQmCC
 --DFQRCTsKlU
