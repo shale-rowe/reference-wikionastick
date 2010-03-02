@@ -49,8 +49,7 @@ woas["special_orphaned_pages"] = function() {
 		return this._join_list(pg); // TODO - Delete repeated data
 }
 
-woas["special_backlinks"] = function()
-{
+woas["special_backlinks"] = function() {
 	var pg = [];
 	var tmp;
 	var reg = new RegExp("\\[\\["+RegExp.escape(current)+"(\\||\\]\\])", "gi");
@@ -71,7 +70,7 @@ woas["special_backlinks"] = function()
 
 //var hl_reg;
 
-// Returns a index of search pages (by miz & legolas558)
+// Returns a index of searched pages (by miz & legolas558)
 woas["special_search"] = function( str ) {
 	this.progress_init("Searching");
 	var pg_body = [];
@@ -83,7 +82,7 @@ woas["special_search"] = function( str ) {
 	var count = 0;
 	// matches the search string and nearby text
 	var reg = new RegExp( ".{0,"+nearby_chars+"}" + RegExp.escape(this.trim(str)).
-					replace(/\s+/g, ".*?") + ".{0,"+nearby_chars+"}", "gi" );
+					replace(/\s+/g, "(.|\n)*?") + ".{0,"+nearby_chars+"}", "gi" );
 	_hl_reg = new RegExp("("+RegExp.escape(str)+")", "gi");
 /*	hl_reg = new RegExp( ".*?" + RegExp.escape(str).
 					replace(/^\s+/, "").
@@ -101,7 +100,7 @@ woas["special_search"] = function( str ) {
 		if (tmp==null)
 			continue;
 //		log("Searching into "+page_titles[i]);	// log:0
-		
+	
 		var added = false;
 		//look for str in title
 		if(page_titles[i].match(reg)) {
