@@ -186,6 +186,9 @@ woas["shortcuts_js"] = ["cmd_new_page", "cmd_duplicate_page", "special_all_pages
 					"special_dead_pages", "cmd_erase_wiki", "cmd_edit_css", "cmd_main_page",
 					"cmd_edit_bootscript", "cmd_edit_aliases", "cmd_go_to", "cmd_delete",
 					"special_recent_changes"];
+					
+woas["unexportable_pages"] = ["New Page", "Duplicate Page", "Backlinks", "Erase Wiki", "Edit CSS",
+								"Edit Bootscript", "Go to", "Delete Page", "Search"];
 
 // return raw javascript tag to be included in XHTML page
 woas["raw_js"] = function(code) {
