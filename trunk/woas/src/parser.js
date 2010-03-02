@@ -72,18 +72,19 @@ woas.parser["parse_lists"] = function(str, type, $2) {
 		return suoro + woas.parser.sublist(stk, 1, suoro, euoro) + euoro;
 	}
 
-var reReapTables = /^\{\|.*((?:\n\|.*)*)$/gm;	
+var reReapTables = /^\{\|.*((?:\n\|.*)*)$/gm;
+var reReapTableRows = /\n\|([+ -])(.*)/g;
 woas.parser["parse_tables"] =  function (str, p1) {
         var caption = false;
         var stk = [];
-        p1.replace( /\n\|([+ -])(.*)/g, function(str, pp1, pp2) {
+        p1.replace(reReapTableRows, function(str, pp1, pp2) {
                 if (pp1 == '-')
                     return;
                 if (pp1 == '+') {
                     caption = caption || pp2;
                     return;
                 }
-                stk.push('<td>' + pp2.split(' ||').join('</td><td>') + '</td>');
+                stk.push('<td>' + pp2.split('||').join('</td><td>') + '</td>');
             } 
         );
         return  '<table class="text_area">' +
