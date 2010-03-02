@@ -1,10 +1,10 @@
 wsif.version: 1.1.0
 woas.version: 0.10.6
-woas.pages: 53
+woas.pages: 51
 
 woas.page.title: ::Menu
 woas.page.attributes: 0
-woas.page.length: 2075
+woas.page.length: 1983
 woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -29,10 +29,8 @@ woas.page.boundary: DFQRCTsKlU
 ** [[Testcase::Creole 0.1|Creole 0.1]]
 ** [[Testcase::Di\u00e2critics|Di\u00e2critics]]
 ** [[Testcase::\u30e9\u30c9\u30af\u30ea\u30d5|\u30e9\u30c9\u30af\u30ea\u30d5]]
-** [[Testcase::Case-sensitiveness|Case-sens.]]
 ** [[Testcase::Apostrophe ' in title|Apostrophe]]
 ** [[Testcase::Headlines mix|Headlines mix]]
-** [[Testcase::Unusual lists|Unusual lists]]
 ** [[Testcase::Headers|Headers]]
 * [[Options]]
 [[Escaped > page]]
@@ -923,12 +921,43 @@ This page attempts to include an external example.js file
 --DFQRCTsKlU
 woas.page.title: Testcase::WoaS testcases
 woas.page.attributes: 0
-woas.page.length: 1403
+woas.page.length: 1900
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
+= XHTML inside tables
+
+{|
+| *FOO* || *BAR*
+|-
+| foo<sup>bar</sup> || foo
+|}
+
+Don't eat this line please.
+----
+== Header after horizontal ruler
+
+
+= Unusual lists
+
+# first level A
+# first level B
+## second level A
+## second level B
+## second level C
+# first level C
+## second level D
+### third level A
+### third level B
+
+= Case-sensitiveness
+
+These are testcases for case-sensitiveness. Wiki on a stick should be *case-sensitive*.
+
+Link to [[Testcase::page1]] is different from [[Testcase::Page1]]
+
 == Bold vs lists testcase
 
 *bold text*\\
@@ -1320,20 +1349,6 @@ $('woas_ep_xhtml').onblur = $('woas_ep_img').onblur = $('woas_ep_ext').onblur = 
 
 </script>
 --DFQRCTsKlU
-woas.page.title: Testcase::Case-sensitiveness
-woas.page.attributes: 0
-woas.page.length: 176
-woas.page.encoding: 8bit/plain
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-= Case-sensitiveness
-
-These are testcases for case-sensitiveness. Wiki on a stick should be *case-sensitive*.
-
-Link to [[Testcase::page1]] is different from [[Testcase::Page1]]
---DFQRCTsKlU
 woas.page.title: Testcase::page1
 woas.page.attributes: 0
 woas.page.length: 55
@@ -1622,27 +1637,6 @@ asdf
 
 === test, second
 asdf
---DFQRCTsKlU
-woas.page.title: Testcase::Unusual lists
-woas.page.attributes: 0
-woas.page.length: 173
-woas.page.encoding: 8bit/plain
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-= Unusual lists
-
-# first level A
-# first level B
-## second level A
-## second level B
-## second level C
-# first level C
-## second level D
-### third level A
-### third level B
-
 --DFQRCTsKlU
 woas.page.title: WoaS::Aliases
 woas.page.attributes: 0
