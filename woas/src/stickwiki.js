@@ -329,10 +329,14 @@ woas["get_page"] = function(pi) {
 }
 
 // get the text of the page, stripped of html tags
-woas["get_src_page"] = function(pi) {
+woas["get_src_page"] = function(pi, rawmode) {
 	var pg = this.get_page(pi);
 	if (pg===null) return null;
-	return _filter_wiki(pg);
+	if ((typeof rawmode == "undefined") || (rawmode == false))
+		pg = pg.replace(/\{\{\{((.|\n)*?)\}\}\}/g, "");
+	// remove wiki and html that should not be viewed when previewing wiki snippets
+	return pg.replace(/<script[^>]*>((.|\n)*?)<\/script>/gi, "").
+			replace(/\<\/?\w+[^>]+>/g, "");
 }
 
 woas["get_text"] = function (title) {
