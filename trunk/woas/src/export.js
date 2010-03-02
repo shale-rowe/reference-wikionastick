@@ -37,7 +37,9 @@ woas["_export_get_fname"] = function (title, create_mode) {
 		sp = true;
 	else if (this.is_reserved(title)) {
 		if (title.match(/^Special::/)) {
-			if (this.page_index(title)==-1)
+			if ((this.page_index(title)==-1) &&
+				// never save these pages
+				(this.unexportable_pages.indexOf(title.substr(9)) == -1))
 				sp = true;
 			else {
 				_title2fn[title] = "#";
@@ -219,7 +221,7 @@ woas["export_wiki"] = function () {
 		}
 	}
 
-	var l=page_titles.length, data = null, fname = "", done=0, wt=null;
+	var l=page_titles.length, data = null, fname = "", done=0, total=0,wt=null;
 	for (var pi=0;pi<l;pi++) {
 		// do skip physical special pages
 		if (page_titles[pi].match(/^Special::/)) continue;
@@ -236,6 +238,7 @@ woas["export_wiki"] = function () {
 //			log("skipping "+page_titles[pi]);
 			continue;
 		}
+		++total;
 		if (this.is__embedded(pi)) {
 			if (this.is__image(pi)) {
 				if (!this._b64_export(data, img_path+fname))
@@ -271,6 +274,7 @@ woas["export_wiki"] = function () {
 			}
 			// TODO: allow special pages to have extended attributes
 			data = this.export_parse(data, exp.js_mode);
+			++total;
 			if (this.export_one_page(data, title, _title2fn[title], exp))
 				++done;
 		}
@@ -282,6 +286,6 @@ woas["export_wiki"] = function () {
 		this.set_current(current, false);
 	}
 	this.progress_finish();
-	this.alert(this.i18n.EXPORT_OK.sprintf(done));
+	this.alert(this.i18n.EXPORT_OK.sprintf(done, total));
 	return true;
 }
