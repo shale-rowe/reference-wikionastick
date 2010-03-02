@@ -151,6 +151,13 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 	// this array will contain all the HTML snippets that will not be parsed by the wiki engine
 	var html_tags = [];
 	
+	// put away stuff contained in inline nowiki blocks {{{ }}}
+	text = text.replace(/\{\{\{(.*?)\}\}\}/g, function (str, $1) {
+		var r = "<!-- "+parse_marker+"::"+html_tags.length+" -->";
+		html_tags.push("<tt class=\"wiki_preformatted\">"+woas.xhtml_encode($1)+"</tt>");
+		return r;
+	});
+	
 	// transclusion code - originally provided by martinellison
 	if (!this.force_inline) {
 		var trans_level = 0;
@@ -222,13 +229,6 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 		if (trans_level == 16) // remove Include:: from the remaining inclusions
 			text = text.replace(/\[\[Include::([^\]\|]+)(\|[\]]+)?\]\]/g, "[<!-- -->[Include::[[$1]]$2]]");
 	}
-	
-	// put away stuff contained in inline nowiki blocks {{{ }}}
-	text = text.replace(/\{\{\{(.*?)\}\}\}/g, function (str, $1) {
-		var r = "<!-- "+parse_marker+"::"+html_tags.length+" -->";
-		html_tags.push("<tt class=\"wiki_preformatted\">"+woas.xhtml_encode($1)+"</tt>");
-		return r;
-	});
 	
 	// remove CR added by some browsers
 	//TODO: check if ie8 still adds these
