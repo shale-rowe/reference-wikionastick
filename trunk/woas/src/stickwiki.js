@@ -1480,23 +1480,29 @@ woas["save"] = function() {
 		this.menu_display("save", false);
 		return;
 	}
+	var raw_content = $("wiki_editor").value;
+	// remove CR added by some browsers
+	//TODO: check if ie8 still adds these
+	if (this.browser.ie || this.browser.opera)
+		raw_content = raw_content.replace("\r\n", "\n");
+
 	var can_be_empty = false;
 	switch(current) {
 		case "Special::Edit CSS":
-			this.setCSS($("wiki_editor").value);
+			this.setCSS(raw_content);
 			back_to = null;
 			current = "Special::Advanced";
 			$("wiki_page_title").disabled = "";
 			break;
 		case "WoaS::Aliases":
-			this._load_aliases($("wiki_editor").value);
+			this._load_aliases(raw_content);
 			// fallback wanted
 		case "WoaS::Bootscript":
 			can_be_empty = true;
 			// fallback wanted
 		default:
 			// check if text is empty
-			if (!can_be_empty && ($("wiki_editor").value == "")) {
+			if (!can_be_empty && (raw_content == "")) {
 				if (confirm(this.i18n.CONFIRM_DELETE.sprintf(current))) {
 					var deleted = current;
 					this.delete_page(current);
@@ -1506,7 +1512,7 @@ woas["save"] = function() {
 				return;
 			} else {
 				// here the page gets actually saved
-				this.set_text($("wiki_editor").value);
+				this.set_text(raw_content);
 				new_title = woas.trim($("wiki_page_title").value);
 				// disallow empty titles
 				if (!new_title.length) {
