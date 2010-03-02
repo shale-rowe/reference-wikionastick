@@ -26,15 +26,13 @@ woas["special_orphaned_pages"] = function() {
 			}
 		} else {
 		// search for pages that link to it
-			var tmp;
+			var re = new RegExp("\\[\\[" + RegExp.escape(page_titles[j]) + "(\\]\\]|\\|)", "i");
 			for(var i=0,l=page_titles.length; i<l; i++) {
 				if ((i==j) || this.is_reserved(page_titles[i]))
 					continue;
-				tmp = this.get_src_page(i);
+				var tmp = this.get_src_page(i);
 				if (tmp==null)
 					continue;
-				var re = new RegExp("\\[\\[" + RegExp.escape(page_titles[j]) + "(\\]\\]|\\|)", "i");
-//			log("matching "+re+" into "+page_titles[i]);	// log:0
 				if (tmp.search(re)!=-1) {
 					found = true;
 					break;
