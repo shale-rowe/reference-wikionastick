@@ -96,7 +96,7 @@ woas["special_search"] = function( str ) {
 			continue;
 
 		// this could be modified for wiki searching issues
-		tmp = this.get_src_page(i);
+		tmp = this.get_src_page(i, true);
 		if (tmp==null)
 			continue;
 //		log("Searching into "+page_titles[i]);	// log:0

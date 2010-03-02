@@ -92,13 +92,6 @@ woas.parser["parse_tables"] =  function (str, p1) {
                 '</table>' 
     }
 
-// remove wiki and html that should not be viewed when previewing wiki snippets
-function _filter_wiki(s) {
-	return s.replace(/\{\{\{((.|\n)*?)\}\}\}/g, "").
-		replace(/<script[^>]*>((.|\n)*?)<\/script>/gi, "").
-		replace(/\<\/?\w+[^>]+>/g, "");
-}
-
 var	parse_marker = "#"+_random_string(8);
 
 // extract the wiki tags from a wiki URL
