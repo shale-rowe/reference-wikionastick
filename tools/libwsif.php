@@ -89,7 +89,7 @@ class WSIF {
 					$p = false;
 					$fail = true;
 				} else { // get number of expected pages
-					if (preg_match("/^woas\\.pages:\\s+(\\d+)$/m", substr(ct,0,p), $this->_expected_pages))
+					if (preg_match("/^woas\\.pages:\\s+(\\d+)$/m", substr(ct,0,$p), $this->_expected_pages))
 						$this->_expected_pages = (int)$this->_expected_pages[1];
 				}
 			}
@@ -448,7 +448,7 @@ class WSIF {
 			// update record
 			$record .= $this->_header($pfx."length", strlen($ct));
 			$record .= $this->_header($pfx."encoding", $encoding);
-			$record .= $this->_header($pfx+"disposition", $disposition);
+			$record .= $this->_header($pfx."disposition", $disposition);
 			// note: when disposition is inline, encoding cannot be 8bit/plain for embedded/encrypted files
 			if ($disposition == "inline") {
 				// output the original length header (if available)
@@ -458,7 +458,7 @@ class WSIF {
 				$boundary = $this->_generate_random_boundary($boundary, $ct);
 				$record .= $this->_header($pfx."boundary", $boundary);
 				// add the inline content
-				$record += $this->_inline($boundary, $ct); unset($ct);
+				$record .= $this->_inline($boundary, $ct); unset($ct);
 			} else {
 				// create the blob filename
 				$blob_fn = "blob" . (++$blob_counter).$this->_file_ext($page->title);
