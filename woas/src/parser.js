@@ -146,7 +146,7 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 	var html_tags = [];
 	
 	// put away stuff contained in inline nowiki blocks {{{ }}}
-	text = text.replace(/\{\{\{(.*?)\}\}\}/g, function (str, $1) {
+	text = text.replace(/\{\{\{([\s\S]*?)\}\}\}/g, function (str, $1) {
 		var r = "<!-- "+parse_marker+"::"+html_tags.length+" -->";
 		html_tags.push("<tt class=\"wiki_preformatted\">"+woas.xhtml_encode($1)+"</tt>");
 		return r;
@@ -210,7 +210,7 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 				
 				// this block is duplicated, and it's OK
 				// put away stuff contained in inline nowiki blocks {{{ }}}
-				text = text.replace(/\{\{\{(.*?)\}\}\}/g, function (str, $1) {
+				text = text.replace(/\{\{\{([\s\S]*?)\}\}\}/g, function (str, $1) {
 					var r = "<!-- "+parse_marker+"::"+html_tags.length+" -->";
 					html_tags.push("<tt class=\"wiki_preformatted\">"+woas.xhtml_encode($1)+"</tt>");
 					return r;
