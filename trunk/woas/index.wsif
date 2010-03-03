@@ -1,10 +1,11 @@
 wsif.version: 1.1.0
 woas.version: 0.10.6
-woas.pages: 51
+woas.pages: 50
 
 woas.page.title: ::Menu
 woas.page.attributes: 0
-woas.page.length: 1983
+woas.page.last_modified: 1267609800
+woas.page.length: 1960
 woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -15,6 +16,7 @@ woas.page.boundary: DFQRCTsKlU
 * [[Syntax]]
 ** [[Deprecated syntax|Deprecated]]
 * [[Browsers support]]
+* [[Options]]
 * [[Feature::]]
 ** [[Feature::Summary|Summary]]
 ** [[Feature::Bootscript|Bootscript]]
@@ -22,8 +24,8 @@ woas.page.boundary: DFQRCTsKlU
 ** [[Feature::External javascript|External javascript]]
 ** [[Image::alert.png|Embedded image]]
 ** [[File::life snippet.c|Embedded file]]
-** [[Embedded SVG]]
-** [[Features::Oddmuse integration|Oddmuse integration]]
+** [[Feature::Embedded SVG|Embedded SVG]]
+** [[Feature::Macros|Macros]]
 * [[Testcase::]]
 ** [[Testcase::WoaS testcases|WoaS testcases]]
 ** [[Testcase::Creole 0.1|Creole 0.1]]
@@ -32,8 +34,7 @@ woas.page.boundary: DFQRCTsKlU
 ** [[Testcase::Apostrophe ' in title|Apostrophe]]
 ** [[Testcase::Headlines mix|Headlines mix]]
 ** [[Testcase::Headers|Headers]]
-* [[Options]]
-[[Escaped > page]]
+
 [[Google sitesearch]]
 
 * [[Special::]]
@@ -1405,7 +1406,7 @@ We can also have them in a huge sequence: \u00e4\u00f6\u00fc\u00df\u00e6\u00e4\u
 
 [[Tags::dummy]]
 --DFQRCTsKlU
-woas.page.title: Embedded SVG
+woas.page.title: Feature::Embedded SVG
 woas.page.attributes: 0
 woas.page.length: 585
 woas.page.encoding: 8bit/plain
@@ -1546,20 +1547,6 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 P1QMJ5+Uwl26ChUIkLZ+5mLi/lNPw8HCcMQBWQSNtPMRlRaXz9LUTT+wr1i2huVl
 --DFQRCTsKlU
-woas.page.title: Escaped > page
-woas.page.attributes: 0
-woas.page.length: 152
-woas.page.encoding: 8bit/plain
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-= Escaped > page
-
-This page should be exported correctly even if it contains a ">" sign in the title.
-
-Other commonly escaped characters are % < > | : #
---DFQRCTsKlU
 woas.page.title: Google sitesearch
 woas.page.attributes: 0
 woas.page.length: 850
@@ -1583,32 +1570,6 @@ woas.page.boundary: DFQRCTsKlU
 <input type=hidden name=domains value="stickwiki.sourceforge.net"><br><input type="radio" name="sitesearch" value=""> Google search <input type="radio" name=sitesearch value="stickwiki.sourceforge.net" checked="checked"> Search WoaS official site</td></tr></TABLE>
 
 </FORM>
---DFQRCTsKlU
-woas.page.title: Features::Oddmuse integration
-woas.page.attributes: 0
-woas.page.length: 470
-woas.page.encoding: 8bit/plain
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-= Oddmuse integration
-
-You can easily integrate WoaS with [[http://www.oddmuse.org/|Oddmuse]] using [[http://www.jquery.com/|jQuery]].
-
-== Posting
-The URL to post is in the form:
-
-{{{http://example.com/cgi-bin/wiki?text=posted%20text;title=HomePage}}}
-
-== Reading
-The URL to retrieve the wiki source is:
-
-{{{http://example.com/cgi-bin/wiki/raw/HomePage}}}
-
-== Overriding
-
-It is theorically possible to use Javascript:: namespace pages to automatize pages retrieval/save.
 --DFQRCTsKlU
 woas.page.title: Testcase::Headlines mix
 woas.page.attributes: 0
@@ -1872,4 +1833,44 @@ woas.page.boundary: DFQRCTsKlU
 === of
 ==== of
 ===== of
+--DFQRCTsKlU
+woas.page.title: Feature::Macros
+woas.page.attributes: 0
+woas.page.last_modified: 1267609992
+woas.page.length: 595
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Macros
+
+Wiki on a Stick (since version 0.10.7) supports wiki macros (a.k.a. /plugins/).
+
+== Definition
+
+A macro block is defined as follows:
+
+{{{<<< ... the macro content here ... >>>}}}
+
+= Macros
+
+Wiki on a Stick (since version 0.10.7) supports wiki macros (a.k.a. /plugins/).
+
+== Definition
+
+A macro block is defined as follows:
+
+{{{<<< ... the macro content here ... >>>}}}
+
+However the above macro example is not parsed in any particular way by WoaS. If you want to run a plugged-in parser on the macro content you should use this syntax instead:
+
+{{{<<<macroname:
+24
+56
+89
+28
+19
+33
+>>>}}}
 --DFQRCTsKlU
