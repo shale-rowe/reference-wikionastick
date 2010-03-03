@@ -28,6 +28,16 @@ define('_WOAS_ENCRYPTED', 2);
 define('_WOAS_EMB_FILE', 4);
 define('_WOAS_EMB_IMAGE', 8);
 
+define('_LIBWSIF_UNICODE_REGEX', '[\xC2-\xDF][\x80-\xBF]'.             # non-overlong 2-byte
+						// [\x09\x0A\x0D\x20-\x7E]              # ASCII
+						'|\xE0[\xA0-\xBF][\x80-\xBF]'.        # excluding overlongs
+						'|[\xE1-\xEC\xEE\xEF][\x80-\xBF]{2}'.  # straight 3-byte
+						'|\xED[\x80-\x9F][\x80-\xBF]'.        # excluding surrogates
+						'|\xF0[\x90-\xBF][\x80-\xBF]{2}'.     # planes 1-3
+						'|[\xF1-\xF3][\x80-\xBF]{3}'.          # planes 4-15
+						'|\xF4[\x80-\x8F][\x80-\xBF]{2}'     # plane 16
+						);
+
 // the default hook used after a page has been loaded from WSIF source
 // should return a positive integer if page was successfully created
 // -1 to report failure
@@ -516,26 +526,59 @@ class WSIF {
 	// returns true if text needs ECMA encoding
 	// checks if there are UTF-8 characters
 	function _needs_ecma_encoding(&$s) {
-		return preg_match("/[^\\x00-\\x7f]/", $s);
+		// following regex by rabby - http://mobile-website.mobi/php-utf8-vs-iso-8859-1-59
+		if (preg_match('%'._LIBWSIF_UNICODE_REGEX.'%xs', $s))
+			return true;
+		return false;
 	}
 	
 	// perform ECMAScript encoding only on some UTF-8 sequences
 	function ecma_encode($s) {
 		// fix the >= 128 ascii chars (to prevent UTF-8 characters corruption)
 		$s = str_replace('\\', '\\\\', $s);
-		return preg_replace_callback("/[^\\x00-\\x7f]+/", array(&$this, _ecma_encode_cb), $s);
+		return preg_replace_callback('%('._LIBWSIF_UNICODE_REGEX.')+%xs', array(&$this, '_ecma_encode_cb'), $s);
 	}
 	
-	function _ecma_encode_cb($s) {
-		$r = "";
-		$s = $s[0];
-		$l=strlen($s);
-		for ($i=0;$i<$l;++$i) {
-			$a = dechex(ord($s[$i]));
-			$r .= "\\u".substr("0000", strlen($a)).$a;
-		}
-		return $r;
-	}
+	function _ecma_encode_cb( $str ) {
+		$str = $str[0];
+        $r = "";
+        // following code adapted from spam@or-k.de's example
+        $values = array();
+        $lookingFor = 1;
+       
+		$l = strlen($str);
+        for ($i = 0; $i < $l; $i++ ) {
+            $thisValue = ord( $str[ $i ] );
+        if ( $thisValue < ord('A') ) {
+            // exclude 0-9
+            if ($thisValue >= ord('0') && $thisValue <= ord('9')) {
+                 // number
+                 $r .= chr($thisValue);
+            }
+            else {
+//                 $r .= '%'.dechex($thisValue);
+				trigger_error("Unhandled unicode sequence");
+            }
+        } else {
+              if ( $thisValue < 128)
+				$r .= $str[ $i ];
+              else {
+                    if ( count( $values ) == 0 ) $lookingFor = ( $thisValue < 224 ) ? 2 : 3;               
+                    $values[] = $thisValue;               
+                    if ( count( $values ) == $lookingFor ) {
+                        $number = ( $lookingFor == 3 ) ?
+                            ( ( $values[0] % 16 ) * 4096 ) + ( ( $values[1] % 64 ) * 64 ) + ( $values[2] % 64 ):
+                            ( ( $values[0] % 32 ) * 64 ) + ( $values[1] % 64 );
+                $number = dechex($number);
+                $r .= (strlen($number)==3)?"\\u0".$number:"\\u".$number;
+                        $values = array();
+                        $lookingFor = 1;
+              } // if
+            } // if
+        }
+        } // for
+        return $r;
+    }
 	
 	function _inline($boundary, &$content) {
 		return "\n--".$boundary."\n".$content."\n--".$boundary."\n";
