@@ -4143,8 +4143,8 @@ If all went well, the number it displays should be *0* and you've successfully r
 --DFQRCTsKlU
 woas.page.title: Sandbox
 woas.page.attributes: 0
-woas.page.last_modified: 1267461328
-woas.page.length: 3496
+woas.page.last_modified: 1267657835
+woas.page.length: 2660
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -4154,22 +4154,6 @@ woas.page.boundary: DFQRCTsKlU
 This page is for trying out new things without having to create a new page.
 
 [[Include::Template::TODO|this|Delete this task from the Sandbox page to remove it from the ToDo list.]]
-
-== Alternative spoiler
-This alternative way of doing a spoiler is done in two parts - a link and a div or span container. The div or span container doesn't need to be near the link to work. This method accepts wiki and HTML [[Help::Text formatting|text formatting]], but does not accept wiki headers. To insert headers in the text, use HTML header tags.
-
-Use this code:{{{
-<a href="javascript:$.toggle('bluh');">click me</a>
-<div id="bluh" style="display: inline; visibility: hidden;">bluh</div>
-}}}Tp create this:
-
-<a href="javascript:$.toggle('bluh');">click me</a>
-<div id="bluh" style="display: inline; visibility: hidden;">bluh</div>
-Use this code:{{{
-<a href="javascript:$.toggle('bleah');">click me</a> <span id="bleah" style="display: inline; visibility: hidden;">bleah</span>
-}}}Tp create this:
-
-<a href="javascript:$.toggle('bleah');">click me</a> <span id="bleah" style="display: inline; visibility: hidden;">bleah</span>
 
 == Change text temporarily
 <script type="text/javascript">
@@ -4225,7 +4209,7 @@ document.getElementById('spoiler').innerHTML = twoHTML;
 <a href="javascript:$.toggle('img_edit');">Toggle hide/show edit icon</a>
 
 == Hide and show debugger
-Hmmm, it hides it just fine, but corrupts its display when showing it again (not reading the CSS rules?). Must play with this...
+[[Include::Image::alert.png]] /BUGGY! It hides the debugger just fine, but corrupts its display when showing it again (not reading the CSS rules?) and writes to the actual div that holds the debugger, changing it permanently./
 <a href="javascript:$.toggle('debug_info');">Toggle hide/show debugger</a>
 
 --DFQRCTsKlU
@@ -5377,21 +5361,21 @@ $("daily_diary").innerHTML = "Click here to create or edit a diary entry for tod
 --DFQRCTsKlU
 woas.page.title: Help::Footnotes
 woas.page.attributes: 0
-woas.page.last_modified: 1267201510
-woas.page.length: 1556
+woas.page.last_modified: 1267657734
+woas.page.length: 1561
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Footnotes
-Footnotes<<<This is a footnote>>> are small, numbered links you can put next to any word on a page. They look like this<<<This is another footnote>>> and when you click on them, they take you to a container<<<This is yet another footnote. You're reading it in a footnote container.>>> at the bottom of the page that displays the content of the footnote links. Clicking on a footnote link in the container takes you back up to where its link is on the page.
+Footnotes(((This is a footnote))) are small, numbered links you can put next to any word on a page. They look like this(((This is another footnote))) and when you click on them, they take you to a container(((This is yet another footnote. You're reading it in a footnote container.))) at the bottom of the page that displays the content of the footnote links. Clicking on a footnote link in the container takes you back up to where its link is on the page.
 
-Footnote links can be added to any word in your text by inserting a special tag made of text surrounded by triple angled brackets ({{{<<<}}} and {{{>>>}}}) to the right of a word, like this{{{<<<This is a footnote.>>>}}}. When you save the page, the wiki will automatically turn that tag into a numbered link next to the word. You can add as many footnotes to a page as you like, and the wiki will number them sequentially for you automatically.
+Footnote links can be added to any word in your text by inserting a special tag made of text surrounded by triple parentheses to the right of a word, like this<tt>(<!-- -->(<!-- -->(This is a footnote.)<!-- -->)<!-- -->)</tt>. When you save the page, the wiki will automatically turn that tag into a numbered link next to the word. You can add as many footnotes to a page as you like, and the wiki will number them sequentially for you automatically.
 
 Footnotes from [[Help::Transclusion|transcluded]] pages get added automatically and are numbered properly based on where the transcluded page is inserted in the page.
 
-Punctuation and some HTML syntax<<<This footnote uses HTML <b>bold</b>, <i>italic</i>, <u>underline</u>, and <strike>strike-through</strike> formatting.<br>A &lt;br&gt; tag was used to drop down one line to turn this into a multi-line footnote.<br><br>Two &lt;br&gt; tags were used to insert a blank line.>>> is accepted inside footnotes.
+Punctuation and some HTML syntax(((This footnote uses HTML <b>bold</b>, <i>italic</i>, <u>underline</u>, and <strike>strike-through</strike> formatting.<br>A &lt;br&gt; tag was used to drop down one line to turn this into a multi-line footnote.<br><br>Two &lt;br&gt; tags were used to insert a blank line.))) is accepted inside footnotes.
 
 The look of footnotes can be styled by changing the footnote entry in the [[Help::CSS|global CSS settings]].
 

@@ -482,12 +482,12 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 		});
 	}
 
-// Little Girl: Added Stanky and FBNil's footnote code below:
+// Little Girl: Added Stanky and FBNil's footnote code with a sligh modification below:
 // BEGIN FOOTNOTES
         try{
           woas["FOOTNOTES"] = [];
               var n = 0;
-          text= text.replace(/<<<((.|\n)*?)>>>/g, function(s,$1){
+          text= text.replace(/\(\(\(((.|\n)*?)\)\)\)/g, function(s,$1){
                 woas["FOOTNOTES"].push($1);
                 n =woas["FOOTNOTES"].length;
                 return '<a class="footnote" title="' + $1  + '" name="_notefoot'+n+'"href="#_footnote'+n+'">'+n+'</a>';
