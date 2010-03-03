@@ -506,6 +506,38 @@ class WSIF {
 		} // we do not increment page counter when saving index.wsif
 		return $done;
 	}
+	
+	function _header($header_name, $value) {
+		return $header_name.": ".$value."\n";
+	}
+
+	// returns true if text needs ECMA encoding
+	// checks if there are UTF-8 characters
+	function _needs_ecma_encoding(&$s) {
+		return preg_match("/[\\X]/u", $s);
+	}
+	
+	// perform ECMAScript encoding only on some UTF-8 sequences
+	function _ecma_encode($s) {
+		// fix the >= 128 ascii chars (to prevent UTF-8 characters corruption)
+		$s = preg_replace_callback("/[^\\X]+/u", array(&$this, _ecma_encode_cb), $s);
+		return str_replace('\\', '\\\\', $s);
+	}
+	
+	function _ecma_encode_cb($s) {
+		$r = "";
+		$s = $s[0];
+		$l=strlen($s);
+		for ($i=0;$i<$l;++$i) {
+			$a = dechex(chr(substr($s, $i,1)));
+			$r .= "\\u".substr("0000", strlen($a)).$a;
+		}
+		return $s;
+	}
+	
+	function _inline($boundary, &$content) {
+		return "\n--".$boundary."\n".$content."\n--".$boundary."\n";
+	}
 
 	function _file_ext($fn) {
 		if (preg_match("/\\.(\\w+)$/", $fn, $m)) {
