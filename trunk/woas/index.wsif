@@ -1836,8 +1836,8 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Feature::Macros
 woas.page.attributes: 0
-woas.page.last_modified: 1267609992
-woas.page.length: 595
+woas.page.last_modified: 1267611237
+woas.page.length: 1187
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1852,10 +1852,6 @@ Wiki on a Stick (since version 0.10.7) supports wiki macros (a.k.a. /plugins/).
 A macro block is defined as follows:
 
 {{{<<< ... the macro content here ... >>>}}}
-
-= Macros
-
-Wiki on a Stick (since version 0.10.7) supports wiki macros (a.k.a. /plugins/).
 
 == Definition
 
@@ -1873,4 +1869,33 @@ However the above macro example is not parsed in any particular way by WoaS. If 
 19
 33
 >>>}}}
+
+= Real example
+
+For example, let's define the sum macro:
+
+{{{<<<%my_sum_plugin:
+
+  var elements = macro.text.split(/[\s\n]+/), total = 0;
+  for (var i=0,l=elements.length;i<l;++i) {
+    total += elements[i].parseInt();
+  }
+  macro.text = total;
+>>>}}}
+
+Note that macro definition happens with the special '%' sign before the macro name. Macros cannot be overriden with the macro definition.
+Such defined macro uses the macro object which has two standard properties:
+* *reprocess* - set to true when text can be re-processed by WoaS parser (default false)
+* *text* - the content of macro block after the double colon
+
+Now we call the macro:
+
+<<<my_sum_plugin:
+24
+56
+89
+28
+19
+33
+>>>
 --DFQRCTsKlU
