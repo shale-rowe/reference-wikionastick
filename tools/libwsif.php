@@ -14,6 +14,8 @@ define('_LIBWSIF_RANDOM_CHARSET', "ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrst
 
 define('WSIF_VERSION', '1.1.0');
 
+define('_WSIF_DEFAULT_INDEX', 'index.wsif');
+
 define('_WSIF_NO_ERROR', "No error");
 define('_WSIF_NS_VER', "WSIF version %s not supported!");
 define('_WSIF_NO_VER', "Could not read WSIF version");
@@ -446,7 +448,7 @@ class WSIF {
 			// update record
 			$record .= $this->_header($pfx."length", strlen($ct));
 			$record .= $this->_header($pfx."encoding", $encoding);
-			$record .= this.wsif.header(pfx+"disposition", disposition);
+			$record .= $this->_header($pfx+"disposition", $disposition);
 			// note: when disposition is inline, encoding cannot be 8bit/plain for embedded/encrypted files
 			if ($disposition == "inline") {
 				// output the original length header (if available)
@@ -565,7 +567,7 @@ class WSIF {
 		return $s;
 	}
 	
-	function save_file($path, &$content) {
+	function save_file($path, $content) {
 		return file_put_contents($path, $content);
 	}
 

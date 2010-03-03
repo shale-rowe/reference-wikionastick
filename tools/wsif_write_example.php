@@ -17,7 +17,6 @@ if ($argc<2) {
 	exit(-1);
 }
 
-global $src, $title;
 $title = $src = $argv[1];
 
 $src = file_get_contents($src);
@@ -27,15 +26,18 @@ if ($src === FALSE) {
 
 if ($argc == 2)
 	$title = $argv[2];
+
+global $data;
+$NP = new WoaS_Page();
+$NP->title = $title;
+$NP->content = $src;
+$data = array($NP);
 	
 function example_read_cb() {
-	global $src, $title;
-	if (!isset($src))
+	global $data;
+	if (!count($data))
 		return false;
-	$NP = new WoaS_Page();
-	$NP->title = $title;
-	$NP->content = $src;
-	unset($src);
+	$NP = array_pop($data);
 	return $NP;
 }
 
