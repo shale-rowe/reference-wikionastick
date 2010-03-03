@@ -223,6 +223,9 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 			text = text.replace(/\[\[Include::([^\]\|]+)(\|[\]]+)?\]\]/g, "[<!-- -->[Include::[[$1]]$2]]");
 	}
 	
+	// take a backup copy of the macros, so that no new macros are defined after page processing
+	var backup_macros = $.clone(woas.macro_parser.macros);
+	
 	// put away stuff contained in user-defined macro multi-line blocks <<< >>> (previously: "»".charCodeAt(0)); 171 187 \xAB \xBB
 	text = text.replace(/<<<([\s\S]*?)>>>/g, function (str, $1) {
 		// ask macro_parser to prepare this block
@@ -511,6 +514,8 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 	// reset the flaggers
 	if (this.force_inline)
 		this.force_inline = false;
+	// restore macros array
+	woas.macro_parser.macros = backup_macros;
 		
 	if (text.substring(0,5)!="</div")
 		return "<div class=\"level0\">" + text + "</div>";
