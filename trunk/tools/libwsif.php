@@ -386,7 +386,7 @@ class WSIF {
 		// the attributes prefix, we do not use the page index here for better versioning
 		$pfx = "woas.page.";
 		while (false !== ($page = $page_read_callback())) {
-			$record = $this->_header($pfx."title", $this->_ecma_encode($page->title)).
+			$record = $this->_header($pfx."title", $this->ecma_encode($page->title)).
 					$this->_header($pfx."attributes", $page->attrs);
 			// specify timestamp only if not magic
 			if ($page->last_modified != 0)
@@ -516,14 +516,14 @@ class WSIF {
 	// returns true if text needs ECMA encoding
 	// checks if there are UTF-8 characters
 	function _needs_ecma_encoding(&$s) {
-		return preg_match("/[\\X]/u", $s);
+		return preg_match("/[^\\x00-\\x7f]/", $s);
 	}
 	
 	// perform ECMAScript encoding only on some UTF-8 sequences
-	function _ecma_encode($s) {
+	function ecma_encode($s) {
 		// fix the >= 128 ascii chars (to prevent UTF-8 characters corruption)
-		$s = preg_replace_callback("/[^\\X]+/u", array(&$this, _ecma_encode_cb), $s);
-		return str_replace('\\', '\\\\', $s);
+		$s = str_replace('\\', '\\\\', $s);
+		return preg_replace_callback("/[^\\x00-\\x7f]+/", array(&$this, _ecma_encode_cb), $s);
 	}
 	
 	function _ecma_encode_cb($s) {
@@ -531,10 +531,10 @@ class WSIF {
 		$s = $s[0];
 		$l=strlen($s);
 		for ($i=0;$i<$l;++$i) {
-			$a = dechex(chr(substr($s, $i,1)));
+			$a = dechex(ord($s[$i]));
 			$r .= "\\u".substr("0000", strlen($a)).$a;
 		}
-		return $s;
+		return $r;
 	}
 	
 	function _inline($boundary, &$content) {
