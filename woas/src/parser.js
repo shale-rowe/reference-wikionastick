@@ -223,6 +223,18 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 			text = text.replace(/\[\[Include::([^\]\|]+)(\|[\]]+)?\]\]/g, "[<!-- -->[Include::[[$1]]$2]]");
 	}
 	
+	// put away stuff contained in user-defined macro multi-line blocks <<< >>> (previously: "»".charCodeAt(0)); 171 187 \xAB \xBB
+	text = text.replace(/<<<([\s\S]*?)>>>/g, function (str, $1) {
+		// ask macro_parser to prepare this block
+		var macro = woas.macro_parser($1);
+		// allow further parser processing
+		if (macro.reprocess)
+			return macro.text;
+		// otherwise store it for later
+		html_tags.push(macro.text);
+		return "<!-- "+parse_marker+"::"+(html_tags.length-1)+" -->";
+	});
+	
 	// reset the array of custom scripts
 	this.script_extension = [];
 	if (js_mode) {
