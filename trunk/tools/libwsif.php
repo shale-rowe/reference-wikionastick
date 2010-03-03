@@ -366,7 +366,7 @@ class WSIF {
 	// - wiki pages go inline (utf-8), no container encoding
 	// - embedded files/images go outside as blobs
 	// - encrypted pages go inline in base64
-	function _wsif_save($page_read_callback, $path, $single_wsif = true, $inline_wsif = true,
+	function Save($page_read_callback, $path, $single_wsif = true, $inline_wsif = true,
 						$author = '', $boundary = '') {
 		// the number of blobs which we have already created
 		$blob_counter = 0;
@@ -536,7 +536,6 @@ class WSIF {
 	function save_file($path, &$content) {
 		return file_put_contents($path, $content);
 	}
-
 
 } // class WSIF
 

@@ -1,8 +1,8 @@
 #!/usr/bin/php -q
 <?php
-## WSIF reader example
+## WSIF list content example
 ## @author legolas558
-## @version 1.0.0
+## @version 1.0.1
 ## @copyright GNU/GPL
 ## (c) 2010 Wiki on a Stick project
 ## @url http://stickwiki.sf.net/
