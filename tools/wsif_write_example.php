@@ -13,10 +13,11 @@
 require dirname(__FILE__).'/libwsif.php';
 
 if ($argc<2) {
-	fprintf(STDERR, "Usage:\n\t%s\t\input_file [\"Page title\"]\n", $argv[0]);
+	fprintf(STDERR, "Usage:\n\t%s\tinput_file [\"Page title\"]\n", $argv[0]);
 	exit(-1);
 }
 
+global $src, $title;
 $title = $src = $argv[1];
 
 $src = file_get_contents($src);
@@ -26,6 +27,17 @@ if ($src === FALSE) {
 
 if ($argc == 2)
 	$title = $argv[2];
+	
+function example_read_cb() {
+	global $src, $title;
+	if (!isset($src))
+		return false;
+	$NP = new WoaS_Page();
+	$NP->title = $title;
+	$NP->content = $src;
+	unset($src);
+	return $NP;
+}
 
 $WSIF = new WSIF();
 
