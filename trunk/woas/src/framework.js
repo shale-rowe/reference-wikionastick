@@ -98,6 +98,14 @@ $["toggle"] = function(id) {
 		$.show(id);
 }
 
+$["clone"] = function(obj) {
+	var nobj = {};
+	for (var i in obj) {
+		nobj[i] = obj[i];
+	}
+	return nobj;
+}
+
 // logging function has not to be in WoaS object
 var log;
 if (woas.debug) {

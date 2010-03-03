@@ -11,15 +11,19 @@ woas["macro_parser"] = function(text){
 		if (fn.charAt(0) == '%') {
 			fn = fn.substr(1);
 			// when macro is not defined, define it
-			this.macro_parser.register_macro(fn, eval("function "+fn+"(macro) {\n"+M[2]+"\n}\n"));
+			if (!this.macro_parser.create(fn, M[2]))
+				return macro;
 			// we totally remove the block
-			return "";
-			return "<!-- defined "+fn+" macro -->";
+			macro.reprocess = true;
+			macro.text = "";
+//			macro.text = "<!-- defined "+fn+" macro -->";
+			return macro;
 		}
 		switch(typeof(U[M[1]])){
 			case 'function':
 				macro.text = M[2];
 				U[fn](macro);
+			break;
 			case 'undefined':
 				log("Undefined macro "+fn);
 			break;
@@ -35,7 +39,10 @@ woas["macro_parser"]["macros"] = {};
 // each macro function must accept a macro object as parameter and modify
 // such object (it is always passed by reference)
 woas["macro_parser"]["register"] = function(fn_name, fn_object) {
-	woas.macro_parser.macros["fn_name"] = fn_object;
+	if (typeof woas.macro_parser.macros[fn_name] != "undefined")
+		return false;
+	woas.macro_parser.macros[fn_name] = fn_object;
+	return true;
 }
 
 /*
@@ -57,3 +64,13 @@ woas["macro_parser"]._default = function(text){
 	return "";
 }
 
+woas["macro_parser"].create = function(fn_name, fn_code) {
+	var obj = null;
+	try {
+		eval("obj = function "+fn_name+"(macro) {\n"+fn_code+"\n}");
+	}
+	catch (e) {
+		log("cannot define function "+fn_name+": "+e); //log:1
+	}
+	return this.register(fn_name, obj);
+}
