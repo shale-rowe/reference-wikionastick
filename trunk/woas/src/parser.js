@@ -215,7 +215,6 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 					html_tags.push("<tt class=\"wiki_preformatted\">"+woas.xhtml_encode($1)+"</tt>");
 					return r;
 				});
-				
 				return templtext;	
 			});
 			// keep transcluding when a transclusion was made and when transcluding depth is not excessive
@@ -223,13 +222,6 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 		if (trans_level == 16) // remove Include:: from the remaining inclusions
 			text = text.replace(/\[\[Include::([^\]\|]+)(\|[\]]+)?\]\]/g, "[<!-- -->[Include::[[$1]]$2]]");
 	}
-	
-	// put away raw text contained in multi-line nowiki blocks {{{ }}}
-	text = text.replace(/\{\{\{((.|\n)*?)\}\}\}/g, function (str, $1) {
-		var r = "<!-- "+parse_marker+"::"+html_tags.length+" -->";
-		html_tags.push("<pre class=\"wiki_preformatted\">"+woas.xhtml_encode($1)+"</pre>");
-		return r;
-	});
 	
 	// reset the array of custom scripts
 	this.script_extension = [];
@@ -412,7 +404,7 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 	
 	if (this.has_toc) {
 		// remove the trailing newline
-//		this.parser.toc = this.parser.toc.substr(0, this.parser.toc.length-2);
+//		this.toc = this.toc.substr(0, this.toc.length-2);
 		// replace the TOC placeholder with the real TOC
 		text = text.replace("<!-- "+parse_marker+":TOC -->",
 				"<div class=\"wiki_toc\"><p class=\"wiki_toc_title\">Table of Contents</p>" +
@@ -504,6 +496,7 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 			});
 		}
 	}
+	// reset the flaggers
 	if (this.force_inline)
 		this.force_inline = false;
 		

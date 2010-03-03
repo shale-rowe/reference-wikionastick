@@ -334,6 +334,8 @@ woas["get_src_page"] = function(pi, rawmode) {
 	if (pg===null) return null;
 	if ((typeof rawmode == "undefined") || (rawmode == false))
 		pg = pg.replace(/\{\{\{((.|\n)*?)\}\}\}/g, "");
+	else
+		pg = pg.replace(/(\{|\})(\1)(\1)/g, "$1<!-- -->$2<!-- -->$3");
 	// remove wiki and html that should not be viewed when previewing wiki snippets
 	return pg.replace(/<script[^>]*>((.|\n)*?)<\/script>/gi, "").
 			replace(/\<\/?\w+[^>]+>/g, "");
