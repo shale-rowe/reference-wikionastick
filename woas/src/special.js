@@ -126,6 +126,10 @@ woas["special_search"] = function( str ) {
 	return "Results for *" + woas.xhtml_encode(str) + "*\n" + title_result + "\n\n----\n" + this._simple_join_list(pg_body, false);
 }
 
+woas["_plugins_list"] = function() {
+	return "\n\n/No plugins installed/";
+}
+
 woas["special_tagged"] = function() {
 	var utags = [];
 	var tags_tree = {};
