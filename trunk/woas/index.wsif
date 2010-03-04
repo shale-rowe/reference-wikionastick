@@ -1,11 +1,11 @@
 wsif.version: 1.1.0
 woas.version: 0.10.7
-woas.pages: 50
+woas.pages: 51
 
 woas.page.title: ::Menu
 woas.page.attributes: 0
 woas.page.last_modified: 1267609800
-woas.page.length: 1960
+woas.page.length: 1961
 woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -71,6 +71,7 @@ function menu_key_hook(orig_e) {
 
 $('menu_string_to_search').onkeydown = menu_key_hook;
 </script>
+
 
 
 --DFQRCTsKlU
@@ -179,6 +180,7 @@ And, last but not least:
 --DFQRCTsKlU
 woas.page.title: Main Page
 woas.page.attributes: 0
+woas.page.last_modified: 1267719713
 woas.page.length: 1246
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1246,6 +1248,19 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 Ly8gUHV0IGhlcmUgeW91ciBib290IGphdmFzY3JpcHQ=
+--DFQRCTsKlU
+woas.page.title: WoaS::Plugins
+woas.page.attributes: 0
+woas.page.last_modified: 1267719650
+woas.page.length: 141
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Plugins
+This page contains options for the active WoaS plugins.
+In order to install a plugin, [[Special::ImportWSIF|import its WSIF file]].
 --DFQRCTsKlU
 woas.page.title: History
 woas.page.attributes: 0
