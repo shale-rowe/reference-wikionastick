@@ -31,7 +31,7 @@ woas['i18n'] = {
 	PWD_QUERY: "Please enter a password",
 	ERR_NO_PWD: "No password set for decryption of page \"%s\"\nPlease click the key icon and enter a password",
 	ACCESS_DENIED: "Access denied to page \"%s\"",
-	ERR_NS_RESERVED: "You are not allowed to create a page titled \"%s\" because namespace \"%s\" is reserved",
+	ERR_RESERVED_NS: "You are not allowed to create a page titled \"%s\" because namespace \"%s\" is reserved",
 	ERR_SEL_FILE: "A file must be selected",
 	ERR_PAGE_NS: "You cannot create a page as a namespace",
 	PAGE_NOT_EXISTS: "Page does not exist: ",
