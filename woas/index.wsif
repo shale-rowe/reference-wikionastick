@@ -180,7 +180,7 @@ And, last but not least:
 --DFQRCTsKlU
 woas.page.title: Main Page
 woas.page.attributes: 0
-woas.page.last_modified: 1267719713
+woas.page.last_modified: 1267720099
 woas.page.length: 1246
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1032,7 +1032,7 @@ _underline me 3_
 --DFQRCTsKlU
 woas.page.title: Feature::Summary
 woas.page.attributes: 0
-woas.page.length: 5182
+woas.page.length: 5198
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1074,10 +1074,11 @@ Some namespaces are reserved for current and future use:
 * [[Locked::]] for all locked (encrypted) pages and [[Unlocked::]] for plain pages
 * [[Lock::]] and [[Unlock::]] (used internally)
 * [[Special::]] for all the special pages
-* [[WoaS::]] (reserved for future use, will probably take the role of [[Special::]])
+* [[WoaS::]] for some WoaS-specific special pages
 * [[Image::]] for the embedded images
 * [[File::]] for the embedded files
 * [[Include::]] for transclusion
+* [[Javascript::]] for direct javascript execution
 
 == Tags
 
