@@ -395,8 +395,8 @@ Ly8gUHV0IGhlcmUgeW91ciBib290IGphdmFzY3JpcHQ=
 --DFQRCTsKlU
 woas.page.title: History
 woas.page.attributes: 0
-woas.page.last_modified: 1267460987
-woas.page.length: 42270
+woas.page.last_modified: 1267663197
+woas.page.length: 42314
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -488,6 +488,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the [[Help::Lists]] page.
 ** Updated the [[Help::Namespaces]] page.
 ** Updated the [[Help::Page scrolling]] page.
+** Updated the [[Help::Print a page]] page.
 ** Updated the [[Help::Publish wiki online]] page.
 ** Updated the [[Help::Requirements]] page.
 ** Updated the [[Help::Run wiki on a server]] page.
@@ -3531,15 +3532,15 @@ You can type *My favorite recipes!* into the {{{[[Recipes::Menu]]}}} page, and a
 --DFQRCTsKlU
 woas.page.title: Help::Print a page
 woas.page.attributes: 0
-woas.page.last_modified: 1267060730
-woas.page.length: 250
+woas.page.last_modified: 1267663161
+woas.page.length: 260
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Print a page
-# Click the [[Include::Template::Icon::Print]] icon in the banner. A new browser window will open with a printer-friendly version of the page.
+# Click the [[Include::Template::Icon::Print]] icon in the banner. A new browser window will open with a printer-friendly version of the main text area.
 # Use the browser's *print preview* and *print* functions to print the page.
 
 [[Tag::Help]]
@@ -5361,8 +5362,8 @@ $("daily_diary").innerHTML = "Click here to create or edit a diary entry for tod
 --DFQRCTsKlU
 woas.page.title: Help::Footnotes
 woas.page.attributes: 0
-woas.page.last_modified: 1267657734
-woas.page.length: 1561
+woas.page.last_modified: 1267658744
+woas.page.length: 1610
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -5371,7 +5372,7 @@ woas.page.boundary: DFQRCTsKlU
 = Footnotes
 Footnotes(((This is a footnote))) are small, numbered links you can put next to any word on a page. They look like this(((This is another footnote))) and when you click on them, they take you to a container(((This is yet another footnote. You're reading it in a footnote container.))) at the bottom of the page that displays the content of the footnote links. Clicking on a footnote link in the container takes you back up to where its link is on the page.
 
-Footnote links can be added to any word in your text by inserting a special tag made of text surrounded by triple parentheses to the right of a word, like this<tt>(<!-- -->(<!-- -->(This is a footnote.)<!-- -->)<!-- -->)</tt>. When you save the page, the wiki will automatically turn that tag into a numbered link next to the word. You can add as many footnotes to a page as you like, and the wiki will number them sequentially for you automatically.
+Footnote links can be added to any word in your text by inserting a special tag made of text surrounded by triple parentheses to the right of a word, like <span style="background-color:gainsboro;">this<tt>(<!-- -->(<!-- -->(This is a footnote.)<!-- -->)<!-- -->)</tt></span>. When you save the page, the wiki will automatically turn that tag into a numbered link next to the word. You can add as many footnotes to a page as you like, and the wiki will number them sequentially for you automatically.
 
 Footnotes from [[Help::Transclusion|transcluded]] pages get added automatically and are numbered properly based on where the transcluded page is inserted in the page.
 
