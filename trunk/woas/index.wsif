@@ -4,8 +4,7 @@ woas.pages: 51
 
 woas.page.title: ::Menu
 woas.page.attributes: 0
-woas.page.last_modified: 1267609800
-woas.page.length: 1961
+woas.page.length: 2007
 woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -17,6 +16,9 @@ woas.page.boundary: DFQRCTsKlU
 ** [[Deprecated syntax|Deprecated]]
 * [[Browsers support]]
 * [[Options]]
+* [[WoaS::Bootscript]]
+* [[WoaS::Plugins::]]
+
 * [[Feature::]]
 ** [[Feature::Summary|Summary]]
 ** [[Feature::Bootscript|Bootscript]]
@@ -180,7 +182,6 @@ And, last but not least:
 --DFQRCTsKlU
 woas.page.title: Main Page
 woas.page.attributes: 0
-woas.page.last_modified: 1267720099
 woas.page.length: 1246
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1252,7 +1253,6 @@ Ly8gUHV0IGhlcmUgeW91ciBib290IGphdmFzY3JpcHQ=
 --DFQRCTsKlU
 woas.page.title: WoaS::Plugins
 woas.page.attributes: 0
-woas.page.last_modified: 1267719650
 woas.page.length: 141
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1852,7 +1852,6 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Feature::Macros
 woas.page.attributes: 0
-woas.page.last_modified: 1267613812
 woas.page.length: 1493
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline

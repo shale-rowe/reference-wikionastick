@@ -227,17 +227,19 @@ woas["_simple_join_list"] = function(arr, sorted) {
 // with two trailing double colon
 woas["_get_namespace_pages"] = function (ns) {
 	var pg = [];
-	switch (ns) {
-		case "Locked::":
+	switch (ns.substr(0, ns.length-2)) {
+		case "Locked":
 			return "= Pages in "+ns+" namespace\n" + this.special_encrypted_pages(true);
-		case "Unlocked::":
+		case "Unlocked":
 			return "= Pages in "+ns+" namespace\n" + this.special_encrypted_pages(false);
-		case "Untagged::":
+		case "Untagged":
 			return "= Pages in "+ns+" namespace\n" + this.special_untagged(false);
-		case "Tagged::": // to be used in wiki source
-		case "Tags::": // is this deprecated?
+		case "Tagged": // to be used in wiki source
+		case "Tags": // is this deprecated?
 			return "= Pages in "+ns+" namespace\n" + this.special_tagged(false);
-		case "Image::":
+		case "WoaS::Plugins":
+			return this.parser.parse(this.get_text("WoaS::Plugins") + this._plugins_list());
+		case "Image":
 			var iHTML = "";
 			for(var i=0, l=page_titles.length;i<l;++i) {
 				if (page_titles[i].indexOf(ns)===0)
@@ -786,8 +788,8 @@ woas["set_current"] = function (cr, interactive) {
 						} else {
 							text = this.get_text(real_t);
 							// page is stored plaintext for WoaS::Aliases
-							if ((text !== null) && (cr != "Aliases"))
-								text = this.parser.parse(text);
+							if ((text !== null) && (cr == "Plugins"))
+								text = this.parser.parse(text + this._plugins_list());
 						}
 						if(text === null) {
 							if (_decrypt_failed)
