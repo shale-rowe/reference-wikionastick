@@ -783,9 +783,13 @@ woas["set_current"] = function (cr, interactive) {
 						if (this.is__embedded(pi)) {
 							//TODO: do not use namespace to guess the embedded file type
 							text = this._get__embedded(real_t, pi, "file");
-						} else
+						} else {
 							text = this.get_text(real_t);
-						if(text == null) {
+							// page is stored plaintext for WoaS::Aliases
+							if ((text !== null) && (cr != "Aliases"))
+								text = this.parser.parse(text);
+						}
+						if(text === null) {
 							if (_decrypt_failed)
 								_decrypt_failed = false;
 							return;
