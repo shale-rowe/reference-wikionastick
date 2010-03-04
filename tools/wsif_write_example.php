@@ -24,7 +24,7 @@ if ($src === FALSE) {
 	exit(-2);
 }
 
-if ($argc == 2)
+if ($argc == 3)
 	$title = $argv[2];
 
 global $data;
