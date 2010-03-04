@@ -516,7 +516,7 @@ woas["assert_current"] = function(page) {
 }
 
 woas["_create_page"] = function (ns, cr, ask, fill_mode) {
-	if (this.is_reserved(ns+"::")) {
+	if (this.is_reserved(ns+"::") && !edit_override) {
 		this.alert(this.i18n.ERR_RESERVED_NS.sprintf(ns+"::"+cr, ns));
 			return false;
 	}
