@@ -1,6 +1,6 @@
 #!/usr/bin/php -q
 <?php
-## WSIF list content example
+## WSIF list content tool
 ## @author legolas558
 ## @version 1.0.1
 ## @copyright GNU/GPL

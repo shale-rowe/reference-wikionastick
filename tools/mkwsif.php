@@ -1,13 +1,13 @@
 #!/usr/bin/php -q
 <?php
-## WSIF write example
+## Make WSIF tool
 ## @author legolas558
 ## @version 1.1.0
 ## @copyright GNU/GPL
 ## (c) 2010 Wiki on a Stick project
 ## @url http://stickwiki.sf.net/
 ##
-## Write a WSIF file through libwsif
+## Write multiple WSIF files into a single one
 #
 
 require dirname(__FILE__).'/libwsif.php';
