@@ -2055,8 +2055,8 @@ To erase all user-created pages in this wiki and start fresh:
 --DFQRCTsKlU
 woas.page.title: Help::Export
 woas.page.attributes: 0
-woas.page.last_modified: 1267060342
-woas.page.length: 565
+woas.page.last_modified: 1267724844
+woas.page.length: 566
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -2064,6 +2064,7 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 = Export
 [[Include::Template::TODO|this|Add instructions for Special::ExportWSIF to this page.]]
+
 You can export this wiki into multiple linked XHTML, CSS, and image files which will create a framed web page.
 
 * Click the [[Include::Template::Icon::Advanced]] icon in the banner.
@@ -4144,8 +4145,8 @@ If all went well, the number it displays should be *0* and you've successfully r
 --DFQRCTsKlU
 woas.page.title: Sandbox
 woas.page.attributes: 0
-woas.page.last_modified: 1267657835
-woas.page.length: 2660
+woas.page.last_modified: 1267724830
+woas.page.length: 2550
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -4155,28 +4156,27 @@ woas.page.boundary: DFQRCTsKlU
 This page is for trying out new things without having to create a new page.
 
 [[Include::Template::TODO|this|Delete this task from the Sandbox page to remove it from the ToDo list.]]
-
-== Change text temporarily
+== Change text
 <script type="text/javascript">
 function changeText(){
-   document.getElementById('boldStuff').innerHTML = 'Fred Flinstone';
+   document.getElementById('boldStuff').innerHTML = 'WORLD';
 }
 </script>
-<p>Welcome to the site, <b id='boldStuff'>dude</b> </p> 
-<input type='button' onclick='changeText()' value='Change Text'/>
+Hello <b id='boldStuff'>world</b>. 
 
-== Change text based on user input
+<input type='button' onclick='changeText()' value='Change Text'>
+
+== Change text 2
 <script type="text/javascript">
 function changeText2(){
    var userInput = document.getElementById('userInput').value;
    document.getElementById('boldStuff2').innerHTML = userInput;
 }
 </script>
-<p>Welcome to the site <b id='boldStuff2'>dude</b></p> 
-<input type='text' id='userInput' value='Enter Text Here' />
-<input type='button' onclick='changeText2()' value='Change Text'/>
+<p>Hello <b id='boldStuff2'>world</b>.</p> 
+<input type='text' id='userInput' size='10' value='Enter text here'> <input type='button' onclick='changeText2()' value='Change Text'>
 
-== Change HTML
+== Change text 3
 <script type="text/javascript">
 function changeText3(){
    var oldHTML = document.getElementById('para').innerHTML;
@@ -4184,10 +4184,10 @@ function changeText3(){
    document.getElementById('para').innerHTML = newHTML;
 }
 </script>
-<p id='para'>Welcome to the site, <b id='boldStuff3'>dude</b> </p> 
-<input type='button' onclick='changeText3()' value='Change Text'/>
+<p id='para'>Hello *world*.</p> 
+<input type='button' onclick='changeText3()' value='Change Text'>
 
-== CHANGE HTML 2
+== CHANGE text 4
 <script type="text/javascript">
 function showSpoiler(){
 var oneHTML = document.getElementById('spoiler').innerHTML;
@@ -4196,7 +4196,8 @@ document.getElementById('spoiler').innerHTML = twoHTML;
 }
 </script>
 <input type='button' onclick='showSpoiler()' value='Show spoiler'>
-<span id="spoiler" style="color:white; background-color:white;">Welcome to the site, dude</span> 
+
+<span id="spoiler" style="color:white; background-color:white;">Hello *world*.</span> 
 
 == Hide and show alert by FBNil
 <a href="javascript:$.hide('Alerttest',true);">hide alert img</a>
@@ -4562,14 +4563,14 @@ function countwords(hoo){var text= document.deepText(hoo).join(' '); return text
 --DFQRCTsKlU
 woas.page.title: Template::TODO
 woas.page.attributes: 0
-woas.page.last_modified: 1265824399
-woas.page.length: 131
+woas.page.last_modified: 1267724816
+woas.page.length: 124
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-<p><a class="TODO" name="%1" href="javascript:go_to('ToDo list')"><strong><font color="red">ToDo:</font></strong></A> <b>%2</b></p>
+<a class="TODO" name="%1" href="javascript:go_to('ToDo list')"><strong><font color="red">ToDo:</font></strong></A> <b>%2</b>
 --DFQRCTsKlU
 woas.page.title: ToDo list
 woas.page.attributes: 0
@@ -5055,7 +5056,7 @@ For more ways of working with hidden content, see the [[Help::Spoilers]] page.
 --DFQRCTsKlU
 woas.page.title: Template::Foldpage
 woas.page.attributes: 0
-woas.page.last_modified: 1266443757
+woas.page.last_modified: 1267715631
 woas.page.length: 283
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
