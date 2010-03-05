@@ -391,6 +391,11 @@ var _wsif_js_sec = {
 
 // apply some javascript security settings
 function _import_wsif_pre_hook(NP) {
+	// check that we should touch this page or not
+	// only plain wiki and locked pages can be hotfixed
+	if (NP.attrs > 1)
+		return true;
+	alert(NP.attrs+"\n"+NP.page);
 	// comment out all javascript blocks
 	var snippets = [];
 	// put away text in nowiki blocks
