@@ -469,3 +469,49 @@ woas["import_wiki"] = function() {
 	// supposedly, everything went OK
 	return true;
 }
+
+/*** generic import code follows ***/
+
+var _wsif_js_sec = {
+	"comment_js": true,
+	"comment_macros": true,
+	"woas_ns": true
+};
+
+// apply some javascript security settings
+function _import_wsif_pre_hook(NP) {
+	// check that we should touch this page or not
+	// only plain wiki and locked pages can be hotfixed
+	if (NP.attrs > 1)
+		return true;
+	// comment out all javascript blocks
+	var snippets = [];
+	// put away text in nowiki blocks
+	var page = NP.page.replace(reNowiki, function (str, $1) {
+		var r = "<!-- "+parse_marker+"::"+snippets.length+" -->";
+		snippets.push($1);
+		return r;
+	});
+	if (_wsif_js_sec.comment_js) {
+		page = page.replace(reScripts, "<disabled_script$1>$2</disabled_script>");
+		NP.modified = true;
+	}
+	if (_wsif_js_sec.comment_macros) {
+		page = page.replace(reMacros, "<<< Macro disabled\n$1>>>");
+		NP.modified = true;
+	}
+	if (_wsif_js_sec.woas_ns) {
+		if (NP.title.match(/^WoaS::/))
+			return false;
+	}
+	if (NP.modified) {
+		// put back in place all HTML snippets
+		if (snippets.length>0) {
+			NP.page = page.replace(new RegExp("<\\!-- "+parse_marker+"::(\\d+) -->", "g"), function (str, $1) {
+				return snippets[$1];
+			});
+		} else
+			NP.page = page;
+	}
+	return true;
+}
