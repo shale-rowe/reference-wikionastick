@@ -1759,7 +1759,7 @@ WoaS project offers an official PHP library (libwsif) for reading/writing WSIF f
 --DFQRCTsKlU
 woas.page.title: Special::ImportWSIF
 woas.page.attributes: 0
-woas.page.length: 329
+woas.page.length: 821
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1770,7 +1770,10 @@ Import a wiki page (or collection of) in WSIF format
 File: <input id="filename_" type="file" />&nbsp;<input type="button" value="Import WSIF" onclick="import_wiki_wsif()" />
 
 <label for="woas_cb_import_overwrite"><input type="checkbox" id="woas_cb_import_overwrite" checked="checked">Overwrite pages with the same title</label>
-
+== Javascript security
+<label for="woas_cb_import_comment_js"><input type="checkbox" id="woas_cb_import_comment_js" checked="checked">Comment javascript code blocks</label>
+<label for="woas_cb_import_comment_macros"><input type="checkbox" id="woas_cb_import_comment_macros" checked="checked">Comment macro definition and call blocks</label>
+<label for="woas_cb_import_woas_ns"><input type="checkbox" id="woas_cb_import_woas_ns" checked="checked">Skip pages of the [[WoaS::]] namespace</label>
 --DFQRCTsKlU
 woas.page.title: File::life snippet.c
 woas.page.attributes: 4
