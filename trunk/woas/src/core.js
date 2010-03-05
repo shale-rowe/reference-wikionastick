@@ -228,6 +228,7 @@ woas["delete_page_i"] = function(i) {
 		}
 		prev_page = backstack[i];
 	}
+	//TODO: delete also from forstack!
 	// if we were looking at the deleted page
 	if (current == old_title) {
 		// go back or to main page, do not save history

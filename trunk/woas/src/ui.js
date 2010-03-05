@@ -15,9 +15,11 @@ function advanced() {
 function go_to(cr) {
 	if(cr == current)
 		return;
-	history_mem(current);
-	forstack = [];
-	woas.set_current(cr, true);
+	var _b_current = current;
+	if (woas.set_current(cr, true)) {
+		history_mem(_b_current);
+		forstack = [];
+	}
 }
 
 function back_or(or_page) {
@@ -37,10 +39,10 @@ function go_back() {
 
 // when Forward button is clicked
 function go_forward() {
-	if(forstack.length > 0)
-	{
-		history_mem(current);
-		woas.set_current(forstack.pop(), true);
+	if(forstack.length > 0) {
+		var _b_current = current;
+		if (woas.set_current(forstack.pop(), true))
+			history_mem(_b_current);
 	}
 }
 
