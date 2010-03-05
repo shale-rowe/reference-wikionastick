@@ -1,0 +1,2915 @@
+wsif.version: 1.1.0
+woas.version: 0.10.6
+woas.author: Little Girl
+woas.pages: 71
+
+woas.page.title: Main Page
+woas.page.attributes: 0
+woas.page.last_modified: 1267815093
+woas.page.length: 28
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+[[Include::Special::About]]
+
+--DFQRCTsKlU
+woas.page.title: ::Menu
+woas.page.attributes: 0
+woas.page.last_modified: 1267815056
+woas.page.length: 562
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+[[Main Page]]
+* *Administration*
+** [[Special::Advanced|Advanced]]
+** [[Special::Aliases|Aliases]]
+** [[Special::All Pages|All Pages]]
+** [[Special::Backlinks|Backlinks]]
+** [[Special::Delete Page|Delete Page]]
+** [[Special::Duplicate Page|Duplicate Page]]
+** [[Special::Go to|Go to...]]
+** [[Special::New Page|New Page]]
+** [[Special::Recentchanges|Recent changes]]
+** [[Special::Search|Search]]
+* *Documentation*
+** [[Example::|Examples]]
+** [[File::|Files]]
+** [[Tagged::Help|Help]]
+** [[Image::|Images]]
+** [[Tagged::Syntax|Syntax]]
+** [[Tagged::ToDo|ToDo]]
+
+--DFQRCTsKlU
+woas.page.title: WoaS::Bootscript
+woas.page.attributes: 4
+woas.page.length: 48
+woas.page.encoding: 8bit/base64
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+LyogaW5zZXJ0IGhlcmUgeW91ciBib290IHNjcmlwdCAqLw==
+--DFQRCTsKlU
+woas.page.title: WoaS::Aliases
+woas.page.attributes: 0
+woas.page.length: 16
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+$HOME  Main Page
+--DFQRCTsKlU
+woas.page.title: Example::Encrypted page
+woas.page.attributes: 2
+woas.page.length: 172
+woas.page.encoding: 8bit/base64
+woas.page.disposition: inline
+woas.page.original_length: 128
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+/f+cdfAHEwYYzgR5u2B1F2hdgcrjqvb7j0ebu4pokf/U9Vn5bGgwpCAJovC6GGSC7vkFptKjvp2Bg3rHtW6QrvmdFTvYIxr2UFex9lqbqisusQ/4GR0bjt1YpLdasW37xCmCH1KGqmE4RDFZif6XpIq9wuYT36JWg8I8/bNbLrsA
+--DFQRCTsKlU
+woas.page.title: Image::alert2.png
+woas.page.attributes: 12
+woas.page.last_modified: 1265858222
+woas.page.mime: image/png
+woas.page.length: 752
+woas.page.encoding: 8bit/base64
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAN1wAADdcBQiibeAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAGxSURBVDiNpVNBaxNREP5m3uzbJO5u3VhKskbdNlSKQlspCD14E/TgP4ggCIIH/4QX69FDEaQ9uqilx/bUQ6j/wVMptmfDphAoGHwdD9HV2iQqHXiHefPNzPe9j0eqivMEn6v7bwPeMbc2RV6Nw9AoCRlRbJgPDZHXd+5eS/XjfzEQ5hdpFHm3a7WSx7yeEQ3FDr3MiOYAPFqcmipdjSKE1tYJeDx0k6qeOR+M2f2UJN+001FV1c7srL5nPnoLhH9izzDIiO57xixdTxIDIgBAHMe4HMdWmJ+PlZARiRjzZqnZvEC+/4ultVhsNssAnmZEMyMHMNGzi0FwKanXob4PPTiA7u9DrUUpDDGXpp4n8vr3nsLGjKhqjDm8u7wcTATBoFqpACJArwcAcCcn2Gq3j7/2+w9aqu1TDETk5bVGw4uqVai1UN+HrKxAVleLnMtl3FpYqIjI2k9b+cf2GwAe3pyf99X3B/SthdvZgdveLnK1Fo3paYRhWCOiJ4WEDWt3q5OTd66kKQ31uhA8KB/lOT7v7fWcc4kAADFvdfP8SzfPx/afenBjus6545F/4V/jO5CJmhHgOc11AAAAAElFTkSuQmCC
+--DFQRCTsKlU
+woas.page.title: Example::Embed SVG
+woas.page.attributes: 0
+woas.page.length: 581
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Embed SVG
+This page contains an embedded SVG snippet
+
+[[File::seed_of_life.svg]] is rendered in this page through a small script
+
+<div id="generated_SVG" style="width:100%"></div>
+
+<script type="text/javascript">
+var str = decode64(woas.get_text('File::seed_of_life.svg'));
+var svgObject = document.createElement('object');
+/*svgObject.setAttribute('width', '800');
+svgObject.setAttribute('height', '350');*/
+svgObject.setAttribute('type', 'image/svg+xml');
+svgObject.setAttribute('data', 'data:image/svg+xml,'+ escape(str));
+$("generated_SVG").appendChild(svgObject);
+</script>
+
+--DFQRCTsKlU
+woas.page.title: File::life snippet.c
+woas.page.attributes: 4
+woas.page.length: 628
+woas.page.encoding: 8bit/base64
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+dm9pZCBMaWZlRnJhbWU6Ok9uU2FtcGxlcyh3eENvbW1hbmRFdmVudCYgV1hVTlVTRUQoZXZlbnQpKQp7CiAgICAvLyBzdG9wIGlmIGl0IHdhcyBydW5uaW5nCiAgICBPblN0b3AoKTsKCiAgICAvLyBkaWFsb2cgYm94CiAgICBMaWZlU2FtcGxlc0RpYWxvZyBkaWFsb2codGhpcyk7CgogICAgaWYgKGRpYWxvZy5TaG93TW9kYWwoKSA9PSB3eElEX09LKQogICAgewogICAgICAgIGNvbnN0IExpZmVQYXR0ZXJuIHBhdHRlcm4gPSBkaWFsb2cuR2V0UGF0dGVybigpOwoKICAgICAgICAvLyBwdXQgdGhlIHBhdHRlcm4KICAgICAgICBtX2xpZmUtPkNsZWFyKCk7CiAgICAgICAgbV9saWZlLT5TZXRQYXR0ZXJuKHBhdHRlcm4pOwoKICAgICAgICAvLyByZWNlbnRlciBjYW52YXMKICAgICAgICBtX2NhbnZhcy0+UmVjZW50ZXIoMCwgMCk7CiAgICAgICAgbV90aWNzID0gMDsKICAgICAgICBVcGRhdGVJbmZvVGV4dCgpOwogICAgfQp9Cg==
+--DFQRCTsKlU
+woas.page.title: File::seed_of_life.svg
+woas.page.attributes: 4
+woas.page.length: 1412
+woas.page.encoding: 8bit/base64
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+CjxzdmcKCXhtbG5zCQk9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIgoJeG1sbnM6c3ZnCT0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciCgl4bWxuczp4bGluawk9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiCgl2ZXJzaW9uCQk9IjEuMCIKCXdpZHRoCQk9IjQwMiIKCWhlaWdodAkJPSI0MDIiCgl2aWV3Qm94CQk9Ii0yMDEgLTIwMSA0MDIgNDAyIgoJaWQJCT0ic3ZnMiI+Cgk8Y2lyY2xlCgkJY3gJPSIwIgoJCWN5CT0iLTEwMCIKCQlyCT0iMTAwIgoJCWlkCT0iY2lyYzAwMSIKCQlzdHlsZQk9ImZpbGw6bm9uZTtzdHJva2U6IzAwMDAwMDtzdHJva2Utd2lkdGg6MSIgLz4KCTx1c2UgeGxpbms6aHJlZj0iI2NpcmMwMDEiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDAsMTAwKSIgLz4KCTx1c2UgeGxpbms6aHJlZj0iI2NpcmMwMDEiIHRyYW5zZm9ybT0icm90YXRlKDMwKSIgLz4KCTx1c2UgeGxpbms6aHJlZj0iI2NpcmMwMDEiIHRyYW5zZm9ybT0icm90YXRlKDYwKSIgLz4KCTx1c2UgeGxpbms6aHJlZj0iI2NpcmMwMDEiIHRyYW5zZm9ybT0icm90YXRlKDkwKSIgLz4KCTx1c2UgeGxpbms6aHJlZj0iI2NpcmMwMDEiIHRyYW5zZm9ybT0icm90YXRlKDEyMCkiIC8+Cgk8dXNlIHhsaW5rOmhyZWY9IiNjaXJjMDAxIiB0cmFuc2Zvcm09InJvdGF0ZSgxNTApIiAvPgoJPHVzZSB4bGluazpocmVmPSIjY2lyYzAwMSIgdHJhbnNmb3JtPSJyb3RhdGUoMTgwKSIgLz4KCTx1c2UgeGxpbms6aHJlZj0iI2NpcmMwMDEiIHRyYW5zZm9ybT0icm90YXRlKDIxMCkiIC8+Cgk8dXNlIHhsaW5rOmhyZWY9IiNjaXJjMDAxIiB0cmFuc2Zvcm09InJvdGF0ZSgyNDApIiAvPgoJPHVzZSB4bGluazpocmVmPSIjY2lyYzAwMSIgdHJhbnNmb3JtPSJyb3RhdGUoMjcwKSIgLz4KCTx1c2UgeGxpbms6aHJlZj0iI2NpcmMwMDEiIHRyYW5zZm9ybT0icm90YXRlKDMwMCkiIC8+Cgk8dXNlIHhsaW5rOmhyZWY9IiNjaXJjMDAxIiB0cmFuc2Zvcm09InJvdGF0ZSgzMzApIiAvPgo8L3N2Zz4K
+--DFQRCTsKlU
+woas.page.title: Example::JavaScript
+woas.page.attributes: 0
+woas.page.last_modified: 1266528532
+woas.page.length: 3366
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Hit the ball
+This small demo is implemented using /&lt;script&gt;/ tags in the wiki page.
+
+<DIV id="score" align="center" style="width: 300px; font-weight: bold">Score: 0</DIV>
+<INPUT id="startbutton" type="button" onclick="StartGame();" value="Start Game"> <INPUT id="stopbutton" type="button" onclick="StopGame();" value="Stop Game" disabled>
+
+<TABLE style="width: 300px; height: 300px; background-color: white; border: solid 1px black;"><TR><TD width="100%" valign="top"><img id="ball" alt="I am a ball" onclick="UpdateScore(10)" ondblclick="UpdateScore(10); return false;" style="position: relative; style:'text-align: center; font-family: "Comics Sans MS"; width:55px; height:55px;' src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADQAAAA0BAMAAAA3VgbYAAAAB3RJTUUH1wMfDhQh5GxRLwAAAAlwSFlzAAALEgAACxIB0t1%2B%2FAAAAARnQU1BAACxjwv8YQUAAAAwUExURfdK1t7e3pWVlTk5ORAICAgAAAAAAM7OziEAAHUCAtYAAO8AAPcAAP8AAP%2F%2F%2F94AAA0a9%2BoAAAABdFJOUwBA5thmAAABLklEQVR42mNggAFGJWPXEGMlAQYMIGSWBgbJiugyxWkZM1ftOb1qZluaObpM59q7YHBrBqrco7TOs3eh4M6MND2EDKNZJFwGKDc1GeGWkoy1d5HArTZ3mAy72%2By7KGBnSgFMU%2BZdNDANqo3RbS661M0UiG2PMTQBtdmBpdS6MaV2JIEdkboWU%2BpWGMghzFjMA5poAJQq68EmdSIdKGU2F5vUzWSg0zPOYpO60ybAwITVKqBlCgzMWdillhkwiPVil7qRyKA2F7vUzSR8UmZrsUvdSmYw%2B4td6n4yg9te7FK3UxjCzmKXupOKTwqPgXicgcfx5IUGnuDFEyl4ohJPAsCTbPAlNjxJFE%2FCxpMd8GUiPFkPT4bFl83xFA74ihQ8BRG%2B4gtfoYevqMRSwAIARAJMeDmEvSYAAAAASUVORK5CYII%3D" /></TD></TR></TABLE>
+
+<script type="text/javascript">
+// fancygame.js - by roger@killerz-tech.net forums
+// bugfixed & improved by legolas558
+
+// Our global variables:
+var gameRunning = false;
+var score, difficulty;
+var xPos = 0;
+var yPos = 0;
+var max_speed = 15;
+var base_speedD = max_speed/2;
+var xSpeed = max_speed;
+var ySpeed = -max_speed;
+
+var targ = "ball";
+
+function StartGame() {
+gameRunning = true;
+score = 1;
+difficulty = 0;
+$('startbutton').disabled = true;
+$('stopbutton').disabled = false;
+
+FlyAround();
+
+ScoreDecay();
+}
+
+function StopGame()
+{
+gameRunning = false;
+$('stopbutton').disabled = true;
+$('startbutton').disabled = false;
+}
+
+function FlyAround()
+{
+var speedD = base_speedD + Math.floor(Math.random()*base_speedD-(base_speedD/2));
+if ( Math.round(Math.random()*1) == 0 )
+{
+xSpeed = Math.max(-max_speed, xSpeed - (1-Math.random())*speedD - difficulty/60);
+} else {
+xSpeed = Math.min(max_speed, xSpeed + (1-Math.random())*speedD + difficulty/60);
+}
+if ( Math.round(Math.random()*1) == 0 )
+{
+ySpeed = Math.max(-max_speed, ySpeed - (1-Math.random())*speedD - difficulty/60);
+} else {
+ySpeed = Math.min(max_speed, ySpeed + (1-Math.random())*speedD + difficulty/60);
+}
+
+xPos += Math.round(xSpeed);
+yPos += Math.round(ySpeed);
+
+// make sure the target doesn't move out of the playfield
+if ( xPos > 300-60 ) { xPos = 300-60; xSpeed *= -1; }
+if ( yPos > 300-60 ) { yPos = 300-60; ySpeed *= -1; }
+if ( xPos < 0 ) { xPos = 0; xSpeed *= -1; }
+if ( yPos < 0 ) { yPos = 0; ySpeed *= -1; }
+
+var tmp = $(targ);
+tmp.style.top = yPos+'px';
+tmp.style.left = xPos+'px';
+
+// Repeat the function every tenth of a second, but only if the gamestate is 'on'
+if ( gameRunning  )
+setTimeout ( "FlyAround()", 100 );
+
+}
+
+function UpdateScore ( delta )
+{
+if (!gameRunning) return;
+score += delta;
+$('score').innerHTML = "Score: " + score;
+}
+
+function ScoreDecay ( )
+{
+if(!gameRunning) return;
+UpdateScore(-1);
+difficulty += 10;
+setTimeout ( "ScoreDecay()", 3000);
+}
+</script>
+
+--DFQRCTsKlU
+woas.page.title: Example::Table of Contents
+woas.page.attributes: 0
+woas.page.last_modified: 1265824399
+woas.page.length: 710
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+== Example::Table of Contents
+[[Special::TOC]]
+This example demonstrates a bad Table of Contents because the Table of Contents expects the first header on a page to be a Level 1 header. If you use any other level header first, that header and any headers after it will be represented by hash marks until a Level 1 header is encountered. From that point on, the headers will be numbered properly.
+
+Since the first three headers on this page are not Level 1 headers, they are represented by hash marks. The remaining headers are numbered. To see a proper Table of Contents, see the [[Help::Table of Contents]] page.
+
+== Level 2 header
+
+=== Level 3 header
+
+= Level 1 header
+
+== Level 2 header
+
+=== Level 3 header
+
+--DFQRCTsKlU
+woas.page.title: Example::Transclusion
+woas.page.attributes: 0
+woas.page.last_modified: 1265824399
+woas.page.length: 45
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+The members of the board are %1, %2, and %3.
+
+--DFQRCTsKlU
+woas.page.title: Help::Backup
+woas.page.attributes: 0
+woas.page.last_modified: 1266999747
+woas.page.length: 250
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Backup
+Before making any changes, use your *file manager*, the *command line*, or a *backup utility* to make a copy of this wiki in a safe place. Also make regular backups of any copies of this wiki that you're currently working on.
+
+[[Tag::Help]]
+
+--DFQRCTsKlU
+woas.page.title: Help::Bootscript
+woas.page.attributes: 0
+woas.page.last_modified: 1267811517
+woas.page.length: 756
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Bootscript
+If you want to execute some JavaScript at boot time (when the wiki is loaded into the browser), you can modify the bootscript by clicking the tools icon in the banner and choosing [[Special::Edit Bootscript|Edit the bootscript]] in the Advanced section.
+
+Be careful not to break JavaScript execution during this stage. In order to debug your script, you might use blocks like this:
+{{{
+try {
+    your_code(here);
+}
+catch (e) {
+    alert(e);
+}
+}}}The bootscript can be used to override wiki core functions in order to replace them with customized functions which finally call the overridden functions or perfectly emulate their behavior.
+
+[[Include::Image::alert2.png]] The JavaScript API used in this wiki is not yet specified.
+
+[[Tag::Help]]
+
+--DFQRCTsKlU
+woas.page.title: Help::Bugs
+woas.page.attributes: 0
+woas.page.last_modified: 1266999766
+woas.page.length: 1298
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Bugs
+This wiki comes with an optional debug console that will be visible at the bottom of every page when enabled.
+
+== Enable the debug console:
+# Open this wiki in a text editor.<br><br>
+# Do a search for {{{woas["debug"] = false;}}} to find this line:{{{
+woas["debug"] = false;			// toggle debug mode (and console)
+}}}
+# Change *false* to *true* so the line looks like this:{{{
+woas["debug"] = true;			// toggle debug mode (and console)
+}}}
+# Save the file.<br><br>
+# Close the text editor.
+
+== Disable the debug console:
+# Open this wiki in a text editor.<br><br>
+# Do a search for {{{woas["debug"] = true;}}} to find this line:{{{
+woas["debug"] = true;			// toggle debug mode (and console)
+}}}
+# Change *true* to *false* so the line looks like this:{{{
+woas["debug"] = false;			// toggle debug mode (and console)
+}}}
+# Save the file.<br><br>
+# Close the text editor.
+
+== Reporting bugs
+If you encounter any bugs, please report them in the [[https://lists.sourceforge.net/lists/listinfo/stickwiki-devel|Wiki on a Stick development mailing list]] or on the [[http://sourceforge.net/tracker/?words=tracker_browse&sort=open_date&sortdir=desc&offset=0&group_id=155218&atid=794925&assignee=&status=&category=&artgroup=&keyword=&submitter=&artifact_id=|Wiki on a Stick bug tracker]].
+
+[[Tag::Help]]
+
+--DFQRCTsKlU
+woas.page.title: Help::Cancel any action
+woas.page.attributes: 0
+woas.page.last_modified: 1266999785
+woas.page.length: 202
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Cancel any action
+Cancel any action by clicking the [[Include::Image::Cancel.png]] icon in the banner, clicking the *Cancel* button on any alert that pops up, or pressing the *Esc* key.
+[[Tag::Help]]
+
+--DFQRCTsKlU
+woas.page.title: Help::Options
+woas.page.attributes: 0
+woas.page.last_modified: 1267000466
+woas.page.length: 1671
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Options
+Short reference for options found in [[Special::Options]].
+* Click the [[Include::Image::advanced.png]] icon in the banner.<br><br>
+* Click the *Options* link.<br><br>
+* Use the check-boxes to choose the settings you prefer:<br><br>
+** *Use consistent newlines in saved data*<blockquote>Forces pages to be saved using consistent newlines splitting. This is particularly useful if you use a versioning system like Subversion (SVN), git or CVS.</blockquote>
+** *Double click to edit pages/menu*<blockquote>Allows to switch to edit mode when double-clicking the page content or menu area.</blockquote>
+** *Automatically save options (if changed) before quitting*<blockquote>Allows option changes to be automatically saved without having to click the *Save options* button at the bottom of the page.</blockquote>
+** *Do not temporarily cache the AES key*<blockquote>Clears AES key right after decryption, useful if you leave WoaS open to possible unauthorized access; will require to re-enter the decryption key each time you want to read a page.</blockquote>
+** *Fixed menu area and topbar*<blockquote>Fixes the menu and banner in place, while allowing the page to scroll.</blockquote>
+** *Save last page visited when quitting*<blockquote>Automatically opens the last saved page.</blockquote>
+** *Enable cumulative save*<blockquote>Will save to disk only when quitting<blockquote>
+** *Disallow edits (button)*<blockquote>Puts the wiki into /server mode/; users will be told that it is not possible to save their changes, but editing will be allowed for sandbox (testing) purposes.
+* Click the *Save options* button to save the changes.</blockquote>
+
+[[Tag::Help]]
+
+--DFQRCTsKlU
+woas.page.title: Help::Code blocks (preformatted text)
+woas.page.attributes: 0
+woas.page.last_modified: 1266999709
+woas.page.length: 3430
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+[[Special::TOC]]
+= Code blocks (preformatted text)
+
+== Code block
+<div class="helptext">Use this code in a page:</div>
+<div class="helpcode">{\
+{{
+This is a code block
+made of one
+or more lines.
+}}\
+}</div>
+<div class="helptext">To create this:</div>
+{{{
+This is a code block
+made of one
+or more lines.
+}}}
+== Code block in-line
+<div class="helptext">Use this code in a page:</div>
+<div class="helpcode">{<!-- -->{{This is an inline code block}}<!-- -->} which is a code block that's inside a sentence.</div>
+<div class="helptext">To create this:</div>
+{{{This is an inline code block}}} which is a code block that's inside a sentence.
+
+== Code block properly indented beneath a list item
+<div class="helptext">Use this code in a page:</div>
+<div class="helpcode">* List item:{<!-- -->{{
+This is a code block
+made of one
+or more lines.
+}<!-- -->}}</div>
+<div class="helptext">To create this:</div>
+* List item:{{{
+This is a code block
+made of one
+or more lines.
+}}}
+
+== Code block with custom colored background
+This is so you can choose a different color than the default one for your code blocks. The example uses lightcyan, but you can replace that with whatever color you like, using [[http://www.w3schools.com/Html/html_colornames.asp|color names or hexadecimal notation]].
+
+<div class="helptext">Use this code in a page:</div>{{{
+<pre style="background-color:lightcyan;">This is a code block
+made of one
+or more lines.
+</pre>
+}}}<div class="helptext">To create this:</div><pre style="background-color:lightcyan;">This is a code block
+made of one
+or more lines.
+</pre>
+== Code block with custom colored font
+This will only work on all the font inside a code block. Multi-colored code blocks would have to be done more creatively. If there's an interest, I can put together an example, but it would be for advanced users. The example uses green, but you can replace that with whatever color you like, using [[http://www.w3schools.com/Html/html_colornames.asp|color names or hexadecimal notation]]
+
+<div class="helptext">Use this code in a page:</div>{{{
+<pre style="color:green">This is a code block
+made of one
+or more lines.
+</pre>}}}<div class="helptext">To create this:</div><pre style="color:green">This is a code block
+made of one
+or more lines.
+</pre>
+== Code blocks containing example wiki syntax
+If you'd like to display syntax in a page without the wiki parsing the code (i.e.: you want the brackets to show), insert an html comment ({{{<!-- -->}}}) between two of the brackets on one or both sides of the code.
+
+<div class="helptext">Use this code in a page:</div>{{{
+{<!-- -->{{Some code goes here}}<!-- -->}
+}}}<div class="helptext">To create this:</div>
+{<!-- -->{{Some code goes here}}}
+
+<div class="helptext">Or use this code in a page, replacing Page Name with the name of the page:</div>{{{
+[<!-- -->[Page Name]]
+}}}<div class="helptext">To create this:</div>
+[<!-- -->[Page Name]]
+
+Another method is to interrupt the code by dividing it up between multiple lines and ending each line with a backslash to let the wiki parser know you want that line joined with the one below it.
+
+<div class="helptext">Use this code in a page:</div>{{{
+{\
+{{Some code goes here}}\
+}
+}}}<div class="helptext">To create this:</div>
+{\
+{{Some code goes here}}\
+}
+
+<div class="helptext">Or use this code in a page:</div>{{{
+[\
+[Page Name]\
+]
+}}}<div class="helptext">To create this:</div>
+[\
+[Page Name]\
+]
+
+[[Tag::Help|Syntax]]
+
+--DFQRCTsKlU
+woas.page.title: Help::CSS
+woas.page.attributes: 0
+woas.page.last_modified: 1267811606
+woas.page.length: 5483
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= CSS
+The look of most of this wiki can be customized by changing the CSS settings.
+
+[[Include::Image::alert2.png]] /If you're new to CSS, [[http://www.w3schools.com/css/|this CSS Tutorial]] is wonderful./
+== Edit the CSS settings
+# Click the [[Include::Image::advanced.png]] icon in the banner.<br><br>
+# Click the [[Special::Edit CSS]] link in the *Advanced* section to open the CSS settings in the editor.<br><br>
+# Make whatever changes you like to the code.<br><br>
+# Save your changes by clicking on the [[Include::Image::save.png]] icon in the banner.
+
+== Restore the default CSS settings
+To return to the default settings if you changed the CSS settings and don't like the changes:
+# Select and copy the default CSS settings from the bottom of this page.<br><br>
+# Click the [[Include::Image::advanced.png]] icon in the banner.<br><br>
+# Click the [[Special::Edit CSS]] link in the *Advanced* section to open the CSS settings in the editor.<br><br>
+# Select the contents of the main text area on the page.<br><br>
+# Delete all of the contents.<br><br>
+# Paste in the settings you copied from this page.<br><br>
+# Click the [[Include::Image::save.png]] icon in the banner to save the changes.
+
+== Default CSS settings
+{{{
+/* existent link */
+
+a.link {
+  color: blue;
+}
+a.link:hover {
+  text-decoration: underline;
+}
+
+/* unexistent link */
+a.unlink {
+  color: red;
+}
+a.unlink:hover {
+  text-decoration: underline;
+}
+
+/* outside world link */
+a.world {
+  color: darkgreen;
+  text-decoration: underline;
+}
+
+a {
+	cursor: pointer;
+	/* FOR IE5.5/IE6 */
+	/* cursor: hand; */
+}
+
+/* Main text */
+div.text_area {
+  border-width: 0.063em;
+  border-color: grey;
+  border-style: solid;
+  background-color: white;
+  padding: 0.875em;
+}
+
+/* since v0.9 */
+body { font-family: tahoma; }
+
+h1 { font-size: 1.438em; }
+
+h2 { font-size: 1.25em; }
+
+h3 { font-size: 1.063em; }
+
+h4 { font-size: 0.875em; }
+
+h5 { font-size: 0.75em; }
+
+h6 { font-size: 0.625em; }
+
+div.taglinks {
+	border: 0.063em solid #aaa;
+/*	background-color: #f9f9f9; */
+	padding: 0.313em;
+	margin-top: 1em;
+	clear: both;
+}
+
+div.search_results {
+	border: 0.063em solid #aaa;
+	background-color: #f9f9f9;
+	padding: 0.313em;
+	margin-top: 1em;
+	clear: both;
+}
+
+a.link.tag {
+  color: navy;
+}
+
+/* main wiki pane when locked */
+div.text_area.locked,
+#woas_pwd_mask {
+	background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAAAAACMmsGiAAAALHRFWHRDcmVhdGlvbiBUaW1lAGdpbyAyOSBtYXIgMjAwNyAxMTo1MToxMCArMDEwME%2BTNUAAAAAHdElNRQfXAx0JNByGxueSAAAACXBIWXMAAAsSAAALEgHS3X78AAAABGdBTUEAALGPC%2FxhBQAAABlJREFUeNpj%2FM%2FwmYHpMwMvAxOQwcvECyQBO1oE%2BlG5iisAAAAASUVORK5CYII%3D);
+	background-color: #eeeeee;
+}
+
+div.menu {
+}
+
+/* page title */
+.title {
+  font-size: 2em;
+  font-weight: bold;
+  margin-bottom: 0em;
+  margin-top: 0em;
+  display:inline;
+  text-shadow: #888 0.13em 0.13em 0.065em;
+}
+
+.bg {
+	background-color: #F0F0F5;
+}
+
+#wiki_text {
+	position: relative;
+	left: 16%;
+	width: 81%;
+	z-index: 0;
+	margin-top: 1.313em;
+	text-align:justify;
+}
+
+table.text_area {
+	border-color: black;
+	border-spacing: 0em;
+	border-style: solid; 
+	border-width: 0.063em;
+}
+
+table.text_area td {
+	border-style: solid; 	 
+	border-width: 0.063em;	
+	padding: 0.313em;
+}
+
+table.text_area caption {
+        font-weight: bold;
+        font-style: italic;
+}
+
+/* Left menu */
+div.menu_area {
+	border-width: 0.063em;
+	border-color: grey;
+	border-style: solid;
+	font-size: 0.75em;
+	background-color: white;
+	padding: 0.499em;
+	width: 13.2%;
+	left: 1%;
+}
+
+div.wiki_header {
+	top: 0em;
+	left: 0em;
+	border: 0.063em solid #aaa;
+	opacity:.75;
+	z-index: 1;
+	width: 99%;
+}
+
+div.wiki_toc {
+	border: 0.063em dashed #aaa;
+	background-color: #f9f9f9;
+	padding: 0.313em;
+	width: 50%;
+	font-size: 95%;
+}
+
+div.wiki_toc ol, li {
+	margin-left: 0.65em;
+	padding-left: 0em;
+}
+
+p.wiki_toc_title {
+	font-weight: bold;
+	text-align: center;
+}
+
+/* since v0.9.3 Beta */
+.search_highlight { background-color: yellow; }
+
+#loading_overlay {
+	position: absolute;
+	width: 99%;
+	height: 100%;
+	padding-top: 25%;
+	z-index: 100;
+	background-color: white;
+	left: 0em;
+	top: 0em;
+	cursor: wait;
+	font-size: large;
+	text-align: center;
+}
+
+div.menu_area ul li, div.menu_area ol li,
+div.ns_menu_area ul li, div.ns_menu_area ol li {
+	margin-left: -2em;
+}
+
+/* since v0.9.4 Beta */
+.wiki_preformatted {
+	/* css-3 */
+	white-space: pre-wrap;
+	/* Opera 4-6 */
+/*	white-space: -pre-wrap;  */
+	/* Opera 7 */
+/*	white-space: -o-pre-wrap;  */
+	/* Internet Explorer 5.5+ */
+/*	word-wrap: break-word;     */
+}
+
+/* since v0.9.7B */
+
+#woas_pwd_query {
+	position: absolute;
+	width: 99%;
+	height: 100%;
+	text-align: center;
+	padding-top: 25%;
+	z-index: 100;
+	left: 0em;
+	top: 0em;
+        border: 0.063em solid #666666; 
+        background-color: #d6dff7;
+	font-size: large;
+        visibility: hidden;
+}
+
+#woas_pwd_mask {
+	position: absolute;
+	width: 99%;
+	height: 100%;
+	text-align: center;
+	z-index: 99;
+	visibility: hidden;
+	font-size: large;
+	left: 0em;
+	top: 0em;
+}
+
+.woas_page_mts {
+	position: relative;
+	left: 16%;
+	width: 81%;
+	z-index: 0;
+	font-size: small;
+}
+
+#edit_page_title{
+         margin-top: 2.188em;
+}
+
+/* since v0.10.1 */
+
+#debug_info {
+	margin-right: 0.75em;
+	margin-left: 14.05em;
+	background-color: gray;
+	border: 0.125em solid;
+	border-color: black;
+}
+
+#woas_debug_panel {
+}
+
+#woas_log {
+	background-color: rgb(204, 204, 204);
+	width: 99.7%;
+}
+
+.wiki_button {
+	margin-top: 0.063em;
+	margin-bottom: 0.063em;
+}
+
+/* since v0.10.5 */
+
+.woas_wait_text {
+	color: navy;
+}
+}}}
+
+[[Tag::Help]]
+
+--DFQRCTsKlU
+woas.page.title: Help::Delete a page
+woas.page.attributes: 0
+woas.page.last_modified: 1266999737
+woas.page.length: 774
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Delete a page
+== From the menu
+# Click the *Delete Page* link in the menu while displaying the page you wish to delete, or click it from any page and type in the name of the page you wish to delete.<br><br>
+# You'll be asked for confirmation.<br><br>
+# When the page is deleted, you'll be returned to the [[Main Page]].<br><br>
+# You may have to remove any links to the deleted page from the menu or other pages.
+
+== From the editor
+# Click the [[Include::Image::edit.png]] icon in the banner.<br><br>
+# Select everything inside the main text area and delete it.<br><br>
+# Save your changes by clicking on the [[Include::Image::save.png]] icon in the banner.<br><br>
+# Edit the menu to remove the link to the deleted page if it isn't removed automatically.
+
+[[Tag::Help]]
+
+--DFQRCTsKlU
+woas.page.title: Help::Edit a page
+woas.page.attributes: 0
+woas.page.last_modified: 1267811654
+woas.page.length: 795
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Edit a page
+Pages that have the [[Include::Image::edit.png]] icon in the banner can be edited. This includes any page you created, and any page listed when clicking the *All pages* button in the menu.
+
+[[Include::Image::alert2.png]] /Feel free to edit the [[Main Page]] and replace its content with your own./
+# Click the [[Include::Image::edit.png]] icon in the banner or double-click on the page if you've enabled that setting in [[Special::Options]].<br><br>
+# Edit the contents of the main text area by typing normally.<br><br>
+# Use the editor's buttons to insert code to format the text, or type the code in manually. Note that the use of plain text doesn't require any code.<br><br>
+# Save your changes by clicking on the [[Include::Image::save.png]] icon in the banner.
+
+[[Tag::Help]]
+
+--DFQRCTsKlU
+woas.page.title: Help::Encrypt a page
+woas.page.attributes: 0
+woas.page.last_modified: 1266999840
+woas.page.length: 2148
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Encrypt a page
+This wiki offers [[Special::Security|AES encryption]] for locking pages. Padlock icons are displayed in the banner to indicate whether pages are encrypted or not. The [[Include::Image::unlock.png]] icon indicates that a page is unencrypted and the [[Include::Image::lock.png]] icon indicates that a page is encrypted.
+
+== Lock a page
+Click the [[Include::Image::unlock.png]] icon in the banner to encrypt a page. The password interface will open. Type the password into the red box, using punctuation and mixed case, if possible. If the box turns green while you're typing in your password, it's a strong password. If it doesn't, you might wish to reconsider the password and try a stronger one. Once you've chosen and typed in your password, type it into the white box below the now hopefully green one for verification. Then click the *Lock* button (which will automatically include the name of the page you wish to encrypt) to encrypt the page.
+
+When encrypting additional pages during a session, you'll be offered to use the same password you used to encrypt the first page. Accept by pressing the *OK* button or decline by pressing the *Cancel* button. If you decline, the password interface will open, allowing you to set a new password for the page. There is no limit to how many passwords you can use.
+
+== Unlock a page
+Clicking on the link to an encrypted page brings up an alert letting you know that you need to enter a password to view the page. To do so, click the [[Include::Image::password.png]] icon in the banner to enter the password for unencrypting a page. You can now open the page normally to view, edit, or delete it. The password for decrypting a page (or pages) is cached so that you only need to enter it once per session (until you close or reload the wiki). To disable password caching, check the box for *Do not temporarily cache the AES key* in the [[Special::Options]] page. If you've used more than one password for encrypting your pages, you'll need to enter the password to unlock each encrypted page.
+
+The [[Example::Encrypted page]] can be opened by using *test* as the password.
+
+[[Tag::Help]]
+
+--DFQRCTsKlU
+woas.page.title: Help::Erase all pages
+woas.page.attributes: 0
+woas.page.last_modified: 1266999853
+woas.page.length: 446
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Erase all pages
+To erase all user-created pages in this wiki and start fresh:
+# *Make sure you have a wiki you don't mind losing open.* If not, make a copy and erase the copy.
+# Click the [[Include::Image::advanced.png]] icon in the banner.
+# Click on *Delete ALL wiki pages and reset with default data* in the *Maintenance* section.
+# You'll be asked for confirmation twice and must click the *OK* button each time to continue.
+
+[[Tag::Help]]
+
+--DFQRCTsKlU
+woas.page.title: Help::Export
+woas.page.attributes: 0
+woas.page.last_modified: 1266999947
+woas.page.length: 565
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Export
+You can export this wiki into multiple linked XHTML, CSS, and image files which will create a framed web page.
+
+* Click the [[Include::Image::advanced.png]] icon in the banner.
+* Scroll down to the *Maintenance* section.
+* Click the [[Special::Export]] link.
+* Choose the settings for the export.
+* Click the *Export XHTML* button. A confirmation will pop up.
+
+Now you can click the *index.htm* file in the export folder to launch the framed page.
+
+<font color="red">*ToDo: Add instructions for Special::ExportWSIF to this page.*</font>
+[[Tag::Help|ToDo]]
+
+--DFQRCTsKlU
+woas.page.title: Help::Getting started
+woas.page.attributes: 0
+woas.page.last_modified: 1267000044
+woas.page.length: 655
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Getting started
+* The first time you save a change to this wiki, your browser will ask for permission to save data to the disk. This is normal and necessary for the wiki to make changes to itself.
+
+* [[Help::Backup|Back up this wiki]].
+
+* [[Help::Cancel any action|Cancel any action]].
+
+* [[Help::Options|Change the settings]].
+
+* [[Help::Page creation|Create a page]].
+
+* [[Help::Delete a page|Delete a page]].
+
+* [[Help::Edit a page|Edit a page]].
+
+* [[Help::CSS|Edit the CSS]].
+
+* [[Help::Edit the menu|Edit the menu]].
+
+* [[Help::|Get lots of help]].
+
+* [[Help::Syntax|Learn the syntax]].
+
+* [[Help::Navigation|Navigate in this wiki]].
+[[Tag::Help]]
+--DFQRCTsKlU
+woas.page.title: Help::Headers
+woas.page.attributes: 0
+woas.page.last_modified: 1267000099
+woas.page.length: 1008
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Headers
+Below are examples on how to use wiki markup to create headers in this wiki. You can also use HTML header tags.
+
+<div class="helptext">Use this code in a page:</div>{{{
+= Header level 1
+}}}<div class="helptext">To create this:</div>
+= Header level 1 =
+
+
+<div class="helptext">Use this code in a page:</div>{{{
+== Header level 2
+}}}<div class="helptext">To create this:</div>
+== Header level 2
+
+
+<div class="helptext">Use this code in a page:</div>{{{
+=== Header level 3
+}}}<div class="helptext">To create this:</div>
+=== Header level 3
+
+
+<div class="helptext">Use this code in a page:</div>{{{
+==== Header level 4
+}}}<div class="helptext">To create this:</div>
+==== Header level 4
+
+
+<div class="helptext">Use this code in a page:</div>{{{
+===== Header level 5
+}}}<div class="helptext">To create this:</div>
+===== Header level 5
+
+<div class="helptext">Use this code in a page:</div>{{{
+====== Header level 6
+}}}<div class="helptext">To create this:</div>
+====== Header level 6
+
+[[Tag::Help|Syntax]]
+
+--DFQRCTsKlU
+woas.page.title: Help::Horizontal rules (lines)
+woas.page.attributes: 0
+woas.page.last_modified: 1267811716
+woas.page.length: 1612
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Horizontal rules (lines)
+Horizontal rules use the full width of the page by default. They can be styled to a smaller width by surrounding them with *HTML &lt;div&gt;* tags. Styling can also control their position. I haven't yet figured out how to colorize them. Adding {{{color:red;}}} to the style portion of the *&lt;div&gt;* tag doesn't work. If any code wizard out there figures it out, please contact me by using the email link in the footer beneath this page.
+
+[[Include::Image::alert2.png]] /Note that you sometimes need a blank line above or below a horizontal rule to get it to work./
+
+== Standard horizontal rule ==
+<div class="helptext">Use this code in a page:</div>{{{
+----
+}}}<div class="helptext">To create this:</div>
+----
+
+
+== Custom width horizontal rule aligned left ==
+<div class="helptext">Use this code in a page, replacing 50% with the width you like:</div>{{{
+<div style="width:50%";>
+----
+</div>
+}}}<div class="helptext">To create this:</div>
+<div style="width:50%";>
+----
+</div>
+
+== Custom width horizontal rule aligned right ==
+<div class="helptext">Use this code in a page, replacing 50% with the width you like:</div>{{{
+<div style="width:50%; float:right;"><hr></div>
+}}}<div class="helptext">To create this:</div>
+<div style="width:50%; float:right;"><hr></div>
+
+== Custom width centered horizontal rule ==
+<div class="helptext">Use this code in a page, replacing 50% with the width you like:</div>{{{
+<center><div style="width:50%";>
+----
+</div></center>
+}}}<div class="helptext">To create this:</div>
+<center><div style="width:50%";>
+----
+</div></center>
+
+[[Tag::Help|Syntax]]
+
+--DFQRCTsKlU
+woas.page.title: Help::Images
+woas.page.attributes: 0
+woas.page.last_modified: 1267811760
+woas.page.length: 9194
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+=Images
+[[Special::TOC]]
+
+== Add an alert image to a page
+You can use the default [[Include::Image::alert2.png]] image by typing {{{[[Include::Image::alert2.png]]}}} wherever you'd like it to go on a page.
+
+== Add an external image from the internet
+<div class="helptext">Use this code in a page, replacing URL with the full link to the image:</div>{{{
+<img src="URL">
+}}}<div class="helptext">To add an external image from the internet.</div>
+
+* *Example:*<br><br>
+** <div class="helptext">Use this code:</div>{{{
+<img src="http://www.google.com/intl/en_ALL/images/logo.gif">
+}}}<div class="helptext">To create this:</div><br><img src="http://www.google.com/intl/en_ALL/images/logo.gif">
+
+== Add a local image from your hard drive
+<div class="helptext">Use this code in a page, replacing PATH with the full path to the local file you'd like to display:</div>{{{
+<img src="file://PATH">
+}}}<div class="helptext">To add a local image from your hard drive.</div>
+
+* *Example:*<br><br>
+** <div class="helptext">Use this example code:</div>{{{
+<img src="file:///usr/share/icons/default.kde/16x16/actions/stop.png">
+}}}<div class="helptext">To create this:</div><br><img src="file:///usr/share/icons/default.kde/16x16/actions/stop.png"><br><br>/Note that this example image won't show if you don't use the Kubuntu operating system since the path is to a file on my hard drive./
+
+== Add an embedded image
+This wiki provides an interface for embedding images. Each image will be given its own page, which you can use in an include link to insert the image anywhere in this wiki. Embedded images are encoded with Base64 and are 33% bigger than the original files. Since this wiki is a single file, excessive use of images will slow down performance.
+
+Before you begin, it's important to note that when coming up with names for your images, you don't need the full file name with its extension (example: *home.jpg* could just be named *home*). <span class="helptext">*Replace NAME in these instructions with the name you'd like to give the image you're embedding:*</span>
+
+# Create a new page or open an existing page in the editor by clicking the [[Include::Image::edit.png]] icon in the banner.<br><br>
+# Create an include link for a new image. There are two ways you can do this:<br><br>
+## Use this code anywhere you'd like to include an image:<pre>[\
+[In\
+clude::Image::N\
+AME]\
+]</pre>
+## Or click the editor's *Image* button and type in a name for the image.<br><br>
+# Click the [[Include::Image::save.png]] icon in the banner to save the page.<br><br>
+# Part of the include link you just created will be red, indicating that the image doesn't exist yet.<br><br>
+# Click on the red part of the link to launch the embedding interface.<br><br>
+# Browse to the image you'd like to embed.<br><br>
+# Click the *Embed* button. You'll be taken to the *Image::NAME* page (with *NAME* being the name you gave the image) with your image embedded in it.<br><br>
+# Click the [[Include::Image::back.png]] icon in the banner to return to the page you created the include link on. The image you embedded should now be where the include link was.
+
+== Use an embedded image
+Once an image is embedded, you can use the same include link you used to add the embedded image to include the image anywhere in the wiki. Since the image is already embedded, it will automatically display without requiring you to launch the embedding interface again.
+# Create a new page or open an existing page in the editor by clicking the [[Include::Image::edit.png]] icon in the banner.<br><br>
+# Create an include link for an already embedded image. There are two ways you can do this:<br><br>
+## Use this code wherever you like, replacing NAME with the name of the image you wish to include:<pre>[\
+[In\
+clude::Image::N\
+AME]\
+]</pre>
+## Or click the editor's *Image* button and type in the name of the image.<br><br>
+# Click the [[Include::Image::save.png]] icon in the banner to save the page. The image should now be where the include link was.
+
+== Add a Base64 image
+Images can be embedded in the wiki manually using Base64. Embedded images are encoded with Base64 and are 33% bigger than the original files. Since this wiki is a single file, excessive use of images will slow down performance.
+
+Get the Base64 code of an image by using an online service like [[http://www.motobit.com/util/base64-decoder-encoder.asp|this one]], using utilities that are made for your operating system, or using software that comes with your operating system. For example, in Ubuntu you can open a terminal window in the directory the image is in and type {{{base64 imagename}}} using the name of the image in place of *imagename*.
+
+The resulting Base64 code will be a series of letters and characters similar to this example, but sometimes far longer:{{{
+R0lGODlhBgAFAIABAAAAAP///yH5BAEAAAEALAAAAAAGAAUAAAIJDGJ4ic1qgAwFADs=
+}}}
+<div class="helptext">Use this code in a page, replacing YOUR_CODE_HERE with your Base64 code:</div>{{{
+<img src="data:image/png;base64,YOUR_CODE_HERE">
+}}}<div class="helptext">To embed an image in a page.</div>
+
+* *Example:*<br><br>
+** <div class="helptext">Use this example code:</div>{{{
+<img src="data:image/png;base64,R0lGODlhBgAFAIABAAAAAP///yH5BAEAAAEALAAAAAAGAAUAAAIJDGJ4ic1qgAwFADs=">
+}}}<div class="helptext">To create this:</div><img src="data:image/png;base64,R0lGODlhBgAFAIABAAAAAP///yH5BAEAAAEALAAAAAAGAAUAAAIJDGJ4ic1qgAwFADs=">
+
+== Use a Base64 image as an include link
+Create a new page, remove the automatically created header, and embed a Base64 image in it. Now you can insert that image anywhere in the wiki by using this code, replacing PAGENAME with the name of the page you created:<br><pre>[\
+[In\
+clude::PAGEN\
+AME]\
+]</pre>
+
+== Use a Base64 image as a link to an alert
+<div class="helptext">Use this code in a page, replacing YOUR ALERT TEXT HERE with whatever you'd like the alert to say, and YOUR_CODE_HERE with your Base64 code:</div>{{{
+<input type="image" onclick='alert("YOUR ALERT TEXT HERE")' src="data:image/png;base64,YOUR_CODE_HERE">
+}}}<div class="helptext">To use a Base64 image as a link to an alert.</div>
+
+* *Example:*<br><br>
+** <div class="helptext">Use this example code:</div>{{{
+<input type="image" onclick='alert("THIS IS AN ALERT!")' src="data:image/png;base64,R0lGODlhBgAFAIABAAAAAP///yH5BAEAAAEALAAAAAAGAAUAAAIJDGJ4ic1qgAwFADs=">
+}}}<div class="helptext">To create this:</div><input type="image" onclick='alert("THIS IS AN ALERT!")' src="data:image/png;base64,R0lGODlhBgAFAIABAAAAAP///yH5BAEAAAEALAAAAAAGAAUAAAIJDGJ4ic1qgAwFADs=">
+
+== Use a Base64 image as a link to an external web page
+<div class="helptext">Use this code in a page, replacing URL with the address of a website, and YOUR_CODE_HERE with your Base64 code:</div>{{{
+<input type="image" onclick="window.open('URL');return false;" src="data:image/png;base64,YOUR_CODE_HERE">
+}}}<div class="helptext">To use a Base64 image as a link to a web page.</div>
+
+* *Example:*<br><br>
+** <div class="helptext">Use this example code:</div>{{{
+<input type="image" onclick="window.open('http://www.google.com');return false;" src="data:image/png;base64,R0lGODlhBgAFAIABAAAAAP///yH5BAEAAAEALAAAAAAGAAUAAAIJDGJ4ic1qgAwFADs=">
+}}}<div class="helptext">To create this:</div><input type="image" onclick="window.open('http://www.google.com');return false;" src="data:image/png;base64,R0lGODlhBgAFAIABAAAAAP///yH5BAEAAAEALAAAAAAGAAUAAAIJDGJ4ic1qgAwFADs=">
+
+== Use a Base64 image as a link to a page in this wiki
+<div class="helptext">Use this code in a page, replacing PAGENAME with the name of the page you'd like to link to, and YOUR_CODE_HERE with your Base64 code:</div>{{{
+<input type="image" onclick="go_to('PAGENAME')" src="data:image/png;base64,YOUR_CODE_HERE">
+}}}<div class="helptext">To create an image that links to a wiki page.</div>
+
+* *Example:*<br><br>
+** <div class="helptext">Use this example code:</div>{{{
+<input type="image" onclick="go_to('Special::About')" src="data:image/png;base64,R0lGODlhBgAFAIABAAAAAP///yH5BAEAAAEALAAAAAAGAAUAAAIJDGJ4ic1qgAwFADs=">
+}}}<div class="helptext">To create this:</div><input type="image" onclick="go_to('Special::About')" src="data:image/png;base64,R0lGODlhBgAFAIABAAAAAP///yH5BAEAAAEALAAAAAAGAAUAAAIJDGJ4ic1qgAwFADs=">
+
+== Use a Base64 image as a link to an internal action
+See the [[Help::Links]] page for a list of all possible internal actions.
+
+<div class="helptext">Use this code in a page, replacing PAGENAME with the name of the page you'd like to link to, and YOUR_CODE_HERE with your Base64 code:</div>{{{
+<input type="image" onclick="go_to('INTERNAL_ACTION')" src="data:image/png;base64,YOUR_CODE_HERE">
+}}}<div class="helptext">To create an image that links to an internal action.</div>
+
+* *Example:*<br><br>
+** <div class="helptext">Use this example code:</div>{{{
+<input type="image" onclick="go_to('Special::New Page')" src="data:image/png;base64,R0lGODlhBgAFAIABAAAAAP///yH5BAEAAAEALAAAAAAGAAUAAAIJDGJ4ic1qgAwFADs=">
+}}}<div class="helptext">To create this:</div><input type="image" onclick="go_to('Special::New Page')" src="data:image/png;base64,R0lGODlhBgAFAIABAAAAAP///yH5BAEAAAEALAAAAAAGAAUAAAIJDGJ4ic1qgAwFADs="><br><br>
+
+[[Tag::Help|Syntax]]
+
+--DFQRCTsKlU
+woas.page.title: Help::Import
+woas.page.attributes: 0
+woas.page.last_modified: 1267811838
+woas.page.length: 1417
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Import
+
+== Import wiki
+This method is used to import the contents of an older (or current) version of Wiki on a Stick:
+# Click the [[Include::Image::advanced.png]] icon in the banner.
+# Scroll down to the *Maintenance* section.
+# Click the [[Special::Import]] link.
+# Click the *Browse* button
+# Select the wiki you'd like to import.
+# Click the *Open* button.
+# Choose the settings you'd like to use.<br>[[Include::Image::alert2.png]] /Note that it's usually best to leave the *import also CSS (available only for versions v0.9 and above)* box unchecked and manually transfer CSS settings so you can make sure there's no conflict./
+# Click the *Import* button.
+# A warning will pop up letting you know that this will overwrite pages with the same title, and asking if you're sure.
+# Click the *OK* button if you're sure. Otherwise, click the *Cancel* button.
+
+== Import pages
+This method is used to import pages that have been exported using the [[Special::WSIF|WSIF]] format. See [[Help::Export]] for more information.
+# Click the [[Include::Image::advanced.png]] icon in the banner.
+# Scroll down to the *Maintenance* section.
+# Click the [[Special::ImportWSIF]] link.
+# Click the *Browse* button.
+# Select the .wsif file you'd like to import.
+# Click the *Open* button.
+# Choose whether to check or uncheck the box next to *Overwrite pages with the same title*.
+# Click the *Import WSIF* button.
+
+[[Tag::Help]]
+
+--DFQRCTsKlU
+woas.page.title: Help::Include text file
+woas.page.attributes: 0
+woas.page.last_modified: 1267811865
+woas.page.length: 520
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Include text file
+
+<div class="helptext">Use this code in a page, replacing PATH with the full path to the file:</div>{{{
+<iframe height="400" width="100%" src="file:///PATH"></iframe>
+}}}<div class="helptext">To include a text file in the page inside an iFrame.</div>
+* Example:{{{
+<iframe height="400" width="100%" src="file:///home/username/Desktop/file.txt"></iframe>
+}}}
+
+Windows users should be able to use:{{{
+<iframe height="400" width="100%" src="file:///C:/PATH/file.txt"></iframe>
+}}}
+
+[[Tag::Help|Syntax]]
+
+--DFQRCTsKlU
+woas.page.title: Help::Include wiki page
+woas.page.attributes: 0
+woas.page.last_modified: 1267811924
+woas.page.length: 824
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Include wiki page
+
+To include the contents of a wiki page inside another wiki page, use an {{{[[Include::]]}}} tag on a line by itself, inserting the name of the page you'd like to include after the double colons in the tag.
+
+<div class="helptext">Use this code in a page, replacing Page Name with the name of the page you wish to include:</div>
+<div class="helpcode">[<!-- -->[Include::Page Name]]</div>
+<div class="helptext">To include the contents of another wiki page in the current page.</div>
+[[Include::Image::alert2.png]] /Page names are case sensitive./
+
+== See an example page included page
+<div class="helptext">Use this code in a page:</div>
+<div class="helpcode">[<!-- -->[Include::Special::Search]<!-- -->]</div>
+<div class="helptext">To create this:</div>
+[[Include::Special::Search]]
+
+[[Tag::Help|Syntax]]
+
+--DFQRCTsKlU
+woas.page.title: Help::JavaScript
+woas.page.attributes: 0
+woas.page.last_modified: 1267811970
+woas.page.length: 5769
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+[[Special::TOC]]
+= JavaScript
+== Adding JavaScript to your page
+To add JavaScript to your page, you must enclose it inside JavaScript tags.
+
+<div class="helptext">Use this code in a page, replacing YOUR_CODE_HERE with your JavaScript code:</div>{{{
+<script type="text/javascript">
+YOUR_CODE_HERE
+</script>
+}}}<div class="helptext">To add JavaScript to your page.</div>
+
+See an [[Example::JavaScript|example]] of JavaScript being used in this wiki.
+
+== Adding JavaScript to the wiki source
+According to the author of Wiki on a Stick:
+<blockquote>It is possible to add &lt;script/&gt; tags to your wiki source and they will be correctly rendered in the document &lt;head/&gt; tag upon page loading; also external scripts (using the /src/ attribute) will be parsed and activated, always respecting the order of declaration of the &lt;script /&gt; tags.
+
+*Note:* since the javascript tags are activated from within the &lt;head /&gt; tag, you cannot use document.write() or similar inline javascript statements.</blockquote>
+== Using external JavaScript
+You can include external JavaScript on a page by placing the script file in the same directory as this wiki and then inserting a reference to it in the body of the page.
+
+<div class="helptext">Use this code in a page, replacing SCRIPTNAME.JS with the name of your script:</div>{{{
+<script src="SCRIPTNAME.JS"></script>
+}}}<div class="helptext">To include an external JavaScript in a page.</div>
+=== Example
+This page contains this code:{{{
+<script src="example.js"></script>
+}}}To see an example using external JavaScript:
+# Create a text file in the same directory as this wiki.<br><br>
+# Paste this into the file:{{{
+alert("This is an example alert!");
+}}}
+# Save the file as *example.js*<br><br>
+# Reload the wiki.<br><br>
+# Open this page to run the *example.js* script and see the alert.
+<script src="example.js"></script>
+== Using JavaScript to create a temporary page
+This is quite interesting. Using this code, you can get this wiki to create a link to a dynamically created temporary page with custom content (it accepts HTML tags as part of the content) under the JavaScript [[Help::Namespaces|namespace]]. The temporary page will be created each time the link is clicked, and it will be uncreated as soon as you navigate to another page or close the wiki.
+
+<div class="helptext">Use this code in a page, replacing CONTENT with your content, NAME with the page name, and LINK with the text you want the link to have:</div>{{{
+<script>function temporary(arg) {return 'CONTENT';}</script>[[Javascript::temporary('NAME')|LINK]]
+}}}<div class="helptext">To create this:</div>
+<script>function temporary(arg) {return 'CONTENT';}</script>[[Javascript::temporary('NAME')|LINK]]
+
+[[Include::Image::alert2.png]] Only one of these links may be used per page.
+
+Paste each of these into a new page one by one to see what they do:
+* This one uses the temporary page name as part of its content:{{{
+<script>function temporary(arg) {return 'This page was dynamically created using *'+arg+'* as content!';}</script>[[Javascript::temporary('sample')|Click here]]
+}}}
+* This one demonstrates the use of various HTML tags in the content of the page:{{{
+<script>function temporary(arg) {return 'This page contains more than one line.<br>This line contains <b>bold</b>, <i>italic</i>, <u>underlined</u>, and <font color="red">colored</font> text.<br><br>And here is a list:<br><ul><li>item1</li><li>item2</li><li>item3</li></ul>';}</script>[[Javascript::temporary('My Page')|Click here]]
+}}}
+
+== Using JavaScript for page redirection
+The code below will redirect from the current page to the wiki page you specify a predefined number of seconds after the current page loads.
+
+[[Include::Image::alert2.png]] /WARNING! Use this code carefully! Back up your wiki before trying it!/
+
+<div class="helptext">Use this code in a page, replacing PAGENAME with the name of the page to redirect to, and 10 with the number of seconds the script should delay:</div>{{{
+<script type="text/javascript">
+setTimeout(onload="go_to('PAGENAME')",10*1000);
+</script>
+}}}<div class="helptext">To redirect the current page to the PAGENAME page 10 seconds after the current page loads.</div>
+[[Include::Image::alert2.png]] /Note that this will redirect to the next page even if you're in the editor! The only indication you will have if you're in the editor is that name in the the Page title box will change to the name of the redirected page. If you don't check this before saving, your changes will be saved to the redirected page, overwriting its contents./
+
+/I recommend that you put this code near the top of any page (preferably directly beneath the first header on the page) so that you can find it quickly. I also recommend that you make the delay at *least* 10 seconds so that you have time to open the page in the editor, change the *PAGENAME* portion of the code to a nonexistent page, and then save the page before the timer runs out. Then you can reopen the page safely without risk of it redirecting while you're working on it. All that will happen if you give the script a nonexistent page name is that an alert will pop up asking if you'd like to create the nonexistent page. You can click *Cancel* when that popup comes up and continue working without further interruption. An even safer method is to open the wiki in a text editor and make changes to the page contents from there./
+
+== Using JavaScript to reload the wiki
+<div class="helptext">Use this code in a page:</div>{{{
+<input type="button" value="Reload wiki" onClick="window.location.href=window.location.href">
+}}}<div class="helptext">To create this:</div>
+<input type="button" value="Reload wiki" onClick="window.location.href=window.location.href">
+
+[[Tag::Help|Syntax]]
+
+--DFQRCTsKlU
+woas.page.title: Help::Join lines of text
+woas.page.attributes: 0
+woas.page.last_modified: 1267811987
+woas.page.length: 866
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Join lines of text
+If you have lengthy content that you'd like to break up into shorter lines in the editor while still being presented as a long line when the page is viewed, you can split the line up into as many pieces as you like, inserting a backslash at the *end* of each line to let the wiki parser know you want that line joined with the one below it. When you save the page, the line will be displayed intact.
+
+[[Include::Image::alert2.png]] /Backslashes *within* a line will be ignored by the wiki parser and will not influence how the text is displayed./
+
+<div class="helptext">Use this code in a page:</div>{{{
+Putting a \ at the end of any line \
+makes it join together \
+with the line below it.
+}}}<div class="helptext">To create this:</div>
+Putting a \ at the end of any line \
+makes it join together \
+with the line below it.
+
+[[Tag::Help|Syntax]]
+
+--DFQRCTsKlU
+woas.page.title: Help::Links
+woas.page.attributes: 0
+woas.page.last_modified: 1267812012
+woas.page.length: 8336
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+[[Special::TOC]]
+= Links
+
+== Alert box link (button)
+<div class="helptext">Use this code in a page, replacing YOUR MESSAGE GOES HERE with the content for the alert, and YOUR BUTTON TEXT GOES HERE with the text for your button:</div>{{{
+<script type="text/javascript">
+function alertme () {alert("YOUR MESSAGE GOES HERE.");}
+</script>
+<input type=button value="YOUR BUTTON TEXT GOES HERE" onClick="alertme()">
+}}}<div class="helptext">To create this:</div><script type="text/javascript">
+function alertme () {alert("YOUR MESSAGE GOES HERE");}
+</script>
+<input type=button value="YOUR BUTTON TEXT GOES HERE" onClick="alertme()">
+
+== Alert box link (labeled)
+<div class="helptext">Use this code in a page, replacing YOUR MESSAGE GOES HERE with the content for the alert, and YOUR LINK TEXT GOES HERE with the text for your link:</div>{{{
+<a href='javascript:alert("YOUR MESSAGE GOES HERE");'>YOUR LINK TEXT GOES HERE</a>
+}}}<div class="helptext">To create this:</div>
+<a href='javascript:alert("YOUR MESSAGE GOES HERE");'>YOUR LINK TEXT GOES HERE</a>
+
+== Anchor link
+You can use a special anchor link to link to a header on the current page. After clicking an anchor link, use the browser's back button to return to where you were on the page.
+
+<div class="helptext">Use this code in a page, replacing HEADER NAME with the name of the header you'd like to link to:</div>{{{
+[[#HEADER NAME]]
+}}}<div class="helptext">To create an anchor link like this one:</div>
+[[#Menu link (labeled)]]
+
+== Back links
+To see which pages link back to the current page, click the *Backlinks* link in the menu.
+
+== Email link
+<div class="helptext">Use this code in a page, replacing USERNAME with the name of the person, SERVER with the name of their server, and LINK TEXT with the text you'd like displayed as a link:</div>{{{
+[[mailto://USERNAME@SERVER|LINK TEXT]]
+}}}<div class="helptext">To create this:</div>
+[[mailto://USERNAME@SERVER|LINK TEXT]]
+
+== Email link with subject
+<div class="helptext">Use this code in a page, replacing USERNAME with the name of the person, SERVER with the name of their server, SUBJECT with the subject of the email, and LINK TEXT with the text you'd like displayed as a link:</div>{{{
+[[mailto://USERNAME@SERVER?subject=SUBJECT|LINK TEXT]]
+}}}<div class="helptext">To create this:</div>
+[[mailto://USERNAME@SERVER?subject=SUBJECT|LINK TEXT]]
+
+== External link (button)
+<div class="helptext">Use this code in a page, replacing YOUR BUTTON TEXT GOES HERE with the text for your button, and URL with the address of the web page:</div>{{{
+<input type="button" value="YOUR BUTTON TEXT GOES HERE" onclick="window.open('URL');">
+}}}<div class="helptext">To create an external link button like this one:</div>
+<input type="button" value="Google" onclick="window.open('http://www.google.com/');">
+
+== External link (labeled)
+<div class="helptext">Use this code in a page, replacing URL with the address of the web page, and LABEL with the text for the link:</div>{{{
+[[URL|LABEL]]
+}}}<div class="helptext">To create a labeled external link like this one:</div>
+[[http://www.google.com|Click here for Google]]
+
+== External link (plain)
+<div class="helptext">Use this code in a page, replacing URL with the address of the web page:</div>{{{
+[[URL]]
+}}}<div class="helptext">To create a plain external link like this one:</div>
+[[http://www.google.com]]
+
+== Image as link
+=== Base64 image as link
+See the [[Help::Images]] page.
+=== Image as link to wiki page
+<div class="alertnote">This method will <b>only</b> work for images in the <b>Image::</b> namespace.</div>
+<div class="helptext">Use this code in a page, replacing IMAGENAME with the name of an embedded image page, and PAGENAME with the name of a page in this wiki:</div>
+<div class="helpcode">[<!-- -->[I<!-- -->nclude:<!-- -->:Image:<!-- -->:IMAGENAME|style="cursor:pointer" oncl<!-- -->ick="go_<!-- -->to('PA<!-- -->GENAME')"]]</div>
+<div class="helptext">To create an image that links to a page in this wiki, like this alert image that links to the [[Main Page]]:</div>
+[[Include::Image::alert2.png|style="cursor:pointer" onclick="go_to('Main Page')"]]
+
+=== Image as link to web page
+<div class="helptext">Use this code in a page, replacing IMAGENAME with the name of an embedded image page, and URL with the address of a web page:</div>
+<div class="helpcode">[<!-- -->[In<!-- -->clude:<!-- -->:Image:<!-- -->:IMAGENAME|style="cursor:pointer" border="0" onc<!-- -->lick="win<!-- -->dow.o<!-- -->pen('URL')"]<!-- -->]</div>
+<div class="helptext">To create an image that links to a web page, like this alert image that links to the [[http://www.google.com|Google]] page:</div>
+[[Include::Image::alert2.png|style="cursor:pointer" border="0" onclick="window.open('http://www.google.com')"]]
+
+== Include link
+You can include the contents of another page of this wiki in the current page by using an include link.
+
+<div class="helptext">Use this code in a page, replacing PAGENAME with the name of the page you'd like to include:</div>
+<div class="helpcode">[<!-- -->[Include::PAGENAME]<!-- -->]</div>
+<div class="helptext">To include the contents of another page in the current page.</div>
+
+== Internal action link (labeled)
+These are internal wiki actions in the form of links:<br><br>
+{|
+| *Use this code in a page:* || *To create this:*
+| {{{[[Special::All Pages|All pages]]}}} || [[Special::All Pages|All pages]]
+| {{{[[Special::Backlinks|Backlinks]]}}} || [[Special::Backlinks|Backlinks]]
+| {{{[[Special::Dead Pages|Dead links]]}}} || [[Special::Dead Pages|Dead links]]
+| {{{[[Special::Delete Page|Delete page]]}}} || [[Special::Delete Page|Delete page]]
+| {{{[[Special::Duplicate Page|Duplicate page]]}}} || [[Special::Duplicate Page|Duplicate page]]
+| {{{[[Special::Edit CSS|Edit CSS]]}}} || [[Special::Edit CSS|Edit CSS]]
+| {{{<a class="link" onclick="javascript:edit()">Edit page</a>}}} || <a class="link" onclick="javascript:edit()">Edit page</a>
+| {{{[[Special::Go to|Go to...]]}}} || [[Special::Go to|Go to...]]
+| {{{[[Tagged::Help|Help pages]]}}} || [[Tagged::Help|Help pages]]
+| {{{[[Locked::|Locked pages]]}}} || [[Locked::|Locked pages]]
+| {{{[[Special::Main Page|Main page]]}}} || [[Special::Main Page|Main page]]
+| {{{[[Special::New Page|New page]]}}} || [[Special::New Page|New page]]
+| {{{[[Special::Orphaned Pages|Orphaned pages]]}}} || [[Special::Orphaned Pages|Orphaned pages]]
+| {{{[[Special::Search|Search]]}}} || [[Special::Search|Search]]
+| {{{[[Tagged::Syntax|Syntax pages]]}}} || [[Tagged::Syntax|Syntax pages]]
+| {{{[[Tagged::|Tagged pages]]}}} || [[Tagged::|Tagged pages]]
+| {{{[[Unlocked::|Unlocked pages]]}}} || [[Unlocked::|Unlocked pages]]
+| {{{[[Untagged::|Untagged pages]]}}} || [[Untagged::|Untagged pages]]
+|}
+
+== Internal link (button)
+<div class="helptext">Use this code in a page, replacing BUTTONTEXT with the text you want on the button and PAGENAME with the page you want to link to:</div>{{{
+<input value="BUTTONTEXT" onclick="go_to('PAGENAME')" type="submit" />
+}}}<div class="helptext">To create this:</div>
+<input value="BUTTONTEXT" onclick="go_to('PAGENAME')" type="submit" />
+
+== Internal link (button - with 5 second delay)
+<div class="helptext">Use this code in a page, replacing BUTTONTEXT with the text you want on the button and PAGENAME with the page you want to link to:</div>{{{
+<input type="button" value="BUTTONTEXT" onClick="setTimeout('go_to(\'PAGENAME\')',5000);">
+}}}<div class="helptext">To create this:</div>
+<input type="button" value="BUTTONTEXT" onClick="setTimeout('go_to(\'PAGENAME\')',5000);">
+
+== Internal link (labeled)
+<div class="helptext">Use this code in a page, replacing PAGENAME with the page you want to link to and LABEL with the link text:</div>{{{
+[[PAGENAME|LABEL]]
+}}}<div class="helptext">To create a labeled internal link like this one:</div>
+[[Main Page|Click here for the Main page]]
+
+== Internal link (plain)
+<div class="helptext">Use this code in a page, replacing PAGENAME withe the page you want to link to:</div>{{{
+[[PAGENAME]]
+}}}<div class="helptext">To create a plain internal link like this one:</div>
+[[Main Page]]
+
+== Menu link
+Menu links can be created by any of the methods above, The default links that get added to the menu automatically are plain internal links. To present them more attractively, you can put them into a [[Help::Lists|list]].
+
+[[Tag::Help|Syntax]]
+
+--DFQRCTsKlU
+woas.page.title: Help::Lists
+woas.page.attributes: 0
+woas.page.last_modified: 1267000403
+woas.page.length: 12317
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+[[Special::TOC]]
+= Lists
+
+Simple single-level lists can be created by using the three list buttons in the editor. The {{{List *}}} button creates bulleted list items, the {{{List #}}} button creates numbered list items, and the {{{List @}}} button creates alphanumeric list items. If you'd like to create mixed lists, nested lists, or lists with additional types of list items, the methods below can be used instead.
+
+== Wiki markup lists
+Wiki markup lists are created with between one and five specific characters ({{{@}}}, {{{*}}}, or {{{#}}}) at the beginning of a line, followed by a space, and then whatever text you'd like the list item to have. Each list must begin with a list item with only one character at the beginning of the line, and there can be no blank lines between entries in the list. To create a blank line beneath a list item, you can insert two HTML {{{<br>}}} tags at the end of of the list item's text. Wiki and HTML markup are accepted in list items.
+
+=== Alphanumeric List
+<div class="helptext">Use this code in a page:</div>{{{
+@ Test
+@ Test
+@ Test
+@@ Test
+@@@ Test
+@@@@ Test
+@ Test
+}}}<div class="helptext">To create this:</div>
+@ Test
+@ Test
+@ Test
+@@ Test
+@@@ Test
+@@@@ Test
+@ Test
+
+=== Bulleted List
+<div class="helptext">Use this code in a page:</div>{{{
+* Test
+* Test
+** Test
+*** Test
+**** Test
+* Test
+* Test
+}}}<div class="helptext">To create this:</div><br>
+* Test
+* Test
+** Test
+*** Test
+**** Test
+* Test
+* Test
+
+=== Fancy List
+<div class="helptext">Use this code in a page:</div>{{{
+* ITEM 1 - ITEM 1 SUBTEXT <blockquote>ITEM 1 MORE SUBTEXT</blockquote>
+* ITEM 2 - ITEM 2 SUBTEXT <blockquote>ITEM 2 MORE SUBTEXT</blockquote>
+* ITEM 3 - ITEM 3 SUBTEXT <blockquote>ITEM 3 MORE SUBTEXT</blockquote>
+}}}<div class="helptext">To create this:</div><br>
+* ITEM 1 - ITEM 1 SUBTEXT <blockquote>ITEM 1 MORE SUBTEXT</blockquote>
+* ITEM 2 - ITEM 2 SUBTEXT <blockquote>ITEM 2 MORE SUBTEXT</blockquote>
+* ITEM 3 - ITEM 3 SUBTEXT <blockquote>ITEM 3 MORE SUBTEXT</blockquote>
+
+=== Numbered List
+<div class="helptext">Use this code in a page:</div>{{{
+# Test
+# Test
+## Test
+### Test
+#### Test
+# Test
+# Test
+}}}<div class="helptext">To create this:</div><br>
+# Test
+# Test
+## Test
+### Test
+#### Test
+# Test
+# Test
+
+=== Numbered Fancy List
+<div class="helptext">Use this code in a page:</div>{{{
+# ITEM 1 - ITEM 1 SUBTEXT <blockquote>ITEM 1 MORE SUBTEXT</blockquote>
+# ITEM 2 - ITEM 2 SUBTEXT <blockquote>ITEM 2 MORE SUBTEXT</blockquote>
+# ITEM 3 - ITEM 3 SUBTEXT <blockquote>ITEM 3 MORE SUBTEXT</blockquote>
+}}}<div class="helptext">To create this:</div><br>
+# ITEM 1 - ITEM 1 SUBTEXT <blockquote>ITEM 1 MORE SUBTEXT</blockquote>
+# ITEM 2 - ITEM 2 SUBTEXT <blockquote>ITEM 2 MORE SUBTEXT</blockquote>
+# ITEM 3 - ITEM 3 SUBTEXT <blockquote>ITEM 3 MORE SUBTEXT</blockquote>
+
+== HTML Lists
+HTML lists work the same way as they do in any web page. Specifying the list type can be done in the {{{ol}}}, {{{<ul>}}}, or {{{<li>}}} tags, depending on how you need to use them. Wiki markup is accepted in list items. If you'd rather not type in the code for HTML lists, there's a *More lists* button in the editor that opens a fourth row of buttons for creating fancy lists.
+
+=== Specifying list type in the &lt;ol&gt; tag
+This method is useful when an entire list will use one list item type. This way you only need to specify the type once, and all the list items can be entered normally.
+
+<div class="helptext">Use this code in a page:</div>{{{
+<ol style="list-style-type:lower-alpha;">
+<li>lower-alpha</li>
+<li>lower-alpha</li>
+<li>lower-alpha</li>
+</ol>
+}}}<div class="helptext">To create this:</div>
+<ol style="list-style-type:lower-alpha;">
+<li>lower-alpha</li>
+<li>lower-alpha</li>
+<li>lower-alpha</li>
+</ol>
+
+<div class="helptext">Use this code in a page:</div>{{{
+<ol style="list-style-type:upper-alpha;">
+<li>upper-alpha</li>
+<li>upper-alpha</li>
+<li>upper-alpha</li>
+</ol>
+}}}<div class="helptext">To create this:</div>
+<ol style="list-style-type:upper-alpha;">
+<li>upper-alpha</li>
+<li>upper-alpha</li>
+<li>upper-alpha</li>
+</ol>
+
+<div class="helptext">Use this code in a page:</div>{{{
+<ol style="list-style-type:decimal;">
+<li>decimal</li>
+<li>decimal</li>
+<li>decimal</li>
+</ol>
+}}}<div class="helptext">To create this:</div>
+<ol style="list-style-type:decimal;">
+<li>decimal</li>
+<li>decimal</li>
+<li>decimal</li>
+</ol>
+
+<div class="helptext">Use this code in a page:</div>{{{
+<ol style="list-style-type:lower-roman;">
+<li>lower-roman</li>
+<li>lower-roman</li>
+<li>lower-roman</li>
+</ol>
+}}}<div class="helptext">To create this:</div>
+<ol style="list-style-type:lower-roman;">
+<li>lower-roman</li>
+<li>lower-roman</li>
+<li>lower-roman</li>
+</ol>
+
+<div class="helptext">Use this code in a page:</div>{{{
+<ol style="list-style-type:upper-roman;">
+<li>upper-roman</li>
+<li>upper-roman</li>
+<li>upper-roman</li>
+</ol>
+}}}<div class="helptext">To create this:</div>
+<ol style="list-style-type:upper-roman;">
+<li>upper-roman</li>
+<li>upper-roman</li>
+<li>upper-roman</li>
+</ol>
+
+=== Specifying list type in the &lt;ul&gt; tag
+This method is useful when an entire list will use one list item type. This way you only need to specify the type once, and all the list items can be entered normally.
+
+<div class="helptext">Use this code in a page:</div>{{{
+<ul style="list-style-type:circle;">
+<li>circle</li>
+<li>circle</li>
+<li>circle</li>
+</ul>
+}}}<div class="helptext">To create this:</div>
+<ul style="list-style-type:circle;">
+<li>circle</li>
+<li>circle</li>
+<li>circle</li>
+</ul>
+
+<div class="helptext">Use this code in a page:</div>{{{
+<ul style="list-style-type:disc;">
+<li>disc</li>
+<li>disc</li>
+<li>disc</li>
+</ul>
+}}}<div class="helptext">To create this:</div>
+<ul style="list-style-type:disc;">
+<li>disc</li>
+<li>disc</li>
+<li>disc</li>
+</ul>
+
+<div class="helptext">Use this code in a page:</div>{{{
+<ul style="list-style-type:none;">
+<li>none</li>
+<li>none</li>
+<li>none</li>
+</ul>
+}}}<div class="helptext">To create this:</div>
+<ul style="list-style-type:none;">
+<li>none</li>
+<li>none</li>
+<li>none</li>
+</ul>
+
+<div class="helptext">Use this code in a page:</div>{{{
+<ul style="list-style-type:square;">
+<li>square</li>
+<li>square</li>
+<li>square</li>
+</ul>
+}}}<div class="helptext">To create this:</div>
+<ul style="list-style-type:square;">
+<li>square</li>
+<li>square</li>
+<li>square</li>
+</ul>
+
+=== Specifying list type in the &lt;li&gt; tag
+This method is useful when an creating a fancy list with more than one list item type.
+
+<div class="helptext">Use this code in a page:</div>{{{
+<ol>
+<li style="list-style-type:lower-alpha;">lower-alpha</li>
+<li style="list-style-type:lower-alpha;">lower-alpha</li>
+<li style="list-style-type:lower-alpha;">lower-alpha</li>
+</ol>
+}}}<div class="helptext">To create this:</div>
+<ol>
+<li style="list-style-type:lower-alpha;">lower-alpha</li>
+<li style="list-style-type:lower-alpha;">lower-alpha</li>
+<li style="list-style-type:lower-alpha;">lower-alpha</li>
+</ol>
+
+<div class="helptext">Use this code in a page:</div>{{{
+<ol>
+<li style="list-style-type:upper-alpha;">upper-alpha</li>
+<li style="list-style-type:upper-alpha;">upper-alpha</li>
+<li style="list-style-type:upper-alpha;">upper-alpha</li>
+</ol>
+}}}<div class="helptext">To create this:</div>
+<ol>
+<li style="list-style-type:upper-alpha;">upper-alpha</li>
+<li style="list-style-type:upper-alpha;">upper-alpha</li>
+<li style="list-style-type:upper-alpha;">upper-alpha</li>
+</ol>
+
+<div class="helptext">Use this code in a page:</div>{{{
+<ol>
+<li style="list-style-type:circle;">circle</li>
+<li style="list-style-type:circle;">circle</li>
+<li style="list-style-type:circle;">circle</li>
+</ol>
+}}}<div class="helptext">To create this:</div>
+<ol>
+<li style="list-style-type:circle;">circle</li>
+<li style="list-style-type:circle;">circle</li>
+<li style="list-style-type:circle;">circle</li>
+</ol>
+
+<div class="helptext">Use this code in a page:</div>{{{
+<ol>
+<li style="list-style-type:decimal;">decimal</li>
+<li style="list-style-type:decimal;">decimal</li>
+<li style="list-style-type:decimal;">decimal</li>
+</ol>
+}}}<div class="helptext">To create this:</div>
+<ol>
+<li style="list-style-type:decimal;">decimal</li>
+<li style="list-style-type:decimal;">decimal</li>
+<li style="list-style-type:decimal;">decimal</li>
+</ol>
+
+<div class="helptext">Use this code in a page:</div>{{{
+<ol>
+<li style="list-style-type:disc;">disc</li>
+<li style="list-style-type:disc;">disc</li>
+<li style="list-style-type:disc;">disc</li>
+</ol>
+}}}<div class="helptext">To create this:</div>
+<ol>
+<li style="list-style-type:disc;">disc</li>
+<li style="list-style-type:disc;">disc</li>
+<li style="list-style-type:disc;">disc</li>
+</ol>
+
+<div class="helptext">Use this code in a page:</div>{{{
+<ol>
+<li style="list-style-type:lower-roman;">lower-roman</li>
+<li style="list-style-type:lower-roman;">lower-roman</li>
+<li style="list-style-type:lower-roman;">lower-roman</li>
+</ol>
+}}}<div class="helptext">To create this:</div>
+<ol>
+<li style="list-style-type:lower-roman;">lower-roman</li>
+<li style="list-style-type:lower-roman;">lower-roman</li>
+<li style="list-style-type:lower-roman;">lower-roman</li>
+</ol>
+
+<div class="helptext">Use this code in a page:</div>{{{
+<ol>
+<li style="list-style-type:none;">none</li>
+<li style="list-style-type:none;">none</li>
+<li style="list-style-type:none;">none</li>
+</ol>
+}}}<div class="helptext">To create this:</div>
+<ol>
+<li style="list-style-type:none;">none</li>
+<li style="list-style-type:none;">none</li>
+<li style="list-style-type:none;">none</li>
+</ol>
+
+<div class="helptext">Use this code in a page:</div>{{{
+<ol>
+<li style="list-style-type:square;">square</li>
+<li style="list-style-type:square;">square</li>
+<li style="list-style-type:square;">square</li>
+</ol>
+}}}<div class="helptext">To create this:</div>
+<ol>
+<li style="list-style-type:square;">square</li>
+<li style="list-style-type:square;">square</li>
+<li style="list-style-type:square;">square</li>
+</ol>
+
+<div class="helptext">Use this code in a page:</div>{{{
+<ol>
+<li style="list-style-type:upper-roman;">upper-roman</li>
+<li style="list-style-type:upper-roman;">upper-roman</li>
+<li style="list-style-type:upper-roman;">upper-roman</li>
+</ol>
+}}}<div class="helptext">To create this:</div>
+<ol>
+<li style="list-style-type:upper-roman;">upper-roman</li>
+<li style="list-style-type:upper-roman;">upper-roman</li>
+<li style="list-style-type:upper-roman;">upper-roman</li>
+</ol>
+
+=== Mixed HTML list
+<div class="helptext">Use this code in a page:</div>{{{
+<ol>
+<li style="list-style-type:lower-alpha;">lower-alpha</li>
+   <ol>
+   <li style="list-style-type:upper-alpha;">upper-alpha</li>
+      <ol>
+      <li style="list-style-type:circle;">circle</li>
+         <ol>
+         <li style="list-style-type:decimal;">decimal</li>
+            <ol>
+            <li style="list-style-type:disc;">disc</li>
+               <ol>
+               <li style="list-style-type:lower-roman;">lower-roman</li>
+                  <ol>
+                  <li style="list-style-type:none;">none</li>
+                     <ol>
+                     <li style="list-style-type:square;">square</li>
+                        <ol>
+                        <li style="list-style-type:upper-roman;">upper-roman</li>
+                        </ol>
+                     </ol>
+                  </ol>
+               </ol>
+            </ol>
+         </ol>
+      </ol>
+   </ol>
+</ol>
+}}}<div class="helptext">To create this:</div>
+<ol>
+<li style="list-style-type:lower-alpha;">lower-alpha</li>
+   <ol>
+   <li style="list-style-type:upper-alpha;">upper-alpha</li>
+      <ol>
+      <li style="list-style-type:circle;">circle</li>
+         <ol>
+         <li style="list-style-type:decimal;">decimal</li>
+            <ol>
+            <li style="list-style-type:disc;">disc</li>
+               <ol>
+               <li style="list-style-type:lower-roman;">lower-roman</li>
+                  <ol>
+                  <li style="list-style-type:none;">none</li>
+                     <ol>
+                     <li style="list-style-type:square;">square</li>
+                        <ol>
+                        <li style="list-style-type:upper-roman;">upper-roman</li>
+                        </ol>
+                     </ol>
+                  </ol>
+               </ol>
+            </ol>
+         </ol>
+      </ol>
+   </ol>
+</ol>
+
+[[Tag::Help|Syntax]]
+
+--DFQRCTsKlU
+woas.page.title: Help::Edit the menu
+woas.page.attributes: 0
+woas.page.last_modified: 1266999826
+woas.page.length: 782
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Edit the menu
+[[Special::TOC]]
+== Add a sub-menu beneath the menu
+See the *Namespace sub-menu* section of the [[Help::Namespaces]] page.
+
+== Edit the menu
+# Click the *[Edit]* link at the bottom of the menu.
+# Edit the contents of the main text area by typing normally. The menu can contain links, lists, tables, colored text, etc.
+# Save your changes by clicking on the [[Include::Image::save.png]] icon in the banner.
+
+== Force new page links to bottom of menu
+If you like new pages to show up at the bottom of the menu in the order you created them, *make sure your cursor is at the end of the last line of text* rather than at the beginning of a new, empty line, and *make sure to delete any new, empty lines beyond the cursor* when saving changes to the menu.
+
+[[Tag::Help]]
+
+--DFQRCTsKlU
+woas.page.title: Help::Navigation
+woas.page.attributes: 0
+woas.page.last_modified: 1267000435
+woas.page.length: 359
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Navigation
+Use the [[Include::Image::back.png]] icon in the banner to go back one page, the [[Include::Image::forward.png]] icon in the banner to go forward one page, the [[Include::Image::home.png]] icon in the banner to return to the Main page, or click the buttons in the banner, the links in the menu, or the buttons and links on any page.
+[[Tag::Help]]
+--DFQRCTsKlU
+woas.page.title: Help::Non-breaking spaces
+woas.page.attributes: 0
+woas.page.last_modified: 1267000452
+woas.page.length: 762
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Non-breaking spaces
+A non-breaking space can add extra space between characters on a line since this is not possible simply by pressing the space bar more than once.
+
+<div class="helptext">Use this code in a page:</div>{{{
+&nbsp;
+}}}<div class="helptext">To create a non-breaking space.</div>
+
+*Examples:*
+
+To insert 5 spaces between two words, insert 5 non-breaking spaces between them, like this:{{{
+word&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;word
+}}}word&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;word
+
+Another method is to insert a combination of spaces and non-breaking spaces. To insert 5 spaces between two words, insert 1 space, 3 non-breaking spaces, and 1 space between them, like this:{{{
+word &nbsp;&nbsp;&nbsp; word}}}word &nbsp;&nbsp;&nbsp; word
+
+[[Tag::Help|Syntax]]
+
+--DFQRCTsKlU
+woas.page.title: Help::Page creation
+woas.page.attributes: 0
+woas.page.last_modified: 1267000488
+woas.page.length: 3437
+woas.page.encoding: ecma/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+[[Special::TOC]]
+= Page creation
+== Create a page
+# Click the *NEW PAGE* button in the menu.<br><br>
+# Type a short name for the page. If the name is too long, the banner can become so large that it interferes with the functions at the top of the page. Page names are case sensitive. Spaces are allowed. Diacritics (a glyph added to a letter - for example: \u00e2) are allowed. Escaped characters (some examples: ' % < > | : #) are allowed.<br><br>
+# Press the *Enter* key or click the *OK* button.<br><br>
+# When asked if you'd like to add a link into the main menu, accept by pressing the *Enter* key or clicking the *OK* button, or refuse by clicking the *Cancel* button.<br><br>
+# A level one header with the name of your page will be inserted for you automatically. You can edit or delete the header if you like.<br><br>
+# Type or paste content into the main text area.<br><br>
+# Use the editor's buttons to insert code to format the text, or type the code in manually. Note that the use of plain text doesn't require any code.<br><br>
+# Save your changes by clicking on the [[Include::Image::save.png]] icon in the banner.
+
+== Create a page on the fly
+An alternate method of creating a page is to type a new page name inside nested brackets. The link will be red. Click it to create the new page. Example:
+
+<div class="helptext">Type this into a page:</div>{{{
+[[My new page]]
+}}}<div class="helptext">To create this:</div>
+[[My new page]]
+
+== Create an overview page
+# Click the *NEW PAGE* button in the menu.<br><br>
+# Type a name for the page. Spaces are allowed.<br><br>
+# Press the *Enter* key or click the *OK* button.<br><br>
+# When asked if you'd like to add a link into the main menu, accept by pressing the *Enter* key or clicking the *OK* button, or refuse by clicking the *Cancel* button.<br><br>
+# Include pages by typing in an {{{[[Include::PageName]]}}} link for each page you'd like to see in the overview, replacing *PageName* with the name of the page to include.<br><br>
+# Save your changes by clicking on the [[Include::Image::save.png]] icon in the banner.
+
+== Troubleshooting
+* You can make a page name that's too long for the wiki to handle properly. This will cause the icons in the banner to scroll off-screen and be difficult to access. Since there are various resolutions for computers, it's not possible to say exactly how long a name can be for everyone, so use your best judgement. If you created a page with a name that's too long, see [[Help::Page name too long]] for how to fix it.
+
+* It's possible to add a page with no name if you don't type a name and just click the *OK* button. If this happens to you, see [[Help::Page with no name]].
+
+* If you have no blank lines in your menu and you create a page with a [[Help::Namespaces|namespace]], the double colons will not be inserted when the link to the page is added to the menu. You will have to edit the menu and manually add them.
+
+* There are three reasons why you may not be able to create a page:<br><br>
+** There is already a page by that name. Check  [[Special::All Pages|All pages]] to see if that page already exists.<br><br>
+** The wiki is being run in [[Help::Publish wiki online|read-only mode]], so no changes are allowed. See the [[Help::Wiki is read-only]] page for instructions on how to fix the issue.<br><br>
+** You are trying to use a namespace that is reserved by the system. See the [[Help::Namespaces]] page.
+
+[[Tag::Help]]
+
+--DFQRCTsKlU
+woas.page.title: Help::Page name too long
+woas.page.attributes: 0
+woas.page.last_modified: 1267000509
+woas.page.length: 1116
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Page name too long
+If you created a page with a name that's too long and you can't access the icons at the top of the page or the page title while in the editor:
+# Click the link for any other page in the menu to restore your access to the icons.<br><br>
+# Click the [[Include::Image::advanced.png]] icon in the banner and choose the [[Special::Options|Options]] page.<br><br>
+# Uncheck the *Fixed menu area and topbar* option and click the *Save options* button if it's checked.<br><br>
+# Open the page with the too long name either from its entry in the menu or by selecting it from the [[Special::All Pages|All Pages]] page.<br><br>
+# Scroll the page to the right to click the [[Include::Image::edit.png]] icon in the banner.<br><br>
+# Delete the contents of the main text area on the page.<br><br>
+# Scroll the page to the right to click the [[Include::Image::save.png]] icon in the banner.<br><br>
+# Create the page again - this time with a shorter name.<br><br>
+# Return to the [[Special::Options|Options]] page to restore the *Fixed menu area and topbar* option if you had it checked before.
+
+[[Tag::Help]]
+
+--DFQRCTsKlU
+woas.page.title: Help::Page scrolling
+woas.page.attributes: 0
+woas.page.last_modified: 1267000524
+woas.page.length: 384
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Page scrolling
+By default, this wiki offers two choices for scrolling on the [[Special::Options|Options]] page:
+
+# Disabling *Fixed menu area and topbar* locks all page elements in place so the entire page scrolls as one connected unit.<br><br>
+# Enabling *Fixed menu area and topbar* locks the banner and menu in place while allowing the rest of the page to scroll.
+
+[[Tag::Help]]
+
+--DFQRCTsKlU
+woas.page.title: Help::Pages linking to this page
+woas.page.attributes: 0
+woas.page.last_modified: 1267000593
+woas.page.length: 144
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Pages linking to this page
+Click the *Backlinks* link in the menu to see which pages link to the page you currently have open.
+
+[[Tag::Help]]
+
+--DFQRCTsKlU
+woas.page.title: Help::Page with no name
+woas.page.attributes: 0
+woas.page.last_modified: 1267812173
+woas.page.length: 1299
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Page with no name
+If you accidentally created a page without naming it, or if you accidentally deleted the name of the page, there is a way to recover the page.
+
+<div class="helptext">Replace *PAGENAME* with the name you'd like your page to have when following these instructions:</div>
+# Open the wiki in a text editor.<br><br>
+# Do a search for *var page_titles = [*<br><br>
+# You'll see a bunch of page titles below it similar to {{{WoaS::Bootscript}}}, {{{Special::About}}}, etc.<br><br>
+# Somewhere among the list of titles you'll see an entry that just has {{{''}}} as its title.<br><br>
+# Change the {{{''}}} entry to {{{'PAGENAME'}}}.<br><br>
+# Save the file.<br><br>
+# Close the text editor.<br><br>
+# Open the wiki and click the *All Pages* link in the menu (if it exists) or click the [[Include::Image::advanced.png]] icon in the banner and select *All pages*.<br><br>
+# Your page will now be back in the list.<br><br>
+# You may have to create a menu entry for it manually by editing the menu and typing {{{[[PAGENAME]]}}} wherever you'd like the entry to be, or if the entry was there, but empty, replacing {{{[[]]}}} with {{{[[PAGENAME]]}}}.
+
+<font color="red">*TODO: Check whether additional steps are needed now that WSIF has been added to the core code.*</font>
+[[Tag::Help|ToDo]]
+
+--DFQRCTsKlU
+woas.page.title: Help::Namespaces
+woas.page.attributes: 0
+woas.page.last_modified: 1267812055
+woas.page.length: 2854
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Namespaces
+When you create a page and use the *::* separator in the page name, you will be using a *namespace* to define parent and child pages. For example, {{{[[MyPages::Page One]]}}} and {{{[[MyPages::Page Two]]}}} both belonging to the {{{[[MyPages::]]}}} namespace.
+
+You can also use sub-namespaces, like {{{[[MyPages::Recipes::Desserts::]]}}}.
+* *MyPages::* is the namespace.
+* *Recipes::* is a sub-namespace of *MyPages::*.
+* *Desserts::* is a sub-namespace of *Recipes::*.
+[[Include::Image::alert2.png]] /Each namespace can have as many child pages under it as you like (within the resource limits of your hardware)./
+
+An advantage of creating parent and child pages is that the full path to each page is displayed in the banner, so when you're on any page in a particular namespace, the parent page name will be in the banner with the namespace (and sub-namespace, if the page has one) as a clickable link which will open an automatically generated page listing all the pages in that namespace (or sub-namespace) for quick navigation.
+
+== Namespaces reserved by this wiki
+These namespaces are reserved by the wiki for use by the wiki:
+* *Lock::* used internally for encrypted pages
+* *Locked::* for encrypted pages
+* *Special::* for all the special pages
+* *Tagged::* for all the tagged pages
+* *Tags::* for tagging pages
+* *Unlock::* used internally for encrypted pages
+* *Unlocked::* for plain (unencrypted) pages
+* *WoaS::* for the bootscript page, and reserved for future use
+
+These namespaces are reserved by the wiki for use by the user:
+* *File::* for embedded files
+* *Image::* for embedded images
+
+These namespaces are reserved by the wiki for use by the wiki and by the user:
+* *Help::* for wiki documentation
+* *Template::* for transclusion templates
+
+=== Namespace sub-menu
+If you add *::Menu* to the end of a page name, a sub-menu will be temporarily added to the main menu when any pages belonging to that page's namespace are opened (for example, see [[Example::Menu]]). You can determine what goes into that temporary menu entry by editing the page with *::Menu* in its name. All content on the page will be displayed in the main menu, and text will be automatically wrapped for you. The menu will vanish as soon as you navigate away from that namespace.
+
+For example, if you have these pages:
+* {{{[[Recipes::Menu]]}}}
+* {{{[[Recipes::Desserts]]}}}
+* {{{[[Recipes::Main dishes]]}}}
+* {{{[[Recipes::Side dishes]]}}}
+* {{{[[Recipes::Soups]]}}}
+You can type *My favorite recipes!* into the {{{[[Recipes::Menu]]}}} page, and any time you open any of the Recipes pages, *My favorite recipes!* will appear in the sub-menu of the main menu. Or you can type {{{[[Recipes::]]}}} into the page to have a listing of all pages in the Recipes:: namespace in the submenu any time a page in the Recipes:: namespace is opened.
+
+[[Tag::Help]]
+
+--DFQRCTsKlU
+woas.page.title: Help::Print a page
+woas.page.attributes: 0
+woas.page.last_modified: 1267000613
+woas.page.length: 245
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Print a page
+# Click the [[Include::Image::print.png]] icon in the banner. A new browser window will open with a printer-friendly version of the page.
+# Use the browser's *print preview* and *print* functions to print the page.
+
+[[Tag::Help]]
+
+--DFQRCTsKlU
+woas.page.title: Help::Publish wiki online
+woas.page.attributes: 0
+woas.page.last_modified: 1267812209
+woas.page.length: 644
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Publish wiki online
+This wiki can be published online as a single-file, framed web page by making it read-only:
+# Make a backup copy of this wiki.
+# Click the [[Include::Image::advanced.png]] icon in the banner.
+# Scroll to the bottom of the page.
+# Click the *Disallow edits* button to make the file read-only.
+# Upload the wiki to a web server and publish a link to it.
+
+The read-only format is also great for sharing your work with others by email. Most - if not all - email programs accept .htm pages as attachments.
+
+[[Include::Image::alert2.png]] /To enable wiki editing again, see the [[Help::Wiki is read-only]] page./
+
+[[Tag::Help]]
+
+--DFQRCTsKlU
+woas.page.title: Help::Rename a page
+woas.page.attributes: 0
+woas.page.last_modified: 1267000667
+woas.page.length: 265
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Rename a page
+# Click the [[Include::Image::edit.png]] icon in the banner.
+# Edit the contents of the text inside the *Page title* area at the top of the page.
+# Save your changes by clicking on the [[Include::Image::save.png]] icon in the banner.
+
+[[Tag::Help]]
+
+--DFQRCTsKlU
+woas.page.title: Help::Requirements
+woas.page.attributes: 0
+woas.page.last_modified: 1267000681
+woas.page.length: 2749
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Requirements =
+These are the requirements for [[http://sf.net/projects/stickwiki/|Wiki on a Stick]]:
+
+== Supported Browsers
+Wiki on a Stick is actively supported on the following browsers:
+
+* Firefox 1.5
+* Firefox 2
+* Firefox 3
+* Firefox 3.5+
+* Opera
+* Internet Explorer 5.5
+* Internet Explorer 6
+* Internet Explorer 7*
+* Internet Explorer 8*
+<div class="alertnote">* On IE7-IE8 you might want to rename your application to .hta to enable its trusted privileges.</div>
+== Limitations
+* Firefox (and possibly other browsers, too) cannot save to filenames containing UTF8 characters. Use unix-style filenames instead.
+* Internet Explorer 6 and 7 do not support embedded images (that's why you will not see button icons).
+* Internet Explorer does not allow saving to a network path in the form /\\machine\share\bookonastick.htm/. To use this wiki over a network with Internet Explorer, map network paths to network drives first.
+* Internet Explorer 6 does not allow a fixed menu.
+
+==TiddlySaver
+<sub>original text by J.Ruston, 13 August 2007 (created 21 August 2006)</sub>
+<sub>modified by Daniele C. on 29 September 2007</sub>
+
+The TiddlySaver Java applet allows Wiki on a Stick from a file:// URL to save changes when using Safari, Opera and other Java-enabled browsers.
+
+The Java applet "TiddlySaver.jar", a very small file, must be placed in the same directory as your WoaS file. In order to use it you will need to give it the necessary privileges by editing your .java.policy file.
+
+For Windows, the file will be at C:\Documents and Settings\your-user-name\.java.policy. Add the following lines (substituting the directory  as appropriate):{{{
+grant codeBase "file:${user.home}/My Documents/tiddlywiki-folder/*" {
+  permission java.io.FilePermission "${user.home}${/}My Documents${/}stickwiki-folder${/}*", "read,write";
+};
+}}}On Mac OS X, the file is found at /Users/your-user-name/.java.policy:{{{
+grant codeBase "file:${user.home}/Documents/tiddlywiki-folder/*" {
+  permission java.io.FilePermission "${user.home}${/}Documents${/}stickwiki-folder${/}*", "read,write";
+};
+}}}It can be tricky creating files whose name starts with a period, so you can use this <a href="http://stickwiki.sourceforge.net/src/.java.policy">pre-built .java.policy file</a>. The same file is suitable for Macs too, just edit it and delete the "My " bit, leaving just "Documents". Make sure you save it in the right place for each operating system!
+
+If you have trouble setting up the permissions correctly, you can try granting broader permissions to the applet like this:{{{
+grant codeBase "file://localhost/home/users/Desktop/
+TiddlySaver.jar"
+ { permission java.security.AllPermission; };
+}}}The TiddlySaver java applet was written by J.Rouston.
+
+[[Tag::Help]]
+
+--DFQRCTsKlU
+woas.page.title: Help::Run wiki on a server
+woas.page.attributes: 0
+woas.page.last_modified: 1267000691
+woas.page.length: 300
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Run wiki on a server
+This is a personal wiki that's not designed to be used on a server. Any changes you make to the file will only be permanent if the wiki is on your computer. Advanced users may be able to find a way to get around that, but it's currently not possible by default.
+
+[[Tag::Help]]
+
+--DFQRCTsKlU
+woas.page.title: Help::Syntax
+woas.page.attributes: 0
+woas.page.last_modified: 1267000701
+woas.page.length: 376
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Syntax
+This wiki accepts [[http://en.wikipedia.org/wiki/Plain_text|plain text]], [[Tagged::Syntax|internal wiki syntax]], [[http://www.wikicreole.org/wiki/|Creole 0.1]], [[http://www.w3schools.com/html/default.asp|HTML]], and [[http://www.w3schools.com/js/default.asp|JavaScript]]. See below for pages tagged with *Syntax*:
+[[Include::Tagged::Syntax]]
+
+[[Tag::Help|Syntax]]
+
+--DFQRCTsKlU
+woas.page.title: Help::Table of Contents
+woas.page.attributes: 0
+woas.page.last_modified: 1267000718
+woas.page.length: 889
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+[[Special::TOC]]
+= Table of Contents
+The Table of Contents link creates a Table of Contents that's automatically populated with all the headers on a page. The Table of Contents expects the first header on a page to be a Level 1 header. If you use any other level header first, that header and any headers after it will be represented by hash marks until a Level 1 header is encountered. From that point on, the headers will be numbered properly. See the [[Example::Table of Contents]] page for an example of a page where a level 1 header isn't the first header on the page.
+
+<div class="helptext">Use this code on a line by itself in your page:*</div>{{{
+[[Special::TOC]]
+}}}<div class="helptext">To create a Table of Contents like the one at the top of this page.</div>
+
+= Level 1 header
+
+== Level 2 header
+
+== Level 2 header
+
+=== Level 3 header
+
+=== Level 3 header
+
+[[Tag::Help|Syntax]]
+
+--DFQRCTsKlU
+woas.page.title: Help::Tables
+woas.page.attributes: 0
+woas.page.last_modified: 1267000742
+woas.page.length: 2276
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+[[Special::TOC]]
+= Tables
+The content inside tables can contain internal and external links, and these kinds of [[Help::Text formatting|Text formatting]]:
+* Blinking
+* Bold
+* Colored
+* Italic
+* Plain
+* Underlined
+* Underlined Bold Italic
+
+== Basic Table:
+</font><div class="helptext">Use this code in a page:</div>{{{
+{|
+| CELL1 || CELL2
+| CELL1 || CELL2
+|}
+}}}<div class="helptext">To create this:</div>
+{|
+| CELL1 || CELL2
+| CELL1 || CELL2
+|}
+
+<div class="helptext">Or use this code in a page:</div>{{{
+{|
+| CELL1 || CELL2
+|-
+| CELL1 || CELL2
+|}
+}}}<div class="helptext">To create this:</div>
+{|
+| CELL1 || CELL2
+|-
+| CELL1 || CELL2
+|}
+
+The line that starts with {{{|- }}} is a comment line. You can type some text after it which will only be visible when viewing the source:
+<div class="helptext">Use this code in a page:</div>{{{
+{|
+| CELL1 || CELL2
+|- This is a comment.
+| CELL1 || CELL2
+|}
+}}}<div class="helptext">To create this:</div>
+{|
+| CELL1 || CELL2
+|- This is a comment.
+| CELL1 || CELL2
+|}
+
+== Complex Table:
+<div class="helptext">Use this code in a page:</div>{{{
+{|
+|+ TITLE
+| *HEADER1* || *HEADER2* || *HEADER3*
+|-
+| CELL1 || CELL2 || CELL3
+|-
+| CELL1 || [[http://www.google.com|Link to Google]] || CELL3
+|-
+| CELL1 || [[Main Page]] || CELL3
+|-
+| CELL1 || || CELL3
+|}
+}}}<div class="helptext">To create this:</div>
+{|
+|+ TITLE
+| *HEADER1* || *HEADER2* || *HEADER3*
+|-
+| CELL1 || CELL2 || CELL3
+|-
+| CELL1 || [[http://www.google.com|Link to Google]] || CELL3
+|-
+| CELL1 || [[Main Page]] || CELL3
+|-
+| CELL1 || || CELL3
+|}
+
+<div class="helptext">Or use this code in a page:</div>{{{
+{|
+|+ TITLE
+| *HEADER1* || *HEADER2* || *HEADER3*
+| CELL1 || CELL2 || CELL3
+| CELL1 || [[http://www.google.com|Link to Google]] || CELL3
+| CELL1 || [[Main Page]] || CELL3
+| CELL1 || || CELL3
+|}
+}}}<div class="helptext">To create this:</div>
+{|
+|+ TITLE
+| *HEADER1* || *HEADER2* || *HEADER3*
+| CELL1 || CELL2 || CELL3
+| CELL1 || [[http://www.google.com|Link to Google]] || CELL3
+| CELL1 || [[Main Page]] || CELL3
+| CELL1 || || CELL3
+|}
+
+== Table of Contents:
+<div class="helptext">Use this code in a page:</div>{{{
+[[Special::TOC]]
+}}}<div class="helptext">To create an automatically populated Table of Contents like the one at the top of this page.</div>
+
+[[Tag::Help|Syntax]]
+
+--DFQRCTsKlU
+woas.page.title: Help::Tags
+woas.page.attributes: 0
+woas.page.last_modified: 1267813233
+woas.page.length: 3509
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+[[Special::TOC]]
+= Tags
+Tags are special links used by this wiki to group pages together into categories so that they can easily be found again, A tag can be placed anywhere on a page, but it's a good idea to choose a standard location, like the bottom of the page, so you can easily find and edit them as your wiki grows. You can choose any name you like for the tag. You can also give a page more than one tag if the page fits into more than one category.
+
+This page has been tagged with *Help*. If you go to the bottom of this page and click on the *Help* tag, you'll get a listing of all other pages with the same tag.
+
+Tag a page by using a {{{[[Tag::]]}}} link, adding the tag name or names after the double colons. This can be done by using the *Page tag* button in the editor or by typing the tag in manually using the instructions below.
+
+=== Add a tag to a page (method 1)
+# Place your cursor at the bottom of the page.
+# Click the *Tag* button in the editor.
+# Type in a name for the tag.
+# Click the *OK* button.
+
+=== Add a tag to a page (method 2)
+<div class="helptext">Use this code in a page:</div>
+<div class="helpcode">[<!-- -->[T<!-- -->ag::H<!-- -->elp]<!-- -->]</div>
+<div class="helptext">To create a tag like the one at the bottom of this page.</div>
+=== Add more than one tag to a page (method 1)
+# Place your cursor at the bottom of the page.
+# Click the *Tag* button in the editor.
+# Type in names for the tags, separating each from the one before it with a pipe.
+# Click the *OK* button.
+
+=== Add more than one tag to a page (method 2)
+To use more than one tag on a page, use one tag link and add as many tags as you like, separating each from the one before it with a pipe. For example: {{{[[Tag::Recipes|Chocolate|Layered cakes]]}}}.
+
+=== Choosing tag names
+* Tag names are case sensitive.
+** Example: {{{[[Tag::Recipes]]}}} and {{{[[Tag::recipes]]}}} are two different tags.
+* Tag names can be more than one word long with a space between each word.
+** Example: {{{[[Tag::Layered cakes]]}}}.
+
+=== Add a link to tagged pages
+<div class="helptext">Use this code in a page, replacing Help with the tag you'd like to use:</div>
+<div class="helpcode">[<!-- -->[Tagged::Help]<!-- -->]</div>
+<div class="helptext">To create a listing of tagged pages like this one:</div>
+[[Tagged::Help]]
+
+=== Add a filtered link to tagged pages
+By putting an exclamation mark (*!*) in front of the tag name, you can filter out a specific tag from a tagged pages list:
+<div class="helptext">Use this code in a page, replacing Help with the tag you'd like to filter out:</div>
+<div class="helpcode">[<!-- -->[Tagged::!Help]<!-- -->]</div>
+<div class="helptext">To create a listing of tagged pages like this one:</div>
+[[Tagged::!Help]]
+
+=== Include a listing of tagged pages
+<div class="helptext">Use this code in a page, replacing Help with the tag you'd like to use:</div>
+<div class="helpcode">[<!-- -->[Include::Tagged::Help]<!-- -->]</div>
+<div class="helptext">To display a listing of tagged pages inside the current page.</div>
+
+=== Include a filtered listing of tagged pages
+By putting an exclamation mark (*!*) in front of the tag name, you can filter out a specific tag from a tagged pages list:
+<div class="helptext">Use this code in a page, replacing Help with the tag you'd like to filter out:</div>
+<div class="helpcode">[<!-- -->[Include::Tagged::!Help]<!-- -->]</div>
+<div class="helptext">To display a filtered listing of tagged pages inside the current page.</div>
+
+[[Tag::Help|Syntax]]
+
+--DFQRCTsKlU
+woas.page.title: Help::Text formatting
+woas.page.attributes: 0
+woas.page.last_modified: 1267813552
+woas.page.length: 2068
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+[[Special::TOC]]
+= Text formatting
+== Blinking
+<div class="helptext">Use this code in a page:</div>{{{
+<blink>This is blinking text.</blink>
+}}}<div class="helptext">To create this:</div>
+<blink>This is blinking text.</blink>
+
+[[Include::Image::alert2.png]] /This is not supported in Chrome, IE, or Safari./
+== Bold
+<div class="helptext">Use this code in a page:</div>{{{
+*This is bold text.*
+}}}<div class="helptext">To create this:</div>
+*This is bold text.*
+
+== Colored
+<div class="helptext">Use this code in a page:</div>{{{
+<font color="#FF00FF">This is colored text.</font>
+}}}<div class="helptext">To create this:</div>
+<font color="#FF00FF">This is colored text.</font>
+
+<div class="helptext">Or use this code in a page:</div>{{{
+<font color="fuchsia">This is colored text.</font>
+}}}<div class="helptext">To create this:</div>
+<font color="fuchsia">This is colored text.</font>
+
+<div class="helptext">Or use this code in a page:</div>{{{
+<span style="color:#FF00FF">This is colored text.</span>
+}}}<div class="helptext">To create this:</div>
+<span style="color:#FF00FF">This is colored text.</span>
+
+<div class="helptext">Or use this code in a page:</div>{{{
+<span style="color:fuchsia">This is colored text.</span>
+}}}<div class="helptext">To create this:</div>
+<span style="color:fuchsia">This is colored text.</span>
+
+== Italic
+<div class="helptext">Use this code in a page:</div>{{{
+/This is italic text./
+}}}<div class="helptext">To create this:</div>
+/This is italic text./
+
+== Plain
+<div class="helptext">Use this code in a page:</div>{{{
+This is plain text.
+}}}<div class="helptext">To create this:</div>
+This is plain text.
+
+== Underlined
+<div class="helptext">Use this code in a page:</div>{{{
+_This is underlined text._
+}}}<div class="helptext">To create this:</div>
+_This is underlined text._
+
+== Underlined Bold Italic
+<div class="helptext">Use this code in a page:</div>{{{
+_*/This is underlined and bold and italic text./*_
+}}}<div class="helptext">To create this:</div>
+_*/This is underlined and bold and italic text./*_
+
+[[Tag::Help|Syntax]]
+
+--DFQRCTsKlU
+woas.page.title: Help::Transclusion
+woas.page.attributes: 0
+woas.page.last_modified: 1267813756
+woas.page.length: 2549
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Transclusion
+Transclusion is a special way of [[Help::Include wiki page|including]] a wiki page in another wiki page. Instead of just displaying the contents of the included page as is, you can change how the content is displayed depending on how you write the link.
+
+This method requires that you create a page to be used as a template. This page must contain variables represented by %1, %2, %3, and so on.
+
+The [[Example::Transclusion]] page in this wiki uses three variables. The contents of that page are:{{{
+The members of the board are %1, %2, and %3.
+}}}You can then create a transclusion link or links to that page by creating a normal [[Help::Include web page|include link]] with the values for the variables added after the page name. Each value must be preceded by a pipe ({{{|value}}}). The values you define in the link will be used from left to right to replace the numbered variables on the page you're including.
+
+<div class="helptext">Use this code, replacing PAGENAME with the name of the page to be included, and VALUE1, VALUE2, and VALUE3 with the values you'd like the three variables to have when the included page is displayed:</div>
+<div class="helpcode">[<!-- -->[Include::PAGENAME|VALUE1|VALUE2|VALUE3]<!-- -->]</div>
+== Examples
+These examples use the [[Example::Transclusion]] page:
+
+<div class="helptext">Use this code:</div>
+<div class="helpcode">[<!-- -->[Include::Example::Transclusion|Mary|Steve|Dave]<!-- -->]</div>
+<div class="helptext">To create this:</div>
+[[Include::Example::Transclusion|Mary|Steve|Dave]]
+<div class="helptext">Or use this code:</div>
+<div class="helpcode">[<!-- -->[Include::Example::Transclusion|Fred|Mrs. Smith|Ryan]<!-- -->]</div>
+<div class="helptext">To create this:</div>
+[[Include::Example::Transclusion|Fred|Mrs. Smith|Ryan]]
+<div class="helptext">Or use this code:</div>
+<div class="helpcode">[<!-- -->[Include::Example::Transclusion|Bob|Jane|Jack]<!-- -->]</div>
+<div class="helptext">To create this:</div>
+[[Include::Example::Transclusion|Bob|Jane|Jack]]
+== Wiki and HTML code in transclusion
+Some wiki code and HTML tags are accepted in the values. For example:
+
+<div class="helptext">Use this code:</div>
+<div class="helpcode">[<!-- -->[Include::Example::Transclusion|&#042;Bob&#042;|&#042;Jane&#042;|&#042;Jack&#042;.&lt;br&gt;&lt;br&gt;Please arrive on time to the meeting on Wednesday]<!-- -->]</div>
+<div class="helptext">To create this:</div>
+[[Include::Example::Transclusion|*Bob*|*Jane*|*Jack*.<br><br>Please arrive on time to the meeting on Wednesday]]
+
+[[Tag::Help]]
+
+--DFQRCTsKlU
+woas.page.title: Help::Wiki is read-only
+woas.page.attributes: 0
+woas.page.last_modified: 1267000805
+woas.page.length: 380
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Wiki is read-only
+If you clicked the *Disallow edits* button on the [[Special::Options|Options]] page, this wiki became read-only. To undo that:
+# Back up this wiki.
+# Open it in a text editor.
+# Do a search for: {{{"permit_edits":false,}}}
+# Replace it with: {{{"permit_edits":true,}}}
+# Save the file.
+# Close the text editor.
+# Open the wiki and use normally.
+
+[[Tag::Help]]
+
+--DFQRCTsKlU
+woas.page.title: Help::Include web page
+woas.page.attributes: 0
+woas.page.last_modified: 1267811906
+woas.page.length: 3191
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Include web page
+Web pages can be included in a page as embedded objects or in iFrames.
+
+[[Include::Image::alert2.png]] /Some pages may not render correctly depending on how they're coded. Embedding more than one web page in a wiki page will cause the final embedded web page to steal the focus when the page is loaded, so it's best to have only one per page. As a result, this page contains no examples./
+== Embed a local HTML file as an object
+<div class="helptext">Use this code in a page, replacing PATH with the full path to HTML file you wish to include, and changing the width and height to suit your taste:</div>{{{
+<html><object data="PATH" style="width:100%; height:630px;">File not found.</object></html>
+}}}<div class="helptext">To embed a local HTML file in a page.</div>
+For example, if you want to embed the /Work/MyProject.html file as an object, you'd use this command:{{{
+<html><object data="/Work/MyProject.html" style="width:100%; height:630px;">File not found.</object></html>
+}}}
+== Embed a remote URL as an object
+This method makes the embedded web page become a seamless part of the page.
+
+<div class="helptext">Use this code in a page, replacing URL with the URL of the page you wish to include, and changing the width and height to suit your taste:</div>{{{
+<html><object data="URL" style="width:100%; height:630px;">URL not found.</object></html>
+}}}<div class="helptext">To embed an external URL in a page.</div>
+For example, if you want to embed the Google page at [[http://www.google.com]] as an object, you'd use this command:{{{
+<html><object data="http://www.google.com" style="width:100%; height:630px;">URL not found.</object></html>
+}}}The resulting page would look like [[Example::Embed web page object|this]].
+
+== Embed a remote URL in an iFrame
+This method creates a frame around the embedded web page. The code shown below is for a plain frame, but you can style the iFrame further by adding a border, changing the border style to dotted, dashed, solid, double, groove, ridge, inset, or outset, changing the border width to whatever thickness you like, and the border color to whatever color you like.
+
+<div class="helptext">Use this code in a page, replacing URL with the URL of the page you wish to include, and changing the width and height to suit your taste:</div>{{{
+<iframe height="400" width="100%" height:630px; src="URL"></iframe>
+}}}<div class="helptext">To include a web page in a wiki page.</div>
+For example, if you want to embed the Google page at [[http://www.google.com]] in an iFrame, you'd use this command:{{{
+<iframe height="400" width="100%" height:630px; src="http://www.google.com"></iframe>
+}}}The resulting page would look like [[Example::Embed web page iFrame|this]].
+<!-- 
+== Reload an iframe with a link
+<div class="helptext">Use this code in the same page as an iframe, replacing FRAMENAME with ID of the iFrame you'd like to reload:</div>{{{
+<script type="text/javascript">function Reup () {var f = document.getElementById('FRAMENAME'); f.src = f.src;}</script>
+<a href="javascript:Reup()">Reload the iframe</a>
+}}}<div class="helptext">To create a reload link that refreshes an iFrame.</div>
+-->
+[[Tag::Help|Syntax]]
+
+--DFQRCTsKlU
+woas.page.title: Example::Menu
+woas.page.attributes: 0
+woas.page.last_modified: 1267814626
+woas.page.length: 22
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+[[Include::Example::]]
+--DFQRCTsKlU
+woas.page.title: Example::Embed web page iFrame
+woas.page.attributes: 0
+woas.page.last_modified: 1266441395
+woas.page.length: 138
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Embed a remote URL in an iFrame
+<iframe height="400" width="100%" height:630px; src="http://www.google.com"></iframe>
+[[Tags::Example]]
+
+--DFQRCTsKlU
+woas.page.title: Example::Embed web page object
+woas.page.attributes: 0
+woas.page.last_modified: 1266440852
+woas.page.length: 161
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+== Embed a remote URL as an object
+<html><object data="http://www.google.com" style="width:100%; height:630px;">URL not found.</object></html>
+[[Tags::Example]]
+
+--DFQRCTsKlU
+woas.page.title: Image::advanced.png
+woas.page.attributes: 12
+woas.page.last_modified: 1266990164
+woas.page.mime: image/png
+woas.page.length: 684
+woas.page.encoding: 8bit/base64
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAByElEQVQ4jaWTP4jSYRjHv+8vWuwgajgEwcW7qagLQjCibLjrBB0arlziRGiTaG4KF4cLcXUIGjo1ThBxOzj6JQSKg5BSi4MnB1J5giJEy30aDsx/gdEL7/I8z/fD93l4HgPof541GzDGYIxZmjoH8Hq9Oj4+VrVaxefzzYGMMaysrBCLxbAsC8H0l4TX66XX61Gv15nNB4NBcrkclUoFv9//RxQIBJCEJFwuF/1+n2KxyCy82Wxi2zbb29tIYtxCPp9XKBSS0+lUJBLRycmJMpnMlHXLsnR0dKRyuazDw0MBZkzudDoMBgOGwyGj0Yh2uw2Aw+FAEul0mlQqhTFm2tVkb41Gg0KhQDgcBuCDbbO1uYUkkskkkuZmMjfEccIyXL30gE3fc+Lx+ELxXwEyhhs7L3j3qc2qniE52dt7vZwDSVx7FOPzjyG7+zbXbz9BEt1ul9PT0znIQnHu6zci2Y88fPkGyWBdsGi1WtRqNaLR6BRkSnz54l2+/PzF7r7NzTs7GFnjQrfbTalU4uDggEQisRiwfuUpj+PvCbx6iyQ2bm0wmV9bWyObzeLxeMZxM3mN58uyqrOz7+dL8q/HBJh799eXFkvSb2UWxsTE+VB8AAAAAElFTkSuQmCC
+--DFQRCTsKlU
+woas.page.title: Image::edit.png
+woas.page.attributes: 12
+woas.page.last_modified: 1266991003
+woas.page.mime: image/png
+woas.page.length: 896
+woas.page.encoding: 8bit/base64
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACZ0lEQVQ4jaWSwUuTcRjHv89vb/pubXs3B65mjS5dCsxDh/CeIERBp2JoEHTzP4iQICyiyCw6RELzku1Wlwg8CMrIDnlIUjRRCUW36Xj3bnPv5vt+O6ytBnrqgR/8Dr/f5/t9nucrJPE/pTUuuq7T6/XiX+Bh8EKhAJLS8ogkZmdnub+/z62tLe7s7DCbzTKXy3Fvb4/5fJ6madI0TZLkyMgIG/+koTIzM8Pu7m5omoZyuQzHcaCUglIKItI8rusiEolAREBSmi04jgPDMCAiiMViSKVSiEaj2N3dhaZpEKm7jsfjsG0boVAIAKAaABHBwcEBYrEYTp/qQiKRwOjocxhGELVarWUef9RbZzA9PU3LsphMTrCn5zwdxyVJnoj6mU7P0TRNlkolWpZF27ZpGAZJ/nUAAB6PB319l6FUG5SysV8uYuxxPwYHEhABqtVq00GjmgCSUEohl8tiePg+vqdfgKUviAds/EhfxcNHo7AsE47jwOPxHA6o58GL3t5LuH7jLrJLr1GpKqwtZfB2/ClWfq43t3Gkg46ODijlwfJGBQP3TFw414lMpoSN+dt4n7yDYDAI13Wbgi0AEcH29jY2NzexvLyCVy+fIPVxAWfPhDH/9ReePejHm/GJo1sQEfj9fgQCAXi9Xvh8x9EeH8LFK+/QGfEjs17A4uJiS7RbguQ4DsLhMESkmcBbAzexurqGuW+f8OHzCsaSC4cDpqamkM/nYds2RATVahUk0NZ2DF0nI5DQEK4NEpOTk9B1HZVKpb7SxjB8Ph8baXTpQm/XARDFYgmBQBC1Wj0DmlbXLBaLICm/AcyWSXS9vu73AAAAAElFTkSuQmCC
+--DFQRCTsKlU
+woas.page.title: Image::save.png
+woas.page.attributes: 12
+woas.page.last_modified: 1266991058
+woas.page.mime: image/png
+woas.page.length: 564
+woas.page.encoding: 8bit/base64
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABbUlEQVQ4jaWTPW4UQRCFv1c9f15vgESCEyMhCNhLQEjoyDeADHI4BI7tmAA5NhyBgwCBL2BgpqerCGZ3rJW9liVXq9RqddXr96qrFBE8xCoASdF1S9wzKdmdCRGBO+Tc4+6qNhdv353y4vnI8fGbnSARQV0bn0++8v3bBZJiBnAv5JwZhgEz7WTgLsZxpHi5lsCkA63dbDcDMzGtye4WfA+rtk7S+qVd4SJiYnkrQPhISkFKfnt+iCoFvta/BbC/aPn12/j46QtSwsy2AsOdpn1E0yyoqsczyxlAEsPQ8+H9a0qBvr+i6/ZxnyLNgvPzHxRfUsp4k4EE7sHBwRNOzy64vFzy9PAfR0evMDPq2mjbhj9/p1ps7MYvSCKZYeZYui6YdrTGDDBRDSKCnEf6vpDziHus23faZye2JbTtArMrum7BanXIWH6yevmMvb0OSbRtomlahlwDItmUqs00SgpJ3Gc6N3ERIT10nP8D7ESmqoJjb/EAAAAASUVORK5CYII=
+--DFQRCTsKlU
+woas.page.title: Image::unlock.png
+woas.page.attributes: 12
+woas.page.last_modified: 1266991919
+woas.page.mime: image/png
+woas.page.length: 676
+woas.page.encoding: 8bit/base64
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAAsTAAALEwEAmpwYAAABrElEQVQ4jaWTz4oTQRCHv+5MMmHZkMXdCLl4EI8BL4J/LkrMSQjG81zzEHmJPENuuXj0AQQDgue5iUbICCbZZZc17sxkZrrLg87IGpMsWNBQFN1f/7p+1UpE+J/QGwWtRWt9Y2oBaDQa0uv1ZDKZ4Ps+w+FQ2u32XpCTJ51Oh8FgwGg0IggCut0unuftlyAiVKtVmU6n4nmeiAgiQqvVkvF4LP1+v6j9a2mAZrNJGIYEQVCAfd9Xy+WSer2+U4DKXVBKyW9Fqtd5KIdHxzx6/IQ0Dpm8e4tbLnFYq7GOIuLTL7z5MCPKRBU9EBGV569evuD5g7tEq3PWkeXZvacYY8iSiORyyezTKa/f/9XEa32xhvTqgov5jMXiG2maImJxHU0lOcMmyaYL1x+mQClKlTKO62IRRAxlR7BhhhW7ByCCNYYfl98Jvs5J1wlKwfHRAXWEUtkttm5M4q/zFmyGYAHJmQAYk1GuHOxWoBRYpTk5uUWt5pKlCWJSsnjF1VmVipXdgNnnj9y/fYfwfEEcr7AmQ+sSNsuwyiGYz/9ctu035nOxLXLbtwJuGj8BpO3qvrfNqQ8AAAAASUVORK5CYII=
+--DFQRCTsKlU
+woas.page.title: Image::lock.png
+woas.page.attributes: 12
+woas.page.last_modified: 1266991932
+woas.page.mime: image/png
+woas.page.length: 816
+woas.page.encoding: 8bit/base64
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACK0lEQVQ4jaWTv2tTURSAv/vy66WhxqQdg3HMIBUcFF3qEB8ZhOImUQodErG1NBQJ9D/oltXBf8AltCAOiSDS0XZQ2hJSpDERJIaYPmPTH/e9ex3E4Evromc895zvfudwr9Ba8z/hH00YhqFnZmbIZDL0+32KxSJKKWFZltZaU61Whad+tLlcLpPNZjk8PCQYDLKxscHs7Kw2TZNSqcT09LRH2WOwtLREu91mdXWV/f19AbC8vKzn5uYolUoMBoMzI3gMUqkUrVZr2Aywt7dHKBQa1pim+XeAlJLRpWqthzmtNZVKxXM+HOHeXUvfunEN33GPOzevaCklQggmJiZ4+eI5AKFQiEwmcxZgGIbu1N5gf97le8fP7UvXOeh9wx8IMDYewec32GlAJBIhGo2eb6DkEc7xDwb9AzqdNt1uj7AZxB4c8bqueJx/RDgcxrIsUqmUrtVqwgNAGAgBoFBoUC7Scdn6EuFJ8SlSShqNBlNTU6ysrJyzRKVQrsKRDo50cZXm2atdHuQKxGIxotEoyWSSRCJBOp1mfn5ejwBctHuK65zgnJ7gnkpQmkQiAUC9XmdxcRHHcVBKkUwmRwwEaASBgEHsQpj4xTECAR+2bSOE4GH2Ptvv3rKwsABAt9v9E6DZ/bDF++0ddmqf+Nj6SrPd4+rlcdbX1/H5fORyOYQwyOfz2LbN2trar3t/PxIhxLnfcnJykkKhQDweB6DZbFKtVtnc3BQewL/GTxRt9gSt83JsAAAAAElFTkSuQmCC
+--DFQRCTsKlU
+woas.page.title: Image::password.png
+woas.page.attributes: 12
+woas.page.last_modified: 1266991993
+woas.page.mime: image/png
+woas.page.length: 468
+woas.page.encoding: 8bit/base64
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAC7oAAAu6AErhN+EAAABEUlEQVQ4jd2SvUrDYBSGn69NPkxQ0HbQoo2K4ODgLN6BDl6Ag5ujk8VBwcHRWfAuhKJFHJwEQQQRajs4OVgxQilNqFpJelza2EomOxQ82/l74H3PUSJCP5Hoa/t/AIzuZK8wLkbyiyA0ObvfpPi8DCgAWserKg6gOlfYLUyIiML1HAAs7XNyu4XrTf8MA+EvUATYP0/LwUo1am7nZ8StO3gf6XZFUAjzmTsULQ7XKgq6PIj7BhEQUYgobO2zMHmDZTYY0u/k8o70eBCEmp3TKXmpzWEmP7H0MJfldd7akrKpRzKjT7zWZxmzXfxmqldCx8RGcwQjEXDxsEGpshT1bO2zmL3iOncU78FfY/CPNHjAN2SVY7FnVPs5AAAAAElFTkSuQmCC
+--DFQRCTsKlU
+woas.page.title: Image::back.png
+woas.page.attributes: 12
+woas.page.last_modified: 1266993007
+woas.page.mime: image/png
+woas.page.length: 964
+woas.page.encoding: 8bit/base64
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACmElEQVQ4jW2TzW/UZRDHPzPP89vdtttuCxShoYnG9ABIQgiBAMGL8SXRg0aNelATDRcTws2DGg9cufAfYMLFcOXWgAZOhIioiYmhWInUVmqzC7vd/b0+z3BYS9Kmc5yX78x8Z75iZmxnXtWMjZgQYpRt87Y6VMXqiXDqgDI7LeQl3F+OeCcWDWI02RbAO7WxBnz5Xp0zrzd4YS/EqiLPjW4Gt+5VXJoPJF4smhDCcKJnAM0R+PrDOmfffQ6fTFBVGT2dxMtDoMvBWeWrD8A54+rtuHkCFbFvPqpx9p0WvvE8ob6HTu0Uzbn38f/NU905h8tzal744i1Hd2CoiEUzUYCJMeHz1xIS8USt0/HHmdz/MY3RCbT3C0pERHFOqTnhzWP6jF51KvbyS8rMpFAUA9q107QOfIJPEqrF78geXCVjF6VOU0mLEI25GWFm55Bwb8C+nUJWRLr1I0zt/5TEGRYywuRJOHqIRpWhRcpE2WP9h2+R4m+mW8JK24YcVAH6eUQaJWopoQTEUA3gFXDUzBN0nKhNihLi/zt4AR6sGmkJ8dFter9dYOzgOQSjf+8yTxbnKUKknxv9tKSztsSgMNaeDBF8iCbjo2ILK47dLSX7/TKjj/9h17HzNOY+o726QGfxR/qFkeaRrDT+eGistME2rtBP4crNQC+NdFNj9c/rLN+5SCweMzL7BoPSMcgC/TTQS41rd23zH0QzaTbEnIO3TwhOlfbdKyz/9StZ2mW9m5JXMMjh+xuRnxYMs+FLy4aYxkfUvDNePaK8cljYMyXEKJSVUQTj/sqw888LhqqwnsbNABuWeG+Jhxf3wo5mpIrwqGMsrQ2ZL8rNYtKtaiyrSgZZJVP7jrLUGeHfDszscGSFydZigKcbDkjo79ohmQAAAABJRU5ErkJggg==
+--DFQRCTsKlU
+woas.page.title: Image::forward.png
+woas.page.attributes: 12
+woas.page.last_modified: 1266995280
+woas.page.mime: image/png
+woas.page.length: 912
+woas.page.encoding: 8bit/base64
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACcklEQVQ4jXWTO2hUURCGvznn7iZxTfCxJtGQh0REwRSmslGwsbYRBEEU1NhYaWGnwcZUCoII2ih2NuKjUAux8IUoiGAQxZAoQbOyj+x6996999yxuLtrSPTAFIcZ/plz/m9EVfnfyVhpZ2On8q8a+ZeAZ0VdsrLYGHDLhLylF2tF1+Zg6kiW0weyKBCHhkYc83w65sajGBFREUiSVKg9Qavr91vdDIyswpVBtYFfq+AnOYJGhBjYeSqgVAPVVMC0uvetEb7fztHbtxWVcWx+nBm3l479Bbq3HkbEww/g6cUsF49aRETbAtaInj+UZWCjxevIoZl1YNazpncznvpkxi5AVEOMpVSD3TvSvtaIGs+KJgrH92WoFxOIC0g4C9E8+fAJZvYahpi+g3OsHj2ItYaqD0O9kOiSJ0QxJChfy8PM+aPM1kaYC8b48uEphZmXuLDE+vGzREFAnAjDG1IzvJaLtVCoLtYYPXaPOKhgvC5QBSKSqErol4n8nwzvmeTtg3P05JoCIoBCGMU4ybD44TLeqn5AUYXAr1DvHKOnpwubzTHz5jpqoFRtchA7FRHR2YKjM2MIX01iRDHG0giq5Pd/JN9Zx19c4N3dCYrFBVQsL6YdbReMwMM3Ds+Dehjjh46gXuVbuI2eTIUoUt7fnaD8a4566GixK9Ik0SXpFPdfJ1w64RE2wPOyGPeJ+c/P+PzyKuXiD/zAMl9Upu6knCeJSptEa1I7b56xDOaFyu/0D+v1GBWDCnhWOHnFNXMpie1dcC22m4Tt2iYM9UJnVihWhcdvHY0Ytg8K5Vryd6FUdUUM93dp6s2SEKNbNnXo8to/hM9MCzAdBrUAAAAASUVORK5CYII=
+--DFQRCTsKlU
+woas.page.title: Image::home.png
+woas.page.attributes: 12
+woas.page.last_modified: 1266995349
+woas.page.mime: image/png
+woas.page.length: 856
+woas.page.encoding: 8bit/base64
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACSElEQVQ4jXWTO2hUQRSGv3Pn7iMrxpiwJhhIYhRCRCSlINpYWFvYW2gXsLDW1hcoWAmKhVXE2iIKdlpEIwpCCiFoDD7YmNfN7t7dO3OOxT6MiQ4chsOc+ec/5/9HzIz/rZyT7qkPJv+qkX8BxE4s6O7iKIKwAyjenjgntn8P3LyQ58r5PIYQmkIj87xa8DycDYiIiYBqC6jLoPPq8uO9DI+VCBsO0YTNpEZqJRreEFGmpmusbYFZC6DLYLBPmLtXolyegHiI7z1jFCYv09c/RPThKtXGACH5xMvrM8y+U0TEzExiABeJ3Z8uMDzkIF+kmsb0n7xDqSD4xgbF49cYjQvUf84x/3GGU8daY3CRWBw7MTW4dLZAtZJQO/2I8sEjhKxGyAzTgGiKT1dwPYOggc2qMFKGpQpEnRZCI+Fb8Rzl8gF8/ReoxzQDC5gpZgqmjJ+5TTBhdLDFIuqouN4o0lt9webKIpiiWRX1NTQ00NBEQxMix9LbB6QNT2+pLa20Vc0C1NOMevIDEcM0a4fv7lHkqHxeQCXPWtL2gQ8mImJfKkpPHnLNFN/cImQpAKYBI6ChjoaYmoc4Z7xeaFGPWjTg2ZtALgailrIGGAai7QycOOrNTgYi24wkIjY1Lty9GOHdPnJO0HZrIRi1plCtpixX6tx4oiT1lpm6RooE3i8aX1cjhgfWWE0MM8g8eAVVyMXCrafWvfyXE0PH2yIGcGLSMVKGYh5WE3g+rzS9cXQkYn0r/PlQZrYrDo0ftu4YtsXk5ITtrP0NJH1eE3pcaZUAAAAASUVORK5CYII=
+--DFQRCTsKlU
+woas.page.title: Image::print.png
+woas.page.attributes: 12
+woas.page.last_modified: 1266996288
+woas.page.mime: image/png
+woas.page.length: 868
+woas.page.encoding: 8bit/base64
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAABU1BMVEX///9zc3NFRUVZWVlhYWFXV1dbW1tLS0tsbGykpKSvr6+Tk5O0tLTp6ent7e3q6ur39/dnZ2deXl6AgIBvb29oaGhkZGR8fHze3t7i4uL19fV0dHSEhIRaWlqQkJBqamqqqqrw8PBtbW1jY2PDw8Pg4OCLi4t1dXXz8/OJiYktLS1TU1PHx8fMzMzAwMCRkZFpaWlfX18nJydHR0d3d3d4eHhYWFiBgYHBwcG1tbVlZWV6enrU1NTd3d1OTk6Dg4N2dnZ5eXlcXFxUVFRdXV1/f38+Pj6amppKSkq8vLxSUlJGRkaPj49RUVHCwsKurq7JycnExMSsrKyzs7OSkpKfn58/Pz+enp6wsLCysrKxsbFJSUmnp6eWlpaUlJSZmZmYmJhmZmaXl5eNjY1+fn41NTWHh4eFhYWCgoKGhoZxcXEzMzM9PT03Nzc0NDQ2NjY4ODjLtSB1AAAAAXRSTlMAQObYZgAAAAlwSFlzAAAewQAAHsEBw2lUUwAAANBJREFUGJVjYMAEjEzMLCzMrKysbOwQAQ5OLm5uHl4+fgFBiIAQu7CIqJi4hKQUVEBaRlZOnEVeQRGmQklZRUpVTVBdQ0BQE8gV09KW1dHV0zcw1OFlNTJmYDAxNVM2t7C0sjaxsbWzBwo4OBo4sTi7CLu6iTGKuXuABDxlvNhcvAV9fLl4/EACzP4BgUHBOmbOIWx+oWEggXCuiMgoLs5oFo+YWLBAnHs8CCQkiiclAwVSUtPSM8AgMzMjKxvokJzc1NTcvPzU1LyCfC0sfgcAUEImzA0iblkAAAAASUVORK5CYII=
+--DFQRCTsKlU
+woas.page.title: Image::Cancel.png
+woas.page.attributes: 12
+woas.page.last_modified: 1266999681
+woas.page.mime: image/png
+woas.page.length: 968
+woas.page.encoding: 8bit/base64
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACm0lEQVQ4jZWTTYiVdRTGf+///bgf41zv1bnjW9ZEtJjSGJ1x4UIQKxcRVJu7KaJNQYswcNOiXUXRVqEWgqIt0pUrERkEiUAkaBWVCGE5TWTj3DvTzLzvff8f57gYx5p041k9i8OPc55znkhVeViNpEYzs66Dwj9Woof1Rf8HjGZGD+YJr07UyJsGF2B+VZidr7i64FmqNoOSDZHGRnd3DJdfH2MmbyI+YKuKwgpDD688kfHLwLFve6o/LQeGfh1kNgDPbjV8dajN1FNdhiNdpJOTjm6lkUSkCNWwZGdd+HBXg+da8f0JDEAzNXr8QIuZfAuLe3qEd06g06+hrS5RllHsfZnupxdpHeyxIxOOTtZpZ0bvr7B3W8L+8YTgPSNTL9J6+nl0fCeu6DPYNkn3jU+od8ZIDcxfOkfeqDHdSf714PDjKc4raexpfncKzZ+EsQnofcyYgElSqsECdy6cQE2KDTDdjmkkRhOAbt1QeKVBoPbjZexwBd47SVxrggjBVtw5/RFL1y4RIoMXoZVGgK5PUDmlsIoXKMVRhAaPYRBRQhCCKOVqQeUEG8AK+KCo3jNxbi1gPRTDQH/yJba//TlRUiPYEqnW0Dhm/N0vqE29gHWeILBQCbpxhW9vO5YrYXGlYPTQm9Q747jl28x/eYSbn73F8K9bJJ2cHb33KYYOL8oPg0AVNEoAfl4OXP3bMdNO6V88TRrHLM5+zeDaLM4LK8eOkveO8OeV8zgMc6vC9VXZ/MoTI7F+MFln92hEcJYoyVATE0SxXihLSzCGuTLizO+WX9fC5k/sNmPO3rJ831d82qQSQ2GFtXvGkdW4WRq++cNR/ic+D4QpzWr6TDNmuhVoZzGqypITbrgt/FZBv7+4KUwPAB617gJNM0MGjYjS7AAAAABJRU5ErkJggg==
+--DFQRCTsKlU
