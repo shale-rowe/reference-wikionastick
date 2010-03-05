@@ -4,9 +4,8 @@ woas.pages: 50
 
 woas.page.title: ::Menu
 woas.page.attributes: 0
-woas.page.last_modified: 1267787595
-woas.page.length: 1985
-woas.page.encoding: ecma/plain
+woas.page.length: 1331
+woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
@@ -16,28 +15,12 @@ woas.page.boundary: DFQRCTsKlU
 * [[Syntax]]
 ** [[Deprecated syntax|Deprecated]]
 * [[Browsers support]]
+* [[Feature::|Features]]
 * [[Options]]
 * [[WoaS::Bootscript]]
 * [[WoaS::Plugins::]]
 
-* [[Feature::]]
-** [[Feature::Summary|Summary]]
-** [[Feature::Bootscript|Bootscript]]
-** [[Feature::Custom javascript|Custom javascript]]
-** [[Feature::External javascript|External javascript]]
-** [[Image::alert.png|Embedded image]]
-** [[File::life snippet.c|Embedded file]]
-** [[Feature::Embedded SVG|Embedded SVG]]
-** [[Feature::Macros|Macros]]
-* [[Testcase::]]
-** [[Testcase::WoaS testcases|WoaS testcases]]
-** [[Testcase::Creole 0.1|Creole 0.1]]
-** [[Testcase::Di\u00e2critics|Di\u00e2critics]]
-** [[Testcase::\u30e9\u30c9\u30af\u30ea\u30d5|\u30e9\u30c9\u30af\u30ea\u30d5]]
-** [[Testcase::Apostrophe ' in title|Apostrophe]]
-** [[Testcase::Headlines mix|Headlines mix]]
-** [[Testcase::Headers|Headers]]
-
+* [[Testcase::|Testcases]]
 
 * [[Special::]]
 ** [[Special::Recentchanges|Recentchanges]]
@@ -73,6 +56,7 @@ function menu_key_hook(orig_e) {
 
 $('menu_string_to_search').onkeydown = menu_key_hook;
 </script>
+
 
 
 
@@ -1830,7 +1814,6 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Feature::Macros
 woas.page.attributes: 0
-woas.page.last_modified: 1267790795
 woas.page.length: 1500
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
