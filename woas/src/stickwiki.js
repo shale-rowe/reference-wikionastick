@@ -870,11 +870,16 @@ woas["create_breadcrumb"] = function(title) {
 	var tmp=title.split("::");
 	if (tmp.length==1)
 		return title;
-	var s="", partial="";
+	var s="", partial="", js="";
 	for(var i=0;i<tmp.length-1;i++) {
 		partial += tmp[i]+"::";
-		s += "<a href=\"#\" onclick=\"go_to('"+this.js_encode(partial)+"')\">"+tmp[i]+"</a> :: ";		
+		js = "go_to('"+this.js_encode(partial)+"')";
+		if (kbd_hooking)
+			s+= tmp[i]+" :: ";
+		else
+			s += "<a href=\"javascript:"+js+"\" onclick=\""+js+"\">"+tmp[i]+"</a> :: ";		
 	}
+	// add page title
 	return s+tmp[tmp.length-1];
 }
 
@@ -1202,6 +1207,7 @@ function custom_focus(focused) {
 		ff_fix_focus();
 }
 
+// set to true when inside an edit textarea
 var kbd_hooking=false;
 
 function kbd_hook(orig_e) {
@@ -1336,10 +1342,10 @@ woas["current_editing"] = function(page, disabled) {
 	_prev_title = current;
 	$("wiki_page_title").disabled = (disabled ? "disabled" : "");
 	$("wiki_page_title").value = page;
+	kbd_hooking = true;
 	this._set_title("Editing "+page);
 	// current must be set BEFORE calling enabling menu edit
 //	log("ENABLING edit mode");	// log:0
-	kbd_hooking = true;
 	this.menu_display("back", false);
 	this.menu_display("forward", false);
 	this.menu_display("advanced", false);
