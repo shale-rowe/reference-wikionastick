@@ -4,7 +4,8 @@ woas.pages: 50
 
 woas.page.title: ::Menu
 woas.page.attributes: 0
-woas.page.length: 1331
+woas.page.last_modified: 1267804179
+woas.page.length: 1294
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -14,9 +15,7 @@ woas.page.boundary: DFQRCTsKlU
 * [[History]]
 * [[Syntax]]
 ** [[Deprecated syntax|Deprecated]]
-* [[Browsers support]]
 * [[Feature::|Features]]
-* [[Options]]
 * [[WoaS::Bootscript]]
 * [[WoaS::Plugins::]]
 
@@ -165,7 +164,7 @@ This project wouldn't be what it is without the help of other people. If you con
 --DFQRCTsKlU
 woas.page.title: Main Page
 woas.page.attributes: 0
-woas.page.length: 1246
+woas.page.length: 1255
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -186,7 +185,7 @@ You are invited to read the following pages to know more about WoaS:
 
 # [[Syntax]]
 # [[Feature::Summary]]
-# [[Options]]
+# [[Feature::Options]]
 
 When finished, you can proceed to [[Special::Erase Wiki|erase all pages]] and start from a clean WoaS.
 
@@ -1148,7 +1147,7 @@ function myfunc(arg) {
 
 [[Tags::help]]
 --DFQRCTsKlU
-woas.page.title: Options
+woas.page.title: Feature::Options
 woas.page.attributes: 0
 woas.page.length: 1254
 woas.page.encoding: 8bit/plain
@@ -1814,6 +1813,7 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Feature::Macros
 woas.page.attributes: 0
+woas.page.last_modified: 1267790795
 woas.page.length: 1500
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
