@@ -655,9 +655,7 @@ woas["_embed_process"] = function(etype) {
 	this.commit(page_titles.length-1);
 	
 	this.refresh_menu_area();
-	this.set_current(current, true);
-	
-	return true;
+	return this.set_current(current, true);
 }
 
 woas["_get_special"] = function(cr, interactive) {
@@ -717,6 +715,7 @@ woas["get_javascript_page"] = function(cr) {
 }
 
 // Load a new current page
+// return true if page needs to be saved in history, false otherwise
 woas["set_current"] = function (cr, interactive) {
 	var text, namespace;
 	result_pages = [];
@@ -738,18 +737,18 @@ woas["set_current"] = function (cr, interactive) {
 					// this namespace will deprecate many others
 					text = this.get_javascript_page(cr);
 					if (text == null)
-						return;
+						return false;
 					break;
 					case "Special":
 						text = this._get_special(cr, interactive);
 						if (text == null)
-							return;
+							return false;
 						break;
 					case "Tagged": // deprecated
 					case "Tags":
 						text = this._get_tagged(cr);
 						if (text == null)
-							return;
+							return false;
 						break;
 					case "Lock":
 						pi = this.page_index(cr);
@@ -758,7 +757,7 @@ woas["set_current"] = function (cr, interactive) {
 							if (confirm(this.i18n.LOCK_CONFIRM.sprintf(cr)+
 								(last_AES_page ? this.i18n.LOCK_CONFIRM_LAST.sprintf(last_AES_page) : ''))) {
 								this._finalize_lock(pi);
-								return;
+								return false;
 							}
 						}
 						text = this.get_text("Special::Lock");
@@ -770,15 +769,17 @@ woas["set_current"] = function (cr, interactive) {
 						text = this.get_text(cr);
 						if (_decrypt_failed) {
 							_decrypt_failed = false;
-							return;
+							return false;
 						}
 						pages[pi] = text;
 						page_attrs[pi] -= 2;
 						if (!this.config.key_cache)
 							AES_clearKey();
-						this.set_current(cr, true);
-						this.save_page(cr);
-						return;
+						if (this.set_current(cr, true)) {
+							this.save_page(cr);
+							return true;
+						}
+						return false;
 					case "WoaS":
 						pi = woas.page_index(namespace+"::"+cr);
 						var real_t = page_titles[pi];
@@ -794,7 +795,7 @@ woas["set_current"] = function (cr, interactive) {
 						if(text === null) {
 							if (_decrypt_failed)
 								_decrypt_failed = false;
-							return;
+							return false;
 						}
 						this._add_namespace_menu(namespace);
 						if (namespace.length)
@@ -807,13 +808,13 @@ woas["set_current"] = function (cr, interactive) {
 						if(text == null) {
 							if (_decrypt_failed)
 								_decrypt_failed = false;
-							return;
+							return false;
 						}
 						this._add_namespace_menu(namespace);
 						if (namespace.length)
 							cr = namespace + "::" + cr;
 						this.load_as_current(cr, text, page_mts[this.page_index(namespace+"::"+cr, namespace.toLowerCase())]);
-						return;
+						return true;
 						break;
 					default:
 						text = this.get_text(namespace+"::"+cr);
@@ -828,12 +829,12 @@ woas["set_current"] = function (cr, interactive) {
 	if(text == null) {
 		if (_decrypt_failed) {
 			_decrypt_failed = false;
-			return;
+			return false;
 		}
 		if (!this._create_page(namespace, cr, true, false))
-			return;
+			return false;
 //		log("Editing new page "+namespace+cr);	// log:0
-		return;
+		return true;
 	}
 	
 	this._add_namespace_menu(namespace);
@@ -851,7 +852,7 @@ woas["set_current"] = function (cr, interactive) {
 		mts = page_mts[pi];
 	}
 	
-	this.load_as_current(cr, this.parser.parse(text), mts);
+	return this.load_as_current(cr, this.parser.parse(text), mts);
 }
 
 // StickWiki custom scripts array
@@ -922,7 +923,7 @@ woas["last_modified"] = function(mts) {
 woas["load_as_current"] = function(title, xhtml, mts) {
 	if (typeof title == "undefined") {
 		this.crash("load_as_current() called with undefined title");
-		return;
+		return false;
 	}
 	scrollTo(0,0);
 	log("load_as_current(\""+title+"\") - "+xhtml.length+" bytes");	// log:1
@@ -938,6 +939,8 @@ woas["load_as_current"] = function(title, xhtml, mts) {
 	this.update_nav_icons(title);
 	current = title;
 	this._activate_scripts();
+	
+	return true;
 }
 
 woas["_finalize_lock"] = function(pi) {
