@@ -1830,8 +1830,8 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Feature::Macros
 woas.page.attributes: 0
-woas.page.last_modified: 1267613812
-woas.page.length: 1493
+woas.page.last_modified: 1267790795
+woas.page.length: 1500
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1839,7 +1839,7 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 = Macros
 
-Wiki on a Stick (since version 0.10.7) supports wiki macros (a.k.a. /plugins/).
+Wiki on a Stick (since version 0.10.7) supports wiki macros for pluggable wiki syntax.
 
 == Definition
 

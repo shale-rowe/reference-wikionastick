@@ -127,7 +127,7 @@ woas["split_tags"] = function(tlist) {
 
 var reScripts = /<script([^>]*)>((.|\n)*?)<\/script>/gi;
 var reNowiki = /\{\{\{([\s\S]*?)\}\}\}/g;
-var reMacros = /<<<([\S]*?)>>>/g;
+var reMacros = /<<<([\s\S]*?)>>>/g;
 
 // THIS is the method that you should override for your custom parsing needs
 // text is the raw wiki source

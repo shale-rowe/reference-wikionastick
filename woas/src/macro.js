@@ -2,7 +2,8 @@
 // macro syntax plugin code adapted from FBNil's implementation
 woas["macro_parser"] = function(text){
 	var macro = { "reprocess": false, "text": text };
-	var M=text.match(/^([^:]+)(?:|:([\s\S]*))$/);
+	alert(text);
+	var M=text.match(/^(%?[A-Za-z0-9_]+):\n([\s\S]*)$/);
 	// if no double colon declaration was found, then do not process anything
 	if (M !== null) {
 		var U = this.macro_parser.macros;
