@@ -383,6 +383,46 @@ function ff3_getPath(fileBrowser) {
 	return fileName
 }
 
+var _wsif_js_sec = {
+	"comment_js": true,
+	"comment_macros": true,
+	"woas_ns": true
+};
+
+// apply some javascript security settings
+function _import_wsif_pre_hook(NP) {
+	// comment out all javascript blocks
+	var snippets = [];
+	// put away text in nowiki blocks
+	var page = NP.page.replace(reNowiki, function (str, $1) {
+		var r = "<!-- "+parse_marker+"::"+snippets.length+" -->";
+		snippets.push($1);
+		return r;
+	});
+	if (_wsif_js_sec.comment_js) {
+		page = page.replace(reScripts, "<disabled_script$1>$2</disabled_script>");
+		NP.modified = true;
+	}
+	if (_wsif_js_sec.comment_macros) {
+		page = page.replace(reMacros, "<<< Macro disabled\n$1>>>");
+		NP.modified = true;
+	}
+	if (_wsif_js_sec.woas_ns) {
+		if (NP.title.match(/^WoaS::/))
+			return false;
+	}
+	if (NP.modified) {
+		// put back in place all HTML snippets
+		if (snippets.length>0) {
+			NP.page = page.replace(new RegExp("<\\!-- "+parse_marker+"::(\\d+) -->", "g"), function (str, $1) {
+				return snippets[$1];
+			});
+		} else
+			NP.page = page;
+	}
+	return true;
+}
+
 function import_wiki_wsif() {
 	if (!woas.config.permit_edits) {
 		this.alert(woas.i18n.READ_ONLY);
@@ -393,8 +433,13 @@ function import_wiki_wsif() {
 	if (!confirm(woas.i18n.CONFIRM_IMPORT_OVERWRITE))
 		done = false;
 	else {
+		// grab settings
+		_wsif_js_sec.comment_js = $("woas_cb_import_comment_js").checked;
+		_wsif_js_sec.comment_macros = $("woas_cb_import_comment_macros").checked;
+		_wsif_js_sec.comment_woas_ns = $("woas_cb_import_woas_ns").checked;
 		// automatically retrieve the filename (calls load_file())
-		done = woas._native_wsif_load(null, $("woas_cb_import_overwrite").checked, true);
+		done = woas._native_wsif_load(null, $("woas_cb_import_overwrite").checked, true, false,
+				_import_wsif_pre_hook);
 		if (done === false)
 			woas.crash(woas.wsif.emsg);
 	}

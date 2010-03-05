@@ -125,6 +125,10 @@ woas["split_tags"] = function(tlist) {
 		return tlist.split(",");
 }
 
+var reScripts = /<script([^>]*)>((.|\n)*?)<\/script>/gi;
+var reNowiki = /\{\{\{([\s\S]*?)\}\}\}/g;
+var reMacros = /<<<([\S]*?)>>>/g;
+
 // THIS is the method that you should override for your custom parsing needs
 // text is the raw wiki source
 // export_links is set to true when exporting wiki pages and is used to generate proper href for hyperlinks
@@ -143,12 +147,12 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 	}
 	
 	// this array will contain all the HTML snippets that will not be parsed by the wiki engine
-	var html_tags = [];
+	var snippets = [];
 	
 	// put away stuff contained in inline nowiki blocks {{{ }}}
-	text = text.replace(/\{\{\{([\s\S]*?)\}\}\}/g, function (str, $1) {
-		var r = "<!-- "+parse_marker+"::"+html_tags.length+" -->";
-		html_tags.push("<tt class=\"wiki_preformatted\">"+woas.xhtml_encode($1)+"</tt>");
+	text = text.replace(reNowiki, function (str, $1) {
+		var r = "<!-- "+parse_marker+"::"+snippets.length+" -->";
+		snippets.push("<tt class=\"wiki_preformatted\">"+woas.xhtml_encode($1)+"</tt>");
 		return r;
 	});
 	
@@ -170,7 +174,7 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 				}
 				// in case of embedded file, add the inline file or add the image
 				if (!woas.is_reserved(templname) && woas.is_embedded(templname)) {
-					var r = "<!-- "+parse_marker+"::"+html_tags.length+" -->";
+					var r = "<!-- "+parse_marker+"::"+snippets.length+" -->";
 					log("Embedded file transclusion: "+templname);	// log:1
 					if (woas.is_image(templname)) {
 						var img, img_name = woas.xhtml_encode(templname.substr(templname.indexOf("::")+2));
@@ -189,12 +193,12 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 							if (!export_links && !parts[1].match(/alt=('|").*?\1/))
 								img += " alt=\""+img_name+"\"";
 						}
-						html_tags.push(img+" />");
+						snippets.push(img+" />");
 					} else { // embedded file but not image
 						if ((parts.length>1) && (parts[1]=="raw"))
-							html_tags.push(decode64(templtext));
+							snippets.push(decode64(templtext));
 						else
-							html_tags.push("<pre class=\"embedded\">"+
+							snippets.push("<pre class=\"embedded\">"+
 									woas.xhtml_encode(decode64(templtext))+"</pre>");
 					}
 					templtext = r;
@@ -210,9 +214,9 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 				
 				// this block is duplicated, and it's OK
 				// put away stuff contained in inline nowiki blocks {{{ }}}
-				text = text.replace(/\{\{\{([\s\S]*?)\}\}\}/g, function (str, $1) {
-					var r = "<!-- "+parse_marker+"::"+html_tags.length+" -->";
-					html_tags.push("<tt class=\"wiki_preformatted\">"+woas.xhtml_encode($1)+"</tt>");
+				text = text.replace(reNowiki, function (str, $1) {
+					var r = "<!-- "+parse_marker+"::"+snippets.length+" -->";
+					snippets.push("<tt class=\"wiki_preformatted\">"+woas.xhtml_encode($1)+"</tt>");
 					return r;
 				});
 				return templtext;	
@@ -227,25 +231,25 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 	var backup_macros = $.clone(woas.macro_parser.macros);
 	
 	// put away stuff contained in user-defined macro multi-line blocks <<< >>> (previously: "»".charCodeAt(0)); 171 187 \xAB \xBB
-	text = text.replace(/<<<([\s\S]*?)>>>/g, function (str, $1) {
+	text = text.replace(reMacros, function (str, $1) {
 		// ask macro_parser to prepare this block
 		var macro = woas.macro_parser($1);
 		// allow further parser processing
 		if (macro.reprocess)
 			return macro.text;
 		// otherwise store it for later
-		html_tags.push(macro.text);
-		return "<!-- "+parse_marker+"::"+(html_tags.length-1)+" -->";
+		snippets.push(macro.text);
+		return "<!-- "+parse_marker+"::"+(snippets.length-1)+" -->";
 	});
 	
 	// reset the array of custom scripts
 	this.script_extension = [];
 	if (js_mode) {
 		// gather all script tags
-		text = text.replace(/<script([^>]*)>((.|\n)*?)<\/script>/gi, function (str, $1, $2) {
+		text = text.replace(reScripts, function (str, $1, $2) {
 			if (js_mode==2) {
-				var r = "<!-- "+parse_marker+"::"+html_tags.length+" -->";
-				html_tags.push(str);
+				var r = "<!-- "+parse_marker+"::"+snippets.length+" -->";
+				snippets.push(str);
 				return r;
 			}
 			var m=$1.match(/src=(?:"|')([^\s'">]+)/);
@@ -269,8 +273,8 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 	// put away big enough HTML tags sequences (with attributes)
 	text = text.replace(/(<\/?\w+[^>]*>[ \t]*)+/g, function (tag) {
 		// save the trailing spaces
-		var r = "<!-- "+parse_marker+'::'+html_tags.length+" -->";
-		html_tags.push(tag);
+		var r = "<!-- "+parse_marker+'::'+snippets.length+" -->";
+		snippets.push(tag);
 		return r;
 	});
 
@@ -281,8 +285,8 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 	text = text.replace(/\[\[([^\]\]]*?)\|(.*?)\]\]/g, function(str, $1, $2) {
 		// check for protocol
 		if ($1.search(/^\w+:\/\//)==0) {
-			var r="<!-- "+parse_marker+'::'+html_tags.length+" -->";
-			html_tags.push("<a class=\"world\" href=\"" + $1.replace(/^mailto:\/\//, "mailto:") + "\" target=\"_blank\">" + $2 + "<\/a>");
+			var r="<!-- "+parse_marker+'::'+snippets.length+" -->";
+			snippets.push("<a class=\"world\" href=\"" + $1.replace(/^mailto:\/\//, "mailto:") + "\" target=\"_blank\">" + $2 + "<\/a>");
 			return r;
 		}
 			
@@ -304,7 +308,7 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 			gotohash = "; window.location.hash= \"" + $1.substr(hashloc) + "\"";
 		}
 		if (woas.page_exists(page)) {
-			var r="<!-- "+parse_marker+'::'+html_tags.length+" -->";
+			var r="<!-- "+parse_marker+'::'+snippets.length+" -->";
 			var wl;
 			if (export_links) {
 //						if (this.page_index(page)==-1)
@@ -312,33 +316,33 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 						wl = " href=\""+woas._export_get_fname(page)+"\"";
 					} else
 						wl = " onclick=\"go_to('" + woas.js_encode(page) +	"')" + gotohash + "\"";
-					html_tags.push("<a class=\"link\""+ wl + " >" + $2 + "<\/a>");
+					snippets.push("<a class=\"link\""+ wl + " >" + $2 + "<\/a>");
 					return r;
 				} else {
 					// section reference URIs
 					if ($1.charAt(0)=="#") {
-						var r="<!-- "+parse_marker+'::'+html_tags.length+" -->";
+						var r="<!-- "+parse_marker+'::'+snippets.length+" -->";
 						var wl;
 						if (export_links)
 							wl = woas._export_get_fname(page);
 						else
 							wl = '';
 						if (wl == '#')
-							html_tags.push("<span class=\"broken_link\">" + $2 + "<\/span>");
+							snippets.push("<span class=\"broken_link\">" + $2 + "<\/span>");
 						else {
-							html_tags.push("<a class=\"link\" href=\""+
+							snippets.push("<a class=\"link\" href=\""+
 							wl+"#" +
 							this.header_anchor($1.substring(1)) + "\">" + $2 + "<\/a>");
 						}
 						return r;
 					} else {
-						var r="<!-- "+parse_marker+'::'+html_tags.length+" -->";
+						var r="<!-- "+parse_marker+'::'+snippets.length+" -->";
 						if (export_links) {
-							html_tags.push("<span class=\"broken_link\">" + $2 + "<\/span>");
+							snippets.push("<span class=\"broken_link\">" + $2 + "<\/span>");
 							return r;
 						}
 						var wl = " onclick=\"go_to('" +woas.js_encode($1)+"')\"";
-						html_tags.push("<a class=\"unlink\" "+wl+">" + $2 + "<\/a>");
+						snippets.push("<a class=\"unlink\" "+wl+">" + $2 + "<\/a>");
 						return r;
 					}
 				}
@@ -348,9 +352,9 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 	text = text.replace(/\[\[([^\]]*?)\]\]/g, function(str, $1) {
 		// check for protocol
 		if ($1.search(/^\w+:\/\//)==0) {
-			var r="<!-- "+parse_marker+'::'+html_tags.length+" -->";
+			var r="<!-- "+parse_marker+'::'+snippets.length+" -->";
 			$1 = $1.replace(/^mailto:\/\//, "mailto:");
-			html_tags.push("<a class=\"world\" href=\"" + $1 + "\" target=\"_blank\">" + $1 + "<\/a>");
+			snippets.push("<a class=\"world\" href=\"" + $1 + "\" target=\"_blank\">" + $1 + "<\/a>");
 			return r;
 		}
 		
@@ -365,31 +369,31 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 		}
 		
 		if (woas.page_exists($1)) {
-			var r="<!-- "+parse_marker+'::'+html_tags.length+" -->";
+			var r="<!-- "+parse_marker+'::'+snippets.length+" -->";
 			var wl;
 			if (export_links) {
 				wl = woas._export_get_fname($1);
 				if (wl == '#') {
-					html_tags.push("<span class=\"broken_link\">" + $1 + "<\/span>");
+					snippets.push("<span class=\"broken_link\">" + $1 + "<\/span>");
 					return r;
 				}
 				wl = " href=\""+wl+"\"";
 			} else
 				wl = " onclick=\"go_to('" + woas.js_encode($1) +"')\"";
-			html_tags.push("<a class=\"link\""+wl+">" + $1 + "<\/a>");
+			snippets.push("<a class=\"link\""+wl+">" + $1 + "<\/a>");
 			return r;
 		} else {
-			var r="<!-- "+parse_marker+'::'+html_tags.length+" -->";
+			var r="<!-- "+parse_marker+'::'+snippets.length+" -->";
 			if ($1.charAt(0)=="#") {
-				html_tags.push("<a class=\"link\" href=\"#" +woas.parser.header_anchor($1.substring(1)) + "\">" + $1.substring(1) + "<\/a>");
+				snippets.push("<a class=\"link\" href=\"#" +woas.parser.header_anchor($1.substring(1)) + "\">" + $1.substring(1) + "<\/a>");
 			} else {
-				var r="<!-- "+parse_marker+'::'+html_tags.length+" -->";
+				var r="<!-- "+parse_marker+'::'+snippets.length+" -->";
 				if (export_links) {
-					html_tags.push("<span class=\"unlink broken_link\">" + $1 + "<\/span>");
+					snippets.push("<span class=\"unlink broken_link\">" + $1 + "<\/span>");
 					return r;
 				}
 				var wl = " onclick=\"go_to('" + woas.js_encode($1) +"')\"";
-				html_tags.push("<a class=\"unlink\" "+wl+">" + $1 + "<\/a>");
+				snippets.push("<a class=\"unlink\" "+wl+">" + $1 + "<\/a>");
 			}
 			return r;
 		}
@@ -480,9 +484,9 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 	text = text.replace(/\n/g, "<br />");
 
 	// put back in place all HTML snippets
-	if (html_tags.length>0) {
+	if (snippets.length>0) {
 		text = text.replace(new RegExp("<\\!-- "+parse_marker+"::(\\d+) -->", "g"), function (str, $1) {
-			return html_tags[$1];
+			return snippets[$1];
 		});
 	}
 	

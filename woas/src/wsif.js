@@ -218,7 +218,7 @@ woas["_native_load"] = function() {
 	return this._native_wsif_load(path, false, false);
 }
 
-woas["_native_wsif_load"] = function(path, overwrite, and_save, recursing, post_import_hook) {
+woas["_native_wsif_load"] = function(path, overwrite, and_save, recursing, pre_import_hook) {
 	var ct = this.load_file(path, this.file_mode.ASCII_TEXT);
 	if (typeof ct != "string") {
 		return false;
@@ -306,7 +306,7 @@ woas["_native_wsif_load"] = function(path, overwrite, and_save, recursing, post_
 							 boundary = disposition = mime = d_fn = null;
 					} else {
 						// store the previously parsed page definition
-						p = this._native_page_def(path,ct,previous_h, p,overwrite,post_import_hook,
+						p = this._native_page_def(path,ct,previous_h, p,overwrite,pre_import_hook,
 								title,attrs,last_mod,len,encoding,disposition,
 								d_fn,boundary,mime);
 						// save page index for later analysis
@@ -382,7 +382,7 @@ woas["_native_wsif_load"] = function(path, overwrite, and_save, recursing, post_
 		return false;
 	// process the last page (if any)
 	if ((previous_h !== null) && (title !== null)) {
-		p = this._native_page_def(path,ct,previous_h,0,overwrite,post_import_hook,
+		p = this._native_page_def(path,ct,previous_h,0,overwrite,pre_import_hook,
 				title,attrs,last_mod,len,encoding,disposition,
 				d_fn,boundary,mime);
 		// save page index for later analysis
@@ -424,7 +424,7 @@ woas["_get_path"] = function(id) {
 	return this.dirname($(id).value);
 }
 
-woas["_native_page_def"] = function(path,ct,p,last_p,overwrite,post_import_hook, title,attrs,last_mod,len,encoding,
+woas["_native_page_def"] = function(path,ct,p,last_p,overwrite,pre_import_hook, title,attrs,last_mod,len,encoding,
 											disposition,d_fn,boundary,mime) {
 	this.wsif.imported_page = false;
 	if (disposition == "inline") {
@@ -546,7 +546,7 @@ woas["_native_page_def"] = function(path,ct,p,last_p,overwrite,post_import_hook,
 			return -1;
 		}
 		// check the result of external import
-		var rv = this._native_wsif_load(the_dir+d_fn, overwrite, false, true, post_import_hook);
+		var rv = this._native_wsif_load(the_dir+d_fn, overwrite, false, true, pre_import_hook);
 		if (rv === false)
 			this.wsif_error( "Failed import of external "+the_dir+d_fn);
 		// return pointer after last read header
@@ -557,6 +557,20 @@ woas["_native_page_def"] = function(path,ct,p,last_p,overwrite,post_import_hook,
 	}
 	
 	if (!fail) {
+		// check if we need to call the pre-import hook
+		if (typeof pre_import_hook == "function") {
+			var NP = { "title": title, "attrs": attrs, "page": page, "modified": false };
+			if (!pre_import_hook(NP)) {
+				// return updated offset
+				return bpos_e+boundary.length;
+			}
+			if (NP.modified) {
+				page = NP.page;
+				title = NP.title;
+				attrs = NP.title;
+			}
+			NP = null;
+		}
 		// check if page already exists
 		var pi = page_titles.indexOf(title);
 		if (pi != -1) {
@@ -577,9 +591,6 @@ woas["_native_page_def"] = function(path,ct,p,last_p,overwrite,post_import_hook,
 		}
 		// all OK
 		this.wsif.imported_page = pi;
-		// check if we need to call the post-import hook
-		if (typeof post_import_hook == "function")
-			post_import_hook(pi);
 	} // !fail
 	// return pointer after last read header
 //	return last_p;
