@@ -3887,13 +3887,14 @@ The line that starts with {{{|- }}} is a comment line. You can type some text af
 --DFQRCTsKlU
 woas.page.title: Help::Tags
 woas.page.attributes: 0
-woas.page.last_modified: 1267060968
-woas.page.length: 2089
+woas.page.last_modified: 1267813029
+woas.page.length: 3511
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
+[[Special::TOC]]
 = Tags
 Tags are special links used by this wiki to group pages together into categories so that they can easily be found again, A tag can be placed anywhere on a page, but it's a good idea to choose a standard location, like the bottom of the page, so you can easily find and edit them as your wiki grows. You can choose any name you like for the tag. You can also give a page more than one tag if the page fits into more than one category.
 
@@ -3926,8 +3927,31 @@ To use more than one tag on a page, use one tag link and add as many tags as you
 * Tag names can be more than one word long with a space between each word.
 ** Example: {{{[[Tag::Layered cakes]]}}}.
 
-=== Add a link to tagged pages:
-See the [[Help::Links]] page.
+=== Add a link to tagged pages
+<div class="helptext">Use this code in a page, replacing Help with the tag you'd like to use:</div>
+<div class="helpcode">[<!-- -->[Tagged::Help]<!-- -->]</div>
+<div class="helptext">To create a listing of tagged pages like this one:</div>
+[[Tagged::Help]]
+
+=== Add a filtered link to tagged pages
+By putting an exclamation mark (*!*) in front of the tag name, you can filter out a specific tag from a tagged pages list:
+
+<div class="helptext">Use this code in a page, replacing Help with the tag you'd like to filter out:</div>
+<div class="helpcode">[<!-- -->[Tagged::!Help]<!-- -->]</div>
+<div class="helptext">To create a listing of tagged pages like this one:</div>
+[[Tagged::!Help]]
+
+=== Include a listing of tagged pages
+<div class="helptext">Use this code in a page, replacing Help with the tag you'd like to use:</div>
+<div class="helpcode">[<!-- -->[Include::Tagged::Help]<!-- -->]</div>
+<div class="helptext">To display a listing of tagged pages inside the current page.</div>
+
+=== Include a filtered listing of tagged pages
+By putting an exclamation mark (*!*) in front of the tag name, you can filter out a specific tag from a tagged pages list:
+
+<div class="helptext">Use this code in a page, replacing Help with the tag you'd like to filter out:</div>
+<div class="helpcode">[<!-- -->[Include::Tagged::!Help]<!-- -->]</div>
+<div class="helptext">To display a filtered listing of tagged pages inside the current page.</div>
 
 [[Tag::Help|Syntax]]
 
