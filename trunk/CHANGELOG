@@ -1,4 +1,6 @@
 Version 0.10.7 (legolas558)
+* fixed bug with non-overwritten pages being reported as not imported
+* implementation of javascript security settings upon import
 * implementation of macro pluggable syntax (based on FBNil's work)
 * fixed many old syntax parsing bugs
 
