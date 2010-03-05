@@ -1,10 +1,11 @@
 wsif.version: 1.1.0
 woas.version: 0.10.7
-woas.pages: 51
+woas.pages: 50
 
 woas.page.title: ::Menu
 woas.page.attributes: 0
-woas.page.length: 2007
+woas.page.last_modified: 1267787595
+woas.page.length: 1985
 woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -37,7 +38,6 @@ woas.page.boundary: DFQRCTsKlU
 ** [[Testcase::Headlines mix|Headlines mix]]
 ** [[Testcase::Headers|Headers]]
 
-[[Google sitesearch]]
 
 * [[Special::]]
 ** [[Special::Recentchanges|Recentchanges]]
@@ -128,7 +128,7 @@ File: <input id="filename_" type="file" />&nbsp;<input type="button" value="Impo
 --DFQRCTsKlU
 woas.page.title: Special::About
 woas.page.attributes: 0
-woas.page.length: 4453
+woas.page.length: 4370
 woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -168,9 +168,8 @@ This project wouldn't be what it is without the help of other people. If you con
 * *Cyril Mazard* - search feature
 * *jimmac* - author of [[http://jimmac.musichall.cz/i.php?i=gorilla-stock|the icons set]] which we are currently using in WoaS
 * *martinellison* - transclusion patch
-
-And, last but not least:
-* [[http://groups.google.com/group/stickwiki/|the StickWiki google group]] users for their support, advices and testing which has pushed WoaS development up to the current status.
+* *Nilton Castillo* - bugfixes and enhancements (pluggable macro syntax)
+* *Littlegirl* - overall testing and improvements
 
 == Important links
 * [[http://sf.net/projects/stickwiki/|SourceForge project home page]] - useful for contributing
@@ -1265,7 +1264,7 @@ In order to install a plugin, [[Special::ImportWSIF|import its WSIF file]].
 --DFQRCTsKlU
 woas.page.title: History
 woas.page.attributes: 0
-woas.page.length: 4681
+woas.page.length: 4705
 woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1296,7 +1295,7 @@ When I first found WoaS I felt that this software has a great potential; my firs
 
 Some time later I took courage and asked to take-over the project; Andr\u00e9 Wagner kindly added me to the project as a developer and a project admin and I could start working on WoaS for real.
 
-My first big project management change was to switch to [[http://subversion.tigris.org/|Subversion (SVN)]] for the versioning of all our WoaS files; development could this way be fully documented and followed "live" by the Google Group partecipants, which are the first solid community gathered around WoaS.
+My first big project management change was to switch to [[http://subversion.tigris.org/|Subversion (SVN)]] for the versioning of all our WoaS files; development could this way be fully documented and followed "live" by the mailing list (formerly google group) partecipants, which are the first solid community gathered around WoaS.
 
 Version 0.9B was the first official version which I worked on. My first big change was to have storage of pages not in content-escaped hidden divs but as javascript strings; this brought more speed to the page loading process. I also had to solve some problems inherent to the double file vs single file compatibility (WoaS can since then work with the 2-files version and single file version) and some IE saving issues, but finally the result was good enough.
 
@@ -1562,30 +1561,6 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 P1QMJ5+Uwl26ChUIkLZ+5mLi/lNPw8HCcMQBWQSNtPMRlRaXz9LUTT+wr1i2huVl
---DFQRCTsKlU
-woas.page.title: Google sitesearch
-woas.page.attributes: 0
-woas.page.length: 850
-woas.page.encoding: 8bit/plain
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-= Google sitesearch
-
-<FORM method="GET" action="http://www.google.com/custom" target="_blank">
-<TABLE bgcolor="#FFFFFF" cellspacing="0" border="0">
-<tr valign="top"><td>
-<A HREF="http://www.google.com/search">
-<IMG SRC="http://www.google.com/logos/Logo_40wht.gif" border="0" ALT="Google" align="middle"></A>
-</td>
-<td>
-<INPUT TYPE="text" name="q" size="31" maxlength="255" value="">
-<INPUT type=submit name="sa" VALUE="Google Search">
-<INPUT type=hidden name="cof" VALUE="S:http://stickwiki.sourceforge.net;GL:2;AH:center;BGC:#0C304E;LC:#F7F7F7;T:#D2E4F8;AWFID:removedtheid;">
-<input type=hidden name=domains value="stickwiki.sourceforge.net"><br><input type="radio" name="sitesearch" value=""> Google search <input type="radio" name=sitesearch value="stickwiki.sourceforge.net" checked="checked"> Search WoaS official site</td></tr></TABLE>
-
-</FORM>
 --DFQRCTsKlU
 woas.page.title: Testcase::Headlines mix
 woas.page.attributes: 0
