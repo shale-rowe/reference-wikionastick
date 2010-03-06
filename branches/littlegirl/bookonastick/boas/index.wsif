@@ -17,7 +17,7 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Special::Advanced
 woas.page.attributes: 0
-woas.page.last_modified: 1267316778
+woas.page.last_modified: 1267844599
 woas.page.length: 1229
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -395,8 +395,8 @@ Ly8gUHV0IGhlcmUgeW91ciBib290IGphdmFzY3JpcHQ=
 --DFQRCTsKlU
 woas.page.title: History
 woas.page.attributes: 0
-woas.page.last_modified: 1267663197
-woas.page.length: 42314
+woas.page.last_modified: 1267844731
+woas.page.length: 42381
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -425,6 +425,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Added {{{function _set_menu(fixed)}}} so that *Fixed menu* is an option.
 ** Added *location* to the {{{var pic=prompt('Image location:','');}}} line in {{{function setImage(starttag,endtag)}}} to make it more obvious what you need to type in when you click on the *Image link* button in the editor.
 ** Added the CSS {{{/* EDITOR BODY TEXT */}}} entry to style the body text above the editor pane.
+** Added the CSS {{{.woas_wait_text}}} entry from Wiki on a Stick.
 ** Added the *Edit sub-menu* button for use by namespace sub-menus.
 ** Added the {{{/* FOOTNOTES */}}} (thanks to *FBNil* and *Stanky*) entry to the global CSS.
 ** Added two blank table cells on the left and right side of the banner to control placement of banner content.
@@ -435,7 +436,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Changed level one headers to level three headers in the {{{woas["_get_namespace_pages"]}}} function so the headers will display without wrapping when used in a sub-menu.
 ** Changed level one header to level three header in the {{{woas["_get_tagged"]}}} function so the header will display without wrapping when used in a sub-menu.
 ** Implemented [[http://sourceforge.net/mailarchive/forum.php?thread_name=DEEC0681896E474FB601D5CEB01A8677360769%40pxs-01.PimaroX.local&forum_name=stickwiki-devel|FBNil's]] syntax for checkboxes and checkbox tests in the [[Special::Options]] page.
-** Now using [[http://sourceforge.net/projects/stickwiki/files/|Wiki on a Stick v0.10.4]] as the foundation for Book on a Stick!
+** Now using [[http://sourceforge.net/projects/stickwiki/files/|Wiki on a Stick v0.10.5]] as the foundation for Book on a Stick!
 ** Replaced WoaS editor buttons with my BoaS editor buttons.
 ** Replaced {{{function open_table_help}}} with my BoaS {{{function open_table_help}}} code.
 ** Replaced {{{function setHTMLImage()}}} to remove the XHTML closing slash from the resulting tag.
@@ -4169,7 +4170,7 @@ If all went well, the number it displays should be *0* and you've successfully r
 --DFQRCTsKlU
 woas.page.title: Sandbox
 woas.page.attributes: 0
-woas.page.last_modified: 1267724830
+woas.page.last_modified: 1267820055
 woas.page.length: 2550
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
