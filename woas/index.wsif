@@ -1011,7 +1011,7 @@ _underline me 3_
 --DFQRCTsKlU
 woas.page.title: Feature::Summary
 woas.page.attributes: 0
-woas.page.length: 5198
+woas.page.length: 5219
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1077,7 +1077,7 @@ Also, you can specify multiple tags and tags to be filtered out.
 
 You can define global wiki name aliases in [[Special::Aliases]]. Such aliases will be replaced automatically before looking up for the page name.
 
-[[$HOME]]
+[[$JS::alert('Hello world!')]]
 
 == Transclusion
 
@@ -1220,15 +1220,14 @@ woas.page.boundary: DFQRCTsKlU
 iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAMAAADzapwJAAAAB3RJTUUH1wcHEBwwMJCsHwAAAAlwSFlzAAAewQAAHsEBw2lUUwAAAARnQU1BAACxjwv8YQUAAAJzUExURf8f7evr67W1taWlpdbW1uzs7J6enmouJGosI4ODg93d3TcyMdQdB9EUBzYxMcXFxenp6Y+Pj402G+0VAN4MAIwlGnd3d9ra2tXV1UA1L+Y7Be4eAekRANYQAz8wLrCwsOXl5YCAgKdRGPdEA/QxAfIdAeERAaEjFW1tbe/v71hAKvlpB/pbBfZDA/IuAu0bAd0UAlYwKZOTk+Dg4F5eXsxqEvt3CflwCf////IpAuoYAcIjDVNTU9DQ0JaWlnlOI/uEDPuFEPqEEfU9BO0kAugYAXYyIX5+fu3t7Tc0MeZ7DvuTFvuZHPqXHvqKGft3EfZTB+81A+ohAdwpB+jo6ImJiZFXHvuYGPyjJ/ysM/ytOfpwDfdOBfAwAu8lAo87HHR0dNjY2MnJyUc6LvKLE/ypKfy2P/y9S/y/UfuGGPliCvJFBPIzA+s5BUc3LaampuPj43V1dbRmF/ymJfy3Of3DU/3KYv3MY/ubJPt4EvpUCfVCA/E2A7NNFmRkZNPT06ioqGFFKPuVFPytLv2+Sf3KYf3Qbf3PafuiKfuKFfppC/lQBfg+A/U8A2FBKIuLi9/f3zQzMtV2E/yhH/yxNf2+R/3HXP3LZ/3NafykJ/yOF/lxC/pcBvZGBPU3A9VRDTQzMdfX15qamn5QIvuSEfyfHPysL/y6QfzBTfzDV/zBU/ydH/yLE/t2DPpgB/dLA/Y6A/U6A3tIIvPz8zs2MPuSE/ydGPymJPyyNfy0OfyzN/ysKfyhIPuUF/uGDft0CvtlB/taBfZPA/ZFA+RXCjs1MPDw8E49LIJSIYJRIYJPIYJOIYJNIIJMIIJMIU47LKysrKzWV/gAAAABdFJOUwBA5thmAAABNUlEQVR42mNgwAGML2AAY6Do8RNQcPLkyVOnz5w9e+7ceWOGzVu8tm7b3rxj567de/bu23/g4KHDR44eY2BYtHjJ0mXLV6xcZWGxes3ades3bNwkuBlo+MRJk6dMnTZ9hoXFzFmz58ydN3/BQpCdDY1NzS2tbe0WFh2dXd09vX39E8BuKSwqLiktK7ewqKisqq6prauHODEpOSU1LT3DwiIzKzsnNy+/AOr00LDwiMgoC4vomNi4+IREmI88PL28fXz9/AMCg4K5+UPgPrWzd3B0srBwdnF1c+dCCgETUzNzCwtLK2sbW1YkYXktbR1dPX0DQyNjlABTVFJWUVVT15DQRBGWkJSSlpGVk1dAC19BIWERUTFxjHDn5uHl4xfAEGZj5+DkYsAETMwsrFiEGRgZGQgAAEPKcWQFSaWtAAAAAElFTkSuQmCCAAA=
 --DFQRCTsKlU
 woas.page.title: WoaS::Bootscript
-woas.page.attributes: 4
-woas.page.last_modified: 1267868879
-woas.page.length: 48
-woas.page.encoding: 8bit/base64
+woas.page.attributes: 0
+woas.page.length: 34
+woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-LyogaW5zZXJ0IGhlcmUgeW91ciBib290IHNjcmlwdCAqLw==
+/* insert here your boot script */
 --DFQRCTsKlU
 woas.page.title: WoaS::Plugins
 woas.page.attributes: 0
@@ -1577,13 +1576,14 @@ asdf
 --DFQRCTsKlU
 woas.page.title: WoaS::Aliases
 woas.page.attributes: 0
-woas.page.length: 16
+woas.page.length: 61
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-$HOME  Main Page
+# all lines not starting with '$' are ignored
+$JS  Javascript
 --DFQRCTsKlU
 woas.page.title: Special::ExportWSIF
 woas.page.attributes: 0
