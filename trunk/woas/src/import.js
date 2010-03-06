@@ -97,6 +97,7 @@ woas["import_wiki"] = function() {
 				case "0.10.4":
 				case "0.10.5":
 				case "0.10.6":
+				case "0.10.7":
 					old_version = Number(ver_str.substr(1).replace(/\./g, ""));
 					break;
 				default:
@@ -426,7 +427,12 @@ woas["import_wiki"] = function() {
 									log("removing "+rest+" trailing bytes from page "+page_names[i]); //log:1
 								while (rest-- > 0) {page_contents[i].pop();}
 						}
-						pages[pi] = page_contents[i];
+						// convert old base64 bootscript to plain text
+						if ((old_version<107) && (page_titles[pi] == "WoaS::Bootscript")) {
+							old_page_attrs[i] = 0;
+							pages[pi] = decode64(page_contents[i]);
+						} else
+							pages[pi] = page_contents[i];
 					}
 					page_attrs[pi] = old_page_attrs[i];
 				}
@@ -482,15 +488,28 @@ var _wsif_js_sec = {
 
 // apply some javascript security settings
 function _import_wsif_pre_hook(NP) {
-	// check that we should touch this page or not
-	// only plain wiki and locked pages can be hotfixed
-	if (NP.attrs > 1)
+	// go on with special pages
+	if (NP.title.indexOf("Special::")===0)
 		return true;
 	// check if page needs to be skipped
 	if (_wsif_js_sec.woas_ns) {
-		if (NP.title.match(/^WoaS::/))
+		if (NP.title.indexOf("WoaS::")===0)
 			return false;
+	} else {
+		// check that the WoaS::Bootscript is in proper format
+		if ((NP.title == "WoaS::Bootscript") && (NP.attrs == 4)) {
+			NP.attrs = 0;
+			NP.page = decode64(NP.page);
+			NP.modified = true;
+			return true;
+		}
+		// directly import these pages
+		if (NP.title.indexOf("WoaS::")===0)
+			return true;
 	}
+	// only plain wiki and locked pages can be hotfixed
+	if (NP.attrs > 1)
+		return true;
 	// comment out all javascript blocks
 	var snippets = [];
 	// put away text in nowiki blocks
