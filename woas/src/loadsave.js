@@ -39,14 +39,17 @@ woas["save_file"] = function(fileUrl, save_mode, content) {
 }
 
 // get file content in FF3 without .enablePrivilege() (fbnil)
-woas["mozillaLoadFileID"] = function(obj_id, load_mode){
+woas["mozillaLoadFileID"] = function(obj_id, load_mode, suggested_mime){
 	var obj = document.getElementById(obj_id);
 	if(!window.Components || !obj.files)
 		return null;
 	var D=obj.files.item(0);
 	switch (load_mode) {
 		case this.file_mode.DATA_URI:
-			return D.getAsDataURL();
+			if (typeof "suggested_mime" != "string")
+				return D.getAsDataURL();
+			else // apply mime override
+				return D.getAsDataURL().replace(/^data:(\s*)([^;]*)/, "data:$1"+suggested_mime);
 		break;
 		case this.file_mode.BASE64:
 			// remove the data: part
@@ -65,7 +68,7 @@ woas["mozillaLoadFileID"] = function(obj_id, load_mode){
 // *** original source of below functions was from TiddyWiki ***
 
 // API1.0: load-file handler
-woas["load_file"] = function(fileUrl, load_mode){
+woas["load_file"] = function(fileUrl, load_mode, mime){
 	// parameter consistency check
 	if (!load_mode)
 		// perhaps should be ASCII?
@@ -77,18 +80,18 @@ woas["load_file"] = function(fileUrl, load_mode){
 		// correctly retrieve fileUrl
 		if (fileUrl === null) {
 			if (this.browser.firefox3 || this.browser.firefox_new)
-				r = this.mozillaLoadFileID("filename_", load_mode);
+				r = this.mozillaLoadFileID("filename_", load_mode, mime);
 			else
 				fileUrl = this.get_input_file_url();
 		}
 		if (r === null) // load file using file absolute path
-			r = this.mozillaLoadFile(fileUrl, load_mode);
+			r = this.mozillaLoadFile(fileUrl, load_mode, mime);
 		else return r;
 		if(r === false)
 			return false;
 		// no mozillas here, attempt the IE way
 		if (r === null)
-			r = this.ieLoadFile(fileUrl, load_mode);
+			r = this.ieLoadFile(fileUrl, load_mode, mime);
 		else return r;
 		if (r === false)
 			return false;
@@ -100,7 +103,7 @@ woas["load_file"] = function(fileUrl, load_mode){
 			fileUrl = this.get_input_file_url();
 		if (fileUrl === false)
 			return false;
-		r = this.javaLoadFile(fileUrl, load_mode);
+		r = this.javaLoadFile(fileUrl, load_mode, mime);
 	}
 	if (r === false)
 		return false;
@@ -147,7 +150,7 @@ woas["ieSaveFile"] = function(filePath, save_mode, content) {
 }
 
 // Returns null if it can't do it, false if there's an error, or a string of the content if successful
-woas["ieLoadFile"] = function(filePath, load_mode) {
+woas["ieLoadFile"] = function(filePath, load_mode, suggested_mime) {
 	var o_mode;
 	switch (load_mode) {
 		case this.file_mode.BINARY:
@@ -181,7 +184,7 @@ woas["ieLoadFile"] = function(filePath, load_mode) {
 	}
 	// return a valid DATA:URI
 	if (load_mode == this.file_mode.DATA_URI)
-		return this._data_uri_enc(filePath, content);
+		return this._data_uri_enc(filePath, content, suggested_mime);
 	else if (load_mode == this.file_mode.BASE64)
 		return encode64(content);
 	// fallback for UTF8_TEXT
@@ -216,7 +219,7 @@ woas["mozillaSaveFile"] = function(filePath, save_mode, content) {
 
 // Returns null if it can't do it, false if there's an error, or a string
 // with the content if successful
-woas["mozillaLoadFile"] = function(filePath, load_mode) {
+woas["mozillaLoadFile"] = function(filePath, load_mode, suggested_mime) {
 	// this is available on Mozilla browsers only
 	if (!window.Components)
 		return null;
@@ -245,7 +248,7 @@ woas["mozillaLoadFile"] = function(filePath, load_mode) {
 		if (load_mode == this.file_mode.BINARY)
 				return(merge_bytes(rd));
 		else if (load_mode == this.file_mode.DATA_URI)
-			return this._data_uri_enc(filePath, merge_bytes(rd));
+			return this._data_uri_enc(filePath, merge_bytes(rd), suggested_mime);
 		else if (load_mode == this.file_mode.BASE64)
 			return encode64_array(rd);
 	}
@@ -256,27 +259,27 @@ woas["mozillaLoadFile"] = function(filePath, load_mode) {
 }
 
 // creates a DATA:URI from a plain content stream
-woas["_data_uri_enc"] = function(filename, ct) {
-	// perform base64 encoding
-	ct = encode64(ct);
-		
-	var m=filename.match(/\.(\w+)$/);
-	if (m==null) m = "";
-	else m=m[1].toLowerCase();
-	var guess_mime = "image";
-	switch (m) {
-		case "png":
-			guess_mime = "image/png";
-		break;
-		case "gif":
-			guess_mime = "image/gif";
+woas["_data_uri_enc"] = function(filename, ct, guess_mime) {
+	if (typeof guess_mime != "string") {
+		var m=filename.match(/\.(\w+)$/);
+		if (m==null) m = "";
+		else m=m[1].toLowerCase();
+		guess_mime = "image";
+		switch (m) {
+			case "png":
+				guess_mime = "image/png";
 			break;
-		case "jpg":
-		case "jpeg":
-			guess_mime = "image/jpeg";
-			break;
+			case "gif":
+				guess_mime = "image/gif";
+				break;
+			case "jpg":
+			case "jpeg":
+				guess_mime = "image/jpeg";
+				break;
+		}
 	}
-	return "data:"+guess_mime+";base64,"+ct;
+	// perform base64 encoding
+	return "data:"+guess_mime+";base64,"+encode64(ct);
 }
 
 function _javaUrlToFilename(url) {
@@ -316,7 +319,7 @@ woas["javaSaveFile"] = function(filePath,save_mode,content) {
 	return true;
 }
 
-woas["javaLoadFile"] = function(filePath, load_mode) {
+woas["javaLoadFile"] = function(filePath, load_mode, suggested_mime) {
 	//FIXME: UTF8_TEXT/BINARY is not separated here!!
 	var content = null;
 	try {
@@ -329,7 +332,7 @@ woas["javaLoadFile"] = function(filePath, load_mode) {
 			// convert to string only after checking that it was successfully loaded
 			content = String(content);
 			if (load_mode == this.file_mode.DATA_URI)
-				return this._data_uri_enc(filePath, content);
+				return this._data_uri_enc(filePath, content, suggested_mime);
 			else if (load_mode == this.file_mode.BASE6)
 				return encode64(content);
 			return content;
@@ -355,7 +358,7 @@ woas["javaLoadFile"] = function(filePath, load_mode) {
 	// re-normalize input
 	content = a_content.join("\n");
 	if (load_mode == this.file_mode.DATA_URI)
-		return this._data_uri_enc(filePath, content);
+		return this._data_uri_enc(filePath, content, suggested_mime);
 	else if (load_mode == this.file_mode.BASE64)
 		return encode64(content);
 	return content;
