@@ -5,7 +5,7 @@
 woas["_auto_native_wsif"] = true;
 
 // a class for some general WSIF operations
-woas["wsif" ] = {	version: "1.1.0", DEFAULT_INDEX: "index.wsif",
+woas["wsif" ] = {	version: "1.2.0", DEFAULT_INDEX: "index.wsif",
 					emsg: null, imported_page: false,
 					expected_pages: null,
 					system_pages: 0};
@@ -86,9 +86,12 @@ woas["_native_wsif_save"] = function(path, single_wsif, inline_wsif, author,
 					disposition = "external";
 					encoding = "8bit/plain";
 					// decode the base64-encoded data
-					if (this.is__image(pi))
-						ct = decode64(ct.replace(/^data:\s*[^;]*;\s*base64,\s*/, ''));
-					else // no data:uri for files
+					if (this.is__image(pi)) {
+						var m = ct.match(/^data:\s*([^;]*);\s*base64,\s*/);
+						record += this.wsif.header(pfx+"mime", m[1]);
+						// remove the matched part
+						ct = decode64(ct.substr(m[0].length));
+					} else // no data:uri for files
 						ct = decode64(ct);
 				} else {
 					encoding = "8bit/base64";
@@ -245,7 +248,7 @@ woas["_native_wsif_load"] = function(path, overwrite, and_save, recursing, pre_i
 	var previous_h = null;
 	// too early failure
 	if (p == -1)
-		this.wsif_error("Invalid WSIF file");
+		this.wsif_error("Invalid WSIF file "+path);
 	else { // OK, first page was located, now get some general WSIF info
 		var wsif_v = ct.substring(0,p).match(/^wsif\.version:\s+(.*)$/m);
 		if (wsif_v === null) {
