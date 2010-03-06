@@ -1,7 +1,7 @@
 <?php
 ## WSIF support library
 ## @author legolas558
-## @version 1.2.0
+## @version 1.3.0
 ## @license GNU/GPL
 ## (c) 2010 Wiki on a Stick Project
 ## @url http://stickwiki.sf.net/
@@ -9,10 +9,10 @@
 ## offers basic read/write support for WSIF format
 #
 
-define('LIBWSIF_VERSION', '1.2.0');
+define('LIBWSIF_VERSION', '1.3.0');
 define('_LIBWSIF_RANDOM_CHARSET', "ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz");
 
-define('WSIF_VERSION', '1.1.0');
+define('WSIF_VERSION', '1.2.0');
 
 define('_WSIF_DEFAULT_INDEX', 'index.wsif');
 
@@ -92,9 +92,9 @@ class WSIF {
 				$p = false;
 				$fail = true;
 			} else {
-				// convert to a number
+				// check that WSIF version is not from future or the unsupported 1.0.0
 				$wsif_v = $wsif_v[1];
-				if (strnatcmp($wsif_v, WSIF_VERSION)<0) {
+				if (($wsif_v == "1.0.0") || (strnatcmp($wsif_v, WSIF_VERSION)>0)) {
 					$this->Error( sprintf(_WSIF_NS_VER, $wsif_v) );
 					$p = false;
 					$fail = true;
@@ -227,7 +227,16 @@ class WSIF {
 						$title,$attrs,$last_mod,$len,$encoding,
 						$disposition,$d_fn,$o_boundary,$mime, $recursion = 0) {
 		$this->_imported_page = false;
-		if ($disposition == "inline") {
+		// attributes must be defined
+		if ($attrs === null) {
+			$this->_log("No attributes defined for page ".$title);
+			$fail = true;
+		} else
+			$fail = false;
+		// last modified timestamp can be omitted
+		if ($last_mod === null)
+			$last_mod = 0;
+		if (!$fail && ($disposition == "inline")) {
 			// craft the exact boundary match string
 			$boundary = "\n--".$o_boundary."\n";
 			// locate start and ending boundaries
@@ -241,15 +250,6 @@ class WSIF {
 				$this->Error( "Failed to find end boundary ".$o_boundary." for page ".$title );
 				return -1;
 			}
-			// attributes must be defined
-			if ($attrs === null) {
-				$this->_log("No attributes defined for page ".$title);
-				$fail = true;
-			} else
-				$fail = false;
-			// last modified timestamp can be omitted
-			if ($last_mod === null)
-				$last_mod = 0;
 			while (!$fail) { // used to easily break away
 			// retrieve full page content
 			$page = substr($ct, $bpos_s+strlen($boundary), $bpos_e-($bpos_s+strlen($boundary)));
@@ -308,19 +308,7 @@ class WSIF {
 			break;
 			} // wend
 			
-		} else if ($disposition == "external") { // import an external WSIF file
-			// embedded image/file, not encrypted
-			if (($attrs & _WOAS_EMB_FILE) || (attrs & _WOAS_EMB_IMAGE)) {
-				if ($encoding != "8bit/plain") {
-					$this->Error( "Page ".$title." is an external file/image but not encoded as 8bit/plain");
-					return -1;
-				}
-			} else {
-				if ($encoding != "text/wsif") {
-					$this->Error( "Page ".$title." is external but not encoded as text/wsif" );
-					return -1;
-				}
-			}
+		} else if (!$fail && ($disposition == "external")) { // import an external WSIF file
 			if ($d_fn === null) {
 				$this->Error( "Page ".$title." is external but no filename was specified" );
 				return -1;
@@ -328,6 +316,33 @@ class WSIF {
 			if ($recursion > 1) {
 				$this->Error( "Recursive WSIF import not implemented");
 				return -1;
+			}
+			// embedded image/file, not encrypted
+			if (($attrs & _WOAS_EMB_FILE) || (attrs & _WOAS_EMB_IMAGE)) {
+				if ($encoding != "8bit/plain") {
+					$this->Error( "Page ".$title." is an external file/image but not encoded as 8bit/plain");
+					return -1;
+				}
+				// load file and apply encode64 (if embedded)
+				$page = file_get_contents($the_dir+$d_fn);
+				if ($page === false)
+					$this->Error( "Failed load of external "+the_dir+d_fn);
+					return -1;
+				}
+				if (($attrs & _WOAS_EMB_FILE) && ($attrs & _WOAS_EMB_IMAGE)) {
+					// craft a DATA:URI
+					$page = "data:"+mime+";base64,"+base64_encode($page);
+				} else if ($attrs & _WOAS_EMB_FILE) {
+					$page = base64_encode($page);
+				} // otherwise it's binary
+				// fallback wanted to apply real page definition later
+				$boundary = "";
+				$bpos_e = $last_p;
+			} else {
+				if ($encoding != "text/wsif") {
+					$this->Error( "Page ".$title." is external but not encoded as text/wsif" );
+					return -1;
+				}
 			}
 			// check the result of external import
 			$rv = $this->_wsif_load(dirname($path).'/'.$d_fn, $recursion+1);
@@ -419,9 +434,13 @@ class WSIF {
 						$disposition = "external";
 						$encoding = "8bit/plain";
 						// decode the base64-encoded data
-						if ($page->is_image())
-							$ct = base64_decode(preg_replace("/data:\\s*[^;]*;\\s*base64,\\s*/A", '', $ct));
-						else // no data:uri for files
+						if ($page->is_image()) {
+//							$ct = base64_decode(preg_replace("/data:\\s*[^;]*;\\s*base64,\\s*/A", '', $ct));
+							preg_match("/data:\\s*([^;]*);\\s*base64,\\s*/A", $ct, $m);
+							$record .= $this->_header($pfx."mime", $m[1]);
+							// remove the matched part
+							$ct = base64_decode(substr($ct, strlen($m[0]))); unset($m);
+						} else // no data:uri for files
 							$ct = base64_decode($ct);
 					} else {
 						$encoding = "8bit/base64";
