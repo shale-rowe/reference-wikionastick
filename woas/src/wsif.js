@@ -566,7 +566,7 @@ woas["_native_page_def"] = function(path,ct,p,last_p,overwrite,pre_import_hook, 
 			page = this.load_file(the_dir+d_fn, wanted_mode, mime);
 			if (typeof page != "string") {
 				this.wsif_error( "Failed load of external "+the_dir+d_fn);
-				return last_p;
+				return -1;
 			}
 			// fallback wanted to apply real page definition later
 			boundary = "";
