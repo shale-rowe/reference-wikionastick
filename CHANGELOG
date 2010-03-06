@@ -1,4 +1,8 @@
 Version 0.10.7 (legolas558)
+* added 'mime' parameter to woas.load_file() function
+* correct implementation of blob import (was broken)
+* added exclusive check for WSIF 1.0.0 files
+* fixed WSIF import bug from older WSIF versions
 * changed WoaS::Bootscript from embedded to plain text
 * fixed a couple of navigation bugs (reported by deroock)
 * fixed bug with non-overwritten pages being reported as not imported
