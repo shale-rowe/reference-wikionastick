@@ -484,6 +484,11 @@ function _import_wsif_pre_hook(NP) {
 	// only plain wiki and locked pages can be hotfixed
 	if (NP.attrs > 1)
 		return true;
+	// check if page needs to be skipped
+	if (_wsif_js_sec.woas_ns) {
+		if (NP.title.match(/^WoaS::/))
+			return false;
+	}
 	// comment out all javascript blocks
 	var snippets = [];
 	// put away text in nowiki blocks
@@ -500,15 +505,11 @@ function _import_wsif_pre_hook(NP) {
 		page = page.replace(reMacros, "<<< Macro disabled\n$1>>>");
 		NP.modified = true;
 	}
-	if (_wsif_js_sec.woas_ns) {
-		if (NP.title.match(/^WoaS::/))
-			return false;
-	}
 	if (NP.modified) {
 		// put back in place all HTML snippets
 		if (snippets.length>0) {
 			NP.page = page.replace(new RegExp("<\\!-- "+parse_marker+"::(\\d+) -->", "g"), function (str, $1) {
-				return snippets[$1];
+				return "{{{"+snippets[parseInt($1)]+"}}}";
 			});
 		} else
 			NP.page = page;
