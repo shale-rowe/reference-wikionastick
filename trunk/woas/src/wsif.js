@@ -258,7 +258,9 @@ woas["_native_wsif_load"] = function(path, overwrite, and_save, recursing, pre_i
 		} else {
 			// convert to a number
 			wsif_v = wsif_v[1];
-			if (Number(wsif_v.replace(".", "")) < Number(this.wsif.version.replace(".", ""))) {
+			var wsif_v_n = Number(wsif_v.replace(".", ""));
+			// check if WSIF is from future of it is the unsupported 1.0.0
+			if ((wsif_v_n == 100) || (wsif_v_n > Number(this.wsif.version.replace(".", "")))) {
 				this.wsif_error(this.i18n.WSIF_NS_VER.sprintf(wsif_v));
 				p = -1;
 				fail = true;
@@ -438,7 +440,17 @@ woas["_get_path"] = function(id) {
 woas["_native_page_def"] = function(path,ct,p,last_p,overwrite,pre_import_hook, title,attrs,last_mod,len,encoding,
 											disposition,d_fn,boundary,mime) {
 	this.wsif.imported_page = false;
-	if (disposition == "inline") {
+	var bpos_e;
+	// last modified timestamp can be omitted
+	if (last_mod === null)
+		last_mod = 0;
+	var fail = false;
+	// attributes must be defined
+	if (attrs === null) {
+		log("No attributes defined for page "+title);
+		fail = true;
+	}
+	if (!fail && (disposition == "inline")) {
 		// craft the exact boundary match string
 		boundary = "\n--"+boundary+"\n";
 		// locate start and ending boundaries
@@ -447,20 +459,11 @@ woas["_native_page_def"] = function(path,ct,p,last_p,overwrite,pre_import_hook, 
 			this.wsif_error( "Failed to find start boundary "+boundary+" for page "+title );
 			return -1;
 		}
-		var bpos_e = ct.indexOf(boundary, bpos_s+boundary.length);
+		bpos_e = ct.indexOf(boundary, bpos_s+boundary.length);
 		if (bpos_e == -1) {
 			this.wsif_error( "Failed to find end boundary "+boundary+" for page "+title );
 			return -1;
 		}
-		var fail = false;
-		// attributes must be defined
-		if (attrs === null) {
-			log("No attributes defined for page "+title);
-			fail = true;
-		}
-		// last modified timestamp can be omitted
-		if (last_mod === null)
-			last_mod = 0;
 		while (!fail) { // used to break away
 		// retrieve full page content
 		var page = ct.substring(bpos_s+boundary.length, bpos_e);
@@ -527,19 +530,7 @@ woas["_native_page_def"] = function(path,ct,p,last_p,overwrite,pre_import_hook, 
 		break;
 		} // wend
 		
-	} else if (disposition == "external") { // import an external WSIF file
-		// embedded image/file, not encrypted
-		if ((attrs & 4) || (attrs & 8)) {
-			if (encoding != "8bit/plain") {
-				this.wsif_error( "Page "+title+" is an external file/image but not encoded as 8bit/plain");
-				return -1;
-			}
-		} else {
-			if (encoding != "text/wsif") {
-				this.wsif_error( "Page "+title+" is external but not encoded as text/wsif");
-				return -1;
-			}
-		}
+	} else if (!fail && (disposition == "external")) { // import an external WSIF file
 		if (d_fn === null) {
 			this.wsif_error( "Page "+title+" is external but no filename was specified");
 			return -1;
@@ -556,12 +547,42 @@ woas["_native_page_def"] = function(path,ct,p,last_p,overwrite,pre_import_hook, 
 			this.wsif_error( "Recursive WSIF import not implemented");
 			return -1;
 		}
-		// check the result of external import
-		var rv = this._native_wsif_load(the_dir+d_fn, overwrite, false, true, pre_import_hook);
-		if (rv === false)
-			this.wsif_error( "Failed import of external "+the_dir+d_fn);
-		// return pointer after last read header
-		return last_p;
+		// embedded image/file, not encrypted
+		if ((attrs & 4) || (attrs & 8)) {
+			if (encoding != "8bit/plain") {
+				this.wsif_error( "Page "+title+" is an external file/image but not encoded as 8bit/plain");
+				return -1;
+			}
+			// load file and apply encode64 (if embedded)
+			var wanted_mode;
+			// images
+			if ((attrs & 4) && (attrs & 8))
+				wanted_mode = this.file_mode.DATA_URI;
+			// files
+			else if (attrs & 4)
+				wanted_mode = this.file_mode.BASE64;
+			else // dunnowhat
+				wanted_mode = this.file_mode.BINARY;
+			page = this.load_file(the_dir+d_fn, wanted_mode, mime);
+			if (typeof page != "string") {
+				this.wsif_error( "Failed load of external "+the_dir+d_fn);
+				return last_p;
+			}
+			// fallback wanted to apply real page definition later
+			boundary = "";
+			bpos_e = last_p;
+		} else {
+			if (encoding != "text/wsif") {
+				this.wsif_error( "Page "+title+" is external but not encoded as text/wsif");
+				return -1;
+			}
+			// check the result of external import
+			var rv = this._native_wsif_load(the_dir+d_fn, overwrite, false, true, pre_import_hook);
+			if (rv === false)
+				this.wsif_error( "Failed import of external "+the_dir+d_fn);
+			// return pointer after last read header
+			return last_p;
+		}
 	} else { // no disposition or unknown disposition
 		this.wsif_error( "Page "+title+" has invalid disposition: "+disposition);
 		return -1;
