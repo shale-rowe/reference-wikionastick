@@ -523,10 +523,10 @@ woas["_create_page"] = function (ns, cr, ask, fill_mode) {
 			return false;
 	}
 	if ((ns=="File") || (ns=="Image")) {
-		if (!fill_mode)
+		if (!fill_mode && ask)
 			this.alert(this.i18n.DUP_NS_ERROR);
 		else
-			go_to(cr);
+			go_to(ns+"::"+cr);
 		return false;
 	}
 	if (!fill_mode && ask && !confirm(this.i18n.PAGE_NOT_FOUND))
@@ -687,7 +687,7 @@ woas["_get_special"] = function(cr, interactive) {
 			}	*/
 		text = this.get_text(cr);
 	if(text == null) {
-		if (edit_override & interactive) {
+		if (edit_override && interactive) {
 			this._create_page("Special", cr.substr(9), true, false);
 			return null;
 		}
@@ -1169,7 +1169,6 @@ woas["_load_aliases"] = function(s) {
 }
 
 woas["_create_bs"] = function() {
-
 	var s=this.get_text("WoaS::Bootscript");
 	if (s==null || !s.length) return false;
 	// remove the comments
