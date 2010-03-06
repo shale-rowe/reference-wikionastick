@@ -77,7 +77,7 @@ woas["static_pages"] = ["Special::About", "Special::Advanced", "Special::Options
 						"Special::Export", "Special::License", "Special::ExportWSIF",
 						"Special::WSIF", "Special::ImportWSIF" ];
 
-woas["default_pages"] = ["Main Page", "::Menu", "WoaS::Bootscript", "WoaS::Aliases"];
+woas["default_pages"] = ["Main Page", "::Menu", "WoaS::Bootscript", "WoaS::Aliases", "WoaS::Plugins"];
 
 woas["erase_wiki"] = function() {
 	if (!this.config.permit_edits) {
@@ -89,9 +89,9 @@ woas["erase_wiki"] = function() {
 		return false;
 	var backup_pages = [];
 	// attributes and last modified timestamps for default pages
-	page_attrs = [0, 0, 4, 0];
+	page_attrs = [0, 0, 4, 0, 0];
 	// zero is the magic timestamp
-	page_mts = [0, 0, 0, 0];
+	page_mts = [0, 0, 0, 0, 0];
 	// now pick the static pages
 	for(var i=0;i<this.static_pages.length;i++) {
 		var pi = this.page_index(this.static_pages[i]);
@@ -106,7 +106,7 @@ woas["erase_wiki"] = function() {
 		page_mts.push(0);
 	}
 	page_titles = this.default_pages.concat(this.static_pages);
-	pages = ["This is your empty main page", "[[Main Page]]\n\n[[Special::New Page]]\n[[Special::Duplicate Page]]\n[[Special::Go to]]\n[[Special::Delete Page]]\n[[Special::Backlinks]]\n[[Special::Search]]", encode64("/* insert here your boot script */"), ""];
+	pages = ["This is your empty main page", "[[Main Page]]\n\n[[Special::All Pages]]\n[[Special::New Page]]\n[[Special::Duplicate Page]]\n[[Special::Go to]]\n[[Special::Delete Page]]\n[[Special::Backlinks]]\n[[Special::Search]]", encode64("/* insert here your boot script */"), ""];
 	pages = pages.concat(backup_pages);
 	current = main_page = "Main Page";
 	this.refresh_menu_area();
