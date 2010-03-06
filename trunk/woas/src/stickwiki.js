@@ -783,15 +783,15 @@ woas["set_current"] = function (cr, interactive) {
 					case "WoaS":
 						pi = woas.page_index(namespace+"::"+cr);
 						var real_t = page_titles[pi];
-						if (this.is__embedded(pi)) {
+/*						if (this.is__embedded(pi)) {
 							//TODO: do not use namespace to guess the embedded file type
 							text = this._get__embedded(real_t, pi, "file");
-						} else {
+						} else { */
 							text = this.get_text(real_t);
 							// page is stored plaintext for WoaS::Aliases
 							if ((text !== null) && (cr == "Plugins"))
 								text = this.parser.parse(text + this._plugins_list());
-						}
+//						}
 						if(text === null) {
 							if (_decrypt_failed)
 								_decrypt_failed = false;
@@ -1153,26 +1153,22 @@ woas["after_load"] = function() {
 	$.hide("loading_overlay");
 }
 
+// match all aliases defined in a page
 woas["_load_aliases"] = function(s) {
-	if (s==null || !s.length) return;
-	var tmpl = s.split("\n"), cp, cpok;
 	this.aliases = [];
-	for(var i=0;i<tmpl.length;++i) {
-		cp = tmpl[i].split(/\s+/);
-		if (cp.length < 2) {
-			this.alert(this.i18n.INVALID_ALIAS.sprintf(tmpl[i]));
-			continue;
-		}
-		cpok = [ new RegExp(RegExp.escape(cp[0]), "g"), tmpl[i].substr(cp[0].length).replace(/^\s+/, '') ];
-		this.aliases.push(cpok);
-	}
+	if (s==null || !s.length) return;
+	s.replace(/^\$([A-Za-z0-9_]{2,})\s+([\s\S]+)$/gm, function(str, alias, value) {
+		// save the array with the alias regex and alias value
+		var cpok = [ new RegExp(RegExp.escape(alias), "g"), value];
+		woas.aliases.push(cpok);
+	});
 }
 
 woas["_create_bs"] = function() {
 	var s=this.get_text("WoaS::Bootscript");
 	if (s==null || !s.length) return false;
 	// remove the comments
-	s = decode64(s).replace(/^\s*\/\*(.|\n)*?\*\/\s*/g, '');
+	s = s.replace(/^\s*\/\*(.|\n)*?\*\/\s*/g, '');
 	if (!s.length) return false;
 	_bootscript = document.createElement("script");
 	_bootscript.type="text/javascript";

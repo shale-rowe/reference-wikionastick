@@ -154,6 +154,8 @@ woas["import_wiki"] = function() {
 	}
 	
 	/* NOTES ABOUT OLD VERSIONS
+	v0.10.7:
+		* introduced WoaS::Plugins and changed WoaS::Bootscript from embedded to normal
 	v0.10.0:
 	    * introduced page_mts for global page modified timestamp
 	v0.9.7:

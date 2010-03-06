@@ -75,9 +75,9 @@ woas["cmd_erase_wiki"] = function() {
 woas["static_pages"] = ["Special::About", "Special::Advanced", "Special::Options","Special::Import",
 						"Special::Lock","Special::Search","Special::Security", "Special::Embed",
 						"Special::Export", "Special::License", "Special::ExportWSIF",
-						"Special::WSIF", "Special::ImportWSIF" ];
+						"Special::WSIF", "Special::ImportWSIF", "WoaS::Plugins" ];
 
-woas["default_pages"] = ["Main Page", "::Menu", "WoaS::Bootscript", "WoaS::Aliases", "WoaS::Plugins"];
+woas["default_pages"] = ["Main Page", "::Menu", "WoaS::Bootscript", "WoaS::Aliases"];
 
 woas["erase_wiki"] = function() {
 	if (!this.config.permit_edits) {
@@ -89,7 +89,7 @@ woas["erase_wiki"] = function() {
 		return false;
 	var backup_pages = [];
 	// attributes and last modified timestamps for default pages
-	page_attrs = [0, 0, 4, 0, 0];
+	page_attrs = [0, 0, 0, 0, 0];
 	// zero is the magic timestamp
 	page_mts = [0, 0, 0, 0, 0];
 	// now pick the static pages
@@ -106,7 +106,7 @@ woas["erase_wiki"] = function() {
 		page_mts.push(0);
 	}
 	page_titles = this.default_pages.concat(this.static_pages);
-	pages = ["This is your empty main page", "[[Main Page]]\n\n[[Special::All Pages]]\n[[Special::New Page]]\n[[Special::Duplicate Page]]\n[[Special::Go to]]\n[[Special::Delete Page]]\n[[Special::Backlinks]]\n[[Special::Search]]", encode64("/* insert here your boot script */"), ""];
+	pages = ["This is your empty main page", "[[Main Page]]\n\n[[Special::All Pages]]\n[[Special::New Page]]\n[[Special::Duplicate Page]]\n[[Special::Go to]]\n[[Special::Delete Page]]\n[[Special::Backlinks]]\n[[Special::Search]]", "/* insert here your boot script */", ""];
 	pages = pages.concat(backup_pages);
 	current = main_page = "Main Page";
 	this.refresh_menu_area();
@@ -132,31 +132,28 @@ woas["cmd_edit_css"] = function() {
 }
 
 woas["cmd_edit_aliases"] = function() {
-	return this.cmd_edit_special("WoaS::Aliases", false);
+	return this.cmd_edit_special("WoaS::Aliases");
 }
 
 woas["cmd_edit_bootscript"] = function() {
-	return this.cmd_edit_special("WoaS::Bootscript", true);
+	return this.cmd_edit_special("WoaS::Bootscript");
 }
 
 // used to edit many special pages
-woas["cmd_edit_special"] = function(cr, decode) {
+woas["cmd_edit_special"] = function(cr) {
 	if (!this.config.permit_edits && !edit_override) {
 		this.alert(this.i18n.READ_ONLY);
 		return null;
 	}
 	_servm_alert();
-	// maybe the following line can be 
+	// get source text (ASCII/UTF-8)
 	var tmp = this.get_text(cr);
 	if (tmp == null)
 		return null;
 	this.current_editing(cr, true);
 	// setup the wiki editor textbox
 	this.current_editing(cr, this.config.permit_edits | this._server_mode);
-	if (decode)
-		this.edit_ready(decode64(tmp));
-	else
-		this.edit_ready(tmp);
+	this.edit_ready(tmp);
 	return null;
 }
 
