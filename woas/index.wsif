@@ -318,7 +318,7 @@ woas.page.original_length: 128
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-OBd9RqzyFmwb9HgarONNbxRTHdtjPO4pc0KqbFFxQo56cviwgnGZfdquURCGGDsr3JLXjAIxnT79ftc/HDVsa7rHle3ypg0bBuHIuYG5S4QI+k3XAgxGKbhAZkooBNMqoKXvSJrCDubuI60Cq3poOrSWbGLiwoYn1lsHO4qNKHEA
+eS8TI52YlSCLrnd5hC4dBr6P6ziO49i20B7OJHzM0sMLwC0jTImQzHmuxR9CCG7GUizzoNZ5fYpZHO1u+WjfxWH9WfXFfTjW+jlnvHcPoXqFfQ18XeTgnoGO2mZpsakCSeSWgo/lwLbgLfmXMp4C3x1WxykImEz3M599/FVcwysA
 --DFQRCTsKlU
 woas.page.title: MyPages::Menu
 woas.page.attributes: 0
@@ -1587,7 +1587,7 @@ $JS  Javascript
 --DFQRCTsKlU
 woas.page.title: Special::ExportWSIF
 woas.page.attributes: 0
-woas.page.length: 1032
+woas.page.length: 1091
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1623,8 +1623,8 @@ $('woas_ep_wsif').value = path;
 function _ep_focus() { search_focused = true; }
 function _ep_blur() { search_focused = false; }
 
-$('woas_ep_wsif').onfocus = _ep_focus;
-$('woas_ep_wsif').onblur = _ep_blur;
+$('woas_ep_author').onfocus = $('woas_ep_wsif').onfocus = _ep_focus;
+$('woas_ep_author').onblur = $('woas_ep_wsif').onblur = _ep_blur;
 
 </script>
 --DFQRCTsKlU
