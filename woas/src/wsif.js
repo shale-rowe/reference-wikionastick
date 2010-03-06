@@ -567,7 +567,7 @@ woas["_native_page_def"] = function(path,ct,p,last_p,overwrite,pre_import_hook, 
 			if (NP.modified) {
 				page = NP.page;
 				title = NP.title;
-				attrs = NP.title;
+				attrs = NP.attrs;
 			}
 			NP = null;
 		}
