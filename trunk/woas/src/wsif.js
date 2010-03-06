@@ -223,6 +223,8 @@ woas["_native_load"] = function() {
 woas["_native_wsif_load"] = function(path, overwrite, and_save, recursing, pre_import_hook) {
 	var ct = this.load_file(path, this.file_mode.ASCII_TEXT);
 	if (typeof ct != "string") {
+		if (!recursing)
+			this.progress_finish();
 		return false;
 	}
 	// reset when not recursing
@@ -380,8 +382,11 @@ woas["_native_wsif_load"] = function(path, overwrite, and_save, recursing, pre_i
   				"len = "+len+"\nencoding = "+encoding+"\ndisposition = "+disposition+
    				"\nboundary = "+boundary+"\n");
 	} */
-	if (fail)
+	if (fail) {
+		if (!recursing)
+			this.progress_finish();
 		return false;
+	}
 	// process the last page (if any)
 	if ((previous_h !== null) && (title !== null)) {
 		p = this._native_page_def(path,ct,previous_h,0,overwrite,pre_import_hook,
@@ -403,7 +408,8 @@ woas["_native_wsif_load"] = function(path, overwrite, and_save, recursing, pre_i
 				this.progress_status(global_progress++/this.wsif.expected_pages);
 		}
 	}
-	this.progress_finish();
+	if (!recursing)
+		this.progress_finish();
 	// save imported pages
 	if (imported.length) {
 		if (and_save)
