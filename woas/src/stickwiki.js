@@ -1278,7 +1278,7 @@ woas["update_lock_icons"] = function(page) {
 			can_lock = !can_unlock && this.config.permit_edits;
 		}
 	} else {
-		log("result_pages is ("+result_pages+")");	// log:1
+//		log("result_pages is ("+result_pages+")");	// log:0
 		can_lock = can_unlock = (result_pages.length>0);
 		cyphered = false;
 	}

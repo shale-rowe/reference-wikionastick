@@ -84,7 +84,7 @@ woas["erase_wiki"] = function() {
 		this.alert(this.i18n.READ_ONLY);
 		return false;
 	}
-	if (!confirm(this.i18n.CONFIRM_DELETE_ALL1) &&
+	if (!confirm(this.i18n.CONFIRM_DELETE_ALL1) ||
 		!confirm(this.i18n.CONFIRM_DELETE_ALL2))
 		return false;
 	var backup_pages = [];

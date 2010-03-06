@@ -114,7 +114,8 @@ if (woas.debug) {
 	    var logbox = $("woas_log");
 	    // count lines
 		nls = logbox.value.match(/\n/g);
-		if (nls!=null && typeof(nls)=='object' && nls.length>11)
+		// log maximum 1024 lines
+		if (nls!=null && typeof(nls)=='object' && nls.length>1024)
 			logbox.value = "";
 		logbox.value += aMessage + "\n";
 		if(window.opera)
