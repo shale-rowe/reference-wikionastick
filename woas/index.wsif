@@ -4,7 +4,7 @@ woas.pages: 50
 
 woas.page.title: ::Menu
 woas.page.attributes: 0
-woas.page.length: 1205
+woas.page.length: 1231
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -20,6 +20,7 @@ woas.page.boundary: DFQRCTsKlU
 * [[Testcase::|Testcases]]
 
 * [[Special::All Pages]]
+* [[Special::Erase Wiki]]
 * [[Special::Recentchanges|Recentchanges]]
 * [[Special::Backlinks|Backlinks]]
 * [[Special::New Page|New Page]]
