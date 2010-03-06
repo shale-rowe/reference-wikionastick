@@ -4,7 +4,7 @@ woas.pages: 50
 
 woas.page.title: ::Menu
 woas.page.attributes: 0
-woas.page.length: 1294
+woas.page.length: 1228
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -20,17 +20,15 @@ woas.page.boundary: DFQRCTsKlU
 
 * [[Testcase::|Testcases]]
 
-* [[Special::]]
-** [[Special::Recentchanges|Recentchanges]]
-** [[Special::Backlinks|Backlinks]]
-** [[Special::New Page|New Page]]
-** [[Special::Duplicate Page|Duplicate Page]]
-** [[Special::Delete Page|Delete Page]]
-** [[Special::Aliases|Aliases]]
-** [[Special::Go to|Go to...]]
-** [[Special::Search|Search]]
-** [[Special::Advanced|Advanced]]
-*** [[Special::Options|Options]]
+* [[Special::All Pages]]
+* [[Special::Recentchanges|Recentchanges]]
+* [[Special::Backlinks|Backlinks]]
+* [[Special::New Page|New Page]]
+* [[Special::Duplicate Page|Duplicate Page]]
+* [[Special::Delete Page|Delete Page]]
+* [[Special::Aliases|Aliases]]
+* [[Special::Go to|Go to...]]
+* [[Special::Search|Search]]
 
 <p style="text-align:center"><a href="http://sourceforge.net/"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=155218" alt="SourceForge.net Logo" border="0"></a></p>
 
