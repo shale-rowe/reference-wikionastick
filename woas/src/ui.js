@@ -364,7 +364,7 @@ woas["export_wiki_wsif"] = function () {
 	
 	var done = this._native_wsif_save(path, single_wsif, inline_wsif, author, false);
 
-	this.alert(this.i18n.EXPORT_OK.sprintf(done));
+	this.alert(this.i18n.EXPORT_OK.sprintf(done, this.wsif.expected_pages));
 	return true;
 }
 

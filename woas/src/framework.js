@@ -228,11 +228,11 @@ String.prototype.sprintf = function() {
 	// next argument to pick
 	var i_pos = 0, max_pos = arguments.length - 1;
 	var fmt_args = arguments;
-	return this.replace(/(%[sd])/g, function(str, $1) {
-		// replace with a strange thing in case of undefined parameter
+	return this.replace(/%[sd]/g, function(str) {
+		// replace with the original unparsed token in case of undefined parameter
 		if (i_pos > max_pos)
-			return "(?)";
-/*		if ($1 == '%d')
+			return str;
+/*		if (str == '%d')
 			return Number(arguments[i_pos++]); */
 		// return '%s' string
 		return fmt_args[i_pos++];

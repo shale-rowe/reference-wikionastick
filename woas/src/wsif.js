@@ -50,6 +50,8 @@ woas["_native_wsif_save"] = function(path, single_wsif, inline_wsif, author,
 		l = plist.length;
 		full_save = false;
 	}
+	// save count of total pages which need to be exported
+	this.wsif.expected_pages = l;
 	// the attributes prefix, we do not use the page index here for better versioning
 	var pfx = "woas.page.";
 	var pi;
