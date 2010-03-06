@@ -1221,13 +1221,14 @@ iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAMAAADzapwJAAAAB3RJTUUH1wcHEBwwMJCsHwAAAAlwSFlz
 --DFQRCTsKlU
 woas.page.title: WoaS::Bootscript
 woas.page.attributes: 4
-woas.page.length: 44
+woas.page.last_modified: 1267868879
+woas.page.length: 48
 woas.page.encoding: 8bit/base64
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-Ly8gUHV0IGhlcmUgeW91ciBib290IGphdmFzY3JpcHQ=
+LyogaW5zZXJ0IGhlcmUgeW91ciBib290IHNjcmlwdCAqLw==
 --DFQRCTsKlU
 woas.page.title: WoaS::Plugins
 woas.page.attributes: 0
