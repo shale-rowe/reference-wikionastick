@@ -1,4 +1,5 @@
 Version 0.10.7 (legolas558)
+* changed WoaS::Bootscript from embedded to plain text
 * fixed a couple of navigation bugs (reported by deroock)
 * fixed bug with non-overwritten pages being reported as not imported
 * implementation of javascript security settings upon import
