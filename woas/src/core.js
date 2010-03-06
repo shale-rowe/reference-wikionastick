@@ -87,13 +87,14 @@ woas["erase_wiki"] = function() {
 	if (!confirm(this.i18n.CONFIRM_DELETE_ALL1) ||
 		!confirm(this.i18n.CONFIRM_DELETE_ALL2))
 		return false;
+	this.progress_init("Erasing...");
 	var backup_pages = [];
 	// attributes and last modified timestamps for default pages
 	page_attrs = [0, 0, 0, 0, 0];
 	// zero is the magic timestamp
 	page_mts = [0, 0, 0, 0, 0];
 	// now pick the static pages
-	for(var i=0;i<this.static_pages.length;i++) {
+	for(var i=0,l=this.static_pages.length;i<l;++i) {
 		var pi = this.page_index(this.static_pages[i]);
 		if (pi==-1) {
 			this.alert(this.i18n.STATIC_NOT_FOUND.sprintf(static_pg[i]));
@@ -104,6 +105,7 @@ woas["erase_wiki"] = function() {
 		page_attrs.push(0);
 		// reset timestamp
 		page_mts.push(0);
+		this.progress_status(i/l);
 	}
 	page_titles = this.default_pages.concat(this.static_pages);
 	pages = ["This is your empty main page", "[[Main Page]]\n\n[[Special::All Pages]]\n[[Special::New Page]]\n[[Special::Duplicate Page]]\n[[Special::Go to]]\n[[Special::Delete Page]]\n[[Special::Backlinks]]\n[[Special::Search]]", "/* insert here your boot script */", ""];
@@ -112,6 +114,7 @@ woas["erase_wiki"] = function() {
 	this.refresh_menu_area();
 	backstack = [];
 	forstack = [];
+	this.progress_finish();
 	return true;
 }
 
