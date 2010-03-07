@@ -48,7 +48,7 @@ function go_forward() {
 
 // when cancel is clicked
 function cancel() {
-	if (confirm(woas.i18n.CONTINUE_EDITING))
+	if (!confirm(woas.i18n.CANCEL_EDITING))
 		return;
 	if (kbd_hooking)
 		woas.disable_edit();
