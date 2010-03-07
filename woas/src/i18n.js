@@ -63,7 +63,7 @@ woas['i18n'] = {
 	WSIF_NO_HN: "Could not locate header name",
 	WSIF_BAD_HV: "Could not locate end of header value",
 	ALT_BROWSER_INPUT: "Please specify full path to file \"%s\" because your browser does not allow such path to be read directly for security reasons.",
-	CONTINUE_EDITING:"Do you wish to continue editing?",
+	CANCEL_EDITING:"Cancel editing without saving any change?",
 	TOO_LONG_TITLE: "Maximum title length is %d characters",
 	UNSUPPORTED_BROWSER: "Your browser might not be supported, please report a bug with your UserAgent string:\n%s",
 	SAVE_ERROR:"Unable to save file \"%s\".",
