@@ -1883,3 +1883,13 @@ Now we call the macro:
 33
 >>>
 --DFQRCTsKlU
+woas.page.title: WoaS::Help::Editing
+woas.page.attributes: 0
+woas.page.length: 27
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+Editing help text goes here
+--DFQRCTsKlU
