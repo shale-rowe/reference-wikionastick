@@ -1072,7 +1072,7 @@ woas["setHTML"] = woas["getHTML"] = null;
 woas["after_load"] = function() {
 	log("***** Woas v"+this.version+" started *****");	// log:1
 	
-	document.body.style.cursor = "auto";
+//	document.body.style.cursor = "auto";
 	
 	if (this.browser.ie) {	// some hacks for IE
 		this.setHTML = function(elem, html) {elem.text = html;};
