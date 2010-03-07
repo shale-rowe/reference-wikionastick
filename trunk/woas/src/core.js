@@ -70,7 +70,8 @@ woas["cmd_erase_wiki"] = function() {
 woas["static_pages"] = ["Special::About", "Special::Advanced", "Special::Options","Special::Import",
 						"Special::Lock","Special::Search","Special::Security", "Special::Embed",
 						"Special::Export", "Special::License", "Special::ExportWSIF",
-						"Special::WSIF", "Special::ImportWSIF", "WoaS::Plugins" ];
+						"Special::WSIF", "Special::ImportWSIF", "WoaS::Plugins",
+						"WoaS::Help::Editing", "WoaS::Help::Special::Options" ];
 
 woas["default_pages"] = ["Main Page", "::Menu", "WoaS::Bootscript", "WoaS::Aliases"];
 
@@ -85,9 +86,9 @@ woas["erase_wiki"] = function() {
 	this.progress_init("Erasing...");
 	var backup_pages = [];
 	// attributes and last modified timestamps for default pages
-	page_attrs = [0, 0, 0, 0, 0];
+	page_attrs = [0, 0, 0, 0, 0, 0, 0];
 	// zero is the magic timestamp
-	page_mts = [0, 0, 0, 0, 0];
+	page_mts =   [0, 0, 0, 0, 0, 0, 0];
 	// now pick the static pages
 	for(var i=0,l=this.static_pages.length;i<l;++i) {
 		var pi = this.page_index(this.static_pages[i]);
