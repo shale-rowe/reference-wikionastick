@@ -4,7 +4,7 @@ woas.pages: 50
 
 woas.page.title: ::Menu
 woas.page.attributes: 0
-woas.page.length: 1052
+woas.page.length: 1016
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -13,7 +13,6 @@ woas.page.boundary: DFQRCTsKlU
 [[Main Page]]
 * [[History]]
 * [[Syntax]]
-** [[Deprecated syntax|Deprecated]]
 * [[Feature::|Features]]
 * [[WoaS::Plugins::]]
 
@@ -159,7 +158,7 @@ This project wouldn't be what it is without the help of other people. If you con
 --DFQRCTsKlU
 woas.page.title: Main Page
 woas.page.attributes: 0
-woas.page.length: 1255
+woas.page.length: 1077
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -185,12 +184,6 @@ You are invited to read the following pages to know more about WoaS:
 When finished, you can proceed to [[Special::Erase Wiki|erase all pages]] and start from a clean WoaS.
 
 See also [[Browsers support]].
-
-=== Tutorial ===
-
-A nicely written tutorial is available at:
-
-* [[http://cplus.about.com/od/thebusinessofsoftware/ss/woas.htm|Getting started with Wiki on a Stick]] by D.Bolton
 
 == Upgrading
 If you have an older Wiki on a Stick you can [[Special::Import|import it]] now.
