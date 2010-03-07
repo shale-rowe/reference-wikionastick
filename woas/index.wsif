@@ -1461,13 +1461,63 @@ Now we call the macro:
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Editing
 woas.page.attributes: 0
-woas.page.length: 27
+woas.page.last_modified: 1267995393
+woas.page.length: 3379
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-Editing help text goes here
+= Editing
+You can edit the contents of the main text area by typing normally. There are links and buttons in the editor to help with adding wiki syntax to the page to control how the content looks (bold, italic, lists, etc.).
+
+== Editor features
+* Cancel all changes by clicking the cancel icon in the banner at any time.
+* Change the title of a page by editing the contents of the Page title box.
+* Save all changes by clicking the save icon in the banner at any time.
+* See an example of how tables are built by clicking the *About tables* link.
+* Toggle the display of the button rows by clicking the *Show/Hide wiki buttons|Show/Hide HTML buttons* links.
+
+{|
+|+ Wiki Code buttons
+| *Button* || *What it does*
+| Wiki URL || This brings up an interface that adds a wiki link to a page.
+| URL || This brings up an interface that adds an external link to a page.
+| = || This inserts the wiki syntax for a level one header. Use this at the beginning of any line.
+| == || This inserts the wiki syntax for a level two header. Use this at the beginning of any line.
+| Img || This brings up an interface that includes a wiki image in the page.
+| *B* || This wraps wiki syntax around the selected text to make it bold.
+| /i/ || This wraps wiki syntax around the selected text to make it italic.
+| u || This wraps wiki syntax around the selected text to underline it.
+| {{{nowiki}}} || This wraps wiki syntax around the selected text to make it nowiki (raw) text.
+| * || This inserts the wiki syntax for a bulleted list item.
+| # || This inserts the wiki syntax for a numbered list item.
+| @ || This inserts the wiki syntax for an alphanumeric list item.
+| ---- || This inserts a ruler (horizontal line). Use this at the beginning of any line.
+| Tags || This brings up an interface for inserting tags in your page to categorize them. Use a pipe between multiple tags.
+|}
+
+{|
+|+ HTML Code buttons
+| *Button* || *What it does*
+| *B* || This wraps HTML strong tags around the selected text to make it bold.
+| /i/ || This wraps HTML em tags around the selected text to make it italic.
+| u || This wraps HTML u tags around the selected text to underline it.
+| s || This wraps HTML s tags around the selected text to strike it through (crosses it out).
+| Sup || This wraps HTML sup tags around the selected text to make it superscript (appearing half a character above the baseline).
+| Sub || This wraps HTML sub tags around the selected text to make it subscript (appearing half a character below the baseline).
+| Left || This wraps HTML div tags around the selected text to align it to the left.
+| Center || This wraps HTML div tags around the selected text to align it to the center.
+| Right || This wraps HTML div tags around the selected text to align it to the right.
+| Justify || This wraps HTML div tags around the selected text to justify it.
+| List || This wraps HTML ul tags around the selected text to create an unordered list.
+| List = || This wraps HTML ol tags around the selected text to create an ordered list.
+| li[*] || This wraps HTML li tags around the selected text to create a list item.
+| Blockquote || This wraps HTML blockquote tags around the selected text to indent it beneath the current line.
+| Image || This brings up an interface that includes an external image in the page.
+| Link || This brings up an interface that includes an external link in the page.
+|}
+
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::On help
 woas.page.attributes: 0
