@@ -428,7 +428,7 @@ function import_wiki_wsif() {
 		// automatically retrieve the filename (calls load_file())
 		done = woas._native_wsif_load(null, $("woas_cb_import_overwrite").checked, true, false,
 				_import_wsif_pre_hook);
-		if (done === false)
+		if (done === false && (woas.wsif.emsg !== null))
 			woas.crash(woas.wsif.emsg);
 	}
 
