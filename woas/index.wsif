@@ -108,7 +108,7 @@ File: <input id="filename_" type="file" />&nbsp;<input type="button" value="Impo
 --DFQRCTsKlU
 woas.page.title: Special::About
 woas.page.attributes: 0
-woas.page.length: 4370
+woas.page.length: 4365
 woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -156,7 +156,7 @@ This project wouldn't be what it is without the help of other people. If you con
 * [[http://woas.iragan.com/|Official WoaS forums]] - our discussion forums where you can also participate to the decision processes
 * [[http://sourceforge.net/tracker/?group_id=155218&atid=794925|SF.net WoaS project bug tracker]] - if you find a bug, post it here
 * [[http://sourceforge.net/tracker/?group_id=155218&atid=794928|SF.net WoaS project feature tracker]] - if you have have suggestions for improvements
-* [[http://woas.iragan.com/cgi-bin/wiki/|Official WoaS Documentation Wiki]] - under construction
+* [[http://www.iragan.com/woas_irc/|Official WoaS IRC Channel]] - #woas at FreeNode servers
 * [[https://lists.sourceforge.net/lists/listinfo/stickwiki-devel|SF.net WoaS Development mailing list]] - for public anonymous discussion
 --DFQRCTsKlU
 woas.page.title: Main Page
