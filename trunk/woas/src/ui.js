@@ -61,10 +61,25 @@ function save() {
 
 // should have a better name
 function help() {
-	if (page_exists("WoaS::Help::"+current))
-		go_to("WoaS::Help::"+current);
+	var wanted_page = "WoaS::Help::";
+	var pi = -1;
+	// we are editing
+	if (kbd_hooking) {
+		wanted_page += "Editing";
+		pi = woas.page_index(wanted_page);
+	} else {
+		pi = woas.page_index(wanted_page+current);
+		if (pi != -1)
+			wanted_page += current;
+	}
+	var text;
+	// this is a namespace
+	if (pi == -1)
+		text = woas._get_namespace_pages(wanted_page);
 	else
-		alert("No help available for this page");
+		text = woas.get__text(pi);
+	// now output the popup
+	woas._customized_popup(wanted_page, woas.parser.parse(text), "function go_to() { }");
 }
 
 // when edit is clicked
@@ -340,6 +355,11 @@ function query_delete_image(cr) {
 
 // triggered by UI graphic button
 function page_print() {
+	woas._customized_popup(current, $("wiki_text").innerHTML, 
+			"function go_to(page) { alert(\""+woas.js_encode(woas.i18n.PRINT_MODE_WARN)+"\");}");
+}
+
+woas["_customized_popup"] = function(page_title, page_body, additional_js) {
 	var css_payload = "";
 	if (woas.browser.ie && !woas.browser.ie8) {
 		if (woas.browser.ie6)
@@ -352,11 +372,9 @@ function page_print() {
 	woas.popup("print_popup", Math.ceil(screen.width*0.75),Math.ceil(screen.height*0.75),
 						",status=yes,menubar=yes,resizable=yes,scrollbars=yes",
 						// head
-						"<title>"+current+"</title>"+"<st"+"yle type=\"text/css\">"+
+						"<title>"+page_title+"</title>"+"<st"+"yle type=\"text/css\">"+
 						css_payload+_css_obj().innerHTML+"</sty"+"le>"+
-						woas.raw_js("function go_to(page) { alert(\""+woas.js_encode(woas.i18n.PRINT_MODE_WARN)+"\");}"),
-						// body
-						$("wiki_text").innerHTML);
+						woas.raw_js(additional_js), page_body);
 }
 
 // below functions used by Special::Export
