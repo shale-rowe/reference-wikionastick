@@ -67,12 +67,12 @@ function help() {
 	var pi = woas.page_index(wanted_page);
 	// we are editing
 	if (kbd_hooking) {
-		wanted_page += "Editing";
+		wanted_page = "WoaS::Help::Editing";
 		pi = woas.page_index(wanted_page);
 	} else {
-		var npi = woas.page_index(wanted_page+current);
+		var npi = woas.page_index("WoaS::Help::"+current);
 		if (npi != -1) {
-			wanted_page += current;
+			wanted_page = "WoaS::Help::"+current;
 			pi = npi;
 		}
 	}
