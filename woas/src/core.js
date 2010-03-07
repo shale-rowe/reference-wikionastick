@@ -23,41 +23,36 @@ woas["_new_page"] = function(msg, fill_mode, def_title) {
 	do {
 		title = prompt(msg, title);
 		if (title == null) break;
-		if (!title.match(/\[\[/) && !title.match(/\]\]/))
+		if (this.valid_title(title))
 			break;
-		this.alert(this.i18n.BRACKETS_TITLE);
 	} while (1);
 	if ((title!=null) && title.length) {
 		if (this.page_index(title)!=-1)
 			this.alert(this.i18n.PAGE_EXIST.sprintf(title));
 		else {
 			cr = title;
-			if (cr.substring(cr.length-2)=="::") {
-				this.alert(this.i18n.ERR_PAGE_NS);
-			} else {
-				var p = cr.indexOf("::");
-				if (p!=-1) {
-					ns = cr.substring(0,p);
-//					log("namespace of "+cr+" is "+ns);	// log:0
-					cr = cr.substring(p+2);
-				} else ns="";
-				if (!this._create_page(ns, cr, false, fill_mode))
-					return ns+cr;
-				var upd_menu = (cr=='Menu');
-				if (!upd_menu && confirm(this.i18n.ASK_MENU_LINK)) {
-					var menu = this.get_text("::Menu");
-					var p = menu.indexOf("\n\n");
-					if (p==-1)
-						menu += "\n[["+title+"]]";
-					else
-						menu = menu.substring(0,p)+"\n[["+title+"]]"+menu.substring(p)+"\n";
-					this.set__text(this.page_index("::Menu"), menu);
-					upd_menu = true;
-				}
-				if (upd_menu)
-					this.refresh_menu_area();
+			var p = cr.indexOf("::");
+			if (p!=-1) {
+				ns = cr.substring(0,p);
+//				log("namespace of "+cr+" is "+ns);	// log:0
+				cr = cr.substring(p+2);
+			} else ns="";
+			if (!this._create_page(ns, cr, false, fill_mode))
 				return ns+cr;
+			var upd_menu = (cr=='Menu');
+			if (!upd_menu && confirm(this.i18n.ASK_MENU_LINK)) {
+				var menu = this.get_text("::Menu");
+				var p = menu.indexOf("\n\n");
+				if (p==-1)
+					menu += "\n[["+title+"]]";
+				else
+					menu = menu.substring(0,p)+"\n[["+title+"]]"+menu.substring(p)+"\n";
+				this.set__text(this.page_index("::Menu"), menu);
+				upd_menu = true;
 			}
+			if (upd_menu)
+				this.refresh_menu_area();
+			return ns+cr;
 		}
 	}
 	return null;

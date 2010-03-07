@@ -172,8 +172,12 @@ woas["is_menu"] = function(page) {
 }
 
 // returns namespace with trailing ::
-woas["get_namespace"] = function(page) {
-	var p = page.lastIndexOf("::");
+woas["get_namespace"] = function(page, root_only) {
+	var p;
+	if ((typeof root_only == "boolean") && (root_only == true))
+		p = page.indexOf("::");
+	else
+		p = page.lastIndexOf("::");
 	if (p==-1) return "";
 	return page.substring(0,p+2);	
 }
@@ -1409,12 +1413,34 @@ woas["edit_page"] = function(page) {
 	this.edit_ready(tmp);
 }
 
-woas["rename_page"] = function(previous, newpage) {
-	log("Renaming "+previous+" to "+newpage);	// log:1
-	if (newpage.match(/\[\[/) || newpage.match(/\]\]/)) {
+//API1.0: check if a title is valid
+woas["valid_title"] = function(title) {
+	if (title.length == 0) {
+		this.alert(this.i18n.EMPTY_TITLE);
+		return false;
+	}
+	if (title.length > 256) {
+		this.alert(this.i18n.TOO_LONG_TITLE.sprintf(256));
+		return false;
+	}
+	if (title.match(/\[\[/) || title.match(/\]\]/)) {
 		this.alert(this.i18n.BRACKETS_TITLE);
 		return false;
 	}
+	if (title.substr(-2)=="::") {
+		this.alert(this.i18n.ERR_PAGE_NS);
+		return false;
+	}
+	var ns = this.get_namespace(title, true);
+	if (ns.length && this.is_reserved(ns+"::") && !edit_override) {
+		this.alert(this.i18n.ERR_RESERVED_NS.sprintf(title, ns));
+		return false;
+	}
+	return true;
+}
+
+woas["rename_page"] = function(previous, newpage) {
+	log("Renaming "+previous+" to "+newpage);	// log:1
 	if (this.page_index(newpage)!=-1) {
 		this.alert(this.i18n.PAGE_EXISTS.sprintf(newpage));
 		return false;
@@ -1538,21 +1564,20 @@ woas["save"] = function() {
 			} else {
 				// here the page gets actually saved
 				this.set_text(raw_content);
-				new_title = woas.trim($("wiki_page_title").value);
+				var new_title = woas.trim($("wiki_page_title").value);
 				// disallow empty titles
-				if (!new_title.length) {
-					this.alert(this.i18n.EMPTY_TITLE);
+				if (!this.valid_title(new_title))
 					return false;
-				}
 				if (this.is_menu(new_title)) {
 					this.refresh_menu_area();
 					back_to = _prev_title;
-				} else { if (!this.is_reserved(new_title) && (new_title != current)) {
+				} else {
+					if (new_title != current) {
 						if (!this.rename_page(current, new_title))
 							return false;
 					}
 					back_to = new_title;
-				}				
+				}
 			}
 	}
 	var saved = current;
