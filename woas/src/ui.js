@@ -59,27 +59,45 @@ function save() {
 	woas.save();
 }
 
+woas["help_system"] = { "popup_window": null, "page_title": null };
+
 // should have a better name
 function help() {
-	var wanted_page = "WoaS::Help::";
-	var pi = -1;
+	var wanted_page = "WoaS::Help::On help";
+	var pi = woas.page_index(wanted_page);
 	// we are editing
 	if (kbd_hooking) {
 		wanted_page += "Editing";
 		pi = woas.page_index(wanted_page);
 	} else {
-		pi = woas.page_index(wanted_page+current);
-		if (pi != -1)
+		var npi = woas.page_index(wanted_page+current);
+		if (npi != -1) {
 			wanted_page += current;
+			pi = npi;
+		}
 	}
+	woas.help_system.go_to(wanted_page, pi);
+}
+
+woas["help_system"]["go_to"] = function(wanted_page, pi) {
+	if (typeof pi == "undefined")
+		pi = woas.page_index(wanted_page);
 	var text;
 	// this is a namespace
-	if (pi == -1)
-		text = woas._get_namespace_pages(wanted_page);
-	else
+	if (pi == -1) {
+		woas.alert("Can't get help page "+wanted_page);
+		return;
+	} else
 		text = woas.get__text(pi);
 	// now output the popup
-	woas._customized_popup(wanted_page, woas.parser.parse(text), "function go_to() { }");
+	if ((woas.help_system.popup_window === null) || woas.help_system.popup_window.closed) {
+		woas.help_system.popup_window = woas._customized_popup(wanted_page, woas.parser.parse(text),
+			"function go_to(page) { if (window.opener && !window.opener.closed)	window.opener.woas.help_system.go_to(page); }");
+	} else { // hotfix the page
+		woas.help_system.popup_window.document.title = wanted_page;
+		woas.setHTML(woas.help_system.popup_window.document.body, woas.parser.parse(text));
+	}
+	woas.help_system.page_title = wanted_page;
 }
 
 // when edit is clicked
@@ -369,7 +387,7 @@ woas["_customized_popup"] = function(page_title, page_body, additional_js) {
 	} else
 		css_payload = "div.wiki_toc { margin: 0 auto;}\n";
 	// create the popup
-	woas.popup("print_popup", Math.ceil(screen.width*0.75),Math.ceil(screen.height*0.75),
+	return woas.popup("print_popup", Math.ceil(screen.width*0.75),Math.ceil(screen.height*0.75),
 						",status=yes,menubar=yes,resizable=yes,scrollbars=yes",
 						// head
 						"<title>"+page_title+"</title>"+"<st"+"yle type=\"text/css\">"+

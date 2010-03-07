@@ -1,6 +1,6 @@
 wsif.version: 1.2.0
 woas.version: 0.10.8
-woas.pages: 42
+woas.pages: 43
 
 woas.page.title: ::Menu
 woas.page.attributes: 0
@@ -1468,4 +1468,16 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 Editing help text goes here
+--DFQRCTsKlU
+woas.page.title: WoaS::Help::On help
+woas.page.attributes: 0
+woas.page.length: 50
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+General help goes here.
+
+[[Include::WoaS::Help::]]
 --DFQRCTsKlU

@@ -354,25 +354,23 @@ woas["get_text"] = function (title) {
 	return this.get__text(pi);
 }
 
-//TODO: check consistency of special pages inclusion
 woas["get_text_special"] = function(title) {
-	var p = title.indexOf("::");
+	var ns = this.get_namespace(title);
 	var text = null;
-	if (p!=-1) {
-		var namespace = title.substring(0,p);
+	if (ns.length) {
 //		log("namespace of "+title+" is "+namespace);	// log:0
-		title = title.substring(p+2);
-		if (!title.length) return this._get_namespace_pages(namespace+"::");
-		switch (namespace) {
-			case "Special":
+		title = title.substring(ns.length);
+		if (!title.length) return this._get_namespace_pages(ns);
+		switch (ns) {
+			case "Special::":
 				text = this._get_special(title, false);
 			break;
-			case "Tagged": // deprecated?
-			case "Tags":
+			case "Tagged::": // deprecated?
+			case "Tags::":
 				text = this._get_tagged(title);
 			break;
 			default:
-				text = this.get_text(namespace+"::"+title);
+				text = this.get_text(ns+title);
 		}
 	} else
 		text = this.get_text(title);
