@@ -326,6 +326,21 @@ div.ns_menu_area ul li, div.ns_menu_area ol li {
 	color: navy;
 }
 
+.woas_menu_button {
+	margin-top: 7px;
+	color:darkblue;
+	background-color: #F0F0F5;
+	width:100%;
+	border:0.063em solid grey;
+	text-align:center; font-size:1.3em;
+	font-variant:normal;
+	cursor:pointer;
+}
+
+.woas_menu_button:hover {
+	background-color:darkgrey;
+}
+
 </style><title>Main Page</title>
 <script src="src/aes.js" type="text/javascript"></script>
 <script src="src/framework.js" type="text/javascript"></script>
@@ -373,15 +388,10 @@ div.ns_menu_area ul li, div.ns_menu_area ol li {
 <div id="text_area" style="display: inline; visibility: visible;">
 <div class="menu_area" id="sw_menu_area" style="position: absolute;">
 <div class="wiki" id="menu_area" ondblclick="menu_dblclick()"></div>
-<div id="menu_edit_button" style="display: inline; visibility: visible;">
-<hr />
-
-<div style="text-align: center;"><a class="link" onclick="edit_menu()">[Edit]</a></div></div>
+<div id="menu_edit_button" style="display: inline; visibility: visible;"><input class="woas_menu_button" value="Edit menu" onclick="edit_menu()" type="button" /></div>
 <div class="wiki" id="ns_menu_area" ondblclick="ns_menu_dblclick()" style="display: none; visibility: hidden;"></div>
-<div id="ns_menu_edit_button" style="display: none; visibility: hidden;">
-<hr />
-
-<div style="text-align: center;"><a class="link" onclick="edit_ns_menu()">[Edit]</a></div></div></div>
+<div id="ns_menu_edit_button" style="display: none; visibility: hidden;"><input class="woas_menu_button" value="Edit namespace menu" onclick="edit_ns_menu()" type="button" /></div>
+</div>
 <div style="visibility: visible;" class="text_area" id="wiki_text" ondblclick="page_dblclick()"></div>
 <div style="display: none; visibility: hidden;" class="woas_page_mts" id="wiki_mts"></div></div>
 <div id="edit_area" style="display: none; visibility: hidden;">
