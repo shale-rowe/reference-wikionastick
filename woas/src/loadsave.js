@@ -17,8 +17,20 @@ function _saveThisFile(new_data, old_data) {
 	"<sc"+"ript type=\"text/javascript\">" + new_data + "\n" + old_data + "</html>");
 	if (r==true)
 		log("\""+filename+"\" saved successfully");	// log:1
-	else
-		this.alert("Save to file \""+filename+"\" failed!\n\nMaybe your browser is not supported");
+	else {
+		var msg = woas.i18n.SAVE_ERROR.sprintf(filename) + "\n\n";
+		if (this.use_java_io) {
+			// try to understand what went bad with Java
+			if (typeof document.applets["TiddlySaver"] == "undefined")
+				msg += this.i18n.NO_TIDDLY_SAVER+" "+TIDDLY_HELP;
+			else if (typeof java == "undefined")
+				msg += this.i18n.NO_JAVA+" "+TIDDLY_HELP;
+			else
+				msg += this.i18n.UNSPECIFIED_JAVA_ERROR;
+		} else
+			msg += woas.i18n.UNSUPPORTED_BROWSER.sprintf(navigator.userAgent);
+		this.alert(msg);
+	}
 	return r;
 }
 

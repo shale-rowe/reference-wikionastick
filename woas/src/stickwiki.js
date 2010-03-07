@@ -1322,6 +1322,7 @@ woas["disable_edit"] = function() {
 		this.menu_display("save", false);
 	this.menu_display("cancel", false);
 	this.menu_display("print", true);
+	this.menu_display("setkey", true);
 	$.show("text_area");
 	// aargh, FF eats the focus when cancelling edit
 	$.hide("edit_area");
@@ -1360,6 +1361,7 @@ woas["current_editing"] = function(page, disabled) {
 	this.menu_display("back", false);
 	this.menu_display("forward", false);
 	this.menu_display("advanced", false);
+	this.menu_display("setkey", false);
 	this.menu_display("home", false);
 	this.menu_display("edit", false);
 	this.menu_display("print", false);

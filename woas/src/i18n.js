@@ -65,6 +65,12 @@ woas['i18n'] = {
 	ALT_BROWSER_INPUT: "Please specify full path to file \"%s\" because your browser does not allow such path to be read directly for security reasons.",
 	CONTINUE_EDITING:"Do you wish to continue editing?",
 	TOO_LONG_TITLE: "Maximum title length is %d characters",
+	UNSUPPORTED_BROWSER: "Your browser might not be supported, please report a bug with your UserAgent string:\n%s",
+	SAVE_ERROR:"Unable to save file \"%s\".",
+	UNSPECIFIED_JAVA_ERROR: "Please check the Java console for errors regarding last operation and eventually file a bug report if it's not due to your browser/java restrictions",
+	NO_TIDDLY_SAVER:"The TiddlySaver java applet was not available.",
+	TIDDLY_HELP:"Please check that TiddlySaver.jar is in the same directory of this WoaS and that you have enabled Java permissions for it",
+	NO_JAVA:"It was not possible to use TiddlySaver java applet nor direct Java saving.",
 	LOADING: "Loading Wiki on a Stick..."
 }
 
