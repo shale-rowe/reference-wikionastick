@@ -118,6 +118,18 @@ function setWikiUrl() {
 	setUrl('[[','|',']]');
 }
 
+function setWikiIUrl() {
+	var url=prompt('Wiki page to link to:','');
+	if (url===null) return;
+	var comm=prompt('Link text:', url);
+	if (comm===null) return;
+	if (comm == url)
+		woas._editor.setSelectedText('[['+url+']]');
+	else
+		woas._editor.setSelectedText('[['+url+'|',comm+']]');
+
+}
+
 function setHTMLUrl() {
 	setUrl('<a href=\'','\' target=_blank>','</a>');
 }
