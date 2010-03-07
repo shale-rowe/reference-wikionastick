@@ -23,6 +23,7 @@ woas["_new_page"] = function(msg, fill_mode, def_title) {
 	do {
 		title = prompt(msg, title);
 		if (title == null) break;
+		title = this.trim(title);
 		if (this.valid_title(title))
 			break;
 	} while (1);
