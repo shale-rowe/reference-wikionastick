@@ -1,4 +1,10 @@
-Version 0.10.7 (legolas558)
+Version 0.10.8 (legolas558)
+* added help icon
+* added button for wiki links in editor mode
+* fixed dialog asking for canceling editing
+* added new menu/submenu edit button (based on work by littlegirl)
+
+Version 0.10.7 (legolas558) released 2010-03-06
 * added 'mime' parameter to woas.load_file() function
 * correct implementation of blob import (was broken)
 * added exclusive check for WSIF 1.0.0 files
