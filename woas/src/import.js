@@ -27,7 +27,12 @@ woas["import_wiki"] = function() {
 	do { // a fake do...while to ease failure return
 	// load the file as UTF-8
 	var ct = this.load_file(null, this.file_mode.UTF8_TEXT);
-	if ((ct === null) || (ct === false)) {
+	if (ct === null) {
+		fail = true;
+		break;
+	}
+	if (ct === false) {
+		this.alert(this.i18n.LOAD_ERR);
 		fail = true;
 		break;
 	}

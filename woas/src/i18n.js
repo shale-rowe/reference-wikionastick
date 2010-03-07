@@ -16,7 +16,7 @@ woas['i18n'] = {
  	EXPORT_IMAGE:"Export image",
 	CONFIRM_DELETE_FILE: "Are you sure you want to delete this file?",
 	INSERT_NEW:"Insert new page title",
-	LOAD_ERR: "Could not load file ",
+	LOAD_ERR: "Cannot load specified file",
 	FILE_SELECT_ERR: "A file must be selected",
 	PAGE_NOT_FOUND: "Page not found. Do you want to create it?",
 	CONFIRM_EXPORT: "Do you want to export %s in the below specified path?",

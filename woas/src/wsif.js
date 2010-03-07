@@ -224,10 +224,16 @@ woas["_native_load"] = function() {
 }
 
 woas["_native_wsif_load"] = function(path, overwrite, and_save, recursing, pre_import_hook) {
+	if (!recursing) {
+		this.wsif.emsg = null;
+		this.progress_init("Initializing WSIF import");
+	}
 	var ct = this.load_file(path, this.file_mode.ASCII_TEXT);
 	if (typeof ct != "string") {
 		if (!recursing)
 			this.progress_finish();
+		if (ct === false)
+			this.alert(this.i18n.LOAD_ERR);
 		return false;
 	}
 	// reset when not recursing
@@ -237,7 +243,6 @@ woas["_native_wsif_load"] = function(path, overwrite, and_save, recursing, pre_i
 		this.wsif.imported_page = false;
 		this.wsif.system_pages = 0;
 		var	global_progress = 0;
-		this.progress_init("Initializing WSIF import");
 	}
 	// the imported pages
 	var imported = [];

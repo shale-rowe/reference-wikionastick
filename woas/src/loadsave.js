@@ -51,11 +51,13 @@ woas["save_file"] = function(fileUrl, save_mode, content) {
 }
 
 // get file content in FF3 without .enablePrivilege() (fbnil)
-woas["mozillaLoadFileID"] = function(obj_id, load_mode, suggested_mime){
+woas["mozillaLoadFileID"] = function(obj_id, load_mode, suggested_mime) {
 	var obj = document.getElementById(obj_id);
 	if(!window.Components || !obj.files)
 		return null;
 	var D=obj.files.item(0);
+	if (D === null)
+		return false;
 	switch (load_mode) {
 		case this.file_mode.DATA_URI:
 			if (typeof "suggested_mime" != "string")
