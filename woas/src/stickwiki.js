@@ -1071,8 +1071,8 @@ woas["setHTML"] = woas["getHTML"] = null;
 // when the page is loaded - onload, on_load
 woas["after_load"] = function() {
 	log("***** Woas v"+this.version+" started *****");	// log:1
-	
-//	document.body.style.cursor = "auto";
+
+//	document.body.style.cursor = "wait";
 	
 	if (this.browser.ie) {	// some hacks for IE
 		this.setHTML = function(elem, html) {elem.text = html;};
@@ -1088,6 +1088,8 @@ woas["after_load"] = function() {
 		this.getHTML = function(elem) {return elem.innerHTML;};
 //		setup_uri_pics($("img_home"),$("img_back"),$("img_forward"),$("img_edit"),$("img_cancel"),$("img_save"),$("img_advanced"));
 	}
+	
+	this.setHTML($("woas_wait_text"), this.i18n.LOADING);
 	
 	$('a_home').title = main_page;
 	$('img_home').alt = main_page;
