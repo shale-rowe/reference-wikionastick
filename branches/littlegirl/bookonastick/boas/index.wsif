@@ -1,10 +1,10 @@
 wsif.version: 1.1.0
 woas.version: 0.10.5
-woas.pages: 130
+woas.pages: 131
 
 woas.page.title: ::Menu
 woas.page.attributes: 0
-woas.page.last_modified: 1266526878
+woas.page.last_modified: 1267932306
 woas.page.length: 49
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -395,8 +395,8 @@ Ly8gUHV0IGhlcmUgeW91ciBib290IGphdmFzY3JpcHQ=
 --DFQRCTsKlU
 woas.page.title: History
 woas.page.attributes: 0
-woas.page.last_modified: 1267844731
-woas.page.length: 42381
+woas.page.last_modified: 1267932554
+woas.page.length: 42547
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -437,6 +437,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Changed level one header to level three header in the {{{woas["_get_tagged"]}}} function so the header will display without wrapping when used in a sub-menu.
 ** Implemented [[http://sourceforge.net/mailarchive/forum.php?thread_name=DEEC0681896E474FB601D5CEB01A8677360769%40pxs-01.PimaroX.local&forum_name=stickwiki-devel|FBNil's]] syntax for checkboxes and checkbox tests in the [[Special::Options]] page.
 ** Now using [[http://sourceforge.net/projects/stickwiki/files/|Wiki on a Stick v0.10.5]] as the foundation for Book on a Stick!
+** Removed core styling from the {{{Edit menu}}} and {{{Edit sub-menu}}} buttons.
 ** Replaced WoaS editor buttons with my BoaS editor buttons.
 ** Replaced {{{function open_table_help}}} with my BoaS {{{function open_table_help}}} code.
 ** Replaced {{{function setHTMLImage()}}} to remove the XHTML closing slash from the resulting tag.
@@ -457,6 +458,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Added the [[Template::Foldawaypage]] page to be used by Foldaway folds.
 ** Added the [[Template::Foldawaytext]] page to be used by Foldaway folds.
 ** Added the [[Template::Icon::Password]] page.
+** Added the [[Template::Icon::Up]] page.
 ** Added the [[Utility::Diary]] page (created by *FBNili*).
 ** Removed the *Changes* page.
 ** Removed the *Help::Embed web page* page.
@@ -488,6 +490,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the [[Help::Links]] page.
 ** Updated the [[Help::Lists]] page.
 ** Updated the [[Help::Namespaces]] page.
+** Updated the [[Help::Navigation]] page.
 ** Updated the [[Help::Page scrolling]] page.
 ** Updated the [[Help::Print a page]] page.
 ** Updated the [[Help::Publish wiki online]] page.
@@ -3300,15 +3303,15 @@ ters]\
 --DFQRCTsKlU
 woas.page.title: Help::Navigation
 woas.page.attributes: 0
-woas.page.last_modified: 1267060595
-woas.page.length: 386
+woas.page.last_modified: 1267932485
+woas.page.length: 473
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Navigation
-Use the [[Include::Template::Icon::Back]] icon in the banner to go back one page, the [[Include::Template::Icon::Forward]] icon in the banner to go forward one page, the [[Include::Template::Icon::Home]] icon in the banner to return to the Main page, or click the buttons in the banner, the buttons and links in the menu, or the buttons and links on any page.
+Use the [[Include::Template::Icon::Back]] icon in the banner to go back one page, the [[Include::Template::Icon::Forward]] icon in the banner to go forward one page, the [[Include::Template::Icon::Home]] icon in the banner to return to the Main page, the [[Include::Template::Icon::Up]] icon in the footer to return to the top of a page, or click the buttons in the banner, the buttons and links in the menu, or the buttons and links on any page.
 [[Tag::Help]]
 --DFQRCTsKlU
 woas.page.title: Help::Non-breaking spaces
@@ -5420,4 +5423,15 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAN1wAADdcBQiibeAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAGxSURBVDiNpVNBaxNREP5m3uzbJO5u3VhKskbdNlSKQlspCD14E/TgP4ggCIIH/4QX69FDEaQ9uqilx/bUQ6j/wVMptmfDphAoGHwdD9HV2iQqHXiHefPNzPe9j0eqivMEn6v7bwPeMbc2RV6Nw9AoCRlRbJgPDZHXd+5eS/XjfzEQ5hdpFHm3a7WSx7yeEQ3FDr3MiOYAPFqcmipdjSKE1tYJeDx0k6qeOR+M2f2UJN+001FV1c7srL5nPnoLhH9izzDIiO57xixdTxIDIgBAHMe4HMdWmJ+PlZARiRjzZqnZvEC+/4ultVhsNssAnmZEMyMHMNGzi0FwKanXob4PPTiA7u9DrUUpDDGXpp4n8vr3nsLGjKhqjDm8u7wcTATBoFqpACJArwcAcCcn2Gq3j7/2+w9aqu1TDETk5bVGw4uqVai1UN+HrKxAVleLnMtl3FpYqIjI2k9b+cf2GwAe3pyf99X3B/SthdvZgdveLnK1Fo3paYRhWCOiJ4WEDWt3q5OTd66kKQ31uhA8KB/lOT7v7fWcc4kAADFvdfP8SzfPx/afenBjus6545F/4V/jO5CJmhHgOc11AAAAAElFTkSuQmCC
+--DFQRCTsKlU
+woas.page.title: Template::Icon::Up
+woas.page.attributes: 0
+woas.page.last_modified: 1267932291
+woas.page.length: 906
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAIeSURBVDiNlZNPaBNBFMa/N7sz2Y2FemhM/9GCBO3BQCqo0NWKaERiRS0UcmtKyUmQYhbBq8dSkaAXD0VPHqVC8eJNKl5EUNBDKbQqlZQ0iaaaJtnZGQ9RrCGp9h3f++bHfN+bIa012tXJm3weAJZmvel2GtZu4Lg83d8VSfZ1HUw6Lk/vCeC4PBoQ+7JXzkwGx0aTwYAIZh2XR/8L4Li8A4TFiXPT1paXx5a3ifjIJQuERcflHf8EEOHR6HCipzc0SJ9LH/Cx9B6dnZ0UGzrRDcLDXQGOy9P9ByKJs0fH+Ur+DQzGYTKOV2sLiA0dF6H9PYnmPNiOw1HB7Wwq4drr5WVo8iCEiTp9xzYV8S7/HBdOXw2apvgrD7bT99RYxlLkoSJLEAEBHuAoy3UI20BBrqKoVnH+1EWL2J882G/f8WPj3Yf6YpSvrMHkBjg3UFEFVI2vEDaDsBmWv71AuDdERw4Ph4k18qCRjJke6I5kb0zcsQUPQEHCh4fXuQW8LTyDZBUQIyQGMtBaQymgXq/h8dP5SrG0OWMSQ+pTbsWeuXe54Ymjevf6E6ssc/CNbXDBwEyCwQlzD25XZU1bv+wHiSFlLs16TtMmtNYKpfoXMINgcAYeaEBkTVsv5zza9R0AgNI+ftSLjSv7GrKuoFXrP2O2avpKolrbhjI1oBV8SfC9PQCkLxEfvAZiADECEfYAIGzcuj8ZbiUmwkZz7ycw98XbttCaIgAAAABJRU5ErkJggg==">
 --DFQRCTsKlU
