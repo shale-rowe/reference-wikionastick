@@ -4,7 +4,7 @@ woas.pages: 50
 
 woas.page.title: ::Menu
 woas.page.attributes: 0
-woas.page.length: 1052
+woas.page.length: 1231
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -29,6 +29,8 @@ woas.page.boundary: DFQRCTsKlU
 * [[Special::Aliases|Aliases]]
 * [[Special::Go to|Go to...]]
 * [[Special::Search|Search]]
+
+<p style="text-align:center"><a href="http://sourceforge.net/"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=155218" alt="SourceForge.net Logo" border="0"></a></p>
 
 <input id="menu_string_to_search" type="text" size="6" onfocus="menu_search_focus(true)" onblur="menu_search_focus(false)" />&nbsp;<input style="font-size: 10px;" type="button" value="Search" onclick="menu_do_search()" />
 
@@ -1010,7 +1012,7 @@ _underline me 3_
 --DFQRCTsKlU
 woas.page.title: Feature::Summary
 woas.page.attributes: 0
-woas.page.length: 5225
+woas.page.length: 5219
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1105,7 +1107,7 @@ You can also transclude an embedded file and its content will not be parsed as w
 
 You can include external images:
 
-{{{<iframe src="http://weatherreports.com/banners/234x60_lblue.html?location=Rome_Fiumicino&units=C" width="234" height="60" frameborder="0" scrolling="no"></iframe>}}}
+<iframe src="http://weatherreports.com/banners/234x60_lblue.html?location=Rome_Fiumicino&units=C" width="234" height="60" frameborder="0" scrolling="no"></iframe>
 
 This is an example of an existing embedded image: [[Image::alert.png]]
 
