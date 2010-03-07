@@ -1144,16 +1144,15 @@ function myfunc(arg) {
 
 [[Tags::help]]
 --DFQRCTsKlU
-woas.page.title: Feature::Options
+woas.page.title: WoaS::Help::Special::Options
 woas.page.attributes: 0
-woas.page.length: 1254
+woas.page.length: 1179
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Options
-Short reference for options found in [[Special::Options]].
 
 === Use consistent newlines in saved data
 Forces pages to be saved using consistent newlines splitting. This is particularly useful if you use a versioning system like Subversion (SVN), git or CVS.
@@ -1178,9 +1177,6 @@ Will save to disk only when quitting
 
 === Disallow edits (button)
 Puts the wiki into /server mode/; users will be told that it is not possible to save their changes, but editing will be allowed for sandbox (testing) purposes.
-
-[[Tag::help]]
-
 --DFQRCTsKlU
 woas.page.title: Test template 2
 woas.page.attributes: 0
