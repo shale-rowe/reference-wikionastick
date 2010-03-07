@@ -28,7 +28,7 @@ woas["_new_page"] = function(msg, fill_mode, def_title) {
 	} while (1);
 	if ((title!=null) && title.length) {
 		if (this.page_index(title)!=-1)
-			this.alert(this.i18n.PAGE_EXIST.sprintf(title));
+			this.alert(this.i18n.PAGE_EXISTS.sprintf(title));
 		else {
 			cr = title;
 			var p = cr.indexOf("::");
