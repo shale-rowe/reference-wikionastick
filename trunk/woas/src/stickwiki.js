@@ -521,6 +521,9 @@ woas["assert_current"] = function(page) {
 		this.set_current( page, true);
 }
 
+// used to eventually remove the new-to-be page when cancel is pressed
+woas["_ghost_page"] = false;
+
 woas["_create_page"] = function (ns, cr, ask, fill_mode) {
 	if (this.is_reserved(ns+"::") && !edit_override) {
 		this.alert(this.i18n.ERR_RESERVED_NS.sprintf(ns+"::"+cr, ns));
@@ -533,8 +536,11 @@ woas["_create_page"] = function (ns, cr, ask, fill_mode) {
 			go_to(ns+"::"+cr);
 		return false;
 	}
-	if (!fill_mode && ask && !confirm(this.i18n.PAGE_NOT_FOUND))
-		return false;
+	if (!fill_mode && ask) {
+		if (!confirm(this.i18n.PAGE_NOT_FOUND))
+			return false;
+		this._ghost_page = true;
+	}
 	// create and edit the new page
 	if (cr!="Menu")
 		pages.push("= "+cr+"\n");
@@ -1315,6 +1321,15 @@ woas["update_lock_icons"] = function(page) {
 woas["disable_edit"] = function() {
 //	log("DISABLING edit mode");	// log:0
 	kbd_hooking = false;
+	// we will cancel the creation of last page
+	if (this._ghost_page) {
+		// we assume that the last page is the ghost page
+		pages.pop();
+		page_mts.pop();
+		page_titles.pop();
+		page_attrs.pop();
+		this._ghost_page = false;
+	}
 	// check for back and forward buttons - TODO grey out icons
 	this.update_nav_icons(current);
 	this.menu_display("home", true);
@@ -1352,7 +1367,7 @@ woas["edit_allowed"] = function(page) {
 
 // setup the title boxes and gets ready to edit text
 woas["current_editing"] = function(page, disabled) {
-	log("current_editing(\""+page+"\", disabled: "+disabled+")");	// log:1
+	log("current = "+current+", current_editing(\""+page+"\", disabled: "+disabled+")");	// log:1
 	_prev_title = current;
 	$("wiki_page_title").disabled = (disabled ? "disabled" : "");
 	$("wiki_page_title").value = page;
@@ -1529,6 +1544,7 @@ woas["set_css"] = function(new_css) {
 
 // action performed when save is clicked
 woas["save"] = function() {
+	this._ghost_save = false;
 	// when cumulative save is enabled things change a bit
 	if (this.config.cumulative_save && !kbd_hooking) {
 		this.full_commit();
