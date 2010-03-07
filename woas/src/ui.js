@@ -59,6 +59,14 @@ function save() {
 	woas.save();
 }
 
+// should have a better name
+function help() {
+	if (page_exists("WoaS::Help::"+current))
+		go_to("WoaS::Help::"+current);
+	else
+		alert("No help available for this page");
+}
+
 // when edit is clicked
 //DEPRECATED
 function edit() {	woas.edit_page(current);	}

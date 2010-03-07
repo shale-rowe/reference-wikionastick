@@ -1,5 +1,5 @@
 wsif.version: 1.2.0
-woas.version: 0.10.7
+woas.version: 0.10.8
 woas.pages: 50
 
 woas.page.title: ::Menu
@@ -130,8 +130,8 @@ You can use the [[http://woas.iragan.com/|official WoaS forums]] and/or the [[ht
 
 == Version
 
-Current version is *v0.10.7*
-Versions 0.9&tilde;0.10.7 by Daniele C. ([[http://sf.net/users/legolas558/|legolas558]])
+Current version is *v0.10.8*
+Versions 0.9&tilde;0.10.8 by Daniele C. ([[http://sf.net/users/legolas558/|legolas558]])
 Original version (v0.01 &tilde; v0.04) by Andr\u00e9 Wagner
 
 <center><big>[[Special::License|Wiki on a Stick is licensed under the GNU/GPL license]].</big></center>
