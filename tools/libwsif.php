@@ -325,7 +325,7 @@ class WSIF {
 				}
 				// load file and apply encode64 (if embedded)
 				$page = file_get_contents($the_dir+$d_fn);
-				if ($page === false)
+				if ($page === false) {
 					$this->Error( "Failed load of external "+the_dir+d_fn);
 					return -1;
 				}
