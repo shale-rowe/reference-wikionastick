@@ -517,10 +517,15 @@ woas["_save_to_file"] = function(full) {
 	this._clear_bs();
 
 	this.setHTML($("woas_wait_text"), this.i18n.LOADING);
+	var bak_cursor = document.body.style.cursor;
+	$("loading_overlay").cursor = "auto";
+//	document.body.style.cursor = "auto";
 	
 	var data = _get_data(__marker, document.documentElement.innerHTML, full);
 	
 	this.setHTML($("woas_wait_text"), bak_wait_text);
+	$("loading_overlay").cursor = "wait";
+//	document.body.style.cursor = bak_cursor;
 
 	var r=false;
 //	if (!this.config.server_mode || (was_local && this.config.server_mode)) {
