@@ -788,9 +788,18 @@ woas["set_current"] = function (cr, interactive) {
 							text = this._get__embedded(real_t, pi, "file");
 						} else { */
 							text = this.get_text(real_t);
-							// page is stored plaintext for WoaS::Aliases
-							if ((text !== null) && (cr == "Plugins"))
-								text = this.parser.parse(text + this._plugins_list());
+							if (text !== null) {
+								switch (cr) {
+									case "Plugins":
+										text = this.parser.parse(text + this._plugins_list());
+									break;
+									case "Aliases":
+									// page is stored plaintext for WoaS::Aliases
+									break;
+									default:
+										text = this.parser.parse(text);
+								}
+							}	
 //						}
 						if(text === null) {
 							if (_decrypt_failed)
