@@ -865,7 +865,8 @@ function myfunc(arg) {
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Special::Options
 woas.page.attributes: 0
-woas.page.length: 1179
+woas.page.last_modified: 1268012477
+woas.page.length: 1214
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -896,6 +897,8 @@ Will save to disk only when quitting
 
 === Disallow edits (button)
 Puts the wiki into /server mode/; users will be told that it is not possible to save their changes, but editing will be allowed for sandbox (testing) purposes.
+[[Include::WoaS::Template::Back]]
+
 --DFQRCTsKlU
 woas.page.title: Test template 2
 woas.page.attributes: 0
@@ -1462,8 +1465,8 @@ Now we call the macro:
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Editing
 woas.page.attributes: 0
-woas.page.last_modified: 1268012145
-woas.page.length: 3380
+woas.page.last_modified: 1268012443
+woas.page.length: 3413
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1518,7 +1521,7 @@ You can edit the contents of the main text area by typing normally. There are li
 | Image || This brings up an interface that includes an external image in the page.
 | Link || This brings up an interface that includes an external link in the page.
 |}
-
+[[Include::WoaS::Template::Back]]
 
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::On help
