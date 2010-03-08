@@ -1,6 +1,6 @@
 wsif.version: 1.2.0
 woas.version: 0.10.8
-woas.pages: 43
+woas.pages: 44
 
 woas.page.title: ::Menu
 woas.page.attributes: 0
@@ -1530,4 +1530,15 @@ woas.page.boundary: DFQRCTsKlU
 General help goes here.
 
 [[Include::WoaS::Help::]]
+--DFQRCTsKlU
+woas.page.title: WoaS::Template::Back
+woas.page.attributes: 0
+woas.page.last_modified: 1268007996
+woas.page.length: 162
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+<div id="topnote" style="position:absolute; right:0.625em; top:0.188em;"><input type="button" class="woas_help_button" value="Back" onClick="history.go(0)"></div>
 --DFQRCTsKlU
