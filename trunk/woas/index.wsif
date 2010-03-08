@@ -1461,7 +1461,7 @@ Now we call the macro:
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Editing
 woas.page.attributes: 0
-woas.page.last_modified: 1267995393
+woas.page.last_modified: 1268008473
 woas.page.length: 3379
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1521,15 +1521,22 @@ You can edit the contents of the main text area by typing normally. There are li
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::On help
 woas.page.attributes: 0
-woas.page.length: 50
+woas.page.last_modified: 1268008369
+woas.page.length: 709
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-General help goes here.
+= Help
+The first time you save a change to Wiki on a Stick, your browser will ask for permission to save data to the disk. This is normal and necessary for the wiki to make changes to itself. You can give permission each time or make the setting permanent.
+
+You will find the Help (lightbulb) icon in the upper right corner of the banner on every page in this wiki. When you click on it, it will either open this page or a specific help page that explains how to work with the page you currently have open.
+
+The Help pages have a Back button in the upper right corner that will take you back to this page. The Back button will do nothing if a specific Help page is opened directly.
 
 [[Include::WoaS::Help::]]
+
 --DFQRCTsKlU
 woas.page.title: WoaS::Template::Back
 woas.page.attributes: 0
