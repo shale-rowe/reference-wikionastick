@@ -1,7 +1,7 @@
 <?php
 ## WSIF support library
 ## @author legolas558
-## @version 1.3.0
+## @version 1.3.1
 ## @license GNU/GPL
 ## (c) 2010 Wiki on a Stick Project
 ## @url http://stickwiki.sf.net/
@@ -9,7 +9,7 @@
 ## offers basic read/write support for WSIF format
 #
 
-define('LIBWSIF_VERSION', '1.3.0');
+define('LIBWSIF_VERSION', '1.3.1');
 define('_LIBWSIF_RANDOM_CHARSET', "ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz");
 
 define('WSIF_VERSION', '1.2.0');
@@ -588,10 +588,10 @@ class WSIF {
                         $number = ( $lookingFor == 3 ) ?
                             ( ( $values[0] % 16 ) * 4096 ) + ( ( $values[1] % 64 ) * 64 ) + ( $values[2] % 64 ):
                             ( ( $values[0] % 32 ) * 64 ) + ( $values[1] % 64 );
-                $number = dechex($number);
-                $r .= (strlen($number)==3)?"\\u0".$number:"\\u".$number;
-                        $values = array();
-                        $lookingFor = 1;
+					$number = dechex($number);
+					$r .= "\\u".substr("0000", strlen($number)).$number;
+					$values = array();
+					$lookingFor = 1;
               } // if
             } // if
         }
