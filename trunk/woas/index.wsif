@@ -4,8 +4,7 @@ woas.pages: 44
 
 woas.page.title: ::Menu
 woas.page.attributes: 0
-woas.page.last_modified: 1268143994
-woas.page.length: 989
+woas.page.length: 976
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -13,7 +12,6 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 [[Main Page]]
 * [[History]]
-* [[Syntax]]
 * [[Feature::|Features]]
 * [[WoaS::Plugins::]]
 
@@ -56,7 +54,6 @@ $('menu_string_to_search').onkeydown = menu_key_hook;
 --DFQRCTsKlU
 woas.page.title: Special::Advanced
 woas.page.attributes: 0
-woas.page.last_modified: 1268145836
 woas.page.length: 1174
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -159,7 +156,7 @@ This project wouldn't be what it is without the help of other people. If you con
 --DFQRCTsKlU
 woas.page.title: Main Page
 woas.page.attributes: 0
-woas.page.length: 1054
+woas.page.length: 1066
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -178,7 +175,7 @@ WoaS is a /client-side application/, you cannot use it on a remote server; your 
 == Documentation
 You are invited to read the following pages to know more about WoaS:
 
-# [[Syntax]]
+# [[WoaS::Help::Syntax]]
 # [[Feature::Summary]]
 
 When finished, you can proceed to [[Special::Erase Wiki|erase all pages]] and start from a clean WoaS.
@@ -423,7 +420,7 @@ setTimeout ( "ScoreDecay()", 3000);
 
 [[Tags::example]]
 --DFQRCTsKlU
-woas.page.title: Syntax
+woas.page.title: WoaS::Help::Syntax
 woas.page.attributes: 0
 woas.page.length: 3290
 woas.page.encoding: ecma/plain
@@ -1455,7 +1452,6 @@ If you have not given permanent permission to your browser for editing wiki page
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Edit CSS
 woas.page.attributes: 0
-woas.page.last_modified: 1268142119
 woas.page.length: 1312
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1528,7 +1524,6 @@ This page displays a list of pages that contain links to nonexistent pages. Both
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Debug console
 woas.page.attributes: 0
-woas.page.last_modified: 1268144138
 woas.page.length: 1283
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1566,7 +1561,6 @@ If you encounter any bugs, please report them in the [[https://lists.sourceforge
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Cancel any action
 woas.page.attributes: 0
-woas.page.last_modified: 1268144455
 woas.page.length: 166
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1579,7 +1573,6 @@ Cancel any action by clicking the *Cancel* icon in the banner, clicking the *Can
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Code blocks
 woas.page.attributes: 0
-woas.page.last_modified: 1268145511
 woas.page.length: 3747
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
