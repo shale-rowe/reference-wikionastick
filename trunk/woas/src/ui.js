@@ -246,7 +246,8 @@ function import_wiki() {
 		alert(woas.i18n.READ_ONLY);
 		return false;
 	}
-	return woas.import_wiki();
+	woas.import_wiki();
+	this.refresh_menu_area();
 }
 
 function set_key() {
@@ -458,6 +459,7 @@ function import_wiki_wsif() {
 		if (woas.wsif.expected_pages !== null)
 			done = String(done)+"/"+woas.wsif.expected_pages;
 		woas.alert(woas.i18n.IMPORT_OK.sprintf(done, woas.wsif.system_pages));
+		woas.refresh_menu_area();
 	}
 	return done;
 }
