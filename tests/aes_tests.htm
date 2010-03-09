@@ -5,7 +5,145 @@
 // dummy
 var woas = { };
 
+// return a random integer given the maximum value (scale)
+function _rand(scale) {
+	return Math.floor(Math.random() * scale);
+}
+
+// returns a random string of given string_length
+function _random_string(string_length) {
+	var chars = "ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
+	var randomstring = '';
+	for (var i=0; i<string_length; i++) {
+		var rnum = _rand(chars.length);
+		randomstring += chars.charAt(rnum);
+	}
+	return randomstring;
+}
+
+function _speed_test_f1(key, data, cycles) {
+	woas.AES.setKey(key);
+	for(var i=0;i<cycles;++i) {
+		var encrypted = woas.AES.encrypt(data),
+			decrypted = woas.AES.decrypt(encrypted);
+		if (decrypted !== data) {
+			alert("Encryption/Decryption failure!");
+		}
+	}
+}
+
 function do_speed_test() {
+	var e=document.getElementById('speed_test_results');
+	// this is generated only once
+	var data = _random_string(4096);
+	// this is generated once per each test
+	var key = _random_string(22), start, end;
+	start = new Date().getTime();
+	_speed_test_f1(key, data, 10);
+	end = new Date().getTime();
+	e.innerHTML = "Execution time with key length 22: "+(end-start).toString()+" ms\n";
+	// try with longer key
+	key = _random_string(32), start, end;
+	start = new Date().getTime();
+	_speed_test_f1(key, data, 10);
+	end = new Date().getTime();
+	e.innerHTML += "Execution time with key length 32: "+(end-start).toString()+" ms\n";
+	// try with longer key
+	key = _random_string(43), start, end;
+	start = new Date().getTime();
+	_speed_test_f1(key, data, 10);
+	end = new Date().getTime();
+	e.innerHTML += "Execution time with key length 43: "+(end-start).toString()+" ms\n";
+}
+
+    /* Some AES test vectors from the FIPS-197 paper and BC. */
+	var test_keys = [
+                "000102030405060708090a0b0c0d0e0f",
+                "000102030405060708090a0b0c0d0e0f1011121314151617",
+                "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+                "80000000000000000000000000000000",
+                "000000000000000000000000000000000000000000000000",
+                "0000000000000000000000000000000000000000000000000000000000000000"
+            ];
+	var test_plaintexts = [
+                "00112233445566778899aabbccddeeff",
+                "00112233445566778899aabbccddeeff",
+                "00112233445566778899aabbccddeeff",
+                "00000000000000000000000000000000",
+                "80000000000000000000000000000000",
+                "80000000000000000000000000000000"
+            ];
+	var test_ciphertexts = [
+                "69c4e0d86a7b0430d8cdb78070b4c55a",
+                "dda97ca4864cdfe06eaf70a0ec0d7191",
+                "8ea2b7ca516745bfeafc49904b496089",
+                "0edd33d3c621e546455bd8ba1418bec8",
+                "6cd02513e8d4dc986b4afe087a60bd0c",
+                "ddc6bf790c15760d8d9aeb6f9a75fd4e"
+                
+            ];
+
+function _do_encrypt(bData) {
+	woas.AES.bData = bData;
+	
+	woas.AES.aes_i=woas.AES.tot=0;
+	do{ woas.AES.blcEncrypt(woas.AES._encrypt); } while (woas.AES.aes_i<woas.AES.tot);
+
+	return woas.AES.bData;
+}
+
+function _do_decrypt(bData) {
+	woas.AES.bData = bData;
+	
+	woas.AES.aes_i=woas.AES.tot=0;
+	do {
+		if (!woas.AES.blcDecrypt(woas.AES._decrypt))
+			return null;
+	} while (woas.AES.aes_i<woas.AES.tot);
+	
+	return woas.AES.bData;
+}
+
+function do_fips197_test() {
+	// apply some overrides
+//	var bak_ac = woas.AES.aesClose;
+//	woas.AES.aesClose = function() { };
+	for(var i=0;i<test_keys.length;++i) {
+		woas.AES.key = _decode_hex(test_keys[i]);
+		// Encryption
+		var block = _encode_hex(_do_encrypt(_decode_hex(test_plaintexts[i])));
+		if (block !==  test_ciphertexts[i]) {
+			alert("failure of encrypt test "+i+":\n"+block+"\n"+test_ciphertexts[i]);
+			return;
+			continue;
+		}
+		// Decryption
+		block = _encode_hex( _do_decrypt(_decode_hex(test_ciphertexts[i])) );
+		if (block !==  test_plaintexts[i]) {
+			alert("failure of decrypt test "+i+":\n"+block+"\n"+test_plaintexts[i]);
+			continue;
+		}
+	}
+	// restore original handler
+//	woas.AES.aesClose = bak_ac;
+}
+
+function _decode_hex(s) {
+	var b=[];
+	for(var i=0;i<s.length;i+=2) {
+		b.push(parseInt(s.substr(i,2), 16));
+	}
+	return b;
+}
+
+function _encode_hex(ba) {
+	alert(ba);
+	var s="";
+	for(var i=0;i<ba.length;++i) {
+		var token = ba[i].toString(16);
+		s += ("00".substr(token.length))+token;
+	}
+	return s;
 }
 
 </script>
@@ -13,6 +151,9 @@ function do_speed_test() {
 </head>
 <body>
 <h1>WoaS core AES tests</h1>
-<p><input onclick="do_speed_test()" type="button" value="Speed test" /> Run speed tests with 1000 encryption/decryption cycles</p>
+<p><input onclick="do_speed_test()" type="button" value="Speed test" /> Run speed tests with 10 encryption/decryption cycles and 3 different key lengths</p>
+<p>Test results:<pre id="speed_test_results"></pre></p>
+<p><input onclick="do_fips197_test()" type="button" value="FIPS 197" /> Run FIPS 197 test vectors</p>
+<p>Test results:<pre id="fips197_test_results"></pre></p>
 </body>
 </html>
