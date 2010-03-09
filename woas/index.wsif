@@ -1,6 +1,6 @@
 wsif.version: 1.2.0
 woas.version: 0.10.8
-woas.pages: 46
+woas.pages: 47
 
 woas.page.title: ::Menu
 woas.page.attributes: 0
@@ -1769,4 +1769,24 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 diO0qmtvnCh0e5GTEUOCXKYrTWefFThcyCencfC8Tq4RB8rwawaBjdiIK+1yx/9eFk1CcCgjg1yenMSPF5TskaeKhl2p8apvbModc1x1HPK0buvSDlnFMb0P2LfmpylZHnU7E3b59y+l8fXdvilFVwAA
+--DFQRCTsKlU
+woas.page.title: WoaS::Help::Wiki is read-only
+woas.page.attributes: 0
+woas.page.last_modified: 1268154755
+woas.page.length: 346
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Wiki is read-only
+If you clicked the *Disallow edits* button in the wiki *Options*, this wiki became read-only. To undo that:
+# Back up this wiki.
+# Open it in a text editor.
+# Do a search for: {{{"permit_edits":false,}}}
+# Replace it with: {{{"permit_edits":true,}}}
+# Save the file.
+# Close the text editor.
+# Open the wiki and use normally.
+
 --DFQRCTsKlU
