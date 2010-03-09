@@ -154,13 +154,17 @@ woas["_reserved_rx"] = new RegExp(reserved_rx, "i"); reserved_namespaces = reser
 
 woas["aliases"] = [];
 
-// return page index (progressive number) given its title
-woas["page_index"] = function(title) {
+woas["title_unalias"] = function(aliased_title) {
 	// apply aliases on title, from newest to oldest
 	for(var i=0,l=this.aliases.length;i<l;++i) {
-		title = title.replace(this.aliases[i][0], this.aliases[i][1]);
+		aliased_title = aliased_title.replace(this.aliases[i][0], this.aliases[i][1]);
 	}
-	return page_titles.indexOf(title);
+	return aliased_title;
+}
+
+// return page index (progressive number) given its title
+woas["page_index"] = function(title) {
+	return page_titles.indexOf(this.title_unalias(title));
 }
 
 woas["is_reserved"] = function(page) {
@@ -1177,7 +1181,7 @@ woas["after_load"] = function() {
 woas["_load_aliases"] = function(s) {
 	this.aliases = [];
 	if (s==null || !s.length) return;
-	s.replace(/^\$([A-Za-z0-9_]{2,})\s+([\s\S]+)$/gm, function(str, alias, value) {
+	s.replace(/^(\$[A-Za-z0-9_]{2,})\s+([\s\S]+)$/gm, function(str, alias, value) {
 		// save the array with the alias regex and alias value
 		var cpok = [ new RegExp(RegExp.escape(alias), "g"), value];
 		woas.aliases.push(cpok);
