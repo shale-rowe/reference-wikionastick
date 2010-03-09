@@ -219,7 +219,7 @@ woas.AES["aesInit"] = function(){
   woas.AES.aesNk = woas.AES.key.length >>> 2;
   woas.AES.aesNr = 6 + woas.AES.aesNk;
 
-	var N=4*(woas.AES.aesNr+1);
+  var N=4*(woas.AES.aesNr+1);
   woas.AES.aesFkey = new Array(N);
   woas.AES.aesRkey = new Array(N);
 
@@ -287,13 +287,15 @@ woas.AES["blcEncrypt"] = function(enc){
 //    prgr = name;
     if (woas.AES.key.length<1) return;
     // if (cbc)
+    // pre-pend random data to pad length? really?
 	for (woas.AES.aes_i=0; woas.AES.aes_i<16; ++woas.AES.aes_i) woas.AES.bData.unshift( _rand(256) );
     while( woas.AES.bData.length%16!=0 ) woas.AES.bData.push(0);
     woas.AES.tot = woas.AES.bData.length;
     woas.AES.aesInit();
   }else{
     // if (cbc)
-	for (woas.AES.aes_j=woas.AES.aes_i; woas.AES.aes_j<woas.AES.aes_i+16; woas.AES.aes_j++) woas.AES.bData[woas.AES.aes_j] ^= woas.AES.bData[woas.AES.aes_j-16];
+	for (woas.AES.aes_j=woas.AES.aes_i; woas.AES.aes_j<woas.AES.aes_i+16; woas.AES.aes_j++)
+		woas.AES.bData[woas.AES.aes_j] ^= woas.AES.bData[woas.AES.aes_j-16];
     enc();
   }
   if (woas.AES.aes_i>=woas.AES.tot) woas.AES.aesClose();
