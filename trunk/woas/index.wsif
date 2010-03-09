@@ -1,6 +1,6 @@
 wsif.version: 1.2.0
 woas.version: 0.10.8
-woas.pages: 44
+woas.pages: 43
 
 woas.page.title: ::Menu
 woas.page.attributes: 0
@@ -1383,7 +1383,7 @@ You can edit the contents of the main text area by typing normally. There are li
 |}
 
 --DFQRCTsKlU
-woas.page.title: WoaS::Help::On help
+woas.page.title: WoaS::Help::Index
 woas.page.attributes: 0
 woas.page.length: 740
 woas.page.encoding: 8bit/plain
@@ -1401,25 +1401,15 @@ When browsing Help pages you will find a Back button in the upper right corner t
 [[Include::WoaS::Help::]]
 
 --DFQRCTsKlU
-woas.page.title: WoaS::Template::Back
+woas.page.title: WoaS::Template::Button
 woas.page.attributes: 0
-woas.page.length: 115
+woas.page.length: 102
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-<div class="woas_topnote"><input type="button" class="woas_help_button" value="Back" onClick="history.go(0)"></div>
---DFQRCTsKlU
-woas.page.title: WoaS::Template::Close
-woas.page.attributes: 0
-woas.page.length: 117
-woas.page.encoding: 8bit/plain
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-<div class="woas_topnote"><input type="button" class="woas_help_button" value="Close" onClick="window.close()"></div>
+<div class="woas_topnote"><input type="button" class="woas_help_button" value="%1" onclick="%2"></div>
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Special::Advanced
 woas.page.attributes: 0

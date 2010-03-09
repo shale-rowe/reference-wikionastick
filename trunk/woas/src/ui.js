@@ -63,7 +63,7 @@ woas["help_system"] = { "popup_window": null, "page_title": null };
 
 // should have a better name
 function help() {
-	var wanted_page = "WoaS::Help::On help";
+	var wanted_page = "WoaS::Help::Index";
 	var pi = woas.page_index(wanted_page);
 	// we are editing
 	if (kbd_hooking) {
@@ -91,12 +91,14 @@ woas["help_system"]["go_to"] = function(wanted_page, pi) {
 		text = woas.get__text(pi);
 	// now create the popup
 	if ((woas.help_system.popup_window === null) || woas.help_system.popup_window.closed) {
-		woas.help_system.popup_window = woas._customized_popup(wanted_page, woas.parser.parse("[[Include::WoaS::Template::Close]]\n"+text),
+		woas.help_system.popup_window = woas._customized_popup(wanted_page, woas.parser.parse(
+		"[[Include::WoaS::Template::Button|Close|window.close()]]\n"+text),
 			"function go_to(page) { if (window.opener && !window.opener.closed)	window.opener.woas.help_system.go_to(page); }",
 			"", " class=\"woas_help_background\"");
 	} else { // hotfix the page
 		woas.help_system.popup_window.document.title = wanted_page;
-		woas.setHTML(woas.help_system.popup_window.document.body, woas.parser.parse("[[Include::WoaS::Template::Back]]\n"+text));
+		woas.setHTML(woas.help_system.popup_window.document.body, woas.parser.parse(
+		"[[Include::WoaS::Template::Button|Back|history.go(0)]]\n"+text));
 	}
 	woas.help_system.page_title = wanted_page;
 }

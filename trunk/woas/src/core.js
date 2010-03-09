@@ -73,9 +73,10 @@ woas["static_pages"] = ["Special::About", "Special::Advanced", "Special::Options
 						"Special::Export", "Special::License", "Special::ExportWSIF",
 						"Special::ImportWSIF", "WoaS::Plugins",
 						"WoaS::Template::Back", "WoaS::Template::Close"];
-woas["help_pages"] = [	"Editing", "Special::Options","On help", "Edit CSS",
+woas["help_pages"] = [	"Editing", "Special::Options","Index", "Edit CSS",
 						"Special::Advanced", "Special::Dead Pages", "Special::Edit Bootscript",
-						"Special::Erase Wiki", "Security", "Macros", "WSIF"];
+						"Special::Erase Wiki", "Security", "Macros", "WSIF",
+						"Syntax"];
 
 woas["default_pages"] = ["Main Page", "::Menu", "WoaS::Bootscript", "WoaS::Aliases"];
 
