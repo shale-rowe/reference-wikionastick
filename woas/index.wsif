@@ -1,10 +1,10 @@
 wsif.version: 1.2.0
 woas.version: 0.10.8
-woas.pages: 49
+woas.pages: 50
 
 woas.page.title: ::Menu
 woas.page.attributes: 0
-woas.page.length: 988
+woas.page.length: 1012
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -15,6 +15,7 @@ woas.page.boundary: DFQRCTsKlU
 * [[Syntax]]
 * [[Feature::|Features]]
 * [[WoaS::Plugins::]]
+[[WoaS::Help::Backup]]
 
 * [[Special::All Pages]]
 * [[Special::Erase Wiki]]
@@ -47,6 +48,7 @@ function menu_key_hook(orig_e) {
 
 $('menu_string_to_search').onkeydown = menu_key_hook;
 </script>
+
 
 
 
@@ -1628,5 +1630,18 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 = Dead Pages
 This page displays a list of pages that contain links to nonexistent pages. Both the link and the page it's on are shown in each entry.
+
+--DFQRCTsKlU
+woas.page.title: WoaS::Help::Backup
+woas.page.attributes: 0
+woas.page.last_modified: 1268142507
+woas.page.length: 235
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Backup
+Before making any changes, use your *file manager*, the *command line*, or a *backup utility* to make a copy of this wiki in a safe place. Also make regular backups of any copies of this wiki that you're currently working on.
 
 --DFQRCTsKlU
