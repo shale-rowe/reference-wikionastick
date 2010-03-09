@@ -1,6 +1,6 @@
 wsif.version: 1.2.0
 woas.version: 0.10.8
-woas.pages: 49
+woas.pages: 50
 
 woas.page.title: ::Menu
 woas.page.attributes: 0
@@ -244,7 +244,8 @@ _lock_page();
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Security
 woas.page.attributes: 0
-woas.page.length: 2207
+woas.page.last_modified: 1268158320
+woas.page.length: 3796
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -258,7 +259,14 @@ The first password you enter after having started Wiki on a Stick gets cached (u
 <center>*If you forget the password there is no way to retrieve it or your data.*</center>
 
 == How do I encrypt a page?
-In order to encrypt a page you will have to click on the /lock/ icon on the top-right navigation panel; if your page is already encrypted and you want to change the encryption key you will first have to unlock it.
+In order to encrypt a page you will have to click on the /lock/ icon on the top-right navigation panel. The password interface will open. Type the password into the red box, using punctuation and mixed case, if possible. If the box turns green while you're typing in your password, it's a strong password. If it doesn't, you might wish to reconsider the password and try a stronger one. Once you've chosen and typed in your password, type it into the white box below the now hopefully green one for verification. Then click the *Lock* button (which will automatically include the name of the page you wish to encrypt) to encrypt the page.
+
+When encrypting additional pages during a session, you'll be offered to use the same password you used to encrypt the first page. Accept by pressing the *OK* button or decline by pressing the *Cancel* button. If you decline, the password interface will open, allowing you to set a new password for the page. There is no limit to how many passwords you can use.
+
+== How do I unlock an encrypted page?
+If your page is already encrypted and you want to work with the page or change the encryption key you will first have to unlock it by entering its password. Do this by clicking the *Set password* (key) icon in the top right navigation panel. You can now open the page normally to view, edit, or delete it.
+
+The password for decrypting a page (or pages) is cached so that you only need to enter it once per session. If you close or reload the wiki, you will need to reenter the password to work with the encrypted page(s). To disable the password cache, check the box for *Do not temporarily cache the AES key* in the wiki *Options*. If you've used more than one password for encrypting your pages, you'll need to enter the password to unlock each encrypted page.
 
 == Security level
 Security is never absolute. Data encrypted with these pages might be compromised in a variety of ways, including but not limited to the following:
@@ -1677,72 +1685,19 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 <div><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAMAAADXqc3KAAAAAXNSR0IArs4c6QAAArtQTFRF8ox%2FAAAAAAABAQEBAQECAgICAwMDBAQFBQUABgYGCQgJCgoLDAsMDQwPDQ0NDw4PDw8HEhETExMUFRQUGRkNGhsUGxscHx8eISATIR8lJCQVJiUsJyUqKCcuLCwtLiw0Ly4vMzE4NzYoQT9FQz9ERkZGSkdTS0hMTEhNUk5bU1JVY15kYWBkZWFubGh5bmt1cGt6c212cm5%2BcXFwfHaDfXxehoKQjIiUkYyfkoyllZKal5CpmJGqmJGrmZKtmpaim5WunJaunZewn5mxoJqyopquoZuxpJylopyyopy1pJ22pJ24pJ61pJ%2B1paC1pqC1qaC0pqG1qKG7qqKuqaKxqKK4paWkq6O7qaS3q6p%2BraW4rae6rKmvrqm1rqm6r6nDsKu1sKu9sKu%2Bs6yxs7GDsay9sq29s667tK7FuK%2FBtbDAtbDBt7HEubS%2BubTCurTKurXFvLqjvLfGvLjEv72LvL2VvbjLvr%2BPwL%2BKvbvBw7nHv7vDwMGHw7rHwb3Fwr3Lw8SQxb%2FRxsDRxsHMxcLGxsPLyMPQx8XKyMXIysuOycbIzMfVzcrMz8zU0NGi0czZ0M%2FL0c%2FL0c%2FN0s7X08%2FZ1NPN1ten1tTR1tXP19XS2tfc3Nyt3N2s3dni397W4N%2FX4N%2FZ4t7m4eDY4t%2Fm4eHY4uHb4uDl4uLX4%2BLa5OLo5OTb5ubd6OjJ6Ofh6erE6efr6efs6ujs6%2Bju6%2B3B6%2Brj6%2Bnt6%2Brl7O6%2F6%2Bvk7Ovr7Ovu7evu7vDC7ezv7e3p7u7p7%2B7w7%2B7x7%2B%2Fx8fPF8PDt8e%2F18fDs8fDy8fDz8%2FXC8fHx8%2FD38vLt8vLu8vL08%2FPt8%2FPu9PP09vjI9fXw9vX09vbx9%2FX59%2Fby9%2Fb39%2Ffx%2BPf4%2Bfj5%2Bfj6%2Bfnz%2Bfn1%2Bfr1%2B%2F7K%2Bvr2%2B%2Fr5%2FPr%2F%2B%2Fv7%2FP%2FR%2Ffv%2B%2Ffz9%2F%2F7%2FFnlyNwAAAAF0Uk5TAEDm2GYAAAABYktHRACIBR1IAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH2gMHDxg0DfX8UQAAAUBJREFUKM9jYCAIGBl5hLgYGTGEuXViWpvTzZVZUaUYFdofXzu4YW53o5kgsgyj3LIXFy8e2rphclaZBS%2BSDHvlsxvPb5%2FbtXFKQVyGHkKCUev08TtPbp3Yu7KtKMnfUxIuw2h19MCVu9dP7Z41c3qeR5AmXII1YdOuy%2Ffv3dyyZMfqLhdvA7gEZ%2BzC9UcePrp6%2Fuz%2B%2BdWOXiYIo%2Bz7F%2B%2B8cGb5qkUz6vxsww0REvpN9b3zjq3oKU7zcbLOVEdIyOSkZk%2FatrYj1NfZNiCYH8mDuvmB1Qv2TYxwsHGt0kDyICObUXz01KUT3OyiarVRAouJWc0ysSU3JNldBT18mYUL16ybXaHEiBkfNQ%2B290WKyGNKNFzaMy1FQhZTovzp4TklUtKYEp0nN5eaCihiSPBxiIapMopjSw5iLIzGhBMNAHCEbLFZHo5dAAAAAElFTkSuQmCC" alt="Info" border="0" />%1</div>
 --DFQRCTsKlU
-woas.page.title: WoaS::Help::Page management
+woas.page.title: WoaS::Help::Print a page
 woas.page.attributes: 0
-woas.page.last_modified: 1268156970
-woas.page.length: 4182
+woas.page.last_modified: 1268157647
+woas.page.length: 262
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Page management
-== Delete a page
-# *From the menu:*<br><br>
-## Click the *Delete Page* link in the menu while displaying the page you wish to delete, or click it from any page and type in the name of the page you wish to delete.<br><br>
-## You'll be asked for confirmation.<br><br>
-## When the page is deleted, you'll be returned to the page you were on before deleting the page.<br><br>
-## You may have to remove any links to the deleted page from the [[WoaS::Help::Edit the menu|menu]] or other pages.<br><br>
-# *From the editor:*<br><br>
-## Click the *Edit* (pencil) icon in the banner.<br><br>
-## Select everything inside the main text area and delete it.<br><br>
-## Save your changes by clicking the *Save* (diskette) icon in the banner.<br><br>
-## Edit the [[WoaS::Help::Edit the menu|menu]] to remove the link to the deleted page if it isn't removed automatically.
-
-== Edit a page
-Pages that have the *Edit* (pencil) icon in the banner can be edited. This includes any page you created, and any page listed when clicking the *Special::All Pages* link in the menu.
-# Click the *Edit* (pencil) icon in the banner or double-click on the page if you've enabled that setting in the wiki *Options*.<br><br>
-# Edit the contents of the main text area by typing normally.<br><br>
-# Use the editor's buttons to insert code to format the text, or type the code in manually. Note that the use of plain text doesn't require any code.<br><br>
-# Save your changes by clicking on the *Save* (diskette) icon in the banner.
-
-== Erase all pages
-To erase all user-created pages in this wiki and start fresh:
-# *Make sure you are using a wiki you don't mind losing.* If not, make a copy and erase the copy.
-# Click the *Advanced* (tools) icon in the banner.
-# Click on *Special::Erase Wiki* in the *Maintenance* section.
-
-See also: [[WoaS::Help::Special::Erase Wiki]]
-
-== Encrypt a page
-This wiki offers [[WoaS::Help::Security|AES encryption]] for locking pages. Padlock icons are displayed in the banner to indicate whether pages are encrypted or not. The *Lock* icon indicates that a page is unencrypted and the *Unlock* icon indicates that a page is encrypted.
-
-=== Lock a page
-Click the *Lock* icon in the banner to encrypt a page. The password interface will open. Type the password into the red box, using punctuation and mixed case, if possible. If the box turns green while you're typing in your password, it's a strong password. If it doesn't, you might wish to reconsider the password and try a stronger one. Once you've chosen and typed in your password, type it into the white box below the now hopefully green one for verification. Then click the *Lock* button (which will automatically include the name of the page you wish to encrypt) to encrypt the page.
-
-When encrypting additional pages during a session, you'll be offered to use the same password you used to encrypt the first page. Accept by pressing the *OK* button or decline by pressing the *Cancel* button. If you decline, the password interface will open, allowing you to set a new password for the page. There is no limit to how many passwords you can use.
-
-=== Unlock a page
-Clicking on the link to an encrypted page brings up an alert letting you know that you need to enter a password to view the page. To do so, click the *Set password* (key) icon in the banner to enter the password for unencrypting a page. You can now open the page normally to view, edit, or delete it. The password for decrypting a page (or pages) is cached so that you only need to enter it once per session (until you close or reload the wiki). To disable password cacheing, check the box for *Do not temporarily cache the AES key* in the wiki *Options*. If you've used more than one password for encrypting your pages, you'll need to enter the password to unlock each encrypted page.
-
-The [[WoaS::Help::Example::Encrypted page]] can be opened by using *test* as the password.
-
-== Print a page
+= Print a page
 # Click the *Print* icon in the banner. A new browser window will open with a printer-friendly version of the page that displays only the contents of the main text area.
 # Use the browser's *print preview* and *print* functions to print the page.
 
---DFQRCTsKlU
-woas.page.title: WoaS::Help::Example::Encrypted page
-woas.page.attributes: 2
-woas.page.last_modified: 1268154513
-woas.page.length: 152
-woas.page.encoding: 8bit/base64
-woas.page.disposition: inline
-woas.page.original_length: 112
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-diO0qmtvnCh0e5GTEUOCXKYrTWefFThcyCencfC8Tq4RB8rwawaBjdiIK+1yx/9eFk1CcCgjg1yenMSPF5TskaeKhl2p8apvbModc1x1HPK0buvSDlnFMb0P2LfmpylZHnU7E3b59y+l8fXdvilFVwAA
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Wiki is read-only
 woas.page.attributes: 0
@@ -1818,5 +1773,40 @@ woas.page.boundary: DFQRCTsKlU
 ## Select everything inside the main text area and delete it.<br><br>
 ## Save your changes by clicking the *Save* (diskette) icon in the banner.<br><br>
 ## Edit the [[WoaS::Help::Edit the menu|menu]] to remove the link to the deleted page if it isn't removed automatically.
+
+--DFQRCTsKlU
+woas.page.title: WoaS::Help::Edit a page
+woas.page.attributes: 0
+woas.page.last_modified: 1268157383
+woas.page.length: 639
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Edit a page
+Pages that have the *Edit* (pencil) icon in the banner can be edited. This includes any page you created, and any page listed when clicking the *Special::All Pages* link in the menu.
+# Click the *Edit* (pencil) icon in the banner or double-click on the page if you've enabled that setting in the wiki *Options*.<br><br>
+# Edit the contents of the main text area by typing normally.<br><br>
+# Use the editor's buttons to insert code to format the text, or type the code in manually. Note that the use of plain text doesn't require any code.<br><br>
+# Save your changes by clicking on the *Save* (diskette) icon in the banner.
+
+--DFQRCTsKlU
+woas.page.title: WoaS::Help::Erase all pages
+woas.page.attributes: 0
+woas.page.last_modified: 1268157473
+woas.page.length: 339
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Erase all pages
+To erase all user-created pages in this wiki and start fresh:
+# *Make sure you are using a wiki you don't mind losing.* If not, make a copy and erase the copy.
+# Click the *Advanced* (tools) icon in the banner.
+# Click on *Special::Erase Wiki* in the *Maintenance* section.
+
+See also: [[WoaS::Help::Special::Erase Wiki]]
 
 --DFQRCTsKlU
