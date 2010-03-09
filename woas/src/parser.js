@@ -135,8 +135,11 @@ var reWikiLinkSimple = /\[\[([^\]]*?)\]\]/g;
 
 var _MAX_TRANSCLUSION_RECURSE = 256;
 
-woas.parser["place_holder"] = function (i) {
-	return "<!-- "+parse_marker+"::"+i+" -->";
+woas.parser["place_holder"] = function (i, separator) {
+	if (typeof separator == "undefined")
+		separator = "";
+	separator = ":"+separator+":";
+	return "<!-- "+parse_marker+separator+i+" -->";
 }
 
 // THIS is the method that you should override for your custom parsing needs
@@ -157,18 +160,28 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 	}
 	
 	// this array will contain all the HTML snippets that will not be parsed by the wiki engine
-	var snippets = [];
+	var snippets = [], comments = [];
 	
 	// put away comments
-	text = text.replace(reComments, function (str) {
-		var r = woas.parser.place_holder(snippets.length);
-		snippets.push(str);
+	text = text.replace(reComments, function (str, comment) {
+		// skip whitespace comments
+		if (comment.match(/^\s+$/))
+			return str;
+		var r = woas.parser.place_holder(comments.length, "c");
+		comments.push(str);
 		return r;
 	});
 
 	// put away stuff contained in inline nowiki blocks {{{ }}}
 	text = text.replace(reNowiki, function (str, $1) {
 		var r = woas.parser.place_holder(snippets.length);
+		if (comments.length) {
+			$1 = $1.replace(new RegExp("<\\!-- "+parse_marker+":c:(\\d+) -->", "g"), function (str, $1) {
+				var c=comments[$1];
+				comments[$1] = "";
+				return c
+			});
+		}
 		snippets.push("<tt class=\"wiki_preformatted\">"+woas.xhtml_encode($1)+"</tt>");
 		return r;
 	});
@@ -225,17 +238,27 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 				}
 				trans = 1;
 				
+				// both comments and nowiki blocks are pre-parsed
 				// put away comments
 				templtext = templtext.replace(reComments, function (str) {
-					var r = woas.parser.place_holder(snippets.length);
-					snippets.push(str);
+					// skip whitespace comments
+					if (comment.match(/^\s+$/))
+						return str;
+					var r = woas.parser.place_holder(comments.length, "c");
+					comments.push(str);
 					return r;
 				});
 
-				// this block is duplicated, and it's OK
 				// put away stuff contained in inline nowiki blocks {{{ }}}
 				templtext = templtext.replace(reNowiki, function (str, $1) {
 					var r = woas.parser.place_holder(snippets.length);
+					if (comments.length) {
+						$1 = $1.replace(new RegExp("<\\!-- "+parse_marker+":c:(\\d+) -->", "g"), function (str, $1) {
+							var c=comments[$1];
+							comments[$1] = "";
+							return c
+						});
+					}
 					snippets.push("<tt class=\"wiki_preformatted\">"+woas.xhtml_encode($1)+"</tt>");
 					return r;
 				});
@@ -521,12 +544,19 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 	// convert newlines to br tags
 	text = text.replace(/\n/g, "<br />");
 
-	// put back in place all HTML snippets
+	// put back in place all snippets
 	if (snippets.length>0) {
 		text = text.replace(new RegExp("<\\!-- "+parse_marker+"::(\\d+) -->", "g"), function (str, $1) {
 			return snippets[$1];
 		});
-	}
+	} snippets = null;
+
+	// put back in place all XHTML comments
+	if (comments.length>0) {
+		text = text.replace(new RegExp("<\\!-- "+parse_marker+":c:(\\d+) -->", "g"), function (str, $1) {
+			return comments[$1];
+		});
+	} comments = null;
 	
 	// sort tags at bottom of page, also when showing namespaces
 	tags = tags.toUnique().sort();
