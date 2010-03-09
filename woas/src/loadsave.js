@@ -260,9 +260,9 @@ woas["mozillaLoadFile"] = function(filePath, load_mode, suggested_mime) {
 			rd.push(c.charCodeAt(0));
 		}
 		if (load_mode == this.file_mode.BINARY)
-				return(merge_bytes(rd));
+				return(this.merge_bytes(rd));
 		else if (load_mode == this.file_mode.DATA_URI)
-			return this._data_uri_enc(filePath, merge_bytes(rd), suggested_mime);
+			return this._data_uri_enc(filePath, this.merge_bytes(rd), suggested_mime);
 		else if (load_mode == this.file_mode.BASE64)
 			return encode64_array(rd);
 	}

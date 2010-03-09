@@ -284,14 +284,14 @@ woas["integrity_test"] = function() {
 	}
 	// test integrity of load/save functions
 	if (!this.save_file(woas.ROOT_DIRECTORY+"itest.bin", this.file_mode.UTF8_TEXT,
-			merge_bytes(utf8Encrypt(UTF8_TEST))
+			woas.merge_bytes(woas.utf8Encrypt(UTF8_TEST))
 //			UTF8_TEST
 			))
 		return false;
 	var ct = this.load_file(woas.ROOT_DIRECTORY+"itest.bin", this.file_mode.UTF8_TEXT);
 	if ((ct === null)||(ct === false))
 		return false;
-	ct = utf8Decrypt(split_bytes(ct));
+	ct = woas.utf8Decrypt(woas.split_bytes(ct));
 	if (ct !== UTF8_TEST) {
 		this.crash("UTF8 test failed.\nWritten:\n"+UTF8_TEST+"\nRead:\n"+ct);
 		return false;

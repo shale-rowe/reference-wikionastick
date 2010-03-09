@@ -240,7 +240,7 @@ function lock_page(page) {
 		return;
 	}
 	var pi = woas.page_index(page);
-	AES_setKey(pwd);
+	woas.AES.setKey(pwd);
 	woas._finalize_lock(pi);
 }
 
@@ -308,7 +308,7 @@ function _hex_col(tone) {
 		// 80% of security defined by length (at least 16, best 22 chars), 10% by symbols, 5% by numeric presence and 5% by upper case presence
 		var pwstrength = ((pwlength/18) * 65) + (numsymbols * 10 + u_lo*20 + numeric*5);
 		
-		var repco = split_bytes(pw).toUnique().length/pwlength;
+		var repco = woas.split_bytes(pw).toUnique().length/pwlength;
 		if (repco<0.8)
 			pwstrength *= (repco+0.2);
 //		log("pwstrength = "+(pwstrength/100).toFixed(2)+", repco = "+repco);	// log:1
