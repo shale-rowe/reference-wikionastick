@@ -190,26 +190,9 @@ woas.AES["aesGenTables"] = function(){
     woas.AES.aesRtable[i]= woas.AES.aesMult(14,y) | woas.AES.aesMult(9,y)<<8 |
                   woas.AES.aesMult(13,y)<<16 | woas.AES.aesMult(11,y)<<24;
   }
-}
 
-woas.AES["aesInit"] = function(){
-  woas.AES.key=woas.AES.key.slice(0,43);
-  var i,k,m;
-  var j = 0;
-  var l = woas.AES.key.length;
-
-  while ( l!=16 && l!=24 && l!=32 && l!=43) woas.AES.key[l++]=woas.AES.key[j++];
-  woas.AES.aesGenTables();
-
-  woas.AES.aesNk = woas.AES.key.length >>> 2;
-  woas.AES.aesNr = 6 + woas.AES.aesNk;
-
-  var N=4*(woas.AES.aesNr+1);
-  
   woas.AES.aesFi = new Array(12);
   woas.AES.aesRi = new Array(12);
-  woas.AES.aesFkey = new Array(N);
-  woas.AES.aesRkey = new Array(N);
 
   for (m=j=0;j<4;j++,m+=3){
     woas.AES.aesFi[m]=(j+1)%4;
@@ -219,6 +202,26 @@ woas.AES["aesInit"] = function(){
     woas.AES.aesRi[m+1]=(4+j-2)%4;
     woas.AES.aesRi[m+2]=(4+j-3)%4;
   }
+
+}
+
+// these tables can be static
+woas.AES.aesGenTables();
+
+woas.AES["aesInit"] = function(){
+  woas.AES.key=woas.AES.key.slice(0,43);
+  var i,k,m;
+  var j = 0;
+  var l = woas.AES.key.length;
+
+  while ( l!=16 && l!=24 && l!=32 && l!=43) woas.AES.key[l++]=woas.AES.key[j++];
+
+  woas.AES.aesNk = woas.AES.key.length >>> 2;
+  woas.AES.aesNr = 6 + woas.AES.aesNk;
+
+	var N=4*(woas.AES.aesNr+1);
+  woas.AES.aesFkey = new Array(N);
+  woas.AES.aesRkey = new Array(N);
 
   for (i=j=0;i<woas.AES.aesNk;i++,j+=4) woas.AES.aesFkey[i]=woas.AES.getW(woas.AES.key,j);
 
@@ -242,8 +245,8 @@ woas.AES["aesInit"] = function(){
 }
 
 woas.AES["aesClose"] = function(){
-  woas.AES.aesPows=woas.AES.aesLogs=woas.AES.aesSBox=woas.AES.aesSBoxInv=woas.AES.aesRco=null;
-  woas.AES.aesFtable=woas.AES.aesRtable=woas.AES.aesFi=woas.AES.aesRi=woas.AES.aesFkey=woas.AES.aesRkey=null;
+//  woas.AES.aesFi=woas.AES.aesRi=woas.AES.aesPows=woas.AES.aesLogs=woas.AES.aesSBox=woas.AES.aesSBoxInv=woas.AES.aesRco=woas.AES.aesFtable=woas.AES.aesRtable=null;
+  woas.AES.aesFkey=woas.AES.aesRkey=null;
 }
 
 woas.AES["aesRounds"] = function( block, key, table, inc, box ){
