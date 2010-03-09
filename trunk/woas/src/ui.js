@@ -327,12 +327,12 @@ function show_full_file(pi) {
 	if (text==null)
 		return;
 	// put WoaS in loading mode
-	this.progress_init("Loading full file");
+	woas.progress_init("Loading full file");
 	// clear the partial display and put in the whole file content
 	woas.setHTML($('_part_display'), '');
 	woas.setHTML($('_file_ct'), woas.xhtml_encode(decode64(text)));
 	// finished loading the file
-	this.progress_finish();
+	woas.progress_finish();
 }
 
 function query_export_file(cr) {
