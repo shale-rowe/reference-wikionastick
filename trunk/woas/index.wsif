@@ -1,6 +1,6 @@
 wsif.version: 1.2.0
 woas.version: 0.10.8
-woas.pages: 42
+woas.pages: 45
 
 woas.page.title: ::Menu
 woas.page.attributes: 0
@@ -1537,5 +1537,161 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 = Backup
 Before making any changes, use your *file manager*, the *command line*, or a *backup utility* to make a copy of this wiki in a safe place. Also make regular backups of any copies of this wiki that you're currently working on.
+
+--DFQRCTsKlU
+woas.page.title: WoaS::Help::Bugs
+woas.page.attributes: 0
+woas.page.last_modified: 1268144138
+woas.page.length: 1283
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Bugs
+This wiki comes with an optional debug console that will be visible at the bottom of every page when enabled.
+
+== Enable the debug console:
+# Open this wiki in a text editor.<br><br>
+# Do a search for {{{woas["debug"] = false;}}} to find this line:{{{
+woas["debug"] = false;			// toggle debug mode (and console)
+}}}
+# Change *false* to *true* so the line looks like this:{{{
+woas["debug"] = true;			// toggle debug mode (and console)
+}}}
+# Save the file.<br><br>
+# Close the text editor.
+
+== Disable the debug console:
+# Open this wiki in a text editor.<br><br>
+# Do a search for {{{woas["debug"] = true;}}} to find this line:{{{
+woas["debug"] = true;			// toggle debug mode (and console)
+}}}
+# Change *true* to *false* so the line looks like this:{{{
+woas["debug"] = false;			// toggle debug mode (and console)
+}}}
+# Save the file.<br><br>
+# Close the text editor.
+
+== Reporting bugs
+If you encounter any bugs, please report them in the [[https://lists.sourceforge.net/lists/listinfo/stickwiki-devel|Wiki on a Stick development mailing list]] or on the [[http://sourceforge.net/tracker/?words=tracker_browse&sort=open_date&sortdir=desc&offset=0&group_id=155218&atid=794925&assignee=&status=&category=&artgroup=&keyword=&submitter=&artifact_id=|Wiki on a Stick bug tracker]].
+
+--DFQRCTsKlU
+woas.page.title: WoaS::Help::Cancel any action
+woas.page.attributes: 0
+woas.page.last_modified: 1268144455
+woas.page.length: 166
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Cancel any action
+Cancel any action by clicking the *Cancel* icon in the banner, clicking the *Cancel* button on any alert that pops up, or pressing the *Esc* key.
+
+--DFQRCTsKlU
+woas.page.title: WoaS::Help::Code blocks
+woas.page.attributes: 0
+woas.page.last_modified: 1268145511
+woas.page.length: 3747
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Code blocks
+[[Special::TOC]]
+Code blocks are sections of raw or preformatted text that is not parsed by the wiki. Anything you place inside nowiki brackets <tt>{<!-- -->{<!-- -->{</tt>like this<tt>}<!-- -->}<!-- -->}</tt> will be displayed in monospace font exactly as you typed it.
+
+== Code block
+<div class="woas_helptext">Use this code in a page:</div>
+<div class="woas_helpcode">{\
+{{
+This is a code block
+made of one
+or more lines.
+}}\
+}</div>
+<div class="woas_helptext">To create this:</div>
+{{{
+This is a code block
+made of one
+or more lines.
+}}}
+== Code block in-line
+<div class="woas_helptext">Use this code in a page:</div>
+<div class="woas_helpcode">{<!-- -->{{This is an inline code block}}<!-- -->} which is a code block that's inside a sentence.</div>
+<div class="woas_helptext">To create this:</div>
+{{{This is an inline code block}}} which is a code block that's inside a sentence.
+
+== Code block properly indented beneath a list item
+<div class="woas_helptext">Use this code in a page:</div>
+<div class="woas_helpcode">* List item:{<!-- -->{{
+This is a code block
+made of one
+or more lines.
+}<!-- -->}}</div>
+<div class="woas_helptext">To create this:</div>
+* List item:{{{
+This is a code block
+made of one
+or more lines.
+}}}
+
+== Code block with custom colored background
+This is so you can choose a different color than the default one for your code blocks. The example uses lightcyan, but you can replace that with whatever color you like, using [[http://www.w3schools.com/Html/html_colornames.asp|color names or hexadecimal notation]].
+
+<div class="woas_helptext">Use this code in a page:</div>{{{
+<pre style="background-color:lightcyan;">This is a code block
+made of one
+or more lines.
+</pre>
+}}}<div class="woas_helptext">To create this:</div><pre style="background-color:lightcyan;">This is a code block
+made of one
+or more lines.
+</pre>
+== Code block with custom colored font
+This will only work on all the font inside a code block. Multi-colored code blocks would have to be done more creatively. If there's an interest, I can put together an example, but it would be for advanced users. The example uses green, but you can replace that with whatever color you like, using [[http://www.w3schools.com/Html/html_colornames.asp|color names or hexadecimal notation]]
+
+<div class="woas_helptext">Use this code in a page:</div>{{{
+<pre style="color:green">This is a code block
+made of one
+or more lines.
+</pre>}}}<div class="woas_helptext">To create this:</div><pre style="color:green">This is a code block
+made of one
+or more lines.
+</pre>
+== Code blocks containing example wiki syntax
+If you'd like to display syntax in a page without the wiki parsing the code (i.e.: you want the brackets to show), insert an html comment ({{{<!-- -->}}}) between two of the brackets on one or both sides of the code.
+
+<div class="woas_helptext">Use this code in a page:</div>{{{
+{<!-- -->{{Some code goes here}}<!-- -->}
+}}}<div class="woas_helptext">To create this:</div>
+{<!-- -->{{Some code goes here}}}
+
+<div class="woas_helptext">Or use this code in a page, replacing Page Name with the name of the page:</div>{{{
+[<!-- -->[Page Name]]
+}}}<div class="woas_helptext">To create this:</div>
+[<!-- -->[Page Name]]
+
+Another method is to interrupt the code by dividing it up between multiple lines and ending each line with a backslash to let the wiki parser know you want that line joined with the one below it.
+
+<div class="woas_helptext">Use this code in a page:</div>{{{
+{\
+{{Some code goes here}}\
+}
+}}}<div class="woas_helptext">To create this:</div>
+{\
+{{Some code goes here}}\
+}
+
+<div class="woas_helptext">Or use this code in a page:</div>{{{
+[\
+[Page Name]\
+]
+}}}<div class="woas_helptext">To create this:</div>
+[\
+[Page Name]\
+]
 
 --DFQRCTsKlU
