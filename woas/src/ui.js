@@ -101,6 +101,7 @@ woas["help_system"]["go_to"] = function(wanted_page, pi) {
 		woas.help_system.popup_window.document.title = wanted_page;
 		woas.setHTML(woas.help_system.popup_window.document.body, woas.parser.parse(
 		"[[Include::WoaS::Template::Button|Back|scrollTo(0,0);history.go(0)]]\n"+text));
+		woas.help_system.popup_window.scrollTo(0,0);
 	}
 	woas.help_system.page_title = wanted_page;
 }

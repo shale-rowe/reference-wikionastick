@@ -238,40 +238,42 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 				}
 				trans = 1;
 				
-				// both comments and nowiki blocks are pre-parsed
-				// put away comments
-				templtext = templtext.replace(reComments, function (str, comment) {
-					// skip whitespace comments
-					if (comment.match(/^\s+$/))
-						return str;
-					var r = woas.parser.place_holder(comments.length, "c");
-					comments.push(str);
-					return r;
-				});
-
-				// put away stuff contained in inline nowiki blocks {{{ }}}
-				templtext = templtext.replace(reNowiki, function (str, $1) {
-					var r = woas.parser.place_holder(snippets.length);
-					if (comments.length) {
-						$1 = $1.replace(new RegExp("<\\!-- "+parse_marker+":c:(\\d+) -->", "g"), function (str, $1) {
-							var c=comments[$1];
-							comments[$1] = "";
-							return c
-						});
-					}
-					snippets.push("<tt class=\"wiki_preformatted\">"+woas.xhtml_encode($1)+"</tt>");
-					return r;
-				});
-				
-				 if (!is_emb && parts.length) { // replace transclusion parameters
-					templtext = templtext.replace(/%\d+/g, function(str) {
-						var paramno = parseInt(str.substr(1));
-						if (paramno < parts.length)
-							return parts[paramno];
-						else
+				if (!is_emb) {
+					// both comments and nowiki blocks are pre-parsed
+					// put away comments
+					templtext = templtext.replace(reComments, function (str, comment) {
+						// skip whitespace comments
+						if (comment.match(/^\s+$/))
 							return str;
-					} );
-				}
+						var r = woas.parser.place_holder(comments.length, "c");
+						comments.push(str);
+						return r;
+					});
+
+					// put away stuff contained in inline nowiki blocks {{{ }}}
+					templtext = templtext.replace(reNowiki, function (str, $1) {
+						var r = woas.parser.place_holder(snippets.length);
+						if (comments.length) {
+							$1 = $1.replace(new RegExp("<\\!-- "+parse_marker+":c:(\\d+) -->", "g"), function (str, $1) {
+								var c=comments[$1];
+								comments[$1] = "";
+								return c
+							});
+						}
+						snippets.push("<tt class=\"wiki_preformatted\">"+woas.xhtml_encode($1)+"</tt>");
+						return r;
+					});
+				
+					 if (parts.length) { // replace transclusion parameters
+						templtext = templtext.replace(/%\d+/g, function(str) {
+							var paramno = parseInt(str.substr(1));
+							if (paramno < parts.length)
+								return parts[paramno];
+							else
+								return str;
+						} );
+					}
+				} // not embedded
 				
 				return templtext;	
 			});
