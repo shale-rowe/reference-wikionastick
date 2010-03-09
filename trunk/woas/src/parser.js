@@ -240,7 +240,7 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 				
 				// both comments and nowiki blocks are pre-parsed
 				// put away comments
-				templtext = templtext.replace(reComments, function (str) {
+				templtext = templtext.replace(reComments, function (str, comment) {
 					// skip whitespace comments
 					if (comment.match(/^\s+$/))
 						return str;
