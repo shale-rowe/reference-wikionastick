@@ -1,6 +1,6 @@
 wsif.version: 1.2.0
 woas.version: 0.10.8
-woas.pages: 50
+woas.pages: 51
 
 woas.page.title: ::Menu
 woas.page.attributes: 0
@@ -1806,5 +1806,32 @@ To erase all user-created pages in this wiki and start fresh:
 # Click on *Special::Erase Wiki* in the *Maintenance* section.
 
 See also: [[WoaS::Help::Special::Erase Wiki]]
+
+--DFQRCTsKlU
+woas.page.title: WoaS::Help::Edit the menu
+woas.page.attributes: 0
+woas.page.last_modified: 1268163268
+woas.page.length: 797
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Edit the menu
+
+== Add a sub-menu beneath the menu
+See the *Namespace sub-menu* section of the [[WoaS::Help::Namespaces]] page.
+
+== Edit the menu
+# Click the *Edit menu* button at the bottom of the menu.
+# Edit the contents of the main text area by typing normally. The menu can contain links, lists, tables, colored text, etc.
+# Save your changes by clicking on the *Save* (diskette) icon in the top right navigation panel.
+
+== Put menu entries into a list
+To put your menu entries into a bulleted list like those in the default menu:
+# Click the *Edit menu* button at the bottom of the menu.
+# Insert an asterisk and a space in front of the page name(s) so they look like this:{{{
+* [[Page name]]}}}
+# Save your changes by clicking the *Save* (diskette) icon in the top right navigation panel.
 
 --DFQRCTsKlU
