@@ -69,13 +69,13 @@ woas["cmd_erase_wiki"] = function() {
 
 // pages which shall never be modified
 woas["static_pages"] = ["Special::About", "Special::Advanced", "Special::Options","Special::Import",
-						"Special::Lock","Special::Search","Special::Security", "Special::Embed",
+						"Special::Lock","Special::Search", "Special::Embed",
 						"Special::Export", "Special::License", "Special::ExportWSIF",
-						"Special::WSIF", "Special::ImportWSIF", "WoaS::Plugins",
+						"Special::ImportWSIF", "WoaS::Plugins",
 						"WoaS::Template::Back", "WoaS::Template::Close"];
 woas["help_pages"] = [	"Editing", "Special::Options","On help",  "Edit CSS",
 						"Special::Advanced", "Special::Dead Pages", "Special::Edit Bootscript",
-						"Special::Erase Wiki"];
+						"Special::Erase Wiki", "Security", "Macros", "WSIF"];
 
 woas["default_pages"] = ["Main Page", "::Menu", "WoaS::Bootscript", "WoaS::Aliases"];
 
