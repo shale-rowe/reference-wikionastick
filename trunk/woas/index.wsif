@@ -54,6 +54,7 @@ $('menu_string_to_search').onkeydown = menu_key_hook;
 --DFQRCTsKlU
 woas.page.title: Special::Advanced
 woas.page.attributes: 0
+woas.page.last_modified: 1268161091
 woas.page.length: 1174
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1573,7 +1574,8 @@ Cancel any action by clicking the *Cancel* icon in the banner, clicking the *Can
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Code blocks
 woas.page.attributes: 0
-woas.page.length: 3747
+woas.page.last_modified: 1268161937
+woas.page.length: 3674
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1600,17 +1602,17 @@ or more lines.
 }}}
 == Code block in-line
 <div class="woas_helptext">Use this code in a page:</div>
-<div class="woas_helpcode">{<!-- -->{{This is an inline code block}}<!-- -->} which is a code block that's inside a sentence.</div>
+<div class="woas_helpcode">&#123;&#123;&#123;This is an inline code block&#125;&#125;&#125; which is a code block that's inside a sentence.</div>
 <div class="woas_helptext">To create this:</div>
 {{{This is an inline code block}}} which is a code block that's inside a sentence.
 
 == Code block properly indented beneath a list item
 <div class="woas_helptext">Use this code in a page:</div>
-<div class="woas_helpcode">* List item:{<!-- -->{{
+<div class="woas_helpcode">* List item:&#123;&#123;&#123;
 This is a code block
 made of one
 or more lines.
-}<!-- -->}}</div>
+&#125;&#125;&#125;</div>
 <div class="woas_helptext">To create this:</div>
 * List item:{{{
 This is a code block
@@ -1642,25 +1644,21 @@ made of one
 or more lines.
 </pre>
 == Code blocks containing example wiki syntax
-If you'd like to display syntax in a page without the wiki parsing the code (i.e.: you want the brackets to show), insert an html comment ({{{<!-- -->}}}) between two of the brackets on one or both sides of the code.
+If you'd like to display syntax in a page without the wiki parsing the code (i.e.: you want the brackets to show), you can surround the code in triple curly brackets.
 
-<div class="woas_helptext">Use this code in a page:</div>{{{
-{<!-- -->{{Some code goes here}}<!-- -->}
-}}}<div class="woas_helptext">To create this:</div>
-{<!-- -->{{Some code goes here}}}
-
-<div class="woas_helptext">Or use this code in a page, replacing Page Name with the name of the page:</div>{{{
-[<!-- -->[Page Name]]
-}}}<div class="woas_helptext">To create this:</div>
-[<!-- -->[Page Name]]
+<div class="woas_helptext">Use this code in a page, replacing Page Name with the name of the page:</div>
+<div class="helpcode">&#123;&#123;&#123;&#091;&#091;Page Name&#093;&#093;&#125;&#125;&#125;</div>
+<div class="woas_helptext">To create this:</div>
+{{{[[Page Name]]}}}
 
 Another method is to interrupt the code by dividing it up between multiple lines and ending each line with a backslash to let the wiki parser know you want that line joined with the one below it.
 
-<div class="woas_helptext">Use this code in a page:</div>{{{
-{\
-{{Some code goes here}}\
-}
-}}}<div class="woas_helptext">To create this:</div>
+<div class="woas_helptext">Use this code in a page:</div>
+<div class="woas_helpcode">
+&#123;\<!-- -->
+&#123;&#123;Some code goes here&#125;&#125;\<!-- -->
+&#125;</div>
+<div class="woas_helptext">To create this:</div>
 {\
 {{Some code goes here}}\
 }
