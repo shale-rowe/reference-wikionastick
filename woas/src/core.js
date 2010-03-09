@@ -93,6 +93,7 @@ woas["erase_wiki"] = function() {
 	page_attrs = [0, 0, 0, 0, 0, 0, 0, 0];
 	// zero is the magic timestamp
 	page_mts =   [0, 0, 0, 0, 0, 0, 0, 0];
+	var copied_help_pages = [];
 	// now pick the static pages
 	for(var i=0,l1=this.static_pages.length,l2=this.help_pages.length,l=l1+l2;i<l;++i) {
 		var pi, t;
@@ -106,7 +107,8 @@ woas["erase_wiki"] = function() {
 		if (pi==-1) {
 			this.alert(this.i18n.STATIC_NOT_FOUND.sprintf(t));
 			return false;
-		}
+		} else if (i>=l1)
+			copied_help_pages.push(t);
 		backup_pages.push(pages[pi]);
 		// reset attributes
 		page_attrs.push(0);
@@ -115,7 +117,7 @@ woas["erase_wiki"] = function() {
 		this.progress_status(i/l);
 	}
 	page_titles = this.default_pages.concat(this.static_pages);
-	page_titles = page_titles.concat(this.help_pages);
+	page_titles = page_titles.concat(copied_help_pages);
 	pages = ["An empty sheet is a catalyst for ideas", "[[Main Page]]\n\n[[Special::All Pages]]\n[[Special::New Page]]\n[[Special::Duplicate Page]]\n[[Special::Go to]]\n[[Special::Delete Page]]\n[[Special::Backlinks]]\n[[Special::Search]]", "/* insert here your boot script */", ""];
 	pages = pages.concat(backup_pages);
 	current = main_page = "Main Page";
