@@ -72,8 +72,10 @@ woas["static_pages"] = ["Special::About", "Special::Advanced", "Special::Options
 						"Special::Lock","Special::Search","Special::Security", "Special::Embed",
 						"Special::Export", "Special::License", "Special::ExportWSIF",
 						"Special::WSIF", "Special::ImportWSIF", "WoaS::Plugins",
-						"WoaS::Help::Editing", "WoaS::Help::Special::Options",
-						"WoaS::Help::On help" ];
+						"WoaS::Template::Back", "WoaS::Template::Close"];
+woas["help_pages"] = [	"Editing", "Special::Options","On help",  "Edit CSS",
+						"Special::Advanced", "Special::Dead Pages", "Special::Edit Bootscript",
+						"Special::Erase Wiki"];
 
 woas["default_pages"] = ["Main Page", "::Menu", "WoaS::Bootscript", "WoaS::Aliases"];
 
@@ -92,10 +94,17 @@ woas["erase_wiki"] = function() {
 	// zero is the magic timestamp
 	page_mts =   [0, 0, 0, 0, 0, 0, 0, 0];
 	// now pick the static pages
-	for(var i=0,l=this.static_pages.length;i<l;++i) {
-		var pi = this.page_index(this.static_pages[i]);
+	for(var i=0,l1=this.static_pages.length,l2=this.help_pages.length,l=l1+l2;i<l;++i) {
+		var pi, t;
+		if (i<l1) {
+			t = this.static_pages[i];
+			pi = this.page_index(t);
+		} else {
+			t = "WoaS::Help::"+this.help_pages[i-l1];
+			pi = this.page_index(t);
+		}
 		if (pi==-1) {
-			this.alert(this.i18n.STATIC_NOT_FOUND.sprintf(static_pg[i]));
+			this.alert(this.i18n.STATIC_NOT_FOUND.sprintf(t));
 			return false;
 		}
 		backup_pages.push(pages[pi]);
@@ -106,6 +115,7 @@ woas["erase_wiki"] = function() {
 		this.progress_status(i/l);
 	}
 	page_titles = this.default_pages.concat(this.static_pages);
+	page_titles = page_titles.concat(this.help_pages);
 	pages = ["An empty sheet is a catalyst for ideas", "[[Main Page]]\n\n[[Special::All Pages]]\n[[Special::New Page]]\n[[Special::Duplicate Page]]\n[[Special::Go to]]\n[[Special::Delete Page]]\n[[Special::Backlinks]]\n[[Special::Search]]", "/* insert here your boot script */", ""];
 	pages = pages.concat(backup_pages);
 	current = main_page = "Main Page";
