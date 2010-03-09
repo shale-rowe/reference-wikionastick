@@ -1,6 +1,6 @@
 wsif.version: 1.2.0
 woas.version: 0.10.8
-woas.pages: 50
+woas.pages: 42
 
 woas.page.title: ::Menu
 woas.page.attributes: 0
@@ -214,32 +214,6 @@ hl_text = null;
  $("string_to_search").focus();
 </script>
 --DFQRCTsKlU
-woas.page.title: MyPages::Page 2
-woas.page.attributes: 0
-woas.page.length: 92
-woas.page.encoding: 8bit/plain
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-Hey, don't tell anyone around but...I am better than [[MyPages::Page 1]]!
-
-[[Tags::example]]
---DFQRCTsKlU
-woas.page.title: MyPages::Approved::Page 3
-woas.page.attributes: 0
-woas.page.length: 140
-woas.page.encoding: 8bit/plain
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-This is a page in a subnamespace!
-
-The parent namespace is [[MyPages::]] while the subnamespace is [[MyPages::Approved::]]
-
-[[Tag::example]]
---DFQRCTsKlU
 woas.page.title: Special::Lock
 woas.page.attributes: 0
 woas.page.length: 1225
@@ -299,29 +273,6 @@ Security is never absolute. Data encrypted with these pages might be compromised
 * Your computer's security may have been compromised physically; when's the last time you checked that a bug that transmits your keystrokes and/or screen contents to that white van parked down the street wasn't lurking inside your computer cabinet?
 
 Apart from the above, your normal usage of encrypted pages can be considered secure.
---DFQRCTsKlU
-woas.page.title: MyPages::Page 1
-woas.page.attributes: 2
-woas.page.length: 172
-woas.page.encoding: 8bit/base64
-woas.page.disposition: inline
-woas.page.original_length: 128
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-eS8TI52YlSCLrnd5hC4dBr6P6ziO49i20B7OJHzM0sMLwC0jTImQzHmuxR9CCG7GUizzoNZ5fYpZHO1u+WjfxWH9WfXFfTjW+jlnvHcPoXqFfQ18XeTgnoGO2mZpsakCSeSWgo/lwLbgLfmXMp4C3x1WxykImEz3M599/FVcwysA
---DFQRCTsKlU
-woas.page.title: MyPages::Menu
-woas.page.attributes: 0
-woas.page.length: 49
-woas.page.encoding: 8bit/plain
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-[[Special::]]
-[[MyPages::]]
-[[Special::New page]]
 --DFQRCTsKlU
 woas.page.title: Special::Options
 woas.page.attributes: 0
@@ -1066,33 +1017,6 @@ $('woas_ep_xhtml').onblur = $('woas_ep_img').onblur = $('woas_ep_ext').onblur = 
 
 </script>
 --DFQRCTsKlU
-woas.page.title: Feature::Embedded SVG
-woas.page.attributes: 0
-woas.page.length: 585
-woas.page.encoding: 8bit/plain
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-= Embedded SVG
-
-This page contains an embedded SVG snippet
-
-[[File::seed_of_life.svg]] is rendered in this page through a small script
-
-<div id="generated_SVG" style="width:100%"></div>
-
-<script type="text/javascript">
-var str = decode64(woas.get_text('File::seed_of_life.svg'));
-var svgObject = document.createElement('object');
-/*svgObject.setAttribute('width', '800');
-svgObject.setAttribute('height', '350');*/
-svgObject.setAttribute('type', 'image/svg+xml');
-svgObject.setAttribute('data', 'data:image/svg+xml,'+ escape(str));
-$("generated_SVG").appendChild(svgObject);
-</script>
-
---DFQRCTsKlU
 woas.page.title: Browsers support
 woas.page.attributes: 0
 woas.page.length: 2690
@@ -1167,17 +1091,6 @@ woas.page.boundary: DFQRCTsKlU
 Retrieved from [[http://www.gnu.org/licenses/gpl2.txt]]:
 
 <iframe border="0" width="100%" height="300" src="http://www.gnu.org/licenses/gpl2.txt"></iframe>
---DFQRCTsKlU
-woas.page.title: Nowiki dummy 2
-woas.page.attributes: 2
-woas.page.length: 64
-woas.page.encoding: 8bit/base64
-woas.page.disposition: inline
-woas.page.original_length: 48
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-P1QMJ5+Uwl26ChUIkLZ+5mLi/lNPw8HCcMQBWQSNtPMRlRaXz9LUTT+wr1i2huVl
 --DFQRCTsKlU
 woas.page.title: WoaS::Aliases
 woas.page.attributes: 0
@@ -1339,26 +1252,6 @@ File: <input id="filename_" type="file" />&nbsp;<input type="button" value="Impo
 <label for="woas_cb_import_comment_js"><input type="checkbox" id="woas_cb_import_comment_js" checked="checked">Comment javascript code blocks</label>
 <label for="woas_cb_import_comment_macros"><input type="checkbox" id="woas_cb_import_comment_macros" checked="checked">Comment macro definition and call blocks</label>
 <label for="woas_cb_import_woas_ns"><input type="checkbox" id="woas_cb_import_woas_ns" checked="checked">Skip pages of the [[WoaS::]] namespace</label>
---DFQRCTsKlU
-woas.page.title: File::life snippet.c
-woas.page.attributes: 4
-woas.page.length: 628
-woas.page.encoding: 8bit/base64
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-dm9pZCBMaWZlRnJhbWU6Ok9uU2FtcGxlcyh3eENvbW1hbmRFdmVudCYgV1hVTlVTRUQoZXZlbnQpKQp7CiAgICAvLyBzdG9wIGlmIGl0IHdhcyBydW5uaW5nCiAgICBPblN0b3AoKTsKCiAgICAvLyBkaWFsb2cgYm94CiAgICBMaWZlU2FtcGxlc0RpYWxvZyBkaWFsb2codGhpcyk7CgogICAgaWYgKGRpYWxvZy5TaG93TW9kYWwoKSA9PSB3eElEX09LKQogICAgewogICAgICAgIGNvbnN0IExpZmVQYXR0ZXJuIHBhdHRlcm4gPSBkaWFsb2cuR2V0UGF0dGVybigpOwoKICAgICAgICAvLyBwdXQgdGhlIHBhdHRlcm4KICAgICAgICBtX2xpZmUtPkNsZWFyKCk7CiAgICAgICAgbV9saWZlLT5TZXRQYXR0ZXJuKHBhdHRlcm4pOwoKICAgICAgICAvLyByZWNlbnRlciBjYW52YXMKICAgICAgICBtX2NhbnZhcy0+UmVjZW50ZXIoMCwgMCk7CiAgICAgICAgbV90aWNzID0gMDsKICAgICAgICBVcGRhdGVJbmZvVGV4dCgpOwogICAgfQp9Cg==
---DFQRCTsKlU
-woas.page.title: File::seed_of_life.svg
-woas.page.attributes: 4
-woas.page.length: 1412
-woas.page.encoding: 8bit/base64
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+CjxzdmcKCXhtbG5zCQk9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIgoJeG1sbnM6c3ZnCT0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciCgl4bWxuczp4bGluawk9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiCgl2ZXJzaW9uCQk9IjEuMCIKCXdpZHRoCQk9IjQwMiIKCWhlaWdodAkJPSI0MDIiCgl2aWV3Qm94CQk9Ii0yMDEgLTIwMSA0MDIgNDAyIgoJaWQJCT0ic3ZnMiI+Cgk8Y2lyY2xlCgkJY3gJPSIwIgoJCWN5CT0iLTEwMCIKCQlyCT0iMTAwIgoJCWlkCT0iY2lyYzAwMSIKCQlzdHlsZQk9ImZpbGw6bm9uZTtzdHJva2U6IzAwMDAwMDtzdHJva2Utd2lkdGg6MSIgLz4KCTx1c2UgeGxpbms6aHJlZj0iI2NpcmMwMDEiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDAsMTAwKSIgLz4KCTx1c2UgeGxpbms6aHJlZj0iI2NpcmMwMDEiIHRyYW5zZm9ybT0icm90YXRlKDMwKSIgLz4KCTx1c2UgeGxpbms6aHJlZj0iI2NpcmMwMDEiIHRyYW5zZm9ybT0icm90YXRlKDYwKSIgLz4KCTx1c2UgeGxpbms6aHJlZj0iI2NpcmMwMDEiIHRyYW5zZm9ybT0icm90YXRlKDkwKSIgLz4KCTx1c2UgeGxpbms6aHJlZj0iI2NpcmMwMDEiIHRyYW5zZm9ybT0icm90YXRlKDEyMCkiIC8+Cgk8dXNlIHhsaW5rOmhyZWY9IiNjaXJjMDAxIiB0cmFuc2Zvcm09InJvdGF0ZSgxNTApIiAvPgoJPHVzZSB4bGluazpocmVmPSIjY2lyYzAwMSIgdHJhbnNmb3JtPSJyb3RhdGUoMTgwKSIgLz4KCTx1c2UgeGxpbms6aHJlZj0iI2NpcmMwMDEiIHRyYW5zZm9ybT0icm90YXRlKDIxMCkiIC8+Cgk8dXNlIHhsaW5rOmhyZWY9IiNjaXJjMDAxIiB0cmFuc2Zvcm09InJvdGF0ZSgyNDApIiAvPgoJPHVzZSB4bGluazpocmVmPSIjY2lyYzAwMSIgdHJhbnNmb3JtPSJyb3RhdGUoMjcwKSIgLz4KCTx1c2UgeGxpbms6aHJlZj0iI2NpcmMwMDEiIHRyYW5zZm9ybT0icm90YXRlKDMwMCkiIC8+Cgk8dXNlIHhsaW5rOmhyZWY9IiNjaXJjMDAxIiB0cmFuc2Zvcm09InJvdGF0ZSgzMzApIiAvPgo8L3N2Zz4K
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Macros
 woas.page.attributes: 0
