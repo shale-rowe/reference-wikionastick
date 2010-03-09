@@ -1,4 +1,7 @@
 Version 0.10.8 (legolas558)
+* incremented infinite recursion limit to 256
+* XHTML comments are no more parsed
+* URLs will not get italics
 * fixed ghost page bug when creating new page and then canceling it
 * fixed misleading wait cursor when javascript is disabled
 * improved error messages when no file is selected but attempted to import
