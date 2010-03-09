@@ -56,7 +56,8 @@ $('menu_string_to_search').onkeydown = menu_key_hook;
 --DFQRCTsKlU
 woas.page.title: Special::Advanced
 woas.page.attributes: 0
-woas.page.length: 1156
+woas.page.last_modified: 1268143688
+woas.page.length: 1174
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -74,10 +75,10 @@ You can customize Wiki on a Stick modifying a few [[Special::Options|Options]].
 == Maintenance
 * [[Special::Dead Pages]]: a list of pages that have links to them, but were still not created 
 * [[Special::Orphaned Pages]]: a list of pages that once were linked to, but now no page links to them anymore
-* [[Special::Export]] wiki into multiple linked static XHTML files
-* [[Special::ExportWSIF]] export wiki into multiple or single [[WoaS::Help::WSIF|WSIF]] files
-* [[Special::Import]] wiki or theme from an early (or current) version
-* [[Special::ImportWSIF]] import a wiki page (or collection of) in [[WoaS::Help::WSIF|WSIF]] format
+* [[Special::Export]]: export wiki into multiple linked static XHTML files
+* [[Special::ExportWSIF]]: export wiki into multiple or single [[WoaS::Help::WSIF|WSIF]] files
+* [[Special::Import]]: import wiki or theme from an early (or current) version
+* [[Special::ImportWSIF]]: import a wiki page (or collection of) in [[WoaS::Help::WSIF|WSIF]] format
 * [[Special::Erase Wiki]]: delete ALL wiki pages and reset with default data
 
 == Advanced features
