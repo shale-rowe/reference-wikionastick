@@ -1549,15 +1549,17 @@ woas["debug"] = false;			// toggle debug mode (and console)
 If you encounter any bugs, please report them in the [[https://lists.sourceforge.net/lists/listinfo/stickwiki-devel|Wiki on a Stick development mailing list]] or on the [[http://sourceforge.net/tracker/?words=tracker_browse&sort=open_date&sortdir=desc&offset=0&group_id=155218&atid=794925&assignee=&status=&category=&artgroup=&keyword=&submitter=&artifact_id=|Wiki on a Stick bug tracker]].
 
 --DFQRCTsKlU
-woas.page.title: WoaS::Help::Cancel any action
+woas.page.title: WoaS::Help::General usage
 woas.page.attributes: 0
-woas.page.length: 166
+woas.page.length: 184
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Cancel any action
+= General usage
+
+== Cancel any action
 Cancel any action by clicking the *Cancel* icon in the banner, clicking the *Cancel* button on any alert that pops up, or pressing the *Esc* key.
 
 --DFQRCTsKlU
