@@ -89,6 +89,8 @@ woas["help_system"]["go_to"] = function(wanted_page, pi) {
 		return;
 	} else
 		text = woas.get__text(pi);
+	if (text === null)
+		return;
 	// now create the popup
 	if ((woas.help_system.popup_window === null) || woas.help_system.popup_window.closed) {
 		woas.help_system.popup_window = woas._customized_popup(wanted_page, woas.parser.parse(
