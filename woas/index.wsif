@@ -4,7 +4,8 @@ woas.pages: 42
 
 woas.page.title: ::Menu
 woas.page.attributes: 0
-woas.page.length: 1012
+woas.page.last_modified: 1268143994
+woas.page.length: 989
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -15,7 +16,6 @@ woas.page.boundary: DFQRCTsKlU
 * [[Syntax]]
 * [[Feature::|Features]]
 * [[WoaS::Plugins::]]
-[[WoaS::Help::Backup]]
 
 * [[Special::All Pages]]
 * [[Special::Erase Wiki]]
