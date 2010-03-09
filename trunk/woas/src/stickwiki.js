@@ -328,12 +328,12 @@ woas["get_page"] = function(pi) {
 		return null;
 	if (!this.is__encrypted(pi))
 		return pages[pi];
-	if (!key.length) {
-		latest_AES_page = "";
+	if (!this.AES.key.length) {
+		last_AES_page = "";
 		return null;
 	}
 	// decrypt by using a copy of the array
-	var pg = AES_decrypt(pages[pi].slice(0));
+	var pg = this.AES.decrypt(pages[pi].slice(0));
 	last_AES_page = page_titles[pi];
 	return pg;	
 }
@@ -433,7 +433,7 @@ woas["_password_ok"] = function() {
 		this.alert(this.i18n.PWD_QUERY);
 		return;
 	}
-	AES_setKey(pw);
+	this.AES.setKey(pw);
 	this.__password_finalize(pwd_obj);
 }
 
@@ -443,7 +443,7 @@ woas["get__text"] = function(pi) {
 	if (!this.is__encrypted(pi))
 		return pages[pi];
 	_decrypt_failed = true;
-	if (!key.length) {
+	if (!this.AES.key.length) {
 		this.alert(this.i18n.ERR_NO_PWD.sprintf(page_titles[pi]));
 		return null;
 	}
@@ -455,7 +455,7 @@ woas["get__text"] = function(pi) {
 //			if ((pw==null) || !pw.length) {
 			// we are waiting for the password to be set programmatically
 /*			if (!pw.length) {
-				latest_AES_page = "";
+				last_AES_page = "";
 				AES_clearKey();
 				document.body.style.cursor = "auto";
 				return null;
@@ -467,19 +467,19 @@ woas["get__text"] = function(pi) {
 //		}
 		// pass a copied instance to the decrypt function
 		// AES_decrypt can return null on failure, but can also return a garbled output
-		var pg = AES_decrypt(pages[pi].slice(0));
+		var pg = this.AES.decrypt(pages[pi].slice(0));
 		last_AES_page = page_titles[pi];
 //		if (pg != null)
 //			break;
 	if (!this.config.key_cache)
-		AES_clearKey();
+		this.AES.clearKey();
 	if (pg !== null) {
 		_decrypt_failed = false;
-//		if (this.config.key_cache)			latest_AES_page = page_titles[pi];
+//		if (this.config.key_cache)			last_AES_page = page_titles[pi];
 	} else {
 		this.alert(this.i18n.ACCESS_DENIED.sprintf(page_titles[pi]));
 //		AES_clearKey();
-		latest_AES_page = "";
+		last_AES_page = "";
 	}
 	this.progress_finish();
 	return pg;
@@ -494,7 +494,7 @@ woas["set__text"] = function(pi, text) {
 		pages[pi] = text;
 		return;
 	}
-	pages[pi] = AES_encrypt(text);
+	pages[pi] = this.AES.encrypt(text);
 	last_AES_page = page_titles[pi];
 }
 
@@ -764,7 +764,7 @@ woas["set_current"] = function (cr, interactive) {
 						break;
 					case "Lock":
 						pi = this.page_index(cr);
-						if (key.length) {
+						if (this.AES.key.length) {
 							// display a message
 							if (confirm(this.i18n.LOCK_CONFIRM.sprintf(cr)+
 								(last_AES_page ? this.i18n.LOCK_CONFIRM_LAST.sprintf(last_AES_page) : ''))) {
@@ -786,7 +786,7 @@ woas["set_current"] = function (cr, interactive) {
 						pages[pi] = text;
 						page_attrs[pi] -= 2;
 						if (!this.config.key_cache)
-							AES_clearKey();
+							this.AES.clearKey();
 						if (this.set_current(cr, true)) {
 							this.save_page(cr);
 							return true;
@@ -970,15 +970,15 @@ woas["_finalize_lock"] = function(pi) {
 	var title = page_titles[pi];
 	this.set_current(title, true);
 	if (!this.config.key_cache) {
-		AES_clearKey();
-		latest_AES_page = "";
+		this.AES.clearKey();
+		last_AES_page = "";
 	} else
 		last_AES_page = title;
 	this.save_page_i(pi);
 }
 
 woas["_perform_lock"] = function(pi) {
-	pages[pi] = AES_encrypt(pages[pi]);
+	pages[pi] = this.AES.encrypt(pages[pi]);
 //	log("E: encrypted length is "+pages[pi].length);	// log:0
 	page_attrs[pi] += 2;
 }
