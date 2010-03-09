@@ -106,26 +106,30 @@ function _do_decrypt(bData) {
 
 function do_fips197_test() {
 	// apply some overrides
-//	var bak_ac = woas.AES.aesClose;
-//	woas.AES.aesClose = function() { };
+	var bak_ac = woas.AES.aesClose;
+	woas.AES.aesClose = function() { };
 	for(var i=0;i<test_keys.length;++i) {
 		woas.AES.key = _decode_hex(test_keys[i]);
 		// Encryption
-		var block = _encode_hex(_do_encrypt(_decode_hex(test_plaintexts[i])));
+		var buffer = _do_encrypt(_decode_hex(test_plaintexts[i]));
+		buffer = buffer.slice(buffer.length-16);
+		var block = _encode_hex(buffer);
 		if (block !==  test_ciphertexts[i]) {
 			alert("failure of encrypt test "+i+":\n"+block+"\n"+test_ciphertexts[i]);
 			return;
 			continue;
 		}
 		// Decryption
-		block = _encode_hex( _do_decrypt(_decode_hex(test_ciphertexts[i])) );
+		buffer = _do_decrypt(_decode_hex(test_ciphertexts[i]));
+		buffer = buffer.slice(buffer.length-16);
+		block = _encode_hex( buffer );
 		if (block !==  test_plaintexts[i]) {
 			alert("failure of decrypt test "+i+":\n"+block+"\n"+test_plaintexts[i]);
 			continue;
 		}
 	}
 	// restore original handler
-//	woas.AES.aesClose = bak_ac;
+	woas.AES.aesClose = bak_ac;
 }
 
 function _decode_hex(s) {
@@ -137,7 +141,6 @@ function _decode_hex(s) {
 }
 
 function _encode_hex(ba) {
-	alert(ba);
 	var s="";
 	for(var i=0;i<ba.length;++i) {
 		var token = ba[i].toString(16);
