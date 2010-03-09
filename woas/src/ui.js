@@ -92,7 +92,8 @@ woas["help_system"]["go_to"] = function(wanted_page, pi) {
 	// now create the popup
 	if ((woas.help_system.popup_window === null) || woas.help_system.popup_window.closed) {
 		woas.help_system.popup_window = woas._customized_popup(wanted_page, woas.parser.parse("[[Include::WoaS::Template::Close]]\n"+text),
-			"function go_to(page) { if (window.opener && !window.opener.closed)	window.opener.woas.help_system.go_to(page); }");
+			"function go_to(page) { if (window.opener && !window.opener.closed)	window.opener.woas.help_system.go_to(page); }",
+			"", " class=\"woas_help_background\"");
 	} else { // hotfix the page
 		woas.help_system.popup_window.document.title = wanted_page;
 		woas.setHTML(woas.help_system.popup_window.document.body, woas.parser.parse("[[Include::WoaS::Template::Back]]\n"+text));
@@ -377,7 +378,7 @@ function page_print() {
 			"function go_to(page) { alert(\""+woas.js_encode(woas.i18n.PRINT_MODE_WARN)+"\");}");
 }
 
-woas["_customized_popup"] = function(page_title, page_body, additional_js) {
+woas["_customized_popup"] = function(page_title, page_body, additional_js, additional_css, body_extra) {
 	var css_payload = "";
 	if (woas.browser.ie && !woas.browser.ie8) {
 		if (woas.browser.ie6)
@@ -386,13 +387,15 @@ woas["_customized_popup"] = function(page_title, page_body, additional_js) {
 			css_payload = "div.wiki_toc { position: relative; left:25%; right: 25%;}";
 	} else
 		css_payload = "div.wiki_toc { margin: 0 auto;}\n";
+	if (additional_js.length)
+		additional_js = woas.raw_js(additional_js)
 	// create the popup
 	return woas.popup("print_popup", Math.ceil(screen.width*0.75),Math.ceil(screen.height*0.75),
 						",status=yes,menubar=yes,resizable=yes,scrollbars=yes",
 						// head
 						"<title>"+page_title+"</title>"+"<st"+"yle type=\"text/css\">"+
-						css_payload+_css_obj().innerHTML+"</sty"+"le>"+
-						woas.raw_js(additional_js), page_body);
+						css_payload+_css_obj().innerHTML+additional_css+"</sty"+"le>"+additional_js,
+						page_body, body_extra);
 }
 
 // below functions used by Special::Export
@@ -460,13 +463,15 @@ function import_wiki_wsif() {
 }
 
 // create a centered popup given some options
-woas["popup"] = function(name,fw,fh,extra,head,body) {
+woas["popup"] = function(name,fw,fh,extra,head,body, body_extra) {
+	if (typeof body_extra == "undefined")
+		body_extra = "";
 	var hpos=Math.ceil((screen.width-fw)/2);
 	var vpos=Math.ceil((screen.height-fh)/2);
 	var wnd = window.open("about:blank",name,"width="+fw+",height="+fh+		
 	",left="+hpos+",top="+vpos+extra);
 	wnd.focus();
-	wnd.document.writeln(this.DOCTYPE+"<ht"+"ml><he"+"ad>"+head+"</h"+"ead><"+"body>"+
+	wnd.document.writeln(this.DOCTYPE+"<ht"+"ml><he"+"ad>"+head+"</h"+"ead><"+"body"+body_extra+">"+
 						body+"</bod"+"y></h"+"tml>\n");
 	wnd.document.close();
 	return wnd;

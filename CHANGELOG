@@ -1,7 +1,12 @@
 Version 0.10.8 (legolas558)
-* added help icon
+* fixed ghost page bug when creating new page and then canceling it
+* fixed misleading wait cursor when javascript is disabled
+* improved error messages when no file is selected but attempted to import
+* added better explanation for java load/save failures
+* proper page title validation & page title maximum length check
+* added a notice in decryption password mask
+* added help icon, implemented help popups and added documentation pages in WoaS::Help:: namespace
 * added button for wiki links in editor mode
-* fixed dialog asking for canceling editing
 * added new menu/submenu edit button (based on work by littlegirl)
 
 Version 0.10.7 (legolas558) released 2010-03-06
