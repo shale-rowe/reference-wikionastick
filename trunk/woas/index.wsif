@@ -1730,8 +1730,8 @@ If you clicked the *Disallow edits* button in the wiki *Options*, this wiki beca
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Create a page
 woas.page.attributes: 0
-woas.page.last_modified: 1268172610
-woas.page.length: 2294
+woas.page.last_modified: 1268177907
+woas.page.length: 2304
 woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1749,9 +1749,9 @@ woas.page.boundary: DFQRCTsKlU
 
 An alternate method of creating a page is to type a new page name inside nested brackets. The link will be red. Click it to create the new page. Example:
 
-<div class="helptext">Type this into a page:</div>{{{
+<div class="woas_helptext">Type this into a page:</div>{{{
 [[My new page]]
-}}}<div class="helptext">To create this:</div>
+}}}<div class="woas_helptext">To create this:</div>
 [[My new page]]
 
 == Troubleshooting
@@ -1848,8 +1848,8 @@ To put your menu entries into a bulleted list like those in the default menu:
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Headers
 woas.page.attributes: 0
-woas.page.last_modified: 1268169699
-woas.page.length: 986
+woas.page.last_modified: 1268178099
+woas.page.length: 1046
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1858,45 +1858,45 @@ woas.page.boundary: DFQRCTsKlU
 = Headers
 Below are examples on how to use wiki markup to create headers in this wiki. You can also use HTML header tags.
 
-<div class="helptext">Use this code in a page:</div>{{{
+<div class="woas_helptext">Use this code in a page:</div>{{{
 = Header level 1
-}}}<div class="helptext">To create this:</div>
+}}}<div class="woas_helptext">To create this:</div>
 = Header level 1 =
 
 
-<div class="helptext">Use this code in a page:</div>{{{
+<div class="woas_helptext">Use this code in a page:</div>{{{
 == Header level 2
-}}}<div class="helptext">To create this:</div>
+}}}<div class="woas_helptext">To create this:</div>
 == Header level 2
 
 
-<div class="helptext">Use this code in a page:</div>{{{
+<div class="woas_helptext">Use this code in a page:</div>{{{
 === Header level 3
-}}}<div class="helptext">To create this:</div>
+}}}<div class="woas_helptext">To create this:</div>
 === Header level 3
 
 
-<div class="helptext">Use this code in a page:</div>{{{
+<div class="woas_helptext">Use this code in a page:</div>{{{
 ==== Header level 4
-}}}<div class="helptext">To create this:</div>
+}}}<div class="woas_helptext">To create this:</div>
 ==== Header level 4
 
 
-<div class="helptext">Use this code in a page:</div>{{{
+<div class="woas_helptext">Use this code in a page:</div>{{{
 ===== Header level 5
-}}}<div class="helptext">To create this:</div>
+}}}<div class="woas_helptext">To create this:</div>
 ===== Header level 5
 
-<div class="helptext">Use this code in a page:</div>{{{
+<div class="woas_helptext">Use this code in a page:</div>{{{
 ====== Header level 6
-}}}<div class="helptext">To create this:</div>
+}}}<div class="woas_helptext">To create this:</div>
 ====== Header level 6
 
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Rulers
 woas.page.attributes: 0
-woas.page.last_modified: 1268170201
-woas.page.length: 1215
+woas.page.last_modified: 1268178630
+woas.page.length: 1255
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1906,34 +1906,34 @@ woas.page.boundary: DFQRCTsKlU
 Rulers (horizontal rules or lines) use the full width of the page by default. They can be styled to a smaller width by surrounding them with HTML &lt;div&gt; tags. Styling can also control their position.
 
 == Standard horizontal rule ==
-<div class="helptext">Use this code in a page:</div>{{{
+<div class="woas_helptext">Use this code in a page:</div>{{{
 ----
-}}}<div class="helptext">To create this:</div>
+}}}<div class="woas_helptext">To create this:</div>
 ----
 
 
 == Custom width horizontal rule aligned left ==
-<div class="helptext">Use this code in a page, replacing 50% with the width you like:</div>{{{
+<div class="woas_helptext">Use this code in a page, replacing 50% with the width you like:</div>{{{
 <div style="width:50%";>
 ----
 </div>
-}}}<div class="helptext">To create this:</div>
+}}}<div class="woas_helptext">To create this:</div>
 <div style="width:50%";>
 ----
 </div>
 
 == Custom width horizontal rule aligned right ==
-<div class="helptext">Use this code in a page, replacing 50% with the width you like:</div>{{{
+<div class="woas_helptext">Use this code in a page, replacing 50% with the width you like:</div>{{{
 <div style="width:50%; float:right;"><hr></div>
-}}}<div class="helptext">To create this:</div>
+}}}<div class="woas_helptext">To create this:</div>
 <div style="width:50%; float:right;"><hr></div>
 
 == Custom width centered horizontal rule ==
-<div class="helptext">Use this code in a page, replacing 50% with the width you like:</div>{{{
+<div class="woas_helptext">Use this code in a page, replacing 50% with the width you like:</div>{{{
 <center><div style="width:50%";>
 ----
 </div></center>
-}}}<div class="helptext">To create this:</div>
+}}}<div class="woas_helptext">To create this:</div>
 <center><div style="width:50%";>
 ----
 </div></center>
@@ -1941,17 +1941,17 @@ Rulers (horizontal rules or lines) use the full width of the page by default. Th
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Include text file
 woas.page.attributes: 0
-woas.page.last_modified: 1268170660
-woas.page.length: 505
+woas.page.last_modified: 1268178170
+woas.page.length: 515
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Include text file
-<div class="helptext">Use this code in a page, replacing PATH with the full path to the file:</div>{{{
+<div class="woas_helptext">Use this code in a page, replacing PATH with the full path to the file:</div>{{{
 <iframe height="400" width="100%" src="file:///PATH"></iframe>
-}}}<div class="helptext">To include a text file in the page inside an iFrame.</div>
+}}}<div class="woas_helptext">To include a text file in the page inside an iFrame.</div>
 * Linux example:{{{
 <iframe height="400" width="100%" src="file:///home/username/Desktop/file.txt"></iframe>
 }}}
@@ -1962,8 +1962,8 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Include web page
 woas.page.attributes: 0
-woas.page.last_modified: 1268170908
-woas.page.length: 2598
+woas.page.last_modified: 1268178266
+woas.page.length: 2628
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1974,18 +1974,18 @@ Web pages can be included in a page as embedded objects or in iFrames.
 
 [[Include::Image::alert.png]] /Some pages may not render correctly depending on how they're coded. Embedding more than one web page in a wiki page will cause the final embedded web page to steal the focus when the page is loaded, so it's best to have only one per page. As a result, this page contains no examples./
 == Embed a local HTML file as an object
-<div class="helptext">Use this code in a page, replacing PATH with the full path to HTML file you wish to include, and changing the width and height to suit your taste:</div>{{{
+<div class="woas_helptext">Use this code in a page, replacing PATH with the full path to HTML file you wish to include, and changing the width and height to suit your taste:</div>{{{
 <html><object data="PATH" style="width:100%; height:630px;">File not found.</object></html>
-}}}<div class="helptext">To embed a local HTML file in a page.</div>
+}}}<div class="woas_helptext">To embed a local HTML file in a page.</div>
 For example, if you want to embed the {{{/Work/MyProject.html}}} file as an object, you'd use this command:{{{
 <html><object data="/Work/MyProject.html" style="width:100%; height:630px;">File not found.</object></html>
 }}}
 == Embed a remote URL as an object
 This method makes the embedded web page become a seamless part of the page.
 
-<div class="helptext">Use this code in a page, replacing URL with the URL of the page you wish to include, and changing the width and height to suit your taste:</div>{{{
+<div class="woas_helptext">Use this code in a page, replacing URL with the URL of the page you wish to include, and changing the width and height to suit your taste:</div>{{{
 <html><object data="URL" style="width:100%; height:630px;">URL not found.</object></html>
-}}}<div class="helptext">To embed an external URL in a page.</div>
+}}}<div class="woas_helptext">To embed an external URL in a page.</div>
 For example, if you want to embed the Google page at [[http://www.google.com]] as an object, you'd use this command:{{{
 <html><object data="http://www.google.com" style="width:100%; height:630px;">URL not found.</object></html>
 }}}
@@ -1993,9 +1993,9 @@ For example, if you want to embed the Google page at [[http://www.google.com]] a
 == Embed a remote URL in an iFrame
 This method creates a frame around the embedded web page. The code shown below is for a plain frame, but you can style the iFrame further by adding a border, changing the border style to dotted, dashed, solid, double, groove, ridge, inset, or outset, changing the border width to whatever thickness you like, and the border color to whatever color you like.
 
-<div class="helptext">Use this code in a page, replacing URL with the URL of the page you wish to include, and changing the width and height to suit your taste:</div>{{{
+<div class="woas_helptext">Use this code in a page, replacing URL with the URL of the page you wish to include, and changing the width and height to suit your taste:</div>{{{
 <iframe height="400" width="100%" height:630px; src="URL"></iframe>
-}}}<div class="helptext">To include a web page in a wiki page.</div>
+}}}<div class="woas_helptext">To include a web page in a wiki page.</div>
 For example, if you want to embed the Google page at [[http://www.google.com]] in an iFrame, you'd use this command:{{{
 <iframe height="400" width="100%" height:630px; src="http://www.google.com"></iframe>
 }}}
@@ -2003,8 +2003,8 @@ For example, if you want to embed the Google page at [[http://www.google.com]] i
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Include wiki page
 woas.page.attributes: 0
-woas.page.last_modified: 1268171531
-woas.page.length: 775
+woas.page.last_modified: 1268178323
+woas.page.length: 805
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -2015,21 +2015,21 @@ To include the contents of a wiki page inside another wiki page, use an {{{[[Inc
 
 [[Include::Image::alert.png]] /Page names are case sensitive./
 
-<div class="helptext">Use this code in a page, replacing Page Name with the name of the page you wish to include:</div>
-<div class="helpcode">[<!-- -->[Include::Page Name]]</div>
-<div class="helptext">To include the contents of another wiki page in the current page.</div>
+<div class="woas_helptext">Use this code in a page, replacing Page Name with the name of the page you wish to include:</div>
+<div class="woas_helpcode">[<!-- -->[Include::Page Name]]</div>
+<div class="woas_helptext">To include the contents of another wiki page in the current page.</div>
 
 == Example
-<div class="helptext">Use this code in a page:</div>
-<div class="helpcode">[<!-- -->[Include::Special::Search]<!-- -->]</div>
-<div class="helptext">To create this:</div>
+<div class="woas_helptext">Use this code in a page:</div>
+<div class="woas_helpcode">[<!-- -->[Include::Special::Search]<!-- -->]</div>
+<div class="woas_helptext">To create this:</div>
 [[Include::Special::Search]]
 
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::JavaScript
 woas.page.attributes: 0
-woas.page.last_modified: 1268171981
-woas.page.length: 5599
+woas.page.last_modified: 1268178398
+woas.page.length: 5649
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -2039,11 +2039,11 @@ woas.page.boundary: DFQRCTsKlU
 == Adding JavaScript to your page
 To add JavaScript to your page, you must enclose it inside JavaScript tags.
 
-<div class="helptext">Use this code in a page, replacing YOUR_CODE_HERE with your JavaScript code:</div>{{{
+<div class="woas_helptext">Use this code in a page, replacing YOUR_CODE_HERE with your JavaScript code:</div>{{{
 <script type="text/javascript">
 YOUR_CODE_HERE
 </script>
-}}}<div class="helptext">To add JavaScript to your page.</div>
+}}}<div class="woas_helptext">To add JavaScript to your page.</div>
 
 == Adding JavaScript to the wiki source
 According to the author of Wiki on a Stick:
@@ -2053,9 +2053,9 @@ According to the author of Wiki on a Stick:
 == Using external JavaScript
 You can include external JavaScript on a page by placing the script file in the same directory as this wiki and then inserting a reference to it in the body of the page.
 
-<div class="helptext">Use this code in a page, replacing SCRIPTNAME.JS with the name of your script:</div>{{{
+<div class="woas_helptext">Use this code in a page, replacing SCRIPTNAME.JS with the name of your script:</div>{{{
 <script src="SCRIPTNAME.JS"></script>
-}}}<div class="helptext">To include an external JavaScript in a page.</div>
+}}}<div class="woas_helptext">To include an external JavaScript in a page.</div>
 === Example
 This page contains this code:{{{
 <script src="example.js"></script>
@@ -2071,9 +2071,9 @@ alert("This is an example alert!");
 == Using JavaScript to create a temporary page
 This is quite interesting. Using this code, you can get this wiki to create a link to a dynamically created temporary page with custom content (it accepts HTML tags as part of the content) under the JavaScript [[Help::Namespaces|namespace]]. The temporary page will be created each time the link is clicked, and it will be uncreated as soon as you navigate to another page or close the wiki.
 
-<div class="helptext">Use this code in a page, replacing CONTENT with your content, NAME with the page name, and LINK with the text you want the link to have:</div>{{{
+<div class="woas_helptext">Use this code in a page, replacing CONTENT with your content, NAME with the page name, and LINK with the text you want the link to have:</div>{{{
 <script>function temporary(arg) {return 'CONTENT';}</script>[[Javascript::temporary('NAME')|LINK]]
-}}}<div class="helptext">To create this:</div>
+}}}<div class="woas_helptext">To create this:</div>
 <script>function temporary(arg) {return 'CONTENT';}</script>[[Javascript::temporary('NAME')|LINK]]
 
 [[Include::Image::alert.png]] Only one of these links may be used per page.
@@ -2091,26 +2091,26 @@ The code below will redirect from the current page to the wiki page you specify 
 
 [[Include::Image::alert.png]] /WARNING! Use this code carefully! Back up your wiki before trying it!/
 
-<div class="helptext">Use this code in a page, replacing PAGENAME with the name of the page to redirect to, and 10 with the number of seconds the script should delay:</div>{{{
+<div class="woas_helptext">Use this code in a page, replacing PAGENAME with the name of the page to redirect to, and 10 with the number of seconds the script should delay:</div>{{{
 <script type="text/javascript">
 setTimeout(onload="go_to('PAGENAME')",10*1000);
 </script>
-}}}<div class="helptext">To redirect the current page to the PAGENAME page 10 seconds after the current page loads.</div>
+}}}<div class="woas_helptext">To redirect the current page to the PAGENAME page 10 seconds after the current page loads.</div>
 Note that this will redirect to the next page even if you're in the editor! The only indication you will have if you're in the editor is that name in the the Page title box will change to the name of the redirected page. If you don't check this before saving, your changes will be saved to the redirected page, overwriting its contents.
 
 It's a good idea to put this code near the top of any page (preferably directly beneath the first header on the page) so that you can find it quickly, and also to make the delay at *least* 10 seconds so that you have time to open the page in the editor, change the *PAGENAME* portion of the code to a nonexistent page, and then save the page before the timer runs out. Then you can reopen the page safely without risk of it redirecting while you're working on it. All that will happen if you give the script a nonexistent page name is that an alert will pop up asking if you'd like to create the nonexistent page. You can click *Cancel* when that popup comes up and continue working without further interruption. An even safer method is to open the wiki in a text editor and make changes to the page contents from there.
 
 == Using JavaScript to reload the wiki
-<div class="helptext">Use this code in a page:</div>{{{
+<div class="woas_helptext">Use this code in a page:</div>{{{
 <input type="button" value="Reload wiki" onClick="window.location.href=window.location.href">
-}}}<div class="helptext">To create this:</div>
+}}}<div class="woas_helptext">To create this:</div>
 <input type="button" value="Reload wiki" onClick="window.location.href=window.location.href">
 
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Join lines of text
 woas.page.attributes: 0
-woas.page.last_modified: 1268173963
-woas.page.length: 843
+woas.page.last_modified: 1268178465
+woas.page.length: 853
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -2121,11 +2121,11 @@ If you have lengthy content that you'd like to break up into shorter lines in th
 
 [[Include::Image::alert.png]] /Backslashes *within* a line will be ignored by the wiki parser and will not influence how the text is displayed./
 
-<div class="helptext">Use this code in a page:</div>{{{
+<div class="woas_helptext">Use this code in a page:</div>{{{
 Putting a \ at the end of any line \
 makes it join together \
 with the line below it.
-}}}<div class="helptext">To create this:</div>
+}}}<div class="woas_helptext">To create this:</div>
 Putting a \ at the end of any line \
 makes it join together \
 with the line below it.
@@ -2133,8 +2133,8 @@ with the line below it.
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Non-breaking spaces
 woas.page.attributes: 0
-woas.page.last_modified: 1268174263
-woas.page.length: 740
+woas.page.last_modified: 1268178555
+woas.page.length: 750
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -2143,9 +2143,9 @@ woas.page.boundary: DFQRCTsKlU
 = Non-breaking spaces
 A non-breaking space can add extra space between characters on a line since this is not possible simply by pressing the space bar more than once.
 
-<div class="helptext">Use this code in a page:</div>{{{
+<div class="woas_helptext">Use this code in a page:</div>{{{
 &nbsp;
-}}}<div class="helptext">To create a non-breaking space.</div>
+}}}<div class="woas_helptext">To create a non-breaking space.</div>
 
 *Examples:*
 
@@ -2206,63 +2206,71 @@ You can type *My favorite recipes!* into the {{{[[Recipes::Menu]]}}} page, and a
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Text formatting
 woas.page.attributes: 0
-woas.page.last_modified: 1268175538
-woas.page.length: 1756
+woas.page.last_modified: 1268178939
+woas.page.length: 2129
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Text formatting
+== Blinking
+<div class="woas_helptext">Use this code in a page:</div>{{{
+<blink>This is blinking text.</blink>
+}}}<div class="woas_helptext">To create this:</div>
+<blink>This is blinking text.</blink>
+
+[[Include::Image::alert.png]] /This is not supported in Chrome, IE, or Safari./
+
 == Bold
-<div class="helptext">Use this code in a page:</div>{{{
+<div class="woas_helptext">Use this code in a page:</div>{{{
 *This is bold text.*
-}}}<div class="helptext">To create this:</div>
+}}}<div class="woas_helptext">To create this:</div>
 *This is bold text.*
 
 == Colored
-<div class="helptext">Use this code in a page:</div>{{{
+<div class="woas_helptext">Use this code in a page:</div>{{{
 <font color="#FF00FF">This is colored text.</font>
-}}}<div class="helptext">To create this:</div>
+}}}<div class="woas_helptext">To create this:</div>
 <font color="#FF00FF">This is colored text.</font>
 
-<div class="helptext">Or use this code in a page:</div>{{{
+<div class="woas_helptext">Or use this code in a page:</div>{{{
 <font color="fuchsia">This is colored text.</font>
-}}}<div class="helptext">To create this:</div>
+}}}<div class="woas_helptext">To create this:</div>
 <font color="fuchsia">This is colored text.</font>
 
-<div class="helptext">Or use this code in a page:</div>{{{
+<div class="woas_helptext">Or use this code in a page:</div>{{{
 <span style="color:#FF00FF">This is colored text.</span>
-}}}<div class="helptext">To create this:</div>
+}}}<div class="woas_helptext">To create this:</div>
 <span style="color:#FF00FF">This is colored text.</span>
 
-<div class="helptext">Or use this code in a page:</div>{{{
+<div class="woas_helptext">Or use this code in a page:</div>{{{
 <span style="color:fuchsia">This is colored text.</span>
-}}}<div class="helptext">To create this:</div>
+}}}<div class="woas_helptext">To create this:</div>
 <span style="color:fuchsia">This is colored text.</span>
 
 == Italic
-<div class="helptext">Use this code in a page:</div>{{{
+<div class="woas_helptext">Use this code in a page:</div>{{{
 /This is italic text./
-}}}<div class="helptext">To create this:</div>
+}}}<div class="woas_helptext">To create this:</div>
 /This is italic text./
 
 == Plain
-<div class="helptext">Use this code in a page:</div>{{{
+<div class="woas_helptext">Use this code in a page:</div>{{{
 This is plain text.
-}}}<div class="helptext">To create this:</div>
+}}}<div class="woas_helptext">To create this:</div>
 This is plain text.
 
 == Underlined
-<div class="helptext">Use this code in a page:</div>{{{
+<div class="woas_helptext">Use this code in a page:</div>{{{
 _This is underlined text._
-}}}<div class="helptext">To create this:</div>
+}}}<div class="woas_helptext">To create this:</div>
 _This is underlined text._
 
 == Underlined Bold Italic
-<div class="helptext">Use this code in a page:</div>{{{
+<div class="woas_helptext">Use this code in a page:</div>{{{
 _*/This is underlined and bold and italic text./*_
-}}}<div class="helptext">To create this:</div>
+}}}<div class="woas_helptext">To create this:</div>
 _*/This is underlined and bold and italic text./*_
 
 --DFQRCTsKlU
@@ -2296,8 +2304,8 @@ By default, this wiki offers two choices for scrolling in the wiki *Options*. Th
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Table of Contents
 woas.page.attributes: 0
-woas.page.last_modified: 1268176852
-woas.page.length: 759
+woas.page.last_modified: 1268178741
+woas.page.length: 769
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -2306,9 +2314,9 @@ woas.page.boundary: DFQRCTsKlU
 = Table of Contents
 You can insert a Table of Contents into your page by using a special wiki tag. It will be automatically populated with all the headers on a page. The Table of Contents expects the first header on a page to be a Level 1 header. If you use any other level header first, that header and any headers after it will be represented by hash marks until a Level 1 header is encountered. From that point on, the headers will be numbered properly.
 
-<div class="helptext">Use this code on a line by itself in your page:</div>{{{
+<div class="woas_helptext">Use this code on a line by itself in your page:</div>{{{
 [[Special::TOC]]
-}}}<div class="helptext">To add a Table of Contents to a page.</div>
+}}}<div class="woas_helptext">To add a Table of Contents to a page.</div>
 
 [[Include::WoaS::Template::Info|Note that the placement of the Table of Contents is determined by where you put the tag in the page.]]
 
