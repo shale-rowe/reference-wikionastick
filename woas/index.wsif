@@ -1,6 +1,6 @@
 wsif.version: 1.2.0
 woas.version: 0.10.8
-woas.pages: 51
+woas.pages: 52
 
 woas.page.title: ::Menu
 woas.page.attributes: 0
@@ -1832,5 +1832,52 @@ To put your menu entries into a bulleted list like those in the default menu:
 # Insert an asterisk and a space in front of the page name(s) so they look like this:{{{
 * [[Page name]]}}}
 # Save your changes by clicking the *Save* (diskette) icon in the top right navigation panel.
+
+--DFQRCTsKlU
+woas.page.title: WoaS::Help::Headers
+woas.page.attributes: 0
+woas.page.last_modified: 1268169699
+woas.page.length: 986
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Headers
+Below are examples on how to use wiki markup to create headers in this wiki. You can also use HTML header tags.
+
+<div class="helptext">Use this code in a page:</div>{{{
+= Header level 1
+}}}<div class="helptext">To create this:</div>
+= Header level 1 =
+
+
+<div class="helptext">Use this code in a page:</div>{{{
+== Header level 2
+}}}<div class="helptext">To create this:</div>
+== Header level 2
+
+
+<div class="helptext">Use this code in a page:</div>{{{
+=== Header level 3
+}}}<div class="helptext">To create this:</div>
+=== Header level 3
+
+
+<div class="helptext">Use this code in a page:</div>{{{
+==== Header level 4
+}}}<div class="helptext">To create this:</div>
+==== Header level 4
+
+
+<div class="helptext">Use this code in a page:</div>{{{
+===== Header level 5
+}}}<div class="helptext">To create this:</div>
+===== Header level 5
+
+<div class="helptext">Use this code in a page:</div>{{{
+====== Header level 6
+}}}<div class="helptext">To create this:</div>
+====== Header level 6
 
 --DFQRCTsKlU
