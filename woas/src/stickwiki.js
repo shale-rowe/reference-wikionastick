@@ -802,7 +802,8 @@ woas["set_current"] = function (cr, interactive) {
 										text = this.parser.parse(text + this._plugins_list());
 									break;
 									case "Aliases":
-									// page is stored plaintext for WoaS::Aliases
+									case "Bootscript":
+									// page is stored plaintext
 									break;
 									default:
 										text = this.parser.parse(text);

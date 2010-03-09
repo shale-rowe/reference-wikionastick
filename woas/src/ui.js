@@ -89,13 +89,13 @@ woas["help_system"]["go_to"] = function(wanted_page, pi) {
 		return;
 	} else
 		text = woas.get__text(pi);
-	// now output the popup
+	// now create the popup
 	if ((woas.help_system.popup_window === null) || woas.help_system.popup_window.closed) {
-		woas.help_system.popup_window = woas._customized_popup(wanted_page, woas.parser.parse(text),
+		woas.help_system.popup_window = woas._customized_popup(wanted_page, woas.parser.parse("[[Include::WoaS::Template::Close]]\n"+text),
 			"function go_to(page) { if (window.opener && !window.opener.closed)	window.opener.woas.help_system.go_to(page); }");
 	} else { // hotfix the page
 		woas.help_system.popup_window.document.title = wanted_page;
-		woas.setHTML(woas.help_system.popup_window.document.body, woas.parser.parse(text));
+		woas.setHTML(woas.help_system.popup_window.document.body, woas.parser.parse("[[Include::WoaS::Template::Back]]\n"+text));
 	}
 	woas.help_system.page_title = wanted_page;
 }

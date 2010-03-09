@@ -54,7 +54,6 @@ $('menu_string_to_search').onkeydown = menu_key_hook;
 --DFQRCTsKlU
 woas.page.title: Special::Advanced
 woas.page.attributes: 0
-woas.page.last_modified: 1268012222
 woas.page.length: 1150
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -157,7 +156,6 @@ This project wouldn't be what it is without the help of other people. If you con
 --DFQRCTsKlU
 woas.page.title: Main Page
 woas.page.attributes: 0
-woas.page.last_modified: 1268018517
 woas.page.length: 1054
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -865,7 +863,6 @@ function myfunc(arg) {
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Special::Options
 woas.page.attributes: 0
-woas.page.last_modified: 1268012477
 woas.page.length: 1214
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -897,7 +894,6 @@ Will save to disk only when quitting
 
 === Disallow edits (button)
 Puts the wiki into /server mode/; users will be told that it is not possible to save their changes, but editing will be allowed for sandbox (testing) purposes.
-[[Include::WoaS::Template::Back]]
 
 --DFQRCTsKlU
 woas.page.title: Test template 2
@@ -1155,34 +1151,6 @@ TiddlySaver.jar"
 }}}
 
 The TiddlySaver java applet was written by J.Rouston.
---DFQRCTsKlU
-woas.page.title: Feature::Bootscript
-woas.page.attributes: 0
-woas.page.length: 642
-woas.page.encoding: 8bit/plain
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-= Feature::Bootscript
-
-If you want to execute some javascript at boot time (when WoaS is loaded into the browser), you should modify the [[WoaS::Bootscript]] page.
-
-Be careful not to break javascript execution during this stage; in order to debug your boot-time javascript, you might use blocks like:
-{{{
-    try {
-       your_code(here);
-   }
-   catch (e) {
-       alert(e);
-   }
-}}}
-
-== Applications
-
-The Bootscript can be used to override WoaS core functions in order to replace them with customized functions which finally call the overriden function or perfectly emulate its behaviour.
-
-NOTE: the WoaS javascript API is not yet specified
 --DFQRCTsKlU
 woas.page.title: Special::License
 woas.page.attributes: 0
@@ -1465,7 +1433,6 @@ Now we call the macro:
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Editing
 woas.page.attributes: 0
-woas.page.last_modified: 1268012443
 woas.page.length: 3413
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1521,13 +1488,11 @@ You can edit the contents of the main text area by typing normally. There are li
 | Image || This brings up an interface that includes an external image in the page.
 | Link || This brings up an interface that includes an external link in the page.
 |}
-[[Include::WoaS::Template::Back]]
 
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::On help
 woas.page.attributes: 0
-woas.page.last_modified: 1268008369
-woas.page.length: 709
+woas.page.length: 740
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1538,25 +1503,33 @@ The first time you save a change to Wiki on a Stick, your browser will ask for p
 
 You will find the Help (lightbulb) icon in the upper right corner of the banner on every page in this wiki. When you click on it, it will either open this page or a specific help page that explains how to work with the page you currently have open.
 
-The Help pages have a Back button in the upper right corner that will take you back to this page. The Back button will do nothing if a specific Help page is opened directly.
+When browsing Help pages you will find a Back button in the upper right corner that will take you back to this page. The starting Help page will instead have a Close button to close the help popup window.
 
 [[Include::WoaS::Help::]]
 
 --DFQRCTsKlU
 woas.page.title: WoaS::Template::Back
 woas.page.attributes: 0
-woas.page.last_modified: 1268007996
-woas.page.length: 162
+woas.page.length: 115
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-<div id="topnote" style="position:absolute; right:0.625em; top:0.188em;"><input type="button" class="woas_help_button" value="Back" onClick="history.go(0)"></div>
+<div class="woas_topnote"><input type="button" class="woas_help_button" value="Back" onClick="history.go(0)"></div>
+--DFQRCTsKlU
+woas.page.title: WoaS::Template::Close
+woas.page.attributes: 0
+woas.page.length: 117
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+<div class="woas_topnote"><input type="button" class="woas_help_button" value="Close" onClick="window.close()"></div>
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Special::Advanced
 woas.page.attributes: 0
-woas.page.last_modified: 1268016558
 woas.page.length: 537
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1568,12 +1541,10 @@ The Advanced page offers some tools for administration of your wiki. Description
 * *Special::Erase Wiki* - See the [[WoaS::Help::Special::Erase Wiki]] page
 * *Special::Edit CSS* - See the [[WoaS::Help::Edit CSS]] page.
 * *Special::Edit Bootscript* - See the [[WoaS::Help::Special::Edit Bootscript]] page.
-[[Include::WoaS::Template::Back]]
 
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Special::Erase Wiki
 woas.page.attributes: 0
-woas.page.last_modified: 1268016457
 woas.page.length: 813
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1584,12 +1555,10 @@ woas.page.boundary: DFQRCTsKlU
 When you click the Special::Erase wiki link in the Advanced page you can erase all user-created pages. Doing this will also erase the Main Page, and all content from the menu except for links to pages in the Special:: namespace. Global CSS settings (including any you have customized) will be preserved and will not be reset to default values.
 
 If you have not given permanent permission to your browser for editing wiki pages, you will receive a security warning when attempting to erase the wiki. If you deny permission to the browser, you will receive a message that saving the file failed and that maybe your browser is not supported. You will be returned to your wiki, but the Main Page will be blank. Reloading the wiki restores the contents of the Main Page.
-[[Include::WoaS::Template::Back]]
 
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Edit CSS
 woas.page.attributes: 0
-woas.page.last_modified: 1268016868
 woas.page.length: 6410
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1936,12 +1905,10 @@ div.ns_menu_area ul li, div.ns_menu_area ol li {
 	background-color:darkgrey;
 }
 }}}
-[[Include::WoaS::Template::Back]]
 
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Special::Edit Bootscript
 woas.page.attributes: 0
-woas.page.last_modified: 1268017429
 woas.page.length: 784
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1965,12 +1932,10 @@ Be careful not to break javascript execution during this stage; in order to debu
 The Bootscript can be used to override WoaS core functions in order to replace them with customized functions which finally call the overriden function or perfectly emulate its behaviour.
 
 NOTE: the WoaS javascript API is not yet specified
-[[Include::WoaS::Template::Back]]
 
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Special::Dead Pages
 woas.page.attributes: 0
-woas.page.last_modified: 1268018259
 woas.page.length: 183
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1979,6 +1944,5 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 = Dead Pages
 This page displays a list of pages that contain links to nonexistent pages. Both the link and the page it's on are shown in each entry.
-[[Include::WoaS::Template::Back]]
 
 --DFQRCTsKlU
