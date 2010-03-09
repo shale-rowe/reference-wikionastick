@@ -156,7 +156,6 @@ This project wouldn't be what it is without the help of other people. If you con
 --DFQRCTsKlU
 woas.page.title: Main Page
 woas.page.attributes: 0
-woas.page.last_modified: 1268151526
 woas.page.length: 1066
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1668,7 +1667,7 @@ Another method is to interrupt the code by dividing it up between multiple lines
 --DFQRCTsKlU
 woas.page.title: WoaS::Template::Info
 woas.page.attributes: 0
-woas.page.length: 1760
+woas.page.length: 1773
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
