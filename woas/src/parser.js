@@ -130,6 +130,8 @@ var reNowiki = /\{\{\{([\s\S]*?)\}\}\}/g;
 var reTransclusion = /\[\[Include::([^\]]+)\]\]/g;
 var reMacros = /<<<([\s\S]*?)>>>/g;
 var reComments = /<\!--([\s\S]*?)-->/g;
+var reWikiLink = /\[\[([^\]\]]*?)\|(.*?)\]\]/g;
+var reWikiLinkSimple = /\[\[([^\]]*?)\]\]/g;
 
 var _MAX_TRANSCLUSION_RECURSE = 256;
 
@@ -317,7 +319,7 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 	var tags = [], inline_tags = 0;
 	
 	// links with pipe e.g. [[Page|Title]]
-	text = text.replace(/\[\[([^\]\]]*?)\|(.*?)\]\]/g, function(str, $1, $2) {
+	text = text.replace(reWikiLink, function(str, $1, $2) {
 		// check for protocol
 		if ($1.search(/^\w+:\/\//)==0) {
 			var r = woas.parser.place_holder(snippets.length);
@@ -384,7 +386,7 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 			}); //"<a class=\"wiki\" onclick='go_to(\"$2\")'>$1<\/a>");
 
 	// links without pipe e.g. [[Page]]
-	text = text.replace(/\[\[([^\]]*?)\]\]/g, function(str, $1) {
+	text = text.replace(reWikiLinkSimple, function(str, $1) {
 		// check for protocol
 		if ($1.search(/^\w+:\/\//)==0) {
 			var r = woas.parser.place_holder(snippets.length);

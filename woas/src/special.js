@@ -226,7 +226,7 @@ woas["special_dead_pages"] = function() {
 				// skip mailto URLs
 				if ($1.match(/^mailto:/gi))
 					return;
-				p = $1;
+				p = woas.title_unalias($1);
 				if (!woas.page_exists(p) && (p!=page_titles[j])) {
 					// true when page has been scanned for referrals
 					var page_done = false;
