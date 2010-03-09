@@ -1,6 +1,6 @@
 wsif.version: 1.2.0
 woas.version: 0.10.8
-woas.pages: 45
+woas.pages: 46
 
 woas.page.title: ::Menu
 woas.page.attributes: 0
@@ -1757,4 +1757,16 @@ The [[WoaS::Help::Example::Encrypted page]] can be opened by using *test* as the
 # Click the *Print* icon in the banner. A new browser window will open with a printer-friendly version of the page that displays only the contents of the main text area.
 # Use the browser's *print preview* and *print* functions to print the page.
 
+--DFQRCTsKlU
+woas.page.title: WoaS::Help::Example::Encrypted page
+woas.page.attributes: 2
+woas.page.last_modified: 1268154513
+woas.page.length: 152
+woas.page.encoding: 8bit/base64
+woas.page.disposition: inline
+woas.page.original_length: 112
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+diO0qmtvnCh0e5GTEUOCXKYrTWefFThcyCencfC8Tq4RB8rwawaBjdiIK+1yx/9eFk1CcCgjg1yenMSPF5TskaeKhl2p8apvbModc1x1HPK0buvSDlnFMb0P2LfmpylZHnU7E3b59y+l8fXdvilFVwAA
 --DFQRCTsKlU
