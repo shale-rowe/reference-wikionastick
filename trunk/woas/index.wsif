@@ -431,13 +431,13 @@ setTimeout ( "ScoreDecay()", 3000);
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Syntax
 woas.page.attributes: 0
-woas.page.length: 3290
+woas.page.last_modified: 1268169031
+woas.page.length: 3273
 woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-[[Special::TOC]]
 = Wiki on a Stick syntax
 In this page you will find examples of all the WoaS wiki syntax.
 
@@ -1574,15 +1574,14 @@ Cancel any action by clicking the *Cancel* icon in the banner, clicking the *Can
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Code blocks
 woas.page.attributes: 0
-woas.page.last_modified: 1268161937
-woas.page.length: 3674
+woas.page.last_modified: 1268168867
+woas.page.length: 3657
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Code blocks
-[[Special::TOC]]
 Code blocks are sections of raw or preformatted text that is not parsed by the wiki. Anything you place inside nowiki brackets <tt>{<!-- -->{<!-- -->{</tt>like this<tt>}<!-- -->}<!-- -->}</tt> will be displayed in monospace font exactly as you typed it.
 
 == Code block
