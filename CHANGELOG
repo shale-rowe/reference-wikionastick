@@ -1,4 +1,5 @@
 Version 0.10.8 (legolas558)
+* fixed a bug which prevented WoaS from correctly remembering about last encrypted page
 * incremented infinite recursion limit to 256
 * XHTML comments are no more parsed
 * URLs will not get italics
