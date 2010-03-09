@@ -1,6 +1,6 @@
 wsif.version: 1.2.0
 woas.version: 0.10.8
-woas.pages: 57
+woas.pages: 63
 
 woas.page.title: ::Menu
 woas.page.attributes: 0
@@ -1565,8 +1565,8 @@ If you encounter any bugs, please report them in the [[https://lists.sourceforge
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::General usage
 woas.page.attributes: 0
-woas.page.last_modified: 1268172994
-woas.page.length: 192
+woas.page.last_modified: 1268176272
+woas.page.length: 570
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1576,6 +1576,12 @@ woas.page.boundary: DFQRCTsKlU
 
 == Cancel any action
 Cancel any action by clicking the *Cancel* icon in the navigation bar, clicking the *Cancel* button on any alert that pops up, or pressing the *Esc* key.
+
+== Navigation
+Use the *Back* and *Forward* arrow icons in the navigation bar to go back or forward one page, the *Main Page* (house) icon in the banner to return to the Main page, or click the buttons and links in the menu and wiki pages.
+
+== Pages linking to the current page
+Click the *Backlinks* link in the menu to see which pages link to the page you currently have open.
 
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Code blocks
@@ -2099,5 +2105,192 @@ It's a good idea to put this code near the top of any page (preferably directly 
 <input type="button" value="Reload wiki" onClick="window.location.href=window.location.href">
 }}}<div class="helptext">To create this:</div>
 <input type="button" value="Reload wiki" onClick="window.location.href=window.location.href">
+
+--DFQRCTsKlU
+woas.page.title: WoaS::Help::Join lines of text
+woas.page.attributes: 0
+woas.page.last_modified: 1268173963
+woas.page.length: 843
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Join lines of text
+If you have lengthy content that you'd like to break up into shorter lines in the editor while still being presented as a long line when the page is viewed, you can split the line up into as many pieces as you like, inserting a backslash at the *end* of each line to let the wiki parser know you want that line joined with the one below it. When you save the page, the line will be displayed intact.
+
+[[Include::Image::alert.png]] /Backslashes *within* a line will be ignored by the wiki parser and will not influence how the text is displayed./
+
+<div class="helptext">Use this code in a page:</div>{{{
+Putting a \ at the end of any line \
+makes it join together \
+with the line below it.
+}}}<div class="helptext">To create this:</div>
+Putting a \ at the end of any line \
+makes it join together \
+with the line below it.
+
+--DFQRCTsKlU
+woas.page.title: WoaS::Help::Non-breaking spaces
+woas.page.attributes: 0
+woas.page.last_modified: 1268174263
+woas.page.length: 740
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Non-breaking spaces
+A non-breaking space can add extra space between characters on a line since this is not possible simply by pressing the space bar more than once.
+
+<div class="helptext">Use this code in a page:</div>{{{
+&nbsp;
+}}}<div class="helptext">To create a non-breaking space.</div>
+
+*Examples:*
+
+To insert 5 spaces between two words, insert 5 non-breaking spaces between them, like this:{{{
+word&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;word
+}}}word&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;word
+
+Another method is to insert a combination of spaces and non-breaking spaces. To insert 5 spaces between two words, insert 1 space, 3 non-breaking spaces, and 1 space between them, like this:{{{
+word &nbsp;&nbsp;&nbsp; word}}}word &nbsp;&nbsp;&nbsp; word
+
+--DFQRCTsKlU
+woas.page.title: WoaS::Help::Namespaces
+woas.page.attributes: 0
+woas.page.last_modified: 1268174824
+woas.page.length: 2678
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Namespaces
+When you create a page and use the *::* separator in the page name, you will be using a *namespace* to define parent and child pages. For example, {{{[[Recipes::Desserts]]}}} and {{{[[Recipes::Main dishes]]}}} would both belong to the {{{[[Recipes::]]}}} namespace.
+
+You can also use sub-namespaces, like {{{[[Recipes::Desserts::Cakes]]}}}.
+* *Recipes::* is the namespace.
+* *Desserts::* is a sub-namespace of *Recipes::*.
+* *Cakes::* is a sub-namespace of *Desserts::*.
+[[Include::Image::alert.png]] /Each namespace can have as many child pages under it as you like (within the resource limits of your hardware)./
+
+An advantage of creating parent and child pages is that the full path to each page is displayed in the navigation bar, so when you're on any page in a particular namespace, the parent page name will be in the navigation bar with the namespace (and sub-namespace, if the page has one) as a clickable link which will open an automatically generated page listing all the pages in that namespace (or sub-namespace) for quick navigation.
+
+== Namespaces reserved by this wiki
+These namespaces are reserved by the wiki for use by the wiki:
+* *Lock::* used internally for encrypted pages
+* *Locked::* for encrypted pages
+* *Special::* for all the special pages
+* *Tagged::* for all the tagged pages
+* *Tags::* for tagging pages
+* *Unlock::* used internally for encrypted pages
+* *Unlocked::* for plain (unencrypted) pages
+* *WoaS::* for aliases, the bootscript page, the Help pages, and templates used by the Help pages
+
+These namespaces are reserved by the wiki for use by the user:
+* *File::* for embedded files
+* *Image::* for embedded images
+
+=== Namespace sub-menu
+If you add *::Menu* to the end of a page name, a sub-menu will be temporarily added below the main menu when any pages belonging to that page's namespace are opened. You can determine what goes into that temporary menu entry by editing the page with *::Menu* in its name. All content on the page will be displayed in the sub-menu. The sub-menu will vanish as soon as you navigate away from that namespace.
+
+For example, if you have these pages:
+* {{{[[Recipes::Menu]]}}}
+* {{{[[Recipes::Desserts]]}}}
+* {{{[[Recipes::Main dishes]]}}}
+* {{{[[Recipes::Side dishes]]}}}
+* {{{[[Recipes::Soups]]}}}
+You can type *My favorite recipes!* into the {{{[[Recipes::Menu]]}}} page, and any time you open any of the Recipes pages, *My favorite recipes!* will appear in the sub-menu of the main menu. Or you can type {{{[[Recipes::]]}}} into the {{{[[Recipes::Menu]]}}} page to have a listing of all pages in the Recipes:: namespace in the submenu any time a page in the Recipes:: namespace is opened.
+
+--DFQRCTsKlU
+woas.page.title: WoaS::Help::Text formatting
+woas.page.attributes: 0
+woas.page.last_modified: 1268175538
+woas.page.length: 1756
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Text formatting
+== Bold
+<div class="helptext">Use this code in a page:</div>{{{
+*This is bold text.*
+}}}<div class="helptext">To create this:</div>
+*This is bold text.*
+
+== Colored
+<div class="helptext">Use this code in a page:</div>{{{
+<font color="#FF00FF">This is colored text.</font>
+}}}<div class="helptext">To create this:</div>
+<font color="#FF00FF">This is colored text.</font>
+
+<div class="helptext">Or use this code in a page:</div>{{{
+<font color="fuchsia">This is colored text.</font>
+}}}<div class="helptext">To create this:</div>
+<font color="fuchsia">This is colored text.</font>
+
+<div class="helptext">Or use this code in a page:</div>{{{
+<span style="color:#FF00FF">This is colored text.</span>
+}}}<div class="helptext">To create this:</div>
+<span style="color:#FF00FF">This is colored text.</span>
+
+<div class="helptext">Or use this code in a page:</div>{{{
+<span style="color:fuchsia">This is colored text.</span>
+}}}<div class="helptext">To create this:</div>
+<span style="color:fuchsia">This is colored text.</span>
+
+== Italic
+<div class="helptext">Use this code in a page:</div>{{{
+/This is italic text./
+}}}<div class="helptext">To create this:</div>
+/This is italic text./
+
+== Plain
+<div class="helptext">Use this code in a page:</div>{{{
+This is plain text.
+}}}<div class="helptext">To create this:</div>
+This is plain text.
+
+== Underlined
+<div class="helptext">Use this code in a page:</div>{{{
+_This is underlined text._
+}}}<div class="helptext">To create this:</div>
+_This is underlined text._
+
+== Underlined Bold Italic
+<div class="helptext">Use this code in a page:</div>{{{
+_*/This is underlined and bold and italic text./*_
+}}}<div class="helptext">To create this:</div>
+_*/This is underlined and bold and italic text./*_
+
+--DFQRCTsKlU
+woas.page.title: WoaS::Help::Rename a page
+woas.page.attributes: 0
+woas.page.last_modified: 1268175688
+woas.page.length: 232
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Rename a page
+# Click the Edit (pencil) icon in the banner.
+# Edit the contents of the text inside the *Page title* area at the top of the page.
+# Save your changes by clicking on the *Save* (diskette) icon in the navigation bar.
+
+--DFQRCTsKlU
+woas.page.title: WoaS::Help::Page scrolling
+woas.page.attributes: 0
+woas.page.last_modified: 1268176026
+woas.page.length: 503
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Page scrolling
+By default, this wiki offers two choices for scrolling in the wiki *Options*. The *Fixed menu area and navigation bar* is disabled by default. This locks all page elements in place so the entire page scrolls as one connected unit. Enabling it locks the navigation bar and menu in place while allowing the rest of the page to scroll. You can change the settings by clicking the *Advanced* (tools) icon in the navigation bar and then clicking the *Options* link in the *Options* section.
 
 --DFQRCTsKlU
