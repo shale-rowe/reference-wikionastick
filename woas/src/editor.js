@@ -12,20 +12,20 @@ woas["html_buttons_display"] = function (v) {
 // submitted by pr0xy
 
 function TextAreaSelectionHelper(obj) {
- this.target=obj;
- this.target.carretHandler=this; // ?
- this.target.onchange=_textareaSaver;
- this.target.onclick=_textareaSaver;
- this.target.onkeyup=_textareaSaver;
- this.target.onfocus=_textareaSaver;
+	this.target=obj;
+	this.target.carretHandler=this; // ?
+	this.target.onchange=_textareaSaver;
+	this.target.onclick=_textareaSaver;
+	this.target.onkeyup=_textareaSaver;
+	this.target.onfocus=_textareaSaver;
 // blurring handler disabled until META features are researched more
 // this.target.onblur=kbd_blur;
- if(!document.selection) this.target.onSelect=_textareaSaver; // ?
+	if(!document.selection) this.target.onSelect=_textareaSaver; // ?
  
- this.start=-1;
- this.end=-1;
- this.scroll=-1;
- this.iesel=null; // ?
+	this.start=-1;
+	this.end=-1;
+	this.scroll=-1;
+	this.iesel=null;
 }
 
 TextAreaSelectionHelper.prototype.getSelectedText=function() {
@@ -34,11 +34,11 @@ TextAreaSelectionHelper.prototype.getSelectedText=function() {
 	// Fixes a problem in FF3 where the selection was not being stored in this.start and this.end when selecting multilines
 	this.start = $("wiki_editor").selectionStart;
 	this.end = $("wiki_editor").selectionEnd;
-	return (this.start>=0&&this.end>this.start)? this.target.value.substring(this.start,this.end): "";
+	return ((this.start>=0)&&(this.end>this.start))? this.target.value.substring(this.start,this.end): "";
 }
 
 TextAreaSelectionHelper.prototype.setSelectedText=function(text, secondtag) {
- if(this.iesel) {
+	if(this.iesel) {
 	if(typeof(secondtag)=="string") {
 	  var l=this.iesel.text.length;
 		 this.iesel.text=text+this.iesel.text+secondtag;
