@@ -90,23 +90,23 @@ woas["erase_wiki"] = function() {
 	this.progress_init("Erasing...");
 	var backup_pages = [];
 	// attributes and last modified timestamps for default pages
-	page_attrs = [0, 0, 0, 0, 0, 0, 0, 0];
+	page_attrs = []; page_mts =   [];
 	// zero is the magic timestamp
-	page_mts =   [0, 0, 0, 0, 0, 0, 0, 0];
+	for (var i=0;i<this.default_pages.length;++i) {
+		page_attrs.push(0); page_mts.push(0);
+	}
 	var copied_help_pages = [];
 	// now pick the static pages
 	for(var i=0,l1=this.static_pages.length,l2=this.help_pages.length,l=l1+l2;i<l;++i) {
 		var pi, t;
-		if (i<l1) {
+		if (i<l1)
 			t = this.static_pages[i];
-			pi = this.page_index(t);
-		} else {
+		else
 			t = "WoaS::Help::"+this.help_pages[i-l1];
-			pi = this.page_index(t);
-		}
+		pi = this.page_index(t);
 		if (pi==-1) {
 			this.alert(this.i18n.STATIC_NOT_FOUND.sprintf(t));
-			return false;
+			continue;
 		} else if (i>=l1)
 			copied_help_pages.push(t);
 		backup_pages.push(pages[pi]);
