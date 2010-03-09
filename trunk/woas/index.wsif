@@ -245,8 +245,8 @@ _lock_page();
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Security
 woas.page.attributes: 0
-woas.page.last_modified: 1268158320
-woas.page.length: 3796
+woas.page.last_modified: 1268173192
+woas.page.length: 3772
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -260,12 +260,12 @@ The first password you enter after having started Wiki on a Stick gets cached (u
 <center>*If you forget the password there is no way to retrieve it or your data.*</center>
 
 == How do I encrypt a page?
-In order to encrypt a page you will have to click on the /lock/ icon on the top-right navigation panel. The password interface will open. Type the password into the red box, using punctuation and mixed case, if possible. If the box turns green while you're typing in your password, it's a strong password. If it doesn't, you might wish to reconsider the password and try a stronger one. Once you've chosen and typed in your password, type it into the white box below the now hopefully green one for verification. Then click the *Lock* button (which will automatically include the name of the page you wish to encrypt) to encrypt the page.
+In order to encrypt a page you will have to click on the /lock/ icon in the navigation bar. The password interface will open. Type the password into the red box, using punctuation and mixed case, if possible. If the box turns green while you're typing in your password, it's a strong password. If it doesn't, you might wish to reconsider the password and try a stronger one. Once you've chosen and typed in your password, type it into the white box below the now hopefully green one for verification. Then click the *Lock* button (which will automatically include the name of the page you wish to encrypt) to encrypt the page.
 
 When encrypting additional pages during a session, you'll be offered to use the same password you used to encrypt the first page. Accept by pressing the *OK* button or decline by pressing the *Cancel* button. If you decline, the password interface will open, allowing you to set a new password for the page. There is no limit to how many passwords you can use.
 
 == How do I unlock an encrypted page?
-If your page is already encrypted and you want to work with the page or change the encryption key you will first have to unlock it by entering its password. Do this by clicking the *Set password* (key) icon in the top right navigation panel. You can now open the page normally to view, edit, or delete it.
+If your page is already encrypted and you want to work with the page or change the encryption key you will first have to unlock it by entering its password. Do this by clicking the *Set password* (key) icon in the navigation bar. You can now open the page normally to view, edit, or delete it.
 
 The password for decrypting a page (or pages) is cached so that you only need to enter it once per session. If you close or reload the wiki, you will need to reenter the password to work with the encrypted page(s). To disable the password cache, check the box for *Do not temporarily cache the AES key* in the wiki *Options*. If you've used more than one password for encrypting your pages, you'll need to enter the password to unlock each encrypted page.
 
@@ -283,7 +283,8 @@ Apart from the above, your normal usage of encrypted pages can be considered sec
 --DFQRCTsKlU
 woas.page.title: Special::Options
 woas.page.attributes: 0
-woas.page.length: 2106
+woas.page.last_modified: 1268173450
+woas.page.length: 2114
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -295,7 +296,7 @@ woas.page.boundary: DFQRCTsKlU
 <label for="cb_dblclick_edit"><input type="checkbox" id="cb_dblclick_edit" onclick="woas.config.dblclick_edit = $.checked('cb_dblclick_edit')" />Double click to edit pages/menu<br />
 <label for="cb_save_on_quit"><input type="checkbox" id="cb_save_on_quit" onclick="woas.config.save_on_quit = $.checked('cb_save_on_quit')" />Automatically save options (if changed) before quitting<br />
 <label for="cb_key_cache"><input type="checkbox" id="cb_key_cache" onclick="woas.config.key_cache = !$.checked('cb_key_cache')" />Do not temporarily cache the AES key<br />
-<label for="cb_fixed_layout"><input type="checkbox" id="cb_fixed_layout" onclick="_set_layout($.checked('cb_fixed_layout'))" />Fixed menu area and topbar<br />
+<label for="cb_fixed_layout"><input type="checkbox" id="cb_fixed_layout" onclick="_set_layout($.checked('cb_fixed_layout'))" />Fixed menu area and navigation bar<br />
 <label for="cb_open_last_page"><input type="checkbox" id="cb_open_last_page" onclick="woas.config.open_last_page = $.checked('cb_open_last_page')" />Return to last saved page when quitting<br />
 <label for="cb_cumulative_save"><input type="checkbox" id="cb_cumulative_save" onclick="woas.config.cumulative_save = $.checked('cb_cumulative_save')" />Enable cumulative save (will save to disk only when quitting)<br />
 <p><input type="button" onclick="ro_woas()" value="Disallow edits" />
@@ -823,7 +824,8 @@ function myfunc(arg) {
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Special::Options
 woas.page.attributes: 0
-woas.page.length: 1180
+woas.page.last_modified: 1268173387
+woas.page.length: 1196
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -843,8 +845,8 @@ Allows option changes to be automatically saved without having to click the *Sav
 === Do not temporarily cache the AES key
 Clears AES key right after decryption, useful if you leave WoaS open to possible unauthorized access; will require to re-enter the decryption key each time you want to read a page.
 
-=== Fixed menu area and topbar
-Fixes the menu and banner in place, while allowing the page to scroll.
+=== Fixed menu area and navigation bar
+Fixes the menu and navigation bar in place, while allowing the page to scroll.
 
 === Return to last saved page when quitting
 Automatically opens the last saved page.
@@ -1335,7 +1337,8 @@ Now we call the macro:
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Editing
 woas.page.attributes: 0
-woas.page.length: 3379
+woas.page.last_modified: 1268172882
+woas.page.length: 3395
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1345,9 +1348,9 @@ woas.page.boundary: DFQRCTsKlU
 You can edit the contents of the main text area by typing normally. There are links and buttons in the editor to help with adding wiki syntax to the page to control how the content looks (bold, italic, lists, etc.).
 
 == Editor features
-* Cancel all changes by clicking the cancel icon in the banner at any time.
+* Cancel all changes by clicking the cancel icon in the navigation bar at any time.
 * Change the title of a page by editing the contents of the Page title box.
-* Save all changes by clicking the save icon in the banner at any time.
+* Save all changes by clicking the save icon in the navigation bar at any time.
 * See an example of how tables are built by clicking the *About tables* link.
 * Toggle the display of the button rows by clicking the *Show/Hide wiki buttons|Show/Hide HTML buttons* links.
 
@@ -1394,7 +1397,8 @@ You can edit the contents of the main text area by typing normally. There are li
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Index
 woas.page.attributes: 0
-woas.page.length: 740
+woas.page.last_modified: 1268173058
+woas.page.length: 748
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1403,7 +1407,7 @@ woas.page.boundary: DFQRCTsKlU
 = Help
 The first time you save a change to Wiki on a Stick, your browser will ask for permission to save data to the disk. This is normal and necessary for the wiki to make changes to itself. You can give permission each time or make the setting permanent.
 
-You will find the Help (lightbulb) icon in the upper right corner of the banner on every page in this wiki. When you click on it, it will either open this page or a specific help page that explains how to work with the page you currently have open.
+You will find the Help (lightbulb) icon in the upper right corner of the navigation bar on every page in this wiki. When you click on it, it will either open this page or a specific help page that explains how to work with the page you currently have open.
 
 When browsing Help pages you will find a Back button in the upper right corner that will take you back to this page. The starting Help page will instead have a Close button to close the help popup window.
 
@@ -1451,7 +1455,8 @@ If you have not given permanent permission to your browser for editing wiki page
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Edit CSS
 woas.page.attributes: 0
-woas.page.length: 1312
+woas.page.last_modified: 1268172772
+woas.page.length: 1352
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1462,24 +1467,24 @@ The look of most of this wiki can be customized by changing the CSS settings.
 
 [[Include::Image::alert.png]] /If you're new to CSS, [[http://www.w3schools.com/css/|this CSS Tutorial]] is wonderful./
 == Edit the CSS settings
-# Click the *Advanced* (tools) icon in the banner.
+# Click the *Advanced* (tools) icon in the navigation bar.
 # Click the *Special::Edit CSS* link in the *Advanced* section to open the CSS settings in the editor.
 # Make whatever changes you like to the code.
-# Save your changes by clicking the *Save* (diskette) icon in the banner.
+# Save your changes by clicking the *Save* (diskette) icon in the navigation bar.
 
 == Restore the default CSS settings
 To return to the default settings if you don't like the changes you've made:
 # Open a fresh copy of Wiki on a Stick in a browser.
-# Click the *Advanced* (tools) icon in the banner.
+# Click the *Advanced* (tools) icon in the navigation bar.
 # Click the *Special::Edit CSS* link in the *Advanced* section to open the CSS settings in the editor.
 # Select and copy all the content in the main text area.
 # Open your copy of Wiki on a Stick in a browser.
-# Click the *Advanced* (tools) icon in the banner.
+# Click the *Advanced* (tools) icon in the navigation bar.
 # Click the *Special::Edit CSS* link in the *Advanced* section to open the CSS settings in the editor.
 # Select the contents of the main text area on the page.
 # Delete all of the contents.
 # Paste in the settings you copied from the fresh copy of WoaS.
-# Click the *Save* (diskette) icon in the banner to save the changes.
+# Click the *Save* (diskette) icon in the navigation bar to save the changes.
 
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Special::Edit Bootscript
@@ -1560,7 +1565,8 @@ If you encounter any bugs, please report them in the [[https://lists.sourceforge
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::General usage
 woas.page.attributes: 0
-woas.page.length: 184
+woas.page.last_modified: 1268172994
+woas.page.length: 192
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1569,7 +1575,7 @@ woas.page.boundary: DFQRCTsKlU
 = General usage
 
 == Cancel any action
-Cancel any action by clicking the *Cancel* icon in the banner, clicking the *Cancel* button on any alert that pops up, or pressing the *Esc* key.
+Cancel any action by clicking the *Cancel* icon in the navigation bar, clicking the *Cancel* button on any alert that pops up, or pressing the *Esc* key.
 
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Code blocks
@@ -1684,15 +1690,15 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Print a page
 woas.page.attributes: 0
-woas.page.last_modified: 1268157647
-woas.page.length: 262
+woas.page.last_modified: 1268173116
+woas.page.length: 270
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Print a page
-# Click the *Print* icon in the banner. A new browser window will open with a printer-friendly version of the page that displays only the contents of the main text area.
+# Click the *Print* icon in the navigation bar. A new browser window will open with a printer-friendly version of the page that displays only the contents of the main text area.
 # Use the browser's *print preview* and *print* functions to print the page.
 
 --DFQRCTsKlU
@@ -1718,8 +1724,8 @@ If you clicked the *Disallow edits* button in the wiki *Options*, this wiki beca
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Create a page
 woas.page.attributes: 0
-woas.page.last_modified: 1268156902
-woas.page.length: 2270
+woas.page.last_modified: 1268172610
+woas.page.length: 2294
 woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1727,13 +1733,13 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 = Create a page
 # Click the *New Page* link in the menu.<br><br>
-# Type a short name for the page. If the name is too long, the banner can become so large that it interferes with the functions at the top of the page. Page names are case sensitive. Spaces are allowed. Diacritics (a glyph added to a letter - for example: \u00e2) are allowed. Escaped characters (some examples: ' % < > | : #) are allowed.<br><br>
+# Type a short name for the page. If the name is too long, the navigation bar can become so large that it interferes with the functions at the top of the page. Page names are case sensitive. Spaces are allowed. Diacritics (a glyph added to a letter - for example: \u00e2) are allowed. Escaped characters (some examples: ' % < > | : #) are allowed.<br><br>
 # Press the *Enter* key or click the *OK* button.<br><br>
 # When asked if you'd like to add a link into the main menu, accept by pressing the *Enter* key or clicking the *OK* button, or refuse by clicking the *Cancel* button.<br><br>
 # A level one header with the name of your page will be inserted for you automatically. You can edit or delete the header if you like.<br><br>
 # Edit the contents of the main text area by typing normally.<br><br>
 # Use the editor's buttons to insert code to format the text, or type the code in manually. Note that the use of plain text doesn't require any code.<br><br>
-# Save your changes by clicking on the *Save* (diskette) icon in the banner.
+# Save your changes by clicking on the *Save* (diskette) icon in the navigation bar.
 
 An alternate method of creating a page is to type a new page name inside nested brackets. The link will be red. Click it to create the new page. Example:
 
@@ -1743,7 +1749,7 @@ An alternate method of creating a page is to type a new page name inside nested 
 [[My new page]]
 
 == Troubleshooting
-* You can make a page name that's too long for the wiki to handle properly. This will cause the icons in the banner to scroll off-screen and be difficult to access. Since there are various resolutions for computers, it's not possible to say exactly how long a name can be for everyone, so use your best judgement. If you created a page with a name that's too long, see [[WoaS::Help::Page name too long]] for how to fix it.
+* You can make a page name that's too long for the wiki to handle properly. This will cause the icons in the navigation bar to scroll off-screen and be difficult to access. Since there are various resolutions for computers, it's not possible to say exactly how long a name can be for everyone, so use your best judgement. If you created a page with a name that's too long, see [[WoaS::Help::Page name too long]] for how to fix it.
 * There are three reasons why you may not be able to create a page:<br><br>
 ** There is already a page by that name.<br><br>
 ** The wiki is being run in [[WoaS::Help::Publish wiki online|read-only mode]], so no changes are allowed. See the [[WoaS::Help::Wiki is read-only]] page for instructions on how to return the wiki to editing mode.<br><br>
@@ -1752,8 +1758,8 @@ An alternate method of creating a page is to type a new page name inside nested 
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Delete a page
 woas.page.attributes: 0
-woas.page.last_modified: 1268156995
-woas.page.length: 855
+woas.page.last_modified: 1268172696
+woas.page.length: 871
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1766,33 +1772,33 @@ woas.page.boundary: DFQRCTsKlU
 ## When the page is deleted, you'll be returned to the page you were on before deleting the page.<br><br>
 ## You may have to remove any links to the deleted page from the [[WoaS::Help::Edit the menu|menu]] or other pages.<br><br>
 # *From the editor:*<br><br>
-## Click the *Edit* (pencil) icon in the banner.<br><br>
+## Click the *Edit* (pencil) icon in the navigation bar.<br><br>
 ## Select everything inside the main text area and delete it.<br><br>
-## Save your changes by clicking the *Save* (diskette) icon in the banner.<br><br>
+## Save your changes by clicking the *Save* (diskette) icon in the navigation bar.<br><br>
 ## Edit the [[WoaS::Help::Edit the menu|menu]] to remove the link to the deleted page if it isn't removed automatically.
 
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Edit a page
 woas.page.attributes: 0
-woas.page.last_modified: 1268157383
-woas.page.length: 639
+woas.page.last_modified: 1268172828
+woas.page.length: 663
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Edit a page
-Pages that have the *Edit* (pencil) icon in the banner can be edited. This includes any page you created, and any page listed when clicking the *Special::All Pages* link in the menu.
-# Click the *Edit* (pencil) icon in the banner or double-click on the page if you've enabled that setting in the wiki *Options*.<br><br>
+Pages that have the *Edit* (pencil) icon in the navigation bar can be edited. This includes any page you created, and any page listed when clicking the *Special::All Pages* link in the menu.
+# Click the *Edit* (pencil) icon in the navigation bar or double-click on the page if you've enabled that setting in the wiki *Options*.<br><br>
 # Edit the contents of the main text area by typing normally.<br><br>
 # Use the editor's buttons to insert code to format the text, or type the code in manually. Note that the use of plain text doesn't require any code.<br><br>
-# Save your changes by clicking on the *Save* (diskette) icon in the banner.
+# Save your changes by clicking on the *Save* (diskette) icon in the navigation bar.
 
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Erase all pages
 woas.page.attributes: 0
-woas.page.last_modified: 1268157473
-woas.page.length: 339
+woas.page.last_modified: 1268172959
+woas.page.length: 347
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1801,7 +1807,7 @@ woas.page.boundary: DFQRCTsKlU
 = Erase all pages
 To erase all user-created pages in this wiki and start fresh:
 # *Make sure you are using a wiki you don't mind losing.* If not, make a copy and erase the copy.
-# Click the *Advanced* (tools) icon in the banner.
+# Click the *Advanced* (tools) icon in the navigation bar.
 # Click on *Special::Erase Wiki* in the *Maintenance* section.
 
 See also: [[WoaS::Help::Special::Erase Wiki]]
