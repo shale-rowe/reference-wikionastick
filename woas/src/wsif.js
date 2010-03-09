@@ -422,8 +422,11 @@ woas["_native_wsif_load"] = function(path, overwrite, and_save, recursing, pre_i
 		this.progress_finish();
 	// save imported pages
 	if (imported.length) {
-		if (and_save)
+		if (and_save) {
+			var ep = this.wsif.expected_pages;
 			this.commit(imported);
+			this.wsif.expected_pages = ep;
+		}
 		return imported.length;
 	}
 	// no pages were changed
