@@ -1,6 +1,6 @@
 wsif.version: 1.2.0
 woas.version: 0.10.8
-woas.pages: 65
+woas.pages: 69
 
 woas.page.title: ::Menu
 woas.page.attributes: 0
@@ -2383,5 +2383,494 @@ By putting an exclamation mark (*!*) in front of the tag name, you can filter ou
 <div class="woas_helptext">Use this code in a page, replacing EXAMPLE with the tag you'd like to filter out:</div>
 <div class="woas_helpcode">[<!-- -->[Include::Tagged::!EXAMPLE]<!-- -->]</div>
 <div class="woas_helptext">To display a filtered listing of tagged pages that are not tagged with EXAMPLE inside the current page.</div>
+
+--DFQRCTsKlU
+woas.page.title: WoaS::Help::Publish wiki online
+woas.page.attributes: 0
+woas.page.last_modified: 1268179218
+woas.page.length: 603
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Publish wiki online
+This wiki can be published online as a single-file, framed web page by making it read-only. The read-only format is also great for sharing your work with others by email. Most email programs accept .htm pages as attachments.
+# Make a backup copy of this wiki.
+# Click the *Advanced* (tools) icon in the banner.
+# Scroll to the bottom of the page.
+# Click the *Disallow edits* button to make the file read-only.
+# Upload the wiki to a web server and publish a link to it.
+[[Include::Image::alert.png]] /To enable wiki editing again, see the [[WoaS::Help::Wiki is read-only]] page./
+
+--DFQRCTsKlU
+woas.page.title: WoaS::Help::Run wiki on a server
+woas.page.attributes: 0
+woas.page.last_modified: 1268179375
+woas.page.length: 285
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Run wiki on a server
+This is a personal wiki that's not designed to be used on a server. Any changes you make to the file will only be permanent if the wiki is on your computer. Advanced users may be able to find a way to get around that, but it's currently not possible by default.
+
+--DFQRCTsKlU
+woas.page.title: WoaS::Help::Requirements
+woas.page.attributes: 0
+woas.page.last_modified: 1268179536
+woas.page.length: 2650
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Requirements =
+
+== Supported Browsers
+Wiki on a Stick is actively supported on the following browsers:
+
+* Firefox 1.5
+* Firefox 2
+* Firefox 3
+* Firefox 3.5+
+* Opera
+* Internet Explorer 5.5
+* Internet Explorer 6
+* Internet Explorer 7*
+* Internet Explorer 8*
+<div class="alertnote">* On IE7-IE8 you might want to rename your application to .hta to enable its trusted privileges.</div>
+== Limitations
+* Firefox (and possibly other browsers, too) cannot save to filenames containing UTF8 characters. Use unix-style filenames instead.
+* Internet Explorer 6 and 7 do not support embedded images (that's why you will not see button icons).
+* Internet Explorer does not allow saving to a network path in the form /\\machine\share\bookonastick.htm/. To use this wiki over a network with Internet Explorer, map network paths to network drives first.
+* Internet Explorer 6 does not allow a fixed menu.
+
+== TiddlySaver
+<sub>original text by J.Ruston, 13 August 2007 (created 21 August 2006)</sub>
+<sub>modified by Daniele C. on 29 September 2007</sub>
+
+The TiddlySaver Java applet allows Wiki on a Stick from a file:// URL to save changes when using Safari, Opera and other Java-enabled browsers.
+
+The Java applet "TiddlySaver.jar", a very small file, must be placed in the same directory as your WoaS file. In order to use it you will need to give it the necessary privileges by editing your .java.policy file.
+
+For Windows, the file will be at C:\Documents and Settings\your-user-name\.java.policy. Add the following lines (substituting the directory  as appropriate):{{{
+grant codeBase "file:${user.home}/My Documents/tiddlywiki-folder/*" {
+  permission java.io.FilePermission "${user.home}${/}My Documents${/}stickwiki-folder${/}*", "read,write";
+};
+}}}On Mac OS X, the file is found at /Users/your-user-name/.java.policy:{{{
+grant codeBase "file:${user.home}/Documents/tiddlywiki-folder/*" {
+  permission java.io.FilePermission "${user.home}${/}Documents${/}stickwiki-folder${/}*", "read,write";
+};
+}}}It can be tricky creating files whose name starts with a period, so you can use this <a href="http://stickwiki.sourceforge.net/src/.java.policy">pre-built .java.policy file</a>. The same file is suitable for Macs too, just edit it and delete the "My " bit, leaving just "Documents". Make sure you save it in the right place for each operating system!
+
+If you have trouble setting up the permissions correctly, you can try granting broader permissions to the applet like this:{{{
+grant codeBase "file://localhost/home/users/Desktop/
+TiddlySaver.jar"
+ { permission java.security.AllPermission; };
+}}}The TiddlySaver java applet was written by J.Rouston.
+
+
+--DFQRCTsKlU
+woas.page.title: WoaS::Help::Lists
+woas.page.attributes: 0
+woas.page.last_modified: 1268180101
+woas.page.length: 12865
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Lists
+Simple single-level lists can be created by using the three list buttons in the editor.
+* The *{{{*}}}* button inserts the wiki syntax for a bulleted list item
+* The *{{{#}}}* button inserts the wiki syntax for a numbered list item.
+* The *{{{@}}}* button inserts the wiki syntax for an alphanumeric list item.
+* The *{{{List}}}* button wraps HTML ul tags around the selected text to create an unordered list.
+* The *{{{List =}}}* button wraps HTML ol tags around the selected text to create an ordered list.
+* The *{{{li[*]}}}* button wraps HTML li tags around the selected text to create a list item.
+If you'd like to create mixed lists, nested lists, or lists with additional types of list items, the methods below can be used instead.
+
+== Wiki markup lists
+Wiki markup lists are created with between one and five specific characters ({{{@}}}, {{{*}}}, or {{{#}}}) at the beginning of a line, followed by a space, and then whatever text you'd like the list item to have. Each list must begin with a list item with only one character at the beginning of the line, and there can be no blank lines between entries in the list. To create a blank line beneath a list item, you can insert two HTML {{{<br>}}} tags at the end of of the list item's text. Wiki and HTML markup are accepted in list items.
+
+=== Alphanumeric List
+<div class="woas_helptext">Use this code in a page:</div>{{{
+@ Test
+@ Test
+@ Test
+@@ Test
+@@@ Test
+@@@@ Test
+@ Test
+}}}<div class="woas_helptext">To create this:</div>
+@ Test
+@ Test
+@ Test
+@@ Test
+@@@ Test
+@@@@ Test
+@ Test
+
+=== Bulleted List
+<div class="woas_helptext">Use this code in a page:</div>{{{
+* Test
+* Test
+** Test
+*** Test
+**** Test
+* Test
+* Test
+}}}<div class="woas_helptext">To create this:</div><br>
+* Test
+* Test
+** Test
+*** Test
+**** Test
+* Test
+* Test
+
+=== Fancy List
+<div class="woas_helptext">Use this code in a page:</div>{{{
+* ITEM 1 - ITEM 1 SUBTEXT <blockquote>ITEM 1 MORE SUBTEXT</blockquote>
+* ITEM 2 - ITEM 2 SUBTEXT <blockquote>ITEM 2 MORE SUBTEXT</blockquote>
+* ITEM 3 - ITEM 3 SUBTEXT <blockquote>ITEM 3 MORE SUBTEXT</blockquote>
+}}}<div class="woas_helptext">To create this:</div><br>
+* ITEM 1 - ITEM 1 SUBTEXT <blockquote>ITEM 1 MORE SUBTEXT</blockquote>
+* ITEM 2 - ITEM 2 SUBTEXT <blockquote>ITEM 2 MORE SUBTEXT</blockquote>
+* ITEM 3 - ITEM 3 SUBTEXT <blockquote>ITEM 3 MORE SUBTEXT</blockquote>
+
+=== Numbered List
+<div class="woas_helptext">Use this code in a page:</div>{{{
+# Test
+# Test
+## Test
+### Test
+#### Test
+# Test
+# Test
+}}}<div class="woas_helptext">To create this:</div><br>
+# Test
+# Test
+## Test
+### Test
+#### Test
+# Test
+# Test
+
+=== Numbered Fancy List
+<div class="woas_helptext">Use this code in a page:</div>{{{
+# ITEM 1 - ITEM 1 SUBTEXT <blockquote>ITEM 1 MORE SUBTEXT</blockquote>
+# ITEM 2 - ITEM 2 SUBTEXT <blockquote>ITEM 2 MORE SUBTEXT</blockquote>
+# ITEM 3 - ITEM 3 SUBTEXT <blockquote>ITEM 3 MORE SUBTEXT</blockquote>
+}}}<div class="woas_helptext">To create this:</div><br>
+# ITEM 1 - ITEM 1 SUBTEXT <blockquote>ITEM 1 MORE SUBTEXT</blockquote>
+# ITEM 2 - ITEM 2 SUBTEXT <blockquote>ITEM 2 MORE SUBTEXT</blockquote>
+# ITEM 3 - ITEM 3 SUBTEXT <blockquote>ITEM 3 MORE SUBTEXT</blockquote>
+
+== HTML Lists
+HTML lists work the same way as they do in any web page. Specifying the list type can be done in the {{{ol}}}, {{{<ul>}}}, or {{{<li>}}} tags, depending on how you need to use them. Wiki markup is accepted in list items. If you'd rather not type in the code for HTML lists, there's a *More lists* button in the editor that opens a fourth row of buttons for creating fancy lists.
+
+=== Specifying list type in the &lt;ol&gt; tag
+This method is useful when an entire list will use one list item type. This way you only need to specify the type once, and all the list items can be entered normally.
+
+<div class="woas_helptext">Use this code in a page:</div>{{{
+<ol style="list-style-type:lower-alpha;">
+<li>lower-alpha</li>
+<li>lower-alpha</li>
+<li>lower-alpha</li>
+</ol>
+}}}<div class="woas_helptext">To create this:</div>
+<ol style="list-style-type:lower-alpha;">
+<li>lower-alpha</li>
+<li>lower-alpha</li>
+<li>lower-alpha</li>
+</ol>
+
+<div class="woas_helptext">Use this code in a page:</div>{{{
+<ol style="list-style-type:upper-alpha;">
+<li>upper-alpha</li>
+<li>upper-alpha</li>
+<li>upper-alpha</li>
+</ol>
+}}}<div class="woas_helptext">To create this:</div>
+<ol style="list-style-type:upper-alpha;">
+<li>upper-alpha</li>
+<li>upper-alpha</li>
+<li>upper-alpha</li>
+</ol>
+
+<div class="woas_helptext">Use this code in a page:</div>{{{
+<ol style="list-style-type:decimal;">
+<li>decimal</li>
+<li>decimal</li>
+<li>decimal</li>
+</ol>
+}}}<div class="woas_helptext">To create this:</div>
+<ol style="list-style-type:decimal;">
+<li>decimal</li>
+<li>decimal</li>
+<li>decimal</li>
+</ol>
+
+<div class="woas_helptext">Use this code in a page:</div>{{{
+<ol style="list-style-type:lower-roman;">
+<li>lower-roman</li>
+<li>lower-roman</li>
+<li>lower-roman</li>
+</ol>
+}}}<div class="woas_helptext">To create this:</div>
+<ol style="list-style-type:lower-roman;">
+<li>lower-roman</li>
+<li>lower-roman</li>
+<li>lower-roman</li>
+</ol>
+
+<div class="woas_helptext">Use this code in a page:</div>{{{
+<ol style="list-style-type:upper-roman;">
+<li>upper-roman</li>
+<li>upper-roman</li>
+<li>upper-roman</li>
+</ol>
+}}}<div class="woas_helptext">To create this:</div>
+<ol style="list-style-type:upper-roman;">
+<li>upper-roman</li>
+<li>upper-roman</li>
+<li>upper-roman</li>
+</ol>
+
+=== Specifying list type in the &lt;ul&gt; tag
+This method is useful when an entire list will use one list item type. This way you only need to specify the type once, and all the list items can be entered normally.
+
+<div class="woas_helptext">Use this code in a page:</div>{{{
+<ul style="list-style-type:circle;">
+<li>circle</li>
+<li>circle</li>
+<li>circle</li>
+</ul>
+}}}<div class="woas_helptext">To create this:</div>
+<ul style="list-style-type:circle;">
+<li>circle</li>
+<li>circle</li>
+<li>circle</li>
+</ul>
+
+<div class="woas_helptext">Use this code in a page:</div>{{{
+<ul style="list-style-type:disc;">
+<li>disc</li>
+<li>disc</li>
+<li>disc</li>
+</ul>
+}}}<div class="woas_helptext">To create this:</div>
+<ul style="list-style-type:disc;">
+<li>disc</li>
+<li>disc</li>
+<li>disc</li>
+</ul>
+
+<div class="woas_helptext">Use this code in a page:</div>{{{
+<ul style="list-style-type:none;">
+<li>none</li>
+<li>none</li>
+<li>none</li>
+</ul>
+}}}<div class="woas_helptext">To create this:</div>
+<ul style="list-style-type:none;">
+<li>none</li>
+<li>none</li>
+<li>none</li>
+</ul>
+
+<div class="woas_helptext">Use this code in a page:</div>{{{
+<ul style="list-style-type:square;">
+<li>square</li>
+<li>square</li>
+<li>square</li>
+</ul>
+}}}<div class="woas_helptext">To create this:</div>
+<ul style="list-style-type:square;">
+<li>square</li>
+<li>square</li>
+<li>square</li>
+</ul>
+
+=== Specifying list type in the &lt;li&gt; tag
+This method is useful when an creating a fancy list with more than one list item type.
+
+<div class="woas_helptext">Use this code in a page:</div>{{{
+<ol>
+<li style="list-style-type:lower-alpha;">lower-alpha</li>
+<li style="list-style-type:lower-alpha;">lower-alpha</li>
+<li style="list-style-type:lower-alpha;">lower-alpha</li>
+</ol>
+}}}<div class="woas_helptext">To create this:</div>
+<ol>
+<li style="list-style-type:lower-alpha;">lower-alpha</li>
+<li style="list-style-type:lower-alpha;">lower-alpha</li>
+<li style="list-style-type:lower-alpha;">lower-alpha</li>
+</ol>
+
+<div class="woas_helptext">Use this code in a page:</div>{{{
+<ol>
+<li style="list-style-type:upper-alpha;">upper-alpha</li>
+<li style="list-style-type:upper-alpha;">upper-alpha</li>
+<li style="list-style-type:upper-alpha;">upper-alpha</li>
+</ol>
+}}}<div class="woas_helptext">To create this:</div>
+<ol>
+<li style="list-style-type:upper-alpha;">upper-alpha</li>
+<li style="list-style-type:upper-alpha;">upper-alpha</li>
+<li style="list-style-type:upper-alpha;">upper-alpha</li>
+</ol>
+
+<div class="woas_helptext">Use this code in a page:</div>{{{
+<ol>
+<li style="list-style-type:circle;">circle</li>
+<li style="list-style-type:circle;">circle</li>
+<li style="list-style-type:circle;">circle</li>
+</ol>
+}}}<div class="woas_helptext">To create this:</div>
+<ol>
+<li style="list-style-type:circle;">circle</li>
+<li style="list-style-type:circle;">circle</li>
+<li style="list-style-type:circle;">circle</li>
+</ol>
+
+<div class="woas_helptext">Use this code in a page:</div>{{{
+<ol>
+<li style="list-style-type:decimal;">decimal</li>
+<li style="list-style-type:decimal;">decimal</li>
+<li style="list-style-type:decimal;">decimal</li>
+</ol>
+}}}<div class="woas_helptext">To create this:</div>
+<ol>
+<li style="list-style-type:decimal;">decimal</li>
+<li style="list-style-type:decimal;">decimal</li>
+<li style="list-style-type:decimal;">decimal</li>
+</ol>
+
+<div class="woas_helptext">Use this code in a page:</div>{{{
+<ol>
+<li style="list-style-type:disc;">disc</li>
+<li style="list-style-type:disc;">disc</li>
+<li style="list-style-type:disc;">disc</li>
+</ol>
+}}}<div class="woas_helptext">To create this:</div>
+<ol>
+<li style="list-style-type:disc;">disc</li>
+<li style="list-style-type:disc;">disc</li>
+<li style="list-style-type:disc;">disc</li>
+</ol>
+
+<div class="woas_helptext">Use this code in a page:</div>{{{
+<ol>
+<li style="list-style-type:lower-roman;">lower-roman</li>
+<li style="list-style-type:lower-roman;">lower-roman</li>
+<li style="list-style-type:lower-roman;">lower-roman</li>
+</ol>
+}}}<div class="woas_helptext">To create this:</div>
+<ol>
+<li style="list-style-type:lower-roman;">lower-roman</li>
+<li style="list-style-type:lower-roman;">lower-roman</li>
+<li style="list-style-type:lower-roman;">lower-roman</li>
+</ol>
+
+<div class="woas_helptext">Use this code in a page:</div>{{{
+<ol>
+<li style="list-style-type:none;">none</li>
+<li style="list-style-type:none;">none</li>
+<li style="list-style-type:none;">none</li>
+</ol>
+}}}<div class="woas_helptext">To create this:</div>
+<ol>
+<li style="list-style-type:none;">none</li>
+<li style="list-style-type:none;">none</li>
+<li style="list-style-type:none;">none</li>
+</ol>
+
+<div class="woas_helptext">Use this code in a page:</div>{{{
+<ol>
+<li style="list-style-type:square;">square</li>
+<li style="list-style-type:square;">square</li>
+<li style="list-style-type:square;">square</li>
+</ol>
+}}}<div class="woas_helptext">To create this:</div>
+<ol>
+<li style="list-style-type:square;">square</li>
+<li style="list-style-type:square;">square</li>
+<li style="list-style-type:square;">square</li>
+</ol>
+
+<div class="woas_helptext">Use this code in a page:</div>{{{
+<ol>
+<li style="list-style-type:upper-roman;">upper-roman</li>
+<li style="list-style-type:upper-roman;">upper-roman</li>
+<li style="list-style-type:upper-roman;">upper-roman</li>
+</ol>
+}}}<div class="woas_helptext">To create this:</div>
+<ol>
+<li style="list-style-type:upper-roman;">upper-roman</li>
+<li style="list-style-type:upper-roman;">upper-roman</li>
+<li style="list-style-type:upper-roman;">upper-roman</li>
+</ol>
+
+=== Mixed HTML list
+<div class="woas_helptext">Use this code in a page:</div>{{{
+<ol>
+<li style="list-style-type:lower-alpha;">lower-alpha</li>
+   <ol>
+   <li style="list-style-type:upper-alpha;">upper-alpha</li>
+      <ol>
+      <li style="list-style-type:circle;">circle</li>
+         <ol>
+         <li style="list-style-type:decimal;">decimal</li>
+            <ol>
+            <li style="list-style-type:disc;">disc</li>
+               <ol>
+               <li style="list-style-type:lower-roman;">lower-roman</li>
+                  <ol>
+                  <li style="list-style-type:none;">none</li>
+                     <ol>
+                     <li style="list-style-type:square;">square</li>
+                        <ol>
+                        <li style="list-style-type:upper-roman;">upper-roman</li>
+                        </ol>
+                     </ol>
+                  </ol>
+               </ol>
+            </ol>
+         </ol>
+      </ol>
+   </ol>
+</ol>
+}}}<div class="woas_helptext">To create this:</div>
+<ol>
+<li style="list-style-type:lower-alpha;">lower-alpha</li>
+   <ol>
+   <li style="list-style-type:upper-alpha;">upper-alpha</li>
+      <ol>
+      <li style="list-style-type:circle;">circle</li>
+         <ol>
+         <li style="list-style-type:decimal;">decimal</li>
+            <ol>
+            <li style="list-style-type:disc;">disc</li>
+               <ol>
+               <li style="list-style-type:lower-roman;">lower-roman</li>
+                  <ol>
+                  <li style="list-style-type:none;">none</li>
+                     <ol>
+                     <li style="list-style-type:square;">square</li>
+                        <ol>
+                        <li style="list-style-type:upper-roman;">upper-roman</li>
+                        </ol>
+                     </ol>
+                  </ol>
+               </ol>
+            </ol>
+         </ol>
+      </ol>
+   </ol>
+</ol>
 
 --DFQRCTsKlU
