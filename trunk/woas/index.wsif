@@ -1575,7 +1575,8 @@ This page displays a list of pages that contain links to nonexistent pages. Both
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Debug console
 woas.page.attributes: 0
-woas.page.length: 1283
+woas.page.last_modified: 1268242519
+woas.page.length: 1315
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1586,23 +1587,23 @@ This wiki comes with an optional debug console that will be visible at the botto
 
 == Enable the debug console:
 # Open this wiki in a text editor.<br><br>
-# Do a search for {{{woas["debug"] = false;}}} to find this line:{{{
+# Do a search for {{{woas["debug"] = false;}}} to find this line:<br>{{{
 woas["debug"] = false;			// toggle debug mode (and console)
-}}}
-# Change *false* to *true* so the line looks like this:{{{
+}}}<br>
+# Change *false* to *true* so the line looks like this:<br>{{{
 woas["debug"] = true;			// toggle debug mode (and console)
-}}}
+}}}<br>
 # Save the file.<br><br>
 # Close the text editor.
 
 == Disable the debug console:
 # Open this wiki in a text editor.<br><br>
-# Do a search for {{{woas["debug"] = true;}}} to find this line:{{{
+# Do a search for {{{woas["debug"] = true;}}} to find this line:<br>{{{
 woas["debug"] = true;			// toggle debug mode (and console)
-}}}
-# Change *true* to *false* so the line looks like this:{{{
+}}}<br>
+# Change *true* to *false* so the line looks like this:<br>{{{
 woas["debug"] = false;			// toggle debug mode (and console)
-}}}
+}}}<br>
 # Save the file.<br><br>
 # Close the text editor.
 
@@ -1612,8 +1613,8 @@ If you encounter any bugs, please report them in the [[https://lists.sourceforge
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::General usage
 woas.page.attributes: 0
-woas.page.last_modified: 1268182686
-woas.page.length: 1019
+woas.page.last_modified: 1268242715
+woas.page.length: 1000
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1631,7 +1632,7 @@ Use the *Back* and *Forward* arrow icons in the navigation bar to go back or for
 Click the *Backlinks* link in the menu to see which pages link to the page you currently have open.
 
 == Syntax
-This wiki accepts [[http://en.wikipedia.org/wiki/Plain_text|plain text]], [[Tagged::Syntax|internal wiki syntax]], [[http://www.wikicreole.org/wiki/|Creole 0.1]], [[http://www.w3schools.com/html/default.asp|HTML]], and [[http://www.w3schools.com/js/default.asp|JavaScript]]. See the *Syntax* pages listed in the *Help index* by clicking the *Help* (question mark) icon in the navigation bar for help with using the syntax in your pages.
+This wiki accepts [[http://en.wikipedia.org/wiki/Plain_text|plain text]], internal wiki syntax, [[http://www.wikicreole.org/wiki/|Creole 0.1]], [[http://www.w3schools.com/html/default.asp|HTML]], and [[http://www.w3schools.com/js/default.asp|JavaScript]]. See the *Syntax* pages listed in the *Help index* by clicking the *Help* (question mark) icon in the navigation bar for help with using the syntax in your pages.
 
 
 --DFQRCTsKlU
@@ -1872,8 +1873,8 @@ See also: [[WoaS::Help::Special::Erase Wiki]]
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Edit the menu
 woas.page.attributes: 0
-woas.page.last_modified: 1268163268
-woas.page.length: 797
+woas.page.last_modified: 1268242620
+woas.page.length: 841
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1885,22 +1886,22 @@ woas.page.boundary: DFQRCTsKlU
 See the *Namespace sub-menu* section of the [[WoaS::Help::Namespaces]] page.
 
 == Edit the menu
-# Click the *Edit menu* button at the bottom of the menu.
-# Edit the contents of the main text area by typing normally. The menu can contain links, lists, tables, colored text, etc.
+# Click the *Edit menu* button at the bottom of the menu.<br><br>
+# Edit the contents of the main text area by typing normally. The menu can contain links, lists, tables, colored text, etc.<br><br>
 # Save your changes by clicking on the *Save* (diskette) icon in the top right navigation panel.
 
 == Put menu entries into a list
-To put your menu entries into a bulleted list like those in the default menu:
-# Click the *Edit menu* button at the bottom of the menu.
-# Insert an asterisk and a space in front of the page name(s) so they look like this:{{{
-* [[Page name]]}}}
+To put your menu entries into a bulleted list like those in the default menu:<br><br>
+# Click the *Edit menu* button at the bottom of the menu.<br><br>
+# Insert an asterisk and a space in front of the page name(s) so they look like this:<br>{{{
+* [[Page name]]}}}<br><br>
 # Save your changes by clicking the *Save* (diskette) icon in the top right navigation panel.
 
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Headers
 woas.page.attributes: 0
-woas.page.last_modified: 1268178099
-woas.page.length: 1046
+woas.page.last_modified: 1268242814
+woas.page.length: 1070
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1911,36 +1912,36 @@ Below are examples on how to use wiki markup to create headers in this wiki. You
 
 <div class="woas_helptext">Use this code in a page:</div>{{{
 = Header level 1
-}}}<div class="woas_helptext">To create this:</div>
+}}}<br><div class="woas_helptext">To create this:</div>
 = Header level 1 =
 
 
 <div class="woas_helptext">Use this code in a page:</div>{{{
 == Header level 2
-}}}<div class="woas_helptext">To create this:</div>
+}}}<br><div class="woas_helptext">To create this:</div>
 == Header level 2
 
 
 <div class="woas_helptext">Use this code in a page:</div>{{{
 === Header level 3
-}}}<div class="woas_helptext">To create this:</div>
+}}}<br><div class="woas_helptext">To create this:</div>
 === Header level 3
 
 
 <div class="woas_helptext">Use this code in a page:</div>{{{
 ==== Header level 4
-}}}<div class="woas_helptext">To create this:</div>
+}}}<br><div class="woas_helptext">To create this:</div>
 ==== Header level 4
 
 
 <div class="woas_helptext">Use this code in a page:</div>{{{
 ===== Header level 5
-}}}<div class="woas_helptext">To create this:</div>
+}}}<br><div class="woas_helptext">To create this:</div>
 ===== Header level 5
 
 <div class="woas_helptext">Use this code in a page:</div>{{{
 ====== Header level 6
-}}}<div class="woas_helptext">To create this:</div>
+}}}<br><div class="woas_helptext">To create this:</div>
 ====== Header level 6
 
 --DFQRCTsKlU
@@ -1992,8 +1993,8 @@ Rulers (horizontal rules or lines) use the full width of the page by default. Th
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Include text file
 woas.page.attributes: 0
-woas.page.last_modified: 1268178170
-woas.page.length: 515
+woas.page.last_modified: 1268242947
+woas.page.length: 535
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -2002,11 +2003,11 @@ woas.page.boundary: DFQRCTsKlU
 = Include text file
 <div class="woas_helptext">Use this code in a page, replacing PATH with the full path to the file:</div>{{{
 <iframe height="400" width="100%" src="file:///PATH"></iframe>
-}}}<div class="woas_helptext">To include a text file in the page inside an iFrame.</div>
-* Linux example:{{{
+}}}<br><div class="woas_helptext">To include a text file in the page inside an iFrame.</div>
+* *Linux example:*<br>{{{
 <iframe height="400" width="100%" src="file:///home/username/Desktop/file.txt"></iframe>
-}}}
-* Windows example:{{{
+}}}<br>
+* *Windows example:*<br>{{{
 <iframe height="400" width="100%" src="file:///C:/Users//Username/Documents/file.txt"></iframe>
 }}}
 
