@@ -1637,8 +1637,8 @@ This wiki accepts [[http://en.wikipedia.org/wiki/Plain_text|plain text]], [[Tagg
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Code blocks
 woas.page.attributes: 0
-woas.page.last_modified: 1268168867
-woas.page.length: 3657
+woas.page.last_modified: 1268240738
+woas.page.length: 3673
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1690,7 +1690,7 @@ This is so you can choose a different color than the default one for your code b
 made of one
 or more lines.
 </pre>
-}}}<div class="woas_helptext">To create this:</div><pre style="background-color:lightcyan;">This is a code block
+}}}<br><br><div class="woas_helptext">To create this:</div><pre style="background-color:lightcyan;">This is a code block
 made of one
 or more lines.
 </pre>
@@ -1701,7 +1701,7 @@ This will only work on all the font inside a code block. Multi-colored code bloc
 <pre style="color:green">This is a code block
 made of one
 or more lines.
-</pre>}}}<div class="woas_helptext">To create this:</div><pre style="color:green">This is a code block
+</pre>}}}<br><br><div class="woas_helptext">To create this:</div><pre style="color:green">This is a code block
 made of one
 or more lines.
 </pre>
@@ -1781,8 +1781,8 @@ If you clicked the *Disallow edits* button in the wiki *Options*, this wiki beca
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Create a page
 woas.page.attributes: 0
-woas.page.last_modified: 1268177907
-woas.page.length: 2304
+woas.page.last_modified: 1268242248
+woas.page.length: 2317
 woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1802,15 +1802,15 @@ An alternate method of creating a page is to type a new page name inside nested 
 
 <div class="woas_helptext">Type this into a page:</div>{{{
 [[My new page]]
-}}}<div class="woas_helptext">To create this:</div>
+}}}<br><div class="woas_helptext">To create this:</div>
 [[My new page]]
 
 == Troubleshooting
-* You can make a page name that's too long for the wiki to handle properly. This will cause the icons in the navigation bar to scroll off-screen and be difficult to access. Since there are various resolutions for computers, it's not possible to say exactly how long a name can be for everyone, so use your best judgement. If you created a page with a name that's too long, see [[WoaS::Help::Page name too long]] for how to fix it.
-* There are three reasons why you may not be able to create a page:<br><br>
-** There is already a page by that name.<br><br>
+* There are four reasons why you may not be able to create a page:<br><br>
+** You didn't type a name for the page in the title box that popped up. In this case a message will pop up letting you know that pages must be named and giving you an opportunity to name the page.<br><br>
+** There is already a page by that name. In this case a message will pop up letting you know the page already exists.<br><br>
 ** The wiki is being run in [[WoaS::Help::Publish wiki online|read-only mode]], so no changes are allowed. See the [[WoaS::Help::Wiki is read-only]] page for instructions on how to return the wiki to editing mode.<br><br>
-** You are trying to use a [[WoaS::Help::Namespaces|namespace]] that is reserved by the system.
+** You are trying to use a [[WoaS::Help::Namespaces|namespace]] that is reserved by the system. In this case a message will pop up letting you know the namespace is reserved and giving you an opportunity to choose a different name/namespace for the page.
 
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Delete a page
