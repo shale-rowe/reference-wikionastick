@@ -1397,8 +1397,8 @@ You can edit the contents of the main text area by typing normally. There are li
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Index
 woas.page.attributes: 0
-woas.page.last_modified: 1268173058
-woas.page.length: 748
+woas.page.last_modified: 1268181925
+woas.page.length: 2143
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1407,11 +1407,57 @@ woas.page.boundary: DFQRCTsKlU
 = Help
 The first time you save a change to Wiki on a Stick, your browser will ask for permission to save data to the disk. This is normal and necessary for the wiki to make changes to itself. You can give permission each time or make the setting permanent.
 
-You will find the Help (lightbulb) icon in the upper right corner of the navigation bar on every page in this wiki. When you click on it, it will either open this page or a specific help page that explains how to work with the page you currently have open.
+You will find the *Help* (question mark) icon in the navigation bar on every page in this wiki. When you click on it, it will either open this page or a specific help page that explains how to work with the page you currently have open.
 
-When browsing Help pages you will find a Back button in the upper right corner that will take you back to this page. The starting Help page will instead have a Close button to close the help popup window.
-
-[[Include::WoaS::Help::]]
+When browsing the pages in this Help pop-up, you will find a *Back* button in the upper right corner that takes you back to this page or a *Close* button in the same place that closes the pop-up.
+== Help contents
+* *Features*
+** [[WoaS::Help::Macros]]
+** [[WoaS::Help::Security]]
+** [[WoaS::Help::WSIF]]
+* *Interface*
+** [[WoaS::Help::Debug console]]
+** [[WoaS::Help::Edit CSS]]
+** [[WoaS::Help::Edit the menu]]
+** [[WoaS::Help::General usage]]
+** [[WoaS::Help::Requirements]]
+* *Online use*
+** [[WoaS::Help::Publish wiki online]]
+** [[WoaS::Help::Run wiki on a server]]
+* *Page management*
+** [[WoaS::Help::Create a page]]
+** [[WoaS::Help::Delete a page]]
+** [[WoaS::Help::Edit a page]]
+** [[WoaS::Help::Erase all pages]]
+** [[WoaS::Help::Namespaces]]
+** [[WoaS::Help::Page scrolling]]
+** [[WoaS::Help::Print a page]]
+** [[WoaS::Help::Rename a page]]
+* *Specific Help pages*
+** [[WoaS::Help::Editing]]
+** [[WoaS::Help::Special::Advanced]]
+** [[WoaS::Help::Special::Dead Pages]]
+** [[WoaS::Help::Special::Edit Bootscript]]
+** [[WoaS::Help::Special::Erase Wiki]]
+** [[WoaS::Help::Special::Options]]
+* *Syntax*
+** [[WoaS::Help::Code blocks]]
+** [[WoaS::Help::Headers]]
+** [[WoaS::Help::Include text file]]
+** [[WoaS::Help::Include web page]]
+** [[WoaS::Help::Include wiki page]]
+** [[WoaS::Help::Join lines of text]]
+** [[WoaS::Help::Lists]]
+** [[WoaS::Help::Non-breaking spaces]]
+** [[WoaS::Help::Rulers]]
+** [[WoaS::Help::Syntax]]
+** [[WoaS::Help::Table of Contents]]
+** [[WoaS::Help::Tags]]
+** [[WoaS::Help::Text formatting]]
+** [[WoaS::Help::JavaScript]]
+* *Troubleshooting*
+** [[WoaS::Help::Debug console]]
+** [[WoaS::Help::Wiki is read-only]]
 
 --DFQRCTsKlU
 woas.page.title: WoaS::Template::Button
