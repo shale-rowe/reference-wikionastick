@@ -1,6 +1,6 @@
 wsif.version: 1.2.0
 woas.version: 0.10.8
-woas.pages: 69
+woas.pages: 70
 
 woas.page.title: ::Menu
 woas.page.attributes: 0
@@ -1397,8 +1397,8 @@ You can edit the contents of the main text area by typing normally. There are li
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Index
 woas.page.attributes: 0
-woas.page.last_modified: 1268181925
-woas.page.length: 2143
+woas.page.last_modified: 1268183504
+woas.page.length: 2169
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1452,6 +1452,7 @@ When browsing the pages in this Help pop-up, you will find a *Back* button in th
 ** [[WoaS::Help::Rulers]]
 ** [[WoaS::Help::Syntax]]
 ** [[WoaS::Help::Table of Contents]]
+** [[WoaS::Help::Tables]]
 ** [[WoaS::Help::Tags]]
 ** [[WoaS::Help::Text formatting]]
 ** [[WoaS::Help::JavaScript]]
@@ -2922,5 +2923,115 @@ This method is useful when an creating a fancy list with more than one list item
       </ol>
    </ol>
 </ol>
+
+--DFQRCTsKlU
+woas.page.title: WoaS::Help::Tables
+woas.page.attributes: 0
+woas.page.last_modified: 1268183459
+woas.page.length: 2329
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Tables
+The content inside tables can contain internal and external links, and these kinds of [[WoaS::Help::Text formatting|Text formatting]]:
+* Blinking
+* Bold
+* Colored
+* Italic
+* Plain
+* Underlined
+* Underlined Bold Italic
+
+== Basic Table:
+</font><div class="woas_helptext">Use this code in a page:</div>{{{
+{|
+| CELL1 || CELL2
+| CELL1 || CELL2
+|}
+}}}<div class="woas_helptext">To create this:</div>
+{|
+| CELL1 || CELL2
+| CELL1 || CELL2
+|}
+
+<div class="woas_helptext">Or use this code in a page:</div>{{{
+{|
+| CELL1 || CELL2
+|-
+| CELL1 || CELL2
+|}
+}}}<div class="woas_helptext">To create this:</div>
+{|
+| CELL1 || CELL2
+|-
+| CELL1 || CELL2
+|}
+
+The line that starts with {{{|- }}} is a comment line. You can type some text after it which will only be visible when viewing the source:
+<div class="woas_helptext">Use this code in a page:</div>{{{
+{|
+| CELL1 || CELL2
+|- This is a comment.
+| CELL1 || CELL2
+|}
+}}}<div class="woas_helptext">To create this:</div>
+{|
+| CELL1 || CELL2
+|- This is a comment.
+| CELL1 || CELL2
+|}
+
+== Complex Table:
+Tables can have a specially formatted title row created by adding a pipe followed by a plus symbol and a space before the title text (example: {{{|+ Title}}}), and can contain internal and external wiki links.
+
+<div class="woas_helptext">Use this code in a page:</div>{{{
+{|
+|+ TITLE
+| *HEADER1* || *HEADER2* || *HEADER3*
+|-
+| CELL1 || CELL2 || CELL3
+|-
+| CELL1 || [[http://www.google.com|Link to Google]] || CELL3
+|-
+| CELL1 || [[Main Page]] || CELL3
+|-
+| CELL1 || || CELL3
+|}
+}}}<div class="woas_helptext">To create this:</div>
+{|
+|+ TITLE
+| *HEADER1* || *HEADER2* || *HEADER3*
+|-
+| CELL1 || CELL2 || CELL3
+|-
+| CELL1 || [[http://www.google.com|Link to Google]] || CELL3
+|-
+| CELL1 || [[Main Page]] || CELL3
+|-
+| CELL1 || || CELL3
+|}
+
+<div class="woas_helptext">Or use this code in a page:</div>{{{
+{|
+|+ TITLE
+| *HEADER1* || *HEADER2* || *HEADER3*
+| CELL1 || CELL2 || CELL3
+| CELL1 || [[http://www.google.com|Link to Google]] || CELL3
+| CELL1 || [[Main Page]] || CELL3
+| CELL1 || || CELL3
+|}
+}}}<div class="woas_helptext">To create this:</div>
+{|
+|+ TITLE
+| *HEADER1* || *HEADER2* || *HEADER3*
+| CELL1 || CELL2 || CELL3
+| CELL1 || [[http://www.google.com|Link to Google]] || CELL3
+| CELL1 || [[Main Page]] || CELL3
+| CELL1 || || CELL3
+|}
+
+See also: [[WoaS::Help::Table of Contents]]
 
 --DFQRCTsKlU
