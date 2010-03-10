@@ -1,6 +1,6 @@
 wsif.version: 1.2.0
 woas.version: 0.10.8
-woas.pages: 70
+woas.pages: 71
 
 woas.page.title: ::Menu
 woas.page.attributes: 0
@@ -1397,20 +1397,20 @@ You can edit the contents of the main text area by typing normally. There are li
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Index
 woas.page.attributes: 0
-woas.page.last_modified: 1268183504
-woas.page.length: 2169
+woas.page.last_modified: 1268247287
+woas.page.length: 2196
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Help
+= Help index
 The first time you save a change to Wiki on a Stick, your browser will ask for permission to save data to the disk. This is normal and necessary for the wiki to make changes to itself. You can give permission each time or make the setting permanent.
 
 You will find the *Help* (question mark) icon in the navigation bar on every page in this wiki. When you click on it, it will either open this page or a specific help page that explains how to work with the page you currently have open.
 
 When browsing the pages in this Help pop-up, you will find a *Back* button in the upper right corner that takes you back to this page or a *Close* button in the same place that closes the pop-up.
-== Help contents
+== Contents:
 * *Features*
 ** [[WoaS::Help::Macros]]
 ** [[WoaS::Help::Security]]
@@ -1447,6 +1447,7 @@ When browsing the pages in this Help pop-up, you will find a *Back* button in th
 ** [[WoaS::Help::Include web page]]
 ** [[WoaS::Help::Include wiki page]]
 ** [[WoaS::Help::Join lines of text]]
+** [[WoaS::Help::Links]]
 ** [[WoaS::Help::Lists]]
 ** [[WoaS::Help::Non-breaking spaces]]
 ** [[WoaS::Help::Rulers]]
@@ -1872,8 +1873,8 @@ See also: [[WoaS::Help::Special::Erase Wiki]]
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Edit the menu
 woas.page.attributes: 0
-woas.page.last_modified: 1268242620
-woas.page.length: 841
+woas.page.last_modified: 1268246300
+woas.page.length: 909
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1895,6 +1896,8 @@ To put your menu entries into a bulleted list like those in the default menu:<br
 # Insert an asterisk and a space in front of the page name(s) so they look like this:<br>{{{
 * [[Page name]]}}}<br><br>
 # Save your changes by clicking the *Save* (diskette) icon in the top right navigation panel.
+For different styles of lists, see the [[WoaS::Help::Lists]] page.
+
 
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Headers
@@ -3036,5 +3039,146 @@ Tables can have a specially formatted title row created by adding a pipe followe
 |}
 
 See also: [[WoaS::Help::Table of Contents]]
+
+--DFQRCTsKlU
+woas.page.title: WoaS::Help::Links
+woas.page.attributes: 0
+woas.page.last_modified: 1268247167
+woas.page.length: 8316
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Links
+== Wiki links
+Below are methods for creating links using wiki syntax.
+
+=== Anchor link
+You can use a special anchor link to link to a header on the current page. After clicking an anchor link, use the browser's back button to return to where you were on the page.
+
+<div class="woas_helptext">Use this code in a page, replacing HEADER NAME with the name of the header you'd like to link to:</div>{{{
+[[#HEADER NAME]]
+}}}<br><div class="woas_helptext">To create an anchor link.</div>
+=== Email link
+<div class="woas_helptext">Use this code in a page, replacing USERNAME with the name of the person, SERVER with the name of their server, and LINK TEXT with the text you'd like displayed as a link:</div>{{{
+[[mailto://USERNAME@SERVER|LINK TEXT]]
+}}}<br><div class="woas_helptext">To create this:</div>
+[[mailto://USERNAME@SERVER|LINK TEXT]]
+
+=== Email link with subject
+<div class="woas_helptext">Use this code in a page, replacing USERNAME with the name of the person, SERVER with the name of their server, SUBJECT with the subject of the email, and LINK TEXT with the text you'd like displayed as a link:</div>{{{
+[[mailto://USERNAME@SERVER?subject=SUBJECT|LINK TEXT]]
+}}}<br><div class="woas_helptext">To create this:</div>
+[[mailto://USERNAME@SERVER?subject=SUBJECT|LINK TEXT]]
+
+=== External link (labeled)
+<div class="woas_helptext">Use this code in a page, replacing URL with the address of the web page, and LABEL with the text for the link:</div>{{{
+[[URL|LABEL]]
+}}}<br><div class="woas_helptext">To create a labeled external link like this one:</div>
+[[http://www.google.com|Click here for Google]]
+
+=== External link (plain)
+<div class="woas_helptext">Use this code in a page, replacing URL with the address of the web page:</div>{{{
+[[URL]]
+}}}<br><div class="woas_helptext">To create a plain external link like this one:</div>
+[[http://www.google.com]]
+
+=== Image as link
+==== Base64 image as link
+See the [[Help::Images]] page.
+==== Image as link to wiki page
+<div class="woas_helptext">Use this code in a page, replacing IMAGENAME with the name of an embedded image page, and PAGENAME with the name of a page in this wiki:</div>
+<div class="woas_helpcode">[<!-- -->[I<!-- -->nclude:<!-- -->:Image:<!-- -->:IMAGENAME|style="cursor:pointer" oncl<!-- -->ick="go_<!-- -->to('PA<!-- -->GENAME')"]]</div>
+<div class="woas_helptext">To create an image that links to a page in this wiki, like this alert image that links to the [[WoaS::Help::Index]] page:</div>
+[[Include::Image::alert.png|style="cursor:pointer" onclick="go_to('WoaS::Help::Index')"]]
+
+==== Image as link to web page
+<div class="woas_helptext">Use this code in a page, replacing IMAGENAME with the name of an embedded image page, and URL with the address of a web page:</div>
+<div class="woas_helpcode">[<!-- -->[In<!-- -->clude:<!-- -->:Image:<!-- -->:IMAGENAME|style="cursor:pointer" border="0" onc<!-- -->lick="win<!-- -->dow.o<!-- -->pen('URL')"]<!-- -->]</div>
+<div class="woas_helptext">To create an image that links to a web page, like this alert image that links to the [[http://www.google.com|Google]] page:</div>
+[[Include::Image::alert.png|style="cursor:pointer" border="0" onclick="window.open('http://www.google.com')"]]
+
+=== Include link
+You can include the contents of another page of this wiki in the current page by using an include link.
+
+<div class="woas_helptext">Use this code in a page, replacing PAGENAME with the name of the page you'd like to include:</div>
+<div class="woas_helpcode">[<!-- -->[Include::PAGENAME]<!-- -->]</div>
+<div class="woas_helptext">To include the contents of another page in the current page.</div>
+
+=== Internal action link (labeled)
+These are internal wiki actions in the form of links:<br><br>
+{|
+| *Use this code in a page:* || *To create this:*
+| {{{[[Special::All Pages|All pages]]}}} || [[Special::All Pages|All pages]]
+| {{{[[Special::Backlinks|Backlinks]]}}} || [[Special::Backlinks|Backlinks]]
+| {{{[[Special::Dead Pages|Dead links]]}}} || [[Special::Dead Pages|Dead links]]
+| {{{[[Special::Delete Page|Delete page]]}}} || [[Special::Delete Page|Delete page]]
+| {{{[[Special::Duplicate Page|Duplicate page]]}}} || [[Special::Duplicate Page|Duplicate page]]
+| {{{[[Special::Edit CSS|Edit CSS]]}}} || [[Special::Edit CSS|Edit CSS]]
+| {{{<a class="link" onclick="javascript:edit()">Edit page</a>}}} || <a class="link" onclick="javascript:edit()">Edit page</a>
+| {{{[[Special::Go to|Go to...]]}}} || [[Special::Go to|Go to...]]
+| {{{[[Tagged::Help|Help pages]]}}} || [[Tagged::Help|Help pages]]
+| {{{[[Locked::|Locked pages]]}}} || [[Locked::|Locked pages]]
+| {{{[[Special::Main Page|Main page]]}}} || [[Special::Main Page|Main page]]
+| {{{[[Special::New Page|New page]]}}} || [[Special::New Page|New page]]
+| {{{[[Special::Orphaned Pages|Orphaned pages]]}}} || [[Special::Orphaned Pages|Orphaned pages]]
+| {{{[[Special::Recentchanges|Recentchanges]]}}} || [[Special::Recentchanges|Recentchanges]]
+| {{{[[Special::Search|Search]]}}} || [[Special::Search|Search]]
+| {{{[[Tagged::Syntax|Syntax pages]]}}} || [[Tagged::Syntax|Syntax pages]]
+| {{{[[Tagged::|Tagged pages]]}}} || [[Tagged::|Tagged pages]]
+| {{{[[Unlocked::|Unlocked pages]]}}} || [[Unlocked::|Unlocked pages]]
+| {{{[[Untagged::|Untagged pages]]}}} || [[Untagged::|Untagged pages]]
+|}
+
+=== Internal link (labeled)
+<div class="woas_helptext">Use this code in a page, replacing PAGENAME with the page you want to link to and LABEL with the link text:</div>{{{
+[[PAGENAME|LABEL]]
+}}}<br><div class="woas_helptext">To create a labeled internal link like this one:</div>
+[[WoaS::Help::Index|Click here for the Help index page]]
+
+=== Internal link (plain)
+<div class="woas_helptext">Use this code in a page, replacing PAGENAME withe the page you want to link to:</div>{{{
+[[PAGENAME]]
+}}}<br><div class="woas_helptext">To create a plain internal link like this one:</div>
+[[WoaS::Help::Index]]
+
+== HTML links
+Below are methods for creating links using HTML syntax.
+
+=== Alert box link (button)
+<div class="woas_helptext">Use this code in a page, replacing YOUR MESSAGE GOES HERE with the content for the alert, and YOUR BUTTON TEXT GOES HERE with the text for your button:</div>{{{
+<script type="text/javascript">
+function alertme () {alert("YOUR MESSAGE GOES HERE.");}
+</script>
+<input type=button value="YOUR BUTTON TEXT GOES HERE" onClick="alertme()">
+}}}<br><div class="woas_helptext">To create this:</div><script type="text/javascript">
+function alertme () {alert("YOUR MESSAGE GOES HERE");}
+</script>
+<input type=button value="YOUR BUTTON TEXT GOES HERE" onClick="alertme()">
+
+=== Alert box link (labeled)
+<div class="woas_helptext">Use this code in a page, replacing YOUR MESSAGE GOES HERE with the content for the alert, and YOUR LINK TEXT GOES HERE with the text for your link:</div>{{{
+<a href='javascript:alert("YOUR MESSAGE GOES HERE");'>YOUR LINK TEXT GOES HERE</a>
+}}}<br><div class="woas_helptext">To create this:</div>
+<a href='javascript:alert("YOUR MESSAGE GOES HERE");'>YOUR LINK TEXT GOES HERE</a>
+
+=== External link (button)
+<div class="woas_helptext">Use this code in a page, replacing YOUR BUTTON TEXT GOES HERE with the text for your button, and URL with the address of the web page:</div>{{{
+<input type="button" value="YOUR BUTTON TEXT GOES HERE" onclick="window.open('URL');">
+}}}<br><div class="woas_helptext">To create an external link button like this one:</div>
+<input type="button" value="Google" onclick="window.open('http://www.google.com/');">
+
+=== Internal link (button)
+<div class="woas_helptext">Use this code in a page, replacing BUTTONTEXT with the text you want on the button and PAGENAME with the page you want to link to:</div>{{{
+<input value="BUTTONTEXT" onclick="go_to('PAGENAME')" type="submit" />
+}}}<br><div class="woas_helptext">To create this:</div>
+<input value="BUTTONTEXT" onclick="go_to('PAGENAME')" type="submit" />
+
+=== Internal link (button - with 5 second delay)
+<div class="woas_helptext">Use this code in a page, replacing BUTTONTEXT with the text you want on the button and PAGENAME with the page you want to link to:</div>{{{
+<input type="button" value="BUTTONTEXT" onClick="setTimeout('go_to(\'PAGENAME\')',5000);">
+}}}<br><div class="woas_helptext">To create this:</div>
+<input type="button" value="BUTTONTEXT" onClick="setTimeout('go_to(\'PAGENAME\')',5000);">
 
 --DFQRCTsKlU
