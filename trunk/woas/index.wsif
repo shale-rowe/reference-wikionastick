@@ -2014,22 +2014,22 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Include web page
 woas.page.attributes: 0
-woas.page.last_modified: 1268178266
-woas.page.length: 2628
+woas.page.last_modified: 1268243154
+woas.page.length: 2646
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Help::Include web page
+= Include web page
 Web pages can be included in a page as embedded objects or in iFrames.
 
 [[Include::Image::alert.png]] /Some pages may not render correctly depending on how they're coded. Embedding more than one web page in a wiki page will cause the final embedded web page to steal the focus when the page is loaded, so it's best to have only one per page. As a result, this page contains no examples./
 == Embed a local HTML file as an object
 <div class="woas_helptext">Use this code in a page, replacing PATH with the full path to HTML file you wish to include, and changing the width and height to suit your taste:</div>{{{
 <html><object data="PATH" style="width:100%; height:630px;">File not found.</object></html>
-}}}<div class="woas_helptext">To embed a local HTML file in a page.</div>
-For example, if you want to embed the {{{/Work/MyProject.html}}} file as an object, you'd use this command:{{{
+}}}<br><div class="woas_helptext">To embed a local HTML file in a page.</div>
+For example, if you want to embed the {{{/Work/MyProject.html}}} file as an object, you'd use this command:<br>{{{
 <html><object data="/Work/MyProject.html" style="width:100%; height:630px;">File not found.</object></html>
 }}}
 == Embed a remote URL as an object
@@ -2037,8 +2037,8 @@ This method makes the embedded web page become a seamless part of the page.
 
 <div class="woas_helptext">Use this code in a page, replacing URL with the URL of the page you wish to include, and changing the width and height to suit your taste:</div>{{{
 <html><object data="URL" style="width:100%; height:630px;">URL not found.</object></html>
-}}}<div class="woas_helptext">To embed an external URL in a page.</div>
-For example, if you want to embed the Google page at [[http://www.google.com]] as an object, you'd use this command:{{{
+}}}<br><div class="woas_helptext">To embed an external URL in a page.</div>
+For example, if you want to embed the Google page at [[http://www.google.com]] as an object, you'd use this command:<br>{{{
 <html><object data="http://www.google.com" style="width:100%; height:630px;">URL not found.</object></html>
 }}}
 
@@ -2047,8 +2047,8 @@ This method creates a frame around the embedded web page. The code shown below i
 
 <div class="woas_helptext">Use this code in a page, replacing URL with the URL of the page you wish to include, and changing the width and height to suit your taste:</div>{{{
 <iframe height="400" width="100%" height:630px; src="URL"></iframe>
-}}}<div class="woas_helptext">To include a web page in a wiki page.</div>
-For example, if you want to embed the Google page at [[http://www.google.com]] in an iFrame, you'd use this command:{{{
+}}}<br><div class="woas_helptext">To include a web page in a wiki page.</div>
+For example, if you want to embed the Google page at [[http://www.google.com]] in an iFrame, you'd use this command:<br>{{{
 <iframe height="400" width="100%" height:630px; src="http://www.google.com"></iframe>
 }}}
 
@@ -2080,8 +2080,8 @@ To include the contents of a wiki page inside another wiki page, use an {{{[[Inc
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::JavaScript
 woas.page.attributes: 0
-woas.page.last_modified: 1268178398
-woas.page.length: 5649
+woas.page.last_modified: 1268243792
+woas.page.length: 5656
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -2095,46 +2095,45 @@ To add JavaScript to your page, you must enclose it inside JavaScript tags.
 <script type="text/javascript">
 YOUR_CODE_HERE
 </script>
-}}}<div class="woas_helptext">To add JavaScript to your page.</div>
-
+}}}<br><div class="woas_helptext">To add JavaScript to your page.</div>
 == Adding JavaScript to the wiki source
-According to the author of Wiki on a Stick:
-<blockquote>It is possible to add &lt;script/&gt; tags to your wiki source and they will be correctly rendered in the document &lt;head/&gt; tag upon page loading; also external scripts (using the /src/ attribute) will be parsed and activated, always respecting the order of declaration of the &lt;script /&gt; tags.
+It is possible to add &lt;script/&gt; tags to your wiki source and they will be correctly rendered in the document &lt;head/&gt; tag upon page loading; also external scripts (using the /src/ attribute) will be parsed and activated, always respecting the order of declaration of the &lt;script /&gt; tags.
 
-*Note:* since the javascript tags are activated from within the &lt;head /&gt; tag, you cannot use document.write() or similar inline javascript statements.</blockquote>
+[[Include::WoaS::Template::Info|Since the JavaScript tags are activated from within the &lt;head /&gt; tag, you cannot use document.write() or similar inline JavaScript statements.]]
 == Using external JavaScript
 You can include external JavaScript on a page by placing the script file in the same directory as this wiki and then inserting a reference to it in the body of the page.
 
 <div class="woas_helptext">Use this code in a page, replacing SCRIPTNAME.JS with the name of your script:</div>{{{
 <script src="SCRIPTNAME.JS"></script>
-}}}<div class="woas_helptext">To include an external JavaScript in a page.</div>
+}}}<br><div class="woas_helptext">To include an external JavaScript in a page.</div>
 === Example
-This page contains this code:{{{
+This page contains this code:<br>{{{
 <script src="example.js"></script>
-}}}To see an example using external JavaScript:
-# Create a text file in the same directory as this wiki.<br><br>
-# Paste this into the file:{{{
-alert("This is an example alert!");
 }}}
+To see an example using external JavaScript:
+# Create a text file in the same directory as this wiki.<br><br>
+# Paste this into the file:<br>{{{
+alert("This is an example alert!");
+}}}<br>
 # Save the file as *example.js*<br><br>
 # Reload the wiki.<br><br>
 # Open this page to run the *example.js* script and see the alert.
 <script src="example.js"></script>
 == Using JavaScript to create a temporary page
-This is quite interesting. Using this code, you can get this wiki to create a link to a dynamically created temporary page with custom content (it accepts HTML tags as part of the content) under the JavaScript [[Help::Namespaces|namespace]]. The temporary page will be created each time the link is clicked, and it will be uncreated as soon as you navigate to another page or close the wiki.
+This is quite interesting. Using this code, you can get this wiki to create a link to a dynamically created temporary page with custom content (it accepts HTML tags as part of the content) under the JavaScript [[WoaS::Help::Namespaces|namespace]]. The temporary page will be created each time the link is clicked, and it will be uncreated as soon as you navigate to another page or close the wiki.
 
 <div class="woas_helptext">Use this code in a page, replacing CONTENT with your content, NAME with the page name, and LINK with the text you want the link to have:</div>{{{
 <script>function temporary(arg) {return 'CONTENT';}</script>[[Javascript::temporary('NAME')|LINK]]
-}}}<div class="woas_helptext">To create this:</div>
+}}}<br><div class="woas_helptext">To create this:</div>
 <script>function temporary(arg) {return 'CONTENT';}</script>[[Javascript::temporary('NAME')|LINK]]
 
 [[Include::Image::alert.png]] Only one of these links may be used per page.
 
 Paste each of these into a new page one by one to see what they do:
-* This one uses the temporary page name as part of its content:{{{
+* This one uses the temporary page name as part of its content:<br>{{{
 <script>function temporary(arg) {return 'This page was dynamically created using *'+arg+'* as content!';}</script>[[Javascript::temporary('sample')|Click here]]
-}}}
-* This one demonstrates the use of various HTML tags in the content of the page:{{{
+}}}<br>
+* This one demonstrates the use of various HTML tags in the content of the page:<br>{{{
 <script>function temporary(arg) {return 'This page contains more than one line.<br>This line contains <b>bold</b>, <i>italic</i>, <u>underlined</u>, and <font color="red">colored</font> text.<br><br>And here is a list:<br><ul><li>item1</li><li>item2</li><li>item3</li></ul>';}</script>[[Javascript::temporary('My Page')|Click here]]
 }}}
 
@@ -2147,7 +2146,7 @@ The code below will redirect from the current page to the wiki page you specify 
 <script type="text/javascript">
 setTimeout(onload="go_to('PAGENAME')",10*1000);
 </script>
-}}}<div class="woas_helptext">To redirect the current page to the PAGENAME page 10 seconds after the current page loads.</div>
+}}}<br><div class="woas_helptext">To redirect the current page to the PAGENAME page 10 seconds after the current page loads.</div>
 Note that this will redirect to the next page even if you're in the editor! The only indication you will have if you're in the editor is that name in the the Page title box will change to the name of the redirected page. If you don't check this before saving, your changes will be saved to the redirected page, overwriting its contents.
 
 It's a good idea to put this code near the top of any page (preferably directly beneath the first header on the page) so that you can find it quickly, and also to make the delay at *least* 10 seconds so that you have time to open the page in the editor, change the *PAGENAME* portion of the code to a nonexistent page, and then save the page before the timer runs out. Then you can reopen the page safely without risk of it redirecting while you're working on it. All that will happen if you give the script a nonexistent page name is that an alert will pop up asking if you'd like to create the nonexistent page. You can click *Cancel* when that popup comes up and continue working without further interruption. An even safer method is to open the wiki in a text editor and make changes to the page contents from there.
@@ -2155,14 +2154,14 @@ It's a good idea to put this code near the top of any page (preferably directly 
 == Using JavaScript to reload the wiki
 <div class="woas_helptext">Use this code in a page:</div>{{{
 <input type="button" value="Reload wiki" onClick="window.location.href=window.location.href">
-}}}<div class="woas_helptext">To create this:</div>
+}}}<br><div class="woas_helptext">To create this:</div>
 <input type="button" value="Reload wiki" onClick="window.location.href=window.location.href">
 
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Join lines of text
 woas.page.attributes: 0
-woas.page.last_modified: 1268178465
-woas.page.length: 853
+woas.page.last_modified: 1268243872
+woas.page.length: 857
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -2177,7 +2176,7 @@ If you have lengthy content that you'd like to break up into shorter lines in th
 Putting a \ at the end of any line \
 makes it join together \
 with the line below it.
-}}}<div class="woas_helptext">To create this:</div>
+}}}<br><div class="woas_helptext">To create this:</div>
 Putting a \ at the end of any line \
 makes it join together \
 with the line below it.
@@ -2527,8 +2526,8 @@ TiddlySaver.jar"
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Lists
 woas.page.attributes: 0
-woas.page.last_modified: 1268180101
-woas.page.length: 12865
+woas.page.last_modified: 1268244057
+woas.page.length: 12961
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -2556,7 +2555,7 @@ Wiki markup lists are created with between one and five specific characters ({{{
 @@@ Test
 @@@@ Test
 @ Test
-}}}<div class="woas_helptext">To create this:</div>
+}}}<br><div class="woas_helptext">To create this:</div>
 @ Test
 @ Test
 @ Test
@@ -2574,7 +2573,7 @@ Wiki markup lists are created with between one and five specific characters ({{{
 **** Test
 * Test
 * Test
-}}}<div class="woas_helptext">To create this:</div><br>
+}}}<br><div class="woas_helptext">To create this:</div><br>
 * Test
 * Test
 ** Test
@@ -2588,7 +2587,7 @@ Wiki markup lists are created with between one and five specific characters ({{{
 * ITEM 1 - ITEM 1 SUBTEXT <blockquote>ITEM 1 MORE SUBTEXT</blockquote>
 * ITEM 2 - ITEM 2 SUBTEXT <blockquote>ITEM 2 MORE SUBTEXT</blockquote>
 * ITEM 3 - ITEM 3 SUBTEXT <blockquote>ITEM 3 MORE SUBTEXT</blockquote>
-}}}<div class="woas_helptext">To create this:</div><br>
+}}}<br><div class="woas_helptext">To create this:</div><br>
 * ITEM 1 - ITEM 1 SUBTEXT <blockquote>ITEM 1 MORE SUBTEXT</blockquote>
 * ITEM 2 - ITEM 2 SUBTEXT <blockquote>ITEM 2 MORE SUBTEXT</blockquote>
 * ITEM 3 - ITEM 3 SUBTEXT <blockquote>ITEM 3 MORE SUBTEXT</blockquote>
@@ -2602,7 +2601,7 @@ Wiki markup lists are created with between one and five specific characters ({{{
 #### Test
 # Test
 # Test
-}}}<div class="woas_helptext">To create this:</div><br>
+}}}<br><div class="woas_helptext">To create this:</div><br>
 # Test
 # Test
 ## Test
@@ -2616,7 +2615,7 @@ Wiki markup lists are created with between one and five specific characters ({{{
 # ITEM 1 - ITEM 1 SUBTEXT <blockquote>ITEM 1 MORE SUBTEXT</blockquote>
 # ITEM 2 - ITEM 2 SUBTEXT <blockquote>ITEM 2 MORE SUBTEXT</blockquote>
 # ITEM 3 - ITEM 3 SUBTEXT <blockquote>ITEM 3 MORE SUBTEXT</blockquote>
-}}}<div class="woas_helptext">To create this:</div><br>
+}}}<br><div class="woas_helptext">To create this:</div><br>
 # ITEM 1 - ITEM 1 SUBTEXT <blockquote>ITEM 1 MORE SUBTEXT</blockquote>
 # ITEM 2 - ITEM 2 SUBTEXT <blockquote>ITEM 2 MORE SUBTEXT</blockquote>
 # ITEM 3 - ITEM 3 SUBTEXT <blockquote>ITEM 3 MORE SUBTEXT</blockquote>
@@ -2633,7 +2632,7 @@ This method is useful when an entire list will use one list item type. This way 
 <li>lower-alpha</li>
 <li>lower-alpha</li>
 </ol>
-}}}<div class="woas_helptext">To create this:</div>
+}}}<br><div class="woas_helptext">To create this:</div>
 <ol style="list-style-type:lower-alpha;">
 <li>lower-alpha</li>
 <li>lower-alpha</li>
@@ -2646,7 +2645,7 @@ This method is useful when an entire list will use one list item type. This way 
 <li>upper-alpha</li>
 <li>upper-alpha</li>
 </ol>
-}}}<div class="woas_helptext">To create this:</div>
+}}}<br><div class="woas_helptext">To create this:</div>
 <ol style="list-style-type:upper-alpha;">
 <li>upper-alpha</li>
 <li>upper-alpha</li>
@@ -2659,7 +2658,7 @@ This method is useful when an entire list will use one list item type. This way 
 <li>decimal</li>
 <li>decimal</li>
 </ol>
-}}}<div class="woas_helptext">To create this:</div>
+}}}<br><div class="woas_helptext">To create this:</div>
 <ol style="list-style-type:decimal;">
 <li>decimal</li>
 <li>decimal</li>
@@ -2672,7 +2671,7 @@ This method is useful when an entire list will use one list item type. This way 
 <li>lower-roman</li>
 <li>lower-roman</li>
 </ol>
-}}}<div class="woas_helptext">To create this:</div>
+}}}<br><div class="woas_helptext">To create this:</div>
 <ol style="list-style-type:lower-roman;">
 <li>lower-roman</li>
 <li>lower-roman</li>
@@ -2685,7 +2684,7 @@ This method is useful when an entire list will use one list item type. This way 
 <li>upper-roman</li>
 <li>upper-roman</li>
 </ol>
-}}}<div class="woas_helptext">To create this:</div>
+}}}<br><div class="woas_helptext">To create this:</div>
 <ol style="list-style-type:upper-roman;">
 <li>upper-roman</li>
 <li>upper-roman</li>
@@ -2701,7 +2700,7 @@ This method is useful when an entire list will use one list item type. This way 
 <li>circle</li>
 <li>circle</li>
 </ul>
-}}}<div class="woas_helptext">To create this:</div>
+}}}<br><div class="woas_helptext">To create this:</div>
 <ul style="list-style-type:circle;">
 <li>circle</li>
 <li>circle</li>
@@ -2714,7 +2713,7 @@ This method is useful when an entire list will use one list item type. This way 
 <li>disc</li>
 <li>disc</li>
 </ul>
-}}}<div class="woas_helptext">To create this:</div>
+}}}<br><div class="woas_helptext">To create this:</div>
 <ul style="list-style-type:disc;">
 <li>disc</li>
 <li>disc</li>
@@ -2727,7 +2726,7 @@ This method is useful when an entire list will use one list item type. This way 
 <li>none</li>
 <li>none</li>
 </ul>
-}}}<div class="woas_helptext">To create this:</div>
+}}}<br><div class="woas_helptext">To create this:</div>
 <ul style="list-style-type:none;">
 <li>none</li>
 <li>none</li>
@@ -2740,7 +2739,7 @@ This method is useful when an entire list will use one list item type. This way 
 <li>square</li>
 <li>square</li>
 </ul>
-}}}<div class="woas_helptext">To create this:</div>
+}}}<br><div class="woas_helptext">To create this:</div>
 <ul style="list-style-type:square;">
 <li>square</li>
 <li>square</li>
@@ -2756,7 +2755,7 @@ This method is useful when an creating a fancy list with more than one list item
 <li style="list-style-type:lower-alpha;">lower-alpha</li>
 <li style="list-style-type:lower-alpha;">lower-alpha</li>
 </ol>
-}}}<div class="woas_helptext">To create this:</div>
+}}}<br><div class="woas_helptext">To create this:</div>
 <ol>
 <li style="list-style-type:lower-alpha;">lower-alpha</li>
 <li style="list-style-type:lower-alpha;">lower-alpha</li>
@@ -2769,7 +2768,7 @@ This method is useful when an creating a fancy list with more than one list item
 <li style="list-style-type:upper-alpha;">upper-alpha</li>
 <li style="list-style-type:upper-alpha;">upper-alpha</li>
 </ol>
-}}}<div class="woas_helptext">To create this:</div>
+}}}<br><div class="woas_helptext">To create this:</div>
 <ol>
 <li style="list-style-type:upper-alpha;">upper-alpha</li>
 <li style="list-style-type:upper-alpha;">upper-alpha</li>
@@ -2782,7 +2781,7 @@ This method is useful when an creating a fancy list with more than one list item
 <li style="list-style-type:circle;">circle</li>
 <li style="list-style-type:circle;">circle</li>
 </ol>
-}}}<div class="woas_helptext">To create this:</div>
+}}}<br><div class="woas_helptext">To create this:</div>
 <ol>
 <li style="list-style-type:circle;">circle</li>
 <li style="list-style-type:circle;">circle</li>
@@ -2795,7 +2794,7 @@ This method is useful when an creating a fancy list with more than one list item
 <li style="list-style-type:decimal;">decimal</li>
 <li style="list-style-type:decimal;">decimal</li>
 </ol>
-}}}<div class="woas_helptext">To create this:</div>
+}}}<br><div class="woas_helptext">To create this:</div>
 <ol>
 <li style="list-style-type:decimal;">decimal</li>
 <li style="list-style-type:decimal;">decimal</li>
@@ -2808,7 +2807,7 @@ This method is useful when an creating a fancy list with more than one list item
 <li style="list-style-type:disc;">disc</li>
 <li style="list-style-type:disc;">disc</li>
 </ol>
-}}}<div class="woas_helptext">To create this:</div>
+}}}<br><div class="woas_helptext">To create this:</div>
 <ol>
 <li style="list-style-type:disc;">disc</li>
 <li style="list-style-type:disc;">disc</li>
@@ -2821,7 +2820,7 @@ This method is useful when an creating a fancy list with more than one list item
 <li style="list-style-type:lower-roman;">lower-roman</li>
 <li style="list-style-type:lower-roman;">lower-roman</li>
 </ol>
-}}}<div class="woas_helptext">To create this:</div>
+}}}<br><div class="woas_helptext">To create this:</div>
 <ol>
 <li style="list-style-type:lower-roman;">lower-roman</li>
 <li style="list-style-type:lower-roman;">lower-roman</li>
@@ -2834,7 +2833,7 @@ This method is useful when an creating a fancy list with more than one list item
 <li style="list-style-type:none;">none</li>
 <li style="list-style-type:none;">none</li>
 </ol>
-}}}<div class="woas_helptext">To create this:</div>
+}}}<br><div class="woas_helptext">To create this:</div>
 <ol>
 <li style="list-style-type:none;">none</li>
 <li style="list-style-type:none;">none</li>
@@ -2847,7 +2846,7 @@ This method is useful when an creating a fancy list with more than one list item
 <li style="list-style-type:square;">square</li>
 <li style="list-style-type:square;">square</li>
 </ol>
-}}}<div class="woas_helptext">To create this:</div>
+}}}<br><div class="woas_helptext">To create this:</div>
 <ol>
 <li style="list-style-type:square;">square</li>
 <li style="list-style-type:square;">square</li>
@@ -2860,7 +2859,7 @@ This method is useful when an creating a fancy list with more than one list item
 <li style="list-style-type:upper-roman;">upper-roman</li>
 <li style="list-style-type:upper-roman;">upper-roman</li>
 </ol>
-}}}<div class="woas_helptext">To create this:</div>
+}}}<br><div class="woas_helptext">To create this:</div>
 <ol>
 <li style="list-style-type:upper-roman;">upper-roman</li>
 <li style="list-style-type:upper-roman;">upper-roman</li>
@@ -2896,7 +2895,7 @@ This method is useful when an creating a fancy list with more than one list item
       </ol>
    </ol>
 </ol>
-}}}<div class="woas_helptext">To create this:</div>
+}}}<br><div class="woas_helptext">To create this:</div>
 <ol>
 <li style="list-style-type:lower-alpha;">lower-alpha</li>
    <ol>
