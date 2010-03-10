@@ -2256,8 +2256,8 @@ You can type *My favorite recipes!* into the {{{[[Recipes::Menu]]}}} page, and a
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Text formatting
 woas.page.attributes: 0
-woas.page.last_modified: 1268178939
-woas.page.length: 2129
+woas.page.last_modified: 1268245214
+woas.page.length: 2169
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -2267,7 +2267,7 @@ woas.page.boundary: DFQRCTsKlU
 == Blinking
 <div class="woas_helptext">Use this code in a page:</div>{{{
 <blink>This is blinking text.</blink>
-}}}<div class="woas_helptext">To create this:</div>
+}}}<br><div class="woas_helptext">To create this:</div>
 <blink>This is blinking text.</blink>
 
 [[Include::Image::alert.png]] /This is not supported in Chrome, IE, or Safari./
@@ -2275,52 +2275,52 @@ woas.page.boundary: DFQRCTsKlU
 == Bold
 <div class="woas_helptext">Use this code in a page:</div>{{{
 *This is bold text.*
-}}}<div class="woas_helptext">To create this:</div>
+}}}<br><div class="woas_helptext">To create this:</div>
 *This is bold text.*
 
 == Colored
 <div class="woas_helptext">Use this code in a page:</div>{{{
 <font color="#FF00FF">This is colored text.</font>
-}}}<div class="woas_helptext">To create this:</div>
+}}}<br><div class="woas_helptext">To create this:</div>
 <font color="#FF00FF">This is colored text.</font>
 
 <div class="woas_helptext">Or use this code in a page:</div>{{{
 <font color="fuchsia">This is colored text.</font>
-}}}<div class="woas_helptext">To create this:</div>
+}}}<br><div class="woas_helptext">To create this:</div>
 <font color="fuchsia">This is colored text.</font>
 
 <div class="woas_helptext">Or use this code in a page:</div>{{{
 <span style="color:#FF00FF">This is colored text.</span>
-}}}<div class="woas_helptext">To create this:</div>
+}}}<br><div class="woas_helptext">To create this:</div>
 <span style="color:#FF00FF">This is colored text.</span>
 
 <div class="woas_helptext">Or use this code in a page:</div>{{{
 <span style="color:fuchsia">This is colored text.</span>
-}}}<div class="woas_helptext">To create this:</div>
+}}}<br><div class="woas_helptext">To create this:</div>
 <span style="color:fuchsia">This is colored text.</span>
 
 == Italic
 <div class="woas_helptext">Use this code in a page:</div>{{{
 /This is italic text./
-}}}<div class="woas_helptext">To create this:</div>
+}}}<br><div class="woas_helptext">To create this:</div>
 /This is italic text./
 
 == Plain
 <div class="woas_helptext">Use this code in a page:</div>{{{
 This is plain text.
-}}}<div class="woas_helptext">To create this:</div>
+}}}<br><div class="woas_helptext">To create this:</div>
 This is plain text.
 
 == Underlined
 <div class="woas_helptext">Use this code in a page:</div>{{{
 _This is underlined text._
-}}}<div class="woas_helptext">To create this:</div>
+}}}<br><div class="woas_helptext">To create this:</div>
 _This is underlined text._
 
 == Underlined Bold Italic
 <div class="woas_helptext">Use this code in a page:</div>{{{
 _*/This is underlined and bold and italic text./*_
-}}}<div class="woas_helptext">To create this:</div>
+}}}<br><div class="woas_helptext">To create this:</div>
 _*/This is underlined and bold and italic text./*_
 
 --DFQRCTsKlU
@@ -2373,8 +2373,8 @@ You can insert a Table of Contents into your page by using a special wiki tag. I
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Tags
 woas.page.attributes: 0
-woas.page.last_modified: 1268177763
-woas.page.length: 3866
+woas.page.last_modified: 1268245135
+woas.page.length: 3874
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -2398,10 +2398,7 @@ Tag a page by using a {{{[[Tag::]]}}} link, adding the tag name or names after t
 === Add more than one tag to a page (method 1)
 # Place your cursor at the bottom of the page.<br><br>
 # Click the *Tags* button in the editor.<br><br>
-# Type in names for the tags, separating each from the one before it with a pipe. For example:<br><br>
-## <div class="woas_helptext">Use this code in a page, replacing EXAMPLE1, EXAMPLE2, and EXAMPLE3 with the names of the tags you'd like to add:</div>
-## <div class="woas_helpcode">[<!-- -->[T<!-- -->ag::EX<!-- -->AMPLE1|EX<!-- -->AMPLE2|EX<!-- -->AMPLE3]<!-- -->]</div>
-## <div class="woas_helptext">To add three tags to your page.</div>
+# Type in names for the tags, separating each from the one before it with a pipe. For example:<br><br><div class="woas_helptext">Use this code in a page, replacing EXAMPLE1, EXAMPLE2, and EXAMPLE3 with the names of the tags you'd like to add:</div><br><div class="woas_helpcode">[<!-- -->[T<!-- -->ag::EX<!-- -->AMPLE1|EX<!-- -->AMPLE2|EX<!-- -->AMPLE3]<!-- -->]</div><br><div class="woas_helptext">To add three tags to your page.</div><br>
 # Click the *OK* button.
 
 === Add more than one tag to a page (method 2)
@@ -2418,7 +2415,7 @@ Tag names can be more than one word long with a space between each word. For exa
 <div class="woas_helptext">To create a listing of pages tagged with EXAMPLE.</div>
 
 === Add a filtered link to tagged pages
-By putting an exclamation mark (*!*) in front of the tag name, you can filter out a specific tag from a tagged pages list:
+By putting an exclamation mark (*!*) in front of the tag name, you can filter out a specific tag from a tagged pages list:<br>
 <div class="woas_helptext">Use this code in a page, replacing EXAMPLE with the tag you'd like to filter out:</div>
 <div class="woas_helpcode">[<!-- -->[Tagged::!EXAMPLE]<!-- -->]</div>
 <div class="woas_helptext">To create a filtered listing of tagged pages that are not tagged with EXAMPLE.</div>
@@ -2429,7 +2426,7 @@ By putting an exclamation mark (*!*) in front of the tag name, you can filter ou
 <div class="woas_helptext">To display a listing of pages tagged with EXAMPLE inside the current page.</div>
 
 === Include a filtered listing of tagged pages
-By putting an exclamation mark (*!*) in front of the tag name, you can filter out a specific tag from a tagged pages list:
+By putting an exclamation mark (*!*) in front of the tag name, you can filter out a specific tag from a tagged pages list:<br>
 <div class="woas_helptext">Use this code in a page, replacing EXAMPLE with the tag you'd like to filter out:</div>
 <div class="woas_helpcode">[<!-- -->[Include::Tagged::!EXAMPLE]<!-- -->]</div>
 <div class="woas_helptext">To display a filtered listing of tagged pages that are not tagged with EXAMPLE inside the current page.</div>
@@ -2932,8 +2929,8 @@ This method is useful when an creating a fancy list with more than one list item
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Tables
 woas.page.attributes: 0
-woas.page.last_modified: 1268183459
-woas.page.length: 2329
+woas.page.last_modified: 1268244841
+woas.page.length: 2350
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -2955,7 +2952,7 @@ The content inside tables can contain internal and external links, and these kin
 | CELL1 || CELL2
 | CELL1 || CELL2
 |}
-}}}<div class="woas_helptext">To create this:</div>
+}}}<br><div class="woas_helptext">To create this:</div>
 {|
 | CELL1 || CELL2
 | CELL1 || CELL2
@@ -2967,7 +2964,7 @@ The content inside tables can contain internal and external links, and these kin
 |-
 | CELL1 || CELL2
 |}
-}}}<div class="woas_helptext">To create this:</div>
+}}}<br><div class="woas_helptext">To create this:</div>
 {|
 | CELL1 || CELL2
 |-
@@ -2975,13 +2972,14 @@ The content inside tables can contain internal and external links, and these kin
 |}
 
 The line that starts with {{{|- }}} is a comment line. You can type some text after it which will only be visible when viewing the source:
+
 <div class="woas_helptext">Use this code in a page:</div>{{{
 {|
 | CELL1 || CELL2
 |- This is a comment.
 | CELL1 || CELL2
 |}
-}}}<div class="woas_helptext">To create this:</div>
+}}}<br><div class="woas_helptext">To create this:</div>
 {|
 | CELL1 || CELL2
 |- This is a comment.
@@ -3004,7 +3002,7 @@ Tables can have a specially formatted title row created by adding a pipe followe
 |-
 | CELL1 || || CELL3
 |}
-}}}<div class="woas_helptext">To create this:</div>
+}}}<br><div class="woas_helptext">To create this:</div>
 {|
 |+ TITLE
 | *HEADER1* || *HEADER2* || *HEADER3*
@@ -3027,7 +3025,7 @@ Tables can have a specially formatted title row created by adding a pipe followe
 | CELL1 || [[Main Page]] || CELL3
 | CELL1 || || CELL3
 |}
-}}}<div class="woas_helptext">To create this:</div>
+}}}<br><div class="woas_helptext">To create this:</div>
 {|
 |+ TITLE
 | *HEADER1* || *HEADER2* || *HEADER3*
