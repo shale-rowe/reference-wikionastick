@@ -1397,7 +1397,7 @@ You can edit the contents of the main text area by typing normally. There are li
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Index
 woas.page.attributes: 0
-woas.page.last_modified: 1268247287
+woas.page.last_modified: 1268247678
 woas.page.length: 2196
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1412,7 +1412,6 @@ You will find the *Help* (question mark) icon in the navigation bar on every pag
 When browsing the pages in this Help pop-up, you will find a *Back* button in the upper right corner that takes you back to this page or a *Close* button in the same place that closes the pop-up.
 == Contents:
 * *Features*
-** [[WoaS::Help::Macros]]
 ** [[WoaS::Help::Security]]
 ** [[WoaS::Help::WSIF]]
 * *Interface*
@@ -1449,6 +1448,7 @@ When browsing the pages in this Help pop-up, you will find a *Back* button in th
 ** [[WoaS::Help::Join lines of text]]
 ** [[WoaS::Help::Links]]
 ** [[WoaS::Help::Lists]]
+** [[WoaS::Help::Macros]]
 ** [[WoaS::Help::Non-breaking spaces]]
 ** [[WoaS::Help::Rulers]]
 ** [[WoaS::Help::Syntax]]
@@ -2212,8 +2212,8 @@ word &nbsp;&nbsp;&nbsp; word}}}word &nbsp;&nbsp;&nbsp; word
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Namespaces
 woas.page.attributes: 0
-woas.page.last_modified: 1268174824
-woas.page.length: 2678
+woas.page.last_modified: 1268248223
+woas.page.length: 2771
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -2232,6 +2232,7 @@ An advantage of creating parent and child pages is that the full path to each pa
 
 == Namespaces reserved by this wiki
 These namespaces are reserved by the wiki for use by the wiki:
+* *Javascript::* for direct JavaScript execution
 * *Lock::* used internally for encrypted pages
 * *Locked::* for encrypted pages
 * *Special::* for all the special pages
@@ -2241,9 +2242,10 @@ These namespaces are reserved by the wiki for use by the wiki:
 * *Unlocked::* for plain (unencrypted) pages
 * *WoaS::* for aliases, the bootscript page, the Help pages, and templates used by the Help pages
 
-These namespaces are reserved by the wiki for use by the user:
+These namespaces are reserved by the wiki for use by the wiki and the user:
 * *File::* for embedded files
 * *Image::* for embedded images
+* *Include::* for transclusion
 
 === Namespace sub-menu
 If you add *::Menu* to the end of a page name, a sub-menu will be temporarily added below the main menu when any pages belonging to that page's namespace are opened. You can determine what goes into that temporary menu entry by editing the page with *::Menu* in its name. All content on the page will be displayed in the sub-menu. The sub-menu will vanish as soon as you navigate away from that namespace.
@@ -3043,8 +3045,8 @@ See also: [[WoaS::Help::Table of Contents]]
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Links
 woas.page.attributes: 0
-woas.page.last_modified: 1268247167
-woas.page.length: 8316
+woas.page.last_modified: 1268248849
+woas.page.length: 8649
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -3162,6 +3164,12 @@ function alertme () {alert("YOUR MESSAGE GOES HERE");}
 <a href='javascript:alert("YOUR MESSAGE GOES HERE");'>YOUR LINK TEXT GOES HERE</a>
 }}}<br><div class="woas_helptext">To create this:</div>
 <a href='javascript:alert("YOUR MESSAGE GOES HERE");'>YOUR LINK TEXT GOES HERE</a>
+
+=== Edit page link
+<div class="woas_helptext">Use this code in a page, replacing LINK with the text for your link:</div>{{{
+<a class="link" onclick="javascript:edit()" title="Edit this page">LINK</a>
+}}}<br><div class="woas_helptext">To create this:</div>
+<a class="link" onclick="javascript:edit()" title="Edit this page">LINK</a>
 
 === External link (button)
 <div class="woas_helptext">Use this code in a page, replacing YOUR BUTTON TEXT GOES HERE with the text for your button, and URL with the address of the web page:</div>{{{
