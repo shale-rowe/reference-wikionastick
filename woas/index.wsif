@@ -1,6 +1,6 @@
 wsif.version: 1.2.0
 woas.version: 0.10.8
-woas.pages: 71
+woas.pages: 72
 
 woas.page.title: ::Menu
 woas.page.attributes: 0
@@ -1397,8 +1397,8 @@ You can edit the contents of the main text area by typing normally. There are li
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Index
 woas.page.attributes: 0
-woas.page.last_modified: 1268247678
-woas.page.length: 2196
+woas.page.last_modified: 1268260741
+woas.page.length: 2222
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1442,6 +1442,7 @@ When browsing the pages in this Help pop-up, you will find a *Back* button in th
 * *Syntax*
 ** [[WoaS::Help::Code blocks]]
 ** [[WoaS::Help::Headers]]
+** [[WoaS::Help::Images]]
 ** [[WoaS::Help::Include text file]]
 ** [[WoaS::Help::Include web page]]
 ** [[WoaS::Help::Include wiki page]]
@@ -3045,8 +3046,8 @@ See also: [[WoaS::Help::Table of Contents]]
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Links
 woas.page.attributes: 0
-woas.page.last_modified: 1268248849
-woas.page.length: 8649
+woas.page.last_modified: 1268260940
+woas.page.length: 8655
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -3088,7 +3089,7 @@ You can use a special anchor link to link to a header on the current page. After
 
 === Image as link
 ==== Base64 image as link
-See the [[Help::Images]] page.
+See the [[WoaS::Help::Images]] page.
 ==== Image as link to wiki page
 <div class="woas_helptext">Use this code in a page, replacing IMAGENAME with the name of an embedded image page, and PAGENAME with the name of a page in this wiki:</div>
 <div class="woas_helpcode">[<!-- -->[I<!-- -->nclude:<!-- -->:Image:<!-- -->:IMAGENAME|style="cursor:pointer" oncl<!-- -->ick="go_<!-- -->to('PA<!-- -->GENAME')"]]</div>
@@ -3188,5 +3189,145 @@ function alertme () {alert("YOUR MESSAGE GOES HERE");}
 <input type="button" value="BUTTONTEXT" onClick="setTimeout('go_to(\'PAGENAME\')',5000);">
 }}}<br><div class="woas_helptext">To create this:</div>
 <input type="button" value="BUTTONTEXT" onClick="setTimeout('go_to(\'PAGENAME\')',5000);">
+
+--DFQRCTsKlU
+woas.page.title: WoaS::Help::Images
+woas.page.attributes: 0
+woas.page.last_modified: 1268260813
+woas.page.length: 9323
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Images
+Wiki on a Stick offers various ways of using images in your pages. You can link to local image files on your drive, remote image files, or embed image files into the wiki.
+
+[[Include::WoaS::Template::Info|Embedded images are encoded with Base64 and are 33% bigger than the original files. Since this wiki is a single file, excessive use of images will slow down performance.]]
+
+== Add an alert image to a page
+<div class="woas_helptext">Use this code in a page:</div>{{{
+[[Include::Image::alert.png]]
+}}}<br><div class="woas_helptext">To create this:</div>
+[[Include::Image::alert.png]]
+
+== Add an external image from the internet
+<div class="woas_helptext">Use this code in a page, replacing URL with the full link to the image:</div>{{{
+<img src="URL">
+}}}<br><div class="woas_helptext">To add an external image from the internet.</div>
+
+* *Example:*<br><br>
+** <div class="woas_helptext">Use this code:</div>{{{
+<img src="http://www.google.com/intl/en_ALL/images/logo.gif">
+}}}<br><div class="woas_helptext">To create this:</div><br><img src="http://www.google.com/intl/en_ALL/images/logo.gif">
+
+== Add a local image from your hard drive
+<div class="woas_helptext">Use this code in a page, replacing PATH with the full path to the local file you'd like to display:</div>{{{
+<img src="file://PATH">
+}}}<br><div class="woas_helptext">To add a local image from your hard drive.</div>
+
+* *Linux example using a default Kubuntu image:*<br>{{{
+<img src="file:///usr/share/icons/default.kde/16x16/actions/stop.png">
+}}}<br>
+* *Windows example using a default Windows 7 image:*<br>{{{
+<img src="file://localhost/C:/Documents and Settings/All Users/Documents/My Pictures/Sample Pictures/Blue hills.jpg">
+}}}
+
+== Embed an image in the wiki
+This wiki provides an interface for embedding images. Each image will be given its own page, which you can use in an include link to insert the image anywhere in this wiki.
+
+Before you begin, it's important to note that when coming up with names for your images, you don't need the full file name with its extension (example: *home.jpg* could just be named *home*).
+
+[[Include::Image::alert.png]] <span class="woas_helptext">*Replace NAME in these instructions with the name you'd like to give the image you're embedding:*</span>
+
+# Create a new page or open an existing page in the editor by clicking the *Edit* (pencil) icon in the navigation bar.<br><br>
+# Create an include link for a new image. There are two ways you can do this:<br><br>
+## Use this code anywhere you'd like to include an image:<pre>[\
+[In\
+clude::Image::N\
+AME]\
+]</pre>
+## Or click the editor's *Image* button and type in a name for the image.<br><br>
+# Click the *Save* (diskette) icon in the navigation bar to save the page.<br><br>
+# Part of the include link you just created will be red, indicating that the image doesn't exist yet.<br><br>
+# Click on the red part of the link to launch the embedding interface.<br><br>
+# Browse to the image you'd like to embed.<br><br>
+# Click the *Embed* button. You'll be taken to the *Image::NAME* page (with *NAME* being the name you gave the image) with your image embedded in it.<br><br>
+# Click the Back (arrow) icon in the navigation bar to return to the page you created the include link on. The image you embedded should now be where the include link was.
+
+=== Use an embedded image
+Once an image is embedded, you can use the same include link you used to add the embedded image to include the image anywhere in the wiki. Since the image is already embedded, it will automatically display without requiring you to launch the embedding interface again.
+# Create a new page or open an existing page in the editor by clicking the *Edit* (pencil) icon in the navigation bar.<br><br>
+# Create an include link for an already embedded image. There are two ways you can do this:<br><br>
+## Use this code wherever you like, replacing NAME with the name of the image you wish to include:<pre>[\
+[In\
+clude::Image::N\
+AME]\
+]</pre>
+## Or click the editor's *Image* button and type in the name of the image.<br><br>
+# Click the *Save* (diskette) icon in the navigation bar to save the page. The image should now be where the include link was.
+
+== Add a Base64 image
+Images can be embedded in the wiki manually using Base64. Get the Base64 code of an image by using an online service like [[http://www.motobit.com/util/base64-decoder-encoder.asp|this one]], using utilities that are made for your operating system, or using software that comes with your operating system. For example, in Ubuntu you can open a terminal window in the directory the image is in and type {{{base64 imagename}}} using the name of the image in place of *imagename*.
+
+The resulting Base64 code will be a series of letters and characters similar to this example, but sometimes far longer:
+{{{
+R0lGODlhBgAFAIABAAAAAP///yH5BAEAAAEALAAAAAAGAAUAAAIJDGJ4ic1qgAwFADs=
+}}}
+<div class="woas_helptext">Use this code in a page, replacing YOUR_CODE_HERE with your Base64 code:</div>{{{
+<img src="data:image/png;base64,YOUR_CODE_HERE">
+}}}<br><div class="woas_helptext">To embed an image in a page.</div>
+
+* *Example:*<br><br>
+** <div class="woas_helptext">Use this example code:</div>{{{
+<img src="data:image/png;base64,R0lGODlhBgAFAIABAAAAAP///yH5BAEAAAEALAAAAAAGAAUAAAIJDGJ4ic1qgAwFADs=">
+}}}<br><div class="woas_helptext">To create this:</div><img src="data:image/png;base64,R0lGODlhBgAFAIABAAAAAP///yH5BAEAAAEALAAAAAAGAAUAAAIJDGJ4ic1qgAwFADs=">
+
+== Use a Base64 image as an include link
+Create a new page, remove the automatically created header, and embed a Base64 image in it. Now you can insert that image anywhere in the wiki by using this code, replacing PAGENAME with the name of the page you created:<br>{{{
+[[Include::PAGENAME]]
+}}}
+
+== Use a Base64 image as a link to an alert
+<div class="woas_helptext">Use this code in a page, replacing YOUR ALERT TEXT HERE with whatever you'd like the alert to say, and YOUR_CODE_HERE with your Base64 code:</div>{{{
+<input type="image" onclick='alert("YOUR ALERT TEXT HERE")' src="data:image/png;base64,YOUR_CODE_HERE">
+}}}<br><div class="woas_helptext">To use a Base64 image as a link to an alert.</div>
+
+* *Example:*<br><br>
+** <div class="woas_helptext">Use this example code:</div>{{{
+<input type="image" onclick='alert("THIS IS AN ALERT!")' src="data:image/png;base64,R0lGODlhBgAFAIABAAAAAP///yH5BAEAAAEALAAAAAAGAAUAAAIJDGJ4ic1qgAwFADs=">
+}}}<br><div class="woas_helptext">To create this:</div><input type="image" onclick='alert("THIS IS AN ALERT!")' src="data:image/png;base64,R0lGODlhBgAFAIABAAAAAP///yH5BAEAAAEALAAAAAAGAAUAAAIJDGJ4ic1qgAwFADs=">
+
+== Use a Base64 image as a link to an external web page
+<div class="woas_helptext">Use this code in a page, replacing URL with the address of a website, and YOUR_CODE_HERE with your Base64 code:</div>{{{
+<input type="image" onclick="window.open('URL');return false;" src="data:image/png;base64,YOUR_CODE_HERE">
+}}}<br><div class="woas_helptext">To use a Base64 image as a link to a web page.</div>
+
+* *Example:*<br><br>
+** <div class="woas_helptext">Use this example code:</div>{{{
+<input type="image" onclick="window.open('http://www.google.com');return false;" src="data:image/png;base64,R0lGODlhBgAFAIABAAAAAP///yH5BAEAAAEALAAAAAAGAAUAAAIJDGJ4ic1qgAwFADs=">
+}}}<br><div class="woas_helptext">To create this:</div><input type="image" onclick="window.open('http://www.google.com');return false;" src="data:image/png;base64,R0lGODlhBgAFAIABAAAAAP///yH5BAEAAAEALAAAAAAGAAUAAAIJDGJ4ic1qgAwFADs=">
+
+== Use a Base64 image as a link to a page in this wiki
+<div class="woas_helptext">Use this code in a page, replacing PAGENAME with the name of the page you'd like to link to, and YOUR_CODE_HERE with your Base64 code:</div>{{{
+<input type="image" onclick="go_to('PAGENAME')" src="data:image/png;base64,YOUR_CODE_HERE">
+}}}<br><div class="woas_helptext">To create an image that links to a wiki page.</div>
+
+* *Example:*<br><br>
+** <div class="woas_helptext">Use this example code:</div>{{{
+<input type="image" onclick="go_to('Special::About')" src="data:image/png;base64,R0lGODlhBgAFAIABAAAAAP///yH5BAEAAAEALAAAAAAGAAUAAAIJDGJ4ic1qgAwFADs=">
+}}}<br><div class="woas_helptext">To create this:</div><input type="image" onclick="go_to('Special::About')" src="data:image/png;base64,R0lGODlhBgAFAIABAAAAAP///yH5BAEAAAEALAAAAAAGAAUAAAIJDGJ4ic1qgAwFADs=">
+
+== Use a Base64 image as a link to an internal action
+See the [[WoaS::Help::Links]] page for a list of all possible internal actions.
+
+<div class="woas_helptext">Use this code in a page, replacing PAGENAME with the name of the page you'd like to link to, and YOUR_CODE_HERE with your Base64 code:</div>{{{
+<input type="image" onclick="go_to('INTERNAL_ACTION')" src="data:image/png;base64,YOUR_CODE_HERE">
+}}}<br><div class="woas_helptext">To create an image that links to an internal action.</div>
+
+* *Example:*<br><br>
+** <div class="woas_helptext">Use this example code:</div>{{{
+<input type="image" onclick="go_to('Special::New Page')" src="data:image/png;base64,R0lGODlhBgAFAIABAAAAAP///yH5BAEAAAEALAAAAAAGAAUAAAIJDGJ4ic1qgAwFADs=">
+}}}<br><div class="woas_helptext">To create this:</div><input type="image" onclick="go_to('Special::New Page')" src="data:image/png;base64,R0lGODlhBgAFAIABAAAAAP///yH5BAEAAAEALAAAAAAGAAUAAAIJDGJ4ic1qgAwFADs="><br><br>
 
 --DFQRCTsKlU
