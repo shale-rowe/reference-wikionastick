@@ -245,7 +245,7 @@ _lock_page();
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Security
 woas.page.attributes: 0
-woas.page.last_modified: 1268173192
+woas.page.last_modified: 1268244503
 woas.page.length: 3772
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1536,7 +1536,8 @@ To return to the default settings if you don't like the changes you've made:
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Special::Edit Bootscript
 woas.page.attributes: 0
-woas.page.length: 750
+woas.page.last_modified: 1268244589
+woas.page.length: 777
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1554,12 +1555,10 @@ Be careful not to break javascript execution during this stage; in order to debu
        alert(e);
    }
 }}}
-
 == Applications
 The Bootscript can be used to override WoaS core functions in order to replace them with customized functions which finally call the overriden function or perfectly emulate its behaviour.
 
-NOTE: the WoaS javascript API is not yet specified
-
+[[Include::WoaS::Template::Info|The WoaS JavaScript API is not yet specified.]]
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Special::Dead Pages
 woas.page.attributes: 0
@@ -1947,8 +1946,8 @@ Below are examples on how to use wiki markup to create headers in this wiki. You
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Rulers
 woas.page.attributes: 0
-woas.page.last_modified: 1268178630
-woas.page.length: 1255
+woas.page.last_modified: 1268244415
+woas.page.length: 1275
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1960,7 +1959,7 @@ Rulers (horizontal rules or lines) use the full width of the page by default. Th
 == Standard horizontal rule ==
 <div class="woas_helptext">Use this code in a page:</div>{{{
 ----
-}}}<div class="woas_helptext">To create this:</div>
+}}}<br><div class="woas_helptext">To create this:</div><br>
 ----
 
 
@@ -1969,7 +1968,7 @@ Rulers (horizontal rules or lines) use the full width of the page by default. Th
 <div style="width:50%";>
 ----
 </div>
-}}}<div class="woas_helptext">To create this:</div>
+}}}<br><div class="woas_helptext">To create this:</div>
 <div style="width:50%";>
 ----
 </div>
@@ -1977,7 +1976,7 @@ Rulers (horizontal rules or lines) use the full width of the page by default. Th
 == Custom width horizontal rule aligned right ==
 <div class="woas_helptext">Use this code in a page, replacing 50% with the width you like:</div>{{{
 <div style="width:50%; float:right;"><hr></div>
-}}}<div class="woas_helptext">To create this:</div>
+}}}<br><div class="woas_helptext">To create this:</div>
 <div style="width:50%; float:right;"><hr></div>
 
 == Custom width centered horizontal rule ==
@@ -1985,7 +1984,7 @@ Rulers (horizontal rules or lines) use the full width of the page by default. Th
 <center><div style="width:50%";>
 ----
 </div></center>
-}}}<div class="woas_helptext">To create this:</div>
+}}}<br><div class="woas_helptext">To create this:</div>
 <center><div style="width:50%";>
 ----
 </div></center>
@@ -2184,8 +2183,8 @@ with the line below it.
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Non-breaking spaces
 woas.page.attributes: 0
-woas.page.last_modified: 1268178555
-woas.page.length: 750
+woas.page.last_modified: 1268244180
+woas.page.length: 766
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -2196,15 +2195,15 @@ A non-breaking space can add extra space between characters on a line since this
 
 <div class="woas_helptext">Use this code in a page:</div>{{{
 &nbsp;
-}}}<div class="woas_helptext">To create a non-breaking space.</div>
+}}}<br><div class="woas_helptext">To create a non-breaking space.</div>
 
 *Examples:*
 
-To insert 5 spaces between two words, insert 5 non-breaking spaces between them, like this:{{{
+To insert 5 spaces between two words, insert 5 non-breaking spaces between them, like this:<br>{{{
 word&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;word
-}}}word&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;word
+}}}<br>word&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;word
 
-Another method is to insert a combination of spaces and non-breaking spaces. To insert 5 spaces between two words, insert 1 space, 3 non-breaking spaces, and 1 space between them, like this:{{{
+Another method is to insert a combination of spaces and non-breaking spaces. To insert 5 spaces between two words, insert 1 space, 3 non-breaking spaces, and 1 space between them, like this:<br>{{{
 word &nbsp;&nbsp;&nbsp; word}}}word &nbsp;&nbsp;&nbsp; word
 
 --DFQRCTsKlU
@@ -2355,8 +2354,8 @@ By default, this wiki offers two choices for scrolling in the wiki *Options*. Th
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Table of Contents
 woas.page.attributes: 0
-woas.page.last_modified: 1268178741
-woas.page.length: 769
+woas.page.last_modified: 1268244673
+woas.page.length: 773
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -2367,7 +2366,7 @@ You can insert a Table of Contents into your page by using a special wiki tag. I
 
 <div class="woas_helptext">Use this code on a line by itself in your page:</div>{{{
 [[Special::TOC]]
-}}}<div class="woas_helptext">To add a Table of Contents to a page.</div>
+}}}<br><div class="woas_helptext">To add a Table of Contents to a page.</div>
 
 [[Include::WoaS::Template::Info|Note that the placement of the Table of Contents is determined by where you put the tag in the page.]]
 
@@ -2470,8 +2469,8 @@ This is a personal wiki that's not designed to be used on a server. Any changes 
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Requirements
 woas.page.attributes: 0
-woas.page.last_modified: 1268179536
-woas.page.length: 2650
+woas.page.last_modified: 1268244339
+woas.page.length: 2656
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -2506,21 +2505,27 @@ The TiddlySaver Java applet allows Wiki on a Stick from a file:// URL to save ch
 
 The Java applet "TiddlySaver.jar", a very small file, must be placed in the same directory as your WoaS file. In order to use it you will need to give it the necessary privileges by editing your .java.policy file.
 
-For Windows, the file will be at C:\Documents and Settings\your-user-name\.java.policy. Add the following lines (substituting the directory  as appropriate):{{{
+For Windows, the file will be at C:\Documents and Settings\your-user-name\.java.policy. Add the following lines (substituting the directory  as appropriate):
+{{{
 grant codeBase "file:${user.home}/My Documents/tiddlywiki-folder/*" {
   permission java.io.FilePermission "${user.home}${/}My Documents${/}stickwiki-folder${/}*", "read,write";
 };
-}}}On Mac OS X, the file is found at /Users/your-user-name/.java.policy:{{{
+}}}
+On Mac OS X, the file is found at /Users/your-user-name/.java.policy:
+{{{
 grant codeBase "file:${user.home}/Documents/tiddlywiki-folder/*" {
   permission java.io.FilePermission "${user.home}${/}Documents${/}stickwiki-folder${/}*", "read,write";
 };
-}}}It can be tricky creating files whose name starts with a period, so you can use this <a href="http://stickwiki.sourceforge.net/src/.java.policy">pre-built .java.policy file</a>. The same file is suitable for Macs too, just edit it and delete the "My " bit, leaving just "Documents". Make sure you save it in the right place for each operating system!
+}}}
+It can be tricky creating files whose name starts with a period, so you can use this <a href="http://stickwiki.sourceforge.net/src/.java.policy">pre-built .java.policy file</a>. The same file is suitable for Macs too, just edit it and delete the "My " bit, leaving just "Documents". Make sure you save it in the right place for each operating system!
 
-If you have trouble setting up the permissions correctly, you can try granting broader permissions to the applet like this:{{{
+If you have trouble setting up the permissions correctly, you can try granting broader permissions to the applet like this:
+{{{
 grant codeBase "file://localhost/home/users/Desktop/
 TiddlySaver.jar"
  { permission java.security.AllPermission; };
-}}}The TiddlySaver java applet was written by J.Rouston.
+}}}
+The TiddlySaver java applet was written by J.Rouston.
 
 
 --DFQRCTsKlU
