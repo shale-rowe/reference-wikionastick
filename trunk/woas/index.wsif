@@ -1,10 +1,10 @@
 wsif.version: 1.2.0
 woas.version: 0.10.8
-woas.pages: 71
+woas.pages: 62
 
 woas.page.title: ::Menu
 woas.page.attributes: 0
-woas.page.length: 973
+woas.page.length: 948
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -12,7 +12,6 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 [[Main Page]]
 * [[History]]
-* [[Feature::|Features]]
 * [[WoaS::Help::]]
 
 * [[Special::All Pages]]
@@ -291,122 +290,6 @@ $("cb_fixed_layout").checked = ($("sw_wiki_header").style.position == "fixed");
 if (woas.browser.ie6) $("cb_fixed_layout").disabled = true;
 </script>
 --DFQRCTsKlU
-woas.page.title: Feature::Custom javascript
-woas.page.attributes: 0
-woas.page.length: 3745
-woas.page.encoding: 8bit/plain
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-!Hit the ball
-
-This small demo is implemented using a /&lt;script&gt;/ tag in the wiki source.
-
-<DIV id="score" align="center" style="width: 300px; font-weight: bold">Score: 0</DIV>
-<INPUT id="startbutton" type="button" onclick="StartGame();" value="Start Game"> <INPUT id="stopbutton" type="button" onclick="StopGame();" value="Stop Game" disabled>
-
-<TABLE id="game_container" style="width: 300px; height: 300px; background-color: white; border: solid 1px black;"><TR><TD width="100%" valign="top"><img id="ball" alt="I am a ball" onclick="ActionUpdateScore(10)" ondblclick="ActionUpdateScore(10); return false;" style="position: relative; style:'text-align: center; font-family: "Comics Sans MS"; width:55px; height:55px;' src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADQAAAA0BAMAAAA3VgbYAAAAB3RJTUUH1wMfDhQh5GxRLwAAAAlwSFlzAAALEgAACxIB0t1%2B%2FAAAAARnQU1BAACxjwv8YQUAAAAwUExURfdK1t7e3pWVlTk5ORAICAgAAAAAAM7OziEAAHUCAtYAAO8AAPcAAP8AAP%2F%2F%2F94AAA0a9%2BoAAAABdFJOUwBA5thmAAABLklEQVR42mNggAFGJWPXEGMlAQYMIGSWBgbJiugyxWkZM1ftOb1qZluaObpM59q7YHBrBqrco7TOs3eh4M6MND2EDKNZJFwGKDc1GeGWkoy1d5HArTZ3mAy72%2By7KGBnSgFMU%2BZdNDANqo3RbS661M0UiG2PMTQBtdmBpdS6MaV2JIEdkboWU%2BpWGMghzFjMA5poAJQq68EmdSIdKGU2F5vUzWSg0zPOYpO60ybAwITVKqBlCgzMWdillhkwiPVil7qRyKA2F7vUzSR8UmZrsUvdSmYw%2B4td6n4yg9te7FK3UxjCzmKXupOKTwqPgXicgcfx5IUGnuDFEyl4ohJPAsCTbPAlNjxJFE%2FCxpMd8GUiPFkPT4bFl83xFA74ihQ8BRG%2B4gtfoYevqMRSwAIARAJMeDmEvSYAAAAASUVORK5CYII%3D" /></TD></TR></TABLE>
-
-<script type="text/javascript">
-// fancygame.js - by roger@killerz-tech.net forums
-// bugfixed & improved by legolas558
-
-// Our global variables:
-var gameRunning = false;
-var score, difficulty;
-var xPos = 0;
-var yPos = 0;
-var max_speed = 15;
-var base_speedD = max_speed/2;
-var xSpeed = max_speed;
-var ySpeed = -max_speed;
-
-var targ = "ball";
-
-function StartGame() {
-gameRunning = true;
-score = 1;
-difficulty = 0;
-$('startbutton').disabled = true;
-$('stopbutton').disabled = false;
-
-FlyAround();
-
-ScoreDecay();
-}
-
-function StopGame()
-{
-gameRunning = false;
-$('stopbutton').disabled = true;
-$('startbutton').disabled = false;
-}
-
-function FlyAround()
-{
-var speedD = base_speedD + Math.floor(Math.random()*base_speedD-(base_speedD/2));
-if ( Math.round(Math.random()*1) == 0 )
-{
-xSpeed = Math.max(-max_speed, xSpeed - (1-Math.random())*speedD - difficulty/60);
-} else {
-xSpeed = Math.min(max_speed, xSpeed + (1-Math.random())*speedD + difficulty/60);
-}
-if ( Math.round(Math.random()*1) == 0 )
-{
-ySpeed = Math.max(-max_speed, ySpeed - (1-Math.random())*speedD - difficulty/60);
-} else {
-ySpeed = Math.min(max_speed, ySpeed + (1-Math.random())*speedD + difficulty/60);
-}
-
-xPos += Math.round(xSpeed);
-yPos += Math.round(ySpeed);
-
-// make sure the target doesn't move out of the playfield
-if ( xPos > 300-60 ) { xPos = 300-60; xSpeed *= -1; }
-if ( yPos > 300-60 ) { yPos = 300-60; ySpeed *= -1; }
-if ( xPos < 0 ) { xPos = 0; xSpeed *= -1; }
-if ( yPos < 0 ) { yPos = 0; ySpeed *= -1; }
-
-var tmp = $(targ);
-tmp.style.top = yPos+'px';
-tmp.style.left = xPos+'px';
-
-// Repeat the function every tenth of a second, but only if the gamestate is 'on'
-if ( gameRunning  )
-  setTimeout ( "FlyAround()", 100 );
-
-}
-
-function UpdateScore ( delta )
-{
-if (!gameRunning) return;
-score += delta;
-$('score').innerHTML = "Score: " + score;
-}
-
-var _g_animating = false;
-
-function ActionUpdateScore(delta) {
-if (!gameRunning || _g_animating) return;
-UpdateScore(delta);
-// flash background color
-_g_animating = true;
-$('game_container').style.backgroundColor = "orange";
-setTimeout("$('game_container').style.backgroundColor = 'white'; _g_animating = false;", 200);
-}
-
-function ScoreDecay ( )
-{
-if(!gameRunning) return;
-UpdateScore(-1);
-difficulty += 10;
-setTimeout ( "ScoreDecay()", 3000);
-}
-</script>
-
-[[Tags::example]]
---DFQRCTsKlU
 woas.page.title: WoaS::Help::Syntax
 woas.page.attributes: 0
 woas.page.length: 3285
@@ -512,68 +395,6 @@ Some syntax has also been deprecated, see [[WoaS::Help::Deprecated syntax]].
 
 [[Tags::help]]
 --DFQRCTsKlU
-woas.page.title: Transclusion example
-woas.page.attributes: 0
-woas.page.length: 644
-woas.page.encoding: 8bit/plain
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-!Transclusion example
-
-This page is partially generated by transclusion, edit it to see the undergoing magic.
-
-== Existing template
-An existing template is included here below using the wiki source {{{[[Include::Test template|Mary|lamb]]}}}:
-
-[[Include::Test template|Mary|lamb]]
-
-== Non-existing template
-A non-existing template is included here below:
-
-[[Include::Non-existing template|param1]]
-
-== Special pages
-
-It is also possible to transclude a special page or namespace index:
-
-[[Include::Special::]]
-
-== Related pages
-* [[Test template]]
-* [[Test template 2]]
-* [[Infinite recursion template]]
-* [[Feature::Summary]]
-
-[[Tags::example]]
---DFQRCTsKlU
-woas.page.title: Test template
-woas.page.attributes: 0
-woas.page.length: 69
-woas.page.encoding: 8bit/plain
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-<big style="color:orange">%1 had a little %2</big>
-
-[[Tags::example]]
---DFQRCTsKlU
-woas.page.title: Infinite recursion template
-woas.page.attributes: 0
-woas.page.length: 111
-woas.page.encoding: 8bit/plain
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-This template attempts to trigger infinite recursion
-
-[[Include::Test template 2|Mary|lamb]]
-
-[[Tags::example]]
---DFQRCTsKlU
 woas.page.title: WoaS::Help::Deprecated syntax
 woas.page.attributes: 0
 woas.page.length: 1731
@@ -631,156 +452,6 @@ In favor of: <span class="good_syntax">{{{[[Tags::some tag|other tag|another tag
 <span class="good_syntax">{{{<script type="text/javascript">...</script>}}}</span>
 This is not enforced by WoaS wiki parser but is instead a correct XHTML practice.
 --DFQRCTsKlU
-woas.page.title: Feature::External javascript
-woas.page.attributes: 0
-woas.page.length: 134
-woas.page.encoding: 8bit/plain
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-!External javascript
-
-This page attempts to include an external example.js file
-
-<script src="example.js"></script>
-
-[[Tags::example]]
---DFQRCTsKlU
-woas.page.title: Feature::Summary
-woas.page.attributes: 0
-woas.page.length: 5228
-woas.page.encoding: 8bit/plain
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-[[Special::TOC]]
-= Features
-
-This is a list of the new features implemented during the v0.9.x development cycle.
-
-== Custom javascript
-
-It is possible to add &lt;script/&gt; tags to your wiki source and they will be correctly rendered in the document &lt;head/&gt; tag upon page loading; also external scripts (using the /src/ attribute) will be parsed and actived, always respecting the order of declaration of the &lt;script /&gt; tags.
-
-*Note:* since the javascript tags are actived from within the &lt;head /&gt; tag, you cannot use document.write() or similar inline javascript statements.
-
-See also [[Feature::Custom javascript]] and [[Feature::External javascript]]
-
-== Encryption
-
-Pages can be locked/unlocked through the apposite icons available on each user page. When a page is /locked/, it gets encrypted with true AES encryption; see [[WoaS::Help::Security]] for more informations.
-
-An example encrypted page is [[MyPages::Page 1]]. The password is: *test*
-
-== Namespaces
-
-Whenever you use the '::' separator on a page title, namespaces will apply.
-For example, see [[MyPages::Page 1]] and [[MyPages::Page 2]] both belonging to the [[MyPages::]] namespace.
-
-You can also use subnamespaces, like in [[MyPages::Approved::Page 3]].
-
-If you define a page called [<!-- -->[Namespace::Menu]] (where the /::Menu/ postfix is the relevant part), a submenu will be added to the main left menu when pages belonging to /Namespace/ are actived.
-
-=== Reserved namespaces
-
-Some namespaces are reserved for current and future use:
-
-* [[Tagged::]] for all the tagged pages (*note:* also /Tags::/ is reserved)
-* [[Locked::]] for all locked (encrypted) pages and [[Unlocked::]] for plain pages
-* [[Lock::]] and [[Unlock::]] (used internally)
-* [[Special::]] for all the special pages
-* [[WoaS::]] for some WoaS-specific special pages
-* [[Image::]] for the embedded images
-* [[File::]] for the embedded files
-* [[Include::]] for transclusion
-* [[Javascript::]] for direct javascript execution
-
-== Tags
-
-There is support for tags, which are listed in the [[Tagged::]] special namespace page.
-
-All the example/test pages and documentation available in this default WoaS distribution are tagged with one or more of the following tags:
-
-* [[Tagged::help]]
-* [[Tagged::example]]
-
-Also, you can specify multiple tags and tags to be filtered out.
-
-* [[Tagged::example]]
-* [[Tagged::!example]]
-
-== Aliases
-
-You can define global wiki name aliases in [[Special::Aliases]]. Such aliases will be replaced automatically before looking up for the page name.
-
-[[$JS::alert('Hello world!')]]
-
-== Transclusion
-
-You can include a page within another using a specific syntax:
-
-[<!-- -->[Include::Test template|parameter 1|parameter 2|...]]
-
-Such transclusions are *parametric*, e.g. they allow to specify parameters which will be replaced into the transcluded page in place of %1, %2, %3...
-
-Transclusion has a special meaning when used for pages relative to the [[File::]] and [[Image::]] namespaces, see below paragraph [[#Embedding]] for more informations.
-
-See also [[Transclusion example]] and [[Test template]]
-
-== Embedding
-
-You can embed files and images within WoaS.
-
-=== Files
-
-This is an example of an existing embedded file : [[File::life snippet.c]]
-This is an example of a not-yet-embedded file: [[File::report.log]]. You can embed the file when accessing the not-yet-existing page.
-
-You can also transclude an embedded file and its content will not be parsed as wiki source.
-
-=== Images
-
-You can include external images:
-
-{{{<iframe src="http://weatherreports.com/banners/234x60_lblue.html?location=Rome_Fiumicino&units=C" width="234" height="60" frameborder="0" scrolling="no"></iframe>}}}
-
-This is an example of an existing embedded image: [[Image::alert.png]]
-
-You can transclude such image using the wiki syntax {{{[[Include::Image::alert.png]]}}}, which results in:
-
-[[Include::Image::alert.png]]
-
-You can also specify additional attributes for the &lt;img /&gt; tag using a pipe '|' after the image name.
-For example, {{{[[Include::Image::alert.png|border="1" style="width:44px; height:44px"]]}}} results in:
-
-[[Include::Image::alert.png|border="1" style="width:44px; height:44px"]]
-
-This is an example of clickable image, rendered through the wiki syntax {{{[[Include::Image::alert.png|border="0" onclick="go_to('Image::alert.png')" style="cursor:pointer"]]}}}
-
-[[Include::Image::alert.png|border="0" onclick="go_to('Image::alert.png')" style="cursor:pointer"]]
-
-This is an example of not-yet-embedded image: [[Image::photo.jpg]]
-
-Remember that images are base64-encoded when embedded and become 33% bigger in size; it is suggested to not embed too much big images or files because they can slow down the application (remember that everything is contained in a single file), but that highly depends from the javascript engine of your browser.
-
-== Exporting
-
-Since v0.9.5B it is possible to export all the WoaS content into multiple XHTML, CSS and image files. The export interface is always available at the [[Special::Export]] page
-
-== Javascript:: magic namespace
-
-<script>
-function myfunc(arg) {
- return "This page was dynamically created using *"+arg+"* as content!";
-}
-</script>
-
-[[Javascript::myfunc('test')]]
-
-[[Tags::help]]
---DFQRCTsKlU
 woas.page.title: WoaS::Help::Special::Options
 woas.page.attributes: 0
 woas.page.length: 1196
@@ -816,20 +487,6 @@ Will save to disk only when quitting
 Puts the wiki into /server mode/; users will be told that it is not possible to save their changes, but editing will be allowed for sandbox (testing) purposes.
 
 --DFQRCTsKlU
-woas.page.title: Test template 2
-woas.page.attributes: 0
-woas.page.length: 146
-woas.page.encoding: 8bit/plain
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-<big style="color:lime; font-size: large; font-weight: bold">%1 had a little %2</big>
-
-[[Include::Infinite recursion template]]
-
-[[Tags::example]]
---DFQRCTsKlU
 woas.page.title: Special::Embed
 woas.page.attributes: 0
 woas.page.length: 128
@@ -842,17 +499,6 @@ woas.page.boundary: DFQRCTsKlU
 
 <input id="filename_" type="file" />&nbsp;<input type="button" value="Embed" onclick="woas._embed_process('%1')" />
 
---DFQRCTsKlU
-woas.page.title: Image::alert.png
-woas.page.attributes: 12
-woas.page.mime: image/png
-woas.page.length: 1436
-woas.page.encoding: 8bit/base64
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAMAAADzapwJAAAAB3RJTUUH1wcHEBwwMJCsHwAAAAlwSFlzAAAewQAAHsEBw2lUUwAAAARnQU1BAACxjwv8YQUAAAJzUExURf8f7evr67W1taWlpdbW1uzs7J6enmouJGosI4ODg93d3TcyMdQdB9EUBzYxMcXFxenp6Y+Pj402G+0VAN4MAIwlGnd3d9ra2tXV1UA1L+Y7Be4eAekRANYQAz8wLrCwsOXl5YCAgKdRGPdEA/QxAfIdAeERAaEjFW1tbe/v71hAKvlpB/pbBfZDA/IuAu0bAd0UAlYwKZOTk+Dg4F5eXsxqEvt3CflwCf////IpAuoYAcIjDVNTU9DQ0JaWlnlOI/uEDPuFEPqEEfU9BO0kAugYAXYyIX5+fu3t7Tc0MeZ7DvuTFvuZHPqXHvqKGft3EfZTB+81A+ohAdwpB+jo6ImJiZFXHvuYGPyjJ/ysM/ytOfpwDfdOBfAwAu8lAo87HHR0dNjY2MnJyUc6LvKLE/ypKfy2P/y9S/y/UfuGGPliCvJFBPIzA+s5BUc3LaampuPj43V1dbRmF/ymJfy3Of3DU/3KYv3MY/ubJPt4EvpUCfVCA/E2A7NNFmRkZNPT06ioqGFFKPuVFPytLv2+Sf3KYf3Qbf3PafuiKfuKFfppC/lQBfg+A/U8A2FBKIuLi9/f3zQzMtV2E/yhH/yxNf2+R/3HXP3LZ/3NafykJ/yOF/lxC/pcBvZGBPU3A9VRDTQzMdfX15qamn5QIvuSEfyfHPysL/y6QfzBTfzDV/zBU/ydH/yLE/t2DPpgB/dLA/Y6A/U6A3tIIvPz8zs2MPuSE/ydGPymJPyyNfy0OfyzN/ysKfyhIPuUF/uGDft0CvtlB/taBfZPA/ZFA+RXCjs1MPDw8E49LIJSIYJRIYJPIYJOIYJNIIJMIIJMIU47LKysrKzWV/gAAAABdFJOUwBA5thmAAABNUlEQVR42mNgwAGML2AAY6Do8RNQcPLkyVOnz5w9e+7ceWOGzVu8tm7b3rxj567de/bu23/g4KHDR44eY2BYtHjJ0mXLV6xcZWGxes3ades3bNwkuBlo+MRJk6dMnTZ9hoXFzFmz58ydN3/BQpCdDY1NzS2tbe0WFh2dXd09vX39E8BuKSwqLiktK7ewqKisqq6prauHODEpOSU1LT3DwiIzKzsnNy+/AOr00LDwiMgoC4vomNi4+IREmI88PL28fXz9/AMCg4K5+UPgPrWzd3B0srBwdnF1c+dCCgETUzNzCwtLK2sbW1YkYXktbR1dPX0DQyNjlABTVFJWUVVT15DQRBGWkJSSlpGVk1dAC19BIWERUTFxjHDn5uHl4xfAEGZj5+DkYsAETMwsrFiEGRgZGQgAAEPKcWQFSaWtAAAAAElFTkSuQmCCAAA=
 --DFQRCTsKlU
 woas.page.title: WoaS::Bootscript
 woas.page.attributes: 0
@@ -982,67 +628,6 @@ $('woas_ep_xhtml').onfocus = $('woas_ep_img').onfocus = $('woas_ep_ext').onfocus
 $('woas_ep_xhtml').onblur = $('woas_ep_img').onblur = $('woas_ep_ext').onblur = _ep_blur;
 
 </script>
---DFQRCTsKlU
-woas.page.title: Browsers support
-woas.page.attributes: 0
-woas.page.length: 2690
-woas.page.encoding: 8bit/plain
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-= Browsers support
-
-Wiki on a Stick is actively supported on the following browsers:
-
-* Firefox 1.5
-* Firefox 2
-* Firefox 3 & Firefox 3.5+
-* Opera
-* Internet Explorer 5.5
-* Internet Explorer 6
-* Internet Explorer 7*
-* Internet Explorer 8*
-
-* Note: on IE7-IE8 you might want to rename your application to .hta to enable its trusted priviledges.
-
-== Limitations
-
-Internet Explorer v6-7 does not support embedded images (that's why you will not see button icons); also, Internet Explorer does not allow saving to a network path in the form /\\machina\share\woas.htm/. It is necessary to map network paths to network drives, in order to use WoaS over a network with IE (if you have informations about how to overcome to this limitation, please report us). IE6 does not allow to have a fixed menus.
-
-Firefox (and possibly other browsers too) cannot save to filenames which contain UTF8 characters. Keep your filenames as unix-style.
-
-==TiddlySaver
-<sub>original text by J.Ruston, 13 August 2007 (created 21 August 2006)</sub>
-<sub>modified by Daniele C. on 29 September 2007</sub>
-
-The TiddlySaver Java applet allows Wiki on a Stick from a file:// URL to save changes when using Safari, Opera and other Java-enabled browsers.
-
-The Java applet "TiddlySaver.jar", a very small file, must be placed in the same directory as your WoaS file. In order to use it you will need to give it the necessary privileges by editing your .java.policy file.
-
-For Windows, the file will be at C:\Documents and Settings\your-user-name\.java.policy. Add the following lines (substituting the directory  as appropriate):
-{{{
-grant codeBase "file:${user.home}/My Documents/tiddlywiki-folder/*" {
-  permission java.io.FilePermission "${user.home}${/}My Documents${/}stickwiki-folder${/}*", "read,write";
-};
-}}}
-
-On Mac OS X, the file is found at /Users/your-user-name/.java.policy:
-{{{
-grant codeBase "file:${user.home}/Documents/tiddlywiki-folder/*" {
-  permission java.io.FilePermission "${user.home}${/}Documents${/}stickwiki-folder${/}*", "read,write";
-};
-}}}
-It can be tricky creating files whose name starts with a period, so you can use this <a href="http://stickwiki.sourceforge.net/src/.java.policy">pre-built .java.policy file</a>. The same file is suitable for Macs too, just edit it and delete the "My " bit, leaving just "Documents". Make sure you save it in the right place for each operating system!
-
-If you have trouble setting up the permissions correctly, you can try granting broader permissions to the applet like this:
-{{{
-grant codeBase "file://localhost/home/users/Desktop/
-TiddlySaver.jar"
- { permission java.security.AllPermission; };
-}}}
-
-The TiddlySaver java applet was written by J.Rouston.
 --DFQRCTsKlU
 woas.page.title: Special::License
 woas.page.attributes: 0
