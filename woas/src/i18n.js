@@ -73,6 +73,7 @@ woas['i18n'] = {
 	NO_JAVA:"It was not possible to use TiddlySaver java applet nor direct Java saving.",
 	PIPE_TITLE:"Title cannot contain pipe character '|'",
 	COMMENT_TITLE:"Title cannot contain XHTML start/end comments ('<"+"!--' or '--"+">')",
+	FAILED_ERASE:"Saving the erased wiki has failed, please reload WoaS otherwise you will be working with unconsistent data",
 	LOADING: "Loading Wiki on a Stick..."
 }
 
