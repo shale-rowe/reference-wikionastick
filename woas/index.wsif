@@ -54,7 +54,6 @@ $('menu_string_to_search').onkeydown = menu_key_hook;
 --DFQRCTsKlU
 woas.page.title: Special::Advanced
 woas.page.attributes: 0
-woas.page.last_modified: 1268161091
 woas.page.length: 1174
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -245,7 +244,6 @@ _lock_page();
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Security
 woas.page.attributes: 0
-woas.page.last_modified: 1268244503
 woas.page.length: 3772
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -283,7 +281,6 @@ Apart from the above, your normal usage of encrypted pages can be considered sec
 --DFQRCTsKlU
 woas.page.title: Special::Options
 woas.page.attributes: 0
-woas.page.last_modified: 1268173450
 woas.page.length: 2114
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -432,7 +429,6 @@ setTimeout ( "ScoreDecay()", 3000);
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Syntax
 woas.page.attributes: 0
-woas.page.last_modified: 1268169031
 woas.page.length: 3285
 woas.page.encoding: ecma/plain
 woas.page.disposition: inline
@@ -600,7 +596,6 @@ This template attempts to trigger infinite recursion
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Deprecated syntax
 woas.page.attributes: 0
-woas.page.last_modified: 1268291925
 woas.page.length: 1135
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -824,7 +819,6 @@ function myfunc(arg) {
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Special::Options
 woas.page.attributes: 0
-woas.page.last_modified: 1268173387
 woas.page.length: 1196
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -968,7 +962,7 @@ Some of the best additions were [[WoaS::Help::WSIF|WSIF format]] and a pluggable
 --DFQRCTsKlU
 woas.page.title: Special::Export
 woas.page.attributes: 0
-woas.page.length: 2721
+woas.page.length: 2533
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -977,11 +971,11 @@ woas.page.boundary: DFQRCTsKlU
 = Export content into XHTML files
 
 ==Paths
-Specify the destination folder which will contain all the exported XHTML files. *The folder must exist*
+Specify the destination directory which will contain all the exported XHTML files. *The directory must exist*
 
 <input id="woas_ep_xhtml" type="text" size="80" />
 
-Specify the destination folder which will contain all the exported embedded pictures. *The folder must exist*
+Specify the destination directory which will contain all the exported embedded pictures. *The directory must exist*
 
 <input id="woas_ep_img" type="text" size="80" />
 
@@ -1008,7 +1002,6 @@ META author (optional)
 <input id="woas_ep_author" type="text" size="12" value="" />
 
 <label for="woas_cb_sep_css"><input type="checkbox" id="woas_cb_sep_css" checked="checked">Export CSS into shared file</label>
-<label for="woas_cb_wif" style="color:gray"><input type="checkbox" id="woas_cb_wif" disabled="disabled">Export as WIF ([[http://www.wikisym.org/wiki/index.php/WSR_3|Wiki Interchange Format]])</label>
 <label for="woas_cb_export_menu"><input type="checkbox" id="woas_cb_export_menu" checked="checked">Export menu and submenus</label>
 
 <input type="button" value="Export XHTML" onclick="woas.export_wiki()" />
@@ -1337,7 +1330,6 @@ Now we call the macro:
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Editing
 woas.page.attributes: 0
-woas.page.last_modified: 1268172882
 woas.page.length: 3395
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1397,7 +1389,6 @@ You can edit the contents of the main text area by typing normally. There are li
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Index
 woas.page.attributes: 0
-woas.page.last_modified: 1268292691
 woas.page.length: 2285
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1506,7 +1497,6 @@ If you have not given permanent permission to your browser for editing wiki page
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Edit CSS
 woas.page.attributes: 0
-woas.page.last_modified: 1268172772
 woas.page.length: 1352
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1540,7 +1530,6 @@ To return to the default settings if you don't like the changes you've made:
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Special::Edit Bootscript
 woas.page.attributes: 0
-woas.page.last_modified: 1268244589
 woas.page.length: 777
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1578,7 +1567,6 @@ This page displays a list of pages that contain links to nonexistent pages. Both
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Debug console
 woas.page.attributes: 0
-woas.page.last_modified: 1268242519
 woas.page.length: 1315
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1616,7 +1604,6 @@ If you encounter any bugs, please report them in the [[https://lists.sourceforge
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::General usage
 woas.page.attributes: 0
-woas.page.last_modified: 1268242715
 woas.page.length: 1000
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1641,7 +1628,6 @@ This wiki accepts [[http://en.wikipedia.org/wiki/Plain_text|plain text]], intern
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Code blocks
 woas.page.attributes: 0
-woas.page.last_modified: 1268240738
 woas.page.length: 3673
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1751,7 +1737,6 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Print a page
 woas.page.attributes: 0
-woas.page.last_modified: 1268173116
 woas.page.length: 270
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1765,7 +1750,6 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Wiki is read-only
 woas.page.attributes: 0
-woas.page.last_modified: 1268154755
 woas.page.length: 346
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1785,7 +1769,6 @@ If you clicked the *Disallow edits* button in the wiki *Options*, this wiki beca
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Create a page
 woas.page.attributes: 0
-woas.page.last_modified: 1268242248
 woas.page.length: 2317
 woas.page.encoding: ecma/plain
 woas.page.disposition: inline
@@ -1819,7 +1802,6 @@ An alternate method of creating a page is to type a new page name inside nested 
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Delete a page
 woas.page.attributes: 0
-woas.page.last_modified: 1268172696
 woas.page.length: 871
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1841,7 +1823,6 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Edit a page
 woas.page.attributes: 0
-woas.page.last_modified: 1268172828
 woas.page.length: 663
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1858,7 +1839,6 @@ Pages that have the *Edit* (pencil) icon in the navigation bar can be edited. Th
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Erase all pages
 woas.page.attributes: 0
-woas.page.last_modified: 1268172959
 woas.page.length: 347
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1876,7 +1856,6 @@ See also: [[WoaS::Help::Special::Erase Wiki]]
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Edit the menu
 woas.page.attributes: 0
-woas.page.last_modified: 1268246300
 woas.page.length: 909
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1905,7 +1884,6 @@ For different styles of lists, see the [[WoaS::Help::Lists]] page.
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Headers
 woas.page.attributes: 0
-woas.page.last_modified: 1268242814
 woas.page.length: 1070
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1952,7 +1930,6 @@ Below are examples on how to use wiki markup to create headers in this wiki. You
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Rulers
 woas.page.attributes: 0
-woas.page.last_modified: 1268244415
 woas.page.length: 1275
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1998,7 +1975,6 @@ Rulers (horizontal rules or lines) use the full width of the page by default. Th
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Include text file
 woas.page.attributes: 0
-woas.page.last_modified: 1268242947
 woas.page.length: 535
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -2019,7 +1995,6 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Include web page
 woas.page.attributes: 0
-woas.page.last_modified: 1268243154
 woas.page.length: 2646
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -2060,7 +2035,6 @@ For example, if you want to embed the Google page at [[http://www.google.com]] i
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Include wiki page
 woas.page.attributes: 0
-woas.page.last_modified: 1268178323
 woas.page.length: 805
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -2085,7 +2059,6 @@ To include the contents of a wiki page inside another wiki page, use an {{{[[Inc
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::JavaScript
 woas.page.attributes: 0
-woas.page.last_modified: 1268243792
 woas.page.length: 5656
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -2165,7 +2138,6 @@ It's a good idea to put this code near the top of any page (preferably directly 
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Join lines of text
 woas.page.attributes: 0
-woas.page.last_modified: 1268243872
 woas.page.length: 857
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -2189,7 +2161,6 @@ with the line below it.
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Non-breaking spaces
 woas.page.attributes: 0
-woas.page.last_modified: 1268244180
 woas.page.length: 766
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -2215,7 +2186,6 @@ word &nbsp;&nbsp;&nbsp; word}}}word &nbsp;&nbsp;&nbsp; word
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Namespaces
 woas.page.attributes: 0
-woas.page.last_modified: 1268248223
 woas.page.length: 2771
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -2264,7 +2234,6 @@ You can type *My favorite recipes!* into the {{{[[Recipes::Menu]]}}} page, and a
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Text formatting
 woas.page.attributes: 0
-woas.page.last_modified: 1268245214
 woas.page.length: 2169
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -2334,7 +2303,6 @@ _*/This is underlined and bold and italic text./*_
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Rename a page
 woas.page.attributes: 0
-woas.page.last_modified: 1268175688
 woas.page.length: 232
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -2349,7 +2317,6 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Page scrolling
 woas.page.attributes: 0
-woas.page.last_modified: 1268176026
 woas.page.length: 503
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -2362,7 +2329,6 @@ By default, this wiki offers two choices for scrolling in the wiki *Options*. Th
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Table of Contents
 woas.page.attributes: 0
-woas.page.last_modified: 1268244673
 woas.page.length: 773
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -2381,7 +2347,6 @@ You can insert a Table of Contents into your page by using a special wiki tag. I
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Tags
 woas.page.attributes: 0
-woas.page.last_modified: 1268245135
 woas.page.length: 3874
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -2442,7 +2407,6 @@ By putting an exclamation mark (*!*) in front of the tag name, you can filter ou
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Publish wiki online
 woas.page.attributes: 0
-woas.page.last_modified: 1268179218
 woas.page.length: 603
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -2461,7 +2425,6 @@ This wiki can be published online as a single-file, framed web page by making it
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Run wiki on a server
 woas.page.attributes: 0
-woas.page.last_modified: 1268179375
 woas.page.length: 285
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -2474,7 +2437,6 @@ This is a personal wiki that's not designed to be used on a server. Any changes 
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Requirements
 woas.page.attributes: 0
-woas.page.last_modified: 1268244339
 woas.page.length: 2656
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -2536,7 +2498,6 @@ The TiddlySaver java applet was written by J.Rouston.
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Lists
 woas.page.attributes: 0
-woas.page.last_modified: 1268244057
 woas.page.length: 12961
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -2937,7 +2898,6 @@ This method is useful when an creating a fancy list with more than one list item
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Tables
 woas.page.attributes: 0
-woas.page.last_modified: 1268244841
 woas.page.length: 2350
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -3048,7 +3008,6 @@ See also: [[WoaS::Help::Table of Contents]]
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Links
 woas.page.attributes: 0
-woas.page.last_modified: 1268286343
 woas.page.length: 9166
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -3204,7 +3163,6 @@ With a combination of HTML and wiki syntax, you can create anchor links to anywh
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Images
 woas.page.attributes: 0
-woas.page.last_modified: 1268260813
 woas.page.length: 9323
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -3344,7 +3302,6 @@ See the [[WoaS::Help::Links]] page for a list of all possible internal actions.
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Import
 woas.page.attributes: 0
-woas.page.last_modified: 1268292627
 woas.page.length: 1280
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
