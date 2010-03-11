@@ -281,7 +281,7 @@ Apart from the above, your normal usage of encrypted pages can be considered sec
 --DFQRCTsKlU
 woas.page.title: Special::Options
 woas.page.attributes: 0
-woas.page.length: 2114
+woas.page.length: 2352
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -295,6 +295,7 @@ woas.page.boundary: DFQRCTsKlU
 <label for="cb_key_cache"><input type="checkbox" id="cb_key_cache" onclick="woas.config.key_cache = !$.checked('cb_key_cache')" />Do not temporarily cache the AES key<br />
 <label for="cb_fixed_layout"><input type="checkbox" id="cb_fixed_layout" onclick="_set_layout($.checked('cb_fixed_layout'))" />Fixed menu area and navigation bar<br />
 <label for="cb_open_last_page"><input type="checkbox" id="cb_open_last_page" onclick="woas.config.open_last_page = $.checked('cb_open_last_page')" />Return to last saved page when quitting<br />
+<label for="cb_debug_mode"><input type="checkbox" id="cb_debug_mode" onclick="woas.config.debug_mode = $.checked('cb_debug_mode')" />Enable debug mode and debug console<br />
 <label for="cb_cumulative_save"><input type="checkbox" id="cb_cumulative_save" onclick="woas.config.cumulative_save = $.checked('cb_cumulative_save')" />Enable cumulative save (will save to disk only when quitting)<br />
 <p><input type="button" onclick="ro_woas()" value="Disallow edits" />
 /Caution: to re-enable editing you will have to manually edit WoaS/</p>
@@ -305,6 +306,7 @@ $("cb_allow_diff").checked = bool2chk(woas.config.allow_diff);
 $("cb_open_last_page").checked = bool2chk(woas.config.open_last_page);
 $("cb_key_cache").checked = bool2chk(!woas.config.key_cache);
 $("cb_dblclick_edit").checked = bool2chk(woas.config.dblclick_edit);
+$("cb_debug_mode").checked = bool2chk(woas.config.debug_mode);
 $("cb_save_on_quit").checked = bool2chk(woas.config.save_on_quit);
 $("cb_cumulative_save").checked = bool2chk(woas.config.cumulative_save);
 $("cb_fixed_layout").checked = ($("sw_wiki_header").style.position == "fixed");
@@ -1628,7 +1630,6 @@ This wiki accepts [[http://en.wikipedia.org/wiki/Plain_text|plain text]], intern
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Nowiki blocks
 woas.page.attributes: 0
-woas.page.last_modified: 1268316602
 woas.page.length: 1672
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1718,7 +1719,6 @@ If you clicked the *Disallow edits* button in the wiki *Options*, this wiki beca
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Create a page
 woas.page.attributes: 0
-woas.page.last_modified: 1268317188
 woas.page.length: 2234
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline

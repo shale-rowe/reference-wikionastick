@@ -1,6 +1,4 @@
 
-woas["debug"] = true;			// toggle debug mode (and console)
-
 //TODO: all variables should stay inside this object
 woas["browser"] = { ie: false, ie6: false, ie8: false,
 					firefox: false, firefox2: false,
@@ -61,7 +59,7 @@ woas["_server_mode"] = (document.location.toString().match(/^file:\/\//) ? false
 woas["use_java_io"] = woas.browser.chrome || woas.browser.opera || woas.browser.safari;
 
 // returns the DOM element object given its id - enables a try/catch mode when debugging
-if (woas.debug) {
+if (woas.config.debug_mode) {
 	// returns the DOM element object given its id, alerting if the element is not found (but that would never happen, right?)
 	function $(id){ try{return document.getElementById(id);}catch(e){alert("ERROR: $('"+id+"') invalid reference");} }
 } else {
@@ -108,7 +106,7 @@ $["clone"] = function(obj) {
 
 // logging function has not to be in WoaS object
 var log;
-if (woas.debug) {
+if (woas.config.debug_mode) {
 	// logging function - used in development
 	log = function (aMessage) {
 	    var logbox = $("woas_log");

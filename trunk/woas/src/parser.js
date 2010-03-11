@@ -148,7 +148,7 @@ woas.parser["place_holder"] = function (i, separator) {
 // js_mode can be 0 = leave script tags as they are (for exporting), 1 - place script tags in <head /> (dynamic),
 //		2 - re-add script tags after parsing
 woas.parser["parse"] = function(text, export_links, js_mode) {
-	if (this.debug) {
+	if (woas.config.debug_mode) {
 		if (text===null)
 			log("Called parse() with null text!");	// log:1
 		return null;
