@@ -63,7 +63,7 @@ woas["_export_get_fname"] = function (title, create_mode) {
 		}
 		// beware: a special page or namespace index page cannot be main page
 		// considering the below code
-		if (_export_main_index && (title==main_page)) {
+		if (_export_main_index && (title==this.config.main_page)) {
 			_title2fn[title] = "index."+_export_default_ext;
 			_export_fnames_array.push(_title2fn[title]);
 			return _title2fn[title];

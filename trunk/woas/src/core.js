@@ -63,7 +63,7 @@ woas["cmd_erase_wiki"] = function() {
 	if (this.erase_wiki()) {
 		if (!this.full_commit())
 			alert(this.i18n.FAILED_ERASE);
-		back_or(main_page);
+		back_or(this.config.main_page);
 	}
 	return null;
 }
@@ -75,7 +75,7 @@ woas["static_pages"] = ["Special::About", "Special::Advanced", "Special::Options
 						"Special::ImportWSIF", "WoaS::Plugins",
 						"WoaS::Template::Button", "WoaS::Template::Info"];
 woas["help_pages" ] = null;
-woas["default_pages"] = ["Main Page", "::Menu", "WoaS::Bootscript", "WoaS::Aliases"];
+woas["default_pages"] = ["::Menu", "WoaS::Bootscript", "WoaS::Aliases"];
 
 woas["erase_wiki"] = function() {
 	if (!this.config.permit_edits) {
@@ -88,7 +88,8 @@ woas["erase_wiki"] = function() {
 	this.progress_init("Erasing...");
 	var backup_pages = [];
 	// attributes and last modified timestamps for default pages
-	page_attrs = []; page_mts =   [];
+	// first entry is for main page
+	page_attrs = [0]; page_mts =   [0];
 	// zero is the magic timestamp
 	for (var i=0;i<this.default_pages.length;++i) {
 		page_attrs.push(0); page_mts.push(0);
@@ -123,11 +124,15 @@ woas["erase_wiki"] = function() {
 		page_mts.push(0);
 		this.progress_status(i/l);
 	}
-	page_titles = this.default_pages.concat(this.static_pages);
+	// build titles
+	page_titles = [ this.config.main_page ];
+	page_titles = page_titles.concat(this.default_pages);
+	page_titles = page_titles.concat(this.static_pages));
 	page_titles = page_titles.concat(copied_help_pages);
-	pages = ["A blank sheet is a catalyst for ideas", "[[Main Page]]\n\n[[Special::All Pages]]\n[[Special::New Page]]\n[[Special::Duplicate Page]]\n[[Special::Go to]]\n[[Special::Delete Page]]\n[[Special::Backlinks]]\n[[Special::Search]]", "/* insert here your boot script */", ""];
+	// now build pages
+	pages = ["A blank sheet is a catalyst for ideas", "[["+this.config.main_page+"]]\n\n[[Special::All Pages]]\n[[Special::New Page]]\n[[Special::Duplicate Page]]\n[[Special::Go to]]\n[[Special::Delete Page]]\n[[Special::Backlinks]]\n[[Special::Search]]", "/* insert here your boot script */", ""];
 	pages = pages.concat(backup_pages); backup_pages = null;
-	current = main_page = "Main Page";
+	current = this.config.main_page;
 	this.refresh_menu_area();
 	backstack = [];
 	forstack = [];
@@ -136,7 +141,7 @@ woas["erase_wiki"] = function() {
 }
 
 woas["cmd_main_page"] = function() {
-	go_to(main_page);
+	go_to(this.config.main_page);
 	return null;
 }
 
@@ -252,7 +257,7 @@ woas["delete_page_i"] = function(i) {
 		if(backstack.length > 0) {
 			this.set_current(backstack.pop(), true);
 		} else
-			this.set_current(main_page);
+			this.set_current(this.config.main_page);
 	}
 	// always refresh the menu because it could contain the deleted page link
 	this.refresh_menu_area();

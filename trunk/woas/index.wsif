@@ -1,5 +1,5 @@
 wsif.version: 1.2.0
-woas.version: 0.10.8
+woas.version: 0.10.9
 woas.pages: 62
 
 woas.page.title: ::Menu
@@ -114,8 +114,8 @@ Wiki on a Stick (in short *WoaS*) is a [[http://en.wikipedia.org/wiki/Wiki|wiki]
 
 == Version
 
-Current version is *v0.10.8*
-Versions 0.9&tilde;0.10.8 by Daniele C. ([[http://sf.net/users/legolas558/|legolas558]])
+Current version is *v0.10.9*
+Versions 0.9&tilde;0.10.9 by Daniele C. ([[http://sf.net/users/legolas558/|legolas558]])
 Original version (v0.01 &tilde; v0.04) by Andr\u00e9 Wagner
 
 <big>[[Special::License|Wiki on a Stick is licensed under the GNU/GPL license]].</big>
@@ -142,6 +142,8 @@ This project wouldn't be what it is without the help of other people. If you con
 * *martinellison* - transclusion patch
 * *Nilton Castillo* - bugfixes and enhancements (pluggable macro syntax)
 * *Littlegirl* - documentation and overall testing, various improvements
+* [[http://weekendtesting.com/archives/833|Europe Weekend Testing]] - which provided a testing session for WoaS
+* [[http://testconsultant.blogspot.com/|Jeroen Rosink]] - for testing WoaS releases
 
 == Important links
 * [[http://sf.net/projects/stickwiki/|SourceForge project home page]] - useful for contributing
