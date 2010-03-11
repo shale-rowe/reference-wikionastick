@@ -950,12 +950,7 @@ woas["load_as_current"] = function(title, xhtml, mts) {
 	scrollTo(0,0);
 	log("load_as_current(\""+title+"\") - "+(typeof xhtml == "string" ? (xhtml.length+" bytes") : (typeof xhtml)));	// log:1
 	$("wiki_text").innerHTML = xhtml;
-	// generate the last modified string to append
-	if (mts) {
-		$("wiki_mts").innerHTML = this.last_modified(mts);
-		$.show("wiki_mts");
-	} else
-		$.hide("wiki_mts");
+	this.refresh_mts(mts);
 
 	this._set_title(title);
 	this.update_nav_icons(title);
@@ -963,6 +958,15 @@ woas["load_as_current"] = function(title, xhtml, mts) {
 	this._activate_scripts();
 	
 	return true;
+}
+
+woas["refresh_mts"] = function(mts) {
+	// generate the last modified string to append
+	if (mts) {
+		$("wiki_mts").innerHTML = this.last_modified(mts);
+		$.show("wiki_mts");
+	} else
+		$.hide("wiki_mts");
 }
 
 woas["_finalize_lock"] = function(pi) {
@@ -1622,11 +1626,14 @@ woas["save"] = function() {
 			}
 	}
 	var saved = current;
-	if (back_to != null)
+	if (back_to !== null)
 		this.set_current(back_to, true);
-	else // used for CSS editing
+	else { // used for CSS editing
 		back_or(this.config.main_page);
-	this.refresh_menu_area();
+		//TODO: refresh mts?
+	}
+	if (!null_save)
+		this.refresh_menu_area();
 	this.disable_edit();
 	if (!null_save)
 		this.save_page(saved);

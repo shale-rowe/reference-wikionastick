@@ -462,10 +462,17 @@ woas["_save_to_file"] = function(full) {
 	"\"};\n\nvar __marker = \""+new_marker+"\";\n\nwoas[\"config\"] = {";
 	for (param in this.config) {
 		computed_js += "\n\""+param+"\":";
-		if (typeof(this.config[param])=="boolean")
-			computed_js += (this.config[param] ? "true" : "false")+",";
-		else // for numbers
-			computed_js += this.config[param]+",";
+		switch(typeof(this.config[param])) {
+			case "boolean":
+				computed_js += (this.config[param] ? "true" : "false")+",";
+			break;
+			case "string":
+				computed_js += "'"+this.js_encode(safe_current)+"',";
+			break;
+			default: // for numbers
+				computed_js += this.config[param]+",";
+			break;
+		}
 	}
 	computed_js = computed_js.substr(0,computed_js.length-1);
 	computed_js += "};\n";
