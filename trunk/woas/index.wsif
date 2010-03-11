@@ -1628,7 +1628,8 @@ This wiki accepts [[http://en.wikipedia.org/wiki/Plain_text|plain text]], intern
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Nowiki blocks
 woas.page.attributes: 0
-woas.page.length: 2337
+woas.page.last_modified: 1268316602
+woas.page.length: 1672
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1670,31 +1671,20 @@ made of one
 or more lines.
 }}}
 
-== Nowiki block with custom colored background
+== Nowiki block with custom CSS style
 The example uses /lightcyan color/, but you can replace that with whatever color you like, using [[http://www.w3schools.com/Html/html_colornames.asp|color names or hexadecimal notation]].
 
-<div class="woas_helptext">Use this code in a page:</div>{{{
-<span style="background-color:lightcyan;">{{<!-- -->{This is a code block
+<div class="woas_helptext">Use this code in a page:</div>
+{{{<span style="background-color:lightcyan; color:purple;">}}}&#123;&#123;&#123;This is a code block
 made of one
 or more lines.
-}<!-- -->}}</span>
+&#125;&#125;&#125;{{{</span>}}}
 
 <div class="woas_helptext">To create this:</div>
-<span style="background-color:lightcyan;">{{{This is a code block
+<span style="background-color:lightcyan; color:purple;">{{{This is a code block
 made of one
 or more lines.
 }}}</span>
-== Code block with custom colored font
-This will only work on all the font inside a code block. Multi-colored code blocks would have to be done more creatively. If there's an interest, I can put together an example, but it would be for advanced users. The example uses green, but you can replace that with whatever color you like, using [[http://www.w3schools.com/Html/html_colornames.asp|color names or hexadecimal notation]]
-
-<div class="woas_helptext">Use this code in a page:</div>{{{
-<pre style="color:green">This is a code block
-made of one
-or more lines.
-</pre>}}}<br><br><div class="woas_helptext">To create this:</div><pre style="color:green">This is a code block
-made of one
-or more lines.
-</pre>
 
 --DFQRCTsKlU
 woas.page.title: WoaS::Template::Info
