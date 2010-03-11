@@ -1446,16 +1446,10 @@ woas["valid_title"] = function(title) {
 		return false;
 	}
 	if (title.indexOf("[")!=-1 || title.indexOf("]")!=-1 ||
-		title.indexOf("{")!=-1 || title.indexOf("}")!=-1) {
-		this.alert(this.i18n.BRACKETS_TITLE);
-		return false;
-	}
-	if (title.indexOf("<!--") != -1 || title.indexOf("-->")!=-1) {
-		this.alert(this.i18n.COMMENT_TITLE);
-		return false;
-	}
-	if (title.indexOf("|")!=-1) {
-		this.alert(this.i18n.PIPE_TITLE);
+		title.indexOf("{")!=-1 || title.indexOf("}")!=-1 ||
+		title.indexOf("<") != -1 || title.indexOf(">")!=-1 ||
+		title.indexOf("|")!=-1) {
+		this.alert(this.i18n.INVALID_TITLE);
 		return false;
 	}
 	if (title.substr(-2)=="::") {
