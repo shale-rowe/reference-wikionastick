@@ -72,12 +72,8 @@ woas["static_pages"] = ["Special::About", "Special::Advanced", "Special::Options
 						"Special::Lock","Special::Search", "Special::Embed",
 						"Special::Export", "Special::License", "Special::ExportWSIF",
 						"Special::ImportWSIF", "WoaS::Plugins",
-						"WoaS::Template::Back", "WoaS::Template::Close"];
-woas["help_pages"] = [	"Editing", "Special::Options","Index", "Edit CSS",
-						"Special::Advanced", "Special::Dead Pages", "Special::Edit Bootscript",
-						"Special::Erase Wiki", "Security", "Macros", "WSIF",
-						"Syntax"];
-
+						"WoaS::Template::Button", "WoaS::Template::Info"];
+woas["help_pages" ] = null;
 woas["default_pages"] = ["Main Page", "::Menu", "WoaS::Bootscript", "WoaS::Aliases"];
 
 woas["erase_wiki"] = function() {
@@ -96,6 +92,15 @@ woas["erase_wiki"] = function() {
 	for (var i=0;i<this.default_pages.length;++i) {
 		page_attrs.push(0); page_mts.push(0);
 	}
+	// build the array of help pages only once
+	var help_pfx = "WoaS::Help::";
+	if (this.help_pages === null) {
+		this.help_pages = [];
+		for(var i=0,l=page_titles.length;i<l;++i) {
+			if (page_titles[i].substr(0, help_pfx.length) === help_pfx)
+				this.help_pages.push(page_titles[i].substr(help_pfx.length));
+		}
+	}
 	var copied_help_pages = [];
 	// now pick the static pages
 	for(var i=0,l1=this.static_pages.length,l2=this.help_pages.length,l=l1+l2;i<l;++i) {
@@ -103,7 +108,7 @@ woas["erase_wiki"] = function() {
 		if (i<l1)
 			t = this.static_pages[i];
 		else
-			t = "WoaS::Help::"+this.help_pages[i-l1];
+			t = help_pfx+this.help_pages[i-l1];
 		pi = this.page_index(t);
 		if (pi==-1) {
 			this.alert(this.i18n.STATIC_NOT_FOUND.sprintf(t));
