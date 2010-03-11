@@ -1,6 +1,6 @@
 wsif.version: 1.2.0
 woas.version: 0.10.8
-woas.pages: 72
+woas.pages: 71
 
 woas.page.title: ::Menu
 woas.page.attributes: 0
@@ -598,7 +598,7 @@ This template attempts to trigger infinite recursion
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Deprecated syntax
 woas.page.attributes: 0
-woas.page.length: 1135
+woas.page.length: 1731
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -606,68 +606,52 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 = Deprecated syntax
 
-This page briefly summarizes WoaS deprecated syntax; the below deprecated syntax rules are still supported (unless otherwise specified), but you are invited to _no more_ use them since in version 1.x they will probably be removed.
-
+This page briefly summarizes WoaS deprecated syntax; the below deprecated syntax rules are still supported (unless otherwise specified), but you are invited to _no more_ use them because they will be declared /unsupported/ in some future release of WoaS.<style type="text/css">
+.bad_syntax {
+  color: red;
+  font-weight: bold;
+}
+.good_syntax {
+  color: green;
+  font-weight: bold;
+}
+</style>
 == Lists
-{{{
-BAD:
+
+Lists with '+ sign are *unsupported*.
+<span class="bad_syntax">{{{
 + unordered lists with + sign instead of asterisk
 + unordered lists with + sign
+}}}</span>
 
-Only asterisk lists are parsed:
-GOOD:
+Only asterisk lists are parsed.
+<span class="good_syntax">{{{
 * unordered element 1
 * unordered element 2
-}}}
-
+}}}</span>
 == Headers
-{{{
-BAD:
-! headers using the exclamation mark
-GOOD:
-= header which uses the equal sign
-}}}
-
+<span class="bad_syntax">{{{! headers using the exclamation mark}}}</span>
+<span class="good_syntax">{{{= header which uses the equal sign}}}</span>
 == Pre tags
-{{{
-BAD:
-<pre /> tags with nowiki meaning. Now <pre /> tags have no special meaning and are treated
-as any other XHTML tag
+{{{<pre />}}} acting as nowiki blocks are *unsupported*. Now {{{<pre />}}} tags have no special meaning and are treated
+as any other XHTML tag.
 
-GOOD:
-You should use { {{nowiki}} } blocks to achieve the same result
-}}}
-
+<span class="good_syntax">You should use {<!-- -->{{nowiki}}<!-- -->} blocks instead.</span>
 == Rulers
-{{{
-BAD:
----
-horizontal rulers using only 3 hyphens
+<span class="bad_syntax">{{{---
+horizontal rulers using only 3 hyphens}}}</span>
 
-GOOD:
-----
+<span class="good_syntax">{{{----
 You are invited to use at least 4 hyphens
 }}}
-
 == Tags
-{{{
-BAD:
-[[Tags::some tag, some other tag]] and [[Tag::some tag]] is deprecated
-
-GOOD:
-In favor of [[Tags::some tag|other tag|another tag]]
-}}}
-
+Deprecated: <span class="bad_syntax">{{{[[Tags::some tag, some other tag]] and [[Tag::some tag]]}}}</span>
+In favor of: <span class="good_syntax">{{{[[Tags::some tag|other tag|another tag]]}}}</span>
 == Inline scripts
-{{{
-BAD:
-<script> and </script>
+<span class="bad_syntax">{{{<script>...</script>}}}</span>
 
-GOOD:
-<script type="text/javascript"> and </script>
-
-}}}
-
+<span class="good_syntax">{{{<script type="text/javascript">...</script>}}}</span>
+This is not enforced by WoaS wiki parser but is instead a correct XHTML practice.
 --DFQRCTsKlU
 woas.page.title: Feature::External javascript
 woas.page.attributes: 0
@@ -1565,43 +1549,6 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 = Dead Pages
 This page displays a list of pages that contain links to nonexistent pages. Both the link and the page it's on are shown in each entry.
-
---DFQRCTsKlU
-woas.page.title: WoaS::Help::Debug console
-woas.page.attributes: 0
-woas.page.length: 1315
-woas.page.encoding: 8bit/plain
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-= Bugs
-This wiki comes with an optional debug console that will be visible at the bottom of every page when enabled.
-
-== Enable the debug console:
-# Open this wiki in a text editor.<br><br>
-# Do a search for {{{woas["debug"] = false;}}} to find this line:<br>{{{
-woas["debug"] = false;			// toggle debug mode (and console)
-}}}<br>
-# Change *false* to *true* so the line looks like this:<br>{{{
-woas["debug"] = true;			// toggle debug mode (and console)
-}}}<br>
-# Save the file.<br><br>
-# Close the text editor.
-
-== Disable the debug console:
-# Open this wiki in a text editor.<br><br>
-# Do a search for {{{woas["debug"] = true;}}} to find this line:<br>{{{
-woas["debug"] = true;			// toggle debug mode (and console)
-}}}<br>
-# Change *true* to *false* so the line looks like this:<br>{{{
-woas["debug"] = false;			// toggle debug mode (and console)
-}}}<br>
-# Save the file.<br><br>
-# Close the text editor.
-
-== Reporting bugs
-If you encounter any bugs, please report them in the [[https://lists.sourceforge.net/lists/listinfo/stickwiki-devel|Wiki on a Stick development mailing list]] or on the [[http://sourceforge.net/tracker/?words=tracker_browse&sort=open_date&sortdir=desc&offset=0&group_id=155218&atid=794925&assignee=&status=&category=&artgroup=&keyword=&submitter=&artifact_id=|Wiki on a Stick bug tracker]].
 
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::General usage
