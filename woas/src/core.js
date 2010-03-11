@@ -124,7 +124,7 @@ woas["erase_wiki"] = function() {
 	}
 	page_titles = this.default_pages.concat(this.static_pages);
 	page_titles = page_titles.concat(copied_help_pages);
-	pages = ["An empty sheet is a catalyst for ideas", "[[Main Page]]\n\n[[Special::All Pages]]\n[[Special::New Page]]\n[[Special::Duplicate Page]]\n[[Special::Go to]]\n[[Special::Delete Page]]\n[[Special::Backlinks]]\n[[Special::Search]]", "/* insert here your boot script */", ""];
+	pages = ["A blank sheet is a catalyst for ideas", "[[Main Page]]\n\n[[Special::All Pages]]\n[[Special::New Page]]\n[[Special::Duplicate Page]]\n[[Special::Go to]]\n[[Special::Delete Page]]\n[[Special::Backlinks]]\n[[Special::Search]]", "/* insert here your boot script */", ""];
 	pages = pages.concat(backup_pages); backup_pages = null;
 	current = main_page = "Main Page";
 	this.refresh_menu_area();
