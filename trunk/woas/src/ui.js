@@ -520,3 +520,12 @@ woas["progress_finish"] = function(section) {
 	this.setHTML($("woas_wait_text"), this.i18n.LOADING);
 	this._progress_section = false;
 }
+
+function clear_search() {
+	$("string_to_search").value = "";
+	$("string_to_search").focus();
+	if (!cached_search.length)
+		return;
+	cached_search = "";
+	woas.assert_current("Special::Search");
+}

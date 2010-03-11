@@ -509,13 +509,6 @@ woas["set_text"] = function(text) {
 	this.set__text(pi, text);
 }
 
-woas["clear_search"] = function() {
-	if (!cached_search.length)
-		return;
-	cached_search = "";
-	this.assert_current("Special::Search");
-}
-
 woas["assert_current"] = function(page) {
 	if( current != page )
 		go_to( page ) ;
