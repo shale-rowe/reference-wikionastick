@@ -1469,16 +1469,17 @@ The Advanced page offers some tools for administration of your wiki. Description
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Special::Erase Wiki
 woas.page.attributes: 0
-woas.page.length: 779
+woas.page.last_modified: 1268325513
+woas.page.length: 775
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Erase Wiki
-When you click the Special::Erase wiki link in the Advanced page you can erase all user-created pages. Doing this will also erase the Main Page, and all content from the menu except for links to pages in the Special:: namespace. Global CSS settings (including any you have customized) will be preserved and will not be reset to default values.
+When you click the *Special::Erase Wiki* link in the Advanced page you can erase all user-created pages. Doing this will also erase the Main Page, and all content from the menu, which will then be re-populated with some common-use Special:: links. Global CSS settings (including any you have customized) will be preserved and will not be reset to default values.
 
-If you have not given permanent permission to your browser for editing wiki pages, you will receive a security warning when attempting to erase the wiki. If you deny permission to the browser, you will receive a message that saving the file failed and that maybe your browser is not supported. You will be returned to your wiki, but the Main Page will be blank. Reloading the wiki restores the contents of the Main Page.
+If you have not given permanent permission to your browser for editing wiki pages, you will receive a security warning when attempting to erase the wiki. If you deny permission to the browser, you will receive a message that saving the file failed. You will be returned to your wiki, but the Main Page will be blank. Reloading the wiki after a failure to save restores WoaS to the previous status.
 
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Edit CSS
