@@ -1,6 +1,6 @@
 wsif.version: 1.2.0
 woas.version: 0.10.8
-woas.pages: 72
+woas.pages: 73
 
 woas.page.title: ::Menu
 woas.page.attributes: 0
@@ -433,7 +433,7 @@ setTimeout ( "ScoreDecay()", 3000);
 woas.page.title: WoaS::Help::Syntax
 woas.page.attributes: 0
 woas.page.last_modified: 1268169031
-woas.page.length: 3273
+woas.page.length: 3285
 woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -532,7 +532,7 @@ There have been a few changes in the wiki syntax, they will be automatically app
 * bullet lists are recognized using an asterisk '*' at the beginning of the line, if you use the previous '+' plus sign it will be automatically converted to an asterisk
 * wiki link parts are inverted, e.g. no more [<!-- -->[label of main page link|_Main Page_]] but [<!-- -->[_Main Page_|label of main page link]]
 
-Some syntax has also been deprecated, see [[Deprecated syntax]].
+Some syntax has also been deprecated, see [[WoaS::Help::Deprecated syntax]].
 
 [[Tags::help]]
 --DFQRCTsKlU
@@ -598,9 +598,10 @@ This template attempts to trigger infinite recursion
 
 [[Tags::example]]
 --DFQRCTsKlU
-woas.page.title: Deprecated syntax
+woas.page.title: WoaS::Help::Deprecated syntax
 woas.page.attributes: 0
-woas.page.length: 1150
+woas.page.last_modified: 1268291925
+woas.page.length: 1135
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -670,7 +671,6 @@ GOOD:
 
 }}}
 
-[[Tags::help]]
 --DFQRCTsKlU
 woas.page.title: Feature::External javascript
 woas.page.attributes: 0
@@ -1397,8 +1397,8 @@ You can edit the contents of the main text area by typing normally. There are li
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Index
 woas.page.attributes: 0
-woas.page.last_modified: 1268260741
-woas.page.length: 2222
+woas.page.last_modified: 1268292691
+woas.page.length: 2285
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1419,6 +1419,7 @@ When browsing the pages in this Help pop-up, you will find a *Back* button in th
 ** [[WoaS::Help::Edit CSS]]
 ** [[WoaS::Help::Edit the menu]]
 ** [[WoaS::Help::General usage]]
+** [[WoaS::Help::Import]]
 ** [[WoaS::Help::Requirements]]
 * *Online use*
 ** [[WoaS::Help::Publish wiki online]]
@@ -1441,6 +1442,7 @@ When browsing the pages in this Help pop-up, you will find a *Back* button in th
 ** [[WoaS::Help::Special::Options]]
 * *Syntax*
 ** [[WoaS::Help::Code blocks]]
+** [[WoaS::Help::Deprecated syntax]]
 ** [[WoaS::Help::Headers]]
 ** [[WoaS::Help::Images]]
 ** [[WoaS::Help::Include text file]]
@@ -3338,5 +3340,41 @@ See the [[WoaS::Help::Links]] page for a list of all possible internal actions.
 ** <div class="woas_helptext">Use this example code:</div>{{{
 <input type="image" onclick="go_to('Special::New Page')" src="data:image/png;base64,R0lGODlhBgAFAIABAAAAAP///yH5BAEAAAEALAAAAAAGAAUAAAIJDGJ4ic1qgAwFADs=">
 }}}<br><div class="woas_helptext">To create this:</div><input type="image" onclick="go_to('Special::New Page')" src="data:image/png;base64,R0lGODlhBgAFAIABAAAAAP///yH5BAEAAAEALAAAAAAGAAUAAAIJDGJ4ic1qgAwFADs="><br><br>
+
+--DFQRCTsKlU
+woas.page.title: WoaS::Help::Import
+woas.page.attributes: 0
+woas.page.last_modified: 1268292627
+woas.page.length: 1280
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Import
+
+== Import wiki
+This method is used to import the contents of an older (or current) version of Wiki on a Stick:
+# Click the *Advanced* (tools) icon in the banner.
+# Scroll down to the *Maintenance* section.
+# Click the [[Special::Import]] link.
+# Click the *Browse* button
+# Select the wiki you'd like to import.
+# Click the *Open* button.
+# Choose the settings you'd like to use.<br>[[Include::Image::alert.png]] /Note that it's usually best to leave the *import also CSS (available only for versions v0.9 and above)* box unchecked and manually transfer CSS settings so you can make sure there's no conflict./
+# Click the *Import* button.
+# A warning will pop up letting you know that this will overwrite pages with the same title, and asking if you're sure.
+# Click the *OK* button if you're sure. Otherwise, click the *Cancel* button.
+
+== Import WSIF
+This method is used to import pages that have been exported using the [[WoaS::Help::WSIF|WSIF]] format.
+# Click the *Advanced* (tools) icon in the banner.
+# Scroll down to the *Maintenance* section.
+# Click the [[Special::ImportWSIF]] link.
+# Click the *Browse* button.
+# Select the .wsif file you'd like to import.
+# Click the *Open* button.
+# Choose the options you'd like to use.
+# Click the *Import WSIF* button.
 
 --DFQRCTsKlU
