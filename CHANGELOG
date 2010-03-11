@@ -1,7 +1,8 @@
 Version 0.10.8 (legolas558)
+* fixed load/save bugs with IE
 * fixed a bug which prevented WoaS from correctly remembering about last encrypted page
 * incremented infinite recursion limit to 256
-* XHTML comments are no more parsed
+* XHTML comments and CSS style blocks are now pre-parsed
 * URLs will not get italics
 * fixed ghost page bug when creating new page and then canceling it
 * fixed misleading wait cursor when javascript is disabled

@@ -5,6 +5,8 @@
 // dummy
 var woas = { };
 
+function log(s) { alert(s); }
+
 // return a random integer given the maximum value (scale)
 function _rand(scale) {
 	return Math.floor(Math.random() * scale);
@@ -28,8 +30,10 @@ function _speed_test_f1(key, data, cycles) {
 			decrypted = woas.AES.decrypt(encrypted);
 		if (decrypted !== data) {
 			alert("Encryption/Decryption failure!");
+			return false;
 		}
 	}
+	return true;
 }
 
 function do_speed_test() {
@@ -39,19 +43,22 @@ function do_speed_test() {
 	// this is generated once per each test
 	var key = _random_string(22), start, end;
 	start = new Date().getTime();
-	_speed_test_f1(key, data, 10);
+	if (!_speed_test_f1(key, data, 10))
+		return;
 	end = new Date().getTime();
 	e.innerHTML = "Execution time with key length 22: "+(end-start).toString()+" ms\n";
 	// try with longer key
 	key = _random_string(32), start, end;
 	start = new Date().getTime();
-	_speed_test_f1(key, data, 10);
+	if (!_speed_test_f1(key, data, 10))
+		return;
 	end = new Date().getTime();
 	e.innerHTML += "Execution time with key length 32: "+(end-start).toString()+" ms\n";
 	// try with longer key
 	key = _random_string(43), start, end;
 	start = new Date().getTime();
-	_speed_test_f1(key, data, 10);
+	if (!_speed_test_f1(key, data, 10))
+		return;
 	end = new Date().getTime();
 	e.innerHTML += "Execution time with key length 43: "+(end-start).toString()+" ms\n";
 }
@@ -106,36 +113,36 @@ function _do_decrypt(bData) {
 
 function do_fips197_test() {
 	// apply some overrides
-	var bak_ac = woas.AES.aesClose;
-	woas.AES.aesClose = function() { };
+//	var bak_ac = woas.AES.aesClose;
+//	woas.AES.aesClose = function() { };
 	for(var i=0;i<test_keys.length;++i) {
 		woas.AES.key = _decode_hex(test_keys[i]);
 		// Encryption
-		var buffer = _do_encrypt(_decode_hex(test_plaintexts[i]));
-		buffer = buffer.slice(buffer.length-16);
-		var block = _encode_hex(buffer);
+		var input = _decode_hex(test_plaintexts[i]);
+		var output = _do_encrypt(input);
+		var block = _encode_hex(output);
 		if (block !==  test_ciphertexts[i]) {
 			alert("failure of encrypt test "+i+":\n"+block+"\n"+test_ciphertexts[i]);
 			return;
 			continue;
 		}
 		// Decryption
-		buffer = _do_decrypt(_decode_hex(test_ciphertexts[i]));
-		buffer = buffer.slice(buffer.length-16);
-		block = _encode_hex( buffer );
+		input = _decode_hex(test_ciphertexts[i]);
+		output = _do_decrypt(input);
+		block = _encode_hex( output );
 		if (block !==  test_plaintexts[i]) {
 			alert("failure of decrypt test "+i+":\n"+block+"\n"+test_plaintexts[i]);
 			continue;
 		}
 	}
 	// restore original handler
-	woas.AES.aesClose = bak_ac;
+//	woas.AES.aesClose = bak_ac;
 }
 
 function _decode_hex(s) {
 	var b=[];
 	for(var i=0;i<s.length;i+=2) {
-		b.push(parseInt(s.substr(i,2), 16));
+		b.push(parseInt(s.slice(i,i+2), 16));
 	}
 	return b;
 }
@@ -149,6 +156,82 @@ function _encode_hex(ba) {
 	return s;
 }
 
+function do_encrypt() {
+  var pt, key;
+  var theForm = document.forms[0];
+  blockSizeInBits=128;
+
+  if (theForm.key.value.toLowerCase().indexOf("0x") == 0)
+    theForm.key.value = theForm.key.value.substring(2);
+  if (theForm.plaintext.value.toLowerCase().indexOf("0x") == 0)
+    theForm.plaintext.value = theForm.plaintext.value.substring(2);
+  
+  keySizeInBits = theForm.key.value.length*4;
+  switch (keySizeInBits) {
+	  case 128:
+	  case 192:
+	  case 256:
+	  break;
+	  default:
+		alert("Invalid key size");
+		theForm.key.select();
+		return;
+  }
+
+  if (theForm.plaintext.value.length*4 != blockSizeInBits) {
+    alert("For a " + blockSizeInBits + " bit block, the hex plaintext string needs to be " +
+          (blockSizeInBits / 4) + " hex characters long.");
+    if (theForm.plaintext.select)
+       theForm.plaintext.select();
+    return;
+  }
+     
+  pt = _decode_hex(theForm.plaintext.value);
+  key = _decode_hex(theForm.key.value);
+  woas.AES.key = key;
+  var enc = woas.AES.encrypt(pt);
+  if (enc !== null)
+	theForm.ciphertext.value = _encode_hex(enc);
+}
+
+function do_decrypt() {
+  var ct, key;
+  var theForm = document.forms[0];
+  blockSizeInBits=128;
+
+  if (theForm.key.value.toLowerCase().indexOf("0x") == 0)
+    theForm.key.value = theForm.key.value.substring(2);
+  if (theForm.ciphertext.value.toLowerCase().indexOf("0x") == 0)
+    theForm.ciphertext.value = theForm.ciphertext.value.substring(2);
+  
+  keySizeInBits = theForm.key.value.length*4;
+  switch (keySizeInBits) {
+	  case 128:
+	  case 192:
+	  case 256:
+	  break;
+	  default:
+		alert("Invalid key size");
+		theForm.key.select();
+		return;
+  }
+
+  if (theForm.ciphertext.value.length*4 != blockSizeInBits) {
+    alert("For a " + blockSizeInBits + " bit block, the hex ciphertext string needs to be " +
+          (blockSizeInBits / 4) + " hex characters long.");
+    if (theForm.ciphertext.select)
+       theForm.ciphertext.select();
+    return;
+  }
+     
+  pt = _decode_hex(theForm.plaintext.value);
+  key = _decode_hex(theForm.key.value);
+  woas.AES.key = key;
+  var dec = woas.AES.decrypt(pt);
+  if (dec !== null)
+	theForm.ciphertext.value = _encode_hex(dec);
+}
+
 </script>
 <script language="javascript" type="text/javascript" src="../woas/src/aes.js"></script>
 </head>
@@ -158,5 +241,12 @@ function _encode_hex(ba) {
 <p>Test results:<pre id="speed_test_results"></pre></p>
 <p><input onclick="do_fips197_test()" type="button" value="FIPS 197" /> Run FIPS 197 test vectors</p>
 <p>Test results:<pre id="fips197_test_results"></pre></p>
+<hr>
+<form name="thForm">
+<p><b>Key in hex: </b> <input type="text" size="66" name="key"></p>
+<p><b>Plaintext in hex: </b></p> <input type="text" size="66" name="plaintext"></p>
+<p><b>Ciphertext in hex: </b> <input type="text" size="66" name="ciphertext"></p>
+</form>
+<input onclick="do_encrypt()" type="button" value="Encrypt" /> <input onclick="do_decrypt()" type="button" value="Decrypt" />
 </body>
 </html>
