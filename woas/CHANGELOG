@@ -1,4 +1,6 @@
-Version 0.10.8 (legolas558)
+Version 0.10.8 (legolas558) released 2010-03-11
+* faster AES encryption/decryption (thanks to dixon)
+* various user interface improvements and bugfixes
 * fixed load/save bugs with IE
 * fixed a bug which prevented WoaS from correctly remembering about last encrypted page
 * incremented infinite recursion limit to 256
