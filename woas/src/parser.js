@@ -125,7 +125,8 @@ woas["split_tags"] = function(tlist) {
 		return tlist.split(",");
 }
 
-var reScripts = /<script([^>]*)>((.|\n)*?)<\/script>/gi;
+var reScripts = /<script([^>]*)>([\s\S]*?)<\/script>/gi;
+var reStyles = /<style([^>]*)>[\s\S]*?<\/style>/gi;
 var reNowiki = /\{\{\{([\s\S]*?)\}\}\}/g;
 var reTransclusion = /\[\[Include::([^\]]+)\]\]/g;
 var reMacros = /<<<([\s\S]*?)>>>/g;
@@ -322,6 +323,13 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 			return "";
 		});
 	}
+	
+	// do not parse style blocks
+	text = text.replace(reStyles, function(str) {
+		var r = woas.parser.place_holder(snippets.length);
+		snippets.push(str);
+		return r;
+	});
 	
 	// put a placeholder for the TOC
 	var p = text.indexOf("[[Special::TOC]]");
