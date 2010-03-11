@@ -127,7 +127,7 @@ woas["erase_wiki"] = function() {
 	// build titles
 	page_titles = [ this.config.main_page ];
 	page_titles = page_titles.concat(this.default_pages);
-	page_titles = page_titles.concat(this.static_pages));
+	page_titles = page_titles.concat(this.static_pages);
 	page_titles = page_titles.concat(copied_help_pages);
 	// now build pages
 	pages = ["A blank sheet is a catalyst for ideas", "[["+this.config.main_page+"]]\n\n[[Special::All Pages]]\n[[Special::New Page]]\n[[Special::Duplicate Page]]\n[[Special::Go to]]\n[[Special::Delete Page]]\n[[Special::Backlinks]]\n[[Special::Search]]", "/* insert here your boot script */", ""];

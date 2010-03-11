@@ -102,7 +102,7 @@ File: <input id="filename_" type="file" />&nbsp;<input type="button" value="Impo
 --DFQRCTsKlU
 woas.page.title: Special::About
 woas.page.attributes: 0
-woas.page.length: 2950
+woas.page.length: 3146
 woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1008,13 +1008,13 @@ When browsing the pages in this Help pop-up, you will find a *Back* button in th
 --DFQRCTsKlU
 woas.page.title: WoaS::Template::Button
 woas.page.attributes: 0
-woas.page.length: 102
+woas.page.length: 113
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-<div class="woas_topnote"><input type="button" class="woas_help_button" value="%1" onclick="%2"></div>
+<div class="woas_topnote"><input type="button" class="woas_help_button" value="%1" title="%1" onclick="%2"></div>
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Special::Advanced
 woas.page.attributes: 0
