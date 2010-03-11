@@ -445,19 +445,15 @@ function import_wiki_wsif() {
 	}
 	
 	var done;
-	if (!confirm(woas.i18n.CONFIRM_IMPORT_OVERWRITE))
-		done = false;
-	else {
-		// grab settings
-		_wsif_js_sec.comment_js = $("woas_cb_import_comment_js").checked;
-		_wsif_js_sec.comment_macros = $("woas_cb_import_comment_macros").checked;
-		_wsif_js_sec.comment_woas_ns = $("woas_cb_import_woas_ns").checked;
-		// automatically retrieve the filename (calls load_file())
-		done = woas._native_wsif_load(null, $("woas_cb_import_overwrite").checked, true, false,
-				_import_wsif_pre_hook);
-		if (done === false && (woas.wsif.emsg !== null))
-			woas.crash(woas.wsif.emsg);
-	}
+	// grab settings
+	_wsif_js_sec.comment_js = $("woas_cb_import_comment_js").checked;
+	_wsif_js_sec.comment_macros = $("woas_cb_import_comment_macros").checked;
+	_wsif_js_sec.comment_woas_ns = $("woas_cb_import_woas_ns").checked;
+	// automatically retrieve the filename (calls load_file())
+	done = woas._native_wsif_load(null, $("woas_cb_import_overwrite").checked, true, false,
+			_import_wsif_pre_hook);
+	if (done === false && (woas.wsif.emsg !== null))
+		woas.crash(woas.wsif.emsg);
 
 	if (done !== false) {
 		// add some info about total pages

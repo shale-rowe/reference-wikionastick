@@ -253,7 +253,7 @@ woas["_native_wsif_load"] = function(path, overwrite, and_save, recursing, pre_i
 	var previous_h = null;
 	// too early failure
 	if (p == -1)
-		this.wsif_error("Invalid WSIF file "+path);
+		this.wsif_error("Invalid WSIF file");
 	else { // OK, first page was located, now get some general WSIF info
 		var wsif_v = ct.substring(0,p).match(/^wsif\.version:\s+(.*)$/m);
 		if (wsif_v === null) {
