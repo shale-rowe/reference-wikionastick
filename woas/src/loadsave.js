@@ -12,7 +12,7 @@ woas["file_mode"] = {
 function _saveThisFile(new_data, old_data) {
 	var filename = _get_this_filename();
 	
-	r = woas.save_file(filename, woas.file_mode.UTF8_TEXT,
+	r = woas.save_file(filename, woas.file_mode.ASCII_TEXT,
 	woas.DOCTYPE + woas.DOC_START +
 	"<sc"+"ript type=\"text/javascript\">" + new_data + "\n" + old_data + "</html>");
 	if (r==true)
