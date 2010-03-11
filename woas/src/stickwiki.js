@@ -1372,7 +1372,7 @@ woas["edit_allowed"] = function(page) {
 woas["current_editing"] = function(page, disabled) {
 	log("current = "+current+", current_editing(\""+page+"\", disabled: "+disabled+")");	// log:1
 	_prev_title = current;
-	$("wiki_page_title").disabled = (disabled ? "disabled" : "");
+	$("wiki_page_title").disabled = (disabled && !edit_override ? "disabled" : "");
 	$("wiki_page_title").value = page;
 	kbd_hooking = true;
 	this._set_title("Editing "+page);
@@ -1445,8 +1445,17 @@ woas["valid_title"] = function(title) {
 		this.alert(this.i18n.TOO_LONG_TITLE.sprintf(256));
 		return false;
 	}
-	if (title.match(/\[\[/) || title.match(/\]\]/)) {
+	if (title.indexOf("[")!=-1 || title.indexOf("]")!=-1 ||
+		title.indexOf("{")!=-1 || title.indexOf("}")!=-1) {
 		this.alert(this.i18n.BRACKETS_TITLE);
+		return false;
+	}
+	if (title.indexOf("<!--") != -1 || title.indexOf("-->")!=-1) {
+		this.alert(this.i18n.COMMENT_TITLE);
+		return false;
+	}
+	if (title.indexOf("|")!=-1) {
+		this.alert(this.i18n.PIPE_TITLE);
 		return false;
 	}
 	if (title.substr(-2)=="::") {
