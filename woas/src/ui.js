@@ -48,8 +48,11 @@ function go_forward() {
 
 // when cancel is clicked
 function cancel() {
-	if (!confirm(woas.i18n.CANCEL_EDITING))
-		return;
+	// there was some change, ask for confirm
+	if ($("wiki_editor").value === woas.change_buffer) {
+		if (!confirm(woas.i18n.CANCEL_EDITING))
+			return;
+	}
 	if (kbd_hooking)
 		woas.disable_edit();
 }

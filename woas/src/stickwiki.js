@@ -1324,6 +1324,8 @@ woas["update_lock_icons"] = function(page) {
 woas["disable_edit"] = function() {
 //	log("DISABLING edit mode");	// log:0
 	kbd_hooking = false;
+	// reset change buffer used to check for page changes
+	this.change_buffer = null;
 	// we will cancel the creation of last page
 	if (this._ghost_page) {
 		// we assume that the last page is the ghost page
@@ -1403,9 +1405,13 @@ woas["current_editing"] = function(page, disabled) {
 	scrollTo(0,0);
 }
 
+woas["change_buffer"] = null;
+
 // sets the text and allows changes monitoring
 woas["edit_ready"] = function (txt) {
 	$("wiki_editor").value = txt;
+	// save copy of text to check if anything was changed
+	this.change_buffer = txt;
 }
 
 var _servm_shown = false;
@@ -1427,12 +1433,13 @@ woas["edit_page"] = function(page) {
 	}
 	_servm_alert();
 	var tmp = this.get_text(page);
-	if (tmp===null) return;
+	if (tmp===null) return false;
 	if (this.is_embedded(page) && !this.is_image(page))
 		tmp = decode64(tmp);
 	// setup the wiki editor textbox
 	this.current_editing(page, this.is_reserved(page));
 	this.edit_ready(tmp);
+	return true;
 }
 
 //API1.0: check if a title is valid
@@ -1551,7 +1558,8 @@ woas["set_css"] = function(new_css) {
 // action performed when save is clicked
 woas["save"] = function() {
 	this._ghost_save = false;
-	// when cumulative save is enabled things change a bit
+	// when this function is called in non-edit mode we perform a full commit
+	// for cumulative save
 	if (this.config.cumulative_save && !kbd_hooking) {
 		this.full_commit();
 		this.menu_display("save", false);
@@ -1563,23 +1571,27 @@ woas["save"] = function() {
 	if (this.browser.ie || this.browser.opera)
 		raw_content = raw_content.replace("\r\n", "\n");
 
+	var null_save = (raw_content === this.change_buffer);
+
 	var can_be_empty = false;
 	switch(current) {
 		case "Special::Edit CSS":
-			this.setCSS(raw_content);
+			if (!null_save)
+				this.setCSS(raw_content);
 			back_to = null;
 			current = "Special::Advanced";
 			$("wiki_page_title").disabled = "";
 			break;
 		case "WoaS::Aliases":
-			this._load_aliases(raw_content);
+			if (!null_save)
+				this._load_aliases(raw_content);
 			// fallback wanted
 		case "WoaS::Bootscript":
 			can_be_empty = true;
 			// fallback wanted
 		default:
 			// check if text is empty
-			if (!can_be_empty && (raw_content == "")) {
+			if (!null_save && !can_be_empty && (raw_content == "")) {
 				if (confirm(this.i18n.CONFIRM_DELETE.sprintf(current))) {
 					var deleted = current;
 					this.delete_page(current);
@@ -1589,21 +1601,24 @@ woas["save"] = function() {
 				return;
 			} else {
 				// here the page gets actually saved
-				this.set_text(raw_content);
-				var new_title = woas.trim($("wiki_page_title").value);
-				// disallow empty titles
-				if (!this.valid_title(new_title))
-					return false;
-				if (this.is_menu(new_title)) {
-					this.refresh_menu_area();
-					back_to = _prev_title;
-				} else {
-					if (new_title != current) {
-						if (!this.rename_page(current, new_title))
-							return false;
+				if (!null_save) {
+					this.set_text(raw_content);
+					var new_title = woas.trim($("wiki_page_title").value);
+					// disallow empty titles
+					if (!this.valid_title(new_title))
+						return false;
+					if (this.is_menu(new_title)) {
+						this.refresh_menu_area();
+						back_to = _prev_title;
+					} else {
+						if (new_title != current) {
+							if (!this.rename_page(current, new_title))
+								return false;
+						}
+						back_to = new_title;
 					}
-					back_to = new_title;
-				}
+				} else
+					back_to = _prev_title;
 			}
 	}
 	var saved = current;
@@ -1613,7 +1628,8 @@ woas["save"] = function() {
 		back_or(main_page);
 	this.refresh_menu_area();
 	this.disable_edit();
-	this.save_page(saved);
+	if (!null_save)
+		this.save_page(saved);
 }
 
 // push a page into history
