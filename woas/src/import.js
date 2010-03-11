@@ -103,6 +103,7 @@ woas["import_wiki"] = function() {
 				case "0.10.5":
 				case "0.10.6":
 				case "0.10.7":
+				case "0.10.8":
 					old_version = Number(ver_str.substr(1).replace(/\./g, ""));
 					break;
 				default:
@@ -362,6 +363,10 @@ woas["import_wiki"] = function() {
 			for(var a=0,acl=collected.length;a<acl;++a) {
 				woas[collected[a]] = i__woas[collected[a]];
 			}
+			
+			// add the new debug option
+			if (old_version<=107)
+				woas.config["debug_mode"] = false;
 			
 			if (import_icons) {
 				//TODO: import the icons
