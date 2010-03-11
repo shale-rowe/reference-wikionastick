@@ -165,7 +165,7 @@ A blank sheet is a catalyst for ideas
 --DFQRCTsKlU
 woas.page.title: Special::Search
 woas.page.attributes: 0
-woas.page.length: 703
+woas.page.length: 748
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -175,7 +175,7 @@ woas.page.boundary: DFQRCTsKlU
 
 <input id="string_to_search" type="text" onfocus="search_focus(true)" onblur="search_focus(false)" />&nbsp;<input type="button" value="Search" onclick="do_search()" />&nbsp;<input type="button" value="Clear" onclick="clear_search()" />
 
-<script>
+<script type="text/javascript" language="javascript">
 var tmp = $('wiki_text');
 var pre = '<pre class="wiki_preformatted">';
 var hl_text = cached_search.replace(/<div class="search_results">((.|\n)*?)<\/div>/g,
