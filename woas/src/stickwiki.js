@@ -1103,7 +1103,7 @@ woas["after_load"] = function() {
 	$('a_home').title = main_page;
 	$('img_home').alt = main_page;
 	
-	if (this.debug) {
+	if (this.config.debug_mode) {
 		$.show_ni("debug_info");
 		$.show_ni("woas_debug_panel");
 	} else {
@@ -1132,7 +1132,7 @@ woas["after_load"] = function() {
 		current = unescape(qpage);
 
 	// check integrity of WoaS when finished - only in debug mode
-/*	if (this.debug)
+/*	if (this.config.debug_mode)
 		if (!this.integrity_test())
 			return; */
 		
