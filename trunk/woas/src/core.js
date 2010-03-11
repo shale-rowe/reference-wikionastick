@@ -61,7 +61,8 @@ woas["_new_page"] = function(msg, fill_mode, def_title) {
 
 woas["cmd_erase_wiki"] = function() {
 	if (this.erase_wiki()) {
-		this.full_commit();
+		if (!this.full_commit())
+			alert(this.i18n.FAILED_ERASE);
 		back_or(main_page);
 	}
 	return null;
