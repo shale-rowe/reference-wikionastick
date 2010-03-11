@@ -150,9 +150,10 @@ woas.parser["place_holder"] = function (i, separator) {
 //		2 - re-add script tags after parsing
 woas.parser["parse"] = function(text, export_links, js_mode) {
 	if (woas.config.debug_mode) {
-		if (text===null)
+		if (text===null) {
 			log("Called parse() with null text!");	// log:1
-		return null;
+			return null;
+		}
 	}
 	// default fallback
 	if (typeof export_links == "undefined") {
