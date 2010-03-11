@@ -252,7 +252,7 @@ function import_wiki() {
 		return false;
 	}
 	woas.import_wiki();
-	this.refresh_menu_area();
+	woas.refresh_menu_area();
 }
 
 function set_key() {
