@@ -3046,8 +3046,8 @@ See also: [[WoaS::Help::Table of Contents]]
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Links
 woas.page.attributes: 0
-woas.page.last_modified: 1268260940
-woas.page.length: 8655
+woas.page.last_modified: 1268286343
+woas.page.length: 9166
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -3165,6 +3165,15 @@ function alertme () {alert("YOUR MESSAGE GOES HERE");}
 <a href='javascript:alert("YOUR MESSAGE GOES HERE");'>YOUR LINK TEXT GOES HERE</a>
 }}}<br><div class="woas_helptext">To create this:</div>
 <a href='javascript:alert("YOUR MESSAGE GOES HERE");'>YOUR LINK TEXT GOES HERE</a>
+
+=== Anchor links to anywhere on a page
+With a combination of HTML and wiki syntax, you can create anchor links to anywhere on a page, rather than just to headers.
+
+<div class="woas_helptext">Use this code in a page, replacing NAME with the name of the anchor:</div>{{{
+<a name="NAME">
+}}}<br><div class="woas_helptext">Use this code somewhere else on the same page, replacing NAME with the anchor name:</div>{{{
+[[#NAME]]
+}}}<br><div class="woas_helptext">To create an anchor link to anywhere on a page.</div>
 
 === Edit page link
 <div class="woas_helptext">Use this code in a page, replacing LINK with the text for your link:</div>{{{
