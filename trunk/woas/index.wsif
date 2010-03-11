@@ -962,7 +962,7 @@ Some of the best additions were [[WoaS::Help::WSIF|WSIF format]] and a pluggable
 --DFQRCTsKlU
 woas.page.title: Special::Export
 woas.page.attributes: 0
-woas.page.length: 2533
+woas.page.length: 2486
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -991,7 +991,7 @@ Default extension for generated XHTML files
 ==Custom JavaScripts
 <label for="woas_cb_js_ign"><input type="radio" id="woas_cb_js_ign" name="woas_cb_js" checked="checked">Do not export</label>
 <label for="woas_cb_js_dyn"><input type="radio" id="woas_cb_js_dyn" name="woas_cb_js">Run before exporting but do not export the javascript</label>
-<label for="woas_cb_js_exp"><input type="radio" id="woas_cb_js_exp" name="woas_cb_js">Export javascript as is (you might need to include the framework code)</label>
+<label for="woas_cb_js_exp"><input type="radio" id="woas_cb_js_exp" name="woas_cb_js">Export javascript as-is</label>
 <label for="woas_cb_js_head"><input type="radio" id="woas_cb_js_head" name="woas_cb_js" disabled="disabled">Export javascript into &lt;head /&gt; (you might need to include the framework code)</label>
 
 <label for="woas_cb_js_fw"><input type="checkbox" id="woas_cb_js_fw" disabled="disabled">Export the javascript framework too</label>
