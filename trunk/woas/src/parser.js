@@ -402,7 +402,7 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 						else {
 							snippets.push("<a class=\"link\" href=\""+
 							wl+"#" +
-							this.header_anchor($1.substring(1)) + "\">" + $2 + "<\/a>");
+							woas.parser.header_anchor($1.substring(1)) + "\">" + $2 + "<\/a>");
 						}
 						return r;
 					} else {
