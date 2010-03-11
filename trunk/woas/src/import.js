@@ -26,7 +26,7 @@ woas["import_wiki"] = function() {
 	var sys_pages=0;
 	do { // a fake do...while to ease failure return
 	// load the file as UTF-8
-	var ct = this.load_file(null, this.file_mode.UTF8_TEXT);
+	var ct = this.load_file(null, this.file_mode.ASCII_TEXT);
 	if (ct === null) {
 		fail = true;
 		break;
