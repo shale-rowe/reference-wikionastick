@@ -21,7 +21,7 @@ woas['i18n'] = {
 	PAGE_NOT_FOUND: "Page not found. Do you want to create it?",
 	CONFIRM_EXPORT: "Do you want to export %s in the below specified path?",
 	ASK_MENU_LINK: "Do you want to add a link into the main menu?",
-	BRACKETS_TITLE: "Cannot use \"[[\" or \"]]\" in a page title",
+	BRACKETS_TITLE: "Cannot use square brackets '[]' or curly braces '{}' in a page title",
 	PAGE_EXISTS: "A page with title \"%s\" already exists!",
 	FILE_DISPLAY_LIMIT: "Only the first 1024 bytes are displayed",
 	CONFIRM_DELETE_IMAGE: "Are you sure you want to delete image '%s'?",
@@ -71,6 +71,8 @@ woas['i18n'] = {
 	NO_TIDDLY_SAVER:"The TiddlySaver java applet was not available.",
 	TIDDLY_HELP:"Please check that TiddlySaver.jar is in the same directory of this WoaS and that you have enabled Java permissions for it",
 	NO_JAVA:"It was not possible to use TiddlySaver java applet nor direct Java saving.",
+	PIPE_TITLE:"Title cannot contain pipe character '|'",
+	COMMENT_TITLE:"Title cannot contain XHTML start/end comments ('<"+"!--' or '--"+">')",
 	LOADING: "Loading Wiki on a Stick..."
 }
 
