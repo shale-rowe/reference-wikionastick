@@ -948,7 +948,7 @@ woas["load_as_current"] = function(title, xhtml, mts) {
 		return false;
 	}
 	scrollTo(0,0);
-	log("load_as_current(\""+title+"\") - "+xhtml.length+" bytes");	// log:1
+	log("load_as_current(\""+title+"\") - "+(typeof xhtml == "string" ? (xhtml.length+" bytes") : (typeof xhtml)));	// log:1
 	$("wiki_text").innerHTML = xhtml;
 	// generate the last modified string to append
 	if (mts) {
