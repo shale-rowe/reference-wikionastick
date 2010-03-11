@@ -104,6 +104,7 @@ woas["import_wiki"] = function() {
 				case "0.10.6":
 				case "0.10.7":
 				case "0.10.8":
+				case "0.10.9":
 					old_version = Number(ver_str.substr(1).replace(/\./g, ""));
 					break;
 				default:
@@ -121,7 +122,8 @@ woas["import_wiki"] = function() {
 
 	
 	// import the variables
-	var new_main_page = main_page;
+	var new_main_page = this.config.main_page,
+		old_main_page = this.config.main_page;
 	var old_block_edits = !this.config.permit_edits;
 	var page_names = [];
 	var page_contents = [];
@@ -312,17 +314,21 @@ woas["import_wiki"] = function() {
 		//0:sw_import_current,1:sw_import_main_page,
 		//2:sw_import_backstack,3:sw_import_page_titles,4:sw_import_page_attrs,5:sw_import_pages
 		// from 0.10.0: sw_page_mts is before sw_import_pages
-		new_main_page = collected[1];
+		// from 0.10.9: main_page is inside woas.config
+		if (old_version <= 108)
+			new_main_page = collected[1];
 		if (import_content) {
 			var old_page_mts = [];
+			// offset for missing main_page var
+			var ofs_mp = (old_version <= 108) ? 0 : -1;
 			if (old_version <= 97)
-				page_contents = collected[5];
+				page_contents = collected[5+ofs_mp];
 			else {
-				old_page_mts = collected[5];
-				page_contents = collected[6];
+				old_page_mts = collected[5+ofs_mp];
+				page_contents = collected[6+ofs_mp];
 			}
-			page_names = collected[3];
-			old_page_attrs = collected[4];
+			page_names = collected[3+ofs_mp];
+			old_page_attrs = collected[4+ofs_mp];
 			if (old_version==92) {
 				// replace the pre tags with the new nowiki syntax
 				for(var i=0;i<page_contents.length;i++) {
@@ -367,6 +373,7 @@ woas["import_wiki"] = function() {
 			// add the new debug option
 			if (old_version<=107)
 				woas.config["debug_mode"] = false;
+			
 			
 			if (import_icons) {
 				//TODO: import the icons
@@ -458,10 +465,13 @@ woas["import_wiki"] = function() {
 			page_mts.push(current_mts);
 		}
 	} // do not import content pages
-	
+
+	// set the new config variable
+	if (old_version<=108)
+		this.config["main_page"] = old_main_page;
 	// apply the new main page if that page exists
-	if (this.page_exists(new_main_page))
-		main_page = new_main_page;
+	if ((new_main_page !== old_main_page) && this.page_exists(new_main_page))
+		this.config.main_page = new_main_page;
 	
 	this.config.permit_edits = !old_block_edits;
 	} while (false); // fake do..while ends here
@@ -477,12 +487,12 @@ woas["import_wiki"] = function() {
 	this.alert(this.i18n.IMPORT_OK.sprintf(pages_imported+"/"+(page_names.length-sys_pages).toString(), sys_pages));
 	
 	// move to main page
-	current = main_page;
+	current = this.config.main_page;
 	// save everything
 	this.full_commit();
 	
 	this.refresh_menu_area();
-	this.set_current(main_page, true);
+	this.set_current(this.config.main_page, true);
 	
 	// supposedly, everything went OK
 	return true;

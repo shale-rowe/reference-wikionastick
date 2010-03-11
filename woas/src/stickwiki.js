@@ -1100,8 +1100,8 @@ woas["after_load"] = function() {
 	
 	this.setHTML($("woas_wait_text"), this.i18n.LOADING);
 	
-	$('a_home').title = main_page;
-	$('img_home').alt = main_page;
+	$('a_home').title = this.config.main_page;
+	$('img_home').alt = this.config.main_page;
 	
 	if (this.config.debug_mode) {
 		$.show_ni("debug_info");
@@ -1494,8 +1494,8 @@ woas["rename_page"] = function(previous, newpage) {
 		if (changed)
 			this.set__text(i, tmp);
 	}
-	if (previous == main_page)
-		main_page = newpage;
+	if (previous == this.config.main_page)
+		this.config.main_page = newpage;
 	if (_prev_title == previous)
 		_prev_title = newpage;
 	return true;
@@ -1596,7 +1596,7 @@ woas["save"] = function() {
 					var deleted = current;
 					this.delete_page(current);
 					this.disable_edit();
-					back_or(main_page);
+					back_or(this.config.main_page);
 				}
 				return;
 			} else {
@@ -1625,7 +1625,7 @@ woas["save"] = function() {
 	if (back_to != null)
 		this.set_current(back_to, true);
 	else // used for CSS editing
-		back_or(main_page);
+		back_or(this.config.main_page);
 	this.refresh_menu_area();
 	this.disable_edit();
 	if (!null_save)

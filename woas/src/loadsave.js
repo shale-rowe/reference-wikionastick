@@ -452,10 +452,10 @@ woas["_save_to_file"] = function(full) {
 	var safe_current;
 	if (this.config.open_last_page) {
 		if (!this.page_exists(current)) {
-			safe_current = main_page;
+			safe_current = this.config.main_page;
 		} else safe_current = current;
 	} else
-		safe_current = main_page;
+		safe_current = this.config.main_page;
 	
 	// output the javascript header and configuration flags
 	var computed_js = "\n/* <![CDATA[ */\n\n/* "+new_marker+"-START */\n\nvar woas = {\"version\": \""+this.version+
@@ -470,8 +470,7 @@ woas["_save_to_file"] = function(full) {
 	computed_js = computed_js.substr(0,computed_js.length-1);
 	computed_js += "};\n";
 	
-	computed_js += "\nvar current = '" + this.js_encode(safe_current)+
-	"';\n\nvar main_page = '" + this.js_encode(main_page) + "';\n\n";
+	computed_js += "\nvar current = '" + this.js_encode(safe_current)+"';\n\n";
 	
 	computed_js += "var backstack = [\n" + printout_arr(backstack, false) + "];\n\n";
 	
