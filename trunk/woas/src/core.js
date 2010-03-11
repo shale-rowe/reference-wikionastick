@@ -288,12 +288,12 @@ woas["integrity_test"] = function() {
 		return false;
 	}
 	// test integrity of load/save functions
-	if (!this.save_file(woas.ROOT_DIRECTORY+"itest.bin", this.file_mode.UTF8_TEXT,
+	if (!this.save_file(woas.ROOT_DIRECTORY+"itest.bin", this.file_mode.BINARY,
 			woas.merge_bytes(woas.utf8Encrypt(UTF8_TEST))
 //			UTF8_TEST
 			))
 		return false;
-	var ct = this.load_file(woas.ROOT_DIRECTORY+"itest.bin", this.file_mode.UTF8_TEXT);
+	var ct = this.load_file(woas.ROOT_DIRECTORY+"itest.bin", this.file_mode.BINARY);
 	if ((ct === null)||(ct === false))
 		return false;
 	ct = woas.utf8Decrypt(woas.split_bytes(ct));
