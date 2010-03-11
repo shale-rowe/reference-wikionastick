@@ -10,7 +10,6 @@ woas["html_buttons_display"] = function (v) {
 }
 
 // submitted by pr0xy
-
 function TextAreaSelectionHelper(obj) {
 	this.target=obj;
 	this.target.carretHandler=this; // ?
