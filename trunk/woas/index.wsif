@@ -1043,7 +1043,7 @@ If you have not given permanent permission to your browser for editing wiki page
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Edit CSS
 woas.page.attributes: 0
-woas.page.length: 1343
+woas.page.length: 1359
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1052,7 +1052,9 @@ woas.page.boundary: DFQRCTsKlU
 = Edit CSS
 The look of most of this wiki can be customized by changing the CSS settings.
 
-[[Include::WoaS::Template::Info|A nice tutorial about CSS is available at [[http://www.w3schools.com/css/]].]]
+<<<%include:WoaS::Template::Info
+A nice tutorial about CSS is available at [[http://www.w3schools.com/css/|this address]].
+>>>
 == Edit the CSS settings
 # Click the *Advanced* (tools) icon in the navigation bar.
 # Click the *Special::Edit CSS* link in the *Advanced* section to open the CSS settings in the editor.
