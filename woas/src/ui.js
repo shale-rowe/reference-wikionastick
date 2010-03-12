@@ -3,7 +3,7 @@
 
 // when home is clicked
 function home() {
-	go_to(this.config.main_page);
+	go_to(woas.config.main_page);
 }
 
 // when Advanced is clicked
@@ -360,7 +360,7 @@ function query_delete_file(cr) {
 	if (!confirm(woas.i18n.CONFIRM_DELETE.sprintf(cr)))
 		return;
 	woas.delete_page(cr);
-	back_or(this.config.main_page);
+	back_or(woas.config.main_page);
 }
 
 // delayed function called after page loads and runs the script tag
@@ -378,7 +378,7 @@ function query_delete_image(cr) {
 	if (!confirm(woas.i18n.CONFIRM_DELETE_IMAGE.sprintf(cr)))
 		return;
 	woas.delete_page(cr);
-	back_or(this.config.main_page);
+	back_or(woas.config.main_page);
 }
 
 // triggered by UI graphic button

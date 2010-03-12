@@ -105,6 +105,7 @@ woas["import_wiki"] = function() {
 				case "0.10.7":
 				case "0.10.8":
 				case "0.10.9":
+				case "0.11.0":
 					old_version = Number(ver_str.substr(1).replace(/\./g, ""));
 					break;
 				default:
