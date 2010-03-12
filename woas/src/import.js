@@ -394,8 +394,8 @@ woas["import_wiki"] = function() {
 		// add new data
 		var pages_imported = 0;
 		for(var i=0, il=page_names.length; i<il; i++) {
-			// we are not using is_reserved() because will be inconsistant
-			// in case of enabled edit_override
+			// we are not using is_reserved() because will be inconsistant in case of enabled edit_override
+			//TODO: special treatment for WoaS:: namespace
 			if (page_names[i].indexOf("Special::")===0) {
 				if ((old_version>=94) && (old_version<=96)) {
 					if (page_names[i]=="Special::Bootscript") {

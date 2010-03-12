@@ -136,16 +136,13 @@ woas["utf8_encode"] = function(src) {
 	});
 }
 
-//DANGER: will corrupt your WoaS!
-var edit_override = false;
-
 // DO NOT modify this list! these are namespaces that are reserved to WoaS
 var reserved_namespaces = ["Special", "Lock", "Locked", "Unlocked", "Unlock",
 						"Tags", "Tagged", "Untagged", "Include", "Javascript", "WoaS"];
 
 // create the regex for reserved namespaces
 var reserved_rx = "^";
-for(var i = (edit_override ? 1 : 0);i<reserved_namespaces.length;i++) {
+for(var i = (woas.tweak.edit_override ? 1 : 0);i<reserved_namespaces.length;i++) {
 	reserved_rx += /*RegExp.Escape(*/reserved_namespaces[i] + "::";
 	if (i<reserved_namespaces.length-1)
 		reserved_rx += "|";
@@ -520,7 +517,7 @@ woas["assert_current"] = function(page) {
 woas["_ghost_page"] = false;
 
 woas["_create_page"] = function (ns, cr, ask, fill_mode) {
-	if (this.is_reserved(ns+"::") && !edit_override) {
+	if (this.is_reserved(ns+"::") && !this.tweak.edit_override) {
 		this.alert(this.i18n.ERR_RESERVED_NS.sprintf(ns+"::"+cr, ns));
 			return false;
 	}
@@ -692,7 +689,7 @@ woas["_get_special"] = function(cr, interactive) {
 			}	*/
 		text = this.get_text(cr);
 	if(text == null) {
-		if (edit_override && interactive) {
+		if (this.tweak.edit_override && interactive) {
 			this._create_page("Special", cr.substr(9), true, false);
 			return null;
 		}
@@ -1129,12 +1126,12 @@ woas["after_load"] = function() {
 		current = unescape(qpage);
 
 	// check integrity of WoaS when finished - only in debug mode
-/*	if (this.config.debug_mode)
+	if (this.tweak.integrity_test)
 		if (!this.integrity_test())
-			return; */
+			return;
 		
 	// first thing to do: load the actual pages!
-	if (this._auto_native_wsif) {
+	if (this.tweak.native_wsif) {
 		if (!this._native_load()) {
 			// the file load error is already documented to user
 			if (this.wsif.emsg !== null)
@@ -1358,7 +1355,7 @@ function _unlock_pages(arr) {
 }
 
 woas["edit_allowed"] = function(page) {
-	if (edit_override)
+	if (this.tweak.edit_override)
 		return (this.page_index(page) != -1);
 	if (!this.config.permit_edits)
 		return false;
@@ -1371,7 +1368,7 @@ woas["edit_allowed"] = function(page) {
 woas["current_editing"] = function(page, disabled) {
 	log("current = "+current+", current_editing(\""+page+"\", disabled: "+disabled+")");	// log:1
 	_prev_title = current;
-	$("wiki_page_title").disabled = (disabled && !edit_override ? "disabled" : "");
+	$("wiki_page_title").disabled = (disabled && !this.tweak.edit_override ? "disabled" : "");
 	$("wiki_page_title").value = page;
 	kbd_hooking = true;
 	this._set_title("Editing "+page);
@@ -1461,7 +1458,7 @@ woas["valid_title"] = function(title) {
 		return false;
 	}
 	var ns = this.get_namespace(title, true);
-	if (ns.length && this.is_reserved(ns+"::") && !edit_override) {
+	if (ns.length && this.is_reserved(ns+"::") && !this.tweak.edit_override) {
 		this.alert(this.i18n.ERR_RESERVED_NS.sprintf(title, ns));
 		return false;
 	}
