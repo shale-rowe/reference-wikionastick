@@ -155,7 +155,7 @@ woas["export_one_page"] = function (
 				// fix also the encoding in the menus
 				_exp_menu = this.utf8_encode(_exp_menu);
 			}
-			data = '<div class="menu_area" id="sw_menu_area" style="position: absolute;"><div class="wiki" id="menu_area">'+_exp_menu+'</div></div><div class="text_area" id="wiki_text">'+data+'</div>';
+			data = '<div class="menu_area" id="sw_menu_area" style="position: absolute;"><div class="wiki" id="menu_area">'+_exp_menu+'</div></div><div class="woas_text_area" id="wiki_text">'+data+'</div>';
 		}
 		// craft a nice XHTML page
 		data = "<title>"+this.xhtml_encode(title)+"</title>"+

@@ -87,7 +87,7 @@ woas.parser["parse_tables"] =  function (str, p1) {
                 stk.push('<td>' + pp2.split('||').join('</td><td>') + '</td>');
             } 
         );
-        return  '<table class="text_area">' +
+        return  '<table class="woas_text_area">' +
                     (caption?('<caption>' + caption + '</caption>'):'') +
                     '<tr>' + stk.join('</tr><tr>') + '</tr>' +
                 '</table>' 
