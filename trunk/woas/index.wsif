@@ -1814,6 +1814,7 @@ You can insert a Table of Contents into your page by using a special wiki tag. I
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Tags
 woas.page.attributes: 0
+woas.page.last_modified: 1268359562
 woas.page.length: 3874
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1821,7 +1822,7 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Tags
-Tags are special links used by this wiki to group pages together into categories so they can easily be found again, A tag can be placed anywhere on a page, but it's a good idea to choose a standard location like the bottom of the page so you can easily find and edit them as your wiki grows. You can choose any name you like for the tag. You can also give a page more than one tag if the page fits into more than one category.
+Tags are special links used by this wiki to group pages together into categories so they can easily be found again. A tag can be placed anywhere on a page, but it's a good idea to choose a standard location like the bottom of the page so you can easily find and edit them as your wiki grows. You can choose any name you like for the tag. You can also give a page more than one tag if the page fits into more than one category.
 
 Tag a page by using a {{{[[Tag::]]}}} link, adding the tag name or names after the double colons. This can be done by using the *Tags* button in the editor or by typing the tag in manually using the instructions below.
 
