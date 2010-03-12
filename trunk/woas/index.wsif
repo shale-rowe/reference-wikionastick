@@ -2630,8 +2630,8 @@ With a combination of HTML and wiki syntax, you can create anchor links to anywh
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Images
 woas.page.attributes: 0
-woas.page.last_modified: 1268361512
-woas.page.length: 9082
+woas.page.last_modified: 1268379787
+woas.page.length: 9516
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -2704,8 +2704,10 @@ The resulting Base64 code will be a series of letters and characters similar to 
 {{{
 R0lGODlhBgAFAIABAAAAAP///yH5BAEAAAEALAAAAAAGAAUAAAIJDGJ4ic1qgAwFADs=
 }}}
-<div class="woas_helptext">Use this code in a page, replacing YOUR_CODE_HERE with your Base64 code:</div>{{{
-<img src="data:image/png;base64,YOUR_CODE_HERE">
+
+[[Include::WoaS::Template::Info|All of the instructions below that ask for an extension are looking for the file type of the image you are using (example: gif, jpg, png, etc.).]]
+<div class="woas_helptext">Use this code in a page, replacing EXTENSION with the extension of your image and YOUR_CODE_HERE with your Base64 code:</div>{{{
+<img src="data:image/EXTENSION;base64,YOUR_CODE_HERE">
 }}}<br><div class="woas_helptext">To embed an image in a page.</div>
 
 * *Example:*<br><br>
@@ -2719,8 +2721,8 @@ Create a new page, remove the automatically created header, and embed a Base64 i
 }}}
 
 == Use a Base64 image as a link to an alert
-<div class="woas_helptext">Use this code in a page, replacing YOUR ALERT TEXT HERE with whatever you'd like the alert to say, and YOUR_CODE_HERE with your Base64 code:</div>{{{
-<input type="image" onclick='alert("YOUR ALERT TEXT HERE")' src="data:image/png;base64,YOUR_CODE_HERE">
+<div class="woas_helptext">Use this code in a page, replacing YOUR ALERT TEXT HERE with whatever you'd like the alert to say, EXTENSION with the extension of your image, and YOUR_CODE_HERE with your Base64 code:</div>{{{
+<input type="image" onclick='alert("YOUR ALERT TEXT HERE")' src="data:image/EXTENSION;base64,YOUR_CODE_HERE">
 }}}<br><div class="woas_helptext">To use a Base64 image as a link to an alert.</div>
 
 * *Example:*<br><br>
@@ -2729,8 +2731,8 @@ Create a new page, remove the automatically created header, and embed a Base64 i
 }}}<br><div class="woas_helptext">To create this:</div><input type="image" onclick='alert("THIS IS AN ALERT!")' src="data:image/png;base64,R0lGODlhBgAFAIABAAAAAP///yH5BAEAAAEALAAAAAAGAAUAAAIJDGJ4ic1qgAwFADs=">
 
 == Use a Base64 image as a link to an external web page
-<div class="woas_helptext">Use this code in a page, replacing URL with the address of a website, and YOUR_CODE_HERE with your Base64 code:</div>{{{
-<input type="image" onclick="window.open('URL');return false;" src="data:image/png;base64,YOUR_CODE_HERE">
+<div class="woas_helptext">Use this code in a page, replacing URL with the address of a website, EXTENSION with the extension of your image, and YOUR_CODE_HERE with your Base64 code:</div>{{{
+<input type="image" onclick="window.open('URL');return false;" src="data:image/EXTENSION;base64,YOUR_CODE_HERE">
 }}}<br><div class="woas_helptext">To use a Base64 image as a link to a web page.</div>
 
 * *Example:*<br><br>
@@ -2739,8 +2741,8 @@ Create a new page, remove the automatically created header, and embed a Base64 i
 }}}<br><div class="woas_helptext">To create this:</div><input type="image" onclick="window.open('http://www.google.com');return false;" src="data:image/png;base64,R0lGODlhBgAFAIABAAAAAP///yH5BAEAAAEALAAAAAAGAAUAAAIJDGJ4ic1qgAwFADs=">
 
 == Use a Base64 image as a link to a page in this wiki
-<div class="woas_helptext">Use this code in a page, replacing PAGENAME with the name of the page you'd like to link to, and YOUR_CODE_HERE with your Base64 code:</div>{{{
-<input type="image" onclick="go_to('PAGENAME')" src="data:image/png;base64,YOUR_CODE_HERE">
+<div class="woas_helptext">Use this code in a page, replacing PAGENAME with the name of the page you'd like to link to, EXTENSION with the extension of your image, and YOUR_CODE_HERE with your Base64 code:</div>{{{
+<input type="image" onclick="go_to('PAGENAME')" src="data:image/EXTENSION;base64,YOUR_CODE_HERE">
 }}}<br><div class="woas_helptext">To create an image that links to a wiki page.</div>
 
 * *Example:*<br><br>
@@ -2751,8 +2753,8 @@ Create a new page, remove the automatically created header, and embed a Base64 i
 == Use a Base64 image as a link to an internal action
 See the [[WoaS::Help::Links]] page for a list of all possible internal actions.
 
-<div class="woas_helptext">Use this code in a page, replacing PAGENAME with the name of the page you'd like to link to, and YOUR_CODE_HERE with your Base64 code:</div>{{{
-<input type="image" onclick="go_to('INTERNAL_ACTION')" src="data:image/png;base64,YOUR_CODE_HERE">
+<div class="woas_helptext">Use this code in a page, replacing PAGENAME with the name of the page you'd like to link to, EXTENSIONS with the extension of your image, and YOUR_CODE_HERE with your Base64 code:</div>{{{
+<input type="image" onclick="go_to('INTERNAL_ACTION')" src="data:image/EXTENSION;base64,YOUR_CODE_HERE">
 }}}<br><div class="woas_helptext">To create an image that links to an internal action.</div>
 
 * *Example:*<br><br>
