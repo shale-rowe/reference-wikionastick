@@ -1,5 +1,6 @@
-Version 0.10.9 (legolas558)
-* fixed save feature for IE
+Version 0.10.9 (legolas558) released 2010-03-12
+* added some style from Stanky's WoaS
+* fixed save feature for IE (reported by J.Rosink)
 * added WoaS logo to left of title
 * border widths will now display properly in Chrome and other browsers
 * "<" and ">" are now forbidden in titles
