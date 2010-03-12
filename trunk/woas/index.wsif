@@ -1045,7 +1045,8 @@ If you have not given permanent permission to your browser for editing wiki page
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Edit CSS
 woas.page.attributes: 0
-woas.page.length: 1352
+woas.page.last_modified: 1268361169
+woas.page.length: 1364
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1054,7 +1055,7 @@ woas.page.boundary: DFQRCTsKlU
 = Edit CSS
 The look of most of this wiki can be customized by changing the CSS settings.
 
-[[Include::Image::alert.png]] /If you're new to CSS, [[http://www.w3schools.com/css/|this CSS Tutorial]] is wonderful./
+[[Include::WoaS::Template::Info|If you're new to CSS, <a href="http://www.w3schools.com/css/">this CSS Tutorial</a> is wonderful.]]
 == Edit the CSS settings
 # Click the *Advanced* (tools) icon in the navigation bar.
 # Click the *Special::Edit CSS* link in the *Advanced* section to open the CSS settings in the editor.
@@ -1201,13 +1202,14 @@ or more lines.
 --DFQRCTsKlU
 woas.page.title: WoaS::Template::Info
 woas.page.attributes: 0
-woas.page.length: 1845
+woas.page.last_modified: 1268361009
+woas.page.length: 1846
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-<div style="background-color: #FFFFAA; border: 0.1em solid; padding: 0.2em;"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAMAAADXqc3KAAAAAXNSR0IArs4c6QAAArtQTFRF8ox%2FAAAAAAABAQEBAQECAgICAwMDBAQFBQUABgYGCQgJCgoLDAsMDQwPDQ0NDw4PDw8HEhETExMUFRQUGRkNGhsUGxscHx8eISATIR8lJCQVJiUsJyUqKCcuLCwtLiw0Ly4vMzE4NzYoQT9FQz9ERkZGSkdTS0hMTEhNUk5bU1JVY15kYWBkZWFubGh5bmt1cGt6c212cm5%2BcXFwfHaDfXxehoKQjIiUkYyfkoyllZKal5CpmJGqmJGrmZKtmpaim5WunJaunZewn5mxoJqyopquoZuxpJylopyyopy1pJ22pJ24pJ61pJ%2B1paC1pqC1qaC0pqG1qKG7qqKuqaKxqKK4paWkq6O7qaS3q6p%2BraW4rae6rKmvrqm1rqm6r6nDsKu1sKu9sKu%2Bs6yxs7GDsay9sq29s667tK7FuK%2FBtbDAtbDBt7HEubS%2BubTCurTKurXFvLqjvLfGvLjEv72LvL2VvbjLvr%2BPwL%2BKvbvBw7nHv7vDwMGHw7rHwb3Fwr3Lw8SQxb%2FRxsDRxsHMxcLGxsPLyMPQx8XKyMXIysuOycbIzMfVzcrMz8zU0NGi0czZ0M%2FL0c%2FL0c%2FN0s7X08%2FZ1NPN1ten1tTR1tXP19XS2tfc3Nyt3N2s3dni397W4N%2FX4N%2FZ4t7m4eDY4t%2Fm4eHY4uHb4uDl4uLX4%2BLa5OLo5OTb5ubd6OjJ6Ofh6erE6efr6efs6ujs6%2Bju6%2B3B6%2Brj6%2Bnt6%2Brl7O6%2F6%2Bvk7Ovr7Ovu7evu7vDC7ezv7e3p7u7p7%2B7w7%2B7x7%2B%2Fx8fPF8PDt8e%2F18fDs8fDy8fDz8%2FXC8fHx8%2FD38vLt8vLu8vL08%2FPt8%2FPu9PP09vjI9fXw9vX09vbx9%2FX59%2Fby9%2Fb39%2Ffx%2BPf4%2Bfj5%2Bfj6%2Bfnz%2Bfn1%2Bfr1%2B%2F7K%2Bvr2%2B%2Fr5%2FPr%2F%2B%2Fv7%2FP%2FR%2Ffv%2B%2Ffz9%2F%2F7%2FFnlyNwAAAAF0Uk5TAEDm2GYAAAABYktHRACIBR1IAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH2gMHDxg0DfX8UQAAAUBJREFUKM9jYCAIGBl5hLgYGTGEuXViWpvTzZVZUaUYFdofXzu4YW53o5kgsgyj3LIXFy8e2rphclaZBS%2BSDHvlsxvPb5%2FbtXFKQVyGHkKCUev08TtPbp3Yu7KtKMnfUxIuw2h19MCVu9dP7Z41c3qeR5AmXII1YdOuy%2Ffv3dyyZMfqLhdvA7gEZ%2BzC9UcePrp6%2Fuz%2B%2BdWOXiYIo%2Bz7F%2B%2B8cGb5qkUz6vxsww0REvpN9b3zjq3oKU7zcbLOVEdIyOSkZk%2FatrYj1NfZNiCYH8mDuvmB1Qv2TYxwsHGt0kDyICObUXz01KUT3OyiarVRAouJWc0ysSU3JNldBT18mYUL16ybXaHEiBkfNQ%2B290WKyGNKNFzaMy1FQhZTovzp4TklUtKYEp0nN5eaCihiSPBxiIapMopjSw5iLIzGhBMNAHCEbLFZHo5dAAAAAElFTkSuQmCC" alt="Info" border="0" />%1</div>
+<div style="background-color: #FFFFAA; border: 0.1em solid; padding: 0.2em;"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAMAAADXqc3KAAAAAXNSR0IArs4c6QAAArtQTFRF8ox%2FAAAAAAABAQEBAQECAgICAwMDBAQFBQUABgYGCQgJCgoLDAsMDQwPDQ0NDw4PDw8HEhETExMUFRQUGRkNGhsUGxscHx8eISATIR8lJCQVJiUsJyUqKCcuLCwtLiw0Ly4vMzE4NzYoQT9FQz9ERkZGSkdTS0hMTEhNUk5bU1JVY15kYWBkZWFubGh5bmt1cGt6c212cm5%2BcXFwfHaDfXxehoKQjIiUkYyfkoyllZKal5CpmJGqmJGrmZKtmpaim5WunJaunZewn5mxoJqyopquoZuxpJylopyyopy1pJ22pJ24pJ61pJ%2B1paC1pqC1qaC0pqG1qKG7qqKuqaKxqKK4paWkq6O7qaS3q6p%2BraW4rae6rKmvrqm1rqm6r6nDsKu1sKu9sKu%2Bs6yxs7GDsay9sq29s667tK7FuK%2FBtbDAtbDBt7HEubS%2BubTCurTKurXFvLqjvLfGvLjEv72LvL2VvbjLvr%2BPwL%2BKvbvBw7nHv7vDwMGHw7rHwb3Fwr3Lw8SQxb%2FRxsDRxsHMxcLGxsPLyMPQx8XKyMXIysuOycbIzMfVzcrMz8zU0NGi0czZ0M%2FL0c%2FL0c%2FN0s7X08%2FZ1NPN1ten1tTR1tXP19XS2tfc3Nyt3N2s3dni397W4N%2FX4N%2FZ4t7m4eDY4t%2Fm4eHY4uHb4uDl4uLX4%2BLa5OLo5OTb5ubd6OjJ6Ofh6erE6efr6efs6ujs6%2Bju6%2B3B6%2Brj6%2Bnt6%2Brl7O6%2F6%2Bvk7Ovr7Ovu7evu7vDC7ezv7e3p7u7p7%2B7w7%2B7x7%2B%2Fx8fPF8PDt8e%2F18fDs8fDy8fDz8%2FXC8fHx8%2FD38vLt8vLu8vL08%2FPt8%2FPu9PP09vjI9fXw9vX09vbx9%2FX59%2Fby9%2Fb39%2Ffx%2BPf4%2Bfj5%2Bfj6%2Bfnz%2Bfn1%2Bfr1%2B%2F7K%2Bvr2%2B%2Fr5%2FPr%2F%2B%2Fv7%2FP%2FR%2Ffv%2B%2Ffz9%2F%2F7%2FFnlyNwAAAAF0Uk5TAEDm2GYAAAABYktHRACIBR1IAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH2gMHDxg0DfX8UQAAAUBJREFUKM9jYCAIGBl5hLgYGTGEuXViWpvTzZVZUaUYFdofXzu4YW53o5kgsgyj3LIXFy8e2rphclaZBS%2BSDHvlsxvPb5%2FbtXFKQVyGHkKCUev08TtPbp3Yu7KtKMnfUxIuw2h19MCVu9dP7Z41c3qeR5AmXII1YdOuy%2Ffv3dyyZMfqLhdvA7gEZ%2BzC9UcePrp6%2Fuz%2B%2BdWOXiYIo%2Bz7F%2B%2B8cGb5qkUz6vxsww0REvpN9b3zjq3oKU7zcbLOVEdIyOSkZk%2FatrYj1NfZNiCYH8mDuvmB1Qv2TYxwsHGt0kDyICObUXz01KUT3OyiarVRAouJWc0ysSU3JNldBT18mYUL16ybXaHEiBkfNQ%2B290WKyGNKNFzaMy1FQhZTovzp4TklUtKYEp0nN5eaCihiSPBxiIapMopjSw5iLIzGhBMNAHCEbLFZHo5dAAAAAElFTkSuQmCC" alt="Info" border="0" /> %1</div>
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Wiki is read-only
 woas.page.attributes: 0
@@ -1230,7 +1232,8 @@ If you clicked the *Disallow edits* button in the wiki *Options*, this wiki beca
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Create a page
 woas.page.attributes: 0
-woas.page.length: 2234
+woas.page.last_modified: 1268360831
+woas.page.length: 2242
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1238,7 +1241,7 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 = Create a page
 # Click the *New Page* link in the menu.<br><br>
-# Type the page title. Maximum length is 256 characters, although you might want to use a shorter title to not interfere with the navigation bar. Page titles are case sensitive, all characters are allowed except square brackets, curly braces and pipe characters ("[]{}|")
+# Type the page title. Maximum length is 256 characters, although you might want to use a shorter title to not interfere with the navigation bar. Page titles are case sensitive, all characters are allowed except square brackets, curly braces and pipe characters ("[]{}|")<br><br>
 # Press the *Enter* key or click the *OK* button.<br><br>
 # When asked if you'd like to add a link into the main menu, accept by pressing the *Enter* key or clicking the *OK* button, or refuse by clicking the *Cancel* button.<br><br>
 # A level one header with the title of your page will be inserted for you automatically. You can edit or delete the header if you like.<br><br>
@@ -1457,7 +1460,8 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Include web page
 woas.page.attributes: 0
-woas.page.length: 2646
+woas.page.last_modified: 1268361712
+woas.page.length: 2648
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1466,7 +1470,7 @@ woas.page.boundary: DFQRCTsKlU
 = Include web page
 Web pages can be included in a page as embedded objects or in iFrames.
 
-[[Include::Image::alert.png]] /Some pages may not render correctly depending on how they're coded. Embedding more than one web page in a wiki page will cause the final embedded web page to steal the focus when the page is loaded, so it's best to have only one per page. As a result, this page contains no examples./
+[[Include::WoaS::Template::Info|Some pages may not render correctly depending on how they're coded. Embedding more than one web page in a wiki page will cause the final embedded web page to steal the focus when the page is loaded, so it's best to have only one per page. As a result, this page contains no examples.]]
 == Embed a local HTML file as an object
 <div class="woas_helptext">Use this code in a page, replacing PATH with the full path to HTML file you wish to include, and changing the width and height to suit your taste:</div>{{{
 <html><object data="PATH" style="width:100%; height:630px;">File not found.</object></html>
@@ -1497,7 +1501,8 @@ For example, if you want to embed the Google page at [[http://www.google.com]] i
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Include wiki page
 woas.page.attributes: 0
-woas.page.length: 805
+woas.page.last_modified: 1268361745
+woas.page.length: 806
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1506,8 +1511,7 @@ woas.page.boundary: DFQRCTsKlU
 = Include wiki page
 To include the contents of a wiki page inside another wiki page, use an {{{[[Include::]]}}} tag on a line by itself, inserting the name of the page you'd like to include after the double colons in the tag.
 
-[[Include::Image::alert.png]] /Page names are case sensitive./
-
+[[Include::WoaS::Template::Info|Page names are case sensitive.]]
 <div class="woas_helptext">Use this code in a page, replacing Page Name with the name of the page you wish to include:</div>
 <div class="woas_helpcode">[<!-- -->[Include::Page Name]]</div>
 <div class="woas_helptext">To include the contents of another wiki page in the current page.</div>
@@ -1521,7 +1525,8 @@ To include the contents of a wiki page inside another wiki page, use an {{{[[Inc
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::JavaScript
 woas.page.attributes: 0
-woas.page.length: 5656
+woas.page.last_modified: 1268362021
+woas.page.length: 5738
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1557,7 +1562,7 @@ alert("This is an example alert!");
 }}}<br>
 # Save the file as *example.js*<br><br>
 # Reload the wiki.<br><br>
-# Open this page to run the *example.js* script and see the alert.
+# Open this page from the menu (not in the help pop-up) to run the *example.js* script and see the alert.
 <script src="example.js"></script>
 == Using JavaScript to create a temporary page
 This is quite interesting. Using this code, you can get this wiki to create a link to a dynamically created temporary page with custom content (it accepts HTML tags as part of the content) under the JavaScript [[WoaS::Help::Namespaces|namespace]]. The temporary page will be created each time the link is clicked, and it will be uncreated as soon as you navigate to another page or close the wiki.
@@ -1567,8 +1572,7 @@ This is quite interesting. Using this code, you can get this wiki to create a li
 }}}<br><div class="woas_helptext">To create this:</div>
 <script>function temporary(arg) {return 'CONTENT';}</script>[[Javascript::temporary('NAME')|LINK]]
 
-[[Include::Image::alert.png]] Only one of these links may be used per page.
-
+[[Include::WoaS::Template::Info|Only one of these links may be used per page.]]
 Paste each of these into a new page one by one to see what they do:
 * This one uses the temporary page name as part of its content:<br>{{{
 <script>function temporary(arg) {return 'This page was dynamically created using *'+arg+'* as content!';}</script>[[Javascript::temporary('sample')|Click here]]
@@ -1580,17 +1584,13 @@ Paste each of these into a new page one by one to see what they do:
 == Using JavaScript for page redirection
 The code below will redirect from the current page to the wiki page you specify a predefined number of seconds after the current page loads.
 
-[[Include::Image::alert.png]] /WARNING! Use this code carefully! Back up your wiki before trying it!/
-
+[[Include::WoaS::Template::Info|WARNING! Use this code carefully! Back up your wiki before trying it!]]
 <div class="woas_helptext">Use this code in a page, replacing PAGENAME with the name of the page to redirect to, and 10 with the number of seconds the script should delay:</div>{{{
 <script type="text/javascript">
 setTimeout(onload="go_to('PAGENAME')",10*1000);
 </script>
 }}}<br><div class="woas_helptext">To redirect the current page to the PAGENAME page 10 seconds after the current page loads.</div>
-Note that this will redirect to the next page even if you're in the editor! The only indication you will have if you're in the editor is that name in the the Page title box will change to the name of the redirected page. If you don't check this before saving, your changes will be saved to the redirected page, overwriting its contents.
-
-It's a good idea to put this code near the top of any page (preferably directly beneath the first header on the page) so that you can find it quickly, and also to make the delay at *least* 10 seconds so that you have time to open the page in the editor, change the *PAGENAME* portion of the code to a nonexistent page, and then save the page before the timer runs out. Then you can reopen the page safely without risk of it redirecting while you're working on it. All that will happen if you give the script a nonexistent page name is that an alert will pop up asking if you'd like to create the nonexistent page. You can click *Cancel* when that popup comes up and continue working without further interruption. An even safer method is to open the wiki in a text editor and make changes to the page contents from there.
-
+[[Include::WoaS::Template::Info|Note that this will redirect to the next page even if you're in the editor! The only indication you will have if you're in the editor is that name in the the Page title box will change to the name of the redirected page. If you don't check this before saving, your changes will be saved to the redirected page, overwriting its contents.<br><br>It's a good idea to put this code near the top of any page (preferably directly beneath the first header on the page) so that you can find it quickly, and also to make the delay at *least* 10 seconds so that you have time to open the page in the editor, change the *PAGENAME* portion of the code to a nonexistent page, and then save the page before the timer runs out. Then you can reopen the page safely without risk of it redirecting while you're working on it. All that will happen if you give the script a nonexistent page name is that an alert will pop up asking if you'd like to create the nonexistent page. You can click *Cancel* when that popup comes up and continue working without further interruption. An even safer method is to open the wiki in a text editor and make changes to the page contents from there.]]
 == Using JavaScript to reload the wiki
 <div class="woas_helptext">Use this code in a page:</div>{{{
 <input type="button" value="Reload wiki" onClick="window.location.href=window.location.href">
@@ -2623,7 +2623,8 @@ With a combination of HTML and wiki syntax, you can create anchor links to anywh
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Images
 woas.page.attributes: 0
-woas.page.length: 9323
+woas.page.last_modified: 1268361512
+woas.page.length: 9082
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -2633,13 +2634,6 @@ woas.page.boundary: DFQRCTsKlU
 Wiki on a Stick offers various ways of using images in your pages. You can link to local image files on your drive, remote image files, or embed image files into the wiki.
 
 [[Include::WoaS::Template::Info|Embedded images are encoded with Base64 and are 33% bigger than the original files. Since this wiki is a single file, excessive use of images will slow down performance.]]
-
-== Add an alert image to a page
-<div class="woas_helptext">Use this code in a page:</div>{{{
-[[Include::Image::alert.png]]
-}}}<br><div class="woas_helptext">To create this:</div>
-[[Include::Image::alert.png]]
-
 == Add an external image from the internet
 <div class="woas_helptext">Use this code in a page, replacing URL with the full link to the image:</div>{{{
 <img src="URL">
@@ -2667,7 +2661,7 @@ This wiki provides an interface for embedding images. Each image will be given i
 
 Before you begin, it's important to note that when coming up with names for your images, you don't need the full file name with its extension (example: *home.jpg* could just be named *home*).
 
-[[Include::Image::alert.png]] <span class="woas_helptext">*Replace NAME in these instructions with the name you'd like to give the image you're embedding:*</span>
+<span class="woas_helptext">*Replace NAME in these instructions with the name you'd like to give the image you're embedding:*</span>
 
 # Create a new page or open an existing page in the editor by clicking the *Edit* (pencil) icon in the navigation bar.<br><br>
 # Create an include link for a new image. There are two ways you can do this:<br><br>
