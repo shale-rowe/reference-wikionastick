@@ -1232,8 +1232,8 @@ If you clicked the *Disallow edits* button in the wiki *Options*, this wiki beca
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Create a page
 woas.page.attributes: 0
-woas.page.last_modified: 1268360831
-woas.page.length: 2242
+woas.page.last_modified: 1268362659
+woas.page.length: 2267
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1241,7 +1241,7 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 = Create a page
 # Click the *New Page* link in the menu.<br><br>
-# Type the page title. Maximum length is 256 characters, although you might want to use a shorter title to not interfere with the navigation bar. Page titles are case sensitive, all characters are allowed except square brackets, curly braces and pipe characters ("[]{}|")<br><br>
+# Type the page title. Maximum length is 256 characters, although you might want to use a shorter title to not interfere with the navigation bar. Page titles are case sensitive, all characters are allowed except angled brackets, square brackets, curly braces and pipe characters ("&lt;&gt;[]{}|")<br><br>
 # Press the *Enter* key or click the *OK* button.<br><br>
 # When asked if you'd like to add a link into the main menu, accept by pressing the *Enter* key or clicking the *OK* button, or refuse by clicking the *Cancel* button.<br><br>
 # A level one header with the title of your page will be inserted for you automatically. You can edit or delete the header if you like.<br><br>
@@ -1525,8 +1525,8 @@ To include the contents of a wiki page inside another wiki page, use an {{{[[Inc
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::JavaScript
 woas.page.attributes: 0
-woas.page.last_modified: 1268362021
-woas.page.length: 5738
+woas.page.last_modified: 1268363143
+woas.page.length: 5593
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1565,13 +1565,11 @@ alert("This is an example alert!");
 # Open this page from the menu (not in the help pop-up) to run the *example.js* script and see the alert.
 <script src="example.js"></script>
 == Using JavaScript to create a temporary page
-This is quite interesting. Using this code, you can get this wiki to create a link to a dynamically created temporary page with custom content (it accepts HTML tags as part of the content) under the JavaScript [[WoaS::Help::Namespaces|namespace]]. The temporary page will be created each time the link is clicked, and it will be uncreated as soon as you navigate to another page or close the wiki.
+Using this code, you can get this wiki to create a link to a dynamically created temporary page with custom content (it accepts HTML tags as part of the content) under the JavaScript [[WoaS::Help::Namespaces|namespace]]. The temporary page will be created each time the link is clicked, and it will be uncreated as soon as you navigate to another page or close the wiki.
 
 <div class="woas_helptext">Use this code in a page, replacing CONTENT with your content, NAME with the page name, and LINK with the text you want the link to have:</div>{{{
 <script>function temporary(arg) {return 'CONTENT';}</script>[[Javascript::temporary('NAME')|LINK]]
-}}}<br><div class="woas_helptext">To create this:</div>
-<script>function temporary(arg) {return 'CONTENT';}</script>[[Javascript::temporary('NAME')|LINK]]
-
+}}}<br><div class="woas_helptext">To create a dynamically created temporary page.</div>
 [[Include::WoaS::Template::Info|Only one of these links may be used per page.]]
 Paste each of these into a new page one by one to see what they do:
 * This one uses the temporary page name as part of its content:<br>{{{
@@ -1594,8 +1592,7 @@ setTimeout(onload="go_to('PAGENAME')",10*1000);
 == Using JavaScript to reload the wiki
 <div class="woas_helptext">Use this code in a page:</div>{{{
 <input type="button" value="Reload wiki" onClick="window.location.href=window.location.href">
-}}}<br><div class="woas_helptext">To create this:</div>
-<input type="button" value="Reload wiki" onClick="window.location.href=window.location.href">
+}}}<br><div class="woas_helptext">To create a button that reloads the wiki when you click it.</div>
 
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Join lines of text
