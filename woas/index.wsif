@@ -1444,7 +1444,8 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Include web page
 woas.page.attributes: 0
-woas.page.length: 2648
+woas.page.last_modified: 1268436582
+woas.page.length: 3350
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1453,31 +1454,40 @@ woas.page.boundary: DFQRCTsKlU
 = Include web page
 Web pages can be included in a page as embedded objects or in iFrames.
 
-[[Include::WoaS::Template::Info|Some pages may not render correctly depending on how they're coded. Embedding more than one web page in a wiki page will cause the final embedded web page to steal the focus when the page is loaded, so it's best to have only one per page. As a result, this page contains no examples.]]
-== Embed a local HTML file as an object
-<div class="woas_helptext">Use this code in a page, replacing PATH with the full path to HTML file you wish to include, and changing the width and height to suit your taste:</div>{{{
-<html><object data="PATH" style="width:100%; height:630px;">File not found.</object></html>
-}}}<br><div class="woas_helptext">To embed a local HTML file in a page.</div>
-For example, if you want to embed the {{{/Work/MyProject.html}}} file as an object, you'd use this command:<br>{{{
-<html><object data="/Work/MyProject.html" style="width:100%; height:630px;">File not found.</object></html>
-}}}
-== Embed a remote URL as an object
+[[Include::WoaS::Template::Info|Some pages may not render correctly depending on how they're coded. Embedding more than one web page in a wiki page will cause the final embedded web page to steal the focus when the page is loaded, so it's best to have only one per page.]]
+== Embed a web page as an object
 This method makes the embedded web page become a seamless part of the page.
 
-<div class="woas_helptext">Use this code in a page, replacing URL with the URL of the page you wish to include, and changing the width and height to suit your taste:</div>{{{
+* *Embed a local HTML file as an object:*<br><br>
+** <div class="woas_helptext">Use this code in a page, replacing PATH with the full path to HTML file you wish to include, and changing the width and height to suit your taste:</div>{{{
+<html><object data="PATH" style="width:100%; height:630px;">File not found.</object></html>
+}}}<br><div class="woas_helptext">To embed a local HTML file in a page.</div><br>
+*** For example, if you want to embed the {{{/Work/MyProject.html}}} file as an object, you'd use this command:<br>{{{
+<html><object data="/Work/MyProject.html" style="width:100%; height:630px;">File not found.</object></html>
+}}}<br><br>
+* *Embed a remote URL as an object:*<br><br>
+** <div class="woas_helptext">Use this code in a page, replacing URL with the URL of the page you wish to include, and changing the width and height to suit your taste:</div>{{{
 <html><object data="URL" style="width:100%; height:630px;">URL not found.</object></html>
-}}}<br><div class="woas_helptext">To embed an external URL in a page.</div>
-For example, if you want to embed the Google page at [[http://www.google.com]] as an object, you'd use this command:<br>{{{
+}}}<br><div class="woas_helptext">To embed an external URL in a page.</div><br>
+*** For example, if you want to embed the Google page at [[http://www.google.com]] as an object, you'd use this command:<br>{{{
 <html><object data="http://www.google.com" style="width:100%; height:630px;">URL not found.</object></html>
 }}}
 
-== Embed a remote URL in an iFrame
+== Embed a web page in an iFrame
 This method creates a frame around the embedded web page. The code shown below is for a plain frame, but you can style the iFrame further by adding a border, changing the border style to dotted, dashed, solid, double, groove, ridge, inset, or outset, changing the border width to whatever thickness you like, and the border color to whatever color you like.
 
-<div class="woas_helptext">Use this code in a page, replacing URL with the URL of the page you wish to include, and changing the width and height to suit your taste:</div>{{{
+* *Embed a local HTML file in an iFrame:*<br><br>
+** <div class="woas_helptext">Use this code in a page, replacing PATH with the full path to HTML file you wish to include, and changing the width and height to suit your taste:</div>{{{
+<iframe height="400" width="100%" height:630px; src="PATH"></iframe>
+}}}<br><div class="woas_helptext">To include a local HTML file in a wiki page.</div><br>
+*** For example, if you want to embed the {{{/Work/MyProject.html}}} file in an iFrame, you'd use this command:<br>{{{
+<iframe height="400" width="100%" height:630px; src="/Work/MyProject.html"></iframe>
+}}}<br><br>
+* *Embed a remote URL in an iFrame:*<br><br>
+** <div class="woas_helptext">Use this code in a page, replacing URL with the URL of the page you wish to include, and changing the width and height to suit your taste:</div>{{{
 <iframe height="400" width="100%" height:630px; src="URL"></iframe>
-}}}<br><div class="woas_helptext">To include a web page in a wiki page.</div>
-For example, if you want to embed the Google page at [[http://www.google.com]] in an iFrame, you'd use this command:<br>{{{
+}}}<br><div class="woas_helptext">To include a web page in a wiki page.</div><br>
+*** For example, if you want to embed the Google page at [[http://www.google.com]] in an iFrame, you'd use this command:<br>{{{
 <iframe height="400" width="100%" height:630px; src="http://www.google.com"></iframe>
 }}}
 
