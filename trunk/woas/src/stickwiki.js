@@ -1405,7 +1405,9 @@ woas["change_buffer"] = null;
 woas["edit_ready"] = function (txt) {
 	$("wiki_editor").value = txt;
 	// save copy of text to check if anything was changed
-	this.change_buffer = txt;
+	// do not save it in case of ghost pages
+	if (!this._ghost_page)
+		this.change_buffer = txt;
 }
 
 var _servm_shown = false;
@@ -1551,7 +1553,7 @@ woas["set_css"] = function(new_css) {
 
 // action performed when save is clicked
 woas["save"] = function() {
-	this._ghost_save = false;
+	this._ghost_page = false;
 	// when this function is called in non-edit mode we perform a full commit
 	// for cumulative save
 	if (this.config.cumulative_save && !kbd_hooking) {
