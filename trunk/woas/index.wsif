@@ -2476,7 +2476,8 @@ See also: [[WoaS::Help::Table of Contents]]
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Links
 woas.page.attributes: 0
-woas.page.length: 9166
+woas.page.last_modified: 1268360453
+woas.page.length: 8531
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -2522,14 +2523,12 @@ See the [[WoaS::Help::Images]] page.
 ==== Image as link to wiki page
 <div class="woas_helptext">Use this code in a page, replacing IMAGENAME with the name of an embedded image page, and PAGENAME with the name of a page in this wiki:</div>
 <div class="woas_helpcode">[<!-- -->[I<!-- -->nclude:<!-- -->:Image:<!-- -->:IMAGENAME|style="cursor:pointer" oncl<!-- -->ick="go_<!-- -->to('PA<!-- -->GENAME')"]]</div>
-<div class="woas_helptext">To create an image that links to a page in this wiki, like this alert image that links to the [[WoaS::Help::Index]] page:</div>
-[[Include::Image::alert.png|style="cursor:pointer" onclick="go_to('WoaS::Help::Index')"]]
+<div class="woas_helptext">To create an image that links to a page in this wiki.</div>
 
 ==== Image as link to web page
 <div class="woas_helptext">Use this code in a page, replacing IMAGENAME with the name of an embedded image page, and URL with the address of a web page:</div>
 <div class="woas_helpcode">[<!-- -->[In<!-- -->clude:<!-- -->:Image:<!-- -->:IMAGENAME|style="cursor:pointer" border="0" onc<!-- -->lick="win<!-- -->dow.o<!-- -->pen('URL')"]<!-- -->]</div>
-<div class="woas_helptext">To create an image that links to a web page, like this alert image that links to the [[http://www.google.com|Google]] page:</div>
-[[Include::Image::alert.png|style="cursor:pointer" border="0" onclick="window.open('http://www.google.com')"]]
+<div class="woas_helptext">To create an image that links to a web page.</div>
 
 === Include link
 You can include the contents of another page of this wiki in the current page by using an include link.
@@ -2584,10 +2583,7 @@ Below are methods for creating links using HTML syntax.
 function alertme () {alert("YOUR MESSAGE GOES HERE.");}
 </script>
 <input type=button value="YOUR BUTTON TEXT GOES HERE" onClick="alertme()">
-}}}<br><div class="woas_helptext">To create this:</div><script type="text/javascript">
-function alertme () {alert("YOUR MESSAGE GOES HERE");}
-</script>
-<input type=button value="YOUR BUTTON TEXT GOES HERE" onClick="alertme()">
+}}}<br><div class="woas_helptext">To create a button that opens an alert.</div>
 
 === Alert box link (labeled)
 <div class="woas_helptext">Use this code in a page, replacing YOUR MESSAGE GOES HERE with the content for the alert, and YOUR LINK TEXT GOES HERE with the text for your link:</div>{{{
@@ -2607,26 +2603,22 @@ With a combination of HTML and wiki syntax, you can create anchor links to anywh
 === Edit page link
 <div class="woas_helptext">Use this code in a page, replacing LINK with the text for your link:</div>{{{
 <a class="link" onclick="javascript:edit()" title="Edit this page">LINK</a>
-}}}<br><div class="woas_helptext">To create this:</div>
-<a class="link" onclick="javascript:edit()" title="Edit this page">LINK</a>
+}}}<br><div class="woas_helptext">To create a link that opens the current page in the editor.</div>
 
 === External link (button)
 <div class="woas_helptext">Use this code in a page, replacing YOUR BUTTON TEXT GOES HERE with the text for your button, and URL with the address of the web page:</div>{{{
 <input type="button" value="YOUR BUTTON TEXT GOES HERE" onclick="window.open('URL');">
-}}}<br><div class="woas_helptext">To create an external link button like this one:</div>
-<input type="button" value="Google" onclick="window.open('http://www.google.com/');">
+}}}<br><div class="woas_helptext">To create a button that opens an external link in another tab or window.</div>
 
 === Internal link (button)
 <div class="woas_helptext">Use this code in a page, replacing BUTTONTEXT with the text you want on the button and PAGENAME with the page you want to link to:</div>{{{
 <input value="BUTTONTEXT" onclick="go_to('PAGENAME')" type="submit" />
-}}}<br><div class="woas_helptext">To create this:</div>
-<input value="BUTTONTEXT" onclick="go_to('PAGENAME')" type="submit" />
+}}}<br><div class="woas_helptext">To create a button that opens an internal link in another tab or window.</div>
 
 === Internal link (button - with 5 second delay)
 <div class="woas_helptext">Use this code in a page, replacing BUTTONTEXT with the text you want on the button and PAGENAME with the page you want to link to:</div>{{{
 <input type="button" value="BUTTONTEXT" onClick="setTimeout('go_to(\'PAGENAME\')',5000);">
-}}}<br><div class="woas_helptext">To create this:</div>
-<input type="button" value="BUTTONTEXT" onClick="setTimeout('go_to(\'PAGENAME\')',5000);">
+}}}<br><div class="woas_helptext">To create a button that opens a wiki page five seconds after you click it.</div>
 
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Images
