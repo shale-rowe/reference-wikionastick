@@ -1116,7 +1116,8 @@ This page displays a list of pages that contain links to nonexistent pages. Both
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::General usage
 woas.page.attributes: 0
-woas.page.length: 1000
+woas.page.last_modified: 1268363892
+woas.page.length: 1194
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1132,6 +1133,9 @@ Use the *Back* and *Forward* arrow icons in the navigation bar to go back or for
 
 == Pages linking to the current page
 Click the *Backlinks* link in the menu to see which pages link to the page you currently have open.
+
+== Print a page
+Click the *Print* icon in the banner. A new browser window will open with a printer-friendly version of the main text area. Use the browser's print functions to print the page.
 
 == Syntax
 This wiki accepts [[http://en.wikipedia.org/wiki/Plain_text|plain text]], internal wiki syntax, [[http://www.wikicreole.org/wiki/|Creole 0.1]], [[http://www.w3schools.com/html/default.asp|HTML]], and [[http://www.w3schools.com/js/default.asp|JavaScript]]. See the *Syntax* pages listed in the *Help index* by clicking the *Help* (question mark) icon in the navigation bar for help with using the syntax in your pages.
