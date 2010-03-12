@@ -542,8 +542,8 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 	text = text.replace(/\n(<[uo]l>)/g, "$1");
 
 	// end-trim
-	if (end_trim)
-		text = text.replace(/\s*$/, "");
+//	if (end_trim)
+//		text = text.replace(/\s*$/, "");
 
 	// compress newlines characters into paragraphs (disabled)
 //	text = text.replace(/\n(\n+)/g, "<p>$1</p>");
