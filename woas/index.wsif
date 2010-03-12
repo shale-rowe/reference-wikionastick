@@ -1436,7 +1436,8 @@ Rulers (horizontal rules or lines) use the full width of the page by default. Th
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Include text file
 woas.page.attributes: 0
-woas.page.length: 535
+woas.page.last_modified: 1268359252
+woas.page.length: 534
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1450,7 +1451,7 @@ woas.page.boundary: DFQRCTsKlU
 <iframe height="400" width="100%" src="file:///home/username/Desktop/file.txt"></iframe>
 }}}<br>
 * *Windows example:*<br>{{{
-<iframe height="400" width="100%" src="file:///C:/Users//Username/Documents/file.txt"></iframe>
+<iframe height="400" width="100%" src="file:///C:/Users/Username/Documents/file.txt"></iframe>
 }}}
 
 --DFQRCTsKlU
