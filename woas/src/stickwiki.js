@@ -1551,6 +1551,15 @@ woas["set_css"] = function(new_css) {
 	sty.cssText = new_css;
 }
 
+woas["get_raw_content"] = function() {
+	var c=$("wiki_editor").value;
+	// remove CR added by some browsers
+	//TODO: check if ie8 still adds these
+	if (this.browser.ie || this.browser.opera)
+		c = c.replace("\r\n", "\n");
+	return c;
+}
+
 // action performed when save is clicked
 woas["save"] = function() {
 	this._ghost_page = false;
@@ -1561,11 +1570,7 @@ woas["save"] = function() {
 		this.menu_display("save", false);
 		return;
 	}
-	var raw_content = $("wiki_editor").value;
-	// remove CR added by some browsers
-	//TODO: check if ie8 still adds these
-	if (this.browser.ie || this.browser.opera)
-		raw_content = raw_content.replace("\r\n", "\n");
+	var raw_content = this.get_raw_content();
 
 	var null_save = (raw_content === this.change_buffer);
 

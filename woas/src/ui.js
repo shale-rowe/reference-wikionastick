@@ -49,7 +49,7 @@ function go_forward() {
 // when cancel is clicked
 function cancel() {
 	// there was some change, ask for confirm
-	if ($("wiki_editor").value === woas.change_buffer) {
+	if (woas.get_raw_content() !== woas.change_buffer) {
 		if (!confirm(woas.i18n.CANCEL_EDITING))
 			return;
 	}
