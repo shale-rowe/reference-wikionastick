@@ -1,10 +1,11 @@
 wsif.version: 1.2.0
 woas.version: 0.11.0
-woas.pages: 62
+woas.pages: 63
 
 woas.page.title: ::Menu
 woas.page.attributes: 0
-woas.page.length: 948
+woas.page.last_modified: 1268435163
+woas.page.length: 424
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -25,27 +26,7 @@ woas.page.boundary: DFQRCTsKlU
 * [[Special::Go to|Go to...]]
 * [[Special::Search|Search]]
 
-<input id="menu_string_to_search" type="text" size="6" onfocus="menu_search_focus(true)" onblur="menu_search_focus(false)" />&nbsp;<input style="font-size: 10px;" type="button" value="Search" onclick="menu_do_search()" />
-
-<script>
-function menu_key_hook(orig_e) {
-    var e;
-    if (!orig_e)
-        e = window.event;
-    else
-        e = orig_e;
-	
-    if (e.keyCode==13) {
-	ff_fix_focus();
-	_raw_do_search($('menu_string_to_search').value);
-        return false;
-     }
-     return orig_e;
-}
-
-$('menu_string_to_search').onkeydown = menu_key_hook;
-</script>
-
+[[Include::WoaS::Template::Search]]
 
 
 
@@ -2781,5 +2762,36 @@ This method is used to import pages that have been exported using the [[WoaS::He
 # Click the *Open* button.
 # Choose the options you'd like to use.
 # Click the *Import WSIF* button.
+
+--DFQRCTsKlU
+woas.page.title: WoaS::Template::Search
+woas.page.attributes: 0
+woas.page.last_modified: 1268435135
+woas.page.length: 559
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+<input id="menu_string_to_search" type="text" size="6" onfocus="menu_search_focus(true)" onblur="menu_search_focus(false)" />&nbsp;<input style="font-size: 10px;" type="button" value="Search" onclick="menu_do_search()" />
+
+<script>
+function menu_key_hook(orig_e) {
+    var e;
+    if (!orig_e)
+        e = window.event;
+    else
+        e = orig_e;
+	
+    if (e.keyCode==13) {
+	ff_fix_focus();
+	_raw_do_search($('menu_string_to_search').value);
+        return false;
+     }
+     return orig_e;
+}
+
+$('menu_string_to_search').onkeydown = menu_key_hook;
+</script>
 
 --DFQRCTsKlU
