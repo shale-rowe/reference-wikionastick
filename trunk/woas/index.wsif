@@ -939,7 +939,8 @@ You can edit the contents of the main text area by typing normally. There are li
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Index
 woas.page.attributes: 0
-woas.page.length: 2287
+woas.page.last_modified: 1268357977
+woas.page.length: 2189
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -956,7 +957,6 @@ When browsing the pages in this Help pop-up, you will find a *Back* button in th
 ** [[WoaS::Help::Security]]
 ** [[WoaS::Help::WSIF]]
 * *Interface*
-** [[WoaS::Help::Debug console]]
 ** [[WoaS::Help::Edit CSS]]
 ** [[WoaS::Help::Edit the menu]]
 ** [[WoaS::Help::General usage]]
@@ -972,7 +972,6 @@ When browsing the pages in this Help pop-up, you will find a *Back* button in th
 ** [[WoaS::Help::Erase all pages]]
 ** [[WoaS::Help::Namespaces]]
 ** [[WoaS::Help::Page scrolling]]
-** [[WoaS::Help::Print a page]]
 ** [[WoaS::Help::Rename a page]]
 * *Specific Help pages*
 ** [[WoaS::Help::Editing]]
@@ -1002,7 +1001,6 @@ When browsing the pages in this Help pop-up, you will find a *Back* button in th
 ** [[WoaS::Help::Text formatting]]
 ** [[WoaS::Help::JavaScript]]
 * *Troubleshooting*
-** [[WoaS::Help::Debug console]]
 ** [[WoaS::Help::Wiki is read-only]]
 
 --DFQRCTsKlU
