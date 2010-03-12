@@ -1,7 +1,7 @@
 
 // page attributes bits are mapped to (readonly, encrypted, ...)
 
-var end_trim = false;		// trim pages from the end
+//var end_trim = false;		// trim pages from the end
 
 var forstack = [];			// forward history stack, discarded when saving
 var cached_search = "";		// cached XHTML content of last search
