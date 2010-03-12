@@ -1,8 +1,9 @@
 Version 0.10.9 (legolas558)
+* fixed save feature for IE
 * added WoaS logo to left of title
 * border widths will now display properly in Chrome and other browsers
 * "<" and ">" are now forbidden in titles
-* added title attributes to editor buttons (by littelgirl, suggested by ChrisClemson)
+* added title attributes to editor buttons (by littlegirl, suggested by ChrisClemson)
 
 Version 0.10.8 (legolas558) released 2010-03-11
 * faster AES encryption/decryption (thanks to dixon)

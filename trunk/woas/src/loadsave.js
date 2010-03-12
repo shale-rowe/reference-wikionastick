@@ -483,7 +483,7 @@ woas["_save_to_file"] = function(full) {
 	
 	// in native WSIF mode we will save empty arrays
 
-	if (this._auto_native_wsif)
+	if (this.tweak.native_wsif)
 		computed_js += "var page_titles = [\n];\n\n";
 	else
 		computed_js += "var page_titles = [\n" + printout_arr(page_titles, false) + "];\n\n";
@@ -491,7 +491,7 @@ woas["_save_to_file"] = function(full) {
 	computed_js += "/* " + new_marker + "-DATA */\n";
 	
 	if (full) {
-		if (this._auto_native_wsif) {
+		if (this.tweak.native_wsif) {
 			// everything empty when the javascript layer is not used
 			computed_js += "var page_attrs = [];\n\n";
 			computed_js += "var page_mts = [];\n\n";

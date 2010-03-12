@@ -1,5 +1,15 @@
 // core WoaS, WoaS::UI code
 
+// some tweak settings NOT to be touched - warranty void otherwise
+woas["tweak"] = {
+	// DANGER: might cause pages corruption!
+	"edit_override": false,
+	// native WSIF-saving mode used during development - use with CARE!
+	"native_wsif": true,
+	// perform integrity test of browser features
+	"integrity_test": true
+}
+
 woas["cmd_duplicate_page"] = function() {
 	var pname = this._new_page("Insert duplicate page title", true, current+" (duplicate)");
 	if (pname == null)
@@ -146,7 +156,7 @@ woas["cmd_main_page"] = function() {
 }
 
 woas["cmd_edit_css"] = function() {
-	if (!this.config.permit_edits && !edit_override) {
+	if (!this.config.permit_edits && !this.tweak.edit_override) {
 		this.alert(this.i18n.READ_ONLY);
 		return null;
 	}
@@ -166,7 +176,7 @@ woas["cmd_edit_bootscript"] = function() {
 
 // used to edit many special pages
 woas["cmd_edit_special"] = function(cr) {
-	if (!this.config.permit_edits && !edit_override) {
+	if (!this.config.permit_edits && !this.tweak.edit_override) {
 		this.alert(this.i18n.READ_ONLY);
 		return null;
 	}
@@ -287,19 +297,19 @@ woas["integrity_test"] = function() {
 		return false;
 	}
 	// test integrity of ecma encoding for 16bit UTF-8
-	var UTF8_TEST2 = "ラドクリフ";
+	var UTF8_TEST2 = "\u30e9\u30c9\u30af\u30ea\u30d5";
 	if (this.ecma_decode(this.ecma_encode(UTF8_TEST2)) !== UTF8_TEST2) {
 		this.crash("ECMA encoding/decoding not working:\n"+this.ecma_decode(this.ecma_encode(UTF8_TEST2))+
 		"\n"+UTF8_TEST2);
 		return false;
 	}
 	// test integrity of load/save functions
-	if (!this.save_file(woas.ROOT_DIRECTORY+"itest.bin", this.file_mode.BINARY,
+	if (!this.save_file(woas.ROOT_DIRECTORY+"itest.bin", this.file_mode.UTF8_TEXT,
 			woas.merge_bytes(woas.utf8Encrypt(UTF8_TEST))
 //			UTF8_TEST
 			))
 		return false;
-	var ct = this.load_file(woas.ROOT_DIRECTORY+"itest.bin", this.file_mode.BINARY);
+	var ct = this.load_file(woas.ROOT_DIRECTORY+"itest.bin", this.file_mode.UTF8_TEXT);
 	if ((ct === null)||(ct === false))
 		return false;
 	ct = woas.utf8Decrypt(woas.split_bytes(ct));
@@ -308,20 +318,20 @@ woas["integrity_test"] = function() {
 		return false;
 	}
 	// now test AES encryption
-	AES_setKey("WoaS");
+	woas.AES.setKey("WoaS");
 	var testdata = "sample text here";
-	var enc = AES_encrypt(testdata);
-	if (AES_decrypt(enc) !== testdata) {
+	var enc = woas.AES.encrypt(testdata);
+	if (woas.AES.decrypt(enc) !== testdata) {
 		this.crash("AES encryption is not working two-way!");
-		AES_clearKey();
+		woas.AES.clearKey();
 		return false;
 	}
-	if (AES_decrypt(AES_encrypt(UTF8_TEST)) !== UTF8_TEST) {
+	if (woas.AES.decrypt(woas.AES.encrypt(UTF8_TEST)) !== UTF8_TEST) {
 		this.crash("AES encryption of UTF8 text is not working two-way!");
-		AES_clearKey();
+		woas.AES.clearKey();
 		return false;
 	}
-	AES_clearKey();
+	woas.AES.clearKey();
 	log("Integrity test successful"); //log:1
 	return true;
 }
