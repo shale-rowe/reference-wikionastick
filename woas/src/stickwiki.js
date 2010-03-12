@@ -1308,9 +1308,9 @@ woas["update_lock_icons"] = function(page) {
 	//this.menu_display("setkey", cyphered);
 	var cls;
 	if (cyphered || (page.indexOf("Locked::")==0))
-		cls = "text_area locked";
+		cls = "woas_text_area locked";
 	else
-		cls = "text_area";
+		cls = "woas_text_area";
 	$("wiki_text").className = cls;
 }
 
@@ -1339,7 +1339,7 @@ woas["disable_edit"] = function() {
 	this.menu_display("cancel", false);
 	this.menu_display("print", true);
 	this.menu_display("setkey", true);
-	$.show("text_area");
+	$.show("i_woas_text_area");
 	// aargh, FF eats the focus when cancelling edit
 	$.hide("edit_area");
 //	log("setting back title to "+_prev_title);	// log:0
@@ -1384,7 +1384,7 @@ woas["current_editing"] = function(page, disabled) {
 	this.menu_display("save", true);
 	this.menu_display("cancel", true);
 	this.update_lock_icons(page);
-	$.hide("text_area");
+	$.hide("i_woas_text_area");
 
 	// FIXME!
 	if (!this.browser.ie)	{
