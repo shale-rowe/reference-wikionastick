@@ -1623,7 +1623,8 @@ with the line below it.
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Non-breaking spaces
 woas.page.attributes: 0
-woas.page.length: 766
+woas.page.last_modified: 1268359430
+woas.page.length: 765
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1642,8 +1643,11 @@ To insert 5 spaces between two words, insert 5 non-breaking spaces between them,
 word&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;word
 }}}<br>word&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;word
 
-Another method is to insert a combination of spaces and non-breaking spaces. To insert 5 spaces between two words, insert 1 space, 3 non-breaking spaces, and 1 space between them, like this:<br>{{{
-word &nbsp;&nbsp;&nbsp; word}}}word &nbsp;&nbsp;&nbsp; word
+Another method is to insert a combination of spaces and non-breaking spaces. To insert 5 spaces between two words, insert 1 space, 3 non-breaking spaces, and 1 space between them, like this:
+{{{
+word &nbsp;&nbsp;&nbsp; word
+}}}
+word &nbsp;&nbsp;&nbsp; word
 
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Namespaces
