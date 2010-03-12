@@ -128,7 +128,7 @@ woas["split_tags"] = function(tlist) {
 var reScripts = /<script([^>]*)>([\s\S]*?)<\/script>/gi;
 var reStyles = /<style([^>]*)>[\s\S]*?<\/style>/gi;
 var reNowiki = /\{\{\{([\s\S]*?)\}\}\}/g;
-var reTransclusion = /\[\[Include::([^\]]+)\]\]/g;
+var reTransclusion = /\[\[Include::([\s\S]+?)\]\]/g;
 var reMacros = /<<<([\s\S]*?)>>>/g;
 var reComments = /<\!--([\s\S]*?)-->/g;
 var reWikiLink = /\[\[([^\]\]]*?)\|(.*?)\]\]/g;
@@ -188,7 +188,7 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 		return r;
 	});
 	
-	// transclusion code - originally provided by martinellison
+	// transclude pages (templates)
 	if (!this.force_inline) {
 		var trans_level = 0;
 		do {
@@ -291,7 +291,8 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 	}
 	
 	// take a backup copy of the macros, so that no new macros are defined after page processing
-	var backup_macros = $.clone(woas.macro_parser.macros);
+	var backup_macro_n = woas.macro_parser.macro_names.slice(0),
+		backup_macro_f = woas.macro_parser.macro_functions.slice(0);
 	
 	// put away stuff contained in user-defined macro multi-line blocks <<< >>> (previously: "»".charCodeAt(0)); 171 187 \xAB \xBB
 	text = text.replace(reMacros, function (str, $1) {
@@ -598,7 +599,8 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 	if (this.force_inline)
 		this.force_inline = false;
 	// restore macros array
-	woas.macro_parser.macros = backup_macros;
+	woas.macro_parser.macro_names = backup_macro_n;
+	woas.macro_parser.macro_functions = backup_macro_f;
 		
 	if (text.substring(0,5)!="</div")
 		return "<div class=\"level0\">" + text + "</div>";
