@@ -1601,7 +1601,8 @@ setTimeout(onload="go_to('PAGENAME')",10*1000);
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Join lines of text
 woas.page.attributes: 0
-woas.page.length: 857
+woas.page.last_modified: 1268376677
+woas.page.length: 858
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1610,8 +1611,7 @@ woas.page.boundary: DFQRCTsKlU
 = Join lines of text
 If you have lengthy content that you'd like to break up into shorter lines in the editor while still being presented as a long line when the page is viewed, you can split the line up into as many pieces as you like, inserting a backslash at the *end* of each line to let the wiki parser know you want that line joined with the one below it. When you save the page, the line will be displayed intact.
 
-[[Include::Image::alert.png]] /Backslashes *within* a line will be ignored by the wiki parser and will not influence how the text is displayed./
-
+[[Include::WoaS::Template::Info|Backslashes *within* a line will be ignored by the wiki parser and will not influence how the text is displayed.]]
 <div class="woas_helptext">Use this code in a page:</div>{{{
 Putting a \ at the end of any line \
 makes it join together \
@@ -1624,8 +1624,8 @@ with the line below it.
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Non-breaking spaces
 woas.page.attributes: 0
-woas.page.last_modified: 1268359430
-woas.page.length: 765
+woas.page.last_modified: 1268377376
+woas.page.length: 905
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1637,23 +1637,22 @@ A non-breaking space can add extra space between characters on a line since this
 <div class="woas_helptext">Use this code in a page:</div>{{{
 &nbsp;
 }}}<br><div class="woas_helptext">To create a non-breaking space.</div>
-
-*Examples:*
-
-To insert 5 spaces between two words, insert 5 non-breaking spaces between them, like this:<br>{{{
+== Examples
+<div class="helptext">To insert 5 spaces between two words, insert 5 non-breaking spaces between them, like this:</div>{{{
 word&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;word
-}}}<br>word&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;word
+}}}<br><div class="helptext">To create this:</div>
+word&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;word
 
-Another method is to insert a combination of spaces and non-breaking spaces. To insert 5 spaces between two words, insert 1 space, 3 non-breaking spaces, and 1 space between them, like this:
-{{{
+<div class="helptext">Another method is to insert a combination of spaces and non-breaking spaces. To insert 5 spaces between two words, insert 1 space, 3 non-breaking spaces, and 1 space between them, like this:</div>{{{
 word &nbsp;&nbsp;&nbsp; word
-}}}
+}}}<br><div class="helptext">To create this:</div>
 word &nbsp;&nbsp;&nbsp; word
 
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Namespaces
 woas.page.attributes: 0
-woas.page.length: 2771
+woas.page.last_modified: 1268377123
+woas.page.length: 2772
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1666,8 +1665,7 @@ You can also use sub-namespaces, like {{{[[Recipes::Desserts::Cakes]]}}}.
 * *Recipes::* is the namespace.
 * *Desserts::* is a sub-namespace of *Recipes::*.
 * *Cakes::* is a sub-namespace of *Desserts::*.
-[[Include::Image::alert.png]] /Each namespace can have as many child pages under it as you like (within the resource limits of your hardware)./
-
+[[Include::WoaS::Template::Info|Each namespace can have as many child pages under it as you like (within the resource limits of your hardware).]]
 An advantage of creating parent and child pages is that the full path to each page is displayed in the navigation bar, so when you're on any page in a particular namespace, the parent page name will be in the navigation bar with the namespace (and sub-namespace, if the page has one) as a clickable link which will open an automatically generated page listing all the pages in that namespace (or sub-namespace) for quick navigation.
 
 == Namespaces reserved by this wiki
@@ -1785,14 +1783,17 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Page scrolling
 woas.page.attributes: 0
-woas.page.length: 503
+woas.page.last_modified: 1268377474
+woas.page.length: 504
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Page scrolling
-By default, this wiki offers two choices for scrolling in the wiki *Options*. The *Fixed menu area and navigation bar* is disabled by default. This locks all page elements in place so the entire page scrolls as one connected unit. Enabling it locks the navigation bar and menu in place while allowing the rest of the page to scroll. You can change the settings by clicking the *Advanced* (tools) icon in the navigation bar and then clicking the *Options* link in the *Options* section.
+By default, this wiki offers two choices for scrolling in the wiki *Options*. The *Fixed menu area and navigation bar* is disabled by default. This locks all page elements in place so the entire page scrolls as one connected unit. Enabling it locks the navigation bar and menu in place while allowing the rest of the page to scroll.
+
+You can change the settings by clicking the *Advanced* (tools) icon in the navigation bar and then clicking the *Options* link in the *Options* section.
 
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Table of Contents
@@ -2477,8 +2478,8 @@ See also: [[WoaS::Help::Table of Contents]]
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Links
 woas.page.attributes: 0
-woas.page.last_modified: 1268360453
-woas.page.length: 8531
+woas.page.last_modified: 1268376948
+woas.page.length: 8813
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -2527,7 +2528,7 @@ See the [[WoaS::Help::Images]] page.
 <div class="woas_helptext">To create an image that links to a page in this wiki.</div>
 
 ==== Image as link to web page
-<div class="woas_helptext">Use this code in a page, replacing IMAGENAME with the name of an embedded image page, and URL with the address of a web page:</div>
+<div class="woas_helptext">Use this code in a page, replacing Image::IMAGENAME with the name of an embedded image page, and URL with the address of a web page:</div>
 <div class="woas_helpcode">[<!-- -->[In<!-- -->clude:<!-- -->:Image:<!-- -->:IMAGENAME|style="cursor:pointer" border="0" onc<!-- -->lick="win<!-- -->dow.o<!-- -->pen('URL')"]<!-- -->]</div>
 <div class="woas_helptext">To create an image that links to a web page.</div>
 
@@ -2600,6 +2601,9 @@ With a combination of HTML and wiki syntax, you can create anchor links to anywh
 }}}<br><div class="woas_helptext">Use this code somewhere else on the same page, replacing NAME with the anchor name:</div>{{{
 [[#NAME]]
 }}}<br><div class="woas_helptext">To create an anchor link to anywhere on a page.</div>
+<br><div class="woas_helptext">Or use this code somewhere else on the same page, replacing NAME with the anchor name and LABEL with the text for the link:</div>{{{
+[[#NAME|LABEL]]
+}}}<br><div class="woas_helptext">To create a labeled anchor link to anywhere on a page.</div>
 
 === Edit page link
 <div class="woas_helptext">Use this code in a page, replacing LINK with the text for your link:</div>{{{
