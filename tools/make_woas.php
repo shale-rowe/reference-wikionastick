@@ -10,13 +10,12 @@
 # 
 # woas=path/woas.htm		path to WoaS HTML file - defaults to woas.htm
 # log=[0|1|2]		0 - fully disable log, 1 - keep logging as is, 2 - enable all log lines
-# debug=[0|1]		specify 1 to enable debugging code, default is 0
 # native_wsif=[0|1]	specify 1 to enable native WSIF saving, default is 0
 # edit_override=[0|1]	specify 1 to enable the edit override
 #
 
 $woas = null;
-$log = $debug = $edit_override = $native_wsif = false;
+$log = $edit_override = $native_wsif = false;
 
 // parse the command line parameters
 for($i=1;$i<$argc;++$i) {
@@ -36,9 +35,6 @@ for($i=1;$i<$argc;++$i) {
 			break;
 		case 'log':
 			$log = $v?1:0;
-			break;
-		case 'debug':
-			$debug = $v?1:0;
 			break;
 		case 'edit_override':
 			$edit_override = $v?1:0;
@@ -105,15 +101,14 @@ if (!$replaced) {
 	exit(-3);
 }
 
-$custom_options = "var edit_override = ".($edit_override ? 'true' : 'false').";\n".
-					"woas[\"_auto_native_wsif\"] = ".($native_wsif ? 'true' : 'false').";\n".
-					"woas[\"debug\"] = ".($debug ? 'true' : 'false').";\n";
+$custom_options = "woas.tweak.edit_override = ".($edit_override ? 'true' : 'false').";\n".
+			"woas.native_wsif = ".($native_wsif ? 'true' : 'false').";\n";
 
 $ct = substr_replace($ct, $tail.mkscript($custom_options, "Custom options"), $p, $ep-$p);
 
-file_put_contents('woas-merged.htm', $ct);
+file_put_contents('woas-single-file.htm', $ct);
 
-echo "WoaS merged into single file woas-merged.htm\n";
+echo "WoaS merged into single file woas-single-file.htm\n";
 
 exit(0);
 
