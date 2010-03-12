@@ -222,7 +222,8 @@ _lock_page();
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Security
 woas.page.attributes: 0
-woas.page.length: 3772
+woas.page.last_modified: 1268378037
+woas.page.length: 3788
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -233,8 +234,7 @@ Since Wiki on a Stick v0.9 the [[http://en.wikipedia.org/wiki/Advanced_Encryptio
 
 The first password you enter after having started Wiki on a Stick gets cached (unless you have specified not to do it) and you will no more be asked for it. Further encryptions and decryptions will always use the last password entered; such password is not anyway stored in your saved files (true AES encryption is used).
 
-<center>*If you forget the password there is no way to retrieve it or your data.*</center>
-
+[[Include::WoaS::Template::Info|*If you forget the password there is no way to retrieve it or your data.*]]
 == How do I encrypt a page?
 In order to encrypt a page you will have to click on the /lock/ icon in the navigation bar. The password interface will open. Type the password into the red box, using punctuation and mixed case, if possible. If the box turns green while you're typing in your password, it's a strong password. If it doesn't, you might wish to reconsider the password and try a stronger one. Once you've chosen and typed in your password, type it into the white box below the now hopefully green one for verification. Then click the *Lock* button (which will automatically include the name of the page you wish to encrypt) to encrypt the page.
 
@@ -1699,7 +1699,8 @@ You can type *My favorite recipes!* into the {{{[[Recipes::Menu]]}}} page, and a
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Text formatting
 woas.page.attributes: 0
-woas.page.length: 2169
+woas.page.last_modified: 1268378413
+woas.page.length: 2170
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1712,8 +1713,7 @@ woas.page.boundary: DFQRCTsKlU
 }}}<br><div class="woas_helptext">To create this:</div>
 <blink>This is blinking text.</blink>
 
-[[Include::Image::alert.png]] /This is not supported in Chrome, IE, or Safari./
-
+[[Include::WoaS::Template::Info|This is not supported in Chrome, IE, or Safari.]]
 == Bold
 <div class="woas_helptext">Use this code in a page:</div>{{{
 *This is bold text.*
@@ -1877,7 +1877,8 @@ By putting an exclamation mark (*!*) in front of the tag name, you can filter ou
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Publish wiki online
 woas.page.attributes: 0
-woas.page.length: 603
+woas.page.last_modified: 1268377894
+woas.page.length: 571
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1890,7 +1891,7 @@ This wiki can be published online as a single-file, framed web page by making it
 # Scroll to the bottom of the page.
 # Click the *Disallow edits* button to make the file read-only.
 # Upload the wiki to a web server and publish a link to it.
-[[Include::Image::alert.png]] /To enable wiki editing again, see the [[WoaS::Help::Wiki is read-only]] page./
+To enable wiki editing again, see the [[WoaS::Help::Wiki is read-only]] page.
 
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Run wiki on a server
