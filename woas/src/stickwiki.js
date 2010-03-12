@@ -1648,8 +1648,9 @@ woas["save_page"] = function(title) {
 }
 
 woas["save_page_i"] = function(pi) {
-	// update the modified time timestamp
-	page_mts[pi] = Math.round(new Date().getTime()/1000);
+	// update the modified time timestamp (only when not in dev-mode)
+	if (!this.tweak.edit_override)
+		page_mts[pi] = Math.round(new Date().getTime()/1000);
 	// this is the dummy function that will allow more efficient file saving in future
 	if (this.config.cumulative_save) {
 		// add the page to the bucket, if it isn't already in
