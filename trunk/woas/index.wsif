@@ -939,8 +939,8 @@ You can edit the contents of the main text area by typing normally. There are li
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Index
 woas.page.attributes: 0
-woas.page.last_modified: 1268357977
-woas.page.length: 2189
+woas.page.last_modified: 1268358824
+woas.page.length: 2187
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -981,25 +981,25 @@ When browsing the pages in this Help pop-up, you will find a *Back* button in th
 ** [[WoaS::Help::Special::Erase Wiki]]
 ** [[WoaS::Help::Special::Options]]
 * *Syntax*
-** [[WoaS::Help::Nowiki blocks]]
 ** [[WoaS::Help::Deprecated syntax]]
 ** [[WoaS::Help::Headers]]
 ** [[WoaS::Help::Images]]
 ** [[WoaS::Help::Include text file]]
 ** [[WoaS::Help::Include web page]]
 ** [[WoaS::Help::Include wiki page]]
+** [[WoaS::Help::JavaScript]]
 ** [[WoaS::Help::Join lines of text]]
 ** [[WoaS::Help::Links]]
 ** [[WoaS::Help::Lists]]
 ** [[WoaS::Help::Macros]]
 ** [[WoaS::Help::Non-breaking spaces]]
+** [[WoaS::Help::Nowiki text]]
 ** [[WoaS::Help::Rulers]]
 ** [[WoaS::Help::Syntax]]
 ** [[WoaS::Help::Table of Contents]]
 ** [[WoaS::Help::Tables]]
 ** [[WoaS::Help::Tags]]
 ** [[WoaS::Help::Text formatting]]
-** [[WoaS::Help::JavaScript]]
 * *Troubleshooting*
 ** [[WoaS::Help::Wiki is read-only]]
 
@@ -1137,33 +1137,35 @@ This wiki accepts [[http://en.wikipedia.org/wiki/Plain_text|plain text]], intern
 
 
 --DFQRCTsKlU
-woas.page.title: WoaS::Help::Nowiki blocks
+woas.page.title: WoaS::Help::Nowiki text
 woas.page.attributes: 0
-woas.page.length: 1672
+woas.page.last_modified: 1268358583
+woas.page.length: 1763
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Nowiki blocks
-/Nowiki blocks/ are sections of raw or preformatted text that is not parsed as wiki syntax. Anything you place inside nowiki brackets will be displayed in monospace font exactly as you typed it.
+= Nowiki text
+/Nowiki text/ is a section of raw or preformatted text that is not parsed as wiki syntax. Anything you place inside nowiki brackets will be displayed in monospace font exactly as you typed it.
 
 == Multi-line blocks
+<div class="woas_helptext">Use this code in a page:</div>
 <div class="woas_helpcode">{\
 {{This is a code block
 made of one
 or more lines.
 }}\
 }</div>
-<div class="woas_helptext">The above wiki syntax will be rendered as follows:</div>
+<div class="woas_helptext">To create this:</div>
 {{{This is a code block
 made of one
 or more lines.}}}
 == Inline nowiki blocks
 
-A normal sentece can contain an inline nowiki block, like {{<!-- -->{this block}}<!-- -->}.
+A normal sentence can contain an inline nowiki block, like {{<!-- -->{this block}}<!-- -->}.
 
-Example:
+Example (with the mathematical equation inside a nowiki block):
 
 The equation {{{E = mc^2}}} indicates that energy always exhibits mass in whatever form the energy takes.
 
@@ -1182,7 +1184,7 @@ or more lines.
 }}}
 
 == Nowiki block with custom CSS style
-The example uses /lightcyan color/, but you can replace that with whatever color you like, using [[http://www.w3schools.com/Html/html_colornames.asp|color names or hexadecimal notation]].
+The example uses /lightcyan/ and /purple/ colors, but you can replace those with whatever colors you like, using [[http://www.w3schools.com/Html/html_colornames.asp|color names or hexadecimal notation]].
 
 <div class="woas_helptext">Use this code in a page:</div>
 {{{<span style="background-color:lightcyan; color:purple;">}}}&#123;&#123;&#123;This is a code block
