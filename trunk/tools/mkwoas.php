@@ -3,7 +3,7 @@
 ## WoaS compiler
 # @author legolas558
 # @copyright GNU/GPL license
-# @version 1.2
+# @version 1.3.0
 # 
 # run 'mkwoas.php woas.htm' to create a single-file version
 # from the multiple files version
@@ -112,7 +112,7 @@ $tail = preg_replace_callback("/woas\\[\"tweak\"\\]\\s*=\\s*\\{([^;]+);/s", '_re
 
 function _replace_tweak_vars($m) {
 	return "woas[\"tweak\"] = {".
-		preg_replace_callback('/"([^"]+)"\\s*:\\s*(true|false)\\s*,/', '_replace_tweak_vars_single', $m[1]).
+		preg_replace_callback('/"([^"]+)"\\s*:\\s*(true|false)/', '_replace_tweak_vars_single', $m[1]).
 		";";
 }
 
@@ -125,8 +125,11 @@ function _replace_tweak_vars_single($m) {
 		case 'native_wsif':
 			$v = $GLOBALS['native_wsif'];
 		break;
+		case 'integrity_test':
+			// always disable the integrity test
+			$v = false;
 	}
-	return '"'.$var.'": '.($v ? 'true' : 'false').",";
+	return '"'.$var.'": '.($v ? 'true' : 'false');
 }
 
 $ct = substr_replace($ct, $tail, $p, $ep-$p);
