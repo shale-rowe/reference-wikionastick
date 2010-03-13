@@ -1,6 +1,6 @@
 wsif.version: 1.2.0
 woas.version: 0.11.0
-woas.pages: 64
+woas.pages: 66
 
 woas.page.title: ::Menu
 woas.page.attributes: 0
@@ -925,8 +925,8 @@ You can edit the contents of the main text area by typing normally. There are li
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Index
 woas.page.attributes: 0
-woas.page.last_modified: 1268438463
-woas.page.length: 2213
+woas.page.last_modified: 1268447755
+woas.page.length: 2245
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -987,6 +987,7 @@ When browsing the pages in this Help pop-up, you will find a *Back* button in th
 ** [[WoaS::Help::Tables]]
 ** [[WoaS::Help::Tags]]
 ** [[WoaS::Help::Text formatting]]
+** [[WoaS::Help::Transclusion]]
 * *Troubleshooting*
 ** [[WoaS::Help::Wiki is read-only]]
 
@@ -2835,5 +2836,75 @@ You can export this wiki into multiple linked XHTML, CSS, and image files which 
 # Choose the settings for the export.<br><br>[[Include::WoaS::Template::Info|Note that you can export into a single WSIF file or multiple WSIF files. Embedded files are exported as individual files unless you choose not to export them as external file blogs, in which case they'll be embedded in the WSIF file(s).]]<br>
 # Click the *Export WSIF* button. A confirmation will pop up, telling you how many pages were exported.<br><br>
 # The WSIF file(s) in the export directory can now be copied, shared, or stored for backup purposes.
+
+--DFQRCTsKlU
+woas.page.title: WoaS::Template::Example::Transclusion
+woas.page.attributes: 0
+woas.page.last_modified: 1268446253
+woas.page.length: 48
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+<big style="color:lime">%1 had a little %2</big>
+--DFQRCTsKlU
+woas.page.title: WoaS::Help::Transclusion
+woas.page.attributes: 0
+woas.page.last_modified: 1268447667
+woas.page.length: 3307
+woas.page.encoding: ecma/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Transclusion
+Transclusion is a special way of [[WoaS::Help::Include wiki page|including]] a wiki page in another wiki page. Instead of just displaying the contents of the included page as is, you can change how the content is displayed depending on how you write the link.
+
+This method requires that you create a page to be used as a template. This page must contain variables represented by %1, %2, %3, and so on.
+
+The [[WoaS::Template::Example::Transclusion]] page in this wiki uses two variables. The contents of that page are:
+{{{
+<big style="color:lime">%1 had a little %2</big>
+}}}
+You can then create a transclusion link or links to that page by creating a normal [[WoaS::Help::Include wiki page|include link]] with the values for the variables added after the page name. Each value must be preceded by a pipe ({{{|value}}}). The values you define in the link will be used from left to right to replace the numbered variables on the page you're including.
+
+<div class="helptext">Use this code, replacing PAGENAME with the name of the page to be included, and VALUE1 and VALUE2 with the values you'd like the two variables to have when the included page is displayed:</div>
+<div class="helpcode">[<!-- -->[Include::PAGENAME|VALUE1|VALUE2|VALUE3]<!-- -->]</div>
+== Examples
+These examples use the [[WoaS::Template::Example::Transclusion]] page:
+
+<div class="helptext">Use this code:</div>
+<div class="helpcode">[<!-- -->[Include::WoaS::Template::Example::Transclusion|Mary|lamb]<!-- -->]</div>
+<div class="helptext">To create this:</div>
+[[Include::WoaS::Template::Example::Transclusion|Mary|lamb]]
+
+<div class="helptext">Or use this code:</div>
+<div class="helpcode">[<!-- -->[Include::WoaS::Template::Example::Transclusion|Fred|snack]<!-- -->]</div>
+<div class="helptext">To create this:</div>
+[[Include::WoaS::Template::Example::Transclusion|Fred|snack]]
+
+<div class="helptext">Or use this code:</div>
+<div class="helpcode">[<!-- -->[Include::WoaS::Template::Example::Transclusion|Bob|Jane|Jack]<!-- -->]</div>
+<div class="helptext">To create this:</div>
+[[Include::WoaS::Template::Example::Transclusion|Bob|Jane|Jack]]
+== Wiki and HTML code in transclusion
+Some wiki code and HTML tags are accepted in the values.
+
+<div class="helptext">Use this code:</div>
+<div class="helpcode">[<!-- -->[Include::WoaS::Template::Example::Transclusion|&#042;Mary&#042;|&#042;lamb&#042;.&lt;br&gt;&lt;br&gt;Its &#047;fleece&#047; was white as &#095;snow&#095;.]<!-- -->]</div>
+<div class="helptext">To create this:</div>
+[[Include::WoaS::Template::Example::Transclusion|*Mary*|*lamb*.<br><br>Its /fleece/ was white as _snow_.]]
+
+== Infinite recursion
+Infinite recursion happens when you create an [[WoaS::Help::Include wiki page|include link]] to the current page or to another page that that has an [[WoaS::Help::Include wiki page|include link]] to the current page. The included page will be repeated multiple times followed by the include link itself being displayed in bold red text surrounded by infinity symbols like this:
+
+<font color="red">*{{{\u221e [[Include::PAGENAME]] \u221e}}}*</font>
+
+To see infinite recursion in action, create a page named *Infinite recursion* and paste this content into it:
+{{{
+[[Include::WoaS::Template::Example::Transclusion|Mary|lamb.]]
+[[Include::Infinite recursion]]
+}}}
 
 --DFQRCTsKlU
