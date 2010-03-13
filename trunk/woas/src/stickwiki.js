@@ -37,18 +37,6 @@ woas["DOC_START"] = "<"+"html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"
 // NOTE: not completely binary safe!
 // should be used only for titles (which ought not to contain binary bytes)
 woas["js_encode"] = function (s, split_lines) {
-/*	s = s.replace(/([\\<>'])/g, function (str, ch) {
-		switch (ch) {
-			case "<":
-				return	"\\x3C";
-			case ">":
-				return "\\x3E";
-			case "'":
-				return "\\'";
-//			case "\\":
-		}
-		return "\\\\";
-	}); */
 	// not to counfound browsers with saved tags
 	s = s.replace(/\\/g, "\\\\").replace(/</g, "\\x3C").replace(/>/g, "\\x3E").
 		replace(/'/g, "\\'");

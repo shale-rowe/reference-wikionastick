@@ -8,7 +8,7 @@ woas["tweak"] = {
 	"native_wsif": true,
 	// perform integrity test of browser features
 	"integrity_test": true
-}
+};
 
 woas["cmd_duplicate_page"] = function() {
 	var pname = this._new_page("Insert duplicate page title", true, current+" (duplicate)");
