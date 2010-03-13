@@ -1,4 +1,5 @@
-Version 0.11.0 (legolas558)
+Version 0.11.0 (legolas558) released 2010-03-13
+* fixed import/save issues with IE (2968654, reported by KHS)
 * fixed home button not working (2969514, reported by deroock)
 * added default macro 'include' for advanced transclusion
 * fixed bug regarding new pages not being saved (2969247, reported by mk-berlin)
