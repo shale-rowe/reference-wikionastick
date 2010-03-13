@@ -378,11 +378,10 @@ class WSIF {
 	}
 	
 	function _ecma_decode_cb($m) {
-		// get the numeric part
-		$n = substr($m[1], 2);
+		$n = $m[1];
 		$l = strlen($n);
 		$p = 0;
-		// skip first zeroes
+		// skip leading zeroes
 		for($i=0;$i<$l;++$i) {
 			if ($n[$i] != '0')
 				break;
