@@ -1,3 +1,9 @@
+Version 0.11.0 (legolas558)
+* fixed home button not working (2969514, reported by deroock)
+* added default macro 'include' for advanced transclusion
+* fixed bug regarding new pages not being saved (2969247, reported by mk-berlin)
+* documentation fixes and extension
+
 Version 0.10.9 (legolas558) released 2010-03-12
 * added some style from Stanky's WoaS
 * fixed save feature for IE (reported by J.Rosink)
