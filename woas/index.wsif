@@ -1,6 +1,6 @@
 wsif.version: 1.2.0
 woas.version: 0.11.0
-woas.pages: 63
+woas.pages: 64
 
 woas.page.title: ::Menu
 woas.page.attributes: 0
@@ -925,7 +925,8 @@ You can edit the contents of the main text area by typing normally. There are li
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Index
 woas.page.attributes: 0
-woas.page.length: 2187
+woas.page.last_modified: 1268438463
+woas.page.length: 2213
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -944,6 +945,7 @@ When browsing the pages in this Help pop-up, you will find a *Back* button in th
 * *Interface*
 ** [[WoaS::Help::Edit CSS]]
 ** [[WoaS::Help::Edit the menu]]
+** [[WoaS::Help::Export]]
 ** [[WoaS::Help::General usage]]
 ** [[WoaS::Help::Import]]
 ** [[WoaS::Help::Requirements]]
@@ -2803,5 +2805,35 @@ function menu_key_hook(orig_e) {
 
 $('menu_string_to_search').onkeydown = menu_key_hook;
 </script>
+
+--DFQRCTsKlU
+woas.page.title: WoaS::Help::Export
+woas.page.attributes: 0
+woas.page.last_modified: 1268438346
+woas.page.length: 1562
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Export
+You can export this wiki into multiple linked XHTML, CSS, and image files which will create a framed web page.
+
+# Click the *Advanced* (tools) icon in the banner.<br><br>
+# Scroll down to the *Maintenance* section.<br><br>
+# Click the *Special::Export* link.<br><br>
+# Choose the directory to export the wiki to.<br><br>
+# Choose the settings for the export.<br><br>[[Include::WoaS::Template::Info|Note that the "Run before exporting but do not export the javascript" option means that JavaScript is run and then the XHTML is exported, but the JavaScript is not. This is useful if you have JavaScript that does custom parsing.]]<br>
+# Click the *Export XHTML* button. A confirmation will pop up.<br><br>
+# Click the *index.htm* file in the export directory to launch the framed page.
+
+== ExportWSIF
+# Click the *Advanced* (tools) icon in the banner.<br><br>
+# Scroll down to the *Maintenance* section.<br><br>
+# Click the *Special::ExportWSIF* link.<br><br>
+# Choose the directory to export the WSIF file(s) to.<br><br>
+# Choose the settings for the export.<br><br>[[Include::WoaS::Template::Info|Note that you can export into a single WSIF file or multiple WSIF files. Embedded files are exported as individual files unless you choose not to export them as external file blogs, in which case they'll be embedded in the WSIF file(s).]]<br>
+# Click the *Export WSIF* button. A confirmation will pop up, telling you how many pages were exported.<br><br>
+# The WSIF file(s) in the export directory can now be copied, shared, or stored for backup purposes.
 
 --DFQRCTsKlU
