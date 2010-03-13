@@ -65,7 +65,7 @@ You can customize Wiki on a Stick modifying a few [[Special::Options|Options]].
 --DFQRCTsKlU
 woas.page.title: Special::Import
 woas.page.attributes: 0
-woas.page.length: 645
+woas.page.length: 644
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -76,8 +76,8 @@ Import a wiki from an early (or current) version:
 File: <input id="filename_" type="file" />&nbsp;<input type="button" value="Import" onclick="import_wiki()" />
 
 <label for="cb_import_content"><input type="checkbox" id="cb_import_content" checked="checked">&nbsp;Import the wiki pages.</label>
-<label for="cb_import_css"><input type="checkbox" id="cb_import_css">&nbsp;Import also CSS (available only for versions v0.9 and above).</label>
-/Caution: importing older CSS can garble the layout./
+<label for="cb_import_css"><input type="checkbox" id="cb_import_css">&nbsp;Import also CSS.</label>
+Available only for versions v0.9 and above. /Caution: importing older CSS can garble the layout./
 <label for="cb_import_icons"><input type="checkbox" id="cb_import_icons" disabled="disabled">&nbsp;Import the icons theme (not yet available).</label>
 
 --DFQRCTsKlU
@@ -870,7 +870,7 @@ And this is the actual result:
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Editing
 woas.page.attributes: 0
-woas.page.length: 3505
+woas.page.length: 2774
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -889,14 +889,14 @@ You can edit the contents of the main text area by typing normally. There are li
 {|
 |+ Wiki Code buttons
 | *Button* || *What it does*
-| Wiki URL || This brings up an interface that adds a wiki link to a page.
-| URL || This brings up an interface that adds an external link to a page.
-| = || This inserts the wiki syntax for a level one header. Use this at the beginning of any line.
-| == || This inserts the wiki syntax for a level two header. Use this at the beginning of any line.
-| Img || This brings up an interface that includes a wiki image in the page.
-| *B* || This wraps wiki syntax around the selected text to make it bold.
-| /i/ || This wraps wiki syntax around the selected text to make it italic.
-| u || This wraps wiki syntax around the selected text to underline it.
+| Wiki URL || Add a wiki link to a page.
+| URL || Add an external link to a page.
+| = || Insert wiki syntax for a level one header. Use this at the beginning of any line.
+| == || Insert wiki syntax for a level two header. Use this at the beginning of any line.
+| Img || Include a wiki image in the page.
+| *B* || Wrap selected text with bold syntax
+| /i/ || Wrap italic text with bold syntax
+| u || Wrap selected text with underline syntax
 | {{{nowiki}}} || This wraps wiki syntax around the selected text to make it nowiki (raw) text.
 | * || This inserts the wiki syntax for a bulleted list item.
 | # || This inserts the wiki syntax for a numbered list item.
@@ -905,28 +905,29 @@ You can edit the contents of the main text area by typing normally. There are li
 | Tags || This brings up an interface for inserting tags in your page to categorize them. Use a pipe between multiple tags.
 |}
 
+*Note:* it's always better to use wiki syntax instead of XHTML syntax, because this is a wiki
+
 {|
 |+ XHTML Code buttons
 | *Button* || *What it does*
-| *B* || This wraps XHTML strong tags around the selected text to make it bold.
-| /i/ || This wraps XHTML em tags around the selected text to make it italic.
-| u || This wraps XHTML u tags around the selected text to underline it.
-| s || This wraps XHTML s tags around the selected text to strike it through (crosses it out).
-| Sup || This wraps XHTML sup tags around the selected text to make it superscript (appearing half a character above the baseline).
-| Sub || This wraps XHTML sub tags around the selected text to make it subscript (appearing half a character below the baseline).
-| Left || This wraps XHTML div tags around the selected text to align it to the left.
-| Center || This wraps XHTML div tags around the selected text to align it to the center.
-| Right || This wraps XHTML div tags around the selected text to align it to the right.
-| Justify || This wraps XHTML div tags around the selected text to justify it.
-| List || This wraps XHTML ul tags around the selected text to create an unordered list.
-| List = || This wraps XHTML ol tags around the selected text to create an ordered list.
-| li[*] || This wraps XHTML li tags around the selected text to create a list item.
-| Blockquote || This wraps XHTML blockquote tags around the selected text to indent it beneath the current line.
-| Image || This brings up an interface that includes an external image in the page.
-| Link || This brings up an interface that includes an external link in the page.
+| *B* || Wrap selected text with bold tags
+| /i/ || Wrap selected text with emphasis tags (italics)
+| u || Wrap selected text with underline tags
+| s || Wrap selected text with strike-through tags
+| Sup || Wrap selected text with superscript tags (appearing half a character above the baseline)
+| Sub || Wrap selected text with subscript tags (appearing half a character below the baseline)
+| Left || Wrap selected text with a left-aligned div
+| Center || Wrap selected text with a center-aligned div
+| Right || Wrap selected text with a right-aligned div
+| Justify || Wrap selected text with a justified div
+| List || Add unordered list tags around the selected text
+| List = || Add ordered list tags around the selected text
+| li[*] || Wrap selected text with list item tagss
+| Blockquote || Wrap selected text with blockquote tags to indent it beneath the current line
+| Image || Include an external image
+| Link || Include an external link URL
 |}
 
-*Note:* it's always better to use wiki syntax instead of XHTML syntax, because this is a wiki
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Index
 woas.page.attributes: 0
@@ -2694,7 +2695,7 @@ A famous online service to create such URIs is [[http://software.hixie.ch/utilit
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Import
 woas.page.attributes: 0
-woas.page.length: 1280
+woas.page.length: 1282
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -2703,7 +2704,7 @@ woas.page.boundary: DFQRCTsKlU
 = Import
 
 == Import wiki
-This method is used to import the contents of an older (or current) version of Wiki on a Stick:
+An older Wiki on a Stick can be imported in the current wiki by using the *Special::Import* page.
 # Click the *Advanced* (tools) icon in the banner.
 # Scroll down to the *Maintenance* section.
 # Click the [[Special::Import]] link.
