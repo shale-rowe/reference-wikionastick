@@ -4,7 +4,6 @@ woas.pages: 66
 
 woas.page.title: ::Menu
 woas.page.attributes: 0
-woas.page.last_modified: 1268435163
 woas.page.length: 424
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -553,7 +552,6 @@ Some of the best additions were [[WoaS::Help::WSIF|WSIF format]] and a pluggable
 --DFQRCTsKlU
 woas.page.title: Special::Export
 woas.page.attributes: 0
-woas.page.last_modified: 1268434491
 woas.page.length: 2556
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -642,7 +640,6 @@ $JS  Javascript
 --DFQRCTsKlU
 woas.page.title: Special::ExportWSIF
 woas.page.attributes: 0
-woas.page.last_modified: 1268434302
 woas.page.length: 1126
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -931,7 +928,6 @@ You can edit the contents of the main text area by typing normally. There are li
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Index
 woas.page.attributes: 0
-woas.page.last_modified: 1268447755
 woas.page.length: 2245
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1440,7 +1436,6 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Include web page
 woas.page.attributes: 0
-woas.page.last_modified: 1268436582
 woas.page.length: 3350
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -2730,7 +2725,6 @@ This method is used to import pages that have been exported using the [[WoaS::He
 --DFQRCTsKlU
 woas.page.title: WoaS::Template::Search
 woas.page.attributes: 0
-woas.page.last_modified: 1268435135
 woas.page.length: 559
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -2761,7 +2755,6 @@ $('menu_string_to_search').onkeydown = menu_key_hook;
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Export
 woas.page.attributes: 0
-woas.page.last_modified: 1268438346
 woas.page.length: 1562
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -2791,7 +2784,6 @@ You can export this wiki into multiple linked XHTML, CSS, and image files which 
 --DFQRCTsKlU
 woas.page.title: WoaS::Template::Example::Transclusion
 woas.page.attributes: 0
-woas.page.last_modified: 1268446253
 woas.page.length: 48
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -2802,7 +2794,6 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Transclusion
 woas.page.attributes: 0
-woas.page.last_modified: 1268447667
 woas.page.length: 3307
 woas.page.encoding: ecma/plain
 woas.page.disposition: inline
