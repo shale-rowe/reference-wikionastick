@@ -1,7 +1,7 @@
 <?php
 ## WSIF support library
 ## @author legolas558
-## @version 1.3.1
+## @version 1.3.2
 ## @license GNU/GPL
 ## (c) 2010 Wiki on a Stick Project
 ## @url http://stickwiki.sf.net/
@@ -9,10 +9,10 @@
 ## offers basic read/write support for WSIF format
 #
 
-define('LIBWSIF_VERSION', '1.3.1');
+define('LIBWSIF_VERSION', '1.3.2');
 define('_LIBWSIF_RANDOM_CHARSET', "ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz");
 
-define('WSIF_VERSION', '1.2.0');
+define('WSIF_VERSION', '1.3.0');
 
 define('_WSIF_DEFAULT_INDEX', 'index.wsif');
 
@@ -41,9 +41,10 @@ define('_LIBWSIF_UNICODE_REGEX', '[\xC2-\xDF][\x80-\xBF]'.             # non-ove
 // the default hook used after a page has been loaded from WSIF source
 // should return a positive integer if page was successfully created
 // -1 to report failure
-function _WSIF_create_page(&$WSIF, $title, &$page, $attrs) {
-	echo sprintf("Page title:\t%s\nAttributes:\t%x\nLength:\t\t%d\n---\n",
-				$title, $attrs, strlen($page));
+function _WSIF_create_page(&$WSIF, $title, &$page, $attrs, $mts = 0) {
+	echo sprintf("Page title:\t%s\n%sAttributes:\t%x\nLength:\t\t%d\n---\n",
+				$title, $mts ? "Last modified: ".strftime("%Y-%m-%d %H:%M:%S", $mts)."\n" : "",
+				$attrs, strlen($page));
 	return 0;
 }
 
@@ -358,7 +359,7 @@ class WSIF {
 		}
 		
 		if (!$fail) {
-			$rv = $create_page_hook($this, $title, $page, $attrs);
+			$rv = $create_page_hook($this, $title, $page, $attrs, $last_mod);
 			if ($rv != -1)
 				// all OK
 				$this->_imported_page = $rv;
@@ -372,21 +373,32 @@ class WSIF {
 	}
 
 	function ecma_decode($s) {
-		return str_replace("\\\\", "\\", preg_replace_callback("/\\\\u([0-9a-f]{2,4})/", array(&$this, '_ecma_decode_cb'),
+		return str_replace("\\\\", "\\", preg_replace_callback("/\\\\u([0-9a-f]{4})/", array(&$this, '_ecma_decode_cb'),
 					$s));
 	}
 	
 	function _ecma_decode_cb($m) {
+		// get the numeric part
 		$n = substr($m[1], 2);
 		$l = strlen($n);
 		$p = 0;
+		// skip first zeroes
 		for($i=0;$i<$l;++$i) {
 			if ($n[$i] != '0')
 				break;
 			else $p = $i;
 		}
+		//extract hexadecimal part
 		$n = hexdec(substr($n, $p));
-		return chr($n);
+		return $this->_code2utf($n);
+	}
+	
+	function _code2utf($num){
+		if($num<128)return chr($num);
+		if($num<2048)return chr(($num>>6)+192).chr(($num&63)+128);
+		if($num<65536)return chr(($num>>12)+224).chr((($num>>6)&63)+128).chr(($num&63)+128);
+		if($num<2097152)return chr(($num>>18)+240).chr((($num>>12)&63)+128).chr((($num>>6)&63)+128) .chr(($num&63)+128);
+		trigger_error("UTF8 sequence with value 0x".dechex($num)." is not valid!");
 	}
 	
 	// default behaviour:
@@ -554,7 +566,10 @@ class WSIF {
 	// perform ECMAScript encoding only on some UTF-8 sequences
 	function ecma_encode($s) {
 		// fix the >= 128 ascii chars (to prevent UTF-8 characters corruption)
-		$s = str_replace('\\', '\\\\', $s);
+		return $this->utf8_js(str_replace('\\', '\\\\', $s));
+	}
+	
+	function utf8_js($s) {
 		return preg_replace_callback('%('._LIBWSIF_UNICODE_REGEX.')+%xs', array(&$this, '_ecma_encode_cb'), $s);
 	}
 	

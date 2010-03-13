@@ -1,20 +1,22 @@
+#!/usr/bin/php -q
 <?php
 ## WoaS compiler
 # @author legolas558
 # @copyright GNU/GPL license
-# @version 1.1
+# @version 1.2
 # 
-# run 'php -q make_woas.php woas.htm' to create a single-file version
+# run 'mkwoas.php woas.htm' to create a single-file version
 # from the multiple files version
 # additional understood pameters are:
 # 
 # woas=path/woas.htm		path to WoaS HTML file - defaults to woas.htm
+# wsif=path/index.wsif		path to pages data in WSIF format
 # log=[0|1|2]		0 - fully disable log, 1 - keep logging as is, 2 - enable all log lines
 # native_wsif=[0|1]	specify 1 to enable native WSIF saving, default is 0
 # edit_override=[0|1]	specify 1 to enable the edit override
 #
 
-$woas = null;
+$woas = $wsif = null;
 $log = $edit_override = $native_wsif = false;
 
 // parse the command line parameters
@@ -28,10 +30,17 @@ for($i=1;$i<$argc;++$i) {
 	switch ($a[0]) {
 		case 'woas':
 			if (!is_file($v)) {
-				echo $v." is not a valid file\n";
+				fprintf(STDERR,"%s is not a valid file\n", $v);
 				continue 2;
 			}
 			$woas = $v;
+			break;
+		case 'wsif':
+			if (!is_file($v)) {
+				fprintf(STDERR,"%s is not a valid file\n", $v);
+				continue 2;
+			}
+			$wsif = $v;
 			break;
 		case 'log':
 			$log = $v?1:0;
@@ -50,11 +59,8 @@ for($i=1;$i<$argc;++$i) {
 // default path
 if (!isset($woas))
 	$woas = 'woas.htm';
-
-if (!file_exists($woas)) {
-	fprintf("File \"%s\" does not exist\n", $woas);
-	exit(-1);
-}
+if (!isset($wsif))
+	$wsif = 'index.wsif';
 
 $ct = file_get_contents($woas);
 
@@ -97,18 +103,138 @@ function mkscript($ct, $desc = "") {
 $tail = preg_replace_callback('/<script src=\"([^"]+)" type="text\\/javascript"><\\/script>/', '_script_replace', $tail);
 
 if (!$replaced) {
-	echo "Could not find any script tag to replace\n";
+	fprintf(STDERR, "ERROR: cannot find any external script to replace\n");
 	exit(-3);
 }
 
-$custom_options = "woas.tweak.edit_override = ".($edit_override ? 'true' : 'false').";\n".
-			"woas.native_wsif = ".($native_wsif ? 'true' : 'false').";\n";
+// apply the custom settings
+$tail = preg_replace_callback("/woas\\[\"tweak\"\\]\\s*=\\s*\\{([^;]+);/s", '_replace_tweak_vars', $tail);
 
-$ct = substr_replace($ct, $tail.mkscript($custom_options, "Custom options"), $p, $ep-$p);
+function _replace_tweak_vars($m) {
+	return "woas[\"tweak\"] = {".
+		preg_replace_callback('/"([^"]+)"\\s*:\\s*(true|false)\\s*,/', '_replace_tweak_vars_single', $m[1]).
+		";";
+}
 
-file_put_contents('woas-single-file.htm', $ct);
+function _replace_tweak_vars_single($m) {
+	$var = $m[1];
+	switch ($var) {
+		case 'edit_override':
+			$v = $GLOBALS['edit_override'];
+		break;
+		case 'native_wsif':
+			$v = $GLOBALS['native_wsif'];
+		break;
+	}
+	return '"'.$var.'": '.($v ? 'true' : 'false').",";
+}
 
-echo "WoaS merged into single file woas-single-file.htm\n";
+$ct = substr_replace($ct, $tail, $p, $ep-$p);
+
+// get the native pages data and convert them to javascript array data
+require dirname(__FILE__).'/libwsif.php';
+
+global $pages, $page_title,$page_attrs, $page_mts;
+$pages = $page_attrs = $page_titles = $page_mts = "";
+
+function _print_n($n, &$s) {
+	if ($n>=1000)
+		$s.="0x".dechex($n);
+	else
+		$s.=sprintf("%d", $n);
+	$s .= ",";
+}
+
+function _js_encode(&$WSIF, $s, $split_lines = false) {
+	// escape newlines (\r\n happens only on the stupid IE) and eventually split the lines accordingly
+	if ($split_lines)
+		$nl = "\\n\\\n";
+	else
+		$nl = "\\n";
+	$s = str_replace(array("<", ">", "\r\n", "\n", "'"), array("\\x3C", "\\x3E", $nl, $nl, "\\'"),
+			str_replace("\\", "\\\\", $s));
+	return $WSIF->utf8_js($s);
+}
+
+function _print_mixed(&$WSIF, &$page, $attrs, &$pages) {
+	// embedded page e.g. byte array
+	if ($attrs & 2) {
+		$s="[";
+		$l=count($e);
+		for($i=0;$i<$l-1;++$i) {
+			_print_n($e[$i], $s);
+		}
+		// print the last element
+		if ($l>1) {
+			if ($n>=1000)
+				$s.="0x".dechex($e[$l-1]);
+			else
+				$s.=sprintf("%d", $e[$l-1]);
+		}
+		$s.="]";
+		// save encoded page
+	} else
+		$s = "'"._js_encode($WSIF, $page, true)."'";
+	
+	$pages .= $s.",\n";
+}
+
+function _WSIF_get_page(&$WSIF, $title, &$page, $attrs, $mts) {
+	global $pages, $page_titles, $page_attrs, $page_mts;
+	// store attributes
+	_print_n($attrs, $page_attrs);
+	// store timestamp
+	_print_n($mts, $page_mts);
+	// store title
+	$page_titles .= "'"._js_encode($WSIF, $title)."',\n";
+	// store page data
+	_print_mixed($WSIF, $page, $attrs, $pages);
+	// all OK
+	return 0;
+}
+
+$WSIF = new WSIF();
+if (false === $WSIF->Load($wsif, '_WSIF_get_page'))
+	exit(-19);
+
+// put the data in the woas.htm file
+$ct = preg_replace_callback("/\nvar (page[^ ]+) = \\[(.*?)\\];/s", '_inline_vars_rep', $ct);
+unset($WSIF);
+
+function _inline_vars_rep($m) {
+	$var = $m[1];
+	if (!isset($GLOBALS[$var]))
+		return $m[0];
+	$addnl = '';
+	switch($var) {
+		case 'page_mts':
+		case 'page_attrs':
+			$ofs = -1;
+		break;
+		case 'page_titles':
+			$addnl = "\n";
+			// fallback wanted
+		default:
+			$ofs = -2;
+	}
+	$r = "\nvar ".$var." = [".$m[2].substr($GLOBALS[$var], 0, $ofs).$addnl."];";
+	unset($GLOBALS[$var]);
+	return $r;
+}
+
+// get the version string
+if (!preg_match("/^var\\s+woas\\s*=\\s*\\{\\s*\"version\"\\s*:\\s*\"([^\"]+)\"\\s*\\}/m", $ct, $ver)) {
+	fprintf(STDERR, "ERROR: cannot find WoaS version\n");
+	exit(-4);
+}
+
+$ver = $ver[1];
+
+$ofile = 'woas-'.$ver.'.htm';
+if (file_put_contents($ofile, $ct))
+	fprintf(STDOUT, "WoaS v%s merged into %s\n", $ver, $ofile);
+else
+	exit(-1);
 
 exit(0);
 
