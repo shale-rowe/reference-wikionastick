@@ -294,7 +294,7 @@ woas.parser["parse"] = function(text, export_links, js_mode) {
 	var backup_macro_n = woas.macro_parser.macro_names.slice(0),
 		backup_macro_f = woas.macro_parser.macro_functions.slice(0);
 	
-	// put away stuff contained in user-defined macro multi-line blocks <<< >>> (previously: "»".charCodeAt(0)); 171 187 \xAB \xBB
+	// put away stuff contained in user-defined macro multi-line blocks
 	text = text.replace(reMacros, function (str, $1) {
 		// ask macro_parser to prepare this block
 		var macro = woas.macro_parser($1);
