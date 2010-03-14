@@ -395,8 +395,8 @@ Ly8gUHV0IGhlcmUgeW91ciBib290IGphdmFzY3JpcHQ=
 --DFQRCTsKlU
 woas.page.title: History
 woas.page.attributes: 0
-woas.page.last_modified: 1268594770
-woas.page.length: 42630
+woas.page.last_modified: 1268600373
+woas.page.length: 42854
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -488,19 +488,24 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the [[Help::Include web page]] page.
 ** Updated the [[Help::Include wiki page]] page.
 ** Updated the [[Help::JavaScript]] page.
+** Updated the [[Help::Join lines of text]] page.
 ** Updated the [[Help::Links]] page.
 ** Updated the [[Help::Lists]] page.
 ** Updated the [[Help::Namespaces]] page.
 ** Updated the [[Help::Navigation]] page.
+** Updated the [[Help::Page creation]] page.
 ** Updated the [[Help::Page scrolling]] page.
 ** Updated the [[Help::Print a page]] page.
 ** Updated the [[Help::Publish wiki online]] page.
 ** Updated the [[Help::Requirements]] page.
 ** Updated the [[Help::Run wiki on a server]] page.
+** Updated the [[Help::Syntax]] page.
+** Updated the [[Help::Table of Contents]] page.
 ** Updated the [[Help::Tables]] page.
 ** Updated the [[Help::Tags]] page.
 ** Updated the [[Help::Tooltips]] page thanks for information provided by [[http://woas.iragan.com/viewtopic.php?pid=2124#p2124|killermist]].
 ** Updated the [[Help::Transclusion]] page.
+** Updated the [[Help::Word count]] page.
 ** Updated the [[History]] page.
 ** Updated the [[Utility::Word count]] page.
 <!-- ============================================================================================================================================================================================= -->
@@ -1742,8 +1747,8 @@ Another method is to interrupt the code by dividing it up between multiple lines
 --DFQRCTsKlU
 woas.page.title: Help::CSS
 woas.page.attributes: 0
-woas.page.last_modified: 1268587724
-woas.page.length: 10757
+woas.page.last_modified: 1268600615
+woas.page.length: 10840
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1752,7 +1757,7 @@ woas.page.boundary: DFQRCTsKlU
 = CSS
 The look of most of this wiki can be customized by changing the CSS settings.
 
-[[Include::Template::Icon::Info]] /A tutorial on CSS is available at [[http://www.w3schools.com/css/|http://www.w3schools.com/css/]]./
+<div style="background-color: #FFFFAA; border: 0.1em solid; padding: 0.2em;">[[Include::Template::Icon::Info]] A tutorial on CSS is available here: [[http://www.w3schools.com/css/|http://www.w3schools.com/css/]]</div>
 == Edit the CSS settings
 # Click the [[Include::Template::Icon::Advanced]] icon in the banner.
 # Click the [[Special::Edit CSS]] link in the *Advanced* section to open the CSS settings in the editor.
@@ -2059,16 +2064,14 @@ To erase all user-created pages in this wiki and start fresh:
 --DFQRCTsKlU
 woas.page.title: Help::Export
 woas.page.attributes: 0
-woas.page.last_modified: 1268593789
-woas.page.length: 1392
+woas.page.last_modified: 1268600934
+woas.page.length: 1291
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Export
-[[Include::Template::TODO|this|Add instructions for Special::ExportWSIF to this page.]]
-
 You can export this wiki into multiple linked XHTML, CSS, and image files which will create a framed web page.
 
 # Click the [[Include::Template::Icon::Advanced]] icon in the banner.<br><br>
@@ -2084,7 +2087,7 @@ Now you can click the *index.htm* file in the export folder to launch the framed
 # Scroll down to the *Maintenance* section.<br><br>
 # Click the *Special::ExportWSIF* link.<br><br>
 # Choose the directory to export the WSIF file(s) to.<br><br>
-# Choose the settings for the export.<br><br>[[Include::Template::Icon::Info]] /Note that you can export into a single WSIF file or multiple WSIF files. Embedded files are exported as individual files unless you choose not to export them as external file blogs, in which case they'll be embedded in the WSIF file(s)./<br><br>
+# Choose the settings for the export.<br><br>[[Include::Template::Info|Note that you can export into a single WSIF file or multiple WSIF files. Embedded files are exported as individual files unless you choose not to export them as external file blogs, in which case they'll be embedded in the WSIF file(s).]]<br>
 # Click the *Export WSIF* button. A confirmation will pop up, telling you how many pages were exported.<br><br>
 # The WSIF file(s) in the export directory can now be copied, shared, or stored for backup purposes.
 
@@ -2602,8 +2605,8 @@ I recommend that you put this code near the top of any page (preferably directly
 --DFQRCTsKlU
 woas.page.title: Help::Join lines of text
 woas.page.attributes: 0
-woas.page.last_modified: 1267060517
-woas.page.length: 867
+woas.page.last_modified: 1268598237
+woas.page.length: 860
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -2612,8 +2615,7 @@ woas.page.boundary: DFQRCTsKlU
 = Join lines of text
 If you have lengthy content that you'd like to break up into shorter lines in the editor while still being presented as a long line when the page is viewed, you can split the line up into as many pieces as you like, inserting a backslash at the *end* of each line to let the wiki parser know you want that line joined with the one below it. When you save the page, the line will be displayed intact.
 
-[[Include::Template::Icon::Info]] Backslashes *within* a line will be ignored by the wiki parser and will not influence how the text is displayed.
-
+[[Include::Template::Info|Backslashes *within* a line will be ignored by the wiki parser and will not influence how the text is displayed.]]
 <div class="helptext">Use this code in a page:</div>{{{
 Putting a \ at the end of any line \
 makes it join together \
@@ -2628,8 +2630,8 @@ with the line below it.
 --DFQRCTsKlU
 woas.page.title: Help::Links
 woas.page.attributes: 0
-woas.page.last_modified: 1267202682
-woas.page.length: 11181
+woas.page.last_modified: 1268598845
+woas.page.length: 11215
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -2683,26 +2685,26 @@ I use {{{[[mailto://littlergirl@gmail.com?subject=Book on a Stick|email me]]}}} 
 == External link (button)
 <div class="helptext">Use this code in a page, replacing YOUR BUTTON TEXT GOES HERE with the text for your button, and URL with the address of the web page:</div>{{{
 <input type="button" value="YOUR BUTTON TEXT GOES HERE" onclick="window.open('URL');">
-}}}<div class="helptext">To create this an external link button like this one:</div>
-<input type="button" value="Google" onclick="window.open('http://www.google.com/');">
+}}}<div class="helptext">To create an external link button like this one:</div>
+<input type="button" value="GNU" onclick="window.open('http://www.gnu.org/');">
 
 == External link (button - styled)
 <div class="helptext">Use this code in a page, replacing YOUR BUTTON TEXT GOES HERE with the text for your button, and URL with the address of the web page:</div>{{{
 <input type="button" value="YOUR BUTTON TEXT GOES HERE" class="wiki_button" onclick="window.open('URL');">
-}}}<div class="helptext">To create this a styled external link button like this one:</div>
-<input type="button" value="Google" class="wiki_button" onclick="window.open('http://www.google.com/');">
+}}}<div class="helptext">To create a styled external link button like this one:</div>
+<input type="button" value="GNU" class="wiki_button" onclick="window.open('http://www.gnu.org/');">
 
 == External link (labeled)
 <div class="helptext">Use this code in a page, replacing URL with the address of the web page, and LABEL with the text for the link:</div>{{{
 [[URL|LABEL]]
 }}}<div class="helptext">To create a labeled external link like this one:</div>
-[[http://www.google.com|Click here for Google]]
+[[http://www.gnu.org/|Click here for GNU]]
 
 == External link (plain)
 <div class="helptext">Use this code in a page, replacing URL with the address of the web page:</div>{{{
 [[URL]]
 }}}<div class="helptext">To create a plain external link like this one:</div>
-[[http://www.google.com]]
+[[http://www.gnu.org/]]
 
 == Image as link
 === Base64 image as link
@@ -2718,8 +2720,8 @@ See the [[Help::Images]] page.
 <div class="alertnote">This method will <b>only</b> work for images in the <b>Image::</b> namespace.</div>
 <div class="helptext">Use this code in a page, replacing IMAGENAME with the name of an embedded image page, and URL with the address of a web page:</div>
 <div class="helpcode">[<!-- -->[In<!-- -->clude:<!-- -->:Image:<!-- -->:IMAGENAME|style="cursor:pointer" border="0" onc<!-- -->lick="win<!-- -->dow.o<!-- -->pen('URL')"]<!-- -->]</div>
-<div class="helptext">To create an image that links to a web page, like this alert image that links to the [[http://www.google.com|Google]] page:</div>
-[[Include::Image::alert.png|style="cursor:pointer" border="0" onclick="window.open('http://www.google.com')"]]
+<div class="helptext">To create an image that links to a web page, like this alert image that links to the [[http://www.gnu.org/|GNU]] page:</div>
+[[Include::Image::alert.png|style="cursor:pointer" border="0" onclick="window.open('http://www.gnu.org/')"]]
 
 == Include link
 You can include the contents of another page of this wiki in the current page by using an include link.
@@ -2727,9 +2729,7 @@ You can include the contents of another page of this wiki in the current page by
 <div class="helptext">Use this code in a page, replacing PAGENAME with the name of the page you'd like to include:</div>
 <div class="helpcode">[<!-- -->[Include::PAGENAME]<!-- -->]</div>
 <div class="helptext">To include the contents of another page in the current page.</div>
-
-[[Include::Template::Icon::Info]] /You can create a dynamic include link that toggles the display of the contents of another page in the current page by following the instructions in the [[Help::Folds]] page./
-
+<div style="background-color: #FFFFAA; border: 0.1em solid; padding: 0.2em;">[[Include::Template::Icon::Info]] You can create a dynamic include link that toggles the display of the contents of another page in the current page by following the instructions in the [[Help::Folds]] page.</div>
 == Internal action link (labeled)
 These are internal wiki actions in the form of links:<br><br>
 {|
@@ -2796,8 +2796,7 @@ These are internal wiki actions in the form of links:<br><br>
 }}}<div class="helptext">To create this:</div>
 <input class="menu_button_half" value="BUTTONTEXT" onclick="go_to('PAGENAME')" type="submit" />
 
-[[Include::Template::Icon::Info]] /Note that the full size button will only be as wide as the menu and the half size button will only be half as wide as the menu./
-
+[[Include::Template::Info|Note that the full size button will only be as wide as the menu and the half size button will only be half as wide as the menu.]]
 == Menu link (labeled)
 <div class="helptext">Use this code in the menu, replacing PAGENAME with the page you want to link to and LABEL with the link text:</div>{{{
 [[PAGENAME|LABEL]]
@@ -3212,8 +3211,8 @@ This method is useful when an creating a fancy list with more than one list item
 --DFQRCTsKlU
 woas.page.title: Help::Edit the menu
 woas.page.attributes: 0
-woas.page.last_modified: 1267060310
-woas.page.length: 3877
+woas.page.last_modified: 1268600831
+woas.page.length: 3743
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -3235,6 +3234,7 @@ See the *Namespace sub-menu* section of the [[Help::Namespaces]] page.
 == Add expanding menu entries
 To add expanding menu entries, see the instructions for *folding text* on the [[Help::Folds]] page. Examples of these being used as menu entries are below.
 
+[[Include::Template::Info|The example links inside the sub-menus are red because the pages don't exist yet.]]
 <div class="helptext">Use this code in a page or in the menu:</div>
 <div class="helpcode">&lt;a href="javascript:expanddiv('MENU')"&gt;Click here for a sub-menu&lt;/a&gt;&lt;div id="MENU" style="display:none;"&gt;
 {{{*}}} [<!-- -->[PAGENAME1]]
@@ -3249,9 +3249,7 @@ To add expanding menu entries, see the instructions for *folding text* on the [[
 * [[PAGENAME3]]
 </div>
 
-[[Include::Template::Icon::Info]] /Note that the example links in the submenu are red because the pages don't exist yet./
-
-<div class="helptext">Use this code in a page or in the menu:</div>
+<div class="helptext">Or use this code in a page or in the menu:</div>
 <div class="helpcode">
 &lt;a href="javascript:expanddiv('MENU1')"&gt;Click here for a sub-menu1&lt;/a&gt;&lt;div id="MENU1" style="display:none;"&gt;
 {{{*}}} [<!-- -->[PAGENAME1]]
@@ -3275,8 +3273,6 @@ To add expanding menu entries, see the instructions for *folding text* on the [[
 * [[PAGENAME2]]
 * [[PAGENAME3]]
 </div>
-
-[[Include::Template::Icon::Info]] /Note that the example links in the submenus are red because the pages don't exist yet./
 
 == Edit the menu
 # Click the *Edit menu* button at the bottom of the menu.
@@ -3352,8 +3348,8 @@ word &nbsp;&nbsp;&nbsp; word}}}word &nbsp;&nbsp;&nbsp; word
 --DFQRCTsKlU
 woas.page.title: Help::Page creation
 woas.page.attributes: 0
-woas.page.last_modified: 1267060654
-woas.page.length: 3766
+woas.page.last_modified: 1268599186
+woas.page.length: 3742
 woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -3363,7 +3359,7 @@ woas.page.boundary: DFQRCTsKlU
 = Page creation
 == Create a page
 # Click the *NEW PAGE* button in the menu.<br><br>
-# Type a short name for the page. If the name is too long, the banner can become so large that it interferes with the functions at the top of the page. Page names are case sensitive. Spaces are allowed. Diacritics (a glyph added to a letter - for example: \u00e2) are allowed. Escaped characters (some examples: ' % < > | : #) are allowed.<br><br>
+# Type a short name for the page. If the name is too long, the banner can become so large that it interferes with the functions at the top of the page. Page names are case sensitive. Spaces, diacritics (a glyph added to a letter - for example: \u00e2), and escaped characters (some examples: ' % | : #) are allowed.<br><br>
 # Press the *Enter* key or click the *OK* button.<br><br>
 # When asked if you'd like to add a link into the main menu, accept by pressing the *Enter* key or clicking the *OK* button, or refuse by clicking the *Cancel* button.<br><br>
 # The new page template will automatically insert a level one header with the name of your page, followed by a line displaying the page creation date and time, and the cursor will be dropped down two lines from that, blinking and ready for your input. You can edit or delete the header and the page creation line if you like.<br><br>
@@ -3491,8 +3487,8 @@ If you accidentally created a page without naming it, or if you accidentally del
 --DFQRCTsKlU
 woas.page.title: Help::Namespaces
 woas.page.attributes: 0
-woas.page.last_modified: 1267060584
-woas.page.length: 2729
+woas.page.last_modified: 1268598968
+woas.page.length: 2720
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -3505,8 +3501,7 @@ You can also use sub-namespaces, like {{{[[MyPages::Recipes::Desserts::]]}}}.
 * *MyPages::* is the namespace.
 * *Recipes::* is a sub-namespace of *MyPages::*.
 * *Desserts::* is a sub-namespace of *Recipes::*.
-[[Include::Template::Icon::Info]] /Each namespace can have as many child pages under it as you like (within the resource limits of your hardware)./
-
+[[Include::Template::Info|Each namespace can have as many child pages under it as you like (within the resource limits of your hardware).]]
 An advantage of creating parent and child pages is that the full path to each page is displayed in the banner, so when you're on any page in a particular namespace, the parent page name will be in the banner with the namespace (and sub-namespace, if the page has one) as a clickable link which will open an automatically generated page listing all the pages in that namespace (or sub-namespace) for quick navigation.
 
 == Namespaces reserved by this wiki
@@ -3561,8 +3556,8 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Help::Publish wiki online
 woas.page.attributes: 0
-woas.page.last_modified: 1267060743
-woas.page.length: 652
+woas.page.last_modified: 1268599411
+woas.page.length: 733
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -3578,7 +3573,7 @@ This wiki can be published online as a single-file, framed web page by making it
 
 The read-only format is also great for sharing your work with others by email. Most - if not all - email programs accept .htm pages as attachments.
 
-[[Include::Template::Icon::Info]] /To enable wiki editing again, see the [[Help::Wiki is read-only]] page./
+<div style="background-color: #FFFFAA; border: 0.1em solid; padding: 0.2em;">[[Include::Template::Icon::Info]] To enable wiki editing again, see the [[Help::Wiki is read-only]] page.</div>
 
 [[Tag::Help]]
 
@@ -3602,8 +3597,8 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Help::Requirements
 woas.page.attributes: 0
-woas.page.last_modified: 1267060770
-woas.page.length: 2831
+woas.page.last_modified: 1268599504
+woas.page.length: 2842
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -3622,9 +3617,10 @@ Wiki on a Stick is actively supported on the following browsers:
 * Opera
 * Internet Explorer 5.5
 * Internet Explorer 6
-* Internet Explorer 7*
-* Internet Explorer 8*
-<div class="alertnote">* On IE7-IE8 you might want to rename your application to .hta to enable its trusted privileges.</div>
+* Internet Explorer 7
+* Internet Explorer 8
+[[Include::Template::Info|For IE7 and IE8 browsers, you might want to rename your application to .hta to enable its trusted privileges.]]
+
 == Limitations
 * Firefox (and possibly other browsers, too) cannot save to filenames containing UTF8 characters. Use unix-style filenames instead.
 * Internet Explorer 6 and 7 do not support embedded images (that's why you will not see button icons).
@@ -3739,25 +3735,27 @@ For more ways of working with hidden content, see the [[Help::Folds]] page.
 --DFQRCTsKlU
 woas.page.title: Help::Syntax
 woas.page.attributes: 0
-woas.page.last_modified: 1267060817
-woas.page.length: 516
+woas.page.last_modified: 1268599825
+woas.page.length: 658
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Syntax
-This wiki accepts [[http://en.wikipedia.org/wiki/Plain_text|plain text]], [[Tagged::Syntax|internal wiki syntax]], [[http://www.wikicreole.org/wiki/|Creole 0.1]], [[http://www.w3schools.com/html/default.asp|HTML]], and [[http://www.w3schools.com/js/default.asp|JavaScript]]. See below for pages tagged with *Syntax*:
+This wiki accepts [[http://en.wikipedia.org/wiki/Plain_text|plain text]], [[Tagged::Syntax|internal wiki syntax]], [[http://www.wikicreole.org/wiki/|some Creole 0.1]], [[http://www.w3schools.com/html/default.asp|HTML]], [[http://www.w3schools.com/xhtml/default.asp|XHTML]], and [[http://www.w3schools.com/js/default.asp|JavaScript]]. See below for pages tagged with *Syntax*:
 [[Include::Tagged::Syntax]]
-[[Include::Template::Icon::Info]] /Feel free to use the [[Sandbox]] page to test out syntax without having to create a new page each time./
+
+<div style="background-color: #FFFFAA; border: 0.1em solid; padding: 0.2em;">[[Include::Template::Icon::Info]] Feel free to use the [[Sandbox]] page to test out syntax without having to create a new page each time.</div>
+
 
 [[Tag::Help|Syntax]]
 
 --DFQRCTsKlU
 woas.page.title: Help::Table of Contents
 woas.page.attributes: 0
-woas.page.last_modified: 1267060925
-woas.page.length: 1060
+woas.page.last_modified: 1268599913
+woas.page.length: 1058
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -3773,20 +3771,19 @@ woas.page.boundary: DFQRCTsKlU
 The Table of Contents link creates a Table of Contents that's automatically populated with all the headers on a page. The Table of Contents expects the first header on a page to be a Level 1 header. If you use any other level header first, that header and any headers after it will be represented by hash marks until a Level 1 header is encountered. From that point on, the headers will be numbered properly. See the [[Example::Table of Contents]] page for an example of a page where a level 1 header isn't the first header on the page.
 
 * Method 1:<br><br>
-** <div class="helptext">Use this code on a line by itself in your page:*</div>{{{
+** <div class="helptext">Use this code on a line by itself in your page:</div>{{{
 [[Special::TOC]]
 }}}<div class="helptext">To create a Table of Contents like the one at the top of this page.</div><br>
 * Method 2:<br><br>
 ** <div class="helptext">Press the Table of Contents button in the editor while the cursor is at the beginning of a line.</div>
-
 
 [[Tag::Help|Syntax]]
 
 --DFQRCTsKlU
 woas.page.title: Help::Tables
 woas.page.attributes: 0
-woas.page.last_modified: 1267060957
-woas.page.length: 2276
+woas.page.last_modified: 1268599984
+woas.page.length: 2277
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -3829,6 +3826,7 @@ The content inside tables can contain internal and external links, and these kin
 |}
 
 The line that starts with {{{|- }}} is a comment line. You can type some text after it which will only be visible when viewing the source:
+
 <div class="helptext">Use this code in a page:</div>{{{
 {|
 | CELL1 || CELL2
@@ -4136,8 +4134,8 @@ If you clicked the *Disallow edits* button on the [[Special::Options|Options]] p
 --DFQRCTsKlU
 woas.page.title: Help::Word count
 woas.page.attributes: 0
-woas.page.last_modified: 1267061055
-woas.page.length: 2740
+woas.page.last_modified: 1268600312
+woas.page.length: 2762
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -4162,7 +4160,15 @@ de::Word count button\
 ]</div>
 <div class="helptext">To create this:</div>
 [[Include::Word count button]]
-[[Include::Image::alert.png]] Every once in a while the word count button needs to be recalibrated. I have no idea why, and if anyone reading this does, or knows how to perfect the script so it doesn't need this, I'd love to <a href=mailto:littlegirl@gmail.com>hear from you</a>. To check if the Word Count button needs to be recalibrated, open the [[Word count button]] page. Click the Word Count button. If it displays *0* then you don't need to recalibrate it. If it displays any other number, it needs to be recalibrated.
+== Recalibrate the word count button
+Every once in a while the word count button needs to be recalibrated. I have no idea why, and if anyone reading this does, or knows how to perfect the script so it doesn't need this, I'd love to <a href=mailto:littlegirl@gmail.com>hear from you</a>.
+
+=== Check the calibration
+# Open the [[Word count button]] page.<br><br>
+# Click the Word Count button.<br><br>
+# If it displays *0* then you don't need to recalibrate it. If it displays any other number, it needs to be recalibrated.
+
+=== Calibrate the button
 # Click the [[Include::Template::Icon::Edit]] icon in the banner to edit the page.<br><br>
 # Look at the third line of the script.<br><br>
 # Find the portion that says *length-141* and delete the *-141* from that line.<br><br>
