@@ -1108,7 +1108,8 @@ This page displays a list of pages that contain links to nonexistent pages. Both
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::General usage
 woas.page.attributes: 0
-woas.page.length: 1062
+woas.page.last_modified: 1268582783
+woas.page.length: 1038
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1120,7 +1121,7 @@ woas.page.boundary: DFQRCTsKlU
 Cancel any action by clicking the *Cancel* icon in the navigation bar, clicking the *Cancel* button on any alert that pops up, or pressing the *Esc* key.
 
 == Navigation
-Use the *Back* and *Forward* arrow icons in the navigation bar to go back or forward one page, the *Main Page* (house) icon in the banner to return to the Main page, or click the buttons and links in the menu and wiki pages.
+Use the *Back* and *Forward* arrow icons in the navigation bar to go back or forward one page, the *Main Page* icon in the banner to return to the Main page, or click the buttons and links in the menu and wiki pages.
 
 == Pages linking to the current page
 Click the *Backlinks* link in the menu to see which pages link to the page you currently have open.
@@ -1129,7 +1130,7 @@ Click the *Backlinks* link in the menu to see which pages link to the page you c
 Click the *Print* icon in the banner. A new browser window will open with a printer-friendly version of the main text area. Use the browser's print functions to print the page.
 
 == Syntax
-This wiki accepts plain text, WoaS wiki syntax and XHTML. See the *Syntax* pages listed in the *Help index* by clicking the *Help* (question mark) icon in the navigation bar for help with using the syntax in your pages.
+This wiki accepts plain text, WoaS wiki syntax and XHTML. See the *Syntax* pages listed in the *Help index* by clicking the *Help* icon in the navigation bar for help with using the syntax in your pages.
 
 *Note:* WoaS syntax is partially compatible with Creole 0.1 syntax
 --DFQRCTsKlU
@@ -1298,7 +1299,8 @@ All pages (except WoaS pages within reserved [[WoaS::Help::Namespaces|namespaces
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Erase all pages
 woas.page.attributes: 0
-woas.page.length: 347
+woas.page.last_modified: 1268582621
+woas.page.length: 339
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1307,7 +1309,7 @@ woas.page.boundary: DFQRCTsKlU
 = Erase all pages
 To erase all user-created pages in this wiki and start fresh:
 # *Make sure you are using a wiki you don't mind losing.* If not, make a copy and erase the copy.
-# Click the *Advanced* (tools) icon in the navigation bar.
+# Click the *Advanced* icon in the navigation bar.
 # Click on *Special::Erase Wiki* in the *Maintenance* section.
 
 See also: [[WoaS::Help::Special::Erase Wiki]]
@@ -1315,7 +1317,8 @@ See also: [[WoaS::Help::Special::Erase Wiki]]
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Edit the menu
 woas.page.attributes: 0
-woas.page.length: 572
+woas.page.last_modified: 1268582558
+woas.page.length: 561
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1324,7 +1327,7 @@ woas.page.boundary: DFQRCTsKlU
 = Edit the menu
 # Click the *Edit menu* button at the bottom of the menu.<br><br>
 # Edit the contents of the main text area by typing normally. The menu can contain links, lists, tables, colored text, etc. as a normal wik page<br><br>
-# Save your changes by clicking on the *Save* (diskette) icon in the top right navigation panel.
+# Save your changes by clicking on the *Save* icon in the top right navigation panel.
 
 You can use various styles for your menu; you can find detailed explanation of list styles in the [[WoaS::Help::Lists]] page.
 
@@ -2760,7 +2763,8 @@ $('menu_string_to_search').onkeydown = menu_key_hook;
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Export
 woas.page.attributes: 0
-woas.page.length: 1562
+woas.page.last_modified: 1268582738
+woas.page.length: 1546
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -2769,7 +2773,7 @@ woas.page.boundary: DFQRCTsKlU
 = Export
 You can export this wiki into multiple linked XHTML, CSS, and image files which will create a framed web page.
 
-# Click the *Advanced* (tools) icon in the banner.<br><br>
+# Click the *Advanced* icon in the banner.<br><br>
 # Scroll down to the *Maintenance* section.<br><br>
 # Click the *Special::Export* link.<br><br>
 # Choose the directory to export the wiki to.<br><br>
@@ -2778,7 +2782,7 @@ You can export this wiki into multiple linked XHTML, CSS, and image files which 
 # Click the *index.htm* file in the export directory to launch the framed page.
 
 == ExportWSIF
-# Click the *Advanced* (tools) icon in the banner.<br><br>
+# Click the *Advanced* icon in the banner.<br><br>
 # Scroll down to the *Maintenance* section.<br><br>
 # Click the *Special::ExportWSIF* link.<br><br>
 # Choose the directory to export the WSIF file(s) to.<br><br>
