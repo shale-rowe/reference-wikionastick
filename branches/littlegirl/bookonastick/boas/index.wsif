@@ -2225,8 +2225,8 @@ Below are examples on how to use wiki markup to create headers in this wiki. You
 --DFQRCTsKlU
 woas.page.title: Help::Horizontal rules (lines)
 woas.page.attributes: 0
-woas.page.last_modified: 1267060412
-woas.page.length: 1611
+woas.page.last_modified: 1268601167
+woas.page.length: 1606
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -2235,8 +2235,7 @@ woas.page.boundary: DFQRCTsKlU
 = Horizontal rules (lines)
 Horizontal rules use the full width of the page by default. They can be styled to a smaller width by surrounding them with *HTML &lt;div&gt;* tags. Styling can also control their position. I haven't yet figured out how to colorize them. Adding {{{color:red;}}} to the style portion of the *&lt;div&gt;* tag doesn't work. If any code wizard out there figures it out, please contact me by using the email link in the footer beneath this page.
 
-[[Include::Image::alert.png]] /Note that you sometimes need a blank line above or below a horizontal rule to get it to work./
-
+[[Include::Template::Info|Note that you sometimes need a blank line above or below a horizontal rule to get it to work.]]
 == Standard horizontal rule ==
 <div class="helptext">Use this code in a page:</div>{{{
 ----
@@ -4949,8 +4948,8 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Help::Folds
 woas.page.attributes: 0
-woas.page.last_modified: 1266620301
-woas.page.length: 15489
+woas.page.last_modified: 1268601076
+woas.page.length: 15577
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -4960,7 +4959,7 @@ woas.page.boundary: DFQRCTsKlU
 [[Special::TOC]]
 Folds are special links that toggle inclusion of additional content in a page when you click the link or button. You can add as many folds as you like to a page. They begin collapsed and expand when you click on them. Each is independent of the others, and can be expanded and collapsed as many times as you like.
 
-<div class="alertnote">Unfortunately, hidden content inside folds can conflict with the [[Help::Table of Contents|Table of Contents]] and the [[Help::Tags|Tags]] container at the bottom of the page by being visible in both of them even when the content isn't unfolded.</div>
+<div style="background-color: #FFFFAA; border: 0.1em solid; padding: 0.2em;">[[Include::Template::Icon::Info]] Unfortunately, hidden content inside folds can conflict with the [[Help::Table of Contents|Table of Contents]] and the [[Help::Tags|Tags]] container at the bottom of the page by being visible in both of them even when the content isn't unfolded.</div>
 == Folding text
 The [[Template::Foldtext|Foldtext]] template can be used to toggle additional text in the current page.
 
