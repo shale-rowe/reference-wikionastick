@@ -1278,18 +1278,19 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Edit a page
 woas.page.attributes: 0
-woas.page.length: 729
+woas.page.last_modified: 1268581397
+woas.page.length: 723
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Edit a page
-All pages (except WoaS pages within reserved namespaces) can be edited or deleted. In order to edit such pages, click the *Edit* (pencil) icon in the navigation bar. You can easily find all the user pages by getting the listing of *[[Special::All Pages]]*.
-# Click the *Edit* (pencil) icon in the navigation bar or double-click on the page if you've enabled that setting in the wiki *Options*.<br><br>
+All pages (except WoaS pages within reserved [[WoaS::Help::Namespaces|namespaces]]) can be edited or deleted. In order to edit such pages, click the *Edit* icon in the navigation bar. You can find all the user pages by clicking the *Special::All Pages* link in the menu.
+# Click the *Edit* icon in the navigation bar or double-click on the page if you've enabled that setting in the wiki *Options*.<br><br>
 # Edit the contents of the main text area by typing normally.<br><br>
 # Use the editor's buttons to insert code to format the text, or type the code in manually. Note that the use of plain text doesn't require any code.<br><br>
-# Save your changes by clicking on the *Save* (diskette) icon in the navigation bar.
+# Save your changes by clicking on the *Save* icon in the navigation bar.
 
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Erase all pages
