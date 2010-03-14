@@ -440,7 +440,7 @@ div.ns_menu_area ul li, div.ns_menu_area ol li {
 <div style="visibility: visible;" class="woas_text_area" id="wiki_text" ondblclick="page_dblclick()"></div>
 <div style="display: none; visibility: hidden;" class="woas_page_mts" id="wiki_mts"></div></div>
 <div id="edit_area" style="display: none; visibility: hidden;">
-<div id="edit_page_title" style="display: block;">Page title: <input id="wiki_page_title" size="50" value="" />&nbsp;<a style="color: blue;" onclick="woas.wiki_buttons_display($('wiki_format_buttons').style.display != 'block')">Show/Hide wiki buttons</a>&nbsp;|&nbsp;<a style="color: blue;" onclick="woas.html_buttons_display($('html_format_buttons').style.display != 'block')">Show/Hide HTML buttons</a></div>
+<div id="edit_page_title" style="display: block;">Page title: <input id="wiki_page_title" size="50" value="" />&nbsp;<a style="color: blue;" onclick="woas.wiki_buttons_display($('wiki_format_buttons').style.display != 'block')">Show/Hide wiki buttons</a>&nbsp;|&nbsp;<a style="color: blue;" onclick="woas.html_buttons_display($('html_format_buttons').style.display != 'block')">Show/Hide XHTML buttons</a></div>
 <div id="wiki_format_buttons" style="display: block; visibility: visible;">
 Wiki Code:
 <input class="wiki_button" name="btn11" value="Wiki URL" title="Wiki page link" style="text-decoration: underline; width: 70px;" onclick="setWikiIUrl()" type="button" />
@@ -459,7 +459,7 @@ Wiki Code:
 <input class="wiki_button" name="btn9" value="Tags" title="Wiki tag or tags" style="width: 43px;" onclick="setTag()" type="button" />
 <a class="world" onclick="open_table_help()">About tables</a>
 </div>
-<div id="html_format_buttons" style="display: block; visibility: visible;">HTML Code:
+<div id="html_format_buttons" style="display: block; visibility: visible;">XHTML Code:
   <input class="wiki_button" name="b" title="Bold text" id="b" value="B" style="font-weight: bold;" onclick="FullTagThis('strong')" type="submit" />
   <input class="wiki_button" name="i" title="Italic text" id="i" value="i" style="font-style: italic;" onclick="FullTagThis('em')" type="submit" />
   <input class="wiki_button" name="u" title="Underlined text" id="u" value="u" style="text-decoration: underline;" onclick="FullTagThis('u')" type="submit" />
