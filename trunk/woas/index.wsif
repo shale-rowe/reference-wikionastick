@@ -867,7 +867,8 @@ And this is the actual result:
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Editing
 woas.page.attributes: 0
-woas.page.length: 2774
+woas.page.last_modified: 1268580585
+woas.page.length: 2748
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -877,9 +878,9 @@ woas.page.boundary: DFQRCTsKlU
 You can edit the contents of the main text area by typing normally. There are links and buttons in the editor to help with adding wiki syntax to the page to control how the content looks (bold, italic, lists, etc.).
 
 == Editor features
-* Cancel all changes by clicking the cancel icon in the navigation bar at any time.
-* Change the title of a page by editing the contents of the Page title box.
-* Save all changes by clicking the save icon in the navigation bar at any time.
+* Cancel all changes by clicking the *Cancel* icon in the navigation bar at any time.
+* Change the title of a page by editing the contents of the *Page title* box.
+* Save all changes by clicking the *Save* icon in the navigation bar at any time.
 * See an example of how tables are built by clicking the *About tables* link.
 * Toggle the display of the button rows by clicking the *Show/Hide wiki buttons|Show/Hide XHTML buttons* links.
 
@@ -891,38 +892,38 @@ You can edit the contents of the main text area by typing normally. There are li
 | = || Insert wiki syntax for a level one header. Use this at the beginning of any line.
 | == || Insert wiki syntax for a level two header. Use this at the beginning of any line.
 | Img || Include a wiki image in the page.
-| *B* || Wrap selected text with bold syntax
-| /i/ || Wrap italic text with bold syntax
-| u || Wrap selected text with underline syntax
-| {{{nowiki}}} || This wraps wiki syntax around the selected text to make it nowiki (raw) text.
-| * || This inserts the wiki syntax for a bulleted list item.
-| # || This inserts the wiki syntax for a numbered list item.
-| @ || This inserts the wiki syntax for an alphanumeric list item.
-| ---- || This inserts a ruler (horizontal line). Use this at the beginning of any line.
-| Tags || This brings up an interface for inserting tags in your page to categorize them. Use a pipe between multiple tags.
+| *B* || Wrap selected text with bold syntax.
+| /i/ || Wrap italic text with bold syntax.
+| u || Wrap selected text with underline syntax.
+| {{{nowiki}}} || Wrap wiki syntax around the selected text to make it nowiki (raw) text.
+| * || Insert the wiki syntax for a bulleted list item.
+| # || Insert the wiki syntax for a numbered list item.
+| @ || Insert the wiki syntax for an alphanumeric list item.
+| ---- || Insert a ruler (horizontal line). Use this at the beginning of any line.
+| Tags || Interface for inserting tags in your page to categorize it. Use a pipe between multiple tags.
 |}
 
-*Note:* it's always better to use wiki syntax instead of XHTML syntax, because this is a wiki
+*Note:* it's recommended to use wiki syntax instead of XHTML syntax, because this is a wiki.
 
 {|
 |+ XHTML Code buttons
 | *Button* || *What it does*
-| *B* || Wrap selected text with bold tags
-| /i/ || Wrap selected text with emphasis tags (italics)
-| u || Wrap selected text with underline tags
-| s || Wrap selected text with strike-through tags
-| Sup || Wrap selected text with superscript tags (appearing half a character above the baseline)
-| Sub || Wrap selected text with subscript tags (appearing half a character below the baseline)
-| Left || Wrap selected text with a left-aligned div
-| Center || Wrap selected text with a center-aligned div
-| Right || Wrap selected text with a right-aligned div
-| Justify || Wrap selected text with a justified div
-| List || Add unordered list tags around the selected text
-| List = || Add ordered list tags around the selected text
-| li[*] || Wrap selected text with list item tagss
-| Blockquote || Wrap selected text with blockquote tags to indent it beneath the current line
-| Image || Include an external image
-| Link || Include an external link URL
+| *B* || Wrap selected text with bold tags.
+| /i/ || Wrap selected text with emphasis tags (italics).
+| u || Wrap selected text with underline tags.
+| s || Wrap selected text with strike-through tags.
+| Sup || Wrap selected text with superscript tags (appearing half a character above the baseline).
+| Sub || Wrap selected text with subscript tags (appearing half a character below the baseline).
+| Left || Wrap selected text with a left-aligned div.
+| Center || Wrap selected text with a center-aligned div.
+| Right || Wrap selected text with a right-aligned div.
+| Justify || Wrap selected text with a justified div.
+| List || Add unordered list tags around the selected text.
+| List = || Add ordered list tags around the selected text.
+| li[*] || Wrap selected text with list item tags.
+| Blockquote || Wrap selected text with blockquote tags, indenting it beneath the current line.
+| Image || Include an external image.
+| Link || Include an external link URL.
 |}
 
 --DFQRCTsKlU
