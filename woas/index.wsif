@@ -1,6 +1,6 @@
 wsif.version: 1.2.0
 woas.version: 0.11.0
-woas.pages: 66
+woas.pages: 65
 
 woas.page.title: ::Menu
 woas.page.attributes: 0
@@ -202,7 +202,8 @@ _lock_page();
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Security
 woas.page.attributes: 0
-woas.page.length: 3788
+woas.page.last_modified: 1268584879
+woas.page.length: 3782
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -220,7 +221,7 @@ In order to encrypt a page you will have to click on the /lock/ icon in the navi
 When encrypting additional pages during a session, you'll be offered to use the same password you used to encrypt the first page. Accept by pressing the *OK* button or decline by pressing the *Cancel* button. If you decline, the password interface will open, allowing you to set a new password for the page. There is no limit to how many passwords you can use.
 
 == How do I unlock an encrypted page?
-If your page is already encrypted and you want to work with the page or change the encryption key you will first have to unlock it by entering its password. Do this by clicking the *Set password* (key) icon in the navigation bar. You can now open the page normally to view, edit, or delete it.
+If your page is already encrypted and you want to work with the page or change the encryption key you will first have to unlock it by entering its password. Do this by clicking the *Set password* icon in the navigation bar. You can now open the page normally to view, edit, or delete it.
 
 The password for decrypting a page (or pages) is cached so that you only need to enter it once per session. If you close or reload the wiki, you will need to reenter the password to work with the encrypted page(s). To disable the password cache, check the box for *Do not temporarily cache the AES key* in the wiki *Options*. If you've used more than one password for encrypting your pages, you'll need to enter the password to unlock each encrypted page.
 
@@ -269,111 +270,6 @@ $("cb_cumulative_save").checked = bool2chk(woas.config.cumulative_save);
 $("cb_fixed_layout").checked = ($("sw_wiki_header").style.position == "fixed");
 if (woas.browser.ie6) $("cb_fixed_layout").disabled = true;
 </script>
---DFQRCTsKlU
-woas.page.title: WoaS::Help::Syntax
-woas.page.attributes: 0
-woas.page.length: 3285
-woas.page.encoding: ecma/plain
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-= Wiki on a Stick syntax
-In this page you will find examples of all the WoaS wiki syntax.
-
-New pages have red links, like this [[Unexisting page]], but you can use [[Special::New Page]] to automatically create a new one through a simple dialog.
-
-Click on <a class="link" onclick="javascript:edit()" title="Edit this page">this link</a> to edit the wiki source of this page.
-
-== Links
-An internal wiki link is created using {{{[[Special::Main Page]]}}}, which results in [[Special::Main Page]].
-
-== Header of second level
-Some text here
-=== Subheader of third level
-Some text here
-==== Subheader of fourth level
-Some text here
-
-== Formatting
-External links: [[http://stickwiki.sourceforge.net/|Wiki on a Stick]]
-
-Boldface: *Boldface text*
-Italics: /italics text/
-Underline: _underlined text_
-
-{{{Example usage of \\{\\{\\{ and \\}\\}\\}
-This text is rendered without any HTML/wiki parsing, and it does not get _underlined_, as you can see
-
-A really long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long line here}}}
-<pre style="color:gray">
-This is pre-formatted text (using a &lt;pre&gt; tag) with CSS style!
-And it stands on multiple lines too</pre>
-You can also use any HTML tag: <span style="color:navy">Schr\u00f6dinger's cat is <blink style="font-weight:bold">not</blink> dead.</span>
-
-
-Ruler:
-----
-
-== Lists
-* Item 1
-** Subitem a
-** Subitem b
-* Item 2
-** Subitem c
-*** Subsubitem d
-* Item 3
-
-Numbered list:
-# Item A
-## Subitem i
-## Subitem ii
-# Item B
-## Subitem iii
-### Subsubitem iv
-# Item C
-
-Alphanumerically ordered list:
-@ Paragraph A
-@ Paragraph B
-@@ Subparagraph 1
-@@ Subparagraph 2
-
-
-== Tables
-
-{|
-|+ Telephone Table
-| *Column Name* || *Type* || *Other* || *Description*
-|-
-| id || INT || PRIMARY KEY || Row ID
-|-
-| contact_id || INT || KEY || References FOREIGN KEY(Contacts.id)
-|-
-| type || ENUM('Home','Work','Mobile','Pager','Other') || || Defines type of Telephone record
-|-
-| number || CHAR(32) || || Contains actual Telephone number
-|}
-
-== New syntax features
-* line joining through a slash '\\' at the end of the line
-* automatic TOC generation in place of [<!-- -->[Special::TOC]]
-* section links:
-** {{{[[#Syntax changes since v0.9]]}}} -> [[#Syntax changes since v0.9]]
-* anchors for all headers (through id attribute)
-* customization of blocks of text under headers through CSS classes /level1-level6/
-* alphanumerical lists using '@'
-* custom parsing rules through (careful) override of the /parse()/ core function
-* nowiki syntax {{<!-- -->{ }}<!-- -->} to disable html/wiki in a block of raw text (also works inline)
-
-== Syntax changes since v0.9
-There have been a few changes in the wiki syntax, they will be automatically applied on import or saving (except the wiki link parts inversion).
-* bullet lists are recognized using an asterisk '*' at the beginning of the line, if you use the previous '+' plus sign it will be automatically converted to an asterisk
-* wiki link parts are inverted, e.g. no more [<!-- -->[label of main page link|_Main Page_]] but [<!-- -->[_Main Page_|label of main page link]]
-
-Some syntax has also been deprecated, see [[WoaS::Help::Deprecated syntax]].
-
-[[Tags::help]]
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Deprecated syntax
 woas.page.attributes: 0
@@ -929,8 +825,8 @@ You can edit the contents of the main text area by typing normally. There are li
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Index
 woas.page.attributes: 0
-woas.page.last_modified: 1268584393
-woas.page.length: 2229
+woas.page.last_modified: 1268585042
+woas.page.length: 2203
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -986,7 +882,6 @@ When browsing the pages in this Help pop-up, you will find a *Back* button in th
 ** [[WoaS::Help::Non-breaking spaces]]
 ** [[WoaS::Help::Nowiki text]]
 ** [[WoaS::Help::Rulers]]
-** [[WoaS::Help::Syntax]]
 ** [[WoaS::Help::Table of Contents]]
 ** [[WoaS::Help::Tables]]
 ** [[WoaS::Help::Tags]]
@@ -1751,16 +1646,17 @@ _*/This is underlined and bold and italic text./*_
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Rename a page
 woas.page.attributes: 0
-woas.page.length: 234
+woas.page.last_modified: 1268584739
+woas.page.length: 214
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Rename a page
-# Click the *Edit* (pencil) icon in the banner.
+# Click the *Edit* icon in the banner.
 # Edit the contents of the text inside the *Page title* area at the top of the page.
-# Save your changes by clicking on the *Save* (diskette) icon in the navigation bar.
+# Save your changes by clicking on the *Save* icon in the navigation bar.
 
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Page scrolling
