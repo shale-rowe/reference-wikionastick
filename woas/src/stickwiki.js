@@ -1308,6 +1308,7 @@ woas["disable_edit"] = function() {
 	kbd_hooking = false;
 	// reset change buffer used to check for page changes
 	this.change_buffer = null;
+	this.old_title = null;
 	// we will cancel the creation of last page
 	if (this._ghost_page) {
 		// we assume that the last page is the ghost page
@@ -1388,14 +1389,17 @@ woas["current_editing"] = function(page, disabled) {
 }
 
 woas["change_buffer"] = null;
+woas["old_title"] = null;
 
 // sets the text and allows changes monitoring
 woas["edit_ready"] = function (txt) {
 	$("wiki_editor").value = txt;
 	// save copy of text to check if anything was changed
 	// do not save it in case of ghost pages
-	if (!this._ghost_page)
+	if (!this._ghost_page) {
 		this.change_buffer = txt;
+		this.old_title = $("wiki_page_title").value;
+	}
 }
 
 var _servm_shown = false;
@@ -1589,10 +1593,11 @@ woas["save"] = function() {
 				}
 				return;
 			} else {
+				var new_title = this.trim($("wiki_page_title").value);
 				// here the page gets actually saved
-				if (!null_save) {
+				if (!null_save || (this.old_title !== new_title)) {
+					null_save = false;
 					this.set_text(raw_content);
-					var new_title = woas.trim($("wiki_page_title").value);
 					// disallow empty titles
 					if (!this.valid_title(new_title))
 						return false;
