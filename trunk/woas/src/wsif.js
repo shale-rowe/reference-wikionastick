@@ -26,6 +26,7 @@ woas["_native_wsif_save"] = function(path, single_wsif, inline_wsif, author,
 	
 	// prepare the extra headers
 	var extra = this.wsif.header('wsif.version', this.wsif.version);
+	extra += this.wsif.header('wsif.generator', 'woas');
 	extra += this.wsif.header('woas.version', this.version);
 	if (author.length)
 		extra += this.wsif.header('woas.author', author);
