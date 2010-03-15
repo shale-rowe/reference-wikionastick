@@ -1,4 +1,5 @@
 wsif.version: 1.2.0
+wsif.generator: woas
 woas.version: 0.11.0
 woas.pages: 67
 
@@ -33,6 +34,7 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Special::Advanced
 woas.page.attributes: 0
+woas.page.last_modified: 1268585994
 woas.page.length: 1174
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -2704,7 +2706,8 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Transclusion
 woas.page.attributes: 0
-woas.page.length: 3307
+woas.page.last_modified: 1268681123
+woas.page.length: 3252
 woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -2715,16 +2718,15 @@ Transclusion is a special way of [[WoaS::Help::Include wiki page|including]] a w
 
 This method requires that you create a page to be used as a template. This page must contain variables represented by %1, %2, %3, and so on.
 
-The [[WoaS::Template::Example::Transclusion]] page in this wiki uses two variables. The contents of that page are:
-{{{
-<big style="color:lime">%1 had a little %2</big>
-}}}
 You can then create a transclusion link or links to that page by creating a normal [[WoaS::Help::Include wiki page|include link]] with the values for the variables added after the page name. Each value must be preceded by a pipe ({{{|value}}}). The values you define in the link will be used from left to right to replace the numbered variables on the page you're including.
 
 <div class="helptext">Use this code, replacing PAGENAME with the name of the page to be included, and VALUE1 and VALUE2 with the values you'd like the two variables to have when the included page is displayed:</div>
 <div class="helpcode">[<!-- -->[Include::PAGENAME|VALUE1|VALUE2|VALUE3]<!-- -->]</div>
 == Examples
-These examples use the [[WoaS::Template::Example::Transclusion]] page:
+These examples use the [[WoaS::Template::Example::Transclusion]] page which contains two variables. The contents of that page are:
+{{{
+<big style="color:lime">%1 had a little %2</big>
+}}}
 
 <div class="helptext">Use this code:</div>
 <div class="helpcode">[<!-- -->[Include::WoaS::Template::Example::Transclusion|Mary|lamb]<!-- -->]</div>
