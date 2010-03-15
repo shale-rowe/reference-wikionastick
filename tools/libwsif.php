@@ -1,7 +1,7 @@
 <?php
 ## WSIF support library
 ## @author legolas558
-## @version 1.3.2
+## @version 1.3.3
 ## @license GNU/GPL
 ## (c) 2010 Wiki on a Stick Project
 ## @url http://stickwiki.sf.net/
@@ -9,7 +9,7 @@
 ## offers basic read/write support for WSIF format
 #
 
-define('LIBWSIF_VERSION', '1.3.2');
+define('LIBWSIF_VERSION', '1.3.3');
 define('_LIBWSIF_RANDOM_CHARSET', "ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz");
 
 define('WSIF_VERSION', '1.3.0');
@@ -410,6 +410,7 @@ class WSIF {
 		$blob_counter = 0;
 		// prepare the extra headers
 		$extra = $this->_header('wsif.version', WSIF_VERSION);
+		$extra = $this->_header('wsif.generator', 'libwsif');
 		$extra .= $this->_header('libwsif.version', LIBWSIF_VERSION);
 		if (strlen($author))
 			$extra .= $this->_header('woas.author', author);
