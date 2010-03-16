@@ -172,7 +172,7 @@ woas["export_one_page"] = function (
 		exp.meta_author+
 		exp.custom_bs+
 		"</h"+"ead><"+"body>"+data+
-		(mts ? "<p><sub>"+this.last_modified(mts)+"</sub></p>" : "")+
+		(mts ? "<div class=\"woas_page_mts\">"+this.last_modified(mts)+"</div>" : "")+
 		"</bod"+"y></h"+"tml>\n"; raw_text = null;
 	return this.save_file(exp.xhtml_path+fname, this.file_mode.ASCII, woas.DOCTYPE+woas.DOC_START+data);
 }
