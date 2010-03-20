@@ -4,35 +4,42 @@
 // original code from http://home.versatel.nl/MAvanEverdingen/Code/
 // this is a javascript conversion of a C implementation by Mike Scott
 
-woas["AES"] = {
-	"bData":null,
-	"sData":null,
-	"aes_i":null,
-	"aes_j":null,
-	"tot":null,
-	"key": [],
-	"wMax": 0xFFFFFFFF,
-	"aesNk":null,
-	"aesNr":null,
-	"aesPows":null,
-	"aesLogs":null,
-	"aesSBox":null,
-	"aesSBoxInv":null,
-	"aesRco":null,
-	"aesFtable":null,
-	"aesRtable":null,
-	"aesFi":null,
-	"aesRi":null,
-	"aesFkey":null,
-	"aesRkey":null
-};
+/*
+There are 287 matches for woas.AES in the current 0.11.0 code; 9 are outside aes.js
+With the wrapper there are just the API assignments at the end and external API calls.
+Code is therefore much easier to read and understand, I find.
+*/
 
-woas.AES["rotb"] = function(b,n){ return ( b<<n | b>>>( 8-n) ) & 0xFF; }
-woas.AES["rotw"] = function(w,n){ return ( w<<n | w>>>(32-n) ) & woas.AES.wMax; }
-woas.AES["getW"] = function(a,i){ return a[i]|a[i+1]<<8|a[i+2]<<16|a[i+3]<<24; }
-woas.AES["setW"] = function(a,i,w){ a.splice(i,4,w&0xFF,(w>>>8)&0xFF,(w>>>16)&0xFF,(w>>>24)&0xFF); }
-woas.AES["setWInv"] = function(a,i,w){ a.splice(i,4,(w>>>24)&0xFF,(w>>>16)&0xFF,(w>>>8)&0xFF,w&0xFF); }
-woas.AES["getB"] = function(x,n){ return (x>>>(n*8))&0xFF; }
+// namespace wrapper
+(function() {
+	
+var bData = null,
+	sData = null,
+	aes_i = null,
+	aes_j = null,
+	tot = null,
+	key =  [],
+	wMax =  0xFFFFFFFF,
+	aesNk = null,
+	aesNr = null,
+	aesPows = null,
+	aesLogs = null,
+	aesSBox = null,
+	aesSBoxInv = null,
+	aesRco = null,
+	aesFtable = null,
+	aesRtable = null,
+	aesFi = null,
+	aesRi = null,
+	aesFkey = null,
+	aesRkey = null;
+
+rotb = function(b,n){ return ( b<<n | b>>>( 8-n) ) & 0xFF; }
+rotw = function(w,n){ return ( w<<n | w>>>(32-n) ) & wMax; }
+getW = function(a,i){ return a[i]|a[i+1]<<8|a[i+2]<<16|a[i+3]<<24; }
+setW = function(a,i,w){ a.splice(i,4,w&0xFF,(w>>>8)&0xFF,(w>>>16)&0xFF,(w>>>24)&0xFF); }
+setWInv = function(a,i,w){ a.splice(i,4,(w>>>24)&0xFF,(w>>>16)&0xFF,(w>>>8)&0xFF,w&0xFF); }
+getB = function(x,n){ return (x>>>(n*8))&0xFF; }
 
 /*	var utf8sets = [0x800,0x10000,0x110000];
 
@@ -41,12 +48,12 @@ woas.AES["getB"] = function(x,n){ return (x>>>(n*8))&0xFF; }
 	}
 */
 
-woas["utf8Encrypt_s"] = function(sData) {
+utf8Encrypt_s = function(sData) {
 	return unescape( encodeURIComponent( sData ) );
 }
 
-woas["utf8Encrypt"] = function(sData){
-		return this.split_bytes(this.utf8Encrypt_s(sData));
+utf8Encrypt = function(sData){
+		return split_bytes(utf8Encrypt_s(sData));
 /*	  var k, i=0, z=sData.length;
 	  var bData = [];
 	  while (i<z) {
@@ -65,7 +72,7 @@ woas["utf8Encrypt"] = function(sData){
 	  return bData; */
 	}
 
-woas["utf8Decrypt_s"] = function(sData) {
+utf8Decrypt_s = function(sData) {
 		try {
 			return decodeURIComponent( escape( sData ) );
 		}
@@ -75,8 +82,8 @@ woas["utf8Decrypt_s"] = function(sData) {
 		return null;
 	}
 
-woas["utf8Decrypt"] = function(bData){
-	return this.utf8Decrypt_s(this.merge_bytes(bData));
+utf8Decrypt = function(bData){
+	return utf8Decrypt_s(merge_bytes(bData));
 }
 /*	  var z=bData.length;
 	  var c;
@@ -104,7 +111,7 @@ woas["utf8Decrypt"] = function(bData){
 	  }
 	  return sData; */
 
-woas["split_bytes"] = function(s) {
+split_bytes = function(s) {
 	var l=s.length;
 	var arr=[];
 	for(var i=0;i<l;i++)
@@ -112,7 +119,7 @@ woas["split_bytes"] = function(s) {
 	return arr;
 }
 	
-woas["merge_bytes"] = function(arr) {
+merge_bytes = function(arr) {
 	var l=arr.length;
 	var s="";
 	for(var i=0;i<l;i++)
@@ -120,254 +127,332 @@ woas["merge_bytes"] = function(arr) {
 	return s;
 }
 
-woas.AES["aesMult"] = function(x, y){ return (x&&y) ? woas.AES.aesPows[(woas.AES.aesLogs[x]+woas.AES.aesLogs[y])%255]:0; }
+aesMult = function(x, y){ return (x&&y) ? aesPows[(aesLogs[x]+aesLogs[y])%255]:0; }
 
-woas.AES["aesPackBlock"] = function() {
-	return [ woas.AES.getW(woas.AES.bData,woas.AES.aes_i), woas.AES.getW(woas.AES.bData,woas.AES.aes_i+4),
-			woas.AES.getW(woas.AES.bData,woas.AES.aes_i+8), woas.AES.getW(woas.AES.bData,woas.AES.aes_i+12) ];
+aesPackBlock = function() {
+	return [ getW(bData,aes_i), getW(bData,aes_i+4),
+			getW(bData,aes_i+8), getW(bData,aes_i+12) ];
 }
 
-woas.AES["aesUnpackBlock"] = function(packed){
-  for ( var mj=0; mj<4; mj++,woas.AES.aes_i+=4) woas.AES.setW( woas.AES.bData, woas.AES.aes_i, packed[mj] );
+aesUnpackBlock = function(packed){
+  for ( var mj=0; mj<4; mj++,aes_i+=4) setW( bData, aes_i, packed[mj] );
 }
 
-woas.AES["aesXTime"] = function(p){
+aesXTime = function(p){
   p <<= 1;
   return p&0x100 ? p^0x11B : p;
 }
 
-woas.AES["aesSubByte"] = function(w){
-  return woas.AES.aesSBox[woas.AES.getB(w,0)] | woas.AES.aesSBox[woas.AES.getB(w,1)]<<8 | woas.AES.aesSBox[woas.AES.getB(w,2)]<<16 | woas.AES.aesSBox[woas.AES.getB(w,3)]<<24;
+aesSubByte = function(w){
+  return aesSBox[getB(w,0)] | aesSBox[getB(w,1)]<<8 | aesSBox[getB(w,2)]<<16 | aesSBox[getB(w,3)]<<24;
 }
 
-woas.AES["aesProduct"] = function(w1,w2){
-  return woas.AES.aesMult(woas.AES.getB(w1,0),woas.AES.getB(w2,0)) ^ woas.AES.aesMult(woas.AES.getB(w1,1),woas.AES.getB(w2,1))
-       ^ woas.AES.aesMult(woas.AES.getB(w1,2),woas.AES.getB(w2,2)) ^ woas.AES.aesMult(woas.AES.getB(w1,3),woas.AES.getB(w2,3));
+aesProduct = function(w1,w2){
+  return aesMult(getB(w1,0),getB(w2,0)) ^ aesMult(getB(w1,1),getB(w2,1))
+       ^ aesMult(getB(w1,2),getB(w2,2)) ^ aesMult(getB(w1,3),getB(w2,3));
 }
 
-woas.AES["aesInvMixCol"] = function(x){
-  return woas.AES.aesProduct(0x090d0b0e,x)     | woas.AES.aesProduct(0x0d0b0e09,x)<<8 |
-         woas.AES.aesProduct(0x0b0e090d,x)<<16 | woas.AES.aesProduct(0x0e090d0b,x)<<24;
+aesInvMixCol = function(x){
+  return aesProduct(0x090d0b0e,x)     | aesProduct(0x0d0b0e09,x)<<8 |
+         aesProduct(0x0b0e090d,x)<<16 | aesProduct(0x0e090d0b,x)<<24;
 }
 
-woas.AES["aesByteSub"] = function(x){
-  var y=woas.AES.aesPows[255-woas.AES.aesLogs[x]];
-  x=y;  x=woas.AES.rotb(x,1);
-  y^=x; x=woas.AES.rotb(x,1);
-  y^=x; x=woas.AES.rotb(x,1);
-  y^=x; x=woas.AES.rotb(x,1);
+aesByteSub = function(x){
+  var y=aesPows[255-aesLogs[x]];
+  x=y;  x=rotb(x,1);
+  y^=x; x=rotb(x,1);
+  y^=x; x=rotb(x,1);
+  y^=x; x=rotb(x,1);
   return x^y^0x63;
 }
 
-woas.AES["aesGenTables"] = function(){
+aesGenTables = function(){
   var i,y;
-  woas.AES.aesPows = [ 1,3 ];
-  woas.AES.aesLogs = [ 0,0,null,1 ];
-  woas.AES.aesSBox = new Array(256);
-  woas.AES.aesSBoxInv = new Array(256);
-  woas.AES.aesFtable = new Array(256);
-  woas.AES.aesRtable = new Array(256);
-  woas.AES.aesRco = new Array(30);
+  aesPows = [ 1,3 ];
+  aesLogs = [ 0,0,null,1 ];
+  aesSBox = new Array(256);
+  aesSBoxInv = new Array(256);
+  aesFtable = new Array(256);
+  aesRtable = new Array(256);
+  aesRco = new Array(30);
 
   for ( i=2; i<256; i++){
-    woas.AES.aesPows[i]=woas.AES.aesPows[i-1]^woas.AES.aesXTime( woas.AES.aesPows[i-1] );
-    woas.AES.aesLogs[woas.AES.aesPows[i]]=i;
+    aesPows[i]=aesPows[i-1]^aesXTime( aesPows[i-1] );
+    aesLogs[aesPows[i]]=i;
   }
 
-  woas.AES.aesSBox[0]=0x63;
-  woas.AES.aesSBoxInv[0x63]=0;
+  aesSBox[0]=0x63;
+  aesSBoxInv[0x63]=0;
   for ( i=1; i<256; i++){
-    y=woas.AES.aesByteSub(i);
-    woas.AES.aesSBox[i]=y; woas.AES.aesSBoxInv[y]=i;
+    y=aesByteSub(i);
+    aesSBox[i]=y; aesSBoxInv[y]=i;
   }
 
-  for (i=0,y=1; i<30; i++){ woas.AES.aesRco[i]=y; y=woas.AES.aesXTime(y); }
+  for (i=0,y=1; i<30; i++){ aesRco[i]=y; y=aesXTime(y); }
 
   for ( i=0; i<256; i++){
-    y = woas.AES.aesSBox[i];
-    woas.AES.aesFtable[i] = woas.AES.aesXTime(y) | y<<8 | y<<16 | (y^woas.AES.aesXTime(y))<<24;
-    y = woas.AES.aesSBoxInv[i];
-    woas.AES.aesRtable[i]= woas.AES.aesMult(14,y) | woas.AES.aesMult(9,y)<<8 |
-                  woas.AES.aesMult(13,y)<<16 | woas.AES.aesMult(11,y)<<24;
+    y = aesSBox[i];
+    aesFtable[i] = aesXTime(y) | y<<8 | y<<16 | (y^aesXTime(y))<<24;
+    y = aesSBoxInv[i];
+    aesRtable[i]= aesMult(14,y) | aesMult(9,y)<<8 |
+                  aesMult(13,y)<<16 | aesMult(11,y)<<24;
   }
 
-  woas.AES.aesFi = new Array(12);
-  woas.AES.aesRi = new Array(12);
+  aesFi = new Array(12);
+  aesRi = new Array(12);
 
   for (m=j=0;j<4;j++,m+=3){
-    woas.AES.aesFi[m]=(j+1)%4;
-    woas.AES.aesFi[m+1]=(j+2)%4;
-    woas.AES.aesFi[m+2]=(j+3)%4;
-    woas.AES.aesRi[m]=(4+j-1)%4;
-    woas.AES.aesRi[m+1]=(4+j-2)%4;
-    woas.AES.aesRi[m+2]=(4+j-3)%4;
+    aesFi[m]=(j+1)%4;
+    aesFi[m+1]=(j+2)%4;
+    aesFi[m+2]=(j+3)%4;
+    aesRi[m]=(4+j-1)%4;
+    aesRi[m+1]=(4+j-2)%4;
+    aesRi[m+2]=(4+j-3)%4;
   }
 
 }
 
 // these tables can be static
-woas.AES.aesGenTables();
+aesGenTables();
 
-woas.AES["aesInit"] = function(){
-  woas.AES.key=woas.AES.key.slice(0,43);
+aesInit = function(){
+  key=key.slice(0,43);
   var i,k,m;
   var j = 0;
-  var l = woas.AES.key.length;
+  var l = key.length;
 
-  while ( l!=16 && l!=24 && l!=32 && l!=43) woas.AES.key[l++]=woas.AES.key[j++];
+  while ( l!=16 && l!=24 && l!=32 && l!=43) key[l++]=key[j++];
 
-  woas.AES.aesNk = woas.AES.key.length >>> 2;
-  woas.AES.aesNr = 6 + woas.AES.aesNk;
+  aesNk = key.length >>> 2;
+  aesNr = 6 + aesNk;
 
-  var N=4*(woas.AES.aesNr+1);
-  woas.AES.aesFkey = new Array(N);
-  woas.AES.aesRkey = new Array(N);
+  var N=4*(aesNr+1);
+  aesFkey = new Array(N);
+  aesRkey = new Array(N);
 
-  for (i=j=0;i<woas.AES.aesNk;i++,j+=4) woas.AES.aesFkey[i]=woas.AES.getW(woas.AES.key,j);
+  for (i=j=0;i<aesNk;i++,j+=4) aesFkey[i]=getW(key,j);
 
-  for (k=0,j=woas.AES.aesNk;j<N;j+=woas.AES.aesNk,k++){
-    woas.AES.aesFkey[j]=woas.AES.aesFkey[j-woas.AES.aesNk]^woas.AES.aesSubByte(woas.AES.rotw(woas.AES.aesFkey[j-1], 24))^woas.AES.aesRco[k];
-    if (woas.AES.aesNk<=6)
-      for (i=1;i<woas.AES.aesNk && (i+j)<N;i++) woas.AES.aesFkey[i+j]=woas.AES.aesFkey[i+j-woas.AES.aesNk]^woas.AES.aesFkey[i+j-1];
+  for (k=0,j=aesNk;j<N;j+=aesNk,k++){
+    aesFkey[j]=aesFkey[j-aesNk]^aesSubByte(rotw(aesFkey[j-1], 24))^aesRco[k];
+    if (aesNk<=6)
+      for (i=1;i<aesNk && (i+j)<N;i++) aesFkey[i+j]=aesFkey[i+j-aesNk]^aesFkey[i+j-1];
     else{
-      for (i=1;i<4 &&(i+j)<N;i++) woas.AES.aesFkey[i+j]=woas.AES.aesFkey[i+j-woas.AES.aesNk]^woas.AES.aesFkey[i+j-1];
-      if ((j+4)<N) woas.AES.aesFkey[j+4]=woas.AES.aesFkey[j+4-woas.AES.aesNk]^woas.AES.aesSubByte(woas.AES.aesFkey[j+3]);
-      for (i=5;i<woas.AES.aesNk && (i+j)<N;i++) woas.AES.aesFkey[i+j]=woas.AES.aesFkey[i+j-woas.AES.aesNk]^woas.AES.aesFkey[i+j-1];
+      for (i=1;i<4 &&(i+j)<N;i++) aesFkey[i+j]=aesFkey[i+j-aesNk]^aesFkey[i+j-1];
+      if ((j+4)<N) aesFkey[j+4]=aesFkey[j+4-aesNk]^aesSubByte(aesFkey[j+3]);
+      for (i=5;i<aesNk && (i+j)<N;i++) aesFkey[i+j]=aesFkey[i+j-aesNk]^aesFkey[i+j-1];
     }
   }
 
-  for (j=0;j<4;j++) woas.AES.aesRkey[j+N-4]=woas.AES.aesFkey[j];
+  for (j=0;j<4;j++) aesRkey[j+N-4]=aesFkey[j];
   for (i=4;i<N-4;i+=4){
     k=N-4-i;
-    for (j=0;j<4;j++) woas.AES.aesRkey[k+j]=woas.AES.aesInvMixCol(woas.AES.aesFkey[i+j]);
+    for (j=0;j<4;j++) aesRkey[k+j]=aesInvMixCol(aesFkey[i+j]);
   }
-  for (j=N-4;j<N;j++) woas.AES.aesRkey[j-N+4]=woas.AES.aesFkey[j];
+  for (j=N-4;j<N;j++) aesRkey[j-N+4]=aesFkey[j];
 }
 
-woas.AES["aesClose"] = function(){
-//  woas.AES.aesFi=woas.AES.aesRi=woas.AES.aesPows=woas.AES.aesLogs=woas.AES.aesSBox=woas.AES.aesSBoxInv=woas.AES.aesRco=woas.AES.aesFtable=woas.AES.aesRtable=null;
-  woas.AES.aesFkey=woas.AES.aesRkey=null;
+aesClose = function(){
+//  aesFi=aesRi=aesPows=aesLogs=aesSBox=aesSBoxInv=aesRco=aesFtable=aesRtable=null;
+  aesFkey=aesRkey=null;
 }
 
-woas.AES["aesRounds"] = function( block, key, table, inc, box ){
+aesRounds = function( block, key, table, inc, box ){
   var tmp = new Array( 4 );
   var i,j,m,r;
 
   for ( r=0; r<4; r++ ) block[r]^=key[r];
-  for ( i=1; i<woas.AES.aesNr; i++ ){
+  for ( i=1; i<aesNr; i++ ){
     for (j=m=0;j<4;j++,m+=3){
       tmp[j]=key[r++]^table[block[j]&0xFF]^
-			woas.AES.rotw(table[(block[inc[m  ]]>>> 8)&0xFF], 8)^
-			woas.AES.rotw(table[(block[inc[m+1]]>>>16)&0xFF],16)^
-			woas.AES.rotw(table[(block[inc[m+2]]>>>24)&0xFF],24);
+			rotw(table[(block[inc[m  ]]>>> 8)&0xFF], 8)^
+			rotw(table[(block[inc[m+1]]>>>16)&0xFF],16)^
+			rotw(table[(block[inc[m+2]]>>>24)&0xFF],24);
     }
     var t=block; block=tmp; tmp=t;
   }
 
   for (j=m=0;j<4;j++,m+=3)
     tmp[j]=key[r++]^box[block[j]&0xFF]^
-           woas.AES.rotw(box[(block[inc[m  ]]>>> 8)&0xFF], 8)^
-           woas.AES.rotw(box[(block[inc[m+1]]>>>16)&0xFF],16)^
-           woas.AES.rotw(box[(block[inc[m+2]]>>>24)&0xFF],24);
+           rotw(box[(block[inc[m  ]]>>> 8)&0xFF], 8)^
+           rotw(box[(block[inc[m+1]]>>>16)&0xFF],16)^
+           rotw(box[(block[inc[m+2]]>>>24)&0xFF],24);
   return tmp;
 }
 
-woas.AES["_encrypt"] = function(){
-  woas.AES.aesUnpackBlock( woas.AES.aesRounds(woas.AES.aesPackBlock(), woas.AES.aesFkey, woas.AES.aesFtable, woas.AES.aesFi, woas.AES.aesSBox ) );
+_encrypt = function(){
+  aesUnpackBlock( aesRounds(aesPackBlock(), aesFkey, aesFtable, aesFi, aesSBox ) );
 }
 
-woas.AES["_decrypt"] = function(){
-  woas.AES.aesUnpackBlock( woas.AES.aesRounds(woas.AES.aesPackBlock(), woas.AES.aesRkey, woas.AES.aesRtable, woas.AES.aesRi, woas.AES.aesSBoxInv ) );
+_decrypt = function(){
+  aesUnpackBlock( aesRounds(aesPackBlock(), aesRkey, aesRtable, aesRi, aesSBoxInv ) );
 }
 
 // Blockcipher
 
-woas.AES["blcEncrypt"] = function(enc){
-  if (woas.AES.tot==0){
+blcEncrypt = function(enc){
+  if (tot==0){
 //    prgr = name;
-    if (woas.AES.key.length<1) return;
+    if (key.length<1) return;
     // if (cbc)
     // pre-pend random data to pad length? really?
-	for (woas.AES.aes_i=0; woas.AES.aes_i<16; ++woas.AES.aes_i) woas.AES.bData.unshift( _rand(256) );
-    while( woas.AES.bData.length%16!=0 ) woas.AES.bData.push(0);
-    woas.AES.tot = woas.AES.bData.length;
-    woas.AES.aesInit();
+	for (aes_i=0; aes_i<16; ++aes_i) bData.unshift( _rand(256) );
+    while( bData.length%16!=0 ) bData.push(0);
+    tot = bData.length;
+    aesInit();
   }else{
     // if (cbc)
-	for (woas.AES.aes_j=woas.AES.aes_i; woas.AES.aes_j<woas.AES.aes_i+16; woas.AES.aes_j++)
-		woas.AES.bData[woas.AES.aes_j] ^= woas.AES.bData[woas.AES.aes_j-16];
+	for (aes_j=aes_i; aes_j<aes_i+16; aes_j++)
+		bData[aes_j] ^= bData[aes_j-16];
     enc();
   }
-  if (woas.AES.aes_i>=woas.AES.tot) woas.AES.aesClose();
+  if (aes_i>=tot) aesClose();
 }
 
-woas.AES["blcDecrypt"] = function(dec){
+blcDecrypt = function(dec){
 	// initialize length
-  if (woas.AES.tot==0){
+  if (tot==0){
 //    prgr = name;
-    if (woas.AES.key.length<1) return false;
+    if (key.length<1) return false;
     // if (cbc)
-	{ woas.AES.aes_i=16; }
-    woas.AES.tot = woas.AES.bData.length;
-    if ( (woas.AES.tot%16) || (woas.AES.tot<woas.AES.aes_i) ) {
-		log('AES: Incorrect length (tot='+woas.AES.tot+', aes_i='+woas.AES.aes_i+')'); //log:1
+	{ aes_i=16; }
+    tot = bData.length;
+    if ( (tot%16) || (tot<aes_i) ) {
+		log('AES: Incorrect length (tot='+tot+', aes_i='+aes_i+')'); //log:1
 		return false;
 	}
-    woas.AES.aesInit();
+    aesInit();
   }else{
     // if (cbc)
-	woas.AES.aes_i=woas.AES.tot-woas.AES.aes_i;
+	aes_i=tot-aes_i;
     dec();
     // if (cbc)
 	{
-      for (woas.AES.aes_j=woas.AES.aes_i-16; woas.AES.aes_j<woas.AES.aes_i; woas.AES.aes_j++) woas.AES.bData[woas.AES.aes_j] ^= woas.AES.bData[woas.AES.aes_j-16];
-      woas.AES.aes_i = woas.AES.tot+32-woas.AES.aes_i;
+      for (aes_j=aes_i-16; aes_j<aes_i; aes_j++) bData[aes_j] ^= bData[aes_j-16];
+      aes_i = tot+32-aes_i;
     }
   }
-  if (woas.AES.aes_i>=woas.AES.tot){
-    woas.AES.aesClose();
+  if (aes_i>=tot){
+    aesClose();
     // if (cbc)
-	woas.AES.bData.splice(0,16);
+	bData.splice(0,16);
 	// remove 0s added for padding (supposedly!)
-	while(woas.AES.bData[woas.AES.bData.length-1]==0) woas.AES.bData.pop();
+	while(bData[bData.length-1]==0) bData.pop();
   }
   return true;
 }
 
 // sets global key to the utf-8 encoded key (byte array)
-woas.AES["setKey"] = function(sKey) {
-	woas.AES.key = woas.utf8Encrypt(sKey);
+setKey = function(sKey) {
+	key = woas.utf8Encrypt(sKey);
 }
 
-woas.AES["clearKey"] = function() {
-	woas.AES.key = [];
+clearKey = function() {
+	key = [];
 }
 
 // returns an array of encrypted characters
-woas.AES["encrypt"] = function(raw_data) {
-	woas.AES.bData = woas.utf8Encrypt(raw_data);
+encrypt = function(raw_data) {
+	bData = woas.utf8Encrypt(raw_data);
 	
-	woas.AES.aes_i=woas.AES.tot=0;
-	do{ woas.AES.blcEncrypt(woas.AES._encrypt); } while (woas.AES.aes_i<woas.AES.tot);
+	aes_i=tot=0;
+	do{ blcEncrypt(_encrypt); } while (aes_i<tot);
 	
-	var rv = woas.AES.bData;
-	woas.AES.bData = null;
+	var rv = bData;
+	bData = null;
 	return rv;
 }
 
 // decrypts an array of encrypted characters
-woas.AES["decrypt"] = function(raw_data) {
-	woas.AES.bData = raw_data;
+decrypt = function(raw_data) {
+	bData = raw_data;
 	
-	woas.AES.aes_i=woas.AES.tot=0;
+	aes_i=tot=0;
 	do {
-		if (!woas.AES.blcDecrypt(woas.AES._decrypt))
+		if (!blcDecrypt(_decrypt))
 			return null;
-	} while (woas.AES.aes_i<woas.AES.tot);
+	} while (aes_i<tot);
 	
-	woas.AES.sData = woas.utf8Decrypt(woas.AES.bData);
-	woas.AES.bData = [];
-	var rv = woas.AES.sData;
-	woas.AES.sData = null;
+	sData = woas.utf8Decrypt(bData);
+	bData = [];
+	var rv = sData;
+	sData = null;
 	return rv;
 }
+
+function isKeySet(){
+	return key.length > 0 ? true : false;
+}
+
+/*
+Expose namespace; this allows:
+* simple calls in above code, so much more readable;
+* obvious definition of API;
+* for API to be overridden in a manner that allows simple chaining.
+This is all that is exposed.
+
+(Also, if namespace was "woas.crypto" would allow replacement plugins for different
+crypto methods to be called; a sort of Inversion Of Control injection. Pages could
+define their encryption method ("woas.page.encryption: aes256" ?) if desired, and
+the code just hooks into the defined api as here.
+
+Could work for other namespace APIs also.)
+*/
+if (woas.AES === undefined) woas.AES = {};
+
+woas.AES.clearKey = clearKey;
+woas.AES.setKey = setKey;
+woas.AES.encrypt = encrypt;
+woas.AES.decrypt = decrypt;
+
+/*
+I added this to stickwiki.js (replaced "key.length" with "isKeySet()"; 
+changes are trivial, but keep the key private, as it should be.
+(Also, just doing something like "woas.AES.key = key" doesn't work; would
+have to use woas.key above, I think. Haven't researched alternatives yet,
+but it is better to keep access to private data closed.)
+*/
+woas.AES.isKeySet = isKeySet;
+
+/*
+As the functions below are outside of this namespace they are probably in
+the wrong file or need to be renamed.
+
+They could also be kept in this file but moved outside of the wrapper (with
+"woas." added to the calls inside the wrapper, of course). When learning new
+code it can be quite frustrating to find utility functions scattered around
+the files though (or is it just me?).
+*/
+woas.merge_bytes = merge_bytes;
+woas.split_bytes = split_bytes;
+woas.utf8Encrypt = utf8Encrypt;
+woas.utf8Decrypt = utf8Decrypt;
+
+// end namespace wrapper
+})();
+
+/*
+AFAIK, this wrapper behaviour is standard javascript functionality and always
+has been. I don't believe any browsers have issues with this from what I've read.
+
+Another way to do this is to define the public API functions within the code
+according to the namespace; e.g.:
+  woas.AES.clearKey = function(){key = [];}
+Now you don't have to manually expose the API, but the other wrapper advantages
+disappear somewhat.
+
+The wrapper can also have information passed in:
+  (function(info, obj){ ... })(my.info, {some:"data"});
+Such parameter data is part of the function closure and remains available to
+the code. jQuery uses this technique, among others. I used this in experiments
+to pass in the namespace, making it dynamic:
+  woas.myNs = {};
+  (function(ns){
+    ns.func1 = function() {}; //  and/or
+	ns.func2 = funct2; // for defining API as before.
+  })(woas.myNs);
+Useful in terms of module reuse perhaps but I haven't experimented much with
+this so don't know strengths/weaknesses. Also can't remember the rules for
+how live the passed in data remains, but there is lots of info around on this.
+
+All these comments about modules/closures should be removed. Just FYI.
+*/
