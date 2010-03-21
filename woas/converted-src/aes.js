@@ -1,3 +1,5 @@
+// Given the discussion below, aes2.js is a better choice than this file
+
 // AES encryption for StickWiki
 // adapted by legolas558
 // license: GNU/GPL
@@ -352,7 +354,7 @@ clearKey = function() {
 
 // returns an array of encrypted characters
 encrypt = function(raw_data) {
-	bData = woas.utf8Encrypt(raw_data);
+	bData = utf8Encrypt(raw_data);
 	
 	aes_i=tot=0;
 	do{ blcEncrypt(_encrypt); } while (aes_i<tot);
@@ -372,7 +374,7 @@ decrypt = function(raw_data) {
 			return null;
 	} while (aes_i<tot);
 	
-	sData = woas.utf8Decrypt(bData);
+	sData = utf8Decrypt(bData);
 	bData = [];
 	var rv = sData;
 	sData = null;
@@ -455,4 +457,7 @@ this so don't know strengths/weaknesses. Also can't remember the rules for
 how live the passed in data remains, but there is lots of info around on this.
 
 All these comments about modules/closures should be removed. Just FYI.
+
+A better modularization of AES, as suggested above, is in aes2.js
+
 */
