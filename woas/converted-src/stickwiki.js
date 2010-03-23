@@ -326,7 +326,7 @@ woas.get_page = function(pi) {
 // get the text of the page, stripped of html tags
 woas.get_src_page = function(pi, rawmode) {
 	var pg = this.get_page(pi);
-	if (pg===null) return null;
+	if (pg === null) return null;
 	if ((typeof rawmode == "undefined") || (rawmode == false))
 		pg = pg.replace(/\{\{\{((.|\n)*?)\}\}\}/g, "");
 	else
@@ -338,7 +338,7 @@ woas.get_src_page = function(pi, rawmode) {
 
 woas.get_text = function (title) {
 	var pi = this.page_index(title);
-	if (pi==-1)
+	if (pi == -1)
 		return null;
 	return this.get__text(pi);
 }
