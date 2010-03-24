@@ -374,8 +374,8 @@ Ly8gUHV0IGhlcmUgeW91ciBib290IGphdmFzY3JpcHQ=
 --DFQRCTsKlU
 woas.page.title: History
 woas.page.attributes: 0
-woas.page.last_modified: 1269323212
-woas.page.length: 43019
+woas.page.last_modified: 1269451487
+woas.page.length: 43129
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -427,6 +427,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Replaced *Set tag:* with *Set tag (or tags separated by pipes):* in {{{function setTag()}}} for clarity in the *Tags* button prompt.
 ** Updated some of the system alerts.
 ** Updated the global CSS.
+** Updated the {{{setTag}}} function so the *Tags* button in the editor will no longer use deprecated syntax.
 ** Updated the [[Special::Options]] page to remove the *Fixed menu and banner* option and add the *Fixed banner* and *Fixed menu* options.
 
 * _Content:_
@@ -3895,8 +3896,8 @@ The line that starts with {{{|- }}} is a comment line. You can type some text af
 --DFQRCTsKlU
 woas.page.title: Help::Tags
 woas.page.attributes: 0
-woas.page.last_modified: 1267813029
-woas.page.length: 3511
+woas.page.last_modified: 1269451014
+woas.page.length: 3513
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -3908,7 +3909,7 @@ Tags are special links used by this wiki to group pages together into categories
 
 This page has been tagged with *Help*. If you go to the bottom of this page and click on the *Help* tag, you'll get a listing of all other pages with the same tag.
 
-Tag a page by using a {{{[[Tag::]]}}} link, adding the tag name or names after the double colons. This can be done by using the *Page tag* button in the editor or by typing the tag in manually using the instructions below.
+Tag a page by using a {{{[[Tags::]]}}} link, adding the tag name or names after the double colons. This can be done by using the *Tag* button in the editor or by typing the tag in manually using the instructions below.
 
 === Add a tag to a page (method 1)
 # Place your cursor at the bottom of the page.
@@ -3918,7 +3919,7 @@ Tag a page by using a {{{[[Tag::]]}}} link, adding the tag name or names after t
 
 === Add a tag to a page (method 2)
 <div class="helptext">Use this code in a page:</div>
-<div class="helpcode">[<!-- -->[T<!-- -->ag::H<!-- -->elp]<!-- -->]</div>
+<div class="helpcode">[<!-- -->[T<!-- -->ags::H<!-- -->elp]<!-- -->]</div>
 <div class="helptext">To create a tag like the one at the bottom of this page.</div>
 === Add more than one tag to a page (method 1)
 # Place your cursor at the bottom of the page.
@@ -3927,13 +3928,13 @@ Tag a page by using a {{{[[Tag::]]}}} link, adding the tag name or names after t
 # Click the *OK* button.
 
 === Add more than one tag to a page (method 2)
-To use more than one tag on a page, use one tag link and add as many tags as you like, separating each from the one before it with a pipe. For example: {{{[[Tag::Recipes|Chocolate|Layered cakes]]}}}.
+To use more than one tag on a page, use one tag link and add as many tags as you like, separating each from the one before it with a pipe. For example: {{{[[Tags::Recipes|Chocolate|Layered cakes]]}}}.
 
 === Choosing tag names
 * Tag names are case sensitive.
-** Example: {{{[[Tag::Recipes]]}}} and {{{[[Tag::recipes]]}}} are two different tags.
+** Example: {{{[[Tags::Recipes]]}}} and {{{[[Tags::recipes]]}}} are two different tags.
 * Tag names can be more than one word long with a space between each word.
-** Example: {{{[[Tag::Layered cakes]]}}}.
+** Example: {{{[[Tags::Layered cakes]]}}}.
 
 === Add a link to tagged pages
 <div class="helptext">Use this code in a page, replacing Help with the tag you'd like to use:</div>
@@ -3961,7 +3962,7 @@ By putting an exclamation mark (*!*) in front of the tag name, you can filter ou
 <div class="helpcode">[<!-- -->[Include::Tagged::!Help]<!-- -->]</div>
 <div class="helptext">To display a filtered listing of tagged pages inside the current page.</div>
 
-[[Tag::Help|Syntax]]
+[[Tags::Help|Syntax]]
 
 --DFQRCTsKlU
 woas.page.title: Help::Text formatting

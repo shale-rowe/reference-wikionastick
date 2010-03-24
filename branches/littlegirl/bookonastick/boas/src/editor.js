@@ -153,7 +153,7 @@ function setTag() {
         //Little Girl: I added an aside to the following line for clarity:
         var tag=prompt('Set tag (or tags separated by pipes):','');
 	if (tag!==null)
-	woas._editor.setSelectedText("[[Tag::",tag+"]]");
+	woas._editor.setSelectedText("[[Tags::",tag+"]]");
 }
 
 // Little Girl (10-27-09): I added this section to display an editor Help popup:
