@@ -1,15 +1,17 @@
 wsif.version: 1.2.0
-libwsif.version: 1.3.1
+woas.version: 0.11.0
+woas.author: Little Girl
 woas.pages: 1
 
 woas.page.title: WoaS Developer Guide
-woas.page.attributes: 
-woas.page.length: 13229
+woas.page.attributes: 0
+woas.page.last_modified: 1269456577
+woas.page.length: 13875
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
-woas.page.boundary: TZxGPMAtIF
+woas.page.boundary: DFQRCTsKlU
 
---TZxGPMAtIF
+--DFQRCTsKlU
 [[Special::TOC]]
 = WoaS Developer Guide
 Welcome, developers, to the Wiki on a Stick (WoaS) community! The WoaS community offers various places you can visit to keep in touch with others. By visiting these, you can see what's already being done and get an idea of how and where you can help:
@@ -74,12 +76,11 @@ These are codes Subversion will use to let you know what it's doing when you iss
 
 == Setup
 # Create the local directory you'd like to use as your WORKINGCOPY.<br><br>
-# Edit the *{{{PATH REFERENCE TABLE}}}* above with your information.<br><br>
-# Use your paths in all of the following commands.<br><br>
+# Edit the *{{{PATH REFERENCE TABLE}}}* above with your information.<br><br><div style="background-color:#FFFFAA; border: 0.1em solid black; padding:0.3em;">Use the paths you put in the *{{{PATH REFERENCE TABLE}}}* for all the commands in this guide.</div><br>
 # Copy TRUNK to BRANCH:<br>{{{
 svn copy TRUNK BRANCH
 }}}<br>
-# Check out BRANCH to create WORKINGCOPY:<br>{{{
+# Check out BRANCH to create a local WORKINGCOPY:<br>{{{
 svn co BRANCH WORKINGCOPY
 }}}
 
@@ -93,7 +94,7 @@ svn status WORKINGCOPY
 }}}<br>
 # Commit initial changes to BRANCH, providing your SourceForge password when asked:<br>{{{
 svn commit WORKINGCOPY
-}}}<br>/Note that Subversion caches your password on your hard drive so you don't have to enter it manually again. If you don't wish it to do this, see [[http://svnbook.red-bean.com/en/1.5/svn-book.html#svn.serverconfig.netmodel.credcache]]./<br><br>
+}}}<br><div style="background-color:#FFFFAA; border: 0.1em solid black; padding:0.3em;">Subversion caches your password on your hard drive so you don't have to enter it manually again. If you don't wish it to do this, see [[http://svnbook.red-bean.com/en/1.5/svn-book.html#svn.serverconfig.netmodel.credcache]].</div><br>
 # List the changes in the editor that pops up, *beginning each line with an asterisk followed by a space*. If the initial commit comment is very long (for instance, if you overwrote files in the WORKINGCOPY with ones you'd already made changes to), just write: *{{{* Initial commit.}}}*
 
 == Standard routine
@@ -114,7 +115,6 @@ svn update WORKINGCOPY
 * Update HEAD with a *specific* revision:<br>{{{
 svn update -rREV WORKINGCOPY
 }}}
-
 
 === Resolve conflicted files
 * If you have conflicts, Subversion will create some extra files in your WORKINGCOPY:<br>{{{
@@ -143,7 +143,7 @@ svn resolved
 === Tell Subversion about your changes
 * Add a directory:<br>{{{
 svn mkdir DIRECTORYNAME
-}}}<br>
+}}}<br><div style="background-color:#FFFFAA; border: 0.1em solid black; padding:0.3em;">If you added the directory with an ordinary shell command or by using a file manager, use {{{svn add DIRECTORYNAME}}} instead.</div><br>
 * Add a file:<br>{{{
 svn add FILENAME
 }}}<br>
@@ -166,7 +166,7 @@ svn log -v WORKINGCOPY
 }}}<br>
 * Check the logs of BRANCH, showing its ancestry since you copied it from TRUNK:<br>{{{
 svn log -v --stop-on-copy WORKINGCOPY
-}}}<br>/The oldest BRANCH revision number shown can be used as the TRUNK revision number when merging more recent revisions in BRANCH *to* TRUNK./<br><br>
+}}}<br><div style="background-color:#FFFFAA; border: 0.1em solid black; padding:0.3em;">The oldest BRANCH revision number shown can be used as the TRUNK revision number when merging more recent revisions in BRANCH *to* TRUNK.</div><br>
 * Compare WORKINGCOPY line by line with HEAD in *current* directory (only displays results if there are any differences):<br>{{{
 svn diff
 }}}<br>
@@ -243,7 +243,7 @@ cd WORKINGCOPY
 }}}<br>
 # Merge (reintegrate) BRANCH to TRUNK:<br>{{{
 svn merge --reintegrate BRANCH
-}}}<br>/Subversion will merge the *current* BRANCH with the *current* TRUNK./<br><br>
+}}}<br><div style="background-color:#FFFFAA; border: 0.1em solid black; padding:0.3em;">Subversion will merge the *current* BRANCH with the *current* TRUNK.</div><br>
 # Make a comment describing the merge (preferably with revision numbers) in the editor that pops up.<br><br>
 # Delete BRANCH after the merge is complete and you've verified that it worked properly:<br>{{{
 svn delete BRANCH -m "Removed branch."
@@ -291,11 +291,11 @@ svn help import
 }}}<br>
 * Export a copy of WORKINGCOPY into another directory:<br>{{{
 svn export WORKINGCOPY DIRECTORY
-}}}<br>/Note that this copies all files and directories *except* Subversion directories or files. Also note that DIRECTORY has to be a nonexistent directory or the command won't work./<br><br>
+}}}<br><div style="background-color:#FFFFAA; border: 0.1em solid black; padding:0.3em;">DIRECTORY has to be a nonexistent directory or the command won't work. This command copies all files and directories *except* Subversion directories or files.</div><br>
 * Selectively commit files (useful if you've altered one file temporarily and don't want to commit it in its altered state, but wish to commit other files):<br>{{{
 svn commit FILENAME
 }}}<br>Or:<br>{{{
 svn commit FILENAME FILENAME FILENAME
 }}}
 
---TZxGPMAtIF
+--DFQRCTsKlU
