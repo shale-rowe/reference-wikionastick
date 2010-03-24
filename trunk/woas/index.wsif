@@ -137,13 +137,15 @@ This project wouldn't be what it is without the help of other people. If you con
 --DFQRCTsKlU
 woas.page.title: Main Page
 woas.page.attributes: 0
-woas.page.length: 37
+woas.page.last_modified: 1269448424
+woas.page.length: 38
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 A blank sheet is a catalyst for ideas
+
 --DFQRCTsKlU
 woas.page.title: Special::Search
 woas.page.attributes: 0
@@ -1705,7 +1707,8 @@ You can insert a Table of Contents into your page by using a special wiki tag. I
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Tags
 woas.page.attributes: 0
-woas.page.length: 3874
+woas.page.last_modified: 1269449919
+woas.page.length: 3879
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1714,7 +1717,7 @@ woas.page.boundary: DFQRCTsKlU
 = Tags
 Tags are special links used by this wiki to group pages together into categories so they can easily be found again. A tag can be placed anywhere on a page, but it's a good idea to choose a standard location like the bottom of the page so you can easily find and edit them as your wiki grows. You can choose any name you like for the tag. You can also give a page more than one tag if the page fits into more than one category.
 
-Tag a page by using a {{{[[Tag::]]}}} link, adding the tag name or names after the double colons. This can be done by using the *Tags* button in the editor or by typing the tag in manually using the instructions below.
+Tag a page by using a {{{[[Tags::]]}}} link, adding the tag name or names after the double colons. This can be done by using the *Tags* button in the editor or by typing the tag in manually using the instructions below.
 
 === Add a tag to a page (method 1)
 # Place your cursor at the bottom of the page.<br><br>
@@ -1733,12 +1736,12 @@ Tag a page by using a {{{[[Tag::]]}}} link, adding the tag name or names after t
 # Click the *OK* button.
 
 === Add more than one tag to a page (method 2)
-To use more than one tag on a page, use one tag link and add as many tags as you like, separating each from the one before it with a pipe. For example: {{{[[Tag::Recipes|Chocolate|Layered cakes]]}}}.
+To use more than one tag on a page, use one tag link and add as many tags as you like, separating each from the one before it with a pipe. For example: {{{[[Tags::Recipes|Chocolate|Layered cakes]]}}}.
 
 === Choosing tag names
-Tag names are case sensitive. For example: {{{[[Tag::Recipes]]}}} and {{{[[Tag::recipes]]}}} are two different tags.
+Tag names are case sensitive. For example: {{{[[Tags::Recipes]]}}} and {{{[[Tags::recipes]]}}} are two different tags.
 
-Tag names can be more than one word long with a space between each word. For example: {{{[[Tag::Layered cakes]]}}}.
+Tag names can be more than one word long with a space between each word. For example: {{{[[Tags::Layered cakes]]}}}.
 
 === Add a link to tagged pages
 <div class="woas_helptext">Use this code in a page, replacing EXAMPLE with the tag you'd like to use:</div>
