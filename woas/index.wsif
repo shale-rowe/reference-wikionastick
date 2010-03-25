@@ -936,8 +936,8 @@ If you have not given permanent permission to your browser for editing wiki page
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Edit CSS
 woas.page.attributes: 0
-woas.page.last_modified: 1269447993
-woas.page.length: 2008
+woas.page.last_modified: 1269534346
+woas.page.length: 1991
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -961,20 +961,20 @@ To return to the default settings if you don't like the changes you've made:
 # Click the *Advanced* icon in the navigation bar.
 # Click the *Special::Edit CSS* link in the *Advanced* section to open the CSS settings in the editor.
 # Select and copy all the content in the main text area.
-# Open your copy of Wiki on a Stick in a browser.
+# Open your wiki in a browser.
 # Click the *Advanced* icon in the navigation bar.
 # Click the *Special::Edit CSS* link in the *Advanced* section to open the CSS settings in the editor.
-# Select the contents of the main text area on the page.
-# Delete all of the contents.
-# Paste in the settings you copied from the fresh copy of WoaS.
+# Delete all of the contents of the main text area.
+# Paste the settings you copied from the fresh copy of WoaS into the main text area.
 # Click the *Save* icon in the navigation bar to save the changes.
 
 If you have edited the CSS settings and accidentally made your wiki unusable, you can restore the default CSS this way:
-# Open your copy and a fresh copy of Wiki on a Stick in a text editor.
-# Find the section that begins with {{{<style type="text/css">}}} and ends with {{{</style>}}} in the fresh copy of Wiki on a Stick.
-# Copy the code between those two tags.
-# Find the section that begins with {{{<style type="text/css">}}} and ends with {{{</style>}}} in your wiki.
-# Replace it with the code you copied from the fresh copy of Wiki on a Stick.
+# Open a fresh copy of Wiki on a Stick in a text editor.
+# Find the section that begins with {{{<style type="text/css">}}} and ends with {{{</style>}}}.
+# Copy the code between those two style tags.
+# Open your wiki in a text editor.
+# Find the section that begins with {{{<style type="text/css">}}} and ends with {{{</style>}}}.
+# Replace the code between those two style tags with the code you copied from the the fresh copy of Wiki on a Stick.
 # Save the change to your wiki.
 
 --DFQRCTsKlU
