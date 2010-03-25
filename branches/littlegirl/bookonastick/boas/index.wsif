@@ -69,8 +69,8 @@ File: <input id="filename_" type="file" />&nbsp;<input type="button" value="Impo
 --DFQRCTsKlU
 woas.page.title: Special::About
 woas.page.attributes: 0
-woas.page.last_modified: 1267316852
-woas.page.length: 4470
+woas.page.last_modified: 1269531658
+woas.page.length: 4475
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -81,7 +81,7 @@ woas.page.boundary: DFQRCTsKlU
 Write a book in one self-contained file that runs entirely in your browser and can be kept on portable media in your pocket. This page is all you need! See the [[Help::Getting started|Getting started]] page to learn how this wiki works, or click the [[Include::Template::Icon::Edit]] icon in the banner to replace this content with the beginning of your masterpiece.
 
 == Features:
-* Accepts [[http://en.wikipedia.org/wiki/Plain_text|plain text]], [[Tagged::Syntax|internal wiki syntax]], [[http://www.wikicreole.org/wiki/|Creole 0.1]], [[http://www.w3schools.com/html/default.asp|HTML]], and [[http://www.w3schools.com/js/default.asp|JavaScript]].
+* Accepts [[http://en.wikipedia.org/wiki/Plain_text|plain text]], [[Tagged::Syntax|internal wiki syntax]], [[http://www.w3schools.com/html/default.asp|HTML]], [[http://www.w3schools.com/js/default.asp|JavaScript]], and some [[http://www.wikicreole.org/wiki/|Creole 0.1]].
 * Buttons for quick access to all parts and features of the wiki.
 * Customizable [[Special::Edit CSS|CSS settings]] to change the look of the wiki.
 * Customizable [[::Menu|menu]] for finding your [[Special::All Pages|pages]] easily.
@@ -374,8 +374,8 @@ Ly8gUHV0IGhlcmUgeW91ciBib290IGphdmFzY3JpcHQ=
 --DFQRCTsKlU
 woas.page.title: History
 woas.page.attributes: 0
-woas.page.last_modified: 1269453037
-woas.page.length: 43177
+woas.page.last_modified: 1269531935
+woas.page.length: 43297
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -492,6 +492,8 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the [[Help::Word count]] page.
 ** Updated the [[History]] page.
 ** Updated the [[Utility::Word count]] page.
+** Updated the [[Special::About]] page, changing the accepted syntax reference from "Creole 0.1" to "some Creole 0.1".
+
 <!-- ============================================================================================================================================================================================= -->
 === Version 0.9 released on February 10, 2010
 * _Interface:_
@@ -3897,8 +3899,8 @@ The line that starts with {{{|- }}} is a comment line. You can type some text af
 --DFQRCTsKlU
 woas.page.title: Help::Tags
 woas.page.attributes: 0
-woas.page.last_modified: 1269451014
-woas.page.length: 3513
+woas.page.last_modified: 1269532125
+woas.page.length: 3516
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -3910,11 +3912,11 @@ Tags are special links used by this wiki to group pages together into categories
 
 This page has been tagged with *Help*. If you go to the bottom of this page and click on the *Help* tag, you'll get a listing of all other pages with the same tag.
 
-Tag a page by using a {{{[[Tags::]]}}} link, adding the tag name or names after the double colons. This can be done by using the *Tag* button in the editor or by typing the tag in manually using the instructions below.
+Tag a page by using a {{{[[Tags::]]}}} link, adding the tag name or names after the double colons. This can be done by using the *Tags* button in the editor or by typing the tag in manually using the instructions below.
 
 === Add a tag to a page (method 1)
 # Place your cursor at the bottom of the page.
-# Click the *Tag* button in the editor.
+# Click the *Tags* button in the editor.
 # Type in a name for the tag.
 # Click the *OK* button.
 
@@ -3924,7 +3926,7 @@ Tag a page by using a {{{[[Tags::]]}}} link, adding the tag name or names after 
 <div class="helptext">To create a tag like the one at the bottom of this page.</div>
 === Add more than one tag to a page (method 1)
 # Place your cursor at the bottom of the page.
-# Click the *Tag* button in the editor.
+# Click the *Tags* button in the editor.
 # Type in names for the tags, separating each from the one before it with a pipe.
 # Click the *OK* button.
 
