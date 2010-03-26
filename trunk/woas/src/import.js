@@ -106,11 +106,12 @@ woas["import_wiki"] = function() {
 				case "0.10.8":
 				case "0.10.9":
 				case "0.11.0":
-					old_version = Number(ver_str.substr(1).replace(/\./g, ""));
+				case "0.11.1":
+					old_version = Number(ver_str.substr(2).replace(/\./g, ""));
 					break;
 				default:
-				this.alert(this.i18n.IMPORT_INCOMPAT.sprintf(ver_str));
-				fail=true;
+					this.alert(this.i18n.IMPORT_INCOMPAT.sprintf(ver_str));
+					fail=true;
 			}
 		if (fail) break;
 		} else { // below code is not very solid!

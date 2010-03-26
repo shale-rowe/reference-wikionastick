@@ -259,7 +259,7 @@ function _get_this_filename() {
 			if (filename.match(/^\\\w:\\/))
 				filename = filename.substr(1);
 			if (filename.charAt(1)!=':') {
-				if (ie)
+				if (woas.browser.ie)
 					filename = "\\\\"+filename;
 			}
 		}

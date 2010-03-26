@@ -3,10 +3,15 @@
 woas["special_encrypted_pages"] = function(locked) {
 	var pg = [];
 	for(var i=0,l=pages.length;i<l;i++) {
+		if (this.is_reserved(page_titles[i]))
+			continue;
 		if (locked == this.is__encrypted(i))
 			pg.push(page_titles[i]);
 	}
-	return this._join_list(pg);
+	if (!pg.length)
+		return "/No locked pages found/";
+	else
+		return this._join_list(pg); // TODO - Delete repeated data
 }
 
 woas["special_orphaned_pages"] = function() {
@@ -54,6 +59,8 @@ woas["special_backlinks"] = function() {
 	var tmp;
 	var reg = new RegExp("\\[\\["+RegExp.escape(current)+"(\\||\\]\\])", "gi");
 	for(var j=0,l=pages.length; j<l; j++) {
+		if (this.is_reserved(page_titles[j]))
+			continue;
 		// search for pages that link to it
 		tmp = this.get_src_page(j);
 		if (tmp==null)
@@ -92,6 +99,7 @@ woas["special_search"] = function( str ) {
 	var tmp;
 	result_pages = [];
 	for(var i=0,l=pages.length; i<l; i++) {
+		//TODO: implement searching in help pages
 		if (this.is_reserved(page_titles[i]))
 			continue;
 
@@ -135,6 +143,8 @@ woas["special_tagged"] = function() {
 	var tags_tree = {};
 	var src, ipos;
 	for(var i=0,l=pages.length;i<l;++i) {
+		if (this.is_reserved(page_titles[i]))
+			continue;
 		src = this.get_src_page(i);
 		// encrypted w/o key
 		if (src === null)
@@ -183,6 +193,8 @@ woas["special_untagged"] = function() {
 	var tmp;
 	var pg = [];
 	for(var i=0,l=pages.length; i<l; i++) {
+		if (this.is_reserved(page_titles[i]))
+			continue;
 		tmp = this.get_src_page(i);
 		if (tmp==null)
 			continue;
@@ -210,6 +222,8 @@ woas["special_dead_pages"] = function() {
 	var from_pages = [];
 	var tmp;
 	for(var j=0,l=pages.length;j<l;j++) {
+		if (this.is_reserved(page_titles[j]))
+			continue;
 		tmp = this.get_src_page(j);
 		if (tmp==null)
 			continue;
