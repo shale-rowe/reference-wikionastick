@@ -374,8 +374,8 @@ Ly8gUHV0IGhlcmUgeW91ciBib290IGphdmFzY3JpcHQ=
 --DFQRCTsKlU
 woas.page.title: History
 woas.page.attributes: 0
-woas.page.last_modified: 1269531935
-woas.page.length: 43297
+woas.page.last_modified: 1269532335
+woas.page.length: 43343
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -420,6 +420,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Now using [[http://sourceforge.net/projects/stickwiki/files/|Wiki on a Stick v0.10.5]] as the foundation for Book on a Stick!
 ** Removed core styling from the {{{Edit menu}}} and {{{Edit sub-menu}}} buttons.
 ** Renamed the *sort* editor button to *Sort*.
+** Renamed the *Tag* editor button to *Tags*.
 ** Replaced WoaS editor buttons with my BoaS editor buttons.
 ** Replaced {{{function open_table_help}}} with my BoaS {{{function open_table_help}}} code.
 ** Replaced {{{function setHTMLImage()}}} to remove the XHTML closing slash from the resulting tag.
@@ -2261,8 +2262,8 @@ Horizontal rules use the full width of the page by default. They can be styled t
 --DFQRCTsKlU
 woas.page.title: Help::Images
 woas.page.attributes: 0
-woas.page.last_modified: 1269453466
-woas.page.length: 19446
+woas.page.last_modified: 1269622107
+woas.page.length: 19490
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -2305,14 +2306,15 @@ This wiki provides an interface for embedding images. Each image will be given i
 Before you begin, it's important to note that when coming up with names for your images, you don't need the full file name with its extension (example: *home.jpg* could just be named *home*). <span class="helptext">
 
 <div class="helptext">Replace NAME in these instructions with the name you'd like to give the image you're embedding:</div>
-# Create a new page or open an existing page in the editor by clicking the [[Include::Template::Icon::Edit]] icon in the banner.<br><br>
-# Create an include link for a new image. There are two ways you can do this:<br><br>
-## Use this code anywhere you'd like to include an image:<pre>[\
-[In\
-clude::Image::N\
-AME]\
-]</pre>
-## Or click the editor's *Image* button and type in a name for the image.<br><br>
+
+=== From the menu
+# Click the *New page* button in the menu.<br><br>
+# Type {{{Image::NAME}}} into the box that comes up. This will bring up the image embedding interface.<br><br>
+# Browse to the image on your computer.<br><br>
+# Click the *Embed* button.
+
+=== From any page
+# Create an include link for a new image by typing {{{[[Include::Image::NAME]]}}} into a page, or click the editor's *Image* button and type in a name for the image.<br><br>
 # Click the [[Include::Template::Icon::Save]] icon in the banner to save the page.<br><br>
 # Part of the include link you just created will be red, indicating that the image doesn't exist yet.<br><br>
 # Click on the red part of the link to launch the embedding interface.<br><br>
@@ -5486,15 +5488,15 @@ PGgxIGFsaWduPSJjZW50ZXIiPkFsaWFzPC9oMT4KPCEtLSBCRUdJTiBMQVNUIFVQREFURUQgLS0+Cjxk
 --DFQRCTsKlU
 woas.page.title: Help::Aliases
 woas.page.attributes: 0
-woas.page.last_modified: 1269453067
-woas.page.length: 287
+woas.page.last_modified: 1269532447
+woas.page.length: 292
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Aliases
-[[Include::Template::TODO|this|Rewrite this since it's taken straight from the Feature::Summary page.]]
+[[Include::Template::TODO|this|Rewrite this page since it's taken straight from the Feature::Summary page.]]
 
 You can define global wiki name aliases in [[Special::Aliases]]. Such aliases will be replaced automatically before looking up for the page name.
 
