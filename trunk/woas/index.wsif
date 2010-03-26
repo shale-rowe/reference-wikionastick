@@ -2519,8 +2519,8 @@ With a combination of HTML and wiki syntax, you can create anchor links to anywh
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Images
 woas.page.attributes: 0
-woas.page.last_modified: 1269621212
-woas.page.length: 14268
+woas.page.last_modified: 1269622250
+woas.page.length: 14057
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -2565,7 +2565,6 @@ This wiki provides an interface for embedding images. Each image will be given i
 # Type {{{Image::NAME}}} into the box that comes up. This will bring up the image embedding interface.<br><br>
 # Browse to the image on your computer.<br><br>
 # Click the *Embed* button.
-Now you can [[#Use an embedded image|use the embedded image]].
 
 === From any page
 # Create an include link for a new image by typing {{{[[Include::Image::NAME]]}}} into a page, or click the editor's *Image* button and type in a name for the image.<br><br>
@@ -2574,9 +2573,8 @@ Now you can [[#Use an embedded image|use the embedded image]].
 # Click on the red part of the link to launch the embedding interface.<br><br>
 # Browse to the image you'd like to embed.<br><br>
 # Click the *Embed* button. You'll be taken to the *Image::NAME* page with your image embedded in it.<br><br>
-# Click the Back icon in the navigation bar to return to the page you created the include link on. The image will be in place of the include link.
 
-=== Use an embedded image
+== Use an embedded image
 Once an image is embedded, you can use the same include link you used to add the embedded image to include the image anywhere in the wiki. 
 # Create a new page or open an existing page in the editor by clicking the *Edit* icon in the navigation bar.<br><br>
 # Create an include link for an already embedded image. There are two ways you can do this:<br><br>
