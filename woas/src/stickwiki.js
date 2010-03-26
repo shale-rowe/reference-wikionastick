@@ -8,13 +8,15 @@ var cached_search = "";		// cached XHTML content of last search
 var cfg_changed = false;	// true when configuration has been changed
 var search_focused = false;	// true when a search box is currently focused
 var _custom_focus = false;	// true when an user control is currently focused
-var _prev_title = current;	// used when entering/exiting edit mode
 var _decrypt_failed = false;	// the last decryption failed due to wrong password attempts (pretty unused)
 var result_pages = [];			// the pages indexed by the last result page
 var last_AES_page;				// the last page on which the cached AES key was used on
 var current_namespace = "";		// the namespace(+subnamespaces) of the current page
 var _bootscript = null;					// bootscript
 var _hl_reg = null;						// search highlighting regex
+
+// new variables will be properly declared here
+woas.prev_title = current;		// previous page's title used when entering/exiting edit mode
 
 woas["save_queue"] = [];		// pages which need to be saved and are waiting in the queue
 
@@ -516,11 +518,9 @@ woas["_create_page"] = function (ns, cr, ask, fill_mode) {
 			go_to(ns+"::"+cr);
 		return false;
 	}
-	if (!fill_mode && ask) {
-		if (!confirm(this.i18n.PAGE_NOT_FOUND))
-			return false;
-		this._ghost_page = true;
-	}
+	// this is what happens when you click a link of unexisting page
+	if (!fill_mode && ask && !confirm(this.i18n.PAGE_NOT_FOUND))
+		return false;
 	// create and edit the new page
 	if (cr!="Menu")
 		pages.push("= "+cr+"\n");
@@ -534,8 +534,10 @@ woas["_create_page"] = function (ns, cr, ask, fill_mode) {
 	page_mts.push(Math.round(new Date().getTime()/1000));
 	log("Page "+cr+" added to internal array");	// log:1
 	if (!fill_mode) {
-		current = cr;
-//		this.save_page(cr);	// do not save
+		// DO NOT set 'current = cr' here!!!
+		// enable ghost mode when creating a new-to-be page
+		if (!ask)
+			this._ghost_page = true;
 		// proceed with a normal wiki source page
 		this.edit_page(cr);
 	}
@@ -1093,6 +1095,8 @@ woas["after_load"] = function() {
 		$.hide_ni("woas_debug_panel");
 	}
 
+	// properly initialize navigation bar icons
+	// this will cause the alternate text to display on IE6
 	this.img_display("back", true);
 	this.img_display("forward", true);
 	this.img_display("home", true);
@@ -1103,7 +1107,8 @@ woas["after_load"] = function() {
 	this.img_display("save", true);
 	this.img_display("lock", true);
 	this.img_display("unlock", true);
-//	this.img_display("setkey", true);
+	this.img_display("setkey", true);
+	this.img_display("help", true);
 	
 	// customized keyboard hook
 	document.onkeydown = kbd_hook;
@@ -1135,7 +1140,8 @@ woas["after_load"] = function() {
 	this._create_bs();	//moved here to fix bug 1898587
 	this.set_current(current, true);
 	this.refresh_menu_area();
-	_prev_title = current;
+	// feed the current title before running the disable edit mode code
+	this.prev_title = current;
 	this.disable_edit();
 	
 	if (this.config.permit_edits)
@@ -1302,22 +1308,13 @@ woas["update_lock_icons"] = function(page) {
 	$("wiki_text").className = cls;
 }
 
-// Adjusts the menu buttons
+// disable edit-mode after cancel/save actions
 woas["disable_edit"] = function() {
 //	log("DISABLING edit mode");	// log:0
 	kbd_hooking = false;
 	// reset change buffer used to check for page changes
 	this.change_buffer = null;
 	this.old_title = null;
-	// we will cancel the creation of last page
-	if (this._ghost_page) {
-		// we assume that the last page is the ghost page
-		pages.pop();
-		page_mts.pop();
-		page_titles.pop();
-		page_attrs.pop();
-		this._ghost_page = false;
-	}
 	// check for back and forward buttons - TODO grey out icons
 	this.update_nav_icons(current);
 	this.menu_display("home", true);
@@ -1331,8 +1328,7 @@ woas["disable_edit"] = function() {
 	$.show("i_woas_text_area");
 	// aargh, FF eats the focus when cancelling edit
 	$.hide("edit_area");
-//	log("setting back title to "+_prev_title);	// log:0
-	this._set_title(_prev_title);
+	this._set_title(this.prev_title);
 }
 
 function _lock_pages(arr) {
@@ -1355,12 +1351,12 @@ woas["edit_allowed"] = function(page) {
 
 // setup the title boxes and gets ready to edit text
 woas["current_editing"] = function(page, disabled) {
-	log("current = "+current+", current_editing(\""+page+"\", disabled: "+disabled+")");	// log:1
-	_prev_title = current;
+//	log("current = "+current+", current_editing(\""+page+"\", disabled: "+disabled+")");	// log:0
+	this.prev_title = current;
 	$("wiki_page_title").disabled = (disabled && !this.tweak.edit_override ? "disabled" : "");
 	$("wiki_page_title").value = page;
 	kbd_hooking = true;
-	this._set_title("Editing "+page);
+	this._set_title(this.i18n.EDITING.sprintf(page));
 	// current must be set BEFORE calling enabling menu edit
 //	log("ENABLING edit mode");	// log:0
 	this.menu_display("back", false);
@@ -1395,11 +1391,9 @@ woas["old_title"] = null;
 woas["edit_ready"] = function (txt) {
 	$("wiki_editor").value = txt;
 	// save copy of text to check if anything was changed
-	// do not save it in case of ghost pages
-	if (!this._ghost_page) {
-		this.change_buffer = txt;
-		this.old_title = $("wiki_page_title").value;
-	}
+	// do not store it in case of ghost pages
+	this.change_buffer = txt;
+	this.old_title = $("wiki_page_title").value;
 }
 
 var _servm_shown = false;
@@ -1484,8 +1478,9 @@ woas["rename_page"] = function(previous, newpage) {
 	}
 	if (previous == this.config.main_page)
 		this.config.main_page = newpage;
-	if (_prev_title == previous)
-		_prev_title = newpage;
+	// make sure that previous title is consistent
+	if (this.prev_title === previous)
+		this.prev_title = newpage;
 	return true;
 }
 
@@ -1554,6 +1549,9 @@ woas["get_raw_content"] = function() {
 
 // action performed when save is clicked
 woas["save"] = function() {
+	// we will always save ghost pages if save button was hit
+	var null_save = !this._ghost_page;
+	// always reset ghost page flag
 	this._ghost_page = false;
 	// when this function is called in non-edit mode we perform a full commit
 	// for cumulative save
@@ -1563,9 +1561,11 @@ woas["save"] = function() {
 		return;
 	}
 	var raw_content = this.get_raw_content();
-
-	var null_save = (raw_content === this.change_buffer);
-
+	
+	// check if this is a null save only if page was not a ghost page
+	if (null_save)
+		null_save = (raw_content === this.change_buffer);
+	
 	var can_be_empty = false;
 	switch(current) {
 		case "Special::Edit CSS":
@@ -1603,7 +1603,7 @@ woas["save"] = function() {
 						return false;
 					if (this.is_menu(new_title)) {
 						this.refresh_menu_area();
-						back_to = _prev_title;
+						back_to = this.prev_title;
 					} else {
 						if (new_title != current) {
 							if (!this.rename_page(current, new_title))
@@ -1612,7 +1612,7 @@ woas["save"] = function() {
 						back_to = new_title;
 					}
 				} else
-					back_to = _prev_title;
+					back_to = this.prev_title;
 			}
 	}
 	var saved = current;
@@ -1665,9 +1665,10 @@ var max_description_length = 250;
 
 // proper autokeywords generation functions begin here
 
+var reKeywords = new RegExp("[^\\s\x01-\x2F\x3A-\x40\x5B-\x60\x7B-\x7E]{2,}", "g");
 function _auto_keywords(source) {
 	if (!source.length) return "";
-	var words = source.match(new RegExp("[^\\s\x01-\x2F\x3A-\x40\x5B-\x60\x7B-\x7E]{2,}", "g"));
+	var words = source.match(reKeywords);
 	if (!words.length) return "";
 	var nu_words = new Array();
 	var density = new Array();
@@ -1703,4 +1704,25 @@ function _auto_keywords(source) {
 var _g_br_rx = new RegExp("<"+"br\\s?\\/?>", "gi");
 woas["xhtml_to_text"] = function(s) {
 	return s.replace(_g_br_rx, "\n").replace(/<\/?\w+[^>]*>/g, ' ').replace(/&#?([^;]+);/g, function(str, $1) { if (!isNaN($1)) return String.fromCharCode($1); else return ""; });
+}
+
+woas.cancel_edit = function() {
+	// there was some change, ask for confirm before cancelling
+	if ((this.get_raw_content() !== this.change_buffer) ||
+		(this.trim($("wiki_page_title").value) !== this.old_title)) {
+		if (!confirm(this.i18n.CANCEL_EDITING))
+			return;
+	}
+	if (kbd_hooking) {
+		// we will cancel the creation of last page
+		if (this._ghost_page) {
+			// we assume that the last page is the ghost page
+			pages.pop();
+			page_mts.pop();
+			page_titles.pop();
+			page_attrs.pop();
+			this._ghost_page = false;
+		}
+		this.disable_edit();
+	}
 }

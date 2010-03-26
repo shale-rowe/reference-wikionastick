@@ -72,6 +72,7 @@ woas['i18n'] = {
 	NO_JAVA:"It was not possible to use TiddlySaver java applet nor direct Java saving.",
 	INVALID_TITLE: "Title cannot contain any of these characters:\n< > | [ ] { }",
 	FAILED_ERASE:"Saving the erased wiki has failed, please reload WoaS otherwise you will be working with unconsistent data",
+	EDITING:"Editing %s",
 	LOADING: "Loading Wiki on a Stick..."
 }
 
