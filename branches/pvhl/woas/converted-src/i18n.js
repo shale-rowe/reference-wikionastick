@@ -23,6 +23,7 @@ woas.i18n = {
 	DELETE_PAGE_PROMPT: "Delete page:",
 	DISPLAY_FULL_FILE: "Display full file",
 	DUP_NS_ERROR: "Cannot duplicate into File:: or Image:: namespace!",
+	EDITING:"Editing %s",
 	EMPTY_TITLE: "Pages with empty title are not allowed",
 	ERR_MARKER: "%s marker not found!",
 	ERR_NO_PWD: "No password set for decryption of page '%s'\nPlease click the key icon and enter a password",
