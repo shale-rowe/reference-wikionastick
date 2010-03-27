@@ -48,14 +48,7 @@ function go_forward() {
 
 // when cancel is clicked
 function cancel() {
-	// there was some change, ask for confirm
-	if ((woas.get_raw_content() !== woas.change_buffer) ||
-		(woas.trim($("wiki_page_title").value) !== woas.old_title)) {
-		if (!confirm(woas.i18n.CANCEL_EDITING))
-			return;
-	}
-	if (kbd_hooking)
-		woas.disable_edit();
+	woas.cancel_edit();
 }
 
 //DEPRECATED
