@@ -1,0 +1,9 @@
+= woas_0_11_1.htm
+
+*Using my css settings.* Mostly this is just a change to place TOC on right hand and use left justified text. Not content with my changes (especially text box width) but OK for now.
+
+= wsif.js
+
+*woas._native_page_def:* If attrs not defined function returns bpos_e+boundary.length. bpos_e has not been set. Fix: moved boundary finding code to private function so true value is returned. Other very minor changes in this function for readability.
+
+*_native_wsif_load:* Minor rearrangements for readability. This also obviated need for was_title var.
