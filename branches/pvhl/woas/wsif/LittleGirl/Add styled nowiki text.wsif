@@ -1,0 +1,35 @@
+wsif.version: 1.1.0
+libwsif.version: 1.2.0
+woas.pages: 1
+
+woas.page.title: WoaS Mods::Add styled nowiki text
+woas.page.attributes: 
+woas.page.length: 2526
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: oUuCzsXlfz
+
+--oUuCzsXlfz
+= Add styled nowiki text
+This makes it so your nowiki text will be styled. Your inline code, created by surrounding text within a sentence in triple curly brackets <tt>&#123;&#123;&#123;like this&#125;&#125;&#125;</tt>, will be styled with a background color <span style="font-family:monospace; color:black; background-color:#F5F5F5; white-space:-moz-pre-wrap !important; padding-right:0.27em; padding-left:0.27em;">like this</span> and your code blocks, created by placing triple curly brackets above and below blocks of text, will be styled with a background color and border, like this:
+
+<div style="font-family:monospace; color:black; background-color:#F5F5F5; border:0.063em solid grey; padding:0.375em; white-space:-moz-pre-wrap; word-wrap:break-word;">This is<br>a block<br>of text.</div>
+# Click the *Advanced* (tools) icon in the banner.<br><br>
+# Click the [[Special::Edit CSS]] link in the *Advanced features* section of the page.<br><br>
+# *Add* these entries to the global CSS, enabling one of the alternatives if needed:{{{
+/* CODE INLINE */
+.wiki_preformatted {color:black; background-color:#F5F5F5; white-space:-moz-pre-wrap !important; padding-right:0.27em; padding-left:0.27em;}
+/* ALTERNATIVE FOR MOZILLA: .wiki_preformatted {color:black; background-color:#F5F5F5; white-space:-moz-pre-wrap !important; padding-right:0.27em; padding-left:0.27em;} */
+/* ALTERNATIVE FOR CSS-3: .wiki_preformatted {color:black; background-color:#F5F5F5; white-space:pre-wrap; padding-right:0.27em; padding-left:0.27em;} */
+/* ALTERNATIVE FOR OPERA 4-6: .wiki_preformatted {color:black; background-color:#F5F5F5; white-space:-pre-wrap; padding-right:0.27em; padding-left:0.27em;} */
+/* ALTERNATIVE FOR OPERA 7: .wiki_preformatted {color:black; background-color:#F5F5F5; white-space:-o-pre-wrap; padding-right:0.27em; padding-left:0.27em;} */
+/* ALTERNATIVE FOR IE 5.5+: .wiki_preformatted {color:black; background-color:#F5F5F5; word-wrap:break-word; padding-right:0.27em; padding-left:0.27em;} */
+
+/* CODE BLOCKS */
+pre {color:black; background-color:#F5F5F5; border:0.063em solid grey; padding:0.375em; white-space:-moz-pre-wrap; word-wrap:break-word;}
+}}}
+# Click the *Save* (diskette) icon in the banner to save the changes.
+Now any code or text you place inside <tt>&#123;&#123;&#123;</tt>triple curly brackets<tt>&#125;&#125;&#125;</tt> or HTML &lt;pre&gt; and &lt;/pre&gt; tags will have a styled background which you can change however you like in the global CSS settings.
+[[Tag::WoaS  0.9.6B|WoaS 0.10.4|WoaS 0.10.6]]
+
+--oUuCzsXlfz

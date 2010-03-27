@@ -1,0 +1,59 @@
+wsif.version: 1.1.0
+libwsif.version: 1.2.0
+woas.pages: 1
+
+woas.page.title: WoaS Mods::Add folds
+woas.page.attributes: 
+woas.page.length: 4298
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: IMZcIwZgEJ
+
+--IMZcIwZgEJ
+= Add folds
+This lets you add folds to your pages. Folds are special links that toggle inclusion of additional content in a page when you click the link or button. You can add as many folds as you like to a page. They begin collapsed and expand when you click on them. Each is independent of the others, and can be expanded and collapsed as many times as you like.
+
+[[Include::Image::alert.png]] /Unfortunately, hidden content inside folds can conflict with the Table of Contents and the Tag container at the bottom of the page by being added to both of them even when the content isn't unfolded, and Table of Contents links to unfolded content will not work./
+
+# Create a page named *Foldpage* with just these contents:<pre>&lt;script type="text&#047;javascript"&gt;function expanddiv(div)&#123;var divElementStyle=document.getElementById(div).style;if (divElementStyle.display=="none")&#123;divElementStyle.display="block";&#125;else &#123;divElementStyle.display="none";&#125;&#125;&lt;&#047;script&gt;&lt;a id="%1_%2" onclick="return true;" href="javascript:&#036;.toggle('%2')"&gt;%1&lt;&#047;a&gt; %3&lt;div id="%2" style="display:none;"&gt;&lt;div style="display:none;"&gt;&#091;&#091;Include::%2&#093;&#093;&lt;&#047;div&gt;&lt;&#047;div&gt;</pre>
+# Create a page named *Foldtext* with just these contents:{{{
+<script type="text/javascript">function expandspan(span){var spanElementStyle=document.getElementById(span).style;if (spanElementStyle.display=="none"){spanElementStyle.display="inline";}else spanElementStyle.display="none";}}</script><a href="javascript:expanddiv('%1_%2')">%1</a>&nbsp;%3<div id="%1_%2" style="display:none;">
+%2
+</div>
+}}}
+# Create a page named *Foldtextinline* with just these contents:{{{
+<script type="text/javascript">function expandspan(span){var spanElementStyle=document.getElementById(span).style;if (spanElementStyle.display=="none"){spanElementStyle.display="inline";}else spanElementStyle.display="none";}}</script><a href="javascript:expandspan('inline_%1_%2')">%1</a> <span id="inline_%1_%2" style="display:none;">%2</span>
+}}}
+== Use folds
+=== Folding page plain
+This method works best when the link is at the beginning of a line, or there's no text after it on the same line. If there's text after the link, it will be pushed beneath the unfolded content when the link is clicked.
+
+Use this code in your page, replacing LINK with the text for the link, and PAGE with the name of the page you'd like to include when the link is clicked:
+<pre>&#091;&#091;Include::Foldpage|LINK|PAGE|&#093;&#093;</pre>To create a Folding page link.
+
+=== Folding page inline
+This method allows you to add text after the link on the same line.
+
+Use this code in your page, replacing LINK with the text for the link, and PAGE with the name of the page you'd like to include when the link is clicked, and TEXT with the text you'd like after the link:
+<pre>&#091;&#091;Include::Foldpage|LINK|PAGE|TEXT&#093;&#093;</pre>To create a Folding page link.
+
+=== Folding single-line text
+This method allows you to toggle a single line of text, and accepts wiki text formatting for the link text.
+
+Use this code on your page, replacing LINK with the link text, and CONTENT with the content you'd like to display when the link is clicked:
+<pre>&#091;&#091;Include::Foldtext|LINK|CONTENT|&#093;&#093;</pre>To create a folding single line of text.
+
+=== Folding multi-line text
+This method allows you to toggle more than one line of text by using HTML {{{<br>}}} tags, and accepts wiki text formatting for the link text.
+
+Use this code on your page, replacing LINK with the link text, and CONTENT&lt;br&gt;MORE CONTENT with the content you'd like to display when the link is clicked:
+<pre>&#091;&#091;Include::Foldtext|LINK|CONTENT&lt;br&gt;MORE CONTENT|&#093;&#093;</pre>To create folding multi-line text.
+
+=== Folding text inline
+This method allows you to add text after the link on the same line, and accepts wiki text formatting for the link text.
+
+Use this code in your page, replacing LINK with the text for the link, CONTENTS with the content you'd like to display when the link is clicked, and TEXT with the text you'd like after the link:
+<pre>&#091;&#091;Include::Foldtext|LINK|CONTENTS|TEXT&#093;&#093;</pre>To create folding inline text.
+[[Tag::WoaS 0.10.4|WoaS 0.10.6]]
+
+--IMZcIwZgEJ

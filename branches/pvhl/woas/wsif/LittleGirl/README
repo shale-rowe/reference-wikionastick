@@ -1,0 +1,31 @@
+Folds
+
+Author:
+Little Girl
+
+About:
+This WoaS mod creates five help pages.
+
+Content:
+This mod creates these eight pages:
+
+WoaS Mods::Add a logo to the banner
+WoaS Mods::Add folds
+WoaS Mods::Add footnotes
+WoaS Mods::Add styled notes
+WoaS Mods::Add styled nowiki text
+WoaS Mods::Add tooltips
+WoaS Mods::Add topnotes
+WoaS Mods::Replace fixed menu area and topbar option
+
+Instructions:
+1) Extract the contents of this zip file to a directory on your computer.
+2) Open your wiki in a browser.
+3) Click the Advanced (tools) icon in the banner.
+4) Click the Special::ImportWSIF link in the Maintenance section on the page.
+5) Click the Browse... button to select a .wsif file in the directory you extracted this zip file into.
+6) Click the Import WSIF button to import the file into your wiki.
+7) Repeat step 5 and step 6 for each of the .wsif files in this mod.
+8) Click the Advanced (tools) icon in the banner.
+9) Click the Special::All Pages link in the Pages section.
+10) Click the pages in the Woas Mods:: namespace for instructions on how to make various modifications to your wiki.
