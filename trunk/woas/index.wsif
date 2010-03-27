@@ -1,6 +1,6 @@
 wsif.version: 1.2.0
 wsif.generator: woas
-woas.version: 0.11.0
+woas.version: 0.11.1
 woas.pages: 67
 
 woas.page.title: ::Menu
@@ -34,7 +34,7 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Special::Advanced
 woas.page.attributes: 0
-woas.page.last_modified: 1268585994
+woas.page.last_modified: 1269705017
 woas.page.length: 1174
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
