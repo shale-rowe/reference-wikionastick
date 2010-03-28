@@ -1,7 +1,7 @@
 wsif.version: 1.2.0
 woas.version: 0.11.0
 woas.author: Little Girl
-woas.pages: 86
+woas.pages: 87
 
 woas.page.title: ::Menu
 woas.page.attributes: 0
@@ -52,7 +52,7 @@ $('menu_string_to_search').onkeydown = menu_key_hook;
 --DFQRCTsKlU
 woas.page.title: Main Page
 woas.page.attributes: 0
-woas.page.last_modified: 1269105442
+woas.page.last_modified: 1269700592
 woas.page.length: 1037
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -3301,5 +3301,29 @@ This makes it possible to insert custom indents at the beginning of any line of 
 <span style="margin-left:5em;">Five</span>
 
 [[Tags::0.9.6B|0.10.0|0.10.1|0.10.2|0.10.3|0.10.4|0.10.5|0.10.6|0.10.7|0.10.8|0.10.9|0.11.0|0.11.1]]
+
+--DFQRCTsKlU
+woas.page.title: WoaS Mods::Full navigation bar
+woas.page.attributes: 0
+woas.page.last_modified: 1269738810
+woas.page.length: 1207
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Full navigation bar
+This makes the navigation bar go all the way across the top of the screen rather than having a gap between it and the right side of the screen.
+# Open the wiki in a text editor.<br><br>
+# *Find* this section:<pre>&lt;&#047;td&gt;&lt;&#047;tr&gt;&lt;&#047;tbody&gt;&lt;/table&gt;</pre>
+# *Replace* it with this section:<pre>&lt;&#047;td&gt;&lt;td style&#061;"width: .5em;"&gt;&amp;nbsp;&lt;&#047;td&gt;&lt;&#047;tr&gt;&lt;&#047;tbody&gt;&lt;&#047;table&gt;</pre>
+# Save and close the file.<br><br>
+# Open the wiki in a browser.<br><br>
+# Click the *Advanced* icon in the navigation bar.<br><br>
+# Click the [[Special::Edit CSS]] link in the *Advanced features* section of the page.<br><br>
+# *Find* this entry:<pre>&#047;&#042; topbar &#042;&#047;<br>div.wiki_header &#123;<br>	top: 0em;<br>	left: 0em;<br>	border: 1pt solid #aaa;<br>	opacity:.75;<br>	z-index: 1;<br>	width: 99%;<br>&#125;</pre>
+# *Replace* it with this entry:<pre>&#047;&#042; topbar &#042;&#047;<br>div.wiki_header &#123;<br>	top: 0em;<br>	left: 0em;<br>	border: 1pt solid #aaa;<br>	opacity:.75;<br>	z-index: 1;<br>	width: 100%;<br>&#125;</pre>
+# Click the *Save* icon in the navigation bar.<br><br>
+[[Tags::0.11.1]]
 
 --DFQRCTsKlU
