@@ -21,7 +21,7 @@ function _saveThisFile(new_data, old_data) {
 		var msg = woas.i18n.SAVE_ERROR.sprintf(filename) + "\n\n";
 		if (this.use_java_io) {
 			// try to understand what went bad with Java
-			if (typeof document.applets["TiddlySaver"] == "undefined")
+			if (typeof document.applets.TiddlySaver == "undefined")
 				msg += this.i18n.NO_TIDDLY_SAVER+" "+TIDDLY_HELP;
 			else if (typeof java == "undefined")
 				msg += this.i18n.NO_JAVA+" "+TIDDLY_HELP;
@@ -313,8 +313,8 @@ woas.javaSaveFile = function(filePath,save_mode,content) {
 		return false;
 	}
 	try {
-		if(document.applets["TiddlySaver"])
-			return document.applets["TiddlySaver"].saveFile(_javaUrlToFilename(filePath),"UTF-8",content);
+		if(document.applets.TiddlySaver)
+			return document.applets.TiddlySaver.saveFile(_javaUrlToFilename(filePath),"UTF-8",content);
 	} catch(ex) {
 		// ok TiddlySaver applet not available, check next method
 	}
@@ -337,8 +337,8 @@ woas.javaLoadFile = function(filePath, load_mode, suggested_mime) {
 	//FIXME: UTF8_TEXT/BINARY is not separated here!!
 	var content = null;
 	try {
-		if(document.applets["TiddlySaver"]) {
-			content = document.applets["TiddlySaver"].loadFile(_javaUrlToFilename(filePath), "UTF-8");
+		if(document.applets.TiddlySaver) {
+			content = document.applets.TiddlySaver.loadFile(_javaUrlToFilename(filePath), "UTF-8");
 			if (content === null) {
 				// file does not exist
 				return false;
