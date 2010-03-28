@@ -76,7 +76,7 @@ function aesByteSub(x){
 
 // Generate static tables
 (function(){
-  var i,y;
+  var i,j,m,y;
   aesPows = [ 1,3 ];
   aesLogs = [ 0,0,null,1 ];
   aesSBox = new Array(256);
@@ -123,7 +123,7 @@ function aesByteSub(x){
 
 function aesInit(){
   key=key.slice(0,43);
-  var i,k,m;
+  var i,k;
   var j = 0;
   var l = key.length;
 
@@ -169,18 +169,18 @@ function aesRounds( block, key, table, inc, box ){
   for ( i=1; i<aesNr; i++ ){
     for (j=m=0;j<4;j++,m+=3){
       tmp[j]=key[r++]^table[block[j]&0xFF]^
-			rotw(table[(block[inc[m  ]]>>> 8)&0xFF], 8)^
-			rotw(table[(block[inc[m+1]]>>>16)&0xFF],16)^
-			rotw(table[(block[inc[m+2]]>>>24)&0xFF],24);
+			rotw(table[(block[inc[m  ]] >>> 8)&0xFF], 8)^
+			rotw(table[(block[inc[m+1]] >>>16)&0xFF],16)^
+			rotw(table[(block[inc[m+2]] >>>24)&0xFF],24);
     }
     var t=block; block=tmp; tmp=t;
   }
 
   for (j=m=0;j<4;j++,m+=3)
     tmp[j]=key[r++]^box[block[j]&0xFF]^
-           rotw(box[(block[inc[m  ]]>>> 8)&0xFF], 8)^
-           rotw(box[(block[inc[m+1]]>>>16)&0xFF],16)^
-           rotw(box[(block[inc[m+2]]>>>24)&0xFF],24);
+           rotw(box[(block[inc[m  ]] >>> 8)&0xFF], 8)^
+           rotw(box[(block[inc[m+1]] >>>16)&0xFF],16)^
+           rotw(box[(block[inc[m+2]] >>>24)&0xFF],24);
   return tmp;
 }
 
@@ -195,55 +195,45 @@ function _decrypt(){
 // Blockcipher
 
 function blcEncrypt(enc){
-  if (tot==0){
-//    prgr = name;
-    if (key.length<1) return;
-    // if (cbc)
-    // pre-pend random data to pad length? really?
-	for (aes_i=0; aes_i<16; ++aes_i) bData.unshift( _rand(256) );
-    while( bData.length%16!=0 ) bData.push(0);
-    tot = bData.length;
-    aesInit();
-  }else{
-    // if (cbc)
-	for (aes_j=aes_i; aes_j<aes_i+16; aes_j++)
+	if (tot === 0){
+		if (key.length<1) return;
+		// pre-pend random data to pad length? really?
+		for (aes_i=0; aes_i<16; ++aes_i) bData.unshift( _rand(256) );
+		while( bData.length%16 !== 0 ) bData.push(0);
+		tot = bData.length;
+		aesInit();
+	}else{
+		for (aes_j=aes_i; aes_j<aes_i+16; aes_j++)
 		bData[aes_j] ^= bData[aes_j-16];
-    enc();
-  }
-  if (aes_i>=tot) aesClose();
+		enc();
+	}
+	if (aes_i >== tot) aesClose();
 }
 
 function blcDecrypt(dec){
 	// initialize length
-  if (tot==0){
-//    prgr = name;
-    if (key.length<1) return false;
-    // if (cbc)
-	{ aes_i=16; }
-    tot = bData.length;
-    if ( (tot%16) || (tot<aes_i) ) {
-		log('AES: Incorrect length (tot='+tot+', aes_i='+aes_i+')'); //log:1
-		return false;
+	if (tot === 0){
+		if (key.length<1) return false;
+		aes_i=16;
+		tot = bData.length;
+		if ( (tot%16) || (tot<aes_i) ) {
+			log('AES: Incorrect length (tot='+tot+', aes_i='+aes_i+')'); //log:1
+			return false;
+		}
+		aesInit();
+	} else {
+		aes_i=tot-aes_i;
+		dec();
+		for (aes_j=aes_i-16; aes_j<aes_i; aes_j++) bData[aes_j] ^= bData[aes_j-16];
+		aes_i = tot+32-aes_i;
 	}
-    aesInit();
-  }else{
-    // if (cbc)
-	aes_i=tot-aes_i;
-    dec();
-    // if (cbc)
-	{
-      for (aes_j=aes_i-16; aes_j<aes_i; aes_j++) bData[aes_j] ^= bData[aes_j-16];
-      aes_i = tot+32-aes_i;
-    }
-  }
-  if (aes_i>=tot){
-    aesClose();
-    // if (cbc)
-	bData.splice(0,16);
-	// remove 0s added for padding (supposedly!)
-	while(bData[bData.length-1]==0) bData.pop();
-  }
-  return true;
+	if (aes_i>=tot){
+		aesClose();
+		bData.splice(0,16);
+		// remove 0s added for padding (supposedly!)
+		while(bData[bData.length-1] === 0) bData.pop();
+	}
+	return true;
 }
 
 // sets global key to the utf-8 encoded key (byte array)
@@ -317,7 +307,7 @@ woas.AES.decrypt = decrypt;
 
 woas.utf8Encrypt = function(sData) {
 	return woas.split_bytes( unescape( encodeURIComponent( sData ) ) );
-}
+};
 
 woas.utf8Decrypt = function(bData) {
 	try {
@@ -327,7 +317,7 @@ woas.utf8Decrypt = function(bData) {
 		log(e);	//log:1
 	}
 	return null;
-}
+};
 
 woas.split_bytes = function(s) {
 	var l=s.length;
@@ -335,7 +325,7 @@ woas.split_bytes = function(s) {
 	for(var i=0;i<l;i++)
 		arr.push(s.charCodeAt(i));
 	return arr;
-}
+};
 	
 woas.merge_bytes = function(arr) {
 	var l=arr.length;
@@ -343,4 +333,4 @@ woas.merge_bytes = function(arr) {
 	for(var i=0;i<l;i++)
 		s+=String.fromCharCode(arr[i]);
 	return s;
-}
+};
