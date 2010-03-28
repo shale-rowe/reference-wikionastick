@@ -207,7 +207,7 @@ function blcEncrypt(enc){
 		bData[aes_j] ^= bData[aes_j-16];
 		enc();
 	}
-	if (aes_i >== tot) aesClose();
+	if (aes_i >= tot) aesClose();
 }
 
 function blcDecrypt(dec){
