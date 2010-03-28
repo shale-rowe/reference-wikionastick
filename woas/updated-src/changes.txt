@@ -1,6 +1,40 @@
+* All files - woas["func"], etc., changed to woas.func
+* aes.js - modularized code to show concept; only the API is exposed.
+* i18n.js
+** new entry for encryption confirm
+** sorted all entries (to find more easily)
+** use of quoting standardized to, e.g. '%s'; was mix of both
+* stickwiki.js
+** moved encryption message to i18n
+** changed "AES.key.length" to "AES.isKeySet()" to match aes.js
+
 = woas_0_11_1.htm
 
 *Using my css settings.* Mostly this is just a change to place TOC on right hand and use left justified text. Not content with my changes (especially text box width) but OK for now.
+
+= aes.js
+
+*Modularized code* to hide everything but the AES api from the global namespace.
+
+*Added isKeySet()* to API so that private key is untouchable.
+
+= i18n.js
+
+*Added CONFIRM_REMOVE_ENCRYPT* for the encryption confirm prompt
+
+*Changed LOCK_CONFIRM[_LATEST] to CONFIRM_LOCK[_LATEST]* for consistency with other confirm strings.
+
+*Made use of quotes consistent* across all the strings.
+
+*Sorted strings* to make them easier to find.
+
+=stickwiki.js
+
+*Changed LOCK_CONFIRM* to match new name.
+
+*Moved remove encrypt prompt* to i18n.js: CONFIRM_REMOVE_ENCRYPT
+
+*Changed AES.key.length to AES.isKeySet()* to match AES API.
 
 = wsif.js
 
