@@ -315,7 +315,7 @@ woas.get_page = function(pi) {
 		return null;
 	if (!this.is__encrypted(pi))
 		return pages[pi];
-	if (!this.AES.isKeySet()) {
+	if (!this.AES.key.length) {
 		last_AES_page = "";
 		return null;
 	}
@@ -430,7 +430,7 @@ woas.get__text = function(pi) {
 	if (!this.is__encrypted(pi))
 		return pages[pi];
 	_decrypt_failed = true;
-	if (!this.AES.isKeySet()) {
+	if (!this.AES.key.length) {
 		this.alert(this.i18n.ERR_NO_PWD.sprintf(page_titles[pi]));
 		return null;
 	}
@@ -744,10 +744,10 @@ woas.set_current = function (cr, interactive) {
 						break;
 					case "Lock":
 						pi = this.page_index(cr);
-						if (this.AES.isKeySet()) {
+						if (this.AES.key.length) {
 							// display a message
-							if (confirm(this.i18n.CONFIRM_LOCK.sprintf(cr)+
-								(last_AES_page ? this.i18n.CONFIRM_LOCK_LAST.sprintf(last_AES_page) : ''))) {
+							if (confirm(this.i18n.LOCK_CONFIRM.sprintf(cr)+
+								(last_AES_page ? this.i18n.LOCK_CONFIRM_LAST.sprintf(last_AES_page) : ''))) {
 								this._finalize_lock(pi);
 								return false;
 							}
@@ -756,7 +756,7 @@ woas.set_current = function (cr, interactive) {
 						break;
 					case "Unlock":
 						pi = this.page_index(cr);
-						if (!confirm(this.i18n.CONFIRM_REMOVE_ENCRYPT.sprintf(cr)))
+						if (!confirm("Do you want to remove encryption for page \""+cr+"\"?"))
 							return;
 						text = this.get_text(cr);
 						if (_decrypt_failed) {

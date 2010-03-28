@@ -1,11 +1,9 @@
 
 // a class for some general WSIF operations
-woas.wsif = {
-	version: "1.2.0", DEFAULT_INDEX: "index.wsif",
-	emsg: null, imported_page: false,
-	expected_pages: null,
-	system_pages: 0
-};
+woas.wsif = {	version: "1.2.0", DEFAULT_INDEX: "index.wsif",
+					emsg: null, imported_page: false,
+					expected_pages: null,
+					system_pages: 0};
 
 woas.wsif.header = function(header_name, value) {
 	return header_name+": "+value+"\n";
@@ -443,8 +441,8 @@ woas._get_path = function(id) {
 	return this.dirname($(id).value);
 }
 
-woas._native_page_def = function(path,ct,p,last_p,overwrite,pre_import_hook, title,attrs,
-						last_mod,len,encoding, disposition,d_fn,boundary,mime) {
+woas._native_page_def = function(path,ct,p,last_p,overwrite,pre_import_hook, title,attrs,last_mod,len,encoding,
+											disposition,d_fn,boundary,mime) {
 	this.wsif.imported_page = false;
 	var bpos_e;
 	// last modified timestamp can be omitted
@@ -471,69 +469,69 @@ woas._native_page_def = function(path,ct,p,last_p,overwrite,pre_import_hook, tit
 			return -1;
 		}
 		while (!fail) { // used to break away
-			// retrieve full page content
-			var page = ct.substring(bpos_s+boundary.length, bpos_e);
-			// length used to check correctness of data segments
-			var check_len = page.length;
-			// split encrypted pages into byte arrays
-			if (attrs & 2) {
-				if (encoding != "8bit/base64") {
-					log("Encrypted page "+title+" is not encoded as 8bit/base64");
-					fail = true;
-					break;
-				}
-	//			check_len = page.length;
-				page = decode64_array(page);
-				// trim to correct length
-				// perhaps we could use woas.page.original_length field
-				// also, we could not make this check if version is 0.10.4
-				// but for now it's a good safety
-				var rest = page.length % 16;
-				if (rest)
-					log("removing "+rest+" trailing bytes from page "+title); //log:1
-				while (rest-- > 0) {page.pop();}
-			} else if (attrs & 8) { // embedded image, not encrypted
-				// NOTE: encrypted images are not obviously processed, as per previous 'if'
-				if (encoding != "8bit/base64") {
-					log("Image "+title+" is not encoded as 8bit/base64");
-					fail = true;
-					break;
-				}
-				if (mime === null) {
-					log("Image "+title+"has no mime type defined");
-					fail = true;
-					break;
-				}
-				// re-add data:uri to images
-				page = "data:"+mime+";base64,"+page;
-			} else { // a normal wiki page
-				switch (encoding) {
-					case "8bit/base64":
-						// base64 files will stay encoded
-						if (!(attrs & 4))
-							// WoaS does not encode pages normally, but this is supported by WSIF format
-							page = decode64(page);
-					break;
-					case "ecma/plain":
-						page = this.ecma_decode(page);
-					break;
-					case "8bit/plain": // plain wiki pages are supported
-					break;
-					default:
-						log("Normal page "+title+" comes with unknown encoding "+encoding);
-						fail = true;
-						break;
-				}
-			}
-			if (fail)
+		// retrieve full page content
+		var page = ct.substring(bpos_s+boundary.length, bpos_e);
+		// length used to check correctness of data segments
+		var check_len = page.length;
+		// split encrypted pages into byte arrays
+		if (attrs & 2) {
+			if (encoding != "8bit/base64") {
+				log("Encrypted page "+title+" is not encoded as 8bit/base64");
+				fail = true;
 				break;
-			// check length (if any were passed)
-			if (len !== null) {
-				if (len != check_len)
-					this.alert("Length mismatch for page %s: ought to be %d but was %d".sprintf(title, len, check_len));
 			}
-			// has to break anyway
+//			check_len = page.length;
+			page = decode64_array(page);
+			// trim to correct length
+			// perhaps we could use woas.page.original_length field
+			// also, we could not make this check if version is 0.10.4
+			// but for now it's a good safety
+			var rest = page.length % 16;
+			if (rest)
+				log("removing "+rest+" trailing bytes from page "+title); //log:1
+			while (rest-- > 0) {page.pop();}
+		} else if (attrs & 8) { // embedded image, not encrypted
+			// NOTE: encrypted images are not obviously processed, as per previous 'if'
+			if (encoding != "8bit/base64") {
+				log("Image "+title+" is not encoded as 8bit/base64");
+				fail = true;
+				break;
+			}
+			if (mime === null) {
+				log("Image "+title+"has no mime type defined");
+				fail = true;
+				break;
+			}
+			// re-add data:uri to images
+			page = "data:"+mime+";base64,"+page;
+		} else { // a normal wiki page
+			switch (encoding) {
+				case "8bit/base64":
+					// base64 files will stay encoded
+					if (!(attrs & 4))
+						// WoaS does not encode pages normally, but this is supported by WSIF format
+						page = decode64(page);
+				break;
+				case "ecma/plain":
+					page = this.ecma_decode(page);
+				break;
+				case "8bit/plain": // plain wiki pages are supported
+				break;
+				default:
+					log("Normal page "+title+" comes with unknown encoding "+encoding);
+					fail = true;
+					break;
+			}
+		}
+		if (fail)
 			break;
+		// check length (if any were passed)
+		if (len !== null) {
+			if (len != check_len)
+				this.alert("Length mismatch for page %s: ought to be %d but was %d".sprintf(title, len, check_len));
+		}
+		// has to break anyway
+		break;
 		} // wend
 		
 	} else if (!fail && (disposition == "external")) { // import an external WSIF file

@@ -293,7 +293,7 @@ function bool2chk(b) {
 	return "";
 }
 
-$.checked = function(id) {
+$.checked =function(id) {
 	cfg_changed = true;
 	if ($(id).checked)
 		return true;
