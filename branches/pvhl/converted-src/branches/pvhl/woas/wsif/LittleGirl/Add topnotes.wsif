@@ -1,0 +1,23 @@
+wsif.version: 1.1.0
+libwsif.version: 1.2.0
+woas.pages: 1
+
+woas.page.title: WoaS Mods::Add topnotes
+woas.page.attributes: 
+woas.page.length: 781
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: uFchJsyhOf
+
+--uFchJsyhOf
+= Add topnotes
+This provides a template for adding a topnote (a note in the upper right corner of a page) to any page without affecting the existing layout of the page. Topnotes accept wiki and HTML markup, and included images.
+# Create a page named *Topnote* with just these contents:{{{
+<div id="topnote" style="position:absolute; right:10px; top:3px;">%1</div>
+}}}
+
+== Use a topnote in a page
+* Now you can insert a topnote by using this code on any line in a page, replacing TEXT with the text you'd like displayed in the topnote:<pre>[<!-- -->[Include::Top<!-- -->note|TEXT]<!-- -->]</pre>An example is at the top right corner of this page.<div id="topnote" style="position:absolute; right:10px; top:3px;">This is a topnote!</div>
+[[Tag::WoaS 0.9.6B|WoaS 0.10.4|WoaS 0.10.6]]
+
+--uFchJsyhOf

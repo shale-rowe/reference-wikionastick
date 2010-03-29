@@ -1,0 +1,7 @@
+* Added a missing colon.
+* Added instructions for selectively committing files to the A few additional useful commands section.
+* Added the WoaSDeveloperGuide.txt file to the /src directory.
+* Added this CHANGES.TXT file.
+* Fixed the nowiki syntax to be compatible with WoaS 0.10.7 and 0.10.8.
+* Removed the section on automatically resolving conflicted files since this is not implemented yet.
+* Removed the WoaS Subversion developer guide.txt file from the /src directory.
