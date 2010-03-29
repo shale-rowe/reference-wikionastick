@@ -17,7 +17,7 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Special::Advanced
 woas.page.attributes: 0
-woas.page.last_modified: 1269792819
+woas.page.last_modified: 1269826529
 woas.page.length: 1229
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -374,8 +374,8 @@ Ly8gUHV0IGhlcmUgeW91ciBib290IGphdmFzY3JpcHQ=
 --DFQRCTsKlU
 woas.page.title: History
 woas.page.attributes: 0
-woas.page.last_modified: 1269793010
-woas.page.length: 43416
+woas.page.last_modified: 1269826495
+woas.page.length: 43513
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -397,6 +397,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 * _Interface:_
 ** Added an explanatory comment to the {{{#edit_page_title}}} CSS entry.
 ** Added a *Go to top* arrow (thanks to *Stanky*) to the footer at the bottom of every page.
+** Added {{{font-family:monospace;}}} to the {{{.wiki_preformatted}}} and {{{pre}}} CSS entries.
 ** Added {{{function FullSpecialTagThis(tag)}}} for special treatment of HTML list line-height.
 ** Added {{{function ListTagThis(style)}}} for unusual HTML list types.
 ** Added {{{function open_editor_help()}}} to display a pop-up when the *Help* button is clicked in the editor.
