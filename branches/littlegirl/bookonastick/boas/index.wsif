@@ -17,7 +17,7 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Special::Advanced
 woas.page.attributes: 0
-woas.page.last_modified: 1269826529
+woas.page.last_modified: 1269832056
 woas.page.length: 1229
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -374,8 +374,8 @@ Ly8gUHV0IGhlcmUgeW91ciBib290IGphdmFzY3JpcHQ=
 --DFQRCTsKlU
 woas.page.title: History
 woas.page.attributes: 0
-woas.page.last_modified: 1269826495
-woas.page.length: 43513
+woas.page.last_modified: 1269832168
+woas.page.length: 43639
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -397,7 +397,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 * _Interface:_
 ** Added an explanatory comment to the {{{#edit_page_title}}} CSS entry.
 ** Added a *Go to top* arrow (thanks to *Stanky*) to the footer at the bottom of every page.
-** Added {{{font-family:monospace;}}} to the {{{.wiki_preformatted}}} and {{{pre}}} CSS entries.
+** Added *font-family:monospace;* to the {{{.wiki_preformatted}}} and {{{pre}}} CSS entries.
 ** Added {{{function FullSpecialTagThis(tag)}}} for special treatment of HTML list line-height.
 ** Added {{{function ListTagThis(style)}}} for unusual HTML list types.
 ** Added {{{function open_editor_help()}}} to display a pop-up when the *Help* button is clicked in the editor.
@@ -428,6 +428,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Replaced {{{function setHTMLImage()}}} to remove the XHTML closing slash from the resulting tag.
 ** Replaced {{{function setWikiImage()}}} so it will use the new {{{setImageLocal}}} function to customize the prompt you get when you click the *Image* button in the editor.
 ** Replaced *Set tag:* with *Set tag (or tags separated by pipes):* in {{{function setTag()}}} for clarity in the *Tags* button prompt.
+** Replaced the incorrect *text-style* entries in the {{{.footnote}}} and {{{.footnotecontainer}}} CSS entries with *font-style*.
 ** Updated some of the system alerts.
 ** Updated the global CSS.
 ** Updated the {{{setTag}}} function so the *Tags* button in the editor will no longer use deprecated syntax.
