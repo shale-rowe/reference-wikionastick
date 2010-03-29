@@ -1,12 +1,13 @@
 wsif.version: 1.2.0
-woas.version: 0.11.0
+wsif.generator: woas
+woas.version: 0.11.1
 woas.author: Little Girl
-woas.pages: 87
+woas.pages: 90
 
 woas.page.title: ::Menu
 woas.page.attributes: 0
-woas.page.last_modified: 1269655681
-woas.page.length: 1370
+woas.page.last_modified: 1269882619
+woas.page.length: 675
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -32,28 +33,13 @@ woas.page.boundary: DFQRCTsKlU
 ** [[Tagged::0.10.9|WoaS 0.10.9]]
 ** [[Tagged::0.11.0|WoaS 0.11.0]]
 ** [[Tagged::0.11.1|WoaS 0.11.1]]
-<p style="text-align:center"><a href="http://sourceforge.net/"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=155218" alt="SourceForge.net Logo" border="0"></a></p><input id="menu_string_to_search" type="text" size="6" onfocus="menu_search_focus(true)" onblur="menu_search_focus(false)" />&nbsp;<input style="font-size: 10px;" type="button" value="Search" onclick="menu_do_search()" /><script>
-function menu_key_hook(orig_e) {
-    var e;
-    if (!orig_e)
-        e = window.event;
-    else
-        e = orig_e;
-    if (e.keyCode==13) {
-	ff_fix_focus();
-	_raw_do_search($('menu_string_to_search').value);
-        return false;
-     }
-     return orig_e;
-}
-$('menu_string_to_search').onkeydown = menu_key_hook;
-</script>
+[[Include::WoaS::Template::Search]]
 
 --DFQRCTsKlU
 woas.page.title: Main Page
 woas.page.attributes: 0
-woas.page.last_modified: 1269700592
-woas.page.length: 1037
+woas.page.last_modified: 1269882146
+woas.page.length: 1017
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -63,12 +49,12 @@ woas.page.boundary: DFQRCTsKlU
 This is a collection of pages showing a few modifications you can make to customize various versions of Wiki on a Stick. Some of them are fixes while others are just fun or useful things you can add to your wiki.
 
 <div style="background-color:#FFFFAA; border: 0.1em solid black; padding:0.3em; margin-left:auto; margin-right: auto; width:80%;">All pages are tagged at the bottom with the WoaS versions the mod has been tested in.<br><br>If a page is not tagged with the version of WoaS you're using, it may not work or be necessary in your version.<br><br>All instructions are for the default wiki as downloaded from [[http://sourceforge.net/projects/stickwiki/files/|here]]. If you've made changes to your wiki, you may need to modify the instructions.<br><br>Use these at your own risk. Please back up your wiki before trying them.</div>
-If you have any suggestions for improvements or ideas for modifications that should be added to this list, please [[mailto://littlergirl@gmail.com?subject=WoaS mods|send me an email]].
-
+If you have suggestions, corrections, ideas, or problems with any of the existing mods, please [[mailto://littlergirl@gmail.com?subject=WoaS mods|send me an email]].
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Security
 woas.page.attributes: 0
-woas.page.length: 3788
+woas.page.last_modified: 1268584879
+woas.page.length: 3782
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -86,7 +72,7 @@ In order to encrypt a page you will have to click on the /lock/ icon in the navi
 When encrypting additional pages during a session, you'll be offered to use the same password you used to encrypt the first page. Accept by pressing the *OK* button or decline by pressing the *Cancel* button. If you decline, the password interface will open, allowing you to set a new password for the page. There is no limit to how many passwords you can use.
 
 == How do I unlock an encrypted page?
-If your page is already encrypted and you want to work with the page or change the encryption key you will first have to unlock it by entering its password. Do this by clicking the *Set password* (key) icon in the navigation bar. You can now open the page normally to view, edit, or delete it.
+If your page is already encrypted and you want to work with the page or change the encryption key you will first have to unlock it by entering its password. Do this by clicking the *Set password* icon in the navigation bar. You can now open the page normally to view, edit, or delete it.
 
 The password for decrypting a page (or pages) is cached so that you only need to enter it once per session. If you close or reload the wiki, you will need to reenter the password to work with the encrypted page(s). To disable the password cache, check the box for *Do not temporarily cache the AES key* in the wiki *Options*. If you've used more than one password for encrypting your pages, you'll need to enter the password to unlock each encrypted page.
 
@@ -196,13 +182,13 @@ Puts the wiki into /server mode/; users will be told that it is not possible to 
 --DFQRCTsKlU
 woas.page.title: WoaS::Bootscript
 woas.page.attributes: 0
-woas.page.length: 32
+woas.page.length: 34
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-// Put here your boot javascript
+/* insert here your boot script */
 --DFQRCTsKlU
 woas.page.title: WoaS::Plugins
 woas.page.attributes: 0
@@ -266,13 +252,14 @@ Some of the best additions were [[WoaS::Help::WSIF|WSIF format]] and a pluggable
 --DFQRCTsKlU
 woas.page.title: WoaS::Aliases
 woas.page.attributes: 0
-woas.page.length: 16
+woas.page.length: 61
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-$HOME  Main Page
+# all lines not starting with '$' are ignored
+$JS  Javascript
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::WSIF
 woas.page.attributes: 0
@@ -442,7 +429,8 @@ And this is the actual result:
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Editing
 woas.page.attributes: 0
-woas.page.length: 2774
+woas.page.last_modified: 1268580585
+woas.page.length: 2748
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -452,9 +440,9 @@ woas.page.boundary: DFQRCTsKlU
 You can edit the contents of the main text area by typing normally. There are links and buttons in the editor to help with adding wiki syntax to the page to control how the content looks (bold, italic, lists, etc.).
 
 == Editor features
-* Cancel all changes by clicking the cancel icon in the navigation bar at any time.
-* Change the title of a page by editing the contents of the Page title box.
-* Save all changes by clicking the save icon in the navigation bar at any time.
+* Cancel all changes by clicking the *Cancel* icon in the navigation bar at any time.
+* Change the title of a page by editing the contents of the *Page title* box.
+* Save all changes by clicking the *Save* icon in the navigation bar at any time.
 * See an example of how tables are built by clicking the *About tables* link.
 * Toggle the display of the button rows by clicking the *Show/Hide wiki buttons|Show/Hide XHTML buttons* links.
 
@@ -466,45 +454,45 @@ You can edit the contents of the main text area by typing normally. There are li
 | = || Insert wiki syntax for a level one header. Use this at the beginning of any line.
 | == || Insert wiki syntax for a level two header. Use this at the beginning of any line.
 | Img || Include a wiki image in the page.
-| *B* || Wrap selected text with bold syntax
-| /i/ || Wrap italic text with bold syntax
-| u || Wrap selected text with underline syntax
-| {{{nowiki}}} || This wraps wiki syntax around the selected text to make it nowiki (raw) text.
-| * || This inserts the wiki syntax for a bulleted list item.
-| # || This inserts the wiki syntax for a numbered list item.
-| @ || This inserts the wiki syntax for an alphanumeric list item.
-| ---- || This inserts a ruler (horizontal line). Use this at the beginning of any line.
-| Tags || This brings up an interface for inserting tags in your page to categorize them. Use a pipe between multiple tags.
+| *B* || Wrap selected text with bold syntax.
+| /i/ || Wrap italic text with bold syntax.
+| u || Wrap selected text with underline syntax.
+| {{{nowiki}}} || Wrap wiki syntax around the selected text to make it nowiki (raw) text.
+| * || Insert the wiki syntax for a bulleted list item.
+| # || Insert the wiki syntax for a numbered list item.
+| @ || Insert the wiki syntax for an alphanumeric list item.
+| ---- || Insert a ruler (horizontal line). Use this at the beginning of any line.
+| Tags || Interface for inserting tags in your page to categorize it. Use a pipe between multiple tags.
 |}
 
-*Note:* it's always better to use wiki syntax instead of XHTML syntax, because this is a wiki
+*Note:* it's recommended to use wiki syntax instead of XHTML syntax, because this is a wiki.
 
 {|
 |+ XHTML Code buttons
 | *Button* || *What it does*
-| *B* || Wrap selected text with bold tags
-| /i/ || Wrap selected text with emphasis tags (italics)
-| u || Wrap selected text with underline tags
-| s || Wrap selected text with strike-through tags
-| Sup || Wrap selected text with superscript tags (appearing half a character above the baseline)
-| Sub || Wrap selected text with subscript tags (appearing half a character below the baseline)
-| Left || Wrap selected text with a left-aligned div
-| Center || Wrap selected text with a center-aligned div
-| Right || Wrap selected text with a right-aligned div
-| Justify || Wrap selected text with a justified div
-| List || Add unordered list tags around the selected text
-| List = || Add ordered list tags around the selected text
-| li[*] || Wrap selected text with list item tagss
-| Blockquote || Wrap selected text with blockquote tags to indent it beneath the current line
-| Image || Include an external image
-| Link || Include an external link URL
+| *B* || Wrap selected text with bold tags.
+| /i/ || Wrap selected text with emphasis tags (italics).
+| u || Wrap selected text with underline tags.
+| s || Wrap selected text with strike-through tags.
+| Sup || Wrap selected text with superscript tags (appearing half a character above the baseline).
+| Sub || Wrap selected text with subscript tags (appearing half a character below the baseline).
+| Left || Wrap selected text with a left-aligned div.
+| Center || Wrap selected text with a center-aligned div.
+| Right || Wrap selected text with a right-aligned div.
+| Justify || Wrap selected text with a justified div.
+| List || Add unordered list tags around the selected text.
+| List = || Add ordered list tags around the selected text.
+| li[*] || Wrap selected text with list item tags.
+| Blockquote || Wrap selected text with blockquote tags, indenting it beneath the current line.
+| Image || Include an external image.
+| Link || Include an external link URL.
 |}
 
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Index
 woas.page.attributes: 0
-woas.page.last_modified: 1269036840
-woas.page.length: 2219
+woas.page.last_modified: 1268585042
+woas.page.length: 2203
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -513,7 +501,7 @@ woas.page.boundary: DFQRCTsKlU
 = Help index
 The first time you save a change to Wiki on a Stick, your browser will ask for permission to save data to the disk. This is normal and necessary for the wiki to make changes to itself. You can give permission each time or make the setting permanent.
 
-You will find the *Help* (question mark) icon in the navigation bar on every page in this wiki. When you click on it, it will either open this page or a specific help page that explains how to work with the page you currently have open.
+You will find the *Help* icon in the navigation bar on every page in this wiki. When you click on it, it will either open this page or a specific help page that explains how to work with the page you currently have open.
 
 When browsing the pages in this Help pop-up, you will find a *Back* button in the upper right corner that takes you back to this page or a *Close* button in the same place that closes the pop-up.
 == Contents:
@@ -610,7 +598,8 @@ If you have not given permanent permission to your browser for editing wiki page
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Edit CSS
 woas.page.attributes: 0
-woas.page.length: 1357
+woas.page.last_modified: 1269534346
+woas.page.length: 1991
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -620,26 +609,35 @@ woas.page.boundary: DFQRCTsKlU
 The look of most of this wiki can be customized by changing the CSS settings.
 
 <<<include:WoaS::Template::Info
-A nice tutorial about CSS is available at [[http://www.w3schools.com/css/|this address]].>>>
+A tutorial about CSS is available at [[http://www.w3schools.com/css/|this address]].>>>
 == Edit the CSS settings
-# Click the *Advanced* (tools) icon in the navigation bar.
+# Open the wiki in a browser.
+# Click the *Advanced* icon in the navigation bar.
 # Click the *Special::Edit CSS* link in the *Advanced* section to open the CSS settings in the editor.
-# Make whatever changes you like to the code.
-# Save your changes by clicking the *Save* (diskette) icon in the navigation bar.
+# Make whatever changes you like to the CSS entries in the main text area (including replacing them entirely with rules of your own).
+# Save your changes by clicking the *Save* icon in the navigation bar.
 
 == Restore the default CSS settings
 To return to the default settings if you don't like the changes you've made:
 # Open a fresh copy of Wiki on a Stick in a browser.
-# Click the *Advanced* (tools) icon in the navigation bar.
+# Click the *Advanced* icon in the navigation bar.
 # Click the *Special::Edit CSS* link in the *Advanced* section to open the CSS settings in the editor.
 # Select and copy all the content in the main text area.
-# Open your copy of Wiki on a Stick in a browser.
-# Click the *Advanced* (tools) icon in the navigation bar.
+# Open your wiki in a browser.
+# Click the *Advanced* icon in the navigation bar.
 # Click the *Special::Edit CSS* link in the *Advanced* section to open the CSS settings in the editor.
-# Select the contents of the main text area on the page.
-# Delete all of the contents.
-# Paste in the settings you copied from the fresh copy of WoaS.
-# Click the *Save* (diskette) icon in the navigation bar to save the changes.
+# Delete all of the contents of the main text area.
+# Paste the settings you copied from the fresh copy of WoaS into the main text area.
+# Click the *Save* icon in the navigation bar to save the changes.
+
+If you have edited the CSS settings and accidentally made your wiki unusable, you can restore the default CSS this way:
+# Open a fresh copy of Wiki on a Stick in a text editor.
+# Find the section that begins with {{{<style type="text/css">}}} and ends with {{{</style>}}}.
+# Copy the code between those two style tags.
+# Open your wiki in a text editor.
+# Find the section that begins with {{{<style type="text/css">}}} and ends with {{{</style>}}}.
+# Replace the code between those two style tags with the code you copied from the the fresh copy of Wiki on a Stick.
+# Save the change to your wiki.
 
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Special::Edit Bootscript
@@ -681,7 +679,8 @@ This page displays a list of pages that contain links to nonexistent pages. Both
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::General usage
 woas.page.attributes: 0
-woas.page.length: 1062
+woas.page.last_modified: 1268582783
+woas.page.length: 1038
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -693,7 +692,7 @@ woas.page.boundary: DFQRCTsKlU
 Cancel any action by clicking the *Cancel* icon in the navigation bar, clicking the *Cancel* button on any alert that pops up, or pressing the *Esc* key.
 
 == Navigation
-Use the *Back* and *Forward* arrow icons in the navigation bar to go back or forward one page, the *Main Page* (house) icon in the banner to return to the Main page, or click the buttons and links in the menu and wiki pages.
+Use the *Back* and *Forward* arrow icons in the navigation bar to go back or forward one page, the *Main Page* icon in the banner to return to the Main page, or click the buttons and links in the menu and wiki pages.
 
 == Pages linking to the current page
 Click the *Backlinks* link in the menu to see which pages link to the page you currently have open.
@@ -702,7 +701,7 @@ Click the *Backlinks* link in the menu to see which pages link to the page you c
 Click the *Print* icon in the banner. A new browser window will open with a printer-friendly version of the main text area. Use the browser's print functions to print the page.
 
 == Syntax
-This wiki accepts plain text, WoaS wiki syntax and XHTML. See the *Syntax* pages listed in the *Help index* by clicking the *Help* (question mark) icon in the navigation bar for help with using the syntax in your pages.
+This wiki accepts plain text, WoaS wiki syntax and XHTML. See the *Syntax* pages listed in the *Help index* by clicking the *Help* icon in the navigation bar for help with using the syntax in your pages.
 
 *Note:* WoaS syntax is partially compatible with Creole 0.1 syntax
 --DFQRCTsKlU
@@ -798,7 +797,8 @@ If you clicked the *Disallow edits* button in the wiki *Options*, this wiki beca
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Create a page
 woas.page.attributes: 0
-woas.page.length: 2267
+woas.page.last_modified: 1268582106
+woas.page.length: 2256
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -812,7 +812,7 @@ woas.page.boundary: DFQRCTsKlU
 # A level one header with the title of your page will be inserted for you automatically. You can edit or delete the header if you like.<br><br>
 # Edit the contents of the main text area by typing normally.<br><br>
 # Use the editor's buttons to insert code to format the text, or type the code in manually. Note that the use of plain text doesn't require any code.<br><br>
-# Save your changes by clicking on the *Save* (diskette) icon in the navigation bar.
+# Save your changes by clicking on the *Save* icon in the navigation bar.
 
 An alternate method of creating a page is to type a new page title inside nested brackets. The link will be red. Click it to create the new page. Example:
 
@@ -831,7 +831,8 @@ An alternate method of creating a page is to type a new page title inside nested
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Delete a page
 woas.page.attributes: 0
-woas.page.length: 871
+woas.page.last_modified: 1268582166
+woas.page.length: 851
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -844,31 +845,33 @@ woas.page.boundary: DFQRCTsKlU
 ## When the page is deleted, you'll be returned to the page you were on before deleting the page.<br><br>
 ## You may have to remove any links to the deleted page from the [[WoaS::Help::Edit the menu|menu]] or other pages.<br><br>
 # *From the editor:*<br><br>
-## Click the *Edit* (pencil) icon in the navigation bar.<br><br>
+## Click the *Edit* icon in the navigation bar.<br><br>
 ## Select everything inside the main text area and delete it.<br><br>
-## Save your changes by clicking the *Save* (diskette) icon in the navigation bar.<br><br>
+## Save your changes by clicking the *Save* icon in the navigation bar.<br><br>
 ## Edit the [[WoaS::Help::Edit the menu|menu]] to remove the link to the deleted page if it isn't removed automatically.
 
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Edit a page
 woas.page.attributes: 0
-woas.page.length: 729
+woas.page.last_modified: 1268581397
+woas.page.length: 723
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Edit a page
-All pages (except WoaS pages within reserved namespaces) can be edited or deleted. In order to edit such pages, click the *Edit* (pencil) icon in the navigation bar. You can easily find all the user pages by getting the listing of *[[Special::All Pages]]*.
-# Click the *Edit* (pencil) icon in the navigation bar or double-click on the page if you've enabled that setting in the wiki *Options*.<br><br>
+All pages (except WoaS pages within reserved [[WoaS::Help::Namespaces|namespaces]]) can be edited or deleted. In order to edit such pages, click the *Edit* icon in the navigation bar. You can find all the user pages by clicking the *Special::All Pages* link in the menu.
+# Click the *Edit* icon in the navigation bar or double-click on the page if you've enabled that setting in the wiki *Options*.<br><br>
 # Edit the contents of the main text area by typing normally.<br><br>
 # Use the editor's buttons to insert code to format the text, or type the code in manually. Note that the use of plain text doesn't require any code.<br><br>
-# Save your changes by clicking on the *Save* (diskette) icon in the navigation bar.
+# Save your changes by clicking on the *Save* icon in the navigation bar.
 
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Erase all pages
 woas.page.attributes: 0
-woas.page.length: 347
+woas.page.last_modified: 1268582621
+woas.page.length: 339
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -877,7 +880,7 @@ woas.page.boundary: DFQRCTsKlU
 = Erase all pages
 To erase all user-created pages in this wiki and start fresh:
 # *Make sure you are using a wiki you don't mind losing.* If not, make a copy and erase the copy.
-# Click the *Advanced* (tools) icon in the navigation bar.
+# Click the *Advanced* icon in the navigation bar.
 # Click on *Special::Erase Wiki* in the *Maintenance* section.
 
 See also: [[WoaS::Help::Special::Erase Wiki]]
@@ -885,7 +888,8 @@ See also: [[WoaS::Help::Special::Erase Wiki]]
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Edit the menu
 woas.page.attributes: 0
-woas.page.length: 572
+woas.page.last_modified: 1268582558
+woas.page.length: 561
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -894,7 +898,7 @@ woas.page.boundary: DFQRCTsKlU
 = Edit the menu
 # Click the *Edit menu* button at the bottom of the menu.<br><br>
 # Edit the contents of the main text area by typing normally. The menu can contain links, lists, tables, colored text, etc. as a normal wik page<br><br>
-# Save your changes by clicking on the *Save* (diskette) icon in the top right navigation panel.
+# Save your changes by clicking on the *Save* icon in the top right navigation panel.
 
 You can use various styles for your menu; you can find detailed explanation of list styles in the [[WoaS::Help::Lists]] page.
 
@@ -1317,21 +1321,23 @@ _*/This is underlined and bold and italic text./*_
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Rename a page
 woas.page.attributes: 0
-woas.page.length: 234
+woas.page.last_modified: 1268584739
+woas.page.length: 214
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Rename a page
-# Click the *Edit* (pencil) icon in the banner.
+# Click the *Edit* icon in the banner.
 # Edit the contents of the text inside the *Page title* area at the top of the page.
-# Save your changes by clicking on the *Save* (diskette) icon in the navigation bar.
+# Save your changes by clicking on the *Save* icon in the navigation bar.
 
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Page scrolling
 woas.page.attributes: 0
-woas.page.length: 504
+woas.page.last_modified: 1268584566
+woas.page.length: 496
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1340,7 +1346,7 @@ woas.page.boundary: DFQRCTsKlU
 = Page scrolling
 By default, this wiki offers two choices for scrolling in the wiki *Options*. The *Fixed menu area and navigation bar* is disabled by default. This locks all page elements in place so the entire page scrolls as one connected unit. Enabling it locks the navigation bar and menu in place while allowing the rest of the page to scroll.
 
-You can change the settings by clicking the *Advanced* (tools) icon in the navigation bar and then clicking the *Options* link in the *Options* section.
+You can change the settings by clicking the *Advanced* icon in the navigation bar and then clicking the *Options* link in the *Options* section.
 
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Table of Contents
@@ -1363,7 +1369,8 @@ You can insert a Table of Contents into your page by using a special wiki tag. I
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Tags
 woas.page.attributes: 0
-woas.page.length: 3874
+woas.page.last_modified: 1269450592
+woas.page.length: 3881
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1372,7 +1379,7 @@ woas.page.boundary: DFQRCTsKlU
 = Tags
 Tags are special links used by this wiki to group pages together into categories so they can easily be found again. A tag can be placed anywhere on a page, but it's a good idea to choose a standard location like the bottom of the page so you can easily find and edit them as your wiki grows. You can choose any name you like for the tag. You can also give a page more than one tag if the page fits into more than one category.
 
-Tag a page by using a {{{[[Tag::]]}}} link, adding the tag name or names after the double colons. This can be done by using the *Tags* button in the editor or by typing the tag in manually using the instructions below.
+Tag a page by using a {{{[[Tags::]]}}} link, adding the tag name or names after the double colons. This can be done by using the *Tags* button in the editor or by typing the tag in manually using the instructions below.
 
 === Add a tag to a page (method 1)
 # Place your cursor at the bottom of the page.<br><br>
@@ -1382,21 +1389,21 @@ Tag a page by using a {{{[[Tag::]]}}} link, adding the tag name or names after t
 
 === Add a tag to a page (method 2)
 <div class="woas_helptext">Use this code in a page, replacing EXAMPLE with the name of the tag you'd like to add:</div>
-<div class="woas_helpcode">[<!-- -->[T<!-- -->ag::EX<!-- -->AMPLE]<!-- -->]</div>
+<div class="woas_helpcode">[<!-- -->[T<!-- -->ags::EX<!-- -->AMPLE]<!-- -->]</div>
 <div class="woas_helptext">To add a tag to your page.</div>
 === Add more than one tag to a page (method 1)
 # Place your cursor at the bottom of the page.<br><br>
 # Click the *Tags* button in the editor.<br><br>
-# Type in names for the tags, separating each from the one before it with a pipe. For example:<br><br><div class="woas_helptext">Use this code in a page, replacing EXAMPLE1, EXAMPLE2, and EXAMPLE3 with the names of the tags you'd like to add:</div><br><div class="woas_helpcode">[<!-- -->[T<!-- -->ag::EX<!-- -->AMPLE1|EX<!-- -->AMPLE2|EX<!-- -->AMPLE3]<!-- -->]</div><br><div class="woas_helptext">To add three tags to your page.</div><br>
+# Type in names for the tags, separating each from the one before it with a pipe. For example:<br><br><div class="woas_helptext">Use this code in a page, replacing EXAMPLE1, EXAMPLE2, and EXAMPLE3 with the names of the tags you'd like to add:</div><br><div class="woas_helpcode">[<!-- -->[T<!-- -->ags::EX<!-- -->AMPLE1|EX<!-- -->AMPLE2|EX<!-- -->AMPLE3]<!-- -->]</div><br><div class="woas_helptext">To add three tags to your page.</div><br>
 # Click the *OK* button.
 
 === Add more than one tag to a page (method 2)
-To use more than one tag on a page, use one tag link and add as many tags as you like, separating each from the one before it with a pipe. For example: {{{[[Tag::Recipes|Chocolate|Layered cakes]]}}}.
+To use more than one tag on a page, use one tag link and add as many tags as you like, separating each from the one before it with a pipe. For example: {{{[[Tags::Recipes|Chocolate|Layered cakes]]}}}.
 
 === Choosing tag names
-Tag names are case sensitive. For example: {{{[[Tag::Recipes]]}}} and {{{[[Tag::recipes]]}}} are two different tags.
+Tag names are case sensitive. For example: {{{[[Tags::Recipes]]}}} and {{{[[Tags::recipes]]}}} are two different tags.
 
-Tag names can be more than one word long with a space between each word. For example: {{{[[Tag::Layered cakes]]}}}.
+Tag names can be more than one word long with a space between each word. For example: {{{[[Tags::Layered cakes]]}}}.
 
 === Add a link to tagged pages
 <div class="woas_helptext">Use this code in a page, replacing EXAMPLE with the tag you'd like to use:</div>
@@ -1423,7 +1430,8 @@ By putting an exclamation mark (*!*) in front of the tag name, you can filter ou
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Publish wiki online
 woas.page.attributes: 0
-woas.page.length: 571
+woas.page.last_modified: 1268584617
+woas.page.length: 563
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1432,7 +1440,7 @@ woas.page.boundary: DFQRCTsKlU
 = Publish wiki online
 This wiki can be published online as a single-file, framed web page by making it read-only. The read-only format is also great for sharing your work with others by email. Most email programs accept .htm pages as attachments.
 # Make a backup copy of this wiki.
-# Click the *Advanced* (tools) icon in the banner.
+# Click the *Advanced* icon in the banner.
 # Scroll to the bottom of the page.
 # Click the *Disallow edits* button to make the file read-only.
 # Upload the wiki to a web server and publish a link to it.
@@ -2173,7 +2181,8 @@ With a combination of HTML and wiki syntax, you can create anchor links to anywh
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Images
 woas.page.attributes: 0
-woas.page.length: 14336
+woas.page.last_modified: 1269622250
+woas.page.length: 14057
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -2211,34 +2220,33 @@ This wiki provides an interface for embedding images. Each image will be given i
 
 *Note:* It is better to keep the extension in the image name because this could be used on some browsers to infer the mime type of the image
 
-<span class="woas_helptext">*Replace NAME in these instructions with the name you'd like to give the image you're embedding:*</span>
+<span class="woas_helptext">*Replace NAME in these instructions with the name of your image:*</span>
 
-# Create a new page or open an existing page in the editor by clicking the *Edit* (pencil) icon in the navigation bar.<br><br>
-# Create an include link for a new image. There are two ways you can do this:<br><br>
-## Use this code anywhere you'd like to include an image:<pre>[\
-[In\
-clude::Image::N\
-AME]\
-]</pre>
-## Or click the editor's *Image* button and type in a name for the image.<br><br>
-# Click the *Save* (diskette) icon in the navigation bar to save the page.<br><br>
+=== From the menu
+# Click the *New Page* link in the menu.<br><br>
+# Type {{{Image::NAME}}} into the box that comes up. This will bring up the image embedding interface.<br><br>
+# Browse to the image on your computer.<br><br>
+# Click the *Embed* button.
+
+=== From any page
+# Create an include link for a new image by typing {{{[[Include::Image::NAME]]}}} into a page, or click the editor's *Image* button and type in a name for the image.<br><br>
+# Click the *Save* icon in the navigation bar to save the page.<br><br>
 # Part of the include link you just created will be red, indicating that the image doesn't exist yet.<br><br>
 # Click on the red part of the link to launch the embedding interface.<br><br>
 # Browse to the image you'd like to embed.<br><br>
-# Click the *Embed* button. You'll be taken to the *Image::NAME* page (with *NAME* being the name you gave the image) with your image embedded in it.<br><br>
-# Click the Back (arrow) icon in the navigation bar to return to the page you created the include link on. The image will be in place of the include link.
+# Click the *Embed* button. You'll be taken to the *Image::NAME* page with your image embedded in it.<br><br>
 
-=== Use an embedded image
+== Use an embedded image
 Once an image is embedded, you can use the same include link you used to add the embedded image to include the image anywhere in the wiki. 
-# Create a new page or open an existing page in the editor by clicking the *Edit* (pencil) icon in the navigation bar.<br><br>
+# Create a new page or open an existing page in the editor by clicking the *Edit* icon in the navigation bar.<br><br>
 # Create an include link for an already embedded image. There are two ways you can do this:<br><br>
-## Use this code wherever you like, replacing NAME with the name of the image you wish to include:<pre>[\
+## Use this code wherever you like:<pre>[\
 [In\
 clude::Image::N\
 AME]\
 ]</pre>
 ## Or click the editor's *Image* button and type in the name of the image.<br><br>
-# Click the *Save* (diskette) icon in the navigation bar to save the page. The image should now be where the include link was.
+# Click the *Save* icon in the navigation bar to save the page. The image should now be where the include link was.
 
 == Use a data:URI image
 
@@ -2265,7 +2273,8 @@ A famous online service to create such URIs is [[http://software.hixie.ch/utilit
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Import
 woas.page.attributes: 0
-woas.page.length: 1282
+woas.page.last_modified: 1268584339
+woas.page.length: 1266
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -2275,7 +2284,7 @@ woas.page.boundary: DFQRCTsKlU
 
 == Import wiki
 An older Wiki on a Stick can be imported in the current wiki by using the *Special::Import* page.
-# Click the *Advanced* (tools) icon in the banner.
+# Click the *Advanced* icon in the banner.
 # Scroll down to the *Maintenance* section.
 # Click the [[Special::Import]] link.
 # Click the *Browse* button
@@ -2288,7 +2297,7 @@ An older Wiki on a Stick can be imported in the current wiki by using the *Speci
 
 == Import WSIF
 This method is used to import pages that have been exported using the [[WoaS::Help::WSIF|WSIF]] format.
-# Click the *Advanced* (tools) icon in the banner.
+# Click the *Advanced* icon in the banner.
 # Scroll down to the *Maintenance* section.
 # Click the [[Special::ImportWSIF]] link.
 # Click the *Browse* button.
@@ -2330,7 +2339,8 @@ $('menu_string_to_search').onkeydown = menu_key_hook;
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Export
 woas.page.attributes: 0
-woas.page.length: 1562
+woas.page.last_modified: 1268582738
+woas.page.length: 1546
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -2339,7 +2349,7 @@ woas.page.boundary: DFQRCTsKlU
 = Export
 You can export this wiki into multiple linked XHTML, CSS, and image files which will create a framed web page.
 
-# Click the *Advanced* (tools) icon in the banner.<br><br>
+# Click the *Advanced* icon in the banner.<br><br>
 # Scroll down to the *Maintenance* section.<br><br>
 # Click the *Special::Export* link.<br><br>
 # Choose the directory to export the wiki to.<br><br>
@@ -2348,7 +2358,7 @@ You can export this wiki into multiple linked XHTML, CSS, and image files which 
 # Click the *index.htm* file in the export directory to launch the framed page.
 
 == ExportWSIF
-# Click the *Advanced* (tools) icon in the banner.<br><br>
+# Click the *Advanced* icon in the banner.<br><br>
 # Scroll down to the *Maintenance* section.<br><br>
 # Click the *Special::ExportWSIF* link.<br><br>
 # Choose the directory to export the WSIF file(s) to.<br><br>
@@ -2369,7 +2379,8 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Transclusion
 woas.page.attributes: 0
-woas.page.length: 3307
+woas.page.last_modified: 1268681123
+woas.page.length: 3252
 woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -2380,16 +2391,15 @@ Transclusion is a special way of [[WoaS::Help::Include wiki page|including]] a w
 
 This method requires that you create a page to be used as a template. This page must contain variables represented by %1, %2, %3, and so on.
 
-The [[WoaS::Template::Example::Transclusion]] page in this wiki uses two variables. The contents of that page are:
-{{{
-<big style="color:lime">%1 had a little %2</big>
-}}}
 You can then create a transclusion link or links to that page by creating a normal [[WoaS::Help::Include wiki page|include link]] with the values for the variables added after the page name. Each value must be preceded by a pipe ({{{|value}}}). The values you define in the link will be used from left to right to replace the numbered variables on the page you're including.
 
 <div class="helptext">Use this code, replacing PAGENAME with the name of the page to be included, and VALUE1 and VALUE2 with the values you'd like the two variables to have when the included page is displayed:</div>
 <div class="helpcode">[<!-- -->[Include::PAGENAME|VALUE1|VALUE2|VALUE3]<!-- -->]</div>
 == Examples
-These examples use the [[WoaS::Template::Example::Transclusion]] page:
+These examples use the [[WoaS::Template::Example::Transclusion]] page which contains two variables. The contents of that page are:
+{{{
+<big style="color:lime">%1 had a little %2</big>
+}}}
 
 <div class="helptext">Use this code:</div>
 <div class="helpcode">[<!-- -->[Include::WoaS::Template::Example::Transclusion|Mary|lamb]<!-- -->]</div>
@@ -2423,6 +2433,30 @@ To see infinite recursion in action, create a page named *Infinite recursion* an
 [[Include::WoaS::Template::Example::Transclusion|Mary|lamb.]]
 [[Include::Infinite recursion]]
 }}}
+
+--DFQRCTsKlU
+woas.page.title: WoaS::Help::Special::ExportWSIF
+woas.page.attributes: 0
+woas.page.last_modified: 1268585418
+woas.page.length: 30
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+[[Include::WoaS::Help::WSIF]]
+
+--DFQRCTsKlU
+woas.page.title: WoaS::Help::Special::ImportWSIF
+woas.page.attributes: 0
+woas.page.last_modified: 1268585441
+woas.page.length: 30
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+[[Include::WoaS::Help::WSIF]]
 
 --DFQRCTsKlU
 woas.page.title: WoaS Mods::Add fixed topbar
@@ -2959,8 +2993,8 @@ This is another way of adding folding text. It needs a template page, and the fo
 --DFQRCTsKlU
 woas.page.title: WoaS Mods::Add a logo to the banner
 woas.page.attributes: 0
-woas.page.last_modified: 1269448561
-woas.page.length: 1224
+woas.page.last_modified: 1269882271
+woas.page.length: 1210
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -2976,7 +3010,7 @@ This makes it possible to insert a small (32x32 or smaller) image as a logo to t
 # *Add* this section *above* it, replacing EXTENSION with the extension of the image file (gif, jpg, png, etc.), and YOUR_CODE_HERE with the Base64 code of your image:<pre>&lt;td style="width:2em;"&gt;&lt;img src="data:image&#047;EXTENSION;base64,YOUR&#095;CODE&#095;HERE"&gt;&lt;&#047;td&gt;</pre>
 # Save the changes.<br><br>
 # Close the file.
-[[Tags::0.9.6B|0.10.0|0.10.1|0.10.2|0.10.3|0.10.4|0.10.6|0.10.7|0.10.8|0.10.9|0.11.0]]
+[[Tags::0.9.6B|0.10.0|0.10.1|0.10.2|0.10.3|0.10.4|0.10.6|0.10.7|0.10.8]]
 
 --DFQRCTsKlU
 woas.page.title: WoaS Mods::Add tabs
@@ -3325,5 +3359,26 @@ This makes the navigation bar go all the way across the top of the screen rather
 # *Replace* it with this entry:<pre>&#047;&#042; topbar &#042;&#047;<br>div.wiki_header &#123;<br>	top: 0em;<br>	left: 0em;<br>	border: 1pt solid #aaa;<br>	opacity:.75;<br>	z-index: 1;<br>	width: 100%;<br>&#125;</pre>
 # Click the *Save* icon in the navigation bar.<br><br>
 [[Tags::0.11.1]]
+
+--DFQRCTsKlU
+woas.page.title: WoaS Mods::Add a scrollbar to the menu
+woas.page.attributes: 0
+woas.page.last_modified: 1269881848
+woas.page.length: 1170
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Add a scrollbar to the menu
+This adds a scrollbar to the right side of the menu and keeps it at a fixed height.
+# Open the wiki in a browser.<br><br>
+# Click the *Advanced* icon in the navigation bar.<br><br>
+# Choose [[Special::Edit CSS]] from the *Advanced features* section.<br><br>
+# *Find* this entry in the page:<pre>&#047;&#042; Left menu &#042;&#047;<br>div.menu_area &#123;<br>    border: 1pt solid grey;<br>    font-size: 0.75em;<br>    background-color: white;<br>    padding: 0.499em;<br>    width: 13.2%;<br>    left: 1%;<br>&#125;</pre>
+# *Replace* it with this entry:<pre>&#047;&#042; Left menu &#042;&#047;<br>div.menu_area &#123;<br>    border: 1pt solid grey;<br>    font-size: 0.75em;<br>    background-color: white;<br>    padding: 0.499em;<br>    width: 13.2%;<br>    height: 80%;<br>    overflow: auto;<br>    left: 1%;<br>&#125;</pre>
+# Click the *Save* icon in the navigation bar to save the change.
+<div style="background-color:#FFFFAA; border: 0.1em solid black; padding:0.3em;">If the menu is too tall or short, go back into the CSS settings and change *80%* to the height you'd like the menu to be.</div><br>
+[[Tags::0.10.9|0.11.0|0.11.1]]
 
 --DFQRCTsKlU
