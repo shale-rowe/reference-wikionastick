@@ -1,0 +1,210 @@
+<!-- Title: finite_state_machine Pages: 1 -->
+<svg width="7.99in" height="3.64in" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(0.997403, 0.997403) rotate(0) translate(4, 346)">
+<title>finite_state_machine</title>
+<polygon style="fill: white; stroke: white;" points="-4,4 -4,-346 766,-346 766,4 -4,4"/>
+<!-- LR_0 -->
+<g id="node1" class="node"><title>LR_0</title>
+<ellipse style="fill: none; stroke: black;" cx="38" cy="-111" rx="33.8628" ry="33.8628"/>
+<ellipse style="fill: none; stroke: black;" cx="38" cy="-111" rx="37.8628" ry="37.8628"/>
+<text text-anchor="middle" x="38" y="-105" style="font-family: Nimbus Roman No9 L; font-size: 11.34pt;">LR_0</text>
+</g>
+<!-- LR_2 -->
+<g id="node6" class="node"><title>LR_2</title>
+
+<ellipse style="fill: none; stroke: black;" cx="180" cy="-153" rx="33.8628" ry="33.8628"/>
+<text text-anchor="middle" x="180" y="-147" style="font-family: Nimbus Roman No9 L; font-size: 11.34pt;">LR_2</text>
+</g>
+<!-- LR_0&#45;&gt;LR_2 -->
+<g id="edge2" class="edge"><title>LR_0-&gt;LR_2</title>
+<path style="fill: none; stroke: black;" d="M75,-122 C94,-127 118,-134 137,-140"/>
+<polygon style="fill: black; stroke: black;" points="136.416,-143.479 147,-143 138.427,-136.774 136.416,-143.479"/>
+<a xlink:title="SS(B)">
+</a>
+<a xlink:title="SS(B)">
+</a>
+<text text-anchor="middle" x="111" y="-138" style="font-family: Nimbus Roman No9 L; font-size: 11.34pt;">SS(B)</text>
+</g>
+<!-- LR_1 -->
+
+<g id="node8" class="node"><title>LR_1</title>
+<ellipse style="fill: none; stroke: black;" cx="180" cy="-57" rx="33.8628" ry="33.8628"/>
+<text text-anchor="middle" x="180" y="-51" style="font-family: Nimbus Roman No9 L; font-size: 11.34pt;">LR_1</text>
+</g>
+<!-- LR_0&#45;&gt;LR_1 -->
+<g id="edge4" class="edge"><title>LR_0-&gt;LR_1</title>
+<path style="fill: none; stroke: black;" d="M74,-97 C94,-89 118,-80 138,-73"/>
+<polygon style="fill: black; stroke: black;" points="140.015,-75.9636 148,-69 137.415,-69.4643 140.015,-75.9636"/>
+<a xlink:title="SS(S)">
+</a>
+<a xlink:title="SS(S)">
+</a>
+<text text-anchor="middle" x="111" y="-93" style="font-family: Nimbus Roman No9 L; font-size: 11.34pt;">SS(S)</text>
+
+</g>
+<!-- LR_3 -->
+<g id="node2" class="node"><title>LR_3</title>
+<ellipse style="fill: none; stroke: black;" cx="332" cy="-38" rx="33.8628" ry="33.8628"/>
+<ellipse style="fill: none; stroke: black;" cx="332" cy="-38" rx="37.8628" ry="37.8628"/>
+<text text-anchor="middle" x="332" y="-32" style="font-family: Nimbus Roman No9 L; font-size: 11.34pt;">LR_3</text>
+</g>
+<!-- LR_4 -->
+<g id="node3" class="node"><title>LR_4</title>
+<ellipse style="fill: none; stroke: black;" cx="332" cy="-304" rx="33.8628" ry="33.8628"/>
+<ellipse style="fill: none; stroke: black;" cx="332" cy="-304" rx="37.8628" ry="37.8628"/>
+<text text-anchor="middle" x="332" y="-298" style="font-family: Nimbus Roman No9 L; font-size: 11.34pt;">LR_4</text>
+</g>
+
+<!-- LR_8 -->
+<g id="node4" class="node"><title>LR_8</title>
+<ellipse style="fill: none; stroke: black;" cx="724" cy="-154" rx="33.8628" ry="33.8628"/>
+<ellipse style="fill: none; stroke: black;" cx="724" cy="-154" rx="37.8628" ry="37.8628"/>
+<text text-anchor="middle" x="724" y="-148" style="font-family: Nimbus Roman No9 L; font-size: 11.34pt;">LR_8</text>
+</g>
+<!-- LR_6 -->
+<g id="node11" class="node"><title>LR_6</title>
+<ellipse style="fill: none; stroke: black;" cx="332" cy="-180" rx="33.8628" ry="33.8628"/>
+<text text-anchor="middle" x="332" y="-174" style="font-family: Nimbus Roman No9 L; font-size: 11.34pt;">LR_6</text>
+</g>
+<!-- LR_8&#45;&gt;LR_6 -->
+<g id="edge26" class="edge"><title>LR_8-&gt;LR_6</title>
+
+<path style="fill: none; stroke: black;" d="M686,-162 C642,-170 565,-184 498,-189 C468,-191 461,-190 430,-189 C413,-188 393,-186 376,-185"/>
+<polygon style="fill: black; stroke: black;" points="376.299,-181.512 366,-184 375.602,-188.478 376.299,-181.512"/>
+<a xlink:title="S(b)">
+</a>
+<a xlink:title="S(b)">
+</a>
+<text text-anchor="middle" x="528" y="-188" style="font-family: Nimbus Roman No9 L; font-size: 11.34pt;">S(b)</text>
+</g>
+<!-- LR_5 -->
+<g id="node13" class="node"><title>LR_5</title>
+<ellipse style="fill: none; stroke: black;" cx="464" cy="-112" rx="33.8628" ry="33.8628"/>
+<text text-anchor="middle" x="464" y="-106" style="font-family: Nimbus Roman No9 L; font-size: 11.34pt;">LR_5</text>
+</g>
+<!-- LR_8&#45;&gt;LR_5 -->
+
+<g id="edge28" class="edge"><title>LR_8-&gt;LR_5</title>
+<path style="fill: none; stroke: black;" d="M686,-148 C645,-142 576,-132 516,-122 C513,-122 511,-121 508,-120"/>
+<polygon style="fill: black; stroke: black;" points="508.492,-116.529 498,-118 507.119,-123.393 508.492,-116.529"/>
+<a xlink:title="S(a)">
+</a>
+<a xlink:title="S(a)">
+</a>
+<text text-anchor="middle" x="592" y="-140" style="font-family: Nimbus Roman No9 L; font-size: 11.34pt;">S(a)</text>
+</g>
+<!-- LR_2&#45;&gt;LR_4 -->
+<g id="edge12" class="edge"><title>LR_2-&gt;LR_4</title>
+<path style="fill: none; stroke: black;" d="M204,-177 C230,-203 269,-242 298,-270"/>
+<polygon style="fill: black; stroke: black;" points="295.454,-272.404 305,-277 300.404,-267.454 295.454,-272.404"/>
+<a xlink:title="S(A)">
+
+</a>
+<a xlink:title="S(A)">
+</a>
+<text text-anchor="middle" x="254" y="-247" style="font-family: Nimbus Roman No9 L; font-size: 11.34pt;">S(A)</text>
+</g>
+<!-- LR_2&#45;&gt;LR_6 -->
+<g id="edge8" class="edge"><title>LR_2-&gt;LR_6</title>
+<path style="fill: none; stroke: black;" d="M214,-159 C236,-162 264,-168 288,-172"/>
+<polygon style="fill: black; stroke: black;" points="287.508,-175.471 298,-174 288.881,-168.607 287.508,-175.471"/>
+<a xlink:title="SS(b)">
+</a>
+<a xlink:title="SS(b)">
+</a>
+<text text-anchor="middle" x="254" y="-170" style="font-family: Nimbus Roman No9 L; font-size: 11.34pt;">SS(b)</text>
+
+</g>
+<!-- LR_2&#45;&gt;LR_5 -->
+<g id="edge10" class="edge"><title>LR_2-&gt;LR_5</title>
+<path style="fill: none; stroke: black;" d="M212,-142 C235,-134 266,-125 294,-121 C337,-115 386,-112 420,-112"/>
+<polygon style="fill: black; stroke: black;" points="420,-115.5 430,-112 420,-108.5 420,-115.5"/>
+<a xlink:title="SS(a)">
+</a>
+<a xlink:title="SS(a)">
+</a>
+<text text-anchor="middle" x="332" y="-123" style="font-family: Nimbus Roman No9 L; font-size: 11.34pt;">SS(a)</text>
+</g>
+<!-- LR_1&#45;&gt;LR_3 -->
+<g id="edge6" class="edge"><title>LR_1-&gt;LR_3</title>
+<path style="fill: none; stroke: black;" d="M214,-53 C235,-50 262,-47 284,-44"/>
+
+<polygon style="fill: black; stroke: black;" points="284.398,-47.4778 294,-43 283.701,-40.5125 284.398,-47.4778"/>
+<a xlink:title="S($end)">
+</a>
+<a xlink:title="S($end)">
+</a>
+<text text-anchor="middle" x="254" y="-55" style="font-family: Nimbus Roman No9 L; font-size: 11.34pt;">S($end)</text>
+</g>
+<!-- LR_6&#45;&gt;LR_6 -->
+<g id="edge18" class="edge"><title>LR_6-&gt;LR_6</title>
+<path style="fill: none; stroke: black;" d="M308,-204 C303,-218 311,-232 332,-232 C348,-232 356,-224 357,-214"/>
+<polygon style="fill: black; stroke: black;" points="360.478,-213.602 356,-204 353.512,-214.299 360.478,-213.602"/>
+<a xlink:title="S(b)">
+</a>
+<a xlink:title="S(b)">
+</a>
+
+<text text-anchor="middle" x="332" y="-234" style="font-family: Nimbus Roman No9 L; font-size: 11.34pt;">S(b)</text>
+</g>
+<!-- LR_6&#45;&gt;LR_5 -->
+<g id="edge20" class="edge"><title>LR_6-&gt;LR_5</title>
+<path style="fill: none; stroke: black;" d="M362,-164 C380,-155 404,-143 424,-133"/>
+<polygon style="fill: black; stroke: black;" points="425.958,-135.916 433,-128 422.559,-129.797 425.958,-135.916"/>
+<a xlink:title="S(a)">
+</a>
+<a xlink:title="S(a)">
+</a>
+<text text-anchor="middle" x="400" y="-153" style="font-family: Nimbus Roman No9 L; font-size: 11.34pt;">S(a)</text>
+</g>
+<!-- LR_5&#45;&gt;LR_5 -->
+<g id="edge16" class="edge"><title>LR_5-&gt;LR_5</title>
+
+<path style="fill: none; stroke: black;" d="M441,-137 C437,-151 445,-164 464,-164 C478,-164 486,-157 488,-147"/>
+<polygon style="fill: black; stroke: black;" points="491.478,-146.602 487,-137 484.512,-147.299 491.478,-146.602"/>
+<a xlink:title="S(a)">
+</a>
+<a xlink:title="S(a)">
+</a>
+<text text-anchor="middle" x="464" y="-166" style="font-family: Nimbus Roman No9 L; font-size: 11.34pt;">S(a)</text>
+</g>
+<!-- LR_7 -->
+<g id="node16" class="node"><title>LR_7</title>
+<ellipse style="fill: none; stroke: black;" cx="592" cy="-84" rx="33.8628" ry="33.8628"/>
+<text text-anchor="middle" x="592" y="-78" style="font-family: Nimbus Roman No9 L; font-size: 11.34pt;">LR_7</text>
+</g>
+<!-- LR_5&#45;&gt;LR_7 -->
+
+<g id="edge14" class="edge"><title>LR_5-&gt;LR_7</title>
+<path style="fill: none; stroke: black;" d="M498,-105 C511,-103 526,-99 540,-96 C543,-96 546,-95 549,-94"/>
+<polygon style="fill: black; stroke: black;" points="549.881,-97.3933 559,-92 548.508,-90.5292 549.881,-97.3933"/>
+<a xlink:title="S(b)">
+</a>
+<a xlink:title="S(b)">
+</a>
+<text text-anchor="middle" x="528" y="-105" style="font-family: Nimbus Roman No9 L; font-size: 11.34pt;">S(b)</text>
+</g>
+<!-- LR_7&#45;&gt;LR_8 -->
+<g id="edge22" class="edge"><title>LR_7-&gt;LR_8</title>
+<path style="fill: none; stroke: black;" d="M622,-100 C636,-108 653,-116 668,-124 C672,-126 677,-129 681,-131"/>
+<polygon style="fill: black; stroke: black;" points="679.559,-134.203 690,-136 682.958,-128.084 679.559,-134.203"/>
+<a xlink:title="S(b)">
+
+</a>
+<a xlink:title="S(b)">
+</a>
+<text text-anchor="middle" x="656" y="-126" style="font-family: Nimbus Roman No9 L; font-size: 11.34pt;">S(b)</text>
+</g>
+<!-- LR_7&#45;&gt;LR_5 -->
+<g id="edge24" class="edge"><title>LR_7-&gt;LR_5</title>
+<path style="fill: none; stroke: black;" d="M559,-75 C546,-73 530,-72 516,-76 C510,-78 504,-81 499,-84"/>
+<polygon style="fill: black; stroke: black;" points="496.379,-81.5408 490,-90 500.262,-87.3651 496.379,-81.5408"/>
+<a xlink:title="S(a)">
+</a>
+<a xlink:title="S(a)">
+</a>
+<text text-anchor="middle" x="528" y="-82" style="font-family: Nimbus Roman No9 L; font-size: 11.34pt;">S(a)</text>
+
+</g>
+</g>
+</svg>

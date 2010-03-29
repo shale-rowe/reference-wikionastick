@@ -1,0 +1,105 @@
+Version 0.9.5 (legolas558 - official)
+* object oriented whole code
+* added support of raw transclusion (for SVG for example - not yet working)
+* fixed some UI bugs
+* added License in <iframe />
+* save over network paths also works with IE
+* icon themes support
+* fixed bugs in UTF8 exporting
+
+Version 0.9.4 (legolas558 - official)
+* tooltip text on icons
+* fixed icons for IE (no more Wingdings)
+* cumulative save feature
+* auto-save feature
+* export feature
+
+Version 0.9.3 (legolas558 - official)
+
+* introduced alternative equal sign '=' syntax for headers (WikiCreole compliance)
+* introduced {{{ }}} nowiki syntax (WikiCreole compliant)
+* converted Special::All Tags to Tagged::
+* fixed import from v0.9.x
+* horizontal rulers now accept more than 3 hyphens (WikiCreole compliance)
+* support for external javascript through src attribute in <script /> tags
+* support of scripts also active in the menu
+* added search box to left menu
+* added Creole 0.1 testcases
+* implemented print preview mode
+* implemented file embedding
+* implemened raw file transclusion
+* implemented images embedding
+* internal marker gets automatically incremented after save
+* more realistic password quality estimation
+* implemented Special::Bootscript
+* added "Loading..." message
+
+Version 0.9.2 (legolas558 - official)
+
+* fixed a plenty of bugs and syntax bugs
+* implemented Special::All Tags
+* implemented server mode option flag
+* implement open last page option flag
+* implemented transclusion (original patch by martinellison)
+
+Version 0.9 (legolas558 - official)
+-------------
+
+* rewritten core javascript functions
+* import feature working ok also from IE saved files
+* history gets saved
+* embedded pictures of the topbar
+* new data storage format (faster & allow diffs)
+* much better syntax parsing
+* backlinks
+* erase wiki
+* possible versioning through consistent newlines splitting of saved data
+* fixed topbar and menu
+* automatic TOC generation
+* tags
+* namespaces
+* namespace-specific additional menus
+* AES page encryption
+* support of HTML tags
+* support of <pre> tag whose content is not parsed for wiki syntax
+* custom scripts support
+* page titles are case sensitive
+* new special pages for backlinks
+* new special page to automatically create new pages
+* new special page to always reference the Main page
+* search feature (thanks to C.Mazard)
+
+Version 0.04G (legolas558's unofficial)
+-------------
+
+* double click to edit
+* escape key to cancel editing
+* backspace key to go backward
+* textarea is focused when editing
+* correct lists parsing
+* hid special pages in "All pages"
+* corrected rulers parsing in IE
+* fixed bug with #anchors when saving to file
+* reference link for "Pages not yet created"
+
+Version 0.04
+------------
+ * unicode support added
+ * tables support added
+ * bugfixes: multiple rulers in one document now work, dead pages
+ * search for orphaned pages (pages that exist but have no link to them anymore)
+ * fixed bug when importing documents from current version
+ * line saying when file was last modified added in the advanced page
+ * option to block editing added (to use WoaS as a webpage)
+ * added possibility to go directly to a page inside the wiki
+ * Opera support added (read-only)
+ * _Underline_ added
+
+Version 0.03
+------------
+ * IE support added (still in alpha)
+ * bugs related to linebreaks in Linux corrected
+ * importing from a earlier version added
+ * a page now can be deleted
+ * now a page title can have any character (like 15", for example)
+ * lots of small corrections 

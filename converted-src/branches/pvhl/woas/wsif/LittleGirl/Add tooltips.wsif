@@ -1,0 +1,27 @@
+wsif.version: 1.1.0
+libwsif.version: 1.2.0
+woas.pages: 1
+
+woas.page.title: Woas Mods::Add tooltips
+woas.page.attributes: 
+woas.page.length: 786
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: PtkiGTmeWR
+
+--PtkiGTmeWR
+= Add tooltips
+This makes it so you can add tooltips to words on your pages.
+# Create a page named *Tooltip* with just these contents:{{{
+<span title="%2" class="tooltip">%1</span>
+}}}
+# Add this entry to the global CSS:{{{
+span.tooltip {cursor:help; border-bottom:0.125em dashed mediumblue;}
+}}}
+== Use tooltips
+Use this code in any page, replacing LINK with the link text, and TOOLTIP with the contents of the tooltip:<pre>[<!-- -->[Include::Tooltip|LINK|TOOLTIP]<!-- -->]</pre>
+* Example:<pre>This [<!-- -->[Include::Tooltip|word|This is a tooltip.]<!-- -->] is important.</pre>
+* Result:<br><br>This <span title="This is a tooltip." class="tooltip" style="cursor:help; border-bottom:0.125em dashed mediumblue;">word</span> is important.
+[[Tag::WoaS 0.9.6B|WoaS 0.10.4|WoaS 0.10.6]]
+
+--PtkiGTmeWR
