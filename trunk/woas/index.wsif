@@ -1659,15 +1659,15 @@ _*/This is underlined and bold and italic text./*_
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Rename a page
 woas.page.attributes: 0
-woas.page.last_modified: 1268584739
-woas.page.length: 214
+woas.page.last_modified: 1269960306
+woas.page.length: 222
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Rename a page
-# Click the *Edit* icon in the banner.
+# Click the *Edit* icon in the navigation bar.
 # Edit the contents of the text inside the *Page title* area at the top of the page.
 # Save your changes by clicking on the *Save* icon in the navigation bar.
 
