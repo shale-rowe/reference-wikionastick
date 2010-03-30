@@ -1,7 +1,7 @@
 
 var reMacroDef = /^(%?[A-Za-z0-9_]+):([\s\S]*)$/;
 // macro syntax plugin code adapted from FBNil's implementation
-woas["macro_parser"] = function(text){
+woas.macro_parser = function(text){
 	var macro = { "reprocess": false, "text": text };
 	var M=text.match(reMacroDef);
 	// if no double colon declaration was found, then do not process anything
@@ -33,7 +33,7 @@ woas["macro_parser"] = function(text){
 // this is the function to be called to register a  macro
 // each macro function must accept a macro object as parameter and modify
 // such object (it is always passed by reference)
-woas["macro_parser"]["register"] = function(fn_name, fn_object) {
+woas.macro_parser.register = function(fn_name, fn_object) {
 	if (woas.macro_parser.macro_names.indexOf(fn_name) != -1) {
 		log("cannot redefine macro "+fn_name); //log:1
 		return false;
@@ -44,7 +44,7 @@ woas["macro_parser"]["register"] = function(fn_name, fn_object) {
 }
 
 // some default macros
-woas["macro_parser"]["default_macros"] = {
+woas.macro_parser.default_macros = {
 	// advanced transclusion: each newline creates a parameter
 	"include":function(m) {
 		var params = m.text.split("\n");
@@ -69,10 +69,10 @@ woas["macro_parser"]["default_macros"] = {
 }
 };
 
-woas["macro_parser"]["macro_names"] = ["include"];
-woas["macro_parser"]["macro_functions"] = [woas.macro_parser.default_macros.include];
+woas.macro_parser.macro_names = ["include"];
+woas.macro_parser.macro_functions = [woas.macro_parser.default_macros.include];
 
-woas["macro_parser"].create = function(fn_name, fn_code) {
+woas.macro_parser.create = function(fn_name, fn_code) {
 	// duplicated from register function
 	if (woas.macro_parser.macro_names.indexOf(fn_name) != -1) {
 		log("cannot redefine macro "+fn_name); //log:1

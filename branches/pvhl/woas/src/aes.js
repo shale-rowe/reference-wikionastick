@@ -4,7 +4,7 @@
 // original code from http://home.versatel.nl/MAvanEverdingen/Code/
 // this is a javascript conversion of a C implementation by Mike Scott
 
-woas["AES"] = {
+woas.AES = {
 	"bData":null,
 	"sData":null,
 	"aes_i":null,
@@ -27,12 +27,12 @@ woas["AES"] = {
 	"aesRkey":null
 };
 
-woas.AES["rotb"] = function(b,n){ return ( b<<n | b>>>( 8-n) ) & 0xFF; }
-woas.AES["rotw"] = function(w,n){ return ( w<<n | w>>>(32-n) ) & woas.AES.wMax; }
-woas.AES["getW"] = function(a,i){ return a[i]|a[i+1]<<8|a[i+2]<<16|a[i+3]<<24; }
-woas.AES["setW"] = function(a,i,w){ a.splice(i,4,w&0xFF,(w>>>8)&0xFF,(w>>>16)&0xFF,(w>>>24)&0xFF); }
-woas.AES["setWInv"] = function(a,i,w){ a.splice(i,4,(w>>>24)&0xFF,(w>>>16)&0xFF,(w>>>8)&0xFF,w&0xFF); }
-woas.AES["getB"] = function(x,n){ return (x>>>(n*8))&0xFF; }
+woas.AES.rotb = function(b,n){ return ( b<<n | b>>>( 8-n) ) & 0xFF; }
+woas.AES.rotw = function(w,n){ return ( w<<n | w>>>(32-n) ) & woas.AES.wMax; }
+woas.AES.getW = function(a,i){ return a[i]|a[i+1]<<8|a[i+2]<<16|a[i+3]<<24; }
+woas.AES.setW = function(a,i,w){ a.splice(i,4,w&0xFF,(w>>>8)&0xFF,(w>>>16)&0xFF,(w>>>24)&0xFF); }
+woas.AES.setWInv = function(a,i,w){ a.splice(i,4,(w>>>24)&0xFF,(w>>>16)&0xFF,(w>>>8)&0xFF,w&0xFF); }
+woas.AES.getB = function(x,n){ return (x>>>(n*8))&0xFF; }
 
 /*	var utf8sets = [0x800,0x10000,0x110000];
 
@@ -41,11 +41,11 @@ woas.AES["getB"] = function(x,n){ return (x>>>(n*8))&0xFF; }
 	}
 */
 
-woas["utf8Encrypt_s"] = function(sData) {
+woas.utf8Encrypt_s = function(sData) {
 	return unescape( encodeURIComponent( sData ) );
 }
 
-woas["utf8Encrypt"] = function(sData){
+woas.utf8Encrypt = function(sData){
 		return this.split_bytes(this.utf8Encrypt_s(sData));
 /*	  var k, i=0, z=sData.length;
 	  var bData = [];
@@ -65,7 +65,7 @@ woas["utf8Encrypt"] = function(sData){
 	  return bData; */
 	}
 
-woas["utf8Decrypt_s"] = function(sData) {
+woas.utf8Decrypt_s = function(sData) {
 		try {
 			return decodeURIComponent( escape( sData ) );
 		}
@@ -75,7 +75,7 @@ woas["utf8Decrypt_s"] = function(sData) {
 		return null;
 	}
 
-woas["utf8Decrypt"] = function(bData){
+woas.utf8Decrypt = function(bData){
 	return this.utf8Decrypt_s(this.merge_bytes(bData));
 }
 /*	  var z=bData.length;
@@ -104,7 +104,7 @@ woas["utf8Decrypt"] = function(bData){
 	  }
 	  return sData; */
 
-woas["split_bytes"] = function(s) {
+woas.split_bytes = function(s) {
 	var l=s.length;
 	var arr=[];
 	for(var i=0;i<l;i++)
@@ -112,7 +112,7 @@ woas["split_bytes"] = function(s) {
 	return arr;
 }
 	
-woas["merge_bytes"] = function(arr) {
+woas.merge_bytes = function(arr) {
 	var l=arr.length;
 	var s="";
 	for(var i=0;i<l;i++)
@@ -120,37 +120,37 @@ woas["merge_bytes"] = function(arr) {
 	return s;
 }
 
-woas.AES["aesMult"] = function(x, y){ return (x&&y) ? woas.AES.aesPows[(woas.AES.aesLogs[x]+woas.AES.aesLogs[y])%255]:0; }
+woas.AES.aesMult = function(x, y){ return (x&&y) ? woas.AES.aesPows[(woas.AES.aesLogs[x]+woas.AES.aesLogs[y])%255]:0; }
 
-woas.AES["aesPackBlock"] = function() {
+woas.AES.aesPackBlock = function() {
 	return [ woas.AES.getW(woas.AES.bData,woas.AES.aes_i), woas.AES.getW(woas.AES.bData,woas.AES.aes_i+4),
 			woas.AES.getW(woas.AES.bData,woas.AES.aes_i+8), woas.AES.getW(woas.AES.bData,woas.AES.aes_i+12) ];
 }
 
-woas.AES["aesUnpackBlock"] = function(packed){
+woas.AES.aesUnpackBlock = function(packed){
   for ( var mj=0; mj<4; mj++,woas.AES.aes_i+=4) woas.AES.setW( woas.AES.bData, woas.AES.aes_i, packed[mj] );
 }
 
-woas.AES["aesXTime"] = function(p){
+woas.AES.aesXTime = function(p){
   p <<= 1;
   return p&0x100 ? p^0x11B : p;
 }
 
-woas.AES["aesSubByte"] = function(w){
+woas.AES.aesSubByte = function(w){
   return woas.AES.aesSBox[woas.AES.getB(w,0)] | woas.AES.aesSBox[woas.AES.getB(w,1)]<<8 | woas.AES.aesSBox[woas.AES.getB(w,2)]<<16 | woas.AES.aesSBox[woas.AES.getB(w,3)]<<24;
 }
 
-woas.AES["aesProduct"] = function(w1,w2){
+woas.AES.aesProduct = function(w1,w2){
   return woas.AES.aesMult(woas.AES.getB(w1,0),woas.AES.getB(w2,0)) ^ woas.AES.aesMult(woas.AES.getB(w1,1),woas.AES.getB(w2,1))
        ^ woas.AES.aesMult(woas.AES.getB(w1,2),woas.AES.getB(w2,2)) ^ woas.AES.aesMult(woas.AES.getB(w1,3),woas.AES.getB(w2,3));
 }
 
-woas.AES["aesInvMixCol"] = function(x){
+woas.AES.aesInvMixCol = function(x){
   return woas.AES.aesProduct(0x090d0b0e,x)     | woas.AES.aesProduct(0x0d0b0e09,x)<<8 |
          woas.AES.aesProduct(0x0b0e090d,x)<<16 | woas.AES.aesProduct(0x0e090d0b,x)<<24;
 }
 
-woas.AES["aesByteSub"] = function(x){
+woas.AES.aesByteSub = function(x){
   var y=woas.AES.aesPows[255-woas.AES.aesLogs[x]];
   x=y;  x=woas.AES.rotb(x,1);
   y^=x; x=woas.AES.rotb(x,1);
@@ -159,7 +159,7 @@ woas.AES["aesByteSub"] = function(x){
   return x^y^0x63;
 }
 
-woas.AES["aesGenTables"] = function(){
+woas.AES.aesGenTables = function(){
   var i,y;
   woas.AES.aesPows = [ 1,3 ];
   woas.AES.aesLogs = [ 0,0,null,1 ];
@@ -208,7 +208,7 @@ woas.AES["aesGenTables"] = function(){
 // these tables can be static
 woas.AES.aesGenTables();
 
-woas.AES["aesInit"] = function(){
+woas.AES.aesInit = function(){
   woas.AES.key=woas.AES.key.slice(0,43);
   var i,k,m;
   var j = 0;
@@ -244,12 +244,12 @@ woas.AES["aesInit"] = function(){
   for (j=N-4;j<N;j++) woas.AES.aesRkey[j-N+4]=woas.AES.aesFkey[j];
 }
 
-woas.AES["aesClose"] = function(){
+woas.AES.aesClose = function(){
 //  woas.AES.aesFi=woas.AES.aesRi=woas.AES.aesPows=woas.AES.aesLogs=woas.AES.aesSBox=woas.AES.aesSBoxInv=woas.AES.aesRco=woas.AES.aesFtable=woas.AES.aesRtable=null;
   woas.AES.aesFkey=woas.AES.aesRkey=null;
 }
 
-woas.AES["aesRounds"] = function( block, key, table, inc, box ){
+woas.AES.aesRounds = function( block, key, table, inc, box ){
   var tmp = new Array( 4 );
   var i,j,m,r;
 
@@ -257,32 +257,32 @@ woas.AES["aesRounds"] = function( block, key, table, inc, box ){
   for ( i=1; i<woas.AES.aesNr; i++ ){
     for (j=m=0;j<4;j++,m+=3){
       tmp[j]=key[r++]^table[block[j]&0xFF]^
-			woas.AES.rotw(table[(block[inc[m  ]]>>> 8)&0xFF], 8)^
-			woas.AES.rotw(table[(block[inc[m+1]]>>>16)&0xFF],16)^
-			woas.AES.rotw(table[(block[inc[m+2]]>>>24)&0xFF],24);
+			woas.AES.rotw(table[(block[inc[m  ]] >>> 8)&0xFF], 8)^
+			woas.AES.rotw(table[(block[inc[m+1]] >>>16)&0xFF],16)^
+			woas.AES.rotw(table[(block[inc[m+2]] >>>24)&0xFF],24);
     }
     var t=block; block=tmp; tmp=t;
   }
 
   for (j=m=0;j<4;j++,m+=3)
     tmp[j]=key[r++]^box[block[j]&0xFF]^
-           woas.AES.rotw(box[(block[inc[m  ]]>>> 8)&0xFF], 8)^
-           woas.AES.rotw(box[(block[inc[m+1]]>>>16)&0xFF],16)^
-           woas.AES.rotw(box[(block[inc[m+2]]>>>24)&0xFF],24);
+           woas.AES.rotw(box[(block[inc[m  ]] >>> 8)&0xFF], 8)^
+           woas.AES.rotw(box[(block[inc[m+1]] >>>16)&0xFF],16)^
+           woas.AES.rotw(box[(block[inc[m+2]] >>>24)&0xFF],24);
   return tmp;
 }
 
-woas.AES["_encrypt"] = function(){
+woas.AES._encrypt = function(){
   woas.AES.aesUnpackBlock( woas.AES.aesRounds(woas.AES.aesPackBlock(), woas.AES.aesFkey, woas.AES.aesFtable, woas.AES.aesFi, woas.AES.aesSBox ) );
 }
 
-woas.AES["_decrypt"] = function(){
+woas.AES._decrypt = function(){
   woas.AES.aesUnpackBlock( woas.AES.aesRounds(woas.AES.aesPackBlock(), woas.AES.aesRkey, woas.AES.aesRtable, woas.AES.aesRi, woas.AES.aesSBoxInv ) );
 }
 
 // Blockcipher
 
-woas.AES["blcEncrypt"] = function(enc){
+woas.AES.blcEncrypt = function(enc){
   if (woas.AES.tot==0){
 //    prgr = name;
     if (woas.AES.key.length<1) return;
@@ -301,7 +301,7 @@ woas.AES["blcEncrypt"] = function(enc){
   if (woas.AES.aes_i>=woas.AES.tot) woas.AES.aesClose();
 }
 
-woas.AES["blcDecrypt"] = function(dec){
+woas.AES.blcDecrypt = function(dec){
 	// initialize length
   if (woas.AES.tot==0){
 //    prgr = name;
@@ -335,16 +335,16 @@ woas.AES["blcDecrypt"] = function(dec){
 }
 
 // sets global key to the utf-8 encoded key (byte array)
-woas.AES["setKey"] = function(sKey) {
+woas.AES.setKey = function(sKey) {
 	woas.AES.key = woas.utf8Encrypt(sKey);
 }
 
-woas.AES["clearKey"] = function() {
+woas.AES.clearKey = function() {
 	woas.AES.key = [];
 }
 
 // returns an array of encrypted characters
-woas.AES["encrypt"] = function(raw_data) {
+woas.AES.encrypt = function(raw_data) {
 	woas.AES.bData = woas.utf8Encrypt(raw_data);
 	
 	woas.AES.aes_i=woas.AES.tot=0;
@@ -356,7 +356,7 @@ woas.AES["encrypt"] = function(raw_data) {
 }
 
 // decrypts an array of encrypted characters
-woas.AES["decrypt"] = function(raw_data) {
+woas.AES.decrypt = function(raw_data) {
 	woas.AES.bData = raw_data;
 	
 	woas.AES.aes_i=woas.AES.tot=0;

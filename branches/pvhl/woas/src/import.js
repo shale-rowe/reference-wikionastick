@@ -15,7 +15,7 @@ function get_import_vars(data, ignore) {
 	return c;
 }
 
-woas["import_wiki"] = function() {
+woas.import_wiki = function() {
 	if(confirm(this.i18n.CONFIRM_IMPORT_OVERWRITE) == false)
 		return false;
 
@@ -374,7 +374,7 @@ woas["import_wiki"] = function() {
 			
 			// add the new debug option
 			if (old_version<=107)
-				woas.config["debug_mode"] = false;
+				woas.config.debug_mode = false;
 			
 			
 			if (import_icons) {
@@ -470,7 +470,7 @@ woas["import_wiki"] = function() {
 
 	// set the new config variable
 	if (old_version<=108)
-		this.config["main_page"] = old_main_page;
+		this.config.main_page = old_main_page;
 	// apply the new main page if that page exists
 	if ((new_main_page !== old_main_page) && this.page_exists(new_main_page))
 		this.config.main_page = new_main_page;
