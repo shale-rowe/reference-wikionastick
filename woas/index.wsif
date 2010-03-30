@@ -2611,8 +2611,8 @@ A famous online service to create such URIs is [[http://software.hixie.ch/utilit
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Import
 woas.page.attributes: 0
-woas.page.last_modified: 1268584339
-woas.page.length: 1266
+woas.page.last_modified: 1269960710
+woas.page.length: 1420
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -2622,26 +2622,26 @@ woas.page.boundary: DFQRCTsKlU
 
 == Import wiki
 An older Wiki on a Stick can be imported in the current wiki by using the *Special::Import* page.
-# Click the *Advanced* icon in the banner.
-# Scroll down to the *Maintenance* section.
-# Click the [[Special::Import]] link.
-# Click the *Browse* button
-# Select the wiki you'd like to import.
-# Click the *Open* button.
-# Choose the settings you'd like to use.<br>[[Include::Image::alert.png]] /Note that it's usually best to leave the *import also CSS (available only for versions v0.9 and above)* box unchecked and manually transfer CSS settings so you can make sure there's no conflict./
-# Click the *Import* button.
-# A warning will pop up letting you know that this will overwrite pages with the same title, and asking if you're sure.
+# Click the *Advanced* icon in the navigation bar.<br><br>
+# Scroll down to the *Maintenance* section.<br><br>
+# Click the [[Special::Import]] link.<br><br>
+# Click the *Browse* button<br><br>
+# Select the wiki you'd like to import.<br><br>
+# Click the *Open* button.<br><br>
+# Choose the settings you'd like to use.<br><br>[[Include::WoaS::Template::Info|Note that it's usually best to leave the *import also CSS (available only for versions v0.9 and above)* box unchecked and manually transfer CSS settings so you can make sure there's no conflict.]]<br>
+# Click the *Import* button.<br><br>
+# A warning will pop up letting you know that this will overwrite pages with the same title, and asking if you're sure.<br><br>
 # Click the *OK* button if you're sure. Otherwise, click the *Cancel* button.
 
 == Import WSIF
-This method is used to import pages that have been exported using the [[WoaS::Help::WSIF|WSIF]] format.
-# Click the *Advanced* icon in the banner.
-# Scroll down to the *Maintenance* section.
-# Click the [[Special::ImportWSIF]] link.
-# Click the *Browse* button.
-# Select the .wsif file you'd like to import.
-# Click the *Open* button.
-# Choose the options you'd like to use.
+This method is used to import pages that have been exported using the [[WoaS::Help::WSIF|WSIF]] format.<br><br>
+# Click the *Advanced* icon in the navigation bar.<br><br>
+# Scroll down to the *Maintenance* section.<br><br>
+# Click the [[Special::ImportWSIF]] link.<br><br>
+# Click the *Browse* button.<br><br>
+# Select the .wsif file you'd like to import.<br><br>
+# Click the *Open* button.<br><br>
+# Choose the options you'd like to use.<br><br>
 # Click the *Import WSIF* button.
 
 --DFQRCTsKlU
