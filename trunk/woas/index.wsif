@@ -2677,8 +2677,8 @@ $('menu_string_to_search').onkeydown = menu_key_hook;
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Export
 woas.page.attributes: 0
-woas.page.last_modified: 1268582738
-woas.page.length: 1546
+woas.page.last_modified: 1269960881
+woas.page.length: 1562
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -2687,7 +2687,7 @@ woas.page.boundary: DFQRCTsKlU
 = Export
 You can export this wiki into multiple linked XHTML, CSS, and image files which will create a framed web page.
 
-# Click the *Advanced* icon in the banner.<br><br>
+# Click the *Advanced* icon in the navigation bar.<br><br>
 # Scroll down to the *Maintenance* section.<br><br>
 # Click the *Special::Export* link.<br><br>
 # Choose the directory to export the wiki to.<br><br>
@@ -2696,7 +2696,7 @@ You can export this wiki into multiple linked XHTML, CSS, and image files which 
 # Click the *index.htm* file in the export directory to launch the framed page.
 
 == ExportWSIF
-# Click the *Advanced* icon in the banner.<br><br>
+# Click the *Advanced* icon in the navigation bar.<br><br>
 # Scroll down to the *Maintenance* section.<br><br>
 # Click the *Special::ExportWSIF* link.<br><br>
 # Choose the directory to export the WSIF file(s) to.<br><br>
