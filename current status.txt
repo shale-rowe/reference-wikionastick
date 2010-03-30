@@ -1,5 +1,8 @@
 I am in the middle of recreating my sources.
 
-The code in woas/src is an up-to-date (when it was committed), carefully checked dot notation conversion of the trunk/woas/src code
+The code in woas/src is an up-to-date (when it was committed), carefully checked 
+dot notation conversion of the trunk/woas/src code
 
-The code in woas/src-fix is just a copy of the above. I have not committed the changes yet, but will do so next time I have computer time. Sorry for the inconvenience -- but I think/hope I'm getting the hang of SVN now.
+The code in woas/src-fix is just a copy of the above. I have not committed the 
+changes yet, but will do so next time I have computer time. Sorry for the 
+inconvenience -- but I think/hope I'm getting the hang of SVN now.
