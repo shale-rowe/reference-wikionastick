@@ -1,6 +1,6 @@
 
 // internationalization language resources
-woas['i18n'] = {
+woas.i18n = {
 	READ_ONLY: "This Wiki on a Stick is read-only",
 	WRITE_PROTECTED: "Sorry, this Wiki on a Stick is already write-protected",
 	CONFIRM_READ_ONLY: "Are you sure you want to set this WoaS as read-only? You will have to manually edit the file to revert this change.",
@@ -77,4 +77,4 @@ woas['i18n'] = {
 }
 
 // do not use any copyrighted wordlist here
-woas.i18n['common_words'] = ['the','of','to' ,'and' ,'a' ,'in' ,'is' ,'it' ,'you' ,'that' ,'he' ,'was' ,'for','on' ,'are' ,'with' ,'as' ,'I' ,'his' ,'they' ,'be' ,'at' ,'one' ,'have' ,'this' ,'from' ,'or' ,'had' ,'by' , 'an', 'all' ];
+woas.i18n.common_words = ['the','of','to' ,'and' ,'a' ,'in' ,'is' ,'it' ,'you' ,'that' ,'he' ,'was' ,'for','on' ,'are' ,'with' ,'as' ,'I' ,'his' ,'they' ,'be' ,'at' ,'one' ,'have' ,'this' ,'from' ,'or' ,'had' ,'by' , 'an', 'all' ];

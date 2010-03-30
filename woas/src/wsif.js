@@ -1,15 +1,15 @@
 
 // a class for some general WSIF operations
-woas["wsif" ] = {	version: "1.2.0", DEFAULT_INDEX: "index.wsif",
+woas.wsif = {	version: "1.2.0", DEFAULT_INDEX: "index.wsif",
 					emsg: null, imported_page: false,
 					expected_pages: null,
 					system_pages: 0};
 
-woas["wsif"]["header"] = function(header_name, value) {
+woas.wsif.header = function(header_name, value) {
 	return header_name+": "+value+"\n";
 }
 
-woas["wsif"]["inline"] = function(boundary, content) {
+woas.wsif.inline = function(boundary, content) {
 	return "\n--"+boundary+"\n"+content+"\n--"+boundary+"\n";
 }
 
@@ -18,7 +18,7 @@ woas["wsif"]["inline"] = function(boundary, content) {
 // - embedded files/images go outside as blobs
 // - encrypted pages go inline in base64
 
-woas["_native_wsif_save"] = function(path, single_wsif, inline_wsif, author,
+woas._native_wsif_save = function(path, single_wsif, inline_wsif, author,
 							save_all, plist) {
 	this.progress_init("WSIF save");
 	// the number of blobs which we have already created
@@ -208,7 +208,7 @@ function _generate_random_boundary(old_boundary, text) {
 	return b;
 }
 
-woas["_native_load"] = function() {
+woas._native_load = function() {
 	// we reset the arrays before loading the real data from index.wsif
 	pages = [];
 	page_attrs = [];
@@ -219,7 +219,7 @@ woas["_native_load"] = function() {
 	return this._native_wsif_load(path, false, false);
 }
 
-woas["_native_wsif_load"] = function(path, overwrite, and_save, recursing, pre_import_hook) {
+woas._native_wsif_load = function(path, overwrite, and_save, recursing, pre_import_hook) {
 	if (!recursing) {
 		this.wsif.emsg = null;
 		this.progress_init("Initializing WSIF import");
@@ -429,9 +429,9 @@ woas["_native_wsif_load"] = function(path, overwrite, and_save, recursing, pre_i
 	return 0;
 }
 
-woas["_last_filename"] = null;
+woas._last_filename = null;
 
-woas["_get_path"] = function(id) {
+woas._get_path = function(id) {
 	if (this.browser.firefox3 || this.browser.firefox_new)
 		return this.dirname(ff3_getPath($(id)));
 	// use the last used path
@@ -441,7 +441,7 @@ woas["_get_path"] = function(id) {
 	return this.dirname($(id).value);
 }
 
-woas["_native_page_def"] = function(path,ct,p,last_p,overwrite,pre_import_hook, title,attrs,last_mod,len,encoding,
+woas._native_page_def = function(path,ct,p,last_p,overwrite,pre_import_hook, title,attrs,last_mod,len,encoding,
 											disposition,d_fn,boundary,mime) {
 	this.wsif.imported_page = false;
 	var bpos_e;
@@ -634,7 +634,7 @@ woas["_native_page_def"] = function(path,ct,p,last_p,overwrite,pre_import_hook, 
 	return bpos_e+boundary.length;
 }
 
-woas["wsif_error"] = function(msg) {
+woas.wsif_error = function(msg) {
 	log("WSIF ERROR: "+msg);	//log:1
 	this.wsif.emsg = msg;
 }
