@@ -44,8 +44,8 @@ else if(navigator.appName == "Netscape") {
 
 // finds out if Opera is trying to look like Mozilla
 if (woas.browser.firefox && (navigator.product != "Gecko"))
-	woas.browser.firefox = woas.browser.firefox2 = woas.browser.firefox3
-							woas.browser.firefox_new = false;
+	woas.browser.firefox = woas.browser.firefox2
+	= woas.browser.firefox3 = woas.browser.firefox_new = false;
 
 // finds out if Opera is trying to look like IE
 if (woas.browser.ie && woas.browser.opera)
