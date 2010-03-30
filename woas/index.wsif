@@ -1017,8 +1017,8 @@ This page displays a list of pages that contain links to nonexistent pages. Both
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::General usage
 woas.page.attributes: 0
-woas.page.last_modified: 1268582783
-woas.page.length: 1038
+woas.page.last_modified: 1269960112
+woas.page.length: 1054
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1030,13 +1030,13 @@ woas.page.boundary: DFQRCTsKlU
 Cancel any action by clicking the *Cancel* icon in the navigation bar, clicking the *Cancel* button on any alert that pops up, or pressing the *Esc* key.
 
 == Navigation
-Use the *Back* and *Forward* arrow icons in the navigation bar to go back or forward one page, the *Main Page* icon in the banner to return to the Main page, or click the buttons and links in the menu and wiki pages.
+Use the *Back* and *Forward* arrow icons in the navigation bar to go back or forward one page, the *Main Page* icon in the navigation bar to return to the Main page, or click the buttons and links in the menu and wiki pages.
 
 == Pages linking to the current page
 Click the *Backlinks* link in the menu to see which pages link to the page you currently have open.
 
 == Print a page
-Click the *Print* icon in the banner. A new browser window will open with a printer-friendly version of the main text area. Use the browser's print functions to print the page.
+Click the *Print* icon in the navigation bar. A new browser window will open with a printer-friendly version of the main text area. Use the browser's print functions to print the page.
 
 == Syntax
 This wiki accepts plain text, WoaS wiki syntax and XHTML. See the *Syntax* pages listed in the *Help index* by clicking the *Help* icon in the navigation bar for help with using the syntax in your pages.
