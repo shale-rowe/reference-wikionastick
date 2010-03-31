@@ -101,7 +101,7 @@ woas.help_system.go_to = function(wanted_page, pi) {
 		woas.help_system.popup_window.scrollTo(0,0);
 	}
 	woas.help_system.page_title = wanted_page;
-}
+};
 
 // when edit is clicked
 //DEPRECATED
@@ -281,37 +281,35 @@ function _hex_col(tone) {
 	//length of the password
 	var pwlength=pw.length;
 	
-	if (pwlength!=0) {
+	if (pwlength!==0) {
 
 	//use of numbers in the password
 	  var numnumeric = pw.match(/[0-9]/g);
-	  var numeric=(numnumeric!=null)?numnumeric.length/pwlength:0;
+	  var numeric=(numnumeric!==null)?numnumeric.length/pwlength:0;
 
 	//use of symbols in the password
 	  var symbols = pw.match(/\W/g);
-	  var numsymbols= (symbols!=null)?symbols.length/pwlength:0;
+	  var numsymbols= (symbols!==null)?symbols.length/pwlength:0;
 
 	//use of uppercase in the password
 	  var numupper = pw.match(/[^A-Z]/g);
-	  var upper=numupper!=null?numupper.length/pwlength:0;
+	  var upper=numupper!==null?numupper.length/pwlength:0;
 	// end of modified code from Mozilla
 	
 	var numlower = pw.match(/[^a-z]/g);
-	var lower = numlower!=null?numlower.length/pwlength:0;
+	var lower = numlower!==null?numlower.length/pwlength:0;
 	
 	var u_lo = upper+lower;
-
-	//   var pwstrength=((pwlength*10)-20) + (numeric*10) + (numsymbols*15) + (upper*10);
 	  
-		// 80% of security defined by length (at least 16, best 22 chars), 10% by symbols, 5% by numeric presence and 5% by upper case presence
-		var pwstrength = ((pwlength/18) * 65) + (numsymbols * 10 + u_lo*20 + numeric*5);
-		
-		var repco = woas.split_bytes(pw).toUnique().length/pwlength;
-		if (repco<0.8)
-			pwstrength *= (repco+0.2);
+	// 80% of security defined by length (at least 16, best 22 chars), 10% by symbols, 5% by numeric presence and 5% by upper case presence
+	var pwstrength = ((pwlength/18) * 65) + (numsymbols * 10 + u_lo*20 + numeric*5);
+	
+	var repco = woas.split_bytes(pw).toUnique().length/pwlength;
+	if (repco<0.8)
+		pwstrength *= (repco+0.2);
 //		log("pwstrength = "+(pwstrength/100).toFixed(2)+", repco = "+repco);	// log:1
 	} else
-		var pwstrength = 0;
+		pwstrength = 0;
   
 	if (pwstrength>100)
 		color = "#00FF00";
@@ -327,7 +325,7 @@ function _hex_col(tone) {
 // used by embedded file show page
 function show_full_file(pi) {
 	var text = woas.get__text(pi);
-	if (text==null)
+	if (text===null)
 		return;
 	// put WoaS in loading mode
 	woas.progress_init("Loading full file");
@@ -391,7 +389,7 @@ woas._customized_popup = function(page_title, page_body, additional_js, addition
 	} else
 		css_payload = "div.wiki_toc { margin: 0 auto;}\n";
 	if (additional_js.length)
-		additional_js = woas.raw_js(additional_js)
+		additional_js = woas.raw_js(additional_js);
 	// create the popup
 	return woas.popup("print_popup", Math.ceil(screen.width*0.75),Math.ceil(screen.height*0.75),
 						",status=yes,menubar=yes,resizable=yes,scrollbars=yes",
@@ -399,7 +397,7 @@ woas._customized_popup = function(page_title, page_body, additional_js, addition
 						"<title>"+page_title+"</title>"+"<st"+"yle type=\"text/css\">"+
 						css_payload+_css_obj().innerHTML+additional_css+"</sty"+"le>"+additional_js,
 						page_body, body_extra);
-}
+};
 
 // below functions used by Special::Export
 
@@ -416,7 +414,7 @@ woas.export_wiki_wsif = function () {
 
 	this.alert(this.i18n.EXPORT_OK.sprintf(done, this.wsif.expected_pages));
 	return true;
-}
+};
 
 // workaround to get full file path on FF3
 // by Chris
@@ -432,7 +430,7 @@ function ff3_getPath(fileBrowser) {
 	    return false;
 	}
 	var fileName=fileBrowser.value;
-	return fileName
+	return fileName;
 }
 
 function import_wiki_wsif() {
@@ -475,13 +473,13 @@ woas.popup = function(name,fw,fh,extra,head,body, body_extra) {
 						body+"</bod"+"y></h"+"tml>\n");
 	wnd.document.close();
 	return wnd;
-}
+};
 
 // tell user how much work was already done
 woas.progress_status = function (ratio) {
 	this.setHTML($("woas_wait_text"), this._progress_section + "\n" +
 				Math.ceil(ratio*100)+"% done");
-}
+};
 
 // used to debug progress indicators
 woas._progress_section = false;
@@ -490,7 +488,7 @@ woas._progress_section = false;
 woas.progress_init = function(section) {
 	if (this._progress_section !== false) {
 		this.crash("Progress indicator already started for "+this._progress_section+
-					", will not start a new one for "+section)
+					", will not start a new one for "+section);
 		return;
 	}
 	this._progress_section = section;
@@ -502,7 +500,7 @@ woas.progress_init = function(section) {
 	// put in busy mode and block interaction for a while
 	$.show("loading_overlay");
 	$("loading_overlay").focus();
-}
+};
 
 woas.progress_finish = function(section) {
 	if (this._progress_section === false) {
@@ -513,7 +511,7 @@ woas.progress_finish = function(section) {
 	document.body.style.cursor = "auto";
 	this.setHTML($("woas_wait_text"), this.i18n.LOADING);
 	this._progress_section = false;
-}
+};
 
 function clear_search() {
 	$("string_to_search").value = "";

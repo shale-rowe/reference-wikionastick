@@ -1,17 +1,19 @@
 
 // a class for some general WSIF operations
-woas.wsif = {	version: "1.2.0", DEFAULT_INDEX: "index.wsif",
-					emsg: null, imported_page: false,
-					expected_pages: null,
-					system_pages: 0};
+woas.wsif = {
+	version: "1.2.0", DEFAULT_INDEX: "index.wsif",
+	emsg: null, imported_page: false,
+	expected_pages: null,
+	system_pages: 0
+};
 
 woas.wsif.header = function(header_name, value) {
 	return header_name+": "+value+"\n";
-}
+};
 
 woas.wsif.inline = function(boundary, content) {
 	return "\n--"+boundary+"\n"+content+"\n--"+boundary+"\n";
-}
+};
 
 // default behaviour:
 // - wiki pages go inline (utf-8), no container encoding
@@ -20,6 +22,23 @@ woas.wsif.inline = function(boundary, content) {
 
 woas._native_wsif_save = function(path, single_wsif, inline_wsif, author,
 							save_all, plist) {
+
+	function _generate_random_boundary(old_boundary, text) {
+		var b = old_boundary;
+		if (!b.length)
+			b = _random_string(10);
+		while (text.indexOf(b) != -1) {
+			b = _random_string(10);
+		}
+		return b;
+	}
+
+	function _file_ext(fn) {
+		var m=fn.match(/\.(\w+)$/);
+		if (m === null) return "";
+		return "."+m[1];
+	}
+
 	this.progress_init("WSIF save");
 	// the number of blobs which we have already created
 	var blob_counter = 0;
@@ -50,7 +69,7 @@ woas._native_wsif_save = function(path, single_wsif, inline_wsif, author,
 	this.wsif.expected_pages = l;
 	// the attributes prefix, we do not use the page index here for better versioning
 	var pfx = "woas.page.";
-	var pi;
+	var pi, pl;
 	for (var ipi=0;ipi < l;++ipi) {
 		if (full_save)
 			pi = ipi;
@@ -63,7 +82,7 @@ woas._native_wsif_save = function(path, single_wsif, inline_wsif, author,
 		var record = this.wsif.header(pfx+"title", this.ecma_encode(page_titles[pi]))+
 					this.wsif.header(pfx+"attributes", page_attrs[pi]);
 		// specify timestamp only if not magic
-		if (page_mts[pi] != 0)
+		if (page_mts[pi] !== 0)
 			record += this.wsif.header(pfx+"last_modified", page_mts[pi]);
 		var ct = null, orig_len = null;
 		
@@ -78,12 +97,13 @@ woas._native_wsif_save = function(path, single_wsif, inline_wsif, author,
 			ct = pages[pi];
 			if (this.is__embedded(pi)) {
 				// if not forced to do them inline, convert for export
+				var m;
 				if (!inline_wsif) {
 					disposition = "external";
 					encoding = "8bit/plain";
 					// decode the base64-encoded data
 					if (this.is__image(pi)) {
-						var m = ct.match(/^data:\s*([^;]*);\s*base64,\s*/);
+						m = ct.match(/^data:\s*([^;]*);\s*base64,\s*/);
 						record += this.wsif.header(pfx+"mime", m[1]);
 						// remove the matched part
 						ct = decode64(ct.substr(m[0].length));
@@ -92,7 +112,7 @@ woas._native_wsif_save = function(path, single_wsif, inline_wsif, author,
 				} else {
 					encoding = "8bit/base64";
 					if (this.is__image(pi)) {
-						var m = ct.match(/^data:\s*([^;]*);\s*base64,\s*/);
+						m = ct.match(/^data:\s*([^;]*);\s*base64,\s*/);
 						record += this.wsif.header(pfx+"mime", m[1]);
 						// remove the matched part
 						ct = ct.substr(m[0].length);
@@ -171,7 +191,7 @@ woas._native_wsif_save = function(path, single_wsif, inline_wsif, author,
 		extra += this.wsif.header('woas.pages', page_titles.length);
 	// build (artificially) an index of all pages
 	if (!full_save && !single_wsif) {
-		for (var pi=0,pl=page_titles.length;pi<pl;++pi) {
+		for (pi=0,pl=page_titles.length;pi<pl;++pi) {
 			full_wsif += this.wsif.header(pfx+"title", this.ecma_encode(page_titles[pi]));
 			// a new mime type
 			full_wsif += this.wsif.header(pfx+"encoding", "text/wsif");
@@ -190,23 +210,7 @@ woas._native_wsif_save = function(path, single_wsif, inline_wsif, author,
 	} // we do not increment page counter when saving index.wsif
 	this.progress_finish();
 	return done;
-}
-
-function _file_ext(fn) {
-	var m=fn.match(/\.(\w+)$/);
-	if (m == null) return "";
-	return "."+m[1];
-}
-
-function _generate_random_boundary(old_boundary, text) {
-	var b = old_boundary;
-	if (!b.length)
-		b = _random_string(10);
-	while (text.indexOf(b) != -1) {
-		b = _random_string(10);
-	}
-	return b;
-}
+};
 
 woas._native_load = function() {
 	// we reset the arrays before loading the real data from index.wsif
@@ -217,7 +221,7 @@ woas._native_load = function() {
 	// get the data
 	var path = woas.ROOT_DIRECTORY+"index.wsif";
 	return this._native_wsif_load(path, false, false);
-}
+};
 
 woas._native_wsif_load = function(path, overwrite, and_save, recursing, pre_import_hook) {
 	if (!recursing) {
@@ -312,17 +316,11 @@ woas._native_wsif_load = function(path, overwrite, and_save, recursing, pre_impo
 				if (title !== null) {
 					if (title.match(/^Special::/) && and_save) {
 						++this.wsif.system_pages;
-						title = attrs = last_mod = encoding = len =
-							 boundary = disposition = mime = d_fn = null;
 					} else {
 						// store the previously parsed page definition
 						p = this._native_page_def(path,ct,previous_h, p,overwrite,pre_import_hook,
 								title,attrs,last_mod,len,encoding,disposition,
 								d_fn,boundary,mime);
-						// save page index for later analysis
-						var was_title = title;
-						title = attrs = last_mod = encoding = len =
-							 boundary = disposition = mime = d_fn = null;
 						if (p == -1) {
 							fail = true;
 							break;
@@ -332,14 +330,16 @@ woas._native_wsif_load = function(path, overwrite, and_save, recursing, pre_impo
 						if (this.wsif.imported_page !== false)
 							imported.push(this.wsif.imported_page);
 						else
-							log("Import failure for "+was_title); //log:1
+							log("Import failure for "+title); //log:1
 					}
 					// delete the whole entry to free up memory to GC
 					// will delete also the last read header
+					title = attrs = last_mod = encoding = len =
+						 boundary = disposition = mime = d_fn = null;
 					ct = ct.substr(p);
 					p = 0;
 					previous_h = null;
-					// update status if not recusing
+					// update status if not recursing
 					if (!recursing && (this.wsif.expected_pages !== null))
 						this.progress_status(global_progress++/this.wsif.expected_pages);
 				}
@@ -427,7 +427,7 @@ woas._native_wsif_load = function(path, overwrite, and_save, recursing, pre_impo
 	}
 	// no pages were changed
 	return 0;
-}
+};
 
 woas._last_filename = null;
 
@@ -439,26 +439,18 @@ woas._get_path = function(id) {
 		return this.dirname(this._last_filename);
 	// on older browsers this was allowed
 	return this.dirname($(id).value);
-}
+};
 
-woas._native_page_def = function(path,ct,p,last_p,overwrite,pre_import_hook, title,attrs,last_mod,len,encoding,
-											disposition,d_fn,boundary,mime) {
-	this.wsif.imported_page = false;
-	var bpos_e;
-	// last modified timestamp can be omitted
-	if (last_mod === null)
-		last_mod = 0;
-	var fail = false;
-	// attributes must be defined
-	if (attrs === null) {
-		log("No attributes defined for page "+title);
-		fail = true;
-	}
-	if (!fail && (disposition == "inline")) {
+woas._native_page_def = function(path,ct,p,last_p,overwrite,pre_import_hook, title,attrs,
+						last_mod,len,encoding, disposition,d_fn,boundary,mime) {
+	var bpos_s, bpos_e, fail = false;
+	var page, check_len;
+
+	function getBoundary(){
 		// craft the exact boundary match string
 		boundary = "\n--"+boundary+"\n";
 		// locate start and ending boundaries
-		var bpos_s = ct.indexOf(boundary, p);
+		bpos_s = ct.indexOf(boundary, p);
 		if (bpos_s == -1) {
 			this.wsif_error( "Failed to find start boundary "+boundary+" for page "+title );
 			return -1;
@@ -468,70 +460,83 @@ woas._native_page_def = function(path,ct,p,last_p,overwrite,pre_import_hook, tit
 			this.wsif_error( "Failed to find end boundary "+boundary+" for page "+title );
 			return -1;
 		}
+	}
+	
+	this.wsif.imported_page = false;
+	// last modified timestamp can be omitted
+	if (last_mod === null)
+		last_mod = 0;
+	// attributes must be defined
+	if (attrs === null) {
+		log("No attributes defined for page "+title);
+		fail = true;
+		if (getBoundary() === -1) return -1;
+	}
+	if (!fail && (disposition == "inline")) {
+		if (getBoundary() === -1) return -1;
 		while (!fail) { // used to break away
-		// retrieve full page content
-		var page = ct.substring(bpos_s+boundary.length, bpos_e);
-		// length used to check correctness of data segments
-		var check_len = page.length;
-		// split encrypted pages into byte arrays
-		if (attrs & 2) {
-			if (encoding != "8bit/base64") {
-				log("Encrypted page "+title+" is not encoded as 8bit/base64");
-				fail = true;
-				break;
-			}
-//			check_len = page.length;
-			page = decode64_array(page);
-			// trim to correct length
-			// perhaps we could use woas.page.original_length field
-			// also, we could not make this check if version is 0.10.4
-			// but for now it's a good safety
-			var rest = page.length % 16;
-			if (rest)
-				log("removing "+rest+" trailing bytes from page "+title); //log:1
-			while (rest-- > 0) {page.pop();}
-		} else if (attrs & 8) { // embedded image, not encrypted
-			// NOTE: encrypted images are not obviously processed, as per previous 'if'
-			if (encoding != "8bit/base64") {
-				log("Image "+title+" is not encoded as 8bit/base64");
-				fail = true;
-				break;
-			}
-			if (mime === null) {
-				log("Image "+title+"has no mime type defined");
-				fail = true;
-				break;
-			}
-			// re-add data:uri to images
-			page = "data:"+mime+";base64,"+page;
-		} else { // a normal wiki page
-			switch (encoding) {
-				case "8bit/base64":
-					// base64 files will stay encoded
-					if (!(attrs & 4))
-						// WoaS does not encode pages normally, but this is supported by WSIF format
-						page = decode64(page);
-				break;
-				case "ecma/plain":
-					page = this.ecma_decode(page);
-				break;
-				case "8bit/plain": // plain wiki pages are supported
-				break;
-				default:
-					log("Normal page "+title+" comes with unknown encoding "+encoding);
+			// retrieve full page content
+			page = ct.substring(bpos_s+boundary.length, bpos_e);
+			// length used to check correctness of data segments
+			check_len = page.length;
+			// split encrypted pages into byte arrays
+			if (attrs & 2) {
+				if (encoding != "8bit/base64") {
+					log("Encrypted page "+title+" is not encoded as 8bit/base64");
 					fail = true;
 					break;
+				}
+	//			check_len = page.length;
+				page = decode64_array(page);
+				// trim to correct length
+				// perhaps we could use woas.page.original_length field
+				// also, we could not make this check if version is 0.10.4
+				// but for now it's a good safety
+				var rest = page.length % 16;
+				if (rest)
+					log("removing "+rest+" trailing bytes from page "+title); //log:1
+				while (rest-- > 0) {page.pop();}
+			} else if (attrs & 8) { // embedded image, not encrypted
+				// NOTE: encrypted images are not obviously processed, as per previous 'if'
+				if (encoding != "8bit/base64") {
+					log("Image "+title+" is not encoded as 8bit/base64");
+					fail = true;
+					break;
+				}
+				if (mime === null) {
+					log("Image "+title+"has no mime type defined");
+					fail = true;
+					break;
+				}
+				// re-add data:uri to images
+				page = "data:"+mime+";base64,"+page;
+			} else { // a normal wiki page
+				switch (encoding) {
+					case "8bit/base64":
+						// base64 files will stay encoded
+						if (!(attrs & 4))
+							// WoaS does not encode pages normally, but this is supported by WSIF format
+							page = decode64(page);
+					break;
+					case "ecma/plain":
+						page = this.ecma_decode(page);
+					break;
+					case "8bit/plain": // plain wiki pages are supported
+					break;
+					default:
+						log("Normal page "+title+" comes with unknown encoding "+encoding);
+						fail = true;
+						break;
+				}
 			}
-		}
-		if (fail)
-			break;
-		// check length (if any were passed)
-		if (len !== null) {
-			if (len != check_len)
+			if (fail)
+				break;
+			// check length (if any were passed)
+			if (len !== null && len !== check_len) {
 				this.alert("Length mismatch for page %s: ought to be %d but was %d".sprintf(title, len, check_len));
-		}
-		// has to break anyway
-		break;
+			}
+			// has to break anyway
+			break;
 		} // wend
 		
 	} else if (!fail && (disposition == "external")) { // import an external WSIF file
@@ -632,9 +637,9 @@ woas._native_page_def = function(path,ct,p,last_p,overwrite,pre_import_hook, tit
 //	return last_p;
 	// return updated offset
 	return bpos_e+boundary.length;
-}
+};
 
 woas.wsif_error = function(msg) {
 	log("WSIF ERROR: "+msg);	//log:1
 	this.wsif.emsg = msg;
-}
+};
