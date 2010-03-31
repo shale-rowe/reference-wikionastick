@@ -1544,8 +1544,8 @@ word &nbsp;&nbsp;&nbsp; word
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Namespaces
 woas.page.attributes: 0
-woas.page.last_modified: 1270060264
-woas.page.length: 2690
+woas.page.last_modified: 1270061359
+woas.page.length: 2571
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1572,24 +1572,20 @@ For example, if you create the {{{[[Recipes::Menu]]}}} page with *My favorite re
 
 [[Include::WoaS::Template::Info|Sub-menus work the same way menus do. For more information on menus, see the *WoaS::Help::Edit the menu* page.]]
 == Reserved namespaces
-These namespaces are reserved by the wiki for use by the wiki:
-* *Javascript::* for direct JavaScript execution
-* *Lock::* used internally for encrypted pages
-* *Locked::* for encrypted pages
-* *Special::* for all the special pages
-* *Unlock::* used internally for encrypted pages
-* *Unlocked::* for plain (unencrypted) pages
-* *WoaS::* for the bootscript page, for Help pop-up pages, and reserved for future use
-
-These namespaces are reserved by the wiki for use by the wiki and the user:
+Some namespaces are reserved by the wiki for its own internal use or for specific use by the user:
 * *File::* for embedded files
 * *Image::* for embedded images
 * *Include::* for transclusion
+* *Javascript::* for direct JavaScript execution
+* *Lock::* used internally for encrypted pages
+* *Locked::* for encrypted pages
+* *::Menu* for sub-menus
+* *Special::* for all the special pages
 * *Tagged::* for all the tagged pages
 * *Tags::* for tagging pages
-
-This sub-namespace is reserved by the wiki for use by the wiki and the user:
-* *::Menu* for sub-menus
+* *Unlock::* used internally for encrypted pages
+* *Unlocked::* for plain (unencrypted) pages
+* *WoaS::* for the bootscript page, for Help pop-up pages, and reserved for future use
 
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Text formatting
