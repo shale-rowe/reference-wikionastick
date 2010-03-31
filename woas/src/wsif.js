@@ -1,17 +1,19 @@
 
 // a class for some general WSIF operations
-woas.wsif = {	version: "1.2.0", DEFAULT_INDEX: "index.wsif",
-					emsg: null, imported_page: false,
-					expected_pages: null,
-					system_pages: 0};
+woas.wsif = {
+	version: "1.2.0", DEFAULT_INDEX: "index.wsif",
+	emsg: null, imported_page: false,
+	expected_pages: null,
+	system_pages: 0
+};
 
 woas.wsif.header = function(header_name, value) {
 	return header_name+": "+value+"\n";
-}
+};
 
 woas.wsif.inline = function(boundary, content) {
 	return "\n--"+boundary+"\n"+content+"\n--"+boundary+"\n";
-}
+};
 
 // default behaviour:
 // - wiki pages go inline (utf-8), no container encoding
@@ -20,6 +22,23 @@ woas.wsif.inline = function(boundary, content) {
 
 woas._native_wsif_save = function(path, single_wsif, inline_wsif, author,
 							save_all, plist) {
+
+	function _generate_random_boundary(old_boundary, text) {
+		var b = old_boundary;
+		if (!b.length)
+			b = _random_string(10);
+		while (text.indexOf(b) != -1) {
+			b = _random_string(10);
+		}
+		return b;
+	}
+
+	function _file_ext(fn) {
+		var m=fn.match(/\.(\w+)$/);
+		if (m === null) return "";
+		return "."+m[1];
+	}
+
 	this.progress_init("WSIF save");
 	// the number of blobs which we have already created
 	var blob_counter = 0;
@@ -50,7 +69,7 @@ woas._native_wsif_save = function(path, single_wsif, inline_wsif, author,
 	this.wsif.expected_pages = l;
 	// the attributes prefix, we do not use the page index here for better versioning
 	var pfx = "woas.page.";
-	var pi;
+	var pi, pl;
 	for (var ipi=0;ipi < l;++ipi) {
 		if (full_save)
 			pi = ipi;
@@ -63,7 +82,7 @@ woas._native_wsif_save = function(path, single_wsif, inline_wsif, author,
 		var record = this.wsif.header(pfx+"title", this.ecma_encode(page_titles[pi]))+
 					this.wsif.header(pfx+"attributes", page_attrs[pi]);
 		// specify timestamp only if not magic
-		if (page_mts[pi] != 0)
+		if (page_mts[pi] !== 0)
 			record += this.wsif.header(pfx+"last_modified", page_mts[pi]);
 		var ct = null, orig_len = null;
 		
@@ -78,12 +97,13 @@ woas._native_wsif_save = function(path, single_wsif, inline_wsif, author,
 			ct = pages[pi];
 			if (this.is__embedded(pi)) {
 				// if not forced to do them inline, convert for export
+				var m;
 				if (!inline_wsif) {
 					disposition = "external";
 					encoding = "8bit/plain";
 					// decode the base64-encoded data
 					if (this.is__image(pi)) {
-						var m = ct.match(/^data:\s*([^;]*);\s*base64,\s*/);
+						m = ct.match(/^data:\s*([^;]*);\s*base64,\s*/);
 						record += this.wsif.header(pfx+"mime", m[1]);
 						// remove the matched part
 						ct = decode64(ct.substr(m[0].length));
@@ -92,7 +112,7 @@ woas._native_wsif_save = function(path, single_wsif, inline_wsif, author,
 				} else {
 					encoding = "8bit/base64";
 					if (this.is__image(pi)) {
-						var m = ct.match(/^data:\s*([^;]*);\s*base64,\s*/);
+						m = ct.match(/^data:\s*([^;]*);\s*base64,\s*/);
 						record += this.wsif.header(pfx+"mime", m[1]);
 						// remove the matched part
 						ct = ct.substr(m[0].length);
@@ -171,7 +191,7 @@ woas._native_wsif_save = function(path, single_wsif, inline_wsif, author,
 		extra += this.wsif.header('woas.pages', page_titles.length);
 	// build (artificially) an index of all pages
 	if (!full_save && !single_wsif) {
-		for (var pi=0,pl=page_titles.length;pi<pl;++pi) {
+		for (pi=0,pl=page_titles.length;pi<pl;++pi) {
 			full_wsif += this.wsif.header(pfx+"title", this.ecma_encode(page_titles[pi]));
 			// a new mime type
 			full_wsif += this.wsif.header(pfx+"encoding", "text/wsif");
@@ -190,23 +210,7 @@ woas._native_wsif_save = function(path, single_wsif, inline_wsif, author,
 	} // we do not increment page counter when saving index.wsif
 	this.progress_finish();
 	return done;
-}
-
-function _file_ext(fn) {
-	var m=fn.match(/\.(\w+)$/);
-	if (m == null) return "";
-	return "."+m[1];
-}
-
-function _generate_random_boundary(old_boundary, text) {
-	var b = old_boundary;
-	if (!b.length)
-		b = _random_string(10);
-	while (text.indexOf(b) != -1) {
-		b = _random_string(10);
-	}
-	return b;
-}
+};
 
 woas._native_load = function() {
 	// we reset the arrays before loading the real data from index.wsif
@@ -217,7 +221,7 @@ woas._native_load = function() {
 	// get the data
 	var path = woas.ROOT_DIRECTORY+"index.wsif";
 	return this._native_wsif_load(path, false, false);
-}
+};
 
 woas._native_wsif_load = function(path, overwrite, and_save, recursing, pre_import_hook) {
 	if (!recursing) {
@@ -339,7 +343,7 @@ woas._native_wsif_load = function(path, overwrite, and_save, recursing, pre_impo
 					ct = ct.substr(p);
 					p = 0;
 					previous_h = null;
-					// update status if not recusing
+					// update status if not recursing
 					if (!recursing && (this.wsif.expected_pages !== null))
 						this.progress_status(global_progress++/this.wsif.expected_pages);
 				}
@@ -427,7 +431,7 @@ woas._native_wsif_load = function(path, overwrite, and_save, recursing, pre_impo
 	}
 	// no pages were changed
 	return 0;
-}
+};
 
 woas._last_filename = null;
 
@@ -632,9 +636,9 @@ woas._native_page_def = function(path,ct,p,last_p,overwrite,pre_import_hook, tit
 //	return last_p;
 	// return updated offset
 	return bpos_e+boundary.length;
-}
+};
 
 woas.wsif_error = function(msg) {
 	log("WSIF ERROR: "+msg);	//log:1
 	this.wsif.emsg = msg;
-}
+};
