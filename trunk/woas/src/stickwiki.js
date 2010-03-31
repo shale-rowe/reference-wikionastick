@@ -1059,6 +1059,7 @@ woas.before_quit = function () {
 	return true;
 }
 
+// DO NOT use setHTML for the document.body object in IE browsers
 woas.setHTML = woas.getHTML = null;
 
 // when the page is loaded - onload, on_load
