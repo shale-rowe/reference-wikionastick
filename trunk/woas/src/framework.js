@@ -44,8 +44,8 @@ else if(navigator.appName == "Netscape") {
 
 // finds out if Opera is trying to look like Mozilla
 if (woas.browser.firefox && (navigator.product != "Gecko"))
-	woas.browser.firefox = woas.browser.firefox2 =
-	woas.browser.firefox3 = woas.browser.firefox_new = false;
+	woas.browser.firefox = woas.browser.firefox2
+	= woas.browser.firefox3 = woas.browser.firefox_new = false;
 
 // finds out if Opera is trying to look like IE
 if (woas.browser.ie && woas.browser.opera)
@@ -70,31 +70,31 @@ if (woas.config.debug_mode) {
 $.hide = function(id) {
 	$(id).style.display = "none";
 	$(id).style.visibility = "hidden";
-}
+};
 
 $.show = function(id) {
 	$(id).style.display = "inline";
 	$(id).style.visibility = "visible";
-}
+};
 
 $.hide_ni = function(id) {
 	$(id).style.visibility = "hidden";
-}
+};
 
 $.show_ni = function(id) {
 	$(id).style.visibility = "visible";
-}
+};
 
 $.is_visible = function(id) {
 	return !!($(id).style.visibility == 'visible');
-}
+};
 
 $.toggle = function(id) {
 	if ($.is_visible(id))
 		$.hide(id);
 	else
 		$.show(id);
-}
+};
 
 $.clone = function(obj) {
 	var nobj = {};
@@ -102,7 +102,7 @@ $.clone = function(obj) {
 		nobj[i] = obj[i];
 	}
 	return nobj;
-}
+};
 
 // logging function has not to be in WoaS object
 var log;
@@ -113,7 +113,7 @@ if (woas.config.debug_mode) {
 	    // count lines
 		nls = logbox.value.match(/\n/g);
 		// log maximum 1024 lines
-		if (nls!=null && typeof(nls)=='object' && nls.length>1024)
+		if (nls!=null && typeof(nls)==='object' && nls.length>1024)
 			logbox.value = "";
 		logbox.value += aMessage + "\n";
 		if(window.opera)
@@ -127,7 +127,7 @@ if (woas.config.debug_mode) {
 if (typeof Array.prototype.push == "undefined") {
   Array.prototype.push = function(str) {
     this[this.length] = str;
-  }
+  };
 }
 
 // the following methods complete the Array object for non-compliant browsers
@@ -144,7 +144,7 @@ if (typeof Array.prototype.splice == "undefined") {
       this[this.length] = temp[i];
     }
     return this;
-  }
+  };
 }
 
 if (typeof Array.prototype.indexOf == "undefined") {
@@ -153,7 +153,7 @@ if (typeof Array.prototype.indexOf == "undefined") {
 		for (var index = fromIndex,len = this.length; index < len; index++)
 			if (this[index] == val) return index;
 		return -1;
-	}
+	};
 }
 
 // implements a custom function which returns an array with unique elements - deprecated
@@ -161,7 +161,7 @@ Array.prototype.toUnique = function() {
 	var a_o = {}, new_arr = [];
 	var l=this.length;
 	for(var i=0; i<l;i++) {
-		if (a_o[this[i]]==null) {
+		if (a_o[this[i]]===null) {
 			a_o[this[i]] = true;
 			new_arr.push(this[i]);
 		}
@@ -169,7 +169,7 @@ Array.prototype.toUnique = function() {
 	if (new_arr.length!=l)
 		return new_arr;
 	return this;
-}
+};
 
 // provide regex escaping
 // thanks to S.Willison
@@ -181,7 +181,7 @@ RegExp.escape = function(text) {
     );
   }
   return text.replace(arguments.callee.sRE, '\\$1');
-}
+};
 
 // repeat string s for n times
  if (typeof String.prototype.repeat == "undefined") {
@@ -189,7 +189,7 @@ RegExp.escape = function(text) {
 		var r = "";
 		while (--n >= 0) r += this;
 		return r;
-	}
+	};
 }
 
 // return a random integer given the maximum value (scale)
@@ -236,7 +236,7 @@ String.prototype.sprintf = function() {
 		// return '%s' string
 		return fmt_args[i_pos++];
 	});
-}
+};
 
 // get filename of currently open file in browser
 function _get_this_filename() {
