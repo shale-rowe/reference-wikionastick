@@ -1,6 +1,6 @@
 wsif.version: 1.2.0
 wsif.generator: woas
-woas.version: 0.11.1
+woas.version: 0.11.2
 woas.pages: 67
 
 woas.page.title: ::Menu
@@ -1544,49 +1544,52 @@ word &nbsp;&nbsp;&nbsp; word
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Namespaces
 woas.page.attributes: 0
-woas.page.length: 2772
+woas.page.last_modified: 1270060264
+woas.page.length: 2690
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Namespaces
-When you create a page and use the *::* separator in the page name, you will be using a *namespace* to define parent and child pages. For example, {{{[[Recipes::Desserts]]}}} and {{{[[Recipes::Main dishes]]}}} would both belong to the {{{[[Recipes::]]}}} namespace.
+When you create a page with double colons (*::*) as a separator in the page name, you are using a namespace to define parent and child pages. Sub-namespaces are created by adding more than one *::* separator to the page name. Each namespace or sub-namespace can have as many child pages under it as you like (within the resource limits of your hardware). The full path to each page is displayed in the banner with links to its namespace and sub-namespace(s) in the title.
 
-You can also use sub-namespaces, like {{{[[Recipes::Desserts::Cakes]]}}}.
-* *Recipes::* is the namespace.
-* *Desserts::* is a sub-namespace of *Recipes::*.
-* *Cakes::* is a sub-namespace of *Desserts::*.
-[[Include::WoaS::Template::Info|Each namespace can have as many child pages under it as you like (within the resource limits of your hardware).]]
-An advantage of creating parent and child pages is that the full path to each page is displayed in the navigation bar, so when you're on any page in a particular namespace, the parent page name will be in the navigation bar with the namespace (and sub-namespace, if the page has one) as a clickable link which will open an automatically generated page listing all the pages in that namespace (or sub-namespace) for quick navigation.
+For example, let's say you have these pages:
+* {{{[[Recipes::Desserts]]}}}
+* {{{[[Recipes::Desserts::Cakes]]}}}
+* {{{[[Recipes::Main dishes]]}}}
+* {{{[[Recipes::Side dishes]]}}}
+* {{{[[Recipes::Soups]]}}}
 
-== Namespaces reserved by this wiki
+*Recipes::* is a namespace. *Desserts::* is a sub-namespace of the *Recipes::* namespace. *Cakes::* is a sub-namespace of the *Desserts::* sub-namespace.
+
+If you open the {{{[[Recipes::Desserts::Cakes]]}}} page, the title contains links to *Recipes* and *Desserts*. The *Recipes* link opens a page listing all pages in the *Recipes::* namespace, and the *Desserts* link opens a page listing all pages in the *Desserts::* sub-namespace.
+
+=== Namespace sub-menu
+All pages in any namespace can be given a custom sub-menu by creating a *Menu* page inside the namespace. A sub-menu will be temporarily added to the main menu when any pages belonging to that page's namespace are opened. You can determine what goes into the sub-menu by editing the page with *::Menu* in its name. The sub-menu will vanish as soon as you navigate away from its namespace.
+
+For example, if you create the {{{[[Recipes::Menu]]}}} page with *My favorite recipes!* as its content, then whenever you open a page in the {{{Recipes::}}} namespace, a sub-menu will appear with *My favorite recipes!* in it.
+
+[[Include::WoaS::Template::Info|Sub-menus work the same way menus do. For more information on menus, see the *WoaS::Help::Edit the menu* page.]]
+== Reserved namespaces
 These namespaces are reserved by the wiki for use by the wiki:
 * *Javascript::* for direct JavaScript execution
 * *Lock::* used internally for encrypted pages
 * *Locked::* for encrypted pages
 * *Special::* for all the special pages
-* *Tagged::* for all the tagged pages
-* *Tags::* for tagging pages
 * *Unlock::* used internally for encrypted pages
 * *Unlocked::* for plain (unencrypted) pages
-* *WoaS::* for aliases, the bootscript page, the Help pages, and templates used by the Help pages
+* *WoaS::* for the bootscript page, for Help pop-up pages, and reserved for future use
 
 These namespaces are reserved by the wiki for use by the wiki and the user:
 * *File::* for embedded files
 * *Image::* for embedded images
 * *Include::* for transclusion
+* *Tagged::* for all the tagged pages
+* *Tags::* for tagging pages
 
-=== Namespace sub-menu
-If you add *::Menu* to the end of a page name, a sub-menu will be temporarily added below the main menu when any pages belonging to that page's namespace are opened. You can determine what goes into that temporary menu entry by editing the page with *::Menu* in its name. All content on the page will be displayed in the sub-menu. The sub-menu will vanish as soon as you navigate away from that namespace.
-
-For example, if you have these pages:
-* {{{[[Recipes::Menu]]}}}
-* {{{[[Recipes::Desserts]]}}}
-* {{{[[Recipes::Main dishes]]}}}
-* {{{[[Recipes::Side dishes]]}}}
-* {{{[[Recipes::Soups]]}}}
-You can type *My favorite recipes!* into the {{{[[Recipes::Menu]]}}} page, and any time you open any of the Recipes pages, *My favorite recipes!* will appear in the sub-menu of the main menu. Or you can type {{{[[Recipes::]]}}} into the {{{[[Recipes::Menu]]}}} page to have a listing of all pages in the Recipes:: namespace in the submenu any time a page in the Recipes:: namespace is opened.
+This sub-namespace is reserved by the wiki for use by the wiki and the user:
+* *::Menu* for sub-menus
 
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Text formatting
