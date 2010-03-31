@@ -18,19 +18,19 @@ var _hl_reg = null;						// search highlighting regex
 // new variables will be properly declared here
 woas.prev_title = current;		// previous page's title used when entering/exiting edit mode
 
-woas["save_queue"] = [];		// pages which need to be saved and are waiting in the queue
+woas.save_queue = [];		// pages which need to be saved and are waiting in the queue
 
 // Automatic-Save TimeOut object
-woas["_asto"] = null;
+woas._asto = null;
 
 // left and right trim
-woas["trim"] = function(s) {
+woas.trim = function(s) {
 	return s.replace(/(^\s*)|(\s*$)/, '');
 }
 
 // used to craft XHTML pages
-woas["DOCTYPE"] = "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\" \"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\">\n";
-woas["DOC_START"] = "<"+"html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\">\n<head>\n"+
+woas.DOCTYPE = "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\" \"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\">\n";
+woas.DOC_START = "<"+"html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\">\n<head>\n"+
 	"<m"+"eta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\n";
 	
 	
@@ -38,7 +38,7 @@ woas["DOC_START"] = "<"+"html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"
 // general javascript-safe string quoting
 // NOTE: not completely binary safe!
 // should be used only for titles (which ought not to contain binary bytes)
-woas["js_encode"] = function (s, split_lines) {
+woas.js_encode = function (s, split_lines) {
 	// not to counfound browsers with saved tags
 	s = s.replace(/\\/g, "\\\\").replace(/</g, "\\x3C").replace(/>/g, "\\x3E").
 		replace(/'/g, "\\'");
@@ -51,19 +51,19 @@ woas["js_encode"] = function (s, split_lines) {
 }
 
 // perform ECMAScript encoding only on some UTF-8 sequences
-woas["ecma_encode"] = function(s) {
+woas.ecma_encode = function(s) {
 	return this._utf8_js_fix(s.replace(/\\/g, "\\\\"));
 }
 
-woas["_ecma_rx_test"] = new RegExp("[^\u0000-\u007F]");
+woas._ecma_rx_test = new RegExp("[^\u0000-\u007F]");
 
 // returns true if text needs ECMA encoding
 // checks if there are UTF-8 characters
-woas["needs_ecma_encoding"] = function(s) {
+woas.needs_ecma_encoding = function(s) {
 	return this._ecma_rx_test.test(s);
 }
 
-woas["_utf8_js_fix"] = function(s) {
+woas._utf8_js_fix = function(s) {
 	// fix the >= 128 ascii chars (to prevent UTF-8 characters corruption)
 	return s.replace(new RegExp("[^\u0000-\u007F]+", "g"), function(str) {
 		var r="";
@@ -75,7 +75,7 @@ woas["_utf8_js_fix"] = function(s) {
 	});
 }
 
-woas["ecma_decode"] = function(s) {
+woas.ecma_decode = function(s) {
 	return s.replace(new RegExp("(\\\\u[0-9a-f]{4})+", "g"), function (str, $1) {
 		// this will perform real UTF-8 decoding
 		var r = "";
@@ -92,7 +92,7 @@ woas["ecma_decode"] = function(s) {
 }
 
 // used to escape blocks of source into HTML-valid output
-woas["xhtml_encode"] = function(src) {
+woas.xhtml_encode = function(src) {
 /*	return this.utf8_encode(src.replace(/[<>&]+/g, function ($1) {
 		var l=$1.length;
 		var s="";
@@ -115,7 +115,7 @@ woas["xhtml_encode"] = function(src) {
 			replace(/>/g, '&gt;')); // .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 }
 
-woas["utf8_encode"] = function(src) {
+woas.utf8_encode = function(src) {
 	return src.replace(/[^\u0000-\u007F]+/g, function ($1) {
 		var l=$1.length;
 		var s="";
@@ -137,11 +137,11 @@ for(var i = (woas.tweak.edit_override ? 1 : 0);i<reserved_namespaces.length;i++)
 	if (i<reserved_namespaces.length-1)
 		reserved_rx += "|";
 }
-woas["_reserved_rx"] = new RegExp(reserved_rx, "i"); reserved_namespaces = reserved_rx = null;
+woas._reserved_rx = new RegExp(reserved_rx, "i"); reserved_namespaces = reserved_rx = null;
 
-woas["aliases"] = [];
+woas.aliases = [];
 
-woas["title_unalias"] = function(aliased_title) {
+woas.title_unalias = function(aliased_title) {
 	// apply aliases on title, from newest to oldest
 	for(var i=0,l=this.aliases.length;i<l;++i) {
 		aliased_title = aliased_title.replace(this.aliases[i][0], this.aliases[i][1]);
@@ -150,20 +150,20 @@ woas["title_unalias"] = function(aliased_title) {
 }
 
 // return page index (progressive number) given its title
-woas["page_index"] = function(title) {
+woas.page_index = function(title) {
 	return page_titles.indexOf(this.title_unalias(title));
 }
 
-woas["is_reserved"] = function(page) {
+woas.is_reserved = function(page) {
 	return (page.search(this._reserved_rx)==0);
 }
 
-woas["is_menu"] = function(page) {
+woas.is_menu = function(page) {
 	return (page.indexOf("::Menu")==page.length-6);
 }
 
 // returns namespace with trailing ::
-woas["get_namespace"] = function(page, root_only) {
+woas.get_namespace = function(page, root_only) {
 	var p;
 	if ((typeof root_only == "boolean") && (root_only == true))
 		p = page.indexOf("::");
@@ -173,46 +173,46 @@ woas["get_namespace"] = function(page, root_only) {
 	return page.substring(0,p+2);	
 }
 
-woas["is_readonly"] = function(page) {
+woas.is_readonly = function(page) {
 	return this.is_readonly_id(this.page_index(page));
 }
 
-woas["is_readonly_id"] = function(pi) {
+woas.is_readonly_id = function(pi) {
 	return !!(page_attrs[pi] & 1);
 }
 
-woas["is__encrypted"] = function (pi) {
+woas.is__encrypted = function (pi) {
 	return !!(page_attrs[pi] & 2);
 }
 
-woas["is_encrypted"] = function(page) {
+woas.is_encrypted = function(page) {
 	return this.is__encrypted(this.page_index(page));
 }
 
-woas["is__embedded"] = function(pi) {
+woas.is__embedded = function(pi) {
 	return !!(page_attrs[pi] & 4);
 }
-woas["is_embedded"] = function(page) {return this.is__embedded(this.page_index(page));}
+woas.is_embedded = function(page) {return this.is__embedded(this.page_index(page));}
 
-woas["is__image"] = function(pi) {
+woas.is__image = function(pi) {
 	return !!(page_attrs[pi] & 8);
 }
-woas["is_image"] = function(page) { return this.is__image(this.page_index(page)); }
+woas.is_image = function(page) { return this.is__image(this.page_index(page)); }
 
 // a page physically exists if it is not part of a reserved namespace, if it is not a (sub)namespace and if it actually exists
-woas["page_exists"] = function(page) {
+woas.page_exists = function(page) {
 	return (this.is_reserved(page) || (page.substring(page.length-2)=="::") || (this.page_index(page)!=-1));
 }
 
 // joins a list of pages
-woas["_join_list"] = function(arr) {
+woas._join_list = function(arr) {
 	if (!arr.length)
 		return "";
 	result_pages = arr.slice(0);
 	return "* [["+arr.sort().join("]]\n* [[")+"]]";
 }
 
-woas["_simple_join_list"] = function(arr, sorted) {
+woas._simple_join_list = function(arr, sorted) {
 	if (sorted)
 		arr = arr.sort();
 	// a newline is added here
@@ -220,7 +220,7 @@ woas["_simple_join_list"] = function(arr, sorted) {
 }
 
 // with two trailing double colon
-woas["_get_namespace_pages"] = function (ns) {
+woas._get_namespace_pages = function (ns) {
 	var pg = [];
 	switch (ns.substr(0, ns.length-2)) {
 		case "Locked":
@@ -250,7 +250,7 @@ woas["_get_namespace_pages"] = function (ns) {
 	return "= Pages in "+ns+" namespace\n" + this._join_list(pg);
 }
 
-woas["_get_tagged"] = function(tag_filter) {
+woas._get_tagged = function(tag_filter) {
 	var pg = [];
 	
 	// allow tags filtering/searching
@@ -310,7 +310,7 @@ woas["_get_tagged"] = function(tag_filter) {
 }
 
 // return a plain page or a decrypted one if available through the latest key
-woas["get_page"] = function(pi) {
+woas.get_page = function(pi) {
 	if (this.is__embedded(pi))
 		return null;
 	if (!this.is__encrypted(pi))
@@ -326,7 +326,7 @@ woas["get_page"] = function(pi) {
 }
 
 // get the text of the page, stripped of html tags
-woas["get_src_page"] = function(pi, rawmode) {
+woas.get_src_page = function(pi, rawmode) {
 	var pg = this.get_page(pi);
 	if (pg===null) return null;
 	if ((typeof rawmode == "undefined") || (rawmode == false))
@@ -338,14 +338,14 @@ woas["get_src_page"] = function(pi, rawmode) {
 			replace(/\<\/?\w+[^>]+>/g, "");
 }
 
-woas["get_text"] = function (title) {
+woas.get_text = function (title) {
 	var pi = this.page_index(title);
 	if (pi==-1)
 		return null;
 	return this.get__text(pi);
 }
 
-woas["get_text_special"] = function(title) {
+woas.get_text_special = function(title) {
 	var ns = this.get_namespace(title);
 	var text = null;
 	if (ns.length) {
@@ -368,9 +368,9 @@ woas["get_text_special"] = function(title) {
 	return text;
 }
 
-woas["__last_title"] = null;
+woas.__last_title = null;
 
-woas["__password_finalize"] = function(pwd_obj) {
+woas.__password_finalize = function(pwd_obj) {
 	$.show_ni("wiki_text");
 	document.title = this.__last_title;
 	$.hide("woas_pwd_mask");
@@ -381,7 +381,7 @@ woas["__password_finalize"] = function(pwd_obj) {
 	custom_focus(false);
 }
 
-woas["_set_password"] = function() {
+woas._set_password = function() {
 	this.__last_title = document.title;
 	document.title = "Enter password";
 	// hide browser scrollbars and show mask
@@ -394,26 +394,26 @@ woas["_set_password"] = function() {
 	$("woas_password").focus();	
 }
 
-woas["_password_cancel"] = function() {
+woas._password_cancel = function() {
 	this.__password_finalize($("woas_password"));
 }
 
 // function which hooks all messages shown by WoaS
 // can be fed with multiple messages to show consecutively
-woas["alert"] = function() {
+woas.alert = function() {
 	for(var i=0,l=arguments.length;i<l;++i) {
 		alert("WoaS: "+arguments[i]);
 	}
 }
 
 // same as above, but for unhandled errors
-woas["crash"] = function() {
+woas.crash = function() {
 	for(var i=0,l=arguments.length;i<l;++i) {
 		alert("WoaS Unhandled error\n----\n"+arguments[i]);
 	}
 }
 
-woas["_password_ok"] = function() {
+woas._password_ok = function() {
 	var pwd_obj = $("woas_password");
 	var pw = pwd_obj.value;
 	if (!pw.length) {
@@ -425,7 +425,7 @@ woas["_password_ok"] = function() {
 }
 
 //TODO: specify interactive-mode
-woas["get__text"] = function(pi) {
+woas.get__text = function(pi) {
 	// is the page encrypted or plain?
 	if (!this.is__encrypted(pi))
 		return pages[pi];
@@ -472,7 +472,7 @@ woas["get__text"] = function(pi) {
 	return pg;
 }
 
-woas["set__text"] = function(pi, text) {
+woas.set__text = function(pi, text) {
 	log("Setting wiki text for page #"+pi+" \""+page_titles[pi]+"\"");	// log:1
 	if (this.is__embedded(pi) && !this.is__image(pi))
 		text = encode64(text);
@@ -486,7 +486,7 @@ woas["set__text"] = function(pi, text) {
 }
 
 // Sets text typed by user
-woas["set_text"] = function(text) {
+woas.set_text = function(text) {
 	var pi = this.page_index(current);
 	// this should never happen!
 	if (pi==-1) {
@@ -496,7 +496,7 @@ woas["set_text"] = function(text) {
 	this.set__text(pi, text);
 }
 
-woas["assert_current"] = function(page) {
+woas.assert_current = function(page) {
 	if( current != page )
 		go_to( page ) ;
 	else
@@ -504,9 +504,9 @@ woas["assert_current"] = function(page) {
 }
 
 // used to eventually remove the new-to-be page when cancel is pressed
-woas["_ghost_page"] = false;
+woas._ghost_page = false;
 
-woas["_create_page"] = function (ns, cr, ask, fill_mode) {
+woas._create_page = function (ns, cr, ask, fill_mode) {
 	if (this.is_reserved(ns+"::") && !this.tweak.edit_override) {
 		this.alert(this.i18n.ERR_RESERVED_NS.sprintf(ns+"::"+cr, ns));
 			return false;
@@ -544,7 +544,7 @@ woas["_create_page"] = function (ns, cr, ask, fill_mode) {
 	return true;
 }
 
-woas["_get_embedded"] = function(cr, etype) {
+woas._get_embedded = function(cr, etype) {
 	log("Retrieving embedded source "+cr);	// log:1
 	var pi=this.page_index(cr);
 	if (pi==-1)
@@ -552,7 +552,7 @@ woas["_get_embedded"] = function(cr, etype) {
 	return this._get__embedded(cr, pi, etype);
 }
 
-woas["_get__embedded"] = function (cr, pi, etype) {
+woas._get__embedded = function (cr, pi, etype) {
 	var text=this.get__text(pi);
 	if (text==null) return null;
 	var xhtml = "";
@@ -596,7 +596,7 @@ woas["_get__embedded"] = function (cr, pi, etype) {
 }
 
 // export a base64-encoded image to a file
-woas["export_image"] = function(page, dest_path) {
+woas.export_image = function(page, dest_path) {
 	var pi=this.page_index(page);
 	if (pi==-1)
 		return false;
@@ -607,7 +607,7 @@ woas["export_image"] = function(page, dest_path) {
 }
 
 // used to export files/images
-woas["export_file"] = function(page, dest_path) {
+woas.export_file = function(page, dest_path) {
 	var pi=this.page_index(page);
 	if (pi==-1)
 		return false;
@@ -618,7 +618,7 @@ woas["export_file"] = function(page, dest_path) {
 	return this.save_file(dest_path, this.file_mode.BINARY, decode64(data));
 }
 
-woas["_embed_process"] = function(etype) {
+woas._embed_process = function(etype) {
 	// pick the correct mode for file inclusion
 	// normalize etype to the correspondant binary flag value
 	var desired_mode;
@@ -650,7 +650,7 @@ woas["_embed_process"] = function(etype) {
 	return this.set_current(current, true);
 }
 
-woas["_get_special"] = function(cr, interactive) {
+woas._get_special = function(cr, interactive) {
 	var text = null;
 	var pi = this.shortcuts.indexOf(cr);
 	cr = "Special::" + cr;
@@ -689,7 +689,7 @@ woas["_get_special"] = function(cr, interactive) {
 	return text;
 }
 
-woas["get_javascript_page"] = function(cr) {
+woas.get_javascript_page = function(cr) {
 	var emsg = "-", text;
 	try {
 		text = eval(cr);
@@ -708,7 +708,7 @@ woas["get_javascript_page"] = function(cr) {
 
 // Load a new current page
 // return true if page needs to be saved in history, false otherwise
-woas["set_current"] = function (cr, interactive) {
+woas.set_current = function (cr, interactive) {
 	var text, namespace;
 	result_pages = [];
 	// eventually remove the previous custom script
@@ -858,9 +858,9 @@ woas["set_current"] = function (cr, interactive) {
 }
 
 // StickWiki custom scripts array
-woas["swcs"] = [];
+woas.swcs = [];
 
-woas["_clear_swcs"] = function () {
+woas._clear_swcs = function () {
 //	setHTML(swcs, "");
 	if (!this.swcs.length) return;
 	for(var i=0;i<this.swcs.length;i++) {
@@ -869,7 +869,7 @@ woas["_clear_swcs"] = function () {
 	this.swcs = [];
 }
 
-woas["create_breadcrumb"] = function(title) {
+woas.create_breadcrumb = function(title) {
 	var tmp=title.split("::");
 	if (tmp.length==1)
 		return title;
@@ -886,7 +886,7 @@ woas["create_breadcrumb"] = function(title) {
 	return s+tmp[tmp.length-1];
 }
 
-woas["_activate_scripts"] = function() {
+woas._activate_scripts = function() {
 	// add the custom scripts (if any)
 	if (this.parser.script_extension.length) {
 //		log(this.parser.script_extension.length + " javascript files/blocks to process");	// log:0
@@ -907,14 +907,14 @@ woas["_activate_scripts"] = function() {
 	}
 }
 
-woas["_set_title"] = function (new_title) {
+woas._set_title = function (new_title) {
 	var wt=$("wiki_title");
 	// works with IE6, FF, etc.
 	wt.innerHTML = this.create_breadcrumb(new_title);
 	document.title = new_title;
 }
 
-woas["last_modified"] = function(mts) {
+woas.last_modified = function(mts) {
 	// do not show anything when the timestamp is magic (zero)
 	if (mts == 0)
 		return "";
@@ -922,7 +922,7 @@ woas["last_modified"] = function(mts) {
 }
 
 // actually load a page given the title and the proper XHTML
-woas["load_as_current"] = function(title, xhtml, mts) {
+woas.load_as_current = function(title, xhtml, mts) {
 	if (typeof title == "undefined") {
 		this.crash("load_as_current() called with undefined title");
 		return false;
@@ -940,7 +940,7 @@ woas["load_as_current"] = function(title, xhtml, mts) {
 	return true;
 }
 
-woas["refresh_mts"] = function(mts) {
+woas.refresh_mts = function(mts) {
 	// generate the last modified string to append
 	if (mts) {
 		$("wiki_mts").innerHTML = this.last_modified(mts);
@@ -949,7 +949,7 @@ woas["refresh_mts"] = function(mts) {
 		$.hide("wiki_mts");
 }
 
-woas["_finalize_lock"] = function(pi) {
+woas._finalize_lock = function(pi) {
 	this._perform_lock(pi);
 	var title = page_titles[pi];
 	this.set_current(title, true);
@@ -961,13 +961,13 @@ woas["_finalize_lock"] = function(pi) {
 	this.save_page_i(pi);
 }
 
-woas["_perform_lock"] = function(pi) {
+woas._perform_lock = function(pi) {
 	pages[pi] = this.AES.encrypt(pages[pi]);
 //	log("E: encrypted length is "+pages[pi].length);	// log:0
 	page_attrs[pi] += 2;
 }
 
-woas["_add_namespace_menu"] = function(namespace) {
+woas._add_namespace_menu = function(namespace) {
 //	log("adding namespace menu for \""+namespace+"\"");	// log:0
 //	log("current namespace is \""+current_namespace+"\"");	// log:0
 	if (current_namespace == namespace)
@@ -1003,7 +1003,7 @@ woas["_add_namespace_menu"] = function(namespace) {
 	current_namespace = namespace;	
 }
 
-woas["refresh_menu_area"] = function() {
+woas.refresh_menu_area = function() {
 	var tmp = current_namespace;
 	current_namespace=parse_marker;
 	this._add_namespace_menu(tmp);
@@ -1016,14 +1016,14 @@ woas["refresh_menu_area"] = function() {
 	}
 }
 
-woas["_gen_display"] = function(id, visible, prefix) {
+woas._gen_display = function(id, visible, prefix) {
 	if (visible)
 		$.show(prefix+"_"+id);
 	else
 		$.hide(prefix+"_"+id);
 }
 
-woas["img_display"] = function(id, visible) {
+woas.img_display = function(id, visible) {
 	if (!this.browser.ie || this.browser.ie8) {
 		this._gen_display(id, visible, "img");
 		this._gen_display(id, !visible, "alt");
@@ -1033,7 +1033,7 @@ woas["img_display"] = function(id, visible) {
 	}
 }
 
-woas["menu_display"] = function(id, visible) {
+woas.menu_display = function(id, visible) {
 	this._gen_display(id, visible, "menu");
 //	log("menu_"+id+" is "+$("menu_"+id).style.display);
 }
@@ -1049,7 +1049,7 @@ function _auto_saver() {
 }
 
 // save configuration on exit
-woas["before_quit"] = function () {
+woas.before_quit = function () {
 	if (this.save_queue.length)
 		this.commit(this.save_queue);
 	else {
@@ -1059,10 +1059,10 @@ woas["before_quit"] = function () {
 	return true;
 }
 
-woas["setHTML"] = woas["getHTML"] = null;
+woas.setHTML = woas.getHTML = null;
 
 // when the page is loaded - onload, on_load
-woas["after_load"] = function() {
+woas.after_load = function() {
 	log("***** Woas v"+this.version+" started *****");	// log:1
 
 //	document.body.style.cursor = "wait";
@@ -1155,7 +1155,7 @@ woas["after_load"] = function() {
 	
 //	this._create_bs();
 	
-	this["_editor"] = new TextAreaSelectionHelper($("wiki_editor"));
+	this._editor = new TextAreaSelectionHelper($("wiki_editor"));
 	
 	// set some fixup CSS with some browsers
 	if (this.browser.firefox || this.browser.opera)
@@ -1166,7 +1166,7 @@ woas["after_load"] = function() {
 }
 
 // match all aliases defined in a page
-woas["_load_aliases"] = function(s) {
+woas._load_aliases = function(s) {
 	this.aliases = [];
 	if (s==null || !s.length) return;
 	s.replace(/^(\$[A-Za-z0-9_]{2,})\s+([\s\S]+)$/gm, function(str, alias, value) {
@@ -1176,7 +1176,7 @@ woas["_load_aliases"] = function(s) {
 	});
 }
 
-woas["_create_bs"] = function() {
+woas._create_bs = function() {
 	var s=this.get_text("WoaS::Bootscript");
 	if (s==null || !s.length) return false;
 	// remove the comments
@@ -1191,7 +1191,7 @@ woas["_create_bs"] = function() {
 }
 
 // remove bootscript (when erasing for example)
-woas["_clear_bs"] = function() {
+woas._clear_bs = function() {
 	if (_bootscript!=null) {
 		var head = document.getElementsByTagName("head")[0];
 		head.removeChild(_bootscript);
@@ -1257,7 +1257,7 @@ function kbd_hook(orig_e) {
 }
 
 // when the page is resized
-woas["_onresize"] = function() {
+woas._onresize = function() {
 	var we = $("wiki_editor");
 	if (!we) {
 		log("no wiki_editor");
@@ -1270,7 +1270,7 @@ woas["_onresize"] = function() {
 if (!woas.browser.ie)
 	window.onresize = woas._onresize;
 
-woas["update_nav_icons"] = function(page) {
+woas.update_nav_icons = function(page) {
 	this.menu_display("back", (backstack.length > 0));
 	this.menu_display("forward", (forstack.length > 0));
 	this.menu_display("advanced", (page != "Special::Advanced"));
@@ -1278,7 +1278,7 @@ woas["update_nav_icons"] = function(page) {
 	this.update_lock_icons(page);
 }
 
-woas["update_lock_icons"] = function(page) {
+woas.update_lock_icons = function(page) {
 	var cyphered, can_lock, can_unlock;
 	if (result_pages.length<2) {
 		var pi = this.page_index(page);
@@ -1309,7 +1309,7 @@ woas["update_lock_icons"] = function(page) {
 }
 
 // disable edit-mode after cancel/save actions
-woas["disable_edit"] = function() {
+woas.disable_edit = function() {
 //	log("DISABLING edit mode");	// log:0
 	kbd_hooking = false;
 	// reset change buffer used to check for page changes
@@ -1339,7 +1339,7 @@ function _unlock_pages(arr) {
 	this.alert("Not yet implemented");
 }
 
-woas["edit_allowed"] = function(page) {
+woas.edit_allowed = function(page) {
 	if (this.tweak.edit_override)
 		return (this.page_index(page) != -1);
 	if (!this.config.permit_edits)
@@ -1350,7 +1350,7 @@ woas["edit_allowed"] = function(page) {
 }
 
 // setup the title boxes and gets ready to edit text
-woas["current_editing"] = function(page, disabled) {
+woas.current_editing = function(page, disabled) {
 //	log("current = "+current+", current_editing(\""+page+"\", disabled: "+disabled+")");	// log:0
 	this.prev_title = current;
 	$("wiki_page_title").disabled = (disabled && !this.tweak.edit_override ? "disabled" : "");
@@ -1384,11 +1384,11 @@ woas["current_editing"] = function(page, disabled) {
 	scrollTo(0,0);
 }
 
-woas["change_buffer"] = null;
-woas["old_title"] = null;
+woas.change_buffer = null;
+woas.old_title = null;
 
 // sets the text and allows changes monitoring
-woas["edit_ready"] = function (txt) {
+woas.edit_ready = function (txt) {
 	$("wiki_editor").value = txt;
 	// save copy of text to check if anything was changed
 	// do not store it in case of ghost pages
@@ -1408,7 +1408,7 @@ function _servm_alert() {
 	}
 }
 
-woas["edit_page"] = function(page) {
+woas.edit_page = function(page) {
 	if (!this.edit_allowed(page)) {
 		log("Not allowed to edit page "+page);	// log:1
 		return;
@@ -1425,7 +1425,7 @@ woas["edit_page"] = function(page) {
 }
 
 //API1.0: check if a title is valid
-woas["valid_title"] = function(title) {
+woas.valid_title = function(title) {
 	if (title.length == 0) {
 		this.alert(this.i18n.EMPTY_TITLE);
 		return false;
@@ -1453,7 +1453,7 @@ woas["valid_title"] = function(title) {
 	return true;
 }
 
-woas["rename_page"] = function(previous, newpage) {
+woas.rename_page = function(previous, newpage) {
 	log("Renaming "+previous+" to "+newpage);	// log:1
 	if (this.page_index(newpage)!=-1) {
 		this.alert(this.i18n.PAGE_EXISTS.sprintf(newpage));
@@ -1498,12 +1498,12 @@ function _css_obj() {
 	return document.getElementsByTagName("style")[0];
 }
 
-woas["FF2_CSS_FIXUP"] = "\n.wiki_preformatted { white-space: -moz-pre-wrap !important; }\n";
+woas.FF2_CSS_FIXUP = "\n.wiki_preformatted { white-space: -moz-pre-wrap !important; }\n";
 
 // Opera gets 100% as real 100%
-//woas["OPERA_FIXUP"] = "\ndiv.wiki_header, #loading_overlay, #woas_pwd_query, #woas_pwd_mask { width: 100%; }\n";
+//woas.OPERA_FIXUP = "\ndiv.wiki_header, #loading_overlay, #woas_pwd_query, #woas_pwd_mask { width: 100%; }\n";
 
-woas["get_css"] = function() {
+woas.get_css = function() {
 	var co = document.getElementsByTagName("style")[0];
 	var css = co.innerHTML;
 	if (this.browser.firefox2) {
@@ -1519,10 +1519,10 @@ woas["get_css"] = function() {
 	return css;
 }
 	
-woas["setCSS"] = function(new_css) { this.set_css(new_css); }
+woas.setCSS = function(new_css) { this.set_css(new_css); }
 
 //API1.0: set WoaS CSS
-woas["set_css"] = function(new_css) {
+woas.set_css = function(new_css) {
 	// with some browsers we have weird hot-fixes
     // Mozilla, since 1999
     if (this.browser.firefox2)
@@ -1538,7 +1538,7 @@ woas["set_css"] = function(new_css) {
 	sty.cssText = new_css;
 }
 
-woas["get_raw_content"] = function() {
+woas.get_raw_content = function() {
 	var c=$("wiki_editor").value;
 	// remove CR added by some browsers
 	//TODO: check if ie8 still adds these
@@ -1548,7 +1548,7 @@ woas["get_raw_content"] = function() {
 }
 
 // action performed when save is clicked
-woas["save"] = function() {
+woas.save = function() {
 	// we will always save ghost pages if save button was hit
 	var null_save = !this._ghost_page;
 	// always reset ghost page flag
@@ -1636,11 +1636,11 @@ function history_mem(page) {
 	backstack.push(page);
 }
 
-woas["save_page"] = function(title) {
+woas.save_page = function(title) {
 	return this.save_page_i(this.page_index(title));
 }
 
-woas["save_page_i"] = function(pi) {
+woas.save_page_i = function(pi) {
 	// update the modified time timestamp (only when not in dev-mode)
 	if (!this.tweak.edit_override)
 		page_mts[pi] = Math.round(new Date().getTime()/1000);
@@ -1702,7 +1702,7 @@ function _auto_keywords(source) {
 }
 
 var _g_br_rx = new RegExp("<"+"br\\s?\\/?>", "gi");
-woas["xhtml_to_text"] = function(s) {
+woas.xhtml_to_text = function(s) {
 	return s.replace(_g_br_rx, "\n").replace(/<\/?\w+[^>]*>/g, ' ').replace(/&#?([^;]+);/g, function(str, $1) { if (!isNaN($1)) return String.fromCharCode($1); else return ""; });
 }
 

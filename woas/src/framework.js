@@ -1,6 +1,6 @@
 
 //TODO: all variables should stay inside this object
-woas["browser"] = { ie: false, ie6: false, ie8: false,
+woas.browser = { ie: false, ie6: false, ie8: false,
 					firefox: false, firefox2: false,
 					firefox3: false, firefox_new: false,
 					opera: false, safari: false,
@@ -44,8 +44,8 @@ else if(navigator.appName == "Netscape") {
 
 // finds out if Opera is trying to look like Mozilla
 if (woas.browser.firefox && (navigator.product != "Gecko"))
-	woas.browser.firefox = woas.browser.firefox2
-	= woas.browser.firefox3 = woas.browser.firefox_new = false;
+	woas.browser.firefox = woas.browser.firefox2 =
+	woas.browser.firefox3 = woas.browser.firefox_new = false;
 
 // finds out if Opera is trying to look like IE
 if (woas.browser.ie && woas.browser.opera)
@@ -53,10 +53,10 @@ if (woas.browser.ie && woas.browser.opera)
 
 var is_windows = (navigator.appVersion.toLowerCase().indexOf("windows")!=-1);
 
-woas["_server_mode"] = (document.location.toString().match(/^file:\/\//) ? false:true);
+woas._server_mode = (document.location.toString().match(/^file:\/\//) ? false:true);
 
 // set to true if we need Java-based file load/save
-woas["use_java_io"] = woas.browser.chrome || woas.browser.opera || woas.browser.safari;
+woas.use_java_io = woas.browser.chrome || woas.browser.opera || woas.browser.safari;
 
 // returns the DOM element object given its id - enables a try/catch mode when debugging
 if (woas.config.debug_mode) {
@@ -67,36 +67,36 @@ if (woas.config.debug_mode) {
 	function $(id){return document.getElementById(id);}
 }
 
-$["hide"] = function(id) {
+$.hide = function(id) {
 	$(id).style.display = "none";
 	$(id).style.visibility = "hidden";
 }
 
-$["show"] = function(id) {
+$.show = function(id) {
 	$(id).style.display = "inline";
 	$(id).style.visibility = "visible";
 }
 
-$["hide_ni"] = function(id) {
+$.hide_ni = function(id) {
 	$(id).style.visibility = "hidden";
 }
 
-$["show_ni"] = function(id) {
+$.show_ni = function(id) {
 	$(id).style.visibility = "visible";
 }
 
-$["is_visible"] = function(id) {
+$.is_visible = function(id) {
 	return !!($(id).style.visibility == 'visible');
 }
 
-$["toggle"] = function(id) {
+$.toggle = function(id) {
 	if ($.is_visible(id))
 		$.hide(id);
 	else
 		$.show(id);
 }
 
-$["clone"] = function(obj) {
+$.clone = function(obj) {
 	var nobj = {};
 	for (var i in obj) {
 		nobj[i] = obj[i];
