@@ -12,7 +12,7 @@ woas.tweak = {
 
 woas.cmd_duplicate_page = function() {
 	var pname = this._new_page("Insert duplicate page title", true, current+" (duplicate)");
-	if (pname == null)
+	if (pname === null)
 		return;
 	var pi = this.page_index(current);
 	var dpi = this.page_index(pname);
@@ -21,23 +21,23 @@ woas.cmd_duplicate_page = function() {
 	page_attrs[dpi] = page_attrs[pi];	
 	// go to new page
 	go_to(pname);
-}
+};
 
 woas.cmd_new_page = function() {
 	this._new_page(this.i18n.INSERT_NEW, false, '');
-}
+};
 
 // used to create a new page in the wiki
 woas._new_page = function(msg, fill_mode, def_title) {
 	var title = def_title;
 	do {
 		title = prompt(msg, title);
-		if (title == null) break;
+		if (title === null) break;
 		title = this.trim(title);
 		if (this.valid_title(title))
 			break;
 	} while (1);
-	if ((title!=null) && title.length) {
+	if ((title!==null) && title.length) {
 		if (this.page_index(title)!=-1)
 			this.alert(this.i18n.PAGE_EXISTS.sprintf(title));
 		else {
@@ -53,7 +53,7 @@ woas._new_page = function(msg, fill_mode, def_title) {
 			var upd_menu = (cr=='Menu');
 			if (!upd_menu && confirm(this.i18n.ASK_MENU_LINK)) {
 				var menu = this.get_text("::Menu");
-				var p = menu.indexOf("\n\n");
+				p = menu.indexOf("\n\n");
 				if (p==-1)
 					menu += "\n[["+title+"]]";
 				else
@@ -67,7 +67,7 @@ woas._new_page = function(msg, fill_mode, def_title) {
 		}
 	}
 	return null;
-}
+};
 
 woas.cmd_erase_wiki = function() {
 	if (this.erase_wiki()) {
@@ -76,7 +76,7 @@ woas.cmd_erase_wiki = function() {
 		back_or(this.config.main_page);
 	}
 	return null;
-}
+};
 
 // pages which shall never be modified
 woas.static_pages = ["Special::About", "Special::Advanced", "Special::Options","Special::Import",
@@ -95,28 +95,28 @@ woas.erase_wiki = function() {
 	if (!confirm(this.i18n.CONFIRM_DELETE_ALL1) ||
 		!confirm(this.i18n.CONFIRM_DELETE_ALL2))
 		return false;
+	var i,l,l1,l2,pi,t;
 	this.progress_init("Erasing...");
 	var backup_pages = [];
 	// attributes and last modified timestamps for default pages
 	// first entry is for main page
 	page_attrs = [0]; page_mts =   [0];
 	// zero is the magic timestamp
-	for (var i=0;i<this.default_pages.length;++i) {
+	for (i=0;i<this.default_pages.length;++i) {
 		page_attrs.push(0); page_mts.push(0);
 	}
 	// build the array of help pages only once
 	var help_pfx = "WoaS::Help::";
 	if (this.help_pages === null) {
 		this.help_pages = [];
-		for(var i=0,l=page_titles.length;i<l;++i) {
+		for(i=0,l=page_titles.length;i<l;++i) {
 			if (page_titles[i].substr(0, help_pfx.length) === help_pfx)
 				this.help_pages.push(page_titles[i].substr(help_pfx.length));
 		}
 	}
 	var copied_help_pages = [];
 	// now pick the static pages
-	for(var i=0,l1=this.static_pages.length,l2=this.help_pages.length,l=l1+l2;i<l;++i) {
-		var pi, t;
+	for(i=0,l1=this.static_pages.length,l2=this.help_pages.length,l=l1+l2;i<l;++i) {
 		if (i<l1)
 			t = this.static_pages[i];
 		else
@@ -148,12 +148,12 @@ woas.erase_wiki = function() {
 	forstack = [];
 	this.progress_finish();
 	return true;
-}
+};
 
 woas.cmd_main_page = function() {
 	go_to(this.config.main_page);
 	return null;
-}
+};
 
 woas.cmd_edit_css = function() {
 	if (!this.config.permit_edits && !this.tweak.edit_override) {
@@ -164,15 +164,15 @@ woas.cmd_edit_css = function() {
 	this.current_editing("Special::Edit CSS", true);
 	this.edit_ready(_css_obj().innerHTML);
 	return null;
-}
+};
 
 woas.cmd_edit_aliases = function() {
 	return this.cmd_edit_special("WoaS::Aliases");
-}
+};
 
 woas.cmd_edit_bootscript = function() {
 	return this.cmd_edit_special("WoaS::Bootscript");
-}
+};
 
 // used to edit many special pages
 woas.cmd_edit_special = function(cr) {
@@ -183,21 +183,21 @@ woas.cmd_edit_special = function(cr) {
 	_servm_alert();
 	// get source text (ASCII/UTF-8)
 	var tmp = this.get_text(cr);
-	if (tmp == null)
+	if (tmp === null)
 		return null;
 	this.current_editing(cr, true);
 	// setup the wiki editor textbox
 	this.current_editing(cr, this.config.permit_edits | this._server_mode);
 	this.edit_ready(tmp);
 	return null;
-}
+};
 
 woas.cmd_go_to = function() {
 	var pname = prompt("Go to page:", current);
 	if ((pname === null) || !pname.length)
 		return null;
 	go_to(pname);
-}
+};
 
 woas.cmd_delete = function() {
 	var pname = prompt(this.i18n.DELETE_PAGE_PROMPT, current);
@@ -210,7 +210,7 @@ woas.cmd_delete = function() {
 	}
 	if (confirm(this.i18n.CONFIRM_DELETE.sprintf(pname)))
 		this.delete_page_i(pi);
-}
+};
 
 // javascript shortcuts for special pages
 woas.shortcuts = ["New Page", "Duplicate Page", "All Pages", "Orphaned Pages", "Backlinks", "Dead Pages", "Erase Wiki", "Edit CSS", "Main Page", "Edit Bootscript", "Aliases", "Go to", "Delete Page", "Recentchanges"];
@@ -225,7 +225,7 @@ woas.unexportable_pages = ["New Page", "Duplicate Page", "Backlinks", "Erase Wik
 // return raw javascript tag to be included in XHTML page
 woas.raw_js = function(code) {
 	return "<scr"+"ipt type=\"text/javascript\">\n"+code+"\n<"+"/s"+"cript>";
-}
+};
 
 //API1.0: delete a page given title (without aliases)
 woas.delete_page = function(title) {
@@ -236,12 +236,12 @@ woas.delete_page = function(title) {
 		return false;
 	}
 	return this.delete_page_i(pi);
-}
+};
 
 //API1.0: delete a page given absolute page index
 //API1.0: @protected
 woas.delete_page_i = function(i) {
-	var old_title = page_titles[i];
+	var il, old_title = page_titles[i];
 	log("DELETED page "+old_title);	// log:1
 	// remove the elements
 	page_titles.splice(i,1);
@@ -250,7 +250,7 @@ woas.delete_page_i = function(i) {
 	page_mts.splice(i,1);
 	// remove the deleted page from history
 	var prev_page = null;
-	for(var i=0,il=backstack.length;i<il;++i) {
+	for(i=0,il=backstack.length;i<il;++i) {
 		// remove also duplicate sequences
 		if ((backstack[i] === old_title) || (prev_page === backstack[i])) {
 			backstack.splice(i,1);
@@ -273,7 +273,7 @@ woas.delete_page_i = function(i) {
 	this.refresh_menu_area();
 	//TODO: send proper save notification
 	return this.commit_delete([i]);
-}
+};
 
 // some general integrity tests - for debug purposes
 woas.integrity_test = function() {
@@ -334,7 +334,7 @@ woas.integrity_test = function() {
 	woas.AES.clearKey();
 	log("Integrity test successful"); //log:1
 	return true;
-}
+};
 
 // used in path normalization during export
 woas.DIRECTORY_SEPARATOR = (navigator.appVersion.indexOf("Win")!=-1)?"\\":"/";
@@ -345,13 +345,14 @@ woas._basename_regex = new RegExp("\\[\\\\/]([^\\\\/]+)$");
 // hackish functions, might stay private for now
 woas.dirname = function(fn) {
 	return fn.replace(this._dirname_regex, woas.DIRECTORY_SEPARATOR);
-}
+};
+
 woas.basename = function(fn) {
 	fn = fn.match(this._basename_regex);
 	if (fn === null)
 		return "";
 	return fn[1];
-}
+};
 
 // the export path used by export feature
 woas.ROOT_DIRECTORY = woas.dirname(_get_this_filename());
@@ -361,7 +362,7 @@ woas.ROOT_DIRECTORY = woas.dirname(_get_this_filename());
 woas.get_page_attrs = function(pi) {
 	// no error check
 	return page_attrs[pi];
-}
+};
 
 //API1.0: set page attributes - can be overriden by plugins
 //TODO: all code should use this function
@@ -369,7 +370,7 @@ woas.set_page_attrs = function(pi, attrs) {
 	// no error check
 	page_attrs[pi] = attrs;
 	return true;
-}
+};
 
 // get file URL from input XHTML element
 // this might not work on some browsers
@@ -393,4 +394,4 @@ woas.get_input_file_url = function() {
 	if (r === false)
 		this.alert(this.i18n.FILE_SELECT_ERR);
 	return r;
-}
+};

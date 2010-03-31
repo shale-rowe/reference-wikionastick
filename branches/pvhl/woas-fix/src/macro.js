@@ -28,7 +28,7 @@ woas.macro_parser = function(text){
 		}
 	}
 	return macro;
-}
+};
 
 // this is the function to be called to register a  macro
 // each macro function must accept a macro object as parameter and modify
@@ -41,12 +41,12 @@ woas.macro_parser.register = function(fn_name, fn_object) {
 	woas.macro_parser.macro_names.push(fn_name);
 	woas.macro_parser.macro_functions.push(fn_object);
 	return true;
-}
+};
 
 // some default macros
 woas.macro_parser.default_macros = {
 	// advanced transclusion: each newline creates a parameter
-	"include":function(m) {
+	"include" : function(m) {
 		var params = m.text.split("\n");
 		// embedded transclusion not supported
 		if (!params.length || !woas.page_exists(params[0]) || woas.is_embedded(params[0]))
@@ -66,7 +66,7 @@ woas.macro_parser.default_macros = {
 		m.text = nt;
 		m.reprocess = true;
 		return m;
-}
+	}
 };
 
 woas.macro_parser.macro_names = ["include"];
@@ -86,4 +86,4 @@ woas.macro_parser.create = function(fn_name, fn_code) {
 		log("cannot define function "+fn_name+": "+e); //log:1
 	}
 	return this.register(fn_name, obj);
-}
+};
