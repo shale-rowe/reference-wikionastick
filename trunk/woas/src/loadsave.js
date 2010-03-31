@@ -6,16 +6,16 @@ woas.file_mode = {
 	DATA_URI:		2,
 	BINARY:			3,
 	BASE64:			4
-}
+};
 
 // save the currently open WoaS
 function _saveThisFile(new_data, old_data) {
 	var filename = _get_this_filename();
 	
-	r = woas.save_file(filename, woas.file_mode.ASCII_TEXT,
-	woas.DOCTYPE + woas.DOC_START +
-	"<sc"+"ript type=\"text/javascript\">" + new_data + "\n" + old_data + "</html>");
-	if (r==true)
+	var r = woas.save_file(filename, woas.file_mode.ASCII_TEXT,
+		woas.DOCTYPE + woas.DOC_START + "<sc"+"ript type=\"text/javascript\">"
+		+ new_data + "\n" + old_data + "</html>");
+	if (r===true)
 		log("\""+filename+"\" saved successfully");	// log:1
 	else {
 		var msg = woas.i18n.SAVE_ERROR.sprintf(filename) + "\n\n";
@@ -40,15 +40,15 @@ woas.save_file = function(fileUrl, save_mode, content) {
 	var r = null;
 	if (!this.use_java_io) {
 		r = this.mozillaSaveFile(fileUrl, save_mode, content);
-		if((r == null) || (r == false))
+		if((r === null) || (r === false))
 			r = this.ieSaveFile(fileUrl, save_mode, content);
 		// fallback to try also with Java saving
 	} else
 		return this.javaSaveFile(fileUrl, save_mode, content);
-	if((r == null) || (r == false))
+	if((r === null) || (r === false))
 		r = this.javaSaveFile(fileUrl, save_mode, content);
 	return r;
-}
+};
 
 // get file content in FF3 without .enablePrivilege() (fbnil)
 woas.mozillaLoadFileID = function(obj_id, load_mode, suggested_mime) {
@@ -58,26 +58,22 @@ woas.mozillaLoadFileID = function(obj_id, load_mode, suggested_mime) {
 	var D=obj.files.item(0);
 	if (D === null)
 		return false;
-	switch (load_mode) {
-		case this.file_mode.DATA_URI:
-			if (typeof "suggested_mime" != "string")
-				return D.getAsDataURL();
-			else // apply mime override
-				return D.getAsDataURL().replace(/^data:(\s*)([^;]*)/, "data:$1"+suggested_mime);
-		break;
-		case this.file_mode.BASE64:
-			// remove the data: part
-			return D.getAsDataURL().replace(/^data:\s*([^;]*);\s*base64,\s*/, '');
-		break;
-		case this.file_mode.BINARY:
-			return D.getAsBinary();
-		break;
+	
+	if (load_mode === this.file_mode.DATA_URI) {
+		if (typeof "suggested_mime" !== "string")
+			return D.getAsDataURL();
+		else // apply mime override
+			return D.getAsDataURL().replace(/^data:(\s*)([^;]*)/, "data:$1"+suggested_mime);
+	} else if (load_mode === this.file_mode.BASE64) {
+		return D.getAsDataURL().replace(/^data:\s*([^;]*);\s*base64,\s*/, '');
+	} else if (load_mode === this.file_mode.BINARY) {
+		return D.getAsBinary();
 	}
 	// case UTF8_TEXT:
 	// case ASCII_TEXT:
 	// return UTF-8 text by default
 	return D.getAsText("utf-8");
-}
+};
 
 // *** original source of below functions was from TiddyWiki ***
 
@@ -127,7 +123,7 @@ woas.load_file = function(fileUrl, load_mode, mime){
 	}
 	// wow, java worked!
 	return r;
-}
+};
 
 // Returns null if it can't do it, false if there's an error, true if it saved OK
 woas.ieSaveFile = function(filePath, save_mode, content) {
@@ -137,10 +133,9 @@ woas.ieSaveFile = function(filePath, save_mode, content) {
 		case this.file_mode.ASCII_TEXT:
 			s_mode = 0; // ASCII
 		break;
-		case this.file_mode.UTF8_TEXT:
 		default:
-			// Unicode mode used for DATA_URI and UTF8_TEXT modes
-			s_mode = -1;
+			// DATA_URI and UTF8_TEXT modes
+			s_mode = -1; // Unicode mode 
 		break;
 	}
 	// first let's see if we can do ActiveX
@@ -161,7 +156,7 @@ woas.ieSaveFile = function(filePath, save_mode, content) {
 		return false;
 	}
 	return(true);
-}
+};
 
 // Returns null if it can't do it, false if there's an error, or a string of the content if successful
 woas.ieLoadFile = function(filePath, load_mode, suggested_mime) {
@@ -171,10 +166,9 @@ woas.ieLoadFile = function(filePath, load_mode, suggested_mime) {
 		case this.file_mode.ASCII_TEXT:
 			o_mode = 0; // ASCII
 		break;
-		case this.file_mode.UTF8_TEXT:
 		default:
-			// Unicode mode used for DATA_URI and UTF8_TEXT modes
-			o_mode = -1;
+			// DATA_URI and UTF8_TEXT modes
+			o_mode = -1; // Unicode
 		break;
 	}
 	var content = null;
@@ -189,7 +183,7 @@ woas.ieLoadFile = function(filePath, load_mode, suggested_mime) {
 	try {
 		// attempt to open as unicode
 		var file = fso.OpenTextFile(filePath,1,false,o_mode);
-		var content = file.ReadAll();
+		content = file.ReadAll();
 		file.Close();
 	}
 	catch(e) {
@@ -203,7 +197,7 @@ woas.ieLoadFile = function(filePath, load_mode, suggested_mime) {
 		return encode64(content);
 	// fallback for UTF8_TEXT
 	return(content);
-}
+};
 
 // Returns null if it can't do it, false if there's an error, true if it saved OK
 woas.mozillaSaveFile = function(filePath, save_mode, content) {
@@ -229,7 +223,7 @@ woas.mozillaSaveFile = function(filePath, save_mode, content) {
 		return(false);
 	}
 	return(true);
-}
+};
 
 // Returns null if it can't do it, false if there's an error, or a string
 // with the content if successful
@@ -246,7 +240,7 @@ woas.mozillaLoadFile = function(filePath, load_mode, suggested_mime) {
 			return false;
 		}
 		var inputStream = Components.classes["@mozilla.org/network/file-input-stream;1"].createInstance(Components.interfaces.nsIFileInputStream);
-		inputStream.init(file, 0x01, 00004, 0);
+		inputStream.init(file, 0x01, 04, 0);
 		var sInputStream = Components.classes["@mozilla.org/scriptableinputstream;1"].createInstance(Components.interfaces.nsIScriptableInputStream);
 		sInputStream.init(inputStream);
 		if ( (load_mode == this.file_mode.UTF8_TEXT) ||
@@ -270,13 +264,13 @@ woas.mozillaLoadFile = function(filePath, load_mode, suggested_mime) {
 		log("Exception while attempting to load\n\n" + e);	// log:1
 	}
 	return false;
-}
+};
 
 // creates a DATA:URI from a plain content stream
 woas._data_uri_enc = function(filename, ct, guess_mime) {
 	if (typeof guess_mime != "string") {
 		var m=filename.match(/\.(\w+)$/);
-		if (m==null) m = "";
+		if (m===null) m = "";
 		else m=m[1].toLowerCase();
 		guess_mime = "image";
 		switch (m) {
@@ -294,7 +288,7 @@ woas._data_uri_enc = function(filename, ct, guess_mime) {
 	}
 	// perform base64 encoding
 	return "data:"+guess_mime+";base64,"+encode64(ct);
-}
+};
 
 function _javaUrlToFilename(url) {
 /*	var f = "//localhost";
@@ -331,7 +325,7 @@ woas.javaSaveFile = function(filePath,save_mode,content) {
 		return false;
 	}
 	return true;
-}
+};
 
 woas.javaLoadFile = function(filePath, load_mode, suggested_mime) {
 	//FIXME: UTF8_TEXT/BINARY is not separated here!!
@@ -362,11 +356,11 @@ woas.javaLoadFile = function(filePath, load_mode, suggested_mime) {
 	try {
 		var r = new java.io.BufferedReader(new java.io.FileReader(_javaUrlToFilename(filePath)));
 		var line;
-		while((line = r.readLine()) != null)
+		while((line = r.readLine()) !== null)
 			a_content.push(new String(line));
 		r.close();
 	} catch(ex) {
-		log("Exception in javaLoadFile(\""+filePath+"\"): "+ex)
+		log("Exception in javaLoadFile(\""+filePath+"\"): "+ex);
 		return false;
 	}
 	// re-normalize input
@@ -376,7 +370,7 @@ woas.javaLoadFile = function(filePath, load_mode, suggested_mime) {
 	else if (load_mode == this.file_mode.BASE64)
 		return encode64(content);
 	return content;
-}
+};
 
 function printout_arr(arr, split_lines) {
 
@@ -460,7 +454,7 @@ woas._save_to_file = function(full) {
 	// output the javascript header and configuration flags
 	var computed_js = "\n/* <![CDATA[ */\n\n/* "+new_marker+"-START */\n\nvar woas = {\"version\": \""+this.version+
 	"\"};\n\nvar __marker = \""+new_marker+"\";\n\nwoas[\"config\"] = {";
-	for (param in this.config) {
+	for (var param in this.config) {
 		computed_js += "\n\""+param+"\":";
 		switch(typeof(this.config[param])) {
 			case "boolean":
@@ -558,7 +552,7 @@ woas._save_to_file = function(full) {
 	this.progress_finish();
 	
 	return r;
-}
+};
 
 function _get_data(marker, source, full, start) {
 	var offset;
@@ -571,10 +565,10 @@ function _get_data(marker, source, full, start) {
 	offset += 6 + 4 + marker.length + 2;
 	
 	// IE ...
-	var body_ofs;
+	var body_ofs, s_offset;
 	var re = new RegExp("<\\/"+"head>", "i");
 	var m = re.exec(source);
-	if (m != null)
+	if (m !== null)
 		body_ofs = m.index;
 	else
 		body_ofs = -1;
@@ -588,8 +582,8 @@ function _get_data(marker, source, full, start) {
 					return str;
 		});
 		// remove the tail (if any)
-		var s_offset = source.indexOf("<"+"!-- "+marker+"-TAIL-START -->"),
-			s_te = "<"+"!-- "+marker+"-TAIL-END -->";
+		s_offset = source.indexOf("<"+"!-- "+marker+"-TAIL-START -->");
+		var s_te = "<"+"!-- "+marker+"-TAIL-END -->";
 		if (s_offset != -1) {
 			var e_offset = source.indexOf(s_te, s_offset);
 			if (e_offset == -1)
@@ -605,7 +599,7 @@ function _get_data(marker, source, full, start) {
 	if (full) {
 		// offset was previously calculated
 		if (start) {
-			var s_offset = source.indexOf("/* "+marker+ "-START */");
+			s_offset = source.indexOf("/* "+marker+ "-START */");
 			if (s_offset == -1) {
 				this.alert(woas.i18n.ERR_MARKER.sprintf("START"));
 				return false;
@@ -626,7 +620,7 @@ function _get_data(marker, source, full, start) {
 // increment the save-counter portion of the marker
 function _inc_marker(old_marker) {
 	var m = old_marker.match(/([^\-]*)\-(\d{7,7})$/);
-	if (m==null) {
+	if (m===null) {
 		return _random_string(10)+"-0000001";
 	}
 	var n = new Number(m[2].replace(/^0+/, '')) + 1;
