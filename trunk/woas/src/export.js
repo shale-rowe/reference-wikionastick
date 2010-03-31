@@ -8,18 +8,18 @@ var _export_fnames_array = [];
 var _further_pages = [];
 
 // save a base64 data: stream into an external file
-woas["_b64_export"] = function(data, dest_path) {
+woas._b64_export = function(data, dest_path) {
 	// decode the base64-encoded data
 	data = decode64(data.replace(/^data:\s*[^;]*;\s*base64,\s*/, ''));
 	// attempt to save the file
 	return this.save_file(dest_path, this.file_mode.BINARY, data);
 }
 
-woas["_attrib_escape"] = function(s) {
+woas._attrib_escape = function(s) {
 	return s.replace(/"/g, '&quot;');
 }
 
-woas["_export_get_fname"] = function (title, create_mode) {
+woas._export_get_fname = function (title, create_mode) {
 	if (typeof(_title2fn[title]) != 'undefined') {
 		// return a cached title
 		if (!create_mode) {
@@ -117,7 +117,7 @@ woas["_export_get_fname"] = function (title, create_mode) {
 	return test_fname;
 }
 
-woas["export_parse"] = function (data, js_mode) {
+woas.export_parse = function (data, js_mode) {
 	// a normal wiki page, parse it and eventually execute the attached javascript
 	data = this.parser.parse(data, true, js_mode);
 	if (js_mode) {
@@ -129,7 +129,7 @@ woas["export_parse"] = function (data, js_mode) {
 	return data;
 }
 
-woas["export_one_page"] = function (
+woas.export_one_page = function (
 		data, title, fname, exp, mts) {
 	// convert UTF8 sequences of the XHTML source into &#dddd; sequences
 	data = this.utf8_encode(data);
@@ -177,31 +177,31 @@ woas["export_one_page"] = function (
 	return this.save_file(exp.xhtml_path+fname, this.file_mode.ASCII, woas.DOCTYPE+woas.DOC_START+data);
 }
 
-woas["export_wiki"] = function () {
+woas.export_wiki = function () {
 	// export settings object
 	var exp = {};
 	try {
-		exp["xhtml_path"] = $("woas_ep_xhtml").value;
+		exp.xhtml_path = $("woas_ep_xhtml").value;
 		var img_path = $("woas_ep_img").value;
-		exp["js_mode"] = 0;
+		exp.js_mode = 0;
 		if ($("woas_cb_js_dyn").checked)
 			exp.js_mode = 1;
 		else if ($("woas_cb_js_exp").checked)
 			exp.js_mode = 2;
 		var sep_css = $("woas_cb_sep_css").checked;
-		exp["exp_menus"] = $("woas_cb_export_menu").checked;
+		exp.exp_menus = $("woas_cb_export_menu").checked;
 		_export_main_index = $("woas_cb_index_main").checked;
 		_export_default_ext = $("woas_ep_ext").value;
-		exp["meta_author"] = this.trim($("woas_ep_author").value);
+		exp.meta_author = this.trim($("woas_ep_author").value);
 		if (exp.meta_author.length)
 			exp.meta_author = '<meta name="author" content="'+this._attrib_escape(this.xhtml_encode(exp.meta_author))+'" />'+"\n";
 		_export_unix_norm = $("woas_cb_unix_norm").checked;
 	} catch (e) { this.crash(e); return false; }
 	
 	this.progress_init("Exporting XHTML");
-	exp["css"] = _css_obj().innerHTML;
+	exp.css = _css_obj().innerHTML;
 	// add some other CSS which is not used by live WoaS
-	exp["css"] += "\n.broken_link { color: red; font-decoration: strike-through;}\n";
+	exp.css += "\n.broken_link { color: red; font-decoration: strike-through;}\n";
 	// reset export globals - remember that arrays are object and cannot be initialized in 1 line
 	_export_fnames_array = [];
 	_title2fn = {};
@@ -212,7 +212,7 @@ woas["export_wiki"] = function () {
 		exp.css = '<link rel="stylesheet" type="text/css" media="all" href="'+css_path+'" />';
 	} else
 		exp.css = '<style type="text/css">'+exp.css+'</style>';
-	exp["custom_bs"] = "";
+	exp.custom_bs = "";
 	if (exp.js_mode==2) {
 		data = pages[this.page_index("WoaS::Bootscript")];
 		if (data!=null && data.length) {

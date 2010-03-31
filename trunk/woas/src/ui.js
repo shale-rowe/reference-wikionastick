@@ -56,7 +56,7 @@ function save() {
 	woas.save();
 }
 
-woas["help_system"] = { "popup_window": null, "page_title": null };
+woas.help_system = { "popup_window": null, "page_title": null };
 
 // should have a better name
 function help() {
@@ -76,7 +76,7 @@ function help() {
 	woas.help_system.go_to(wanted_page, pi);
 }
 
-woas["help_system"]["go_to"] = function(wanted_page, pi) {
+woas.help_system.go_to = function(wanted_page, pi) {
 	if (typeof pi == "undefined")
 		pi = woas.page_index(wanted_page);
 	var text;
@@ -381,7 +381,7 @@ function page_print() {
 			"function go_to(page) { alert(\""+woas.js_encode(woas.i18n.PRINT_MODE_WARN)+"\");}");
 }
 
-woas["_customized_popup"] = function(page_title, page_body, additional_js, additional_css, body_extra) {
+woas._customized_popup = function(page_title, page_body, additional_js, additional_css, body_extra) {
 	var css_payload = "";
 	if (woas.browser.ie && !woas.browser.ie8) {
 		if (woas.browser.ie6)
@@ -403,7 +403,7 @@ woas["_customized_popup"] = function(page_title, page_body, additional_js, addit
 
 // below functions used by Special::Export
 
-woas["export_wiki_wsif"] = function () {
+woas.export_wiki_wsif = function () {
 	var path, author, single_wsif, inline_wsif;
 	try {
 		path = $("woas_ep_wsif").value;
@@ -463,7 +463,7 @@ function import_wiki_wsif() {
 }
 
 // create a centered popup given some options
-woas["popup"] = function(name,fw,fh,extra,head,body, body_extra) {
+woas.popup = function(name,fw,fh,extra,head,body, body_extra) {
 	if (typeof body_extra == "undefined")
 		body_extra = "";
 	var hpos=Math.ceil((screen.width-fw)/2);
@@ -478,16 +478,16 @@ woas["popup"] = function(name,fw,fh,extra,head,body, body_extra) {
 }
 
 // tell user how much work was already done
-woas["progress_status"] = function (ratio) {
+woas.progress_status = function (ratio) {
 	this.setHTML($("woas_wait_text"), this._progress_section + "\n" +
 				Math.ceil(ratio*100)+"% done");
 }
 
 // used to debug progress indicators
-woas["_progress_section"] = false;
+woas._progress_section = false;
 
 // reset progress indicator
-woas["progress_init"] = function(section) {
+woas.progress_init = function(section) {
 	if (this._progress_section !== false) {
 		this.crash("Progress indicator already started for "+this._progress_section+
 					", will not start a new one for "+section)
@@ -504,7 +504,7 @@ woas["progress_init"] = function(section) {
 	$("loading_overlay").focus();
 }
 
-woas["progress_finish"] = function(section) {
+woas.progress_finish = function(section) {
 	if (this._progress_section === false) {
 		this.crash("Cannot finish an unexisting progress indicator section");
 		return;

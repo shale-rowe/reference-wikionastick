@@ -1,10 +1,10 @@
 
-woas["wiki_buttons_display"] = function (v) {
+woas.wiki_buttons_display = function (v) {
 	$('wiki_format_buttons').style.display = v ? 'block' : 'none';
 	$('wiki_format_buttons').style.visibility = v ? 'visible' : 'hidden';
 }
 
-woas["html_buttons_display"] = function (v) {
+woas.html_buttons_display = function (v) {
 	$('html_format_buttons').style.display = v ? 'block' : 'none';
 	$('html_format_buttons').style.visibility = v ? 'visible' : 'hidden';
 }

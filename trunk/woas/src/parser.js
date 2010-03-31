@@ -1,12 +1,12 @@
 
-woas["parser"] = {
+woas.parser = {
 	"has_toc":null,
 	"toc":"",
 	"force_inline":false,		// used not to break layout when presenting search results
 	"script_extension":[]		// external javascript files to be loaded
 };
 
-woas.parser["header_anchor"] = function(s) {
+woas.parser.header_anchor = function(s) {
 	// apply a hard normalization
 	// WARNING: will not preserve header ids uniqueness
 	return s.replace(/[^a-zA-Z0-9]/g, '_');
@@ -14,7 +14,7 @@ woas.parser["header_anchor"] = function(s) {
 
 //DEPRECATED "!" syntax is supported but shall me removed soon
 var reParseHeaders = /^([\!=]+)\s*(.*)$/gm;
-woas.parser["header_replace"] = function(str, $1, $2) {
+woas.parser.header_replace = function(str, $1, $2) {
 		var header = $2;
 		var len = $1.length;
 		// remove the mirrored header syntax from right
@@ -30,7 +30,7 @@ woas.parser["header_replace"] = function(str, $1, $2) {
 		return "</div><h"+len+" id=\""+woas.parser.header_anchor(header)+"\">"+header+"</h"+len+"><div class=\"level"+len+"\">";
 }
 
-woas.parser["sublist"] = function (lst, ll, suoro, euoro) {   
+woas.parser.sublist = function (lst, ll, suoro, euoro) {   
 	if (!lst.length)
 		return '';
 	
@@ -58,7 +58,7 @@ woas.parser["sublist"] = function (lst, ll, suoro, euoro) {
 // valid xhtml markup.
 var reReapLists = /^([\*#@])[ \t].*(?:\n\1+[ \t].+)*/gm;
 var reItems = /^([\*#@]+)[ \t]([^\n]+)/mg;
-woas.parser["parse_lists"] = function(str, type, $2) {
+woas.parser.parse_lists = function(str, type, $2) {
         var uoro = (type!='*')?'ol':'ul';
         var suoro = '<' + uoro + ((type=='@') ? " type=\"a\"":"")+'>';
         var euoro = '</' + uoro + '>';
@@ -74,7 +74,7 @@ woas.parser["parse_lists"] = function(str, type, $2) {
 
 var reReapTables = /^\{\|.*((?:\n\|.*)*)$/gm;
 var reReapTableRows = /\n\|([+ -])(.*)/g;
-woas.parser["parse_tables"] =  function (str, p1) {
+woas.parser.parse_tables =  function (str, p1) {
         var caption = false;
         var stk = [];
         p1.replace(reReapTableRows, function(str, pp1, pp2) {
@@ -96,7 +96,7 @@ woas.parser["parse_tables"] =  function (str, p1) {
 var	parse_marker = "#"+_random_string(8);
 
 // extract the wiki tags from a wiki URL
-woas["_get_tags"] = function(text) {
+woas._get_tags = function(text) {
 	var tags = [];
 	// remove the starting part
 	if (text.indexOf("Tag::")==0)
@@ -117,7 +117,7 @@ woas["_get_tags"] = function(text) {
 
 // split one or more tags
 // note: no trim applied
-woas["split_tags"] = function(tlist) {
+woas.split_tags = function(tlist) {
 	var alltags;
 	if (tlist.indexOf("|")!=-1)
 		return tlist.split("|");
@@ -136,7 +136,7 @@ var reWikiLinkSimple = /\[\[([^\]]*?)\]\]/g;
 
 var _MAX_TRANSCLUSION_RECURSE = 256;
 
-woas.parser["place_holder"] = function (i, separator) {
+woas.parser.place_holder = function (i, separator) {
 	if (typeof separator == "undefined")
 		separator = "";
 	separator = ":"+separator+":";
@@ -148,7 +148,7 @@ woas.parser["place_holder"] = function (i, separator) {
 // export_links is set to true when exporting wiki pages and is used to generate proper href for hyperlinks
 // js_mode can be 0 = leave script tags as they are (for exporting), 1 - place script tags in <head /> (dynamic),
 //		2 - re-add script tags after parsing
-woas.parser["parse"] = function(text, export_links, js_mode) {
+woas.parser.parse = function(text, export_links, js_mode) {
 	if (woas.config.debug_mode) {
 		if (text===null) {
 			log("Called parse() with null text!");	// log:1

@@ -1,6 +1,6 @@
 
 // load modes which should be supported
-woas["file_mode"] = {
+woas.file_mode = {
 	UTF8_TEXT:		0,
 	ASCII_TEXT:		1,
 	DATA_URI:		2,
@@ -21,7 +21,7 @@ function _saveThisFile(new_data, old_data) {
 		var msg = woas.i18n.SAVE_ERROR.sprintf(filename) + "\n\n";
 		if (this.use_java_io) {
 			// try to understand what went bad with Java
-			if (typeof document.applets["TiddlySaver"] == "undefined")
+			if (typeof document.applets.TiddlySaver == "undefined")
 				msg += this.i18n.NO_TIDDLY_SAVER+" "+TIDDLY_HELP;
 			else if (typeof java == "undefined")
 				msg += this.i18n.NO_JAVA+" "+TIDDLY_HELP;
@@ -35,7 +35,7 @@ function _saveThisFile(new_data, old_data) {
 }
 
 //API1.0: save-file handler
-woas["save_file"] = function(fileUrl, save_mode, content) {
+woas.save_file = function(fileUrl, save_mode, content) {
 //	log("javaSaveFile(\""+fileUrl+"\", "+save_mode+", ...("+content.length+" bytes)...)");	//log:0
 	var r = null;
 	if (!this.use_java_io) {
@@ -51,7 +51,7 @@ woas["save_file"] = function(fileUrl, save_mode, content) {
 }
 
 // get file content in FF3 without .enablePrivilege() (fbnil)
-woas["mozillaLoadFileID"] = function(obj_id, load_mode, suggested_mime) {
+woas.mozillaLoadFileID = function(obj_id, load_mode, suggested_mime) {
 	var obj = document.getElementById(obj_id);
 	if(!window.Components || !obj.files)
 		return null;
@@ -82,7 +82,7 @@ woas["mozillaLoadFileID"] = function(obj_id, load_mode, suggested_mime) {
 // *** original source of below functions was from TiddyWiki ***
 
 // API1.0: load-file handler
-woas["load_file"] = function(fileUrl, load_mode, mime){
+woas.load_file = function(fileUrl, load_mode, mime){
 	// parameter consistency check
 	if (!load_mode)
 		// perhaps should be ASCII?
@@ -130,7 +130,7 @@ woas["load_file"] = function(fileUrl, load_mode, mime){
 }
 
 // Returns null if it can't do it, false if there's an error, true if it saved OK
-woas["ieSaveFile"] = function(filePath, save_mode, content) {
+woas.ieSaveFile = function(filePath, save_mode, content) {
 	var s_mode;
 	switch (save_mode) {
 		case this.file_mode.BINARY:
@@ -164,7 +164,7 @@ woas["ieSaveFile"] = function(filePath, save_mode, content) {
 }
 
 // Returns null if it can't do it, false if there's an error, or a string of the content if successful
-woas["ieLoadFile"] = function(filePath, load_mode, suggested_mime) {
+woas.ieLoadFile = function(filePath, load_mode, suggested_mime) {
 	var o_mode;
 	switch (load_mode) {
 		case this.file_mode.BINARY:
@@ -206,7 +206,7 @@ woas["ieLoadFile"] = function(filePath, load_mode, suggested_mime) {
 }
 
 // Returns null if it can't do it, false if there's an error, true if it saved OK
-woas["mozillaSaveFile"] = function(filePath, save_mode, content) {
+woas.mozillaSaveFile = function(filePath, save_mode, content) {
 	if (!window.Components)
 		return null;
 	//FIXME: save_mode is not considered here
@@ -233,7 +233,7 @@ woas["mozillaSaveFile"] = function(filePath, save_mode, content) {
 
 // Returns null if it can't do it, false if there's an error, or a string
 // with the content if successful
-woas["mozillaLoadFile"] = function(filePath, load_mode, suggested_mime) {
+woas.mozillaLoadFile = function(filePath, load_mode, suggested_mime) {
 	// this is available on Mozilla browsers only
 	if (!window.Components)
 		return null;
@@ -273,7 +273,7 @@ woas["mozillaLoadFile"] = function(filePath, load_mode, suggested_mime) {
 }
 
 // creates a DATA:URI from a plain content stream
-woas["_data_uri_enc"] = function(filename, ct, guess_mime) {
+woas._data_uri_enc = function(filename, ct, guess_mime) {
 	if (typeof guess_mime != "string") {
 		var m=filename.match(/\.(\w+)$/);
 		if (m==null) m = "";
@@ -307,14 +307,14 @@ function _javaUrlToFilename(url) {
 }
 
 //FIXME: save_mode is not considered here
-woas["javaSaveFile"] = function(filePath,save_mode,content) {
+woas.javaSaveFile = function(filePath,save_mode,content) {
 	if ((save_mode != this.file_mode.ASCII_TEXT) && (save_mode != this.file_mode.UTF8_TEXT)) {
 		log("Only ASCII and UTF8 file modes are supported with Java/TiddlySaver");
 		return false;
 	}
 	try {
-		if(document.applets["TiddlySaver"])
-			return document.applets["TiddlySaver"].saveFile(_javaUrlToFilename(filePath),"UTF-8",content);
+		if(document.applets.TiddlySaver)
+			return document.applets.TiddlySaver.saveFile(_javaUrlToFilename(filePath),"UTF-8",content);
 	} catch(ex) {
 		// ok TiddlySaver applet not available, check next method
 	}
@@ -333,12 +333,12 @@ woas["javaSaveFile"] = function(filePath,save_mode,content) {
 	return true;
 }
 
-woas["javaLoadFile"] = function(filePath, load_mode, suggested_mime) {
+woas.javaLoadFile = function(filePath, load_mode, suggested_mime) {
 	//FIXME: UTF8_TEXT/BINARY is not separated here!!
 	var content = null;
 	try {
-		if(document.applets["TiddlySaver"]) {
-			content = document.applets["TiddlySaver"].loadFile(_javaUrlToFilename(filePath), "UTF-8");
+		if(document.applets.TiddlySaver) {
+			content = document.applets.TiddlySaver.loadFile(_javaUrlToFilename(filePath), "UTF-8");
 			if (content === null) {
 				// file does not exist
 				return false;
@@ -440,7 +440,7 @@ function printout_fixed(elem, n) {
 }
 
 // save full WoaS to file
-woas["_save_to_file"] = function(full) {
+woas._save_to_file = function(full) {
 	this.progress_init("Saving to file");
 	
 	var new_marker;

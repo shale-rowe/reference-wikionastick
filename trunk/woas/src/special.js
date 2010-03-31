@@ -1,6 +1,6 @@
 // Here begins the special pages' code
 
-woas["special_encrypted_pages"] = function(locked) {
+woas.special_encrypted_pages = function(locked) {
 	var pg = [];
 	for(var i=0,l=pages.length;i<l;i++) {
 		if (this.is_reserved(page_titles[i]))
@@ -14,7 +14,7 @@ woas["special_encrypted_pages"] = function(locked) {
 		return this._join_list(pg); // TODO - Delete repeated data
 }
 
-woas["special_orphaned_pages"] = function() {
+woas.special_orphaned_pages = function() {
 	var pg = [];
 	var found = false;
 	for(j=0,l=page_titles.length; j<l; j++) {
@@ -54,7 +54,7 @@ woas["special_orphaned_pages"] = function() {
 		return this._join_list(pg); // TODO - Delete repeated data
 }
 
-woas["special_backlinks"] = function() {
+woas.special_backlinks = function() {
 	var pg = [];
 	var tmp;
 	var reg = new RegExp("\\[\\["+RegExp.escape(current)+"(\\||\\]\\])", "gi");
@@ -78,7 +78,7 @@ woas["special_backlinks"] = function() {
 //var hl_reg;
 
 // Returns a index of searched pages (by miz & legolas558)
-woas["special_search"] = function( str ) {
+woas.special_search = function( str ) {
 	this.progress_init("Searching");
 	var pg_body = [];
 	var title_result = "";
@@ -134,11 +134,11 @@ woas["special_search"] = function( str ) {
 	return "Results for *" + woas.xhtml_encode(str) + "*\n" + title_result + "\n\n----\n" + this._simple_join_list(pg_body, false);
 }
 
-woas["_plugins_list"] = function() {
+woas._plugins_list = function() {
 	return "\n\n/No plugins installed/";
 }
 
-woas["special_tagged"] = function() {
+woas.special_tagged = function() {
 	var utags = [];
 	var tags_tree = {};
 	var src, ipos;
@@ -189,7 +189,7 @@ woas["special_tagged"] = function() {
 	return '/No tagged pages/';
 }
 
-woas["special_untagged"] = function() {
+woas.special_untagged = function() {
 	var tmp;
 	var pg = [];
 	for(var i=0,l=pages.length; i<l; i++) {
@@ -207,7 +207,7 @@ woas["special_untagged"] = function() {
 }
 
 // Returns a index of all pages
-woas["special_all_pages"] = function() {
+woas.special_all_pages = function() {
 	var pg = [];
 	for(var i=0, l=page_titles.length; i<l; i++) {
 		if (!this.is_reserved(page_titles[i]))
@@ -217,7 +217,7 @@ woas["special_all_pages"] = function() {
 }
 
 // Returns a index of all dead pages
-woas["special_dead_pages"] = function() {
+woas.special_dead_pages = function() {
 	var dead_pages = [];
 	var from_pages = [];
 	var tmp;
@@ -293,7 +293,7 @@ function bool2chk(b) {
 	return "";
 }
 
-$["checked"] =function(id) {
+$.checked =function(id) {
 	cfg_changed = true;
 	if ($(id).checked)
 		return true;
@@ -306,7 +306,7 @@ function _set_layout(fixed) {
 }
 
 //Special::Recentchanges shows a sorted list of pages by modified timestamp
-woas["special_recent_changes"] = function() {
+woas.special_recent_changes = function() {
 	// build an array of (key := page_index, val := last_modified_timestamp) couples
 	var l=page_titles.length, hm = [];
 	for(var i=0;i<l;++i) {
