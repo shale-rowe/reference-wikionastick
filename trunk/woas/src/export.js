@@ -13,11 +13,11 @@ woas._b64_export = function(data, dest_path) {
 	data = decode64(data.replace(/^data:\s*[^;]*;\s*base64,\s*/, ''));
 	// attempt to save the file
 	return this.save_file(dest_path, this.file_mode.BINARY, data);
-}
+};
 
 woas._attrib_escape = function(s) {
 	return s.replace(/"/g, '&quot;');
-}
+};
 
 woas._export_get_fname = function (title, create_mode) {
 	if (typeof(_title2fn[title]) != 'undefined') {
@@ -50,12 +50,13 @@ woas._export_get_fname = function (title, create_mode) {
 			return "#";
 		}
 	}
+	var pi;
 	if (sp) {
 		// save a reference to this namespace or reserved page
 		if (_further_pages.indexOf(title)==-1)
 			_further_pages.push(title);
 	} else {
-		var pi=this.page_index(title);
+		pi=this.page_index(title);
 		if (pi==-1) {
 			this.alert(this.i18n.PAGE_NOT_EXISTS+title);
 			_title2fn[title] = "#";
@@ -84,14 +85,16 @@ woas._export_get_fname = function (title, create_mode) {
 	.replace(/[^\u0000-\u007F]+/g, function ($1) {
 		var l=$1.length, r="";
 		for(var i=0;i<l;i++) {
-			switch ($1[i]) {
+			/*switch ($1[i]) {
 				// TODO: add most common diacritics
 				case "\u00e2":
 					r+="a";
 					break;
 				default:
 					r+="_";
-			}
+			}*/
+			// until that day ...
+			r += ($1[i] == "\u00e2") ? "a" : "_";
 		}
 		return r;
 	})
@@ -115,7 +118,7 @@ woas._export_get_fname = function (title, create_mode) {
 	if (!create_mode)
 		return escape(test_fname);
 	return test_fname;
-}
+};
 
 woas.export_parse = function (data, js_mode) {
 	// a normal wiki page, parse it and eventually execute the attached javascript
@@ -127,7 +130,7 @@ woas.export_parse = function (data, js_mode) {
 		data = wt.innerHTML;
 	}
 	return data;
-}
+};
 
 woas.export_one_page = function (
 		data, title, fname, exp, mts) {
@@ -137,14 +140,14 @@ woas.export_one_page = function (
 	var raw_text = this.trim(this.xhtml_to_text(data));
 	if (exp.exp_menus) {
 		var _exp_menu = this.get_text("::Menu");
-		if (_exp_menu == null)
+		if (_exp_menu === null)
 			_exp_menu = "";
 		var _ns = this.get_namespace(title);
 			if (_ns.length) {
 				var mpi = this.page_index(_ns+"::Menu");
 				if (mpi != -1) {
 					var tmp=this.get_text_special(_ns+"::Menu");
-					if (tmp!=null)
+					if (tmp!==null)
 						_exp_menu += tmp;
 				}
 			}
@@ -175,20 +178,20 @@ woas.export_one_page = function (
 		(mts ? "<div class=\"woas_page_mts\">"+this.last_modified(mts)+"</div>" : "")+
 		"</bod"+"y></h"+"tml>\n"; raw_text = null;
 	return this.save_file(exp.xhtml_path+fname, this.file_mode.ASCII, woas.DOCTYPE+woas.DOC_START+data);
-}
+};
 
 woas.export_wiki = function () {
-	// export settings object
-	var exp = {};
+	var exp = {}; // export settings object
+	var css_path, sep_css, img_path;
 	try {
 		exp.xhtml_path = $("woas_ep_xhtml").value;
-		var img_path = $("woas_ep_img").value;
+		img_path = $("woas_ep_img").value;
 		exp.js_mode = 0;
 		if ($("woas_cb_js_dyn").checked)
 			exp.js_mode = 1;
 		else if ($("woas_cb_js_exp").checked)
 			exp.js_mode = 2;
-		var sep_css = $("woas_cb_sep_css").checked;
+		sep_css = $("woas_cb_sep_css").checked;
 		exp.exp_menus = $("woas_cb_export_menu").checked;
 		_export_main_index = $("woas_cb_index_main").checked;
 		_export_default_ext = $("woas_ep_ext").value;
@@ -206,32 +209,34 @@ woas.export_wiki = function () {
 	_export_fnames_array = [];
 	_title2fn = {};
 	if (sep_css) {
-		var css_path = "woas.css";
+		css_path = "woas.css";
 		_export_fnames_array.push(css_path);
 		this.save_file(exp.xhtml_path+css_path, this.file_mode.ASCII, exp.css);
 		exp.css = '<link rel="stylesheet" type="text/css" media="all" href="'+css_path+'" />';
 	} else
 		exp.css = '<style type="text/css">'+exp.css+'</style>';
 	exp.custom_bs = "";
+	var data;
 	if (exp.js_mode==2) {
 		data = pages[this.page_index("WoaS::Bootscript")];
-		if (data!=null && data.length) {
+		if (data!==null && data.length) {
 			this.save_file(exp.xhtml_path+"bootscript.js", this.file_mode.ASCII, data);
 			exp.custom_bs = '<sc'+'ript type="text/javascript" src="bootscript.js"></sc'+'ript>';
 		}
 	}
 
-	var l=page_titles.length, data = null, fname = "", done=0, total=0,wt=null;
+	var l = page_titles.length, fname = "", done = 0, total = 0, mnupos;
+	data = null;
 	for (var pi=0;pi<l;pi++) {
 		// do skip physical special pages
 		if (page_titles[pi].match(/^Special::/)) continue;
 		// do skip menu pages (they are included in each page)
-		var mnupos = page_titles[pi].indexOf("::Menu");
+		mnupos = page_titles[pi].indexOf("::Menu");
 		if ((mnupos != -1) &&
 			(mnupos==page_titles[pi].length-6)) continue;
 		data = this.get_text_special(page_titles[pi]);
 		// skip pages which could not be decrypted
-		if (data == null) continue;
+		if (data === null) continue;
 		fname = this._export_get_fname(page_titles[pi], true);
 		// will skip WoaS::Bootscript and WoaS::Aliases
 		if (fname == '#') {
@@ -288,4 +293,4 @@ woas.export_wiki = function () {
 	this.progress_finish();
 	this.alert(this.i18n.EXPORT_OK.sprintf(done, total));
 	return true;
-}
+};
