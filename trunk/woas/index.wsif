@@ -583,7 +583,8 @@ $('woas_ep_author').onblur = $('woas_ep_wsif').onblur = _ep_blur;
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::WSIF
 woas.page.attributes: 0
-woas.page.length: 4620
+woas.page.last_modified: 1270096740
+woas.page.length: 4635
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -642,7 +643,7 @@ The following are header definitions specific for WoaS pages:
 * *woas.page.last_modified* - a positive integer value in decimal format representing seconds lasted from the UTC epoch up to last modified time; this header is defined only if data is available from WoaS;
 * *woas.page.length* - content length of the inline snippet; only inline files define it; this is not the decoded page length but the length of the content inside the inline boundaries;
 * *woas.page.original_length* - real page length as seen by WoaS; it is currently defined only for encrypted pages;
-* *woas.page.encoding* - snippet encoding format, see [[#Encoding]];
+* *woas.page.encoding* - snippet encoding format, see the *Encoding* section below;
 * *woas.page.disposition* - tells whether page is /inline/ or /external/;
 * *woas.page.boundary* - string used for inline boundary recognition (without leading dashes); this header is specified only for inline snippets;
 * *woas.page.disposition.filename* - filename used for external page content, not ECMA-escaped; defined only with external pages;
@@ -829,8 +830,8 @@ You can edit the contents of the main text area by typing normally. There are li
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Index
 woas.page.attributes: 0
-woas.page.last_modified: 1268585042
-woas.page.length: 2203
+woas.page.last_modified: 1270096606
+woas.page.length: 2281
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -870,6 +871,8 @@ When browsing the pages in this Help pop-up, you will find a *Back* button in th
 ** [[WoaS::Help::Special::Dead Pages]]
 ** [[WoaS::Help::Special::Edit Bootscript]]
 ** [[WoaS::Help::Special::Erase Wiki]]
+** [[WoaS::Help::Special::ExportWSIF]]
+** [[WoaS::Help::Special::ImportWSIF]]
 ** [[WoaS::Help::Special::Options]]
 * *Syntax*
 ** [[WoaS::Help::Deprecated syntax]]
@@ -907,7 +910,8 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Special::Advanced
 woas.page.attributes: 0
-woas.page.length: 503
+woas.page.last_modified: 1270096290
+woas.page.length: 497
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -915,9 +919,9 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 = Advanced
 The Advanced page offers some tools for administration of your wiki. Descriptions are provided, and most of the Special links lead to pages that have individual help available. Below are links to help pages for the ones that don't offer individual help automatically.
-* *Special::Erase Wiki* - See the [[WoaS::Help::Special::Erase Wiki]] page
-* *Special::Edit CSS* - See the [[WoaS::Help::Edit CSS]] page.
-* *Special::Edit Bootscript* - See the [[WoaS::Help::Special::Edit Bootscript]] page.
+* *Special::Erase Wiki* - See the *WoaS::Help::Special::Erase Wiki* page
+* *Special::Edit CSS* - See the *WoaS::Help::Edit CSS* page.
+* *Special::Edit Bootscript* - See the *WoaS::Help::Special::Edit Bootscript* page.
 
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Special::Erase Wiki
@@ -1353,7 +1357,8 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Include web page
 woas.page.attributes: 0
-woas.page.length: 3350
+woas.page.last_modified: 1270095614
+woas.page.length: 3392
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1377,8 +1382,8 @@ This method makes the embedded web page become a seamless part of the page.
 ** <div class="woas_helptext">Use this code in a page, replacing URL with the URL of the page you wish to include, and changing the width and height to suit your taste:</div>{{{
 <html><object data="URL" style="width:100%; height:630px;">URL not found.</object></html>
 }}}<br><div class="woas_helptext">To embed an external URL in a page.</div><br>
-*** For example, if you want to embed the Google page at [[http://www.google.com]] as an object, you'd use this command:<br>{{{
-<html><object data="http://www.google.com" style="width:100%; height:630px;">URL not found.</object></html>
+*** For example, if you want to embed the GNU Operating System page at http:&#047;&#047;www.gnu.org&#047; as an object, you'd use this command:<br>{{{
+<html><object data="http://www.gnu.org/" style="width:100%; height:630px;">URL not found.</object></html>
 }}}
 
 == Embed a web page in an iFrame
@@ -1395,8 +1400,8 @@ This method creates a frame around the embedded web page. The code shown below i
 ** <div class="woas_helptext">Use this code in a page, replacing URL with the URL of the page you wish to include, and changing the width and height to suit your taste:</div>{{{
 <iframe height="400" width="100%" height:630px; src="URL"></iframe>
 }}}<br><div class="woas_helptext">To include a web page in a wiki page.</div><br>
-*** For example, if you want to embed the Google page at [[http://www.google.com]] in an iFrame, you'd use this command:<br>{{{
-<iframe height="400" width="100%" height:630px; src="http://www.google.com"></iframe>
+*** For example, if you want to embed the GNU Operating System page at http:&#047;&#047;www.gnu.org&#047; in an iFrame, you'd use this command:<br>{{{
+<iframe height="400" width="100%" height:630px; src="http://www.gnu.org/"></iframe>
 }}}
 
 --DFQRCTsKlU
@@ -1425,7 +1430,8 @@ To include the contents of a wiki page inside another wiki page, use an {{{[[Inc
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::JavaScript
 woas.page.attributes: 0
-woas.page.length: 5593
+woas.page.last_modified: 1270095690
+woas.page.length: 5566
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1464,7 +1470,7 @@ alert("This is an example alert!");
 # Open this page from the menu (not in the help pop-up) to run the *example.js* script and see the alert.
 <script src="example.js"></script>
 == Using JavaScript to create a temporary page
-Using this code, you can get this wiki to create a link to a dynamically created temporary page with custom content (it accepts HTML tags as part of the content) under the JavaScript [[WoaS::Help::Namespaces|namespace]]. The temporary page will be created each time the link is clicked, and it will be uncreated as soon as you navigate to another page or close the wiki.
+Using this code, you can get this wiki to create a link to a dynamically created temporary page with custom content (it accepts HTML tags as part of the content) under the JavaScript namespace. The temporary page will be created each time the link is clicked, and it will be uncreated as soon as you navigate to another page or close the wiki.
 
 <div class="woas_helptext">Use this code in a page, replacing CONTENT with your content, NAME with the page name, and LINK with the text you want the link to have:</div>{{{
 <script>function temporary(arg) {return 'CONTENT';}</script>[[Javascript::temporary('NAME')|LINK]]
@@ -1767,8 +1773,8 @@ By putting an exclamation mark (*!*) in front of the tag name, you can filter ou
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Publish wiki online
 woas.page.attributes: 0
-woas.page.last_modified: 1269960466
-woas.page.length: 571
+woas.page.last_modified: 1270095850
+woas.page.length: 569
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1781,7 +1787,7 @@ This wiki can be published online as a single-file, framed web page by making it
 # Scroll to the bottom of the page.
 # Click the *Disallow edits* button to make the file read-only.
 # Upload the wiki to a web server and publish a link to it.
-To enable wiki editing again, see the [[WoaS::Help::Wiki is read-only]] page.
+To enable wiki editing again, see the *WoaS::Help::Wiki is read-only* page.
 
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Run wiki on a server
@@ -1798,7 +1804,8 @@ This is a personal wiki that's not designed to be used on a server. Any changes 
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Requirements
 woas.page.attributes: 0
-woas.page.length: 2656
+woas.page.last_modified: 1270096167
+woas.page.length: 2675
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1845,7 +1852,7 @@ grant codeBase "file:${user.home}/Documents/tiddlywiki-folder/*" {
   permission java.io.FilePermission "${user.home}${/}Documents${/}stickwiki-folder${/}*", "read,write";
 };
 }}}
-It can be tricky creating files whose name starts with a period, so you can use this <a href="http://stickwiki.sourceforge.net/src/.java.policy">pre-built .java.policy file</a>. The same file is suitable for Macs too, just edit it and delete the "My " bit, leaving just "Documents". Make sure you save it in the right place for each operating system!
+It can be tricky creating files whose name starts with a period, so you can use this [[https://stickwiki.svn.sourceforge.net/svnroot/stickwiki/trunk/woas/.java.policy|pre-built .java.policy file]]. The same file is suitable for Macs too, just edit it and delete the "My " bit, leaving just "Documents". Make sure you save it in the right place for each operating system!
 
 If you have trouble setting up the permissions correctly, you can try granting broader permissions to the applet like this:
 {{{
@@ -1854,7 +1861,6 @@ TiddlySaver.jar"
  { permission java.security.AllPermission; };
 }}}
 The TiddlySaver java applet was written by J.Rouston.
-
 
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Lists
