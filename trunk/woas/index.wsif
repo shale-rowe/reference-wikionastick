@@ -1,7 +1,7 @@
 wsif.version: 1.2.0
 wsif.generator: woas
 woas.version: 0.11.2
-woas.pages: 67
+woas.pages: 68
 
 woas.page.title: ::Menu
 woas.page.attributes: 0
@@ -392,7 +392,8 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: WoaS::Plugins
 woas.page.attributes: 0
-woas.page.length: 141
+woas.page.last_modified: 1270097504
+woas.page.length: 174
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -400,7 +401,7 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 = Plugins
 This page contains options for the active WoaS plugins.
-In order to install a plugin, [[Special::ImportWSIF|import its WSIF file]].
+In order to install a plugin, import its WSIF file (see the *Special::ImportWSIF* page for more information.
 --DFQRCTsKlU
 woas.page.title: History
 woas.page.attributes: 0
@@ -2265,14 +2266,15 @@ This method is useful when an creating a fancy list with more than one list item
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Tables
 woas.page.attributes: 0
-woas.page.length: 2350
+woas.page.last_modified: 1270096997
+woas.page.length: 2153
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Tables
-The content inside tables can contain internal and external links, and these kinds of [[WoaS::Help::Text formatting|Text formatting]]:
+The content inside tables can contain internal and external links, and these kinds of text formatting:
 * Blinking
 * Bold
 * Colored
@@ -2331,9 +2333,9 @@ Tables can have a specially formatted title row created by adding a pipe followe
 |-
 | CELL1 || CELL2 || CELL3
 |-
-| CELL1 || [[http://www.google.com|Link to Google]] || CELL3
+| CELL1 || CELL2 || CELL3
 |-
-| CELL1 || [[Main Page]] || CELL3
+| CELL1 || CELL2 || CELL3
 |-
 | CELL1 || || CELL3
 |}
@@ -2344,9 +2346,9 @@ Tables can have a specially formatted title row created by adding a pipe followe
 |-
 | CELL1 || CELL2 || CELL3
 |-
-| CELL1 || [[http://www.google.com|Link to Google]] || CELL3
+| CELL1 || CELL2 || CELL3
 |-
-| CELL1 || [[Main Page]] || CELL3
+| CELL1 || CELL2 || CELL3
 |-
 | CELL1 || || CELL3
 |}
@@ -2356,8 +2358,8 @@ Tables can have a specially formatted title row created by adding a pipe followe
 |+ TITLE
 | *HEADER1* || *HEADER2* || *HEADER3*
 | CELL1 || CELL2 || CELL3
-| CELL1 || [[http://www.google.com|Link to Google]] || CELL3
-| CELL1 || [[Main Page]] || CELL3
+| CELL1 || CELL2 || CELL3
+| CELL1 || CELL2 || CELL3
 | CELL1 || || CELL3
 |}
 }}}<br><div class="woas_helptext">To create this:</div>
@@ -2365,17 +2367,18 @@ Tables can have a specially formatted title row created by adding a pipe followe
 |+ TITLE
 | *HEADER1* || *HEADER2* || *HEADER3*
 | CELL1 || CELL2 || CELL3
-| CELL1 || [[http://www.google.com|Link to Google]] || CELL3
-| CELL1 || [[Main Page]] || CELL3
+| CELL1 || CELL2 || CELL3
+| CELL1 || CELL2 || CELL3
 | CELL1 || || CELL3
 |}
 
-See also: [[WoaS::Help::Table of Contents]]
+See also the *WoaS::Help::Table of Contents* page.
 
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Links
 woas.page.attributes: 0
-woas.page.length: 8813
+woas.page.last_modified: 1270098058
+woas.page.length: 8582
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -2407,17 +2410,17 @@ You can use a special anchor link to link to a header on the current page. After
 <div class="woas_helptext">Use this code in a page, replacing URL with the address of the web page, and LABEL with the text for the link:</div>{{{
 [[URL|LABEL]]
 }}}<br><div class="woas_helptext">To create a labeled external link like this one:</div>
-[[http://www.google.com|Click here for Google]]
+[[http://www.gnu.org/|Click here for GNU]]
 
 === External link (plain)
 <div class="woas_helptext">Use this code in a page, replacing URL with the address of the web page:</div>{{{
 [[URL]]
 }}}<br><div class="woas_helptext">To create a plain external link like this one:</div>
-[[http://www.google.com]]
+[[http://www.gnu.org/]]
 
 === Image as link
 ==== Base64 image as link
-See the [[WoaS::Help::Images]] page.
+See the *WoaS::Help::Images* page.
 ==== Image as link to wiki page
 <div class="woas_helptext">Use this code in a page, replacing IMAGENAME with the name of an embedded image page, and PAGENAME with the name of a page in this wiki:</div>
 <div class="woas_helpcode">[<!-- -->[I<!-- -->nclude:<!-- -->:Image:<!-- -->:IMAGENAME|style="cursor:pointer" oncl<!-- -->ick="go_<!-- -->to('PA<!-- -->GENAME')"]]</div>
@@ -2447,7 +2450,6 @@ These are internal wiki actions in the form of links:<br><br>
 | {{{[[Special::Edit CSS|Edit CSS]]}}} || [[Special::Edit CSS|Edit CSS]]
 | {{{<a class="link" onclick="javascript:edit()">Edit page</a>}}} || <a class="link" onclick="javascript:edit()">Edit page</a>
 | {{{[[Special::Go to|Go to...]]}}} || [[Special::Go to|Go to...]]
-| {{{[[Tagged::Help|Help pages]]}}} || [[Tagged::Help|Help pages]]
 | {{{[[Locked::|Locked pages]]}}} || [[Locked::|Locked pages]]
 | {{{[[Special::Main Page|Main page]]}}} || [[Special::Main Page|Main page]]
 | {{{[[Special::New Page|New page]]}}} || [[Special::New Page|New page]]
@@ -2463,14 +2465,12 @@ These are internal wiki actions in the form of links:<br><br>
 === Internal link (labeled)
 <div class="woas_helptext">Use this code in a page, replacing PAGENAME with the page you want to link to and LABEL with the link text:</div>{{{
 [[PAGENAME|LABEL]]
-}}}<br><div class="woas_helptext">To create a labeled internal link like this one:</div>
-[[WoaS::Help::Index|Click here for the Help index page]]
+}}}<br><div class="woas_helptext">To create a labeled internal link.</div>
 
 === Internal link (plain)
 <div class="woas_helptext">Use this code in a page, replacing PAGENAME withe the page you want to link to:</div>{{{
 [[PAGENAME]]
-}}}<br><div class="woas_helptext">To create a plain internal link like this one:</div>
-[[WoaS::Help::Index]]
+}}}<br><div class="woas_helptext">To create a plain internal link.</div>
 
 == HTML links
 Below are methods for creating links using HTML syntax.
@@ -2486,8 +2486,7 @@ function alertme () {alert("YOUR MESSAGE GOES HERE.");}
 === Alert box link (labeled)
 <div class="woas_helptext">Use this code in a page, replacing YOUR MESSAGE GOES HERE with the content for the alert, and YOUR LINK TEXT GOES HERE with the text for your link:</div>{{{
 <a href='javascript:alert("YOUR MESSAGE GOES HERE");'>YOUR LINK TEXT GOES HERE</a>
-}}}<br><div class="woas_helptext">To create this:</div>
-<a href='javascript:alert("YOUR MESSAGE GOES HERE");'>YOUR LINK TEXT GOES HERE</a>
+}}}<br><div class="woas_helptext">To create a labeled text link that opens an alert.</div>
 
 === Anchor links to anywhere on a page
 With a combination of HTML and wiki syntax, you can create anchor links to anywhere on a page, rather than just to headers.
@@ -2722,24 +2721,24 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Transclusion
 woas.page.attributes: 0
-woas.page.last_modified: 1268681123
-woas.page.length: 3252
+woas.page.last_modified: 1270097323
+woas.page.length: 3114
 woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Transclusion
-Transclusion is a special way of [[WoaS::Help::Include wiki page|including]] a wiki page in another wiki page. Instead of just displaying the contents of the included page as is, you can change how the content is displayed depending on how you write the link.
+Transclusion is a special way of including a wiki page in another wiki page. Instead of just displaying the contents of the included page as is, you can change how the content is displayed depending on how you write the link.
 
 This method requires that you create a page to be used as a template. This page must contain variables represented by %1, %2, %3, and so on.
 
-You can then create a transclusion link or links to that page by creating a normal [[WoaS::Help::Include wiki page|include link]] with the values for the variables added after the page name. Each value must be preceded by a pipe ({{{|value}}}). The values you define in the link will be used from left to right to replace the numbered variables on the page you're including.
+You can then create a transclusion link or links to that page by creating a normal include link with the values for the variables added after the page name. Each value must be preceded by a pipe ({{{|value}}}). The values you define in the link will be used from left to right to replace the numbered variables on the page you're including.
 
 <div class="helptext">Use this code, replacing PAGENAME with the name of the page to be included, and VALUE1 and VALUE2 with the values you'd like the two variables to have when the included page is displayed:</div>
 <div class="helpcode">[<!-- -->[Include::PAGENAME|VALUE1|VALUE2|VALUE3]<!-- -->]</div>
 == Examples
-These examples use the [[WoaS::Template::Example::Transclusion]] page which contains two variables. The contents of that page are:
+These examples use the *WoaS::Template::Example::Transclusion* page which contains two variables. The contents of that page are:
 {{{
 <big style="color:lime">%1 had a little %2</big>
 }}}
@@ -2767,7 +2766,7 @@ Some wiki code and HTML tags are accepted in the values.
 [[Include::WoaS::Template::Example::Transclusion|*Mary*|*lamb*.<br><br>Its /fleece/ was white as _snow_.]]
 
 == Infinite recursion
-Infinite recursion happens when you create an [[WoaS::Help::Include wiki page|include link]] to the current page or to another page that that has an [[WoaS::Help::Include wiki page|include link]] to the current page. The included page will be repeated multiple times followed by the include link itself being displayed in bold red text surrounded by infinity symbols like this:
+Infinite recursion happens when you create an include link to the current page or to another page that that has an include link to the current page. The included page will be repeated multiple times followed by the include link itself being displayed in bold red text surrounded by infinity symbols like this:
 
 <font color="red">*{{{\u221e [[Include::PAGENAME]] \u221e}}}*</font>
 
@@ -2800,5 +2799,18 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 [[Include::WoaS::Help::WSIF]]
+
+--DFQRCTsKlU
+woas.page.title: Infinite recursion
+woas.page.attributes: 0
+woas.page.last_modified: 1270097169
+woas.page.length: 94
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+[[Include::WoaS::Template::Example::Transclusion|Mary|lamb.]]
+[[Include::Infinite recursion]]
 
 --DFQRCTsKlU
