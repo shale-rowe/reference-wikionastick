@@ -1169,8 +1169,8 @@ An alternate method of creating a page is to type a new page title inside nested
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Delete a page
 woas.page.attributes: 0
-woas.page.last_modified: 1268582166
-woas.page.length: 851
+woas.page.last_modified: 1270094839
+woas.page.length: 791
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1181,25 +1181,25 @@ woas.page.boundary: DFQRCTsKlU
 ## Click the *Delete Page* link in the menu while displaying the page you wish to delete, or click it from any page and type in the name of the page you wish to delete.<br><br>
 ## You'll be asked for confirmation.<br><br>
 ## When the page is deleted, you'll be returned to the page you were on before deleting the page.<br><br>
-## You may have to remove any links to the deleted page from the [[WoaS::Help::Edit the menu|menu]] or other pages.<br><br>
+## You may have to remove any links to the deleted page from the menu or other pages.<br><br>
 # *From the editor:*<br><br>
 ## Click the *Edit* icon in the navigation bar.<br><br>
 ## Select everything inside the main text area and delete it.<br><br>
 ## Save your changes by clicking the *Save* icon in the navigation bar.<br><br>
-## Edit the [[WoaS::Help::Edit the menu|menu]] to remove the link to the deleted page if it isn't removed automatically.
+## Edit the menu to remove the link to the deleted page if it isn't removed automatically.
 
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Edit a page
 woas.page.attributes: 0
-woas.page.last_modified: 1268581397
-woas.page.length: 723
+woas.page.last_modified: 1270094918
+woas.page.length: 696
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Edit a page
-All pages (except WoaS pages within reserved [[WoaS::Help::Namespaces|namespaces]]) can be edited or deleted. In order to edit such pages, click the *Edit* icon in the navigation bar. You can find all the user pages by clicking the *Special::All Pages* link in the menu.
+All pages (except WoaS pages within reserved namespaces) can be edited or deleted. In order to edit such pages, click the *Edit* icon in the navigation bar. You can find all the user pages by clicking the *Special::All Pages* link in the menu.
 # Click the *Edit* icon in the navigation bar or double-click on the page if you've enabled that setting in the wiki *Options*.<br><br>
 # Edit the contents of the main text area by typing normally.<br><br>
 # Use the editor's buttons to insert code to format the text, or type the code in manually. Note that the use of plain text doesn't require any code.<br><br>
@@ -1208,8 +1208,8 @@ All pages (except WoaS pages within reserved [[WoaS::Help::Namespaces|namespaces
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Erase all pages
 woas.page.attributes: 0
-woas.page.last_modified: 1268582621
-woas.page.length: 339
+woas.page.last_modified: 1270095037
+woas.page.length: 346
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1221,13 +1221,13 @@ To erase all user-created pages in this wiki and start fresh:
 # Click the *Advanced* icon in the navigation bar.
 # Click on *Special::Erase Wiki* in the *Maintenance* section.
 
-See also: [[WoaS::Help::Special::Erase Wiki]]
+See also the *WoaS::Help::Special::Erase Wiki* page.
 
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Edit the menu
 woas.page.attributes: 0
-woas.page.last_modified: 1268582558
-woas.page.length: 561
+woas.page.last_modified: 1270094973
+woas.page.length: 557
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1238,10 +1238,10 @@ woas.page.boundary: DFQRCTsKlU
 # Edit the contents of the main text area by typing normally. The menu can contain links, lists, tables, colored text, etc. as a normal wik page<br><br>
 # Save your changes by clicking on the *Save* icon in the top right navigation panel.
 
-You can use various styles for your menu; you can find detailed explanation of list styles in the [[WoaS::Help::Lists]] page.
+You can use various styles for your menu; you can find detailed explanation of list styles in the *WoaS::Help::Lists* page.
 
 == Add a sub-menu beneath the menu
-See the *Namespace sub-menu* section of the [[WoaS::Help::Namespaces]] page.
+See the *Namespace sub-menu* section of the *WoaS::Help::Namespaces* page.
 
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Headers
@@ -2610,8 +2610,8 @@ A famous online service to create such URIs is [[http://software.hixie.ch/utilit
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Import
 woas.page.attributes: 0
-woas.page.last_modified: 1269960710
-woas.page.length: 1420
+woas.page.last_modified: 1270095236
+woas.page.length: 1455
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -2623,7 +2623,7 @@ woas.page.boundary: DFQRCTsKlU
 An older Wiki on a Stick can be imported in the current wiki by using the *Special::Import* page.
 # Click the *Advanced* icon in the navigation bar.<br><br>
 # Scroll down to the *Maintenance* section.<br><br>
-# Click the [[Special::Import]] link.<br><br>
+# Click the *Special::Import* link.<br><br>
 # Click the *Browse* button<br><br>
 # Select the wiki you'd like to import.<br><br>
 # Click the *Open* button.<br><br>
@@ -2633,10 +2633,10 @@ An older Wiki on a Stick can be imported in the current wiki by using the *Speci
 # Click the *OK* button if you're sure. Otherwise, click the *Cancel* button.
 
 == Import WSIF
-This method is used to import pages that have been exported using the [[WoaS::Help::WSIF|WSIF]] format.<br><br>
+This method is used to import pages that have been exported using the WSIF format (see the *WoaS::Help::WSIF* page for more information).<br><br>
 # Click the *Advanced* icon in the navigation bar.<br><br>
 # Scroll down to the *Maintenance* section.<br><br>
-# Click the [[Special::ImportWSIF]] link.<br><br>
+# Click the *Special::ImportWSIF* link link.<br><br>
 # Click the *Browse* button.<br><br>
 # Select the .wsif file you'd like to import.<br><br>
 # Click the *Open* button.<br><br>
