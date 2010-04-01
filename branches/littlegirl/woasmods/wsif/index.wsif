@@ -3384,15 +3384,15 @@ This adds a scrollbar to the right side of the menu and keeps it at a fixed heig
 --DFQRCTsKlU
 woas.page.title: WoaS Mods::Add a daily diary
 woas.page.attributes: 0
-woas.page.last_modified: 1269917379
-woas.page.length: 1909
+woas.page.last_modified: 1270142683
+woas.page.length: 2306
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Add a daily diary
-This creates a page with a link that creates a page with the current date as its name. It can also be used to view the page if it's already been created.
+This creates a page with a link that creates a page with the current date as its name. It can also be used to view the page if it's already been created. The original code for this is thanks to [[http://stickwiki.svn.sourceforge.net/viewvc/stickwiki/branches/enhancements/woas/|FBNil]]. The code below has been modified slightly, changing month names to numbers so they sort properly when doing page listings, and with a fix by [[http://stickwiki.svn.sourceforge.net/viewvc/stickwiki/branches/pvhl/|pvhl]] to make it work in current versions of WoaS.
 # Open the wiki in a browser.<br><br>
 # Create a new page named *Diary* with these contents:<pre>&#061; Diary<br>&lt;div id&#061;&#34;daily&#095;diary&#34;&gt;&lt;&#047;div&gt;<br>&lt;script&gt;<br>var D &#061; new Date&#040;&#041;;<br>var DAYNAMES &#061; &#091;&#34;Sunday&#34;, &#34;Monday&#34;, &#34;Tuesday&#34;, &#34;Wednesday&#34;, &#34;Thursday&#34;, &#34;Friday&#34;, &#34;Saturday&#34;&#093;;<br>var MONTHNAMES &#061; &#091;&#34;01&#34;, &#34;02&#34;, &#34;03&#34;, &#34;04&#34;, &#34;05&#34;, &#34;06&#34;, &#34;07&#34;, &#34;08&#34;, &#34;09&#34;, &#34;10&#34;, &#34;11&#34;, &#34;12&#34;&#093;;<br><br>var day  &#061; D.getDate&#040;&#041;;<br>if&#040;day &lt; 10&#041; day &#061; &#34;0&#34; &#043; day;<br><br>var newpagename &#061; &#34;Diary::&#34; &#043; D.getFullYear&#040;&#041; &#043;&#34;::&#34;&#043; MONTHNAMES&#091;D.getMonth&#040;&#041;&#093; &#043;&#34;::&#34;&#043; day &#043;&#34; &#34;&#043;DAYNAMES&#091;D.getDay&#040;&#041;&#093;;<br>&#047;&#047;$&#040;&#34;daily&#095;diary&#34;&#041;.innerHTML &#061; &#34;Click here to create or edit a diary entry for today: &lt;a href&#061;&#092;&#34;javascript:woas.set&#095;current&#040;'&#34; &#043; newpagename &#043; &#34;', true&#041;;&#092;&#34;&gt;&#34; &#043; newpagename &#043; &#34;&lt;&#047;a&gt;&#34;<br>$&#040;&#34;daily&#095;diary&#34;&#041;.innerHTML &#061; &#34;Click here to create or view a diary entry for today: &lt;a href&#061;&#092;&#34;javascript:go&#095;to&#040;'&#34; &#043; newpagename &#043; &#34;'&#041;;&#092;&#34;&gt;&#34; &#043; newpagename &#043; &#34;&lt;&#047;a&gt;&#34;;<br>&lt;&#047;script&gt;</pre>
 # Click the *Save* icon to save the page.
