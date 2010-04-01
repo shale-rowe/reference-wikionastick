@@ -2377,8 +2377,8 @@ See also the *WoaS::Help::Table of Contents* page.
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Links
 woas.page.attributes: 0
-woas.page.last_modified: 1270098058
-woas.page.length: 8582
+woas.page.last_modified: 1270098590
+woas.page.length: 8265
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -2442,24 +2442,24 @@ You can include the contents of another page of this wiki in the current page by
 These are internal wiki actions in the form of links:<br><br>
 {|
 | *Use this code in a page:* || *To create this:*
-| {{{[[Special::All Pages|All pages]]}}} || [[Special::All Pages|All pages]]
-| {{{[[Special::Backlinks|Backlinks]]}}} || [[Special::Backlinks|Backlinks]]
-| {{{[[Special::Dead Pages|Dead links]]}}} || [[Special::Dead Pages|Dead links]]
-| {{{[[Special::Delete Page|Delete page]]}}} || [[Special::Delete Page|Delete page]]
-| {{{[[Special::Duplicate Page|Duplicate page]]}}} || [[Special::Duplicate Page|Duplicate page]]
-| {{{[[Special::Edit CSS|Edit CSS]]}}} || [[Special::Edit CSS|Edit CSS]]
-| {{{<a class="link" onclick="javascript:edit()">Edit page</a>}}} || <a class="link" onclick="javascript:edit()">Edit page</a>
-| {{{[[Special::Go to|Go to...]]}}} || [[Special::Go to|Go to...]]
-| {{{[[Locked::|Locked pages]]}}} || [[Locked::|Locked pages]]
-| {{{[[Special::Main Page|Main page]]}}} || [[Special::Main Page|Main page]]
-| {{{[[Special::New Page|New page]]}}} || [[Special::New Page|New page]]
-| {{{[[Special::Orphaned Pages|Orphaned pages]]}}} || [[Special::Orphaned Pages|Orphaned pages]]
-| {{{[[Special::Recentchanges|Recentchanges]]}}} || [[Special::Recentchanges|Recentchanges]]
-| {{{[[Special::Search|Search]]}}} || [[Special::Search|Search]]
-| {{{[[Tagged::Syntax|Syntax pages]]}}} || [[Tagged::Syntax|Syntax pages]]
-| {{{[[Tagged::|Tagged pages]]}}} || [[Tagged::|Tagged pages]]
-| {{{[[Unlocked::|Unlocked pages]]}}} || [[Unlocked::|Unlocked pages]]
-| {{{[[Untagged::|Untagged pages]]}}} || [[Untagged::|Untagged pages]]
+| {{{[[Special::All Pages|All pages]]}}} || All pages link
+| {{{[[Special::Backlinks|Backlinks]]}}} || Backlinks link
+| {{{[[Special::Dead Pages|Dead links]]}}} || Dead links link
+| {{{[[Special::Delete Page|Delete page]]}}} || Delete page link
+| {{{[[Special::Duplicate Page|Duplicate page]]}}} || Duplicate page link
+| {{{[[Special::Edit CSS|Edit CSS]]}}} || Edit CSS link
+| {{{<a class="link" onclick="javascript:edit()">Edit page</a>}}} || Edit page link
+| {{{[[Special::Go to|Go to...]]}}} || Go to... link
+| {{{[[Locked::|Locked pages]]}}} || Locked pages link
+| {{{[[Special::Main Page|Main page]]}}} || Main page link
+| {{{[[Special::New Page|New page]]}}} || New page link
+| {{{[[Special::Orphaned Pages|Orphaned pages]]}}} || Orphaned pages link
+| {{{[[Special::Recentchanges|Recentchanges]]}}} || Recentchanges link
+| {{{[[Special::Search|Search]]}}} || Search link
+| {{{[[Tagged::Syntax|Syntax pages]]}}} || Syntax pages link
+| {{{[[Tagged::|Tagged pages]]}}} || Tagged pages link
+| {{{[[Unlocked::|Unlocked pages]]}}} || Unlocked pages link
+| {{{[[Untagged::|Untagged pages]]}}} || Untagged pages link
 |}
 
 === Internal link (labeled)
