@@ -1,7 +1,7 @@
 I am in the middle of recreating my sources.
 
-The code in woas/src is an up-to-date (when it was committed), carefully checked dot notation conversion of the trunk/woas/src code. So long as the trunk code is not in this form (and my code continues to be similar to it) I will try to keep it up to date with trunk.
+The code in woas/src has been removed as everything is now merged with trunk by Daniele.
 
-The code in woas/src-fix is updated, but there are still a few little changes to make to get (non-strict) jslint-type warnings to go away. I looked at all the files with diff and they seem fine, it works on my big wsif file, and I have been using the code before I made these little semicolon/comparison type changes, but it has not really been tested yet.
+The code in woas/src-fix is updated, but there are still a few little changes to make to get (non-strict) jslint-type warnings to go away.
 
-The src-fix code has the new aes closure with the other code changed where needed. There are some minor changes to wsif.js.
+There are some minor changes to wsif.js, stickwiki.js just for code validation. I just have a few more to add and then I will work on additions and/or bug fixes.
