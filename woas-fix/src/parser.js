@@ -201,28 +201,27 @@ woas.parser.parse = function(text, export_links, js_mode) {
 				var templname = parts[0];
 //				log("Transcluding "+templname+"("+parts.slice(0).toString()+")");	// log:0
 				// in case of embedded file, add the inline file or add the image
-				var is_emb, templtext, ns=woas.get_namespace(templname, true);
-				if ((ns == "File::") || (ns == "Image::")) {
+				var is_emb = false, templtext, ns=woas.get_namespace(templname, true);
+				if (woas.is_reserved(templname))
+					templtext = woas.get_text_special(templname);
+				else {
 					var epi = woas.page_index(templname);
 					// offer a link for uploading, to implement feature as before 0.11.0
-					if (epi == -1) {
+					if (epi == -1)
 						templtext = "[<!-- -->[Include::[["+templname+"]]]]";
-						is_emb = false;
-					} else {
+					else {
 						templtext = woas.get__text(epi);
-						is_emb = true;
+						is_emb = woas.is_embedded(templname);
 					}
-				} else {
-					templtext = woas.get_text_special(templname);
-					if (templtext !== null)
-						is_emb = !woas.is_reserved(templname) && woas.is_embedded(templname);
 				}
+				// template retrieval error
 				if (templtext === null) {
 					var templs="[["+templname+"]]";
 					if (parts.length>1)
 						templs += "|"+parts.slice(1).join("|");
 					r = woas.parser.place_holder(snippets.length);
-					snippets.push(woas.parser.render_error(str));
+					// show an error with empty set symbol
+					snippets.push(woas.parser.render_error(str, "#8709"));
 					return r;
 				}
 				if (is_emb) {
@@ -234,8 +233,7 @@ woas.parser.parse = function(text, export_links, js_mode) {
 							// check that the URI is valid
 							var uri=woas._export_get_fname(templname);
 							if (uri == '#')
-								//img = '<!-- missing image '+img_name+' -->';
-								img = woas.parser.render_error(templname);
+								img = woas.parser.render_error(templname, "#8709");
 							else
 								img = "<img class=\"embedded\" src=\""+uri+"\" alt=\""+img_name+"\" ";
 						} else
@@ -302,7 +300,7 @@ woas.parser.parse = function(text, export_links, js_mode) {
 		if (trans_level == _MAX_TRANSCLUSION_RECURSE) { // parse remaining inclusions as normal text
 			text = text.replace(reTransclusion, function (str) {
 				r = woas.parser.place_holder(snippets.length);
-				snippets.push(woas.parser.render_error(str));
+				snippets.push(woas.parser.render_error(str, "infin"));
 				return r;
 			});
 		}
@@ -624,6 +622,9 @@ woas.parser.parse = function(text, export_links, js_mode) {
 	return text.substring(6)+"</div>";
 };
 
-woas.parser.render_error = function(str) {
-	return "<span style=\"color: red;font-weight:bold;\">&infin; "+str+" &infin;</span>";
+woas.parser.render_error = function(str, symbol) {
+//	if (typeof symbol == "undefined")
+//		symbol = "infin";
+	symbol = "&"+symbol+";";
+	return "<span style=\"color: red;font-weight:bold;\">"+symbol+" "+str+" "+symbol+"</span>";
 };
