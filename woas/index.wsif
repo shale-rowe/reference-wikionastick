@@ -1,7 +1,7 @@
 wsif.version: 1.2.0
 wsif.generator: woas
 woas.version: 0.11.2
-woas.pages: 68
+woas.pages: 67
 
 woas.page.title: ::Menu
 woas.page.attributes: 0
@@ -2799,18 +2799,5 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 [[Include::WoaS::Help::WSIF]]
-
---DFQRCTsKlU
-woas.page.title: Infinite recursion
-woas.page.attributes: 0
-woas.page.last_modified: 1270097169
-woas.page.length: 94
-woas.page.encoding: 8bit/plain
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-[[Include::WoaS::Template::Example::Transclusion|Mary|lamb.]]
-[[Include::Infinite recursion]]
 
 --DFQRCTsKlU
