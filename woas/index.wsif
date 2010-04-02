@@ -84,7 +84,8 @@ Available only for versions v0.9 and above. /Caution: importing older CSS can ga
 --DFQRCTsKlU
 woas.page.title: Special::About
 woas.page.attributes: 0
-woas.page.length: 3146
+woas.page.last_modified: 1270184313
+woas.page.length: 3110
 woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -111,8 +112,7 @@ Wiki on a Stick can always be downloaded through the official SF.net WoaS projec
 You can use the [[http://woas.iragan.com/|official WoaS forums]] and the [[http://sf.net/projects/stickwiki/|SF.net WoaS project facilities]].
 
 == Thanks to
-This project wouldn't be what it is without the help of other people. If you contributed to Wiki on a Stick and your name is not here (or if you do not want it to be listed here), please send an email to <a class="world" href="mailto:legolas558 _AT_ users.sourceforge.net">this email address</a>.
-
+This project wouldn't be what it is without the help of other people. If you contributed to Wiki on a Stick and your name is not here (or if you do not want it to be listed here), please send an email to [[mailto://legolas558@users.sourceforge.net|this address]].
 * *Jeremy Ruston* - the creator of the wonderful [[http://www.tiddlywiki.com/|TiddlyWiki]], who served as inspiration for Wiki on a Stick
 * *Philip O'Donnel* - creator of the table syntax & parsing code
 * *Tim Lord*
@@ -123,7 +123,7 @@ This project wouldn't be what it is without the help of other people. If you con
 * *jimmac* - author of [[http://jimmac.musichall.cz/i.php?i=gorilla-stock|the icons set]] which we are currently using in WoaS
 * *martinellison* - transclusion patch
 * *Nilton Castillo* - bugfixes and enhancements (pluggable macro syntax)
-* *Littlegirl* - documentation and overall testing, various improvements
+* *Little Girl* - documentation, overall testing, various improvements
 * [[http://weekendtesting.com/archives/833|Europe Weekend Testing]] - which provided a testing session for WoaS
 * [[http://testconsultant.blogspot.com/|Jeroen Rosink]] - for testing WoaS releases
 
