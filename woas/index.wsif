@@ -1122,14 +1122,15 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Wiki is read-only
 woas.page.attributes: 0
-woas.page.length: 346
+woas.page.last_modified: 1270312976
+woas.page.length: 377
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Wiki is read-only
-If you clicked the *Disallow edits* button in the wiki *Options*, this wiki became read-only. To undo that:
+If you clicked the *Disallow edits* button in the wiki [[WoaS::Help::Special::Options|Options]], this wiki became read-only. To undo that:
 # Back up this wiki.
 # Open it in a text editor.
 # Do a search for: {{{"permit_edits":false,}}}
@@ -1197,16 +1198,16 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Edit a page
 woas.page.attributes: 0
-woas.page.last_modified: 1270094918
-woas.page.length: 696
+woas.page.last_modified: 1270313343
+woas.page.length: 754
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Edit a page
-All pages (except WoaS pages within reserved namespaces) can be edited or deleted. In order to edit such pages, click the *Edit* icon in the navigation bar. You can find all the user pages by clicking the *Special::All Pages* link in the menu.
-# Click the *Edit* icon in the navigation bar or double-click on the page if you've enabled that setting in the wiki *Options*.<br><br>
+All pages (except WoaS pages within reserved [[WoaS::Help::Namespaces|namespaces]]) can be edited or deleted. In order to edit such pages, click the *Edit* icon in the navigation bar. You can find all the user pages by clicking the *Special::All Pages* link in the menu.
+# Click the *Edit* icon in the navigation bar or double-click on the page if you've enabled that setting in the wiki [[WoaS::Help::Special::Options|Options]].<br><br>
 # Edit the contents of the main text area by typing normally.<br><br>
 # Use the editor's buttons to insert code to format the text, or type the code in manually. Note that the use of plain text doesn't require any code.<br><br>
 # Save your changes by clicking on the *Save* icon in the navigation bar.
@@ -1775,8 +1776,8 @@ By putting an exclamation mark (*!*) in front of the tag name, you can filter ou
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Publish wiki online
 woas.page.attributes: 0
-woas.page.last_modified: 1270095850
-woas.page.length: 569
+woas.page.last_modified: 1270312882
+woas.page.length: 571
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1789,7 +1790,7 @@ This wiki can be published online as a single-file, framed web page by making it
 # Scroll to the bottom of the page.
 # Click the *Disallow edits* button to make the file read-only.
 # Upload the wiki to a web server and publish a link to it.
-To enable wiki editing again, see the *WoaS::Help::Wiki is read-only* page.
+To enable wiki editing again, see the [[WoaS::Help::Wiki is read-only]] page.
 
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Run wiki on a server
