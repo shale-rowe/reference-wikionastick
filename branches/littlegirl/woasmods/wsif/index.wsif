@@ -2,7 +2,7 @@ wsif.version: 1.2.0
 wsif.generator: woas
 woas.version: 0.11.1
 woas.author: Little Girl
-woas.pages: 92
+woas.pages: 93
 
 woas.page.title: ::Menu
 woas.page.attributes: 0
@@ -3402,8 +3402,8 @@ This creates a page with a link that creates a page with the current date as its
 --DFQRCTsKlU
 woas.page.title: WoaS Mods::Add columns of text
 woas.page.attributes: 0
-woas.page.last_modified: 1270279696
-woas.page.length: 7314
+woas.page.last_modified: 1270326869
+woas.page.length: 7310
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -3431,15 +3431,36 @@ This makes it so you can insert columns of text into your pages. Columns accept 
 
 == Examples
 Example with two columns using 100% of the page width. Each column uses 50%:<pre>&lt;columns 100% 50% 50%&gt;<br>TEXT IN COLUMN ONE<br>&lt;nextcolumn&gt;<br>TEXT IN COLUMN TWO<br>&lt;&#047;columns&gt;</pre>
-
 Example with two columns using 100% of the page width. The first column uses 75% and the second column uses 25%:<pre>&lt;columns 100% 75% 25%&gt;<br>TEXT IN COLUMN ONE<br>&lt;nextcolumn&gt;<br>TEXT IN COLUMN TWO<br>&lt;&#047;columns&gt;</pre>
-
 Example with three columns using 100% of the page width. Each column uses 33%:<pre>&lt;columns 100% 33% - -&gt;<br>TEXT IN COLUMN ONE<br>&lt;nextcolumn&gt;<br>TEXT IN COLUMN TWO<br>&lt;nextcolumn&gt;<br>TEXT IN COLUMN THREE<br>&lt;&#047;columns&gt;</pre>
-
 Example with three columns using 75% of the page width. The first column uses 50% and the other two columns split the remaining width equally:<pre>&lt;columns 75% 50% - -&gt;<br>TEXT IN COLUMN ONE<br>&lt;nextcolumn&gt;<br>TEXT IN COLUMN TWO<br>&lt;nextcolumn&gt;<br>TEXT IN COLUMN THREE<br>&lt;&#047;columns&gt;</pre>
-
 Example with four columns using 100% of the page width. The first column uses 25% and the other three columns split the remaining width equally (each column uses 25%):<pre>&lt;columns 100% 25% - - -&gt;<br>TEXT IN COLUMN ONE<br>&lt;nextcolumn&gt;<br>TEXT IN COLUMN TWO<br>&lt;nextcolumn&gt;<br>TEXT IN COLUMN THREE<br>&lt;nextcolumn&gt;<br>TEXT IN COLUMN FOUR<br>&lt;&#047;columns&gt;</pre>
 
 [[Tags::0.11.0|0.11.1]]
+
+--DFQRCTsKlU
+woas.page.title: WoaS Mods::Add a dynamic ToDo list
+woas.page.attributes: 0
+woas.page.last_modified: 1270331670
+woas.page.length: 4157
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Add a dynamic ToDo list
+This adds a dynamic ToDo list to your wiki. The *ToDo list* page allows you to create ToDo tasks anywhere in your wiki. The list updates automatically as you create and delete tasks from your pages, providing a quick overview of what still needs to be done, as well as direct links to each task. Thanks go to [[http://stickwiki.svn.sourceforge.net/viewvc/stickwiki/branches/enhancements/woas/|FBNil]] for this mod!
+
+# Create a page named *ToDo list* with just these contents:<pre>&#061; ToDo list<br>&lt;div id&#061;&#039;todos&#039; style&#061;&#34;border:1px solid grey;&#34;&gt;&lt;&#047;div&gt;<br>&lt;script&gt;<br>function listtodo&#040;&#041; &#123;<br>	var x&#061;0;<br>	var resx &#061; &#039;&lt;table cellspacing&#061;&#092;&#039;2&#092;&#039; cellpadding&#061;&#092;&#039;2&#092;&#039;&gt;&#039;;<br>	var re &#061; &#047;&#092;&#091;&#092;&#091;Include::Template::TODO&#092;&#124;&#040;&#091;&#094;&#092;&#124;&#093;&#043;&#041;&#092;&#124;&#040;&#091;&#094;&#092;&#093;&#093;&#043;&#041;&#047;g;<br>	for &#040;var i &#061; 0,l&#061;pages.length; i &lt; l; &#043;&#043;i&#041; &#123;<br>		var pagetxt &#061; pages&#091;i&#093;;<br>		var res &#061; pagetxt.toString&#040;&#041;.match&#040;re&#041;;<br>		if &#040;res !&#061; null&#041; &#123;<br>			for &#040;var j &#061; 0,rl&#061;res.length; j&lt;rl ; &#043;&#043;j&#041; &#123;<br>				var parts &#061; res&#091;j&#093;.split&#040;&#039;&#124;&#039;&#041;;<br>				var anchor &#061; parts&#091;1&#093;.replace&#040;&#039;&#095;&#039;,&#047; &#047;&#041;;<br>				resx &#043;&#061; &#039;&lt;tr&gt;&lt;td&gt;&#039; &#043; &#34;&lt;a class&#061;&#092;&#34;link&#092;&#34; onclick&#061;&#092;&#34;go&#095;to&#040;&#039;&#34; <br>					&#043; RegExp.escape&#040;page&#095;titles&#091;i&#093;&#041; &#043; &#34;&#039;&#041;; window.location.hash&#061;&#039;&#34;&#043;anchor &#043;&#34;&#039;&#092;&#34;&gt;&#34;<br>					&#043; page&#095;titles&#091;i&#093; &#043; &#34;&lt;&#092;&#047;a&gt;&#34; &#043; &#039;&lt;&#047;td&gt;&lt;td&gt;&#045;&lt;&#047;td&gt;&lt;td&gt;&#039; &#043; woas.parser.parse&#040;parts&#091;2&#093;&#041; <br>					&#043; &#039;&lt;&#047;td&gt;&lt;&#047;tr&gt;&#039;;<br>			&#125;<br>		&#125;<br>	&#125;<br>	$&#040;&#039;todos&#039;&#041;.innerHTML &#061; resx &#043; &#039;&lt;&#047;table&gt;&#039;;<br>&#125;<br>listtodo&#040;&#041;;<br>&lt;&#047;script&gt;&lt;form&gt;&lt;input type&#061;&#039;button&#039; onclick&#061;&#039;listtodo&#040;&#041;;&#039; value&#061;&#039;Refresh the list&#039;&#047;&gt;&lt;&#047;form&gt;</pre>
+# Create a new page named *Template::TODO* with just these contents:<pre>&lt;a class&#061;&#34;TODO&#34; name&#061;&#34;%1&#34; href&#061;&#34;javascript&#058;go&#095;to&#040;&#039;ToDo list&#039;&#041;&#34;&gt;&lt;strong&gt;&lt;font color&#061;&#34;red&#34;&gt;ToDo&#058;&lt;&#047;font&gt;&lt;&#047;strong&gt;&lt;&#047;a&gt; &lt;b&gt;%2&lt;&#047;b&gt;</pre>Make sure *not* to add a newline (by pressing the Enter key) at the end of the line.
+
+== How to use the ToDo list
+To add a task, use this link anywhere in a page, replacing *TASK* with whatever it is you need to do on the page:<pre>&#091;&#091;Include::Template::TODO|this|TASK&#093;&#093;</pre>When you save the page, a red TODO link will be created in the page and the task will automatically be added to the *ToDo list* page.
+
+To use the ToDo list, open the *ToDo list* page normally or by clicking any red TODO link you created. It contains a list of the tasks you've added to your pages, with links to the pages they're on. Click on any link. You'll be taken to the spot on the page where the ToDo task is.
+
+<div style="background-color:#FFFFAA; border: 0.1em solid black; padding:0.3em;">The list refreshes automatically as you add and remove ToDo tasks in your wiki pages, but there's a *Refresh the list* button included for use if the list doesn't automatically refresh.</div>
+To remove a task from the list if you've completed it or decided to not do it after all, delete the task from the page it's on and it will automatically be cleared from the *ToDo list* page.
+[[Tags::0.9.6B|0.10.0|0.10.1|0.10.2|0.10.3|0.10.4|0.10.5|0.10.6|0.10.7|0.11.0|0.11.1]]
 
 --DFQRCTsKlU
