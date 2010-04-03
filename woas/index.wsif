@@ -1723,15 +1723,19 @@ The Table of Contents expects the first header on a page to be a Level 1 header.
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Tags
 woas.page.attributes: 0
-woas.page.last_modified: 1269450592
-woas.page.length: 3881
+woas.page.last_modified: 1270320074
+woas.page.length: 3862
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Tags
-Tags are special links used by this wiki to group pages together into categories so they can easily be found again. A tag can be placed anywhere on a page, but it's a good idea to choose a standard location like the bottom of the page so you can easily find and edit them as your wiki grows. You can choose any name you like for the tag. You can also give a page more than one tag if the page fits into more than one category.
+Tags are special links used by this wiki to group pages together into categories so they can easily be found again.
+
+Tags can be placed anywhere on a page, but choosing a standard location like the bottom of the page makes them easier to find and edit as your wiki grows.
+
+You can choose any name you like for the tag. You can also give a page more than one tag if the page fits into more than one category.
 
 Tag a page by using a {{{[[Tags::]]}}} link, adding the tag name or names after the double colons. This can be done by using the *Tags* button in the editor or by typing the tag in manually using the instructions below.
 
@@ -2388,14 +2392,15 @@ See also the [[WoaS::Help::Table of Contents]] page.
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Links
 woas.page.attributes: 0
-woas.page.last_modified: 1270318496
-woas.page.length: 8267
+woas.page.last_modified: 1270319704
+woas.page.length: 8306
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Links
+This wiki accepts wiki and HTML links.
 == Wiki links
 Below are methods for creating links using wiki syntax.
 
