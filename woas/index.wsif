@@ -2529,8 +2529,8 @@ With a combination of HTML and wiki syntax, you can create anchor links to anywh
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Images
 woas.page.attributes: 0
-woas.page.last_modified: 1269622250
-woas.page.length: 14057
+woas.page.last_modified: 1270317907
+woas.page.length: 14055
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -2564,12 +2564,8 @@ Wiki on a Stick offers various ways of using images in your pages. You can link 
 == Embed an image in the wiki
 This wiki provides an interface for embedding images. Each image will be given its own page, which you can use in an include link to insert the image anywhere in this wiki.
 
-[[Include::WoaS::Template::Info|Embedded images are encoded with Base64 and are 33% bigger than the original files. Since this wiki is a single file, excessive use of images will slow down performance.]]
-
-*Note:* It is better to keep the extension in the image name because this could be used on some browsers to infer the mime type of the image
-
-<span class="woas_helptext">*Replace NAME in these instructions with the name of your image:*</span>
-
+[[Include::WoaS::Template::Info|Embedded images are encoded with Base64 and are 33% bigger than the original files. Since this wiki is a single file, excessive use of images will slow down performance.<br><br>It is recommended to keep the extension in the image name because some browsers infer the mime type of the image from the extension.]]
+<span class="woas_helptext">Replace NAME in these instructions with the name of your image:</span>
 === From the menu
 # Click the *New Page* link in the menu.<br><br>
 # Type {{{Image::NAME}}} into the box that comes up. This will bring up the image embedding interface.<br><br>
@@ -2611,7 +2607,7 @@ However if you want to use anyway a data:URI image you can do it by directly add
 A famous online service to create such URIs is [[http://software.hixie.ch/utilities/cgi/data/data|The data: URI kitchen]]. The best encoding to be used in WoaS is base64.
 
 == Create a data:URI image button
-<div class="woas_helptext">Use this code in a page, replacing YOUR_MESSAGE with the message to be displayed and DATA_URI_GOES_HERE with the data:URI of your image:</div>{{{<input type="image" onclick='alert("YOUR_MESSAGE")' src="DATA_URI_GOES_HERE">}}}
+<div class="woas_helptext">Use this code in a page, replacing YOUR_MESSAGE with the message to be displayed and DATA_URI_GOES_HERE with the data:URI of your image:</div><br>{{{<input type="image" onclick='alert("YOUR_MESSAGE")' src="DATA_URI_GOES_HERE">}}}
 
 * *Example:*<br><br>
 ** <div class="woas_helptext">Use this example code:</div>{{{
