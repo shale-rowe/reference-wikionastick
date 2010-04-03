@@ -1437,8 +1437,8 @@ To include the contents of a wiki page inside another wiki page, use an {{{[[Inc
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::JavaScript
 woas.page.attributes: 0
-woas.page.last_modified: 1270095690
-woas.page.length: 5566
+woas.page.last_modified: 1270318337
+woas.page.length: 5580
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1500,7 +1500,7 @@ The code below will redirect from the current page to the wiki page you specify 
 setTimeout(onload="go_to('PAGENAME')",10*1000);
 </script>
 }}}<br><div class="woas_helptext">To redirect the current page to the PAGENAME page 10 seconds after the current page loads.</div>
-[[Include::WoaS::Template::Info|Note that this will redirect to the next page even if you're in the editor! The only indication you will have if you're in the editor is that name in the the Page title box will change to the name of the redirected page. If you don't check this before saving, your changes will be saved to the redirected page, overwriting its contents.<br><br>It's a good idea to put this code near the top of any page (preferably directly beneath the first header on the page) so that you can find it quickly, and also to make the delay at *least* 10 seconds so that you have time to open the page in the editor, change the *PAGENAME* portion of the code to a nonexistent page, and then save the page before the timer runs out. Then you can reopen the page safely without risk of it redirecting while you're working on it. All that will happen if you give the script a nonexistent page name is that an alert will pop up asking if you'd like to create the nonexistent page. You can click *Cancel* when that popup comes up and continue working without further interruption. An even safer method is to open the wiki in a text editor and make changes to the page contents from there.]]
+[[Include::WoaS::Template::Info|Note that this will redirect to the next page even if you're in the editor! The only indication you will have if you're in the editor is that name in the the Page title box will change to the name of the redirected page. If you don't check this before saving, your changes will be saved to the redirected page, overwriting its contents.<br><br>It's a good idea to put this code near the top of any page (preferably directly beneath the first header on the page) so that you can find it quickly, and also to make the delay at *least* 10 seconds so that you have time to open the page in the editor, change the *PAGENAME* portion of the code to a nonexistent page, and then save the page before the timer runs out.<br><br>Then you can reopen the page safely without risk of it redirecting while you're working on it. All that will happen if you give the script a nonexistent page name is that an alert will pop up asking if you'd like to create the nonexistent page. You can click *Cancel* when that popup comes up and continue working without further interruption.<br><br>An even safer method is to open the wiki in a text editor and make changes to the page contents from there.]]
 == Using JavaScript to reload the wiki
 <div class="woas_helptext">Use this code in a page:</div>{{{
 <input type="button" value="Reload wiki" onClick="window.location.href=window.location.href">
@@ -1872,7 +1872,8 @@ The TiddlySaver java applet was written by J.Rouston.
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Lists
 woas.page.attributes: 0
-woas.page.length: 12961
+woas.page.last_modified: 1270318691
+woas.page.length: 12803
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1966,7 +1967,7 @@ Wiki markup lists are created with between one and five specific characters ({{{
 # ITEM 3 - ITEM 3 SUBTEXT <blockquote>ITEM 3 MORE SUBTEXT</blockquote>
 
 == HTML Lists
-HTML lists work the same way as they do in any web page. Specifying the list type can be done in the {{{ol}}}, {{{<ul>}}}, or {{{<li>}}} tags, depending on how you need to use them. Wiki markup is accepted in list items. If you'd rather not type in the code for HTML lists, there's a *More lists* button in the editor that opens a fourth row of buttons for creating fancy lists.
+HTML lists work the same way as they do in any web page. Specifying the list type can be done in the {{{ol}}}, {{{<ul>}}}, or {{{<li>}}} tags, depending on how you need to use them. Wiki markup is accepted in list items.
 
 === Specifying list type in the &lt;ol&gt; tag
 This method is useful when an entire list will use one list item type. This way you only need to specify the type once, and all the list items can be entered normally.
@@ -2383,8 +2384,8 @@ See also the *WoaS::Help::Table of Contents* page.
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Links
 woas.page.attributes: 0
-woas.page.last_modified: 1270098590
-woas.page.length: 8265
+woas.page.last_modified: 1270318496
+woas.page.length: 8267
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -2426,7 +2427,7 @@ You can use a special anchor link to link to a header on the current page. After
 
 === Image as link
 ==== Base64 image as link
-See the *WoaS::Help::Images* page.
+See the [[WoaS::Help::Images]] page.
 ==== Image as link to wiki page
 <div class="woas_helptext">Use this code in a page, replacing IMAGENAME with the name of an embedded image page, and PAGENAME with the name of a page in this wiki:</div>
 <div class="woas_helpcode">[<!-- -->[I<!-- -->nclude:<!-- -->:Image:<!-- -->:IMAGENAME|style="cursor:pointer" oncl<!-- -->ick="go_<!-- -->to('PA<!-- -->GENAME')"]]</div>
