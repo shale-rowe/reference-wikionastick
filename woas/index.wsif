@@ -396,8 +396,8 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: WoaS::Plugins
 woas.page.attributes: 0
-woas.page.last_modified: 1270097504
-woas.page.length: 174
+woas.page.last_modified: 1270320667
+woas.page.length: 176
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -405,7 +405,7 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 = Plugins
 This page contains options for the active WoaS plugins.
-In order to install a plugin, import its WSIF file (see the *Special::ImportWSIF* page for more information.
+In order to install a plugin, import its WSIF file (see the [[Special::ImportWSIF]] page for more information.
 --DFQRCTsKlU
 woas.page.title: History
 woas.page.attributes: 0
@@ -2733,15 +2733,15 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Transclusion
 woas.page.attributes: 0
-woas.page.last_modified: 1270097323
-woas.page.length: 3114
+woas.page.last_modified: 1270320455
+woas.page.length: 3150
 woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Transclusion
-Transclusion is a special way of including a wiki page in another wiki page. Instead of just displaying the contents of the included page as is, you can change how the content is displayed depending on how you write the link.
+Transclusion is a special way of [[WoaS::Help::Include wiki page|including a wiki page]] in another wiki page. Instead of just displaying the contents of the included page as is, you can change how the content is displayed depending on how you write the link.
 
 This method requires that you create a page to be used as a template. This page must contain variables represented by %1, %2, %3, and so on.
 
@@ -2750,7 +2750,7 @@ You can then create a transclusion link or links to that page by creating a norm
 <div class="helptext">Use this code, replacing PAGENAME with the name of the page to be included, and VALUE1 and VALUE2 with the values you'd like the two variables to have when the included page is displayed:</div>
 <div class="helpcode">[<!-- -->[Include::PAGENAME|VALUE1|VALUE2|VALUE3]<!-- -->]</div>
 == Examples
-These examples use the *WoaS::Template::Example::Transclusion* page which contains two variables. The contents of that page are:
+These examples use the [[WoaS::Template::Example::Transclusion]] page which contains two variables. The contents of that page are:
 {{{
 <big style="color:lime">%1 had a little %2</big>
 }}}
