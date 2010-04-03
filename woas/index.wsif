@@ -1299,23 +1299,24 @@ Below are examples on how to use wiki markup to create headers in this wiki. The
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Rulers
 woas.page.attributes: 0
-woas.page.length: 1275
+woas.page.last_modified: 1270319145
+woas.page.length: 1217
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Help::Rulers 
+= Rulers 
 Rulers (horizontal rules or lines) use the full width of the page by default. They can be styled to a smaller width by surrounding them with HTML &lt;div&gt; tags. Styling can also control their position.
 
-== Standard horizontal rule ==
+== Standard ruler
 <div class="woas_helptext">Use this code in a page:</div>{{{
 ----
 }}}<br><div class="woas_helptext">To create this:</div><br>
 ----
 
 
-== Custom width horizontal rule aligned left ==
+== Custom width ruler aligned left
 <div class="woas_helptext">Use this code in a page, replacing 50% with the width you like:</div>{{{
 <div style="width:50%";>
 ----
@@ -1325,13 +1326,13 @@ Rulers (horizontal rules or lines) use the full width of the page by default. Th
 ----
 </div>
 
-== Custom width horizontal rule aligned right ==
+== Custom width ruler aligned right
 <div class="woas_helptext">Use this code in a page, replacing 50% with the width you like:</div>{{{
 <div style="width:50%; float:right;"><hr></div>
 }}}<br><div class="woas_helptext">To create this:</div>
 <div style="width:50%; float:right;"><hr></div>
 
-== Custom width centered horizontal rule ==
+== Custom width centered ruler
 <div class="woas_helptext">Use this code in a page, replacing 50% with the width you like:</div>{{{
 <center><div style="width:50%";>
 ----
@@ -1701,14 +1702,17 @@ You can change the settings by clicking the *Advanced* icon in the navigation ba
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Table of Contents
 woas.page.attributes: 0
-woas.page.length: 773
+woas.page.last_modified: 1270319220
+woas.page.length: 774
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Table of Contents
-You can insert a Table of Contents into your page by using a special wiki tag. It will be automatically populated with all the headers on a page. The Table of Contents expects the first header on a page to be a Level 1 header. If you use any other level header first, that header and any headers after it will be represented by hash marks until a Level 1 header is encountered. From that point on, the headers will be numbered properly.
+You can insert a Table of Contents into your page by using a special wiki tag. It will be automatically populated with all the headers on a page.
+
+The Table of Contents expects the first header on a page to be a Level 1 header. If you use any other level header first, that header and any headers after it will be represented by hash marks until a Level 1 header is encountered. From that point on, the headers will be numbered properly.
 
 <div class="woas_helptext">Use this code on a line by itself in your page:</div>{{{
 [[Special::TOC]]
@@ -2273,8 +2277,8 @@ This method is useful when an creating a fancy list with more than one list item
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Tables
 woas.page.attributes: 0
-woas.page.last_modified: 1270096997
-woas.page.length: 2153
+woas.page.last_modified: 1270319372
+woas.page.length: 2177
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -2331,7 +2335,7 @@ The line that starts with {{{|- }}} is a comment line. You can type some text af
 |}
 
 == Complex Table:
-Tables can have a specially formatted title row created by adding a pipe followed by a plus symbol and a space before the title text (example: {{{|+ Title}}}), and can contain internal and external wiki links.
+Tables can have a specially formatted title row created by adding a pipe followed by a plus symbol and a space before the title text (example: {{{|+ Title}}}), and can contain internal and external [[WoaS::Help::Links|wiki links]].
 
 <div class="woas_helptext">Use this code in a page:</div>{{{
 {|
@@ -2379,7 +2383,7 @@ Tables can have a specially formatted title row created by adding a pipe followe
 | CELL1 || || CELL3
 |}
 
-See also the *WoaS::Help::Table of Contents* page.
+See also the [[WoaS::Help::Table of Contents]] page.
 
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Links
