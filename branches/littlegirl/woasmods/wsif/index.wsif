@@ -2,7 +2,7 @@ wsif.version: 1.2.0
 wsif.generator: woas
 woas.version: 0.11.1
 woas.author: Little Girl
-woas.pages: 91
+woas.pages: 92
 
 woas.page.title: ::Menu
 woas.page.attributes: 0
@@ -38,18 +38,19 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Main Page
 woas.page.attributes: 0
-woas.page.last_modified: 1269882146
-woas.page.length: 1017
+woas.page.last_modified: 1270251459
+woas.page.length: 1022
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= WoaS Mods
+= Unofficial WoaS Mods
 This is a collection of pages showing a few modifications you can make to customize various versions of Wiki on a Stick. Some of them are fixes while others are just fun or useful things you can add to your wiki.
 
-<div style="background-color:#FFFFAA; border: 0.1em solid black; padding:0.3em; margin-left:auto; margin-right: auto; width:80%;">All pages are tagged at the bottom with the WoaS versions the mod has been tested in.<br><br>If a page is not tagged with the version of WoaS you're using, it may not work or be necessary in your version.<br><br>All instructions are for the default wiki as downloaded from [[http://sourceforge.net/projects/stickwiki/files/|here]]. If you've made changes to your wiki, you may need to modify the instructions.<br><br>Use these at your own risk. Please back up your wiki before trying them.</div>
+<div style="background-color:#FFFFAA; border: 0.1em solid black; padding:0.3em; margin-left:auto; margin-right: auto; width:80%;">All pages are tagged at the bottom with the WoaS versions the mod has been tested in. If a page is not tagged with the version of WoaS you're using, it may not work or be necessary in your version.<br><br>All instructions are for the default wiki as downloaded from [[http://sourceforge.net/projects/stickwiki/files/|here]]. If you've made changes to your wiki, you may need to modify the instructions.<br><br>Use these at your own risk. Please back up your wiki before trying them.</div>
 If you have suggestions, corrections, ideas, or problems with any of the existing mods, please [[mailto://littlergirl@gmail.com?subject=WoaS mods|send me an email]].
+
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Security
 woas.page.attributes: 0
@@ -3397,5 +3398,47 @@ This creates a page with a link that creates a page with the current date as its
 # Create a new page named *Diary* with these contents:<pre>&#061; Diary<br>&lt;div id&#061;&#34;daily&#095;diary&#34;&gt;&lt;&#047;div&gt;<br>&lt;script&gt;<br>var D &#061; new Date&#040;&#041;;<br>var DAYNAMES &#061; &#091;&#34;Sunday&#34;, &#34;Monday&#34;, &#34;Tuesday&#34;, &#34;Wednesday&#34;, &#34;Thursday&#34;, &#34;Friday&#34;, &#34;Saturday&#34;&#093;;<br>var MONTHNAMES &#061; &#091;&#34;01&#34;, &#34;02&#34;, &#34;03&#34;, &#34;04&#34;, &#34;05&#34;, &#34;06&#34;, &#34;07&#34;, &#34;08&#34;, &#34;09&#34;, &#34;10&#34;, &#34;11&#34;, &#34;12&#34;&#093;;<br><br>var day  &#061; D.getDate&#040;&#041;;<br>if&#040;day &lt; 10&#041; day &#061; &#34;0&#34; &#043; day;<br><br>var newpagename &#061; &#34;Diary::&#34; &#043; D.getFullYear&#040;&#041; &#043;&#34;::&#34;&#043; MONTHNAMES&#091;D.getMonth&#040;&#041;&#093; &#043;&#34;::&#34;&#043; day &#043;&#34; &#34;&#043;DAYNAMES&#091;D.getDay&#040;&#041;&#093;;<br>&#047;&#047;$&#040;&#34;daily&#095;diary&#34;&#041;.innerHTML &#061; &#34;Click here to create or edit a diary entry for today: &lt;a href&#061;&#092;&#34;javascript:woas.set&#095;current&#040;'&#34; &#043; newpagename &#043; &#34;', true&#041;;&#092;&#34;&gt;&#34; &#043; newpagename &#043; &#34;&lt;&#047;a&gt;&#34;<br>$&#040;&#34;daily&#095;diary&#34;&#041;.innerHTML &#061; &#34;Click here to create or view a diary entry for today: &lt;a href&#061;&#092;&#34;javascript:go&#095;to&#040;'&#34; &#043; newpagename &#043; &#34;'&#041;;&#092;&#34;&gt;&#34; &#043; newpagename &#043; &#34;&lt;&#047;a&gt;&#34;;<br>&lt;&#047;script&gt;</pre>
 # Click the *Save* icon to save the page.
 [[Tags::0.9.6B|0.10.0|0.10.1|0.10.2|0.10.3|0.10.4|0.10.5|0.10.6|0.10.7|0.11.0|0.11.1]]
+
+--DFQRCTsKlU
+woas.page.title: WoaS Mods::Add columns of text
+woas.page.attributes: 0
+woas.page.last_modified: 1270277646
+woas.page.length: 7267
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Add columns of text
+This makes it so you can insert columns of text into your pages. Columns accept [[WoaS::Help::Headers|headers]], HTML text formatting, [[WoaS::Help::Images|images]], [[WoaS::Help::Links|links]], [[WoaS::Help::Lists|lists]], [[WoaS::Help::Tables|tables]], [[WoaS::Help::Nowiki text|nowiki text]], [[WoaS::Help::Rulers|rulers]], [[WoaS::Help::Transclusion|transcludes]], and [[WoaS::Help::Text formatting|wiki text formatting]]. Thanks go to [[http://woas.iragan.com/viewtopic.php?id=759|Stanky]] for this mod!
+
+# Open the wiki in a text editor.<br><br>
+# *Find* this section:<pre>	&#047;&#047; restore macros array<br>	woas.macro&#095;parser.macro&#095;names &#061; backup&#095;macro&#095;n;<br>	woas.macro&#095;parser.macro&#095;functions &#061; backup&#095;macro&#095;f;<br>		<br>	if &#040;text.substring&#040;0,5&#041;!&#061;&#34;&lt;&#047;div&#34;&#041;<br>		return &#34;&lt;div class&#061;&#092;&#34;level0&#092;&#34;&gt;&#34; &#043; text &#043; &#34;&lt;&#047;div&gt;&#34;;<br>	return text.substring&#040;6&#041;&#043;&#34;&lt;&#047;div&gt;&#34;;<br>&#125;</pre>
+# *Replace* it with this section:<pre>	&#047;&#047; restore macros array<br>	woas.macro&#095;parser.macro&#095;names &#061; backup&#095;macro&#095;n;<br>	woas.macro&#095;parser.macro&#095;functions &#061; backup&#095;macro&#095;f;<br>&#047;&#047;BEGIN COLUMNS MOD<br>    reReapColumns &#061; &#047;&lt;columns&#092;b&#091;^&gt;&#093;&#042;&gt;&#040;.&#042;&#063;&#041;&lt;&#092;&#047;columns&gt;&#047;g;<br>    text &#061;  text.replace&#040;reReapColumns, function &#040;str&#041; &#123;<br>        colsw &#061; str.substr&#040;str.indexOf&#040;&#34;&lt;columns&#34;&#041;, str.indexOf&#040;&#34;&gt;&#34;&#041;&#041;.match&#040;&#047;&#040;&#091;0&#045;9&#093;&#123;1,3&#125;%&#041;&#124;&#045;&#047;g&#041;;<br>        cols &#061; str.replace&#040;&#047;&lt;&#092;&#047;&#042;columns&#040;&#092;s&#042;&#040;&#091;0&#045;9&#093;&#123;1,3&#125;%&#041;&#042;&#124;&#045;&#041;&#042;&gt;&#040;&lt;br&#092; &#092;&#047;&gt;&#041;&#042;&#047;gm, &#34;&#34;&#041;.replace&#040;&#047;&#040;&lt;br&#092; &#092;&#047;&gt;&#041;&#042;&lt;nextcolumn&gt;&#040;&lt;br&#092; &#092;&#047;&gt;&#041;&#042;&#047;g, &#34;&lt;nextcolumn&gt;&#34;&#041;.split&#040;&#34;&lt;nextcolumn&gt;&#34;&#041;;<br>        if &#040;&#033;colsw&#041;<br>            colsw &#061; new Array&#040;'&#045;'&#041;;<br>        for &#040;var i&#061;&#040;colsw.length&#041;; i&lt;&#061;cols.length; &#043;&#043;i&#041;<br>            colsw.push&#040;&#34;&#045;&#34;&#041;;<br>        var rtext &#061;  &#34;&lt;table class&#061;'columns&#045;plugin'&#34; &#043; &#040;colsw&#091;0&#093; &#033;&#061; &#34;&#045;&#34;&#063;&#34; style&#061;'width:&#34; &#043; colsw.shift&#040;&#041; &#043; &#34;'&#34;: colsw.shift&#040;&#041;&#041; &#043; &#34;&gt;&#34;;<br>        for &#040;var i&#061;0; i&lt;colsw.length; &#043;&#043;i&#041;<br>            rtext &#061;  rtext &#043; &#34;&lt;col&#34; &#043; &#040;colsw&#091;i&#093; &#033;&#061; &#34;&#045;&#34;&#063;&#34; style&#061;'width:&#34; &#043; colsw&#091;i&#093; &#043; &#34;'&#34;: &#34;&#34;&#041; &#043; &#34;&gt;&#34;;<br>        rtext &#061; rtext &#043; &#34;&lt;tr&gt;&#34;;<br>        for &#040;var i&#061;0; i&lt;cols.length; &#043;&#043;i&#041;<br>            rtext &#061; rtext &#043; &#34;&lt;td class&#061;'&#34; &#043; &#040;i &#061;&#061; 0&#063;&#34;first&#34; : &#34;last&#34;&#041; &#043; &#34;'&gt;&#34; &#043; cols&#091;i&#093; &#043; &#34;&lt;&#047;td&gt;&#34;; <br>        rtext &#061; rtext &#043; &#34;&lt;&#047;tr&gt;&lt;&#047;table&gt;&#34;;<br>    return rtext;&#125;&#041;<br>&#047;&#047;END COLUMNS MOD<br>	if &#040;text.substring&#040;0,5&#041;&#033;&#061;&#34;&lt;&#047;div&#34;&#041;<br>		return &#34;&lt;div class&#061;&#092;&#34;level0&#092;&#34;&gt;&#34; &#043; text &#043; &#34;&lt;&#047;div&gt;&#34;;<br>	return text.substring&#040;6&#041;&#043;&#34;&lt;&#047;div&gt;&#34;;<br>&#125;</pre>
+# Save the file and close the text editor.<br><br>
+# Open the wiki in a browser.<br><br>
+# Click the *Advanced* icon in the navigation bar.<br><br>
+# Click the [[Special::Edit CSS]] link in the *Advanced features* section of the page to open the global CSS in the wiki editor.<br><br>
+# *Add* these entries:<pre>table.columns-plugin &#123;<br>    border-spacing: 0;<br>    border-collapse: collapse;<br>    border-width: 0px 0px 0px 0px;<br>    margin: 0px;<br>&#125;<br>table.columns-plugin td &#123;<br>    border-left: rgb&#040;192,192,192&#041; 1px dotted;<br>    padding-top: 0px;<br>    padding: 0em 1em 0em 1em;<br>    vertical-align: top;<br>&#125;<br>table.columns-plugin td.first &#123;<br>    border-top: 0px;<br>    border-width: 0px 1px 0px 0px;<br>    padding-left: 0px;<br>&#125;<br>table.columns-plugin td.last &#123;<br>    padding-right: 0.5em<br>&#125;</pre>
+
+== How to use the columns
+# Begin the first column with a column declaration tag. Pick one of these:<br><br>
+## Standard column declaration tag:<pre>&lt;columns 100&#037; 50&#037; 50&#037;&gt;</pre>&#8226; The first number is the total width of all columns in percentage of page width.<br>&#8226; The next number(s) define the width of each column and how many columns there will be.<br><br>
+## Alternative column declaration tag using dashes to represent columns:<pre>&lt;columns 75&#037; 50&#037; - -&gt;</pre>&#8226; The first number is the total width of all columns in percentage of page width.<br>&#8226; The next number defines the width of the first column.<br>&#8226; The dashes represent two additional columns that will split the remaining width equally.<br><br>
+# Begin the next column (and any other columns, depending on how many columns you're using) with a column tag:<pre>&lt;nextcolumn&gt;</pre>
+# Finish the column section with a column closing tag:<pre>&lt;&#047;columns&gt;</pre>
+
+== Examples
+Example with two columns using 100% of the page width. Each column uses 50%:<pre>&lt;columns 100% 50% 50%&gt;<br>TEXT IN COLUMN ONE<br>&lt;nextcolumn&gt;<br>TEXT IN COLUMN TWO<br>&lt;&#047;columns&gt;</pre>
+
+Example with two columns using 100% of the page width. The first column uses 75% and the second column uses 25%:<pre>&lt;columns 100% 75% 25%&gt;<br>TEXT IN COLUMN ONE<br>&lt;nextcolumn&gt;<br>TEXT IN COLUMN TWO<br>&lt;&#047;columns&gt;</pre>
+
+Example with three columns using 100% of the page width. Each column uses 33%:<pre>&lt;columns 100% 33% - -&gt;<br>TEXT IN COLUMN ONE<br>&lt;nextcolumn&gt;<br>TEXT IN COLUMN TWO<br>&lt;nextcolumn&gt;<br>TEXT IN COLUMN THREE<br>&lt;&#047;columns&gt;</pre>
+
+Example with three columns using 75% of the page width. The first column uses 50% and the other two columns split the remaining width equally:<pre>&lt;columns 75% 50% - -&gt;<br>TEXT IN COLUMN ONE<br>&lt;nextcolumn&gt;<br>TEXT IN COLUMN TWO<br>&lt;nextcolumn&gt;<br>TEXT IN COLUMN THREE<br>&lt;&#047;columns&gt;</pre>
+
+Example with four columns using 100% of the page width. The first column uses 25% and the other three columns split the remaining width equally (each column uses 25%):<pre>&lt;columns 100% 25% - - -&gt;<br>TEXT IN COLUMN ONE<br>&lt;nextcolumn&gt;<br>TEXT IN COLUMN TWO<br>&lt;nextcolumn&gt;<br>TEXT IN COLUMN THREE<br>&lt;nextcolumn&gt;<br>TEXT IN COLUMN FOUR<br>&lt;&#047;columns&gt;</pre>
+
+[[Tags::0.11.0|0.11.1]]
 
 --DFQRCTsKlU
