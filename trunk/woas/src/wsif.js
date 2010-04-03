@@ -1,10 +1,13 @@
 
 // a class for some general WSIF operations
 woas.wsif = {
-	version: "1.2.0", DEFAULT_INDEX: "index.wsif",
-	emsg: null, imported_page: false,
+	version: "1.2.0",
+	DEFAULT_INDEX: "index.wsif",
+	emsg: null,
+	imported_page: false,
 	expected_pages: null,
-	system_pages: 0
+	system_pages: 0,
+	global_progress: 0
 };
 
 woas.wsif.header = function(header_name, value) {
@@ -242,7 +245,7 @@ woas._native_wsif_load = function(path, overwrite, and_save, recursing, pre_impo
 		this.wsif.emsg = this.i18n.NO_ERROR;
 		this.wsif.imported_page = false;
 		this.wsif.system_pages = 0;
-		var	global_progress = 0;
+		global_progress = 0;
 	}
 	// the imported pages
 	var imported = [];
@@ -443,12 +446,12 @@ woas._get_path = function(id) {
 		return this.dirname(this._last_filename);
 	// on older browsers this was allowed
 	return this.dirname($(id).value);
-}
+};
 
 woas._native_page_def = function(path,ct,p,last_p,overwrite,pre_import_hook, title,attrs,last_mod,len,encoding,
 											disposition,d_fn,boundary,mime) {
 	this.wsif.imported_page = false;
-	var bpos_e;
+	var bpos_e, page;
 	// last modified timestamp can be omitted
 	if (last_mod === null)
 		last_mod = 0;
@@ -474,7 +477,7 @@ woas._native_page_def = function(path,ct,p,last_p,overwrite,pre_import_hook, tit
 		}
 		while (!fail) { // used to break away
 		// retrieve full page content
-		var page = ct.substring(bpos_s+boundary.length, bpos_e);
+		page = ct.substring(bpos_s+boundary.length, bpos_e);
 		// length used to check correctness of data segments
 		var check_len = page.length;
 		// split encrypted pages into byte arrays
