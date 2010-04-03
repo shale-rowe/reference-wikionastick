@@ -102,7 +102,7 @@ woas.help_system.go_to = function(wanted_page, pi) {
 		woas.help_system.popup_window.scrollTo(0,0);
 	}
 	woas.help_system.page_title = wanted_page;
-}
+};
 
 // when edit is clicked
 //DEPRECATED

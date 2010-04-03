@@ -243,7 +243,7 @@ woas._get_namespace_pages = function (ns) {
 			return "= Pages in "+ns+" namespace\n" + iHTML;
 	}
 
-	for(var i=0, l=page_titles.length;i<l;++i) {
+	for(i=0, l=page_titles.length;i<l;++i) {
 		if (page_titles[i].indexOf(ns)===0)
 			pg.push(page_titles[i]);
 	}
@@ -252,11 +252,11 @@ woas._get_namespace_pages = function (ns) {
 
 woas._get_tagged = function(tag_filter) {
 	var pg = [];
-	
+	var i, l;
 	// allow tags filtering/searching
 	var tags = this.split_tags(tag_filter),
 		tags_ok = [], tags_not = [];
-	for(var i=0,tl=tags.length;i<tl;++i) {
+	for(i=0,l=tags.length;i<l;++i) {
 		// skip empty tags
 		var tag = this.trim(tags[i]);
 		if (!tags[i].length)
@@ -268,8 +268,8 @@ woas._get_tagged = function(tag_filter) {
 			tags_ok.push(tags[i]);
 	} tags = null;
 	
-	var tmp, fail;
-	for(var i=0,l=pages.length;i<l;++i) {
+	var tmp, fail, b, bl;
+	for(i=0,l=pages.length;i<l;++i) {
 		tmp = this.get_src_page(i);
 		// can be null in case of encrypted content w/o key
 		if (tmp==null)
@@ -292,7 +292,7 @@ woas._get_tagged = function(tag_filter) {
 					// filter if "NOT" tag is present
 					// we are applying this filter only to tagged pages
 					// so a page without tags at all does not fit into this filtering
-					for (var b=0,bl=tags_not.length;b<bl;++b) {
+					for (b=0,bl=tags_not.length;b<bl;++b) {
 						if (found_tags.indexOf(tags_not[b]) != -1) {
 							fail = true;
 							break;
@@ -709,7 +709,7 @@ woas.get_javascript_page = function(cr) {
 // Load a new current page
 // return true if page needs to be saved in history, false otherwise
 woas.set_current = function (cr, interactive) {
-	var text, namespace;
+	var text, namespace, pi;
 	result_pages = [];
 	// eventually remove the previous custom script
 	this._clear_swcs();
@@ -817,7 +817,6 @@ woas.set_current = function (cr, interactive) {
 							cr = namespace + "::" + cr;
 						this.load_as_current(cr, text, page_mts[this.page_index(namespace+"::"+cr, namespace.toLowerCase())]);
 						return true;
-						break;
 					default:
 						text = this.get_text(namespace+"::"+cr);
 				}
@@ -1046,7 +1045,7 @@ function _auto_saver() {
 	}
 	if (_this.config.auto_save)
 		woas._asto = setTimeout("_auto_saver()", woas.config.auto_save);
-};
+}
 
 // save configuration on exit
 woas.before_quit = function () {
@@ -1069,7 +1068,7 @@ woas.after_load = function() {
 	
 	if (this.browser.ie) {	// some hacks for IE
 		this.setHTML = function(elem, html) {elem.text = html;};
-		this.getHTML = function(elem) {return elem.text};
+		this.getHTML = function(elem) {return elem.text;};
 		var obj = $("sw_wiki_header");
 		obj.style.filter = "alpha(opacity=75);";
 		if (this.browser.ie6) {
@@ -1265,7 +1264,7 @@ woas._onresize = function() {
 	}
 	we.style.width = window.innerWidth - 30 + "px";
 	we.style.height = window.innerHeight - 150 + "px";
-}
+};
 
 if (!woas.browser.ie)
 	window.onresize = woas._onresize;
@@ -1519,7 +1518,7 @@ woas.get_css = function() {
 	return css;
 };
 	
-woas.setCSS = function(new_css) { this.set_css(new_css); }
+woas.setCSS = function(new_css) {this.set_css(new_css);};
 
 //API1.0: set WoaS CSS
 woas.set_css = function(new_css) {
@@ -1689,7 +1688,7 @@ function _auto_keywords(source) {
 	if (!density.length) return "";
 	words = new Array();
 	var keywords = "", nw = "";
-	density = density.sort(function(a,b){return b.w - a.w});
+	density = density.sort(function(a,b){return b.w - a.w;});
 	var ol=0;
 	for(i=0;i<density.length;i++) {
 		nw = nu_words[density[i].i];
