@@ -3402,8 +3402,8 @@ This creates a page with a link that creates a page with the current date as its
 --DFQRCTsKlU
 woas.page.title: WoaS Mods::Add columns of text
 woas.page.attributes: 0
-woas.page.last_modified: 1270277646
-woas.page.length: 7267
+woas.page.last_modified: 1270279696
+woas.page.length: 7314
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -3420,6 +3420,7 @@ This makes it so you can insert columns of text into your pages. Columns accept 
 # Click the *Advanced* icon in the navigation bar.<br><br>
 # Click the [[Special::Edit CSS]] link in the *Advanced features* section of the page to open the global CSS in the wiki editor.<br><br>
 # *Add* these entries:<pre>table.columns-plugin &#123;<br>    border-spacing: 0;<br>    border-collapse: collapse;<br>    border-width: 0px 0px 0px 0px;<br>    margin: 0px;<br>&#125;<br>table.columns-plugin td &#123;<br>    border-left: rgb&#040;192,192,192&#041; 1px dotted;<br>    padding-top: 0px;<br>    padding: 0em 1em 0em 1em;<br>    vertical-align: top;<br>&#125;<br>table.columns-plugin td.first &#123;<br>    border-top: 0px;<br>    border-width: 0px 1px 0px 0px;<br>    padding-left: 0px;<br>&#125;<br>table.columns-plugin td.last &#123;<br>    padding-right: 0.5em<br>&#125;</pre>
+# Click the *Save* icon in the navigation bar.
 
 == How to use the columns
 # Begin the first column with a column declaration tag. Pick one of these:<br><br>
