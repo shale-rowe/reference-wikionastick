@@ -206,8 +206,8 @@ _lock_page();
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Security
 woas.page.attributes: 0
-woas.page.last_modified: 1268584879
-woas.page.length: 3782
+woas.page.last_modified: 1270311672
+woas.page.length: 3813
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -227,7 +227,7 @@ When encrypting additional pages during a session, you'll be offered to use the 
 == How do I unlock an encrypted page?
 If your page is already encrypted and you want to work with the page or change the encryption key you will first have to unlock it by entering its password. Do this by clicking the *Set password* icon in the navigation bar. You can now open the page normally to view, edit, or delete it.
 
-The password for decrypting a page (or pages) is cached so that you only need to enter it once per session. If you close or reload the wiki, you will need to reenter the password to work with the encrypted page(s). To disable the password cache, check the box for *Do not temporarily cache the AES key* in the wiki *Options*. If you've used more than one password for encrypting your pages, you'll need to enter the password to unlock each encrypted page.
+The password for decrypting a page (or pages) is cached so that you only need to enter it once per session. If you close or reload the wiki, you will need to reenter the password to work with the encrypted page(s). To disable the password cache, check the box for *Do not temporarily cache the AES key* in the wiki [[WoaS::Help::Special::Options|Options]]. If you've used more than one password for encrypting your pages, you'll need to enter the password to unlock each encrypted page.
 
 == Security level
 Security is never absolute. Data encrypted with these pages might be compromised in a variety of ways, including but not limited to the following:
@@ -1231,8 +1231,8 @@ See also the *WoaS::Help::Special::Erase Wiki* page.
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Edit the menu
 woas.page.attributes: 0
-woas.page.last_modified: 1270094973
-woas.page.length: 557
+woas.page.last_modified: 1270311944
+woas.page.length: 561
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1243,10 +1243,10 @@ woas.page.boundary: DFQRCTsKlU
 # Edit the contents of the main text area by typing normally. The menu can contain links, lists, tables, colored text, etc. as a normal wik page<br><br>
 # Save your changes by clicking on the *Save* icon in the top right navigation panel.
 
-You can use various styles for your menu; you can find detailed explanation of list styles in the *WoaS::Help::Lists* page.
+You can use various styles for your menu; you can find detailed explanation of list styles in the [[WoaS::Help::Lists]] page.
 
 == Add a sub-menu beneath the menu
-See the *Namespace sub-menu* section of the *WoaS::Help::Namespaces* page.
+See the *Namespace sub-menu* section of the [[WoaS::Help::Namespaces]] page.
 
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Headers
@@ -2681,7 +2681,7 @@ $('menu_string_to_search').onkeydown = menu_key_hook;
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Export
 woas.page.attributes: 0
-woas.page.last_modified: 1269960881
+woas.page.last_modified: 1270312097
 woas.page.length: 1562
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -2704,7 +2704,7 @@ You can export this wiki into multiple linked XHTML, CSS, and image files which 
 # Scroll down to the *Maintenance* section.<br><br>
 # Click the *Special::ExportWSIF* link.<br><br>
 # Choose the directory to export the WSIF file(s) to.<br><br>
-# Choose the settings for the export.<br><br>[[Include::WoaS::Template::Info|Note that you can export into a single WSIF file or multiple WSIF files. Embedded files are exported as individual files unless you choose not to export them as external file blogs, in which case they'll be embedded in the WSIF file(s).]]<br>
+# Choose the settings for the export.<br><br>[[Include::WoaS::Template::Info|Note that you can export into a single WSIF file or multiple WSIF files. Embedded files are exported as individual files unless you choose not to export them as external file blobs, in which case they'll be embedded in the WSIF file(s).]]<br>
 # Click the *Export WSIF* button. A confirmation will pop up, telling you how many pages were exported.<br><br>
 # The WSIF file(s) in the export directory can now be copied, shared, or stored for backup purposes.
 
