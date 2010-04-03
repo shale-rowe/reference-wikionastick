@@ -277,7 +277,8 @@ if (woas.browser.ie6) $("cb_fixed_layout").disabled = true;
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Deprecated syntax
 woas.page.attributes: 0
-woas.page.length: 1731
+woas.page.last_modified: 1270315325
+woas.page.length: 1779
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -299,21 +300,21 @@ This page briefly summarizes WoaS deprecated syntax; the below deprecated syntax
 
 Lists with '+ sign are *unsupported*.
 <span class="bad_syntax">{{{
-+ unordered lists with + sign instead of asterisk
++ unordered lists with + sign
 + unordered lists with + sign
 }}}</span>
-
-Only asterisk lists are parsed.
 <span class="good_syntax">{{{
-* unordered element 1
-* unordered element 2
+* unordered lists with an asterisk
+* unordered lists with an asterisk
 }}}</span>
 == Headers
 <span class="bad_syntax">{{{! headers using the exclamation mark}}}</span>
+
 <span class="good_syntax">{{{= header which uses the equal sign}}}</span>
 == Pre tags
-{{{<pre />}}} acting as nowiki blocks are *unsupported*. Now {{{<pre />}}} tags have no special meaning and are treated
-as any other XHTML tag.
+{{{<pre />}}} acting as nowiki blocks are *unsupported*. Now {{{<pre />}}} tags have no special meaning and are treated as any other XHTML tag.
+
+<span class="bad_syntax">Pre tags acting as &lt;pre&gt;nowiki&lt;pre &#047;&gt; blocks.</span>
 
 <span class="good_syntax">You should use {<!-- -->{{nowiki}}<!-- -->} blocks instead.</span>
 == Rulers
@@ -324,13 +325,16 @@ horizontal rulers using only 3 hyphens}}}</span>
 You are invited to use at least 4 hyphens
 }}}
 == Tags
-Deprecated: <span class="bad_syntax">{{{[[Tags::some tag, some other tag]] and [[Tag::some tag]]}}}</span>
-In favor of: <span class="good_syntax">{{{[[Tags::some tag|other tag|another tag]]}}}</span>
+<span class="bad_syntax">{{{[[Tags::some tag, some other tag]] and [[Tag::some tag]]}}}</span>
+
+<span class="good_syntax">{{{[[Tags::some tag|other tag|another tag]]}}}</span>
 == Inline scripts
 <span class="bad_syntax">{{{<script>...</script>}}}</span>
 
 <span class="good_syntax">{{{<script type="text/javascript">...</script>}}}</span>
+
 This is not enforced by WoaS wiki parser but is instead a correct XHTML practice.
+
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Special::Options
 woas.page.attributes: 0
@@ -911,8 +915,8 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Special::Advanced
 woas.page.attributes: 0
-woas.page.last_modified: 1270096290
-woas.page.length: 497
+woas.page.last_modified: 1270314260
+woas.page.length: 503
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -920,9 +924,9 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 = Advanced
 The Advanced page offers some tools for administration of your wiki. Descriptions are provided, and most of the Special links lead to pages that have individual help available. Below are links to help pages for the ones that don't offer individual help automatically.
-* *Special::Erase Wiki* - See the *WoaS::Help::Special::Erase Wiki* page
-* *Special::Edit CSS* - See the *WoaS::Help::Edit CSS* page.
-* *Special::Edit Bootscript* - See the *WoaS::Help::Special::Edit Bootscript* page.
+* *Special::Erase Wiki* - See the [[WoaS::Help::Special::Erase Wiki]] page
+* *Special::Edit CSS* - See the [[WoaS::Help::Edit CSS]] page.
+* *Special::Edit Bootscript* - See the [[WoaS::Help::Special::Edit Bootscript]] page.
 
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Special::Erase Wiki
@@ -1252,6 +1256,7 @@ See the *Namespace sub-menu* section of the [[WoaS::Help::Namespaces]] page.
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Headers
 woas.page.attributes: 0
+woas.page.last_modified: 1270317276
 woas.page.length: 400
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1259,7 +1264,7 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Headers
-Below are examples on how to use wiki markup to create headers in this wiki; there are six levels of supported headers.
+Below are examples on how to use wiki markup to create headers in this wiki. There are six levels of supported headers.
 
 {{{
 = Header level 1
