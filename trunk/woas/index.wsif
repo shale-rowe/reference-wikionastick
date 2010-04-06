@@ -2663,14 +2663,14 @@ This method is used to import pages that have been exported using the WSIF forma
 --DFQRCTsKlU
 woas.page.title: WoaS::Template::Search
 woas.page.attributes: 0
-woas.page.length: 559
+woas.page.last_modified: 1270512697
+woas.page.length: 581
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-<input id="menu_string_to_search" type="text" size="6" onfocus="menu_search_focus(true)" onblur="menu_search_focus(false)" />&nbsp;<input style="font-size: 10px;" type="button" value="Search" onclick="menu_do_search()" />
-
+<input style="font-size:10px;" id="menu_string_to_search" type="text" size="12" onfocus="menu_search_focus(true)" onblur="menu_search_focus(false)" />&nbsp;<input style="font-size: 10px;" type="button" value="Search" onclick="menu_do_search()" />
 <script>
 function menu_key_hook(orig_e) {
     var e;
@@ -2686,10 +2686,8 @@ function menu_key_hook(orig_e) {
      }
      return orig_e;
 }
-
 $('menu_string_to_search').onkeydown = menu_key_hook;
 </script>
-
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Export
 woas.page.attributes: 0
