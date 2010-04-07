@@ -161,7 +161,7 @@ Array.prototype.toUnique = function() {
 	var a_o = {}, new_arr = [];
 	var l=this.length;
 	for(var i=0; i<l;i++) {
-		if (a_o[this[i]]===null) {
+		if (a_o[this[i]]===undefined) {
 			a_o[this[i]] = true;
 			new_arr.push(this[i]);
 		}

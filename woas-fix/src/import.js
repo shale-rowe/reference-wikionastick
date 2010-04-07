@@ -1,11 +1,22 @@
 
-// function used to collect variables
+// regular expressions used to not mess with title/content strings
+var reRequote = new RegExp(":-"+parse_marker, "g"),
+	reJString = new RegExp("'[^']+'", "g"),
+	reJStringRep = new RegExp(parse_marker+":"+"(\\d+)", "g");
 
+// function used to collect variables
 woas.import_wiki = function() {
 
 	function get_import_vars(data, ignore) {
-		var c=[];
-		// rename the variables
+		var c=[], jstrings=[];
+		// (1) take away all javascript strings (most notably: content and titles)
+		// WARNING: quoting hacks lie here!
+		data = data.replace("\\'", ":-"+parse_marker).replace(reJString, function (str) {
+			// restore quotes
+			jstrings.push(str.substr(1, str.length-2).replace(reRequote, "\\'"));
+			return parse_marker+":"+(jstrings.length-1).toString();
+		});
+		// (2) rename the variables
 		data = data.replace(/([^\\])\nvar (\w+) = /g, function (str, $1, $2) {
 			if (ignore && ignore.indexOf($2)!=-1)
 				return "\nvar ignoreme = ";
@@ -13,7 +24,11 @@ woas.import_wiki = function() {
 			return $1+"\nvar sw_import_"+$2+" = ";
 		});//.replace(/\\\n/g, '');
 		log("collected variables = "+c);	// log:1
-			
+		// (3) expand the javascript strings
+		data = data.replace(reJStringRep, function (str, id) {
+			return "'"+jstrings[id]+"'";
+		});
+		// (4) directly parse the javascript and return it
 		c = eval(data+"\n["+c+"];");
 		return c;
 	}
@@ -30,7 +45,7 @@ woas.import_wiki = function() {
 		pages_imported = 0;
 
 	do { // a fake do...while to ease failure return
-	// load the file as UTF-8
+	// file will be loaded as ASCII to overcome browsers' limitations
 	var ct = this.load_file(null, this.file_mode.ASCII_TEXT);
 	if (ct === null) {
 		fail = true;
@@ -172,6 +187,8 @@ woas.import_wiki = function() {
 		}
 		
 		/* NOTES ABOUT OLD VERSIONS
+		v0.11.2:
+			* introduced parsing mechanism which does not mess with var declarations inside JavaScript strings
 		v0.10.7:
 			* introduced WoaS::Plugins and changed WoaS::Bootscript from embedded to normal
 		v0.10.0:
@@ -180,7 +197,6 @@ woas.import_wiki = function() {
 			* introduced WoaS::Aliases
 		v0.9.6:
 			* Special::Bootscript -> WoaS::Bootscript
-			
 		v0.9.5D (not released)
 			* Javascript:: reserved namespace
 			* some Special:: pages no more work

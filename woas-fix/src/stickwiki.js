@@ -787,7 +787,8 @@ woas.set_current = function (cr, interactive) {
 									break;
 									case "Aliases":
 									case "Bootscript":
-									// page is stored plaintext
+										// page is stored plaintext
+										text = "<tt class=\"wiki_preformatted\">"+text+"</tt>";
 									break;
 									default:
 										text = this.parser.parse(text);
@@ -1088,10 +1089,10 @@ woas.after_load = function() {
 	
 	if (this.config.debug_mode) {
 		$.show_ni("debug_info");
-		$.show_ni("woas_debug_panel");
+		$.show("woas_debug_panel");
 	} else {
 		$.hide_ni("debug_info");
-		$.hide_ni("woas_debug_panel");
+		$.hide("woas_debug_panel");
 	}
 
 	// properly initialize navigation bar icons
@@ -1112,10 +1113,15 @@ woas.after_load = function() {
 	// customized keyboard hook
 	document.onkeydown = kbd_hook;
 
-	// Go straight to page requested
+	// Go straight to requested page
 	var qpage=document.location.href.split("?")[1];
-	if(qpage)
+	if (qpage) {
 		current = unescape(qpage);
+		// extract the section (if any)
+		var p=current.indexOf("#");
+		if (p != -1)
+			current = current.substring(0,p);
+	}
 
 	// check integrity of WoaS when finished - only in debug mode
 	if (this.tweak.integrity_test)
@@ -1339,12 +1345,22 @@ function _unlock_pages(arr) {
 }
 
 woas.edit_allowed = function(page) {
+	// can always edit pages if they have an actual data representation
 	if (this.tweak.edit_override)
 		return (this.page_index(page) != -1);
+	// force read-only
 	if (!this.config.permit_edits)
 		return false;
+	// allow some reserved pages to be directly edited/saved
+	switch (page) {
+		case "WoaS::Bootscript":
+		case "WoaS::Aliases":
+			return true;
+	}
+	// page in reserved namespace
 	if (this.is_reserved(page))
 		return false;
+	// page has readonly bit set
 	return !this.is_readonly(page);
 };
 
@@ -1443,6 +1459,12 @@ woas.valid_title = function(title) {
 	if (title.substr(-2)=="::") {
 		this.alert(this.i18n.ERR_PAGE_NS);
 		return false;
+	}
+	// allow some reserved pages to be directly edited/saved
+	switch (title) {
+		case "WoaS::Bootscript":
+		case "WoaS::Aliases":
+			return true;
 	}
 	var ns = this.get_namespace(title, true);
 	if (ns.length && this.is_reserved(ns+"::") && !this.tweak.edit_override) {
