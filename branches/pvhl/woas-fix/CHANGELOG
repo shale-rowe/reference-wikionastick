@@ -1,5 +1,16 @@
-Version 0.11.1 (legolas558)
+Version 0.11.2 (legolas558,pvhl)
+* converted source code from array notation to dot notation (pvhl)
+* fixed help pages browsing issue with IE (deroock)
+
+Version 0.11.1 (legolas558) released 2010-03-26
 * added 'wsif.generator' header to generated WSIF files
+* fixed bugs 2975523, 2969920 regarding Include::Image:: wiki links (reported by sonofdog, brianedwards9)
+* fixed title restore glitches when exiting edit mode
+* fixed bug 2976153 renaming a page fails (reported by d6095t)
+* fixed bugs 2968654,2976459 javascript error when retrieving local filename in IE (reported by deroock, KHS)
+* fixed bug 2976695 special pages being shown in most special listings (reported by deroock)
+* fixed bug 2976719 set key and help icons don't fail gracefully in IE6 (reported by d6095t)
+* added internationalization for "Editing" string shown in title when editing a page
 
 Version 0.11.0 (legolas558) released 2010-03-13
 * fixed import/save issues with IE (2968654, reported by KHS)
