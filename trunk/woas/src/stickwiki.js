@@ -787,7 +787,8 @@ woas.set_current = function (cr, interactive) {
 									break;
 									case "Aliases":
 									case "Bootscript":
-									// page is stored plaintext
+										// page is stored plaintext
+										text = "<tt class=\"wiki_preformatted\">"+text+"</tt>";
 									break;
 									default:
 										text = this.parser.parse(text);
