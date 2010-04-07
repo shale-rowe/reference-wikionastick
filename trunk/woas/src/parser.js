@@ -186,7 +186,8 @@ woas.parser.parse = function(text, export_links, js_mode) {
 				return c;
 			});
 		}
-		snippets.push("<tt class=\"wiki_preformatted\">"+woas.xhtml_encode($1)+"</tt>");
+		var cls = ($1.indexOf("\n") == -1) ? "wiki_preformatted" : "woas_nowiki_multiline";
+		snippets.push("<tt class=\""+cls+"\">"+woas.xhtml_encode($1)+"</tt>");
 		return r;
 	});
 	
@@ -278,7 +279,8 @@ woas.parser.parse = function(text, export_links, js_mode) {
 								return c;
 							});
 						}
-						snippets.push("<tt class=\"wiki_preformatted\">"+woas.xhtml_encode($1)+"</tt>");
+						var cls = ($1.indexOf("\n") == -1) ? "wiki_preformatted" : "woas_nowiki_multiline";
+						snippets.push("<tt class=\""+cls+"\">"+woas.xhtml_encode($1)+"</tt>");
 						return r;
 					});
 				

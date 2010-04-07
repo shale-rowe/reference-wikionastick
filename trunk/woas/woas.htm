@@ -26,8 +26,6 @@ woas["config"] = {
 var current = 'Main Page';
 
 var backstack = [
-'Main Page',
-'Special::Recentchanges'
 ];
 
 var page_titles = [
@@ -234,7 +232,7 @@ div.ns_menu_area ul li, div.ns_menu_area ol li {
 }
 
 /* nowiki text inline (curly brackets) */
-.wiki_preformatted {
+.wiki_preformatted, .woas_nowiki_multiline {
 	/* css-3 */
 	white-space: pre-wrap;
 	/* Opera 4-6 */
@@ -243,6 +241,9 @@ div.ns_menu_area ul li, div.ns_menu_area ol li {
 /*	white-space: -o-pre-wrap;  */
 	/* Internet Explorer 5.5+ */
 /*	word-wrap: break-word;     */
+}
+
+.woas_nowiki_multiline {
 }
 
 /* ask password overlay */
