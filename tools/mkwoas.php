@@ -233,7 +233,7 @@ if (!preg_match("/^var\\s+woas\\s*=\\s*\\{\\s*\"version\"\\s*:\\s*\"([^\"]+)\"\\
 
 $ver = $ver[1];
 
-$ofile = 'woas-'.$ver.'.htm';
+$ofile = 'woas-'.$ver.'.html';
 if (file_put_contents($ofile, $ct))
 	fprintf(STDOUT, "WoaS v%s merged into %s\n", $ver, $ofile);
 else
