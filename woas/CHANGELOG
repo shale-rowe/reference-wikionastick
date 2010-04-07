@@ -1,4 +1,5 @@
 Version 0.11.2 (legolas558,pvhl)
+* preliminary support for section anchors in querystring page requests
 * fixed import issue related to 'var' declarations inside content pages (found by deroock)
 * converted source code from array notation to dot notation (pvhl)
 * fixed help pages browsing issue with IE (deroock)
