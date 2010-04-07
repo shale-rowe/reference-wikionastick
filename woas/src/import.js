@@ -45,7 +45,7 @@ woas.import_wiki = function() {
 		pages_imported = 0;
 
 	do { // a fake do...while to ease failure return
-	// load the file as UTF-8
+	// file will be loaded as ASCII to overcome browsers' limitations
 	var ct = this.load_file(null, this.file_mode.ASCII_TEXT);
 	if (ct === null) {
 		fail = true;
@@ -187,6 +187,8 @@ woas.import_wiki = function() {
 		}
 		
 		/* NOTES ABOUT OLD VERSIONS
+		v0.11.2:
+			* introduced parsing mechanism which does not mess with var declarations inside JavaScript strings
 		v0.10.7:
 			* introduced WoaS::Plugins and changed WoaS::Bootscript from embedded to normal
 		v0.10.0:
@@ -195,7 +197,6 @@ woas.import_wiki = function() {
 			* introduced WoaS::Aliases
 		v0.9.6:
 			* Special::Bootscript -> WoaS::Bootscript
-			
 		v0.9.5D (not released)
 			* Javascript:: reserved namespace
 			* some Special:: pages no more work

@@ -1087,10 +1087,10 @@ woas.after_load = function() {
 	$('img_home').alt = this.config.main_page;
 	
 	if (this.config.debug_mode) {
-		$.show("debug_info");
+		$.show_ni("debug_info");
 		$.show("woas_debug_panel");
 	} else {
-		$.hide("debug_info");
+		$.hide_ni("debug_info");
 		$.hide("woas_debug_panel");
 	}
 
