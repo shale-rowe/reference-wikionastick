@@ -245,7 +245,7 @@ woas._native_wsif_load = function(path, overwrite, and_save, recursing, pre_impo
 		this.wsif.emsg = this.i18n.NO_ERROR;
 		this.wsif.imported_page = false;
 		this.wsif.system_pages = 0;
-		global_progress = 0;
+		this.wsif.global_progress = 0;
 	}
 	// the imported pages
 	var imported = [];
@@ -348,7 +348,7 @@ woas._native_wsif_load = function(path, overwrite, and_save, recursing, pre_impo
 					previous_h = null;
 					// update status if not recursing
 					if (!recursing && (this.wsif.expected_pages !== null))
-						this.progress_status(global_progress++/this.wsif.expected_pages);
+						this.progress_status(this.wsif.global_progress++/this.wsif.expected_pages);
 				}
 				// let's start with the next page
 				title = this.ecma_decode(v);
@@ -416,9 +416,9 @@ woas._native_wsif_load = function(path, overwrite, and_save, recursing, pre_impo
 				imported.push(this.wsif.imported_page);
 			else
 				log("Import failure for "+title); //log:1
-			// update status if not recusing
+			// update status if not recursing
 			if (!recursing && (this.wsif.expected_pages !== null))
-				this.progress_status(global_progress++/this.wsif.expected_pages);
+				this.progress_status(this.wsif.global_progress++/this.wsif.expected_pages);
 		}
 	}
 	if (!recursing)
