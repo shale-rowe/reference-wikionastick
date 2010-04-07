@@ -1,16 +1,16 @@
 
-// function used to collect variables
-
+// regular expressions used to not mess with title/content strings
 var reRequote = new RegExp(":-"+parse_marker, "g"),
 	reJString = new RegExp("'[^']+'", "g"),
 	reJStringRep = new RegExp(parse_marker+":"+"(\\d+)", "g");
 
+// function used to collect variables
 woas.import_wiki = function() {
 
 	function get_import_vars(data, ignore) {
 		var c=[], jstrings=[];
 		// (1) take away all javascript strings (most notably: content and titles)
-		// WARNING: quoting hacks here!
+		// WARNING: quoting hacks lie here!
 		data = data.replace("\\'", ":-"+parse_marker).replace(reJString, function (str) {
 			// restore quotes
 			jstrings.push(str.substr(1, str.length-2).replace(reRequote, "\\'"));
