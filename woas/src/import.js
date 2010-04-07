@@ -1,11 +1,22 @@
 
 // function used to collect variables
 
+var reRequote = new RegExp(":-"+parse_marker, "g"),
+	reJString = new RegExp("'[^']+'", "g"),
+	reJStringRep = new RegExp(parse_marker+":"+"(\\d+)", "g");
+
 woas.import_wiki = function() {
 
 	function get_import_vars(data, ignore) {
-		var c=[];
-		// rename the variables
+		var c=[], jstrings=[];
+		// (1) take away all javascript strings (most notably: content and titles)
+		// WARNING: quoting hacks here!
+		data = data.replace("\\'", ":-"+parse_marker).replace(reJString, function (str) {
+			// restore quotes
+			jstrings.push(str.substr(1, str.length-2).replace(reRequote, "\\'"));
+			return parse_marker+":"+(jstrings.length-1).toString();
+		});
+		// (2) rename the variables
 		data = data.replace(/([^\\])\nvar (\w+) = /g, function (str, $1, $2) {
 			if (ignore && ignore.indexOf($2)!=-1)
 				return "\nvar ignoreme = ";
@@ -13,7 +24,11 @@ woas.import_wiki = function() {
 			return $1+"\nvar sw_import_"+$2+" = ";
 		});//.replace(/\\\n/g, '');
 		log("collected variables = "+c);	// log:1
-			
+		// (3) expand the javascript strings
+		data = data.replace(reJStringRep, function (str, id) {
+			return "'"+jstrings[id]+"'";
+		});
+		// (4) directly parse the javascript and return it
 		c = eval(data+"\n["+c+"];");
 		return c;
 	}
