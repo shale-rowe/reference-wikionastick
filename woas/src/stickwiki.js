@@ -1340,12 +1340,22 @@ function _unlock_pages(arr) {
 }
 
 woas.edit_allowed = function(page) {
+	// can always edit pages if they have an actual data representation
 	if (this.tweak.edit_override)
 		return (this.page_index(page) != -1);
+	// force read-only
 	if (!this.config.permit_edits)
 		return false;
+	// allow some reserved pages to be directly edited/saved
+	switch (page) {
+		case "WoaS::Bootscript":
+		case "WoaS::Aliases":
+			return true;
+	}
+	// page in reserved namespace
 	if (this.is_reserved(page))
 		return false;
+	// page has readonly bit set
 	return !this.is_readonly(page);
 };
 
@@ -1444,6 +1454,12 @@ woas.valid_title = function(title) {
 	if (title.substr(-2)=="::") {
 		this.alert(this.i18n.ERR_PAGE_NS);
 		return false;
+	}
+	// allow some reserved pages to be directly edited/saved
+	switch (title) {
+		case "WoaS::Bootscript":
+		case "WoaS::Aliases":
+			return true;
 	}
 	var ns = this.get_namespace(title, true);
 	if (ns.length && this.is_reserved(ns+"::") && !this.tweak.edit_override) {
