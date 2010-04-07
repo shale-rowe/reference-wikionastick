@@ -1113,10 +1113,15 @@ woas.after_load = function() {
 	// customized keyboard hook
 	document.onkeydown = kbd_hook;
 
-	// Go straight to page requested
+	// Go straight to requested page
 	var qpage=document.location.href.split("?")[1];
-	if(qpage)
+	if (qpage) {
 		current = unescape(qpage);
+		// extract the section (if any)
+		var p=current.indexOf("#");
+		if (p != -1)
+			current = current.substring(0,p);
+	}
 
 	// check integrity of WoaS when finished - only in debug mode
 	if (this.tweak.integrity_test)
