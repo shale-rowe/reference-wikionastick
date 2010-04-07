@@ -3511,17 +3511,21 @@ To remove a task from the list if you've completed it or decided to not do it af
 --DFQRCTsKlU
 woas.page.title: WoaS Mods::Add custom themes
 woas.page.attributes: 0
-woas.page.last_modified: 1270505909
-woas.page.length: 9361
+woas.page.last_modified: 1270665871
+woas.page.length: 11036
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Add custom themes
-This makes it so you can theme your wiki dynamically by adding a <span class="tooltip" title="This is done by adding custom CSS rules inside of &#60&#115;&#116;&#121;&#108;&#101;&#32;&#116;&#121;&#112;&#101;&#61;&#34;&#116;&#101;&#120;&#116;&#47;&#99;&#115;&#115;&#34;&#62&#32;&#97;&#110;&#100;&#32;&#60&#47;&#115;&#116;&#121;&#108;&#101;&#62 tags in a page.">style section</span> to a page without having to change the default CSS settings at all. This way you can define custom CSS rules for the page, and/or override the default CSS settings for the entire wiki while on that page.
+== <font color="red">T</font><font color="green">h</font><font color="brown">e</font><font color="orange">m</font><font color="purple">e</font> <font color="blue">Y</font><font color="red">o</font><font color="green">u</font><font color="brown">r</font> <font color="orange">w</font><font color="purple">i</font><font color="blue">k</font><font color="red">i</font>!
+This makes it so you can theme your wiki dynamically by adding a <span class="tooltip" title="This is done by adding custom CSS rules inside of &#60&#115;&#116;&#121;&#108;&#101;&#32;&#116;&#121;&#112;&#101;&#61;&#34;&#116;&#101;&#120;&#116;&#47;&#99;&#115;&#115;&#34;&#62&#32;&#97;&#110;&#100;&#32;&#60&#47;&#115;&#116;&#121;&#108;&#101;&#62 tags in a page.">style section</span> in a page without having to change the default CSS settings. Since the default CSS stays intact, it can be used for reference. Not only that, but the wiki will be properly styled (with default WoaS values) on wiki erase.
 
-Additional customization is possible by including the page in the menu so that it affects all pages, or in the sub-menu so it affects all pages in a specific namespace.
+You can define custom CSS rules for the page, and/or override the default CSS settings for the entire wiki while on that page. Additional customization is possible by including the page in the menu so that it affects all pages, or in the sub-menu so it affects all pages in a specific namespace.
+
+The customization can be quite advanced, in that you can define a custom global style for the whole wiki by creating a page with a <span class="tooltip" title="This is done by adding custom CSS rules inside of &#60&#115;&#116;&#121;&#108;&#101;&#32;&#116;&#121;&#112;&#101;&#61;&#34;&#116;&#101;&#120;&#116;&#47;&#99;&#115;&#115;&#34;&#62&#32;&#97;&#110;&#100;&#32;&#60&#47;&#115;&#116;&#121;&#108;&#101;&#62 tags in a page.">style section</span> and including it in the menu, and then selectively override that by adding a different <span class="tooltip" title="This is done by adding custom CSS rules inside of &#60&#115;&#116;&#121;&#108;&#101;&#32;&#116;&#121;&#112;&#101;&#61;&#34;&#116;&#101;&#120;&#116;&#47;&#99;&#115;&#115;&#34;&#62&#32;&#97;&#110;&#100;&#32;&#60&#47;&#115;&#116;&#121;&#108;&#101;&#62 tags in a page.">style section</span> to individual pages or sub-menus. You don't have to just choose one method. It all works together and is fully under user control.
+
 == Theme a page
 By adding a style section to a page, your custom CSS will be used while on that page:
 # Create or edit a page.<br><br>
@@ -3562,11 +3566,11 @@ This method allows the sub-menu to display. You'll want to use this if you want 
 This method hides the sub-menu. You'll want to use this if you don't already have a sub-menu for a namespace and you don't want one:
 # Create a new ::Menu page using a namespace in your wiki.<br><br>
 # Delete the automatically generated title from the page.<br><br>
-# Add this code to the page, replacing CSS RULE OR RULES with your custom CSS:<pre>&#60&#115;&#116;&#121;&#108;&#101;&#32;&#116;&#121;&#112;&#101;&#61;&#34;&#116;&#101;&#120;&#116;&#47;&#99;&#115;&#115;&#34;&#62<br>&#67;&#83;&#83;&#32;&#82;&#85;&#76;&#69;&#32;&#79;&#82;&#32;&#82;&#85;&#76;&#69;&#83;<br>&#35;&#110;&#115;&#95;&#109;&#101;&#110;&#117;&#95;&#97;&#114;&#101;&#97;&#32;&#123;&#100;&#105;&#115;&#112;&#108;&#97;&#121;&#58;&#110;&#111;&#110;&#101;&#32;&#33;&#105;&#109;&#112;&#111;&#114;&#116;&#97;&#110;&#116;&#59;&#32;&#118;&#105;&#115;&#105;&#98;&#105;&#108;&#105;&#116;&#121;&#58;&#104;&#105;&#100;&#100;&#101;&#110;&#32;&#32;&#33;&#105;&#109;&#112;&#111;&#114;&#116;&#97;&#110;&#116;&#59;&#125;<br>&#35;&#110;&#115;&#95;&#109;&#101;&#110;&#117;&#95;&#101;&#100;&#105;&#116;&#95;&#98;&#117;&#116;&#116;&#111;&#110;&#32;&#123;&#100;&#105;&#115;&#112;&#108;&#97;&#121;&#58;&#110;&#111;&#110;&#101;&#32;&#33;&#105;&#109;&#112;&#111;&#114;&#116;&#97;&#110;&#116;&#59;&#32;&#118;&#105;&#115;&#105;&#98;&#105;&#108;&#105;&#116;&#121;&#58;&#104;&#105;&#100;&#100;&#101;&#110;&#32;&#33;&#105;&#109;&#112;&#111;&#114;&#116;&#97;&#110;&#116;&#59;&#125;<br>&#60&#47;&#115;&#116;&#121;&#108;&#101;&#62</pre>
+# Add this code to the page, replacing CSS RULE OR RULES with your custom CSS:<pre>&#60&#115;&#116;&#121;&#108;&#101;&#32;&#116;&#121;&#112;&#101;&#61;&#34;&#116;&#101;&#120;&#116;&#47;&#99;&#115;&#115;&#34;&#62<br>&#67;&#83;&#83;&#32;&#82;&#85;&#76;&#69;&#32;&#79;&#82;&#32;&#82;&#85;&#76;&#69;&#83;<br><br>&#47;&#42;&#32;&#72;&#73;&#68;&#69;&#32;&#84;&#72;&#69;&#32;&#83;&#85;&#66;&#45;&#77;&#69;&#78;&#85;&#32;&#87;&#72;&#73;&#76;&#69;&#32;&#73;&#78;&#32;&#84;&#72;&#73;&#83;&#32;&#78;&#65;&#77;&#69;&#83;&#80;&#65;&#67;&#69;&#32;&#42;&#47;<br>&#35;&#110;&#115;&#95;&#109;&#101;&#110;&#117;&#95;&#97;&#114;&#101;&#97;&#32;&#123;&#100;&#105;&#115;&#112;&#108;&#97;&#121;&#58;&#110;&#111;&#110;&#101;&#32;&#33;&#105;&#109;&#112;&#111;&#114;&#116;&#97;&#110;&#116;&#59;&#32;&#118;&#105;&#115;&#105;&#98;&#105;&#108;&#105;&#116;&#121;&#58;&#104;&#105;&#100;&#100;&#101;&#110;&#32;&#32;&#33;&#105;&#109;&#112;&#111;&#114;&#116;&#97;&#110;&#116;&#59;&#125;<br>&#35;&#110;&#115;&#95;&#109;&#101;&#110;&#117;&#95;&#101;&#100;&#105;&#116;&#95;&#98;&#117;&#116;&#116;&#111;&#110;&#32;&#123;&#100;&#105;&#115;&#112;&#108;&#97;&#121;&#58;&#110;&#111;&#110;&#101;&#32;&#33;&#105;&#109;&#112;&#111;&#114;&#116;&#97;&#110;&#116;&#59;&#32;&#118;&#105;&#115;&#105;&#98;&#105;&#108;&#105;&#116;&#121;&#58;&#104;&#105;&#100;&#100;&#101;&#110;&#32;&#33;&#105;&#109;&#112;&#111;&#114;&#116;&#97;&#110;&#116;&#59;&#125;<br>&#60&#47;&#115;&#116;&#121;&#108;&#101;&#62</pre>
 # Click the *Save* icon in the navigation bar to save the changes.
 ==== Example
-* Let's say you have the Recipes namespace and you'd like the wiki to have a green background any time you're on any of the Recipes pages. You could create a page named Recipes::Menu and put this into the page:<pre>&#60&#115;&#116;&#121;&#108;&#101;&#32;&#116;&#121;&#112;&#101;&#61;&#34;&#116;&#101;&#120;&#116;&#47;&#99;&#115;&#115;&#34;&#62<br>&#46;&#119;&#111;&#97;&#115;&#95;&#98;&#97;&#99;&#107;&#103;&#114;&#111;&#117;&#110;&#100;&#32;&#123;&#98;&#97;&#99;&#107;&#103;&#114;&#111;&#117;&#110;&#100;&#45;&#99;&#111;&#108;&#111;&#114;&#58;&#32;&#103;&#114;&#101;&#101;&#110;&#59;&#125;<br>&#60&#47;&#115;&#116;&#121;&#108;&#101;&#62</pre>This will create a sub-menu that's displayed when any page in the namespace is open. To disable the display of the sub-menu, use this instead:<pre>&#60&#115;&#116;&#121;&#108;&#101;&#32;&#116;&#121;&#112;&#101;&#61;&#34;&#116;&#101;&#120;&#116;&#47;&#99;&#115;&#115;&#34;&#62<br>&#46;&#119;&#111;&#97;&#115;&#95;&#98;&#97;&#99;&#107;&#103;&#114;&#111;&#117;&#110;&#100;&#32;&#123;&#98;&#97;&#99;&#107;&#103;&#114;&#111;&#117;&#110;&#100;&#45;&#99;&#111;&#108;&#111;&#114;&#58;&#32;&#103;&#114;&#101;&#101;&#110;&#59;&#125;<br>&#35;&#110;&#115;&#95;&#109;&#101;&#110;&#117;&#95;&#97;&#114;&#101;&#97;&#32;&#123;&#100;&#105;&#115;&#112;&#108;&#97;&#121;&#58;&#110;&#111;&#110;&#101;&#32;&#33;&#105;&#109;&#112;&#111;&#114;&#116;&#97;&#110;&#116;&#59;&#32;&#118;&#105;&#115;&#105;&#98;&#105;&#108;&#105;&#116;&#121;&#58;&#104;&#105;&#100;&#100;&#101;&#110;&#32;&#32;&#33;&#105;&#109;&#112;&#111;&#114;&#116;&#97;&#110;&#116;&#59;&#125;<br>&#35;&#110;&#115;&#95;&#109;&#101;&#110;&#117;&#95;&#101;&#100;&#105;&#116;&#95;&#98;&#117;&#116;&#116;&#111;&#110;&#32;&#123;&#100;&#105;&#115;&#112;&#108;&#97;&#121;&#58;&#110;&#111;&#110;&#101;&#32;&#33;&#105;&#109;&#112;&#111;&#114;&#116;&#97;&#110;&#116;&#59;&#32;&#118;&#105;&#115;&#105;&#98;&#105;&#108;&#105;&#116;&#121;&#58;&#104;&#105;&#100;&#100;&#101;&#110;&#32;&#33;&#105;&#109;&#112;&#111;&#114;&#116;&#97;&#110;&#116;&#59;&#125;<br>&#60&#47;&#115;&#116;&#121;&#108;&#101;&#62</pre>
-
+* Let's say you have the Recipes namespace and you'd like the wiki to have a green background any time you're on any of the Recipes pages, but you don't want a sub-menu to be displayed. By putting this style section into the page, the wiki background will be green any time you open any of the pages in the Recipes:: namespace, but they won't have a sub-menu:<pre>&#60&#115;&#116;&#121;&#108;&#101;&#32;&#116;&#121;&#112;&#101;&#61;&#34;&#116;&#101;&#120;&#116;&#47;&#99;&#115;&#115;&#34;&#62<br>&#46;&#119;&#111;&#97;&#115;&#95;&#98;&#97;&#99;&#107;&#103;&#114;&#111;&#117;&#110;&#100;&#32;&#123;&#98;&#97;&#99;&#107;&#103;&#114;&#111;&#117;&#110;&#100;&#45;&#99;&#111;&#108;&#111;&#114;&#58;&#32;&#103;&#114;&#101;&#101;&#110;&#59;&#125;<br><br>&#47;&#42;&#32;&#72;&#73;&#68;&#69;&#32;&#84;&#72;&#69;&#32;&#83;&#85;&#66;&#45;&#77;&#69;&#78;&#85;&#32;&#87;&#72;&#73;&#76;&#69;&#32;&#73;&#78;&#32;&#84;&#72;&#73;&#83;&#32;&#78;&#65;&#77;&#69;&#83;&#80;&#65;&#67;&#69;&#32;&#42;&#47;<br>&#35;&#110;&#115;&#95;&#109;&#101;&#110;&#117;&#95;&#97;&#114;&#101;&#97;&#32;&#123;&#100;&#105;&#115;&#112;&#108;&#97;&#121;&#58;&#110;&#111;&#110;&#101;&#32;&#33;&#105;&#109;&#112;&#111;&#114;&#116;&#97;&#110;&#116;&#59;&#32;&#118;&#105;&#115;&#105;&#98;&#105;&#108;&#105;&#116;&#121;&#58;&#104;&#105;&#100;&#100;&#101;&#110;&#32;&#32;&#33;&#105;&#109;&#112;&#111;&#114;&#116;&#97;&#110;&#116;&#59;&#125;<br>&#35;&#110;&#115;&#95;&#109;&#101;&#110;&#117;&#95;&#101;&#100;&#105;&#116;&#95;&#98;&#117;&#116;&#116;&#111;&#110;&#32;&#123;&#100;&#105;&#115;&#112;&#108;&#97;&#121;&#58;&#110;&#111;&#110;&#101;&#32;&#33;&#105;&#109;&#112;&#111;&#114;&#116;&#97;&#110;&#116;&#59;&#32;&#118;&#105;&#115;&#105;&#98;&#105;&#108;&#105;&#116;&#121;&#58;&#104;&#105;&#100;&#100;&#101;&#110;&#32;&#33;&#105;&#109;&#112;&#111;&#114;&#116;&#97;&#110;&#116;&#59;&#125;<br>&#60&#47;&#115;&#116;&#121;&#108;&#101;&#62</pre>
+* See also the [[WoaS Mods::Menu]] page. This wiki is using Method 3 to define nowiki text, tags, and a few other things.
 == See also
 See also: [[WoaS Mods::Dynamically change navigation bar icons]]
 
@@ -3575,8 +3579,8 @@ See also: [[WoaS Mods::Dynamically change navigation bar icons]]
 --DFQRCTsKlU
 woas.page.title: WoaS Mods::Menu
 woas.page.attributes: 0
-woas.page.last_modified: 1270506651
-woas.page.length: 2139
+woas.page.last_modified: 1270646749
+woas.page.length: 2179
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -3604,10 +3608,10 @@ span.tooltip {cursor:help; border-bottom:0.125em dotted mediumblue;}
 /* HELP PAGES - TEXT */
 div.helptext {color:darkcyan; font-weight:bold; font-style:italic;}
 
-/* DO NOT SHOW THIS SUB-MENU IN THE WoaS Mods NAMESPACE */
+/* HIDE THE SUB-MENU IN THIS NAMESPACE */
 #ns_menu_area {display:none !important; visibility:hidden  !important;}
 #ns_menu_edit_button {display:none !important; visibility:hidden !important;}
 </style>
-This page is here as a custom theme to be used by all pages in the WoaS Mods:: namespace. See [[WoaS Mods::Add custom themes]] for more information.
+This page is here as a custom theme to be used by all pages in the WoaS Mods:: namespace. Edit this page to see the styles used in this namespace. See [[WoaS Mods::Add custom themes]] for more information.
 
 --DFQRCTsKlU
