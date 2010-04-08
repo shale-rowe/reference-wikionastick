@@ -203,7 +203,7 @@ woas.parser.parse = function(text, export_links, js_mode) {
 //				log("Transcluding "+templname+"("+parts.slice(0).toString()+")");	// log:0
 				// in case of embedded file, add the inline file or add the image
 				var is_emb = false, templtext, ns=woas.get_namespace(templname, true);
-				if (woas.is_reserved(templname))
+				if (woas.is_reserved(templname) || (templname.substring(templname.length-2)=="::"))
 					templtext = woas.get_text_special(templname);
 				else {
 					var epi = woas.page_index(templname);
