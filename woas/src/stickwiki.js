@@ -29,6 +29,7 @@ woas.hotkeys = {
 	"edit":		"e",
 	"print":	"p",
 	"help":		"h",
+	"goto":		"g",
 	"cancel":	0x1b,
 	"back":		0x8
 };
@@ -224,7 +225,7 @@ woas._join_list = function(arr) {
 	result_pages = arr.slice(0);
 	//return "* [["+arr.sort().join("]]\n* [[")+"]]";
 	// (1) create a recursable tree of namespaces
-	var ns,output={"s":""},folds={"[pages]":[]},i,ni,nt,key;
+	var ns,output={"s":"","fold_no":0},folds={"[pages]":[]},i,ni,nt,key;
 	for(i=0,it=arr.length;i<it;++i) {
 		ns = arr[i].split("::");
 		// recurse all namespaces found in page title
@@ -236,13 +237,16 @@ woas._join_list = function(arr) {
 };
 
 woas.ns_recurse_parse = function(folds, output, prev_ns, recursion) {
-	var i,it=folds["[pages]"].length;
+	var i,it=folds["[pages]"].length,fold_id;
 	if (it != 0) {
 		++recursion;
-		output.s += "=".repeat(recursion)+" [["+prev_ns+"]]\n";
+		fold_id = "fold"+output.fold_no++;
+		output.s += "=".repeat(recursion)+" [[Javascript::$.toggle('"+fold_id+"')|"+prev_ns+"]] ("+it+" pages)\n";
+		output.s += "<div style=\"visibility: visible\" id=\""+fold_id+"\">\n";
 		for(i=0;i<it;++i) {
 			output.s += "*".repeat(recursion)+" [["+folds["[pages]"][i]+"]]\n";
 		}
+		output.s += "</div>\n";
 	}
 	for(i in folds) {
 		if (i != "[pages]")
@@ -1300,6 +1304,7 @@ woas._load_hotkeys = function(s) {
 	$("woas_edit_hl").accessKey = this.hotkeys.edit;
 	$("woas_print_hl").accessKey = this.hotkeys.print;
 	$("woas_help_hl").accessKey = this.hotkeys.help;
+	//TODO: set access key for goto feature
 	// (1) delete access keys which no more exist
 	var found,a,b;
 	for(a=0,at=this.custom_accesskeys.length;a<at;++a) {

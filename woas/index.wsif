@@ -2773,7 +2773,7 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: WoaS::Hotkeys
 woas.page.attributes: 0
-woas.page.length: 392
+woas.page.length: 413
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -2784,6 +2784,7 @@ $SAVE              s
 $EDIT              e
 $PRINT             p
 $HELP              h
+$GOTO              g
 
 ; Key bindings
 ; Cancel key is by default escape (ASCII 0x1b)
