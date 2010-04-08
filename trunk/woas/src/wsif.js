@@ -624,7 +624,7 @@ woas._native_page_def = function(path,ct,p,last_p,overwrite,pre_import_hook, tit
 				page_mts[pi] = last_mod;
 				// page title does not change
 			} else
-				log("Skipping page "+title); //log:1
+				log("Skipping already existing page "+title); //log:1
 		} else { // creating a new page
 			pi = page_titles.length;
 			pages.push(page);

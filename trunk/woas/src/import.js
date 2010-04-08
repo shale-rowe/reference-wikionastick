@@ -540,7 +540,7 @@ var _wsif_js_sec = {
 
 // apply some javascript security settings
 function _import_wsif_pre_hook(NP) {
-	// go on with special pages
+	// always import special pages because filtering is handled in wsif.js
 	if (NP.title.indexOf("Special::")===0)
 		return true;
 	// check if page needs to be skipped
