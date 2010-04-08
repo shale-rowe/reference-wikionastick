@@ -29,6 +29,11 @@ woas.cmd_new_page = function() {
 
 // used to create a new page in the wiki
 woas._new_page = function(msg, fill_mode, def_title) {
+	// disallow editing when wiki is set to read-only
+	if (!this.config.permit_edits) {
+		this.alert(this.i18n.READ_ONLY);
+		return null;
+	}
 	var title = def_title;
 	do {
 		title = prompt(msg, title);
