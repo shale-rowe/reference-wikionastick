@@ -928,17 +928,20 @@ woas._clear_swcs = function () {
 };
 
 woas.create_breadcrumb = function(title) {
+//	log("Creating breadcrumb for title \""+title+"\"");	//log:0
 	var tmp=title.split("::");
 	if (tmp.length==1)
 		return title;
 	var s="", partial="", js="";
 	for(var i=0;i<tmp.length-1;i++) {
-		partial += tmp[i]+"::";
-		js = "go_to('"+this.js_encode(partial)+"')";
+		// editing is active
 		if (kbd_hooking)
 			s+= tmp[i]+" :: ";
-		else
+		else {
+			partial += tmp[i]+"::";
+			js = "go_to('"+this.js_encode(partial)+"')";
 			s += "<a href=\"javascript:"+js+"\" onclick=\""+js+"\">"+tmp[i]+"</a> :: ";		
+		}
 	}
 	// add page title
 	return s+tmp[tmp.length-1];
@@ -993,6 +996,7 @@ woas.load_as_current = function(title, xhtml, mts) {
 	this._set_title(title);
 	this.update_nav_icons(title);
 	current = title;
+	log("current ::= "+title);
 	this._activate_scripts();
 	
 	return true;
@@ -1117,6 +1121,7 @@ woas.before_quit = function () {
 	return true;
 };
 
+ // DO NOT use setHTML for the document.body object in IE browsers
 woas.setHTML = woas.getHTML = null;
 
 // when the page is loaded - onload, on_load
@@ -1179,6 +1184,7 @@ woas.after_load = function() {
 		var p=current.indexOf("#");
 		if (p != -1)
 			current = current.substring(0,p);
+		log("current ::= "+current);
 	}
 
 	// check integrity of WoaS when finished - only in debug mode
@@ -1498,7 +1504,7 @@ woas.edit_allowed = function(page) {
 
 // setup the title boxes and gets ready to edit text
 woas.current_editing = function(page, disabled) {
-//	log("current = "+current+", current_editing(\""+page+"\", disabled: "+disabled+")");	// log:0
+//	log("current = \""+current+"\", current_editing(\""+page+"\", disabled: "+disabled+")");	// log:0
 	this.prev_title = current;
 	$("wiki_page_title").disabled = (disabled && !this.tweak.edit_override ? "disabled" : "");
 	$("wiki_page_title").value = page;
@@ -1518,7 +1524,7 @@ woas.current_editing = function(page, disabled) {
 	this.update_lock_icons(page);
 	$.hide("i_woas_text_area");
 
-	// FIXME!
+	// FIXME! hack to show the editor pane correctly on IE
 	if (!this.browser.ie)	{
 		$("wiki_editor").style.width = window.innerWidth - 35 + "px";
 		$("wiki_editor").style.height = window.innerHeight - 180 + "px";
@@ -1528,6 +1534,7 @@ woas.current_editing = function(page, disabled) {
 
 	$("wiki_editor").focus();
 	current = page;
+	log("current ::= "+page);
 	scrollTo(0,0);
 };
 
@@ -1883,16 +1890,17 @@ woas.cancel_edit = function() {
 			this._ghost_page = false;
 		}
 		this.disable_edit();
+		current = this.prev_title;
 	}
 };
 
 woas.generate_tail = function() {
 	var tail = "";
-	// output an applet tag
 	if (this.use_java_io) {
+		// output an applet tag
 		tail += "<applet style='position:absolute;left:-1px' name='TiddlySaver' code='TiddlySaver.class' archive='TiddlySaver.jar' width='1' height='1'></applet>";
 	}
-	// if we had any tail data, write it out
+	// write tail data (if we have any)
 	if (tail.length)
 		document.write("<"+"!-- "+__marker+"-TAIL-START -->" + tail + "<"+"!-- "+__marker+"-TAIL-END -->");
 
