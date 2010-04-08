@@ -23,6 +23,15 @@ woas.save_queue = [];		// pages which need to be saved and are waiting in the qu
 // Automatic-Save TimeOut object
 woas._asto = null;
 
+// the hotkeys runtime object
+woas.hotkeys = {
+	"save":		"s",
+	"edit":		"d",
+	"cancel":	0x1b,
+	"back":		0x8
+};
+woas.cached_default_hotkeys = null;
+
 // left and right trim
 woas.trim = function(s) {
 	return s.replace(/(^\s*)|(\s*$)/, '');
@@ -1170,16 +1179,77 @@ woas.after_load = function() {
 	$.hide("loading_overlay");
 };
 
+var reAliases = /^(\$[A-Za-z0-9_]{2,})\s+([\s\S]+)$/gm;
 // match all aliases defined in a page
 woas._load_aliases = function(s) {
 	this.aliases = [];
 	if (s==null || !s.length) return;
-	s.replace(/^(\$[A-Za-z0-9_]{2,})\s+([\s\S]+)$/gm, function(str, alias, value) {
+	s.replace(reAliases, function(str, alias, value) {
 		// save the array with the alias regex and alias value
 		var cpok = [ new RegExp(RegExp.escape(alias), "g"), value];
 		woas.aliases.push(cpok);
 	});
 };
+
+woas.validate_hotkey = function(k) {
+	// validate hexadecimal hotkey
+	if (k.substr(0, 2) == "0x") {
+		k = parseInt(k.substr(2), 16);
+		if (!k)
+			return null;
+		return k;
+	}
+	// validate decimal hotkey
+	if (k.test(/^\d+$/))
+		return k;
+	// validate single ASCII character
+	if (k.length>1)
+		return null;
+	return k;
+}
+
+woas._load_hotkeys = function(s) {
+	// identify valid alias lines and get the key binding/hotkey
+	s.replace(reAliases, function(str, hkey, binding) {
+		// convert hotkey to lowercase
+		hkey = hkey.toLowerCase();
+		// check that hotkey exists
+		if (typeof woas.hotkeys[hkey] == "undefined") {
+			log("Skipping unknown hotkey "+hkey);	//log:1
+			return;
+		}
+		// check that binding is a valid key
+		binding = woas.validate_hotkey(binding);
+		if (binding === null) {
+			log("Skipping invalid key binding for hotkey "+hkey);
+			return;
+		}
+		// associate hotkey and key binding
+		woas.hotkeys[hkey] = binding;
+	});
+}
+
+// return the default hotkeys/key bindings
+woas._default_hotkeys = function() {
+	if (this.cached_default_hotkeys === null) {
+		this.cached_default_hotkeys="";
+		var k;
+		for(var hkey in this.hotkeys) {
+			k = this.hotkeys[hkey];
+			switch(typeof k) {
+				case "string":
+				break;
+				default: // Number
+					k = "0x"+k.toString(16);
+			}
+			this.cached_default_hotkeys += "$"+hkey.toUpperCase()+"\t"+k+"\n";
+		}
+	}
+	return this.cached_default_hotkeys;
+}
+
+// call once during code setup to store the current default hotkeys
+woas._default_hotkeys();
 
 var reJSComments = /^\s*\/\*[\s\S]*?\*\/\s*/g;
 
@@ -1301,6 +1371,7 @@ woas.edit_allowed = function(page) {
 	switch (page) {
 		case "WoaS::Bootscript":
 		case "WoaS::Aliases":
+		case "WoaS::Hotkeys":
 			return true;
 	}
 	// page in reserved namespace
@@ -1410,6 +1481,7 @@ woas.valid_title = function(title) {
 	switch (title) {
 		case "WoaS::Bootscript":
 		case "WoaS::Aliases":
+		case "WoaS::Hotkeys":
 			return true;
 	}
 	var ns = this.get_namespace(title, true);
@@ -1533,8 +1605,9 @@ woas.save = function() {
 	if (null_save)
 		null_save = (raw_content === this.change_buffer);
 	
-	var can_be_empty = false;
+	var can_be_empty = false, skip = false;
 	switch(current) {
+		//FIXME: we should switch to WoaS::CSS or similar
 		case "Special::Edit CSS":
 			if (!null_save)
 				this.setCSS(raw_content);
@@ -1549,9 +1622,13 @@ woas.save = function() {
 		case "WoaS::Bootscript":
 			can_be_empty = true;
 			// fallback wanted
+			skip = true;
+		case "WoaS::Hotkeys":
+			if (!skip && !null_save)
+				this._load_hotkeys(raw_content);
 		default:
 			// check if text is empty
-			if (!null_save && !can_be_empty && (raw_content == "")) {
+			if (!null_save && !can_be_empty && (raw_content === "")) {
 				if (confirm(this.i18n.CONFIRM_DELETE.sprintf(current))) {
 					var deleted = current;
 					this.delete_page(current);

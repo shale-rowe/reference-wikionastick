@@ -85,7 +85,7 @@ woas.static_pages = ["Special::About", "Special::Advanced", "Special::Options","
 						"Special::ImportWSIF", "WoaS::Plugins",
 						"WoaS::Template::Button", "WoaS::Template::Info"];
 woas.help_pages = null;
-woas.default_pages = ["::Menu", "WoaS::Bootscript", "WoaS::Aliases"];
+woas.default_pages = ["::Menu", "WoaS::Bootscript", "WoaS::Aliases", "WoaS::Hotkeys"];
 
 woas.erase_wiki = function() {
 	if (!this.config.permit_edits) {
@@ -140,7 +140,7 @@ woas.erase_wiki = function() {
 	page_titles = page_titles.concat(this.static_pages);
 	page_titles = page_titles.concat(copied_help_pages);
 	// now build pages
-	pages = ["A blank sheet is a catalyst for ideas", "[["+this.config.main_page+"]]\n\n[[Special::All Pages]]\n[[Special::New Page]]\n[[Special::Duplicate Page]]\n[[Special::Go to]]\n[[Special::Delete Page]]\n[[Special::Backlinks]]\n[[Special::Search]]", "/* insert here your boot script */", ""];
+	pages = ["A blank sheet is a catalyst for ideas", "[["+this.config.main_page+"]]\n\n[[Special::All Pages]]\n[[Special::New Page]]\n[[Special::Duplicate Page]]\n[[Special::Go to]]\n[[Special::Delete Page]]\n[[Special::Backlinks]]\n[[Special::Search]]", "/* insert here your boot script */", "", this._default_hotkeys()];
 	pages = pages.concat(backup_pages); backup_pages = null;
 	current = this.config.main_page;
 	this.refresh_menu_area();
@@ -166,10 +166,12 @@ woas.cmd_edit_css = function() {
 	return null;
 };
 
+//DEPRECATED
 woas.cmd_edit_aliases = function() {
 	return this.cmd_edit_special("WoaS::Aliases");
 };
 
+//DEPRECATED
 woas.cmd_edit_bootscript = function() {
 	return this.cmd_edit_special("WoaS::Bootscript");
 };

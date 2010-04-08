@@ -189,8 +189,9 @@ woas.import_wiki = function() {
 		/* NOTES ABOUT OLD VERSIONS
 		v0.11.2:
 			* introduced parsing mechanism which does not mess with var declarations inside JavaScript strings
+			* introduced WoaS::Hotkeys
 		v0.10.7:
-			* introduced WoaS::Plugins and changed WoaS::Bootscript from embedded to normal
+			* introduced WoaS::Plugins and changed WoaS::Bootscript page type from embedded to normal
 		v0.10.0:
 			* introduced page_mts for global page modified timestamp
 		v0.9.7:
@@ -489,7 +490,14 @@ woas.import_wiki = function() {
 			page_mts.push(current_mts);
 		}
 	} // do not import content pages
-
+	
+	// eventually add the new missing page
+	if (old_version <= 112) {
+		page_titles.push("WoaS::Hotkeys");
+		pages.push(this._default_hotkeys());
+		page_attrs.push(0);
+		page_mts.push(current_mts);
+	}
 	// set the new config variable
 	if (old_version<=108)
 		this.config.main_page = old_main_page;
