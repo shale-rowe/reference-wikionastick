@@ -200,10 +200,13 @@ woas.cmd_edit_special = function(cr) {
 };
 
 woas.cmd_go_to = function() {
-	var pname = prompt("Go to page:", current);
-	if ((pname === null) || !pname.length)
-		return null;
-	go_to(pname);
+	var pname;
+	do {
+		pname = prompt("Go to page:", current);
+		if ((pname !== null) && pname.length)
+			if (go_to(pname))
+				return;
+	} while (pname !== null);
 };
 
 woas.cmd_delete = function() {
