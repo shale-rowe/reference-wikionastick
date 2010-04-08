@@ -223,7 +223,7 @@ woas._join_list = function(arr) {
 	result_pages = arr.slice(0);
 	//return "* [["+arr.sort().join("]]\n* [[")+"]]";
 	// (1) create a recursable tree of namespaces
-	var ns,output={"s":""},folds={"*pages":[]},i,ni,nt,key;
+	var ns,output={"s":""},folds={"[pages]":[]},i,ni,nt,key;
 	for(i=0,it=arr.length;i<it;++i) {
 		ns = arr[i].split("::");
 		// recurse all namespaces found in page title
@@ -235,16 +235,16 @@ woas._join_list = function(arr) {
 };
 
 woas.ns_recurse_parse = function(folds, output, prev_ns, recursion) {
-	var i,it=folds["*pages"].length;
+	var i,it=folds["[pages]"].length;
 	if (it != 0) {
 		++recursion;
 		output.s += "=".repeat(recursion)+" [["+prev_ns+"]]\n";
 		for(i=0;i<it;++i) {
-			output.s += "*".repeat(recursion)+" [["+folds["*pages"][i]+"]]\n";
+			output.s += "*".repeat(recursion)+" [["+folds["[pages]"][i]+"]]\n";
 		}
 	}
 	for(i in folds) {
-		if (i != "*pages")
+		if (i != "[pages]")
 			this.ns_recurse_parse(folds[i], output, prev_ns+i, recursion);
 	}
 };
@@ -254,14 +254,14 @@ woas.ns_recurse = function(ns_arr, folds, prev_ns) {
 	if (typeof folds[ns] == "undefined") {
 		// last item, build the array
 		if (left == 1) {
-			folds[ns] = {"*pages": [ns+ns_arr[0]] };
+			folds[ns] = {"[pages]": [ns+ns_arr[0]] };
 			return;
 		}
 		// namespace, create object
-		folds[ns] = {"*pages":[]};
+		folds[ns] = {"[pages]":[]};
 	} else { // object already exists, add only leaves
 		if (left == 1) {
-			folds[ns]["*pages"].push(ns+ns_arr[0]);
+			folds[ns]["[pages]"].push(ns+ns_arr[0]);
 			return;
 		}
 	}
