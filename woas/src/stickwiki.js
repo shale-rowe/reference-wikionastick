@@ -32,6 +32,7 @@ woas.hotkeys = {
 	"back":		0x8
 };
 woas.cached_default_hotkeys = null;
+woas.custom_accesskeys = [];
 
 // left and right trim
 woas.trim = function(s) {
@@ -1214,6 +1215,7 @@ woas.validate_hotkey = function(k) {
 
 var reHotkeys = /^\$([A-Za-z0-9_]{2,})(\([A-Za-z0-9_]+\))?\s+([\S]+)\s*$/gm;
 woas._load_hotkeys = function(s) {
+	var new_custom_accesskeys=[];
 	// identify valid alias lines and get the key binding/hotkey
 	s.replace(reHotkeys, function(str, hkey, lambda, binding) {
 		// check that binding is a valid key
@@ -1224,10 +1226,9 @@ woas._load_hotkeys = function(s) {
 		}
 		// associate a custom key binding
 		if (hkey == "CUSTOM") {
-			//TODO: dynamic access keys support goes here!
-			// do not check for existance of the associated javascript function
+			// store the custom definition for later update
 			lambda = lambda.substr(1, lambda.length-2);
-			log("Not yet implemented: dynamic access key for key '"+binding+"' and function '"+lambda+"'"); //log:1
+			new_custom_accesskeys.push({"fn":lambda, "key":binding});
 		} else {
 			// convert hotkey to lowercase
 			hkey = hkey.toLowerCase();
@@ -1244,6 +1245,49 @@ woas._load_hotkeys = function(s) {
 	$("woas_save_hl").accessKey = this.hotkeys.save;
 	$("woas_edit_hl").accessKey = this.hotkeys.edit;
 	$("woas_print_hl").accessKey = this.hotkeys.print;
+	// (1) delete access keys which no more exist
+	var found,a,b;
+	for(a=0,at=this.custom_accesskeys.length;a<at;++a) {
+		found = false;
+		for (b=0,bt=new_custom_accesskeys.length;b<bt;++b) {
+			if (this.custom_accesskeys[a].key === new_custom_accesskeys[b].key) {
+				found = true;
+				// access key element was found, update the associated function (if necessary)
+				if (this.custom_accesskeys[a].fn !== new_custom_accesskeys[b].fn) {
+					this.custom_accesskeys[a].obj.onClick = new_custom_accesskeys[b].fn+"()";
+				}
+				break;
+			}
+		}
+		// proceed to removal
+		if (!found) {
+			$("woas_custom_accesskeys").removeChild(this.custom_accesskeys[a].obj);
+			delete this.custom_accesskeys[a].obj;
+			this.custom_accesskeys[a].splice(a,1);
+			--at;
+		}
+	}
+	// (2) add new access keys
+	var ak;
+	for(a=0,at=new_custom_accesskeys.length;a<at;++a) {
+		found = false;
+		for (b=0,bt=this.custom_accesskeys.length;b<bt;++b) {
+			// access key already exists
+			if (this.custom_accesskeys[b].key === new_custom_accesskeys[a].key) {
+				found = true;
+				break;
+			}
+		}
+		// proceed to addition
+		if (!found) {
+			ak = document.createElement("a");
+			ak.onClick = new_custom_accesskeys.fn+"()";
+			this.custom_accesskeys.push({"fn":new_custom_accesskeys.fn,"key":new_custom_accesskeys.key,
+											obj:ak});
+			$("woas_custom_accesskeys").appendChild(ak);
+		}
+	}
+//	alert(this.getHTML($("woas_custom_accesskeys")));
 }
 
 // return the default hotkeys/key bindings
@@ -1786,4 +1830,16 @@ woas.cancel_edit = function() {
 		}
 		this.disable_edit();
 	}
+};
+
+woas.generate_tail = function() {
+	var tail = "";
+	// output an applet tag
+	if (this.use_java_io) {
+		tail += "<applet style='position:absolute;left:-1px' name='TiddlySaver' code='TiddlySaver.class' archive='TiddlySaver.jar' width='1' height='1'></applet>";
+	}
+	// if we had any tail data, write it out
+	if (tail.length)
+		document.write("<"+"!-- "+__marker+"-TAIL-START -->" + tail + "<"+"!-- "+__marker+"-TAIL-END -->");
+
 };

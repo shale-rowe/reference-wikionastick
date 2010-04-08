@@ -387,6 +387,11 @@ div.ns_menu_area ul li, div.ns_menu_area ol li {
 .woas_about_footer a {
 	color: white;
 }
+
+#woas_custom_accesskeys {
+	visibility: hidden;
+	display: none;
+}
 </style><title>Main Page</title>
 <script src="src/aes.js" type="text/javascript"></script>
 <script src="src/framework.js" type="text/javascript"></script>
@@ -492,9 +497,8 @@ Wiki Code:
 <div class="woas_about_footer"><sub><a class="link" onclick="go_to('Special::About')">About Wiki on a Stick v0.11.2</a></sub></div>
 <script type="text/javascript">
 //<![CDATA[
-if (woas.use_java_io)
-	document.write("<"+"!-- "+__marker+"-TAIL-START --><applet style='position:absolute;left:-1px' name='TiddlySaver' code='TiddlySaver.class' archive='TiddlySaver.jar' width='1' height='1'></applet>"+
-			"<"+"!-- "+__marker+"-TAIL-END -->");
+woas.generate_tail();
 //]]>
 </script>
+<div id="woas_custom_accesskeys">&nbsp;</div>
 </body></html>
