@@ -1181,15 +1181,18 @@ woas._load_aliases = function(s) {
 	});
 };
 
+var reJSComments = /^\s*\/\*[\s\S]*?\*\/\s*/g;
+
 woas._create_bs = function() {
 	var s=this.get_text("WoaS::Bootscript");
 	if (s==null || !s.length) return false;
 	// remove the comments
-	s = s.replace(/^\s*\/\*(.|\n)*?\*\/\s*/g, '');
+	s = s.replace(reJSComments, '');
 	if (!s.length) return false;
 	_bootscript = document.createElement("script");
 	_bootscript.type="text/javascript";
 	_bootscript.id = "woas_bootscript";
+	// we have only one head, select it
 	document.getElementsByTagName("head")[0].appendChild(_bootscript);
 	this.setHTML(_bootscript, s);
 	return true;
@@ -1197,69 +1200,12 @@ woas._create_bs = function() {
 
 // remove bootscript (when erasing for example)
 woas._clear_bs = function() {
-	if (_bootscript!=null) {
+	if (_bootscript !== null) {
 		var head = document.getElementsByTagName("head")[0];
 		head.removeChild(_bootscript);
 		_bootscript = null;
 	}
 };
-
-function ff_fix_focus() {
-//runtime fix for Firefox bug 374786
-	if (woas.browser.firefox)
-		$("wiki_text").blur();
-}
-
-function search_focus(focused) {
-	search_focused = focused;
-	if (!focused)
-		ff_fix_focus();
-}
-
-function custom_focus(focused) {
-	_custom_focus = focused;
-	if (!focused)
-		ff_fix_focus();
-}
-
-// set to true when inside an edit textarea
-var kbd_hooking=false;
-
-function kbd_hook(orig_e) {
-	if (!orig_e)
-		e = window.event;
-	else
-		e = orig_e;
-		
-	if (!kbd_hooking) {
-		if (_custom_focus)
-			return orig_e;
-		if (search_focused) {
-			// return key
-			if (e.keyCode==13) {
-				ff_fix_focus();
-				do_search();
-				return false;
-			}
-			return orig_e;
-		}
-		// backspace or escape
-		if ((e.keyCode==8) || (e.keyCode==27)) {
-			go_back();
-			ff_fix_focus();
-			return false;
-		}
-	}
-
-	// escape
-	if (e.keyCode==27) {
-		cancel();
-		ff_fix_focus();
-		return false;
-	}
-
-	return orig_e;
-}
 
 // when the page is resized
 woas._onresize = function() {
