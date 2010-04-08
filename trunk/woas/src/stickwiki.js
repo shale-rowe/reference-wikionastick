@@ -767,6 +767,7 @@ woas.get_javascript_page = function(cr) {
 // Load a new current page
 // return true if page needs to be saved in history, false otherwise
 woas.set_current = function (cr, interactive) {
+	log("Setting current page to \""+cr+"\"");	//log:1
 	var text, namespace, pi;
 	result_pages = [];
 	// eventually remove the previous custom script
@@ -832,6 +833,9 @@ woas.set_current = function (cr, interactive) {
 						return false;
 					case "WoaS":
 						pi = woas.page_index(namespace+"::"+cr);
+						// unexisting page
+						if (pi == -1)
+							return false;
 						var real_t = page_titles[pi];
 /*						if (this.is__embedded(pi)) {
 							//TODO: do not use namespace to guess the embedded file type
@@ -887,15 +891,12 @@ woas.set_current = function (cr, interactive) {
 		}
 	}
 	
-	if(text == null) {
+	if (text === null) {
 		if (_decrypt_failed) {
 			_decrypt_failed = false;
 			return false;
 		}
-		if (!this._create_page(namespace, cr, true, false))
-			return false;
-//		log("Editing new page "+namespace+cr);	// log:0
-		return true;
+		return this._create_page(namespace, cr, true, false);
 	}
 	
 	this._add_namespace_menu(namespace);

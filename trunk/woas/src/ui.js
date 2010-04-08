@@ -14,12 +14,14 @@ function advanced() {
 // follows a link
 function go_to(cr) {
 	if(cr == current)
-		return;
+		return true;
 	var _b_current = current;
 	if (woas.set_current(cr, true)) {
 		history_mem(_b_current);
 		forstack = [];
+		return true;
 	}
+	return false;
 }
 
 function back_or(or_page) {
