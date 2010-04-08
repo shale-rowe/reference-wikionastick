@@ -942,7 +942,7 @@ woas.create_breadcrumb = function(title) {
 		else {
 			partial += tmp[i]+"::";
 			js = "go_to('"+this.js_encode(partial)+"')";
-			s += "<a href=\"javascript:"+js+"\" onclick=\""+js+"\">"+tmp[i]+"</a> :: ";		
+			s += "<a href=\"javascript:"+js+"\" onclick=\""+js+"; return false;\">"+tmp[i]+"</a> :: ";		
 		}
 	}
 	// add page title
