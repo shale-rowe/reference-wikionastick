@@ -556,8 +556,8 @@ function kbd_hook(orig_e) {
 			}
 			return orig_e;
 		}
-		// backspace or escape
-		if ((e.keyCode==8) || (e.keyCode==27)) {
+		// back or cancel keys
+		if ((e.keyCode==woas.hotkeys.back) || (e.keyCode==woas.hotkeys.cancel)) {
 			go_back();
 			ff_fix_focus();
 			return false;
@@ -565,7 +565,7 @@ function kbd_hook(orig_e) {
 	}
 
 	// escape
-	if (e.keyCode==27) {
+	if (e.keyCode==woas.hotkeys.cancel) {
 		cancel();
 		ff_fix_focus();
 		return false;
