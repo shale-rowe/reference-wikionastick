@@ -2813,18 +2813,24 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: WoaS::Hotkeys
 woas.page.attributes: 0
-woas.page.length: 143
+woas.page.length: 350
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 ; Hotkeys
-$SAVE	s
-$EDIT	d
+$SAVE              s
+$EDIT              d
 
+; Key bindings
 ; Cancel key is by default escape (ASCII 0x1b)
-$CANCEL	0x1b
+$CANCEL            0x1b
 ; Back key is by default backspace (ASCII 0x8)
-$BACK	0x8
+$BACK              0x8
+
+; Custom hotkeys
+; You can define custom hotkeys here and the associated JavaScript function
+; in your WoaS::Bootscript
+; $CUSTOM(home)    h
 --DFQRCTsKlU

@@ -796,6 +796,7 @@ woas.set_current = function (cr, interactive) {
 									break;
 									case "Aliases":
 									case "Bootscript":
+									case "Hotkeys":
 										// page is stored plaintext
 										text = "<tt class=\"wiki_preformatted\">"+text+"</tt>";
 									break;
@@ -1150,6 +1151,7 @@ woas.after_load = function() {
 //	this.swcs = $("sw_custom_script");
 
 	this._load_aliases(this.get_text("WoaS::Aliases"));
+	this._load_hotkeys(this.get_text("WoaS::Hotkeys"));
 
 	this._create_bs();	//moved here to fix bug 1898587
 	this.set_current(current, true);
@@ -1179,7 +1181,7 @@ woas.after_load = function() {
 	$.hide("loading_overlay");
 };
 
-var reAliases = /^(\$[A-Za-z0-9_]{2,})\s+([\s\S]+)$/gm;
+var reAliases = /^(\$[A-Za-z0-9_]{2,})\s+(.*?)$/gm;
 // match all aliases defined in a page
 woas._load_aliases = function(s) {
 	this.aliases = [];
@@ -1191,6 +1193,7 @@ woas._load_aliases = function(s) {
 	});
 };
 
+var reDecimal = /^\d+$/;
 woas.validate_hotkey = function(k) {
 	// validate hexadecimal hotkey
 	if (k.substr(0, 2) == "0x") {
@@ -1200,7 +1203,7 @@ woas.validate_hotkey = function(k) {
 		return k;
 	}
 	// validate decimal hotkey
-	if (k.test(/^\d+$/))
+	if (reDecimal.test(k))
 		return k;
 	// validate single ASCII character
 	if (k.length>1)
@@ -1208,24 +1211,33 @@ woas.validate_hotkey = function(k) {
 	return k;
 }
 
+var reHotkeys = /^\$([A-Za-z0-9_]{2,})(\([A-Za-z0-9_]+\))?\s+([\S]+)\s*$/gm;
 woas._load_hotkeys = function(s) {
 	// identify valid alias lines and get the key binding/hotkey
-	s.replace(reAliases, function(str, hkey, binding) {
-		// convert hotkey to lowercase
-		hkey = hkey.toLowerCase();
-		// check that hotkey exists
-		if (typeof woas.hotkeys[hkey] == "undefined") {
-			log("Skipping unknown hotkey "+hkey);	//log:1
-			return;
-		}
+	s.replace(reHotkeys, function(str, hkey, lambda, binding) {
 		// check that binding is a valid key
 		binding = woas.validate_hotkey(binding);
 		if (binding === null) {
 			log("Skipping invalid key binding for hotkey "+hkey);
 			return;
 		}
-		// associate hotkey and key binding
-		woas.hotkeys[hkey] = binding;
+		// associate a custom key binding
+		if (hkey == "CUSTOM") {
+			//TODO: dynamic access keys support goes here!
+			// do not check for existance of the associated javascript function
+			lambda = lambda.substr(1, lambda.length-2);
+			log("Not yet implemented: dynamic access key for key '"+binding+"' and function '"+lambda+"'"); //log:1
+		} else {
+			// convert hotkey to lowercase
+			hkey = hkey.toLowerCase();
+			// check that hotkey exists
+			if (typeof woas.hotkeys[hkey] == "undefined") {
+				log("Skipping unknown hotkey "+hkey);	//log:1
+				return;
+			}
+			// associate hotkey and key binding
+			woas.hotkeys[hkey] = binding;
+		}
 	});
 }
 
