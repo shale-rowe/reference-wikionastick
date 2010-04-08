@@ -266,3 +266,9 @@ function _get_this_filename() {
 	}
 	return filename;
 }
+
+function ff_fix_focus() {
+//runtime fix for Firefox bug 374786
+	if (woas.browser.firefox)
+		$("wiki_text").blur();
+}

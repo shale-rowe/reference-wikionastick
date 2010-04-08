@@ -522,3 +522,54 @@ function clear_search() {
 	cached_search = "";
 	woas.assert_current("Special::Search");
 }
+
+function search_focus(focused) {
+	search_focused = focused;
+	if (!focused)
+		ff_fix_focus();
+}
+
+function custom_focus(focused) {
+	_custom_focus = focused;
+	if (!focused)
+		ff_fix_focus();
+}
+
+// set to true when inside an edit textarea
+var kbd_hooking=false;
+
+function kbd_hook(orig_e) {
+	if (!orig_e)
+		e = window.event;
+	else
+		e = orig_e;
+		
+	if (!kbd_hooking) {
+		if (_custom_focus)
+			return orig_e;
+		if (search_focused) {
+			// return key
+			if (e.keyCode==13) {
+				ff_fix_focus();
+				do_search();
+				return false;
+			}
+			return orig_e;
+		}
+		// backspace or escape
+		if ((e.keyCode==8) || (e.keyCode==27)) {
+			go_back();
+			ff_fix_focus();
+			return false;
+		}
+	}
+
+	// escape
+	if (e.keyCode==27) {
+		cancel();
+		ff_fix_focus();
+		return false;
+	}
+
+	return orig_e;
+}
