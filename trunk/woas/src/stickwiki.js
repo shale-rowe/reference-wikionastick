@@ -26,7 +26,8 @@ woas._asto = null;
 // the hotkeys runtime object
 woas.hotkeys = {
 	"save":		"s",
-	"edit":		"d",
+	"edit":		"e",
+	"print":	"p",
 	"cancel":	0x1b,
 	"back":		0x8
 };
@@ -1239,6 +1240,10 @@ woas._load_hotkeys = function(s) {
 			woas.hotkeys[hkey] = binding;
 		}
 	});
+	// once finished loading hotkey definitions, associate them
+	$("woas_save_hl").accessKey = this.hotkeys.save;
+	$("woas_edit_hl").accessKey = this.hotkeys.edit;
+	$("woas_print_hl").accessKey = this.hotkeys.print;
 }
 
 // return the default hotkeys/key bindings

@@ -1,7 +1,7 @@
 wsif.version: 1.2.0
 wsif.generator: woas
 woas.version: 0.11.2
-woas.pages: 67
+woas.pages: 68
 
 woas.page.title: ::Menu
 woas.page.attributes: 0
@@ -34,7 +34,6 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Special::Advanced
 woas.page.attributes: 0
-woas.page.last_modified: 1269705017
 woas.page.length: 1174
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -84,7 +83,6 @@ Available only for versions v0.9 and above. /Caution: importing older CSS can ga
 --DFQRCTsKlU
 woas.page.title: Special::About
 woas.page.attributes: 0
-woas.page.last_modified: 1270184313
 woas.page.length: 3113
 woas.page.encoding: ecma/plain
 woas.page.disposition: inline
@@ -137,15 +135,13 @@ This project wouldn't be what it is without the help of other people. If you con
 --DFQRCTsKlU
 woas.page.title: Main Page
 woas.page.attributes: 0
-woas.page.last_modified: 1269448424
-woas.page.length: 38
+woas.page.length: 37
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 A blank sheet is a catalyst for ideas
-
 --DFQRCTsKlU
 woas.page.title: Special::Search
 woas.page.attributes: 0
@@ -206,7 +202,6 @@ _lock_page();
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Security
 woas.page.attributes: 0
-woas.page.last_modified: 1270311672
 woas.page.length: 3813
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -277,7 +272,6 @@ if (woas.browser.ie6) $("cb_fixed_layout").disabled = true;
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Deprecated syntax
 woas.page.attributes: 0
-woas.page.last_modified: 1270315325
 woas.page.length: 1779
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -396,7 +390,6 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: WoaS::Plugins
 woas.page.attributes: 0
-woas.page.last_modified: 1270320667
 woas.page.length: 176
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -588,7 +581,6 @@ $('woas_ep_author').onblur = $('woas_ep_wsif').onblur = _ep_blur;
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::WSIF
 woas.page.attributes: 0
-woas.page.last_modified: 1270096740
 woas.page.length: 4635
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -773,7 +765,6 @@ And this is the actual result:
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Editing
 woas.page.attributes: 0
-woas.page.last_modified: 1268580585
 woas.page.length: 2748
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -835,7 +826,6 @@ You can edit the contents of the main text area by typing normally. There are li
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Index
 woas.page.attributes: 0
-woas.page.last_modified: 1270096606
 woas.page.length: 2281
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -915,7 +905,6 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Special::Advanced
 woas.page.attributes: 0
-woas.page.last_modified: 1270314260
 woas.page.length: 503
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -945,7 +934,6 @@ If you have not given permanent permission to your browser for editing wiki page
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Edit CSS
 woas.page.attributes: 0
-woas.page.last_modified: 1269534346
 woas.page.length: 1991
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1026,7 +1014,6 @@ This page displays a list of pages that contain links to nonexistent pages. Both
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::General usage
 woas.page.attributes: 0
-woas.page.last_modified: 1270312562
 woas.page.length: 1097
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1126,7 +1113,6 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Wiki is read-only
 woas.page.attributes: 0
-woas.page.last_modified: 1270312976
 woas.page.length: 377
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1146,7 +1132,6 @@ If you clicked the *Disallow edits* button in the wiki [[WoaS::Help::Special::Op
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Create a page
 woas.page.attributes: 0
-woas.page.last_modified: 1268582106
 woas.page.length: 2256
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1180,7 +1165,6 @@ An alternate method of creating a page is to type a new page title inside nested
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Delete a page
 woas.page.attributes: 0
-woas.page.last_modified: 1270094839
 woas.page.length: 791
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1202,7 +1186,6 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Edit a page
 woas.page.attributes: 0
-woas.page.last_modified: 1270313343
 woas.page.length: 754
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1219,7 +1202,6 @@ All pages (except WoaS pages within reserved [[WoaS::Help::Namespaces|namespaces
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Erase all pages
 woas.page.attributes: 0
-woas.page.last_modified: 1270313715
 woas.page.length: 377
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1236,7 +1218,6 @@ See also the [[WoaS::Help::Special::Erase Wiki]] page.
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Edit the menu
 woas.page.attributes: 0
-woas.page.last_modified: 1270311944
 woas.page.length: 561
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1256,7 +1237,6 @@ See the *Namespace sub-menu* section of the [[WoaS::Help::Namespaces]] page.
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Headers
 woas.page.attributes: 0
-woas.page.last_modified: 1270317276
 woas.page.length: 400
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1299,7 +1279,6 @@ Below are examples on how to use wiki markup to create headers in this wiki. The
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Rulers
 woas.page.attributes: 0
-woas.page.last_modified: 1270319145
 woas.page.length: 1217
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1365,7 +1344,6 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Include web page
 woas.page.attributes: 0
-woas.page.last_modified: 1270095614
 woas.page.length: 3392
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1438,7 +1416,6 @@ To include the contents of a wiki page inside another wiki page, use an {{{[[Inc
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::JavaScript
 woas.page.attributes: 0
-woas.page.last_modified: 1270318337
 woas.page.length: 5580
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1558,7 +1535,6 @@ word &nbsp;&nbsp;&nbsp; word
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Namespaces
 woas.page.attributes: 0
-woas.page.last_modified: 1270313871
 woas.page.length: 4383
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1672,7 +1648,6 @@ _*/This is underlined and bold and italic text./*_
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Rename a page
 woas.page.attributes: 0
-woas.page.last_modified: 1269960306
 woas.page.length: 222
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1687,7 +1662,6 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Page scrolling
 woas.page.attributes: 0
-woas.page.last_modified: 1270314046
 woas.page.length: 527
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1702,7 +1676,6 @@ You can change the settings by clicking the *Advanced* icon in the navigation ba
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Table of Contents
 woas.page.attributes: 0
-woas.page.last_modified: 1270319220
 woas.page.length: 774
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1723,7 +1696,6 @@ The Table of Contents expects the first header on a page to be a Level 1 header.
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Tags
 woas.page.attributes: 0
-woas.page.last_modified: 1270320074
 woas.page.length: 3862
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1788,7 +1760,6 @@ By putting an exclamation mark (*!*) in front of the tag name, you can filter ou
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Publish wiki online
 woas.page.attributes: 0
-woas.page.last_modified: 1270312882
 woas.page.length: 571
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1819,7 +1790,6 @@ This is a personal wiki that's not designed to be used on a server. Any changes 
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Requirements
 woas.page.attributes: 0
-woas.page.last_modified: 1270096167
 woas.page.length: 2675
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1880,7 +1850,6 @@ The TiddlySaver java applet was written by J.Rouston.
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Lists
 woas.page.attributes: 0
-woas.page.last_modified: 1270318691
 woas.page.length: 12803
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -2281,7 +2250,6 @@ This method is useful when an creating a fancy list with more than one list item
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Tables
 woas.page.attributes: 0
-woas.page.last_modified: 1270319372
 woas.page.length: 2177
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -2392,7 +2360,6 @@ See also the [[WoaS::Help::Table of Contents]] page.
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Links
 woas.page.attributes: 0
-woas.page.last_modified: 1270319704
 woas.page.length: 8306
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -2539,7 +2506,6 @@ With a combination of HTML and wiki syntax, you can create anchor links to anywh
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Images
 woas.page.attributes: 0
-woas.page.last_modified: 1270317907
 woas.page.length: 14055
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -2627,7 +2593,6 @@ A famous online service to create such URIs is [[http://software.hixie.ch/utilit
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Import
 woas.page.attributes: 0
-woas.page.last_modified: 1270312718
 woas.page.length: 1457
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -2663,7 +2628,6 @@ This method is used to import pages that have been exported using the WSIF forma
 --DFQRCTsKlU
 woas.page.title: WoaS::Template::Search
 woas.page.attributes: 0
-woas.page.last_modified: 1270512697
 woas.page.length: 581
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -2691,7 +2655,6 @@ $('menu_string_to_search').onkeydown = menu_key_hook;
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Export
 woas.page.attributes: 0
-woas.page.last_modified: 1270312097
 woas.page.length: 1562
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -2731,7 +2694,6 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Transclusion
 woas.page.attributes: 0
-woas.page.last_modified: 1270320455
 woas.page.length: 3150
 woas.page.encoding: ecma/plain
 woas.page.disposition: inline
@@ -2789,7 +2751,6 @@ To see infinite recursion in action, create a page named *Infinite recursion* an
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Special::ExportWSIF
 woas.page.attributes: 0
-woas.page.last_modified: 1268585418
 woas.page.length: 30
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -2801,7 +2762,6 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Special::ImportWSIF
 woas.page.attributes: 0
-woas.page.last_modified: 1268585441
 woas.page.length: 30
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -2813,7 +2773,7 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: WoaS::Hotkeys
 woas.page.attributes: 0
-woas.page.length: 350
+woas.page.length: 371
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -2821,7 +2781,8 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 ; Hotkeys
 $SAVE              s
-$EDIT              d
+$EDIT              e
+$PRINT             p
 
 ; Key bindings
 ; Cancel key is by default escape (ASCII 0x1b)
