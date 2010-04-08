@@ -28,6 +28,7 @@ woas.hotkeys = {
 	"save":		"s",
 	"edit":		"e",
 	"print":	"p",
+	"help":		"h",
 	"cancel":	0x1b,
 	"back":		0x8
 };
@@ -289,8 +290,8 @@ woas._get_namespace_pages = function (ns) {
 		case "Tagged": // to be used in wiki source
 		case "Tags": // is this deprecated?
 			return "= Pages in "+ns+" namespace\n" + this.special_tagged(false);
-		case "WoaS::Plugins":
-			return this.parser.parse(this.get_text("WoaS::Plugins") + this._plugins_list());
+//		case "WoaS::Plugins":
+//			return this.parser.parse(this.get_text("WoaS::Plugins") + this._plugins_list());
 		case "Image":
 			var iHTML = "";
 			for(var i=0, l=page_titles.length;i<l;++i) {
@@ -1147,7 +1148,7 @@ woas.after_load = function() {
 	
 	this.setHTML($("woas_wait_text"), this.i18n.LOADING);
 	
-	$('a_home').title = this.config.main_page;
+	$('woas_home_hl').title = this.config.main_page;
 	$('img_home').alt = this.config.main_page;
 	
 	if (this.config.debug_mode) {
@@ -1297,6 +1298,7 @@ woas._load_hotkeys = function(s) {
 	$("woas_save_hl").accessKey = this.hotkeys.save;
 	$("woas_edit_hl").accessKey = this.hotkeys.edit;
 	$("woas_print_hl").accessKey = this.hotkeys.print;
+	$("woas_help_hl").accessKey = this.hotkeys.help;
 	// (1) delete access keys which no more exist
 	var found,a,b;
 	for(a=0,at=this.custom_accesskeys.length;a<at;++a) {

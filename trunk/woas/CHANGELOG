@@ -1,4 +1,5 @@
 Version 0.11.2 (legolas558,pvhl)
+* fixed issue 2980936 namespaces not being transcluded (reported by littlegirl)
 * fixed issue 2981069 glitch when editing menu (reported by deroock)
 * fixed WSIF import issue with WoaS:: pages
 * configurable and custom access keys

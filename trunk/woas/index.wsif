@@ -2773,7 +2773,7 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: WoaS::Hotkeys
 woas.page.attributes: 0
-woas.page.length: 371
+woas.page.length: 392
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -2783,6 +2783,7 @@ woas.page.boundary: DFQRCTsKlU
 $SAVE              s
 $EDIT              e
 $PRINT             p
+$HELP              h
 
 ; Key bindings
 ; Cancel key is by default escape (ASCII 0x1b)
@@ -2793,5 +2794,5 @@ $BACK              0x8
 ; Custom hotkeys
 ; You can define custom hotkeys here and the associated JavaScript function
 ; in your WoaS::Bootscript
-; $CUSTOM(home)    h
+; $CUSTOM(home)    m
 --DFQRCTsKlU
