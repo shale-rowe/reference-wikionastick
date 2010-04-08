@@ -178,16 +178,16 @@ woas.special_tagged = function() {
          return -1;
       return 0;
     });
-	var pg=[], obj;
+	var pg=[], obj, it;
 	for(j=0,l=utags.length;j<l;j++) {
 		obj = tags_tree[utags[j]].sort();
 		pg.push("\n== [[Tagged::"+utags[j]+"]]");
-		for(i=0;i<obj.length;i++) {
-			pg.push("* [["+obj[i]+"]]");
+		for(i=0,it=obj.length;i<it;i++) {
+			pg.push(obj[i]);
 		}
 	}
 	if (pg.length)
-		return this._simple_join_list(pg);
+		return this._join_list(pg);
 	return '/No tagged pages/';
 };
 
@@ -201,11 +201,11 @@ woas.special_untagged = function() {
 		if (tmp===null)
 			continue;
 		if (!tmp.match(/\[\[Tags?::([^\]]+)\]\]/))
-			pg.push("[["+page_titles[i]+"]]");
+			pg.push(page_titles[i]);
 	}
 	if (!pg.length)
 		return '/No untagged pages/';
-	return this._simple_join_list(pg, true);
+	return this._join_list(pg, true);
 };
 
 // Returns a index of all pages
