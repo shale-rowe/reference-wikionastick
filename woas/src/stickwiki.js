@@ -1254,7 +1254,7 @@ woas._load_hotkeys = function(s) {
 				found = true;
 				// access key element was found, update the associated function (if necessary)
 				if (this.custom_accesskeys[a].fn !== new_custom_accesskeys[b].fn) {
-					this.custom_accesskeys[a].obj.onClick = new_custom_accesskeys[b].fn+"()";
+					this.custom_accesskeys[a].obj.onclick = new_custom_accesskeys[b].fn+"(); return false;";
 				}
 				break;
 			}
@@ -1263,15 +1263,18 @@ woas._load_hotkeys = function(s) {
 		if (!found) {
 			$("woas_custom_accesskeys").removeChild(this.custom_accesskeys[a].obj);
 			delete this.custom_accesskeys[a].obj;
-			this.custom_accesskeys[a].splice(a,1);
+			this.custom_accesskeys.splice(a,1);
 			--at;
 		}
 	}
 	// (2) add new access keys
 	var ak;
+	// we store the length of old access keys before looping because
+	// other entries might be added during the cycles
+	bt=this.custom_accesskeys.length;
 	for(a=0,at=new_custom_accesskeys.length;a<at;++a) {
 		found = false;
-		for (b=0,bt=this.custom_accesskeys.length;b<bt;++b) {
+		for (b=0;b<bt;++b) {
 			// access key already exists
 			if (this.custom_accesskeys[b].key === new_custom_accesskeys[a].key) {
 				found = true;
@@ -1281,13 +1284,18 @@ woas._load_hotkeys = function(s) {
 		// proceed to addition
 		if (!found) {
 			ak = document.createElement("a");
-			ak.onClick = new_custom_accesskeys.fn+"()";
-			this.custom_accesskeys.push({"fn":new_custom_accesskeys.fn,"key":new_custom_accesskeys.key,
+//			ak.setAttribute("onclick", new_custom_accesskeys[a].fn+"(); return false;");
+			ak.href="javascript:"+new_custom_accesskeys[a].fn+"()";
+			ak.accessKey = new_custom_accesskeys[a].key;
+			// store the new access key
+			this.custom_accesskeys.push({"fn":new_custom_accesskeys[a].fn,"key":new_custom_accesskeys[a].key,
 											obj:ak});
 			$("woas_custom_accesskeys").appendChild(ak);
 		}
 	}
-//	alert(this.getHTML($("woas_custom_accesskeys")));
+	// (3) clear the div content if no custom access key is there (just for safety)
+	if (this.custom_accesskeys.length == 0)
+		woas.setHTML($("woas_custom_accesskeys"), "&nbsp;");
 }
 
 // return the default hotkeys/key bindings
