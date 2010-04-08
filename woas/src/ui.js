@@ -444,7 +444,7 @@ function import_wiki_wsif() {
 	// grab settings
 	_wsif_js_sec.comment_js = $("woas_cb_import_comment_js").checked;
 	_wsif_js_sec.comment_macros = $("woas_cb_import_comment_macros").checked;
-	_wsif_js_sec.comment_woas_ns = $("woas_cb_import_woas_ns").checked;
+	_wsif_js_sec.woas_ns = $("woas_cb_import_woas_ns").checked;
 	// automatically retrieve the filename (calls load_file())
 	done = woas._native_wsif_load(null, $("woas_cb_import_overwrite").checked, true, false,
 			_import_wsif_pre_hook);
