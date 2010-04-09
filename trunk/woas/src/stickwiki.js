@@ -1336,7 +1336,11 @@ woas._load_hotkeys = function(s) {
 		}
 	}
 	// (2) add new access keys
-	var ak;
+	this._update_accesskeys(new_custom_accesskeys);
+}
+
+woas._update_accesskeys = function(new_custom_accesskeys) {
+	var ak, a, b, at, bt;
 	// we store the length of old access keys before looping because
 	// other entries might be added during the cycles
 	bt=this.custom_accesskeys.length;
@@ -1357,13 +1361,13 @@ woas._load_hotkeys = function(s) {
 			ak.accessKey = new_custom_accesskeys[a].key;
 			// store the new access key
 			this.custom_accesskeys.push({"fn":new_custom_accesskeys[a].fn,"key":new_custom_accesskeys[a].key,
-											obj:ak});
+										 "obj":ak});
 			$("woas_custom_accesskeys").appendChild(ak);
 		}
 	}
 	// (3) clear the div content if no custom access key is there (just for safety)
 	if (this.custom_accesskeys.length == 0)
-		woas.setHTML($("woas_custom_accesskeys"), "&nbsp;");
+		this.setHTML($("woas_custom_accesskeys"), "&nbsp;");
 }
 
 // return the default hotkeys/key bindings
