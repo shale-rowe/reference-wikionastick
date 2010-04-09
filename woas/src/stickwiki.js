@@ -602,12 +602,12 @@ woas._create_page = function (ns, cr, ask, fill_mode) {
 	page_titles.push(cr);
 	// set modified timestamp
 	page_mts.push(Math.round(new Date().getTime()/1000));
-	log("Page "+cr+" added to internal array");	// log:1
+//	log("Page "+cr+" added to internal array");	// log:1
 	if (!fill_mode) {
 		// DO NOT set 'current = cr' here!!!
 		// enable ghost mode when creating a new-to-be page
-		if (!ask)
-			this._ghost_page = true;
+		this._ghost_page = true;
+		log("Ghost page enabled"); //log:1
 		// proceed with a normal wiki source page
 		this.edit_page(cr);
 	}
@@ -1730,6 +1730,7 @@ woas.save = function() {
 	var null_save = !this._ghost_page;
 	// always reset ghost page flag
 	this._ghost_page = false;
+	log("Ghost page disabled"); //log:1
 	// when this function is called in non-edit mode we perform a full commit
 	// for cumulative save
 	if (this.config.cumulative_save && !kbd_hooking) {
@@ -1904,6 +1905,7 @@ woas.cancel_edit = function() {
 			page_titles.pop();
 			page_attrs.pop();
 			this._ghost_page = false;
+			log("Ghost page disabled"); //log:1
 		}
 		this.disable_edit();
 		current = this.prev_title;
