@@ -231,7 +231,12 @@ woas._native_wsif_load = function(path, overwrite, and_save, recursing, pre_impo
 		this.wsif.emsg = null;
 		this.progress_init("Initializing WSIF import");
 	}
-	var ct = this.load_file(path, this.file_mode.ASCII_TEXT);
+	var ct;
+	// allow remote loading when running in native WSIF mode
+	if (this.tweak.native_wsif && this._server_mode)
+		ct = this.remote_load(path)
+	else
+		ct = this.load_file(path, this.file_mode.ASCII_TEXT);
 	if (typeof ct != "string") {
 		if (!recursing)
 			this.progress_finish();

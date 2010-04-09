@@ -539,7 +539,6 @@ woas._save_to_file = function(full) {
 			this.after_pages_saved();
 	}
 
-	
 	$("wiki_editor").value = bak_ed;
 	$("wiki_text").innerHTML = bak_tx;
 	$("menu_area").innerHTML = bak_mn;
@@ -618,8 +617,9 @@ function _get_data(marker, source, full, start) {
 }
 
 // increment the save-counter portion of the marker
+var reMarker = /([^\-]*)\-(\d{7,7})$/;
 function _inc_marker(old_marker) {
-	var m = old_marker.match(/([^\-]*)\-(\d{7,7})$/);
+	var m = old_marker.match(reMarker);
 	if (m===null) {
 		return _random_string(10)+"-0000001";
 	}
@@ -627,4 +627,10 @@ function _inc_marker(old_marker) {
 	n = n.toString();
 	// marker part + 0-padded save count number
 	return m[1]+"-"+String("0").repeat(7-n.length)+n;
+}
+
+woas.remote_load = function(url) {
+	//TODO: XHR request
+	this.crash("Remote URL loading not yet implemented!");
+	return null;
 }
