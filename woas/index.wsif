@@ -83,7 +83,7 @@ Available only for versions v0.9 and above. /Caution: importing older CSS can ga
 --DFQRCTsKlU
 woas.page.title: Special::About
 woas.page.attributes: 0
-woas.page.length: 3113
+woas.page.length: 3133
 woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -95,8 +95,8 @@ Wiki on a Stick (in short *WoaS*) is a [[http://en.wikipedia.org/wiki/Wiki|wiki]
 
 == Version
 
-Current version is *v0.11.2*
-Versions 0.9&tilde;0.11.2 by Daniele C. ([[http://sf.net/users/legolas558/|legolas558]])
+Current version is *v@@WOAS_VERSION@@*
+Versions 0.9&tilde;@@WOAS_VERSION@@ by Daniele C. ([[http://sf.net/users/legolas558/|legolas558]])
 Original version (v0.01 &tilde; v0.04) by Andr\u00e9 Wagner
 
 <big>[[Special::License|Wiki on a Stick is licensed under the GNU/GPL license]].</big>
