@@ -381,14 +381,15 @@ woas.parser.parse = function(text, export_links, js_mode) {
 	// wiki tags
 	var tags = [],
 		inline_tags = 0,
-		wl;
+		wl, url;
 	
 	// links with pipe e.g. [[Page|Title]]
 	text = text.replace(reWikiLink, function(str, $1, $2) {
 		// check for protocol
 		if ($1.search(/^\w+:\/\//)===0) {
 			r = woas.parser.place_holder(snippets.length);
-			snippets.push("<a class=\"world\" href=\"" + $1.replace(/^mailto:\/\//, "mailto:") + "\" target=\"_blank\">" + $2 + "<\/a>");
+			url = $1.replace(/^mailto:\/\//, "mailto:");
+			snippets.push("<a title=\""+woas.xhtml_encode(url)+"\" class=\"world\" href=\"" + url + "\" target=\"_blank\">" + $2 + "<\/a>");
 			return r;
 		}
 			
@@ -417,7 +418,7 @@ woas.parser.parse = function(text, export_links, js_mode) {
 				wl = " href=\""+woas._export_get_fname(page)+"\"";
 			} else
 				wl = " onclick=\"go_to('" + woas.js_encode(page) +	"')" + gotohash + "\"";
-			snippets.push("<a class=\"link\""+ wl + " >" + $2 + "<\/a>");
+			snippets.push("<a title=\""+woas.xhtml_encode(page)+"\" class=\"link\""+ wl + " >" + $2 + "<\/a>");
 			return r;
 		} else {
 			// section reference URIs
@@ -430,7 +431,7 @@ woas.parser.parse = function(text, export_links, js_mode) {
 				if (wl == '#')
 					snippets.push("<span class=\"broken_link\">" + $2 + "<\/span>");
 				else {
-					snippets.push("<a class=\"link\" href=\""+
+					snippets.push("<a title=\""+woas.xhtml_encode(page)+"\" class=\"link\" href=\""+
 					wl+"#" +
 					woas.parser.header_anchor($1.substring(1)) + "\">" + $2 + "<\/a>");
 				}
@@ -442,7 +443,7 @@ woas.parser.parse = function(text, export_links, js_mode) {
 					return r;
 				}
 				wl = " onclick=\"go_to('" +woas.js_encode($1)+"')\"";
-				snippets.push("<a class=\"unlink\" "+wl+">" + $2 + "<\/a>");
+				snippets.push("<a title=\""+woas.xhtml_encode(page)+"\" class=\"unlink\" "+wl+">" + $2 + "<\/a>");
 				return r;
 			}
 		}
