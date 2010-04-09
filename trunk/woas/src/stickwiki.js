@@ -1010,7 +1010,7 @@ woas.load_as_current = function(title, xhtml, mts) {
 	this._set_title(title);
 	this.update_nav_icons(title);
 	current = title;
-	log("current ::= "+title);
+//	log("current ::= "+title);	//log:0
 	this._activate_scripts();
 	
 	return true;
@@ -1198,7 +1198,7 @@ woas.after_load = function() {
 		var p=current.indexOf("#");
 		if (p != -1)
 			current = current.substring(0,p);
-		log("current ::= "+current);
+//		log("current ::= "+current);	//log:0
 	}
 
 	// check integrity of WoaS when finished - only in debug mode
@@ -1554,7 +1554,7 @@ woas.current_editing = function(page, disabled) {
 
 	$("wiki_editor").focus();
 	current = page;
-	log("current ::= "+page);
+//	log("current ::= "+page);	//log:0
 	scrollTo(0,0);
 };
 
