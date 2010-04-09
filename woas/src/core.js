@@ -313,19 +313,29 @@ woas.integrity_test = function() {
 		"\n"+UTF8_TEST2);
 		return false;
 	}
-	// test integrity of load/save functions
-	if (!this.save_file(woas.ROOT_DIRECTORY+"itest.bin", this.file_mode.UTF8_TEXT,
-			woas.merge_bytes(woas.utf8Encrypt(UTF8_TEST))
-//			UTF8_TEST
-			))
-		return false;
-	var ct = this.load_file(woas.ROOT_DIRECTORY+"itest.bin", this.file_mode.UTF8_TEXT);
-	if ((ct === null)||(ct === false))
-		return false;
-	ct = woas.utf8Decrypt(woas.split_bytes(ct));
-	if (ct !== UTF8_TEST) {
-		this.crash("UTF8 test failed.\nWritten:\n"+UTF8_TEST+"\nRead:\n"+ct);
-		return false;
+	// test integrity of load/save functions if not on remote server
+	if (!this._server_mode) {
+		if (!this.save_file(woas.ROOT_DIRECTORY+"itest.bin", this.file_mode.UTF8_TEXT,
+				woas.merge_bytes(woas.utf8Encrypt(UTF8_TEST))
+	//			UTF8_TEST
+				)) {
+			this.crash("Save failure during integrity test\n"+woas.ROOT_DIRECTORY);
+			return false;
+		}
+		var ct = this.load_file(woas.ROOT_DIRECTORY+"itest.bin", this.file_mode.UTF8_TEXT);
+		if ((ct === null)||(ct === false)) {
+			if (ct === false)
+				this.crash("Load failure during integrity test\n"+woas.ROOT_DIRECTORY);
+			return false;
+		}
+		ct = woas.utf8Decrypt(woas.split_bytes(ct));
+		if (ct !== UTF8_TEST) {
+			this.crash("UTF8 test failed.\nWritten:\n"+UTF8_TEST+"\nRead:\n"+ct);
+			return false;
+		}
+	} else { // we are on a remote server
+		log("Skipping save integrity test because running from web server");
+		//TODO: remote load integrity test
 	}
 	// now test AES encryption
 	woas.AES.setKey("WoaS");
