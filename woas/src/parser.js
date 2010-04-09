@@ -143,6 +143,18 @@ woas.parser.place_holder = function (i, separator) {
 	return "<!-- "+parse_marker+separator+i+" -->";
 };
 
+woas._make_preformatted = function(text) {
+	var cls, tag;
+	if (text.indexOf("\n") == -1) {
+		cls = "wiki_preformatted";
+		tag = "tt";
+	} else {
+		cls = "woas_nowiki_multiline";
+		tag = "div";
+	}
+	return "<"+tag+" class=\""+cls+"\">"+this.xhtml_encode(text)+"</"+tag+">";
+}
+
 // THIS is the method that you should override for your custom parsing needs
 // text is the raw wiki source
 // export_links is set to true when exporting wiki pages and is used to generate proper href for hyperlinks
@@ -186,8 +198,7 @@ woas.parser.parse = function(text, export_links, js_mode) {
 				return c;
 			});
 		}
-		var cls = ($1.indexOf("\n") == -1) ? "wiki_preformatted" : "woas_nowiki_multiline";
-		snippets.push("<tt class=\""+cls+"\">"+woas.xhtml_encode($1)+"</tt>");
+		snippets.push(woas._make_preformatted($1));
 		return r;
 	});
 	
@@ -279,8 +290,7 @@ woas.parser.parse = function(text, export_links, js_mode) {
 								return c;
 							});
 						}
-						var cls = ($1.indexOf("\n") == -1) ? "wiki_preformatted" : "woas_nowiki_multiline";
-						snippets.push("<tt class=\""+cls+"\">"+woas.xhtml_encode($1)+"</tt>");
+						snippets.push(woas._make_preformatted($1));
 						return r;
 					});
 				
