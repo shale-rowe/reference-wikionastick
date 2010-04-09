@@ -405,3 +405,8 @@ woas.get_input_file_url = function() {
 		this.alert(this.i18n.FILE_SELECT_ERR);
 	return r;
 };
+
+//API1.0: dynamically add a hotkey
+// returns true if hotkey was added successfully or if already present
+woas.add_hotkey = function(key, function_obj) {
+};
