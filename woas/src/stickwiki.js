@@ -228,12 +228,40 @@ woas._join_list = function(arr) {
 	var ns,output={"s":"","fold_no":0},folds={"[pages]":[]},i,ni,nt,key;
 	for(i=0,it=arr.length;i<it;++i) {
 		ns = arr[i].split("::");
-		// recurse all namespaces found in page title
-		this.ns_recurse(ns, folds, "");
+		// remove first entry if empty
+		if (ns.length>1) {
+			if (ns[0].length == 0) {
+				ns.shift();
+				ns[0] = "::"+ns[0];
+			}
+			// recurse all namespaces found in page title
+			this.ns_recurse(ns, folds, "");
+		} else // <= 1
+			folds["[pages]"].push(arr[i]);
 	}
 	// (2) output the tree
 	this.ns_recurse_parse(folds, output, "", 0);
 	return output.s;
+};
+
+woas.ns_recurse = function(ns_arr, folds, prev_ns) {
+	var ns = prev_ns+ns_arr.shift()+"::", item, left=ns_arr.length;;
+	if (typeof folds[ns] == "undefined") {
+		// last item, build the array
+		if (left == 1) {
+			folds[ns] = {"[pages]": [ns+ns_arr[0]] };
+			return;
+		}
+		// namespace, create object
+		folds[ns] = {"[pages]":[]};
+	} else { // object already exists, add only leaves
+		if (left == 1) {
+			folds[ns]["[pages]"].push(ns+ns_arr[0]);
+			return;
+		}
+	}
+	if (left > 1)
+		this.ns_recurse(ns_arr, folds, ns);
 };
 
 woas.ns_recurse_parse = function(folds, output, prev_ns, recursion) {
@@ -254,26 +282,6 @@ woas.ns_recurse_parse = function(folds, output, prev_ns, recursion) {
 	}
 };
 
-woas.ns_recurse = function(ns_arr, folds, prev_ns) {
-	var ns = prev_ns+ns_arr.shift()+"::", item, left=ns_arr.length;
-	if (typeof folds[ns] == "undefined") {
-		// last item, build the array
-		if (left == 1) {
-			folds[ns] = {"[pages]": [ns+ns_arr[0]] };
-			return;
-		}
-		// namespace, create object
-		folds[ns] = {"[pages]":[]};
-	} else { // object already exists, add only leaves
-		if (left == 1) {
-			folds[ns]["[pages]"].push(ns+ns_arr[0]);
-			return;
-		}
-	}
-	if (left > 1)
-		this.ns_recurse(ns_arr, folds, ns);
-};
-
 woas._simple_join_list = function(arr, sorted) {
 	if (sorted)
 		arr = arr.sort();
@@ -286,14 +294,14 @@ woas._get_namespace_pages = function (ns) {
 	var pg = [];
 	switch (ns.substr(0, ns.length-2)) {
 		case "Locked":
-			return "= Pages in "+ns+" namespace\n" + this.special_encrypted_pages(true);
+			return /*"= Pages in "+ns+" namespace\n" + */this.special_encrypted_pages(true);
 		case "Unlocked":
-			return "= Pages in "+ns+" namespace\n" + this.special_encrypted_pages(false);
+			return /*"= Pages in "+ns+" namespace\n" + */this.special_encrypted_pages(false);
 		case "Untagged":
-			return "= Pages in "+ns+" namespace\n" + this.special_untagged(false);
+			return /*"= Pages in "+ns+" namespace\n" + */this.special_untagged(false);
 		case "Tagged": // to be used in wiki source
 		case "Tags": // is this deprecated?
-			return "= Pages in "+ns+" namespace\n" + this.special_tagged(false);
+			return /*"= Pages in "+ns+" namespace\n" + */this.special_tagged(false);
 //		case "WoaS::Plugins":
 //			return this.parser.parse(this.get_text("WoaS::Plugins") + this._plugins_list());
 		case "Image":
@@ -309,7 +317,7 @@ woas._get_namespace_pages = function (ns) {
 		if (page_titles[i].indexOf(ns)===0)
 			pg.push(page_titles[i]);
 	}
-	return "= Pages in "+ns+" namespace\n" + this._join_list(pg);
+	return /*"= Pages in "+ns+" namespace\n" + */this._join_list(pg);
 };
 
 woas._get_tagged = function(tag_filter) {
