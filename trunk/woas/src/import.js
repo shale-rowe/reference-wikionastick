@@ -152,7 +152,8 @@ woas.import_wiki = function() {
 		old_page_attrs = [],
 		old_page_mts = [],
 		pc = 0,
-		i, il, pi;
+		i, il, pi,
+		imported_css = null;
 
 	// old versions parsing
 	if (old_version	< 9) {
@@ -189,7 +190,7 @@ woas.import_wiki = function() {
 		/* NOTES ABOUT OLD VERSIONS
 		v0.11.2:
 			* introduced parsing mechanism which does not mess with var declarations inside JavaScript strings
-			* introduced WoaS::Hotkeys
+			* introduced WoaS::Hotkeys, WoaS::CSS::Core, WoaS::CSS::Custom
 		v0.10.7:
 			* introduced WoaS::Plugins and changed WoaS::Bootscript page type from embedded to normal
 		v0.10.0:
@@ -292,15 +293,16 @@ woas.import_wiki = function() {
 		if (fail) break;
 
 		if (import_css) {
-			// import the CSS head tag
-			var css = null;
-			ct.replace(/<style\s.*?type="?text\/css"?[^>]*>((\n|.)*?)<\/style>/i, function (str, $1) {
-				css = $1;
-			});
-			if (css!==null) {
-				log("Imported "+css.length+" bytes of CSS");	// log:1
-				this.set_css(css);
-			}
+			// import the CSS head tag in versions before 0.11.2
+			if (old_version < 112) {
+				ct.replace(/<style\s.*?type="?text\/css"?[^>]*>((\n|.)*?)<\/style>/i, function (str, $1) {
+					imported_css = $1;
+				});
+				if (imported_css !== null) {
+					log("Imported "+imported_css.length+" bytes of CSS");	// log:1
+//					this.set_css(css);
+				}
+			} // otherwise we'll manage CSS import at the page level
 		}
 
 		var data = _get_data(old_marker, ct, true, true);
@@ -420,8 +422,18 @@ woas.import_wiki = function() {
 		// add new data
 		for (i=0, il=page_names.length; i<il; i++) {
 			// we are not using is_reserved() because will be inconsistant in case of enabled edit_override
-			//TODO: special treatment for WoaS:: namespace
-			if (page_names[i].indexOf("Special::")===0) {
+			// check pages in WoaS:: namespace
+			if (page_names[i].indexOf("WoaS::")===0) {
+				// do not overwrite help pages with old ones
+				if (page_names[i].indexOf("WoaS::Help::")===0)
+					continue;
+				// skip other core WoaS:: pages
+				if (this.static_pages2.indexOf(page_names[i]) !==-1)
+					continue;
+				// allowed pages after above filtering are Bootscript, Aliases, Hotkeys and CSS::Custom
+				if (!import_css && (page_names[i] === "WoaS::Custom::CSS"))
+					continue;
+			} else if (page_names[i].indexOf("Special::")===0) {
 				if ((old_version>=94) && (old_version<=96)) {
 					if (page_names[i]=="Special::Bootscript") {
 						pi = this.page_index("WoaS::Bootscript");
@@ -483,20 +495,25 @@ woas.import_wiki = function() {
 			} // not importing a special page
 		} // for cycle
 		// added in v0.9.7
-		if (old_version <= 96) {
+/*		if (old_version <= 96) {
 			page_titles.push("WoaS::Aliases");
 			pages.push("");
 			page_attrs.push(0);
 			page_mts.push(current_mts);
-		}
+		} */
 	} // do not import content pages
 	
 	// eventually add the new missing page
 	if (old_version <= 112) {
-		page_titles.push("WoaS::Hotkeys");
+/*		page_titles.push("WoaS::Hotkeys");
 		pages.push(this._default_hotkeys());
 		page_attrs.push(0);
-		page_mts.push(current_mts);
+		page_mts.push(current_mts); */
+		// take care of custom CSS (if any)
+		if (imported_css !== null) {
+			pi = page_titles.indexOf("WoaS::CSS::Custom");
+			pages[pi] = imported_css;
+		}
 	}
 	// set the new config variable
 	if (old_version<=108)
