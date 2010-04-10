@@ -299,7 +299,7 @@ woas.import_wiki = function() {
 			});
 			if (css!==null) {
 				log("Imported "+css.length+" bytes of CSS");	// log:1
-				this.setCSS(css);
+				this.set_css(css);
 			}
 		}
 
