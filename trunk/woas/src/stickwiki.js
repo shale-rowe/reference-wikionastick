@@ -1704,9 +1704,6 @@ woas.get_css = function() {
 /*	return css;
 };*/
 	
-//DEPRECATED
-woas.setCSS = function(new_css) {this.set_css(new_css);};
-
 //API1.0: set WoaS CSS
 woas.set_css = function(new_css) {
 	// with some browsers we have weird hot-fixes
