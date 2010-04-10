@@ -895,13 +895,14 @@ When browsing the pages in this Help pop-up, you will find a *Back* button in th
 --DFQRCTsKlU
 woas.page.title: WoaS::Template::Button
 woas.page.attributes: 0
-woas.page.length: 113
+woas.page.last_modified: 1270860741
+woas.page.length: 81
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-<div class="woas_topnote"><input type="button" class="woas_help_button" value="%1" title="%1" onclick="%2"></div>
+<input type="button" class="woas_help_button" value="%1" title="%1" onclick="%2">
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Special::Advanced
 woas.page.attributes: 0
