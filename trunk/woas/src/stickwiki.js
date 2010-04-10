@@ -880,8 +880,7 @@ woas.set_current = function (cr, interactive) {
 						this._add_namespace_menu(namespace);
 						if (namespace.length)
 							cr = real_t;
-						this.load_as_current(cr, text, page_mts[pi]);
-						return;
+						return this.load_as_current(cr, text, page_mts[pi]);
 					case "File":
 					case "Image":
 						text = this._get_embedded(namespace+"::"+cr, namespace.toLowerCase());
@@ -893,8 +892,7 @@ woas.set_current = function (cr, interactive) {
 						this._add_namespace_menu(namespace);
 						if (namespace.length)
 							cr = namespace + "::" + cr;
-						this.load_as_current(cr, text, page_mts[this.page_index(namespace+"::"+cr, namespace.toLowerCase())]);
-						return true;
+						return this.load_as_current(cr, text, page_mts[this.page_index(namespace+"::"+cr, namespace.toLowerCase())]);
 					default:
 						text = this.get_text(namespace+"::"+cr);
 				}

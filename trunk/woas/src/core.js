@@ -87,10 +87,10 @@ woas.cmd_erase_wiki = function() {
 woas.static_pages = ["Special::About", "Special::Advanced", "Special::Options","Special::Import",
 						"Special::Lock","Special::Search", "Special::Embed",
 						"Special::Export", "Special::License", "Special::ExportWSIF",
-						"Special::ImportWSIF", "WoaS::Plugins",
+						"Special::ImportWSIF", "WoaS::Plugins", "Woas::CSS::Core",
 						"WoaS::Template::Button", "WoaS::Template::Info"];
 woas.help_pages = null;
-woas.default_pages = ["::Menu", "WoaS::Bootscript", "WoaS::Aliases", "WoaS::Hotkeys"];
+woas.default_pages = ["::Menu", "WoaS::Bootscript", "WoaS::Aliases", "WoaS::Hotkeys", "WoaS::CSS::Custom"];
 
 woas.erase_wiki = function() {
 	if (!this.config.permit_edits) {
@@ -145,7 +145,8 @@ woas.erase_wiki = function() {
 	page_titles = page_titles.concat(this.static_pages);
 	page_titles = page_titles.concat(copied_help_pages);
 	// now build pages
-	pages = ["A blank sheet is a catalyst for ideas", "[["+this.config.main_page+"]]\n\n[[Special::All Pages]]\n[[Special::New Page]]\n[[Special::Duplicate Page]]\n[[Special::Go to]]\n[[Special::Delete Page]]\n[[Special::Backlinks]]\n[[Special::Search]]", "/* insert here your boot script */", "", this._default_hotkeys()];
+	pages = ["A blank sheet is a catalyst for ideas", "[["+this.config.main_page+"]]\n\n[[Special::All Pages]]\n[[Special::New Page]]\n[[Special::Duplicate Page]]\n[[Special::Go to]]\n[[Special::Delete Page]]\n[[Special::Backlinks]]\n[[Special::Search]]",
+			"/* insert here your boot script */", "", this._default_hotkeys(), "/* Your CSS customization goes here */"];
 	pages = pages.concat(backup_pages); backup_pages = null;
 	current = this.config.main_page;
 	this.refresh_menu_area();
