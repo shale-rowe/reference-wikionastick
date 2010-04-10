@@ -1261,7 +1261,6 @@ woas._load_aliases = function(s) {
 	});
 };
 
-var reDecimal = /^\d+$/;
 woas.validate_hotkey = function(k) {
 	// validate hexadecimal hotkey
 	if (k.substr(0, 2) == "0x") {
@@ -1270,9 +1269,6 @@ woas.validate_hotkey = function(k) {
 			return null;
 		return k;
 	}
-	// validate decimal hotkey
-	if (reDecimal.test(k))
-		return k;
 	// validate single ASCII character
 	if (k.length>1)
 		return null;
