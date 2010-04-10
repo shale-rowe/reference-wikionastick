@@ -89,6 +89,10 @@ woas.static_pages = ["Special::About", "Special::Advanced", "Special::Options","
 						"Special::Export", "Special::License", "Special::ExportWSIF",
 						"Special::ImportWSIF", "WoaS::Plugins", "Woas::CSS::Core",
 						"WoaS::Template::Button", "WoaS::Template::Info"];
+
+woas.static_pages2 = ["WoaS::Plugins", "Woas::CSS::Core",
+						"WoaS::Template::Button", "WoaS::Template::Info"];
+						
 woas.help_pages = null;
 woas.default_pages = ["::Menu", "WoaS::Bootscript", "WoaS::Aliases", "WoaS::Hotkeys", "WoaS::CSS::Custom"];
 
