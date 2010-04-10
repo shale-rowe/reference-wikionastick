@@ -34,19 +34,27 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Special::Advanced
 woas.page.attributes: 0
-woas.page.length: 1174
+woas.page.length: 1490
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-== Options
-You can customize Wiki on a Stick modifying a few [[Special::Options|Options]].  
+== Advanced features
+* [[Special::Options]]: general WoaS options
+* [[WoaS::CSS::Core]], [[WoaS::CSS::Custom]]: view the core CSS and edit the custom CSS
+* [[WoaS::Bootscript]]: view/edit the custom script run once when WoaS is being loaded
+* [[WoaS::Aliases]]: view/edit page title aliases
+* [[WoaS::Hotkeys]]: view/edit WoaS access keys and default key bindings
+* [[WoaS::Plugins]]: plugins management (not yet available)
 
 == Pages
 * [[Special::All Pages]]: a list of all user created pages in this wiki
 * [[Locked::]], [[Unlocked::]]: an index of all encrypted/plain pages
 * [[Tagged::]], [[Untagged::]]: an index of all tagged/untagged pages
+* [[Special::Go to]]: go to specific page
+* [[Special::Delete Page]]: delete specific page
+* [[Special::Recentchanges]]: view recently modified pages
 * [[Special::Search]]: search all wiki pages
 
 == Maintenance
@@ -57,11 +65,6 @@ You can customize Wiki on a Stick modifying a few [[Special::Options|Options]].
 * [[Special::Import]]: import wiki or theme from an early (or current) version
 * [[Special::ImportWSIF]]: import a wiki page (or collection of) in [[WoaS::Help::WSIF|WSIF]] format
 * [[Special::Erase Wiki]]: delete ALL wiki pages and reset with default data
-
-== Advanced features
-* [[Special::Edit CSS]]: edit the global CSS styles
-* [[Special::Edit Bootscript]]: edit the custom script run once when WoaS is being loaded
-
 --DFQRCTsKlU
 woas.page.title: Special::Import
 woas.page.attributes: 0
