@@ -269,7 +269,7 @@ woas.ns_recurse_parse = function(folds, output, prev_ns, recursion) {
 	if (it != 0) {
 		++recursion;
 		fold_id = "fold"+output.fold_no++;
-		output.s += "=".repeat(recursion)+" [["+prev_ns+"]] [[Javascript::$.toggle('"+fold_id+"')|"+String.fromCharCode(8853)+"]] ("+it+" pages)\n";
+		output.s += "=".repeat(recursion)+"[[Javascript::$.toggle('"+fold_id+"')|"+String.fromCharCode(8853)+"]] [["+prev_ns+"]] ("+it+" pages)\n";
 		output.s += "<div style=\"visibility: visible\" id=\""+fold_id+"\">\n";
 		for(i=0;i<it;++i) {
 			output.s += "*".repeat(recursion)+" [["+folds["[pages]"][i]+"]]\n";
