@@ -269,7 +269,7 @@ woas.ns_recurse_parse = function(folds, output, prev_ns, recursion) {
 	if (it != 0) {
 		++recursion;
 		fold_id = "fold"+output.fold_no++;
-		output.s += "=".repeat(recursion)+" [[Javascript::$.toggle('"+fold_id+"')|"+prev_ns+"]] ("+it+" pages)\n";
+		output.s += "=".repeat(recursion)+" [["+prev_ns+"]] [[Javascript::$.toggle('"+fold_id+"')|"+String.fromCharCode(8853)+"]] ("+it+" pages)\n";
 		output.s += "<div style=\"visibility: visible\" id=\""+fold_id+"\">\n";
 		for(i=0;i<it;++i) {
 			output.s += "*".repeat(recursion)+" [["+folds["[pages]"][i]+"]]\n";
@@ -862,6 +862,8 @@ woas.set_current = function (cr, interactive) {
 									case "Aliases":
 									case "Bootscript":
 									case "Hotkeys":
+									case "CSS::Core":
+									case "CSS::Custom":
 										// page is stored plaintext
 										text = "<tt class=\"wiki_preformatted\">"+text+"</tt>";
 									break;
@@ -1142,8 +1144,7 @@ woas.setHTML = woas.getHTML = null;
 woas.after_load = function() {
 	log("***** Woas v"+this.version+" started *****");	// log:1
 
-//	document.body.style.cursor = "wait";
-	
+	// (1) set some browser-tied functions
 	if (this.browser.ie) {	// some hacks for IE
 		this.setHTML = function(elem, html) {elem.text = html;};
 		this.getHTML = function(elem) {return elem.text;};
@@ -1159,8 +1160,28 @@ woas.after_load = function() {
 //		setup_uri_pics($("img_home"),$("img_back"),$("img_forward"),$("img_edit"),$("img_cancel"),$("img_save"),$("img_advanced"));
 	}
 	
+	// (2) show loading message
 	this.setHTML($("woas_wait_text"), this.i18n.LOADING);
+
+	// (3) check integrity of WoaS features - only in debug mode
+	if (this.tweak.integrity_test)
+		if (!this.integrity_test())
+			return;
+		
+	// (4) load the actual pages (if necessary)
+	if (this.tweak.native_wsif) {
+		if (!this._native_load()) {
+			// the file load error is already documented to user
+			if (this.wsif.emsg !== null)
+				this.crash("Could not load WSIF pages data!\n"+this.wsif.emsg);
+			return;
+		}
+	}
+
+	// (5) activate the CSS, with eventual fixups for some browsers
+	this.set_css(this.get_text("WoaS::CSS::Core")+"\n"+this.get_text("WoaS::CSS::Custom"));
 	
+	// (6) continue with UI setup
 	$('woas_home_hl').title = this.config.main_page;
 	$('img_home').alt = this.config.main_page;
 	
@@ -1201,21 +1222,6 @@ woas.after_load = function() {
 //		log("current ::= "+current);	//log:0
 	}
 
-	// check integrity of WoaS when finished - only in debug mode
-	if (this.tweak.integrity_test)
-		if (!this.integrity_test())
-			return;
-		
-	// first thing to do: load the actual pages!
-	if (this.tweak.native_wsif) {
-		if (!this._native_load()) {
-			// the file load error is already documented to user
-			if (this.wsif.emsg !== null)
-				this.crash("Could not load WSIF pages data!\n"+this.wsif.emsg);
-			return;
-		}
-	}
-		
 //	this.swcs = $("sw_custom_script");
 
 	this._load_aliases(this.get_text("WoaS::Aliases"));
@@ -1240,10 +1246,6 @@ woas.after_load = function() {
 //	this._create_bs();
 	
 	this._editor = new TextAreaSelectionHelper($("wiki_editor"));
-	
-	// set some fixup CSS with some browsers
-	if (this.browser.firefox || this.browser.opera)
-		this.set_css(this.get_css());
 	
 //	this.progress_finish();
 	$.hide("loading_overlay");
@@ -1513,6 +1515,7 @@ woas.edit_allowed = function(page) {
 		case "WoaS::Bootscript":
 		case "WoaS::Aliases":
 		case "WoaS::Hotkeys":
+		case "WoaS::CSS::Custom":
 			return true;
 	}
 	// page in reserved namespace
@@ -1599,7 +1602,7 @@ woas.edit_page = function(page) {
 };
 
 //API1.0: check if a title is valid
-woas.valid_title = function(title) {
+woas.valid_title = function(title, renaming) {
 	if (title.length == 0) {
 		this.alert(this.i18n.EMPTY_TITLE);
 		return false;
@@ -1620,14 +1623,14 @@ woas.valid_title = function(title) {
 		return false;
 	}
 	// allow some reserved pages to be directly edited/saved
-	switch (title) {
+/*	switch (title) {
 		case "WoaS::Bootscript":
 		case "WoaS::Aliases":
 		case "WoaS::Hotkeys":
 			return true;
-	}
+	} */
 	var ns = this.get_namespace(title, true);
-	if (ns.length && this.is_reserved(ns+"::") && !this.tweak.edit_override) {
+	if (ns.length && renaming && this.is_reserved(ns+"::") && !this.tweak.edit_override) {
 		this.alert(this.i18n.ERR_RESERVED_NS.sprintf(title, ns));
 		return false;
 	}
@@ -1685,7 +1688,7 @@ woas.FF2_CSS_FIXUP = "\n.wiki_preformatted { white-space: -moz-pre-wrap !importa
 //woas.OPERA_FIXUP = "\ndiv.wiki_header, #loading_overlay, #woas_pwd_query, #woas_pwd_mask { width: 100%; }\n";
 
 woas.get_css = function() {
-	var co = document.getElementsByTagName("style")[0];
+	var co = _css_obj();
 	var css = co.innerHTML;
 	if (this.browser.firefox2) {
 		// remove the fixup if present
@@ -1780,13 +1783,14 @@ woas.save = function() {
 				}
 				return;
 			} else {
-				var new_title = this.trim($("wiki_page_title").value);
+				var new_title = this.trim($("wiki_page_title").value),
+					renaming = (this.old_title !== new_title);
 				// here the page gets actually saved
-				if (!null_save || (this.old_title !== new_title)) {
+				if (!null_save || renaming) {
 					null_save = false;
 					this.set_text(raw_content);
 					// disallow empty titles
-					if (!this.valid_title(new_title))
+					if (!this.valid_title(new_title, renaming))
 						return false;
 					if (this.is_menu(new_title)) {
 						this.refresh_menu_area();
