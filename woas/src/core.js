@@ -87,10 +87,10 @@ woas.cmd_erase_wiki = function() {
 woas.static_pages = ["Special::About", "Special::Advanced", "Special::Options","Special::Import",
 						"Special::Lock","Special::Search", "Special::Embed",
 						"Special::Export", "Special::License", "Special::ExportWSIF",
-						"Special::ImportWSIF", "WoaS::Plugins", "Woas::CSS::Core",
+						"Special::ImportWSIF", "WoaS::Plugins", "WoaS::CSS::Core",
 						"WoaS::Template::Button", "WoaS::Template::Info"];
 
-woas.static_pages2 = ["WoaS::Plugins", "Woas::CSS::Core",
+woas.static_pages2 = ["WoaS::Plugins", "WoaS::CSS::Core",
 						"WoaS::Template::Button", "WoaS::Template::Info"];
 						
 woas.help_pages = null;
