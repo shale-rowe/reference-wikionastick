@@ -5,11 +5,11 @@
 <script type="text/javascript">
 /* <![CDATA[ */
 
-/* DFQRCTsKlU-0000168-START */
+/* DFQRCTsKlU-0000169-START */
 
 var woas = {"version": "0.11.2"};
 
-var __marker = "DFQRCTsKlU-0000168";
+var __marker = "DFQRCTsKlU-0000169";
 
 woas["config"] = {
 "permit_edits":true,
@@ -31,7 +31,7 @@ var backstack = [
 var page_titles = [
 ];
 
-/* DFQRCTsKlU-0000168-DATA */
+/* DFQRCTsKlU-0000169-DATA */
 var page_attrs = [];
 
 var page_mts = [];
@@ -39,214 +39,54 @@ var page_mts = [];
 var pages = [
 ];
 
-/* DFQRCTsKlU-0000168-END */
+/* DFQRCTsKlU-0000169-END */
 
 /* ]]> */ </script>
-<style type="text/css">/* existent link */
-a.link {
-	color: blue;
-}
-a.link:hover {
-	text-decoration: underline;
-}
-
-/* unexistent link */
-a.unlink {
-	color: red;
-}
-a.unlink:hover {
-	text-decoration: underline;
-}
-
-/* outside world link */
-a.world {
-	color: darkgreen;
-	text-decoration: underline;
-}
-
-/* cursor when on a link */
-a {
-	cursor: pointer;
-	/* FOR IE5.5/IE6 */
-	/* cursor: hand; */
-}
-
-/* main text area div */
-div.woas_text_area {
-	border: 1pt solid black;
-	background-color: white;
-	padding: 0.475em;
-}
-
+<style type="text/css">/* ------------------------------------------- */
+/* BODY                                        */
+/* ------------------------------------------- */
 body {
 	font-family: Georgia, verdana;
 }
 
-/* body background color */
 .woas_background {
 	background-color: #F0F0F5;
 }
 
-/* headers */
-h1 { font-size: 1.438em; }
-
-h2 { font-size: 1.25em; }
-
-h3 { font-size: 1.063em; }
-
-h4 { font-size: 0.875em; }
-
-h5 { font-size: 0.75em; }
-
-h6 { font-size: 0.625em; }
-
-/* tag container */
-div.taglinks {
-	border: 1pt solid #aaa;
-/*	background-color: #f9f9f9; */
-	padding: 0.313em;
-	margin-top: 1em;
-	clear: both;
-}
-
-/* tag link */
-a.link.tag {
-	color: navy;
-}
-
-/* search results */
-div.search_results {
-	border: 1pt solid #aaa;
-	background-color: #f9f9f9;
-	padding: 0.313em;
-	margin-top: 1em;
-	clear: both;
-}
-
-/* main wiki pane when locked */
-.woas_text_area.locked,
-#woas_pwd_mask {
-	background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAAAAACMmsGiAAAALHRFWHRDcmVhdGlvbiBUaW1lAGdpbyAyOSBtYXIgMjAwNyAxMTo1MToxMCArMDEwME%2BTNUAAAAAHdElNRQfXAx0JNByGxueSAAAACXBIWXMAAAsSAAALEgHS3X78AAAABGdBTUEAALGPC%2FxhBQAAABlJREFUeNpj%2FM%2FwmYHpMwMvAxOQwcvECyQBO1oE%2BlG5iisAAAAASUVORK5CYII%3D);
-	background-color: #eeeeee;
-}
-
-/* page title */
-.title {
-	font-size: 2em;
-	font-weight: bold;
-	margin-bottom: 0em;
-	margin-top: 0em;
-	display:inline;
-	text-shadow: #888 0.13em 0.13em 0.065em;
-}
-
-/* main text area */
-#wiki_text {
-	position: relative;
-	left: 15.5%;
-	width: 82.3%;
-	z-index: 0;
-	margin-top: 1.313em;
-	margin-bottom: 0.75em;
-	text-align:justify;
-}
-
-table.woas_text_area {
+/* ------------------------------------------- */
+/* DEBUG CONSOLE                               */
+/* ------------------------------------------- */
+#debug_info {
+	margin-top: 0.75em;
+	margin-right: 0.85em;
+	margin-left: 15.5%;
+	background-color: gray;
 	border: 1pt solid black;
-	border-spacing: 0em;
 }
 
-table.woas_text_area td {
-	border: 1pt solid;
-	padding: 0.313em;
+#woas_debug_panel {
 }
 
-table.woas_text_area caption {
-        font-weight: bold;
-        font-style: italic;
+#woas_log {
+	background-color: rgb(204, 204, 204);
+	width: 99.3%;
 }
 
-/* Left menu */
-div.menu_area {
-	border: 1pt solid grey;
-	font-size: 0.75em;
-	background-color: white;
-	padding: 0.499em;
-	width: 13.2%;
-	left: 1%;
-}
-div.menu {
+/* ------------------------------------------- */
+/* EDITOR                                      */
+/* ------------------------------------------- */
+#edit_page_title{
+         margin-top: 2.188em;
 }
 
-/* navigation bar */
-div.wiki_header {
-	top: 0em;
-	left: 0em;
-	border: 1pt solid #aaa;
-	opacity:.65;
-	z-index: 1;
-	width: 99%;
-	padding-right:0.75em;
+.wiki_button {
+	margin-top: 0.063em;
+	margin-bottom: 0.063em;
 }
 
-/* table of contents */
-div.wiki_toc {
-	border: 1pt dashed #aaa;
-	background-color: #f9f9f9;
-	padding: 0.313em;
-	width: 50%;
-	font-size: 95%;
-}
-
-div.wiki_toc ol, li {
-	margin-left: 1.3em;
-	padding-left: 0em;
-}
-
-p.wiki_toc_title {
-	font-weight: bold;
-	text-align: center;
-}
-
-.search_highlight {
-	background-color: yellow;
-}
-
-/* loading overlay shown while wiki loads or can't load */
-#loading_overlay {
-	position: absolute;
-	width: 99%;
-	height: 100%;
-	padding-top: 25%;
-	z-index: 100;
-	background-color: white;
-	left: 0em;
-	top: 0em;
-	font-size: large;
-	text-align: center;
-}
-
-/* menu lists */
-div.menu_area ul li, div.menu_area ol li,
-div.ns_menu_area ul li, div.ns_menu_area ol li {
-	margin-left: -2em;
-}
-
-/* nowiki text inline (curly brackets) */
-.wiki_preformatted, .woas_nowiki_multiline {
-	/* css-3 */
-	white-space: pre-wrap;
-	/* Opera 4-6 */
-/*	white-space: -pre-wrap;  */
-	/* Opera 7 */
-/*	white-space: -o-pre-wrap;  */
-	/* Internet Explorer 5.5+ */
-/*	word-wrap: break-word;     */
-}
-
-.woas_nowiki_multiline {
-}
-
+/* ------------------------------------------- */
+/* ENCRYPTION                                  */
+/* ------------------------------------------- */
 /* ask password overlay */
 #woas_pwd_query {
 	position: absolute;
@@ -275,48 +115,189 @@ div.ns_menu_area ul li, div.ns_menu_area ol li {
 	top: 0em;
 }
 
-/* last modified line beneath main text area */
+.woas_password_desc {
+	font-size: 0.8em;
+	margin-left: 25%;
+	margin-right: 25%;
+	border: 2pt solid navy;
+	background-color: #FAFAFB;
+}
+
+/* ------------------------------------------- */
+/* FOOTER                                      */
+/* ------------------------------------------- */
+.woas_about_footer {
+	padding: 2pt;
+	margin-top: 0.75em;
+	margin-right: 0.85em;
+	margin-left: 15.5%;
+	line-height: 1em;
+	border: 1pt solid black;
+	background-color: #048db4;
+	font-weight: bold;
+	text-align: center;
+}
+
+.woas_about_footer a {
+	color: white ! important;
+}
+
+/* ------------------------------------------- */
+/* HEADERS                                     */
+/* ------------------------------------------- */
+h1 {
+	font-size: 1.438em;
+}
+h2 {
+	font-size: 1.25em;
+}
+h3 {
+	font-size: 1.063em;
+}
+h4 {
+	font-size: 0.875em;
+}
+h5 {
+	font-size: 0.75em;
+}
+h6 {
+	font-size: 0.625em;
+}
+
+/* ------------------------------------------- */
+/* HELP PAGES                                  */
+/* ------------------------------------------- */
+.woas_help_background {
+	background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAYAAADDPmHLAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A%2FwD%2FoL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9oDDAonCzKHvroAAAEFSURBVHja7duxDYIhFIVRIA7EKk7qKoxkb2Ns1PzfObWNuRfyAB0DAAAAAAAAAAAAAAAAAAAAAAAAAIC%2FMEtf9pxzf%2FeZvfdDAYLBV4swBd8uwhR%2BuwhT%2BO0SLOE7BQg%2FvAssa8AOYPWHd4FbtfmvIVZnhyX8xnlfAVCA8kpPHAO%2FNUReqUQKEA7fDDDcHC7hmwGEHx4gp%2BDbpwc%2FCYsfHafw2%2FcG2beAevCpHeDT1V%2B6LfQWEA5fAeLhKwAKoAAAAOR4DRzt3wl6DYyXwGtgvAQeg%2BIlcBEUpwAKgALgHsAg6BTgHsAO0CyBfwwDAAAAAAAAAAAAAAAAAAAAAAAAAAAAv%2FIER4Nn%2B7YDG3wAAAAASUVORK5CYII%3D);
+	background-attachment:fixed;
+}
+
+.woas_help_button {
+	margin-top: 0.75em;
+	border: 1pt solid grey;
+	color:darkblue;
+	background-color: #F0F0F5;
+	position:fixed;
+	right:0.625em;
+	top:0.188em;
+	text-align:center; font-size:1em;
+	font-variant:normal;
+	cursor:pointer;
+}
+
+.woas_help_button:hover {
+	background-color:darkgrey;
+}
+
+.woas_helpcode {
+	padding:0.438em;
+	font-family:monospace;
+}
+
+.woas_helptext {
+	font-family: lucida;
+}
+
+/* ------------------------------------------- */
+/* HOTKEYS                                     */
+/* ------------------------------------------- */
+#woas_custom_accesskeys {
+	visibility: hidden;
+	display: none;
+}
+
+/* ------------------------------------------- */
+/* LAST MODIFIED LINE   */
+/* ------------------------------------------- */
 .woas_page_mts {
-	position: relative;
-	left: 16%;
-	width: 81%;
+	margin-top: 0.75em;
+	margin-right: 0.80em;
+	margin-left: 15.5%;
 	z-index: 0;
 	font-size: small;
 }
 
-/* area between navigation bar and editor buttons */
-#edit_page_title{
-         margin-top: 2.188em;
+/* ------------------------------------------- */
+/* LINKS                                       */
+/* ------------------------------------------- */
+/* cursor when on a link */
+a {
+	cursor: pointer;
+/* cursor when on a link - IE5.5/IE6 */
+	/* cursor: hand; */
 }
 
-/* since v0.10.1 */
+/* existent link */
+a.link {
+	color: blue;
+}
+a.link:hover {
+	text-decoration: underline;
+}
 
-#debug_info {
-	margin-top: 0.75em;
-	margin-right: 0.85em;
-	margin-left: 15.5%;
-	background-color: gray;
+/* nonexistent link */
+a.unlink {
+	color: red;
+}
+a.unlink:hover {
+	text-decoration: underline;
+}
+
+/* outside world link */
+a.world {
+	color: darkgreen;
+	text-decoration: underline;
+}
+
+/* ------------------------------------------- */
+/* MAIN TEXT AREA                              */
+/* ------------------------------------------- */
+/* main text area div */
+div.woas_text_area {
 	border: 1pt solid black;
+	background-color: white;
+	padding: 0.475em;
 }
 
-#woas_debug_panel {
+/* main text area */
+#wiki_text {
+	position: relative;
+	left: 15.5%;
+	width: 82.3%;
+	z-index: 0;
+	margin-top: 1.313em;
+	margin-bottom: 0.75em;
+	text-align:justify;
 }
 
-#woas_log {
-	background-color: rgb(204, 204, 204);
-	width: 99.3%;
+/* ------------------------------------------- */
+/* MAIN WIKI PANE WHEN LOCKED                  */
+/* ------------------------------------------- */
+/* main wiki pane when locked */
+.woas_text_area.locked,
+#woas_pwd_mask {
+	background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAAAAACMmsGiAAAALHRFWHRDcmVhdGlvbiBUaW1lAGdpbyAyOSBtYXIgMjAwNyAxMTo1MToxMCArMDEwME%2BTNUAAAAAHdElNRQfXAx0JNByGxueSAAAACXBIWXMAAAsSAAALEgHS3X78AAAABGdBTUEAALGPC%2FxhBQAAABlJREFUeNpj%2FM%2FwmYHpMwMvAxOQwcvECyQBO1oE%2BlG5iisAAAAASUVORK5CYII%3D);
+	background-color: #eeeeee;
 }
 
-/* editor buttons */
-.wiki_button {
-	margin-top: 0.063em;
-	margin-bottom: 0.063em;
+/* ------------------------------------------- */
+/* MENU                                        */
+/* ------------------------------------------- */
+div.menu {
 }
 
-/* since v0.10.5 */
+div.menu_area {
+	border: 1pt solid grey;
+	font-size: 0.75em;
+	background-color: white;
+	padding: 0.499em;
+	width: 13.2%;
+	left: 1%;
+}
 
-.woas_wait_text {
-	color: navy;
+div.menu_area ul li, div.menu_area ol li,
+div.ns_menu_area ul li, div.ns_menu_area ol li {
+	margin-left: -2em;
 }
 
 .woas_menu_button {
@@ -334,66 +315,136 @@ div.ns_menu_area ul li, div.ns_menu_area ol li {
 	background-color:darkgrey;
 }
 
-.woas_password_desc {
-	font-size: 0.8em;
-	margin-left: 25%;
-	margin-right: 25%;
-	border: 2pt solid navy;
-	background-color: #FAFAFB;
+/* ------------------------------------------- */
+/* NAVIGATION BAR                              */
+/* ------------------------------------------- */
+div.wiki_header {
+	top: 0em;
+	left: 0em;
+	border: 1pt solid #aaa;
+	opacity:.65;
+	z-index: 1;
+	width: 99%;
+	padding-right:0.75em;
 }
 
-.woas_help_button {
-	margin-top: 0.75em;
-	color:darkblue;
-	background-color: #F0F0F5;
-	border: 1pt solid grey;
-	text-align:center; font-size:1em;
-	font-variant:normal;
-	cursor:pointer;
+.title {
+	font-size: 2em;
+	font-weight: bold;
+	margin-bottom: 0em;
+	margin-top: 0em;
+	display:inline;
+	text-shadow: #888 0.13em 0.13em 0.065em;
 }
 
-.woas_help_button:hover {
-	background-color:darkgrey;
+/* ------------------------------------------- */
+/* NOWIKI TEXT                                 */
+/* ------------------------------------------- */
+/* nowiki text */
+.wiki_preformatted, .woas_nowiki_multiline {
+/* CSS-3 */
+	white-space: pre-wrap;
+/* IE 5.5+ */
+	/* word-wrap: break-word; */
+/* Opera 4-6 */
+	/* white-space: -pre-wrap; */
+/* Opera 7 */
+	/* white-space: -o-pre-wrap; */
 }
 
-/* used in help pages */
-.woas_topnote {
-	position:fixed; right:0.625em; top:0.188em;
+/* ------------------------------------------- */
+/* SEARCH                                      */
+/* ------------------------------------------- */
+/* search results */
+div.search_results {
+	border: 1pt solid #aaa;
+	background-color: #f9f9f9;
+	padding: 0.313em;
+	margin-top: 1em;
+	clear: both;
 }
 
-.woas_help_background {
-	background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAYAAADDPmHLAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A%2FwD%2FoL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9oDDAonCzKHvroAAAEFSURBVHja7duxDYIhFIVRIA7EKk7qKoxkb2Ns1PzfObWNuRfyAB0DAAAAAAAAAAAAAAAAAAAAAAAAAIC%2FMEtf9pxzf%2FeZvfdDAYLBV4swBd8uwhR%2BuwhT%2BO0SLOE7BQg%2FvAssa8AOYPWHd4FbtfmvIVZnhyX8xnlfAVCA8kpPHAO%2FNUReqUQKEA7fDDDcHC7hmwGEHx4gp%2BDbpwc%2FCYsfHafw2%2FcG2beAevCpHeDT1V%2B6LfQWEA5fAeLhKwAKoAAAAOR4DRzt3wl6DYyXwGtgvAQeg%2BIlcBEUpwAKgALgHsAg6BTgHsAO0CyBfwwDAAAAAAAAAAAAAAAAAAAAAAAAAAAAv%2FIER4Nn%2B7YDG3wAAAAASUVORK5CYII%3D);
-	background-attachment:fixed;
+.search_highlight {
+	background-color: yellow;
 }
 
-.woas_helpcode {
-	padding:0.438em;
-	font-family:monospace;
+/* ------------------------------------------- */
+/* TABLE OF CONTENTS                           */
+/* ------------------------------------------- */
+div.wiki_toc {
+	border: 1pt dashed #aaa;
+	background-color: #f9f9f9;
+	padding: 0.313em;
+	width: 50%;
+	font-size: 95%;
 }
 
-.woas_helptext {
-	font-family: lucida;
+div.wiki_toc ol, li {
+	margin-left: 1.3em;
+	padding-left: 0em;
 }
 
-.woas_about_footer {
-	padding: 2pt;
-	margin-top: 0.75em;
-	margin-right: 0.85em;
-	margin-left: 15.5%;
-	line-height: 1em;
-	border: 1pt solid black;
-	background-color: #048db4;
+p.wiki_toc_title {
 	font-weight: bold;
 	text-align: center;
 }
 
-.woas_about_footer a {
-	color: white;
+/* ------------------------------------------- */
+/* TABLES                                      */
+/* ------------------------------------------- */
+table.woas_text_area {
+	border: 1pt solid black;
+	border-spacing: 0em;
 }
 
-#woas_custom_accesskeys {
-	visibility: hidden;
-	display: none;
+table.woas_text_area td {
+	border: 1pt solid;
+	padding: 0.313em;
+}
+
+table.woas_text_area caption {
+        font-weight: bold;
+        font-style: italic;
+}
+
+/* ------------------------------------------- */
+/* TAGS                                        */
+/* ------------------------------------------- */
+/* tag container */
+div.taglinks {
+	border: 1pt solid #aaa;
+/*	background-color: #f9f9f9; */
+	padding: 0.313em;
+	margin-top: 1em;
+	clear: both;
+}
+
+/* tag link */
+a.link.tag {
+	color: navy;
+}
+
+/* ------------------------------------------- */
+/* WIKI LOADING OVERLAY                        */
+/* ------------------------------------------- */
+#loading_overlay {
+	position: absolute;
+	width: 99%;
+	height: 100%;
+	padding-top: 25%;
+	z-index: 100;
+	background-color: white;
+	left: 0em;
+	top: 0em;
+	font-size: large;
+	text-align: center;
+}
+
+/* ------------------------------------------- */
+/* WIKI WAIT TEXT                              */
+/* ------------------------------------------- */
+.woas_wait_text {
+	color: navy;
 }
 </style><title>Main Page</title>
 <script src="src/aes.js" type="text/javascript"></script>
