@@ -269,7 +269,7 @@ woas.ns_recurse_parse = function(folds, output, prev_ns, recursion) {
 	if (it != 0) {
 		++recursion;
 		fold_id = "fold"+output.fold_no++;
-		output.s += "=".repeat(recursion)+"[[Javascript::$.toggle('"+fold_id+"')|"+String.fromCharCode(8853)+"]] [["+prev_ns+"]] ("+it+" pages)\n";
+		output.s += "=".repeat(recursion)+"[[Javascript::$.toggle('"+fold_id+"')|"+prev_ns+"]] [["+prev_ns+"|"+String.fromCharCode(0x21DD)+"]] ("+it+" pages)\n";
 		output.s += "<div style=\"visibility: visible\" id=\""+fold_id+"\">\n";
 		for(i=0;i<it;++i) {
 			output.s += "*".repeat(recursion)+" [["+folds["[pages]"][i]+"]]\n";
@@ -1687,6 +1687,7 @@ woas.FF2_CSS_FIXUP = "\n.wiki_preformatted { white-space: -moz-pre-wrap !importa
 // Opera gets 100% as real 100%
 //woas.OPERA_FIXUP = "\ndiv.wiki_header, #loading_overlay, #woas_pwd_query, #woas_pwd_mask { width: 100%; }\n";
 
+/*
 woas.get_css = function() {
 	var co = _css_obj();
 	var css = co.innerHTML;
@@ -1700,9 +1701,10 @@ woas.get_css = function() {
 		if (css.substr(0, this.OPERA_FIXUP.length) == this.OPERA_FIXUP)
 			css = css.substr(this.OPERA_FIXUP.length);
 	} */
-	return css;
-};
+/*	return css;
+};*/
 	
+//DEPRECATED
 woas.setCSS = function(new_css) {this.set_css(new_css);};
 
 //API1.0: set WoaS CSS
@@ -1717,6 +1719,7 @@ woas.set_css = function(new_css) {
 		_css_obj().innerHTML = new_css;
 		return;
 	}
+	// IE-only
 	var head=document.getElementsByTagName('head')[0];
 	var sty=document.styleSheets[0];
 	sty.cssText = new_css;
@@ -1753,13 +1756,15 @@ woas.save = function() {
 	
 	var can_be_empty = false, skip = false;
 	switch(current) {
-		//FIXME: we should switch to WoaS::CSS or similar
-		case "Special::Edit CSS":
-			if (!null_save)
-				this.setCSS(raw_content);
-			back_to = null;
-			current = "Special::Advanced";
-			$("wiki_page_title").disabled = "";
+//		case "Special::Edit CSS":
+		case "WoaS::CSS::Custom":
+			if (!null_save) {
+				this.set_css(this.get_text("WoaS::CSS::Core")+"\n"+raw_content);
+				this.set_text(raw_content);
+			}
+			back_to = this.prev_title;
+//			current = "Special::Advanced";
+//			$("wiki_page_title").disabled = "";
 			break;
 		case "WoaS::Aliases":
 			if (!null_save)
@@ -1807,12 +1812,12 @@ woas.save = function() {
 			}
 	}
 	var saved = current;
-	if (back_to !== null)
+//	if (back_to !== null)
 		this.set_current(back_to, true);
-	else { // used for CSS editing
+/*	else { // used for CSS editing
 		back_or(this.config.main_page);
 		//TODO: refresh mts?
-	}
+	} */
 	if (!null_save)
 		this.refresh_menu_area();
 	this.disable_edit();

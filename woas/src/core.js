@@ -161,14 +161,7 @@ woas.cmd_main_page = function() {
 };
 
 woas.cmd_edit_css = function() {
-	if (!this.config.permit_edits && !this.tweak.edit_override) {
-		this.alert(this.i18n.READ_ONLY);
-		return null;
-	}
-	_servm_alert();
-	this.current_editing("Special::Edit CSS", true);
-	this.edit_ready(_css_obj().innerHTML);
-	return null;
+	return this.cmd_edit_special("WoaS::CSS::Custom");
 };
 
 //DEPRECATED
