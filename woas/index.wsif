@@ -1681,22 +1681,41 @@ You can change the settings by clicking the *Advanced* icon in the navigation ba
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Table of Contents
 woas.page.attributes: 0
-woas.page.length: 774
+woas.page.last_modified: 1270952717
+woas.page.length: 2442
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Table of Contents
-You can insert a Table of Contents into your page by using a special wiki tag. It will be automatically populated with all the headers on a page.
-
-The Table of Contents expects the first header on a page to be a Level 1 header. If you use any other level header first, that header and any headers after it will be represented by hash marks until a Level 1 header is encountered. From that point on, the headers will be numbered properly.
-
-<div class="woas_helptext">Use this code on a line by itself in your page:</div>{{{
 [[Special::TOC]]
-}}}<br><div class="woas_helptext">To add a Table of Contents to a page.</div>
+= Table of Contents
+You can insert a Table of Contents into your page by using a special wiki tag. It will be automatically populated with all the headers on a page. The placement of the Table of Contents is  determined by where you put the tag in the page.
 
-[[Include::WoaS::Template::Info|Note that the placement of the Table of Contents is determined by where you put the tag in the page.]]
+Insert {{{[[Special::TOC]]}}} on a line by itself in a page to add a Table of Contents.
+
+[[Include::WoaS::Template::Info|The Table of Contents expects the first header on a page to be a Level 1 header. If you use any other level header first, that header and any headers after it will be represented by hash marks until a Level 1 header is encountered. From that point on, the headers will be numbered properly.]]
+== Example
+Create a page with these contents::{{{
+[[Special::TOC]]
+= My level one header
+== My level two header
+=== My level three header
+==== My level four header
+===== My level five header
+====== My level six header
+}}}
+When you save the page, your Table of Contents will automatically look like this:
+
+<div style="border:1pt dashed #aaa; background-color:#f9f9f9; padding:0.313em; width:50%; font-size:95%;"><center><b>Table of Contents</b></center>
+&nbsp;&nbsp;&nbsp;1. <span style="color:blue; text-decoration:underline;">My level one header</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. <span style="color:blue; text-decoration:underline;">My level two header</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2. <span style="color:blue; text-decoration:underline;">My next level two header</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. <span style="color:blue; text-decoration:underline;">My level three header</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. <span style="color:blue; text-decoration:underline;">My level four header</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. <span style="color:blue; text-decoration:underline;">My level five header</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. <span style="color:blue; text-decoration:underline;">My level six header</span>
+</div>
 
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Tags
