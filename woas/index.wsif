@@ -1681,14 +1681,13 @@ You can change the settings by clicking the *Advanced* icon in the navigation ba
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Table of Contents
 woas.page.attributes: 0
-woas.page.last_modified: 1270952717
-woas.page.length: 2442
+woas.page.last_modified: 1271017392
+woas.page.length: 2446
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-[[Special::TOC]]
 = Table of Contents
 You can insert a Table of Contents into your page by using a special wiki tag. It will be automatically populated with all the headers on a page. The placement of the Table of Contents is  determined by where you put the tag in the page.
 
@@ -1705,7 +1704,7 @@ Create a page with these contents::{{{
 ===== My level five header
 ====== My level six header
 }}}
-When you save the page, your Table of Contents will automatically look like this:
+When you save the page, there will be a Table of Contents that looks like this at the top of the page:
 
 <div style="border:1pt dashed #aaa; background-color:#f9f9f9; padding:0.313em; width:50%; font-size:95%;"><center><b>Table of Contents</b></center>
 &nbsp;&nbsp;&nbsp;1. <span style="color:blue; text-decoration:underline;">My level one header</span>
