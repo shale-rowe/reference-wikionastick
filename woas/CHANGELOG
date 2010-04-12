@@ -1,4 +1,12 @@
 Version 0.11.2 (legolas558,pvhl)
+* prospected WSIF datasource options
+* fixed main page auto-override bug
+* fixed 'Special::Go to' glitches
+* fixed double-edit bug when editing some special pages
+* added background color for core pages
+* fixed bug which allowed deletion of reserved pages
+* renamed all CSS classes to have 'woas_' prefix
+* implemented safe mode option
 * fixed native WSIF mode when running from webserver
 * fixed issue 2980936 namespaces not being transcluded (reported by littlegirl)
 * fixed issue 2981069 glitch when editing menu (reported by deroock)

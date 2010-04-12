@@ -303,7 +303,7 @@ function _javaUrlToFilename(url) {
 //FIXME: save_mode is not considered here
 woas.javaSaveFile = function(filePath,save_mode,content) {
 	if ((save_mode != this.file_mode.ASCII_TEXT) && (save_mode != this.file_mode.UTF8_TEXT)) {
-		log("Only ASCII and UTF8 file modes are supported with Java/TiddlySaver");
+		log("Only ASCII and UTF8 file modes are supported with Java/TiddlySaver");	//log:1
 		return false;
 	}
 	try {
@@ -461,7 +461,7 @@ woas._save_to_file = function(full) {
 				computed_js += (this.config[param] ? "true" : "false")+",";
 			break;
 			case "string":
-				computed_js += "'"+this.js_encode(safe_current)+"',";
+				computed_js += "'"+this.js_encode(this.config[param])+"',";
 			break;
 			default: // for numbers
 				computed_js += this.config[param]+",";
@@ -499,7 +499,7 @@ woas._save_to_file = function(full) {
 	}
 
 	// cleanup the DOM before saving
-	var bak_ed = $("wiki_editor").value;
+	var bak_ed = $("woas_editor").value;
 	var bak_tx = $("wiki_text").innerHTML;
 	var bak_mn = $("menu_area").innerHTML;
 	var bak_mts = $("wiki_mts").innerHTML;
@@ -508,7 +508,7 @@ woas._save_to_file = function(full) {
 
 	if (bak_mts_shown)
 		$.hide("wiki_mts");
-	$("wiki_editor").value = "";
+	$("woas_editor").value = "";
 	$("wiki_text").innerHTML = "";
 	$("menu_area").innerHTML = "";
 	$("wiki_mts").innerHTML = "";
@@ -539,7 +539,7 @@ woas._save_to_file = function(full) {
 			this.after_pages_saved();
 	}
 
-	$("wiki_editor").value = bak_ed;
+	$("woas_editor").value = bak_ed;
 	$("wiki_text").innerHTML = bak_tx;
 	$("menu_area").innerHTML = bak_mn;
 	$("wiki_mts").innerHTML = bak_mts;

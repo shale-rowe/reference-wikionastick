@@ -18,24 +18,30 @@
 
 /*** START OF FUNCTIONS BLOCK ***/
 function _script_replace($m) {
-	global $replaced, $base_dir;
-	if (!file_exists($base_dir.$m[1])) {
-		fprintf(STDERR, "Could not locate $base_dir".$m[1]."\n");
-		return $m[0];
+	$orig = $m[0];
+	if (!preg_match_all('/src="([^"]+)"/', $m[0], $m)) {
+		fprintf(STDERR, "Could not find script sources\n");
+		return $orig;
 	}
-	$ct = file_get_contents($base_dir.$m[1]);
-	// remove BOM if present
-	$ct = preg_replace('/\\x'.dechex(239).'\\x'.dechex(187).'\\x'.dechex(191).'/A', '', $ct);
-	//TODO: apply modifications now
-	++$replaced;
-	echo "Replaced ".$m[1]."\n";
-	return mkscript($ct, basename($m[1]));
-}
-
-function mkscript($ct, $desc = "") {
+	$m = $m[1];
+	global $replaced, $base_dir;
+	$fullscript = '';
+	foreach($m as $scriptname) {
+		if (!file_exists($base_dir.$scriptname)) {
+			fprintf(STDERR, "Could not locate $base_dir".$scriptname."\n");
+			return $orig;
+		}
+		$ct = file_get_contents($base_dir.$scriptname);
+		// remove BOM if present
+		$ct = preg_replace('/\\x'.dechex(239).'\\x'.dechex(187).'\\x'.dechex(191).'/A', '', $ct);
+		//TODO: apply modifications to 'tweak' object here
+		++$replaced;
+		echo "Replaced ".$scriptname."\n";
+		$fullscript .= "/*** ".$scriptname." ***/\n".$ct."\n";
+	}
+	// return the script block
 	return '<script language="javascript" type="text/javascript">'.
-		"\n/* <![CDATA[ */\n".(strlen($desc) ? "/*** ".$desc." ***/\n" : "")
-		.$ct."\n/* ]]> */ </script>";
+		"\n/* <![CDATA[ */\n".$fullscript."\n/* ]]> */ </script>";
 }
 
 function _replace_tweak_vars($m) {
@@ -217,7 +223,7 @@ global $replaced, $base_dir;
 $replaced=0;
 $base_dir = dirname($woas).'/';
 
-$tail = preg_replace_callback('/<script src=\"([^"]+)" type="text\\/javascript"><\\/script>/', '_script_replace', $tail);
+$tail = preg_replace_callback('/(<script src=\"[^"]+" type="text\\/javascript"><\\/script>\\s*)+/s', '_script_replace', $tail);
 
 if (!$replaced) {
 	fprintf(STDERR, "ERROR: cannot find any external script to replace\n");

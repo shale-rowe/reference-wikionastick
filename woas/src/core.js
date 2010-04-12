@@ -190,7 +190,6 @@ woas.cmd_edit_special = function(cr) {
 	var tmp = this.get_text(cr);
 	if (tmp === null)
 		return null;
-	this.current_editing(cr, true);
 	// setup the wiki editor textbox
 	this.current_editing(cr, this.config.permit_edits | this._server_mode);
 	this.edit_ready(tmp);
@@ -210,14 +209,21 @@ woas.cmd_go_to = function() {
 woas.cmd_delete = function() {
 	var pname = prompt(this.i18n.DELETE_PAGE_PROMPT, current);
 	if ((pname === null) || !pname.length)
-		return;
+		return false;
 	var pi = this.page_index(pname);
 	if (pi == -1) {
 		this.alert(this.i18n.PAGE_NOT_EXISTS+pname);
-		return;
+		return false;
 	}
-	if (confirm(this.i18n.CONFIRM_DELETE.sprintf(pname)))
+	if (this.is_reserved(pname)) {
+		this.alert(this.i18n.ERR_RESERVED_NS.sprintf(this.get_namespace(pname, true)));
+		return false;
+	}
+	if (confirm(this.i18n.CONFIRM_DELETE.sprintf(pname))) {
 		this.delete_page_i(pi);
+		return true;
+	}
+	return false;
 };
 
 // javascript shortcuts for special pages
@@ -332,7 +338,7 @@ woas.integrity_test = function() {
 			return false;
 		}
 	} else { // we are on a remote server
-		log("Skipping save integrity test because running from web server");
+		log("Skipping save integrity test because running from web server");	//log:1
 		//TODO: remote load integrity test
 	}
 	// now test AES encryption

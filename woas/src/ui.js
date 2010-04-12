@@ -180,8 +180,8 @@ function menu_do_search() {
 }
 
 function _raw_do_search(str) {
-       cached_search = woas.parser.parse(woas.special_search( str ));
-       woas.assert_current("Special::Search");
+	cached_search = woas.parser.parse(woas.special_search( str ));
+	woas.assert_current("Special::Search");
 }
 
 // Used by Special::Search
