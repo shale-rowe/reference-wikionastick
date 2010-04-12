@@ -1,25 +1,21 @@
 
-== For 0.10.x
+== For 0.12.0
 
-* "debug mode" option
+* have a page object for each page
+** this will optimize read operations because page objects will be passed by reference
 
-* CSS inside a special page (better for export)
-
-* disallow pages with empty title
-** needs to be checked
-
-* editable hotkeys for various commands
+* allow WSIF datasource locking
 
 * XHTML compliance
-** seems OK
+** rendering
+** export
 
 * group operations on page lists (deletion, encryption, decryption etc.) maybe also with checkboxes
-** possibly done?
-
-* possibility to delete an encrypted page even when password is not available (maybe through the group operations) (DONE)
+** needs to be finished
 
 * icon themes (importing and changing of default graphics)
-** all icons should go into attachments
+** all icons should go into pages
+*** images/files without specific namespace
 
 * export of some special pages and namespace pages (almost complete)
 ** needs to be checked

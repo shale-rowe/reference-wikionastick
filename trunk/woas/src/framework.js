@@ -109,7 +109,7 @@ var log;
 if (woas.config.debug_mode) {
 	// logging function - used in development
 	log = function (aMessage) {
-	    var logbox = $("woas_log");
+	    var logbox = $("woas_debug_log");
 	    // count lines
 		nls = logbox.value.match(/\n/g);
 		// log maximum 1024 lines

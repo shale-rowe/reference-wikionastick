@@ -191,6 +191,8 @@ woas.import_wiki = function() {
 		v0.11.2:
 			* introduced parsing mechanism which does not mess with var declarations inside JavaScript strings
 			* introduced WoaS::Hotkeys, WoaS::CSS::Core, WoaS::CSS::Custom
+			* introduced woas.config.safe_mode option
+			* introduced woas.config.wsif_ds* options
 		v0.10.7:
 			* introduced WoaS::Plugins and changed WoaS::Bootscript page type from embedded to normal
 		v0.10.0:
@@ -401,7 +403,14 @@ woas.import_wiki = function() {
 				// add the new debug option
 				if (old_version<=107)
 					woas.config.debug_mode = false;
-				
+				// add the new safe mode and WSIF DS options
+				if (old_version < 112) {
+					woas.config.safe_mode = false;
+					woas.config.wsif_author = "Anonymous";
+					woas.config.wsif_ds = "";
+					woas.config.wsif_ds_lock = true;
+					woas.config.wsif_ds_multi = true;
+				}
 				
 				if (import_icons) {
 					//TODO: import the icons
@@ -495,20 +504,10 @@ woas.import_wiki = function() {
 			} // not importing a special page
 		} // for cycle
 		// added in v0.9.7
-/*		if (old_version <= 96) {
-			page_titles.push("WoaS::Aliases");
-			pages.push("");
-			page_attrs.push(0);
-			page_mts.push(current_mts);
-		} */
 	} // do not import content pages
 	
 	// eventually add the new missing page
 	if (old_version <= 112) {
-/*		page_titles.push("WoaS::Hotkeys");
-		pages.push(this._default_hotkeys());
-		page_attrs.push(0);
-		page_mts.push(current_mts); */
 		// take care of custom CSS (if any)
 		if (imported_css !== null) {
 			pi = page_titles.indexOf("WoaS::CSS::Custom");

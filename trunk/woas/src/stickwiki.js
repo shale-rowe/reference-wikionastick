@@ -269,12 +269,17 @@ woas.ns_recurse_parse = function(folds, output, prev_ns, recursion) {
 	if (it != 0) {
 		++recursion;
 		fold_id = "fold"+output.fold_no++;
-		output.s += "=".repeat(recursion)+"[[Javascript::$.toggle('"+fold_id+"')|"+prev_ns+"]] [["+prev_ns+"|"+String.fromCharCode(0x21DD)+"]] ("+it+" pages)\n";
-		output.s += "<div style=\"visibility: visible\" id=\""+fold_id+"\">\n";
+		// disable folding for pages outside namespaces
+		if (prev_ns.length) {
+			output.s += "=".repeat(recursion)+" [[Javascript::$.toggle('"+fold_id+"')|"+prev_ns+"]]";
+			output.s += " [["+prev_ns+"|"+String.fromCharCode(0x21DD)+"]] ("+it+" pages)\n";
+			output.s += "<div style=\"visibility: visible\" id=\""+fold_id+"\">\n";
+		}
 		for(i=0;i<it;++i) {
 			output.s += "*".repeat(recursion)+" [["+folds["[pages]"][i]+"]]\n";
 		}
-		output.s += "</div>\n";
+		if (prev_ns.length)
+			output.s += "</div>\n";
 	}
 	for(i in folds) {
 		if (i != "[pages]")
@@ -395,6 +400,8 @@ woas.get_page = function(pi) {
 	return pg;	
 };
 
+var reScriptTags = /<script[^>]*>((.|\n)*?)<\/script>/gi,
+	reAnyXHTML = /\<\/?\w+[^>]+>/g;
 // get the text of the page, stripped of html tags
 woas.get_src_page = function(pi, rawmode) {
 	var pg = this.get_page(pi);
@@ -404,8 +411,8 @@ woas.get_src_page = function(pi, rawmode) {
 	else
 		pg = pg.replace(/(\{|\})(\1)(\1)/g, "$1<!-- -->$2<!-- -->$3");
 	// remove wiki and html that should not be viewed when previewing wiki snippets
-	return pg.replace(/<script[^>]*>((.|\n)*?)<\/script>/gi, "").
-			replace(/\<\/?\w+[^>]+>/g, "");
+	return pg.replace(reScriptTags, "").
+			replace(reAnyXHTML, "");
 };
 
 woas.get_text = function (title) {
@@ -425,9 +432,10 @@ woas.get_text_special = function(title) {
 		switch (ns) {
 			case "Special::":
 				text = this._get_special(title, false);
+				if (text === false) text = null;
 			break;
-			case "Tagged::": // deprecated?
-			case "Tags::":
+			case "Tagged::":
+			case "Tags::": //DEPRECATED
 				text = this._get_tagged(title);
 			break;
 			default:
@@ -555,7 +563,7 @@ woas.set__text = function(pi, text) {
 	last_AES_page = page_titles[pi];
 };
 
-// Sets text typed by user
+// set content of current page
 woas.set_text = function(text) {
 	var pi = this.page_index(current);
 	// this should never happen!
@@ -578,7 +586,7 @@ woas._ghost_page = false;
 
 woas._create_page = function (ns, cr, ask, fill_mode) {
 	if (this.is_reserved(ns+"::") && !this.tweak.edit_override) {
-		this.alert(this.i18n.ERR_RESERVED_NS.sprintf(ns+"::"+cr, ns));
+		this.alert(this.i18n.ERR_RESERVED_NS.sprintf(ns));
 			return false;
 	}
 	if ((ns=="File") || (ns=="Image")) {
@@ -732,7 +740,8 @@ woas._get_special = function(cr, interactive) {
 		text = this[fn]();
 		// skip the cmd shortcuts
 		if (is_cmd)
-			return null;
+			// return a special value for executed commands
+			return false;
 	} else
 //	log("Getting special page "+cr);	// log:0
 /*			if (this.is_embedded(cr)) {
@@ -804,7 +813,9 @@ woas.set_current = function (cr, interactive) {
 					break;
 					case "Special":
 						text = this._get_special(cr, interactive);
-						if (text == null)
+						if (text === false)
+							return true;
+						if (text === null)
 							return false;
 						break;
 					case "Tagged": // deprecated
@@ -828,7 +839,7 @@ woas.set_current = function (cr, interactive) {
 					case "Unlock":
 						pi = this.page_index(cr);
 						if (!confirm(this.i18n.CONFIRM_REMOVE_ENCRYPT.sprintf(cr)))
-							return;
+							return false;
 						text = this.get_text(cr);
 						if (_decrypt_failed) {
 							_decrypt_failed = false;
@@ -865,9 +876,10 @@ woas.set_current = function (cr, interactive) {
 									case "CSS::Core":
 									case "CSS::Custom":
 										// page is stored plaintext
-										text = "<tt class=\"wiki_preformatted\">"+text+"</tt>";
+										text = "<div class=\"woas_nowiki_multiline woas_core_page\">"+text+"</div>";
 									break;
 									default:
+										// help pages and related resources
 										text = this.parser.parse(text);
 								}
 							}	
@@ -925,9 +937,16 @@ woas.set_current = function (cr, interactive) {
 		cr = page_titles[pi];
 		mts = page_mts[pi];
 	}
-	
-	return this.load_as_current(cr, this.parser.parse(text), mts);
+	return this.load_as_current(cr, this.parser.parse(text, false, this.js_mode(cr)), mts);
 };
+
+// enable safe mode for non-reserved pages
+woas.js_mode = function(cr) {
+	if (this.config.safe_mode)
+		return this.is_reserved(cr) ? 1 : 3;
+//	else
+	return 1;
+}
 
 // StickWiki custom scripts array
 woas.swcs = [];
@@ -1069,7 +1088,7 @@ woas._add_namespace_menu = function(namespace) {
 		$("ns_menu_area").innerHTML = "";
 	} else {
 //		log("Parsing "+menu.length+" bytes for namespace menu");	// log:0
-		$("ns_menu_area").innerHTML = this.parser.parse(menu);
+		$("ns_menu_area").innerHTML = this.parser.parse(menu, false, this.js_mode(namespace+"::Menu"));
 	}
 	// if the previous namespace was empty, then show the submenu areas
 //	if (current_namespace=="") {
@@ -1087,7 +1106,7 @@ woas.refresh_menu_area = function() {
 	if (menu == null)
 		$("menu_area").innerHTML = "";
 	else {
-		$("menu_area").innerHTML = this.parser.parse(menu);
+		$("menu_area").innerHTML = this.parser.parse(menu, false, this.js_mode("::Menu"));
 		this._activate_scripts();
 	}
 };
@@ -1184,11 +1203,11 @@ woas.after_load = function() {
 	$('img_home').alt = this.config.main_page;
 	
 	if (this.config.debug_mode) {
-		$.show_ni("debug_info");
-		$.show("woas_debug_panel");
+		$.show_ni("woas_debug_panel");
+		$.show("woas_debug_log");
 	} else {
-		$.hide_ni("debug_info");
-		$.hide("woas_debug_panel");
+		$.hide_ni("woas_debug_panel");
+		$.hide("woas_debug_console");
 	}
 
 	// properly initialize navigation bar icons
@@ -1243,7 +1262,7 @@ woas.after_load = function() {
 	
 //	this._create_bs();
 	
-	this._editor = new TextAreaSelectionHelper($("wiki_editor"));
+	this._editor = new TextAreaSelectionHelper($("woas_editor"));
 	
 //	this.progress_finish();
 	$.hide("loading_overlay");
@@ -1283,7 +1302,7 @@ woas._load_hotkeys = function(s) {
 		// check that binding is a valid key
 		binding = woas.validate_hotkey(binding);
 		if (binding === null) {
-			log("Skipping invalid key binding for hotkey "+hkey);
+			log("Skipping invalid key binding for hotkey "+hkey);	//log:1
 			return;
 		}
 		// associate a custom key binding
@@ -1391,6 +1410,9 @@ woas._default_hotkeys();
 var reJSComments = /^\s*\/\*[\s\S]*?\*\/\s*/g;
 
 woas._create_bs = function() {
+	// do not run bootscript in safe mode
+	if (this.config.safe_mode)
+		return false;
 	var s=this.get_text("WoaS::Bootscript");
 	if (s==null || !s.length) return false;
 	// remove the comments
@@ -1416,7 +1438,7 @@ woas._clear_bs = function() {
 
 // when the page is resized
 woas._onresize = function() {
-	var we = $("wiki_editor");
+	var we = $("woas_editor");
 	if (!we) {
 		log("no wiki_editor");
 		return;
@@ -1543,13 +1565,13 @@ woas.current_editing = function(page, disabled) {
 
 	// FIXME! hack to show the editor pane correctly on IE
 	if (!this.browser.ie)	{
-		$("wiki_editor").style.width = window.innerWidth - 35 + "px";
-		$("wiki_editor").style.height = window.innerHeight - 180 + "px";
+		$("woas_editor").style.width = window.innerWidth - 35 + "px";
+		$("woas_editor").style.height = window.innerHeight - 180 + "px";
 	}
 	
 	$.show("edit_area");
 
-	$("wiki_editor").focus();
+	$("woas_editor").focus();
 	current = page;
 //	log("current ::= "+page);	//log:0
 	scrollTo(0,0);
@@ -1560,7 +1582,7 @@ woas.old_title = null;
 
 // sets the text and allows changes monitoring
 woas.edit_ready = function (txt) {
-	$("wiki_editor").value = txt;
+	$("woas_editor").value = txt;
 	// save copy of text to check if anything was changed
 	// do not store it in case of ghost pages
 	this.change_buffer = txt;
@@ -1625,7 +1647,7 @@ woas.valid_title = function(title, renaming) {
 	} */
 	var ns = this.get_namespace(title, true);
 	if (ns.length && renaming && this.is_reserved(ns+"::") && !this.tweak.edit_override) {
-		this.alert(this.i18n.ERR_RESERVED_NS.sprintf(title, ns));
+		this.alert(this.i18n.ERR_RESERVED_NS.sprintf(ns));
 		return false;
 	}
 	return true;
@@ -1717,7 +1739,7 @@ woas.set_css = function(new_css) {
 };
 
 woas.get_raw_content = function() {
-	var c=$("wiki_editor").value;
+	var c=$("woas_editor").value;
 	// remove CR added by some browsers
 	//TODO: check if ie8 still adds these
 	if (this.browser.ie || this.browser.opera)

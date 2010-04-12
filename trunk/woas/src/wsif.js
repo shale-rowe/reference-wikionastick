@@ -169,7 +169,7 @@ woas._native_wsif_save = function(path, single_wsif, inline_wsif, author,
 			if (!this.save_file(path + blob_fn,
 							(encoding == "8bit/plain") ?
 							this.file_mode.BINARY : this.file_mode.ASCII_TEXT, ct))
-				log("Could not save "+blob_fn);
+				log("Could not save "+blob_fn);	//log:1
 		}
 		// the page record is now ready, proceed to save
 		if (single_wsif) {// append to main page record
@@ -388,7 +388,7 @@ woas._native_wsif_load = function(path, overwrite, and_save, recursing, pre_impo
 				// ignored for now
 			break;
 			default:
-				log("Unknown WSIF header: "+s);
+				log("Unknown WSIF header: "+s);	//log:1
 		} // end switch(s)
 		if (fail)
 			break;
@@ -463,7 +463,7 @@ woas._native_page_def = function(path,ct,p,last_p,overwrite,pre_import_hook, tit
 	var fail = false;
 	// attributes must be defined
 	if (attrs === null) {
-		log("No attributes defined for page "+title);
+		log("No attributes defined for page "+title);	//log:1
 		fail = true;
 	}
 	if (!fail && (disposition == "inline")) {
@@ -488,7 +488,7 @@ woas._native_page_def = function(path,ct,p,last_p,overwrite,pre_import_hook, tit
 		// split encrypted pages into byte arrays
 		if (attrs & 2) {
 			if (encoding != "8bit/base64") {
-				log("Encrypted page "+title+" is not encoded as 8bit/base64");
+				log("Encrypted page "+title+" is not encoded as 8bit/base64");	//log:1
 				fail = true;
 				break;
 			}
@@ -505,12 +505,12 @@ woas._native_page_def = function(path,ct,p,last_p,overwrite,pre_import_hook, tit
 		} else if (attrs & 8) { // embedded image, not encrypted
 			// NOTE: encrypted images are not obviously processed, as per previous 'if'
 			if (encoding != "8bit/base64") {
-				log("Image "+title+" is not encoded as 8bit/base64");
+				log("Image "+title+" is not encoded as 8bit/base64");	//log:1
 				fail = true;
 				break;
 			}
 			if (mime === null) {
-				log("Image "+title+"has no mime type defined");
+				log("Image "+title+"has no mime type defined");		//log:1
 				fail = true;
 				break;
 			}
@@ -530,7 +530,7 @@ woas._native_page_def = function(path,ct,p,last_p,overwrite,pre_import_hook, tit
 				case "8bit/plain": // plain wiki pages are supported
 				break;
 				default:
-					log("Normal page "+title+" comes with unknown encoding "+encoding);
+					log("Normal page "+title+" comes with unknown encoding "+encoding);	//log:1
 					fail = true;
 					break;
 			}

@@ -83,7 +83,7 @@ woas.special_search = function( str ) {
 	this.progress_init("Searching");
 	var pg_body = [];
 	var title_result = "";
-	log("Searching "+str);
+	log("Searching "+str);	//log:1
 
 	// amount of nearby characters to display
 	var nearby_chars = 200;

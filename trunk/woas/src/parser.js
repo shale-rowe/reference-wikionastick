@@ -27,7 +27,7 @@ woas.parser.header_replace = function(str, $1, $2) {
 			woas.parser.toc += String("#").repeat(len)+" <a class=\"link\" href=\"#" +
 			woas.parser.header_anchor(header) + "\">" + header + "<\/a>\n";
 		}
-		return "</div><h"+len+" id=\""+woas.parser.header_anchor(header)+"\">"+header+"</h"+len+"><div class=\"level"+len+"\">";
+		return "</div><h"+len+" class=\"woas_header\" id=\""+woas.parser.header_anchor(header)+"\">"+header+"</h"+len+"><div class=\"level"+len+"\">";
 };
 
 woas.parser.sublist = function (lst, ll, suoro, euoro) {   
@@ -156,10 +156,13 @@ woas._make_preformatted = function(text) {
 }
 
 // THIS is the method that you should override for your custom parsing needs
-// text is the raw wiki source
-// export_links is set to true when exporting wiki pages and is used to generate proper href for hyperlinks
-// js_mode can be 0 = leave script tags as they are (for exporting), 1 - place script tags in <head /> (dynamic),
-//		2 - re-add script tags after parsing
+// 'text' is the raw wiki source
+// 'export_links' is set to true when exporting wiki pages and is used to generate proper href for hyperlinks
+// 'js_mode' controls javascript behavior. Allowed values are:
+// 0 = leave script tags as they are (used for exporting)
+// 1 - place script tags in <head /> (dynamic),
+// 2 - re-add script tags after parsing
+// 3 - convert script tags to nowiki blocks
 woas.parser.parse = function(text, export_links, js_mode) {
 	if (woas.config.debug_mode) {
 		if (text===null) {
@@ -168,10 +171,10 @@ woas.parser.parse = function(text, export_links, js_mode) {
 		}
 	}
 	// default fallback
-	if (typeof export_links == "undefined") {
+	if (typeof export_links == "undefined")
 		export_links = false;
-		js_mode=1;
-	}
+	if (typeof js_mode == "undefined")
+		js_mode = 1;
 	
 	// this array will contain all the HTML snippets that will not be parsed by the wiki engine
 	var snippets = [],
@@ -343,6 +346,13 @@ woas.parser.parse = function(text, export_links, js_mode) {
 			if (js_mode==2) {
 				r = woas.parser.place_holder(snippets.length);
 				snippets.push(str);
+				return r;
+			}
+			
+			// during safe mode do not activate scripts, transform them to nowiki blocks
+			if (js_mode==3) {
+				r = woas.parser.place_holder(snippets.length);
+				snippets.push( woas._make_preformatted(str) );
 				return r;
 			}
 			var m=$1.match(/src=(?:"|')([^\s'">]+)/);
