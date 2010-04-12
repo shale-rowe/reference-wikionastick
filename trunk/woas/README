@@ -18,9 +18,10 @@ You can't use WoaS with javascript disabled; also you will need java applets
 to exploit file loading/saving features on AppleWebkit-based browsers.
 
 TiddlySaver.jar is the java applet used in such cases (borrowed from
-TiddlyWiki project).
+TiddlyWiki project); if you do not need TiddlySaver.jar feature, you can remove
+it.
 
-In order to start WoaS, open the woas.htm file, which contains the software
+In order to start WoaS, open the woas-*.html file, which contains the software
 and the default pages.
 
 = WoaS usage
@@ -29,4 +30,4 @@ WoaS contains all the necessary documentation in its help pages.
 
 = Removal instructions
 
-Delete woas.htm and TiddlySaver.jar.
+Delete woas-*.html and TiddlySaver.jar (if present).
