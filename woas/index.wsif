@@ -1147,14 +1147,15 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Wiki is read-only
 woas.page.attributes: 0
-woas.page.length: 377
+woas.page.last_modified: 1271037176
+woas.page.length: 344
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Wiki is read-only
-If you clicked the *Disallow edits* button in the wiki [[WoaS::Help::Special::Options|Options]], this wiki became read-only. To undo that:
+If you clicked the *Disallow edits* button in the wiki Options, this wiki became read-only. To undo that:
 # Back up this wiki.
 # Open it in a text editor.
 # Do a search for: {{{"permit_edits":false,}}}
@@ -1220,7 +1221,8 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Edit a page
 woas.page.attributes: 0
-woas.page.length: 754
+woas.page.last_modified: 1271037282
+woas.page.length: 721
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1228,7 +1230,7 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 = Edit a page
 All pages (except WoaS pages within reserved [[WoaS::Help::Namespaces|namespaces]]) can be edited or deleted. In order to edit such pages, click the *Edit* icon in the navigation bar. You can find all the user pages by clicking the *Special::All Pages* link in the menu.
-# Click the *Edit* icon in the navigation bar or double-click on the page if you've enabled that setting in the wiki [[WoaS::Help::Special::Options|Options]].<br><br>
+# Click the *Edit* icon in the navigation bar or double-click on the page if you've enabled that setting in the wiki Options.<br><br>
 # Edit the contents of the main text area by typing normally.<br><br>
 # Use the editor's buttons to insert code to format the text, or type the code in manually. Note that the use of plain text doesn't require any code.<br><br>
 # Save your changes by clicking on the *Save* icon in the navigation bar.
@@ -1378,7 +1380,7 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Include web page
 woas.page.attributes: 0
-woas.page.length: 3386
+woas.page.length: 3335
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1393,17 +1395,17 @@ This method makes the embedded web page become a seamless part of the page.
 
 * *Embed a local HTML file as an object:*<br><br>
 ** <div class="woas_helptext">Use this code in a page, replacing PATH with the full path to HTML file you wish to include, and changing the width and height to suit your taste:</div>{{{
-<html><object data="PATH" style="width:100%; height:630px;">File not found.</object></html>
+<object data="PATH" style="width:100%; height:630px;">File not found.</object>
 }}}<br><div class="woas_helptext">To embed a local HTML file in a page.</div><br>
 *** For example, if you want to embed the {{{/Work/MyProject.html}}} file as an object, you'd use this command:<br>{{{
-<html><object data="/Work/MyProject.html" style="width:100%; height:630px;">File not found.</object></html>
+<object data="/Work/MyProject.html" style="width:100%; height:630px;">File not found.</object>
 }}}<br><br>
 * *Embed a remote URL as an object:*<br><br>
 ** <div class="woas_helptext">Use this code in a page, replacing URL with the URL of the page you wish to include, and changing the width and height to suit your taste:</div>{{{
-<html><object data="URL" style="width:100%; height:630px;">URL not found.</object></html>
+<object data="URL" style="width:100%; height:630px;">URL not found.</object><
 }}}<br><div class="woas_helptext">To embed an external URL in a page.</div><br>
 *** For example, if you want to embed the WoaS official website at {{{http://stickwiki.sf.net/}}} as an object, you'd use this command:<br>{{{
-<html><object data="http://stickwiki.sf.net/" style="width:100%; height:630px;">URL not found.</object></html>
+<object data="http://stickwiki.sf.net/" style="width:100%; height:630px;">URL not found.</object>
 }}}
 
 == Embed a web page in an iFrame
@@ -1680,37 +1682,54 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Page scrolling
 woas.page.attributes: 0
-woas.page.length: 527
+woas.page.length: 477
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Page scrolling
-By default, this wiki offers two choices for scrolling in the wiki [[WoaS::Help::Special::Options|Options]]. The *Fixed menu area and navigation bar* is disabled by default. This locks all page elements in place so the entire page scrolls as one connected unit. Enabling it locks the navigation bar and menu in place while allowing the rest of the page to scroll.
+By default, this wiki offers two choices for scrolling in the wiki Options. The *Fixed menu area and navigation bar* is disabled by default. This locks all page elements in place so the entire page scrolls as one connected unit. Enabling it locks the navigation bar and menu in place while allowing the rest of the page to scroll.
 
-You can change the settings by clicking the *Advanced* icon in the navigation bar and then clicking the *Options* link in the *Options* section.
-
+You can change the settings by clicking the *Advanced* icon in the navigation bar and then clicking the *Special::Options* link.
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Table of Contents
 woas.page.attributes: 0
-woas.page.length: 791
+woas.page.length: 2529
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Table of Contents
-You can insert a Table of Contents into your page by using a special wiki tag. It will be automatically populated with all the headers on a page.
+You can insert a Table of Contents into your page by using a special wiki tag. It will be automatically populated with all the headers on a page. The placement of the Table of Contents is  determined by where you put the tag in the page.
 
-The Table of Contents expects the first header on a page to be a Level 1 header. If you use any other level header first, that header and any headers after it will be represented by hash marks until a Level 1 header is encountered. From that point on, the headers will be numbered properly.
+Insert {{{[[Special::TOC]]}}} on a line by itself in a page to add a Table of Contents.
 
-<div class="woas_helptext">Use this code on a line by itself in your page:</div>{{{
-[[Special::TOC]]
+[[Include::WoaS::Template::Info|The Table of Contents expects the first header on a page to be a Level 1 header. If you use any other level header first, that header and any headers after it will be represented by hash marks until a Level 1 header is encountered. From that point on, the headers will be numbered properly.]]
+== Example
+Create a page with these contents::{{{
+ [[Special::TOC]]
 }}}<br><div class="woas_helptext">To add a Table of Contents to a page.</div>
-[[Special::TOC]]
+{{{= My level one header
+== My level two header
+=== My level three header
+==== My level four header
+===== My level five header
+====== My level six header
+}}}
+When you save the page, there will be a Table of Contents that looks like this at the top of the page:
 
-[[Include::WoaS::Template::Info|Note that the placement of the Table of Contents is determined by where you put the tag in the page.]]
+<div style="border:1pt dashed #aaa; background-color:#f9f9f9; padding:0.313em; 
+width:50%; font-size:95%;"><center><b>Table of Contents</b></center>
+&nbsp;&nbsp;&nbsp;1. <span style="color:blue; text-decoration:underline;">My level one header</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. <span style="color:blue; text-decoration:underline;">My level two header</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2. <span style="color:blue; text-decoration:underline;">My next level two header</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. <span style="color:blue; text-decoration:underline;">My level three header</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. <span style="color:blue; text-decoration:underline;">My level four header</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. <span style="color:blue; text-decoration:underline;">My level five header</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. <span style="color:blue; text-decoration:underline;">My level six header</span>
+</div>
 
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Tags
