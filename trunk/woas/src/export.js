@@ -230,6 +230,9 @@ woas.export_wiki = function () {
 	for (var pi=0;pi<l;pi++) {
 		// do skip physical special pages
 		if (page_titles[pi].match(/^Special::/)) continue;
+		if (this.static_pages2.indexOf(page_titles[pi]) !== -1) continue;
+		// skip also the custom CSS page (CSS is obtained from runtime object)
+		if (page_titles[pi] === "WoaS::CSS::Custom") continue;
 		// do skip menu pages (they are included in each page)
 		mnupos = page_titles[pi].indexOf("::Menu");
 		if ((mnupos != -1) &&
