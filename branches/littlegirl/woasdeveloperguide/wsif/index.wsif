@@ -2,46 +2,47 @@ wsif.version: 1.2.0
 wsif.generator: woas
 woas.version: 0.11.1
 woas.author: Little Girl
-woas.pages: 68
+woas.pages: 69
 
 woas.page.title: ::Menu
 woas.page.attributes: 0
-woas.page.last_modified: 1270446835
-woas.page.length: 504
+woas.page.last_modified: 1271106480
+woas.page.length: 518
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 [[Main Page]]
-* *Subversion guide*
-** [[Getting started]]
-** [[Initial commit]]
-** [[Standard routine]]
-<!-- -->
-* *Additional commands*
-** [[Merging]]
-** [[Resolving conflicts]]
-** [[Useful commands]]
-<!-- -->
-* *Reference pages*
-** [[Glossary]]
-** [[My paths]]
-** [[Status codes]]
-** [[WoaS philosophy]]
-<!-- -->
-* *Wiki administration*
+* *Administration*
 ** [[Special::All Pages|All pages]]
 ** [[Special::Delete Page|Delete Page]]
 ** [[WoaS::Help::|Help]]
 ** [[Special::New Page|New Page]]
 ** [[Special::Search|Search]]
+<!-- -->
+* *Subversion guide*
+** [[Getting started]]
+** [[Initial commit]]
+** [[Standard routine]]
+<!-- -->
+* *Subversion extras*
+** [[Merging]]
+** [[Resolving conflicts]]
+** [[Useful commands]]
+<!-- -->
+* *Reference pages*
+** [[Assemble WoaS]]
+** [[Glossary]]
+** [[My paths]]
+** [[Status codes]]
+** [[WoaS philosophy]]
 
 --DFQRCTsKlU
 woas.page.title: Main Page
 woas.page.attributes: 0
-woas.page.last_modified: 1270438185
-woas.page.length: 1734
+woas.page.last_modified: 1271106097
+woas.page.length: 1808
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -61,6 +62,7 @@ Some of the things you'll find in this guide are:
 # A [[Glossary|glossary]] of terms used in this guide.
 # A Subversion path reference table.
 # A [[Status codes|status codes]] reference table.
+# A step-by-step guide that shows how to [[Assemble WoaS|assemble WoaS]].
 # Step-by-step guides that show how to use the Subversion server.
 # The [[WoaS philosophy]] page for becoming familiar with the core principles of the WoaS project.
 # [[Include::Template::Tooltip|Tooltips|This is a tooltip! Advanced users who don't need these can comment out or remove the tooltip entry in the global CSS settings of the wiki.]] that show additional information when you hover over them.
@@ -3050,5 +3052,82 @@ If there are conflicts between your files and the files on the server after doin
 # For each section you find, decide whether to keep, change, or get rid of the content inside the brackets.<br><br>
 # Remove the angled bracket lines around each conflicted section you've fixed.<br><br>
 # Type this command once all conflicted sections have been resolved:<pre>svn resolved</pre>Subversion will clean up the files with the .mine and .r[[Include::Template::Tooltip|REV|A revision number (example: 32).]] extensions for you.<br><br>
+
+--DFQRCTsKlU
+woas.page.title: Assemble WoaS
+woas.page.attributes: 0
+woas.page.last_modified: 1271106019
+woas.page.length: 4391
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Assemble WoaS
+This page provides instructions for how to assemble the multiple file development version of WoaS into a single file.
+
+== Requirements
+# You must have php or the php command line interface installed on your system.
+# You must have the libwsif.php and mkwoas.php files, which are in the tools subdirectory of the development version.
+
+== Assemble WoaS from the woas subdirectory
+This assembles the multiple files into a single file using default settings:
+# Copy libwsif.php and mkwoas.php from the tools subdirectory into the woas subdirectory.<br><br>
+# Open the woas subdirectory of the development version in a terminal window.<br><br>
+# Type this command:<br>{{{
+php mkwoas.php woas.htm
+}}}<br>
+# The single file will be created in the woas subdirectory.
+
+== Additional parameters accepted by the command
+These are for use in all the examples below.
+
+{|
+|+ Additional parameters accepted by the command
+| woas=path/woas.htm || path to WoaS HTML file - defaults to woas.htm
+| wsif=path/index.wsif || path to pages data in WSIF format
+| log=[0|1|2] || 0 - fully disable log, 1 - keep logging as is, 2 - enable all log lines
+| native_wsif=[0|1] || 0 - default, 1 - enable native WSIF saving
+| edit_override=[0|1] || 0 - default, 1 - enable edit override
+|}
+== Assemble WoaS from the tools subdirectory specifying paths
+This assembles the multiple files into a single file using default settings:
+# Open the tools subdirectory of the development version in a terminal window.<br><br>
+# Type this command, replacing both instances of PATH with the paths to the woas.htm file and the index.wsif file:<br>{{{
+php mkwoas.php woas=PATH/woas.htm wsif=PATH/index.wsif
+}}}<br>
+# The single file will be created in the tools subdirectory.
+
+== Assemble WoaS from the tools subdirectory specifying paths and logging
+This assembles the multiple files into a single file using default settings, but specifying logging:
+# Open the tools subdirectory of the development version in a terminal window.<br><br>
+# Type this command, replacing both instances of PATH with the paths to the woas.htm file and the index.wsif file and replacing X with the number from the parameters chart above to specify the logging:<br>{{{
+php mkwoas.php woas=PATH/woas.htm wsif=PATH/index.wsif log=X
+}}}<br>
+# The single file will be created in the tools subdirectory.
+
+== Assemble WoaS from the tools subdirectory specifying paths and native WSIF saving
+This assembles the multiple files into a single file using default settings, but specifying native WSIF saving:
+# Open the tools subdirectory of the development version in a terminal window.<br><br>
+# Type this command, replacing both instances of PATH with the paths to the woas.htm file and the index.wsif file and replacing X with the number from the parameters chart above to specify native WSIF saving:<br>{{{
+php mkwoas.php woas=PATH/woas.htm wsif=PATH/index.wsif native_wsif=X
+}}}<br>
+# The single file will be created in the tools subdirectory.
+
+== Assemble WoaS from the tools subdirectory specifying paths and edit override
+This assembles the multiple files into a single file using default settings, but specifying edit override:
+# Open the tools subdirectory of the development version in a terminal window.<br><br>
+# Type this command, replacing both instances of PATH with the paths to the woas.htm file and the index.wsif file and replacing X with the number from the parameters chart above to specify edit override:<br>{{{
+php mkwoas.php woas=PATH/woas.htm wsif=PATH/index.wsif edit_override=X
+}}}<br>
+# The single file will be created in the tools subdirectory.
+
+== Assemble WoaS from the tools subdirectory specifying everything
+This assembles the multiple files into a single file specifying everything:
+# Open the tools subdirectory of the development version in a terminal window.<br><br>
+# Type this command, replacing both instances of PATH with the paths to the woas.htm file and the index.wsif file, replacing X with the number from the parameters chart above to specify the logging, replacing Y with the number from the parameters chart above to specify native WSIF saving, and replacing Z with the number from the parameters chart above to specify edit override:<br>{{{
+php mkwoas.php woas=PATH/woas.htm wsif=PATH/index.wsif log=X native_wsif=Y edit_override=Z
+}}}<br>
+# The single file will be created in the tools subdirectory.
 
 --DFQRCTsKlU

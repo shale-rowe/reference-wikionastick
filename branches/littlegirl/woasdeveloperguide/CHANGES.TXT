@@ -21,3 +21,7 @@
 * Added the index.wsif file to the wsif directory.
 * Removed the woasdeveloperguide.wsif file.
 ======================================================================================================================
+* Added the [[Assemble WoaS]] page.
+* Updated the index.wsif file.
+* Updated the menu.
+======================================================================================================================
