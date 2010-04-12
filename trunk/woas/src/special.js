@@ -139,10 +139,10 @@ woas._plugins_list = function() {
 	return "\n\n/No plugins installed/";
 };
 
+var reFindTags = /\[\[Tags?::([^\]]+)\]\]/g;
 woas.special_tagged = function() {
-	var utags = [],
-		tags_tree = {},
-		src, ipos, i, j, jl, l, tmp, tag;
+	var	folds = {"[pages]":[]}, tagns,
+		src, i, l, j, jl, tmp, tag;
 		
 	for(i=0,l=pages.length;i<l;++i) {
 		if (this.is_reserved(page_titles[i]))
@@ -151,7 +151,7 @@ woas.special_tagged = function() {
 		// encrypted w/o key
 		if (src === null)
 			continue;
-		src.replace(/\[\[Tags?::([^\]]+)\]\]/g,
+		src.replace(reFindTags,
 			function (str, $1) {
 				// get the tags and index the page under each tag
 				tmp=woas.split_tags($1);
@@ -159,36 +159,16 @@ woas.special_tagged = function() {
 					tag=woas.trim(tmp[j]);
 					if (!tag.length) continue;
 					// we have a valid tag, check if it is already indexed
-					ipos = utags.indexOf(tag);
-					if (ipos==-1) {
-						utags.push(tag);						
-						tags_tree[tag] = [page_titles[i]];
+					tagns = "Tagged::"+tag;
+					if (typeof folds[tagns] == "undefined") {
+						folds[tagns] = {"[pages]":[page_titles[i]]};
 					} else
-						tags_tree[tag].push(page_titles[i]);
+						folds[tagns]["[pages]"].push(page_titles[i]);
 				}
 			});
 	}
-	// sort alphabetically (case insensitive)
-	utags.sort(function(x,y){
-      var a = String(x).toUpperCase();
-      var b = String(y).toUpperCase();
-      if (a > b)
-         return 1;
-      if (a < b)
-         return -1;
-      return 0;
-    });
-    //TODO: directly put pages in folds object
-	var obj, it, folds={"[pages]":[]};
-	for(j=0,l=utags.length;j<l;j++) {
-		obj = tags_tree[utags[j]].sort();
-		if (typeof folds[utags[j]] == "undefined")
-			folds[utags[j]] = {"[pages]":[]};
-		for(i=0,it=obj.length;i<it;i++) {
-			folds["Tagged::"+utags[j]]["[pages]"].push(obj[i]);
-		}
-	}
-	return woas.ns_parse_tree(folds);
+	// parse tree with sorting
+	return woas.ns_parse_tree(folds, true);
 };
 
 woas.special_untagged = function() {
@@ -332,10 +312,12 @@ woas.special_recent_changes = function() {
 	return this._simple_join_list(pg);
 };
 
-// joins a list of pages
-woas._join_list = function(arr) {
+// joins a list of pages - always sorted by default
+woas._join_list = function(arr, sorted) {
 	if (!arr.length)
 		return "";
+	if (typeof sorted == "undefined")
+		sorted = true;
 	// copy the array to currently selected pages
 	result_pages = arr.slice(0);
 	//return "* [["+arr.sort().join("]]\n* [[")+"]]";
@@ -355,7 +337,7 @@ woas._join_list = function(arr) {
 			folds["[pages]"].push(arr[i]);
 	}
 	// (2) output the tree
-	this.ns_recurse_parse(folds, output, "", 0);
+	this.ns_recurse_parse(folds, output, "", 0, sorted);
 	return output.s;
 };
 
@@ -379,7 +361,7 @@ woas.ns_recurse = function(ns_arr, folds, prev_ns) {
 		this.ns_recurse(ns_arr, folds, ns);
 };
 
-woas.ns_recurse_parse = function(folds, output, prev_ns, recursion) {
+woas.ns_recurse_parse = function(folds, output, prev_ns, recursion, sorted) {
 	var i,it=folds["[pages]"].length,fold_id;
 	if (it != 0) {
 		fold_id = "fold"+output.fold_no++;
@@ -390,15 +372,42 @@ woas.ns_recurse_parse = function(folds, output, prev_ns, recursion) {
 			output.s += " [["+prev_ns+"|"+String.fromCharCode(0x21DD)+"]] ("+it+" pages)\n";
 			output.s += "<div style=\"visibility: visible\" id=\""+fold_id+"\">\n";
 		}
+		if (sorted)
+			folds["[pages]"].sort();
 		for(i=0;i<it;++i) {
 			output.s += "* [["+folds["[pages]"][i]+"]]\n";
 		}
 		if (prev_ns.length)
 			output.s += "</div>\n";
 	}
-	for(i in folds) {
-		if (i != "[pages]")
-			this.ns_recurse_parse(folds[i], output, prev_ns+i, recursion);
+	// sort the actual namespaces
+	if (sorted) {
+		var nslist=[];
+		// get namespaces
+		for(i in folds) {
+			if (i != "[pages]")
+				nslist.push(i);
+		}
+		// sort alphabetically (case insensitive)
+		nslist.sort(function(x,y){
+		  var a = String(x).toUpperCase();
+		  var b = String(y).toUpperCase();
+		  if (a > b)
+			 return 1;
+		  if (a < b)
+			 return -1;
+		  return 0;
+		});
+		// parse second the sorted namespaces
+		it=nslist.length;
+		for(i=0;i<it;++i) {
+			this.ns_recurse_parse(folds[nslist[i]], output, prev_ns+nslist[i], recursion, sorted);
+		}
+	} else { // directly parsed without any specific sorting
+		for(i in folds) {
+			if (i != "[pages]")
+				this.ns_recurse_parse(folds[i], output, prev_ns+i, recursion, sorted);
+		}
 	}
 };
 
@@ -409,8 +418,10 @@ woas._simple_join_list = function(arr, sorted) {
 	return arr.join("\n")+"\n";
 };
 
-woas.ns_parse_tree = function(folds) {
+woas.ns_parse_tree = function(folds, sorted) {
+	if (typeof sorted == "undefined")
+		sorted = false;
 	var output={"s":""};
-	this.ns_recurse_parse(folds, output, "", 0);
+	this.ns_recurse_parse(folds, output, "", 0, sorted);
 	return output.s;
 };
