@@ -33,6 +33,6 @@ foreach($argv as $fname) {
 	}
 }
 
-exit(count($argv)-$failed);
+exit(-$failed);
 
 ?>
