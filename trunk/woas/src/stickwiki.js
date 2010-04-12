@@ -1160,6 +1160,9 @@ woas.after_load = function() {
 		if (p != -1)
 			current = current.substring(0,p);
 //		log("current ::= "+current);	//log:0
+	} else {
+		if (!this.config.open_last_page)
+			current = this.config.main_page;
 	}
 
 //	this.swcs = $("sw_custom_script");

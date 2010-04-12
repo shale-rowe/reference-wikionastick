@@ -178,6 +178,7 @@ woas.special_tagged = function() {
          return -1;
       return 0;
     });
+    //TODO: directly put pages in folds object
 	var obj, it, folds={"[pages]":[]};
 	for(j=0,l=utags.length;j<l;j++) {
 		obj = tags_tree[utags[j]].sort();
