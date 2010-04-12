@@ -1521,7 +1521,7 @@ function _servm_alert() {
 	if (woas._server_mode) {
 		// show the message only once
 		if (!_servm_shown) {
-			woas.alert(this.i18n.SERVER_MODE);
+			woas.alert(woas.i18n.SERVER_MODE);
 			_servm_shown = true;
 		}
 	}
