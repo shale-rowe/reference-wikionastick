@@ -61,8 +61,8 @@ woas.i18n = {
 	PWD_QUERY: "Please enter a password",
 	READ_ONLY: "This Wiki on a Stick is read-only",
 	SAVE_ERROR:"Unable to save file '%s'.",
-	SERVER_MODE: "You are using Wiki on a Stick on a REMOTE server, your changes will not be saved neither remotely or locally.\n\n"+
-					"The correct usage of Wiki on a Stick is LOCAL, so you should use a local copy of this page to exploit the save features.\n"+
+	SERVER_MODE: "You are using Wiki on a Stick on a webserver; your changes cannot be saved neither through the webserver or locally.\n\n"+
+					"The correct usage of Wiki on a Stick is local, so you should use a local copy of this page to exploit the save features.\n"+
 					"All changes made to this copy of Wiki on a Stick will be lost.",
 	STATIC_NOT_FOUND: "Static page '%s' not found!",
 	TIDDLY_HELP:"Please check that TiddlySaver.jar is in the same directory of this WoaS and that you have enabled Java permissions for it",
