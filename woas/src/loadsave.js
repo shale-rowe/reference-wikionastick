@@ -630,7 +630,9 @@ function _inc_marker(old_marker) {
 }
 
 woas.remote_load = function(url) {
-	//TODO: XHR request
-	this.crash("Remote URL loading not yet implemented!");
-	return null;
+	var HttpReq = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+	HttpReq.open('GET', url, false);
+	HttpReq.setRequestHeader('Content-Type', 'text/html')
+	HttpReq.send(null);
+	return HttpReq.responseText;
 }

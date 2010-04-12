@@ -1,4 +1,6 @@
-Version 0.11.2 (legolas558,pvhl)
+Version 0.11.3 (legolas558)
+
+Version 0.11.2 (legolas558,pvhl) released 2010-04-12
 * prospected WSIF datasource options
 * fixed main page auto-override bug
 * fixed 'Special::Go to' glitches
