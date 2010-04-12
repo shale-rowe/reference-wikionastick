@@ -632,7 +632,7 @@ function _inc_marker(old_marker) {
 woas.remote_load = function(url) {
 	var HttpReq = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
 	HttpReq.open('GET', url, false);
-	HttpReq.setRequestHeader('Content-Type', 'text/html')
+	HttpReq.setRequestHeader('Content-Type', 'text/plain')
 	HttpReq.send(null);
 	return HttpReq.responseText;
 }
