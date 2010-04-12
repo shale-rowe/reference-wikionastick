@@ -5,14 +5,15 @@ woas.pages: 70
 
 woas.page.title: ::Menu
 woas.page.attributes: 0
-woas.page.length: 413
+woas.page.length: 388
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 [[Main Page]]
-* [[History]]
+* [[WoaS History]]
+
 * [[WoaS::Help::]]
 * [[WoaS::Aliases]]
 
@@ -24,11 +25,8 @@ woas.page.boundary: DFQRCTsKlU
 * [[Special::Duplicate Page|Duplicate Page]]
 * [[Special::Delete Page|Delete Page]]
 * [[Special::Go to|Go to...]]
-* [[Special::Search|Search]]
 
 [[Include::WoaS::Template::Search]]
-
-
 
 
 --DFQRCTsKlU
@@ -250,7 +248,7 @@ Apart from the above, your normal usage of encrypted pages can be considered sec
 --DFQRCTsKlU
 woas.page.title: Special::Options
 woas.page.attributes: 0
-woas.page.length: 4096
+woas.page.length: 4098
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -261,7 +259,7 @@ woas.page.boundary: DFQRCTsKlU
 == User Interface options
 <label for="cb_dblclick_edit"><input type="checkbox" id="cb_dblclick_edit" onclick="woas.config.dblclick_edit = $.checked('cb_dblclick_edit')" />Double click to edit pages/menu<br />
 <label for="cb_key_cache"><input type="checkbox" id="cb_key_cache" onclick="woas.config.key_cache = !$.checked('cb_key_cache')" />Do not temporarily cache the AES key<br />
-<label for="cb_open_last_page"><input type="checkbox" id="cb_open_last_page" onclick="woas.config.open_last_page = $.checked('cb_open_last_page')" />Return to last saved page when quitting<br />
+<label for="cb_open_last_page"><input type="checkbox" id="cb_open_last_page" onclick="woas.config.open_last_page = $.checked('cb_open_last_page')" />After loading WoaS go to last edited page<br />
 <label for="cb_fixed_layout"><input type="checkbox" id="cb_fixed_layout" onclick="_set_layout($.checked('cb_fixed_layout'))" />Fixed menu area and navigation bar<br />
 <label for="cb_debug_mode"><input type="checkbox" id="cb_debug_mode" onclick="woas.config.debug_mode = $.checked('cb_debug_mode')" />Enable debug mode and debug console (*requires WoaS reload*)<br />
 == Save options
@@ -435,15 +433,15 @@ woas.page.boundary: DFQRCTsKlU
 This page contains options for the active WoaS plugins.
 In order to install a plugin, import its WSIF file (see the [[Special::ImportWSIF]] page for more information.
 --DFQRCTsKlU
-woas.page.title: History
+woas.page.title: WoaS History
 woas.page.attributes: 0
-woas.page.length: 5193
+woas.page.length: 5209
 woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= History
+= Wiki on a Stick History
 
 == Versions 0.01 &tilde; 0.04
 <sub>by Andr\u00e9 Wagner</sub>
