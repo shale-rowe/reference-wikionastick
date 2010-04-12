@@ -23,6 +23,9 @@ woas.save_queue = [];		// pages which need to be saved and are waiting in the qu
 // Automatic-Save TimeOut object
 woas._asto = null;
 
+// title of page being rendered
+woas.render_title = null;
+
 // the hotkeys runtime object
 woas.hotkeys = {
 	"save":		"s",
@@ -860,6 +863,8 @@ woas.set_current = function (cr, interactive) {
 		cr = page_titles[pi];
 		mts = page_mts[pi];
 	}
+	// used by some special pages for page title override
+	this.render_title = cr;
 	return this.load_as_current(cr, this.parser.parse(text, false, this.js_mode(cr)), mts);
 };
 

@@ -56,24 +56,29 @@ woas.special_orphaned_pages = function() {
 };
 
 woas.special_backlinks = function() {
-	var pg = [];
-	var tmp;
-	var reg = new RegExp("\\[\\["+RegExp.escape(current)+"(\\||\\]\\])", "gi");
+	var pg = [], pg_title, tmp;
+	if (this.render_title === null)
+		pg_title = current;
+	else {
+		pg_title = this.render_title;
+		this.render_title = null;
+	}
+	var reg = new RegExp("\\[\\["+RegExp.escape(pg_title)+"(\\||\\]\\])", "gi");
 	for(var j=0,l=pages.length; j<l; j++) {
 		if (this.is_reserved(page_titles[j]))
 			continue;
 		// search for pages that link to it
 		tmp = this.get_src_page(j);
+		// encrypted w/o key
 		if (tmp===null)
 			continue;
-		if (tmp.match(reg)) {
+		if (tmp.match(reg))
 			pg.push( page_titles[j] );
-		}
 	}
 	if(pg.length === 0)
 		return "/No page links here/";
 	else
-		return "== Links to "+current+"\n"+this._join_list(pg);
+		return "== Links to "+pg_title+"\n"+this._join_list(pg);
 };
 
 //var hl_reg;
