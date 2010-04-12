@@ -146,14 +146,22 @@ woas.import_wiki = function() {
 	
 	// import the variables
 	var new_main_page = this.config.main_page,
-		old_main_page = this.config.main_page,
 		old_block_edits = !this.config.permit_edits,
 		page_contents = [],
 		old_page_attrs = [],
 		old_page_mts = [],
 		pc = 0,
 		i, il, pi,
-		imported_css = null;
+		imported_css = null,
+		// used during import from older versions
+		old_cfg = {"debug_mode":this.config.debug_mode,
+				"wsif_ds":this.config.wsif_ds,
+				"wsif_ds_multi":this.config.wsif_ds_multi,
+				"wsif_ds_lock":this.config.wsif_ds_lock,
+				"safe_mode":this.config.safe_mode,
+				"wsif_author":this.config.wsif_author,
+				"main_page":this.config.main_page
+				};
 
 	// old versions parsing
 	if (old_version	< 9) {
@@ -402,14 +410,14 @@ woas.import_wiki = function() {
 				
 				// add the new debug option
 				if (old_version<=107)
-					woas.config.debug_mode = false;
+					woas.config.debug_mode = old_cfg.debug_mode;
 				// add the new safe mode and WSIF DS options
 				if (old_version < 112) {
-					woas.config.safe_mode = false;
-					woas.config.wsif_author = "Anonymous";
-					woas.config.wsif_ds = "";
-					woas.config.wsif_ds_lock = true;
-					woas.config.wsif_ds_multi = true;
+					woas.config.safe_mode = old_cfg.safe_mode;
+					woas.config.wsif_author = old_cfg.wsif_author;
+					woas.config.wsif_ds = old_cfg.wsif_ds;
+					woas.config.wsif_ds_lock = old_cfg.wsif_ds_lock;
+					woas.config.wsif_ds_multi = old_cfg.wsif_ds_multi;
 				}
 				
 				if (import_icons) {
@@ -516,9 +524,9 @@ woas.import_wiki = function() {
 	}
 	// set the new config variable
 	if (old_version<=108)
-		this.config.main_page = old_main_page;
+		this.config.main_page = old_cfg.main_page;
 	// apply the new main page if that page exists
-	if ((new_main_page !== old_main_page) && this.page_exists(new_main_page))
+	if ((new_main_page !== old_cfg.main_page) && this.page_exists(new_main_page))
 		this.config.main_page = new_main_page;
 	
 	this.config.permit_edits = !old_block_edits;
