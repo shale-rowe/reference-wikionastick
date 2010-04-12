@@ -5,7 +5,6 @@ woas.pages: 70
 
 woas.page.title: ::Menu
 woas.page.attributes: 0
-woas.page.last_modified: 1271018833
 woas.page.length: 413
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -139,7 +138,6 @@ This project wouldn't be what it is without the help of other people. If you con
 --DFQRCTsKlU
 woas.page.title: Main Page
 woas.page.attributes: 0
-woas.page.last_modified: 1271019492
 woas.page.length: 37
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1147,7 +1145,6 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Wiki is read-only
 woas.page.attributes: 0
-woas.page.last_modified: 1271037176
 woas.page.length: 344
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1221,7 +1218,6 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Edit a page
 woas.page.attributes: 0
-woas.page.last_modified: 1271037282
 woas.page.length: 721
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
