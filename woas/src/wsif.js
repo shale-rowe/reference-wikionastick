@@ -81,6 +81,8 @@ woas._native_wsif_save = function(path, single_wsif, inline_wsif, author,
 		// do skip physical special pages
 		if (!save_all) {
 			if (page_titles[pi].match(/^Special::/)) continue;
+			if (this.static_pages2.indexOf(page_titles[pi]) !== -1) continue;
+			if (page_titles[pi].match(/^WoaS::Help::/)) continue;
 		}
 		var record = this.wsif.header(pfx+"title", this.ecma_encode(page_titles[pi]))+
 					this.wsif.header(pfx+"attributes", page_attrs[pi]);
@@ -322,7 +324,8 @@ woas._native_wsif_load = function(path, overwrite, and_save, recursing, pre_impo
 			case "title":
 				// we have just jumped over a page definition
 				if (title !== null) {
-					if (title.match(/^Special::/) && and_save) {
+					// do not import special/reserved pages
+					if (and_save && (title.match(/^Special::/) || (this.static_pages2.indexOf(title) !== -1) || title.match(/^WoaS::Help::/) )) {
 						++this.wsif.system_pages;
 						title = attrs = last_mod = encoding = len =
 							 boundary = disposition = mime = d_fn = null;
