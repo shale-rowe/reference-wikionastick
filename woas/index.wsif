@@ -66,7 +66,7 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Special::Import
 woas.page.attributes: 0
-woas.page.length: 644
+woas.page.length: 765
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -74,13 +74,15 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 Import a wiki from an early (or current) version:
 
-File: <input id="filename_" type="file" />&nbsp;<input type="button" value="Import" onclick="import_wiki()" />
+File: <input id="filename_" type="file" />&nbsp;<input id="btn_import" type="button" value="Import" onclick="import_wiki()" />
 
 <label for="cb_import_content"><input type="checkbox" id="cb_import_content" checked="checked">&nbsp;Import the wiki pages.</label>
 <label for="cb_import_css"><input type="checkbox" id="cb_import_css">&nbsp;Import also CSS.</label>
 Available only for versions v0.9 and above. /Caution: importing older CSS can garble the layout./
 <label for="cb_import_icons"><input type="checkbox" id="cb_import_icons" disabled="disabled">&nbsp;Import the icons theme (not yet available).</label>
-
+<script type="text/javascript">
+if (!woas.config.permit_edits) $("btn_import").disabled = true;
+</script>
 --DFQRCTsKlU
 woas.page.title: Special::About
 woas.page.attributes: 0
@@ -704,7 +706,7 @@ WoaS project offers an official PHP library (libwsif) for reading/writing WSIF f
 --DFQRCTsKlU
 woas.page.title: Special::ImportWSIF
 woas.page.attributes: 0
-woas.page.length: 843
+woas.page.length: 965
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -712,13 +714,16 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 Import a wiki page (or collection of) in [[WoaS::Help::WSIF|WSIF format]].
 
-File: <input id="filename_" type="file" />&nbsp;<input type="button" value="Import WSIF" onclick="import_wiki_wsif()" />
+File: <input id="filename_" type="file" />&nbsp;<input id="btn_import" type="button" value="Import WSIF" onclick="import_wiki_wsif()" />
 
 <label for="woas_cb_import_overwrite"><input type="checkbox" id="woas_cb_import_overwrite" checked="checked">Overwrite pages with the same title</label>
 == Javascript security
 <label for="woas_cb_import_comment_js"><input type="checkbox" id="woas_cb_import_comment_js" checked="checked">Comment javascript code blocks</label>
 <label for="woas_cb_import_comment_macros"><input type="checkbox" id="woas_cb_import_comment_macros" checked="checked">Comment macro definition and call blocks</label>
 <label for="woas_cb_import_woas_ns"><input type="checkbox" id="woas_cb_import_woas_ns" checked="checked">Skip pages of the [[WoaS::]] namespace</label>
+<script type="text/javascript">
+if (!woas.config.permit_edits) $("btn_import").disabled = true;
+</script>
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Macros
 woas.page.attributes: 0
