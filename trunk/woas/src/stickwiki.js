@@ -1099,10 +1099,18 @@ woas.after_load = function() {
 			$("sw_wiki_header").style.position = "absolute";
 			$("sw_menu_area").style.position = "absolute";
 		}
+		// IE6/7 can't display logo
+		if (this.browser.ie6 || this.browser.ie7) {
+			$.hide("img_logo");
+			// replace with css when capability exists:
+			$("woas_logo").style.width = "1%";
+		}
 	} else {
 		this.setHTML = function(elem, html) {elem.innerHTML = html;};
 		this.getHTML = function(elem) {return elem.innerHTML;};
-//		setup_uri_pics($("img_home"),$("img_back"),$("img_forward"),$("img_edit"),$("img_cancel"),$("img_save"),$("img_advanced"));
+		// everyone else needs a logo; will be better when done in css.
+		$("woas_logo").style.width = "35px";
+		$.show("img_logo");
 	}
 	
 	// (2) show loading message
@@ -1165,9 +1173,10 @@ woas.after_load = function() {
 		if (p != -1)
 			current = current.substring(0,p);
 //		log("current ::= "+current);	//log:0
-	} else {
-		if (!this.config.open_last_page)
-			current = this.config.main_page;
+	} else if (!this.config.open_last_page) {
+		current = this.config.main_page;
+		// don't want backstack if opening main page
+		backstack = [];
 	}
 
 //	this.swcs = $("sw_custom_script");
