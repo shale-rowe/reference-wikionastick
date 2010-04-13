@@ -508,7 +508,6 @@ woas._save_to_file = function(full) {
 	var bak_debug = $("woas_debug_log").value;
 	// clear titles and css as well as they will be set on load.
 	var bak_title = $("wiki_title").innerHTML;
-	var bak_title2 = document.title;
 
 	if (bak_mts_shown)
 		$.hide("wiki_mts");
@@ -518,7 +517,6 @@ woas._save_to_file = function(full) {
 	$("wiki_mts").innerHTML = "";
 	$("woas_debug_log").value = "";
 	$("wiki_title").innerHTML = "";
-	document.title = "";
 
 	this._clear_swcs();
 	this._clear_bs();
@@ -527,7 +525,7 @@ woas._save_to_file = function(full) {
 	var bak_cursor = document.body.style.cursor;
 	document.body.style.cursor = "auto";
 
-	var data = _get_data(__marker, document.documentElement.innerHTML, full);
+	var data = _get_data(__marker, document.documentElement.innerHTML, full, false, safe_current);
 
 	this.setHTML($("woas_wait_text"), bak_wait_text);
 	document.body.style.cursor = bak_cursor;
@@ -554,7 +552,6 @@ woas._save_to_file = function(full) {
 		$.show("wiki_mts");
 	$("woas_debug_log").value = bak_debug;
 	$("wiki_title").innerHTML = bak_title;
-	document.title = bak_title2;
 	
 	this._create_bs();
 	
@@ -564,7 +561,7 @@ woas._save_to_file = function(full) {
 };
 
 var reHeadTagEnd = new RegExp("<\\/"+"head>", "ig");
-function _get_data(marker, source, full, start) {
+function _get_data(marker, source, full, start, current_page) {
 	var offset;
 	// always find the end marker to make the XHTML fixes
 	offset = source.indexOf("/* "+marker+ "-END */");
@@ -586,6 +583,24 @@ function _get_data(marker, source, full, start) {
 		body_ofs = -1;
 	//RFC: does body_ofs ever evaluate to -1?
 	if (body_ofs !== -1) {
+		// fix document title directly without modifying DOM
+		var title_end, title_start = source.indexOf("<"+"title", offset);
+		if (title_start === -1)
+			this.crash("Cannot find document title start tag");
+		else {
+			title_end = source.indexOf("<"+"/title>", title_start);
+			if (title_end === -1)
+				this.crash("Cannot find document title end tag");
+			else {
+				// replace with current page title
+				var new_title = woas.xhtml_encode(current_page);
+				source = source.substring(0, title_start) + "<title>"+
+						new_title
+						+ source.substring(title_end);
+				// update offset accordingly
+				body_ofs += new_title.length + 7 - (title_end - title_start);
+			}
+		}
 		// replace CSS directly without modifying DOM
 		var css_end, css_start = source.indexOf("<"+"style", offset);
 		if (css_start === -1)
