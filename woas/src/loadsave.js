@@ -505,6 +505,14 @@ woas._save_to_file = function(full) {
 	var bak_mts = $("wiki_mts").innerHTML;
 	var bak_mts_shown = $.is_visible("wiki_mts");
 	var bak_wait_text = this.getHTML($("woas_wait_text"));
+	var bak_debug = $("woas_debug_log").value;
+	// clear titles and css as well as they will be set on load.
+	var bak_title = $("wiki_title").innerHTML;
+	var bak_title2 = document.title;
+	
+// @Daniele: don't want css anymore as saved to page.
+// Could just use set_css after, but this might be safer:
+	var bak_script = _css_obj().innerHTML;
 
 	if (bak_mts_shown)
 		$.hide("wiki_mts");
@@ -512,6 +520,17 @@ woas._save_to_file = function(full) {
 	$("wiki_text").innerHTML = "";
 	$("menu_area").innerHTML = "";
 	$("wiki_mts").innerHTML = "";
+	$("woas_debug_log").value = "";
+	$("wiki_title").innerHTML = "";
+	document.title = "";
+	// clear stylesheet
+// @Daniele: obviously we can extract this from set_css at some point.
+// How about load_css for loading from page which calls set_css, as below?
+	if (!this.browser.ie) {
+		_css_obj().innerHTML = "";
+	} else {
+		document.styleSheets[0].cssText = "";
+	}
 
 	this._clear_swcs();
 	this._clear_bs();
@@ -545,7 +564,16 @@ woas._save_to_file = function(full) {
 	$("wiki_mts").innerHTML = bak_mts;
 	if (bak_mts_shown)
 		$.show("wiki_mts");
-	
+	$("woas_debug_log").value = bak_debug;
+	$("wiki_title").innerHTML = bak_title;
+	document.title = bak_title2;
+	// replace stylesheet
+	if (!this.browser.ie) {
+		_css_obj().innerHTML = bak_script;
+	} else {
+		document.styleSheets[0].cssText = bak_script;
+	}
+
 	this._create_bs();
 	
 	this.progress_finish();
