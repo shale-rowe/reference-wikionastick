@@ -3,7 +3,7 @@
 // some tweak settings NOT to be touched - warranty void otherwise
 woas.tweak = {
 	// DANGER: might cause WoaS corruption!
-	"edit_override": true,
+	"edit_override": false,
 	// native WSIF-saving mode used during development - use with CARE!
 	"native_wsif": true,
 	// perform integrity test of browser features
@@ -90,11 +90,11 @@ woas.static_pages = ["Special::About", "Special::Advanced", "Special::Options","
 						"Special::Export", "Special::License", "Special::ExportWSIF",
 						"Special::ImportWSIF", "WoaS::Plugins", "WoaS::CSS::Core",
 						"WoaS::Template::Button", "WoaS::Template::Info",
-						"WoaS::Template::Search"];
+						"WoaS::Template::Search", "WoaS::CSS::Boot"];
 
 woas.static_pages2 = ["WoaS::Plugins", "WoaS::CSS::Core",
 						"WoaS::Template::Button", "WoaS::Template::Info",
-						"WoaS::Template::Search"];
+						"WoaS::Template::Search", "WoaS::CSS::Boot"];
 						
 woas.help_pages = null;
 woas.default_pages = ["::Menu", "WoaS::Bootscript", "WoaS::Aliases", "WoaS::Hotkeys", "WoaS::CSS::Custom"];
