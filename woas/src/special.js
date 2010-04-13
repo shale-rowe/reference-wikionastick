@@ -298,8 +298,8 @@ woas.special_recent_changes = function() {
 		// skip pages with the 'magic' zero timestamp
 		if (page_mts[i] === 0)
 			continue;
-		// skip reserved pages
-		if (this.is_reserved(page_titles[i]))
+		// skip reserved pages which are not editable
+		if (!this.edit_allowed_reserved(page_titles[i]) && this.is_reserved(page_titles[i]))
 			continue;
 		hm.push([i,page_mts[i]]);
 	}
