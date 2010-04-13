@@ -1470,6 +1470,16 @@ woas.edit_allowed = function(page) {
 	// force read-only
 	if (!this.config.permit_edits)
 		return false;
+	if (this.edit_allowed_reserved(page))
+		return true;
+	// page in reserved namespace
+	if (this.is_reserved(page))
+		return false;
+	// page has readonly bit set
+	return !this.is_readonly(page);
+};
+
+woas.edit_allowed_reserved = function(page) {
 	// allow some reserved pages to be directly edited/saved
 	switch (page) {
 		case "WoaS::Bootscript":
@@ -1478,12 +1488,8 @@ woas.edit_allowed = function(page) {
 		case "WoaS::CSS::Custom":
 			return true;
 	}
-	// page in reserved namespace
-	if (this.is_reserved(page))
-		return false;
-	// page has readonly bit set
-	return !this.is_readonly(page);
-};
+	return false;
+}
 
 // setup the title boxes and gets ready to edit text
 woas.current_editing = function(page, disabled) {
@@ -1582,13 +1588,6 @@ woas.valid_title = function(title, renaming) {
 		this.alert(this.i18n.ERR_PAGE_NS);
 		return false;
 	}
-	// allow some reserved pages to be directly edited/saved
-/*	switch (title) {
-		case "WoaS::Bootscript":
-		case "WoaS::Aliases":
-		case "WoaS::Hotkeys":
-			return true;
-	} */
 	var ns = this.get_namespace(title, true);
 	if (ns.length && renaming && this.is_reserved(ns+"::") && !this.tweak.edit_override) {
 		this.alert(this.i18n.ERR_RESERVED_NS.sprintf(ns));
