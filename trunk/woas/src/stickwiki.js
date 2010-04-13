@@ -26,6 +26,9 @@ woas._asto = null;
 // title of page being rendered
 woas.render_title = null;
 
+// used when browsing forward in the page queue
+woas._forward_browse = false;
+
 // the hotkeys runtime object
 woas.hotkeys = {
 	"save":		"s",
@@ -956,9 +959,12 @@ woas.load_as_current = function(title, xhtml, mts) {
 	this.refresh_mts(mts);
 
 	this._set_title(title);
+	if (!this._forward_browse) {
+		history_mem(current);
+		forstack = [];
+	} else this._forward_browse = false;
 	this.update_nav_icons(title);
 	current = title;
-//	log("current ::= "+title);	//log:0
 	this._activate_scripts();
 	
 	return true;
@@ -1182,6 +1188,7 @@ woas.after_load = function() {
 	this._load_hotkeys(this.get_text("WoaS::Hotkeys"));
 
 	this._create_bs();	//moved here to fix bug 1898587
+	this._forward_browse = true; // used to not store backstack
 	this.set_current(current, true);
 	this.refresh_menu_area();
 	// feed the current title before running the disable edit mode code

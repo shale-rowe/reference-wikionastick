@@ -13,15 +13,9 @@ function advanced() {
 
 // follows a link
 function go_to(cr) {
-	if(cr == current)
+	if (cr == current)
 		return true;
-	var _b_current = current;
-	if (woas.set_current(cr, true)) {
-		history_mem(_b_current);
-		forstack = [];
-		return true;
-	}
-	return false;
+	return woas.set_current(cr, true)
 }
 
 function back_or(or_page) {
@@ -33,8 +27,8 @@ function back_or(or_page) {
 function go_back() {
 	if(backstack.length > 0) {
 		forstack.push(current);
-		woas.set_current(backstack.pop(), true);
-		return true;
+		woas._forward_browse = true;
+		return woas.set_current(backstack.pop(), true);
 	}
 	return false;
 }
