@@ -1,7 +1,7 @@
 wsif.version: 1.2.0
 wsif.generator: woas
 woas.version: 0.11.3
-woas.pages: 70
+woas.pages: 71
 
 woas.page.title: ::Menu
 woas.page.attributes: 0
@@ -136,13 +136,14 @@ This project wouldn't be what it is without the help of other people. If you con
 --DFQRCTsKlU
 woas.page.title: Main Page
 woas.page.attributes: 0
-woas.page.length: 37
+woas.page.length: 38
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 A blank sheet is a catalyst for ideas
+
 --DFQRCTsKlU
 woas.page.title: Special::Search
 woas.page.attributes: 0
@@ -3250,4 +3251,67 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 /* Your CSS customization goes here */
+--DFQRCTsKlU
+woas.page.title: WoaS::CSS::Boot
+woas.page.attributes: 0
+woas.page.length: 1199
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+/* CSS used when loading/saving WoaS - readonly */
+body {
+	font-family: Georgia, verdana;
+}
+
+#woas_custom_accesskeys {
+	visibility: hidden;
+	display: none;
+}
+
+#wiki_text {
+	position: relative;
+	left: 15.5%;
+	width: 82.3%;
+	z-index: 0;
+	margin-top: 1.313em;
+	margin-bottom: 0.75em;
+	text-align:justify;
+}
+
+div.wiki_header {
+	top: 0em;
+	left: 0em;
+	border: 1pt solid #aaa;
+	opacity:.65;
+	z-index: 1;
+	width: 99%;
+	padding-right:0.75em;
+}
+
+#loading_overlay {
+	position: absolute;
+	width: 99%;
+	height: 100%;
+	padding-top: 25%;
+	z-index: 100;
+	background-color: white;
+	left: 0em;
+	top: 0em;
+	font-size: large;
+	text-align: center;
+}
+
+.woas_wait_text {
+	color: navy;
+}
+
+.woas_background, #woas_debug_panel, #woas_debug_console, #woas_debug_log,
+#woas_edit_page_title, .woas_editor_button, #woas_pwd_query, #woas_pwd_mask,
+.woas_password_desc,.woas_about_footer,.woas_help_background,.woas_help_button,
+.woas_helpcode,.woas_helptext, .woas_page_mts, div.woas_text_area, .woas_text_area.locked,
+#woas_pwd_mask,.woas_core_page,div.menu,div.menu_area,.woas_menu_button,.title,
+.wiki_preformatted, .woas_nowiki_multiline,div.search_results,div.wiki_toc,p.wiki_toc_title,
+table.woas_text_area,div.taglinks { }
 --DFQRCTsKlU

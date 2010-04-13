@@ -800,6 +800,7 @@ woas.set_current = function (cr, interactive) {
 									case "Bootscript":
 									case "Hotkeys":
 									case "CSS::Core":
+									case "CSS::Boot":
 									case "CSS::Custom":
 										// page is stored plaintext
 										text = "<div class=\"woas_nowiki_multiline woas_core_page\">"+text+"</div>";
