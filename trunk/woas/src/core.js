@@ -3,7 +3,7 @@
 // some tweak settings NOT to be touched - warranty void otherwise
 woas.tweak = {
 	// DANGER: might cause WoaS corruption!
-	"edit_override": false,
+	"edit_override": true,
 	// native WSIF-saving mode used during development - use with CARE!
 	"native_wsif": true,
 	// perform integrity test of browser features
@@ -21,6 +21,8 @@ woas.cmd_duplicate_page = function() {
 	page_attrs[dpi] = page_attrs[pi];	
 	// go to new page
 	go_to(pname);
+	// commit changes
+	this.commit([dpi]);
 };
 
 woas.cmd_new_page = function() {
@@ -37,7 +39,8 @@ woas._new_page = function(msg, fill_mode, def_title) {
 	var title = def_title;
 	do {
 		title = prompt(msg, title);
-		if (title === null) break;
+		if (title === null)
+			break;
 		title = this.trim(title);
 		if (this.valid_title(title))
 			break;
@@ -46,13 +49,11 @@ woas._new_page = function(msg, fill_mode, def_title) {
 		if (this.page_index(title)!=-1)
 			this.alert(this.i18n.PAGE_EXISTS.sprintf(title));
 		else {
-			cr = title;
-			var p = cr.indexOf("::");
-			if (p!=-1) {
-				ns = cr.substring(0,p);
-//				log("namespace of "+cr+" is "+ns);	// log:0
-				cr = cr.substring(p+2);
-			} else ns="";
+			ns = this.get_namespace(title, true);
+			if (ns.length) {
+				ns = ns.substr(0, -2);
+				cr = title.substr(ns.length);
+			} else cr = title;
 			if (!this._create_page(ns, cr, false, fill_mode))
 				return ns+cr;
 			var upd_menu = (cr=='Menu');
