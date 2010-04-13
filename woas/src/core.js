@@ -209,6 +209,11 @@ woas.cmd_go_to = function() {
 };
 
 woas.cmd_delete = function() {
+	// disallow editing when wiki is set to read-only
+	if (!this.config.permit_edits) {
+		this.alert(this.i18n.READ_ONLY);
+		return false;
+	}
 	var pname = prompt(this.i18n.DELETE_PAGE_PROMPT, current);
 	if ((pname === null) || !pname.length)
 		return false;

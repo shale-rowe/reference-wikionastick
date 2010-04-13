@@ -1,5 +1,3 @@
-// Here begins the special pages' code
-
 woas.special_encrypted_pages = function(locked) {
 	var pg = [];
 	for(var i=0,l=pages.length;i<l;i++) {
