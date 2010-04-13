@@ -1664,14 +1664,18 @@ woas.set_css = function(new_css) {
 		new_css = this.FF2_CSS_FIXUP + new_css;
 //	if (this.browser.opera)
 //		new_css = this.OPERA_FIXUP + new_css;
+	this._set_raw_css(new_css);
+};
+
+woas._set_raw_css = function(css) {
 	if (!this.browser.ie) {
-		_css_obj().innerHTML = new_css;
+		_css_obj().innerHTML = css;
 		return;
 	}
 	// IE-only
 	var head=document.getElementsByTagName('head')[0];
 	var sty=document.styleSheets[0];
-	sty.cssText = new_css;
+	sty.cssText = css;
 };
 
 woas.get_raw_content = function() {
