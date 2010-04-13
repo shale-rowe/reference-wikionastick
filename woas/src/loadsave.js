@@ -509,7 +509,6 @@ woas._save_to_file = function(full) {
 	// clear titles and css as well as they will be set on load.
 	var bak_title = $("wiki_title").innerHTML;
 	var bak_title2 = document.title;
-	var bak_css = _css_obj().innerHTML;
 
 	if (bak_mts_shown)
 		$.hide("wiki_mts");
@@ -520,8 +519,6 @@ woas._save_to_file = function(full) {
 	$("woas_debug_log").value = "";
 	$("wiki_title").innerHTML = "";
 	document.title = "";
-	// clear stylesheet
-	this._set_raw_css(this.get_text("WoaS::CSS::Boot"));
 
 	this._clear_swcs();
 	this._clear_bs();
@@ -529,9 +526,9 @@ woas._save_to_file = function(full) {
 	this.setHTML($("woas_wait_text"), "");
 	var bak_cursor = document.body.style.cursor;
 	document.body.style.cursor = "auto";
-	
+
 	var data = _get_data(__marker, document.documentElement.innerHTML, full);
-	
+
 	this.setHTML($("woas_wait_text"), bak_wait_text);
 	document.body.style.cursor = bak_cursor;
 
@@ -558,9 +555,7 @@ woas._save_to_file = function(full) {
 	$("woas_debug_log").value = bak_debug;
 	$("wiki_title").innerHTML = bak_title;
 	document.title = bak_title2;
-	// replace stylesheet
-	this._set_raw_css(bak_css);
-
+	
 	this._create_bs();
 	
 	this.progress_finish();
@@ -568,6 +563,7 @@ woas._save_to_file = function(full) {
 	return r;
 };
 
+var reHeadTagEnd = new RegExp("<\\/"+"head>", "ig");
 function _get_data(marker, source, full, start) {
 	var offset;
 	// always find the end marker to make the XHTML fixes
@@ -578,19 +574,44 @@ function _get_data(marker, source, full, start) {
 	}			
 	offset += 6 + 4 + marker.length + 2;
 	
+	// search for head end tag starting at offset
+	reHeadTagEnd.lastIndex = offset;
+	
+	//RFC: what does below comment mean?
 	// IE ...
-	var body_ofs, s_offset;
-	var re = new RegExp("<\\/"+"head>", "i");
-	var m = re.exec(source);
+	var body_ofs, s_offset, m = reHeadTagEnd.exec(source);
 	if (m !== null)
 		body_ofs = m.index;
 	else
 		body_ofs = -1;
-	if (body_ofs != -1) {
+	//RFC: does body_ofs ever evaluate to -1?
+	if (body_ofs !== -1) {
+		// replace CSS directly without modifying DOM
+		var css_end, css_start = source.indexOf("<"+"style", offset);
+		if (css_start === -1)
+			this.crash("Cannot find CSS style start tag");
+		else {
+			css_end = source.indexOf("<"+"/style>", css_start);
+			if (css_end === -1)
+				this.crash("Cannot find CSS style end tag");
+			else {
+				var boot_css = woas.get_text("WoaS::CSS::Boot"),
+					stStartTag = "<"+"style type=\"text/css\""+">";
+				//woas._customized_popup("test", "<tt>"+woas.xhtml_encode(source.substring(css_start, css_end))+"</tt>", "");
+				// we have found the style tag, replace it
+				source = source.substring(0, css_start) + stStartTag +
+							boot_css
+							+ source.substring(css_end);
+				// update offset
+				body_ofs += boot_css.length + stStartTag.length - (css_end - css_start);
+				delete boot_css;
+			}
+		}
 		// XHTML hotfixes (FF doesn't either save correctly)
+		var l;
 		source = source.substring(0, body_ofs) + source.substring(body_ofs).
 				replace(/<(img|hr|br|input|meta)[^>]*>/gi, function(str, tag) {
-					var l=str.length;
+					l=str.length;
 					if (str.charAt(l-1)!='/')
 						str = str.substr(0, l-1)+" />";
 					return str;
