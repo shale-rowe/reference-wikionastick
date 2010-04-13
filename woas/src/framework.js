@@ -35,9 +35,9 @@ else if(navigator.appName == "Netscape") {
 	} // not Gecko
 } else if((navigator.appName).indexOf("Microsoft")!=-1) {
 	woas.browser.ie = true;
-	woas.browser.ie8 = (navigator.userAgent.search(/msie 8\./i)!=-1);
+	woas.browser.ie8 = document.documentMode ? true : false;
 	if (!woas.browser.ie8)
-		woas.browser.ie6 = (navigator.userAgent.search(/msie 6\./i)!=-1);
+		woas.browser.ie6 = window.XMLHttpRequest ? false : true;
 } else if (navigator.userAgent.indexOf("applewebkit") != -1) {
 	woas.browser.safari = true;
 }
