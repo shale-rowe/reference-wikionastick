@@ -54,7 +54,9 @@ function save() {
 
 woas.help_system = { "popup_window": null, "page_title": null };
 
-// should have a better name
+woas._help_lookup = ["Plugins", "CSS", "Aliases", "Bootscript", "Hotkeys"];
+
+// could have a better name
 function help() {
 	var wanted_page = "WoaS::Help::Index";
 	var pi = woas.page_index(wanted_page);
@@ -63,9 +65,19 @@ function help() {
 		wanted_page = "WoaS::Help::Editing";
 		pi = woas.page_index(wanted_page);
 	} else {
-		var npi = woas.page_index("WoaS::Help::"+current);
+		var htitle = null;
+		// change the target page in some special cases
+		for(var i=0,it=woas._help_lookup.length;i<it;++i) {
+			if (current.substr(0, woas._help_lookup[i].length) === woas._help_lookup[i]) {
+				htitle = woas._help_lookup[i];
+				break;
+			}
+		}
+		if (htitle === null)
+			htitle = current;
+		var npi = woas.page_index("WoaS::Help::"+htitle);
 		if (npi != -1) {
-			wanted_page = "WoaS::Help::"+current;
+			wanted_page = "WoaS::Help::"+htitle;
 			pi = npi;
 		}
 	}
