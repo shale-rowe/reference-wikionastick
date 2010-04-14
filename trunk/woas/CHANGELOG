@@ -1,3 +1,8 @@
+Version 0.11.4 (legolas558) released 2010-04-14
+* fixed import issue
+* renamed CSS classes: wiki_toc -> woas_toc, wiki_toc_title -> woas_toc_title, embedded -> woas_embedded
+* foldable namespace listing is now collapsed by default
+
 Version 0.11.3 (legolas558) released 2010-04-14
 * updated documentation to reflect CSS changes
 * improved remember history option (pvhl,legolas558)
