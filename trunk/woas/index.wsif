@@ -438,7 +438,6 @@ In order to install a plugin, import its WSIF file (see the [[Special::ImportWSI
 --DFQRCTsKlU
 woas.page.title: WoaS History
 woas.page.attributes: 0
-woas.page.last_modified: 1271239121
 woas.page.length: 5387
 woas.page.encoding: ecma/plain
 woas.page.disposition: inline
@@ -2822,7 +2821,7 @@ $BACK              0x8
 --DFQRCTsKlU
 woas.page.title: WoaS::CSS::Core
 woas.page.attributes: 0
-woas.page.length: 9330
+woas.page.length: 9897
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -3163,7 +3162,7 @@ div.search_results {
 /* ------------------------------------------- */
 /* TABLE OF CONTENTS                           */
 /* ------------------------------------------- */
-div.wiki_toc {
+div.woas_toc {
 	border: 1pt dashed #aaa;
 	background-color: #f9f9f9;
 	padding: 0.313em;
@@ -3171,12 +3170,12 @@ div.wiki_toc {
 	font-size: 95%;
 }
 
-div.wiki_toc ol, li {
+div.woas_toc ol, li {
 	margin-left: 1.3em;
 	padding-left: 0em;
 }
 
-p.wiki_toc_title {
+p.woas_toc_title {
 	font-weight: bold;
 	text-align: center;
 }
@@ -3211,9 +3210,25 @@ div.taglinks {
 	clear: both;
 }
 
-/* tag link */
-a.link.tag {
-	color: navy;
+/* STYLED BOXES AROUND TAGS */
+div.taglinks > a {
+	color:navy;
+	background-color:gainsboro;
+	border:2px solid blue;
+	margin:2px 2px 2px 0;
+	padding:3px 5px 3px 5px;
+	text-decoration:none;
+	font-size:90%;
+	line-height:2.4;
+	-moz-border-radius:7px;-webkit-border-radius:7px;border-radius:7px;
+	font-weight:bold;
+}
+
+div.taglinks > a:hover {
+	background-color:grey;
+	color:white;border:2px solid blue;
+	text-decoration:none;
+	font-weight:bold;
 }
 
 /* ------------------------------------------- */
@@ -3237,6 +3252,11 @@ a.link.tag {
 /* ------------------------------------------- */
 .woas_wait_text {
 	color: navy;
+}
+/* ------------------------------------------- */
+/* MISCELLANEOUS                               */
+/* ------------------------------------------- */
+.woas_embedded {
 }
 --DFQRCTsKlU
 woas.page.title: WoaS::CSS::Custom

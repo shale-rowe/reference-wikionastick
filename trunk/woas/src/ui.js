@@ -380,11 +380,11 @@ woas._customized_popup = function(page_title, page_body, additional_js, addition
 	var css_payload = "";
 	if (woas.browser.ie && !woas.browser.ie8) {
 		if (woas.browser.ie6)
-			css_payload = "div.wiki_toc { align: center;}";
+			css_payload = "div.woas_toc { align: center;}";
 		else
-			css_payload = "div.wiki_toc { position: relative; left:25%; right: 25%;}";
+			css_payload = "div.woas_toc { position: relative; left:25%; right: 25%;}";
 	} else
-		css_payload = "div.wiki_toc { margin: 0 auto;}\n";
+		css_payload = "div.woas_toc { margin: 0 auto;}\n";
 	if (additional_js.length)
 		additional_js = woas.raw_js(additional_js);
 	// create the popup
