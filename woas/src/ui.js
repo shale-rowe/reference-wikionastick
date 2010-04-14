@@ -397,15 +397,22 @@ woas._customized_popup = function(page_title, page_body, additional_js, addition
 			css_payload = "div.woas_toc { position: relative; left:25%; right: 25%;}";
 	} else
 		css_payload = "div.woas_toc { margin: 0 auto;}\n";
+	css_payload += woas.css.get() + additional_css;
+	
 	if (additional_js.length)
 		additional_js = woas.raw_js(additional_js);
 	// create the popup
-	return woas.popup("print_popup", Math.ceil(screen.width*0.75),Math.ceil(screen.height*0.75),
-						",status=yes,menubar=yes,resizable=yes,scrollbars=yes",
-						// head
-						"<title>"+page_title+"</title>"+"<st"+"yle type=\"text/css\">"+
-						css_payload+_css_obj().innerHTML+additional_css+"</sty"+"le>"+additional_js,
-						page_body, body_extra);
+	return woas.popup(
+		"print_popup",
+		Math.ceil(screen.width*0.75),
+		Math.ceil(screen.height*0.75),
+		",status=yes,menubar=yes,resizable=yes,scrollbars=yes",
+		// head
+		"<title>" + page_title + "</title>" + "<st" + "yle type=\"text/css\">"
+		+ css_payload + "</sty" + "le>" + additional_js,
+		page_body,
+		body_extra
+	);
 };
 
 // below functions used by Special::Export

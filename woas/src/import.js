@@ -311,7 +311,7 @@ woas.import_wiki = function() {
 				});
 				if (imported_css !== null) {
 					log("Imported "+imported_css.length+" bytes of CSS");	// log:1
-//					this.set_css(css);
+//					this.css.set(css);
 				}
 			} // 0.11.2+, we'll manage CSS import at the page level
 		}
