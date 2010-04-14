@@ -1,4 +1,12 @@
 Version 0.11.3 (legolas558)
+* updated documentation to reflect CSS changes
+* improved remember history option (pvhl,legolas558)
+* logo fixes for IE (pvhl)
+* optimization for CSS during save operation
+* disable import features when WoaS is read-only
+* allow IE8 features when useragent tells it is IE6 (deroock)
+* editable reserved pages not shown in Special::Recentchanges (reported by deroock)
+* fixed direct WoaS import failure (found by littlegirl)
 
 Version 0.11.2 (legolas558,pvhl) released 2010-04-12
 * prospected WSIF datasource options
