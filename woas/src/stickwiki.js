@@ -1238,8 +1238,12 @@ woas.after_load = function() {
 		if (p != -1)
 			current = current.substring(0,p);
 //		log("current ::= "+current);	//log:0
+	} else if (!this.config.open_last_page) {
+		// keep here to fix older/read-only woas; new code has fixed the save.
+		current = this.config.main_page;
+		backstack = [];
 	}
-
+	
 	this._load_aliases(this.get_text("WoaS::Aliases"));
 	this._load_hotkeys(this.get_text("WoaS::Hotkeys"));
 
