@@ -29,11 +29,6 @@ woas.render_title = null;
 // used when browsing forward in the page queue
 woas._forward_browse = false;
 
-// hashmap used to quickly reference some important DOM objects
-woas._dom_cage = {
-				"head":null
-				};
-
 // the hotkeys runtime object
 woas.hotkeys = {
 	"save":		"s",
@@ -47,12 +42,6 @@ woas.hotkeys = {
 woas.cached_default_hotkeys = null;
 woas.custom_accesskeys = [];
 
-// custom scripts array (those defined by current page)
-woas._custom_scripts = [];
-
-// plugin scripts array (those defined by active plugins)
-woas._plugin_scripts = [];
-
 // left and right trim
 woas.trim = function(s) {
 	return s.replace(/(^\s*)|(\s*$)/, '');
@@ -62,6 +51,8 @@ woas.trim = function(s) {
 woas.DOCTYPE = "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\" \"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\">\n";
 woas.DOC_START = "<"+"html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\">\n<head>\n"+
 	"<m"+"eta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\n";
+	
+	
 
 // general javascript-safe string quoting
 // NOTE: not completely binary safe!
@@ -730,7 +721,7 @@ woas.set_current = function (cr, interactive) {
 	var text, namespace, pi;
 	result_pages = [];
 	// eventually remove the previous custom script
-	this._clear_custom_scripts();
+	this._clear_swcs();
 	if (cr.substring(cr.length-2)=="::") {
 		text = this._get_namespace_pages(cr);
 		namespace = cr.substring(0,cr.length-2);
@@ -889,14 +880,16 @@ woas.js_mode = function(cr) {
 	return 1;
 }
 
-woas._clear_custom_scripts = function () {
-	if (!this._custom_scripts.length) return;
-	for(var i=0,it=this._custom_scripts.length;i<it;i++) {
-		// remove the DOM object
-		this._dom_cage.head.removeChild(this._custom_scripts[i]);
+// StickWiki custom scripts array
+woas.swcs = [];
+
+woas._clear_swcs = function () {
+//	setHTML(swcs, "");
+	if (!this.swcs.length) return;
+	for(var i=0;i<this.swcs.length;i++) {
+		document.getElementsByTagName("head")[0].removeChild(this.swcs[i]);
 	}
-	// clear the array
-	this._custom_scripts = [];
+	this.swcs = [];
 };
 
 woas.create_breadcrumb = function(title) {
@@ -919,73 +912,25 @@ woas.create_breadcrumb = function(title) {
 	return s+tmp[tmp.length-1];
 };
 
-// protect custom scripts, Bootscript and Plugins from running when we are saving WoaS
-woas._save_reload = false;
-woas._protect_js_code = function(code) {
-	return "if (!woas._save_reload) {\n" + code + "\n}\n";
-};
-
-woas._mk_active_script = function(code, id, i, is_inline) {
-	var s_elem = document.createElement("script");
-	s_elem.type="text/javascript";
-	s_elem.id = "woas_"+id+"_script_"+i;
-	if (!is_inline)
-		s_elem.src = code;
-	this._dom_cage.head.appendChild(s_elem);
-	if (is_inline)
-		// add the inline code with a protection from re-run which could happen upon saving WoaS
-		woas.setHTML(s_elem, this._protect_js_code(code));
-	return s_elem;
-};
-
-var reJSComments = /^\s*\/\*[\s\S]*?\*\/\s*/g;
-woas._create_bs = function(saving) {
-	// do not run bootscript in safe mode
-	if (this.config.safe_mode)
-		return false;
-	var code=this.get_text("WoaS::Bootscript");
-	if (code===null || !code.length) return false;
-	// remove the comments
-	code = code.replace(reJSComments, '');
-	if (!code.length) return false;
-	if (saving)
-		woas._save_reload = true;
-	_bootscript = this._mk_active_script(this._protect_js_code(code), "plugin", 0, true);
-	if (saving)
-		woas._save_reload = false;
-	return true;
-};
-
-// remove bootscript (when erasing for example)
-woas._clear_bs = function() {
-	if (_bootscript !== null) {
-		this._dom_cage.head.removeChild(_bootscript);
-		_bootscript = null;
-	}
-};
-
-woas._activate_scripts = function(saving) {
+woas._activate_scripts = function() {
 	// add the custom scripts (if any)
 	if (this.parser.script_extension.length) {
-		if (saving)
-			this._save_reload = true;
 //		log(this.parser.script_extension.length + " javascript files/blocks to process");	// log:0
 		var s_elem, is_inline;
 		for (var i=0;i<this.parser.script_extension.length;i++) {
+			s_elem = document.createElement("script");
+			s_elem.type="text/javascript";
+			s_elem.id = "sw_custom_script_"+i;
 			is_inline = new String(typeof(this.parser.script_extension[i]));
 			is_inline = (is_inline.toLowerCase()=="string");
-			s_elem = this._mk_active_script(
-					is_inline ? this.parser.script_extension[i] : this.parser.script_extension[i][0],
-					"custom", i);
-			this._custom_scripts.push(s_elem);
+			if (!is_inline)
+				s_elem.src = this.parser.script_extension[i][0];
+			document.getElementsByTagName("head")[0].appendChild(s_elem);
+			if (is_inline)
+				woas.setHTML(s_elem, this.parser.script_extension[i]);
+			this.swcs.push(s_elem);
 		}
-		if (saving)
-			this._save_reload = false;
 	}
-};
-
-woas._new_plugins = function(new_plugins, saving) {
-	//TODO: create a script object for each new plugin
 };
 
 woas._set_title = function (new_title) {
@@ -1225,9 +1170,6 @@ woas.after_load = function() {
 	
 	// customized keyboard hook
 	document.onkeydown = kbd_hook;
-	
-	// setup some DOM cage objects (read cache)
-	this._dom_cage.head = document.getElementsByTagName("head")[0];
 
 	// Go straight to requested page
 	var qpage=document.location.href.split("?")[1];
@@ -1239,6 +1181,8 @@ woas.after_load = function() {
 			current = current.substring(0,p);
 //		log("current ::= "+current);	//log:0
 	}
+
+//	this.swcs = $("sw_custom_script");
 
 	this._load_aliases(this.get_text("WoaS::Aliases"));
 	this._load_hotkeys(this.get_text("WoaS::Hotkeys"));
@@ -1259,6 +1203,8 @@ woas.after_load = function() {
 	// enable the auto-saver hook
 	if (this.config.cumulative_save && this.config.auto_save)
 		this._asto = setTimeout("_auto_saver(woas)", this.config.auto_save);
+	
+//	this._create_bs();
 	
 	this._editor = new TextAreaSelectionHelper($("woas_editor"));
 	
@@ -1404,6 +1350,35 @@ woas._default_hotkeys = function() {
 
 // call once during code setup to store the current default hotkeys
 woas._default_hotkeys();
+
+var reJSComments = /^\s*\/\*[\s\S]*?\*\/\s*/g;
+
+woas._create_bs = function() {
+	// do not run bootscript in safe mode
+	if (this.config.safe_mode)
+		return false;
+	var s=this.get_text("WoaS::Bootscript");
+	if (s==null || !s.length) return false;
+	// remove the comments
+	s = s.replace(reJSComments, '');
+	if (!s.length) return false;
+	_bootscript = document.createElement("script");
+	_bootscript.type="text/javascript";
+	_bootscript.id = "woas_bootscript";
+	// we have only one head, select it
+	document.getElementsByTagName("head")[0].appendChild(_bootscript);
+	this.setHTML(_bootscript, s);
+	return true;
+};
+
+// remove bootscript (when erasing for example)
+woas._clear_bs = function() {
+	if (_bootscript !== null) {
+		var head = document.getElementsByTagName("head")[0];
+		head.removeChild(_bootscript);
+		_bootscript = null;
+	}
+};
 
 // when the page is resized
 woas._onresize = function() {

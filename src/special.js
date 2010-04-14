@@ -367,14 +367,13 @@ woas.ns_recurse = function(ns_arr, folds, prev_ns) {
 woas.ns_recurse_parse = function(folds, output, prev_ns, recursion, sorted) {
 	var i,it=folds["[pages]"].length,fold_id;
 	if (it != 0) {
-		var vis_css = (it <= 3) ? "visibility: visible" : "visibility: hidden; display:none";
 		fold_id = "fold"+output.fold_no++;
 		++recursion;
 		// disable folding for pages outside namespaces
 		if (prev_ns.length) {
 			output.s += "=".repeat(recursion)+" [[Javascript::$.toggle('"+fold_id+"')|"+prev_ns+"]]";
-			output.s += " [["+prev_ns+"|"+String.fromCharCode(8594)+"]] ("+it+" pages)\n";
-			output.s += "<div style=\""+vis_css+"\" id=\""+fold_id+"\">\n";
+			output.s += " [["+prev_ns+"|"+String.fromCharCode(0x21DD)+"]] ("+it+" pages)\n";
+			output.s += "<div style=\"visibility: visible\" id=\""+fold_id+"\">\n";
 		}
 		if (sorted)
 			folds["[pages]"].sort();

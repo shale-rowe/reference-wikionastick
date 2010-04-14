@@ -1,7 +1,7 @@
 
 // regular expressions used to not mess with title/content strings
 var reRequote = new RegExp(":-"+parse_marker, "g"),
-	reJString = new RegExp("'[^']*'", "g"),
+	reJString = new RegExp("'[^']+'", "g"),
 	reJStringRep = new RegExp(parse_marker+":"+"(\\d+)", "g");
 
 // function used to collect variables
@@ -312,7 +312,7 @@ woas.import_wiki = function() {
 					log("Imported "+imported_css.length+" bytes of CSS");	// log:1
 //					this.set_css(css);
 				}
-			} // 0.11.2+, we'll manage CSS import at the page level
+			} // otherwise we'll manage CSS import at the page level
 		}
 
 		var data = this._extract_src_data(old_marker, ct, true, new_main_page, true);
@@ -367,7 +367,7 @@ woas.import_wiki = function() {
 				}
 				page_names = collected[3+ofs_mp];
 				old_page_attrs = collected[4+ofs_mp];
-				if (old_version===92) {
+				if (old_version==92) {
 					// replace the pre tags with the new nowiki syntax
 					for (i=0;i<page_contents.length;i++) {
 						// page is encrypted, leave it as is

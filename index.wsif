@@ -1,7 +1,7 @@
 wsif.version: 1.2.0
 wsif.generator: woas
 woas.version: 0.11.3
-woas.pages: 74
+woas.pages: 71
 
 woas.page.title: ::Menu
 woas.page.attributes: 0
@@ -138,13 +138,14 @@ This project wouldn't be what it is without the help of other people. If you con
 --DFQRCTsKlU
 woas.page.title: Main Page
 woas.page.attributes: 0
-woas.page.length: 37
+woas.page.length: 38
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 A blank sheet is a catalyst for ideas
+
 --DFQRCTsKlU
 woas.page.title: Special::Search
 woas.page.attributes: 0
@@ -425,17 +426,19 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: WoaS::Plugins
 woas.page.attributes: 0
-woas.page.length: 115
+woas.page.length: 176
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Plugins
-This page contains options for the active WoaS plugins; see [[WoaS::Help::Plugins]] for more information.
+This page contains options for the active WoaS plugins.
+In order to install a plugin, import its WSIF file (see the [[Special::ImportWSIF]] page for more information.
 --DFQRCTsKlU
 woas.page.title: WoaS History
 woas.page.attributes: 0
+woas.page.last_modified: 1271239121
 woas.page.length: 5387
 woas.page.encoding: ecma/plain
 woas.page.disposition: inline
@@ -864,7 +867,7 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Index
 woas.page.attributes: 0
-woas.page.length: 2262
+woas.page.length: 2281
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -881,7 +884,7 @@ When browsing the pages in this Help pop-up, you will find a *Back* button in th
 ** [[WoaS::Help::Security]]
 ** [[WoaS::Help::WSIF]]
 * *Interface*
-** [[WoaS::Help::CSS]]
+** [[WoaS::Help::Edit CSS]]
 ** [[WoaS::Help::Edit the menu]]
 ** [[WoaS::Help::Export]]
 ** [[WoaS::Help::General usage]]
@@ -902,7 +905,7 @@ When browsing the pages in this Help pop-up, you will find a *Back* button in th
 ** [[WoaS::Help::Editing]]
 ** [[WoaS::Help::Special::Advanced]]
 ** [[WoaS::Help::Special::Dead Pages]]
-** [[WoaS::Help::Bootscript]]
+** [[WoaS::Help::Special::Edit Bootscript]]
 ** [[WoaS::Help::Special::Erase Wiki]]
 ** [[WoaS::Help::Special::ExportWSIF]]
 ** [[WoaS::Help::Special::ImportWSIF]]
@@ -943,7 +946,7 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Special::Advanced
 woas.page.attributes: 0
-woas.page.length: 478
+woas.page.length: 497
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -952,8 +955,8 @@ woas.page.boundary: DFQRCTsKlU
 = Advanced
 The Advanced page offers some tools for administration of your wiki. Descriptions are provided, and most of the Special links lead to pages that have individual help available. Below are links to help pages for the ones that don't offer individual help automatically.
 * *Special::Erase Wiki* - See the [[WoaS::Help::Special::Erase Wiki]] page
-* *WoaS::CSS::* - See the [[WoaS::Help::CSS]] page.
-* *Special::Edit Bootscript* - See the [[WoaS::Help::Bootscript]] page.
+* *WoaS::CSS::* - See the [[WoaS::Help::Edit CSS]] page.
+* *Special::Edit Bootscript* - See the [[WoaS::Help::Special::Edit Bootscript]] page.
 
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Special::Erase Wiki
@@ -970,7 +973,7 @@ When you click the *Special::Erase Wiki* link in the Advanced page you can erase
 If you have not given permanent permission to your browser for editing wiki pages, you will receive a security warning when attempting to erase the wiki. If you deny permission to the browser, you will receive a message that saving the file failed. You will be returned to your wiki, but the Main Page will be blank. Reloading the wiki after a failure to save restores WoaS to the previous status.
 
 --DFQRCTsKlU
-woas.page.title: WoaS::Help::CSS
+woas.page.title: WoaS::Help::Edit CSS
 woas.page.attributes: 0
 woas.page.length: 1055
 woas.page.encoding: 8bit/plain
@@ -1001,7 +1004,7 @@ To return to the default settings if you don't like the changes you've made:
 # Click the *Save* icon in the navigation bar to save the changes.
 
 --DFQRCTsKlU
-woas.page.title: WoaS::Help::Bootscript
+woas.page.title: WoaS::Help::Special::Edit Bootscript
 woas.page.attributes: 0
 woas.page.length: 777
 woas.page.encoding: 8bit/plain
@@ -2819,7 +2822,7 @@ $BACK              0x8
 --DFQRCTsKlU
 woas.page.title: WoaS::CSS::Core
 woas.page.attributes: 0
-woas.page.length: 9897
+woas.page.length: 9330
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -3160,7 +3163,7 @@ div.search_results {
 /* ------------------------------------------- */
 /* TABLE OF CONTENTS                           */
 /* ------------------------------------------- */
-div.woas_toc {
+div.wiki_toc {
 	border: 1pt dashed #aaa;
 	background-color: #f9f9f9;
 	padding: 0.313em;
@@ -3168,12 +3171,12 @@ div.woas_toc {
 	font-size: 95%;
 }
 
-div.woas_toc ol, li {
+div.wiki_toc ol, li {
 	margin-left: 1.3em;
 	padding-left: 0em;
 }
 
-p.woas_toc_title {
+p.wiki_toc_title {
 	font-weight: bold;
 	text-align: center;
 }
@@ -3208,25 +3211,9 @@ div.taglinks {
 	clear: both;
 }
 
-/* STYLED BOXES AROUND TAGS */
-div.taglinks > a {
-	color:navy;
-	background-color:gainsboro;
-	border:2px solid blue;
-	margin:2px 2px 2px 0;
-	padding:3px 5px 3px 5px;
-	text-decoration:none;
-	font-size:90%;
-	line-height:2.4;
-	-moz-border-radius:7px;-webkit-border-radius:7px;border-radius:7px;
-	font-weight:bold;
-}
-
-div.taglinks > a:hover {
-	background-color:grey;
-	color:white;border:2px solid blue;
-	text-decoration:none;
-	font-weight:bold;
+/* tag link */
+a.link.tag {
+	color: navy;
 }
 
 /* ------------------------------------------- */
@@ -3250,11 +3237,6 @@ div.taglinks > a:hover {
 /* ------------------------------------------- */
 .woas_wait_text {
 	color: navy;
-}
-/* ------------------------------------------- */
-/* MISCELLANEOUS                               */
-/* ------------------------------------------- */
-.woas_embedded {
 }
 --DFQRCTsKlU
 woas.page.title: WoaS::CSS::Custom
@@ -3329,42 +3311,4 @@ div.wiki_header {
 #woas_pwd_mask,.woas_core_page,div.menu,div.menu_area,.woas_menu_button,.title,
 .wiki_preformatted, .woas_nowiki_multiline,div.search_results,div.wiki_toc,p.wiki_toc_title,
 table.woas_text_area,div.taglinks { }
---DFQRCTsKlU
-woas.page.title: WoaS::Help::Hotkeys
-woas.page.attributes: 0
-woas.page.length: 119
-woas.page.encoding: 8bit/plain
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-= Hotkeys and access keys
-
-You can define key bindings for hotkeys and access keys by editing the *WoaS::Hotkeys* page.
---DFQRCTsKlU
-woas.page.title: WoaS::Help::Plugins
-woas.page.attributes: 0
-woas.page.length: 230
-woas.page.encoding: 8bit/plain
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-= Plugins
-
-All pages of the *WoaS::Plugins::* namespace will be treated as WoaS plugins. Such plugins are executed when loading WoaS and remain active during WoaS usage.
-
-You can share WoaS plugins as WSIF files by exporting them.
---DFQRCTsKlU
-woas.page.title: WoaS::Help::Aliases
-woas.page.attributes: 0
-woas.page.length: 64
-woas.page.encoding: 8bit/plain
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-= Aliases
-
-Aliases are replaceable shortcuts used in wiki links.
 --DFQRCTsKlU
