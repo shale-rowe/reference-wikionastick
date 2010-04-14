@@ -27,7 +27,7 @@ woas.parser.header_replace = function(str, $1, $2) {
 			woas.parser.toc += String("#").repeat(len)+" <a class=\"link\" href=\"#" +
 			woas.parser.header_anchor(header) + "\">" + header + "<\/a>\n";
 		}
-		return "</div><h"+len+" class=\"woas_header\" id=\""+woas.parser.header_anchor(header)+"\">"+header+"</h"+len+"><div class=\"level"+len+"\">";
+		return "</div><h"+len+" class=\"woas_header\" id=\""+woas.parser.header_anchor(header)+"\">"+header+"</h"+len+"><div class=\"woas_level"+len+"\">";
 };
 
 woas.parser.sublist = function (lst, ll, suoro, euoro) {   
@@ -250,9 +250,9 @@ woas.parser.parse = function(text, export_links, js_mode) {
 							if (uri == '#')
 								img = woas.parser.render_error(templname, "#8709");
 							else
-								img = "<img class=\"embedded\" src=\""+uri+"\" alt=\""+img_name+"\" ";
+								img = "<img class=\"woas_embedded\" src=\""+uri+"\" alt=\""+img_name+"\" ";
 						} else
-							img = "<img class=\"embedded\" src=\""+templtext+"\" ";
+							img = "<img class=\"woas_embedded\" src=\""+templtext+"\" ";
 						if (parts.length>1) {
 							img += parts[1];
 							// always add the alt attribute to images
@@ -264,7 +264,7 @@ woas.parser.parse = function(text, export_links, js_mode) {
 						if ((parts.length>1) && (parts[1]=="raw"))
 							snippets.push(decode64(templtext));
 						else
-							snippets.push("<pre class=\"embedded\">"+
+							snippets.push("<pre class=\"woas_embedded\">"+
 									woas.xhtml_encode(decode64(templtext))+"</pre>");
 					}
 					templtext = r;
@@ -537,7 +537,7 @@ woas.parser.parse = function(text, export_links, js_mode) {
 //		this.toc = this.toc.substr(0, this.toc.length-2);
 		// replace the TOC placeholder with the real TOC
 		text = text.replace("<!-- "+parse_marker+":TOC -->",
-				"<div class=\"wiki_toc\"><p class=\"wiki_toc_title\">Table of Contents</p>" +
+				"<div class=\"woas_toc\"><p class=\"woas_toc_title\">Table of Contents</p>" +
 				this.toc.replace(reReapLists, this.parse_lists)
 				/*.replace("\n<", "<") */
 				+ "</div>" );
@@ -571,7 +571,7 @@ woas.parser.parse = function(text, export_links, js_mode) {
 	text = text.replace(reReapTables, this.parse_tables);
 	
 	// cleanup \n after headers and lists
-	text = text.replace(/((<\/h[1-6]><div class="level[1-6]">)|(<\/[uo]l>))(\n+)/g, function (str, $1, $2, $3, trailing_nl) {
+	text = text.replace(/((<\/h[1-6]><div class="woas_level[1-6]">)|(<\/[uo]l>))(\n+)/g, function (str, $1, $2, $3, trailing_nl) {
 		if (trailing_nl.length>2)
 			return $1+trailing_nl.substr(2);
 		return $1;
@@ -618,10 +618,10 @@ woas.parser.parse = function(text, export_links, js_mode) {
 			s = "<div class=\"taglinks\">";
 		s += "Tags: ";
 		for(var i=0;i<tags.length-1;i++) {
-			s+="<a class=\"link tag\" onclick=\"go_to('Tagged::"+woas.js_encode(tags[i])+"')\">"+tags[i]+"</a>&nbsp;&nbsp;";
+			s+="<a class=\"link\" onclick=\"go_to('Tagged::"+woas.js_encode(tags[i])+"')\">"+tags[i]+"</a>&nbsp;&nbsp;";
 		}
 		if (tags.length>0)
-			s+="<a class=\"link tag\" onclick=\"go_to('Tagged::"+woas.js_encode(tags[tags.length-1])+"')\">"+tags[tags.length-1]+"</a>";
+			s+="<a class=\"link\" onclick=\"go_to('Tagged::"+woas.js_encode(tags[tags.length-1])+"')\">"+tags[tags.length-1]+"</a>";
 		if (!this.force_inline) {
 			s+="</div>";
 			text += s;
@@ -641,7 +641,7 @@ woas.parser.parse = function(text, export_links, js_mode) {
 	woas.macro_parser.macro_functions = backup_macro_f;
 		
 	if (text.substring(0,5)!="</div")
-		return "<div class=\"level0\">" + text + "</div>";
+		return "<div class=\"woas_level0\">" + text + "</div>";
 	return text.substring(6)+"</div>";
 };
 
