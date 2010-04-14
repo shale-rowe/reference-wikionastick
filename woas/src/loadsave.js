@@ -518,7 +518,7 @@ woas._save_to_file = function(full) {
 	$("woas_debug_log").value = "";
 	$("wiki_title").innerHTML = "";
 
-	this._clear_swcs();
+	this._clear_custom_scripts();
 	this._clear_bs();
 
 	this.setHTML($("woas_wait_text"), "");
@@ -553,7 +553,8 @@ woas._save_to_file = function(full) {
 	$("woas_debug_log").value = bak_debug;
 	$("wiki_title").innerHTML = bak_title;
 	
-	this._create_bs();
+	this._create_bs(true);
+	this._activate_scripts(true);
 	
 	this.progress_finish();
 	
