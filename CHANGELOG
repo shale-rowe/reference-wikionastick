@@ -1,47 +1,5 @@
-Version 0.11.4 (legolas558) released 2010-04-14
-* fixed import issue
-* renamed CSS classes: wiki_toc -> woas_toc, wiki_toc_title -> woas_toc_title, embedded -> woas_embedded
-* foldable namespace listing is now collapsed by default
-
-Version 0.11.3 (legolas558) released 2010-04-14
-* updated documentation to reflect CSS changes
-* improved remember history option (pvhl,legolas558)
-* logo fixes for IE (pvhl)
-* optimization for CSS during save operation
-* disable import features when WoaS is read-only
-* allow IE8 features when useragent tells it is IE6 (deroock)
-* editable reserved pages not shown in Special::Recentchanges (reported by deroock)
-* fixed direct WoaS import failure (found by littlegirl)
-
-Version 0.11.2 (legolas558,pvhl) released 2010-04-12
-* prospected WSIF datasource options
-* fixed main page auto-override bug
-* fixed 'Special::Go to' glitches
-* fixed double-edit bug when editing some special pages
-* added background color for core pages
-* fixed bug which allowed deletion of reserved pages
-* renamed all CSS classes to have 'woas_' prefix
-* implemented safe mode option
-* fixed native WSIF mode when running from webserver
-* fixed issue 2980936 namespaces not being transcluded (reported by littlegirl)
-* fixed issue 2981069 glitch when editing menu (reported by deroock)
-* fixed WSIF import issue with WoaS:: pages
-* configurable and custom access keys
-* preliminary support for section anchors in querystring page requests
-* fixed import issue related to 'var' declarations inside content pages (found by deroock)
-* converted source code from array notation to dot notation (pvhl)
-* fixed help pages browsing issue with IE (deroock)
-* some optimizations/bugfixes (pvhl)
-
-Version 0.11.1 (legolas558) released 2010-03-26
+Version 0.11.1 (legolas558)
 * added 'wsif.generator' header to generated WSIF files
-* fixed bugs 2975523, 2969920 regarding Include::Image:: wiki links (reported by sonofdog, brianedwards9)
-* fixed title restore glitches when exiting edit mode
-* fixed bug 2976153 renaming a page fails (reported by d6095t)
-* fixed bugs 2968654,2976459 javascript error when retrieving local filename in IE (reported by deroock, KHS)
-* fixed bug 2976695 special pages being shown in most special listings (reported by deroock)
-* fixed bug 2976719 set key and help icons don't fail gracefully in IE6 (reported by d6095t)
-* added internationalization for "Editing" string shown in title when editing a page
 
 Version 0.11.0 (legolas558) released 2010-03-13
 * fixed import/save issues with IE (2968654, reported by KHS)

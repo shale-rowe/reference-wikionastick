@@ -1,7 +1,7 @@
 // this file contains API for the data layer abstraction
 
 // private function used during development for page contents versioning
-woas._native_save = function(plist) {
+woas["_native_save"] = function(plist) {
 	// if we have a native sub-path, trigger the native WSIF data export
 	if (!this.tweak.native_wsif)
 		return;
@@ -13,39 +13,39 @@ woas._native_save = function(plist) {
 	done = this._native_wsif_save(woas.ROOT_DIRECTORY,	true, true, "", true);
 
 	log("saved "+done+" pages natively"); // log:1
-};
+}
 
 //API1.0: save all pages
-woas.full_commit = function() {
+woas["full_commit"] = function() {
 	this._native_save();
 	return this._save_to_file(true);
-};
+}
 
 //API1.0: save WoaS configuration
-woas.cfg_commit = function() {
+woas["cfg_commit"] = function() {
 	return this._save_to_file(false);
-};
+}
 
 //API1.0: save specific list of pages
 // plist is a list of page indexes which need to be saved
-woas.commit = function(plist) {
+woas["commit"] = function(plist) {
 	this._native_save(plist);
 	// performs full save, while the single page + global header could be saved instead
 	return this._save_to_file(true);
-};
+}
 
 //API1.0: delete specific list of pages
 // plist is a list of page indexes which need to be saved (not allowed to be empty)
-woas.commit_delete = function(plist) {
+woas["commit_delete"] = function(plist) {
 	// update only the native WSIF index (leaves back deleted pages)
 	this._native_save([]);
 	// performs full save, while the single page + global header could be saved instead
 	return this._save_to_file(true);
-};
+}
 
 //API1.0: event called after some page is being saved
 // plist can be undefined if all pages were saved
-woas.after_pages_saved = function(plist) {
+woas["after_pages_saved"] = function(plist) {
 	// we assume that everything was saved
 	if (typeof plist == "undefined") {
 		this.save_queue = [];
@@ -57,9 +57,9 @@ woas.after_pages_saved = function(plist) {
 		if (p != -1)
 			this.save_queue = this.save_queue.slice(0,p).concat(this.save_queue.slice(p+1));
 	}
-};
+}
 
 //API1.0: event called when the config was successfully saved
-woas.after_config_saved = function() {
+woas["after_config_saved"] = function() {
 	cfg_changed = false;
-};
+}

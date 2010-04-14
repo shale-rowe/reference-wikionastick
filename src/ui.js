@@ -13,9 +13,13 @@ function advanced() {
 
 // follows a link
 function go_to(cr) {
-	if (cr == current)
-		return true;
-	return woas.set_current(cr, true)
+	if(cr == current)
+		return;
+	var _b_current = current;
+	if (woas.set_current(cr, true)) {
+		history_mem(_b_current);
+		forstack = [];
+	}
 }
 
 function back_or(or_page) {
@@ -27,8 +31,8 @@ function back_or(or_page) {
 function go_back() {
 	if(backstack.length > 0) {
 		forstack.push(current);
-		woas._forward_browse = true;
-		return woas.set_current(backstack.pop(), true);
+		woas.set_current(backstack.pop(), true);
+		return true;
 	}
 	return false;
 }
@@ -52,11 +56,9 @@ function save() {
 	woas.save();
 }
 
-woas.help_system = { "popup_window": null, "page_title": null };
+woas["help_system"] = { "popup_window": null, "page_title": null };
 
-woas._help_lookup = ["Plugins", "CSS", "Aliases", "Bootscript", "Hotkeys"];
-
-// could have a better name
+// should have a better name
 function help() {
 	var wanted_page = "WoaS::Help::Index";
 	var pi = woas.page_index(wanted_page);
@@ -65,26 +67,16 @@ function help() {
 		wanted_page = "WoaS::Help::Editing";
 		pi = woas.page_index(wanted_page);
 	} else {
-		var htitle = null;
-		// change the target page in some special cases
-		for(var i=0,it=woas._help_lookup.length;i<it;++i) {
-			if (current.substr(0, woas._help_lookup[i].length) === woas._help_lookup[i]) {
-				htitle = woas._help_lookup[i];
-				break;
-			}
-		}
-		if (htitle === null)
-			htitle = current;
-		var npi = woas.page_index("WoaS::Help::"+htitle);
+		var npi = woas.page_index("WoaS::Help::"+current);
 		if (npi != -1) {
-			wanted_page = "WoaS::Help::"+htitle;
+			wanted_page = "WoaS::Help::"+current;
 			pi = npi;
 		}
 	}
 	woas.help_system.go_to(wanted_page, pi);
 }
 
-woas.help_system.go_to = function(wanted_page, pi) {
+woas["help_system"]["go_to"] = function(wanted_page, pi) {
 	if (typeof pi == "undefined")
 		pi = woas.page_index(wanted_page);
 	var text;
@@ -104,13 +96,12 @@ woas.help_system.go_to = function(wanted_page, pi) {
 			"", " class=\"woas_help_background\"");
 	} else { // hotfix the page
 		woas.help_system.popup_window.document.title = wanted_page;
-		// works also with IE
-		woas.help_system.popup_window.document.body.innerHTML = woas.parser.parse(
-			"[[Include::WoaS::Template::Button|Back|scrollTo(0,0);history.go(0)]]\n"+text);
+		woas.setHTML(woas.help_system.popup_window.document.body, woas.parser.parse(
+		"[[Include::WoaS::Template::Button|Back|scrollTo(0,0);history.go(0)]]\n"+text));
 		woas.help_system.popup_window.scrollTo(0,0);
 	}
 	woas.help_system.page_title = wanted_page;
-};
+}
 
 // when edit is clicked
 //DEPRECATED
@@ -186,8 +177,8 @@ function menu_do_search() {
 }
 
 function _raw_do_search(str) {
-	cached_search = woas.parser.parse(woas.special_search( str ));
-	woas.assert_current("Special::Search");
+       cached_search = woas.parser.parse(woas.special_search( str ));
+       woas.assert_current("Special::Search");
 }
 
 // Used by Special::Search
@@ -290,35 +281,37 @@ function _hex_col(tone) {
 	//length of the password
 	var pwlength=pw.length;
 	
-	if (pwlength!==0) {
+	if (pwlength!=0) {
 
 	//use of numbers in the password
 	  var numnumeric = pw.match(/[0-9]/g);
-	  var numeric=(numnumeric!==null)?numnumeric.length/pwlength:0;
+	  var numeric=(numnumeric!=null)?numnumeric.length/pwlength:0;
 
 	//use of symbols in the password
 	  var symbols = pw.match(/\W/g);
-	  var numsymbols= (symbols!==null)?symbols.length/pwlength:0;
+	  var numsymbols= (symbols!=null)?symbols.length/pwlength:0;
 
 	//use of uppercase in the password
 	  var numupper = pw.match(/[^A-Z]/g);
-	  var upper=numupper!==null?numupper.length/pwlength:0;
+	  var upper=numupper!=null?numupper.length/pwlength:0;
 	// end of modified code from Mozilla
 	
 	var numlower = pw.match(/[^a-z]/g);
-	var lower = numlower!==null?numlower.length/pwlength:0;
+	var lower = numlower!=null?numlower.length/pwlength:0;
 	
 	var u_lo = upper+lower;
+
+	//   var pwstrength=((pwlength*10)-20) + (numeric*10) + (numsymbols*15) + (upper*10);
 	  
-	// 80% of security defined by length (at least 16, best 22 chars), 10% by symbols, 5% by numeric presence and 5% by upper case presence
-	var pwstrength = ((pwlength/18) * 65) + (numsymbols * 10 + u_lo*20 + numeric*5);
-	
-	var repco = woas.split_bytes(pw).toUnique().length/pwlength;
-	if (repco<0.8)
-		pwstrength *= (repco+0.2);
+		// 80% of security defined by length (at least 16, best 22 chars), 10% by symbols, 5% by numeric presence and 5% by upper case presence
+		var pwstrength = ((pwlength/18) * 65) + (numsymbols * 10 + u_lo*20 + numeric*5);
+		
+		var repco = woas.split_bytes(pw).toUnique().length/pwlength;
+		if (repco<0.8)
+			pwstrength *= (repco+0.2);
 //		log("pwstrength = "+(pwstrength/100).toFixed(2)+", repco = "+repco);	// log:1
 	} else
-		pwstrength = 0;
+		var pwstrength = 0;
   
 	if (pwstrength>100)
 		color = "#00FF00";
@@ -334,7 +327,7 @@ function _hex_col(tone) {
 // used by embedded file show page
 function show_full_file(pi) {
 	var text = woas.get__text(pi);
-	if (text===null)
+	if (text==null)
 		return;
 	// put WoaS in loading mode
 	woas.progress_init("Loading full file");
@@ -388,17 +381,17 @@ function page_print() {
 			"function go_to(page) { alert(\""+woas.js_encode(woas.i18n.PRINT_MODE_WARN)+"\");}");
 }
 
-woas._customized_popup = function(page_title, page_body, additional_js, additional_css, body_extra) {
+woas["_customized_popup"] = function(page_title, page_body, additional_js, additional_css, body_extra) {
 	var css_payload = "";
 	if (woas.browser.ie && !woas.browser.ie8) {
 		if (woas.browser.ie6)
-			css_payload = "div.woas_toc { align: center;}";
+			css_payload = "div.wiki_toc { align: center;}";
 		else
-			css_payload = "div.woas_toc { position: relative; left:25%; right: 25%;}";
+			css_payload = "div.wiki_toc { position: relative; left:25%; right: 25%;}";
 	} else
-		css_payload = "div.woas_toc { margin: 0 auto;}\n";
+		css_payload = "div.wiki_toc { margin: 0 auto;}\n";
 	if (additional_js.length)
-		additional_js = woas.raw_js(additional_js);
+		additional_js = woas.raw_js(additional_js)
 	// create the popup
 	return woas.popup("print_popup", Math.ceil(screen.width*0.75),Math.ceil(screen.height*0.75),
 						",status=yes,menubar=yes,resizable=yes,scrollbars=yes",
@@ -406,11 +399,11 @@ woas._customized_popup = function(page_title, page_body, additional_js, addition
 						"<title>"+page_title+"</title>"+"<st"+"yle type=\"text/css\">"+
 						css_payload+_css_obj().innerHTML+additional_css+"</sty"+"le>"+additional_js,
 						page_body, body_extra);
-};
+}
 
 // below functions used by Special::Export
 
-woas.export_wiki_wsif = function () {
+woas["export_wiki_wsif"] = function () {
 	var path, author, single_wsif, inline_wsif;
 	try {
 		path = $("woas_ep_wsif").value;
@@ -423,7 +416,7 @@ woas.export_wiki_wsif = function () {
 
 	this.alert(this.i18n.EXPORT_OK.sprintf(done, this.wsif.expected_pages));
 	return true;
-};
+}
 
 // workaround to get full file path on FF3
 // by Chris
@@ -439,7 +432,7 @@ function ff3_getPath(fileBrowser) {
 	    return false;
 	}
 	var fileName=fileBrowser.value;
-	return fileName;
+	return fileName
 }
 
 function import_wiki_wsif() {
@@ -452,7 +445,7 @@ function import_wiki_wsif() {
 	// grab settings
 	_wsif_js_sec.comment_js = $("woas_cb_import_comment_js").checked;
 	_wsif_js_sec.comment_macros = $("woas_cb_import_comment_macros").checked;
-	_wsif_js_sec.woas_ns = $("woas_cb_import_woas_ns").checked;
+	_wsif_js_sec.comment_woas_ns = $("woas_cb_import_woas_ns").checked;
 	// automatically retrieve the filename (calls load_file())
 	done = woas._native_wsif_load(null, $("woas_cb_import_overwrite").checked, true, false,
 			_import_wsif_pre_hook);
@@ -470,7 +463,7 @@ function import_wiki_wsif() {
 }
 
 // create a centered popup given some options
-woas.popup = function(name,fw,fh,extra,head,body, body_extra) {
+woas["popup"] = function(name,fw,fh,extra,head,body, body_extra) {
 	if (typeof body_extra == "undefined")
 		body_extra = "";
 	var hpos=Math.ceil((screen.width-fw)/2);
@@ -482,22 +475,22 @@ woas.popup = function(name,fw,fh,extra,head,body, body_extra) {
 						body+"</bod"+"y></h"+"tml>\n");
 	wnd.document.close();
 	return wnd;
-};
+}
 
 // tell user how much work was already done
-woas.progress_status = function (ratio) {
+woas["progress_status"] = function (ratio) {
 	this.setHTML($("woas_wait_text"), this._progress_section + "\n" +
 				Math.ceil(ratio*100)+"% done");
-};
+}
 
 // used to debug progress indicators
-woas._progress_section = false;
+woas["_progress_section"] = false;
 
 // reset progress indicator
-woas.progress_init = function(section) {
+woas["progress_init"] = function(section) {
 	if (this._progress_section !== false) {
 		this.crash("Progress indicator already started for "+this._progress_section+
-					", will not start a new one for "+section);
+					", will not start a new one for "+section)
 		return;
 	}
 	this._progress_section = section;
@@ -509,9 +502,9 @@ woas.progress_init = function(section) {
 	// put in busy mode and block interaction for a while
 	$.show("loading_overlay");
 	$("loading_overlay").focus();
-};
+}
 
-woas.progress_finish = function(section) {
+woas["progress_finish"] = function(section) {
 	if (this._progress_section === false) {
 		this.crash("Cannot finish an unexisting progress indicator section");
 		return;
@@ -520,7 +513,7 @@ woas.progress_finish = function(section) {
 	document.body.style.cursor = "auto";
 	this.setHTML($("woas_wait_text"), this.i18n.LOADING);
 	this._progress_section = false;
-};
+}
 
 function clear_search() {
 	$("string_to_search").value = "";
@@ -529,55 +522,4 @@ function clear_search() {
 		return;
 	cached_search = "";
 	woas.assert_current("Special::Search");
-}
-
-function search_focus(focused) {
-	search_focused = focused;
-	if (!focused)
-		ff_fix_focus();
-}
-
-function custom_focus(focused) {
-	_custom_focus = focused;
-	if (!focused)
-		ff_fix_focus();
-}
-
-// set to true when inside an edit textarea
-var kbd_hooking=false;
-
-function kbd_hook(orig_e) {
-	if (!orig_e)
-		e = window.event;
-	else
-		e = orig_e;
-		
-	if (!kbd_hooking) {
-		if (_custom_focus)
-			return orig_e;
-		if (search_focused) {
-			// return key
-			if (e.keyCode==13) {
-				ff_fix_focus();
-				do_search();
-				return false;
-			}
-			return orig_e;
-		}
-		// back or cancel keys
-		if ((e.keyCode==woas.hotkeys.back) || (e.keyCode==woas.hotkeys.cancel)) {
-			go_back();
-			ff_fix_focus();
-			return false;
-		}
-	}
-
-	// escape
-	if (e.keyCode==woas.hotkeys.cancel) {
-		cancel();
-		ff_fix_focus();
-		return false;
-	}
-
-	return orig_e;
 }

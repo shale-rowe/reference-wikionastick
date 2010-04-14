@@ -1,7 +1,6 @@
 
-// pvhl proposes to use a version property to identify more easily the browser version
-// it seems a bit excessive for now
-woas.browser = { ie: false, ie6: false, ie8: false,
+//TODO: all variables should stay inside this object
+woas["browser"] = { ie: false, ie6: false, ie8: false,
 					firefox: false, firefox2: false,
 					firefox3: false, firefox_new: false,
 					opera: false, safari: false,
@@ -36,17 +35,17 @@ else if(navigator.appName == "Netscape") {
 	} // not Gecko
 } else if((navigator.appName).indexOf("Microsoft")!=-1) {
 	woas.browser.ie = true;
-	woas.browser.ie8 = document.documentMode ? true : false;
+	woas.browser.ie8 = (navigator.userAgent.search(/msie 8\./i)!=-1);
 	if (!woas.browser.ie8)
-		woas.browser.ie6 = window.XMLHttpRequest ? false : true;
+		woas.browser.ie6 = (navigator.userAgent.search(/msie 6\./i)!=-1);
 } else if (navigator.userAgent.indexOf("applewebkit") != -1) {
 	woas.browser.safari = true;
 }
 
 // finds out if Opera is trying to look like Mozilla
 if (woas.browser.firefox && (navigator.product != "Gecko"))
-	woas.browser.firefox = woas.browser.firefox2
-	= woas.browser.firefox3 = woas.browser.firefox_new = false;
+	woas.browser.firefox = woas.browser.firefox2 = woas.browser.firefox3
+							woas.browser.firefox_new = false;
 
 // finds out if Opera is trying to look like IE
 if (woas.browser.ie && woas.browser.opera)
@@ -54,10 +53,10 @@ if (woas.browser.ie && woas.browser.opera)
 
 var is_windows = (navigator.appVersion.toLowerCase().indexOf("windows")!=-1);
 
-woas._server_mode = (document.location.toString().match(/^file:\/\//) ? false:true);
+woas["_server_mode"] = (document.location.toString().match(/^file:\/\//) ? false:true);
 
 // set to true if we need Java-based file load/save
-woas.use_java_io = woas.browser.chrome || woas.browser.opera || woas.browser.safari;
+woas["use_java_io"] = woas.browser.chrome || woas.browser.opera || woas.browser.safari;
 
 // returns the DOM element object given its id - enables a try/catch mode when debugging
 if (woas.config.debug_mode) {
@@ -68,53 +67,53 @@ if (woas.config.debug_mode) {
 	function $(id){return document.getElementById(id);}
 }
 
-$.hide = function(id) {
+$["hide"] = function(id) {
 	$(id).style.display = "none";
 	$(id).style.visibility = "hidden";
-};
+}
 
-$.show = function(id) {
+$["show"] = function(id) {
 	$(id).style.display = "inline";
 	$(id).style.visibility = "visible";
-};
+}
 
-$.hide_ni = function(id) {
+$["hide_ni"] = function(id) {
 	$(id).style.visibility = "hidden";
-};
+}
 
-$.show_ni = function(id) {
+$["show_ni"] = function(id) {
 	$(id).style.visibility = "visible";
-};
+}
 
-$.is_visible = function(id) {
+$["is_visible"] = function(id) {
 	return !!($(id).style.visibility == 'visible');
-};
+}
 
-$.toggle = function(id) {
+$["toggle"] = function(id) {
 	if ($.is_visible(id))
 		$.hide(id);
 	else
 		$.show(id);
-};
+}
 
-$.clone = function(obj) {
+$["clone"] = function(obj) {
 	var nobj = {};
 	for (var i in obj) {
 		nobj[i] = obj[i];
 	}
 	return nobj;
-};
+}
 
 // logging function has not to be in WoaS object
 var log;
 if (woas.config.debug_mode) {
 	// logging function - used in development
 	log = function (aMessage) {
-	    var logbox = $("woas_debug_log");
+	    var logbox = $("woas_log");
 	    // count lines
 		nls = logbox.value.match(/\n/g);
 		// log maximum 1024 lines
-		if (nls!=null && typeof(nls)==='object' && nls.length>1024)
+		if (nls!=null && typeof(nls)=='object' && nls.length>1024)
 			logbox.value = "";
 		logbox.value += aMessage + "\n";
 		if(window.opera)
@@ -128,7 +127,7 @@ if (woas.config.debug_mode) {
 if (typeof Array.prototype.push == "undefined") {
   Array.prototype.push = function(str) {
     this[this.length] = str;
-  };
+  }
 }
 
 // the following methods complete the Array object for non-compliant browsers
@@ -145,7 +144,7 @@ if (typeof Array.prototype.splice == "undefined") {
       this[this.length] = temp[i];
     }
     return this;
-  };
+  }
 }
 
 if (typeof Array.prototype.indexOf == "undefined") {
@@ -154,7 +153,7 @@ if (typeof Array.prototype.indexOf == "undefined") {
 		for (var index = fromIndex,len = this.length; index < len; index++)
 			if (this[index] == val) return index;
 		return -1;
-	};
+	}
 }
 
 // implements a custom function which returns an array with unique elements - deprecated
@@ -162,7 +161,7 @@ Array.prototype.toUnique = function() {
 	var a_o = {}, new_arr = [];
 	var l=this.length;
 	for(var i=0; i<l;i++) {
-		if (a_o[this[i]]===undefined) {
+		if (a_o[this[i]]==null) {
 			a_o[this[i]] = true;
 			new_arr.push(this[i]);
 		}
@@ -170,7 +169,7 @@ Array.prototype.toUnique = function() {
 	if (new_arr.length!=l)
 		return new_arr;
 	return this;
-};
+}
 
 // provide regex escaping
 // thanks to S.Willison
@@ -182,7 +181,7 @@ RegExp.escape = function(text) {
     );
   }
   return text.replace(arguments.callee.sRE, '\\$1');
-};
+}
 
 // repeat string s for n times
  if (typeof String.prototype.repeat == "undefined") {
@@ -190,7 +189,7 @@ RegExp.escape = function(text) {
 		var r = "";
 		while (--n >= 0) r += this;
 		return r;
-	};
+	}
 }
 
 // return a random integer given the maximum value (scale)
@@ -237,7 +236,7 @@ String.prototype.sprintf = function() {
 		// return '%s' string
 		return fmt_args[i_pos++];
 	});
-};
+}
 
 // get filename of currently open file in browser
 function _get_this_filename() {
@@ -266,10 +265,4 @@ function _get_this_filename() {
 		}
 	}
 	return filename;
-}
-
-function ff_fix_focus() {
-//runtime fix for Firefox bug 374786
-	if (woas.browser.firefox)
-		$("wiki_text").blur();
 }

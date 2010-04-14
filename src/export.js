@@ -8,18 +8,18 @@ var _export_fnames_array = [];
 var _further_pages = [];
 
 // save a base64 data: stream into an external file
-woas._b64_export = function(data, dest_path) {
+woas["_b64_export"] = function(data, dest_path) {
 	// decode the base64-encoded data
 	data = decode64(data.replace(/^data:\s*[^;]*;\s*base64,\s*/, ''));
 	// attempt to save the file
 	return this.save_file(dest_path, this.file_mode.BINARY, data);
-};
+}
 
-woas._attrib_escape = function(s) {
+woas["_attrib_escape"] = function(s) {
 	return s.replace(/"/g, '&quot;');
-};
+}
 
-woas._export_get_fname = function (title, create_mode) {
+woas["_export_get_fname"] = function (title, create_mode) {
 	if (typeof(_title2fn[title]) != 'undefined') {
 		// return a cached title
 		if (!create_mode) {
@@ -50,13 +50,12 @@ woas._export_get_fname = function (title, create_mode) {
 			return "#";
 		}
 	}
-	var pi;
 	if (sp) {
 		// save a reference to this namespace or reserved page
 		if (_further_pages.indexOf(title)==-1)
 			_further_pages.push(title);
 	} else {
-		pi=this.page_index(title);
+		var pi=this.page_index(title);
 		if (pi==-1) {
 			this.alert(this.i18n.PAGE_NOT_EXISTS+title);
 			_title2fn[title] = "#";
@@ -85,16 +84,14 @@ woas._export_get_fname = function (title, create_mode) {
 	.replace(/[^\u0000-\u007F]+/g, function ($1) {
 		var l=$1.length, r="";
 		for(var i=0;i<l;i++) {
-			/*switch ($1[i]) {
+			switch ($1[i]) {
 				// TODO: add most common diacritics
 				case "\u00e2":
 					r+="a";
 					break;
 				default:
 					r+="_";
-			}*/
-			// until that day ...
-			r += ($1[i] == "\u00e2") ? "a" : "_";
+			}
 		}
 		return r;
 	})
@@ -118,9 +115,9 @@ woas._export_get_fname = function (title, create_mode) {
 	if (!create_mode)
 		return escape(test_fname);
 	return test_fname;
-};
+}
 
-woas.export_parse = function (data, js_mode) {
+woas["export_parse"] = function (data, js_mode) {
 	// a normal wiki page, parse it and eventually execute the attached javascript
 	data = this.parser.parse(data, true, js_mode);
 	if (js_mode) {
@@ -130,9 +127,9 @@ woas.export_parse = function (data, js_mode) {
 		data = wt.innerHTML;
 	}
 	return data;
-};
+}
 
-woas.export_one_page = function (
+woas["export_one_page"] = function (
 		data, title, fname, exp, mts) {
 	// convert UTF8 sequences of the XHTML source into &#dddd; sequences
 	data = this.utf8_encode(data);
@@ -140,14 +137,14 @@ woas.export_one_page = function (
 	var raw_text = this.trim(this.xhtml_to_text(data));
 	if (exp.exp_menus) {
 		var _exp_menu = this.get_text("::Menu");
-		if (_exp_menu === null)
+		if (_exp_menu == null)
 			_exp_menu = "";
 		var _ns = this.get_namespace(title);
 			if (_ns.length) {
 				var mpi = this.page_index(_ns+"::Menu");
 				if (mpi != -1) {
 					var tmp=this.get_text_special(_ns+"::Menu");
-					if (tmp!==null)
+					if (tmp!=null)
 						_exp_menu += tmp;
 				}
 			}
@@ -178,68 +175,63 @@ woas.export_one_page = function (
 		(mts ? "<div class=\"woas_page_mts\">"+this.last_modified(mts)+"</div>" : "")+
 		"</bod"+"y></h"+"tml>\n"; raw_text = null;
 	return this.save_file(exp.xhtml_path+fname, this.file_mode.ASCII, woas.DOCTYPE+woas.DOC_START+data);
-};
+}
 
-woas.export_wiki = function () {
-	var exp = {}; // export settings object
-	var css_path, sep_css, img_path;
+woas["export_wiki"] = function () {
+	// export settings object
+	var exp = {};
 	try {
-		exp.xhtml_path = $("woas_ep_xhtml").value;
-		img_path = $("woas_ep_img").value;
-		exp.js_mode = 0;
+		exp["xhtml_path"] = $("woas_ep_xhtml").value;
+		var img_path = $("woas_ep_img").value;
+		exp["js_mode"] = 0;
 		if ($("woas_cb_js_dyn").checked)
 			exp.js_mode = 1;
 		else if ($("woas_cb_js_exp").checked)
 			exp.js_mode = 2;
-		sep_css = $("woas_cb_sep_css").checked;
-		exp.exp_menus = $("woas_cb_export_menu").checked;
+		var sep_css = $("woas_cb_sep_css").checked;
+		exp["exp_menus"] = $("woas_cb_export_menu").checked;
 		_export_main_index = $("woas_cb_index_main").checked;
 		_export_default_ext = $("woas_ep_ext").value;
-		exp.meta_author = this.trim($("woas_ep_author").value);
+		exp["meta_author"] = this.trim($("woas_ep_author").value);
 		if (exp.meta_author.length)
 			exp.meta_author = '<meta name="author" content="'+this._attrib_escape(this.xhtml_encode(exp.meta_author))+'" />'+"\n";
 		_export_unix_norm = $("woas_cb_unix_norm").checked;
 	} catch (e) { this.crash(e); return false; }
 	
 	this.progress_init("Exporting XHTML");
-	exp.css = _css_obj().innerHTML;
+	exp["css"] = _css_obj().innerHTML;
 	// add some other CSS which is not used by live WoaS
-	exp.css += "\n.broken_link { color: red; font-decoration: strike-through;}\n";
+	exp["css"] += "\n.broken_link { color: red; font-decoration: strike-through;}\n";
 	// reset export globals - remember that arrays are object and cannot be initialized in 1 line
 	_export_fnames_array = [];
 	_title2fn = {};
 	if (sep_css) {
-		css_path = "woas.css";
+		var css_path = "woas.css";
 		_export_fnames_array.push(css_path);
 		this.save_file(exp.xhtml_path+css_path, this.file_mode.ASCII, exp.css);
 		exp.css = '<link rel="stylesheet" type="text/css" media="all" href="'+css_path+'" />';
 	} else
 		exp.css = '<style type="text/css">'+exp.css+'</style>';
-	exp.custom_bs = "";
-	var data;
+	exp["custom_bs"] = "";
 	if (exp.js_mode==2) {
 		data = pages[this.page_index("WoaS::Bootscript")];
-		if (data!==null && data.length) {
+		if (data!=null && data.length) {
 			this.save_file(exp.xhtml_path+"bootscript.js", this.file_mode.ASCII, data);
 			exp.custom_bs = '<sc'+'ript type="text/javascript" src="bootscript.js"></sc'+'ript>';
 		}
 	}
 
-	var l = page_titles.length, fname = "", done = 0, total = 0, mnupos;
-	data = null;
+	var l=page_titles.length, data = null, fname = "", done=0, total=0,wt=null;
 	for (var pi=0;pi<l;pi++) {
 		// do skip physical special pages
 		if (page_titles[pi].match(/^Special::/)) continue;
-		if (this.static_pages2.indexOf(page_titles[pi]) !== -1) continue;
-		// skip also the custom CSS page (CSS is obtained from runtime object)
-		if (page_titles[pi] === "WoaS::CSS::Custom") continue;
 		// do skip menu pages (they are included in each page)
-		mnupos = page_titles[pi].indexOf("::Menu");
+		var mnupos = page_titles[pi].indexOf("::Menu");
 		if ((mnupos != -1) &&
 			(mnupos==page_titles[pi].length-6)) continue;
 		data = this.get_text_special(page_titles[pi]);
 		// skip pages which could not be decrypted
-		if (data === null) continue;
+		if (data == null) continue;
 		fname = this._export_get_fname(page_titles[pi], true);
 		// will skip WoaS::Bootscript and WoaS::Aliases
 		if (fname == '#') {
@@ -296,4 +288,4 @@ woas.export_wiki = function () {
 	this.progress_finish();
 	this.alert(this.i18n.EXPORT_OK.sprintf(done, total));
 	return true;
-};
+}

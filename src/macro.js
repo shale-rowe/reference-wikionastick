@@ -1,7 +1,7 @@
 
 var reMacroDef = /^(%?[A-Za-z0-9_]+):([\s\S]*)$/;
 // macro syntax plugin code adapted from FBNil's implementation
-woas.macro_parser = function(text){
+woas["macro_parser"] = function(text){
 	var macro = { "reprocess": false, "text": text };
 	var M=text.match(reMacroDef);
 	// if no double colon declaration was found, then do not process anything
@@ -24,16 +24,16 @@ woas.macro_parser = function(text){
 			macro.text = M[2];
 			this.macro_parser.macro_functions[fi](macro);
 		} else {
-			log("Undefined macro "+fn);	//log:1
+			log("Undefined macro "+fn);
 		}
 	}
 	return macro;
-};
+}
 
 // this is the function to be called to register a  macro
 // each macro function must accept a macro object as parameter and modify
 // such object (it is always passed by reference)
-woas.macro_parser.register = function(fn_name, fn_object) {
+woas["macro_parser"]["register"] = function(fn_name, fn_object) {
 	if (woas.macro_parser.macro_names.indexOf(fn_name) != -1) {
 		log("cannot redefine macro "+fn_name); //log:1
 		return false;
@@ -41,12 +41,12 @@ woas.macro_parser.register = function(fn_name, fn_object) {
 	woas.macro_parser.macro_names.push(fn_name);
 	woas.macro_parser.macro_functions.push(fn_object);
 	return true;
-};
+}
 
 // some default macros
-woas.macro_parser.default_macros = {
+woas["macro_parser"]["default_macros"] = {
 	// advanced transclusion: each newline creates a parameter
-	"include" : function(m) {
+	"include":function(m) {
 		var params = m.text.split("\n");
 		// embedded transclusion not supported
 		if (!params.length || !woas.page_exists(params[0]) || woas.is_embedded(params[0]))
@@ -66,13 +66,13 @@ woas.macro_parser.default_macros = {
 		m.text = nt;
 		m.reprocess = true;
 		return m;
-	}
+}
 };
 
-woas.macro_parser.macro_names = ["include"];
-woas.macro_parser.macro_functions = [woas.macro_parser.default_macros.include];
+woas["macro_parser"]["macro_names"] = ["include"];
+woas["macro_parser"]["macro_functions"] = [woas.macro_parser.default_macros.include];
 
-woas.macro_parser.create = function(fn_name, fn_code) {
+woas["macro_parser"].create = function(fn_name, fn_code) {
 	// duplicated from register function
 	if (woas.macro_parser.macro_names.indexOf(fn_name) != -1) {
 		log("cannot redefine macro "+fn_name); //log:1
@@ -86,4 +86,4 @@ woas.macro_parser.create = function(fn_name, fn_code) {
 		log("cannot define function "+fn_name+": "+e); //log:1
 	}
 	return this.register(fn_name, obj);
-};
+}
