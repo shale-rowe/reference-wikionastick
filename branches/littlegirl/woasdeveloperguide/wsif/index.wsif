@@ -6,43 +6,41 @@ woas.pages: 69
 
 woas.page.title: ::Menu
 woas.page.attributes: 0
-woas.page.last_modified: 1271106480
-woas.page.length: 518
+woas.page.last_modified: 1271263924
+woas.page.length: 724
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 [[Main Page]]
-* *Administration*
-** [[Special::All Pages|All pages]]
-** [[Special::Delete Page|Delete Page]]
-** [[WoaS::Help::|Help]]
-** [[Special::New Page|New Page]]
-** [[Special::Search|Search]]
+* [[Special::All Pages|All pages]]
+* [[Special::Delete Page|Delete Page]]
+* [[WoaS::Help::|Help]]
+* [[Special::New Page|New Page]]
+* [[Special::Search|Search]]
 <!-- -->
 * *Subversion guide*
-** [[Getting started]]
-** [[Initial commit]]
-** [[Standard routine]]
+** [[Subversion::Getting started|Getting started]]
+** [[Subversion::Initial commit|Initial commit]]
+** [[Subversion::Standard routine|Standard routine]]
 <!-- -->
 * *Subversion extras*
-** [[Merging]]
-** [[Resolving conflicts]]
-** [[Useful commands]]
+** [[Subversion::Merging|Merging]]
+** [[Subversion::Resolving conflicts|Resolving conflicts]]
+** [[Subversion::Useful commands|Useful commands]]
 <!-- -->
 * *Reference pages*
 ** [[Assemble WoaS]]
-** [[Glossary]]
-** [[My paths]]
-** [[Status codes]]
+** [[Subversion::Glossary|Glossary]]
+** [[Subversion::My paths|My paths]]
+** [[Subversion::Status codes|Status codes]]
 ** [[WoaS philosophy]]
-
 --DFQRCTsKlU
 woas.page.title: Main Page
 woas.page.attributes: 0
-woas.page.last_modified: 1271106097
-woas.page.length: 1808
+woas.page.last_modified: 1271263881
+woas.page.length: 1843
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -59,9 +57,9 @@ Welcome to the Wiki on a Stick community! There are various places you can visit
 Any help you can offer in the development process is heartily welcomed. If coding isn't your thing, there are still plenty of ways to contribute. You can participate in the forums, make feature requests, file bug reports, and share content.
 == Features
 Some of the things you'll find in this guide are:
-# A [[Glossary|glossary]] of terms used in this guide.
+# A [[Subversion::Glossary|glossary]] of Subversion terms used in this guide.
 # A Subversion path reference table.
-# A [[Status codes|status codes]] reference table.
+# A [[Subversion::Status codes|status codes]] reference table.
 # A step-by-step guide that shows how to [[Assemble WoaS|assemble WoaS]].
 # Step-by-step guides that show how to use the Subversion server.
 # The [[WoaS philosophy]] page for becoming familiar with the core principles of the WoaS project.
@@ -2782,10 +2780,10 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 <span title="%2" class="tooltip">%1</span>
 --DFQRCTsKlU
-woas.page.title: Glossary
+woas.page.title: Subversion::Glossary
 woas.page.attributes: 0
-woas.page.last_modified: 1270432886
-woas.page.length: 790
+woas.page.last_modified: 1271264040
+woas.page.length: 791
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -2804,8 +2802,9 @@ woas.page.boundary: DFQRCTsKlU
 | *URL* || A server path to TRUNK or a BRANCH.
 | *WORKINGCOPY* || A local directory on your computer where you keep your copy.
 |}
+
 --DFQRCTsKlU
-woas.page.title: My paths
+woas.page.title: Subversion::My paths
 woas.page.attributes: 0
 woas.page.last_modified: 1270436779
 woas.page.length: 475
@@ -2824,7 +2823,7 @@ These are the paths you'll be using with Subversion:
 |}
 
 --DFQRCTsKlU
-woas.page.title: Status codes
+woas.page.title: Subversion::Status codes
 woas.page.attributes: 0
 woas.page.last_modified: 1270436592
 woas.page.length: 643
@@ -2851,10 +2850,10 @@ These are codes Subversion will use to let you know what it's doing when you iss
 |}
 
 --DFQRCTsKlU
-woas.page.title: Getting started
+woas.page.title: Subversion::Getting started
 woas.page.attributes: 0
 woas.page.last_modified: 1270436880
-woas.page.length: 1256
+woas.page.length: 1268
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -2867,13 +2866,13 @@ WoaS is written in JavaScript and XHTML, and the project uses a [[http://subvers
 # You'll also need to be added to the Subversion server by Daniele. Contact him in the [[http://woas.iragan.com/index.php|WoaS forums]] or by [[mailto://legolas558 _AT_ users.sourceforge.net|email]] to let him know you'd like to be a developer and to tell him your SourceForge user name. He will give you the path to your development [[Include::Template::Tooltip|BRANCH|Your personal directory on the server.]].<br><br>
 # Install [[http://subversion.apache.org/|Subversion]] on your computer.<br><br>
 # Create the local directory you'd like to use as your [[Include::Template::Tooltip|WORKINGCOPY|A local directory on your computer where you keep your copy.]].<br><br>
-# Add your information to the [[My paths]] page for reference.<br><br>
+# Add your information to the [[Subversion::My paths]] page for reference.<br><br>
 
 --DFQRCTsKlU
-woas.page.title: Standard routine
+woas.page.title: Subversion::Standard routine
 woas.page.attributes: 0
-woas.page.last_modified: 1270443774
-woas.page.length: 4859
+woas.page.last_modified: 1271263255
+woas.page.length: 5215
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -2890,7 +2889,7 @@ This is intended as a general reference. You may or may not need all the steps, 
 * Update [[Include::Template::Tooltip|HEAD|Hidden .svn directory in WORKINGCOPY containing most recent checked out revision.]] with a *specific* [[Include::Template::Tooltip|REVISION|A preserved state of a file or directory on the Subversion server represented by a number.]]:<pre>svn update -rREV WORKINGCOPY</pre>
 
 === Resolve conflicts
-* If there are conflicts between your files and the files on the server after doing an update, Subversion will create some extra files in your [[Include::Template::Tooltip|WORKINGCOPY|A local directory on your computer where you keep your copy.]]. To resolve those, see the [[Resolving conflicts]] page.
+* If there are conflicts between your files and the files on the server after doing an update, Subversion will create some extra files in your [[Include::Template::Tooltip|WORKINGCOPY|A local directory on your computer where you keep your copy.]]. To resolve those, see the [[Subversion::Resolving conflicts]] page.
 
 === Make your changes
 * Make whatever changes you like to the files in [[Include::Template::Tooltip|WORKINGCOPY|A local directory on your computer where you keep your copy.]] by working normally.
@@ -2904,9 +2903,9 @@ This is intended as a general reference. You may or may not need all the steps, 
 * Move a file:<pre>svn mv SOURCE DESTINATION</pre>
 
 === Examine your changes
-* Check the status of [[Include::Template::Tooltip|WORKINGCOPY|A local directory on your computer where you keep your copy.]] against [[Include::Template::Tooltip|HEAD|Hidden .svn directory in WORKINGCOPY containing most recent checked out revision.]]:<pre>svn status -v WORKINGCOPY</pre><div style="background-color:#FFFFAA; border: 0.1em solid black; padding:0.3em;">Each line displays the [[Status codes|status codes]], the [[Include::Template::Tooltip|WORKINGCOPY|A local directory on your computer where you keep your copy.]] [[Include::Template::Tooltip|revision|A revision number (example: 32).]], the [[Include::Template::Tooltip|revision|A revision number (example: 32).]] in which it changed, who changed it, and the file or directory name.</div><br>
+* Check the status of [[Include::Template::Tooltip|WORKINGCOPY|A local directory on your computer where you keep your copy.]] against [[Include::Template::Tooltip|HEAD|Hidden .svn directory in WORKINGCOPY containing most recent checked out revision.]]:<pre>svn status -v WORKINGCOPY</pre><div style="background-color:#FFFFAA; border: 0.1em solid black; padding:0.3em;">Each line displays the [[Subversion::Status codes|status codes]], the [[Include::Template::Tooltip|WORKINGCOPY|A local directory on your computer where you keep your copy.]] [[Include::Template::Tooltip|revision|A revision number (example: 32).]], the [[Include::Template::Tooltip|revision|A revision number (example: 32).]] in which it changed, who changed it, and the file or directory name.</div><br>
 * Check the logs of [[Include::Template::Tooltip|BRANCH|Your personal directory on the server.]], showing its ancestry:<pre>svn log -v WORKINGCOPY</pre>
-* Check the logs of [[Include::Template::Tooltip|BRANCH|Your personal directory on the server.]], showing its ancestry since you copied it from [[Include::Template::Tooltip|TRUNK|The current development version of WoaS directory on the server.]]:<pre>svn log -v --stop-on-copy WORKINGCOPY</pre><br><div style="background-color:#FFFFAA; border: 0.1em solid black; padding:0.3em;">The oldest BRANCH revision number shown can be used as the TRUNK revision number when merging more recent revisions in BRANCH *to* TRUNK.</div><br>
+* Check the logs of [[Include::Template::Tooltip|BRANCH|Your personal directory on the server.]], showing its ancestry since you copied it from [[Include::Template::Tooltip|TRUNK|The current development version of WoaS directory on the server.]]:<pre>svn log -v --stop-on-copy WORKINGCOPY</pre><br><div style="background-color:#FFFFAA; border: 0.1em solid black; padding:0.3em;">The oldest [[Include::Template::Tooltip|BRANCH|Your personal directory on the server.]] revision number shown can be used as the [[Include::Template::Tooltip|TRUNK|The current development version of WoaS directory on the server.]] revision number when merging more recent revisions in [[Include::Template::Tooltip|BRANCH|Your personal directory on the server.]] *to* [[Include::Template::Tooltip|TRUNK|The current development version of WoaS directory on the server.]].</div><br>
 * Compare [[Include::Template::Tooltip|WORKINGCOPY|A local directory on your computer where you keep your copy.]] line by line with [[Include::Template::Tooltip|HEAD|Hidden .svn directory in WORKINGCOPY containing most recent checked out revision.]] in *current* directory (only displays results if there are any differences):<pre>svn diff</pre>
 * Compare specific [[Include::Template::Tooltip|REVISION|A preserved state of a file or directory on the Subversion server represented by a number.]] with specific [[Include::Template::Tooltip|REVISION|A preserved state of a file or directory on the Subversion server represented by a number.]] line by line:<pre>svn diff URL@REV URL@REV</pre>
 
@@ -2941,10 +2940,10 @@ WoaS strives to make customization possible in these ways (in order of preferenc
 If users need to go to step 5, we failed on documenting this process or in making WoaS customizable.
 
 --DFQRCTsKlU
-woas.page.title: Merging
+woas.page.title: Subversion::Merging
 woas.page.attributes: 0
 woas.page.last_modified: 1270445717
-woas.page.length: 6433
+woas.page.length: 6493
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -2956,23 +2955,23 @@ Sometimes you'll need to merge two revisions to create a new, combined revision.
 <div style="background-color:#FFFFAA; border: 0.1em solid black; padding:0.3em;">Note that all merges happen in your [[Include::Template::Tooltip|WORKINGCOPY|A local directory on your computer where you keep your copy.]] and only go onto the server when you commit the changes.</div>
 == Merge current revisions to BRANCH
 # Merge *current* [[Include::Template::Tooltip|REVISIONS|A preserved state of a file or directory on the Subversion server represented by a number.]] from two different [[Include::Template::Tooltip|URLs|A server path to TRUNK or a BRANCH.]]:<pre>svn merge URL URL WORKINGCOPY</pre>
-# Commit the merge to [[Include::Template::Tooltip|BRANCH|Your personal directory on the server.]] after reviewing the merged [[Include::Template::Tooltip|WORKINGCOPY|A local directory on your computer where you keep your copy.]] and [[Resolving conflicts|resolving any conflicts]]:<pre>svn commit WORKINGCOPY</pre>
+# Commit the merge to [[Include::Template::Tooltip|BRANCH|Your personal directory on the server.]] after reviewing the merged [[Include::Template::Tooltip|WORKINGCOPY|A local directory on your computer where you keep your copy.]] and [[Subversion::Resolving conflicts|resolving any conflicts]]:<pre>svn commit WORKINGCOPY</pre>
 # Make a comment describing the merge (preferably with [[Include::Template::Tooltip|REVISION|A preserved state of a file or directory on the Subversion server represented by a number.]] numbers) in the editor that pops up, *beginning each line with an asterisk followed by a space*.
 
 == Merge specific revisions to BRANCH
 # Merge two specific [[Include::Template::Tooltip|REVISIONS|A preserved state of a file or directory on the Subversion server represented by a number.]]:<pre>svn merge URL@REV URL@REV WORKINGCOPY</pre>
-# Commit the merge to [[Include::Template::Tooltip|BRANCH|Your personal directory on the server.]] after reviewing the merged [[Include::Template::Tooltip|WORKINGCOPY|A local directory on your computer where you keep your copy.]] and [[Resolving conflicts|resolving any conflicts]].<pre>svn commit WORKINGCOPY</pre>
+# Commit the merge to [[Include::Template::Tooltip|BRANCH|Your personal directory on the server.]] after reviewing the merged [[Include::Template::Tooltip|WORKINGCOPY|A local directory on your computer where you keep your copy.]] and [[Subversion::Resolving conflicts|resolving any conflicts]].<pre>svn commit WORKINGCOPY</pre>
 # Make a comment describing the merge (preferably with [[Include::Template::Tooltip|REVISION|A preserved state of a file or directory on the Subversion server represented by a number.]] numbers) in the editor that pops up, *beginning each line with an asterisk followed by a space*.
 
 == Merge specific revisions to BRANCH
 # Merge two specific [[Include::Template::Tooltip|REVISIONS|A preserved state of a file or directory on the Subversion server represented by a number.]]:<pre>svn merge -r REV:REV SOURCE WORKINGCOPY</pre>
-# Commit the merge to [[Include::Template::Tooltip|BRANCH|Your personal directory on the server.]] after reviewing the merged [[Include::Template::Tooltip|WORKINGCOPY|A local directory on your computer where you keep your copy.]] and [[Resolving conflicts|resolving any conflicts]]:<pre>svn commit WORKINGCOPY</pre>
+# Commit the merge to [[Include::Template::Tooltip|BRANCH|Your personal directory on the server.]] after reviewing the merged [[Include::Template::Tooltip|WORKINGCOPY|A local directory on your computer where you keep your copy.]] and [[Subversion::Resolving conflicts|resolving any conflicts]]:<pre>svn commit WORKINGCOPY</pre>
 # Make a comment describing the merge (preferably with [[Include::Template::Tooltip|REVISION|A preserved state of a file or directory on the Subversion server represented by a number.]] numbers) in the editor that pops up, *beginning each line with an asterisk followed by a space*.
 
 == Merge (reintegrate) current BRANCH into TRUNK
 # Change to [[Include::Template::Tooltip|WORKINGCOPY|A local directory on your computer where you keep your copy.]] directory of [[Include::Template::Tooltip|BRANCH|Your personal directory on the server.]]:<pre>cd WORKINGCOPY</pre>
 # Merge current [[Include::Template::Tooltip|TRUNK|The current development version of WoaS directory on the server.]] to [[Include::Template::Tooltip|WORKINGCOPY|A local directory on your computer where you keep your copy.]]:<pre>svn merge TRUNK</pre>
-# Commit the merge to [[Include::Template::Tooltip|BRANCH|Your personal directory on the server.]] after reviewing the merged [[Include::Template::Tooltip|WORKINGCOPY|A local directory on your computer where you keep your copy.]] and [[Resolving conflicts|resolving any conflicts]]:<pre>svn commit WORKINGCOPY</pre>
+# Commit the merge to [[Include::Template::Tooltip|BRANCH|Your personal directory on the server.]] after reviewing the merged [[Include::Template::Tooltip|WORKINGCOPY|A local directory on your computer where you keep your copy.]] and [[Subversion::Resolving conflicts|resolving any conflicts]]:<pre>svn commit WORKINGCOPY</pre>
 # Change to [[Include::Template::Tooltip|WORKINGCOPY|A local directory on your computer where you keep your copy.]] directory of [[Include::Template::Tooltip|TRUNK|The current development version of WoaS directory on the server.]]:<pre>cd WORKINGCOPY</pre>
 # Merge (reintegrate) [[Include::Template::Tooltip|BRANCH|Your personal directory on the server.]] to [[Include::Template::Tooltip|TRUNK|The current development version of WoaS directory on the server.]]:<pre>svn merge --reintegrate BRANCH</pre><div style="background-color:#FFFFAA; border: 0.1em solid black; padding:0.3em;">Subversion will merge the *current* [[Include::Template::Tooltip|BRANCH|Your personal directory on the server.]] with the *current* [[Include::Template::Tooltip|TRUNK|The current development version of WoaS directory on the server.]].</div><br>
 # Make a comment describing the merge (preferably with revision numbers) in the editor that pops up, *beginning each line with an asterisk followed by a space*.<br><br>
@@ -2983,14 +2982,14 @@ Sometimes you'll need to merge two revisions to create a new, combined revision.
 # Change to that directory:<pre>cd MyTrunk</pre>
 # Check out [[Include::Template::Tooltip|TRUNK|The current development version of WoaS directory on the server.]] to [[Include::Template::Tooltip|WORKINGCOPY|A local directory on your computer where you keep your copy.]]:<pre>svn co TRUNK WORKINGCOPY</pre>
 # Merge specific [[Include::Template::Tooltip|BRANCH|Your personal directory on the server.]] with [[Include::Template::Tooltip|TRUNK|The current development version of WoaS directory on the server.]] in the [[Include::Template::Tooltip|WORKINGCOPY|A local directory on your computer where you keep your copy.]]:<pre>svn merge BRANCH -rREV:HEAD WORKINGCOPY</pre>
-# Commit the merge to [[Include::Template::Tooltip|TRUNK|The current development version of WoaS directory on the server.]] after reviewing the merged [[Include::Template::Tooltip|WORKINGCOPY|A local directory on your computer where you keep your copy.]] and [[Resolving conflicts|resolving any conflicts]]:<pre>svn commit WORKINGCOPY</pre>
+# Commit the merge to [[Include::Template::Tooltip|TRUNK|The current development version of WoaS directory on the server.]] after reviewing the merged [[Include::Template::Tooltip|WORKINGCOPY|A local directory on your computer where you keep your copy.]] and [[Subversion::Resolving conflicts|resolving any conflicts]]:<pre>svn commit WORKINGCOPY</pre>
 # Make a comment describing the merge (preferably with revision numbers) in the editor that pops up, *beginning each line with an asterisk followed by a space*.
 
 --DFQRCTsKlU
-woas.page.title: Useful commands
+woas.page.title: Subversion::Useful commands
 woas.page.attributes: 0
-woas.page.last_modified: 1270446601
-woas.page.length: 2892
+woas.page.last_modified: 1271263449
+woas.page.length: 2975
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -3007,7 +3006,7 @@ A few additional useful commands:
 * Delete [[Include::Template::Tooltip|BRANCH|Your personal directory on the server.]] from the server:<pre>svn delete BRANCH -m "&#042; Removing obsolete branch from the WoaS project."</pre>
 * Display the contents of a [[Include::Template::Tooltip|URL|A server path to TRUNK or a BRANCH.]]:<pre>svn list -v URL</pre>
 * Display the logs for only the past X number of [[Include::Template::Tooltip|REVISIONS|A preserved state of a file or directory on the Subversion server represented by a number.]] (replace *X* with a number):<pre>svn log --limit X</pre>
-* Export a copy of [[Include::Template::Tooltip|WORKINGCOPY|A local directory on your computer where you keep your copy.]] into another directory:<pre>svn export WORKINGCOPY DIRECTORY</pre>*DIRECTORY* has to be a *nonexistent* directory or the command won't work. This command exports everything *except* Subversion directories or files.<br><br>
+* Export a copy of [[Include::Template::Tooltip|WORKINGCOPY|A local directory on your computer where you keep your copy.]] into another directory:<pre>svn export WORKINGCOPY DIRECTORY</pre><div style="background-color:#FFFFAA; border: 0.1em solid black; padding:0.3em;">*DIRECTORY* has to be a *nonexistent* directory or the command won't work. This command exports everything *except* Subversion directories or files.</div><br>
 * Get help with a Subversion command:<pre>svn help COMMAND</pre>
 ** For example, try:<pre>svn help import</pre>
 * Resurrect a deleted directory or file in [[Include::Template::Tooltip|BRANCH|Your personal directory on the server.]]:<pre>svn copy -rREV BRANCH BRANCH</pre>Or:<pre>svn copy -rREV BRANCH/FILE BRANCH/FILE</pre>
@@ -3015,10 +3014,10 @@ A few additional useful commands:
 * Selectively commit files (useful if you've altered one file temporarily and don't want to commit it in its altered state, but wish to commit other files):<pre>svn commit FILENAME</pre>Or:<pre>svn commit FILENAME FILENAME FILENAME</pre>
 
 --DFQRCTsKlU
-woas.page.title: Initial commit
+woas.page.title: Subversion::Initial commit
 woas.page.attributes: 0
 woas.page.last_modified: 1270443602
-woas.page.length: 2299
+woas.page.length: 2311
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -3033,10 +3032,10 @@ The commands provided are for use in a terminal or terminal window. There are va
 # Check the status of [[Include::Template::Tooltip|WORKINGCOPY|A local directory on your computer where you keep your copy.]] (display your changes):<pre>svn status WORKINGCOPY</pre>
 # Commit initial changes to [[Include::Template::Tooltip|BRANCH|Your personal directory on the server.]], providing your SourceForge password when asked:<pre>svn commit WORKINGCOPY</pre>Subversion caches your password on your hard drive so you don't have to enter it manually again. If you don't wish it to do this, see [[http://svnbook.red-bean.com/nightly/en/svn-book.html#svn.tour.initial.disabling-password-caching]].<br><br>
 # List the changes in the editor that pops up, *beginning each line with an asterisk followed by a space*. If the initial commit comment is very long (for instance, if you overwrote files in the [[Include::Template::Tooltip|WORKINGCOPY|A local directory on your computer where you keep your copy.]] with ones you'd already made changes to), just write something like this:<pre>&#042; Initial commit.</pre>
-Now that you've made the initial commit, see the [[Standard routine]] page for some common Subversion commands.
+Now that you've made the initial commit, see the [[Subversion::Standard routine]] page for some common Subversion commands.
 
 --DFQRCTsKlU
-woas.page.title: Resolving conflicts
+woas.page.title: Subversion::Resolving conflicts
 woas.page.attributes: 0
 woas.page.last_modified: 1270439670
 woas.page.length: 1324

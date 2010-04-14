@@ -25,3 +25,11 @@
 * Updated the index.wsif file.
 * Updated the menu.
 ======================================================================================================================
+* Added an info box on the [[Useful commands]] page.
+* Added tooltips to one of the info boxes on the [[Standard routine]] page.
+* Put the Subversion pages into the Subversion:: namespace.
+* Updated the CHANGES.TXT file.
+* Updated the index.wsif file.
+* Updated the Main Page.
+* Updated the menu.
+======================================================================================================================
