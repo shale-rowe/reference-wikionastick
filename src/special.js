@@ -1,3 +1,5 @@
+// Here begins the special pages' code
+
 woas.special_encrypted_pages = function(locked) {
 	var pg = [];
 	for(var i=0,l=pages.length;i<l;i++) {
@@ -54,29 +56,24 @@ woas.special_orphaned_pages = function() {
 };
 
 woas.special_backlinks = function() {
-	var pg = [], pg_title, tmp;
-	if (this.render_title === null)
-		pg_title = current;
-	else {
-		pg_title = this.render_title;
-		this.render_title = null;
-	}
-	var reg = new RegExp("\\[\\["+RegExp.escape(pg_title)+"(\\||\\]\\])", "gi");
+	var pg = [];
+	var tmp;
+	var reg = new RegExp("\\[\\["+RegExp.escape(current)+"(\\||\\]\\])", "gi");
 	for(var j=0,l=pages.length; j<l; j++) {
 		if (this.is_reserved(page_titles[j]))
 			continue;
 		// search for pages that link to it
 		tmp = this.get_src_page(j);
-		// encrypted w/o key
 		if (tmp===null)
 			continue;
-		if (tmp.match(reg))
+		if (tmp.match(reg)) {
 			pg.push( page_titles[j] );
+		}
 	}
 	if(pg.length === 0)
 		return "/No page links here/";
 	else
-		return "== Links to "+pg_title+"\n"+this._join_list(pg);
+		return "== Links to "+current+"\n"+this._join_list(pg);
 };
 
 //var hl_reg;
@@ -86,7 +83,7 @@ woas.special_search = function( str ) {
 	this.progress_init("Searching");
 	var pg_body = [];
 	var title_result = "";
-	log("Searching "+str);	//log:1
+	log("Searching "+str);
 
 	// amount of nearby characters to display
 	var nearby_chars = 200;
@@ -142,10 +139,10 @@ woas._plugins_list = function() {
 	return "\n\n/No plugins installed/";
 };
 
-var reFindTags = /\[\[Tags?::([^\]]+)\]\]/g;
 woas.special_tagged = function() {
-	var	folds = {"[pages]":[]}, tagns,
-		src, i, l, j, jl, tmp, tag;
+	var utags = [],
+		tags_tree = {},
+		src, ipos, i, j, jl, l, tmp, tag;
 		
 	for(i=0,l=pages.length;i<l;++i) {
 		if (this.is_reserved(page_titles[i]))
@@ -154,7 +151,7 @@ woas.special_tagged = function() {
 		// encrypted w/o key
 		if (src === null)
 			continue;
-		src.replace(reFindTags,
+		src.replace(/\[\[Tags?::([^\]]+)\]\]/g,
 			function (str, $1) {
 				// get the tags and index the page under each tag
 				tmp=woas.split_tags($1);
@@ -162,16 +159,36 @@ woas.special_tagged = function() {
 					tag=woas.trim(tmp[j]);
 					if (!tag.length) continue;
 					// we have a valid tag, check if it is already indexed
-					tagns = "Tagged::"+tag;
-					if (typeof folds[tagns] == "undefined") {
-						folds[tagns] = {"[pages]":[page_titles[i]]};
+					ipos = utags.indexOf(tag);
+					if (ipos==-1) {
+						utags.push(tag);						
+						tags_tree[tag] = [page_titles[i]];
 					} else
-						folds[tagns]["[pages]"].push(page_titles[i]);
+						tags_tree[tag].push(page_titles[i]);
 				}
 			});
 	}
-	// parse tree with sorting
-	return woas.ns_parse_tree(folds, true);
+	// sort alphabetically (case insensitive)
+	utags.sort(function(x,y){
+      var a = String(x).toUpperCase();
+      var b = String(y).toUpperCase();
+      if (a > b)
+         return 1;
+      if (a < b)
+         return -1;
+      return 0;
+    });
+	var pg=[], obj, it;
+	for(j=0,l=utags.length;j<l;j++) {
+		obj = tags_tree[utags[j]].sort();
+		pg.push("\n== [[Tagged::"+utags[j]+"]]");
+		for(i=0,it=obj.length;i<it;i++) {
+			pg.push(obj[i]);
+		}
+	}
+	if (pg.length)
+		return this._join_list(pg);
+	return '/No tagged pages/';
 };
 
 woas.special_untagged = function() {
@@ -298,8 +315,8 @@ woas.special_recent_changes = function() {
 		// skip pages with the 'magic' zero timestamp
 		if (page_mts[i] === 0)
 			continue;
-		// skip reserved pages which are not editable
-		if (!this.edit_allowed_reserved(page_titles[i]) && this.is_reserved(page_titles[i]))
+		// skip reserved pages
+		if (this.is_reserved(page_titles[i]))
 			continue;
 		hm.push([i,page_mts[i]]);
 	}
@@ -315,117 +332,4 @@ woas.special_recent_changes = function() {
 	return this._simple_join_list(pg);
 };
 
-// joins a list of pages - always sorted by default
-woas._join_list = function(arr, sorted) {
-	if (!arr.length)
-		return "";
-	if (typeof sorted == "undefined")
-		sorted = true;
-	// copy the array to currently selected pages
-	result_pages = arr.slice(0);
-	//return "* [["+arr.sort().join("]]\n* [[")+"]]";
-	// (1) create a recursable tree of namespaces
-	var ns,output={"s":"","fold_no":0},folds={"[pages]":[]},i,ni,nt,key;
-	for(i=0,it=arr.length;i<it;++i) {
-		ns = arr[i].split("::");
-		// remove first entry if empty
-		if (ns.length>1) {
-			if (ns[0].length == 0) {
-				ns.shift();
-				ns[0] = "::"+ns[0];
-			}
-			// recurse all namespaces found in page title
-			this.ns_recurse(ns, folds, "");
-		} else // <= 1
-			folds["[pages]"].push(arr[i]);
-	}
-	// (2) output the tree
-	this.ns_recurse_parse(folds, output, "", 0, sorted);
-	return output.s;
-};
-
-woas.ns_recurse = function(ns_arr, folds, prev_ns) {
-	var ns = prev_ns+ns_arr.shift()+"::", item, left=ns_arr.length;;
-	if (typeof folds[ns] == "undefined") {
-		// last item, build the array
-		if (left == 1) {
-			folds[ns] = {"[pages]": [ns+ns_arr[0]] };
-			return;
-		}
-		// namespace, create object
-		folds[ns] = {"[pages]":[]};
-	} else { // object already exists, add only leaves
-		if (left == 1) {
-			folds[ns]["[pages]"].push(ns+ns_arr[0]);
-			return;
-		}
-	}
-	if (left > 1)
-		this.ns_recurse(ns_arr, folds, ns);
-};
-
-woas.ns_recurse_parse = function(folds, output, prev_ns, recursion, sorted) {
-	var i,it=folds["[pages]"].length,fold_id;
-	if (it != 0) {
-		var vis_css = (it <= 3) ? "visibility: visible" : "visibility: hidden; display:none";
-		fold_id = "fold"+output.fold_no++;
-		++recursion;
-		// disable folding for pages outside namespaces
-		if (prev_ns.length) {
-			output.s += "=".repeat(recursion)+" [[Javascript::$.toggle('"+fold_id+"')|"+prev_ns+"]]";
-			output.s += " [["+prev_ns+"|"+String.fromCharCode(8594)+"]] ("+it+" pages)\n";
-			output.s += "<div style=\""+vis_css+"\" id=\""+fold_id+"\">\n";
-		}
-		if (sorted)
-			folds["[pages]"].sort();
-		for(i=0;i<it;++i) {
-			output.s += "* [["+folds["[pages]"][i]+"]]\n";
-		}
-		if (prev_ns.length)
-			output.s += "</div>\n";
-	}
-	// sort the actual namespaces
-	if (sorted) {
-		var nslist=[];
-		// get namespaces
-		for(i in folds) {
-			if (i != "[pages]")
-				nslist.push(i);
-		}
-		// sort alphabetically (case insensitive)
-		nslist.sort(function(x,y){
-		  var a = String(x).toUpperCase();
-		  var b = String(y).toUpperCase();
-		  if (a > b)
-			 return 1;
-		  if (a < b)
-			 return -1;
-		  return 0;
-		});
-		// parse second the sorted namespaces
-		it=nslist.length;
-		for(i=0;i<it;++i) {
-			this.ns_recurse_parse(folds[nslist[i]], output, prev_ns+nslist[i], recursion, sorted);
-		}
-	} else { // directly parsed without any specific sorting
-		for(i in folds) {
-			if (i != "[pages]")
-				this.ns_recurse_parse(folds[i], output, prev_ns+i, recursion, sorted);
-		}
-	}
-};
-
-woas._simple_join_list = function(arr, sorted) {
-	if (sorted)
-		arr = arr.sort();
-	// a newline is added here
-	return arr.join("\n")+"\n";
-};
-
-woas.ns_parse_tree = function(folds, sorted) {
-	if (typeof sorted == "undefined")
-		sorted = false;
-	var output={"s":""};
-	this.ns_recurse_parse(folds, output, "", 0, sorted);
-	return output.s;
-};
+// End of special pages' code

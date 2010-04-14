@@ -28,7 +28,7 @@ woas.i18n = {
 	ERR_MARKER: "%s marker not found!",
 	ERR_NO_PWD: "No password set for decryption of page '%s'\nPlease click the key icon and enter a password",
 	ERR_PAGE_NS: "You cannot create a page as a namespace",
-	ERR_RESERVED_NS: "Namespace '%s' is reserved",
+	ERR_RESERVED_NS: "You are not allowed to create a page titled '%s' because namespace '%s' is reserved",
 	ERR_SEL_FILE: "A file must be selected",
 	ERR_VAR_MARKER: "Marker variable not found!",
  	EXPORT_FILE:"Export file",
@@ -61,8 +61,8 @@ woas.i18n = {
 	PWD_QUERY: "Please enter a password",
 	READ_ONLY: "This Wiki on a Stick is read-only",
 	SAVE_ERROR:"Unable to save file '%s'.",
-	SERVER_MODE: "You are using Wiki on a Stick on a webserver; your changes cannot be saved neither through the webserver or locally.\n\n"+
-					"The correct usage of Wiki on a Stick is local, so you should use a local copy of this page to exploit the save features.\n"+
+	SERVER_MODE: "You are using Wiki on a Stick on a REMOTE server, your changes will not be saved neither remotely or locally.\n\n"+
+					"The correct usage of Wiki on a Stick is LOCAL, so you should use a local copy of this page to exploit the save features.\n"+
 					"All changes made to this copy of Wiki on a Stick will be lost.",
 	STATIC_NOT_FOUND: "Static page '%s' not found!",
 	TIDDLY_HELP:"Please check that TiddlySaver.jar is in the same directory of this WoaS and that you have enabled Java permissions for it",

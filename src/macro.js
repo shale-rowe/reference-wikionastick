@@ -24,7 +24,7 @@ woas.macro_parser = function(text){
 			macro.text = M[2];
 			this.macro_parser.macro_functions[fi](macro);
 		} else {
-			log("Undefined macro "+fn);	//log:1
+			log("Undefined macro "+fn);
 		}
 	}
 	return macro;

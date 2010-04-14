@@ -2,7 +2,7 @@
 
 // some tweak settings NOT to be touched - warranty void otherwise
 woas.tweak = {
-	// DANGER: might cause WoaS corruption!
+	// DANGER: might cause pages corruption!
 	"edit_override": false,
 	// native WSIF-saving mode used during development - use with CARE!
 	"native_wsif": true,
@@ -21,8 +21,6 @@ woas.cmd_duplicate_page = function() {
 	page_attrs[dpi] = page_attrs[pi];	
 	// go to new page
 	go_to(pname);
-	// commit changes
-	this.commit([dpi]);
 };
 
 woas.cmd_new_page = function() {
@@ -39,8 +37,7 @@ woas._new_page = function(msg, fill_mode, def_title) {
 	var title = def_title;
 	do {
 		title = prompt(msg, title);
-		if (title === null)
-			break;
+		if (title === null) break;
 		title = this.trim(title);
 		if (this.valid_title(title))
 			break;
@@ -49,11 +46,13 @@ woas._new_page = function(msg, fill_mode, def_title) {
 		if (this.page_index(title)!=-1)
 			this.alert(this.i18n.PAGE_EXISTS.sprintf(title));
 		else {
-			ns = this.get_namespace(title, true);
-			if (ns.length) {
-				ns = ns.substr(0, -2);
-				cr = title.substr(ns.length);
-			} else cr = title;
+			cr = title;
+			var p = cr.indexOf("::");
+			if (p!=-1) {
+				ns = cr.substring(0,p);
+//				log("namespace of "+cr+" is "+ns);	// log:0
+				cr = cr.substring(p+2);
+			} else ns="";
 			if (!this._create_page(ns, cr, false, fill_mode))
 				return ns+cr;
 			var upd_menu = (cr=='Menu');
@@ -89,12 +88,10 @@ woas.static_pages = ["Special::About", "Special::Advanced", "Special::Options","
 						"Special::Lock","Special::Search", "Special::Embed",
 						"Special::Export", "Special::License", "Special::ExportWSIF",
 						"Special::ImportWSIF", "WoaS::Plugins", "WoaS::CSS::Core",
-						"WoaS::Template::Button", "WoaS::Template::Info",
-						"WoaS::Template::Search", "WoaS::CSS::Boot"];
+						"WoaS::Template::Button", "WoaS::Template::Info"];
 
 woas.static_pages2 = ["WoaS::Plugins", "WoaS::CSS::Core",
-						"WoaS::Template::Button", "WoaS::Template::Info",
-						"WoaS::Template::Search", "WoaS::CSS::Boot"];
+						"WoaS::Template::Button", "WoaS::Template::Info"];
 						
 woas.help_pages = null;
 woas.default_pages = ["::Menu", "WoaS::Bootscript", "WoaS::Aliases", "WoaS::Hotkeys", "WoaS::CSS::Custom"];
@@ -193,6 +190,7 @@ woas.cmd_edit_special = function(cr) {
 	var tmp = this.get_text(cr);
 	if (tmp === null)
 		return null;
+	this.current_editing(cr, true);
 	// setup the wiki editor textbox
 	this.current_editing(cr, this.config.permit_edits | this._server_mode);
 	this.edit_ready(tmp);
@@ -210,28 +208,16 @@ woas.cmd_go_to = function() {
 };
 
 woas.cmd_delete = function() {
-	// disallow editing when wiki is set to read-only
-	if (!this.config.permit_edits) {
-		this.alert(this.i18n.READ_ONLY);
-		return false;
-	}
 	var pname = prompt(this.i18n.DELETE_PAGE_PROMPT, current);
 	if ((pname === null) || !pname.length)
-		return false;
+		return;
 	var pi = this.page_index(pname);
 	if (pi == -1) {
 		this.alert(this.i18n.PAGE_NOT_EXISTS+pname);
-		return false;
+		return;
 	}
-	if (this.is_reserved(pname)) {
-		this.alert(this.i18n.ERR_RESERVED_NS.sprintf(this.get_namespace(pname, true)));
-		return false;
-	}
-	if (confirm(this.i18n.CONFIRM_DELETE.sprintf(pname))) {
+	if (confirm(this.i18n.CONFIRM_DELETE.sprintf(pname)))
 		this.delete_page_i(pi);
-		return true;
-	}
-	return false;
 };
 
 // javascript shortcuts for special pages
@@ -346,7 +332,7 @@ woas.integrity_test = function() {
 			return false;
 		}
 	} else { // we are on a remote server
-		log("Skipping save integrity test because running from web server");	//log:1
+		log("Skipping save integrity test because running from web server");
 		//TODO: remote load integrity test
 	}
 	// now test AES encryption

@@ -31,8 +31,8 @@ TextAreaSelectionHelper.prototype.getSelectedText=function() {
 	if(this.iesel)
 		return this.iesel.text;
 	// Fixes a problem in FF3 where the selection was not being stored in this.start and this.end when selecting multilines
-	this.start = $("woas_editor").selectionStart;
-	this.end = $("woas_editor").selectionEnd;
+	this.start = $("wiki_editor").selectionStart;
+	this.end = $("wiki_editor").selectionEnd;
 	return ((this.start>=0)&&(this.end>this.start))? this.target.value.substring(this.start,this.end): "";
 };
 

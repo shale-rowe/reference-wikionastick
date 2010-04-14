@@ -27,7 +27,7 @@ woas.parser.header_replace = function(str, $1, $2) {
 			woas.parser.toc += String("#").repeat(len)+" <a class=\"link\" href=\"#" +
 			woas.parser.header_anchor(header) + "\">" + header + "<\/a>\n";
 		}
-		return "</div><h"+len+" class=\"woas_header\" id=\""+woas.parser.header_anchor(header)+"\">"+header+"</h"+len+"><div class=\"woas_level"+len+"\">";
+		return "</div><h"+len+" id=\""+woas.parser.header_anchor(header)+"\">"+header+"</h"+len+"><div class=\"level"+len+"\">";
 };
 
 woas.parser.sublist = function (lst, ll, suoro, euoro) {   
@@ -156,13 +156,10 @@ woas._make_preformatted = function(text) {
 }
 
 // THIS is the method that you should override for your custom parsing needs
-// 'text' is the raw wiki source
-// 'export_links' is set to true when exporting wiki pages and is used to generate proper href for hyperlinks
-// 'js_mode' controls javascript behavior. Allowed values are:
-// 0 = leave script tags as they are (used for exporting)
-// 1 - place script tags in <head /> (dynamic),
-// 2 - re-add script tags after parsing
-// 3 - convert script tags to nowiki blocks
+// text is the raw wiki source
+// export_links is set to true when exporting wiki pages and is used to generate proper href for hyperlinks
+// js_mode can be 0 = leave script tags as they are (for exporting), 1 - place script tags in <head /> (dynamic),
+//		2 - re-add script tags after parsing
 woas.parser.parse = function(text, export_links, js_mode) {
 	if (woas.config.debug_mode) {
 		if (text===null) {
@@ -171,10 +168,10 @@ woas.parser.parse = function(text, export_links, js_mode) {
 		}
 	}
 	// default fallback
-	if (typeof export_links == "undefined")
+	if (typeof export_links == "undefined") {
 		export_links = false;
-	if (typeof js_mode == "undefined")
-		js_mode = 1;
+		js_mode=1;
+	}
 	
 	// this array will contain all the HTML snippets that will not be parsed by the wiki engine
 	var snippets = [],
@@ -250,9 +247,9 @@ woas.parser.parse = function(text, export_links, js_mode) {
 							if (uri == '#')
 								img = woas.parser.render_error(templname, "#8709");
 							else
-								img = "<img class=\"woas_embedded\" src=\""+uri+"\" alt=\""+img_name+"\" ";
+								img = "<img class=\"embedded\" src=\""+uri+"\" alt=\""+img_name+"\" ";
 						} else
-							img = "<img class=\"woas_embedded\" src=\""+templtext+"\" ";
+							img = "<img class=\"embedded\" src=\""+templtext+"\" ";
 						if (parts.length>1) {
 							img += parts[1];
 							// always add the alt attribute to images
@@ -264,7 +261,7 @@ woas.parser.parse = function(text, export_links, js_mode) {
 						if ((parts.length>1) && (parts[1]=="raw"))
 							snippets.push(decode64(templtext));
 						else
-							snippets.push("<pre class=\"woas_embedded\">"+
+							snippets.push("<pre class=\"embedded\">"+
 									woas.xhtml_encode(decode64(templtext))+"</pre>");
 					}
 					templtext = r;
@@ -346,13 +343,6 @@ woas.parser.parse = function(text, export_links, js_mode) {
 			if (js_mode==2) {
 				r = woas.parser.place_holder(snippets.length);
 				snippets.push(str);
-				return r;
-			}
-			
-			// during safe mode do not activate scripts, transform them to nowiki blocks
-			if (js_mode==3) {
-				r = woas.parser.place_holder(snippets.length);
-				snippets.push( woas._make_preformatted(str) );
 				return r;
 			}
 			var m=$1.match(/src=(?:"|')([^\s'">]+)/);
@@ -537,7 +527,7 @@ woas.parser.parse = function(text, export_links, js_mode) {
 //		this.toc = this.toc.substr(0, this.toc.length-2);
 		// replace the TOC placeholder with the real TOC
 		text = text.replace("<!-- "+parse_marker+":TOC -->",
-				"<div class=\"woas_toc\"><p class=\"woas_toc_title\">Table of Contents</p>" +
+				"<div class=\"wiki_toc\"><p class=\"wiki_toc_title\">Table of Contents</p>" +
 				this.toc.replace(reReapLists, this.parse_lists)
 				/*.replace("\n<", "<") */
 				+ "</div>" );
@@ -571,7 +561,7 @@ woas.parser.parse = function(text, export_links, js_mode) {
 	text = text.replace(reReapTables, this.parse_tables);
 	
 	// cleanup \n after headers and lists
-	text = text.replace(/((<\/h[1-6]><div class="woas_level[1-6]">)|(<\/[uo]l>))(\n+)/g, function (str, $1, $2, $3, trailing_nl) {
+	text = text.replace(/((<\/h[1-6]><div class="level[1-6]">)|(<\/[uo]l>))(\n+)/g, function (str, $1, $2, $3, trailing_nl) {
 		if (trailing_nl.length>2)
 			return $1+trailing_nl.substr(2);
 		return $1;
@@ -618,10 +608,10 @@ woas.parser.parse = function(text, export_links, js_mode) {
 			s = "<div class=\"taglinks\">";
 		s += "Tags: ";
 		for(var i=0;i<tags.length-1;i++) {
-			s+="<a class=\"link\" onclick=\"go_to('Tagged::"+woas.js_encode(tags[i])+"')\">"+tags[i]+"</a>&nbsp;&nbsp;";
+			s+="<a class=\"link tag\" onclick=\"go_to('Tagged::"+woas.js_encode(tags[i])+"')\">"+tags[i]+"</a>&nbsp;&nbsp;";
 		}
 		if (tags.length>0)
-			s+="<a class=\"link\" onclick=\"go_to('Tagged::"+woas.js_encode(tags[tags.length-1])+"')\">"+tags[tags.length-1]+"</a>";
+			s+="<a class=\"link tag\" onclick=\"go_to('Tagged::"+woas.js_encode(tags[tags.length-1])+"')\">"+tags[tags.length-1]+"</a>";
 		if (!this.force_inline) {
 			s+="</div>";
 			text += s;
@@ -641,7 +631,7 @@ woas.parser.parse = function(text, export_links, js_mode) {
 	woas.macro_parser.macro_functions = backup_macro_f;
 		
 	if (text.substring(0,5)!="</div")
-		return "<div class=\"woas_level0\">" + text + "</div>";
+		return "<div class=\"level0\">" + text + "</div>";
 	return text.substring(6)+"</div>";
 };
 

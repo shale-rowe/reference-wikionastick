@@ -23,17 +23,6 @@ woas.save_queue = [];		// pages which need to be saved and are waiting in the qu
 // Automatic-Save TimeOut object
 woas._asto = null;
 
-// title of page being rendered
-woas.render_title = null;
-
-// used when browsing forward in the page queue
-woas._forward_browse = false;
-
-// hashmap used to quickly reference some important DOM objects
-woas._dom_cage = {
-				"head":null
-				};
-
 // the hotkeys runtime object
 woas.hotkeys = {
 	"save":		"s",
@@ -47,12 +36,6 @@ woas.hotkeys = {
 woas.cached_default_hotkeys = null;
 woas.custom_accesskeys = [];
 
-// custom scripts array (those defined by current page)
-woas._custom_scripts = [];
-
-// plugin scripts array (those defined by active plugins)
-woas._plugin_scripts = [];
-
 // left and right trim
 woas.trim = function(s) {
 	return s.replace(/(^\s*)|(\s*$)/, '');
@@ -62,6 +45,8 @@ woas.trim = function(s) {
 woas.DOCTYPE = "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\" \"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\">\n";
 woas.DOC_START = "<"+"html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\">\n<head>\n"+
 	"<m"+"eta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\n";
+	
+	
 
 // general javascript-safe string quoting
 // NOTE: not completely binary safe!
@@ -232,6 +217,78 @@ woas.page_exists = function(page) {
 	return (this.is_reserved(page) || (page.substring(page.length-2)=="::") || (this.page_index(page)!=-1));
 };
 
+// joins a list of pages
+woas._join_list = function(arr) {
+	if (!arr.length)
+		return "";
+	// copy the array to currently selected pages
+	result_pages = arr.slice(0);
+	//return "* [["+arr.sort().join("]]\n* [[")+"]]";
+	// (1) create a recursable tree of namespaces
+	var ns,output={"s":"","fold_no":0},folds={"[pages]":[]},i,ni,nt,key;
+	for(i=0,it=arr.length;i<it;++i) {
+		ns = arr[i].split("::");
+		// remove first entry if empty
+		if (ns.length>1) {
+			if (ns[0].length == 0) {
+				ns.shift();
+				ns[0] = "::"+ns[0];
+			}
+			// recurse all namespaces found in page title
+			this.ns_recurse(ns, folds, "");
+		} else // <= 1
+			folds["[pages]"].push(arr[i]);
+	}
+	// (2) output the tree
+	this.ns_recurse_parse(folds, output, "", 0);
+	return output.s;
+};
+
+woas.ns_recurse = function(ns_arr, folds, prev_ns) {
+	var ns = prev_ns+ns_arr.shift()+"::", item, left=ns_arr.length;;
+	if (typeof folds[ns] == "undefined") {
+		// last item, build the array
+		if (left == 1) {
+			folds[ns] = {"[pages]": [ns+ns_arr[0]] };
+			return;
+		}
+		// namespace, create object
+		folds[ns] = {"[pages]":[]};
+	} else { // object already exists, add only leaves
+		if (left == 1) {
+			folds[ns]["[pages]"].push(ns+ns_arr[0]);
+			return;
+		}
+	}
+	if (left > 1)
+		this.ns_recurse(ns_arr, folds, ns);
+};
+
+woas.ns_recurse_parse = function(folds, output, prev_ns, recursion) {
+	var i,it=folds["[pages]"].length,fold_id;
+	if (it != 0) {
+		++recursion;
+		fold_id = "fold"+output.fold_no++;
+		output.s += "=".repeat(recursion)+"[[Javascript::$.toggle('"+fold_id+"')|"+prev_ns+"]] [["+prev_ns+"|"+String.fromCharCode(0x21DD)+"]] ("+it+" pages)\n";
+		output.s += "<div style=\"visibility: visible\" id=\""+fold_id+"\">\n";
+		for(i=0;i<it;++i) {
+			output.s += "*".repeat(recursion)+" [["+folds["[pages]"][i]+"]]\n";
+		}
+		output.s += "</div>\n";
+	}
+	for(i in folds) {
+		if (i != "[pages]")
+			this.ns_recurse_parse(folds[i], output, prev_ns+i, recursion);
+	}
+};
+
+woas._simple_join_list = function(arr, sorted) {
+	if (sorted)
+		arr = arr.sort();
+	// a newline is added here
+	return arr.join("\n")+"\n";
+};
+
 // with two trailing double colon
 woas._get_namespace_pages = function (ns) {
 	var pg = [];
@@ -338,8 +395,6 @@ woas.get_page = function(pi) {
 	return pg;	
 };
 
-var reScriptTags = /<script[^>]*>((.|\n)*?)<\/script>/gi,
-	reAnyXHTML = /\<\/?\w+[^>]+>/g;
 // get the text of the page, stripped of html tags
 woas.get_src_page = function(pi, rawmode) {
 	var pg = this.get_page(pi);
@@ -349,8 +404,8 @@ woas.get_src_page = function(pi, rawmode) {
 	else
 		pg = pg.replace(/(\{|\})(\1)(\1)/g, "$1<!-- -->$2<!-- -->$3");
 	// remove wiki and html that should not be viewed when previewing wiki snippets
-	return pg.replace(reScriptTags, "").
-			replace(reAnyXHTML, "");
+	return pg.replace(/<script[^>]*>((.|\n)*?)<\/script>/gi, "").
+			replace(/\<\/?\w+[^>]+>/g, "");
 };
 
 woas.get_text = function (title) {
@@ -370,10 +425,9 @@ woas.get_text_special = function(title) {
 		switch (ns) {
 			case "Special::":
 				text = this._get_special(title, false);
-				if (text === false) text = null;
 			break;
-			case "Tagged::":
-			case "Tags::": //DEPRECATED
+			case "Tagged::": // deprecated?
+			case "Tags::":
 				text = this._get_tagged(title);
 			break;
 			default:
@@ -501,7 +555,7 @@ woas.set__text = function(pi, text) {
 	last_AES_page = page_titles[pi];
 };
 
-// set content of current page
+// Sets text typed by user
 woas.set_text = function(text) {
 	var pi = this.page_index(current);
 	// this should never happen!
@@ -524,7 +578,7 @@ woas._ghost_page = false;
 
 woas._create_page = function (ns, cr, ask, fill_mode) {
 	if (this.is_reserved(ns+"::") && !this.tweak.edit_override) {
-		this.alert(this.i18n.ERR_RESERVED_NS.sprintf(ns));
+		this.alert(this.i18n.ERR_RESERVED_NS.sprintf(ns+"::"+cr, ns));
 			return false;
 	}
 	if ((ns=="File") || (ns=="Image")) {
@@ -678,8 +732,7 @@ woas._get_special = function(cr, interactive) {
 		text = this[fn]();
 		// skip the cmd shortcuts
 		if (is_cmd)
-			// return a special value for executed commands
-			return false;
+			return null;
 	} else
 //	log("Getting special page "+cr);	// log:0
 /*			if (this.is_embedded(cr)) {
@@ -730,7 +783,7 @@ woas.set_current = function (cr, interactive) {
 	var text, namespace, pi;
 	result_pages = [];
 	// eventually remove the previous custom script
-	this._clear_custom_scripts();
+	this._clear_swcs();
 	if (cr.substring(cr.length-2)=="::") {
 		text = this._get_namespace_pages(cr);
 		namespace = cr.substring(0,cr.length-2);
@@ -751,9 +804,7 @@ woas.set_current = function (cr, interactive) {
 					break;
 					case "Special":
 						text = this._get_special(cr, interactive);
-						if (text === false)
-							return true;
-						if (text === null)
+						if (text == null)
 							return false;
 						break;
 					case "Tagged": // deprecated
@@ -777,7 +828,7 @@ woas.set_current = function (cr, interactive) {
 					case "Unlock":
 						pi = this.page_index(cr);
 						if (!confirm(this.i18n.CONFIRM_REMOVE_ENCRYPT.sprintf(cr)))
-							return false;
+							return;
 						text = this.get_text(cr);
 						if (_decrypt_failed) {
 							_decrypt_failed = false;
@@ -812,13 +863,11 @@ woas.set_current = function (cr, interactive) {
 									case "Bootscript":
 									case "Hotkeys":
 									case "CSS::Core":
-									case "CSS::Boot":
 									case "CSS::Custom":
 										// page is stored plaintext
-										text = "<div class=\"woas_nowiki_multiline woas_core_page\">"+text+"</div>";
+										text = "<tt class=\"wiki_preformatted\">"+text+"</tt>";
 									break;
 									default:
-										// help pages and related resources
 										text = this.parser.parse(text);
 								}
 							}	
@@ -876,27 +925,20 @@ woas.set_current = function (cr, interactive) {
 		cr = page_titles[pi];
 		mts = page_mts[pi];
 	}
-	// used by some special pages for page title override
-	this.render_title = cr;
-	return this.load_as_current(cr, this.parser.parse(text, false, this.js_mode(cr)), mts);
+	
+	return this.load_as_current(cr, this.parser.parse(text), mts);
 };
 
-// enable safe mode for non-reserved pages
-woas.js_mode = function(cr) {
-	if (this.config.safe_mode)
-		return this.is_reserved(cr) ? 1 : 3;
-//	else
-	return 1;
-}
+// StickWiki custom scripts array
+woas.swcs = [];
 
-woas._clear_custom_scripts = function () {
-	if (!this._custom_scripts.length) return;
-	for(var i=0,it=this._custom_scripts.length;i<it;i++) {
-		// remove the DOM object
-		this._dom_cage.head.removeChild(this._custom_scripts[i]);
+woas._clear_swcs = function () {
+//	setHTML(swcs, "");
+	if (!this.swcs.length) return;
+	for(var i=0;i<this.swcs.length;i++) {
+		document.getElementsByTagName("head")[0].removeChild(this.swcs[i]);
 	}
-	// clear the array
-	this._custom_scripts = [];
+	this.swcs = [];
 };
 
 woas.create_breadcrumb = function(title) {
@@ -919,73 +961,25 @@ woas.create_breadcrumb = function(title) {
 	return s+tmp[tmp.length-1];
 };
 
-// protect custom scripts, Bootscript and Plugins from running when we are saving WoaS
-woas._save_reload = false;
-woas._protect_js_code = function(code) {
-	return "if (!woas._save_reload) {\n" + code + "\n}\n";
-};
-
-woas._mk_active_script = function(code, id, i, is_inline) {
-	var s_elem = document.createElement("script");
-	s_elem.type="text/javascript";
-	s_elem.id = "woas_"+id+"_script_"+i;
-	if (!is_inline)
-		s_elem.src = code;
-	this._dom_cage.head.appendChild(s_elem);
-	if (is_inline)
-		// add the inline code with a protection from re-run which could happen upon saving WoaS
-		woas.setHTML(s_elem, this._protect_js_code(code));
-	return s_elem;
-};
-
-var reJSComments = /^\s*\/\*[\s\S]*?\*\/\s*/g;
-woas._create_bs = function(saving) {
-	// do not run bootscript in safe mode
-	if (this.config.safe_mode)
-		return false;
-	var code=this.get_text("WoaS::Bootscript");
-	if (code===null || !code.length) return false;
-	// remove the comments
-	code = code.replace(reJSComments, '');
-	if (!code.length) return false;
-	if (saving)
-		woas._save_reload = true;
-	_bootscript = this._mk_active_script(this._protect_js_code(code), "plugin", 0, true);
-	if (saving)
-		woas._save_reload = false;
-	return true;
-};
-
-// remove bootscript (when erasing for example)
-woas._clear_bs = function() {
-	if (_bootscript !== null) {
-		this._dom_cage.head.removeChild(_bootscript);
-		_bootscript = null;
-	}
-};
-
-woas._activate_scripts = function(saving) {
+woas._activate_scripts = function() {
 	// add the custom scripts (if any)
 	if (this.parser.script_extension.length) {
-		if (saving)
-			this._save_reload = true;
 //		log(this.parser.script_extension.length + " javascript files/blocks to process");	// log:0
 		var s_elem, is_inline;
 		for (var i=0;i<this.parser.script_extension.length;i++) {
+			s_elem = document.createElement("script");
+			s_elem.type="text/javascript";
+			s_elem.id = "sw_custom_script_"+i;
 			is_inline = new String(typeof(this.parser.script_extension[i]));
 			is_inline = (is_inline.toLowerCase()=="string");
-			s_elem = this._mk_active_script(
-					is_inline ? this.parser.script_extension[i] : this.parser.script_extension[i][0],
-					"custom", i);
-			this._custom_scripts.push(s_elem);
+			if (!is_inline)
+				s_elem.src = this.parser.script_extension[i][0];
+			document.getElementsByTagName("head")[0].appendChild(s_elem);
+			if (is_inline)
+				woas.setHTML(s_elem, this.parser.script_extension[i]);
+			this.swcs.push(s_elem);
 		}
-		if (saving)
-			this._save_reload = false;
 	}
-};
-
-woas._new_plugins = function(new_plugins, saving) {
-	//TODO: create a script object for each new plugin
 };
 
 woas._set_title = function (new_title) {
@@ -1014,12 +1008,9 @@ woas.load_as_current = function(title, xhtml, mts) {
 	this.refresh_mts(mts);
 
 	this._set_title(title);
-	if (!this._forward_browse) {
-		history_mem(current);
-		forstack = [];
-	} else this._forward_browse = false;
 	this.update_nav_icons(title);
 	current = title;
+//	log("current ::= "+title);	//log:0
 	this._activate_scripts();
 	
 	return true;
@@ -1078,7 +1069,7 @@ woas._add_namespace_menu = function(namespace) {
 		$("ns_menu_area").innerHTML = "";
 	} else {
 //		log("Parsing "+menu.length+" bytes for namespace menu");	// log:0
-		$("ns_menu_area").innerHTML = this.parser.parse(menu, false, this.js_mode(namespace+"::Menu"));
+		$("ns_menu_area").innerHTML = this.parser.parse(menu);
 	}
 	// if the previous namespace was empty, then show the submenu areas
 //	if (current_namespace=="") {
@@ -1096,7 +1087,7 @@ woas.refresh_menu_area = function() {
 	if (menu == null)
 		$("menu_area").innerHTML = "";
 	else {
-		$("menu_area").innerHTML = this.parser.parse(menu, false, this.js_mode("::Menu"));
+		$("menu_area").innerHTML = this.parser.parse(menu);
 		this._activate_scripts();
 	}
 };
@@ -1161,18 +1152,10 @@ woas.after_load = function() {
 			$("sw_wiki_header").style.position = "absolute";
 			$("sw_menu_area").style.position = "absolute";
 		}
-		// IE6/7 can't display logo
-		if (!this.browser.ie8) {
-			$.hide("img_logo");
-			// replace with css when capability exists:
-			$("woas_logo").style.width = "1%";
-		}
 	} else {
 		this.setHTML = function(elem, html) {elem.innerHTML = html;};
 		this.getHTML = function(elem) {return elem.innerHTML;};
-		// everyone else needs a logo; will be better when done in css.
-		$("woas_logo").style.width = "35px";
-		$.show("img_logo");
+//		setup_uri_pics($("img_home"),$("img_back"),$("img_forward"),$("img_edit"),$("img_cancel"),$("img_save"),$("img_advanced"));
 	}
 	
 	// (2) show loading message
@@ -1201,15 +1184,15 @@ woas.after_load = function() {
 	$('img_home').alt = this.config.main_page;
 	
 	if (this.config.debug_mode) {
-		$.show_ni("woas_debug_panel");
-		$.show("woas_debug_log");
+		$.show_ni("debug_info");
+		$.show("woas_debug_panel");
 	} else {
-		$.hide_ni("woas_debug_panel");
-		$.hide("woas_debug_console");
+		$.hide_ni("debug_info");
+		$.hide("woas_debug_panel");
 	}
 
 	// properly initialize navigation bar icons
-	// this will cause the alternate text to display on IE6/IE7
+	// this will cause the alternate text to display on IE6
 	this.img_display("back", true);
 	this.img_display("forward", true);
 	this.img_display("home", true);
@@ -1225,9 +1208,6 @@ woas.after_load = function() {
 	
 	// customized keyboard hook
 	document.onkeydown = kbd_hook;
-	
-	// setup some DOM cage objects (read cache)
-	this._dom_cage.head = document.getElementsByTagName("head")[0];
 
 	// Go straight to requested page
 	var qpage=document.location.href.split("?")[1];
@@ -1240,11 +1220,12 @@ woas.after_load = function() {
 //		log("current ::= "+current);	//log:0
 	}
 
+//	this.swcs = $("sw_custom_script");
+
 	this._load_aliases(this.get_text("WoaS::Aliases"));
 	this._load_hotkeys(this.get_text("WoaS::Hotkeys"));
 
 	this._create_bs();	//moved here to fix bug 1898587
-	this._forward_browse = true; // used to not store backstack
 	this.set_current(current, true);
 	this.refresh_menu_area();
 	// feed the current title before running the disable edit mode code
@@ -1260,7 +1241,9 @@ woas.after_load = function() {
 	if (this.config.cumulative_save && this.config.auto_save)
 		this._asto = setTimeout("_auto_saver(woas)", this.config.auto_save);
 	
-	this._editor = new TextAreaSelectionHelper($("woas_editor"));
+//	this._create_bs();
+	
+	this._editor = new TextAreaSelectionHelper($("wiki_editor"));
 	
 //	this.progress_finish();
 	$.hide("loading_overlay");
@@ -1300,7 +1283,7 @@ woas._load_hotkeys = function(s) {
 		// check that binding is a valid key
 		binding = woas.validate_hotkey(binding);
 		if (binding === null) {
-			log("Skipping invalid key binding for hotkey "+hkey);	//log:1
+			log("Skipping invalid key binding for hotkey "+hkey);
 			return;
 		}
 		// associate a custom key binding
@@ -1405,9 +1388,35 @@ woas._default_hotkeys = function() {
 // call once during code setup to store the current default hotkeys
 woas._default_hotkeys();
 
+var reJSComments = /^\s*\/\*[\s\S]*?\*\/\s*/g;
+
+woas._create_bs = function() {
+	var s=this.get_text("WoaS::Bootscript");
+	if (s==null || !s.length) return false;
+	// remove the comments
+	s = s.replace(reJSComments, '');
+	if (!s.length) return false;
+	_bootscript = document.createElement("script");
+	_bootscript.type="text/javascript";
+	_bootscript.id = "woas_bootscript";
+	// we have only one head, select it
+	document.getElementsByTagName("head")[0].appendChild(_bootscript);
+	this.setHTML(_bootscript, s);
+	return true;
+};
+
+// remove bootscript (when erasing for example)
+woas._clear_bs = function() {
+	if (_bootscript !== null) {
+		var head = document.getElementsByTagName("head")[0];
+		head.removeChild(_bootscript);
+		_bootscript = null;
+	}
+};
+
 // when the page is resized
 woas._onresize = function() {
-	var we = $("woas_editor");
+	var we = $("wiki_editor");
 	if (!we) {
 		log("no wiki_editor");
 		return;
@@ -1495,16 +1504,6 @@ woas.edit_allowed = function(page) {
 	// force read-only
 	if (!this.config.permit_edits)
 		return false;
-	if (this.edit_allowed_reserved(page))
-		return true;
-	// page in reserved namespace
-	if (this.is_reserved(page))
-		return false;
-	// page has readonly bit set
-	return !this.is_readonly(page);
-};
-
-woas.edit_allowed_reserved = function(page) {
 	// allow some reserved pages to be directly edited/saved
 	switch (page) {
 		case "WoaS::Bootscript":
@@ -1513,8 +1512,12 @@ woas.edit_allowed_reserved = function(page) {
 		case "WoaS::CSS::Custom":
 			return true;
 	}
-	return false;
-}
+	// page in reserved namespace
+	if (this.is_reserved(page))
+		return false;
+	// page has readonly bit set
+	return !this.is_readonly(page);
+};
 
 // setup the title boxes and gets ready to edit text
 woas.current_editing = function(page, disabled) {
@@ -1540,13 +1543,13 @@ woas.current_editing = function(page, disabled) {
 
 	// FIXME! hack to show the editor pane correctly on IE
 	if (!this.browser.ie)	{
-		$("woas_editor").style.width = window.innerWidth - 35 + "px";
-		$("woas_editor").style.height = window.innerHeight - 180 + "px";
+		$("wiki_editor").style.width = window.innerWidth - 35 + "px";
+		$("wiki_editor").style.height = window.innerHeight - 180 + "px";
 	}
 	
 	$.show("edit_area");
 
-	$("woas_editor").focus();
+	$("wiki_editor").focus();
 	current = page;
 //	log("current ::= "+page);	//log:0
 	scrollTo(0,0);
@@ -1557,7 +1560,7 @@ woas.old_title = null;
 
 // sets the text and allows changes monitoring
 woas.edit_ready = function (txt) {
-	$("woas_editor").value = txt;
+	$("wiki_editor").value = txt;
 	// save copy of text to check if anything was changed
 	// do not store it in case of ghost pages
 	this.change_buffer = txt;
@@ -1570,7 +1573,7 @@ function _servm_alert() {
 	if (woas._server_mode) {
 		// show the message only once
 		if (!_servm_shown) {
-			woas.alert(woas.i18n.SERVER_MODE);
+			this.alert(this.i18n.SERVER_MODE);
 			_servm_shown = true;
 		}
 	}
@@ -1613,9 +1616,16 @@ woas.valid_title = function(title, renaming) {
 		this.alert(this.i18n.ERR_PAGE_NS);
 		return false;
 	}
+	// allow some reserved pages to be directly edited/saved
+/*	switch (title) {
+		case "WoaS::Bootscript":
+		case "WoaS::Aliases":
+		case "WoaS::Hotkeys":
+			return true;
+	} */
 	var ns = this.get_namespace(title, true);
 	if (ns.length && renaming && this.is_reserved(ns+"::") && !this.tweak.edit_override) {
-		this.alert(this.i18n.ERR_RESERVED_NS.sprintf(ns));
+		this.alert(this.i18n.ERR_RESERVED_NS.sprintf(title, ns));
 		return false;
 	}
 	return true;
@@ -1696,22 +1706,18 @@ woas.set_css = function(new_css) {
 		new_css = this.FF2_CSS_FIXUP + new_css;
 //	if (this.browser.opera)
 //		new_css = this.OPERA_FIXUP + new_css;
-	this._set_raw_css(new_css);
-};
-
-woas._set_raw_css = function(css) {
 	if (!this.browser.ie) {
-		_css_obj().innerHTML = css;
+		_css_obj().innerHTML = new_css;
 		return;
 	}
 	// IE-only
 	var head=document.getElementsByTagName('head')[0];
 	var sty=document.styleSheets[0];
-	sty.cssText = css;
+	sty.cssText = new_css;
 };
 
 woas.get_raw_content = function() {
-	var c=$("woas_editor").value;
+	var c=$("wiki_editor").value;
 	// remove CR added by some browsers
 	//TODO: check if ie8 still adds these
 	if (this.browser.ie || this.browser.opera)

@@ -13,9 +13,15 @@ function advanced() {
 
 // follows a link
 function go_to(cr) {
-	if (cr == current)
+	if(cr == current)
 		return true;
-	return woas.set_current(cr, true)
+	var _b_current = current;
+	if (woas.set_current(cr, true)) {
+		history_mem(_b_current);
+		forstack = [];
+		return true;
+	}
+	return false;
 }
 
 function back_or(or_page) {
@@ -27,8 +33,8 @@ function back_or(or_page) {
 function go_back() {
 	if(backstack.length > 0) {
 		forstack.push(current);
-		woas._forward_browse = true;
-		return woas.set_current(backstack.pop(), true);
+		woas.set_current(backstack.pop(), true);
+		return true;
 	}
 	return false;
 }
@@ -54,9 +60,7 @@ function save() {
 
 woas.help_system = { "popup_window": null, "page_title": null };
 
-woas._help_lookup = ["Plugins", "CSS", "Aliases", "Bootscript", "Hotkeys"];
-
-// could have a better name
+// should have a better name
 function help() {
 	var wanted_page = "WoaS::Help::Index";
 	var pi = woas.page_index(wanted_page);
@@ -65,19 +69,9 @@ function help() {
 		wanted_page = "WoaS::Help::Editing";
 		pi = woas.page_index(wanted_page);
 	} else {
-		var htitle = null;
-		// change the target page in some special cases
-		for(var i=0,it=woas._help_lookup.length;i<it;++i) {
-			if (current.substr(0, woas._help_lookup[i].length) === woas._help_lookup[i]) {
-				htitle = woas._help_lookup[i];
-				break;
-			}
-		}
-		if (htitle === null)
-			htitle = current;
-		var npi = woas.page_index("WoaS::Help::"+htitle);
+		var npi = woas.page_index("WoaS::Help::"+current);
 		if (npi != -1) {
-			wanted_page = "WoaS::Help::"+htitle;
+			wanted_page = "WoaS::Help::"+current;
 			pi = npi;
 		}
 	}
@@ -186,8 +180,8 @@ function menu_do_search() {
 }
 
 function _raw_do_search(str) {
-	cached_search = woas.parser.parse(woas.special_search( str ));
-	woas.assert_current("Special::Search");
+       cached_search = woas.parser.parse(woas.special_search( str ));
+       woas.assert_current("Special::Search");
 }
 
 // Used by Special::Search
@@ -392,11 +386,11 @@ woas._customized_popup = function(page_title, page_body, additional_js, addition
 	var css_payload = "";
 	if (woas.browser.ie && !woas.browser.ie8) {
 		if (woas.browser.ie6)
-			css_payload = "div.woas_toc { align: center;}";
+			css_payload = "div.wiki_toc { align: center;}";
 		else
-			css_payload = "div.woas_toc { position: relative; left:25%; right: 25%;}";
+			css_payload = "div.wiki_toc { position: relative; left:25%; right: 25%;}";
 	} else
-		css_payload = "div.woas_toc { margin: 0 auto;}\n";
+		css_payload = "div.wiki_toc { margin: 0 auto;}\n";
 	if (additional_js.length)
 		additional_js = woas.raw_js(additional_js);
 	// create the popup

@@ -1,6 +1,5 @@
 
-// pvhl proposes to use a version property to identify more easily the browser version
-// it seems a bit excessive for now
+//TODO: all variables should stay inside this object
 woas.browser = { ie: false, ie6: false, ie8: false,
 					firefox: false, firefox2: false,
 					firefox3: false, firefox_new: false,
@@ -36,9 +35,9 @@ else if(navigator.appName == "Netscape") {
 	} // not Gecko
 } else if((navigator.appName).indexOf("Microsoft")!=-1) {
 	woas.browser.ie = true;
-	woas.browser.ie8 = document.documentMode ? true : false;
+	woas.browser.ie8 = (navigator.userAgent.search(/msie 8\./i)!=-1);
 	if (!woas.browser.ie8)
-		woas.browser.ie6 = window.XMLHttpRequest ? false : true;
+		woas.browser.ie6 = (navigator.userAgent.search(/msie 6\./i)!=-1);
 } else if (navigator.userAgent.indexOf("applewebkit") != -1) {
 	woas.browser.safari = true;
 }
@@ -110,7 +109,7 @@ var log;
 if (woas.config.debug_mode) {
 	// logging function - used in development
 	log = function (aMessage) {
-	    var logbox = $("woas_debug_log");
+	    var logbox = $("woas_log");
 	    // count lines
 		nls = logbox.value.match(/\n/g);
 		// log maximum 1024 lines

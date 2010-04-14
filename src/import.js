@@ -1,7 +1,7 @@
 
 // regular expressions used to not mess with title/content strings
 var reRequote = new RegExp(":-"+parse_marker, "g"),
-	reJString = new RegExp("'[^']*'", "g"),
+	reJString = new RegExp("'[^']+'", "g"),
 	reJStringRep = new RegExp(parse_marker+":"+"(\\d+)", "g");
 
 // function used to collect variables
@@ -128,7 +128,6 @@ woas.import_wiki = function() {
 				case "0.11.0":
 				case "0.11.1":
 				case "0.11.2":
-				case "0.11.3":
 					old_version = Number(ver_str.substr(2).replace(/\./g, ""));
 					break;
 				default:
@@ -144,24 +143,17 @@ woas.import_wiki = function() {
 		}
 	}
 
+	
 	// import the variables
 	var new_main_page = this.config.main_page,
+		old_main_page = this.config.main_page,
 		old_block_edits = !this.config.permit_edits,
 		page_contents = [],
 		old_page_attrs = [],
 		old_page_mts = [],
 		pc = 0,
 		i, il, pi,
-		imported_css = null,
-		// used during import from older versions
-		old_cfg = {"debug_mode":this.config.debug_mode,
-				"wsif_ds":this.config.wsif_ds,
-				"wsif_ds_multi":this.config.wsif_ds_multi,
-				"wsif_ds_lock":this.config.wsif_ds_lock,
-				"safe_mode":this.config.safe_mode,
-				"wsif_author":this.config.wsif_author,
-				"main_page":this.config.main_page
-				};
+		imported_css = null;
 
 	// old versions parsing
 	if (old_version	< 9) {
@@ -199,8 +191,6 @@ woas.import_wiki = function() {
 		v0.11.2:
 			* introduced parsing mechanism which does not mess with var declarations inside JavaScript strings
 			* introduced WoaS::Hotkeys, WoaS::CSS::Core, WoaS::CSS::Custom
-			* introduced woas.config.safe_mode option
-			* introduced woas.config.wsif_ds* options
 		v0.10.7:
 			* introduced WoaS::Plugins and changed WoaS::Bootscript page type from embedded to normal
 		v0.10.0:
@@ -312,10 +302,10 @@ woas.import_wiki = function() {
 					log("Imported "+imported_css.length+" bytes of CSS");	// log:1
 //					this.set_css(css);
 				}
-			} // 0.11.2+, we'll manage CSS import at the page level
+			} // otherwise we'll manage CSS import at the page level
 		}
 
-		var data = this._extract_src_data(old_marker, ct, true, new_main_page, true);
+		var data = _get_data(old_marker, ct, true, true);
 		var collected = [];
 		
 		// for versions before v0.9.2B
@@ -367,7 +357,7 @@ woas.import_wiki = function() {
 				}
 				page_names = collected[3+ofs_mp];
 				old_page_attrs = collected[4+ofs_mp];
-				if (old_version===92) {
+				if (old_version==92) {
 					// replace the pre tags with the new nowiki syntax
 					for (i=0;i<page_contents.length;i++) {
 						// page is encrypted, leave it as is
@@ -410,15 +400,8 @@ woas.import_wiki = function() {
 				
 				// add the new debug option
 				if (old_version<=107)
-					woas.config.debug_mode = old_cfg.debug_mode;
-				// add the new safe mode and WSIF DS options
-				if (old_version < 112) {
-					woas.config.safe_mode = old_cfg.safe_mode;
-					woas.config.wsif_author = old_cfg.wsif_author;
-					woas.config.wsif_ds = old_cfg.wsif_ds;
-					woas.config.wsif_ds_lock = old_cfg.wsif_ds_lock;
-					woas.config.wsif_ds_multi = old_cfg.wsif_ds_multi;
-				}
+					woas.config.debug_mode = false;
+				
 				
 				if (import_icons) {
 					//TODO: import the icons
@@ -512,10 +495,20 @@ woas.import_wiki = function() {
 			} // not importing a special page
 		} // for cycle
 		// added in v0.9.7
+/*		if (old_version <= 96) {
+			page_titles.push("WoaS::Aliases");
+			pages.push("");
+			page_attrs.push(0);
+			page_mts.push(current_mts);
+		} */
 	} // do not import content pages
 	
 	// eventually add the new missing page
 	if (old_version <= 112) {
+/*		page_titles.push("WoaS::Hotkeys");
+		pages.push(this._default_hotkeys());
+		page_attrs.push(0);
+		page_mts.push(current_mts); */
 		// take care of custom CSS (if any)
 		if (imported_css !== null) {
 			pi = page_titles.indexOf("WoaS::CSS::Custom");
@@ -524,9 +517,9 @@ woas.import_wiki = function() {
 	}
 	// set the new config variable
 	if (old_version<=108)
-		this.config.main_page = old_cfg.main_page;
+		this.config.main_page = old_main_page;
 	// apply the new main page if that page exists
-	if ((new_main_page !== old_cfg.main_page) && this.page_exists(new_main_page))
+	if ((new_main_page !== old_main_page) && this.page_exists(new_main_page))
 		this.config.main_page = new_main_page;
 	
 	this.config.permit_edits = !old_block_edits;
