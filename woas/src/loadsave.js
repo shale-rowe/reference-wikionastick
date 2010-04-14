@@ -525,7 +525,7 @@ woas._save_to_file = function(full) {
 	var bak_cursor = document.body.style.cursor;
 	document.body.style.cursor = "auto";
 
-	var data = _get_data(__marker, document.documentElement.innerHTML, full, false, safe_current);
+	var data = this._extract_src_data(__marker, document.documentElement.innerHTML, full, safe_current);
 
 	this.setHTML($("woas_wait_text"), bak_wait_text);
 	document.body.style.cursor = bak_cursor;
@@ -561,12 +561,12 @@ woas._save_to_file = function(full) {
 };
 
 var reHeadTagEnd = new RegExp("<\\/"+"head>", "ig");
-function _get_data(marker, source, full, start, current_page) {
+woas._extract_src_data = function(marker, source, full, current_page, start) {
 	var offset;
 	// always find the end marker to make the XHTML fixes
 	offset = source.indexOf("/* "+marker+ "-END */");
 	if (offset == -1) {
-		this.alert(woas.i18n.ERR_MARKER.sprintf("END"));
+		this.alert(this.i18n.ERR_MARKER.sprintf("END"));
 		return false;
 	}			
 	offset += 6 + 4 + marker.length + 2;
@@ -593,7 +593,7 @@ function _get_data(marker, source, full, start, current_page) {
 				this.crash("Cannot find document title end tag");
 			else {
 				// replace with current page title
-				var new_title = woas.xhtml_encode(current_page);
+				var new_title = this.xhtml_encode(current_page);
 				source = source.substring(0, title_start) + "<title>"+
 						new_title
 						+ source.substring(title_end);
@@ -610,9 +610,9 @@ function _get_data(marker, source, full, start, current_page) {
 			if (css_end === -1)
 				this.crash("Cannot find CSS style end tag");
 			else {
-				var boot_css = woas.get_text("WoaS::CSS::Boot"),
+				var boot_css = this.get_text("WoaS::CSS::Boot"),
 					stStartTag = "<"+"style type=\"text/css\""+">";
-				//woas._customized_popup("test", "<tt>"+woas.xhtml_encode(source.substring(css_start, css_end))+"</tt>", "");
+				//this._customized_popup("test", "<tt>"+this.xhtml_encode(source.substring(css_start, css_end))+"</tt>", "");
 				// we have found the style tag, replace it
 				source = source.substring(0, css_start) + stStartTag +
 							boot_css
@@ -651,7 +651,7 @@ function _get_data(marker, source, full, start, current_page) {
 		if (start) {
 			s_offset = source.indexOf("/* "+marker+ "-START */");
 			if (s_offset == -1) {
-				this.alert(woas.i18n.ERR_MARKER.sprintf("START"));
+				this.alert(this.i18n.ERR_MARKER.sprintf("START"));
 				return false;
 			}
 			return source.substring(s_offset, offset);
@@ -659,7 +659,7 @@ function _get_data(marker, source, full, start, current_page) {
 	} else {
 		offset = source.indexOf("/* "+marker+ "-DATA */");
 		if (offset == -1) {
-			this.alert(woas.i18n.ERR_MARKER.sprintf("DATA"));
+			this.alert(this.i18n.ERR_MARKER.sprintf("DATA"));
 			return false;
 		}
 		offset += 6 + 5 + marker.length + 1;
