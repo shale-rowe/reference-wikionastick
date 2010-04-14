@@ -864,7 +864,7 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Index
 woas.page.attributes: 0
-woas.page.length: 2289
+woas.page.length: 2316
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -886,6 +886,7 @@ When browsing the pages in this Help pop-up, you will find a *Back* button in th
 ** [[WoaS::Help::Edit the menu]]
 ** [[WoaS::Help::Export]]
 ** [[WoaS::Help::General usage]]
+** [[WoaS::Help::Hotkeys]]
 ** [[WoaS::Help::Import]]
 ** [[WoaS::Help::Requirements]]
 * *Online use*
