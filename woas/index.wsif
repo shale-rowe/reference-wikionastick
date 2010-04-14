@@ -1,6 +1,6 @@
 wsif.version: 1.2.0
 wsif.generator: woas
-woas.version: 0.11.3
+woas.version: 0.11.4
 woas.pages: 74
 
 woas.page.title: ::Menu
@@ -864,7 +864,7 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Index
 woas.page.attributes: 0
-woas.page.length: 2262
+woas.page.length: 2289
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -881,6 +881,7 @@ When browsing the pages in this Help pop-up, you will find a *Back* button in th
 ** [[WoaS::Help::Security]]
 ** [[WoaS::Help::WSIF]]
 * *Interface*
+** [[WoaS::Help::Aliases]]
 ** [[WoaS::Help::CSS]]
 ** [[WoaS::Help::Edit the menu]]
 ** [[WoaS::Help::Export]]
@@ -3358,7 +3359,7 @@ You can share WoaS plugins as WSIF files by exporting them.
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Aliases
 woas.page.attributes: 0
-woas.page.length: 64
+woas.page.length: 1436
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -3367,4 +3368,33 @@ woas.page.boundary: DFQRCTsKlU
 = Aliases
 
 Aliases are replaceable shortcuts used in wiki links.
+
+== Add an alias
+# Click the *WoaS::Aliases* link in the menu.<br><br>
+# Add this line to the page, replacing ALIAS with the shortcut you'd like to use and PAGENAME with the name of the page you'd like the alias to represent:<br>{{{
+$ALIAS  PAGENAME
+}}}
+
+== Use an alias
+Aliases can be used in links the same way a page name would be used.
+
+To create a plain link using an alias, surround the link with double square brackets, inserting a dollar sign before the alias name.
+* <div class="woas_helptext">Add this link to a page, replacing ALIAS with the alias you'd like to use:</div>{{{
+[[$ALIAS]]
+}}}
+
+To create a labeled link, surround the link with double square brackets, inserting a dollar sign before the alias name, adding a pipe after the alias, and adding some link text after the pipe.
+* <div class="woas_helptext">Add this link to a page, replacing ALIAS with the alias you'd like to use, and replacing LABEL with the text for the link:</div>{{{
+[[$ALIAS|LABEL]]
+}}}
+
+== Example:
+# Click the *WoaS::Aliases* link in the menu.<br><br>
+# Add this line to the page:{{{
+$HOME  Main Page
+}}}<br>
+# Add {{{[[$HOME]]}}} to any page to make a plain link to the Main Page.<br><br>
+# Add {{{[[$HOME|home sweet home]]}}} to any page to make a labeled link to the Main Page.<br><br>
+# Add {{{[[include::$HOME]]}}} to any page to include the Main Page in the current page.
+
 --DFQRCTsKlU
