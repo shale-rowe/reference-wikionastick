@@ -1107,7 +1107,7 @@ woas.after_load = function() {
 			$("sw_menu_area").style.position = "absolute";
 		}
 		// IE6/7 can't display logo
-		if (this.browser.ie6 || this.browser.ie7) {
+		if (!this.browser.ie8) {
 			$.hide("img_logo");
 			// replace with css when capability exists:
 			$("woas_logo").style.width = "1%";
