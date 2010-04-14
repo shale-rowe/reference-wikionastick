@@ -144,7 +144,6 @@ woas.import_wiki = function() {
 		}
 	}
 
-	
 	// import the variables
 	var new_main_page = this.config.main_page,
 		old_block_edits = !this.config.permit_edits,
@@ -316,7 +315,7 @@ woas.import_wiki = function() {
 			} // otherwise we'll manage CSS import at the page level
 		}
 
-		var data = _get_data(old_marker, ct, true, true);
+		var data = this._extract_src_data(old_marker, ct, true, new_main_page, true);
 		var collected = [];
 		
 		// for versions before v0.9.2B
