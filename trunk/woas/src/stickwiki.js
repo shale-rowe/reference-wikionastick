@@ -31,7 +31,8 @@ woas._forward_browse = false;
 
 // hashmap used to quickly reference some important DOM objects
 woas._dom_cage = {
-				"head":null
+				"head":null,
+				"stylesheet":null
 				};
 
 // the hotkeys runtime object
@@ -1228,6 +1229,8 @@ woas.after_load = function() {
 	
 	// setup some DOM cage objects (read cache)
 	this._dom_cage.head = document.getElementsByTagName("head")[0];
+	if (!this.browser.ie)
+		this._dom_cage.stylesheet = document.getElementsByTagName("style")[0];
 
 	// Go straight to requested page
 	var qpage=document.location.href.split("?")[1];
@@ -1668,11 +1671,6 @@ function _new_syntax_patch(text) {
 
 /** CSS -- IMHO, should be part of a woas.ui object (woas.ui.css) */
 
-// @Daniele: I'm expecting you to remove comments directed to you.
-
-// TODO: use valid documentation tags when format decided on (at least for me);
-// take another look at Dean's self-documenting code first.
-
 /*
 API1.0: WoaS CSS (for me anyway :)
 woas.css.ff2 (string:valid CSS): css added if browser == ff2 when !raw 
@@ -1709,13 +1707,13 @@ woas.css = {
 		if (woas.browser.ie)
 			document.styleSheets[0].cssText = css;
 		else
-			document.getElementsByTagName("style")[0].innerHTML = css;
+			woas._dom_cage.stylesheet.innerHTML = css;
 	},
 	
 	// Not used/needed in public API; can't easily fix this with current code.
 	// Can't see this being a problem though.
 	get: function() {
-		return document.getElementsByTagName("style")[0].innerHTML;
+		return woas._dom_cage.stylesheet.innerHTML;
 	}
 };
 
