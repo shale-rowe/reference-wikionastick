@@ -3,7 +3,7 @@
 // some tweak settings NOT to be touched - warranty void otherwise
 woas.tweak = {
 	// DANGER: might cause WoaS corruption!
-	"edit_override": true,
+	"edit_override": false,
 	// native WSIF-saving mode used during development - use with CARE!
 	"native_wsif": true,
 	// perform integrity test of browser features
