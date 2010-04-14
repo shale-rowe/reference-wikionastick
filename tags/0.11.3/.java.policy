@@ -1,0 +1,3 @@
+grant codeBase "file:${user.home}/My Documents/woas-folder/*" {
+  permission java.io.FilePermission "${user.home}${/}My Documents${/}woas-folder${/}*", "read,write";
+};
