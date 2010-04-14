@@ -1194,7 +1194,7 @@ woas.after_load = function() {
 	}
 
 	// (5) activate the CSS, with eventual fixups for some browsers
-	this.set_css(this.get_text("WoaS::CSS::Core")+"\n"+this.get_text("WoaS::CSS::Custom"));
+	this.css.set(this.get_text("WoaS::CSS::Core")+"\n"+this.get_text("WoaS::CSS::Custom"));
 	
 	// (6) continue with UI setup
 	$('woas_home_hl').title = this.config.main_page;
@@ -1666,52 +1666,57 @@ function _new_syntax_patch(text) {
 	return text;
 }
 
-function _css_obj() {
-	return document.getElementsByTagName("style")[0];
-}
+/** CSS -- IMHO, should be part of a woas.ui object (woas.ui.css) */
 
-woas.FF2_CSS_FIXUP = "\n.wiki_preformatted { white-space: -moz-pre-wrap !important; }\n";
+// @Daniele: I'm expecting you to remove comments directed to you.
 
-// Opera gets 100% as real 100%
-//woas.OPERA_FIXUP = "\ndiv.wiki_header, #loading_overlay, #woas_pwd_query, #woas_pwd_mask { width: 100%; }\n";
+// TODO: use valid documentation tags when format decided on (at least for me);
+// take another look at Dean's self-documenting code first.
 
 /*
-woas.get_css = function() {
-	var co = _css_obj();
-	var css = co.innerHTML;
-	if (this.browser.firefox2) {
-		// remove the fixup if present
-		if (css.substr(0, this.FF2_CSS_FIXUP.length) == this.FF2_CSS_FIXUP)
-			css = css.substr(this.FF2_CSS_FIXUP.length);
-	}
-/*	if (this.browser.opera) {
-		// remove the fixup if present
-		if (css.substr(0, this.OPERA_FIXUP.length) == this.OPERA_FIXUP)
-			css = css.substr(this.OPERA_FIXUP.length);
-	} */
-/*	return css;
-};*/
+API1.0: WoaS CSS (for me anyway :)
+woas.css.ff2 (string:valid CSS): css added if browser == ff2 when !raw 
+woas.css.set(css, raw)
+  css (string:valid CSS): the raw css to be set; replaces old css
+  raw (boolean, optional): if true browser fixes will not be applied to css
+woas.css.get(): returns currently set CSS (string:valid CSS)
+*/
+woas.css = {
+	FF2: "\n.wiki_preformatted { white-space: -moz-pre-wrap !important; }\n",
 	
-//API1.0: set WoaS CSS
-woas.set_css = function(new_css) {
-	// with some browsers we have weird hot-fixes
-    // Mozilla, since 1999
-    if (this.browser.firefox2)
-		new_css = this.FF2_CSS_FIXUP + new_css;
-//	if (this.browser.opera)
-//		new_css = this.OPERA_FIXUP + new_css;
-	this._set_raw_css(new_css);
-};
-
-woas._set_raw_css = function(css) {
-	if (!this.browser.ie) {
-		_css_obj().innerHTML = css;
-		return;
+	// TODO: replace with factory function for just this browser
+	set: function(css, raw) {
+		raw = raw || false;
+		/*
+		This object could become much better in the future, grabbing content
+		from appropriate sources, or filtering WoaS::CSS (whatever) to match
+		the current browser ... this need only be done once on loading page,
+		with a callback function for CSS editing (e.g. woas.css.load and/or
+		woas.css.merge, etc.). Note that this change does not affect efficiency
+		much but now we can completely change the way this works (over time)
+		without having to modify other code. This is generally applicable
+		with OOP design concepts. The code is therefore much less fragile
+		and many programmers can work on it with changes tending to be much
+		more confined to the object they are modifying.
+		*/
+		//Add fixes
+		if (!raw) {
+			if (woas.browser.firefox2) {
+				// fixes are added first so they can be overridden
+				css = this.FF2 + css;
+			}
+		}
+		if (woas.browser.ie)
+			document.styleSheets[0].cssText = css;
+		else
+			document.getElementsByTagName("style")[0].innerHTML = css;
+	},
+	
+	// Not used/needed in public API; can't easily fix this with current code.
+	// Can't see this being a problem though.
+	get: function() {
+		return document.getElementsByTagName("style")[0].innerHTML;
 	}
-	// IE-only
-	var head=document.getElementsByTagName('head')[0];
-	var sty=document.styleSheets[0];
-	sty.cssText = css;
 };
 
 woas.get_raw_content = function() {
@@ -1748,7 +1753,7 @@ woas.save = function() {
 //		case "Special::Edit CSS":
 		case "WoaS::CSS::Custom":
 			if (!null_save) {
-				this.set_css(this.get_text("WoaS::CSS::Core")+"\n"+raw_content);
+				this.css.set(this.get_text("WoaS::CSS::Core")+"\n"+raw_content);
 				this.set_text(raw_content);
 			}
 			back_to = this.prev_title;
