@@ -438,7 +438,8 @@ In order to install a plugin, import its WSIF file (see the [[Special::ImportWSI
 --DFQRCTsKlU
 woas.page.title: WoaS History
 woas.page.attributes: 0
-woas.page.length: 5209
+woas.page.last_modified: 1271239121
+woas.page.length: 5387
 woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -483,6 +484,10 @@ Wiki on a Stick codebase has been rewritten as object-oriented in order to be mo
 
 Development of 0.9.7B was stale and WoaS was getting full of little bugs which prevented it from being successfully used; during last months of 2009 and first months of 2010 WoaS got new blood with 0.10.x releases.
 Some of the best additions were [[WoaS::Help::WSIF|WSIF format]] and a pluggable macro syntax, but finally the product had reached the stability which its users deserved and exited its Beta status to enter a Production development stage.
+
+== Development of 0.11.x versions
+
+The 0.11.x development stage is focusing new features and fixing old bugs; there have been many new important enchancements like access keys.
 --DFQRCTsKlU
 woas.page.title: Special::Export
 woas.page.attributes: 0
@@ -941,7 +946,7 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Special::Advanced
 woas.page.attributes: 0
-woas.page.length: 503
+woas.page.length: 497
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -950,7 +955,7 @@ woas.page.boundary: DFQRCTsKlU
 = Advanced
 The Advanced page offers some tools for administration of your wiki. Descriptions are provided, and most of the Special links lead to pages that have individual help available. Below are links to help pages for the ones that don't offer individual help automatically.
 * *Special::Erase Wiki* - See the [[WoaS::Help::Special::Erase Wiki]] page
-* *Special::Edit CSS* - See the [[WoaS::Help::Edit CSS]] page.
+* *WoaS::CSS::* - See the [[WoaS::Help::Edit CSS]] page.
 * *Special::Edit Bootscript* - See the [[WoaS::Help::Special::Edit Bootscript]] page.
 
 --DFQRCTsKlU
@@ -970,7 +975,7 @@ If you have not given permanent permission to your browser for editing wiki page
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Edit CSS
 woas.page.attributes: 0
-woas.page.length: 1978
+woas.page.length: 1055
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -984,31 +989,19 @@ A tutorial about CSS is available at [[http://www.w3schools.com/css/]].>>>
 == Edit the CSS settings
 # Open the wiki in a browser.
 # Click the *Advanced* icon in the navigation bar.
-# Click the *Special::Edit CSS* link in the *Advanced* section to open the CSS settings in the editor.
-# Make whatever changes you like to the CSS entries in the main text area (including replacing them entirely with rules of your own).
+# Click the *WoaS::CSS::Core* link in the *Advanced* section to view the core CSS class names
+# Copy the class ids which you want to modify
+# Go back to *Special::Advanced* and edit *WoaS::CSS::Custom*
+* Define CSS classes which you have grabbed in previous step
 # Save your changes by clicking the *Save* icon in the navigation bar.
 
 == Restore the default CSS settings
 To return to the default settings if you don't like the changes you've made:
-# Open a fresh copy of Wiki on a Stick in a browser.
-# Click the *Advanced* icon in the navigation bar.
-# Click the *Special::Edit CSS* link in the *Advanced* section to open the CSS settings in the editor.
-# Select and copy all the content in the main text area.
 # Open your wiki in a browser.
 # Click the *Advanced* icon in the navigation bar.
-# Click the *Special::Edit CSS* link in the *Advanced* section to open the CSS settings in the editor.
+# Click the *WoaS::CSS::Custom* link in the *Advanced* section to open the CSS settings in the editor.
 # Delete all of the contents of the main text area.
-# Paste the settings you copied from the fresh copy of WoaS into the main text area.
 # Click the *Save* icon in the navigation bar to save the changes.
-
-If you have edited the CSS settings and accidentally made your wiki unusable, you can restore the default CSS this way:
-# Open a fresh copy of Wiki on a Stick in a text editor.
-# Find the section that begins with {{{<style type="text/css">}}} and ends with {{{</style>}}}.
-# Copy the code between those two style tags.
-# Open your wiki in a text editor.
-# Find the section that begins with {{{<style type="text/css">}}} and ends with {{{</style>}}}.
-# Replace the code between those two style tags with the code you copied from the the fresh copy of Wiki on a Stick.
-# Save the change to your wiki.
 
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Special::Edit Bootscript
@@ -2398,7 +2391,7 @@ See also the [[WoaS::Help::Table of Contents]] page.
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Links
 woas.page.attributes: 0
-woas.page.length: 8306
+woas.page.length: 8370
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -2463,24 +2456,23 @@ You can include the contents of another page of this wiki in the current page by
 These are internal wiki actions in the form of links:<br><br>
 {|
 | *Use this code in a page:* || *To create this:*
-| {{{[[Special::All Pages|All pages]]}}} || All pages link
-| {{{[[Special::Backlinks|Backlinks]]}}} || Backlinks link
-| {{{[[Special::Dead Pages|Dead links]]}}} || Dead links link
-| {{{[[Special::Delete Page|Delete page]]}}} || Delete page link
-| {{{[[Special::Duplicate Page|Duplicate page]]}}} || Duplicate page link
-| {{{[[Special::Edit CSS|Edit CSS]]}}} || Edit CSS link
-| {{{<a class="link" onclick="javascript:edit()">Edit page</a>}}} || Edit page link
-| {{{[[Special::Go to|Go to...]]}}} || Go to... link
-| {{{[[Locked::|Locked pages]]}}} || Locked pages link
-| {{{[[Special::Main Page|Main page]]}}} || Main page link
-| {{{[[Special::New Page|New page]]}}} || New page link
-| {{{[[Special::Orphaned Pages|Orphaned pages]]}}} || Orphaned pages link
-| {{{[[Special::Recentchanges|Recentchanges]]}}} || Recentchanges link
-| {{{[[Special::Search|Search]]}}} || Search link
-| {{{[[Tagged::Syntax|Syntax pages]]}}} || Syntax pages link
-| {{{[[Tagged::|Tagged pages]]}}} || Tagged pages link
-| {{{[[Unlocked::|Unlocked pages]]}}} || Unlocked pages link
-| {{{[[Untagged::|Untagged pages]]}}} || Untagged pages link
+| {{{[[Special::All Pages|All pages]]}}} || All pages listing
+| {{{[[Special::Backlinks|Backlinks]]}}} || Listing of pages linking to page
+| {{{[[Special::Dead Pages|Dead links]]}}} || Pages without any link to them
+| {{{[[Special::Delete Page|Delete page]]}}} || Delete page prompt
+| {{{[[Special::Duplicate Page|Duplicate page]]}}} || Duplicate page
+| {{{[[WoaS::CSS::Custom|Custom CSS]]}}} || Custom CSS
+| {{{[[Special::Go to|Go to...]]}}} || Go to page prompt
+| {{{[[Locked::|Locked pages]]}}} || Listing of encrypted pages
+| {{{[[Special::Main Page|Main page]]}}} || Main page (whatever title it has)
+| {{{[[Special::New Page|New page]]}}} || New page prompt
+| {{{[[Special::Orphaned Pages|Orphaned pages]]}}} || Orphaned pages listing
+| {{{[[Special::Recentchanges|Recentchanges]]}}} || Recently changed pages listing
+| {{{[[Special::Search|Search]]}}} || Search into pages interface
+| {{{[[Tagged::Syntax|Syntax pages]]}}} || Pagged tagged with 'Syntax'
+| {{{[[Tagged::|Tagged pages]]}}} || Pagged which contain some tag
+| {{{[[Unlocked::|Unlocked pages]]}}} || Listing of pages without encryption
+| {{{[[Untagged::|Untagged pages]]}}} || Listing of pages without any tag
 |}
 
 === Internal link (labeled)

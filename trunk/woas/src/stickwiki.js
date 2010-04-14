@@ -1154,7 +1154,7 @@ woas.after_load = function() {
 	}
 
 	// properly initialize navigation bar icons
-	// this will cause the alternate text to display on IE6
+	// this will cause the alternate text to display on IE6/IE7
 	this.img_display("back", true);
 	this.img_display("forward", true);
 	this.img_display("home", true);

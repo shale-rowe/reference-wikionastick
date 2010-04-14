@@ -1,5 +1,6 @@
 
-//TODO: all variables should stay inside this object
+// pvhl proposes to use a version property to identify more easily the browser version
+// it seems a bit excessive for now
 woas.browser = { ie: false, ie6: false, ie8: false,
 					firefox: false, firefox2: false,
 					firefox3: false, firefox_new: false,
