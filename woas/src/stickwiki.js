@@ -948,14 +948,9 @@ woas._create_bs = function(saving) {
 	// remove the comments
 	code = code.replace(reJSComments, '');
 	if (!code.length) return false;
-	_bootscript = document.createElement("script");
-	_bootscript.type="text/javascript";
-	_bootscript.id = "woas_bootscript";
-	// we have only one head, select it
-	this._dom_cage.head.appendChild(_bootscript);
 	if (saving)
 		woas._save_reload = true;
-	this.setHTML(_bootscript, this._protect_js_code(code));
+	_bootscript = this._mk_active_script(this._protect_js_code(code), "plugin", 0, true);
 	if (saving)
 		woas._save_reload = false;
 	return true;
@@ -987,6 +982,10 @@ woas._activate_scripts = function(saving) {
 		if (saving)
 			this._save_reload = false;
 	}
+};
+
+woas._new_plugins = function(new_plugins, saving) {
+	//TODO: create a script object for each new plugin
 };
 
 woas._set_title = function (new_title) {

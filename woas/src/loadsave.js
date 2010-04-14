@@ -520,6 +520,7 @@ woas._save_to_file = function(full) {
 
 	this._clear_custom_scripts();
 	this._clear_bs();
+	this._new_plugins([]);
 
 	this.setHTML($("woas_wait_text"), "");
 	var bak_cursor = document.body.style.cursor;
@@ -553,8 +554,12 @@ woas._save_to_file = function(full) {
 	$("woas_debug_log").value = bak_debug;
 	$("wiki_title").innerHTML = bak_title;
 	
+	// it shouldn't really be necessary to re-create scripts but
+	// we recreate them so that DOM scripts are always consistent
+	// with runtime javascript data/code
 	this._create_bs(true);
 	this._activate_scripts(true);
+	this._new_plugins(this._plugin_scripts, true);
 	
 	this.progress_finish();
 	
