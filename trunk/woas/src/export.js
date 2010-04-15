@@ -30,22 +30,19 @@ woas._export_get_fname = function (title, create_mode) {
 		}
 		return _title2fn[title];
 	}
-	var orig_title = title;
+	var sp, orig_title = title;
 	// handle the valid exportable special pages
-	var sp;
 	if (title.match(/::$/))
 		sp = true;
 	else if (this.is_reserved(title)) {
-		if (title.match(/^Special::/)) {
-			if ((this.page_index(title)==-1) &&
-				// never save these pages
-				(this.unexportable_pages.indexOf(title.substr(9)) == -1))
-				sp = true;
-			else {
-				_title2fn[title] = "#";
-				return "#";
-			}
-		} else {
+		var nogo;
+		if (title.match(/^Woas::/))
+			nogo = (this.unexportable_pages2.indexOf(title)!==-1);
+		else if (title.match(/^Special::/))
+			nogo = (this.unexportable_pages.indexOf(title.substr(9)) !== -1);
+		else // other reserved pages, deny
+			nogo = true;
+		if (nogo) {
 			_title2fn[title] = "#";
 			return "#";
 		}
@@ -57,7 +54,7 @@ woas._export_get_fname = function (title, create_mode) {
 			_further_pages.push(title);
 	} else {
 		pi=this.page_index(title);
-		if (pi==-1) {
+		if (pi===-1) {
 			this.alert(this.i18n.PAGE_NOT_EXISTS+title);
 			_title2fn[title] = "#";
 			return "#";
@@ -231,8 +228,8 @@ woas.export_wiki = function () {
 		// do skip physical special pages
 		if (page_titles[pi].match(/^Special::/)) continue;
 		if (this.static_pages2.indexOf(page_titles[pi]) !== -1) continue;
-		// skip also the custom CSS page (CSS is obtained from runtime object)
-		if (page_titles[pi] === "WoaS::CSS::Custom") continue;
+		// skip also the unexportable WoaS pages
+		if (this.unexportable_pages2.indexOf(page_titles[pi]) !== -1) continue;
 		// do skip menu pages (they are included in each page)
 		mnupos = page_titles[pi].indexOf("::Menu");
 		if ((mnupos != -1) &&
