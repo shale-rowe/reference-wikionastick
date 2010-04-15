@@ -207,7 +207,14 @@ Wiki Code:
 <div class="woas_about_footer"><a class="link" onclick="go_to('Special::About')">About Wiki on a Stick v@@WOAS_VERSION@@</a></div>
 <script type="text/javascript">
 //<![CDATA[
-woas.generate_tail();
+// this code needs to stay here for some Opera/Safari/Chrome restriction
+// on DOM generation from extenal JavaScript
+if (woas.use_java_io) {
+	// output an applet tag
+	document.write("<"+"!-- "+__marker+"-TAIL-START -"+"->" +
+					 "<applet style='position:absolute;left:-1px' name='TiddlySaver' code='TiddlySaver.class' archive='TiddlySaver.jar' width='1' height='1'></applet>"
+					 + "<"+"!-- "+__marker+"-TAIL-END -"+"->");
+}
 //]]>
 </script>
 <div id="woas_custom_accesskeys">&nbsp;</div>
