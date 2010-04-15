@@ -1097,7 +1097,10 @@ woas.after_load = function() {
 
 	// (4) setup some DOM cage objects (read cache)
 	this._dom_cage.head = document.getElementsByTagName("head")[0];
-	this._dom_cage.stylesheet = document.getElementsByTagName("style")[0];
+	if (this.browser.ie)
+		this._dom_cage.stylesheet = document.styleSheets[0];
+	else
+		this._dom_cage.stylesheet = document.getElementsByTagName("style")[0];
 
 	// (5) activate the CSS, with eventual fixups for some browsers
 	this.css.set(this.get_text("WoaS::CSS::Core")+"\n"+this.get_text("WoaS::CSS::Custom"));
@@ -1466,14 +1469,21 @@ woas.css = {
 			}
 		}
 		if (woas.browser.ie)
-			document.styleSheets[0].cssText = css;
-		else
-			woas._dom_cage.stylesheet.innerHTML = css;
+			woas._dom_cage.stylesheet.cssText = css;
+		else {
+			if (woas.browser.chrome) {
+				//TODO: how can we set CSS in Chrome?
+//				document.styleSheets[0].insertRule(css);
+			} else
+				woas._dom_cage.stylesheet.innerHTML = css;
+		}
 	},
 	
 	// Not used/needed in public API; can't easily fix this with current code.
 	// Can't see this being a problem though.
 	get: function() {
+		if (woas.browser.ie)
+			return woas._dom_cage.stylesheet.cssText;
 		return woas._dom_cage.stylesheet.innerHTML;
 	}
 };

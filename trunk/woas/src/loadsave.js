@@ -306,8 +306,14 @@ woas.javaSaveFile = function(filePath,save_mode,content) {
 		return false;
 	}
 	try {
-		if(document.applets.TiddlySaver)
-			return document.applets.TiddlySaver.saveFile(_javaUrlToFilename(filePath),"UTF-8",content);
+		if(document.applets.TiddlySaver) {
+			var rv = document.applets.TiddlySaver.saveFile(_javaUrlToFilename(filePath),"UTF-8",content);
+			if (typeof rv == "undefined") {
+				log("Save failure, check your Java console (perhaps necessary class was not found)");
+				return null;
+			} else
+				return rv;
+		}
 	} catch(ex) {
 		// report but check next method
 		log("TiddlySaver applet not available"); //log:1
@@ -336,8 +342,13 @@ woas.javaLoadFile = function(filePath, load_mode, suggested_mime) {
 		if(document.applets.TiddlySaver) {
 			content = document.applets.TiddlySaver.loadFile(_javaUrlToFilename(filePath), "UTF-8");
 			if (content === null) {
-				// file does not exist
+				log("Load failure, maybe file does not exist?"); //log:1
 				return false;
+			}
+			// check that it is not an "undefined" string
+			if (typeof content == "undefined") {
+				log("Load failure, check your Java console (perhaps necessary class was not found)"); //log:1
+				return null;
 			}
 			// convert to string only after checking that it was successfully loaded
 			content = String(content);
@@ -348,12 +359,14 @@ woas.javaLoadFile = function(filePath, load_mode, suggested_mime) {
 			return content;
 		}
 	} catch(ex) {
-		// ok TiddlySaver applet not available, check next method
-//		log("TiddlySaver not working: "+e)
+		// report but check next method
+		log("TiddlySaver applet not available"); //log:1
 	}
 	// check if no JRE is available
-	if (typeof java == "undefined")
+	if (typeof java == "undefined") {
+		log("No JRE detected"); //log:1
 		return null;
+	}
 	var a_content = [];
 	try {
 		var r = new java.io.BufferedReader(new java.io.FileReader(_javaUrlToFilename(filePath)));
