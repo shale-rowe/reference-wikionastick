@@ -923,32 +923,32 @@ woas._protect_js_code = function(code) {
 	return "if (!woas._save_reload) {\n" + code + "\n}\n";
 };
 
-woas._mk_active_script = function(code, id, i, is_inline) {
+var reJSComments = /^\s*\/\*[\s\S]*?\*\/\s*/g;
+woas._mk_active_script = function(code, id, i, external) {
+	// remove the comments
+	code = code.replace(reJSComments, '');
+	if (!code.length) return null;
 	var s_elem = document.createElement("script");
 	s_elem.type="text/javascript";
 	s_elem.id = "woas_"+id+"_script_"+i;
-	if (!is_inline)
+	if (external)
 		s_elem.src = code;
 	this._dom_cage.head.appendChild(s_elem);
-	if (is_inline)
+	if (!external)
 		// add the inline code with a protection from re-run which could happen upon saving WoaS
 		woas.setHTML(s_elem, this._protect_js_code(code));
 	return s_elem;
 };
 
-var reJSComments = /^\s*\/\*[\s\S]*?\*\/\s*/g;
 woas._create_bs = function(saving) {
 	// do not run bootscript in safe mode
 	if (this.config.safe_mode)
 		return false;
 	var code=this.get_text("WoaS::Bootscript");
 	if (code===null || !code.length) return false;
-	// remove the comments
-	code = code.replace(reJSComments, '');
-	if (!code.length) return false;
 	if (saving)
 		woas._save_reload = true;
-	_bootscript = this._mk_active_script(this._protect_js_code(code), "plugin", 0, true);
+	_bootscript = this._mk_active_script(this._protect_js_code(code), "plugin", 0, false);
 	if (saving)
 		woas._save_reload = false;
 	return true;
@@ -968,14 +968,16 @@ woas._activate_scripts = function(saving) {
 		if (saving)
 			this._save_reload = true;
 //		log(this.parser.script_extension.length + " javascript files/blocks to process");	// log:0
-		var s_elem, is_inline;
+		var s_elem, external;
 		for (var i=0;i<this.parser.script_extension.length;i++) {
-			is_inline = new String(typeof(this.parser.script_extension[i]));
-			is_inline = (is_inline.toLowerCase()=="string");
+			external = new String(typeof(this.parser.script_extension[i]));
+			external = (external.toLowerCase()!=="string");
 			s_elem = this._mk_active_script(
-					is_inline ? this.parser.script_extension[i] : this.parser.script_extension[i][0],
-					"custom", i);
-			this._custom_scripts.push(s_elem);
+					external ? this.parser.script_extension[i][0] : this.parser.script_extension[i],
+					"custom", i, external);
+			// sometimes instancing the script is not necessary
+			if (s_elem !== null)
+				this._custom_scripts.push(s_elem);
 		}
 		if (saving)
 			this._save_reload = false;
