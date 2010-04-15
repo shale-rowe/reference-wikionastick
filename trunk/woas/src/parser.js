@@ -144,11 +144,14 @@ woas.parser.place_holder = function (i, separator) {
 };
 
 woas._make_preformatted = function(text) {
-	var cls, tag;
-	if (text.indexOf("\n") == -1) {
+	var cls, tag, p = text.indexOf("\n");
+	if (p == -1) {
 		cls = "wiki_preformatted";
 		tag = "tt";
 	} else {
+		// remove the first newline to be compliant with old parsing
+		if (p===0)
+			text = text.substr(1);
 		cls = "woas_nowiki_multiline";
 		tag = "div";
 	}
