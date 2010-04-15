@@ -581,7 +581,11 @@ woas._save_to_file = function(full) {
 	return r;
 };
 
-var reHeadTagEnd = new RegExp("<\\/"+"head>", "ig");
+var reHeadTagEnd = new RegExp("<\\/"+"head>", "ig"),
+	reTitleS = new RegExp("<"+"title", "ig"),
+	reStyleS = new RegExp("<"+"style", "ig"),
+	reTitleE = new RegExp("<"+"/title"+">", "ig"),
+	reStyleE = new RegExp("<"+"/style"+">", "ig");
 woas._extract_src_data = function(marker, source, full, current_page, start) {
 	var offset;
 	// always find the end marker to make the XHTML fixes
@@ -605,11 +609,19 @@ woas._extract_src_data = function(marker, source, full, current_page, start) {
 	//RFC: does body_ofs ever evaluate to -1?
 	if (body_ofs !== -1) {
 		// fix document title directly without modifying DOM
-		var title_end, title_start = source.indexOf("<"+"title", offset);
+		reTitleS.lastIndex = offset;
+		var title_end, title_start = reTitleS.exec(source);
+		if (title_start === null)
+			title_start = -1;
+		else title_start = title_start.index;
 		if (title_start === -1)
 			this.crash("Cannot find document title start tag");
 		else {
-			title_end = source.indexOf("<"+"/title>", title_start);
+			reTitleE.lastIndex = title_start;
+			title_end = reTitleE.exec(source);
+			if (title_end === null)
+				title_end = -1;
+			else title_end = title_end.index;
 			if (title_end === -1)
 				this.crash("Cannot find document title end tag");
 			else {
@@ -623,11 +635,19 @@ woas._extract_src_data = function(marker, source, full, current_page, start) {
 			}
 		}
 		// replace CSS directly without modifying DOM
-		var css_end, css_start = source.indexOf("<"+"style", offset);
+		reStyleS.lastIndex = offset;
+		var css_end, css_start = reStyleS.exec(source);
+		if (css_start === null)
+			css_start = -1;
+		else css_start = css_start.index;
 		if (css_start === -1)
 			this.crash("Cannot find CSS style start tag");
 		else {
-			css_end = source.indexOf("<"+"/style>", css_start);
+			reStyleE.lastIndex = css_start;
+			css_end = reStyleE.exec(source);
+			if (css_end === null)
+				css_end = -1;
+			else css_end = css_end.index;
 			if (css_end === -1)
 				this.crash("Cannot find CSS style end tag");
 			else {
