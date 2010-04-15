@@ -30,10 +30,7 @@ woas.render_title = null;
 woas._forward_browse = false;
 
 // hashmap used to quickly reference some important DOM objects
-woas._dom_cage = {
-				"head":null,
-				"stylesheet":null
-				};
+woas._dom_cage = {};
 
 // the hotkeys runtime object
 woas.hotkeys = {
@@ -1150,6 +1147,11 @@ woas.setHTML = woas.getHTML = null;
 
 // when the page is loaded - onload, on_load
 woas.after_load = function() {
+
+	// (0) first setup some DOM cage objects (read cache)
+	this._dom_cage.head = document.getElementsByTagName("head")[0];
+	this._dom_cage.stylesheet = document.getElementsByTagName("style")[0];
+
 	log("***** Woas v"+this.version+" started *****");	// log:1
 
 	// (1) set some browser-tied functions
@@ -1227,11 +1229,6 @@ woas.after_load = function() {
 	// customized keyboard hook
 	document.onkeydown = kbd_hook;
 	
-	// setup some DOM cage objects (read cache)
-	this._dom_cage.head = document.getElementsByTagName("head")[0];
-	if (!this.browser.ie)
-		this._dom_cage.stylesheet = document.getElementsByTagName("style")[0];
-
 	// Go straight to requested page
 	var qpage=document.location.href.split("?")[1];
 	if (qpage) {
