@@ -1023,6 +1023,19 @@ woas.before_quit = function () {
 	return true;
 };
 
+woas._set_debug = function(status) {
+	if (status) {
+		// activate debug panel
+		$.show_ni("woas_debug_panel");
+		$.show("woas_debug_log");
+		// hide the progress area
+		$.hide("loading_overlay");
+	} else {
+		$.hide_ni("woas_debug_panel");
+		$.hide("woas_debug_console");
+	}
+};
+
  // DO NOT use setHTML for the document.body object in IE browsers
 woas.setHTML = woas.getHTML = null;
 
@@ -1059,16 +1072,25 @@ woas.after_load = function() {
 	this.setHTML($("woas_wait_text"), this.i18n.LOADING);
 
 	// (2) check integrity of WoaS features - only in debug mode
-	if (this.tweak.integrity_test)
-		if (!this.integrity_test())
-			return;
-		
+	if (this.config.debug_mode) {
+		this._set_debug(true);
+		if (this.tweak.integrity_test) {
+			if (!this.integrity_test())
+				// test failed, stop loading
+				return;
+		}
+	} else
+		this._set_debug(false);
+
 	// (3) load the actual pages (if necessary)
 	if (this.tweak.native_wsif) {
 		if (!this._native_load()) {
 			// the file load error is already documented to user
-			if (this.wsif.emsg !== null)
+			if (this.wsif.emsg !== null) {
+				// force debug mode
+				this._set_debug(true);
 				this.crash("Could not load WSIF pages data!\n"+this.wsif.emsg);
+			}
 			return;
 		}
 	}
@@ -1084,14 +1106,6 @@ woas.after_load = function() {
 	$('woas_home_hl').title = this.config.main_page;
 	$('img_home').alt = this.config.main_page;
 	
-	if (this.config.debug_mode) {
-		$.show_ni("woas_debug_panel");
-		$.show("woas_debug_log");
-	} else {
-		$.hide_ni("woas_debug_panel");
-		$.hide("woas_debug_console");
-	}
-
 	// properly initialize navigation bar icons
 	// this will cause the alternate text to display on IE6/IE7
 	this.img_display("back", true);
@@ -1662,16 +1676,4 @@ woas.cancel_edit = function() {
 		this.disable_edit();
 		current = this.prev_title;
 	}
-};
-
-woas.generate_tail = function() {
-	var tail = "";
-	if (this.use_java_io) {
-		// output an applet tag
-		tail += "<applet style='position:absolute;left:-1px' name='TiddlySaver' code='TiddlySaver.class' archive='TiddlySaver.jar' width='1' height='1'></applet>";
-	}
-	// write tail data (if we have any)
-	if (tail.length)
-		document.write("<"+"!-- "+__marker+"-TAIL-START -->" + tail + "<"+"!-- "+__marker+"-TAIL-END -->");
-
 };

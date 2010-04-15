@@ -36,7 +36,6 @@ function _saveThisFile(new_data, old_data) {
 
 //API1.0: save-file handler
 woas.save_file = function(fileUrl, save_mode, content) {
-//	log("javaSaveFile(\""+fileUrl+"\", "+save_mode+", ...("+content.length+" bytes)...)");	//log:0
 	var r = null;
 	if (!this.use_java_io) {
 		r = this.mozillaSaveFile(fileUrl, save_mode, content);
@@ -310,11 +309,14 @@ woas.javaSaveFile = function(filePath,save_mode,content) {
 		if(document.applets.TiddlySaver)
 			return document.applets.TiddlySaver.saveFile(_javaUrlToFilename(filePath),"UTF-8",content);
 	} catch(ex) {
-		// ok TiddlySaver applet not available, check next method
+		// report but check next method
+		log("TiddlySaver applet not available"); //log:1
 	}
 	// check if no JRE is available
-	if (typeof java == "undefined")
+	if (typeof java == "undefined") {
+		log("No JRE detected"); //log:1
 		return null;
+	}
 	// try reading the file via java
 	try {
 		var s = new java.io.PrintStream(new java.io.FileOutputStream(_javaUrlToFilename(filePath)));
