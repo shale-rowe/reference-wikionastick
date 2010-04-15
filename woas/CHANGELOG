@@ -1,3 +1,6 @@
+Version 0.11.6 (legolas558)
+* fixed saving issue on IE browsers (found by deroock)
+
 Version 0.11.5 (legolas558) released 2010-04-15
 * fixed nowiki newline bug
 * fixed custom scripts bug
