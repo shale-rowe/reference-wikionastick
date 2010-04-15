@@ -493,6 +493,8 @@ woas.popup = function(name,fw,fh,extra,head,body, body_extra) {
 
 // tell user how much work was already done
 woas.progress_status = function (ratio) {
+	// no progress indicators in debug mode
+	if (this.config.debug_mode) return;
 	this.setHTML($("woas_wait_text"), this._progress_section + "\n" +
 				Math.ceil(ratio*100)+"% done");
 };
@@ -511,6 +513,8 @@ woas.progress_init = function(section) {
 	if (typeof section == "undefined")
 		section = "";
 	else section = "\n" + section;
+	// no progress indicators in debug mode
+	if (this.config.debug_mode) return;
 	this.setHTML($("woas_wait_text"), section);
 	document.body.style.cursor = "wait";
 	// put in busy mode and block interaction for a while
@@ -523,9 +527,11 @@ woas.progress_finish = function(section) {
 		this.crash("Cannot finish an unexisting progress indicator section");
 		return;
 	}
-	$.hide("loading_overlay");
-	document.body.style.cursor = "auto";
-	this.setHTML($("woas_wait_text"), this.i18n.LOADING);
+	// no progress indicators in debug mode
+	if (!this.config.debug_mode) {
+		document.body.style.cursor = "auto";
+		this.setHTML($("woas_wait_text"), this.i18n.LOADING);
+	}
 	this._progress_section = false;
 };
 
