@@ -36,13 +36,14 @@ woas._export_get_fname = function (title, create_mode) {
 		sp = true;
 	else if (this.is_reserved(title)) {
 		var nogo;
-		if (title.match(/^Woas::/))
+		if (title.match(/^WoaS::/))
 			nogo = (this.unexportable_pages2.indexOf(title)!==-1);
 		else if (title.match(/^Special::/))
 			nogo = (this.unexportable_pages.indexOf(title.substr(9)) !== -1);
 		else // other reserved pages, deny
 			nogo = true;
 		if (nogo) {
+			log("Reserved page will not be exported: "+title);
 			_title2fn[title] = "#";
 			return "#";
 		}

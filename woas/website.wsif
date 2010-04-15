@@ -5,8 +5,8 @@ woas.pages: 74
 
 woas.page.title: ::Menu
 woas.page.attributes: 0
-woas.page.last_modified: 1271356628
-woas.page.length: 571
+woas.page.last_modified: 1271356977
+woas.page.length: 518
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -19,9 +19,6 @@ woas.page.boundary: DFQRCTsKlU
 * [[https://lists.sourceforge.net/lists/listinfo/stickwiki-devel|Mailing list]]
 * [[http://sourceforge.net/projects/stickwiki|SF.net project]]
 * [[https://sourceforge.net/projects/stickwiki/files/|Download]]
-
-* [[Special::Delete Page]]
-* [[Special::All Pages]]
 
 <p style="text-align:center"><a href="http://sourceforge.net/"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=155218" alt="SourceForge.net Logo" border="0"></a></p>
 
