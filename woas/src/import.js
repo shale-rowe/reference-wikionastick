@@ -130,6 +130,7 @@ woas.import_wiki = function() {
 				case "0.11.2":
 				case "0.11.3":
 				case "0.11.4":
+				case "0.11.5":
 					old_version = Number(ver_str.substr(2).replace(/\./g, ""));
 					break;
 				default:
@@ -532,6 +533,15 @@ woas.import_wiki = function() {
 	
 	this.config.permit_edits = !old_block_edits;
 	} while (false); // fake do..while ends here
+	
+	// fix configuration for older versions
+	if (old_version < 114) {
+		if (!this.config.open_last_page) {
+			// reset some variables which were not reset in those older versions
+			backstack = [];
+			current = this.config.main_page;
+		}
+	}
 	
 	// remove hourglass
 	this.progress_finish();

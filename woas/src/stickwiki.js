@@ -1148,13 +1148,9 @@ woas.setHTML = woas.getHTML = null;
 // when the page is loaded - onload, on_load
 woas.after_load = function() {
 
-	// (0) first setup some DOM cage objects (read cache)
-	this._dom_cage.head = document.getElementsByTagName("head")[0];
-	this._dom_cage.stylesheet = document.getElementsByTagName("style")[0];
-
 	log("***** Woas v"+this.version+" started *****");	// log:1
 
-	// (1) set some browser-tied functions
+	// (0) set some browser-tied functions
 	if (this.browser.ie) {	// some hacks for IE
 		this.setHTML = function(elem, html) {elem.text = html;};
 		this.getHTML = function(elem) {return elem.text;};
@@ -1178,15 +1174,15 @@ woas.after_load = function() {
 		$.show("img_logo");
 	}
 	
-	// (2) show loading message
+	// (1) show loading message
 	this.setHTML($("woas_wait_text"), this.i18n.LOADING);
 
-	// (3) check integrity of WoaS features - only in debug mode
+	// (2) check integrity of WoaS features - only in debug mode
 	if (this.tweak.integrity_test)
 		if (!this.integrity_test())
 			return;
 		
-	// (4) load the actual pages (if necessary)
+	// (3) load the actual pages (if necessary)
 	if (this.tweak.native_wsif) {
 		if (!this._native_load()) {
 			// the file load error is already documented to user
@@ -1195,6 +1191,10 @@ woas.after_load = function() {
 			return;
 		}
 	}
+
+	// (4) setup some DOM cage objects (read cache)
+	this._dom_cage.head = document.getElementsByTagName("head")[0];
+	this._dom_cage.stylesheet = document.getElementsByTagName("style")[0];
 
 	// (5) activate the CSS, with eventual fixups for some browsers
 	this.css.set(this.get_text("WoaS::CSS::Core")+"\n"+this.get_text("WoaS::CSS::Custom"));
@@ -1238,10 +1238,6 @@ woas.after_load = function() {
 		if (p != -1)
 			current = current.substring(0,p);
 //		log("current ::= "+current);	//log:0
-	} else if (!this.config.open_last_page) {
-		// keep here to fix older/read-only woas; new code has fixed the save.
-		current = this.config.main_page;
-		backstack = [];
 	}
 	
 	this._load_aliases(this.get_text("WoaS::Aliases"));
