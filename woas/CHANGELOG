@@ -1,3 +1,8 @@
+Version 0.11.5 (legolas558) released 2010-04-15
+* fixed nowiki newline bug
+* fixed custom scripts bug
+* fixed Safari/Chrome CSS issues
+
 Version 0.11.4 (legolas558) released 2010-04-14
 * fixed import issue
 * renamed CSS classes: wiki_toc -> woas_toc, wiki_toc_title -> woas_toc_title, embedded -> woas_embedded
