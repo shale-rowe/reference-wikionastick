@@ -1,4 +1,4 @@
-// AES encryption for StickWiki
+// AES encryption for WoaS
 // adapted by legolas558
 // license: GNU/GPL
 // original code from http://home.versatel.nl/MAvanEverdingen/Code/
@@ -286,15 +286,15 @@ Expose namespace; this allows:
 * for API to be overridden by other modules in whole or in part.
 This is all of the above code that is exposed to other code.
 
-(Also, if namespace was "woas.crypto" would allow replacement plugins for different
+If namespace was "woas.crypto" would allow replacement plugins for different
 crypto methods to be called; a sort of Inversion Of Control injection. Just write
 your new code to expose the same API. Pages could define their encryption method,
 e.g. ("woas.page.encryption: aes256" ?) if desired, and the code just hooks into
-the defined api as here. Would work for other namespace APIs also. Simple.)
+the defined api as here. Would work for other namespace APIs also. Simple.
 */
 
 // Expose namespace as an object
-if (woas.AES === undefined) woas.AES = {};
+if (typeof woas.AES == "undefined") woas.AES = {};
 
 woas.AES.clearKey = clearKey;
 woas.AES.setKey = setKey;
@@ -303,35 +303,3 @@ woas.AES.encrypt = encrypt;
 woas.AES.decrypt = decrypt;
 
 })(); // end of AES closure
-
-// Other functions -- this suggests these might be in the wrong file :o)
-
-woas.utf8Encrypt = function(sData) {
-	return woas.split_bytes( unescape( encodeURIComponent( sData ) ) );
-};
-
-woas.utf8Decrypt = function(bData) {
-	try {
-		return decodeURIComponent( escape( woas.merge_bytes( bData ) ) );
-	}
-	catch (e) {
-		log(e);	//log:1
-	}
-	return null;
-};
-
-woas.split_bytes = function(s) {
-	var l=s.length;
-	var arr=[];
-	for(var i=0;i<l;i++)
-		arr.push(s.charCodeAt(i));
-	return arr;
-};
-	
-woas.merge_bytes = function(arr) {
-	var l=arr.length;
-	var s="";
-	for(var i=0;i<l;i++)
-		s+=String.fromCharCode(arr[i]);
-	return s;
-};

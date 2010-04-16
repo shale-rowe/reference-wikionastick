@@ -435,3 +435,33 @@ woas.get_input_file_url = function() {
 // returns true if hotkey was added successfully or if already present
 woas.add_hotkey = function(key, function_obj) {
 };
+
+woas.utf8Encrypt = function(s) {
+	return woas.split_bytes( unescape( encodeURIComponent( s ) ) );
+};
+
+woas.utf8Decrypt = function(byte_arr) {
+	try {
+		return decodeURIComponent( escape( woas.merge_bytes( byte_arr ) ) );
+	}
+	catch (e) {
+		log(e);	//log:1
+	}
+	return null;
+};
+
+woas.split_bytes = function(s) {
+	var l=s.length;
+	var arr=[];
+	for(var i=0;i<l;i++)
+		arr.push(s.charCodeAt(i));
+	return arr;
+};
+	
+woas.merge_bytes = function(byte_arr) {
+	var l=arr.length, s="";
+	for(var i=0;i<l;i++) {
+		s+=String.fromCharCode(byte_arr[i]);
+	}
+	return s;
+};
