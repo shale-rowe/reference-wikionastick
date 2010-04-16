@@ -2565,7 +2565,7 @@ With a combination of HTML and wiki syntax, you can create anchor links to anywh
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Images
 woas.page.attributes: 0
-woas.page.length: 14055
+woas.page.length: 14101
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -2575,24 +2575,24 @@ woas.page.boundary: DFQRCTsKlU
 Wiki on a Stick offers various ways of using images in your pages. You can link to local image files on your drive, remote image files, or embed image files into the wiki.
 
 == Add an external image from the internet
-<div class="woas_helptext">Use this code in a page, replacing URL with the full link to the image:</div>{{{
+<div class="woas_helptext">Use this code in a page, replacing URL with the full link to the image:</div><br>{{{
 <img src="URL">
 }}}<br><div class="woas_helptext">To add an external image from the internet.</div>
 
 * *Example:*<br><br>
-** <div class="woas_helptext">Use this code:</div>{{{
+** <div class="woas_helptext">Use this code:</div><br>{{{
 <img src="http://www.gnu.org/graphics/heckert_gnu.small.png">
 }}}<br><div class="woas_helptext">To create this:</div><br><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJEAAACMCAAAAABZ%2BxS6AAAACXBIWXMAAAsSAAALEgHS3X78AAAAB3RJTUUH1AkZAiQF53xPugAAGFFJREFUeNrNXH9MVHe2%2F1QmS1OSaTrJmOUdZnYWybDsBJgSUXgID62BpayUEvz1RMKqhfW39Wmrr2qtGik1UnWFwKoLq0RXKWgJ9EHUrU83UOFJkUgDD3iwYKA7E9hlwmxmdoac98e9M8zcucMPq%2B1%2B%2F5mZ7733ez%2F3fM%2F3nM8553vnJcY%2FWVPMfNgyOm6xAAHBUKnUPzSi8QdfP%2B6xeHQE6mLiU4Oe%2FVbO%2FuG%2FjluhfFWp0s3wdC%2FJz9poXWNbgCFaF6IKETq%2BdT4d6Wl%2FGpixW%2FdMcIZr73bZVa8tBEz%2FMNmhjF2yMnweiNrK7ryamh7rK4%2Fh6ivjv94bOG88fYVNuoz4aKVLFwZ6vmnt1GVsDJY7mX1aczal1TuE7476hzZm7j6TueFM8yQz28oiEm7z%2FJrtpDb3kU%2Fv2PW12k0dvmf7IBrKpxT3LRsTiEJX7VlKQjNm7mvksX20aUiAa5sToPsJK5qZebLjwqal%2B%2B472NZ83iQc6d2jFYfyaJJZc5acC9q%2FEcDjyoWBgXfaXP0Bhk4AStUgCg4q2g%2F1rE8PGf%2FqyjXNjHNlDQIwfryuYK%2Bi6UrfU6FTtajTDuXuzcKSenyw%2F%2FiamfRodFtb%2Bgk1AGS0e66y8BMxn5%2Bwbtmi7KqtW1SqQu2VNgSE9fTMvPLOjq5UPLgWfTwMFUcVqZ2DQOo3w%2BKxRTFme%2FJ2wHmqZPUphV89ehipvy58uyrOk757cmhogpmZJyfFk86PMbNtiHdkzjJd9dpQ7YY%2FMvOxVZcn2HFhRT1PHFmXFJeUJgyuHRDOypz0p0f1%2BoRuZp7ovn8jQkTk0qih1ubmIYfnhRMfaJtn02hjvfAMvZIDjrXC6PmCsuozx%2BT1qGGb7jM1cCdP%2BJlqABa9BYw%2BaOnsmwKAgDBDVFSYCrAP999pmCpOn23RN717Imv612DPoBUIMRgAc4oZAJCs%2BXFyNFo3%2FrwqSEaP2leHfKYGnMmDAIDwuwBgqalrgy42epEmwDzc0%2FX1uOvsRb%2FYMgev0rT%2FtfSfAhifGP22a1xl%2BDHsXf2qNzcaTHZ8e%2FYeACi%2FUqIlb1m5wgfReKrzi2AAJYXC78KNgKXkoj02PdVjRZm7vwXwmvqnyrmZRmtTe78TQEiQ%2BmdRgj0cbbzZnnw0DLiXAwAoOAw0bNty2Eez87UdzMzNemGKI23MNUbtnl5%2BAa17q77IwSyYudAhZq6hRqlm11MZM3dkC3gyL4%2BxbQ%2FlDvALao8S0kx8O4WIiOKuM%2FMm%2FYg3ItviVQ5m3iSsyhFmnsx2WYIX0iY3GHuZO3YSEdEx5rHIXG9Ep7W9zMwrBNDM7Mg0dvCLbI53jEPMQ0REtI6Z613ztkBwxhfzwgBAWGZqAAcHq6NnU9vx4eHh0WcmZqWGAjteFSgFgPTET5wejO2ifQcAjNoBAEqg9kZ12Ezjjd5p6RqcAgDoYt9aJuF9zrtffj1sgea1sPhUlX9IbxYeFZbsIAAcSm14y7367XFZhwHg7CkAUJYsty7LOjwDnq7iO4YlP9colYD9ac%2BXLaqNWzysgbP2VEBWjC4QFnNf%2B734LfH%2Bhml%2Fuy56cxMA1MUA2Gypdq%2F%2BW1oTM%2FMxIiJaMcBcZJz0rwFjW0OPeBmFkdMRxlvuX0%2FSjNen%2FY2tJmGDXwuyJ5sdB4iIjB3MfJ%2BG3Jq9KZeZuUZY%2BWPMptAZltkfIzb4cBpbkXaP%2BAwVoflj3ip8OeKCn6FGQjuY84mIIpiZF1cwMysAWO%2BdAoAoQZY98TgfnOV3xioO798tfLM%2F7jEDqpCohQh87638jEs6wLm%2F9j8LAGC0fdAeHGUAoNiYWNB%2FXDbCCM6qisYwAGgAIFVwqcx8Wys8n5GIiM7z2AwiuqCtF%2BnuplCRH1DKBRvzZLa%2Bnh3vUFzFCNtqMoUji4%2BZmJknM99xyI7WEemwaYmI3mdmvq13%2Bf7jbXUAgG11AJBcVXLxK3%2Fk%2FuLx0nQAzsrKQc9u3bkYOLd9kTHYCSBgZVSl2U328nYrAWtOyG9kx1t2KiALAIrXALD8%2FG44sABAT4wYIgAADKjL8AeoQgB0L%2FmoFyAMvl0LxW%2FfrOsE4nOCmk4tWe06Yi9f9jkQVNX5oTyizp8pAeApAChDuiEiWiR4%2B3sAoNk12rXcD6CGo0fTAeu7OYPSI1O7LgKlGev3pra0Ve8Navhql5vwjG8vsCLoD3UlciMa2pW7AeDsAwAI6xH1iJo9iOx%2FcSP5WfoPQ08yc28cybYLQmxyPyJpYmQr6Y8Zpw8lmZgf6e%2FLxSlp7EggIoocYuYDOwUvMopgAM4yAEDiLzAYLE%2Fo%2B7akHgRa04flBXj0%2BKEAAImXBsuCS4ttF%2FOmjWb%2Fm32IKdwuc2HwX6EoAIAJCwD1qDBrTgQAUJQGAsCwE1Z5cmjeuOgc0LTe6s8ulI8qACB%2BYzWwpgqleR5OZ6MZWalb7D7XBA4DdQDwngGASkQEwd8ZjgLAYDUgKyJr9o8uKdCSb%2FfvXESumToKIPE966BHDD2cY0VhgKx2t7QAiCkAgCCLC5Eg3zU6APhE%2Fpb2HEuVCj15U7PnWRRBAJAX1BLr6QoPQVF%2Bs0nmqhIACBDW%2BbgLkRkAhjMGAWDchKcy1737TaUG5nXWmQjBhLi4VAAQFG72siHVN6Ap3C8lL0%2BDEA8AbW%2F3uboWAIANgDWrCwDwa9nI%2BXjduWhYc8wzUp5vhY8oqxkArIvGvY4e7kHWG7ucktUSAiGmsVg9EAnCDqrSAIB6O4KHfSbuWvnhVGB%2F10x4VMHiY2rKD%2FUBj3uy7nkr4jY7PhqVWKX%2BMASuAbDoZrQHomDh4cIblgFQmhCOdqllPLCxACis8w%2FHcKqts2HUJPyIL%2BmEZdf2WonO9XwIZXlpq1dfd6zzbBmg%2Fmw6T7YAQKCgAKrdAPpTS6JUn3sP1bor8ThwzcfoKjWipkRdalofjIWGBpeKZ3Wt%2Bvf1H1dXnYrxPL%2FqBgzHd3vOpaVt5d1TU4D5PADAFCCuj4WCejTtAgB7w%2FbVlf%2Bh9rKMYeUKNB3wHDxgSXKMQQn0tY0G6cTQEOs%2BTRSp8JXi4uXQAQhshyGk06XP%2B9XL1%2FQXXJtmJjcMOuHel%2FARAMu%2FiF4k%2B6SQoxBMfi5PROR7GPpeY5KJ%2BWHotFMwbqpx%2BxmvrNYB%2FWUHM%2FMto4s2DtFOZh6pyRcGj%2Bhl3jrNTCYiG8VohOgWM%2B9MEznkzk3M%2FLdc8Z4HmK%2FTBQ9AxgHmh0Koq82%2FNeDNdE578ckLEQlnupn3nHf36K8KnwNbiYgowcSOd3Jdz7N1FbONiCjz6ggz86p8EVHZYiGou72BiOgMMx8g15hXIxIGmG%2FriYi0B3zo7FXy7po4n0lJ109nuyWXvcf17Vao6HQdW5OamZkdB4xDzJN6F2FjjigSEd2nvwiQVhARFU0yO%2FZR%2FgAz966jXBNzhZaIaJM05h5ZG0nkItUdpyf4PjPz2OWE3D1J3S4cIudkl5yTBpgvaNddbr6QkNTLlzO103mqAWoUEU1oa5iZeYeY%2Blp1nbnGSCnZCWSsYR7LJyIy1nvDKVuXnUBERrd0QkPjSMBs23Tm9CZmnixad5Ivh7ovvC3oUj1z774Vcbm%2FszFHiloUaWLmy9oJV0brzbBzAK4cdFuXJsBa12kLNqwMRO3RcQDJ57xDwcKS4KgmAKs%2FdfXcK38AMSi49iC8%2Fxwsq%2FqBm7FN22pd1u%2BTc4K92p7s4hOvCzY1JyxWBax23nTFa2f0NmbuuHUyQZTS9AJqFnKGJyUT1kgJk%2FeJiFo9Oov2pDEzPyky7otoZT5JRGttzEdS3Asz0xUrdDBz75MxQWoUMSGsy%2BvueE38ziYxeUQdbOplZu4VszcfSDXaSI3cLOYQPEPCDma2%2FW7Ph93MtgiitQ5mHiGTO1nuym%2Fqn3Cvnkg0OFTEzHwkwjadG9mQJgzosjiRWqLzzA9FZpotjW0ekZG5mcgoptp7mzsczMwD%2BzwIKxHVDzEzR0wLst5t0zqSPBhxqInZFHqaXREkkJfXEg88rnazdQCFwSEbBYesPKeQRpGIBwYRXq4Bxq81DauUPbG%2FB6BzDrodVCcQcOPO3w%2Fq8Oq0w09PFz2N2SOtmpcOAGcDt3jmIVNfuQk0dcF5zsNTvCwyhFPrJUW3SFVpPMzvxhco4Lz0ID05GLAmn0gF8PjEJRe9PngFsTeB9hjEF08nI4aX%2BXI%2B9X8rgcF%2FO7xlmh8Bh9o%2BB1L37m3zjHhEQDESQPjy1ep44JWq7QqM1yZXrQ8GEJR6BQCix4%2B7zrIBGQBiYJ%2FwSJxoVkrxpGdoKgB8qMnzYqKJ6SeWK4HKFgSbpA9xUPL7QVWdDiIbV7mLGppaIensJkVB2PUrIQ7WGDyuTpUyW4Fi1951OWBRRjhhPQDg9ZanbVLe%2F4Z3%2Fsf%2Bub1apujntFnGAWDjqItnqpAIy73q6os3yj1PTPa%2Bbr%2B6FQDMR1cnSqqi6hO7EtcjGuiyBOm8uOJeya3fmubSACztw%2F1f9kMzMoWm9QDiU1tFnV2Ee2X3pgAEPvB8goWG6dFDnuJX6QcBOHcGfuTFswEgK%2BdoDwC0aOpygAD3VfGSdKQgQpe%2BFb%2Bec%2FBiPzD8clT8RQsAHG1xGX6U3J0CAPvBG54DrHbLECd0OmVYqRMoaSlX%2BiDC4UV5ZgABDeExwHvu7gJZFuviptVuSl5YXdcHAJoYcdrCFgX8qQAA3gio9rx0jRqAUoOjyoD4gwZArcDnpz6KkatmjSxeJRAXh36fLZQWbyCtlhLkUwCu5HOctugvJhetcrEA16f2SBwRUe%2FJOAmDIaLr1NyYxtwscMUjfqpZT%2FSZQiktd4zXhnbk0wdE5%2BXz46vELxsSJnlCS0S0j1nKVs5rQ4mI%2FsLeaUDOJqJHW5td0Cu0Bxz%2B6rQP9UkDzMxjzOevc3ZKPWnHZBE1u2Q0ZNzk4GNEpH%2FEvT4p%2BVwioiOOh42SUrCeqGLsichidtDpGSrHHcZIkc1MMm%2FoPUm58pN2%2BkP36Gmrmrlm37FudhxzdEtOm4hb1dzdmhD5RNJfQ7RTZAPXjYtvz1jLHkmjrS7hP%2BFsqpFHlFkxnYr9XULmmVvNzVfXPuQyH1lqUyIpdKfP9TsodIKZe88sDT0yMXMtG85zZxUZecKKd4ajUzZPMhpb5xmIDbYPDr8cnq525lVJzywsMSS%2FuaZTmkW0b2vK0nV1jqrXyNQNffAP7NFSSlGzjbmDNsiL6DxNyHUXnfStx6QcY15R79ufRpTy4X25DC7kEt9FSUTalK25VCFf9lkcKbf%2BLlyWucEjbTefXOe7VaGe%2FNXuIN89cHnnCi3RkOzB65Qy96rVgTRuJqMPWBM9mh8iZmbHUqN80TyOsueOaCziqk2fHbpCahq0ZX4uWDBDykzzsmx%2F2fB86miqguP2jNgmZUald3%2F0FX%2FZsRkeLztOtuwbmrQvYR7FxonQottJ7CjTrmr1yhtrEzasG5vfrHGaHKLJFdT8RGubB6QP9A9pgvlJGqVd8ChsNa6NoxvzQzSgTZPp3UofMKfcnweiAe0mGmJmR022loxF04bjDD2ROd3%2FPjbngalE397CuvDDQE5dop%2FNYXXtFqjDohI9bKJuzTWYNYAiK8veXVdetT4%2B%2BBUAPbV1bxvmpUf7KNe3GnFBCNEcv5QtVAzla8mYnZ0ZSUZP92OK9Mj%2BjLzvKk8sPeOY1%2BpvpiTfC4pIzFV1nJStlunPCPsInuyg%2FAlP95Y0ycwD9YL62YaGhoaGxuZrj4roso9Sb6UVLtWsMflesiL04bTeRsR5%2BI5G%2FdI9G4xESU9mVzu%2FiPaISSUPESTQhunJ8jW5j%2Bjk7RUUeUQQ7cg6yp42%2BU%2ByKWLD1asrZt2zNAOiVUkSs39AS%2BSYaagKOqKNKLp%2F%2FoJ7z2CoVMyTmRueGVENbfX82ft%2BKOmJZhzqDBFdFciey51G7pM8w%2FXQWS2Z%2FOq3FpfDHa3au1oaOhG0%2FfWNM%2FuLMAA6wNz8j4AYIUJLX5KzrdTrDgZ796ybP2RXcRJliia%2F%2BViKlogijph4bJZZm4yI1E9wt56IaIe4kib3ZXpR3SF%2FrHRmGdlz%2Bt8UHq1vVycQaFiyLDEQUKnGB2faTBK0vaE6CHesgNJ%2Bs%2FMzNQAEneq6FpzjSURn3foih%2BhG%2F%2FpCBQB05ZgRMPWeK4gMb2mXIrKWjGqiXOmOgm4AMQBif3O6cmeVMLRBYpftsyGSYyNNykJFz5UGc2WWeXtnNFTTitLic%2Bq5mAx3%2FkXx6d%2BB%2BO0BiFF%2BVNpyRe52TxH8LDJqD%2F9ToZAuKDgIj5Ka2lVB88gxpXqqu0IN4OB2uxpI33vpV7LRefizyGiqPac7Jt0ApL83XTMFAPxYemrGJcAyLJaDRAqmVAPA9qB2mT1UleqoZ5HR0XNRB3XAOFQArJ6IfEQeCCCw88ZUeRDQN%2BiZP1Ns7orxMSqbzccVeJbV79mI3Ib%2FtCQe9iBlW5kn3pEYA5%2BUwWQmveOY1WYvmJ0pB06njhr8UOzDX9%2FBjbckxkCaiRvPa8sonV1Ec5CR21%2F26knrx8DdSrD5sKm%2FSSK0SDo2F8q5YB5hRVhP3tQd%2BUNvBZVZpAH5q167bzYX2M8dnstd5oMISIbFz5FtxTPtZ3%2F87r81RdVm4TkhMns6U38bjtM1fo3x4NnUjM6VWGSY42PPNq168iBZk5Tv77zr5IeMTTR3jDDz%2B1Q2t9BlVkRx5JnZCE3wt3wdCQkzrmxHLuVPPhfNVnvOGkIG179bIW9qTwyem9EU%2F%2F7ivW3PRY9C4LlFLBot1Ycvymt9%2BtkZd3HgF6vvmp8HojAMeJrChvK34UcWhaqC8Zk3tMP5PDS7niTpKxuRH658X%2FKehUTDT2vnlHZ6abY36kZj0ebtYGNHdRrd5jDZ%2FaRRpV6%2Bw9TS1j%2FyD7yiekXV%2F3hKPfN%2BZtl3auRa3NMSb49V8bEVSL0kd%2B6VQ0hPjl4kMOKulpZ%2BL5N1Yk7v5M2O6EBVzse%2BKdjkKvkNzoUtADRqmEemAJ1BFwiYx0dHR1GQp5mbgZwd0YP1IV9JncIWU%2FUSfxb6TkvfUztUi6Jfj1%2Fo7i0u%2FkaJ52Sz2RFJ0lz%2BYj%2FlEv%2Btkeb81sDsfk2xGo1SbUc65tdC8Pe5njoHT7sR1ZIeHbrwwtocEOneGLwnKd3iUNv8btMH9XNEhB2QuLItKvPbb5fU9s0d0V1l2FxPnQPvRWzi3S4vcqOpvtjX2QaIoa%2FfZjGZLRYgJHj4Tuqcwb80l7ege1L%2B9Zq0rysVwJu%2F9ePB%2Bga%2FGex7Op1DV36he54yQnjepTvSvQxKAPiiMk%2FGILV1edCF4Kjw4JdfiVc9XxnBujLgrrRGdm10vNai%2FhoQXwoV29k%2FeEVQlSvnvdjmZrbuaz%2BU6b0tZN0ca23eoaOWKKVxcuBqxNzioXmyWnc8%2B0eZUJaWMrNtK4149%2FeeueVgZo7Q214cIs6NGJF2lRGdZMfpCAqVv8REK%2FgFIppMSpuU5uApcoLfF194k8330jO8JDjnCDLoM4tkc%2FUVIEOJmwCGK%2FpqD8kw1uLA48%2FgRuZRAzJ%2BIKkK0C9drwYJ71d6MgZR%2B7pfnIwAXXVTsZcvUePrQ04xZ5Yq4WOjrQCQjgcvwtNOhyXXPvd0cKrKIFRmBcqkHQDgawB4xW%2Be4DllIsI%2Bq%2FbMd0bfCEb7XWGz0og0Bdot7PcLebGIoK5ubfCEdDcdAHbrgHuSXFejAmY8PqRc%2FiI1W6x%2B1EvzVJRiMhKleW2T6NBeHtl0W0%2F1L9AeTVPmL73N4Fqixhryrp09MmoHMiN89iu%2FIEQ85L3QHb%2BktY4EItKeFMU0cUxLS%2BOI9kw8AyB%2B6bv%2FS8zmpqCe1tVTAALLVwKWi8IWu4DS9GcabsF3xeMsb0IUlpQGALBbgTvLioUVH%2FZsgL4zohvxxxF4CEivBICFaN3syo%2F0dP0giB7vHVWtvhsNCBGUBcXTe2D3O38IRP%2BL452f6gBcqxMKMX%2BePta5zfkDIHodQvHDIjj5WqtnLeeLjHY4HwNm5%2FeIKGyvsOX4mgVRAMzv%2FtrzaGdGiO4U%2BioU36dm7xp%2FDAAPsP09APjiE0l5Sbm%2FeP3GeY2o%2BI6IFL9pFWKl%2FaMBUwB6pEFUlvMPwd%2BvPcISAMiCRbNb7uhTZ2n8%2FMYLOPpcEhqhE08SYv%2FPLSCl0%2BUK1JeXf79rzd0%2BUvUpTi2D8CcTUNWJeYLEuiXzHek5yQiICfzRjzL%2F3I31if%2FD%2BNtPihe0TwGa5d0tpp%2FOT1dfer7%2Fx1b5ifXjZdX3Hk%2B9sUP35TfDdvXPlhnmOcRzRoTx2i7N%2BmDnoPnpT5Y82wgv%2FdP9Z92CfzZA%2BH8h6HFxmnJRXwAAAABJRU5ErkJggg%3D%3D">
 
 == Add a local image from your hard drive
-<div class="woas_helptext">Use this code in a page, replacing PATH with the full path to the local file you'd like to display:</div>{{{
+<div class="woas_helptext">Use this code in a page, replacing PATH with the full path to the local file you'd like to display:</div><br>{{{
 <img src="file://PATH">
 }}}<br><div class="woas_helptext">To add a local image from your hard drive.</div>
 
-* *Linux example using a default Kubuntu image:*<br>{{{
+* *Linux example using a default Kubuntu image:*<br><br>{{{
 <img src="file:///usr/share/icons/default.kde/16x16/actions/stop.png">
 }}}<br>
-* *Windows example using a default Windows 7 image:*<br>{{{
+* *Windows example using a default Windows 7 image:*<br><br>{{{
 <img src="file://localhost/C:/Documents and Settings/All Users/Documents/My Pictures/Sample Pictures/Blue hills.jpg">
 }}}
 
@@ -2619,7 +2619,7 @@ This wiki provides an interface for embedding images. Each image will be given i
 Once an image is embedded, you can use the same include link you used to add the embedded image to include the image anywhere in the wiki. 
 # Create a new page or open an existing page in the editor by clicking the *Edit* icon in the navigation bar.<br><br>
 # Create an include link for an already embedded image. There are two ways you can do this:<br><br>
-## Use this code wherever you like:<pre>[\
+## Use this code wherever you like in a page:<pre>[\
 [In\
 clude::Image::N\
 AME]\
@@ -2635,17 +2635,18 @@ However if you want to use anyway a data:URI image you can do it by directly add
 
 {{{<img src="data:image/EXTENSION;ENCODING,ENCODED_IMAGE">}}}
 
-<div class="woas_help_text">Example:</div>
-{{{<img src="data:image/png;base64,R0lGODlhBgAFAIABAAAAAP///yH5BAEAAAEALAAAAAAGAAUAAAIJDGJ4ic1qgAwFADs=">}}}
+<div class="woas_help_text">Example:</div><br>{{{
+<img src="data:image/png;base64,R0lGODlhBgAFAIABAAAAAP///yH5BAEAAAEALAAAAAAGAAUAAAIJDGJ4ic1qgAwFADs=">
+}}}
 <div class="woas_helptext">Result:</div><img src="data:image/png;base64,R0lGODlhBgAFAIABAAAAAP///yH5BAEAAAEALAAAAAAGAAUAAAIJDGJ4ic1qgAwFADs=">
 
-A famous online service to create such URIs is [[http://software.hixie.ch/utilities/cgi/data/data|The data: URI kitchen]]. The best encoding to be used in WoaS is base64.
+A famous online service to create such URIs is [[http://software.hixie.ch/utilities/cgi/data/data|The data: URI kitchen]]. The recommended encoding to be used in WoaS is base64.
 
 == Create a data:URI image button
 <div class="woas_helptext">Use this code in a page, replacing YOUR_MESSAGE with the message to be displayed and DATA_URI_GOES_HERE with the data:URI of your image:</div><br>{{{<input type="image" onclick='alert("YOUR_MESSAGE")' src="DATA_URI_GOES_HERE">}}}
 
 * *Example:*<br><br>
-** <div class="woas_helptext">Use this example code:</div>{{{
+** <div class="woas_helptext">Use this example code:</div><br>{{{
 <input type="image" onclick='alert("THIS IS AN ALERT!")' src="data:image/png;base64,R0lGODlhBgAFAIABAAAAAP///yH5BAEAAAEALAAAAAAGAAUAAAIJDGJ4ic1qgAwFADs=">
 }}}<br><div class="woas_helptext">To create this:</div><input type="image" onclick='alert("THIS IS AN ALERT!")' src="data:image/png;base64,R0lGODlhBgAFAIABAAAAAP///yH5BAEAAAEALAAAAAAGAAUAAAIJDGJ4ic1qgAwFADs=">
 
