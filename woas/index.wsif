@@ -618,7 +618,7 @@ $('woas_ep_author').value = woas.config.wsif_author;
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::WSIF
 woas.page.attributes: 0
-woas.page.length: 4702
+woas.page.length: 4706
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -641,7 +641,9 @@ WSIF files can contain custom headers, given that the following namespaces are c
 * *woas*
 
 For example you could define a new namespace for header definitions called /custom/:
-{{{custom.x: 100
+
+{{{
+custom.x: 100
 custom.y: 200
 custom.content: Hello world!
 }}}
@@ -651,7 +653,9 @@ It is up to you then to parse such header-value couples and give them proper rep
 A line starting with two dashes (/--/) introduces an *inline boundary*, which is a properly encoded snippet.
 
 Example boundary:
-{{{--my-random-id
+
+{{{
+--my-random-id
 this is the inline snippet
 --my-random-id
 }}}
