@@ -1474,7 +1474,7 @@ To include the contents of a wiki page inside another wiki page, use an {{{[[Inc
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::JavaScript
 woas.page.attributes: 0
-woas.page.length: 5539
+woas.page.length: 5563
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1484,7 +1484,7 @@ woas.page.boundary: DFQRCTsKlU
 == Adding JavaScript to your page
 To add JavaScript to your page, you must enclose it inside JavaScript tags.
 
-<div class="woas_helptext">Use this code in a page, replacing YOUR_CODE_HERE with your JavaScript code:</div>{{{
+<div class="woas_helptext">Use this code in a page, replacing YOUR_CODE_HERE with your JavaScript code:</div><br>{{{
 <script type="text/javascript">
 YOUR_CODE_HERE
 </script>
@@ -1496,16 +1496,16 @@ It is possible to add &lt;script/&gt; tags to your wiki source and they will be 
 == Using external JavaScript
 You can include external JavaScript on a page by placing the script file in the same directory as this wiki and then inserting a reference to it in the body of the page.
 
-<div class="woas_helptext">Use this code in a page, replacing SCRIPTNAME.JS with the name of your script:</div>{{{
+<div class="woas_helptext">Use this code in a page, replacing SCRIPTNAME.JS with the name of your script:</div><br>{{{
 <script src="SCRIPTNAME.JS"></script>
 }}}<br><div class="woas_helptext">To include an external JavaScript in a page.</div>
 === Example
-This page contains this code:<br>{{{
+This page contains this code:<br><br>{{{
 <script src="example.js"></script>
 }}}
 To see an example using external JavaScript:
 # Create a text file in the same directory as this wiki.<br><br>
-# Paste this into the file:<br>{{{
+# Paste this into the file:<br><br>{{{
 alert("This is an example alert!");
 }}}<br>
 # Save the file as *example.js*<br><br>
@@ -1513,17 +1513,17 @@ alert("This is an example alert!");
 # Open this page from the menu (not in the help pop-up) to run the *example.js* script and see the alert.
 
 == Using JavaScript to create a temporary page
-Using this code, you can get this wiki to create a link to a dynamically created temporary page with custom content (it accepts HTML tags as part of the content) under the JavaScript namespace. The temporary page will be created each time the link is clicked, and it will be uncreated as soon as you navigate to another page or close the wiki.
+Using this code, you can get this wiki to create a link to a dynamically created temporary page with custom content (it accepts HTML tags as part of the content) under the JavaScript namespace. The temporary page will be created each time the link is clicked and uncreated as soon as you navigate to another page or close the wiki.
 
-<div class="woas_helptext">Use this code in a page, replacing CONTENT with your content, NAME with the page name, and LINK with the text you want the link to have:</div>{{{
+<div class="woas_helptext">Use this code in a page, replacing CONTENT with your content, NAME with the page name, and LINK with the text you want the link to have:</div><br>{{{
 <script>function temporary(arg) {return 'CONTENT';}</script>[[Javascript::temporary('NAME')|LINK]]
 }}}<br><div class="woas_helptext">To create a dynamically created temporary page.</div>
 [[Include::WoaS::Template::Info|Only one of these links may be used per page.]]
 Paste each of these into a new page one by one to see what they do:
-* This one uses the temporary page name as part of its content:<br>{{{
+* This one uses the temporary page name as part of its content:<br><br>{{{
 <script>function temporary(arg) {return 'This page was dynamically created using *'+arg+'* as content!';}</script>[[Javascript::temporary('sample')|Click here]]
 }}}<br>
-* This one demonstrates the use of various HTML tags in the content of the page:<br>{{{
+* This one demonstrates the use of various HTML tags in the content of the page:<br><br>{{{
 <script>function temporary(arg) {return 'This page contains more than one line.<br>This line contains <b>bold</b>, <i>italic</i>, <u>underlined</u>, and <font color="red">colored</font> text.<br><br>And here is a list:<br><ul><li>item1</li><li>item2</li><li>item3</li></ul>';}</script>[[Javascript::temporary('My Page')|Click here]]
 }}}
 
@@ -1531,14 +1531,14 @@ Paste each of these into a new page one by one to see what they do:
 The code below will redirect from the current page to the wiki page you specify a predefined number of seconds after the current page loads.
 
 [[Include::WoaS::Template::Info|WARNING! Use this code carefully! Back up your wiki before trying it!]]
-<div class="woas_helptext">Use this code in a page, replacing PAGENAME with the name of the page to redirect to, and 10 with the number of seconds the script should delay:</div>{{{
+<div class="woas_helptext">Use this code in a page, replacing PAGENAME with the name of the page to redirect to, and 10 with the number of seconds the script should delay:</div><br>{{{
 <script type="text/javascript">
 setTimeout("go_to('PAGENAME')",10*1000);
 </script>
 }}}<br><div class="woas_helptext">To redirect the current page to the PAGENAME page 10 seconds after the current page loads.</div>
 [[Include::WoaS::Template::Info|Note that this will redirect to the next page even if you're in the editor! The only indication you will have if you're in the editor is that name in the the Page title box will change to the name of the redirected page. If you don't check this before saving, your changes will be saved to the redirected page, overwriting its contents.<br><br>It's a good idea to put this code near the top of any page (preferably directly beneath the first header on the page) so that you can find it quickly, and also to make the delay at *least* 10 seconds so that you have time to open the page in the editor, change the *PAGENAME* portion of the code to a nonexistent page, and then save the page before the timer runs out.<br><br>Then you can reopen the page safely without risk of it redirecting while you're working on it. All that will happen if you give the script a nonexistent page name is that an alert will pop up asking if you'd like to create the nonexistent page. You can click *Cancel* when that popup comes up and continue working without further interruption.<br><br>An even safer method is to open the wiki in a text editor and make changes to the page contents from there.]]
 == Using JavaScript to reload the wiki
-<div class="woas_helptext">Use this code in a page:</div>{{{
+<div class="woas_helptext">Use this code in a page:</div><br>{{{
 <input type="button" value="Reload wiki" onClick="window.location.href=window.location.href">
 }}}<br><div class="woas_helptext">To create a button that reloads the wiki when you click it.</div>
 
