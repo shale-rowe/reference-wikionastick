@@ -1840,14 +1840,14 @@ By putting an exclamation mark (*!*) in front of the tag name, you can filter ou
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Publish wiki online
 woas.page.attributes: 0
-woas.page.length: 571
+woas.page.length: 575
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Publish wiki online
-This wiki can be published online as a single-file, framed web page by making it read-only. The read-only format is also great for sharing your work with others by email. Most email programs accept .htm pages as attachments.
+This wiki can be published online as a single-file, framed web page by making it read-only. The read-only format can also be used for sharing your work with others by email. Most email programs accept .html pages as attachments.
 # Make a backup copy of this wiki.
 # Click the *Advanced* icon in the navigation bar.
 # Scroll to the bottom of the page.
