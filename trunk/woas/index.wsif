@@ -1873,7 +1873,7 @@ WoaS 1.0 will offer an API to allow server-side integrations.
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Requirements
 woas.page.attributes: 0
-woas.page.length: 2657
+woas.page.length: 2660
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1908,12 +1908,14 @@ The TiddlySaver Java applet allows Wiki on a Stick from a file:// URL to save ch
 The Java applet "TiddlySaver.jar", a very small file, must be placed in the same directory as your WoaS file. In order to use it you will need to give it the necessary privileges by editing your .java.policy file.
 
 For Windows, the file will be at C:\Documents and Settings\your-user-name\.java.policy. Add the following lines (substituting the directory  as appropriate):
+
 {{{
 grant codeBase "file:${user.home}/My Documents/tiddlywiki-folder/*" {
   permission java.io.FilePermission "${user.home}${/}My Documents${/}stickwiki-folder${/}*", "read,write";
 };
 }}}
 On Mac OS X, the file is found at {{{/Users/your-user-name/.java.policy}}}:
+
 {{{
 grant codeBase "file:${user.home}/Documents/tiddlywiki-folder/*" {
   permission java.io.FilePermission "${user.home}${/}Documents${/}stickwiki-folder${/}*", "read,write";
@@ -1922,6 +1924,7 @@ grant codeBase "file:${user.home}/Documents/tiddlywiki-folder/*" {
 It can be tricky creating files whose name starts with a period, so you can use this [[https://stickwiki.svn.sourceforge.net/svnroot/stickwiki/trunk/woas/.java.policy|pre-built .java.policy file]]. The same file is suitable for Macs too, just edit it and delete the "My " bit, leaving just "Documents". Make sure you save it in the right place for each operating system!
 
 If you have trouble setting up the permissions correctly, you can try granting broader permissions to the applet like this:
+
 {{{
 grant codeBase "file://localhost/home/users/Desktop/
 TiddlySaver.jar"
