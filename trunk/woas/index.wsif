@@ -1382,27 +1382,27 @@ Rulers (horizontal rules or lines) use the full width of the page by default. Th
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Include text file
 woas.page.attributes: 0
-woas.page.length: 534
+woas.page.length: 546
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Include text file
-<div class="woas_helptext">Use this code in a page, replacing PATH with the full path to the file:</div>{{{
+<div class="woas_helptext">Use this code in a page, replacing PATH with the full path to the file:</div><br>{{{
 <iframe height="400" width="100%" src="file:///PATH"></iframe>
 }}}<br><div class="woas_helptext">To include a text file in the page inside an iFrame.</div>
-* *Linux example:*<br>{{{
+* *Linux example:*<br><br>{{{
 <iframe height="400" width="100%" src="file:///home/username/Desktop/file.txt"></iframe>
 }}}<br>
-* *Windows example:*<br>{{{
+* *Windows example:*<br><br>{{{
 <iframe height="400" width="100%" src="file:///C:/Users/Username/Documents/file.txt"></iframe>
 }}}
 
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Include web page
 woas.page.attributes: 0
-woas.page.length: 3335
+woas.page.length: 3378
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1411,22 +1411,22 @@ woas.page.boundary: DFQRCTsKlU
 = Include web page
 Web pages can be included in a page as embedded objects or in iFrames.
 
-[[Include::WoaS::Template::Info|Some pages may not render correctly depending on how they're coded. Embedding more than one web page in a wiki page will cause the final embedded web page to steal the focus when the page is loaded, so it's best to have only one per page.]]
+[[Include::WoaS::Template::Info|Some pages may not render correctly depending on how they're coded. Embedding more than one web page in a wiki page will cause the final embedded web page to steal the focus when the page is loaded, so it's recommended to have only one per page.]]
 == Embed a web page as an object
 This method makes the embedded web page become a seamless part of the page.
 
 * *Embed a local HTML file as an object:*<br><br>
-** <div class="woas_helptext">Use this code in a page, replacing PATH with the full path to HTML file you wish to include, and changing the width and height to suit your taste:</div>{{{
+** <div class="woas_helptext">Use this code in a page, replacing PATH with the full path to the HTML file you wish to include, and changing the width and height to suit your taste:</div><br>{{{
 <object data="PATH" style="width:100%; height:630px;">File not found.</object>
 }}}<br><div class="woas_helptext">To embed a local HTML file in a page.</div><br>
-*** For example, if you want to embed the {{{/Work/MyProject.html}}} file as an object, you'd use this command:<br>{{{
+*** For example, if you want to embed the {{{/Work/MyProject.html}}} file as an object, you'd use this command:<br><br>{{{
 <object data="/Work/MyProject.html" style="width:100%; height:630px;">File not found.</object>
 }}}<br><br>
 * *Embed a remote URL as an object:*<br><br>
-** <div class="woas_helptext">Use this code in a page, replacing URL with the URL of the page you wish to include, and changing the width and height to suit your taste:</div>{{{
+** <div class="woas_helptext">Use this code in a page, replacing URL with the URL of the page you wish to include, and changing the width and height to suit your taste:</div><br>{{{
 <object data="URL" style="width:100%; height:630px;">URL not found.</object><
 }}}<br><div class="woas_helptext">To embed an external URL in a page.</div><br>
-*** For example, if you want to embed the WoaS official website at {{{http://stickwiki.sf.net/}}} as an object, you'd use this command:<br>{{{
+*** For example, if you want to embed the WoaS official website at {{{http://stickwiki.sf.net/}}} as an object, you'd use this command:<br><br>{{{
 <object data="http://stickwiki.sf.net/" style="width:100%; height:630px;">URL not found.</object>
 }}}
 
@@ -1434,17 +1434,17 @@ This method makes the embedded web page become a seamless part of the page.
 This method creates a frame around the embedded web page. The code shown below is for a plain frame, but you can style the iFrame further by adding a border, changing the border style to dotted, dashed, solid, double, groove, ridge, inset, or outset, changing the border width to whatever thickness you like, and the border color to whatever color you like.
 
 * *Embed a local HTML file in an iFrame:*<br><br>
-** <div class="woas_helptext">Use this code in a page, replacing PATH with the full path to HTML file you wish to include, and changing the width and height to suit your taste:</div>{{{
+** <div class="woas_helptext">Use this code in a page, replacing PATH with the full path to HTML file you wish to include, and changing the width and height to suit your taste:</div><br>{{{
 <iframe height="400" width="100%" height:630px; src="PATH"></iframe>
 }}}<br><div class="woas_helptext">To include a local HTML file in a wiki page.</div><br>
-*** For example, if you want to embed the {{{/Work/MyProject.html}}} file in an iFrame, you'd use this command:<br>{{{
+*** For example, if you want to embed the {{{/Work/MyProject.html}}} file in an iFrame, you'd use this command:<br><br>{{{
 <iframe height="400" width="100%" height:630px; src="/Work/MyProject.html"></iframe>
 }}}<br><br>
 * *Embed a remote URL in an iFrame:*<br><br>
-** <div class="woas_helptext">Use this code in a page, replacing URL with the URL of the page you wish to include, and changing the width and height to suit your taste:</div>{{{
+** <div class="woas_helptext">Use this code in a page, replacing URL with the URL of the page you wish to include, and changing the width and height to suit your taste:</div><br>{{{
 <iframe height="400" width="100%" height:630px; src="URL"></iframe>
 }}}<br><div class="woas_helptext">To include a web page in a wiki page.</div><br>
-*** For example, if you want to embed the WoaS official website at {{{http://stickwiki.sf.net/}}} in an iFrame, you'd use this command:<br>{{{
+*** For example, if you want to embed the WoaS official website at {{{http://stickwiki.sf.net/}}} in an iFrame, you'd use this command:<br><br>{{{
 <iframe height="400" width="100%" height:630px; src="http://stickwiki.sf.net/"></iframe>
 }}}
 
