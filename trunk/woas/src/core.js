@@ -459,7 +459,7 @@ woas.split_bytes = function(s) {
 };
 	
 woas.merge_bytes = function(byte_arr) {
-	var l=arr.length, s="";
+	var l=byte_arr.length, s="";
 	for(var i=0;i<l;i++) {
 		s+=String.fromCharCode(byte_arr[i]);
 	}
