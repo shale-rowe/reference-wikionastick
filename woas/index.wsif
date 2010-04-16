@@ -949,7 +949,7 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Special::Advanced
 woas.page.attributes: 0
-woas.page.length: 478
+woas.page.length: 681
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -957,9 +957,12 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 = Advanced
 The Advanced page offers some tools for administration of your wiki. Descriptions are provided, and most of the Special links lead to pages that have individual help available. Below are links to help pages for the ones that don't offer individual help automatically.
-* *Special::Erase Wiki* - See the [[WoaS::Help::Special::Erase Wiki]] page
-* *WoaS::CSS::* - See the [[WoaS::Help::CSS]] page.
+* *WoaS::CSS::Core* and *WoaS::CSS::Custom* -  See the [[WoaS::Help::CSS]] page.
 * *Special::Edit Bootscript* - See the [[WoaS::Help::Bootscript]] page.
+* *WoaS::Aliases* - See the [[WoaS::Help::Aliases]] page.
+* *WoaS::Hotkeys* - See the [[WoaS::Help::Hotkeys]] page.
+* *WoaS::Plugins* - See the [[WoaS::Help::Plugins]] page.
+* *Special::Erase Wiki* - See the [[WoaS::Help::Special::Erase Wiki]] page
 
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Special::Erase Wiki
