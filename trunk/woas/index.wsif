@@ -1,6 +1,6 @@
 wsif.version: 1.2.0
 wsif.generator: woas
-woas.version: 0.11.4
+woas.version: 0.11.6
 woas.pages: 74
 
 woas.page.title: ::Menu
@@ -1005,16 +1005,17 @@ To return to the default settings if you don't like the changes you've made:
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Bootscript
 woas.page.attributes: 0
-woas.page.length: 777
+woas.page.length: 802
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Edit Bootscript
-If you want to execute some javascript at boot time (when WoaS is loaded into the browser), you should modify the *WoaS::Bootscript* page by clicking the *Special::Edit Bootscript* link in the *Advanced features* section of the *Special::Advanced* page.
+If you want to execute some JavaScript at boot time (when WoaS is loaded into the browser), you should modify the {{{[[WoaS::Bootscript]]}}} page by clicking the {{{[[Special::Edit Bootscript]]}}} link in the *Advanced features* section of the {{{[[Special::Advanced]]}}} page.
 
-Be careful not to break javascript execution during this stage; in order to debug your boot-time javascript, you might use blocks like:
+Be careful not to break JavaScript execution during this stage; in order to debug your boot-time JavaScript, you might use blocks like:
+
 {{{
     try {
        your_code(here);
@@ -3360,7 +3361,7 @@ You can share WoaS plugins as WSIF files by exporting them.
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Aliases
 woas.page.attributes: 0
-woas.page.length: 1436
+woas.page.length: 1456
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -3372,7 +3373,7 @@ Aliases are replaceable shortcuts used in wiki links.
 
 == Add an alias
 # Click the *WoaS::Aliases* link in the menu.<br><br>
-# Add this line to the page, replacing ALIAS with the shortcut you'd like to use and PAGENAME with the name of the page you'd like the alias to represent:<br>{{{
+# Add this line to the page, replacing ALIAS with the shortcut you'd like to use and PAGENAME with the name of the page you'd like the alias to represent:<br><br>{{{
 $ALIAS  PAGENAME
 }}}
 
@@ -3380,18 +3381,18 @@ $ALIAS  PAGENAME
 Aliases can be used in links the same way a page name would be used.
 
 To create a plain link using an alias, surround the link with double square brackets, inserting a dollar sign before the alias name.
-* <div class="woas_helptext">Add this link to a page, replacing ALIAS with the alias you'd like to use:</div>{{{
+* <div class="woas_helptext">Add this link to a page, replacing ALIAS with the alias you'd like to use:</div><br>{{{
 [[$ALIAS]]
 }}}
 
 To create a labeled link, surround the link with double square brackets, inserting a dollar sign before the alias name, adding a pipe after the alias, and adding some link text after the pipe.
-* <div class="woas_helptext">Add this link to a page, replacing ALIAS with the alias you'd like to use, and replacing LABEL with the text for the link:</div>{{{
+* <div class="woas_helptext">Add this link to a page, replacing ALIAS with the alias you'd like to use, and replacing LABEL with the text for the link:</div><br>{{{
 [[$ALIAS|LABEL]]
 }}}
 
 == Example:
 # Click the *WoaS::Aliases* link in the menu.<br><br>
-# Add this line to the page:{{{
+# Add this line to the page:<br><br>{{{
 $HOME  Main Page
 }}}<br>
 # Add {{{[[$HOME]]}}} to any page to make a plain link to the Main Page.<br><br>
