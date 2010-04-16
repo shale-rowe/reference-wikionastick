@@ -210,16 +210,16 @@ woas.export_wiki = function () {
 		css_path = "woas.css";
 		_export_fnames_array.push(css_path);
 		this.save_file(exp.xhtml_path+css_path, this.file_mode.ASCII, exp.css);
-		exp.css = '<link rel="stylesheet" type="text/css" media="all" href="'+css_path+'" />';
+		exp.css = "<"+"link rel=\"stylesheet\" type=\"text/css\" media=\"all\" href=\""+css_path+"\" /"+">";
 	} else
-		exp.css = '<style type="text/css">'+exp.css+'</style>';
+		exp.css = "<"+"style type=\"text/css\">"+exp.css+"<"+"/style>";
 	exp.custom_bs = "";
 	var data;
 	if (exp.js_mode==2) {
 		data = pages[this.page_index("WoaS::Bootscript")];
 		if (data!==null && data.length) {
 			this.save_file(exp.xhtml_path+"bootscript.js", this.file_mode.ASCII, data);
-			exp.custom_bs = '<sc'+'ript type="text/javascript" src="bootscript.js"></sc'+'ript>';
+			exp.custom_bs = '<sc'+'ript type="text/javascript" src="bootscript.js"><'+'/sc'+'ript>';
 		}
 	}
 
