@@ -37,14 +37,19 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Main Page
 woas.page.attributes: 0
-woas.page.last_modified: 1269448424
-woas.page.length: 38
+woas.page.last_modified: 1271453714
+woas.page.length: 333
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-A blank sheet is a catalyst for ideas
+= Size test
+This is a size stress test of Wiki on a Stick. This file contains [[SizeTest::|50 test pages]] with 284,800 words in them, and the final file is 2.2 MB.
+* Each page contains 50 paragraphs.
+* Each page contains 5696 words.
+* Each page is 37.6 KB.
+* Each page is 10 pages long if pasted into the OpenOffice word processor.
 
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Security
