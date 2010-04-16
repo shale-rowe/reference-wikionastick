@@ -974,33 +974,62 @@ If you have not given permanent permission to your browser for editing wiki page
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::CSS
 woas.page.attributes: 0
-woas.page.length: 1055
+woas.page.length: 3260
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Edit CSS
-The look of most of this wiki can be customized by changing the CSS settings.
+= CSS
+The look of most of this wiki can be customized by adding rules to the {{{[[WoaS::CSS::Custom]]}}} page. WoaS keeps the default CSS rules on the {{{[[WoaS::CSS::Core]]}}} page, which can be used for reference in writing your own custom rules.
 
 <<<include:WoaS::Template::Info
 A tutorial about CSS is available at [[http://www.w3schools.com/css/]].>>>
 == Edit the CSS settings
 # Open the wiki in a browser.
 # Click the *Advanced* icon in the navigation bar.
-# Click the *WoaS::CSS::Core* link in the *Advanced* section to view the core CSS class names
-# Copy the class ids which you want to modify
-# Go back to *Special::Advanced* and edit *WoaS::CSS::Custom*
-* Define CSS classes which you have grabbed in previous step
+# Click the {{{[[WoaS::CSS::Core]]}}} link in the *Advanced* section to view the core CSS class and id names.
+# Copy the classes and ids which you want to modify.
+# Go back to the {{{[[Special::Advanced]]}}} page and click the {{{[[WoaS::CSS::Custom]]}}} link.
+# Click the *Edit* icon in the navigation bar to edit the page.
+# Paste the classes and ids you copied in step 4 into the page.
+# Define the rules for the CSS classes and ids.
 # Save your changes by clicking the *Save* icon in the navigation bar.
 
 == Restore the default CSS settings
 To return to the default settings if you don't like the changes you've made:
 # Open your wiki in a browser.
 # Click the *Advanced* icon in the navigation bar.
-# Click the *WoaS::CSS::Custom* link in the *Advanced* section to open the CSS settings in the editor.
+# Click the {{{[[WoaS::CSS::Custom]]}}} link in the *Advanced* section to open the custom CSS settings in the editor.
 # Delete all of the contents of the main text area.
 # Click the *Save* icon in the navigation bar to save the changes.
+
+== Import CSS rules into your wiki
+You can import the CSS rules from another copy of WoaS by following the instructions for [[WoaS::Help::Import|importing]] another wiki into the current one and placing a check in the box next to *Import also CSS.*
+
+Importing from older versions of WoaS can garble the layout of the wiki. There are two ways to avoid this:
+# Manually transfer the CSS from the older version of WoaS into the {{{[[WoaS::CSS::Custom]]}}} page by copying and pasting it, checking the class and id of each entry against the default CSS rules on the {{{[[WoaS::CSS::Core]]}}} page to verify that it's still in use before saving your changes.<br><br>
+# Create a new page with style tags in it and paste your CSS into that page to test it before adding it to the {{{[[WoaS::CSS::Custom]]}}} page.
+
+=== Create a test page for your custom CSS
+# Click the *Advanced* icon in the navigation bar.<br><br>
+# Click the {{{[[Special::Options]]}}} link in the *Advanced features* section.<br><br>
+# Make sure that the box is /not/ checked next to *Remember current page and navigation history*. Save the change if you had to uncheck the box.<br><br>
+# Click the *New Page* link in the menu to create a new page with any name you like.<br><br>
+# Insert this opening tag at the top of the page:<br><br>{{{
+<style type="text/CSS">
+}}}<br>
+# Paste your CSS rules beneath the tag.<br><br>
+# Insert this closing tag at the bottom of the page:<br><br>{{{
+</style>
+}}}<br>
+# Click the *Save* icon in the navigation bar to save the changes.<br><br>
+If the layout isn't garbled, use the CSS rules in the {{{[[WoaS::CSS::Custom]]}}} page and delete the new page you created.
+
+If the layout is garbled:
+# Reload the wiki.<br><br>
+# Click the *Delete Page* link in the menu.<br><br>
+# Type in the name of the new page your custom CSS is in and click the *OK* button.
 
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Bootscript
