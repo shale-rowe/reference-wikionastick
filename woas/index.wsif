@@ -2420,7 +2420,7 @@ See also the [[WoaS::Help::Table of Contents]] page.
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Links
 woas.page.attributes: 0
-woas.page.length: 8370
+woas.page.length: 8242
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -2434,29 +2434,29 @@ Below are methods for creating links using wiki syntax.
 === Anchor link
 You can use a special anchor link to link to a header on the current page. After clicking an anchor link, use the browser's back button to return to where you were on the page.
 
-<div class="woas_helptext">Use this code in a page, replacing HEADER NAME with the name of the header you'd like to link to:</div>{{{
+<div class="woas_helptext">Use this code in a page, replacing HEADER NAME with the name of the header you'd like to link to:</div><br>{{{
 [[#HEADER NAME]]
 }}}<br><div class="woas_helptext">To create an anchor link.</div>
 === Email link
-<div class="woas_helptext">Use this code in a page, replacing USERNAME with the name of the person, SERVER with the name of their server, and LINK TEXT with the text you'd like displayed as a link:</div>{{{
-[[mailto://USERNAME@SERVER|LINK TEXT]]
+<div class="woas_helptext">Use this code in a page, replacing USERNAME with the name of the person, SERVER with the name of their server, and LABEL with the text you'd like displayed as a link:</div><br>{{{
+[[mailto://USERNAME@SERVER|LABEL]]
 }}}<br><div class="woas_helptext">To create this:</div>
-[[mailto://USERNAME@SERVER|LINK TEXT]]
+[[mailto://USERNAME@SERVER|LABEL]]
 
 === Email link with subject
-<div class="woas_helptext">Use this code in a page, replacing USERNAME with the name of the person, SERVER with the name of their server, SUBJECT with the subject of the email, and LINK TEXT with the text you'd like displayed as a link:</div>{{{
-[[mailto://USERNAME@SERVER?subject=SUBJECT|LINK TEXT]]
+<div class="woas_helptext">Use this code in a page, replacing USERNAME with the name of the person, SERVER with the name of their server, SUBJECT with the subject of the email, and LABEL with the text you'd like displayed as a link:</div><br>{{{
+[[mailto://USERNAME@SERVER?subject=SUBJECT|LABEL]]
 }}}<br><div class="woas_helptext">To create this:</div>
-[[mailto://USERNAME@SERVER?subject=SUBJECT|LINK TEXT]]
+[[mailto://USERNAME@SERVER?subject=SUBJECT|LABEL]]
 
 === External link (labeled)
-<div class="woas_helptext">Use this code in a page, replacing URL with the address of the web page, and LABEL with the text for the link:</div>{{{
+<div class="woas_helptext">Use this code in a page, replacing URL with the address of the web page, and LABEL with the text for the link:</div><br>{{{
 [[URL|LABEL]]
 }}}<br><div class="woas_helptext">To create a labeled external link like this one:</div>
 [[http://www.gnu.org/|Click here for GNU]]
 
 === External link (plain)
-<div class="woas_helptext">Use this code in a page, replacing URL with the address of the web page:</div>{{{
+<div class="woas_helptext">Use this code in a page, replacing URL with the address of the web page:</div><br>{{{
 [[URL]]
 }}}<br><div class="woas_helptext">To create a plain external link like this one:</div>
 [[http://www.gnu.org/]]
@@ -2493,24 +2493,24 @@ These are internal wiki actions in the form of links:<br><br>
 | {{{[[WoaS::CSS::Custom|Custom CSS]]}}} || Custom CSS
 | {{{[[Special::Go to|Go to...]]}}} || Go to page prompt
 | {{{[[Locked::|Locked pages]]}}} || Listing of encrypted pages
-| {{{[[Special::Main Page|Main page]]}}} || Main page (whatever title it has)
+| {{{[[Special::Main Page|Main page]]}}} || Main Page (whatever title it has)
 | {{{[[Special::New Page|New page]]}}} || New page prompt
 | {{{[[Special::Orphaned Pages|Orphaned pages]]}}} || Orphaned pages listing
 | {{{[[Special::Recentchanges|Recentchanges]]}}} || Recently changed pages listing
 | {{{[[Special::Search|Search]]}}} || Search into pages interface
-| {{{[[Tagged::Syntax|Syntax pages]]}}} || Pagged tagged with 'Syntax'
-| {{{[[Tagged::|Tagged pages]]}}} || Pagged which contain some tag
+| {{{[[Tagged::Syntax|Syntax pages]]}}} || Pages tagged with 'Syntax'
+| {{{[[Tagged::|Tagged pages]]}}} || Pages which contain tags
 | {{{[[Unlocked::|Unlocked pages]]}}} || Listing of pages without encryption
 | {{{[[Untagged::|Untagged pages]]}}} || Listing of pages without any tag
 |}
 
 === Internal link (labeled)
-<div class="woas_helptext">Use this code in a page, replacing PAGENAME with the page you want to link to and LABEL with the link text:</div>{{{
+<div class="woas_helptext">Use this code in a page, replacing PAGENAME with the page you want to link to and LABEL with the link text:</div><br>{{{
 [[PAGENAME|LABEL]]
 }}}<br><div class="woas_helptext">To create a labeled internal link.</div>
 
 === Internal link (plain)
-<div class="woas_helptext">Use this code in a page, replacing PAGENAME withe the page you want to link to:</div>{{{
+<div class="woas_helptext">Use this code in a page, replacing PAGENAME with the page you want to link to:</div><br>{{{
 [[PAGENAME]]
 }}}<br><div class="woas_helptext">To create a plain internal link.</div>
 
@@ -2518,47 +2518,47 @@ These are internal wiki actions in the form of links:<br><br>
 Below are methods for creating links using HTML syntax.
 
 === Alert box link (button)
-<div class="woas_helptext">Use this code in a page, replacing YOUR MESSAGE GOES HERE with the content for the alert, and YOUR BUTTON TEXT GOES HERE with the text for your button:</div>{{{
+<div class="woas_helptext">Use this code in a page, replacing MESSAGE with the content for the alert, and BUTTONTEXT with the text for your button:</div><br>{{{
 <script type="text/javascript">
-function alertme () {alert("YOUR MESSAGE GOES HERE.");}
+function alertme () {alert("MESSAGE");}
 </script>
-<input type=button value="YOUR BUTTON TEXT GOES HERE" onClick="alertme()">
+<input type=button value="BUTTONTEXT" onClick="alertme()">
 }}}<br><div class="woas_helptext">To create a button that opens an alert.</div>
 
 === Alert box link (labeled)
-<div class="woas_helptext">Use this code in a page, replacing YOUR MESSAGE GOES HERE with the content for the alert, and YOUR LINK TEXT GOES HERE with the text for your link:</div>{{{
-<a href='javascript:alert("YOUR MESSAGE GOES HERE");'>YOUR LINK TEXT GOES HERE</a>
+<div class="woas_helptext">Use this code in a page, replacing MESSAGE with the content for the alert, and LABEL with the text for your link:</div><br>{{{
+<a href='javascript:alert("MESSAGE");'>LABEL</a>
 }}}<br><div class="woas_helptext">To create a labeled text link that opens an alert.</div>
 
 === Anchor links to anywhere on a page
 With a combination of HTML and wiki syntax, you can create anchor links to anywhere on a page, rather than just to headers.
 
-<div class="woas_helptext">Use this code in a page, replacing NAME with the name of the anchor:</div>{{{
+<div class="woas_helptext">Use this code in a page, replacing NAME with the name of the anchor:</div><br>{{{
 <a name="NAME">
-}}}<br><div class="woas_helptext">Use this code somewhere else on the same page, replacing NAME with the anchor name:</div>{{{
+}}}<br><div class="woas_helptext">Use this code somewhere else on the same page, replacing NAME with the anchor name:</div><br>{{{
 [[#NAME]]
 }}}<br><div class="woas_helptext">To create an anchor link to anywhere on a page.</div>
-<br><div class="woas_helptext">Or use this code somewhere else on the same page, replacing NAME with the anchor name and LABEL with the text for the link:</div>{{{
+<br><div class="woas_helptext">Or use this code somewhere else on the same page, replacing NAME with the anchor name and LABEL with the text for the link:</div><br>{{{
 [[#NAME|LABEL]]
 }}}<br><div class="woas_helptext">To create a labeled anchor link to anywhere on a page.</div>
 
 === Edit page link
-<div class="woas_helptext">Use this code in a page, replacing LINK with the text for your link:</div>{{{
-<a class="link" onclick="javascript:edit()" title="Edit this page">LINK</a>
+<div class="woas_helptext">Use this code in a page, replacing LABEL with the text for your link:</div><br>{{{
+<a class="link" onclick="javascript:edit()" title="Edit this page">LABEL</a>
 }}}<br><div class="woas_helptext">To create a link that opens the current page in the editor.</div>
 
 === External link (button)
-<div class="woas_helptext">Use this code in a page, replacing YOUR BUTTON TEXT GOES HERE with the text for your button, and URL with the address of the web page:</div>{{{
-<input type="button" value="YOUR BUTTON TEXT GOES HERE" onclick="window.open('URL');">
+<div class="woas_helptext">Use this code in a page, replacing BUTTONTEXT with the text for your button, and URL with the address of the web page:</div><br>{{{
+<input type="button" value="BUTTONTEXT" onclick="window.open('URL');">
 }}}<br><div class="woas_helptext">To create a button that opens an external link in another tab or window.</div>
 
 === Internal link (button)
-<div class="woas_helptext">Use this code in a page, replacing BUTTONTEXT with the text you want on the button and PAGENAME with the page you want to link to:</div>{{{
+<div class="woas_helptext">Use this code in a page, replacing BUTTONTEXT with the text you want on the button and PAGENAME with the page you want to link to:</div><br>{{{
 <input value="BUTTONTEXT" onclick="go_to('PAGENAME')" type="submit" />
 }}}<br><div class="woas_helptext">To create a button that opens an internal link in another tab or window.</div>
 
 === Internal link (button - with 5 second delay)
-<div class="woas_helptext">Use this code in a page, replacing BUTTONTEXT with the text you want on the button and PAGENAME with the page you want to link to:</div>{{{
+<div class="woas_helptext">Use this code in a page, replacing BUTTONTEXT with the text you want on the button and PAGENAME with the page you want to link to:</div><br>{{{
 <input type="button" value="BUTTONTEXT" onClick="setTimeout('go_to(\'PAGENAME\')',5000);">
 }}}<br><div class="woas_helptext">To create a button that opens a wiki page five seconds after you click it.</div>
 
