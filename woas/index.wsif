@@ -1545,17 +1545,17 @@ setTimeout("go_to('PAGENAME')",10*1000);
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Join lines of text
 woas.page.attributes: 0
-woas.page.length: 698
+woas.page.length: 703
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Join lines of text
-A lengthy wiki page content can be broken up in shorter lines in the editor (while still being parsed as a single line when the page is viewed) by using a backslash at the *end* of each line; such line will be joined with the one below it.
+Lengthy wiki page content can be broken up into shorter lines in the editor (while still being parsed as a single line when the page is viewed) by using a backslash at the *end* of any line; such a line will be joined with the one below it.
 
 [[Include::WoaS::Template::Info|Backslashes *within* a line will be ignored by the wiki parser and will not influence how the text is displayed.]]
-<div class="woas_helptext">Use this code in a page:</div>{{{
+<div class="woas_helptext">Use this code in a page:</div><br>{{{
 Putting a \ at the end of any line \
 makes it join together \
 with the line below it.
