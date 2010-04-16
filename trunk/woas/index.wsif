@@ -1593,14 +1593,14 @@ word &nbsp;&nbsp;&nbsp; word
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Namespaces
 woas.page.attributes: 0
-woas.page.length: 4383
+woas.page.length: 4393
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Namespaces
-When you create a page with double colons (*::*) as a separator in the page name, you are using a namespace to define parent and child pages. Sub-namespaces are created by adding more than one *::* separator to the page name. Each namespace or sub-namespace can have as many child pages under it as you like (within the resource limits of your hardware). The full path to each page is displayed in the banner with links to its namespace and sub-namespace(s) in the title.
+When you create a page with double colons (*::*) as a separator in the page name, you are using a namespace to define parent and child pages. Sub-namespaces are created by adding more than one *::* separator to the page name. Each namespace or sub-namespace can have as many child pages under it as you like (within the resource limits of your hardware). The full path to each page is displayed in the navigation bar with links to its namespace and sub-namespace(s) in the title.
 
 For example, let's say you have these pages:
 * {{{[[Recipes::Desserts]]}}}
@@ -1614,7 +1614,7 @@ For example, let's say you have these pages:
 If you open the {{{[[Recipes::Desserts::Cakes]]}}} page, the title contains links to *Recipes* and *Desserts*. The *Recipes* link opens a page listing all pages in the *Recipes::* namespace, and the *Desserts* link opens a page listing all pages in the *Desserts::* sub-namespace.
 
 === Namespace sub-menu
-All pages in any namespace can be given a custom sub-menu by creating a *Menu* page inside the namespace. A sub-menu will be temporarily added to the main menu when any pages belonging to that page's namespace are opened. You can determine what goes into the sub-menu by editing the page with *::Menu* in its name. The sub-menu will vanish as soon as you navigate away from its namespace.
+All pages in any namespace can be given a custom sub-menu by creating a *::Menu* page inside the namespace. A sub-menu will be temporarily added to the main menu when any pages belonging to that page's namespace are opened. You can determine what goes into the sub-menu by editing the page with *::Menu* in its name. The sub-menu will vanish as soon as you navigate away from its namespace.
 
 For example, if you create the {{{[[Recipes::Menu]]}}} page with *My favorite recipes!* as its content, then whenever you open a page in the {{{Recipes::}}} namespace, a sub-menu will appear with *My favorite recipes!* in it.
 
@@ -1910,14 +1910,14 @@ The TiddlySaver java applet was written by J.Rouston.
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Lists
 woas.page.attributes: 0
-woas.page.length: 12803
+woas.page.length: 12906
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Lists
-Simple single-level lists can be created by using the three list buttons in the editor.
+Simple single-level lists can be created by using the list buttons in the editor.
 * The *{{{*}}}* button inserts the wiki syntax for a bulleted list item
 * The *{{{#}}}* button inserts the wiki syntax for a numbered list item.
 * The *{{{@}}}* button inserts the wiki syntax for an alphanumeric list item.
@@ -1930,13 +1930,14 @@ If you'd like to create mixed lists, nested lists, or lists with additional type
 Wiki markup lists are created with between one and five specific characters ({{{@}}}, {{{*}}}, or {{{#}}}) at the beginning of a line, followed by a space, and then whatever text you'd like the list item to have. Each list must begin with a list item with only one character at the beginning of the line, and there can be no blank lines between entries in the list. To create a blank line beneath a list item, you can insert two HTML {{{<br>}}} tags at the end of of the list item's text. Wiki and HTML markup are accepted in list items.
 
 === Alphanumeric List
-<div class="woas_helptext">Use this code in a page:</div>{{{
+<div class="woas_helptext">Use this code in a page:</div><br>{{{
 @ Test
 @ Test
 @ Test
 @@ Test
 @@@ Test
 @@@@ Test
+@ Test
 @ Test
 }}}<br><div class="woas_helptext">To create this:</div>
 @ Test
@@ -1946,9 +1947,10 @@ Wiki markup lists are created with between one and five specific characters ({{{
 @@@ Test
 @@@@ Test
 @ Test
+@ Test
 
 === Bulleted List
-<div class="woas_helptext">Use this code in a page:</div>{{{
+<div class="woas_helptext">Use this code in a page:</div><br>{{{
 * Test
 * Test
 ** Test
@@ -1966,7 +1968,7 @@ Wiki markup lists are created with between one and five specific characters ({{{
 * Test
 
 === Fancy List
-<div class="woas_helptext">Use this code in a page:</div>{{{
+<div class="woas_helptext">Use this code in a page:</div><br>{{{
 * ITEM 1 - ITEM 1 SUBTEXT <blockquote>ITEM 1 MORE SUBTEXT</blockquote>
 * ITEM 2 - ITEM 2 SUBTEXT <blockquote>ITEM 2 MORE SUBTEXT</blockquote>
 * ITEM 3 - ITEM 3 SUBTEXT <blockquote>ITEM 3 MORE SUBTEXT</blockquote>
@@ -1976,7 +1978,7 @@ Wiki markup lists are created with between one and five specific characters ({{{
 * ITEM 3 - ITEM 3 SUBTEXT <blockquote>ITEM 3 MORE SUBTEXT</blockquote>
 
 === Numbered List
-<div class="woas_helptext">Use this code in a page:</div>{{{
+<div class="woas_helptext">Use this code in a page:</div><br>{{{
 # Test
 # Test
 ## Test
@@ -1994,7 +1996,7 @@ Wiki markup lists are created with between one and five specific characters ({{{
 # Test
 
 === Numbered Fancy List
-<div class="woas_helptext">Use this code in a page:</div>{{{
+<div class="woas_helptext">Use this code in a page:</div><br>{{{
 # ITEM 1 - ITEM 1 SUBTEXT <blockquote>ITEM 1 MORE SUBTEXT</blockquote>
 # ITEM 2 - ITEM 2 SUBTEXT <blockquote>ITEM 2 MORE SUBTEXT</blockquote>
 # ITEM 3 - ITEM 3 SUBTEXT <blockquote>ITEM 3 MORE SUBTEXT</blockquote>
@@ -2004,12 +2006,12 @@ Wiki markup lists are created with between one and five specific characters ({{{
 # ITEM 3 - ITEM 3 SUBTEXT <blockquote>ITEM 3 MORE SUBTEXT</blockquote>
 
 == HTML Lists
-HTML lists work the same way as they do in any web page. Specifying the list type can be done in the {{{ol}}}, {{{<ul>}}}, or {{{<li>}}} tags, depending on how you need to use them. Wiki markup is accepted in list items.
+HTML lists work the same way as they do in any web page. Specifying the list type can be done in the {{{<ol>}}}, {{{<ul>}}}, or {{{<li>}}} tags, depending on how you need to use them. Wiki markup is accepted in list items.
 
 === Specifying list type in the &lt;ol&gt; tag
 This method is useful when an entire list will use one list item type. This way you only need to specify the type once, and all the list items can be entered normally.
 
-<div class="woas_helptext">Use this code in a page:</div>{{{
+<div class="woas_helptext">Use this code in a page:</div><br>{{{
 <ol style="list-style-type:lower-alpha;">
 <li>lower-alpha</li>
 <li>lower-alpha</li>
@@ -2022,7 +2024,7 @@ This method is useful when an entire list will use one list item type. This way 
 <li>lower-alpha</li>
 </ol>
 
-<div class="woas_helptext">Use this code in a page:</div>{{{
+<div class="woas_helptext">Use this code in a page:</div><br>{{{
 <ol style="list-style-type:upper-alpha;">
 <li>upper-alpha</li>
 <li>upper-alpha</li>
@@ -2035,7 +2037,7 @@ This method is useful when an entire list will use one list item type. This way 
 <li>upper-alpha</li>
 </ol>
 
-<div class="woas_helptext">Use this code in a page:</div>{{{
+<div class="woas_helptext">Use this code in a page:</div><br>{{{
 <ol style="list-style-type:decimal;">
 <li>decimal</li>
 <li>decimal</li>
@@ -2048,7 +2050,7 @@ This method is useful when an entire list will use one list item type. This way 
 <li>decimal</li>
 </ol>
 
-<div class="woas_helptext">Use this code in a page:</div>{{{
+<div class="woas_helptext">Use this code in a page:</div><br>{{{
 <ol style="list-style-type:lower-roman;">
 <li>lower-roman</li>
 <li>lower-roman</li>
@@ -2061,7 +2063,7 @@ This method is useful when an entire list will use one list item type. This way 
 <li>lower-roman</li>
 </ol>
 
-<div class="woas_helptext">Use this code in a page:</div>{{{
+<div class="woas_helptext">Use this code in a page:</div><br>{{{
 <ol style="list-style-type:upper-roman;">
 <li>upper-roman</li>
 <li>upper-roman</li>
@@ -2077,7 +2079,7 @@ This method is useful when an entire list will use one list item type. This way 
 === Specifying list type in the &lt;ul&gt; tag
 This method is useful when an entire list will use one list item type. This way you only need to specify the type once, and all the list items can be entered normally.
 
-<div class="woas_helptext">Use this code in a page:</div>{{{
+<div class="woas_helptext">Use this code in a page:</div><br>{{{
 <ul style="list-style-type:circle;">
 <li>circle</li>
 <li>circle</li>
@@ -2090,7 +2092,7 @@ This method is useful when an entire list will use one list item type. This way 
 <li>circle</li>
 </ul>
 
-<div class="woas_helptext">Use this code in a page:</div>{{{
+<div class="woas_helptext">Use this code in a page:</div><br>{{{
 <ul style="list-style-type:disc;">
 <li>disc</li>
 <li>disc</li>
@@ -2103,7 +2105,7 @@ This method is useful when an entire list will use one list item type. This way 
 <li>disc</li>
 </ul>
 
-<div class="woas_helptext">Use this code in a page:</div>{{{
+<div class="woas_helptext">Use this code in a page:</div><br>{{{
 <ul style="list-style-type:none;">
 <li>none</li>
 <li>none</li>
@@ -2116,7 +2118,7 @@ This method is useful when an entire list will use one list item type. This way 
 <li>none</li>
 </ul>
 
-<div class="woas_helptext">Use this code in a page:</div>{{{
+<div class="woas_helptext">Use this code in a page:</div><br>{{{
 <ul style="list-style-type:square;">
 <li>square</li>
 <li>square</li>
@@ -2130,9 +2132,9 @@ This method is useful when an entire list will use one list item type. This way 
 </ul>
 
 === Specifying list type in the &lt;li&gt; tag
-This method is useful when an creating a fancy list with more than one list item type.
+This method is useful when creating a fancy list with more than one list item type.
 
-<div class="woas_helptext">Use this code in a page:</div>{{{
+<div class="woas_helptext">Use this code in a page:</div><br>{{{
 <ol>
 <li style="list-style-type:lower-alpha;">lower-alpha</li>
 <li style="list-style-type:lower-alpha;">lower-alpha</li>
@@ -2145,7 +2147,7 @@ This method is useful when an creating a fancy list with more than one list item
 <li style="list-style-type:lower-alpha;">lower-alpha</li>
 </ol>
 
-<div class="woas_helptext">Use this code in a page:</div>{{{
+<div class="woas_helptext">Use this code in a page:</div><br>{{{
 <ol>
 <li style="list-style-type:upper-alpha;">upper-alpha</li>
 <li style="list-style-type:upper-alpha;">upper-alpha</li>
@@ -2158,7 +2160,7 @@ This method is useful when an creating a fancy list with more than one list item
 <li style="list-style-type:upper-alpha;">upper-alpha</li>
 </ol>
 
-<div class="woas_helptext">Use this code in a page:</div>{{{
+<div class="woas_helptext">Use this code in a page:</div><br>{{{
 <ol>
 <li style="list-style-type:circle;">circle</li>
 <li style="list-style-type:circle;">circle</li>
@@ -2171,7 +2173,7 @@ This method is useful when an creating a fancy list with more than one list item
 <li style="list-style-type:circle;">circle</li>
 </ol>
 
-<div class="woas_helptext">Use this code in a page:</div>{{{
+<div class="woas_helptext">Use this code in a page:</div><br>{{{
 <ol>
 <li style="list-style-type:decimal;">decimal</li>
 <li style="list-style-type:decimal;">decimal</li>
@@ -2184,7 +2186,7 @@ This method is useful when an creating a fancy list with more than one list item
 <li style="list-style-type:decimal;">decimal</li>
 </ol>
 
-<div class="woas_helptext">Use this code in a page:</div>{{{
+<div class="woas_helptext">Use this code in a page:</div><br>{{{
 <ol>
 <li style="list-style-type:disc;">disc</li>
 <li style="list-style-type:disc;">disc</li>
@@ -2197,7 +2199,7 @@ This method is useful when an creating a fancy list with more than one list item
 <li style="list-style-type:disc;">disc</li>
 </ol>
 
-<div class="woas_helptext">Use this code in a page:</div>{{{
+<div class="woas_helptext">Use this code in a page:</div><br>{{{
 <ol>
 <li style="list-style-type:lower-roman;">lower-roman</li>
 <li style="list-style-type:lower-roman;">lower-roman</li>
@@ -2210,7 +2212,7 @@ This method is useful when an creating a fancy list with more than one list item
 <li style="list-style-type:lower-roman;">lower-roman</li>
 </ol>
 
-<div class="woas_helptext">Use this code in a page:</div>{{{
+<div class="woas_helptext">Use this code in a page:</div><br>{{{
 <ol>
 <li style="list-style-type:none;">none</li>
 <li style="list-style-type:none;">none</li>
@@ -2223,7 +2225,7 @@ This method is useful when an creating a fancy list with more than one list item
 <li style="list-style-type:none;">none</li>
 </ol>
 
-<div class="woas_helptext">Use this code in a page:</div>{{{
+<div class="woas_helptext">Use this code in a page:</div><br>{{{
 <ol>
 <li style="list-style-type:square;">square</li>
 <li style="list-style-type:square;">square</li>
@@ -2236,7 +2238,7 @@ This method is useful when an creating a fancy list with more than one list item
 <li style="list-style-type:square;">square</li>
 </ol>
 
-<div class="woas_helptext">Use this code in a page:</div>{{{
+<div class="woas_helptext">Use this code in a page:</div><br>{{{
 <ol>
 <li style="list-style-type:upper-roman;">upper-roman</li>
 <li style="list-style-type:upper-roman;">upper-roman</li>
@@ -2250,7 +2252,7 @@ This method is useful when an creating a fancy list with more than one list item
 </ol>
 
 === Mixed HTML list
-<div class="woas_helptext">Use this code in a page:</div>{{{
+<div class="woas_helptext">Use this code in a page:</div><br>{{{
 <ol>
 <li style="list-style-type:lower-alpha;">lower-alpha</li>
    <ol>
