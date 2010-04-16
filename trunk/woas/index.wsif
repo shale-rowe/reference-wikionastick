@@ -2338,7 +2338,7 @@ This method is useful when creating a fancy list with more than one list item ty
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Tables
 woas.page.attributes: 0
-woas.page.length: 2177
+woas.page.length: 2197
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -2355,7 +2355,7 @@ The content inside tables can contain internal and external links, and these kin
 * Underlined Bold Italic
 
 == Basic Table:
-</font><div class="woas_helptext">Use this code in a page:</div>{{{
+</font><div class="woas_helptext">Use this code in a page:</div><br>{{{
 {|
 | CELL1 || CELL2
 | CELL1 || CELL2
@@ -2366,7 +2366,7 @@ The content inside tables can contain internal and external links, and these kin
 | CELL1 || CELL2
 |}
 
-<div class="woas_helptext">Or use this code in a page:</div>{{{
+<div class="woas_helptext">Or use this code in a page:</div><br>{{{
 {|
 | CELL1 || CELL2
 |-
@@ -2381,7 +2381,7 @@ The content inside tables can contain internal and external links, and these kin
 
 The line that starts with {{{|- }}} is a comment line. You can type some text after it which will only be visible when viewing the source:
 
-<div class="woas_helptext">Use this code in a page:</div>{{{
+<div class="woas_helptext">Use this code in a page:</div><br>{{{
 {|
 | CELL1 || CELL2
 |- This is a comment.
@@ -2397,7 +2397,7 @@ The line that starts with {{{|- }}} is a comment line. You can type some text af
 == Complex Table:
 Tables can have a specially formatted title row created by adding a pipe followed by a plus symbol and a space before the title text (example: {{{|+ Title}}}), and can contain internal and external [[WoaS::Help::Links|wiki links]].
 
-<div class="woas_helptext">Use this code in a page:</div>{{{
+<div class="woas_helptext">Use this code in a page:</div><br>{{{
 {|
 |+ TITLE
 | *HEADER1* || *HEADER2* || *HEADER3*
@@ -2424,7 +2424,7 @@ Tables can have a specially formatted title row created by adding a pipe followe
 | CELL1 || || CELL3
 |}
 
-<div class="woas_helptext">Or use this code in a page:</div>{{{
+<div class="woas_helptext">Or use this code in a page:</div><br>{{{
 {|
 |+ TITLE
 | *HEADER1* || *HEADER2* || *HEADER3*
