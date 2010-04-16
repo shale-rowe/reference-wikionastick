@@ -1358,7 +1358,7 @@ Below are examples on how to use wiki markup to create headers in this wiki. The
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Rulers
 woas.page.attributes: 0
-woas.page.length: 1217
+woas.page.length: 1233
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1368,14 +1368,14 @@ woas.page.boundary: DFQRCTsKlU
 Rulers (horizontal rules or lines) use the full width of the page by default. They can be styled to a smaller width by surrounding them with HTML &lt;div&gt; tags. Styling can also control their position.
 
 == Standard ruler
-<div class="woas_helptext">Use this code in a page:</div>{{{
+<div class="woas_helptext">Use this code in a page:</div><br>{{{
 ----
 }}}<br><div class="woas_helptext">To create this:</div><br>
 ----
 
 
 == Custom width ruler aligned left
-<div class="woas_helptext">Use this code in a page, replacing 50% with the width you like:</div>{{{
+<div class="woas_helptext">Use this code in a page, replacing 50% with the width you like:</div><br>{{{
 <div style="width:50%";>
 ----
 </div>
@@ -1385,13 +1385,13 @@ Rulers (horizontal rules or lines) use the full width of the page by default. Th
 </div>
 
 == Custom width ruler aligned right
-<div class="woas_helptext">Use this code in a page, replacing 50% with the width you like:</div>{{{
+<div class="woas_helptext">Use this code in a page, replacing 50% with the width you like:</div><br>{{{
 <div style="width:50%; float:right;"><hr></div>
 }}}<br><div class="woas_helptext">To create this:</div>
 <div style="width:50%; float:right;"><hr></div>
 
 == Custom width centered ruler
-<div class="woas_helptext">Use this code in a page, replacing 50% with the width you like:</div>{{{
+<div class="woas_helptext">Use this code in a page, replacing 50% with the width you like:</div><br>{{{
 <center><div style="width:50%";>
 ----
 </div></center>
