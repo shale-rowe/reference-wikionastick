@@ -52,7 +52,12 @@ function save() {
 	woas.save();
 }
 
-woas.help_system = { "popup_window": null, "page_title": null };
+woas.help_system = {
+	"popup_window": null,
+	"page_title": null,
+	"going_back": false,
+	"previous_page": []
+};
 
 woas._help_lookup = ["Plugins", "CSS", "Aliases", "Bootscript", "Hotkeys"];
 
@@ -84,6 +89,31 @@ function help() {
 	woas.help_system.go_to(wanted_page, pi);
 }
 
+var cPopupCode = "\n\
+function get_parent_woas() {\n\
+	if (window.opener && !window.opener.closed)\n\
+		return window.opener.woas;\n\
+	else return null;\n\
+}\n\
+function go_to(page) { var woas = get_parent_woas();\n\
+	if (woas !== null)\n\
+		woas.help_system.go_to(page);\n\
+}\n\
+// used in help popups to go back to previous page\n\
+function help_go_back() {\n\
+	var woas = get_parent_woas();\n\
+	if (woas === null) return;\n\
+	if (woas.browser.chrome || woas.browser.safari) {\n\
+		woas.help_system.going_back = true;\n\
+		woas.help_system.go_to(woas.help_system.previous_page.pop());\n\
+		return;\n\
+	}\n\
+	// this works for other browsers\n\
+	scrollTo(0,0);\n\
+	history.go(0);\n\
+}\n\
+";
+
 woas.help_system.go_to = function(wanted_page, pi) {
 	if (typeof pi == "undefined")
 		pi = woas.page_index(wanted_page);
@@ -96,21 +126,37 @@ woas.help_system.go_to = function(wanted_page, pi) {
 		text = woas.get__text(pi);
 	if (text === null)
 		return;
+	// save previous page and set new
+	if (woas.help_system.going_back)
+		woas.help_system.going_back = false;
+	else if (woas.help_system.page_title !== null)
+		woas.help_system.previous_page.push( woas.help_system.page_title );
 	// now create the popup
 	if ((woas.help_system.popup_window === null) || woas.help_system.popup_window.closed) {
+		woas.help_system.previous_page = [];
 		woas.help_system.popup_window = woas._customized_popup(wanted_page, woas.parser.parse(
-		"[[Include::WoaS::Template::Button|Close|window.close()]]\n"+text),
-			"function go_to(page) { if (window.opener && !window.opener.closed)	window.opener.woas.help_system.go_to(page); }",
+				_mk_help_button(0)+text),
+				cPopupCode,
 			"", " class=\"woas_help_background\"");
 	} else { // hotfix the page
 		woas.help_system.popup_window.document.title = wanted_page;
 		// works also with IE
 		woas.help_system.popup_window.document.body.innerHTML = woas.parser.parse(
-			"[[Include::WoaS::Template::Button|Back|scrollTo(0,0);history.go(0)]]\n"+text);
+			_mk_help_button(woas.help_system.previous_page.length)+text);
 		woas.help_system.popup_window.scrollTo(0,0);
 	}
 	woas.help_system.page_title = wanted_page;
 };
+
+function _mk_help_button(n) {
+	var w = "[[Include::WoaS::Template::Button|";
+	if (n)
+		w += "Back|help_go_back";
+	else
+		w += "Close|window.close";
+	w += "();]]\n";
+	return w;
+}
 
 // when edit is clicked
 //DEPRECATED
@@ -397,7 +443,6 @@ woas._customized_popup = function(page_title, page_body, additional_js, addition
 			css_payload = "div.woas_toc { position: relative; left:25%; right: 25%;}";
 	} else
 		css_payload = "div.woas_toc { margin: 0 auto;}\n";
-	css_payload += woas.css.get() + additional_css;
 	
 	if (additional_js.length)
 		additional_js = woas.raw_js(additional_js);
@@ -409,7 +454,8 @@ woas._customized_popup = function(page_title, page_body, additional_js, addition
 		",status=yes,menubar=yes,resizable=yes,scrollbars=yes",
 		// head
 		"<title>" + page_title + "</title>" + "<st" + "yle type=\"text/css\">"
-		+ css_payload + "</sty" + "le>" + additional_js,
+		+ css_payload + woas.css.get() + additional_css +
+		"</sty" + "le>" + additional_js,
 		page_body,
 		body_extra
 	);
@@ -485,7 +531,8 @@ woas.popup = function(name,fw,fh,extra,head,body, body_extra) {
 	var wnd = window.open("about:blank",name,"width="+fw+",height="+fh+		
 	",left="+hpos+",top="+vpos+extra);
 	wnd.focus();
-	wnd.document.writeln(this.DOCTYPE+"<ht"+"ml><he"+"ad>"+head+"</h"+"ead><"+"body"+body_extra+">"+
+	wnd.document.writeln(this.DOCTYPE+"<ht"+"ml><he"+"ad>"+head+
+						"</h"+"ead><"+"body"+body_extra+">"+
 						body+"</bod"+"y></h"+"tml>\n");
 	wnd.document.close();
 	return wnd;

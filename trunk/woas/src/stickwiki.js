@@ -1471,7 +1471,7 @@ woas.css = {
 		if (woas.browser.ie)
 			woas._dom_cage.stylesheet.cssText = css;
 		else {
-			if (woas.browser.chrome)
+			if (woas.browser.chrome || woas.browser.safari)
 				woas._dom_cage.stylesheet.innerText = css;
 			else
 				woas._dom_cage.stylesheet.innerHTML = css;
@@ -1483,7 +1483,9 @@ woas.css = {
 	get: function() {
 		if (woas.browser.ie)
 			return woas._dom_cage.stylesheet.cssText;
-		// on Chrome, innerHTML == innerText after setting innerText
+		// on Chrome/Safari innerHTML contains br tags
+		if (woas.browser.chrome || woas.browser.safari)
+			return woas._dom_cage.stylesheet.innerText;
 		return woas._dom_cage.stylesheet.innerHTML;
 	}
 };
