@@ -1783,18 +1783,18 @@ width:50%; font-size:95%;"><center><b>Table of Contents</b></center>
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Tags
 woas.page.attributes: 0
-woas.page.length: 3542
+woas.page.length: 3547
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Tags
-Tags are used to group pages second categories/features/topics so they can easily be found again.
+Tags are used to group pages by categories/features/topics so they can easily be found again.
 
 Tags can be placed anywhere on a page, but choosing a standard location like the bottom of the page makes them easier to find and edit as your wiki grows.
 
-Tag a page by using a {{{[[Tag::tag1]]}}} link, adding the tag name or names after the double colons; tags should be separated with comma.
+Tag a page by using a {{{[[Tag::tag1]]}}} link, adding the tag name or names after the double colons; multiple tags should be separated with pipes.
 
 You can also use the *Tag* button in the editor.
 
