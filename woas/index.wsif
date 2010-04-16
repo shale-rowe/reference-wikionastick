@@ -1100,7 +1100,7 @@ This wiki accepts plain text, WoaS wiki syntax, and XHTML. See the *Syntax* sect
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Nowiki text
 woas.page.attributes: 0
-woas.page.length: 1763
+woas.page.length: 2357
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1112,13 +1112,15 @@ woas.page.boundary: DFQRCTsKlU
 == Multi-line blocks
 <div class="woas_helptext">Use this code in a page:</div>
 <div class="woas_helpcode">{\
-{{This is a code block
+{{
+This is a code block
 made of one
 or more lines.
 }}\
 }</div>
 <div class="woas_helptext">To create this:</div>
-{{{This is a code block
+{{{
+This is a code block
 made of one
 or more lines.}}}
 == Inline nowiki blocks
@@ -1129,7 +1131,9 @@ Example (with the mathematical equation inside a nowiki block):
 
 The equation {{{E = mc^2}}} indicates that energy always exhibits mass in whatever form the energy takes.
 
-== Nowiki block properly indented beneath a list item
+== Nowiki blocks inside lists
+A nowiki block can be added to a list item by inserting the opening curly brackets at the end of the list item.
+
 <div class="woas_helptext">Use this code in a page:</div>
 <div class="woas_helpcode">* List item:&#123;&#123;&#123;
 This is a code block
@@ -1143,17 +1147,34 @@ made of one
 or more lines.
 }}}
 
+To insert a newline between the list item and the nowiki block, you can use HTML {{{<br>}}} tags before the opening curly brackets.
+
+<div class="woas_helptext">Use this code in a page:</div>
+<div class="woas_helpcode">* List item:&lt:br&gt;&lt;br&gt;&#123;&#123;&#123;
+This is a code block
+made of one
+or more lines.
+&#125;&#125;&#125;</div>
+<div class="woas_helptext">To create this:</div>
+* List item:<br><br>{{{
+This is a code block
+made of one
+or more lines.
+}}}
+
 == Nowiki block with custom CSS style
 The example uses /lightcyan/ and /purple/ colors, but you can replace those with whatever colors you like, using [[http://www.w3schools.com/Html/html_colornames.asp|color names or hexadecimal notation]].
 
-<div class="woas_helptext">Use this code in a page:</div>
-{{{<span style="background-color:lightcyan; color:purple;">}}}&#123;&#123;&#123;This is a code block
+<div class="woas_helptext">Use this code in a page:</div><div class="woas_helpcode">
+&lt;span style="background-color:lightcyan; color:purple;"&gt;&#123;&#123;&#123;
+This is a code block
 made of one
 or more lines.
-&#125;&#125;&#125;{{{</span>}}}
-
+&#125;&#125;&#125;&lt;/span&gt;
+</div>
 <div class="woas_helptext">To create this:</div>
-<span style="background-color:lightcyan; color:purple;">{{{This is a code block
+<span style="background-color:lightcyan; color:purple;">{{{
+This is a code block
 made of one
 or more lines.
 }}}</span>
@@ -1567,7 +1588,7 @@ with the line below it.
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Non-breaking spaces
 woas.page.attributes: 0
-woas.page.length: 905
+woas.page.length: 917
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1576,16 +1597,16 @@ woas.page.boundary: DFQRCTsKlU
 = Non-breaking spaces
 A non-breaking space can add extra space between characters on a line since this is not possible simply by pressing the space bar more than once.
 
-<div class="woas_helptext">Use this code in a page:</div>{{{
+<div class="woas_helptext">Use this code in a page:</div><br>{{{
 &nbsp;
 }}}<br><div class="woas_helptext">To create a non-breaking space.</div>
 == Examples
-<div class="helptext">To insert 5 spaces between two words, insert 5 non-breaking spaces between them, like this:</div>{{{
+<div class="helptext">To insert 5 spaces between two words, insert 5 non-breaking spaces between them, like this:</div><br>{{{
 word&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;word
 }}}<br><div class="helptext">To create this:</div>
 word&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;word
 
-<div class="helptext">Another method is to insert a combination of spaces and non-breaking spaces. To insert 5 spaces between two words, insert 1 space, 3 non-breaking spaces, and 1 space between them, like this:</div>{{{
+<div class="helptext">Another method is to insert a combination of spaces and non-breaking spaces. To insert 5 spaces between two words, insert 1 space, 3 non-breaking spaces, and 1 space between them, like this:</div><br>{{{
 word &nbsp;&nbsp;&nbsp; word
 }}}<br><div class="helptext">To create this:</div>
 word &nbsp;&nbsp;&nbsp; word
