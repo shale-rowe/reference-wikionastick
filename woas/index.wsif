@@ -1659,7 +1659,7 @@ Some namespaces are reserved by the wiki for its own internal use or for specifi
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Text formatting
 woas.page.attributes: 0
-woas.page.length: 1437
+woas.page.length: 1465
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1667,43 +1667,43 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 = Text formatting
 == Bold
-<div class="woas_helptext">Use this code in a page:</div>{{{
+<div class="woas_helptext">Use this code in a page:</div><br>{{{
 *This is bold text.*
 }}}<br><div class="woas_helptext">To create this:</div>
 *This is bold text.*
 
 == Colored
 
-<div class="woas_helptext">Use this code in a page:</div>{{{
+<div class="woas_helptext">Use this code in a page:</div><br>{{{
 <span style="color:#FF00FF">This is colored text.</span>
 }}}<br><div class="woas_helptext">To create this:</div>
 <span style="color:#FF00FF">This is colored text.</span>
 
-<div class="woas_helptext">Or use this code in a page:</div>{{{
+<div class="woas_helptext">Or use this code in a page:</div><br>{{{
 <span style="color:fuchsia">This is colored text.</span>
 }}}<br><div class="woas_helptext">To create this:</div>
 <span style="color:fuchsia">This is colored text.</span>
 
 == Italic
-<div class="woas_helptext">Use this code in a page:</div>{{{
+<div class="woas_helptext">Use this code in a page:</div><br>{{{
 /This is italic text./
 }}}<br><div class="woas_helptext">To create this:</div>
 /This is italic text./
 
 == Plain
-<div class="woas_helptext">Use this code in a page:</div>{{{
+<div class="woas_helptext">Use this code in a page:</div><br>{{{
 This is plain text.
 }}}<br><div class="woas_helptext">To create this:</div>
 This is plain text.
 
 == Underlined
-<div class="woas_helptext">Use this code in a page:</div>{{{
+<div class="woas_helptext">Use this code in a page:</div><br>{{{
 _This is underlined text._
 }}}<br><div class="woas_helptext">To create this:</div>
 _This is underlined text._
 
 == Underlined Bold Italic
-<div class="woas_helptext">Use this code in a page:</div>{{{
+<div class="woas_helptext">Use this code in a page:</div><br>{{{
 _*/This is underlined and bold and italic text./*_
 }}}<br><div class="woas_helptext">To create this:</div>
 _*/This is underlined and bold and italic text./*_
