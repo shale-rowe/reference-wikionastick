@@ -122,6 +122,8 @@ if (woas.config.debug_mode) {
 		if (nls!=null && typeof(nls)==='object' && nls.length>1024)
 			logbox.value = "";
 		logbox.value += aMessage + "\n";
+		// keep the log scrolled down
+		logbox.scrollTop = logbox.scrollHeight;
 		if(window.opera)
 			opera.postError(aMessage);
 	};
