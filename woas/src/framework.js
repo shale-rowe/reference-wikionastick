@@ -12,7 +12,9 @@ if((navigator.userAgent).indexOf("Opera")!=-1)
 	woas.browser.opera = true;
 else if (navigator.userAgent.indexOf("Chrome") != -1)
 	woas.browser.chrome = true;
-else if(navigator.appName == "Netscape") {
+else if (navigator.userAgent.toLowerCase().indexOf("applewebkit") != -1) {
+	woas.browser.safari = true;
+} else if(navigator.appName == "Netscape") {
 	// check that it is Gecko first
 	woas.browser.firefox = (new RegExp("Gecko\\/\\d+")).test(navigator.userAgent) ? true : false;
 	// match also development versions of Firefox "Shiretoko" / "Namoroka"
@@ -39,8 +41,6 @@ else if(navigator.appName == "Netscape") {
 	woas.browser.ie8 = document.documentMode ? true : false;
 	if (!woas.browser.ie8)
 		woas.browser.ie6 = window.XMLHttpRequest ? false : true;
-} else if (navigator.userAgent.indexOf("applewebkit") != -1) {
-	woas.browser.safari = true;
 }
 
 // finds out if Opera is trying to look like Mozilla
