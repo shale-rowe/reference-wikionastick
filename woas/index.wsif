@@ -1190,7 +1190,7 @@ If you clicked the *Disallow edits* button in the wiki Options, this wiki became
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Create a page
 woas.page.attributes: 0
-woas.page.length: 2256
+woas.page.length: 2260
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1208,7 +1208,7 @@ woas.page.boundary: DFQRCTsKlU
 
 An alternate method of creating a page is to type a new page title inside nested brackets. The link will be red. Click it to create the new page. Example:
 
-<div class="woas_helptext">Type this into a page:</div>{{{
+<div class="woas_helptext">Type this into a page:</div><br>{{{
 [[My new page]]
 }}}<br><div class="woas_helptext">To create this:</div>
 [[My new page]]
@@ -1244,14 +1244,14 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Edit a page
 woas.page.attributes: 0
-woas.page.length: 721
+woas.page.length: 729
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Edit a page
-All pages (except WoaS pages within reserved [[WoaS::Help::Namespaces|namespaces]]) can be edited or deleted. In order to edit such pages, click the *Edit* icon in the navigation bar. You can find all the user pages by clicking the *Special::All Pages* link in the menu.
+All pages (except WoaS pages within reserved [[WoaS::Help::Namespaces|namespaces]]) can be edited or deleted. In order to edit such pages, click the *Edit* icon in the navigation bar. You can find all the user pages by clicking the {{{[[Special::All Pages]]}}} link in the menu.
 # Click the *Edit* icon in the navigation bar or double-click on the page if you've enabled that setting in the wiki Options.<br><br>
 # Edit the contents of the main text area by typing normally.<br><br>
 # Use the editor's buttons to insert code to format the text, or type the code in manually. Note that the use of plain text doesn't require any code.<br><br>
@@ -1276,7 +1276,7 @@ See also the [[WoaS::Help::Special::Erase Wiki]] page.
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Edit the menu
 woas.page.attributes: 0
-woas.page.length: 561
+woas.page.length: 563
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1287,7 +1287,7 @@ woas.page.boundary: DFQRCTsKlU
 # Edit the contents of the main text area by typing normally. The menu can contain links, lists, tables, colored text, etc. as a normal wik page<br><br>
 # Save your changes by clicking on the *Save* icon in the top right navigation panel.
 
-You can use various styles for your menu; you can find detailed explanation of list styles in the [[WoaS::Help::Lists]] page.
+You can use various styles for your menu. A detailed explanation of list styles can be found in the [[WoaS::Help::Lists]] page.
 
 == Add a sub-menu beneath the menu
 See the *Namespace sub-menu* section of the [[WoaS::Help::Namespaces]] page.
