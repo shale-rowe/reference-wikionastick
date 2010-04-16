@@ -309,10 +309,11 @@ woas.javaSaveFile = function(filePath,save_mode,content) {
 		if(document.applets.TiddlySaver) {
 			var rv = document.applets.TiddlySaver.saveFile(_javaUrlToFilename(filePath),"UTF-8",content);
 			if (typeof rv == "undefined") {
-				log("Save failure, check your Java console (perhaps necessary class was not found)");
+				log("Save failure, this is usually a Java configuration issue");
 				return null;
-			} else
-				return rv;
+			} else {
+				return rv ? true : false;
+			}
 		}
 	} catch(ex) {
 		// report but check next method
@@ -347,7 +348,7 @@ woas.javaLoadFile = function(filePath, load_mode, suggested_mime) {
 			}
 			// check that it is not an "undefined" string
 			if (typeof content == "undefined") {
-				log("Load failure, check your Java console (perhaps necessary class was not found)"); //log:1
+				log("Load failure, this is usually a Java configuration issue"); //log:1
 				return null;
 			}
 			// convert to string only after checking that it was successfully loaded
@@ -587,14 +588,20 @@ var reHeadTagEnd = new RegExp("<\\/"+"head>", "ig"),
 	reTitleE = new RegExp("<"+"/title"+">", "ig"),
 	reStyleE = new RegExp("<"+"/style"+">", "ig");
 woas._extract_src_data = function(marker, source, full, current_page, start) {
-	var offset;
+	var offset, s_offset;
 	// always find the end marker to make the XHTML fixes
 	offset = source.indexOf("/* "+marker+ "-END */");
-	if (offset == -1) {
+	if (offset === -1) {
 		this.alert(this.i18n.ERR_MARKER.sprintf("END"));
 		return false;
-	}			
+	}
 	offset += 6 + 4 + marker.length + 2;
+	// find also the start marker for safety checking
+	s_offset = source.indexOf("/* "+marker+ "-START */");
+	if (s_offset === -1) {
+		this.alert(this.i18n.ERR_MARKER.sprintf("START"));
+		return false;
+	}			
 	
 	// search for head end tag starting at offset
 	reHeadTagEnd.lastIndex = offset;
@@ -608,59 +615,76 @@ woas._extract_src_data = function(marker, source, full, current_page, start) {
 		body_ofs = -1;
 	//RFC: does body_ofs ever evaluate to -1?
 	if (body_ofs !== -1) {
+		// IE is the only browser which moves tag around
+		if (this.browser.ie)
+			reTitleS.lastIndex = 0;
+		else
+			reTitleS.lastIndex = offset;
 		// fix document title directly without modifying DOM
-		reTitleS.lastIndex = offset;
 		var title_end, title_start = reTitleS.exec(source);
 		if (title_start === null)
 			title_start = -1;
 		else title_start = title_start.index;
-		if (title_start === -1)
-			this.crash("Cannot find document title start tag");
-		else {
-			reTitleE.lastIndex = title_start;
-			title_end = reTitleE.exec(source);
-			if (title_end === null)
-				title_end = -1;
-			else title_end = title_end.index;
-			if (title_end === -1)
-				this.crash("Cannot find document title end tag");
+		// check that we did not pick something from the data area
+		if ((title_start>=s_offset) && (title_start<=offset)) {
+			this.crash("Document title tag in data area");
+		} else {
+			if (title_start === -1)
+				this.crash("Cannot find document title start tag");
 			else {
-				// replace with current page title
-				var new_title = this.xhtml_encode(current_page);
-				source = source.substring(0, title_start) + "<title>"+
-						new_title
-						+ source.substring(title_end);
-				// update offset accordingly
-				body_ofs += new_title.length + 7 - (title_end - title_start);
+				reTitleE.lastIndex = title_start;
+				title_end = reTitleE.exec(source);
+				if (title_end === null)
+					title_end = -1;
+				else title_end = title_end.index;
+				if (title_end === -1)
+					this.crash("Cannot find document title end tag");
+				else {
+					// replace with current page title
+					var new_title = this.xhtml_encode(current_page);
+					source = source.substring(0, title_start) + "<title>"+
+							new_title
+							+ source.substring(title_end);
+					// update offset accordingly
+					body_ofs += new_title.length + 7 - (title_end - title_start);
+				}
 			}
 		}
+		// IE is the only browser which moves tag around
+		if (this.browser.ie)
+			reStyleS.lastIndex = 0;
+		else
+			reStyleS.lastIndex = offset;
 		// replace CSS directly without modifying DOM
-		reStyleS.lastIndex = offset;
 		var css_end, css_start = reStyleS.exec(source);
 		if (css_start === null)
 			css_start = -1;
 		else css_start = css_start.index;
-		if (css_start === -1)
-			this.crash("Cannot find CSS style start tag");
-		else {
-			reStyleE.lastIndex = css_start;
-			css_end = reStyleE.exec(source);
-			if (css_end === null)
-				css_end = -1;
-			else css_end = css_end.index;
-			if (css_end === -1)
-				this.crash("Cannot find CSS style end tag");
+		if ((css_start>=s_offset) && (css_start<=offset)) {
+			this.crash("Document style tag in data area");
+		} else {
+			if (css_start === -1)
+				this.crash("Cannot find CSS style start tag");
 			else {
-				var boot_css = this.get_text("WoaS::CSS::Boot"),
-					stStartTag = "<"+"style type=\"text/css\""+">";
-				//this._customized_popup("test", "<tt>"+this.xhtml_encode(source.substring(css_start, css_end))+"</tt>", "");
-				// we have found the style tag, replace it
-				source = source.substring(0, css_start) + stStartTag +
-							boot_css
-							+ source.substring(css_end);
-				// update offset
-				body_ofs += boot_css.length + stStartTag.length - (css_end - css_start);
-				delete boot_css;
+				reStyleE.lastIndex = css_start;
+				css_end = reStyleE.exec(source);
+				if (css_end === null)
+					css_end = -1;
+				else css_end = css_end.index;
+				if (css_end === -1)
+					this.crash("Cannot find CSS style end tag");
+				else {
+					var boot_css = this.get_text("WoaS::CSS::Boot"),
+						stStartTag = "<"+"style type=\"text/css\""+">";
+					//this._customized_popup("test", "<tt>"+this.xhtml_encode(source.substring(css_start, css_end))+"</tt>", "");
+					// we have found the style tag, replace it
+					source = source.substring(0, css_start) + stStartTag +
+								boot_css
+								+ source.substring(css_end);
+					// update offset
+					body_ofs += boot_css.length + stStartTag.length - (css_end - css_start);
+					delete boot_css;
+				}
 			}
 		}
 		// XHTML hotfixes (FF doesn't either save correctly)

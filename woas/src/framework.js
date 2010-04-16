@@ -44,13 +44,18 @@ else if(navigator.appName == "Netscape") {
 }
 
 // finds out if Opera is trying to look like Mozilla
-if (woas.browser.firefox && (navigator.product != "Gecko"))
+if (woas.browser.firefox && (navigator.product != "Gecko")) {
 	woas.browser.firefox = woas.browser.firefox2
 	= woas.browser.firefox3 = woas.browser.firefox_new = false;
+	if (typeof window.opera != "undefined")
+		woas.browser.opera = true;
+}
 
 // finds out if Opera is trying to look like IE
-if (woas.browser.ie && woas.browser.opera)
-	woas.browser.ie = false;
+if (woas.browser.ie && (typeof window.opera != "undefined")) {
+	woas.browser.ie = woas.browser.ie6 = woas.browser.ie8 = false;
+	woas.browser.opera = true;
+}
 
 var is_windows = (navigator.appVersion.toLowerCase().indexOf("windows")!=-1);
 
