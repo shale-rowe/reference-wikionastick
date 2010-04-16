@@ -360,10 +360,14 @@ woas.ns_recurse = function(ns_arr, folds, prev_ns) {
 		this.ns_recurse(ns_arr, folds, ns);
 };
 
+woas._ns_expanded = function(ns, items_count) {
+	return (items_count <= 3);
+};
+
 woas.ns_recurse_parse = function(folds, output, prev_ns, recursion, sorted) {
 	var i,it=folds["[pages]"].length,fold_id;
 	if (it != 0) {
-		var vis_css = (it <= 3) ? "visibility: visible" : "visibility: hidden; display:none";
+		var vis_css = this._ns_expanded(prev_ns, it) ? "visibility: visible" : "visibility: hidden; display:none";
 		fold_id = "fold"+output.fold_no++;
 		++recursion;
 		// disable folding for pages outside namespaces
