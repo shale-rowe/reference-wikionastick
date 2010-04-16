@@ -1739,7 +1739,7 @@ The *Fixed menu area and navigation bar* option can be enabled and disabled by p
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Table of Contents
 woas.page.attributes: 0
-woas.page.length: 2529
+woas.page.length: 2403
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -1748,14 +1748,16 @@ woas.page.boundary: DFQRCTsKlU
 = Table of Contents
 You can insert a Table of Contents into your page by using a special wiki tag. It will be automatically populated with all the headers on a page. The placement of the Table of Contents is  determined by where you put the tag in the page.
 
-Insert {{{[[Special::TOC]]}}} on a line by itself in a page to add a Table of Contents.
+<div class="woas_helptext">Use this code on a line by itself in a page:</div><br>{{{
+[[Special::TOC]]
+}}}
+<div class="woas_helptext">To add a Table of Contents to the page.</div>
 
 [[Include::WoaS::Template::Info|The Table of Contents expects the first header on a page to be a Level 1 header. If you use any other level header first, that header and any headers after it will be represented by hash marks until a Level 1 header is encountered. From that point on, the headers will be numbered properly.]]
 == Example
-Create a page with these contents::{{{
- [[Special::TOC]]
-}}}<br><div class="woas_helptext">To add a Table of Contents to a page.</div>
-{{{= My level one header
+Create a page with these contents:<br><br>{{{
+[[Special::TOC]]
+= My level one header
 == My level two header
 === My level three header
 ==== My level four header
@@ -1768,7 +1770,6 @@ When you save the page, there will be a Table of Contents that looks like this a
 width:50%; font-size:95%;"><center><b>Table of Contents</b></center>
 &nbsp;&nbsp;&nbsp;1. <span style="color:blue; text-decoration:underline;">My level one header</span>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. <span style="color:blue; text-decoration:underline;">My level two header</span>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2. <span style="color:blue; text-decoration:underline;">My next level two header</span>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. <span style="color:blue; text-decoration:underline;">My level three header</span>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. <span style="color:blue; text-decoration:underline;">My level four header</span>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. <span style="color:blue; text-decoration:underline;">My level five header</span>
