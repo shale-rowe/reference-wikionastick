@@ -2778,7 +2778,7 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Transclusion
 woas.page.attributes: 0
-woas.page.length: 2999
+woas.page.length: 3000
 woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -2795,6 +2795,7 @@ You can then create a transclusion link or links to that page by creating a norm
 <div class="helpcode">[<!-- -->[Include::PAGENAME|VALUE1|VALUE2|VALUE3]<!-- -->]</div>
 == Examples
 These examples use the [[WoaS::Template::Example::Transclusion]] page which contains two variables. The contents of that page are:
+
 {{{
 <big style="color:lime">%1 had a little %2</big>
 }}}
