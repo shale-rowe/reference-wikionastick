@@ -1725,16 +1725,17 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Page scrolling
 woas.page.attributes: 0
-woas.page.length: 477
+woas.page.length: 515
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Page scrolling
-By default, this wiki offers two choices for scrolling in the wiki Options. The *Fixed menu area and navigation bar* is disabled by default. This locks all page elements in place so the entire page scrolls as one connected unit. Enabling it locks the navigation bar and menu in place while allowing the rest of the page to scroll.
+By default, this wiki offers two choices for scrolling. You can change these settings by clicking the *Advanced* icon in the navigation bar and then clicking the {{{[[Special::Options]]}}} link.
 
-You can change the settings by clicking the *Advanced* icon in the navigation bar and then clicking the *Special::Options* link.
+The *Fixed menu area and navigation bar* option can be enabled and disabled by placing a check mark in the box next to the option. Enabling it locks the navigation bar and menu in place while allowing the rest of the page to scroll. Disabling it allows the entire page to scroll as one connected unit.
+
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Table of Contents
 woas.page.attributes: 0
