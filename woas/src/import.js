@@ -472,7 +472,7 @@ woas.import_wiki = function() {
 					// the image is not valid as-is, attempt to fix it
 					if (!reValidImage.test(page_contents[i])) {
 						// do not continue with newer versions or if not base64-encoded
-						if ((old_version>=117) || !reBalidBase64.test(page_contents[i])) {
+						if ((old_version>=117) || !reValidBase64.test(page_contents[i])) {
 							log("Skipping invalid image "+page_names[i]);
 							continue;
 						}

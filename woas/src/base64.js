@@ -1,5 +1,5 @@
 var _b64arr = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
-var reBalidBase64 = /^[A-Za-z0-9+\/=]+$/;
+var reValidBase64 = /^[A-Za-z0-9+\/=]+$/;
 
 function _core_encode64(c1, c2, c3) {
 	var enc1, enc2, enc3, enc4;
