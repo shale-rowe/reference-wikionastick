@@ -492,14 +492,17 @@ woas._save_to_file = function(full) {
 	computed_js += "var backstack = [\n" + printout_arr(this.config.nav_history ? backstack : [], false) + "];\n\n";
 	
 	// in WSIF datasource mode we will save empty arrays
-	if (this.config.wsif_ds.length === 0)
+	if (this.config.wsif_ds.length !== 0)
 		computed_js += "var page_titles = [\n];\n\n";
 	else
 		computed_js += "var page_titles = [\n" + printout_arr(page_titles, false) + "];\n\n";
 	
 	computed_js += "/* " + new_marker + "-DATA */\n";
-	
+
+	// force full mode if WSIF datasource mode changed since last time loading/saving
+	full |= (this.config.wsif_ds.length !== this._old_wsif_ds_len);
 	if (full) {
+		this._old_wsif_ds_len = this.config.wsif_ds.length;
 		if (this.config.wsif_ds.length) {
 			// everything empty when the javascript layer is not used
 			computed_js += "var page_attrs = [];\n\n";

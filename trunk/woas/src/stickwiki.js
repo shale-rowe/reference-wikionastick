@@ -31,6 +31,9 @@ woas._forward_browse = false;
 // hashmap used to quickly reference some important DOM objects
 woas._dom_cage = {};
 
+// previous length of WSIF datasource
+woas._old_wsif_ds_len = null;
+
 // left and right trim
 woas.trim = function(s) {
 	return s.replace(/(^\s*)|(\s*$)/, '');
@@ -1043,6 +1046,9 @@ woas.setHTML = woas.getHTML = null;
 woas.after_load = function() {
 
 	log("***** Woas v"+this.version+" started *****");	// log:1
+	
+	// store the old length to eventually force full save when entering/exiting WSIF datasource mode
+	this._old_wsif_ds_len = this.config.wsif_ds.length;
 
 	// (0) set some browser-tied functions
 	if (this.browser.ie) {	// some hacks for IE
@@ -1111,18 +1117,11 @@ woas.after_load = function() {
 	
 	// properly initialize navigation bar icons
 	// this will cause the alternate text to display on IE6/IE7
-	this.img_display("back", true);
-	this.img_display("forward", true);
-	this.img_display("home", true);
-	this.img_display("edit", true);
-	this.img_display("print", true);
-	this.img_display("advanced", true);
-	this.img_display("cancel", true);
-	this.img_display("save", true);
-	this.img_display("lock", true);
-	this.img_display("unlock", true);
-	this.img_display("setkey", true);
-	this.img_display("help", true);
+	var nav_bar = ["back", "forward", "home", "edit", "print", "advanced",
+					"cancel", "save", "lock", "unlock", "setkey", "help"];
+	for(var i=0,it=nav_bar.length;i<it;++i) {
+		this.img_display(nav_bar[i], true);
+	}
 	
 	// customized keyboard hook
 	document.onkeydown = kbd_hook;
@@ -1141,7 +1140,7 @@ woas.after_load = function() {
 	this._load_aliases(this.get_text("WoaS::Aliases"));
 	this._load_hotkeys(this.get_text("WoaS::Hotkeys"));
 
-	this._create_bs();	//moved here to fix bug 1898587
+	this._create_bs();
 	this._forward_browse = true; // used to not store backstack
 	this.set_current(current, true);
 	this.refresh_menu_area();
@@ -1154,7 +1153,7 @@ woas.after_load = function() {
 	else
 		$.hide("menu_edit_button");
 	
-	// enable the auto-saver hook
+	// enable the auto-save thread
 	if (this.config.cumulative_save && this.config.auto_save)
 		this._asto = setTimeout("_auto_saver(woas)", this.config.auto_save);
 	
