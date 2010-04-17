@@ -1,23 +1,20 @@
 // this file contains API for the data layer abstraction
 
-// private function used during development for page contents versioning
-woas._native_save = function(plist) {
-	// if we have a native sub-path, trigger the native WSIF data export
-	if (!this.tweak.native_wsif)
+woas._wsif_ds_save = function(subpath, plist) {
+	// if we have a native sub-path, trigger the WSIF datasource save
+	if (subpath.length === 0)
 		return;
 	// always save in the root directory
-	var done;
 	// code disabled since we always save the full backup
 //	if (typeof plist != "undefined" )
-//		done = this._native_wsif_save(path,	true, true, "", true, plist); else
-	done = this._native_wsif_save(woas.ROOT_DIRECTORY,	true, true, "", true);
-
-	log("saved "+done+" pages natively"); // log:1
+//		done = this._native_wsif_save(path,	subpath, true, true, "", true, plist); else
+	this._native_wsif_save(woas.ROOT_DIRECTORY, subpath, !this.config.wsif_ds_multi,
+							!this.config.wsif_ds_multi, this.config.wsif_author, true);
 };
 
 //API1.0: save all pages
 woas.full_commit = function() {
-	this._native_save();
+	this._wsif_ds_save(this.config.wsif_ds);
 	return this._save_to_file(true);
 };
 
@@ -29,7 +26,7 @@ woas.cfg_commit = function() {
 //API1.0: save specific list of pages
 // plist is a list of page indexes which need to be saved
 woas.commit = function(plist) {
-	this._native_save(plist);
+	this._wsif_ds_save(this.config.wsif_ds, plist);
 	// performs full save, while the single page + global header could be saved instead
 	return this._save_to_file(true);
 };
@@ -38,7 +35,7 @@ woas.commit = function(plist) {
 // plist is a list of page indexes which need to be saved (not allowed to be empty)
 woas.commit_delete = function(plist) {
 	// update only the native WSIF index (leaves back deleted pages)
-	this._native_save([]);
+	this._native_save(this.config.wsif_ds, []);
 	// performs full save, while the single page + global header could be saved instead
 	return this._save_to_file(true);
 };

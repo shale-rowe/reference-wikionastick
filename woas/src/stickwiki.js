@@ -1083,8 +1083,8 @@ woas.after_load = function() {
 		this._set_debug(false);
 
 	// (3) load the actual pages (if necessary)
-	if (this.tweak.native_wsif) {
-		if (!this._native_load()) {
+	if (this.confg.wsif_ds.length) {
+		if (!this._wsif_ds_load(this.config.wsif_ds)) {
 			// the file load error is already documented to user
 			if (this.wsif.emsg !== null) {
 				// force debug mode
