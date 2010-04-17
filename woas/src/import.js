@@ -4,14 +4,21 @@ var reRequote = new RegExp(":-"+parse_marker, "g"),
 	reJString = new RegExp("'[^']*'", "g"),
 	reJStringRep = new RegExp(parse_marker+":"+"(\\d+)", "g");
 
-// function used to collect variables
+woas._file_ext = function(fn) {
+	var m=fn.match(/\.(\w+)$/);
+	if (m === null) return "";
+	return "."+m[1];
+};
+
+var reValidImage = /^data:\s*[^;]*;\s*base64,\s*/;
 woas.import_wiki = function() {
 
+	// function used to collect variables
 	function get_import_vars(data, ignore) {
 		var c=[], jstrings=[];
 		// (1) take away all javascript strings (most notably: content and titles)
 		// WARNING: quoting hacks lie here!
-		data = data.replace("\\'", ":-"+parse_marker).replace(reJString, function (str) {
+		data = data.replace(/\\'/g, ":-"+parse_marker).replace(reJString, function (str) {
 			// restore quotes
 			jstrings.push(str.substr(1, str.length-2).replace(reRequote, "\\'"));
 			return parse_marker+":"+(jstrings.length-1).toString();
@@ -459,6 +466,37 @@ woas.import_wiki = function() {
 				// here we are skipping special pages
 				++sys_pages;
 			} else { // not importing a special page
+				
+				// check that imported image is valid
+				if (old_page_attrs[i] & 8) {
+					// the image is not valid as-is, attempt to fix it
+					if (!reValidImage.test(page_contents[i])) {
+						// do not continue with newer versions or if not base64-encoded
+						if ((old_version>=117) || !reBalidBase64.test(page_contents[i])) {
+							log("Skipping invalid image "+page_names[i]);
+							continue;
+						}
+						// try to get a mime type from extension (sigh!)
+/*						var mime = this._file_ext(page_names[i]);
+						if (!mime.length)
+							// hack
+							mime = "png";
+						else {
+							mime = mime.substr(1).toLowerCase();
+							if (mime === "jpg") mime = "jpeg";
+						}
+						// finally rebuild image as valid
+						page_contents[i] = "data:image/"+mime+";base64,"+page_contents[i]; */
+						// we assume that image is double-encoded
+						page_contents[i] = decode64(page_contents[i]);
+						// check again for validity
+						if (!reValidImage.test(page_contents[i])) {
+							log("Skipping invalid image "+page_names[i]);
+							continue;
+						}
+						log("Fixed double-encoded image "+page_names[i]);
+					}
+				}
 				pi = this.page_index(page_names[i]);
 				if (pi == -1) {
 					page_titles.push(page_names[i]);
