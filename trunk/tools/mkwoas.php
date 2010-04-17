@@ -12,7 +12,6 @@
 # woas=path/woas.htm		path to WoaS HTML file - defaults to woas.htm
 # wsif=path/index.wsif		path to pages data in WSIF format
 # log=[0|1|2]		0 - fully disable log, 1 - keep logging as is, 2 - enable all log lines
-# native_wsif=[0|1]	specify 1 to enable native WSIF saving, default is 0
 # edit_override=[0|1]	specify 1 to enable the edit override
 #
 
@@ -56,9 +55,9 @@ function _replace_tweak_vars_single($m) {
 		case 'edit_override':
 			$v = $GLOBALS['edit_override'];
 		break;
-		case 'native_wsif':
-			$v = $GLOBALS['native_wsif'];
-		break;
+//		case 'native_wsif':
+//			$v = $GLOBALS['native_wsif'];
+//		break;
 		case 'integrity_test':
 			// always disable the integrity test
 			$v = false;
@@ -148,11 +147,30 @@ function _inline_vars_rep($m) {
 	return $r;
 }
 
+function _woas_config_cb_single($m) {
+	switch ($m[1]) {
+		case "wsif_ds":
+			$v = "''";
+		break;
+		case "wsif_ds_multi":
+			$v = 'true';
+		default:
+			$v = $m[2];
+	}
+	return '"'.$m[1].'":'.$v;
+}
+
+function _woas_config_cb($m) {
+	echo "woas[\"config\"] = {\n".
+		preg_replace_callback('/"([^"]+)"\\s*:\\s*([^,}]+)/', '_woas_config_cb_single', $m[1]).
+		"\n};\n";die;
+}
+
 /*** END OF FUNCTIONS BLOCK ***/
 
 // global variables initialization
 $woas = $wsif = null;
-$log = $edit_override = $native_wsif = false;
+$log = $edit_override = false;
 
 // parse the command line parameters
 for($i=1;$i<$argc;++$i) {
@@ -183,9 +201,6 @@ for($i=1;$i<$argc;++$i) {
 		case 'edit_override':
 			$edit_override = $v?1:0;
 			break;
-		case 'native_wsif':
-			$edit_override = $v?1:0;
-			break;
 		default:
 			fprintf(STDERR, "Parameter \"%s\" is not recognized\n", $a[0]);
 	}
@@ -203,6 +218,10 @@ if (!preg_match('/\\nvar __marker = "([^"]+)";/', $ct, $m)) {
 	fprintf(STDERR, "Could not find marker\n");
 	exit(-2);
 }
+
+// properly set default configuration variables
+$ct = preg_replace_callback("/woas\\[\"config\"\\]\\s*=\\s*\\{\\s*([^}]+)\\}/s", '_woas_config_cb', $ct);
+
 
 // get the version string
 global $woas_ver;

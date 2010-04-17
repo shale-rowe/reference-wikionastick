@@ -23,7 +23,7 @@ woas.wsif.inline = function(boundary, content) {
 // - embedded files/images go outside as blobs
 // - encrypted pages go inline in base64
 
-woas._native_wsif_save = function(path, single_wsif, inline_wsif, author,
+woas._native_wsif_save = function(path, src_fname, single_wsif, inline_wsif, author,
 							save_all, plist) {
 
 	function _generate_random_boundary(old_boundary, text) {
@@ -207,7 +207,7 @@ woas._native_wsif_save = function(path, single_wsif, inline_wsif, author,
 		}
 	}
 	// output the index WSIF file now
-	if (!this.save_file(path+this.wsif.DEFAULT_INDEX,
+	if (!this.save_file(path+src_fname,
 						this.file_mode.ASCII_TEXT,
 						extra + "\n" + full_wsif)) {
 		if (single_wsif)
@@ -217,14 +217,14 @@ woas._native_wsif_save = function(path, single_wsif, inline_wsif, author,
 	return done;
 };
 
-woas._native_load = function() {
+woas._wsif_ds_load = function(subpath) {
 	// we reset the arrays before loading the real data from index.wsif
 	pages = [];
 	page_attrs = [];
 	page_titles = [];
 	page_mts = [];
 	// get the data
-	var path = woas.ROOT_DIRECTORY+"index.wsif";
+	var path = woas.ROOT_DIRECTORY+subpath;
 	return this._native_wsif_load(path, false, false);
 };
 
@@ -235,7 +235,7 @@ woas._native_wsif_load = function(path, overwrite, and_save, recursing, pre_impo
 	}
 	var ct;
 	// allow remote loading when running in native WSIF mode
-	if (this.tweak.native_wsif && this._server_mode)
+	if (this._server_mode && (this.config.wsif_ds.length !== 0))
 		ct = this.remote_load(path)
 	else
 		ct = this.load_file(path, this.file_mode.ASCII_TEXT);
