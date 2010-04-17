@@ -500,8 +500,8 @@ woas._save_to_file = function(full) {
 	computed_js += "/* " + new_marker + "-DATA */\n";
 
 	// force full mode if WSIF datasource mode changed since last time loading/saving
-	full |= (this.config.wsif_ds.length !== this._old_wsif_ds_len);
-	if (full) {
+	var ds_changed = (this.config.wsif_ds.length !== this._old_wsif_ds_len);
+	if (full || ds_changed) {
 		this._old_wsif_ds_len = this.config.wsif_ds.length;
 		if (this.config.wsif_ds.length) {
 			// everything empty when the javascript layer is not used
@@ -544,7 +544,7 @@ woas._save_to_file = function(full) {
 	var bak_cursor = document.body.style.cursor;
 	document.body.style.cursor = "auto";
 
-	var data = this._extract_src_data(__marker, document.documentElement.innerHTML, full, safe_current);
+	var data = this._extract_src_data(__marker, document.documentElement.innerHTML, full | ds_changed, safe_current);
 
 	this.setHTML($("woas_wait_text"), bak_wait_text);
 	document.body.style.cursor = bak_cursor;
