@@ -36,12 +36,6 @@ woas._native_wsif_save = function(path, src_fname, single_wsif, inline_wsif, aut
 		return b;
 	}
 
-	function _file_ext(fn) {
-		var m=fn.match(/\.(\w+)$/);
-		if (m === null) return "";
-		return "."+m[1];
-	}
-
 	this.progress_init("WSIF save");
 	// the number of blobs which we have already created
 	var blob_counter = 0;
@@ -92,7 +86,7 @@ woas._native_wsif_save = function(path, src_fname, single_wsif, inline_wsif, aut
 		var ct = null, orig_len = null;
 		
 		// normalize the page content, set encoding&disposition
-		var encoding = null, disposition = "inline";
+		var encoding = null, mime = null, disposition = "inline";
 		if (this.is__encrypted(pi)) {
 			ct = encode64_array(pages[pi]);
 			encoding = "8bit/base64";
@@ -118,9 +112,16 @@ woas._native_wsif_save = function(path, src_fname, single_wsif, inline_wsif, aut
 					encoding = "8bit/base64";
 					if (this.is__image(pi)) {
 						m = ct.match(/^data:\s*([^;]*);\s*base64,\s*/);
-						record += this.wsif.header(pfx+"mime", m[1]);
-						// remove the matched part
-						ct = ct.substr(m[0].length);
+						if (m === null) {
+							this.crash(page_titles[pi]+" is not a valid image!"+ct);							
+							continue;
+						} else {
+							mime = m[1];
+							// remove the matched part
+							ct = ct.substr(m[0].length);
+							m = null;
+						}
+						record += this.wsif.header(pfx+"mime", mime);
 					}
 				}
 			} else { // normal wiki pages
@@ -164,7 +165,7 @@ woas._native_wsif_save = function(path, src_fname, single_wsif, inline_wsif, aut
 		} else {
 			// create the blob filename
 			var blob_fn = "blob" + (++blob_counter).toString()+
-						_file_ext(page_titles[pi]);
+						woas._file_ext(page_titles[pi]);
 			// specify path to external filename
 			record += this.wsif.header(pfx+"disposition.filename", blob_fn)+"\n";
 			// export the blob
