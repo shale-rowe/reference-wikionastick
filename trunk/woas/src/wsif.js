@@ -1,7 +1,7 @@
 
 // a class for some general WSIF operations
 woas.wsif = {
-	version: "1.2.0",
+	version: "1.3.0",
 	DEFAULT_INDEX: "index.wsif",
 	emsg: null,
 	imported_page: false,
@@ -18,12 +18,11 @@ woas.wsif.inline = function(boundary, content) {
 	return "\n--"+boundary+"\n"+content+"\n--"+boundary+"\n";
 };
 
-// default behaviour:
+// default behavior:
 // - wiki pages go inline (utf-8), no container encoding
 // - embedded files/images go outside as blobs
 // - encrypted pages go inline in base64
-
-woas._native_wsif_save = function(path, src_fname, single_wsif, inline_wsif, author,
+woas._native_wsif_save = function(path, src_fname, locking, single_wsif, inline_wsif, author,
 							save_all, plist) {
 
 	function _generate_random_boundary(old_boundary, text) {
@@ -37,8 +36,6 @@ woas._native_wsif_save = function(path, src_fname, single_wsif, inline_wsif, aut
 	}
 
 	this.progress_init("WSIF save");
-	// the number of blobs which we have already created
-	var blob_counter = 0;
 	
 	// prepare the extra headers
 	var extra = this.wsif.header('wsif.version', this.wsif.version);
@@ -164,15 +161,17 @@ woas._native_wsif_save = function(path, src_fname, single_wsif, inline_wsif, aut
 			record += this.wsif.inline(boundary, ct); ct = null;
 		} else {
 			// create the blob filename
-			var blob_fn = "blob" + (++blob_counter).toString()+
-						woas._file_ext(page_titles[pi]);
+			var blob_fn = "blob" + pi.toString() + woas._file_ext(page_titles[pi]);
 			// specify path to external filename
 			record += this.wsif.header(pfx+"disposition.filename", blob_fn)+"\n";
 			// export the blob
 			if (!this.save_file(path + blob_fn,
-							(encoding == "8bit/plain") ?
+							(encoding === "8bit/plain") ?
 							this.file_mode.BINARY : this.file_mode.ASCII_TEXT, ct))
 				log("Could not save "+blob_fn);	//log:1
+			// release any lock held previously
+			if (locking)
+				this.locks.release(path+blob_fn);
 		}
 		// the page record is now ready, proceed to save
 		if (single_wsif) {// append to main page record
@@ -214,11 +213,16 @@ woas._native_wsif_save = function(path, src_fname, single_wsif, inline_wsif, aut
 		if (single_wsif)
 			done = 0;
 	} // we do not increment page counter when saving index.wsif
+	
+	// release any lock held previously
+	if (locking)
+		this.locks.release(path+src_fname);
+	
 	this.progress_finish();
 	return done;
 };
 
-woas._wsif_ds_load = function(subpath) {
+woas._wsif_ds_load = function(subpath, locking) {
 	// we reset the arrays before loading the real data from index.wsif
 	pages = [];
 	page_attrs = [];
@@ -226,10 +230,10 @@ woas._wsif_ds_load = function(subpath) {
 	page_mts = [];
 	// get the data
 	var path = woas.ROOT_DIRECTORY+subpath;
-	return this._native_wsif_load(path, false, false);
+	return this._native_wsif_load(path, locking, false, false);
 };
 
-woas._native_wsif_load = function(path, overwrite, and_save, recursing, pre_import_hook) {
+woas._native_wsif_load = function(path, locking, overwrite, and_save, recursing, pre_import_hook) {
 	if (!recursing) {
 		this.wsif.emsg = null;
 		this.progress_init("Initializing WSIF import");
@@ -597,7 +601,7 @@ woas._native_page_def = function(path,ct,p,last_p,overwrite,pre_import_hook, tit
 				return -1;
 			}
 			// check the result of external import
-			var rv = this._native_wsif_load(the_dir+d_fn, overwrite, false, true, pre_import_hook);
+			var rv = this._native_wsif_load(the_dir+d_fn, locking, overwrite, false, true, pre_import_hook);
 			if (rv === false)
 				this.wsif_error( "Failed import of external "+the_dir+d_fn);
 			// return pointer after last read header
