@@ -1,4 +1,84 @@
-// this file contains API for the data layer abstraction
+/*
+ *  API for the data layer abstraction
+*/
+
+// locks read from datasource files or set by us
+woas.locks = {
+	// hashmap with a lock entry for each active filename
+	datasources : {},
+	
+	reset : function() {
+		this.datasources = {};
+	},
+	
+	_generate_magic_lock : function() {
+		return _random_string(10);
+	},
+	
+	_load_locks : function() {
+		//TODO: read the lock file index
+		return true;
+	},
+	
+	_update_locks : function() {
+		//TODO: write the lock file index
+		return true;
+	},
+	
+	is_locked : function(filename) {
+		// if lock is not defined, it is not active of course
+		if (typeof this.datasources[filename] == "undefined")
+			return false;
+		return this.datasources[filename].active;
+	},
+	
+	// called when editing some page which modifies one or more datasources
+	// returns true if lock could be held successfully
+	hold : function(filename, whom) {
+		// (1) each time there is an attempt to lock/unlock something we read the lock file index
+		// and check if the datasource has been locked or if there have been changes to some lock
+		if (!this._load_locks())
+			return false;
+		
+		// (2) is this file already locked?
+		if (this.is_locked(filename)) {
+			var lock = this.datasources[filename];
+			if (!confirm("%s was locked by %s at %s.\nDo you want to ignore this lock?\n\nWARNING: PRESS OK ONLY IF NOBODY ELSE IS EDITING".
+						sprintf(filename, lock.owner, lock.when.toLocaleString()
+						)))
+				return false;
+			// otherwise ignore lock
+			lock = null;
+		}
+		
+		// (3) re-create the lock
+		this.datasources[filename] = {
+			magic : this._generate_magic_lock(),		// magic is used to compare two locks
+			owner : whom,								// author of locking
+			when : new Date(),							// when locking happened
+			active : true
+		};
+		
+		// update the lock index
+		return this._update_locks();
+	},
+	
+	release : function(filename) {
+		// (1) each time there is an attempt to lock/unlock something we read the lock file index
+		// and check if the datasource has been locked or if there have been changes to some lock
+		if (!this._load_locks())
+			return false;
+		// (2) check if datasource is actually locked
+		if (typeof this.datasources[filename] == "undefined") {
+			log("BUG: NO LOCK created for "+filename);
+			return false;
+		}
+		// unactive the lock object
+		this.datasources[filename].active = false;
+		// update the lock index
+		return this._update_locks();
+	}
+};
 
 woas._wsif_ds_save = function(subpath, plist) {
 	// if we have a native sub-path, trigger the WSIF datasource save
@@ -8,27 +88,27 @@ woas._wsif_ds_save = function(subpath, plist) {
 	// code disabled since we always save the full backup
 //	if (typeof plist != "undefined" )
 //		done = this._native_wsif_save(path,	subpath, true, true, "", true, plist); else
-	this._native_wsif_save(woas.ROOT_DIRECTORY, subpath, !this.config.wsif_ds_multi,
+	this._native_wsif_save(woas.ROOT_DIRECTORY, subpath, this.config.wsif_ds_lock, !this.config.wsif_ds_multi,
 							!this.config.wsif_ds_multi, this.config.wsif_author, true);
 };
 
 //API1.0: save all pages
 woas.full_commit = function() {
-	this._wsif_ds_save(this.config.wsif_ds);
+	this._wsif_ds_save(this.config.wsif_ds, this.config.wsif_ds_lock);
 	return this._save_to_file(true);
 };
 
 //API1.0: save WoaS configuration
 woas.cfg_commit = function() {
 	if (this.config.wsif_ds.length !== this._old_wsif_ds_len)
-		this._wsif_ds_save(this.config.wsif_ds);
+		this._wsif_ds_save(this.config.wsif_ds, this.config.wsif_ds_lock);
 	return this._save_to_file(false);
 };
 
 //API1.0: save specific list of pages
 // plist is a list of page indexes which need to be saved
 woas.commit = function(plist) {
-	this._wsif_ds_save(this.config.wsif_ds, plist);
+	this._wsif_ds_save(this.config.wsif_ds, this.config.wsif_ds_lock, plist);
 	// performs full save, while the single page + global header could be saved instead
 	return this._save_to_file(true);
 };
