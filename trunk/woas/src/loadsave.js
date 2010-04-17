@@ -460,7 +460,7 @@ woas._save_to_file = function(full) {
 	
 	// setup the page to be opened on next start
 	var safe_current;
-	if (this.config.open_last_page) {
+	if (this.config.nav_history) {
 		if (!this.page_exists(current))
 			safe_current = this.config.main_page;
 		else safe_current = current;
@@ -489,7 +489,7 @@ woas._save_to_file = function(full) {
 	
 	computed_js += "\nvar current = '" + this.js_encode(safe_current)+"';\n\n";
 	
-	computed_js += "var backstack = [\n" + printout_arr(this.config.open_last_page ? backstack : [], false) + "];\n\n";
+	computed_js += "var backstack = [\n" + printout_arr(this.config.nav_history ? backstack : [], false) + "];\n\n";
 	
 	// in native WSIF mode we will save empty arrays
 

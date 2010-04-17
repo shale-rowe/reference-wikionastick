@@ -115,23 +115,15 @@ woas.import_wiki = function() {
 //				case "0.9.6C": // development only
 					old_version = 97;
 					break;
-				case "0.10.0":
-				case "0.10.1":
-				case "0.10.2":
-				case "0.10.3":
-				case "0.10.4":
-				case "0.10.5":
-				case "0.10.6":
-				case "0.10.7":
-				case "0.10.8":
-				case "0.10.9":
-				case "0.11.0":
-				case "0.11.1":
-				case "0.11.2":
-				case "0.11.3":
-				case "0.11.4":
-				case "0.11.5":
-				case "0.11.6":
+				case "0.10.0": case "0.10.1":
+				case "0.10.2": case "0.10.3":
+				case "0.10.4": case "0.10.5":
+				case "0.10.6": case "0.10.7":
+				case "0.10.8": case "0.10.9":
+				case "0.11.0": case "0.11.1":
+				case "0.11.2": case "0.11.3":
+				case "0.11.4": case "0.11.5":
+				case "0.11.6": case "0.11.7":
 					old_version = Number(ver_str.substr(2).replace(/\./g, ""));
 					break;
 				default:
@@ -338,7 +330,7 @@ woas.import_wiki = function() {
 			this.config.dblclick_edit = collected[3];
 			this.config.save_on_quit = collected[4];
 			if (has_last_page_flag)
-				this.config.open_last_page = collected[5];
+				this.config.nav_history = collected[5];
 			this.config.allow_diff = collected[5+has_last_page_flag];
 			this.config.key_cache = collected[6+has_last_page_flag];
 			// the gathered data
@@ -537,7 +529,7 @@ woas.import_wiki = function() {
 	
 	// fix configuration for older versions
 	if (old_version < 114) {
-		if (!this.config.open_last_page) {
+		if (!this.config.nav_history) {
 			// reset some variables which were not reset in those older versions
 			backstack = [];
 			current = this.config.main_page;

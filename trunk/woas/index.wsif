@@ -1,6 +1,6 @@
 wsif.version: 1.2.0
 wsif.generator: woas
-woas.version: 0.11.6
+woas.version: 0.11.7
 woas.pages: 74
 
 woas.page.title: ::Menu
@@ -138,13 +138,14 @@ This project wouldn't be what it is without the help of other people. If you con
 --DFQRCTsKlU
 woas.page.title: Main Page
 woas.page.attributes: 0
-woas.page.length: 37
+woas.page.length: 38
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 A blank sheet is a catalyst for ideas
+
 --DFQRCTsKlU
 woas.page.title: Special::Search
 woas.page.attributes: 0
@@ -250,7 +251,7 @@ Apart from the above, your normal usage of encrypted pages can be considered sec
 --DFQRCTsKlU
 woas.page.title: Special::Options
 woas.page.attributes: 0
-woas.page.length: 4089
+woas.page.length: 4083
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -261,7 +262,7 @@ woas.page.boundary: DFQRCTsKlU
 == User Interface options
 <label for="cb_dblclick_edit"><input type="checkbox" id="cb_dblclick_edit" onclick="woas.config.dblclick_edit = $.checked('cb_dblclick_edit')" />Double click to edit pages/menu<br />
 <label for="cb_key_cache"><input type="checkbox" id="cb_key_cache" onclick="woas.config.key_cache = !$.checked('cb_key_cache')" />Do not temporarily cache the AES key<br />
-<label for="cb_rem_history"><input type="checkbox" id="cb_rem_history" onclick="woas.config.open_last_page = $.checked('cb_rem_history')" />Remember current page and navigation history<br />
+<label for="cb_rem_history"><input type="checkbox" id="cb_rem_history" onclick="woas.config.nav_history = $.checked('cb_rem_history')" />Remember current page and navigation history<br />
 <label for="cb_fixed_layout"><input type="checkbox" id="cb_fixed_layout" onclick="_set_layout($.checked('cb_fixed_layout'))" />Fixed menu area and navigation bar<br />
 <label for="cb_debug_mode"><input type="checkbox" id="cb_debug_mode" onclick="woas.config.debug_mode = $.checked('cb_debug_mode')" />Enable debug mode and debug console (*requires WoaS reload*)<br />
 == Save options
@@ -283,7 +284,7 @@ WSIF data author: <input id="txt_author" type="text" size="12" value="" onchange
 /Caution: to re-enable editing you will have to manually edit WoaS/</p>
 <script type="text/javascript">
 $("cb_allow_diff").checked = bool2chk(woas.config.allow_diff);
-$("cb_rem_history").checked = bool2chk(woas.config.open_last_page);
+$("cb_rem_history").checked = bool2chk(woas.config.nav_history);
 $("cb_key_cache").checked = bool2chk(!woas.config.key_cache);
 $("cb_dblclick_edit").checked = bool2chk(woas.config.dblclick_edit);
 $("cb_debug_mode").checked = bool2chk(woas.config.debug_mode);
