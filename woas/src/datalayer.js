@@ -20,6 +20,8 @@ woas.full_commit = function() {
 
 //API1.0: save WoaS configuration
 woas.cfg_commit = function() {
+	if (this.config.wsif_ds.length !== this._old_wsif_ds_len)
+		this._wsif_ds_save(this.config.wsif_ds);
 	return this._save_to_file(false);
 };
 
