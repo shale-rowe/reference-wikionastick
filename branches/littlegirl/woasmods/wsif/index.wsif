@@ -2,12 +2,12 @@ wsif.version: 1.2.0
 wsif.generator: woas
 woas.version: 0.11.1
 woas.author: Little Girl
-woas.pages: 96
+woas.pages: 98
 
 woas.page.title: ::Menu
 woas.page.attributes: 0
-woas.page.last_modified: 1270506445
-woas.page.length: 675
+woas.page.last_modified: 1271554487
+woas.page.length: 844
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -33,20 +33,24 @@ woas.page.boundary: DFQRCTsKlU
 ** [[Tagged::0.10.9|WoaS 0.10.9]]
 ** [[Tagged::0.11.0|WoaS 0.11.0]]
 ** [[Tagged::0.11.1|WoaS 0.11.1]]
+** [[Tagged::0.11.2|WoaS 0.11.2]]
+** [[Tagged::0.11.3|WoaS 0.11.3]]
+** [[Tagged::0.11.4|WoaS 0.11.4]]
+** [[Tagged::0.11.5|WoaS 0.11.5]]
+** [[Tagged::0.11.6|WoaS 0.11.6]]
 [[Include::WoaS::Template::Search]]
-
 --DFQRCTsKlU
 woas.page.title: Main Page
 woas.page.attributes: 0
-woas.page.last_modified: 1270251459
-woas.page.length: 1022
+woas.page.last_modified: 1271552329
+woas.page.length: 1069
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Unofficial WoaS Mods
-This is a collection of pages showing a few modifications you can make to customize various versions of Wiki on a Stick. Some of them are fixes while others are just fun or useful things you can add to your wiki.
+This is a collection of pages showing a few modifications you can make to customize various versions of [[http://sourceforge.net/projects/stickwiki/|Wiki on a Stick]]. Some of them are fixes while others are just fun or useful things you can add to your wiki.
 
 <div style="background-color:#FFFFAA; border: 0.1em solid black; padding:0.3em; margin-left:auto; margin-right: auto; width:80%;">All pages are tagged at the bottom with the WoaS versions the mod has been tested in. If a page is not tagged with the version of WoaS you're using, it may not work or be necessary in your version.<br><br>All instructions are for the default wiki as downloaded from [[http://sourceforge.net/projects/stickwiki/files/|here]]. If you've made changes to your wiki, you may need to modify the instructions.<br><br>Use these at your own risk. Please back up your wiki before trying them.</div>
 If you have suggestions, corrections, ideas, or problems with any of the existing mods, please [[mailto://littlergirl@gmail.com?subject=WoaS mods|send me an email]].
@@ -3580,8 +3584,8 @@ See also: [[WoaS Mods::Dynamically change navigation bar icons]]
 --DFQRCTsKlU
 woas.page.title: WoaS Mods::Menu
 woas.page.attributes: 0
-woas.page.last_modified: 1270646749
-woas.page.length: 2179
+woas.page.last_modified: 1271553153
+woas.page.length: 2157
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -3600,7 +3604,7 @@ woas.page.boundary: DFQRCTsKlU
 pre {color:black; background-color:#F5F5F5; border:0.063em solid grey; padding:0.375em; white-space:-moz-pre-wrap; word-wrap:break-word;}
 
 /* STYLED BOXES AROUND TAGS */
-div.taglinks > a {color:blue;background-color:gainsboro;border:2px solid blue;margin:2px 2px 2px 0;padding:3px 5px 3px 5px;text-decoration:none;font-size:90%;line-height:2.4;-moz-border-radius:7px;-webkit-border-radius:7px;border-radius:7px;font-weight:bold;}
+div.taglinks > a {color:blue;background-color:gainsboro;border:2px solid blue;margin:2px;padding:3px;text-decoration:none;line-height:2.4;-moz-border-radius:7px;-webkit-border-radius:7px;border-radius:7px;font-weight:bold;font-size:80%;}
 div.taglinks > a:hover{background-color:grey;color:white;border:2px solid blue;text-decoration:none;font-weight:bold;}
 
 /* TOOLTIPS */
@@ -3638,4 +3642,59 @@ This makes it possible to replace the logo to the left of the title in the banne
 # Close the file.
 [[Tags::0.11.1]]
 
+--DFQRCTsKlU
+woas.page.title: WoaS Mods::Run a program from a link in WoaS under IE
+woas.page.attributes: 0
+woas.page.last_modified: 1271552097
+woas.page.length: 3329
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Run a program from a link in WoaS under IE
+This makes it so that you can run a program from a link in a WoaS Page in Internet Explorer 6+. This mod was contributed by [[http://woas.iragan.com/viewtopic.php?pid=2524#p2524|Daniele]].
+
+<div style="background-color:#FFFFAA; border: 0.1em solid black; padding:0.3em;">I have no way of testing this mod since I don't use Windows. The mod is being tagged initially for all versions of WoaS except for 0.11.4 which had a known bug regarding custom scripts. If anyone finds that this mod doesn't work in certain versions of WoaS, please contact me at the email address on the [[Main Page]] and I'll remove the tag for that version from the bottom of this page.</div>
+== Requirements
+* IE6+.
+* You must grant ActiveX permissions if asked by the browser.
+
+== Instructions
+The function must be added to the bootscript of the wiki. From then on, you can add a link to any page to use it.
+=== Add the function
+# Open the wiki in a browser.<br><br>
+# Click the *Advanced* icon in the navigation bar.<br><br>
+# Click the *Special::Edit Bootscript* (WoaS 0.11.1 or older) or *WoaS::Bootscript* link.<br><br>
+# Paste this function into the main text area of the page:<pre>&#102;&#117;&#110;&#99;&#116;&#105;&#111;&#110;&#32;&#73;&#69;&#95;&#114;&#117;&#110;&#40;&#112;&#114;&#111;&#103;&#114;&#97;&#109;&#41;&#32;&#123;<br>&#32;&#32;&#32;&#118;&#97;&#114;&#32;&#87;&#115;&#104;&#83;&#104;&#101;&#108;&#108;&#32;&#61;&#32;&#110;&#101;&#119;&#32;&#65;&#99;&#116;&#105;&#118;&#101;&#88;&#79;&#98;&#106;&#101;&#99;&#116;&#40;&#34;&#87;&#83;&#99;&#114;&#105;&#112;&#116;&#46;&#83;&#104;&#101;&#108;&#108;&#34;&#41;&#59;<br>&#32;&#32;&#32;&#105;&#102;&#32;&#40;&#33;&#87;&#115;&#104;&#83;&#104;&#101;&#108;&#108;&#41;&#32;&#123;<br>&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#97;&#108;&#101;&#114;&#116;&#40;&#34;&#67;&#97;&#110;&#110;&#111;&#116;&#32;&#99;&#114;&#101;&#97;&#116;&#101;&#32;&#87;&#83;&#99;&#114;&#105;&#112;&#116;&#46;&#83;&#104;&#101;&#108;&#108;&#32;&#65;&#99;&#116;&#105;&#118;&#101;&#88;&#32;&#111;&#98;&#106;&#101;&#99;&#116;&#34;&#41;&#59;<br>&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#114;&#101;&#116;&#117;&#114;&#110;&#32;&#102;&#97;&#108;&#115;&#101;&#59;<br>&#32;&#32;&#32;&#125;<br>&#32;&#32;&#32;&#118;&#97;&#114;&#32;&#114;&#101;&#116;&#95;&#118;&#97;&#108;&#61;&#87;&#115;&#104;&#83;&#104;&#101;&#108;&#108;&#46;&#82;&#117;&#110;&#40;&#112;&#114;&#111;&#103;&#114;&#97;&#109;&#44;&#32;&#49;&#44;&#32;&#116;&#114;&#117;&#101;&#41;&#59;<br>&#32;&#32;&#32;&#108;&#111;&#103;&#40;&#112;&#114;&#111;&#103;&#114;&#97;&#109;&#43;&#34;&#32;&#114;&#101;&#116;&#117;&#114;&#110;&#101;&#100;&#32;&#34;&#43;&#114;&#101;&#116;&#95;&#118;&#97;&#108;&#41;&#59;<br>&#32;&#32;&#32;&#114;&#101;&#116;&#117;&#114;&#110;&#32;&#102;&#97;&#108;&#115;&#101;&#59;<br>&#125;</pre>
+# Click the *Save* icon in the navigation bar.
+
+=== Use the function
+# Use this link in a page, replacing both instances of PROGRAM with the name of the program:<pre>&#91;&#91;&#74;&#97;&#118;&#97;&#115;&#99;&#114;&#105;&#112;&#116;&#58;&#58;&#73;&#69;&#95;&#114;&#117;&#110;&#40;&#39;&#80;&#82;&#79;&#71;&#82;&#65;&#77;&#39;&#41;&#124;&#82;&#117;&#110;&#32;&#80;&#82;&#79;&#71;&#82;&#65;&#77;&#93;&#93;/pre>
+
+[[Tags::0.9.6B|0.10.0|0.10.1|0.10.2|0.10.3|0.10.4|0.10.5|0.10.6|0.10.7|0.11.0|0.11.1|0.11.2|0.11.3|0.11.5|0.11.6]]
+
+--DFQRCTsKlU
+woas.page.title: WoaS Mods::Override collapsed namespace listings
+woas.page.attributes: 0
+woas.page.last_modified: 1271554461
+woas.page.length: 1157
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Override collapsed namespace listings
+This makes it so that when you click the [[Special::All Pages]] link in the menu, all namespaces will be expanded rather than some of them being expanded and others collapsed.
+# Open your wiki in a browser.<br><br>
+# Click the *Advanced* icon in the navigation bar.<br><br>
+# Click the *WoaS::Bootscript* link in the *Advanced features* section of the page.<br><br>
+# Paste this code into the page:<pre>&#119;&#111;&#97;&#115;&#46;&#95;&#110;&#115;&#95;&#101;&#120;&#112;&#97;&#110;&#100;&#101;&#100;&#32;&#61;&#32;&#102;&#117;&#110;&#99;&#116;&#105;&#111;&#110;&#40;&#41;&#32;&#123;&#32;&#114;&#101;&#116;&#117;&#114;&#110;&#32;&#116;&#114;&#117;&#101;&#59;&#32;&#125;&#32;</pre>
+# Click the *Save* icon in the navigation bar to save the change.
+[[Tags::0.11.6]]
+<!--
+The original line of code Daniele provided, with his instructions: For now please override the woas._ns_expanded function in your WoaS::Bootscript:<br><br>{{{woas._ns_expanded = function(ns, items_count) { return true; }
+}}}
+Please note that this might break in future versions (it's a private function) and will only work starting from 0.11.6.
+-->
 --DFQRCTsKlU
