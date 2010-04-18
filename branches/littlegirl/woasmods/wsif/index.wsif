@@ -3368,8 +3368,8 @@ This makes the navigation bar go all the way across the top of the screen rather
 --DFQRCTsKlU
 woas.page.title: WoaS Mods::Add a scrollbar to the menu
 woas.page.attributes: 0
-woas.page.last_modified: 1269881848
-woas.page.length: 1170
+woas.page.last_modified: 1271557064
+woas.page.length: 2139
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -3382,9 +3382,15 @@ This adds a scrollbar to the right side of the menu and keeps it at a fixed heig
 # Choose [[Special::Edit CSS]] from the *Advanced features* section.<br><br>
 # *Find* this entry in the page:<pre>&#047;&#042; Left menu &#042;&#047;<br>div.menu_area &#123;<br>    border: 1pt solid grey;<br>    font-size: 0.75em;<br>    background-color: white;<br>    padding: 0.499em;<br>    width: 13.2%;<br>    left: 1%;<br>&#125;</pre>
 # *Replace* it with this entry:<pre>&#047;&#042; Left menu &#042;&#047;<br>div.menu_area &#123;<br>    border: 1pt solid grey;<br>    font-size: 0.75em;<br>    background-color: white;<br>    padding: 0.499em;<br>    width: 13.2%;<br>    height: 80%;<br>    overflow: auto;<br>    left: 1%;<br>&#125;</pre>
-# Click the *Save* icon in the navigation bar to save the change.
-<div style="background-color:#FFFFAA; border: 0.1em solid black; padding:0.3em;">If the menu is too tall or short, go back into the CSS settings and change *80%* to the height you'd like the menu to be.</div><br>
-[[Tags::0.10.9|0.11.0|0.11.1]]
+# Click the *Save* icon in the navigation bar to save the change.<br><br><div style="background-color:#FFFFAA; border: 0.1em solid black; padding:0.3em;">If the menu is too tall or short, go back into the CSS settings and change *80%* to the height you'd like the menu to be.</div>
+== Alternate instructions for WoaS 0.11.2 through WoaS 0.11.6
+# Open the wiki in a browser.<br><br>
+# Click the *Advanced* icon in the navigation bar.<br><br>
+# Click the *WoaS::CSS::Custom* link in the *Advanced features* section of the page.<br><br>
+# Paste this rule into the page:<pre>&#47;&#42;&#32;&#76;&#101;&#102;&#116;&#32;&#109;&#101;&#110;&#117;&#32;&#42;&#47;<br>&#100;&#105;&#118;&#46;&#109;&#101;&#110;&#117;&#95;&#97;&#114;&#101;&#97;&#32;&#123;<br>&#32;&#32;&#32;&#32;&#104;&#101;&#105;&#103;&#104;&#116;&#58;&#32;&#56;&#48;&#37;&#59;<br>&#32;&#32;&#32;&#32;&#111;&#118;&#101;&#114;&#102;&#108;&#111;&#119;&#58;&#32;&#97;&#117;&#116;&#111;&#59;<br>&#125;</pre>
+# Click the *Save* icon in the navigation bar.<br><br><div style="background-color:#FFFFAA; border: 0.1em solid black; padding:0.3em;">If the menu is too tall or short, edit the page again and change *80%* to the height you'd like the menu to be.</div>
+
+[[Tags::0.10.9|0.11.0|0.11.1|0.11.2|0.11.3|0.11.4|0.11.5|0.11.6]]
 
 --DFQRCTsKlU
 woas.page.title: WoaS Mods::Add a daily diary
