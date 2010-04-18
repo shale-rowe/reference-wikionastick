@@ -2,12 +2,12 @@ wsif.version: 1.2.0
 wsif.generator: woas
 woas.version: 0.11.1
 woas.author: Little Girl
-woas.pages: 98
+woas.pages: 99
 
 woas.page.title: ::Menu
 woas.page.attributes: 0
-woas.page.last_modified: 1271554487
-woas.page.length: 844
+woas.page.last_modified: 1271630346
+woas.page.length: 872
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -19,6 +19,7 @@ woas.page.boundary: DFQRCTsKlU
 ** [[Special::Backlinks|Backlinks]]
 ** [[Special::Delete Page|Delete page]]
 ** [[Special::New Page|New page]]
+** [[WoaS Mods::ToDo|ToDo]]
 * *Modifications*
 ** [[Tagged::0.9.6B|WoaS 0.9.6B]]
 ** [[Tagged::0.10.0|WoaS 0.10.0]]
@@ -42,19 +43,14 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Main Page
 woas.page.attributes: 0
-woas.page.last_modified: 1271552329
-woas.page.length: 1069
+woas.page.last_modified: 1271630464
+woas.page.length: 29
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Unofficial WoaS Mods
-This is a collection of pages showing a few modifications you can make to customize various versions of [[http://sourceforge.net/projects/stickwiki/|Wiki on a Stick]]. Some of them are fixes while others are just fun or useful things you can add to your wiki.
-
-<div style="background-color:#FFFFAA; border: 0.1em solid black; padding:0.3em; margin-left:auto; margin-right: auto; width:80%;">All pages are tagged at the bottom with the WoaS versions the mod has been tested in. If a page is not tagged with the version of WoaS you're using, it may not work or be necessary in your version.<br><br>All instructions are for the default wiki as downloaded from [[http://sourceforge.net/projects/stickwiki/files/|here]]. If you've made changes to your wiki, you may need to modify the instructions.<br><br>Use these at your own risk. Please back up your wiki before trying them.</div>
-If you have suggestions, corrections, ideas, or problems with any of the existing mods, please [[mailto://littlergirl@gmail.com?subject=WoaS mods|send me an email]].
-
+[[Include::WoaS Mods::About]]
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Security
 woas.page.attributes: 0
@@ -206,54 +202,6 @@ woas.page.boundary: DFQRCTsKlU
 = Plugins
 This page contains options for the active WoaS plugins.
 In order to install a plugin, [[Special::ImportWSIF|import its WSIF file]].
---DFQRCTsKlU
-woas.page.title: History
-woas.page.attributes: 0
-woas.page.length: 5193
-woas.page.encoding: ecma/plain
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-= History
-
-== Versions 0.01 &tilde; 0.04
-<sub>by Andr\u00e9 Wagner</sub>
-
-As they say, /"necessity is the mother of invention"/. I needed a way to store information in a tree-like structure, but every software I tested felt like it was something missing. I tested a few mindmap software, tree structure software and personal wikis, but they were too complicated to install; I didn't yet have what I was looking for, or the tool wasn't closs-platform.
-
-The closest thing I found was [[http://www.tiddlywiki.com/|TiddlyWiki]], but it still wasn't perfect: it was too much blog-like, and what I needed was something wiki-like. So TiddlyWiki served as inspiration for the software I was about to create (I even used their saving routines).
-
-The core part of the code was written in one rainy afternoon. A few days later (after correcting most problems) I released it and the feedback I received was much more than I could ever expect. I guess that many other people had my same needs  :-) So this gave me motivation to continue working on Wiki on a Stick and to release three more versions.
-
-=== The principles
-Since the beginning I followed two basic principles: *simplicity* and *stability*. For simplicity I mean that the software should be easy enough for anyone to use, and the interface should be as plain as possible. And for stability I mean that the user data is sacred above all things, and the user should never loose his data, no matter what happens. I think these were the two facts that brought the good acceptance from the users.
-
-Unfortunatly, the duties of my graduation thesis made me stop working on WoaS and the software became dormant for a couple of months. It made me feel bad, since the mailing lists were at full throttle, with many people requesting features and sending patches that I couldn't even test.
-
-So I was very glad when Daniele offered himself to take over the task of managing the project. He did a great work and now WoaS is a much more rich application, with a even greater userbase. It feels really nice to see that people all around the world are using the software I created, and my desire is to see that WoaS grows in quality, features and userbase, and to remain a simple yet useful tool to everyone.
-
-== Versions 0.9.x
-<sub>by Daniele C.</sub>
-
-When I first found WoaS I felt that this software has a great potential; my first contribute to WoaS was to resolve all the bug tracker items and review the patches; the result was put into a v0.04G released in a SF.net patches tracker item (as attachment). That modified version was mostly a bug-fix and feature-fix modification, with small new features like custom keys for navigation and edits cancelling. V0.04G also missed the import feature (I forgot to add it back) and had a nasty double-click to edit feature which was not really good. That was my experimentation, I did not expect people to really use my modified version but since Andr\u00e9 had no time to review it, people was actually starting to use it.
-
-Some time later I took courage and asked to take-over the project; Andr\u00e9 Wagner kindly added me to the project as a developer and a project admin and I could start working on WoaS for real.
-
-My first big project management change was to switch to [[http://subversion.tigris.org/|Subversion (SVN)]] for the versioning of all our WoaS files; development could this way be fully documented and followed "live" by the mailing list (formerly google group) partecipants, which are the first solid community gathered around WoaS.
-
-Version 0.9B was the first official version which I worked on. My first big change was to have storage of pages not in content-escaped hidden divs but as javascript strings; this brought more speed to the page loading process. I also had to solve some problems inherent to the double file vs single file compatibility (WoaS can since then work with the 2-files version and single file version) and some IE saving issues, but finally the result was good enough.
-
-A lot of features and improvements have been implemented during the (still current) v0.9.x development cycle, without never slowing down some parts of WoaS for each new feature implemented (further speed optimizations will be engineered when the codebase is stable enough); we are as always gathering the users' feedback to add usability and more powerful features to WoaS. Such features must of course be coherent with WoaS principles and base philosophy.
-
-=== Object orienting
-
-Wiki on a Stick codebase has been rewritten as object-oriented in order to be more maintanable and modular (the development version contains multiple javascript source files which are as always merged into one before releases).
-
-== Development of 0.10.x version
-
-Development of 0.9.7B was stale and WoaS was getting full of little bugs which prevented it from being successfully used; during last months of 2009 and first months of 2010 WoaS got new blood with 0.10.x releases.
-Some of the best additions were [[WoaS::Help::WSIF|WSIF format]] and a pluggable macro syntax, but finally the product had reached the stability which its users deserved and exited its Beta status to enter a Production development stage.
 --DFQRCTsKlU
 woas.page.title: WoaS::Aliases
 woas.page.attributes: 0
@@ -2889,8 +2837,8 @@ Use this code in your page, replacing LINK with the text for the link, CONTENTS 
 --DFQRCTsKlU
 woas.page.title: WoaS Mods::Add topnotes
 woas.page.attributes: 0
-woas.page.last_modified: 1269448722
-woas.page.length: 861
+woas.page.last_modified: 1271622904
+woas.page.length: 1320
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -2898,31 +2846,36 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 = Add topnotes
 This provides a template for adding a topnote (a note in the upper right corner of a page) to any page without affecting the existing layout of the page. Topnotes accept wiki and HTML markup, and included images.
-# Create a page named *Topnote* with just these contents:<pre>&lt;div id="topnote" style="position:absolute; right:0.625em; top:0.188em;"&gt;%1&lt;&#047;div&gt;</pre>
+# Create a page named *Topnote* with just these contents:<pre>&#60&#100;&#105;&#118;&#32;&#105;&#100;&#61;&#34;&#116;&#111;&#112;&#110;&#111;&#116;&#101;&#34;&#32;&#115;&#116;&#121;&#108;&#101;&#61;&#34;&#112;&#111;&#115;&#105;&#116;&#105;&#111;&#110;&#58;&#97;&#98;&#115;&#111;&#108;&#117;&#116;&#101;&#59;&#32;&#114;&#105;&#103;&#104;&#116;&#58;&#48;&#46;&#54;&#50;&#53;&#101;&#109;&#59;&#32;&#116;&#111;&#112;&#58;&#48;&#46;&#49;&#56;&#56;&#101;&#109;&#59;&#34;&#62&#37;&#49;&#60&#47;&#100;&#105;&#118;&#62</pre>
 
 == Use a topnote in a page
-* Now you can insert a topnote by using this code anywhere in a page, replacing TEXT with the text you'd like displayed in the topnote:<pre>[<!-- -->[Include::Top<!-- -->note|TEXT]<!-- -->]</pre>An example is at the top right corner of this page.<div id="topnote" style="position:absolute; right:0.625em; top:0.188em;">This is a topnote!</div>
-[[Tags::0.9.6B|0.10.0|0.10.1|0.10.2|0.10.3|0.10.4|0.10.5|0.10.6|0.10.7|0.10.8|0.10.9|0.11.0]]
+* Now you can insert a topnote by using this code anywhere in a page, replacing TEXT with the text you'd like displayed in the topnote:<pre>&#91;&#91;&#73;&#110;&#99;&#108;&#117;&#100;&#101;&#58;&#58;&#84;&#111;&#112;&#110;&#111;&#116;&#101;&#124;&#84;&#69;&#88;&#84;&#93;&#93;</pre>An example topnote is at the top right corner of this page.<div id="topnote" style="position:absolute; right:0.625em; top:0.188em;">This is a topnote!</div>
+[[Tags::0.9.6B|0.10.0|0.10.1|0.10.2|0.10.3|0.10.4|0.10.5|0.10.6|0.10.7|0.10.8|0.10.9|0.11.0|0.11.1|0.11.2]]
 
 --DFQRCTsKlU
 woas.page.title: WoaS Mods::Add tooltips
 woas.page.attributes: 0
-woas.page.last_modified: 1269448713
-woas.page.length: 868
+woas.page.last_modified: 1271613173
+woas.page.length: 2006
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Add tooltips
-This makes it so you can add tooltips to words on your pages.
+This makes it so you can add <span title="This is a tooltip!" class="tooltip" style="cursor:help; border-bottom:0.125em dotted mediumblue;">tooltips</span> to words on your pages.
 # Create a page named *Tooltip* with just these contents:<pre>&lt;span title="%2" class="tooltip"&gt;%1&lt;&#047;span&gt;</pre>
-# Add this entry to the global CSS:<pre>span.tooltip &#123;cursor:help; border-bottom:0.125em dashed mediumblue;&#125;</pre>
+# Edit the CSS to style the tooltips:<br><br>
+## Open the page for editing the CSS rules:<br><br>\
+<ul><li>In WoaS 0.9.6B, 0.10.0, 0.10.1, 0.10.2, 0.10.3, 0.10.4, 0.10.5, 0.10.6, 0.10.7, 0.10.8, 0.10.9, 0.11.0, and 0.11.1:<br><br>Click the *Special::Edit CSS* link in the *Advanced features* section of the page to open the global CSS in the wiki editor.<br><br>\
+<li>In WoaS 0.11.2, 0.11.3, 0.11.4, 0.11.5, and 0.11.6:<br><br>Click the *WoaS::CSS::Custom* link in the *Advanced features* section of the page to open the custom CSS page in the wiki editor.</li></ul><br>
+## *Add* this entry to the main text area:<pre>&#47;&#42;&#32;&#84;&#79;&#79;&#76;&#84;&#73;&#80;&#32;&#77;&#79;&#68;&#32;&#42;&#47;<br>&#115;&#112;&#97;&#110;&#46;&#116;&#111;&#111;&#108;&#116;&#105;&#112;&#32;&#123;&#99;&#117;&#114;&#115;&#111;&#114;&#58;&#104;&#101;&#108;&#112;&#59;&#32;&#98;&#111;&#114;&#100;&#101;&#114;&#45;&#98;&#111;&#116;&#116;&#111;&#109;&#58;&#48;&#46;&#49;&#50;&#53;&#101;&#109;&#32;&#100;&#111;&#116;&#116;&#101;&#100;&#32;&#109;&#101;&#100;&#105;&#117;&#109;&#98;&#108;&#117;&#101;&#59;&#125;</pre>
+
 == Use tooltips
 Use this code in any page, replacing LINK with the link text, and TOOLTIP with the contents of the tooltip:<pre>[<!-- -->[Include::Tooltip|LINK|TOOLTIP]<!-- -->]</pre>
 * Example:<pre>This [<!-- -->[Include::Tooltip|word|This is a tooltip.]<!-- -->] is important.</pre>
-* Result:<br><br>This <span title="This is a tooltip." class="tooltip" style="cursor:help; border-bottom:0.125em dashed mediumblue;">word</span> is important.
-[[Tags::0.9.6B|0.10.0|0.10.1|0.10.2|0.10.3|0.10.4|0.10.5|0.10.6|0.10.7|0.10.8|0.10.9|0.11.0]]
+* Result:<br><br>This <span title="This is a tooltip." class="tooltip" style="cursor:help; border-bottom:0.125em dotted mediumblue;">word</span> is important.
+[[Tags::0.9.6B|0.10.0|0.10.1|0.10.2|0.10.3|0.10.4|0.10.5|0.10.6|0.10.7|0.10.8|0.10.9|0.11.0|0.11.1|0.11.2|0.11.3|0.11.4|0.11.5|0.11.6]]
 
 --DFQRCTsKlU
 woas.page.title: WoaS Mods::Add styled nowiki text
@@ -2965,16 +2918,16 @@ This provides a template for inserting styled notes in the pages of your wiki. N
 [[Tags::0.9.6B|0.10.0|0.10.1|0.10.2|0.10.3|0.10.4|0.10.5|0.10.6|0.10.7|0.10.8|0.10.9|0.11.0]]
 
 --DFQRCTsKlU
-woas.page.title: WoaS Mods::Another way to add folds
+woas.page.title: WoaS Mods::Add folds - method two
 woas.page.attributes: 0
 woas.page.last_modified: 1269448731
-woas.page.length: 2286
+woas.page.length: 2284
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Another way to add folds
+= Add folds - method two
 This is another way of adding folding text. It needs a template page, and the fold links can be on a line by themselves or contain text after the link. This method accepts wiki and HTML text formatting, but does not accept wiki headers. To insert headers in the text, use HTML header tags.
 == Foldtextblock
 # Create a page named *Foldtextblock* with just these contents:<pre>&lt;a href="javascript:$.toggle('%1_%2');"&gt;%1&lt;&#047;a&gt; %3<br>&lt;div id="%1_%2" style="display:inline; visibility:hidden;"&gt;%2&lt;&#047;div&gt;</pre>
@@ -3162,8 +3115,8 @@ This removes the *Fixed menu area and topbar* option and replaces it with a *Fix
 --DFQRCTsKlU
 woas.page.title: WoaS Mods::Add styled tag links
 woas.page.attributes: 0
-woas.page.last_modified: 1269448683
-woas.page.length: 1068
+woas.page.last_modified: 1271630772
+woas.page.length: 5871
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -3171,12 +3124,18 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 = Add styled tag links
 This makes it so you can style your tag links. The original instructions were posted by FBNil in the WoaS forums [[http://woas.iragan.com/viewtopic.php?id=664|here]] and have been slightly modified below.
-# Click the Advanced icon in the banner.<br><br>
-# Click the [[Special::Edit CSS]] link in the *Advanced features* section of the page, changing the styling to suit your taste.<br><br>
-# Add these CSS entries to the top or bottom of the page:<pre>div.taglinks &gt; a &#123;color:#3366cc; background-color:#fff; border:2px solid #14A7C6; margin:2px 2px 2px 0px; padding:3px 5px 3px 5px; text-decoration:none; font-size:90%; line-height:2.4; white-space:nowrap; -moz-border-radius:7px; -webkit-border-radius:7px; border-radius:7px;&#125;<br>div.taglinks &gt; a:hover &#123;background-color:#029AFD; color:#F3F1D9; border:2px solid #14A7C6; text-decoration:none;&#125;</pre>
-# Click the Save icon in the banner to save the change to the CSS rules.
-[[Tags::0.9.6B|0.10.0|0.10.1|0.10.2|0.10.3|0.10.4|0.10.5|0.10.6|0.10.7|0.10.8|0.10.9|0.11.0]]
-
+# Click the *Advanced* icon in the banner.<br><br>
+# Edit the CSS to style the tag links:<br><br>\
+<ul><li>In WoaS 0.9.6B, 0.10.0, 0.10.1, 0.10.2, 0.10.3, 0.10.4, 0.10.5, 0.10.6, 0.10.7, 0.10.8, 0.10.9, 0.11.0, and 0.11.1:</li><br>\
+<ol><li>Click the *Special::Edit CSS* link in the *Advanced features* section of the page to open the global CSS in the wiki editor.</li><br>\
+<li>Replace the div.taglinks entry with this one:<pre>&#47;&#42;&#32;&#83;&#84;&#89;&#76;&#69;&#68;&#32;&#84;&#65;&#71;&#32;&#76;&#73;&#78;&#75;&#83;&#32;&#77;&#79;&#68;&#32;&#42;&#47;<br>&#100;&#105;&#118;&#46;&#116;&#97;&#103;&#108;&#105;&#110;&#107;&#115;&#32;&#62&#32;&#97;&#32;&#123;&#99;&#111;&#108;&#111;&#114;&#58;&#35;&#51;&#51;&#54;&#54;&#99;&#99;&#59;&#32;&#98;&#97;&#99;&#107;&#103;&#114;&#111;&#117;&#110;&#100;&#45;&#99;&#111;&#108;&#111;&#114;&#58;&#35;&#102;&#102;&#102;&#59;&#32;&#98;&#111;&#114;&#100;&#101;&#114;&#58;&#50;&#112;&#120;&#32;&#115;&#111;&#108;&#105;&#100;&#32;&#35;&#49;&#52;&#65;&#55;&#67;&#54;&#59;&#32;&#109;&#97;&#114;&#103;&#105;&#110;&#58;&#50;&#112;&#120;&#32;&#50;&#112;&#120;&#32;&#50;&#112;&#120;&#32;&#48;&#112;&#120;&#59;&#32;&#112;&#97;&#100;&#100;&#105;&#110;&#103;&#58;&#51;&#112;&#120;&#32;&#53;&#112;&#120;&#32;&#51;&#112;&#120;&#32;&#53;&#112;&#120;&#59;&#32;&#116;&#101;&#120;&#116;&#45;&#100;&#101;&#99;&#111;&#114;&#97;&#116;&#105;&#111;&#110;&#58;&#110;&#111;&#110;&#101;&#59;&#32;&#102;&#111;&#110;&#116;&#45;&#115;&#105;&#122;&#101;&#58;&#57;&#48;&#37;&#59;&#32;&#108;&#105;&#110;&#101;&#45;&#104;&#101;&#105;&#103;&#104;&#116;&#58;&#50;&#46;&#52;&#59;&#32;&#119;&#104;&#105;&#116;&#101;&#45;&#115;&#112;&#97;&#99;&#101;&#58;&#110;&#111;&#119;&#114;&#97;&#112;&#59;&#32;&#45;&#109;&#111;&#122;&#45;&#98;&#111;&#114;&#100;&#101;&#114;&#45;&#114;&#97;&#100;&#105;&#117;&#115;&#58;&#55;&#112;&#120;&#59;&#32;&#45;&#119;&#101;&#98;&#107;&#105;&#116;&#45;&#98;&#111;&#114;&#100;&#101;&#114;&#45;&#114;&#97;&#100;&#105;&#117;&#115;&#58;&#55;&#112;&#120;&#59;&#32;&#98;&#111;&#114;&#100;&#101;&#114;&#45;&#114;&#97;&#100;&#105;&#117;&#115;&#58;&#55;&#112;&#120;&#59;&#125;<br>&#100;&#105;&#118;&#46;&#116;&#97;&#103;&#108;&#105;&#110;&#107;&#115;&#32;&#62&#32;&#97;&#58;&#104;&#111;&#118;&#101;&#114;&#32;&#123;&#98;&#97;&#99;&#107;&#103;&#114;&#111;&#117;&#110;&#100;&#45;&#99;&#111;&#108;&#111;&#114;&#58;&#35;&#48;&#50;&#57;&#65;&#70;&#68;&#59;&#32;&#99;&#111;&#108;&#111;&#114;&#58;&#35;&#70;&#51;&#70;&#49;&#68;&#57;&#59;&#32;&#98;&#111;&#114;&#100;&#101;&#114;&#58;&#50;&#112;&#120;&#32;&#115;&#111;&#108;&#105;&#100;&#32;&#35;&#49;&#52;&#65;&#55;&#67;&#54;&#59;&#32;&#116;&#101;&#120;&#116;&#45;&#100;&#101;&#99;&#111;&#114;&#97;&#116;&#105;&#111;&#110;&#58;&#110;&#111;&#110;&#101;&#59;&#125;</pre></li>\
+<li>Click the *Save* icon in the banner to save the change to the CSS rules.</li>\
+</ol></ul><br>\
+<ul><li>In WoaS 0.11.2, 0.11.3, 0.11.4, 0.11.5, and 0.11.6:<br><br>Click the *WoaS::CSS::Custom* link in the *Advanced features* section of the page to open the custom CSS page in the wiki editor.</li><br>\
+<ol><li>*Add* this entry to the main text area:<pre>&#47;&#42;&#32;&#83;&#84;&#89;&#76;&#69;&#68;&#32;&#84;&#65;&#71;&#32;&#76;&#73;&#78;&#75;&#83;&#32;&#77;&#79;&#68;&#32;&#42;&#47;<br>&#100;&#105;&#118;&#46;&#116;&#97;&#103;&#108;&#105;&#110;&#107;&#115;&#32;&#62&#32;&#97;&#32;&#123;&#99;&#111;&#108;&#111;&#114;&#58;&#35;&#51;&#51;&#54;&#54;&#99;&#99;&#59;&#32;&#98;&#97;&#99;&#107;&#103;&#114;&#111;&#117;&#110;&#100;&#45;&#99;&#111;&#108;&#111;&#114;&#58;&#35;&#102;&#102;&#102;&#59;&#32;&#98;&#111;&#114;&#100;&#101;&#114;&#58;&#50;&#112;&#120;&#32;&#115;&#111;&#108;&#105;&#100;&#32;&#35;&#49;&#52;&#65;&#55;&#67;&#54;&#59;&#32;&#109;&#97;&#114;&#103;&#105;&#110;&#58;&#50;&#112;&#120;&#32;&#50;&#112;&#120;&#32;&#50;&#112;&#120;&#32;&#48;&#112;&#120;&#59;&#32;&#112;&#97;&#100;&#100;&#105;&#110;&#103;&#58;&#51;&#112;&#120;&#32;&#53;&#112;&#120;&#32;&#51;&#112;&#120;&#32;&#53;&#112;&#120;&#59;&#32;&#116;&#101;&#120;&#116;&#45;&#100;&#101;&#99;&#111;&#114;&#97;&#116;&#105;&#111;&#110;&#58;&#110;&#111;&#110;&#101;&#59;&#32;&#102;&#111;&#110;&#116;&#45;&#115;&#105;&#122;&#101;&#58;&#57;&#48;&#37;&#59;&#32;&#108;&#105;&#110;&#101;&#45;&#104;&#101;&#105;&#103;&#104;&#116;&#58;&#50;&#46;&#52;&#59;&#32;&#119;&#104;&#105;&#116;&#101;&#45;&#115;&#112;&#97;&#99;&#101;&#58;&#110;&#111;&#119;&#114;&#97;&#112;&#59;&#32;&#45;&#109;&#111;&#122;&#45;&#98;&#111;&#114;&#100;&#101;&#114;&#45;&#114;&#97;&#100;&#105;&#117;&#115;&#58;&#55;&#112;&#120;&#59;&#32;&#45;&#119;&#101;&#98;&#107;&#105;&#116;&#45;&#98;&#111;&#114;&#100;&#101;&#114;&#45;&#114;&#97;&#100;&#105;&#117;&#115;&#58;&#55;&#112;&#120;&#59;&#32;&#98;&#111;&#114;&#100;&#101;&#114;&#45;&#114;&#97;&#100;&#105;&#117;&#115;&#58;&#55;&#112;&#120;&#59;&#125;<br>&#100;&#105;&#118;&#46;&#116;&#97;&#103;&#108;&#105;&#110;&#107;&#115;&#32;&#62&#32;&#97;&#58;&#104;&#111;&#118;&#101;&#114;&#32;&#123;&#98;&#97;&#99;&#107;&#103;&#114;&#111;&#117;&#110;&#100;&#45;&#99;&#111;&#108;&#111;&#114;&#58;&#35;&#48;&#50;&#57;&#65;&#70;&#68;&#59;&#32;&#99;&#111;&#108;&#111;&#114;&#58;&#35;&#70;&#51;&#70;&#49;&#68;&#57;&#59;&#32;&#98;&#111;&#114;&#100;&#101;&#114;&#58;&#50;&#112;&#120;&#32;&#115;&#111;&#108;&#105;&#100;&#32;&#35;&#49;&#52;&#65;&#55;&#67;&#54;&#59;&#32;&#116;&#101;&#120;&#116;&#45;&#100;&#101;&#99;&#111;&#114;&#97;&#116;&#105;&#111;&#110;&#58;&#110;&#111;&#110;&#101;&#59;&#125;</pre></li>\
+<li>Click the *Save* icon in the banner to save the change to the Custom CSS rules.</li>\
+</ol></ul>
+[[Tags::0.9.6B|0.10.0|0.10.1|0.10.2|0.10.3|0.10.4|0.10.5|0.10.6|0.10.7|0.10.8|0.10.9|0.11.0|0.11.1|0.11.2|0.11.3|0.11.4|0.11.5|0.11.6]]
 
 --DFQRCTsKlU
 woas.page.title: WoaS Mods::Add styled breadcrumbs
@@ -3308,8 +3267,8 @@ Now you can go to that page any time you'd like to change your navigation bar ic
 --DFQRCTsKlU
 woas.page.title: WoaS Mods::Add custom indents
 woas.page.attributes: 0
-woas.page.last_modified: 1269655464
-woas.page.length: 1736
+woas.page.last_modified: 1271622387
+woas.page.length: 2743
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -3319,8 +3278,8 @@ woas.page.boundary: DFQRCTsKlU
 This makes it possible to insert custom indents at the beginning of any line of text. Thanks go to FBNil for coming up with it in the [[https://stickwiki.svn.sourceforge.net/svnroot/stickwiki/branches/enhancements/woas/|Enhancement branch]].
 
 # Open the wiki in a text editor.<br><br>
-# *Find* this section:<pre>	&#047;&#047; allow non-wrapping newlines<br>	text &#061; text.replace&#040;&#047;&#092;&#092;&#092;n&#047;g, ""&#041;;</pre>
-# *Add* this section *above* it:<pre>	&#047;&#047; allow custom indent created with colons<br>	&#047;&#047;alert&#040;text&#041;;<br>	text &#061; text.replace&#040;&#047;&#040;&#094;&#124;&#092;n&#124;&lt;br&#092;&#047;&gt;&#041;&#040;:&#043;&#041;&#092;s&#042;&#040;&#091;&#094;&#092;n&#093;&#043;&#041;&#047;g, function &#040;str, &#036;1,&#036;2,&#036;3&#041; &#123;<br>		return &#036;1&#043;"&lt;span style&#061;&#092;"margin-left:"&#043;&#040;&#036;2.length&#041;&#043;"em&#092;"&gt;"&#043;&#036;3&#043;"&lt;&#047;span&gt;";<br>	&#125;&#041;;</pre>
+# *Find* this section:<pre>	&#47;&#47;&#32;&#97;&#108;&#108;&#111;&#119;&#32;&#110;&#111;&#110;&#45;&#119;&#114;&#97;&#112;&#112;&#105;&#110;&#103;&#32;&#110;&#101;&#119;&#108;&#105;&#110;&#101;&#115;<br>	&#116;&#101;&#120;&#116;&#32;&#61;&#32;&#116;&#101;&#120;&#116;&#46;&#114;&#101;&#112;&#108;&#97;&#99;&#101;&#40;&#47;&#92;&#92;&#92;&#110;&#47;&#103;&#44;&#32;&#34;&#34;&#41;&#59;</pre>
+# *Add* this section *above* it:<pre>	&#47;&#47;&#32;&#97;&#108;&#108;&#111;&#119;&#32;&#99;&#117;&#115;&#116;&#111;&#109;&#32;&#105;&#110;&#100;&#101;&#110;&#116;&#32;&#99;&#114;&#101;&#97;&#116;&#101;&#100;&#32;&#119;&#105;&#116;&#104;&#32;&#99;&#111;&#108;&#111;&#110;&#115;<br>	&#47;&#47;&#97;&#108;&#101;&#114;&#116;&#40;&#116;&#101;&#120;&#116;&#41;&#59;<br>	&#116;&#101;&#120;&#116;&#32;&#61;&#32;&#116;&#101;&#120;&#116;&#46;&#114;&#101;&#112;&#108;&#97;&#99;&#101;&#40;&#47;&#40;&#94;&#124;&#92;&#110;&#124;&#60&#98;&#114;&#92;&#47;&#62&#41;&#40;&#58;&#43;&#41;&#92;&#115;&#42;&#40;&#91;&#94;&#92;&#110;&#93;&#43;&#41;&#47;&#103;&#44;&#32;&#102;&#117;&#110;&#99;&#116;&#105;&#111;&#110;&#32;&#40;&#115;&#116;&#114;&#44;&#32;&#36;&#49;&#44;&#36;&#50;&#44;&#36;&#51;&#41;&#32;&#123;<br>		&#114;&#101;&#116;&#117;&#114;&#110;&#32;&#36;&#49;&#43;&#34;&#60&#115;&#112;&#97;&#110;&#32;&#115;&#116;&#121;&#108;&#101;&#61;&#92;&#34;&#109;&#97;&#114;&#103;&#105;&#110;&#45;&#108;&#101;&#102;&#116;&#58;&#34;&#43;&#40;&#36;&#50;&#46;&#108;&#101;&#110;&#103;&#116;&#104;&#41;&#43;&#34;&#101;&#109;&#92;&#34;&#62&#34;&#43;&#36;&#51;&#43;&#34;&#60&#47;&#115;&#112;&#97;&#110;&#62&#34;&#59;<br>	&#125;&#41;&#59;</pre>
 # Save the file.<br><br>
 # Close the text editor.
 
@@ -3330,8 +3289,7 @@ This makes it possible to insert custom indents at the beginning of any line of 
 # Use one or more colons at the beginning of any line of text in your page to create a custom indent.
 
 ==== Example
-<pre>&#058;One<br>&#058;&#058;Two<br>&#058;&#058;&#058;Three<br>&#058;&#058;&#058;&#058;Four<br>&#058;&#058;&#058;&#058;&#058;Five</pre>
-
+<pre>&#58;&#79;&#110;&#101;<br>&#58;&#58;&#84;&#119;&#111;<br>&#58;&#58;&#58;&#84;&#104;&#114;&#101;&#101;<br>&#58;&#58;&#58;&#58;&#70;&#111;&#117;&#114;<br>&#58;&#58;&#58;&#58;&#58;&#70;&#105;&#118;&#101;</pre>
 ==== Result
 <span style="margin-left:1em;">One</span>
 <span style="margin-left:2em;">Two</span>
@@ -3339,7 +3297,7 @@ This makes it possible to insert custom indents at the beginning of any line of 
 <span style="margin-left:4em;">Four</span>
 <span style="margin-left:5em;">Five</span>
 
-[[Tags::0.9.6B|0.10.0|0.10.1|0.10.2|0.10.3|0.10.4|0.10.5|0.10.6|0.10.7|0.10.8|0.10.9|0.11.0|0.11.1]]
+[[Tags::0.9.6B|0.10.0|0.10.1|0.10.2|0.10.3|0.10.4|0.10.5|0.10.6|0.10.7|0.10.8|0.10.9|0.11.0|0.11.1|0.11.2|0.11.3|0.11.4|0.11.5|0.11.6]]
 
 --DFQRCTsKlU
 woas.page.title: WoaS Mods::Full navigation bar
@@ -3456,8 +3414,8 @@ $("daily_diary").innerHTML = "Click here to create or view a diary entry for tod
 --DFQRCTsKlU
 woas.page.title: WoaS Mods::Add columns of text
 woas.page.attributes: 0
-woas.page.last_modified: 1270326869
-woas.page.length: 7310
+woas.page.last_modified: 1271610426
+woas.page.length: 25849
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -3467,30 +3425,37 @@ woas.page.boundary: DFQRCTsKlU
 This makes it so you can insert columns of text into your pages. Columns accept [[WoaS::Help::Headers|headers]], HTML text formatting, [[WoaS::Help::Images|images]], [[WoaS::Help::Links|links]], [[WoaS::Help::Lists|lists]], [[WoaS::Help::Tables|tables]], [[WoaS::Help::Nowiki text|nowiki text]], [[WoaS::Help::Rulers|rulers]], [[WoaS::Help::Transclusion|transcludes]], and [[WoaS::Help::Text formatting|wiki text formatting]]. Thanks go to [[http://woas.iragan.com/viewtopic.php?id=759|Stanky]] for this mod!
 
 # Open the wiki in a text editor.<br><br>
-# *Find* this section:<pre>	&#047;&#047; restore macros array<br>	woas.macro&#095;parser.macro&#095;names &#061; backup&#095;macro&#095;n;<br>	woas.macro&#095;parser.macro&#095;functions &#061; backup&#095;macro&#095;f;<br>		<br>	if &#040;text.substring&#040;0,5&#041;!&#061;&#34;&lt;&#047;div&#34;&#041;<br>		return &#34;&lt;div class&#061;&#092;&#34;level0&#092;&#34;&gt;&#34; &#043; text &#043; &#34;&lt;&#047;div&gt;&#34;;<br>	return text.substring&#040;6&#041;&#043;&#34;&lt;&#047;div&gt;&#34;;<br>&#125;</pre>
-# *Replace* it with this section:<pre>	&#047;&#047; restore macros array<br>	woas.macro&#095;parser.macro&#095;names &#061; backup&#095;macro&#095;n;<br>	woas.macro&#095;parser.macro&#095;functions &#061; backup&#095;macro&#095;f;<br>&#047;&#047;BEGIN COLUMNS MOD<br>    reReapColumns &#061; &#047;&lt;columns&#092;b&#091;^&gt;&#093;&#042;&gt;&#040;.&#042;&#063;&#041;&lt;&#092;&#047;columns&gt;&#047;g;<br>    text &#061;  text.replace&#040;reReapColumns, function &#040;str&#041; &#123;<br>        colsw &#061; str.substr&#040;str.indexOf&#040;&#34;&lt;columns&#34;&#041;, str.indexOf&#040;&#34;&gt;&#34;&#041;&#041;.match&#040;&#047;&#040;&#091;0&#045;9&#093;&#123;1,3&#125;%&#041;&#124;&#045;&#047;g&#041;;<br>        cols &#061; str.replace&#040;&#047;&lt;&#092;&#047;&#042;columns&#040;&#092;s&#042;&#040;&#091;0&#045;9&#093;&#123;1,3&#125;%&#041;&#042;&#124;&#045;&#041;&#042;&gt;&#040;&lt;br&#092; &#092;&#047;&gt;&#041;&#042;&#047;gm, &#34;&#34;&#041;.replace&#040;&#047;&#040;&lt;br&#092; &#092;&#047;&gt;&#041;&#042;&lt;nextcolumn&gt;&#040;&lt;br&#092; &#092;&#047;&gt;&#041;&#042;&#047;g, &#34;&lt;nextcolumn&gt;&#34;&#041;.split&#040;&#34;&lt;nextcolumn&gt;&#34;&#041;;<br>        if &#040;&#033;colsw&#041;<br>            colsw &#061; new Array&#040;'&#045;'&#041;;<br>        for &#040;var i&#061;&#040;colsw.length&#041;; i&lt;&#061;cols.length; &#043;&#043;i&#041;<br>            colsw.push&#040;&#34;&#045;&#34;&#041;;<br>        var rtext &#061;  &#34;&lt;table class&#061;'columns&#045;plugin'&#34; &#043; &#040;colsw&#091;0&#093; &#033;&#061; &#34;&#045;&#34;&#063;&#34; style&#061;'width:&#34; &#043; colsw.shift&#040;&#041; &#043; &#34;'&#34;: colsw.shift&#040;&#041;&#041; &#043; &#34;&gt;&#34;;<br>        for &#040;var i&#061;0; i&lt;colsw.length; &#043;&#043;i&#041;<br>            rtext &#061;  rtext &#043; &#34;&lt;col&#34; &#043; &#040;colsw&#091;i&#093; &#033;&#061; &#34;&#045;&#34;&#063;&#34; style&#061;'width:&#34; &#043; colsw&#091;i&#093; &#043; &#34;'&#34;: &#34;&#34;&#041; &#043; &#34;&gt;&#34;;<br>        rtext &#061; rtext &#043; &#34;&lt;tr&gt;&#34;;<br>        for &#040;var i&#061;0; i&lt;cols.length; &#043;&#043;i&#041;<br>            rtext &#061; rtext &#043; &#34;&lt;td class&#061;'&#34; &#043; &#040;i &#061;&#061; 0&#063;&#34;first&#34; : &#34;last&#34;&#041; &#043; &#34;'&gt;&#34; &#043; cols&#091;i&#093; &#043; &#34;&lt;&#047;td&gt;&#34;; <br>        rtext &#061; rtext &#043; &#34;&lt;&#047;tr&gt;&lt;&#047;table&gt;&#34;;<br>    return rtext;&#125;&#041;<br>&#047;&#047;END COLUMNS MOD<br>	if &#040;text.substring&#040;0,5&#041;&#033;&#061;&#34;&lt;&#047;div&#34;&#041;<br>		return &#34;&lt;div class&#061;&#092;&#34;level0&#092;&#34;&gt;&#34; &#043; text &#043; &#34;&lt;&#047;div&gt;&#34;;<br>	return text.substring&#040;6&#041;&#043;&#34;&lt;&#047;div&gt;&#34;;<br>&#125;</pre>
+# *Find* this section:<br><br>\
+<ul><li>In WoaS 0.11.0 and 0.11.1:<pre>	&#47;&#47;&#32;&#114;&#101;&#115;&#116;&#111;&#114;&#101;&#32;&#109;&#97;&#99;&#114;&#111;&#115;&#32;&#97;&#114;&#114;&#97;&#121;<br>	&#119;&#111;&#97;&#115;&#46;&#109;&#97;&#99;&#114;&#111;&#95;&#112;&#97;&#114;&#115;&#101;&#114;&#46;&#109;&#97;&#99;&#114;&#111;&#95;&#110;&#97;&#109;&#101;&#115;&#32;&#61;&#32;&#98;&#97;&#99;&#107;&#117;&#112;&#95;&#109;&#97;&#99;&#114;&#111;&#95;&#110;&#59;<br>	&#119;&#111;&#97;&#115;&#46;&#109;&#97;&#99;&#114;&#111;&#95;&#112;&#97;&#114;&#115;&#101;&#114;&#46;&#109;&#97;&#99;&#114;&#111;&#95;&#102;&#117;&#110;&#99;&#116;&#105;&#111;&#110;&#115;&#32;&#61;&#32;&#98;&#97;&#99;&#107;&#117;&#112;&#95;&#109;&#97;&#99;&#114;&#111;&#95;&#102;&#59;<br>		<br>	&#105;&#102;&#32;&#40;&#116;&#101;&#120;&#116;&#46;&#115;&#117;&#98;&#115;&#116;&#114;&#105;&#110;&#103;&#40;&#48;&#44;&#53;&#41;&#33;&#61;&#34;&#60&#47;&#100;&#105;&#118;&#34;&#41;<br>		&#114;&#101;&#116;&#117;&#114;&#110;&#32;&#34;&#60&#100;&#105;&#118;&#32;&#99;&#108;&#97;&#115;&#115;&#61;&#92;&#34;&#108;&#101;&#118;&#101;&#108;&#48;&#92;&#34;&#62&#34;&#32;&#43;&#32;&#116;&#101;&#120;&#116;&#32;&#43;&#32;&#34;&#60&#47;&#100;&#105;&#118;&#62&#34;&#59;<br>	&#114;&#101;&#116;&#117;&#114;&#110;&#32;&#116;&#101;&#120;&#116;&#46;&#115;&#117;&#98;&#115;&#116;&#114;&#105;&#110;&#103;&#40;&#54;&#41;&#43;&#34;&#60&#47;&#100;&#105;&#118;&#62&#34;&#59;<br>&#125;</pre></li><br>\
+<li>In WoaS 0.11.2, 0.11.3, 0.11.4, 0.11.5, and 0.11.6:<pre>	&#47;&#47;&#32;&#114;&#101;&#115;&#116;&#111;&#114;&#101;&#32;&#109;&#97;&#99;&#114;&#111;&#115;&#32;&#97;&#114;&#114;&#97;&#121;<br>	&#119;&#111;&#97;&#115;&#46;&#109;&#97;&#99;&#114;&#111;&#95;&#112;&#97;&#114;&#115;&#101;&#114;&#46;&#109;&#97;&#99;&#114;&#111;&#95;&#110;&#97;&#109;&#101;&#115;&#32;&#61;&#32;&#98;&#97;&#99;&#107;&#117;&#112;&#95;&#109;&#97;&#99;&#114;&#111;&#95;&#110;&#59;<br>	&#119;&#111;&#97;&#115;&#46;&#109;&#97;&#99;&#114;&#111;&#95;&#112;&#97;&#114;&#115;&#101;&#114;&#46;&#109;&#97;&#99;&#114;&#111;&#95;&#102;&#117;&#110;&#99;&#116;&#105;&#111;&#110;&#115;&#32;&#61;&#32;&#98;&#97;&#99;&#107;&#117;&#112;&#95;&#109;&#97;&#99;&#114;&#111;&#95;&#102;&#59;<br>		<br>	&#105;&#102;&#32;&#40;&#116;&#101;&#120;&#116;&#46;&#115;&#117;&#98;&#115;&#116;&#114;&#105;&#110;&#103;&#40;&#48;&#44;&#53;&#41;&#33;&#61;&#34;&#60&#47;&#100;&#105;&#118;&#34;&#41;<br>		&#114;&#101;&#116;&#117;&#114;&#110;&#32;&#34;&#60&#100;&#105;&#118;&#32;&#99;&#108;&#97;&#115;&#115;&#61;&#92;&#34;&#108;&#101;&#118;&#101;&#108;&#48;&#92;&#34;&#62&#34;&#32;&#43;&#32;&#116;&#101;&#120;&#116;&#32;&#43;&#32;&#34;&#60&#47;&#100;&#105;&#118;&#62&#34;&#59;<br>	&#114;&#101;&#116;&#117;&#114;&#110;&#32;&#116;&#101;&#120;&#116;&#46;&#115;&#117;&#98;&#115;&#116;&#114;&#105;&#110;&#103;&#40;&#54;&#41;&#43;&#34;&#60&#47;&#100;&#105;&#118;&#62&#34;&#59;<br>&#125;&#59;</pre></li></ul>
+# *Replace* it with this section:<br><br>\
+<ul><li>In WoaS 0.11.0 and 0.11.1:<pre>	&#47;&#47;&#32;&#114;&#101;&#115;&#116;&#111;&#114;&#101;&#32;&#109;&#97;&#99;&#114;&#111;&#115;&#32;&#97;&#114;&#114;&#97;&#121;<br>	&#119;&#111;&#97;&#115;&#46;&#109;&#97;&#99;&#114;&#111;&#95;&#112;&#97;&#114;&#115;&#101;&#114;&#46;&#109;&#97;&#99;&#114;&#111;&#95;&#110;&#97;&#109;&#101;&#115;&#32;&#61;&#32;&#98;&#97;&#99;&#107;&#117;&#112;&#95;&#109;&#97;&#99;&#114;&#111;&#95;&#110;&#59;<br>	&#119;&#111;&#97;&#115;&#46;&#109;&#97;&#99;&#114;&#111;&#95;&#112;&#97;&#114;&#115;&#101;&#114;&#46;&#109;&#97;&#99;&#114;&#111;&#95;&#102;&#117;&#110;&#99;&#116;&#105;&#111;&#110;&#115;&#32;&#61;&#32;&#98;&#97;&#99;&#107;&#117;&#112;&#95;&#109;&#97;&#99;&#114;&#111;&#95;&#102;&#59;<br>&#47;&#47;&#66;&#69;&#71;&#73;&#78;&#32;&#67;&#79;&#76;&#85;&#77;&#78;&#83;&#32;&#77;&#79;&#68;<br>&#32;&#32;&#32;&#32;&#114;&#101;&#82;&#101;&#97;&#112;&#67;&#111;&#108;&#117;&#109;&#110;&#115;&#32;&#61;&#32;&#47;&#60&#99;&#111;&#108;&#117;&#109;&#110;&#115;&#92;&#98;&#91;&#94;&#62&#93;&#42;&#62&#40;&#46;&#42;&#63;&#41;&#60&#92;&#47;&#99;&#111;&#108;&#117;&#109;&#110;&#115;&#62&#47;&#103;&#59;<br>&#32;&#32;&#32;&#32;&#116;&#101;&#120;&#116;&#32;&#61;&#32;&#32;&#116;&#101;&#120;&#116;&#46;&#114;&#101;&#112;&#108;&#97;&#99;&#101;&#40;&#114;&#101;&#82;&#101;&#97;&#112;&#67;&#111;&#108;&#117;&#109;&#110;&#115;&#44;&#32;&#102;&#117;&#110;&#99;&#116;&#105;&#111;&#110;&#32;&#40;&#115;&#116;&#114;&#41;&#32;&#123;<br>&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#99;&#111;&#108;&#115;&#119;&#32;&#61;&#32;&#115;&#116;&#114;&#46;&#115;&#117;&#98;&#115;&#116;&#114;&#40;&#115;&#116;&#114;&#46;&#105;&#110;&#100;&#101;&#120;&#79;&#102;&#40;&#34;&#60&#99;&#111;&#108;&#117;&#109;&#110;&#115;&#34;&#41;&#44;&#32;&#115;&#116;&#114;&#46;&#105;&#110;&#100;&#101;&#120;&#79;&#102;&#40;&#34;&#62&#34;&#41;&#41;&#46;&#109;&#97;&#116;&#99;&#104;&#40;&#47;&#40;&#91;&#48;&#45;&#57;&#93;&#123;&#49;&#44;&#51;&#125;&#37;&#41;&#124;&#45;&#47;&#103;&#41;&#59;<br>&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#99;&#111;&#108;&#115;&#32;&#61;&#32;&#115;&#116;&#114;&#46;&#114;&#101;&#112;&#108;&#97;&#99;&#101;&#40;&#47;&#60&#92;&#47;&#42;&#99;&#111;&#108;&#117;&#109;&#110;&#115;&#40;&#92;&#115;&#42;&#40;&#91;&#48;&#45;&#57;&#93;&#123;&#49;&#44;&#51;&#125;&#37;&#41;&#42;&#124;&#45;&#41;&#42;&#62&#40;&#60&#98;&#114;&#92;&#32;&#92;&#47;&#62&#41;&#42;&#47;&#103;&#109;&#44;&#32;&#34;&#34;&#41;&#46;&#114;&#101;&#112;&#108;&#97;&#99;&#101;&#40;&#47;&#40;&#60&#98;&#114;&#92;&#32;&#92;&#47;&#62&#41;&#42;&#60&#110;&#101;&#120;&#116;&#99;&#111;&#108;&#117;&#109;&#110;&#62&#40;&#60&#98;&#114;&#92;&#32;&#92;&#47;&#62&#41;&#42;&#47;&#103;&#44;&#32;&#34;&#60&#110;&#101;&#120;&#116;&#99;&#111;&#108;&#117;&#109;&#110;&#62&#34;&#41;&#46;&#115;&#112;&#108;&#105;&#116;&#40;&#34;&#60&#110;&#101;&#120;&#116;&#99;&#111;&#108;&#117;&#109;&#110;&#62&#34;&#41;&#59;<br>&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#105;&#102;&#32;&#40;&#33;&#99;&#111;&#108;&#115;&#119;&#41;<br>&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#99;&#111;&#108;&#115;&#119;&#32;&#61;&#32;&#110;&#101;&#119;&#32;&#65;&#114;&#114;&#97;&#121;&#40;&#39;&#45;&#39;&#41;&#59;<br>&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#102;&#111;&#114;&#32;&#40;&#118;&#97;&#114;&#32;&#105;&#61;&#40;&#99;&#111;&#108;&#115;&#119;&#46;&#108;&#101;&#110;&#103;&#116;&#104;&#41;&#59;&#32;&#105;&#60&#61;&#99;&#111;&#108;&#115;&#46;&#108;&#101;&#110;&#103;&#116;&#104;&#59;&#32;&#43;&#43;&#105;&#41;<br>&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#99;&#111;&#108;&#115;&#119;&#46;&#112;&#117;&#115;&#104;&#40;&#34;&#45;&#34;&#41;&#59;<br>&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#118;&#97;&#114;&#32;&#114;&#116;&#101;&#120;&#116;&#32;&#61;&#32;&#32;&#34;&#60&#116;&#97;&#98;&#108;&#101;&#32;&#99;&#108;&#97;&#115;&#115;&#61;&#39;&#99;&#111;&#108;&#117;&#109;&#110;&#115;&#45;&#112;&#108;&#117;&#103;&#105;&#110;&#39;&#34;&#32;&#43;&#32;&#40;&#99;&#111;&#108;&#115;&#119;&#91;&#48;&#93;&#32;&#33;&#61;&#32;&#34;&#45;&#34;&#63;&#34;&#32;&#115;&#116;&#121;&#108;&#101;&#61;&#39;&#119;&#105;&#100;&#116;&#104;&#58;&#34;&#32;&#43;&#32;&#99;&#111;&#108;&#115;&#119;&#46;&#115;&#104;&#105;&#102;&#116;&#40;&#41;&#32;&#43;&#32;&#34;&#39;&#34;&#58;&#32;&#99;&#111;&#108;&#115;&#119;&#46;&#115;&#104;&#105;&#102;&#116;&#40;&#41;&#41;&#32;&#43;&#32;&#34;&#62&#34;&#59;<br>&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#102;&#111;&#114;&#32;&#40;&#118;&#97;&#114;&#32;&#105;&#61;&#48;&#59;&#32;&#105;&#60&#99;&#111;&#108;&#115;&#119;&#46;&#108;&#101;&#110;&#103;&#116;&#104;&#59;&#32;&#43;&#43;&#105;&#41;<br>&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#114;&#116;&#101;&#120;&#116;&#32;&#61;&#32;&#32;&#114;&#116;&#101;&#120;&#116;&#32;&#43;&#32;&#34;&#60&#99;&#111;&#108;&#34;&#32;&#43;&#32;&#40;&#99;&#111;&#108;&#115;&#119;&#91;&#105;&#93;&#32;&#33;&#61;&#32;&#34;&#45;&#34;&#63;&#34;&#32;&#115;&#116;&#121;&#108;&#101;&#61;&#39;&#119;&#105;&#100;&#116;&#104;&#58;&#34;&#32;&#43;&#32;&#99;&#111;&#108;&#115;&#119;&#91;&#105;&#93;&#32;&#43;&#32;&#34;&#39;&#34;&#58;&#32;&#34;&#34;&#41;&#32;&#43;&#32;&#34;&#62&#34;&#59;<br>&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#114;&#116;&#101;&#120;&#116;&#32;&#61;&#32;&#114;&#116;&#101;&#120;&#116;&#32;&#43;&#32;&#34;&#60&#116;&#114;&#62&#34;&#59;<br>&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#102;&#111;&#114;&#32;&#40;&#118;&#97;&#114;&#32;&#105;&#61;&#48;&#59;&#32;&#105;&#60&#99;&#111;&#108;&#115;&#46;&#108;&#101;&#110;&#103;&#116;&#104;&#59;&#32;&#43;&#43;&#105;&#41;<br>&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#114;&#116;&#101;&#120;&#116;&#32;&#61;&#32;&#114;&#116;&#101;&#120;&#116;&#32;&#43;&#32;&#34;&#60&#116;&#100;&#32;&#99;&#108;&#97;&#115;&#115;&#61;&#39;&#34;&#32;&#43;&#32;&#40;&#105;&#32;&#61;&#61;&#32;&#48;&#63;&#34;&#102;&#105;&#114;&#115;&#116;&#34;&#32;&#58;&#32;&#34;&#108;&#97;&#115;&#116;&#34;&#41;&#32;&#43;&#32;&#34;&#39;&#62&#34;&#32;&#43;&#32;&#99;&#111;&#108;&#115;&#91;&#105;&#93;&#32;&#43;&#32;&#34;&#60&#47;&#116;&#100;&#62&#34;&#59;&#32;<br>&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#114;&#116;&#101;&#120;&#116;&#32;&#61;&#32;&#114;&#116;&#101;&#120;&#116;&#32;&#43;&#32;&#34;&#60&#47;&#116;&#114;&#62&#60&#47;&#116;&#97;&#98;&#108;&#101;&#62&#34;&#59;<br>&#32;&#32;&#32;&#32;&#114;&#101;&#116;&#117;&#114;&#110;&#32;&#114;&#116;&#101;&#120;&#116;&#59;&#125;&#41;<br>&#47;&#47;&#69;&#78;&#68;&#32;&#67;&#79;&#76;&#85;&#77;&#78;&#83;&#32;&#77;&#79;&#68;<br>	&#105;&#102;&#32;&#40;&#116;&#101;&#120;&#116;&#46;&#115;&#117;&#98;&#115;&#116;&#114;&#105;&#110;&#103;&#40;&#48;&#44;&#53;&#41;&#33;&#61;&#34;&#60&#47;&#100;&#105;&#118;&#34;&#41;<br>		&#114;&#101;&#116;&#117;&#114;&#110;&#32;&#34;&#60&#100;&#105;&#118;&#32;&#99;&#108;&#97;&#115;&#115;&#61;&#92;&#34;&#108;&#101;&#118;&#101;&#108;&#48;&#92;&#34;&#62&#34;&#32;&#43;&#32;&#116;&#101;&#120;&#116;&#32;&#43;&#32;&#34;&#60&#47;&#100;&#105;&#118;&#62&#34;&#59;<br>	&#114;&#101;&#116;&#117;&#114;&#110;&#32;&#116;&#101;&#120;&#116;&#46;&#115;&#117;&#98;&#115;&#116;&#114;&#105;&#110;&#103;&#40;&#54;&#41;&#43;&#34;&#60&#47;&#100;&#105;&#118;&#62&#34;&#59;<br>&#125;</pre></li><br>\
+<li>In WoaS 0.11.2, 0.11.3, 0.11.4, 0.11.5, and 0.11.6:<pre>	&#47;&#47;&#32;&#114;&#101;&#115;&#116;&#111;&#114;&#101;&#32;&#109;&#97;&#99;&#114;&#111;&#115;&#32;&#97;&#114;&#114;&#97;&#121;<br>	&#119;&#111;&#97;&#115;&#46;&#109;&#97;&#99;&#114;&#111;&#95;&#112;&#97;&#114;&#115;&#101;&#114;&#46;&#109;&#97;&#99;&#114;&#111;&#95;&#110;&#97;&#109;&#101;&#115;&#32;&#61;&#32;&#98;&#97;&#99;&#107;&#117;&#112;&#95;&#109;&#97;&#99;&#114;&#111;&#95;&#110;&#59;<br>	&#119;&#111;&#97;&#115;&#46;&#109;&#97;&#99;&#114;&#111;&#95;&#112;&#97;&#114;&#115;&#101;&#114;&#46;&#109;&#97;&#99;&#114;&#111;&#95;&#102;&#117;&#110;&#99;&#116;&#105;&#111;&#110;&#115;&#32;&#61;&#32;&#98;&#97;&#99;&#107;&#117;&#112;&#95;&#109;&#97;&#99;&#114;&#111;&#95;&#102;&#59;<br>&#47;&#47;&#66;&#69;&#71;&#73;&#78;&#32;&#67;&#79;&#76;&#85;&#77;&#78;&#83;&#32;&#77;&#79;&#68;<br>&#32;&#32;&#32;&#32;&#114;&#101;&#82;&#101;&#97;&#112;&#67;&#111;&#108;&#117;&#109;&#110;&#115;&#32;&#61;&#32;&#47;&#60&#99;&#111;&#108;&#117;&#109;&#110;&#115;&#92;&#98;&#91;&#94;&#62&#93;&#42;&#62&#40;&#46;&#42;&#63;&#41;&#60&#92;&#47;&#99;&#111;&#108;&#117;&#109;&#110;&#115;&#62&#47;&#103;&#59;<br>&#32;&#32;&#32;&#32;&#116;&#101;&#120;&#116;&#32;&#61;&#32;&#32;&#116;&#101;&#120;&#116;&#46;&#114;&#101;&#112;&#108;&#97;&#99;&#101;&#40;&#114;&#101;&#82;&#101;&#97;&#112;&#67;&#111;&#108;&#117;&#109;&#110;&#115;&#44;&#32;&#102;&#117;&#110;&#99;&#116;&#105;&#111;&#110;&#32;&#40;&#115;&#116;&#114;&#41;&#32;&#123;<br>&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#99;&#111;&#108;&#115;&#119;&#32;&#61;&#32;&#115;&#116;&#114;&#46;&#115;&#117;&#98;&#115;&#116;&#114;&#40;&#115;&#116;&#114;&#46;&#105;&#110;&#100;&#101;&#120;&#79;&#102;&#40;&#34;&#60&#99;&#111;&#108;&#117;&#109;&#110;&#115;&#34;&#41;&#44;&#32;&#115;&#116;&#114;&#46;&#105;&#110;&#100;&#101;&#120;&#79;&#102;&#40;&#34;&#62&#34;&#41;&#41;&#46;&#109;&#97;&#116;&#99;&#104;&#40;&#47;&#40;&#91;&#48;&#45;&#57;&#93;&#123;&#49;&#44;&#51;&#125;&#37;&#41;&#124;&#45;&#47;&#103;&#41;&#59;<br>&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#99;&#111;&#108;&#115;&#32;&#61;&#32;&#115;&#116;&#114;&#46;&#114;&#101;&#112;&#108;&#97;&#99;&#101;&#40;&#47;&#60&#92;&#47;&#42;&#99;&#111;&#108;&#117;&#109;&#110;&#115;&#40;&#92;&#115;&#42;&#40;&#91;&#48;&#45;&#57;&#93;&#123;&#49;&#44;&#51;&#125;&#37;&#41;&#42;&#124;&#45;&#41;&#42;&#62&#40;&#60&#98;&#114;&#92;&#32;&#92;&#47;&#62&#41;&#42;&#47;&#103;&#109;&#44;&#32;&#34;&#34;&#41;&#46;&#114;&#101;&#112;&#108;&#97;&#99;&#101;&#40;&#47;&#40;&#60&#98;&#114;&#92;&#32;&#92;&#47;&#62&#41;&#42;&#60&#110;&#101;&#120;&#116;&#99;&#111;&#108;&#117;&#109;&#110;&#62&#40;&#60&#98;&#114;&#92;&#32;&#92;&#47;&#62&#41;&#42;&#47;&#103;&#44;&#32;&#34;&#60&#110;&#101;&#120;&#116;&#99;&#111;&#108;&#117;&#109;&#110;&#62&#34;&#41;&#46;&#115;&#112;&#108;&#105;&#116;&#40;&#34;&#60&#110;&#101;&#120;&#116;&#99;&#111;&#108;&#117;&#109;&#110;&#62&#34;&#41;&#59;<br>&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#105;&#102;&#32;&#40;&#33;&#99;&#111;&#108;&#115;&#119;&#41;<br>&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#99;&#111;&#108;&#115;&#119;&#32;&#61;&#32;&#110;&#101;&#119;&#32;&#65;&#114;&#114;&#97;&#121;&#40;&#39;&#45;&#39;&#41;&#59;<br>&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#102;&#111;&#114;&#32;&#40;&#118;&#97;&#114;&#32;&#105;&#61;&#40;&#99;&#111;&#108;&#115;&#119;&#46;&#108;&#101;&#110;&#103;&#116;&#104;&#41;&#59;&#32;&#105;&#60&#61;&#99;&#111;&#108;&#115;&#46;&#108;&#101;&#110;&#103;&#116;&#104;&#59;&#32;&#43;&#43;&#105;&#41;<br>&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#99;&#111;&#108;&#115;&#119;&#46;&#112;&#117;&#115;&#104;&#40;&#34;&#45;&#34;&#41;&#59;<br>&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#118;&#97;&#114;&#32;&#114;&#116;&#101;&#120;&#116;&#32;&#61;&#32;&#32;&#34;&#60&#116;&#97;&#98;&#108;&#101;&#32;&#99;&#108;&#97;&#115;&#115;&#61;&#39;&#99;&#111;&#108;&#117;&#109;&#110;&#115;&#45;&#112;&#108;&#117;&#103;&#105;&#110;&#39;&#34;&#32;&#43;&#32;&#40;&#99;&#111;&#108;&#115;&#119;&#91;&#48;&#93;&#32;&#33;&#61;&#32;&#34;&#45;&#34;&#63;&#34;&#32;&#115;&#116;&#121;&#108;&#101;&#61;&#39;&#119;&#105;&#100;&#116;&#104;&#58;&#34;&#32;&#43;&#32;&#99;&#111;&#108;&#115;&#119;&#46;&#115;&#104;&#105;&#102;&#116;&#40;&#41;&#32;&#43;&#32;&#34;&#39;&#34;&#58;&#32;&#99;&#111;&#108;&#115;&#119;&#46;&#115;&#104;&#105;&#102;&#116;&#40;&#41;&#41;&#32;&#43;&#32;&#34;&#62&#34;&#59;<br>&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#102;&#111;&#114;&#32;&#40;&#118;&#97;&#114;&#32;&#105;&#61;&#48;&#59;&#32;&#105;&#60&#99;&#111;&#108;&#115;&#119;&#46;&#108;&#101;&#110;&#103;&#116;&#104;&#59;&#32;&#43;&#43;&#105;&#41;<br>&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#114;&#116;&#101;&#120;&#116;&#32;&#61;&#32;&#32;&#114;&#116;&#101;&#120;&#116;&#32;&#43;&#32;&#34;&#60&#99;&#111;&#108;&#34;&#32;&#43;&#32;&#40;&#99;&#111;&#108;&#115;&#119;&#91;&#105;&#93;&#32;&#33;&#61;&#32;&#34;&#45;&#34;&#63;&#34;&#32;&#115;&#116;&#121;&#108;&#101;&#61;&#39;&#119;&#105;&#100;&#116;&#104;&#58;&#34;&#32;&#43;&#32;&#99;&#111;&#108;&#115;&#119;&#91;&#105;&#93;&#32;&#43;&#32;&#34;&#39;&#34;&#58;&#32;&#34;&#34;&#41;&#32;&#43;&#32;&#34;&#62&#34;&#59;<br>&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#114;&#116;&#101;&#120;&#116;&#32;&#61;&#32;&#114;&#116;&#101;&#120;&#116;&#32;&#43;&#32;&#34;&#60&#116;&#114;&#62&#34;&#59;<br>&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#102;&#111;&#114;&#32;&#40;&#118;&#97;&#114;&#32;&#105;&#61;&#48;&#59;&#32;&#105;&#60&#99;&#111;&#108;&#115;&#46;&#108;&#101;&#110;&#103;&#116;&#104;&#59;&#32;&#43;&#43;&#105;&#41;<br>&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#114;&#116;&#101;&#120;&#116;&#32;&#61;&#32;&#114;&#116;&#101;&#120;&#116;&#32;&#43;&#32;&#34;&#60&#116;&#100;&#32;&#99;&#108;&#97;&#115;&#115;&#61;&#39;&#34;&#32;&#43;&#32;&#40;&#105;&#32;&#61;&#61;&#32;&#48;&#63;&#34;&#102;&#105;&#114;&#115;&#116;&#34;&#32;&#58;&#32;&#34;&#108;&#97;&#115;&#116;&#34;&#41;&#32;&#43;&#32;&#34;&#39;&#62&#34;&#32;&#43;&#32;&#99;&#111;&#108;&#115;&#91;&#105;&#93;&#32;&#43;&#32;&#34;&#60&#47;&#116;&#100;&#62&#34;&#59;&#32;<br>&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#114;&#116;&#101;&#120;&#116;&#32;&#61;&#32;&#114;&#116;&#101;&#120;&#116;&#32;&#43;&#32;&#34;&#60&#47;&#116;&#114;&#62&#60&#47;&#116;&#97;&#98;&#108;&#101;&#62&#34;&#59;<br>&#32;&#32;&#32;&#32;&#114;&#101;&#116;&#117;&#114;&#110;&#32;&#114;&#116;&#101;&#120;&#116;&#59;&#125;&#41;<br>&#47;&#47;&#69;&#78;&#68;&#32;&#67;&#79;&#76;&#85;&#77;&#78;&#83;&#32;&#77;&#79;&#68;<br>	&#105;&#102;&#32;&#40;&#116;&#101;&#120;&#116;&#46;&#115;&#117;&#98;&#115;&#116;&#114;&#105;&#110;&#103;&#40;&#48;&#44;&#53;&#41;&#33;&#61;&#34;&#60&#47;&#100;&#105;&#118;&#34;&#41;<br>		&#114;&#101;&#116;&#117;&#114;&#110;&#32;&#34;&#60&#100;&#105;&#118;&#32;&#99;&#108;&#97;&#115;&#115;&#61;&#92;&#34;&#108;&#101;&#118;&#101;&#108;&#48;&#92;&#34;&#62&#34;&#32;&#43;&#32;&#116;&#101;&#120;&#116;&#32;&#43;&#32;&#34;&#60&#47;&#100;&#105;&#118;&#62&#34;&#59;<br>	&#114;&#101;&#116;&#117;&#114;&#110;&#32;&#116;&#101;&#120;&#116;&#46;&#115;&#117;&#98;&#115;&#116;&#114;&#105;&#110;&#103;&#40;&#54;&#41;&#43;&#34;&#60&#47;&#100;&#105;&#118;&#62&#34;&#59;<br>&#125;&#59;</pre></li></ul><br>
 # Save the file and close the text editor.<br><br>
 # Open the wiki in a browser.<br><br>
 # Click the *Advanced* icon in the navigation bar.<br><br>
-# Click the [[Special::Edit CSS]] link in the *Advanced features* section of the page to open the global CSS in the wiki editor.<br><br>
-# *Add* these entries:<pre>table.columns-plugin &#123;<br>    border-spacing: 0;<br>    border-collapse: collapse;<br>    border-width: 0px 0px 0px 0px;<br>    margin: 0px;<br>&#125;<br>table.columns-plugin td &#123;<br>    border-left: rgb&#040;192,192,192&#041; 1px dotted;<br>    padding-top: 0px;<br>    padding: 0em 1em 0em 1em;<br>    vertical-align: top;<br>&#125;<br>table.columns-plugin td.first &#123;<br>    border-top: 0px;<br>    border-width: 0px 1px 0px 0px;<br>    padding-left: 0px;<br>&#125;<br>table.columns-plugin td.last &#123;<br>    padding-right: 0.5em<br>&#125;</pre>
-# Click the *Save* icon in the navigation bar.
+# Add some CSS rules to style the columns:<br><br>
+## Open the page for editing the CSS rules:<br><br>\
+<ul><li>In WoaS 0.11.0 and 0.11.1:<br><br>Click the *Special::Edit CSS* link in the *Advanced features* section of the page to open the global CSS in the wiki editor.<br><br>\
+<li>In WoaS 0.11.2, 0.11.3, 0.11.4, 0.11.5, and 0.11.6:<br><br>Click the *WoaS::CSS::Custom* link in the *Advanced features* section of the page to open the custom CSS page in the wiki editor.</li></ul><br>
+## *Add* these entries to the main text area:<pre>&#47;&#42;&#32;&#67;&#79;&#76;&#85;&#77;&#78;&#83;&#32;&#77;&#79;&#68;&#32;&#42;&#47;<br>&#116;&#97;&#98;&#108;&#101;&#46;&#99;&#111;&#108;&#117;&#109;&#110;&#115;&#45;&#112;&#108;&#117;&#103;&#105;&#110;&#32;&#123;<br>&#32;&#32;&#32;&#32;&#98;&#111;&#114;&#100;&#101;&#114;&#45;&#115;&#112;&#97;&#99;&#105;&#110;&#103;&#58;&#32;&#48;&#59;<br>&#32;&#32;&#32;&#32;&#98;&#111;&#114;&#100;&#101;&#114;&#45;&#99;&#111;&#108;&#108;&#97;&#112;&#115;&#101;&#58;&#32;&#99;&#111;&#108;&#108;&#97;&#112;&#115;&#101;&#59;<br>&#32;&#32;&#32;&#32;&#98;&#111;&#114;&#100;&#101;&#114;&#45;&#119;&#105;&#100;&#116;&#104;&#58;&#32;&#48;&#112;&#120;&#32;&#48;&#112;&#120;&#32;&#48;&#112;&#120;&#32;&#48;&#112;&#120;&#59;<br>&#32;&#32;&#32;&#32;&#109;&#97;&#114;&#103;&#105;&#110;&#58;&#32;&#48;&#112;&#120;&#59;<br>&#125;<br>&#116;&#97;&#98;&#108;&#101;&#46;&#99;&#111;&#108;&#117;&#109;&#110;&#115;&#45;&#112;&#108;&#117;&#103;&#105;&#110;&#32;&#116;&#100;&#32;&#123;<br>&#32;&#32;&#32;&#32;&#98;&#111;&#114;&#100;&#101;&#114;&#45;&#108;&#101;&#102;&#116;&#58;&#32;&#114;&#103;&#98;&#40;&#49;&#57;&#50;&#44;&#49;&#57;&#50;&#44;&#49;&#57;&#50;&#41;&#32;&#49;&#112;&#120;&#32;&#100;&#111;&#116;&#116;&#101;&#100;&#59;<br>&#32;&#32;&#32;&#32;&#112;&#97;&#100;&#100;&#105;&#110;&#103;&#45;&#116;&#111;&#112;&#58;&#32;&#48;&#112;&#120;&#59;<br>&#32;&#32;&#32;&#32;&#112;&#97;&#100;&#100;&#105;&#110;&#103;&#58;&#32;&#48;&#101;&#109;&#32;&#49;&#101;&#109;&#32;&#48;&#101;&#109;&#32;&#49;&#101;&#109;&#59;<br>&#32;&#32;&#32;&#32;&#118;&#101;&#114;&#116;&#105;&#99;&#97;&#108;&#45;&#97;&#108;&#105;&#103;&#110;&#58;&#32;&#116;&#111;&#112;&#59;<br>&#125;<br>&#116;&#97;&#98;&#108;&#101;&#46;&#99;&#111;&#108;&#117;&#109;&#110;&#115;&#45;&#112;&#108;&#117;&#103;&#105;&#110;&#32;&#116;&#100;&#46;&#102;&#105;&#114;&#115;&#116;&#32;&#123;<br>&#32;&#32;&#32;&#32;&#98;&#111;&#114;&#100;&#101;&#114;&#45;&#116;&#111;&#112;&#58;&#32;&#48;&#112;&#120;&#59;<br>&#32;&#32;&#32;&#32;&#98;&#111;&#114;&#100;&#101;&#114;&#45;&#119;&#105;&#100;&#116;&#104;&#58;&#32;&#48;&#112;&#120;&#32;&#49;&#112;&#120;&#32;&#48;&#112;&#120;&#32;&#48;&#112;&#120;&#59;<br>&#32;&#32;&#32;&#32;&#112;&#97;&#100;&#100;&#105;&#110;&#103;&#45;&#108;&#101;&#102;&#116;&#58;&#32;&#48;&#112;&#120;&#59;<br>&#125;<br>&#116;&#97;&#98;&#108;&#101;&#46;&#99;&#111;&#108;&#117;&#109;&#110;&#115;&#45;&#112;&#108;&#117;&#103;&#105;&#110;&#32;&#116;&#100;&#46;&#108;&#97;&#115;&#116;&#32;&#123;<br>&#32;&#32;&#32;&#32;&#112;&#97;&#100;&#100;&#105;&#110;&#103;&#45;&#114;&#105;&#103;&#104;&#116;&#58;&#32;&#48;&#46;&#53;&#101;&#109;<br>&#125;</pre>
+## Click the *Save* icon in the navigation bar.
 
 == How to use the columns
 # Begin the first column with a column declaration tag. Pick one of these:<br><br>
-## Standard column declaration tag:<pre>&lt;columns 100&#037; 50&#037; 50&#037;&gt;</pre>&#8226; The first number is the total width of all columns in percentage of page width.<br>&#8226; The next number(s) define the width of each column and how many columns there will be.<br><br>
-## Alternative column declaration tag using dashes to represent columns:<pre>&lt;columns 75&#037; 50&#037; - -&gt;</pre>&#8226; The first number is the total width of all columns in percentage of page width.<br>&#8226; The next number defines the width of the first column.<br>&#8226; The dashes represent two additional columns that will split the remaining width equally.<br><br>
-# Begin the next column (and any other columns, depending on how many columns you're using) with a column tag:<pre>&lt;nextcolumn&gt;</pre>
-# Finish the column section with a column closing tag:<pre>&lt;&#047;columns&gt;</pre>
+## Standard column declaration tag:<pre>&#60&#99;&#111;&#108;&#117;&#109;&#110;&#115;&#32;&#49;&#48;&#48;&#37;&#32;&#53;&#48;&#37;&#32;&#53;&#48;&#37;&#62</pre>&#8226; The first number is the total width of all columns in percentage of page width.<br>&#8226; The next number(s) define the width of each column and how many columns there will be.<br><br>
+## Alternative column declaration tag using dashes to represent columns:<pre>&#60&#99;&#111;&#108;&#117;&#109;&#110;&#115;&#32;&#55;&#53;&#37;&#32;&#53;&#48;&#37;&#32;&#45;&#32;&#45;&#62</pre>&#8226; The first number is the total width of all columns in percentage of page width.<br>&#8226; The next number defines the width of the first column.<br>&#8226; The dashes represent two additional columns that will split the remaining width equally.<br><br>
+# Begin the next column (and any other columns, depending on how many columns you're using) with a column tag:<pre>&#60&#110;&#101;&#120;&#116;&#99;&#111;&#108;&#117;&#109;&#110;&#62</pre>
+# Finish the column section with a column closing tag:<pre>&#60&#47;&#99;&#111;&#108;&#117;&#109;&#110;&#115;&#62</pre>
 
 == Examples
-Example with two columns using 100% of the page width. Each column uses 50%:<pre>&lt;columns 100% 50% 50%&gt;<br>TEXT IN COLUMN ONE<br>&lt;nextcolumn&gt;<br>TEXT IN COLUMN TWO<br>&lt;&#047;columns&gt;</pre>
-Example with two columns using 100% of the page width. The first column uses 75% and the second column uses 25%:<pre>&lt;columns 100% 75% 25%&gt;<br>TEXT IN COLUMN ONE<br>&lt;nextcolumn&gt;<br>TEXT IN COLUMN TWO<br>&lt;&#047;columns&gt;</pre>
-Example with three columns using 100% of the page width. Each column uses 33%:<pre>&lt;columns 100% 33% - -&gt;<br>TEXT IN COLUMN ONE<br>&lt;nextcolumn&gt;<br>TEXT IN COLUMN TWO<br>&lt;nextcolumn&gt;<br>TEXT IN COLUMN THREE<br>&lt;&#047;columns&gt;</pre>
-Example with three columns using 75% of the page width. The first column uses 50% and the other two columns split the remaining width equally:<pre>&lt;columns 75% 50% - -&gt;<br>TEXT IN COLUMN ONE<br>&lt;nextcolumn&gt;<br>TEXT IN COLUMN TWO<br>&lt;nextcolumn&gt;<br>TEXT IN COLUMN THREE<br>&lt;&#047;columns&gt;</pre>
-Example with four columns using 100% of the page width. The first column uses 25% and the other three columns split the remaining width equally (each column uses 25%):<pre>&lt;columns 100% 25% - - -&gt;<br>TEXT IN COLUMN ONE<br>&lt;nextcolumn&gt;<br>TEXT IN COLUMN TWO<br>&lt;nextcolumn&gt;<br>TEXT IN COLUMN THREE<br>&lt;nextcolumn&gt;<br>TEXT IN COLUMN FOUR<br>&lt;&#047;columns&gt;</pre>
+Example with two columns using 100% of the page width. Each column uses 50%:<pre>&#60&#99;&#111;&#108;&#117;&#109;&#110;&#115;&#32;&#49;&#48;&#48;&#37;&#32;&#53;&#48;&#37;&#32;&#53;&#48;&#37;&#62<br>&#84;&#69;&#88;&#84;&#32;&#73;&#78;&#32;&#67;&#79;&#76;&#85;&#77;&#78;&#32;&#79;&#78;&#69;<br>&#60&#110;&#101;&#120;&#116;&#99;&#111;&#108;&#117;&#109;&#110;&#62<br>&#84;&#69;&#88;&#84;&#32;&#73;&#78;&#32;&#67;&#79;&#76;&#85;&#77;&#78;&#32;&#84;&#87;&#79;<br>&#60&#47;&#99;&#111;&#108;&#117;&#109;&#110;&#115;&#62</pre>
+Example with two columns using 100% of the page width. The first column uses 75% and the second column uses 25%:<pre>&#60&#99;&#111;&#108;&#117;&#109;&#110;&#115;&#32;&#49;&#48;&#48;&#37;&#32;&#55;&#53;&#37;&#32;&#50;&#53;&#37;&#62<br>&#84;&#69;&#88;&#84;&#32;&#73;&#78;&#32;&#67;&#79;&#76;&#85;&#77;&#78;&#32;&#79;&#78;&#69;<br>&#60&#110;&#101;&#120;&#116;&#99;&#111;&#108;&#117;&#109;&#110;&#62<br>&#84;&#69;&#88;&#84;&#32;&#73;&#78;&#32;&#67;&#79;&#76;&#85;&#77;&#78;&#32;&#84;&#87;&#79;<br>&#60&#47;&#99;&#111;&#108;&#117;&#109;&#110;&#115;&#62</pre>
+Example with three columns using 100% of the page width. Each column uses 33%:<pre>&#60&#99;&#111;&#108;&#117;&#109;&#110;&#115;&#32;&#49;&#48;&#48;&#37;&#32;&#51;&#51;&#37;&#32;&#45;&#32;&#45;&#62<br>&#84;&#69;&#88;&#84;&#32;&#73;&#78;&#32;&#67;&#79;&#76;&#85;&#77;&#78;&#32;&#79;&#78;&#69;<br>&#60&#110;&#101;&#120;&#116;&#99;&#111;&#108;&#117;&#109;&#110;&#62<br>&#84;&#69;&#88;&#84;&#32;&#73;&#78;&#32;&#67;&#79;&#76;&#85;&#77;&#78;&#32;&#84;&#87;&#79;<br>&#60&#110;&#101;&#120;&#116;&#99;&#111;&#108;&#117;&#109;&#110;&#62<br>&#84;&#69;&#88;&#84;&#32;&#73;&#78;&#32;&#67;&#79;&#76;&#85;&#77;&#78;&#32;&#84;&#72;&#82;&#69;&#69;<br>&#60&#47;&#99;&#111;&#108;&#117;&#109;&#110;&#115;&#62</pre>
+Example with three columns using 75% of the page width. The first column uses 50% and the other two columns split the remaining width equally:<pre>&#60&#99;&#111;&#108;&#117;&#109;&#110;&#115;&#32;&#55;&#53;&#37;&#32;&#53;&#48;&#37;&#32;&#45;&#32;&#45;&#62<br>&#84;&#69;&#88;&#84;&#32;&#73;&#78;&#32;&#67;&#79;&#76;&#85;&#77;&#78;&#32;&#79;&#78;&#69;<br>&#60&#110;&#101;&#120;&#116;&#99;&#111;&#108;&#117;&#109;&#110;&#62<br>&#84;&#69;&#88;&#84;&#32;&#73;&#78;&#32;&#67;&#79;&#76;&#85;&#77;&#78;&#32;&#84;&#87;&#79;<br>&#60&#110;&#101;&#120;&#116;&#99;&#111;&#108;&#117;&#109;&#110;&#62<br>&#84;&#69;&#88;&#84;&#32;&#73;&#78;&#32;&#67;&#79;&#76;&#85;&#77;&#78;&#32;&#84;&#72;&#82;&#69;&#69;<br>&#60&#47;&#99;&#111;&#108;&#117;&#109;&#110;&#115;&#62</pre>
+Example with four columns using 100% of the page width. The first column uses 25% and the other three columns split the remaining width equally (each column uses 25%):<pre>&#60&#99;&#111;&#108;&#117;&#109;&#110;&#115;&#32;&#49;&#48;&#48;&#37;&#32;&#50;&#53;&#37;&#32;&#45;&#32;&#45;&#32;&#45;&#62<br>&#84;&#69;&#88;&#84;&#32;&#73;&#78;&#32;&#67;&#79;&#76;&#85;&#77;&#78;&#32;&#79;&#78;&#69;<br>&#60&#110;&#101;&#120;&#116;&#99;&#111;&#108;&#117;&#109;&#110;&#62<br>&#84;&#69;&#88;&#84;&#32;&#73;&#78;&#32;&#67;&#79;&#76;&#85;&#77;&#78;&#32;&#84;&#87;&#79;<br>&#60&#110;&#101;&#120;&#116;&#99;&#111;&#108;&#117;&#109;&#110;&#62<br>&#84;&#69;&#88;&#84;&#32;&#73;&#78;&#32;&#67;&#79;&#76;&#85;&#77;&#78;&#32;&#84;&#72;&#82;&#69;&#69;<br>&#60&#110;&#101;&#120;&#116;&#99;&#111;&#108;&#117;&#109;&#110;&#62<br>&#84;&#69;&#88;&#84;&#32;&#73;&#78;&#32;&#67;&#79;&#76;&#85;&#77;&#78;&#32;&#70;&#79;&#85;&#82;<br>&#60&#47;&#99;&#111;&#108;&#117;&#109;&#110;&#115;&#62</pre>
 
-[[Tags::0.11.0|0.11.1]]
+[[Tags::0.11.0|0.11.1|0.11.2|0.11.3|0.11.4|0.11.5|0.11.6]]
 
 --DFQRCTsKlU
 woas.page.title: WoaS Mods::Add a dynamic ToDo list
@@ -3521,15 +3486,14 @@ To remove a task from the list if you've completed it or decided to not do it af
 --DFQRCTsKlU
 woas.page.title: WoaS Mods::Add custom themes
 woas.page.attributes: 0
-woas.page.last_modified: 1270848803
-woas.page.length: 11363
+woas.page.last_modified: 1271610566
+woas.page.length: 11036
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Add custom themes
-<div style="background-color:#FFFFAA; border: 0.1em solid black; padding:0.3em;">Note that this may cause instability in your wiki. I haven't seen any instability, but I've heard from the programmers in the WoaS mailing list that there are some issues with how this interacts with the wiki code. Use it at your own risk!</div>
 == <font color="red">T</font><font color="green">h</font><font color="brown">e</font><font color="orange">m</font><font color="purple">e</font> <font color="blue">Y</font><font color="red">o</font><font color="green">u</font><font color="brown">r</font> <font color="orange">w</font><font color="purple">i</font><font color="blue">k</font><font color="red">i</font>!
 This makes it so you can theme your wiki dynamically by adding a <span class="tooltip" title="This is done by adding custom CSS rules inside of &#60&#115;&#116;&#121;&#108;&#101;&#32;&#116;&#121;&#112;&#101;&#61;&#34;&#116;&#101;&#120;&#116;&#47;&#99;&#115;&#115;&#34;&#62&#32;&#97;&#110;&#100;&#32;&#60&#47;&#115;&#116;&#121;&#108;&#101;&#62 tags in a page.">style section</span> in a page without having to change the default CSS settings. Since the default CSS stays intact, it can be used for reference. Not only that, but the wiki will be properly styled (with default WoaS values) on wiki erase.
 
@@ -3590,7 +3554,7 @@ See also: [[WoaS Mods::Dynamically change navigation bar icons]]
 --DFQRCTsKlU
 woas.page.title: WoaS Mods::Menu
 woas.page.attributes: 0
-woas.page.last_modified: 1271553153
+woas.page.last_modified: 1271629873
 woas.page.length: 2157
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -3610,7 +3574,7 @@ woas.page.boundary: DFQRCTsKlU
 pre {color:black; background-color:#F5F5F5; border:0.063em solid grey; padding:0.375em; white-space:-moz-pre-wrap; word-wrap:break-word;}
 
 /* STYLED BOXES AROUND TAGS */
-div.taglinks > a {color:blue;background-color:gainsboro;border:2px solid blue;margin:2px;padding:3px;text-decoration:none;line-height:2.4;-moz-border-radius:7px;-webkit-border-radius:7px;border-radius:7px;font-weight:bold;font-size:80%;}
+div.taglinks > a {color:blue;background-color:gainsboro;border:2px solid blue;margin:2px;padding:3px;text-decoration:none;line-height:2.4;-moz-border-radius:7px;-webkit-border-radius:7px;border-radius:7px;font-weight:bold;font-size:70%;}
 div.taglinks > a:hover{background-color:grey;color:white;border:2px solid blue;text-decoration:none;font-weight:bold;}
 
 /* TOOLTIPS */
@@ -3703,4 +3667,49 @@ The original line of code Daniele provided, with his instructions: For now pleas
 }}}
 Please note that this might break in future versions (it's a private function) and will only work starting from 0.11.6.
 -->
+--DFQRCTsKlU
+woas.page.title: WoaS Mods::ToDo
+woas.page.attributes: 0
+woas.page.last_modified: 1271630133
+woas.page.length: 743
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= ToDo
+Test all of these mods on WoaS 0.11.2 through 0.11.6:
+# [[WoaS Mods::Add custom themes]]
+# [[WoaS Mods::Add expanding text areas]]
+# [[WoaS Mods::Add folds]]
+# [[WoaS Mods::Add folds - method two]]
+# [[WoaS Mods::Add footnotes]]
+# [[WoaS Mods::Add list of all pages not in a namespace]]
+# [[WoaS Mods::Add namespace templates]]
+# [[WoaS Mods::Add styled breadcrumbs]]
+# [[WoaS Mods::Add styled notes]]
+# [[WoaS Mods::Add styled nowiki text]]
+# [[WoaS Mods::Add tabs]]
+# [[WoaS Mods::Dynamically change navigation bar icons]]
+# [[WoaS Mods::Fix HTML list line height]]
+# [[WoaS Mods::Replace fixed menu area and navigation bar]]
+# [[WoaS Mods::Replace the logo in the banner]]
+# [[WoaS Mods::Run a program from a link in WoaS under IE]]
+
+--DFQRCTsKlU
+woas.page.title: WoaS Mods::About
+woas.page.attributes: 0
+woas.page.last_modified: 1271630444
+woas.page.length: 1069
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Unofficial WoaS Mods
+This is a collection of pages showing a few modifications you can make to customize various versions of [[http://sourceforge.net/projects/stickwiki/|Wiki on a Stick]]. Some of them are fixes while others are just fun or useful things you can add to your wiki.
+
+<div style="background-color:#FFFFAA; border: 0.1em solid black; padding:0.3em; margin-left:auto; margin-right: auto; width:80%;">All pages are tagged at the bottom with the WoaS versions the mod has been tested in. If a page is not tagged with the version of WoaS you're using, it may not work or be necessary in your version.<br><br>All instructions are for the default wiki as downloaded from [[http://sourceforge.net/projects/stickwiki/files/|here]]. If you've made changes to your wiki, you may need to modify the instructions.<br><br>Use these at your own risk. Please back up your wiki before trying them.</div>
+If you have suggestions, corrections, ideas, or problems with any of the existing mods, please [[mailto://littlergirl@gmail.com?subject=WoaS mods|send me an email]].
+
 --DFQRCTsKlU
