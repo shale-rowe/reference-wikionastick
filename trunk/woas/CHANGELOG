@@ -1,4 +1,9 @@
-Version 0.11.6 (legolas558)
+Version 0.11.7 (legolas558)
+* added foldable listing options
+* keep log area scrolled to bottom (suggested by S.Tunis)
+* WSIF datasource mode implemented
+
+Version 0.11.6 (legolas558) released 2010-04-16
 * lot of fixes for active Safari support
 * fixed saving issue on IE browsers (found by Akazia,deroock)
 
