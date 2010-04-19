@@ -1,5 +1,6 @@
-/* This file contains javascript used by user interface */
-// no references to 'this' are allowed - global woas object is used
+/*
+ * User Interface
+*/
 
 // when home is clicked
 function home() {
@@ -641,3 +642,146 @@ function kbd_hook(orig_e) {
 
 	return orig_e;
 }
+
+var _servm_shown = false;
+
+function _servm_alert() {
+	if (woas._server_mode) {
+		// show the message only once
+		if (!_servm_shown) {
+			woas.alert(woas.i18n.SERVER_MODE);
+			_servm_shown = true;
+		}
+	}
+}
+
+woas.update_nav_icons = function(page) {
+	this.menu_display("back", (backstack.length > 0));
+	this.menu_display("forward", (forstack.length > 0));
+	this.menu_display("advanced", (page != "Special::Advanced"));
+	this.menu_display("edit", this.edit_allowed(page));
+	this.update_lock_icons(page);
+};
+
+woas.update_lock_icons = function(page) {
+	var cyphered, can_lock, can_unlock;
+	if (result_pages.length<2) {
+		var pi = this.page_index(page);
+		if (pi==-1) {
+			can_lock = can_unlock = false;
+			cyphered = false;
+		} else {
+			can_unlock = cyphered = this.is__encrypted(pi);
+			can_lock = !can_unlock && this.config.permit_edits;
+		}
+	} else {
+//		log("result_pages is ("+result_pages+")");	// log:0
+		can_lock = can_unlock = (result_pages.length>0);
+		cyphered = false;
+	}
+	
+	// update the encryption icons accordingly
+	this.menu_display("lock", !kbd_hooking && can_lock);
+	this.menu_display("unlock", !kbd_hooking && can_unlock);
+	// we can always input decryption keys by clicking the setkey icon
+	//this.menu_display("setkey", cyphered);
+	var cls;
+	if (cyphered || (page.indexOf("Locked::")==0))
+		cls = "woas_text_area locked";
+	else
+		cls = "woas_text_area";
+	$("wiki_text").className = cls;
+};
+
+// when the page is resized
+woas._onresize = function() {
+	var we = $("woas_editor");
+	if (!we) {
+		log("no wiki_editor");
+		return;
+	}
+	we.style.width = window.innerWidth - 30 + "px";
+	we.style.height = window.innerHeight - 150 + "px";
+};
+
+if (!woas.browser.ie)
+	window.onresize = woas._onresize;
+
+woas._set_debug = function(status) {
+	if (status) {
+		// activate debug panel
+		$.show_ni("woas_debug_panel");
+		$.show("woas_debug_log");
+		// hide the progress area
+		$.hide("loading_overlay");
+	} else {
+		$.hide_ni("woas_debug_panel");
+		$.hide("woas_debug_console");
+	}
+};
+
+woas.refresh_menu_area = function() {
+	var tmp = current_namespace;
+	current_namespace=parse_marker;
+	this._add_namespace_menu(tmp);
+	var menu = this.get_text("::Menu");
+	if (menu == null)
+		$("menu_area").innerHTML = "";
+	else {
+		$("menu_area").innerHTML = this.parser.parse(menu, false, this.js_mode("::Menu"));
+		this._activate_scripts();
+	}
+};
+
+woas._gen_display = function(id, visible, prefix) {
+	if (visible)
+		$.show(prefix+"_"+id);
+	else
+		$.hide(prefix+"_"+id);
+};
+
+woas.img_display = function(id, visible) {
+	if (!this.browser.ie || this.browser.ie8) {
+		this._gen_display(id, visible, "img");
+		this._gen_display(id, !visible, "alt");
+	} else {
+		this._gen_display(id, !visible, "img");
+		this._gen_display(id, visible, "alt");
+	}
+};
+
+woas.menu_display = function(id, visible) {
+	this._gen_display(id, visible, "menu");
+//	log("menu_"+id+" is "+$("menu_"+id).style.display);
+};
+
+woas.refresh_mts = function(mts) {
+	// generate the last modified string to append
+	if (mts) {
+		$("wiki_mts").innerHTML = this.last_modified(mts);
+		$.show("wiki_mts");
+	} else
+		$.hide("wiki_mts");
+};
+
+woas._set_title = function (new_title) {
+	var wt=$("wiki_title");
+	// works with IE6, FF, etc.
+	wt.innerHTML = this.create_breadcrumb(new_title);
+	document.title = new_title;
+};
+
+// function which hooks all messages shown by WoaS
+// can be fed with multiple messages to show consecutively
+woas.alert = function() {
+	for(var i=0,l=arguments.length;i<l;++i) {
+		alert("WoaS: "+arguments[i]);
+	}
+};
+
+// same as above, but for unhandled errors
+woas.crash = function() {
+	for(var i=0,l=arguments.length;i<l;++i) {
+		alert("WoaS Unhandled error\n----\n"+arguments[i]);
+	}
+};

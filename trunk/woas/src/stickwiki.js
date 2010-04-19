@@ -124,17 +124,6 @@ woas.xhtml_encode = function(src) {
 			replace(/>/g, '&gt;')); // .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 };
 
-woas.utf8_encode = function(src) {
-	return src.replace(/[^\u0000-\u007F]+/g, function ($1) {
-		var l=$1.length;
-		var s="";
-		for(var i=0;i<l;i++) {
-			s+="&#"+$1.charCodeAt(i)+";";
-		}
-		return s;
-	});
-};
-
 // DO NOT modify this list! these are namespaces that are reserved to WoaS
 var reserved_namespaces = ["Special", "Lock", "Locked", "Unlocked", "Unlock",
 						"Tags", "Tagged", "Untagged", "Include", "Javascript"];
@@ -395,21 +384,6 @@ woas._password_cancel = function() {
 	this.__password_finalize($("woas_password"));
 };
 
-// function which hooks all messages shown by WoaS
-// can be fed with multiple messages to show consecutively
-woas.alert = function() {
-	for(var i=0,l=arguments.length;i<l;++i) {
-		alert("WoaS: "+arguments[i]);
-	}
-};
-
-// same as above, but for unhandled errors
-woas.crash = function() {
-	for(var i=0,l=arguments.length;i<l;++i) {
-		alert("WoaS Unhandled error\n----\n"+arguments[i]);
-	}
-};
-
 woas._password_ok = function() {
 	var pwd_obj = $("woas_password");
 	var pw = pwd_obj.value;
@@ -473,7 +447,6 @@ woas.set__text = function(pi, text) {
 	log("Setting wiki text for page #"+pi+" \""+page_titles[pi]+"\"");	// log:1
 	if (this.is__embedded(pi) && !this.is__image(pi))
 		text = encode64(text);
-//	text = _new_syntax_patch(text);
 	if (!this.is__encrypted(pi)) {
 		pages[pi] = text;
 		return;
@@ -592,29 +565,6 @@ woas._get__embedded = function (cr, pi, etype) {
 	return xhtml;
 };
 
-// export a base64-encoded image to a file
-woas.export_image = function(page, dest_path) {
-	var pi=this.page_index(page);
-	if (pi==-1)
-		return false;
-	var data=this.get__text(pi);
-	if (data==null)
-		return false;
-	return this._b64_export(data, dest_path);
-};
-
-// used to export files/images
-woas.export_file = function(page, dest_path) {
-	var pi=this.page_index(page);
-	if (pi==-1)
-		return false;
-	var data=this.get__text(pi);
-	if (data==null)
-		return false;
-	// attempt to save the file (binary mode)
-	return this.save_file(dest_path, this.file_mode.BINARY, decode64(data));
-};
-
 woas._embed_process = function(etype) {
 	// pick the correct mode for file inclusion
 	// normalize etype to the correspondant binary flag value
@@ -687,17 +637,18 @@ woas._get_special = function(cr, interactive) {
 	return text;
 };
 
+// this is quite undocumented
 woas.get_javascript_page = function(cr) {
 	var emsg = "-", text;
 	try {
 		text = eval(cr);
-		if (text == null)
-			return null;
 	}
 	catch (e) {
 		emsg = e.toString();
 	}
-	if (text == null) {
+	if (typeof text == "undefined")
+		return null;
+	if (text === null) {
 		this.crash("Dynamic evaluation of '"+cr+"' failed!\n\nError message:\n\n"+emsg);
 		return null;
 	}
@@ -725,9 +676,9 @@ woas.set_current = function (cr, interactive) {
 			cr = cr.substring(p+2);
 				switch (namespace) {
 					case "Javascript":
-					// this namespace will deprecate many others
+					// this namespace may deprecate many others
 					text = this.get_javascript_page(cr);
-					if (text == null)
+					if (text === null)
 						return false;
 					break;
 					case "Special":
@@ -870,13 +821,6 @@ woas.js_mode = function(cr) {
 	return 1;
 }
 
-woas._set_title = function (new_title) {
-	var wt=$("wiki_title");
-	// works with IE6, FF, etc.
-	wt.innerHTML = this.create_breadcrumb(new_title);
-	document.title = new_title;
-};
-
 woas.last_modified = function(mts) {
 	// do not show anything when the timestamp is magic (zero)
 	if (mts == 0)
@@ -905,15 +849,6 @@ woas.load_as_current = function(title, xhtml, mts) {
 	this._activate_scripts();
 	
 	return true;
-};
-
-woas.refresh_mts = function(mts) {
-	// generate the last modified string to append
-	if (mts) {
-		$("wiki_mts").innerHTML = this.last_modified(mts);
-		$.show("wiki_mts");
-	} else
-		$.hide("wiki_mts");
 };
 
 woas._finalize_lock = function(pi) {
@@ -970,41 +905,6 @@ woas._add_namespace_menu = function(namespace) {
 	current_namespace = namespace;	
 };
 
-woas.refresh_menu_area = function() {
-	var tmp = current_namespace;
-	current_namespace=parse_marker;
-	this._add_namespace_menu(tmp);
-	var menu = this.get_text("::Menu");
-	if (menu == null)
-		$("menu_area").innerHTML = "";
-	else {
-		$("menu_area").innerHTML = this.parser.parse(menu, false, this.js_mode("::Menu"));
-		this._activate_scripts();
-	}
-};
-
-woas._gen_display = function(id, visible, prefix) {
-	if (visible)
-		$.show(prefix+"_"+id);
-	else
-		$.hide(prefix+"_"+id);
-};
-
-woas.img_display = function(id, visible) {
-	if (!this.browser.ie || this.browser.ie8) {
-		this._gen_display(id, visible, "img");
-		this._gen_display(id, !visible, "alt");
-	} else {
-		this._gen_display(id, !visible, "img");
-		this._gen_display(id, visible, "alt");
-	}
-};
-
-woas.menu_display = function(id, visible) {
-	this._gen_display(id, visible, "menu");
-//	log("menu_"+id+" is "+$("menu_"+id).style.display);
-};
-
 // auto-save thread
 function _auto_saver() {
 	if (woas.save_queue.length && !kbd_hooking) {
@@ -1024,19 +924,6 @@ woas.before_quit = function () {
 			this.cfg_commit();
 	}
 	return true;
-};
-
-woas._set_debug = function(status) {
-	if (status) {
-		// activate debug panel
-		$.show_ni("woas_debug_panel");
-		$.show("woas_debug_log");
-		// hide the progress area
-		$.hide("loading_overlay");
-	} else {
-		$.hide_ni("woas_debug_panel");
-		$.hide("woas_debug_console");
-	}
 };
 
  // DO NOT use setHTML for the document.body object in IE browsers
@@ -1175,58 +1062,6 @@ woas._load_aliases = function(s) {
 	});
 };
 
-// when the page is resized
-woas._onresize = function() {
-	var we = $("woas_editor");
-	if (!we) {
-		log("no wiki_editor");
-		return;
-	}
-	we.style.width = window.innerWidth - 30 + "px";
-	we.style.height = window.innerHeight - 150 + "px";
-};
-
-if (!woas.browser.ie)
-	window.onresize = woas._onresize;
-
-woas.update_nav_icons = function(page) {
-	this.menu_display("back", (backstack.length > 0));
-	this.menu_display("forward", (forstack.length > 0));
-	this.menu_display("advanced", (page != "Special::Advanced"));
-	this.menu_display("edit", this.edit_allowed(page));
-	this.update_lock_icons(page);
-};
-
-woas.update_lock_icons = function(page) {
-	var cyphered, can_lock, can_unlock;
-	if (result_pages.length<2) {
-		var pi = this.page_index(page);
-		if (pi==-1) {
-			can_lock = can_unlock = false;
-			cyphered = false;
-		} else {
-			can_unlock = cyphered = this.is__encrypted(pi);
-			can_lock = !can_unlock && this.config.permit_edits;
-		}
-	} else {
-//		log("result_pages is ("+result_pages+")");	// log:0
-		can_lock = can_unlock = (result_pages.length>0);
-		cyphered = false;
-	}
-	
-	// update the encryption icons accordingly
-	this.menu_display("lock", !kbd_hooking && can_lock);
-	this.menu_display("unlock", !kbd_hooking && can_unlock);
-	// we can always input decryption keys by clicking the setkey icon
-	//this.menu_display("setkey", cyphered);
-	var cls;
-	if (cyphered || (page.indexOf("Locked::")==0))
-		cls = "woas_text_area locked";
-	else
-		cls = "woas_text_area";
-	$("wiki_text").className = cls;
-};
-
 // disable edit-mode after cancel/save actions
 woas.disable_edit = function() {
 //	log("DISABLING edit mode");	// log:0
@@ -1334,18 +1169,6 @@ woas.edit_ready = function (txt) {
 	this.old_title = $("wiki_page_title").value;
 };
 
-var _servm_shown = false;
-
-function _servm_alert() {
-	if (woas._server_mode) {
-		// show the message only once
-		if (!_servm_shown) {
-			woas.alert(woas.i18n.SERVER_MODE);
-			_servm_shown = true;
-		}
-	}
-}
-
 woas.edit_page = function(page) {
 	if (!this.edit_allowed(page)) {
 		log("Not allowed to edit page "+page);	// log:1
@@ -1421,16 +1244,6 @@ woas.rename_page = function(previous, newpage) {
 		this.prev_title = newpage;
 	return true;
 };
-
-// applies some on-the-fly patches for the syntax changes in v0.9
-function _new_syntax_patch(text) {
-	//BUG: will also modify text contained in nowiki blocks
-	text = text.replace(/(^|\n)(\+*)([ \t])/g, function (str, $1, $2, $3) {
-		return $1+String("*").repeat($2.length)+$3;
-	});
-	
-	return text;
-}
 
 /** CSS -- IMHO, should be part of a woas.ui object (woas.ui.css) */
 
@@ -1618,52 +1431,6 @@ woas.save_page_i = function(pi) {
 		return true;
 	}
 	return this.commit([pi]);
-};
-
-var max_keywords_length = 250;
-var max_description_length = 250;
-
-// proper autokeywords generation functions begin here
-
-var reKeywords = new RegExp("[^\\s\x01-\x2F\x3A-\x40\x5B-\x60\x7B-\x7E]{2,}", "g");
-function _auto_keywords(source) {
-	if (!source.length) return "";
-	var words = source.match(reKeywords);
-	if (!words.length) return "";
-	var nu_words = new Array();
-	var density = new Array();
-	var wp=0;
-	for(var i=0;i<words.length;i++) {
-		if (words[i].length==0)
-			continue;
-		cond = (woas.i18n.common_words.indexOf(words[i].toLowerCase())<0);
-		if (cond) {
-			wp = nu_words.indexOf(words[i]);
-			if (wp < 0) {
-				nu_words = nu_words.concat(new Array(words[i]));
-				density[nu_words.length-1] = {"i":nu_words.length-1, "w":1};
-			} else
-				density[wp].w = density[wp].w + 1;
-		}
-	}
-	if (!density.length) return "";
-	words = new Array();
-	var keywords = "", nw = "";
-	density = density.sort(function(a,b){return b.w - a.w;});
-	var ol=0;
-	for(i=0;i<density.length;i++) {
-		nw = nu_words[density[i].i];
-		if (ol+nw.length>max_keywords_length)
-			break;
-		keywords = keywords+","+nw;
-		ol+=nw.length;
-	}
-	return keywords.substr(1);
-}
-
-var _g_br_rx = new RegExp("<"+"br\\s?\\/?>", "gi");
-woas.xhtml_to_text = function(s) {
-	return s.replace(_g_br_rx, "\n").replace(/<\/?\w+[^>]*>/g, ' ').replace(/&#?([^;]+);/g, function(str, $1) { if (!isNaN($1)) return String.fromCharCode($1); else return ""; });
 };
 
 woas.cancel_edit = function() {
