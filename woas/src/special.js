@@ -167,7 +167,7 @@ woas.special_tagged = function() {
 			});
 	}
 	// parse tree with sorting
-	return woas.ns_parse_tree(folds, true);
+	return woas.ns_listing(folds, true);
 };
 
 woas.special_untagged = function() {
@@ -321,7 +321,7 @@ woas._join_list = function(arr, sorted) {
 	result_pages = arr.slice(0);
 	//return "* [["+arr.sort().join("]]\n* [[")+"]]";
 	// (1) create a recursable tree of namespaces
-	var ns,output={"s":"","fold_no":0},folds={"[pages]":[]},i,ni,nt,key;
+	var ns,folds={"[pages]":[]},i,ni,nt,key;
 	for(i=0,it=arr.length;i<it;++i) {
 		ns = arr[i].split("::");
 		// remove first entry if empty
@@ -336,8 +336,7 @@ woas._join_list = function(arr, sorted) {
 			folds["[pages]"].push(arr[i]);
 	}
 	// (2) output the tree
-	this.ns_recurse_parse(folds, output, "", 0, sorted);
-	return output.s;
+	return this.ns_listing(folds, sorted);
 };
 
 woas.ns_recurse = function(ns_arr, folds, prev_ns) {
@@ -360,15 +359,27 @@ woas.ns_recurse = function(ns_arr, folds, prev_ns) {
 		this.ns_recurse(ns_arr, folds, ns);
 };
 
-woas._ns_expanded = function(ns, items_count) {
-	return (items_count <= 3);
+// grab expansion setting from UI radio boxes
+woas._ns_expanded = function(ns, items_count, id) {
+	if (items_count <= 3)
+		this._ns_groups_small.push(id);
+	else
+		this._ns_groups_big.push(id);
+	switch (this._ns_expansion) {
+		case 0:
+			return false;
+		case 1:
+			return true;
+		case 2:
+			return (items_count <= 3);
+	}
 };
 
 woas.ns_recurse_parse = function(folds, output, prev_ns, recursion, sorted) {
 	var i,it=folds["[pages]"].length,fold_id;
 	if (it != 0) {
-		var vis_css = this._ns_expanded(prev_ns, it) ? "visibility: visible" : "visibility: hidden; display:none";
 		fold_id = "fold"+output.fold_no++;
+		var vis_css = this._ns_expanded(prev_ns, it, fold_id) ? "visibility: visible" : "visibility: hidden; display:none";
 		++recursion;
 		// disable folding for pages outside namespaces
 		if (prev_ns.length) {
@@ -422,10 +433,52 @@ woas._simple_join_list = function(arr, sorted) {
 	return arr.join("\n")+"\n";
 };
 
-woas.ns_parse_tree = function(folds, sorted) {
+// cache of current namespace listings
+woas._ns_groups_small = [];
+woas._ns_groups_big = [];
+woas._ns_expansion = 1;
+
+function _WoaS_list_expand_change(v) {
+	woas._ns_expansion = parseInt(v);
+	switch (woas._ns_expansion) {
+		case 0:
+			for(var i=0,it=woas._ns_groups_small.length;i<it;++i) {
+				$.hide(woas._ns_groups_small[i]);
+			}
+			for(var i=0,it=woas._ns_groups_big.length;i<it;++i) {
+				$.hide(woas._ns_groups_big[i]);
+			}
+		break;
+		case 1:
+			for(var i=0,it=woas._ns_groups_small.length;i<it;++i) {
+				$.show(woas._ns_groups_small[i]);
+			}
+			for(var i=0,it=woas._ns_groups_big.length;i<it;++i) {
+				$.show(woas._ns_groups_big[i]);
+			}
+		break;
+		case 2:
+			for(var i=0,it=woas._ns_groups_small.length;i<it;++i) {
+				$.show(woas._ns_groups_small[i]);
+			}
+			for(var i=0,it=woas._ns_groups_big.length;i<it;++i) {
+				$.hide(woas._ns_groups_big[i]);
+			}
+		break;
+	}
+}
+
+woas.ns_listing = function(folds, sorted) {
 	if (typeof sorted == "undefined")
 		sorted = false;
-	var output={"s":""};
+	var output={	"s":
+"<label for=\"WoaS_list_expand_0\"><input type=\"radio\" id=\"WoaS_list_expand_0\" name=\"WoaS_list_expand\" value=\"0\" onchange=\"_WoaS_list_expand_change(this.value)\" >Collapse all</label>&nbsp;\
+<label for=\"WoaS_list_expand_1\"><input type=\"radio\" id=\"WoaS_list_expand_1\" name=\"WoaS_list_expand\" value=\"1\" checked=\"checked\" onchange=\"_WoaS_list_expand_change(this.value)\">Expand all</label>&nbsp;\
+<label for=\"WoaS_list_expand_2\"><input type=\"radio\" id=\"WoaS_list_expand_2\" name=\"WoaS_list_expand\" value=\"2\" onchange=\"_WoaS_list_expand_change(this.value)\">Collapse big lists (more than 3 pages)</label>\n",
+			"fold_no":0
+	};
+	woas._ns_groups_small = [];
+	woas._ns_groups_big = [];
 	this.ns_recurse_parse(folds, output, "", 0, sorted);
 	return output.s;
 };
