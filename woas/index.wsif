@@ -1,4 +1,4 @@
-wsif.version: 1.2.0
+wsif.version: 1.3.0
 wsif.generator: woas
 woas.version: 0.11.7
 woas.author: Anonymous
@@ -139,15 +139,14 @@ This project wouldn't be what it is without the help of other people. If you con
 --DFQRCTsKlU
 woas.page.title: Main Page
 woas.page.attributes: 0
-woas.page.last_modified: 1271468748
-woas.page.length: 38
+woas.page.last_modified: 1271513848
+woas.page.length: 37
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 A blank sheet is a catalyst for ideas
-
 --DFQRCTsKlU
 woas.page.title: Special::Search
 woas.page.attributes: 0
@@ -253,7 +252,7 @@ Apart from the above, your normal usage of encrypted pages can be considered sec
 --DFQRCTsKlU
 woas.page.title: Special::Options
 woas.page.attributes: 0
-woas.page.length: 4045
+woas.page.length: 4150
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -261,22 +260,27 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 = Options
 
-== User Interface options
+== User Interface
 <label for="cb_dblclick_edit"><input type="checkbox" id="cb_dblclick_edit" onclick="woas.config.dblclick_edit = $.checked('cb_dblclick_edit')" />Double click to edit pages/menu</label>
 <label for="cb_key_cache"><input type="checkbox" id="cb_key_cache" onclick="woas.config.key_cache = !$.checked('cb_key_cache')" />Do not temporarily cache the AES key</label>
 <label for="cb_rem_history"><input type="checkbox" id="cb_rem_history" onclick="woas.config.nav_history = $.checked('cb_rem_history')" />Remember current page and navigation history</label>
 <label for="cb_fixed_layout"><input type="checkbox" id="cb_fixed_layout" onclick="_set_layout($.checked('cb_fixed_layout'))" />Fixed menu area and navigation bar</label>
 <label for="cb_debug_mode"><input type="checkbox" id="cb_debug_mode" onclick="woas.config.debug_mode = $.checked('cb_debug_mode')" />Enable debug mode and debug console (*requires WoaS reload*)</label>
-== Save options
+
+== Saving
 <label for="cb_allow_diff"><input type="checkbox" id="cb_allow_diff" onclick="woas.config.allow_diff = $.checked('cb_allow_diff')" />Use consistent newlines in saved data</label>
 <label for="cb_save_on_quit"><input type="checkbox" id="cb_save_on_quit" onclick="woas.config.save_on_quit = $.checked('cb_save_on_quit')" />Automatically save options (if changed) before quitting</label>
 <label for="cb_cumulative_save"><input type="checkbox" id="cb_cumulative_save" onclick="woas.config.cumulative_save = $.checked('cb_cumulative_save')" />Enable cumulative save (will save to disk only when quitting)</label>
 <label for="cb_safe_mode"><input type="checkbox" id="cb_safe_mode" onclick="woas.config.safe_mode = $.checked('cb_safe_mode')" />Enable safe mode (embedded &lt;script/&gt; blocks and WoaS::Bootscript not executed, *requires WoaS reload*)</label>
+
+== Datasource
 <label for="cb_wsif_ds_lock"><input type="checkbox" id="cb_wsif_ds_lock" onclick="woas.config.wsif_ds_lock = $.checked('cb_wsif_ds_lock')" />Lock WSIF datasource when editing</label>
 <label for="cb_wsif_ds_multi"><input type="checkbox" id="cb_wsif_ds_multi" onclick="woas.config.wsif_ds_multi = $.checked('cb_wsif_ds_multi')" />Use multiple files in WSIF datasource</label>
 /Disabling above option will not remove WSIF files created for each page/
 WSIF data source: <input id="txt_wsif_ds" type="text" size="60" value="" onchange="woas.config.wsif_ds=this.value" />
 /Relative path to WSIF datasource to use (blank to disable)./
+A file named as above WSIF data source and ending with ".lck" will also be created to manage locking.
+
 WSIF data author: <input id="txt_author" type="text" size="12" value="" onchange="woas.config.wsif_author=this.value" />
 /Used in exported WSIF content or in WSIF datasources./
 

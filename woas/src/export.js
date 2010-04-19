@@ -130,9 +130,7 @@ woas.export_parse = function (data, js_mode) {
 	return data;
 };
 
-woas.export_one_page = function (
-		data, title, fname, exp, mts) {
-	// convert UTF8 sequences of the XHTML source into &#dddd; sequences
+woas.export_one_page = function (data, title, fname, exp, mts) {
 	data = this.utf8_encode(data);
 	// prepare the raw text for later description/keywords generation
 	var raw_text = this.trim(this.xhtml_to_text(data));
@@ -294,4 +292,67 @@ woas.export_wiki = function () {
 	this.progress_finish();
 	this.alert(this.i18n.EXPORT_OK.sprintf(done, total));
 	return true;
+};
+
+var max_keywords_length = 250;
+var max_description_length = 250;
+// proper autokeywords generation functions begin here
+var reKeywords = new RegExp("[^\\s\x01-\x2F\x3A-\x40\x5B-\x60\x7B-\x7E]{2,}", "g");
+function _auto_keywords(source) {
+	if (!source.length) return "";
+	var words = source.match(reKeywords);
+	if (!words.length) return "";
+	var nu_words = new Array();
+	var density = new Array();
+	var wp=0;
+	for(var i=0;i<words.length;i++) {
+		if (words[i].length==0)
+			continue;
+		cond = (woas.i18n.common_words.indexOf(words[i].toLowerCase())<0);
+		if (cond) {
+			wp = nu_words.indexOf(words[i]);
+			if (wp < 0) {
+				nu_words = nu_words.concat(new Array(words[i]));
+				density[nu_words.length-1] = {"i":nu_words.length-1, "w":1};
+			} else
+				density[wp].w = density[wp].w + 1;
+		}
+	}
+	if (!density.length) return "";
+	words = new Array();
+	var keywords = "", nw = "";
+	density = density.sort(function(a,b){return b.w - a.w;});
+	var ol=0;
+	for(i=0;i<density.length;i++) {
+		nw = nu_words[density[i].i];
+		if (ol+nw.length>max_keywords_length)
+			break;
+		keywords = keywords+","+nw;
+		ol+=nw.length;
+	}
+	return keywords.substr(1);
+}
+
+
+// used to export files/images
+woas.export_file = function(page, dest_path) {
+	var pi=this.page_index(page);
+	if (pi==-1)
+		return false;
+	var data=this.get__text(pi);
+	if (data==null)
+		return false;
+	// attempt to save the file (binary mode)
+	return this.save_file(dest_path, this.file_mode.BINARY, decode64(data));
+};
+
+// export a base64-encoded image to a file
+woas.export_image = function(page, dest_path) {
+	var pi=this.page_index(page);
+	if (pi==-1)
+		return false;
+	var data=this.get__text(pi);
+	if (data==null)
+		return false;
+	return this._b64_export(data, dest_path);
 };

@@ -7,8 +7,10 @@ woas.locks = {
 	// hashmap with a lock entry for each active filename
 	datasources : {},
 	
-	reset : function() {
+	_reset : function() {
+		// clear object
 		this.datasources = {};
+		//TODO: add one entry for each expected datasource
 	},
 	
 	_generate_magic_lock : function() {
@@ -16,7 +18,21 @@ woas.locks = {
 	},
 	
 	_load_locks : function() {
-		//TODO: read the lock file index
+		var lck_file = woas.ROOT_DIRECTORY + woas.config.wsif_ds + ".lock";
+		// attempt reading the lock file index
+		var lock_data = woas.load_file(lck_file);
+		// fail in case of no loading API available
+		if (lock_data === null)
+			return false;
+		var need_save = false;
+		// the lock file does not exist, it's time to initialize it
+		if (lock_data === false) {
+			this._reset();
+			// we will write the file
+			need_save = true;
+		} else {
+			// check that
+		}
 		return true;
 	},
 	
@@ -70,10 +86,10 @@ woas.locks = {
 			return false;
 		// (2) check if datasource is actually locked
 		if (typeof this.datasources[filename] == "undefined") {
-			log("BUG: NO LOCK created for "+filename);
+			log("BUG: NO LOCK exists for "+filename);	//log:1
 			return false;
 		}
-		// unactive the lock object
+		// unactive the lock object (but keep it to check if file was modified)
 		this.datasources[filename].active = false;
 		// update the lock index
 		return this._update_locks();

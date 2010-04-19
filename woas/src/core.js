@@ -463,3 +463,21 @@ woas.merge_bytes = function(byte_arr) {
 	}
 	return s;
 };
+
+var reReplaceBr = new RegExp("<"+"br\\s?\\/?>", "gi");
+woas.xhtml_to_text = function(s) {
+	return s.replace(reReplaceBr, "\n").replace(/<\/?\w+[^>]*>/g, ' ').
+					replace(/&#?([^;]+);/g, function(str, $1) { if (!isNaN($1)) return String.fromCharCode($1); else return ""; });
+};
+
+// convert UTF8 sequences of the XHTML source into &#dddd; sequences
+woas.utf8_encode = function(src) {
+	return src.replace(/[^\u0000-\u007F]+/g, function ($1) {
+		var l=$1.length;
+		var s="";
+		for(var i=0;i<l;i++) {
+			s+="&#"+$1.charCodeAt(i)+";";
+		}
+		return s;
+	});
+};

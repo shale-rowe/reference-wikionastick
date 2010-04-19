@@ -10,6 +10,16 @@ woas._file_ext = function(fn) {
 	return "."+m[1];
 };
 
+// applies some on-the-fly patches for the syntax changes in v0.9
+function _new_syntax_patch(text) {
+	//BUG: will also modify text contained in nowiki blocks!
+	text = text.replace(/(^|\n)(\+*)([ \t])/g, function (str, $1, $2, $3) {
+		return $1+String("*").repeat($2.length)+$3;
+	});
+	
+	return text;
+}
+
 var reValidImage = /^data:\s*[^;]*;\s*base64,\s*/;
 woas.import_wiki = function() {
 
