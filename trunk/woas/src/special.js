@@ -311,6 +311,13 @@ woas.special_recent_changes = function() {
 	return this._simple_join_list(pg);
 };
 
+woas._simple_join_list = function(arr, sorted) {
+	if (sorted)
+		arr = arr.sort();
+	// a newline is added here
+	return arr.join("\n")+"\n";
+};
+
 // joins a list of pages - always sorted by default
 woas._join_list = function(arr, sorted) {
 	if (!arr.length)
@@ -326,7 +333,7 @@ woas._join_list = function(arr, sorted) {
 		ns = arr[i].split("::");
 		// remove first entry if empty
 		if (ns.length>1) {
-			if (ns[0].length == 0) {
+			if (ns[0].length === 0) {
 				ns.shift();
 				ns[0] = "::"+ns[0];
 			}
@@ -378,15 +385,18 @@ woas._ns_expanded = function(ns, items_count, id) {
 woas.ns_recurse_parse = function(folds, output, prev_ns, recursion, sorted) {
 	var i,it=folds["[pages]"].length,fold_id;
 	if (it != 0) {
-		fold_id = "fold"+output.fold_no++;
-		var vis_css = this._ns_expanded(prev_ns, it, fold_id) ? "visibility: visible" : "visibility: hidden; display:none";
+		// increase recursion depth
 		++recursion;
 		// disable folding for pages outside namespaces
 		if (prev_ns.length) {
+			// generate id for folding div
+			fold_id = "woas_fold"+output.fold_no++;
+			var vis_css = this._ns_expanded(prev_ns, it, fold_id) ? "visibility: visible" : "visibility: hidden; display:none";
 			output.s += "=".repeat(recursion)+" [[Javascript::$.toggle('"+fold_id+"')|"+prev_ns+"]]";
 			output.s += " [["+prev_ns+"|"+String.fromCharCode(8594)+"]] ("+it+" pages)\n";
 			output.s += "<div style=\""+vis_css+"\" id=\""+fold_id+"\">\n";
 		}
+		// apply sorting
 		if (sorted)
 			folds["[pages]"].sort();
 		for(i=0;i<it;++i) {
@@ -424,13 +434,6 @@ woas.ns_recurse_parse = function(folds, output, prev_ns, recursion, sorted) {
 				this.ns_recurse_parse(folds[i], output, prev_ns+i, recursion, sorted);
 		}
 	}
-};
-
-woas._simple_join_list = function(arr, sorted) {
-	if (sorted)
-		arr = arr.sort();
-	// a newline is added here
-	return arr.join("\n")+"\n";
 };
 
 // cache of current namespace listings
@@ -471,10 +474,11 @@ function _WoaS_list_expand_change(v) {
 woas.ns_listing = function(folds, sorted) {
 	if (typeof sorted == "undefined")
 		sorted = false;
+	// this is kept here for now until some more appropriate place is individuated
 	var output={	"s":
-"<label for=\"WoaS_list_expand_0\"><input type=\"radio\" id=\"WoaS_list_expand_0\" name=\"WoaS_list_expand\" value=\"0\" onchange=\"_WoaS_list_expand_change(this.value)\" >Collapse all</label>&nbsp;\
-<label for=\"WoaS_list_expand_1\"><input type=\"radio\" id=\"WoaS_list_expand_1\" name=\"WoaS_list_expand\" value=\"1\" checked=\"checked\" onchange=\"_WoaS_list_expand_change(this.value)\">Expand all</label>&nbsp;\
-<label for=\"WoaS_list_expand_2\"><input type=\"radio\" id=\"WoaS_list_expand_2\" name=\"WoaS_list_expand\" value=\"2\" onchange=\"_WoaS_list_expand_change(this.value)\">Collapse big lists (more than 3 pages)</label>\n",
+"<label for=\"WoaS_list_expand_0\"><input type=\"radio\" id=\"WoaS_list_expand_0\" name=\"WoaS_list_expand\" value=\"0\" "+(this._ns_expansion === 0 ? " checked=\"checked\"" : "" )+"onchange=\"_WoaS_list_expand_change(this.value)\" >Collapse all</label>&nbsp;\
+<label for=\"WoaS_list_expand_1\"><input type=\"radio\" id=\"WoaS_list_expand_1\" name=\"WoaS_list_expand\" value=\"1\" "+(this._ns_expansion === 1 ? " checked=\"checked\"" : "" )+" onchange=\"_WoaS_list_expand_change(this.value)\">Expand all</label>&nbsp;\
+<label for=\"WoaS_list_expand_2\"><input type=\"radio\" id=\"WoaS_list_expand_2\" name=\"WoaS_list_expand\" value=\"2\" "+(this._ns_expansion === 2 ? " checked=\"checked\"" : "" )+"onchange=\"_WoaS_list_expand_change(this.value)\">Collapse big lists (more than 3 pages)</label>\n",
 			"fold_no":0
 	};
 	woas._ns_groups_small = [];
