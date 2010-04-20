@@ -480,9 +480,9 @@ woas.ns_listing = function(folds, sorted) {
 		sorted = false;
 	// this is kept here for now until some more appropriate place is individuated
 	var output={	"s":
-"<label for=\"WoaS_list_expand_0\"><input type=\"radio\" id=\"WoaS_list_expand_0\" name=\"WoaS_list_expand\" value=\"0\" "+(this._ns_expansion === 0 ? " checked=\"checked\"" : "" )+"onchange=\"_WoaS_list_expand_change(this.value)\" >Collapse all</label>&nbsp;\
-<label for=\"WoaS_list_expand_1\"><input type=\"radio\" id=\"WoaS_list_expand_1\" name=\"WoaS_list_expand\" value=\"1\" "+(this._ns_expansion === 1 ? " checked=\"checked\"" : "" )+" onchange=\"_WoaS_list_expand_change(this.value)\">Expand all</label>&nbsp;\
-<label for=\"WoaS_list_expand_2\"><input type=\"radio\" id=\"WoaS_list_expand_2\" name=\"WoaS_list_expand\" value=\"2\" "+(this._ns_expansion === 2 ? " checked=\"checked\"" : "" )+"onchange=\"_WoaS_list_expand_change(this.value)\">Collapse big lists (more than 3 pages)</label>\n",
+"<label for=\"WoaS_list_expand_0\"><input type=\"radio\" id=\"WoaS_list_expand_0\" name=\"WoaS_list_expand\" value=\"0\" "+(this._ns_expansion === 0 ? " checked=\"checked\"" : "" )+"onclick=\"_WoaS_list_expand_change(this.value)\" >Collapse all</label>&nbsp;\
+<label for=\"WoaS_list_expand_1\"><input type=\"radio\" id=\"WoaS_list_expand_1\" name=\"WoaS_list_expand\" value=\"1\" "+(this._ns_expansion === 1 ? " checked=\"checked\"" : "" )+" onclick=\"_WoaS_list_expand_change(this.value)\">Expand all</label>&nbsp;\
+<label for=\"WoaS_list_expand_2\"><input type=\"radio\" id=\"WoaS_list_expand_2\" name=\"WoaS_list_expand\" value=\"2\" "+(this._ns_expansion === 2 ? " checked=\"checked\"" : "" )+"onclick=\"_WoaS_list_expand_change(this.value)\">Collapse big lists (more than 3 pages)</label>\n",
 			"fold_no":0
 	};
 	woas._ns_groups_small = [];
