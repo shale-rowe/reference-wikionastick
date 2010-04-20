@@ -254,6 +254,8 @@ function save_options() {
 	}
 	woas.cfg_commit();
 	woas.set_current("Special::Advanced", true);
+	// fix the resulting glitch for debug mode
+	$.hide("loading_overlay");
 }
 
 function ro_woas() {
