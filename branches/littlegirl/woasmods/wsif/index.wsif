@@ -2922,8 +2922,8 @@ Now any code or text you place inside <tt>&#123;&#123;&#123;</tt>triple curly br
 --DFQRCTsKlU
 woas.page.title: WoaS Mods::Add styled notes
 woas.page.attributes: 0
-woas.page.last_modified: 1269448662
-woas.page.length: 1113
+woas.page.last_modified: 1271724982
+woas.page.length: 2188
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -2931,12 +2931,12 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 = Add styled notes
 This provides a template for inserting styled notes in the pages of your wiki. Notes accept wiki and HTML markup.
-# Create a page named *Note* with just these contents:<pre>&lt;div class="mynote" style="border:1px groove black; background-color:pink; font-size:80%; margin-top:0px; margin-bottom:0px; padding-top:3px; padding-right:5px; padding-bottom:3px; padding-left:5px;"&gt;%1&lt;&#047;div&gt;</pre><div style="background-color:#FFFFAA; border: 0.1em solid black; padding:0.3em;">Feel free to change the style settings to suit your taste, changing the color, the border type, etc.</div>
+# Create a page named *Note* with just these contents:<pre>&#60&#100;&#105;&#118;&#32;&#99;&#108;&#97;&#115;&#115;&#61;&#34;&#109;&#121;&#110;&#111;&#116;&#101;&#34;&#32;&#115;&#116;&#121;&#108;&#101;&#61;&#34;&#98;&#111;&#114;&#100;&#101;&#114;&#58;&#49;&#112;&#120;&#32;&#103;&#114;&#111;&#111;&#118;&#101;&#32;&#98;&#108;&#97;&#99;&#107;&#59;&#32;&#98;&#97;&#99;&#107;&#103;&#114;&#111;&#117;&#110;&#100;&#45;&#99;&#111;&#108;&#111;&#114;&#58;&#112;&#105;&#110;&#107;&#59;&#32;&#102;&#111;&#110;&#116;&#45;&#115;&#105;&#122;&#101;&#58;&#56;&#48;&#37;&#59;&#32;&#109;&#97;&#114;&#103;&#105;&#110;&#45;&#116;&#111;&#112;&#58;&#48;&#112;&#120;&#59;&#32;&#109;&#97;&#114;&#103;&#105;&#110;&#45;&#98;&#111;&#116;&#116;&#111;&#109;&#58;&#48;&#112;&#120;&#59;&#32;&#112;&#97;&#100;&#100;&#105;&#110;&#103;&#45;&#116;&#111;&#112;&#58;&#51;&#112;&#120;&#59;&#32;&#112;&#97;&#100;&#100;&#105;&#110;&#103;&#45;&#114;&#105;&#103;&#104;&#116;&#58;&#53;&#112;&#120;&#59;&#32;&#112;&#97;&#100;&#100;&#105;&#110;&#103;&#45;&#98;&#111;&#116;&#116;&#111;&#109;&#58;&#51;&#112;&#120;&#59;&#32;&#112;&#97;&#100;&#100;&#105;&#110;&#103;&#45;&#108;&#101;&#102;&#116;&#58;&#53;&#112;&#120;&#59;&#34;&#62&#37;&#49;&#60&#47;&#100;&#105;&#118;&#62</pre><div style="background-color:#FFFFAA; border: 0.1em solid black; padding:0.3em;">Feel free to change the style settings to suit your taste, changing the color, the border type, etc.</div>
 
 == Use styled notes
-* Use this code anywhere in a page, replacing CONTENT with the content of the note:<pre>[<!-- -->[Include::Note|CONTENT]<!-- -->]</pre>
+* Use this code anywhere in a page, replacing CONTENT with the content of the note:<pre>&#91;&#91;&#73;&#110;&#99;&#108;&#117;&#100;&#101;&#58;&#58;&#78;&#111;&#116;&#101;&#124;&#67;&#79;&#78;&#84;&#69;&#78;&#84;&#93;&#93;</pre>
 * To create a note like this:<br><br><div class="mynote" style="border:1px groove black; background-color:pink; font-size:80%; margin-top:0px; margin-bottom:0px; padding-top:3px; padding-right:5px; padding-bottom:3px; padding-left:5px;">CONTENT</div>
-[[Tags::0.9.6B|0.10.0|0.10.1|0.10.2|0.10.3|0.10.4|0.10.5|0.10.6|0.10.7|0.10.8|0.10.9|0.11.0]]
+[[Tags::0.9.6B|0.10.0|0.10.1|0.10.2|0.10.3|0.10.4|0.10.5|0.10.6|0.10.7|0.10.8|0.10.9|0.11.0|0.11.1|0.11.2|0.11.3|0.11.4|0.11.5|0.11.6]]
 
 --DFQRCTsKlU
 woas.page.title: WoaS Mods::Add folds - method two
@@ -3162,20 +3162,32 @@ This makes it so you can style your tag links. The original instructions were po
 --DFQRCTsKlU
 woas.page.title: WoaS Mods::Add styled breadcrumbs
 woas.page.attributes: 0
-woas.page.last_modified: 1269448653
-woas.page.length: 793
+woas.page.last_modified: 1271722623
+woas.page.length: 3135
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Add styled breadcrumbs
-This makes it so you can style the breadcrumbs (clickable namespaces) in the banner. The original instructions were posted by FBNil in the WoaS forums [[http://woas.iragan.com/viewtopic.php?id=664|here]] and have been slightly modified below.
-# Click the Advanced icon in the banner.<br><br>
-# Click the [[Special::Edit CSS]] link in the *Advanced features* section of the page.<br><br>
-# *Add* these CSS entries to the top or bottom of the page, changing the styling to suit your taste:<pre>.title &gt; a:hover &#123;border:1px solid #AAA; margin:-1px; padding:0px; text-decoration:none;&#125;</pre>
-# Click the Save icon in the banner to save the change to the CSS rules.
-[[Tags::0.9.6B|0.10.0|0.10.1|0.10.2|0.10.3|0.10.4|0.10.5|0.10.6|0.10.7|0.10.8|0.10.9|0.11.0]]
+This makes it so you can style the breadcrumbs (clickable namespaces) in the banner so that they look different when you hover the mouse over them. The original instructions were posted by FBNil in the WoaS forums [[http://woas.iragan.com/viewtopic.php?id=664|here]] and have been slightly modified below. For an example, hover your mouse over the *WoaS Mods* link in the title of this page.
+# Click the *Advanced* icon in the banner.<br><br>
+# Edit the CSS to style the tag links:<br><br>\
+<ul><li>In WoaS 0.9.6B, 0.10.0, 0.10.1, 0.10.2, 0.10.3, 0.10.4, 0.10.5, 0.10.6, 0.10.7, 0.10.8, 0.10.9, 0.11.0, and 0.11.1:</li><br>\
+<ol><li>Click the *Special::Edit CSS* link in the *Advanced features* section of the page to open the global CSS in the wiki editor.</li><br>\
+<li>*Add* this entry to the top or bottom of the main text area:<pre>&#47;&#42;&#32;&#83;&#84;&#89;&#76;&#69;&#68;&#32;&#66;&#82;&#69;&#65;&#68;&#67;&#82;&#85;&#77;&#66;&#83;&#32;&#77;&#79;&#68;&#32;&#42;&#47;<br>&#46;&#116;&#105;&#116;&#108;&#101;&#32;&#62&#32;&#97;&#58;&#104;&#111;&#118;&#101;&#114;&#32;&#123;&#98;&#97;&#99;&#107;&#103;&#114;&#111;&#117;&#110;&#100;&#58;&#103;&#114;&#97;&#121;&#59;&#32;&#98;&#111;&#114;&#100;&#101;&#114;&#58;&#49;&#112;&#120;&#32;&#115;&#111;&#108;&#105;&#100;&#32;&#35;&#65;&#65;&#65;&#59;&#32;&#109;&#97;&#114;&#103;&#105;&#110;&#58;&#45;&#49;&#112;&#120;&#59;&#32;&#112;&#97;&#100;&#100;&#105;&#110;&#103;&#58;&#48;&#112;&#120;&#59;&#32;&#116;&#101;&#120;&#116;&#45;&#100;&#101;&#99;&#111;&#114;&#97;&#116;&#105;&#111;&#110;&#58;&#110;&#111;&#110;&#101;&#59;&#125;</pre></li>\
+<li>Click the *Save* icon in the banner to save the change to the CSS rules.</li>\
+</ol></ul><br>\
+<ul><li>In WoaS 0.11.2, 0.11.3, 0.11.4, 0.11.5, and 0.11.6:</li><br>\
+<ol><li>Click the *WoaS::CSS::Custom* link in the *Advanced features* section of the page to open the custom CSS page in the wiki editor.</li><br>\
+<li>*Add* this entry to the main text area:<pre>&#47;&#42;&#32;&#83;&#84;&#89;&#76;&#69;&#68;&#32;&#66;&#82;&#69;&#65;&#68;&#67;&#82;&#85;&#77;&#66;&#83;&#32;&#77;&#79;&#68;&#32;&#42;&#47;<br>&#46;&#116;&#105;&#116;&#108;&#101;&#32;&#62&#32;&#97;&#58;&#104;&#111;&#118;&#101;&#114;&#32;&#123;&#98;&#97;&#99;&#107;&#103;&#114;&#111;&#117;&#110;&#100;&#58;&#103;&#114;&#97;&#121;&#59;&#32;&#98;&#111;&#114;&#100;&#101;&#114;&#58;&#49;&#112;&#120;&#32;&#115;&#111;&#108;&#105;&#100;&#32;&#35;&#65;&#65;&#65;&#59;&#32;&#109;&#97;&#114;&#103;&#105;&#110;&#58;&#45;&#49;&#112;&#120;&#59;&#32;&#112;&#97;&#100;&#100;&#105;&#110;&#103;&#58;&#48;&#112;&#120;&#59;&#32;&#116;&#101;&#120;&#116;&#45;&#100;&#101;&#99;&#111;&#114;&#97;&#116;&#105;&#111;&#110;&#58;&#110;&#111;&#110;&#101;&#59;&#125;</pre></li>\
+<li>Click the *Save* icon in the banner to save the change to the Custom CSS rules.</li>\
+</ol></ul>
+[[Tags::0.9.6B|0.10.0|0.10.1|0.10.2|0.10.3|0.10.4|0.10.5|0.10.6|0.10.7|0.10.8|0.10.9|0.11.0|0.11.1|0.11.2|0.11.3|0.11.4|0.11.5|0.11.6]]
+<style type="text/css">
+/* STYLED BREADCRUMBS MOD */
+.title > a:hover {background:gray; border:1px solid #AAA; margin:-1px; padding:0px; text-decoration:none;}
+</style>
 
 --DFQRCTsKlU
 woas.page.title: WoaS Mods::Add list of all pages not in a namespace
@@ -3258,8 +3270,8 @@ Create a new page in the namespace you added the template to. The template conte
 --DFQRCTsKlU
 woas.page.title: WoaS Mods::Dynamically change navigation bar icons
 woas.page.attributes: 0
-woas.page.last_modified: 1270506198
-woas.page.length: 3246
+woas.page.last_modified: 1271724671
+woas.page.length: 7674
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -3268,13 +3280,13 @@ woas.page.boundary: DFQRCTsKlU
 = Dynamically change navigation bar icons
 This creates a page with an interface that allows you to dynamically change the icons used in the navigation bar. The original code is thanks to [[http://woas.iragan.com/viewtopic.php?pid=1579#p1579|FBNil]] with some slight modifications to make it work in the current Wiki on a Stick.
 # Open the wiki in a text editor.<br><br>
-# *Find* this line:<pre>woas&#091;"&#095;embed&#095;process"&#093; &#061; function&#040;etype&#041; &#123;</pre>
-# *Replace* it with this line:<pre>woas&#091;"&#095;embed&#095;process"&#093; &#061; function&#040;etype, dump&#041; &#123;</pre>
-# *Find* this line:<pre>	pages.push&#040;ct&#041;;</pre>
-# *Add* this line *above* it::<pre>	if&#040;dump&#041; return ct;</pre>
+# *Find* this line:<pre>&#119;&#111;&#97;&#115;&#91;&#34;&#95;&#101;&#109;&#98;&#101;&#100;&#95;&#112;&#114;&#111;&#99;&#101;&#115;&#115;&#34;&#93;&#32;&#61;&#32;&#102;&#117;&#110;&#99;&#116;&#105;&#111;&#110;&#40;&#101;&#116;&#121;&#112;&#101;&#41;&#32;&#123;</pre>
+# *Replace* it with this line:<pre>&#119;&#111;&#97;&#115;&#91;&#34;&#95;&#101;&#109;&#98;&#101;&#100;&#95;&#112;&#114;&#111;&#99;&#101;&#115;&#115;&#34;&#93;&#32;&#61;&#32;&#102;&#117;&#110;&#99;&#116;&#105;&#111;&#110;&#40;&#101;&#116;&#121;&#112;&#101;&#44;&#32;&#100;&#117;&#109;&#112;&#41;&#32;&#123;</pre>
+# *Find* this line:<pre>	&#112;&#97;&#103;&#101;&#115;&#46;&#112;&#117;&#115;&#104;&#40;&#99;&#116;&#41;&#59;</pre>
+# *Add* this line *above* it:<pre>	&#105;&#102;&#40;&#100;&#117;&#109;&#112;&#41;&#32;&#114;&#101;&#116;&#117;&#114;&#110;&#32;&#99;&#116;&#59;</pre>
 # Save the file and close the text editor.<br><br>
 # Open the wiki in a browser.<br><br>
-# Create a new page named *Skin navigation bar icons* with these contents:<pre>&#061; Skin navigation bar icons<br>Use this interface to change the navigation bar icons currently used in Wiki on a Stick.<br><br>&#061;&#061; 1. Select an image file:<br>&lt;input id&#061;"filename&#095;" type&#061;"file" onfocus&#061;"custom&#095;focus&#040;true&#041;" onblur&#061;"custom&#095;focus&#040;false&#041;"&gt;<br><br>&lt;script type&#061;"text&#047;javascript"&gt;<br>woas&#091;"ReplaceButtonFromFile"&#093; &#061; function&#040;button&#041;&#123;<br>	try&#123;<br>	$&#040;button&#041;.src &#061; woas.&#095;embed&#095;process&#040;'image', true&#041;;<br>	this.&#095;save&#095;to&#095;file&#040;true&#041;;<br>	this.refresh&#095;menu&#095;area&#040;&#041;;<br>	this.set&#095;current&#040;current, true&#041;;<br>	&#125;catch&#040;e&#041;&#123;alert&#040;e&#041;&#125;<br>&#125;<br>&lt;&#047;script&gt;<br>&#061;&#061; 2. Click on an icon to replace it with the selected file:<br>&lt;div id&#061;'CSKIN'&gt;&lt;&#047;div&gt;<br>&lt;script&gt;<br>var B &#061; function&#040;id&#041; &#123;<br>  return '&lt;img src&#061;"' &#043; $&#040;id&#041;.src &#043; '" onclick&#061;"javascript:woas.ReplaceButtonFromFile&#040;&#092;'' &#043;id&#043; '&#092;'&#041;;" alt&#061;"' &#043;id&#043; '"&#047;&gt;';<br>&#125;<br><br>$&#040;'CSKIN'&#041;.innerHTML &#061; B&#040;'img&#095;logo'&#041; &#043; B&#040;'img&#095;back'&#041; &#043; B&#040;'img&#095;forward'&#041; &#043; B&#040;'img&#095;advanced'&#041; &#043; B&#040;'img&#095;home'&#041; &#043; B&#040;'img&#095;lock'&#041; &#043; B&#040;'img&#095;unlock'&#041; &#043; B&#040;'img&#095;print'&#041; &#043; B&#040;'img&#095;setkey'&#041; &#043; B&#040;'img&#095;help'&#041; &#043; B&#040;'img&#095;edit'&#041; &#043; B&#040;'img&#095;cancel'&#041; &#043; B&#040;'img&#095;save'&#041;;<br>&lt;&#047;script&gt;<br>&#061;&#061; 3. Shift-reload your browser if the old image stays cached.</pre>
+# Create a new page named *Skin navigation bar icons* with these contents:<pre>&#61;&#32;&#83;&#107;&#105;&#110;&#32;&#110;&#97;&#118;&#105;&#103;&#97;&#116;&#105;&#111;&#110;&#32;&#98;&#97;&#114;&#32;&#105;&#99;&#111;&#110;&#115;<br>&#85;&#115;&#101;&#32;&#116;&#104;&#105;&#115;&#32;&#105;&#110;&#116;&#101;&#114;&#102;&#97;&#99;&#101;&#32;&#116;&#111;&#32;&#99;&#104;&#97;&#110;&#103;&#101;&#32;&#116;&#104;&#101;&#32;&#110;&#97;&#118;&#105;&#103;&#97;&#116;&#105;&#111;&#110;&#32;&#98;&#97;&#114;&#32;&#105;&#99;&#111;&#110;&#115;&#32;&#99;&#117;&#114;&#114;&#101;&#110;&#116;&#108;&#121;&#32;&#117;&#115;&#101;&#100;&#32;&#105;&#110;&#32;&#87;&#105;&#107;&#105;&#32;&#111;&#110;&#32;&#97;&#32;&#83;&#116;&#105;&#99;&#107;&#46;<br><br>&#61;&#61;&#32;&#49;&#46;&#32;&#83;&#101;&#108;&#101;&#99;&#116;&#32;&#97;&#110;&#32;&#105;&#109;&#97;&#103;&#101;&#32;&#102;&#105;&#108;&#101;&#58;<br>&#60&#105;&#110;&#112;&#117;&#116;&#32;&#105;&#100;&#61;&#34;&#102;&#105;&#108;&#101;&#110;&#97;&#109;&#101;&#95;&#34;&#32;&#116;&#121;&#112;&#101;&#61;&#34;&#102;&#105;&#108;&#101;&#34;&#32;&#111;&#110;&#102;&#111;&#99;&#117;&#115;&#61;&#34;&#99;&#117;&#115;&#116;&#111;&#109;&#95;&#102;&#111;&#99;&#117;&#115;&#40;&#116;&#114;&#117;&#101;&#41;&#34;&#32;&#111;&#110;&#98;&#108;&#117;&#114;&#61;&#34;&#99;&#117;&#115;&#116;&#111;&#109;&#95;&#102;&#111;&#99;&#117;&#115;&#40;&#102;&#97;&#108;&#115;&#101;&#41;&#34;&#62<br><br>&#60&#115;&#99;&#114;&#105;&#112;&#116;&#32;&#116;&#121;&#112;&#101;&#61;&#34;&#116;&#101;&#120;&#116;&#47;&#106;&#97;&#118;&#97;&#115;&#99;&#114;&#105;&#112;&#116;&#34;&#62<br>&#119;&#111;&#97;&#115;&#91;&#34;&#82;&#101;&#112;&#108;&#97;&#99;&#101;&#66;&#117;&#116;&#116;&#111;&#110;&#70;&#114;&#111;&#109;&#70;&#105;&#108;&#101;&#34;&#93;&#32;&#61;&#32;&#102;&#117;&#110;&#99;&#116;&#105;&#111;&#110;&#40;&#98;&#117;&#116;&#116;&#111;&#110;&#41;&#123;<br>	&#116;&#114;&#121;&#123;<br>	&#36;&#40;&#98;&#117;&#116;&#116;&#111;&#110;&#41;&#46;&#115;&#114;&#99;&#32;&#61;&#32;&#119;&#111;&#97;&#115;&#46;&#95;&#101;&#109;&#98;&#101;&#100;&#95;&#112;&#114;&#111;&#99;&#101;&#115;&#115;&#40;&#39;&#105;&#109;&#97;&#103;&#101;&#39;&#44;&#32;&#116;&#114;&#117;&#101;&#41;&#59;<br>	&#116;&#104;&#105;&#115;&#46;&#95;&#115;&#97;&#118;&#101;&#95;&#116;&#111;&#95;&#102;&#105;&#108;&#101;&#40;&#116;&#114;&#117;&#101;&#41;&#59;<br>	&#116;&#104;&#105;&#115;&#46;&#114;&#101;&#102;&#114;&#101;&#115;&#104;&#95;&#109;&#101;&#110;&#117;&#95;&#97;&#114;&#101;&#97;&#40;&#41;&#59;<br>	&#116;&#104;&#105;&#115;&#46;&#115;&#101;&#116;&#95;&#99;&#117;&#114;&#114;&#101;&#110;&#116;&#40;&#99;&#117;&#114;&#114;&#101;&#110;&#116;&#44;&#32;&#116;&#114;&#117;&#101;&#41;&#59;<br>	&#125;&#99;&#97;&#116;&#99;&#104;&#40;&#101;&#41;&#123;&#97;&#108;&#101;&#114;&#116;&#40;&#101;&#41;&#125;<br>&#125;<br>&#60&#47;&#115;&#99;&#114;&#105;&#112;&#116;&#62<br>&#61;&#61;&#32;&#50;&#46;&#32;&#67;&#108;&#105;&#99;&#107;&#32;&#111;&#110;&#32;&#97;&#110;&#32;&#105;&#99;&#111;&#110;&#32;&#116;&#111;&#32;&#114;&#101;&#112;&#108;&#97;&#99;&#101;&#32;&#105;&#116;&#32;&#119;&#105;&#116;&#104;&#32;&#116;&#104;&#101;&#32;&#115;&#101;&#108;&#101;&#99;&#116;&#101;&#100;&#32;&#102;&#105;&#108;&#101;&#58;<br>&#60&#100;&#105;&#118;&#32;&#105;&#100;&#61;&#39;&#67;&#83;&#75;&#73;&#78;&#39;&#62&#60&#47;&#100;&#105;&#118;&#62<br>&#60&#115;&#99;&#114;&#105;&#112;&#116;&#62<br>&#118;&#97;&#114;&#32;&#66;&#32;&#61;&#32;&#102;&#117;&#110;&#99;&#116;&#105;&#111;&#110;&#40;&#105;&#100;&#41;&#32;&#123;<br>&#32;&#32;&#114;&#101;&#116;&#117;&#114;&#110;&#32;&#39;&#60&#105;&#109;&#103;&#32;&#115;&#114;&#99;&#61;&#34;&#39;&#32;&#43;&#32;&#36;&#40;&#105;&#100;&#41;&#46;&#115;&#114;&#99;&#32;&#43;&#32;&#39;&#34;&#32;&#111;&#110;&#99;&#108;&#105;&#99;&#107;&#61;&#34;&#106;&#97;&#118;&#97;&#115;&#99;&#114;&#105;&#112;&#116;&#58;&#119;&#111;&#97;&#115;&#46;&#82;&#101;&#112;&#108;&#97;&#99;&#101;&#66;&#117;&#116;&#116;&#111;&#110;&#70;&#114;&#111;&#109;&#70;&#105;&#108;&#101;&#40;&#92;&#39;&#39;&#32;&#43;&#105;&#100;&#43;&#32;&#39;&#92;&#39;&#41;&#59;&#34;&#32;&#97;&#108;&#116;&#61;&#34;&#39;&#32;&#43;&#105;&#100;&#43;&#32;&#39;&#34;&#47;&#62&#39;&#59;<br>&#125;<br><br>&#36;&#40;&#39;&#67;&#83;&#75;&#73;&#78;&#39;&#41;&#46;&#105;&#110;&#110;&#101;&#114;&#72;&#84;&#77;&#76;&#32;&#61;&#32;&#66;&#40;&#39;&#105;&#109;&#103;&#95;&#108;&#111;&#103;&#111;&#39;&#41;&#32;&#43;&#32;&#66;&#40;&#39;&#105;&#109;&#103;&#95;&#98;&#97;&#99;&#107;&#39;&#41;&#32;&#43;&#32;&#66;&#40;&#39;&#105;&#109;&#103;&#95;&#102;&#111;&#114;&#119;&#97;&#114;&#100;&#39;&#41;&#32;&#43;&#32;&#66;&#40;&#39;&#105;&#109;&#103;&#95;&#97;&#100;&#118;&#97;&#110;&#99;&#101;&#100;&#39;&#41;&#32;&#43;&#32;&#66;&#40;&#39;&#105;&#109;&#103;&#95;&#104;&#111;&#109;&#101;&#39;&#41;&#32;&#43;&#32;&#66;&#40;&#39;&#105;&#109;&#103;&#95;&#108;&#111;&#99;&#107;&#39;&#41;&#32;&#43;&#32;&#66;&#40;&#39;&#105;&#109;&#103;&#95;&#117;&#110;&#108;&#111;&#99;&#107;&#39;&#41;&#32;&#43;&#32;&#66;&#40;&#39;&#105;&#109;&#103;&#95;&#112;&#114;&#105;&#110;&#116;&#39;&#41;&#32;&#43;&#32;&#66;&#40;&#39;&#105;&#109;&#103;&#95;&#115;&#101;&#116;&#107;&#101;&#121;&#39;&#41;&#32;&#43;&#32;&#66;&#40;&#39;&#105;&#109;&#103;&#95;&#104;&#101;&#108;&#112;&#39;&#41;&#32;&#43;&#32;&#66;&#40;&#39;&#105;&#109;&#103;&#95;&#101;&#100;&#105;&#116;&#39;&#41;&#32;&#43;&#32;&#66;&#40;&#39;&#105;&#109;&#103;&#95;&#99;&#97;&#110;&#99;&#101;&#108;&#39;&#41;&#32;&#43;&#32;&#66;&#40;&#39;&#105;&#109;&#103;&#95;&#115;&#97;&#118;&#101;&#39;&#41;&#59;<br>&#60&#47;&#115;&#99;&#114;&#105;&#112;&#116;&#62<br>&#61;&#61;&#32;&#51;&#46;&#32;&#83;&#104;&#105;&#102;&#116;&#45;&#114;&#101;&#108;&#111;&#97;&#100;&#32;&#121;&#111;&#117;&#114;&#32;&#98;&#114;&#111;&#119;&#115;&#101;&#114;&#32;&#105;&#102;&#32;&#116;&#104;&#101;&#32;&#111;&#108;&#100;&#32;&#105;&#109;&#97;&#103;&#101;&#32;&#115;&#116;&#97;&#121;&#115;&#32;&#99;&#97;&#99;&#104;&#101;&#100;&#46;</pre>
 # Click the *Save* icon to save the page.
 
 == Use the interface you created to change your icons
@@ -3284,7 +3296,7 @@ Now you can go to that page any time you'd like to change your navigation bar ic
 # Use the interface to browse to the icon you'd like to use.
 # Click the image of the icon you'd like to replace.
 
-[[Tags::0.11.0|0.11.1]]
+[[Tags::0.11.0|0.11.1|0.11.2|0.11.5|0.11.6]]
 
 --DFQRCTsKlU
 woas.page.title: WoaS Mods::Add custom indents
@@ -3703,8 +3715,8 @@ Please note that this might break in future versions (it's a private function) a
 --DFQRCTsKlU
 woas.page.title: WoaS Mods::ToDo
 woas.page.attributes: 0
-woas.page.last_modified: 1271720495
-woas.page.length: 577
+woas.page.last_modified: 1271724172
+woas.page.length: 403
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -3717,11 +3729,7 @@ Test all of these mods on WoaS 0.11.2 through 0.11.6:
 # [[WoaS Mods::Add folds - method two]]
 # [[WoaS Mods::Add list of all pages not in a namespace]]
 # [[WoaS Mods::Add namespace templates]]
-# [[WoaS Mods::Add styled breadcrumbs]]
-# [[WoaS Mods::Add styled notes]]
 # [[WoaS Mods::Add tabs]]
-# [[WoaS Mods::Dynamically change navigation bar icons]]
-# [[WoaS Mods::Fix HTML list line height]]
 # [[WoaS Mods::Replace fixed menu area and navigation bar]]
 # [[WoaS Mods::Replace the logo in the banner]]
 
