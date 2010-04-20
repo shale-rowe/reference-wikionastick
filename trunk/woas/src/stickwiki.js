@@ -126,7 +126,8 @@ woas.xhtml_encode = function(src) {
 
 // DO NOT modify this list! these are namespaces that are reserved to WoaS
 var reserved_namespaces = ["Special", "Lock", "Locked", "Unlocked", "Unlock",
-						"Tags", "Tagged", "Untagged", "Include", "Javascript"];
+						"Tags", "Tagged", "Untagged", "Include", "Javascript",
+						"WoaS"];
 
 // create the regex for reserved namespaces
 var reserved_rx = "^";
