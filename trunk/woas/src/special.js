@@ -83,17 +83,17 @@ woas.special_backlinks = function() {
 
 // Returns a index of searched pages (by miz & legolas558)
 woas.special_search = function( str ) {
-	this.progress_init("Searching");
-	var pg_body = [];
-	var title_result = "";
-	log("Searching "+str);	//log:1
-
 	// amount of nearby characters to display
 	var nearby_chars = 200;
-	var count = 0;
+	this.progress_init("Searching");
+	var pg_body = [], title_result = "", count = 0;
+
+	log("Searching "+str);	//log:1
+	
 	// matches the search string and nearby text
 	var reg = new RegExp( ".{0,"+nearby_chars+"}" + RegExp.escape(this.trim(str)).
-					replace(/\s+/g, "(.|\n)*?") + ".{0,"+nearby_chars+"}", "gi" );
+					replace(/\s+/g, "(.|\n)*?") + ".{0,"+nearby_chars+"}", "gi" ),
+			added;
 	_hl_reg = new RegExp("("+RegExp.escape(str)+")", "gi");
 /*	hl_reg = new RegExp( ".*?" + RegExp.escape(str).
 					replace(/^\s+/, "").
@@ -103,7 +103,9 @@ woas.special_search = function( str ) {
 	var tmp;
 	result_pages = [];
 	for(var i=0,l=pages.length; i<l; i++) {
+
 		//TODO: implement searching in help pages
+
 		if (this.is_reserved(page_titles[i]))
 			continue;
 
@@ -113,8 +115,8 @@ woas.special_search = function( str ) {
 			continue;
 //		log("Searching into "+page_titles[i]);	// log:0
 	
-		var added = false;
-		//look for str in title
+		added = false;
+		// look for string in title
 		if(page_titles[i].match(reg)) {
 			title_result += "* [[" + page_titles[i] + "]]\n";
 			result_pages.push(page_titles[i]);
@@ -132,8 +134,10 @@ woas.special_search = function( str ) {
 		}
 	}
 	this.progress_finish();
+
 	if (!pg_body.length && !title_result.length)
 		return "/No results found for *"+str+"*/";
+
 	woas.parser.force_inline = true;
 	return "Results for *" + woas.xhtml_encode(str) + "*\n" + title_result + "\n\n----\n" + this._simple_join_list(pg_body, false);
 };
