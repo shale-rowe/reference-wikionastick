@@ -254,8 +254,6 @@ function save_options() {
 	}
 	woas.cfg_commit();
 	woas.set_current("Special::Advanced", true);
-	// fix the resulting glitch for debug mode
-	$.hide("loading_overlay");
 }
 
 function ro_woas() {
@@ -581,6 +579,8 @@ woas.progress_finish = function(section) {
 	if (!this.config.debug_mode) {
 		document.body.style.cursor = "auto";
 		this.setHTML($("woas_wait_text"), this.i18n.LOADING);
+		// hide the progress area
+		$.hide("loading_overlay");
 	}
 	this._progress_section = false;
 };

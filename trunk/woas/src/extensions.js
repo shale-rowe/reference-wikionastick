@@ -31,26 +31,6 @@ woas._clear_custom_scripts = function () {
 	this._custom_scripts = [];
 };
 
-woas.create_breadcrumb = function(title) {
-//	log("Creating breadcrumb for title \""+title+"\"");	//log:0
-	var tmp=title.split("::");
-	if (tmp.length==1)
-		return title;
-	var s="", partial="", js="";
-	for(var i=0;i<tmp.length-1;i++) {
-		// editing is active
-		if (kbd_hooking)
-			s+= tmp[i]+" :: ";
-		else {
-			partial += tmp[i]+"::";
-			js = "go_to('"+this.js_encode(partial)+"')";
-			s += "<a href=\"javascript:"+js+"\" onclick=\""+js+"; return false;\">"+tmp[i]+"</a> :: ";		
-		}
-	}
-	// add page title
-	return s+tmp[tmp.length-1];
-};
-
 // protect custom scripts, Bootscript and Plugins from running when we are saving WoaS
 woas._save_reload = false;
 woas._protect_js_code = function(code) {
