@@ -26,13 +26,13 @@ woas["config"] = {
 var current = 'Main Page';
 
 var backstack = [
-'Tagged::0.10.3',
-'Tagged::0.10.4',
-'Tagged::0.10.5',
-'Tagged::0.10.6',
-'Tagged::0.10.7',
-'Tagged::0.9.6B',
-'WoaS Mods::Add expanding text areas'
+'WoaS Mods::Add tooltips',
+'Special::All Pages',
+'WoaS Mods::Add topnotes',
+'Special::All Pages',
+'WoaS Mods::Add topnotes',
+'WoaS Mods::ToDo',
+'WoaS Mods::Add topnotes'
 ];
 
 var page_titles = [
@@ -151,7 +151,7 @@ var page_titles = [
 /* DFQRCTsKlU-0000201-DATA */
 var page_attrs = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
 
-var page_mts = [0x4bcb8a0a,0x4bbcec1f,0,0,0x4bcb8a80,0,0,0x4b9d11af,0,0,0,0,0,0,0,0,0,0,0,0,0,0x4b9d00e9,0x4b9d1252,0,0,0,0x4bab8e8a,0,0,0x4b9d097f,0,0,0,0x4b9d06da,0x4b9d0716,0x4b9d0415,0x4b9d08dd,0x4b9d089e,0,0,0,0,0,0,0,0,0,0,0x4b9d1123,0x4b9d1076,0,0x4baa4760,0x4b9d10a9,0,0,0,0,0,0x4bace5ea,0x4b9d0f93,0,0x4b9d0952,0,0x4b9e89a3,0x4b9d13ca,0x4b9d13e1,0x4baa3f9a,0x4baa409c,0x4baa4094,0x4baa4076,0x4baa406b,0x4baa4061,0x4baa403e,0x4baa4055,0x4baa4049,0x4baa4034,0x4bd08a52,0x4baa3f86,0x4baa3f7e,0x4baa3f67,0x4bd07720,0x4bcce998,0x4bce09fb,0x4bcb6cf8,0x4bcb46f5,0x4bcbae65,0x4bccfbb6,0x4bce0d0f,0x4bb0dd9f,0x4bcc6d06,0x4baa407f,0x4baa4089,0x4bcc5dc8,0x4bccf27f,0x4baa3fb7,0x4bd071b8,0x4bccfa7f,0x4bcb6af3,0x4baead3a,0x4bca6bc8,0x4bb8dd95,0x4bcb3c3a,0x4bb7ba99,0x4bcce086,0x4bcb9618,0x4bd06a1d,0x4bca5861,0x4bca619d,0x4bd08af2,0x4bcb8a6c];
+var page_mts = [0x4bcb8a0a,0x4bbcec1f,0,0,0x4bcb8a80,0,0,0x4b9d11af,0,0,0,0,0,0,0,0,0,0,0,0,0,0x4b9d00e9,0x4b9d1252,0,0,0,0x4bab8e8a,0,0,0x4b9d097f,0,0,0,0x4b9d06da,0x4b9d0716,0x4b9d0415,0x4b9d08dd,0x4b9d089e,0,0,0,0,0,0,0,0,0,0,0x4b9d1123,0x4b9d1076,0,0x4baa4760,0x4b9d10a9,0,0,0,0,0,0x4bace5ea,0x4b9d0f93,0,0x4b9d0952,0,0x4b9e89a3,0x4b9d13ca,0x4b9d13e1,0x4baa3f9a,0x4baa409c,0x4baa4094,0x4baa4076,0x4baa406b,0x4baa4061,0x4baa403e,0x4baa4055,0x4baa4049,0x4baa4034,0x4bd08a52,0x4baa3f86,0x4baa3f7e,0x4baa3f67,0x4bd07720,0x4bcce998,0x4bce09fb,0x4bd08f46,0x4bcb46f5,0x4bcbae65,0x4bccfbb6,0x4bce0d0f,0x4bb0dd9f,0x4bcc6d06,0x4baa407f,0x4baa4089,0x4bcc5dc8,0x4bccf27f,0x4baa3fb7,0x4bd071b8,0x4bccfa7f,0x4bcb6af3,0x4baead3a,0x4bca6bc8,0x4bb8dd95,0x4bcb3c3a,0x4bb7ba99,0x4bcce086,0x4bcb9618,0x4bd06a1d,0x4bca5861,0x4bca619d,0x4bd08f66,0x4bcb8a6c];
 
 var pages = [
 '[[Main Page]]\n\
@@ -2571,7 +2571,7 @@ This provides a template for adding a topnote (a note in the upper right corner 
 \n\
 == Use a topnote in a page\n\
 * Now you can insert a topnote by using this code anywhere in a page, replacing TEXT with the text you\'d like displayed in the topnote:\x3Cpre\x3E&#91;&#91;&#73;&#110;&#99;&#108;&#117;&#100;&#101;&#58;&#58;&#84;&#111;&#112;&#110;&#111;&#116;&#101;&#124;&#84;&#69;&#88;&#84;&#93;&#93;\x3C/pre\x3EAn example topnote is at the top right corner of this page.\x3Cdiv id="topnote" style="position:absolute; right:0.625em; top:0.188em;"\x3EThis is a topnote!\x3C/div\x3E\n\
-[[Tags::0.9.6B|0.10.0|0.10.1|0.10.2|0.10.3|0.10.4|0.10.5|0.10.6|0.10.7|0.10.8|0.10.9|0.11.0|0.11.1|0.11.2]]\n\
+[[Tags::0.9.6B|0.10.0|0.10.1|0.10.2|0.10.3|0.10.4|0.10.5|0.10.6|0.10.7|0.10.8|0.10.9|0.11.0|0.11.1|0.11.2|0.11.3|0.11.4|0.11.5|0.11.6]]\n\
 ',
 '= Add tooltips\n\
 This makes it so you can add \x3Cspan title="This is a tooltip!" class="tooltip" style="cursor:help; border-bottom:0.125em dotted mediumblue;"\x3Etooltips\x3C/span\x3E to words on your pages.\n\

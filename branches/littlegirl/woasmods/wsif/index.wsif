@@ -2859,8 +2859,8 @@ Use this code in your page, replacing LINK with the text for the link, CONTENTS 
 --DFQRCTsKlU
 woas.page.title: WoaS Mods::Add topnotes
 woas.page.attributes: 0
-woas.page.last_modified: 1271622904
-woas.page.length: 1320
+woas.page.last_modified: 1271959366
+woas.page.length: 1348
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -2872,7 +2872,7 @@ This provides a template for adding a topnote (a note in the upper right corner 
 
 == Use a topnote in a page
 * Now you can insert a topnote by using this code anywhere in a page, replacing TEXT with the text you'd like displayed in the topnote:<pre>&#91;&#91;&#73;&#110;&#99;&#108;&#117;&#100;&#101;&#58;&#58;&#84;&#111;&#112;&#110;&#111;&#116;&#101;&#124;&#84;&#69;&#88;&#84;&#93;&#93;</pre>An example topnote is at the top right corner of this page.<div id="topnote" style="position:absolute; right:0.625em; top:0.188em;">This is a topnote!</div>
-[[Tags::0.9.6B|0.10.0|0.10.1|0.10.2|0.10.3|0.10.4|0.10.5|0.10.6|0.10.7|0.10.8|0.10.9|0.11.0|0.11.1|0.11.2]]
+[[Tags::0.9.6B|0.10.0|0.10.1|0.10.2|0.10.3|0.10.4|0.10.5|0.10.6|0.10.7|0.10.8|0.10.9|0.11.0|0.11.1|0.11.2|0.11.3|0.11.4|0.11.5|0.11.6]]
 
 --DFQRCTsKlU
 woas.page.title: WoaS Mods::Add tooltips
@@ -3731,7 +3731,7 @@ Please note that this might break in future versions (it's a private function) a
 --DFQRCTsKlU
 woas.page.title: WoaS Mods::ToDo
 woas.page.attributes: 0
-woas.page.last_modified: 1271958258
+woas.page.last_modified: 1271959398
 woas.page.length: 272
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
