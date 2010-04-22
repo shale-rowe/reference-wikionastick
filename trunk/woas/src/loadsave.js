@@ -14,7 +14,7 @@ function _saveThisFile(new_data, old_data) {
 
 	var r = woas.save_file(filename, woas.file_mode.ASCII_TEXT,
 		woas.DOCTYPE + woas.DOC_START + "<sc"+"ript type=\"tex"+"t/javascript\">"
-		+ new_data + "\n" + old_data + "</html>");
+		+ new_data + "\n" + old_data + "</"+"html>");
 	if (r===true)
 		log("\""+filename+"\" saved successfully");	// log:1
 	else {
@@ -698,7 +698,7 @@ woas._extract_src_data = function(marker, source, full, current_page, start) {
 						bonus = "<"+"tit"+"le>"+this.xhtml_encode(current_page)+"<"+"/ti"+"tle"+">\n";
 					else bonus = "";
 					bonus += stStartTag;
-					//this._customized_popup("test", "<tt>"+this.xhtml_encode(source.substring(css_start, css_end))+"</tt>", "");
+					//this._customized_popup("test", "<"+"tt>"+this.xhtml_encode(source.substring(css_start, css_end))+"<"+"/tt>", "");
 					// we have found the style tag, replace it
 					source = source.substring(0, css_start) + 
 								bonus +
