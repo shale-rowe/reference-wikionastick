@@ -3333,15 +3333,13 @@ div.taglinks > a:hover {
 --DFQRCTsKlU
 woas.page.title: WoaS::CSS::Custom
 woas.page.attributes: 0
-woas.page.length: 58
+woas.page.length: 38
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 /* Your CSS customization goes here */
-
-what happens here?
 --DFQRCTsKlU
 woas.page.title: WoaS::CSS::Boot
 woas.page.attributes: 0
