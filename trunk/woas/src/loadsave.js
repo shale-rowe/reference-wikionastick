@@ -11,9 +11,9 @@ woas.file_mode = {
 // save the currently open WoaS
 function _saveThisFile(new_data, old_data) {
 	var filename = _get_this_filename();
-	
+
 	var r = woas.save_file(filename, woas.file_mode.ASCII_TEXT,
-		woas.DOCTYPE + woas.DOC_START + "<sc"+"ript type=\"text/javascript\">"
+		woas.DOCTYPE + woas.DOC_START + "<sc"+"ript type=\"tex"+"t/javascript\">"
 		+ new_data + "\n" + old_data + "</html>");
 	if (r===true)
 		log("\""+filename+"\" saved successfully");	// log:1
@@ -545,11 +545,17 @@ woas._save_to_file = function(full) {
 	document.body.style.cursor = "auto";
 
 	var data = this._extract_src_data(__marker, document.documentElement.innerHTML, full | ds_changed, safe_current);
-
+	
+	// data is ready, now the actual save process begins
+	var r=false;
 	this.setHTML($("woas_wait_text"), bak_wait_text);
 	document.body.style.cursor = bak_cursor;
 
-	var r=false;
+	//DEBUG check
+	if (data.length === 0) {
+		this.crash("Could not retrieve original DOM data!");
+	} else {
+	
 //	if (!this.config.server_mode || (was_local && this.config.server_mode)) {
 	if (!this._server_mode)
 		r = _saveThisFile(computed_js, data);
@@ -562,6 +568,7 @@ woas._save_to_file = function(full) {
 		if (full)
 			this.after_pages_saved();
 	}
+	} //DEBUG check
 
 	$("woas_editor").value = bak_ed;
 	$("wiki_text").innerHTML = bak_tx;
@@ -590,27 +597,30 @@ var reHeadTagEnd = new RegExp("<\\/"+"head>", "ig"),
 	reTitleE = new RegExp("<"+"/title"+">", "ig"),
 	reStyleE = new RegExp("<"+"/style"+">", "ig");
 woas._extract_src_data = function(marker, source, full, current_page, start) {
-	var offset, s_offset;
-	// always find the end marker to make the XHTML fixes
-	offset = source.indexOf("/* "+marker+ "-END */");
-	if (offset === -1) {
-		this.alert(this.i18n.ERR_MARKER.sprintf("END"));
-		return false;
-	}
-	offset += 6 + 4 + marker.length + 2;
-	// find also the start marker for safety checking
+	var e_offset, s_offset,
+		title_wasted = false;	// to tell if title was before start marker
+	// find the start marker for safety checking
 	s_offset = source.indexOf("/* "+marker+ "-START */");
 	if (s_offset === -1) {
 		this.alert(this.i18n.ERR_MARKER.sprintf("START"));
 		return false;
 	}			
+	// find the end marker, necessary to make some DOM/XHTML fixes
+	e_offset = source.indexOf("/* "+marker+ "-END */", s_offset);
+	if (e_offset === -1) {
+		this.alert(this.i18n.ERR_MARKER.sprintf("END"));
+		return false;
+	}
+	// properly update offset
+	e_offset += 3 + marker.length + 7;
 	
 	// search for head end tag starting at offset
-	reHeadTagEnd.lastIndex = offset;
+	reHeadTagEnd.lastIndex = e_offset;
 	
 	//RFC: what does below comment mean?
 	// IE ...
-	var body_ofs, s_offset, m = reHeadTagEnd.exec(source);
+	var body_ofs,
+		m = reHeadTagEnd.exec(source);
 	if (m !== null)
 		body_ofs = m.index;
 	else
@@ -621,14 +631,14 @@ woas._extract_src_data = function(marker, source, full, current_page, start) {
 		if (this.browser.ie)
 			reTitleS.lastIndex = 0;
 		else
-			reTitleS.lastIndex = offset;
+			reTitleS.lastIndex = e_offset;
 		// fix document title directly without modifying DOM
 		var title_end, title_start = reTitleS.exec(source);
 		if (title_start === null)
 			title_start = -1;
 		else title_start = title_start.index;
 		// check that we did not pick something from the data area
-		if ((title_start>=s_offset) && (title_start<=offset)) {
+		if ((title_start>=s_offset) && (title_start<=e_offset)) {
 			this.crash("Document title tag in data area");
 		} else {
 			if (title_start === -1)
@@ -642,13 +652,17 @@ woas._extract_src_data = function(marker, source, full, current_page, start) {
 				if (title_end === -1)
 					this.crash("Cannot find document title end tag");
 				else {
-					// replace with current page title
-					var new_title = this.xhtml_encode(current_page);
-					source = source.substring(0, title_start) + "<"+"title"+">"+
-							new_title
-							+ source.substring(title_end);
-					// update offset accordingly
-					body_ofs += new_title.length + 7 - (title_end - title_start);
+					// this happens usually on IE - so we skip title replacing here
+					title_wasted = (title_start < s_offset);
+					if (!title_wasted) {
+						// replace with current page title
+						var new_title = this.xhtml_encode(current_page);
+						source = source.substring(0, title_start) + "<"+"title"+">"+
+								new_title
+								+ source.substring(title_end);
+						// update offset accordingly
+						body_ofs += new_title.length + 7 - (title_end - title_start);
+					}
 				}
 			}
 		}
@@ -656,13 +670,13 @@ woas._extract_src_data = function(marker, source, full, current_page, start) {
 		if (this.browser.ie)
 			reStyleS.lastIndex = 0;
 		else
-			reStyleS.lastIndex = offset;
+			reStyleS.lastIndex = e_offset;
 		// replace CSS directly without modifying DOM
 		var css_end, css_start = reStyleS.exec(source);
 		if (css_start === null)
 			css_start = -1;
 		else css_start = css_start.index;
-		if ((css_start>=s_offset) && (css_start<=offset)) {
+		if ((css_start>=s_offset) && (css_start<=e_offset)) {
 			this.crash("Document style tag in data area");
 		} else {
 			if (css_start === -1)
@@ -677,15 +691,28 @@ woas._extract_src_data = function(marker, source, full, current_page, start) {
 					this.crash("Cannot find CSS style end tag");
 				else {
 					var boot_css = this.get_text("WoaS::CSS::Boot"),
-						stStartTag = "<"+"style type=\"text/css\""+">";
+						stStartTag = "<"+"style type=\"text/css\""+">",
+						bonus;
+					// now add the title if it was wasted
+					if (title_wasted)
+						bonus = "<"+"tit"+"le>"+this.xhtml_encode(current_page)+"<"+"/ti"+"tle"+">\n";
+					else bonus = "";
+					bonus += stStartTag;
 					//this._customized_popup("test", "<tt>"+this.xhtml_encode(source.substring(css_start, css_end))+"</tt>", "");
 					// we have found the style tag, replace it
-					source = source.substring(0, css_start) + stStartTag +
+					source = source.substring(0, css_start) + 
+								bonus +
 								boot_css
 								+ source.substring(css_end);
 					// update offset
-					body_ofs += boot_css.length + stStartTag.length - (css_end - css_start);
+					var delta = boot_css.length + bonus.length - (css_end - css_start);
 					delete boot_css;
+					body_ofs += delta;
+					// this should really never happen
+/*					if (css_start < s_offset) {
+						e_offset += delta;
+						s_offset += delta;
+					} */
 				}
 			}
 		}
@@ -694,25 +721,26 @@ woas._extract_src_data = function(marker, source, full, current_page, start) {
 		source = source.substring(0, body_ofs) + source.substring(body_ofs).
 				replace(/<(img|hr|br|input|meta)[^>]*>/gi, function(str, tag) {
 					l=str.length;
-					if (str.charAt(l-1)!='/')
+					if (str.charAt(l-1)!=='/')
 						str = str.substr(0, l-1)+" />";
 					return str;
 		});
 		// remove the tail (if any)
-		s_offset = source.indexOf("<"+"!-- "+marker+"-TAIL-START -->");
-		var s_te = "<"+"!-- "+marker+"-TAIL-END -->";
-		if (s_offset != -1) {
-			var e_offset = source.indexOf(s_te, s_offset);
-			if (e_offset == -1)
-				log("Cannot find tail end!");
+		var tail_end_mark = "<"+"!-- "+marker+"-TAIL-END -"+"->",
+			tail_st_mark = "<"+"!-- "+marker+"-TAIL-START --"+">",
+			tail_start = source.indexOf(tail_st_mark, e_offset);
+		if (tail_start !== -1) {
+			var tail_end = source.indexOf(tail_end_mark, tail_start);
+			if (tail_end === -1)
+				log("Cannot find tail end!"); //log:1
 			else {
-				// remove the tail
-				source =	source.substring(0, s_offset)+
-							source.substring(e_offset+s_te.length);
+				// remove the tail content (but not the tail itself)
+				source =	source.substring(0, tail_start + tail_st_mark.length)+
+							source.substring(tail_end+tail_end_mark.length);
+				alert(source);
 			}
 		}
 	}
-	
 	if (full) {
 		// offset was previously calculated
 		if (start) {
@@ -721,17 +749,17 @@ woas._extract_src_data = function(marker, source, full, current_page, start) {
 				this.alert(this.i18n.ERR_MARKER.sprintf("START"));
 				return false;
 			}
-			return source.substring(s_offset, offset);
+			return source.substring(s_offset, e_offset);
 		}
 	} else {
-		offset = source.indexOf("/* "+marker+ "-DATA */");
-		if (offset == -1) {
+		e_offset = source.indexOf("/* "+marker+ "-DATA */", s_offset);
+		if (e_offset === -1) {
 			this.alert(this.i18n.ERR_MARKER.sprintf("DATA"));
 			return false;
 		}
-		offset += 6 + 5 + marker.length + 1;
+		e_offset += 3 + marker.length + 8;
 	}
-	return source.substring(offset);
+	return source.substring(e_offset);
 }
 
 // increment the save-counter portion of the marker

@@ -86,7 +86,7 @@ woas.locks = {
 			return false;
 		// (2) check if datasource is actually locked
 		if (typeof this.datasources[filename] == "undefined") {
-			log("BUG: NO LOCK exists for "+filename);	//log:1
+//			log("BUG: NO LOCK exists for "+filename);	//log:0
 			return false;
 		}
 		// unactive the lock object (but keep it to check if file was modified)

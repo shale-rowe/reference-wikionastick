@@ -1,4 +1,9 @@
 Version 0.11.9
+* fixed tail removal
+* fix data corruption issue and title missing on IE
+* debug check for DOM data not correctly retrieved
+* use CRLF in nowiki preformatted blocks under IE
+* do not display "BUG" log lines for locking
 * fixed CSS not imported issue (reported by littlegirl, found by M.Ellison,akazia)
 * fixed corruption on save issue
 
