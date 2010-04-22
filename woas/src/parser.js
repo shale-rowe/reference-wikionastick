@@ -143,6 +143,7 @@ woas.parser.place_holder = function (i, separator) {
 	return "<!-- "+parse_marker+separator+i+" -->";
 };
 
+// create a preformatted block ready to be displayed
 woas._make_preformatted = function(text) {
 	var cls, tag, p = text.indexOf("\n");
 	if (p == -1) {
@@ -155,7 +156,11 @@ woas._make_preformatted = function(text) {
 		cls = "woas_nowiki_multiline";
 		tag = "div";
 	}
-	return "<"+tag+" class=\""+cls+"\">"+this.xhtml_encode(text)+"</"+tag+">";
+	var xhtml = this.xhtml_encode(text);
+	// convert the newlines
+	if (this.browser.ie)
+		xhtml = xhtml.replace(/\n/g, "\r\n");
+	return "<"+tag+" class=\""+cls+"\">"+xhtml+"</"+tag+">";
 }
 
 // THIS is the method that you should override for your custom parsing needs
