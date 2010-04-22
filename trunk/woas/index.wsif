@@ -41,7 +41,7 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 == Advanced features
 * [[Special::Options]]: general WoaS options
-* [[WoaS::CSS::Core]], [[WoaS::CSS::Custom]]: view the core CSS and edit the custom CSS
+* [[WoaS::CSS::Custom]], [[WoaS::CSS::Core]]: view the core CSS and edit the custom CSS
 * [[WoaS::Bootscript]]: view/edit the custom script run once when WoaS is being loaded
 * [[WoaS::Aliases]]: view/edit page title aliases
 * [[WoaS::Hotkeys]]: view/edit WoaS access keys and default key bindings
