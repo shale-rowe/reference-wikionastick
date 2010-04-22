@@ -644,7 +644,7 @@ woas._extract_src_data = function(marker, source, full, current_page, start) {
 				else {
 					// replace with current page title
 					var new_title = this.xhtml_encode(current_page);
-					source = source.substring(0, title_start) + "<title>"+
+					source = source.substring(0, title_start) + "<"+"title"+">"+
 							new_title
 							+ source.substring(title_end);
 					// update offset accordingly

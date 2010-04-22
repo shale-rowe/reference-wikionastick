@@ -1,5 +1,6 @@
 Version 0.11.9
-
+* fixed CSS not imported issue (reported by littlegirl, found by M.Ellison,akazia)
+* fixed corruption on save issue
 
 Version 0.11.8 (legolas558) released 2010-04-21
 * fixed loading overlay not hidden when changing debug mode
