@@ -74,14 +74,14 @@ woas.import_wiki = function() {
 		break;
 	}
 	
-	var import_css = $('cb_import_css').checked;
-	var import_content = $('cb_import_content').checked;
+	var import_css = $('cb_import_css').checked,
+		import_content = $('cb_import_content').checked,
 	//TODO: import icon support
-	var import_icons = $('cb_import_icons').checked;
+		import_icons = $('cb_import_icons').checked;
 	
 	// get WoaS version
-	var old_version;
-	var ver_str = ct.match(/<div .*?id=("version_"|version_).*?>([^<]+)<\/div>/i);
+	var old_version,
+		ver_str = ct.match(/<div .*?id=("version_"|version_).*?>([^<]+)<\/div>/i);
 	if (ver_str && ver_str.length>1) {
 		ver_str = ver_str[2];
 		log("Importing wiki with version string \""+ver_str+"\"");	// log:1
@@ -315,21 +315,19 @@ woas.import_wiki = function() {
 		}
 		if (fail) break;
 
-		if (import_css) {
-			// import the CSS head tag in versions before 0.11.2
-			if (old_version < 112) {
-				ct.replace(/<style\s.*?type="?text\/css"?[^>]*>((\n|.)*?)<\/style>/i, function (str, $1) {
-					imported_css = $1;
-				});
-				if (imported_css !== null) {
-					log("Imported "+imported_css.length+" bytes of CSS");	// log:1
-//					this.css.set(css);
-				}
-			} // 0.11.2+, we'll manage CSS import at the page level
-		}
+		// import the CSS head tag in versions before 0.11.2
+		if (import_css && (old_version < 112)) {
+			ct.replace(/<style\s.*?type="?text\/css"?[^>]*>((\n|.)*?)<\/style>/i, function (str, $1) {
+				imported_css = $1;
+			});
+			if (imported_css !== null) {
+				log("Imported "+imported_css.length+" bytes of CSS");	// log:1
+//				this.css.set(css);
+			}
+		} // 0.11.2+, we'll manage CSS import at the page level
 
-		var data = this._extract_src_data(old_marker, ct, true, new_main_page, true);
-		var collected = [];
+		var data = this._extract_src_data(old_marker, ct, true, new_main_page, true),
+			collected = [];
 		
 		// for versions before v0.9.2B
 		if (old_version < 92) {
@@ -453,16 +451,17 @@ woas.import_wiki = function() {
 		for (i=0, il=page_names.length; i<il; i++) {
 			// we are not using is_reserved() because will be inconsistant in case of enabled edit_override
 			// check pages in WoaS:: namespace
-			if (page_names[i].indexOf("WoaS::")===0) {
+			if (page_names[i].substr(0,6) === "WoaS::") {
 				// do not overwrite help pages with old ones
-				if (page_names[i].indexOf("WoaS::Help::")===0)
+				if (page_names[i].indexOf("WoaS::Help::") === 0)
 					continue;
 				// skip other core WoaS:: pages
-				if (this.static_pages2.indexOf(page_names[i]) !==-1)
+				if (this.static_pages2.indexOf(page_names[i]) !== -1)
 					continue;
-				// allowed pages after above filtering are Bootscript, Aliases, Hotkeys and CSS::Custom
+				// custom CSS is allowed only when importing CSS
 				if (!import_css && (page_names[i] === "WoaS::Custom::CSS"))
 					continue;
+				// allowed pages after above filtering are Bootscript, Aliases, Hotkeys
 			} else if (page_names[i].indexOf("Special::")===0) {
 				if ((old_version>=94) && (old_version<=96)) {
 					if (page_names[i]=="Special::Bootscript") {
@@ -476,6 +475,7 @@ woas.import_wiki = function() {
 				}
 				// here we are skipping special pages
 				++sys_pages;
+				continue;
 			} else { // not importing a special page
 				
 				// check that imported image is valid
@@ -502,58 +502,59 @@ woas.import_wiki = function() {
 						page_contents[i] = decode64(page_contents[i]);
 						// check again for validity
 						if (!reValidImage.test(page_contents[i])) {
-							log("Skipping invalid image "+page_names[i]);
+							log("Skipping invalid image "+page_names[i]); //log:1
 							continue;
 						}
-						log("Fixed double-encoded image "+page_names[i]);
+						log("Fixed double-encoded image "+page_names[i]); //log:1
 					}
 				}
-				pi = this.page_index(page_names[i]);
-				if (pi == -1) {
-					page_titles.push(page_names[i]);
-					pages.push(page_contents[i]);
-					page_attrs.push( old_page_attrs[i] );
-					if (old_version < 100)
-						page_mts.push( current_mts );
-					else
-						page_mts.push( old_page_mts[i] );
-				} else {
-					log("replacing "+page_names[i]);
-					if (old_version==94) {
-						// convert embedded files to base64 encoding
-						if (old_page_attrs[i] & 4) {
-							// plain copy images, which were already b64-encoded
-							if (old_page_attrs[i] & 8)
-								pages[pi] = page_contents[i];
-							else {
-								// page is encrypted, skip it
-								if (old_page_attrs[i] & 2)
-									continue;
-							}
-							pages[pi] = encode64(page_contents[i]);
-						}
-					} else {
-						page_titles[pi] = page_names[i];
-						// fix the trailing nul bytes bug in encrypted pages
-						if ((old_version>=102) && (old_version<=103)
-							&& (old_page_attrs[i] & 2)) {
-								var rest = page_contents[i].length % 16;
-								if (rest)
-									log("removing "+rest+" trailing bytes from page "+page_names[i]); //log:1
-								while (rest-- > 0) {page_contents[i].pop();}
-						}
-						// convert old base64 bootscript to plain text
-						if ((old_version<107) && (page_titles[pi] == "WoaS::Bootscript")) {
-							old_page_attrs[i] = 0;
-							pages[pi] = decode64(page_contents[i]);
-						} else
-							pages[pi] = page_contents[i];
-					}
-					page_attrs[pi] = old_page_attrs[i];
-				}
-				++pages_imported;
-				this.progress_status(pages_imported/page_names.length);
 			} // not importing a special page
+			log("Now importing "+page_names[i]); //log:1
+			pi = this.page_index(page_names[i]);
+			if (pi === -1) {
+				page_titles.push(page_names[i]);
+				pages.push(page_contents[i]);
+				page_attrs.push( old_page_attrs[i] );
+				if (old_version < 100)
+					page_mts.push( current_mts );
+				else
+					page_mts.push( old_page_mts[i] );
+			} else {
+				log("replacing "+page_names[i]);
+				if (old_version==94) {
+					// convert embedded files to base64 encoding
+					if (old_page_attrs[i] & 4) {
+						// plain copy images, which were already b64-encoded
+						if (old_page_attrs[i] & 8)
+							pages[pi] = page_contents[i];
+						else {
+							// page is encrypted, skip it
+							if (old_page_attrs[i] & 2)
+								continue;
+						}
+						pages[pi] = encode64(page_contents[i]);
+					}
+				} else {
+					page_titles[pi] = page_names[i];
+					// fix the trailing nul bytes bug in encrypted pages
+					if ((old_version>=102) && (old_version<=103)
+						&& (old_page_attrs[i] & 2)) {
+							var rest = page_contents[i].length % 16;
+							if (rest)
+								log("removing "+rest+" trailing bytes from page "+page_names[i]); //log:1
+							while (rest-- > 0) {page_contents[i].pop();}
+					}
+					// convert old base64 bootscript to plain text
+					if ((old_version<107) && (page_titles[pi] === "WoaS::Bootscript")) {
+						old_page_attrs[i] = 0;
+						pages[pi] = decode64(page_contents[i]);
+					} else
+						pages[pi] = page_contents[i];
+				}
+				page_attrs[pi] = old_page_attrs[i];
+			}
+			++pages_imported;
+			this.progress_status(pages_imported/page_names.length);
 		} // for cycle
 		// added in v0.9.7
 	} // do not import content pages
