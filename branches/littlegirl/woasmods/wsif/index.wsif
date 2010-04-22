@@ -2541,8 +2541,8 @@ This keeps the focus in the search box when doing searches.
 --DFQRCTsKlU
 woas.page.title: WoaS Mods::Fix HTML list line height
 woas.page.attributes: 0
-woas.page.last_modified: 1269448766
-woas.page.length: 1628
+woas.page.last_modified: 1271978409
+woas.page.length: 5821
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -2551,10 +2551,10 @@ woas.page.boundary: DFQRCTsKlU
 = Fix HTML list line height
 This makes the line height for HTML lists almost the same as for wiki style lists.
 # Open the wiki in a text editor.<br><br>
-# *Find* this function:<pre>function FullTagThis(tag)&#123;<br>	woas.&#095;editor.setSelectedText('&lt;'+tag+'&gt;','&lt;'+tag+' &#047;&gt;');<br>&#125;</pre>
-# *Add* these functions *below* it:<pre>function FullListTagThis(tag) &#123;<br>	woas.&#095;editor.setSelectedText('&lt;'+tag+' style="line-height:50%;"&gt;&#092;n','&lt;&#047;'+tag+'&gt;');<br>&#125;<br><br>function FullListItemTagThis(tag) &#123;<br>	woas.&#095;editor.setSelectedText('&lt;'+tag+' style="line-height:50%;"&gt;','&lt;&#047;'+tag+'&gt;');<br>&#125;</pre>
-# *Find* this section:<pre>&lt;input class="wiki_button" name="list" id="list" value="List" onclick="FullTagThis('ul')" type="submit" &#047;&gt;<br>&lt;input class="wiki_button" name="list_eq" id="list_eq" value="List=" onclick="FullTagThis('ol')" type="submit" &#047;&gt;<br>&lt;input class="wiki_button" name="li" id="li" value="li &#091;&#042;&#093;" onclick="FullTagThis('li')" type="submit" &#047;&gt;</pre>
-# *Replace* it with this section:<pre>&lt;input class="wiki&#095;button" name="list" id="list" value="List" onclick="FullListTagThis('ul')" type="submit" &#047;&gt;<br>&lt;input class="wiki&#095;button" name="list&#095;eq" id="list&#095;eq" value="List=" onclick="FullListTagThis('ol')" type="submit" &#047;&gt;<br>&lt;input class="wiki&#095;button" name="li" id="li" value="li &#091;&#042;&#093;" onclick="FullListItemTagThis('li')" type="submit" &#047;&gt;</pre>
+# *Find* this function:<pre>&#102;&#117;&#110;&#99;&#116;&#105;&#111;&#110;&#32;&#70;&#117;&#108;&#108;&#84;&#97;&#103;&#84;&#104;&#105;&#115;&#40;&#116;&#97;&#103;&#41;&#123;<br>	&#119;&#111;&#97;&#115;&#46;&#95;&#101;&#100;&#105;&#116;&#111;&#114;&#46;&#115;&#101;&#116;&#83;&#101;&#108;&#101;&#99;&#116;&#101;&#100;&#84;&#101;&#120;&#116;&#40;&#39;&#60&#39;&#43;&#116;&#97;&#103;&#43;&#39;&#62&#39;&#44;&#39;&#60&#39;&#43;&#116;&#97;&#103;&#43;&#39;&#32;&#47;&#62&#39;&#41;&#59;<br>&#125;</pre>
+# *Add* these functions *below* it:<pre>&#102;&#117;&#110;&#99;&#116;&#105;&#111;&#110;&#32;&#70;&#117;&#108;&#108;&#76;&#105;&#115;&#116;&#84;&#97;&#103;&#84;&#104;&#105;&#115;&#40;&#116;&#97;&#103;&#41;&#32;&#123;<br>	&#119;&#111;&#97;&#115;&#46;&#95;&#101;&#100;&#105;&#116;&#111;&#114;&#46;&#115;&#101;&#116;&#83;&#101;&#108;&#101;&#99;&#116;&#101;&#100;&#84;&#101;&#120;&#116;&#40;&#39;&#60&#39;&#43;&#116;&#97;&#103;&#43;&#39;&#32;&#115;&#116;&#121;&#108;&#101;&#61;&#34;&#108;&#105;&#110;&#101;&#45;&#104;&#101;&#105;&#103;&#104;&#116;&#58;&#53;&#48;&#37;&#59;&#34;&#62&#92;&#110;&#39;&#44;&#39;&#60&#47;&#39;&#43;&#116;&#97;&#103;&#43;&#39;&#62&#39;&#41;&#59;<br>&#125;<br><br>&#102;&#117;&#110;&#99;&#116;&#105;&#111;&#110;&#32;&#70;&#117;&#108;&#108;&#76;&#105;&#115;&#116;&#73;&#116;&#101;&#109;&#84;&#97;&#103;&#84;&#104;&#105;&#115;&#40;&#116;&#97;&#103;&#41;&#32;&#123;<br>	&#119;&#111;&#97;&#115;&#46;&#95;&#101;&#100;&#105;&#116;&#111;&#114;&#46;&#115;&#101;&#116;&#83;&#101;&#108;&#101;&#99;&#116;&#101;&#100;&#84;&#101;&#120;&#116;&#40;&#39;&#60&#39;&#43;&#116;&#97;&#103;&#43;&#39;&#32;&#115;&#116;&#121;&#108;&#101;&#61;&#34;&#108;&#105;&#110;&#101;&#45;&#104;&#101;&#105;&#103;&#104;&#116;&#58;&#53;&#48;&#37;&#59;&#34;&#62&#39;&#44;&#39;&#60&#47;&#39;&#43;&#116;&#97;&#103;&#43;&#39;&#62&#39;&#41;&#59;<br>&#125;</pre>
+# *Find* this section:<pre>&#60&#105;&#110;&#112;&#117;&#116;&#32;&#99;&#108;&#97;&#115;&#115;&#61;&#34;&#119;&#105;&#107;&#105;&#95;&#98;&#117;&#116;&#116;&#111;&#110;&#34;&#32;&#110;&#97;&#109;&#101;&#61;&#34;&#108;&#105;&#115;&#116;&#34;&#32;&#105;&#100;&#61;&#34;&#108;&#105;&#115;&#116;&#34;&#32;&#118;&#97;&#108;&#117;&#101;&#61;&#34;&#76;&#105;&#115;&#116;&#34;&#32;&#111;&#110;&#99;&#108;&#105;&#99;&#107;&#61;&#34;&#70;&#117;&#108;&#108;&#84;&#97;&#103;&#84;&#104;&#105;&#115;&#40;&#39;&#117;&#108;&#39;&#41;&#34;&#32;&#116;&#121;&#112;&#101;&#61;&#34;&#115;&#117;&#98;&#109;&#105;&#116;&#34;&#32;&#47;&#62<br>&#60&#105;&#110;&#112;&#117;&#116;&#32;&#99;&#108;&#97;&#115;&#115;&#61;&#34;&#119;&#105;&#107;&#105;&#95;&#98;&#117;&#116;&#116;&#111;&#110;&#34;&#32;&#110;&#97;&#109;&#101;&#61;&#34;&#108;&#105;&#115;&#116;&#95;&#101;&#113;&#34;&#32;&#105;&#100;&#61;&#34;&#108;&#105;&#115;&#116;&#95;&#101;&#113;&#34;&#32;&#118;&#97;&#108;&#117;&#101;&#61;&#34;&#76;&#105;&#115;&#116;&#61;&#34;&#32;&#111;&#110;&#99;&#108;&#105;&#99;&#107;&#61;&#34;&#70;&#117;&#108;&#108;&#84;&#97;&#103;&#84;&#104;&#105;&#115;&#40;&#39;&#111;&#108;&#39;&#41;&#34;&#32;&#116;&#121;&#112;&#101;&#61;&#34;&#115;&#117;&#98;&#109;&#105;&#116;&#34;&#32;&#47;&#62<br>&#60&#105;&#110;&#112;&#117;&#116;&#32;&#99;&#108;&#97;&#115;&#115;&#61;&#34;&#119;&#105;&#107;&#105;&#95;&#98;&#117;&#116;&#116;&#111;&#110;&#34;&#32;&#110;&#97;&#109;&#101;&#61;&#34;&#108;&#105;&#34;&#32;&#105;&#100;&#61;&#34;&#108;&#105;&#34;&#32;&#118;&#97;&#108;&#117;&#101;&#61;&#34;&#108;&#105;&#32;&#91;&#42;&#93;&#34;&#32;&#111;&#110;&#99;&#108;&#105;&#99;&#107;&#61;&#34;&#70;&#117;&#108;&#108;&#84;&#97;&#103;&#84;&#104;&#105;&#115;&#40;&#39;&#108;&#105;&#39;&#41;&#34;&#32;&#116;&#121;&#112;&#101;&#61;&#34;&#115;&#117;&#98;&#109;&#105;&#116;&#34;&#32;&#47;&#62</pre>
+# *Replace* it with this section:<pre>&#60&#105;&#110;&#112;&#117;&#116;&#32;&#99;&#108;&#97;&#115;&#115;&#61;&#34;&#119;&#105;&#107;&#105;&#95;&#98;&#117;&#116;&#116;&#111;&#110;&#34;&#32;&#110;&#97;&#109;&#101;&#61;&#34;&#108;&#105;&#115;&#116;&#34;&#32;&#105;&#100;&#61;&#34;&#108;&#105;&#115;&#116;&#34;&#32;&#118;&#97;&#108;&#117;&#101;&#61;&#34;&#76;&#105;&#115;&#116;&#34;&#32;&#111;&#110;&#99;&#108;&#105;&#99;&#107;&#61;&#34;&#70;&#117;&#108;&#108;&#76;&#105;&#115;&#116;&#84;&#97;&#103;&#84;&#104;&#105;&#115;&#40;&#39;&#117;&#108;&#39;&#41;&#34;&#32;&#116;&#121;&#112;&#101;&#61;&#34;&#115;&#117;&#98;&#109;&#105;&#116;&#34;&#32;&#47;&#62<br>&#60&#105;&#110;&#112;&#117;&#116;&#32;&#99;&#108;&#97;&#115;&#115;&#61;&#34;&#119;&#105;&#107;&#105;&#95;&#98;&#117;&#116;&#116;&#111;&#110;&#34;&#32;&#110;&#97;&#109;&#101;&#61;&#34;&#108;&#105;&#115;&#116;&#95;&#101;&#113;&#34;&#32;&#105;&#100;&#61;&#34;&#108;&#105;&#115;&#116;&#95;&#101;&#113;&#34;&#32;&#118;&#97;&#108;&#117;&#101;&#61;&#34;&#76;&#105;&#115;&#116;&#61;&#34;&#32;&#111;&#110;&#99;&#108;&#105;&#99;&#107;&#61;&#34;&#70;&#117;&#108;&#108;&#76;&#105;&#115;&#116;&#84;&#97;&#103;&#84;&#104;&#105;&#115;&#40;&#39;&#111;&#108;&#39;&#41;&#34;&#32;&#116;&#121;&#112;&#101;&#61;&#34;&#115;&#117;&#98;&#109;&#105;&#116;&#34;&#32;&#47;&#62<br>&#60&#105;&#110;&#112;&#117;&#116;&#32;&#99;&#108;&#97;&#115;&#115;&#61;&#34;&#119;&#105;&#107;&#105;&#95;&#98;&#117;&#116;&#116;&#111;&#110;&#34;&#32;&#110;&#97;&#109;&#101;&#61;&#34;&#108;&#105;&#34;&#32;&#105;&#100;&#61;&#34;&#108;&#105;&#34;&#32;&#118;&#97;&#108;&#117;&#101;&#61;&#34;&#108;&#105;&#32;&#91;&#42;&#93;&#34;&#32;&#111;&#110;&#99;&#108;&#105;&#99;&#107;&#61;&#34;&#70;&#117;&#108;&#108;&#76;&#105;&#115;&#116;&#73;&#116;&#101;&#109;&#84;&#97;&#103;&#84;&#104;&#105;&#115;&#40;&#39;&#108;&#105;&#39;&#41;&#34;&#32;&#116;&#121;&#112;&#101;&#61;&#34;&#115;&#117;&#98;&#109;&#105;&#116;&#34;&#32;&#47;&#62</pre>
 # Save the file.<br><br>
 # Exit the text editor.
 [[Tags::0.9.6B]]
@@ -2583,8 +2583,8 @@ This makes it so image embedding works properly when using wiki image links ({{{
 --DFQRCTsKlU
 woas.page.title: WoaS Mods::Fix HTML tags
 woas.page.attributes: 0
-woas.page.last_modified: 1269448777
-woas.page.length: 587
+woas.page.last_modified: 1271977893
+woas.page.length: 1266
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -2593,8 +2593,8 @@ woas.page.boundary: DFQRCTsKlU
 = Fix HTML tags
 This causes HTML tags created using the HTML code buttons in the editor to be formatted with HTML-style tags rather than XHTML-style tags.
 # Open the wiki in a text editor.<br><br>
-# *Find* this function:<pre>function FullTagThis(tag)&#123;<br>	woas._editor.setSelectedText('&lt;'+tag+'&gt;','&lt;'+tag+' &#047;&gt;');<br>&#125;</pre>
-# *Replace* it with this function:<pre>function FullTagThis(tag)&#123;<br>	woas.&#095;editor.setSelectedText('&lt;'+tag+'&gt;','&lt;&#047;'+tag+'&gt;');<br>&#125;</pre>
+# *Find* this function:<pre>&#102;&#117;&#110;&#99;&#116;&#105;&#111;&#110;&#32;&#70;&#117;&#108;&#108;&#84;&#97;&#103;&#84;&#104;&#105;&#115;&#40;&#116;&#97;&#103;&#41;&#123;<br>	&#119;&#111;&#97;&#115;&#46;&#95;&#101;&#100;&#105;&#116;&#111;&#114;&#46;&#115;&#101;&#116;&#83;&#101;&#108;&#101;&#99;&#116;&#101;&#100;&#84;&#101;&#120;&#116;&#40;&#39;&#60&#39;&#43;&#116;&#97;&#103;&#43;&#39;&#62&#39;&#44;&#39;&#60&#39;&#43;&#116;&#97;&#103;&#43;&#39;&#32;&#47;&#62&#39;&#41;&#59;<br>&#125;</pre>
+# *Replace* it with this function:<pre>&#102;&#117;&#110;&#99;&#116;&#105;&#111;&#110;&#32;&#70;&#117;&#108;&#108;&#84;&#97;&#103;&#84;&#104;&#105;&#115;&#40;&#116;&#97;&#103;&#41;&#123;<br>	&#119;&#111;&#97;&#115;&#46;&#95;&#101;&#100;&#105;&#116;&#111;&#114;&#46;&#115;&#101;&#116;&#83;&#101;&#108;&#101;&#99;&#116;&#101;&#100;&#84;&#101;&#120;&#116;&#40;&#39;&#60&#39;&#43;&#116;&#97;&#103;&#43;&#39;&#62&#39;&#44;&#39;&#60&#47;&#39;&#43;&#116;&#97;&#103;&#43;&#39;&#62&#39;&#41;&#59;<br>&#125;</pre>
 # Save the file.<br><br>
 # Close the text editor.
 [[Tags::0.9.6B]]
@@ -2602,8 +2602,8 @@ This causes HTML tags created using the HTML code buttons in the editor to be fo
 --DFQRCTsKlU
 woas.page.title: WoaS Mods::Fix HTML image links
 woas.page.attributes: 0
-woas.page.last_modified: 1269448756
-woas.page.length: 568
+woas.page.last_modified: 1271977995
+woas.page.length: 1029
 woas.page.encoding: ecma/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -2612,8 +2612,8 @@ woas.page.boundary: DFQRCTsKlU
 = Fix HTML image links
 This makes it so the *Image* button in the editor will create proper image links that don\u2019t include unnecessary slashes, and that are HTML-style rather than XHTML-style.
 # Open the wiki in a text editor.<br><br>
-# *Find* this function:<pre>function setHTMLImage() &#123;<br>	setImage('&lt;img src=&#092;'','&#092;' &#047;&gt;');<br>&#125;</pre>
-# *Replace* it with this function:<pre>function setHTMLImage() &#123;<br>	setImage('&lt;'+'img src="','"&gt;');<br>&#125;</pre>
+# *Find* this function:<pre>&#102;&#117;&#110;&#99;&#116;&#105;&#111;&#110;&#32;&#115;&#101;&#116;&#72;&#84;&#77;&#76;&#73;&#109;&#97;&#103;&#101;&#40;&#41;&#32;&#123;<br>	&#115;&#101;&#116;&#73;&#109;&#97;&#103;&#101;&#40;&#39;&#60&#105;&#109;&#103;&#32;&#115;&#114;&#99;&#61;&#92;&#39;&#39;&#44;&#39;&#92;&#39;&#32;&#47;&#62&#39;&#41;&#59;<br>&#125;</pre>
+# *Replace* it with this function:<pre>&#102;&#117;&#110;&#99;&#116;&#105;&#111;&#110;&#32;&#115;&#101;&#116;&#72;&#84;&#77;&#76;&#73;&#109;&#97;&#103;&#101;&#40;&#41;&#32;&#123;<br>	&#115;&#101;&#116;&#73;&#109;&#97;&#103;&#101;&#40;&#39;&#60&#39;&#43;&#39;&#105;&#109;&#103;&#32;&#115;&#114;&#99;&#61;&#34;&#39;&#44;&#39;&#34;&#62&#39;&#41;&#59;<br>&#125;</pre>
 # Save the file.<br><br>
 # Close the text editor.
 [[Tags::0.9.6B]]
@@ -3343,8 +3343,8 @@ This makes it possible to insert custom indents at the beginning of any line of 
 --DFQRCTsKlU
 woas.page.title: WoaS Mods::Full navigation bar
 woas.page.attributes: 0
-woas.page.last_modified: 1269738810
-woas.page.length: 1207
+woas.page.last_modified: 1271978731
+woas.page.length: 2377
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -3353,14 +3353,14 @@ woas.page.boundary: DFQRCTsKlU
 = Full navigation bar
 This makes the navigation bar go all the way across the top of the screen rather than having a gap between it and the right side of the screen.
 # Open the wiki in a text editor.<br><br>
-# *Find* this section:<pre>&lt;&#047;td&gt;&lt;&#047;tr&gt;&lt;&#047;tbody&gt;&lt;/table&gt;</pre>
-# *Replace* it with this section:<pre>&lt;&#047;td&gt;&lt;td style&#061;"width: .5em;"&gt;&amp;nbsp;&lt;&#047;td&gt;&lt;&#047;tr&gt;&lt;&#047;tbody&gt;&lt;&#047;table&gt;</pre>
+# *Find* this section:<pre>&#60&#47;&#116;&#100;&#62&#60&#47;&#116;&#114;&#62&#60&#47;&#116;&#98;&#111;&#100;&#121;&#62&#60&#47;&#116;&#97;&#98;&#108;&#101;&#62</pre>
+# *Replace* it with this section:<pre>&#60&#47;&#116;&#100;&#62&#60&#116;&#100;&#32;&#115;&#116;&#121;&#108;&#101;&#61;&#34;&#119;&#105;&#100;&#116;&#104;&#58;&#32;&#46;&#53;&#101;&#109;&#59;&#34;&#62&#38;&#110;&#98;&#115;&#112;&#59;&#60&#47;&#116;&#100;&#62&#60&#47;&#116;&#114;&#62&#60&#47;&#116;&#98;&#111;&#100;&#121;&#62&#60&#47;&#116;&#97;&#98;&#108;&#101;&#62</pre>
 # Save and close the file.<br><br>
 # Open the wiki in a browser.<br><br>
 # Click the *Advanced* icon in the navigation bar.<br><br>
 # Click the [[Special::Edit CSS]] link in the *Advanced features* section of the page.<br><br>
-# *Find* this entry:<pre>&#047;&#042; topbar &#042;&#047;<br>div.wiki_header &#123;<br>	top: 0em;<br>	left: 0em;<br>	border: 1pt solid #aaa;<br>	opacity:.75;<br>	z-index: 1;<br>	width: 99%;<br>&#125;</pre>
-# *Replace* it with this entry:<pre>&#047;&#042; topbar &#042;&#047;<br>div.wiki_header &#123;<br>	top: 0em;<br>	left: 0em;<br>	border: 1pt solid #aaa;<br>	opacity:.75;<br>	z-index: 1;<br>	width: 100%;<br>&#125;</pre>
+# *Find* this entry:<pre>&#47;&#42;&#32;&#116;&#111;&#112;&#98;&#97;&#114;&#32;&#42;&#47;<br>&#100;&#105;&#118;&#46;&#119;&#105;&#107;&#105;&#95;&#104;&#101;&#97;&#100;&#101;&#114;&#32;&#123;<br>	&#116;&#111;&#112;&#58;&#32;&#48;&#101;&#109;&#59;<br>	&#108;&#101;&#102;&#116;&#58;&#32;&#48;&#101;&#109;&#59;<br>	&#98;&#111;&#114;&#100;&#101;&#114;&#58;&#32;&#49;&#112;&#116;&#32;&#115;&#111;&#108;&#105;&#100;&#32;&#35;&#97;&#97;&#97;&#59;<br>	&#111;&#112;&#97;&#99;&#105;&#116;&#121;&#58;&#46;&#55;&#53;&#59;<br>	&#122;&#45;&#105;&#110;&#100;&#101;&#120;&#58;&#32;&#49;&#59;<br>	&#119;&#105;&#100;&#116;&#104;&#58;&#32;&#57;&#57;&#37;&#59;<br>&#125;</pre>
+# *Replace* it with this entry:<pre>&#47;&#42;&#32;&#116;&#111;&#112;&#98;&#97;&#114;&#32;&#42;&#47;<br>&#100;&#105;&#118;&#46;&#119;&#105;&#107;&#105;&#95;&#104;&#101;&#97;&#100;&#101;&#114;&#32;&#123;<br>	&#116;&#111;&#112;&#58;&#32;&#48;&#101;&#109;&#59;<br>	&#108;&#101;&#102;&#116;&#58;&#32;&#48;&#101;&#109;&#59;<br>	&#98;&#111;&#114;&#100;&#101;&#114;&#58;&#32;&#49;&#112;&#116;&#32;&#115;&#111;&#108;&#105;&#100;&#32;&#35;&#97;&#97;&#97;&#59;<br>	&#111;&#112;&#97;&#99;&#105;&#116;&#121;&#58;&#46;&#55;&#53;&#59;<br>	&#122;&#45;&#105;&#110;&#100;&#101;&#120;&#58;&#32;&#49;&#59;<br>	&#119;&#105;&#100;&#116;&#104;&#58;&#32;&#49;&#48;&#48;&#37;&#59;<br>&#125;</pre>
 # Click the *Save* icon in the navigation bar.<br><br>
 [[Tags::0.11.1]]
 
@@ -3731,8 +3731,8 @@ Please note that this might break in future versions (it's a private function) a
 --DFQRCTsKlU
 woas.page.title: WoaS Mods::ToDo
 woas.page.attributes: 0
-woas.page.last_modified: 1271977607
-woas.page.length: 1381
+woas.page.last_modified: 1271978896
+woas.page.length: 1228
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -3757,12 +3757,8 @@ woas.page.boundary: DFQRCTsKlU
 ** [[WoaS Mods::Add fixed topbar]]
 ** [[WoaS Mods::Add footnotes]]
 ** [[WoaS Mods::Add list of all pages not in a namespace]]
-** [[WoaS Mods::Fix HTML image links]]
-** [[WoaS Mods::Fix HTML list line height]]
-** [[WoaS Mods::Fix HTML tags]]
 ** [[WoaS Mods::Fix image embedding]]
 ** [[WoaS Mods::Fix search box focus]]
-** [[WoaS Mods::Full navigation bar]]
 ** [[WoaS Mods::Multiple tags in containers]]
 ** [[WoaS Mods::Prevent extra slashes in source]]
 ** [[WoaS Mods::Replace fixed menu area and navigation bar]]
