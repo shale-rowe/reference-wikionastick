@@ -1,3 +1,8 @@
+Version 0.12.0
+* reorganized Special::Advanced
+* removed import code for WoaS < 0.9.x
+* refresh CSS after XHTML import
+
 Version 0.11.9 (legolas558) released 2010-04-22
 * fixed tail removal
 * fix data corruption issue and title missing on IE

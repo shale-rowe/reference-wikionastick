@@ -82,81 +82,60 @@ woas.import_wiki = function() {
 	
 	// get WoaS version
 	var old_version,
-		ver_str = ct.match(/<div .*?id=("version_"|version_).*?>([^<]+)<\/div>/i);
-	if (ver_str && ver_str.length>1) {
-		ver_str = ver_str[2];
-		log("Importing wiki with version string \""+ver_str+"\"");	// log:1
-		switch(ver_str)	{
-			case "0.03":
-				old_version = 3;
-				break;
-			case "0.04": 
-			case "0.04G":
-				old_version = 4;
-				break;
-			default:
-				this.alert(this.i18n.IMPORT_INCOMPAT.sprintf(ver_str));
-				fail=true;
-		}
-		if (fail) break;
-	} else {
 		ver_str = ct.match(/var version = "([^"]*)";(\r\n|\n)/);
-		if (!ver_str)
-			ver_str = ct.match(/var woas = \{"version":\s+"([^"]+)"\s*\};(\r\n|\n)/);
-		if (ver_str && ver_str.length) {
-			ver_str = ver_str[1];
-			log("Version string: "+ver_str);	// log:1
-			switch (ver_str) {
-				case "0.9B":
-				case "0.9":
-					old_version = 9;
-				break;
-				case "0.9.2B":
-					old_version = 92;
-				break;
-				case "0.9.3B":
-					old_version = 93;
-				break;
-				case "0.9.4B":
-					old_version = 94;
-				break;
-				case "0.9.5B":
-				case "0.9.5C":
-//				case "0.9.5D": // development only
-					old_version = 95;
-				break;
-				case "0.9.6B":
-//				case "0.9.6C": // development only
-					old_version = 96;
-					break;
-				case "0.9.7B": // never released officially
-//				case "0.9.6C": // development only
-					old_version = 97;
-					break;
-				case "0.10.0": case "0.10.1":
-				case "0.10.2": case "0.10.3":
-				case "0.10.4": case "0.10.5":
-				case "0.10.6": case "0.10.7":
-				case "0.10.8": case "0.10.9":
-				case "0.11.0": case "0.11.1":
-				case "0.11.2": case "0.11.3":
-				case "0.11.4": case "0.11.5":
-				case "0.11.6": case "0.11.7":
-				case "0.11.8": case "0.11.9":
-					old_version = Number(ver_str.substr(2).replace(/\./g, ""));
-					break;
-				default:
-					this.alert(this.i18n.IMPORT_INCOMPAT.sprintf(ver_str));
-					fail=true;
-			}
-		if (fail) break;
-		} else { // below code is not very solid!
-//			log("Maybe version 0.02? Please report as a bug");	// log:2
-			old_version = 2;
-			if (ct.match("<div id=\"?"+escape("Special::Advanced")))
-				old_version = 3;
-		}
+	if (!ver_str)
+		ver_str = ct.match(/var woas = \{"version":\s+"([^"]+)"\s*\};(\r\n|\n)/);
+	if (!ver_str || !ver_str.length) {
+		fail = true;
+		break;
 	}
+	ver_str = ver_str[1];
+	log("Version string: "+ver_str);	// log:1
+	switch (ver_str) {
+		case "0.9B":
+		case "0.9":
+			old_version = 9;
+		break;
+		case "0.9.2B":
+			old_version = 92;
+		break;
+		case "0.9.3B":
+			old_version = 93;
+		break;
+		case "0.9.4B":
+			old_version = 94;
+		break;
+		case "0.9.5B":
+		case "0.9.5C":
+//		case "0.9.5D": // development only
+			old_version = 95;
+			break;
+		case "0.9.6B":
+//		case "0.9.6C": // development only
+			old_version = 96;
+			break;
+		case "0.9.7B": // never released officially
+//		case "0.9.6C": // development only
+			old_version = 97;
+			break;
+		case "0.10.0": case "0.10.1":
+		case "0.10.2": case "0.10.3":
+		case "0.10.4": case "0.10.5":
+		case "0.10.6": case "0.10.7":
+		case "0.10.8": case "0.10.9":
+		case "0.11.0": case "0.11.1":
+		case "0.11.2": case "0.11.3":
+		case "0.11.4": case "0.11.5":
+		case "0.11.6": case "0.11.7":
+		case "0.11.8": case "0.11.9":
+		case "0.12.0":
+		old_version = Number(ver_str.substr(2).replace(/\./g, ""));
+			break;
+		default:
+			this.alert(this.i18n.IMPORT_INCOMPAT.sprintf(ver_str));
+			fail=true;
+	}
+	if (fail) break;
 
 	// import the variables
 	var new_main_page = this.config.main_page,
@@ -177,38 +156,6 @@ woas.import_wiki = function() {
 				"main_page":this.config.main_page
 				};
 
-	// old versions parsing
-	if (old_version	< 9) {
-
-		var wiki;
-		try {
-			wiki = ct.match(/<div .*?id=(wiki|"wiki")[^_\\]*?>((.|\n|\t|\s)*)<\/div>/i)[0];
-		} catch(e) {
-			this.alert(this.i18n.IMPORT_UNRECON);
-			fail = true;
-		}
-		if (fail) break;
-		
-		// eliminate comments
-		wiki = wiki.replace(/\<\!\-\-.*?\-\-\>/g, "");
-		
-		// separate variables from wiki
-		var vars;
-		var p = wiki.search(/<div .*?id=("variables"|variables)[^>]*?>/i);
-		if (p!=-1) {
-			vars = wiki.substring(p);
-			wiki = wiki.substring(0, p);
-		} else
-			vars = "";
-		
-		if(old_version == 2) {
-			try {
-				vars = wiki.match(/\<div .*?id=("main_page"|main_page)>(.*?)\<\/div\>/i)[1];
-			} catch(e) {
-	//			log("No variables found");	// log:0
-			}
-		}
-		
 		/* NOTES ABOUT OLD VERSIONS
 		v0.11.2:
 			* introduced parsing mechanism which does not mess with var declarations inside JavaScript strings
@@ -231,10 +178,6 @@ woas.import_wiki = function() {
 			* server_mode disappears
 		v0.9.4B
 			* introduced Special::Bootscript
-		v0.04
-			* permit_edits variable appeared here
-		v0.02
-			* pages were not escaped
 		*/
 
 
@@ -256,108 +199,57 @@ woas.import_wiki = function() {
 					vc++;
 				});
 		
-	//	log("Variables are ("+var_names+")");	// log:0
+	// we are importing a v0.9.x Beta
+	// locate the random marker
+	var old_marker = ct.match(/\nvar __marker = "([A-Za-z\-\d]+)";(\r\n|\n)/);
+	if (!old_marker) {
+		this.alert(this.i18n.ERR_MARKER);
+		fail = true;
+	}
+	if (fail) break;
+	old_marker = old_marker[1];
 
-		// now extract the pages from old versions < 0.9
-		if (import_content) {
-			wiki.replace(/<div .*?id="?([^">]+)"?>((\n|.)*?)<\/div>/gi, function(str, $1, $2, $3) {
-	//				log("Parsing old page "+$1);	// log:0
-					if (old_version != 2) {
-						page_names[pc] = unescape($1);
-						page_contents[pc] = unescape($2);
-					} else {
-						page_names[pc] = $1;
-						page_contents[pc] = $2;
-					}
-					// throw away old special pages
-					if (page_names[pc].indexOf("Special::")===0) {
-						if (page_names[pc].search(/Special::Edit Menu/i)===0)
-							page_names[pc] = "::Menu";
-						else {
-							++sys_pages;
-							return;
-						}
-					}
-					
-					old_page_attrs[pc] = 0;
-
-					if (old_version < 9) {	// apply compatibility changes to stickwiki versions below v0.9
-						page_contents[pc] = _new_syntax_patch(page_contents[pc].replace(new RegExp("(\\[\\[|\\|)Special::Import wiki\\]\\]", "ig"), "$1Special::Import]]").replace(/\[\[([^\]\]]*?)(\|([^\]\]]+))?\]\]/g,
-						function (str, $1, $2, $3) {
-							if ($3)
-								return "[["+$3+"|"+$1+"]]";
-							else
-								return str;
-						}));
-					}
-					pc++;
-				}
-				);
-
-	//		log("page_names is ("+page_names+")");	// log:0
-		} // do not import content pages
-
-		for (i=0,il=var_names.length;i<il;++i) {
-			if (var_names[i] == "main_page_")
-				new_main_page = (old_version!=2) ? unescape(var_values[i]) : var_values[i];
-			else if (var_names[i] == "permit_edits")
-				old_block_edits = (var_values[i]=="0");
+	// import the CSS head tag in versions before 0.11.2
+	if (import_css && (old_version < 112)) {
+		ct.replace(/<style\s.*?type="?text\/css"?[^>]*>((\n|.)*?)<\/style>/i, function (str, $1) {
+			imported_css = $1;
+		});
+		if (imported_css !== null) {
+			log("Imported "+imported_css.length+" bytes of CSS");	// log:1
+			css_was_imported = true;
 		}
-		
-	} else {	// we are importing a v0.9.x Beta
+	} // 0.11.2+, we'll manage CSS import at the page level
 
-		// locate the random marker
-		var old_marker;
-		try {
-			old_marker = ct.match(/\nvar __marker = "([A-Za-z\-\d]+)";(\r\n|\n)/)[1];
-		} catch (e) {
-			this.alert(this.i18n.ERR_MARKER);
-			fail = true;
+	var data = this._extract_src_data(old_marker, ct, true, new_main_page, true),
+		collected = [];
+		
+	// for versions before v0.9.2B
+	if (old_version < 92) {
+		collected = get_import_vars(data);
+		data = ct = null;
+
+		var has_last_page_flag = (collected.length==14) ? 1 : 0;
+		if (!has_last_page_flag && (collected.length!=13)) {
+			this.alert(this.i18n.INVALID_DATA);
+			fail=true;
+			break;
 		}
-		if (fail) break;
-
-		// import the CSS head tag in versions before 0.11.2
-		if (import_css && (old_version < 112)) {
-			ct.replace(/<style\s.*?type="?text\/css"?[^>]*>((\n|.)*?)<\/style>/i, function (str, $1) {
-				imported_css = $1;
-			});
-			if (imported_css !== null) {
-				log("Imported "+imported_css.length+" bytes of CSS");	// log:1
-//				this.css.set(css);
-				css_was_imported = true;
-			}
-		} // 0.11.2+, we'll manage CSS import at the page level
-
-		var data = this._extract_src_data(old_marker, ct, true, new_main_page, true),
-			collected = [];
+			
+		// set collected config options
+		old_block_edits = !collected[2];
+		this.config.dblclick_edit = collected[3];
+		this.config.save_on_quit = collected[4];
+		if (has_last_page_flag)
+			this.config.nav_history = collected[5];
+		this.config.allow_diff = collected[5+has_last_page_flag];
+		this.config.key_cache = collected[6+has_last_page_flag];
+		// the gathered data
+		new_main_page = collected[8+has_last_page_flag];
+		page_names = collected[10+has_last_page_flag];
+		old_page_attrs = collected[11+has_last_page_flag];
+		page_contents = collected[12+has_last_page_flag];
 		
-		// for versions before v0.9.2B
-		if (old_version < 92) {
-			collected = get_import_vars(data);
-			data = ct = null;
-
-			var has_last_page_flag = (collected.length==14) ? 1 : 0;
-			if (!has_last_page_flag && (collected.length!=13)) {
-				this.alert(this.i18n.INVALID_DATA);
-				fail=true;
-				break;
-			}
-			
-			// set collected config options
-			old_block_edits = !collected[2];
-			this.config.dblclick_edit = collected[3];
-			this.config.save_on_quit = collected[4];
-			if (has_last_page_flag)
-				this.config.nav_history = collected[5];
-			this.config.allow_diff = collected[5+has_last_page_flag];
-			this.config.key_cache = collected[6+has_last_page_flag];
-			// the gathered data
-			new_main_page = collected[8+has_last_page_flag];
-			page_names = collected[10+has_last_page_flag];
-			old_page_attrs = collected[11+has_last_page_flag];
-			page_contents = collected[12+has_last_page_flag];
-			
-		} else {	// we are importing from v0.9.2 and above which has a config object for all the config flags
+	} else {	// we are importing from v0.9.2 and above which has a config object for all the config flags
 		
 			// old-style import for content, skipping the main woas object and the marker
 			// shared with v0.9.5B
@@ -514,7 +406,7 @@ woas.import_wiki = function() {
 					}
 				}
 			} // not importing a special page
-			log("Now importing "+page_names[i]); //log:1
+//			log("Now importing "+page_names[i]); //log:0
 			pi = this.page_index(page_names[i]);
 			if (pi === -1) {
 				page_titles.push(page_names[i]);

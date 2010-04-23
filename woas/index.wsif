@@ -39,14 +39,6 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-== Advanced features
-* [[Special::Options]]: general WoaS options
-* [[WoaS::CSS::Custom]], [[WoaS::CSS::Core]]: view the core CSS and edit the custom CSS
-* [[WoaS::Bootscript]]: view/edit the custom script run once when WoaS is being loaded
-* [[WoaS::Aliases]]: view/edit page title aliases
-* [[WoaS::Hotkeys]]: view/edit WoaS access keys and default key bindings
-* [[WoaS::Plugins]]: plugins management (not yet available)
-
 == Pages
 * [[Special::All Pages]]: a list of all user created pages in this wiki
 * [[Locked::]], [[Unlocked::]]: an index of all encrypted/plain pages
@@ -55,14 +47,22 @@ woas.page.boundary: DFQRCTsKlU
 * [[Special::Delete Page]]: delete specific page
 * [[Special::Recentchanges]]: view recently modified pages
 * [[Special::Search]]: search all wiki pages
-
-== Maintenance
 * [[Special::Dead Pages]]: a list of pages that have links to them, but were still not created 
 * [[Special::Orphaned Pages]]: a list of pages that once were linked to, but now no page links to them anymore
-* [[Special::Export]]: export wiki into multiple linked static XHTML files
-* [[Special::ExportWSIF]]: export wiki into multiple or single [[WoaS::Help::WSIF|WSIF]] files
+
+== Advanced features
+* [[Special::Options]]: general WoaS options
+* [[WoaS::CSS::Custom]], [[WoaS::CSS::Core]]: view the core CSS and edit the custom CSS
+* [[WoaS::Bootscript]]: view/edit the custom script run once when WoaS is being loaded
+* [[WoaS::Aliases]]: view/edit page title aliases
+* [[WoaS::Hotkeys]]: view/edit WoaS access keys and default key bindings
+* [[WoaS::Plugins]]: plugins management (not yet available)
+
+== Maintenance
 * [[Special::Import]]: import wiki or theme from an early (or current) version
 * [[Special::ImportWSIF]]: import a wiki page (or collection of) in [[WoaS::Help::WSIF|WSIF]] format
+* [[Special::Export]]: export wiki into multiple linked static XHTML files
+* [[Special::ExportWSIF]]: export wiki into multiple or single [[WoaS::Help::WSIF|WSIF]] files
 * [[Special::Erase Wiki]]: delete ALL wiki pages and reset with default data
 --DFQRCTsKlU
 woas.page.title: Special::Import
