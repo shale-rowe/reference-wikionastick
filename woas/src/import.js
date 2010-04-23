@@ -77,7 +77,8 @@ woas.import_wiki = function() {
 	var import_css = $('cb_import_css').checked,
 		import_content = $('cb_import_content').checked,
 	//TODO: import icon support
-		import_icons = $('cb_import_icons').checked;
+		import_icons = $('cb_import_icons').checked,
+		css_was_imported = false;
 	
 	// get WoaS version
 	var old_version,
@@ -323,6 +324,7 @@ woas.import_wiki = function() {
 			if (imported_css !== null) {
 				log("Imported "+imported_css.length+" bytes of CSS");	// log:1
 //				this.css.set(css);
+				css_was_imported = true;
 			}
 		} // 0.11.2+, we'll manage CSS import at the page level
 
@@ -458,9 +460,12 @@ woas.import_wiki = function() {
 				// skip other core WoaS:: pages
 				if (this.static_pages2.indexOf(page_names[i]) !== -1)
 					continue;
+				var is_css_page = (page_names[i] === "WoaS::Custom::CSS");
 				// custom CSS is allowed only when importing CSS
-				if (!import_css && (page_names[i] === "WoaS::Custom::CSS"))
+				if (!import_css && is_css_page)
 					continue;
+				else if (import_css && is_css_page)
+					css_was_imported = true;
 				// allowed pages after above filtering are Bootscript, Aliases, Hotkeys
 			} else if (page_names[i].indexOf("Special::")===0) {
 				if ((old_version>=94) && (old_version<=96)) {
@@ -585,6 +590,10 @@ woas.import_wiki = function() {
 			current = this.config.main_page;
 		}
 	}
+	
+	// apply the new CSS
+	if (css_was_imported)
+		this.css.set(this.get_text("WoaS::CSS::Core")+"\n"+this.get_text("WoaS::CSS::Custom"));
 	
 	// remove hourglass
 	this.progress_finish();
