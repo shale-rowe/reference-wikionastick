@@ -67,7 +67,7 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Special::Import
 woas.page.attributes: 0
-woas.page.length: 765
+woas.page.length: 667
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -79,7 +79,6 @@ File: <input id="filename_" type="file" />&nbsp;<input id="btn_import" type="but
 
 <label for="cb_import_content"><input type="checkbox" id="cb_import_content" checked="checked">&nbsp;Import the wiki pages.</label>
 <label for="cb_import_css"><input type="checkbox" id="cb_import_css">&nbsp;Import also CSS.</label>
-Available only for versions v0.9 and above. /Caution: importing older CSS can garble the layout./
 <label for="cb_import_icons"><input type="checkbox" id="cb_import_icons" disabled="disabled">&nbsp;Import the icons theme (not yet available).</label>
 <script type="text/javascript">
 if (!woas.config.permit_edits) $("btn_import").disabled = true;

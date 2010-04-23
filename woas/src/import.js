@@ -180,25 +180,6 @@ woas.import_wiki = function() {
 			* introduced Special::Bootscript
 		*/
 
-
-		// get an array of variables and wikis
-		var var_names = [];
-		var var_values = [];
-		var vc = 0;
-
-		// eliminate headers
-		wiki = wiki.substring(wiki.indexOf(">")+1);
-		vars = vars.substring(vars.indexOf(">")+1);
-		
-		vars.replace(/<div id="?(version_|main_page_|permit_edits_|[\w_]+)"?>((\n|.)*?)<\/div>/gi, function(str, $1, $2) {
-					if(old_version == 2)
-						var_names[vc] = "main_page_";
-					else
-						var_names[vc] = $1;
-					var_values[vc] = $2;
-					vc++;
-				});
-		
 	// we are importing a v0.9.x Beta
 	// locate the random marker
 	var old_marker = ct.match(/\nvar __marker = "([A-Za-z\-\d]+)";(\r\n|\n)/);
@@ -330,11 +311,10 @@ woas.import_wiki = function() {
 				} ct = null;
 
 				i__woas = null;
-			} else data=null;
-			// DO NOT delete the arrays! They're referenced
+		} else data=null;
+		// DO NOT delete the arrays! They're referenced
 	//		collected = null;
-		} // done importing from v0.9.2B+
-	}
+	} // done importing from v0.9.2B+
 
 	// modified timestamp for pages before 0.10.0
 	var current_mts = Math.round(new Date().getTime()/1000);
