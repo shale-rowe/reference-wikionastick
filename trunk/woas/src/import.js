@@ -76,8 +76,6 @@ woas.import_wiki = function() {
 	
 	var import_css = $('cb_import_css').checked,
 		import_content = $('cb_import_content').checked,
-	//TODO: import icon support
-		import_icons = $('cb_import_icons').checked,
 		css_was_imported = false;
 	
 	// get WoaS version
@@ -306,10 +304,8 @@ woas.import_wiki = function() {
 					woas.config.wsif_ds_multi = old_cfg.wsif_ds_multi;
 				}
 				
-				if (import_icons) {
-					//TODO: import the icons
-				} ct = null;
-
+				// some GC help
+				ct = null;
 				i__woas = null;
 		} else data=null;
 		// DO NOT delete the arrays! They're referenced

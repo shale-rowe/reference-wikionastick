@@ -1,6 +1,6 @@
 wsif.version: 1.3.0
 wsif.generator: woas
-woas.version: 0.11.9
+woas.version: 0.12.0
 woas.author: Anonymous
 woas.pages: 74
 
@@ -33,7 +33,7 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Special::Advanced
 woas.page.attributes: 0
-woas.page.length: 1490
+woas.page.length: 1481
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -59,7 +59,7 @@ woas.page.boundary: DFQRCTsKlU
 * [[WoaS::Plugins]]: plugins management (not yet available)
 
 == Maintenance
-* [[Special::Import]]: import wiki or theme from an early (or current) version
+* [[Special::Import]]: import wiki from an early (or current) version
 * [[Special::ImportWSIF]]: import a wiki page (or collection of) in [[WoaS::Help::WSIF|WSIF]] format
 * [[Special::Export]]: export wiki into multiple linked static XHTML files
 * [[Special::ExportWSIF]]: export wiki into multiple or single [[WoaS::Help::WSIF|WSIF]] files
@@ -67,7 +67,7 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Special::Import
 woas.page.attributes: 0
-woas.page.length: 667
+woas.page.length: 516
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -79,7 +79,6 @@ File: <input id="filename_" type="file" />&nbsp;<input id="btn_import" type="but
 
 <label for="cb_import_content"><input type="checkbox" id="cb_import_content" checked="checked">&nbsp;Import the wiki pages.</label>
 <label for="cb_import_css"><input type="checkbox" id="cb_import_css">&nbsp;Import also CSS.</label>
-<label for="cb_import_icons"><input type="checkbox" id="cb_import_icons" disabled="disabled">&nbsp;Import the icons theme (not yet available).</label>
 <script type="text/javascript">
 if (!woas.config.permit_edits) $("btn_import").disabled = true;
 </script>
@@ -138,13 +137,14 @@ This project wouldn't be what it is without the help of other people. If you con
 --DFQRCTsKlU
 woas.page.title: Main Page
 woas.page.attributes: 0
-woas.page.length: 37
+woas.page.length: 38
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 A blank sheet is a catalyst for ideas
+
 --DFQRCTsKlU
 woas.page.title: Special::Search
 woas.page.attributes: 0
