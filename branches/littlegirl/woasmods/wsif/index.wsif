@@ -3383,8 +3383,8 @@ This makes the navigation bar go all the way across the top of the screen rather
 --DFQRCTsKlU
 woas.page.title: WoaS Mods::Add a scrollbar to the menu
 woas.page.attributes: 0
-woas.page.last_modified: 1271977052
-woas.page.length: 3662
+woas.page.last_modified: 1272083385
+woas.page.length: 6698
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -3392,20 +3392,30 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 = Add a scrollbar to the menu
 This adds a scrollbar to the right side of the menu and keeps it at a fixed height.
-# Open the wiki in a browser.<br><br>
-# Click the *Advanced* icon in the navigation bar.<br><br>
-# Choose [[Special::Edit CSS]] from the *Advanced features* section.<br><br>
-# *Find* this entry in the page:<pre>&#47;&#42;&#32;&#76;&#101;&#102;&#116;&#32;&#109;&#101;&#110;&#117;&#32;&#42;&#47;<br>&#100;&#105;&#118;&#46;&#109;&#101;&#110;&#117;&#95;&#97;&#114;&#101;&#97;&#32;&#123;<br>&#32;&#32;&#32;&#32;&#98;&#111;&#114;&#100;&#101;&#114;&#58;&#32;&#49;&#112;&#116;&#32;&#115;&#111;&#108;&#105;&#100;&#32;&#103;&#114;&#101;&#121;&#59;<br>&#32;&#32;&#32;&#32;&#102;&#111;&#110;&#116;&#45;&#115;&#105;&#122;&#101;&#58;&#32;&#48;&#46;&#55;&#53;&#101;&#109;&#59;<br>&#32;&#32;&#32;&#32;&#98;&#97;&#99;&#107;&#103;&#114;&#111;&#117;&#110;&#100;&#45;&#99;&#111;&#108;&#111;&#114;&#58;&#32;&#119;&#104;&#105;&#116;&#101;&#59;<br>&#32;&#32;&#32;&#32;&#112;&#97;&#100;&#100;&#105;&#110;&#103;&#58;&#32;&#48;&#46;&#52;&#57;&#57;&#101;&#109;&#59;<br>&#32;&#32;&#32;&#32;&#119;&#105;&#100;&#116;&#104;&#58;&#32;&#49;&#51;&#46;&#50;&#37;&#59;<br>&#32;&#32;&#32;&#32;&#108;&#101;&#102;&#116;&#58;&#32;&#49;&#37;&#59;<br>&#125;</pre>
-# *Replace* it with this entry:<pre>&#47;&#42;&#32;&#76;&#101;&#102;&#116;&#32;&#109;&#101;&#110;&#117;&#32;&#42;&#47;<br>&#100;&#105;&#118;&#46;&#109;&#101;&#110;&#117;&#95;&#97;&#114;&#101;&#97;&#32;&#123;<br>&#32;&#32;&#32;&#32;&#98;&#111;&#114;&#100;&#101;&#114;&#58;&#32;&#49;&#112;&#116;&#32;&#115;&#111;&#108;&#105;&#100;&#32;&#103;&#114;&#101;&#121;&#59;<br>&#32;&#32;&#32;&#32;&#102;&#111;&#110;&#116;&#45;&#115;&#105;&#122;&#101;&#58;&#32;&#48;&#46;&#55;&#53;&#101;&#109;&#59;<br>&#32;&#32;&#32;&#32;&#98;&#97;&#99;&#107;&#103;&#114;&#111;&#117;&#110;&#100;&#45;&#99;&#111;&#108;&#111;&#114;&#58;&#32;&#119;&#104;&#105;&#116;&#101;&#59;<br>&#32;&#32;&#32;&#32;&#112;&#97;&#100;&#100;&#105;&#110;&#103;&#58;&#32;&#48;&#46;&#52;&#57;&#57;&#101;&#109;&#59;<br>&#32;&#32;&#32;&#32;&#119;&#105;&#100;&#116;&#104;&#58;&#32;&#49;&#51;&#46;&#50;&#37;&#59;<br>&#32;&#32;&#32;&#32;&#104;&#101;&#105;&#103;&#104;&#116;&#58;&#32;&#56;&#48;&#37;&#59;<br>&#32;&#32;&#32;&#32;&#111;&#118;&#101;&#114;&#102;&#108;&#111;&#119;&#58;&#32;&#97;&#117;&#116;&#111;&#59;<br>&#32;&#32;&#32;&#32;&#108;&#101;&#102;&#116;&#58;&#32;&#49;&#37;&#59;<br>&#125;</pre>
-# Click the *Save* icon in the navigation bar to save the change.<br><br><div style="background-color:#FFFFAA; border: 0.1em solid black; padding:0.3em;">If the menu is too tall or short, go back into the CSS settings and change *80%* to the height you'd like the menu to be.</div>
-== Alternate instructions for WoaS 0.11.2 through WoaS 0.11.6
-# Open the wiki in a browser.<br><br>
-# Click the *Advanced* icon in the navigation bar.<br><br>
-# Click the *WoaS::CSS::Custom* link in the *Advanced features* section of the page.<br><br>
-# Paste this rule into the page:<pre>&#47;&#42;&#32;&#76;&#101;&#102;&#116;&#32;&#109;&#101;&#110;&#117;&#32;&#42;&#47;<br>&#100;&#105;&#118;&#46;&#109;&#101;&#110;&#117;&#95;&#97;&#114;&#101;&#97;&#32;&#123;<br>&#32;&#32;&#32;&#32;&#104;&#101;&#105;&#103;&#104;&#116;&#58;&#32;&#56;&#48;&#37;&#59;<br>&#32;&#32;&#32;&#32;&#111;&#118;&#101;&#114;&#102;&#108;&#111;&#119;&#58;&#32;&#97;&#117;&#116;&#111;&#59;<br>&#125;</pre>
-# Click the *Save* icon in the navigation bar.<br><br><div style="background-color:#FFFFAA; border: 0.1em solid black; padding:0.3em;">If the menu is too tall or short, edit the page again and change *80%* to the height you'd like the menu to be.</div>
-
-[[Tags::0.10.9|0.11.0|0.11.1|0.11.2|0.11.3|0.11.4|0.11.5|0.11.6]]
+<ul><li>In WoaS 0.9.6B, 0.10.0, 0.10.1, 0.10.2, 0.10.3, 0.10.4, 0.10.5, 0.10.6, 0.10.7, and 0.10.8:</li><br>\
+<ol><li>Open the wiki in a browser.</li><br>\
+<li>Click the *Advanced* icon in the navigation bar.</li><br>\
+<li>Click the *Special::Edit CSS* link in the *Advanced features* section of the page.</li><br>\
+<ol><li>*Find* this entry in the page:<pre>&#47;&#42;&#32;&#76;&#101;&#102;&#116;&#32;&#109;&#101;&#110;&#117;&#32;&#42;&#47;<br>&#100;&#105;&#118;&#46;&#109;&#101;&#110;&#117;&#95;&#97;&#114;&#101;&#97;&#32;&#123;<br>	&#98;&#111;&#114;&#100;&#101;&#114;&#45;&#119;&#105;&#100;&#116;&#104;&#58;&#32;&#49;&#112;&#116;&#59;<br>	&#98;&#111;&#114;&#100;&#101;&#114;&#45;&#99;&#111;&#108;&#111;&#114;&#58;&#32;&#103;&#114;&#101;&#121;&#59;<br>	&#98;&#111;&#114;&#100;&#101;&#114;&#45;&#115;&#116;&#121;&#108;&#101;&#58;&#32;&#115;&#111;&#108;&#105;&#100;&#59;<br>	&#102;&#111;&#110;&#116;&#45;&#115;&#105;&#122;&#101;&#58;&#32;&#57;&#112;&#116;&#59;<br>	&#98;&#97;&#99;&#107;&#103;&#114;&#111;&#117;&#110;&#100;&#45;&#99;&#111;&#108;&#111;&#114;&#58;&#32;&#119;&#104;&#105;&#116;&#101;&#59;<br>	&#112;&#97;&#100;&#100;&#105;&#110;&#103;&#58;&#32;&#53;&#112;&#116;&#59;<br>	&#119;&#105;&#100;&#116;&#104;&#58;&#32;&#49;&#51;&#37;&#59;<br>	&#108;&#101;&#102;&#116;&#58;&#32;&#49;&#37;&#59;<br>&#125;<br></pre></li><br>\
+<li>*Replace* it with this entry:<pre>&#47;&#42;&#32;&#76;&#101;&#102;&#116;&#32;&#109;&#101;&#110;&#117;&#32;&#42;&#47;<br>&#100;&#105;&#118;&#46;&#109;&#101;&#110;&#117;&#95;&#97;&#114;&#101;&#97;&#32;&#123;<br>	&#98;&#111;&#114;&#100;&#101;&#114;&#45;&#119;&#105;&#100;&#116;&#104;&#58;&#32;&#49;&#112;&#116;&#59;<br>	&#98;&#111;&#114;&#100;&#101;&#114;&#45;&#99;&#111;&#108;&#111;&#114;&#58;&#32;&#103;&#114;&#101;&#121;&#59;<br>	&#98;&#111;&#114;&#100;&#101;&#114;&#45;&#115;&#116;&#121;&#108;&#101;&#58;&#32;&#115;&#111;&#108;&#105;&#100;&#59;<br>	&#102;&#111;&#110;&#116;&#45;&#115;&#105;&#122;&#101;&#58;&#32;&#57;&#112;&#116;&#59;<br>	&#98;&#97;&#99;&#107;&#103;&#114;&#111;&#117;&#110;&#100;&#45;&#99;&#111;&#108;&#111;&#114;&#58;&#32;&#119;&#104;&#105;&#116;&#101;&#59;<br>	&#112;&#97;&#100;&#100;&#105;&#110;&#103;&#58;&#32;&#53;&#112;&#116;&#59;<br>	&#119;&#105;&#100;&#116;&#104;&#58;&#32;&#49;&#51;&#37;&#59;<br>	&#108;&#101;&#102;&#116;&#58;&#32;&#49;&#37;&#59;<br>	&#104;&#101;&#105;&#103;&#104;&#116;&#58;&#32;&#56;&#48;&#37;&#59;<br>	&#111;&#118;&#101;&#114;&#102;&#108;&#111;&#119;&#58;&#32;&#97;&#117;&#116;&#111;&#59;<br>&#125;</pre></li>\
+<li>Click the *Save* icon in the navigation bar to save the change.<br><br><div style="background-color:#FFFFAA; border: 0.1em solid black; padding:0.3em;">If the menu is too tall or short, go back into the CSS settings and change *80%* to the height you'd like the menu to be.</div></li>\
+</ol></ul>\
+<ul><li>In WoaS 0.10.9, 0.11.0, and 0.11.1:</li><br>\
+<ol><li>Open the wiki in a browser.</li><br>\
+<li>Click the *Advanced* icon in the navigation bar.</li><br>\
+<li>Click the *Special::Edit CSS* link in the *Advanced features* section of the page.</li><br>\
+<li>*Find* this entry in the page:<pre>&#47;&#42;&#32;&#76;&#101;&#102;&#116;&#32;&#109;&#101;&#110;&#117;&#32;&#42;&#47;<br>&#100;&#105;&#118;&#46;&#109;&#101;&#110;&#117;&#95;&#97;&#114;&#101;&#97;&#32;&#123;<br>&#32;&#32;&#32;&#32;&#98;&#111;&#114;&#100;&#101;&#114;&#58;&#32;&#49;&#112;&#116;&#32;&#115;&#111;&#108;&#105;&#100;&#32;&#103;&#114;&#101;&#121;&#59;<br>&#32;&#32;&#32;&#32;&#102;&#111;&#110;&#116;&#45;&#115;&#105;&#122;&#101;&#58;&#32;&#48;&#46;&#55;&#53;&#101;&#109;&#59;<br>&#32;&#32;&#32;&#32;&#98;&#97;&#99;&#107;&#103;&#114;&#111;&#117;&#110;&#100;&#45;&#99;&#111;&#108;&#111;&#114;&#58;&#32;&#119;&#104;&#105;&#116;&#101;&#59;<br>&#32;&#32;&#32;&#32;&#112;&#97;&#100;&#100;&#105;&#110;&#103;&#58;&#32;&#48;&#46;&#52;&#57;&#57;&#101;&#109;&#59;<br>&#32;&#32;&#32;&#32;&#119;&#105;&#100;&#116;&#104;&#58;&#32;&#49;&#51;&#46;&#50;&#37;&#59;<br>&#32;&#32;&#32;&#32;&#108;&#101;&#102;&#116;&#58;&#32;&#49;&#37;&#59;<br>&#125;</pre></li>\
+<li>*Replace* it with this entry:<pre>&#47;&#42;&#32;&#76;&#101;&#102;&#116;&#32;&#109;&#101;&#110;&#117;&#32;&#42;&#47;<br>&#100;&#105;&#118;&#46;&#109;&#101;&#110;&#117;&#95;&#97;&#114;&#101;&#97;&#32;&#123;<br>&#32;&#32;&#32;&#32;&#98;&#111;&#114;&#100;&#101;&#114;&#58;&#32;&#49;&#112;&#116;&#32;&#115;&#111;&#108;&#105;&#100;&#32;&#103;&#114;&#101;&#121;&#59;<br>&#32;&#32;&#32;&#32;&#102;&#111;&#110;&#116;&#45;&#115;&#105;&#122;&#101;&#58;&#32;&#48;&#46;&#55;&#53;&#101;&#109;&#59;<br>&#32;&#32;&#32;&#32;&#98;&#97;&#99;&#107;&#103;&#114;&#111;&#117;&#110;&#100;&#45;&#99;&#111;&#108;&#111;&#114;&#58;&#32;&#119;&#104;&#105;&#116;&#101;&#59;<br>&#32;&#32;&#32;&#32;&#112;&#97;&#100;&#100;&#105;&#110;&#103;&#58;&#32;&#48;&#46;&#52;&#57;&#57;&#101;&#109;&#59;<br>&#32;&#32;&#32;&#32;&#119;&#105;&#100;&#116;&#104;&#58;&#32;&#49;&#51;&#46;&#50;&#37;&#59;<br>&#32;&#32;&#32;&#32;&#104;&#101;&#105;&#103;&#104;&#116;&#58;&#32;&#56;&#48;&#37;&#59;<br>&#32;&#32;&#32;&#32;&#111;&#118;&#101;&#114;&#102;&#108;&#111;&#119;&#58;&#32;&#97;&#117;&#116;&#111;&#59;<br>&#32;&#32;&#32;&#32;&#108;&#101;&#102;&#116;&#58;&#32;&#49;&#37;&#59;<br>&#125;</pre></li>\
+<li>Click the *Save* icon in the navigation bar to save the change.<br><br><div style="background-color:#FFFFAA; border: 0.1em solid black; padding:0.3em;">If the menu is too tall or short, go back into the CSS settings and change *80%* to the height you'd like the menu to be.</div></li>\
+</ol></ul>\
+<ul><li>In WoaS 0.11.2, 0.11.3, 0.11.4, 0.11.5, and 0.11.6:</li><br>\
+<ol><li>Open the wiki in a browser.</li><br>\
+<li>Click the *Advanced* icon in the navigation bar.</li><br>\
+<li>Click the *WoaS::CSS::Custom* link in the *Advanced features* section of the page.</li><br>\
+<li>Paste this entry into the page:<pre>&#47;&#42;&#32;&#76;&#101;&#102;&#116;&#32;&#109;&#101;&#110;&#117;&#32;&#42;&#47;<br>&#100;&#105;&#118;&#46;&#109;&#101;&#110;&#117;&#95;&#97;&#114;&#101;&#97;&#32;&#123;<br>&#32;&#32;&#32;&#32;&#104;&#101;&#105;&#103;&#104;&#116;&#58;&#32;&#56;&#48;&#37;&#59;<br>&#32;&#32;&#32;&#32;&#111;&#118;&#101;&#114;&#102;&#108;&#111;&#119;&#58;&#32;&#97;&#117;&#116;&#111;&#59;<br>&#125;</pre></li>\
+<li>Click the *Save* icon in the navigation bar.<br><br><div style="background-color:#FFFFAA; border: 0.1em solid black; padding:0.3em;">If the menu is too tall or short, edit the page again and change *80%* to the height you'd like the menu to be.</div></li>\
+</ol></ul>
+[[Tags::0.9.6B|0.10.0|0.10.1|0.10.2|0.10.3|0.10.4|0.10.5|0.10.6|0.10.7|0.10.8|0.10.9|0.11.0|0.11.1|0.11.2|0.11.3|0.11.4|0.11.5|0.11.6]]
 
 --DFQRCTsKlU
 woas.page.title: WoaS Mods::Add a daily diary
@@ -3747,8 +3757,8 @@ Please note that this might break in future versions (it's a private function) a
 --DFQRCTsKlU
 woas.page.title: WoaS Mods::ToDo
 woas.page.attributes: 0
-woas.page.last_modified: 1272081293
-woas.page.length: 765
+woas.page.last_modified: 1272083437
+woas.page.length: 665
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -3762,8 +3772,6 @@ woas.page.boundary: DFQRCTsKlU
 ** [[WoaS Mods::Add tabs]]
 * Test this mod on WoaS 0.10.8 through 0.11.6, but not 0.11.1 since that's already done:
 ** [[WoaS Mods::Replace fixed menu area and navigation bar]]
-* Test this mod on WoaS versions earlier than 0.10.9:
-** [[WoaS Mods::Add a scrollbar to the menu]]
 * Test this mod on all WoaS versions other than 0.11.0:
 ** [[WoaS Mods::Add list of all pages not in a namespace]]
 * Keep this wiki current by testing all mods on WoaS 0.11.7 to the current version and tagging the appropriate pages and/or adding additional instructions to the appropriate pages.
@@ -3771,8 +3779,8 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: WoaS Mods::About
 woas.page.attributes: 0
-woas.page.last_modified: 1271630444
-woas.page.length: 1069
+woas.page.last_modified: 1272083681
+woas.page.length: 1060
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -3782,6 +3790,6 @@ woas.page.boundary: DFQRCTsKlU
 This is a collection of pages showing a few modifications you can make to customize various versions of [[http://sourceforge.net/projects/stickwiki/|Wiki on a Stick]]. Some of them are fixes while others are just fun or useful things you can add to your wiki.
 
 <div style="background-color:#FFFFAA; border: 0.1em solid black; padding:0.3em; margin-left:auto; margin-right: auto; width:80%;">All pages are tagged at the bottom with the WoaS versions the mod has been tested in. If a page is not tagged with the version of WoaS you're using, it may not work or be necessary in your version.<br><br>All instructions are for the default wiki as downloaded from [[http://sourceforge.net/projects/stickwiki/files/|here]]. If you've made changes to your wiki, you may need to modify the instructions.<br><br>Use these at your own risk. Please back up your wiki before trying them.</div>
-If you have suggestions, corrections, ideas, or problems with any of the existing mods, please [[mailto://littlergirl@gmail.com?subject=WoaS mods|send me an email]].
+If you have suggestions, corrections, ideas, or problems with any of the mods, please [[mailto://littlergirl@gmail.com?subject=WoaS mods|send me an email]].
 
 --DFQRCTsKlU
