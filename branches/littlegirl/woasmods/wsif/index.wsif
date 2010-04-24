@@ -43,14 +43,15 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Main Page
 woas.page.attributes: 0
-woas.page.last_modified: 1271630464
-woas.page.length: 29
+woas.page.last_modified: 1272084278
+woas.page.length: 30
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 [[Include::WoaS Mods::About]]
+
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Security
 woas.page.attributes: 0
@@ -2814,8 +2815,8 @@ For example, using footnotes(((This is a footnote.))) in your text isn't much di
 --DFQRCTsKlU
 woas.page.title: WoaS Mods::Add folds
 woas.page.attributes: 0
-woas.page.last_modified: 1271794171
-woas.page.length: 9767
+woas.page.last_modified: 1272085459
+woas.page.length: 9802
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -2851,7 +2852,7 @@ Use this code on your page, replacing LINK with the link text, and CONTENT&lt;br
 This method allows you to add text after the link on the same line, and accepts wiki text formatting for the link text.
 
 Use this code in your page, replacing LINK with the text for the link, CONTENTS with the content you'd like to display when the link is clicked, and TEXT with the text you'd like after the link:<pre>&#91;&#91;&#73;&#110;&#99;&#108;&#117;&#100;&#101;&#58;&#58;&#70;&#111;&#108;&#100;&#116;&#101;&#120;&#116;&#124;&#76;&#73;&#78;&#75;&#124;&#67;&#79;&#78;&#84;&#69;&#78;&#84;&#83;&#124;&#84;&#69;&#88;&#84;&#93;&#93;</pre>
-[[Tags::0.9.6B|0.10.0|0.10.1|0.10.2|0.10.3|0.10.4|0.10.5|0.10.6|0.10.7|0.10.8|0.10.9|0.11.0]]
+[[Tags::0.9.6B|0.10.0|0.10.1|0.10.2|0.10.3|0.10.4|0.10.5|0.10.6|0.10.7|0.10.8|0.10.9|0.11.0|0.11.1|0.11.2|0.11.3|0.11.5|0.11.6]]
 
 --DFQRCTsKlU
 woas.page.title: WoaS Mods::Add topnotes
@@ -2947,8 +2948,8 @@ This provides a template for inserting styled notes in the pages of your wiki. N
 --DFQRCTsKlU
 woas.page.title: WoaS Mods::Add folds - method two
 woas.page.attributes: 0
-woas.page.last_modified: 1271794959
-woas.page.length: 3727
+woas.page.last_modified: 1272087084
+woas.page.length: 3769
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -2971,7 +2972,7 @@ This is another way of adding folding text. It needs a template page, and the fo
 * *Use foldtextinline:*<br><br>
 *** Use this code on a page, replacing LINK with the link text and CONTENT with the text you'd like to display when the link is clicked:<pre>&#91;&#91;&#73;&#110;&#99;&#108;&#117;&#100;&#101;&#58;&#58;&#70;&#111;&#108;&#100;&#116;&#101;&#120;&#116;&#105;&#110;&#108;&#105;&#110;&#101;&#124;&#76;&#73;&#78;&#75;&#124;&#67;&#79;&#78;&#84;&#69;&#78;&#84;&#93;&#93;</pre>
 *** To create a link like this:<br><br><a href="javascript:$.toggle('foldtextinline');">LINK</a> <span id="foldtextinline" style="display:inline; visibility:hidden;">CONTENT</span>
-[[Tags::0.9.6B|0.10.0|0.10.1|0.10.2|0.10.3|0.10.4|0.10.5|0.10.6|0.10.7|0.10.8|0.10.9|0.11.0]]
+[[Tags::0.9.6B|0.10.0|0.10.1|0.10.2|0.10.3|0.10.4|0.10.5|0.10.6|0.10.7|0.10.8|0.10.9|0.11.0|0.11.1|0.11.2|0.11.3|0.11.4|0.11.5|0.11.6]]
 
 --DFQRCTsKlU
 woas.page.title: WoaS Mods::Add a logo to the banner
@@ -3757,24 +3758,21 @@ Please note that this might break in future versions (it's a private function) a
 --DFQRCTsKlU
 woas.page.title: WoaS Mods::ToDo
 woas.page.attributes: 0
-woas.page.last_modified: 1272083437
-woas.page.length: 665
+woas.page.last_modified: 1272087098
+woas.page.length: 428
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = ToDo
-* Test all of these mods on WoaS 0.11.1 through 0.11.6:
-**  [[WoaS Mods::Add folds]]
-** [[WoaS Mods::Add folds - method two]]
+* Test these mods on *WoaS 0.11.1 through 0.11.6*:
 ** [[WoaS Mods::Add list of all pages not in a namespace]]
 ** [[WoaS Mods::Add tabs]]
-* Test this mod on WoaS 0.10.8 through 0.11.6, but not 0.11.1 since that's already done:
+* Test this mod on *WoaS 0.10.8 through 0.11.0* and *WoaS 0.11.2 through 0.11.6*:
 ** [[WoaS Mods::Replace fixed menu area and navigation bar]]
-* Test this mod on all WoaS versions other than 0.11.0:
+* Test this mod on *WoaS 0.9.6B through 0.10.9* and *WoaS 0.11.1 through 0.11.6*:
 ** [[WoaS Mods::Add list of all pages not in a namespace]]
-* Keep this wiki current by testing all mods on WoaS 0.11.7 to the current version and tagging the appropriate pages and/or adding additional instructions to the appropriate pages.
 
 --DFQRCTsKlU
 woas.page.title: WoaS Mods::About
