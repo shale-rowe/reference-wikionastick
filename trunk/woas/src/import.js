@@ -155,26 +155,28 @@ woas.import_wiki = function() {
 				};
 
 		/* NOTES ABOUT OLD VERSIONS
-		v0.11.2:
+		0.12.0:
+			* introduced woas.config.new_tables_syntax option (transitional)
+		0.11.2:
 			* introduced parsing mechanism which does not mess with var declarations inside JavaScript strings
 			* introduced WoaS::Hotkeys, WoaS::CSS::Core, WoaS::CSS::Custom
 			* introduced woas.config.safe_mode option
 			* introduced woas.config.wsif_ds* options
-		v0.10.7:
+		0.10.7:
 			* introduced WoaS::Plugins and changed WoaS::Bootscript page type from embedded to normal
-		v0.10.0:
+		0.10.0:
 			* introduced page_mts for global page modified timestamp
-		v0.9.7:
+		0.9.7:
 			* introduced WoaS::Aliases
-		v0.9.6:
+		0.9.6:
 			* Special::Bootscript -> WoaS::Bootscript
-		v0.9.5D (not released)
+		0.9.5D (not released)
 			* Javascript:: reserved namespace
 			* some Special:: pages no more work
-		v0.9.5B
+		0.9.5B
 			* object orientation of code
 			* server_mode disappears
-		v0.9.4B
+		0.9.4B
 			* introduced Special::Bootscript
 		*/
 
@@ -302,6 +304,9 @@ woas.import_wiki = function() {
 					woas.config.wsif_ds = old_cfg.wsif_ds;
 					woas.config.wsif_ds_lock = old_cfg.wsif_ds_lock;
 					woas.config.wsif_ds_multi = old_cfg.wsif_ds_multi;
+				}
+				if (old_version < 120) {
+					woas.config.new_tables_syntax = true;
 				}
 				
 				// some GC help
