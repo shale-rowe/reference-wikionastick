@@ -94,14 +94,22 @@ woas.parser.parse_tables =  function (str, p1) {
 };
 
 // new table parsing by FBNil
-var reReapTablesNew = /^\{\|(.*)((?:\n\|.*)*)$/gm;
+var reReapTablesNew = /^\{\|(.*)((?:\n\|.*)*)$/gm,
+	reReapTablesNewSub1 = /\n\|([+ \t-\|])(.*)/g,
+	reReapTablesNewSub2 = /(\|\|)(\s{0,1})(\s?)(?=\|\|)/g,
+	reReapTablesNewSub3 = /(\|\|\s*)$/,
+	reReapTablesNewSub4 = /\|\|\t/g,
+	reReapTablesNewSub5 = /\t\|\|/g;
+	
 woas.parser.parse_tables_new = function (str, prop, p1) {
-    var caption = '';
-    var colgroup = '';
-    var stk = [];
-    var cols = [];
-    var CC = [];
-    p1.replace(/\n\|([+ \t-\|])(.*)/g, function (str, pp1, pp2) {
+    var caption = '',
+		colgroup = '',
+		stk = [],
+		cols = [],
+		CC = [];
+	// variables used by replace callback
+	var cells, row, stag, cs, i, C, CL;
+    p1.replace(reReapTablesNewSub1, function (str, pp1, pp2) {
         if (pp1 == '-') return;
         if (pp1 == '+') return caption = caption || ('<caption' + (stk.length > 0 ? ' style="caption-side:bottom">' : '>') + pp2 + '</caption>');
         if (pp1 == '*') return colgroup = pp2;
@@ -110,24 +118,25 @@ woas.parser.parse_tables_new = function (str, prop, p1) {
         if (pp1 == ' ' && pp2.match(/^\|/)) // fix empty first cell
         pp2 = "  " + pp2;
 
-        var cells = pp2.replace(/(\|\|)(\s{0,1})(\s?)(?=\|\|)/g, "$1$2$3  ").replace(/(\|\|\s*)$/, "$1 ").replace(/\|\|\t/g, "|| ").replace(/\t\|\|/g, " ||").split(" || ");
-        var row = [];
-        var stag = "";
-        var cs = 0;
-        for (var i = cells.length - 1; i >= 0; --i) {
-            var C = cells[i].match(/^(\s*)(?:(=+)\s*)?(.*?)(\s*)$/);
+        cells = pp2.replace(reReapTablesNewSub2, "$1$2$3  ").
+				replace(reReapTablesNewSub3, "$1 ").replace(reReapTablesNewSub4, "|| ").replace(reReapTablesNewSub5, " ||").split(" || ");
+        row = [];
+        stag = "";
+        cs = 0;
+        for (i = cells.length - 1; i >= 0; --i) {
+            C = cells[i].match(/^(\s*)(?:(=+)\s*)?(.*?)(\s*)$/);
             if (i && !C[3] && !C[1] && !C[2]) {
                 ++cs;
                 continue;
             } else if (i == 0 && !C[3]) C[3] = "&nbsp;";
-            var CL = C[2] ? C[2].length : 0;
+            CL = C[2] ? C[2].length : 0;
             stag = '<' + (CL == 1 ? 'th' : 'td') + (CL > 1 ? ' ' + CC[CL - 2] || '' : '') + (cs ? ' colspan=' + ++cs : '') + (C[1] ? ' align=' + (C[4] ? 'center' : 'right') : '') + '>';
             cs = 0;
             row.unshift(stag + C[3] + (CL == 1 ? '</th>' : '</td>'));
         }
         stk.push(row.join(""));
     });
-    return '<table ' + (prop.match(/class=/) ? '' : 'class="text_area" ') + prop + '>' + caption + colgroup + '<tr>' + stk.join('</tr><tr>') + '</tr>' + '</table>'
+    return '<table ' + ((prop.indexOf("class=")!==-1) ? '' : 'class="woas_text_area" ') + prop + '>' + caption + colgroup + '<tr>' + stk.join('</tr><tr>') + '</tr>' + '</table>'
 }
 
 var	parse_marker = "#"+_random_string(8);
