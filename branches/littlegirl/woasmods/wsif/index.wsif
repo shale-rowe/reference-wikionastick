@@ -2,12 +2,12 @@ wsif.version: 1.2.0
 wsif.generator: woas
 woas.version: 0.11.1
 woas.author: Little Girl
-woas.pages: 99
+woas.pages: 98
 
 woas.page.title: ::Menu
 woas.page.attributes: 0
-woas.page.last_modified: 1271630346
-woas.page.length: 872
+woas.page.last_modified: 1272222944
+woas.page.length: 808
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -16,10 +16,8 @@ woas.page.boundary: DFQRCTsKlU
 [[Main Page]]
 * *Administrative*
 ** [[Special::All Pages|All pages]]
-** [[Special::Backlinks|Backlinks]]
 ** [[Special::Delete Page|Delete page]]
 ** [[Special::New Page|New page]]
-** [[WoaS Mods::ToDo|ToDo]]
 * *Modifications*
 ** [[Tagged::0.9.6B|WoaS 0.9.6B]]
 ** [[Tagged::0.10.0|WoaS 0.10.0]]
@@ -3050,8 +3048,8 @@ To use tabs in your pages, add {{{[TAB]}}} to the end of level two headers, foll
 --DFQRCTsKlU
 woas.page.title: WoaS Mods::Replace fixed menu area and navigation bar
 woas.page.attributes: 0
-woas.page.last_modified: 1272047367
-woas.page.length: 12980
+woas.page.last_modified: 1272220722
+woas.page.length: 14798
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -3059,6 +3057,8 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 = Replace fixed menu area and navigation bar
 This replaces the *Fixed menu area and navigation bar* option with a *Fixed menu area* option and a *Fixed navigation bar* option.
+
+<div style="background-color:#FFFFAA; border: 0.1em solid black; padding:0.3em;">Note that WoaS 0.11.5 and 0.11.6 are buggy when editing Special pages is enabled, and have issues when saving, but if you follow these instructions and reload the wiki after each save, the mod can be applied to them.</div>
 # Open the wiki in a text editor.<br><br>
 # *Find* this function:<pre>&#47;&#47;&#85;&#115;&#101;&#100;&#32;&#98;&#121;&#32;&#83;&#112;&#101;&#99;&#105;&#97;&#108;&#58;&#58;&#79;&#112;&#116;&#105;&#111;&#110;&#115;<br>&#102;&#117;&#110;&#99;&#116;&#105;&#111;&#110;&#32;&#95;&#115;&#101;&#116;&#95;&#108;&#97;&#121;&#111;&#117;&#116;&#40;&#102;&#105;&#120;&#101;&#100;&#41;&#32;&#123;<br>	&#36;&#40;&#34;&#115;&#119;&#95;&#109;&#101;&#110;&#117;&#95;&#97;&#114;&#101;&#97;&#34;&#41;&#46;&#115;&#116;&#121;&#108;&#101;&#46;&#112;&#111;&#115;&#105;&#116;&#105;&#111;&#110;&#32;&#61;&#32;&#36;&#40;&#34;&#115;&#119;&#95;&#119;&#105;&#107;&#105;&#95;&#104;&#101;&#97;&#100;&#101;&#114;&#34;&#41;&#46;&#115;&#116;&#121;&#108;&#101;&#46;&#112;&#111;&#115;&#105;&#116;&#105;&#111;&#110;&#32;&#61;&#32;&#40;&#102;&#105;&#120;&#101;&#100;&#32;&#63;&#32;&#34;&#102;&#105;&#120;&#101;&#100;&#34;&#32;&#58;&#32;&#34;&#97;&#98;&#115;&#111;&#108;&#117;&#116;&#101;&#34;&#41;&#59;<br>&#125;</pre>
 # Comment it out by putting double forward slashes in front of each line so that it looks like this:<pre>&#47;&#47;&#85;&#115;&#101;&#100;&#32;&#98;&#121;&#32;&#83;&#112;&#101;&#99;&#105;&#97;&#108;&#58;&#58;&#79;&#112;&#116;&#105;&#111;&#110;&#115;<br>&#47;&#47;&#102;&#117;&#110;&#99;&#116;&#105;&#111;&#110;&#32;&#95;&#115;&#101;&#116;&#95;&#108;&#97;&#121;&#111;&#117;&#116;&#40;&#102;&#105;&#120;&#101;&#100;&#41;&#32;&#123;<br>&#47;&#47;	&#36;&#40;&#34;&#115;&#119;&#95;&#109;&#101;&#110;&#117;&#95;&#97;&#114;&#101;&#97;&#34;&#41;&#46;&#115;&#116;&#121;&#108;&#101;&#46;&#112;&#111;&#115;&#105;&#116;&#105;&#111;&#110;&#32;&#61;&#32;&#36;&#40;&#34;&#115;&#119;&#95;&#119;&#105;&#107;&#105;&#95;&#104;&#101;&#97;&#100;&#101;&#114;&#34;&#41;&#46;&#115;&#116;&#121;&#108;&#101;&#46;&#112;&#111;&#115;&#105;&#116;&#105;&#111;&#110;&#32;&#61;&#32;&#40;&#102;&#105;&#120;&#101;&#100;&#32;&#63;&#32;&#34;&#102;&#105;&#120;&#101;&#100;&#34;&#32;&#58;&#32;&#34;&#97;&#98;&#115;&#111;&#108;&#117;&#116;&#101;&#34;&#41;&#59;<br>&#47;&#47;&#125;</pre>
@@ -3069,14 +3069,26 @@ This replaces the *Fixed menu area and navigation bar* option with a *Fixed menu
 # Close the text editor.<br><br>
 # Open the wiki in a browser.<br><br><div style="background-color:#FFFFAA; border: 0.1em solid black; padding:0.3em;">Note that it's normal for some of the text to be <font color="red">red</font> while running the wiki in this mode.</div><br>
 # Click the *Advanced* icon in the banner.<br><br>
-# Click the *Options* link.<br><br>
+# Open the wiki options page:<br><br>\
+<ul>\
+<li>In WoaS 0.10.8, 0.10.9, 0.11.0, and 0.11.1: Click the *Options* link.<br><br></li>\
+<li>In WoaS 0.11.2, 0.11.3, 0.11.5, and 0.11.6: Click the *Special::Options* link.</li><br>\
+</ul>
 # Uncheck all the options.<br><br>
 # Click the *Save options* button (this will return you to the [[Special::Advanced]] page).<br><br>
-# Click the *Options* link.<br><br><div style="background-color:#FFFFAA; border: 0.1em solid black; padding:0.3em;">Note that one or more options may still checked after completing steps 12 and 13. There is no need to uncheck them again.</div><br>
+# Open the wiki options page:<br><br>\
+<ul>\
+<li>In WoaS 0.10.8, 0.10.9, 0.11.0, and 0.11.1: Click the *Options* link.<br><br></li>\
+<li>In WoaS 0.11.2, 0.11.3, 0.11.5, and 0.11.6: Click the *Special::Options* link.</li><br>\
+<div style="background-color:#FFFFAA; border: 0.1em solid black; padding:0.3em;">Note that one or more options may still be checked. There is no need to uncheck them again.</div>
+</ul>
 # Click the *Edit* icon in the banner.<br><br>
 # *Find* this section:<pre>&#60&#108;&#97;&#98;&#101;&#108;&#32;&#102;&#111;&#114;&#61;&#34;&#99;&#98;&#95;&#102;&#105;&#120;&#101;&#100;&#95;&#108;&#97;&#121;&#111;&#117;&#116;&#34;&#62&#60&#105;&#110;&#112;&#117;&#116;&#32;&#116;&#121;&#112;&#101;&#61;&#34;&#99;&#104;&#101;&#99;&#107;&#98;&#111;&#120;&#34;&#32;&#105;&#100;&#61;&#34;&#99;&#98;&#95;&#102;&#105;&#120;&#101;&#100;&#95;&#108;&#97;&#121;&#111;&#117;&#116;&#34;&#32;&#111;&#110;&#99;&#108;&#105;&#99;&#107;&#61;&#34;&#95;&#115;&#101;&#116;&#95;&#108;&#97;&#121;&#111;&#117;&#116;&#40;&#36;&#46;&#99;&#104;&#101;&#99;&#107;&#101;&#100;&#40;&#39;&#99;&#98;&#95;&#102;&#105;&#120;&#101;&#100;&#95;&#108;&#97;&#121;&#111;&#117;&#116;&#39;&#41;&#41;&#34;&#32;&#47;&#62&#70;&#105;&#120;&#101;&#100;&#32;&#109;&#101;&#110;&#117;&#32;&#97;&#114;&#101;&#97;&#32;&#97;&#110;&#100;&#32;&#110;&#97;&#118;&#105;&#103;&#97;&#116;&#105;&#111;&#110;&#32;&#98;&#97;&#114;&#60&#98;&#114;&#32;&#47;&#62</pre>
 # *Replace* it with this section:<pre>&#60&#108;&#97;&#98;&#101;&#108;&#32;&#102;&#111;&#114;&#61;&#34;&#99;&#98;&#95;&#102;&#105;&#120;&#101;&#100;&#95;&#109;&#101;&#110;&#117;&#34;&#62&#60&#105;&#110;&#112;&#117;&#116;&#32;&#116;&#121;&#112;&#101;&#61;&#34;&#99;&#104;&#101;&#99;&#107;&#98;&#111;&#120;&#34;&#32;&#105;&#100;&#61;&#34;&#99;&#98;&#95;&#102;&#105;&#120;&#101;&#100;&#95;&#109;&#101;&#110;&#117;&#34;&#32;&#111;&#110;&#99;&#108;&#105;&#99;&#107;&#61;&#34;&#95;&#115;&#101;&#116;&#95;&#109;&#101;&#110;&#117;&#40;&#36;&#46;&#99;&#104;&#101;&#99;&#107;&#101;&#100;&#40;&#39;&#99;&#98;&#95;&#102;&#105;&#120;&#101;&#100;&#95;&#109;&#101;&#110;&#117;&#39;&#41;&#41;&#34;&#32;&#47;&#62&#70;&#105;&#120;&#101;&#100;&#32;&#109;&#101;&#110;&#117;&#60&#98;&#114;&#32;&#47;&#62<br>&#60&#108;&#97;&#98;&#101;&#108;&#32;&#102;&#111;&#114;&#61;&#34;&#99;&#98;&#95;&#102;&#105;&#120;&#101;&#100;&#95;&#116;&#111;&#112;&#98;&#97;&#114;&#34;&#62&#60&#105;&#110;&#112;&#117;&#116;&#32;&#116;&#121;&#112;&#101;&#61;&#34;&#99;&#104;&#101;&#99;&#107;&#98;&#111;&#120;&#34;&#32;&#105;&#100;&#61;&#34;&#99;&#98;&#95;&#102;&#105;&#120;&#101;&#100;&#95;&#116;&#111;&#112;&#98;&#97;&#114;&#34;&#32;&#111;&#110;&#99;&#108;&#105;&#99;&#107;&#61;&#34;&#95;&#115;&#101;&#116;&#95;&#116;&#111;&#112;&#98;&#97;&#114;&#40;&#36;&#46;&#99;&#104;&#101;&#99;&#107;&#101;&#100;&#40;&#39;&#99;&#98;&#95;&#102;&#105;&#120;&#101;&#100;&#95;&#116;&#111;&#112;&#98;&#97;&#114;&#39;&#41;&#41;&#34;&#32;&#47;&#62&#70;&#105;&#120;&#101;&#100;&#32;&#110;&#97;&#118;&#105;&#103;&#97;&#116;&#105;&#111;&#110;&#32;&#98;&#97;&#114;&#60&#98;&#114;&#32;&#47;&#62</pre>
-# *Find* this section:<pre>&#36;&#40;&#34;&#99;&#98;&#95;&#102;&#105;&#120;&#101;&#100;&#95;&#108;&#97;&#121;&#111;&#117;&#116;&#34;&#41;&#46;&#99;&#104;&#101;&#99;&#107;&#101;&#100;&#32;&#61;&#32;&#40;&#36;&#40;&#34;&#115;&#119;&#95;&#119;&#105;&#107;&#105;&#95;&#104;&#101;&#97;&#100;&#101;&#114;&#34;&#41;&#46;&#115;&#116;&#121;&#108;&#101;&#46;&#112;&#111;&#115;&#105;&#116;&#105;&#111;&#110;&#32;&#61;&#61;&#32;&#34;&#102;&#105;&#120;&#101;&#100;&#34;&#41;&#59;<br>&#105;&#102;&#32;&#40;&#119;&#111;&#97;&#115;&#46;&#98;&#114;&#111;&#119;&#115;&#101;&#114;&#46;&#105;&#101;&#54;&#41;&#32;&#36;&#40;&#34;&#99;&#98;&#95;&#102;&#105;&#120;&#101;&#100;&#95;&#108;&#97;&#121;&#111;&#117;&#116;&#34;&#41;&#46;&#100;&#105;&#115;&#97;&#98;&#108;&#101;&#100;&#32;&#61;&#32;&#116;&#114;&#117;&#101;&#59;</pre>
+# *Find* this section:<br><br>\
+<ul><li>In WoaS 0.10.8, 0.10.9, 0.11.0, and 0.11.1:</li><pre>&#36;&#40;&#34;&#99;&#98;&#95;&#102;&#105;&#120;&#101;&#100;&#95;&#108;&#97;&#121;&#111;&#117;&#116;&#34;&#41;&#46;&#99;&#104;&#101;&#99;&#107;&#101;&#100;&#32;&#61;&#32;&#40;&#36;&#40;&#34;&#115;&#119;&#95;&#119;&#105;&#107;&#105;&#95;&#104;&#101;&#97;&#100;&#101;&#114;&#34;&#41;&#46;&#115;&#116;&#121;&#108;&#101;&#46;&#112;&#111;&#115;&#105;&#116;&#105;&#111;&#110;&#32;&#61;&#61;&#32;&#34;&#102;&#105;&#120;&#101;&#100;&#34;&#41;&#59;<br>&#105;&#102;&#32;&#40;&#119;&#111;&#97;&#115;&#46;&#98;&#114;&#111;&#119;&#115;&#101;&#114;&#46;&#105;&#101;&#54;&#41;&#32;&#36;&#40;&#34;&#99;&#98;&#95;&#102;&#105;&#120;&#101;&#100;&#95;&#108;&#97;&#121;&#111;&#117;&#116;&#34;&#41;&#46;&#100;&#105;&#115;&#97;&#98;&#108;&#101;&#100;&#32;&#61;&#32;&#116;&#114;&#117;&#101;&#59;</pre></li>\
+<li>In WoaS 0.11.2, 0.11.3, 0.11.5, and 0.11.6:</li><pre>&#36;&#40;&#34;&#99;&#98;&#95;&#102;&#105;&#120;&#101;&#100;&#95;&#108;&#97;&#121;&#111;&#117;&#116;&#34;&#41;&#46;&#99;&#104;&#101;&#99;&#107;&#101;&#100;&#32;&#61;&#32;&#40;&#36;&#40;&#34;&#115;&#119;&#95;&#119;&#105;&#107;&#105;&#95;&#104;&#101;&#97;&#100;&#101;&#114;&#34;&#41;&#46;&#115;&#116;&#121;&#108;&#101;&#46;&#112;&#111;&#115;&#105;&#116;&#105;&#111;&#110;&#32;&#61;&#61;&#32;&#34;&#102;&#105;&#120;&#101;&#100;&#34;&#41;&#59;<br><br>&#105;&#102;&#32;&#40;&#119;&#111;&#97;&#115;&#46;&#98;&#114;&#111;&#119;&#115;&#101;&#114;&#46;&#105;&#101;&#54;&#41;&#32;&#36;&#40;&#34;&#99;&#98;&#95;&#102;&#105;&#120;&#101;&#100;&#95;&#108;&#97;&#121;&#111;&#117;&#116;&#34;&#41;&#46;&#100;&#105;&#115;&#97;&#98;&#108;&#101;&#100;&#32;&#61;&#32;&#116;&#114;&#117;&#101;&#59;</pre></li>\
+</ul>
 # *Replace* it with this section:<pre>&#36;&#40;&#34;&#99;&#98;&#95;&#102;&#105;&#120;&#101;&#100;&#95;&#109;&#101;&#110;&#117;&#34;&#41;&#46;&#99;&#104;&#101;&#99;&#107;&#101;&#100;&#32;&#61;&#32;&#40;&#36;&#40;&#34;&#115;&#119;&#95;&#109;&#101;&#110;&#117;&#95;&#97;&#114;&#101;&#97;&#34;&#41;&#46;&#115;&#116;&#121;&#108;&#101;&#46;&#112;&#111;&#115;&#105;&#116;&#105;&#111;&#110;&#32;&#61;&#61;&#32;&#34;&#102;&#105;&#120;&#101;&#100;&#34;&#41;&#59;&#32;&#105;&#102;&#32;&#40;&#119;&#111;&#97;&#115;&#46;&#98;&#114;&#111;&#119;&#115;&#101;&#114;&#46;&#105;&#101;&#54;&#41;&#32;&#36;&#40;&#34;&#99;&#98;&#95;&#102;&#105;&#120;&#101;&#100;&#95;&#109;&#101;&#110;&#117;&#34;&#41;&#46;&#100;&#105;&#115;&#97;&#98;&#108;&#101;&#100;&#32;&#61;&#32;&#116;&#114;&#117;&#101;&#59;<br>&#36;&#40;&#34;&#99;&#98;&#95;&#102;&#105;&#120;&#101;&#100;&#95;&#116;&#111;&#112;&#98;&#97;&#114;&#34;&#41;&#46;&#99;&#104;&#101;&#99;&#107;&#101;&#100;&#32;&#61;&#32;&#40;&#36;&#40;&#34;&#115;&#119;&#95;&#119;&#105;&#107;&#105;&#95;&#104;&#101;&#97;&#100;&#101;&#114;&#34;&#41;&#46;&#115;&#116;&#121;&#108;&#101;&#46;&#112;&#111;&#115;&#105;&#116;&#105;&#111;&#110;&#32;&#61;&#61;&#32;&#34;&#102;&#105;&#120;&#101;&#100;&#34;&#41;&#59;&#32;&#105;&#102;&#32;&#40;&#119;&#111;&#97;&#115;&#46;&#98;&#114;&#111;&#119;&#115;&#101;&#114;&#46;&#105;&#101;&#54;&#41;&#32;&#36;&#40;&#34;&#99;&#98;&#95;&#102;&#105;&#120;&#101;&#100;&#95;&#116;&#111;&#112;&#98;&#97;&#114;&#34;&#41;&#46;&#100;&#105;&#115;&#97;&#98;&#108;&#101;&#100;&#32;&#61;&#32;&#116;&#114;&#117;&#101;&#59;</pre>
 # Click the *Save* icon in the banner.<br><br>
 # Uncheck any options that are automatically checked.<br><br>
@@ -3089,11 +3101,15 @@ This replaces the *Fixed menu area and navigation bar* option with a *Fixed menu
 # Close the text editor.<br><br>
 # Open the wiki in a browser.<br><br>
 # Click the *Advanced* icon in the banner.<br><br>
-# Click the *Options* link.<br><br>
+# Open the wiki options page:<br><br>\
+<ul>\
+<li>In WoaS 0.10.8, 0.10.9, 0.11.0, and 0.11.1: Click the *Options* link.<br><br></li>\
+<li>In WoaS 0.11.2, 0.11.3, 0.11.5, and 0.11.6: Click the *Special::Options* link.</li><br>\
+</ul>
 # Check the options you'd like to use.<br><br>
 # Click the *Save options* button (this will return you to the [[Special::Advanced]] page).<br><br>
 # Use your wiki normally.
-[[Tags::0.10.8|0.10.9|0.11.0]]
+[[Tags::0.10.8|0.10.9|0.11.0|0.11.1|0.11.2|0.11.3|0.11.5|0.11.6]]
 
 --DFQRCTsKlU
 woas.page.title: WoaS Mods::Replace fixed menu area and topbar
@@ -3791,24 +3807,10 @@ The original line of code Daniele provided, with his instructions: For now pleas
 Please note that this might break in future versions (it's a private function) and will only work starting from 0.11.6.
 -->
 --DFQRCTsKlU
-woas.page.title: WoaS Mods::ToDo
-woas.page.attributes: 0
-woas.page.last_modified: 1272172412
-woas.page.length: 150
-woas.page.encoding: 8bit/plain
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-= ToDo
-* Test this mod on *WoaS 0.10.8 through 0.11.0* and *WoaS 0.11.2 through 0.11.6*:
-** [[WoaS Mods::Replace fixed menu area and navigation bar]]
-
---DFQRCTsKlU
 woas.page.title: WoaS Mods::About
 woas.page.attributes: 0
-woas.page.last_modified: 1272083681
-woas.page.length: 1060
+woas.page.last_modified: 1272223853
+woas.page.length: 1868
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -3819,5 +3821,14 @@ This is a collection of pages showing a few modifications you can make to custom
 
 <div style="background-color:#FFFFAA; border: 0.1em solid black; padding:0.3em; margin-left:auto; margin-right: auto; width:80%;">All pages are tagged at the bottom with the WoaS versions the mod has been tested in. If a page is not tagged with the version of WoaS you're using, it may not work or be necessary in your version.<br><br>All instructions are for the default wiki as downloaded from [[http://sourceforge.net/projects/stickwiki/files/|here]]. If you've made changes to your wiki, you may need to modify the instructions.<br><br>Use these at your own risk. Please back up your wiki before trying them.</div>
 If you have suggestions, corrections, ideas, or problems with any of the mods, please [[mailto://littlergirl@gmail.com?subject=WoaS mods|send me an email]].
-
+<!--
+== This wiki needs a new maintainer
+<div style="background-color:pink; border: 0.1em solid black; padding:0.3em; margin-left:auto; margin-right: auto; width:80%;">I will no longer be updating this WoaS Mods wiki. I have made sure all mods are current to WoaS 0.11.6. Whoever takes over the maintenance of this wiki will need to:
+* Test all applicable mods on more recent versions.
+* Tag the pages with the versions the mods work with.
+* Add version-specific instructions when necessary.
+* Add pages as needed for new mods.
+I will continue to work on [[http://bookonastick.wordpress.com/|Book on a Stick]] and continue maintaining a copy of this file for Book on a Stick. First I must take a hiatus to thoroughly learn JavaScript so that I can properly continue updating the program on my own.
+</div>
+-->
 --DFQRCTsKlU
