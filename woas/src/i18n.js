@@ -74,7 +74,8 @@ woas.i18n = {
 	WSIF_BAD_HV: "Could not locate end of header value",
 	WSIF_NO_HN: "Could not locate header name",
 	WSIF_NO_VER: "Could not read WSIF version",
-	WSIF_NS_VER: "WSIF version %s not supported!"
+	WSIF_NS_VER: "WSIF version %s not supported!",
+	CANNOT_LOCK_RESERVED: "Cannot lock a page in a reserved namespace"
 };
 
 // do not use any copyrighted wordlist here

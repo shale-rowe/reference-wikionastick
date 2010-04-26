@@ -696,6 +696,11 @@ woas.set_current = function (cr, interactive) {
 							return false;
 						break;
 					case "Lock":
+						// prevent special pages from being locked
+						if (this.is_reserved(cr)) {
+							this.alert(this.i18n.CANNOT_LOCK_RESERVED);
+							return false;
+						}
 						pi = this.page_index(cr);
 						if (this.AES.isKeySet()) {
 							// display a message
