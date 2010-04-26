@@ -261,8 +261,9 @@ woas.parser.parse = function(text, export_links, js_mode) {
 	
 	// transclude pages (templates)
 	if (!this.force_inline) {
-		var trans_level = 0;
-		var trans;
+		// reset all groups
+		this._ns_groups = { };
+		var trans_level = 0, trans;
 		do {
 			trans = 0;
 			text = text.replace(reTransclusion, function (str, $1) {
