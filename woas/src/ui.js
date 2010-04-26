@@ -60,7 +60,7 @@ woas.help_system = {
 	"previous_page": []
 };
 
-woas._help_lookup = ["Plugins", "CSS", "Aliases", "Bootscript", "Hotkeys"];
+woas._help_lookup = ["Plugins", "CSS", "Aliases", "Hotkeys"];
 
 // could have a better name
 function help() {

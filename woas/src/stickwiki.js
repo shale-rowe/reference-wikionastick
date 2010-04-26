@@ -138,16 +138,6 @@ for(var i = (woas.tweak.edit_override ? 1 : 0);i<reserved_namespaces.length;i++)
 }
 woas._reserved_rx = new RegExp(reserved_rx, "i"); reserved_namespaces = reserved_rx = null;
 
-woas.aliases = [];
-
-woas.title_unalias = function(aliased_title) {
-	// apply aliases on title, from newest to oldest
-	for(var i=0,l=this.aliases.length;i<l;++i) {
-		aliased_title = aliased_title.replace(this.aliases[i][0], this.aliases[i][1]);
-	}
-	return aliased_title;
-};
-
 // return page index (progressive number) given its title
 woas.page_index = function(title) {
 	return page_titles.indexOf(this.title_unalias(title));
@@ -747,7 +737,6 @@ woas.set_current = function (cr, interactive) {
 										text = this.parser.parse(text + this._plugins_list());
 									break;
 									case "Aliases":
-									case "Bootscript":
 									case "Hotkeys":
 									case "CSS::Core":
 									case "CSS::Boot":
@@ -1025,15 +1014,15 @@ woas.after_load = function() {
 		current = unescape(qpage);
 		// extract the section (if any)
 		var p=current.indexOf("#");
-		if (p != -1)
+		if (p !== -1)
 			current = current.substring(0,p);
 //		log("current ::= "+current);	//log:0
 	}
 	
 	this._load_aliases(this.get_text("WoaS::Aliases"));
 	this._load_hotkeys(this.get_text("WoaS::Hotkeys"));
+	this._load_plugins(false);
 
-	this._create_bs();
 	this._forward_browse = true; // used to not store backstack
 	this.set_current(current, true);
 	this.refresh_menu_area();
@@ -1054,18 +1043,6 @@ woas.after_load = function() {
 	
 //	this.progress_finish();
 	$.hide("loading_overlay");
-};
-
-var reAliases = /^(\$[A-Za-z0-9_]{2,})\s+(.*?)$/gm;
-// match all aliases defined in a page
-woas._load_aliases = function(s) {
-	this.aliases = [];
-	if (s==null || !s.length) return;
-	s.replace(reAliases, function(str, alias, value) {
-		// save the array with the alias regex and alias value
-		var cpok = [ new RegExp(RegExp.escape(alias), "g"), value];
-		woas.aliases.push(cpok);
-	});
 };
 
 // disable edit-mode after cancel/save actions
@@ -1116,9 +1093,11 @@ woas.edit_allowed = function(page) {
 };
 
 woas.edit_allowed_reserved = function(page) {
+	var _pfx = "WoaS::Plugins::";
+	if (page.substr(0, _pfx.length) === _pfx)
+		return true;
 	// allow some reserved pages to be directly edited/saved
 	switch (page) {
-		case "WoaS::Bootscript":
 		case "WoaS::Aliases":
 		case "WoaS::Hotkeys":
 		case "WoaS::CSS::Custom":
@@ -1352,8 +1331,6 @@ woas.save = function() {
 		case "WoaS::Aliases":
 			if (!null_save)
 				this._load_aliases(raw_content);
-			// fallback wanted
-		case "WoaS::Bootscript":
 			can_be_empty = true;
 			// fallback wanted
 			skip = true;
