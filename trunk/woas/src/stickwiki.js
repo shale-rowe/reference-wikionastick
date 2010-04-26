@@ -967,8 +967,8 @@ woas.after_load = function() {
 		$.show("img_logo");
 	}
 	
-	// (1) show loading message
-	this.setHTML($("woas_wait_text"), this.i18n.LOADING);
+	// (1) show loading message - not necessary since it is set upon save
+//	this.setHTML($("woas_wait_text"), this.i18n.LOADING);
 
 	// (2) check integrity of WoaS features - only in debug mode
 	if (this.config.debug_mode) {
