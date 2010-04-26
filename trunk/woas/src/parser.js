@@ -468,9 +468,9 @@ woas.parser.parse = function(text, export_links, js_mode) {
 			return "<!-- "+parse_marker+":"+inline_tags+" -->";
 		}
 
-		var page = $1;
-		var hashloc = $1.indexOf("#");
-		var gotohash = "";
+		var page = woas.title_unalias($1),
+			hashloc = $1.indexOf("#"),
+			gotohash = "";
 		if (hashloc > 0) {
 			page = $1.substr(0, hashloc);
 			gotohash = "; window.location.hash= \"" + $1.substr(hashloc) + "\"";
@@ -487,7 +487,7 @@ woas.parser.parse = function(text, export_links, js_mode) {
 			return r;
 		} else {
 			// section reference URIs
-			if ($1.charAt(0)=="#") {
+			if ($1.charAt(0) === "#") {
 				r = woas.parser.place_holder(snippets.length);
 				if (export_links)
 					wl = woas._export_get_fname(page);
@@ -507,7 +507,7 @@ woas.parser.parse = function(text, export_links, js_mode) {
 					snippets.push("<span class=\"broken_link\">" + $2 + "<\/span>");
 					return r;
 				}
-				wl = " onclick=\"go_to('" +woas.js_encode($1)+"')\"";
+				wl = " onclick=\"go_to('" +woas.js_encode(page)+"')\"";
 				snippets.push("<a title=\""+woas.xhtml_encode(page)+"\" class=\"unlink\" "+wl+">" + $2 + "<\/a>");
 				return r;
 			}
@@ -533,19 +533,19 @@ woas.parser.parse = function(text, export_links, js_mode) {
 			++inline_tags;
 			return "<!-- "+parse_marker+":"+inline_tags+" -->";
 		}
-		
-		if (woas.page_exists($1)) {
+		var page = woas.title_unalias($1)
+		if (woas.page_exists(page)) {
 			r = woas.parser.place_holder(snippets.length);
 			if (export_links) {
-				wl = woas._export_get_fname($1);
+				wl = woas._export_get_fname(page);
 				if (wl == '#') {
 					snippets.push("<span class=\"broken_link\">" + $1 + "<\/span>");
 					return r;
 				}
 				wl = " href=\""+wl+"\"";
 			} else
-				wl = " onclick=\"go_to('" + woas.js_encode($1) +"')\"";
-			snippets.push("<a class=\"link\""+wl+">" + $1 + "<\/a>");
+				wl = " onclick=\"go_to('" + woas.js_encode(page) +"')\"";
+			snippets.push("<a title=\""+woas.xhtml_encode(page)+"\"  class=\"link\""+wl+">" + $1 + "<\/a>");
 			return r;
 		} else {
 			r = woas.parser.place_holder(snippets.length);
@@ -557,8 +557,8 @@ woas.parser.parse = function(text, export_links, js_mode) {
 					snippets.push("<span class=\"unlink broken_link\">" + $1 + "<\/span>");
 					return r;
 				}
-				wl = " onclick=\"go_to('" + woas.js_encode($1) +"')\"";
-				snippets.push("<a class=\"unlink\" "+wl+">" + $1 + "<\/a>");
+				wl = " onclick=\"go_to('" + woas.js_encode(page) +"')\"";
+				snippets.push("<a title=\""+woas.xhtml_encode(page)+"\"  class=\"unlink\" "+wl+">" + $1 + "<\/a>");
 			}
 			return r;
 		}
