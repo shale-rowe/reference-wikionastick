@@ -1,14 +1,22 @@
 
-var reMacroDef = /^(%?[A-Za-z0-9_]+):([\s\S]*)$/;
+var reMacroDef = /^(%?[A-Za-z0-9_\.]+):([\s\S]*)$/;
 // macro syntax plugin code adapted from FBNil's implementation
 woas.macro_parser = function(text){
+	// macro object
 	var macro = { "reprocess": false, "text": text };
+	// match macro definition/call
 	var M=text.match(reMacroDef);
 	// if no double colon declaration was found, then do not process anything
 	if (M !== null) {
 		var fn = M[1];
+		// check validity of macro name
+		if ((fn.indexOf("..") !== -1) || (fn.charAt(0) === '.') ||
+			(fn.charAt(fn.length-1) === '.')) {
+				log("Invalid macro name: "+fn);	//log:1
+				return macro;
+		}
 		// check that this is not a macro definition request
-		if (fn.charAt(0) == '%') {
+		if (fn.charAt(0) === '%') {
 			fn = fn.substr(1);
 			// when macro is not defined, define it
 			if (this.macro_parser.create(fn, M[2])) {
@@ -20,7 +28,7 @@ woas.macro_parser = function(text){
 			return macro;
 		}
 		var fi = this.macro_parser.macro_names.indexOf(fn);
-		if (fi != -1) {
+		if (fi !== -1) {
 			macro.text = M[2];
 			this.macro_parser.macro_functions[fi](macro);
 		} else {

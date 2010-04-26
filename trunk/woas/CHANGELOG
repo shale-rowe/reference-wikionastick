@@ -1,4 +1,5 @@
 Version 0.12.0
+* new tables syntax (FBNil)
 * reorganized Special::Advanced
 * removed import code for WoaS < 0.9.x
 * refresh CSS after XHTML import
