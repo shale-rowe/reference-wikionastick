@@ -787,3 +787,19 @@ woas.crash = function() {
 		alert("WoaS Unhandled error\n----\n"+arguments[i]);
 	}
 };
+
+// called from Special::Lock page
+function _lock_page() {
+	// do not call if not on a page locking context
+	if (current.indexOf("Lock::")!==0)
+		return;
+	var page = current.substring(6);
+
+	$("btn_lock").value = "Lock "+page;
+	$("pw1").focus();
+	//TODO: check for other browsers too
+	if (woas.browser.firefox)
+		$("btn_lock").setAttribute("onclick", "lock_page('"+woas.js_encode(page)+"')");
+	else // hard trickery
+		$("btn_lock").onclick = eval("function() {lock_page('"+woas.js_encode(page)+"');}");
+}

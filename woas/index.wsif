@@ -175,7 +175,7 @@ hl_text = null;
 --DFQRCTsKlU
 woas.page.title: Special::Lock
 woas.page.attributes: 0
-woas.page.length: 1225
+woas.page.length: 1134
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -186,21 +186,9 @@ Read more about the [[WoaS::Help::Security|embedded AES encryption]] used in Wik
 
 == Password
 Enter your password for AES encryption. The more complex your password is, the more difficult it will be to attack the encryption. It is suggested *not* to use passwords whose textbox color is <span style="background-color:red">&nbsp;red&nbsp;</span>, and to accept passwords only when the textbox color is <span style="background-color:lime">&nbsp;green&nbsp;</span>. Punctuation and Mixed case characters will exponentially increase the strength of your password.
-
- <input type="password" id="pw1" style="background-color:red" value="" size="50" onfocus="custom_focus(true)" onblur="custom_focus(false)" onkeyup="pw_quality()" />&nbsp;<span id="txtBits">&nbsp;</span>
- <input type="password" id="pw2" value="" size="50" onfocus="custom_focus(true)" onblur="custom_focus(false)" />
- <input id="btn_lock" type="button" value="" />
-
-<script>
-function _lock_page() {
-if (current.indexOf("Lock::")!=0) return;
-var page = current.substring(6);
-
-$("btn_lock").value = "Lock "+page;
-$("pw1").focus();
-$("btn_lock").setAttribute("onclick", "lock_page('"+woas.js_encode(page)+"')");
-}
-_lock_page();
+<dl><dt><label for="pw1">Enter password:</label></dt><dd><input type="password" id="pw1" style="background-color:red" value="" size="50" onfocus="custom_focus(true)" onblur="custom_focus(false)" onkeyup="pw_quality()" />&nbsp;<span id="txtBits">&nbsp;</span></dd><dt><label for="pw2">Re-enter password:</label></dt><dd><input type="password" id="pw2" value="" size="50" onfocus="custom_focus(true)" onblur="custom_focus(false)" /></dd></dl><input id="btn_lock" type="button" value="" />
+<script type="text/javascript">
+	_lock_page();
 </script>
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Security
