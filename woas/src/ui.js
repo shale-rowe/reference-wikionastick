@@ -473,7 +473,7 @@ woas.export_wiki_wsif = function () {
 		inline_wsif = $("woas_cb_inline_wsif").checked ? true : false;
 	} catch (e) { this.crash(e); return false; }
 	
-	var done = this._native_wsif_save(path, this.wsif.DEFAULT_INDEX, single_wsif, inline_wsif, author, false);
+	var done = this._native_wsif_save(path, this.wsif.DEFAULT_INDEX, false, single_wsif, inline_wsif, author, false);
 
 	this.alert(this.i18n.EXPORT_OK.sprintf(done, this.wsif.expected_pages));
 	return true;
