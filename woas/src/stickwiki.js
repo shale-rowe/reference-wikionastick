@@ -483,7 +483,7 @@ woas._create_page = function (ns, cr, ask, fill_mode) {
 	if (!fill_mode && ask && !confirm(this.i18n.PAGE_NOT_FOUND))
 		return false;
 	// create and edit the new page
-	if (cr!="Menu")
+	if (cr !== "Menu")
 		pages.push("= "+cr+"\n");
 	else
 		pages.push("\n");
