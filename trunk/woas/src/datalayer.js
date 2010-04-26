@@ -104,8 +104,9 @@ woas._wsif_ds_save = function(subpath, plist) {
 	// code disabled since we always save the full backup
 //	if (typeof plist != "undefined" )
 //		done = this._native_wsif_save(path,	subpath, true, true, "", true, plist); else
-	this._native_wsif_save(woas.ROOT_DIRECTORY, subpath, this.config.wsif_ds_lock, !this.config.wsif_ds_multi,
-							!this.config.wsif_ds_multi, this.config.wsif_author, true);
+	this._native_wsif_save(woas.ROOT_DIRECTORY, subpath, this.config.wsif_ds_lock,
+							!this.config.wsif_ds_multi,	!this.config.wsif_ds_multi,
+							this.config.wsif_author, true);
 };
 
 //API1.0: save all pages

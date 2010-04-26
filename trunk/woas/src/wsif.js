@@ -18,13 +18,14 @@ woas.wsif.inline = function(boundary, content) {
 	return "\n--"+boundary+"\n"+content+"\n--"+boundary+"\n";
 };
 
+var reMimeMatch = /^data:\s*([^;]*);\s*base64,\s*/;
+
 // default behavior:
 // - wiki pages go inline (utf-8), no container encoding
 // - embedded files/images go outside as blobs
 // - encrypted pages go inline in base64
 woas._native_wsif_save = function(path, src_fname, locking, single_wsif, inline_wsif, author,
 							save_all, plist) {
-
 	function _generate_random_boundary(old_boundary, text) {
 		var b = old_boundary;
 		if (!b.length)
@@ -45,13 +46,13 @@ woas._native_wsif_save = function(path, src_fname, locking, single_wsif, inline_
 		extra += this.wsif.header('woas.author', author);
 
 	// boundary used for inline attachments
-	var full_wsif = "", boundary = __marker;
+	var full_wsif = "", boundary = __marker,
+		p = boundary.indexOf("-"),
+		l, done = 0, full_save;
 	// use the 1st part of the global marker
-	var p = boundary.indexOf("-");
 	if (p !== -1)
 		boundary = boundary.substr(0,p);
 
-	var l, done = 0, full_save;
 	if (typeof plist == "undefined") {
 		full_save = true;
 		l = page_titles.length;
@@ -62,8 +63,8 @@ woas._native_wsif_save = function(path, src_fname, locking, single_wsif, inline_
 	// save count of total pages which need to be exported
 	this.wsif.expected_pages = l;
 	// the attributes prefix, we do not use the page index here for better versioning
-	var pfx = "woas.page.";
-	var pi, pl;
+	var pfx = "woas.page.",
+		pi, pl;
 	for (var ipi=0;ipi < l;++ipi) {
 		if (full_save)
 			pi = ipi;
@@ -99,7 +100,7 @@ woas._native_wsif_save = function(path, src_fname, locking, single_wsif, inline_
 					encoding = "8bit/plain";
 					// decode the base64-encoded data
 					if (this.is__image(pi)) {
-						m = ct.match(/^data:\s*([^;]*);\s*base64,\s*/);
+						m = ct.match(reMimeMatch);
 						record += this.wsif.header(pfx+"mime", m[1]);
 						// remove the matched part
 						ct = decode64(ct.substr(m[0].length));
@@ -108,7 +109,7 @@ woas._native_wsif_save = function(path, src_fname, locking, single_wsif, inline_
 				} else {
 					encoding = "8bit/base64";
 					if (this.is__image(pi)) {
-						m = ct.match(/^data:\s*([^;]*);\s*base64,\s*/);
+						m = ct.match(reMimeMatch);
 						if (m === null) {
 							this.crash(page_titles[pi]+" is not a valid image!"+ct);							
 							continue;
