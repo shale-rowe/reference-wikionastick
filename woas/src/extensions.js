@@ -143,7 +143,7 @@ woas._load_plugins = function(saving) {
 		this._save_reload = true;
 	
 	// get list of plugins
-	var _pfx = "Woas::Plugins::", l=_pfx.length,
+	var _pfx = "WoaS::Plugins::", l=_pfx.length,
 		s_elem;
 	for(var i=0,it=page_titles.length;i<it;++i) {
 		if (page_titles[i].substr(0, l) === _pfx) {
@@ -151,7 +151,7 @@ woas._load_plugins = function(saving) {
 			s_elem = this._mk_active_script(this.get__text(i), "plugin", i+1, false);
 			// add to global array
 			if (s_elem !== null)
-				this._plugin_scripts.push( {"name":page_titles[i].substr(_pfx), "obj":s_elem} );
+				this._plugin_scripts.push( {"name":page_titles[i].substr(_pfx.length), "obj":s_elem} );
 		}
 	}
 
@@ -289,5 +289,12 @@ woas._default_hotkeys = function() {
 woas._default_hotkeys();
 
 woas._plugins_list = function() {
-	return "\n\n/No plugins installed/";
+	var pt = this._plugin_scripts.length;
+	if (pt === 0)
+		return "\n\n/No plugins installed/";
+	var pg=[];
+	for(var i=0;i<pt;++i){
+		pg.push("* [[WoaS::Plugins::"+this._plugin_scripts[i].name+"|"+this._plugin_scripts[i].name+"]]\n");
+	}
+	return "\n\n"+this._simple_join_list(pg);
 };
