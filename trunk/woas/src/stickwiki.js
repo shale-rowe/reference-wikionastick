@@ -723,7 +723,7 @@ woas.set_current = function (cr, interactive) {
 					case "WoaS":
 						pi = woas.page_index(namespace+"::"+cr);
 						// unexisting page
-						if (pi == -1)
+						if (pi === -1)
 							return false;
 						var real_t = page_titles[pi];
 /*						if (this.is__embedded(pi)) {
@@ -732,21 +732,27 @@ woas.set_current = function (cr, interactive) {
 						} else { */
 							text = this.get_text(real_t);
 							if (text !== null) {
-								switch (cr) {
-									case "Plugins":
-										text = this.parser.parse(text + this._plugins_list());
-									break;
-									case "Aliases":
-									case "Hotkeys":
-									case "CSS::Core":
-									case "CSS::Boot":
-									case "CSS::Custom":
-										// page is stored plaintext
-										text = "<div class=\"woas_nowiki_multiline woas_core_page\">"+text+"</div>";
-									break;
-									default:
-										// help pages and related resources
-										text = this.parser.parse(text);
+								// show a plugin
+								var _pfx = "WoaS::Plugins::";
+								if (real_t.substr(0, _pfx.length) === _pfx) {
+									text = "<div class=\"woas_nowiki_multiline woas_core_page\">"+text+"</div>";
+								} else {
+									switch (cr) {
+										case "Plugins":
+											text = this.parser.parse(text + this._plugins_list());
+										break;
+										case "Aliases":
+										case "Hotkeys":
+										case "CSS::Core":
+										case "CSS::Boot":
+										case "CSS::Custom":
+											// page is stored plaintext
+											text = "<div class=\"woas_nowiki_multiline woas_core_page\">"+text+"</div>";
+										break;
+										default:
+											// help pages and related resources
+											text = this.parser.parse(text);
+									}
 								}
 							}	
 //						}
@@ -1452,7 +1458,7 @@ woas.create_breadcrumb = function(title) {
 		else {
 			partial += tmp[i]+"::";
 			js = "go_to('"+this.js_encode(partial)+"')";
-			s += "<a title=\""+xhtml_encode(tmp[i])+"\" href=\"javascript:"+js+"\" onclick=\""+js+"; return false;\">"+tmp[i]+"</a> :: ";
+			s += "<a title=\""+this.xhtml_encode(tmp[i])+"\" href=\"javascript:"+js+"\" onclick=\""+js+"; return false;\">"+tmp[i]+"</a> :: ";
 		}
 	}
 	// add page title

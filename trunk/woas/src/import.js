@@ -499,7 +499,27 @@ woas.import_wiki = function() {
 	if (update_hotkeys)
 		this._load_hotkeys(this.get_text("WoaS::Hotkeys"));
 	
-	//TODO: add/update plugins
+	// add/update plugins
+	for(var i=0,it=plugins_update.length;i<it;++i) {
+		this._update_plugin(plugins_update[i]);
+	}
+	for(var i=0,it=plugins_add.length;i<it;++i) {
+		this._enable_plugin(plugins_add[i]);
+	}
+	
+	// if there is bootscript code, create a new plugin for it
+	if (bootscript_code.length !== 0) {
+		var chosen_name = "WoaS::Plugins::Bootscript", base_name = chosen_name, i=0;
+		while (page_titles.indexOf(chosen_name) !== -1) {
+			chosen_name = base_name + "_" + (i++).toString();
+		}
+		// now create such plugin
+		page_titles.push(chosen_name);
+		pages.push(bootscript_code);
+		page_attrs.push( 0 );
+		page_mts.push( current_mts );
+		log("Old bootscript code has been saved in "+chosen_name);
+	}
 	
 	// remove hourglass
 	this.progress_finish();
