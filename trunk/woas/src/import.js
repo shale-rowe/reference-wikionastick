@@ -321,7 +321,11 @@ woas.import_wiki = function() {
 	// modified timestamp for pages before 0.10.0
 	var current_mts = Math.round(new Date().getTime()/1000),
 		// collected bootscript code
-		bootscript_code = "";
+		bootscript_code = "",
+		update_aliases = false,
+		update_hotkeys = false,
+		plugins_update = [],
+		plugins_add = [];
 
 	// **** COMMON IMPORT CODE ****
 	if (import_content) {
@@ -343,16 +347,31 @@ woas.import_wiki = function() {
 				else if (import_css && is_css_page)
 					css_was_imported = true;
 				// fix the old bootscript page
-				if (page_names[i] === "WoaS::Bootscript") {
-					// convert old base64 bootscript to plain text
-					if (old_version<107)
-						bootscript_code = decode64(page_contents[i]);
+				if (old_version < 120) {
+					if (page_names[i] === "WoaS::Bootscript") {
+						// convert old base64 bootscript to plain text
+						if (old_version<107)
+							bootscript_code = decode64(page_contents[i]);
+						else
+							bootscript_code = page_contents[i];
+						pages_imported++;
+						this.progress_status(pages_imported/page_names.length);
+						continue;
+					}
+				} // from 0.12.0 we no more have a bootscript page
+				// take note of plugin pages
+				var _pfx = "WoaS::Plugins::";
+				if (page_names[i].substr(0, _pfx.length) === _pfx) {
+					// does plugin already exist?
+					if (page_titles.indexOf(page_names[i])!==-1)
+						plugins_update.push(page_names[i].substr(_pfx.length));
 					else
-						bootscript_code = page_contents[i];
-					pages_imported++;
-					this.progress_status(pages_imported/page_names.length);
-					continue;
-				}
+						plugins_add.push(page_names[i].substr(_pfx.length));
+				} else if (page_names[i] === "WoaS::Aliases")
+				// check if we need to update aliases and hotkeys
+					update_aliases = true;
+				else if (page_names[i] === "WoaS::Hotkeys")
+					update_hotkeys = true;
 				// allowed pages after above filtering are Plugins, Aliases, Hotkeys
 			} else if (page_names[i].indexOf("Special::")===0) {
 				if ((old_version>=94) && (old_version<=96)) {
@@ -410,7 +429,7 @@ woas.import_wiki = function() {
 				else
 					page_mts.push( old_page_mts[i] );
 			} else { // page already existing
-				log("replacing "+page_names[i]);
+//				log("replacing "+page_names[i]);	//log:0
 				if (old_version==94) {
 					// convert embedded files to base64 encoding
 					if (old_page_attrs[i] & 4) {
@@ -472,16 +491,20 @@ woas.import_wiki = function() {
 		}
 	}
 	
-	// apply the new CSS
+	// refresh in case of CSS, aliases and/or hotkeys modified
 	if (css_was_imported)
 		this.css.set(this.get_text("WoaS::CSS::Core")+"\n"+this.get_text("WoaS::CSS::Custom"));
+	if (update_aliases)
+		this._load_aliases(this.get_text("WoaS::Aliases"));
+	if (update_hotkeys)
+		this._load_hotkeys(this.get_text("WoaS::Hotkeys"));
+	
+	//TODO: add/update plugins
 	
 	// remove hourglass
 	this.progress_finish();
 	
-	alert(bootscript_code);
-	
-	// when we fail, we return false
+	// return false on failure
 	if (fail)
 		return false;
 	
