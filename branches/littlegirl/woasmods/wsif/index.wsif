@@ -3809,8 +3809,8 @@ Please note that this might break in future versions (it's a private function) a
 --DFQRCTsKlU
 woas.page.title: WoaS Mods::About
 woas.page.attributes: 0
-woas.page.last_modified: 1272223853
-woas.page.length: 1868
+woas.page.last_modified: 1272295704
+woas.page.length: 1060
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -3821,14 +3821,5 @@ This is a collection of pages showing a few modifications you can make to custom
 
 <div style="background-color:#FFFFAA; border: 0.1em solid black; padding:0.3em; margin-left:auto; margin-right: auto; width:80%;">All pages are tagged at the bottom with the WoaS versions the mod has been tested in. If a page is not tagged with the version of WoaS you're using, it may not work or be necessary in your version.<br><br>All instructions are for the default wiki as downloaded from [[http://sourceforge.net/projects/stickwiki/files/|here]]. If you've made changes to your wiki, you may need to modify the instructions.<br><br>Use these at your own risk. Please back up your wiki before trying them.</div>
 If you have suggestions, corrections, ideas, or problems with any of the mods, please [[mailto://littlergirl@gmail.com?subject=WoaS mods|send me an email]].
-<!--
-== This wiki needs a new maintainer
-<div style="background-color:pink; border: 0.1em solid black; padding:0.3em; margin-left:auto; margin-right: auto; width:80%;">I will no longer be updating this WoaS Mods wiki. I have made sure all mods are current to WoaS 0.11.6. Whoever takes over the maintenance of this wiki will need to:
-* Test all applicable mods on more recent versions.
-* Tag the pages with the versions the mods work with.
-* Add version-specific instructions when necessary.
-* Add pages as needed for new mods.
-I will continue to work on [[http://bookonastick.wordpress.com/|Book on a Stick]] and continue maintaining a copy of this file for Book on a Stick. First I must take a hiatus to thoroughly learn JavaScript so that I can properly continue updating the program on my own.
-</div>
--->
+
 --DFQRCTsKlU
