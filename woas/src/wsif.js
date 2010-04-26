@@ -473,8 +473,12 @@ woas._native_page_def = function(path,ct,p,last_p,overwrite,pre_import_hook, tit
 	if (attrs === null) {
 		log("No attributes defined for page "+title);	//log:1
 		fail = true;
+		// continue parsing
+		return last_p;
 	}
-	if (!fail && (disposition == "inline")) {
+
+	switch (disposition) {
+		case "inline":
 		// craft the exact boundary match string
 		boundary = "\n--"+boundary+"\n";
 		// locate start and ending boundaries
@@ -553,8 +557,11 @@ woas._native_page_def = function(path,ct,p,last_p,overwrite,pre_import_hook, tit
 		// has to break anyway
 		break;
 		} // wend
-		
-	} else if (!fail && (disposition == "external")) { // import an external WSIF file
+		// return pointer after last read header in case of failure
+		if (fail)
+			return bpos_e + boundary.length;
+	break;
+	case "external":	// import an external WSIF file
 		if (d_fn === null) {
 			this.wsif_error( "Page "+title+" is external but no filename was specified");
 			return -1;
@@ -607,49 +614,46 @@ woas._native_page_def = function(path,ct,p,last_p,overwrite,pre_import_hook, tit
 			// return pointer after last read header
 			return last_p;
 		}
-	} else { // no disposition or unknown disposition
+	break;
+	default: // no disposition or unknown disposition
 		this.wsif_error( "Page "+title+" has invalid disposition: "+disposition);
 		return -1;
+	} // end of switch
+
+	// check if we need to call the pre-import hook
+	if (typeof pre_import_hook == "function") {
+		var NP = { "title": title, "attrs": attrs, "page": page, "modified": false };
+		if (!pre_import_hook(NP)) {
+			// return updated offset
+			return bpos_e+boundary.length;
+		}
+		if (NP.modified) {
+			page = NP.page;
+			title = NP.title;
+			attrs = NP.attrs;
+		}
+		NP = null;
 	}
-	
-	if (!fail) {
-		// check if we need to call the pre-import hook
-		if (typeof pre_import_hook == "function") {
-			var NP = { "title": title, "attrs": attrs, "page": page, "modified": false };
-			if (!pre_import_hook(NP)) {
-				// return updated offset
-				return bpos_e+boundary.length;
-			}
-			if (NP.modified) {
-				page = NP.page;
-				title = NP.title;
-				attrs = NP.attrs;
-			}
-			NP = null;
-		}
-		// check if page already exists
-		var pi = page_titles.indexOf(title);
-		if (pi != -1) {
-			if (overwrite) {
-				// update the page record
-				pages[pi] = page;
-				page_attrs[pi] = attrs;
-				page_mts[pi] = last_mod;
-				// page title does not change
-			} else
-				log("Skipping already existing page "+title); //log:1
-		} else { // creating a new page
-			pi = page_titles.length;
-			pages.push(page);
-			page_attrs.push(attrs);
-			page_mts.push(last_mod);
-			page_titles.push(title);
-		}
-		// all OK
-		this.wsif.imported_page = pi;
-	} // !fail
-	// return pointer after last read header
-//	return last_p;
+	// check if page already exists
+	var pi = page_titles.indexOf(title);
+	if (pi !== -1) {
+		if (overwrite) {
+			// update the page record
+			pages[pi] = page;
+			page_attrs[pi] = attrs;
+			page_mts[pi] = last_mod;
+			// page title does not change
+		} else
+			log("Skipping already existing page "+title); //log:1
+	} else { // creating a new page
+		pi = page_titles.length;
+		pages.push(page);
+		page_attrs.push(attrs);
+		page_mts.push(last_mod);
+		page_titles.push(title);
+	}
+	// all OK
+	this.wsif.imported_page = pi;
 	// return updated offset
 	return bpos_e+boundary.length;
 };
