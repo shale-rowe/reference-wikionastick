@@ -95,7 +95,7 @@ woas.static_pages2 = ["WoaS::Plugins", "WoaS::CSS::Core",
 						"WoaS::Template::Search", "WoaS::CSS::Boot"];
 						
 woas.help_pages = null;
-woas.default_pages = ["::Menu", "WoaS::Bootscript", "WoaS::Aliases", "WoaS::Hotkeys", "WoaS::CSS::Custom"];
+woas.default_pages = ["::Menu", "WoaS::Aliases", "WoaS::Hotkeys", "WoaS::CSS::Custom"];
 
 woas.erase_wiki = function() {
 	if (!this.config.permit_edits) {
@@ -151,7 +151,7 @@ woas.erase_wiki = function() {
 	page_titles = page_titles.concat(copied_help_pages);
 	// now build pages
 	pages = ["A blank sheet is a catalyst for ideas", "[["+this.config.main_page+"]]\n\n[[Special::All Pages]]\n[[Special::New Page]]\n[[Special::Duplicate Page]]\n[[Special::Go to]]\n[[Special::Delete Page]]\n[[Special::Backlinks]]\n[[Special::Search]]",
-			"/* insert here your boot script */", "", this._default_hotkeys(), "/* Your CSS customization goes here */"];
+			"", this._default_hotkeys(), "/* Your CSS customization goes here */"];
 	pages = pages.concat(backup_pages); backup_pages = null;
 	current = this.config.main_page;
 	this.refresh_menu_area();
@@ -173,11 +173,6 @@ woas.cmd_edit_css = function() {
 //DEPRECATED
 woas.cmd_edit_aliases = function() {
 	return this.cmd_edit_special("WoaS::Aliases");
-};
-
-//DEPRECATED
-woas.cmd_edit_bootscript = function() {
-	return this.cmd_edit_special("WoaS::Bootscript");
 };
 
 // used to edit many special pages
@@ -233,17 +228,17 @@ woas.cmd_delete = function() {
 };
 
 // javascript shortcuts for special pages
-woas.shortcuts = ["New Page", "Duplicate Page", "All Pages", "Orphaned Pages", "Backlinks", "Dead Pages", "Erase Wiki", "Edit CSS", "Main Page", "Edit Bootscript", "Aliases", "Go to", "Delete Page", "Recentchanges"];
+woas.shortcuts = ["New Page", "Duplicate Page", "All Pages", "Orphaned Pages", "Backlinks", "Dead Pages", "Erase Wiki", "Edit CSS", "Main Page", "Aliases", "Go to", "Delete Page", "Recentchanges"];
 woas.shortcuts_js = ["cmd_new_page", "cmd_duplicate_page", "special_all_pages", "special_orphaned_pages", "special_backlinks",
 					"special_dead_pages", "cmd_erase_wiki", "cmd_edit_css", "cmd_main_page",
-					"cmd_edit_bootscript", "cmd_edit_aliases", "cmd_go_to", "cmd_delete",
+					"cmd_edit_aliases", "cmd_go_to", "cmd_delete",
 					"special_recent_changes"];
 					
 woas.unexportable_pages = ["New Page", "Duplicate Page", "Backlinks", "Erase Wiki", "Edit CSS",
-								"Edit Bootscript", "Go to", "Delete Page", "Search"];
+								"Go to", "Delete Page", "Search"];
 
 woas.unexportable_pages2 = ["WoaS::CSS::Custom", "WoaS::CSS::Core", "WoaS::Aliases", "WoaS::Hotkeys",
-							"WoaS::Plugins", "WoaS::Bootscript"];
+							"WoaS::Plugins"];
 
 // return raw javascript tag to be included in XHTML page
 woas.raw_js = function(code) {

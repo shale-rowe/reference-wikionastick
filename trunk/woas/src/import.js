@@ -157,6 +157,7 @@ woas.import_wiki = function() {
 		/* NOTES ABOUT OLD VERSIONS
 		0.12.0:
 			* introduced woas.config.new_tables_syntax option (transitional)
+			* introduced plugins (which deprecate WoaS::Bootscript)
 		0.11.2:
 			* introduced parsing mechanism which does not mess with var declarations inside JavaScript strings
 			* introduced WoaS::Hotkeys, WoaS::CSS::Core, WoaS::CSS::Custom
@@ -318,7 +319,9 @@ woas.import_wiki = function() {
 	} // done importing from v0.9.2B+
 
 	// modified timestamp for pages before 0.10.0
-	var current_mts = Math.round(new Date().getTime()/1000);
+	var current_mts = Math.round(new Date().getTime()/1000),
+		// collected bootscript code
+		bootscript_code = "";
 
 	// **** COMMON IMPORT CODE ****
 	if (import_content) {
@@ -339,13 +342,22 @@ woas.import_wiki = function() {
 					continue;
 				else if (import_css && is_css_page)
 					css_was_imported = true;
-				// allowed pages after above filtering are Bootscript, Aliases, Hotkeys
+				// fix the old bootscript page
+				if (page_names[i] === "WoaS::Bootscript") {
+					// convert old base64 bootscript to plain text
+					if (old_version<107)
+						bootscript_code = decode64(page_contents[i]);
+					else
+						bootscript_code = page_contents[i];
+					pages_imported++;
+					this.progress_status(pages_imported/page_names.length);
+					continue;
+				}
+				// allowed pages after above filtering are Plugins, Aliases, Hotkeys
 			} else if (page_names[i].indexOf("Special::")===0) {
 				if ((old_version>=94) && (old_version<=96)) {
 					if (page_names[i]=="Special::Bootscript") {
-						pi = this.page_index("WoaS::Bootscript");
-						pages[pi] = page_contents[i];
-						page_attrs[pi] = 4;
+						bootscript_code = page_contents[i];
 						pages_imported++;
 						this.progress_status(pages_imported/page_names.length);
 						continue;
@@ -397,7 +409,7 @@ woas.import_wiki = function() {
 					page_mts.push( current_mts );
 				else
 					page_mts.push( old_page_mts[i] );
-			} else {
+			} else { // page already existing
 				log("replacing "+page_names[i]);
 				if (old_version==94) {
 					// convert embedded files to base64 encoding
@@ -422,12 +434,8 @@ woas.import_wiki = function() {
 								log("removing "+rest+" trailing bytes from page "+page_names[i]); //log:1
 							while (rest-- > 0) {page_contents[i].pop();}
 					}
-					// convert old base64 bootscript to plain text
-					if ((old_version<107) && (page_titles[pi] === "WoaS::Bootscript")) {
-						old_page_attrs[i] = 0;
-						pages[pi] = decode64(page_contents[i]);
-					} else
-						pages[pi] = page_contents[i];
+					// copy content
+					pages[pi] = page_contents[i];
 				}
 				page_attrs[pi] = old_page_attrs[i];
 			}
@@ -471,6 +479,8 @@ woas.import_wiki = function() {
 	// remove hourglass
 	this.progress_finish();
 	
+	alert(bootscript_code);
+	
 	// when we fail, we return false
 	if (fail)
 		return false;
@@ -508,13 +518,6 @@ function _import_wsif_pre_hook(NP) {
 		if (NP.title.indexOf("WoaS::")===0)
 			return false;
 	} else {
-		// check that the WoaS::Bootscript is in proper format
-		if ((NP.title == "WoaS::Bootscript") && (NP.attrs == 4)) {
-			NP.attrs = 0;
-			NP.page = decode64(NP.page);
-			NP.modified = true;
-			return true;
-		}
 		// directly import these pages
 		if (NP.title.indexOf("WoaS::")===0)
 			return true;

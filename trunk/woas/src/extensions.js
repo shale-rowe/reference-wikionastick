@@ -1,6 +1,3 @@
-
-var _bootscript = null;					// bootscript
-
 // the hotkeys runtime object
 woas.hotkeys = {
 	"save":		"s",
@@ -20,6 +17,27 @@ woas._custom_scripts = [];
 // plugin scripts array (those defined by active plugins)
 woas._plugin_scripts = [];
 
+var reAliases = /^(\$[A-Za-z0-9_]{2,})\s+(.*?)$/gm;
+// match all aliases defined in a page
+woas._load_aliases = function(s) {
+	this.aliases = [];
+	if (s==null || !s.length) return;
+	s.replace(reAliases, function(str, alias, value) {
+		// save the array with the alias regex and alias value
+		var cpok = [ new RegExp(RegExp.escape(alias), "g"), value];
+		woas.aliases.push(cpok);
+	});
+};
+
+woas.aliases = [];
+
+woas.title_unalias = function(aliased_title) {
+	// apply aliases on title, from newest to oldest
+	for(var i=0,l=this.aliases.length;i<l;++i) {
+		aliased_title = aliased_title.replace(this.aliases[i][0], this.aliases[i][1]);
+	}
+	return aliased_title;
+};
 
 woas._clear_custom_scripts = function () {
 	if (!this._custom_scripts.length) return;
@@ -31,7 +49,7 @@ woas._clear_custom_scripts = function () {
 	this._custom_scripts = [];
 };
 
-// protect custom scripts, Bootscript and Plugins from running when we are saving WoaS
+// protect custom scripts and Plugins from running when we are saving WoaS
 woas._save_reload = false;
 woas._protect_js_code = function(code) {
 	return "if (!woas._save_reload) {\n" + code + "\n}\n";
@@ -52,28 +70,6 @@ woas._mk_active_script = function(code, id, i, external) {
 		// add the inline code with a protection from re-run which could happen upon saving WoaS
 		woas.setHTML(s_elem, this._protect_js_code(code));
 	return s_elem;
-};
-
-woas._create_bs = function(saving) {
-	// do not run bootscript in safe mode
-	if (this.config.safe_mode)
-		return false;
-	var code=this.get_text("WoaS::Bootscript");
-	if (code===null || !code.length) return false;
-	if (saving)
-		woas._save_reload = true;
-	_bootscript = this._mk_active_script(this._protect_js_code(code), "plugin", 0, false);
-	if (saving)
-		woas._save_reload = false;
-	return true;
-};
-
-// remove bootscript (when erasing for example)
-woas._clear_bs = function() {
-	if (_bootscript !== null) {
-		this._dom_cage.head.removeChild(_bootscript);
-		_bootscript = null;
-	}
 };
 
 woas._activate_scripts = function(saving) {
@@ -98,8 +94,71 @@ woas._activate_scripts = function(saving) {
 	}
 };
 
-woas._new_plugins = function(new_plugins, saving) {
-	//TODO: create a script object for each new plugin
+// disable one single plugin
+woas._disable_plugin = function(name) {
+	for(var i=0,it=this._plugin_scripts.length;i<it;++i) {
+		if (this._plugin_scripts[i].name !== name)
+			continue;
+		// remove the DOM object
+		this._dom_cage.head.removeChild(this._plugin_scripts[i].obj);
+		delete this._plugin_scripts[i];
+		return true;
+	}
+	return false;
+};
+
+woas._update_plugin = function(name) {
+	return this._disable_plugin(name) && this._enable_plugin(name);
+}
+
+// enable a single plugin
+woas._enable_plugin = function(name) {
+	// generate the script element
+	var s_elem = this._mk_active_script(this.get_text("WoaS::Plugin::"+name), "plugin",
+				this._plugin_scripts.length, false);
+	// add to global array
+	if (s_elem !== null) {
+		this._plugin_scripts.push( {"name":name, "obj":s_elem} );
+		return true;
+	}
+	return false;
+};
+
+// remove DOM object for all plugins
+woas._clear_plugins = function() {
+	for(var i=0,it=this._plugin_scripts.length;i<it;++i) {
+		// remove the DOM object
+		this._dom_cage.head.removeChild(this._plugin_scripts[i].obj);
+		delete this._plugin_scripts[i].obj;
+	}
+	// reset array
+	this._plugin_scripts = [];
+};
+
+woas._load_plugins = function(saving) {
+	//TODO: get plugins configuration
+
+	// protect plugins from re-execution
+	if (saving)
+		this._save_reload = true;
+	
+	// get list of plugins
+	var _pfx = "Woas::Plugins::", l=_pfx.length,
+		s_elem;
+	for(var i=0,it=page_titles.length;i<it;++i) {
+		if (page_titles[i].substr(0, l) === _pfx) {
+			// generate the script element
+			s_elem = this._mk_active_script(this.get__text(i), "plugin", i+1, false);
+			// add to global array
+			if (s_elem !== null)
+				this._plugin_scripts.push( {"name":page_titles[i].substr(_pfx), "obj":s_elem} );
+		}
+	}
+
+	// turn down safety flag
+	if (saving)
+		this._save_reload = false;
+
 };
 
 woas.validate_hotkey = function(k) {

@@ -7,6 +7,10 @@ var _export_fnames_array = [];
 
 var _further_pages = [];
 
+woas._unix_normalize = function(s) {
+	return s.toLowerCase().replace(/\s+/g, "_").replace(/::/g, "-")
+};
+
 // save a base64 data: stream into an external file
 woas._b64_export = function(data, dest_path) {
 	// decode the base64-encoded data
@@ -102,7 +106,7 @@ woas._export_get_fname = function (title, create_mode) {
 	});
 	// fix the directory separator chars
 	if (_export_unix_norm)
-		fname = fname.toLowerCase().replace(/\s+/g, "_").replace(/::/g, "-");
+		fname = this._unix_normalize(fname);
 	else
 		fname = fname.replace(/::/g, " - ");
 	var test_fname = fname+ext, i=0;
@@ -169,7 +173,7 @@ woas.export_one_page = function (data, title, fname, exp, mts) {
 		'<meta name="description" content="'+
 		this.utf8_encode(this._attrib_escape(raw_text.replace(/\s+/g, " ").substr(0,max_description_length)))+'" />'+"\n"+
 		exp.meta_author+
-		exp.custom_bs+
+		exp.custom_scripts+
 		"</h"+"ead><"+"body>"+data+
 		(mts ? "<div class=\"woas_page_mts\">"+this.last_modified(mts)+"</div>" : "")+
 		"</bod"+"y></h"+"tml>\n"; raw_text = null;
@@ -211,13 +215,18 @@ woas.export_wiki = function () {
 		exp.css = "<"+"link rel=\"stylesheet\" type=\"text/css\" media=\"all\" href=\""+css_path+"\" /"+">";
 	} else
 		exp.css = "<"+"style type=\"text/css\">"+exp.css+"<"+"/style>";
-	exp.custom_bs = "";
+	exp.custom_scripts = "";
 	var data;
 	if (exp.js_mode==2) {
-		data = pages[this.page_index("WoaS::Bootscript")];
-		if (data!==null && data.length) {
-			this.save_file(exp.xhtml_path+"bootscript.js", this.file_mode.ASCII, data);
-			exp.custom_bs = '<sc'+'ript type="text/javascript" src="bootscript.js"><'+'/sc'+'ript>';
+		//export all active plugins as javascript code
+		var js_fn;
+		for(var pi=0,pt=this._plugin_scripts.length;pi<pt;++pi) {
+			data = this.get_text("WoaS::Plugins::"+this._plugin_scripts[pi].name);
+			js_fn = this._unix_normalize(this._plugin_scripts[pi].name)+".js";
+			if (this.save_file(exp.xhtml_path+js_fn,
+								this.file_mode.ASCII, data)) {
+				exp.custom_scripts += '<sc'+'ript type="text/javascript" src="'+js_fn+'"><'+'/sc'+"ript>\n";
+			}
 		}
 	}
 
@@ -237,8 +246,8 @@ woas.export_wiki = function () {
 		// skip pages which could not be decrypted
 		if (data === null) continue;
 		fname = this._export_get_fname(page_titles[pi], true);
-		// will skip WoaS::Bootscript and WoaS::Aliases
-		if (fname == '#') {
+		// will skip WoaS::Plugins::* and WoaS::Aliases
+		if (fname === '#') {
 //			log("skipping "+page_titles[pi]);
 			continue;
 		}

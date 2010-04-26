@@ -1,5 +1,4 @@
-
-// load modes which should be supported
+// load modes which should be supported by load/save browser bindings
 woas.file_mode = {
 	UTF8_TEXT:		0,
 	ASCII_TEXT:		1,
@@ -9,16 +8,16 @@ woas.file_mode = {
 };
 
 // save the currently open WoaS
-function _saveThisFile(new_data, old_data) {
+woas._save_this_file = function(new_data, old_data) {
 	var filename = _get_this_filename();
 
-	var r = woas.save_file(filename, woas.file_mode.ASCII_TEXT,
-		woas.DOCTYPE + woas.DOC_START + "<sc"+"ript type=\"tex"+"t/javascript\">"
+	var r = woas.save_file(filename, this.file_mode.ASCII_TEXT,
+		this.DOCTYPE + this.DOC_START + "<sc"+"ript type=\"tex"+"t/javascript\">"
 		+ new_data + "\n" + old_data + "</"+"html>");
 	if (r===true)
 		log("\""+filename+"\" saved successfully");	// log:1
 	else {
-		var msg = woas.i18n.SAVE_ERROR.sprintf(filename) + "\n\n";
+		var msg = this.i18n.SAVE_ERROR.sprintf(filename) + "\n\n";
 		if (this.use_java_io) {
 			// try to understand what went bad with Java
 			if (typeof document.applets.TiddlySaver == "undefined")
@@ -35,6 +34,7 @@ function _saveThisFile(new_data, old_data) {
 }
 
 //API1.0: save-file handler
+//NOTE: save_mode is not always enforced by browser binding
 woas.save_file = function(fileUrl, save_mode, content) {
 	var r = null;
 	if (!this.use_java_io) {
@@ -49,7 +49,7 @@ woas.save_file = function(fileUrl, save_mode, content) {
 	return r;
 };
 
-// get file content in FF3 without .enablePrivilege() (fbnil)
+// get file content in FF3 without .enablePrivilege() (FBNil)
 woas.mozillaLoadFileID = function(obj_id, load_mode, suggested_mime) {
 	var obj = document.getElementById(obj_id);
 	if(!window.Components || !obj.files)
@@ -73,8 +73,6 @@ woas.mozillaLoadFileID = function(obj_id, load_mode, suggested_mime) {
 	// return UTF-8 text by default
 	return D.getAsText("utf-8");
 };
-
-// *** original source of below functions was from TiddyWiki ***
 
 // API1.0: load-file handler
 woas.load_file = function(fileUrl, load_mode, mime){
@@ -124,7 +122,13 @@ woas.load_file = function(fileUrl, load_mode, mime){
 	return r;
 };
 
-// Returns null if it can't do it, false if there's an error, true if it saved OK
+// the following load/save bindings will return:
+// * null if they can't do it
+// * false if there's an error
+// * true if it saved OK
+// * string with content if content was read successfully
+
+// save through ActiveX
 woas.ieSaveFile = function(filePath, save_mode, content) {
 	var s_mode;
 	switch (save_mode) {
@@ -157,7 +161,7 @@ woas.ieSaveFile = function(filePath, save_mode, content) {
 	return(true);
 };
 
-// Returns null if it can't do it, false if there's an error, or a string of the content if successful
+// load through ActiveX
 woas.ieLoadFile = function(filePath, load_mode, suggested_mime) {
 	var o_mode;
 	switch (load_mode) {
@@ -198,7 +202,7 @@ woas.ieLoadFile = function(filePath, load_mode, suggested_mime) {
 	return(content);
 };
 
-// Returns null if it can't do it, false if there's an error, true if it saved OK
+// save through UniversalXPConnect
 woas.mozillaSaveFile = function(filePath, save_mode, content) {
 	if (!window.Components)
 		return null;
@@ -224,8 +228,7 @@ woas.mozillaSaveFile = function(filePath, save_mode, content) {
 	return(true);
 };
 
-// Returns null if it can't do it, false if there's an error, or a string
-// with the content if successful
+// load through UniversalXPConnect
 woas.mozillaLoadFile = function(filePath, load_mode, suggested_mime) {
 	// this is available on Mozilla browsers only
 	if (!window.Components)
@@ -289,17 +292,7 @@ woas._data_uri_enc = function(filename, ct, guess_mime) {
 	return "data:"+guess_mime+";base64,"+encode64(ct);
 };
 
-function _javaUrlToFilename(url) {
-/*	var f = "//localhost";
-	if(url.indexOf(f) == 0)
-		return url.substring(f.length);
-	var i = url.indexOf(":");
-	if(i > 0)
-		return url.substring(i-1); */
-	return url;
-}
-
-//FIXME: save_mode is not considered here
+//FIXME: save_mode is not enforced
 woas.javaSaveFile = function(filePath,save_mode,content) {
 	if ((save_mode != this.file_mode.ASCII_TEXT) && (save_mode != this.file_mode.UTF8_TEXT)) {
 		log("Only ASCII and UTF8 file modes are supported with Java/TiddlySaver");	//log:1
@@ -307,7 +300,7 @@ woas.javaSaveFile = function(filePath,save_mode,content) {
 	}
 	try {
 		if(document.applets.TiddlySaver) {
-			var rv = document.applets.TiddlySaver.saveFile(_javaUrlToFilename(filePath),"UTF-8",content);
+			var rv = document.applets.TiddlySaver.saveFile(filePath,"UTF-8",content);
 			if (typeof rv == "undefined") {
 				log("Save failure, this is usually a Java configuration issue");
 				return null;
@@ -324,9 +317,9 @@ woas.javaSaveFile = function(filePath,save_mode,content) {
 		log("No JRE detected"); //log:1
 		return null;
 	}
-	// try reading the file via java
+	// try reading the file with java.io
 	try {
-		var s = new java.io.PrintStream(new java.io.FileOutputStream(_javaUrlToFilename(filePath)));
+		var s = new java.io.PrintStream(new java.io.FileOutputStream(filePath));
 		s.print(content);
 		s.close();
 	} catch(ex) {
@@ -336,12 +329,12 @@ woas.javaSaveFile = function(filePath,save_mode,content) {
 	return true;
 };
 
+//FIXME: UTF8_TEXT/BINARY is not enforced here
 woas.javaLoadFile = function(filePath, load_mode, suggested_mime) {
-	//FIXME: UTF8_TEXT/BINARY is not separated here!!
 	var content = null;
 	try {
 		if(document.applets.TiddlySaver) {
-			content = document.applets.TiddlySaver.loadFile(_javaUrlToFilename(filePath), "UTF-8");
+			content = document.applets.TiddlySaver.loadFile(filePath, "UTF-8");
 			if (content === null) {
 				log("Load failure, maybe file does not exist?"); //log:1
 				return false;
@@ -370,7 +363,7 @@ woas.javaLoadFile = function(filePath, load_mode, suggested_mime) {
 	}
 	var a_content = [];
 	try {
-		var r = new java.io.BufferedReader(new java.io.FileReader(_javaUrlToFilename(filePath)));
+		var r = new java.io.BufferedReader(new java.io.FileReader(filePath));
 		var line;
 		while((line = r.readLine()) !== null)
 			a_content.push(new String(line));
@@ -423,19 +416,19 @@ function printout_mixed_arr(arr, split_lines, attrs) {
 
 // used to print out encrypted page bytes and attributes
 function printout_num_arr(arr) {
-	var s = "";
-	for(var i=0;i<arr.length-1;i++) {
+	var s = "",it=arr.length-1;
+	for(var i=0;i<it;i++) {
 		if (arr[i]>=1000)
 			s += "0x"+arr[i].toString(16) + ",";
 		else
 			s+=arr[i].toString() + ",";
 	}
 	// do not write comma on last element, workaround due to IE6 not recognizing it
-	if (arr.length>1) {
-		if (arr[arr.length-1]>=1000)
-			s += "0x"+arr[arr.length-1].toString(16);
+	if (it>0) {
+		if (arr[it]>=1000)
+			s += "0x"+arr[it].toString(16);
 		else
-			s+=arr[arr.length-1].toString();
+			s+=arr[it].toString();
 	}
 
 	return s;
@@ -453,10 +446,8 @@ function printout_fixed(elem, n) {
 woas._save_to_file = function(full) {
 	this.progress_init("Saving to file");
 	
-	var new_marker;
-	if (full) {
-		new_marker = _inc_marker(__marker);
-	} else new_marker = __marker;
+	// increase the marker only when performing full save
+	var new_marker = full ? _inc_marker(__marker) : __marker;
 	
 	// setup the page to be opened on next start
 	var safe_current;
@@ -537,8 +528,7 @@ woas._save_to_file = function(full) {
 	$("wiki_title").innerHTML = "";
 
 	this._clear_custom_scripts();
-	this._clear_bs();
-	this._new_plugins([]);
+	this._clear_plugins();
 
 	// set the loading message
 	this.setHTML($("woas_wait_text"), this.i18n.LOADING);
@@ -562,7 +552,7 @@ woas._save_to_file = function(full) {
 	
 //	if (!this.config.server_mode || (was_local && this.config.server_mode)) {
 	if (!this._server_mode)
-		r = _saveThisFile(computed_js, data);
+		r = this._save_this_file(computed_js, data);
 //		was_local = false;
 //	}
 
@@ -586,9 +576,8 @@ woas._save_to_file = function(full) {
 	// it shouldn't really be necessary to re-create scripts but
 	// we recreate them so that DOM scripts are always consistent
 	// with runtime javascript data/code
-	this._create_bs(true);
 	this._activate_scripts(true);
-	this._new_plugins(this._plugin_scripts, true);
+	this._load_plugins(true);
 	
 	this.progress_finish();
 	
@@ -779,6 +768,7 @@ function _inc_marker(old_marker) {
 	return m[1]+"-"+String("0").repeat(7-n.length)+n;
 }
 
+// load URL via XHR
 woas.remote_load = function(url) {
 	var HttpReq = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
 	HttpReq.open('GET', url, false);

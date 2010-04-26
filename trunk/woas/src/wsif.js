@@ -553,7 +553,8 @@ woas._native_page_def = function(path,ct,p,last_p,overwrite,pre_import_hook, tit
 		// check length (if any were passed)
 		if (len !== null) {
 			if (len != check_len)
-				this.alert("Length mismatch for page %s: ought to be %d but was %d".sprintf(title, len, check_len));
+				// show a simple log message
+				log("Length mismatch for page %s: ought to be %d but was %d".sprintf(title, len, check_len)); //log:1
 		}
 		// has to break anyway
 		break;
