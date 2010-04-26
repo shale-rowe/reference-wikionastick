@@ -1,4 +1,5 @@
 Version 0.12.0
+* fixed locking issue on IE (2991747, reported by deroock)
 * fixed unparsed option during WSIF export (M.Ellison)
 * fixed some issues with WSIF external loading
 * new tables syntax (FBNil)
