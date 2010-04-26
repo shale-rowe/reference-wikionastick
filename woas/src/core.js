@@ -157,6 +157,12 @@ woas.erase_wiki = function() {
 	this.refresh_menu_area();
 	backstack = [];
 	forstack = [];
+	// reload all extensions
+	this._load_aliases(this.get_text("WoaS::Aliases"));
+	this._load_hotkeys(this.get_text("WoaS::Hotkeys"));
+	this._clear_plugins();
+	this._load_plugins(false);
+
 	this.progress_finish();
 	return true;
 };
@@ -266,6 +272,10 @@ woas.delete_page_i = function(i) {
 	pages.splice(i,1);
 	page_attrs.splice(i,1);
 	page_mts.splice(i,1);
+	// disable the plugin if this was a plugin page
+	var _pfx = "WoaS::Plugins::";
+	if (old_title.substr(0, _pfx.length) === _pfx)
+		this._disable_plugin(old_title.substr(_pfx.length));
 	// remove the deleted page from history
 	var prev_page = null;
 	for(i=0,il=backstack.length;i<il;++i) {
@@ -280,7 +290,7 @@ woas.delete_page_i = function(i) {
 	}
 	//TODO: delete also from forstack!
 	// if we were looking at the deleted page
-	if (current == old_title) {
+	if (current === old_title) {
 		// go back or to main page, do not save history
 		if(backstack.length > 0) {
 			this.set_current(backstack.pop(), true);
