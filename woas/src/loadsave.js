@@ -540,7 +540,10 @@ woas._save_to_file = function(full) {
 	this._clear_bs();
 	this._new_plugins([]);
 
-	this.setHTML($("woas_wait_text"), "");
+	// set the loading message
+	this.setHTML($("woas_wait_text"), this.i18n.LOADING);
+	// temporarily display such message
+	$.show("loading_overlay");
 	var bak_cursor = document.body.style.cursor;
 	document.body.style.cursor = "auto";
 
@@ -548,6 +551,7 @@ woas._save_to_file = function(full) {
 	
 	// data is ready, now the actual save process begins
 	var r=false;
+	$.hide("loading_overlay");
 	this.setHTML($("woas_wait_text"), bak_wait_text);
 	document.body.style.cursor = bak_cursor;
 
