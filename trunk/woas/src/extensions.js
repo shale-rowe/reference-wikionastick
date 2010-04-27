@@ -101,7 +101,7 @@ woas._disable_plugin = function(name) {
 			continue;
 		// remove the DOM object
 		this._dom_cage.head.removeChild(this._plugin_scripts[i].obj);
-		delete this._plugin_scripts[i];
+		this._plugin_scripts = this._plugin_scripts.slice(0, i).concat(this._plugin_scripts.slice(i+1));
 		return true;
 	}
 	return false;
