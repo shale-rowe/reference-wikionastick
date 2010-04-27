@@ -488,7 +488,8 @@ woas._create_page = function (ns, cr, ask, fill_mode) {
 		ct = "= "+cr+"\n";
 	else
 		ct = "\n";
-	return this._create_page_direct(ns, cr, fill_mode, ct);
+	this._create_page_direct(ns, cr, fill_mode, ct);
+	return true;
 };
 
 woas._create_page_direct = function(ns, cr, fill_mode, default_ct) {
@@ -509,7 +510,6 @@ woas._create_page_direct = function(ns, cr, fill_mode, default_ct) {
 		// proceed with a normal wiki source page
 		this.edit_page(cr);
 	}
-	return true;
 };
 
 woas._get_embedded = function(cr, etype) {
@@ -1375,8 +1375,13 @@ woas.save = function() {
 					// NOTE: plugins are not allowed to be renamed, so
 					// old title is equal to new title
 					var _pfx = "WoaS::Plugins::";
-					if (new_title.substr(0, _pfx.length) === _pfx)
-						this._update_plugin(new_title.substr(_pfx.length));
+					if (new_title.substr(0, _pfx.length) === _pfx) {
+						// we do not directly call _update_plugin because
+						// plugin does not exist before creation so disabling it
+						// would fail
+						this._disable_plugin(new_title.substr(_pfx.length));
+						this._enable_plugin(new_title.substr(_pfx.length));
+					}
 					// check if this is a menu
 					if (this.is_menu(new_title)) {
 						this.refresh_menu_area();
