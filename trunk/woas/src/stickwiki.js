@@ -1372,14 +1372,11 @@ woas.save = function() {
 					// actually set text only in case of new title
 					this.set_text(raw_content);
 					// update the plugin if this was a plugin page
-					// NOTE: plugins are not allowed to be renamed
+					// NOTE: plugins are not allowed to be renamed, so
+					// old title is equal to new title
 					var _pfx = "WoaS::Plugins::";
-					if (new_title.substr(0, _pfx.length) === _pfx) {
-						// we do not call _update_plugin because in case of new plugins
-						// disabling the plugin would fail
-						this._disable_plugin(new_title.substr(_pfx.length));
-						this._enable_plugin(new_title.substr(_pfx.length));
-					}
+					if (new_title.substr(0, _pfx.length) === _pfx)
+						this._update_plugin(new_title.substr(_pfx.length));
 					// check if this is a menu
 					if (this.is_menu(new_title)) {
 						this.refresh_menu_area();
