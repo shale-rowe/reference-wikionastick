@@ -190,7 +190,7 @@ woas.is_image = function(page) { return this.is__image(this.page_index(page)); }
 
 // a page physically exists if it is not part of a reserved namespace, if it is not a (sub)namespace and if it actually exists
 woas.page_exists = function(page) {
-	return (this.is_reserved(page) || (page.substring(page.length-2)=="::") || (this.page_index(page)!=-1));
+	return (this.is_reserved(page) || (page.substring(page.length-2)==="::") || (this.page_index(page)!==-1));
 };
 
 // with two trailing double colon
@@ -661,7 +661,7 @@ woas.set_current = function (cr, interactive) {
 	result_pages = [];
 	// eventually remove the previous custom script
 	this._clear_custom_scripts();
-	if (cr.substring(cr.length-2)=="::") {
+	if (cr.substring(cr.length-2)==="::") {
 		text = this._get_namespace_pages(cr);
 		namespace = cr.substring(0,cr.length-2);
 		cr = "";
@@ -1193,14 +1193,14 @@ woas.valid_title = function(title, renaming) {
 		this.alert(this.i18n.TOO_LONG_TITLE.sprintf(256));
 		return false;
 	}
-	if (title.indexOf("[")!=-1 || title.indexOf("]")!=-1 ||
-		title.indexOf("{")!=-1 || title.indexOf("}")!=-1 ||
-		title.indexOf("<") != -1 || title.indexOf(">")!=-1 ||
-		title.indexOf("|")!=-1) {
+	if (title.indexOf("[")!==-1 || title.indexOf("]")!==-1 ||
+		title.indexOf("{")!==-1 || title.indexOf("}")!==-1 ||
+		title.indexOf("<") !== -1 || title.indexOf(">")!==-1 ||
+		title.indexOf("|")!==-1 || title.indexOf(":::")!==-1) {
 		this.alert(this.i18n.INVALID_TITLE);
 		return false;
 	}
-	if (title.substr(-2)=="::") {
+	if (title.substr(-2)==="::") {
 		this.alert(this.i18n.ERR_PAGE_NS);
 		return false;
 	}
