@@ -509,14 +509,16 @@ woas.import_wiki = function() {
 	}
 	
 	// if there is bootscript code, create a new plugin for it
-	if (bootscript_code.length !== 0) {
+	// skip empty bootscripts and also default bootscript
+	var trimmed_bs = this.trim(bootscript_code);
+	if ((trimmed_bs.length !== 0) && (trimmed_bs !== '/* insert here your boot script */')) {
 		var chosen_name = "WoaS::Plugins::Bootscript", base_name = chosen_name, i=0;
 		while (page_titles.indexOf(chosen_name) !== -1) {
 			chosen_name = base_name + "_" + (i++).toString();
 		}
 		// now create such plugin
 		page_titles.push(chosen_name);
-		pages.push(bootscript_code);
+		pages.push("/* This JavaScript code was automatically imported by WoaS from your former WoaS::Bootscript */\n"+bootscript_code);
 		page_attrs.push( 0 );
 		page_mts.push( this.config.store_mts ? current_mts : 0);
 		log("Old bootscript code has been saved in "+chosen_name);
