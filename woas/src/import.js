@@ -156,7 +156,7 @@ woas.import_wiki = function() {
 
 		/* NOTES ABOUT OLD VERSIONS
 		0.12.0:
-			* introduced woas.config.new_tables_syntax option (transitional)
+			* introduced some config options: new_tables_syntax, store_mts
 			* introduced plugins (which deprecate WoaS::Bootscript)
 		0.11.2:
 			* introduced parsing mechanism which does not mess with var declarations inside JavaScript strings
@@ -308,6 +308,7 @@ woas.import_wiki = function() {
 				}
 				if (old_version < 120) {
 					woas.config.new_tables_syntax = true;
+					woas.config.store_mts = true;
 				}
 				
 				// some GC help
@@ -425,9 +426,9 @@ woas.import_wiki = function() {
 				pages.push(page_contents[i]);
 				page_attrs.push( old_page_attrs[i] );
 				if (old_version < 100)
-					page_mts.push( current_mts );
+					page_mts.push( this.config.store_mts ? current_mts : 0);
 				else
-					page_mts.push( old_page_mts[i] );
+					page_mts.push( this.config.store_mts ? old_page_mts[i] : 0);
 			} else { // page already existing
 //				log("replacing "+page_names[i]);	//log:0
 				if (old_version==94) {
@@ -517,7 +518,7 @@ woas.import_wiki = function() {
 		page_titles.push(chosen_name);
 		pages.push(bootscript_code);
 		page_attrs.push( 0 );
-		page_mts.push( current_mts );
+		page_mts.push( this.config.store_mts ? current_mts : 0);
 		log("Old bootscript code has been saved in "+chosen_name);
 	}
 	

@@ -267,7 +267,7 @@ woas.export_wiki = function () {
 			}
 		} else
 			data = this.export_parse(data, exp.js_mode);
-		if (!this.export_one_page(data, page_titles[pi], fname, exp, page_mts[pi]))
+		if (!this.export_one_page(data, page_titles[pi], fname, exp, this.config.store_mts ? page_mts[pi] : 0))
 			break;
 		++done;
 	}
