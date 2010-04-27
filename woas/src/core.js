@@ -237,6 +237,11 @@ woas.cmd_delete = function() {
 		return false;
 	}
 	if (confirm(this.i18n.CONFIRM_DELETE.sprintf(pname))) {
+		// disable the plugin if this was a plugin page
+		var _pfx = "WoaS::Plugins::";
+		if (pname.substr(0, _pfx.length) === _pfx)
+			this._disable_plugin(pname.substr(_pfx.length));
+
 		this.delete_page_i(pi);
 		return true;
 	}
@@ -265,7 +270,7 @@ woas.raw_js = function(code) {
 woas.delete_page = function(title) {
 	var pi = page_titles.indexOf(title);
 	//DEBUG line
-	if (pi == -1) {
+	if (pi === -1) {
 		this.crash("Requesting deletion of unexisting page!");
 		return false;
 	}
@@ -282,10 +287,6 @@ woas.delete_page_i = function(i) {
 	pages.splice(i,1);
 	page_attrs.splice(i,1);
 	page_mts.splice(i,1);
-	// disable the plugin if this was a plugin page
-	var _pfx = "WoaS::Plugins::";
-	if (old_title.substr(0, _pfx.length) === _pfx)
-		this._disable_plugin(old_title.substr(_pfx.length));
 	// remove the deleted page from history
 	var prev_page = null;
 	for(i=0,il=backstack.length;i<il;++i) {
