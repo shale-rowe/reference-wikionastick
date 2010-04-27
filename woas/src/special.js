@@ -372,36 +372,32 @@ woas.ns_recurse = function(ns_arr, folds, prev_ns) {
 
 // grab expansion setting from UI radio boxes
 woas._ns_expanded = function(ns, items_count, id, list_id) {
-	if (items_count <= 3)
-		this._ns_groups[list_id].small.push(id);
-	else
-		this._ns_groups[list_id].big.push(id);
+	this._ns_groups[list_id].items.push(id);
 	switch (this._ns_groups[list_id].option) {
 		case 0:
 			return false;
 		case 1:
-			return true;
 		case 2:
-			return (items_count <= 3);
+			return true;
+//			return (items_count <= 3);
 	}
 };
 
-woas.ns_recurse_parse = function(folds, output, prev_ns, recursion, sorted, flat) {
-	// flatten the 'flat' parameter
-	if (typeof flat == "undefined")
-		flat = false;
+woas.ns_recurse_parse = function(folds, output, prev_ns, recursion, sorted) {
 	var i,it=folds["[pages]"].length,fold_id;
 	if (it != 0) {
 		// increase recursion depth
 		++recursion;
 		// disable folding for pages outside namespaces
-		if (!flat && prev_ns.length) {
+		if (prev_ns.length) {
 			// generate id for folding div
 			fold_id = "woas_fold"+output.fold_no++;
 			var vis_css = this._ns_expanded(prev_ns, it, fold_id, output.list_id) ? "visibility: visible" : "visibility: hidden; display:none";
-			output.s += "=".repeat(recursion)+" [[Javascript::$.toggle('"+fold_id+"')|"+prev_ns+"]]";
-			output.s += " [["+prev_ns+"|"+String.fromCharCode(8594)+"]] ("+it+" pages)\n";
+			output.s += "<h"+(recursion+1)+" id=\""+fold_id+"_head\"> [[Javascript::$.toggle('"+fold_id+"')|"+prev_ns+"]]";
+			output.s += " [["+prev_ns+"|"+String.fromCharCode(8594)+"]] ("+it+" pages)\n</h"+(recursion+1)+">";
 			output.s += "<div style=\""+vis_css+"\" id=\""+fold_id+"\">\n";
+			// add the header to the main object
+			this._ns_groups[output.list_id].heads.push(fold_id);
 		}
 		// apply sorting
 		if (sorted)
@@ -409,8 +405,8 @@ woas.ns_recurse_parse = function(folds, output, prev_ns, recursion, sorted, flat
 		for(i=0;i<it;++i) {
 			output.s += "* [["+folds["[pages]"][i]+"]]\n";
 		}
-		if (!flat && prev_ns.length)
-			output.s += "</div>\n";
+		if (prev_ns.length)
+			output.s += "</div>";
 	}
 	// sort the actual namespaces
 	if (sorted) {
@@ -433,12 +429,12 @@ woas.ns_recurse_parse = function(folds, output, prev_ns, recursion, sorted, flat
 		// parse second the sorted namespaces
 		it=nslist.length;
 		for(i=0;i<it;++i) {
-			this.ns_recurse_parse(folds[nslist[i]], output, prev_ns+nslist[i], recursion, sorted, flat);
+			this.ns_recurse_parse(folds[nslist[i]], output, prev_ns+nslist[i], recursion, sorted);
 		}
 	} else { // directly parsed without any specific sorting
 		for(i in folds) {
 			if (i != "[pages]")
-				this.ns_recurse_parse(folds[i], output, prev_ns+i, recursion, sorted, flat);
+				this.ns_recurse_parse(folds[i], output, prev_ns+i, recursion, sorted);
 		}
 	}
 };
@@ -449,51 +445,48 @@ woas._ns_groups = {};
 function _WoaS_list_expand_change(list_id, v) {
 	woas._ns_groups[list_id].option = parseInt(v);
 	switch (woas._ns_groups[list_id].option) {
-		case 0:
-			for(var i=0,it=woas._ns_groups[list_id].small.length;i<it;++i) {
-				$.hide(woas._ns_groups[list_id].small[i]);
+		case 0: // collapse all
+			for(var i=0,it=woas._ns_groups[list_id].heads.length;i<it;++i) {
+				$.show(woas._ns_groups[list_id].heads[i]+"_head");
 			}
-			for(var i=0,it=woas._ns_groups[list_id].big.length;i<it;++i) {
-				$.hide(woas._ns_groups[list_id].big[i]);
-			}
-		break;
-		case 1:
-			for(var i=0,it=woas._ns_groups[list_id].small.length;i<it;++i) {
-				$.show(woas._ns_groups[list_id].small[i]);
-			}
-			for(var i=0,it=woas._ns_groups[list_id].big.length;i<it;++i) {
-				$.show(woas._ns_groups[list_id].big[i]);
+			for(var i=0,it=woas._ns_groups[list_id].items.length;i<it;++i) {
+				$.hide(woas._ns_groups[list_id].items[i]);
 			}
 		break;
-		case 2:
-			for(var i=0,it=woas._ns_groups[list_id].small.length;i<it;++i) {
-				$.show(woas._ns_groups[list_id].small[i]);
+		case 2: // flat list (hide headers)
+			for(var i=0,it=woas._ns_groups[list_id].heads.length;i<it;++i) {
+				$.hide(woas._ns_groups[list_id].heads[i]+"_head");
+			} // next expand all items
+			for(var i=0,it=woas._ns_groups[list_id].items.length;i<it;++i) {
+				$.show(woas._ns_groups[list_id].items[i]);
 			}
-			for(var i=0,it=woas._ns_groups[list_id].big.length;i<it;++i) {
-				$.hide(woas._ns_groups[list_id].big[i]);
+			break;
+		case 1: // expand all
+			for(var i=0,it=woas._ns_groups[list_id].heads.length;i<it;++i) {
+				$.show(woas._ns_groups[list_id].heads[i]+"_head");
+			}
+			for(var i=0,it=woas._ns_groups[list_id].items.length;i<it;++i) {
+				$.show(woas._ns_groups[list_id].items[i]);
 			}
 		break;
 	}
 }
 
-woas.ns_listing = function(folds, sorted, flat) {
+woas.ns_listing = function(folds, sorted) {
 	if (typeof sorted == "undefined")
 		sorted = false;
-	if (typeof flat == "undefined")
-		flat = false;
 	// this is kept here for now until some more appropriate place is individuated
 	var list_id = _random_string(8);
 	// setup the group object
-	this._ns_groups[list_id] = { "small":[], "big":[], "option": 1};
+	this._ns_groups[list_id] = { "items":[], "heads":[], "option": 1};
 	var output={	"s": "",
 					"fold_no":0,
 					"list_id":list_id
 	};
-	if (!flat)
-		output.s = "<label for=\"WoaS_"+list_id+"_0\"><input type=\"radio\" id=\"WoaS_"+list_id+"_0\" name=\"WoaS_"+list_id+"\" value=\"0\" "+(this._ns_groups[list_id].option === 0 ? " checked=\"checked\"" : "" )+"onclick=\"_WoaS_list_expand_change('"+list_id+"',this.value)\" >Collapse all</label>&nbsp;\
+	output.s = "<label for=\"WoaS_"+list_id+"_0\"><input type=\"radio\" id=\"WoaS_"+list_id+"_0\" name=\"WoaS_"+list_id+"\" value=\"0\" "+(this._ns_groups[list_id].option === 0 ? " checked=\"checked\"" : "" )+"onclick=\"_WoaS_list_expand_change('"+list_id+"',this.value)\" >Collapse all</label>&nbsp;\
 <label for=\"WoaS_"+list_id+"_1\"><input type=\"radio\" id=\"WoaS_"+list_id+"_1\" name=\"WoaS_"+list_id+"\" value=\"1\" "+(this._ns_groups[list_id].option === 1 ? " checked=\"checked\"" : "" )+" onclick=\"_WoaS_list_expand_change('"+list_id+"',this.value)\">Expand all</label>&nbsp;\
-<label for=\"WoaS_"+list_id+"_2\"><input type=\"radio\" id=\"WoaS_"+list_id+"_2\" name=\"WoaS_"+list_id+"\" value=\"2\" "+(this._ns_groups[list_id].option === 2 ? " checked=\"checked\"" : "" )+"onclick=\"_WoaS_list_expand_change('"+list_id+"',this.value)\">Collapse big lists (more than 3 pages)</label>\n";
+<label for=\"WoaS_"+list_id+"_2\"><input type=\"radio\" id=\"WoaS_"+list_id+"_2\" name=\"WoaS_"+list_id+"\" value=\"2\" "+(this._ns_groups[list_id].option === 2 ? " checked=\"checked\"" : "" )+"onclick=\"_WoaS_list_expand_change('"+list_id+"',this.value)\">Flat lists</label>\n";
 	
-	this.ns_recurse_parse(folds, output, "", 0, sorted, flat);
+	this.ns_recurse_parse(folds, output, "", 0, sorted);
 	return output.s;
 };
