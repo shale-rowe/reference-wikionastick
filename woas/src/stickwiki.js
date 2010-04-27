@@ -1351,10 +1351,10 @@ woas.save = function() {
 			if (!skip && !null_save)
 				this._load_hotkeys(raw_content);
 		default:
-			// check if text is empty
+			// check if text is empty (page deletion)
 			if (!null_save && !can_be_empty && (raw_content === "")) {
 				if (confirm(this.i18n.CONFIRM_DELETE.sprintf(current))) {
-					var deleted = current;
+					this._plugin_delete_check(current);
 					this.delete_page(current);
 					this.disable_edit();
 					back_or(this.config.main_page);
@@ -1366,10 +1366,21 @@ woas.save = function() {
 				// here the page gets actually saved
 				if (!null_save || renaming) {
 					null_save = false;
-					this.set_text(raw_content);
 					// disallow empty titles
 					if (!this.valid_title(new_title, renaming))
 						return false;
+					// actually set text only in case of new title
+					this.set_text(raw_content);
+					// update the plugin if this was a plugin page
+					// NOTE: plugins are not allowed to be renamed
+					var _pfx = "WoaS::Plugins::";
+					if (new_title.substr(0, _pfx.length) === _pfx) {
+						// we do not call _update_plugin because in case of new plugins
+						// disabling the plugin would fail
+						this._disable_plugin(new_title.substr(_pfx.length));
+						this._enable_plugin(new_title.substr(_pfx.length));
+					}
+					// check if this is a menu
 					if (this.is_menu(new_title)) {
 						this.refresh_menu_area();
 						back_to = this.prev_title;

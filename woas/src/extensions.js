@@ -288,6 +288,13 @@ woas._default_hotkeys = function() {
 // call once during code setup to store the current default hotkeys
 woas._default_hotkeys();
 
+woas._plugin_delete_check = function(pname) {
+	// disable the plugin if this was a plugin page
+	var _pfx = "WoaS::Plugins::";
+	if (pname.substr(0, _pfx.length) === _pfx)
+		this._disable_plugin(pname.substr(_pfx.length));
+};
+
 woas._plugins_list = function() {
 	var pt = this._plugin_scripts.length;
 	if (pt === 0)
