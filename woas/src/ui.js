@@ -805,5 +805,8 @@ function _lock_page() {
 }
 
 function _woas_new_plugin() {
-	woas._create_page_direct("WoaS::Plugins::", "Myplugin", false, "\n");
+	var title = woas._prompt_title("Please enter plugin name", "Myplugin");
+	if (title === null)
+		return;
+	woas._create_page_direct("WoaS::Plugins", title, false, "/* "+title+" plugin */\n");
 }
