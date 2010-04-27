@@ -6,7 +6,7 @@ woas.pages: 72
 
 woas.page.title: ::Menu
 woas.page.attributes: 0
-woas.page.length: 388
+woas.page.length: 428
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -17,6 +17,8 @@ woas.page.boundary: DFQRCTsKlU
 
 * [[WoaS::Help::]]
 * [[WoaS::Aliases]]
+* [[WoaS::Hotkeys]]
+* [[WoaS::Plugins]]
 
 * [[Special::All Pages]]
 * [[Special::Erase Wiki]]
@@ -33,7 +35,7 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Special::Advanced
 woas.page.attributes: 0
-woas.page.length: 1468
+woas.page.length: 1408
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -56,7 +58,6 @@ woas.page.boundary: DFQRCTsKlU
 * [[WoaS::Plugins]]: enable/disable and view/edit WoaS JavaScript plugins
 * [[WoaS::Aliases]]: view/edit page title aliases
 * [[WoaS::Hotkeys]]: view/edit WoaS access keys and default key bindings
-* [[WoaS::Plugins]]: plugins management (not yet available)
 
 == Maintenance
 * [[Special::Import]]: import wiki from an early (or current) version
@@ -408,7 +409,7 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: WoaS::Plugins
 woas.page.attributes: 0
-woas.page.length: 115
+woas.page.length: 164
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -416,6 +417,7 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 = Plugins
 This page contains options for the active WoaS plugins; see [[WoaS::Help::Plugins]] for more information.
+[[Javascript::_woas_new_plugin()|New plugin...]]
 --DFQRCTsKlU
 woas.page.title: WoaS History
 woas.page.attributes: 0
@@ -931,7 +933,7 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Special::Advanced
 woas.page.attributes: 0
-woas.page.length: 667
+woas.page.length: 609
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -943,7 +945,6 @@ The Advanced page offers some tools for administration of your wiki. Description
 * *WoaS::Plugins* - See the [[WoaS::Help::Plugins]] page.
 * *WoaS::Aliases* - See the [[WoaS::Help::Aliases]] page.
 * *WoaS::Hotkeys* - See the [[WoaS::Help::Hotkeys]] page.
-* *WoaS::Plugins* - See the [[WoaS::Help::Plugins]] page.
 * *Special::Erase Wiki* - See the [[WoaS::Help::Special::Erase Wiki]] page
 
 --DFQRCTsKlU
