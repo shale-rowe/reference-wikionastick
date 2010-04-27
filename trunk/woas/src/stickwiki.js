@@ -500,7 +500,7 @@ woas._create_page_direct = function(ns, cr, fill_mode, default_ct) {
 	page_attrs.push(0);
 	page_titles.push(cr);
 	// set modified timestamp
-	page_mts.push(Math.round(new Date().getTime()/1000));
+	page_mts.push(this.config.store_mts ? Math.round(new Date().getTime()/1000) : 0);
 //	log("Page "+cr+" added to internal array");	// log:1
 	if (!fill_mode) {
 		// DO NOT set 'current = cr' here!!!
@@ -539,7 +539,7 @@ woas._get__embedded = function (cr, pi, etype) {
 			_del_lbl = "";
 		xhtml = "<pre id='_file_ct' class=\"embedded\">"+this.xhtml_encode(pview_data)+"</pre>"+
 				pview_link+"<br /><hr />"+this.i18n.FILE_SIZE+": "+_convert_bytes(ext_size)+
-				"<br />" + this.last_modified(page_mts[pi])+
+				"<br />" + this.last_modified(this.config.store_mts ? page_mts[pi] : 0)+
 				"<br /><br />XHTML transclusion:"+this.parser.parse("\n{{{[[Include::"+cr+"]]}}}"+
 				"\n\nRaw transclusion:\n\n{{{[[Include::"+cr+"|raw]]}}}"+
 				_del_lbl+"\n<a href=\"javascript:query_export_file('"+this.js_encode(cr)+"')\">"+this.i18n.EXPORT_FILE+"</a>\n");
@@ -550,7 +550,7 @@ woas._get__embedded = function (cr, pi, etype) {
 				text.match(/^data:\s*([^;]+);/)[1] + "', "+
 				text.length + ", " +
 				(text.match(/^data:\s*[^;]*;\s*[^,]*,\s*/)[0]).length+", "+
-				page_mts[pi]+
+				(this.config.store_mts ? page_mts[pi] : 0 ) +
 				")\");"+
 		"</s"+"cript>"+
 		"<img id=\"img_tag\" class=\"embedded\" src=\""+text+"\" alt=\""+this.xhtml_encode(img_name)+"\" />"+
@@ -586,7 +586,7 @@ woas._embed_process = function(etype) {
 	page_attrs.push(etype);
 	page_titles.push(current);
 	// set modified timestamp to now
-	page_mts.push(Math.round(new Date().getTime()/1000));
+	page_mts.push(this.config.store_mts ? Math.round(new Date().getTime()/1000) : 0);
 	
 	// save this last page
 	this.commit(page_titles.length-1);
@@ -771,7 +771,7 @@ woas.set_current = function (cr, interactive) {
 						this._add_namespace_menu(namespace);
 						if (namespace.length)
 							cr = real_t;
-						return this.load_as_current(cr, text, page_mts[pi]);
+						return this.load_as_current(cr, text, this.config.store_mts ? page_mts[pi] : 0);
 					case "File":
 					case "Image":
 						text = this._get_embedded(namespace+"::"+cr, namespace.toLowerCase());
@@ -783,7 +783,7 @@ woas.set_current = function (cr, interactive) {
 						this._add_namespace_menu(namespace);
 						if (namespace.length)
 							cr = namespace + "::" + cr;
-						return this.load_as_current(cr, text, page_mts[this.page_index(namespace+"::"+cr, namespace.toLowerCase())]);
+						return this.load_as_current(cr, text, this.config.store_mts ? page_mts[this.page_index(namespace+"::"+cr, namespace.toLowerCase())] : 0);
 					default:
 						text = this.get_text(namespace+"::"+cr);
 				}
@@ -818,7 +818,7 @@ woas.set_current = function (cr, interactive) {
 	}
 	// used by some special pages for page title override
 	this.render_title = cr;
-	return this.load_as_current(cr, this.parser.parse(text, false, this.js_mode(cr)), mts);
+	return this.load_as_current(cr, this.parser.parse(text, false, this.js_mode(cr)), this.config.store_mts ? mts : 0);
 };
 
 // enable safe mode for non-reserved pages
@@ -1425,7 +1425,7 @@ woas.save_page = function(title) {
 woas.save_page_i = function(pi) {
 	// update the modified time timestamp (only when not in dev-mode)
 	if (!this.tweak.edit_override)
-		page_mts[pi] = Math.round(new Date().getTime()/1000);
+		page_mts[pi] = this.config.store_mts ? Math.round(new Date().getTime()/1000) : 0;
 	// this is the dummy function that will allow more efficient file saving in future
 	if (this.config.cumulative_save) {
 		// add the page to the bucket, if it isn't already in

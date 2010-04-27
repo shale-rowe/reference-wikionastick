@@ -292,6 +292,9 @@ function _set_layout(fixed) {
 
 //Special::Recentchanges shows a sorted list of pages by modified timestamp
 woas.special_recent_changes = function() {
+	if (!this.config.store_mts) {
+		return "/Last modified timestamp storage is disabled in [[Special::Options]]./";
+	}
 	// build an array of (key := page_index, val := last_modified_timestamp) couples
 	var l=page_titles.length, hm = [], i;
 	for(i=0;i<l;++i) {

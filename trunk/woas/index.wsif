@@ -259,6 +259,8 @@ woas.page.boundary: DFQRCTsKlU
 <label for="cb_save_on_quit"><input type="checkbox" id="cb_save_on_quit" onclick="woas.config.save_on_quit = $.checked('cb_save_on_quit')" />Automatically save options (if changed) before quitting</label>
 <label for="cb_cumulative_save"><input type="checkbox" id="cb_cumulative_save" onclick="woas.config.cumulative_save = $.checked('cb_cumulative_save')" />Enable cumulative save (will save to disk only when quitting)</label>
 <label for="cb_safe_mode"><input type="checkbox" id="cb_safe_mode" onclick="woas.config.safe_mode = $.checked('cb_safe_mode')" />Enable safe mode (embedded &lt;script/&gt; blocks and WoaS::Plugins not executed, *requires WoaS reload*)</label>
+<label for="cb_store_mts"><input type="checkbox" id="cb_store_mts" onclick="woas.config.store_mts = $.checked('cb_store_mts')" />Store and display last modified timestamp</label>
+<label for="cb_new_tables_syntax"><input type="checkbox" id="cb_new_tables_syntax" onclick="woas.config.new_tables_syntax = $.checked('cb_new_tables_syntax')" />Enhanced tables syntax</label>
 
 == Datasource
 <label for="cb_wsif_ds_lock"><input type="checkbox" id="cb_wsif_ds_lock" onclick="woas.config.wsif_ds_lock = $.checked('cb_wsif_ds_lock')" />Lock WSIF datasource when editing</label>
@@ -278,6 +280,8 @@ WSIF data author: <input id="txt_author" type="text" size="12" value="" onchange
 <script type="text/javascript">
 $("cb_allow_diff").checked = bool2chk(woas.config.allow_diff);
 $("cb_rem_history").checked = bool2chk(woas.config.nav_history);
+$("cb_store_mts").checked = bool2chk(woas.config.store_mts);
+$("cb_new_tables_syntax").checked = bool2chk(woas.config.new_tables_syntax);
 $("cb_key_cache").checked = bool2chk(!woas.config.key_cache);
 $("cb_dblclick_edit").checked = bool2chk(woas.config.dblclick_edit);
 $("cb_debug_mode").checked = bool2chk(woas.config.debug_mode);
