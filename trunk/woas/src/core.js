@@ -29,6 +29,13 @@ woas.cmd_new_page = function() {
 
 // used to create a new page in the wiki
 woas._new_page = function(msg, fill_mode, def_title) {
+	var title = this._prompt_title(msg, def_title);
+	if (title === null)
+		return null;
+	return this._new_page_direct(title, fill_mode);
+};
+
+woas._prompt_title = function(msg, def_title) {
 	// disallow editing when wiki is set to read-only
 	if (!this.config.permit_edits) {
 		this.alert(this.i18n.READ_ONLY);
@@ -46,32 +53,35 @@ woas._new_page = function(msg, fill_mode, def_title) {
 	if ((title!==null) && title.length) {
 		if (this.page_index(title)!=-1)
 			this.alert(this.i18n.PAGE_EXISTS.sprintf(title));
-		else {
-			ns = this.get_namespace(title, true);
-			if (ns.length) {
-				ns = ns.substr(0, -2);
-				cr = title.substr(ns.length);
-			} else cr = title;
-			if (!this._create_page(ns, cr, false, fill_mode))
-				return ns+cr;
-			var upd_menu = (cr=='Menu');
-			if (!upd_menu && confirm(this.i18n.ASK_MENU_LINK)) {
-				var menu = this.get_text("::Menu");
-				p = menu.indexOf("\n\n");
-				if (p==-1)
-					menu += "\n[["+title+"]]";
-				else
-					menu = menu.substring(0,p)+"\n[["+title+"]]"+menu.substring(p)+"\n";
-				this.set__text(this.page_index("::Menu"), menu);
-				upd_menu = true;
-			}
-			if (upd_menu)
-				this.refresh_menu_area();
-			return ns+cr;
-		}
+		else
+			return title;
 	}
 	return null;
 };
+
+woas._new_page_direct = function(title, fill_mode) {
+	var ns = this.get_namespace(title, true), cr;
+	if (ns.length) {
+		ns = ns.substr(0, -2);
+		cr = title.substr(ns.length);
+	} else cr = title;
+	if (!this._create_page(ns, cr, false, fill_mode))
+		return ns+cr;
+	var upd_menu = (cr==='Menu');
+	if (!upd_menu && confirm(this.i18n.ASK_MENU_LINK)) {
+		var menu = this.get_text("::Menu");
+		p = menu.indexOf("\n\n");
+		if (p === -1)
+			menu += "\n[["+title+"]]";
+		else
+			menu = menu.substring(0,p)+"\n[["+title+"]]"+menu.substring(p)+"\n";
+		this.set__text(this.page_index("::Menu"), menu);
+		upd_menu = true;
+	}
+	if (upd_menu)
+		this.refresh_menu_area();
+	return ns+cr;
+}
 
 woas.cmd_erase_wiki = function() {
 	if (this.erase_wiki()) {
