@@ -811,4 +811,5 @@ function _woas_new_plugin() {
 	if (title === null)
 		return;
 	woas._create_page_direct("WoaS::Plugins", title, false, "/* "+title+" plugin */\n");
+	//NOTE: plugin activation happens upon saving
 }

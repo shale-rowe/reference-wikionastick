@@ -237,11 +237,7 @@ woas.cmd_delete = function() {
 		return false;
 	}
 	if (confirm(this.i18n.CONFIRM_DELETE.sprintf(pname))) {
-		// disable the plugin if this was a plugin page
-		var _pfx = "WoaS::Plugins::";
-		if (pname.substr(0, _pfx.length) === _pfx)
-			this._disable_plugin(pname.substr(_pfx.length));
-
+		this._plugin_delete_check(pname);
 		this.delete_page_i(pi);
 		return true;
 	}
