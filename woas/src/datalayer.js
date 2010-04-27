@@ -134,7 +134,7 @@ woas.commit = function(plist) {
 // plist is a list of page indexes which need to be saved (not allowed to be empty)
 woas.commit_delete = function(plist) {
 	// update only the native WSIF index (leaves back deleted pages)
-	this._native_save(this.config.wsif_ds, []);
+	this._wsif_ds_save(this.config.wsif_ds, this.config.wsif_ds_lock, []);
 	// performs full save, while the single page + global header could be saved instead
 	return this._save_to_file(true);
 };
