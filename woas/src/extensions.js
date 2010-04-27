@@ -114,7 +114,7 @@ woas._update_plugin = function(name) {
 // enable a single plugin
 woas._enable_plugin = function(name) {
 	// generate the script element
-	var s_elem = this._mk_active_script(this.get_text("WoaS::Plugin::"+name), "plugin",
+	var s_elem = this._mk_active_script(this.get_text("WoaS::Plugins::"+name), "plugin",
 				this._plugin_scripts.length, false);
 	// add to global array
 	if (s_elem !== null) {

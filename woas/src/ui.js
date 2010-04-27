@@ -810,7 +810,6 @@ function _woas_new_plugin() {
 	var title = woas._prompt_title("Please enter plugin name", "Myplugin");
 	if (title === null)
 		return;
-	// plugin is not enabled first time during save because it doesn't already exist
-	if (woas._create_page_direct("WoaS::Plugins", title, false, "/* "+title+" plugin */\n"))
-		woas._enable_plugin(title);
+	woas._create_page_direct("WoaS::Plugins", title, false, "/* "+title+" plugin */\n");
+	// now we will be editing the plugin code
 }
