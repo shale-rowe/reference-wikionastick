@@ -449,8 +449,8 @@ woas.set__text = function(pi, text) {
 // set content of current page
 woas.set_text = function(text) {
 	var pi = this.page_index(current);
-	// this should never happen!
-	if (pi==-1) {
+	//DEBUG: this should never happen
+	if (pi===-1) {
 		log("current page \""+current+"\" is not cached!");	// log:1
 		return;
 	}

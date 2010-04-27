@@ -407,6 +407,7 @@ function query_export_image(cr) {
 function query_delete_file(cr) {
 	if (!confirm(woas.i18n.CONFIRM_DELETE.sprintf(cr)))
 		return;
+	// do not check for plugin deletion here
 	woas.delete_page(cr);
 	back_or(woas.config.main_page);
 }
@@ -425,6 +426,7 @@ function _img_properties_show(mime, tot_len, enc_len, mts) {
 function query_delete_image(cr) {
 	if (!confirm(woas.i18n.CONFIRM_DELETE_IMAGE.sprintf(cr)))
 		return;
+	// do not check for plugin deletion here
 	woas.delete_page(cr);
 	back_or(woas.config.main_page);
 }
