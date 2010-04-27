@@ -805,5 +805,5 @@ function _lock_page() {
 }
 
 function _woas_new_plugin() {
-	this._create_page("WoaS::Plugins::", "Myplugin", true, false);
+	woas._create_page_direct("WoaS::Plugins::", "Myplugin", false, "\n");
 }

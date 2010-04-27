@@ -483,10 +483,17 @@ woas._create_page = function (ns, cr, ask, fill_mode) {
 	if (!fill_mode && ask && !confirm(this.i18n.PAGE_NOT_FOUND))
 		return false;
 	// create and edit the new page
+	var ct;
 	if (cr !== "Menu")
-		pages.push("= "+cr+"\n");
+		ct = "= "+cr+"\n";
 	else
-		pages.push("\n");
+		ct = "\n";
+	return this._create_page_direct(ns, cr, fill_mode, ct);
+};
+
+woas._create_page_direct = function(ns, cr, fill_mode, default_ct) {
+	// actual page creation
+	pages.push(default_ct);
 	if (ns.length)
 		cr = ns+"::"+cr;
 	page_attrs.push(0);
