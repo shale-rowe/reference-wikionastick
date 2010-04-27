@@ -803,3 +803,7 @@ function _lock_page() {
 	else // hard trickery
 		$("btn_lock").onclick = eval("function() {lock_page('"+woas.js_encode(page)+"');}");
 }
+
+function _woas_new_plugin() {
+	this._create_page("WoaS::Plugins::", "Myplugin", true, false);
+}

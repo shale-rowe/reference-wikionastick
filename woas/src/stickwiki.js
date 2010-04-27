@@ -472,7 +472,7 @@ woas._create_page = function (ns, cr, ask, fill_mode) {
 		this.alert(this.i18n.ERR_RESERVED_NS.sprintf(ns));
 			return false;
 	}
-	if ((ns=="File") || (ns=="Image")) {
+	if ((ns==="File") || (ns==="Image")) {
 		if (!fill_mode && ask)
 			this.alert(this.i18n.DUP_NS_ERROR);
 		else
