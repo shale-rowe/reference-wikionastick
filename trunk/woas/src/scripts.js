@@ -16,7 +16,7 @@ woas.script = {
 		if (id === -1)
 			return false;
 		// delete DOM entry
-		woas._dom_cage.head.removeChild(this._objects[id]);
+		woas.dom._cache.head.removeChild(this._objects[id]);
 		// fix arrays
 		this._instances.splice(id, 1);
 		this._objects.splice(id, 1);
@@ -33,7 +33,7 @@ woas.script = {
 		s_elem.id = "woas_"+script_token;
 		if (external)
 			s_elem.src = script_content;
-		woas._dom_cage.head.appendChild(s_elem);
+		woas.dom._cache.head.appendChild(s_elem);
 		if (!external)
 			// add the inline code with a protection from re-run which could happen upon saving WoaS
 			woas.setHTML(s_elem, this._protect_js_code(script_content));
@@ -59,7 +59,7 @@ woas.script = {
 	// if saving is true, then store data for later re-creation
 	// otherwise discard everything
 	remove_all: function(saving) {
-		var it=_instances.length;
+		var it=this._instances.length;
 		for(var i=0;i<it;++i) {
 			// progressively save data as a memory representation
 			if (saving) {
@@ -69,21 +69,29 @@ woas.script = {
 					this._data.push(woas.getHTML(this._objects[i]));
 			}
 			// remove the object
-			woas._dom_cage.head.removeChild(this._objects[i]);
+			woas.dom._cache.head.removeChild(this._objects[i]);
 		}
 		// clear objects array
 		this._objects = [];
+		if (!saving) {
+			this._instances = [];
+			this._external = [];
+		}
 	},
 	
 	// restore all scripts objects
 	// if saving is true, then apply code protection to prevent re-execution
 	restore_all: function(saving) {
-		var it=_instances.length;
+		if (saving)
+			this._save_reload = true;
+		var it=this._instances.length;
 		for(var i=0;i<it;++i) {
-			this._internal_add(_instances[i], _data[i], _external[i]);
+			this._internal_add(this._instances[i], this._data[i], this._external[i]);
 		}
 		// clear data after restore
 		this._data = [];
+		if (saving)
+			this._save_reload = false;
 	}
 	
 };
