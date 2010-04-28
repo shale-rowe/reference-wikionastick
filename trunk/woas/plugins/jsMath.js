@@ -9,7 +9,7 @@
 
 woas.custom.jsMath = {
 	is_loaded: false,
-	postrender = 0,		// number of divs to render after library finishes loading
+	postrender: 0,		// number of divs to render after library finishes loading
 	init : function() {
 		if (!this.is_loaded)
         // setup jsMath config object and
@@ -32,7 +32,7 @@ woas.custom.jsMath = {
 	     return this.is_loaded;
 	},
 	// used for post-rendering after library was loaded
-	post_render = function() {
+	post_render: function() {
      jsMath.Init();
      var elem;
      for(var i=0,it=this.postrender;i<it;++i) {
