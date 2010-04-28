@@ -3,6 +3,11 @@ woas.script = {
 	
 	_instances: [],			// array with names of script blocks
 	_objects: [],			// array with DOM object references
+	// protect custom scripts and Plugins from running when we are saving WoaS
+	_save_reload: false,
+	_protect_js_code : function(code) {
+		return "if (!woas.script._save_reload) {\n" + code + "\n}\n";
+	},
 	
 	remove: function(script_class, script_id) {
 		var id = this._instances.indexOf(script_class+script_id);
@@ -16,12 +21,7 @@ woas.script = {
 		return true;
 	},
 	
-	// protect custom scripts and Plugins from running when we are saving WoaS
-	_save_reload: false,
-	_protect_js_code : function(code) {
-		return "if (!woas.script._save_reload) {\n" + code + "\n}\n";
-	},
-	
+	// regex used to remove some comments
 	reJSComments: /^\s*\/\*[\s\S]*?\*\/\s*/g,
 	
 	add: function(script_class, script_id, script_content, external) {

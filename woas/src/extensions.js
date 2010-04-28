@@ -33,7 +33,7 @@ woas._activate_scripts = function(saving) {
 		if (saving)
 			this.script._save_reload = true;
 //		log(this.parser.script_extension.length + " javascript files/blocks to process");	// log:0
-		var s_elem, external;
+		var external;
 		for (var i=0;i<this.parser.script_extension.length;i++) {
 			external = new String(typeof(this.parser.script_extension[i]));
 			external = (external.toLowerCase()!=="string");
@@ -58,7 +58,7 @@ woas._disable_plugin = function(name) {
 		// attempt removing the script block and fail otherwise
 		if (!this.script.remove("plugin", this._plugin_scripts[i]))
 			return false;
-		this._plugin_scripts = this._plugin_scripts.slice(0, i).concat(this._plugin_scripts.slice(i+1));
+		this._plugin_scripts.splice(i, 1);
 		return true;
 	}
 	return false;
@@ -98,8 +98,7 @@ woas._load_plugins = function(saving) {
 		this.script._save_reload = true;
 	
 	// get list of plugins
-	var _pfx = "WoaS::Plugins::", l=_pfx.length,
-		s_elem;
+	var _pfx = "WoaS::Plugins::", l=_pfx.length;
 	for(var i=0,it=page_titles.length;i<it;++i) {
 		if (page_titles[i].substr(0, l) === _pfx) {
 			// generate the script element
@@ -269,7 +268,7 @@ woas._plugins_list = function() {
 	var pg=[];
 	for(var i=0;i<pt;++i){
 		pg.push("* [[WoaS::Plugins::"+this._plugin_scripts[i]+"|"+this._plugin_scripts[i]+"]]"+
-				" [[Javascript::woas._delete_plugin('"+this._plugin_scripts[i]+"')|Delete]]"+
+				"&nbsp;&nbsp;[[Javascript::woas._delete_plugin('"+this._plugin_scripts[i]+"')|Delete]]"+
 				"\n");
 	}
 	return "\n\n"+this._simple_join_list(pg);
