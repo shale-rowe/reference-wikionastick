@@ -325,7 +325,7 @@ woas.get_text_special = function(title) {
 	var ns = this.get_namespace(title);
 	var text = null;
 	if (ns.length) {
-//		log("namespace of "+title+" is "+namespace);	// log:0
+//		woas.log("namespace of "+title+" is "+namespace);	// log:0
 		title = title.substring(ns.length);
 		if (!title.length) return this._get_namespace_pages(ns);
 		switch (ns) {
@@ -435,7 +435,7 @@ woas.get__text = function(pi) {
 };
 
 woas.set__text = function(pi, text) {
-	log("Setting wiki text for page #"+pi+" \""+page_titles[pi]+"\"");	// log:1
+	this.log("Setting wiki text for page #"+pi+" \""+page_titles[pi]+"\"");	// log:1
 	if (this.is__embedded(pi) && !this.is__image(pi))
 		text = encode64(text);
 	if (!this.is__encrypted(pi)) {
@@ -451,7 +451,7 @@ woas.set_text = function(text) {
 	var pi = this.page_index(current);
 	//DEBUG: this should never happen
 	if (pi===-1) {
-		log("current page \""+current+"\" is not cached!");	// log:1
+		this.log("current page \""+current+"\" is not cached!");	// log:1
 		return;
 	}
 	this.set__text(pi, text);
@@ -501,19 +501,19 @@ woas._create_page_direct = function(ns, cr, fill_mode, default_ct) {
 	page_titles.push(cr);
 	// set modified timestamp
 	page_mts.push(this.config.store_mts ? Math.round(new Date().getTime()/1000) : 0);
-//	log("Page "+cr+" added to internal array");	// log:1
+//	this.log("Page "+cr+" added to internal array");	// log:1
 	if (!fill_mode) {
 		// DO NOT set 'current = cr' here!!!
 		// enable ghost mode when creating a new-to-be page
 		this._ghost_page = true;
-		log("Ghost page enabled"); //log:1
+		this.log("Ghost page enabled"); //log:1
 		// proceed with a normal wiki source page
 		this.edit_page(cr);
 	}
 };
 
 woas._get_embedded = function(cr, etype) {
-	log("Retrieving embedded source "+cr);	// log:1
+	this.log("Retrieving embedded source "+cr);	// log:1
 	var pi=this.page_index(cr);
 	if (pi==-1)
 		return this.parser.parse("[[Include::Special::Embed|"+etype+"]]");
@@ -610,7 +610,7 @@ woas._get_special = function(cr, interactive) {
 			// return a special value for executed commands
 			return false;
 	} else
-//	log("Getting special page "+cr);	// log:0
+//	this.log("Getting special page "+cr);	// log:0
 /*			if (this.is_embedded(cr)) {
 				text = this._get_embedded(cr, this.is_image(cr) ? "image":"file");
 				if (text == null) {
@@ -656,7 +656,7 @@ woas.get_javascript_page = function(cr) {
 // Load a new current page
 // return true if page needs to be saved in history, false otherwise
 woas.set_current = function (cr, interactive) {
-	log("Setting current page to \""+cr+"\"");	//log:1
+	this.log("Setting current page to \""+cr+"\"");	//log:1
 	var text, namespace, pi;
 	result_pages = [];
 	// eventually remove the previous custom script
@@ -670,7 +670,7 @@ woas.set_current = function (cr, interactive) {
 		// skip not found references but also null namespace references
 		if (p>0) {
 			namespace = cr.substring(0,p);
-//			log("namespace of "+cr+" is "+namespace);	// log:0
+//			this.log("namespace of "+cr+" is "+namespace);	// log:0
 			cr = cr.substring(p+2);
 				switch (namespace) {
 					case "Javascript":
@@ -843,7 +843,7 @@ woas.load_as_current = function(title, xhtml, mts) {
 		return false;
 	}
 	scrollTo(0,0);
-	log("load_as_current(\""+title+"\") - "+(typeof xhtml == "string" ? (xhtml.length+" bytes") : (typeof xhtml)));	// log:1
+	this.log("load_as_current(\""+title+"\") - "+(typeof xhtml == "string" ? (xhtml.length+" bytes") : (typeof xhtml)));	// log:1
 	$("wiki_text").innerHTML = xhtml;
 	this.refresh_mts(mts);
 
@@ -873,13 +873,10 @@ woas._finalize_lock = function(pi) {
 
 woas._perform_lock = function(pi) {
 	pages[pi] = this.AES.encrypt(pages[pi]);
-//	log("E: encrypted length is "+pages[pi].length);	// log:0
 	page_attrs[pi] += 2;
 };
 
 woas._add_namespace_menu = function(namespace) {
-//	log("adding namespace menu for \""+namespace+"\"");	// log:0
-//	log("current namespace is \""+current_namespace+"\"");	// log:0
 	if (current_namespace == namespace)
 		return;
 	var pi;
@@ -888,7 +885,7 @@ woas._add_namespace_menu = function(namespace) {
 	else
 		pi = this.page_index(namespace+"::Menu");
 	if (pi==-1) {
-//		log("no namespace menu found");	// log:0
+//		this.log("no namespace menu found");	// log:0
 		$("ns_menu_area").innerHTML = "";
 		if (current_namespace!="") {
 			$.hide("ns_menu_area");
@@ -899,10 +896,10 @@ woas._add_namespace_menu = function(namespace) {
 	}
 	var menu = this.get__text(pi);
 	if (menu == null) {
-//		log("Could not retrieve namespace menu");	// log:0
+//		this.log("Could not retrieve namespace menu");	// log:0
 		$("ns_menu_area").innerHTML = "";
 	} else {
-//		log("Parsing "+menu.length+" bytes for namespace menu");	// log:0
+//		this.log("Parsing "+menu.length+" bytes for namespace menu");	// log:0
 		$("ns_menu_area").innerHTML = this.parser.parse(menu, false, this.js_mode(namespace+"::Menu"));
 	}
 	// if the previous namespace was empty, then show the submenu areas
@@ -940,7 +937,7 @@ woas.setHTML = woas.getHTML = null;
 // when the page is loaded - onload, on_load
 woas.after_load = function() {
 
-	log("***** Woas v"+this.version+" started *****");	// log:1
+	woas.log("***** Woas v"+this.version+" started *****");	// log:1
 	
 	// store the old length to eventually force full save when entering/exiting WSIF datasource mode
 	this._old_wsif_ds_len = this.config.wsif_ds.length;
@@ -1029,7 +1026,7 @@ woas.after_load = function() {
 		var p=current.indexOf("#");
 		if (p !== -1)
 			current = current.substring(0,p);
-//		log("current ::= "+current);	//log:0
+//		woas.log("current ::= "+current);	//log:0
 	}
 	
 	this._load_aliases(this.get_text("WoaS::Aliases"));
@@ -1060,7 +1057,7 @@ woas.after_load = function() {
 
 // disable edit-mode after cancel/save actions
 woas.disable_edit = function() {
-//	log("DISABLING edit mode");	// log:0
+//	woas.log("DISABLING edit mode");	// log:0
 	kbd_hooking = false;
 	// reset change buffer used to check for page changes
 	this.change_buffer = null;
@@ -1121,14 +1118,14 @@ woas.edit_allowed_reserved = function(page) {
 
 // setup the title boxes and gets ready to edit text
 woas.current_editing = function(page, disabled) {
-//	log("current = \""+current+"\", current_editing(\""+page+"\", disabled: "+disabled+")");	// log:0
+//	woas.log("current = \""+current+"\", current_editing(\""+page+"\", disabled: "+disabled+")");	// log:0
 	this.prev_title = current;
 	$("wiki_page_title").disabled = (disabled && !this.tweak.edit_override ? "disabled" : "");
 	$("wiki_page_title").value = page;
 	kbd_hooking = true;
 	this._set_title(this.i18n.EDITING.sprintf(page));
 	// current must be set BEFORE calling enabling menu edit
-//	log("ENABLING edit mode");	// log:0
+//	woas.log("ENABLING edit mode");	// log:0
 	this.menu_display("back", false);
 	this.menu_display("forward", false);
 	this.menu_display("advanced", false);
@@ -1151,7 +1148,6 @@ woas.current_editing = function(page, disabled) {
 
 	$("woas_editor").focus();
 	current = page;
-//	log("current ::= "+page);	//log:0
 	scrollTo(0,0);
 };
 
@@ -1169,7 +1165,7 @@ woas.edit_ready = function (txt) {
 
 woas.edit_page = function(page) {
 	if (!this.edit_allowed(page)) {
-		log("Not allowed to edit page "+page);	// log:1
+		woas.log("Not allowed to edit page "+page);	// log:1
 		return;
 	}
 	_servm_alert();
@@ -1213,7 +1209,7 @@ woas.valid_title = function(title, renaming) {
 };
 
 woas.rename_page = function(previous, newpage) {
-	log("Renaming "+previous+" to "+newpage);	// log:1
+	woas.log("Renaming "+previous+" to "+newpage);	// log:1
 	if (this.page_index(newpage)!=-1) {
 		this.alert(this.i18n.PAGE_EXISTS.sprintf(newpage));
 		return false;
@@ -1315,7 +1311,7 @@ woas.save = function() {
 	var null_save = !this._ghost_page;
 	// always reset ghost page flag
 	this._ghost_page = false;
-	log("Ghost page disabled"); //log:1
+	woas.log("Ghost page disabled"); //log:1
 	// when this function is called in non-edit mode we perform a full commit
 	// for cumulative save
 	if (this.config.cumulative_save && !kbd_hooking) {
@@ -1436,7 +1432,7 @@ woas.save_page_i = function(pi) {
 			if (this.save_queue.indexOf(pi)==-1)
 				this.save_queue.push(pi);
 		}
-		log("save_queue = ("+this.save_queue+")");	// log:1
+		woas.log("save_queue = ("+this.save_queue+")");	// log:1
 		return true;
 	}
 	return this.commit([pi]);
@@ -1458,7 +1454,7 @@ woas.cancel_edit = function() {
 			page_titles.pop();
 			page_attrs.pop();
 			this._ghost_page = false;
-			log("Ghost page disabled"); //log:1
+			woas.log("Ghost page disabled"); //log:1
 		}
 		this.disable_edit();
 		current = this.prev_title;
@@ -1466,7 +1462,6 @@ woas.cancel_edit = function() {
 };
 
 woas.create_breadcrumb = function(title) {
-//	log("Creating breadcrumb for title \""+title+"\"");	//log:0
 	var tmp=title.split("::");
 	if (tmp.length==1)
 		return title;
