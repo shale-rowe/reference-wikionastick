@@ -1,5 +1,7 @@
 /* jsMath binding for WoaS
    @author legolas558
+   @version 0.1.0
+   @license GPLv2
 
    works with jsMath 3.6e
    be sure that you have downloaded and extracted jsMath in jsMath directory
@@ -37,8 +39,8 @@ function _woas_jsmath_postrender() {
      var elem;
      for(var i=0,it=jsmath_postrender.length;i<it;++i) {
 //         elem = $("jsmath_postrender_"+i);
-         jsMath.Process("jsmath_postrender_"+i)
 //         elem.innerHTML = jsMath.Translate.Parse('T', elem.innerHTML);
+         jsMath.Process("jsmath_postrender_"+i)
      }
      jsmath_postrender = [];
 }
