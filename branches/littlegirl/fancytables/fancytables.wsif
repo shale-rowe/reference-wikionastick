@@ -1,0 +1,337 @@
+wsif.version: 1.3.0
+wsif.generator: woas
+woas.version: 0.12.0
+woas.pages: 1
+
+woas.page.title: Tables::Fancy
+woas.page.attributes: 0
+woas.page.last_modified: 1272402346
+woas.page.length: 24946
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+[[Special::TOC]]
+= Tables::Fancy
+This is new table syntax in WoaS 0.12.0 development version.
+
+[[Include::WoaS::Template::Info|The examples on this page use the *shadesofblue* class. The CSS rules for are embedded at the bottom of the page inside HTML &lt;style&gt; tags. To see the CSS used in the examples, edit this page.]]
+
+== Assign a class to a table
+The table opening tag ( {{{{|}}} ) has been enhanced. Now everything you put behind it will go into the {{{<table>}}} header. To create a custom table, add some table rules to the wiki CSS using a class name of your choosing.
+
+* <div class="woas_help_text">Use these CSS rules in your wiki, replacing CLASS_NAME with the class name you'd like to use, and CSS_RULES with the rules you'd like to define for the table, the caption, the headers, the cells, and a special cell (see [[#Styling table cells]] below for how to use special cells):</div><pre>&#116;&#97;&#98;&#108;&#101;&#46;&#67;&#76;&#65;&#83;&#83;&#95;&#78;&#65;&#77;&#69;&#32;&#123;&#67;&#83;&#83;&#95;&#82;&#85;&#76;&#69;&#83;&#125;<br>&#99;&#97;&#112;&#116;&#105;&#111;&#110;&#46;&#67;&#76;&#65;&#83;&#83;&#95;&#78;&#65;&#77;&#69;&#32;&#123;&#67;&#83;&#83;&#95;&#82;&#85;&#76;&#69;&#83;&#125;<br>&#116;&#97;&#98;&#108;&#101;&#46;&#67;&#76;&#65;&#83;&#83;&#95;&#78;&#65;&#77;&#69;&#32;&#116;&#104;&#32;&#123;&#67;&#83;&#83;&#95;&#82;&#85;&#76;&#69;&#83;&#125;<br>&#116;&#97;&#98;&#108;&#101;&#46;&#67;&#76;&#65;&#83;&#83;&#95;&#78;&#65;&#77;&#69;&#32;&#116;&#100;&#32;&#123;&#67;&#83;&#83;&#95;&#82;&#85;&#76;&#69;&#83;&#125;<br>&#116;&#97;&#98;&#108;&#101;&#46;&#67;&#76;&#65;&#83;&#83;&#95;&#78;&#65;&#77;&#69;&#32;&#116;&#100;&#46;&#115;&#112;&#101;&#99;&#105;&#97;&#108;&#32;&#123;&#67;&#83;&#83;&#95;&#82;&#85;&#76;&#69;&#83;&#125;</pre>
+
+Once the CSS rules have been added to the wiki, insert {{{{| class="CLASS_NAME"}}} into your table, replacing CLASS_NAME with the class name you chose, and it will use the CSS rules you added for that class.
+
+This is a default table:
+
+{|
+|+ Table Caption
+| *Header 1* || *Header 2* || *Header 3*
+|-
+| cell 1 || cell 2 || cell 3
+|-
+| cell 1 || || cell 3
+|} 
+* Use this code to create the table (note that the headers are created by using [[WoaS::Help::Text formatting|bold text formatting]]):<pre>&#123;&#124;<br>&#124;&#43;&#32;&#84;&#97;&#98;&#108;&#101;&#32;&#67;&#97;&#112;&#116;&#105;&#111;&#110;<br>&#124;&#32;&#42;&#72;&#101;&#97;&#100;&#101;&#114;&#32;&#49;&#42;&#32;&#124;&#124;&#32;&#42;&#72;&#101;&#97;&#100;&#101;&#114;&#32;&#50;&#42;&#32;&#124;&#124;&#32;&#42;&#72;&#101;&#97;&#100;&#101;&#114;&#32;&#51;&#42;<br>&#124;&#45;<br>&#124;&#32;&#99;&#101;&#108;&#108;&#32;&#49;&#32;&#124;&#124;&#32;&#99;&#101;&#108;&#108;&#32;&#50;&#32;&#124;&#124;&#32;&#99;&#101;&#108;&#108;&#32;&#51;<br>&#124;&#45;<br>&#124;&#32;&#99;&#101;&#108;&#108;&#32;&#49;&#32;&#124;&#124;&#32;&#124;&#124;&#32;&#99;&#101;&#108;&#108;&#32;&#51;<br>&#124;&#125;</pre>
+This is the same table using the *shadesofblue* class:
+
+{| class="shadesofblue"
+|+ Table Caption
+| =Header 1 || =Header 2 || =Header 3
+|-
+| cell 1 || cell 2 || cell 3
+|-
+| cell 1 || || cell 3
+|} 
+* Use this code to create the table (note that headers are created using the [[#Headers]] method):<pre>&#123;&#124;&#32;&#99;&#108;&#97;&#115;&#115;&#61;&#34;&#115;&#104;&#97;&#100;&#101;&#115;&#111;&#102;&#98;&#108;&#117;&#101;&#34;<br>&#124;&#43;&#32;&#84;&#97;&#98;&#108;&#101;&#32;&#67;&#97;&#112;&#116;&#105;&#111;&#110;<br>&#124;&#32;&#61;&#72;&#101;&#97;&#100;&#101;&#114;&#32;&#49;&#32;&#124;&#124;&#32;&#61;&#72;&#101;&#97;&#100;&#101;&#114;&#32;&#50;&#32;&#124;&#124;&#32;&#61;&#72;&#101;&#97;&#100;&#101;&#114;&#32;&#51;<br>&#124;&#45;<br>&#124;&#32;&#99;&#101;&#108;&#108;&#32;&#49;&#32;&#124;&#124;&#32;&#99;&#101;&#108;&#108;&#32;&#50;&#32;&#124;&#124;&#32;&#99;&#101;&#108;&#108;&#32;&#51;<br>&#124;&#45;<br>&#124;&#32;&#99;&#101;&#108;&#108;&#32;&#49;&#32;&#124;&#124;&#32;&#124;&#124;&#32;&#99;&#101;&#108;&#108;&#32;&#51;<br>&#124;&#125;&#32;</pre>
+
+== Alignment
+Alignment can be controlled by surrounding the cell contents with extra spaces or tabs:
+
+{|
+| *Alignment* || *Example result* || *Effect*
+| {space}text{space} || text || default (thus aligned to the left)
+| {space}text{space}{space} || text  || text is aligned to the left
+| {space}{space}text{space} ||  text || text is aligned to the right
+| {space}{space}text{space}{space} ||  text  || text is centered
+|}
+
+== Captions
+CSS styling for the caption has been moved to CSS, and placement of the caption now determines whether it's above or below the table.
+
+
+This is a default table with the caption above the table:
+
+{|
+|+ caption above
+| *Header 1* || *Header 2* || *Header 3*
+| cell 1 || cell 2 || cell 3
+|}
+* Use this code to create the table (note that the headers are created by using [[WoaS::Help::Text formatting|bold text formatting]]):<pre>&#123;&#124;<br>&#124;&#43;&#32;&#99;&#97;&#112;&#116;&#105;&#111;&#110;&#32;&#97;&#98;&#111;&#118;&#101;<br>&#124;&#32;&#42;&#72;&#101;&#97;&#100;&#101;&#114;&#32;&#49;&#42;&#32;&#124;&#124;&#32;&#42;&#72;&#101;&#97;&#100;&#101;&#114;&#32;&#50;&#42;&#32;&#124;&#124;&#32;&#42;&#72;&#101;&#97;&#100;&#101;&#114;&#32;&#51;&#42;<br>&#124;&#32;&#99;&#101;&#108;&#108;&#32;&#49;&#32;&#124;&#124;&#32;&#99;&#101;&#108;&#108;&#32;&#50;&#32;&#124;&#124;&#32;&#99;&#101;&#108;&#108;&#32;&#51;<br>&#124;&#125;</pre>
+
+This is the same table using the *shadesofblue* class with the caption above the table:
+
+{| class="shadesofblue"
+|+ caption above
+| =Header 1 || =Header 2 || =Header 3
+| cell 1 || cell 2 || cell 3
+|}
+* Use this code to create the table (note that headers are created using the [[#Headers]] method):<pre>&#123;&#124;&#32;&#99;&#108;&#97;&#115;&#115;&#61;&#34;&#115;&#104;&#97;&#100;&#101;&#115;&#111;&#102;&#98;&#108;&#117;&#101;&#34;<br>&#124;&#43;&#32;&#99;&#97;&#112;&#116;&#105;&#111;&#110;&#32;&#97;&#98;&#111;&#118;&#101;<br>&#124;&#32;&#61;&#72;&#101;&#97;&#100;&#101;&#114;&#32;&#49;&#32;&#124;&#124;&#32;&#61;&#72;&#101;&#97;&#100;&#101;&#114;&#32;&#50;&#32;&#124;&#124;&#32;&#61;&#72;&#101;&#97;&#100;&#101;&#114;&#32;&#51;<br>&#124;&#32;&#99;&#101;&#108;&#108;&#32;&#49;&#32;&#124;&#124;&#32;&#99;&#101;&#108;&#108;&#32;&#50;&#32;&#124;&#124;&#32;&#99;&#101;&#108;&#108;&#32;&#51;<br>&#124;&#125;</pre>
+
+This is a default table with the caption below the table:
+
+{|
+| *Header 1* || *Header 2* || *Header 3*
+| cell 1 || cell 2 || cell 3
+|+ caption below
+|}
+* Use this code to create the table (note that the headers are created by using [[WoaS::Help::Text formatting|bold text formatting]]):<pre>&#123;&#124;<br>&#124;&#32;&#42;&#72;&#101;&#97;&#100;&#101;&#114;&#32;&#49;&#42;&#32;&#124;&#124;&#32;&#42;&#72;&#101;&#97;&#100;&#101;&#114;&#32;&#50;&#42;&#32;&#124;&#124;&#32;&#42;&#72;&#101;&#97;&#100;&#101;&#114;&#32;&#51;&#42;<br>&#124;&#32;&#99;&#101;&#108;&#108;&#32;&#49;&#32;&#124;&#124;&#32;&#99;&#101;&#108;&#108;&#32;&#50;&#32;&#124;&#124;&#32;&#99;&#101;&#108;&#108;&#32;&#51;<br>&#124;&#43;&#32;&#99;&#97;&#112;&#116;&#105;&#111;&#110;&#32;&#98;&#101;&#108;&#111;&#119;<br>&#124;&#125;</pre>
+
+This is the same table using the *shadesofblue* class with the caption below the table:
+
+{| class="shadesofblue"
+| =Header 1 || =Header 2 || =Header 3
+| cell 1 || cell 2 || cell 3
+|+ caption below
+|}
+* Use this code to create the table (note that headers are created using the [[#Headers]] method):<pre>&#123;&#124;&#32;&#99;&#108;&#97;&#115;&#115;&#61;&#34;&#115;&#104;&#97;&#100;&#101;&#115;&#111;&#102;&#98;&#108;&#117;&#101;&#34;<br>&#124;&#32;&#61;&#72;&#101;&#97;&#100;&#101;&#114;&#32;&#49;&#32;&#124;&#124;&#32;&#61;&#72;&#101;&#97;&#100;&#101;&#114;&#32;&#50;&#32;&#124;&#124;&#32;&#61;&#72;&#101;&#97;&#100;&#101;&#114;&#32;&#51;<br>&#124;&#32;&#99;&#101;&#108;&#108;&#32;&#49;&#32;&#124;&#124;&#32;&#99;&#101;&#108;&#108;&#32;&#50;&#32;&#124;&#124;&#32;&#99;&#101;&#108;&#108;&#32;&#51;<br>&#124;&#43;&#32;&#99;&#97;&#112;&#116;&#105;&#111;&#110;&#32;&#98;&#101;&#108;&#111;&#119;<br>&#124;&#125;</pre>
+
+== Column spans
+{|
+| *Header* || cell 2 || cell 3
+| *Header* || span last 2 columns ||
+||| span just last 2 columns ||
+| span all columns ||||
+|}
+
+
+{| class="shadesofblue"
+| =Header || cell 2 || cell 3
+| =Header || span last 2 columns ||
+||| span just last 2 columns ||
+| span all columns ||||
+|}
+
+
+{|
+| *Header 1* || *Header 2* || *Header 3*
+| cell 1 || cell 2 || cell 3
+| cell 1 || span last 2 columns ||
+||| span just last 2 columns ||
+| span all columns ||||
+|}
+
+{| class="shadesofblue"
+| =Header 1 || =Header 2 || =Header 3
+| cell 1 || cell 2 || cell 3
+| cell 1 || span last 2 columns ||
+||| span just last 2 columns ||
+| span all columns ||||
+|}
+
+== Headers
+Use a single = before the cell content to change the {{{<td>}}} into {{{<th>}}}, which can be styled differently through CSS.
+
+<pre>&#123;&#124;<br>&#124;&#32;&#61;&#116;&#104;&#32;&#124;&#124;&#32;&#116;&#100;<br>&#124;&#32;&#116;&#100;&#32;&#124;&#124;&#32;&#61;&#116;&#104;<br>&#124;&#125;</pre>
+{|
+| =th || td
+| td || =th
+|}
+
+<pre>&#123;&#124;&#32;&#99;&#108;&#97;&#115;&#115;&#61;&#34;&#115;&#104;&#97;&#100;&#101;&#115;&#111;&#102;&#98;&#108;&#117;&#101;&#34;<br>&#124;&#32;&#61;&#116;&#104;&#32;&#124;&#124;&#32;&#116;&#100;<br>&#124;&#32;&#116;&#100;&#32;&#124;&#124;&#32;&#61;&#116;&#104;<br>&#124;&#125;</pre>
+{| class="shadesofblue"
+| =th || td
+| td || =th
+|}
+
+To get a cell to start with = you need to use {{{<!-- -->=}}} before the {{{=}}} symbol.
+
+<pre>&#123;&#124;<br>&#124;&#32;&#60&#33;&#45;&#45;&#32;&#45;&#45;&#62&#61;&#116;&#104;&#32;&#124;&#124;&#32;&#116;&#100;<br>&#124;&#32;&#116;&#100;&#32;&#124;&#124;&#32;&#60&#33;&#45;&#45;&#32;&#45;&#45;&#62&#61;&#116;&#104;<br>&#124;&#125;</pre>
+
+{|
+| <!-- -->=th || td
+| td || <!-- -->=th
+|}
+
+<pre>&#123;&#124;&#32;&#99;&#108;&#97;&#115;&#115;&#61;&#34;&#115;&#104;&#97;&#100;&#101;&#115;&#111;&#102;&#98;&#108;&#117;&#101;&#34;<br>&#124;&#32;&#60&#33;&#45;&#45;&#32;&#45;&#45;&#62&#61;&#116;&#104;&#32;&#124;&#124;&#32;&#116;&#100;<br>&#124;&#32;&#116;&#100;&#32;&#124;&#124;&#32;&#60&#33;&#45;&#45;&#32;&#45;&#45;&#62&#61;&#116;&#104;<br>&#124;&#125;</pre>
+{| class="shadesofblue"
+| <!-- -->=th || td
+| td || <!-- -->=th
+|}
+
+== Styling table cells
+Definitions can be used within tables to style the cells.
+
+[[Include::WoaS::Template::Info|Note that a definition affects only the cells *following* it. If you wish to apply the definition to the entire table, insert it directly beneath the table opening tag.]]
+
+=== Method 1 - define styles in the wiki CSS
+First, add a custom "special" CSS rule to the wiki so that any table cell in the "special" class will use that rule.
+* <div class="woas_help_text">Add this code to your wiki CSS, replacing CSS_RULE with your custom CSS rule for special table cells:</div><pre>&#116;&#97;&#98;&#108;&#101;&#32;&#116;&#100;&#46;&#115;&#112;&#101;&#99;&#105;&#97;&#108;&#32;&#123;&#67;&#83;&#83;&#95;&#82;&#85;&#76;&#69;&#125;</pre>The examples on this page use this rule, which turns any cell in the "special" class hot pink:<pre>&#116;&#97;&#98;&#108;&#101;&#32;&#116;&#100;&#46;&#115;&#112;&#101;&#99;&#105;&#97;&#108;&#32;&#123;<br>	&#98;&#97;&#99;&#107;&#103;&#114;&#111;&#117;&#110;&#100;&#45;&#99;&#111;&#108;&#111;&#114;&#58;&#32;&#35;&#102;&#102;&#48;&#48;&#102;&#102;&#59;<br>&#125;</pre>
+
+Now you can define the style by inserting {{{|$ class="CLASS_NAME"}}} into a table, replacing CLASS_NAME with the name of your custom "special" class.
+
+To use the definition, add {{{==}}} before the contents of any cell.
+
+This is a default table with three cells in the "special" class:
+
+{|
+|$ class="special"
+| *Header 1* || *Header 2* || *Header 3*
+| ==cell 1 || cell 2 || ==cell 3
+| cell 1 || ==cell 2 || cell 3
+|}
+* <div class="woas_help_text">Use this code to create the table:</div><pre>&#123;&#124;<br>&#124;&#36;&#32;&#99;&#108;&#97;&#115;&#115;&#61;&#34;&#115;&#112;&#101;&#99;&#105;&#97;&#108;&#34;<br>&#124;&#32;&#42;&#72;&#101;&#97;&#100;&#101;&#114;&#32;&#49;&#42;&#32;&#124;&#124;&#32;&#42;&#72;&#101;&#97;&#100;&#101;&#114;&#32;&#50;&#42;&#32;&#124;&#124;&#32;&#42;&#72;&#101;&#97;&#100;&#101;&#114;&#32;&#51;&#42;<br>&#124;&#32;&#61;&#61;&#99;&#101;&#108;&#108;&#32;&#49;&#32;&#124;&#124;&#32;&#99;&#101;&#108;&#108;&#32;&#50;&#32;&#124;&#124;&#32;&#61;&#61;&#99;&#101;&#108;&#108;&#32;&#51;<br>&#124;&#32;&#99;&#101;&#108;&#108;&#32;&#49;&#32;&#124;&#124;&#32;&#61;&#61;&#99;&#101;&#108;&#108;&#32;&#50;&#32;&#124;&#124;&#32;&#99;&#101;&#108;&#108;&#32;&#51;<br>&#124;&#125;</pre>
+
+This is the same table using the *shadesofblue* class with three cells in the "special" class:
+
+{| class="shadesofblue"
+|$ class="special"
+| =Header 1 || =Header 2 || =Header 3
+| ==cell 1 || cell 2 || ==cell 3
+| cell 1 || ==cell 2 || cell 3
+|}
+
+* <div class="woas_help_text">Use this code to create the table:</div><pre>&#123;&#124;&#32;&#99;&#108;&#97;&#115;&#115;&#61;&#34;&#115;&#104;&#97;&#100;&#101;&#115;&#111;&#102;&#98;&#108;&#117;&#101;&#34;<br>&#124;&#36;&#32;&#99;&#108;&#97;&#115;&#115;&#61;&#34;&#115;&#112;&#101;&#99;&#105;&#97;&#108;&#34;<br>&#124;&#32;&#61;&#72;&#101;&#97;&#100;&#101;&#114;&#32;&#49;&#32;&#124;&#124;&#32;&#61;&#72;&#101;&#97;&#100;&#101;&#114;&#32;&#50;&#32;&#124;&#124;&#32;&#61;&#72;&#101;&#97;&#100;&#101;&#114;&#32;&#51;<br>&#124;&#32;&#61;&#61;&#99;&#101;&#108;&#108;&#32;&#49;&#32;&#124;&#124;&#32;&#99;&#101;&#108;&#108;&#32;&#50;&#32;&#124;&#124;&#32;&#61;&#61;&#99;&#101;&#108;&#108;&#32;&#51;<br>&#124;&#32;&#99;&#101;&#108;&#108;&#32;&#49;&#32;&#124;&#124;&#32;&#61;&#61;&#99;&#101;&#108;&#108;&#32;&#50;&#32;&#124;&#124;&#32;&#99;&#101;&#108;&#108;&#32;&#51;<br>&#124;&#125;</pre>
+
+=== Method 2 - define styles on the fly
+You can add a style definition by using {{{|$ style="CSSRULE"}}} in a table. The definition can be used in any cell by adding {{{==}}} before the contents of the cell.
+
+<pre>&#123;&#124;<br>&#124;&#36;&#32;&#115;&#116;&#121;&#108;&#101;&#61;&#34;&#98;&#97;&#99;&#107;&#103;&#114;&#111;&#117;&#110;&#100;&#58;&#115;&#112;&#114;&#105;&#110;&#103;&#103;&#114;&#101;&#101;&#110;&#34;<br>&#124;&#32;&#42;&#72;&#101;&#97;&#100;&#101;&#114;&#32;&#49;&#42;&#32;&#124;&#124;&#32;&#42;&#72;&#101;&#97;&#100;&#101;&#114;&#32;&#50;&#42;&#32;&#124;&#124;&#32;&#42;&#72;&#101;&#97;&#100;&#101;&#114;&#32;&#51;&#42;<br>&#124;&#32;&#61;&#61;&#99;&#101;&#108;&#108;&#32;&#49;&#32;&#124;&#124;&#32;&#99;&#101;&#108;&#108;&#32;&#50;&#32;&#124;&#124;&#32;&#61;&#61;&#99;&#101;&#108;&#108;&#32;&#51;<br>&#124;&#32;&#99;&#101;&#108;&#108;&#32;&#49;&#32;&#124;&#124;&#32;&#61;&#61;&#99;&#101;&#108;&#108;&#32;&#50;&#32;&#124;&#124;&#32;&#99;&#101;&#108;&#108;&#32;&#51;<br>&#124;&#125;</pre>
+{|
+|$ style="background:springgreen"
+| *Header 1* || *Header 2* || *Header 3*
+| ==cell 1 || cell 2 || ==cell 3
+| cell 1 || ==cell 2 || cell 3
+|}
+
+<pre>&#123;&#124;&#32;&#99;&#108;&#97;&#115;&#115;&#61;&#34;&#115;&#104;&#97;&#100;&#101;&#115;&#111;&#102;&#98;&#108;&#117;&#101;&#34;<br>&#124;&#36;&#32;&#115;&#116;&#121;&#108;&#101;&#61;&#34;&#98;&#97;&#99;&#107;&#103;&#114;&#111;&#117;&#110;&#100;&#58;&#115;&#112;&#114;&#105;&#110;&#103;&#103;&#114;&#101;&#101;&#110;&#34;<br>&#124;&#32;&#61;&#72;&#101;&#97;&#100;&#101;&#114;&#32;&#49;&#32;&#124;&#124;&#32;&#61;&#72;&#101;&#97;&#100;&#101;&#114;&#32;&#50;&#32;&#124;&#124;&#32;&#61;&#72;&#101;&#97;&#100;&#101;&#114;&#32;&#51;<br>&#124;&#32;&#61;&#61;&#99;&#101;&#108;&#108;&#32;&#49;&#32;&#124;&#124;&#32;&#99;&#101;&#108;&#108;&#32;&#50;&#32;&#124;&#124;&#32;&#61;&#61;&#99;&#101;&#108;&#108;&#32;&#51;<br>&#124;&#32;&#99;&#101;&#108;&#108;&#32;&#49;&#32;&#124;&#124;&#32;&#61;&#61;&#99;&#101;&#108;&#108;&#32;&#50;&#32;&#124;&#124;&#32;&#99;&#101;&#108;&#108;&#32;&#51;<br>&#124;&#125;</pre>
+{| class="shadesofblue"
+|$ style="background:springgreen"
+| =Header 1 || =Header 2 || =Header 3
+| ==cell 1 || cell 2 || ==cell 3
+| cell 1 || ==cell 2 || cell 3
+|}
+
+Multiple style definitions can be added to a table. They can be used by adding {{{==}}} or {{{===}}} or {{{====}}} before the contents of any cell.
+
+<pre>&#123;&#124;<br>&#124;&#36;&#32;&#115;&#116;&#121;&#108;&#101;&#61;&#34;&#98;&#97;&#99;&#107;&#103;&#114;&#111;&#117;&#110;&#100;&#58;&#115;&#112;&#114;&#105;&#110;&#103;&#103;&#114;&#101;&#101;&#110;&#34;<br>&#124;&#36;&#32;&#115;&#116;&#121;&#108;&#101;&#61;&#34;&#98;&#97;&#99;&#107;&#103;&#114;&#111;&#117;&#110;&#100;&#58;&#35;&#102;&#102;&#48;&#48;&#102;&#102;&#34;<br>&#124;&#36;&#32;&#115;&#116;&#121;&#108;&#101;&#61;&#34;&#98;&#97;&#99;&#107;&#103;&#114;&#111;&#117;&#110;&#100;&#58;&#99;&#121;&#97;&#110;&#34;<br>&#124;&#32;&#42;&#72;&#101;&#97;&#100;&#101;&#114;&#32;&#49;&#42;&#32;&#124;&#124;&#32;&#42;&#72;&#101;&#97;&#100;&#101;&#114;&#32;&#50;&#42;&#32;&#124;&#124;&#32;&#42;&#72;&#101;&#97;&#100;&#101;&#114;&#32;&#51;&#42;<br>&#124;&#32;&#61;&#61;&#99;&#101;&#108;&#108;&#32;&#49;&#32;&#124;&#124;&#32;&#61;&#61;&#61;&#99;&#101;&#108;&#108;&#32;&#50;&#32;&#124;&#124;&#32;&#61;&#61;&#61;&#61;&#99;&#101;&#108;&#108;&#32;&#51;<br>&#124;&#32;&#61;&#61;&#61;&#61;&#99;&#101;&#108;&#108;&#32;&#49;&#32;&#124;&#124;&#32;&#61;&#61;&#61;&#61;&#61;&#99;&#101;&#108;&#108;&#32;&#50;&#32;&#124;&#124;&#32;&#61;&#61;&#61;&#99;&#101;&#108;&#108;&#32;&#51;<br>&#124;&#125;</pre>
+{|
+|$ style="background:springgreen"
+|$ style="background:#ff00ff"
+|$ style="background:cyan"
+| *Header 1* || *Header 2* || *Header 3*
+| ==cell 1 || ===cell 2 || ====cell 3
+| ====cell 1 || =====cell 2 || ===cell 3
+|}
+
+<pre>&#123;&#124;&#32;&#99;&#108;&#97;&#115;&#115;&#61;&#34;&#115;&#104;&#97;&#100;&#101;&#115;&#111;&#102;&#98;&#108;&#117;&#101;&#34;<br>&#124;&#36;&#32;&#115;&#116;&#121;&#108;&#101;&#61;&#34;&#98;&#97;&#99;&#107;&#103;&#114;&#111;&#117;&#110;&#100;&#58;&#115;&#112;&#114;&#105;&#110;&#103;&#103;&#114;&#101;&#101;&#110;&#34;<br>&#124;&#36;&#32;&#115;&#116;&#121;&#108;&#101;&#61;&#34;&#98;&#97;&#99;&#107;&#103;&#114;&#111;&#117;&#110;&#100;&#58;&#35;&#102;&#102;&#48;&#48;&#102;&#102;&#34;<br>&#124;&#36;&#32;&#115;&#116;&#121;&#108;&#101;&#61;&#34;&#98;&#97;&#99;&#107;&#103;&#114;&#111;&#117;&#110;&#100;&#58;&#99;&#121;&#97;&#110;&#34;<br>&#124;&#32;&#61;&#72;&#101;&#97;&#100;&#101;&#114;&#32;&#49;&#32;&#124;&#124;&#32;&#61;&#72;&#101;&#97;&#100;&#101;&#114;&#32;&#50;&#32;&#124;&#124;&#32;&#61;&#72;&#101;&#97;&#100;&#101;&#114;&#32;&#51;<br>&#124;&#32;&#61;&#61;&#99;&#101;&#108;&#108;&#32;&#49;&#32;&#124;&#124;&#32;&#61;&#61;&#61;&#99;&#101;&#108;&#108;&#32;&#50;&#32;&#124;&#124;&#32;&#61;&#61;&#61;&#61;&#99;&#101;&#108;&#108;&#32;&#51;<br>&#124;&#32;&#61;&#61;&#61;&#61;&#99;&#101;&#108;&#108;&#32;&#49;&#32;&#124;&#124;&#32;&#61;&#61;&#61;&#61;&#61;&#99;&#101;&#108;&#108;&#32;&#50;&#32;&#124;&#124;&#32;&#61;&#61;&#61;&#99;&#101;&#108;&#108;&#32;&#51;<br>&#124;&#125;</pre>
+{| class="shadesofblue"
+|$ style="background:springgreen"
+|$ style="background:#ff00ff"
+|$ style="background:cyan"
+| =Header 1 || =Header 2 || =Header 3
+| ==cell 1 || ===cell 2 || ====cell 3
+| ====cell 1 || =====cell 2 || ===cell 3
+|}
+
+=== Method 3 - combination of method 1 and method 2
+These examples use a combination of method 1 and method 2.
+
+<pre>&#123;&#124;<br>&#124;&#36;&#32;&#99;&#108;&#97;&#115;&#115;&#61;&#34;&#115;&#112;&#101;&#99;&#105;&#97;&#108;&#34;<br>&#124;&#36;&#32;&#115;&#116;&#121;&#108;&#101;&#61;&#34;&#98;&#97;&#99;&#107;&#103;&#114;&#111;&#117;&#110;&#100;&#58;&#115;&#112;&#114;&#105;&#110;&#103;&#103;&#114;&#101;&#101;&#110;&#34;<br>&#124;&#36;&#32;&#115;&#116;&#121;&#108;&#101;&#61;&#34;&#98;&#97;&#99;&#107;&#103;&#114;&#111;&#117;&#110;&#100;&#58;&#115;&#105;&#108;&#118;&#101;&#114;&#34;<br>&#124;&#36;&#32;&#115;&#116;&#121;&#108;&#101;&#61;&#34;&#98;&#97;&#99;&#107;&#103;&#114;&#111;&#117;&#110;&#100;&#58;&#99;&#121;&#97;&#110;&#34;<br>&#124;&#32;&#42;&#72;&#101;&#97;&#100;&#101;&#114;&#32;&#49;&#42;&#32;&#124;&#124;&#32;&#42;&#72;&#101;&#97;&#100;&#101;&#114;&#32;&#50;&#42;&#32;&#124;&#124;&#32;&#42;&#72;&#101;&#97;&#100;&#101;&#114;&#32;&#51;&#42;<br>&#124;&#32;&#61;&#61;&#99;&#101;&#108;&#108;&#32;&#49;&#32;&#124;&#124;&#32;&#61;&#61;&#61;&#99;&#101;&#108;&#108;&#32;&#50;&#32;&#124;&#124;&#32;&#61;&#61;&#61;&#61;&#99;&#101;&#108;&#108;&#32;&#51;<br>&#124;&#32;&#61;&#61;&#61;&#61;&#99;&#101;&#108;&#108;&#32;&#49;&#32;&#124;&#124;&#32;&#61;&#61;&#61;&#61;&#61;&#99;&#101;&#108;&#108;&#32;&#50;&#32;&#124;&#124;&#32;&#61;&#61;&#61;&#99;&#101;&#108;&#108;&#32;&#51;<br>&#124;&#125;</pre>
+{|
+|$ class="special"
+|$ style="background:springgreen"
+|$ style="background:silver"
+|$ style="background:cyan"
+| *Header 1* || *Header 2* || *Header 3*
+| ==cell 1 || ===cell 2 || ====cell 3
+| ====cell 1 || =====cell 2 || ===cell 3
+|}
+
+<pre>&#123;&#124;&#32;&#99;&#108;&#97;&#115;&#115;&#61;&#34;&#115;&#104;&#97;&#100;&#101;&#115;&#111;&#102;&#98;&#108;&#117;&#101;&#34;<br>&#124;&#36;&#32;&#99;&#108;&#97;&#115;&#115;&#61;&#34;&#115;&#112;&#101;&#99;&#105;&#97;&#108;&#34;<br>&#124;&#36;&#32;&#115;&#116;&#121;&#108;&#101;&#61;&#34;&#98;&#97;&#99;&#107;&#103;&#114;&#111;&#117;&#110;&#100;&#58;&#115;&#112;&#114;&#105;&#110;&#103;&#103;&#114;&#101;&#101;&#110;&#34;<br>&#124;&#36;&#32;&#115;&#116;&#121;&#108;&#101;&#61;&#34;&#98;&#97;&#99;&#107;&#103;&#114;&#111;&#117;&#110;&#100;&#58;&#115;&#105;&#108;&#118;&#101;&#114;&#34;<br>&#124;&#36;&#32;&#115;&#116;&#121;&#108;&#101;&#61;&#34;&#98;&#97;&#99;&#107;&#103;&#114;&#111;&#117;&#110;&#100;&#58;&#99;&#121;&#97;&#110;&#34;<br>&#124;&#32;&#61;&#72;&#101;&#97;&#100;&#101;&#114;&#32;&#49;&#32;&#124;&#124;&#32;&#61;&#72;&#101;&#97;&#100;&#101;&#114;&#32;&#50;&#32;&#124;&#124;&#32;&#61;&#72;&#101;&#97;&#100;&#101;&#114;&#32;&#51;<br>&#124;&#32;&#61;&#61;&#99;&#101;&#108;&#108;&#32;&#49;&#32;&#124;&#124;&#32;&#61;&#61;&#61;&#99;&#101;&#108;&#108;&#32;&#50;&#32;&#124;&#124;&#32;&#61;&#61;&#61;&#61;&#99;&#101;&#108;&#108;&#32;&#51;<br>&#124;&#32;&#61;&#61;&#61;&#61;&#99;&#101;&#108;&#108;&#32;&#49;&#32;&#124;&#124;&#32;&#61;&#61;&#61;&#61;&#61;&#99;&#101;&#108;&#108;&#32;&#50;&#32;&#124;&#124;&#32;&#61;&#61;&#61;&#99;&#101;&#108;&#108;&#32;&#51;<br>&#124;&#125;</pre>
+{| class="shadesofblue"
+|$ class="special"
+|$ style="background:springgreen"
+|$ style="background:silver"
+|$ style="background:cyan"
+| =Header 1 || =Header 2 || =Header 3
+| ==cell 1 || ===cell 2 || ====cell 3
+| ====cell 1 || =====cell 2 || ===cell 3
+|}
+
+<!-- NOTE: BELOW ARE CUSTOM CSS RULES EMBEDDED ON THIS PAGE FOR USE BY THIS PAGE. -->
+<style type="text/css">
+/* CODE INLINE - MOZILLA */
+.wiki_preformatted {color:black; background-color:#F5F5F5; padding-right:0.27em; padding-left:0.27em; white-space:-moz-pre-wrap !important;}
+/* CODE INLINE - CSS-3 */
+/* .wiki_preformatted {color:black; background-color:#F5F5F5; padding-right:0.27em; padding-left:0.27em; white-space:pre-wrap;} */
+/* CODE INLINE - OPERA 4-6 */
+/* .wiki_preformatted {color:black; background-color:#F5F5F5; padding-right:0.27em; padding-left:0.27em; white-space:-pre-wrap;} */
+/* CODE INLINE - OPERA 7 */
+/* .wiki_preformatted {color:black; background-color:#F5F5F5; padding-right:0.27em; padding-left:0.27em; white-space:-o-pre-wrap;} */
+/* CODE INLINE - IE 5.5+ */
+/* .wiki_preformatted {color:black; background-color:#F5F5F5; padding-right:0.27em; padding-left:0.27em; word-wrap:break-word;} */
+
+/* CODE BLOCKS - HTML - PRE TAGS - MOZILLA */
+pre {color:black; background-color:#F5F5F5; border:0.063em solid grey; padding:0.375em; white-space:-moz-pre-wrap !important;}
+/* CODE BLOCKS - HTML - PRE TAGS - CSS-3 */
+/* pre {color:black; background-color:#F5F5F5; border:0.063em solid grey; padding:0.375em; white-space:pre-wrap;} */
+/* CODE BLOCKS - HTML - PRE TAGS - OPERA 4-6 */
+/* pre {color:black; background-color:#F5F5F5; border:0.063em solid grey; padding:0.375em; white-space:-pre-wrap;} */
+/* CODE BLOCKS - HTML - PRE TAGS - OPERA 7 */
+/* pre {color:black; background-color:#F5F5F5; border:0.063em solid grey; padding:0.375em; white-space:-o-pre-wrap;} */
+/* CODE BLOCKS - HTML - PRE TAGS - IE 5.5+ */
+/* pre {color:black; background-color:#F5F5F5; border:0.063em solid grey; padding:0.375em; word-wrap:break-word;} */
+
+/* CUSTOM CSS FOR FANCY TABLES - SHADES OF BLUE */
+table.shadesofblue {
+	color: #404040;
+	background-color: #fafafa;
+	border-collapse: collapse;
+	border-spacing: 0px;
+	border: 1px solid #6699CC;
+	font-family: Verdana, sans-serif, Arial;
+	font-size: 11px;
+	font-weight: normal;
+	/*UNCOMMENT THE WIDTH LINE BELOW TO CONTROL THE WIDTH OF THE TABLE*/
+	/*width: 500px;*/
+}
+caption.shadesofblue {
+	color: #404040;
+	border: 1px solid #6699CC;
+	text-align: center;
+	width: 580px;
+}
+table.shadesofblue th { 
+	color: #404040;
+	background-color: #BEC8D1;
+	border-bottom: 2px solid #6699CC;
+	border-left: 1px solid #6699CC;
+	font-weight: bold;
+	text-indent: 2px;
+}
+table.shadesofblue td {
+	color: #404040;
+	border-top: 0px;
+	border-right: 0px;
+	border-bottom: 1px solid #9CF;
+	border-left: 1px solid #9CF;
+	text-indent: 2px;
+}
+table.shadesofblue td.special {
+	background-color: #ff00ff;
+}
+
+/* CUSTOM CSS FOR DEFAULT TABLES */
+table td.special {
+	background-color: #ff00ff;
+}
+
+/* CUSTOM HELP TEXT */
+.woas_help_text {color:dimgrey;}
+</style>
+
+--DFQRCTsKlU
