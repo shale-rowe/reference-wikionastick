@@ -288,12 +288,23 @@ woas._default_hotkeys = function() {
 // call once during code setup to store the current default hotkeys
 woas._default_hotkeys();
 
+// if given page name is a plugin, disable it
+// used when deleting pages
 woas._plugin_delete_check = function(pname) {
-	// disable the plugin if this was a plugin page
 	var _pfx = "WoaS::Plugins::";
 	if (pname.substr(0, _pfx.length) === _pfx)
 		this._disable_plugin(pname.substr(_pfx.length));
 };
+
+woas._delete_plugin = function(name) {
+	if (!this._disable_plugin(name))
+		return false;
+	this.delete_page("WoaS::Plugins::"+name);
+	if (current === "WoaS::Plugins") {
+		// reload plugins
+		$("wiki_text").innerHTML = this.parser.parse(this.get_text("WoaS::Plugins") + this._plugins_list());
+	}
+}
 
 woas._plugins_list = function() {
 	var pt = this._plugin_scripts.length;
@@ -301,7 +312,9 @@ woas._plugins_list = function() {
 		return "\n\n/No plugins installed/";
 	var pg=[];
 	for(var i=0;i<pt;++i){
-		pg.push("* [[WoaS::Plugins::"+this._plugin_scripts[i].name+"|"+this._plugin_scripts[i].name+"]]\n");
+		pg.push("* [[WoaS::Plugins::"+this._plugin_scripts[i].name+"|"+this._plugin_scripts[i].name+"]]"+
+				" [[Javascript::woas._delete_plugin('"+this._plugin_scripts[i].name+"')|Delete]]"+
+				"\n");
 	}
 	return "\n\n"+this._simple_join_list(pg);
 };
