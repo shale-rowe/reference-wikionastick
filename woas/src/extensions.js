@@ -11,96 +11,53 @@ woas.hotkeys = {
 woas.cached_default_hotkeys = null;
 woas.custom_accesskeys = [];
 
-// custom scripts array (those defined by current page)
-woas._custom_scripts = [];
+// count of custom scripts defined inline as script tags
+woas._custom_scripts = 0;
 
 // plugin scripts array (those defined by active plugins)
 woas._plugin_scripts = [];
 
-var reAliases = /^(\$[A-Za-z0-9_]{2,})\s+(.*?)$/gm;
-// match all aliases defined in a page
-woas._load_aliases = function(s) {
-	this.aliases = [];
-	if (s==null || !s.length) return;
-	s.replace(reAliases, function(str, alias, value) {
-		// save the array with the alias regex and alias value
-		var cpok = [ new RegExp(RegExp.escape(alias), "g"), value];
-		woas.aliases.push(cpok);
-	});
-};
-
-woas.aliases = [];
-
-woas.title_unalias = function(aliased_title) {
-	// apply aliases on title, from newest to oldest
-	for(var i=0,l=this.aliases.length;i<l;++i) {
-		aliased_title = aliased_title.replace(this.aliases[i][0], this.aliases[i][1]);
-	}
-	return aliased_title;
-};
-
 woas._clear_custom_scripts = function () {
 	if (!this._custom_scripts.length) return;
-	for(var i=0,it=this._custom_scripts.length;i<it;i++) {
-		// remove the DOM object
-		this._dom_cage.head.removeChild(this._custom_scripts[i]);
+	for(var i=0;i<this._custom_scripts;i++) {
+		this.script.remove("custom", i);
 	}
-	// clear the array
-	this._custom_scripts = [];
+	// clear the counter
+	this._custom_scripts = 0;
 };
 
-// protect custom scripts and Plugins from running when we are saving WoaS
-woas._save_reload = false;
-woas._protect_js_code = function(code) {
-	return "if (!woas._save_reload) {\n" + code + "\n}\n";
-};
-
-var reJSComments = /^\s*\/\*[\s\S]*?\*\/\s*/g;
-woas._mk_active_script = function(code, id, i, external) {
-	// remove the comments
-	code = code.replace(reJSComments, '');
-	if (!code.length) return null;
-	var s_elem = document.createElement("script");
-	s_elem.type="text/javascript";
-	s_elem.id = "woas_"+id+"_script_"+i;
-	if (external)
-		s_elem.src = code;
-	this._dom_cage.head.appendChild(s_elem);
-	if (!external)
-		// add the inline code with a protection from re-run which could happen upon saving WoaS
-		woas.setHTML(s_elem, this._protect_js_code(code));
-	return s_elem;
-};
-
+// generate parsed scripts
 woas._activate_scripts = function(saving) {
 	// add the custom scripts (if any)
 	if (this.parser.script_extension.length) {
 		if (saving)
-			this._save_reload = true;
+			this.script._save_reload = true;
 //		log(this.parser.script_extension.length + " javascript files/blocks to process");	// log:0
 		var s_elem, external;
 		for (var i=0;i<this.parser.script_extension.length;i++) {
 			external = new String(typeof(this.parser.script_extension[i]));
 			external = (external.toLowerCase()!=="string");
-			s_elem = this._mk_active_script(
-					external ? this.parser.script_extension[i][0] : this.parser.script_extension[i],
-					"custom", i, external);
 			// sometimes instancing the script is not necessary
-			if (s_elem !== null)
-				this._custom_scripts.push(s_elem);
+			// the add method will check it out for us and return false when no script was instanced
+			if (this.script.add("custom", i,
+						external ? this.parser.script_extension[i][0] : this.parser.script_extension[i],
+						external))
+				// increment counter of scripts
+				this._custom_scripts++;
 		}
 		if (saving)
-			this._save_reload = false;
+			this.script._save_reload = false;
 	}
 };
 
 // disable one single plugin
 woas._disable_plugin = function(name) {
 	for(var i=0,it=this._plugin_scripts.length;i<it;++i) {
-		if (this._plugin_scripts[i].name !== name)
+		if (this._plugin_scripts[i] !== name)
 			continue;
-		// remove the DOM object
-		this._dom_cage.head.removeChild(this._plugin_scripts[i].obj);
+		// attempt removing the script block and fail otherwise
+		if (!this.script.remove("plugin", this._plugin_scripts[i]))
+			return false;
 		this._plugin_scripts = this._plugin_scripts.slice(0, i).concat(this._plugin_scripts.slice(i+1));
 		return true;
 	}
@@ -114,11 +71,10 @@ woas._update_plugin = function(name) {
 // enable a single plugin
 woas._enable_plugin = function(name) {
 	// generate the script element
-	var s_elem = this._mk_active_script(this.get_text("WoaS::Plugins::"+name), "plugin",
-				this._plugin_scripts.length, false);
-	// add to global array
-	if (s_elem !== null) {
-		this._plugin_scripts.push( {"name":name, "obj":s_elem} );
+	if (this.script.add("plugin", name,
+						this.get_text("WoaS::Plugins::"+name),
+						false)) {
+		this._plugin_scripts.push( name );
 		return true;
 	}
 	return false;
@@ -128,8 +84,7 @@ woas._enable_plugin = function(name) {
 woas._clear_plugins = function() {
 	for(var i=0,it=this._plugin_scripts.length;i<it;++i) {
 		// remove the DOM object
-		this._dom_cage.head.removeChild(this._plugin_scripts[i].obj);
-		delete this._plugin_scripts[i].obj;
+		this.script.remove(this._plugin_scripts[i]);
 	}
 	// reset array
 	this._plugin_scripts = [];
@@ -140,7 +95,7 @@ woas._load_plugins = function(saving) {
 
 	// protect plugins from re-execution
 	if (saving)
-		this._save_reload = true;
+		this.script._save_reload = true;
 	
 	// get list of plugins
 	var _pfx = "WoaS::Plugins::", l=_pfx.length,
@@ -148,16 +103,17 @@ woas._load_plugins = function(saving) {
 	for(var i=0,it=page_titles.length;i<it;++i) {
 		if (page_titles[i].substr(0, l) === _pfx) {
 			// generate the script element
-			s_elem = this._mk_active_script(this.get__text(i), "plugin", i+1, false);
-			// add to global array
-			if (s_elem !== null)
-				this._plugin_scripts.push( {"name":page_titles[i].substr(_pfx.length), "obj":s_elem} );
+			if (this.script.add("plugin", "name",
+							this.get__text(i),
+							false))
+				// add to global array
+				this._plugin_scripts.push( page_titles[i].substr(_pfx.length));
 		}
 	}
 
 	// turn down safety flag
 	if (saving)
-		this._save_reload = false;
+		this.script._save_reload = false;
 
 };
 
@@ -312,9 +268,31 @@ woas._plugins_list = function() {
 		return "\n\n/No plugins installed/";
 	var pg=[];
 	for(var i=0;i<pt;++i){
-		pg.push("* [[WoaS::Plugins::"+this._plugin_scripts[i].name+"|"+this._plugin_scripts[i].name+"]]"+
-				" [[Javascript::woas._delete_plugin('"+this._plugin_scripts[i].name+"')|Delete]]"+
+		pg.push("* [[WoaS::Plugins::"+this._plugin_scripts[i]+"|"+this._plugin_scripts[i]+"]]"+
+				" [[Javascript::woas._delete_plugin('"+this._plugin_scripts[i]+"')|Delete]]"+
 				"\n");
 	}
 	return "\n\n"+this._simple_join_list(pg);
+};
+
+var reAliases = /^(\$[A-Za-z0-9_]{2,})\s+(.*?)$/gm;
+// match all aliases defined in a page
+woas._load_aliases = function(s) {
+	this.aliases = [];
+	if (s==null || !s.length) return;
+	s.replace(reAliases, function(str, alias, value) {
+		// save the array with the alias regex and alias value
+		var cpok = [ new RegExp(RegExp.escape(alias), "g"), value];
+		woas.aliases.push(cpok);
+	});
+};
+
+woas.aliases = [];
+
+woas.title_unalias = function(aliased_title) {
+	// apply aliases on title, from newest to oldest
+	for(var i=0,l=this.aliases.length;i<l;++i) {
+		aliased_title = aliased_title.replace(this.aliases[i][0], this.aliases[i][1]);
+	}
+	return aliased_title;
 };

@@ -111,10 +111,9 @@ $.clone = function(obj) {
 };
 
 // logging function has not to be in WoaS object
-var log;
 if (woas.config.debug_mode) {
 	// logging function - used in development
-	log = function (aMessage) {
+	woas.log = function (aMessage) {
 	    var logbox = $("woas_debug_log");
 	    // count lines
 		nls = logbox.value.match(/\n/g);
@@ -128,8 +127,11 @@ if (woas.config.debug_mode) {
 			opera.postError(aMessage);
 	};
 } else {
-	log = function(aMessage) { };
+	woas.log = function(aMessage) { };
 }
+
+//DEPRECATED but still supported
+var log = woas.log;
 
 // fixes the Array prototype for older browsers
 if (typeof Array.prototype.push == "undefined") {

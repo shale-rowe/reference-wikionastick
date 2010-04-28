@@ -1,59 +1,63 @@
 /* jsMath binding for WoaS
    @author legolas558
-   @version 0.1.0
+   @version 0.1.4
    @license GPLv2
 
    works with jsMath 3.6e
    be sure that you have downloaded and extracted jsMath in jsMath directory
 */
 
-var _g_jsmath_loaded = false;
-
-if (!_g_jsmath_loaded) {
-        _g_jsmath_loaded = true;
+woas.custom.jsMath = {
+	is_loaded: false,
+	postrender = 0,		// number of divs to render after library finishes loading
+	init : function() {
+		if (!this.is_loaded)
         // setup jsMath config object and
         // load libraries after defining global jsMath
-        //NOTE: this is a bit unsupported right now
-	var s1 = woas._mk_active_script("\
+		this.is_loaded = woas.script.add("lib", "jsMath0", "\
          jsMath = {\
             Controls: {\
               cookie: {scale: 133, global: 'never', button:0}\
             },\
             Font: {\
-		Message : function(msg) {log(woas.xhtml_to_text(msg).replace(/\\n\\n/g, \"\\n\"));}\
+		Message : function(msg) {woas.log(woas.xhtml_to_text(msg).replace(/\\n\\n/g, \"\\n\"));}\
 	    },\
-            UserEvent: { onload: function() { setTimeout('_woas_jsmath_postrender()', 1000); },\
+            UserEvent: { onload: woas.custom.jsMath.post_render },\
          noGoGlobal:1,\
          noChangeGlobal:1,\
          noShowGlobal:1\
-         };", "lib", 0, false),
-	    s2 = woas._mk_active_script("plugins/jsMath/plugins/noImageFonts.js", "lib", 1, true),
-            s3 = woas._mk_active_script("plugins/jsMath/jsMath.js", "lib", 2, true);
-}
-
-var jsmath_postrender = [];
-
-// used for post-rendering after library was loaded
-function _woas_jsmath_postrender() {
+         };", false) &&
+			 woas.script.add("lib", "jsMath1", "plugins/jsMath/plugins/noImageFonts.js", true) &&
+			 woas.script.add("lib", "jsMath2", "plugins/jsMath/jsMath.js", true);
+	     return this.is_loaded;
+	},
+	// used for post-rendering after library was loaded
+	post_render = function() {
      jsMath.Init();
      var elem;
-     for(var i=0,it=jsmath_postrender.length;i<it;++i) {
+     for(var i=0,it=this.postrender;i<it;++i) {
 //         elem = $("jsmath_postrender_"+i);
 //         elem.innerHTML = jsMath.Translate.Parse('T', elem.innerHTML);
          jsMath.Process("jsmath_postrender_"+i)
      }
-     jsmath_postrender = [];
-}
+     this.postrender = 0;
+	},
+	
+	_macro_hook : function(macro) {
+		 // quit if libraries have not yet been loaded and
+		 // increase counter for post-rendering
+		 if (typeof jsMath.Process == "undefined") {
+			macro.text = "<"+"div id=\"jsmath_postrender_\""+(this.postrender++)+">"+macro.text+"<"+"/div>";
+			return;
+		 }
+		 jsMath.Init();
+		 macro.text = jsMath.Translate.Parse('T', macro.text);
+	}
+	
+};
 
-function _jsmath_macro(macro) {
-     // quit if libraries have not yet been loaded
-     if (typeof jsMath.Process == "undefined") {
-        macro.text = "<"+"div id=\"jsmath_postrender_\""+jsmath_postrender.length+">"+macro.text+"<"+"/div>";
-        return;
-     }
-     jsMath.Init();
-     macro.text = jsMath.Translate.Parse('T', macro.text);
-}
+// initialize the library
+woas.custom.jsMath.init();
 
-// register this new macro
-woas.macro_parser.register('jsmath', _jsmath_macro);
+// register the macro
+woas.macro_parser.register('jsmath', woas.custom.jsMath._macro_hook);
