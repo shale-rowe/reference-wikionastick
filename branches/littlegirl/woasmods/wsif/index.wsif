@@ -3326,15 +3326,15 @@ Create a new page in the namespace you added the template to. The template conte
 --DFQRCTsKlU
 woas.page.title: WoaS Mods::Dynamically change navigation bar icons
 woas.page.attributes: 0
-woas.page.last_modified: 1271724671
-woas.page.length: 7674
+woas.page.last_modified: 1272486092
+woas.page.length: 7840
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Dynamically change navigation bar icons
-This creates a page with an interface that allows you to dynamically change the icons used in the navigation bar. The original code is thanks to [[http://woas.iragan.com/viewtopic.php?pid=1579#p1579|FBNil]] with some slight modifications to make it work in the current Wiki on a Stick.
+This creates a page with an interface that allows you to dynamically change the icons used in the navigation bar. The original code is thanks to [[http://woas.iragan.com/viewtopic.php?pid=1579#p1579|FBNil]] with some slight modifications to make it work in the current Wiki on a Stick. You can [[http://stickwiki.svn.sourceforge.net/viewvc/stickwiki/branches/littlegirl/woasmods/examples/|download the GNU tarball]] and try it out in the example file.
 # Open the wiki in a text editor.<br><br>
 # *Find* this line:<pre>&#119;&#111;&#97;&#115;&#91;&#34;&#95;&#101;&#109;&#98;&#101;&#100;&#95;&#112;&#114;&#111;&#99;&#101;&#115;&#115;&#34;&#93;&#32;&#61;&#32;&#102;&#117;&#110;&#99;&#116;&#105;&#111;&#110;&#40;&#101;&#116;&#121;&#112;&#101;&#41;&#32;&#123;</pre>
 # *Replace* it with this line:<pre>&#119;&#111;&#97;&#115;&#91;&#34;&#95;&#101;&#109;&#98;&#101;&#100;&#95;&#112;&#114;&#111;&#99;&#101;&#115;&#115;&#34;&#93;&#32;&#61;&#32;&#102;&#117;&#110;&#99;&#116;&#105;&#111;&#110;&#40;&#101;&#116;&#121;&#112;&#101;&#44;&#32;&#100;&#117;&#109;&#112;&#41;&#32;&#123;</pre>
