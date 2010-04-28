@@ -493,3 +493,39 @@ woas.utf8_encode = function(src) {
 		return s;
 	});
 };
+
+// WoaS DOM manager
+// all DOM modifications shall be indexed by this module
+woas.dom = {
+	
+	// hashmap used to quickly reference some important DOM objects
+	_cache: {},
+	
+	init: function() {
+		this._cache.head = document.getElementsByTagName("head")[0];
+		if (woas.browser.ie)
+			this._cache.stylesheet = document.styleSheets[0];
+		else
+			this._cache.stylesheet = document.getElementsByTagName("style")[0];
+	},
+	
+	add_css: function(css_text) {
+/*		if (document.createStyleSheet) {// check for MSIE
+			this._cache.head.insertAdjacentHTML('beforeEnd',
+				'<span id="'+'" style="display:none">x</span>'  // MSIE needs this for some reason
+				+ '<style id="'+'" type="text/css">'+css_text+'</style>');
+			//TODO: check that style can then be properly removed
+		  } else { */
+		var style = jsMath.document.createElement('style');
+		style.type = "text/css";
+		style.appendChild(document.createTextNode(css_text));
+		// on IE inject directly in body
+		if (woas.browser.ie)
+			this._cache.body.appendChild(style);
+		else
+			this._cache.head.appendChild(style);
+		// register this DOM modification
+		
+	}
+	
+};

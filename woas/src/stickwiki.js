@@ -28,9 +28,6 @@ woas.render_title = null;
 // used when browsing forward in the page queue
 woas._forward_browse = false;
 
-// hashmap used to quickly reference some important DOM objects
-woas._dom_cage = {};
-
 // previous length of WSIF datasource
 woas._old_wsif_ds_len = null;
 
@@ -994,11 +991,7 @@ woas.after_load = function() {
 	}
 
 	// (4) setup some DOM cage objects (read cache)
-	this._dom_cage.head = document.getElementsByTagName("head")[0];
-	if (this.browser.ie)
-		this._dom_cage.stylesheet = document.styleSheets[0];
-	else
-		this._dom_cage.stylesheet = document.getElementsByTagName("style")[0];
+	this.dom.init();
 
 	// (5) activate the CSS, with eventual fixups for some browsers
 	this.css.set(this.get_text("WoaS::CSS::Core")+"\n"+this.get_text("WoaS::CSS::Custom"));
@@ -1275,12 +1268,12 @@ woas.css = {
 			}
 		}
 		if (woas.browser.ie)
-			woas._dom_cage.stylesheet.cssText = css;
+			woas.dom._cache.stylesheet.cssText = css;
 		else {
 			if (woas.browser.chrome || woas.browser.safari)
-				woas._dom_cage.stylesheet.innerText = css;
+				woas.dom._cache.stylesheet.innerText = css;
 			else
-				woas._dom_cage.stylesheet.innerHTML = css;
+				woas.dom._cache.stylesheet.innerHTML = css;
 		}
 	},
 	
@@ -1288,11 +1281,11 @@ woas.css = {
 	// Can't see this being a problem though.
 	get: function() {
 		if (woas.browser.ie)
-			return woas._dom_cage.stylesheet.cssText;
+			return woas.dom._cache.stylesheet.cssText;
 		// on Chrome/Safari innerHTML contains br tags
 		if (woas.browser.chrome || woas.browser.safari)
-			return woas._dom_cage.stylesheet.innerText;
-		return woas._dom_cage.stylesheet.innerHTML;
+			return woas.dom._cache.stylesheet.innerText;
+		return woas.dom._cache.stylesheet.innerHTML;
 	}
 };
 
