@@ -21,6 +21,8 @@ TiddlySaver.jar is the java applet used in such cases (borrowed from
 TiddlyWiki project); if you do not need TiddlySaver.jar feature, you can remove
 it.
 
+The plugins directory contains user-contributed plugins which are more or less actively mantained.
+
 In order to start WoaS, open the woas-*.html file, which contains the software
 and the default pages.
 
