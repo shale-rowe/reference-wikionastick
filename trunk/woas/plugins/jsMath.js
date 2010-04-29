@@ -1,6 +1,6 @@
 /* jsMath binding for WoaS
    @author legolas558
-   @version 0.1.5
+   @version 0.1.6
    @license GPLv2
 
    works with jsMath 3.6e
@@ -22,7 +22,6 @@ woas.custom.jsMath = {
             Font: {\
 		Message : function(msg) {woas.log(woas.xhtml_to_text(msg).replace(/\\n\\n/g, \"\\n\"));}\
 	    },\
-            UserEvent: { onload: woas.custom.jsMath.post_render },\
          noGoGlobal:1,\
          noChangeGlobal:1,\
          noShowGlobal:1\
@@ -31,31 +30,30 @@ woas.custom.jsMath = {
 			 woas.dom.add_script("lib", "jsMath2", "plugins/jsMath/jsMath.js", true);
 	     return this.is_loaded;
 	},
+	
+	//             UserEvent: { onload: woas.custom.jsMath.post_render },
+	
 	// used for post-rendering after library was loaded
-	post_render: function() {
+	post_render: function(i) {
+		jsMath.Init();
+		var elem = $("jsmath_postrender_"+i);
+		woas.setHTML(elem, jsMath.Translate.Parse('T', woas.getHTML(elem)));
+		$.hide("jsmath_postr_btn_"+i);
 		return;
-     jsMath.Init();
-     var elem;
-     for(var i=0;i<this.postrender;++i) {
-//         elem = $("jsmath_postrender_"+i);
-//         elem.innerHTML = jsMath.Translate.Parse('T', elem.innerHTML);
-         jsMath.Process("jsmath_postrender_"+i)
      }
-     this.postrender = 0;
 	},
 	
 	_macro_hook : function(macro) {
 		 // quit if libraries have not yet been loaded and
 		 // increase counter for post-rendering
 		 if (typeof jsMath.Process == "undefined") {
-/*			macro.text = "<"+"div id=\"jsmath_postrender_\""+this.postrender+">"+macro.text+"<"+"/div>"+
+			macro.text = "<"+"div id=\"jsmath_postrender_"+this.postrender+"\">"+macro.text+"<"+"/div>"+
 						"<"+"input id=\"jsmath_postr_btn_"+this.postrender+
-						"\" type=\"button\" value=\"Render\" onclick=\"jsMath.Process('jsmath_postrender_"+
-						this.postrender+
-						"');$.hide('jsmath_postr_btn_"+this.postrender+"');\" /"+">";
-			++this.postrender; */
+						"\" type=\"button\" value=\"Render\" onclick=\"woas.custom.jsMath.post_render("+this.postrender+");\" /"+">";
+			++this.postrender;
 			return;
 		 }
+ 		this.postrender = 0;
 		 jsMath.Init();
 		 macro.text = jsMath.Translate.Parse('T', macro.text);
 	}
