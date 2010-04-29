@@ -1,4 +1,8 @@
 Version 0.12.0
+* macro arguments support
+* introduced DOM manager
+* optimized DOM head save code
+* development of jsMath and shjs plugins
 * plugins implementation
 * removed bootscript (will be automatically converted to a plugin)
 * fixed locking issue on IE (2991747, reported by deroock)
