@@ -79,7 +79,7 @@ woas._native_wsif_save = function(path, src_fname, locking, single_wsif, inline_
 		var record = this.wsif.header(pfx+"title", this.ecma_encode(page_titles[pi]))+
 					this.wsif.header(pfx+"attributes", page_attrs[pi]);
 		// specify timestamp only if not magic
-		if (this.config.store_mts && (page_mts[pi] !== 0))
+		if (!this.config.allow_diff && this.config.store_mts && (page_mts[pi] !== 0))
 			record += this.wsif.header(pfx+"last_modified", page_mts[pi]);
 		var ct = null, orig_len = null;
 		
@@ -147,7 +147,8 @@ woas._native_wsif_save = function(path, src_fname, locking, single_wsif, inline_
 							"\n";
 		}
 		// update record
-		record += this.wsif.header(pfx+"length", ct.length);
+		if (!this.config.allow_diff)
+			record += this.wsif.header(pfx+"length", ct.length);
 		record += this.wsif.header(pfx+"encoding", encoding);
 		record += this.wsif.header(pfx+"disposition", disposition);
 		// note: when disposition is inline, encoding cannot be 8bit/plain for embedded/encrypted files
@@ -182,7 +183,7 @@ woas._native_wsif_save = function(path, src_fname, locking, single_wsif, inline_
 			if (this.save_file(path+pi.toString()+".wsif",
 								this.file_mode.ASCII_TEXT,
 								// also add the pages counter (single)
-								extra + this.wsif.header("woas.pages", 1) +
+								extra + (this.config.allow_diff ? "" : this.wsif.header("woas.pages", 1)) +
 								"\n" + record))
 				++done;
 		}
@@ -191,10 +192,12 @@ woas._native_wsif_save = function(path, src_fname, locking, single_wsif, inline_
 		record = "";
 	} // foreach page
 	// add the total pages number
-	if (full_save || single_wsif)
-		extra += this.wsif.header('woas.pages', done);
-	else
-		extra += this.wsif.header('woas.pages', page_titles.length);
+	if (this.config.allow_diff) {
+		if (full_save || single_wsif)
+			extra += this.wsif.header('woas.pages', done);
+		else
+			extra += this.wsif.header('woas.pages', page_titles.length);
+	}
 	// build (artificially) an index of all pages
 	if (!full_save && !single_wsif) {
 		for (pi=0,pl=page_titles.length;pi<pl;++pi) {
