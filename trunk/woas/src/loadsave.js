@@ -576,7 +576,8 @@ woas._save_to_file = function(full) {
 };
 
 var reHeadTagEnd = new RegExp("<\\/"+"head[^>]*>", "ig");
-	reHeadTagStart = new RegExp("<"+"head[^>]*>", "ig");
+	reHeadTagStart = new RegExp("<"+"head[^>]*>", "ig"),
+	reTagMatch = /<(\w+)([^>]*)>.*?<\/\1[^>]*>/g;
 
 woas._extract_src_data = function(marker, source, full, current_page, start) {
 	var e_offset, s_offset;
@@ -614,31 +615,22 @@ woas._extract_src_data = function(marker, source, full, current_page, start) {
 		return false;
 	}
 
-/*		var new_title = this.xhtml_encode(current_page);
-
-					var boot_css = this.get_text("WoaS::CSS::Boot"),
-						stStartTag = "<"+"style type=\"text/css\""+">",
-						bonus;
-					// now add the title if it was wasted
-					if (title_wasted)
-						bonus = "<"+"tit"+"le>"+this.xhtml_encode(current_page)+"<"+"/ti"+"tle"+">\n";
-					else bonus = "";
-					bonus += stStartTag;
-					//this._customized_popup("test", "<"+"tt>"+this.xhtml_encode(source.substring(css_start, css_end))+"<"+"/tt>", "");
-					// we have found the style tag, replace it
-					source = source.substring(0, css_start) + 
-								bonus +
-								boot_css
-								+ source.substring(css_end);
-					// update offset
-					var delta = boot_css.length + bonus.length - (css_end - css_start);
-					delete boot_css;
-					body_ofs += delta;
-*/
 	// filter out the unimportant tags from head
+	var l_attrs;
 	source = source.substring(0, head_ofs) + source.substring(head_ofs, body_ofs).
-				replace(reTagMatch, function(tag) {
-					return tag;
+				replace(reTagMatch, function(subject, tag, attrs) {
+					l_attrs = attrs.toLowerCase()
+					// this was marked as permanent tag
+					if (l_attrs.indexOf("woas_permanent=")!==-1) {
+						if ((tag.toLowerCase() === "style") && (l_attrs.indexOf("woas_core_style")!==-1)) {
+							return "<"+"style"+attrs+">"+this.get_text("WoaS::CSS::Boot")+"<"+"/style>";
+						} else if (tag.toLowerCase() === "title") {
+							return "<"+"title"+attrs+">"+this.xhtml_encode(current_page)+"<"+"/title>";
+						}
+						return subject;
+					}
+					// totally dismiss tag
+					return "";
 				}) +
 				source.substring(body_ofs);
 		
