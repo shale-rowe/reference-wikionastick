@@ -450,7 +450,7 @@ woas._save_to_file = function(full) {
 	var ds_changed = (this.config.wsif_ds.length !== this._old_wsif_ds_len);
 	
 	// increase the marker only when performing full save
-	var new_marker = (full | ds_changed) ? _inc_marker(__marker) : __marker;
+	var new_marker = ((full | ds_changed) && !this.config.wsif_ds.length) ? _inc_marker(__marker) : __marker;
 	
 	// setup the page to be opened on next start
 	var safe_current;
