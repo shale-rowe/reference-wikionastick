@@ -445,9 +445,12 @@ function printout_fixed(elem, n) {
 // save full WoaS to file
 woas._save_to_file = function(full) {
 	this.progress_init("Saving to file");
+
+	// force full mode if WSIF datasource mode changed since last time loading/saving
+	var ds_changed = (this.config.wsif_ds.length !== this._old_wsif_ds_len);
 	
 	// increase the marker only when performing full save
-	var new_marker = full ? _inc_marker(__marker) : __marker;
+	var new_marker = (full | ds_changed) ? _inc_marker(__marker) : __marker;
 	
 	// setup the page to be opened on next start
 	var safe_current;
@@ -490,8 +493,6 @@ woas._save_to_file = function(full) {
 	
 	computed_js += "/* " + new_marker + "-DATA */\n";
 
-	// force full mode if WSIF datasource mode changed since last time loading/saving
-	var ds_changed = (this.config.wsif_ds.length !== this._old_wsif_ds_len);
 	if (full || ds_changed) {
 		this._old_wsif_ds_len = this.config.wsif_ds.length;
 		if (this.config.wsif_ds.length) {
