@@ -33,6 +33,7 @@ woas.custom.jsMath = {
 	},
 	// used for post-rendering after library was loaded
 	post_render: function() {
+		return;
      jsMath.Init();
      var elem;
      for(var i=0;i<this.postrender;++i) {
@@ -47,7 +48,12 @@ woas.custom.jsMath = {
 		 // quit if libraries have not yet been loaded and
 		 // increase counter for post-rendering
 		 if (typeof jsMath.Process == "undefined") {
-			macro.text = "<"+"div id=\"jsmath_postrender_\""+(this.postrender++)+">"+macro.text+"<"+"/div>";
+/*			macro.text = "<"+"div id=\"jsmath_postrender_\""+this.postrender+">"+macro.text+"<"+"/div>"+
+						"<"+"input id=\"jsmath_postr_btn_"+this.postrender+
+						"\" type=\"button\" value=\"Render\" onclick=\"jsMath.Process('jsmath_postrender_"+
+						this.postrender+
+						"');$.hide('jsmath_postr_btn_"+this.postrender+"');\" /"+">";
+			++this.postrender; */
 			return;
 		 }
 		 jsMath.Init();
