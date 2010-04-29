@@ -21,9 +21,12 @@ woas.macro_parser = function(text){
 			// when macro is not defined, define it
 			if (this.macro_parser.create(fn, M[2], M[3])) {
 				// we totally remove the block
-				macro.reprocess = true;
+				macro.reprocess = false;
 				macro.text = "";
 	//			macro.text = "<!-- defined "+fn+" macro -->";
+			} else { // set some error message
+				macro.reprocess = false;
+				macro.text = woas._make_preformatted(M[0], "color:red;font-weight:bold");
 			}
 			return macro;
 		}
@@ -33,6 +36,7 @@ woas.macro_parser = function(text){
 			this.macro_parser.macro_functions[fi](macro, this.macro_parser.pass_args(M[2]));
 		} else {
 			log("Undefined macro "+fn);	//log:1
+			macro.text = woas._make_preformatted(macro.text, "color:red");
 		}
 	}
 	return macro;
@@ -124,6 +128,7 @@ woas.macro_parser.create = function(fn_name, fn_params, fn_code) {
 	}
 	catch (e) {
 		log("cannot define function "+fn_name+": "+e); //log:1
+		return false;
 	}
 	return this.register(fn_name, obj);
 };

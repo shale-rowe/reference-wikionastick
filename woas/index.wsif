@@ -138,13 +138,23 @@ This project wouldn't be what it is without the help of other people. If you con
 --DFQRCTsKlU
 woas.page.title: Main Page
 woas.page.attributes: 0
-woas.page.length: 37
+woas.page.last_modified: 1272570719
+woas.page.length: 112
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 A blank sheet is a catalyst for ideas
+
+<<<%testmacro(p1,p2):
+
+macro.text = p1+p2;
+
+>>>
+
+<<<testmacro(10,15):
+>>>
 --DFQRCTsKlU
 woas.page.title: Special::Search
 woas.page.attributes: 0
@@ -967,7 +977,7 @@ If you have not given permanent permission to your browser for editing wiki page
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::CSS
 woas.page.attributes: 0
-woas.page.length: 3260
+woas.page.length: 3265
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
