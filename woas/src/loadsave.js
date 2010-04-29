@@ -577,7 +577,8 @@ woas._save_to_file = function(full) {
 
 var reHeadTagEnd = new RegExp("<\\/"+"head[^>]*>", "ig");
 	reHeadTagStart = new RegExp("<"+"head[^>]*>", "ig"),
-	reTagMatch = /<(\w+)([^>]*)>.*?<\/\1[^>]*>/g;
+	reTagStart = /<(\w+)([^>]*)>/g,
+	reTagEnd = /<\/(\w+)[^>]*>/g;
 
 woas._extract_src_data = function(marker, source, full, current_page, start) {
 	var e_offset, s_offset;
@@ -616,36 +617,89 @@ woas._extract_src_data = function(marker, source, full, current_page, start) {
 	}
 	
 	// filter out the unimportant tags from head
-	var l_attrs;
-	source = source.substring(0, head_start) + source.substring(head_start, head_end).
-				replace(reTagMatch, function(subject, tag, attrs) {
-					l_attrs = attrs.toLowerCase()
-					// this was marked as permanent tag
-					if (l_attrs.indexOf("woas_permanent=")!==-1) {
-						if ((tag.toLowerCase() === "style") && (l_attrs.indexOf("woas_core_style=")!==-1)) {
-							woas.log("Replacing CSS");
-							return "<"+"style"+attrs+">"+woas.get_text("WoaS::CSS::Boot")+"<"+"/style>";
-						} else if (tag.toLowerCase() === "title") {
-							woas.log("Replacing title");
-							return "<"+"title"+attrs+">"+woas.xhtml_encode(current_page)+"<"+"/title>";
-						}
-						return subject;
-					}
-					// totally dismiss tag
-					woas.log("dismissing "+tag);
-					return "";
-				}) +
-				source.substring(head_end);
+	// build a list of replacements with offsets
+	
+	// first take away the head
+	var needle, m2, l_attrs, the_head = source.substring(0, head_end),
+		splicings = [],
+		rest_of_source = source.substring(head_end), tag_end;
+	source = "";
+	// skip non-head content
+	reTagStart.lastIndex = head_start;
+	
+	m = reTagStart.exec(the_head);
+	while (m !== null) {
+		tag = m[1].toLowerCase();
+		switch (tag) {
+			case "script":
+			case "style":
+			case "title":
+				reTagEnd.lastIndex = m.index + m[0].length;
+				m2 = reTagEnd.exec(the_head);
+				if (m2 === null) {
+					woas.log("found "+m[1]+" without closing tag");
+					break;
+				}
+				var close_tag = m2[1].toLowerCase();
+				if (close_tag !== tag) {
+					woas.log("tag close mismatch: "+close_tag);
+					return false;
+				}
+				tag_end = m2.index+m2[0].length;
+			break;
+			case "meta":
+				tag_end = m.index+m[0].length;
+				break;
+			default:
+				woas.log("Unknown tag in head: "+tag);
+				return false;
+		}
 		
+		l_attrs = m[2].toLowerCase();
+		// this was marked as permanent tag
+		if (l_attrs.indexOf("woas_permanent=")!==-1) {
+			if (tag === "style") {
+				if (l_attrs.indexOf("woas_core_style=")!==-1) {
+					woas.log("Replacing CSS");
+					needle = m[0]+woas.get_text("WoaS::CSS::Boot")+m2[0];
+				} else
+					needle = "";
+			} else if (tag === "title") {
+//				woas.log("Replacing title");
+				needle = m[0]+woas.xhtml_encode(current_page)+m2[0];
+			} else
+				needle = m[0];
+		} else {
+			// totally dismiss tag
+//			woas.log("dismissing "+m[0]);
+			needle = "";
+		}
+		// add this splicing
+		splicings.push( { start: m.index, end: tag_end, needle: needle } );
+		
+		reTagStart.lastIndex = tag_end;
+		m = reTagStart.exec(the_head);
+	}
+	
+	// rebuild the source by using splicings
+	var prev_ofs = 0;
+	for(var i=0;i<splicings.length;++i) {
+		source += the_head.substring(prev_ofs, splicings[i].start) + splicings[i].needle;
+		prev_ofs = splicings[i].end;
+	} splicings = null;
+	
+	var l;
+	source += the_head.substr(prev_ofs) + rest_of_source.
+	
 		// XHTML hotfixes (FF doesn't either save correctly)
-		var l;
-		source = source.substring(0, head_end) + source.substring(head_end).
-				replace(/<(img|hr|br|input|meta)[^>]*>/gi, function(str, tag) {
+		replace(/<(img|hr|br|input|meta)[^>]*>/gi, function(str, tag) {
 					l=str.length;
 					if (str.charAt(l-1)!=='/')
 						str = str.substr(0, l-1)+" />";
 					return str;
 		});
+	rest_of_source = the_head = null;
+
 		// remove the tail (if any)
 		var tail_end_mark = "<"+"!-- "+marker+"-TAIL-END -"+"->",
 			tail_st_mark = "<"+"!-- "+marker+"-TAIL-START --"+">",
@@ -658,7 +712,6 @@ woas._extract_src_data = function(marker, source, full, current_page, start) {
 				// remove the tail content (but not the tail itself)
 				source =	source.substring(0, tail_start + tail_st_mark.length)+
 							source.substring(tail_end+tail_end_mark.length);
-				alert(source);
 			}
 		}
 
