@@ -96,7 +96,7 @@ woas._load_plugins = function() {
 		if (page_titles[i].substr(0, l) === _pfx) {
 			name = page_titles[i].substr(_pfx.length);
 			// generate the script element
-			if (this.script.add("plugin", name,
+			if (this.dom.add_script("plugin", name,
 							this.get__text(i),
 							false))
 				// add to global array

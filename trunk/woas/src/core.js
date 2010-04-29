@@ -497,7 +497,6 @@ woas.utf8_encode = function(src) {
 // WoaS DOM manager
 // all DOM modifications shall be indexed by this module
 woas.dom = {
-	
 	// hashmap used to quickly reference some important DOM objects
 	_cache: {},
 	// DOM management area
@@ -525,26 +524,26 @@ woas.dom = {
 		// on IE inject directly in body
 		if (woas.browser.ie) {
 			this._cache.body.appendChild(style);
-			this._objects.push( {obj:style, parent:this._cache.body, instance:""} );
+			this._objects.push( {obj:style, parent:this._cache.body, instance:"css_"+this._objects.length} );
 		} else {
 			this._cache.head.appendChild(style);
-			this._objects.push( {obj:style, parent:this._cache.head, instance:""} );
+			this._objects.push( {obj:style, parent:this._cache.head, instance:"css_"+this._objects.length} );
 		}
-	},
-
-	_protect_js_code : function(code) {
-		return code;
-//		return "if (!woas.script._save_reload) {\n" + code + "\n}\n";
+		return this._objects.length-1;
 	},
 	
+	remove_css: function(i) {
+		return this.remove("css_"+i);
+	},
+
 	remove_script: function(script_class, script_id) {
 		return this.remove(script_class+"_"+script_id);
 	},
 	
-	remove: function(script_token) {
+	remove: function(instance) {
 		var found = null;
 		for(var i=0,it=this._objects.length;i<it;++i) {
-			if (this._objects[i].instance === script_token) {
+			if (this._objects[i].instance === instance) {
 				found = i;
 				break;
 			}
@@ -554,7 +553,7 @@ woas.dom = {
 		// delete DOM entry from parent container
 		this._objects[found].parent.removeChild(this._objects[found].obj);
 		// fix arrays
-		this._objecs.splice(found, 1);
+		this._objects.splice(found, 1);
 		return true;
 	},
 	
@@ -570,7 +569,7 @@ woas.dom = {
 		this._cache.head.appendChild(s_elem);
 		if (!external)
 			// add the inline code with a protection from re-run which could happen upon saving WoaS
-			woas.setHTML(s_elem, this._protect_js_code(script_content));
+			woas.setHTML(s_elem, script_content);
 		// register in our management arrays
 		this._objects.push( {obj:s_elem, parent:this._cache.head, instance:script_token, external: external} );
 	},

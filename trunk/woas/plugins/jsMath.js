@@ -1,6 +1,6 @@
 /* jsMath binding for WoaS
    @author legolas558
-   @version 0.1.4
+   @version 0.1.5
    @license GPLv2
 
    works with jsMath 3.6e
@@ -14,7 +14,7 @@ woas.custom.jsMath = {
 		if (!this.is_loaded)
         // setup jsMath config object and
         // load libraries after defining global jsMath
-		this.is_loaded = woas.script.add("lib", "jsMath0", "\
+		this.is_loaded = woas.dom.add_script("lib", "jsMath0", "\
          jsMath = {\
             Controls: {\
               cookie: {scale: 133, global: 'never', button:0}\
@@ -27,15 +27,15 @@ woas.custom.jsMath = {
          noChangeGlobal:1,\
          noShowGlobal:1\
          };", false) &&
-			 woas.script.add("lib", "jsMath1", "plugins/jsMath/plugins/noImageFonts.js", true) &&
-			 woas.script.add("lib", "jsMath2", "plugins/jsMath/jsMath.js", true);
+			 woas.dom.add_script("lib", "jsMath1", "plugins/jsMath/plugins/noImageFonts.js", true) &&
+			 woas.dom.add_script("lib", "jsMath2", "plugins/jsMath/jsMath.js", true);
 	     return this.is_loaded;
 	},
 	// used for post-rendering after library was loaded
 	post_render: function() {
      jsMath.Init();
      var elem;
-     for(var i=0,it=this.postrender;i<it;++i) {
+     for(var i=0;i<this.postrender;++i) {
 //         elem = $("jsmath_postrender_"+i);
 //         elem.innerHTML = jsMath.Translate.Parse('T', elem.innerHTML);
          jsMath.Process("jsmath_postrender_"+i)
