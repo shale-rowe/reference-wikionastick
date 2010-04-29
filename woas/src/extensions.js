@@ -21,18 +21,16 @@ woas._plugin_scripts = [];
 woas._clear_custom_scripts = function () {
 	if (!this._custom_scripts.length) return;
 	for(var i=0;i<this._custom_scripts;i++) {
-		this.script.remove("custom", i);
+		this.dom.remove_script("custom", i);
 	}
 	// clear the counter
 	this._custom_scripts = 0;
 };
 
 // generate parsed scripts
-woas._activate_scripts = function(saving) {
+woas._activate_scripts = function() {
 	// add the custom scripts (if any)
 	if (this.parser.script_extension.length) {
-		if (saving)
-			this.script._save_reload = true;
 //		log(this.parser.script_extension.length + " javascript files/blocks to process");	// log:0
 		var external;
 		for (var i=0;i<this.parser.script_extension.length;i++) {
@@ -40,14 +38,12 @@ woas._activate_scripts = function(saving) {
 			external = (external.toLowerCase()!=="string");
 			// sometimes instancing the script is not necessary
 			// the add method will check it out for us and return false when no script was instanced
-			if (this.script.add("custom", i,
+			if (this.dom.add_script("custom", i,
 						external ? this.parser.script_extension[i][0] : this.parser.script_extension[i],
 						external))
 				// increment counter of scripts
 				this._custom_scripts++;
 		}
-		if (saving)
-			this.script._save_reload = false;
 	}
 };
 
@@ -57,7 +53,7 @@ woas._disable_plugin = function(name) {
 		if (this._plugin_scripts[i] !== name)
 			continue;
 		// attempt removing the script block and fail otherwise
-		if (!this.script.remove("plugin", this._plugin_scripts[i]))
+		if (!this.dom.remove_script("plugin", this._plugin_scripts[i]))
 			return false;
 		this._plugin_scripts.splice(i, 1);
 		return true;
@@ -72,7 +68,7 @@ woas._update_plugin = function(name) {
 // enable a single plugin
 woas._enable_plugin = function(name) {
 	// generate the script element
-	if (this.script.add("plugin", name,
+	if (this.dom.add_script("plugin", name,
 						this.get_text("WoaS::Plugins::"+name),
 						false)) {
 		this._plugin_scripts.push( name );
@@ -85,19 +81,15 @@ woas._enable_plugin = function(name) {
 woas._clear_plugins = function() {
 	for(var i=0,it=this._plugin_scripts.length;i<it;++i) {
 		// remove the DOM object
-		this.script.remove("plugin", this._plugin_scripts[i]);
+		this.dom.remove_script("plugin", this._plugin_scripts[i]);
 	}
 	// reset array
 	this._plugin_scripts = [];
 };
 
-woas._load_plugins = function(saving) {
+woas._load_plugins = function() {
 	//TODO: get plugins configuration
 
-	// protect plugins from re-execution
-	if (saving)
-		this.script._save_reload = true;
-	
 	// get list of plugins
 	var _pfx = "WoaS::Plugins::", l=_pfx.length, name;
 	for(var i=0,it=page_titles.length;i<it;++i) {
@@ -111,10 +103,6 @@ woas._load_plugins = function(saving) {
 				this._plugin_scripts.push( name );
 		}
 	}
-
-	// turn down safety flag
-	if (saving)
-		this.script._save_reload = false;
 };
 
 woas.validate_hotkey = function(k) {

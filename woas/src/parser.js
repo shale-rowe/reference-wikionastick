@@ -171,14 +171,14 @@ woas.split_tags = function(tlist) {
 		return tlist.split(",");
 };
 
-var reScripts = /<script([^>]*)>([\s\S]*?)<\/script>/gi;
-var reStyles = /<style([^>]*)>[\s\S]*?<\/style>/gi;
-var reNowiki = /\{\{\{([\s\S]*?)\}\}\}/g;
-var reTransclusion = /\[\[Include::([\s\S]+?)\]\]/g;
-var reMacros = /<<<([\s\S]*?)>>>/g;
-var reComments = /<\!--([\s\S]*?)-->/g;
-var reWikiLink = /\[\[([^\]\]]*?)\|(.*?)\]\]/g;
-var reWikiLinkSimple = /\[\[([^\]]*?)\]\]/g;
+var reScripts = new RegExp("<"+"script([^>]*)>([\\s\\S]*?)<"+"\\/script>", "gi"),
+	reStyles = new RegExp("<"+"style([^>]*)>[\\s\\S]*?<"+"\\/style>", "gi"),
+	reNowiki = /\{\{\{([\s\S]*?)\}\}\}/g,
+	reTransclusion = /\[\[Include::([\s\S]+?)\]\]/g,
+	reMacros = /<<<([\s\S]*?)>>>/g,
+	reComments = /<\!--([\s\S]*?)-->/g,
+	reWikiLink = /\[\[([^\]\]]*?)\|(.*?)\]\]/g,
+	reWikiLinkSimple = /\[\[([^\]]*?)\]\]/g;
 
 var _MAX_TRANSCLUSION_RECURSE = 256;
 
@@ -214,7 +214,7 @@ woas._make_preformatted = function(text) {
 // 'export_links' is set to true when exporting wiki pages and is used to generate proper href for hyperlinks
 // 'js_mode' controls javascript behavior. Allowed values are:
 // 0 = leave script tags as they are (used for exporting)
-// 1 - place script tags in <head /> (dynamic),
+// 1 - place script tags in head (dynamic),
 // 2 - re-add script tags after parsing
 // 3 - convert script tags to nowiki blocks
 woas.parser.parse = function(text, export_links, js_mode) {

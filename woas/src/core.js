@@ -500,9 +500,12 @@ woas.dom = {
 	
 	// hashmap used to quickly reference some important DOM objects
 	_cache: {},
+	// DOM management area
+	_objects: [],
 	
 	init: function() {
 		this._cache.head = document.getElementsByTagName("head")[0];
+		this._cache.body = document.getElementsByTagName("body")[0];
 		if (woas.browser.ie)
 			this._cache.stylesheet = document.styleSheets[0];
 		else
@@ -520,12 +523,81 @@ woas.dom = {
 		style.type = "text/css";
 		style.appendChild(document.createTextNode(css_text));
 		// on IE inject directly in body
-		if (woas.browser.ie)
+		if (woas.browser.ie) {
 			this._cache.body.appendChild(style);
-		else
+			this._objects.push( {obj:style, parent:this._cache.body, instance:""} );
+		} else {
 			this._cache.head.appendChild(style);
-		// register this DOM modification
-		
+			this._objects.push( {obj:style, parent:this._cache.head, instance:""} );
+		}
+	},
+
+	_protect_js_code : function(code) {
+		return code;
+//		return "if (!woas.script._save_reload) {\n" + code + "\n}\n";
+	},
+	
+	remove_script: function(script_class, script_id) {
+		return this.remove(script_class+"_"+script_id);
+	},
+	
+	remove: function(script_token) {
+		var found = null;
+		for(var i=0,it=this._objects.length;i<it;++i) {
+			if (this._objects[i].instance === script_token) {
+				found = i;
+				break;
+			}
+		}
+		if (found === null)
+			return false;
+		// delete DOM entry from parent container
+		this._objects[found].parent.removeChild(this._objects[found].obj);
+		// fix arrays
+		this._objecs.splice(found, 1);
+		return true;
+	},
+	
+	// regex used to remove some comments
+	reJSComments: /^\s*\/\*[\s\S]*?\*\/\s*/g,
+	
+	_internal_add: function(script_token, script_content, external) {
+		var s_elem = document.createElement("script");
+		s_elem.type="text/javascript";
+		s_elem.id = "woas_"+script_token;
+		if (external)
+			s_elem.src = script_content;
+		this._cache.head.appendChild(s_elem);
+		if (!external)
+			// add the inline code with a protection from re-run which could happen upon saving WoaS
+			woas.setHTML(s_elem, this._protect_js_code(script_content));
+		// register in our management arrays
+		this._objects.push( {obj:s_elem, parent:this._cache.head, instance:script_token, external: external} );
+	},
+	
+	add_script: function(script_class, script_id, script_content, external) {
+		// remove the comments
+		script_content = script_content.replace(this.reJSComments, '');
+		if (!script_content.length) return false;
+		this._internal_add(script_class+"_"+script_id, script_content, external);
+		return true;
+	},
+	
+	// remove all script objects
+	// if saving is true, then store data for later re-creation
+	// otherwise discard everything
+	remove_all: function() {
+		var it=this._instances.length;
+		for(var i=0;i<it;++i) {
+			// remove the object
+			this._objects[i].parent.removeChild(this._objects[i].obj);
+		}
+		// clear objects array
+		this._objects = [];
 	}
 	
 };
+
+// namespace for custom stuff defined by macros/plugins
+// if you are a JavaScript developer you should put singleton instance objects in here
+woas.custom = { };
