@@ -657,6 +657,7 @@ woas._extract_src_data = function(marker, source, full, current_page, start) {
 		
 		l_attrs = m[2].toLowerCase();
 		// this was marked as permanent tag
+		var skip_it=false;
 		if (l_attrs.indexOf("woas_permanent=")!==-1) {
 			if (tag === "style") {
 				if (l_attrs.indexOf("woas_core_style=")!==-1) {
@@ -667,15 +668,16 @@ woas._extract_src_data = function(marker, source, full, current_page, start) {
 			} else if (tag === "title") {
 //				woas.log("Replacing title");
 				needle = m[0]+woas.xhtml_encode(current_page)+m2[0];
-			} else
-				needle = m[0];
+			} else {
+				// will leave tag untouched
+				skip_it = true;
+			}
 		} else {
-			// totally dismiss tag
-//			woas.log("dismissing "+m[0]);
 			needle = "";
 		}
-		// add this splicing
-		splicings.push( { start: m.index, end: tag_end, needle: needle } );
+		if (!skip_it)
+			// add this splicing
+			splicings.push( { start: m.index, end: tag_end, needle: needle } );
 		
 		reTagStart.lastIndex = tag_end;
 		m = reTagStart.exec(the_head);
@@ -699,7 +701,7 @@ woas._extract_src_data = function(marker, source, full, current_page, start) {
 		} splicings = null;
 
 		// XHTML hotfixes (FF doesn't either save correctly)
-		source += the_head.substr(prev_ofs);
+		source += the_head.substr(prev_ofs); the_head = null;
 		
 		// re-calculate offsets
 		
@@ -724,7 +726,7 @@ woas._extract_src_data = function(marker, source, full, current_page, start) {
 	} else {
 		// XHTML hotfixes (FF doesn't either save correctly)
 		source = the_head + rest_of_source.replace(reXHTMLFix, reXHTMLFix_hook);
-		rest_of_source = null;
+		the_head = rest_of_source = null;
 	}
 	
 	// remove the tail (if any)
@@ -746,11 +748,6 @@ woas._extract_src_data = function(marker, source, full, current_page, start) {
 	if (full) {
 		// offset was previously calculated
 		if (start) {
-			s_offset = source.indexOf("/* "+marker+ "-START */");
-			if (s_offset == -1) {
-				this.alert(this.i18n.ERR_MARKER.sprintf("START"));
-				return false;
-			}
 			return source.substring(s_offset, e_offset);
 		}
 	} else {

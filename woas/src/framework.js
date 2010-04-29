@@ -116,10 +116,12 @@ if (woas.config.debug_mode) {
 	woas.log = function (aMessage) {
 	    var logbox = $("woas_debug_log");
 	    // count lines
-		nls = logbox.value.match(/\n/g);
-		// log maximum 1024 lines
-		if (nls!=null && typeof(nls)==='object' && nls.length>1024)
-			logbox.value = "";
+	    if (!woas.tweak.integrity_test) {
+			nls = logbox.value.match(/\n/g);
+			// log maximum 1024 lines
+			if (nls!=null && typeof(nls)==='object' && nls.length>1024)
+				logbox.value = "";
+		}
 		logbox.value += aMessage + "\n";
 		// keep the log scrolled down
 		logbox.scrollTop = logbox.scrollHeight;
