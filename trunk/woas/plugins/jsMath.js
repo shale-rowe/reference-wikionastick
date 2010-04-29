@@ -40,7 +40,6 @@ woas.custom.jsMath = {
 		woas.setHTML(elem, jsMath.Translate.Parse('T', woas.getHTML(elem)));
 		$.hide("jsmath_postr_btn_"+i);
 		return;
-     }
 	},
 	
 	_macro_hook : function(macro) {
