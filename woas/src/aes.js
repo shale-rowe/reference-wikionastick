@@ -85,21 +85,21 @@ function aesByteSub(x){
   aesRtable = new Array(256);
   aesRco = new Array(30);
 
-  for ( i=2; i<256; i++){
+  for ( i=2; i < 256; i++){
     aesPows[i]=aesPows[i-1]^aesXTime( aesPows[i-1] );
     aesLogs[aesPows[i]]=i;
   }
 
   aesSBox[0]=0x63;
   aesSBoxInv[0x63]=0;
-  for ( i=1; i<256; i++){
+  for ( i=1; i < 256; i++){
     y=aesByteSub(i);
     aesSBox[i]=y; aesSBoxInv[y]=i;
   }
 
-  for (i=0,y=1; i<30; i++){ aesRco[i]=y; y=aesXTime(y); }
+  for (i=0,y=1; i < 30; i++){ aesRco[i]=y; y=aesXTime(y); }
 
-  for ( i=0; i<256; i++){
+  for ( i=0; i < 256; i++){
     y = aesSBox[i];
     aesFtable[i] = aesXTime(y) | y<<8 | y<<16 | (y^aesXTime(y))<<24;
     y = aesSBoxInv[i];
@@ -136,16 +136,16 @@ function aesInit(){
   aesFkey = new Array(N);
   aesRkey = new Array(N);
 
-  for (i=j=0;i<aesNk;i++,j+=4) aesFkey[i]=getW(key,j);
+  for (i=j=0;i< aesNk;i++,j+=4) aesFkey[i]=getW(key,j);
 
   for (k=0,j=aesNk;j<N;j+=aesNk,k++){
     aesFkey[j]=aesFkey[j-aesNk]^aesSubByte(rotw(aesFkey[j-1], 24))^aesRco[k];
     if (aesNk<=6)
-      for (i=1;i<aesNk && (i+j)<N;i++) aesFkey[i+j]=aesFkey[i+j-aesNk]^aesFkey[i+j-1];
+      for (i=1;i < aesNk && (i+j)<N;i++) aesFkey[i+j]=aesFkey[i+j-aesNk]^aesFkey[i+j-1];
     else{
       for (i=1;i<4 &&(i+j)<N;i++) aesFkey[i+j]=aesFkey[i+j-aesNk]^aesFkey[i+j-1];
       if ((j+4)<N) aesFkey[j+4]=aesFkey[j+4-aesNk]^aesSubByte(aesFkey[j+3]);
-      for (i=5;i<aesNk && (i+j)<N;i++) aesFkey[i+j]=aesFkey[i+j-aesNk]^aesFkey[i+j-1];
+      for (i=5;i < aesNk && (i+j)<N;i++) aesFkey[i+j]=aesFkey[i+j-aesNk]^aesFkey[i+j-1];
     }
   }
 
@@ -166,7 +166,7 @@ function aesRounds( block, key, table, inc, box ){
   var i,j,m,r;
 
   for ( r=0; r<4; r++ ) block[r]^=key[r];
-  for ( i=1; i<aesNr; i++ ){
+  for ( i=1; i < aesNr; i++ ){
     for (j=m=0;j<4;j++,m+=3){
       tmp[j]=key[r++]^table[block[j]&0xFF]^
 			rotw(table[(block[inc[m  ]] >>> 8)&0xFF], 8)^
@@ -196,14 +196,14 @@ function _decrypt(){
 
 function blcEncrypt(enc){
 	if (tot === 0){
-		if (key.length<1) return;
+		if (key.length < 1) return;
 		// pre-pend random data to pad length? really?
 		for (aes_i=0; aes_i<16; ++aes_i) bData.unshift( _rand(256) );
 		while( bData.length%16 !== 0 ) bData.push(0);
 		tot = bData.length;
 		aesInit();
 	}else{
-		for (aes_j=aes_i; aes_j<aes_i+16; aes_j++)
+		for (aes_j=aes_i; aes_j < aes_i+16; aes_j++)
 		bData[aes_j] ^= bData[aes_j-16];
 		enc();
 	}
@@ -216,7 +216,7 @@ function blcDecrypt(dec){
 		if (key.length<1) return false;
 		aes_i=16;
 		tot = bData.length;
-		if ( (tot%16) || (tot<aes_i) ) {
+		if ( (tot%16) || (tot < aes_i) ) {
 			log('AES: Incorrect length (tot='+tot+', aes_i='+aes_i+')'); //log:1
 			return false;
 		}
@@ -224,7 +224,7 @@ function blcDecrypt(dec){
 	} else {
 		aes_i=tot-aes_i;
 		dec();
-		for (aes_j=aes_i-16; aes_j<aes_i; aes_j++) bData[aes_j] ^= bData[aes_j-16];
+		for (aes_j=aes_i-16; aes_j < aes_i; aes_j++) bData[aes_j] ^= bData[aes_j-16];
 		aes_i = tot+32-aes_i;
 	}
 	if (aes_i>=tot){

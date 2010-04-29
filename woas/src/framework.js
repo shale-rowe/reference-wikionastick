@@ -213,7 +213,7 @@ function _rand(scale) {
 function _random_string(string_length) {
 	var chars = "ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
 	var randomstring = '';
-	for (var i=0; i<string_length; i++) {
+	for (var i=0; i < string_length; i++) {
 		var rnum = _rand(chars.length);
 		randomstring += chars.charAt(rnum);
 	}

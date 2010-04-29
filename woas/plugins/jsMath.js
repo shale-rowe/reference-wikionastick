@@ -1,6 +1,6 @@
 /* jsMath binding for WoaS
    @author legolas558
-   @version 0.1.6
+   @version 0.1.7
    @license GPLv2
 
    works with jsMath 3.6e
@@ -63,4 +63,4 @@ woas.custom.jsMath = {
 woas.custom.jsMath.init();
 
 // register the macro
-woas.macro_parser.register('jsmath', woas.custom.jsMath._macro_hook);
+woas.macro_parser.register('woas.jsmath', woas.custom.jsMath._macro_hook);
