@@ -681,26 +681,53 @@ woas._extract_src_data = function(marker, source, full, current_page, start) {
 		m = reTagStart.exec(the_head);
 	}
 	
-	// rebuild the source by using splicings
-	var prev_ofs = 0;
-	for(var i=0;i<splicings.length;++i) {
-		source += the_head.substring(prev_ofs, splicings[i].start) + splicings[i].needle;
-		prev_ofs = splicings[i].end;
-	} splicings = null;
-	
-	var l;
-	source += the_head.substr(prev_ofs) + rest_of_source.
-	
-		// XHTML hotfixes (FF doesn't either save correctly)
-		replace(/<(img|hr|br|input|meta)[^>]*>/gi, function(str, tag) {
-					l=str.length;
+	function reXHTMLFix_hook(str, tag) {
+					var l=str.length;
 					if (str.charAt(l-1)!=='/')
 						str = str.substr(0, l-1)+" />";
 					return str;
-		});
-	rest_of_source = the_head = null;
+		}
+	var reXHTMLFix = /<(img|hr|br|input|meta)[^>]*>/gi;
 
-		// remove the tail (if any)
+	
+	// rebuild the source by using splicings
+	if (splicings.length) {
+		var prev_ofs = 0;
+		for(var i=0;i<splicings.length;++i) {
+			source += the_head.substring(prev_ofs, splicings[i].start) + splicings[i].needle;
+			prev_ofs = splicings[i].end;
+		} splicings = null;
+
+		// XHTML hotfixes (FF doesn't either save correctly)
+		source += the_head.substr(prev_ofs);
+		
+		// re-calculate offsets
+		
+		// find the start marker for safety checking
+		s_offset = source.indexOf("/* "+marker+ "-START */");
+		if (s_offset === -1) {
+			this.alert(this.i18n.ERR_MARKER.sprintf("START"));
+			return false;
+		}			
+		// find the end marker, necessary to make some DOM/XHTML fixes
+		e_offset = source.indexOf("/* "+marker+ "-END */", s_offset);
+		if (e_offset === -1) {
+			this.alert(this.i18n.ERR_MARKER.sprintf("END"));
+			return false;
+		}
+		// properly update offset (+2 is for newlines)
+		e_offset += 3 + marker.length + 7 + 2;
+
+		source += rest_of_source.replace(reXHTMLFix, reXHTMLFix_hook);
+		rest_of_source = null;
+		
+	} else {
+		// XHTML hotfixes (FF doesn't either save correctly)
+		source = the_head + rest_of_source.replace(reXHTMLFix, reXHTMLFix_hook);
+		rest_of_source = null;
+	}
+	
+	// remove the tail (if any)
 		var tail_end_mark = "<"+"!-- "+marker+"-TAIL-END -"+"->",
 			tail_st_mark = "<"+"!-- "+marker+"-TAIL-START --"+">",
 			tail_start = source.indexOf(tail_st_mark, e_offset);
