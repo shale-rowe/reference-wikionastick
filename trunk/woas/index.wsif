@@ -976,7 +976,7 @@ woas.page.boundary: DFQRCTsKlU
 = CSS
 The look of most of this wiki can be customized by adding rules to the {{{[[WoaS::CSS::Custom]]}}} page. WoaS keeps the default CSS rules on the {{{[[WoaS::CSS::Core]]}}} page, which can be used for reference in writing your own custom rules.
 
-<<<include:WoaS::Template::Info
+<<<woas.include:WoaS::Template::Info
 A tutorial about CSS is available at [[http://www.w3schools.com/css/]].>>>
 == Edit the CSS settings
 # Open the wiki in a browser.
