@@ -241,14 +241,22 @@ woas._plugin_delete_check = function(pname) {
 };
 
 woas._delete_plugin = function(name) {
+	var page_name = "WoaS::Plugins::"+name;
+	if (!confirm(woas.i18n.CONFIRM_DELETE.sprintf(page_name)))
+		return;
 	if (!this._disable_plugin(name))
 		return false;
-	this.delete_page("WoaS::Plugins::"+name);
+	this.delete_page(page_name);
 	if (current === "WoaS::Plugins") {
 		// reload plugins
 		$("wiki_text").innerHTML = this.parser.parse(this.get_text("WoaS::Plugins") + this._plugins_list());
 	}
-}
+};
+
+woas._edit_plugin = function(name) {
+	if (go_to("WoaS::Plugins::"+name))
+		woas.edit_page(current);
+};
 
 woas._plugins_list = function() {
 	var pt = this._plugin_scripts.length;
@@ -258,6 +266,7 @@ woas._plugins_list = function() {
 	for(var i=0;i<pt;++i){
 		pg.push("* [[WoaS::Plugins::"+this._plugin_scripts[i]+"|"+this._plugin_scripts[i]+"]]"+
 				"&nbsp;&nbsp;[[Javascript::woas._delete_plugin('"+this._plugin_scripts[i]+"')|Delete]]"+
+				"&nbsp;&nbsp;[[Javascript::woas._edit_plugin('"+this._plugin_scripts[i]+"')|Edit...]]"+
 				"\n");
 	}
 	return "\n\n"+this._simple_join_list(pg);

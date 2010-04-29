@@ -144,7 +144,7 @@ woas.special_search = function( str ) {
 
 var reFindTags = /\[\[Tags?::([^\]]+)\]\]/g;
 woas.special_tagged = function() {
-	var	folds = {"[pages]":[]}, tagns,
+	var	pg = [], folds = {"[pages]":[]}, tagns,
 		src, i, l, j, jl, tmp, tag;
 		
 	for(i=0,l=pages.length;i<l;++i) {
@@ -167,13 +167,16 @@ woas.special_tagged = function() {
 						folds[tagns] = {"[pages]":[page_titles[i]]};
 					} else
 						folds[tagns]["[pages]"].push(page_titles[i]);
+					// build also the flat list
+					pg.push(page_titles[i]);
 				}
 			});
 	}
 	// parse tree with sorting
-	return woas.ns_listing(folds, true, false);
+	return woas.ns_listing(folds, pg, false);
 };
 
+var reHasTags = /\[\[Tags?::([^\]]+)\]\]/;
 woas.special_untagged = function() {
 	var tmp;
 	var pg = [];
@@ -183,7 +186,7 @@ woas.special_untagged = function() {
 		tmp = this.get_src_page(i);
 		if (tmp===null)
 			continue;
-		if (!tmp.match(/\[\[Tags?::([^\]]+)\]\]/))
+		if (!tmp.match(reHasTags))
 			pg.push(page_titles[i]);
 	}
 	if (!pg.length)
@@ -333,24 +336,28 @@ woas._join_list = function(arr, sorted) {
 		sorted = true;
 	// copy the array to currently selected pages
 	result_pages = arr.slice(0);
-	//return "* [["+arr.sort().join("]]\n* [[")+"]]";
 	// (1) create a recursable tree of namespaces
 	var ns,folds={"[pages]":[]},i,ni,nt,key;
 	for(i=0,it=arr.length;i<it;++i) {
 		ns = arr[i].split("::");
 		// remove first entry if empty
 		if (ns.length>1) {
+			// in case of special menu pages
 			if (ns[0].length === 0) {
-				ns.shift();
-				ns[0] = "::"+ns[0];
+//				ns.shift();
+//				ns[0] = "::"+ns[0];
+				// this shan't be a namespace
+			} else if (ns[ns.length-1].length === 0) {
+				// namespace pages, do nothing and consider them as normal pages
+			} else { // pages with some namespace, recurse their namespaces and finally the page
+				this.ns_recurse(ns, folds, "");
+				continue;
 			}
-			// recurse all namespaces found in page title
-			this.ns_recurse(ns, folds, "");
-		} else // <= 1
-			folds["[pages]"].push(arr[i]);
+		}
+		folds["[pages]"].push(arr[i]);
 	}
 	// (2) output the tree
-	return this.ns_listing(folds, sorted);
+	return this.ns_listing(folds, arr, sorted);
 };
 
 woas.ns_recurse = function(ns_arr, folds, prev_ns) {
@@ -377,30 +384,32 @@ woas.ns_recurse = function(ns_arr, folds, prev_ns) {
 woas._ns_expanded = function(ns, items_count, id, list_id) {
 	this._ns_groups[list_id].items.push(id);
 	switch (this._ns_groups[list_id].option) {
-		case 0:
-			return false;
 		case 1:
+			return false;
 		case 2:
 			return true;
-//			return (items_count <= 3);
 	}
+	// ?
+	return false;
 };
+
+woas._visible_css = function(v){
+	return v ? "visibility: visible; display: inline" : "visibility: hidden; display: none";
+}
 
 woas.ns_recurse_parse = function(folds, output, prev_ns, recursion, sorted) {
 	var i,it=folds["[pages]"].length,fold_id;
-	if (it != 0) {
+	if (it !== 0) {
 		// increase recursion depth
 		++recursion;
 		// disable folding for pages outside namespaces
 		if (prev_ns.length) {
 			// generate id for folding div
 			fold_id = "woas_fold"+output.fold_no++;
-			var vis_css = this._ns_expanded(prev_ns, it, fold_id, output.list_id) ? "visibility: visible" : "visibility: hidden; display:none";
+			var vis_css = woas._visible_css(this._ns_expanded(prev_ns, it, fold_id, output.list_id));
 			output.s += "<h"+(recursion+1)+" id=\""+fold_id+"_head\"> [[Javascript::$.toggle('"+fold_id+"')|"+prev_ns+"]]";
 			output.s += " [["+prev_ns+"|"+String.fromCharCode(8594)+"]] ("+it+" pages)\n</h"+(recursion+1)+">";
 			output.s += "<div style=\""+vis_css+"\" id=\""+fold_id+"\">\n";
-			// add the header to the main object
-			this._ns_groups[output.list_id].heads.push(fold_id);
 		}
 		// apply sorting
 		if (sorted)
@@ -448,26 +457,22 @@ woas._ns_groups = {};
 function _WoaS_list_expand_change(list_id, v) {
 	woas._ns_groups[list_id].option = parseInt(v);
 	switch (woas._ns_groups[list_id].option) {
-		case 0: // collapse all
-			for(var i=0,it=woas._ns_groups[list_id].heads.length;i<it;++i) {
-				$.show(woas._ns_groups[list_id].heads[i]+"_head");
-			}
+		case 1: // collapse all
+			$.show("WoaS_"+list_id+"_folds");
+			$.hide("WoaS_"+list_id+"_flat");
+
 			for(var i=0,it=woas._ns_groups[list_id].items.length;i<it;++i) {
 				$.hide(woas._ns_groups[list_id].items[i]);
 			}
 		break;
-		case 2: // flat list (hide headers)
-			for(var i=0,it=woas._ns_groups[list_id].heads.length;i<it;++i) {
-				$.hide(woas._ns_groups[list_id].heads[i]+"_head");
-			} // next expand all items
-			for(var i=0,it=woas._ns_groups[list_id].items.length;i<it;++i) {
-				$.show(woas._ns_groups[list_id].items[i]);
-			}
+		case 0: // flat list
+			$.hide("WoaS_"+list_id+"_folds");
+			$.show("WoaS_"+list_id+"_flat");
 			break;
-		case 1: // expand all
-			for(var i=0,it=woas._ns_groups[list_id].heads.length;i<it;++i) {
-				$.show(woas._ns_groups[list_id].heads[i]+"_head");
-			}
+		case 2: // expand all
+			$.show("WoaS_"+list_id+"_folds");
+			$.hide("WoaS_"+list_id+"_flat");
+
 			for(var i=0,it=woas._ns_groups[list_id].items.length;i<it;++i) {
 				$.show(woas._ns_groups[list_id].items[i]);
 			}
@@ -475,21 +480,33 @@ function _WoaS_list_expand_change(list_id, v) {
 	}
 }
 
-woas.ns_listing = function(folds, sorted) {
+woas.ns_listing = function(folds, flat_arr, sorted) {
 	if (typeof sorted == "undefined")
 		sorted = false;
 	// this is kept here for now until some more appropriate place is individuated
 	var list_id = _random_string(8);
 	// setup the group object
-	this._ns_groups[list_id] = { "items":[], "heads":[], "option": 1};
+	this._ns_groups[list_id] = { "items":[], "option": woas.config.folding_style};
 	var output={	"s": "",
 					"fold_no":0,
 					"list_id":list_id
 	};
-	output.s = "<label for=\"WoaS_"+list_id+"_0\"><input type=\"radio\" id=\"WoaS_"+list_id+"_0\" name=\"WoaS_"+list_id+"\" value=\"0\" "+(this._ns_groups[list_id].option === 0 ? " checked=\"checked\"" : "" )+"onclick=\"_WoaS_list_expand_change('"+list_id+"',this.value)\" >Collapse all</label>&nbsp;\
-<label for=\"WoaS_"+list_id+"_1\"><input type=\"radio\" id=\"WoaS_"+list_id+"_1\" name=\"WoaS_"+list_id+"\" value=\"1\" "+(this._ns_groups[list_id].option === 1 ? " checked=\"checked\"" : "" )+" onclick=\"_WoaS_list_expand_change('"+list_id+"',this.value)\">Expand all</label>&nbsp;\
-<label for=\"WoaS_"+list_id+"_2\"><input type=\"radio\" id=\"WoaS_"+list_id+"_2\" name=\"WoaS_"+list_id+"\" value=\"2\" "+(this._ns_groups[list_id].option === 2 ? " checked=\"checked\"" : "" )+"onclick=\"_WoaS_list_expand_change('"+list_id+"',this.value)\">Flat lists</label>\n";
+	output.s = "<"+"span class=\"woas_listing_options\">List view:<"+"label for=\"WoaS_"+list_id+"_0\"><"+"input type=\"radio\" id=\"WoaS_"+list_id+"_0\" name=\"WoaS_"+list_id+"\" value=\"0\" "+(this._ns_groups[list_id].option === 0 ? " checked=\"checked\"" : "" )+"onclick=\"_WoaS_list_expand_change('"+list_id+"',0)\">Flat<"+"/label>&nbsp;|\
+<label for=\"WoaS_"+list_id+"_1\"><input type=\"radio\" id=\"WoaS_"+list_id+"_1\" name=\"WoaS_"+list_id+"\" value=\"1\" "+(this._ns_groups[list_id].option === 1 ? " checked=\"checked\"" : "" )+"onclick=\"_WoaS_list_expand_change('"+list_id+"',1)\" >By namespace, collapsed<"+"/label>&nbsp;|\
+<"+"label for=\"WoaS_"+list_id+"_2\"><"+"input type=\"radio\" id=\"WoaS_"+list_id+"_2\" name=\"WoaS_"+list_id+"\" value=\"2\" "+(this._ns_groups[list_id].option === 2 ? " checked=\"checked\"" : "" )+" onclick=\"_WoaS_list_expand_change('"+list_id+"',2)\">By namespace, expanded<"+"/label>\n\
+<"+"/span><"+"span style=\""+woas._visible_css(this._ns_groups[list_id].option !== 0)+"\" id=\"WoaS_"+list_id+"_folds\">\n";
 	
+	// first fill the span for foldings
 	this.ns_recurse_parse(folds, output, "", 0, sorted);
+	output.s += "<"+"/span>\n"+
+				"<span style=\""+woas._visible_css(this._ns_groups[list_id].option === 0)+"\" id=\"WoaS_"+list_id+"_flat\">\n";
+	// then generate the flat list
+	if (sorted)
+		flat_arr.sort();
+	output.s += "* [["+flat_arr.sort().join("]]\n* [[")+"]]\n";
+/*	for(var i=0,it=flat_arr.length;i<it;++i) {
+		output.s += "* [["+flat_arr[i]+"]]\n";
+	} */
+	output.s += "<"+"/span>";
 	return output.s;
 };
