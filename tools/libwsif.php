@@ -59,6 +59,7 @@ class WSIF {
 	var $_emsg = _WSIF_NO_ERROR;
 	var $_imported_page = false;
 	var $_log_hook = null;
+	var $_loose_merge = false;
 
 	function Load($path, $create_page_hook = '_WSIF_create_page', $log_hook = '_WSIF_stderr_log') {
 		$this->_log_hook = $log_hook;
@@ -99,7 +100,7 @@ class WSIF {
 					$this->Error( sprintf(_WSIF_NS_VER, $wsif_v) );
 					$p = false;
 					$fail = true;
-				} else { // get number of expected pages
+				} else { // get number of expected pages - not mandatory
 					if (preg_match("/^woas\\.pages:\\s+(\\d+)$/m", substr(ct,0,$p), $this->_expected_pages))
 						$this->_expected_pages = (int)$this->_expected_pages[1];
 				}
@@ -426,7 +427,7 @@ class WSIF {
 			$record = $this->_header($pfx."title", $this->ecma_encode($page->title)).
 					$this->_header($pfx."attributes", $page->attrs);
 			// specify timestamp only if not magic
-			if ($page->last_modified != 0)
+			if (!$this->_loose_merge && ($page->last_modified != 0))
 				$record .= $this->_header($pfx+"last_modified", $page->last_modified);
 			$ct = $orig_len = null;
 			
@@ -487,7 +488,8 @@ class WSIF {
 				$full_wsif .= $this->_header($pfx."disposition.filename", sprintf("%d", count($titles)).".wsif")."\n";
 			}
 			// update record
-			$record .= $this->_header($pfx."length", strlen($ct));
+			if (!$this->_loose_merge)
+				$record .= $this->_header($pfx."length", strlen($ct));
 			$record .= $this->_header($pfx."encoding", $encoding);
 			$record .= $this->_header($pfx."disposition", $disposition);
 			// note: when disposition is inline, encoding cannot be 8bit/plain for embedded/encrypted files
@@ -516,7 +518,8 @@ class WSIF {
 			} else { // save each page separately
 				if ($this->save_file($path.sprintf("%d", count($titles)).".wsif",
 									// also add the pages counter (single)
-									$extra.$this->_header("woas.pages", 1).
+									$extra.
+									($this->_loose_merge ? "" : $this->_header("woas.pages", 1)).
 									"\n".$record))
 					++$done;
 				else
@@ -527,10 +530,12 @@ class WSIF {
 			$record = "";
 		} // foreach page
 		// add the total pages number
-		if ($single_wsif)
-			$extra .= $this->_header('woas.pages', $done);
-		else
-			$extra .= $this->_header('woas.pages', count($titles));
+		if (!$this->_loose_merge) {
+			if ($single_wsif)
+				$extra .= $this->_header('woas.pages', $done);
+			else
+				$extra .= $this->_header('woas.pages', count($titles));
+		}
 		// build (artificially) an index of all pages
 		if (!$single_wsif) {
 			foreach($titles as $pi => $title) {
