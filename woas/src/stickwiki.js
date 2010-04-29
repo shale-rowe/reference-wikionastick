@@ -1046,14 +1046,6 @@ woas.after_load = function() {
 	
 //	this.progress_finish();
 	$.hide("loading_overlay");
-	
-	
-var reTagMatch = /<(\w+)([^>]*)>.*?<\/\1[^>]*>/g;
-woas.dom._cache.head.innerHTML.replace(reTagMatch, function(subject, tag, attrs) {
-	woas.log(tag);
-});
-
-
 };
 
 // disable edit-mode after cancel/save actions
