@@ -27,8 +27,9 @@ foreach($argv as $fname) {
 	}
 	if (preg_match("/[^\\x00-\x7F]/", $ct, $m, PREG_OFFSET_CAPTURE)) {
 		$offset = $m[0][1];
-		echo sprintf("%s: found non-ascii character 0x%X at offset 0x%X\n", $fname, ord($m[0][0]), $offset);
+		fprintf(STDERR, "%s: found non-ascii character 0x%X at offset 0x%X\n", $fname, ord($m[0][0]), $offset);
 		system(sprintf("hexdump -s%d -C -n 256 %s", $offset - 128, escapeshellarg($fname)));
+		++$failed;
 		continue;
 	}
 }

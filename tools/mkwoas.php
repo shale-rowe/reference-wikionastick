@@ -33,12 +33,17 @@ function _script_replace($m) {
 		// remove BOM if present
 		$ct = preg_replace('/\\x'.dechex(239).'\\x'.dechex(187).'\\x'.dechex(191).'/A', '', $ct);
 		//TODO: apply modifications to 'tweak' object here
+
+		// check if this javascript is deadly wicked
+		if (preg_match_all('!<(\\w{3,})[^>]+>!s', $ct, $m)) {
+			fprintf(STDERR, "%s: found tag %s\n", $fname, implode(", ", $m[1]));
+		}
 		++$replaced;
 		echo "Replaced ".$scriptname."\n";
 		$fullscript .= "/*** ".$scriptname." ***/\n".$ct."\n";
 	}
 	// return the script block
-	return '<script language="javascript" type="text/javascript">'.
+	return '<script woas_permanent="1" language="javascript" type="text/javascript">'.
 		"\n/* <![CDATA[ */\n".$fullscript."\n/* ]]> */ </script>";
 }
 
@@ -238,7 +243,7 @@ global $replaced, $base_dir;
 $replaced=0;
 $base_dir = dirname($woas).'/';
 
-$tail = preg_replace_callback('/(<script src=\"[^"]+" type="text\\/javascript"><\\/script>\\s*)+/s', '_script_replace', $tail);
+$tail = preg_replace_callback('/(<script woas_permanent=\"1\" src=\"[^"]+" type="text\\/javascript"><\\/script>\\s*)+/s', '_script_replace', $tail);
 
 if (!$replaced) {
 	fprintf(STDERR, "ERROR: cannot find any external script to replace\n");
