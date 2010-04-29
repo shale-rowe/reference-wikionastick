@@ -12,8 +12,8 @@ woas._save_this_file = function(new_data, old_data) {
 	var filename = _get_this_filename();
 
 	var r = woas.save_file(filename, this.file_mode.ASCII_TEXT,
-		this.DOCTYPE + this.DOC_START + "<sc"+"ript type=\"tex"+"t/javascript\">"
-		+ new_data + "\n" + old_data + "</"+"html>");
+		this.DOCTYPE + this.DOC_START + "<"+"script woas_permanent=\"1\" type=\"tex"+"t/javascript\">"
+		+ new_data + "\n" + old_data + "<"+"/html>");
 	if (r===true)
 		log("\""+filename+"\" saved successfully");	// log:1
 	else {
@@ -596,47 +596,50 @@ woas._extract_src_data = function(marker, source, full, current_page, start) {
 	// properly update offset (+2 is for newlines)
 	e_offset += 3 + marker.length + 7 + 2;
 
-	// search for head end tag starting at data end offset
-	reHeadTagEnd.lastIndex = e_offset;
-	
-	var body_ofs, head_ofs,
-		m = reHeadTagEnd.exec(source);
+	reHeadTagStart.lastIndex = 0;
+	var head_start, head_end,
+		m = reHeadTagStart.exec(source);
 	if (m !== null)
-		body_ofs = m.index+strlen(m.input);
-	else {
-		this.crash("Cannot find head end tag");
-		return false;
-	}
-	m = reHeadTagStart.exec(source);
-	if (m !== null)
-		head_ofs = m.index + strlen(m.input);
+		head_start = m.index+m[0].length
 	else {
 		this.crash("Cannot find head start tag");
 		return false;
 	}
-
+	// search for head end tag starting at data end offset
+	reHeadTagEnd.lastIndex = e_offset;
+	m = reHeadTagEnd.exec(source);
+	if (m !== null)
+		head_end = m.index + m[0].length;
+	else {
+		this.crash("Cannot find head end tag");
+		return false;
+	}
+	
 	// filter out the unimportant tags from head
 	var l_attrs;
-	source = source.substring(0, head_ofs) + source.substring(head_ofs, body_ofs).
+	source = source.substring(0, head_start) + source.substring(head_start, head_end).
 				replace(reTagMatch, function(subject, tag, attrs) {
 					l_attrs = attrs.toLowerCase()
 					// this was marked as permanent tag
 					if (l_attrs.indexOf("woas_permanent=")!==-1) {
-						if ((tag.toLowerCase() === "style") && (l_attrs.indexOf("woas_core_style")!==-1)) {
-							return "<"+"style"+attrs+">"+this.get_text("WoaS::CSS::Boot")+"<"+"/style>";
+						if ((tag.toLowerCase() === "style") && (l_attrs.indexOf("woas_core_style=")!==-1)) {
+							woas.log("Replacing CSS");
+							return "<"+"style"+attrs+">"+woas.get_text("WoaS::CSS::Boot")+"<"+"/style>";
 						} else if (tag.toLowerCase() === "title") {
-							return "<"+"title"+attrs+">"+this.xhtml_encode(current_page)+"<"+"/title>";
+							woas.log("Replacing title");
+							return "<"+"title"+attrs+">"+woas.xhtml_encode(current_page)+"<"+"/title>";
 						}
 						return subject;
 					}
 					// totally dismiss tag
+					woas.log("dismissing "+tag);
 					return "";
 				}) +
-				source.substring(body_ofs);
+				source.substring(head_end);
 		
 		// XHTML hotfixes (FF doesn't either save correctly)
 		var l;
-		source = source.substring(0, body_ofs) + source.substring(body_ofs).
+		source = source.substring(0, head_end) + source.substring(head_end).
 				replace(/<(img|hr|br|input|meta)[^>]*>/gi, function(str, tag) {
 					l=str.length;
 					if (str.charAt(l-1)!=='/')
