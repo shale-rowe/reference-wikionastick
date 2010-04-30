@@ -209,8 +209,6 @@ woas._get_namespace_pages = function (ns) {
 		case "Tagged": // to be used in wiki source
 		case "Tags": // is this deprecated?
 			return /*"= Pages in "+ns+" namespace\n" + */this.special_tagged(false);
-//		case "WoaS::Plugins":
-//			return this.parser.parse(this.get_text("WoaS::Plugins") + this._plugins_list());
 		case "Image":
 			var iHTML = "";
 			for(var i=0, l=page_titles.length;i<l;++i) {
@@ -740,32 +738,35 @@ woas.set_current = function (cr, interactive) {
 							//TODO: do not use namespace to guess the embedded file type
 							text = this._get__embedded(real_t, pi, "file");
 						} else { */
+						// detect if showing a plugin
+						var _pfx = "WoaS::Plugins::";
+						if (real_t.substr(0, _pfx.length) === _pfx) {
+							text = this.plugins.get(real_t.substr(_pfx.length));
+							if (text !== null) {
+								text = "<div class=\"woas_nowiki_multiline woas_core_page\">"+text+"</div>";
+							}
+						} else {
 							text = this.get_text(real_t);
 							if (text !== null) {
-								// show a plugin
-								var _pfx = "WoaS::Plugins::";
-								if (real_t.substr(0, _pfx.length) === _pfx) {
-									text = "<div class=\"woas_nowiki_multiline woas_core_page\">"+text+"</div>";
-								} else {
-									switch (cr) {
-										case "Plugins":
-											text = this.parser.parse(text + this._plugins_list());
-										break;
-										case "Aliases":
-										case "Hotkeys":
+								switch (cr) {
+									case "Plugins":
+										text = this.parser.parse(text + this._plugins_list());
+									break;
+									case "Aliases":
+									case "Hotkeys":
 										case "CSS::Core":
-										case "CSS::Boot":
-										case "CSS::Custom":
-											// page is stored plaintext
-											text = "<div class=\"woas_nowiki_multiline woas_core_page\">"+text+"</div>";
-										break;
-										default:
-											// help pages and related resources
-											text = this.parser.parse(text);
-									}
-								}
-							}	
-//						}
+									case "CSS::Boot":
+									case "CSS::Custom":
+										// page is stored plaintext
+										text = "<div class=\"woas_nowiki_multiline woas_core_page\">"+text+"</div>";
+									break;
+									default:
+										// help pages and related resources
+										text = this.parser.parse(text);
+								} // switch per page title
+							} // text not null
+						} // plugins/non-plugins
+
 						if(text === null) {
 							if (_decrypt_failed)
 								_decrypt_failed = false;

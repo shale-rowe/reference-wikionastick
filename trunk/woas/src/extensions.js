@@ -16,8 +16,29 @@ woas._custom_scripts = 0;
 
 // 'plugins' WoaS module
 woas.plugins = {
+	
 	get: function(name) {
-		return woas.pager.get("WoaS::Plugins::"+name);
+		return this.get_by_index(page_titles.indexOf("WoaS::Plugins::"+name), name);
+	},
+	
+	get_by_index: function(i, name) {
+		if (typeof name == "undefined")
+			name = page_titles[i].substr( 15 );
+		var text = woas.pager.get_by_index(i);
+//		if (text === null) return "/* could not retrieve page */";
+		// check if this is an external page reference
+		// -- UNSUPPORTED FEATURE --
+		if ((name.charAt(0) === '@') && (text === name+"\n")) {
+			// hack for external files loading at run-time
+			var js_fname = "plugins/"+name.substr(1)+".js";
+			text = woas.load_file(woas.ROOT_DIRECTORY+js_fname);
+			// failure is not allowed, always return something
+			if (text === false)
+				text = "/* "+js_fname+" does not exist */\n";
+			else if (text === null)
+				text = "/* could not load "+js_fname+" */\n";
+		}
+		return text;
 	}
 };
 
@@ -104,7 +125,7 @@ woas._load_plugins = function() {
 			name = page_titles[i].substr(_pfx.length);
 			// generate the script element
 			if (this.dom.add_script("plugin", this._plugin_scripts.length,
-							this.get__text(i),
+							this.plugins.get_by_index(i),
 							false))
 				// add to global array
 				this._plugin_scripts.push( name );
