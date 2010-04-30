@@ -810,6 +810,13 @@ function _woas_new_plugin() {
 	var title = woas._prompt_title("Please enter plugin name", "Myplugin");
 	if (title === null)
 		return;
-	woas._create_page_direct("WoaS::Plugins", title, false, "/* "+title+" plugin */\n");
+	var def_text;
+	if (title.charAt(0) === '@') {
+		def_text = title+"\n";
+		title = title.substr(1);
+	} else {
+		def_text = "/* "+title+" plugin */\n";
+	}
+	woas._create_page_direct("WoaS::Plugins", title, false, def_text);
 	// now we will be editing the plugin code
 }
