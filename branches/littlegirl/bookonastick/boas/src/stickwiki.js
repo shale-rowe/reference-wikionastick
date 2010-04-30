@@ -140,7 +140,7 @@ woas["utf8_encode"] = function(src) {
 var edit_override = false;
 
 // These are namespaces reserved for use by the wiki. Add and remove namespaces here to enable/disable editing the pages in the namespaces, and to hide the pages when doing a listing of all pages. Note that the content of any pages included in this section will not be available when performing a search of the wiki. DANGER: Removing pages in the Include, Javascript, Lock, Locked, Special, Tagged, Tags, Unlock, Unlocked, Untagged, and WoaS namespaces can cause unexpected behavior or corrupt your wiki, and is not recommended!
-var reserved_namespaces = ["Include", "Javascript", "Lock", "Locked", "Special", "Tagged", "Tags", "Unlock", "Unlocked", "Untagged", "WoaS"];
+var reserved_namespaces = ["Example", "Help", "Include", "Javascript", "Lock", "Locked", "Special", "Tagged", "Tags", "Template", "Unlock", "Unlocked", "Untagged", "Utility", "WoaS"];
 
 // create the regex for reserved namespaces
 var reserved_rx = "^";

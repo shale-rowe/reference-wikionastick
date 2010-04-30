@@ -1,10 +1,9 @@
 wsif.version: 1.1.0
 woas.version: 0.10.5
-woas.pages: 134
+woas.pages: 131
 
 woas.page.title: ::Menu
 woas.page.attributes: 0
-woas.page.last_modified: 1267932306
 woas.page.length: 49
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -17,7 +16,6 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Special::Advanced
 woas.page.attributes: 0
-woas.page.last_modified: 1272646051
 woas.page.length: 1229
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -69,15 +67,14 @@ File: <input id="filename_" type="file" />&nbsp;<input type="button" value="Impo
 --DFQRCTsKlU
 woas.page.title: Special::About
 woas.page.attributes: 0
-woas.page.last_modified: 1269531658
-woas.page.length: 4475
+woas.page.length: 4581
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 <div style="float:right; margin-top:10px; margin-right:5px; margin-bottom:20px; margin-left:20px;">[[Include::Template::Logo]]</div>
-= Book on a Stick v1.0 (under development)
+= Book on a Stick v0.9.1
 Write a book in one self-contained file that runs entirely in your browser and can be kept on portable media in your pocket. This page is all you need! See the [[Help::Getting started|Getting started]] page to learn how this wiki works, or click the [[Include::Template::Icon::Edit]] icon in the banner to replace this content with the beginning of your masterpiece.
 
 == Features:
@@ -86,6 +83,7 @@ Write a book in one self-contained file that runs entirely in your browser and c
 * Customizable [[Special::Edit CSS|CSS settings]] to change the look of the wiki.
 * Customizable [[::Menu|menu]] for finding your [[Special::All Pages|pages]] easily.
 * [[Special::License|Free, open source]], cross-platform software.
+* [[Help::Footnotes|Footnote]] syntax.
 * Fully [[Special::Search|searchable]].
 * No install necessary.
 * No internet connection necessary.
@@ -104,6 +102,9 @@ Write a book in one self-contained file that runs entirely in your browser and c
 
 == History:
 * See the latest changes [[History|here]].
+
+== Licensing
+Book on a Stick is licensed under the [[Special::License|GNU GPL v2]].
 
 == Requirements:
 * Firefox 1.5
@@ -152,7 +153,6 @@ Write a book in one self-contained file that runs entirely in your browser and c
 --DFQRCTsKlU
 woas.page.title: Main Page
 woas.page.attributes: 0
-woas.page.last_modified: 1269200317
 woas.page.length: 220
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -252,7 +252,6 @@ Apart from the above, your normal usage of encrypted pages can be considered sec
 --DFQRCTsKlU
 woas.page.title: Special::Options
 woas.page.attributes: 0
-woas.page.last_modified: 1267317976
 woas.page.length: 3444
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -300,55 +299,6 @@ Unknown what the test should be for cb_fixed_layout
 -->
 
 --DFQRCTsKlU
-woas.page.title: Help::Embedding
-woas.page.attributes: 0
-woas.page.last_modified: 1269452670
-woas.page.length: 1903
-woas.page.encoding: 8bit/plain
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-[[Special::TOC]]
-= Embedding
-[[Include::Template::TODO|this|Rewrite this page since it was taken straight from the Feature::Summary page in WoaS.]]
-
-== Embedding
-You can embed files and images within WoaS.
-
-=== Files
-This is an example of an existing embedded file : [[File::life snippet.c]]
-This is an example of a not-yet-embedded file: [[File::report.log]]. You can embed the file when accessing the not-yet-existing page.
-
-You can also transclude an embedded file and its content will not be parsed as wiki source.
-
-=== Images
-You can include external images:
-
-<iframe src="http://weatherreports.com/banners/234x60_lblue.html?location=Rome_Fiumicino&units=C" width="234" height="60" frameborder="0" scrolling="no"></iframe>
-
-This is an example of an existing embedded image: [[Image::alert.png]]
-
-You can transclude such image using the wiki syntax {{{[[Include::Image::alert.png]]}}}, which results in:
-
-[[Include::Image::alert.png]]
-
-You can also specify additional attributes for the &lt;img /&gt; tag using a pipe '|' after the image name.
-For example, {{{[[Include::Image::alert.png|border="1" style="width:44px; height:44px"]]}}} results in:
-
-[[Include::Image::alert.png|border="1" style="width:44px; height:44px"]]
-
-This is an example of clickable image, rendered through the wiki syntax {{{[[Include::Image::alert.png|border="0" onclick="go_to('Image::alert.png')" style="cursor:pointer"]]}}}
-
-[[Include::Image::alert.png|border="0" onclick="go_to('Image::alert.png')" style="cursor:pointer"]]
-
-This is an example of not-yet-embedded image: [[Image::photo.jpg]]
-
-Remember that images are base64-encoded when embedded and become 33% bigger in size; it is suggested to not embed too much big images or files because they can slow down the application (remember that everything is contained in a single file), but that highly depends from the javascript engine of your browser.
-
-[[Tags::Help]]
-
---DFQRCTsKlU
 woas.page.title: Special::Embed
 woas.page.attributes: 0
 woas.page.length: 128
@@ -370,12 +320,11 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-Ly8gUHV0IGhlcmUgeW91ciBib290IGphdmFzY3JpcHQ=
+Ly8gUHV0IHlvdXIgYm9vdCBKYXZhU2NyaXB0IGhlcmU=
 --DFQRCTsKlU
 woas.page.title: History
 woas.page.attributes: 0
-woas.page.last_modified: 1272645786
-woas.page.length: 43678
+woas.page.length: 43687
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -393,7 +342,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 * Move some buttons from the menu to the banner.
 * Syntax for page-to-page anchors inside pages.</div>
 
-=== Version 1.0 (under development)
+=== Version 0.9.1 released on April 30, 2010
 * _Interface:_
 ** Added an explanatory comment to the {{{#edit_page_title}}} CSS entry.
 ** Added a *Go to top* arrow (thanks to *Stanky*) to the footer at the bottom of every page.
@@ -1039,7 +988,7 @@ $('woas_ep_xhtml').onblur = $('woas_ep_img').onblur = $('woas_ep_ext').onblur = 
 
 </script>
 --DFQRCTsKlU
-woas.page.title: Embedded SVG
+woas.page.title: Example::Embedded SVG
 woas.page.attributes: 0
 woas.page.length: 585
 woas.page.encoding: 8bit/plain
@@ -1237,16 +1186,6 @@ File: <input id="filename_" type="file" />&nbsp;<input type="button" value="Impo
 <label for="woas_cb_import_overwrite"><input type="checkbox" id="woas_cb_import_overwrite" checked="checked">Overwrite pages with the same title</label>
 
 --DFQRCTsKlU
-woas.page.title: File::life snippet.c
-woas.page.attributes: 4
-woas.page.length: 628
-woas.page.encoding: 8bit/base64
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-dm9pZCBMaWZlRnJhbWU6Ok9uU2FtcGxlcyh3eENvbW1hbmRFdmVudCYgV1hVTlVTRUQoZXZlbnQpKQp7CiAgICAvLyBzdG9wIGlmIGl0IHdhcyBydW5uaW5nCiAgICBPblN0b3AoKTsKCiAgICAvLyBkaWFsb2cgYm94CiAgICBMaWZlU2FtcGxlc0RpYWxvZyBkaWFsb2codGhpcyk7CgogICAgaWYgKGRpYWxvZy5TaG93TW9kYWwoKSA9PSB3eElEX09LKQogICAgewogICAgICAgIGNvbnN0IExpZmVQYXR0ZXJuIHBhdHRlcm4gPSBkaWFsb2cuR2V0UGF0dGVybigpOwoKICAgICAgICAvLyBwdXQgdGhlIHBhdHRlcm4KICAgICAgICBtX2xpZmUtPkNsZWFyKCk7CiAgICAgICAgbV9saWZlLT5TZXRQYXR0ZXJuKHBhdHRlcm4pOwoKICAgICAgICAvLyByZWNlbnRlciBjYW52YXMKICAgICAgICBtX2NhbnZhcy0+UmVjZW50ZXIoMCwgMCk7CiAgICAgICAgbV90aWNzID0gMDsKICAgICAgICBVcGRhdGVJbmZvVGV4dCgpOwogICAgfQp9Cg==
---DFQRCTsKlU
 woas.page.title: File::seed_of_life.svg
 woas.page.attributes: 4
 woas.page.length: 1412
@@ -1270,7 +1209,6 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Example::Chapter 01
 woas.page.attributes: 0
-woas.page.last_modified: 1265824399
 woas.page.length: 76
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1285,7 +1223,6 @@ This is another sample paragraph.
 --DFQRCTsKlU
 woas.page.title: Example::Chapter 02
 woas.page.attributes: 0
-woas.page.last_modified: 1265824399
 woas.page.length: 76
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1300,7 +1237,6 @@ This is another sample paragraph.
 --DFQRCTsKlU
 woas.page.title: Example::Chapter 03
 woas.page.attributes: 0
-woas.page.last_modified: 1265824399
 woas.page.length: 76
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1315,7 +1251,6 @@ This is another sample paragraph.
 --DFQRCTsKlU
 woas.page.title: Example::JavaScript
 woas.page.attributes: 0
-woas.page.last_modified: 1266528532
 woas.page.length: 3366
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1419,7 +1354,6 @@ setTimeout ( "ScoreDecay()", 3000);
 --DFQRCTsKlU
 woas.page.title: Example::Overview
 woas.page.attributes: 0
-woas.page.last_modified: 1265824399
 woas.page.length: 130
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1434,7 +1368,6 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Example::Table of Contents
 woas.page.attributes: 0
-woas.page.last_modified: 1265824399
 woas.page.length: 710
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1460,7 +1393,6 @@ Since the first three headers on this page are not Level 1 headers, they are rep
 --DFQRCTsKlU
 woas.page.title: Example::Transclusion
 woas.page.attributes: 0
-woas.page.last_modified: 1265824399
 woas.page.length: 45
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1472,7 +1404,6 @@ The members of the board are %1, %2, and %3.
 --DFQRCTsKlU
 woas.page.title: Help::Add a search box
 woas.page.attributes: 0
-woas.page.last_modified: 1269452991
 woas.page.length: 957
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1492,7 +1423,6 @@ This page demonstrates a search box, but the code is buggy and seems to interfer
 --DFQRCTsKlU
 woas.page.title: Help::Backup
 woas.page.attributes: 0
-woas.page.last_modified: 1269453076
 woas.page.length: 257
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1507,7 +1437,6 @@ Before making any changes, use your *file manager*, the *command line*, or a *ba
 --DFQRCTsKlU
 woas.page.title: Help::Bootscript
 woas.page.attributes: 0
-woas.page.last_modified: 1269453219
 woas.page.length: 756
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1534,7 +1463,6 @@ catch (e) {
 --DFQRCTsKlU
 woas.page.title: Help::Bugs
 woas.page.attributes: 0
-woas.page.last_modified: 1269453228
 woas.page.length: 3382
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1602,7 +1530,6 @@ This wiki is not supported by [[http://stickwiki.sourceforge.net/|Wiki on a Stic
 --DFQRCTsKlU
 woas.page.title: Help::Cancel any action
 woas.page.attributes: 0
-woas.page.last_modified: 1269453265
 woas.page.length: 208
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1616,7 +1543,6 @@ Cancel any action by clicking the [[Include::Template::Icon::Cancel]] icon in th
 --DFQRCTsKlU
 woas.page.title: Help::Change wiki settings
 woas.page.attributes: 0
-woas.page.last_modified: 1269453273
 woas.page.length: 247
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1632,7 +1558,6 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Help::Code blocks (preformatted text)
 woas.page.attributes: 0
-woas.page.last_modified: 1269453284
 woas.page.length: 3431
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1738,7 +1663,6 @@ Another method is to interrupt the code by dividing it up between multiple lines
 --DFQRCTsKlU
 woas.page.title: Help::CSS
 woas.page.attributes: 0
-woas.page.last_modified: 1269453240
 woas.page.length: 10841
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1945,7 +1869,6 @@ div.topnote {position:absolute; top:0.188em; right:0.625em;}
 --DFQRCTsKlU
 woas.page.title: Help::Delete a page
 woas.page.attributes: 0
-woas.page.last_modified: 1269453291
 woas.page.length: 797
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -1970,7 +1893,6 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Help::Edit a page
 woas.page.attributes: 0
-woas.page.last_modified: 1269453299
 woas.page.length: 2892
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -2011,7 +1933,6 @@ Now when you open the wiki in your browser, the namespaces you had temporarily e
 --DFQRCTsKlU
 woas.page.title: Help::Encrypt a page
 woas.page.attributes: 0
-woas.page.last_modified: 1269453338
 woas.page.length: 2195
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -2037,7 +1958,6 @@ The [[Example::Encrypted page]] can be opened by using *test* as the password.
 --DFQRCTsKlU
 woas.page.title: Help::Erase all pages
 woas.page.attributes: 0
-woas.page.last_modified: 1269453347
 woas.page.length: 450
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -2056,7 +1976,6 @@ To erase all user-created pages in this wiki and start fresh:
 --DFQRCTsKlU
 woas.page.title: Help::Export
 woas.page.attributes: 0
-woas.page.last_modified: 1269453357
 woas.page.length: 1292
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -2088,7 +2007,6 @@ Now you can click the *index.htm* file in the export folder to launch the framed
 --DFQRCTsKlU
 woas.page.title: Help::Footer
 woas.page.attributes: 0
-woas.page.last_modified: 1269453401
 woas.page.length: 1405
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -2138,7 +2056,6 @@ The footer is a section beneath the main text area in which you can put content 
 --DFQRCTsKlU
 woas.page.title: Help::Getting started
 woas.page.attributes: 0
-woas.page.last_modified: 1269453426
 woas.page.length: 669
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -2173,7 +2090,6 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Help::Headers
 woas.page.attributes: 0
-woas.page.last_modified: 1269453436
 woas.page.length: 861
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -2217,7 +2133,6 @@ Below are examples on how to use wiki markup to create headers in this wiki. You
 --DFQRCTsKlU
 woas.page.title: Help::Horizontal rules (lines)
 woas.page.attributes: 0
-woas.page.last_modified: 1269453452
 woas.page.length: 1607
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -2266,7 +2181,6 @@ Horizontal rules use the full width of the page by default. They can be styled t
 --DFQRCTsKlU
 woas.page.title: Help::Images
 woas.page.attributes: 0
-woas.page.last_modified: 1269622107
 woas.page.length: 19490
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -2429,7 +2343,6 @@ See the [[Help::Links]] page for a list of all possible internal actions.
 --DFQRCTsKlU
 woas.page.title: Help::Import
 woas.page.attributes: 0
-woas.page.last_modified: 1269453475
 woas.page.length: 1408
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -2467,7 +2380,6 @@ This method is used to import pages that have been exported using the [[Special:
 --DFQRCTsKlU
 woas.page.title: Help::Include text file
 woas.page.attributes: 0
-woas.page.last_modified: 1269453488
 woas.page.length: 543
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -2490,7 +2402,6 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Help::Include wiki page
 woas.page.attributes: 0
-woas.page.last_modified: 1269453507
 woas.page.length: 1272
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -2523,7 +2434,6 @@ The *Example::Overview* page displays the contents of the three example chapters
 --DFQRCTsKlU
 woas.page.title: Help::JavaScript
 woas.page.attributes: 0
-woas.page.last_modified: 1269453519
 woas.page.length: 6019
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -2613,7 +2523,6 @@ I recommend that you put this code near the top of any page (preferably directly
 --DFQRCTsKlU
 woas.page.title: Help::Join lines of text
 woas.page.attributes: 0
-woas.page.last_modified: 1269453528
 woas.page.length: 861
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -2638,7 +2547,6 @@ with the line below it.
 --DFQRCTsKlU
 woas.page.title: Help::Links
 woas.page.attributes: 0
-woas.page.last_modified: 1269453539
 woas.page.length: 11216
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -2822,7 +2730,6 @@ These are internal wiki actions in the form of links:<br><br>
 --DFQRCTsKlU
 woas.page.title: Help::Lists
 woas.page.attributes: 0
-woas.page.last_modified: 1269453548
 woas.page.length: 12317
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -3219,7 +3126,6 @@ This method is useful when an creating a fancy list with more than one list item
 --DFQRCTsKlU
 woas.page.title: Help::Edit the menu
 woas.page.attributes: 0
-woas.page.last_modified: 1269453310
 woas.page.length: 3744
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -3315,7 +3221,6 @@ ters]\
 --DFQRCTsKlU
 woas.page.title: Help::Navigation
 woas.page.attributes: 0
-woas.page.last_modified: 1269453567
 woas.page.length: 474
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -3328,7 +3233,6 @@ Use the [[Include::Template::Icon::Back]] icon in the banner to go back one page
 --DFQRCTsKlU
 woas.page.title: Help::Non-breaking spaces
 woas.page.attributes: 0
-woas.page.last_modified: 1269453577
 woas.page.length: 763
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -3356,7 +3260,6 @@ word &nbsp;&nbsp;&nbsp; word}}}word &nbsp;&nbsp;&nbsp; word
 --DFQRCTsKlU
 woas.page.title: Help::Page creation
 woas.page.attributes: 0
-woas.page.last_modified: 1269453593
 woas.page.length: 3743
 woas.page.encoding: ecma/plain
 woas.page.disposition: inline
@@ -3409,7 +3312,6 @@ An alternate method of creating a page is to type a new page name inside nested 
 --DFQRCTsKlU
 woas.page.title: Help::Page name too long
 woas.page.attributes: 0
-woas.page.last_modified: 1269453604
 woas.page.length: 1059
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -3433,7 +3335,6 @@ If you created a page with a name that's too long and you can't access the icons
 --DFQRCTsKlU
 woas.page.title: Help::Page scrolling
 woas.page.attributes: 0
-woas.page.last_modified: 1269453613
 woas.page.length: 733
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -3453,7 +3354,6 @@ By default, this wiki offers a few choices for scrolling that can be enabled by 
 --DFQRCTsKlU
 woas.page.title: Help::Pages linking to this page
 woas.page.attributes: 0
-woas.page.last_modified: 1269453634
 woas.page.length: 148
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -3468,7 +3368,6 @@ Click the *Back links* button in the menu to see which pages link to the page yo
 --DFQRCTsKlU
 woas.page.title: Help::Page with no name
 woas.page.attributes: 0
-woas.page.last_modified: 1269453624
 woas.page.length: 1167
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -3495,7 +3394,6 @@ If you accidentally created a page without naming it, or if you accidentally del
 --DFQRCTsKlU
 woas.page.title: Help::Namespaces
 woas.page.attributes: 0
-woas.page.last_modified: 1269453558
 woas.page.length: 2721
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -3548,7 +3446,6 @@ You can type *My favorite recipes!* into the {{{[[Recipes::Menu]]}}} page, and a
 --DFQRCTsKlU
 woas.page.title: Help::Print a page
 woas.page.attributes: 0
-woas.page.last_modified: 1269453643
 woas.page.length: 261
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -3564,7 +3461,6 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Help::Publish wiki online
 woas.page.attributes: 0
-woas.page.last_modified: 1269453651
 woas.page.length: 734
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -3588,7 +3484,6 @@ The read-only format is also great for sharing your work with others by email. M
 --DFQRCTsKlU
 woas.page.title: Help::Rename a page
 woas.page.attributes: 0
-woas.page.last_modified: 1269453662
 woas.page.length: 276
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -3605,7 +3500,6 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Help::Requirements
 woas.page.attributes: 0
-woas.page.last_modified: 1269453672
 woas.page.length: 2843
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -3664,7 +3558,6 @@ TiddlySaver.jar"
 --DFQRCTsKlU
 woas.page.title: Help::Run wiki on a server
 woas.page.attributes: 0
-woas.page.last_modified: 1269453681
 woas.page.length: 301
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -3679,7 +3572,6 @@ This is a personal wiki that's not designed to be used on a server. Any changes 
 --DFQRCTsKlU
 woas.page.title: Help::Spoilers
 woas.page.attributes: 0
-woas.page.last_modified: 1269453692
 woas.page.length: 3156
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -3743,7 +3635,6 @@ For more ways of working with hidden content, see the [[Help::Folds]] page.
 --DFQRCTsKlU
 woas.page.title: Help::Syntax
 woas.page.attributes: 0
-woas.page.last_modified: 1269453705
 woas.page.length: 659
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -3762,7 +3653,6 @@ This wiki accepts [[http://en.wikipedia.org/wiki/Plain_text|plain text]], [[Tagg
 --DFQRCTsKlU
 woas.page.title: Help::Table of Contents
 woas.page.attributes: 0
-woas.page.last_modified: 1269453714
 woas.page.length: 1059
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -3790,7 +3680,6 @@ The Table of Contents link creates a Table of Contents that's automatically popu
 --DFQRCTsKlU
 woas.page.title: Help::Tables
 woas.page.attributes: 0
-woas.page.last_modified: 1269453724
 woas.page.length: 2278
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -3905,7 +3794,6 @@ The line that starts with {{{|- }}} is a comment line. You can type some text af
 --DFQRCTsKlU
 woas.page.title: Help::Tags
 woas.page.attributes: 0
-woas.page.last_modified: 1269532125
 woas.page.length: 3516
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -3976,7 +3864,6 @@ By putting an exclamation mark (*!*) in front of the tag name, you can filter ou
 --DFQRCTsKlU
 woas.page.title: Help::Text formatting
 woas.page.attributes: 0
-woas.page.last_modified: 1269453743
 woas.page.length: 2068
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -4048,7 +3935,6 @@ _*/This is underlined and bold and italic text./*_
 --DFQRCTsKlU
 woas.page.title: Help::Tooltips
 woas.page.attributes: 0
-woas.page.last_modified: 1269453767
 woas.page.length: 1210
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -4074,7 +3960,6 @@ This is a [[Include::Template::Tooltip|tooltip link|This is a tooltip.]] inside 
 --DFQRCTsKlU
 woas.page.title: Help::Transclusion
 woas.page.attributes: 0
-woas.page.last_modified: 1269453783
 woas.page.length: 2459
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -4120,7 +4005,6 @@ Some wiki code and HTML tags are accepted in the values. For example:
 --DFQRCTsKlU
 woas.page.title: Help::Wiki is read-only
 woas.page.attributes: 0
-woas.page.last_modified: 1269453792
 woas.page.length: 381
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -4142,7 +4026,6 @@ If you clicked the *Disallow edits* button on the [[Special::Options|Options]] p
 --DFQRCTsKlU
 woas.page.title: Help::Word count
 woas.page.attributes: 0
-woas.page.last_modified: 1269453801
 woas.page.length: 2763
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -4195,7 +4078,6 @@ If all went well, the number it displays should be *0* and you've successfully r
 --DFQRCTsKlU
 woas.page.title: Sandbox
 woas.page.attributes: 0
-woas.page.last_modified: 1272563331
 woas.page.length: 192
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -4210,7 +4092,6 @@ This page is for trying out new things without having to create a new page.
 --DFQRCTsKlU
 woas.page.title: Utility::Links for writers
 woas.page.attributes: 0
-woas.page.last_modified: 1265824399
 woas.page.length: 603
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -4235,7 +4116,6 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Utility::Said
 woas.page.attributes: 0
-woas.page.last_modified: 1272440157
 woas.page.length: 2661
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -4287,7 +4167,6 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Template::Tooltip
 woas.page.attributes: 0
-woas.page.last_modified: 1267388304
 woas.page.length: 42
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -4298,7 +4177,6 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Utility::Word count
 woas.page.attributes: 0
-woas.page.last_modified: 1268587391
 woas.page.length: 1266
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -4318,7 +4196,6 @@ function clearit(){var formcontent=document.wordcount.wordcount2.value; document
 --DFQRCTsKlU
 woas.page.title: Utility::Word frequency
 woas.page.attributes: 0
-woas.page.last_modified: 1265824399
 woas.page.length: 2618
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -4422,7 +4299,6 @@ function clearit(){var formcontent=document.getElementById('t1').value='';}
 --DFQRCTsKlU
 woas.page.title: Template::Icon::Back
 woas.page.attributes: 0
-woas.page.last_modified: 1269321490
 woas.page.length: 923
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -4433,7 +4309,6 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Template::Icon::Cancel
 woas.page.attributes: 0
-woas.page.last_modified: 1269321512
 woas.page.length: 1145
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -4444,7 +4319,6 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Template::Icon::Edit
 woas.page.attributes: 0
-woas.page.last_modified: 1269321527
 woas.page.length: 815
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -4455,7 +4329,6 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Template::Icon::Home
 woas.page.attributes: 0
-woas.page.last_modified: 1269321556
 woas.page.length: 855
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -4466,7 +4339,6 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Template::Icon::Info
 woas.page.attributes: 0
-woas.page.last_modified: 1269321568
 woas.page.length: 1199
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -4477,7 +4349,6 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Template::Icon::Lock
 woas.page.attributes: 0
-woas.page.last_modified: 1269321583
 woas.page.length: 779
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -4488,7 +4359,6 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Template::Logo
 woas.page.attributes: 0
-woas.page.last_modified: 1265824399
 woas.page.length: 6522
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -4499,7 +4369,6 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Template::Icon::Forward
 woas.page.attributes: 0
-woas.page.last_modified: 1269321543
 woas.page.length: 954
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -4510,7 +4379,6 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Template::Icon::Print
 woas.page.attributes: 0
-woas.page.last_modified: 1269321644
 woas.page.length: 692
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -4521,7 +4389,6 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Template::Icon::Save
 woas.page.attributes: 0
-woas.page.last_modified: 1269321403
 woas.page.length: 795
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -4532,7 +4399,6 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Template::Icon::Unlock
 woas.page.attributes: 0
-woas.page.last_modified: 1269321780
 woas.page.length: 793
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -4543,7 +4409,6 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Word count button
 woas.page.attributes: 0
-woas.page.last_modified: 1265861678
 woas.page.length: 494
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -4551,11 +4416,10 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 <form method="POST" name="wordcount"><script language="JavaScript">document.deepText= function(hoo){var A= []; if(hoo){hoo= hoo.firstChild; while(hoo!= null){if(hoo.nodeType== 3){A[A.length]= hoo.data;} else A= A.concat(arguments.callee(hoo)); hoo= hoo.nextSibling;}}return A;}
-function countwords(hoo){var text= document.deepText(hoo).join(' '); return text.match(/[A-Za-z\'\-]+/g).length-102;}</script><input type="button" value="Word Count" onClick="alert(countwords(document.body))"></form>
+function countwords(hoo){var text= document.deepText(hoo).join(' '); return text.match(/[A-Za-z\'\-]+/g).length-186;}</script><input type="button" value="Word Count" onClick="alert(countwords(document.body))"></form>
 --DFQRCTsKlU
 woas.page.title: Template::TODO
 woas.page.attributes: 0
-woas.page.last_modified: 1267724816
 woas.page.length: 124
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -4566,7 +4430,6 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: ToDo list
 woas.page.attributes: 0
-woas.page.last_modified: 1265824399
 woas.page.length: 1002
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -4602,7 +4465,6 @@ listtodo();
 --DFQRCTsKlU
 woas.page.title: Help::ToDo list
 woas.page.attributes: 0
-woas.page.last_modified: 1269453758
 woas.page.length: 1692
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -4640,7 +4502,6 @@ The list will refresh automatically as you add and remove ToDo items in your wik
 --DFQRCTsKlU
 woas.page.title: Template::Topnote
 woas.page.attributes: 0
-woas.page.last_modified: 1265824399
 woas.page.length: 74
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -4651,7 +4512,6 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Help::Topnote
 woas.page.attributes: 0
-woas.page.last_modified: 1269453775
 woas.page.length: 535
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -4669,7 +4529,6 @@ A topnote is a note in the upper right corner of a page that doesn't affect the 
 --DFQRCTsKlU
 woas.page.title: Example::Bluebox
 woas.page.attributes: 0
-woas.page.last_modified: 1265900909
 woas.page.length: 10293
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -4718,7 +4577,6 @@ When they left the castle the next day to return to the prince's home, they were
 --DFQRCTsKlU
 woas.page.title: Help::Bluebox
 woas.page.attributes: 0
-woas.page.last_modified: 1269453144
 woas.page.length: 2457
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -4783,7 +4641,6 @@ For a better example, see the [[Example::Bluebox]] page.
 --DFQRCTsKlU
 woas.page.title: Template::Foldtext
 woas.page.attributes: 0
-woas.page.last_modified: 1266446279
 woas.page.length: 102
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -4796,7 +4653,6 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Help::Include web page
 woas.page.attributes: 0
-woas.page.last_modified: 1269453497
 woas.page.length: 3895
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -4854,7 +4710,6 @@ This method creates a frame around the embedded web page. The code shown below i
 --DFQRCTsKlU
 woas.page.title: Template::Icon::Advanced
 woas.page.attributes: 0
-woas.page.last_modified: 1269321474
 woas.page.length: 867
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -4865,7 +4720,6 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Help::Folds
 woas.page.attributes: 0
-woas.page.last_modified: 1269453371
 woas.page.length: 15578
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -5059,7 +4913,6 @@ For more ways of working with hidden content, see the [[Help::Spoilers]] page.
 --DFQRCTsKlU
 woas.page.title: Template::Foldpage
 woas.page.attributes: 0
-woas.page.last_modified: 1267715631
 woas.page.length: 283
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -5077,7 +4930,6 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Template::Foldtextinline
 woas.page.attributes: 0
-woas.page.last_modified: 1265824399
 woas.page.length: 110
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -5088,7 +4940,6 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Template::Spoiler
 woas.page.attributes: 0
-woas.page.last_modified: 1265824399
 woas.page.length: 31
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -5099,7 +4950,6 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Template::HiddenSpoiler
 woas.page.attributes: 0
-woas.page.last_modified: 1265824399
 woas.page.length: 81
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -5110,7 +4960,6 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Template::HiddenSpoilerInline
 woas.page.attributes: 0
-woas.page.last_modified: 1265824399
 woas.page.length: 82
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -5121,7 +4970,6 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Template::Image gallery
 woas.page.attributes: 0
-woas.page.last_modified: 1265824399
 woas.page.length: 547
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -5144,7 +4992,6 @@ $('imagesGallery').innerHTML = iHTML;
 --DFQRCTsKlU
 woas.page.title: Example::Folding page button (HTML)
 woas.page.attributes: 0
-woas.page.last_modified: 1269452614
 woas.page.length: 266
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -5164,7 +5011,6 @@ This button toggles the display of the [[Sandbox]] page in this page.
 --DFQRCTsKlU
 woas.page.title: Example::Folding page styled button (HTML)
 woas.page.attributes: 0
-woas.page.last_modified: 1269452646
 woas.page.length: 293
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -5184,7 +5030,6 @@ This button toggles the display of the [[Sandbox]] page in this page.
 --DFQRCTsKlU
 woas.page.title: Example::Menu
 woas.page.attributes: 0
-woas.page.last_modified: 1265900118
 woas.page.length: 22
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -5195,7 +5040,6 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Template::Icon::Password
 woas.page.attributes: 0
-woas.page.last_modified: 1269321633
 woas.page.length: 840
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -5207,7 +5051,6 @@ MPVxlEjkICLC929LtG/dUgWU/BLWGDwviohw7+Vl7r96t2JbCyKtiOwlEgkgIkx9XuREz7YqoFgoUiyW
 --DFQRCTsKlU
 woas.page.title: Example::Embed web page iFrame
 woas.page.attributes: 0
-woas.page.last_modified: 1269452567
 woas.page.length: 136
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -5221,7 +5064,6 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Example::Embed web page object
 woas.page.attributes: 0
-woas.page.last_modified: 1269452576
 woas.page.length: 159
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -5235,7 +5077,6 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Example::Foldaway
 woas.page.attributes: 0
-woas.page.last_modified: 1269452593
 woas.page.length: 251
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -5254,7 +5095,6 @@ It goes between the link above and the unfolded page you see when clicking the l
 --DFQRCTsKlU
 woas.page.title: Template::Foldawaylink
 woas.page.attributes: 0
-woas.page.last_modified: 1266442274
 woas.page.length: 77
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -5266,7 +5106,6 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Template::Foldawaypage
 woas.page.attributes: 0
-woas.page.last_modified: 1266442338
 woas.page.length: 69
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -5279,7 +5118,6 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Example::Folding page plain
 woas.page.attributes: 0
-woas.page.last_modified: 1269452639
 woas.page.length: 125
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -5294,7 +5132,6 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Example::Folding page inline
 woas.page.attributes: 0
-woas.page.last_modified: 1269452621
 woas.page.length: 126
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -5309,7 +5146,6 @@ Click [[Include::Template::Foldpage|here|Special::About|to toggle fold and unfol
 --DFQRCTsKlU
 woas.page.title: Template::Foldawaytext
 woas.page.attributes: 0
-woas.page.last_modified: 1266444772
 woas.page.length: 56
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -5322,7 +5158,6 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Example::Foldawaytext
 woas.page.attributes: 0
-woas.page.last_modified: 1269452600
 woas.page.length: 288
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -5341,7 +5176,6 @@ It goes between the link above and the unfolded text you see when clicking the l
 --DFQRCTsKlU
 woas.page.title: Utility::Diary
 woas.page.attributes: 0
-woas.page.last_modified: 1269453864
 woas.page.length: 681
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -5366,7 +5200,6 @@ $("daily_diary").innerHTML = "Click here to create or edit a diary entry for tod
 --DFQRCTsKlU
 woas.page.title: Help::Footnotes
 woas.page.attributes: 0
-woas.page.last_modified: 1269453416
 woas.page.length: 1611
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -5389,7 +5222,6 @@ The look of footnotes can be styled by changing the footnote entry in the [[Help
 --DFQRCTsKlU
 woas.page.title: Image::alert.png
 woas.page.attributes: 12
-woas.page.last_modified: 1267460348
 woas.page.mime: image/png
 woas.page.length: 752
 woas.page.encoding: 8bit/base64
@@ -5401,7 +5233,6 @@ iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAN
 --DFQRCTsKlU
 woas.page.title: Template::Icon::Up
 woas.page.attributes: 0
-woas.page.last_modified: 1269321665
 woas.page.length: 917
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -5412,7 +5243,6 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Template::Info
 woas.page.attributes: 0
-woas.page.last_modified: 1268594611
 woas.page.length: 1296
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -5421,20 +5251,8 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 <div style="background-color: #FFFFAA; border: 0.1em solid; padding: 0.2em;"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QAAAAAAAD5Q7t/AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH1QMCBiAyOlCc9wAAADV0RVh0Q29tbWVudAAoYykgMjAwNCBKYWt1YiBTdGVpbmVyCgpDcmVhdGVkIHdpdGggVGhlIEdJTVCQ2YtvAAACq0lEQVQ4y5WSS0hUcRTGv//cO+O9OtdHJllqZlI+CEUiE8ShBiXUpKKQbGLKcGG0CBOyRcsQMapFj02ii4igAgMDJcgQSXQmSkrNijSVTJ1xdJy5d6739W/loDURfqtz4Pt+nHM4BBFUXNnUTCkcBiUpIISYiDHLEPq0/2Vr459edn1TVN6UwTCk72JtZVq5vQBxAg9VN+DxBVN7ej9cISbmLKV6SX9X69eIAJYlb++11G/fk7ljLBBSRmd9khJaVVlF06NtJflZ6enJe1tuPXYBiF/LMGtFSdXV2/Xnj5YVH8z5rKi6m7eYFQBEpyCqTg3vSmiWi+YQzXM7dSYlc3L8bScAmMIkhj1Xbi9AIKSOsSxDLWbGIIRQUBiabiiUwuganOwuKswBw3Kn1nJhwKpC4wUrD1nRV1XNSDQzpguJsZxzV7LgyN+91QElkDrlEf08zyEgqVxtXYNpww0IIUTRdEiyajIMKiZYo+D1Sy5RCjErQUkbnpaGFUU3qaqxFuEBiGFADM9KXl8gRpRVy4qk+jOSYzH6w/deVHQ6tyQp7m+LHsFqSfD6g4gTeLWjrVncsIKZ0QZ63gyDj2JzJ34tiwDw0yfqHye8/t7hmYUlUTZX7E+rGHKNwcph4q8bbBNCxzu7+uWZ6fnstCTroWvtAzfPHM665P4yH2JYkui0Z1X7F5dy3IMjqsD6SsOrr/+DY6cbq2QqPC8rLbIUHshGNM9B1XX4lkUMucbxzjWixXHS5SftNx5EBABAbV1DYohucQVkpDtOJDGEACwLdHXPBRnNv6+j7c4U/qeaGrvV6bRRz2IfFWUX/T75jDqdNhrJy/6DoQLA/bsPkZ2bjempaWxaTqeNzsy+MgLSEP00+sLY7AQAUFV98nqNIMQfWVhYeJ2XF/sokuk3Vkw2XnyKHQQAAAAASUVORK5CYII=" alt="Info" border="0" /> %1</div>
 --DFQRCTsKlU
-woas.page.title: File::test.html
-woas.page.attributes: 4
-woas.page.last_modified: 1269201631
-woas.page.length: 4896
-woas.page.encoding: 8bit/base64
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-PGgxIGFsaWduPSJjZW50ZXIiPkFsaWFzPC9oMT4KPCEtLSBCRUdJTiBMQVNUIFVQREFURUQgLS0+CjxkaXYgc3R5bGU9ImJvcmRlcjpzb2xpZCAycHggZGFya2dyZXk7IGJhY2tncm91bmQtY29sb3I6I0RDRENEQzsgcGFkZGluZzo0cHg7IHRleHQtYWxpZ246Y2VudGVyOyI+VGhpcyBwYWdlIHdhcyBsYXN0IHVwZGF0ZWQgb24gSnVseSAxOCwgMjAwOS48L2Rpdj4KPCEtLSBFTkQgTEFTVCBVUERBVEVEIC0tPgo8aDI+Q3JlYXRlIGEgdGVtcG9yYXJ5IGFsaWFzPC9oMj4KPHA+WW91IGNhbiBjcmVhdGUgYSB0ZW1wb3JhcnkgYWxpYXMgdGhhdCBpcyB2YWxpZCBvbmx5IGZvciB0aGUgY3VycmVudCBzZXNzaW9uIGFuZCB3aWxsIGJlIGZvcmdvdHRlbiBieSB0aGUgc3lzdGVtIHdoZW4geW91IGNsb3NlIHRoZSB0ZXJtaW5hbCB3aW5kb3cuIFRvIGRvIHRoaXM6CjxvbD4KPGxpPk9wZW4gYSB0ZXJtaW5hbCB3aW5kb3cuPC9saT4KPGJyPgo8bGk+Q2hlY2sgaWYgdGhlIG5hbWUgaXMgYWxyZWFkeSBiZWluZyB1c2VkIGJ5IHRoZSBzeXN0ZW0gYnkgdHlwaW5nIHRoaXMgY29tbWFuZCwgcmVwbGFjaW5nIDxiPm5hbWU8L2I+IHdpdGggdGhlIG5hbWUgeW91J2QgbGlrZSB0byBnaXZlIHRoZSBhbGlhczo8L2xpPgo8ZGl2IHN0eWxlPSJiYWNrZ3JvdW5kOiAjRkZERUFEOyI+PHByZT53aGljaCBuYW1lPC9wcmU+PC9kaXY+CjxsaT5JZiB0aGUgbmFtZSBpcyBhbHJlYWR5IGJlaW5nIHVzZWQsIHBpY2sgYW5vdGhlciBuYW1lIGFuZCByZXBlYXQgU3RlcCAyIHdpdGggdGhlIG5ldyBuYW1lLiBJZiBpdCdzIG5vdCBiZWluZyB1c2VkLCBnbyB0byB0aGUgbmV4dCBzdGVwLjwvbGk+Cjxicj4KPGxpPlR5cGUgdGhpcyBjb21tYW5kLCByZXBsYWNpbmcgPGI+bmFtZTwvYj4gd2l0aCB0aGUgbmFtZSB5b3UnZCBsaWtlIHRvIGdpdmUgdGhlIGFsaWFzIGFuZCByZXBsYWNpbmcgPGI+Y29tbWFuZDwvYj4gd2l0aCB0aGUgY29tbWFuZCB5b3UnZCBsaWtlIHRoZSBhbGlhcyB0byBwZXJmb3JtOjwvbGk+CjxkaXYgc3R5bGU9ImJhY2tncm91bmQ6ICNGRkRFQUQ7Ij48cHJlPmFsaWFzIG5hbWU9J2NvbW1hbmQnPC9wcmU+PC9kaXY+CiAgIDx1bD4KICAgPGxpPkZvciBleGFtcGxlLDo8L2xpPgogICA8ZGl2IHN0eWxlPSJiYWNrZ3JvdW5kOiAjRkZERUFEOyI+PHByZT5hbGlhcyBkZXRhaWxzPSdscyAtbCc8L3ByZT48L2Rpdj4KICAgTm93IEkgY2FuIHR5cGUgPGI+ZGV0YWlsczwvYj4gaW5zdGVhZCBvZiA8Yj5scyAtbDwvYj4gdG8gc2VlIGEgZGV0YWlsZWQgbGlzdGluZyBvZiBmaWxlcyBpbiBhIGRpcmVjdG9yeS4KICAgPC91bD4KPC9vbD4KCjxoMj5DcmVhdGUgYSBwZXJzb25hbCBhbGlhcyBsaXN0PC9oMj4KPHA+VG8gY3JlYXRlIHlvdXIgb3duICBhbGlhcyAgbGlzdDo8L3A+CjxvbD4KPGxpPk9wZW4gYSB0ZXh0IGVkaXRvciBhbmQgdHlwZSB0aGUgY29tbWFuZCBmb3IgZWFjaCBhbGlhcyBvbiBhIHNlcGFyYXRlIGxpbmUuPC9saT4KICAgPHVsPgogICA8YnI+CiAgIDxsaT5FeGFtcGxlOjwvbGk+CjxkaXYgc3R5bGU9ImJhY2tncm91bmQ6ICNGRkRFQUQ7Ij48cHJlPgphbGlhczE9J2NvbW1hbmQxJwphbGlhczI9J2NvbW1hbmQyJwphbGlhczM9J2NvbW1hbmQzJwphbGlhczQ9J2NvbW1hbmQ0Jwo8L3ByZT48L2Rpdj4KICAgPC91bD4KPGxpPlNhdmUgdGhlIGZpbGUgYXMgPGI+bXlhbGlhc2xpc3Q8L2I+IHdoZXJldmVyIHlvdSdkIGxpa2UgdG8ga2VlcCBpdC4gRm9yIHRoZSBzYWtlIG9mIHRoaXMgZXhhbXBsZSwgbGV0J3Mgc2F5IHlvdSBzYXZlZCBpdCB0byB0aGUgPGI+L2hvbWUvdXNlcm5hbWUvPC9iPiBkaXJlY3RvcnkuPC9saT4KPGJyPgo8bGk+T3BlbiB0aGUgPGI+LmJhc2hyYzwvYj4gZmlsZSBpbiB5b3VyIDxiPi9ob21lL3VzZXJuYW1lLzwvYj4gZGlyZWN0b3J5IHdpdGggYSB0ZXh0IGVkaXRvci4gPGk+Tm90ZSB0aGF0IGhpZGRlbiBmaWxlcyBtdXN0IGJlIHR1cm5lZCBvbiBpbiB5b3VyIGZpbGUgbWFuYWdlciBmb3IgdGhpcyBmaWxlIHRvIGJlIHZpc2libGUuPC9pPjwvbGk+Cjxicj4KPGxpPlR5cGUgdGhpcyBsaW5lIGF0IHRoZSBib3R0b20gb2YgdGhlIGZpbGUgdG8gc291cmNlIHlvdXIgYWxpYXMgbGlzdDo8L2xpPgo8ZGl2IHN0eWxlPSJiYWNrZ3JvdW5kOiAjRkZERUFEOyI+PHByZT5zb3VyY2UgL2hvbWUvdXNlcm5hbWUvbXlhbGlhc2xpc3Q8L3ByZT48L2Rpdj4KPGxpPlNhdmUgdGhlIGZpbGUuPC9saT4KPGJyPgo8bGk+Q2xvc2UgdGhlIHRleHQgZWRpdG9yLjwvbGk+Cjwvb2w+Cgo8cD5Ob3cgYW55IHRpbWUgeW91IG9wZW4gYSB0ZXJtaW5hbCB3aW5kb3csIHRoZSBhbGlhc2VzIHlvdSBoYXZlIGRlZmluZWQgd2lsbCBiZSBhdmFpbGFibGUgZm9yIHlvdSB0byB1c2UuPC9wPgoKPGgyPkNoZWNrIHdoaWNoIGFsaWFzZXMgeW91IGhhdmUgZGVmaW5lZDwvaDI+CjxwPlR5cGUgdGhpcyBjb21tYW5kIGluIGEgdGVybWluYWwgd2luZG93IHRvIGNoZWNrIGlmIHlvdSBoYXZlIGFueSBhbGlhc2VzIGRlZmluZWQgaW4geW91ciAuYmFzaHJjIGZpbGU6PC9wPgo8ZGl2IHN0eWxlPSJiYWNrZ3JvdW5kOiAjRkZERUFEOyI+PHByZT5hbGlhczwvcHJlPjwvZGl2Pgo8IS0tID09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0gLS0+CjwhLS0gT0JMSUdBVE9SWSBIQVBQWSBFTkRJTkcgLS0+CjxoMz5PYmxpZ2F0b3J5IEhhcHB5IEVuZGluZzwvaDM+CjxwPkFuZCB0aGV5IGFsbCBsaXZlZCBoYXBwaWx5IGV2ZXIgYWZ0ZXIuIFRoZSBlbmQuPC9wPgoKPCEtLSBCRUdJTiBDT1BZUklHSFQgLS0+CjxkaXYgc3R5bGU9ImJvcmRlcjpzb2xpZCAycHggZGFya2dyZXk7IGJhY2tncm91bmQtY29sb3I6I0RDRENEQzsiPjx0YWJsZSBjZWxscGFkZGluZz0iNyIgYWxpZ249ImNlbnRlciIgYmdjb2xvcj0iI0RDRENEQyI+PHRyPjx0ZD48YSByZWw9ImxpY2Vuc2UiIGhyZWY9Imh0dHA6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzMuMC91cy8iPjxpbWcgc3R5bGU9ImJvcmRlci13aWR0aDowOyIgc3JjPSJodHRwOi8vY3JlYXRpdmVjb21tb25zLm9yZy9pbWFnZXMvcHVibGljL3NvbWVyaWdodHMyMC5wbmciIGFsdD0iQ3JlYXRpdmUgQ29tbW9ucyBMaWNlbnNlIiAvPjwvYT48L3RkPjx0ZCBzdHlsZT0iZm9udC1zaXplOjgwJTsiPkV4Y2VwdCB3aGVyZSBvdGhlcndpc2Ugbm90ZWQsIGNvbnRlbnQgb24gPGEgaHJlZj0iaHR0cDovL21vc3RseWxpbnV4LndvcmRwcmVzcy5jb20vIj5odHRwOi8vbW9zdGx5bGludXgud29yZHByZXNzLmNvbTwvYT4gaXMgQ29weXJpZ2h0ICZjb3B5OyAyMDA3IC0gMjAwOSBieSBMaXR0bGUgR2lybCwgbGljZW5zZWQgdW5kZXIgYSA8YSByZWw9ImxpY2Vuc2UiIGhyZWY9Imh0dHA6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzMuMC91cy8iPkNyZWF0aXZlIENvbW1vbnMgQXR0cmlidXRpb24tTm9uY29tbWVyY2lhbC1TaGFyZSBBbGlrZSAzLjAgVW5pdGVkIFN0YXRlcyBMaWNlbnNlPC9hPiwgYW5kIG9mZmVyZWQgZnJlZSBvZiBjaGFyZ2Ugd2l0aG91dCB3YXJyYW50eSBvZiBhbnkga2luZCwgZWl0aGVyIGV4cHJlc3NlZCBvciBpbXBsaWVkLjwvdGQ+PC90cj48L3RhYmxlPjwvZGl2Pgo8IS0tIEVORCBDT1BZUklHSFQgLS0+Cg==
---DFQRCTsKlU
 woas.page.title: Help::Aliases
 woas.page.attributes: 0
-woas.page.last_modified: 1272645708
 woas.page.length: 1940
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
