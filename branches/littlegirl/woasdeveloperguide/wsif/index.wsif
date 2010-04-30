@@ -3055,8 +3055,8 @@ If there are conflicts between your files and the files on the server after doin
 --DFQRCTsKlU
 woas.page.title: Assemble WoaS
 woas.page.attributes: 0
-woas.page.last_modified: 1271106019
-woas.page.length: 4391
+woas.page.last_modified: 1272590024
+woas.page.length: 4522
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -3069,26 +3069,28 @@ This page provides instructions for how to assemble the multiple file developmen
 # You must have php or the php command line interface installed on your system.
 # You must have the libwsif.php and mkwoas.php files, which are in the tools subdirectory of the development version.
 
-== Assemble WoaS from the woas subdirectory
-This assembles the multiple files into a single file using default settings:
-# Copy libwsif.php and mkwoas.php from the tools subdirectory into the woas subdirectory.<br><br>
-# Open the woas subdirectory of the development version in a terminal window.<br><br>
-# Type this command:<br>{{{
-php mkwoas.php woas.htm
-}}}<br>
-# The single file will be created in the woas subdirectory.
-
-== Additional parameters accepted by the command
+== Parameters accepted by the command
 These are for use in all the examples below.
 
 {|
-|+ Additional parameters accepted by the command
+|+ Parameters accepted by the command
 | woas=path/woas.htm || path to WoaS HTML file - defaults to woas.htm
 | wsif=path/index.wsif || path to pages data in WSIF format
 | log=[0|1|2] || 0 - fully disable log, 1 - keep logging as is, 2 - enable all log lines
 | native_wsif=[0|1] || 0 - default, 1 - enable native WSIF saving
 | edit_override=[0|1] || 0 - default, 1 - enable edit override
 |}
+
+== Assemble WoaS from the woas subdirectory specifying paths
+This assembles the multiple files into a single file using default settings:
+# Copy libwsif.php and mkwoas.php from the tools subdirectory into the woas subdirectory.<br><br>
+# Open the woas subdirectory of the development version in a terminal window.<br><br>
+
+# Type this command, replacing both instances of PATH with the paths to the woas.htm file and the index.wsif file:<br>{{{
+php mkwoas.php woas.htm woas=PATH/woas.htm wsif=PATH/index.wsif
+}}}<br>
+# The single file will be created in the woas subdirectory.
+
 == Assemble WoaS from the tools subdirectory specifying paths
 This assembles the multiple files into a single file using default settings:
 # Open the tools subdirectory of the development version in a terminal window.<br><br>
