@@ -37,6 +37,8 @@ woas.plugins = {
 				text = "/* "+js_fname+" does not exist */\n";
 			else if (text === null)
 				text = "/* could not load "+js_fname+" */\n";
+			else
+				woas.log("Loaded external plugin "+js_fname);
 		}
 		return text;
 	}
