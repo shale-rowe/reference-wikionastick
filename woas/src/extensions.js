@@ -60,7 +60,7 @@ woas._disable_plugin = function(name) {
 		if (this._plugin_scripts[i] !== name)
 			continue;
 		// attempt removing the script block and fail otherwise
-		if (!this.dom.remove_script("plugin", this._plugin_scripts[i]))
+		if (!this.dom.remove_script("plugin", i))
 			return false;
 		this._plugin_scripts.splice(i, 1);
 		return true;
@@ -75,7 +75,7 @@ woas._update_plugin = function(name) {
 // enable a single plugin
 woas._enable_plugin = function(name) {
 	// generate the script element
-	if (this.dom.add_script("plugin", name,
+	if (this.dom.add_script("plugin", this._plugin_scripts.length,
 						this.plugins.get(name),
 						false)) {
 		this._plugin_scripts.push( name );
@@ -88,7 +88,7 @@ woas._enable_plugin = function(name) {
 woas._clear_plugins = function() {
 	for(var i=0,it=this._plugin_scripts.length;i<it;++i) {
 		// remove the DOM object
-		this.dom.remove_script("plugin", this._plugin_scripts[i]);
+		this.dom.remove_script("plugin", i);
 	}
 	// reset array
 	this._plugin_scripts = [];
@@ -103,7 +103,7 @@ woas._load_plugins = function() {
 		if (page_titles[i].substr(0, l) === _pfx) {
 			name = page_titles[i].substr(_pfx.length);
 			// generate the script element
-			if (this.dom.add_script("plugin", name,
+			if (this.dom.add_script("plugin", this._plugin_scripts.length,
 							this.get__text(i),
 							false))
 				// add to global array
