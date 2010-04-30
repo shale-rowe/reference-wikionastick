@@ -1,6 +1,6 @@
 /* shjs binding for WoaS
    @author legolas558
-   @version 0.1.7
+   @version 0.1.9
    @license GPLv2
 
    works with shjs 0.6
@@ -12,10 +12,12 @@ woas.custom.shjs = {
 	// we take an unique id for our job
 	is_loaded: false,
 	_uid: _random_string(8),
+	_block: 0,			// current block
 	
 	init: function() {
 		if (!this.is_loaded)
-			this.is_loaded = woas.dom.add_script("lib", "shjs", "plugins/shjs/sh_main.js", true);
+			this.is_loaded = woas.dom.add_script("lib", "shjs", "plugins/shjs/sh_main.min.js", true) &&
+							woas.dom.add_css("shjs_style", "plugins/shjs/sh_style.min.css", true);
 		return this.is_loaded;
 	},
 	
@@ -24,14 +26,25 @@ woas.custom.shjs = {
 		for (var j = 0; j < languages.length; j++) {
 			if (languages[j] in sh_languages) {
 				sh_highlightElement(element, sh_languages[languages[j]]);
-			} else { // attempt to load such language
-				woas.log("Cannot render in for language "+languages[j]);
+			} else {
+				woas.log("Cannot render language "+languages[j]);
 			}
 			break;
 		}
 	},
+
+	// used for post-rendering after library was loaded
+	post_render: function(i, languages) {
+		$.hide("shjs_postr_btn_"+this._uid+"_"+i);
+		var elem = $("woas_shjs_"+this._uid+"_"+i);
+		this._highlight_element(elem, languages);
+		return;
+	},
 	
 	_macro_hook: function(macro, classes) {
+		// shjs library not yet loaded, go into pre-render mode
+		var pre_render = (typeof sh_languages == "undefined");
+
 		// rebuild the classes string as a simple JSON array
 		var classes_arr = classes.split(' '), classes_v="[", cl = classes_arr.length;
 		if (cl) {
@@ -46,9 +59,9 @@ woas.custom.shjs = {
 					if (language === "sourcecode")
 						continue;
 					classes_v += "'"+woas.js_encode(language)+"',";
-					if (!(language in sh_languages)) {
+					if (pre_render || !(language in sh_languages)) {
 						// load this library
-						woas.dom.add_script("lib", "shjs_"+language, "plugins/shjs/sh_"+language+".js", true);
+						woas.dom.add_script("lib", "shjs_"+language, "plugins/shjs/lang/sh_"+language+".min.js", true);
 					}
 				}
 			}
@@ -57,11 +70,17 @@ woas.custom.shjs = {
 		}
 		classes_v += "]";
 
-		macro.text = "<"+"div id=\"woas_shjs_"+this._uid+"\" class=\""+classes+"\">"+macro.text+"<"+"/div>"+
+		macro.text = "<"+"pre id=\"woas_shjs_"+woas.custom.shjs._uid+"_"+woas.custom.shjs._block+"\" class=\""+classes+"\">"+macro.text+"<"+"/pre>";
+		if (pre_render) {
+			macro.text += "<"+"input id=\"shjs_postr_btn_"+woas.custom.shjs._uid+
+						"_"+woas.custom.shjs._block+"\" type=\"button\" value=\"Render\" onclick=\"woas.custom.shjs.post_render("+woas.custom.shjs._block+","+classes_v+");\" /"+">";
+		} else { // inline script for highlighting
 					"<"+"script type=\"text/javascript\">"+
-					"woas.custom.shjs._highlight_element($('woas_shjs_"+this._uid+"'),"+classes_v+");"+
+					"woas.custom.shjs._highlight_element($('woas_shjs_"+woas.custom.shjs._uid+"_"+woas.custom.shjs._block+"'),"+classes_v+");"+
 					"<"+"/script>";
+		}
 		macro.reprocess = true;
+		++woas.custom.shjs._block;
 	}
 	
 };
