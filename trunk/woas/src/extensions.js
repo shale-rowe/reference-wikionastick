@@ -28,17 +28,20 @@ woas.plugins = {
 //		if (text === null) return "/* could not retrieve page */";
 		// check if this is an external page reference
 		// -- UNSUPPORTED FEATURE --
-		if ((name.charAt(0) === '@') && (text === name+"\n")) {
+		if (name.charAt(0) === '@') {
 			// hack for external files loading at run-time
-			var js_fname = "plugins/"+name.substr(1)+".js";
-			text = woas.load_file(woas.ROOT_DIRECTORY+js_fname);
-			// failure is not allowed, always return something
-			if (text === false)
-				text = "/* "+js_fname+" does not exist */\n";
-			else if (text === null)
-				text = "/* could not load "+js_fname+" */\n";
-			else
-				woas.log("Loaded external plugin "+js_fname);
+			var p = text.indexOf("\n");
+			if (p !== -1) {
+				var js_fname = text.substr(0,p);
+				text = woas.load_file(woas.ROOT_DIRECTORY+js_fname);
+				// failure is not allowed, always return something
+				if (text === false)
+					text = "/* "+js_fname+" does not exist */\n";
+				else if (text === null)
+					text = "/* could not load "+js_fname+" */\n";
+				else
+					woas.log("Loaded external plugin "+js_fname);
+			}
 		}
 		return text;
 	}

@@ -814,7 +814,7 @@ function _woas_new_plugin() {
 	// provide special include page support
 	// --UNSUPPORTED FEATURE--
 	if (title.charAt(0) === '@') {
-		def_text = title+"\n";
+		def_text = "plugins/"+name.substr(1)+".js\n";
 //		title = title.substr(1);
 	} else {
 		def_text = "/* "+title+" plugin */\n";
