@@ -265,6 +265,7 @@ woas._plugins_list = function() {
 	var pg=[];
 	for(var i=0;i<pt;++i){
 		pg.push("* [[WoaS::Plugins::"+this._plugin_scripts[i]+"|"+this._plugin_scripts[i]+"]]"+
+				//TODO: some CSS for the plugin actions
 				"&nbsp;&nbsp;[[Javascript::woas._delete_plugin('"+this._plugin_scripts[i]+"')|Delete]]"+
 				"&nbsp;&nbsp;[[Javascript::woas._edit_plugin('"+this._plugin_scripts[i]+"')|Edit...]]"+
 				"\n");
