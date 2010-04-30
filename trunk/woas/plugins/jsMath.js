@@ -9,7 +9,7 @@
 
 woas.custom.jsMath = {
 	is_loaded: false,
-	postrender: 0,		// number of divs to render after library finishes loading
+	_block: 0,		// number of divs to render after library finishes loading
 	init : function() {
 		if (!this.is_loaded)
         // setup jsMath config object and
@@ -46,15 +46,15 @@ woas.custom.jsMath = {
 		 // quit if libraries have not yet been loaded and
 		 // increase counter for post-rendering
 		 if (typeof jsMath.Process == "undefined") {
-			macro.text = "<"+"div id=\"jsmath_postrender_"+this.postrender+"\">"+macro.text+"<"+"/div>"+
-						"<"+"input id=\"jsmath_postr_btn_"+this.postrender+
-						"\" type=\"button\" value=\"Render\" onclick=\"woas.custom.jsMath.post_render("+this.postrender+");\" /"+">";
-			++this.postrender;
+			macro.text = "<"+"div id=\"jsmath_postrender_"+woas.custom.jsMath._block+"\">"+macro.text+"<"+"/div>"+
+						"<"+"input id=\"jsmath_postr_btn_"+woas.custom.jsMath._block+
+						"\" type=\"button\" value=\"Render\" onclick=\"woas.custom.jsMath.post_render("+woas.custom.jsMath._block+");\" /"+">";
+			++this._block;
 			return;
 		 }
- 		this.postrender = 0;
-		 jsMath.Init();
-		 macro.text = jsMath.Translate.Parse('T', macro.text);
+// 		this._block = 0;
+		jsMath.Init();
+		macro.text = jsMath.Translate.Parse('T', macro.text);
 	}
 	
 };

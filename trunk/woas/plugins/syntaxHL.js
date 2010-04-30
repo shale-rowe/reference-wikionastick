@@ -55,7 +55,7 @@ woas.custom.shjs = {
 					if (language.substr(0,3) !== "sh_")
 						continue;
 					language = language.substr(3);
-					// skip this one
+					// skip this one because already rendered
 					if (language === "sourcecode")
 						continue;
 					classes_v += "'"+woas.js_encode(language)+"',";
@@ -81,6 +81,8 @@ woas.custom.shjs = {
 		}
 		macro.reprocess = true;
 		++woas.custom.shjs._block;
+		// reset block counter
+//		if (!pre_render)	this._block = 0;
 	}
 	
 };
