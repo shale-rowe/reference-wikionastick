@@ -518,11 +518,19 @@ woas.dom = {
 				+ '<style id="'+'" type="text/css">'+css_text+'</style>');
 			//TODO: check that style can then be properly removed
 		  } else { */
-		var style = document.createElement('style');
-		style.type = "text/css";
-		style.id = css_id;
-		if (external)
-			style.src = css_src;
+		var style;
+		if (external) {
+			style = document.createElement("link")
+			style.setAttribute("rel", "stylesheet");
+			style.setAttribute("type", "text/css");
+			style.setAttribute("id", css_id);
+			style.setAttribute("href", css_src);
+		} else {
+			style = document.createElement('style');
+			style.type = "text/css";
+			style.id = css_id;
+			style.appendChild(document.createTextNode(css_text));
+		}
 		// on IE inject directly in body
 		if (woas.browser.ie) {
 			this._cache.body.appendChild(style);
@@ -531,9 +539,6 @@ woas.dom = {
 			this._cache.head.appendChild(style);
 			this._objects.push( {obj:style, parent:this._cache.head, instance:"css_"+css_id} );
 		}
-		// finally add the text node
-		if (!external)
-			style.appendChild(document.createTextNode(css_text));
 		return true;
 	},
 	
