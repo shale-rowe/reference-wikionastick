@@ -1,0 +1,156 @@
+                                            ASSEMBLE BOAS
+======================================================================================================================
+1) OPEN THE core.js FILE.
+
+2) FIND THIS SECTION:
+
+	// test integrity of load/save functions
+	if (!this.save_file(woas.ROOT_DIRECTORY+"itest.bin", this.file_mode.UTF8_TEXT,
+			merge_bytes(utf8Encrypt(UTF8_TEST))
+//			UTF8_TEST
+			))
+		return false;
+	var ct = this.load_file(woas.ROOT_DIRECTORY+"itest.bin", this.file_mode.UTF8_TEXT);
+	if ((ct === null)||(ct === false))
+		return false;
+	ct = utf8Decrypt(split_bytes(ct));
+	if (ct !== UTF8_TEST) {
+		this.crash("UTF8 test failed.\nWritten:\n"+UTF8_TEST+"\nRead:\n"+ct);
+		return false;
+	}
+	// now test AES encryption
+	AES_setKey("WoaS");
+	var testdata = "sample text here";
+	var enc = AES_encrypt(testdata);
+	if (AES_decrypt(enc) !== testdata) {
+		this.crash("AES encryption is not working two-way!");
+		AES_clearKey();
+		return false;
+	}
+	if (AES_decrypt(AES_encrypt(UTF8_TEST)) !== UTF8_TEST) {
+		this.crash("AES encryption of UTF8 text is not working two-way!");
+		AES_clearKey();
+		return false;
+	}
+	AES_clearKey();
+	log("Integrity test successful"); //log:1
+	return true;
+}
+
+3) REPLACE IT WITH THIS SECTION:
+
+	// test integrity of load/save functions
+//	if (!this.save_file(woas.ROOT_DIRECTORY+"itest.bin", this.file_mode.UTF8_TEXT,
+//			merge_bytes(utf8Encrypt(UTF8_TEST))
+//			UTF8_TEST
+//			))
+//		return false;
+//	var ct = this.load_file(woas.ROOT_DIRECTORY+"itest.bin", this.file_mode.UTF8_TEXT);
+//	if ((ct === null)||(ct === false))
+//		return false;
+//	ct = utf8Decrypt(split_bytes(ct));
+//	if (ct !== UTF8_TEST) {
+//		this.crash("UTF8 test failed.\nWritten:\n"+UTF8_TEST+"\nRead:\n"+ct);
+//		return false;
+//	}
+//	// now test AES encryption
+//	AES_setKey("WoaS");
+//	var testdata = "sample text here";
+//	var enc = AES_encrypt(testdata);
+//	if (AES_decrypt(enc) !== testdata) {
+//		this.crash("AES encryption is not working two-way!");
+//		AES_clearKey();
+//		return false;
+//	}
+//	if (AES_decrypt(AES_encrypt(UTF8_TEST)) !== UTF8_TEST) {
+//		this.crash("AES encryption of UTF8 text is not working two-way!");
+//		AES_clearKey();
+//		return false;
+//	}
+//	AES_clearKey();
+//	log("Integrity test successful"); //log:1
+//	return true;
+}
+
+4) SAVE THE FILE.
+
+5) CLOSE THE FILE.
+======================================================================================================================
+1) OPEN THE loadsave.js FILE:
+
+2) FIND THIS SECTION:
+
+	// in native WSIF mode we will save empty arrays
+
+	if (this._auto_native_wsif)
+		computed_js += "var page_titles = [\n];\n\n";
+	else
+		computed_js += "var page_titles = [\n" + printout_arr(page_titles, false) + "];\n\n";
+	
+	computed_js += "/* " + new_marker + "-DATA */\n";
+	
+	if (full) {
+		if (this._auto_native_wsif) {
+			// everything empty when the javascript layer is not used
+			computed_js += "var page_attrs = [];\n\n";
+			computed_js += "var page_mts = [];\n\n";
+			computed_js += "var pages = [\n];\n\n";
+		} else {
+			computed_js += "var page_attrs = [" + printout_num_arr(page_attrs) + "];\n\n";
+			computed_js += "var page_mts = [" + printout_num_arr(page_mts) + "];\n\n";
+			computed_js += "var pages = [\n" + printout_mixed_arr(pages, this.config.allow_diff, page_attrs) + "];\n\n";
+		}
+		computed_js += "/* " + new_marker + "-END */\n";
+	}
+
+3) REPLACE IT WITH THIS SECTION:
+
+	// in native WSIF mode we will save empty arrays
+
+//	if (this._auto_native_wsif)
+//		computed_js += "var page_titles = [\n];\n\n";
+//	else
+		computed_js += "var page_titles = [\n" + printout_arr(page_titles, false) + "];\n\n";
+	
+	computed_js += "/* " + new_marker + "-DATA */\n";
+	
+	if (full) {
+//		if (this._auto_native_wsif) {
+			// everything empty when the javascript layer is not used
+//			computed_js += "var page_attrs = [];\n\n";
+//			computed_js += "var page_mts = [];\n\n";
+//			computed_js += "var pages = [\n];\n\n";
+//		} else {
+			computed_js += "var page_attrs = [" + printout_num_arr(page_attrs) + "];\n\n";
+			computed_js += "var page_mts = [" + printout_num_arr(page_mts) + "];\n\n";
+			computed_js += "var pages = [\n" + printout_mixed_arr(pages, this.config.allow_diff, page_attrs) + "];\n\n";
+//		}
+		computed_js += "/* " + new_marker + "-END */\n";
+	}
+
+4) SAVE THE FILE.
+
+5) CLOSE THE FILE.
+======================================================================================================================
+1) OPEN THE WIKI.
+
+2) CHANGE A PAGE.
+
+3) SAVE THE CHANGE.
+
+4) CLOSE THE WIKI.
+======================================================================================================================
+1) RENAME boas.htm TO woas.htm.
+
+2) COPY libwsif.php INTO THE boas DIRECTORY.
+
+3) COPY make_woas.php INTO THE boas DIRECTORY.
+
+4) OPEN THE boas DIRECTORY IN A TERMINAL WINDOW.
+
+5) USE THIS COMMAND, REPLACING BOTH INSTANCES OF PATH WITH THE FULL PATH TO EACH FILE:
+
+php make_woas.php debug=1 woas=PATH/woas.htm wsif=PATH/index.wsif
+
+6) RENAME woas-merged.htm TO WHATEVER YOU'D LIKE TO NAME IT.
+======================================================================================================================
