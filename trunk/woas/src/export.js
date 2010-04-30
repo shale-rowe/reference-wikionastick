@@ -221,7 +221,7 @@ woas.export_wiki = function () {
 		//export all active plugins as javascript code
 		var js_fn;
 		for(var pi=0,pt=this._plugin_scripts.length;pi<pt;++pi) {
-			data = this.get_text("WoaS::Plugins::"+this._plugin_scripts[pi]);
+			data = this.plugins.get(this._plugin_scripts[pi]);
 			js_fn = this._unix_normalize(this._plugin_scripts[pi])+".js";
 			if (this.save_file(exp.xhtml_path+js_fn,
 								this.file_mode.ASCII, data)) {

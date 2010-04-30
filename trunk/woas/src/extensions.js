@@ -14,6 +14,13 @@ woas.custom_accesskeys = [];
 // count of custom scripts defined inline as script tags
 woas._custom_scripts = 0;
 
+// 'plugins' WoaS module
+woas.plugins = {
+	get: function(name) {
+		return woas.pager.get("WoaS::Plugins::"+name);
+	}
+};
+
 // plugin scripts array (those defined by active plugins)
 woas._plugin_scripts = [];
 
@@ -69,7 +76,7 @@ woas._update_plugin = function(name) {
 woas._enable_plugin = function(name) {
 	// generate the script element
 	if (this.dom.add_script("plugin", name,
-						this.get_text("WoaS::Plugins::"+name),
+						this.plugins.get(name),
 						false)) {
 		this._plugin_scripts.push( name );
 		return true;

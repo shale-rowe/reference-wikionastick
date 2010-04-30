@@ -1,6 +1,6 @@
 /* shjs binding for WoaS
    @author legolas558
-   @version 0.1.10
+   @version 0.1.11
    @license GPLv2
 
    works with shjs 0.6
@@ -22,8 +22,8 @@ woas.custom.shjs = {
 			// subclass post-load hook
 			woas.custom.shjs._original_hook = woas.parser.post_load;
 			woas.parser.post_load = function() {
-				if (woas.custom.shjs._block !== 0)
-					woas.custom.shjs._render_all_thread();
+//				if (woas.custom.shjs._block !== 0)
+//					woas.custom.shjs._render_all_thread();
 				// launch original handler
 				woas.custom.shjs._original_hook();
 			};
@@ -105,15 +105,18 @@ woas.custom.shjs = {
 		if (pre_render) {
 			macro.text += "<"+"input id=\"shjs_postr_btn_"+woas.custom.shjs._uid+
 						"_"+woas.custom.shjs._block+"\" type=\"button\" value=\"Render\" onclick=\"woas.custom.shjs.post_render("+woas.custom.shjs._block+","+classes_v+");\" /"+">";
-		} else { // inline script for highlighting
-					"<"+"script type=\"text/javascript\">"+
-					"woas.custom.shjs._highlight_element($('woas_shjs_"+woas.custom.shjs._uid+"_"+woas.custom.shjs._block+"'),"+classes_v+");"+
-					"<"+"/script>";
+		} else {
+			// inline script for highlighting
+			// we access the script_extension private array here -- UNSUPPORTED!
+			woas.parser.script_extension.push(
+					"woas.custom.shjs._highlight_element($('woas_shjs_"+woas.custom.shjs._uid+"_"+woas.custom.shjs._block+"'),"+classes_v+");"
+			);
+					
 		}
 		macro.reprocess = true;
 		++woas.custom.shjs._block;
 		// reset block counter
-//		if (!pre_render)	this._block = 0;
+		if (!pre_render)	this._block = 0;
 	}
 	
 };
