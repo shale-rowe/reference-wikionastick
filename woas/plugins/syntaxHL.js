@@ -1,6 +1,6 @@
 /* shjs binding for WoaS
    @author legolas558
-   @version 0.1.5
+   @version 0.1.7
    @license GPLv2
 
    works with shjs 0.6
@@ -20,43 +20,46 @@ woas.custom.shjs = {
 	},
 	
 	// this was adapted from shjs' sh_highlightDocument
-	_highlight_element: function(element, htmlClasses) {
-		for (var j = 0; j < htmlClasses.length; j++) {
-			var htmlClass = htmlClasses[j].toLowerCase();
-			if (htmlClass === 'sh_sourcecode') {
-				continue;
+	_highlight_element: function(element, languages) {
+		for (var j = 0; j < languages.length; j++) {
+			if (languages[j] in sh_languages) {
+				sh_highlightElement(element, sh_languages[languages[j]]);
+			} else { // attempt to load such language
+				woas.log("Cannot render in for language "+languages[j]);
 			}
-			if (htmlClass.substr(0, 3) === 'sh_') {
-				var language = htmlClass.substring(3);
-				if (language in sh_languages) {
-					sh_highlightElement(element, sh_languages[language]);
-/*				} else if (typeof(prefix) === 'string' && typeof(suffix) === 'string') {
-					sh_load(language, element, prefix, suffix); */
-				} else {
-					woas.log('Element has class="' + htmlClass + '", but no such language exists');
-				}
-				break;
-			}
-		} // for htmlClasses
+			break;
+		}
 	},
 	
 	_macro_hook: function(macro, classes) {
 		// rebuild the classes string as a simple JSON array
-		var classes = classes.split(' '), classes_v="[", cl = classes.length;
+		var classes_arr = classes.split(' '), classes_v="[", cl = classes_arr.length;
 		if (cl) {
-			for (var i = 0; i < cl-1; i++) {
-				if (classes[i].length > 0) {
-					classes_v += "'"+woas.js_encode(woas.trim(classes[i]))+"',";
+			var language;
+			for (var i = 0; i < cl; i++) {
+				if (classes_arr[i].length > 0) {
+					language = woas.trim(classes_arr[i]).toLowerCase();
+					if (language.substr(0,3) !== "sh_")
+						continue;
+					language = language.substr(3);
+					// skip this one
+					if (language === "sourcecode")
+						continue;
+					classes_v += "'"+woas.js_encode(language)+"',";
+					if (!(language in sh_languages)) {
+						// load this library
+						woas.dom.add_script("lib", "shjs_"+language, "plugins/shjs/sh_"+language+".js", true);
+					}
 				}
 			}
-			// add the last one
-			classes_v += "'"+woas.js_encode(woas.trim(classes[cl-1]))+"'";
+			// remove final comma
+			classes_v = classes_v.substr(0, classes_v.length-1);
 		}
 		classes_v += "]";
 
-		macro.text = "<"+"div id=\"woas_shjs_"+this._uid+"\">"+macro.text+"<"+"/div>"+
+		macro.text = "<"+"div id=\"woas_shjs_"+this._uid+"\" class=\""+classes+"\">"+macro.text+"<"+"/div>"+
 					"<"+"script type=\"text/javascript\">"+
-					"_highlight_element($('woas_shjs_"+this._uid+"',"+classes_v+");"+
+					"woas.custom.shjs._highlight_element($('woas_shjs_"+this._uid+"'),"+classes_v+");"+
 					"<"+"/script>";
 		macro.reprocess = true;
 	}
