@@ -5,11 +5,11 @@
 <script type="text/javascript">
 /* <![CDATA[ */
 
-/* DFQRCTsKlU-0000178-START */
+/* DFQRCTsKlU-0000179-START */
 
 var woas = {"version": "0.11.1"};
 
-var __marker = "DFQRCTsKlU-0000178";
+var __marker = "DFQRCTsKlU-0000179";
 
 woas["config"] = {
 "permit_edits":true,
@@ -26,12 +26,12 @@ woas["config"] = {
 var current = 'Main Page';
 
 var backstack = [
-'Subversion::Merging',
 'Subversion::Resolving conflicts',
 'Subversion::Useful commands',
 'Assemble WoaS',
 'Subversion::Glossary',
 'Subversion::My paths',
+'Main Page',
 'Main Page'
 ];
 
@@ -118,10 +118,10 @@ var page_titles = [
 'Assemble WoaS'
 ];
 
-/* DFQRCTsKlU-0000178-DATA */
+/* DFQRCTsKlU-0000179-DATA */
 var page_attrs = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
 
-var page_mts = [0x4bc5f2b4,0x4bb975e1,0,0,0x4bc5f289,0,0,0x4b9d11af,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0x4b9d00e9,0x4b9d1252,0,0,0,0x4bab8e8a,0,0,0x4b9d097f,0,0,0,0x4b9d06da,0x4b9d0716,0x4b9d0415,0x4b9d08dd,0x4b9d089e,0,0,0,0,0,0,0,0,0,0,0x4b9d1123,0x4b9d1076,0,0x4baa4760,0x4b9d10a9,0,0,0,0,0,0x4bace5ea,0x4b9d0f93,0,0x4b9d0952,0,0x4b9e89a3,0x4b9d13ca,0x4b9d13e1,0x4bb97ac2,0x4bb8f8c9,0x4bc5f328,0x4bb953ab,0x4bb952f0,0x4bb95410,0x4bc5f017,0x4bb95798,0x4bb97695,0x4bc5f0d9,0x4bb96e52,0x4bb95ef6,0x4bda2ec8];
+var page_mts = [0x4bc5f2b4,0x4bb975e1,0,0,0x4bc5f289,0,0,0x4b9d11af,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0x4b9d00e9,0x4b9d1252,0,0,0,0x4bab8e8a,0,0,0x4b9d097f,0,0,0,0x4b9d06da,0x4b9d0716,0x4b9d0415,0x4b9d08dd,0x4b9d089e,0,0,0,0,0,0,0,0,0,0,0x4b9d1123,0x4b9d1076,0,0x4baa4760,0x4b9d10a9,0,0,0,0,0,0x4bace5ea,0x4b9d0f93,0,0x4b9d0952,0,0x4b9e89a3,0x4b9d13ca,0x4b9d13e1,0x4bb97ac2,0x4bb8f8c9,0x4bc5f328,0x4bb953ab,0x4bb952f0,0x4bb95410,0x4bc5f017,0x4bb95798,0x4bb97695,0x4bc5f0d9,0x4bb96e52,0x4bb95ef6,0x4bda3263];
 
 var pages = [
 '[[Main Page]]\n\
@@ -2776,14 +2776,13 @@ If there are conflicts between your files and the files on the server after doin
 This page provides instructions for how to assemble the multiple file development version of WoaS into a single file.\n\
 \n\
 == Requirements\n\
-# You must have php or the php command line interface installed on your system.\n\
-# You must have the libwsif.php and mkwoas.php files, which are in the tools subdirectory of the development version.\n\
+You must have *php* or the *php command line interface* installed on your system.\n\
+\n\
+\x3Cdiv style="background-color:#FFFFAA; border: 0.1em solid black; padding:0.3em;"\x3ENote that if you use the *php command line interface*, this runs locally on your system and not as a server.\x3C/div\x3E\n\
+You must have the *libwsif.php* and *mkwoas.php* files, which are in the tools subdirectory of the development version.\n\
 \n\
 == Parameters accepted by the command\n\
-These are for use in all the examples below.\n\
-\n\
 {|\n\
-|+ Parameters accepted by the command\n\
 | woas=path/woas.htm || path to WoaS HTML file - defaults to woas.htm\n\
 | wsif=path/index.wsif || path to pages data in WSIF format\n\
 | log=[0|1|2] || 0 - fully disable log, 1 - keep logging as is, 2 - enable all log lines\n\
@@ -2795,7 +2794,6 @@ These are for use in all the examples below.\n\
 This assembles the multiple files into a single file using default settings:\n\
 # Copy libwsif.php and mkwoas.php from the tools subdirectory into the woas subdirectory.\x3Cbr\x3E\x3Cbr\x3E\n\
 # Open the woas subdirectory of the development version in a terminal window.\x3Cbr\x3E\x3Cbr\x3E\n\
-\n\
 # Type this command, replacing both instances of PATH with the paths to the woas.htm file and the index.wsif file:\x3Cbr\x3E{{{\n\
 php mkwoas.php woas.htm woas=PATH/woas.htm wsif=PATH/index.wsif\n\
 }}}\x3Cbr\x3E\n\
@@ -2843,7 +2841,7 @@ php mkwoas.php woas=PATH/woas.htm wsif=PATH/index.wsif log=X native_wsif=Y edit_
 '
 ];
 
-/* DFQRCTsKlU-0000178-END */
+/* DFQRCTsKlU-0000179-END */
 
 /* ]]> */ </script>
 <style type="text/css">/* CODE INLINE - WIKI - CURLY BRACKETS */
