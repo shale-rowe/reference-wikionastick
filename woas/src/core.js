@@ -511,7 +511,7 @@ woas.dom = {
 			this._cache.stylesheet = document.getElementsByTagName("style")[0];
 	},
 	
-	add_css: function(css_text) {
+	add_css: function(css_id, css_src, external) {
 /*		if (document.createStyleSheet) {// check for MSIE
 			this._cache.head.insertAdjacentHTML('beforeEnd',
 				'<span id="'+'" style="display:none">x</span>'  // MSIE needs this for some reason
@@ -520,16 +520,21 @@ woas.dom = {
 		  } else { */
 		var style = document.createElement('style');
 		style.type = "text/css";
-		style.appendChild(document.createTextNode(css_text));
+		style.id = css_id;
+		if (external)
+			style.src = css_src;
 		// on IE inject directly in body
 		if (woas.browser.ie) {
 			this._cache.body.appendChild(style);
-			this._objects.push( {obj:style, parent:this._cache.body, instance:"css_"+this._objects.length} );
+			this._objects.push( {obj:style, parent:this._cache.body, instance:"css_"+css_id} );
 		} else {
 			this._cache.head.appendChild(style);
-			this._objects.push( {obj:style, parent:this._cache.head, instance:"css_"+this._objects.length} );
+			this._objects.push( {obj:style, parent:this._cache.head, instance:"css_"+css_id} );
 		}
-		return this._objects.length-1;
+		// finally add the text node
+		if (!external)
+			style.appendChild(document.createTextNode(css_text));
+		return true;
 	},
 	
 	remove_css: function(i) {
