@@ -576,6 +576,14 @@ woas._save_to_file = function(full) {
 	return r;
 };
 
+function reXHTMLFix_hook(str, tag) {
+	var l=str.length;
+	if (str.charAt(l-1)!=='/')
+		str = str.substr(0, l-1)+" />";
+	return str;
+}
+var reXHTMLFix = /<(img|hr|br|input|meta)[^>]*>/gi;
+
 var reHeadTagEnd = new RegExp("<\\/"+"head[^>]*>", "ig");
 	reHeadTagStart = new RegExp("<"+"head[^>]*>", "ig"),
 	reTagStart = /<(\w+)([^>]*)>/g,
@@ -622,30 +630,35 @@ woas._extract_src_data = function(marker, source, full, current_page, start) {
 	
 	// first take away the head
 	var needle, m2, l_attrs, the_head = source.substring(0, head_end),
-		splicings = [],
-		rest_of_source = source.substring(head_end), tag_end;
+		splicings = [], tag_end,
+		rest_of_source = source.substring(head_end);
+	// reset big string
 	source = "";
 	// skip non-head content
 	reTagStart.lastIndex = head_start;
 	
 	m = reTagStart.exec(the_head);
 	while (m !== null) {
+		var skip_it=false;
 		tag = m[1].toLowerCase();
 		switch (tag) {
 			case "script":
 			case "style":
 			case "title":
-				reTagEnd.lastIndex = m.index + m[0].length;
-				m2 = reTagEnd.exec(the_head);
-				if (m2 === null) {
-					woas.log("found "+m[1]+" without closing tag");
-					break;
-				}
-				var close_tag = m2[1].toLowerCase();
-				if (close_tag !== tag) {
-					woas.log("tag close mismatch: "+close_tag);
-					return false;
-				}
+				var initial_offset = m.index + m[0].length;
+				reTagEnd.lastIndex = initial_offset;
+				do {
+					m2 = reTagEnd.exec(the_head);
+					if (m2 === null) {
+						woas.log("found "+m[1]+" without closing tag");
+						skip_it = true;
+						// look for next tag right after this one
+						tag_end = initial_offset;
+						break;
+					}
+					close_tag = m2[1].toLowerCase();
+				} while (close_tag !== tag);
+				
 				tag_end = m2.index+m2[0].length;
 			break;
 			case "meta":
@@ -653,12 +666,14 @@ woas._extract_src_data = function(marker, source, full, current_page, start) {
 				break;
 			default:
 				woas.log("Unknown tag in head: "+tag);
-				return false;
+				skip_it = true;
+				tag_end = m.index + m[0].length;
+			break;
 		}
 		
+		if (!skip_it) {
 		l_attrs = m[2].toLowerCase();
 		// this was marked as permanent tag
-		var skip_it=false;
 		if (l_attrs.indexOf("woas_permanent=")!==-1) {
 			if (tag === "style") {
 				if (l_attrs.indexOf("woas_core_style=")!==-1) {
@@ -679,19 +694,10 @@ woas._extract_src_data = function(marker, source, full, current_page, start) {
 		if (!skip_it)
 			// add this splicing
 			splicings.push( { start: m.index, end: tag_end, needle: needle } );
-		
+		} // skip_it check
 		reTagStart.lastIndex = tag_end;
 		m = reTagStart.exec(the_head);
 	}
-	
-	function reXHTMLFix_hook(str, tag) {
-					var l=str.length;
-					if (str.charAt(l-1)!=='/')
-						str = str.substr(0, l-1)+" />";
-					return str;
-		}
-	var reXHTMLFix = /<(img|hr|br|input|meta)[^>]*>/gi;
-
 	
 	// rebuild the source by using splicings
 	if (splicings.length) {
@@ -723,9 +729,10 @@ woas._extract_src_data = function(marker, source, full, current_page, start) {
 
 		source += rest_of_source.replace(reXHTMLFix, reXHTMLFix_hook);
 		rest_of_source = null;
-		
 	} else {
 		// XHTML hotfixes (FF doesn't either save correctly)
+		//TODO: check if FF3 has still this behaviour
+		
 		source = the_head + rest_of_source.replace(reXHTMLFix, reXHTMLFix_hook);
 		the_head = rest_of_source = null;
 	}
