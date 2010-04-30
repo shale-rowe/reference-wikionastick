@@ -79,7 +79,7 @@ woas._native_wsif_save = function(path, src_fname, locking, single_wsif, inline_
 		var record = this.wsif.header(pfx+"title", this.ecma_encode(page_titles[pi]))+
 					this.wsif.header(pfx+"attributes", page_attrs[pi]);
 		// specify timestamp only if not magic
-		if (!this.config.allow_diff && this.config.store_mts && (page_mts[pi] !== 0))
+		if (this.config.store_mts && (page_mts[pi] !== 0))
 			record += this.wsif.header(pfx+"last_modified", page_mts[pi]);
 		var ct = null, orig_len = null;
 		
