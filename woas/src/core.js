@@ -518,7 +518,7 @@ woas.dom = {
 				+ '<style id="'+'" type="text/css">'+css_text+'</style>');
 			//TODO: check that style can then be properly removed
 		  } else { */
-		var style = jsMath.document.createElement('style');
+		var style = document.createElement('style');
 		style.type = "text/css";
 		style.appendChild(document.createTextNode(css_text));
 		// on IE inject directly in body
