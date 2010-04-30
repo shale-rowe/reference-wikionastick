@@ -17,7 +17,7 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Special::Advanced
 woas.page.attributes: 0
-woas.page.last_modified: 1269832056
+woas.page.last_modified: 1272646051
 woas.page.length: 1229
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -374,8 +374,8 @@ Ly8gUHV0IGhlcmUgeW91ciBib290IGphdmFzY3JpcHQ=
 --DFQRCTsKlU
 woas.page.title: History
 woas.page.attributes: 0
-woas.page.last_modified: 1269832168
-woas.page.length: 43639
+woas.page.last_modified: 1272645786
+woas.page.length: 43678
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -460,6 +460,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated all tags to the new tag syntax.
 ** Updated the [[Example::JavaScript]] page.
 ** Updated the [[Help::Add a search box]] page.
+** Updated the [[Help::Aliases]] page.
 ** Updated the [[Help::Bugs]] page.
 ** Updated the [[Help::CSS]] page.
 ** Updated the [[Help::Code blocks (preformatted text)]] page, removing the obsolete *Code blocks with syntax highlighting* section.
@@ -4194,8 +4195,8 @@ If all went well, the number it displays should be *0* and you've successfully r
 --DFQRCTsKlU
 woas.page.title: Sandbox
 woas.page.attributes: 0
-woas.page.last_modified: 1269201806
-woas.page.length: 2550
+woas.page.last_modified: 1272563331
+woas.page.length: 192
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -4205,63 +4206,6 @@ woas.page.boundary: DFQRCTsKlU
 This page is for trying out new things without having to create a new page.
 
 [[Include::Template::TODO|this|Delete this task from the Sandbox page to remove it from the ToDo list.]]
-== Change text
-<script type="text/javascript">
-function changeText(){
-   document.getElementById('boldStuff').innerHTML = 'WORLD';
-}
-</script>
-Hello <b id='boldStuff'>world</b>. 
-
-<input type='button' onclick='changeText()' value='Change Text'>
-
-== Change text 2
-<script type="text/javascript">
-function changeText2(){
-   var userInput = document.getElementById('userInput').value;
-   document.getElementById('boldStuff2').innerHTML = userInput;
-}
-</script>
-<p>Hello <b id='boldStuff2'>world</b>.</p> 
-<input type='text' id='userInput' size='10' value='Enter text here'> <input type='button' onclick='changeText2()' value='Change Text'>
-
-== Change text 3
-<script type="text/javascript">
-function changeText3(){
-   var oldHTML = document.getElementById('para').innerHTML;
-   var newHTML = "<span style='color:#FF00FF'>" + oldHTML + "</span>";
-   document.getElementById('para').innerHTML = newHTML;
-}
-</script>
-<p id='para'>Hello *world*.</p> 
-<input type='button' onclick='changeText3()' value='Change Text'>
-
-== CHANGE text 4
-<script type="text/javascript">
-function showSpoiler(){
-var oneHTML = document.getElementById('spoiler').innerHTML;
-var twoHTML = "<span style='color:black; background-color:yellow;'>" + oneHTML + "</span>";
-document.getElementById('spoiler').innerHTML = twoHTML;
-}
-</script>
-<input type='button' onclick='showSpoiler()' value='Show spoiler'>
-
-<span id="spoiler" style="color:white; background-color:white;">Hello *world*.</span> 
-
-== Hide and show alert by FBNil
-<a href="javascript:$.hide('Alerttest',true);">hide alert img</a>
-<a href="javascript:$.show('Alerttest',true);">show alert img</a>
-<a href="javascript:$.toggle('Alerttest');">toggle hide/show alert img</a>
-[[Include::Image::alert.png|id="Alerttest" style="display: inline; visibility: hidden;"]]
-
-== Hide and show edit icon in banner by FBNil
-<a href="javascript:$.hide('img_edit');">Hide edit icon</a>
-<a href="javascript:$.show('img_edit');">Show edit icon</a>
-<a href="javascript:$.toggle('img_edit');">Toggle hide/show edit icon</a>
-
-== Hide and show debugger
-[[Include::Image::alert.png]] /BUGGY! It hides the debugger just fine, but corrupts its display when showing it again (not reading the CSS rules?) and writes to the actual div that holds the debugger, changing it permanently./
-<a href="javascript:$.toggle('debug_info');">Toggle hide/show debugger</a>
 
 --DFQRCTsKlU
 woas.page.title: Utility::Links for writers
@@ -4291,15 +4235,14 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Utility::Said
 woas.page.attributes: 0
-woas.page.last_modified: 1265824399
-woas.page.length: 2662
+woas.page.last_modified: 1272440157
+woas.page.length: 2661
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Said
-
 
 {|
 |+ 209 ways to say "said" so you don't have to say it so much. <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAPElEQVQ4jWP8//8/AyWAiSLdg9MARkbG/4yMjBgBg0ucYhcwDsNYIDUQcYYBuuL///8zYlU3DAOR7gYAABx4GCHRS7EDAAAAAElFTkSuQmCC">
@@ -5491,19 +5434,47 @@ PGgxIGFsaWduPSJjZW50ZXIiPkFsaWFzPC9oMT4KPCEtLSBCRUdJTiBMQVNUIFVQREFURUQgLS0+Cjxk
 --DFQRCTsKlU
 woas.page.title: Help::Aliases
 woas.page.attributes: 0
-woas.page.last_modified: 1269532447
-woas.page.length: 292
+woas.page.last_modified: 1272645708
+woas.page.length: 1940
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Aliases
-[[Include::Template::TODO|this|Rewrite this page since it's taken straight from the Feature::Summary page.]]
+Aliases are replaceable shortcuts used in wiki links.
+== Add an alias
+# Click the [[Include::Template::Icon::Advanced]] icon in the banner.<br><br>
+# Click the [[Special::Aliases]] link in the *Advanced features* section of the page.<br><br>
+# Add this line to the page, replacing ALIAS with the shortcut you'd like to use, and PAGENAME with the name of the page you'd like the alias to represent:{{{
+$ALIAS PAGENAME 
+}}}
+# Click the [[Include::Template::Icon::Save]] icon in the banner.
 
-You can define global wiki name aliases in [[Special::Aliases]]. Such aliases will be replaced automatically before looking up for the page name.
+== Use an alias
+Aliases can be used in links the same way a page name would be used.
 
-[[$HOME]]
+To create a plain link using an alias, surround the link with double square brackets, inserting a dollar sign before the alias name.
+* <div class="helptext">Use this code in a page, replacing ALIAS with the alias you'd like to use:</div>{{{
+[[$ALIAS]] 
+}}}<div class="helptext">To add a plain alias link to a page.</div>
+
+To create a labeled link, surround the link with double square brackets, inserting a dollar sign before the alias name, adding a pipe after the alias, and adding some link text after the pipe.
+* <div class="helptext">Use this code in a page, replacing ALIAS with the alias you'd like to use, and replacing LABEL with the text for the link:</div>{{{
+[[$ALIAS|LABEL]] 
+}}}<div class="helptext">To add a labeled alias link to a page.</div>
+
+=== Example
+# Click the [[Include::Template::Icon::Advanced]] icon in the banner.<br><br>
+# Click the [[Special::Aliases]] link in the *Advanced features* section of the page.<br><br>
+# Add this line to the page:{{{
+$HOME Main Page
+}}}
+# Click the [[Include::Template::Icon::Save]] icon in the banner.<br><br>
+# Add {{{[[$HOME]]}}} to any page to make a plain link to the Main Page.<br><br>
+# Add {{{[[$HOME|home sweet home]]}}} to any page to make a labeled link to the Main Page.<br><br>
+# Add {{{[[Include::$HOME]]}}} to any page to include the Main Page in the current page.
+
 [[Tags::Help]]
 
 --DFQRCTsKlU
