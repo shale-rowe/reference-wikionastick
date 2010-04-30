@@ -2,11 +2,11 @@ wsif.version: 1.2.0
 wsif.generator: woas
 woas.version: 0.11.1
 woas.author: Little Girl
-woas.pages: 98
+woas.pages: 99
 
 woas.page.title: ::Menu
 woas.page.attributes: 0
-woas.page.last_modified: 1272222944
+woas.page.last_modified: 1272587951
 woas.page.length: 808
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -3673,8 +3673,8 @@ See also: [[WoaS Mods::Dynamically change navigation bar icons]]
 --DFQRCTsKlU
 woas.page.title: WoaS Mods::Menu
 woas.page.attributes: 0
-woas.page.last_modified: 1271633432
-woas.page.length: 2638
+woas.page.last_modified: 1272585282
+woas.page.length: 2639
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -3704,7 +3704,7 @@ pre {color:black; background-color:#F5F5F5; border:0.063em solid grey; padding:0
 /* pre {color:black; background-color:#F5F5F5; border:0.063em solid grey; padding:0.375em; word-wrap:break-word;} */
 
 /* STYLED BOXES AROUND TAGS */
-div.taglinks > a {color:blue;background-color:gainsboro;border:2px solid blue;margin:2px;padding:3px;text-decoration:none;line-height:2.4;-moz-border-radius:7px;-webkit-border-radius:7px;border-radius:7px;font-weight:bold;font-size:70%;}
+div.taglinks > a {color:blue;background-color:gainsboro;border:2px solid black;margin:2px;padding:3px;text-decoration:none;line-height:2.4;-moz-border-radius:7px;-webkit-border-radius:7px;border-radius:7px;font-weight:bold;font-size:70%;}
 div.taglinks > a:hover{background-color:grey;color:white;border:2px solid blue;text-decoration:none;font-weight:bold;}
 
 /* TOOLTIPS */
@@ -3809,8 +3809,8 @@ Please note that this might break in future versions (it's a private function) a
 --DFQRCTsKlU
 woas.page.title: WoaS Mods::About
 woas.page.attributes: 0
-woas.page.last_modified: 1272306629
-woas.page.length: 2159
+woas.page.last_modified: 1272588036
+woas.page.length: 2175
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -3822,7 +3822,7 @@ This is a collection of pages showing a few modifications you can make to custom
 <div style="background-color:#FFFFAA; border: 0.1em solid black; padding:0.3em; margin-left:auto; margin-right: auto; width:80%;">All pages are tagged at the bottom with the WoaS versions the mod has been tested in. If a page is not tagged with the version of WoaS you're using, it may not work or be necessary in your version.<br><br>All instructions are for the default wiki as downloaded from [[http://sourceforge.net/projects/stickwiki/files/|here]]. If you've made changes to your wiki, you may need to modify the instructions.<br><br>Use these at your own risk. Please back up your wiki before trying them.</div>
 If you have suggestions, corrections, ideas, or problems with any of the mods, please [[mailto://littlergirl@gmail.com?subject=WoaS mods|send me an email]].
 == This wiki needs a new maintainer
-<div style="background-color:pink; border: 0.1em solid black; padding:0.3em; margin-left:auto; margin-right: auto; width:80%;">I will no longer be updating this WoaS Mods wiki. After taking a hiatus to thoroughly learn JavaScript, I will continue developing [[http://bookonastick.wordpress.com/|Book on a Stick]] and continue maintaining a copy of this mods file for Book on a Stick.
+<div style="background-color:pink; border: 0.1em solid black; padding:0.3em; margin-left:auto; margin-right: auto; width:80%;">I will no longer be updating this WoaS Mods wiki. After taking a hiatus to thoroughly learn JavaScript, I will continue developing [[http://bookonastick.wordpress.com/|Book on a Stick]] and continue maintaining a copy of this mods file as boasmods.htm for Book on a Stick.
 
 I have made sure all mods are current to WoaS 0.11.6. Whoever takes over the maintenance of this wiki will need to:
 * Test all applicable mods on more recent versions.
@@ -3832,5 +3832,68 @@ I have made sure all mods are current to WoaS 0.11.6. Whoever takes over the mai
 * Encode all new examples in ASCII and display them in HTML &lt;pre&gt; tags in an effort to prevent any future intentional or unintentional changes to nowiki syntax from parsing them incorrectly.
 If whoever takes over the maintenance of this guide has any questions, I can be reached at the email address above to provide whatever transitional help is needed.
 </div>
+
+--DFQRCTsKlU
+woas.page.title: WoaS Mods::Add spoilers
+woas.page.attributes: 0
+woas.page.last_modified: 1272587799
+woas.page.length: 12634
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Add spoilers
+Spoilers are permanent areas with content that shows when you hover over them with the mouse, or hidden areas that show when you hover over the link that activates them. When creating HTML spoilers, you can substitute other HTML tags (like &lt;div&gt;, &lt;p&gt;, or &lt;td&gt;) for the &lt;span&gt; tags.
+
+# Open the wiki in a browser.<br><br>
+# Create a page named *Template::HiddenSpoiler* with just this content:<pre>&#60&#115;&#112;&#97;&#110;&#32;&#99;&#108;&#97;&#115;&#115;&#61;&#34;&#115;&#112;&#111;&#105;&#108;&#101;&#114;&#98;&#108;&#111;&#99;&#107;&#34;&#62&#60&#97;&#32;&#104;&#114;&#101;&#102;&#61;&#34;&#35;&#34;&#62&#37;&#49;&#32;&#60&#115;&#112;&#97;&#110;&#32;&#99;&#108;&#97;&#115;&#115;&#61;&#34;&#115;&#104;&#111;&#119;&#34;&#62&#37;&#50;&#60&#47;&#115;&#112;&#97;&#110;&#62&#60&#47;&#97;&#62&#60&#47;&#115;&#112;&#97;&#110;&#62</pre>
+# Create a page named *Template::HiddenSpoilerInline* with just this content:<pre>&#60&#115;&#112;&#97;&#110;&#32;&#99;&#108;&#97;&#115;&#115;&#61;&#34;&#115;&#112;&#111;&#105;&#108;&#101;&#114;&#105;&#110;&#108;&#105;&#110;&#101;&#34;&#62&#60&#97;&#32;&#104;&#114;&#101;&#102;&#61;&#34;&#35;&#34;&#62&#37;&#49;&#32;&#60&#115;&#112;&#97;&#110;&#32;&#99;&#108;&#97;&#115;&#115;&#61;&#34;&#115;&#104;&#111;&#119;&#34;&#62&#37;&#50;&#60&#47;&#115;&#112;&#97;&#110;&#62&#60&#47;&#97;&#62&#60&#47;&#115;&#112;&#97;&#110;&#62</pre>
+# Create a page named *Template::Spoiler* with just this content:<pre>&#60&#115;&#112;&#97;&#110;&#32;&#99;&#108;&#97;&#115;&#115;&#61;&#34;&#115;&#112;&#111;&#105;&#108;&#101;&#114;&#34;&#62&#37;&#49;&#60&#47;&#115;&#112;&#97;&#110;&#62</pre>
+# Click the *Advanced* icon in the banner.<br><br>
+# Edit the CSS to style the tag links:<br><br>\
+<ul><li>In WoaS 0.9.6B, 0.10.0, 0.10.1, 0.10.2, 0.10.3, 0.10.4, 0.10.6, 0.10.7, 0.10.8, 0.10.9, 0.11.0, and 0.11.1:</li><br>\
+<ol><li>Click the *Special::Edit CSS* link in the *Advanced features* section of the page to open the global CSS in the wiki editor.</li>\
+<li>*Add* this entry to top or bottom of the main text area:<pre>&#47;&#42;&#32;&#83;&#80;&#79;&#73;&#76;&#69;&#82;&#83;&#32;&#77;&#79;&#68;&#32;&#42;&#47;<br>&#46;&#115;&#112;&#111;&#105;&#108;&#101;&#114;&#32;&#123;&#98;&#97;&#99;&#107;&#103;&#114;&#111;&#117;&#110;&#100;&#45;&#99;&#111;&#108;&#111;&#114;&#58;&#98;&#108;&#97;&#99;&#107;&#59;&#32;&#99;&#111;&#108;&#111;&#114;&#58;&#98;&#108;&#97;&#99;&#107;&#59;&#125;<br>&#46;&#115;&#112;&#111;&#105;&#108;&#101;&#114;&#58;&#104;&#111;&#118;&#101;&#114;&#32;&#123;&#99;&#111;&#108;&#111;&#114;&#58;&#119;&#104;&#105;&#116;&#101;&#59;&#32;&#98;&#97;&#99;&#107;&#103;&#114;&#111;&#117;&#110;&#100;&#45;&#99;&#111;&#108;&#111;&#114;&#58;&#98;&#108;&#97;&#99;&#107;&#59;&#125;<br>&#46;&#115;&#112;&#111;&#105;&#108;&#101;&#114;&#98;&#108;&#111;&#99;&#107;&#32;&#97;&#58;&#108;&#105;&#110;&#107;&#32;&#123;&#116;&#101;&#120;&#116;&#45;&#100;&#101;&#99;&#111;&#114;&#97;&#116;&#105;&#111;&#110;&#58;&#110;&#111;&#110;&#101;&#59;&#125;<br>&#46;&#115;&#112;&#111;&#105;&#108;&#101;&#114;&#98;&#108;&#111;&#99;&#107;&#32;&#97;&#58;&#118;&#105;&#115;&#105;&#116;&#101;&#100;&#32;&#123;&#116;&#101;&#120;&#116;&#45;&#100;&#101;&#99;&#111;&#114;&#97;&#116;&#105;&#111;&#110;&#58;&#110;&#111;&#110;&#101;&#59;&#125;<br>&#46;&#115;&#112;&#111;&#105;&#108;&#101;&#114;&#98;&#108;&#111;&#99;&#107;&#32;&#97;&#58;&#104;&#111;&#118;&#101;&#114;&#32;&#46;&#115;&#104;&#111;&#119;&#32;&#123;&#100;&#105;&#115;&#112;&#108;&#97;&#121;&#58;&#98;&#108;&#111;&#99;&#107;&#59;&#32;&#98;&#97;&#99;&#107;&#103;&#114;&#111;&#117;&#110;&#100;&#45;&#99;&#111;&#108;&#111;&#114;&#58;&#98;&#108;&#97;&#99;&#107;&#59;&#32;&#99;&#111;&#108;&#111;&#114;&#58;&#119;&#104;&#105;&#116;&#101;&#59;&#125;<br>&#46;&#115;&#112;&#111;&#105;&#108;&#101;&#114;&#98;&#108;&#111;&#99;&#107;&#32;&#97;&#58;&#97;&#99;&#116;&#105;&#118;&#101;&#32;&#123;&#116;&#101;&#120;&#116;&#45;&#100;&#101;&#99;&#111;&#114;&#97;&#116;&#105;&#111;&#110;&#58;&#110;&#111;&#110;&#101;&#59;&#125;<br>&#46;&#115;&#112;&#111;&#105;&#108;&#101;&#114;&#98;&#108;&#111;&#99;&#107;&#32;&#97;&#32;&#115;&#112;&#97;&#110;&#32;&#123;&#100;&#105;&#115;&#112;&#108;&#97;&#121;&#58;&#110;&#111;&#110;&#101;&#59;&#125;<br>&#46;&#115;&#112;&#111;&#105;&#108;&#101;&#114;&#105;&#110;&#108;&#105;&#110;&#101;&#32;&#97;&#58;&#108;&#105;&#110;&#107;&#32;&#123;&#116;&#101;&#120;&#116;&#45;&#100;&#101;&#99;&#111;&#114;&#97;&#116;&#105;&#111;&#110;&#58;&#110;&#111;&#110;&#101;&#59;&#125;<br>&#46;&#115;&#112;&#111;&#105;&#108;&#101;&#114;&#105;&#110;&#108;&#105;&#110;&#101;&#32;&#97;&#58;&#118;&#105;&#115;&#105;&#116;&#101;&#100;&#32;&#123;&#116;&#101;&#120;&#116;&#45;&#100;&#101;&#99;&#111;&#114;&#97;&#116;&#105;&#111;&#110;&#58;&#110;&#111;&#110;&#101;&#59;&#125;<br>&#46;&#115;&#112;&#111;&#105;&#108;&#101;&#114;&#105;&#110;&#108;&#105;&#110;&#101;&#32;&#97;&#58;&#104;&#111;&#118;&#101;&#114;&#32;&#46;&#115;&#104;&#111;&#119;&#32;&#123;&#100;&#105;&#115;&#112;&#108;&#97;&#121;&#58;&#105;&#110;&#108;&#105;&#110;&#101;&#59;&#32;&#98;&#97;&#99;&#107;&#103;&#114;&#111;&#117;&#110;&#100;&#45;&#99;&#111;&#108;&#111;&#114;&#58;&#98;&#108;&#97;&#99;&#107;&#59;&#32;&#99;&#111;&#108;&#111;&#114;&#58;&#119;&#104;&#105;&#116;&#101;&#59;&#125;<br>&#46;&#115;&#112;&#111;&#105;&#108;&#101;&#114;&#105;&#110;&#108;&#105;&#110;&#101;&#32;&#97;&#58;&#97;&#99;&#116;&#105;&#118;&#101;&#32;&#123;&#116;&#101;&#120;&#116;&#45;&#100;&#101;&#99;&#111;&#114;&#97;&#116;&#105;&#111;&#110;&#58;&#110;&#111;&#110;&#101;&#59;&#125;<br>&#46;&#115;&#112;&#111;&#105;&#108;&#101;&#114;&#105;&#110;&#108;&#105;&#110;&#101;&#32;&#97;&#32;&#115;&#112;&#97;&#110;&#32;&#123;&#100;&#105;&#115;&#112;&#108;&#97;&#121;&#58;&#110;&#111;&#110;&#101;&#59;&#125;</pre></li>\
+<li>Click the *Save* icon in the banner to save the change to the CSS rules.</li>\
+</ol></ul><br>\
+<ul><li>In WoaS 0.11.2, 0.11.3, 0.11.4, 0.11.5, and 0.11.6:</li><br>\
+<ol><li>Click the *WoaS::CSS::Custom* link in the *Advanced features* section of the page to open the custom CSS page in the wiki editor.</li><br>\
+<li>*Add* this entry to the main text area:<pre>&#47;&#42;&#32;&#83;&#80;&#79;&#73;&#76;&#69;&#82;&#83;&#32;&#77;&#79;&#68;&#32;&#42;&#47;<br>&#46;&#115;&#112;&#111;&#105;&#108;&#101;&#114;&#32;&#123;&#98;&#97;&#99;&#107;&#103;&#114;&#111;&#117;&#110;&#100;&#45;&#99;&#111;&#108;&#111;&#114;&#58;&#98;&#108;&#97;&#99;&#107;&#59;&#32;&#99;&#111;&#108;&#111;&#114;&#58;&#98;&#108;&#97;&#99;&#107;&#59;&#125;<br>&#46;&#115;&#112;&#111;&#105;&#108;&#101;&#114;&#58;&#104;&#111;&#118;&#101;&#114;&#32;&#123;&#99;&#111;&#108;&#111;&#114;&#58;&#119;&#104;&#105;&#116;&#101;&#59;&#32;&#98;&#97;&#99;&#107;&#103;&#114;&#111;&#117;&#110;&#100;&#45;&#99;&#111;&#108;&#111;&#114;&#58;&#98;&#108;&#97;&#99;&#107;&#59;&#125;<br>&#46;&#115;&#112;&#111;&#105;&#108;&#101;&#114;&#98;&#108;&#111;&#99;&#107;&#32;&#97;&#58;&#108;&#105;&#110;&#107;&#32;&#123;&#116;&#101;&#120;&#116;&#45;&#100;&#101;&#99;&#111;&#114;&#97;&#116;&#105;&#111;&#110;&#58;&#110;&#111;&#110;&#101;&#59;&#125;<br>&#46;&#115;&#112;&#111;&#105;&#108;&#101;&#114;&#98;&#108;&#111;&#99;&#107;&#32;&#97;&#58;&#118;&#105;&#115;&#105;&#116;&#101;&#100;&#32;&#123;&#116;&#101;&#120;&#116;&#45;&#100;&#101;&#99;&#111;&#114;&#97;&#116;&#105;&#111;&#110;&#58;&#110;&#111;&#110;&#101;&#59;&#125;<br>&#46;&#115;&#112;&#111;&#105;&#108;&#101;&#114;&#98;&#108;&#111;&#99;&#107;&#32;&#97;&#58;&#104;&#111;&#118;&#101;&#114;&#32;&#46;&#115;&#104;&#111;&#119;&#32;&#123;&#100;&#105;&#115;&#112;&#108;&#97;&#121;&#58;&#98;&#108;&#111;&#99;&#107;&#59;&#32;&#98;&#97;&#99;&#107;&#103;&#114;&#111;&#117;&#110;&#100;&#45;&#99;&#111;&#108;&#111;&#114;&#58;&#98;&#108;&#97;&#99;&#107;&#59;&#32;&#99;&#111;&#108;&#111;&#114;&#58;&#119;&#104;&#105;&#116;&#101;&#59;&#125;<br>&#46;&#115;&#112;&#111;&#105;&#108;&#101;&#114;&#98;&#108;&#111;&#99;&#107;&#32;&#97;&#58;&#97;&#99;&#116;&#105;&#118;&#101;&#32;&#123;&#116;&#101;&#120;&#116;&#45;&#100;&#101;&#99;&#111;&#114;&#97;&#116;&#105;&#111;&#110;&#58;&#110;&#111;&#110;&#101;&#59;&#125;<br>&#46;&#115;&#112;&#111;&#105;&#108;&#101;&#114;&#98;&#108;&#111;&#99;&#107;&#32;&#97;&#32;&#115;&#112;&#97;&#110;&#32;&#123;&#100;&#105;&#115;&#112;&#108;&#97;&#121;&#58;&#110;&#111;&#110;&#101;&#59;&#125;<br>&#46;&#115;&#112;&#111;&#105;&#108;&#101;&#114;&#105;&#110;&#108;&#105;&#110;&#101;&#32;&#97;&#58;&#108;&#105;&#110;&#107;&#32;&#123;&#116;&#101;&#120;&#116;&#45;&#100;&#101;&#99;&#111;&#114;&#97;&#116;&#105;&#111;&#110;&#58;&#110;&#111;&#110;&#101;&#59;&#125;<br>&#46;&#115;&#112;&#111;&#105;&#108;&#101;&#114;&#105;&#110;&#108;&#105;&#110;&#101;&#32;&#97;&#58;&#118;&#105;&#115;&#105;&#116;&#101;&#100;&#32;&#123;&#116;&#101;&#120;&#116;&#45;&#100;&#101;&#99;&#111;&#114;&#97;&#116;&#105;&#111;&#110;&#58;&#110;&#111;&#110;&#101;&#59;&#125;<br>&#46;&#115;&#112;&#111;&#105;&#108;&#101;&#114;&#105;&#110;&#108;&#105;&#110;&#101;&#32;&#97;&#58;&#104;&#111;&#118;&#101;&#114;&#32;&#46;&#115;&#104;&#111;&#119;&#32;&#123;&#100;&#105;&#115;&#112;&#108;&#97;&#121;&#58;&#105;&#110;&#108;&#105;&#110;&#101;&#59;&#32;&#98;&#97;&#99;&#107;&#103;&#114;&#111;&#117;&#110;&#100;&#45;&#99;&#111;&#108;&#111;&#114;&#58;&#98;&#108;&#97;&#99;&#107;&#59;&#32;&#99;&#111;&#108;&#111;&#114;&#58;&#119;&#104;&#105;&#116;&#101;&#59;&#125;<br>&#46;&#115;&#112;&#111;&#105;&#108;&#101;&#114;&#105;&#110;&#108;&#105;&#110;&#101;&#32;&#97;&#58;&#97;&#99;&#116;&#105;&#118;&#101;&#32;&#123;&#116;&#101;&#120;&#116;&#45;&#100;&#101;&#99;&#111;&#114;&#97;&#116;&#105;&#111;&#110;&#58;&#110;&#111;&#110;&#101;&#59;&#125;<br>&#46;&#115;&#112;&#111;&#105;&#108;&#101;&#114;&#105;&#110;&#108;&#105;&#110;&#101;&#32;&#97;&#32;&#115;&#112;&#97;&#110;&#32;&#123;&#100;&#105;&#115;&#112;&#108;&#97;&#121;&#58;&#110;&#111;&#110;&#101;&#59;&#125;</pre></li>\
+<li>Click the *Save* icon in the banner to save the change to the Custom CSS rules.</li>\
+</ol></ul>
+
+== Use spoilers
+=== Spoiler
+This method displays a permanently visible spoiler box, which can also be used to create an invisible hot spot by customizing the spoiler [[Help::CSS|CSS]] to make the box blend in with the background.
+
+<div class="helptext">Use this code in a page, replacing CONTENT GOES HERE with your content:</div><pre>&#91;&#91;&#73;&#110;&#99;&#108;&#117;&#100;&#101;&#58;&#58;&#84;&#101;&#109;&#112;&#108;&#97;&#116;&#101;&#58;&#58;&#83;&#112;&#111;&#105;&#108;&#101;&#114;&#124;&#67;&#79;&#78;&#84;&#69;&#78;&#84;&#32;&#71;&#79;&#69;&#83;&#32;&#72;&#69;&#82;&#69;&#93;&#93;</pre><div class="helptext">To create this:</div>
+<span class="spoiler">CONTENT GOES HERE</span>
+
+=== Hidden spoiler
+<div class="helptext">Use this code in a page, replacing LINK with your link text, and CONTENT GOES HERE with your content:</div><pre>&#91;&#91;&#73;&#110;&#99;&#108;&#117;&#100;&#101;&#58;&#58;&#84;&#101;&#109;&#112;&#108;&#97;&#116;&#101;&#58;&#58;&#72;&#105;&#100;&#100;&#101;&#110;&#83;&#112;&#111;&#105;&#108;&#101;&#114;&#124;&#76;&#73;&#78;&#75;&#124;&#67;&#79;&#78;&#84;&#69;&#78;&#84;&#32;&#71;&#79;&#69;&#83;&#32;&#72;&#69;&#82;&#69;&#93;&#93;</pre><div class="helptext">To create this:</div>
+<span class="spoilerblock"><a href="#">LINK <span class="show">CONTENT GOES HERE</span></a></span>
+
+=== Hidden spoiler inline
+<div class="helptext">Use this code in a page, replacing LINK with your link text, and CONTENT GOES HERE with your content:</div>
+<pre>&#91;&#91;&#73;&#110;&#99;&#108;&#117;&#100;&#101;&#58;&#58;&#84;&#101;&#109;&#112;&#108;&#97;&#116;&#101;&#58;&#58;&#72;&#105;&#100;&#100;&#101;&#110;&#83;&#112;&#111;&#105;&#108;&#101;&#114;&#73;&#110;&#108;&#105;&#110;&#101;&#124;&#76;&#73;&#78;&#75;&#124;&#67;&#79;&#78;&#84;&#69;&#78;&#84;&#32;&#71;&#79;&#69;&#83;&#32;&#72;&#69;&#82;&#69;&#93;&#93;</pre><div class="helptext">To create this:</div>
+<span class="spoilerinline"><a href="#">LINK <span class="show">CONTENT GOES HERE</span></a></span>
+
+<style type="text/css">
+/* SPOILERS MOD */
+.spoiler {background-color:black; color:black;}
+.spoiler:hover {color:white; background-color:black;}
+.spoilerblock a:link {text-decoration:none;}
+.spoilerblock a:visited {text-decoration:none;}
+.spoilerblock a:hover .show {display:block; background-color:black; color:white;}
+.spoilerblock a:active {text-decoration:none;}
+.spoilerblock a span {display:none;}
+.spoilerinline a:link {text-decoration:none;}
+.spoilerinline a:visited {text-decoration:none;}
+.spoilerinline a:hover .show {display:inline; background-color:black; color:white;}
+.spoilerinline a:active {text-decoration:none;}
+.spoilerinline a span {display:none;}
+</style>
+[[Tags::0.9.6B|0.10.0|0.10.1|0.10.2|0.10.3|0.10.4|0.10.6|0.10.7|0.10.8|0.10.9|0.11.0|0.11.1|0.11.2|0.11.3|0.11.4|0.11.5|0.11.6]]
 
 --DFQRCTsKlU
