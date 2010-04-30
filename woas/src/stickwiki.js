@@ -36,7 +36,6 @@ woas._on_load = woas_on_unload = function() { this.crash("Deferred load/unload f
 
 // default post-load hook
 woas.post_load = function(){};
-woas.post_load_delayed = function(){};
 
 // left and right trim
 woas.trim = function(s) {
@@ -1055,10 +1054,7 @@ woas._on_load = function() {
 	$.hide("loading_overlay");
 	
 	// launching post-load hook
-	this.post_load();
-	
-	// launch delayed post-load hook
-	setTimeout("woas.post_load_delayed();", 300);
+	this.post_load();	
 };
 
 // disable edit-mode after cancel/save actions
