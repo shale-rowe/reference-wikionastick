@@ -38,18 +38,18 @@ woas.macro_parser = function(text){
 			if (typeof M[2] == "undefined")
 				pl = 0;
 			else pl = M[2].length;
-			if (pl === 0)
-				(this.macro_parser.macro_functions[fi])(macro);
-			else {
-				// inline insertion of parameters
-				var code = "(woas.macro_parser.macro_functions["+fi+"])"+
-							"(macro,"+M[2].substr(1,pl-2)+");";
-				try {
-					eval(code);
+			try {
+				if (pl === 0)
+					(this.macro_parser.macro_functions[fi])(macro);
+				else {
+					// inline insertion of parameters
+					eval( "(woas.macro_parser.macro_functions["+fi+"])"+
+								"(macro,"+M[2].substr(1,pl-2)+");"
+						);
 				}
-				catch(e) {
-					woas.log("Error during macro execution: "+e);
-				}
+			}
+			catch(e) {
+				woas.log("Error during macro execution: "+e);
 			}
 		} else {
 			log("Undefined macro "+fn);	//log:1
