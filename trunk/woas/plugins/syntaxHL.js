@@ -20,8 +20,8 @@ woas.custom.shjs = {
 			this.is_loaded = woas.dom.add_script("lib", "shjs", "plugins/shjs/sh_main.min.js", true) &&
 							woas.dom.add_css("shjs_style", "plugins/shjs/sh_style.min.css", true);
 			// subclass post-load hook
-			woas.custom.shjs._original_hook = woas.parser.post_load_delayed;
-			woas.parser.post_load_delayed = function() {
+			woas.custom.shjs._original_hook = woas.parser.post_load;
+			woas.parser.post_load = function() {
 				if (woas.custom.shjs._block !== 0)
 					woas.custom.shjs._render_all_thread();
 				// launch original handler
