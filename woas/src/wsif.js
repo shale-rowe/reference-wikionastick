@@ -192,7 +192,7 @@ woas._native_wsif_save = function(path, src_fname, locking, single_wsif, inline_
 		record = "";
 	} // foreach page
 	// add the total pages number
-	if (this.config.allow_diff) {
+	if (!this.config.allow_diff) {
 		if (full_save || single_wsif)
 			extra += this.wsif.header('woas.pages', done);
 		else
