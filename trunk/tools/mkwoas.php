@@ -156,6 +156,7 @@ function _woas_config_cb_single($m) {
 		case "wsif_ds":
 			$v = "''";
 		break;
+		case "store_mts":
 		case "wsif_ds_multi":
 			$v = 'true';
 		default:
