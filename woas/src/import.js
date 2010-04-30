@@ -151,7 +151,10 @@ woas.import_wiki = function() {
 				"wsif_ds_lock":this.config.wsif_ds_lock,
 				"safe_mode":this.config.safe_mode,
 				"wsif_author":this.config.wsif_author,
-				"main_page":this.config.main_page
+				"main_page":this.config.main_page,
+				"new_tables_syntax":this.new_tables_syntax,
+				"store_mts":this.config.store_mts,
+				"folding_style":this.config.folding_style
 				};
 
 		/* NOTES ABOUT OLD VERSIONS
@@ -307,8 +310,9 @@ woas.import_wiki = function() {
 					woas.config.wsif_ds_multi = old_cfg.wsif_ds_multi;
 				}
 				if (old_version < 120) {
-					woas.config.new_tables_syntax = true;
-					woas.config.store_mts = true;
+					woas.config.new_tables_syntax = oldcfg.new_tables_syntax;
+					woas.config.store_mts = oldcfg.store_mts;
+					woas.config.folding_style = oldcfg.folding_style;
 				}
 				
 				// some GC help

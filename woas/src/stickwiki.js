@@ -31,6 +31,13 @@ woas._forward_browse = false;
 // previous length of WSIF datasource
 woas._old_wsif_ds_len = null;
 
+// this will likely happen when javascript code block was corrupted
+woas._on_load = woas_on_unload = function() { this.crash("Deferred load/unload function not available!");};
+
+// default post-load hook
+woas.post_load = function(){};
+woas.post_load_delayed = function(){};
+
 // left and right trim
 woas.trim = function(s) {
 	return s.replace(/(^\s*)|(\s*$)/, '');
@@ -918,7 +925,7 @@ function _auto_saver() {
 }
 
 // save configuration on exit
-woas.before_quit = function () {
+woas._on_unload = function () {
 	if (this.save_queue.length)
 		this.commit(this.save_queue);
 	else {
@@ -932,7 +939,7 @@ woas.before_quit = function () {
 woas.setHTML = woas.getHTML = null;
 
 // when the page is loaded - onload, on_load
-woas.after_load = function() {
+woas._on_load = function() {
 
 	woas.log("***** Woas v"+this.version+" started *****");	// log:1
 	
@@ -1046,6 +1053,12 @@ woas.after_load = function() {
 	
 //	this.progress_finish();
 	$.hide("loading_overlay");
+	
+	// launching post-load hook
+	this.post_load();
+	
+	// launch delayed post-load hook
+	setTimeout("woas.post_load_delayed();", 300);
 };
 
 // disable edit-mode after cancel/save actions

@@ -636,65 +636,69 @@ woas._extract_src_data = function(marker, source, full, current_page, start) {
 	source = "";
 	// skip non-head content
 	reTagStart.lastIndex = head_start;
-	
+
 	m = reTagStart.exec(the_head);
 	while (m !== null) {
-		var skip_it=false;
 		tag = m[1].toLowerCase();
+		var broken=false;
 		switch (tag) {
 			case "script":
 			case "style":
 			case "title":
-				var initial_offset = m.index + m[0].length;
-				reTagEnd.lastIndex = initial_offset;
+				reTagEnd.lastIndex = m.index + m[0].length;
 				do {
 					m2 = reTagEnd.exec(the_head);
 					if (m2 === null) {
 						woas.log("found "+m[1]+" without closing tag");
-						skip_it = true;
-						// look for next tag right after this one
-						tag_end = initial_offset;
+						// continue to check for permanent attribute
+						broken = true;
 						break;
 					}
 					close_tag = m2[1].toLowerCase();
 				} while (close_tag !== tag);
-				
-				tag_end = m2.index+m2[0].length;
-			break;
+				// fallback wanted to set tag end like if it was a single tag
+				if (!broken) {
+					tag_end = tag_end = m2.index+m2[0].length;
+					break;
+				}
 			case "meta":
 				tag_end = m.index+m[0].length;
 				break;
 			default:
 				woas.log("Unknown tag in head: "+tag);
-				skip_it = true;
-				tag_end = m.index + m[0].length;
+				// continue to check for permanent attribute
+				tag_end = m.index+m[0].length;
+				broken = true;
 			break;
 		}
 		
-		if (!skip_it) {
 		l_attrs = m[2].toLowerCase();
 		// this was marked as permanent tag
+		var was_replaced = false;
 		if (l_attrs.indexOf("woas_permanent=")!==-1) {
+			if (!broken) {
 			if (tag === "style") {
+				was_replaced = true;
 				if (l_attrs.indexOf("woas_core_style=")!==-1) {
 					woas.log("Replacing CSS");
 					needle = m[0]+woas.get_text("WoaS::CSS::Boot")+m2[0];
-				} else
+				} else {
 					needle = "";
+				}
 			} else if (tag === "title") {
 //				woas.log("Replacing title");
 				needle = m[0]+woas.xhtml_encode(current_page)+m2[0];
-			} else {
-				// will leave tag untouched
-				skip_it = true;
+				was_replaced = true;
 			}
+			}
+			// will leave tag untouched
 		} else {
 			needle = "";
+			was_replaced = true;
 		}
-		if (!skip_it)
+		if (was_replaced)
 			// add this splicing
 			splicings.push( { start: m.index, end: tag_end, needle: needle } );
-		} // skip_it check
 		reTagStart.lastIndex = tag_end;
 		m = reTagStart.exec(the_head);
 	}
@@ -749,6 +753,7 @@ woas._extract_src_data = function(marker, source, full, current_page, start) {
 				// remove the tail content (but not the tail itself)
 				source =	source.substring(0, tail_start + tail_st_mark.length)+
 							source.substring(tail_end+tail_end_mark.length);
+				//TODO: replace textarea with a standard one
 			}
 		}
 

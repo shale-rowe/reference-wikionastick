@@ -1,15 +1,19 @@
 
 woas.parser = {
-	"has_toc":null,
-	"toc":"",
-	"force_inline":false,		// used not to break layout when presenting search results
-	"script_extension":[]		// external javascript files to be loaded
-};
+	has_toc: null,
+	toc: "",
+	force_inline: false,		// used not to break layout when presenting search results
+	script_extension: [],		// array with javascript blocks description arrays
 
-woas.parser.header_anchor = function(s) {
-	// apply a hard normalization
-	// WARNING: will not preserve header ids uniqueness
-	return s.replace(/[^a-zA-Z0-9]/g, '_');
+	header_anchor: function(s) {
+		// apply a hard normalization
+		// WARNING: will not preserve header ids uniqueness
+		return s.replace(/[^a-zA-Z0-9]/g, '_')
+	},
+	
+	// hook which can be overriden by extensions
+	after_parse: function() {
+	}
 };
 
 //DEPRECATED "!" syntax is supported but shall me removed soon
@@ -381,7 +385,8 @@ woas.parser.parse = function(text, export_links, js_mode) {
 	
 	// take a backup copy of the macros, so that no new macros are defined after page processing
 	var backup_macro_n = woas.macro_parser.macro_names.slice(0),
-		backup_macro_f = woas.macro_parser.macro_functions.slice(0);
+		backup_macro_f = woas.macro_parser.macro_functions.slice(0),
+		backup_hook = this.after_parse;
 	
 	// put away stuff contained in user-defined macro multi-line blocks
 	text = text.replace(reMacros, function (str, $1) {
@@ -700,10 +705,19 @@ woas.parser.parse = function(text, export_links, js_mode) {
 	// restore macros array
 	woas.macro_parser.macro_names = backup_macro_n;
 	woas.macro_parser.macro_functions = backup_macro_f;
+
+	// trigger after_parse hook only when not defining any
+	if (this.after_parse === backup_hook) {
+		// 'text' can't yet be passed here (needs referenced objects)
+		this.after_parse();
+	}
 		
-	if (text.substring(0,5)!="</div")
+	if (text.substring(0,5)!=="</div")
 		return "<div class=\"woas_level0\">" + text + "</div>";
-	return text.substring(6)+"</div>";
+	// complete
+		return text.substring(6)+"</div>";
+	
+	return text;
 };
 
 woas.parser.render_error = function(str, symbol) {
