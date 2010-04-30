@@ -811,9 +811,11 @@ function _woas_new_plugin() {
 	if (title === null)
 		return;
 	var def_text;
+	// provide special include page support
+	// --UNSUPPORTED FEATURE--
 	if (title.charAt(0) === '@') {
 		def_text = title+"\n";
-		title = title.substr(1);
+//		title = title.substr(1);
 	} else {
 		def_text = "/* "+title+" plugin */\n";
 	}

@@ -613,12 +613,16 @@ woas.pager = {
 		var ns = woas.get_namespace(title, false),
 			pname = title.substr(ns.length);
 		var text = woas.get_text(title);
-		if (text === null) return text;
+		if (text === null) return "";
 		// check if this is an external page reference
 		// -- UNSUPPORTED FEATURE --
 		if ((pname.charAt(0) === '@') && (text === pname+"\n")) {
 			// hack for external files loading at run-time
-			return woas.load_file(woas.ROOT_DIRECTORY+"plugins/"+pname.substr(1)+".js");
+			text = woas.load_file(woas.ROOT_DIRECTORY+"plugins/"+pname.substr(1)+".js");
+			// failure is not allowed, always return something
+			alert(text);
+			if (typeof text != "string")
+				text = "";
 		}
 		return text;
 	}
