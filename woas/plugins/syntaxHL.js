@@ -61,9 +61,6 @@ woas.custom.shjs = {
 		return;
 	},
 	
-	// array of desired languages (to be loaded) before rendering
-	_desired: [],
-	
 	_macro_hook: function(macro, classes) {
 		// shjs library not yet loaded, go into pre-render mode
 		var pre_render = (typeof sh_languages == "undefined");
@@ -82,11 +79,9 @@ woas.custom.shjs = {
 					if (language === "sourcecode")
 						continue;
 					classes_v += "'"+woas.js_encode(language)+"',";
-					if (pre_render) {
-						woas.custom.shjs._desired.push(language);
-					} else if (!(language in sh_languages)) {
+					if (!(language in sh_languages)) {
 						// load this library
-						woas.dom.add_script("lib", "shjs_"+language, "plugins/shjs/lang/sh_"+language+".min.js", true);
+						woas.custom.shjs._queue_load(language);
 					}
 				}
 			}
@@ -115,17 +110,35 @@ woas.custom.shjs = {
 		// reset block counter
 //		if (!pre_render)	this._block = 0;
 		// get the desired languages
-		if (!pre_render) {
-			var language;
-			while (woas.custom.shjs._desired.length) {
-				language = woas.custom.shjs._desired.shift();
-				if (!(language in sh_languages)) {
-					woas.dom.add_script("lib", "shjs_"+language, "plugins/shjs/lang/sh_"+language+".min.js", true);
-				}
-			} // wend
-		}
-	}
+		if (!pre_render)
+			woas.custom.shjs._queue_flush();
+	},
 	
+	// array of languages which we are loading (async)
+	_queued_lib: [],
+	// array of desired languages (to be loaded) before rendering
+	_desired: [],
+	_queue_load: function(language) {
+		if (typeof sh_languages == "undefined") {
+			woas.custom.shjs._desired.push(language);
+			return;
+		}
+		if (!(language in sh_languages) && (woas.custom.shjs._queued_lib.indexOf(language) === -1)) {
+			woas.custom.shjs._queued_lib.push(language);
+			woas.dom.add_script("lib", "shjs_"+language, "plugins/shjs/lang/sh_"+language+".min.js", true);
+		}
+	},
+	
+	_queue_flush: function() {
+		// now sh_languages is defined, we flush the queue
+		var language;
+		while (woas.custom.shjs._desired.length) {
+			language = woas.custom.shjs._desired.shift();
+			woas.custom.shjs._queue_load(language);
+		} // wend
+		woas.custom.shjs._desired = [];
+	},
+
 };
 
 // initialize the library
