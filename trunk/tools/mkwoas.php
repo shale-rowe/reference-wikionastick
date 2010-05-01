@@ -34,9 +34,20 @@ function _script_replace($m) {
 		$ct = preg_replace('/\\x'.dechex(239).'\\x'.dechex(187).'\\x'.dechex(191).'/A', '', $ct);
 		//TODO: apply modifications to 'tweak' object here
 
-		// check if this javascript is deadly wicked
-		if (preg_match_all('!<(\\w{3,})[^>]+>!s', $ct, $m)) {
-			fprintf(STDERR, "%s: found tag %s\n", $fname, implode(", ", $m[1]));
+		// check if this javascript contains any tag-similar syntax
+		// this will kill inline javascript for Opera, so we need to properly conceal those sequences
+		if (preg_match_all('!</?([A-Za-z]+)([^>]+)>!s', $ct, $m)) {
+			$tags = "";
+			reset($m[2]);
+			foreach($m[1] as $tag) {
+				$attrs = current($m[2]);
+				if (substr($attrs, 0, 1) != ';') {
+					$tags .= $tag.", ";
+				}
+				next($m[2]);
+			}
+			if (strlen($tags))
+				fprintf(STDERR, "%s: WARNING! found tag %s\n", $scriptname, $tags);
 		}
 		++$replaced;
 		echo "Replaced ".$scriptname."\n";
