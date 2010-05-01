@@ -535,15 +535,17 @@ woas.dom = {
 		}
 		
 		this._objects.push( {obj:style, parent: (woas.browser.ie ? this._cache.body:this._cache.head),
-							instance:css_id, after_load: after_load } );
+							instance:css_id, after_load: external ? after_load : null,
+							loaded: external ? false : true } );
 		++this._loading;
 		// add a callback which informs us of the completion
+		if (external) {
 		//FIXME
-/*		style.onload = style.onreadystatechange = woas._make_delta_func("woas.dom._elem_onload",
+/*			style.onload = style.onreadystatechange = woas._make_delta_func("woas.dom._elem_onload",
 													"'"+woas.js_encode(css_id)+"'");
-													*/
-		setTimeout("woas.dom._elem_onload('"+woas.js_encode(css_id)+"');", 100);
-		
+												*/
+			setTimeout("woas.dom._elem_onload('"+woas.js_encode(css_id)+"');", 100);
+		}
 		// on IE inject directly in body
 		if (woas.browser.ie) {
 			this._cache.body.appendChild(style);
