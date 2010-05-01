@@ -4,7 +4,8 @@ woas.wsif = {
 	version: "1.3.0",
 	DEFAULT_INDEX: "index.wsif",
 	emsg: null,
-	imported_page: false,
+	imported_page: false,		// last page imported by _native_page_def() callback
+	imported: [],				// _native_page_def() will always add imported pages here
 	expected_pages: null,
 	system_pages: 0,
 	global_progress: 0
@@ -237,6 +238,14 @@ woas._wsif_ds_load = function(subpath, locking) {
 	return this._native_wsif_load(path, locking, false, false);
 };
 
+/* description of parameters:
+ - path: WSIF file path which will be loaded, can be null to use file specified in '_filename' element
+ - locking: resource locking (not yet implemented)
+ - overwrite: if true will overwrite pages with same title, otherwise ignore them
+ - and_save: true when WoaS is datasourcing (private use only)
+ - recursing: recursion depth variable, starts with 0
+ - pre_import_hook: callback used to choose if page can be imported or not (optional)
+*/
 woas._native_wsif_load = function(path, locking, overwrite, and_save, recursing, pre_import_hook) {
 	if (!recursing) {
 		this.wsif.emsg = null;
@@ -260,6 +269,7 @@ woas._native_wsif_load = function(path, locking, overwrite, and_save, recursing,
 		this.wsif.expected_pages = null;
 		this.wsif.emsg = this.i18n.NO_ERROR;
 		this.wsif.imported_page = false;
+		this.wsif.imported = [];
 		this.wsif.system_pages = 0;
 		this.wsif.global_progress = 0;
 	}
@@ -443,7 +453,8 @@ woas._native_wsif_load = function(path, locking, overwrite, and_save, recursing,
 		this.progress_finish();
 	// save imported pages
 	if (imported.length) {
-		if (and_save) {
+		// commit pages only when not recursing
+		if (!recursing && and_save) {
 			var ep = this.wsif.expected_pages;
 			this.commit(imported);
 			this.wsif.expected_pages = ep;
@@ -660,6 +671,7 @@ woas._native_page_def = function(path,ct,p,last_p,overwrite,pre_import_hook, tit
 	}
 	// all OK
 	this.wsif.imported_page = pi;
+	this.wsif.imported.push(pi);
 	// return updated offset
 	return bpos_e+boundary.length;
 };
