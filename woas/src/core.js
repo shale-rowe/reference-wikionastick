@@ -613,7 +613,7 @@ woas.dom = {
 	get_loading: function() {
 		var a=[];
 		for(var i=0,it=this._objects.length;i<it;++i) {
-			if ((this._objects[i].after_load !== null) && !this._objects[i].loaded)
+			if (!this._objects[i].loaded)
 				a.push(this._objects[i].instance);
 		}
 		return a;
@@ -672,7 +672,7 @@ woas.dom = {
 		// register in our management arrays
 		this._objects.push( {obj:s_elem, parent:this._cache.head, instance:script_token,
 								external: external ? true : false,
-								loaded: false, after_load: external ? after_load : null} );
+								loaded: external ? false : true, after_load: external ? after_load : null} );
 		// only external sources should be marked as "loading"
 		if (external)
 			++this._loading;
