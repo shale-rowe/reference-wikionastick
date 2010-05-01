@@ -336,7 +336,7 @@ woas.javaLoadFile = function(filePath, load_mode, suggested_mime) {
 		if(document.applets.TiddlySaver) {
 			content = document.applets.TiddlySaver.loadFile(filePath, "UTF-8");
 			if (content === null) {
-				log("Load failure, maybe file does not exist?"); //log:1
+				woas.log("Load failure, maybe file does not exist? "+filePath); //log:1
 				return false;
 			}
 			// check that it is not an "undefined" string
@@ -388,7 +388,7 @@ function printout_arr(arr, split_lines) {
 	}
 
 	var s = "";
-	for(var i=0;i<arr.length-1;i++) {
+	for(var i=0;i < arr.length-1;i++) {
 		s += elem_print(arr[i]) + ",\n";
 	}
 	if (arr.length>1)
@@ -406,7 +406,7 @@ function printout_mixed_arr(arr, split_lines, attrs) {
 	}
 
 	var s = "";
-	for(var i=0;i<arr.length-1;i++) {
+	for(var i=0;i < arr.length-1;i++) {
 		s += elem_print(arr[i], attrs[i]) + ",\n";
 	}
 	if (arr.length>1)
@@ -589,7 +589,7 @@ var reHeadTagEnd = new RegExp("<\\/"+"head[^>]*>", "ig");
 	reTagStart = /<(\w+)([^>]*)>/g,
 	reTagEnd = /<\/(\w+)[^>]*>/g;
 
-woas._extract_src_data = function(marker, source, full, current_page, start) {
+woas._extract_src_data = function(marker, source, full, current_page, data_only) {
 	var e_offset, s_offset;
 	// find the start marker for safety checking
 	s_offset = source.indexOf("/* "+marker+ "-START */");
@@ -605,6 +605,11 @@ woas._extract_src_data = function(marker, source, full, current_page, start) {
 	}
 	// properly update offset (+2 is for newlines)
 	e_offset += 3 + marker.length + 7 + 2;
+	
+	// used during import
+	if (full && data_only) {
+		return source.substring(s_offset, e_offset);
+	}
 
 	reHeadTagStart.lastIndex = 0;
 	var head_start, head_end,
@@ -636,7 +641,7 @@ woas._extract_src_data = function(marker, source, full, current_page, start) {
 	source = "";
 	// skip non-head content
 	reTagStart.lastIndex = head_start;
-
+	
 	m = reTagStart.exec(the_head);
 	while (m !== null) {
 		tag = m[1].toLowerCase();
@@ -665,7 +670,7 @@ woas._extract_src_data = function(marker, source, full, current_page, start) {
 				tag_end = m.index+m[0].length;
 				break;
 			default:
-				woas.log("Unknown tag in head: "+tag);
+//				woas.log("Unknown tag in head: "+tag);
 				// continue to check for permanent attribute
 				tag_end = m.index+m[0].length;
 				broken = true;
@@ -682,17 +687,16 @@ woas._extract_src_data = function(marker, source, full, current_page, start) {
 				if (l_attrs.indexOf("woas_core_style=")!==-1) {
 					woas.log("Replacing CSS");
 					needle = m[0]+woas.get_text("WoaS::CSS::Boot")+m2[0];
-				} else {
-					needle = "";
-				}
+				} // else leave as-is
 			} else if (tag === "title") {
-//				woas.log("Replacing title");
+				woas.log("Replacing title");
 				needle = m[0]+woas.xhtml_encode(current_page)+m2[0];
 				was_replaced = true;
 			}
 			}
 			// will leave tag untouched
 		} else {
+			woas.log("Removing tag "+tag);
 			needle = "";
 			was_replaced = true;
 		}
@@ -706,7 +710,7 @@ woas._extract_src_data = function(marker, source, full, current_page, start) {
 	// rebuild the source by using splicings
 	if (splicings.length) {
 		var prev_ofs = 0;
-		for(var i=0;i<splicings.length;++i) {
+		for(var i=0;i < splicings.length;++i) {
 			source += the_head.substring(prev_ofs, splicings[i].start) + splicings[i].needle;
 			prev_ofs = splicings[i].end;
 		} splicings = null;
@@ -758,12 +762,7 @@ woas._extract_src_data = function(marker, source, full, current_page, start) {
 		}
 
 
-	if (full) {
-		// offset was previously calculated
-		if (start) {
-			return source.substring(s_offset, e_offset);
-		}
-	} else {
+	if (!full) {
 		e_offset = source.indexOf("/* "+marker+ "-DATA */", s_offset);
 		if (e_offset === -1) {
 			this.alert(this.i18n.ERR_MARKER.sprintf("DATA"));
