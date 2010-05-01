@@ -191,7 +191,7 @@ woas.plugins = {
 					"&nbsp;&nbsp;[[Javascript::woas._edit_plugin('"+this._active[i]+"')|Edit...]]"+
 					"\n");
 		}
-		return "\n\n"+this._simple_join_list(pg);
+		return "\n\n"+woas._simple_join_list(pg);
 	},
 	// if given page name is a plugin, disable it
 	// used when deleting pages
