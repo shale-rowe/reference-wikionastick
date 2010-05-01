@@ -225,12 +225,15 @@ woas.export_wiki = function () {
 	if (exp.js_mode==2) {
 		//export all active plugins as javascript code
 		var js_fn;
-		for(var pi=0,pt=this._plugin_scripts.length;pi<pt;++pi) {
-			data = this.plugins.get(this._plugin_scripts[pi]);
+		for(var pi=0,pt=this.plugins._active.length;pi<pt;++pi) {
+			data = this.plugins.get(this.plugins._active[pi]);
 			if (this.plugins.is_external) {
-				exp.custom_scripts += '<sc'+'ript type="text/javascript" src="'+data+'"><'+'/sc'+"ript>\n";
+				// data is an array of sources, go through it
+				for(var i=0;i<data.length;++i) {
+					exp.custom_scripts += '<sc'+'ript type="text/javascript" src="'+data[i]+'"><'+'/sc'+"ript>\n";
+				}
 			} else {
-				js_fn = this._unix_normalize(this._plugin_scripts[pi])+".js";
+				js_fn = this._unix_normalize(this.plugins._active[pi])+".js";
 				if (this.save_file(exp.xhtml_path+js_fn,
 									this.file_mode.ASCII, data)) {
 					exp.custom_scripts += '<sc'+'ript type="text/javascript" src="'+js_fn+'"><'+'/sc'+"ript>\n";
