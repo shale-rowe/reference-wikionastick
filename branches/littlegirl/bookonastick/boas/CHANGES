@@ -868,3 +868,5 @@
 * Added the tests/aes_tests.htm file.
 * Added the tools subdirectory.
 ======================================================================================================================
+* Moved the tools from the boas/tools subdirectory to the tools subdirectory.
+======================================================================================================================
