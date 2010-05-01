@@ -1,6 +1,10 @@
 
 == For 0.12.0
 
+* allow multiple external javascript sources in plugin pages starting with '@'
+
+* code documentation and modularization
+
 * have a page object for each page
 ** this will optimize read operations because page objects will be passed by reference
 
