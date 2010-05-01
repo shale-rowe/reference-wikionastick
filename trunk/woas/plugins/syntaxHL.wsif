@@ -1,0 +1,15 @@
+wsif.version: 1.3.0
+wsif.generator: woas
+woas.version: 0.12.0
+woas.author: legolas558
+
+woas.page.title: WoaS::Plugins::@syntaxHL
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+plugins/syntaxHL.js
+
+--DFQRCTsKlU
