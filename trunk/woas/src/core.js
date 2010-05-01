@@ -237,7 +237,7 @@ woas.cmd_delete = function() {
 		return false;
 	}
 	if (confirm(this.i18n.CONFIRM_DELETE.sprintf(pname))) {
-		this._plugin_delete_check(pname);
+		this.plugins.delete_check(pname);
 		this.delete_page_i(pi);
 		return true;
 	}
