@@ -676,7 +676,7 @@ woas.dom = {
 		// only external sources should be marked as "loading"
 		if (external)
 			++this._loading;
-		woas.log("DOM: "+script_token+" created "+(external ? script_content+" ":"(inline) ")+this._show_load());
+		woas.log("DOM: "+script_token+" created "+(external ? "("+script_content+") ":"(inline) ")+this._show_load());
 		// add a callback which informs us of the completion
 		if (external)
 			s_elem.onload = s_elem.onreadystatechange = woas._make_delta_func("woas.dom._elem_onload",

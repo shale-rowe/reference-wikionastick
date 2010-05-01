@@ -57,7 +57,6 @@ woas.custom.jsMath = {
 		$.hide("jsmath_postr_btn_"+i);
 		return;
 	},
-*/
 	
 	_macro_hook : function(macro) {
 		 // quit if libraries have not yet been loaded and
