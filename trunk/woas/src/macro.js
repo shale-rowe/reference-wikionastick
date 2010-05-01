@@ -43,6 +43,7 @@ woas.macro_parser = function(text){
 					(this.macro_parser.macro_functions[fi])(macro);
 				else {
 					// inline insertion of parameters
+					// cannot use woas.eval because we need context for 'macro'
 					eval( "(woas.macro_parser.macro_functions["+fi+"])"+
 								"(macro,"+M[2].substr(1,pl-2)+");"
 						);
@@ -130,13 +131,9 @@ woas.macro_parser.create = function(fn_name, fn_params, fn_code) {
 	if (real_params.length)
 		other_params = ","+real_params.join(",");
 	else other_params = "";
-	var obj = null;
-	try {
-		var snippet = "obj = function "+fn_name+"(macro"+other_params+") {\n"+fn_code+"\n}";
-		eval(snippet);
-	}
-	catch (e) {
-		log("cannot define function "+fn_name+": "+e); //log:1
+	var obj = woas.eval("function "+fn_name+"(macro"+other_params+") {\n"+fn_code+"\n}", true);
+	if (woas.eval_failed) {
+		log("cannot define function "+fn_name+": "+woas.eval_fail_msg); //log:1
 		return false;
 	}
 	return this.register(fn_name, obj);
