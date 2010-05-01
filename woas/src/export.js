@@ -1,3 +1,8 @@
+// WoaS 'exporter' module
+woas.exporter = {
+	//TODO: populate it
+};
+
 var _export_main_index = false, _export_unix_norm = false,
 	_export_default_ext;
 
@@ -222,10 +227,14 @@ woas.export_wiki = function () {
 		var js_fn;
 		for(var pi=0,pt=this._plugin_scripts.length;pi<pt;++pi) {
 			data = this.plugins.get(this._plugin_scripts[pi]);
-			js_fn = this._unix_normalize(this._plugin_scripts[pi])+".js";
-			if (this.save_file(exp.xhtml_path+js_fn,
-								this.file_mode.ASCII, data)) {
-				exp.custom_scripts += '<sc'+'ript type="text/javascript" src="'+js_fn+'"><'+'/sc'+"ript>\n";
+			if (this.plugins.is_external) {
+				exp.custom_scripts += '<sc'+'ript type="text/javascript" src="'+data+'"><'+'/sc'+"ript>\n";
+			} else {
+				js_fn = this._unix_normalize(this._plugin_scripts[pi])+".js";
+				if (this.save_file(exp.xhtml_path+js_fn,
+									this.file_mode.ASCII, data)) {
+					exp.custom_scripts += '<sc'+'ript type="text/javascript" src="'+js_fn+'"><'+'/sc'+"ript>\n";
+				}
 			}
 		}
 	}
