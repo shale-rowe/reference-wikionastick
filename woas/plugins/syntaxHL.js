@@ -30,7 +30,7 @@ woas.custom.shjs = {
 			woas.custom.shjs._rendering = true;
 //			woas.log("OK, now rendering");
 			// render all blocks by clicking their button
-			for(var i=0;i<woas.custom.shjs._block;++i) {
+			for(var i=0;i < woas.custom.shjs._block;++i) {
 				$("shjs_postr_btn_"+woas.custom.shjs._uid+"_"+i).click();
 			}
 			// clear
@@ -61,6 +61,9 @@ woas.custom.shjs = {
 		return;
 	},
 	
+	// array of desired languages (to be loaded) before rendering
+	_desired: [],
+	
 	_macro_hook: function(macro, classes) {
 		// shjs library not yet loaded, go into pre-render mode
 		var pre_render = (typeof sh_languages == "undefined");
@@ -79,7 +82,9 @@ woas.custom.shjs = {
 					if (language === "sourcecode")
 						continue;
 					classes_v += "'"+woas.js_encode(language)+"',";
-					if (pre_render || !(language in sh_languages)) {
+					if (pre_render) {
+						woas.custom.shjs._desired.push(language);
+					} else if (!(language in sh_languages)) {
 						// load this library
 						woas.dom.add_script("lib", "shjs_"+language, "plugins/shjs/lang/sh_"+language+".min.js", true);
 					}
@@ -109,6 +114,16 @@ woas.custom.shjs = {
 		++woas.custom.shjs._block;
 		// reset block counter
 //		if (!pre_render)	this._block = 0;
+		// get the desired languages
+		if (!pre_render) {
+			var language;
+			while (woas.custom.shjs._desired.length) {
+				language = woas.custom.shjs._desired.shift();
+				if (!(language in sh_languages)) {
+					woas.dom.add_script("lib", "shjs_"+language, "plugins/shjs/lang/sh_"+language+".min.js", true);
+				}
+			} // wend
+		}
 	}
 	
 };

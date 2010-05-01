@@ -23,7 +23,6 @@ jsMath = {
 
 woas.custom.jsMath = {
 	is_loaded: false,
-	_block: 0,		// number of pre tags to render after library finishes loading
 	init : function() {
 		if (!this.is_loaded)
         // setup jsMath config object and
@@ -35,6 +34,8 @@ woas.custom.jsMath = {
 		return this.is_loaded;
 	},
 	
+/*
+	_block: 0,		// number of pre tags to render after library finishes loading
 	_called: 0,
 	_rendering: false,
 	render_all: function() {
@@ -42,7 +43,7 @@ woas.custom.jsMath = {
 		if (++woas.custom.jsMath._called == 2) {
 			woas.custom.jsMath._rendering = true;
 			jsMath.Init();
-			for(var i=0;i<woas.custom.jsMath._block;++i) {
+			for(var i=0;i < woas.custom.jsMath._block;++i) {
 				woas.custom.jsMath.post_render(i);
 			}
 			woas.custom.jsMath._block = 0;
@@ -57,17 +58,18 @@ woas.custom.jsMath = {
 		$.hide("jsmath_postr_btn_"+i);
 		return;
 	},
+*/
 	
 	_macro_hook : function(macro) {
 		 // quit if libraries have not yet been loaded and
 		 // increase counter for post-rendering
-		 if (typeof jsMath.Process == "undefined") {
+/*		 if (typeof jsMath.Process == "undefined") {
 			macro.text = "<"+"div id=\"jsmath_postrender_"+woas.custom.jsMath._block+"\">"+macro.text+"<"+"/div>"+
 						"<"+"input id=\"jsmath_postr_btn_"+woas.custom.jsMath._block+
 						"\" type=\"button\" value=\"Render\" onclick=\"woas.custom.jsMath.post_render("+woas.custom.jsMath._block+");\" /"+">";
 			++this._block;
 			return;
-		 }
+		 } */
 // 		this._block = 0;
 		jsMath.Init();
 		macro.text = jsMath.Translate.Parse('T', macro.text);
