@@ -1,6 +1,6 @@
 /* shjs binding for WoaS
    @author legolas558
-   @version 0.1.11
+   @version 0.2.0
    @license GPLv2
 
    works with shjs 0.6
@@ -13,43 +13,32 @@ woas.custom.shjs = {
 	is_loaded: false,
 	_uid: _random_string(8),
 	_block: 0,			// current block
-	_original_hook: null,
 	
 	init: function() {
 		if (!this.is_loaded) {
-			this.is_loaded = woas.dom.add_script("lib", "shjs", "plugins/shjs/sh_main.min.js", true) &&
-							woas.dom.add_css("shjs_style", "plugins/shjs/sh_style.min.css", true);
-			// subclass post-load hook
-			woas.custom.shjs._original_hook = woas.parser.post_load;
-			woas.parser.post_load = function() {
-//				if (woas.custom.shjs._block !== 0)
-//					woas.custom.shjs._render_all_thread();
-				// launch original handler
-				woas.custom.shjs._original_hook();
-			};
+			this.is_loaded = woas.dom.add_css("shjs_style", "plugins/shjs/sh_style.min.css", true, woas.custom.shjs._render_all) &&
+								woas.dom.add_script("lib", "shjs", "plugins/shjs/sh_main.min.js", true, woas.custom.shjs._render_all);
 		}
 		return this.is_loaded;
 	},
 	
-	_render_all_thread: function() {
-		// repeat if library is not yet available
-		if (typeof sh_languages == "undefined") {
-			woas.log("Waiting for shjs library...");
-			setTimeout("woas.custom.shjs._render_all_thread();", 600);
+	_called: 0,
+	_rendering: false,
+	_render_all: function() {
+		if (woas.custom.shjs._rendering) return;
+		if (++woas.custom.shjs._called == 2) {
+			woas.custom.shjs._rendering = true;
+//			woas.log("OK, now rendering");
+			// render all blocks by clicking their button
+			for(var i=0;i<woas.custom.shjs._block;++i) {
+				$("shjs_postr_btn_"+woas.custom.shjs._uid+"_"+i).click();
+			}
+			// clear
+			woas.custom.shjs._block = 0;
+		} else {
+//			woas.log("CSS and library not yet ready");
 			return;
 		}
-		// render everything
-		woas.custom.shjs._render_all();
-		// finish
-	},
-	
-	_render_all: function() {
-		// render all blocks by clicking their button
-		for(var i=0;i<woas.custom.shjs._block;++i) {
-			$("shjs_postr_btn_"+woas.custom.shjs._uid+"_"+i).click();
-		}
-		// clear
-		woas.custom.shjs._block = 0;
 	},
 	
 	// this was adapted from shjs' sh_highlightDocument
@@ -105,18 +94,21 @@ woas.custom.shjs = {
 		if (pre_render) {
 			macro.text += "<"+"input id=\"shjs_postr_btn_"+woas.custom.shjs._uid+
 						"_"+woas.custom.shjs._block+"\" type=\"button\" value=\"Render\" onclick=\"woas.custom.shjs.post_render("+woas.custom.shjs._block+","+classes_v+");\" /"+">";
+			macro.reprocess = false;
 		} else {
 			// inline script for highlighting
-			// we access the script_extension private array here -- UNSUPPORTED!
-			woas.parser.script_extension.push(
-					"woas.custom.shjs._highlight_element($('woas_shjs_"+woas.custom.shjs._uid+"_"+woas.custom.shjs._block+"'),"+classes_v+");"
-			);
-					
+			// TODO: check why the script_extension private array does not work
+//			woas.parser.script_extension.push(
+			macro.text += "<"+"script type=\"text/javascript\">\n"+
+					"woas.custom.shjs._highlight_element($('woas_shjs_"+woas.custom.shjs._uid+"_"+woas.custom.shjs._block+"'),"+classes_v+");"+
+					"<"+"/script>";
+//			);
+			macro.reprocess = true;
 		}
-		macro.reprocess = true;
+		
 		++woas.custom.shjs._block;
 		// reset block counter
-		if (!pre_render)	this._block = 0;
+//		if (!pre_render)	this._block = 0;
 	}
 	
 };
