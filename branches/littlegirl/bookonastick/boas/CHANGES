@@ -850,3 +850,7 @@
 * Added this CHANGES file to the boas directory.
 * Added the BEFORECOMMIT script to the boas directory.
 ======================================================================================================================
+* Removed the contents of the boas-pvhl-test-merge subdirectory.
+======================================================================================================================
+* Removed the boas-pvhl-test-merge subdirectory.
+======================================================================================================================
