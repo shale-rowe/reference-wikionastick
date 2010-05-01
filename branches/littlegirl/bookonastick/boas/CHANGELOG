@@ -913,3 +913,11 @@
 ======================================================================================================================
 * Merged the tools from WoaS to BoaS.
 ======================================================================================================================
+* Added some of the BoaS CSS to the custom wiki CSS page.
+* Switched the positions of the footer and debug console.
+* Replaced the menu buttons with mine (will finish adding more for the new features later).
+* Updated the [[::Menu]].
+* Updated the [[WoaS::CSS::Custom]] page.
+* Added a note to the [[Utility::Diary]] page warning users that the diary is broken in this version.
+* Added a note to the [[ToDo list]] page warning users that the ToDo list is broken in this version.
+* Added a note to the [[Sandbox]] page warning users that the ToDo list is broken in this version.

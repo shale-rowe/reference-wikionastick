@@ -10,22 +10,15 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-[[Main Page]]
+[[Include::Utility::Links for writers]]
 * [[WoaS History]]
 * [[WoaS::Help::]]
 * [[WoaS::Aliases]]
 * [[WoaS::Hotkeys]]
 * [[WoaS::Plugins]]
-* [[Special::All Pages]]
-* [[Special::Erase Wiki]]
 * [[Special::Recentchanges|Recentchanges]]
-* [[Special::Backlinks|Backlinks]]
-* [[Special::New Page|New Page]]
 * [[Special::Duplicate Page|Duplicate Page]]
-* [[Special::Delete Page|Delete Page]]
 * [[Special::Go to|Go to...]]
-[[Include::WoaS::Template::Search]]
-[[Include::Utility::Links for writers]]
 --DFQRCTsKlU
 woas.page.title: Special::Advanced
 woas.page.attributes: 0
@@ -134,7 +127,9 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-[[Include::Special::About]]
+== Book on a Stick development version 1.0
+If you're seeing this, then BoaS is in a state of transition and hasn't finished merging with WoaS 0.12.0 yet. This will look a lot better tomorrow.  <img src="data:image/png;base64,R0lGODlhBgAFAIABAAAAAP///yH5BAEAAAEALAAAAAAGAAUAAAIJDGJ4ic1qgAwFADs=" width="2%" height="2%">
+<!-- [[Include::Special::About]] -->
 <!-- Delete all of the text in the main text area of this page and replace it with whatever you like. You can click the About button in the menu to see the welcome page again at any time. -->
 
 --DFQRCTsKlU
@@ -3226,7 +3221,518 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-/* Your CSS customization goes here */
+/* CUSTOM CSS USED TO OVERRIDE DEFAULT CSS */
+
+/* ALERT NOTES */
+.alertnote {
+	border:0.063em groove #AA3;
+	background-color:pink;
+	font-size:80%;
+	padding-top:0.188em;
+	padding-right:0.313em;
+	padding-bottom:0.188em;
+	padding-left:0.313em;
+	margin-top:0em;
+	margin-bottom:0em;
+}
+
+/* BLUEBOX */
+.bluebox {
+	color:#000000;
+	background-color:#d1e0ef;
+	border:#3c5a86 0.063em dashed;
+	padding:0.313em;
+	margin:1.875em 0.313em 0.938em 0.625em;
+	font-size:0.75em;
+	font-weight:normal;
+}
+
+/* BLUEBOX - FIRST LETTER */
+.first-letter {
+	color:#fb9c39;
+	background-color:#333;
+	border:0.063em solid #fff;
+	border-right-width:medium;
+	border-left-width:medium;
+	border-color:yellow;
+	padding-right:1%;
+	margin-right:0.1em;
+	line-height:0.85em;
+	text-transform:capitalize;
+	text-decoration:none;
+	font-size:4em;
+	font-style:italic;
+	float:left;
+	display:block;
+}
+
+/* BLUEBOX - HEADER LEVEL 1 */
+.bluebox H1 {
+	color:#000000;
+	background-color:#99bbdd;
+	border:#3c5a86 0.063em solid;
+	padding-top:0.188em;
+	padding-right:0.313em;
+	padding-bottom:-0.188em;
+	padding-left:0.313em;
+	margin:0em 0em -0.75em 0.313em;
+	font-size:1.125em;
+	font-weight:bold;
+	position:relative;
+	top:-1.875em;
+	display:inline;
+} 
+
+/* BLUEBOX - HEADER LEVEL 2 */
+.bluebox H2 {
+	color:#000000;
+	padding-top:0.188em;
+	padding-right:0.313em;
+	padding-bottom:0.188em;
+	padding-left:0.313em;
+	font-size:1em;
+	font-weight:bold;
+	display:inline;
+} 
+
+/* BANNER - BACKGROUND AND POSITION */
+div.wiki_header {
+	background-color:gainsboro;
+	border-top:0.188em solid grey;
+	border-bottom:0.188em solid grey;
+	padding-right:0.75em;
+	width:99%;
+	top:0em; left:0em;
+	z-index: 1;
+	opacity:.65;
+}
+
+/* BANNER - PAGE TITLE */
+.title {
+	margin-top:0em;
+	margin-bottom:0em;
+	font-size:2em;
+	font-weight:bold;
+	text-shadow:#888 0.13em 0.13em 0.065em;
+	display:inline;
+} 
+
+/* BODY - BACKGROUND COLOR */
+.woas_background {
+	background-color:silver;
+} 
+
+/* CODE INLINE - MOZILLA */
+.wiki_preformatted {
+	color:black;
+	background-color:gainsboro;
+	padding-right:0.27em;
+	padding-left:0.27em;
+	font-family:monospace;
+	white-space:-moz-pre-wrap !important;
+}
+
+/* CODE INLINE - CSS-3 */
+/* .wiki_preformatted {
+	color:black;
+	background-color:gainsboro;
+	padding-right:0.27em;
+	padding-left:0.27em;
+	font-family:monospace;
+	white-space:pre-wrap;
+} */
+
+/* CODE INLINE - OPERA 4-6 */
+/* .wiki_preformatted {
+	color:black;
+	background-color:gainsboro;
+	padding-right:0.27em;
+	padding-left:0.27em;
+	font-family:monospace;
+	white-space:-pre-wrap;
+} */
+
+/* CODE INLINE - OPERA 7 */
+/* .wiki_preformatted {
+	color:black;
+	background-color:gainsboro;
+	padding-right:0.27em;
+	padding-left:0.27em;
+	font-family:monospace;
+	white-space:-o-pre-wrap;
+} */
+
+/* CODE INLINE - IE 5.5+ */
+/* .wiki_preformatted {
+	color:black;
+	background-color:gainsboro;
+	padding-right:0.27em;
+	padding-left:0.27em;
+	font-family:monospace;
+	word-wrap:break-word;
+} */
+
+/* CODE BLOCKS - MOZILLA */
+.woas_nowiki_multiline {
+	color:black;
+	background-color:gainsboro;
+	border:0.063em solid grey;
+	padding-right:0.27em;
+	padding-left:0.27em;
+	font-family:monospace;
+	white-space:-moz-pre-wrap !important;
+}
+
+/* CODE BLOCKS - CSS-3 */
+/* .woas_nowiki_multiline {
+	color:black;
+	background-color:gainsboro;
+	border:0.063em solid grey;
+	padding-right:0.27em;
+	padding-left:0.27em;
+	font-family:monospace;
+	white-space:pre-wrap;
+} */
+
+/* CODE BLOCKS - OPERA 4-6 */
+/* .woas_nowiki_multiline {
+	color:black;
+	background-color:gainsboro;
+	border:0.063em solid grey;
+	padding-right:0.27em;
+	padding-left:0.27em;
+	font-family:monospace;
+	white-space:-pre-wrap;
+} */
+
+/* CODE BLOCKS - OPERA 7 */
+/* .woas_nowiki_multiline {
+	color:black;
+	background-color:gainsboro;
+	border:0.063em solid grey;
+	padding-right:0.27em;
+	padding-left:0.27em;
+	font-family:monospace;
+	white-space:-o-pre-wrap;
+} */
+
+/* CODE BLOCKS - IE 5.5+ */
+/* .woas_nowiki_multiline {
+	color:black;
+	background-color:gainsboro;
+	border:0.063em solid grey;
+	padding-right:0.27em;
+	padding-left:0.27em;
+	font-family:monospace;
+	word-wrap:break-word;
+} */
+
+/* CODE BLOCKS - HTML - PRE TAGS - MOZILLA */
+pre {
+	color:black;
+	background-color:gainsboro;
+	border:0.063em solid grey;
+	padding:0.375em;
+	font-family:monospace;
+	white-space:-moz-pre-wrap !important;
+}
+
+/* CODE BLOCKS - HTML - PRE TAGS - CSS-3 */
+/* pre {
+	color:black;
+	background-color:gainsboro;
+	border:0.063em solid grey;
+	padding:0.375em;
+	font-family:monospace;
+	white-space:pre-wrap;
+} */
+
+/* CODE BLOCKS - HTML - PRE TAGS - OPERA 4-6 */
+/* pre {
+	color:black;
+	background-color:gainsboro;
+	border:0.063em solid grey;
+	padding:0.375em;
+	font-family:monospace;
+	white-space:-pre-wrap;
+} */
+
+/* CODE BLOCKS - HTML - PRE TAGS - OPERA 7 */
+/* pre {
+	color:black;
+	background-color:gainsboro;
+	border:0.063em solid grey;
+	padding:0.375em;
+	font-family:monospace;
+	white-space:-o-pre-wrap;
+} */
+
+/* CODE BLOCKS - HTML - PRE TAGS - IE 5.5+ */
+/* pre {
+	color:black;
+	background-color:gainsboro;
+	border:0.063em solid grey;
+	padding:0.375em;
+	font-family:monospace;
+	word-wrap:break-word;
+} */
+
+/* CORE PAGES */
+.woas_core_page {
+	background-color:aliceblue;
+	border:0em;
+} 
+
+/* DEBUG PANEL */
+#woas_debug_panel {
+	background-color:gray;
+	border:1pt solid black;
+	margin-top:0.75em;
+	margin-left:20.5%;
+	width:79%;
+}
+
+/* DEBUG CONSOLE */
+#woas_debug_console {
+}
+
+/* DEBUG LOG */
+#woas_debug_log {
+	background-color:rgb(204, 204, 204);
+	width:99.3%;
+} 
+
+/* FOOTER */
+.woas_about_footer {
+	background-color:gainsboro;
+	border:0.188em solid grey;
+	padding-top:0.438em;
+	padding-right:0.813em;
+	padding-bottom:0.813em;
+	padding-left:0.813em;
+	margin-top:0.75em;
+	margin-left:20.5%;
+	line-height:1em;
+	text-align:justify;
+	font-weight:normal;
+	font-size:80%;
+	width:77.5%;
+}
+
+/* FOOTER - LINKS */
+.woas_about_footer a {
+	color:mediumblue !important;
+}
+
+/* FOOTNOTES */
+.footnote {
+	color:mediumblue;
+	font-size:0.55em;
+	font-style:italic;
+	text-decoration:underline;
+	line-height:1em;
+	vertical-align:super;
+}
+
+/* FOOTNOTES - CONTAINER */
+.footnotecontainer {
+	background-color:#EEEEFF;
+	margin-top:-3em;
+	font-size:0.75em;
+	font-style:italic;
+	line-height:1em;
+	vertical-align:super;
+}
+
+/* HELP PAGES - CODE BLOCKS */
+div.helpcode {
+	color:black;
+	background-color:gainsboro;
+	border:0.063em solid grey;
+	padding:0.438em;
+	font-family:monospace;
+}
+
+/* HELP PAGES - TEXT */
+div.helptext {
+	color:darkcyan;
+	font-weight:bold;
+	font-style:italic;
+}
+
+/* LAST MODIFIED LINE */
+.woas_page_mts {
+	margin-top:0.75em;
+	margin-right:0.80em;
+	margin-left:20.5%;
+	z-index:0;
+	font-size:small;
+} 
+
+/* MAIN TEXT AREA */
+div.woas_text_area {
+	background-color:white;
+	border:0.188em solid grey;
+	padding-top:0.438em;
+	padding-right:0.813em;
+	padding-bottom:0.813em;
+	padding-left:0.813em;
+}
+
+/* MAIN TEXT AREA - WIKI TEXT */
+#wiki_text {
+	position:relative;
+	left:20.5%;
+	width:77%;
+	z-index:0;
+	margin-top:1.313em;
+	margin-bottom:0.75em;
+	text-align:justify;
+} 
+
+/* MENU */
+div.menu {
+}
+div.menu_area {
+	background-color:white;
+	left:0.7%;
+	width:18%;
+	padding:0.438em;
+	border:0.188em solid grey;
+	font-size:0.75em;
+}
+
+/* MENU - BUTTONS - FULL */
+.boas_menu_button_full {
+	color:darkblue;
+	background-color:gainsboro;
+	width:100%;
+	border:0.063em solid grey;
+	text-align:center;
+	font-size:1em;
+	font-variant:normal;
+	cursor:pointer;
+}
+.boas_menu_button_full:hover {
+	color:darkblue;
+	background-color:darkgrey;
+	width:100%;
+	border:0.063em solid grey;
+	text-align:center;
+	font-size:1em;
+	font-variant:normal;
+	cursor:pointer;
+}
+
+/* MENU - BUTTONS - HALF */
+.boas_menu_button_half {
+	color:darkblue;
+	background-color:gainsboro;
+	width:50%;
+	border:0.063em solid grey;
+	text-align:center;
+	font-size:1em;
+	font-variant:normal;
+	cursor:pointer;
+}
+.boas_menu_button_half:hover {
+	color:darkblue;
+	background-color:darkgrey;
+	width:50%;
+	border:0.063em solid grey;
+	text-align:center;
+	font-size:1em;
+	font-variant:normal;
+	cursor:pointer;
+}
+
+/* PAGE LIST HEADER */
+.woas_listing_options {
+	background-color:gainsboro;
+	border:0.1em solid grey;
+	padding:0.2em;
+}
+
+/* SPOILERS */
+.spoiler {
+	color:black;
+	background-color:black;
+}
+.spoiler:hover {
+	color:white;
+	background-color:black;
+}
+.spoilerblock a:link {
+	text-decoration:none;
+}
+.spoilerblock a:visited {
+	text-decoration:none;
+}
+.spoilerblock a:hover .show {
+	color:white;
+	background-color:black;
+	display:block;
+}
+.spoilerblock a:active {
+	text-decoration:none;
+}
+.spoilerblock a span {
+	display:none;
+}
+.spoilerinline a:link {
+	text-decoration:none;
+}
+.spoilerinline a:visited {
+	text-decoration:none;
+}
+.spoilerinline a:hover .show {
+	color:white;
+	background-color:black;
+	display:inline;
+}
+.spoilerinline a:active {
+	text-decoration:none;
+}
+.spoilerinline a span {
+	display:none;
+}
+
+/* TABLE OF CONTENTS */
+div.woas_toc {
+	background-color:#F5F5F5;
+	width:50%;
+	padding:0.313em;
+	border:1pt dashed #aaa;
+	font-size:95%;
+}
+
+/* TABLE OF CONTENTS - LIST */
+div.woas_toc ol, li {
+	margin-left:1.3em;
+	padding-left:0em;
+}
+
+/* TABLE OF CONTENTS - TITLE */
+p.woas_toc_title {
+	text-align:center;
+	font-weight:bold;
+}
+
+/* TOOLTIPS */
+span.tooltip {
+	cursor:help;
+	border-bottom:0.125em dotted mediumblue;
+}
+
+/* TOPNOTES */
+div.topnote {
+	position:absolute;
+	top:0.188em;
+	right:0.625em;
+}
+
+/* SIZE CONVERSIONS: 1em = 16px = 12pt */
+
 --DFQRCTsKlU
 woas.page.title: WoaS::CSS::Boot
 woas.page.attributes: 0
@@ -6836,6 +7342,8 @@ woas.page.boundary: DFQRCTsKlU
 = Sandbox
 This page is for trying out new things without having to create a new page.
 
+[[Include::Image::alert.png]] This ToDo interface is broken in WoaS 0.12.0, so it's broken in this merging copy of BoaS. Hopefully I can fix it.  <img src="data:image/png;base64,R0lGODlhBgAFAIABAAAAAP///yH5BAEAAAEALAAAAAAGAAUAAAIJDGJ4ic1qgAwFADs=" width="2%" height="2%">
+
 [[Include::Template::TODO|this|Delete this task from the Sandbox page to remove it from the ToDo list.]]
 
 --DFQRCTsKlU
@@ -7167,6 +7675,8 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = ToDo list
+[[Include::Image::alert.png]] This is broken in WoaS 0.12.0, so it's broken in this merging copy of BoaS. Hopefully I can fix it.  <img src="data:image/png;base64,R0lGODlhBgAFAIABAAAAAP///yH5BAEAAAEALAAAAAAGAAUAAAIJDGJ4ic1qgAwFADs=" width="2%" height="2%">
+
 <div id='todos' style="border:1px solid grey;"></div>
 <script>
 function listtodo() {
@@ -7884,6 +8394,8 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Diary
+[[Include::Image::alert.png]] This is broken in WoaS 0.12.0, so it's broken in this merging copy of BoaS. Hopefully I can fix it.  <img src="data:image/png;base64,R0lGODlhBgAFAIABAAAAAP///yH5BAEAAAEALAAAAAAGAAUAAAIJDGJ4ic1qgAwFADs=" width="2%" height="2%">
+
 <div id="daily_diary"></div>
 <script>
 var D = new Date();
