@@ -639,19 +639,30 @@ woas._get_special = function(cr, interactive) {
 // this is quite undocumented
 woas.get_javascript_page = function(cr) {
 	var emsg = "-", text;
-	try {
-		text = eval(cr);
-	}
-	catch (e) {
-		emsg = e.toString();
+	text = woas.eval(cr, true);
+	if (this.eval_failed) {
+		this.crash("Dynamic evaluation of '"+cr+"' failed!\n\nError message:\n\n"+this.eval_fail_msg);
+		return null;
 	}
 	if (typeof text == "undefined")
 		return null;
-	if (text === null) {
-		this.crash("Dynamic evaluation of '"+cr+"' failed!\n\nError message:\n\n"+emsg);
-		return null;
-	}
 	return text;
+}
+
+woas.eval = function(code, return_value) {
+	var rv;
+	try {
+		if (return_value)
+			eval("rv = "+code);
+		else
+			eval(code);
+		woas.eval_failed = false;
+	}
+	catch (e) {
+		this.eval_fail_msg = e.toString();
+		this.eval_failed = true;
+	}
+	return rv;
 };
 
 // Load a new current page
