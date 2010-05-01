@@ -732,8 +732,11 @@ woas.refresh_menu_area = function() {
 	if (menu == null)
 		$("menu_area").innerHTML = "";
 	else {
+		this.parser._parsing_menu = true;
 		$("menu_area").innerHTML = this.parser.parse(menu, false, this.js_mode("::Menu"));
-		this._activate_scripts();
+		this.parser._parsing_menu = false;
+		this.scripting.clear("menu");
+		this.scripting.activate("menu");
 	}
 };
 
