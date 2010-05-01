@@ -1067,7 +1067,7 @@ woas._on_load = function() {
 woas._render_after_load = function() {
 	// keep re-threading until all other scripts have been loaded
 	if (this.dom._loading) {
-//		woas.log("_render_after_load() respawned");
+		woas.log("_render_after_load() respawned");
 		setTimeout("woas._render_after_load();", 200);
 		return;
 	}
