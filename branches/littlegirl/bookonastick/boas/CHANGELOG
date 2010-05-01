@@ -897,3 +897,11 @@
 * Merged the woas.htm file from trunk with the boas.htm file.
 * Merged the index.wsif file from trunk with the BoaS index.wsif file.
 ======================================================================================================================
+* Added ball.png to the gfx subdirectory.
+* Added bg.png to the gfx subdirectory.
+* Added clip_add.png to the gfx subdirectory.
+* Added clip.png to the gfx subdirectory.
+* Added clip_sub.png to the gfx subdirectory.
+* Added grid.png to the gfx subdirectory.
+* Added helpbg.png to the gfx subdirectory.
+======================================================================================================================
