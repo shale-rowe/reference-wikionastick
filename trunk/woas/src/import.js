@@ -24,8 +24,9 @@ var reValidImage = /^data:\s*[^;]*;\s*base64,\s*/;
 woas.import_wiki = function() {
 
 	// function used to collect variables
-	function get_import_vars(data, ignore) {
-		var c=[], jstrings=[];
+	function get_import_vars(data, ignore_array) {
+		var container={},	// extracted data container
+			jstrings=[];
 		// (1) take away all javascript strings (most notably: content and titles)
 		// WARNING: quoting hacks lie here!
 		data = data.replace(/\\'/g, ":-"+parse_marker).replace(reJString, function (str) {
@@ -33,21 +34,24 @@ woas.import_wiki = function() {
 			jstrings.push(str.substr(1, str.length-2).replace(reRequote, "\\'"));
 			return parse_marker+":"+(jstrings.length-1).toString();
 		});
+		var defs=[];
 		// (2) rename the variables
-		data = data.replace(/([^\\])\nvar (\w+) = /g, function (str, $1, $2) {
-			if (ignore && ignore.indexOf($2)!=-1)
-				return "\nvar ignoreme = ";
-			c.push('sw_import_'+$2);
-			return $1+"\nvar sw_import_"+$2+" = ";
-		});//.replace(/\\\n/g, '');
-		log("collected variables = "+c);	// log:1
-		// (3) expand the javascript strings
-		data = data.replace(reJStringRep, function (str, id) {
-			return "'"+jstrings[id]+"'";
-		});
-		// (4) directly parse the javascript and return it
-		c = eval(data+"\n["+c+"];");
-		return c;
+		data.replace(/([^\\])\nvar\s+(\w+)\s*=\s*([^;]+);/g, function (str, $1, $2, definition) {
+			if (ignore_array) {
+				// it must not be in array
+				if (ignore_array.indexOf($2) !== -1)
+					return;
+			}
+			// OK, we want this variable, grab it
+			defs.push($2);
+			container[$2] = woas.eval(definition.replace(reJStringRep,
+								function (str, id) { return "'"+jstrings[id]+"'";}
+							), true);
+		}); data = null;
+		log("collected variables = "+defs);	// log:1
+		// this shall not collide with woas variables found in javascript data block
+		container.defs = defs;
+		return container;
 	}
 
 	if(confirm(this.i18n.CONFIRM_IMPORT_OVERWRITE) === false)
@@ -213,29 +217,30 @@ woas.import_wiki = function() {
 		collected = get_import_vars(data);
 		data = ct = null;
 
-		var has_last_page_flag = (collected.length==14) ? 1 : 0;
-		if (!has_last_page_flag && (collected.length!=13)) {
+		var has_last_page_flag = (collected.defs.length==14) ? 1 : 0;
+		if (!has_last_page_flag && (collected.defs.length!=13)) {
 			this.alert(this.i18n.INVALID_DATA);
 			fail=true;
 			break;
 		}
 			
 		// set collected config options
-		old_block_edits = !collected[2];
-		this.config.dblclick_edit = collected[3];
-		this.config.save_on_quit = collected[4];
+		old_block_edits = !collected[collected.defs[2]];
+		this.config.dblclick_edit = collected[collected.defs[3]];
+		this.config.save_on_quit = collected[collected.defs[4]];
 		if (has_last_page_flag)
-			this.config.nav_history = collected[5];
-		this.config.allow_diff = collected[5+has_last_page_flag];
-		this.config.key_cache = collected[6+has_last_page_flag];
+			this.config.nav_history = collected[collected.defs[5]];
+		this.config.allow_diff = collected[collected.defs[5+has_last_page_flag]];
+		this.config.key_cache = collected[collected.defs[6+has_last_page_flag]];
 		// the gathered data
-		new_main_page = collected[8+has_last_page_flag];
-		page_names = collected[10+has_last_page_flag];
-		old_page_attrs = collected[11+has_last_page_flag];
-		page_contents = collected[12+has_last_page_flag];
+		new_main_page = collected[collected.defs[8+has_last_page_flag]];
+		page_names = collected[collected.defs[10+has_last_page_flag]];
+		old_page_attrs = collected[collected.defs[11+has_last_page_flag]];
+		page_contents = collected[collected.defs[12+has_last_page_flag]];
 		
 	} else {	// we are importing from v0.9.2 and above which has a config object for all the config flags
-		
+			// some GC help: we no more need the big content variable
+			ct = null;		
 			// old-style import for content, skipping the main woas object and the marker
 			// shared with v0.9.5B
 			collected = get_import_vars(data, ['woas', '__marker', 'version', '__config']);
@@ -245,18 +250,18 @@ woas.import_wiki = function() {
 			// from 0.10.0: sw_page_mts is before sw_import_pages
 			// from 0.10.9: main_page is inside woas.config
 			if (old_version <= 108)
-				new_main_page = collected[1];
+				new_main_page = collected[collected.defs[1]];
 			if (import_content) {
 				// offset for missing main_page var
 				var ofs_mp = (old_version <= 108) ? 0 : -1;
 				if (old_version <= 97)
-					page_contents = collected[5+ofs_mp];
+					page_contents = collected[collected.defs[5+ofs_mp]];
 				else {
-					old_page_mts = collected[5+ofs_mp];
-					page_contents = collected[6+ofs_mp];
+					old_page_mts = collected[collected.defs[5+ofs_mp]];
+					page_contents = collected[collected.defs[6+ofs_mp]];
 				}
-				page_names = collected[3+ofs_mp];
-				old_page_attrs = collected[4+ofs_mp];
+				page_names = collected[collected.defs[3+ofs_mp]];
+				old_page_attrs = collected[collected.defs[4+ofs_mp]];
 				if (old_version===92) {
 					// replace the pre tags with the new nowiki syntax
 					for (i=0;i<page_contents.length;i++) {
@@ -281,46 +286,46 @@ woas.import_wiki = function() {
 			} // do not import content pages
 
 			// since version v0.9.5B+ we have an object oriented WoaS
+			// load config from it
 			if (old_version >= 95) {
-				// rename the members
-				collected = [];
-				data = data.replace(/([^\\])\nwoas\\["(\w+)"\\] = /g, function (str, $1, $2) {
-					collected.push($2);
-					return $1+"\ni__woas[\""+$2+"\"] = ";
-				});//.replace(/\\\n/g, '');
-				data = null;
 				
-				// retrieve the object containing all woas data & config
-				var i__woas = eval(data+"\ni__woas");
-				
-				// import each member
-				for(var a=0,acl=collected.length;a<acl;++a) {
-					woas[collected[a]] = i__woas[collected[a]];
+				var cfgStartMarker = 'woas["'+'config"] = {',
+				// grab the woas config definition
+					cfg_start = data.indexOf(cfgStartMarker),
+					cfg_found = false;
+				if (cfg_start !== -1) {
+					var cfg_end = data.indexOf('}', cfg_start+cfgStartMarker.length);
+					if (cfg_end !== -1) {
+						woas.config = woas.eval(data.substring(cfg_start+cfgStartMarker.length-1, cfg_end+1), true);
+						cfg_found = !woas.eval_failed;
+					}
 				}
 				
-				// add the new debug option
-				if (old_version<=107)
-					woas.config.debug_mode = old_cfg.debug_mode;
-				// add the new safe mode and WSIF DS options
-				if (old_version < 112) {
-					woas.config.safe_mode = old_cfg.safe_mode;
-					woas.config.wsif_author = old_cfg.wsif_author;
-					woas.config.wsif_ds = old_cfg.wsif_ds;
-					woas.config.wsif_ds_lock = old_cfg.wsif_ds_lock;
-					woas.config.wsif_ds_multi = old_cfg.wsif_ds_multi;
-				}
-				if (old_version < 120) {
-					woas.config.new_tables_syntax = oldcfg.new_tables_syntax;
-					woas.config.store_mts = oldcfg.store_mts;
-					woas.config.folding_style = oldcfg.folding_style;
-				}
-				
-				// some GC help
-				ct = null;
-				i__woas = null;
-		} else data=null;
-		// DO NOT delete the arrays! They're referenced
-	//		collected = null;
+				if (!cfg_found) {
+					woas.log("Failed to import old configuration object");
+				} else {
+					// add the new debug option
+					if (old_version<=107)
+						woas.config.debug_mode = old_cfg.debug_mode;
+					// add the new safe mode and WSIF DS options
+					if (old_version < 112) {
+						woas.config.safe_mode = old_cfg.safe_mode;
+						woas.config.wsif_author = old_cfg.wsif_author;
+						woas.config.wsif_ds = old_cfg.wsif_ds;
+						woas.config.wsif_ds_lock = old_cfg.wsif_ds_lock;
+						woas.config.wsif_ds_multi = old_cfg.wsif_ds_multi;
+					}
+					if (old_version < 120) {
+						woas.config.new_tables_syntax = old_cfg.new_tables_syntax;
+						woas.config.store_mts = old_cfg.store_mts;
+						woas.config.folding_style = old_cfg.folding_style;
+					}
+				} // !cfg_found
+
+			} // done importing config object
+		
+		// some GC help
+		data = null;
 	} // done importing from v0.9.2B+
 
 	// modified timestamp for pages before 0.10.0
@@ -515,7 +520,8 @@ woas.import_wiki = function() {
 	// if there is bootscript code, create a new plugin for it
 	// skip empty bootscripts and also default bootscript
 	var trimmed_bs = this.trim(bootscript_code);
-	if ((trimmed_bs.length !== 0) && (trimmed_bs !== '/* insert here your boot script */')) {
+	if ((trimmed_bs.length !== 0) && (trimmed_bs !== '/* insert here your boot script */')
+		&& (trimmed_bs !== '// Put here your boot javascript')) {
 		var chosen_name = "WoaS::Plugins::Bootscript", base_name = chosen_name, i=0;
 		while (page_titles.indexOf(chosen_name) !== -1) {
 			chosen_name = base_name + "_" + (i++).toString();
