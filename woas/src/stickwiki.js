@@ -754,12 +754,7 @@ woas.set_current = function (cr, interactive) {
 							text = this.plugins.get(real_t.substr(_pfx.length));
 							if (text !== null) {
 								if (this.plugins.is_external) {
-									// show a list of external sources
-									var ntext = "<"+"ul>";
-									for(var i=0;i<text.length;++i) {
-										ntext += "<"+"li><"+"big>@<"+"/big><"+"a href=\""+text[i]+"\" target=\"_blank\">"+text[i]+"<"+"/a><"+"/li>\n";
-									}
-									text = ntext+"<"+"/ul>";
+									text = this.plugins.describe_external(text);
 								} else
 									text = "<div class=\"woas_nowiki_multiline woas_core_page\">"+text+"</div>";
 							}
