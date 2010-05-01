@@ -11,20 +11,57 @@ woas.hotkeys = {
 woas.cached_default_hotkeys = null;
 woas.custom_accesskeys = [];
 
-// count of custom scripts defined inline as script tags
-woas._custom_scripts = 0;
+// WoaS 'scripting' module manages custom scripts declared in menu and main page
+// All custom scripts can be defined in one of the two
+woas.scripting = {
+	menu: [],	// scripts active in menu
+	page: [],	// scripts active in page
+	_menu_stacked: 0,	// number of elements which shall be cleared
+	_page_stacked: 0,	// ''
+	
+	// remove all scripts from specified array (can be 'menu', 'page' or 'plugin')
+	clear: function(which) {
+		for(var i=0;i<this["_"+which+"_stacked"];++i) {
+			woas.dom.remove_script(which, i);
+		}
+		this["_"+which+"_stacked"] = 0;
+	},
+	
+	// add a custom script for later activation
+	add: function(which, content, external) {
+		this[which].push([content, external]);
+	},
+	
+	activate: function(which) {
+		for(var i=0;i<this[which].length;++i) {
+			if (woas.dom.add_script(which, i, this[which][i][0], this[which][i][1]))
+				++this["_"+which+"_stacked"];
+		}
+		// free memory
+		this[which] = [];
+	},
+	
+	remove: function(which, index) {
+		if (woas.dom.remove_script(which, index)) {
+			--this["_"+which+"_stacked"];
+			return true;
+		}
+		return false;
+	}
+	
+
+};
 
 // 'plugins' WoaS module
 woas.plugins = {
 	
-	get: function(name) {
-		return this.get_by_index(page_titles.indexOf("WoaS::Plugins::"+name), name);
-	},
+	// flag set by last call to get()
+	is_external: false,
+	_active: [],	// list of enabled plugins
 	
-	get_by_index: function(i, name) {
-		if (typeof name == "undefined")
-			name = page_titles[i].substr( 15 );
-		var text = woas.pager.get_by_index(i);
+	get: function(name) {
+		this.is_external = false;
+		var text = woas.pager.get("WoaS::Plugins::"+name);
 //		if (text === null) return "/* could not retrieve page */";
 		// check if this is an external page reference
 		// -- UNSUPPORTED FEATURE --
@@ -32,110 +69,112 @@ woas.plugins = {
 			// hack for external files loading at run-time
 			var p = text.indexOf("\n");
 			if (p !== -1) {
-				var js_fname = text.substr(0,p);
-				text = woas.load_file(woas.ROOT_DIRECTORY+js_fname);
-				// failure is not allowed, always return something
-				if (text === false)
-					text = "/* "+js_fname+" does not exist */\n";
-				else if (text === null)
-					text = "/* could not load "+js_fname+" */\n";
-				else
-					woas.log("Loaded external plugin "+js_fname);
+				this.is_external = true;
+				text = text.substr(0,p);
 			}
 		}
 		return text;
-	}
-};
+	},
 
-// plugin scripts array (those defined by active plugins)
-woas._plugin_scripts = [];
-
-// clear all custom scripts
-woas._clear_custom_scripts = function () {
-	if (!this._custom_scripts.length) return;
-	for(var i=0;i<this._custom_scripts;i++) {
-		this.dom.remove_script("custom", i);
-	}
-	// clear the counter
-	this._custom_scripts = 0;
-};
-
-// generate parsed scripts
-woas._activate_scripts = function() {
-	// add the custom scripts (if any)
-	if (this.parser.script_extension.length) {
-//		log(this.parser.script_extension.length + " javascript files/blocks to process");	// log:0
-		var external;
-		for (var i=0;i<this.parser.script_extension.length;i++) {
-			external = new String(typeof(this.parser.script_extension[i]));
-			external = (external.toLowerCase()!=="string");
-			// sometimes instancing the script is not necessary
-			// the add method will check it out for us and return false when no script was instanced
-			if (this.dom.add_script("custom", i,
-						external ? this.parser.script_extension[i][0] : this.parser.script_extension[i],
-						external))
-				// increment counter of scripts
-				this._custom_scripts++;
+	// disable one single plugin
+	disable: function(name) {
+		var i = this._active.indexOf(name);
+		if (i !== -1) {
+			// attempt removing the script block and fail otherwise
+			if (!woas.dom.remove("plugin", this._mapping(name)))
+				return false;
+			this._active.splice(i, 1);
+			return true;
 		}
-	}
-};
+		return false;
+	},
 
-// disable one single plugin
-woas._disable_plugin = function(name) {
-	for(var i=0,it=this._plugin_scripts.length;i<it;++i) {
-		if (this._plugin_scripts[i] !== name)
-			continue;
-		// attempt removing the script block and fail otherwise
-		if (!this.dom.remove_script("plugin", i))
+	update: function(name) {
+		return this.disable(name) && this.enable(name);
+	},
+
+	// enable a single plugin
+	enable: function(name) {
+		// generate the script element
+		if (woas.dom.add_script("plugin", this._mapping(name),
+						this.get(name), this.is_external)) {
+			this._active.push( name );
+			return true;
+		}
+		return false;
+	},
+	
+	// remove DOM object for all plugins
+	clear: function() {
+		for(var i=0,it=this._active.length;i<it;++i) {
+			// remove the DOM object
+			this.dom.remove_script("plugin", this._mapping(this._active[i]));
+		}
+		// reset array
+		this._active = [];
+	},
+	
+	// map a plugin name to an unique name
+	_mapping_cache:[],
+	_mapping: function(name) {
+		var i = this._mapping_cache.indexOf(name);
+		if (i == -1) {
+			i = this._mapping_cache.length;
+			this._mapping_cache.push(name);
+		}
+		return i;
+	},
+	
+	load: function() {
+		//TODO: get plugins configuration
+
+		// get list of plugins
+		var _pfx = "WoaS::Plugins::", l=_pfx.length, name;
+		for(var i=0,it=page_titles.length;i<it;++i) {
+			if (page_titles[i].substr(0, l) === _pfx) {
+				name = page_titles[i].substr(_pfx.length);
+				// generate the script element
+				this.enable(name);
+			}
+		} //efor
+	},
+	
+	list: function() {
+		var pt = this._active.length;
+		if (pt === 0)
+			return "\n\n/No plugins installed/";
+		var pg=[];
+		for(var i=0;i<pt;++i){
+			pg.push("* [[WoaS::Plugins::"+this._active[i]+"|"+this._active[i]+"]]"+
+					//TODO: some CSS for the plugin actions
+					"&nbsp;&nbsp;[[Javascript::woas._delete_plugin('"+this._active[i]+"')|Delete]]"+
+					"&nbsp;&nbsp;[[Javascript::woas._edit_plugin('"+this._active[i]+"')|Edit...]]"+
+					"\n");
+		}
+		return "\n\n"+this._simple_join_list(pg);
+	},
+	// if given page name is a plugin, disable it
+	// used when deleting pages
+	delete_check: function(pname) {
+		var _pfx = "WoaS::Plugins::";
+		if (pname.substr(0, _pfx.length) === _pfx)
+			this.disable(pname.substr(_pfx.length));
+	},
+
+	remove: function(name) {
+		var page_name = "WoaS::Plugins::"+name;
+		if (!confirm(woas.i18n.CONFIRM_DELETE.sprintf(page_name)))
+			return;
+		// first we attempt to disable it
+		if (!this.disable(name))
 			return false;
-		this._plugin_scripts.splice(i, 1);
-		return true;
-	}
-	return false;
-};
-
-woas._update_plugin = function(name) {
-	return this._disable_plugin(name) && this._enable_plugin(name);
-}
-
-// enable a single plugin
-woas._enable_plugin = function(name) {
-	// generate the script element
-	if (this.dom.add_script("plugin", this._plugin_scripts.length,
-						this.plugins.get(name),
-						false)) {
-		this._plugin_scripts.push( name );
-		return true;
-	}
-	return false;
-};
-
-// remove DOM object for all plugins
-woas._clear_plugins = function() {
-	for(var i=0,it=this._plugin_scripts.length;i<it;++i) {
-		// remove the DOM object
-		this.dom.remove_script("plugin", i);
-	}
-	// reset array
-	this._plugin_scripts = [];
-};
-
-woas._load_plugins = function() {
-	//TODO: get plugins configuration
-
-	// get list of plugins
-	var _pfx = "WoaS::Plugins::", l=_pfx.length, name;
-	for(var i=0,it=page_titles.length;i<it;++i) {
-		if (page_titles[i].substr(0, l) === _pfx) {
-			name = page_titles[i].substr(_pfx.length);
-			// generate the script element
-			if (this.dom.add_script("plugin", this._plugin_scripts.length,
-							this.plugins.get_by_index(i),
-							false))
-				// add to global array
-				this._plugin_scripts.push( name );
+		woas.delete_page(page_name);
+		if (current === "WoaS::Plugins") {
+			// reload plugins
+			$("wiki_text").innerHTML = woas.parser.parse(woas.get_text("WoaS::Plugins") + this.list());
 		}
 	}
+
 };
 
 woas.validate_hotkey = function(k) {
@@ -164,7 +203,7 @@ woas._load_hotkeys = function(s) {
 			return;
 		}
 		// associate a custom key binding
-		if (hkey == "CUSTOM") {
+		if (hkey === "CUSTOM") {
 			// store the custom definition for later update
 			lambda = lambda.substr(1, lambda.length-2);
 			new_custom_accesskeys.push({"fn":lambda, "key":binding});
@@ -265,45 +304,9 @@ woas._default_hotkeys = function() {
 // call once during code setup to store the current default hotkeys
 woas._default_hotkeys();
 
-// if given page name is a plugin, disable it
-// used when deleting pages
-woas._plugin_delete_check = function(pname) {
-	var _pfx = "WoaS::Plugins::";
-	if (pname.substr(0, _pfx.length) === _pfx)
-		this._disable_plugin(pname.substr(_pfx.length));
-};
-
-woas._delete_plugin = function(name) {
-	var page_name = "WoaS::Plugins::"+name;
-	if (!confirm(woas.i18n.CONFIRM_DELETE.sprintf(page_name)))
-		return;
-	if (!this._disable_plugin(name))
-		return false;
-	this.delete_page(page_name);
-	if (current === "WoaS::Plugins") {
-		// reload plugins
-		$("wiki_text").innerHTML = this.parser.parse(this.get_text("WoaS::Plugins") + this._plugins_list());
-	}
-};
-
 woas._edit_plugin = function(name) {
 	if (go_to("WoaS::Plugins::"+name))
 		woas.edit_page(current);
-};
-
-woas._plugins_list = function() {
-	var pt = this._plugin_scripts.length;
-	if (pt === 0)
-		return "\n\n/No plugins installed/";
-	var pg=[];
-	for(var i=0;i<pt;++i){
-		pg.push("* [[WoaS::Plugins::"+this._plugin_scripts[i]+"|"+this._plugin_scripts[i]+"]]"+
-				//TODO: some CSS for the plugin actions
-				"&nbsp;&nbsp;[[Javascript::woas._delete_plugin('"+this._plugin_scripts[i]+"')|Delete]]"+
-				"&nbsp;&nbsp;[[Javascript::woas._edit_plugin('"+this._plugin_scripts[i]+"')|Edit...]]"+
-				"\n");
-	}
-	return "\n\n"+this._simple_join_list(pg);
 };
 
 var reAliases = /^(\$[A-Za-z0-9_]{2,})\s+(.*?)$/gm;
