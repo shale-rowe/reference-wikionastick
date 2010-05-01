@@ -672,7 +672,6 @@ woas.set_current = function (cr, interactive) {
 	var text, namespace, pi;
 	result_pages = [];
 	// eventually remove the previous custom script
-	this._clear_custom_scripts();
 	if (cr.substring(cr.length-2)==="::") {
 		text = this._get_namespace_pages(cr);
 		namespace = cr.substring(0,cr.length-2);
@@ -869,8 +868,8 @@ woas.load_as_current = function(title, xhtml, mts) {
 	} else this._forward_browse = false;
 	this.update_nav_icons(title);
 	current = title;
-	this._activate_scripts();
-	
+	// active menu or page scripts
+	this.scripting.activate(this.is_menu(current) ? "menu" : "page");
 	return true;
 };
 
@@ -981,10 +980,7 @@ woas._on_load = function() {
 		$.show("img_logo");
 	}
 	
-	// (1) show loading message - not necessary since it is set upon save
-//	this.setHTML($("woas_wait_text"), this.i18n.LOADING);
-
-	// (2) check integrity of WoaS features - only in debug mode
+	// (1) check integrity of WoaS features - only in debug mode
 	if (this.config.debug_mode) {
 		this._set_debug(true);
 		if (this.tweak.integrity_test) {
@@ -995,7 +991,7 @@ woas._on_load = function() {
 	} else
 		this._set_debug(false);
 
-	// (3) load the actual pages (if necessary)
+	// (2) load the actual pages (if necessary)
 	if (this.config.wsif_ds.length) {
 		if (!this._wsif_ds_load(this.config.wsif_ds, this.config.wsif_ds_lock)) {
 			// the file load error is already documented to user
@@ -1008,13 +1004,13 @@ woas._on_load = function() {
 		}
 	}
 
-	// (4) setup some DOM cage objects (read cache)
+	// (3) setup some DOM cage objects (read cache)
 	this.dom.init();
 
-	// (5) activate the CSS, with eventual fixups for some browsers
+	// (4) activate the CSS, with eventual fixups for some browsers
 	this.css.set(this.get_text("WoaS::CSS::Core")+"\n"+this.get_text("WoaS::CSS::Custom"));
 	
-	// (6) continue with UI setup
+	// (5) continue with UI setup
 	$('woas_home_hl').title = this.config.main_page;
 	$('img_home').alt = this.config.main_page;
 	
@@ -1037,20 +1033,15 @@ woas._on_load = function() {
 		var p=current.indexOf("#");
 		if (p !== -1)
 			current = current.substring(0,p);
-//		woas.log("current ::= "+current);	//log:0
 	}
 	
+	// (6) initialize extensions - plugins go first so that external javascript/CSS
+	// starts loading
+	this.setHTML($("woas_wait_text"), "Initializing extensions...");
+	this.plugins.load();
 	this._load_aliases(this.get_text("WoaS::Aliases"));
 	this._load_hotkeys(this.get_text("WoaS::Hotkeys"));
-	this._load_plugins(false);
 
-	this._forward_browse = true; // used to not store backstack
-	this.set_current(current, true);
-	this.refresh_menu_area();
-	// feed the current title before running the disable edit mode code
-	this.prev_title = current;
-	this.disable_edit();
-	
 	if (this.config.permit_edits)
 		$.show("menu_edit_button");
 	else
@@ -1061,6 +1052,31 @@ woas._on_load = function() {
 		this._asto = setTimeout("_auto_saver(woas)", this.config.auto_save);
 	
 	this._editor = new TextAreaSelectionHelper($("woas_editor"));
+
+	this.setHTML($("woas_wait_text"), "Completing load process...");
+
+	// this thread will eventually disable the wait screen
+	// and render the first page
+	woas._render_after_load();
+};
+
+// the first page rendering is a delicate process
+// plugins and related libraries/CSS must be loaded
+// before rendering the first page to prevent some glitches
+// to happen, like: missing CSS, missing macros etc
+woas._render_after_load = function() {
+	// keep re-threading until all other scripts have been loaded
+	if (this.dom._loading) {
+//		woas.log("_render_after_load() respawned");
+		setTimeout("woas._render_after_load();", 200);
+		return;
+	}
+	this._forward_browse = true; // used to not store backstack
+	this.set_current(current, true);
+	this.refresh_menu_area();
+	// feed the current title before running the disable edit mode code
+	this.prev_title = current;
+	this.disable_edit();
 	
 //	this.progress_finish();
 	$.hide("loading_overlay");
