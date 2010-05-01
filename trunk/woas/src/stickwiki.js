@@ -1413,8 +1413,8 @@ woas.save = function() {
 						// we do not directly call _update_plugin because
 						// plugin does not exist before creation so disabling it
 						// would fail
-						this._disable_plugin(new_title.substr(_pfx.length));
-						this._enable_plugin(new_title.substr(_pfx.length));
+						this.plugins.disable(new_title.substr(_pfx.length));
+						this.plugins.enable(new_title.substr(_pfx.length));
 					}
 					// check if this is a menu
 					if (this.is_menu(new_title)) {

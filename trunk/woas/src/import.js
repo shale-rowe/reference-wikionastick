@@ -511,10 +511,10 @@ woas.import_wiki = function() {
 	
 	// add/update plugins
 	for(var i=0,it=plugins_update.length;i<it;++i) {
-		this._update_plugin(plugins_update[i]);
+		this.plugins.update(plugins_update[i]);
 	}
 	for(var i=0,it=plugins_add.length;i<it;++i) {
-		this._enable_plugin(plugins_add[i]);
+		this.plugins.enable(plugins_add[i]);
 	}
 	
 	// if there is bootscript code, create a new plugin for it
