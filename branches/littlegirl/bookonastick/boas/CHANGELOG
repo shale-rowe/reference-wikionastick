@@ -875,3 +875,23 @@
 * Renamed the CHANGES file to CHANGELOG.
 * Renamed the COMMIT file  back to commit.sh.
 ======================================================================================================================
+* Merged datalayer.js from trunk.
+* Merged wsif.js from trunk.
+* Merged aes.js from trunk.
+* Merged import.js from trunk.
+* Merged ui.js from trunk.
+* Merged i18n.js from trunk.
+* Merged special.js from trunk.
+* Merged export.js from trunk.
+* Merged base64.js from trunk.
+* Merged editor.js from trunk.
+* Merged core.js from trunk.
+* Merged parser.js from trunk.
+* Merged framework.js from trunk.
+* Merged loadsave.js from trunk.
+* Merged stickwiki.js from trunk.
+======================================================================================================================
+* Added the extensions.js file.
+* Added the macro.js file.
+======================================================================================================================
+
