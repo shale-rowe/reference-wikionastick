@@ -1,16 +1,20 @@
 
-woas["debug"] = true;			// toggle debug mode (and console)
-
-//TODO: all variables should stay inside this object
-woas["browser"] = { ie: false, ie6: false, ie8: false,
+// pvhl proposes to use a version property to identify more easily the browser version
+// it seems a bit excessive for now
+woas.browser = { ie: false, ie6: false, ie8: false,
 					firefox: false, firefox2: false,
 					firefox3: false, firefox_new: false,
-					opera: false, safari: false
+					opera: false, safari: false,
+					chrome: false
 				};
 
 if((navigator.userAgent).indexOf("Opera")!=-1)
 	woas.browser.opera = true;
-else if(navigator.appName == "Netscape") {
+else if (navigator.userAgent.indexOf("Chrome") != -1)
+	woas.browser.chrome = true;
+else if (navigator.userAgent.toLowerCase().indexOf("applewebkit") != -1) {
+	woas.browser.safari = true;
+} else if(navigator.appName == "Netscape") {
 	// check that it is Gecko first
 	woas.browser.firefox = (new RegExp("Gecko\\/\\d+")).test(navigator.userAgent) ? true : false;
 	// match also development versions of Firefox "Shiretoko" / "Namoroka"
@@ -34,31 +38,34 @@ else if(navigator.appName == "Netscape") {
 	} // not Gecko
 } else if((navigator.appName).indexOf("Microsoft")!=-1) {
 	woas.browser.ie = true;
-	woas.browser.ie8 = (navigator.userAgent.search(/msie 8\./i)!=-1);
+	woas.browser.ie8 = document.documentMode ? true : false;
 	if (!woas.browser.ie8)
-		woas.browser.ie6 = (navigator.userAgent.search(/msie 6\./i)!=-1);
-} else if (navigator.userAgent.indexOf("applewebkit") != -1) {
-	woas.browser.safari = true;
+		woas.browser.ie6 = window.XMLHttpRequest ? false : true;
 }
 
 // finds out if Opera is trying to look like Mozilla
-if (woas.browser.firefox && (navigator.product != "Gecko"))
-	woas.browser.firefox = woas.browser.firefox2 = woas.browser.firefox3
-							woas.browser.firefox_new = false;
+if (woas.browser.firefox && (navigator.product != "Gecko")) {
+	woas.browser.firefox = woas.browser.firefox2
+	= woas.browser.firefox3 = woas.browser.firefox_new = false;
+	if (typeof window.opera != "undefined")
+		woas.browser.opera = true;
+}
 
 // finds out if Opera is trying to look like IE
-if (woas.browser.ie && woas.browser.opera)
-	woas.browser.ie = false;
+if (woas.browser.ie && (typeof window.opera != "undefined")) {
+	woas.browser.ie = woas.browser.ie6 = woas.browser.ie8 = false;
+	woas.browser.opera = true;
+}
 
 var is_windows = (navigator.appVersion.toLowerCase().indexOf("windows")!=-1);
 
-woas["_server_mode"] = (document.location.toString().match(/^file:\/\//) ? false:true);
+woas._server_mode = (document.location.toString().match(/^file:\/\//) ? false:true);
 
 // set to true if we need Java-based file load/save
-woas["use_java_io"] = woas.browser.safari || woas.browser.opera;
+woas.use_java_io = woas.browser.chrome || woas.browser.opera || woas.browser.safari;
 
 // returns the DOM element object given its id - enables a try/catch mode when debugging
-if (woas.debug) {
+if (woas.config.debug_mode) {
 	// returns the DOM element object given its id, alerting if the element is not found (but that would never happen, right?)
 	function $(id){ try{return document.getElementById(id);}catch(e){alert("ERROR: $('"+id+"') invalid reference");} }
 } else {
@@ -66,58 +73,73 @@ if (woas.debug) {
 	function $(id){return document.getElementById(id);}
 }
 
-$["hide"] = function(id) {
+$.hide = function(id) {
 	$(id).style.display = "none";
 	$(id).style.visibility = "hidden";
-}
+};
 
-$["show"] = function(id) {
+$.show = function(id) {
 	$(id).style.display = "inline";
 	$(id).style.visibility = "visible";
-}
+};
 
-$["hide_ni"] = function(id) {
+$.hide_ni = function(id) {
 	$(id).style.visibility = "hidden";
-}
+};
 
-$["show_ni"] = function(id) {
+$.show_ni = function(id) {
 	$(id).style.visibility = "visible";
-}
+};
 
-$["is_visible"] = function(id) {
+$.is_visible = function(id) {
 	return !!($(id).style.visibility == 'visible');
-}
+};
 
-$["toggle"] = function(id) {
+$.toggle = function(id) {
 	if ($.is_visible(id))
 		$.hide(id);
 	else
 		$.show(id);
-}
+};
+
+$.clone = function(obj) {
+	var nobj = {};
+	for (var i in obj) {
+		nobj[i] = obj[i];
+	}
+	return nobj;
+};
 
 // logging function has not to be in WoaS object
-var log;
-if (woas.debug) {
+if (woas.config.debug_mode) {
 	// logging function - used in development
-	log = function (aMessage) {
-	    var logbox = $("woas_log");
+	woas.log = function (aMessage) {
+	    var logbox = $("woas_debug_log");
 	    // count lines
-		nls = logbox.value.match(/\n/g);
-		if (nls!=null && typeof(nls)=='object' && nls.length>11)
-			logbox.value = "";
+	    if (!woas.tweak.integrity_test) {
+			nls = logbox.value.match(/\n/g);
+			// log maximum 1024 lines
+			if (nls!=null && typeof(nls)==='object' && nls.length>1024)
+				logbox.value = "";
+		}
 		logbox.value += aMessage + "\n";
+		// keep the log scrolled down
+		logbox.scrollTop = logbox.scrollHeight;
 		if(window.opera)
 			opera.postError(aMessage);
 	};
 } else {
-	log = function(aMessage) { };
+	woas.log = function(aMessage) { };
 }
+
+//DEPRECATED but still supported
+var log = woas.log;
 
 // fixes the Array prototype for older browsers
 if (typeof Array.prototype.push == "undefined") {
   Array.prototype.push = function(str) {
     this[this.length] = str;
-  }
+  };
 }
 
 // the following methods complete the Array object for non-compliant browsers
@@ -134,7 +156,7 @@ if (typeof Array.prototype.splice == "undefined") {
       this[this.length] = temp[i];
     }
     return this;
-  }
+  };
 }
 
 if (typeof Array.prototype.indexOf == "undefined") {
@@ -143,7 +165,7 @@ if (typeof Array.prototype.indexOf == "undefined") {
 		for (var index = fromIndex,len = this.length; index < len; index++)
 			if (this[index] == val) return index;
 		return -1;
-	}
+	};
 }
 
 // implements a custom function which returns an array with unique elements - deprecated
@@ -151,7 +173,7 @@ Array.prototype.toUnique = function() {
 	var a_o = {}, new_arr = [];
 	var l=this.length;
 	for(var i=0; i<l;i++) {
-		if (a_o[this[i]]==null) {
+		if (a_o[this[i]]===undefined) {
 			a_o[this[i]] = true;
 			new_arr.push(this[i]);
 		}
@@ -159,7 +181,7 @@ Array.prototype.toUnique = function() {
 	if (new_arr.length!=l)
 		return new_arr;
 	return this;
-}
+};
 
 // provide regex escaping
 // thanks to S.Willison
@@ -171,7 +193,7 @@ RegExp.escape = function(text) {
     );
   }
   return text.replace(arguments.callee.sRE, '\\$1');
-}
+};
 
 // repeat string s for n times
  if (typeof String.prototype.repeat == "undefined") {
@@ -179,7 +201,7 @@ RegExp.escape = function(text) {
 		var r = "";
 		while (--n >= 0) r += this;
 		return r;
-	}
+	};
 }
 
 // return a random integer given the maximum value (scale)
@@ -191,7 +213,7 @@ function _rand(scale) {
 function _random_string(string_length) {
 	var chars = "ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
 	var randomstring = '';
-	for (var i=0; i<string_length; i++) {
+	for (var i=0; i < string_length; i++) {
 		var rnum = _rand(chars.length);
 		randomstring += chars.charAt(rnum);
 	}
@@ -217,16 +239,16 @@ String.prototype.sprintf = function() {
 	// next argument to pick
 	var i_pos = 0, max_pos = arguments.length - 1;
 	var fmt_args = arguments;
-	return this.replace(/(%[sd])/g, function(str, $1) {
-		// replace with a strange thing in case of undefined parameter
+	return this.replace(/%[sd]/g, function(str) {
+		// replace with the original unparsed token in case of undefined parameter
 		if (i_pos > max_pos)
-			return "(?)";
-/*		if ($1 == '%d')
+			return str;
+/*		if (str == '%d')
 			return Number(arguments[i_pos++]); */
 		// return '%s' string
 		return fmt_args[i_pos++];
 	});
-}
+};
 
 // get filename of currently open file in browser
 function _get_this_filename() {
@@ -249,10 +271,16 @@ function _get_this_filename() {
 			if (filename.match(/^\\\w:\\/))
 				filename = filename.substr(1);
 			if (filename.charAt(1)!=':') {
-				if (ie)
+				if (woas.browser.ie)
 					filename = "\\\\"+filename;
 			}
 		}
 	}
 	return filename;
+}
+
+function ff_fix_focus() {
+//runtime fix for Firefox bug 374786
+	if (woas.browser.firefox)
+		$("wiki_text").blur();
 }
