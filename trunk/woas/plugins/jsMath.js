@@ -33,27 +33,28 @@ woas.custom.jsMath = {
 	},
 	
 	_after_lib_loaded: function() {
-		alert("library finished loading");
+		woas.log("jsMath library finished loading");
+		woas.custom.jsMath.render_all();
 	},
 	
-	_block: 0,		// number of pre tags to render after library finishes loading
-	_called: 0,
+	_block: 0,		// number of div tags to render after library finishes loading
 	_rendering: false,
 	render_all: function() {
 		if (woas.custom.jsMath._rendering) return;
-		if (++woas.custom.jsMath._called == 2) {
-			woas.custom.jsMath._rendering = true;
-			jsMath.Init();
-			for(var i=0;i < woas.custom.jsMath._block;++i) {
-				woas.custom.jsMath.post_render(i);
-			}
-			woas.custom.jsMath._block = 0;
+		woas.custom.jsMath._rendering = true;
+		jsMath.Init();
+		var it = woas.custom.jsMath._block;
+		// reset so that new blocks can be created meanwhile
+		woas.custom.jsMath._block = 0;
+		for(var i=0;i < it;++i) {
+			woas.custom.jsMath.post_render(i);
 		}
+		// done rendering
+		woas.custom.jsMath._rendering = false;
 	},
 	
 	// used for post-rendering after library was loaded
 	post_render: function(i) {
-//		jsMath.Init();
 		var elem = $("jsmath_postrender_"+i);
 		woas.setHTML(elem, jsMath.Translate.Parse('T', woas.getHTML(elem)));
 		$.hide("jsmath_postr_btn_"+i);
