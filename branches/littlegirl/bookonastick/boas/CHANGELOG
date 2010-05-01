@@ -894,4 +894,6 @@
 * Added the extensions.js file.
 * Added the macro.js file.
 ======================================================================================================================
-
+* Merged the woas.htm file from trunk with the boas.htm file.
+* Merged the index.wsif file from trunk with the BoaS index.wsif file.
+======================================================================================================================
