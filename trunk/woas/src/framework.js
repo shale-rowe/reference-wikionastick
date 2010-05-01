@@ -5,7 +5,9 @@ woas.browser = { ie: false, ie6: false, ie8: false,
 					firefox: false, firefox2: false,
 					firefox3: false, firefox_new: false,
 					opera: false, safari: false,
-					chrome: false
+					chrome: false,
+					
+					gecko: false, webkit: false, presto: false, mosaic: false
 				};
 
 if((navigator.userAgent).indexOf("Opera")!=-1)
@@ -56,6 +58,16 @@ if (woas.browser.ie && (typeof window.opera != "undefined")) {
 	woas.browser.ie = woas.browser.ie6 = woas.browser.ie8 = false;
 	woas.browser.opera = true;
 }
+
+// detect engine type
+if (woas.browser.ie)
+	woas.browser.trident = true;
+else if (woas.browser.firefox)
+	woas.browser.gecko = true;
+else if (woas.browser.chrome || woas.browser.safari)
+	woas.browser.webkit = true;
+else if (woas.browser.opera)
+	woas.browser.presto = true;
 
 var is_windows = (navigator.appVersion.toLowerCase().indexOf("windows")!=-1);
 
