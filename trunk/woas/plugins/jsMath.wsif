@@ -11,7 +11,7 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 plugins/jsMath/plugins/noImageFonts.js
++plugins/jsMath.js
 plugins/jsMath/jsMath.js
-plugins/jsMath.js
 
 --DFQRCTsKlU
