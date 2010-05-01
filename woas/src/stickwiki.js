@@ -753,14 +753,22 @@ woas.set_current = function (cr, interactive) {
 						if (real_t.substr(0, _pfx.length) === _pfx) {
 							text = this.plugins.get(real_t.substr(_pfx.length));
 							if (text !== null) {
-								text = "<div class=\"woas_nowiki_multiline woas_core_page\">"+text+"</div>";
+								if (this.plugins.is_external) {
+									// show a list of external sources
+									var ntext = "<"+"ul>";
+									for(var i=0;i<text.length;++i) {
+										ntext += "<"+"li><"+"big>@<"+"/big><"+"a href=\""+text[i]+"\" target=\"_blank\">"+text[i]+"<"+"/a><"+"/li>\n";
+									}
+									text = ntext+"<"+"/ul>";
+								} else
+									text = "<div class=\"woas_nowiki_multiline woas_core_page\">"+text+"</div>";
 							}
 						} else {
 							text = this.get_text(real_t);
 							if (text !== null) {
 								switch (cr) {
 									case "Plugins":
-										text = this.parser.parse(text + this._plugins_list());
+										text = this.parser.parse(text + this.plugins.list());
 									break;
 									case "Aliases":
 									case "Hotkeys":
@@ -1380,7 +1388,7 @@ woas.save = function() {
 			// check if text is empty (page deletion)
 			if (!null_save && !can_be_empty && (raw_content === "")) {
 				if (confirm(this.i18n.CONFIRM_DELETE.sprintf(current))) {
-					this._plugin_delete_check(current);
+					this.plugins.delete_check(current);
 					this.delete_page(current);
 					this.disable_edit();
 					back_or(this.config.main_page);
