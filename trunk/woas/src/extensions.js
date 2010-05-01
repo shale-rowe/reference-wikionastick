@@ -109,6 +109,46 @@ woas.plugins = {
 	update: function(name) {
 		return this.disable(name) && this.enable(name);
 	},
+	
+	_script_block: function(uri) {
+		var sym = uri.charAt(0);
+		switch (sym) {
+			case '@':
+			case '+':
+				uri = uri.substr(1);
+			break;
+			default:
+				sym = '@';
+			break;
+		}
+		// return an object
+		return { src: uri, sym: sym };
+	},
+	
+	_internal_add: function(name, s) {
+		if (s.sym === '@') {
+			if (woas.dom.add_script("plugin", this._mapping(name), s.src, true)) {
+				this._active.push( name );
+				return true;
+			}
+		} else if (s.sym === '+') { // create an inline javascript (slower)
+			var ct = woas.load_file(woas.ROOT_DIRECTORY+s.src),
+				t = (typeof ct);
+			// write some nice message
+			if (t.toLowerCase() != "string") {
+				woas.log("could not load inline javascript source "+s.src);
+				return false;
+			} else {
+				// add the inline block
+				if (woas.dom.add_script("plugin", this._mapping(name), ct, false)) {
+					this._active.push( name );
+					return true;
+				}
+			}
+		}
+		// failed adding DOM script
+		return false;
+	},
 
 	// enable a single plugin
 	enable: function(name) {
@@ -117,17 +157,26 @@ woas.plugins = {
 		if (this.is_external) { // *special* external plugins
 			// single reference, do not create script block
 			if (p.length === 1) {
-				if (woas.dom.add_script("plugin", this._mapping(name), p[0], true)) {
-					this._active.push( name );
-					return true;
-				}
-				// failed adding DOM script
-				return false;
+				return this._internal_add(name, this._script_block(p[0]) );
 			} else {
-				var js="";
+				var js="", s;
 				for(var i=0;i < p.length;++i) {
-					js += 'woas.dom.add_script("lib", "'+this._mapping(name)+'_'+i+"\", true);\n";
-				}
+					s = this._script_block(p[i]);
+					if (s.sym === '@')
+						js += 'woas.dom.add_script("lib", "'+this._mapping(name)+'_'+i+"\", \""+s.src+"\", true);\n";
+					else if (s.sym === '+') {
+						var ct = woas.load_file(woas.ROOT_DIRECTORY+s.src),
+							t = (typeof ct);
+						// write some nice message
+						if (t.toLowerCase() !== "string")
+							js += "/* woas.load_file(\"::/"+s.src+"\") returned "+ct+" ("+t+") */\n";
+						else {
+							// add the loaded code
+							js += ct; ct = null;
+						}
+					} // no other symbols for now
+				} //efor
+				// finally add the real script block
 				if (woas.dom.add_script("plugin", this._mapping(name), js, false)) {
 					this._active.push( name );
 					return true;
@@ -162,6 +211,9 @@ woas.plugins = {
 			i = this._mapping_cache.length;
 			this._mapping_cache.push(name);
 		}
+		// return more descriptive names
+		if (woas.config.debug_mode)
+			return woas._unix_normalize(name).replace("@", '')+"_"+i;
 		return i;
 	},
 	
@@ -193,6 +245,28 @@ woas.plugins = {
 		}
 		return "\n\n"+woas._simple_join_list(pg);
 	},
+	
+	describe_external: function(uris) {
+		// show a list of external sources
+		var ntext = "<"+"p>This plugin is made up of the following external sources:<"+"/p><"+"ul>", uri;
+		for(var i=0;i<uris.length;++i) {
+			uri = uris[i];
+			sym = uri.charAt(0);
+			switch (sym) {
+				case '@':
+				case '+':
+					uri = uri.substr(1);
+				break;
+				default:
+					sym = '@';
+				break;
+			}
+			ntext += "<"+"li>" + "<"+"big>"+sym+"<"+"/big>&nbsp;";
+			ntext += "<"+"a href=\""+uri+"\" target=\"_blank\">"+uri+"<"+"/a><"+"/li>\n";
+		}
+		return ntext+"<"+"/ul><"+"p>All scripts are loaded asynchronously by default (@), use + for inline evaluation<"+"/p>";
+	},
+	
 	// if given page name is a plugin, disable it
 	// used when deleting pages
 	delete_check: function(pname) {
