@@ -2,7 +2,6 @@ wsif.version: 1.3.0
 wsif.generator: woas
 woas.version: 0.12.0
 woas.author: Anonymous
-woas.pages: 72
 
 woas.page.title: ::Menu
 woas.page.attributes: 0
@@ -407,7 +406,7 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 = Plugins
 This page contains options for the active WoaS plugins; see [[WoaS::Help::Plugins]] for more information.
-[[Javascript::_woas_new_plugin()|New plugin...]]
+[[Special::ImportWSIF|Import plugin...]] [[Javascript::_woas_new_plugin()|New plugin...]]
 --DFQRCTsKlU
 woas.page.title: WoaS History
 woas.page.attributes: 0
