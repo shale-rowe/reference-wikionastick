@@ -802,8 +802,8 @@ function _lock_page() {
 	//TODO: check for other browsers too
 	if (woas.browser.firefox)
 		$("btn_lock").setAttribute("onclick", "lock_page('"+woas.js_encode(page)+"')");
-	else // hard trickery
-		$("btn_lock").onclick = eval("function() {lock_page('"+woas.js_encode(page)+"');}");
+	else
+		$("btn_lock").onclick = woas._make_delta_func('lock_page', "'"+woas.js_encode(page)+"'");
 }
 
 function _woas_new_plugin() {
@@ -814,7 +814,7 @@ function _woas_new_plugin() {
 	// provide special include page support
 	// --UNSUPPORTED FEATURE--
 	if (title.charAt(0) === '@') {
-		def_text = "plugins/"+name.substr(1)+".js\n";
+		def_text = "plugins/"+title.substr(1)+".js\n";
 //		title = title.substr(1);
 	} else {
 		def_text = "/* "+title+" plugin */\n";
