@@ -534,6 +534,8 @@ woas.dom = {
 			style.setAttribute("type", "text/css");
 			style.setAttribute("id", css_id);
 			style.setAttribute("href", css_src);
+			// only when external
+			++this._loading;
 		} else {
 			style = document.createElement('style');
 			style.type = "text/css";
@@ -542,15 +544,16 @@ woas.dom = {
 		}
 		
 		this._objects.push( {obj:style, parent: (woas.browser.ie ? this._cache.body:this._cache.head),
-							instance:css_id, after_load: after_load } );
-		++this._loading;
+							instance:css_id, after_load: external ? after_load : null } );
+		
 		woas.log("DOM: "+css_id+" created "+this._show_load());
 		// add a callback which informs us of the completion
 		//FIXME
 /*		style.onload = style.onreadystatechange = woas._make_delta_func("woas.dom._elem_onload",
 													"'"+woas.js_encode(css_id)+"'");
 													*/
-		setTimeout("woas.dom._elem_onload('"+woas.js_encode(css_id)+"');", 100);
+		if (external)
+			setTimeout("woas.dom._elem_onload('"+woas.js_encode(css_id)+"');", 100);
 		
 		// on IE inject directly in body
 		if (woas.browser.ie) {
@@ -610,7 +613,7 @@ woas.dom = {
 	get_loading: function() {
 		var a=[];
 		for(var i=0,it=this._objects.length;i<it;++i) {
-			if (!this._objects[i].loaded)
+			if ((this._objects[i].after_load !== null) && !this._objects[i].loaded)
 				a.push(this._objects[i].instance);
 		}
 		return a;
@@ -646,8 +649,9 @@ woas.dom = {
 	},
 	
 	_show_load: function() {
+		return "";
 		return " (%d/%d)".sprintf(this._loading, this._objects.length)+"\n"+
-				"stil loading: "+this.get_loading();
+				"still loading: "+this.get_loading();
 	},
 	
 	// regex used to remove some comments
@@ -668,11 +672,14 @@ woas.dom = {
 		// register in our management arrays
 		this._objects.push( {obj:s_elem, parent:this._cache.head, instance:script_token,
 								external: external ? true : false,
-								loaded: false, after_load: after_load} );
-		++this._loading;
+								loaded: false, after_load: external ? after_load : null} );
+		// only external sources should be marked as "loading"
+		if (external)
+			++this._loading;
 		woas.log("DOM: "+script_token+" created "+(external ? script_content+" ":"(inline) ")+this._show_load());
 		// add a callback which informs us of the completion
-		s_elem.onload = s_elem.onreadystatechange = woas._make_delta_func("woas.dom._elem_onload",
+		if (external)
+			s_elem.onload = s_elem.onreadystatechange = woas._make_delta_func("woas.dom._elem_onload",
 													"'"+woas.js_encode(s_elem.id)+"'");
 		if (external)
 			s_elem.src = script_content;
