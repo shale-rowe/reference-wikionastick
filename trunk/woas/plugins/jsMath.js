@@ -34,7 +34,6 @@ woas.custom.jsMath = {
 		return this.is_loaded;
 	},
 	
-/*
 	_block: 0,		// number of pre tags to render after library finishes loading
 	_called: 0,
 	_rendering: false,
