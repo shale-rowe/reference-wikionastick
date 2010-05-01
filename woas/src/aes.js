@@ -28,8 +28,8 @@ var bData = null,
 	aesFkey = null,
 	aesRkey = null;
 
-function rotb(b,n){ return ( b<<n | b>>>( 8-n) ) & 0xFF; }
-function rotw(w,n){ return ( w<<n | w>>>(32-n) ) & wMax; }
+function rotb(b,n){ return ( b<< n | b>>>( 8-n) ) & 0xFF; }
+function rotw(w,n){ return ( w<< n | w>>>(32-n) ) & wMax; }
 function getW(a,i){ return a[i]|a[i+1]<<8|a[i+2]<<16|a[i+3]<<24; }
 function setW(a,i,w){ a.splice(i,4,w&0xFF,(w>>>8)&0xFF,(w>>>16)&0xFF,(w>>>24)&0xFF); }
 function setWInv(a,i,w){ a.splice(i,4,(w>>>24)&0xFF,(w>>>16)&0xFF,(w>>>8)&0xFF,w&0xFF); }
@@ -138,23 +138,23 @@ function aesInit(){
 
   for (i=j=0;i< aesNk;i++,j+=4) aesFkey[i]=getW(key,j);
 
-  for (k=0,j=aesNk;j<N;j+=aesNk,k++){
+  for (k=0,j=aesNk;j < N;j+=aesNk,k++){
     aesFkey[j]=aesFkey[j-aesNk]^aesSubByte(rotw(aesFkey[j-1], 24))^aesRco[k];
     if (aesNk<=6)
-      for (i=1;i < aesNk && (i+j)<N;i++) aesFkey[i+j]=aesFkey[i+j-aesNk]^aesFkey[i+j-1];
+      for (i=1;i < aesNk && (i+j) < N;i++) aesFkey[i+j]=aesFkey[i+j-aesNk]^aesFkey[i+j-1];
     else{
-      for (i=1;i<4 &&(i+j)<N;i++) aesFkey[i+j]=aesFkey[i+j-aesNk]^aesFkey[i+j-1];
-      if ((j+4)<N) aesFkey[j+4]=aesFkey[j+4-aesNk]^aesSubByte(aesFkey[j+3]);
-      for (i=5;i < aesNk && (i+j)<N;i++) aesFkey[i+j]=aesFkey[i+j-aesNk]^aesFkey[i+j-1];
+      for (i=1;i<4 &&(i+j) < N;i++) aesFkey[i+j]=aesFkey[i+j-aesNk]^aesFkey[i+j-1];
+      if ((j+4) < N) aesFkey[j+4]=aesFkey[j+4-aesNk]^aesSubByte(aesFkey[j+3]);
+      for (i=5;i < aesNk && (i+j) < N;i++) aesFkey[i+j]=aesFkey[i+j-aesNk]^aesFkey[i+j-1];
     }
   }
 
   for (j=0;j<4;j++) aesRkey[j+N-4]=aesFkey[j];
-  for (i=4;i<N-4;i+=4){
+  for (i=4;i < N-4;i+=4){
     k=N-4-i;
-    for (j=0;j<4;j++) aesRkey[k+j]=aesInvMixCol(aesFkey[i+j]);
+    for (j=0;j < 4;j++) aesRkey[k+j]=aesInvMixCol(aesFkey[i+j]);
   }
-  for (j=N-4;j<N;j++) aesRkey[j-N+4]=aesFkey[j];
+  for (j=N-4;j < N;j++) aesRkey[j-N+4]=aesFkey[j];
 }
 
 function aesClose(){
