@@ -519,7 +519,14 @@ woas.dom = {
 			//TODO: check that style can then be properly removed
 		  } else { */
 		// always add this custom prefix
-		css = "woas_css_"+css_id;
+		css_id = "woas_css_"+css_id;
+		
+		// check if we have a duplicate instance
+		if (this.index(css_id) !== -1) {
+			woas.log("DOM: instance "+css_id+" already exists");
+			return false;
+		}
+		
 		var style;
 		if (external) {
 			style = document.createElement("link")
@@ -535,17 +542,16 @@ woas.dom = {
 		}
 		
 		this._objects.push( {obj:style, parent: (woas.browser.ie ? this._cache.body:this._cache.head),
-							instance:css_id, after_load: external ? after_load : null,
-							loaded: external ? false : true } );
+							instance:css_id, after_load: after_load } );
 		++this._loading;
+		woas.log("DOM: "+css_id+" created "+this._show_load());
 		// add a callback which informs us of the completion
-		if (external) {
 		//FIXME
-/*			style.onload = style.onreadystatechange = woas._make_delta_func("woas.dom._elem_onload",
+/*		style.onload = style.onreadystatechange = woas._make_delta_func("woas.dom._elem_onload",
 													"'"+woas.js_encode(css_id)+"'");
-												*/
-			setTimeout("woas.dom._elem_onload('"+woas.js_encode(css_id)+"');", 100);
-		}
+													*/
+		setTimeout("woas.dom._elem_onload('"+woas.js_encode(css_id)+"');", 100);
+		
 		// on IE inject directly in body
 		if (woas.browser.ie) {
 			this._cache.body.appendChild(style);
@@ -564,14 +570,8 @@ woas.dom = {
 	},
 	
 	remove: function(instance) {
-		var found = null;
-		for(var i=0,it=this._objects.length;i<it;++i) {
-			if (this._objects[i].instance === instance) {
-				found = i;
-				break;
-			}
-		}
-		if (found === null)
+		var found = this.index(instance);
+		if (found === -1)
 			return false;
 		// delete DOM entry from parent container
 		this._objects[found].parent.removeChild(this._objects[found].obj);
@@ -588,71 +588,109 @@ woas.dom = {
 	_elem_onload: function(instance) {
 		if (!woas.dom.get_loaded(instance) && (!this.readyState || this.readyState == 'complete'
 										 || this.readyState == 'loaded') ) {
+		  // unplug handler
+		  var dom_obj = woas.dom._objects[woas.dom.index(instance)];
+		  dom_obj.obj.onload = dom_obj.obj.onreadystatechange = null;
+		  // set as loaded (shall not remove from arrays)
 		  woas.dom.set_loaded(instance);
 		}
 	},
 	
 	get_loaded: function(instance) {
-		for(var i=0,it=this._objects.length;i<it;++i) {
+		var i = this.index(instance);
+		if (i !== -1) {
 			if (this._objects[i].instance === instance)
 				return this._objects[i].loaded;
 		}
-		woas.log(instance+" is not indexed");
+		woas.log("DOM: "+instance+" is not indexed"+this._show_load());
 		return false;
+	},
+	
+	// get list of instances which are still loading
+	get_loading: function() {
+		var a=[];
+		for(var i=0,it=this._objects.length;i<it;++i) {
+			if (!this._objects[i].loaded)
+				a.push(this._objects[i].instance);
+		}
+		return a;
+	},
+	
+	// short-hand to get index of an instance
+	index: function(instance) {
+		for(var i=0,it=this._objects.length;i<it;++i) {
+			if (this._objects[i].instance === instance)
+				return i;
+		}
+		return -1;
 	},
 
 	set_loaded: function(instance) {
-		for(var i=0,it=this._objects.length;i<it;++i) {
-			if (this._objects[i].instance === instance) {
-				woas.log(instance+" finished loading");
-				this._objects[i].loaded = true;
+		var i = this.index(instance);
+		if (i !== -1) {
+			this._objects[i].loaded = true;
 				
-				// now call the associated callback
-				if (typeof this._objects[i].after_load == "function") {
-					(this._objects[i].after_load)();
-				}
-				
-				// reduce the counter of 'hung' requests
-				--this._loading;
-				return true;
+			// now call the associated callback
+			if (typeof this._objects[i].after_load == "function") {
+				(this._objects[i].after_load)();
 			}
+			
+			// reduce the counter of 'hung' requests
+			--this._loading;
+			woas.log("DOM: "+instance+" completed loading"+this._show_load());
+			
+			return true;
 		}
-		woas.log(instance+" finished loading, but was not indexed");
+		woas.log("DOM: "+instance+" completed loading, but was not indexed"+this._show_load());
 		return false;
+	},
+	
+	_show_load: function() {
+		return " (%d/%d)".sprintf(this._loading, this._objects.length)+"\n"+
+				"stil loading: "+this.get_loading();
 	},
 	
 	// regex used to remove some comments
 	reJSComments: /^\s*\/\*[\s\S]*?\*\/\s*/g,
 	
 	_internal_add: function(script_token, script_content, external, after_load) {
+		script_token = "woas_script_"+script_token;
+		// check if we have a duplicate instance
+		if (this.index(script_token) !== -1) {
+			woas.log("DOM: instance "+script_token+" already exists");
+			return false;
+		}
+		
 		var s_elem = document.createElement("script");
 		s_elem.type="text/javascript";
-		s_elem.id = "woas_script_"+script_token;
+		s_elem.id = script_token;
 
 		// register in our management arrays
-		this._objects.push( {obj:s_elem, parent:this._cache.head, instance:s_elem.id,
+		this._objects.push( {obj:s_elem, parent:this._cache.head, instance:script_token,
 								external: external ? true : false,
 								loaded: false, after_load: after_load} );
 		++this._loading;
+		woas.log("DOM: "+script_token+" created "+(external ? script_content+" ":"(inline) ")+this._show_load());
 		// add a callback which informs us of the completion
 		s_elem.onload = s_elem.onreadystatechange = woas._make_delta_func("woas.dom._elem_onload",
 													"'"+woas.js_encode(s_elem.id)+"'");
 		if (external)
 			s_elem.src = script_content;
 		this._cache.head.appendChild(s_elem);
-		if (!external)
-			// add the inline code with a protection from re-run which could happen upon saving WoaS
+		if (!external) {
+//			alert("Inline code:\n"+script_content);
 			woas.setHTML(s_elem, script_content);
+		}
+		return true;
 	},
 	
 	add_script: function(script_class, script_id, script_content, external, after_load) {
 		// remove the comments
-		if (!external) {
+		if (!external)
 			script_content = script_content.replace(this.reJSComments, '');
-			if (!script_content.length) return false;
-		}
-		this._internal_add(script_class+"_"+script_id, script_content, external, after_load);
-		return true;
+		// it's not necessary to add this script tag
+		if (!script_content.length) return false;
+		return this._internal_add(script_class+"_"+script_id, script_content, external, after_load);
 	},
 	
 	// remove all script objects
