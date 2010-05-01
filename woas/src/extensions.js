@@ -19,7 +19,7 @@ woas.scripting = {
 	_menu_stacked: 0,	// number of elements which shall be cleared
 	_page_stacked: 0,	// ''
 	
-	// remove all scripts from specified array (can be 'menu', 'page' or 'plugin')
+	// remove all scripts from specified array (can be 'menu' or 'page')
 	clear: function(which) {
 		for(var i=0;i<this["_"+which+"_stacked"];++i) {
 			woas.dom.remove_script(which, i);
@@ -49,7 +49,6 @@ woas.scripting = {
 		return false;
 	}
 	
-
 };
 
 // 'plugins' WoaS module
