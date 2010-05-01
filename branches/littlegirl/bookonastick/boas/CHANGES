@@ -854,3 +854,17 @@
 ======================================================================================================================
 * Removed the boas-pvhl-test-merge subdirectory.
 ======================================================================================================================
+* Added the gfx subdirectory.
+* Added the other subdirectory.
+* Added the other/shortcut.js file.
+* Added the boas/plugins subdirectory.
+* Added the boas/plugins/jsMath.js file.
+* Added the boas/plugins/syntaxHL.js file.
+* Added the boas/plugins/jsMath subdirectory.
+* Added the boas/plugins/jsMath/GETME file.
+* Added the boas/plugins/shjs subdirectory.
+* Added the boas/plugins/shjs/GETME file.
+* Added the tests subdirectory.
+* Added the tests/aes_tests.htm file.
+* Added the tools subdirectory.
+======================================================================================================================
