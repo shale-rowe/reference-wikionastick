@@ -3,7 +3,7 @@ woas.parser = {
 	has_toc: null,
 	toc: "",
 	force_inline: false,		// used not to break layout when presenting search results
-	script_extension: [],		// array with javascript blocks description arrays
+	_parsing_menu: false,		// true when we are parsing the menu page
 
 	header_anchor: function(s) {
 		// apply a hard normalization
@@ -28,10 +28,10 @@ woas.parser.header_replace = function(str, $1, $2) {
 		// automatically build the TOC if needed
 		len = $1.length;
 		if (woas.parser.has_toc) {
-			woas.parser.toc += String("#").repeat(len)+" <a class=\"link\" href=\"#" +
+			woas.parser.toc += String("#").repeat(len)+" <"+"a class=\"link\" href=\"#" +
 			woas.parser.header_anchor(header) + "\">" + header + "<\/a>\n";
 		}
-		return "</div><h"+len+" class=\"woas_header\" id=\""+woas.parser.header_anchor(header)+"\">"+header+"</h"+len+"><div class=\"woas_level"+len+"\">";
+		return "</"+"div><"+"h"+len+" class=\"woas_header\" id=\""+woas.parser.header_anchor(header)+"\">"+header+"<"+"/h"+len+"><"+"div class=\"woas_level"+len+"\">";
 };
 
 woas.parser.sublist = function (lst, ll, suoro, euoro) {   
@@ -47,9 +47,9 @@ woas.parser.sublist = function (lst, ll, suoro, euoro) {
                 item = lst.shift();
                 subl = this.sublist(lst, ll + 1, suoro, euoro);
                 if (subl.length)
-                    s += '<li>' + item[2] + suoro + subl + euoro + '</li>' ;
+                    s += '<'+'li>' + item[2] + suoro + subl + euoro + '<'+'/li>' ;
                 else
-                    s += '<li>' + item[2] + '</li>';
+                    s += '<'+'li>' + item[2] + '<'+'/li>';
 		if (!lst.length)
 			break;
 	}
@@ -88,13 +88,13 @@ woas.parser.parse_tables =  function (str, p1) {
 				caption = caption || pp2;
 				return;
 			}
-			stk.push('<td>' + pp2.split('||').join('</td><td>') + '</td>');
+			stk.push('<'+'td>' + pp2.split('||').join('<'+'/td><'+'td>') + '<'+'/td>');
 		} 
 	);
-	return  '<table class="woas_text_area">' +
-				(caption?('<caption>' + caption + '</caption>'):'') +
-				'<tr>' + stk.join('</tr><tr>') + '</tr>' +
-			'</table>';
+	return  '<'+'table class="woas_text_area">' +
+				(caption?('<'+'caption>' + caption + '<'+'/caption>'):'') +
+				'<'+'tr>' + stk.join('<'+'/tr><'+'tr>') + '<'+'/tr>' +
+			'<'+'/table>';
 };
 
 // new table parsing by FBNil
@@ -115,7 +115,7 @@ woas.parser.parse_tables_new = function (str, prop, p1) {
 	var cells, row, stag, cs, i, C, CL;
     p1.replace(reReapTablesNewSub1, function (str, pp1, pp2) {
         if (pp1 == '-') return;
-        if (pp1 == '+') return caption = caption || ('<caption' + (stk.length > 0 ? ' style="caption-side:bottom">' : '>') + pp2 + '</caption>');
+        if (pp1 == '+') return caption = caption || ('<'+'caption' + (stk.length > 0 ? ' style="caption-side:bottom">' : '>') + pp2 + '<'+'/caption>');
         if (pp1 == '*') return colgroup = pp2;
         if (pp1 == '$') return CC.push(pp2);
         if (pp1 == '|') pp2 = " |" + pp2;
@@ -136,11 +136,11 @@ woas.parser.parse_tables_new = function (str, prop, p1) {
             CL = C[2] ? C[2].length : 0;
             stag = '<' + (CL == 1 ? 'th' : 'td') + (CL > 1 ? ' ' + CC[CL - 2] || '' : '') + (cs ? ' colspan=' + ++cs : '') + (C[1] ? ' align=' + (C[4] ? 'center' : 'right') : '') + '>';
             cs = 0;
-            row.unshift(stag + C[3] + (CL == 1 ? '</th>' : '</td>'));
+            row.unshift(stag + C[3] + (CL == 1 ? '<'+'/th>' : '<'+'/td>'));
         }
         stk.push(row.join(""));
     });
-    return '<table ' + ((prop.indexOf("class=")!==-1) ? '' : 'class="woas_text_area" ') + prop + '>' + caption + colgroup + '<tr>' + stk.join('</tr><tr>') + '</tr>' + '</table>'
+    return '<'+'table ' + ((prop.indexOf("class=")!==-1) ? '' : 'class="woas_text_area" ') + prop + '>' + caption + colgroup + '<'+'tr>' + stk.join('<'+'/tr><'+'tr>') + '<'+'/tr>' + '<'+'/table>'
 }
 
 var	parse_marker = "#"+_random_string(8);
@@ -159,7 +159,7 @@ woas._get_tags = function(text) {
 	if (!text.length)
 		return tags;
 	var alltags = this.split_tags(text);
-	for(var i=0;i<alltags.length;i++) {
+	for(var i=0;i < alltags.length;i++) {
 		tags.push(this.trim(alltags[i]));
 	}
 	return tags;
@@ -182,7 +182,8 @@ var reScripts = new RegExp("<"+"script([^>]*)>([\\s\\S]*?)<"+"\\/script>", "gi")
 	reMacros = /<<<([\s\S]*?)>>>/g,
 	reComments = /<\!--([\s\S]*?)-->/g,
 	reWikiLink = /\[\[([^\]\]]*?)\|(.*?)\]\]/g,
-	reWikiLinkSimple = /\[\[([^\]]*?)\]\]/g;
+	reWikiLinkSimple = /\[\[([^\]]*?)\]\]/g,
+	reCleanupNewlines = new RegExp('((<\\/h[1-6]><'+'div class="woas_level[1-6]">)|(<\\/[uo]l>))(\n+)', 'g');
 
 var _MAX_TRANSCLUSION_RECURSE = 256;
 
@@ -236,7 +237,7 @@ woas.parser.parse = function(text, export_links, js_mode) {
 		export_links = false;
 	if (typeof js_mode == "undefined")
 		js_mode = 1;
-	
+
 	// this array will contain all the HTML snippets that will not be parsed by the wiki engine
 	var snippets = [],
 		comments = [],
@@ -312,9 +313,9 @@ woas.parser.parse = function(text, export_links, js_mode) {
 							if (uri == '#')
 								img = woas.parser.render_error(templname, "#8709");
 							else
-								img = "<img class=\"woas_embedded\" src=\""+uri+"\" alt=\""+img_name+"\" ";
+								img = "<"+"img class=\"woas_embedded\" src=\""+uri+"\" alt=\""+img_name+"\" ";
 						} else
-							img = "<img class=\"woas_embedded\" src=\""+templtext+"\" ";
+							img = "<"+"img class=\"woas_embedded\" src=\""+templtext+"\" ";
 						if (parts.length>1) {
 							img += parts[1];
 							// always add the alt attribute to images
@@ -326,8 +327,8 @@ woas.parser.parse = function(text, export_links, js_mode) {
 						if ((parts.length>1) && (parts[1]=="raw"))
 							snippets.push(decode64(templtext));
 						else
-							snippets.push("<pre class=\"woas_embedded\">"+
-									woas.xhtml_encode(decode64(templtext))+"</pre>");
+							snippets.push("<"+"pre class=\"woas_embedded\">"+
+									woas.xhtml_encode(decode64(templtext))+"<"+"/pre>");
 					}
 					templtext = r;
 				}
@@ -401,28 +402,25 @@ woas.parser.parse = function(text, export_links, js_mode) {
 		return r;
 	});
 	
-	// reset the array of custom scripts
-	this.script_extension = [];
 	if (js_mode) {
+		// reset the array of custom scripts for the correct target
+		var script_target = this._parsing_menu ? "menu" : "page";
+		woas.scripting.clear(script_target);
 		// gather all script tags
 		text = text.replace(reScripts, function (str, $1, $2) {
 			if (js_mode==2) {
 				r = woas.parser.place_holder(snippets.length);
 				snippets.push(str);
 				return r;
-			}
-			
-			// during safe mode do not activate scripts, transform them to nowiki blocks
-			if (js_mode==3) {
+			} else if (js_mode==3) {
+				// during safe mode do not activate scripts, transform them to nowiki blocks
 				r = woas.parser.place_holder(snippets.length);
 				snippets.push( woas._make_preformatted(str) );
 				return r;
-			}
-			var m=$1.match(/src=(?:"|')([^\s'">]+)/);
-			if (m!==null)
-				woas.parser.script_extension.push(new Array(m[1]));
-			else
-				woas.parser.script_extension.push($2);
+			} // else
+			var m=$1.match(/src=(?:"|')([^\s'">]+)/),
+				external = (m!==null);
+			woas.scripting.add(script_target, external ? m[1] : $2, external);
 			return "";
 		});
 	}
@@ -462,7 +460,7 @@ woas.parser.parse = function(text, export_links, js_mode) {
 		if ($1.search(/^\w+:\/\//)===0) {
 			r = woas.parser.place_holder(snippets.length);
 			url = $1.replace(/^mailto:\/\//, "mailto:");
-			snippets.push("<a title=\""+woas.xhtml_encode(url)+"\" class=\"world\" href=\"" + url + "\" target=\"_blank\">" + $2 + "<\/a>");
+			snippets.push("<"+"a title=\""+woas.xhtml_encode(url)+"\" class=\"world\" href=\"" + url + "\" target=\"_blank\">" + $2 + "<\/a>");
 			return r;
 		}
 			
@@ -491,7 +489,7 @@ woas.parser.parse = function(text, export_links, js_mode) {
 				wl = " href=\""+woas._export_get_fname(page)+"\"";
 			} else
 				wl = " onclick=\"go_to('" + woas.js_encode(page) +	"')" + gotohash + "\"";
-			snippets.push("<a title=\""+woas.xhtml_encode(page)+"\" class=\"link\""+ wl + " >" + $2 + "<\/a>");
+			snippets.push("<"+"a title=\""+woas.xhtml_encode(page)+"\" class=\"link\""+ wl + " >" + $2 + "<\/a>");
 			return r;
 		} else {
 			// section reference URIs
@@ -502,9 +500,9 @@ woas.parser.parse = function(text, export_links, js_mode) {
 				else
 					wl = '';
 				if (wl == '#')
-					snippets.push("<span class=\"broken_link\">" + $2 + "<\/span>");
+					snippets.push("<"+"span class=\"broken_link\">" + $2 + "<\/span>");
 				else {
-					snippets.push("<a title=\""+woas.xhtml_encode(page)+"\" class=\"link\" href=\""+
+					snippets.push("<"+"a title=\""+woas.xhtml_encode(page)+"\" class=\"link\" href=\""+
 					wl+"#" +
 					woas.parser.header_anchor($1.substring(1)) + "\">" + $2 + "<\/a>");
 				}
@@ -512,15 +510,15 @@ woas.parser.parse = function(text, export_links, js_mode) {
 			} else {
 				r = woas.parser.place_holder(snippets.length);
 				if (export_links) {
-					snippets.push("<span class=\"broken_link\">" + $2 + "<\/span>");
+					snippets.push("<"+"span class=\"broken_link\">" + $2 + "<\/span>");
 					return r;
 				}
 				wl = " onclick=\"go_to('" +woas.js_encode(page)+"')\"";
-				snippets.push("<a title=\""+woas.xhtml_encode(page)+"\" class=\"unlink\" "+wl+">" + $2 + "<\/a>");
+				snippets.push("<"+"a title=\""+woas.xhtml_encode(page)+"\" class=\"unlink\" "+wl+">" + $2 + "<\/a>");
 				return r;
 			}
 		}
-	}); //"<a class=\"wiki\" onclick='go_to(\"$2\")'>$1<\/a>");
+	});
 
 	// links without pipe e.g. [[Page]]
 	text = text.replace(reWikiLinkSimple, function(str, $1) {
@@ -528,7 +526,7 @@ woas.parser.parse = function(text, export_links, js_mode) {
 		if ($1.search(/^\w+:\/\//)===0) {
 			r = woas.parser.place_holder(snippets.length);
 			$1 = $1.replace(/^mailto:\/\//, "mailto:");
-			snippets.push("<a class=\"world\" href=\"" + $1 + "\" target=\"_blank\">" + $1 + "<\/a>");
+			snippets.push("<"+"a class=\"world\" href=\"" + $1 + "\" target=\"_blank\">" + $1 + "<\/a>");
 			return r;
 		}
 		
@@ -547,30 +545,30 @@ woas.parser.parse = function(text, export_links, js_mode) {
 			if (export_links) {
 				wl = woas._export_get_fname(page);
 				if (wl == '#') {
-					snippets.push("<span class=\"broken_link\">" + $1 + "<\/span>");
+					snippets.push("<"+"span class=\"broken_link\">" + $1 + "<\/span>");
 					return r;
 				}
 				wl = " href=\""+wl+"\"";
 			} else
 				wl = " onclick=\"go_to('" + woas.js_encode(page) +"')\"";
-			snippets.push("<a title=\""+woas.xhtml_encode(page)+"\"  class=\"link\""+wl+">" + $1 + "<\/a>");
+			snippets.push("<"+"a title=\""+woas.xhtml_encode(page)+"\"  class=\"link\""+wl+">" + $1 + "<\/a>");
 			return r;
 		} else {
 			r = woas.parser.place_holder(snippets.length);
 			if ($1.charAt(0)=="#") {
-				snippets.push("<a class=\"link\" href=\"#" +woas.parser.header_anchor($1.substring(1)) + "\">" + $1.substring(1) + "<\/a>");
+				snippets.push("<"+"a class=\"link\" href=\"#" +woas.parser.header_anchor($1.substring(1)) + "\">" + $1.substring(1) + "<\/a>");
 			} else {
 				r = woas.parser.place_holder(snippets.length);
 				if (export_links) {
-					snippets.push("<span class=\"unlink broken_link\">" + $1 + "<\/span>");
+					snippets.push("<"+"span class=\"unlink broken_link\">" + $1 + "<\/span>");
 					return r;
 				}
 				wl = " onclick=\"go_to('" + woas.js_encode(page) +"')\"";
-				snippets.push("<a title=\""+woas.xhtml_encode(page)+"\"  class=\"unlink\" "+wl+">" + $1 + "<\/a>");
+				snippets.push("<"+"a title=\""+woas.xhtml_encode(page)+"\"  class=\"unlink\" "+wl+">" + $1 + "<\/a>");
 			}
 			return r;
 		}
-	}); //"<a class=\"wiki\" onclick='go_to(\"$1\")'>$1<\/a>");
+	});
 
 	// allow non-wrapping newlines
 	text = text.replace(/\\\n/g, "");
@@ -584,7 +582,7 @@ woas.parser.parse = function(text, export_links, js_mode) {
 		// hotfix for URLs
 		if ($2.indexOf("//")!=-1)
 			return str;
-		return $1+"<em>"+$2+"</em>";
+		return $1+"<"+"em>"+$2+"<"+"/em>";
 	});
 	
 	// ordered/unordered lists parsing (code by plumloco)
@@ -600,35 +598,32 @@ woas.parser.parse = function(text, export_links, js_mode) {
 //		this.toc = this.toc.substr(0, this.toc.length-2);
 		// replace the TOC placeholder with the real TOC
 		text = text.replace("<!-- "+parse_marker+":TOC -->",
-				"<div class=\"woas_toc\"><p class=\"woas_toc_title\">Table of Contents</p>" +
+				"<"+"div class=\"woas_toc\"><"+"p class=\"woas_toc_title\">Table of Contents<"+"/p>" +
 				this.toc.replace(reReapLists, this.parse_lists)
 				/*.replace("\n<", "<") */
-				+ "</div>" );
+				+ "<"+"/div>" );
 		this.toc = "";
 	}
 	
-	// <strong> for bold text
+	// use 'strong' tag for bold text
 	text = text.replace(/(^|[^\w\/\\])\*([^\*\n]+)\*/g, "$1"+parse_marker+"bS#$2"+parse_marker+"bE#");
 
-	// <strike>
-	//text = text.replace(/(^|\n|\s|\>|\*)\--(.*?)\--/g, "$1<strike>$2<\/strike>");
-	
 	text = text.replace(new RegExp(parse_marker+"([ub])([SE])#", "g"), function (str, $1, $2) {
 		if ($2=='E') {
 			if ($1=='u')
-				return "</span>";
-			return "</strong>";
+				return "<"+"/span>";
+			return "<"+"/strong>";
 		}
 		if ($1=='u')
-			tag = "<span style=\"text-decoration:underline;\">";
+			tag = "<"+"span style=\"text-decoration:underline;\">";
 		else
-			tag = "<strong>";
+			tag = "<"+"strong>";
 		return tag;
 	});
 
-	// <hr> horizontal rulers made with 3 hyphens, 4 suggested
+	// 'hr' horizontal rulers made with 3 hyphens, 4 suggested
 	// only white spaces are allowed after the hyphens
-	text = text.replace(/(^|\n)\s*\-{3,}[ \t]*(\n|$)/g, "<hr class=\"woas_ruler\" />");
+	text = text.replace(/(^|\n)\s*\-{3,}[ \t]*(\n|$)/g, "<"+"hr class=\"woas_ruler\" />");
 	
 	// tables-parsing pass
 	if (woas.config.new_tables_syntax)
@@ -637,7 +632,7 @@ woas.parser.parse = function(text, export_links, js_mode) {
 		text = text.replace(reReapTables, this.parse_tables);
 	
 	// cleanup \n after headers and lists
-	text = text.replace(/((<\/h[1-6]><div class="woas_level[1-6]">)|(<\/[uo]l>))(\n+)/g, function (str, $1, $2, $3, trailing_nl) {
+	text = text.replace(reCleanupNewlines, function (str, $1, $2, $3, trailing_nl) {
 		if (trailing_nl.length>2)
 			return $1+trailing_nl.substr(2);
 		return $1;
@@ -650,15 +645,11 @@ woas.parser.parse = function(text, export_links, js_mode) {
 //	if (end_trim)
 //		text = text.replace(/\s*$/, "");
 
-	// compress newlines characters into paragraphs (disabled)
-//	text = text.replace(/\n(\n+)/g, "<p>$1</p>");
-//	text = text.replace(/\n(\n*)\n/g, "<p>$1</p>");
-
 	// make some newlines cleanup after pre tags
 	text = text.replace(/(<\/?pre>)\n/gi, "$1");
 
 	// convert newlines to br tags
-	text = text.replace(/\n/g, "<br />");
+	text = text.replace(/\n/g, "<"+"br />");
 
 	// put back in place all snippets
 	if (snippets.length>0) {
@@ -681,15 +672,15 @@ woas.parser.parse = function(text, export_links, js_mode) {
 		if (this.force_inline)
 			s = "";
 		else
-			s = "<div class=\"taglinks\">";
+			s = "<"+"div class=\"taglinks\">";
 		s += "Tags: ";
-		for(var i=0;i<tags.length-1;i++) {
-			s+="<a class=\"link\" onclick=\"go_to('Tagged::"+woas.js_encode(tags[i])+"')\">"+tags[i]+"</a>&nbsp;&nbsp;";
+		for(var i=0;i < tags.length-1;i++) {
+			s+="<"+"a class=\"link\" onclick=\"go_to('Tagged::"+woas.js_encode(tags[i])+"')\">"+tags[i]+"<"+"/a>&nbsp;&nbsp;";
 		}
 		if (tags.length>0)
-			s+="<a class=\"link\" onclick=\"go_to('Tagged::"+woas.js_encode(tags[tags.length-1])+"')\">"+tags[tags.length-1]+"</a>";
+			s+="<"+"a class=\"link\" onclick=\"go_to('Tagged::"+woas.js_encode(tags[tags.length-1])+"')\">"+tags[tags.length-1]+"<"+"/a>";
 		if (!this.force_inline) {
-			s+="</div>";
+			s+="<"+"/div>";
 			text += s;
 		} else { // re-print the inline tags (works only on last tag definition?)
 			text = text.replace(new RegExp("<\\!-- "+parse_marker+":(\\d+) -->", "g"), function (str, $1) {
@@ -712,17 +703,15 @@ woas.parser.parse = function(text, export_links, js_mode) {
 		this.after_parse();
 	}
 		
-	if (text.substring(0,5)!=="</div")
-		return "<div class=\"woas_level0\">" + text + "</div>";
+	if (text.substring(0,5)!=="<"+"/div")
+		return "<"+"div class=\"woas_level0\">" + text + "<"+"/div>";
 	// complete
-		return text.substring(6)+"</div>";
-	
-	return text;
+	return text.substring(6)+"<"+"/div>";
 };
 
 woas.parser.render_error = function(str, symbol) {
 //	if (typeof symbol == "undefined")
 //		symbol = "infin";
 	symbol = "&"+symbol+";";
-	return "<span style=\"color: red;font-weight:bold;\">"+symbol+" "+str+" "+symbol+"</span>";
+	return "<"+"span style=\"color: red;font-weight:bold;\">"+symbol+" "+str+" "+symbol+"<"+"/span>";
 };
