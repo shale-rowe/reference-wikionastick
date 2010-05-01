@@ -61,16 +61,24 @@ woas.plugins = {
 	get: function(name) {
 		this.is_external = false;
 		var text = woas.pager.get("WoaS::Plugins::"+name);
-//		if (text === null) return "/* could not retrieve page */";
 		// check if this is an external page reference
 		// -- UNSUPPORTED FEATURE --
 		if (name.charAt(0) === '@') {
 			// hack for external files loading at run-time
-			var p = text.indexOf("\n");
-			if (p !== -1) {
-				this.is_external = true;
-				text = text.substr(0,p);
+			// each source file specified in a new line
+			var uris=[], uri;
+			text = text.split("\n");
+			for(var i=0;i < text.length;++i) {
+				uri = woas.trim(text[i]);
+				if (uri.length)
+					uris.push(uri);
 			}
+			if (uris.length !== 0) {
+				this.is_external = true;
+				// we do return an array
+				text = uris;
+			} else
+				woas.log("no valid source URIs found");
 		}
 		return text;
 	},
@@ -79,9 +87,19 @@ woas.plugins = {
 	disable: function(name) {
 		var i = this._active.indexOf(name);
 		if (i !== -1) {
+			_mapped_name = this._mapping(name);
 			// attempt removing the script block and fail otherwise
-			if (!woas.dom.remove("plugin", this._mapping(name)))
+			if (!woas.dom.remove("plugin", _mapped_name))
 				return false;
+			// external plugin, try to remove the lib blocks created
+			if (name.charAt(0) === '@') {
+				var p = this.get(name);
+				if (this.is_external && (p.length>1)) { // *special* external plugins
+					for(var i=0;i < p.length;++i) {
+						woas.dom.remove_script("lib", _mapped_name+'_'+i);
+					}
+				}
+			}
 			this._active.splice(i, 1);
 			return true;
 		}
@@ -95,8 +113,31 @@ woas.plugins = {
 	// enable a single plugin
 	enable: function(name) {
 		// generate the script element
+		var p = this.get(name);
+		if (this.is_external) { // *special* external plugins
+			// single reference, do not create script block
+			if (p.length === 1) {
+				if (woas.dom.add_script("plugin", this._mapping(name), p[0], true)) {
+					this._active.push( name );
+					return true;
+				}
+				// failed adding DOM script
+				return false;
+			} else {
+				var js="";
+				for(var i=0;i < p.length;++i) {
+					js += 'woas.dom.add_script("lib", "'+this._mapping(name)+'_'+i+"\", true);\n";
+				}
+				if (woas.dom.add_script("plugin", this._mapping(name), js, false)) {
+					this._active.push( name );
+					return true;
+				}
+				return false;
+			}
+		} 
+		// normal plugins
 		if (woas.dom.add_script("plugin", this._mapping(name),
-						this.get(name), this.is_external)) {
+					p, false)) {
 			this._active.push( name );
 			return true;
 		}
