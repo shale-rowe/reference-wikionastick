@@ -590,7 +590,7 @@ function _import_wsif_pre_hook(NP) {
 		return r;
 	});
 	if (_wsif_js_sec.comment_js) {
-		page = page.replace(reScripts, "<disabled_script$1>$2</disabled_script>");
+		page = page.replace(reScripts, "<"+"disabled_script$1>$2<"+"/disabled_script>");
 		NP.modified = true;
 	}
 	if (_wsif_js_sec.comment_macros) {

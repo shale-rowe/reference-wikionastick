@@ -547,13 +547,16 @@ woas.dom = {
 							instance:css_id, after_load: external ? after_load : null } );
 		
 		woas.log("DOM: "+css_id+" created "+this._show_load());
-		// add a callback which informs us of the completion
-		//FIXME
-/*		style.onload = style.onreadystatechange = woas._make_delta_func("woas.dom._elem_onload",
+		// add a callback which informs us of the completion (not always possible)
+		if (external) {
+			// these engines don't support a callback :(
+			if (woas.browser.gecko || woas.browser.webkit) {
+				setTimeout("woas.dom._elem_onload('"+woas.js_encode(css_id)+"');", 100);
+			} else { // good ol' IE
+				style.onload = style.onreadystatechange = woas._make_delta_func("woas.dom._elem_onload",
 													"'"+woas.js_encode(css_id)+"'");
-													*/
-		if (external)
-			setTimeout("woas.dom._elem_onload('"+woas.js_encode(css_id)+"');", 100);
+			}
+		}
 		
 		// on IE inject directly in body
 		if (woas.browser.ie) {
