@@ -511,13 +511,15 @@ woas.dom = {
 			this._cache.stylesheet = document.getElementsByTagName("style")[0];
 	},
 	
-	add_css: function(css_id, css_src, external) {
+	add_css: function(css_id, css_src, external, after_load) {
 /*		if (document.createStyleSheet) {// check for MSIE
 			this._cache.head.insertAdjacentHTML('beforeEnd',
 				'<span id="'+'" style="display:none">x</span>'  // MSIE needs this for some reason
 				+ '<style id="'+'" type="text/css">'+css_text+'</style>');
 			//TODO: check that style can then be properly removed
 		  } else { */
+		// always add this custom prefix
+		css = "woas_css_"+css_id;
 		var style;
 		if (external) {
 			style = document.createElement("link")
@@ -531,23 +533,32 @@ woas.dom = {
 			style.id = css_id;
 			style.appendChild(document.createTextNode(css_text));
 		}
+		
+		this._objects.push( {obj:style, parent: (woas.browser.ie ? this._cache.body:this._cache.head),
+							instance:css_id, after_load: after_load } );
+		++this._loading;
+		// add a callback which informs us of the completion
+		//FIXME
+/*		style.onload = style.onreadystatechange = woas._make_delta_func("woas.dom._elem_onload",
+													"'"+woas.js_encode(css_id)+"'");
+													*/
+		setTimeout("woas.dom._elem_onload('"+woas.js_encode(css_id)+"');", 100);
+		
 		// on IE inject directly in body
 		if (woas.browser.ie) {
 			this._cache.body.appendChild(style);
-			this._objects.push( {obj:style, parent:this._cache.body, instance:"css_"+css_id} );
 		} else {
 			this._cache.head.appendChild(style);
-			this._objects.push( {obj:style, parent:this._cache.head, instance:"css_"+css_id} );
 		}
 		return true;
 	},
 	
 	remove_css: function(i) {
-		return this.remove("css_"+i);
+		return this.remove("woas_css_"+i);
 	},
 
 	remove_script: function(script_class, script_id) {
-		return this.remove(script_class+"_"+script_id);
+		return this.remove("woas_script_"+script_class+"_"+script_id);
 	},
 	
 	remove: function(instance) {
@@ -567,28 +578,78 @@ woas.dom = {
 		return true;
 	},
 	
+	// counter of elements being loaded
+	_loading: 0,
+	
+	// generic callback used when we want to run something after the file has been loaded
+	// (usually CSS/JavaScript)
+	_elem_onload: function(instance) {
+		if (!woas.dom.get_loaded(instance) && (!this.readyState || this.readyState == 'complete'
+										 || this.readyState == 'loaded') ) {
+		  woas.dom.set_loaded(instance);
+		}
+	},
+	
+	get_loaded: function(instance) {
+		for(var i=0,it=this._objects.length;i<it;++i) {
+			if (this._objects[i].instance === instance)
+				return this._objects[i].loaded;
+		}
+		woas.log(instance+" is not indexed");
+		return false;
+	},
+
+	set_loaded: function(instance) {
+		for(var i=0,it=this._objects.length;i<it;++i) {
+			if (this._objects[i].instance === instance) {
+				woas.log(instance+" finished loading");
+				this._objects[i].loaded = true;
+				
+				// now call the associated callback
+				if (typeof this._objects[i].after_load == "function") {
+					(this._objects[i].after_load)();
+				}
+				
+				// reduce the counter of 'hung' requests
+				--this._loading;
+				return true;
+			}
+		}
+		woas.log(instance+" finished loading, but was not indexed");
+		return false;
+	},
+	
 	// regex used to remove some comments
 	reJSComments: /^\s*\/\*[\s\S]*?\*\/\s*/g,
 	
-	_internal_add: function(script_token, script_content, external) {
+	_internal_add: function(script_token, script_content, external, after_load) {
 		var s_elem = document.createElement("script");
 		s_elem.type="text/javascript";
-		s_elem.id = "woas_"+script_token;
+		s_elem.id = "woas_script_"+script_token;
+
+		// register in our management arrays
+		this._objects.push( {obj:s_elem, parent:this._cache.head, instance:s_elem.id,
+								external: external ? true : false,
+								loaded: false, after_load: after_load} );
+		++this._loading;
+		// add a callback which informs us of the completion
+		s_elem.onload = s_elem.onreadystatechange = woas._make_delta_func("woas.dom._elem_onload",
+													"'"+woas.js_encode(s_elem.id)+"'");
 		if (external)
 			s_elem.src = script_content;
 		this._cache.head.appendChild(s_elem);
 		if (!external)
 			// add the inline code with a protection from re-run which could happen upon saving WoaS
 			woas.setHTML(s_elem, script_content);
-		// register in our management arrays
-		this._objects.push( {obj:s_elem, parent:this._cache.head, instance:script_token, external: external} );
 	},
 	
-	add_script: function(script_class, script_id, script_content, external) {
+	add_script: function(script_class, script_id, script_content, external, after_load) {
 		// remove the comments
-		script_content = script_content.replace(this.reJSComments, '');
-		if (!script_content.length) return false;
-		this._internal_add(script_class+"_"+script_id, script_content, external);
+		if (!external) {
+			script_content = script_content.replace(this.reJSComments, '');
+			if (!script_content.length) return false;
+		}
+		this._internal_add(script_class+"_"+script_id, script_content, external, after_load);
 		return true;
 	},
 	
@@ -604,6 +665,19 @@ woas.dom = {
 	}
 	
 };
+
+// generate a delta function and cache it
+woas._delta_cache = {};
+woas._make_delta_func = function(fn_name, fn_args) {
+	var id=fn_name+' '+fn_args;
+	var fn_obj;
+	if (typeof woas._delta_cache[id] == "undefined") {
+		eval("fn_obj = function() { "+fn_name+"("+fn_args+"); };");
+		woas._delta_cache[id] = fn_obj;
+	} else
+		fn_obj = woas._delta_cache[id];
+	return fn_obj;
+}
 
 // WoaS 'pager' module
 woas.pager = {
