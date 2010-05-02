@@ -949,3 +949,11 @@ NOW WORKING ON BOAS 1.0
 * Updated the [[Wiki::Example::Table of Contents]] page.
 * Updated the [[Main Page]].
 ======================================================================================================================
+* Enabled editing of pages in the WoaS:: namespace.
+* Removed references to the ToDo list from the Features section of the [[Special::About]] page.
+* Removed the [[Help::ToDo list]] page and any ToDo items in the wiki.
+* Removed the [[ToDo list]] page.
+* Removed the [[Wiki::Template::TODO]] page.
+* Replaced the [[Special::About]] page with the BoaS [[Special::About]] page.
+* Replaced the icons with Tango icons.
+======================================================================================================================

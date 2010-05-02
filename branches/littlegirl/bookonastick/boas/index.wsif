@@ -64,54 +64,89 @@ if (!woas.config.permit_edits) $("btn_import").disabled = true;
 --DFQRCTsKlU
 woas.page.title: Special::About
 woas.page.attributes: 0
-woas.page.encoding: ecma/plain
+woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-[[Special::TOC]]
-= Welcome to Wiki on a Stick!
-Wiki on a Stick (in short *WoaS*) is a [[http://en.wikipedia.org/wiki/Wiki|wiki]] that lives in *one self-modifying XHTML file*. It's perfect to be used at home or at office, on your laptop or USB pen drive. It can be used as a personal notepad, calendar, repository for software documentation and for many other purposes; it allows full customization and extension by your own scripts and plugins. It also offers [[WoaS::Help::Security|AES encryption]] of pages.
+<div style="float:right; margin-top:10px; margin-right:5px; margin-bottom:20px; margin-left:20px;">[[Include::Wiki::Template::Logo]]</div>
+= Book on a Stick v1.0 (under development)
+Write a book in one self-contained file that runs entirely in your browser and can be kept on portable media in your pocket. This page is all you need! See the [[Help::Getting started|Getting started]] page to learn how this wiki works, or click the [[Include::Wiki::Template::Icon::Edit]] icon in the banner to replace this content with the beginning of your masterpiece.
 
-== Version
+== Features:
+* Accepts [[http://en.wikipedia.org/wiki/Plain_text|plain text]], [[Tagged::Syntax|internal wiki syntax]], [[http://www.w3schools.com/html/default.asp|HTML]], [[http://www.w3schools.com/js/default.asp|JavaScript]], and some [[http://www.wikicreole.org/wiki/|Creole 0.1]].
+* Buttons for quick access to all parts and features of the wiki.
+* Customizable [[Help::CSS|CSS settings]] to change the look of the wiki.
+* Customizable [[::Menu|menu]] for finding your [[Special::All Pages|pages]] easily.
+* [[Special::License|Free, open source]], cross-platform software.
+* [[Help::Footnotes|Footnote]] syntax.
+* Fully [[Special::Search|searchable]].
+* No install necessary.
+* No internet connection necessary.
+* Offers [[WoaS::Help::Security|AES 256-bit high security data encryption]].
+* [[Sandbox]] page for trying out syntax.
+* Special default [[Wiki::Utility::Links for writers|links for writers]] with quick access to various writing tools.
 
-Current version is *v@@WOAS_VERSION@@*
-Versions 0.9&tilde;@@WOAS_VERSION@@ by Daniele C. ([[http://sf.net/users/legolas558/|legolas558]])
-Original version (v0.01 &tilde; v0.04) by Andr\u00e9 Wagner
+== Uses:
+* [[Help::Page creation|Create]] outlines, scenes, and chapters on individual pages.
+* Create an [[Wiki::Example::Overview|overview page]] that [[Help::Include wiki page|includes]] your other pages to see the whole book at once.
+* Create printer-friendly versions of your pages at the click of a button.
+* [[Special::Export|Export]] the wiki as a framed web page made of multiple XHTML, CSS, and image files.
+* Great for [[http://www.nanowrimo.org/eng/whatisnano|NaNoWriMo]]!
+* Use it as a journal, recipe keeper, ToDo list, diary, etc.
 
-<big>[[Special::License|Wiki on a Stick is licensed under the GNU/GPL license]].</big>
+== History:
+* See the latest changes [[History|here]].
 
-== Download
-Wiki on a Stick can always be downloaded through the official SF.net WoaS project file download service:
-<big>[[https://sourceforge.net/projects/stickwiki/files/|Download Wiki on a Stick]]</big>
+== Licensing
+Book on a Stick is licensed under the [[Special::License|GNU GPL v2]].
 
-== Get support
+== Requirements:
+* Firefox 1.5
+* Firefox 2
+* Firefox 3
+* Opera
+* Internet Explorer 5.5
+* Internet Explorer 6
+* Internet Explorer 7
 
-You can use the [[http://woas.iragan.com/|official WoaS forums]] and the [[http://sf.net/projects/stickwiki/|SF.net WoaS project facilities]].
+== Download:
+* *From Box.net:*
+** [[http://www.box.net/shared/pnlvd4vcqn|BookOnAStick-v0.9.1.zip]] - current version
+** [[http://www.box.net/shared/if0n2kh00q|BookOnAStick-v0.9.zip]]
+** [[http://www.box.net/shared/cenn8m6ng4|BookOnAStick-v0.8.zip]]
+** [[http://www.box.net/shared/lbga3amuv1|BookOnAStick-v0.7.zip]]
+** [[http://www.box.net/shared/grb2s6y2ss|BookOnAStick-v0.6.zip]]
+** [[http://www.box.net/shared/cnozyjxejc|BookOnAStick-v0.5.zip]]
+** [[http://www.box.net/shared/gzubs5eoen|BookOnAStick-v0.4.zip]]
+** [[http://www.box.net/shared/latka7sygp|BookOnAStick-v0.3.zip]]
+** [[http://www.box.net/shared/rb11gbko07|BookOnAStick-v0.2.zip]]
+** [[http://www.box.net/shared/2hkv8enpmu|BookOnAStick-v0.1.zip]]
 
-== Thanks to
-This project wouldn't be what it is without the help of other people. If you contributed to Wiki on a Stick and your name is not here (or if you do not want it to be listed here), please [[http://sourceforge.net/sendmessage.php?touser=799761|contact the mantainer]].
-* *Jeremy Ruston* - the creator of the wonderful [[http://www.tiddlywiki.com/|TiddlyWiki]], who served as inspiration for Wiki on a Stick
-* *Philip O'Donnel* - creator of the table syntax & parsing code
-* *Tim Lord*
-* *Knut Kohl*
-* *Rob Schmersel*
-* *Michiel van Everdingen* - [[http://home.versatel.nl/MAvanEverdingen/Code/|original javascript implementation]] of AES encryption
-* *Cyril Mazard* - search feature
-* *jimmac* - author of [[http://jimmac.musichall.cz/i.php?i=gorilla-stock|the icons set]] which we are currently using in WoaS
-* *martinellison* - transclusion patch
-* *Nilton Castillo* - bugfixes and enhancements (pluggable macro syntax)
-* *Little Girl* - documentation, overall testing, various improvements
-* [[http://weekendtesting.com/archives/833|Europe Weekend Testing]] - which provided a testing session for WoaS
-* [[http://testconsultant.blogspot.com/|Jeroen Rosink]] - for testing WoaS releases
+* *From Host-A.net:*
+** [[http://host-a.net/littlegirl/BookOnAStick-v0.9.1.zip|BookOnAStick-v0.9.1.zip]] - current version
+** [[http://host-a.net/littlegirl/BookOnAStick-v0.9.zip|BookOnAStick-v0.9.zip]]
+** [[http://host-a.net/littlegirl/BookOnAStick-v0.8.zip|BookOnAStick-v0.8.zip]]
+** [[http://host-a.net/littlegirl/BookOnAStick-v0.7.zip|BookOnAStick-v0.7.zip]]
+** [[http://host-a.net/littlegirl/BookOnAStick-v0.6.zip|BookOnAStick-v0.6.zip]]
+** [[http://host-a.net/littlegirl/BookOnAStick-v0.5.zip|BookOnAStick-v0.5.zip]]
+** [[http://host-a.net/littlegirl/BookOnAStick-v0.4.zip|BookOnAStick-v0.4.zip]]
+** [[http://host-a.net/littlegirl/BookOnAStick-v0.3.zip|BookOnAStick-v0.3.zip]]
+** [[http://host-a.net/littlegirl/BookOnAStick-v0.2.zip|BookOnAStick-v0.2.zip]]
+** [[http://host-a.net/littlegirl/BookOnAStick-v0.1.zip|BookOnAStick-v0.1.zip]]
 
-== Important links
-* [[http://sf.net/projects/stickwiki/|SourceForge project home page]] - useful for contributing
-* [[http://woas.iragan.com/|Official WoaS forums]] - our discussion forums where you can also participate to the decision processes
-* [[http://sourceforge.net/tracker/?group_id=155218&atid=794925|SF.net WoaS project bug tracker]] - if you find a bug, post it here
-* [[http://sourceforge.net/tracker/?group_id=155218&atid=794928|SF.net WoaS project feature tracker]] - if you have have suggestions for improvements
-* [[http://www.iragan.com/woas_irc/|Official WoaS IRC Channel]] - #woas room at FreeNode servers
-* [[https://lists.sourceforge.net/lists/listinfo/stickwiki-devel|SF.net WoaS Development mailing list]] - for public discussion
+== Support:
+* Leave a comment on the [[http://bookonastick.wordpress.com/|Book on a Stick home page]] or <a href="mailto:littlergirl@gmail.com?subject=Book on a Stick comment">email Little Girl</a> for support.
+
+== See also:
+* [[http://sourceforge.net/tracker/?group_id=155218&atid=794925|Wiki on a Stick bug tracker]]
+* [[https://lists.sourceforge.net/lists/listinfo/stickwiki-devel|Wiki on a Stick development mailing list]]
+* [[http://sourceforge.net/project/showfiles.php?group_id=155218|Wiki on a Stick download]]
+* [[http://sourceforge.net/tracker/?group_id=155218&atid=794928|Wiki on a Stick feature tracker]]
+* [[http://woas.iragan.com/|Wiki on a Stick forums]]
+* [[http://sf.net/projects/stickwiki/|Wiki on a Stick home page]]
+* [[http://stickwiki.sourceforge.net/|Wiki on a Stick online demo]]
+
 --DFQRCTsKlU
 woas.page.title: Main Page
 woas.page.attributes: 0
@@ -120,22 +155,25 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-== Book on a Stick 1.0 (under development)
+<div style="float:right; margin-top:10px; margin-right:5px; margin-bottom:20px; margin-left:20px;">[[Include::Wiki::Template::Logo]]</div>
+= Book on a Stick 1.0 (under development)
 If you're seeing this, then BoaS is in a state of transition and hasn't finished merging with WoaS 0.12.0 yet.
 
 Until this merge is finished, you will notice these things:
 * A couple of the features will be broken and flagged with an alert message.
 * All page listings will have a strange new header.
+* CSS will be controlled by the custom CSS rather than the core CSS.
 * Many of the instructions will be inaccurate.
 * Page layout will be messed up.
-* Some links will temporarily be broken.
+* Some links will be broken.
+* Some of the Special pages will have unfamiliar content and layout.
 * Some things will not yet be styled properly.
-* The *About* button will take you to a WoaS page instead of a BoaS page.
 * The BoaS editor buttons will be missing.
-* The BoaS icons will be missing.
 * The menu will contain an extra link.
+* The separate fixed menu and fixed banner options will be missing.
 * There will be a gap below the banner when in the editor.
 * There will be "duplicates" of help pages.
+* The word count button will be broken.
 This will all look a lot better as time goes by, most of these things will be fixed, and the ones that can't be fixed will be removed until such a time as they can be made to work.
 
 I apologize for any inconvenience and I appreciate your patience.&nbsp;&nbsp;&nbsp;<img src="data:image/png;base64,R0lGODlhBgAFAIABAAAAAP///yH5BAEAAAEALAAAAAAGAAUAAAIJDGJ4ic1qgAwFADs=" width="2%" height="2%">
@@ -3920,12 +3958,14 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 
 * _Content:_
 ** Added a note to the [[Wiki::Utility::Diary]] page warning users that the [[Wiki::Utility::Diary|diary]] is broken in this version.
-** Added a note to the [[ToDo list]] page warning users that the [[ToDo list]] is broken in this version.
-** Added a note to the [[Sandbox]] page warning users that the [[ToDo list]] is broken in this version.
 ** Added the [[Help::Embedding]] page, which needs to be rewritten.
 ** Moved all pages in the *Example::* namespace to the *Wiki::Example::* namespace.
 ** Moved all pages in the *Utility::* namespace to the *Wiki::Utility::* namespace.
+** Removed references to the *ToDo list* from the Features section of the [[Special::About]] page.
 ** Removed the *Example::Menu* page.
+** Removed the *Help::ToDo list* page and any ToDo items in the wiki.
+** Removed the *ToDo list* page.
+** Removed the *Wiki::Template::TODO* page.
 ** Removed the *WoaS::History* page.
 ** Updated the [[Help::Edit a page]] page.
 ** Updated the [[Help::Include wiki page]] page.
@@ -4074,7 +4114,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Added the [[Help::Bluebox]] page to explain how to use Bluebox, which was contributed by *FBNil*, to create styled presentations of your stories.
 ** Added the [[Help::Include web page]] page.
 ** Added the [[Help::Folds]] page.
-** Added the [[Help::ToDo list]] page with instructions on how to use the [[ToDo list]] page.
+** Added the *Help::ToDo list* page with instructions on how to use the *ToDo list* page.
 ** Added the [[Help::Topnote]] page to describe *topnotes* and demonstrate how to use them.
 ** Added the *Template::Foldpage* page to be used by *Folds*.
 ** Added the *Template::Foldtextinline* page to be used by *Folds*.
@@ -4083,8 +4123,8 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Added the *Template::Image gallery* page, thanks to a script by *FBNil*.
 ** Added the *Template::Spoiler* page to be used by [[Help::Spoilers|spoilers]].
 ** Added the *Template::Topnote* page to be used for creating [[Help::Topnote|topnotes]].
-** Added the *Template::TODO* page to be used for *ToDo* items in the [[ToDo list]] page contributed by *FBNil*.
-** Added the [[ToDo list]] page, which is a slight modification of code contributed by *FBNil*.
+** Added the *Template::TODO* page to be used for *ToDo* items in the *ToDo list* page contributed by *FBNil*.
+** Added the *ToDo list* page, which is a slight modification of code contributed by *FBNil*.
 ** Removed the *Examples* page since it's generated automatically by the *Examples* button in the menu.
 ** Removed the *Help* page since it's generated automatically by the *Help* button in the menu.
 ** Removed the *Syntax* page and put its contents into the *Help::Syntax* page.
@@ -7383,10 +7423,6 @@ woas.page.boundary: DFQRCTsKlU
 = Sandbox
 This page is for trying out new things without having to create a new page.
 
-[[Include::Image::alert.png]] This ToDo interface is broken in WoaS 0.12.0, so it's broken in this merging copy of BoaS. Hopefully I can fix it.  <img src="data:image/png;base64,R0lGODlhBgAFAIABAAAAAP///yH5BAEAAAEALAAAAAAGAAUAAAIJDGJ4ic1qgAwFADs=" width="2%" height="2%">
-
-[[Include::Template::TODO|this|Delete this task from the Sandbox page to remove it from the ToDo list.]]
-
 --DFQRCTsKlU
 woas.page.title: Wiki::Utility::Links for writers
 woas.page.attributes: 0
@@ -7698,87 +7734,6 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 <form method="POST" name="wordcount"><script language="JavaScript">document.deepText= function(hoo){var A= []; if(hoo){hoo= hoo.firstChild; while(hoo!= null){if(hoo.nodeType== 3){A[A.length]= hoo.data;} else A= A.concat(arguments.callee(hoo)); hoo= hoo.nextSibling;}}return A;}
 function countwords(hoo){var text= document.deepText(hoo).join(' '); return text.match(/[A-Za-z\'\-]+/g).length-186;}</script><input type="button" value="Word Count" onClick="alert(countwords(document.body))"></form>
---DFQRCTsKlU
-woas.page.title: Wiki::Template::TODO
-woas.page.attributes: 0
-woas.page.encoding: 8bit/plain
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-<a class="TODO" name="%1" href="javascript:go_to('ToDo list')"><strong><font color="red">ToDo:</font></strong></A> <b>%2</b>
---DFQRCTsKlU
-woas.page.title: ToDo list
-woas.page.attributes: 0
-woas.page.encoding: 8bit/plain
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-= ToDo list
-[[Include::Image::alert.png]] This is broken in WoaS 0.12.0, so it's broken in this merging copy of BoaS. Hopefully I can fix it.  <img src="data:image/png;base64,R0lGODlhBgAFAIABAAAAAP///yH5BAEAAAEALAAAAAAGAAUAAAIJDGJ4ic1qgAwFADs=" width="2%" height="2%">
-
-<div id='todos' style="border:1px solid grey;"></div>
-<script>
-function listtodo() {
-	var x=0;
-	var resx = '<table cellspacing=\'2\' cellpadding=\'2\'>';
-	var re = /\[\[Include::Template::TODO\|([^\|]+)\|([^\]]+)/g;
-	for (var i = 0,l=pages.length; i < l; ++i) {
-		var pagetxt = pages[i];
-		var res = pagetxt.toString().match(re);
-		if (res != null) {
-			for (var j = 0,rl=res.length; j<rl ; ++j) {
-				var parts = res[j].split('|');
-				var anchor = parts[1].replace('_',/ /);
-				resx += '<tr><td>' + "<a class=\"link\" onclick=\"go_to('" 
-					+ RegExp.escape(page_titles[i]) + "'); window.location.hash='"+anchor +"'\">"
-					+ page_titles[i] + "<\/a>" + '</td><td>-</td><td>' + woas.parser.parse(parts[2]) 
-					+ '</td></tr>';
-			}
-		}
-	}
-	$('todos').innerHTML = resx + '</table>';
-}
-listtodo();
-</script><form><input type='button' onclick='listtodo();' value='Refresh the list'/>&nbsp;&nbsp;&nbsp;<input value="Instructions" onclick="go_to('Help::ToDo list')" type="submit" /></form>
-
---DFQRCTsKlU
-woas.page.title: Help::ToDo list
-woas.page.attributes: 0
-woas.page.encoding: 8bit/plain
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-= ToDo list
-[[Special::TOC]]
-== About the ToDo list page
-The [[ToDo list]] page allows you to create ToDo tasks anywhere in your wiki. The list updates automatically as you create and delete tasks from your pages. This provides a quick overview of what still needs to be done, as well as direct links to each task.
-
-== Create a ToDo item
-<div class="helptext">Use this code in a page that needs more work, replacing TASK with the task you need to do:</div>
-<div class="helpcode">[<!-- -->[In<!-- -->clude:<!-- -->:Tem<!-- -->plate:<!-- -->:T<!-- -->ODO|th<!-- -->is|TASK]]</div>
-<div class="helptext">To create a ToDo item like the one on the [[Sandbox]] page. The item will automatically be added to the [[ToDo list]] page.</div>
-
-== Refresh the ToDo list
-The list will refresh automatically as you add and remove ToDo items in your wiki pages, but just in case it doesn't, a *Refresh the list* button is included on the [[ToDo list]] page.
-
-== Remove the example ToDo task
-# Open the [[Sandbox]] page.<br><br>
-# Click the [[Include::Template::Icon::Edit]] icon in the banner to edit the page.<br><br>
-# Delete this line from the page:<br><br><div class="helpcode">[<!-- -->[Include::Template::TODO|this|Delete this task from the Sandbox page to remove it from the ToDo list.]<!-- -->]</div><br>
-# Click the [[Include::Template::Icon::Save]] icon in the banner to save the page.<br><br>
-
-== Use the ToDo list
-# Open the [[ToDo list]] page.
-# Click on any link.
-# You'll be taken to the spot on the page where the ToDo item is.
-# Complete the task specified in the ToDo item.
-# Remove the ToDo item from the page. It will be automatically cleared from the [[ToDo list]] page.
-
-[[Tags::Help]]
-
 --DFQRCTsKlU
 woas.page.title: Wiki::Template::Topnote
 woas.page.attributes: 0
@@ -8545,7 +8500,7 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 [[Special::TOC]]
 = Embedding
-[[Include::Template::TODO|this|Rewrite this page since it was taken straight from the Feature::Summary page in WoaS.]]
+<font color="red">*ToDo: Rewrite this page since it was taken straight from the Feature::Summary page in WoaS.*</font>
 
 == Embedding
 You can embed text files and images within this wiki by creating a link and clicking it:
