@@ -1,5 +1,8 @@
+== 0.12.x development goals
 
-== For 0.12.0
+* deprecate Special:: namespace in favor of WoaS:: namespace (where possible)
+
+* attempt to use XHR to load files (not always a good idea: think about server scripts)
 
 * allow multiple external javascript sources in plugin pages starting with '@'
 
