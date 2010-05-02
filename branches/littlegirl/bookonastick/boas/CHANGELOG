@@ -957,3 +957,7 @@ NOW WORKING ON BOAS 1.0
 * Replaced the [[Special::About]] page with the BoaS [[Special::About]] page.
 * Replaced the icons with Tango icons.
 ======================================================================================================================
+* Added tooltips to the menu buttons.
+* Updated the [[WoaS::CSS::Custom]] page.
+* Updated the [[WoaS::CSS::Core]] page.
+======================================================================================================================

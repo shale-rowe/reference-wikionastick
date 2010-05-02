@@ -2774,109 +2774,224 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-/* ------------------------------------------- */
-/* BODY                                        */
-/* ------------------------------------------- */
+/***** ALERT NOTES *****/
+.alertnote {
+	background-color: pink;
+	border: 0.063em groove #AA3;
+	font-size: 80%;
+	margin-top: 0em;
+	margin-bottom: 0em;
+	padding-top: 0.188em;
+	padding-right: 0.313em;
+	padding-bottom: 0.188em;
+	padding-left: 0.313em;
+}
+
+/***** BANNER - BACKGROUND AND POSITION *****/
+div.wiki_header {
+	background-color: gainsboro;
+	border-top: 0.188em solid grey;
+	border-bottom: 0.188em solid grey;
+	left: 0em;
+	opacity: .65;
+	padding-right: 0.75em;
+	top: 0em;
+	width: 99.9%;
+	z-index: 1;
+}
+
+/***** BANNER - PAGE TITLE *****/
+.title {
+	display: inline;
+	font-size: 2em;
+	font-weight: bold;
+	margin-top: 0em;
+	margin-bottom: 0em;
+	text-shadow: #888 0.13em 0.13em 0.065em;
+} 
+
+/***** BLUEBOX *****/
+.bluebox {
+	background-color: #d1e0ef;
+	border: #3c5a86 0.063em dashed;
+	color: #000000;
+	font-size: 0.75em;
+	font-weight: normal;
+	margin: 1.875em 0.313em 0.938em 0.625em;
+	padding: 0.313em;
+}
+
+/***** BLUEBOX - FIRST LETTER *****/
+.first-letter {
+	background-color: #333;
+	border: 0.063em solid #fff;
+	border-right-width: medium;
+	border-left-width: medium;
+	border-color: yellow;
+	color: #fb9c39;
+	display: block;
+	float: left;
+	font-size: 4em;
+	font-style: italic;
+	line-height: 0.85em;
+	margin-right: 0.1em;
+	padding-right: 1%;
+	text-decoration: none;
+	text-transform: capitalize;
+}
+
+/***** BLUEBOX - HEADER LEVEL 1 *****/
+.bluebox H1 {
+	background-color: #99bbdd;
+	border: #3c5a86 0.063em solid;
+	color: #000000;
+	display: inline;
+	font-size: 1.125em;
+	font-weight: bold;
+	margin: 0em 0em -0.75em 0.313em;
+	padding-top: 0.188em;
+	padding-right: 0.313em;
+	padding-bottom: -0.188em;
+	padding-left: 0.313em;
+	position: relative;
+	top: -1.875em;
+} 
+
+/***** BLUEBOX - HEADER LEVEL 2 *****/
+.bluebox H2 {
+	color: #000000;
+	display: inline;
+	font-size: 1em;
+	font-weight: bold;
+	padding-top: 0.188em;
+	padding-right: 0.313em;
+	padding-bottom: 0.188em;
+	padding-left: 0.313em;
+} 
+
+/***** BODY - FONT FAMILY *****/
 body {
 	font-family: Georgia, verdana;
 }
 
+/***** BODY - BACKGROUND COLOR *****/
 .woas_background {
-	background-color: #F0F0F5;
-}
+	background-color: silver;
+} 
 
-/* ------------------------------------------- */
-/* DEBUG CONSOLE                               */
-/* ------------------------------------------- */
+/***** DEBUG PANEL *****/
 #woas_debug_panel {
+	background-color: gainsboro;
+	border: 1pt solid black;
+	padding-left: 2%;
 	margin-top: 0.75em;
 	margin-right: 0.85em;
-	margin-left: 15.5%;
-	background-color: gray;
-	border: 1pt solid black;
+	margin-left: 20.5%;
+	width: 77%;
 }
 
+/***** DEBUG CONSOLE *****/
 #woas_debug_console {
 }
 
+/***** DEBUG LOG *****/
 #woas_debug_log {
-	background-color: rgb(204, 204, 204);
-	width: 99.3%;
-}
+	background-color: silver;
+	margin-bottom: 1%;
+	width: 97%;
+} 
 
-/* ------------------------------------------- */
-/* EDITOR                                      */
-/* ------------------------------------------- */
+/***** EDITOR *****/
 #woas_edit_page_title{
 	margin-top: 2.188em;
 }
 
+/***** EDITOR - WOAS BUTTON  *****/
+/***** NOTE TO LITTLE GIRL: REMOVE THIS ONCE YOU'RE SURE THERE ARE NO REFERENCES TO IT *****/
 .woas_editor_button {
 	margin-top: 0.063em;
 	margin-bottom: 0.063em;
 }
 
-/* ------------------------------------------- */
-/* ENCRYPTION                                  */
-/* ------------------------------------------- */
+/***** ENCRYPTION *****/
 /* ask password overlay */
 #woas_pwd_query {
-	position: absolute;
-	width: 99%;
+	background-color: #d6dff7;
+	border: 1pt solid #666666; 
+	font-size: large;
 	height: 100%;
-	text-align: center;
+	left: 0em;
 	padding-top: 25%;
-	z-index: 100;
-	left: 0em;
-	top: 0em;
-        border: 1pt solid #666666; 
-        background-color: #d6dff7;
-	font-size: large;
-        visibility: hidden;
-}
-
-#woas_pwd_mask {
 	position: absolute;
-	width: 99%;
-	height: 100%;
 	text-align: center;
-	z-index: 99;
-	visibility: hidden;
-	font-size: large;
-	left: 0em;
 	top: 0em;
+	visibility: hidden;
+	width: 99%;
+	z-index: 100;
 }
-
+#woas_pwd_mask {
+	font-size: large;
+	height: 100%;
+	left: 0em;
+	position: absolute;
+	text-align: center;
+	top: 0em;
+	visibility: hidden;
+	width: 99%;
+	z-index: 99;
+}
 .woas_password_desc {
-	font-size: 0.8em;
-	margin-left: 25%;
-	margin-right: 25%;
-	border: 2pt solid navy;
 	background-color: #FAFAFB;
+	border: 2pt solid navy;
+	font-size: 0.8em;
+	margin-right: 25%;
+	margin-left: 25%;
 }
 
-/* ------------------------------------------- */
-/* FOOTER                                      */
-/* ------------------------------------------- */
+/***** FOOTER *****/
 .woas_about_footer {
-	padding: 2pt;
+	background-color: gainsboro;
+	border: 0.188em solid grey;
+	font-size: 80%;
+	font-weight: normal;
+	line-height: 1em;
 	margin-top: 0.75em;
 	margin-right: 0.85em;
-	margin-left: 15.5%;
-	line-height: 1em;
-	border: 1pt solid black;
-	background-color: #048db4;
-	font-weight: bold;
-	text-align: center;
+	margin-left: 20.5%;
+	padding-top: 0.438em;
+	padding-right: 0.813em;
+	padding-bottom: 0.813em;
+	padding-left: 0.813em;
+	text-align: justify;
+	width: 77.5%;
 }
 
+/***** FOOTER - LINKS *****/
 .woas_about_footer a {
-	color: white ! important;
+	color: mediumblue !important;
 }
 
-/* ------------------------------------------- */
-/* HEADERS                                     */
-/* ------------------------------------------- */
+/***** FOOTNOTES *****/
+.footnote {
+	color: mediumblue;
+	font-size: 0.55em;
+	font-style: italic;
+	line-height: 1em;
+	text-decoration: underline;
+	vertical-align: super;
+}
+
+/***** FOOTNOTES - CONTAINER *****/
+.footnotecontainer {
+	background-color: #EEEEFF;
+	font-size: 0.75em;
+	font-style: italic;
+	line-height: 1em;
+	margin-top: -3em;
+	vertical-align: super;
+}
+
+/***** HEADERS *****/
 h1.woas_header {
 	font-size: 1.438em;
 }
@@ -2896,656 +3011,38 @@ h6.woas_header {
 	font-size: 0.625em;
 }
 
-/* ------------------------------------------- */
-/* HELP PAGES                                  */
-/* ------------------------------------------- */
+/***** HELP PAGE BACKGROUND *****/
 .woas_help_background {
+	background-attachment: fixed;
 	background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAYAAADDPmHLAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A%2FwD%2FoL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9oDDAonCzKHvroAAAEFSURBVHja7duxDYIhFIVRIA7EKk7qKoxkb2Ns1PzfObWNuRfyAB0DAAAAAAAAAAAAAAAAAAAAAAAAAIC%2FMEtf9pxzf%2FeZvfdDAYLBV4swBd8uwhR%2BuwhT%2BO0SLOE7BQg%2FvAssa8AOYPWHd4FbtfmvIVZnhyX8xnlfAVCA8kpPHAO%2FNUReqUQKEA7fDDDcHC7hmwGEHx4gp%2BDbpwc%2FCYsfHafw2%2FcG2beAevCpHeDT1V%2B6LfQWEA5fAeLhKwAKoAAAAOR4DRzt3wl6DYyXwGtgvAQeg%2BIlcBEUpwAKgALgHsAg6BTgHsAO0CyBfwwDAAAAAAAAAAAAAAAAAAAAAAAAAAAAv%2FIER4Nn%2B7YDG3wAAAAASUVORK5CYII%3D);
-	background-attachment:fixed;
 }
 
+/***** HELP PAGE BUTTON *****/
 .woas_help_button {
-	margin-top: 0.75em;
-	border: 1pt solid grey;
-	color:darkblue;
 	background-color: #F0F0F5;
-	position:fixed;
-	right:0.625em;
-	top:0.188em;
-	text-align:center; font-size:1em;
-	font-variant:normal;
-	cursor:pointer;
-}
-
-.woas_help_button:hover {
-	background-color:darkgrey;
-}
-
-.woas_helpcode {
-	padding:0.438em;
-	font-family:monospace;
-}
-
-.woas_helptext {
-	font-family: lucida;
-}
-
-/* ------------------------------------------- */
-/* HOTKEYS                                     */
-/* ------------------------------------------- */
-#woas_custom_accesskeys {
-	visibility: hidden;
-	display: none;
-}
-
-/* ------------------------------------------- */
-/* LAST MODIFIED LINE   */
-/* ------------------------------------------- */
-.woas_page_mts {
-	margin-top: 0.75em;
-	margin-right: 0.80em;
-	margin-left: 15.5%;
-	z-index: 0;
-	font-size: small;
-}
-
-/* ------------------------------------------- */
-/* LINKS                                       */
-/* ------------------------------------------- */
-/* cursor when on a link */
-a {
+	border: 1pt solid grey;
+	color: darkblue;
 	cursor: pointer;
-/* cursor when on a link - IE5.5/IE6 */
-	/* cursor: hand; */
+	font-size: 1em;
+	font-variant: normal;
+	margin-top: 0.75em;
+	position: fixed;
+	right: 0.625em;
+	text-align:center;
+	top: 0.188em;
+}
+.woas_help_button:hover {
+	background-color: darkgrey;
 }
 
-/* existent link */
-a.link {
-	color: blue;
-}
-a.link:hover {
-	text-decoration: underline;
+/***** HELP PAGE - EXAMPLES *****/
+.woas_helpcode {
+	font-family: monospace;
+	padding: 0.438em;
 }
 
-/* nonexistent link */
-a.unlink {
-	color: red;
-}
-a.unlink:hover {
-	text-decoration: underline;
-}
-
-/* outside world link */
-a.world {
-	color: darkgreen;
-	text-decoration: underline;
-}
-
-/* ------------------------------------------- */
-/* MAIN TEXT AREA                              */
-/* ------------------------------------------- */
-/* main text area div */
-div.woas_text_area {
-	border: 1pt solid black;
-	background-color: white;
-	padding: 0.475em;
-}
-
-/* main text area */
-#wiki_text {
-	position: relative;
-	left: 15.5%;
-	width: 82.3%;
-	z-index: 0;
-	margin-top: 1.313em;
-	margin-bottom: 0.75em;
-	text-align:justify;
-}
-
-/* ------------------------------------------- */
-/* MAIN WIKI PANE WHEN LOCKED                  */
-/* ------------------------------------------- */
-.woas_text_area.locked,
-#woas_pwd_mask {
-	background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAAAAACMmsGiAAAALHRFWHRDcmVhdGlvbiBUaW1lAGdpbyAyOSBtYXIgMjAwNyAxMTo1MToxMCArMDEwME%2BTNUAAAAAHdElNRQfXAx0JNByGxueSAAAACXBIWXMAAAsSAAALEgHS3X78AAAABGdBTUEAALGPC%2FxhBQAAABlJREFUeNpj%2FM%2FwmYHpMwMvAxOQwcvECyQBO1oE%2BlG5iisAAAAASUVORK5CYII%3D);
-	background-color: #eeeeee;
-}
-
-/* ------------------------------------------- */
-/* CORE PAGES                                  */
-/* ------------------------------------------- */
-.woas_core_page {
-	background-color: #bbccff;
-}
-
-/* ------------------------------------------- */
-/* MENU                                        */
-/* ------------------------------------------- */
-div.menu {
-}
-
-div.menu_area {
-	border: 1pt solid grey;
-	font-size: 0.75em;
-	background-color: white;
-	padding: 0.499em;
-	width: 13.2%;
-	left: 1%;
-}
-
-div.menu_area ul li, div.menu_area ol li,
-div.ns_menu_area ul li, div.ns_menu_area ol li {
-	margin-left: -2em;
-}
-
-.woas_menu_button {
-	margin-top: 0.438em;
-	color:darkblue;
-	background-color: #F0F0F5;
-	width:100%;
-	border: 1pt solid grey;
-	text-align:center; font-size:1.3em;
-	font-variant:normal;
-	cursor:pointer;
-}
-
-.woas_menu_button:hover {
-	background-color:darkgrey;
-}
-
-/* ------------------------------------------- */
-/* NAVIGATION BAR                              */
-/* ------------------------------------------- */
-div.wiki_header {
-	top: 0em;
-	left: 0em;
-	border: 1pt solid #aaa;
-	opacity:.65;
-	z-index: 1;
-	width: 99%;
-	padding-right:0.75em;
-}
-
-.title {
-	font-size: 2em;
-	font-weight: bold;
-	margin-bottom: 0em;
-	margin-top: 0em;
-	display:inline;
-	text-shadow: #888 0.13em 0.13em 0.065em;
-}
-
-/* ------------------------------------------- */
-/* NOWIKI TEXT                                 */
-/* ------------------------------------------- */
-/* nowiki text */
-.wiki_preformatted, .woas_nowiki_multiline {
-/* CSS-3 */
-	white-space: pre-wrap;
-/* IE 5.5+ */
-	/* word-wrap: break-word; */
-/* Opera 4-6 */
-	/* white-space: -pre-wrap; */
-/* Opera 7 */
-	/* white-space: -o-pre-wrap; */
-}
-
-/* ------------------------------------------- */
-/* SEARCH                                      */
-/* ------------------------------------------- */
-/* search results */
-div.search_results {
-	border: 1pt solid #aaa;
-	background-color: #f9f9f9;
-	padding: 0.313em;
-	margin-top: 1em;
-	clear: both;
-}
-
-.search_highlight {
-	background-color: yellow;
-}
-
-/* ------------------------------------------- */
-/* TABLE OF CONTENTS                           */
-/* ------------------------------------------- */
-div.woas_toc {
-	border: 1pt dashed #aaa;
-	background-color: #f9f9f9;
-	padding: 0.313em;
-	width: 50%;
-	font-size: 95%;
-}
-
-div.woas_toc ol, li {
-	margin-left: 1.3em;
-	padding-left: 0em;
-}
-
-p.woas_toc_title {
-	font-weight: bold;
-	text-align: center;
-}
-
-/* ------------------------------------------- */
-/* TABLES                                      */
-/* ------------------------------------------- */
-table.woas_text_area {
-	border: 1pt solid black;
-	border-spacing: 0em;
-}
-
-table.woas_text_area td {
-	border: 1pt solid;
-	padding: 0.313em;
-}
-
-table.woas_text_area caption {
-        font-weight: bold;
-        font-style: italic;
-}
-
-/* ------------------------------------------- */
-/* TAGS                                        */
-/* ------------------------------------------- */
-/* tag container */
-div.taglinks {
-	border: 1pt solid #aaa;
-/*	background-color: #f9f9f9; */
-	padding: 0.313em;
-	margin-top: 1em;
-	clear: both;
-}
-
-/* STYLED BOXES AROUND TAGS */
-div.taglinks > a {
-	color:navy;
-	background-color:gainsboro;
-	border:2px solid blue;
-	margin:2px 2px 2px 0;
-	padding:3px 5px 3px 5px;
-	text-decoration:none;
-	font-size:90%;
-	line-height:2.4;
-	-moz-border-radius:7px;-webkit-border-radius:7px;
-	/* border-radius:7px; */
-	font-weight:bold;
-}
-
-div.taglinks > a:hover {
-	background-color:grey;
-	color:white;border:2px solid blue;
-	text-decoration:none;
-	font-weight:bold;
-}
-
-/* ------------------------------------------- */
-/* WIKI LOADING OVERLAY                        */
-/* ------------------------------------------- */
-#loading_overlay {
-	position: absolute;
-	width: 99%;
-	height: 100%;
-	padding-top: 25%;
-	z-index: 100;
-	background-color: white;
-	left: 0em;
-	top: 0em;
-	font-size: large;
-	text-align: center;
-}
-
-/* ------------------------------------------- */
-/* WIKI WAIT TEXT                              */
-/* ------------------------------------------- */
-.woas_wait_text {
-	color: navy;
-}
-/* ------------------------------------------- */
-/* MISCELLANEOUS                               */
-/* ------------------------------------------- */
-.woas_embedded {
-}
-.woas_listing_options {
-	background-color: #AACCBB;
-	border: 0.1em solid blue;
-	padding: 0.2em;
-}
---DFQRCTsKlU
-woas.page.title: WoaS::CSS::Custom
-woas.page.attributes: 0
-woas.page.encoding: 8bit/plain
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-/* CUSTOM CSS USED TO OVERRIDE DEFAULT CSS */
-
-/* ALERT NOTES */
-.alertnote {
-	border:0.063em groove #AA3;
-	background-color:pink;
-	font-size:80%;
-	padding-top:0.188em;
-	padding-right:0.313em;
-	padding-bottom:0.188em;
-	padding-left:0.313em;
-	margin-top:0em;
-	margin-bottom:0em;
-}
-
-/* BLUEBOX */
-.bluebox {
-	color:#000000;
-	background-color:#d1e0ef;
-	border:#3c5a86 0.063em dashed;
-	padding:0.313em;
-	margin:1.875em 0.313em 0.938em 0.625em;
-	font-size:0.75em;
-	font-weight:normal;
-}
-
-/* BLUEBOX - FIRST LETTER */
-.first-letter {
-	color:#fb9c39;
-	background-color:#333;
-	border:0.063em solid #fff;
-	border-right-width:medium;
-	border-left-width:medium;
-	border-color:yellow;
-	padding-right:1%;
-	margin-right:0.1em;
-	line-height:0.85em;
-	text-transform:capitalize;
-	text-decoration:none;
-	font-size:4em;
-	font-style:italic;
-	float:left;
-	display:block;
-}
-
-/* BLUEBOX - HEADER LEVEL 1 */
-.bluebox H1 {
-	color:#000000;
-	background-color:#99bbdd;
-	border:#3c5a86 0.063em solid;
-	padding-top:0.188em;
-	padding-right:0.313em;
-	padding-bottom:-0.188em;
-	padding-left:0.313em;
-	margin:0em 0em -0.75em 0.313em;
-	font-size:1.125em;
-	font-weight:bold;
-	position:relative;
-	top:-1.875em;
-	display:inline;
-} 
-
-/* BLUEBOX - HEADER LEVEL 2 */
-.bluebox H2 {
-	color:#000000;
-	padding-top:0.188em;
-	padding-right:0.313em;
-	padding-bottom:0.188em;
-	padding-left:0.313em;
-	font-size:1em;
-	font-weight:bold;
-	display:inline;
-} 
-
-/* BANNER - BACKGROUND AND POSITION */
-div.wiki_header {
-	background-color:gainsboro;
-	border-top:0.188em solid grey;
-	border-bottom:0.188em solid grey;
-	padding-right:0.75em;
-	width:99%;
-	top:0em; left:0em;
-	z-index: 1;
-	opacity:.65;
-}
-
-/* BANNER - PAGE TITLE */
-.title {
-	margin-top:0em;
-	margin-bottom:0em;
-	font-size:2em;
-	font-weight:bold;
-	text-shadow:#888 0.13em 0.13em 0.065em;
-	display:inline;
-} 
-
-/* BODY - BACKGROUND COLOR */
-.woas_background {
-	background-color:silver;
-} 
-
-/* CODE INLINE - MOZILLA */
-.wiki_preformatted {
-	color:black;
-	background-color:gainsboro;
-	padding-right:0.27em;
-	padding-left:0.27em;
-	font-family:monospace;
-	white-space:-moz-pre-wrap !important;
-}
-
-/* CODE INLINE - CSS-3 */
-/* .wiki_preformatted {
-	color:black;
-	background-color:gainsboro;
-	padding-right:0.27em;
-	padding-left:0.27em;
-	font-family:monospace;
-	white-space:pre-wrap;
-} */
-
-/* CODE INLINE - OPERA 4-6 */
-/* .wiki_preformatted {
-	color:black;
-	background-color:gainsboro;
-	padding-right:0.27em;
-	padding-left:0.27em;
-	font-family:monospace;
-	white-space:-pre-wrap;
-} */
-
-/* CODE INLINE - OPERA 7 */
-/* .wiki_preformatted {
-	color:black;
-	background-color:gainsboro;
-	padding-right:0.27em;
-	padding-left:0.27em;
-	font-family:monospace;
-	white-space:-o-pre-wrap;
-} */
-
-/* CODE INLINE - IE 5.5+ */
-/* .wiki_preformatted {
-	color:black;
-	background-color:gainsboro;
-	padding-right:0.27em;
-	padding-left:0.27em;
-	font-family:monospace;
-	word-wrap:break-word;
-} */
-
-/* CODE BLOCKS - MOZILLA */
-.woas_nowiki_multiline {
-	color:black;
-	background-color:gainsboro;
-	border:0.063em solid grey;
-	padding-right:0.27em;
-	padding-left:0.27em;
-	font-family:monospace;
-	white-space:-moz-pre-wrap !important;
-}
-
-/* CODE BLOCKS - CSS-3 */
-/* .woas_nowiki_multiline {
-	color:black;
-	background-color:gainsboro;
-	border:0.063em solid grey;
-	padding-right:0.27em;
-	padding-left:0.27em;
-	font-family:monospace;
-	white-space:pre-wrap;
-} */
-
-/* CODE BLOCKS - OPERA 4-6 */
-/* .woas_nowiki_multiline {
-	color:black;
-	background-color:gainsboro;
-	border:0.063em solid grey;
-	padding-right:0.27em;
-	padding-left:0.27em;
-	font-family:monospace;
-	white-space:-pre-wrap;
-} */
-
-/* CODE BLOCKS - OPERA 7 */
-/* .woas_nowiki_multiline {
-	color:black;
-	background-color:gainsboro;
-	border:0.063em solid grey;
-	padding-right:0.27em;
-	padding-left:0.27em;
-	font-family:monospace;
-	white-space:-o-pre-wrap;
-} */
-
-/* CODE BLOCKS - IE 5.5+ */
-/* .woas_nowiki_multiline {
-	color:black;
-	background-color:gainsboro;
-	border:0.063em solid grey;
-	padding-right:0.27em;
-	padding-left:0.27em;
-	font-family:monospace;
-	word-wrap:break-word;
-} */
-
-/* CODE BLOCKS - HTML - PRE TAGS - MOZILLA */
-pre {
-	color:black;
-	background-color:gainsboro;
-	border:0.063em solid grey;
-	padding:0.375em;
-	font-family:monospace;
-	white-space:-moz-pre-wrap !important;
-}
-
-/* CODE BLOCKS - HTML - PRE TAGS - CSS-3 */
-/* pre {
-	color:black;
-	background-color:gainsboro;
-	border:0.063em solid grey;
-	padding:0.375em;
-	font-family:monospace;
-	white-space:pre-wrap;
-} */
-
-/* CODE BLOCKS - HTML - PRE TAGS - OPERA 4-6 */
-/* pre {
-	color:black;
-	background-color:gainsboro;
-	border:0.063em solid grey;
-	padding:0.375em;
-	font-family:monospace;
-	white-space:-pre-wrap;
-} */
-
-/* CODE BLOCKS - HTML - PRE TAGS - OPERA 7 */
-/* pre {
-	color:black;
-	background-color:gainsboro;
-	border:0.063em solid grey;
-	padding:0.375em;
-	font-family:monospace;
-	white-space:-o-pre-wrap;
-} */
-
-/* CODE BLOCKS - HTML - PRE TAGS - IE 5.5+ */
-/* pre {
-	color:black;
-	background-color:gainsboro;
-	border:0.063em solid grey;
-	padding:0.375em;
-	font-family:monospace;
-	word-wrap:break-word;
-} */
-
-/* CORE PAGES */
-.woas_core_page {
-	background-color:aliceblue;
-	border:0em;
-	padding:1em;
-} 
-
-/* DEBUG PANEL */
-#woas_debug_panel {
-	background-color:gainsboro;
-	border:1pt solid black;
-	padding-left:2%;
-	margin-top:0.75em;
-	margin-left:20.5%;
-	width:77%;
-}
-
-/* DEBUG CONSOLE */
-#woas_debug_console {
-}
-
-/* DEBUG LOG */
-#woas_debug_log {
-	background-color:silver;
-	margin-bottom:1%;
-	width:97%;
-} 
-
-/* FOOTER */
-.woas_about_footer {
-	background-color:gainsboro;
-	border:0.188em solid grey;
-	padding-top:0.438em;
-	padding-right:0.813em;
-	padding-bottom:0.813em;
-	padding-left:0.813em;
-	margin-top:0.75em;
-	margin-left:20.5%;
-	line-height:1em;
-	text-align:justify;
-	font-weight:normal;
-	font-size:80%;
-	width:77.5%;
-}
-
-/* FOOTER - LINKS */
-.woas_about_footer a {
-	color:mediumblue !important;
-}
-
-/* FOOTNOTES */
-.footnote {
-	color:mediumblue;
-	font-size:0.55em;
-	font-style:italic;
-	text-decoration:underline;
-	line-height:1em;
-	vertical-align:super;
-}
-
-/* FOOTNOTES - CONTAINER */
-.footnotecontainer {
-	background-color:#EEEEFF;
-	margin-top:-3em;
-	font-size:0.75em;
-	font-style:italic;
-	line-height:1em;
-	vertical-align:super;
-}
-
-/* HELP PAGES - CODE BLOCKS */
+/***** HELP PAGE - EXAMPLES *****/
+/***** NOTE TO LITTLE GIRL: REMOVE THIS ONCE YOU'RE SURE THERE ARE NO REFERENCES TO IT *****/
 div.helpcode {
 	color:black;
 	background-color:gainsboro;
@@ -3554,23 +3051,64 @@ div.helpcode {
 	font-family:monospace;
 }
 
-/* HELP PAGES - TEXT */
+/***** HELP PAGE - EXAMPLE TEXT *****/
+.woas_helptext {
+	font-family: lucida;
+}
+
+/***** HELP PAGE - EXAMPLE TEXT *****/
+/***** NOTE TO LITTLE GIRL: REMOVE THIS ONCE YOU'RE SURE THERE ARE NO REFERENCES TO IT *****/
 div.helptext {
 	color:darkcyan;
 	font-weight:bold;
 	font-style:italic;
 }
 
-/* LAST MODIFIED LINE */
+/***** HOTKEYS *****/
+#woas_custom_accesskeys {
+	display: none;
+	visibility: hidden;
+}
+
+/***** LAST MODIFIED LINE *****/
 .woas_page_mts {
-	margin-top:0.75em;
-	margin-right:0.80em;
-	margin-left:20.5%;
-	z-index:0;
-	font-size:small;
+	font-size: small;
+	margin-top: 0.75em;
+	margin-right: 0.80em;
+	margin-left: 20.5%;
+	z-index: 0;
 } 
 
-/* MAIN TEXT AREA */
+/* LINK - CURSOR WHEN ON A LINK */
+a {
+	cursor: pointer;
+/* cursor when on a link - IE5.5/IE6 */
+	/* cursor: hand; */
+}
+
+/* LINK - EXISTENT */
+a.link {
+	color: blue;
+}
+a.link:hover {
+	text-decoration: underline;
+}
+
+/***** LINK - EXTERNAL *****/
+a.world {
+	color: darkgreen;
+	text-decoration: underline;
+}
+
+/* LINK - NONEXISTENT */
+a.unlink {
+	color: red;
+}
+a.unlink:hover {
+	text-decoration: underline;
+}
+
+/***** MAIN TEXT AREA *****/
 div.woas_text_area {
 	background-color:white;
 	border:0.188em solid grey;
@@ -3580,216 +3118,481 @@ div.woas_text_area {
 	padding-left:0.813em;
 }
 
-/* MAIN TEXT AREA - WIKI TEXT */
+/***** MAIN TEXT AREA - TEXT *****/
 #wiki_text {
-	position:relative;
-	left:20.5%;
-	width:77%;
-	z-index:0;
-	margin-top:1.313em;
-	margin-bottom:0.75em;
-	text-align:justify;
+	left: 20.5%;
+	margin-top: 1.313em;
+	margin-bottom: 0.75em;
+	position: relative;
+	text-align: justify;
+	width: 77%;
+	z-index: 0;
 } 
 
-/* MENU */
+/***** MAIN WIKI PANE WHEN LOCKED *****/
+.woas_text_area.locked,
+#woas_pwd_mask {
+	background-color: #eeeeee;
+	background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAAAAACMmsGiAAAALHRFWHRDcmVhdGlvbiBUaW1lAGdpbyAyOSBtYXIgMjAwNyAxMTo1MToxMCArMDEwME%2BTNUAAAAAHdElNRQfXAx0JNByGxueSAAAACXBIWXMAAAsSAAALEgHS3X78AAAABGdBTUEAALGPC%2FxhBQAAABlJREFUeNpj%2FM%2FwmYHpMwMvAxOQwcvECyQBO1oE%2BlG5iisAAAAASUVORK5CYII%3D);
+}
+
+/***** MENU *****/
 div.menu {
 }
 div.menu_area {
-	background-color:white;
-	left:0.7%;
-	width:18%;
-	padding:0.438em;
-	border:0.188em solid grey;
-	font-size:0.75em;
+	background-color: white;
+	border: 0.188em solid grey;
+	font-size: 0.75em;
+	left: 0.7%;
+	padding: 0.438em;
+	width: 18%;
 }
 
-/* MENU - BUTTONS - FULL */
+/***** MENU - LISTS *****/
+div.menu_area ul li, div.menu_area ol li,
+div.ns_menu_area ul li, div.ns_menu_area ol li {
+	margin-left: -2em;
+}
+
+/***** MENU - BUTTONS - WOAS *****/
+/***** NOTE TO LITTLE GIRL: REMOVE THESE ONCE YOU'RE SURE THERE ARE NO REFERENCES TO THEM *****/
+.woas_menu_button {
+	background-color: #F0F0F5;
+	border: 1pt solid grey;
+	color: darkblue;
+	cursor: pointer;
+	font-variant: normal;
+	margin-top: 0.438em;
+	text-align:center; font-size:1.3em;
+	width: 100%;
+}
+.woas_menu_button:hover {
+	background-color: darkgrey;
+}
+
+/***** MENU - BUTTONS - FULL *****/
 .boas_menu_button_full {
-	color:darkblue;
-	background-color:gainsboro;
-	width:100%;
-	border:0.063em solid grey;
-	text-align:center;
-	font-size:1em;
-	font-variant:normal;
-	cursor:pointer;
+	background-color: gainsboro;
+	border: 0.063em solid grey;
+	color: darkblue;
+	cursor: pointer;
+	font-size: 1em;
+	font-variant: normal;
+	text-align: center;
+	width: 100%;
 }
 .boas_menu_button_full:hover {
-	color:darkblue;
-	background-color:darkgrey;
-	width:100%;
-	border:0.063em solid grey;
-	text-align:center;
-	font-size:1em;
-	font-variant:normal;
-	cursor:pointer;
+	background-color: darkgrey;
+	border: 0.063em solid grey;
+	color: darkblue;
+	cursor: pointer;
+	font-size: 1em;
+	font-variant: normal;
+	text-align: center;
+	width: 100%;
 }
 
-/* MENU - BUTTONS - HALF */
+/***** MENU - BUTTONS - HALF *****/
 .boas_menu_button_half {
-	color:darkblue;
-	background-color:gainsboro;
-	width:50%;
-	border:0.063em solid grey;
-	text-align:center;
-	font-size:1em;
-	font-variant:normal;
-	cursor:pointer;
+	background-color: gainsboro;
+	border: 0.063em solid grey;
+	color: darkblue;
+	cursor: pointer;
+	font-size: 1em;
+	font-variant: normal;
+	text-align: center;
+	width: 50%;
 }
 .boas_menu_button_half:hover {
-	color:darkblue;
-	background-color:darkgrey;
-	width:50%;
-	border:0.063em solid grey;
-	text-align:center;
-	font-size:1em;
-	font-variant:normal;
-	cursor:pointer;
+	background-color: darkgrey;
+	border: 0.063em solid grey;
+	color: darkblue;
+	cursor: pointer;
+	font-size: 1em;
+	font-variant: normal;
+	text-align: center;
+	width: 50%;
 }
 
-/* PAGE LIST HEADER */
-.woas_listing_options {
+/***** MISCELLANEOUS ******/
+.woas_embedded {
+}
+
+/***** NOWIKI INLINE - MOZILLA *****/
+.wiki_preformatted {
 	background-color:gainsboro;
-	border:0.1em solid grey;
-	padding:0.2em;
+	color:black;
+	font-family:monospace;
+	padding-right:0.27em;
+	padding-left:0.27em;
+	white-space:-moz-pre-wrap !important;
 }
 
-/* SEARCH RESULTS */
+/***** NOWIKI INLINE - CSS-3 *****/
+/* .wiki_preformatted {
+	background-color:gainsboro;
+	color:black;
+	font-family:monospace;
+	padding-right:0.27em;
+	padding-left:0.27em;
+	white-space:pre-wrap;
+} */
+
+/***** NOWIKI INLINE - OPERA 4-6 *****/
+/* .wiki_preformatted {
+	background-color:gainsboro;
+	color:black;
+	font-family:monospace;
+	padding-right:0.27em;
+	padding-left:0.27em;
+	white-space:-pre-wrap;
+} */
+
+/***** NOWIKI INLINE - OPERA 7 *****/
+/* .wiki_preformatted {
+	background-color:gainsboro;
+	color:black;
+	font-family:monospace;
+	padding-right:0.27em;
+	padding-left:0.27em;
+	white-space:-o-pre-wrap;
+} */
+
+/***** NOWIKI INLINE - IE 5.5+ *****/
+/* .wiki_preformatted {
+	background-color:gainsboro;
+	color:black;
+	font-family:monospace;
+	padding-right:0.27em;
+	padding-left:0.27em;
+	word-wrap:break-word;
+} */
+
+/***** NOWIKI BLOCKS - MOZILLA *****/
+.woas_nowiki_multiline {
+	background-color:gainsboro;
+	border:0.063em solid grey;
+	color:black;
+	font-family:monospace;
+	padding-right:0.27em;
+	padding-left:0.27em;
+	white-space:-moz-pre-wrap !important;
+}
+
+/***** NOWIKI BLOCKS - CSS-3 *****/
+/* .woas_nowiki_multiline {
+	background-color:gainsboro;
+	border:0.063em solid grey;
+	color:black;
+	font-family:monospace;
+	padding-right:0.27em;
+	padding-left:0.27em;
+	white-space:pre-wrap;
+} */
+
+/***** NOWIKI BLOCKS - OPERA 4-6 *****/
+/* .woas_nowiki_multiline {
+	background-color:gainsboro;
+	border:0.063em solid grey;
+	color:black;
+	font-family:monospace;
+	padding-right:0.27em;
+	padding-left:0.27em;
+	white-space:-pre-wrap;
+} */
+
+/***** NOWIKI BLOCKS - OPERA 7 *****/
+/* .woas_nowiki_multiline {
+	background-color:gainsboro;
+	border:0.063em solid grey;
+	color:black;
+	font-family:monospace;
+	padding-right:0.27em;
+	padding-left:0.27em;
+	white-space:-o-pre-wrap;
+} */
+
+/***** NOWIKI BLOCKS - IE 5.5+ *****/
+/* .woas_nowiki_multiline {
+	background-color:gainsboro;
+	border:0.063em solid grey;
+	color:black;
+	font-family:monospace;
+	padding-right:0.27em;
+	padding-left:0.27em;
+	word-wrap:break-word;
+} */
+
+/***** NOWIKI BLOCKS - HTML - MOZILLA *****/
+pre {
+	background-color:gainsboro;
+	border:0.063em solid grey;
+	color:black;
+	font-family:monospace;
+	padding:0.375em;
+	white-space:-moz-pre-wrap !important;
+}
+
+/***** NOWIKI BLOCKS - HTML - CSS-3 *****/
+/* pre {
+	background-color:gainsboro;
+	border:0.063em solid grey;
+	color:black;
+	font-family:monospace;
+	padding:0.375em;
+	white-space:pre-wrap;
+} */
+
+/***** NOWIKI BLOCKS - HTML - OPERA 4-6 *****/
+/* pre {
+	background-color:gainsboro;
+	border:0.063em solid grey;
+	color:black;
+	font-family:monospace;
+	padding:0.375em;
+	white-space:-pre-wrap;
+} */
+
+/***** NOWIKI BLOCKS - HTML - OPERA 7 *****/
+/* pre {
+	background-color:gainsboro;
+	border:0.063em solid grey;
+	color:black;
+	font-family:monospace;
+	padding:0.375em;
+	white-space:-o-pre-wrap;
+} */
+
+/***** NOWIKI BLOCKS - HTML - IE 5.5+ *****/
+/* pre {
+	background-color:gainsboro;
+	border:0.063em solid grey;
+	color:black;
+	font-family:monospace;
+	padding:0.375em;
+	word-wrap:break-word;
+} */
+
+/***** PAGE LIST HEADER *****/
+.woas_listing_options {
+	background-color: gainsboro;
+	border: 0.1em solid grey;
+	padding: 0.2em;
+}
+
+/***** SEARCH RESULTS *****/
 div.search_results {
-	border:none; /* REMOVE THIS RULE ONCE THESE RULES ARE IN CORE CSS */
-	background-color:white; /* REMOVE THIS RULE ONCE THESE RULES ARE IN CORE CSS */
-	padding:0em; /* REMOVE THIS RULE ONCE THESE RULES ARE IN CORE CSS */
-	margin-top:1em;
-	clear:both;
+	clear: both;
+	margin-top: 1em;
 }
 
-/* SEARCH HIGHLIGHT */
+/***** SEARCH HIGHLIGHT *****/
 .search_highlight {
-	background-color:yellow;
+	background-color: yellow;
 } 
 
-/* SPOILERS */
+/***** SPOILERS *****/
 .spoiler {
-	color:black;
-	background-color:black;
+	background-color: black;
+	color: black;
 }
 .spoiler:hover {
-	color:white;
-	background-color:black;
+	background-color: black;
+	color: white;
 }
 .spoilerblock a:link {
-	text-decoration:none;
+	text-decoration: none;
 }
 .spoilerblock a:visited {
-	text-decoration:none;
+	text-decoration: none;
 }
 .spoilerblock a:hover .show {
-	color:white;
-	background-color:black;
-	display:block;
+	background-color: black;
+	color: white;
+	display: block;
 }
 .spoilerblock a:active {
-	text-decoration:none;
+	text-decoration: none;
 }
 .spoilerblock a span {
-	display:none;
+	display: none;
 }
 .spoilerinline a:link {
-	text-decoration:none;
+	text-decoration: none;
 }
 .spoilerinline a:visited {
-	text-decoration:none;
+	text-decoration: none;
 }
 .spoilerinline a:hover .show {
-	color:white;
-	background-color:black;
-	display:inline;
+	background-color: black;
+	color: white;
+	display: inline;
 }
 .spoilerinline a:active {
-	text-decoration:none;
+	text-decoration: none;
 }
 .spoilerinline a span {
-	display:none;
+	display: none;
 }
 
-/* TABLE OF CONTENTS */
-div.woas_toc {
-	background-color:#F5F5F5;
-	width:50%;
-	padding:0.313em;
-	border:1pt dashed #aaa;
-	font-size:95%;
+/***** TABLE *****/
+table.woas_text_area {
+	border: 1pt solid black;
+	border-spacing: 0em;
+}
+table.woas_text_area td {
+	border: 1pt solid;
+	padding: 0.313em;
+}
+table.woas_text_area caption {
+        font-style: italic;
+        font-weight: bold;
 }
 
-/* TABLE OF CONTENTS - LIST */
-div.woas_toc ol, li {
-	margin-left:1.3em;
-	padding-left:0em;
-}
-
-/* TABLE OF CONTENTS - TITLE */
-p.woas_toc_title {
-	text-align:center;
-	font-weight:bold;
-}
-
-/* TABLES - FANCY */
+/***** TABLE - FANCY *****/
 table.shadesofblue {
-	color: #404040;
 	background-color: #fafafa;
 	border-collapse: collapse;
 	border-spacing: 0px;
 	border: 1px solid #6699CC;
+	color: #404040;
 	font-family: Verdana, sans-serif, Arial;
 	font-size: 14px;
 	font-weight: normal;
-	/*UNCOMMENT THE WIDTH LINE BELOW TO CONTROL THE WIDTH OF THE TABLE*/
 	/*width: 500px;*/
 }
 caption.shadesofblue {
-	color: #404040;
 	border: 1px solid #6699CC;
+	color: #404040;
 	text-align: center;
 	width: 580px;
 }
 table.shadesofblue th { 
-	color: #404040;
 	background-color: #BEC8D1;
 	border-bottom: 2px solid #6699CC;
 	border-left: 1px solid #6699CC;
-	padding-left: 0.5em;
-	padding-right: 0.5em;
+	color: #404040;
 	font-weight: bold;
+	padding-right: 0.5em;
+	padding-left: 0.5em;
 	text-indent: 2px;
 }
 table.shadesofblue td {
-	color: #404040;
 	border-top: 0px;
 	border-right: 0px;
 	border-bottom: 1px solid #9CF;
 	border-left: 1px solid #9CF;
-	padding-left: 0.5em;
+	color: #404040;
 	padding-right: 0.5em;
+	padding-left: 0.5em;
 	text-indent: 2px;
 }
 table.shadesofblue td.special {
 	background-color: #ff00ff;
 }
 
-/* TOOLTIPS */
+/***** TABLE OF CONTENTS *****/
+div.woas_toc {
+	background-color: #F9F9F9;
+	border: 1pt dashed #aaa;
+	font-size: 95%;
+	padding: 0.313em;
+	width: 50%;
+}
+
+/***** TABLE OF CONTENTS - LIST *****/
+div.woas_toc ol, li {
+	margin-left: 1.3em;
+	padding-left: 0em;
+}
+
+/***** TABLE OF CONTENTS - TITLE *****/
+p.woas_toc_title {
+	font-weight: bold;
+	text-align: center;
+}
+
+/***** TAG CONTAINER *****/
+/* tag container */
+div.taglinks {
+/*	background-color: #f9f9f9; */
+	border: 1pt solid #aaa;
+	clear: both;
+	margin-top: 1em;
+	padding: 0.313em;
+}
+
+/***** TAG LINKS *****/
+/* styled boxes around tags */
+div.taglinks > a {
+	background-color: gainsboro;
+	border: 2px solid blue;
+	/* border-radius: 7px; */
+	color: navy;
+	font-size: 90%;
+	font-weight: bold;
+	line-height: 2.4;
+	margin: 2px 2px 2px 0;
+	-moz-border-radius: 7px;-webkit-border-radius:7px;
+	padding: 3px 5px 3px 5px;
+	text-decoration: none;
+}
+div.taglinks > a:hover {
+	background-color: grey;
+	color: white;
+	border:2px solid blue;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+/***** TOOLTIPS *****/
 span.tooltip {
-	cursor:help;
-	border-bottom:0.125em dotted mediumblue;
+	border-bottom: 0.125em dotted mediumblue;
+	cursor: help;
 }
 
-/* TOPNOTES */
+/***** TOPNOTES *****/
 div.topnote {
-	position:absolute;
-	top:0.188em;
-	right:0.625em;
+	position: absolute;
+	right: 0.625em;
+	top: 0.188em;
 }
 
-/* SIZE CONVERSIONS: 1em = 16px = 12pt */
+/***** WIKI CORE PAGES *****/
+.woas_core_page {
+ 	padding: 1em;
+} 
+
+/***** WIKI LOADING OVERLAY *****/
+#loading_overlay {
+	background-color: white;
+	font-size: large;
+	height: 100%;
+	left: 0em;
+	padding-top: 25%;
+	position: absolute;
+	text-align: center;
+	top: 0em;
+	width: 99%;
+	z-index: 100;
+}
+
+/***** WIKI WAIT TEXT *****/
+.woas_wait_text {
+	color: navy;
+}
+
+/***** SIZE CONVERSIONS: 1em = 16px = 12pt *****/
+
+--DFQRCTsKlU
+woas.page.title: WoaS::CSS::Custom
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+/* ADD YOUR CUSTOM CSS TO OVERRIDE DEFAULT CSS HERE */
 
 --DFQRCTsKlU
 woas.page.title: WoaS::CSS::Boot
@@ -3950,6 +3753,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 * _Interface:_
 ** Added the *Duplicate page* button to the menu.
 ** Added the *Go to* button to the menu.
+** Added tooltips to the menu buttons.
 ** Added two non-breaking spaces after the debug Clear button for consistency.
 ** Changed the layout of the menu buttons.
 ** Changed the styling of the debugger.
@@ -3973,6 +3777,8 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the [[Help::Transclusion]] page.
 ** Updated the [[History]] page.
 ** Updated the [[Wiki::Example::Table of Contents]] page.
+** Updated the [[WoaS::CSS::Core]] page.
+** Updated the [[WoaS::CSS::Custom]] page.
 
 === Version 0.9.1 released on April 30, 2010
 * _Interface:_
