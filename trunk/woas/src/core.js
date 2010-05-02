@@ -385,7 +385,7 @@ woas.integrity_test = function() {
 woas.DIRECTORY_SEPARATOR = (navigator.appVersion.indexOf("Win")!=-1)?"\\":"/";
 
 woas._dirname_regex = new RegExp("\\"+woas.DIRECTORY_SEPARATOR+"[^\\"+woas.DIRECTORY_SEPARATOR+"]*$");
-woas._basename_regex = new RegExp("\\[\\\\/]([^\\\\/]+)$");
+woas._basename_regex = new RegExp("[\\\\/]([^\\\\/]+)$");		// "\\[\\\\/]([^\\\\/]+)$"
 
 // hackish functions, might stay private for now
 woas.dirname = function(fn) {
@@ -393,10 +393,10 @@ woas.dirname = function(fn) {
 };
 
 woas.basename = function(fn) {
-	fn = fn.match(this._basename_regex);
-	if (fn === null)
-		return "";
-	return fn[1];
+	var m = fn.match(this._basename_regex);
+	if (m === null)
+		return fn;
+	return m[1];
 };
 
 // the export path used by export feature
@@ -415,30 +415,6 @@ woas.set_page_attrs = function(pi, attrs) {
 	// no error check
 	page_attrs[pi] = attrs;
 	return true;
-};
-
-// get file URL from input XHTML element
-// this might not work on some browsers
-// not to be called for Mozilla-based browsers
-woas.get_input_file_url = function() {
-	var r = false;
-	// we have requested a direct read of the file from the input object
-	if (this.browser.opera) {
-		// ask user for path, since browser do not allow us to see where file really is
-		r = $("filename_").value;
-		r = prompt(this.i18n.ALT_BROWSER_INPUT.sprintf(this.basename(r)), this.ROOT_DIRECTORY);
-		if ((r === null) || !r.length)
-			r = false;
-		else
-			this._last_filename = r;
-	} else {
-		r = $("filename_").value;
-		if (!r.length)
-			r = false;
-	}
-	if (r === false)
-		this.alert(this.i18n.FILE_SELECT_ERR);
-	return r;
 };
 
 //API1.0: dynamically add a hotkey
