@@ -39,8 +39,8 @@ define('_LIBWSIF_UNICODE_REGEX', '[\xC2-\xDF][\x80-\xBF]'.             # non-ove
 						);
 
 // the default hook used after a page has been loaded from WSIF source
-// should return a positive integer if page was successfully created
-// -1 to report failure
+// should return a positive integer (index of created page) if page was
+// successfully created, -1 to report failure
 function _WSIF_create_page(&$WSIF, $title, &$page, $attrs, $mts = 0) {
 	echo sprintf("Page title:\t%s\n%sAttributes:\t%x\nLength:\t\t%d\n---\n",
 				$title, $mts ? "Last modified: ".strftime("%Y-%m-%d %H:%M:%S", $mts)."\n" : "",
@@ -57,7 +57,7 @@ class WSIF {
 	// some private variables
 	var $_expected_pages = null;
 	var $_emsg = _WSIF_NO_ERROR;
-	var $_imported_page = false;
+	var $_imported = array();
 	var $_log_hook = null;
 	var $_loose_merge = false;
 
@@ -82,7 +82,6 @@ class WSIF {
 		//TODO: initialize some properties when recursion is 0
 		
 		// the imported pages
-		$imported = array();
 		$pfx = "\nwoas.page.";
 		$pfx_len = strlen($pfx);
 		$fail = false;
@@ -120,6 +119,7 @@ class WSIF {
 				$boundary = $mime = null;
 		// position of last header end-of-line
 		while ($p !== false) {
+			// save last entry offset, used by page definition
 			$last_offset = $p;
 			// remove prefix
 			$sep = strpos($ct, ":", $p+$pfx_len);
@@ -158,22 +158,13 @@ class WSIF {
 						$was_title = title;
 						$title = $attrs = $last_mod = $encoding = $len =
 							 $boundary = $disposition = $mime = $d_fn = null;
-						if ($rv === false) {
-							$fail = true;
-							break 2;
-						}
-						// check if page was really imported, and if yes then
-						// add page to list of imported pages
-						if ($rv !== false)
-							$imported[] = $this->_imported_page;
-						else
+						if (!$rv) // show a message but continue parsing
 							$this->Error( sprintf(_WSIF_IMPORT_FAILURE, $was_title) );
 						// delete the whole entry to free up memory to GC
 						// will delete also the last read header
 						$ct = substr($ct, $p);
-						$p = 0;
+						$last_offset = $p = 0;
 						$previous_h = null;
-						
 					}
 					// let's start with the next page
 					$title = $this->ecma_decode($v);
@@ -220,19 +211,14 @@ class WSIF {
 			$rv = $this->_page_def($create_page_hook, $path,$ct,$previous_h,$last_offset,
 					$title,$attrs,$last_mod,$len,$encoding,$disposition,
 					$d_fn,$boundary,$mime, $recursion);
-			// save page index for later analysis
-			if ($rv === false) {
+			if (!$rv)
 				$this->Error( sprintf(_WSIF_IMPORT_FAILURE, $title) );
-				$fail = true;
-			} else
-				// add page to list of imported pages
-				$imported[] = $this->_imported_page;
 		}
 		// save imported pages
-		return count($imported);
+		return count($this->_imported);
 	}
 
-	// returns true if a page was defined
+	// returns true if a page was defined, and save it in wsif.imported array
 	function _page_def($create_page_hook, $path,
 						&$ct,			// buffer containing pages
 						$p,$last_p,		// start and end offset for section containing the page
@@ -312,6 +298,7 @@ class WSIF {
 				if ($len != $check_len)
 					$this->_log(sprintf("Length mismatch for page %s: ought to be %d but was %d", $title, $len, $check_len));
 			}
+			// fallback wanted to go to define the page
 		break;
 		case "external":	// import an external WSIF file
 			if ($d_fn === null) {
@@ -341,8 +328,6 @@ class WSIF {
 					$page = base64_encode($page);
 				} // otherwise it's binary
 				// fallback wanted to apply real page definition later
-//				$boundary = "";
-//				$bpos_e = $last_p;
 			} else {
 				if ($encoding != "text/wsif") {
 					$this->Error( "Page ".$title." is external but not encoded as text/wsif" );
@@ -356,7 +341,7 @@ class WSIF {
 					return false;
 				}
 				// do not run the import hook here because it has been ran by the recursively called function
-				return true;
+				return $rv;
 			}
 		break;
 		default:
@@ -365,12 +350,10 @@ class WSIF {
 			return false;
 		} // end of switch
 		
-		// we do not check the 'fail' status because it is handled inside the 'inline' case label
-		
 		$rv = $create_page_hook($this, $title, $page, $attrs, $last_mod);
 		if ($rv != -1) {
 			// all OK
-			$this->_imported_page = $rv;
+			$this->_imported[] = $rv;
 			return true;
 		}
 		// failure from import hook
