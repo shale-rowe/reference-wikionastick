@@ -78,7 +78,7 @@ Write a book in one self-contained file that runs entirely in your browser and c
 * Customizable [[Help::CSS|CSS settings]] to change the look of the wiki.
 * Customizable [[::Menu|menu]] for finding your [[Special::All Pages|pages]] easily.
 * [[Special::License|Free, open source]], cross-platform software.
-* [[Help::Footnotes|Footnote]] syntax.
+* [[WoaS::Help::Footnotes|Footnote]] syntax.
 * Fully [[Special::Search|searchable]].
 * No install necessary.
 * No internet connection necessary.
@@ -3720,6 +3720,9 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Removed the *ToDo list* page.
 ** Removed the *Wiki::Template::TODO* page.
 ** Removed the *WoaS::History* page.
+** Renamed the *Help::Backup* page to [[WoaS::Help::Backup]].
+** Renamed the *Help::Cancel any action* page to [[WoaS::Help::Cancel any action]].
+** Renamed the *Help::Footnotes* page to [[WoaS::Help::Footnotes]].
 ** Updated the [[Help::Edit a page]] page.
 ** Updated the [[Help::Include wiki page]] page.
 ** Updated the [[Help::Namespaces]] page.
@@ -3728,6 +3731,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the [[Wiki::Example::Table of Contents]] page.
 ** Updated the [[WoaS::CSS::Core]] page.
 ** Updated the [[WoaS::CSS::Custom]] page.
+** Updated the [[WoaS::Help::Footnotes]] page.
 ** Updated the [[WoaS::Help::Index]] page.
 
 === Version 0.9.1 released on April 30, 2010
@@ -3777,7 +3781,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Added the *Example::Foldawaytext* page.
 ** Added the *Example::Folding page inline* page.
 ** Added the *Example::Folding page plain* page.
-** Added the [[Help::Footnotes]] page (thanks to *FBNil* and *Stanky*).
+** Added the [[WoaS::Help::Footnotes]] page (thanks to *FBNil* and *Stanky*).
 ** Added the *Template::Foldawaylink* page to be used by Foldaway folds.
 ** Added the *Template::Foldawaypage* page to be used by Foldaway folds.
 ** Added the *Template::Foldawaytext* page to be used by Foldaway folds.
@@ -4208,7 +4212,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Added instructions for recalibrating the *Word Count* button to the [[Help::Word count]] page.
 ** Added instructions for using the *default alert image* to the [[Help::Images]] page.
 ** Added the contents of the *Example::External JavaScript* page to the *Help::JavaScript* page.
-** Added the [[Help::Backup]] page.
+** Added the [[WoaS::Help::Backup]] page.
 ** Added the [[Help::Delete a page]] page.
 ** Added the [[Help::Edit a page]] page.
 ** Added the [[Help::Edit the menu]] page.
@@ -4562,17 +4566,15 @@ This page demonstrates a search box, but the code is buggy and seems to interfer
 [[Tags::Help]]
 
 --DFQRCTsKlU
-woas.page.title: Help::Backup
+woas.page.title: WoaS::Help::Backup
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Help::Backup
+= Backup
 Before making any changes, use your *file manager*, the *command line*, or a *backup utility* to make a copy of this wiki in a safe place. Also make regular backups of any copies of this wiki that you're currently working on.
-
-[[Tags::Help]]
 
 --DFQRCTsKlU
 woas.page.title: Help::Bootscript
@@ -4666,7 +4668,7 @@ This wiki is not supported by [[http://stickwiki.sourceforge.net/|Wiki on a Stic
 [[Tags::Help]]
 
 --DFQRCTsKlU
-woas.page.title: Help::Cancel any action
+woas.page.title: WoaS::Help::Cancel any action
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -4674,7 +4676,7 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Cancel any action
-Cancel any action by clicking the [[Include::Template::Icon::Cancel]] icon in the banner, clicking the *Cancel* button on any alert that pops up, or pressing the *Esc* key.
+Cancel any action by clicking the [[Include::Wiki::Template::Icon::Cancel]] icon in the banner, clicking the *Cancel* button on any alert that pops up, or pressing the *Esc* key.
 [[Tags::Help]]
 
 --DFQRCTsKlU
@@ -5040,7 +5042,7 @@ Pages that have the [[Include::Template::Icon::Edit]] icon in the banner can be 
 
 == Edit system pages
 System pages don't have the [[Include::Template::Icon::Edit]] icon in the banner because they cannot be edited without making some changes to the core code. You can enable editing of pages in the [[Special::]], [[Wiki::]], or [[WoaS::]] namespaces by following these steps:
-# [[Help::Backup|Back up]] your wiki.<br><br>
+# [[WoaS::Help::Backup|Back up]] your wiki.<br><br>
 # Open the wiki in a text editor.<br><br>
 # Find this section:<br><br>{{{
 var reserved_namespaces = ["Include", "Javascript", "Lock", "Locked", "Special", "Tags", "Tagged", "Unlock", "Unlocked", "Untagged", "Wiki", "WoaS"];
@@ -5194,9 +5196,9 @@ woas.page.boundary: DFQRCTsKlU
 = Getting started
 * The first time you save a change to this wiki, your browser will ask for permission to save data to the disk. This is normal and necessary for the wiki to make changes to itself.
 
-* [[Help::Backup|Back up this wiki]].
+* [[WoaS::Help::Backup|Back up this wiki]].
 
-* [[Help::Cancel any action|Cancel any action]].
+* [[WoaS::Help::Cancel any action|Cancel any action]].
 
 * [[Help::Change wiki settings|Change the settings]].
 
@@ -8154,7 +8156,7 @@ $("daily_diary").innerHTML = "Click here to create or edit a diary entry for tod
 [[Tags::Utility]]
 
 --DFQRCTsKlU
-woas.page.title: Help::Footnotes
+woas.page.title: WoaS::Help::Footnotes
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -8166,13 +8168,13 @@ Footnotes(((This is a footnote))) are small, numbered links you can put next to 
 
 Footnote links can be added to any word in your text by inserting a special tag made of text surrounded by triple parentheses to the right of a word, like <span style="background-color:gainsboro;">this<tt>(<!-- -->(<!-- -->(This is a footnote.)<!-- -->)<!-- -->)</tt></span>. When you save the page, the wiki will automatically turn that tag into a numbered link next to the word. You can add as many footnotes to a page as you like, and the wiki will number them sequentially for you automatically.
 
-Footnotes from [[Help::Transclusion|transcluded]] pages get added automatically and are numbered properly based on where the transcluded page is inserted in the page.
+Footnotes from [[WoaS::Help::Transclusion|transcluded]] pages get added automatically and are numbered properly based on where the transcluded page is inserted in the page.
 
 Punctuation and some HTML syntax(((This footnote uses HTML <b>bold</b>, <i>italic</i>, <u>underline</u>, and <strike>strike-through</strike> formatting.<br>A &lt;br&gt; tag was used to drop down one line to turn this into a multi-line footnote.<br><br>Two &lt;br&gt; tags were used to insert a blank line.))) is accepted inside footnotes.
 
 The look of footnotes can be styled by changing the footnote entry in the [[Help::CSS|global CSS settings]].
 
-[[Tags::Help|Syntax]]
+Footnotes can be styled by copying their [[WoaS::CSS::Core|core CSS rules]], pasting them into the [[WoaS::CSS::Custom|custom CSS rules]] page, and then changing the rules to suit your taste. Your custom CSS rules will override the core rules.
 
 --DFQRCTsKlU
 woas.page.title: Image::alert.png
