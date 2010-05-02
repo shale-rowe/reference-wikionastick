@@ -3860,7 +3860,9 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Added a note to the [[ToDo list]] page warning users that the [[ToDo list]] is broken in this version.
 ** Added a note to the [[Sandbox]] page warning users that the [[ToDo list]] is broken in this version.
 ** Added the [[Help::Embedding]] page, which needs to be rewritten.
+** Moved all pages in the *Example::* namespace to the *Wiki::Example::* namespace.
 ** Moved all pages in the *Utility::* namespace to the *Wiki::Utility::* namespace.
+** Removed the *Example::Menu* page.
 ** Removed the *WoaS::History* page.
 ** Updated the [[Help::Namespaces]] page.
 ** Updated the [[History]] page.
@@ -3907,11 +3909,11 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the [[Special::Options]] page to remove the *Fixed menu and banner* option and add the *Fixed banner* and *Fixed menu* options.
 
 * _Content:_
-** Added the [[Example::Embed web page iFrame]] page.
-** Added the [[Example::Embed web page object]] page.
-** Added the [[Example::Foldawaytext]] page.
-** Added the [[Example::Folding page inline]] page.
-** Added the [[Example::Folding page plain]] page.
+** Added the [[Wiki::Example::Embed web page iFrame]] page.
+** Added the [[Wiki::Example::Embed web page object]] page.
+** Added the [[Wiki::Example::Foldawaytext]] page.
+** Added the [[Wiki::Example::Folding page inline]] page.
+** Added the [[Wiki::Example::Folding page plain]] page.
 ** Added the [[Help::Footnotes]] page (thanks to *FBNil* and *Stanky*).
 ** Added the [[Template::Foldawaylink]] page to be used by Foldaway folds.
 ** Added the [[Template::Foldawaypage]] page to be used by Foldaway folds.
@@ -3924,13 +3926,13 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Removed the *Help::Embed web page* page.
 ** Removed the namespace from the title at the top of *Help* pages.
 ** Renamed the *Help::Import page* page to [[Help::Import]].
-** Renamed the *MyPages::Page 1* page to [[Example::Encrypted page]].
+** Renamed the *MyPages::Page 1* page to [[Wiki::Example::Encrypted page]].
 ** Renamed the *Template::FoldingPage* page to [[Template::Foldpage]].
 ** Renamed the *Template::FoldingText* page to [[Template::Foldtext]].
 ** Renamed the *Template::FoldingTextInline* page to [[Template::Foldtextinline]].
 ** Replaced the default [[Image::alert.png]] image with my own alert image.
 ** Updated all tags to the new tag syntax.
-** Updated the [[Example::JavaScript]] page.
+** Updated the [[Wiki::Example::JavaScript]] page.
 ** Updated the [[Help::Add a search box]] page.
 ** Updated the [[Help::Aliases]] page.
 ** Updated the [[Help::Bugs]] page.
@@ -4000,8 +4002,8 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 * _Content:_
 ** Added instructions for *email links* to the [[Help::Links]] page, thanks to *FBNil* figuring out how it's done.
 ** Added the *Changes* page, thanks to code contributed by [[http://woas.iragan.com/viewtopic.php?pid=1585#p1585|FBNil]].
-** Added the [[Example::Bluebox]] page.
-** Added the [[Example::Folding page button (HTML)]] page.
+** Added the [[Wiki::Example::Bluebox]] page.
+** Added the [[Wiki::Example::Folding page button (HTML)]] page.
 ** Added the [[Help::Bluebox]] page to explain how to use Bluebox, which was contributed by *FBNil*, to create styled presentations of your stories.
 ** Added the [[Help::Include web page]] page.
 ** Added the [[Help::Folds]] page.
@@ -4037,7 +4039,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Renamed the *Wiki::Save* page to [[Template::Icon::Save]].
 ** Renamed the *Wiki::Unlock* page to [[Template::Icon::Unlock]].
 ** Renamed the *Utility::Tooltips* page to [[Template::Tooltip]].
-** Updated the [[Example::JavaScript]] page.
+** Updated the [[Wiki::Example::JavaScript]] page.
 ** Updated the [[Help::Add a search box]] page.
 ** Updated the [[Help::Bootscript]] page.
 ** Updated the [[Help::Bugs]] page.
@@ -4192,7 +4194,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Renamed the [[Main Page]] to *Main page* (changing its case).
 ** Renamed the *Said* page to [[Wiki::Utility::Said]].
 ** Updated the content of the *footer*.
-** Updated the [[Example::Overview]] page.
+** Updated the [[Wiki::Example::Overview]] page.
 ** Updated the [[Help::Bugs]] page.
 ** Updated the [[Help::Code blocks (preformatted text)]] page, adding instructions on how to use *code blocks with syntax highlighting* from code provided by [[http://woas.iragan.com/viewtopic.php?id=561|FBnil]].
 ** Updated the [[Help::CSS]] page.
@@ -4241,7 +4243,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Added a *Delete page* button to the menu.
 ** Added instructions for using *Go to* and *Delete page* links to the [[Help::Links]] page.
 ** Added the *Utility::Creative Commons License* page.
-** Added the [[Example::Table of Contents]] page.
+** Added the [[Wiki::Example::Table of Contents]] page.
 ** Added the *Help::Footers* page to explain footers and how to work with them.
 ** Added the *syntax* tag to the [[Help::Include web page]], *Help::Page tags*, and [[Help::Table of Contents]] pages.
 ** Moved the code for the menu buttons to the *Utility::Buttons* page.
@@ -4369,7 +4371,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Removed the *Example::Word Count Text Area* page.
 ** Renamed many of the *Help* pages.
 ** Renamed the *Example::Bootscript* page to [[Help::Bootscript]].
-** Renamed the *Example::Custom JavaScript* page to [[Example::JavaScript]].
+** Renamed the *Example::Custom JavaScript* page to [[Wiki::Example::JavaScript]].
 ** Renamed the *Example::Search Box* page to [[Help::Add a search box]].
 ** Renamed the *Help::CSS settings* page to [[Help::CSS]].
 ** Renamed the *Help::Transclude pages* page to [[Help::Transclusion]].
@@ -4451,7 +4453,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 [[http://stickwiki.sourceforge.net/|Wiki on a Stick v0.9.6B]] is what I used as a foundation for Book on a Stick. Many thanks to all the people who created and added to the incredible Wiki on a Stick software!
 
 --DFQRCTsKlU
-woas.page.title: Example::Embedded SVG
+woas.page.title: Wiki::Example::Embedded SVG
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -4486,7 +4488,7 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+CjxzdmcKCXhtbG5zCQk9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIgoJeG1sbnM6c3ZnCT0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciCgl4bWxuczp4bGluawk9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiCgl2ZXJzaW9uCQk9IjEuMCIKCXdpZHRoCQk9IjQwMiIKCWhlaWdodAkJPSI0MDIiCgl2aWV3Qm94CQk9Ii0yMDEgLTIwMSA0MDIgNDAyIgoJaWQJCT0ic3ZnMiI+Cgk8Y2lyY2xlCgkJY3gJPSIwIgoJCWN5CT0iLTEwMCIKCQlyCT0iMTAwIgoJCWlkCT0iY2lyYzAwMSIKCQlzdHlsZQk9ImZpbGw6bm9uZTtzdHJva2U6IzAwMDAwMDtzdHJva2Utd2lkdGg6MSIgLz4KCTx1c2UgeGxpbms6aHJlZj0iI2NpcmMwMDEiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDAsMTAwKSIgLz4KCTx1c2UgeGxpbms6aHJlZj0iI2NpcmMwMDEiIHRyYW5zZm9ybT0icm90YXRlKDMwKSIgLz4KCTx1c2UgeGxpbms6aHJlZj0iI2NpcmMwMDEiIHRyYW5zZm9ybT0icm90YXRlKDYwKSIgLz4KCTx1c2UgeGxpbms6aHJlZj0iI2NpcmMwMDEiIHRyYW5zZm9ybT0icm90YXRlKDkwKSIgLz4KCTx1c2UgeGxpbms6aHJlZj0iI2NpcmMwMDEiIHRyYW5zZm9ybT0icm90YXRlKDEyMCkiIC8+Cgk8dXNlIHhsaW5rOmhyZWY9IiNjaXJjMDAxIiB0cmFuc2Zvcm09InJvdGF0ZSgxNTApIiAvPgoJPHVzZSB4bGluazpocmVmPSIjY2lyYzAwMSIgdHJhbnNmb3JtPSJyb3RhdGUoMTgwKSIgLz4KCTx1c2UgeGxpbms6aHJlZj0iI2NpcmMwMDEiIHRyYW5zZm9ybT0icm90YXRlKDIxMCkiIC8+Cgk8dXNlIHhsaW5rOmhyZWY9IiNjaXJjMDAxIiB0cmFuc2Zvcm09InJvdGF0ZSgyNDApIiAvPgoJPHVzZSB4bGluazpocmVmPSIjY2lyYzAwMSIgdHJhbnNmb3JtPSJyb3RhdGUoMjcwKSIgLz4KCTx1c2UgeGxpbms6aHJlZj0iI2NpcmMwMDEiIHRyYW5zZm9ybT0icm90YXRlKDMwMCkiIC8+Cgk8dXNlIHhsaW5rOmhyZWY9IiNjaXJjMDAxIiB0cmFuc2Zvcm09InJvdGF0ZSgzMzApIiAvPgo8L3N2Zz4K
 --DFQRCTsKlU
-woas.page.title: Example::Encrypted page
+woas.page.title: Wiki::Example::Encrypted page
 woas.page.attributes: 2
 woas.page.encoding: 8bit/base64
 woas.page.disposition: inline
@@ -4494,9 +4496,9 @@ woas.page.original_length: 128
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-/f+cdfAHEwYYzgR5u2B1F2hdgcrjqvb7j0ebu4pokf/U9Vn5bGgwpCAJovC6GGSC7vkFptKjvp2Bg3rHtW6QrvmdFTvYIxr2UFex9lqbqisusQ/4GR0bjt1YpLdasW37xCmCH1KGqmE4RDFZif6XpIq9wuYT36JWg8I8/bNbLrsA
+ItOXD9Cekw4H9m9XunNweEDQq7z8dDO4dXVt0fJJs13yA17AdgGvYRgfCjSFylAY84fF05iGl0Z/yc+hj/dTXqc9/E7Qw527z2ycfr0m/1p3Yg4/w7bcJehzROjQ3cgxQUbWd09MNx7E8Ix/lxvOIn+8W+/cVFM1rkDBRHVm7JwA
 --DFQRCTsKlU
-woas.page.title: Example::Chapter 01
+woas.page.title: Wiki::Example::Chapter 01
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -4509,7 +4511,7 @@ This is a sample paragraph.
 This is another sample paragraph.
 
 --DFQRCTsKlU
-woas.page.title: Example::Chapter 02
+woas.page.title: Wiki::Example::Chapter 02
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -4522,7 +4524,7 @@ This is a sample paragraph.
 This is another sample paragraph.
 
 --DFQRCTsKlU
-woas.page.title: Example::Chapter 03
+woas.page.title: Wiki::Example::Chapter 03
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -4535,7 +4537,7 @@ This is a sample paragraph.
 This is another sample paragraph.
 
 --DFQRCTsKlU
-woas.page.title: Example::JavaScript
+woas.page.title: Wiki::Example::JavaScript
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -4637,20 +4639,20 @@ setTimeout ( "ScoreDecay()", 3000);
 </script>
 
 --DFQRCTsKlU
-woas.page.title: Example::Overview
+woas.page.title: Wiki::Example::Overview
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-[[Include::Example::Chapter 01]]
-[[Include::Example::Chapter 02]]
-[[Include::Example::Chapter 03]]
+[[Include::Wiki::Example::Chapter 01]]
+[[Include::Wiki::Example::Chapter 02]]
+[[Include::Wiki::Example::Chapter 03]]
 [[Include::Word count button]]
 
 --DFQRCTsKlU
-woas.page.title: Example::Table of Contents
+woas.page.title: Wiki::Example::Table of Contents
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -4674,7 +4676,7 @@ Since the first three headers on this page are not Level 1 headers, they are rep
 === Level 3 header
 
 --DFQRCTsKlU
-woas.page.title: Example::Transclusion
+woas.page.title: Wiki::Example::Transclusion
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -5222,7 +5224,7 @@ When encrypting additional pages during a session, you'll be offered to use the 
 Clicking on the link to an encrypted page brings up an alert letting you know that you need to enter a password to view the page. To do so, click the [[Include::Template::Icon::Password]] icon in the banner to enter the password for unencrypting a page. You can now open the page normally to view, edit, or delete it. The password for decrypting a page (or pages) is cached so that you only need to enter it once per session (until you close or reload the wiki). To disable password caching, check the box for *Do not temporarily cache the AES key* in the [[Special::Options]] page. If you've used more than one password for encrypting your pages, you'll need to enter the password to unlock each encrypted page.
 
 == Example encrypted page
-The [[Example::Encrypted page]] can be opened by using *test* as the password.
+The [[Wiki::Example::Encrypted page]] can be opened by using *test* as the password.
 
 [[Tags::Help]]
 
@@ -5688,7 +5690,7 @@ The *Example::Overview* page displays the contents of the three example chapters
 [<!-- -->[Include::Word count button]<!-- -->]
 </div>
 <div class="helptext">Creates this page:</div>
-[[Example::Overview]]
+[[Wiki::Example::Overview]]
 
 [[Tags::Help|Syntax]]
 
@@ -5711,7 +5713,7 @@ YOUR_CODE_HERE
 </script>
 }}}<div class="helptext">To add JavaScript to your page.</div>
 
-See an [[Example::JavaScript|example]] of JavaScript being used in this wiki.
+See an [[Wiki::Example::JavaScript|example]] of JavaScript being used in this wiki.
 
 == Adding JavaScript to the wiki source
 According to the author of Wiki on a Stick:
@@ -6680,7 +6682,7 @@ These namespaces are reserved by the wiki for use by the wiki and by the user:
 * *Wiki::* for utilities
 
 === Namespace sub-menu
-If you add *::Menu* to the end of a page name, a sub-menu will be temporarily added to the main menu when any pages belonging to that page's namespace are opened (for example, see [[Example::Menu]]). You can determine what goes into that temporary menu entry by editing the page with *::Menu* in its name. All content on the page will be displayed in the main menu, and text will be automatically wrapped for you. The menu will vanish as soon as you navigate away from that namespace.
+If you have a namespace and add a *::Menu* page in the namespace, a sub-menu will be temporarily added to the main menu when any pages belonging to that namespace are opened. You can determine what goes into that sub-menu by editing the page with *::Menu* in its name. All content on the page will be displayed in the sub-menu beneath the main menu, and text will be automatically wrapped for you. The menu will vanish as soon as you navigate away from that namespace.
 
 For example, if you have these pages:
 * {{{[[Recipes::Menu]]}}}
@@ -6690,6 +6692,7 @@ For example, if you have these pages:
 * {{{[[Recipes::Soups]]}}}
 You can type *My favorite recipes!* into the {{{[[Recipes::Menu]]}}} page, and any time you open any of the Recipes pages, *My favorite recipes!* will appear in the sub-menu of the main menu.
 
+<div style="background-color:#FFFFAA; border: 0.1em solid black; padding:0.3em;">Note that this will only work on namespaces. It will not work on sub-namespaces.</div>
 [[Tags::Help]]
 
 --DFQRCTsKlU
@@ -6907,7 +6910,7 @@ woas.page.boundary: DFQRCTsKlU
 == Level 2 header
 === Level 3 header
 === Level 3 header
-The Table of Contents link creates a Table of Contents that's automatically populated with all the headers on a page. The Table of Contents expects the first header on a page to be a Level 1 header. If you use any other level header first, that header and any headers after it will be represented by hash marks until a Level 1 header is encountered. From that point on, the headers will be numbered properly. See the [[Example::Table of Contents]] page for an example of a page where a level 1 header isn't the first header on the page.
+The Table of Contents link creates a Table of Contents that's automatically populated with all the headers on a page. The Table of Contents expects the first header on a page to be a Level 1 header. If you use any other level header first, that header and any headers after it will be represented by hash marks until a Level 1 header is encountered. From that point on, the headers will be numbered properly. See the [[Wiki::Example::Table of Contents]] page for an example of a page where a level 1 header isn't the first header on the page.
 
 * Method 1:<br><br>
 ** <div class="helptext">Use this code on a line by itself in your page:</div>{{{
@@ -7207,14 +7210,14 @@ Transclusion is a special way of [[Help::Include wiki page|including]] a wiki pa
 
 This method requires that you create a page to be used as a template. This page must contain variables represented by %1, %2, %3, and so on.
 
-The [[Example::Transclusion]] page in this wiki uses three variables. The contents of that page are:{{{
+The [[Wiki::Example::Transclusion]] page in this wiki uses three variables. The contents of that page are:{{{
 The members of the board are %1, %2, and %3.
 }}}You can then create a transclusion link or links to that page by creating a normal [[Help::Include wiki page|include link]] with the values for the variables added after the page name. Each value must be preceded by a pipe ({{{|value}}}). The values you define in the link will be used from left to right to replace the numbered variables on the page you're including.
 
 <div class="helptext">Use this code, replacing PAGENAME with the name of the page to be included, and VALUE1, VALUE2, and VALUE3 with the values you'd like the three variables to have when the included page is displayed:</div>
 <div class="helpcode">{{{[[Include::PAGENAME|VALUE1|VALUE2|VALUE3]]}}}</div>
 == Examples
-These examples use the [[Example::Transclusion]] page:
+These examples use the [[Wiki::Example::Transclusion]] page:
 
 <div class="helptext">Use this code:</div>
 <div class="helpcode">{{{[[Include::Example::Transclusion|Mary|Steve|Dave]]}}}</div>
@@ -7742,7 +7745,7 @@ A topnote is a note in the upper right corner of a page that doesn't affect the 
 [[Include::Template::Topnote|This is a topnote!]]
 [[Tags::Help]]
 --DFQRCTsKlU
-woas.page.title: Example::Bluebox
+woas.page.title: Wiki::Example::Bluebox
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -7847,7 +7850,7 @@ To put all of that together in its simplest form, you would type this:{{{
 <p><span class="first-letter">Y</span>our text goes here.</p>
 </div>
 
-For a better example, see the [[Example::Bluebox]] page.
+For a better example, see the [[Wiki::Example::Bluebox]] page.
 
 [[Tags::Help]]
 
@@ -7890,7 +7893,7 @@ This method makes the embedded web page become a seamless part of the page.
 }}}<br><div class="helptext">To embed an external URL in a page.</div><br>
 *** For example, if you want to embed the Gnu page at [[http://www.gnu.org/]] as an object, you'd use this command:<br>{{{
 <html><object data="http://www.gnu.org/" style="width:100%; height:630px;">URL not found.</object></html>
-}}}The resulting page would look like [[Example::Embed web page object|this]].
+}}}The resulting page would look like [[Wiki::Example::Embed web page object|this]].
 
 == Embed a web page in an iFrame
 This method creates a frame around the embedded web page. The code shown below is for a plain frame, but you can style the iFrame further by adding a border, changing the border style to dotted, dashed, solid, double, groove, ridge, inset, or outset, changing the border width to whatever thickness you like, and the border color to whatever color you like.
@@ -7908,7 +7911,7 @@ This method creates a frame around the embedded web page. The code shown below i
 }}}<br><div class="helptext">To include a web page in a wiki page.</div><br>
 *** For example, if you want to embed the Gnu page at [[http://www.gnu.org/]] in an iFrame, you'd use this command:<br>{{{
 <iframe height="400" width="100%" height:630px; src="http://www.gnu.org/"></iframe>
-}}}The resulting page would look like [[Example::Embed web page iFrame|this]].
+}}}The resulting page would look like [[Wiki::Example::Embed web page iFrame|this]].
 <!-- 
 == Reload an iframe with a link
 <div class="helptext">Use this code in the same page as an iframe, replacing FRAMENAME with ID of the iFrame you'd like to reload:</div>{{{
@@ -7971,7 +7974,7 @@ This method allows you to add text after the link on the same line, and accepts 
 The [[Template::Foldawaylink|Foldawaylink]] and [[Template::Foldawaytext|Foldawaytext]] templates can be used to toggle inclusion of additional text in the current page. The link and the toggled text can be in different places in the page.
 # Insert a Foldawaylink where you'd like the link to appear in the page:<br><br><div class="helptext">Use this code in your page, replacing LINK with the link text, and NAME with a unique name for the link:</div><br><div class="helpcode">[<!-- -->[Include::Template::Foldawaylink|LINK|NAME]<!-- -->]</div><br><div class="helptext">To create a Foldawaylink link.</div><br>
 # Insert a Foldawaytext link where you'd like the toggled text to appear in the page:<br><br><div class="helptext">Use this code in your page, replacing TEXT with the text you'd like to toggle, and NAME with the same unique name you used in the Foldaway link:</div><br><div class="helpcode">[<!-- -->[Include::Template::Foldawaytext|TEXT|NAME]<!-- -->]</div><br><div class="helptext">To create a Foldawaytext link.</div>
-See [[Example::Foldawaytext|this page]] for an example.
+See [[Wiki::Example::Foldawaytext|this page]] for an example.
 
 == Folding page
 The [[Template::Foldpage|Foldpage]] template can be used to toggle inclusion of another wiki page in the current page.
@@ -7981,20 +7984,20 @@ This method works best when the link is at the beginning of a line, or there's n
 
 <div class="helptext">Use this code in your page, replacing LINK with the text for the link, and PAGE with the name of the page you'd like to include when the link is clicked:</div>
 <div class="helpcode">[<!-- -->[Include::Template::Foldpage|LINK|PAGE|]<!-- -->]</div>
-<div class="helptext">To create a Folding page link like the one on [[Example::Folding page plain|this page]].</div>
+<div class="helptext">To create a Folding page link like the one on [[Wiki::Example::Folding page plain|this page]].</div>
 
 === Folding page inline
 This method allows you to add text after the link on the same line.
 
 <div class="helptext">Use this code in your page, replacing LINK with the text for the link, and PAGE with the name of the page you'd like to include when the link is clicked, and TEXT with the text you'd like after the link:</div>
 <div class="helpcode">[<!-- -->[Include::Template::Foldpage|LINK|PAGE|TEXT]<!-- -->]</div>
-<div class="helptext">To create a Folding page link like the one on [[Example::Folding page inline|this page]].</div>
+<div class="helptext">To create a Folding page link like the one on [[Wiki::Example::Folding page inline|this page]].</div>
 
 === Foldaway page
 The [[Template::Foldawaylink|Foldawaylink]] and [[Template::Foldawaypage|Foldawaycontent]] templates can be used to toggle inclusion of another page in the current page. The link and the toggled page can be in different places in the page.
 # Insert a Foldawaylink where you'd like the link to appear in the page:<br><br><div class="helptext">Use this code in your page, replacing LINK with the link text, and NAME with a unique name for the link:</div><br><div class="helpcode">[<!-- -->[Include::Template::Foldawaylink|LINK|NAME]<!-- -->]</div><br><div class="helptext">To create a Foldawaylink link.</div><br>
 # Insert a Foldawaycontent link where you'd like the toggled page to appear in the page:<br><br><div class="helptext">Use this code in your page, replacing PAGE with the name of the page you'd like to include, and NAME with the same unique name you used in the Foldaway link:</div><br><div class="helpcode">[<!-- -->[Include::Template::Foldawaycontent|PAGE|NAME]<!-- -->]</div><br><div class="helptext">To create a Foldawaycontent link.</div>
-See [[Example::Foldaway|this page]] for an example.
+See [[Wiki::Example::Foldaway|this page]] for an example.
 
 == HTML Folds
 
@@ -8016,7 +8019,7 @@ This method uses an additional &lt;div&gt; container to surround the include lin
 <<!-- -->d<!-- -->iv i<!-- -->d="NA<!-- -->ME" st<!-- -->yle="dis<!-- -->play:n<!-- -->one;"<!-- -->><<!-- -->d<!-- -->iv<!-- -->>
 [<!-- -->[Include::PAGENAME]<!-- -->]
 <<!-- -->/di<!-- -->v<!-- -->><<!-- -->/<!-- -->di<!-- -->v<!-- -->></div>
-<div class="helptext">To create a folding page button like the one on the [[Example::Folding page button (HTML)]] page.</div>
+<div class="helptext">To create a folding page button like the one on the [[Wiki::Example::Folding page button (HTML)]] page.</div>
 
 === Folding page styled button
 <div class="helptext">Use this code in a page, replacing BUTTONTEXT with the text for your button, both instances of NAME with the same unique name for the fold, and PAGENAME with the name of the page you'd like to include:</div>
@@ -8025,7 +8028,7 @@ This method uses an additional &lt;div&gt; container to surround the include lin
 [<!-- -->[Include::PAGENAME]<!-- -->]
 <<!-- -->/div<!-- -->><<!-- -->/div<!-- -->>
 </div>
-<div class="helptext">To create a folding page button like the one on the [[Example::Folding page styled button (HTML)]] page.</div>
+<div class="helptext">To create a folding page button like the one on the [[Wiki::Example::Folding page styled button (HTML)]] page.</div>
 
 === Folding text
 This method allows some wiki and HTML markup, like wiki [[Help::Text formatting|text formatting]] tags and HTML &lt;br&gt; tags, with the exception of wiki headers and include links. Placing all of the code for the fold onto one line removes the blank line between the link and the content.
@@ -8193,7 +8196,7 @@ for(var i=IMAGES .length-1;i>=0;--i)
 $('imagesGallery').innerHTML = iHTML;
 </script><!-- This script grabs all images in the specified namespace (represented above by %1) and displays them on one page with clickable links to their respective pages next to each. -->
 --DFQRCTsKlU
-woas.page.title: Example::Folding page button (HTML)
+woas.page.title: Wiki::Example::Folding page button (HTML)
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -8211,7 +8214,7 @@ This button toggles the display of the [[Sandbox]] page in this page.
 [[Tags::Example]]
 
 --DFQRCTsKlU
-woas.page.title: Example::Folding page styled button (HTML)
+woas.page.title: Wiki::Example::Folding page styled button (HTML)
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -8229,15 +8232,6 @@ This button toggles the display of the [[Sandbox]] page in this page.
 [[Tags::Example]]
 
 --DFQRCTsKlU
-woas.page.title: Example::Menu
-woas.page.attributes: 0
-woas.page.encoding: 8bit/plain
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-[[Include::Example::]]
---DFQRCTsKlU
 woas.page.title: Template::Icon::Password
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
@@ -8248,7 +8242,7 @@ woas.page.boundary: DFQRCTsKlU
 <img title="Password" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACFUlEQVQ4jaWSTUjUYRDGf7O7/2XXFVdSN+iQpRFpdSoqiIryJEkSBBFdom5dVuocRBtBEIid+yS6dBEXgqCiQ7cyT+kl0L6oNc1Vc7/++77vdNB13dxLOJcZhpkfDzyPqCobqVBlGBoa0nowYwzGGKy1NT0YDJJKpWQVcPHSBfr6HpBIhHDWAYpzEAwFUBdCJIyIAMr1VA8jw89rFVhr6drlaGqyOOfYf6Cdru4OZmZmmZ2Z483rTzinOOdQVZqbm/8FGKz1WVxUVJXe3h6uDNzFOWXHzhB+Oc/E+A/m5hYYuHqKeLypFmCswdoy5bLSGvvC2NMWTu9x/MnDUg68eIz3uX4ikRhOlcbGxipgcHBQz547Q6HgUHWcPPSQ4+ev4S+9oFD4TTE/S8Hs49nbBkSEXM4nFmuoAlQVYw2lkkVVsRZQU+OGIkSjMUDI/MyzORGtAnzfp2zKZLN5nIP5YguEDxNkE17gKxrM
 MPVxlEjkICLC929LtG/dUgWU/BLWGDwviohw7+Vl7r96t2JbCyKtiOwlEgkgIkx9XuREz7YqoFgoUiyWuH2nH1VFWXZCVZnOTNOWaEOVld1yD3thAKSSvmQyqWuTVi99ldk5h+d5pNNpkXrxvXnrhnbv7mJycmp119GxncePnjAynJa1t6F138DE+ASdnZ0cPXKMcNgjO7/A2IdRpjO/1t3WVfA/FdjQN/AXx8crd1TK1G8AAAAASUVORK5CYII=">
 --DFQRCTsKlU
-woas.page.title: Example::Embed web page iFrame
+woas.page.title: Wiki::Example::Embed web page iFrame
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -8260,7 +8254,7 @@ woas.page.boundary: DFQRCTsKlU
 [[Tags::Example]]
 
 --DFQRCTsKlU
-woas.page.title: Example::Embed web page object
+woas.page.title: Wiki::Example::Embed web page object
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -8272,7 +8266,7 @@ woas.page.boundary: DFQRCTsKlU
 [[Tags::Example]]
 
 --DFQRCTsKlU
-woas.page.title: Example::Foldaway
+woas.page.title: Wiki::Example::Foldaway
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -8310,7 +8304,7 @@ woas.page.boundary: DFQRCTsKlU
 [[Include::%1]]</div></div>
 
 --DFQRCTsKlU
-woas.page.title: Example::Folding page plain
+woas.page.title: Wiki::Example::Folding page plain
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -8323,7 +8317,7 @@ woas.page.boundary: DFQRCTsKlU
 [[Tags::Example]]
 
 --DFQRCTsKlU
-woas.page.title: Example::Folding page inline
+woas.page.title: Wiki::Example::Folding page inline
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -8347,7 +8341,7 @@ woas.page.boundary: DFQRCTsKlU
 %1</div></div>
 
 --DFQRCTsKlU
-woas.page.title: Example::Foldawaytext
+woas.page.title: Wiki::Example::Foldawaytext
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
