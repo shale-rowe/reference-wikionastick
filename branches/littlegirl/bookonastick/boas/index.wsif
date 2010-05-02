@@ -121,7 +121,25 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 == Book on a Stick 1.0 (under development)
-If you're seeing this, then BoaS is in a state of transition and hasn't finished merging with WoaS 0.12.0 yet. This will look a lot better tomorrow.  <img src="data:image/png;base64,R0lGODlhBgAFAIABAAAAAP///yH5BAEAAAEALAAAAAAGAAUAAAIJDGJ4ic1qgAwFADs=" width="2%" height="2%">
+If you're seeing this, then BoaS is in a state of transition and hasn't finished merging with WoaS 0.12.0 yet.
+
+Until this merge is finished, you will notice these things:
+* A couple of the features will be broken and flagged with an alert message.
+* All page listings will have a strange new header.
+* Many of the instructions will be inaccurate.
+* Page layout will be messed up.
+* Some links will temporarily be broken.
+* Some things will not yet be styled properly.
+* The *About* button will take you to a WoaS page instead of a BoaS page.
+* The BoaS editor buttons will be missing.
+* The BoaS icons will be missing.
+* The menu will contain an extra link.
+* There will be a gap below the banner when in the editor.
+* There will be "duplicates" of help pages.
+This will all look a lot better as time goes by, most of these things will be fixed, and the ones that can't be fixed will be removed until such a time as they can be made to work.
+
+I apologize for any inconvenience and I appreciate your patience.&nbsp;&nbsp;&nbsp;<img src="data:image/png;base64,R0lGODlhBgAFAIABAAAAAP///yH5BAEAAAEALAAAAAAGAAUAAAIJDGJ4ic1qgAwFADs=" width="2%" height="2%">
+
 <!-- [[Include::Special::About]] -->
 <!-- Delete all of the text in the main text area of this page and replace it with whatever you like. You can click the About button in the menu to see the welcome page again at any time. -->
 
@@ -3677,6 +3695,49 @@ p.woas_toc_title {
 	font-weight:bold;
 }
 
+/* TABLES - FANCY */
+table.shadesofblue {
+	color: #404040;
+	background-color: #fafafa;
+	border-collapse: collapse;
+	border-spacing: 0px;
+	border: 1px solid #6699CC;
+	font-family: Verdana, sans-serif, Arial;
+	font-size: 14px;
+	font-weight: normal;
+	/*UNCOMMENT THE WIDTH LINE BELOW TO CONTROL THE WIDTH OF THE TABLE*/
+	/*width: 500px;*/
+}
+caption.shadesofblue {
+	color: #404040;
+	border: 1px solid #6699CC;
+	text-align: center;
+	width: 580px;
+}
+table.shadesofblue th { 
+	color: #404040;
+	background-color: #BEC8D1;
+	border-bottom: 2px solid #6699CC;
+	border-left: 1px solid #6699CC;
+	padding-left: 0.5em;
+	padding-right: 0.5em;
+	font-weight: bold;
+	text-indent: 2px;
+}
+table.shadesofblue td {
+	color: #404040;
+	border-top: 0px;
+	border-right: 0px;
+	border-bottom: 1px solid #9CF;
+	border-left: 1px solid #9CF;
+	padding-left: 0.5em;
+	padding-right: 0.5em;
+	text-indent: 2px;
+}
+table.shadesofblue td.special {
+	background-color: #ff00ff;
+}
+
 /* TOOLTIPS */
 span.tooltip {
 	cursor:help;
@@ -3852,8 +3913,10 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Added the *Duplicate page* button to the menu.
 ** Added the *Go to* button to the menu.
 ** Added two non-breaking spaces after the debug Clear button for consistency.
+** Changed the layout of the menu buttons.
 ** Changed the styling of the debugger.
 ** Now using [[http://sourceforge.net/projects/stickwiki/files/|Wiki on a Stick v0.12.0]] as the foundation for Book on a Stick.
+** Reorganized the entries in the {{{var reserved_namespaces}}} section of the core code.
 
 * _Content:_
 ** Added a note to the [[Wiki::Utility::Diary]] page warning users that the [[Wiki::Utility::Diary|diary]] is broken in this version.
@@ -3864,8 +3927,12 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Moved all pages in the *Utility::* namespace to the *Wiki::Utility::* namespace.
 ** Removed the *Example::Menu* page.
 ** Removed the *WoaS::History* page.
+** Updated the [[Help::Edit a page]] page.
+** Updated the [[Help::Include wiki page]] page.
 ** Updated the [[Help::Namespaces]] page.
+** Updated the [[Help::Transclusion]] page.
 ** Updated the [[History]] page.
+** Updated the [[Wiki::Example::Table of Contents]] page.
 
 === Version 0.9.1 released on April 30, 2010
 * _Interface:_
@@ -3909,30 +3976,30 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the [[Special::Options]] page to remove the *Fixed menu and banner* option and add the *Fixed banner* and *Fixed menu* options.
 
 * _Content:_
-** Added the [[Wiki::Example::Embed web page iFrame]] page.
-** Added the [[Wiki::Example::Embed web page object]] page.
-** Added the [[Wiki::Example::Foldawaytext]] page.
-** Added the [[Wiki::Example::Folding page inline]] page.
-** Added the [[Wiki::Example::Folding page plain]] page.
+** Added the *Example::Embed web page iFrame* page.
+** Added the *Example::Embed web page object* page.
+** Added the *Example::Foldawaytext* page.
+** Added the *Example::Folding page inline* page.
+** Added the *Example::Folding page plain* page.
 ** Added the [[Help::Footnotes]] page (thanks to *FBNil* and *Stanky*).
-** Added the [[Template::Foldawaylink]] page to be used by Foldaway folds.
-** Added the [[Template::Foldawaypage]] page to be used by Foldaway folds.
-** Added the [[Template::Foldawaytext]] page to be used by Foldaway folds.
-** Added the [[Template::Icon::Password]] page.
-** Added the [[Template::Icon::Up]] page.
-** Added the [[Template::Info]] page.
-** Added the [[Wiki::Utility::Diary]] page (created by *FBNili*).
+** Added the *Template::Foldawaylink* page to be used by Foldaway folds.
+** Added the *Template::Foldawaypage* page to be used by Foldaway folds.
+** Added the *Template::Foldawaytext* page to be used by Foldaway folds.
+** Added the *Template::Icon::Password* page.
+** Added the *Template::Icon::Up* page.
+** Added the *Template::Info* page.
+** Added the *Utility::Diary* page (created by *FBNili*).
 ** Removed the *Changes* page.
 ** Removed the *Help::Embed web page* page.
 ** Removed the namespace from the title at the top of *Help* pages.
 ** Renamed the *Help::Import page* page to [[Help::Import]].
-** Renamed the *MyPages::Page 1* page to [[Wiki::Example::Encrypted page]].
-** Renamed the *Template::FoldingPage* page to [[Template::Foldpage]].
-** Renamed the *Template::FoldingText* page to [[Template::Foldtext]].
-** Renamed the *Template::FoldingTextInline* page to [[Template::Foldtextinline]].
+** Renamed the *MyPages::Page 1* page to *Example::Encrypted page*.
+** Renamed the *Template::FoldingPage* page to *Template::Foldpage*.
+** Renamed the *Template::FoldingText* page to *Template::Foldtext*.
+** Renamed the *Template::FoldingTextInline* page to *Template::Foldtextinline*.
 ** Replaced the default [[Image::alert.png]] image with my own alert image.
 ** Updated all tags to the new tag syntax.
-** Updated the [[Wiki::Example::JavaScript]] page.
+** Updated the *Example::JavaScript* page.
 ** Updated the [[Help::Add a search box]] page.
 ** Updated the [[Help::Aliases]] page.
 ** Updated the [[Help::Bugs]] page.
@@ -3970,7 +4037,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the [[Help::Transclusion]] page.
 ** Updated the [[Help::Word count]] page.
 ** Updated the [[History]] page.
-** Updated the [[Wiki::Utility::Word count]] page.
+** Updated the *Utility::Word count* page.
 ** Updated the [[Special::About]] page, changing the accepted syntax reference from "Creole 0.1" to "some Creole 0.1".
 
 <!-- ============================================================================================================================================================================================= -->
@@ -4002,21 +4069,21 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 * _Content:_
 ** Added instructions for *email links* to the [[Help::Links]] page, thanks to *FBNil* figuring out how it's done.
 ** Added the *Changes* page, thanks to code contributed by [[http://woas.iragan.com/viewtopic.php?pid=1585#p1585|FBNil]].
-** Added the [[Wiki::Example::Bluebox]] page.
-** Added the [[Wiki::Example::Folding page button (HTML)]] page.
+** Added the *Example::Bluebox* page.
+** Added the *Example::Folding page button (HTML)* page.
 ** Added the [[Help::Bluebox]] page to explain how to use Bluebox, which was contributed by *FBNil*, to create styled presentations of your stories.
 ** Added the [[Help::Include web page]] page.
 ** Added the [[Help::Folds]] page.
 ** Added the [[Help::ToDo list]] page with instructions on how to use the [[ToDo list]] page.
 ** Added the [[Help::Topnote]] page to describe *topnotes* and demonstrate how to use them.
-** Added the [[Template::Foldpage]] page to be used by *Folds*.
-** Added the [[Template::Foldtextinline]] page to be used by *Folds*.
-** Added the [[Template::HiddenSpoiler]] page to be used by [[Help::Spoilers|spoilers]].
-** Added the [[Template::HiddenSpoilerInline]] page to be used by [[Help::Spoilers|spoilers]].
-** Added the [[Template::Image gallery]] page, thanks to a script by *FBNil*.
-** Added the [[Template::Spoiler]] page to be used by [[Help::Spoilers|spoilers]].
-** Added the [[Template::Topnote]] page to be used for creating [[Help::Topnote|topnotes]].
-** Added the [[Template::TODO]] page to be used for *ToDo* items in the [[ToDo list]] page contributed by *FBNil*.
+** Added the *Template::Foldpage* page to be used by *Folds*.
+** Added the *Template::Foldtextinline* page to be used by *Folds*.
+** Added the *Template::HiddenSpoiler* page to be used by [[Help::Spoilers|spoilers]].
+** Added the *Template::HiddenSpoilerInline* page to be used by [[Help::Spoilers|spoilers]].
+** Added the *Template::Image gallery* page, thanks to a script by *FBNil*.
+** Added the *Template::Spoiler* page to be used by [[Help::Spoilers|spoilers]].
+** Added the *Template::Topnote* page to be used for creating [[Help::Topnote|topnotes]].
+** Added the *Template::TODO* page to be used for *ToDo* items in the [[ToDo list]] page contributed by *FBNil*.
 ** Added the [[ToDo list]] page, which is a slight modification of code contributed by *FBNil*.
 ** Removed the *Examples* page since it's generated automatically by the *Examples* button in the menu.
 ** Removed the *Help* page since it's generated automatically by the *Help* button in the menu.
@@ -4024,22 +4091,22 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Removed the *Utilities* page since it's generated automatically by the *Utilities* button in the menu.
 ** Removed the *Utility::Buttons* page.
 ** Renamed the *Help::Parent and child pages* page to [[Help::Namespaces]].
-** Renamed the *Template::Fold* page to [[Template::Foldtext]].
-** Renamed the *Wiki::Tools* page to [[Template::Icon::Advanced]].
+** Renamed the *Template::Fold* page to *Template::Foldtext*.
+** Renamed the *Wiki::Tools* page to *Template::Icon::Advanced*.
 ** Renamed the *Wiki::Alert* page to *Template::Icon::Alert*.
-** Renamed the *Wiki::Back* page to [[Template::Icon::Back]].
-** Renamed the *Wiki::Cancel* page to [[Template::Icon::Cancel]].
-** Renamed the *Wiki::Edit* page to [[Template::Icon::Edit]].
-** Renamed the *Wiki::Next* page to [[Template::Icon::Forward]].
-** Renamed the *Wiki::Home* page to [[Template::Icon::Home]].
-** Renamed the *Wiki::Info* page to [[Template::Icon::Info]].
-** Renamed the *Wiki::Lock* page to [[Template::Icon::Lock]].
-** Renamed the *Wiki::Logo* page to [[Template::Logo]].
-** Renamed the *Wiki::Print* page to [[Template::Icon::Print]].
-** Renamed the *Wiki::Save* page to [[Template::Icon::Save]].
-** Renamed the *Wiki::Unlock* page to [[Template::Icon::Unlock]].
-** Renamed the *Utility::Tooltips* page to [[Template::Tooltip]].
-** Updated the [[Wiki::Example::JavaScript]] page.
+** Renamed the *Wiki::Back* page to *Template::Icon::Back*.
+** Renamed the *Wiki::Cancel* page to *Template::Icon::Cancel*.
+** Renamed the *Wiki::Edit* page to *Template::Icon::Edit*.
+** Renamed the *Wiki::Next* page to *Template::Icon::Forward*.
+** Renamed the *Wiki::Home* page to *Template::Icon::Home*.
+** Renamed the *Wiki::Info* page to *Template::Icon::Info*.
+** Renamed the *Wiki::Lock* page to *Template::Icon::Lock*.
+** Renamed the *Wiki::Logo* page to *Template::Logo*.
+** Renamed the *Wiki::Print* page to *Template::Icon::Print*.
+** Renamed the *Wiki::Save* page to *Template::Icon::Save*.
+** Renamed the *Wiki::Unlock* page to *Template::Icon::Unlock*.
+** Renamed the *Utility::Tooltips* page to *Template::Tooltip*.
+** Updated the *Example::JavaScript* page.
 ** Updated the [[Help::Add a search box]] page.
 ** Updated the [[Help::Bootscript]] page.
 ** Updated the [[Help::Bugs]] page.
@@ -4053,7 +4120,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the [[Help::Getting started]] page.
 ** Updated the [[Help::Headers]] page.
 ** Updated the [[Help::Horizontal rules (lines)]] page.
-** Updated the [[Help::Images]] page, adding instructions for how to write an include link to use the [[Template::Image gallery]].
+** Updated the [[Help::Images]] page, adding instructions for how to write an include link to use the *Template::Image gallery*.
 ** Updated the [[Help::Include text file]] page.
 ** Updated the [[Help::Include web page]] page.
 ** Updated the [[Help::Include wiki page]] page.
@@ -4076,7 +4143,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the [[Help::Transclusion]] page.
 ** Updated the [[Help::Word count]] page.
 ** Updated the [[History]] page.
-** Updated the [[Wiki::Utility::Links for writers]] page.
+** Updated the *Utility::Links for writers* page.
 ** Updated the [[Help::Word count]] page.
 <!-- ============================================================================================================================================================================================= -->
 === Version 0.8 released on December 08, 2009
@@ -4113,7 +4180,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 * _Content:_
 ** Added the [[Help::Tooltips]] page to explain how to use *tooltips*, which were created by [[http://woas.iragan.com/viewtopic.php?id=469|FBNil]].
 ** Added the *Utility::Tooltips* page to hold the template for *tooltips*.
-** Added the [[Template::Icon::Info]] page containing a default lightbulb image for use when pointing out additional information.
+** Added the *Template::Icon::Info* page containing a default lightbulb image for use when pointing out additional information.
 ** Removed the *Help::New page template* page.
 ** Updated the [[History]] page.
 ** Updated the [[Help::Bugs]] page.
@@ -4144,8 +4211,8 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the [[Help::Word count]] page.
 ** Updated the [[Special::About]] page.
 ** Updated the [[Special::Advanced]] page.
-** Updated the [[Wiki::Utility::Word count]] page.
-** Updated the [[Wiki::Utility::Word frequency]] page.
+** Updated the *Utility::Word count* page.
+** Updated the *Utility::Word frequency* page.
 <!-- ============================================================================================================================================================================================= -->
 === Version 0.7 released on November 18, 2009
 * _Interface:_
@@ -4180,7 +4247,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Added the [[Help::Navigation]] page.
 ** Added the [[Help::Spoilers]] page.
 ** Added the [[Help::Syntax]] page.
-** Added the [[Wiki::Utility::Word frequency]] page.
+** Added the *Utility::Word frequency* page.
 ** Removed the *About this wiki* footer.
 ** Removed the *Getting Started* page.
 ** Removed the *Help::Embed a file* page.
@@ -4190,11 +4257,11 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Removed the *Word count button* page.
 ** Renamed the *Help::Footers* page to [[Help::Footer]].
 ** Renamed the *Help::Page tags* page to [[Help::Tags]].
-** Renamed the *Links for writers* page to [[Wiki::Utility::Links for writers]].
+** Renamed the *Links for writers* page to *Utility::Links for writers*.
 ** Renamed the [[Main Page]] to *Main page* (changing its case).
-** Renamed the *Said* page to [[Wiki::Utility::Said]].
+** Renamed the *Said* page to *Utility::Said*.
 ** Updated the content of the *footer*.
-** Updated the [[Wiki::Example::Overview]] page.
+** Updated the *Example::Overview* page.
 ** Updated the [[Help::Bugs]] page.
 ** Updated the [[Help::Code blocks (preformatted text)]] page, adding instructions on how to use *code blocks with syntax highlighting* from code provided by [[http://woas.iragan.com/viewtopic.php?id=561|FBnil]].
 ** Updated the [[Help::CSS]] page.
@@ -4220,7 +4287,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the [[Special::Search]] page with code provided by [[http://woas.iragan.com/viewtopic.php?id=561|FBnil]].
 ** Updated the text on menu buttons so the letters are mixed case.
 ** Updated the *Utility::Buttons* page.
-** Updated the [[Wiki::Utility::Links for writers]] page.
+** Updated the *Utility::Links for writers* page.
 <!-- ============================================================================================================================================================================================= -->
 === Version 0.6 released on October 27, 2009
 * _Interface:_
@@ -4243,7 +4310,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Added a *Delete page* button to the menu.
 ** Added instructions for using *Go to* and *Delete page* links to the [[Help::Links]] page.
 ** Added the *Utility::Creative Commons License* page.
-** Added the [[Wiki::Example::Table of Contents]] page.
+** Added the *Example::Table of Contents* page.
 ** Added the *Help::Footers* page to explain footers and how to work with them.
 ** Added the *syntax* tag to the [[Help::Include web page]], *Help::Page tags*, and [[Help::Table of Contents]] pages.
 ** Moved the code for the menu buttons to the *Utility::Buttons* page.
@@ -4330,7 +4397,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Added {{{function FullSpecialTagThis(tag)}}} to be used for *HTML list* buttons in the editor so their line height will match that of wiki lists.
 ** Added {{{function ListTagThis(style)}}} on special request so that unusual list item styles can be made into editor buttons.
 ** Added the *Images::* namespace to the reserved namespaces.
-** Commented out the part of the code that caused the wiki to add extra slashes to certain parts of its code during wiki self-clean on save.<br>[[Include::Template::Icon::Info]] /This causes the wiki to no longer be proper XHTML, but until that part of the code is fixed, I'm leaving it commented out. You can undo my comment marks to re-enable it if you like./
+** Commented out the part of the code that caused the wiki to add extra slashes to certain parts of its code during wiki self-clean on save.<br>[[Include::Wiki::Template::Info|This causes the wiki to no longer be proper XHTML, but until that part of the code is fixed, I'm leaving it commented out. You can undo my comment marks to re-enable it if you like.]]
 ** Fixed {{{function DivTagThis(align)}}} so that the *Left*, *Center*, *Right*, and *Justify* buttons in the editor will now create code with proper closing tags.
 ** Fixed {{{function FullTagThis(tag)}}} so that the *Strike*, *Superscript*. *Subscript*, and *Blockquote* buttons in the editor will now create code with proper closing tags.
 ** Fixed the code for the *Table pop-up* in the editor so extra slashes won't be added when the wiki does self-clean on save.
@@ -4371,7 +4438,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Removed the *Example::Word Count Text Area* page.
 ** Renamed many of the *Help* pages.
 ** Renamed the *Example::Bootscript* page to [[Help::Bootscript]].
-** Renamed the *Example::Custom JavaScript* page to [[Wiki::Example::JavaScript]].
+** Renamed the *Example::Custom JavaScript* page to *Example::JavaScript*.
 ** Renamed the *Example::Search Box* page to [[Help::Add a search box]].
 ** Renamed the *Help::CSS settings* page to [[Help::CSS]].
 ** Renamed the *Help::Transclude pages* page to [[Help::Transclusion]].
@@ -4659,21 +4726,16 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-== Example::Table of Contents
 [[Special::TOC]]
-This example demonstrates a bad Table of Contents because the Table of Contents expects the first header on a page to be a Level 1 header. If you use any other level header first, that header and any headers after it will be represented by hash marks until a Level 1 header is encountered. From that point on, the headers will be numbered properly.
+== Level 2 header
+=== Level 3 header
+= Level 1 header
+== Level 2 header
+=== Level 3 header
+This example demonstrates a bad Table of Contents because the first header on a page is expected to be a Level 1 header. If you use any other level header first, that header and any headers after it will be represented by hash marks until a Level 1 header is encountered. From that point on, the headers will be numbered properly.
 
 Since the first three headers on this page are not Level 1 headers, they are represented by hash marks. The remaining headers are numbered. To see a proper Table of Contents, see the [[Help::Table of Contents]] page.
 
-== Level 2 header
-
-=== Level 3 header
-
-= Level 1 header
-
-== Level 2 header
-
-=== Level 3 header
 
 --DFQRCTsKlU
 woas.page.title: Wiki::Example::Transclusion
@@ -5175,32 +5237,34 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 = Edit a page
 Pages that have the [[Include::Template::Icon::Edit]] icon in the banner can be edited. This includes any page you created, and any page listed when clicking the *All pages* button in the menu.
-# Click the [[Include::Template::Icon::Edit]] icon in the banner or double-click on the page if you've enabled that setting in *Options*.<br><br>
+# Click the [[Include::Template::Icon::Edit]] icon in the banner or double-click on the page if you've enabled that setting in the wiki options.<br><br>
 # Edit the contents of the main text area by typing normally.<br><br>
 # Use the editor's buttons to insert code to format the text, or type the code in manually. Note that the use of plain text doesn't require any code.<br><br>
 # Save your changes by clicking on the [[Include::Template::Icon::Save]] icon in the banner.
 
 == Edit system pages
-System pages don't have the [[Include::Template::Icon::Edit]] icon in the banner because they cannot be edited without making some changes to the core code. You can enable editing of pages in the [[Example::]], [[Help::]], [[Special::]], [[Template::]], or [[Utility::]] namespaces by following these steps:
+System pages don't have the [[Include::Template::Icon::Edit]] icon in the banner because they cannot be edited without making some changes to the core code. You can enable editing of pages in the [[Special::]], [[Wiki::]], or [[WoaS::]] namespaces by following these steps:
 # [[Help::Backup|Back up]] your wiki.<br><br>
 # Open the wiki in a text editor.<br><br>
-# Find this section:{{{
-var reserved_namespaces = ["Example", "Help", "Include", "Javascript", "Lock", "Locked", "Special", "Tagged", "Tags", "Template", "Unlock", "Unlocked", "Untagged", "Utility", "WoaS"];
-}}}
-# Remove the namespace(s) you'd like to be able to edit from the list, complete with the quotes, comma, and space following each one ({{{"Example", }}} or {{{"Help", }}} or {{{"Special", }}} or {{{"Template", }}} or {{{"Utility", }}}). Please choose *only* from among these namespaces, and do *not* remove any of the others or you will corrupt your wiki!<br><br>
+# Find this section:<br><br>{{{
+var reserved_namespaces = ["Include", "Javascript", "Lock", "Locked", "Special", "Tags", "Tagged", "Unlock", "Unlocked", "Untagged", "Wiki", "WoaS"];
+}}}<br>
+# Remove the namespace(s) you'd like to be able to edit from the list, complete with the quotes, comma, and space following each one ({{{"Special", }}} or {{{"Wiki", }}} or {{{"WoaS", }}}). Please choose *only* from among these namespaces, and do *not* remove any of the others or you will corrupt your wiki!<br><br>
 # Save the file.
-Now when you open the wiki in your browser, you will see the [[Include::Template::Icon::Edit]] icon in the banner of the pages in the namespace(s) you've enabled. These pages can now be edited from within the wiki. Note that some of the text and links on some of your pages will be red. This is normal while running the wiki in this mode, and is only temporary.
+Now when you open the wiki in your browser, you will see the [[Include::Template::Icon::Edit]] icon in the banner of the pages in the namespace(s) you've enabled. These pages can now be edited from within the wiki, and will show up in the page listing when you click the *All pages* button in the menu.
+
+<div style="background-color:#FFFFAA; border: 0.1em solid black; padding:0.3em;">Note that some of the text and links on some of your pages may be red. This is normal while running the wiki in this mode, and is only temporary.</div>
 
 To disable editing of system pages once you're finished editing them, follow these steps:
 # Open the wiki in a text editor.<br><br>
-# Find this section:{{{
+# Find this section:<br><br>{{{
 var reserved_namespaces
-}}}
-# Insert the namespaces you removed above back into the list, complete with the quotes, comma, and space following each one ({{{"Example", }}} or {{{"Help", }}} or {{{"Special", }}} or {{{"Template", }}} or {{{"Utility", }}}) so that the section looks like this again:{{{
-var reserved_namespaces = ["Example", "Help", "Include", "Javascript", "Lock", "Locked", "Special", "Tagged", "Tags", "Template", "Unlock", "Unlocked", "Untagged", "Utility", "WoaS"];
-}}}
+}}}<br>
+# Insert the namespaces you removed above back into the list, complete with the quotes, comma, and space following each one ({{{"Special", }}} or {{{"Wiki", }}} or {{{"WoaS", }}}) so that the section looks like this again:<br><br>{{{
+var reserved_namespaces = ["Include", "Javascript", "Lock", "Locked", "Special", "Tags", "Tagged", "Unlock", "Unlocked", "Untagged", "Wiki", "WoaS"];
+}}}<br>
 # Save the file.
-Now when you open the wiki in your browser, the namespaces you had temporarily enabled should no longer have the [[Include::Template::Icon::Edit]] icon in the banner.
+Now when you open the wiki in your browser, the namespaces you had temporarily enabled should no longer have the [[Include::Template::Icon::Edit]] icon in the banner, and the pages in those namespaces should no longer show in the page listing when you click the *All pages* button in the menu.
 
 [[Tags::Help]]
 
@@ -5681,12 +5745,12 @@ To include the contents of a wiki page inside another wiki page, use an {{{[[Inc
 [[Include::Image::alert.png]] /Page names are case sensitive./
 
 == See an example page
-The *Example::Overview* page displays the contents of the three example chapters followed by a word count button at the bottom of the page. The page doesn't actually contain the contents of the chapters or the word count button. All of its content is generated by using {{{[[Include::]]}}} tags:
+The *Wiki::Example::Overview* page displays the contents of the three example chapters followed by a word count button at the bottom of the page. The page doesn't actually contain the contents of the chapters or the word count button. All of its content is generated by using {{{[[Include::]]}}} tags:
 
 <div class="helptext">The code used on the Example Overview page:</div>
-<div class="helpcode">[<!-- -->[Include::Example::Chapter 01]<!-- -->]
-[<!-- -->[Include::Example::Chapter 02]<!-- -->]
-[<!-- -->[Include::Example::Chapter 03]<!-- -->]
+<div class="helpcode">[<!-- -->[Include::Wiki::Example::Chapter 01]<!-- -->]
+[<!-- -->[Include::Wiki::Example::Chapter 02]<!-- -->]
+[<!-- -->[Include::Wiki::Example::Chapter 03]<!-- -->]
 [<!-- -->[Include::Word count button]<!-- -->]
 </div>
 <div class="helptext">Creates this page:</div>
@@ -6658,28 +6722,24 @@ You can also use sub-namespaces, like {{{[[MyPages::Recipes::Desserts::]]}}}.
 * *MyPages::* is the namespace.
 * *Recipes::* is a sub-namespace of *MyPages::*.
 * *Desserts::* is a sub-namespace of *Recipes::*.
-[[Include::Template::Info|Each namespace can have as many child pages under it as you like (within the resource limits of your hardware).]]
+[[Include::Wiki::Template::Info|Each namespace can have as many child pages under it as you like (within the resource limits of your hardware).]]
 An advantage of creating parent and child pages is that the full path to each page is displayed in the banner, so when you're on any page in a particular namespace, the parent page name will be in the banner with the namespace (and sub-namespace, if the page has one) as a clickable link which will open an automatically generated page listing all the pages in that namespace (or sub-namespace) for quick navigation.
 
-== Namespaces reserved by this wiki
-These namespaces are reserved by the wiki for use by the wiki:
-* *Lock::* used internally for encrypted pages
-* *Locked::* for encrypted pages
-* *Special::* for all the special pages
-* *Tagged::* for all the tagged pages
-* *Tags::* for tagging pages
-* *Unlock::* used internally for encrypted pages
-* *Unlocked::* for plain (unencrypted) pages
-* *WoaS::* for the bootscript page, and reserved for future use
-
-These namespaces are reserved by the wiki for use by the user:
-* *File::* for embedded files
-* *Image::* for embedded images
-
-These namespaces are reserved by the wiki for use by the wiki and by the user:
-* *Help::* for wiki documentation
-* *Template::* for transclusion templates
-* *Wiki::* for utilities
+== Namespaces reserved by this wiki for use by the wiki
+{| class="shadesofblue"
+| =Namespace || =Purpose
+| *File::* || For embedded files.
+| *Image::* || For embedded images.
+| *Lock::* || Used internally for encrypted pages.
+| *Locked::* || For encrypted pages.
+| *Special::* || For special pages.
+| *Tagged::* || For tagged pages.
+| *Tags::* || For tagging pages.
+| *Unlock::* || Used internally for encrypted pages.
+| *Unlocked::* || For plain (unencrypted) pages.
+| *Wiki::* || For wiki examples, [[Help::Transclusion|transclusion]] templates, and utilities.
+| *WoaS::* || For the bootscript page, the help pages, and reserved for future use.
+|}
 
 === Namespace sub-menu
 If you have a namespace and add a *::Menu* page in the namespace, a sub-menu will be temporarily added to the main menu when any pages belonging to that namespace are opened. You can determine what goes into that sub-menu by editing the page with *::Menu* in its name. All content on the page will be displayed in the sub-menu beneath the main menu, and text will be automatically wrapped for you. The menu will vanish as soon as you navigate away from that namespace.
@@ -6692,7 +6752,7 @@ For example, if you have these pages:
 * {{{[[Recipes::Soups]]}}}
 You can type *My favorite recipes!* into the {{{[[Recipes::Menu]]}}} page, and any time you open any of the Recipes pages, *My favorite recipes!* will appear in the sub-menu of the main menu.
 
-<div style="background-color:#FFFFAA; border: 0.1em solid black; padding:0.3em;">Note that this will only work on namespaces. It will not work on sub-namespaces.</div>
+[[Include::Wiki::Template::Info|Note that this will only work on namespaces. It will not work on sub-namespaces.]]
 [[Tags::Help]]
 
 --DFQRCTsKlU
@@ -7210,9 +7270,9 @@ Transclusion is a special way of [[Help::Include wiki page|including]] a wiki pa
 
 This method requires that you create a page to be used as a template. This page must contain variables represented by %1, %2, %3, and so on.
 
-The [[Wiki::Example::Transclusion]] page in this wiki uses three variables. The contents of that page are:{{{
+The [[Wiki::Example::Transclusion]] page in this wiki uses three variables. The contents of that page are:<br><br>{{{
 The members of the board are %1, %2, and %3.
-}}}You can then create a transclusion link or links to that page by creating a normal [[Help::Include wiki page|include link]] with the values for the variables added after the page name. Each value must be preceded by a pipe ({{{|value}}}). The values you define in the link will be used from left to right to replace the numbered variables on the page you're including.
+}}}<br>You can then create a transclusion link or links to that page by creating a normal [[Help::Include wiki page|include link]] with the values for the variables added after the page name. Each value must be preceded by a pipe ({{{|value}}}). The values you define in the link will be used from left to right to replace the numbered variables on the page you're including.
 
 <div class="helptext">Use this code, replacing PAGENAME with the name of the page to be included, and VALUE1, VALUE2, and VALUE3 with the values you'd like the three variables to have when the included page is displayed:</div>
 <div class="helpcode">{{{[[Include::PAGENAME|VALUE1|VALUE2|VALUE3]]}}}</div>
@@ -7220,24 +7280,24 @@ The members of the board are %1, %2, and %3.
 These examples use the [[Wiki::Example::Transclusion]] page:
 
 <div class="helptext">Use this code:</div>
-<div class="helpcode">{{{[[Include::Example::Transclusion|Mary|Steve|Dave]]}}}</div>
+<div class="helpcode">{{{[[Include::Wiki::Example::Transclusion|Mary|Steve|Dave]]}}}</div>
 <div class="helptext">To create this:</div>
-[[Include::Example::Transclusion|Mary|Steve|Dave]]
+[[Include::Wiki::Example::Transclusion|Mary|Steve|Dave]]
 <div class="helptext">Or use this code:</div>
-<div class="helpcode">{{{[[Include::Example::Transclusion|Fred|Mrs. Smith|Ryan]]}}}</div>
+<div class="helpcode">{{{[[Include::Wiki::Example::Transclusion|Fred|Mrs. Smith|Ryan]]}}}</div>
 <div class="helptext">To create this:</div>
-[[Include::Example::Transclusion|Fred|Mrs. Smith|Ryan]]
+[[Include::Wiki::Example::Transclusion|Fred|Mrs. Smith|Ryan]]
 <div class="helptext">Or use this code:</div>
-<div class="helpcode">{{{[[Include::Example::Transclusion|Bob|Jane|Jack]]}}}</div>
+<div class="helpcode">{{{[[Include::Wiki::Example::Transclusion|Bob|Jane|Jack]]}}}</div>
 <div class="helptext">To create this:</div>
-[[Include::Example::Transclusion|Bob|Jane|Jack]]
+[[Include::Wiki::Example::Transclusion|Bob|Jane|Jack]]
 == Wiki and HTML code in transclusion
 Some wiki code and HTML tags are accepted in the values. For example:
 
 <div class="helptext">Use this code:</div>
-<div class="helpcode">{{{[[Include::Example::Transclusion|*Bob*|*Jane*|*Jack*.<br><br>Please arrive on time to the meeting on Wednesday]]}}}</div>
+<div class="helpcode">{{{[[Include::Wiki::Example::Transclusion|*Bob*|*Jane*|*Jack*.<br><br>Please arrive on time to the meeting on Wednesday]]}}}</div>
 <div class="helptext">To create this:</div>
-[[Include::Example::Transclusion|*Bob*|*Jane*|*Jack*.<br><br>Please arrive on time to the meeting on Wednesday]]
+[[Include::Wiki::Example::Transclusion|*Bob*|*Jane*|*Jack*.<br><br>Please arrive on time to the meeting on Wednesday]]
 
 [[Tags::Help]]
 
@@ -7401,7 +7461,7 @@ woas.page.boundary: DFQRCTsKlU
 
 
 --DFQRCTsKlU
-woas.page.title: Template::Tooltip
+woas.page.title: Wiki::Template::Tooltip
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -7530,7 +7590,7 @@ function clearit(){var formcontent=document.getElementById('t1').value='';}
 <textarea id="t1" name="t1" rows=12 cols=26></textarea>
 <input type="button" name="b1" id="b1" value="Calculate" onClick="calculate(document.getElementById('t1').value);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" name="b2" id="b2" value="Clear" onClick="clearit();"><div id="report" name="report"></div></div>
 --DFQRCTsKlU
-woas.page.title: Template::Icon::Back
+woas.page.title: Wiki::Template::Icon::Back
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -7539,7 +7599,7 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 <img title="Back" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAIhSURBVDiNhZNPSBRxFMe/b2Z+szu7UmJsrRu1QggRCYKVbluH3CJW00xEIogOJXSyoi26eokQAzvEHiTw0CUKgrBuHSRXio4VHiJL91C5bJK77czuzO/36zCZrozug3d6f/i873sPUkrU8qM3tSvxW1rGK6ZhC4unWB0RJqPh5q6FH58Nrxxli+IWED6dPNzfc23gnmcxAG+CeIoNGb668YvJYWPPzmZSaHPQqsgq8r7Iga7BU1cNk6/g4/dpHIn2gFRY8RSTVdWEnySlXIdMU4lDfY0dBzvZ118fULDy0FSGWFMfiBQQAAlASgEhBe6kL7gE8RQbChrbH/SfuOSvr2+g94uvwKUDpugQkmNm/hmICASChKt+e7TXHeHYbfaoqXH/+e7jg0autIB3396AMR90TQdXBCxRgGkWULRWULZLUEiFnwXRujuxpgHnNiz7D0znN0oyD3ABh5uoCBNcckguwR0Jxxbgjjtyrph11zgzal/OLn25/vhl2oTtk617E5B6GUIvgQUAf0CFHlDBDAXMr0DVqFrH9SKSgqm2lli4vS2mzxVeI1+Zh5DA6cgNiH8U3HYdANJP7q41+L9GFZO7dkSS584MBIpsEXPL0+gMDeP+xIjFK/BvusaNh8R0fby3+6wRDocoqIQw+nAEmTGbNuZ6nnJmzJ6wK5WO5y+eZmdn35bL5YpXWrUGXrY6UsO2UDK/nAt4EdR85Vrv/Bdt8zR07MrLCQAAAABJRU5ErkJggg==">
 --DFQRCTsKlU
-woas.page.title: Template::Icon::Cancel
+woas.page.title: Wiki::Template::Icon::Cancel
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -7548,7 +7608,7 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 <img title="Cancel" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH1QoRFy0Na8CcwAAAAsFJREFUOMttk7tPU2EYh59z6QVtjcbI4CWGxkAreGlquAmpNoiamJC4sRBY/A9cOjgYaRwcTByMC3HQwbsxuJhQJJqwiMHEDg4otdQWSmmhB+G05zufA6WC8iZfvuRNnt97+eVV2BKPwmE9PTHxRMBVdggNxgRcjkJlM6f8Az9r9PkuXbx2za1oGgBSShACaVl8ePjQ/DIz817AlShYNYEq/MLv8/VGhobc8+PjmPn8tupOr5f6jg4+PH1qJpLJMQF9UbC0kVDIkZ2cfBk4dqw3Mji4Aa+ugmVtExCqylo6TSAS0Vfn5o4slUpnBsPh51pnJvPmeGNjz/mBAXc2Hseqr0ePxSCZRGazG7OfOMHeu3epJBIYX79yPBzWjVTq6I9EIqj1qOrj/uvX9cy7d5QLBdS+PtSWFpSODvj+HXX/fvYMD+Patw9FSkrj4/wuFGgOh/Wpz58DuqIoICXlQmGj1ZERcLlw9fbivnEDXVFwejyY8Tj5O3ewgXXDQAqBAqj/eSUl4v595NQUzl27cHq9WNPT5GIxhG1jAzYgqztSd/S7uRl3KISu6zgcDnYHg9SFQsgqLMplxNzcXwEpRA1WW1rw3rqF0+tlPR5ndXQUp8eD7949PO3tmLkcxrdvyJUVAHQp5YaaYSAsi7q2NlxVeHF4GNs00YAD/f3UnTrF+oMHoGnY1aLaBSm7K8Xi4UBbm1ZKJCi9fk3l508Wbt6knMlQXlwk9+oVa7OzJG/fRtE0fH4/6aUl+8fycl6JgVODtycbGrpbg0FXKh5nrVisLWvrUxwOGpqaSBcK4mM6vWBDpzYGIgJPcsVil2kYhwKtrXppfp6KaW6DVYeDBr+f2XxeTP76lbKhPQqp2jFtduI/eLD77OnTLkUIbMtCWlbtTyST1qdsdsaGrigsbrvGrSICenayV4VpG85FYXkz9wfHTVL214b3FAAAAABJRU5ErkJggg==">
 --DFQRCTsKlU
-woas.page.title: Template::Icon::Edit
+woas.page.title: Wiki::Template::Icon::Edit
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -7557,7 +7617,7 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 <img title="Edit" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH1QkWEjcpO1ICSAAAActJREFUOMulk01oE0EUx38z3aNIFiIt4rHgKaBYKwEPghWEeOxF0LYnr6UXFTyKIMUg9SJ+gJoWijG9WxoRTVwQ7cFi040bTP3A1WzrEBVakc14MEOzbWorvsv/Dcz7z29m3oP/DGGS4l36gBng2FZ6eIi8qZMAl0cvnQFmDh532I62ElhNvQHw7fk5tqNXT0rdrDstjdPeVEBZFVjdk6esCvzoethWX0xLBseKHOkfBhg3BMTjccSJpT+LfU1lTX3fJ39PMnTtGR+ejDO3EIRAh9V6H6UU9Xp9w0sHQYCbSa0Ve8t8LU11AD0RA9u2sW07Uuz7Pm4mxeBYkcXHGV6Vl1GlHEDPyGRj9q8E5uSBdIHFfIa5twpVyvFz/0XOn70wC4hNCbTWFNK9DFx5ijd9h8rn76j5B7zvGqazzTdGCLTWZLNZfslDzDsO7z7VWXo9Bb1pdq2sANo0oW5LEIYhuz+mefSlm/u5HN3yJTv7bpFMJnFdlzeVBYyLXE9QrVbxPI+RyQZHOyus7kgQHhglkUhgWRaWZUW6eANBLBZDa02tVkNrjZQSrTVCCIQQrdsbEQOlFI7jbDp1xmR9GIOJm7evn/qHKZ4wyW9aneiYeQn8EgAAAABJRU5ErkJggg==">
 --DFQRCTsKlU
-woas.page.title: Template::Icon::Home
+woas.page.title: Wiki::Template::Icon::Home
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -7566,7 +7626,7 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 <img title="Home" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QAAAAAAAD5Q7t/AAAACXBIWXMAAA3XAAAN1wFCKJt4AAAAB3RJTUUH1QoOFCUTUyrSOwAAAetJREFUOMuVk79rU1EUgL97+95L00DyJKBVh2RRexNoVawRXByMQhOnh9RKJ5GioxhcOrRuwan+GOrUJYv1x2AT8A/wPxB5W1zEWtvwYlGJIXnXIfbZl1AhZ7pczvfdcw7nwgHhKVWsgK6A9pR6yDCxB3tKaU+pPUlxaHixOKPLN2/8VyL64ZrrbhSUYv3cWbYnTnHk8DgnvCZTa2vUXJeCUtcOuW51QLAfflOcYff4MZTKMhaN0mq1GNv8SrZcHpCIfrh6+xadZJJ0Kk0qlQJAa2i32+zW65wslUISsR9+96BExzDJ5S5g23bQmtYaAN/3+bm1RXJuLpCICuiCUrx/VMZrNjk/nSMejyOECAl83w/OhhCM5vPUXBcDuAOsTp0+w/3SPTaqbwPwycozVh4/RYsRdKeFMEbR3d8sLy3R7qXMynl4vjCZIRFPAKDUBJmMIpvN9F4UkpH0ld7EU3mQFlprFiYzzMO67O/TsixM08QwjOD+S+MHAB/qO3S7fpALMCCQUiKlxJKfAehg8fFTA4Bv3i86IhJaJGNgs/4Oz+coAJcuTnM1GkPqcS5Lk+1NQhUY/RX8m37vpe/eDqLZOHD1A0EkEsG2bRKJBAKJEBCLxXAcZwCyLCv8F67POq8Ah+Fi9eWL13f/AFb41aOFu4AaAAAAAElFTkSuQmCC">
 --DFQRCTsKlU
-woas.page.title: Template::Icon::Info
+woas.page.title: Wiki::Template::Icon::Info
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -7575,7 +7635,7 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 <img title="Info" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QAAAAAAAD5Q7t/AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH1QMCBiAyOlCc9wAAADV0RVh0Q29tbWVudAAoYykgMjAwNCBKYWt1YiBTdGVpbmVyCgpDcmVhdGVkIHdpdGggVGhlIEdJTVCQ2YtvAAACq0lEQVQ4y5WSS0hUcRTGv//cO+O9OtdHJllqZlI+CEUiE8ShBiXUpKKQbGLKcGG0CBOyRcsQMapFj02ii4igAgMDJcgQSXQmSkrNijSVTJ1xdJy5d6739W/loDURfqtz4Pt+nHM4BBFUXNnUTCkcBiUpIISYiDHLEPq0/2Vr459edn1TVN6UwTCk72JtZVq5vQBxAg9VN+DxBVN7ej9cISbmLKV6SX9X69eIAJYlb++11G/fk7ljLBBSRmd9khJaVVlF06NtJflZ6enJe1tuPXYBiF/LMGtFSdXV2/Xnj5YVH8z5rKi6m7eYFQBEpyCqTg3vSmiWi+YQzXM7dSYlc3L8bScAmMIkhj1Xbi9AIKSOsSxDLWbGIIRQUBiabiiUwuganOwuKswBw3Kn1nJhwKpC4wUrD1nRV1XNSDQzpguJsZxzV7LgyN+91QElkDrlEf08zyEgqVxtXYNpww0IIUTRdEiyajIMKiZYo+D1Sy5RCjErQUkbnpaGFUU3qaqxFuEBiGFADM9KXl8gRpRVy4qk+jOSYzH6w/deVHQ6tyQp7m+LHsFqSfD6g4gTeLWjrVncsIKZ0QZ63gyDj2JzJ34tiwDw0yfqHye8/t7hmYUlUTZX7E+rGHKNwcph4q8bbBNCxzu7+uWZ6fnstCTroWvtAzfPHM665P4yH2JYkui0Z1X7F5dy3IMjqsD6SsOrr/+DY6cbq2QqPC8rLbIUHshGNM9B1XX4lkUMucbxzjWixXHS5SftNx5EBABAbV1DYohucQVkpDtOJDGEACwLdHXPBRnNv6+j7c4U/qeaGrvV6bRRz2IfFWUX/T75jDqdNhrJy/6DoQLA/bsPkZ2bjempaWxaTqeNzsy+MgLSEP00+sLY7AQAUFV98nqNIMQfWVhYeJ2XF/sokuk3Vkw2XnyKHQQAAAAASUVORK5CYII=">
 --DFQRCTsKlU
-woas.page.title: Template::Icon::Lock
+woas.page.title: Wiki::Template::Icon::Lock
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -7584,7 +7644,7 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 <img title="Lock" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAB6klEQVQ4jZ2SO2uUQRSGn5n9ko0XVo2KV8RO449QsLCwzT8QLNIIksZGLKxtBAv/g4VgQrBJITHGENDKQgshSEh0s7m42Z3vm3OxiTF7qXzhMMw5h4f3nJng7vRr7u2sNxoNYox0ul22t7dYXV3l4YPp0N8b+gGLHxb8+sQErdYm6+vr5Jw5capBiLCyvML9e1O9EHfvic1W0xeXFrw//3rmlb9bmh/I91xm5974Zqs50PQ3lj+99xcvn/fU42E3IkoYmPKf6vUxiqLoyfUAvPpBlTPPntwe2OzTR3d8bHQMKzeGL/Hz3FVf696kfnKSWvsx58Z/EUMgxEgIgY3WeVo+TVHNcMw+cmvyWwA48HP6wl2uXb5BrfgJPoVZwqzEtItZ4uylhOo8Zarx9cvFAweHBjJc1yAeBc+4djBpo9JGpI3mXST/Zm+vQ0pxEGAqqJTEWMNdUM2oCqqGq2LqqBpqjpsPcRCcGJUYFXfF3SAaRMWj7deMGLznpQ4AmhMmI2is4Z6QqolUTTS3kLyD5A4iJVUKiIwPA3xH0w4j8QxuCTQRrEvwRKBLCF0ICTfFrT4IqKqKMrWpFcfBDVND1ZH9UwVMwJThO9jZysTiCrvtI7gJWUYRqSO5jmiFasY0k0pja1sHP9L/6g+w/X55DROajAAAAABJRU5ErkJggg==">
 --DFQRCTsKlU
-woas.page.title: Template::Logo
+woas.page.title: Wiki::Template::Logo
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -7593,7 +7653,7 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 <img src="data:image/png;base64,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">
 --DFQRCTsKlU
-woas.page.title: Template::Icon::Forward
+woas.page.title: Wiki::Template::Icon::Forward
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -7602,7 +7662,7 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 <img title="Forward" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAI2SURBVDiNlZJLSFRhHMV/3+POw0bDFFLEXkQgaBQEhdNGaNEiggRbRoFCuMlyjDZCKzeNkIsochMUvaRFYj5wES1m0CmkFDfRIiwznbGBHuN479z7tQhfMxPUgbP5/ofD+Z//hzGGfIa7dKyxU7cVm+VTUgTGo3F39YG+cJc1EI5YoWKaNRQ1ALjS0hs8efTsaQSz4YjV8N8GSmqaDp/xtTdfrw36QxPhiNVWTCcaI/orhp1bHhXZm+2DganPY1SV7cMnt/F4/NbKh/mZYWM4H4s6PzcMOrXpuXgfKRRKKISQCAQAiU9DeLiU+Xewq7ye+PS4MzY5sIAxp2JRZwZAA7hejtjHZyipUUKBEAgBQgHCY9meI700z8G6I1ZN1Z7ap2N3J8IRqyMWdfo1QM5bJZ1ZwHaz2G4WpTSlJWWUBEL4LT9GuNhejndLo9SE6kRrc1fJ0KtHfcevWsc0wNKPOd4nX693oH2ClCPRWYnWCr8viE8GUPgpzZWjTJCsnTHrK2wpUILUAmXJP/SBp7KgLBoqmkgvZsyDl3dWsquZjRUAWg5dWzdQlkBpychcL9onqQ7tp277CSbfxO3E2/hX47KpRMHi7Sc9W84oLbKXznUHlFLUVzZRofcy8PxhZjH5ZcS4eWc0xhR8jnDEMpdbu/nlJUmmUubF6OCK7dgdsRtOf762oIM1ODmbxFRidXp2atHbFLmgs78lqCivzHz7nho2Lhc2R/6nBEISX06n7sWihZHz8RtB3gm0bnbltgAAAABJRU5ErkJggg==">
 --DFQRCTsKlU
-woas.page.title: Template::Icon::Print
+woas.page.title: Wiki::Template::Icon::Print
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -7611,7 +7671,7 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 <img title="Print" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsRAAALEQF/ZF+RAAAAB3RJTUUH1QgSDzULeviv6gAAAW5JREFUOMulk81OIlEQhb9bsOAheuvMihAiszHyGOP4MNr+PIGa0WcQeAJ6x5olO3GnJiTNX2gSu2nuLVcgPfxN9CaVm7pJnTpV51z45jGrSb1RuwL8/6i7Pvn952Lttd6oaZIkOyOOY603arqoyW+Cb7fbW1tXKpVMvhGgWCx+zmhM5lbV3QDOOTqdDgAisgZULpf3M/A8DxHBGLMWexmoKq1Wa9lRRKhWq7tlPPfPrgC/UCjw4+AnzrkM/dXxjDF0n5+I4xjgesHAv/AvsdaSpuleE0wmx4gI9w9/fVldUrfbJUkSgiBAVQnDkNFoxGAwYDgc0u/36fV6NJtN3l5fsjuIooj4/Z3xeEypVCIMQwDSNF1SB7DWMuiHxMksCyAiTKKIIGgynU4BmM/niDE4Z5lbi0iOfC7H0XF1swrWWg4rv/4xjOKcYq1FRJbyLpa8BJjNZniet9VxCxVEBFXFOZcBeLy9uzn9wm9+/AC6aMvlGUG8HQAAAABJRU5ErkJggg==">
 --DFQRCTsKlU
-woas.page.title: Template::Icon::Save
+woas.page.title: Wiki::Template::Icon::Save
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -7620,7 +7680,7 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 <img title="Save" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAHDSURBVDiNlZO/ixNBFMc/M7u5hOQUlDRGiCwcXCMoIhyIVoqlhbXYHKJ/g2JnpZ0o/gOihdhYpMmdWKiIWFyrFoFcYeNuk+wym533xiJ3+SEnxC8zw4Ph++XzHjyzde/1WxG5yVSBuRbrI/+sta9iEbnxcPsqWx+egqoJqqBKCGo4rFVBZV6HwM71Bzx78/l2DCAa+P3iMUGEVaXX7gMQA0ZEOPXoOYS/qf+tysssAC+Bk7furmwGkHffFwMUEWE4HK5kTpJkicCIKFEUkSTJ6gRe5wRyMLzBYLCSudvtLs+gOkj7H4LlFryy/eQjjewrUbF/tMNMn0njDHnrLBunj88JvAhMCqJinyuXL1Gv16nVarNrraUsS/I8Z3f3PfnaBt63ALCHOKqKtRHtdpt+v0+v16PZbCIijMdjRqMRRVGAsagqfrEFlYCqYgy0Wq0ZdZqmlGWJcw7nHGVZEkIgqFBVC0OcVJ7YTjcky7JZQJZlS2bnHAFQVSrvpwHWmC97P3+d3+ysN8ZZIE1TOp0O3nvSNF0yO+cgwIljazMCc/HOy3Vj+FS3fvNc/K1uTEwgMD0Hu7GwI4bAnr+Qi6kbkfDjD/3zDzpnSVtRAAAAAElFTkSuQmCC">
 --DFQRCTsKlU
-woas.page.title: Template::Icon::Unlock
+woas.page.title: Wiki::Template::Icon::Unlock
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -7639,7 +7699,7 @@ woas.page.boundary: DFQRCTsKlU
 <form method="POST" name="wordcount"><script language="JavaScript">document.deepText= function(hoo){var A= []; if(hoo){hoo= hoo.firstChild; while(hoo!= null){if(hoo.nodeType== 3){A[A.length]= hoo.data;} else A= A.concat(arguments.callee(hoo)); hoo= hoo.nextSibling;}}return A;}
 function countwords(hoo){var text= document.deepText(hoo).join(' '); return text.match(/[A-Za-z\'\-]+/g).length-186;}</script><input type="button" value="Word Count" onClick="alert(countwords(document.body))"></form>
 --DFQRCTsKlU
-woas.page.title: Template::TODO
+woas.page.title: Wiki::Template::TODO
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -7720,7 +7780,7 @@ The list will refresh automatically as you add and remove ToDo items in your wik
 [[Tags::Help]]
 
 --DFQRCTsKlU
-woas.page.title: Template::Topnote
+woas.page.title: Wiki::Template::Topnote
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -7855,7 +7915,7 @@ For a better example, see the [[Wiki::Example::Bluebox]] page.
 [[Tags::Help]]
 
 --DFQRCTsKlU
-woas.page.title: Template::Foldtext
+woas.page.title: Wiki::Template::Foldtext
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -7922,7 +7982,7 @@ This method creates a frame around the embedded web page. The code shown below i
 [[Tags::Help|Syntax]]
 
 --DFQRCTsKlU
-woas.page.title: Template::Icon::Advanced
+woas.page.title: Wiki::Template::Icon::Advanced
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -7944,7 +8004,7 @@ Folds are special links that toggle inclusion of additional content in a page wh
 
 <div style="background-color: #FFFFAA; border: 0.1em solid; padding: 0.2em;">[[Include::Template::Icon::Info]] Unfortunately, hidden content inside folds can conflict with the [[Help::Table of Contents|Table of Contents]] and the [[Help::Tags|Tags]] container at the bottom of the page by being visible in both of them even when the content isn't unfolded.</div>
 == Folding text
-The [[Template::Foldtext|Foldtext]] template can be used to toggle additional text in the current page.
+The [[Wiki::Template::Foldtext|Foldtext]] template can be used to toggle additional text in the current page.
 
 === Folding single-line text
 This method allows you to toggle a single line of text, and accepts wiki [[Help::Text formatting|text formatting]] for the link text.
@@ -7971,13 +8031,13 @@ This method allows you to add text after the link on the same line, and accepts 
 [[Include::Template::Foldtext|LINK|CONTENTS|TEXT]]
 
 === Foldaway text
-The [[Template::Foldawaylink|Foldawaylink]] and [[Template::Foldawaytext|Foldawaytext]] templates can be used to toggle inclusion of additional text in the current page. The link and the toggled text can be in different places in the page.
+The [[Wiki::Template::Foldawaylink|Foldawaylink]] and [[Wiki::Template::Foldawaytext|Foldawaytext]] templates can be used to toggle inclusion of additional text in the current page. The link and the toggled text can be in different places in the page.
 # Insert a Foldawaylink where you'd like the link to appear in the page:<br><br><div class="helptext">Use this code in your page, replacing LINK with the link text, and NAME with a unique name for the link:</div><br><div class="helpcode">[<!-- -->[Include::Template::Foldawaylink|LINK|NAME]<!-- -->]</div><br><div class="helptext">To create a Foldawaylink link.</div><br>
 # Insert a Foldawaytext link where you'd like the toggled text to appear in the page:<br><br><div class="helptext">Use this code in your page, replacing TEXT with the text you'd like to toggle, and NAME with the same unique name you used in the Foldaway link:</div><br><div class="helpcode">[<!-- -->[Include::Template::Foldawaytext|TEXT|NAME]<!-- -->]</div><br><div class="helptext">To create a Foldawaytext link.</div>
 See [[Wiki::Example::Foldawaytext|this page]] for an example.
 
 == Folding page
-The [[Template::Foldpage|Foldpage]] template can be used to toggle inclusion of another wiki page in the current page.
+The [[Wiki::Template::Foldpage|Foldpage]] template can be used to toggle inclusion of another wiki page in the current page.
 
 === Folding page plain
 This method works best when the link is at the beginning of a line, or there's no text after it on the same line. If there's text after the link, it will be pushed beneath the unfolded content when the link is clicked.
@@ -7994,7 +8054,7 @@ This method allows you to add text after the link on the same line.
 <div class="helptext">To create a Folding page link like the one on [[Wiki::Example::Folding page inline|this page]].</div>
 
 === Foldaway page
-The [[Template::Foldawaylink|Foldawaylink]] and [[Template::Foldawaypage|Foldawaycontent]] templates can be used to toggle inclusion of another page in the current page. The link and the toggled page can be in different places in the page.
+The [[Wiki::Template::Foldawaylink|Foldawaylink]] and [[Wiki::Template::Foldawaypage|Foldawaycontent]] templates can be used to toggle inclusion of another page in the current page. The link and the toggled page can be in different places in the page.
 # Insert a Foldawaylink where you'd like the link to appear in the page:<br><br><div class="helptext">Use this code in your page, replacing LINK with the link text, and NAME with a unique name for the link:</div><br><div class="helpcode">[<!-- -->[Include::Template::Foldawaylink|LINK|NAME]<!-- -->]</div><br><div class="helptext">To create a Foldawaylink link.</div><br>
 # Insert a Foldawaycontent link where you'd like the toggled page to appear in the page:<br><br><div class="helptext">Use this code in your page, replacing PAGE with the name of the page you'd like to include, and NAME with the same unique name you used in the Foldaway link:</div><br><div class="helpcode">[<!-- -->[Include::Template::Foldawaycontent|PAGE|NAME]<!-- -->]</div><br><div class="helptext">To create a Foldawaycontent link.</div>
 See [[Wiki::Example::Foldaway|this page]] for an example.
@@ -8123,7 +8183,7 @@ For more ways of working with hidden content, see the [[Help::Spoilers]] page.
 [[Tags::Help|Syntax]]
 
 --DFQRCTsKlU
-woas.page.title: Template::Foldpage
+woas.page.title: Wiki::Template::Foldpage
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -8139,7 +8199,7 @@ woas.page.boundary: DFQRCTsKlU
 </div> -->
 
 --DFQRCTsKlU
-woas.page.title: Template::Foldtextinline
+woas.page.title: Wiki::Template::Foldtextinline
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -8148,7 +8208,7 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 <a href="javascript:expandspan('inline_%1_%2')">%1</a> <span id="inline_%1_%2" style="display:none;">%2</span>
 --DFQRCTsKlU
-woas.page.title: Template::Spoiler
+woas.page.title: Wiki::Template::Spoiler
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -8157,7 +8217,7 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 <span class="spoiler">%1</span>
 --DFQRCTsKlU
-woas.page.title: Template::HiddenSpoiler
+woas.page.title: Wiki::Template::HiddenSpoiler
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -8166,7 +8226,7 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 <span class="spoilerblock"><a href="#">%1 <span class="show">%2</span></a></span>
 --DFQRCTsKlU
-woas.page.title: Template::HiddenSpoilerInline
+woas.page.title: Wiki::Template::HiddenSpoilerInline
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -8175,7 +8235,7 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 <span class="spoilerinline"><a href="#">%1 <span class="show">%2</span></a></span>
 --DFQRCTsKlU
-woas.page.title: Template::Image gallery
+woas.page.title: Wiki::Template::Image gallery
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -8232,7 +8292,7 @@ This button toggles the display of the [[Sandbox]] page in this page.
 [[Tags::Example]]
 
 --DFQRCTsKlU
-woas.page.title: Template::Icon::Password
+woas.page.title: Wiki::Template::Icon::Password
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -8283,7 +8343,7 @@ It goes between the link above and the unfolded page you see when clicking the l
 [[Tags::Example]]
 
 --DFQRCTsKlU
-woas.page.title: Template::Foldawaylink
+woas.page.title: Wiki::Template::Foldawaylink
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -8293,7 +8353,7 @@ woas.page.boundary: DFQRCTsKlU
 <a id="%1_%2" onclick="return true;" href="javascript:$.toggle('%2')">%1</a>
 
 --DFQRCTsKlU
-woas.page.title: Template::Foldawaypage
+woas.page.title: Wiki::Template::Foldawaypage
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -8330,7 +8390,7 @@ Click [[Include::Template::Foldpage|here|Special::About|to toggle fold and unfol
 [[Tags::Example]]
 
 --DFQRCTsKlU
-woas.page.title: Template::Foldawaytext
+woas.page.title: Wiki::Template::Foldawaytext
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -8414,7 +8474,7 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAN1wAADdcBQiibeAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAGxSURBVDiNpVNBaxNREP5m3uzbJO5u3VhKskbdNlSKQlspCD14E/TgP4ggCIIH/4QX69FDEaQ9uqilx/bUQ6j/wVMptmfDphAoGHwdD9HV2iQqHXiHefPNzPe9j0eqivMEn6v7bwPeMbc2RV6Nw9AoCRlRbJgPDZHXd+5eS/XjfzEQ5hdpFHm3a7WSx7yeEQ3FDr3MiOYAPFqcmipdjSKE1tYJeDx0k6qeOR+M2f2UJN+001FV1c7srL5nPnoLhH9izzDIiO57xixdTxIDIgBAHMe4HMdWmJ+PlZARiRjzZqnZvEC+/4ultVhsNssAnmZEMyMHMNGzi0FwKanXob4PPTiA7u9DrUUpDDGXpp4n8vr3nsLGjKhqjDm8u7wcTATBoFqpACJArwcAcCcn2Gq3j7/2+w9aqu1TDETk5bVGw4uqVai1UN+HrKxAVleLnMtl3FpYqIjI2k9b+cf2GwAe3pyf99X3B/SthdvZgdveLnK1Fo3paYRhWCOiJ4WEDWt3q5OTd66kKQ31uhA8KB/lOT7v7fWcc4kAADFvdfP8SzfPx/afenBjus6545F/4V/jO5CJmhHgOc11AAAAAElFTkSuQmCC
 --DFQRCTsKlU
-woas.page.title: Template::Icon::Up
+woas.page.title: Wiki::Template::Icon::Up
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -8423,7 +8483,7 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 <img title="Up" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAIeSURBVDiNlZNPaBNBFMa/N7sz2Y2FemhM/9GCBO3BQCqo0NWKaERiRS0UcmtKyUmQYhbBq8dSkaAXD0VPHqVC8eJNKl5EUNBDKbQqlZQ0iaaaJtnZGQ9RrCGp9h3f++bHfN+bIa012tXJm3weAJZmvel2GtZu4Lg83d8VSfZ1HUw6Lk/vCeC4PBoQ+7JXzkwGx0aTwYAIZh2XR/8L4Li8A4TFiXPT1paXx5a3ifjIJQuERcflHf8EEOHR6HCipzc0SJ9LH/Cx9B6dnZ0UGzrRDcLDXQGOy9P9ByKJs0fH+Ur+DQzGYTKOV2sLiA0dF6H9PYnmPNiOw1HB7Wwq4drr5WVo8iCEiTp9xzYV8S7/HBdOXw2apvgrD7bT99RYxlLkoSJLEAEBHuAoy3UI20BBrqKoVnH+1EWL2J882G/f8WPj3Yf6YpSvrMHkBjg3UFEFVI2vEDaDsBmWv71AuDdERw4Ph4k18qCRjJke6I5kb0zcsQUPQEHCh4fXuQW8LTyDZBUQIyQGMtBaQymgXq/h8dP5SrG0OWMSQ+pTbsWeuXe54Ymjevf6E6ssc/CNbXDBwEyCwQlzD25XZU1bv+wHiSFlLs16TtMmtNYKpfoXMINgcAYeaEBkTVsv5zza9R0AgNI+ftSLjSv7GrKuoFXrP2O2avpKolrbhjI1oBV8SfC9PQCkLxEfvAZiADECEfYAIGzcuj8ZbiUmwkZz7ycw98XbttCaIgAAAABJRU5ErkJggg==">
 --DFQRCTsKlU
-woas.page.title: Template::Info
+woas.page.title: Wiki::Template::Info
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline

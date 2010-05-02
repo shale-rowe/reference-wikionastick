@@ -939,3 +939,13 @@ NOW WORKING ON BOAS 1.0
 * Added the Duplicate page button to the menu.
 * Added the Go to button to the menu.
 ======================================================================================================================
+* Changed the layout of the menu buttons.
+* Moved all pages in the Template:: namespace to the Wiki::Template:: namespace.
+* Reorganized the entries in the var reserved_namespaces section of the stickwiki.js file.
+* Updated the [[Help::Edit a page]] page.
+* Updated the [[Help::Include wiki page]] page.
+* Updated the [[Help::Transclusion]] page.
+* Updated the [[History]] page.
+* Updated the [[Wiki::Example::Table of Contents]] page.
+* Updated the [[Main Page]].
+======================================================================================================================
