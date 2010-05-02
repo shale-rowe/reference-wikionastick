@@ -1,9 +1,15 @@
 #!/bin/bash
 ## Script to ignore last_modified changes in index.wsif of development version.
-## Developers are invited to use this script so that last_modified headers are
-## not pushed upstream to repository. Also boas.htm changes should be reverted
-## before commit if only index.wsif was changed.
-## @author legolas558 @Modified by Little Girl
+##
+## Developers are invited to use this script if "Store and display last
+## modified timestamp" is enabled in the wiki options. This way last_modified
+## headers are not pushed upstream to the repository.
+##
+## Also, please revert changes to boas.htm before commit if only index.wsif
+## was changed.
+##
+## Author: legolas558
+## Modified by: Little Girl
 
 TMPF=$(mktemp _index.wsif.XXXXX)
 grep -v ^woas\\.page\\.last_modified index.wsif > $TMPF

@@ -11,7 +11,6 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 [[Include::Wiki::Utility::Links for writers]]
-* [[WoaS::Help::]]
 --DFQRCTsKlU
 woas.page.title: Special::Advanced
 woas.page.attributes: 0
@@ -160,20 +159,18 @@ woas.page.boundary: DFQRCTsKlU
 If you're seeing this, then BoaS is in a state of transition and hasn't finished merging with WoaS 0.12.0 yet.
 
 Until this merge is finished, you will notice these things:
-* A couple of the features will be broken and flagged with an alert message.
-* All page listings will have a strange new header.
-* CSS will be controlled by the custom CSS rather than the core CSS.
-* Many of the instructions will be inaccurate.
-* Page layout will be messed up.
-* Some links will be broken.
-* Some of the Special pages will have unfamiliar content and layout.
-* Some things will not yet be styled properly.
-* The BoaS editor buttons will be missing.
-* The menu will contain an extra link.
-* The separate fixed menu and fixed banner options will be missing.
-* There will be a gap below the banner when in the editor.
-* There will be "duplicates" of help pages.
-* The word count button will be broken.
+* A couple of the features are broken.
+* All page listings have a strange new header which will be removed.
+* Many of the instructions are inaccurate.
+* Some links are broken.
+* Some page layout is messed up.
+* Some Special pages have unfamiliar content.
+* Some things are not yet styled properly.
+* The BoaS editor buttons are missing.
+* The separate fixed menu and fixed banner options are missing.
+* There is a gap below the banner when in the editor.
+* There are "duplicates" of help pages.
+* The word count button is broken.
 This will all look a lot better as time goes by, most of these things will be fixed, and the ones that can't be fixed will be removed until such a time as they can be made to work.
 
 I apologize for any inconvenience and I appreciate your patience.&nbsp;&nbsp;&nbsp;<img src="data:image/png;base64,R0lGODlhBgAFAIABAAAAAP///yH5BAEAAAEALAAAAAAGAAUAAAIJDGJ4ic1qgAwFADs=" width="2%" height="2%">
@@ -829,65 +826,15 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Help index
-The first time you save a change to Wiki on a Stick, your browser will ask for permission to save data to the disk. This is normal and necessary for the wiki to make changes to itself. You can give permission each time or make the setting permanent.
+The first time you save a change to this wiki, your browser will ask for permission to save data to the disk. This is normal and necessary for the wiki to make changes to itself. You can give permission each time or make the setting permanent.
 
-You will find the *Help* icon in the navigation bar on every page in this wiki. When you click on it, it will either open this page or a specific help page that explains how to work with the page you currently have open.
+You will find the [[Include::Wiki::Template::Icon::Help]] icon in the banner on every page in this wiki. When you click on it, it will either open this page or a specific help page that explains how to work with the page you currently have open.
 
-When browsing the pages in this Help pop-up, you will find a *Back* button in the upper right corner that takes you back to this page or a *Close* button in the same place that closes the pop-up.
-== Contents:
-* *Features*
-** [[WoaS::Help::Security]]
-** [[WoaS::Help::WSIF]]
-* *Interface*
-** [[WoaS::Help::Aliases]]
-** [[WoaS::Help::CSS]]
-** [[WoaS::Help::Edit the menu]]
-** [[WoaS::Help::Export]]
-** [[WoaS::Help::General usage]]
-** [[WoaS::Help::Hotkeys]]
-** [[WoaS::Help::Import]]
-** [[WoaS::Help::Requirements]]
-* *Online use*
-** [[WoaS::Help::Publish wiki online]]
-** [[WoaS::Help::Run wiki on a server]]
-* *Page management*
-** [[WoaS::Help::Create a page]]
-** [[WoaS::Help::Delete a page]]
-** [[WoaS::Help::Edit a page]]
-** [[WoaS::Help::Erase all pages]]
-** [[WoaS::Help::Namespaces]]
-** [[WoaS::Help::Page scrolling]]
-** [[WoaS::Help::Rename a page]]
-* *Specific Help pages*
-** [[WoaS::Help::Editing]]
-** [[WoaS::Help::Special::Advanced]]
-** [[WoaS::Help::Special::Dead Pages]]
-** [[WoaS::Help::Special::Erase Wiki]]
-** [[WoaS::Help::Special::ExportWSIF]]
-** [[WoaS::Help::Special::ImportWSIF]]
-** [[WoaS::Help::Special::Options]]
-* *Syntax*
-** [[WoaS::Help::Deprecated syntax]]
-** [[WoaS::Help::Headers]]
-** [[WoaS::Help::Images]]
-** [[WoaS::Help::Include text file]]
-** [[WoaS::Help::Include web page]]
-** [[WoaS::Help::Include wiki page]]
-** [[WoaS::Help::JavaScript]]
-** [[WoaS::Help::Join lines of text]]
-** [[WoaS::Help::Links]]
-** [[WoaS::Help::Lists]]
-** [[WoaS::Help::Macros]]
-** [[WoaS::Help::Non-breaking spaces]]
-** [[WoaS::Help::Nowiki text]]
-** [[WoaS::Help::Rulers]]
-** [[WoaS::Help::Table of Contents]]
-** [[WoaS::Help::Tables]]
-** [[WoaS::Help::Tags]]
-** [[WoaS::Help::Text formatting]]
-** [[WoaS::Help::Transclusion]]
-* *Troubleshooting*
-** [[WoaS::Help::Wiki is read-only]]
+When browsing the pages in the Help pop-up, you will find a *Back* button in the upper right corner that takes you back to this page or a *Close* button in the same place that closes the pop-up.
+== WoaS Help pages
+[[Include::WoaS::Help::]]
+== BoaS Help pages (will be merged and deleted)
+[[Include::Help::]]
 
 --DFQRCTsKlU
 woas.page.title: WoaS::Template::Button
@@ -3759,10 +3706,12 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Changed the styling of the debugger.
 ** Now using [[http://sourceforge.net/projects/stickwiki/files/|Wiki on a Stick v0.12.0]] as the foundation for Book on a Stick.
 ** Reorganized the entries in the {{{var reserved_namespaces}}} section of the core code.
+** Updated the *Help* button in the banner to open the Help pop-up.
 
 * _Content:_
 ** Added a note to the [[Wiki::Utility::Diary]] page warning users that the [[Wiki::Utility::Diary|diary]] is broken in this version.
 ** Added the [[Help::Embedding]] page, which needs to be rewritten.
+** Added the [[Wiki::Template::Icon::Help]] page.
 ** Moved all pages in the *Example::* namespace to the *Wiki::Example::* namespace.
 ** Moved all pages in the *Utility::* namespace to the *Wiki::Utility::* namespace.
 ** Removed references to the *ToDo list* from the Features section of the [[Special::About]] page.
@@ -3779,6 +3728,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the [[Wiki::Example::Table of Contents]] page.
 ** Updated the [[WoaS::CSS::Core]] page.
 ** Updated the [[WoaS::CSS::Custom]] page.
+** Updated the [[WoaS::Help::Index]] page.
 
 === Version 0.9.1 released on April 30, 2010
 * _Interface:_
@@ -8359,4 +8309,13 @@ File::FILENAME
 
 [[Tags::Help|ToDo]]
 
+--DFQRCTsKlU
+woas.page.title: Wiki::Template::Icon::Help
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+<img title="Back" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAM2SURBVDiNbZNbbFRlFIW/8//nWlEawIZOofQ27YBOqVOCBU1TLkYt+qKihsSEmBgTKwZJTCdBjGmirRck8UENiRHS+OCDCaBHI4KO1aAFaRla24Jjp2KdoS1Qe5lpp3bO70NLA8Gd7JedvVfWXllLU0pxYxVvawkAzwB1QHB+3AVEgNa4G+67cV+7DlC8rUUAjYtyzFd3PrrOvifgE5Xl+QCcv5ik80LCO3Ts18xkeqYJeDvuhr0FgPnjtvuqikItLz3snIoOcKI9Rk//MABrSvJ4oMbPxrWrCL//9dRPnQMdQG3cDXv6PJPGTetKQ2/uesjZs/9Lro2l2fvcZir9+aSnZvihI06r28nxX2K8u+cR55UDbvWPHfFGoJmi+uZAcPt7qb+Hx9TT4U9VUX2zerHliMpmPdXTP6RGx9NKKaVOno6pmp0fqYa3vlCJkXEV3L4/XVTfHJC5/q0vv/Dkhk2j42nt0LGzABiGzmfHz3PYPUd79188vuVuVi7P5fPvexkZTVG6YgklK5bKU9E/JwRQV1Xh0060xwCwTJ1Ll8dIXk1hWwZVFT4Arv6TxjB0chyLzt+HCK0uEFKIOh0IBsuWE72YxDAkpmlgWQaWaRAKFLB7x0aUUhw82oFjWwihkbgyyeriPDylgtdFRAgNQ9cxjbm2TIO9z9Zi6pLDX0XpuzRKjmMihMCxTDQ0NEAAXV2xy4QCBRiGnGNh6Cy+3WYgOcaZ3gRt0UEc28SxLXIck/LCZcQGryGk6BJA5NyFhLdlfRm6LtF1iWHoaELwc/cgp3uTSCmxbWMBpNKfR/cfQ14260UE0PrxkTOZDWtXsf6ulehSoktB7iKH3U/dS8Nj1eQ4JpZlYtsma4rvpMyXy4HWSEYp1SribrhvIpVp2vfBN1OvP7+ZUMCHlAIptQW/G/O6BAqX8ERtKa99+O30RCrTFHfDfTdZeWuNv/qNhgftaGyYaGyYxJVJbHvu58rSZZTkL6bp4Mlpt63n7My/s7VxN+zdEqY7brP37dpxv11V4dPKC5eiaRrxxCi/9Y9473zyXWZ8crop63k3h+n/4iylqFNKBQGklF2zs9mIUuqWOP8HZvdMlKLbimEAAAAASUVORK5CYII=">
 --DFQRCTsKlU
