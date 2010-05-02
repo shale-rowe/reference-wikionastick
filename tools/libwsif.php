@@ -68,8 +68,10 @@ class WSIF {
 	
 	function Error($msg) {
 		$this->_emsg = $msg;
-		if (isset($this->_log_hook))
-			$this->_log_hook($msg);
+		if (isset($this->_log_hook)) {
+			$fn = $this->_log_hook;
+			$fn($msg);
+		}
 	}
 	
 	function _wsif_load($path, $create_page_hook, $recursion = 0) {
@@ -230,15 +232,20 @@ class WSIF {
 						$disposition,$d_fn,$o_boundary,$mime, $recursion = 0) {
 		$this->_imported_page = false;
 		// attributes must be defined
-		if ($attrs === null) {
-			$this->_log("No attributes defined for page ".$title);
-			$fail = true;
-		} else
-			$fail = false;
+		if (!isset($attrs)) {
+			$this->_log("No attributes defined for page \"".$title."\"");
+			// continue parsing
+			return $last_p;
+		}
+		if (!isset($disposition)) {
+			$this->_log("No disposition defined for page \"".$title."\"");
+			// continue parsing
+			return $last_p;
+		}
 		// last modified timestamp can be omitted
 		if ($last_mod === null)
 			$last_mod = 0;
-		if (!$fail && ($disposition == "inline")) {
+		if ($disposition == "inline") {
 			// craft the exact boundary match string
 			$boundary = "\n--".$o_boundary."\n";
 			// locate start and ending boundaries
@@ -310,7 +317,7 @@ class WSIF {
 			break;
 			} // wend
 			
-		} else if (!$fail && ($disposition == "external")) { // import an external WSIF file
+		} else if ($disposition == "external") { // import an external WSIF file
 			if ($d_fn === null) {
 				$this->Error( "Page ".$title." is external but no filename was specified" );
 				return -1;
@@ -355,7 +362,7 @@ class WSIF {
 			// return pointer after last read header
 			return $last_p;
 		} else { // no disposition or unknown disposition
-			$this->Error( "Page ".$title." has invalid disposition: ".$disposition );
+			$this->Error( "Page \"".$title."\" has invalid disposition: ".$disposition );
 			return -1;
 		}
 		
