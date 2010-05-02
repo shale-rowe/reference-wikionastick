@@ -1,7 +1,7 @@
 <?php
 ## WSIF support library
 ## @author legolas558
-## @version 1.3.3
+## @version 1.3.5
 ## @license GNU/GPL
 ## (c) 2010 Wiki on a Stick Project
 ## @url http://stickwiki.sf.net/
@@ -63,7 +63,7 @@ class WSIF {
 
 	function Load($path, $create_page_hook = '_WSIF_create_page', $log_hook = '_WSIF_stderr_log') {
 		$this->_log_hook = $log_hook;
-		return $this->_wsif_load($path, $create_page_hook, 0);
+		return $this->_load($path, $create_page_hook, 0);
 	}
 	
 	function Error($msg) {
@@ -74,10 +74,13 @@ class WSIF {
 		}
 	}
 	
-	function _wsif_load($path, $create_page_hook, $recursion = 0) {
+	function _load($path, $create_page_hook, $recursion = 0) {
 		$ct = @file_get_contents($path);
 		if ($ct === false)
 			return false;
+		
+		//TODO: initialize some properties when recursion is 0
+		
 		// the imported pages
 		$imported = array();
 		$pfx = "\nwoas.page.";
@@ -102,9 +105,12 @@ class WSIF {
 					$this->Error( sprintf(_WSIF_NS_VER, $wsif_v) );
 					$p = false;
 					$fail = true;
-				} else { // get number of expected pages - not mandatory
-					if (preg_match("/^woas\\.pages:\\s+(\\d+)$/m", substr(ct,0,$p), $this->_expected_pages))
-						$this->_expected_pages = (int)$this->_expected_pages[1];
+				} else {
+					// get number of expected pages (not when recursing)
+					if ($recursing == 0) {
+						if (preg_match("/^woas\\.pages:\\s+(\\d+)$/m", substr(ct,0,$p), $this->_expected_pages))
+							$this->_expected_pages = (int)$this->_expected_pages[1];
+					}
 				}
 			}
 		}
@@ -114,6 +120,7 @@ class WSIF {
 				$boundary = $mime = null;
 		// position of last header end-of-line
 		while ($p !== false) {
+			$last_offset = $p;
 			// remove prefix
 			$sep = strpos($ct, ":", $p+$pfx_len);
 			if ($sep === false) {
@@ -143,28 +150,30 @@ class WSIF {
 					// we have just jumped over a page definition
 					if ($title !== null) {
 						// store the previously parsed page definition
-						$p = $this->_page_def($create_page_hook, $path,$ct,$previous_h,$p,
+						$rv = $this->_page_def($create_page_hook, $path,$ct,
+								$previous_h,$last_offset,	// offsets to grab the page content
 								$title,$attrs,$last_mod,$len,$encoding,$disposition,
 								$d_fn,$boundary,$mime, $recursion);
 						// save page index for later analysis
 						$was_title = title;
 						$title = $attrs = $last_mod = $encoding = $len =
 							 $boundary = $disposition = $mime = $d_fn = null;
-						if ($p === false) {
+						if ($rv === false) {
 							$fail = true;
 							break 2;
 						}
 						// check if page was really imported, and if yes then
 						// add page to list of imported pages
-						if ($this->_imported_page !== false)
+						if ($rv !== false)
 							$imported[] = $this->_imported_page;
 						else
-							$this->_log("Import failure for "+was_title); //log:1
+							$this->Error( sprintf(_WSIF_IMPORT_FAILURE, $was_title) );
 						// delete the whole entry to free up memory to GC
 						// will delete also the last read header
 						$ct = substr($ct, $p);
 						$p = 0;
 						$previous_h = null;
+						
 					}
 					// let's start with the next page
 					$title = $this->ecma_decode($v);
@@ -199,7 +208,8 @@ class WSIF {
 				default:
 					$this->_log("Unknown WSIF header: ".$s);
 			} // end switch(s)
-//			if ($fail)				break;
+			if ($fail)
+				break;
 			// set pointer to next entry
 			$p = strpos($ct, $pfx, $p);
 		}
@@ -207,59 +217,54 @@ class WSIF {
 			return false;
 		// process the last page (if any)
 		if (($previous_h !== null) && ($title !== null)) {
-			$p = $this->_page_def($create_page_hook, $path,$ct,$previous_h,0,
+			$rv = $this->_page_def($create_page_hook, $path,$ct,$previous_h,$last_offset,
 					$title,$attrs,$last_mod,$len,$encoding,$disposition,
 					$d_fn,$boundary,$mime, $recursion);
 			// save page index for later analysis
-			if ($p === false) {
+			if ($rv === false) {
 				$this->Error( sprintf(_WSIF_IMPORT_FAILURE, $title) );
 				$fail = true;
-			} else {
-				// check if page was really imported, and if yes then
+			} else
 				// add page to list of imported pages
-				if ($this->_imported_page !== false)
-					$imported[] = $this->_imported_page;
-				else
-					$this->_log("Import failure for "+title); //log:1
-			}
+				$imported[] = $this->_imported_page;
 		}
 		// save imported pages
 		return count($imported);
 	}
 
-	function _page_def($create_page_hook, $path,&$ct,$p,$last_p,
+	// returns true if a page was defined
+	function _page_def($create_page_hook, $path,
+						&$ct,			// buffer containing pages
+						$p,$last_p,		// start and end offset for section containing the page
 						$title,$attrs,$last_mod,$len,$encoding,
 						$disposition,$d_fn,$o_boundary,$mime, $recursion = 0) {
-		$this->_imported_page = false;
 		// attributes must be defined
 		if (!isset($attrs)) {
 			$this->_log("No attributes defined for page \"".$title."\"");
-			// continue parsing
-			return $last_p;
+			return false;
 		}
 		if (!isset($disposition)) {
 			$this->_log("No disposition defined for page \"".$title."\"");
-			// continue parsing
-			return $last_p;
+			return false;
 		}
 		// last modified timestamp can be omitted
 		if ($last_mod === null)
 			$last_mod = 0;
-		if ($disposition == "inline") {
+		switch ($disposition) {
+			case "inline":
 			// craft the exact boundary match string
 			$boundary = "\n--".$o_boundary."\n";
 			// locate start and ending boundaries
 			$bpos_s = strpos($ct, $boundary, $p);
 			if ($bpos_s === false) {
 				$this->Error( "Failed to find start boundary ".$o_boundary." for page ".$title);
-				return -1;
+				return false;
 			}
 			$bpos_e = strpos($ct, $boundary, $bpos_s+strlen($boundary));
 			if ($bpos_e === false) {
 				$this->Error( "Failed to find end boundary ".$o_boundary." for page ".$title );
-				return -1;
+				return false;
 			}
-			while (!$fail) { // used to easily break away
 			// retrieve full page content
 			$page = substr($ct, $bpos_s+strlen($boundary), $bpos_e-($bpos_s+strlen($boundary)));
 			// length used to check correctness of data segments
@@ -268,8 +273,7 @@ class WSIF {
 			if ($attrs & _WOAS_ENCRYPTED) {
 				if ($encoding != "8bit/base64") {
 					$this->_log("Encrypted page ".$title." is not encoded as 8bit/base64");
-					$fail = true;
-					break;
+					return false;
 				}
 				//NOTE: in original WoaS, the page would be split into an array of bytes
 				$page = base64_decode($page);
@@ -277,13 +281,11 @@ class WSIF {
 				// NOTE: encrypted images are not obviously processed, as per previous 'if'
 				if ($encoding != "8bit/base64") {
 					$this->_log("Image ".title." is not encoded as 8bit/base64");
-					$fail = true;
-					break;
+					return false;
 				}
 				if ($mime === null) {
 					$this->_log("Image ".$title."has no mime type defined");
-					$fail = true;
-					break;
+					return false;
 				}
 				// re-add data:uri to images
 				$page = "data:".$mime.";base64,".$page;
@@ -302,41 +304,35 @@ class WSIF {
 					break;
 					default:
 						$this->_log("Normal page ".$title." comes with unknown encoding ".$encoding);
-						$fail = true;
-						break;
+						return false;
 				}
 			}
-			if ($fail)
-				break;
 			// check length (if any were passed)
 			if ($len !== null) {
 				if ($len != $check_len)
 					$this->_log(sprintf("Length mismatch for page %s: ought to be %d but was %d", $title, $len, $check_len));
 			}
-			// has to break anyway
-			break;
-			} // wend
-			
-		} else if ($disposition == "external") { // import an external WSIF file
+		break;
+		case "external":	// import an external WSIF file
 			if ($d_fn === null) {
 				$this->Error( "Page ".$title." is external but no filename was specified" );
-				return -1;
+				return false;
 			}
 			if ($recursion > 1) {
 				$this->Error( "Recursive WSIF import not implemented");
-				return -1;
+				return false;
 			}
 			// embedded image/file, not encrypted
 			if (($attrs & _WOAS_EMB_FILE) || (attrs & _WOAS_EMB_IMAGE)) {
 				if ($encoding != "8bit/plain") {
 					$this->Error( "Page ".$title." is an external file/image but not encoded as 8bit/plain");
-					return -1;
+					return false;
 				}
 				// load file and apply encode64 (if embedded)
 				$page = file_get_contents($the_dir+$d_fn);
 				if ($page === false) {
 					$this->Error( "Failed load of external "+the_dir+d_fn);
-					return -1;
+					return false;
 				}
 				if (($attrs & _WOAS_EMB_FILE) && ($attrs & _WOAS_EMB_IMAGE)) {
 					// craft a DATA:URI
@@ -345,35 +341,40 @@ class WSIF {
 					$page = base64_encode($page);
 				} // otherwise it's binary
 				// fallback wanted to apply real page definition later
-				$boundary = "";
-				$bpos_e = $last_p;
+//				$boundary = "";
+//				$bpos_e = $last_p;
 			} else {
 				if ($encoding != "text/wsif") {
 					$this->Error( "Page ".$title." is external but not encoded as text/wsif" );
-					return -1;
+					return false;
 				}
+				// check the result of external import
+				$rv = $this->_load(dirname($path).'/'.$d_fn, $recursion+1);
+				if ($rv === false) {
+					$this->Error( "Failed import of external ".$d_fn."\n".$this->_emsg);
+					// we fail importing this page
+					return false;
+				}
+				// do not run the import hook here because it has been ran by the recursively called function
+				return true;
 			}
-			// check the result of external import
-			$rv = $this->_wsif_load(dirname($path).'/'.$d_fn, $recursion+1);
-			if ($rv === false) {
-				$this->Error( "Failed import of external ".$d_fn."\n".$this->_emsg);
-				//TODO: some more error logging?
-			}
-			// return pointer after last read header
-			return $last_p;
-		} else { // no disposition or unknown disposition
+		break;
+		default:
+		 // no disposition or unknown disposition
 			$this->Error( "Page \"".$title."\" has invalid disposition: ".$disposition );
-			return -1;
-		}
+			return false;
+		} // end of switch
 		
-		if (!$fail) {
-			$rv = $create_page_hook($this, $title, $page, $attrs, $last_mod);
-			if ($rv != -1)
-				// all OK
-				$this->_imported_page = $rv;
-		} // !fail
-		// return updated offset
-		return $bpos_e+strlen($boundary);
+		// we do not check the 'fail' status because it is handled inside the 'inline' case label
+		
+		$rv = $create_page_hook($this, $title, $page, $attrs, $last_mod);
+		if ($rv != -1) {
+			// all OK
+			$this->_imported_page = $rv;
+			return true;
+		}
+		// failure from import hook
+		return false;
 	}
 
 	function _log($msg) {
