@@ -1,4 +1,6 @@
 Version 0.12.0
+* fixed file load issue on Chrome/Safari
+* fixed many WSIF load inconsistencies
 * macro arguments support
 * introduced DOM manager
 * optimized DOM head save code
