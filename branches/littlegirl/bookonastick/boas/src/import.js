@@ -340,8 +340,9 @@ woas.import_wiki = function() {
 			// check pages in WoaS:: namespace
 			if (page_names[i].substr(0,6) === "WoaS::") {
 				// do not overwrite help pages with old ones
-				if (page_names[i].indexOf("WoaS::Help::") === 0)
-					continue;
+// LITTLE GIRL:: COMMENTED THESE TWO LINES OUT UNTIL WIKI IS THE STANDARD SYSTEM PAGE:
+//				if (page_names[i].indexOf("Wiki::Help::") === 0)
+//					continue;
 				// skip other core WoaS:: pages
 				if (this.static_pages2.indexOf(page_names[i]) !== -1)
 					continue;

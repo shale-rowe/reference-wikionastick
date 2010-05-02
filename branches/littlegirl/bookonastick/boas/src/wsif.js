@@ -74,7 +74,7 @@ woas._native_wsif_save = function(path, src_fname, locking, single_wsif, inline_
 		if (!save_all) {
 			if (page_titles[pi].match(/^Special::/)) continue;
 			if (this.static_pages2.indexOf(page_titles[pi]) !== -1) continue;
-			if (page_titles[pi].match(/^WoaS::Help::/)) continue;
+			if (page_titles[pi].match(/^Wiki::Help::/)) continue;
 		}
 		var record = this.wsif.header(pfx+"title", this.ecma_encode(page_titles[pi]))+
 					this.wsif.header(pfx+"attributes", page_attrs[pi]);
@@ -334,7 +334,7 @@ woas._native_wsif_load = function(path, locking, overwrite, and_save, recursing,
 				// we have just jumped over a page definition
 				if (title !== null) {
 					// do not import special/reserved pages
-					if (and_save && (title.match(/^Special::/) || (this.static_pages2.indexOf(title) !== -1) || title.match(/^WoaS::Help::/) )) {
+					if (and_save && (title.match(/^Special::/) || (this.static_pages2.indexOf(title) !== -1) || title.match(/^Wiki::Help::/) )) {
 						++this.wsif.system_pages;
 						title = attrs = last_mod = encoding = len =
 							 boundary = disposition = mime = d_fn = null;

@@ -126,7 +126,7 @@ woas.erase_wiki = function() {
 		page_attrs.push(0); page_mts.push(0);
 	}
 	// build the array of help pages only once
-	var help_pfx = "WoaS::Help::";
+	var help_pfx = "Wiki::Help::";
 	if (this.help_pages === null) {
 		this.help_pages = [];
 		for(i=0,l=page_titles.length;i<l;++i) {

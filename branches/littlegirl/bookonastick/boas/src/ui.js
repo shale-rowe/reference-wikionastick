@@ -64,11 +64,11 @@ woas._help_lookup = ["Plugins", "CSS", "Aliases", "Hotkeys"];
 
 // could have a better name
 function help() {
-	var wanted_page = "WoaS::Help::Index";
+	var wanted_page = "Wiki::Help::Index";
 	var pi = woas.page_index(wanted_page);
 	// we are editing
 	if (kbd_hooking) {
-		wanted_page = "WoaS::Help::Editing";
+		wanted_page = "Wiki::Help::Editing";
 		pi = woas.page_index(wanted_page);
 	} else {
 		var htitle = null;
@@ -81,9 +81,9 @@ function help() {
 		}
 		if (htitle === null)
 			htitle = current;
-		var npi = woas.page_index("WoaS::Help::"+htitle);
+		var npi = woas.page_index("Wiki::Help::"+htitle);
 		if (npi != -1) {
-			wanted_page = "WoaS::Help::"+htitle;
+			wanted_page = "Wiki::Help::"+htitle;
 			pi = npi;
 		}
 	}
