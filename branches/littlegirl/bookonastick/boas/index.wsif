@@ -3728,10 +3728,21 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Renamed the *Help::Bluebox* page to [[Wiki::Help::Bluebox]].
 ** Renamed the *Help::Cancel any action* page to [[Wiki::Help::Cancel any action]].
 ** Renamed the *Help::Footnotes* page to [[Wiki::Help::Footnotes]].
+** Renamed the *Help::Spoilers* page to [[Wiki::Help::Spoilers]].
 ** Updated the [[Help::Edit a page]] page.
 ** Updated the [[Help::Include wiki page]] page.
 ** Updated the [[Help::Transclusion]] page.
 ** Updated the [[History]] page.
+** Updated the [[Wiki::Example::Embed web page iFrame]] page.
+** Updated the [[Wiki::Example::Embed web page object]] page.
+** Updated the [[Wiki::Example::Embedded SVG]] page.
+** Updated the [[Wiki::Example::Encrypted page]] page.
+** Updated the [[Wiki::Example::Foldaway]] page.
+** Updated the [[Wiki::Example::Foldawaytext]] page.
+** Updated the [[Wiki::Example::Folding page button (HTML)]] page.
+** Updated the [[Wiki::Example::Folding page inline]] page.
+** Updated the [[Wiki::Example::Folding page plain]] page.
+** Updated the [[Wiki::Example::Folding page styled button (HTML)]] page.
 ** Updated the [[Wiki::Example::Table of Contents]] page.
 ** Updated the [[Wiki::Help::Bluebox]] page.
 ** Updated the [[Wiki::Help::Footnotes]] page.
@@ -3884,10 +3895,10 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Added the [[Help::Topnote]] page to describe *topnotes* and demonstrate how to use them.
 ** Added the *Template::Foldpage* page to be used by *Folds*.
 ** Added the *Template::Foldtextinline* page to be used by *Folds*.
-** Added the *Template::HiddenSpoiler* page to be used by [[Help::Spoilers|spoilers]].
-** Added the *Template::HiddenSpoilerInline* page to be used by [[Help::Spoilers|spoilers]].
+** Added the *Template::HiddenSpoiler* page to be used by [[Wiki::Help::Spoilers|spoilers]].
+** Added the *Template::HiddenSpoilerInline* page to be used by [[Wiki::Help::Spoilers|spoilers]].
 ** Added the *Template::Image gallery* page, thanks to a script by *FBNil*.
-** Added the *Template::Spoiler* page to be used by [[Help::Spoilers|spoilers]].
+** Added the *Template::Spoiler* page to be used by [[Wiki::Help::Spoilers|spoilers]].
 ** Added the *Template::Topnote* page to be used for creating [[Help::Topnote|topnotes]].
 ** Added the *Template::TODO* page to be used for *ToDo* items in the *ToDo list* page contributed by *FBNil*.
 ** Added the *ToDo list* page, which is a slight modification of code contributed by *FBNil*.
@@ -3939,7 +3950,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the [[Help::Page creation]] page.
 ** Updated the [[Help::Page with no name]] page.
 ** Updated the [[Help::Pages linking to this page]] page.
-** Updated the [[Help::Spoilers]] page, adding the *Dynamic block area wiki link (click)*.
+** Updated the [[Wiki::Help::Spoilers]] page, adding the *Dynamic block area wiki link (click)*.
 ** Updated the [[Help::Syntax]] page.
 ** Updated the [[Help::Table of Contents]] page.
 ** Updated the [[Help::Tables]] page.
@@ -4004,7 +4015,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the [[Help::Page creation]] page.
 ** Updated the [[Help::Page with no name]] page.
 ** Updated the *Help::Parent and child pages* page.
-** Updated the [[Help::Spoilers]] page:
+** Updated the [[Wiki::Help::Spoilers]] page:
 *** Added instructions on how to create *Dynamic block area (button)*.
 *** Added instructions on how to create *Dynamic block area (styled button)*.
 *** Added instructions on how to insert *include links* into dynamic block areas, thanks to code provided by [[http://woas.iragan.com/viewtopic.php?pid=1488*p1488|MicBerlin]].
@@ -4043,7 +4054,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 
 * _Content:_
 ** Added instructions for *delayed page redirection* to the [[Help::JavaScript]] page.
-** Added instructions for *dynamic block text areas* and *dynamic inline text areas* to the [[Help::Spoilers]] page.
+** Added instructions for *dynamic block text areas* and *dynamic inline text areas* to the [[Wiki::Help::Spoilers]] page.
 ** Added instructions for the *sort* button to the *Help* pop-up in the editor.
 ** Added the *About* button to the menu.
 ** Added the *Examples*, *Help*, *Images*, *Syntax*, and *Utilities* pages so the pages they link to can be hidden, making the list of all pages shorter and easier to navigate.
@@ -4051,7 +4062,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Added the [[Help::Include text file]] page.
 ** Added the *Help::New page template* page.
 ** Added the [[Help::Navigation]] page.
-** Added the [[Help::Spoilers]] page.
+** Added the [[Wiki::Help::Spoilers]] page.
 ** Added the [[Help::Syntax]] page.
 ** Added the *Utility::Word frequency* page.
 ** Removed the *About this wiki* footer.
@@ -4334,13 +4345,11 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Embedded SVG
-
 This page contains an embedded SVG snippet
 
 [[File::seed_of_life.svg]] is rendered in this page through a small script
 
 <div id="generated_SVG" style="width:100%"></div>
-
 <script type="text/javascript">
 var str = decode64(woas.get_text('File::seed_of_life.svg'));
 var svgObject = document.createElement('object');
@@ -4350,7 +4359,6 @@ svgObject.setAttribute('type', 'image/svg+xml');
 svgObject.setAttribute('data', 'data:image/svg+xml,'+ escape(str));
 $("generated_SVG").appendChild(svgObject);
 </script>
-
 --DFQRCTsKlU
 woas.page.title: File::seed_of_life.svg
 woas.page.attributes: 4
@@ -4365,11 +4373,11 @@ woas.page.title: Wiki::Example::Encrypted page
 woas.page.attributes: 2
 woas.page.encoding: 8bit/base64
 woas.page.disposition: inline
-woas.page.original_length: 128
+woas.page.original_length: 112
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-ItOXD9Cekw4H9m9XunNweEDQq7z8dDO4dXVt0fJJs13yA17AdgGvYRgfCjSFylAY84fF05iGl0Z/yc+hj/dTXqc9/E7Qw527z2ycfr0m/1p3Yg4/w7bcJehzROjQ3cgxQUbWd09MNx7E8Ix/lxvOIn+8W+/cVFM1rkDBRHVm7JwA
+ZOmrkXx50/3QV1Azk7paen/42C9/ZSed1xZw/gRwhJivFXSNVmUfFAC55jfHIFzruKQcroniPNzoAbioKWEaPLxdZIxmDYEdj5iVfmdXWl5F2pijO9bX5dHLIWU7uZM8cfzyv99peNp7BYyX751PaQAA
 --DFQRCTsKlU
 woas.page.title: Wiki::Example::Chapter 01
 woas.page.attributes: 0
@@ -4540,7 +4548,7 @@ woas.page.boundary: DFQRCTsKlU
 === Level 3 header
 This example demonstrates a bad Table of Contents because the first header on a page is expected to be a Level 1 header. If you use any other level header first, that header and any headers after it will be represented by hash marks until a Level 1 header is encountered. From that point on, the headers will be numbered properly.
 
-Since the first three headers on this page are not Level 1 headers, they are represented by hash marks. The remaining headers are numbered. To see a proper Table of Contents, see the [[Help::Table of Contents]] page.
+Since the first three headers on this page are not Level 1 headers, they are represented by hash marks. The remaining headers are numbered. To see a proper Table of Contents, see the [[Wiki::Help::Table of Contents]] page.
 
 
 --DFQRCTsKlU
@@ -6632,7 +6640,7 @@ This is a personal wiki that's not designed to be used on a server. Any changes 
 [[Tags::Help]]
 
 --DFQRCTsKlU
-woas.page.title: Help::Spoilers
+woas.page.title: Wiki::Help::Spoilers
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -6646,52 +6654,49 @@ Spoilers are permanent areas with content that shows when you hover over them wi
 == Spoiler (wiki)
 This method displays a permanently visible spoiler box, which can also be used to create an invisible hot spot by customizing the spoiler [[Help::CSS|CSS]] to make the box blend in with the background.
 
-<div class="helptext">Use this code in a page, replacing CONTENT GOES HERE with your content:</div>
-<div class="helpcode">[<!-- -->[Include:<!-- -->:Template::Spoiler|CONTENT GOES HERE]<!-- -->]</div>
-<div class="helptext">To create this:</div>
+<div class="helptext">Use this code in a page, replacing CONTENT GOES HERE with your content:</div><br>{{{
 [[Include::Template::Spoiler|CONTENT GOES HERE]]
+}}}<br><div class="helptext">To create this:</div>
+[[Include::Wiki::Template::Spoiler|CONTENT GOES HERE]]
 
 == Spoiler (HTML)
 This method displays a permanently visible spoiler box, which can also be used to create an invisible hot spot by customizing the spoiler [[Help::CSS|CSS]] to make the box blend in with the background.
 
-<div class="helptext">Use this code in a page, replacing CONTENT GOES HERE with your content:</div>{{{
+<div class="helptext">Use this code in a page, replacing CONTENT GOES HERE with your content:</div><br>{{{
 <span class="spoiler">CONTENT GOES HERE</span>
-}}}<div class="helptext">To create this:</div>
+}}}<br><div class="helptext">To create this:</div>
 <span class="spoiler">CONTENT GOES HERE</span>
-
 
 == Hidden spoiler (wiki)
-<div class="helptext">Use this code in a page, replacing LINK with your link text, and CONTENT GOES HERE with your content:</div>
-<div class="helpcode">[<!-- -->[Include:<!-- -->:Template::HiddenSpoiler|LINK|CONTENT GOES HERE]<!-- -->]</div>
-<div class="helptext">To create this:</div>
+<div class="helptext">Use this code in a page, replacing LINK with your link text, and CONTENT GOES HERE with your content:</div><br>{{{
 [[Include::Template::HiddenSpoiler|LINK|CONTENT GOES HERE]]
+}}}<br><div class="helptext">To create this:</div>
+[[Include::Wiki::Template::HiddenSpoiler|LINK|CONTENT GOES HERE]]
 
 == Hidden spoiler (HTML)
 This displays a spoiler box when the mouse hovers over the link.
 
-<div class="helptext">Use this code in a page, replacing LINK with your link text, and CONTENT GOES HERE with your content:</div>{{{
+<div class="helptext">Use this code in a page, replacing LINK with your link text, and CONTENT GOES HERE with your content:</div><br>{{{
 <span class="spoilerblock"><a href="#">LINK <span class="show">CONTENT GOES HERE</span></a></span>
-}}}<div class="helptext">To create this:</div>
+}}}<br><div class="helptext">To create this:</div>
 <span class="spoilerblock"><a href="#">LINK <span class="show">CONTENT GOES HERE</span></a></span>
 
 == Hidden spoiler inline (wiki)
-<div class="helptext">Use this code in a page, replacing LINK with your link text, and CONTENT GOES HERE with your content:</div>
-<div class="helpcode">[<!-- -->[Include::Template:<!-- -->:HiddenSpoilerInline|LINK|CONTENT GOES HERE]<!-- -->]</div>
-<div class="helptext">To create this:</div>
+<div class="helptext">Use this code in a page, replacing LINK with your link text, and CONTENT GOES HERE with your content:</div><br>{{{
 [[Include::Template::HiddenSpoilerInline|LINK|CONTENT GOES HERE]]
+}}}<br><div class="helptext">To create this:</div>
+[[Include::Wiki::Template::HiddenSpoilerInline|LINK|CONTENT GOES HERE]]
 
 == Hidden spoiler inline (HTML)
 This displays a dynamic inline spoiler box when the mouse hovers over the link.
 
-<div class="helptext">Use this code in a page, replacing LINK with your link text, and CONTENT GOES HERE with your content:</div>{{{
+<div class="helptext">Use this code in a page, replacing LINK with your link text, and CONTENT GOES HERE with your content:</div><br>{{{
 <span class="spoilerinline"><a href="#">LINK <span class="show">CONTENT GOES HERE</span></a></span>
-}}}<div class="helptext">To create this:</div>
+}}}<br><div class="helptext">To create this:</div>
 <span class="spoilerinline"><a href="#">LINK <span class="show">CONTENT GOES HERE</span></a></span>
 
 == See also
-For more ways of working with hidden content, see the [[Help::Folds]] page.
-
-[[Tags::Help|Syntax]]
+For more ways of working with hidden content, see the [[Wiki::Help::Folds]] page.
 
 --DFQRCTsKlU
 woas.page.title: Help::Syntax
@@ -7845,7 +7850,7 @@ Some nested dynamic inline areas for you advanced users:
 <a href="javascript:expandspan('SECTION1')">LINK1</a> <span id="SECTION1" style="display:none;">CONTENT1 <a href="javascript:expandspan('SECTION2')">LINK2</a> <span id="SECTION2" style="display:none;">CONTENT2 <a href="javascript:expandspan('SECTION3')">LINK3</a> <span id="SECTION3" style="display:none;">CONTENT3 <a href="javascript:expandspan('SECTION4')">LINK4</a> <span id="SECTION4" style="display:none;">CONTENT4 <a href="javascript:expandspan('SECTION5')">LINK5</a> <span id="SECTION5" style="display:none;">CONTENT5</span></span></span></span></span>
 
 == See also
-For more ways of working with hidden content, see the [[Help::Spoilers]] page.
+For more ways of working with hidden content, see the [[Wiki::Help::Spoilers]] page.
 
 [[Tags::Help|Syntax]]
 
@@ -7938,8 +7943,6 @@ This button toggles the display of the [[Sandbox]] page in this page.
 [[Include::Sandbox]]
 </div></div>
 
-[[Tags::Example]]
-
 --DFQRCTsKlU
 woas.page.title: Wiki::Example::Folding page styled button (HTML)
 woas.page.attributes: 0
@@ -7955,8 +7958,6 @@ This button toggles the display of the [[Sandbox]] page in this page.
 <div id="NAME" style="display:none;"><div>
 [[Include::Sandbox]]
 </div></div>
-
-[[Tags::Example]]
 
 --DFQRCTsKlU
 woas.page.title: Wiki::Template::Icon::Password
@@ -7978,7 +7979,6 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 = Embed a remote URL in an iFrame
 <iframe height="400" width="100%" height:630px; src="http://www.gnu.org/"></iframe>
-[[Tags::Example]]
 
 --DFQRCTsKlU
 woas.page.title: Wiki::Example::Embed web page object
@@ -7990,7 +7990,6 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 == Embed a remote URL as an object
 <html><object data="http://www.gnu.org/" style="width:100%; height:630px;">URL not found.</object></html>
-[[Tags::Example]]
 
 --DFQRCTsKlU
 woas.page.title: Wiki::Example::Foldaway
@@ -8001,13 +8000,11 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Foldaway
-[[Include::Template::Foldawaylink|LINK|MyName]]
+[[Include::Wiki::Template::Foldawaylink|LINK|MyName]]
 This is some sample content.
 
 It goes between the link above and the unfolded page you see when clicking the link.
-[[Include::Template::Foldawaypage|Special::About|MyName]]
-
-[[Tags::Example]]
+[[Include::Wiki::Template::Foldawaypage|Special::About|MyName]]
 
 --DFQRCTsKlU
 woas.page.title: Wiki::Template::Foldawaylink
@@ -8039,9 +8036,7 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Folding page plain
-[[Include::Template::Foldpage|Click here to toggle fold and unfold|Special::About|]]
-
-[[Tags::Example]]
+[[Include::Wiki::Template::Foldpage|Click here to toggle fold and unfold|Special::About|]]
 
 --DFQRCTsKlU
 woas.page.title: Wiki::Example::Folding page inline
@@ -8052,9 +8047,7 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Folding page inline
-Click [[Include::Template::Foldpage|here|Special::About|to toggle fold and unfold.]]
-
-[[Tags::Example]]
+Click [[Include::Wiki::Template::Foldpage|here|Special::About|to toggle fold and unfold.]]
 
 --DFQRCTsKlU
 woas.page.title: Wiki::Template::Foldawaytext
@@ -8076,13 +8069,11 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Foldawaytext
-[[Include::Template::Foldawaylink|LINK|MyName]]
+[[Include::Wiki::Template::Foldawaylink|LINK|MyName]]
 This is some sample content.
 
 It goes between the link above and the unfolded text you see when clicking the link.
-[[Include::Template::Foldawaytext|This text *only* shows when you click the link.|MyName]]
-
-[[Tags::Example]]
+[[Include::Wiki::Template::Foldawaytext|This text *only* shows when you click the link.|MyName]]
 
 --DFQRCTsKlU
 woas.page.title: Wiki::Utility::Diary
