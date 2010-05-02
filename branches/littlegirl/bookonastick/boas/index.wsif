@@ -12,8 +12,6 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 [[Include::Wiki::Utility::Links for writers]]
 * [[WoaS::Help::]]
-* [[Special::Duplicate Page|Duplicate Page]]
-* [[Special::Go to|Go to...]]
 --DFQRCTsKlU
 woas.page.title: Special::Advanced
 woas.page.attributes: 0
@@ -3851,6 +3849,8 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 
 === Version 1.0 (under development)
 * _Interface:_
+** Added the *Duplicate page* button to the menu.
+** Added the *Go to* button to the menu.
 ** Added two non-breaking spaces after the debug Clear button for consistency.
 ** Changed the styling of the debugger.
 ** Now using [[http://sourceforge.net/projects/stickwiki/files/|Wiki on a Stick v0.12.0]] as the foundation for Book on a Stick.
