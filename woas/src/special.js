@@ -455,7 +455,9 @@ woas.ns_recurse_parse = function(folds, output, prev_ns, recursion, sorted) {
 woas._ns_groups = {};
 
 function _WoaS_list_expand_change(list_id, v) {
-	woas._ns_groups[list_id].option = parseInt(v);
+	// store selected option both in global config variable and
+	// in relative list option
+	woas.config.folding_style = woas._ns_groups[list_id].option = parseInt(v);
 	switch (woas._ns_groups[list_id].option) {
 		case 1: // collapse all
 			$.show("WoaS_"+list_id+"_folds");
