@@ -1,3 +1,4 @@
+                                         BOAS SUBVERSION LOGS
 ======================================================================================================================
 * Initial commit of Book on a Stick release v0.1 using Wiki on a Stick v0.9.6B as its base with these changes:
 *
@@ -842,6 +843,8 @@
 * Added various namespaces to the var reserved_namespaces section of stickwiki.js.
 * Tagged for release as BoaS 0.9.1 in preparation for merging with WoaS 0.12.0.
 ======================================================================================================================
+NOW WORKING ON BOAS 1.0
+======================================================================================================================
 * Added the tools subdirectory.
 * Added the Assemble BoaS.txt file to the tools subdirectory.
 * Added the libwsif.php file to the tools subdirectory.
@@ -921,3 +924,11 @@
 * Added a note to the [[Utility::Diary]] page warning users that the diary is broken in this version.
 * Added a note to the [[ToDo list]] page warning users that the ToDo list is broken in this version.
 * Added a note to the [[Sandbox]] page warning users that the ToDo list is broken in this version.
+======================================================================================================================
+* Changed the styling of the debugger.
+* Added two non-breaking spaces after the debug Clear button for consistency.
+* Deleted the [[WoaS::History]] page.
+* Added the [[Help::Embedding]] page, which needs to be rewritten.
+* Moved all pages in the Utility:: namespace to the Wiki::Utility:: namespace.
+* Updated the [[Help::Namespaces]] page.
+======================================================================================================================

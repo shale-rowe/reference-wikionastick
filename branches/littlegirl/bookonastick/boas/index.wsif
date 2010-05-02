@@ -10,13 +10,8 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-[[Include::Utility::Links for writers]]
-* [[WoaS History]]
+[[Include::Wiki::Utility::Links for writers]]
 * [[WoaS::Help::]]
-* [[WoaS::Aliases]]
-* [[WoaS::Hotkeys]]
-* [[WoaS::Plugins]]
-* [[Special::Recentchanges|Recentchanges]]
 * [[Special::Duplicate Page|Duplicate Page]]
 * [[Special::Go to|Go to...]]
 --DFQRCTsKlU
@@ -127,7 +122,7 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-== Book on a Stick development version 1.0
+== Book on a Stick 1.0 (under development)
 If you're seeing this, then BoaS is in a state of transition and hasn't finished merging with WoaS 0.12.0 yet. This will look a lot better tomorrow.  <img src="data:image/png;base64,R0lGODlhBgAFAIABAAAAAP///yH5BAEAAAEALAAAAAAGAAUAAAIJDGJ4ic1qgAwFADs=" width="2%" height="2%">
 <!-- [[Include::Special::About]] -->
 <!-- Delete all of the text in the main text area of this page and replace it with whatever you like. You can click the About button in the menu to see the welcome page again at any time. -->
@@ -400,57 +395,6 @@ woas.page.boundary: DFQRCTsKlU
 = Plugins
 This page contains options for the active WoaS plugins; see [[WoaS::Help::Plugins]] for more information.
 [[Javascript::_woas_new_plugin()|New plugin...]]
---DFQRCTsKlU
-woas.page.title: WoaS History
-woas.page.attributes: 0
-woas.page.encoding: ecma/plain
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-= Wiki on a Stick History
-
-== Versions 0.01 &tilde; 0.04
-<sub>by Andr\u00e9 Wagner</sub>
-
-As they say, /"necessity is the mother of invention"/. I needed a way to store information in a tree-like structure, but every software I tested felt like it was something missing. I tested a few mindmap software, tree structure software and personal wikis, but they were too complicated to install; I didn't yet have what I was looking for, or the tool wasn't closs-platform.
-
-The closest thing I found was [[http://www.tiddlywiki.com/|TiddlyWiki]], but it still wasn't perfect: it was too much blog-like, and what I needed was something wiki-like. So TiddlyWiki served as inspiration for the software I was about to create (I even used their saving routines).
-
-The core part of the code was written in one rainy afternoon. A few days later (after correcting most problems) I released it and the feedback I received was much more than I could ever expect. I guess that many other people had my same needs  :-) So this gave me motivation to continue working on Wiki on a Stick and to release three more versions.
-
-=== The principles
-Since the beginning I followed two basic principles: *simplicity* and *stability*. For simplicity I mean that the software should be easy enough for anyone to use, and the interface should be as plain as possible. And for stability I mean that the user data is sacred above all things, and the user should never loose his data, no matter what happens. I think these were the two facts that brought the good acceptance from the users.
-
-Unfortunatly, the duties of my graduation thesis made me stop working on WoaS and the software became dormant for a couple of months. It made me feel bad, since the mailing lists were at full throttle, with many people requesting features and sending patches that I couldn't even test.
-
-So I was very glad when Daniele offered himself to take over the task of managing the project. He did a great work and now WoaS is a much more rich application, with a even greater userbase. It feels really nice to see that people all around the world are using the software I created, and my desire is to see that WoaS grows in quality, features and userbase, and to remain a simple yet useful tool to everyone.
-
-== Versions 0.9.x
-<sub>by Daniele C.</sub>
-
-When I first found WoaS I felt that this software has a great potential; my first contribute to WoaS was to resolve all the bug tracker items and review the patches; the result was put into a v0.04G released in a SF.net patches tracker item (as attachment). That modified version was mostly a bug-fix and feature-fix modification, with small new features like custom keys for navigation and edits cancelling. V0.04G also missed the import feature (I forgot to add it back) and had a nasty double-click to edit feature which was not really good. That was my experimentation, I did not expect people to really use my modified version but since Andr\u00e9 had no time to review it, people was actually starting to use it.
-
-Some time later I took courage and asked to take-over the project; Andr\u00e9 Wagner kindly added me to the project as a developer and a project admin and I could start working on WoaS for real.
-
-My first big project management change was to switch to [[http://subversion.tigris.org/|Subversion (SVN)]] for the versioning of all our WoaS files; development could this way be fully documented and followed "live" by the mailing list (formerly google group) partecipants, which are the first solid community gathered around WoaS.
-
-Version 0.9B was the first official version which I worked on. My first big change was to have storage of pages not in content-escaped hidden divs but as javascript strings; this brought more speed to the page loading process. I also had to solve some problems inherent to the double file vs single file compatibility (WoaS can since then work with the 2-files version and single file version) and some IE saving issues, but finally the result was good enough.
-
-A lot of features and improvements have been implemented during the (still current) v0.9.x development cycle, without never slowing down some parts of WoaS for each new feature implemented (further speed optimizations will be engineered when the codebase is stable enough); we are as always gathering the users' feedback to add usability and more powerful features to WoaS. Such features must of course be coherent with WoaS principles and base philosophy.
-
-=== Object orienting
-
-Wiki on a Stick codebase has been rewritten as object-oriented in order to be more maintanable and modular (the development version contains multiple javascript source files which are as always merged into one before releases).
-
-== Development of 0.10.x version
-
-Development of 0.9.7B was stale and WoaS was getting full of little bugs which prevented it from being successfully used; during last months of 2009 and first months of 2010 WoaS got new blood with 0.10.x releases.
-Some of the best additions were [[WoaS::Help::WSIF|WSIF format]] and a pluggable macro syntax, but finally the product had reached the stability which its users deserved and exited its Beta status to enter a Production development stage.
-
-== Development of 0.11.x versions
-
-The 0.11.x development stage is focusing new features and fixing old bugs; there have been many new important enchancements like access keys.
 --DFQRCTsKlU
 woas.page.title: Special::Export
 woas.page.attributes: 0
@@ -3481,15 +3425,17 @@ pre {
 .woas_core_page {
 	background-color:aliceblue;
 	border:0em;
+	padding:1em;
 } 
 
 /* DEBUG PANEL */
 #woas_debug_panel {
-	background-color:gray;
+	background-color:gainsboro;
 	border:1pt solid black;
+	padding-left:2%;
 	margin-top:0.75em;
 	margin-left:20.5%;
-	width:79%;
+	width:77%;
 }
 
 /* DEBUG CONSOLE */
@@ -3498,8 +3444,9 @@ pre {
 
 /* DEBUG LOG */
 #woas_debug_log {
-	background-color:rgb(204, 204, 204);
-	width:99.3%;
+	background-color:silver;
+	margin-bottom:1%;
+	width:97%;
 } 
 
 /* FOOTER */
@@ -3652,6 +3599,20 @@ div.menu_area {
 	border:0.1em solid grey;
 	padding:0.2em;
 }
+
+/* SEARCH RESULTS */
+div.search_results {
+	border:none; /* REMOVE THIS RULE ONCE THESE RULES ARE IN CORE CSS */
+	background-color:white; /* REMOVE THIS RULE ONCE THESE RULES ARE IN CORE CSS */
+	padding:0em; /* REMOVE THIS RULE ONCE THESE RULES ARE IN CORE CSS */
+	margin-top:1em;
+	clear:both;
+}
+
+/* SEARCH HIGHLIGHT */
+.search_highlight {
+	background-color:yellow;
+} 
 
 /* SPOILERS */
 .spoiler {
@@ -3888,6 +3849,22 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 * Move some buttons from the menu to the banner.
 * Syntax for page-to-page anchors inside pages.</div>
 
+=== Version 1.0 (under development)
+* _Interface:_
+** Added two non-breaking spaces after the debug Clear button for consistency.
+** Changed the styling of the debugger.
+** Now using [[http://sourceforge.net/projects/stickwiki/files/|Wiki on a Stick v0.12.0]] as the foundation for Book on a Stick.
+
+* _Content:_
+** Added a note to the [[Wiki::Utility::Diary]] page warning users that the [[Wiki::Utility::Diary|diary]] is broken in this version.
+** Added a note to the [[ToDo list]] page warning users that the [[ToDo list]] is broken in this version.
+** Added a note to the [[Sandbox]] page warning users that the [[ToDo list]] is broken in this version.
+** Added the [[Help::Embedding]] page, which needs to be rewritten.
+** Moved all pages in the *Utility::* namespace to the *Wiki::Utility::* namespace.
+** Removed the *WoaS::History* page.
+** Updated the [[Help::Namespaces]] page.
+** Updated the [[History]] page.
+
 === Version 0.9.1 released on April 30, 2010
 * _Interface:_
 ** Added an explanatory comment to the {{{#edit_page_title}}} CSS entry.
@@ -3914,7 +3891,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Changed level one headers to level three headers in the {{{woas["_get_namespace_pages"]}}} function so the headers will display without wrapping when used in a sub-menu.
 ** Changed level one header to level three header in the {{{woas["_get_tagged"]}}} function so the header will display without wrapping when used in a sub-menu.
 ** Implemented [[http://sourceforge.net/mailarchive/forum.php?thread_name=DEEC0681896E474FB601D5CEB01A8677360769%40pxs-01.PimaroX.local&forum_name=stickwiki-devel|FBNil's]] syntax for checkboxes and checkbox tests in the [[Special::Options]] page.
-** Now using [[http://sourceforge.net/projects/stickwiki/files/|Wiki on a Stick v0.10.5]] as the foundation for Book on a Stick!
+** Now using [[http://sourceforge.net/projects/stickwiki/files/|Wiki on a Stick v0.10.5]] as the foundation for Book on a Stick.
 ** Removed core styling from the {{{Edit menu}}} and {{{Edit sub-menu}}} buttons.
 ** Renamed the *sort* editor button to *Sort*.
 ** Renamed the *Tag* editor button to *Tags*.
@@ -3942,7 +3919,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Added the [[Template::Icon::Password]] page.
 ** Added the [[Template::Icon::Up]] page.
 ** Added the [[Template::Info]] page.
-** Added the [[Utility::Diary]] page (created by *FBNili*).
+** Added the [[Wiki::Utility::Diary]] page (created by *FBNili*).
 ** Removed the *Changes* page.
 ** Removed the *Help::Embed web page* page.
 ** Removed the namespace from the title at the top of *Help* pages.
@@ -3991,7 +3968,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the [[Help::Transclusion]] page.
 ** Updated the [[Help::Word count]] page.
 ** Updated the [[History]] page.
-** Updated the [[Utility::Word count]] page.
+** Updated the [[Wiki::Utility::Word count]] page.
 ** Updated the [[Special::About]] page, changing the accepted syntax reference from "Creole 0.1" to "some Creole 0.1".
 
 <!-- ============================================================================================================================================================================================= -->
@@ -4097,7 +4074,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the [[Help::Transclusion]] page.
 ** Updated the [[Help::Word count]] page.
 ** Updated the [[History]] page.
-** Updated the [[Utility::Links for writers]] page.
+** Updated the [[Wiki::Utility::Links for writers]] page.
 ** Updated the [[Help::Word count]] page.
 <!-- ============================================================================================================================================================================================= -->
 === Version 0.8 released on December 08, 2009
@@ -4165,8 +4142,8 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the [[Help::Word count]] page.
 ** Updated the [[Special::About]] page.
 ** Updated the [[Special::Advanced]] page.
-** Updated the [[Utility::Word count]] page.
-** Updated the [[Utility::Word frequency]] page.
+** Updated the [[Wiki::Utility::Word count]] page.
+** Updated the [[Wiki::Utility::Word frequency]] page.
 <!-- ============================================================================================================================================================================================= -->
 === Version 0.7 released on November 18, 2009
 * _Interface:_
@@ -4201,7 +4178,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Added the [[Help::Navigation]] page.
 ** Added the [[Help::Spoilers]] page.
 ** Added the [[Help::Syntax]] page.
-** Added the [[Utility::Word frequency]] page.
+** Added the [[Wiki::Utility::Word frequency]] page.
 ** Removed the *About this wiki* footer.
 ** Removed the *Getting Started* page.
 ** Removed the *Help::Embed a file* page.
@@ -4211,9 +4188,9 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Removed the *Word count button* page.
 ** Renamed the *Help::Footers* page to [[Help::Footer]].
 ** Renamed the *Help::Page tags* page to [[Help::Tags]].
-** Renamed the *Links for writers* page to [[Utility::Links for writers]].
+** Renamed the *Links for writers* page to [[Wiki::Utility::Links for writers]].
 ** Renamed the [[Main Page]] to *Main page* (changing its case).
-** Renamed the *Said* page to [[Utility::Said]].
+** Renamed the *Said* page to [[Wiki::Utility::Said]].
 ** Updated the content of the *footer*.
 ** Updated the [[Example::Overview]] page.
 ** Updated the [[Help::Bugs]] page.
@@ -4241,7 +4218,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the [[Special::Search]] page with code provided by [[http://woas.iragan.com/viewtopic.php?id=561|FBnil]].
 ** Updated the text on menu buttons so the letters are mixed case.
 ** Updated the *Utility::Buttons* page.
-** Updated the [[Utility::Links for writers]] page.
+** Updated the [[Wiki::Utility::Links for writers]] page.
 <!-- ============================================================================================================================================================================================= -->
 === Version 0.6 released on October 27, 2009
 * _Interface:_
@@ -6489,7 +6466,8 @@ If you deleted the include link for the default *Links for writers* and would li
 # Click the *Edit menu* button in the menu, or double-click inside the menu to edit it.<br><br>
 # Type this code at the top of the menu:<pre style="background-color:gainsboro">[\
 [Inclu\
-de::Utili\
+de::Boa\
+S::Utili\
 ty::Li\
 nks for wri\
 ters]\
@@ -6699,7 +6677,7 @@ These namespaces are reserved by the wiki for use by the user:
 These namespaces are reserved by the wiki for use by the wiki and by the user:
 * *Help::* for wiki documentation
 * *Template::* for transclusion templates
-* *Utility::* for utilities added by Little Girl
+* *Wiki::* for utilities
 
 === Namespace sub-menu
 If you add *::Menu* to the end of a page name, a sub-menu will be temporarily added to the main menu when any pages belonging to that page's namespace are opened (for example, see [[Example::Menu]]). You can determine what goes into that temporary menu entry by editing the page with *::Menu* in its name. All content on the page will be displayed in the main menu, and text will be automatically wrapped for you. The menu will vanish as soon as you navigate away from that namespace.
@@ -7291,10 +7269,10 @@ woas.page.boundary: DFQRCTsKlU
 [[Special::TOC]]
 = Word count
 == Word count utility
-The [[Utility::Word count]] page contains a utility you can use to count words. Paste your content into the box and press the *Count* button. Press the *Clear* button to clear the box before pasting more content in. Put a link to the word count utility anywhere on a page by pasting {{{[[Utility::Word count]]}}} wherever you like.
+The [[Wiki::Utility::Word count]] page contains a utility you can use to count words. Paste your content into the box and press the *Count* button. Press the *Clear* button to clear the box before pasting more content in. Put a link to the word count utility anywhere on a page by pasting {{{[[Wiki::Utility::Word count]]}}} wherever you like.
 
 == Word frequency utility
-The [[Utility::Word frequency]] page contains a utility you can use to count the frequency of use of words. Paste your content into the box and press the *Calculate* button. Press the *Clear* button to clear the box before pasting more content in. Put a link to the word frequency utility anywhere on a page by pasting {{{[[Utility::Word frequency]]}}} wherever you like.
+The [[Wiki::Utility::Word frequency]] page contains a utility you can use to count the frequency of use of words. Paste your content into the box and press the *Calculate* button. Press the *Clear* button to clear the box before pasting more content in. Put a link to the word frequency utility anywhere on a page by pasting {{{[[Wiki::Utility::Word frequency]]}}} wherever you like.
 
 == Word count button
 Put a word count button anywhere on a page by pasting its code wherever you like. The count is relatively accurate, although I recommend copying and pasting the text into a word processor for verification.
@@ -7347,7 +7325,7 @@ This page is for trying out new things without having to create a new page.
 [[Include::Template::TODO|this|Delete this task from the Sandbox page to remove it from the ToDo list.]]
 
 --DFQRCTsKlU
-woas.page.title: Utility::Links for writers
+woas.page.title: Wiki::Utility::Links for writers
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -7361,16 +7339,16 @@ woas.page.boundary: DFQRCTsKlU
 ** *Research*
 *** [[http://www.webster.com/|Dictionary]]
 *** [[http://www.google.com|Google]]
-*** [[Utility::Said|Said]]
+*** [[Wiki::Utility::Said|Said]]
 *** [[http://www.bartleby.com/141/|The Elements of Style]]
 *** [[http://www.holtuncensored.com/hu/the-ten-mistakes/|The Ten Mistakes]]
 *** [[http://thesaurus.reference.com/|Thesaurus]]
 *** [[http://www.wikipedia.org/|Wikipedia]]
 ** *Word count*
-*** [[Utility::Word count|Word count utility]]
-*** [[Utility::Word frequency|Word frequency]]
+*** [[Wiki::Utility::Word count|Word count utility]]
+*** [[Wiki::Utility::Word frequency|Word frequency]]
 --DFQRCTsKlU
-woas.page.title: Utility::Said
+woas.page.title: Wiki::Utility::Said
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -7429,7 +7407,7 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 <span title="%2" class="tooltip">%1</span>
 --DFQRCTsKlU
-woas.page.title: Utility::Word count
+woas.page.title: Wiki::Utility::Word count
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -7447,7 +7425,7 @@ function clearit(){var formcontent=document.wordcount.wordcount2.value; document
 <div>&nbsp;&nbsp;&nbsp;<input type="button" value="Count" onClick="countit()"> <input type="text" name="wordcount3" size="4"> <input type="button" value="Clear" onClick="clearit()">
 &nbsp;&nbsp;&nbsp;<font face="arial" size="-2">This free script provided by</font> <font face="arial, helvetica" size="-2"><a href="http://javascriptkit.com">JavaScript Kit</a></font></div></form>
 --DFQRCTsKlU
-woas.page.title: Utility::Word frequency
+woas.page.title: Wiki::Utility::Word frequency
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -8386,7 +8364,7 @@ It goes between the link above and the unfolded text you see when clicking the l
 [[Tags::Example]]
 
 --DFQRCTsKlU
-woas.page.title: Utility::Diary
+woas.page.title: Wiki::Utility::Diary
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -8502,5 +8480,68 @@ $HOME Main Page
 # Add {{{[[Include::$HOME]]}}} to any page to include the Main Page in the current page.
 
 [[Tags::Help]]
+
+--DFQRCTsKlU
+woas.page.title: Help::Embedding
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+[[Special::TOC]]
+= Embedding
+[[Include::Template::TODO|this|Rewrite this page since it was taken straight from the Feature::Summary page in WoaS.]]
+
+== Embedding
+You can embed text files and images within this wiki by creating a link and clicking it:
+# Use this code on a page, replacing FILENAME with the name of the file you'd like to embed:{{{
+[[File::FILENAME]]
+}}}This will create a link to a nonexistent page.
+# Click the [[Include::Template::Icon::Save]] icon in the menu to save the page.<br><br>
+# Click the link you just made.<br><br>
+# Use the *Embed file* interface to browse to the file and embed it into the wiki.
+Now the link you created will point to the embedded file.
+
+=== Files
+This is an example of an existing embedded file: [[File::life snippet.c]]
+This is an example of a not-yet-embedded file: [[File::report.log]]. You can embed the file when accessing the not-yet-existing page.
+
+You can also transclude an embedded file and its content will not be parsed as wiki source.
+
+=== Images
+You can include external images:
+
+<iframe src="http://weatherreports.com/banners/234x60_lblue.html?location=Rome_Fiumicino&units=C" width="234" height="60" frameborder="0" scrolling="no"></iframe>
+
+This is an example of an existing embedded image: [[Image::alert.png]]
+
+You can transclude such image using the wiki syntax {{{[[Include::Image::alert.png]]}}}, which results in:
+
+[[Include::Image::alert.png]]
+
+You can also specify additional attributes for the &lt;img /&gt; tag using a pipe '|' after the image name.
+For example, {{{[[Include::Image::alert.png|border="1" style="width:44px; height:44px"]]}}} results in:
+
+[[Include::Image::alert.png|border="1" style="width:44px; height:44px"]]
+
+This is an example of clickable image, rendered through the wiki syntax {{{[[Include::Image::alert.png|border="0" onclick="go_to('Image::alert.png')" style="cursor:pointer"]]}}}
+
+[[Include::Image::alert.png|border="0" onclick="go_to('Image::alert.png')" style="cursor:pointer"]]
+
+This is an example of not-yet-embedded image: [[Image::photo.jpg]]
+
+Remember that images are base64-encoded when embedded and become 33% bigger in size; it is suggested to not embed too much big images or files because they can slow down the application (remember that everything is contained in a single file), but that highly depends from the javascript engine of your browser.
+
+<!-- ADD THESE ONCE THE GO TO BUTTONS IS IN THE MENU:
+# Click the *Go to* button in the menu.<br><br>
+# Type this into the box, replacing FILENAME with the name of the file you'd like to embed:{{{
+File::FILENAME
+}}}
+# Click the *OK* button.<br><br>
+# Use the *Embed file* interface to browse to the file and embed it into the wiki.
+-->
+
+[[Tags::Help|ToDo]]
 
 --DFQRCTsKlU

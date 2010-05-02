@@ -159,7 +159,7 @@ table.woas_text_area,div.taglinks { }</style>
 <input class="boas_menu_button_half" value="Main page" onclick="go_to('Special::Main Page')" type="submit" /><input class="boas_menu_button_half" value="All pages" onclick="go_to('Special::All Pages')" type="submit" />
 <input class="boas_menu_button_half" value="About" onclick="go_to('Special::About')" type="submit" /><input class="boas_menu_button_half" value="Back links" onclick="go_to('Special::Backlinks')" type="submit" />
 <input class="boas_menu_button_half" value="Delete page" onclick="go_to('Special::Delete Page')" type="submit" /><input class="boas_menu_button_half" value="New page" onclick="go_to('Special::New Page')" type="submit" />
-<input class="boas_menu_button_half" value="Examples" onclick="go_to('Example::')" type="submit" /><input class="boas_menu_button_half" value="Utilities" onclick="go_to('Utility::')" type="submit" />
+<input class="boas_menu_button_half" value="Examples" onclick="go_to('Example::')" type="submit" /><input class="boas_menu_button_half" value="Utilities" onclick="go_to('Wiki::Utility::')" type="submit" />
 <input class="boas_menu_button_half" value="Search" onclick="go_to('Special::Search')" type="submit" /><input class="boas_menu_button_half" value="Help" onclick="go_to('Tagged::Help')" type="submit" />
 <!-- END MENU BUTTONS TOP -->
 <div class="wiki" id="menu_area" ondblclick="menu_dblclick()"></div>
@@ -234,9 +234,7 @@ Wiki Code:
 <div style="visibility: visible;" id="woas_debug_panel">
 <p>&nbsp;<span style="font-size: large; font-weight: bold;">Debug console</span>&nbsp;&nbsp;<input value="Toggle" onclick="$.toggle('woas_debug_console')" type="button" /></p>
 <p><span id="woas_debug_console" style="visibility: visible; display: inline;">
-<textarea style="display: inline; visibility: visible;" id="woas_debug_log" ondblclick="$('woas_debug_log').value=''" rows="12" readonly="readonly" cols="60"></textarea><br /><input onclick="$('woas_debug_log').value=''" value="Clear" type="button" />Press button or double-click log area to clear
-</span></p>
-</div>
+<textarea style="display: inline; visibility: visible;" id="woas_debug_log" ondblclick="$('woas_debug_log').value=''" rows="12" readonly="readonly" cols="60"></textarea><br /><input onclick="$('woas_debug_log').value=''" value="Clear" type="button" />&nbsp;&nbsp;Press button or double-click log area to clear.</span></p></div>
 <!-- END DEBUG CONSOLE -->
 <script type="text/javascript">
 //<![CDATA[
