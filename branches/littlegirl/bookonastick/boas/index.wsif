@@ -1478,7 +1478,11 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Namespaces
-When you create a page with double colons (*::*) as a separator in the page name, you are using a namespace to define parent and child pages. Sub-namespaces are created by adding more than one *::* separator to the page name. Each namespace or sub-namespace can have as many child pages under it as you like (within the resource limits of your hardware). The full path to each page is displayed in the navigation bar with links to its namespace and sub-namespace(s) in the title.
+When you create a page using the *::* separator in the page name, you will be using a *namespace* to define parent and child pages.
+
+Sub-namespaces are created by adding more than one *::* separator to the page name. Each namespace or sub-namespace can have as many child pages under it as you like (within the resource limits of your hardware).
+
+The full path to each page is displayed in the banner with the namespace and sub-namespace(s) displayed as clickable links which will open an automatically generated page listing all the pages in that namespace (or sub-namespace) for quick navigation.
 
 For example, let's say you have these pages:
 * {{{[[Recipes::Desserts]]}}}
@@ -1491,27 +1495,33 @@ For example, let's say you have these pages:
 
 If you open the {{{[[Recipes::Desserts::Cakes]]}}} page, the title contains links to *Recipes* and *Desserts*. The *Recipes* link opens a page listing all pages in the *Recipes::* namespace, and the *Desserts* link opens a page listing all pages in the *Desserts::* sub-namespace.
 
-=== Namespace sub-menu
-All pages in any namespace can be given a custom sub-menu by creating a *::Menu* page inside the namespace. A sub-menu will be temporarily added to the main menu when any pages belonging to that page's namespace are opened. You can determine what goes into the sub-menu by editing the page with *::Menu* in its name. The sub-menu will vanish as soon as you navigate away from its namespace.
-
-For example, if you create the {{{[[Recipes::Menu]]}}} page with *My favorite recipes!* as its content, then whenever you open a page in the {{{Recipes::}}} namespace, a sub-menu will appear with *My favorite recipes!* in it.
-
-<div style="background-color: #FFFFAA; border: 0.1em solid; padding: 0.2em;"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAMAAADXqc3KAAAAAXNSR0IArs4c6QAAArtQTFRF8ox%2FAAAAAAABAQEBAQECAgICAwMDBAQFBQUABgYGCQgJCgoLDAsMDQwPDQ0NDw4PDw8HEhETExMUFRQUGRkNGhsUGxscHx8eISATIR8lJCQVJiUsJyUqKCcuLCwtLiw0Ly4vMzE4NzYoQT9FQz9ERkZGSkdTS0hMTEhNUk5bU1JVY15kYWBkZWFubGh5bmt1cGt6c212cm5%2BcXFwfHaDfXxehoKQjIiUkYyfkoyllZKal5CpmJGqmJGrmZKtmpaim5WunJaunZewn5mxoJqyopquoZuxpJylopyyopy1pJ22pJ24pJ61pJ%2B1paC1pqC1qaC0pqG1qKG7qqKuqaKxqKK4paWkq6O7qaS3q6p%2BraW4rae6rKmvrqm1rqm6r6nDsKu1sKu9sKu%2Bs6yxs7GDsay9sq29s667tK7FuK%2FBtbDAtbDBt7HEubS%2BubTCurTKurXFvLqjvLfGvLjEv72LvL2VvbjLvr%2BPwL%2BKvbvBw7nHv7vDwMGHw7rHwb3Fwr3Lw8SQxb%2FRxsDRxsHMxcLGxsPLyMPQx8XKyMXIysuOycbIzMfVzcrMz8zU0NGi0czZ0M%2FL0c%2FL0c%2FN0s7X08%2FZ1NPN1ten1tTR1tXP19XS2tfc3Nyt3N2s3dni397W4N%2FX4N%2FZ4t7m4eDY4t%2Fm4eHY4uHb4uDl4uLX4%2BLa5OLo5OTb5ubd6OjJ6Ofh6erE6efr6efs6ujs6%2Bju6%2B3B6%2Brj6%2Bnt6%2Brl7O6%2F6%2Bvk7Ovr7Ovu7evu7vDC7ezv7e3p7u7p7%2B7w7%2B7x7%2B%2Fx8fPF8PDt8e%2F18fDs8fDy8fDz8%2FXC8fHx8%2FD38vLt8vLu8vL08%2FPt8%2FPu9PP09vjI9fXw9vX09vbx9%2FX59%2Fby9%2Fb39%2Ffx%2BPf4%2Bfj5%2Bfj6%2Bfnz%2Bfn1%2Bfr1%2B%2F7K%2Bvr2%2B%2Fr5%2FPr%2F%2B%2Fv7%2FP%2FR%2Ffv%2B%2Ffz9%2F%2F7%2FFnlyNwAAAAF0Uk5TAEDm2GYAAAABYktHRACIBR1IAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH2gMHDxg0DfX8UQAAAUBJREFUKM9jYCAIGBl5hLgYGTGEuXViWpvTzZVZUaUYFdofXzu4YW53o5kgsgyj3LIXFy8e2rphclaZBS%2BSDHvlsxvPb5%2FbtXFKQVyGHkKCUev08TtPbp3Yu7KtKMnfUxIuw2h19MCVu9dP7Z41c3qeR5AmXII1YdOuy%2Ffv3dyyZMfqLhdvA7gEZ%2BzC9UcePrp6%2Fuz%2B%2BdWOXiYIo%2Bz7F%2B%2B8cGb5qkUz6vxsww0REvpN9b3zjq3oKU7zcbLOVEdIyOSkZk%2FatrYj1NfZNiCYH8mDuvmB1Qv2TYxwsHGt0kDyICObUXz01KUT3OyiarVRAouJWc0ysSU3JNldBT18mYUL16ybXaHEiBkfNQ%2B290WKyGNKNFzaMy1FQhZTovzp4TklUtKYEp0nN5eaCihiSPBxiIapMopjSw5iLIzGhBMNAHCEbLFZHo5dAAAAAElFTkSuQmCC" alt="Info" border="0" /> Sub-menus work the same way menus do. For more information on menus, see the [[Wiki::Help::Edit the menu]] page.</div>
 == Reserved namespaces
 Some namespaces are reserved by the wiki for its own internal use or for specific use by the user:
-* *File::* for embedded files
-* *Image::* for embedded images
-* *Include::* for transclusion
-* *Javascript::* for direct JavaScript execution
-* *Lock::* used internally for encrypted pages
-* *Locked::* for encrypted pages
-* *::Menu* for sub-menus
-* *Special::* for all the special pages
-* *Tagged::* for all the tagged pages
-* *Tags::* for tagging pages
-* *Unlock::* used internally for encrypted pages
-* *Unlocked::* for plain (unencrypted) pages
-* *WoaS::* for core WoaS pages
+
+{| class="shadesofblue"
+| =Namespace || =Purpose
+| *File::* || For embedded [[File::|files]].
+| *Image::* || For embedded [[Image::|images]].
+| *Include::* || For [[Wiki::Help::Transclusion|transclusion]].
+| *Javascript::* || For direct [[Wiki::Help::JavaScript|JavaScript]] execution.
+| *Lock::* || Used internally for [[Wiki::Help::Security|encrypted]] pages.
+| *Locked::* || For [[Wiki::Help::Security|encrypted]] pages.
+| *::Menu* || For sub-menus.
+| *Special::* || For [[Special::|special]] pages.
+| *Tagged::* || For [[Tagged::|tagged]] pages.
+| *Tags::* || For [[Wiki::Help::Tags|tagging]] pages.
+| *Unlock::* || Used internally for [[Wiki::Help::Security|encrypted]] pages.
+| *Unlocked::* || For plain (unencrypted) pages.
+| *Wiki::* || For [[Wiki::Example::|examples]], [[Wiki::Help::|help pages]], [[Help::Transclusion|transclusion templates]], and [[Wiki::Utility::|utilities]].
+| *WoaS::* || For [[WoaS::Aliases|aliases]], [[WoaS::CSS::|CSS]], [[WoaS::Hotkeys|hotkeys]], [[WoaS::Plugins|plug-ins]], and some soon-to-be-deprecated [[WoaS::Template::|templates]].
+|}
+== Namespace sub-menu
+All pages in any namespace can be given a custom sub-menu by creating a *::Menu* page inside the namespace. A sub-menu will be temporarily added beneath the main menu when any page belonging to that page's namespace are opened. You can determine what goes into the sub-menu by editing the page with *::Menu* in its name. The sub-menu will vanish as soon as you navigate away from its namespace.
+
+For example, if you create the {{{[[Recipes::Menu]]}}} page with *My favorite recipes!* as its content, then whenever you open any page in the {{{Recipes::}}} namespace, *My favorite recipes!* will be displayed in the sub-menu.
+
+[[Include::Wiki::Template::Info|Note that this will only work on namespaces. It will not work on sub-namespaces.]]
+Sub-menus work the same way as menus do. For more information on menus, see the [[Wiki::Help::Edit the menu]] page.
 
 --DFQRCTsKlU
 woas.page.title: Wiki::Help::Text formatting
@@ -3668,15 +3678,6 @@ $HOME  Main Page
 # Add {{{[[include::$HOME]]}}} to any page to include the Main Page in the current page.
 
 --DFQRCTsKlU
-woas.page.title: WoaS::Bootscript
-woas.page.attributes: 4
-woas.page.encoding: 8bit/base64
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-Ly8gUHV0IHlvdXIgYm9vdCBKYXZhU2NyaXB0IGhlcmU=
---DFQRCTsKlU
 woas.page.title: History
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
@@ -3717,23 +3718,27 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Moved the Help pages from the *WoaS::Help::* namespace to the *Wiki::Help::* namespace.
 ** Removed references to the *ToDo list* from the Features section of the [[Special::About]] page.
 ** Removed the *Example::Menu* page.
+** Removed the *Help::Namespaces* page.
 ** Removed the *Help::ToDo list* page and any ToDo items in the wiki.
 ** Removed the *ToDo list* page.
 ** Removed the *Wiki::Template::TODO* page.
+** Removed the *WoaS::Bootscript* page.
 ** Removed the *WoaS::History* page.
 ** Renamed the *Help::Backup* page to [[Wiki::Help::Backup]].
+** Renamed the *Help::Bluebox* page to [[Wiki::Help::Bluebox]].
 ** Renamed the *Help::Cancel any action* page to [[Wiki::Help::Cancel any action]].
 ** Renamed the *Help::Footnotes* page to [[Wiki::Help::Footnotes]].
 ** Updated the [[Help::Edit a page]] page.
 ** Updated the [[Help::Include wiki page]] page.
-** Updated the [[Help::Namespaces]] page.
 ** Updated the [[Help::Transclusion]] page.
 ** Updated the [[History]] page.
 ** Updated the [[Wiki::Example::Table of Contents]] page.
-** Updated the [[WoaS::CSS::Core]] page.
-** Updated the [[WoaS::CSS::Custom]] page.
+** Updated the [[Wiki::Help::Bluebox]] page.
 ** Updated the [[Wiki::Help::Footnotes]] page.
 ** Updated the [[Wiki::Help::Index]] page.
+** Updated the [[Wiki::Help::Namespaces]] page.
+** Updated the [[WoaS::CSS::Core]] page.
+** Updated the [[WoaS::CSS::Custom]] page.
 
 === Version 0.9.1 released on April 30, 2010
 * _Interface:_
@@ -3822,7 +3827,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the [[Help::Join lines of text]] page.
 ** Updated the [[Help::Links]] page.
 ** Updated the [[Help::Lists]] page.
-** Updated the [[Help::Namespaces]] page.
+** Updated the *Help::Namespaces* page.
 ** Updated the [[Help::Navigation]] page.
 ** Updated the [[Help::Page creation]] page.
 ** Updated the [[Help::Page scrolling]] page.
@@ -3872,7 +3877,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Added the *Changes* page, thanks to code contributed by [[http://woas.iragan.com/viewtopic.php?pid=1585#p1585|FBNil]].
 ** Added the *Example::Bluebox* page.
 ** Added the *Example::Folding page button (HTML)* page.
-** Added the [[Help::Bluebox]] page to explain how to use Bluebox, which was contributed by *FBNil*, to create styled presentations of your stories.
+** Added the [[Wiki::Help::Bluebox]] page to explain how to use Bluebox, which was contributed by *FBNil*, to create styled presentations of your stories.
 ** Added the [[Help::Include web page]] page.
 ** Added the [[Help::Folds]] page.
 ** Added the *Help::ToDo list* page with instructions on how to use the *ToDo list* page.
@@ -3891,7 +3896,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Removed the *Syntax* page and put its contents into the *Help::Syntax* page.
 ** Removed the *Utilities* page since it's generated automatically by the *Utilities* button in the menu.
 ** Removed the *Utility::Buttons* page.
-** Renamed the *Help::Parent and child pages* page to [[Help::Namespaces]].
+** Renamed the *Help::Parent and child pages* page to *Help::Namespaces*.
 ** Renamed the *Template::Fold* page to *Template::Foldtext*.
 ** Renamed the *Wiki::Tools* page to *Template::Icon::Advanced*.
 ** Renamed the *Wiki::Alert* page to *Template::Icon::Alert*.
@@ -4678,7 +4683,6 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 = Cancel any action
 Cancel any action by clicking the [[Include::Wiki::Template::Icon::Cancel]] icon in the banner, clicking the *Cancel* button on any alert that pops up, or pressing the *Esc* key.
-[[Tags::Help]]
 
 --DFQRCTsKlU
 woas.page.title: Help::Change wiki settings
@@ -6507,54 +6511,6 @@ If you accidentally created a page without naming it, or if you accidentally del
 [[Tags::Help]]
 
 --DFQRCTsKlU
-woas.page.title: Help::Namespaces
-woas.page.attributes: 0
-woas.page.encoding: 8bit/plain
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-= Namespaces
-When you create a page and use the *::* separator in the page name, you will be using a *namespace* to define parent and child pages. For example, {{{[[MyPages::Page One]]}}} and {{{[[MyPages::Page Two]]}}} both belonging to the {{{[[MyPages::]]}}} namespace.
-
-You can also use sub-namespaces, like {{{[[MyPages::Recipes::Desserts::]]}}}.
-* *MyPages::* is the namespace.
-* *Recipes::* is a sub-namespace of *MyPages::*.
-* *Desserts::* is a sub-namespace of *Recipes::*.
-[[Include::Wiki::Template::Info|Each namespace can have as many child pages under it as you like (within the resource limits of your hardware).]]
-An advantage of creating parent and child pages is that the full path to each page is displayed in the banner, so when you're on any page in a particular namespace, the parent page name will be in the banner with the namespace (and sub-namespace, if the page has one) as a clickable link which will open an automatically generated page listing all the pages in that namespace (or sub-namespace) for quick navigation.
-
-== Namespaces reserved by this wiki for use by the wiki
-{| class="shadesofblue"
-| =Namespace || =Purpose
-| *File::* || For embedded files.
-| *Image::* || For embedded images.
-| *Lock::* || Used internally for encrypted pages.
-| *Locked::* || For encrypted pages.
-| *Special::* || For special pages.
-| *Tagged::* || For tagged pages.
-| *Tags::* || For tagging pages.
-| *Unlock::* || Used internally for encrypted pages.
-| *Unlocked::* || For plain (unencrypted) pages.
-| *Wiki::* || For wiki examples, [[Help::Transclusion|transclusion]] templates, and utilities.
-| *WoaS::* || For the bootscript page, the help pages, and reserved for future use.
-|}
-
-=== Namespace sub-menu
-If you have a namespace and add a *::Menu* page in the namespace, a sub-menu will be temporarily added to the main menu when any pages belonging to that namespace are opened. You can determine what goes into that sub-menu by editing the page with *::Menu* in its name. All content on the page will be displayed in the sub-menu beneath the main menu, and text will be automatically wrapped for you. The menu will vanish as soon as you navigate away from that namespace.
-
-For example, if you have these pages:
-* {{{[[Recipes::Menu]]}}}
-* {{{[[Recipes::Desserts]]}}}
-* {{{[[Recipes::Main dishes]]}}}
-* {{{[[Recipes::Side dishes]]}}}
-* {{{[[Recipes::Soups]]}}}
-You can type *My favorite recipes!* into the {{{[[Recipes::Menu]]}}} page, and any time you open any of the Recipes pages, *My favorite recipes!* will appear in the sub-menu of the main menu.
-
-[[Include::Wiki::Template::Info|Note that this will only work on namespaces. It will not work on sub-namespaces.]]
-[[Tags::Help]]
-
---DFQRCTsKlU
 woas.page.title: Help::Print a page
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
@@ -7566,7 +7522,7 @@ When they left the castle the next day to return to the prince's home, they were
 </div>
 
 --DFQRCTsKlU
-woas.page.title: Help::Bluebox
+woas.page.title: Wiki::Help::Bluebox
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -7591,42 +7547,39 @@ This is a presentation method you can use for displaying your stories in style.
 ** tooltips
 </div>
 To use the Bluebox styled presentation:
-# Start by using this code on a line in a page:{{{
+# Start by using this code on a line in a page:<br><br>{{{
 <div class=bluebox>
-}}}
-# On the next line, type the title of your story, surrounded by HTML level 1 header tags, like this:{{{
+}}}<br>
+# On the next line, type the title of your story, surrounded by HTML level 1 header tags, like this:<br><br>{{{
 <h1>The title goes here</h1>
-}}}
-# Start the next line with an HTML paragraph opening tag, like this:{{{
+}}}<br>
+# Start the next line with an HTML paragraph opening tag, like this:<br><br>{{{
 <p>
-}}}
-# Next to that, type the first word, surrounding the first letter with HTML span tags, like this:{{{
+}}}<br>
+# Next to that, type the first word, surrounding the first letter with HTML span tags, like this:<br><br>{{{
 <span class="first-letter">Y</span>our 
-}}}
+}}}<br>
 # Then add a space and type the rest of the paragraph normally.<br><br>
-# Close the paragraph with an HTML paragraph closing tag, like this:{{{
+# Close the paragraph with an HTML paragraph closing tag, like this:<br><br>{{{
 </p>
-}}}
+}}}<br>
 # Give each paragraph opening and closing HTML paragraph tags, or surround the entire story in one set of HTML paragraph tags, using HTML line-break ({{{<br>}}}) tags to separate the individual paragraphs.<br><br>
-# Finish off the Bluebox styled presentation by typing an HTML closing div tag on the final line, like this:{{{
+# Finish off the Bluebox styled presentation by typing an HTML closing div tag on the final line, like this:<br><br>{{{
 </div>
 }}}
 
-&nbsp;
-To put all of that together in its simplest form, you would type this:{{{
+To put all of that together in its simplest form, you would type this:<br><br>{{{
 <div class=bluebox>
 <h1>Your title goes here</h1>
 <p><span class="first-letter">Y</span>our text goes here.</p>
 </div>
-}}}To create this:
+}}}<br>To create this:
 <div class=bluebox>
 <h1>Your title goes here</h1>
 <p><span class="first-letter">Y</span>our text goes here.</p>
 </div>
 
 For a better example, see the [[Wiki::Example::Bluebox]] page.
-
-[[Tags::Help]]
 
 --DFQRCTsKlU
 woas.page.title: Wiki::Template::Foldtext

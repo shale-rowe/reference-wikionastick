@@ -976,3 +976,10 @@ NOW WORKING ON BOAS 1.0
 * Moved the Help pages from the WoaS::Help:: namespace to the Wiki::Help:: namespace.
 * Updated the [[Wiki::Help::Index]] page.
 ======================================================================================================================
+* Removed the [[Help::Namespaces]] page.
+* Removed the tag from the [[Wiki::Help::Cancel any action]] page.
+* Removed the [[WoaS::Bootscript]] page.
+* Renamed the [[Help::Bluebox]] page to [[Wiki::Help::Bluebox]].
+* Updated the [[Wiki::Help::Bluebox]] page.
+* Updated the [[Wiki::Help::Namespaces]] page.
+======================================================================================================================
