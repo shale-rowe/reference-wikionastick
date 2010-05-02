@@ -484,15 +484,21 @@ woas._native_page_def = function(path,ct,p,last_p,overwrite,pre_import_hook, tit
 	// last modified timestamp can be omitted
 	if (last_mod === null)
 		last_mod = 0;
-	var fail = false;
 	// attributes must be defined
 	if (attrs === null) {
-		log("No attributes defined for page "+title);	//log:1
-		fail = true;
+		woas.log("No attributes defined for page "+title);	//log:1
+//		fail = true;
 		// continue parsing
 		return last_p;
 	}
-
+	// disposition must be defined
+	if (disposition === null) {
+		woas.log("No disposition defined for page \""+title+"\"");	//log:1
+//		fail = true;
+		// continue parsing
+		return last_p;
+	}
+	var fail = false;
 	switch (disposition) {
 		case "inline":
 		// craft the exact boundary match string
