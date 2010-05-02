@@ -277,9 +277,9 @@ woas._native_wsif_load = function(path, locking, overwrite, and_save, recursing,
 	var imported = [];
 	var pfx = "\nwoas.page.", pfx_len = pfx.length;
 	// start looping to find each page
-	var p = ct.indexOf(pfx), fail = false;
+	var p = ct.indexOf(pfx), fail = false,
 	// this is used to mark end-of-block
-	var previous_h = null;
+		previous_h = null;
 	// too early failure
 	if (p == -1)
 		this.wsif_error("Invalid WSIF file");
@@ -313,11 +313,11 @@ woas._native_wsif_load = function(path, locking, overwrite, and_save, recursing,
 		d_fn = null,
 		boundary = null,	mime = null;
 	// position of last header end-of-line
-	while (p != -1) {
+	while (p !== -1) {
 		var sep, s, v;
 		// remove prefix
 		sep = ct.indexOf(":", p+pfx_len);
-		if (sep == -1) {
+		if (sep === -1) {
 			this.wsif_error(this.i18n.WSIF_NO_HN);
 			fail = true;
 			break;
@@ -465,25 +465,10 @@ woas._native_wsif_load = function(path, locking, overwrite, and_save, recursing,
 	return 0;
 };
 
-woas._last_filename = null;
-
-woas._get_path = function(id) {
-	if (this.browser.firefox3 || this.browser.firefox_new)
-		return this.dirname(ff3_getPath($(id)));
-	// use the last used path
-	if (this.browser.opera)
-		return this.dirname(this._last_filename);
-	// on older browsers this was allowed
-	return this.dirname($(id).value);
-};
-
 woas._native_page_def = function(path,ct,p,last_p,overwrite,pre_import_hook, title,attrs,last_mod,len,encoding,
 											disposition,d_fn,boundary,mime) {
 	this.wsif.imported_page = false;
 	var bpos_e, page;
-	// last modified timestamp can be omitted
-	if (last_mod === null)
-		last_mod = 0;
 	// attributes must be defined
 	if (attrs === null) {
 		woas.log("No attributes defined for page "+title);	//log:1
@@ -498,7 +483,10 @@ woas._native_page_def = function(path,ct,p,last_p,overwrite,pre_import_hook, tit
 		// continue parsing
 		return last_p;
 	}
-	var fail = false;
+	// last modified timestamp can be omitted
+	if (last_mod === null)
+		last_mod = 0;
+	var fail = false; // used only for 'inline'
 	switch (disposition) {
 		case "inline":
 		// craft the exact boundary match string
@@ -539,12 +527,12 @@ woas._native_page_def = function(path,ct,p,last_p,overwrite,pre_import_hook, tit
 		} else if (attrs & 8) { // embedded image, not encrypted
 			// NOTE: encrypted images are not obviously processed, as per previous 'if'
 			if (encoding != "8bit/base64") {
-				log("Image "+title+" is not encoded as 8bit/base64");	//log:1
+				woas.log("Image "+title+" is not encoded as 8bit/base64");	//log:1
 				fail = true;
 				break;
 			}
 			if (mime === null) {
-				log("Image "+title+"has no mime type defined");		//log:1
+				woas.log("Image "+title+"has no mime type defined");		//log:1
 				fail = true;
 				break;
 			}
@@ -603,7 +591,7 @@ woas._native_page_def = function(path,ct,p,last_p,overwrite,pre_import_hook, tit
 		}
 		// embedded image/file, not encrypted
 		if ((attrs & 4) || (attrs & 8)) {
-			if (encoding != "8bit/plain") {
+			if (encoding !== "8bit/plain") {
 				this.wsif_error( "Page "+title+" is an external file/image but not encoded as 8bit/plain");
 				return -1;
 			}
@@ -642,6 +630,8 @@ woas._native_page_def = function(path,ct,p,last_p,overwrite,pre_import_hook, tit
 		this.wsif_error( "Page "+title+" has invalid disposition: "+disposition);
 		return -1;
 	} // end of switch
+
+	// we do not check the 'fail' status because it is handled inside the 'inline' case label
 
 	// check if we need to call the pre-import hook
 	if (typeof pre_import_hook == "function") {
@@ -685,4 +675,16 @@ woas._native_page_def = function(path,ct,p,last_p,overwrite,pre_import_hook, tit
 woas.wsif_error = function(msg) {
 	log("WSIF ERROR: "+msg);	//log:1
 	this.wsif.emsg = msg;
+};
+
+woas._last_filename = null;
+
+woas._get_path = function(id) {
+	if (this.browser.firefox3 || this.browser.firefox_new)
+		return this.dirname(ff3_getPath($(id)));
+	// use the last used path
+	if (this.browser.opera)
+		return this.dirname(this._last_filename);
+	// on older browsers this was allowed
+	return this.dirname($(id).value);
 };
