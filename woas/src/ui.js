@@ -10,7 +10,53 @@ woas.ui = {
 	},
 	blur_textbox: function() { // called when a textbox looses focus
 		this._textbox_focus = false;
+		// reset event handler
+		this._textbox_enter_event = this._textbox_enter_event_dummy;
+	},
+	// event (to be overriden) to run in case of enter key pressed
+	// for example, searching
+	_textbox_enter_event_dummy: function() {
+	},
+	_textbox_enter_event: this._textbox_enter_event_dummy,
+	_keyboard_event_hook: function(orig_e) {
+		if (!orig_e)
+			e = window.event;
+		else
+			e = orig_e;
+		
+		if (!this.kbd_hooking) {
+			// there is a custom focus active, just return the event
+			if (_custom_focus)
+				return orig_e;
+			if (this._textbox_focus) {
+				// return key
+				if (e.keyCode==13) {
+					// clear focus
+					ff_fix_focus();
+					// run attached event
+					(this._textbox_enter_event)();
+					return false;
+				}
+				return orig_e;
+			}
+			// back or cancel keys
+			if ((e.keyCode==woas.hotkeys.back) || (e.keyCode==woas.hotkeys.cancel)) {
+				go_back();
+				ff_fix_focus();
+				return false;
+			}
+		}
+
+		// escape
+		if (e.keyCode==woas.hotkeys.cancel) {
+			cancel();
+			ff_fix_focus();
+			return false;
+		}
+
+		return orig_e;
 	}
+
 };
 
 // when home is clicked
@@ -221,6 +267,7 @@ function edit_ns_menu() {
 
 /** Used by search box **/
 
+//FIXME: this is entirely a bad hack
 function menu_search_focus(f) {
 	if (f) {
 		if (current == "Special::Search") {
@@ -611,9 +658,10 @@ function clear_search() {
 }
 
 function search_focus(focused) {
-	if (focused)
+	if (focused) {
+		woas.ui._textbox_enter_event = do_search;
 		woas.ui.focus_textbox();
-	else {
+	} else {
 		woas.ui.blur_textbox();
 		ff_fix_focus();
 	}
@@ -638,42 +686,6 @@ function custom_focus(focused) {
 	_custom_focus = focused;
 	if (!focused)
 		ff_fix_focus();
-}
-
-function kbd_hook(orig_e) {
-	if (!orig_e)
-		e = window.event;
-	else
-		e = orig_e;
-		
-	if (!woas.ui.kbd_hooking) {
-		if (_custom_focus)
-			return orig_e;
-		if (woas.ui._textbox_focus) {
-			// return key
-			if (e.keyCode==13) {
-				ff_fix_focus();
-				do_search();
-				return false;
-			}
-			return orig_e;
-		}
-		// back or cancel keys
-		if ((e.keyCode==woas.hotkeys.back) || (e.keyCode==woas.hotkeys.cancel)) {
-			go_back();
-			ff_fix_focus();
-			return false;
-		}
-	}
-
-	// escape
-	if (e.keyCode==woas.hotkeys.cancel) {
-		cancel();
-		ff_fix_focus();
-		return false;
-	}
-
-	return orig_e;
 }
 
 var _servm_shown = false;
