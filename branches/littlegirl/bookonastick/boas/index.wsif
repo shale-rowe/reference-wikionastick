@@ -1114,16 +1114,17 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Delete a page
-# *From the menu:*<br><br>
-## Click the *Delete Page* link in the menu while displaying the page you wish to delete, or click it from any page and type in the name of the page you wish to delete.<br><br>
-## You'll be asked for confirmation.<br><br>
-## When the page is deleted, you'll be returned to the page you were on before deleting the page.<br><br>
-## You may have to remove any links to the deleted page from the menu or other pages.<br><br>
-# *From the editor:*<br><br>
-## Click the *Edit* icon in the navigation bar.<br><br>
-## Select everything inside the main text area and delete it.<br><br>
-## Save your changes by clicking the *Save* icon in the navigation bar.<br><br>
-## Edit the menu to remove the link to the deleted page if it isn't removed automatically.
+== From the menu
+# Click the *Delete page* button in the menu while displaying the page you wish to delete, or click it from any page and type in the name of the page you wish to delete.<br><br>
+# You'll be asked for confirmation.<br><br>
+# When the page is deleted, you'll be returned to the page you were on before deleting the page.<br><br>
+# You may have to remove any links to the deleted page from the menu or other pages.<br><br>
+
+== From the editor
+# Click the [[Include::Wiki::Template::Icon::Edit]] icon in the banner.<br><br>
+# Select everything inside the main text area and delete it.<br><br>
+# Save your changes by clicking on the [[Include::Wiki::Template::Icon::Save]] icon in the banner.<br><br>
+# Edit the menu to remove the link to the deleted page if it isn't removed automatically.
 
 --DFQRCTsKlU
 woas.page.title: Wiki::Help::Edit a page
@@ -1268,9 +1269,9 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Include text file
-<div class="woas_helptext">Use this code in a page, replacing PATH with the full path to the file:</div><br>{{{
+<div class="wikihelptext">Use this code in a page, replacing PATH with the full path to the file:</div><br>{{{
 <iframe height="400" width="100%" src="file:///PATH"></iframe>
-}}}<br><div class="woas_helptext">To include a text file in the page inside an iFrame.</div>
+}}}<br><div class="wikihelptext">To include a text file in the page inside an iFrame.</div>
 * *Linux example:*<br><br>{{{
 <iframe height="400" width="100%" src="file:///home/username/Desktop/file.txt"></iframe>
 }}}<br>
@@ -3715,9 +3716,11 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Moved the Help pages from the *WoaS::Help::* namespace to the *Wiki::Help::* namespace.
 ** Removed references to the *ToDo list* from the Features section of the [[Special::About]] page.
 ** Removed the *Example::Menu* page.
+** Removed the *Help::Delete a page* page.
 ** Removed the *Help::Erase all pages* page.
 ** Removed the *Help::Export* page.
 ** Removed the *Help::Headers* page.
+** Removed the *Help::Include text file* page.
 ** Removed the *Help::Join lines of text* page.
 ** Removed the *Help::Namespaces* page.
 ** Removed the *Help::Non-breaking spaces* page.
@@ -3735,6 +3738,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Renamed the *Help::Cancel any action* page to [[Wiki::Help::Cancel any action]].
 ** Renamed the *Help::Change wiki settings* page to [[Wiki::Help::Change wiki settings]].
 ** Renamed the *Help::Footnotes* page to [[Wiki::Help::Footnotes]].
+** Renamed the *Help::Horizontal rules (lines)* page to [[Wiki::Help::Horizontal rules (lines)]].
 ** Renamed the *Help::Navigation* page to [[Wiki::Help::Navigation]].
 ** Renamed the *Help::Print a page* page to [[Wiki::Help::Print a page]].
 ** Renamed the *Help::Spoilers* page to [[Wiki::Help::Spoilers]].
@@ -3758,10 +3762,12 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the [[Wiki::Example::Folding page styled button (HTML)]] page.
 ** Updated the [[Wiki::Example::Table of Contents]] page.
 ** Updated the [[Wiki::Help::Bluebox]] page.
+** Updated the [[Wiki::Help::Delete a page]] page.
 ** Updated the [[Wiki::Help::Erase all pages]] page.
 ** Updated the [[Wiki::Help::Export]] page.
 ** Updated the [[Wiki::Help::Footnotes]] page.
 ** Updated the [[Wiki::Help::Headers]] page.
+** Updated the [[Wiki::Help::Include text file]] page.
 ** Updated the [[Wiki::Help::Index]] page.
 ** Updated the [[Wiki::Help::Join lines of text]] page.
 ** Updated the [[Wiki::Help::Namespaces]] page.
@@ -3841,7 +3847,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the [[Help::Bugs]] page.
 ** Updated the [[Help::CSS]] page.
 ** Updated the [[Help::Code blocks (preformatted text)]] page, removing the obsolete *Code blocks with syntax highlighting* section.
-** Updated the [[Help::Delete a page]] page.
+** Updated the *Help::Delete a page* page.
 ** Updated the [[Help::Edit a page]] page.
 ** Updated the [[Help::Edit the menu]] page.
 ** Updated the [[Help::Encrypt a page]] page.
@@ -3850,7 +3856,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the [[Help::Footer]] page.
 ** Updated the [[Help::Images]] page.
 ** Updated the [[Help::Import]] page.
-** Updated the [[Help::Include text file]] page.
+** Updated the *Help::Include text file* page.
 ** Updated the [[Help::Include web page]] page.
 ** Updated the [[Help::Include wiki page]] page.
 ** Updated the [[Help::JavaScript]] page.
@@ -3869,7 +3875,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the [[Help::Table of Contents]] page.
 ** Updated the [[Help::Tables]] page.
 ** Updated the [[Help::Tags]] page.
-** Updated the [[Wiki::Help::Tooltips]] page thanks for information provided by [[http://woas.iragan.com/viewtopic.php?pid=2124#p2124|killermist]].
+** Updated the *Help::Tooltips* page thanks for information provided by [[http://woas.iragan.com/viewtopic.php?pid=2124#p2124|killermist]].
 ** Updated the [[Help::Transclusion]] page.
 ** Updated the *Help::Word count* page.
 ** Updated the *History* page.
@@ -3907,17 +3913,17 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Added the *Changes* page, thanks to code contributed by [[http://woas.iragan.com/viewtopic.php?pid=1585#p1585|FBNil]].
 ** Added the *Example::Bluebox* page.
 ** Added the *Example::Folding page button (HTML)* page.
-** Added the [[Wiki::Help::Bluebox]] page to explain how to use Bluebox, which was contributed by *FBNil*, to create styled presentations of your stories.
+** Added the *Help::Bluebox* page to explain how to use Bluebox, which was contributed by *FBNil*, to create styled presentations of your stories.
 ** Added the [[Help::Include web page]] page.
 ** Added the [[Help::Folds]] page.
 ** Added the *Help::ToDo list* page with instructions on how to use the *ToDo list* page.
 ** Added the *Help::Topnote* page to describe *topnotes* and demonstrate how to use them.
 ** Added the *Template::Foldpage* page to be used by *Folds*.
 ** Added the *Template::Foldtextinline* page to be used by *Folds*.
-** Added the *Template::HiddenSpoiler* page to be used by [[Wiki::Help::Spoilers|spoilers]].
-** Added the *Template::HiddenSpoilerInline* page to be used by [[Wiki::Help::Spoilers|spoilers]].
+** Added the *Template::HiddenSpoiler* page to be used by spoilers.
+** Added the *Template::HiddenSpoilerInline* page to be used by spoilers.
 ** Added the *Template::Image gallery* page, thanks to a script by *FBNil*.
-** Added the *Template::Spoiler* page to be used by [[Wiki::Help::Spoilers|spoilers]].
+** Added the *Template::Spoiler* page to be used by spoilers.
 ** Added the *Template::Topnote* page to be used for creating *topnotes*.
 ** Added the *Template::TODO* page to be used for *ToDo* items in the *ToDo list* page contributed by *FBNil*.
 ** Added the *ToDo list* page, which is a slight modification of code contributed by *FBNil*.
@@ -3955,9 +3961,9 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the [[Help::Footer]] page.
 ** Updated the [[Help::Getting started]] page.
 ** Updated the *Help::Headers* page.
-** Updated the [[Help::Horizontal rules (lines)]] page.
+** Updated the *Help::Horizontal rules (lines)* page.
 ** Updated the [[Help::Images]] page, adding instructions for how to write an include link to use the *Template::Image gallery*.
-** Updated the [[Help::Include text file]] page.
+** Updated the *Help::Include text file* page.
 ** Updated the [[Help::Include web page]] page.
 ** Updated the [[Help::Include wiki page]] page.
 ** Updated the [[Help::JavaScript]] page.
@@ -3968,13 +3974,13 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the [[Help::Page creation]] page.
 ** Updated the *Help::Page with no name* page.
 ** Updated the *Help::Pages linking to this page* page.
-** Updated the [[Wiki::Help::Spoilers]] page, adding the *Dynamic block area wiki link (click)*.
+** Updated the *Help::Spoilers* page, adding the *Dynamic block area wiki link (click)*.
 ** Updated the [[Help::Syntax]] page.
 ** Updated the [[Help::Table of Contents]] page.
 ** Updated the [[Help::Tables]] page.
 ** Updated the [[Help::Tags]] page.
 ** Updated the [[Help::Text formatting]] page.
-** Updated the [[Wiki::Help::Tooltips]] page.
+** Updated the *Help::Tooltips* page.
 ** Updated the [[Help::Transclusion]] page.
 ** Updated the *Help::Word count* page.
 ** Updated the *History* page.
@@ -4013,7 +4019,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the *Help* pop-up in the editor.
 
 * _Content:_
-** Added the [[Wiki::Help::Tooltips]] page to explain how to use *tooltips*, which were created by [[http://woas.iragan.com/viewtopic.php?id=469|FBNil]].
+** Added the *Help::Tooltips* page to explain how to use *tooltips*, which were created by [[http://woas.iragan.com/viewtopic.php?id=469|FBNil]].
 ** Added the *Utility::Tooltips* page to hold the template for *tooltips*.
 ** Added the *Template::Icon::Info* page containing a default lightbulb image for use when pointing out additional information.
 ** Removed the *Help::New page template* page.
@@ -4033,7 +4039,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the [[Help::Page creation]] page.
 ** Updated the *Help::Page with no name* page.
 ** Updated the *Help::Parent and child pages* page.
-** Updated the [[Wiki::Help::Spoilers]] page:
+** Updated the *Help::Spoilers* page:
 *** Added instructions on how to create *Dynamic block area (button)*.
 *** Added instructions on how to create *Dynamic block area (styled button)*.
 *** Added instructions on how to insert *include links* into dynamic block areas, thanks to code provided by [[http://woas.iragan.com/viewtopic.php?pid=1488*p1488|MicBerlin]].
@@ -4072,15 +4078,15 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 
 * _Content:_
 ** Added instructions for *delayed page redirection* to the [[Help::JavaScript]] page.
-** Added instructions for *dynamic block text areas* and *dynamic inline text areas* to the [[Wiki::Help::Spoilers]] page.
+** Added instructions for *dynamic block text areas* and *dynamic inline text areas* to the *Help::Spoilers* page.
 ** Added instructions for the *sort* button to the *Help* pop-up in the editor.
 ** Added the *About* button to the menu.
 ** Added the *Examples*, *Help*, *Images*, *Syntax*, and *Utilities* pages so the pages they link to can be hidden, making the list of all pages shorter and easier to navigate.
 ** Added the *Help::Change wiki settings* page.
-** Added the [[Help::Include text file]] page.
+** Added the *Help::Include text file* page.
 ** Added the *Help::New page template* page.
 ** Added the *Help::Navigation* page.
-** Added the [[Wiki::Help::Spoilers]] page.
+** Added the *Help::Spoilers* page.
 ** Added the [[Help::Syntax]] page.
 ** Added the *Utility::Word frequency* page.
 ** Removed the *About this wiki* footer.
@@ -4100,7 +4106,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the [[Help::Bugs]] page.
 ** Updated the [[Help::Code blocks (preformatted text)]] page, adding instructions on how to use *code blocks with syntax highlighting* from code provided by [[http://woas.iragan.com/viewtopic.php?id=561|FBnil]].
 ** Updated the [[Help::CSS]] page.
-** Updated the [[Help::Delete a page]] page.
+** Updated the *Help::Delete a page* page.
 ** Updated the [[Help::Edit the menu]] page, adding the *Add expanding menu entries* section.
 ** Updated the *Help::Erase all pages* page.
 ** Updated the [[Help::Footer]] page.
@@ -4156,11 +4162,11 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the [[Help::Bugs]] page.
 ** Updated the [[Help::Code blocks (preformatted text)]] page.
 ** Updated the [[Help::CSS]] page.
-** Updated the [[Help::Delete a page]] page.
+** Updated the *Help::Delete a page* page.
 ** Updated the [[Help::Edit a page]] page.
 ** Updated the [[Help::Edit the menu]] page.
 ** Updated the *Help::Erase all pages* page.
-** Updated the [[Help::Horizontal rules (lines)]] page, adding a *custom width horizontal rule aligned to the right*.
+** Updated the *Help::Horizontal rules (lines)* page, adding a *custom width horizontal rule aligned to the right*.
 ** Updated the [[Help::Images]] page.
 ** Updated the [[Help::Import]] page.
 ** Updated the [[Help::Include wiki page]] page.
@@ -4200,7 +4206,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Changed the *Help* pop-up that displays when the *Table* button is clicked in the editor.
 
 * _Content:_
-** Added a link to the [[Help::Edit the menu]] page on the [[Help::Delete a page]] page.
+** Added a link to the [[Help::Edit the menu]] page on the *Help::Delete a page* page.
 ** Added a *Plans for the future* section to the *History* page.
 ** Added *Help::Page with no name* page for those times when you forget to name a page or accidentally delete its name.
 ** Added *Word Count 2* page with a utility for counting words as an alternative to the word count button.
@@ -4248,7 +4254,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Added instructions for using the *default alert image* to the [[Help::Images]] page.
 ** Added the contents of the *Example::External JavaScript* page to the *Help::JavaScript* page.
 ** Added the *Help::Backup* page.
-** Added the [[Help::Delete a page]] page.
+** Added the *Help::Delete a page* page.
 ** Added the [[Help::Edit a page]] page.
 ** Added the [[Help::Edit the menu]] page.
 ** Added the [[Help::Page scrolling]] page.
@@ -5034,29 +5040,6 @@ div.topnote {position:absolute; top:0.188em; right:0.625em;}
 [[Tags::Help]]
 
 --DFQRCTsKlU
-woas.page.title: Help::Delete a page
-woas.page.attributes: 0
-woas.page.encoding: 8bit/plain
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-= Delete a page
-== From the menu
-# Click the *Delete page* button in the menu while displaying the page you wish to delete, or click it from any page and type in the name of the page you wish to delete.<br><br>
-# You'll be asked for confirmation.<br><br>
-# When the page is deleted, you'll be returned to the [[Main Page|Main page]].<br><br>
-# You may have to remove any links to the deleted page from the menu or other pages.
-
-== From the editor
-# Click the [[Include::Template::Icon::Edit]] icon in the banner.<br><br>
-# Select everything inside the main text area and delete it.<br><br>
-# Save your changes by clicking on the [[Include::Template::Icon::Save]] icon in the banner.<br><br>
-# Edit the menu to remove the link to the deleted page if it isn't removed automatically.
-
-[[Tags::Help]]
-
---DFQRCTsKlU
 woas.page.title: Help::Edit a page
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
@@ -5203,7 +5186,7 @@ woas.page.boundary: DFQRCTsKlU
 * [[Wiki::Help::Navigation|Navigate in this wiki]].
 [[Tags::Help]]
 --DFQRCTsKlU
-woas.page.title: Help::Horizontal rules (lines)
+woas.page.title: Wiki::Help::Horizontal rules (lines)
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -5211,43 +5194,39 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Horizontal rules (lines)
-Horizontal rules use the full width of the page by default. They can be styled to a smaller width by surrounding them with *HTML &lt;div&gt;* tags. Styling can also control their position. I haven't yet figured out how to colorize them. Adding {{{color:red;}}} to the style portion of the *&lt;div&gt;* tag doesn't work. If any code wizard out there figures it out, please contact me by using the email link in the footer beneath this page.
+Horizontal rules use the full width of the page by default. They can be styled to a smaller width by surrounding them with *HTML &lt;div&gt;* tags. Styling can also control their position.
 
-[[Include::Template::Info|Note that you sometimes need a blank line above or below a horizontal rule to get it to work.]]
 == Standard horizontal rule ==
-<div class="helptext">Use this code in a page:</div>{{{
+<div class="wikihelptext">Use this code in a page:</div><br>{{{
 ----
-}}}<div class="helptext">To create this:</div>
+}}}<br><div class="wikihelptext">To create this:</div><br>
 ----
-
 
 == Custom width horizontal rule aligned left ==
-<div class="helptext">Use this code in a page, replacing 50% with the width you like:</div>{{{
+<div class="wikihelptext">Use this code in a page, replacing 50% with the width you like:</div><br>{{{
 <div style="width:50%";>
 ----
 </div>
-}}}<div class="helptext">To create this:</div>
+}}}<br><div class="wikihelptext">To create this:</div>
 <div style="width:50%";>
 ----
 </div>
 
 == Custom width horizontal rule aligned right ==
-<div class="helptext">Use this code in a page, replacing 50% with the width you like:</div>{{{
+<div class="wikihelptext">Use this code in a page, replacing 50% with the width you like:</div><br>{{{
 <div style="width:50%; float:right;"><hr></div>
-}}}<div class="helptext">To create this:</div>
+}}}<br><div class="wikihelptext">To create this:</div>
 <div style="width:50%; float:right;"><hr></div>
 
 == Custom width centered horizontal rule ==
-<div class="helptext">Use this code in a page, replacing 50% with the width you like:</div>{{{
+<div class="wikihelptext">Use this code in a page, replacing 50% with the width you like:</div><br>{{{
 <center><div style="width:50%";>
 ----
 </div></center>
-}}}<div class="helptext">To create this:</div>
+}}}<br><div class="wikihelptext">To create this:</div>
 <center><div style="width:50%";>
 ----
 </div></center>
-
-[[Tags::Help|Syntax]]
 
 --DFQRCTsKlU
 woas.page.title: Help::Images
@@ -5445,27 +5424,6 @@ This method is used to import pages that have been exported using the [[Special:
 # Click the *Import WSIF* button.
 
 [[Tags::Help]]
-
---DFQRCTsKlU
-woas.page.title: Help::Include text file
-woas.page.attributes: 0
-woas.page.encoding: 8bit/plain
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-= Include text file
-<div class="helptext">Use this code in a page, replacing PATH with the full path to the file:</div>{{{
-<iframe height="400" width="100%" src="file:///PATH"></iframe>
-}}}<div class="helptext">To include a text file in the page inside an iFrame.</div>
-* *Linux example:*<br>{{{
-<iframe height="400" width="100%" src="file:///home/username/Desktop/file.txt"></iframe>
-}}}<br>
-* *Windows example:*<br>{{{
-<iframe height="400" width="100%" src="file:///C:/Users/Username/Documents/file.txt"></iframe>
-}}}
-
-[[Tags::Help|Syntax]]
 
 --DFQRCTsKlU
 woas.page.title: Help::Include wiki page
