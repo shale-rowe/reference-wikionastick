@@ -1,6 +1,5 @@
 var forstack = [];			// forward history stack, discarded when saving
 var cfg_changed = false;	// true when configuration has been changed
-var search_focused = false;	// true when a search box is currently focused
 var _custom_focus = false;	// true when an user control is currently focused
 var _decrypt_failed = false;	// the last decryption failed due to wrong password attempts (pretty unused)
 var result_pages = [];			// the pages indexed by the last result page

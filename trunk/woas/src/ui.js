@@ -4,7 +4,7 @@
 
 woas.ui = {
 	kbd_hooking: false,		// set to true when inside an edit textarea
-	_textbox_focus: false,
+	_textbox_focus: false,	// true when a text box is currently focused
 	focus_textbox: function() { // called when a textbox has currently focus
 		this._textbox_focus = true;
 	},
@@ -227,10 +227,10 @@ function menu_search_focus(f) {
 //		ff_fix_focus();
 			$('string_to_search').focus();
 		} else
-			search_focused = true;
+			woas.ui.focus_textbox();
 	} else {
 		if (current != "Special::Search")
-			search_focused = false;
+			woas.ui.blur_textbox();
 	}
 }
 
@@ -611,9 +611,12 @@ function clear_search() {
 }
 
 function search_focus(focused) {
-	search_focused = focused;
-	if (!focused)
+	if (focused)
+		woas.ui.focus_textbox();
+	else {
+		woas.ui.blur_textbox();
 		ff_fix_focus();
+	}
 }
 
 // cached XHTML content of last search
@@ -646,7 +649,7 @@ function kbd_hook(orig_e) {
 	if (!woas.ui.kbd_hooking) {
 		if (_custom_focus)
 			return orig_e;
-		if (search_focused) {
+		if (woas.ui._textbox_focus) {
 			// return key
 			if (e.keyCode==13) {
 				ff_fix_focus();
