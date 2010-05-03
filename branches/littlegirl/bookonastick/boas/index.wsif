@@ -159,7 +159,6 @@ woas.page.boundary: DFQRCTsKlU
 If you're seeing this, then BoaS is in a state of transition and hasn't finished merging with WoaS 0.12.0 yet.
 
 Until this merge is finished, you will notice these things:
-* A couple of the features are broken.
 * All page listings have a strange new header which will be removed.
 * Many of the instructions are inaccurate.
 * Some links are broken.
@@ -1070,7 +1069,7 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Wiki is read-only
-If you clicked the *Disallow edits* button in the wiki Options, this wiki became read-only. To undo that:
+If you clicked the *Disallow edits* button in the wiki options, this wiki became read-only. To undo that:
 # Back up this wiki.
 # Open it in a text editor.
 # Do a search for: {{{"permit_edits":false,}}}
@@ -2607,17 +2606,18 @@ You can export this wiki into multiple linked XHTML, CSS, and image files which 
 # Click the *Advanced* icon in the navigation bar.<br><br>
 # Click the {{{[[Special::Export]]}}} link in the *Maintenance* section.<br><br>
 # Choose the directory to export the wiki to.<br><br>
-# Choose the settings for the export.<br><br>[[Include::WoaS::Template::Info|Note that the "Run before exporting but do not export the javascript" option means that JavaScript is run and then the XHTML is exported, but the JavaScript is not. This is useful if you have JavaScript that does custom parsing.]]<br>
+# Choose the settings for the export.<br><br>[[Include::Wiki::Template::Info|Note that the "Run before exporting but do not export the javascript" option means that JavaScript is run and then the XHTML is exported, but the JavaScript is not. This is useful if you have JavaScript that does custom parsing.]]<br>
 # Click the *Export XHTML* button. A confirmation will pop up.<br><br>
 # Click the *index.htm* file in the export directory to launch the framed page.
 
 == ExportWSIF
+You can export this wiki to one or more WSIF file(s) that can be copied, shared, or stored for backup purposes.
 # Click the *Advanced* icon in the navigation bar.<br><br>
 # Click the {{{[[Special::ExportWSIF]]}}} link in the *Maintenance* section.<br><br>
 # Choose the directory to export the WSIF file(s) to.<br><br>
-# Choose the settings for the export.<br><br>[[Include::WoaS::Template::Info|Note that you can export into a single WSIF file or multiple WSIF files. Embedded files are exported as individual files unless you choose not to export them as external file blobs, in which case they'll be embedded in the WSIF file(s).]]<br>
-# Click the *Export WSIF* button. A confirmation will pop up, telling you how many pages were exported.<br><br>
-# The WSIF file(s) in the export directory can now be copied, shared, or stored for backup purposes.
+# Choose the settings for the export.<br><br>[[Include::Wiki::Template::Info|Note that you can export into a single WSIF file or multiple WSIF files. Embedded files are exported as individual files unless you choose not to export them as external file blobs, in which case they'll be embedded in the WSIF file(s).]]<br>
+# Type a name into the *Author:* box if you like.<br><br>
+# Click the *Export WSIF* button. A confirmation will pop up, telling you how many pages were exported.
 
 --DFQRCTsKlU
 woas.page.title: WoaS::Template::Example::Transclusion
@@ -3712,7 +3712,6 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the *Help* button in the banner to open the Help pop-up.
 
 * _Content:_
-** Added a note to the [[Wiki::Utility::Diary]] page warning users that the [[Wiki::Utility::Diary|diary]] is broken in this version.
 ** Added the [[Help::Embedding]] page, which needs to be rewritten.
 ** Added the [[Wiki::Template::Icon::Help]] page.
 ** Moved all pages in the *Example::* namespace to the *Wiki::Example::* namespace.
@@ -3721,11 +3720,17 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Removed references to the *ToDo list* from the Features section of the [[Special::About]] page.
 ** Removed the *Example::Menu* page.
 ** Removed the *Help::Erase all pages* page.
+** Removed the *Help::Export* page.
 ** Removed the *Help::Headers* page.
 ** Removed the *Help::Namespaces* page.
+** Removed the *Help::Non-breaking spaces* page.
+** Removed the *Help::Pages linking to this page* page.
+** Removed the *Help::Page with no name* page.
 ** Removed the *Help::ToDo list* page and any ToDo items in the wiki.
+** Removed the *Help::Wiki is read-only* page.
 ** Removed the *ToDo list* page.
 ** Removed the *Wiki::Template::TODO* page.
+** Removed the *Wiki::Utility::Diary* page.
 ** Removed the *WoaS::Bootscript* page.
 ** Removed the *WoaS::History* page.
 ** Renamed the *Help::Backup* page to [[Wiki::Help::Backup]].
@@ -3755,11 +3760,13 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the [[Wiki::Example::Table of Contents]] page.
 ** Updated the [[Wiki::Help::Bluebox]] page.
 ** Updated the [[Wiki::Help::Erase all pages]] page.
+** Updated the [[Wiki::Help::Export]] page.
 ** Updated the [[Wiki::Help::Footnotes]] page.
 ** Updated the [[Wiki::Help::Headers]] page.
 ** Updated the [[Wiki::Help::Index]] page.
 ** Updated the [[Wiki::Help::Namespaces]] page.
 ** Updated the [[Wiki::Help::Publish wiki online]] page.
+** Updated the [[Wiki::Help::Wiki is read-only]] page.
 ** Updated the [[WoaS::CSS::Core]] page.
 ** Updated the [[WoaS::CSS::Custom]] page.
 
@@ -3838,7 +3845,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the [[Help::Edit a page]] page.
 ** Updated the [[Help::Edit the menu]] page.
 ** Updated the [[Help::Encrypt a page]] page.
-** Updated the [[Help::Export]] page.
+** Updated the *Help::Export* page.
 ** Updated the [[Help::Folds]] page, adding instructions for *Foldaway*.
 ** Updated the [[Help::Footer]] page.
 ** Updated the [[Help::Images]] page.
@@ -3958,10 +3965,10 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the [[Help::Join lines of text]] page.
 ** Updated the [[Help::Links]] page.
 ** Updated the [[Help::Lists]] page.
-** Updated the [[Help::Non-breaking spaces]] page.
+** Updated the *Help::Non-breaking spaces* page.
 ** Updated the [[Help::Page creation]] page.
-** Updated the [[Help::Page with no name]] page.
-** Updated the [[Help::Pages linking to this page]] page.
+** Updated the *Help::Page with no name* page.
+** Updated the *Help::Pages linking to this page* page.
 ** Updated the [[Wiki::Help::Spoilers]] page, adding the *Dynamic block area wiki link (click)*.
 ** Updated the [[Help::Syntax]] page.
 ** Updated the [[Help::Table of Contents]] page.
@@ -4025,7 +4032,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the [[Help::Links]] page, adding instructions for *include links*.
 ** Updated the [[Help::Lists]] page.
 ** Updated the [[Help::Page creation]] page.
-** Updated the [[Help::Page with no name]] page.
+** Updated the *Help::Page with no name* page.
 ** Updated the *Help::Parent and child pages* page.
 ** Updated the [[Wiki::Help::Spoilers]] page:
 *** Added instructions on how to create *Dynamic block area (button)*.
@@ -4036,7 +4043,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 *** Renamed *dynamic inline text areas* to *dynamic inline areas*.
 ** Updated the [[Help::Tags]] page.
 ** Updated the [[Help::Transclusion]] page.
-** Updated the [[Help::Wiki is read-only]] page.
+** Updated the *Help::Wiki is read-only* page.
 ** Updated the *Help::Word count* page.
 ** Updated the [[Special::About]] page.
 ** Updated the [[Special::Advanced]] page.
@@ -4161,19 +4168,19 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the [[Help::JavaScript]] page.
 ** Updated the [[Help::Links]] page.
 ** Updated the [[Help::Lists]] page to include instructions for various types of *HTML lists*.
-** Updated the [[Help::Non-breaking spaces]] page.
+** Updated the *Help::Non-breaking spaces* page.
 ** Updated the [[Help::Page creation]] page.
 ** Updated the [[Help::Page name too long]] page.
 ** Updated the [[Help::Page scrolling]] page.
 ** Updated the *Help::Page tags* page.
-** Updated the [[Help::Page with no name]] page.
+** Updated the *Help::Page with no name* page.
 ** Updated the *Help::Parent and child pages* page.
 ** Updated the *Help::Publish wiki online* page.
 ** Uodated the [[Help::Rename a page]] page.
 ** Updated the [[Help::Table of Contents]] page.
 ** Updated the [[Help::Text formatting]] page.
 ** Updated the [[Help::Transclusion]] page.
-** Updated the [[Help::Wiki is read-only]] page.
+** Updated the *Help::Wiki is read-only* page.
 ** Updated the *Help::Word count* page.
 ** Updated the [[History]] page.
 ** Updated the [[Special::About]] page.
@@ -4196,7 +4203,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 * _Content:_
 ** Added a link to the [[Help::Edit the menu]] page on the [[Help::Delete a page]] page.
 ** Added a *Plans for the future* section to the [[History]] page.
-** Added [[Help::Page with no name]] for those times when you forget to name a page or accidentally delete its name.
+** Added *Help::Page with no name* page for those times when you forget to name a page or accidentally delete its name.
 ** Added *Word Count 2* page with a utility for counting words as an alternative to the word count button.
 ** Added *Spoilers* (content hidden in a box until you hover your mouse over it) thanks to code by [[http://woas.iragan.com/viewtopic.php?id=482|Richard]].
 ** Changed the layout of the *Help::Headers* page.
@@ -4212,7 +4219,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the [[Help::Import]] page, numbering the steps.
 ** Updated the [[Help::Include wiki page]] page.
 ** Updated the [[Help::Join lines of text]] page.
-** Updated the [[Help::Pages linking to this page]] page.
+** Updated the *Help::Pages linking to this page* page.
 ** Updated the *Help* pages to include graphics.
 ** Updated the *Help::Page tags* page with a detailed description of why you might wish to use *tags* on your pages.
 ** Updated the [[Help::Text formatting]] page.
@@ -4294,7 +4301,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Added descriptions to the options on the [[Special::Options]] page.
 ** Added links to *Cleanup*, *Create new page*, *Help pages*, and *Syntax pages* to the *Pages* section on the [[Special::Options]] page.
 ** Added the *Backlinks* link to the *Administration* section of the menu.
-** Added the [[Help::Export]] page.
+** Added the *Help::Export* page.
 ** Added the [[Help::Run wiki on a server]] page.
 ** Added the *Links for writers* page, putting the content from the *Research* and *Fun* sections of the menu into it.
 ** Added the *Word Play* link to the *Fun* section of the menu.
@@ -5112,36 +5119,6 @@ Clicking on the link to an encrypted page brings up an alert letting you know th
 
 == Example encrypted page
 The [[Wiki::Example::Encrypted page]] can be opened by using *test* as the password.
-
-[[Tags::Help]]
-
---DFQRCTsKlU
-woas.page.title: Help::Export
-woas.page.attributes: 0
-woas.page.encoding: 8bit/plain
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-= Export
-You can export this wiki into multiple linked XHTML, CSS, and image files which will create a framed web page.
-
-# Click the [[Include::Template::Icon::Advanced]] icon in the banner.<br><br>
-# Scroll down to the *Maintenance* section.<br><br>
-# Click the [[Special::Export]] link.<br><br>
-# Choose the settings for the export.<br><br>
-# Click the *Export XHTML* button. A confirmation will pop up.
-
-Now you can click the *index.htm* file in the export folder to launch the framed page.
-
-== ExportWSIF
-# Click the [[Include::Template::Icon::Advanced]] icon in the banner.<br><br>
-# Scroll down to the *Maintenance* section.<br><br>
-# Click the *Special::ExportWSIF* link.<br><br>
-# Choose the directory to export the WSIF file(s) to.<br><br>
-# Choose the settings for the export.<br><br>[[Include::Template::Info|Note that you can export into a single WSIF file or multiple WSIF files. Embedded files are exported as individual files unless you choose not to export them as external file blogs, in which case they'll be embedded in the WSIF file(s).]]<br>
-# Click the *Export WSIF* button. A confirmation will pop up, telling you how many pages were exported.<br><br>
-# The WSIF file(s) in the export directory can now be copied, shared, or stored for backup purposes.
 
 [[Tags::Help]]
 
@@ -6317,32 +6294,6 @@ woas.page.boundary: DFQRCTsKlU
 Use the [[Include::Wiki::Template::Icon::Back]] icon in the banner to go back one page, the [[Include::Wiki::Template::Icon::Forward]] icon in the banner to go forward one page, the [[Include::Wiki::Template::Icon::Home]] icon in the banner to return to the Main page, the [[Include::Wiki::Template::Icon::Up]] icon in the footer to return to the top of a page, or click the buttons in the banner, the buttons and links in the menu, or the buttons and links on any page.
 
 --DFQRCTsKlU
-woas.page.title: Help::Non-breaking spaces
-woas.page.attributes: 0
-woas.page.encoding: 8bit/plain
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-= Non-breaking spaces
-A non-breaking space can add extra space between characters on a line since this is not possible simply by pressing the space bar more than once.
-
-<div class="helptext">Use this code in a page:</div>{{{
-&nbsp;
-}}}<div class="helptext">To create a non-breaking space.</div>
-
-*Examples:*
-
-To insert 5 spaces between two words, insert 5 non-breaking spaces between them, like this:{{{
-word&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;word
-}}}word&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;word
-
-Another method is to insert a combination of spaces and non-breaking spaces. To insert 5 spaces between two words, insert 1 space, 3 non-breaking spaces, and 1 space between them, like this:{{{
-word &nbsp;&nbsp;&nbsp; word}}}word &nbsp;&nbsp;&nbsp; word
-
-[[Tags::Help|Syntax]]
-
---DFQRCTsKlU
 woas.page.title: Help::Page creation
 woas.page.attributes: 0
 woas.page.encoding: ecma/plain
@@ -6431,44 +6382,6 @@ By default, this wiki offers a few choices for scrolling that can be enabled by 
 * Enabling *Fixed banner* locks the banner in place while allowing the menu and page to scroll together.<br><br>
 * Enabling *Fixed menu* locks the menu in place while allowing the banner and page to scroll together.<br><br>
 * Enabling both *Fixed banner* and *Fixed menu* locks the banner and menu in place while allowing the page to scroll.
-[[Tags::Help]]
-
---DFQRCTsKlU
-woas.page.title: Help::Pages linking to this page
-woas.page.attributes: 0
-woas.page.encoding: 8bit/plain
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-= Pages linking to this page
-Click the *Back links* button in the menu to see which pages link to the page you currently have open.
-
-[[Tags::Help]]
-
---DFQRCTsKlU
-woas.page.title: Help::Page with no name
-woas.page.attributes: 0
-woas.page.encoding: 8bit/plain
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-= Page with no name
-If you accidentally created a page without naming it, or if you accidentally deleted the name of the page, there is a way to recover the page.
-
-<div class="helptext">Replace *PAGENAME* with the name you'd like your page to have when following these instructions:</div>
-# Open the wiki in a text editor.<br><br>
-# Do a search for *var page_titles = [*<br><br>
-# You'll see a bunch of page titles below it similar to {{{WoaS::Bootscript}}}, {{{Special::About}}}, etc.<br><br>
-# Somewhere among the list of titles you'll see an entry that just has {{{''}}} as its title.<br><br>
-# Change the {{{''}}} entry to {{{'PAGENAME'}}}.<br><br>
-# Save the file.<br><br>
-# Close the text editor.<br><br>
-# Open the wiki and click the *All pages* button in the menu (or click the [[Include::Template::Icon::Advanced]] icon in the banner and select *All pages*).<br><br>
-# Your page will now be back in the list.<br><br>
-# You may have to create a menu entry for it manually by editing the menu and typing {{{[[PAGENAME]]}}} wherever you'd like the entry to be, or if the entry was there, but empty, replacing {{{[[]]}}} with {{{[[PAGENAME]]}}}.
-
 [[Tags::Help]]
 
 --DFQRCTsKlU
@@ -6985,26 +6898,6 @@ Some wiki code and HTML tags are accepted in the values. For example:
 <div class="helpcode">{{{[[Include::Wiki::Example::Transclusion|*Bob*|*Jane*|*Jack*.<br><br>Please arrive on time to the meeting on Wednesday]]}}}</div>
 <div class="helptext">To create this:</div>
 [[Include::Wiki::Example::Transclusion|*Bob*|*Jane*|*Jack*.<br><br>Please arrive on time to the meeting on Wednesday]]
-
-[[Tags::Help]]
-
---DFQRCTsKlU
-woas.page.title: Help::Wiki is read-only
-woas.page.attributes: 0
-woas.page.encoding: 8bit/plain
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-= Wiki is read-only
-If you clicked the *Disallow edits* button on the [[Special::Options|Options]] page, this wiki became read-only. To undo that:
-# Back up this wiki.
-# Open it in a text editor.
-# Do a search for: {{{"permit_edits":false,}}}
-# Replace it with: {{{"permit_edits":true,}}}
-# Save the file.
-# Close the text editor.
-# Open the wiki and use normally.
 
 [[Tags::Help]]
 
@@ -8000,31 +7893,6 @@ This is some sample content.
 
 It goes between the link above and the unfolded text you see when clicking the link.
 [[Include::Wiki::Template::Foldawaytext|This text *only* shows when you click the link.|MyName]]
-
---DFQRCTsKlU
-woas.page.title: Wiki::Utility::Diary
-woas.page.attributes: 0
-woas.page.encoding: 8bit/plain
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-= Diary
-[[Include::Image::alert.png]] This is broken in WoaS 0.12.0, so it's broken in this merging copy of BoaS. Hopefully I can fix it.  <img src="data:image/png;base64,R0lGODlhBgAFAIABAAAAAP///yH5BAEAAAEALAAAAAAGAAUAAAIJDGJ4ic1qgAwFADs=" width="2%" height="2%">
-
-<div id="daily_diary"></div>
-<script>
-var D = new Date();
-var DAYNAMES = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-var MONTHNAMES = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-
-var day  = D.getDate();
-if(day < 10) day = "0" + day;
-
-var newpagename = "Diary::" + D.getFullYear() +"::"+ MONTHNAMES[D.getMonth()] +"::"+ day +" "+DAYNAMES[D.getDay()];
-$("daily_diary").innerHTML = "Click here to create or edit a diary entry for today: <a href=\"javascript:woas.set_current('" + newpagename + "', true);\">" + newpagename + "</a>"
-</script>
-[[Tags::Utility]]
 
 --DFQRCTsKlU
 woas.page.title: Wiki::Help::Footnotes
