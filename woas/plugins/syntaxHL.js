@@ -43,22 +43,26 @@ woas.custom.shjs = {
 	
 	// this was adapted from shjs' sh_highlightDocument
 	_highlight_element: function(element, languages) {
+		if (typeof sh_languages == "undefined") {
+			woas.log("shjs library does not seem to be loaded");
+			return false;
+		}
 		for (var j = 0; j < languages.length; j++) {
 			if (languages[j] in sh_languages) {
 				sh_highlightElement(element, sh_languages[languages[j]]);
 			} else {
 				woas.log("Cannot render language "+languages[j]);
+				return false;
 			}
-			break;
+			return true;
 		}
 	},
 
 	// used for post-rendering after library was loaded
 	post_render: function(i, languages) {
-		$.hide("shjs_postr_btn_"+this._uid+"_"+i);
 		var elem = $("woas_shjs_"+this._uid+"_"+i);
-		this._highlight_element(elem, languages);
-		return;
+		if (this._highlight_element(elem, languages))
+			$.hide("shjs_postr_btn_"+this._uid+"_"+i);
 	},
 	
 	_macro_hook: function(macro, classes) {
@@ -79,7 +83,7 @@ woas.custom.shjs = {
 					if (language === "sourcecode")
 						continue;
 					classes_v += "'"+woas.js_encode(language)+"',";
-					if (!(language in sh_languages)) {
+					if (!pre_render && !(language in sh_languages)) {
 						// load this library
 						woas.custom.shjs._queue_load(language);
 					}
