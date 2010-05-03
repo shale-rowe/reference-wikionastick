@@ -122,7 +122,7 @@ woas.plugins = {
 			break;
 		}
 		// return an object
-		return { src: uri, sym: sym };
+		return { src: woas.fix_path_separators(uri), sym: sym };
 	},
 	
 	_internal_add: function(name, s) {
@@ -163,7 +163,7 @@ woas.plugins = {
 				for(var i=0;i < p.length;++i) {
 					s = this._script_block(p[i]);
 					if (s.sym === '@')
-						js += 'woas.dom.add_script("lib", "'+this._mapping(name)+'_'+i+"\", \""+s.src+"\", true);\n";
+						js += 'woas.dom.add_script("lib", "'+this._mapping(name)+'_'+i+"\", \""+woas.js_encode(s.src)+"\", true);\n";
 					else if (s.sym === '+') {
 						var ct = woas.load_file(woas.ROOT_DIRECTORY+s.src),
 							t = (typeof ct);
