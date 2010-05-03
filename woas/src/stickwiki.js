@@ -927,7 +927,7 @@ woas._add_namespace_menu = function(namespace) {
 
 // auto-save thread
 function _auto_saver() {
-	if (woas.save_queue.length && !kbd_hooking) {
+	if (woas.save_queue.length && !woas.ui.kbd_hooking) {
 		woas.commit(woas.save_queue);
 		woas.menu_display("save", false);
 	}
@@ -1089,7 +1089,7 @@ woas._render_after_load = function() {
 // disable edit-mode after cancel/save actions
 woas.disable_edit = function() {
 //	woas.log("DISABLING edit mode");	// log:0
-	kbd_hooking = false;
+	this.ui.kbd_hooking = false;
 	// reset change buffer used to check for page changes
 	this.change_buffer = null;
 	this.old_title = null;
@@ -1153,7 +1153,7 @@ woas.current_editing = function(page, disabled) {
 	this.prev_title = current;
 	$("wiki_page_title").disabled = (disabled && !this.tweak.edit_override ? "disabled" : "");
 	$("wiki_page_title").value = page;
-	kbd_hooking = true;
+	this.ui.kbd_hooking = true;
 	this._set_title(this.i18n.EDITING.sprintf(page));
 	// current must be set BEFORE calling enabling menu edit
 //	woas.log("ENABLING edit mode");	// log:0
@@ -1345,7 +1345,7 @@ woas.save = function() {
 	woas.log("Ghost page disabled"); //log:1
 	// when this function is called in non-edit mode we perform a full commit
 	// for cumulative save
-	if (this.config.cumulative_save && !kbd_hooking) {
+	if (this.config.cumulative_save && !this.ui.kbd_hooking) {
 		this.full_commit();
 		this.menu_display("save", false);
 		return;
@@ -1476,7 +1476,7 @@ woas.cancel_edit = function() {
 		if (!confirm(this.i18n.CANCEL_EDITING))
 			return;
 	}
-	if (kbd_hooking) {
+	if (this.ui.kbd_hooking) {
 		// we will cancel the creation of last page
 		if (this._ghost_page) {
 			// we assume that the last page is the ghost page
@@ -1499,7 +1499,7 @@ woas.create_breadcrumb = function(title) {
 	var s="", partial="", js="";
 	for(var i=0;i<tmp.length-1;i++) {
 		// editing is active
-		if (kbd_hooking)
+		if (this.ui.kbd_hooking)
 			s+= tmp[i]+" :: ";
 		else {
 			partial += tmp[i]+"::";
