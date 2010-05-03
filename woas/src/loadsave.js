@@ -323,7 +323,7 @@ woas.javaSaveFile = function(filePath,save_mode,content) {
 		s.print(content);
 		s.close();
 	} catch(ex) {
-		log(ex.toString());
+		log("Failed reading file directly with Java: "+ex.toString());
 		return false;
 	}
 	return true;
