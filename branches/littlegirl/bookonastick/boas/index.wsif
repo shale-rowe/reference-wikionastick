@@ -161,13 +161,10 @@ If you're seeing this, then BoaS is in a state of transition and hasn't finished
 Until this merge is finished, you will notice these things:
 * All page listings have a strange new header which will be removed.
 * Many of the instructions are inaccurate.
-* Some links are broken.
-* Some page layout is messed up.
+* Many links are broken.
 * Some Special pages have unfamiliar content.
-* Some things are not yet styled properly.
 * The BoaS editor buttons are missing.
 * The separate fixed menu and fixed banner options are missing.
-* There is a gap below the banner when in the editor.
 * There are "duplicates" of help pages.
 * The word count button is broken.
 This will all look a lot better as time goes by, most of these things will be fixed, and the ones that can't be fixed will be removed until such a time as they can be made to work.
@@ -830,10 +827,8 @@ The first time you save a change to this wiki, your browser will ask for permiss
 You will find the [[Include::Wiki::Template::Icon::Help]] icon in the banner on every page in this wiki. When you click on it, it will either open this page or a specific help page that explains how to work with the page you currently have open.
 
 When browsing the pages in the Help pop-up, you will find a *Back* button in the upper right corner that takes you back to this page or a *Close* button in the same place that closes the pop-up.
-== Wiki Help pages
+== Topics:
 [[Include::Wiki::Help::]]
-== BoaS Help pages (will be merged and deleted)
-[[Include::Help::]]
 
 --DFQRCTsKlU
 woas.page.title: WoaS::Template::Button
@@ -1432,14 +1427,14 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Join lines of text
-Lengthy wiki page content can be broken up into shorter lines in the editor (while still being parsed as a single line when the page is viewed) by using a backslash at the *end* of any line; such a line will be joined with the one below it.
+Lengthy content can be broken up into shorter lines in the editor while still being displayed as a long line when the page is viewed. You can split the line up into as many pieces as you like, inserting a backslash at the *end* of each line to let the wiki parser know you want that line joined with the one below it.
 
-[[Include::WoaS::Template::Info|Backslashes *within* a line will be ignored by the wiki parser and will not influence how the text is displayed.]]
-<div class="woas_helptext">Use this code in a page:</div><br>{{{
+[[Include::Wiki::Template::Info|Backslashes *within* a line will be ignored by the wiki parser and will not influence how the text is displayed.]]
+<div class="wikihelptext">Use this code in a page:</div><br>{{{
 Putting a \ at the end of any line \
 makes it join together \
 with the line below it.
-}}}<br><div class="woas_helptext">To create this:</div>
+}}}<br><div class="wikihelptext">To create this:</div>
 Putting a \ at the end of any line \
 makes it join together \
 with the line below it.
@@ -2860,9 +2855,9 @@ body {
 	width: 97%;
 } 
 
-/***** EDITOR *****/
-#woas_edit_page_title{
-	margin-top: 2.188em;
+/***** EDITOR - PAGE TITLE LINE *****/
+#woas_edit_page_title {
+	margin-top: -0.756em;
 }
 
 /***** EDITOR - WOAS BUTTON  *****/
@@ -3002,7 +2997,7 @@ h6.woas_header {
 
 /***** HELP PAGE - EXAMPLES *****/
 /***** NOTE TO LITTLE GIRL: REMOVE THIS ONCE YOU'RE SURE THERE ARE NO REFERENCES TO IT *****/
-div.helpcode {
+div.wikihelpcode {
 	color:black;
 	background-color:gainsboro;
 	border:0.063em solid grey;
@@ -3017,7 +3012,7 @@ div.helpcode {
 
 /***** HELP PAGE - EXAMPLE TEXT *****/
 /***** NOTE TO LITTLE GIRL: REMOVE THIS ONCE YOU'RE SURE THERE ARE NO REFERENCES TO IT *****/
-div.helptext {
+div.wikihelptext {
 	color:darkcyan;
 	font-weight:bold;
 	font-style:italic;
@@ -3701,6 +3696,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 
 === Version 1.0 (under development)
 * _Interface:_
+** Added CSS styling to remove the gap below the banner when in the editor.
 ** Added the *Duplicate page* button to the menu.
 ** Added the *Go to* button to the menu.
 ** Added tooltips to the menu buttons.
@@ -3722,6 +3718,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Removed the *Help::Erase all pages* page.
 ** Removed the *Help::Export* page.
 ** Removed the *Help::Headers* page.
+** Removed the *Help::Join lines of text* page.
 ** Removed the *Help::Namespaces* page.
 ** Removed the *Help::Non-breaking spaces* page.
 ** Removed the *Help::Pages linking to this page* page.
@@ -3766,6 +3763,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the [[Wiki::Help::Footnotes]] page.
 ** Updated the [[Wiki::Help::Headers]] page.
 ** Updated the [[Wiki::Help::Index]] page.
+** Updated the [[Wiki::Help::Join lines of text]] page.
 ** Updated the [[Wiki::Help::Namespaces]] page.
 ** Updated the [[Wiki::Help::Publish wiki online]] page.
 ** Updated the [[Wiki::Help::Wiki is read-only]] page.
@@ -3856,7 +3854,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the [[Help::Include web page]] page.
 ** Updated the [[Help::Include wiki page]] page.
 ** Updated the [[Help::JavaScript]] page.
-** Updated the [[Help::Join lines of text]] page.
+** Updated the *Help::Join lines of text* page.
 ** Updated the [[Help::Links]] page.
 ** Updated the [[Help::Lists]] page.
 ** Updated the *Help::Namespaces* page.
@@ -3962,9 +3960,8 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the [[Help::Include text file]] page.
 ** Updated the [[Help::Include web page]] page.
 ** Updated the [[Help::Include wiki page]] page.
-** Updated the [[Help::Join lines of text]] page.
 ** Updated the [[Help::JavaScript]] page.
-** Updated the [[Help::Join lines of text]] page.
+** Updated the *Help::Join lines of text* page.
 ** Updated the [[Help::Links]] page.
 ** Updated the [[Help::Lists]] page.
 ** Updated the *Help::Non-breaking spaces* page.
@@ -4030,7 +4027,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the [[Help::Include web page]] page.
 ** Updated the [[Help::Include wiki page]] page.
 ** Updated the [[Help::JavaScript]] page.
-** Updated the [[Help::Join lines of text]] page.
+** Updated the *Help::Join lines of text* page.
 ** Updated the [[Help::Links]] page, adding instructions for *include links*.
 ** Updated the [[Help::Lists]] page.
 ** Updated the [[Help::Page creation]] page.
@@ -4220,7 +4217,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the [[Help::Encrypt a page]] page with instructions rather than a reference to the default description.
 ** Updated the [[Help::Import]] page, numbering the steps.
 ** Updated the [[Help::Include wiki page]] page.
-** Updated the [[Help::Join lines of text]] page.
+** Updated the *Help::Join lines of text* page.
 ** Updated the *Help::Pages linking to this page* page.
 ** Updated the *Help* pages to include graphics.
 ** Updated the *Help::Page tags* page with a detailed description of why you might wish to use *tags* on your pages.
@@ -5586,29 +5583,6 @@ I recommend that you put this code near the top of any page (preferably directly
 <input type="button" value="Reload wiki" onClick="window.location.href=window.location.href">
 }}}<div class="helptext">To create this:</div>
 <input type="button" value="Reload wiki" onClick="window.location.href=window.location.href">
-
-[[Tags::Help|Syntax]]
-
---DFQRCTsKlU
-woas.page.title: Help::Join lines of text
-woas.page.attributes: 0
-woas.page.encoding: 8bit/plain
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-= Join lines of text
-If you have lengthy content that you'd like to break up into shorter lines in the editor while still being presented as a long line when the page is viewed, you can split the line up into as many pieces as you like, inserting a backslash at the *end* of each line to let the wiki parser know you want that line joined with the one below it. When you save the page, the line will be displayed intact.
-
-[[Include::Template::Info|Backslashes *within* a line will be ignored by the wiki parser and will not influence how the text is displayed.]]
-<div class="helptext">Use this code in a page:</div>{{{
-Putting a \ at the end of any line \
-makes it join together \
-with the line below it.
-}}}<div class="helptext">To create this:</div>
-Putting a \ at the end of any line \
-makes it join together \
-with the line below it.
 
 [[Tags::Help|Syntax]]
 

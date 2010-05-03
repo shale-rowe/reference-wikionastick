@@ -1021,5 +1021,10 @@
 ======================================================================================================================
 * Renamed the [[Help::Change wiki settings]] page to [[Wiki::Help::Change wiki settings]].
 * Renamed the [[History]] page to [[Wiki::History]].
-* Updated the [[History]] page.
+* Updated the [[Wiki::History]] page.
 ======================================================================================================================
+* Added CSS styling to remove the gap below the banner when in the editor.
+* Removed the [[Help::Join lines of text]] page.
+* Updated the [[Main Page]].
+* Updated the [[Wiki::Help::Index]] page.
+* Updated the [[Wiki::Help::Join lines of text]] page.
