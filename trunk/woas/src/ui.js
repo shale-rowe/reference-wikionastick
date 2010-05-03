@@ -2,6 +2,10 @@
  * User Interface
 */
 
+woas.ui = {
+	kbd_hooking: false		// set to true when inside an edit textarea
+};
+
 // when home is clicked
 function home() {
 	go_to(woas.config.main_page);
@@ -67,7 +71,7 @@ function help() {
 	var wanted_page = "WoaS::Help::Index";
 	var pi = woas.page_index(wanted_page);
 	// we are editing
-	if (kbd_hooking) {
+	if (woas.ui.kbd_hooking) {
 		wanted_page = "WoaS::Help::Editing";
 		pi = woas.page_index(wanted_page);
 	} else {
@@ -626,16 +630,13 @@ function custom_focus(focused) {
 		ff_fix_focus();
 }
 
-// set to true when inside an edit textarea
-var kbd_hooking=false;
-
 function kbd_hook(orig_e) {
 	if (!orig_e)
 		e = window.event;
 	else
 		e = orig_e;
 		
-	if (!kbd_hooking) {
+	if (!woas.ui.kbd_hooking) {
 		if (_custom_focus)
 			return orig_e;
 		if (search_focused) {
@@ -703,8 +704,8 @@ woas.update_lock_icons = function(page) {
 	}
 	
 	// update the encryption icons accordingly
-	this.menu_display("lock", !kbd_hooking && can_lock);
-	this.menu_display("unlock", !kbd_hooking && can_unlock);
+	this.menu_display("lock", !woas.ui.kbd_hooking && can_lock);
+	this.menu_display("unlock", !woas.ui.kbd_hooking && can_unlock);
 	// we can always input decryption keys by clicking the setkey icon
 	//this.menu_display("setkey", cyphered);
 	var cls;
