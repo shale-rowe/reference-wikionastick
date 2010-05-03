@@ -95,7 +95,7 @@ Write a book in one self-contained file that runs entirely in your browser and c
 * Use it as a journal, recipe keeper, ToDo list, diary, etc.
 
 == History:
-* See the latest changes [[History|here]].
+* See the latest changes [[Wiki::History|here]].
 
 == Licensing
 Book on a Stick is licensed under the [[Special::License|GNU GPL v2]].
@@ -3680,7 +3680,7 @@ $HOME  Main Page
 # Add {{{[[include::$HOME]]}}} to any page to include the Main Page in the current page.
 
 --DFQRCTsKlU
-woas.page.title: History
+woas.page.title: Wiki::History
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -3736,6 +3736,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Renamed the *Help::Backup* page to [[Wiki::Help::Backup]].
 ** Renamed the *Help::Bluebox* page to [[Wiki::Help::Bluebox]].
 ** Renamed the *Help::Cancel any action* page to [[Wiki::Help::Cancel any action]].
+** Renamed the *Help::Change wiki settings* page to [[Wiki::Help::Change wiki settings]].
 ** Renamed the *Help::Footnotes* page to [[Wiki::Help::Footnotes]].
 ** Renamed the *Help::Navigation* page to [[Wiki::Help::Navigation]].
 ** Renamed the *Help::Print a page* page to [[Wiki::Help::Print a page]].
@@ -3743,10 +3744,11 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Renamed the *Help::Tooltips* page to [[Wiki::Help::Tooltips]].
 ** Renamed the *Help::Topnote* page to [[Wiki::Help::Topnote]].
 ** Renamed the *Help::Word count* page to [[Wiki::Help::Word count]].
+** Renamed the *History* page to [[Wiki::History]].
 ** Updated the [[Help::Edit a page]] page.
 ** Updated the [[Help::Include wiki page]] page.
 ** Updated the [[Help::Transclusion]] page.
-** Updated the [[History]] page.
+** Updated the [[Wiki::History]] page.
 ** Updated the [[Wiki::Example::Embed web page iFrame]] page.
 ** Updated the [[Wiki::Example::Embed web page object]] page.
 ** Updated the [[Wiki::Example::Embedded SVG]] page.
@@ -3872,7 +3874,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the [[Wiki::Help::Tooltips]] page thanks for information provided by [[http://woas.iragan.com/viewtopic.php?pid=2124#p2124|killermist]].
 ** Updated the [[Help::Transclusion]] page.
 ** Updated the *Help::Word count* page.
-** Updated the [[History]] page.
+** Updated the *History* page.
 ** Updated the *Utility::Word count* page.
 ** Updated the [[Special::About]] page, changing the accepted syntax reference from "Creole 0.1" to "some Creole 0.1".
 
@@ -3978,7 +3980,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the [[Wiki::Help::Tooltips]] page.
 ** Updated the [[Help::Transclusion]] page.
 ** Updated the *Help::Word count* page.
-** Updated the [[History]] page.
+** Updated the *History* page.
 ** Updated the *Utility::Links for writers* page.
 ** Updated the *Help::Word count* page.
 <!-- ============================================================================================================================================================================================= -->
@@ -4018,7 +4020,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Added the *Utility::Tooltips* page to hold the template for *tooltips*.
 ** Added the *Template::Icon::Info* page containing a default lightbulb image for use when pointing out additional information.
 ** Removed the *Help::New page template* page.
-** Updated the [[History]] page.
+** Updated the *History* page.
 ** Updated the [[Help::Bugs]] page.
 ** Updated the [[Help::Code blocks (preformatted text)]] page.
 ** Updated the [[Help::CSS]] page.
@@ -4077,7 +4079,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Added instructions for the *sort* button to the *Help* pop-up in the editor.
 ** Added the *About* button to the menu.
 ** Added the *Examples*, *Help*, *Images*, *Syntax*, and *Utilities* pages so the pages they link to can be hidden, making the list of all pages shorter and easier to navigate.
-** Added the [[Help::Change wiki settings]] page.
+** Added the *Help::Change wiki settings* page.
 ** Added the [[Help::Include text file]] page.
 ** Added the *Help::New page template* page.
 ** Added the *Help::Navigation* page.
@@ -4116,7 +4118,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the [[Help::Tables]] page.
 ** Updated the [[Help::Transclusion]] page.
 ** Updated the *Help::Word count* page.
-** Updated the [[History]] page.
+** Updated the *History* page.
 ** Updated the layout of some of the *Help* pages.
 ** Updated the [[Special::About]] page, adding the basic content of the *Getting Started* page.
 ** Updated the [[Special::Advanced]] page, adding the *Edit the new page template* entry provided by [[http://woas.iragan.com/viewtopic.php?id=561|FBnil]] to the *Advanced* section.
@@ -4182,7 +4184,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the [[Help::Transclusion]] page.
 ** Updated the *Help::Wiki is read-only* page.
 ** Updated the *Help::Word count* page.
-** Updated the [[History]] page.
+** Updated the *History* page.
 ** Updated the [[Special::About]] page.
 ** Updated the [[Special::Advanced]] page.
 ** Updated the [[Special::Options]] page.
@@ -4202,7 +4204,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 
 * _Content:_
 ** Added a link to the [[Help::Edit the menu]] page on the [[Help::Delete a page]] page.
-** Added a *Plans for the future* section to the [[History]] page.
+** Added a *Plans for the future* section to the *History* page.
 ** Added *Help::Page with no name* page for those times when you forget to name a page or accidentally delete its name.
 ** Added *Word Count 2* page with a utility for counting words as an alternative to the word count button.
 ** Added *Spoilers* (content hidden in a box until you hover your mouse over it) thanks to code by [[http://woas.iragan.com/viewtopic.php?id=482|Richard]].
@@ -4224,7 +4226,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the *Help::Page tags* page with a detailed description of why you might wish to use *tags* on your pages.
 ** Updated the [[Help::Text formatting]] page.
 ** Updated the *Help::Word count* page.
-** Updated the [[History]] page.
+** Updated the *History* page.
 ** Updated the [[Sandbox]] page.
 <!-- ============================================================================================================================================================================================= -->
 === Version 0.4 released on August 18, 2009
@@ -4244,7 +4246,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 * _Content:_
 ** Added a link to current version of *Wiki on a Stick online demo* on the welcome page.
 ** Added a *Known bugs* section to the [[Help::Page creation]] page.
-** Added dates to the versions on the [[History]] page.
+** Added dates to the versions on the *History* page.
 ** Added instructions for recalibrating the *Word Count* button to the *Help::Word count* page.
 ** Added instructions for using the *default alert image* to the [[Help::Images]] page.
 ** Added the contents of the *Example::External JavaScript* page to the *Help::JavaScript* page.
@@ -4283,7 +4285,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the [[Help::Images]] page contents, fixing the instructions for adding a *local image* from your hard drive.
 ** Updated the [[Help::Page name too long]] page to reflect the change to the *Fixed banner* option.
 ** Updated the [[Help::Transclusion]] page contents.
-** Updated the [[History]] page.
+** Updated the *History* page.
 ** Updated the *Links for writers* page.
 ** Updated the *Menu*, adding a *Search* section.
 ** Updated the [[Special::About]] page.
@@ -4323,7 +4325,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Removed the *WelcomePage WoaS* page.
 ** Restored the name of the *Home* page to *Main Page*.
 ** Updated all the *Help::* pages, adding lots of new content.
-** Updated the [[History]] page.
+** Updated the *History* page.
 <!-- ============================================================================================================================================================================================= -->
 === Version 0.2 released on July 26, 2009
 * _Content:_
@@ -4712,7 +4714,7 @@ woas.page.boundary: DFQRCTsKlU
 Cancel any action by clicking the [[Include::Wiki::Template::Icon::Cancel]] icon in the banner, clicking the *Cancel* button on any alert that pops up, or pressing the *Esc* key.
 
 --DFQRCTsKlU
-woas.page.title: Help::Change wiki settings
+woas.page.title: Wiki::Help::Change wiki settings
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -4720,11 +4722,11 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Change wiki settings
-# Click the [[Include::Template::Icon::Advanced]] icon in the banner.
-# Click the *Options* link.
+# Click the [[Include::Wiki::Template::Icon::Advanced]] icon in the banner.
+# Click the *Special::Options* link in the *Advanced features* section of the page.
 # Use the check-boxes to choose the settings you prefer.
 # Click the *Save options* button to save the changes.
-[[Tags::Help]]
+
 --DFQRCTsKlU
 woas.page.title: Help::Code blocks (preformatted text)
 woas.page.attributes: 0
@@ -5185,7 +5187,7 @@ woas.page.boundary: DFQRCTsKlU
 
 * [[Wiki::Help::Cancel any action|Cancel any action]].
 
-* [[Help::Change wiki settings|Change the settings]].
+* [[Wiki::Help::Change wiki settings|Change the settings]].
 
 * [[Help::Page creation|Create a page]].
 

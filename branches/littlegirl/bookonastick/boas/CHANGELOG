@@ -843,7 +843,7 @@
 * Added various namespaces to the var reserved_namespaces section of stickwiki.js.
 * Tagged for release as BoaS 0.9.1 in preparation for merging with WoaS 0.12.0.
 ======================================================================================================================
-NOW WORKING ON BOAS 1.0
+                                           NOW WORKING ON BOAS 1.0
 ======================================================================================================================
 * Added the tools subdirectory.
 * Added the Assemble BoaS.txt file to the tools subdirectory.
@@ -1018,4 +1018,8 @@ NOW WORKING ON BOAS 1.0
 * Updated the [[Main Page]].
 * Updated the [[Wiki::Help::Export]] page.
 * Updated the [[Wiki::Help::Wiki is read-only]] page.
+======================================================================================================================
+* Renamed the [[Help::Change wiki settings]] page to [[Wiki::Help::Change wiki settings]].
+* Renamed the [[History]] page to [[Wiki::History]].
+* Updated the [[History]] page.
 ======================================================================================================================
