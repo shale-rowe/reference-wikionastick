@@ -1156,9 +1156,10 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 = Erase all pages
 To erase all user-created pages in this wiki and start fresh:
-# Click the *Advanced* icon in the navigation bar.
-# Click on *Special::Erase Wiki* in the *Maintenance* section.
-[[Include::WoaS::Template::Info|Make sure you are using a wiki you don't mind losing. If not, make a copy and erase the copy.]]
+# Click the [[Include::Wiki::Template::Icon::Advanced]] icon in the banner.
+# Click the *Special::Erase Wiki* link in the *Maintenance* section of the page.
+# You'll be asked for confirmation twice and must click the *OK* button each time to continue.
+[[Include::Wiki::Template::Info|Make sure you are using a wiki you don't mind losing. If not, make a copy and erase the copy.]]
 See also the [[Wiki::Help::Special::Erase Wiki]] page.
 
 --DFQRCTsKlU
@@ -1190,35 +1191,35 @@ woas.page.boundary: DFQRCTsKlU
 = Headers
 Below are examples on how to use wiki markup to create headers in this wiki. There are six levels of supported headers.
 
-{{{
+<div class="helptext">Use this code:</div><br>{{{
 = Header level 1
-}}}
-= Header level 1 =
+}}}<br><div class="helptext">To create this:</div>
+= Header level 1
 
-{{{
+<div class="helptext">Use this code:</div><br>{{{
 == Header level 2
-}}}
+}}}<br><div class="helptext">To create this:</div>
 == Header level 2
 
-{{{
-== Header level 3
-}}}
-== Header level 3
+<div class="helptext">Use this code:</div><br>{{{
+=== Header level 3
+}}}<br><div class="helptext">To create this:</div>
+=== Header level 3
 
-{{{
-== Header level 4
-}}}
-== Header level 4
+<div class="helptext">Use this code:</div><br>{{{
+==== Header level 4
+}}}<br><div class="helptext">To create this:</div>
+==== Header level 4
 
-{{{
-== Header level 5
-}}}
-== Header level 5
+<div class="helptext">Use this code:</div><br>{{{
+===== Header level 5
+}}}<br><div class="helptext">To create this:</div>
+===== Header level 5
 
-{{{
-== Header level 6
-}}}
-== Header level 6
+<div class="helptext">Use this code:</div><br>{{{
+====== Header level 6
+}}}<br><div class="helptext">To create this:</div>
+====== Header level 6
 
 --DFQRCTsKlU
 woas.page.title: Wiki::Help::Rulers
@@ -1711,7 +1712,8 @@ woas.page.boundary: DFQRCTsKlU
 = Publish wiki online
 This wiki can be published online as a single-file, framed web page by making it read-only. The read-only format can also be used for sharing your work with others by email. Most email programs accept .html pages as attachments.
 # Make a backup copy of this wiki.
-# Click the *Advanced* icon in the navigation bar.
+# Click the [[Include::Wiki::Template::Icon::Advanced]] icon in the banner.
+# Click the [[Special::Options]] link in the *Advanced features* section of the page.
 # Scroll to the bottom of the page.
 # Click the *Disallow edits* button to make the file read-only.
 # Upload the wiki to a web server and publish a link to it.
@@ -3718,6 +3720,8 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Moved the Help pages from the *WoaS::Help::* namespace to the *Wiki::Help::* namespace.
 ** Removed references to the *ToDo list* from the Features section of the [[Special::About]] page.
 ** Removed the *Example::Menu* page.
+** Removed the *Help::Erase all pages* page.
+** Removed the *Help::Headers* page.
 ** Removed the *Help::Namespaces* page.
 ** Removed the *Help::ToDo list* page and any ToDo items in the wiki.
 ** Removed the *ToDo list* page.
@@ -3728,7 +3732,12 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Renamed the *Help::Bluebox* page to [[Wiki::Help::Bluebox]].
 ** Renamed the *Help::Cancel any action* page to [[Wiki::Help::Cancel any action]].
 ** Renamed the *Help::Footnotes* page to [[Wiki::Help::Footnotes]].
+** Renamed the *Help::Navigation* page to [[Wiki::Help::Navigation]].
+** Renamed the *Help::Print a page* page to [[Wiki::Help::Print a page]].
 ** Renamed the *Help::Spoilers* page to [[Wiki::Help::Spoilers]].
+** Renamed the *Help::Tooltips* page to [[Wiki::Help::Tooltips]].
+** Renamed the *Help::Topnote* page to [[Wiki::Help::Topnote]].
+** Renamed the *Help::Word count* page to [[Wiki::Help::Word count]].
 ** Updated the [[Help::Edit a page]] page.
 ** Updated the [[Help::Include wiki page]] page.
 ** Updated the [[Help::Transclusion]] page.
@@ -3745,9 +3754,12 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the [[Wiki::Example::Folding page styled button (HTML)]] page.
 ** Updated the [[Wiki::Example::Table of Contents]] page.
 ** Updated the [[Wiki::Help::Bluebox]] page.
+** Updated the [[Wiki::Help::Erase all pages]] page.
 ** Updated the [[Wiki::Help::Footnotes]] page.
+** Updated the [[Wiki::Help::Headers]] page.
 ** Updated the [[Wiki::Help::Index]] page.
 ** Updated the [[Wiki::Help::Namespaces]] page.
+** Updated the [[Wiki::Help::Publish wiki online]] page.
 ** Updated the [[WoaS::CSS::Core]] page.
 ** Updated the [[WoaS::CSS::Custom]] page.
 
@@ -3839,20 +3851,20 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the [[Help::Links]] page.
 ** Updated the [[Help::Lists]] page.
 ** Updated the *Help::Namespaces* page.
-** Updated the [[Help::Navigation]] page.
+** Updated the *Help::Navigation* page.
 ** Updated the [[Help::Page creation]] page.
 ** Updated the [[Help::Page scrolling]] page.
-** Updated the [[Help::Print a page]] page.
-** Updated the [[Help::Publish wiki online]] page.
+** Updated the *Help::Print a page* page.
+** Updated the *Help::Publish wiki online* page.
 ** Updated the [[Help::Requirements]] page.
 ** Updated the [[Help::Run wiki on a server]] page.
 ** Updated the [[Help::Syntax]] page.
 ** Updated the [[Help::Table of Contents]] page.
 ** Updated the [[Help::Tables]] page.
 ** Updated the [[Help::Tags]] page.
-** Updated the [[Help::Tooltips]] page thanks for information provided by [[http://woas.iragan.com/viewtopic.php?pid=2124#p2124|killermist]].
+** Updated the [[Wiki::Help::Tooltips]] page thanks for information provided by [[http://woas.iragan.com/viewtopic.php?pid=2124#p2124|killermist]].
 ** Updated the [[Help::Transclusion]] page.
-** Updated the [[Help::Word count]] page.
+** Updated the *Help::Word count* page.
 ** Updated the [[History]] page.
 ** Updated the *Utility::Word count* page.
 ** Updated the [[Special::About]] page, changing the accepted syntax reference from "Creole 0.1" to "some Creole 0.1".
@@ -3892,14 +3904,14 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Added the [[Help::Include web page]] page.
 ** Added the [[Help::Folds]] page.
 ** Added the *Help::ToDo list* page with instructions on how to use the *ToDo list* page.
-** Added the [[Help::Topnote]] page to describe *topnotes* and demonstrate how to use them.
+** Added the *Help::Topnote* page to describe *topnotes* and demonstrate how to use them.
 ** Added the *Template::Foldpage* page to be used by *Folds*.
 ** Added the *Template::Foldtextinline* page to be used by *Folds*.
 ** Added the *Template::HiddenSpoiler* page to be used by [[Wiki::Help::Spoilers|spoilers]].
 ** Added the *Template::HiddenSpoilerInline* page to be used by [[Wiki::Help::Spoilers|spoilers]].
 ** Added the *Template::Image gallery* page, thanks to a script by *FBNil*.
 ** Added the *Template::Spoiler* page to be used by [[Wiki::Help::Spoilers|spoilers]].
-** Added the *Template::Topnote* page to be used for creating [[Help::Topnote|topnotes]].
+** Added the *Template::Topnote* page to be used for creating *topnotes*.
 ** Added the *Template::TODO* page to be used for *ToDo* items in the *ToDo list* page contributed by *FBNil*.
 ** Added the *ToDo list* page, which is a slight modification of code contributed by *FBNil*.
 ** Removed the *Examples* page since it's generated automatically by the *Examples* button in the menu.
@@ -3935,7 +3947,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the [[Help::Encrypt a page]] page.
 ** Updated the [[Help::Footer]] page.
 ** Updated the [[Help::Getting started]] page.
-** Updated the [[Help::Headers]] page.
+** Updated the *Help::Headers* page.
 ** Updated the [[Help::Horizontal rules (lines)]] page.
 ** Updated the [[Help::Images]] page, adding instructions for how to write an include link to use the *Template::Image gallery*.
 ** Updated the [[Help::Include text file]] page.
@@ -3956,12 +3968,12 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the [[Help::Tables]] page.
 ** Updated the [[Help::Tags]] page.
 ** Updated the [[Help::Text formatting]] page.
-** Updated the [[Help::Tooltips]] page.
+** Updated the [[Wiki::Help::Tooltips]] page.
 ** Updated the [[Help::Transclusion]] page.
-** Updated the [[Help::Word count]] page.
+** Updated the *Help::Word count* page.
 ** Updated the [[History]] page.
 ** Updated the *Utility::Links for writers* page.
-** Updated the [[Help::Word count]] page.
+** Updated the *Help::Word count* page.
 <!-- ============================================================================================================================================================================================= -->
 === Version 0.8 released on December 08, 2009
 * _Interface:_
@@ -3995,7 +4007,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the *Help* pop-up in the editor.
 
 * _Content:_
-** Added the [[Help::Tooltips]] page to explain how to use *tooltips*, which were created by [[http://woas.iragan.com/viewtopic.php?id=469|FBNil]].
+** Added the [[Wiki::Help::Tooltips]] page to explain how to use *tooltips*, which were created by [[http://woas.iragan.com/viewtopic.php?id=469|FBNil]].
 ** Added the *Utility::Tooltips* page to hold the template for *tooltips*.
 ** Added the *Template::Icon::Info* page containing a default lightbulb image for use when pointing out additional information.
 ** Removed the *Help::New page template* page.
@@ -4025,7 +4037,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the [[Help::Tags]] page.
 ** Updated the [[Help::Transclusion]] page.
 ** Updated the [[Help::Wiki is read-only]] page.
-** Updated the [[Help::Word count]] page.
+** Updated the *Help::Word count* page.
 ** Updated the [[Special::About]] page.
 ** Updated the [[Special::Advanced]] page.
 ** Updated the *Utility::Word count* page.
@@ -4061,7 +4073,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Added the [[Help::Change wiki settings]] page.
 ** Added the [[Help::Include text file]] page.
 ** Added the *Help::New page template* page.
-** Added the [[Help::Navigation]] page.
+** Added the *Help::Navigation* page.
 ** Added the [[Wiki::Help::Spoilers]] page.
 ** Added the [[Help::Syntax]] page.
 ** Added the *Utility::Word frequency* page.
@@ -4084,9 +4096,9 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the [[Help::CSS]] page.
 ** Updated the [[Help::Delete a page]] page.
 ** Updated the [[Help::Edit the menu]] page, adding the *Add expanding menu entries* section.
-** Updated the [[Help::Erase all pages]] page.
+** Updated the *Help::Erase all pages* page.
 ** Updated the [[Help::Footer]] page.
-** Updated the [[Help::Headers]] page.
+** Updated the *Help::Headers* page.
 ** Updated the [[Help::Images]] page with instructions on how to use the image embedding interface, which has been fixed by [[http://woas.iragan.com/viewtopic.php?id=561|FBnil]].
 ** Updated the [[Help::Include web page]] page.
 ** Updated the [[Help::Include wiki page]] page.
@@ -4096,7 +4108,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the [[Help::Table of Contents]] page.
 ** Updated the [[Help::Tables]] page.
 ** Updated the [[Help::Transclusion]] page.
-** Updated the [[Help::Word count]] page.
+** Updated the *Help::Word count* page.
 ** Updated the [[History]] page.
 ** Updated the layout of some of the *Help* pages.
 ** Updated the [[Special::About]] page, adding the basic content of the *Getting Started* page.
@@ -4141,7 +4153,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the [[Help::Delete a page]] page.
 ** Updated the [[Help::Edit a page]] page.
 ** Updated the [[Help::Edit the menu]] page.
-** Updated the [[Help::Erase all pages]] page.
+** Updated the *Help::Erase all pages* page.
 ** Updated the [[Help::Horizontal rules (lines)]] page, adding a *custom width horizontal rule aligned to the right*.
 ** Updated the [[Help::Images]] page.
 ** Updated the [[Help::Import]] page.
@@ -4156,13 +4168,13 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the *Help::Page tags* page.
 ** Updated the [[Help::Page with no name]] page.
 ** Updated the *Help::Parent and child pages* page.
-** Updated the [[Help::Publish wiki online]] page.
+** Updated the *Help::Publish wiki online* page.
 ** Uodated the [[Help::Rename a page]] page.
 ** Updated the [[Help::Table of Contents]] page.
 ** Updated the [[Help::Text formatting]] page.
 ** Updated the [[Help::Transclusion]] page.
 ** Updated the [[Help::Wiki is read-only]] page.
-** Updated the [[Help::Word count]] page.
+** Updated the *Help::Word count* page.
 ** Updated the [[History]] page.
 ** Updated the [[Special::About]] page.
 ** Updated the [[Special::Advanced]] page.
@@ -4187,7 +4199,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Added [[Help::Page with no name]] for those times when you forget to name a page or accidentally delete its name.
 ** Added *Word Count 2* page with a utility for counting words as an alternative to the word count button.
 ** Added *Spoilers* (content hidden in a box until you hover your mouse over it) thanks to code by [[http://woas.iragan.com/viewtopic.php?id=482|Richard]].
-** Changed the layout of the [[Help::Headers]] page.
+** Changed the layout of the *Help::Headers* page.
 ** Fixed the example code on the [[Help::Include wiki page]] page.
 ** Fixed the example code for the bottom two entries on the [[Help::Images]] page.
 ** Fixed the excess punctuation after two of the example links on the [[Help::Links]] page.
@@ -4204,7 +4216,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the *Help* pages to include graphics.
 ** Updated the *Help::Page tags* page with a detailed description of why you might wish to use *tags* on your pages.
 ** Updated the [[Help::Text formatting]] page.
-** Updated the [[Help::Word count]] page.
+** Updated the *Help::Word count* page.
 ** Updated the [[History]] page.
 ** Updated the [[Sandbox]] page.
 <!-- ============================================================================================================================================================================================= -->
@@ -4226,7 +4238,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Added a link to current version of *Wiki on a Stick online demo* on the welcome page.
 ** Added a *Known bugs* section to the [[Help::Page creation]] page.
 ** Added dates to the versions on the [[History]] page.
-** Added instructions for recalibrating the *Word Count* button to the [[Help::Word count]] page.
+** Added instructions for recalibrating the *Word Count* button to the *Help::Word count* page.
 ** Added instructions for using the *default alert image* to the [[Help::Images]] page.
 ** Added the contents of the *Example::External JavaScript* page to the *Help::JavaScript* page.
 ** Added the *Help::Backup* page.
@@ -4234,10 +4246,10 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Added the [[Help::Edit a page]] page.
 ** Added the [[Help::Edit the menu]] page.
 ** Added the [[Help::Page scrolling]] page.
-** Added the [[Help::Print a page]] page.
+** Added the *Help::Print a page* page.
 ** Added the [[Help::Rename a page]] page.
 ** Added the [[Help::Table of Contents]] Page.
-** Added the [[Help::Word count]] page.
+** Added the *Help::Word count* page.
 ** Changed the logo.
 ** Made the *Help::* pages static to preserve them when deleting all pages from the wiki.
 ** Moved the contents of the *Example::JavaScript Temporary Page* to the [[Help::JavaScript]] page.
@@ -5104,23 +5116,6 @@ The [[Wiki::Example::Encrypted page]] can be opened by using *test* as the passw
 [[Tags::Help]]
 
 --DFQRCTsKlU
-woas.page.title: Help::Erase all pages
-woas.page.attributes: 0
-woas.page.encoding: 8bit/plain
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-= Erase all pages
-To erase all user-created pages in this wiki and start fresh:
-# *Make sure you have a wiki you don't mind losing open. If not, make a copy and erase the copy.*
-# Click the [[Include::Template::Icon::Advanced]] icon in the banner.
-# Click on *Delete ALL wiki pages and reset with default data* in the Maintenance section.
-# You'll be asked for confirmation twice and must click the *OK* button each time to continue.
-
-[[Tags::Help]]
-
---DFQRCTsKlU
 woas.page.title: Help::Export
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
@@ -5229,50 +5224,8 @@ woas.page.boundary: DFQRCTsKlU
 
 * [[Help::Syntax|Learn the syntax]].
 
-* [[Help::Navigation|Navigate in this wiki]].
+* [[Wiki::Help::Navigation|Navigate in this wiki]].
 [[Tags::Help]]
---DFQRCTsKlU
-woas.page.title: Help::Headers
-woas.page.attributes: 0
-woas.page.encoding: 8bit/plain
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-= Headers
-Below are examples on how to use wiki markup to create headers in this wiki. You can also use HTML header tags.
-
-<div class="helptext">Use this code in a page:</div>{{{
-= Header level 1
-}}}<div class="helptext">To create this:</div>
-= Header level 1 =
-
-
-<div class="helptext">Use this code in a page:</div>{{{
-== Header level 2
-}}}<div class="helptext">To create this:</div>
-== Header level 2
-
-
-<div class="helptext">Use this code in a page:</div>{{{
-=== Header level 3
-}}}<div class="helptext">To create this:</div>
-=== Header level 3
-
-
-<div class="helptext">Use this code in a page:</div>{{{
-==== Header level 4
-}}}<div class="helptext">To create this:</div>
-==== Header level 4
-
-
-<div class="helptext">Use this code in a page:</div>{{{
-===== Header level 5
-}}}<div class="helptext">To create this:</div>
-===== Header level 5
-
-[[Tags::Help|Syntax]]
-
 --DFQRCTsKlU
 woas.page.title: Help::Horizontal rules (lines)
 woas.page.attributes: 0
@@ -6353,7 +6306,7 @@ ters]\
 [[Tags::Help]]
 
 --DFQRCTsKlU
-woas.page.title: Help::Navigation
+woas.page.title: Wiki::Help::Navigation
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -6361,8 +6314,8 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Navigation
-Use the [[Include::Template::Icon::Back]] icon in the banner to go back one page, the [[Include::Template::Icon::Forward]] icon in the banner to go forward one page, the [[Include::Template::Icon::Home]] icon in the banner to return to the Main page, the [[Include::Template::Icon::Up]] icon in the footer to return to the top of a page, or click the buttons in the banner, the buttons and links in the menu, or the buttons and links on any page.
-[[Tags::Help]]
+Use the [[Include::Wiki::Template::Icon::Back]] icon in the banner to go back one page, the [[Include::Wiki::Template::Icon::Forward]] icon in the banner to go forward one page, the [[Include::Wiki::Template::Icon::Home]] icon in the banner to return to the Main page, the [[Include::Wiki::Template::Icon::Up]] icon in the footer to return to the top of a page, or click the buttons in the banner, the buttons and links in the menu, or the buttons and links on any page.
+
 --DFQRCTsKlU
 woas.page.title: Help::Non-breaking spaces
 woas.page.attributes: 0
@@ -6423,7 +6376,7 @@ An alternate method of creating a page is to type a new page name inside nested 
 # Press the *Enter* key or click the *OK* button.<br><br>
 # When asked if you'd like to add a link into the main menu, accept by pressing the *Enter* key or clicking the *OK* button, or refuse by clicking the *Cancel* button.<br><br>
 # Include pages by typing in an {{{[[Include::PageName]]}}} link for each page you'd like to see in the overview, replacing *PageName* with the name of the page to include.<br><br>
-# If you'd like a word count button on the page, follow the *Word count* instructions on the [[Help::Word count]] page.<br><br>
+# If you'd like a word count button on the page, follow the *Word count* instructions on the [[Wiki::Help::Word count]] page.<br><br>
 # Save your changes by clicking on the [[Include::Template::Icon::Save]] icon in the banner.
 
 == Troubleshooting
@@ -6519,7 +6472,7 @@ If you accidentally created a page without naming it, or if you accidentally del
 [[Tags::Help]]
 
 --DFQRCTsKlU
-woas.page.title: Help::Print a page
+woas.page.title: Wiki::Help::Print a page
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -6527,32 +6480,8 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Print a page
-# Click the [[Include::Template::Icon::Print]] icon in the banner. A new browser window will open with a printer-friendly version of the main text area.
+# Click the [[Include::Wiki::Template::Icon::Print]] icon in the banner. A new browser window will open with a printer-friendly version of the main text area.
 # Use the browser's *print preview* and *print* functions to print the page.
-
-[[Tags::Help]]
-
---DFQRCTsKlU
-woas.page.title: Help::Publish wiki online
-woas.page.attributes: 0
-woas.page.encoding: 8bit/plain
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-= Publish wiki online
-This wiki can be published online as a single-file, framed web page by making it read-only:
-# Make a backup copy of this wiki.
-# Click the [[Include::Template::Icon::Advanced]] icon in the banner.
-# Scroll to the bottom of the page.
-# Click the *Disallow edits* button to make the file read-only.
-# Upload the wiki to a web server and publish a link to it.
-
-The read-only format is also great for sharing your work with others by email. Most - if not all - email programs accept .htm pages as attachments.
-
-<div style="background-color: #FFFFAA; border: 0.1em solid; padding: 0.2em;">[[Include::Template::Icon::Info]] To enable wiki editing again, see the [[Help::Wiki is read-only]] page.</div>
-
-[[Tags::Help]]
 
 --DFQRCTsKlU
 woas.page.title: Help::Rename a page
@@ -6994,7 +6923,7 @@ _*/This is underlined and bold and italic text./*_
 [[Tags::Help|Syntax]]
 
 --DFQRCTsKlU
-woas.page.title: Help::Tooltips
+woas.page.title: Wiki::Help::Tooltips
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -7002,20 +6931,18 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Tooltips
-You can create tooltips by inserting specially formatted include links into a page. Tooltips accept only a single line of text without line breaks. Apostrophes and other punctuation are also accepted, with the exception of quotes. Quotes can be created by using two apostrophes next to each other (clumsy, but it works). It's not possible to use wiki or HTML text formatting on tooltip text. To change the appearance of tooltip links, edit the contents of the {{{/*TOOLTIPS*/}}} entry in the [[Help::CSS|CSS]] settings.
+You can create tooltips by inserting specially formatted include links into a page. Tooltips accept only a single line of text without line breaks. Apostrophes and other punctuation are also accepted, with the exception of quotes. Quotes can be created by using two apostrophes next to each other (clumsy, but it works). It's not possible to use wiki or HTML text formatting on tooltip text. To change the appearance of tooltip links, edit the contents of the {{{/*TOOLTIPS*/}}} entry in the [[Wiki::Help::CSS|CSS]] settings.
 
 <div class="helptext">Use this code in a page, replacing LINK with the link text, and TOOLTIP with the contents of the tooltip:</div>
-<div class="helpcode">[<!-- -->[Include::Template::Tooltip|LINK|TOOLTIP]<!-- -->]</div>
+<div class="helpcode">[<!-- -->[Include::Wiki::Template::Tooltip|LINK|TOOLTIP]<!-- -->]</div>
 <div class="helptext">To create this:</div>
-[[Include::Template::Tooltip|LINK|TOOLTIP]]
+[[Include::Wiki::Template::Tooltip|LINK|TOOLTIP]]
 
 == Another example
 <div class="helptext">Use this code in a page:</div>
-<div class="helpcode">This is a [<!-- -->[Include::Template::Tooltip|tooltip link|This is a tooltip.]<!-- -->] inside a sentence.</div>
+<div class="helpcode">This is a [<!-- -->[Include::Wiki::Template::Tooltip|tooltip link|This is a tooltip.]<!-- -->] inside a sentence.</div>
 <div class="helptext">To create this:</div>
-This is a [[Include::Template::Tooltip|tooltip link|This is a tooltip.]] inside a sentence.
-
-[[Tags::Help|Syntax]]
+This is a [[Include::Wiki::Template::Tooltip|tooltip link|This is a tooltip.]] inside a sentence.
 
 --DFQRCTsKlU
 woas.page.title: Help::Transclusion
@@ -7082,7 +7009,7 @@ If you clicked the *Disallow edits* button on the [[Special::Options|Options]] p
 [[Tags::Help]]
 
 --DFQRCTsKlU
-woas.page.title: Help::Word count
+woas.page.title: Wiki::Help::Word count
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -7098,6 +7025,7 @@ The [[Wiki::Utility::Word count]] page contains a utility you can use to count w
 The [[Wiki::Utility::Word frequency]] page contains a utility you can use to count the frequency of use of words. Paste your content into the box and press the *Calculate* button. Press the *Clear* button to clear the box before pasting more content in. Put a link to the word frequency utility anywhere on a page by pasting {{{[[Wiki::Utility::Word frequency]]}}} wherever you like.
 
 == Word count button
+<div class="alertnote">This button is currently broken.</div>
 Put a word count button anywhere on a page by pasting its code wherever you like. The count is relatively accurate, although I recommend copying and pasting the text into a word processor for verification.
 
 <div class="helptext">Use this code in a page:</div>
@@ -7117,20 +7045,18 @@ Every once in a while the word count button needs to be recalibrated. I have no 
 # If it displays *0* then you don't need to recalibrate it. If it displays any other number, it needs to be recalibrated.
 
 === Calibrate the button
-# Click the [[Include::Template::Icon::Edit]] icon in the banner to edit the page.<br><br>
+# Click the [[Include::Wiki::Template::Icon::Edit]] icon in the banner to edit the page.<br><br>
 # Look at the third line of the script.<br><br>
 # Find the portion that says *length-141* and delete the *-141* from that line.<br><br>
-# Click the [[Include::Template::Icon::Save]] icon in the banner to save the page and exit the editor.<br><br>
+# Click the [[Include::Wiki::Template::Icon::Save]] icon in the banner to save the page and exit the editor.<br><br>
 # Click the Word Count button.<br><br>
 # Make a note of the number it displays.<br><br>
-# Click the [[Include::Template::Icon::Edit]] icon in the banner to edit the page.<br><br>
+# Click the [[Include::Wiki::Template::Icon::Edit]] icon in the banner to edit the page.<br><br>
 # Insert *-XXX* (replace *XXX* with the number the Word Count button displayed) between the word *length* and the semicolon that comes after it in the third line of the script.<br><br>
-# Click the [[Include::Template::Icon::Save]] icon in the banner to save the page and exit the editor.<br><br>
+# Click the [[Include::Wiki::Template::Icon::Save]] icon in the banner to save the page and exit the editor.<br><br>
 # Click the Word Count button.
 
 If all went well, the number it displays should be *0* and you've successfully recalibrated the Word Count button. If not, repeat the above steps.
-
-[[Tags::Help]]
 
 --DFQRCTsKlU
 woas.page.title: Sandbox
@@ -7464,7 +7390,7 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 <div id="topnote" style="position:absolute; right:10px; top:3px;">%1</div>
 --DFQRCTsKlU
-woas.page.title: Help::Topnote
+woas.page.title: Wiki::Help::Topnote
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -7477,8 +7403,8 @@ A topnote is a note in the upper right corner of a page that doesn't affect the 
 <div class="helptext">Use this code on any line in a page, replacing TEXT with the text you'd like displayed in the topnote:</div>
 <div class="helpcode">[<!-- -->[In<!-- -->clude:<!-- -->:Ut<!-- -->ility:<!-- -->:To<!-- -->pnote|TEXT]<!-- -->]</div>
 <div class="helptext">To create a topnote like the one in the upper right corner of this page.</div>
-[[Include::Template::Topnote|This is a topnote!]]
-[[Tags::Help]]
+[[Include::Wiki::Template::Topnote|This is a topnote!]]
+
 --DFQRCTsKlU
 woas.page.title: Wiki::Example::Bluebox
 woas.page.attributes: 0

@@ -997,3 +997,14 @@ NOW WORKING ON BOAS 1.0
 * Updated the [[Wiki::Example::Table of Contents]] page.
 * Updated the [[History]] page.
 ======================================================================================================================
+* Removed the [[Help::Erase all pages]] page.
+* Removed the [[Help::Headers]] page.
+* Renamed the [[Help::Navigation]] page to [[Wiki::Help::Navigation]].
+* Renamed the [[Help::Print a page]] page to [[Wiki::Help::Print a page]].
+* Renamed the [[Help::Tooltips]] page to [[Wiki::Help::Tooltips]].
+* Renamed the [[Help::Topnote]] page to [[Wiki::Help::Topnote]].
+* Renamed the [[Help::Word count]] page to [[Wiki::Help::Word count]].
+* Updated the [[Wiki::Help::Erase all pages]] page.
+* Updated the [[Wiki::Help::Headers]] page.
+* Updated the [[Wiki::Help::Publish wiki online]] page.
+======================================================================================================================
