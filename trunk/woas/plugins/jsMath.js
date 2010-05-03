@@ -55,10 +55,13 @@ woas.custom.jsMath = {
 	
 	// used for post-rendering after library was loaded
 	post_render: function(i) {
+		if (typeof jsMath.Translate == "undefined") {
+			woas.log("jsMath library does not seem to be loaded");
+			return;
+		}
 		var elem = $("jsmath_postrender_"+i);
 		woas.setHTML(elem, jsMath.Translate.Parse('T', woas.getHTML(elem)));
 		$.hide("jsmath_postr_btn_"+i);
-		return;
 	},
 	
 	_macro_hook : function(macro) {
