@@ -296,3 +296,14 @@ function ff_fix_focus() {
 	if (woas.browser.firefox)
 		$("wiki_text").blur();
 }
+
+if (is_windows) {
+	var reFwdSlash = new RegExp("/", "g");
+	woas.fix_path_separators = function(path) {
+		return path.replace(reFwdSlash, woas.DIRECTORY_SEPARATOR);
+	};
+} else { // UNIX or similar, no path change
+	woas.fix_path_separators = function(path) {
+		return path;
+	};
+}
