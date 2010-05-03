@@ -1062,15 +1062,20 @@ woas._dummy_fn = function() { return; };
 woas._load_hangup_check = function(first) {
 	// first time we just re-create the spawning thread
 	if (!first) {
-		if (!woas.dom._loading ||
-		// ask user if he wishes to continue waiting for libraries to finish loading
-			!confirm(this.i18n.CONTINUE_WAIT_LOAD)) {
+		if (!woas.dom._loading) {
 			woas.log("_load_hangup_check() finished");
+			return
+		}
+		// ask user if he wishes to continue waiting for libraries to finish loading
+		if (!confirm(this.i18n.CONTINUE_WAIT_LOAD)) {
+			// run the hook like if nothing hung up
+			woas.dom._run_post_load_hook();
+			woas.log("_load_hangup_check() cancelled");
 			return;
 		}
 	}
 	// launch again this thread, every 3s
-	woas.log("_load_hangup_check() respawned");
+	woas.log("_load_hangup_check() respawned (still loading: "+woas.dom.get_loading()+")");
 	setTimeout("woas._load_hangup_check(false);", 3000);
 }
 	
