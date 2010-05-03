@@ -1023,7 +1023,7 @@ woas._on_load = function() {
 	}
 	
 	// customized keyboard hook
-	document.onkeydown = kbd_hook;
+	document.onkeydown = woas.ui._keyboard_event_hook;
 	
 	// Go straight to requested page
 	var qpage=document.location.href.split("?")[1];
