@@ -1,7 +1,6 @@
 var forstack = [];			// forward history stack, discarded when saving
 var cfg_changed = false;	// true when configuration has been changed
 var _custom_focus = false;	// true when an user control is currently focused
-var _decrypt_failed = false;	// the last decryption failed due to wrong password attempts (pretty unused)
 var result_pages = [];			// the pages indexed by the last result page
 var last_AES_page;				// the last page on which the cached AES key was used on
 var current_namespace = "";		// the namespace(+subnamespaces) of the current page
@@ -389,7 +388,7 @@ woas.get__text = function(pi) {
 	// is the page encrypted or plain?
 	if (!this.is__encrypted(pi))
 		return pages[pi];
-	_decrypt_failed = true;
+	this.pager._decrypt_failed = true;
 	if (!this.AES.isKeySet()) {
 		this.alert(this.i18n.ERR_NO_PWD.sprintf(page_titles[pi]));
 		return null;
@@ -421,7 +420,7 @@ woas.get__text = function(pi) {
 	if (!this.config.key_cache)
 		this.AES.clearKey();
 	if (pg !== null) {
-		_decrypt_failed = false;
+		this.pager._decrypt_failed = false;
 //		if (this.config.key_cache)			last_AES_page = page_titles[pi];
 	} else {
 		this.alert(this.i18n.ACCESS_DENIED.sprintf(page_titles[pi]));
@@ -612,9 +611,8 @@ woas._get_special = function(cr, interactive) {
 /*			if (this.is_embedded(cr)) {
 				text = this._get_embedded(cr, this.is_image(cr) ? "image":"file");
 				if (text == null) {
-					if (_decrypt_failed)
-						_decrypt_failed = false;
-					return;
+					if (this.pager.decrypt_failed())
+						return;
 				}
 				this._add_namespace_menu("Special");
 				
@@ -722,10 +720,8 @@ woas.set_current = function (cr, interactive) {
 						if (!confirm(this.i18n.CONFIRM_REMOVE_ENCRYPT.sprintf(cr)))
 							return false;
 						text = this.get_text(cr);
-						if (_decrypt_failed) {
-							_decrypt_failed = false;
+						if (this.pager.decrypt_failed())
 							return false;
-						}
 						pages[pi] = text;
 						page_attrs[pi] -= 2;
 						if (!this.config.key_cache)
@@ -778,8 +774,8 @@ woas.set_current = function (cr, interactive) {
 						} // plugins/non-plugins
 
 						if(text === null) {
-							if (_decrypt_failed)
-								_decrypt_failed = false;
+							// called for reset purposes
+							this.pager.decrypt_failed();
 							return false;
 						}
 						this._add_namespace_menu(namespace);
@@ -790,8 +786,8 @@ woas.set_current = function (cr, interactive) {
 					case "Image":
 						text = this._get_embedded(namespace+"::"+cr, namespace.toLowerCase());
 						if(text == null) {
-							if (_decrypt_failed)
-								_decrypt_failed = false;
+							// called for reset purposes
+							this.pager.decrypt_failed();
 							return false;
 						}
 						this._add_namespace_menu(namespace);
@@ -809,10 +805,8 @@ woas.set_current = function (cr, interactive) {
 	}
 	
 	if (text === null) {
-		if (_decrypt_failed) {
-			_decrypt_failed = false;
+		if (this.pager.decrypt_failed())
 			return false;
-		}
 		return this._create_page(namespace, cr, true, false);
 	}
 	
@@ -1075,7 +1069,7 @@ woas._load_hangup_check = function(first) {
 			return;
 		}
 	}
-	// launch again this thread, ever 3s
+	// launch again this thread, every 3s
 	woas.log("_load_hangup_check() respawned");
 	setTimeout("woas._load_hangup_check(false);", 3000);
 }

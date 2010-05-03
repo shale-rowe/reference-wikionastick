@@ -731,6 +731,17 @@ woas._make_delta_func = function(fn_name, fn_args) {
 
 // WoaS 'pager' module
 woas.pager = {
+
+	_decrypt_failed: false,	// the last decryption failed due to wrong password attempts
+	
+	decrypt_failed: function() {
+		if (this._decrypt_failed) {
+			this._decrypt_failed = false;
+			return true;
+		}
+		return false;
+	},
+
 	get: function(title) {
 		return woas.get_text(title);
 	},
