@@ -1,10 +1,4 @@
-
-// page attributes bits are mapped to (readonly, encrypted, ...)
-
-//var end_trim = false;		// trim pages from the end
-
 var forstack = [];			// forward history stack, discarded when saving
-var cached_search = "";		// cached XHTML content of last search
 var cfg_changed = false;	// true when configuration has been changed
 var search_focused = false;	// true when a search box is currently focused
 var _custom_focus = false;	// true when an user control is currently focused
@@ -12,7 +6,6 @@ var _decrypt_failed = false;	// the last decryption failed due to wrong password
 var result_pages = [];			// the pages indexed by the last result page
 var last_AES_page;				// the last page on which the cached AES key was used on
 var current_namespace = "";		// the namespace(+subnamespaces) of the current page
-var _hl_reg = null;						// search highlighting regex
 
 // new variables will be properly declared here
 woas.prev_title = current;		// previous page's title used when entering/exiting edit mode
@@ -21,6 +14,9 @@ woas.save_queue = [];		// pages which need to be saved and are waiting in the qu
 
 // Automatic-Save TimeOut object
 woas._asto = null;
+
+// cached XHTML content of last search
+woas._cached_search = "";
 
 // title of page being rendered
 woas.render_title = null;
@@ -164,6 +160,8 @@ woas.get_namespace = function(page, root_only) {
 	if (p==-1) return "";
 	return page.substring(0,p+2);	
 };
+
+// page attributes bits are mapped to (readonly, encrypted, ...)
 
 woas.is_readonly = function(page) {
 	return this.is_readonly_id(this.page_index(page));
