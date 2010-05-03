@@ -1054,35 +1054,45 @@ woas._on_load = function() {
 	this._editor = new TextAreaSelectionHelper($("woas_editor"));
 
 	this.setHTML($("woas_wait_text"), "Completing load process...");
-
-	// this thread will eventually disable the wait screen
-	// and render the first page
-	woas._render_after_load();
+	
+	// set a hook to be called when loading process is complete
+	if (!woas.dom.wait_loading(woas._early_render))
+		woas._load_hangup_check(true);
 };
 
 // the first page rendering is a delicate process
 // plugins and related libraries/CSS must be loaded
 // before rendering the first page to prevent some glitches
 // to happen, like: missing CSS, missing macros etc
-woas._render_after_load = function() {
-	// keep re-threading until all other scripts have been loaded
-	if (this.dom._loading) {
-		woas.log("_render_after_load() respawned");
-		setTimeout("woas._render_after_load();", 200);
-		return;
+woas._dummy_fn = function() { return; };
+woas._load_hangup_check = function(first) {
+	// first time we just re-create the spawning thread
+	if (!first) {
+		if (!woas.dom._loading ||
+		// ask user if he wishes to continue waiting for libraries to finish loading
+			!confirm(this.i18n.CONTINUE_WAIT_LOAD)) {
+			woas.log("_load_hangup_check() finished");
+			return;
+		}
 	}
-	this._forward_browse = true; // used to not store backstack
-	this.set_current(current, true);
-	this.refresh_menu_area();
+	// launch again this thread, ever 3s
+	woas.log("_load_hangup_check() respawned");
+	setTimeout("woas._load_hangup_check(false);", 3000);
+}
+	
+woas._early_render = function() {
+	woas._forward_browse = true; // used to not store backstack
+	woas.set_current(current, true);
+	woas.refresh_menu_area();
 	// feed the current title before running the disable edit mode code
-	this.prev_title = current;
-	this.disable_edit();
+	woas.prev_title = current;
+	woas.disable_edit();
 	
 //	this.progress_finish();
 	$.hide("loading_overlay");
 	
 	// launching post-load hook
-	this.post_load();	
+	woas.post_load();	
 };
 
 // disable edit-mode after cancel/save actions

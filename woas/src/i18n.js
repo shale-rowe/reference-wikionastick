@@ -75,7 +75,8 @@ woas.i18n = {
 	WSIF_NO_HN: "Could not locate header name",
 	WSIF_NO_VER: "Could not read WSIF version",
 	WSIF_NS_VER: "WSIF version %s not supported!",
-	CANNOT_LOCK_RESERVED: "Cannot lock a page in a reserved namespace"
+	CANNOT_LOCK_RESERVED: "Cannot lock a page in a reserved namespace",
+	CONTINUE_WAIT_LOAD: "The loading process seems stuck.\nPlease click OK to keep waiting or Cancel to break."
 };
 
 // do not use any copyrighted wordlist here
