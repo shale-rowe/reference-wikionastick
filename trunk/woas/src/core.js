@@ -620,6 +620,9 @@ woas.dom = {
 			// reduce the counter of 'hung' requests
 			--this._loading;
 			woas.log("DOM: "+instance+" completed loading"+this._show_load());
+			// check if we need to launch the hook
+			if (this._loading === 0)
+				this._run_post_load_hook();
 			
 			return true;
 		}
@@ -688,6 +691,27 @@ woas.dom = {
 		}
 		// clear objects array
 		this._objects = [];
+	},
+	
+	// call the argument function when there aren't other libraries left to load
+	// returns true if loading was already complete
+	// returns false if we are async-waiting
+	_post_load_hook: woas._dummy_fn,
+	wait_loading: function(fn_object) {
+		if (this._loading === 0) {
+			(fn_object)();
+			// always reset associated async hook
+			this._post_load_hook = woas._dummy_fn;
+			return true;
+		}
+		// associate the hook
+		this._post_load_hook = fn_object;
+		return false;
+	},
+	
+	_run_post_load_hook: function() {
+		// run in a thread so that the call to last object unload does not wait on the hook
+		setTimeout('woas.dom._post_load_hook();woas.dom._post_load_hook=woas._dummy_fn;', 10);
 	}
 	
 };
