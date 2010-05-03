@@ -79,7 +79,7 @@ woas.special_backlinks = function() {
 		return "== Links to "+pg_title+"\n"+this._join_list(pg);
 };
 
-//var hl_reg;
+woas._reLastSearch = null;	// search highlighting regex
 
 // Returns a index of searched pages (by miz & legolas558)
 woas.special_search = function( str ) {
@@ -94,8 +94,8 @@ woas.special_search = function( str ) {
 	var reg = new RegExp( ".{0,"+nearby_chars+"}" + RegExp.escape(this.trim(str)).
 					replace(/\s+/g, "(.|\n)*?") + ".{0,"+nearby_chars+"}", "gi" ),
 			added;
-	_hl_reg = new RegExp("("+RegExp.escape(str)+")", "gi");
-/*	hl_reg = new RegExp( ".*?" + RegExp.escape(str).
+	woas._reLastSearch = new RegExp("("+RegExp.escape(str)+")", "gi");
+/*	woas._reLastSearch = new RegExp( ".*?" + RegExp.escape(str).
 					replace(/^\s+/, "").
 					replace(/\s+$/, "").
 					replace(/([^\s]+)/g, "($1)").

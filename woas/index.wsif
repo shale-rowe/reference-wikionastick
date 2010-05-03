@@ -139,6 +139,7 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 A blank sheet is a catalyst for ideas
+
 --DFQRCTsKlU
 woas.page.title: Special::Search
 woas.page.attributes: 0
@@ -152,18 +153,7 @@ woas.page.boundary: DFQRCTsKlU
 <input id="string_to_search" type="text" onfocus="search_focus(true)" onblur="search_focus(false)" />&nbsp;<input type="button" value="Search" onclick="do_search()" />&nbsp;<input type="button" value="Clear" onclick="clear_search()" />
 
 <script type="text/javascript" language="javascript">
-var tmp = $('wiki_text');
-var pre = '<pre class="wiki_preformatted">';
-var hl_text = cached_search.replace(/<div class="search_results">((.|\n)*?)<\/div>/g,
-function (str, ct) {
-    return '<div class="search_results">'+pre+ct.substr(pre.length).replace(_hl_reg, '<span class="search_highlight">$1</span>')+'</div>';
-});
-
-tmp.innerHTML = tmp.innerHTML + hl_text;
-
-hl_text = null;
-//_hl_reg = null;
- $("string_to_search").focus();
+woas._search_load();
 </script>
 --DFQRCTsKlU
 woas.page.title: Special::Lock

@@ -233,7 +233,7 @@ function menu_do_search() {
 }
 
 function _raw_do_search(str) {
-	cached_search = woas.parser.parse(woas.special_search( str ));
+	woas._cached_search = woas.parser.parse(woas.special_search( str ));
 	woas.assert_current("Special::Search");
 }
 
@@ -593,9 +593,9 @@ woas.progress_finish = function(section) {
 function clear_search() {
 	$("string_to_search").value = "";
 	$("string_to_search").focus();
-	if (!cached_search.length)
+	if (!woas._cached_search.length)
 		return;
-	cached_search = "";
+	woas._cached_search = "";
 	woas.assert_current("Special::Search");
 }
 
@@ -604,6 +604,21 @@ function search_focus(focused) {
 	if (!focused)
 		ff_fix_focus();
 }
+
+// cached XHTML content of last search
+var rePreTag = new RegExp("(<"+"div class=\"woas_search_results\">)((.|\\n)*?)<"+"\\/div>", "g");
+woas._search_load = function() {
+	var tmp = $('wiki_text'),
+		pre = '<'+'pre class="wiki_preformatted">',
+		hl_text = woas._cached_search.replace(rePreTag, function (str, tag_st, ct) {
+			return tag_st+pre+ct.substr(pre.length).replace(woas._reLastSearch,
+					'<'+'span class="search_highlight">$1<'+'/span>')+'<'+'/div>';
+	});
+	tmp.innerHTML = tmp.innerHTML + hl_text;
+	hl_text = null;
+	//woas._reLastSearch = null;
+	$("string_to_search").focus();
+};
 
 function custom_focus(focused) {
 	_custom_focus = focused;
