@@ -275,11 +275,9 @@ if (woas.browser.ie6) $("cb_fixed_layout").disabled = true;
 
 $("txt_author").value = woas.config.wsif_author;
 $("txt_wsif_ds").value = woas.config.wsif_ds;
-function _ep_focus() { search_focused = true; }
-function _ep_blur() { search_focused = false; }
 
-$("txt_wsif_ds").onfocus = $("txt_author").onfocus = _ep_focus;
-$("txt_wsif_ds").onblur = $("txt_author").onblur = _ep_blur;
+$("txt_wsif_ds").onfocus = $("txt_author").onfocus = woas.ui.focus_textbox;
+$("txt_wsif_ds").onblur = $("txt_author").onblur = woas.ui.blur_textbox;
 </script>
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Deprecated syntax
@@ -503,11 +501,8 @@ var path = woas.ROOT_DIRECTORY + "export" + woas.DIRECTORY_SEPARATOR;
 $('woas_ep_xhtml').value = path;
 $('woas_ep_img').value = path;
 
-function _ep_focus() { search_focused = true; }
-function _ep_blur() { search_focused = false; }
-
-$('woas_ep_xhtml').onfocus = $('woas_ep_img').onfocus = $('woas_ep_ext').onfocus = _ep_focus;
-$('woas_ep_xhtml').onblur = $('woas_ep_img').onblur = $('woas_ep_ext').onblur = _ep_blur;
+$('woas_ep_xhtml').onfocus = $('woas_ep_img').onfocus = $('woas_ep_ext').onfocus = woas.ui.focus_textbox;
+$('woas_ep_xhtml').onblur = $('woas_ep_img').onblur = $('woas_ep_ext').onblur = woas.ui.blur_textbox;
 
 </script>
 --DFQRCTsKlU
@@ -566,11 +561,8 @@ Author: <input id="woas_ep_author" type="text" size="12" value="" />
 var path = woas.ROOT_DIRECTORY + "wsif" + woas.DIRECTORY_SEPARATOR;
 $('woas_ep_wsif').value = path;
 
-function _ep_focus() { search_focused = true; }
-function _ep_blur() { search_focused = false; }
-
-$('woas_ep_author').onfocus = $('woas_ep_wsif').onfocus = _ep_focus;
-$('woas_ep_author').onblur = $('woas_ep_wsif').onblur = _ep_blur;
+$('woas_ep_author').onfocus = $('woas_ep_wsif').onfocus = woas.ui.focus_textbox;
+$('woas_ep_author').onblur = $('woas_ep_wsif').onblur = woas.ui.blur_textbox;
 $('woas_ep_author').value = woas.config.wsif_author;
 
 </script>

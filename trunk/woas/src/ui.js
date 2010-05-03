@@ -3,7 +3,14 @@
 */
 
 woas.ui = {
-	kbd_hooking: false		// set to true when inside an edit textarea
+	kbd_hooking: false,		// set to true when inside an edit textarea
+	_textbox_focus: false,
+	focus_textbox: function() { // called when a textbox has currently focus
+		this._textbox_focus = true;
+	},
+	blur_textbox: function() { // called when a textbox looses focus
+		this._textbox_focus = false;
+	}
 };
 
 // when home is clicked
