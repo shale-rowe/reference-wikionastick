@@ -11,6 +11,7 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 [[Include::Wiki::Utility::Links for writers]]
+
 --DFQRCTsKlU
 woas.page.title: Special::Advanced
 woas.page.attributes: 0
@@ -1167,13 +1168,74 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 = Edit the menu
 # Click the *Edit menu* button at the bottom of the menu.<br><br>
-# Edit the contents of the main text area by typing normally. The menu can contain links, lists, tables, colored text, etc. as a normal wik page<br><br>
-# Save your changes by clicking on the *Save* icon in the top right navigation panel.
+# Edit the contents of the main text area by typing normally. The menu can contain [[Wiki::Help::Links|links]], [[Wiki::Help::Lists|lists]], [[Wiki::Help::Tables|tables]], [[Wiki::Help::Text formatting|wiki text formatting]], etc.<br><br>
+# Save your changes by clicking the [[Include::Wiki::Template::Icon::Save]] icon in the banner.
 
-You can use various styles for your menu. A detailed explanation of list styles can be found in the [[Wiki::Help::Lists]] page.
+== Edit the menu buttons
+# Open this wiki in a text editor.<br><br>
+# Do a search for {{{<!-- BEGIN MENU -->}}}.<br><br>
+# To edit the buttons at the top of the menu, change the content between the {{{<!-- BEGIN MENU BUTTONS TOP -->}}} and {{{<!-- END MENU BUTTONS TOP -->}}} tags.<br><br>
+# To edit the buttons at the bottom of the menu (this includes the *Edit sub-menu* button which is only visible when a sub-menu is displayed), change the content between the {{{<!-- BEGIN MENU BUTTONS BOTTOM -->}}} and {{{<!-- END MENU BUTTONS BOTTOM -->}}} tags.<br><br>
+# Save the file.<br><br>
+# Close the text editor.<br><br>
+# Reload the wiki if it's open in a browser.
 
 == Add a sub-menu beneath the menu
 See the *Namespace sub-menu* section of the [[Wiki::Help::Namespaces]] page.
+
+== Add expanding menu entries
+To add expanding menu entries, see the instructions for *folding text* on the [[Help::Folds]] page. Examples of these being used as menu entries are below.
+
+[[Include::Wiki::Template::Info|The links inside the example sub-menus are red because the pages don't exist.]]
+<div class="wikihelptext">Use this code in a page or in the menu:</div>
+<div class="wikihelpcode">&lt;a href="javascript:expanddiv('MENU')"&gt;Click here for a sub-menu&lt;/a&gt;&lt;div id="MENU" style="display:none;"&gt;
+{{{*}}} [<!-- -->[PAGENAME1]]
+{{{*}}} [<!-- -->[PAGENAME2]]
+{{{*}}} [<!-- -->[PAGENAME3]]
+&lt;/div&gt;
+</div>
+<div class="wikihelptext">To create this:</div>
+<a href="javascript:expanddiv('MENU')">Click here for a sub-menu</a><div id="MENU" style="display:none;">
+* [[PAGENAME1]]
+* [[PAGENAME2]]
+* [[PAGENAME3]]
+</div>
+
+<div class="wikihelptext">Or use this code in a page or in the menu:</div>
+<div class="wikihelpcode">
+&lt;a href="javascript:expanddiv('MENU1')"&gt;Click here for a sub-menu1&lt;/a&gt;&lt;div id="MENU1" style="display:none;"&gt;
+{{{*}}} [<!-- -->[PAGENAME1]]
+{{{*}}} [<!-- -->[PAGENAME2]]
+{{{*}}} [<!-- -->[PAGENAME3]]
+&lt;/div&gt;
+&lt;a href="javascript:expanddiv('MENU2')"&gt;Click here for a sub-menu2&lt;/a&gt;&lt;div id="MENU2" style="display:none;"&gt;
+{{{*}}} [<!-- -->[PAGENAME1]]
+{{{*}}} [<!-- -->[PAGENAME2]]
+{{{*}}} [<!-- -->[PAGENAME3]]
+&lt;/div&gt;
+</div>
+<div class="wikihelptext">To create this:</div>
+<a href="javascript:expanddiv('MENU1')">Click here for a sub-menu1</a><div id="MENU1" style="display:none;">
+* [[PAGENAME1]]
+* [[PAGENAME2]]
+* [[PAGENAME3]]
+</div>
+<a href="javascript:expanddiv('MENU2')">Click here for a sub-menu2</a><div id="MENU2" style="display:none;">
+* [[PAGENAME1]]
+* [[PAGENAME2]]
+* [[PAGENAME3]]
+</div>
+
+== Force new page links to bottom of menu
+If you like new pages to show up at the bottom of the menu in the order you created them, *make sure your cursor is at the end of the last line of text* rather than at the beginning of a new, empty line, and *make sure to delete any new, empty lines beyond the cursor* when saving changes to the menu.
+
+== Restore default menu links
+If you deleted the include link for the default *Links for writers* and would like the links back in the menu:
+# Click the *Edit menu* button in the menu, or double-click inside the menu to edit it.<br><br>
+# Type this code at the top of the menu:<br><br>{{{
+[[Include::Wiki::Utility::Links for writers]]
+}}}
+
 
 --DFQRCTsKlU
 woas.page.title: Wiki::Help::Headers
@@ -2948,7 +3010,7 @@ body {
 	font-size: 0.75em;
 	font-style: italic;
 	line-height: 1em;
-	margin-top: -3em;
+	margin-top: 0em;
 	vertical-align: super;
 }
 
@@ -3723,6 +3785,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Removed references to the *ToDo list* from the Features section of the [[Special::About]] page.
 ** Removed the *Example::Menu* page.
 ** Removed the *Help::Delete a page* page.
+** Removed the *Help::Edit the menu* page.
 ** Removed the *Help::Erase all pages* page.
 ** Removed the *Help::Export* page.
 ** Removed the *Help::Headers* page.
@@ -3732,8 +3795,10 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Removed the *Help::Namespaces* page.
 ** Removed the *Help::Non-breaking spaces* page.
 ** Removed the *Help::Pages linking to this page* page.
+** Removed the *Help::Page name too long* page.
 ** Removed the *Help::Page with no name* page.
 ** Removed the *Help::Rename a page* page.
+** Removed the *Help::Run wiki on a server* page.
 ** Removed the *Help::ToDo list* page and any ToDo items in the wiki.
 ** Removed the *Help::Wiki is read-only* page.
 ** Removed the *ToDo list* page.
@@ -3772,6 +3837,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the [[Wiki::Example::Folding page styled button (HTML)]] page.
 ** Updated the [[Wiki::Help::Bluebox]] page.
 ** Updated the [[Wiki::Help::Delete a page]] page.
+** Updated the [[Wiki::Help::Edit the menu]] page.
 ** Updated the [[Wiki::Help::Erase all pages]] page.
 ** Updated the [[Wiki::Help::Export]] page.
 ** Updated the [[Wiki::Help::Footnotes]] page.
@@ -3862,7 +3928,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the [[Help::Code blocks (preformatted text)]] page, removing the obsolete *Code blocks with syntax highlighting* section.
 ** Updated the *Help::Delete a page* page.
 ** Updated the [[Help::Edit a page]] page.
-** Updated the [[Help::Edit the menu]] page.
+** Updated the *Help::Edit the menu* page.
 ** Updated the [[Help::Encrypt a page]] page.
 ** Updated the *Help::Export* page.
 ** Updated the [[Help::Folds]] page, adding instructions for *Foldaway*.
@@ -3968,7 +4034,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the [[Help::Code blocks (preformatted text)]] page.
 ** Updated the [[Help::CSS]] page.
 ** Updated the [[Help::Edit a page]] page.
-** Updated the [[Help::Edit the menu]] page.
+** Updated the *Help::Edit the menu* page.
 ** Updated the [[Help::Encrypt a page]] page.
 ** Updated the [[Help::Footer]] page.
 ** Updated the [[Help::Getting started]] page.
@@ -4039,7 +4105,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the *Help::Bugs* page.
 ** Updated the [[Help::Code blocks (preformatted text)]] page.
 ** Updated the [[Help::CSS]] page.
-** Updated the [[Help::Edit the menu]] page.
+** Updated the *Help::Edit the menu* page.
 ** Updated the [[Help::Footer]] page.
 ** Updated the [[Help::Images]] page.
 ** Updated the *Help::Include web page* page.
@@ -4119,7 +4185,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the [[Help::Code blocks (preformatted text)]] page, adding instructions on how to use *code blocks with syntax highlighting* from code provided by [[http://woas.iragan.com/viewtopic.php?id=561|FBnil]].
 ** Updated the [[Help::CSS]] page.
 ** Updated the *Help::Delete a page* page.
-** Updated the [[Help::Edit the menu]] page, adding the *Add expanding menu entries* section.
+** Updated the *Help::Edit the menu* page, adding the *Add expanding menu entries* section.
 ** Updated the *Help::Erase all pages* page.
 ** Updated the [[Help::Footer]] page.
 ** Updated the *Help::Headers* page.
@@ -4176,7 +4242,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the [[Help::CSS]] page.
 ** Updated the *Help::Delete a page* page.
 ** Updated the [[Help::Edit a page]] page.
-** Updated the [[Help::Edit the menu]] page.
+** Updated the *Help::Edit the menu* page.
 ** Updated the *Help::Erase all pages* page.
 ** Updated the *Help::Horizontal rules (lines)* page, adding a *custom width horizontal rule aligned to the right*.
 ** Updated the [[Help::Images]] page.
@@ -4187,7 +4253,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the [[Help::Lists]] page to include instructions for various types of *HTML lists*.
 ** Updated the *Help::Non-breaking spaces* page.
 ** Updated the [[Help::Page creation]] page.
-** Updated the [[Help::Page name too long]] page.
+** Updated the *Help::Page name too long* page.
 ** Updated the [[Help::Page scrolling]] page.
 ** Updated the *Help::Page tags* page.
 ** Updated the *Help::Page with no name* page.
@@ -4218,7 +4284,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Changed the *Help* pop-up that displays when the *Table* button is clicked in the editor.
 
 * _Content:_
-** Added a link to the [[Help::Edit the menu]] page on the *Help::Delete a page* page.
+** Added a link to the *Help::Edit the menu* page on the *Help::Delete a page* page.
 ** Added a *Plans for the future* section to the *History* page.
 ** Added *Help::Page with no name* page for those times when you forget to name a page or accidentally delete its name.
 ** Added *Word Count 2* page with a utility for counting words as an alternative to the word count button.
@@ -4231,7 +4297,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the content of the warning when the wiki cannot be loaded because JavaScript is not enabled.
 ** Updated the [[Help::Code blocks (preformatted text)]] page.
 ** Updated the [[Help::CSS]] page with a current copy of the default CSS code.
-** Updated the [[Help::Edit the menu]] page.
+** Updated the *Help::Edit the menu* page.
 ** Updated the [[Help::Encrypt a page]] page with instructions rather than a reference to the default description.
 ** Updated the [[Help::Import]] page, numbering the steps.
 ** Updated the [[Help::Include wiki page]] page.
@@ -4268,7 +4334,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Added the *Help::Backup* page.
 ** Added the *Help::Delete a page* page.
 ** Added the [[Help::Edit a page]] page.
-** Added the [[Help::Edit the menu]] page.
+** Added the *Help::Edit the menu* page.
 ** Added the [[Help::Page scrolling]] page.
 ** Added the *Help::Print a page* page.
 ** Added the *Help::Rename a page* page.
@@ -4298,7 +4364,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Replaced the page creation sections in the *Getting Started* page with a link to the [[Help::Page creation]] page.
 ** Updated the comments on a couple of CSS entries.
 ** Updated the [[Help::Images]] page contents, fixing the instructions for adding a *local image* from your hard drive.
-** Updated the [[Help::Page name too long]] page to reflect the change to the *Fixed banner* option.
+** Updated the *Help::Page name too long* page to reflect the change to the *Fixed banner* option.
 ** Updated the [[Help::Transclusion]] page contents.
 ** Updated the *History* page.
 ** Updated the *Links for writers* page.
@@ -6077,101 +6143,6 @@ This method is useful when an creating a fancy list with more than one list item
 [[Tags::Help|Syntax]]
 
 --DFQRCTsKlU
-woas.page.title: Help::Edit the menu
-woas.page.attributes: 0
-woas.page.encoding: 8bit/plain
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-= Edit the menu
-[[Special::TOC]]
-== Add a go to link to the menu
-If you'd like to have a link in the menu that lets you go to any page you like when you click the button and type in the page name, type this command anywhere in the menu:
-<pre style="background-color:gainsboro">[\
-[Spe\
-cial::G\
-o to|G\
-o to...]\
-]</pre>
-== Add a sub-menu beneath the menu
-See the *Namespace sub-menu* section of the [[Help::Namespaces]] page.
-
-== Add expanding menu entries
-To add expanding menu entries, see the instructions for *folding text* on the [[Help::Folds]] page. Examples of these being used as menu entries are below.
-
-[[Include::Template::Info|The example links inside the sub-menus are red because the pages don't exist yet.]]
-<div class="helptext">Use this code in a page or in the menu:</div>
-<div class="helpcode">&lt;a href="javascript:expanddiv('MENU')"&gt;Click here for a sub-menu&lt;/a&gt;&lt;div id="MENU" style="display:none;"&gt;
-{{{*}}} [<!-- -->[PAGENAME1]]
-{{{*}}} [<!-- -->[PAGENAME2]]
-{{{*}}} [<!-- -->[PAGENAME3]]
-&lt;/div&gt;
-</div>
-<div class="helptext">To create this:</div>
-<a href="javascript:expanddiv('MENU')">Click here for a sub-menu</a><div id="MENU" style="display:none;">
-* [[PAGENAME1]]
-* [[PAGENAME2]]
-* [[PAGENAME3]]
-</div>
-
-<div class="helptext">Or use this code in a page or in the menu:</div>
-<div class="helpcode">
-&lt;a href="javascript:expanddiv('MENU1')"&gt;Click here for a sub-menu1&lt;/a&gt;&lt;div id="MENU1" style="display:none;"&gt;
-{{{*}}} [<!-- -->[PAGENAME1]]
-{{{*}}} [<!-- -->[PAGENAME2]]
-{{{*}}} [<!-- -->[PAGENAME3]]
-&lt;/div&gt;
-&lt;a href="javascript:expanddiv('MENU2')"&gt;Click here for a sub-menu2&lt;/a&gt;&lt;div id="MENU2" style="display:none;"&gt;
-{{{*}}} [<!-- -->[PAGENAME1]]
-{{{*}}} [<!-- -->[PAGENAME2]]
-{{{*}}} [<!-- -->[PAGENAME3]]
-&lt;/div&gt;
-</div>
-<div class="helptext">To create this:</div>
-<a href="javascript:expanddiv('MENU1')">Click here for a sub-menu1</a><div id="MENU1" style="display:none;">
-* [[PAGENAME1]]
-* [[PAGENAME2]]
-* [[PAGENAME3]]
-</div>
-<a href="javascript:expanddiv('MENU2')">Click here for a sub-menu2</a><div id="MENU2" style="display:none;">
-* [[PAGENAME1]]
-* [[PAGENAME2]]
-* [[PAGENAME3]]
-</div>
-
-== Edit the menu
-# Click the *Edit menu* button at the bottom of the menu.
-# Edit the contents of the main text area by typing normally. The menu can contain links, lists, tables, colored text, etc.
-# Save your changes by clicking on the [[Include::Template::Icon::Save]] icon in the banner.
-
-== Edit the menu buttons
-# Open this wiki in a text editor.
-# Do a search for {{{<!-- BEGIN MENU -->}}}.
-# To edit the buttons at the top of the menu, change the content between the {{{<!-- BEGIN MENU BUTTONS TOP -->}}} and {{{<!-- END MENU BUTTONS TOP -->}}} tags.
-# To edit the button(s) at the bottom of the menu, change the content between the {{{<!-- BEGIN MENU BUTTONS BOTTOM -->}}} and {{{<!-- END MENU BUTTONS BOTTOM -->}}} tags.
-# Save the file.
-# Close the text editor.
-# Reload the wiki if it's open in a browser.
-
-== Force new page links to bottom of menu
-If you like new pages to show up at the bottom of the menu in the order you created them, *make sure your cursor is at the end of the last line of text* rather than at the beginning of a new, empty line, and *make sure to delete any new, empty lines beyond the cursor* when saving changes to the menu.
-
-== Restore default menu links
-If you deleted the include link for the default *Links for writers* and would like the links back in the menu:
-# Click the *Edit menu* button in the menu, or double-click inside the menu to edit it.<br><br>
-# Type this code at the top of the menu:<pre style="background-color:gainsboro">[\
-[Inclu\
-de::Boa\
-S::Utili\
-ty::Li\
-nks for wri\
-ters]\
-]</pre>
-
-[[Tags::Help]]
-
---DFQRCTsKlU
 woas.page.title: Wiki::Help::Navigation
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
@@ -6230,28 +6201,6 @@ An alternate method of creating a page is to type a new page name inside nested 
 ** There is already a page by that name. Check  [[Special::All Pages|All pages]] to see if that page already exists.<br><br>
 ** The wiki is being run in [[Help::Publish wiki online|read-only mode]], so no changes are allowed. See the [[Help::Wiki is read-only]] page for instructions on how to fix the issue.<br><br>
 ** You are trying to use a namespace that is reserved by the system. See the [[Help::Namespaces]] page.
-
-[[Tags::Help]]
-
---DFQRCTsKlU
-woas.page.title: Help::Page name too long
-woas.page.attributes: 0
-woas.page.encoding: 8bit/plain
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-= Page name too long
-If you created a page with a name that's too long and you can't access the icons at the top of the page or the page title while in the editor:
-# Click the link for any other page in the menu to restore your access to the icons.<br><br>
-# Click the [[Include::Template::Icon::Advanced]] icon in the banner and choose the [[Special::Options|Options]] page.<br><br>
-# Uncheck the *Fixed banner* option and click the *Save options* button.<br><br>
-# Open the page with the too long name either from its entry in the menu or by selecting it from the [[Special::All Pages|All Pages]] page.<br><br>
-# Scroll the page to the right to click the [[Include::Template::Icon::Edit]] icon in the banner.<br><br>
-# Delete the contents of the main text area on the page.<br><br>
-# Scroll the page to the right to click the [[Include::Template::Icon::Save]] icon in the banner.<br><br>
-# Create the page again - this time with a shorter name.<br><br>
-# Return to the [[Special::Options|Options]] page to restore the *Fixed banner* option.
 
 [[Tags::Help]]
 
@@ -6339,19 +6288,6 @@ grant codeBase "file://localhost/home/users/Desktop/
 TiddlySaver.jar"
  { permission java.security.AllPermission; };
 }}}The TiddlySaver java applet was written by J.Rouston.
-
-[[Tags::Help]]
-
---DFQRCTsKlU
-woas.page.title: Help::Run wiki on a server
-woas.page.attributes: 0
-woas.page.encoding: 8bit/plain
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-= Run wiki on a server
-This is a personal wiki that's not designed to be used on a server. Any changes you make to the file will only be permanent if the wiki is on your computer. Advanced users may be able to find a way to get around that, but it's currently not possible by default.
 
 [[Tags::Help]]
 
