@@ -1290,42 +1290,50 @@ woas.page.boundary: DFQRCTsKlU
 = Include web page
 Web pages can be included in a page as embedded objects or in iFrames.
 
-[[Include::WoaS::Template::Info|Some pages may not render correctly depending on how they're coded. Embedding more than one web page in a wiki page will cause the final embedded web page to steal the focus when the page is loaded, so it's recommended to have only one per page.]]
+[[Include::Wiki::Template::Info|Some pages may not render correctly depending on how they're coded. Embedding more than one web page in a wiki page will cause the final embedded web page to steal the focus when the page is loaded, so it's best to have only one per page.]]
 == Embed a web page as an object
 This method makes the embedded web page become a seamless part of the page.
 
 * *Embed a local HTML file as an object:*<br><br>
-** <div class="woas_helptext">Use this code in a page, replacing PATH with the full path to the HTML file you wish to include, and changing the width and height to suit your taste:</div><br>{{{
-<object data="PATH" style="width:100%; height:630px;">File not found.</object>
-}}}<br><div class="woas_helptext">To embed a local HTML file in a page.</div><br>
+** <div class="wikihelptext">Use this code in a page, replacing PATH with the full path to the HTML file you wish to include, and changing the width and height to suit your taste:</div><br>{{{
+<object data="PATH" style="width:100%; height:400px;">File not found.</object>
+}}}<br><div class="wikihelptext">To embed a local HTML file in a page.</div><br>
 *** For example, if you want to embed the {{{/Work/MyProject.html}}} file as an object, you'd use this command:<br><br>{{{
-<object data="/Work/MyProject.html" style="width:100%; height:630px;">File not found.</object>
+<object data="/Work/MyProject.html" style="width:100%; height:400px;">File not found.</object>
 }}}<br><br>
 * *Embed a remote URL as an object:*<br><br>
-** <div class="woas_helptext">Use this code in a page, replacing URL with the URL of the page you wish to include, and changing the width and height to suit your taste:</div><br>{{{
-<object data="URL" style="width:100%; height:630px;">URL not found.</object><
-}}}<br><div class="woas_helptext">To embed an external URL in a page.</div><br>
-*** For example, if you want to embed the WoaS official website at {{{http://stickwiki.sf.net/}}} as an object, you'd use this command:<br><br>{{{
-<object data="http://stickwiki.sf.net/" style="width:100%; height:630px;">URL not found.</object>
-}}}
+** <div class="wikihelptext">Use this code in a page, replacing URL with the URL of the page you wish to include, and changing the width and height to suit your taste:</div><br>{{{
+<object data="URL" style="width:100%; height:400px;">URL not found.</object>
+}}}<br><div class="wikihelptext">To embed an external URL in a page.</div><br>
+*** For example, if you want to embed the Gnu page at [[http://www.gnu.org/]] as an object, you'd use this command:<br><br>{{{
+<object data="http://www.gnu.org/" style="width:100%; height:400px;">URL not found.</object>
+}}}<br>The resulting page would look like [[Wiki::Example::Embed web page object|this]].
 
 == Embed a web page in an iFrame
 This method creates a frame around the embedded web page. The code shown below is for a plain frame, but you can style the iFrame further by adding a border, changing the border style to dotted, dashed, solid, double, groove, ridge, inset, or outset, changing the border width to whatever thickness you like, and the border color to whatever color you like.
 
 * *Embed a local HTML file in an iFrame:*<br><br>
-** <div class="woas_helptext">Use this code in a page, replacing PATH with the full path to HTML file you wish to include, and changing the width and height to suit your taste:</div><br>{{{
-<iframe height="400" width="100%" height:630px; src="PATH"></iframe>
-}}}<br><div class="woas_helptext">To include a local HTML file in a wiki page.</div><br>
+** <div class="wikihelptext">Use this code in a page, replacing PATH with the full path to the HTML file you wish to include, and changing the width and height to suit your taste:</div><br>{{{
+<iframe width="100%" height="400px" src="PATH"></iframe>
+}}}<br><div class="wikihelptext">To include a local HTML file in a wiki page.</div><br>
 *** For example, if you want to embed the {{{/Work/MyProject.html}}} file in an iFrame, you'd use this command:<br><br>{{{
-<iframe height="400" width="100%" height:630px; src="/Work/MyProject.html"></iframe>
+<iframe width="100%" height="400px" src="/Work/MyProject.html"></iframe>
 }}}<br><br>
 * *Embed a remote URL in an iFrame:*<br><br>
-** <div class="woas_helptext">Use this code in a page, replacing URL with the URL of the page you wish to include, and changing the width and height to suit your taste:</div><br>{{{
-<iframe height="400" width="100%" height:630px; src="URL"></iframe>
-}}}<br><div class="woas_helptext">To include a web page in a wiki page.</div><br>
-*** For example, if you want to embed the WoaS official website at {{{http://stickwiki.sf.net/}}} in an iFrame, you'd use this command:<br><br>{{{
-<iframe height="400" width="100%" height:630px; src="http://stickwiki.sf.net/"></iframe>
-}}}
+** <div class="wikihelptext">Use this code in a page, replacing URL with the URL of the page you wish to include, and changing the width and height to suit your taste:</div><br>{{{
+<iframe width="100%" height="400px" src="URL"></iframe>
+}}}<br><div class="wikihelptext">To include a web page in a wiki page.</div><br>
+*** For example, if you want to embed the Gnu page at [[http://www.gnu.org/]] in an iFrame, you'd use this command:<br><br>{{{
+<iframe width="100%" height="400px" src="http://www.gnu.org/"></iframe>
+}}}<br>The resulting page would look like [[Wiki::Example::Embed web page iFrame|this]].
+
+<!-- 
+== Reload an iframe with a link
+<div class="helptext">Use this code in the same page as an iframe, replacing FRAMENAME with ID of the iFrame you'd like to reload:</div>{{{
+<script type="text/javascript">function Reup () {var f = document.getElementById('FRAMENAME'); f.src = f.src;}</script>
+<a href="javascript:Reup()">Reload the iframe</a>
+}}}<div class="helptext">To create a reload link that refreshes an iFrame.</div>
+-->
 
 --DFQRCTsKlU
 woas.page.title: Wiki::Help::Include wiki page
@@ -3719,6 +3727,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Removed the *Help::Export* page.
 ** Removed the *Help::Headers* page.
 ** Removed the *Help::Include text file* page.
+** Removed the *Help::Include web page* page.
 ** Removed the *Help::Join lines of text* page.
 ** Removed the *Help::Namespaces* page.
 ** Removed the *Help::Non-breaking spaces* page.
@@ -3735,6 +3744,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Removed the *WoaS::History* page.
 ** Renamed the *Help::Backup* page to [[Wiki::Help::Backup]].
 ** Renamed the *Help::Bluebox* page to [[Wiki::Help::Bluebox]].
+** Renamed the *Help::Bugs* page to [[Wiki::Help::Bugs]].
 ** Renamed the *Help::Cancel any action* page to [[Wiki::Help::Cancel any action]].
 ** Renamed the *Help::Change wiki settings* page to [[Wiki::Help::Change wiki settings]].
 ** Renamed the *Help::Footnotes* page to [[Wiki::Help::Footnotes]].
@@ -3767,6 +3777,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the [[Wiki::Help::Footnotes]] page.
 ** Updated the [[Wiki::Help::Headers]] page.
 ** Updated the [[Wiki::Help::Include text file]] page.
+** Updated the [[Wiki::Help::Include web page]] page.
 ** Updated the [[Wiki::Help::Index]] page.
 ** Updated the [[Wiki::Help::Join lines of text]] page.
 ** Updated the [[Wiki::Help::Namespaces]] page.
@@ -3846,7 +3857,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the *Example::JavaScript* page.
 ** Updated the [[Help::Add a search box]] page.
 ** Updated the [[Help::Aliases]] page.
-** Updated the [[Help::Bugs]] page.
+** Updated the *Help::Bugs* page.
 ** Updated the [[Help::CSS]] page.
 ** Updated the [[Help::Code blocks (preformatted text)]] page, removing the obsolete *Code blocks with syntax highlighting* section.
 ** Updated the *Help::Delete a page* page.
@@ -3859,7 +3870,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the [[Help::Images]] page.
 ** Updated the [[Help::Import]] page.
 ** Updated the *Help::Include text file* page.
-** Updated the [[Help::Include web page]] page.
+** Updated the *Help::Include web page* page.
 ** Updated the [[Help::Include wiki page]] page.
 ** Updated the [[Help::JavaScript]] page.
 ** Updated the *Help::Join lines of text* page.
@@ -3874,7 +3885,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the [[Help::Requirements]] page.
 ** Updated the *Help::Run wiki on a server* page.
 ** Updated the [[Help::Syntax]] page.
-** Updated the [[Help::Table of Contents]] page.
+** Updated the *Help::Table of Contents* page.
 ** Updated the [[Help::Tables]] page.
 ** Updated the [[Help::Tags]] page.
 ** Updated the *Help::Tooltips* page thanks for information provided by [[http://woas.iragan.com/viewtopic.php?pid=2124#p2124|killermist]].
@@ -3916,7 +3927,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Added the *Example::Bluebox* page.
 ** Added the *Example::Folding page button (HTML)* page.
 ** Added the *Help::Bluebox* page to explain how to use Bluebox, which was contributed by *FBNil*, to create styled presentations of your stories.
-** Added the [[Help::Include web page]] page.
+** Added the *Help::Include web page* page.
 ** Added the [[Help::Folds]] page.
 ** Added the *Help::ToDo list* page with instructions on how to use the *ToDo list* page.
 ** Added the *Help::Topnote* page to describe *topnotes* and demonstrate how to use them.
@@ -3953,12 +3964,11 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the *Example::JavaScript* page.
 ** Updated the [[Help::Add a search box]] page.
 ** Updated the [[Help::Bootscript]] page.
-** Updated the [[Help::Bugs]] page.
+** Updated the *Help::Bugs* page.
 ** Updated the [[Help::Code blocks (preformatted text)]] page.
 ** Updated the [[Help::CSS]] page.
 ** Updated the [[Help::Edit a page]] page.
 ** Updated the [[Help::Edit the menu]] page.
-** Uodated the [[Help::Include web page]] page.
 ** Updated the [[Help::Encrypt a page]] page.
 ** Updated the [[Help::Footer]] page.
 ** Updated the [[Help::Getting started]] page.
@@ -3966,7 +3976,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the *Help::Horizontal rules (lines)* page.
 ** Updated the [[Help::Images]] page, adding instructions for how to write an include link to use the *Template::Image gallery*.
 ** Updated the *Help::Include text file* page.
-** Updated the [[Help::Include web page]] page.
+** Updated the *Help::Include web page* page.
 ** Updated the [[Help::Include wiki page]] page.
 ** Updated the [[Help::JavaScript]] page.
 ** Updated the *Help::Join lines of text* page.
@@ -3978,7 +3988,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the *Help::Pages linking to this page* page.
 ** Updated the *Help::Spoilers* page, adding the *Dynamic block area wiki link (click)*.
 ** Updated the [[Help::Syntax]] page.
-** Updated the [[Help::Table of Contents]] page.
+** Updated the *Help::Table of Contents* page.
 ** Updated the [[Help::Tables]] page.
 ** Updated the [[Help::Tags]] page.
 ** Updated the [[Help::Text formatting]] page.
@@ -4026,13 +4036,13 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Added the *Template::Icon::Info* page containing a default lightbulb image for use when pointing out additional information.
 ** Removed the *Help::New page template* page.
 ** Updated the *History* page.
-** Updated the [[Help::Bugs]] page.
+** Updated the *Help::Bugs* page.
 ** Updated the [[Help::Code blocks (preformatted text)]] page.
 ** Updated the [[Help::CSS]] page.
 ** Updated the [[Help::Edit the menu]] page.
 ** Updated the [[Help::Footer]] page.
 ** Updated the [[Help::Images]] page.
-** Updated the [[Help::Include web page]] page.
+** Updated the *Help::Include web page* page.
 ** Updated the [[Help::Include wiki page]] page.
 ** Updated the [[Help::JavaScript]] page.
 ** Updated the *Help::Join lines of text* page.
@@ -4105,7 +4115,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Renamed the *Said* page to *Utility::Said*.
 ** Updated the content of the *footer*.
 ** Updated the *Example::Overview* page.
-** Updated the [[Help::Bugs]] page.
+** Updated the *Help::Bugs* page.
 ** Updated the [[Help::Code blocks (preformatted text)]] page, adding instructions on how to use *code blocks with syntax highlighting* from code provided by [[http://woas.iragan.com/viewtopic.php?id=561|FBnil]].
 ** Updated the [[Help::CSS]] page.
 ** Updated the *Help::Delete a page* page.
@@ -4114,12 +4124,12 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the [[Help::Footer]] page.
 ** Updated the *Help::Headers* page.
 ** Updated the [[Help::Images]] page with instructions on how to use the image embedding interface, which has been fixed by [[http://woas.iragan.com/viewtopic.php?id=561|FBnil]].
-** Updated the [[Help::Include web page]] page.
+** Updated the *Help::Include web page* page.
 ** Updated the [[Help::Include wiki page]] page.
 ** Updated the [[Help::Lists]] page.
 ** Updated the [[Help::Page creation]] page.
 ** Updated the [[Help::Requirements]] page.
-** Updated the [[Help::Table of Contents]] page.
+** Updated the *Help::Table of Contents* page.
 ** Updated the [[Help::Tables]] page.
 ** Updated the [[Help::Transclusion]] page.
 ** Updated the *Help::Word count* page.
@@ -4155,13 +4165,13 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Added the *Utility::Creative Commons License* page.
 ** Added the *Example::Table of Contents* page.
 ** Added the *Help::Footers* page to explain footers and how to work with them.
-** Added the *syntax* tag to the [[Help::Include web page]], *Help::Page tags*, and [[Help::Table of Contents]] pages.
+** Added the *syntax* tag to the *Help::Include web page*, *Help::Page tags*, and *Help::Table of Contents* pages.
 ** Moved the code for the menu buttons to the *Utility::Buttons* page.
 ** Renamed the *Word Count* page to [[Word count button]].
 ** Renamed the *Word Count 2* page to *Word count utility*.
 ** Replaced the code for the buttons in the menu with an include link to the *Utility::Buttons* page.
 ** Updated the *Getting Started* page.
-** Updated the [[Help::Bugs]] page.
+** Updated the *Help::Bugs* page.
 ** Updated the [[Help::Code blocks (preformatted text)]] page.
 ** Updated the [[Help::CSS]] page.
 ** Updated the *Help::Delete a page* page.
@@ -4184,7 +4194,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the *Help::Parent and child pages* page.
 ** Updated the *Help::Publish wiki online* page.
 ** Uodated the *Help::Rename a page* page.
-** Updated the [[Help::Table of Contents]] page.
+** Updated the *Help::Table of Contents* page.
 ** Updated the [[Help::Text formatting]] page.
 ** Updated the [[Help::Transclusion]] page.
 ** Updated the *Help::Wiki is read-only* page.
@@ -4262,7 +4272,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Added the [[Help::Page scrolling]] page.
 ** Added the *Help::Print a page* page.
 ** Added the *Help::Rename a page* page.
-** Added the [[Help::Table of Contents]] Page.
+** Added the *Help::Table of Contents* Page.
 ** Added the *Help::Word count* page.
 ** Changed the logo.
 ** Made the *Help::* pages static to preserve them when deleting all pages from the wiki.
@@ -4623,7 +4633,7 @@ catch (e) {
 [[Tags::Help]]
 
 --DFQRCTsKlU
-woas.page.title: Help::Bugs
+woas.page.title: Wiki::Help::Bugs
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -4634,59 +4644,21 @@ woas.page.boundary: DFQRCTsKlU
 This wiki comes with an optional debug console that will be visible at the bottom of every page when enabled.
 
 == Enable the debug console:
-# Open this wiki in a text editor.<br><br>
-# Do a search for {{{woas["debug"] = false;}}} to find this line:{{{
-woas["debug"] = false;			// toggle debug mode (and console)
-}}}
-# Change *false* to *true* so the line looks like this:{{{
-woas["debug"] = true;			// toggle debug mode (and console)
-}}}
-# Save the file.<br><br>
-# Close the text editor.<br><br>
-# Open the wiki.<br><br>
-# Click the [[Include::Template::Icon::Advanced]] icon in the banner.<br><br>
-# Click the [[Special::Edit CSS|Edit the CSS]] link in the *Advanced* section.<br><br>
-# Find the debug section that looks like this:{{{
-/* DEBUG CONSOLE */
-/* div.debug_console {background-color:gainsboro; position:relative; left:20.5%; width:77%; padding:0.813em; margin-top:0.375em; border:0.188em solid grey; text-align:left;} */
-}}}
-# Remove the comments ({{{/*}}} and {{{*/}}}) from the beginning and end of the second line.<br><br>
-# The debug section should now look like this:{{{
-/* DEBUG CONSOLE */
-div.debug_console {background-color:gainsboro; position:relative; left:20.5%; width:77%; padding:0.813em; margin-top:0.375em; border:0.188em solid grey; text-align:left;}
-}}}
-# Save your changes by clicking on the [[Include::Template::Icon::Save]] icon in the banner.
-The debug console will now be visible on the bottom of every page.
+# Click the [[Include::Wiki::Template::Icon::Advanced]] icon in the banner.<br><br>
+# Click the *Special::Options* link in the *Advanced features* section of the page.<br><br>
+# Check the box next to the *Enable debug mode and debug console (requires wiki reload).* option in the *User interface* section of the page.<br><br>
+# Click the *Save options* button at the bottom of the page.<br><br>
+# Reload the wiki.
 
 == Disable the debug console:
-# Open this wiki in a text editor.<br><br>
-# Do a search for {{{woas["debug"] = true;}}} to find this line:{{{
-woas["debug"] = true;			// toggle debug mode (and console)
-}}}
-# Change *true* to *false* so the line looks like this:{{{
-woas["debug"] = false;			// toggle debug mode (and console)
-}}}
-# Save the file.<br><br>
-# Close the text editor.<br><br>
-# Open the wiki.<br><br>
-# Click the [[Include::Template::Icon::Advanced]] icon in the banner.<br><br>
-# Click the [[Special::Edit CSS|Edit the CSS]] link in the *Advanced* section.<br><br>
-# Find the debug section that looks like this:{{{
-/* DEBUG CONSOLE */
-div.debug_console {background-color:gainsboro; position:relative; left:20.5%; width:77%; padding:0.813em; margin-top:0.375em; border:0.188em solid grey; text-align:left;}
-}}}
-# Add comments ({{{/*}}} and {{{*/}}}) to the beginning and end of the second line.<br><br>
-# The debug section should now look like this:{{{
-/* DEBUG CONSOLE */
-/* div.debug_console {background-color:gainsboro; position:relative; left:20.5%; width:77%; padding:0.813em; margin-top:0.375em; border:0.188em solid grey; text-align:left;} */
-}}}
-# Save your changes by clicking on the [[Include::Template::Icon::Save]] icon in the banner.
-The debug console will no longer be visible.
+# Click the [[Include::Wiki::Template::Icon::Advanced]] icon in the banner.<br><br>
+# Click the *Special::Options* link in the *Advanced features* section of the page.<br><br>
+# Uncheck the box next to the *Enable debug mode and debug console (requires wiki reload).* option in the *User interface* section of the page.<br><br>
+# Click the *Save options* button at the bottom of the page.<br><br>
+# Reload the wiki.
 
 == Reporting bugs
-This wiki is not supported by [[http://stickwiki.sourceforge.net/|Wiki on a Stick]] since it's a modified version. If you encounter any bugs, [[http://sourceforge.net/project/showfiles.php?group_id=155218|download Wiki on a Stick]] and try to reproduce the bug. If you can reproduce it, then report it in the [[https://lists.sourceforge.net/lists/listinfo/stickwiki-devel|Wiki on a Stick development mailing list]]. If you can't reproduce it with Wiki on a Stick, <a href="mailto:littlergirl@gmail.com?subject=Book on a Stick bug report">contact me</a> and I'll do my best to solve the problem.
-
-[[Tags::Help]]
+Please either report any bugs you find in the *Bugs* section of the [[http://s7.invisionfree.com/Book_on_a_Stick/index.php|Book on a Stick forums]] or [[mailto://littlergirl@gmail.com?subject=BoaS bug|contact me by email]]  and I'll do my best to solve the problem.
 
 --DFQRCTsKlU
 woas.page.title: Wiki::Help::Cancel any action
@@ -6460,32 +6432,6 @@ This wiki accepts [[http://en.wikipedia.org/wiki/Plain_text|plain text]], [[Tagg
 [[Tags::Help|Syntax]]
 
 --DFQRCTsKlU
-woas.page.title: Help::Table of Contents
-woas.page.attributes: 0
-woas.page.encoding: 8bit/plain
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-[[Special::TOC]]
-= Table of Contents
-= Level 1 header
-== Level 2 header
-== Level 2 header
-=== Level 3 header
-=== Level 3 header
-The Table of Contents link creates a Table of Contents that's automatically populated with all the headers on a page. The Table of Contents expects the first header on a page to be a Level 1 header. If you use any other level header first, that header and any headers after it will be represented by hash marks until a Level 1 header is encountered. From that point on, the headers will be numbered properly. See the [[Wiki::Example::Table of Contents]] page for an example of a page where a level 1 header isn't the first header on the page.
-
-* Method 1:<br><br>
-** <div class="helptext">Use this code on a line by itself in your page:</div>{{{
-[[Special::TOC]]
-}}}<div class="helptext">To create a Table of Contents like the one at the top of this page.</div><br>
-* Method 2:<br><br>
-** <div class="helptext">Press the Table of Contents button in the editor while the cursor is at the beginning of a line.</div>
-
-[[Tags::Help|Syntax]]
-
---DFQRCTsKlU
 woas.page.title: Help::Tables
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
@@ -6863,6 +6809,7 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 = Sandbox
 This page is for trying out new things without having to create a new page.
+
 
 --DFQRCTsKlU
 woas.page.title: Wiki::Utility::Links for writers
@@ -7319,62 +7266,6 @@ woas.page.boundary: DFQRCTsKlU
 %2
 </div>
 --DFQRCTsKlU
-woas.page.title: Help::Include web page
-woas.page.attributes: 0
-woas.page.encoding: 8bit/plain
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-= Include web page
-Web pages can be included in a page as embedded objects or in iFrames.
-
-[[Include::Template::Info|Some pages may not render correctly depending on how they're coded. Embedding more than one web page in a wiki page will cause the final embedded web page to steal the focus when the page is loaded, so it's best to have only one per page.]]
-== Embed a web page as an object
-This method makes the embedded web page become a seamless part of the page.
-
-* *Embed a local HTML file as an object:*<br><br>
-** <div class="helptext">Use this code in a page, replacing PATH with the full path to HTML file you wish to include, and changing the width and height to suit your taste:</div>{{{
-<html><object data="PATH" style="width:100%; height:630px;">File not found.</object></html>
-}}}<br><div class="helptext">To embed a local HTML file in a page.</div><br>
-*** For example, if you want to embed the {{{/Work/MyProject.html}}} file as an object, you'd use this command:<br>{{{
-<html><object data="/Work/MyProject.html" style="width:100%; height:630px;">File not found.</object></html>
-}}}<br><br>
-* *Embed a remote URL as an object:*<br><br>
-** <div class="helptext">Use this code in a page, replacing URL with the URL of the page you wish to include, and changing the width and height to suit your taste:</div>{{{
-<html><object data="URL" style="width:100%; height:630px;">URL not found.</object></html>
-}}}<br><div class="helptext">To embed an external URL in a page.</div><br>
-*** For example, if you want to embed the Gnu page at [[http://www.gnu.org/]] as an object, you'd use this command:<br>{{{
-<html><object data="http://www.gnu.org/" style="width:100%; height:630px;">URL not found.</object></html>
-}}}The resulting page would look like [[Wiki::Example::Embed web page object|this]].
-
-== Embed a web page in an iFrame
-This method creates a frame around the embedded web page. The code shown below is for a plain frame, but you can style the iFrame further by adding a border, changing the border style to dotted, dashed, solid, double, groove, ridge, inset, or outset, changing the border width to whatever thickness you like, and the border color to whatever color you like.
-
-* *Embed a local HTML file in an iFrame:*<br><br>
-** <div class="helptext">Use this code in a page, replacing PATH with the full path to HTML file you wish to include, and changing the width and height to suit your taste:</div>{{{
-<iframe height="400" width="100%" height:630px; src="PATH"></iframe>
-}}}<br><div class="helptext">To include a local HTML file in a wiki page.</div><br>
-*** For example, if you want to embed the {{{/Work/MyProject.html}}} file in an iFrame, you'd use this command:<br>{{{
-<iframe height="400" width="100%" height:630px; src="/Work/MyProject.html"></iframe>
-}}}<br><br>
-* *Embed a remote URL in an iFrame:*<br><br>
-** <div class="helptext">Use this code in a page, replacing URL with the URL of the page you wish to include, and changing the width and height to suit your taste:</div>{{{
-<iframe height="400" width="100%" height:630px; src="URL"></iframe>
-}}}<br><div class="helptext">To include a web page in a wiki page.</div><br>
-*** For example, if you want to embed the Gnu page at [[http://www.gnu.org/]] in an iFrame, you'd use this command:<br>{{{
-<iframe height="400" width="100%" height:630px; src="http://www.gnu.org/"></iframe>
-}}}The resulting page would look like [[Wiki::Example::Embed web page iFrame|this]].
-<!-- 
-== Reload an iframe with a link
-<div class="helptext">Use this code in the same page as an iframe, replacing FRAMENAME with ID of the iFrame you'd like to reload:</div>{{{
-<script type="text/javascript">function Reup () {var f = document.getElementById('FRAMENAME'); f.src = f.src;}</script>
-<a href="javascript:Reup()">Reload the iframe</a>
-}}}<div class="helptext">To create a reload link that refreshes an iFrame.</div>
--->
-[[Tags::Help|Syntax]]
-
---DFQRCTsKlU
 woas.page.title: Wiki::Template::Icon::Advanced
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
@@ -7699,7 +7590,7 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Embed a remote URL in an iFrame
-<iframe height="400" width="100%" height:630px; src="http://www.gnu.org/"></iframe>
+<iframe width="100%" height="400px" src="http://www.gnu.org/"></iframe>
 
 --DFQRCTsKlU
 woas.page.title: Wiki::Example::Embed web page object
@@ -7710,7 +7601,7 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 == Embed a remote URL as an object
-<html><object data="http://www.gnu.org/" style="width:100%; height:630px;">URL not found.</object></html>
+<html><object data="http://www.gnu.org/" style="width:100%; height:400px;">URL not found.</object></html>
 
 --DFQRCTsKlU
 woas.page.title: Wiki::Example::Foldaway
