@@ -20,30 +20,30 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-== Pages
-* [[Special::All Pages]]: a list of all user created pages in this wiki
-* [[Locked::]], [[Unlocked::]]: an index of all encrypted/plain pages
-* [[Tagged::]], [[Untagged::]]: an index of all tagged/untagged pages
-* [[Special::Go to]]: go to specific page
-* [[Special::Delete Page]]: delete specific page
-* [[Special::Recentchanges]]: view recently modified pages
-* [[Special::Search]]: search all wiki pages
-* [[Special::Dead Pages]]: a list of pages that have links to them, but were still not created 
-* [[Special::Orphaned Pages]]: a list of pages that once were linked to, but now no page links to them anymore
+=== Pages
+* [[Locked::]] and [[Unlocked::]] - A list of all encrypted/plain pages.
+* [[Special::All Pages]] - A list of all user created pages.
+* [[Special::Dead Pages]] - A list of all nonexistent pages that have links to them. 
+* [[Special::Delete Page]] - Delete a specific page.
+* [[Special::Go to]] - Go to a specific page.
+* [[Special::Orphaned Pages]] - A list of all pages that no other page links to.
+* [[Special::Recentchanges]] - A list of all recently modified pages.
+* [[Special::Search]] - Search all pages.
+* [[Tagged::]] and [[Untagged::]] - A list of all tagged/untagged pages.
+=== Advanced features
+* [[Special::Options]] - General wiki options.
+* [[WoaS::Aliases]] - View/edit page title aliases.
+* [[WoaS::CSS::Core]] - View the core CSS.
+* [[WoaS::CSS::Custom]] - Edit the custom CSS.
+* [[WoaS::Hotkeys]] - View/edit wiki access keys and default key bindings.
+* [[WoaS::Plugins]] - Enable/disable and view/edit JavaScript plug-ins.
+=== Maintenance
+* [[Special::Erase Wiki]] - Delete ALL wiki pages and reset with default data.
+* [[Special::Export]] - Export wiki into multiple linked static XHTML files.
+* [[Special::ExportWSIF]] - Export wiki into single or multiple [[Wiki::Help::WSIF|WSIF]] files.
+* [[Special::Import]] - Import wiki from an early (or current) version.
+* [[Special::ImportWSIF]] - Import a page or collection of pages from [[Wiki::Help::WSIF|WSIF]] format.
 
-== Advanced features
-* [[Special::Options]]: general WoaS options
-* [[WoaS::CSS::Custom]], [[WoaS::CSS::Core]]: view the core CSS and edit the custom CSS
-* [[WoaS::Plugins]]: enable/disable and view/edit WoaS JavaScript plugins
-* [[WoaS::Aliases]]: view/edit page title aliases
-* [[WoaS::Hotkeys]]: view/edit WoaS access keys and default key bindings
-
-== Maintenance
-* [[Special::Import]]: import wiki from an early (or current) version
-* [[Special::ImportWSIF]]: import a wiki page (or collection of) in [[Wiki::Help::WSIF|WSIF]] format
-* [[Special::Export]]: export wiki into multiple linked static XHTML files
-* [[Special::ExportWSIF]]: export wiki into multiple or single [[Wiki::Help::WSIF|WSIF]] files
-* [[Special::Erase Wiki]]: delete ALL wiki pages and reset with default data
 --DFQRCTsKlU
 woas.page.title: Special::Import
 woas.page.attributes: 0
@@ -76,7 +76,7 @@ Write a book in one self-contained file that runs entirely in your browser and c
 == Features:
 * Accepts [[http://en.wikipedia.org/wiki/Plain_text|plain text]], [[Tagged::Syntax|internal wiki syntax]], [[http://www.w3schools.com/html/default.asp|HTML]], [[http://www.w3schools.com/js/default.asp|JavaScript]], and some [[http://www.wikicreole.org/wiki/|Creole 0.1]].
 * Buttons for quick access to all parts and features of the wiki.
-* Customizable [[Help::CSS|CSS settings]] to change the look of the wiki.
+* Customizable [[Wiki::Help::CSS|CSS settings]] to change the look of the wiki.
 * Customizable [[::Menu|menu]] for finding your [[Special::All Pages|pages]] easily.
 * [[Special::License|Free, open source]], cross-platform software.
 * [[Wiki::Help::Footnotes|Footnote]] syntax.
@@ -88,7 +88,7 @@ Write a book in one self-contained file that runs entirely in your browser and c
 * Special default [[Wiki::Utility::Links for writers|links for writers]] with quick access to various writing tools.
 
 == Uses:
-* [[Help::Page creation|Create]] outlines, scenes, and chapters on individual pages.
+* [[Wiki::Help::Create a page|Create]] outlines, scenes, and chapters on individual pages.
 * Create an [[Wiki::Example::Overview|overview page]] that [[Help::Include wiki page|includes]] your other pages to see the whole book at once.
 * Create printer-friendly versions of your pages at the click of a button.
 * [[Special::Export|Export]] the wiki as a framed web page made of multiple XHTML, CSS, and image files.
@@ -1074,28 +1074,42 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Create a page
-# Click the *New Page* link in the menu.<br><br>
-# Type the page title. Maximum length is 256 characters, although you might want to use a shorter title to not interfere with the navigation bar. Page titles are case sensitive, all characters are allowed except angled brackets, square brackets, curly braces and pipe characters ("&lt;&gt;[]{}|")<br><br>
+
+== From the menu
+# Click the *New page* button in the menu.<br><br>
+# Type the page title.<blockquote>The maximum length is 256 characters, although you might want to use a shorter title to prevent interference with the banner icons. Page titles are case sensitive. All characters (including spaces) are allowed except angled brackets, square brackets, curly brackets, and pipes ("&lt;&gt;[]{}|").</blockquote>
 # Press the *Enter* key or click the *OK* button.<br><br>
-# When asked if you'd like to add a link into the main menu, accept by pressing the *Enter* key or clicking the *OK* button, or refuse by clicking the *Cancel* button.<br><br>
-# A level one header with the title of your page will be inserted for you automatically. You can edit or delete the header if you like.<br><br>
-# Edit the contents of the main text area by typing normally.<br><br>
-# Use the editor's buttons to insert code to format the text, or type the code in manually. Note that the use of plain text doesn't require any code.<br><br>
-# Save your changes by clicking on the *Save* icon in the navigation bar.
+# When asked if you'd like to add a link to the main menu, accept by pressing the *Enter* key or clicking the *OK* button, or refuse by clicking the *Cancel* button.<blockquote>A level one header with the title of your page will be inserted in the main text area automatically.</blockquote>
+# Edit the contents of the main text area by typing normally, pasting in content, or using the editor's buttons to insert code to format the text, or type the code in manually. Note that the use of plain text doesn't require any code.<br><br>
+# Save your changes by clicking the [[Include::Wiki::Template::Icon::Save]] icon in the banner.
 
-An alternate method of creating a page is to type a new page title inside nested brackets. The link will be red. Click it to create the new page. Example:
+== From a page
+# Click the [[Include::Wiki::Template::Icon::Edit]] icon in the banner to edit an existing page.<br><br>
+# Type a new page title inside double square brackets to create a link.<br><br>
+# Save your changes by clicking the [[Include::Wiki::Template::Icon::Save]] icon in the banner. The link you created will be red.<br><br>
+# Click the link to create the new page.
 
-<div class="woas_helptext">Type this into a page:</div><br>{{{
+==== Example:
+* <div class="wikihelptext">Type this into a page:</div><br>{{{
 [[My new page]]
-}}}<br><div class="woas_helptext">To create this:</div>
+}}}<br>
+* <div class="wikihelptext">To create this:</div><br>\
 [[My new page]]
+
+== Create an overview page
+# Click the *New page* button in the menu.<br><br>
+# Type a title for the page.<br><br>
+# Press the *Enter* key or click the *OK* button.<br><br>
+# When asked if you'd like to add a link to the main menu, accept by pressing the *Enter* key or clicking the *OK* button, or refuse by clicking the *Cancel* button.<br><br>
+# Include pages by inserting an {{{[[Include::PAGENAME]]}}} link for each page you'd like to see in the overview, replacing *PAGENAME* with the name of the page to include.<br><br>
+# Save your changes by clicking on the [[Include::Wiki::Template::Icon::Save]] icon in the banner.
 
 == Troubleshooting
 * There are four reasons why you may not be able to create a page:<br><br>
-** You didn't type a title for the page in the title box that popped up. In this case a message will pop up letting you know that pages must be titled and giving you an opportunity to title the page.<br><br>
-** There is already a page by that title. In this case a message will pop up letting you know the page already exists.<br><br>
+** There is already a page by that title. A message will pop up letting you know the page already exists.<br><br>
 ** The wiki is being run in [[Wiki::Help::Publish wiki online|read-only mode]], so no changes are allowed. See the [[Wiki::Help::Wiki is read-only]] page for instructions on how to return the wiki to editing mode.<br><br>
-** You are trying to use a [[Wiki::Help::Namespaces|namespace]] that is reserved by WoaS. In this case a message will pop up letting you know the namespace is reserved and giving you an opportunity to choose a different title/namespace for the page.
+** You are trying to use a [[Wiki::Help::Namespaces|namespace]] that is reserved by the wiki. A message will pop up letting you know the namespace is reserved and giving you an opportunity to choose a different title/namespace for the page.<br><br>
+** You didn't type a title for the page in the title box that popped up. In this case a message will pop up letting you know that pages must be titled and giving you an opportunity to title the page.
 
 --DFQRCTsKlU
 woas.page.title: Wiki::Help::Delete a page
@@ -1588,47 +1602,56 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
+[[Special::TOC]]
 = Text formatting
+== Blinking
+<div class="wikihelptext">Use this code in a page:</div><br>{{{
+<blink>This is blinking text.</blink>
+}}}<br><div class="wikihelptext">To create this:</div>
+<blink>This is blinking text.</blink>
+
+[[Include::Image::alert.png]] /This is not supported in Chrome, IE, or Safari./
 == Bold
-<div class="woas_helptext">Use this code in a page:</div><br>{{{
+<div class="wikihelptext">Use this code in a page:</div><br>{{{
 *This is bold text.*
-}}}<br><div class="woas_helptext">To create this:</div>
+}}}<br><div class="wikihelptext">To create this:</div>
 *This is bold text.*
 
-== Colored
+== Colors
+[[http://www.w3schools.com/Html/html_colornames.asp|Color names or hexadecimal notation]] are accepted when coloring text.
 
-<div class="woas_helptext">Use this code in a page:</div><br>{{{
-<span style="color:#FF00FF">This is colored text.</span>
-}}}<br><div class="woas_helptext">To create this:</div>
-<span style="color:#FF00FF">This is colored text.</span>
+<div class="wikihelptext">Use this code in a page, replacing #FF00FF with whatever color you'd like to use:</div><br>{{{
+<font color="#FF00FF">This is colored text.</font>
+}}}<br><div class="wikihelptext">To create this:</div>
+<font color="#FF00FF">This is colored text.</font>
 
-<div class="woas_helptext">Or use this code in a page:</div><br>{{{
-<span style="color:fuchsia">This is colored text.</span>
-}}}<br><div class="woas_helptext">To create this:</div>
-<span style="color:fuchsia">This is colored text.</span>
+<div class="wikihelptext">Or use this code in a page, replacing #FF00FF with whatever color you'd like to use:</div><br>{{{
+<span style="color:#FF00FF">This is colored text.</span>
+}}}<br><div class="wikihelptext">To create this:</div>
+<span style="color:#FF00FF">This is colored text.</span>
 
 == Italic
-<div class="woas_helptext">Use this code in a page:</div><br>{{{
+<div class="wikihelptext">Use this code in a page:</div><br>{{{
 /This is italic text./
-}}}<br><div class="woas_helptext">To create this:</div>
+}}}<br><div class="wikihelptext">To create this:</div>
 /This is italic text./
 
 == Plain
-<div class="woas_helptext">Use this code in a page:</div><br>{{{
+<div class="wikihelptext">Use this code in a page:</div><br>{{{
 This is plain text.
-}}}<br><div class="woas_helptext">To create this:</div>
+}}}<br><div class="wikihelptext">To create this:</div>
 This is plain text.
 
 == Underlined
-<div class="woas_helptext">Use this code in a page:</div><br>{{{
+<div class="wikihelptext">Use this code in a page:</div><br>{{{
 _This is underlined text._
-}}}<br><div class="woas_helptext">To create this:</div>
+}}}<br><div class="wikihelptext">To create this:</div>
 _This is underlined text._
 
 == Underlined Bold Italic
-<div class="woas_helptext">Use this code in a page:</div><br>{{{
+<div class="wikihelptext">Use this code in a page:</div><br>{{{
 _*/This is underlined and bold and italic text./*_
-}}}<br><div class="woas_helptext">To create this:</div>
+}}}<br><div class="wikihelptext">To create this:</div>
 _*/This is underlined and bold and italic text./*_
 
 --DFQRCTsKlU
@@ -1798,55 +1821,53 @@ woas.page.boundary: DFQRCTsKlU
 = Requirements =
 
 == Supported Browsers
-Wiki on a Stick is actively supported on the following browsers:
-
+Book on a Stick uses [[http://sourceforge.net/projects/stickwiki/|Wiki on a Stick]] as its foundation. Wiki on a Stick is actively supported on the following browsers:
+* Internet Explorer 6
+* Internet Explorer 7 - /Renaming your wiki with an .hta extension enables its trusted privileges./
+* Internet Explorer 8 - /Renaming your wiki with an .hta extension enables its trusted privileges./
 * Firefox 1.5
 * Firefox 2
 * Firefox 3
 * Firefox 3.5+
-* Opera
-* Internet Explorer 6
-* Internet Explorer 7*
-* Internet Explorer 8*
-<div class="alertnote">* On IE7-IE8 you might want to rename your application to .hta to enable its trusted privileges.</div>
+* Opera - /You must have Java enabled and the [[#TiddlySaver]] Java applet in the same directory as your wiki./
+
 == Limitations
 * Firefox (and possibly other browsers, too) cannot save to filenames containing UTF8 characters. Use unix-style filenames instead.
+* Internet Explorer 6 does not allow a fixed menu.
 * Internet Explorer 6 and 7 do not support embedded images (that's why you will not see button icons).
 * Internet Explorer does not allow saving to a network path in the form /\\machine\share\bookonastick.htm/. To use this wiki over a network with Internet Explorer, map network paths to network drives first.
-* Internet Explorer 6 does not allow a fixed menu.
 
 == TiddlySaver
 <sub>original text by J.Ruston, 13 August 2007 (created 21 August 2006)</sub>
 <sub>modified by Daniele C. on 29 September 2007</sub>
+<sub>modified by Little Girl on 04 May 2010</sub>
 
-The TiddlySaver Java applet allows Wiki on a Stick from a file:// URL to save changes when using Safari, Opera and other Java-enabled browsers.
+The TiddlySaver Java applet allows this wiki to save changes when using *Safari*, *Opera* and other Java-enabled browsers.
 
-The Java applet "TiddlySaver.jar", a very small file, must be placed in the same directory as your WoaS file. In order to use it you will need to give it the necessary privileges by editing your .java.policy file.
+The *TiddlySaver.jar* Java applet, a very small file, must be placed in the same directory as your wiki. In order to use it, you will need to give it the necessary privileges by editing your *.java.policy* file.
 
-For Windows, the file will be at C:\Documents and Settings\your-user-name\.java.policy. Add the following lines (substituting the directory  as appropriate):
-
-{{{
+* *Windows:*<br><br>The file is in this directory:<br><br>{{{
+C:\Documents and Settings\your-user-name\.java.policy
+}}}<br>Add the following lines (substituting the appropriate directory):<br><br>{{{
 grant codeBase "file:${user.home}/My Documents/tiddlywiki-folder/*" {
   permission java.io.FilePermission "${user.home}${/}My Documents${/}stickwiki-folder${/}*", "read,write";
 };
-}}}
-On Mac OS X, the file is found at {{{/Users/your-user-name/.java.policy}}}:
-
-{{{
+}}}<br>
+* *Mac OS X:* The file is in this directory:<br><br>{{{
+/Users/your-user-name/.java.policy
+}}}<br>Add the following lines (substituting the appropriate directory):<br><br>{{{{
 grant codeBase "file:${user.home}/Documents/tiddlywiki-folder/*" {
   permission java.io.FilePermission "${user.home}${/}Documents${/}stickwiki-folder${/}*", "read,write";
 };
 }}}
-It can be tricky creating files whose name starts with a period, so you can use this [[https://stickwiki.svn.sourceforge.net/svnroot/stickwiki/trunk/woas/.java.policy|pre-built .java.policy file]]. The same file is suitable for Macs too, just edit it and delete the "My " bit, leaving just "Documents". Make sure you save it in the right place for each operating system!
 
-If you have trouble setting up the permissions correctly, you can try granting broader permissions to the applet like this:
+It can be tricky creating files whose name starts with a period, so you can use this [[https://stickwiki.svn.sourceforge.net/svnroot/stickwiki/trunk/woas/.java.policy|pre-built .java.policy file]]. The same file is suitable for Macs if you edit it and delete the "My " bit, leaving just "Documents". Make sure you save it in the right place for each operating system!
 
-{{{
+If you have trouble setting up the permissions correctly, you can try granting broader permissions to the applet, like this:<br><br>{{{
 grant codeBase "file://localhost/home/users/Desktop/
 TiddlySaver.jar"
  { permission java.security.AllPermission; };
-}}}
-The TiddlySaver java applet was written by J.Rouston.
+}}}<br>The TiddlySaver Java applet was written by J.Rouston.
 
 --DFQRCTsKlU
 woas.page.title: Wiki::Help::Lists
@@ -2735,6 +2756,7 @@ Infinite recursion happens when you create an include link to the current page o
 <font color="red">*{{{\u221e [[Include::PAGENAME]] \u221e}}}*</font>
 
 You should always prevent infinite recursions from happening.
+
 --DFQRCTsKlU
 woas.page.title: Wiki::Help::Special::ExportWSIF
 woas.page.attributes: 0
@@ -3789,7 +3811,9 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Removed the *Help::Page name too long* page.
 ** Removed the *Help::Page with no name* page.
 ** Removed the *Help::Rename a page* page.
+** Removed the *Help::Requirements* page.
 ** Removed the *Help::Run wiki on a server* page.
+** Removed the *Help::Text formatting* page.
 ** Removed the *Help::ToDo list* page and any ToDo items in the wiki.
 ** Removed the *Help::Wiki is read-only* page.
 ** Removed the *ToDo list* page.
@@ -3827,6 +3851,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the [[Wiki::Example::Folding page plain]] page.
 ** Updated the [[Wiki::Example::Folding page styled button (HTML)]] page.
 ** Updated the [[Wiki::Help::Bluebox]] page.
+** Updated the [[Wiki::Help::Create a page]] page.
 ** Updated the [[Wiki::Help::Delete a page]] page.
 ** Updated the [[Wiki::Help::Edit the menu]] page.
 ** Updated the [[Wiki::Help::Erase all pages]] page.
@@ -3840,8 +3865,10 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the [[Wiki::Help::Namespaces]] page.
 ** Updated the [[Wiki::Help::Publish wiki online]] page.
 ** Updated the [[Wiki::Help::Rename a page]] page.
+** Updated the [[Wiki::Help::Requirements]] page.
 ** Updated the [[Wiki::Help::Run wiki on a server]] page.
 ** Updated the [[Wiki::Help::Table of Contents]] page.
+** Updated the [[Wiki::Help::Text formatting]] page.
 ** Updated the [[Wiki::Help::Wiki is read-only]] page.
 ** Updated the [[WoaS::CSS::Core]] page.
 ** Updated the [[WoaS::CSS::Custom]] page.
@@ -3935,11 +3962,11 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the [[Help::Lists]] page.
 ** Updated the *Help::Namespaces* page.
 ** Updated the *Help::Navigation* page.
-** Updated the [[Help::Page creation]] page.
+** Updated the *Help::Page creation* page.
 ** Updated the [[Help::Page scrolling]] page.
 ** Updated the *Help::Print a page* page.
 ** Updated the *Help::Publish wiki online* page.
-** Updated the [[Help::Requirements]] page.
+** Updated the *Help::Requirements* page.
 ** Updated the *Help::Run wiki on a server* page.
 ** Updated the [[Help::Syntax]] page.
 ** Updated the *Help::Table of Contents* page.
@@ -4040,7 +4067,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the [[Help::Links]] page.
 ** Updated the [[Help::Lists]] page.
 ** Updated the *Help::Non-breaking spaces* page.
-** Updated the [[Help::Page creation]] page.
+** Updated the *Help::Page creation* page.
 ** Updated the *Help::Page with no name* page.
 ** Updated the *Help::Pages linking to this page* page.
 ** Updated the *Help::Spoilers* page, adding the *Dynamic block area wiki link (click)*.
@@ -4048,7 +4075,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the *Help::Table of Contents* page.
 ** Updated the [[Help::Tables]] page.
 ** Updated the [[Help::Tags]] page.
-** Updated the [[Help::Text formatting]] page.
+** Updated the *Help::Text formatting* page.
 ** Updated the *Help::Tooltips* page.
 ** Updated the [[Help::Transclusion]] page.
 ** Updated the *Help::Word count* page.
@@ -4105,7 +4132,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the *Help::Join lines of text* page.
 ** Updated the [[Help::Links]] page, adding instructions for *include links*.
 ** Updated the [[Help::Lists]] page.
-** Updated the [[Help::Page creation]] page.
+** Updated the *Help::Page creation* page.
 ** Updated the *Help::Page with no name* page.
 ** Updated the *Help::Parent and child pages* page.
 ** Updated the *Help::Spoilers* page:
@@ -4162,7 +4189,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Removed the *Getting Started* page.
 ** Removed the *Help::Embed a file* page.
 ** Removed the *Images::Help* page.
-** Removed the *spoiler* content from the [[Help::Text formatting]] page.
+** Removed the *spoiler* content from the *Help::Text formatting* page.
 ** Removed the *Utility::Creative Commons License* page.
 ** Removed the *Word count button* page.
 ** Renamed the *Help::Footers* page to [[Help::Footer]].
@@ -4184,8 +4211,8 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the *Help::Include web page* page.
 ** Updated the [[Help::Include wiki page]] page.
 ** Updated the [[Help::Lists]] page.
-** Updated the [[Help::Page creation]] page.
-** Updated the [[Help::Requirements]] page.
+** Updated the *Help::Page creation* page.
+** Updated the *Help::Requirements* page.
 ** Updated the *Help::Table of Contents* page.
 ** Updated the [[Help::Tables]] page.
 ** Updated the [[Help::Transclusion]] page.
@@ -4243,7 +4270,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the [[Help::Links]] page.
 ** Updated the [[Help::Lists]] page to include instructions for various types of *HTML lists*.
 ** Updated the *Help::Non-breaking spaces* page.
-** Updated the [[Help::Page creation]] page.
+** Updated the *Help::Page creation* page.
 ** Updated the *Help::Page name too long* page.
 ** Updated the [[Help::Page scrolling]] page.
 ** Updated the *Help::Page tags* page.
@@ -4252,7 +4279,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the *Help::Publish wiki online* page.
 ** Uodated the *Help::Rename a page* page.
 ** Updated the *Help::Table of Contents* page.
-** Updated the [[Help::Text formatting]] page.
+** Updated the *Help::Text formatting* page.
 ** Updated the [[Help::Transclusion]] page.
 ** Updated the *Help::Wiki is read-only* page.
 ** Updated the *Help::Word count* page.
@@ -4296,7 +4323,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the *Help::Pages linking to this page* page.
 ** Updated the *Help* pages to include graphics.
 ** Updated the *Help::Page tags* page with a detailed description of why you might wish to use *tags* on your pages.
-** Updated the [[Help::Text formatting]] page.
+** Updated the *Help::Text formatting* page.
 ** Updated the *Help::Word count* page.
 ** Updated the *History* page.
 ** Updated the [[Sandbox]] page.
@@ -4317,7 +4344,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 
 * _Content:_
 ** Added a link to current version of *Wiki on a Stick online demo* on the welcome page.
-** Added a *Known bugs* section to the [[Help::Page creation]] page.
+** Added a *Known bugs* section to the *Help::Page creation* page.
 ** Added dates to the versions on the *History* page.
 ** Added instructions for recalibrating the *Word Count* button to the *Help::Word count* page.
 ** Added instructions for using the *default alert image* to the [[Help::Images]] page.
@@ -4334,7 +4361,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Changed the logo.
 ** Made the *Help::* pages static to preserve them when deleting all pages from the wiki.
 ** Moved the contents of the *Example::JavaScript Temporary Page* to the [[Help::JavaScript]] page.
-** Moved the contents of the page creation sections in the *Getting Started* page to the [[Help::Page creation]] page.
+** Moved the contents of the page creation sections in the *Getting Started* page to the *Help::Page creation* page.
 ** Removed the *Cleanup* tag search from the [[Special::Advanced]] page.
 ** Removed the *Example::Creole Syntax* page.
 ** Removed the *Example::Bold Font In Lists* page.
@@ -4352,7 +4379,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Renamed the *Example::Search Box* page to [[Help::Add a search box]].
 ** Renamed the *Help::CSS settings* page to [[Help::CSS]].
 ** Renamed the *Help::Transclude pages* page to [[Help::Transclusion]].
-** Replaced the page creation sections in the *Getting Started* page with a link to the [[Help::Page creation]] page.
+** Replaced the page creation sections in the *Getting Started* page with a link to the *Help::Page creation* page.
 ** Updated the comments on a couple of CSS entries.
 ** Updated the [[Help::Images]] page contents, fixing the instructions for adding a *local image* from your hard drive.
 ** Updated the *Help::Page name too long* page to reflect the change to the *Fixed banner* option.
@@ -6146,57 +6173,6 @@ woas.page.boundary: DFQRCTsKlU
 Use the [[Include::Wiki::Template::Icon::Back]] icon in the banner to go back one page, the [[Include::Wiki::Template::Icon::Forward]] icon in the banner to go forward one page, the [[Include::Wiki::Template::Icon::Home]] icon in the banner to return to the Main page, the [[Include::Wiki::Template::Icon::Up]] icon in the footer to return to the top of a page, or click the buttons in the banner, the buttons and links in the menu, or the buttons and links on any page.
 
 --DFQRCTsKlU
-woas.page.title: Help::Page creation
-woas.page.attributes: 0
-woas.page.encoding: ecma/plain
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-[[Special::TOC]]
-= Page creation
-== Create a page
-# Click the *NEW PAGE* button in the menu.<br><br>
-# Type a short name for the page. If the name is too long, the banner can become so large that it interferes with the functions at the top of the page. Page names are case sensitive. Spaces, diacritics (a glyph added to a letter - for example: \u00e2), and escaped characters (some examples: ' % | : #) are allowed.<br><br>
-# Press the *Enter* key or click the *OK* button.<br><br>
-# When asked if you'd like to add a link into the main menu, accept by pressing the *Enter* key or clicking the *OK* button, or refuse by clicking the *Cancel* button.<br><br>
-# The new page template will automatically insert a level one header with the name of your page, followed by a line displaying the page creation date and time, and the cursor will be dropped down two lines from that, blinking and ready for your input. You can edit or delete the header and the page creation line if you like.<br><br>
-# Type or paste content into the main text area.<br><br>
-# Use the editor's buttons to insert code to format the text, or type the code in manually. Note that the use of plain text doesn't require any code.<br><br>
-# Save your changes by clicking on the [[Include::Wiki::Template::Icon::Save]] icon in the banner.
-
-== Create a page on the fly
-An alternate method of creating a page is to type a new page name inside nested brackets. The link will be red. Click it to create the new page. Example:
-
-<div class="helptext">Type this into a page:</div>{{{
-[[My new page]]
-}}}<div class="helptext">To create this:</div>
-[[My new page]]
-
-== Create an overview page
-# Click the *NEW PAGE* button in the menu.<br><br>
-# Type a name for the page. Spaces are allowed.<br><br>
-# Press the *Enter* key or click the *OK* button.<br><br>
-# When asked if you'd like to add a link into the main menu, accept by pressing the *Enter* key or clicking the *OK* button, or refuse by clicking the *Cancel* button.<br><br>
-# Include pages by typing in an {{{[[Include::PageName]]}}} link for each page you'd like to see in the overview, replacing *PageName* with the name of the page to include.<br><br>
-# If you'd like a word count button on the page, follow the *Word count* instructions on the [[Wiki::Help::Word count]] page.<br><br>
-# Save your changes by clicking on the [[Include::Wiki::Template::Icon::Save]] icon in the banner.
-
-== Troubleshooting
-* You can make a page name that's too long for the wiki to handle properly. This will cause the icons in the banner to scroll off-screen and be difficult to access. Since there are various resolutions for computers, it's not possible to say exactly how long a name can be for everyone, so use your best judgement. If you created a page with a name that's too long, see [[Help::Page name too long]] for how to fix it.
-
-* It's possible to add a page with no name if you don't type a name and just click the *OK* button. If this happens to you, see [[Help::Page with no name]].
-
-* If you have no blank lines in your menu and you create a page with a [[Help::Namespaces|namespace]], the double colons will not be inserted when the link to the page is added to the menu. You will have to edit the menu and manually add them.
-
-* There are three reasons why you may not be able to create a page:<br><br>
-** There is already a page by that name. Check  [[Special::All Pages|All pages]] to see if that page already exists.<br><br>
-** The wiki is being run in [[Help::Publish wiki online|read-only mode]], so no changes are allowed. See the [[Help::Wiki is read-only]] page for instructions on how to fix the issue.<br><br>
-** You are trying to use a namespace that is reserved by the system. See the [[Help::Namespaces]] page.
-
-[[Tags::Help]]
-
---DFQRCTsKlU
 woas.page.title: Help::Page scrolling
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
@@ -6225,63 +6201,6 @@ woas.page.boundary: DFQRCTsKlU
 = Print a page
 # Click the [[Include::Wiki::Template::Icon::Print]] icon in the banner. A new browser window will open with a printer-friendly version of the main text area.
 # Use the browser's *print preview* and *print* functions to print the page.
-
---DFQRCTsKlU
-woas.page.title: Help::Requirements
-woas.page.attributes: 0
-woas.page.encoding: 8bit/plain
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-= Requirements
-These are the requirements for [[http://sf.net/projects/stickwiki/|Wiki on a Stick]]. They should be the same for [[http://bookonastick.wordpress.com/|Book on a Stick]].
-
-== Supported Browsers
-Wiki on a Stick is actively supported on the following browsers:
-
-* Firefox 1.5
-* Firefox 2
-* Firefox 3
-* Firefox 3.5+
-* Opera
-* Internet Explorer 5.5
-* Internet Explorer 6
-* Internet Explorer 7
-* Internet Explorer 8
-[[Include::Wiki::Template::Info|For IE7 and IE8 browsers, you might want to rename your application to .hta to enable its trusted privileges.]]
-
-== Limitations
-* Firefox (and possibly other browsers, too) cannot save to filenames containing UTF8 characters. Use unix-style filenames instead.
-* Internet Explorer 6 and 7 do not support embedded images (that's why you will not see button icons).
-* Internet Explorer does not allow saving to a network path in the form /\\machine\share\bookonastick.htm/. To use this wiki over a network with Internet Explorer, map network paths to network drives first.
-* Internet Explorer 6 does not allow a fixed menu.
-
-==TiddlySaver
-<sub>original text by J.Ruston, 13 August 2007 (created 21 August 2006)</sub>
-<sub>modified by Daniele C. on 29 September 2007</sub>
-
-The TiddlySaver Java applet allows Wiki on a Stick from a file:// URL to save changes when using Safari, Opera and other Java-enabled browsers.
-
-The Java applet "TiddlySaver.jar", a very small file, must be placed in the same directory as your WoaS file. In order to use it you will need to give it the necessary privileges by editing your .java.policy file.
-
-For Windows, the file will be at C:\Documents and Settings\your-user-name\.java.policy. Add the following lines (substituting the directory  as appropriate):{{{
-grant codeBase "file:${user.home}/My Documents/tiddlywiki-folder/*" {
-  permission java.io.FilePermission "${user.home}${/}My Documents${/}stickwiki-folder${/}*", "read,write";
-};
-}}}On Mac OS X, the file is found at /Users/your-user-name/.java.policy:{{{
-grant codeBase "file:${user.home}/Documents/tiddlywiki-folder/*" {
-  permission java.io.FilePermission "${user.home}${/}Documents${/}stickwiki-folder${/}*", "read,write";
-};
-}}}It can be tricky creating files whose name starts with a period, so you can use this <a href="http://stickwiki.sourceforge.net/src/.java.policy">pre-built .java.policy file</a>. The same file is suitable for Macs too, just edit it and delete the "My " bit, leaving just "Documents". Make sure you save it in the right place for each operating system!
-
-If you have trouble setting up the permissions correctly, you can try granting broader permissions to the applet like this:{{{
-grant codeBase "file://localhost/home/users/Desktop/
-TiddlySaver.jar"
- { permission java.security.AllPermission; };
-}}}The TiddlySaver java applet was written by J.Rouston.
-
-[[Tags::Help]]
 
 --DFQRCTsKlU
 woas.page.title: Wiki::Help::Spoilers
@@ -6536,76 +6455,6 @@ By putting an exclamation mark (*!*) in front of the tag name, you can filter ou
 <div class="helptext">Use this code in a page, replacing Help with the tag you'd like to filter out:</div>
 <div class="helpcode">[<!-- -->[Include::Tagged::!Help]<!-- -->]</div>
 <div class="helptext">To display a filtered listing of tagged pages inside the current page.</div>
-
-[[Tags::Help|Syntax]]
-
---DFQRCTsKlU
-woas.page.title: Help::Text formatting
-woas.page.attributes: 0
-woas.page.encoding: 8bit/plain
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-[[Special::TOC]]
-= Text formatting
-== Blinking
-<div class="helptext">Use this code in a page:</div>{{{
-<blink>This is blinking text.</blink>
-}}}<div class="helptext">To create this:</div>
-<blink>This is blinking text.</blink>
-
-[[Include::Image::alert.png]] /This is not supported in Chrome, IE, or Safari./
-== Bold
-<div class="helptext">Use this code in a page:</div>{{{
-*This is bold text.*
-}}}<div class="helptext">To create this:</div>
-*This is bold text.*
-
-== Colored
-<div class="helptext">Use this code in a page:</div>{{{
-<font color="#FF00FF">This is colored text.</font>
-}}}<div class="helptext">To create this:</div>
-<font color="#FF00FF">This is colored text.</font>
-
-<div class="helptext">Or use this code in a page:</div>{{{
-<font color="fuchsia">This is colored text.</font>
-}}}<div class="helptext">To create this:</div>
-<font color="fuchsia">This is colored text.</font>
-
-<div class="helptext">Or use this code in a page:</div>{{{
-<span style="color:#FF00FF">This is colored text.</span>
-}}}<div class="helptext">To create this:</div>
-<span style="color:#FF00FF">This is colored text.</span>
-
-<div class="helptext">Or use this code in a page:</div>{{{
-<span style="color:fuchsia">This is colored text.</span>
-}}}<div class="helptext">To create this:</div>
-<span style="color:fuchsia">This is colored text.</span>
-
-== Italic
-<div class="helptext">Use this code in a page:</div>{{{
-/This is italic text./
-}}}<div class="helptext">To create this:</div>
-/This is italic text./
-
-== Plain
-<div class="helptext">Use this code in a page:</div>{{{
-This is plain text.
-}}}<div class="helptext">To create this:</div>
-This is plain text.
-
-== Underlined
-<div class="helptext">Use this code in a page:</div>{{{
-_This is underlined text._
-}}}<div class="helptext">To create this:</div>
-_This is underlined text._
-
-== Underlined Bold Italic
-<div class="helptext">Use this code in a page:</div>{{{
-_*/This is underlined and bold and italic text./*_
-}}}<div class="helptext">To create this:</div>
-_*/This is underlined and bold and italic text./*_
 
 [[Tags::Help|Syntax]]
 
