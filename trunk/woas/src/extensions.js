@@ -100,7 +100,7 @@ woas.plugins = {
 		return uris;
 	},
 	
-	reIncludeDef: new RegExp("([\\+@])(\\*|([a-zA-Z0-9_]+)(\\([0-9\\.]+\\+?\\))?)", "g"),
+	reIncludeDef: new RegExp("([\\+@])(\\*|([a-zA-Z0-9_]+)(\\([0-9\\.]+[-\\+]?\\))?)", "g"),
 	
 	// parse definitions for browser include type
 	_craft_object: function(s) {
@@ -110,7 +110,15 @@ woas.plugins = {
 		}, inline_init = false, async_init = false;
 		s.replace(this.reIncludeDef, function(str, sym, full_browser_str,browser_str, version) {
 			// a handy shortcut
-			if (browser_str == "ff") browser_str = "firefox";
+			switch (browser_str) {
+				case "ff":
+					browser_str = "firefox";
+				break;
+				// not supported
+				case "ie6": case "ie8": case "firefox2": case "firefox3": case "firefox_new":
+					woas.log("Invalid browser token: "+browser_str);
+					return;
+			}
 			// check the catch-all case
 			if (full_browser_str === '*') {
 				if (sym === '+') {
@@ -125,12 +133,36 @@ woas.plugins = {
 				return;
 			}
 			// check that this browser token is valid
-			if (typeof woas.browser[browser_str] == "undefined") {
+			var t = typeof woas.browser[browser_str];
+			if (t == "undefined") {
 				woas.log("Invalid browser token: "+browser_str);
 				return;
 			}
-			// parse the symbol if that browser token is active
-			if (woas.browser[browser_str]) {
+			// parse the symbol if that browser token is active and version matches
+			if (woas.browser[browser_str] ) {
+				// make a version check only if necessary
+				var its_ok = false;
+				if (version.length !== 0) {
+					// check that we have a version string, before all
+					if (t != "string") {
+						woas.log("No version string for browser token \""+browser_str+"\"");
+						return;
+					}
+					// remove parenthesis
+					version = version.substr(1, version.length-2);
+					// check the last character
+					var lc = version.charAt(version.length-1);
+					if (lc === '+') { // match version and above
+						its_ok = (woas.strnatcmp(woas.browser[browser_str], version) >= 0);
+					} else if (lc === '-') { // match version and below
+						its_ok = (woas.strnatcmp(woas.browser[browser_str], version) <= 0);
+					} else { // plain version match
+						its_ok = (woas.strnatcmp(woas.browser[browser_str], version) == 0);
+					}
+				} else its_ok = true;
+				// version was not OK
+				if (!its_ok) return;
+				// operate the operator
 				if (sym === '+') {
 					sb.is_inline = true;
 					sb.is_async = false;

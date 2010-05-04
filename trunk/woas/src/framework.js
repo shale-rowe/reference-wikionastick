@@ -1,31 +1,47 @@
 
-// pvhl proposes to use a version property to identify more easily the browser version
-// it seems a bit excessive for now
-woas.browser = { ie: false, ie6: false, ie8: false,
-					firefox: false, firefox2: false,
-					firefox3: false, firefox_new: false,
-					opera: false, safari: false,
-					chrome: false,
+woas.browser = {
+	// browsers - when different from 'false' it contains the version string
+	ie: false, 
+	firefox: false,
+	opera: false,
+	safari: false,
+	chrome: false,
+	
+	// breeds - used internally, should not be used by external plugins
+	ie6: false, ie8: false,
+	firefox2: false,
+	firefox3: false, firefox_new: false,
 					
-					gecko: false, webkit: false, presto: false, mosaic: false
-				};
+	// engines - set to true when present
+	// gecko and webkit will contain the engine version
+	gecko: false, webkit: false, presto: false, trident: false
+};
 
-if((navigator.userAgent).indexOf("Opera")!=-1)
-	woas.browser.opera = true;
-else if (navigator.userAgent.indexOf("Chrome") != -1)
-	woas.browser.chrome = true;
-else if (navigator.userAgent.toLowerCase().indexOf("applewebkit") != -1) {
+// used to match browser version
+var m;
+
+if((navigator.userAgent).indexOf("Opera")!=-1) {
+	m = navigator.userAgent.match(/Opera\/(\S*)/);
+//	if (m && m[1])
+		woas.browser.opera = m[1];
+} else if (navigator.userAgent.indexOf("Chrome") != -1) {
+	// detect version
+	m = navigator.userAgent.match(/Chrome\/([^\s]+)/);
+//	if (m && m[1])
+		woas.browser.chrome = m[1];
+} else if (navigator.userAgent.toLowerCase().indexOf("applewebkit") != -1) {
+	// Safari never publicizes its version
 	woas.browser.safari = true;
 } else if(navigator.appName == "Netscape") {
 	// check that it is Gecko first
-	woas.browser.firefox = (new RegExp("Gecko\\/\\d+")).test(navigator.userAgent) ? true : false;
+	woas.browser.gecko = (new RegExp("Gecko\\/\\d")).test(navigator.userAgent) ? true : false;
 	// match also development versions of Firefox "Shiretoko" / "Namoroka"
-	if (woas.browser.firefox) {
+	if (woas.browser.gecko) {
 		// match the last word of userAgent
-		var gecko_ver = navigator.userAgent.match(/rv:(\d+\.\d+)/);
-		if (gecko_ver !== null) {
-			gecko_ver = gecko_ver[1];
-			switch (gecko_ver) {
+		m = navigator.userAgent.match(/rv:([^\s\)]*)/);
+//		if (m && m[1]) {
+			woas.browser.gecko = m[1];
+			switch (woas.browser.gecko.substr(3)) {
 				case "1.8":
 					woas.browser.firefox2 = true;
 				break;
@@ -36,13 +52,15 @@ else if (navigator.userAgent.toLowerCase().indexOf("applewebkit") != -1) {
 					// possibly Firefox4
 					woas.browser.firefox_new = true;
 			}
-		}
 	} // not Gecko
 } else if((navigator.appName).indexOf("Microsoft")!=-1) {
-	woas.browser.ie = true;
 	woas.browser.ie8 = document.documentMode ? true : false;
 	if (!woas.browser.ie8)
 		woas.browser.ie6 = window.XMLHttpRequest ? false : true;
+	// detect version
+	m = navigator.userAgent.match(/MSIE\s([^;]*)/);
+//	if (m && m[1])
+		woas.browser.ie = m[1];
 }
 
 // finds out if Opera is trying to look like Mozilla
@@ -62,11 +80,11 @@ if (woas.browser.ie && (typeof window.opera != "undefined")) {
 // detect engine type
 if (woas.browser.ie)
 	woas.browser.trident = true;
-else if (woas.browser.firefox)
-	woas.browser.gecko = true;
-else if (woas.browser.chrome || woas.browser.safari)
-	woas.browser.webkit = true;
-else if (woas.browser.opera)
+else if (woas.browser.chrome || woas.browser.safari) {
+	m = navigator.userAgent.match(/AppleWebKit\/(\S*)/);
+//    if (m && m[1])
+		woas.browser.webkit = m[1];
+} else if (woas.browser.opera)
 	woas.browser.presto = true;
 
 var is_windows = (navigator.appVersion.toLowerCase().indexOf("windows")!=-1);
@@ -306,4 +324,123 @@ if (is_windows) {
 	woas.fix_path_separators = function(path) {
 		return path;
 	};
+}
+
+woas.strcmp = function ( str1, str2 ) {
+    // http://kevin.vanzonneveld.net
+    // +   original by: Waldo Malqui Silva
+    // +      input by: Steve Hilder
+    // +   improved by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
+    // +    revised by: gorthaur
+
+    return ( ( str1 == str2 ) ? 0 : ( ( str1 > str2 ) ? 1 : -1 ) );
+}
+
+woas.__strnatcmp_split = function ( f_string ) {
+        var result = [];
+        var buffer = '';
+        var chr = '';
+        var i = 0, f_stringl = 0;
+
+        var text = true;
+
+        f_stringl = f_string.length;
+        for (i = 0; i < f_stringl; i++) {
+            chr = f_string.substring(i, i + 1);
+            if (chr.match(/\d/)) {
+                if (text) {
+                    if (buffer.length > 0){
+                        result[result.length] = buffer;
+                        buffer = '';
+                    }
+
+                    text = false;
+                }
+                buffer += chr;
+            } else if ((text == false) && (chr == '.') && (i < (f_string.length - 1)) && (f_string.substring(i + 1, i + 2).match(/\d/))) {
+                result[result.length] = buffer;
+                buffer = '';
+            } else {
+                if (text == false) {
+                    if (buffer.length > 0) {
+                        result[result.length] = parseInt(buffer, 10);
+                        buffer = '';
+                    }
+                    text = true;
+                }
+                buffer += chr;
+            }
+        }
+
+        if (buffer.length > 0) {
+            if (text) {
+                result[result.length] = buffer;
+            } else {
+                result[result.length] = parseInt(buffer, 10);
+            }
+        }
+
+        return result;
+    };
+
+
+
+woas.strnatcmp = function( f_string1, f_string2 ) {
+    // http://kevin.vanzonneveld.net
+    // +   original by: Martijn Wieringa
+    // + namespaced by: Michael White (http://getsprink.com)
+    // +    tweaked by: Jack
+    // +   bugfixed by: Onno Marsman
+
+    var i = 0;
+
+    var array1 = this.__strnatcmp_split(f_string1+'');
+    var array2 = this.__strnatcmp_split(f_string2+'');
+
+    var len = array1.length;
+    var text = true;
+
+    var result = -1;
+    var r = 0;
+
+    if (len > array2.length) {
+        len = array2.length;
+        result = 1;
+    }
+
+    for (i = 0; i < len; i++) {
+        if (isNaN(array1[i])) {
+            if (isNaN(array2[i])) {
+                text = true;
+
+                if ((r = this.strcmp(array1[i], array2[i])) != 0) {
+                    return r;
+                }
+            } else if (text){
+                return 1;
+            } else {
+                return -1;
+            }
+        } else if (isNaN(array2[i])) {
+            if (text) {
+                return -1;
+            } else{
+                return 1;
+            }
+        } else {
+            if (text){
+                if ((r = (array1[i] - array2[i])) != 0) {
+                    return r;
+                }
+            } else {
+                if ((r = this.strcmp(array1[i].toString(), array2[i].toString())) != 0) {
+                    return r;
+                }
+            }
+
+            text = false;
+        }
+    }
+
+    return result;
 }
