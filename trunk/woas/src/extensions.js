@@ -62,25 +62,90 @@ woas.plugins = {
 		this.is_external = false;
 		var text = woas.pager.get("WoaS::Plugins::"+name);
 		// check if this is an external page reference
-		// -- UNSUPPORTED FEATURE --
+		// -- NOT YET SUPPORTED FEATURE --
 		if (name.charAt(0) === '@') {
 			// hack for external files loading at run-time
-			// each source file specified in a new line
-			var uris=[], uri;
-			text = text.split("\n");
-			for(var i=0;i < text.length;++i) {
-				uri = woas.trim(text[i]);
-				if (uri.length)
-					uris.push(uri);
-			}
-			if (uris.length !== 0) {
+			// each source file specified in a new line as a definition with flags for different browsers
+			var uris = this._parse_external(text);
+			if (uris !== null) {
+				// we got it
 				this.is_external = true;
-				// we do return an array
 				text = uris;
-			} else
-				woas.log("no valid source URIs found");
+			}
 		}
 		return text;
+	},
+	
+	_parse_external: function(text) {
+		var uris=[], uri_def, p, sb;
+		text = text.split("\n");
+		for(var i=0;i < text.length;++i) {
+			uri_def = woas.trim(text[i]);
+			if (!uri_def.length)
+				continue;
+			// check this URI for validity
+			p = uri_def.indexOf("=");
+			if (p === -1)
+				continue;
+			sb = this._craft_object(uri_def.substr(p+1));
+			if (sb === null) // no mode was activated by this definition
+				continue;
+			sb.src = woas.trim(uri_def.substr(0,p));
+//			woas.log(sb.src+" " +sb.is_inline+" "+sb.is_async);
+			// finally add it to basket
+			uris.push(sb);
+		}
+		if (uris.length == 0)
+			woas.log("no valid source URIs found");
+		return uris;
+	},
+	
+	reIncludeDef: new RegExp("([\\+@])(\\*|([a-zA-Z0-9_]+)(\\([0-9\\.]+\\+?\\))?)", "g"),
+	
+	// parse definitions for browser include type
+	_craft_object: function(s) {
+		var sb = {
+			is_inline: false,
+			is_async: false
+		}, inline_init = false, async_init = false;
+		s.replace(this.reIncludeDef, function(str, sym, full_browser_str,browser_str, version) {
+			// a handy shortcut
+			if (browser_str == "ff") browser_str = "firefox";
+			// check the catch-all case
+			if (full_browser_str === '*') {
+				if (sym === '+') {
+					if (!inline_init) {
+						inline_init = sb.is_inline = true;
+					} else woas.log("Ignored catch-all inline because a restricting criteria was already specified");
+				} else { // if (sym === '@')
+					if (!async_init) {
+						async_init = sb.is_async = true;
+					} else woas.log("Ignored catch-all async because a restricting criteria was already specified");
+				}
+				return;
+			}
+			// check that this browser token is valid
+			if (typeof woas.browser[browser_str] == "undefined") {
+				woas.log("Invalid browser token: "+browser_str);
+				return;
+			}
+			// parse the symbol if that browser token is active
+			if (woas.browser[browser_str]) {
+				if (sym === '+') {
+					sb.is_inline = true;
+					sb.is_async = false;
+					inline_init = true;
+				} else {
+					sb.is_async = true;
+					sb.is_inline = false;
+					async_init = true;
+				}
+			}
+			// continue with next token
+		});
+		// if nothing was specified, fail
+		if (!inline_init && !async_init) return null;
+		return sb;
 	},
 
 	// disable one single plugin
@@ -110,28 +175,13 @@ woas.plugins = {
 		return this.disable(name) && this.enable(name);
 	},
 	
-	_script_block: function(uri) {
-		var sym = uri.charAt(0);
-		switch (sym) {
-			case '@':
-			case '+':
-				uri = uri.substr(1);
-			break;
-			default:
-				sym = '@';
-			break;
-		}
-		// return an object
-		return { src: woas.fix_path_separators(uri), sym: sym };
-	},
-	
 	_internal_add: function(name, s) {
-		if (s.sym === '@') {
+		if (s.is_async) {
 			if (woas.dom.add_script("plugin", this._mapping(name), s.src, true)) {
 				this._active.push( name );
 				return true;
 			}
-		} else if (s.sym === '+') { // create an inline javascript (slower)
+		} else /*if (s.is_inline) */ { // create an inline javascript (slower)
 			var ct = woas.load_file(woas.ROOT_DIRECTORY+s.src),
 				t = (typeof ct);
 			// write some nice message
@@ -157,19 +207,19 @@ woas.plugins = {
 		if (this.is_external) { // *special* external plugins
 			// single reference, do not create script block
 			if (p.length === 1) {
-				return this._internal_add(name, this._script_block(p[0]) );
+				return this._internal_add(name, p[0] );
 			} else {
-				var js="", s;
+				var js="";
 				for(var i=0;i < p.length;++i) {
-					s = this._script_block(p[i]);
-					if (s.sym === '@')
-						js += 'woas.dom.add_script("lib", "'+this._mapping(name)+'_'+i+"\", \""+woas.js_encode(s.src)+"\", true);\n";
-					else if (s.sym === '+') {
-						var ct = woas.load_file(woas.ROOT_DIRECTORY+s.src),
+//					woas.log("Processing "+p[i].src+" (inline:"+p[i].is_inline+")");
+					if (p[i].is_async)
+						js += 'woas.dom.add_script("lib", "'+this._mapping(name)+'_'+i+"\", \""+woas.js_encode(p[i].src)+"\", true);\n";
+					else /*if (p[i].is_inline) */ {
+						var ct = woas.load_file(woas.ROOT_DIRECTORY+p[i].src),
 							t = (typeof ct);
 						// write some nice message
 						if (t.toLowerCase() !== "string")
-							js += "/* woas.load_file(\"::/"+s.src+"\") returned "+ct+" ("+t+") */\n";
+							js += "/* woas.load_file(\"::/"+p[i].src+"\") returned "+ct+" ("+t+") */\n";
 						else {
 							// add the loaded code
 							js += ct; ct = null;
@@ -250,21 +300,10 @@ woas.plugins = {
 		// show a list of external sources
 		var ntext = "<"+"p>This plugin is made up of the following external sources:<"+"/p><"+"ul>", uri;
 		for(var i=0;i<uris.length;++i) {
-			uri = uris[i];
-			sym = uri.charAt(0);
-			switch (sym) {
-				case '@':
-				case '+':
-					uri = uri.substr(1);
-				break;
-				default:
-					sym = '@';
-				break;
-			}
-			ntext += "<"+"li>" + "<"+"big>"+sym+"<"+"/big>&nbsp;";
-			ntext += "<"+"a href=\""+uri+"\" target=\"_blank\">"+uri+"<"+"/a><"+"/li>\n";
+			ntext += "<"+"li>" + "<"+"big>"+(uris[i].is_inline ? "(inline)" : "(external)")+"<"+"/big>&nbsp;";
+			ntext += "<"+"a href=\""+uris[i].src+"\" target=\"_blank\">"+uris[i].src+"<"+"/a><"+"/li>\n";
 		}
-		return ntext+"<"+"/ul><"+"p>All scripts are loaded asynchronously by default (@), use + for inline evaluation<"+"/p>";
+		return ntext+"<"+"/ul>";
 	},
 	
 	// if given page name is a plugin, disable it

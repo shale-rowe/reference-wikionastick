@@ -10,8 +10,8 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-plugins/jsMath/plugins/noImageFonts.js
-+plugins/jsMath.js
-plugins/jsMath/jsMath.js
+plugins/jsMath/plugins/noImageFonts.js = +* @ff(3.6)
+plugins/jsMath.js = +*
+plugins/jsMath/jsMath.js = +* @ff(3.6)
 
 --DFQRCTsKlU
