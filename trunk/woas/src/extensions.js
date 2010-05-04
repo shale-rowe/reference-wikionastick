@@ -182,7 +182,7 @@ woas.plugins = {
 				return true;
 			}
 		} else /*if (s.is_inline) */ { // create an inline javascript (slower)
-			var ct = woas.load_file(woas.ROOT_DIRECTORY+s.src),
+			var ct = woas.load_file(woas.ROOT_DIRECTORY+woas.fix_path_separators(s.src)),
 				t = (typeof ct);
 			// write some nice message
 			if (t.toLowerCase() != "string") {
@@ -211,11 +211,10 @@ woas.plugins = {
 			} else {
 				var js="";
 				for(var i=0;i < p.length;++i) {
-//					woas.log("Processing "+p[i].src+" (inline:"+p[i].is_inline+")");
 					if (p[i].is_async)
 						js += 'woas.dom.add_script("lib", "'+this._mapping(name)+'_'+i+"\", \""+woas.js_encode(p[i].src)+"\", true);\n";
 					else /*if (p[i].is_inline) */ {
-						var ct = woas.load_file(woas.ROOT_DIRECTORY+p[i].src),
+						var ct = woas.load_file(woas.ROOT_DIRECTORY+woas.fix_path_separators(p[i].src)),
 							t = (typeof ct);
 						// write some nice message
 						if (t.toLowerCase() !== "string")
