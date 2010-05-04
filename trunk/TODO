@@ -1,5 +1,7 @@
 == 0.12.x development goals
 
+* check why Opera 10.53 (Windows) does not get a TiddlySaver applet definition
+
 * deprecate Special:: namespace in favor of WoaS:: namespace (where possible)
 
 * attempt to use XHR to load files (not always a good idea: think about server scripts)
