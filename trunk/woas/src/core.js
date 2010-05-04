@@ -529,7 +529,7 @@ woas.dom = {
 			if (woas.browser.gecko || woas.browser.webkit) {
 				setTimeout("woas.dom._elem_onload('"+woas.js_encode(css_id)+"');", 100);
 			} else { // good ol' IE
-				style.onload = style.onreadystatechange = woas._make_delta_func("woas.dom._elem_onload",
+				style.onreadystatechange = woas._make_delta_func("woas.dom._elem_onload",
 													"'"+woas.js_encode(css_id)+"'");
 			}
 		}
@@ -568,14 +568,22 @@ woas.dom = {
 	// generic callback used when we want to run something after the file has been loaded
 	// (usually CSS/JavaScript)
 	_elem_onload: function(instance) {
-		if (!woas.dom.get_loaded(instance) && (!this.readyState || this.readyState == 'complete'
-										 || this.readyState == 'loaded') ) {
+		// go away if it is already loaded
+		if (woas.dom.get_loaded(instance))
+			return;
+		// only for IE
+		if (woas.browser.ie && (typeof this.readyState != "undefined")) {
+			if (this.readyState != 'complete' && this.readyState != 'loaded')
+				return;
+			// remove handler
+			this.onreadystatechange = null;
+		} else if (woas.browser.firefox) {
 		  // unplug handler
 		  var dom_obj = woas.dom._objects[woas.dom.index(instance)];
-		  dom_obj.obj.onload = dom_obj.obj.onreadystatechange = null;
-		  // set as loaded (shall not remove from arrays)
-		  woas.dom.set_loaded(instance);
+		  dom_obj.obj.onload = null;
 		}
+		// set as loaded (shall not remove from arrays)
+		woas.dom.set_loaded(instance);
 	},
 	
 	get_loaded: function(instance) {
@@ -660,11 +668,17 @@ woas.dom = {
 			++this._loading;
 		woas.log("DOM: "+script_token+" created "+(external ? "("+script_content+") ":"(inline) ")+this._show_load());
 		// add a callback which informs us of the completion
-		if (external)
-			s_elem.onload = s_elem.onreadystatechange = woas._make_delta_func("woas.dom._elem_onload",
+		if (external) {
+			if (woas.browser.ie)
+				s_elem.onreadystatechange = woas._make_delta_func("woas.dom._elem_onload",
 													"'"+woas.js_encode(s_elem.id)+"'");
-		if (external)
+			else
+				s_elem.onload = woas._make_delta_func("woas.dom._elem_onload",
+													"'"+woas.js_encode(s_elem.id)+"'");
+			// specify the external URL
 			s_elem.src = script_content;
+		}
+				
 		this._cache.head.appendChild(s_elem);
 		if (!external) {
 //			alert("Inline code:\n"+script_content);
