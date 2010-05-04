@@ -11,7 +11,7 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 [[Include::Wiki::Utility::Links for writers]]
-
+[[Include::Wiki::Template::Search]] 
 --DFQRCTsKlU
 woas.page.title: Special::Advanced
 woas.page.attributes: 0
@@ -1080,7 +1080,7 @@ woas.page.boundary: DFQRCTsKlU
 # Type the page title.<blockquote>The maximum length is 256 characters, although you might want to use a shorter title to prevent interference with the banner icons. Page titles are case sensitive. All characters (including spaces) are allowed except angled brackets, square brackets, curly brackets, and pipes ("&lt;&gt;[]{}|").</blockquote>
 # Press the *Enter* key or click the *OK* button.<br><br>
 # When asked if you'd like to add a link to the main menu, accept by pressing the *Enter* key or clicking the *OK* button, or refuse by clicking the *Cancel* button.<blockquote>A level one header with the title of your page will be inserted in the main text area automatically.</blockquote>
-# Edit the contents of the main text area by typing normally, pasting in content, or using the editor's buttons to insert code to format the text, or type the code in manually. Note that the use of plain text doesn't require any code.<br><br>
+# Edit the contents of the main text area by typing normally, pasting in content, or using the editor's buttons to insert code to format the text. Note that the use of plain text doesn't require any code.<br><br>
 # Save your changes by clicking the [[Include::Wiki::Template::Icon::Save]] icon in the banner.
 
 == From a page
@@ -1120,17 +1120,18 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Delete a page
-== From the menu
-# Click the *Delete page* button in the menu while displaying the page you wish to delete, or click it from any page and type in the name of the page you wish to delete.<br><br>
-# You'll be asked for confirmation.<br><br>
-# When the page is deleted, you'll be returned to the page you were on before deleting the page.<br><br>
-# You may have to remove any links to the deleted page from the menu or other pages.<br><br>
-
+All pages except those in reserved [[Wiki::Help::Namespaces|namespaces]] can be deleted.
 == From the editor
 # Click the [[Include::Wiki::Template::Icon::Edit]] icon in the banner.<br><br>
 # Select everything inside the main text area and delete it.<br><br>
 # Save your changes by clicking on the [[Include::Wiki::Template::Icon::Save]] icon in the banner.<br><br>
 # Edit the menu to remove the link to the deleted page if it isn't removed automatically.
+
+== From the menu
+# Click the *Delete page* button in the menu while displaying the page you wish to delete, or click it from any page and type in the name of the page you wish to delete.<br><br>
+# You'll be asked for confirmation.<br><br>
+# When the page is deleted, you'll be returned to the page you were on before deleting the page.<br><br>
+# You may have to remove any links to the deleted page from the menu or other pages.<br><br>
 
 --DFQRCTsKlU
 woas.page.title: Wiki::Help::Edit a page
@@ -1141,11 +1142,33 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Edit a page
-All pages (except WoaS pages within reserved [[Wiki::Help::Namespaces|namespaces]]) can be edited or deleted. In order to edit such pages, click the *Edit* icon in the navigation bar. You can find all the user pages by clicking the {{{[[Special::All Pages]]}}} link in the menu.
-# Click the *Edit* icon in the navigation bar or double-click on the page if you've enabled that setting in the wiki Options.<br><br>
-# Edit the contents of the main text area by typing normally.<br><br>
-# Use the editor's buttons to insert code to format the text, or type the code in manually. Note that the use of plain text doesn't require any code.<br><br>
-# Save your changes by clicking on the *Save* icon in the navigation bar.
+All pages except those in reserved [[Wiki::Help::Namespaces|namespaces]] can be edited. You can find all the user pages by clicking the *All pages* button in the menu.
+# Click the [[Include::Wiki::Template::Icon::Edit]] icon in the banner or double-click on the page if you've enabled that setting in the wiki options.<br><br>
+# Edit the contents of the main text area by typing normally, pasting in content, or using the editor's buttons to insert code to format the text. Note that the use of plain text doesn't require any code.
+# Save your changes by clicking the [[Include::Wiki::Template::Icon::Save]] icon in the banner.
+
+== Edit reserved pages
+Pages in reserved [[Wiki::Help::Namespaces|namespaces]] don't have the [[Include::Wiki::Template::Icon::Edit]] icon in the banner because they cannot be edited without making some changes to the core code. You can enable editing of reserved pages by following these steps:
+# [[Wiki::Help::Backup|Back up]] your wiki.<br><br>
+# Open the wiki in a text editor.<br><br>
+# Find this section:<br><br>{{{
+var reserved_namespaces = ["Include", "Javascript", "Lock", "Locked", "Special", "Tags", "Tagged", "Unlock", "Unlocked", "Untagged", "Wiki", "WoaS"];
+}}}<br>
+# Remove the namespaces you'd like to be able to edit from the list, complete with the quotes, comma, and space following each one. Please choose *only* from among the {{{"Special", }}} or {{{"Wiki", }}} or {{{"WoaS", }}} namespaces, and do *not* remove any of the others or you may corrupt your wiki!<br><br>
+# Save the file.
+Now when you open the wiki in your browser, you will see the [[Include::Wiki::Template::Icon::Edit]] icon in the banner of the reserved pages you've enabled. These pages can now be edited from within the wiki and will show up in the page listing when you click the *All pages* button in the menu.
+
+[[Include::Wiki::Template::Info|Note that some of the text and links on some of your pages may be red. This is normal while running the wiki in this mode.]]
+To disable editing of reserved pages once you're finished editing them, follow these steps:
+# Open the wiki in a text editor.<br><br>
+# Find this section:<br><br>{{{
+var reserved_namespaces
+}}}<br>
+# Insert the namespaces you removed into the list, complete with the quotes, comma, and space ({{{"Special", }}} or {{{"Wiki", }}} or {{{"WoaS", }}}) so that the section looks like this again:<br><br>{{{
+var reserved_namespaces = ["Include", "Javascript", "Lock", "Locked", "Special", "Tags", "Tagged", "Unlock", "Unlocked", "Untagged", "Wiki", "WoaS"];
+}}}<br>
+# Save the file.
+Now when you open the wiki in your browser, the pages in the reserved namespaces should no longer have the [[Include::Wiki::Template::Icon::Edit]] icon in the banner, and should no longer show in the page listing when you click the *All pages* button in the menu.
 
 --DFQRCTsKlU
 woas.page.title: Wiki::Help::Erase all pages
@@ -2643,7 +2666,7 @@ This method is used to import pages that have been exported using the WSIF forma
 # Click the *Import WSIF* button.
 
 --DFQRCTsKlU
-woas.page.title: WoaS::Template::Search
+woas.page.title: Wiki::Template::Search
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -3822,6 +3845,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Removed the *Wiki::Utility::Diary* page.
 ** Removed the *WoaS::Bootscript* page.
 ** Removed the *WoaS::History* page.
+** Renamed the *Help::Add a search box* page to [[Wiki::Help::Add a search box]].
 ** Renamed the *Help::Backup* page to [[Wiki::Help::Backup]].
 ** Renamed the *Help::Bluebox* page to [[Wiki::Help::Bluebox]].
 ** Renamed the *Help::Bugs* page to [[Wiki::Help::Bugs]].
@@ -3836,7 +3860,6 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Renamed the *Help::Topnote* page to [[Wiki::Help::Topnote]].
 ** Renamed the *Help::Word count* page to [[Wiki::Help::Word count]].
 ** Renamed the *History* page to [[Wiki::History]].
-** Updated the [[Help::Edit a page]] page.
 ** Updated the [[Help::Include wiki page]] page.
 ** Updated the [[Help::Transclusion]] page.
 ** Updated the [[Wiki::History]] page.
@@ -3853,6 +3876,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the [[Wiki::Help::Bluebox]] page.
 ** Updated the [[Wiki::Help::Create a page]] page.
 ** Updated the [[Wiki::Help::Delete a page]] page.
+** Updated the [[Wiki::Help::Edit a page]] page.
 ** Updated the [[Wiki::Help::Edit the menu]] page.
 ** Updated the [[Wiki::Help::Erase all pages]] page.
 ** Updated the [[Wiki::Help::Export]] page.
@@ -3939,13 +3963,13 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Replaced the default [[Image::alert.png]] image with my own alert image.
 ** Updated all tags to the new tag syntax.
 ** Updated the *Example::JavaScript* page.
-** Updated the [[Help::Add a search box]] page.
+** Updated the *Help::Add a search box* page.
 ** Updated the [[Help::Aliases]] page.
 ** Updated the *Help::Bugs* page.
 ** Updated the [[Help::CSS]] page.
 ** Updated the [[Help::Code blocks (preformatted text)]] page, removing the obsolete *Code blocks with syntax highlighting* section.
 ** Updated the *Help::Delete a page* page.
-** Updated the [[Help::Edit a page]] page.
+** Updated the *Help::Edit a page* page.
 ** Updated the *Help::Edit the menu* page.
 ** Updated the [[Help::Encrypt a page]] page.
 ** Updated the *Help::Export* page.
@@ -4046,12 +4070,12 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Renamed the *Wiki::Unlock* page to *Template::Icon::Unlock*.
 ** Renamed the *Utility::Tooltips* page to *Template::Tooltip*.
 ** Updated the *Example::JavaScript* page.
-** Updated the [[Help::Add a search box]] page.
+** Updated the *Help::Add a search box* page.
 ** Updated the [[Help::Bootscript]] page.
 ** Updated the *Help::Bugs* page.
 ** Updated the [[Help::Code blocks (preformatted text)]] page.
 ** Updated the [[Help::CSS]] page.
-** Updated the [[Help::Edit a page]] page.
+** Updated the *Help::Edit a page* page.
 ** Updated the *Help::Edit the menu* page.
 ** Updated the [[Help::Encrypt a page]] page.
 ** Updated the [[Help::Footer]] page.
@@ -4259,7 +4283,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the [[Help::Code blocks (preformatted text)]] page.
 ** Updated the [[Help::CSS]] page.
 ** Updated the *Help::Delete a page* page.
-** Updated the [[Help::Edit a page]] page.
+** Updated the *Help::Edit a page* page.
 ** Updated the *Help::Edit the menu* page.
 ** Updated the *Help::Erase all pages* page.
 ** Updated the *Help::Horizontal rules (lines)* page, adding a *custom width horizontal rule aligned to the right*.
@@ -4351,7 +4375,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Added the contents of the *Example::External JavaScript* page to the *Help::JavaScript* page.
 ** Added the *Help::Backup* page.
 ** Added the *Help::Delete a page* page.
-** Added the [[Help::Edit a page]] page.
+** Added the *Help::Edit a page* page.
 ** Added the *Help::Edit the menu* page.
 ** Added the [[Help::Page scrolling]] page.
 ** Added the *Help::Print a page* page.
@@ -4376,7 +4400,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Renamed many of the *Help* pages.
 ** Renamed the *Example::Bootscript* page to [[Help::Bootscript]].
 ** Renamed the *Example::Custom JavaScript* page to *Example::JavaScript*.
-** Renamed the *Example::Search Box* page to [[Help::Add a search box]].
+** Renamed the *Example::Search Box* page to *Help::Add a search box*.
 ** Renamed the *Help::CSS settings* page to [[Help::CSS]].
 ** Renamed the *Help::Transclude pages* page to [[Help::Transclusion]].
 ** Replaced the page creation sections in the *Getting Started* page with a link to the *Help::Page creation* page.
@@ -4663,22 +4687,29 @@ woas.page.boundary: DFQRCTsKlU
 The members of the board are %1, %2, and %3.
 
 --DFQRCTsKlU
-woas.page.title: Help::Add a search box
+woas.page.title: Wiki::Help::Add a search box
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Help::Add a search box
-This page demonstrates a search box, but the code is buggy and seems to interfere with the [[Special::Search|default search box]]. I include it here purely for those who are interested in how such things work, and who are more capable than I when it comes to debugging or fine-tuning these things:
+= Add a search box
+Currently there are two ways you can add a search box to the menu. Neither is ideal since each has its own quirks.
 
-<div class="helptext">Use this code in a page or in the menu:</div>
-<div class="helpcode">&lt;input id&#061;"string&#095;to&#095;search" type&#061;"text" size&#061;"11" onfocus&#061;"search&#095;focus&#040;true&#041;" onblur&#061;"search&#095;focus&#040;false&#041;" &#047;&gt;&amp;nbsp;&lt;input type&#061;"button" value&#061;"Search" onclick&#061;"do&#095;search&#040;&#041;" &#047;&gt;</div>
-<div class="helptext">To create this:</div>
+The first method is to insert a link to the [[Wiki::Template::Search]] page which contains the search box used in [[http://sourceforge.net/projects/stickwiki/|Wiki on a Stick]]. The quirk that this method has is that using the *Enter* key after typing in a search term doesn't always work, and after the first search, the focus is in the search box on the [[Special::Search]] page rather than in the one in the menu.
+
+<div class="wikihelptext">Use this code in a page or in the menu:</div><br>{{{
+[[Include::Wiki::Template::Search]]
+}}}<br><div class="wikihelptext">To create this:</div>
+[[Include::Wiki::Template::Search]]
+
+The second method is to insert some HTML code into the menu to create a search box. The quirk that this method has is that after you type in a search term, the search box isn't cleared, so you must backspace to remove the contents to do another search.
+
+<div class="wikihelptext">Use this code in a page or in the menu:</div><br>{{{
 <input id="string_to_search" type="text" size="11" onfocus="search_focus(true)" onblur="search_focus(false)" />&nbsp;<input type="button" value="Search" onclick="do_search()" />
-
-[[Tags::Help]]
+}}}<br><div class="wikihelptext">To create this:</div>
+<input id="string_to_search" type="text" size="11" onfocus="search_focus(true)" onblur="search_focus(false)" />&nbsp;<input type="button" value="Search" onclick="do_search()" />
 
 --DFQRCTsKlU
 woas.page.title: Wiki::Help::Backup
@@ -5076,47 +5107,6 @@ span.tooltip {cursor:help; border-bottom:0.125em dashed mediumblue;}
 /* TOPNOTES */
 div.topnote {position:absolute; top:0.188em; right:0.625em;}
 }}}
-
-[[Tags::Help]]
-
---DFQRCTsKlU
-woas.page.title: Help::Edit a page
-woas.page.attributes: 0
-woas.page.encoding: 8bit/plain
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-= Edit a page
-Pages that have the [[Include::Wiki::Template::Icon::Edit]] icon in the banner can be edited. This includes any page you created, and any page listed when clicking the *All pages* button in the menu.
-# Click the [[Include::Wiki::Template::Icon::Edit]] icon in the banner or double-click on the page if you've enabled that setting in the wiki options.<br><br>
-# Edit the contents of the main text area by typing normally.<br><br>
-# Use the editor's buttons to insert code to format the text, or type the code in manually. Note that the use of plain text doesn't require any code.<br><br>
-# Save your changes by clicking on the [[Include::Wiki::Template::Icon::Save]] icon in the banner.
-
-== Edit system pages
-System pages don't have the [[Include::Wiki::Template::Icon::Edit]] icon in the banner because they cannot be edited without making some changes to the core code. You can enable editing of pages in the [[Special::]], [[Wiki::]], or [[WoaS::]] namespaces by following these steps:
-# [[Wiki::Help::Backup|Back up]] your wiki.<br><br>
-# Open the wiki in a text editor.<br><br>
-# Find this section:<br><br>{{{
-var reserved_namespaces = ["Include", "Javascript", "Lock", "Locked", "Special", "Tags", "Tagged", "Unlock", "Unlocked", "Untagged", "Wiki", "WoaS"];
-}}}<br>
-# Remove the namespace(s) you'd like to be able to edit from the list, complete with the quotes, comma, and space following each one ({{{"Special", }}} or {{{"Wiki", }}} or {{{"WoaS", }}}). Please choose *only* from among these namespaces, and do *not* remove any of the others or you will corrupt your wiki!<br><br>
-# Save the file.
-Now when you open the wiki in your browser, you will see the [[Include::Wiki::Template::Icon::Edit]] icon in the banner of the pages in the namespace(s) you've enabled. These pages can now be edited from within the wiki, and will show up in the page listing when you click the *All pages* button in the menu.
-
-<div style="background-color:#FFFFAA; border: 0.1em solid black; padding:0.3em;">Note that some of the text and links on some of your pages may be red. This is normal while running the wiki in this mode, and is only temporary.</div>
-
-To disable editing of system pages once you're finished editing them, follow these steps:
-# Open the wiki in a text editor.<br><br>
-# Find this section:<br><br>{{{
-var reserved_namespaces
-}}}<br>
-# Insert the namespaces you removed above back into the list, complete with the quotes, comma, and space following each one ({{{"Special", }}} or {{{"Wiki", }}} or {{{"WoaS", }}}) so that the section looks like this again:<br><br>{{{
-var reserved_namespaces = ["Include", "Javascript", "Lock", "Locked", "Special", "Tags", "Tagged", "Unlock", "Unlocked", "Untagged", "Wiki", "WoaS"];
-}}}<br>
-# Save the file.
-Now when you open the wiki in your browser, the namespaces you had temporarily enabled should no longer have the [[Include::Wiki::Template::Icon::Edit]] icon in the banner, and the pages in those namespaces should no longer show in the page listing when you click the *All pages* button in the menu.
 
 [[Tags::Help]]
 
