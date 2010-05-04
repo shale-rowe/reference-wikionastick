@@ -235,7 +235,7 @@ WoaS has two different interfaces for encryption passwords, namely one for encry
 
 An interface for page encryption shows also a colored meter for estimated password quality; encryption password is not stored in your saved files (true AES encryption is used).
 
-[[Include::WoaS::Template::Info|*If you forget the password there is no way to retrieve it or your data.*]]
+[[Include::Wiki::Template::Info|*If you forget the password there is no way to retrieve it or your data.*]]
 
 In order to encrypt a page you will have to click on the /lock/ icon in the navigation bar. The page locking interface will have two password boxes (the second for verification); the background color of the first box will hint about password estimated strength.
 
@@ -964,7 +964,7 @@ Click the *Print* icon in the navigation bar. A new browser window will open wit
 == Syntax
 This wiki accepts plain text, WoaS wiki syntax, and XHTML. See the *Syntax* section of the [[Wiki::Help::Index|Help index]] by clicking the *Help* icon in the navigation bar for help with using the syntax in your pages.
 
-[[Include::WoaS::Template::Info|WoaS syntax is partially compatible with Creole 0.1 syntax.]]
+[[Include::Wiki::Template::Info|WoaS syntax is partially compatible with Creole 0.1 syntax.]]
 
 --DFQRCTsKlU
 woas.page.title: Wiki::Help::Nowiki text
@@ -1047,15 +1047,6 @@ made of one
 or more lines.
 }}}</span>
 
---DFQRCTsKlU
-woas.page.title: WoaS::Template::Info
-woas.page.attributes: 0
-woas.page.encoding: 8bit/plain
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-<div style="background-color: #FFFFAA; border: 0.1em solid; padding: 0.2em;"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAMAAADXqc3KAAAAAXNSR0IArs4c6QAAArtQTFRF8ox%2FAAAAAAABAQEBAQECAgICAwMDBAQFBQUABgYGCQgJCgoLDAsMDQwPDQ0NDw4PDw8HEhETExMUFRQUGRkNGhsUGxscHx8eISATIR8lJCQVJiUsJyUqKCcuLCwtLiw0Ly4vMzE4NzYoQT9FQz9ERkZGSkdTS0hMTEhNUk5bU1JVY15kYWBkZWFubGh5bmt1cGt6c212cm5%2BcXFwfHaDfXxehoKQjIiUkYyfkoyllZKal5CpmJGqmJGrmZKtmpaim5WunJaunZewn5mxoJqyopquoZuxpJylopyyopy1pJ22pJ24pJ61pJ%2B1paC1pqC1qaC0pqG1qKG7qqKuqaKxqKK4paWkq6O7qaS3q6p%2BraW4rae6rKmvrqm1rqm6r6nDsKu1sKu9sKu%2Bs6yxs7GDsay9sq29s667tK7FuK%2FBtbDAtbDBt7HEubS%2BubTCurTKurXFvLqjvLfGvLjEv72LvL2VvbjLvr%2BPwL%2BKvbvBw7nHv7vDwMGHw7rHwb3Fwr3Lw8SQxb%2FRxsDRxsHMxcLGxsPLyMPQx8XKyMXIysuOycbIzMfVzcrMz8zU0NGi0czZ0M%2FL0c%2FL0c%2FN0s7X08%2FZ1NPN1ten1tTR1tXP19XS2tfc3Nyt3N2s3dni397W4N%2FX4N%2FZ4t7m4eDY4t%2Fm4eHY4uHb4uDl4uLX4%2BLa5OLo5OTb5ubd6OjJ6Ofh6erE6efr6efs6ujs6%2Bju6%2B3B6%2Brj6%2Bnt6%2Brl7O6%2F6%2Bvk7Ovr7Ovu7evu7vDC7ezv7e3p7u7p7%2B7w7%2B7x7%2B%2Fx8fPF8PDt8e%2F18fDs8fDy8fDz8%2FXC8fHx8%2FD38vLt8vLu8vL08%2FPt8%2FPu9PP09vjI9fXw9vX09vbx9%2FX59%2Fby9%2Fb39%2Ffx%2BPf4%2Bfj5%2Bfj6%2Bfnz%2Bfn1%2Bfr1%2B%2F7K%2Bvr2%2B%2Fr5%2FPr%2F%2B%2Fv7%2FP%2FR%2Ffv%2B%2Ffz9%2F%2F7%2FFnlyNwAAAAF0Uk5TAEDm2GYAAAABYktHRACIBR1IAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH2gMHDxg0DfX8UQAAAUBJREFUKM9jYCAIGBl5hLgYGTGEuXViWpvTzZVZUaUYFdofXzu4YW53o5kgsgyj3LIXFy8e2rphclaZBS%2BSDHvlsxvPb5%2FbtXFKQVyGHkKCUev08TtPbp3Yu7KtKMnfUxIuw2h19MCVu9dP7Z41c3qeR5AmXII1YdOuy%2Ffv3dyyZMfqLhdvA7gEZ%2BzC9UcePrp6%2Fuz%2B%2BdWOXiYIo%2Bz7F%2B%2B8cGb5qkUz6vxsww0REvpN9b3zjq3oKU7zcbLOVEdIyOSkZk%2FatrYj1NfZNiCYH8mDuvmB1Qv2TYxwsHGt0kDyICObUXz01KUT3OyiarVRAouJWc0ysSU3JNldBT18mYUL16ybXaHEiBkfNQ%2B290WKyGNKNFzaMy1FQhZTovzp4TklUtKYEp0nN5eaCihiSPBxiIapMopjSw5iLIzGhBMNAHCEbLFZHo5dAAAAAElFTkSuQmCC" alt="Info" border="0" /> %1</div>
 --DFQRCTsKlU
 woas.page.title: Wiki::Help::Wiki is read-only
 woas.page.attributes: 0
@@ -1408,7 +1399,7 @@ woas.page.boundary: DFQRCTsKlU
 = Include wiki page
 To include the contents of a wiki page inside another wiki page, use an {{{[[Include::]]}}} tag on a line by itself, inserting the name of the page you'd like to include after the double colons in the tag.
 
-[[Include::WoaS::Template::Info|Page names are case sensitive.]]
+[[Include::Wiki::Template::Info|Page names are case sensitive.]]
 <div class="woas_helptext">Use this code in a page, replacing Page Name with the name of the page you wish to include:</div>
 <div class="woas_helpcode">[<!-- -->[Include::Page Name]]</div>
 <div class="woas_helptext">To include the contents of another wiki page in the current page.</div>
@@ -1439,7 +1430,7 @@ YOUR_CODE_HERE
 == Adding JavaScript to the wiki source
 It is possible to add &lt;script/&gt; tags to your wiki source and they will be correctly rendered in the document &lt;head/&gt; tag upon page loading; also external scripts (using the /src/ attribute) will be parsed and activated, always respecting the order of declaration of the &lt;script /&gt; tags.
 
-[[Include::WoaS::Template::Info|Since the JavaScript tags are activated from within the &lt;head /&gt; tag, you cannot use document.write() or similar inline JavaScript statements.]]
+[[Include::Wiki::Template::Info|Since the JavaScript tags are activated from within the &lt;head /&gt; tag, you cannot use document.write() or similar inline JavaScript statements.]]
 == Using external JavaScript
 You can include external JavaScript on a page by placing the script file in the same directory as this wiki and then inserting a reference to it in the body of the page.
 
@@ -1465,7 +1456,7 @@ Using this code, you can get this wiki to create a link to a dynamically created
 <div class="woas_helptext">Use this code in a page, replacing CONTENT with your content, NAME with the page name, and LINK with the text you want the link to have:</div><br>{{{
 <script>function temporary(arg) {return 'CONTENT';}</script>[[Javascript::temporary('NAME')|LINK]]
 }}}<br><div class="woas_helptext">To create a dynamically created temporary page.</div>
-[[Include::WoaS::Template::Info|Only one of these links may be used per page.]]
+[[Include::Wiki::Template::Info|Only one of these links may be used per page.]]
 Paste each of these into a new page one by one to see what they do:
 * This one uses the temporary page name as part of its content:<br><br>{{{
 <script>function temporary(arg) {return 'This page was dynamically created using *'+arg+'* as content!';}</script>[[Javascript::temporary('sample')|Click here]]
@@ -1477,13 +1468,13 @@ Paste each of these into a new page one by one to see what they do:
 == Using JavaScript for page redirection
 The code below will redirect from the current page to the wiki page you specify a predefined number of seconds after the current page loads.
 
-[[Include::WoaS::Template::Info|WARNING! Use this code carefully! Back up your wiki before trying it!]]
+[[Include::Wiki::Template::Info|WARNING! Use this code carefully! Back up your wiki before trying it!]]
 <div class="woas_helptext">Use this code in a page, replacing PAGENAME with the name of the page to redirect to, and 10 with the number of seconds the script should delay:</div><br>{{{
 <script type="text/javascript">
 setTimeout("go_to('PAGENAME')",10*1000);
 </script>
 }}}<br><div class="woas_helptext">To redirect the current page to the PAGENAME page 10 seconds after the current page loads.</div>
-[[Include::WoaS::Template::Info|Note that this will redirect to the next page even if you're in the editor! The only indication you will have if you're in the editor is that name in the the Page title box will change to the name of the redirected page. If you don't check this before saving, your changes will be saved to the redirected page, overwriting its contents.<br><br>It's a good idea to put this code near the top of any page (preferably directly beneath the first header on the page) so that you can find it quickly, and also to make the delay at *least* 10 seconds so that you have time to open the page in the editor, change the *PAGENAME* portion of the code to a nonexistent page, and then save the page before the timer runs out.<br><br>Then you can reopen the page safely without risk of it redirecting while you're working on it. All that will happen if you give the script a nonexistent page name is that an alert will pop up asking if you'd like to create the nonexistent page. You can click *Cancel* when that popup comes up and continue working without further interruption.<br><br>An even safer method is to open the wiki in a text editor and make changes to the page contents from there.]]
+[[Include::Wiki::Template::Info|Note that this will redirect to the next page even if you're in the editor! The only indication you will have if you're in the editor is that name in the the Page title box will change to the name of the redirected page. If you don't check this before saving, your changes will be saved to the redirected page, overwriting its contents.<br><br>It's a good idea to put this code near the top of any page (preferably directly beneath the first header on the page) so that you can find it quickly, and also to make the delay at *least* 10 seconds so that you have time to open the page in the editor, change the *PAGENAME* portion of the code to a nonexistent page, and then save the page before the timer runs out.<br><br>Then you can reopen the page safely without risk of it redirecting while you're working on it. All that will happen if you give the script a nonexistent page name is that an alert will pop up asking if you'd like to create the nonexistent page. You can click *Cancel* when that popup comes up and continue working without further interruption.<br><br>An even safer method is to open the wiki in a text editor and make changes to the page contents from there.]]
 == Using JavaScript to reload the wiki
 <div class="woas_helptext">Use this code in a page:</div><br>{{{
 <input type="button" value="Reload wiki" onClick="window.location.href=window.location.href">
@@ -1566,20 +1557,20 @@ Some namespaces are reserved by the wiki for its own internal use or for specifi
 
 {| class="shadesofblue"
 | =Namespace || =Purpose
-| *File::* || For embedded [[File::|files]].
-| *Image::* || For embedded [[Image::|images]].
+| *File::* || For embedded files.
+| *Image::* || For embedded [[Wiki::Help::Images|images]].
 | *Include::* || For [[Wiki::Help::Transclusion|transclusion]].
 | *Javascript::* || For direct [[Wiki::Help::JavaScript|JavaScript]] execution.
 | *Lock::* || Used internally for [[Wiki::Help::Security|encrypted]] pages.
 | *Locked::* || For [[Wiki::Help::Security|encrypted]] pages.
 | *::Menu* || For sub-menus.
-| *Special::* || For [[Special::|special]] pages.
-| *Tagged::* || For [[Tagged::|tagged]] pages.
+| *Special::* || For Special pages.
+| *Tagged::* || For [[Wiki::Help::Tags|tagged]] pages.
 | *Tags::* || For [[Wiki::Help::Tags|tagging]] pages.
 | *Unlock::* || Used internally for [[Wiki::Help::Security|encrypted]] pages.
 | *Unlocked::* || For plain (unencrypted) pages.
-| *Wiki::* || For [[Wiki::Example::|examples]], [[Wiki::Help::|help pages]], [[Help::Transclusion|transclusion templates]], and [[Wiki::Utility::|utilities]].
-| *WoaS::* || For [[WoaS::Aliases|aliases]], [[WoaS::CSS::|CSS]], [[WoaS::Hotkeys|hotkeys]], [[WoaS::Plugins|plug-ins]], and some soon-to-be-deprecated [[WoaS::Template::|templates]].
+| *Wiki::* || For examples, [[Wiki::Help::Index::|help pages]], [[Wiki::Help::Transclusion|transclusion templates]], and utilities.
+| *WoaS::* || For [[Wiki::Help::Aliases|aliases]], [[Wiki::Help::CSS::|CSS]], [[Wiki::Help::Hotkeys|hotkeys]], and [[Wiki::Help::Plugins|plug-ins]].
 |}
 == Namespace sub-menu
 All pages in any namespace can be given a custom sub-menu by creating a *::Menu* page inside the namespace. A sub-menu will be temporarily added beneath the main menu when any page belonging to that page's namespace are opened. You can determine what goes into the sub-menu by editing the page with *::Menu* in its name. The sub-menu will vanish as soon as you navigate away from its namespace.
@@ -2547,7 +2538,7 @@ Wiki on a Stick offers various ways of using images in your pages. You can link 
 == Embed an image in the wiki
 This wiki provides an interface for embedding images. Each image will be given its own page, which you can use in an include link to insert the image anywhere in this wiki.
 
-[[Include::WoaS::Template::Info|Embedded images are encoded with Base64 and are 33% bigger than the original files. Since this wiki is a single file, excessive use of images will slow down performance.<br><br>It is recommended to keep the extension in the image name because some browsers infer the mime type of the image from the extension.]]
+[[Include::Wiki::Template::Info|Embedded images are encoded with Base64 and are 33% bigger than the original files. Since this wiki is a single file, excessive use of images will slow down performance.<br><br>It is recommended to keep the extension in the image name because some browsers infer the mime type of the image from the extension.]]
 <span class="woas_helptext">Replace NAME in these instructions with the name of your image:</span>
 === From the menu
 # Click the *New Page* link in the menu.<br><br>
@@ -2615,7 +2606,7 @@ An older Wiki on a Stick can be imported into the current wiki by using the {{{[
 # Click the *Browse* button<br><br>
 # Select the wiki you'd like to import.<br><br>
 # Click the *Open* button.<br><br>
-# Choose the settings you'd like to use.<br><br>[[Include::WoaS::Template::Info|Note that it's usually best to leave the *import also CSS* box unchecked and manually transfer CSS settings so you can make sure there's no conflict.]]<br>
+# Choose the settings you'd like to use.<br><br>[[Include::Wiki::Template::Info|Note that it's usually best to leave the *import also CSS* box unchecked and manually transfer CSS settings so you can make sure there's no conflict.]]<br>
 # Click the *Import* button.<br><br>
 # A warning will pop up letting you know that this will overwrite pages with the same title and asking if you're sure.<br><br>
 # Click the *OK* button if you're sure. Otherwise, click the *Cancel* button.
@@ -4866,22 +4857,23 @@ woas.page.boundary: DFQRCTsKlU
 = CSS
 The look of most of this wiki can be customized by changing the CSS settings.
 
-<div style="background-color: #FFFFAA; border: 0.1em solid; padding: 0.2em;">[[Include::Template::Icon::Info]] A tutorial on CSS is available here: [[http://www.w3schools.com/css/|http://www.w3schools.com/css/]]</div>
+[[Include::Wiki::Template::Info|A tutorial on CSS is available at <a class="world" onclick="window.open('http://www.w3schools.com/css/')">w3schools.com</a>.]]
+
 == Edit the CSS settings
-# Click the [[Include::Template::Icon::Advanced]] icon in the banner.
+# Click the [[Include::Wiki::Template::Icon::Advanced]] icon in the banner.
 # Click the [[Special::Edit CSS]] link in the *Advanced* section to open the CSS settings in the editor.
 # Make whatever changes you like to the code.
-# Save your changes by clicking on the [[Include::Template::Icon::Save]] icon in the banner.
+# Save your changes by clicking on the [[Include::Wiki::Template::Icon::Save]] icon in the banner.
 
 == Restore the default CSS settings
 To return to the default settings if you changed the CSS settings and don't like the changes:
 # Select and copy the default CSS settings from the bottom of this page.
-# Click the [[Include::Template::Icon::Advanced]] icon in the banner.
+# Click the [[Include::Wiki::Template::Icon::Advanced]] icon in the banner.
 # Click the [[Special::Edit CSS]] link in the *Advanced* section to open the CSS settings in the editor.
 # Select the contents of the main text area on the page.
 # Delete all of the contents.
 # Paste in the settings you copied from this page.
-# Click the [[Include::Template::Icon::Save]] icon in the banner to save the changes.
+# Click the [[Include::Wiki::Template::Icon::Save]] icon in the banner to save the changes.
 
 == Default CSS settings
 {{{
@@ -5069,14 +5061,14 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Edit a page
-Pages that have the [[Include::Template::Icon::Edit]] icon in the banner can be edited. This includes any page you created, and any page listed when clicking the *All pages* button in the menu.
-# Click the [[Include::Template::Icon::Edit]] icon in the banner or double-click on the page if you've enabled that setting in the wiki options.<br><br>
+Pages that have the [[Include::Wiki::Template::Icon::Edit]] icon in the banner can be edited. This includes any page you created, and any page listed when clicking the *All pages* button in the menu.
+# Click the [[Include::Wiki::Template::Icon::Edit]] icon in the banner or double-click on the page if you've enabled that setting in the wiki options.<br><br>
 # Edit the contents of the main text area by typing normally.<br><br>
 # Use the editor's buttons to insert code to format the text, or type the code in manually. Note that the use of plain text doesn't require any code.<br><br>
-# Save your changes by clicking on the [[Include::Template::Icon::Save]] icon in the banner.
+# Save your changes by clicking on the [[Include::Wiki::Template::Icon::Save]] icon in the banner.
 
 == Edit system pages
-System pages don't have the [[Include::Template::Icon::Edit]] icon in the banner because they cannot be edited without making some changes to the core code. You can enable editing of pages in the [[Special::]], [[Wiki::]], or [[WoaS::]] namespaces by following these steps:
+System pages don't have the [[Include::Wiki::Template::Icon::Edit]] icon in the banner because they cannot be edited without making some changes to the core code. You can enable editing of pages in the [[Special::]], [[Wiki::]], or [[WoaS::]] namespaces by following these steps:
 # [[Wiki::Help::Backup|Back up]] your wiki.<br><br>
 # Open the wiki in a text editor.<br><br>
 # Find this section:<br><br>{{{
@@ -5084,7 +5076,7 @@ var reserved_namespaces = ["Include", "Javascript", "Lock", "Locked", "Special",
 }}}<br>
 # Remove the namespace(s) you'd like to be able to edit from the list, complete with the quotes, comma, and space following each one ({{{"Special", }}} or {{{"Wiki", }}} or {{{"WoaS", }}}). Please choose *only* from among these namespaces, and do *not* remove any of the others or you will corrupt your wiki!<br><br>
 # Save the file.
-Now when you open the wiki in your browser, you will see the [[Include::Template::Icon::Edit]] icon in the banner of the pages in the namespace(s) you've enabled. These pages can now be edited from within the wiki, and will show up in the page listing when you click the *All pages* button in the menu.
+Now when you open the wiki in your browser, you will see the [[Include::Wiki::Template::Icon::Edit]] icon in the banner of the pages in the namespace(s) you've enabled. These pages can now be edited from within the wiki, and will show up in the page listing when you click the *All pages* button in the menu.
 
 <div style="background-color:#FFFFAA; border: 0.1em solid black; padding:0.3em;">Note that some of the text and links on some of your pages may be red. This is normal while running the wiki in this mode, and is only temporary.</div>
 
@@ -5097,7 +5089,7 @@ var reserved_namespaces
 var reserved_namespaces = ["Include", "Javascript", "Lock", "Locked", "Special", "Tags", "Tagged", "Unlock", "Unlocked", "Untagged", "Wiki", "WoaS"];
 }}}<br>
 # Save the file.
-Now when you open the wiki in your browser, the namespaces you had temporarily enabled should no longer have the [[Include::Template::Icon::Edit]] icon in the banner, and the pages in those namespaces should no longer show in the page listing when you click the *All pages* button in the menu.
+Now when you open the wiki in your browser, the namespaces you had temporarily enabled should no longer have the [[Include::Wiki::Template::Icon::Edit]] icon in the banner, and the pages in those namespaces should no longer show in the page listing when you click the *All pages* button in the menu.
 
 [[Tags::Help]]
 
@@ -5110,15 +5102,15 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Encrypt a page
-This wiki offers [[Special::Security|AES encryption]] for locking pages. Padlock icons are displayed in the banner to indicate whether pages are encrypted or not. The [[Include::Template::Icon::Unlock]] icon indicates that a page is unencrypted and the [[Include::Template::Icon::Lock]] icon indicates that a page is encrypted.
+This wiki offers [[Special::Security|AES encryption]] for locking pages. Padlock icons are displayed in the banner to indicate whether pages are encrypted or not. The [[Include::Wiki::Template::Icon::Unlock]] icon indicates that a page is unencrypted and the [[Include::Wiki::Template::Icon::Lock]] icon indicates that a page is encrypted.
 
 == Lock a page
-Click the [[Include::Template::Icon::Unlock]] icon in the banner to encrypt a page. The password interface will open. Type the password into the red box, using punctuation and mixed case, if possible. If the box turns green while you're typing in your password, it's a strong password. If it doesn't, you might wish to reconsider the password and try a stronger one. Once you've chosen and typed in your password, type it into the white box below the now hopefully green one for verification. Then click the *Lock* button (which will automatically include the name of the page you wish to encrypt) to encrypt the page.
+Click the [[Include::Wiki::Template::Icon::Unlock]] icon in the banner to encrypt a page. The password interface will open. Type the password into the red box, using punctuation and mixed case, if possible. If the box turns green while you're typing in your password, it's a strong password. If it doesn't, you might wish to reconsider the password and try a stronger one. Once you've chosen and typed in your password, type it into the white box below the now hopefully green one for verification. Then click the *Lock* button (which will automatically include the name of the page you wish to encrypt) to encrypt the page.
 
 When encrypting additional pages during a session, you'll be offered to use the same password you used to encrypt the first page. Accept by pressing the *OK* button or decline by pressing the *Cancel* button. If you decline, the password interface will open, allowing you to set a new password for the page. There is no limit to how many passwords you can use.
 
 == Unlock a page
-Clicking on the link to an encrypted page brings up an alert letting you know that you need to enter a password to view the page. To do so, click the [[Include::Template::Icon::Password]] icon in the banner to enter the password for unencrypting a page. You can now open the page normally to view, edit, or delete it. The password for decrypting a page (or pages) is cached so that you only need to enter it once per session (until you close or reload the wiki). To disable password caching, check the box for *Do not temporarily cache the AES key* in the [[Special::Options]] page. If you've used more than one password for encrypting your pages, you'll need to enter the password to unlock each encrypted page.
+Clicking on the link to an encrypted page brings up an alert letting you know that you need to enter a password to view the page. To do so, click the [[Include::Wiki::Template::Icon::Password]] icon in the banner to enter the password for unencrypting a page. You can now open the page normally to view, edit, or delete it. The password for decrypting a page (or pages) is cached so that you only need to enter it once per session (until you close or reload the wiki). To disable password caching, check the box for *Do not temporarily cache the AES key* in the [[Special::Options]] page. If you've used more than one password for encrypting your pages, you'll need to enter the password to unlock each encrypted page.
 
 == Example encrypted page
 The [[Wiki::Example::Encrypted page]] can be opened by using *test* as the password.
@@ -5137,11 +5129,11 @@ woas.page.boundary: DFQRCTsKlU
 The footer is a section beneath the main text area in which you can put content that's visible when viewing any page (see the copyright notice beneath this text area).
 
 == Change the look of the footer
-# Click the [[Include::Template::Icon::Advanced]] icon in the banner.
+# Click the [[Include::Wiki::Template::Icon::Advanced]] icon in the banner.
 # Click the [[Special::Edit CSS|Edit the CSS]] link in the *Advanced* section.
 # Find the {{{/* FOOTER */}}} entry.
 # Make whatever changes you like to the code.
-# Save your changes by clicking on the [[Include::Template::Icon::Save]] icon in the banner.
+# Save your changes by clicking on the [[Include::Wiki::Template::Icon::Save]] icon in the banner.
 
 == Change the contents of the footer
 # Open this wiki in a text editor.
@@ -5264,7 +5256,7 @@ woas.page.boundary: DFQRCTsKlU
 You can use the default [[Include::Image::alert.png]] image by typing {{{[[Include::Image::alert.png]]}}} wherever you'd like it to go on a page.
 
 == Add an info image to a page
-You can use the default [[Include::Template::Icon::Info]] image by typing {{{[[Include::Template::Icon::Info]]}}} wherever you'd like it to go on a page.
+You can use the default [[Include::Wiki::Template::Icon::Info]] image by typing {{{[[Include::Wiki::Template::Icon::Info]]}}} wherever you'd like it to go on a page.
 
 == Add an external image from the internet
 <div class="helptext">Use this code in a page, replacing URL with the full link to the image:</div>{{{
@@ -5290,7 +5282,7 @@ You can use the default [[Include::Template::Icon::Info]] image by typing {{{[[I
 == Add an embedded image
 This wiki provides an interface for embedding images. Each image will be given its own page, which you can use in an [[Help::Include wiki page|include link]] to insert the image anywhere in this wiki.
 
-[[Include::Template::Info|Embedded images encoded with Base64 are 33% bigger than the original files. Since this wiki is a single file, excessive use of images will slow down performance.]]
+[[Include::Wiki::Template::Info|Embedded images encoded with Base64 are 33% bigger than the original files. Since this wiki is a single file, excessive use of images will slow down performance.]]
 Before you begin, it's important to note that when coming up with names for your images, you don't need the full file name with its extension (example: *home.jpg* could just be named *home*). <span class="helptext">
 
 <div class="helptext">Replace NAME in these instructions with the name you'd like to give the image you're embedding:</div>
@@ -5303,16 +5295,16 @@ Before you begin, it's important to note that when coming up with names for your
 
 === From any page
 # Create an include link for a new image by typing {{{[[Include::Image::NAME]]}}} into a page, or click the editor's *Image* button and type in a name for the image.<br><br>
-# Click the [[Include::Template::Icon::Save]] icon in the banner to save the page.<br><br>
+# Click the [[Include::Wiki::Template::Icon::Save]] icon in the banner to save the page.<br><br>
 # Part of the include link you just created will be red, indicating that the image doesn't exist yet.<br><br>
 # Click on the red part of the link to launch the embedding interface.<br><br>
 # Browse to the image you'd like to embed.<br><br>
 # Click the *Embed* button. You'll be taken to the *Image::NAME* page (with *NAME* being the name you gave the image) with your image embedded in it.<br><br>
-# Click the [[Include::Template::Icon::Back]] icon in the banner to return to the page you created the include link on. The image you embedded should now be where the include link was.
+# Click the [[Include::Wiki::Template::Icon::Back]] icon in the banner to return to the page you created the include link on. The image you embedded should now be where the include link was.
 
 == Use an embedded image
 Once an image is embedded, you can use the same include link you used to add the embedded image to include the image anywhere in the wiki. Since the image is already embedded, it will automatically display without requiring you to launch the embedding interface again.
-# Create a new page or open an existing page in the editor by clicking the [[Include::Template::Icon::Edit]] icon in the banner.<br><br>
+# Create a new page or open an existing page in the editor by clicking the [[Include::Wiki::Template::Icon::Edit]] icon in the banner.<br><br>
 # Create an include link for an already embedded image. There are two ways you can do this:<br><br>
 ## Use this code wherever you like, replacing NAME with the name of the image you wish to include:<pre>[\
 [In\
@@ -5336,7 +5328,7 @@ ght:44px"]\
 ]<br>
 ### Result:<br><br>[[Include::Image::alert.png|border="1" style="width:44px; height:44px"]]<br><br>
 ## Or click the editor's *Image* button and type in the name of the image.<br><br>
-# Click the [[Include::Template::Icon::Save]] icon in the banner to save the page. The image should now be where the include link was.
+# Click the [[Include::Wiki::Template::Icon::Save]] icon in the banner to save the page. The image should now be where the include link was.
 
 == Add a Base64 image
 Images can be embedded in the wiki manually using Base64. Get the Base64 code of an image by using an online service like [[http://www.motobit.com/util/base64-decoder-encoder.asp|this one]], using utilities that are made for your operating system, or using software that comes with your operating system. For example, in Ubuntu you can open a terminal window in the directory the image is in and type {{{base64 imagename}}} using the name of the image in place of *imagename*.
@@ -5404,9 +5396,9 @@ See the [[Help::Links]] page for a list of all possible internal actions.
 
 == List your images in an image gallery
 <div class="helptext">Use this code in a page, replacing NAMESPACE with the namespace your images are in (complete with the double colons):</div>
-<div class="helpcode">[<!-- -->[Include::Template::Image gallery|NAMESPACE]<!-- -->]</div>
+<div class="helpcode">[<!-- -->[Include::Wiki::Template::Image gallery|NAMESPACE]<!-- -->]</div>
 <div class="helptext">To create an image gallery like the one below that displays the images in the Template::Icon:: namespace:</div>
-[[Include::Template::Image gallery|Template::Icon::]]
+[[Include::Wiki::Template::Image gallery|Template::Icon::]]
 
 [[Tags::Help|Syntax]]
 
@@ -5422,20 +5414,20 @@ woas.page.boundary: DFQRCTsKlU
 
 == Import wiki
 This method is used to import the contents of an older (or current) version of Book on a Stick or Wiki on a Stick:
-# Click the [[Include::Template::Icon::Advanced]] icon in the banner.
+# Click the [[Include::Wiki::Template::Icon::Advanced]] icon in the banner.
 # Scroll down to the *Maintenance* section.
 # Click the [[Special::Import]] link.
 # Click the *Browse* button
 # Select the wiki you'd like to import.
 # Click the *Open* button.
-# Choose the settings you'd like to use.<br>[[Include::Template::Info|Note that it's usually best to uncheck the *import also CSS (available only for versions v0.9 and above)* box and manually transfer CSS settings so you can make sure there's no conflict.]]
+# Choose the settings you'd like to use.<br>[[Include::Wiki::Template::Info|Note that it's usually best to uncheck the *import also CSS (available only for versions v0.9 and above)* box and manually transfer CSS settings so you can make sure there's no conflict.]]
 # Click the *Import* button.
 # A warning will pop up letting you know that this will overwrite pages with the same title, and asking if you're sure.
 # Click the *OK* button if you're sure. Otherwise, click the *Cancel* button.
 
 == ImportWSIF
 This method is used to import pages that have been exported using the [[Special::WSIF|WSIF]] format. See [[Help::Export]] for more information on exporting in this format.
-# Click the [[Include::Template::Icon::Advanced]] icon in the banner.
+# Click the [[Include::Wiki::Template::Icon::Advanced]] icon in the banner.
 # Scroll down to the *Maintenance* section.
 # Click the [[Special::ImportWSIF]] link.
 # Click the *Browse* button.
@@ -5665,7 +5657,7 @@ You can include the contents of another page of this wiki in the current page by
 <div class="helptext">Use this code in a page, replacing PAGENAME with the name of the page you'd like to include:</div>
 <div class="helpcode">[<!-- -->[Include::PAGENAME]<!-- -->]</div>
 <div class="helptext">To include the contents of another page in the current page.</div>
-<div style="background-color: #FFFFAA; border: 0.1em solid; padding: 0.2em;">[[Include::Template::Icon::Info]] You can create a dynamic include link that toggles the display of the contents of another page in the current page by following the instructions in the [[Help::Folds]] page.</div>
+<div style="background-color: #FFFFAA; border: 0.1em solid; padding: 0.2em;">[[Include::Wiki::Template::Icon::Info]] You can create a dynamic include link that toggles the display of the contents of another page in the current page by following the instructions in the [[Help::Folds]] page.</div>
 == Internal action link (labeled)
 These are internal wiki actions in the form of links:<br><br>
 {|
@@ -5732,7 +5724,7 @@ These are internal wiki actions in the form of links:<br><br>
 }}}<div class="helptext">To create this:</div>
 <input class="menu_button_half" value="BUTTONTEXT" onclick="go_to('PAGENAME')" type="submit" />
 
-[[Include::Template::Info|Note that the full size button will only be as wide as the menu and the half size button will only be half as wide as the menu.]]
+[[Include::Wiki::Template::Info|Note that the full size button will only be as wide as the menu and the half size button will only be half as wide as the menu.]]
 == Menu link (labeled)
 <div class="helptext">Use this code in the menu, replacing PAGENAME with the page you want to link to and LABEL with the link text:</div>{{{
 [[PAGENAME|LABEL]]
@@ -6171,7 +6163,7 @@ woas.page.boundary: DFQRCTsKlU
 # The new page template will automatically insert a level one header with the name of your page, followed by a line displaying the page creation date and time, and the cursor will be dropped down two lines from that, blinking and ready for your input. You can edit or delete the header and the page creation line if you like.<br><br>
 # Type or paste content into the main text area.<br><br>
 # Use the editor's buttons to insert code to format the text, or type the code in manually. Note that the use of plain text doesn't require any code.<br><br>
-# Save your changes by clicking on the [[Include::Template::Icon::Save]] icon in the banner.
+# Save your changes by clicking on the [[Include::Wiki::Template::Icon::Save]] icon in the banner.
 
 == Create a page on the fly
 An alternate method of creating a page is to type a new page name inside nested brackets. The link will be red. Click it to create the new page. Example:
@@ -6188,7 +6180,7 @@ An alternate method of creating a page is to type a new page name inside nested 
 # When asked if you'd like to add a link into the main menu, accept by pressing the *Enter* key or clicking the *OK* button, or refuse by clicking the *Cancel* button.<br><br>
 # Include pages by typing in an {{{[[Include::PageName]]}}} link for each page you'd like to see in the overview, replacing *PageName* with the name of the page to include.<br><br>
 # If you'd like a word count button on the page, follow the *Word count* instructions on the [[Wiki::Help::Word count]] page.<br><br>
-# Save your changes by clicking on the [[Include::Template::Icon::Save]] icon in the banner.
+# Save your changes by clicking on the [[Include::Wiki::Template::Icon::Save]] icon in the banner.
 
 == Troubleshooting
 * You can make a page name that's too long for the wiki to handle properly. This will cause the icons in the banner to scroll off-screen and be difficult to access. Since there are various resolutions for computers, it's not possible to say exactly how long a name can be for everyone, so use your best judgement. If you created a page with a name that's too long, see [[Help::Page name too long]] for how to fix it.
@@ -6257,7 +6249,7 @@ Wiki on a Stick is actively supported on the following browsers:
 * Internet Explorer 6
 * Internet Explorer 7
 * Internet Explorer 8
-[[Include::Template::Info|For IE7 and IE8 browsers, you might want to rename your application to .hta to enable its trusted privileges.]]
+[[Include::Wiki::Template::Info|For IE7 and IE8 browsers, you might want to rename your application to .hta to enable its trusted privileges.]]
 
 == Limitations
 * Firefox (and possibly other browsers, too) cannot save to filenames containing UTF8 characters. Use unix-style filenames instead.
@@ -6307,7 +6299,7 @@ Spoilers are permanent areas with content that shows when you hover over them wi
 This method displays a permanently visible spoiler box, which can also be used to create an invisible hot spot by customizing the spoiler [[Help::CSS|CSS]] to make the box blend in with the background.
 
 <div class="helptext">Use this code in a page, replacing CONTENT GOES HERE with your content:</div><br>{{{
-[[Include::Template::Spoiler|CONTENT GOES HERE]]
+[[Include::Wiki::Template::Spoiler|CONTENT GOES HERE]]
 }}}<br><div class="helptext">To create this:</div>
 [[Include::Wiki::Template::Spoiler|CONTENT GOES HERE]]
 
@@ -6321,7 +6313,7 @@ This method displays a permanently visible spoiler box, which can also be used t
 
 == Hidden spoiler (wiki)
 <div class="helptext">Use this code in a page, replacing LINK with your link text, and CONTENT GOES HERE with your content:</div><br>{{{
-[[Include::Template::HiddenSpoiler|LINK|CONTENT GOES HERE]]
+[[Include::Wiki::Template::HiddenSpoiler|LINK|CONTENT GOES HERE]]
 }}}<br><div class="helptext">To create this:</div>
 [[Include::Wiki::Template::HiddenSpoiler|LINK|CONTENT GOES HERE]]
 
@@ -6335,7 +6327,7 @@ This displays a spoiler box when the mouse hovers over the link.
 
 == Hidden spoiler inline (wiki)
 <div class="helptext">Use this code in a page, replacing LINK with your link text, and CONTENT GOES HERE with your content:</div><br>{{{
-[[Include::Template::HiddenSpoilerInline|LINK|CONTENT GOES HERE]]
+[[Include::Wiki::Template::HiddenSpoilerInline|LINK|CONTENT GOES HERE]]
 }}}<br><div class="helptext">To create this:</div>
 [[Include::Wiki::Template::HiddenSpoilerInline|LINK|CONTENT GOES HERE]]
 
@@ -6360,10 +6352,8 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 = Syntax
 This wiki accepts [[http://en.wikipedia.org/wiki/Plain_text|plain text]], [[Tagged::Syntax|internal wiki syntax]], [[http://www.wikicreole.org/wiki/|some Creole 0.1]], [[http://www.w3schools.com/html/default.asp|HTML]], [[http://www.w3schools.com/xhtml/default.asp|XHTML]], and [[http://www.w3schools.com/js/default.asp|JavaScript]]. See below for pages tagged with *Syntax*:
-[[Include::Tagged::Syntax]]
-
-<div style="background-color: #FFFFAA; border: 0.1em solid; padding: 0.2em;">[[Include::Template::Icon::Info]] Feel free to use the [[Sandbox]] page to test out syntax without having to create a new page each time.</div>
-
+=[[Include::Tagged::Syntax]]
+[[Include::Wiki::Template::Info|Feel free to use the *Sandbox* page to test out syntax without having to create a new page each time.]]
 
 [[Tags::Help|Syntax]]
 
@@ -7222,7 +7212,7 @@ woas.page.boundary: DFQRCTsKlU
 [[Special::TOC]]
 Folds are special links that toggle inclusion of additional content in a page when you click the link or button. You can add as many folds as you like to a page. They begin collapsed and expand when you click on them. Each is independent of the others, and can be expanded and collapsed as many times as you like.
 
-<div style="background-color: #FFFFAA; border: 0.1em solid; padding: 0.2em;">[[Include::Template::Icon::Info]] Unfortunately, hidden content inside folds can conflict with the [[Help::Table of Contents|Table of Contents]] and the [[Help::Tags|Tags]] container at the bottom of the page by being visible in both of them even when the content isn't unfolded.</div>
+<div style="background-color: #FFFFAA; border: 0.1em solid; padding: 0.2em;">[[Include::Wiki::Template::Icon::Info]] Unfortunately, hidden content inside folds can conflict with the [[Help::Table of Contents|Table of Contents]] and the [[Help::Tags|Tags]] container at the bottom of the page by being visible in both of them even when the content isn't unfolded.</div>
 == Folding text
 The [[Wiki::Template::Foldtext|Foldtext]] template can be used to toggle additional text in the current page.
 
@@ -7230,30 +7220,30 @@ The [[Wiki::Template::Foldtext|Foldtext]] template can be used to toggle additio
 This method allows you to toggle a single line of text, and accepts wiki [[Help::Text formatting|text formatting]] for the link text.
 
 <div class="helptext">Use this code on your page, replacing LINK with the link text, and CONTENT with the content you'd like to display when the link is clicked:</div>
-<div class="helpcode">[<!-- -->[Include::Template::Foldtext|LINK|CONTENT|]<!-- -->]</div>
+<div class="helpcode">[<!-- -->[Include::Wiki::Template::Foldtext|LINK|CONTENT|]<!-- -->]</div>
 <div class="helptext">To create this:</div>
-[[Include::Template::Foldtext|LINK|CONTENT|]]
+[[Include::Wiki::Template::Foldtext|LINK|CONTENT|]]
 
 === Folding multi-line text
 This method allows you to toggle more than one line of text by using HTML {{{<br>}}} tags, and accepts wiki [[Help::Text formatting|text formatting]] for the link text.
 
 <div class="helptext">Use this code on your page, replacing LINK with the link text, and CONTENT&lt;br&gt;MORE CONTENT with the content you'd like to display when the link is clicked:</div>
-<div class="helpcode">[<!-- -->[Include::Template::Foldtext|LINK|CONTENT&lt;br&gt;MORE CONTENT|]<!-- -->]</div>
+<div class="helpcode">[<!-- -->[Include::Wiki::Template::Foldtext|LINK|CONTENT&lt;br&gt;MORE CONTENT|]<!-- -->]</div>
 <div class="helptext">To create this:</div>
-[[Include::Template::Foldtext|LINK|CONTENT<br>MORE CONTENT|]]
+[[Include::Wiki::Template::Foldtext|LINK|CONTENT<br>MORE CONTENT|]]
 
 === Folding text inline
 This method allows you to add text after the link on the same line, and accepts wiki [[Help::Text formatting|text formatting]] for the link text.
 
 <div class="helptext">Use this code in your page, replacing LINK with the text for the link, CONTENTS with the content you'd like to display when the link is clicked, and TEXT with the text you'd like after the link:</div>
-<div class="helpcode">[<!-- -->[Include::Template::Foldtext|LINK|CONTENTS|TEXT]<!-- -->]</div>
+<div class="helpcode">[<!-- -->[Include::Wiki::Template::Foldtext|LINK|CONTENTS|TEXT]<!-- -->]</div>
 <div class="helptext">To create this:</div>
-[[Include::Template::Foldtext|LINK|CONTENTS|TEXT]]
+[[Include::Wiki::Template::Foldtext|LINK|CONTENTS|TEXT]]
 
 === Foldaway text
 The [[Wiki::Template::Foldawaylink|Foldawaylink]] and [[Wiki::Template::Foldawaytext|Foldawaytext]] templates can be used to toggle inclusion of additional text in the current page. The link and the toggled text can be in different places in the page.
-# Insert a Foldawaylink where you'd like the link to appear in the page:<br><br><div class="helptext">Use this code in your page, replacing LINK with the link text, and NAME with a unique name for the link:</div><br><div class="helpcode">[<!-- -->[Include::Template::Foldawaylink|LINK|NAME]<!-- -->]</div><br><div class="helptext">To create a Foldawaylink link.</div><br>
-# Insert a Foldawaytext link where you'd like the toggled text to appear in the page:<br><br><div class="helptext">Use this code in your page, replacing TEXT with the text you'd like to toggle, and NAME with the same unique name you used in the Foldaway link:</div><br><div class="helpcode">[<!-- -->[Include::Template::Foldawaytext|TEXT|NAME]<!-- -->]</div><br><div class="helptext">To create a Foldawaytext link.</div>
+# Insert a Foldawaylink where you'd like the link to appear in the page:<br><br><div class="helptext">Use this code in your page, replacing LINK with the link text, and NAME with a unique name for the link:</div><br><div class="helpcode">[<!-- -->[Include::Wiki::Template::Foldawaylink|LINK|NAME]<!-- -->]</div><br><div class="helptext">To create a Foldawaylink link.</div><br>
+# Insert a Foldawaytext link where you'd like the toggled text to appear in the page:<br><br><div class="helptext">Use this code in your page, replacing TEXT with the text you'd like to toggle, and NAME with the same unique name you used in the Foldaway link:</div><br><div class="helpcode">[<!-- -->[Include::Wiki::Template::Foldawaytext|TEXT|NAME]<!-- -->]</div><br><div class="helptext">To create a Foldawaytext link.</div>
 See [[Wiki::Example::Foldawaytext|this page]] for an example.
 
 == Folding page
@@ -7263,20 +7253,20 @@ The [[Wiki::Template::Foldpage|Foldpage]] template can be used to toggle inclusi
 This method works best when the link is at the beginning of a line, or there's no text after it on the same line. If there's text after the link, it will be pushed beneath the unfolded content when the link is clicked.
 
 <div class="helptext">Use this code in your page, replacing LINK with the text for the link, and PAGE with the name of the page you'd like to include when the link is clicked:</div>
-<div class="helpcode">[<!-- -->[Include::Template::Foldpage|LINK|PAGE|]<!-- -->]</div>
+<div class="helpcode">[<!-- -->[Include::Wiki::Template::Foldpage|LINK|PAGE|]<!-- -->]</div>
 <div class="helptext">To create a Folding page link like the one on [[Wiki::Example::Folding page plain|this page]].</div>
 
 === Folding page inline
 This method allows you to add text after the link on the same line.
 
 <div class="helptext">Use this code in your page, replacing LINK with the text for the link, and PAGE with the name of the page you'd like to include when the link is clicked, and TEXT with the text you'd like after the link:</div>
-<div class="helpcode">[<!-- -->[Include::Template::Foldpage|LINK|PAGE|TEXT]<!-- -->]</div>
+<div class="helpcode">[<!-- -->[Include::Wiki::Template::Foldpage|LINK|PAGE|TEXT]<!-- -->]</div>
 <div class="helptext">To create a Folding page link like the one on [[Wiki::Example::Folding page inline|this page]].</div>
 
 === Foldaway page
 The [[Wiki::Template::Foldawaylink|Foldawaylink]] and [[Wiki::Template::Foldawaypage|Foldawaycontent]] templates can be used to toggle inclusion of another page in the current page. The link and the toggled page can be in different places in the page.
-# Insert a Foldawaylink where you'd like the link to appear in the page:<br><br><div class="helptext">Use this code in your page, replacing LINK with the link text, and NAME with a unique name for the link:</div><br><div class="helpcode">[<!-- -->[Include::Template::Foldawaylink|LINK|NAME]<!-- -->]</div><br><div class="helptext">To create a Foldawaylink link.</div><br>
-# Insert a Foldawaycontent link where you'd like the toggled page to appear in the page:<br><br><div class="helptext">Use this code in your page, replacing PAGE with the name of the page you'd like to include, and NAME with the same unique name you used in the Foldaway link:</div><br><div class="helpcode">[<!-- -->[Include::Template::Foldawaycontent|PAGE|NAME]<!-- -->]</div><br><div class="helptext">To create a Foldawaycontent link.</div>
+# Insert a Foldawaylink where you'd like the link to appear in the page:<br><br><div class="helptext">Use this code in your page, replacing LINK with the link text, and NAME with a unique name for the link:</div><br><div class="helpcode">[<!-- -->[Include::Wiki::Template::Foldawaylink|LINK|NAME]<!-- -->]</div><br><div class="helptext">To create a Foldawaylink link.</div><br>
+# Insert a Foldawaycontent link where you'd like the toggled page to appear in the page:<br><br><div class="helptext">Use this code in your page, replacing PAGE with the name of the page you'd like to include, and NAME with the same unique name you used in the Foldaway link:</div><br><div class="helpcode">[<!-- -->[Include::Wiki::Template::Foldawaycontent|PAGE|NAME]<!-- -->]</div><br><div class="helptext">To create a Foldawaycontent link.</div>
 See [[Wiki::Example::Foldaway|this page]] for an example.
 
 == HTML Folds
@@ -7289,7 +7279,7 @@ This method uses an additional &lt;div&gt; container to surround the include lin
 <div class="helptext">To create a folding page link like this one:</div>
 <a href="javascript:expanddiv('logopage')">LINK</a><div id="logopage" style="display:none;">
 <div>
-[[Include::Template::Logo]]
+[[Include::Wiki::Template::Logo]]
 </div>
 </div>
 
@@ -7683,12 +7673,12 @@ woas.page.boundary: DFQRCTsKlU
 = Aliases
 Aliases are replaceable shortcuts used in wiki links.
 == Add an alias
-# Click the [[Include::Template::Icon::Advanced]] icon in the banner.<br><br>
+# Click the [[Include::Wiki::Template::Icon::Advanced]] icon in the banner.<br><br>
 # Click the [[Special::Aliases]] link in the *Advanced features* section of the page.<br><br>
 # Add this line to the page, replacing ALIAS with the shortcut you'd like to use, and PAGENAME with the name of the page you'd like the alias to represent:{{{
 $ALIAS PAGENAME 
 }}}
-# Click the [[Include::Template::Icon::Save]] icon in the banner.
+# Click the [[Include::Wiki::Template::Icon::Save]] icon in the banner.
 
 == Use an alias
 Aliases can be used in links the same way a page name would be used.
@@ -7704,12 +7694,12 @@ To create a labeled link, surround the link with double square brackets, inserti
 }}}<div class="helptext">To add a labeled alias link to a page.</div>
 
 === Example
-# Click the [[Include::Template::Icon::Advanced]] icon in the banner.<br><br>
+# Click the [[Include::Wiki::Template::Icon::Advanced]] icon in the banner.<br><br>
 # Click the [[Special::Aliases]] link in the *Advanced features* section of the page.<br><br>
 # Add this line to the page:{{{
 $HOME Main Page
 }}}
-# Click the [[Include::Template::Icon::Save]] icon in the banner.<br><br>
+# Click the [[Include::Wiki::Template::Icon::Save]] icon in the banner.<br><br>
 # Add {{{[[$HOME]]}}} to any page to make a plain link to the Main Page.<br><br>
 # Add {{{[[$HOME|home sweet home]]}}} to any page to make a labeled link to the Main Page.<br><br>
 # Add {{{[[Include::$HOME]]}}} to any page to include the Main Page in the current page.
@@ -7733,7 +7723,7 @@ You can embed text files and images within this wiki by creating a link and clic
 # Use this code on a page, replacing FILENAME with the name of the file you'd like to embed:{{{
 [[File::FILENAME]]
 }}}This will create a link to a nonexistent page.
-# Click the [[Include::Template::Icon::Save]] icon in the menu to save the page.<br><br>
+# Click the [[Include::Wiki::Template::Icon::Save]] icon in the menu to save the page.<br><br>
 # Click the link you just made.<br><br>
 # Use the *Embed file* interface to browse to the file and embed it into the wiki.
 Now the link you created will point to the embedded file.

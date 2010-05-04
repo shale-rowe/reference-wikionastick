@@ -1051,3 +1051,8 @@
 * Removed the [[Help::Run wiki on a server]] page.
 * Updated the CSS styling for footnotes.
 * Updated the [[Wiki::Help::Edit the menu]] page.
+======================================================================================================================
+* Replaced all instances of [[Include::Template:: with [[Include::Wiki::Template::.
+* Replaced all instances of [[WoaS::Template::Info with [[Wiki::Template::Info.
+* Removed the [[WoaS::Template::Info]] page.
+* Updated the [[Wiki::Help::Namespaces]] page.
