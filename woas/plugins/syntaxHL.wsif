@@ -10,6 +10,6 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-plugins/syntaxHL.js
+plugins/syntaxHL.js = +* @ff(3.6)
 
 --DFQRCTsKlU
