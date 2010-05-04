@@ -1579,9 +1579,9 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Rename a page
-# Click the *Edit* icon in the navigation bar.
+# Click the [[Include::Wiki::Template::Icon::Edit]] icon in the banner.
 # Edit the contents of the text inside the *Page title* area at the top of the page.
-# Save your changes by clicking on the *Save* icon in the navigation bar.
+# Save your changes by clicking the [[Include::Wiki::Template::Icon::Save]] icon in the banner.
 
 --DFQRCTsKlU
 woas.page.title: Wiki::Help::Page scrolling
@@ -1605,14 +1605,13 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Table of Contents
-You can insert a Table of Contents into your page by using a special wiki tag. It will be automatically populated with all the headers on a page. The placement of the Table of Contents is  determined by where you put the tag in the page.
+You can insert a Table of Contents into a page by using a special wiki tag. It will be automatically populated with all the [[Wiki::Help::Headers|headers]] on a page. The placement of the Table of Contents is  determined by where you put the tag in the page.
 
-<div class="woas_helptext">Use this code on a line by itself in a page:</div><br>{{{
+<div class="wikihelptext">Use this code on a line by itself in a page:</div><br>{{{
 [[Special::TOC]]
 }}}
-<div class="woas_helptext">To add a Table of Contents to the page.</div>
-
-[[Include::WoaS::Template::Info|The Table of Contents expects the first header on a page to be a Level 1 header. If you use any other level header first, that header and any headers after it will be represented by hash marks until a Level 1 header is encountered. From that point on, the headers will be numbered properly.]]
+<div class="wikihelptext">To add a Table of Contents to the page.</div>
+[[Include::Wiki::Template::Info|The Table of Contents expects the first header on a page to be a Level 1 header. If you use any other level header first, that header and any headers after it will be represented by hash marks until a Level 1 header is encountered. From that point on, the headers will be numbered properly.]]
 == Example
 Create a page with these contents:<br><br>{{{
 [[Special::TOC]]
@@ -1723,11 +1722,10 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Run wiki on a server
-Wiki on a Stick is a client software not designed to be used on a webserver; WoaS will anyway recognize that it is being run from a webserver and prevent save operations with an appropriate user message informing about the impossibility to save permanent changes.
+This is a personal wiki that's not designed to be used on a server. The wiki will recognize that it is being run from a server, prevent changes from being saved, and display a message when a user tries to make a change. Advanced users may be able to find a way to get around that, but it's currently not possible by default.
+<!-- == Server integration
+WoaS 1.0 will offer an API to allow server-side integrations. -->
 
-== Server integration
-
-WoaS 1.0 will offer an API to allow server-side integrations.
 --DFQRCTsKlU
 woas.page.title: Wiki::Help::Requirements
 woas.page.attributes: 0
@@ -3726,9 +3724,11 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Removed the *Help::Non-breaking spaces* page.
 ** Removed the *Help::Pages linking to this page* page.
 ** Removed the *Help::Page with no name* page.
+** Removed the *Help::Rename a page* page.
 ** Removed the *Help::ToDo list* page and any ToDo items in the wiki.
 ** Removed the *Help::Wiki is read-only* page.
 ** Removed the *ToDo list* page.
+** Removed the *Wiki::Example::Table of Contents* page.
 ** Removed the *Wiki::Template::TODO* page.
 ** Removed the *Wiki::Utility::Diary* page.
 ** Removed the *WoaS::Bootscript* page.
@@ -3760,7 +3760,6 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the [[Wiki::Example::Folding page inline]] page.
 ** Updated the [[Wiki::Example::Folding page plain]] page.
 ** Updated the [[Wiki::Example::Folding page styled button (HTML)]] page.
-** Updated the [[Wiki::Example::Table of Contents]] page.
 ** Updated the [[Wiki::Help::Bluebox]] page.
 ** Updated the [[Wiki::Help::Delete a page]] page.
 ** Updated the [[Wiki::Help::Erase all pages]] page.
@@ -3772,6 +3771,9 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the [[Wiki::Help::Join lines of text]] page.
 ** Updated the [[Wiki::Help::Namespaces]] page.
 ** Updated the [[Wiki::Help::Publish wiki online]] page.
+** Updated the [[Wiki::Help::Rename a page]] page.
+** Updated the [[Wiki::Help::Run wiki on a server]] page.
+** Updated the [[Wiki::Help::Table of Contents]] page.
 ** Updated the [[Wiki::Help::Wiki is read-only]] page.
 ** Updated the [[WoaS::CSS::Core]] page.
 ** Updated the [[WoaS::CSS::Custom]] page.
@@ -3870,7 +3872,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the *Help::Print a page* page.
 ** Updated the *Help::Publish wiki online* page.
 ** Updated the [[Help::Requirements]] page.
-** Updated the [[Help::Run wiki on a server]] page.
+** Updated the *Help::Run wiki on a server* page.
 ** Updated the [[Help::Syntax]] page.
 ** Updated the [[Help::Table of Contents]] page.
 ** Updated the [[Help::Tables]] page.
@@ -4181,7 +4183,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the *Help::Page with no name* page.
 ** Updated the *Help::Parent and child pages* page.
 ** Updated the *Help::Publish wiki online* page.
-** Uodated the [[Help::Rename a page]] page.
+** Uodated the *Help::Rename a page* page.
 ** Updated the [[Help::Table of Contents]] page.
 ** Updated the [[Help::Text formatting]] page.
 ** Updated the [[Help::Transclusion]] page.
@@ -4259,7 +4261,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Added the [[Help::Edit the menu]] page.
 ** Added the [[Help::Page scrolling]] page.
 ** Added the *Help::Print a page* page.
-** Added the [[Help::Rename a page]] page.
+** Added the *Help::Rename a page* page.
 ** Added the [[Help::Table of Contents]] Page.
 ** Added the *Help::Word count* page.
 ** Changed the logo.
@@ -4307,7 +4309,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Added links to *Cleanup*, *Create new page*, *Help pages*, and *Syntax pages* to the *Pages* section on the [[Special::Options]] page.
 ** Added the *Backlinks* link to the *Administration* section of the menu.
 ** Added the *Help::Export* page.
-** Added the [[Help::Run wiki on a server]] page.
+** Added the *Help::Run wiki on a server* page.
 ** Added the *Links for writers* page, putting the content from the *Research* and *Fun* sections of the menu into it.
 ** Added the *Word Play* link to the *Fun* section of the menu.
 ** Added this page.
@@ -4555,25 +4557,6 @@ woas.page.boundary: DFQRCTsKlU
 [[Include::Wiki::Example::Chapter 02]]
 [[Include::Wiki::Example::Chapter 03]]
 [[Include::Word count button]]
-
---DFQRCTsKlU
-woas.page.title: Wiki::Example::Table of Contents
-woas.page.attributes: 0
-woas.page.encoding: 8bit/plain
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-[[Special::TOC]]
-== Level 2 header
-=== Level 3 header
-= Level 1 header
-== Level 2 header
-=== Level 3 header
-This example demonstrates a bad Table of Contents because the first header on a page is expected to be a Level 1 header. If you use any other level header first, that header and any headers after it will be represented by hash marks until a Level 1 header is encountered. From that point on, the headers will be numbered properly.
-
-Since the first three headers on this page are not Level 1 headers, they are represented by hash marks. The remaining headers are numbered. To see a proper Table of Contents, see the [[Wiki::Help::Table of Contents]] page.
-
 
 --DFQRCTsKlU
 woas.page.title: Wiki::Example::Transclusion
@@ -6329,21 +6312,6 @@ woas.page.boundary: DFQRCTsKlU
 = Print a page
 # Click the [[Include::Wiki::Template::Icon::Print]] icon in the banner. A new browser window will open with a printer-friendly version of the main text area.
 # Use the browser's *print preview* and *print* functions to print the page.
-
---DFQRCTsKlU
-woas.page.title: Help::Rename a page
-woas.page.attributes: 0
-woas.page.encoding: 8bit/plain
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-= Rename a page
-# Click the [[Include::Template::Icon::Edit]] icon in the banner.
-# Edit the contents of the text inside the *Page title* area at the top of the page.
-# Save your changes by clicking on the [[Include::Template::Icon::Save]] icon in the banner.
-
-[[Tags::Help]]
 
 --DFQRCTsKlU
 woas.page.title: Help::Requirements
