@@ -1,15 +1,16 @@
 /*
- * User Interface
+ * User Interface module
 */
 
 woas.ui = {
-	kbd_hooking: false,		// set to true when inside an edit textarea
+	edit_mode: false,		// set to true when inside an edit textarea
 	_textbox_focus: false,	// true when a text box is currently focused
 	focus_textbox: function() { // called when a textbox has currently focus
 		this._textbox_focus = true;
 	},
 	blur_textbox: function() { // called when a textbox looses focus
 		this._textbox_focus = false;
+		ff_fix_focus();
 		// reset event handler
 		this._textbox_enter_event = this._textbox_enter_event_dummy;
 	},
@@ -18,29 +19,39 @@ woas.ui = {
 	_textbox_enter_event_dummy: function() {
 	},
 	_textbox_enter_event: this._textbox_enter_event_dummy,
+	
+	// custom event handler which can be overriden to process the keypresses
+	_custom_key_hook: function(orig_e) {
+		// continue parsing as normal
+		return true;
+	},
+	
+	// event called on key press
+	//NOTE: since this is attached directly to DOM, you should not use 'this'
 	_keyboard_event_hook: function(orig_e) {
 		if (!orig_e)
 			e = window.event;
 		else
 			e = orig_e;
 		
-		if (!this.kbd_hooking) {
-			// there is a custom focus active, just return the event
-			if (_custom_focus)
+		if (!woas.ui.edit_mode) {
+			// there is a custom focus active, call the hook
+			// and return if it told us to do so
+			if (!woas.ui._custom_key_hook(orig_e))
 				return orig_e;
-			if (this._textbox_focus) {
+			if (woas.ui._textbox_focus) {
 				// return key
 				if (e.keyCode==13) {
 					// clear focus
 					ff_fix_focus();
 					// run attached event
-					(this._textbox_enter_event)();
+					(woas.ui._textbox_enter_event)();
 					return false;
 				}
 				return orig_e;
 			}
 			// back or cancel keys
-			if ((e.keyCode==woas.hotkeys.back) || (e.keyCode==woas.hotkeys.cancel)) {
+			if ((e.keyCode == woas.hotkeys.back) || (e.keyCode == woas.hotkeys.cancel)) {
 				go_back();
 				ff_fix_focus();
 				return false;
@@ -124,7 +135,7 @@ function help() {
 	var wanted_page = "WoaS::Help::Index";
 	var pi = woas.page_index(wanted_page);
 	// we are editing
-	if (woas.ui.kbd_hooking) {
+	if (woas.ui.edit_mode) {
 		wanted_page = "WoaS::Help::Editing";
 		pi = woas.page_index(wanted_page);
 	} else {
@@ -682,12 +693,6 @@ woas._search_load = function() {
 	$("string_to_search").focus();
 };
 
-function custom_focus(focused) {
-	_custom_focus = focused;
-	if (!focused)
-		ff_fix_focus();
-}
-
 var _servm_shown = false;
 
 function _servm_alert() {
@@ -726,8 +731,8 @@ woas.update_lock_icons = function(page) {
 	}
 	
 	// update the encryption icons accordingly
-	this.menu_display("lock", !woas.ui.kbd_hooking && can_lock);
-	this.menu_display("unlock", !woas.ui.kbd_hooking && can_unlock);
+	this.menu_display("lock", !woas.ui.edit_mode && can_lock);
+	this.menu_display("unlock", !woas.ui.edit_mode && can_unlock);
 	// we can always input decryption keys by clicking the setkey icon
 	//this.menu_display("setkey", cyphered);
 	var cls;

@@ -1,6 +1,5 @@
 var forstack = [];			// forward history stack, discarded when saving
 var cfg_changed = false;	// true when configuration has been changed
-var _custom_focus = false;	// true when an user control is currently focused
 var result_pages = [];			// the pages indexed by the last result page
 var last_AES_page;				// the last page on which the cached AES key was used on
 var current_namespace = "";		// the namespace(+subnamespaces) of the current page
@@ -361,7 +360,7 @@ woas.__password_finalize = function(pwd_obj) {
 	// hide input form
 	pwd_obj.value = "";
 	pwd_obj.blur();
-	custom_focus(false);
+	this.ui.blur_textbox();
 };
 
 woas._set_password = function() {
@@ -373,8 +372,8 @@ woas._set_password = function() {
 	scrollTo(0,0);
 	// show input form
 	$.show_ni("woas_pwd_query");
-	custom_focus(true);
 	$("woas_password").focus();	
+	this.ui.focus_textbox();
 };
 
 woas._password_cancel = function() {
@@ -929,7 +928,7 @@ woas._add_namespace_menu = function(namespace) {
 
 // auto-save thread
 function _auto_saver() {
-	if (woas.save_queue.length && !woas.ui.kbd_hooking) {
+	if (woas.save_queue.length && !woas.ui.edit_mode) {
 		woas.commit(woas.save_queue);
 		woas.menu_display("save", false);
 	}
@@ -1106,7 +1105,7 @@ woas._early_render = function() {
 // disable edit-mode after cancel/save actions
 woas.disable_edit = function() {
 //	woas.log("DISABLING edit mode");	// log:0
-	this.ui.kbd_hooking = false;
+	this.ui.edit_mode = false;
 	// reset change buffer used to check for page changes
 	this.change_buffer = null;
 	this.old_title = null;
@@ -1170,7 +1169,7 @@ woas.current_editing = function(page, disabled) {
 	this.prev_title = current;
 	$("wiki_page_title").disabled = (disabled && !this.tweak.edit_override ? "disabled" : "");
 	$("wiki_page_title").value = page;
-	this.ui.kbd_hooking = true;
+	this.ui.edit_mode = true;
 	this._set_title(this.i18n.EDITING.sprintf(page));
 	// current must be set BEFORE calling enabling menu edit
 //	woas.log("ENABLING edit mode");	// log:0
@@ -1362,7 +1361,7 @@ woas.save = function() {
 	woas.log("Ghost page disabled"); //log:1
 	// when this function is called in non-edit mode we perform a full commit
 	// for cumulative save
-	if (this.config.cumulative_save && !this.ui.kbd_hooking) {
+	if (this.config.cumulative_save && !this.ui.edit_mode) {
 		this.full_commit();
 		this.menu_display("save", false);
 		return;
@@ -1493,7 +1492,7 @@ woas.cancel_edit = function() {
 		if (!confirm(this.i18n.CANCEL_EDITING))
 			return;
 	}
-	if (this.ui.kbd_hooking) {
+	if (this.ui.edit_mode) {
 		// we will cancel the creation of last page
 		if (this._ghost_page) {
 			// we assume that the last page is the ghost page
@@ -1516,7 +1515,7 @@ woas.create_breadcrumb = function(title) {
 	var s="", partial="", js="";
 	for(var i=0;i<tmp.length-1;i++) {
 		// editing is active
-		if (this.ui.kbd_hooking)
+		if (this.ui.edit_mode)
 			s+= tmp[i]+" :: ";
 		else {
 			partial += tmp[i]+"::";
