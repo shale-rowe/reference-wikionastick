@@ -10,6 +10,6 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-plugins/syntaxHL.js = +* @gecko(1.9.2+)
+plugins/syntaxHL.js = @*
 
 --DFQRCTsKlU

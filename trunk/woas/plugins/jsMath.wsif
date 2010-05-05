@@ -10,8 +10,8 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-plugins/jsMath/plugins/noImageFonts.js = +* @gecko(1.9.2+)
+plugins/jsMath/plugins/noImageFonts.js = @*
 plugins/jsMath.js = +*
-plugins/jsMath/jsMath.js = +* @gecko(1.9.2+)
+plugins/jsMath/jsMath.js = @*
 
 --DFQRCTsKlU

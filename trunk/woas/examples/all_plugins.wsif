@@ -25,9 +25,9 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-plugins/jsMath/plugins/noImageFonts.js = +* @gecko(1.9.2+)
+plugins/jsMath/plugins/noImageFonts.js = @*
 plugins/jsMath.js = +*
-plugins/jsMath/jsMath.js = +* @gecko(1.9.2+)
+plugins/jsMath/jsMath.js = @*
 
 --DFQRCTsKlU
 woas.page.title: WoaS::Plugins::@syntaxHL
@@ -37,7 +37,7 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-plugins/syntaxHL.js = +* @gecko(1.9.2+)
+plugins/syntaxHL.js = @*
 
 --DFQRCTsKlU
 woas.page.title: Math page
