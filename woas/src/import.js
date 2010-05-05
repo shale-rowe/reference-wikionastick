@@ -192,7 +192,8 @@ woas.import_wiki = function() {
 	ct = null;		
 	collected = get_import_vars(data, ['woas', '__marker', 'version', '__config']);
 
-	if (old_version > 108)
+	// main_page was not in config object for 0.10.8 and below
+	if (old_version <= 108)
 		new_main_page = collected.main_page;
 	if (import_content) {
 		if (old_version > 97)
