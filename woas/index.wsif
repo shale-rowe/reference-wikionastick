@@ -928,28 +928,22 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = CSS
-The look of most of this wiki can be customized by adding rules to the {{{[[WoaS::CSS::Custom]]}}} page. WoaS keeps the default CSS rules on the {{{[[WoaS::CSS::Core]]}}} page, which can be used for reference in writing your own custom rules.
+The look and feel of WoaS can be customized by specifying custom CSS in the [[WoaS::CSS::Custom]] reserved page. You shall use WoaS core CSS definitions available in [[WoaS::CSS::Core]] as a reference when you are writing CSS customization.
 
 <<<woas.include:WoaS::Template::Info
 A tutorial about CSS is available at [[http://www.w3schools.com/css/]].>>>
-== Edit the CSS settings
-# Open the wiki in a browser.
-# Click the *Advanced* icon in the navigation bar.
-# Click the {{{[[WoaS::CSS::Core]]}}} link in the *Advanced* section to view the core CSS class and id names.
-# Copy the classes and ids which you want to modify.
-# Go back to the {{{[[Special::Advanced]]}}} page and click the {{{[[WoaS::CSS::Custom]]}}} link.
-# Click the *Edit* icon in the navigation bar to edit the page.
-# Paste the classes and ids you copied in step 4 into the page.
+== Customizing CSS
+# Access [[WoaS::CSS::Core]] either directly or from [[Special::Advanced]]
+# Copy the CSS definitions you want to customize
+# Access [[WoaS::CSS::Custom]] either directly or from [[Special::Advanced]]
+# Edit the page and paste the classes and ids you copied in previous step
 # Define the rules for the CSS classes and ids.
 # Save your changes by clicking the *Save* icon in the navigation bar.
 
+All changes will be visible immediately.
+
 == Restore the default CSS settings
-To return to the default settings if you don't like the changes you've made:
-# Open your wiki in a browser.
-# Click the *Advanced* icon in the navigation bar.
-# Click the {{{[[WoaS::CSS::Custom]]}}} link in the *Advanced* section to open the custom CSS settings in the editor.
-# Delete all of the contents of the main text area.
-# Click the *Save* icon in the navigation bar to save the changes.
+You can always restore WoaS default CSS by deleting the content of [[WoaS::CSS::Custom]].
 
 == Import CSS rules into your wiki
 You can import the CSS rules from another copy of WoaS by following the instructions for [[WoaS::Help::Import|importing]] another wiki into the current one and placing a check in the box next to *Import also CSS.*
@@ -3310,32 +3304,19 @@ woas.page.boundary: DFQRCTsKlU
 
 Aliases are replaceable shortcuts used in wiki links.
 
+*Example:*
+{{{[[$JD::Bio]]}}}
+
+Where /$JD/ is defined as:
+{{{$JD    John Doe}}}
+
+Aliases can turn out to be particularly useful to shorten typing of long page names.
+
 == Add an alias
-# Click the *WoaS::Aliases* link in the menu.<br><br>
-# Add this line to the page, replacing ALIAS with the shortcut you'd like to use and PAGENAME with the name of the page you'd like the alias to represent:<br><br>{{{
-$ALIAS  PAGENAME
-}}}
 
-== Use an alias
-Aliases can be used in links the same way a page name would be used.
+In order to add an alias you should edit the [[WoaS::Aliases]] reserved page; you should add a line to the page, like the below example:
 
-To create a plain link using an alias, surround the link with double square brackets, inserting a dollar sign before the alias name.
-* <div class="woas_helptext">Add this link to a page, replacing ALIAS with the alias you'd like to use:</div><br>{{{
-[[$ALIAS]]
-}}}
+{{{$JD    John Doe}}}
 
-To create a labeled link, surround the link with double square brackets, inserting a dollar sign before the alias name, adding a pipe after the alias, and adding some link text after the pipe.
-* <div class="woas_helptext">Add this link to a page, replacing ALIAS with the alias you'd like to use, and replacing LABEL with the text for the link:</div><br>{{{
-[[$ALIAS|LABEL]]
-}}}
-
-== Example:
-# Click the *WoaS::Aliases* link in the menu.<br><br>
-# Add this line to the page:<br><br>{{{
-$HOME  Main Page
-}}}<br>
-# Add {{{[[$HOME]]}}} to any page to make a plain link to the Main Page.<br><br>
-# Add {{{[[$HOME|home sweet home]]}}} to any page to make a labeled link to the Main Page.<br><br>
-# Add {{{[[include::$HOME]]}}} to any page to include the Main Page in the current page.
-
+*$JD* is the alias, which will be replaced when found in wiki page title references, and /"John Doe"/ is the text which will replace *$JD*. You can specify any part of page titles in aliases, like namespaces or page prefixes/suffixes.
 --DFQRCTsKlU
