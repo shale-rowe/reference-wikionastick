@@ -56,6 +56,7 @@ woas.plugins = {
 	
 	// flag set by last call to get()
 	is_external: false,
+	_all: [],
 	_active: [],	// list of enabled plugins
 	
 	get: function(name) {
@@ -274,7 +275,7 @@ woas.plugins = {
 		return false;
 	},
 	
-	// remove DOM object for all plugins
+	// remove DOM object for all active plugins
 	clear: function() {
 		for(var i=0,it=this._active.length;i<it;++i) {
 			// remove the DOM object
@@ -282,6 +283,7 @@ woas.plugins = {
 		}
 		// reset array
 		this._active = [];
+		this._all = [];
 	},
 	
 	// map a plugin name to an unique name
@@ -308,20 +310,21 @@ woas.plugins = {
 				name = page_titles[i].substr(_pfx.length);
 				// generate the script element
 				this.enable(name);
+				this._all.push(name);
 			}
 		} //efor
 	},
 	
 	list: function() {
-		var pt = this._active.length;
+		var pt = this._all.length;
 		if (pt === 0)
 			return "\n\n/No plugins installed/";
 		var pg=[];
 		for(var i=0;i<pt;++i){
-			pg.push("* [[WoaS::Plugins::"+this._active[i]+"|"+this._active[i]+"]]"+
+			pg.push("* [[WoaS::Plugins::"+this._all[i]+"|"+this._all[i]+"]]"+
 					//TODO: some CSS for the plugin actions
-					"&nbsp;&nbsp;[[Javascript::woas.plugins.remove('"+this._active[i]+"')|Delete]]"+
-					"&nbsp;&nbsp;[[Javascript::woas._edit_plugin('"+this._active[i]+"')|Edit...]]"+
+					"&nbsp;&nbsp;[[Javascript::woas.plugins.remove('"+this._all[i]+"')|Delete]]"+
+					"&nbsp;&nbsp;[[Javascript::woas._edit_plugin('"+this._all[i]+"')|Edit...]]"+
 					"\n");
 		}
 		return "\n\n"+woas._simple_join_list(pg);
@@ -348,15 +351,18 @@ woas.plugins = {
 	remove: function(name) {
 		var page_name = "WoaS::Plugins::"+name;
 		if (!confirm(woas.i18n.CONFIRM_DELETE.sprintf(page_name)))
-			return;
-		// first we attempt to disable it
-		if (!this.disable(name))
 			return false;
+		// first we attempt to disable it, ignoring failure (because it could just not be active)
+		this.disable(name);
 		woas.delete_page(page_name);
+		// remove from array
+		var i = this._all.indexOf(name);
+		this._all.splice(i,1);
 		if (current === "WoaS::Plugins") {
 			// reload plugins
 			$("wiki_text").innerHTML = woas.parser.parse(woas.get_text("WoaS::Plugins") + this.list());
 		}
+		return true;
 	}
 
 };

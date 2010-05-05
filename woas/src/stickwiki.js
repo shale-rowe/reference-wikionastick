@@ -647,7 +647,8 @@ woas.get_javascript_page = function(cr) {
 		this.crash("Dynamic evaluation of '"+cr+"' failed!\n\nError message:\n\n"+this.eval_fail_msg);
 		return null;
 	}
-	if (typeof text == "undefined")
+	// for safety
+	if ((typeof text).toLowerCase() != "string")
 		return null;
 	return text;
 }

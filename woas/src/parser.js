@@ -227,8 +227,8 @@ woas._make_preformatted = function(text, add_style) {
 // 3 - convert script tags to nowiki blocks
 woas.parser.parse = function(text, export_links, js_mode) {
 	if (woas.config.debug_mode) {
-		if ((text===null) || (typeof text == "undefined")) {
-			log("Called parse() with null/undefined text!");	// log:1
+		if ((typeof text).toLowerCase() != "string") {
+			log("Called parse() with bad text!");	// log:1
 			return null;
 		}
 	}
