@@ -320,7 +320,7 @@ woas.plugins = {
 		for(var i=0;i<pt;++i){
 			pg.push("* [[WoaS::Plugins::"+this._active[i]+"|"+this._active[i]+"]]"+
 					//TODO: some CSS for the plugin actions
-					"&nbsp;&nbsp;[[Javascript::woas.plugins.delete('"+this._active[i]+"')|Delete]]"+
+					"&nbsp;&nbsp;[[Javascript::woas.plugins.remove('"+this._active[i]+"')|Delete]]"+
 					"&nbsp;&nbsp;[[Javascript::woas._edit_plugin('"+this._active[i]+"')|Edit...]]"+
 					"\n");
 		}
