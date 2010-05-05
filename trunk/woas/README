@@ -36,6 +36,10 @@ WoaS contains all the necessary documentation in its help pages.
 WoaS comes with some officially supported plugins, you can find them in
 the 'plugins/' directory.
 
+Some plugins (those based on 3rd-party libraries) require that you download
+the relative library in order to work; you can find the download location URL
+in the GETME files dropped into plugins' empty directories.
+
 You can import a plugin by importing the relative WSIF file, see documentation
 for more information.
 
