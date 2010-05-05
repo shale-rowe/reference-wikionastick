@@ -10,12 +10,13 @@ programmable, supports images and files embedding.
 WoaS needs a modern javascript-capable browser, currently supported browsers
 are:
 
-- Mozilla Firefox (Gecko-based, all versions)
+- Firefox (Gecko-based, all versions)
 - Internet Explorer (6.0 and above)
-- Google Chrome, Opera and Safari (AppleWebkit-based)
+- Chrome and Safari (AppleWebkit-based)
+- Opera
 
 You can't use WoaS with javascript disabled; also you will need java applets
-to exploit file loading/saving features on AppleWebkit-based browsers.
+to exploit file loading/saving features for browsers like Chrome, Safari and Opera.
 
 TiddlySaver.jar is the java applet used in such cases (borrowed from
 TiddlyWiki project); if you do not need TiddlySaver.jar feature, you can remove
@@ -26,10 +27,24 @@ The plugins directory contains user-contributed plugins which are more or less a
 In order to start WoaS, open the woas-*.html file, which contains the software
 and the default pages.
 
-= WoaS usage
+= Usage
 
 WoaS contains all the necessary documentation in its help pages.
 
+= Plugins
+
+WoaS comes with some officially supported plugins, you can find them in
+the 'plugins/' directory.
+
+You can import a plugin by importing the relative WSIF file, see documentation
+for more information.
+
+= Examples
+
+WoaS comes with some examples for different typical end-user solutions, you
+can find them in the 'examples/' directory. Each example consists of a WSIF
+file which is self-documented in its pages.
+
 = Removal instructions
 
-Delete woas-*.html and TiddlySaver.jar (if present).
+Delete the files you extracted from the release archive.
