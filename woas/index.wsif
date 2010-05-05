@@ -1787,18 +1787,18 @@ Wiki on a Stick is actively supported on the following browsers:
 * Internet Explorer 6
 * Internet Explorer 7*
 * Internet Explorer 8*
-<div class="alertnote">* On IE7-IE8 you might want to rename your application to .hta to enable its trusted privileges.</div>
+* Chrome
+* Safari
+<div class="alertnote">* On IE7 (and above) you might want to rename your application to .hta to enable its trusted privileges.</div>
 == Limitations
 * Firefox (and possibly other browsers, too) cannot save to filenames containing UTF8 characters. Use unix-style filenames instead.
 * Internet Explorer 6 and 7 do not support embedded images (that's why you will not see button icons).
 * Internet Explorer does not allow saving to a network path in the form /\\machine\share\bookonastick.htm/. To use this wiki over a network with Internet Explorer, map network paths to network drives first.
 * Internet Explorer 6 does not allow a fixed menu.
 
-== TiddlySaver
-<sub>original text by J.Ruston, 13 August 2007 (created 21 August 2006)</sub>
-<sub>modified by Daniele C. on 29 September 2007</sub>
+If you are using Chrome, Safari or Opera you will need the TiddlySaver Java applet, hence you need that Java is enabled in your browser and that it properly works.
 
-The TiddlySaver Java applet allows Wiki on a Stick from a file:// URL to save changes when using Safari, Opera and other Java-enabled browsers.
+== TiddlySaver
 
 The Java applet "TiddlySaver.jar", a very small file, must be placed in the same directory as your WoaS file. In order to use it you will need to give it the necessary privileges by editing your .java.policy file.
 
