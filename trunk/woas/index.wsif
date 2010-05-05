@@ -949,29 +949,23 @@ You can always restore WoaS default CSS by deleting the content of [[WoaS::CSS::
 You can import the CSS rules from another copy of WoaS by following the instructions for [[WoaS::Help::Import|importing]] another wiki into the current one and placing a check in the box next to *Import also CSS.*
 
 Importing from older versions of WoaS can garble the layout of the wiki. There are two ways to avoid this:
-# Manually transfer the CSS from the older version of WoaS into the {{{[[WoaS::CSS::Custom]]}}} page by copying and pasting it, checking the class and id of each entry against the default CSS rules on the {{{[[WoaS::CSS::Core]]}}} page to verify that it's still in use before saving your changes.<br><br>
-# Create a new page with style tags in it and paste your CSS into that page to test it before adding it to the {{{[[WoaS::CSS::Custom]]}}} page.
+# Manually transfer the CSS from the older version of WoaS into the [[WoaS::CSS::Custom]] page by copying and pasting it, checking the class and id of each entry against the default CSS rules on the [[WoaS::CSS::Core]] page to verify that it's still in use before saving your changes.
+# Create a new page with style tags in it and paste your CSS into that page to test it before adding it to the [[WoaS::CSS::Custom]] page.
 
 === Create a test page for your custom CSS
-# Click the *Advanced* icon in the navigation bar.<br><br>
-# Click the {{{[[Special::Options]]}}} link in the *Advanced features* section.<br><br>
-# Make sure that the box is /not/ checked next to *Remember current page and navigation history*. Save the change if you had to uncheck the box.<br><br>
-# Click the *New Page* link in the menu to create a new page with any name you like.<br><br>
-# Insert this opening tag at the top of the page:<br><br>{{{
+# Access {{{[[Special::Options]] either directly or from [[Special::Advanced]]
+# Make sure that the box is /not/ checked next to *Remember current page and navigation history*. Save the change if you had to uncheck the box.
+# Create a [[Special::New Page|new page]]
+# Insert this opening tag at the top of the page:<br/><br/>{{{
 <style type="text/CSS">
-}}}<br>
-# Paste your CSS rules beneath the tag.<br><br>
-# Insert this closing tag at the bottom of the page:<br><br>{{{
+}}}<br/>
+# Paste your CSS rules beneath the tag.
+# Insert this closing tag at the bottom of the page:<br/><br/>{{{
 </style>
-}}}<br>
-# Click the *Save* icon in the navigation bar to save the changes.<br><br>
-If the layout isn't garbled, use the CSS rules in the {{{[[WoaS::CSS::Custom]]}}} page and delete the new page you created.
+}}}<br/>
+# Save changes
 
-If the layout is garbled:
-# Reload the wiki.<br><br>
-# Click the *Delete Page* link in the menu.<br><br>
-# Type in the name of the new page your custom CSS is in and click the *OK* button.
-
+Once you have tested your CSS on a single page you can choose whether to move such CSS definitions to [[WoaS::CSS::Custom]] or not.
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Special::Dead Pages
 woas.page.attributes: 0
@@ -1127,28 +1121,32 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Create a page
-# Click the *New Page* link in the menu.<br><br>
-# Type the page title. Maximum length is 256 characters, although you might want to use a shorter title to not interfere with the navigation bar. Page titles are case sensitive, all characters are allowed except angled brackets, square brackets, curly braces and pipe characters ("&lt;&gt;[]{}|")<br><br>
-# Press the *Enter* key or click the *OK* button.<br><br>
-# When asked if you'd like to add a link into the main menu, accept by pressing the *Enter* key or clicking the *OK* button, or refuse by clicking the *Cancel* button.<br><br>
-# A level one header with the title of your page will be inserted for you automatically. You can edit or delete the header if you like.<br><br>
-# Edit the contents of the main text area by typing normally.<br><br>
-# Use the editor's buttons to insert code to format the text, or type the code in manually. Note that the use of plain text doesn't require any code.<br><br>
-# Save your changes by clicking on the *Save* icon in the navigation bar.
+# Access [[Special::New Page]]
+# Type the page title. Maximum length is 256 characters, although you might want to use a shorter title to not interfere with the navigation bar. Page titles are case sensitive, all characters are allowed except angled brackets, square brackets, curly braces and pipe characters ("&lt;&gt;[]{}|")
+# Press the *Enter* key or click the *OK* button
+# When asked if you'd like to add a link into the main menu, accept by pressing the *Enter* key or clicking the *OK* button, or refuse by pressing the Escape key or clicking the *Cancel* button
+# Edit the contents of the main text area by typing normally. You can freely change the default text (a level one header with the page name)
+# Use the editor's buttons to insert wiki syntax to format the text or type the wiki syntax manually (plain text does not need any wiki syntax)
+# Save your changes
 
-An alternate method of creating a page is to type a new page title inside nested brackets. The link will be red. Click it to create the new page. Example:
+== Create a missing page
 
-<div class="woas_helptext">Type this into a page:</div><br>{{{
+An alternate method of creating a page is to type a new page title inside square brackets and then attempt to access the unexisting page.
+
+*Example:*
+{{{
 [[My new page]]
-}}}<br><div class="woas_helptext">To create this:</div>
+}}}
+<div class="woas_helptext">Is rendered as:</div>
 [[My new page]]
 
-== Troubleshooting
-* There are four reasons why you may not be able to create a page:<br><br>
-** You didn't type a title for the page in the title box that popped up. In this case a message will pop up letting you know that pages must be titled and giving you an opportunity to title the page.<br><br>
-** There is already a page by that title. In this case a message will pop up letting you know the page already exists.<br><br>
-** The wiki is being run in [[WoaS::Help::Publish wiki online|read-only mode]], so no changes are allowed. See the [[WoaS::Help::Wiki is read-only]] page for instructions on how to return the wiki to editing mode.<br><br>
-** You are trying to use a [[WoaS::Help::Namespaces|namespace]] that is reserved by WoaS. In this case a message will pop up letting you know the namespace is reserved and giving you an opportunity to choose a different title/namespace for the page.
+= Troubleshooting
+There are some issues which could prevent you from creating a page.
+
+* You didn't type a title for the page in the input box that popped up
+* There is already a page by that title
+* The wiki is being run in [[WoaS::Help::Publish wiki online|read-only mode]], so no changes are allowed. See the [[WoaS::Help::Wiki is read-only]] page for instructions on how to return the wiki to editing mode
+* You are trying to use a [[WoaS::Help::Namespaces|namespace]] that is reserved by WoaS. In this case a message will pop up letting you know the namespace is reserved and giving you an opportunity to choose a different title/namespace for the page
 
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Delete a page
@@ -3305,6 +3303,7 @@ woas.page.boundary: DFQRCTsKlU
 Aliases are replaceable shortcuts used in wiki links.
 
 *Example:*
+
 {{{[[$JD::Bio]]}}}
 
 Where /$JD/ is defined as:
