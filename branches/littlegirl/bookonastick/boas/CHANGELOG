@@ -1080,3 +1080,11 @@
 * Updated the [[Wiki::Help::Import]] page.
 * Updated the [[Wiki::Help::Include wiki page]] page.
 ======================================================================================================================
+* Added the Tango help icon to the gfx subdirectory.
+* Removed the commit.sh file from the boas subdirectory for consistency with the Wiki on a Stick structure.
+* Removed the [[Wiki::Help::Transclusion]] page.
+* Renamed the [[Help::Transclusion]] page to [[Wiki::Help::Transclusion]].
+* Updated the TiddlySaverReadme.txt file.
+* Updated the [[Wiki::Help::Footnotes]] page.
+* Updated the [[Wiki::Help::Requirements]] page.
+======================================================================================================================
