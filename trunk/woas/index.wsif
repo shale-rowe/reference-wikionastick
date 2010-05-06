@@ -289,7 +289,7 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 = Deprecated syntax
 
-This page briefly summarizes WoaS deprecated syntax; the below deprecated syntax rules are still supported (unless otherwise specified), but you are invited to _no more_ use them because they will be declared /unsupported/ in some future release of WoaS.<style type="text/css">
+A summary of WoaS deprecated syntax; you are invited to _no more_ use deprecated syntax which is still supported because they will be declared /unsupported/ in some future release of WoaS.<style type="text/css">
 .bad_syntax {
   color: red;
   font-weight: bold;
@@ -763,6 +763,9 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
+= Editing
+If a page is editable the relative Edit icon will be available in the navigation bar; you start editing the page by clicking such icon. The user interface will switch to an editor-mode set of buttons and edit areas.
+
 == Editor features
 * Cancel all changes by clicking the *Cancel* icon in the navigation bar at any time.
 * Change the title of a page by editing the contents of the *Page title* box.
@@ -1193,8 +1196,7 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 = Erase all pages
 To erase all user-created pages in this wiki and start fresh:
-# Click the *Advanced* icon in the navigation bar.
-# Click on *Special::Erase Wiki* in the *Maintenance* section.
+# Access [[Special::Erase Wiki]] directly or either from [[Special::Advanced]]
 [[Include::WoaS::Template::Info|Make sure you are using a wiki you don't mind losing. If not, make a copy and erase the copy.]]
 See also the [[WoaS::Help::Special::Erase Wiki]] page.
 

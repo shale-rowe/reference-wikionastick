@@ -3,7 +3,7 @@
 // some tweak settings NOT to be touched - warranty void otherwise
 woas.tweak = {
 	// DANGER: might cause WoaS corruption!
-	"edit_override": true,
+	"edit_override": false,
 	// perform integrity test of browser features
 	"integrity_test": true
 };
