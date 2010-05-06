@@ -1,4 +1,5 @@
 Version 0.12.0
+* removed 'double-click to clear' feature of debug console
 * fixed file load issue on Chrome/Safari
 * fixed many WSIF load inconsistencies
 * macro arguments support
@@ -12,7 +13,7 @@ Version 0.12.0
 * fixed some issues with WSIF external loading
 * new tables syntax (FBNil)
 * reorganized Special::Advanced
-* removed import code for WoaS < 0.9.x
+* removed import code for WoaS < 0.9.6B
 * refresh CSS after XHTML import
 
 Version 0.11.9 (legolas558) released 2010-04-22

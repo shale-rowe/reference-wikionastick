@@ -436,16 +436,21 @@ A lot of features and improvements have been implemented during the (still curre
 
 === Object orienting
 
-Wiki on a Stick codebase has been rewritten as object-oriented in order to be more maintanable and modular (the development version contains multiple javascript source files which are as always merged into one before releases).
+Wiki on a Stick codebase has been rewritten as object-oriented in order to be more maintanable and modular (the development version contains multiple javascript source files which are as always merged into one before releases). Such process is not yet complete and is being carried out during the 0.12.x development.
 
-== Development of 0.10.x version
+== 0.10.x
 
 Development of 0.9.7B was stale and WoaS was getting full of little bugs which prevented it from being successfully used; during last months of 2009 and first months of 2010 WoaS got new blood with 0.10.x releases.
 Some of the best additions were [[WoaS::Help::WSIF|WSIF format]] and a pluggable macro syntax, but finally the product had reached the stability which its users deserved and exited its Beta status to enter a Production development stage.
 
-== Development of 0.11.x versions
+== 0.11.x
 
 The 0.11.x development stage is focusing new features and fixing old bugs; there have been many new important enchancements like access keys.
+
+== 0.12.x
+
+During development of 0.12.0 plugins support has been added and code has been re-organized for modularity.
+
 --DFQRCTsKlU
 woas.page.title: Special::Export
 woas.page.attributes: 0
@@ -1180,7 +1185,9 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Edit a page
-All pages (except WoaS pages within reserved [[WoaS::Help::Namespaces|namespaces]]) can be edited or deleted. In order to edit such pages, click the *Edit* icon in the navigation bar. You can find all the user pages by clicking the {{{[[Special::All Pages]]}}} link in the menu.
+All user-created pages can be edited or deleted, while some pages which are part of reserved [[WoaS::Help::Namespaces|namespaces]] can only be deleted.
+
+In order to edit pages, click the *Edit* icon in the navigation bar. You can find all the user pages by accessing [[Special::All Pages]] directly or either from [[Special::Advanced]].
 # Click the *Edit* icon in the navigation bar or double-click on the page if you've enabled that setting in the wiki Options.<br><br>
 # Edit the contents of the main text area by typing normally.<br><br>
 # Use the editor's buttons to insert code to format the text, or type the code in manually. Note that the use of plain text doesn't require any code.<br><br>

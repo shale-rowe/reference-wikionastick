@@ -505,7 +505,7 @@ woas.ns_listing = function(folds, flat_arr, sorted) {
 	// then generate the flat list
 	if (sorted)
 		flat_arr.sort();
-	output.s += "* [["+flat_arr.sort().join("]]\n* [[")+"]]\n";
+	output.s += "* [["+flat_arr.join("]]\n* [[")+"]]\n";
 /*	for(var i=0,it=flat_arr.length;i<it;++i) {
 		output.s += "* [["+flat_arr[i]+"]]\n";
 	} */
