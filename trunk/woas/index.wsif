@@ -1156,18 +1156,18 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Delete a page
-# *From the menu:*<br><br>
-## Click the *Delete Page* link in the menu while displaying the page you wish to delete, or click it from any page and type in the name of the page you wish to delete.<br><br>
-## You'll be asked for confirmation.<br><br>
-## When the page is deleted, you'll be returned to the page you were on before deleting the page.<br><br>
-## You may have to remove any links to the deleted page from the menu or other pages.<br><br>
-# *From the editor:*<br><br>
-## Click the *Edit* icon in the navigation bar.<br><br>
-## Select everything inside the main text area and delete it.<br><br>
-## Save your changes by clicking the *Save* icon in the navigation bar.<br><br>
-## Edit the menu to remove the link to the deleted page if it isn't removed automatically.
+= By action link
+# Access [[Special::Delete Page]] directly or either from [[Special::Advanced]]
+# You'll be asked for the exact title of the page and then for confirmation
+# When the page is deleted, you'll be returned to the page you were on before deleting the page.
 
+= By editing
+# Edit the page you wish to delete
+# Select everything inside the main text area and delete it
+# Save your changes, you will be asked for deletion confirmation
+
+= References to deleted pages
+Access [[Special::Dead Pages]] directly or either from [[Special::Advanced]] to remove references to the deleted page
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Edit a page
 woas.page.attributes: 0
