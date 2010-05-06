@@ -114,7 +114,7 @@ woas.macro_parser.create = function(fn_name, fn_params, fn_code) {
 	// prepare for passing other params
 	// parameter definitions can be very limited in charset
 	var real_params=[], other_params = "";
-	if (fn_params.length) {
+	if (((typeof fn_params).toLowerCase() == "string") && fn_params.length) {
 		// remove parenthesis
 		fn_params = fn_params.substr(1, fn_params.length-2);
 		reFindArgDef.lastIndex = 0;
