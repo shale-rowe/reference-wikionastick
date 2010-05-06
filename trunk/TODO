@@ -1,5 +1,11 @@
 == 0.12.x development goals
 
+* allow UI customization at runtime
+
+* common import filtering & preview
+
+* fix links to special pages in help pages
+
 * check why Opera 10.53 (Windows) does not get a TiddlySaver applet definition
 
 * deprecate Special:: namespace in favor of WoaS:: namespace (where possible)
@@ -13,7 +19,7 @@
 * have a page object for each page
 ** this will optimize read operations because page objects will be passed by reference
 
-* allow WSIF datasource locking
+* finish implementation of WSIF datasource locking
 
 * XHTML compliance
 ** rendering

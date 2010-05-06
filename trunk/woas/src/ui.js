@@ -122,43 +122,23 @@ function save() {
 }
 
 woas.help_system = {
-	"popup_window": null,
-	"page_title": null,
-	"going_back": false,
-	"previous_page": []
-};
+	popup_window: null,
+	page_title: null,
+	going_back: false,
+	previous_page: [],
 
-woas._help_lookup = ["Plugins", "CSS", "Aliases", "Hotkeys"];
+	_mk_help_button: function(n) {
+		var w = "[[Include::WoaS::Template::Button|";
+		if (n)
+			w += "Back|help_go_back";
+		else
+			w += "Close|window.close";
+		w += "();]]\n";
+		return w;
+	},
 
-// could have a better name
-function help() {
-	var wanted_page = "WoaS::Help::Index";
-	var pi = woas.page_index(wanted_page);
-	// we are editing
-	if (woas.ui.edit_mode) {
-		wanted_page = "WoaS::Help::Editing";
-		pi = woas.page_index(wanted_page);
-	} else {
-		var htitle = null;
-		// change the target page in some special cases
-		for(var i=0,it=woas._help_lookup.length;i<it;++i) {
-			if (current.substr(0, woas._help_lookup[i].length) === woas._help_lookup[i]) {
-				htitle = woas._help_lookup[i];
-				break;
-			}
-		}
-		if (htitle === null)
-			htitle = current;
-		var npi = woas.page_index("WoaS::Help::"+htitle);
-		if (npi != -1) {
-			wanted_page = "WoaS::Help::"+htitle;
-			pi = npi;
-		}
-	}
-	woas.help_system.go_to(wanted_page, pi);
-}
-
-var cPopupCode = "\n\
+	_help_lookup: ["Plugins", "CSS", "Aliases", "Hotkeys"],
+	cPopupCode: "\n\
 function get_parent_woas() {\n\
 	if (window.opener && !window.opener.closed)\n\
 		return window.opener.woas;\n\
@@ -181,50 +161,68 @@ function help_go_back() {\n\
 	scrollTo(0,0);\n\
 	history.go(0);\n\
 }\n\
-";
-
-woas.help_system.go_to = function(wanted_page, pi) {
-	if (typeof pi == "undefined")
-		pi = woas.page_index(wanted_page);
-	var text;
-	// this is a namespace
-	if (pi == -1) {
-		woas.alert("Can't get help page "+wanted_page);
-		return;
-	} else
-		text = woas.get__text(pi);
-	if (text === null)
-		return;
-	// save previous page and set new
-	if (woas.help_system.going_back)
-		woas.help_system.going_back = false;
-	else if (woas.help_system.page_title !== null)
-		woas.help_system.previous_page.push( woas.help_system.page_title );
-	// now create the popup
-	if ((woas.help_system.popup_window === null) || woas.help_system.popup_window.closed) {
-		woas.help_system.previous_page = [];
-		woas.help_system.popup_window = woas._customized_popup(wanted_page, woas.parser.parse(
-				_mk_help_button(0)+text),
-				cPopupCode,
-			"", " class=\"woas_help_background\"");
-	} else { // hotfix the page
-		woas.help_system.popup_window.document.title = wanted_page;
-		// works also with IE
-		woas.help_system.popup_window.document.body.innerHTML = woas.parser.parse(
-			_mk_help_button(woas.help_system.previous_page.length)+text);
-		woas.help_system.popup_window.scrollTo(0,0);
+",
+	go_to: function(wanted_page, pi) {
+		if (typeof pi == "undefined")
+			pi = woas.page_index(wanted_page);
+		var text;
+		// this is a namespace
+		if (pi === -1) {
+			woas.alert("Can't get help page "+wanted_page);
+			return;
+		} else
+			text = woas.get__text(pi);
+		if (text === null)
+			return;
+		// save previous page and set new
+		if (this.going_back)
+			this.going_back = false;
+		else if (this.page_title !== null)
+			this.previous_page.push( this.page_title );
+		// now create the popup
+		if ((this.popup_window === null) || this.popup_window.closed) {
+			this.previous_page = [];
+			this.popup_window = woas._customized_popup(wanted_page, woas.parser.parse(
+					this._mk_help_button(0)+text),
+					this.cPopupCode,
+				"", " class=\"woas_help_background\"");
+		} else { // hotfix the page
+			this.popup_window.document.title = wanted_page;
+			// works also with IE
+			this.popup_window.document.body.innerHTML = woas.parser.parse(
+				this._mk_help_button(this.previous_page.length)+text);
+			this.popup_window.scrollTo(0,0);
+		}
+		this.page_title = wanted_page;
 	}
-	woas.help_system.page_title = wanted_page;
 };
 
-function _mk_help_button(n) {
-	var w = "[[Include::WoaS::Template::Button|";
-	if (n)
-		w += "Back|help_go_back";
-	else
-		w += "Close|window.close";
-	w += "();]]\n";
-	return w;
+// could have a better name
+function help() {
+	var wanted_page = "WoaS::Help::Index";
+	var pi = woas.page_index(wanted_page);
+	// we are editing
+	if (woas.ui.edit_mode) {
+		wanted_page = "WoaS::Help::Editing";
+		pi = woas.page_index(wanted_page);
+	} else {
+		var htitle = null;
+		// change the target page in some special cases
+		for(var i=0,it=woas.help_system._help_lookup.length;i<it;++i) {
+			if (current.substr(0, woas.help_system._help_lookup[i].length) === woas.help_system._help_lookup[i]) {
+				htitle = woas.help_system._help_lookup[i];
+				break;
+			}
+		}
+		if (htitle === null)
+			htitle = current;
+		var npi = woas.page_index("WoaS::Help::"+htitle);
+		if (npi != -1) {
+			wanted_page = "WoaS::Help::"+htitle;
+			pi = npi;
+		}
+	}
+	woas.help_system.go_to(wanted_page, pi);
 }
 
 // when edit is clicked
