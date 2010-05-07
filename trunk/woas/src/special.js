@@ -205,6 +205,7 @@ woas.special_all_pages = function() {
 };
 
 // Returns a index of all dead pages
+var reAllWikiLinks = /\[\[([^\]\]]*?)(\|([^\]\]]+))?\]\]/g;
 woas.special_dead_pages = function() {
 	var dead_pages = [];
 	var from_pages = [];
@@ -216,21 +217,26 @@ woas.special_dead_pages = function() {
 		if (tmp===null)
 			continue;
 		page_done = false;
-		tmp.replace(/\[\[([^\]\]]*?)(\|([^\]\]]+))?\]\]/g,
+		tmp.replace(reAllWikiLinks,
 			function (str, $1, $2, $3) {
 				if (page_done)
 					return false;
-				if ($1.charAt(0)=="#")
+				var p = woas.title_unalias($1);
+				if (p.charAt(0)=="#")
 					return;
-				if ($1.search(/^\w+:\/\//)===0)
+				if (p.search(/^\w+:\/\//)===0)
 					return;
-				if ($1.match(/Tag(s|ged)?:/gi))
+				if (p.match(/Tag(s|ged)?:/gi))
 					return;
 				// skip mailto URLs
-				if ($1.match(/^mailto:/gi))
+				if (p.match(/^mailto:/gi))
 					return;
-				var p = woas.title_unalias($1);
-				if (!woas.page_exists(p) && (p!=page_titles[j])) {
+				if (p === "Special::TOC")
+					return;
+				if ((p.substr(0, 9) === "Special::") &&
+					(woas.shortcuts.indexOf(p.substr(9)) !== -1))
+					return;
+				if (!woas.page_exists(p) && (p!==page_titles[j])) {
 					// true when page has been scanned for referrals
 					page_done = false;
 					// check that this not-existing page is already in the deads page list
