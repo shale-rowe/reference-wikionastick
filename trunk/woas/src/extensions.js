@@ -21,7 +21,7 @@ woas.scripting = {
 	
 	// remove all scripts from specified array (can be 'menu' or 'page')
 	clear: function(which) {
-		for(var i=0;i<this["_"+which+"_stacked"];++i) {
+		for(var i=0;i < this["_"+which+"_stacked"];++i) {
 			woas.dom.remove_script(which, i);
 		}
 		this["_"+which+"_stacked"] = 0;
@@ -33,7 +33,7 @@ woas.scripting = {
 	},
 	
 	activate: function(which) {
-		for(var i=0;i<this[which].length;++i) {
+		for(var i=0;i < this[which].length;++i) {
 			if (woas.dom.add_script(which, i, this[which][i][0], this[which][i][1]))
 				++this["_"+which+"_stacked"];
 		}
@@ -277,7 +277,7 @@ woas.plugins = {
 	
 	// remove DOM object for all active plugins
 	clear: function() {
-		for(var i=0,it=this._active.length;i<it;++i) {
+		for(var i=0,it=this._active.length;i < it;++i) {
 			// remove the DOM object
 			this.dom.remove_script("plugin", this._mapping(this._active[i]));
 		}
@@ -305,7 +305,7 @@ woas.plugins = {
 
 		// get list of plugins
 		var _pfx = "WoaS::Plugins::", l=_pfx.length, name;
-		for(var i=0,it=page_titles.length;i<it;++i) {
+		for(var i=0,it=page_titles.length;i < it;++i) {
 			if (page_titles[i].substr(0, l) === _pfx) {
 				name = page_titles[i].substr(_pfx.length);
 				// generate the script element
@@ -320,7 +320,7 @@ woas.plugins = {
 		if (pt === 0)
 			return "\n\n/No plugins installed/";
 		var pg=[];
-		for(var i=0;i<pt;++i){
+		for(var i=0;i < pt;++i){
 			pg.push("* [[WoaS::Plugins::"+this._all[i]+"|"+this._all[i]+"]]"+
 					//TODO: some CSS for the plugin actions
 					"&nbsp;&nbsp;[[Javascript::woas.plugins.remove('"+this._all[i]+"')|Delete]]"+
@@ -333,7 +333,7 @@ woas.plugins = {
 	describe_external: function(uris) {
 		// show a list of external sources
 		var ntext = "<"+"p>This plugin is made up of the following external sources:<"+"/p><"+"ul>", uri;
-		for(var i=0;i<uris.length;++i) {
+		for(var i=0;i < uris.length;++i) {
 			ntext += "<"+"li>" + "<"+"big>"+(uris[i].is_inline ? "(inline)" : "(external)")+"<"+"/big>&nbsp;";
 			ntext += "<"+"a href=\""+uris[i].src+"\" target=\"_blank\">"+uris[i].src+"<"+"/a><"+"/li>\n";
 		}
@@ -417,9 +417,9 @@ woas._load_hotkeys = function(s) {
 	//TODO: set access key for goto feature
 	// (1) delete access keys which no more exist
 	var found,a,b;
-	for(a=0,at=this.custom_accesskeys.length;a<at;++a) {
+	for(a=0,at=this.custom_accesskeys.length;a < at;++a) {
 		found = false;
-		for (b=0,bt=new_custom_accesskeys.length;b<bt;++b) {
+		for (b=0,bt=new_custom_accesskeys.length;b < bt;++b) {
 			if (this.custom_accesskeys[a].key === new_custom_accesskeys[b].key) {
 				found = true;
 				// access key element was found, update the associated function (if necessary)
@@ -446,9 +446,9 @@ woas._update_accesskeys = function(new_custom_accesskeys) {
 	// we store the length of old access keys before looping because
 	// other entries might be added during the cycles
 	bt=this.custom_accesskeys.length;
-	for(a=0,at=new_custom_accesskeys.length;a<at;++a) {
+	for(a=0,at=new_custom_accesskeys.length;a < at;++a) {
 		found = false;
-		for (b=0;b<bt;++b) {
+		for (b=0;b < bt;++b) {
 			// access key already exists
 			if (this.custom_accesskeys[b].key === new_custom_accesskeys[a].key) {
 				found = true;
@@ -515,7 +515,7 @@ woas.aliases = [];
 
 woas.title_unalias = function(aliased_title) {
 	// apply aliases on title, from newest to oldest
-	for(var i=0,l=this.aliases.length;i<l;++i) {
+	for(var i=0,l=this.aliases.length;i < l;++i) {
 		aliased_title = aliased_title.replace(this.aliases[i][0], this.aliases[i][1]);
 	}
 	return aliased_title;
