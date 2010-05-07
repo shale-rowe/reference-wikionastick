@@ -153,8 +153,8 @@ woas.is_reserved = function(page) {
 	return (page.search(this._reserved_rx)==0);
 };
 
-woas.is_menu = function(page) {
-	return (page.indexOf("::Menu")==page.length-6);
+woas.is_menu = function(title) {
+	return (title.substr(title.length-6) === "::Menu");
 };
 
 // returns namespace with trailing ::
@@ -1432,7 +1432,7 @@ woas.save = function() {
 						this.refresh_menu_area();
 						back_to = this.prev_title;
 					} else {
-						if (new_title != current) {
+						if (new_title !== current) {
 							if (!this.rename_page(current, new_title))
 								return false;
 						}
