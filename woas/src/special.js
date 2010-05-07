@@ -211,7 +211,7 @@ woas.special_dead_pages = function() {
 	var from_pages = [];
 	var tmp, page_done;
 	for(var j=0,l=pages.length;j < l;j++) {
-		if (this.is_reserved(page_titles[j]))
+		if (this.is_reserved(page_titles[j]) && !this.tweak.edit_override)
 			continue;
 		tmp = this.get_src_page(j);
 		if (tmp===null)
@@ -243,9 +243,9 @@ woas.special_dead_pages = function() {
 					for(var i=0;i < dead_pages.length;i++) {
 						// current page contains a link to an already indexed dead page,
 						// save the reference
-						if (dead_pages[i]==p) {
+						if (dead_pages[i]===p) {
 							// add only if not already there
-							if (from_pages[i].indexOf(page_titles[j]) == -1)
+							if (from_pages[i].indexOf(page_titles[j]) === -1)
 								from_pages[i].push(page_titles[j]);
 							page_done = true;
 							break;

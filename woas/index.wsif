@@ -760,6 +760,30 @@ And this is the actual result:
 19
 33
 >>>
+
+== Macros with arguments
+Starting with WoaS 0.12.0 macros do support named arguments.
+
+Example:
+{{{<<<%my_arg_macro(name, color):
+
+macro.text = "<strong>"+name+"</strong> says: <span style=\"color: "+color+"\">"+macro.text+"</span>";
+
+>>>}}}<<<%my_arg_macro(name, color):
+macro.text = "<strong>"+name+"</strong> says: <span style=\"color: "+color+"\">"+macro.text+"</span>";
+>>>
+Which is then called with:
+
+{{{<<<my_arg_macro("Simon", "green"):
+I have 3 fruits in my basket
+>>>}}}
+And the result is:
+
+<<<my_arg_macro("Simon", "green"):
+I have 3 fruits in my basket
+>>>
+
+The passed arguments must be valid JavaScript expressions.
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Index
 woas.page.attributes: 0
