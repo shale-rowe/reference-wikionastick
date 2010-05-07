@@ -20,4 +20,4 @@ INSTRUCTIONS:
  7) Uncheck the box next to "Overwrite pages with the same title" to protect your data.
  8) Click the Import WSIF button.
  9) Reload the browser so the plugin gets loaded.
-10) See the Expand::Example page for examples of how to use expands.
+10) See the Fold::Example page for examples of how to use folds.
