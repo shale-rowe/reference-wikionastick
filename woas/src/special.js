@@ -1,6 +1,6 @@
 woas.special_encrypted_pages = function(locked) {
 	var pg = [];
-	for(var i=0,l=pages.length;i<l;i++) {
+	for(var i=0,l=pages.length;i < l;i++) {
 		if (this.is_reserved(page_titles[i]))
 			continue;
 		if (locked == this.is__encrypted(i))
@@ -16,13 +16,13 @@ woas.special_orphaned_pages = function() {
 	var pg = [],
 		found = false,
 		i, j, l, tmp;
-	for(j=0,l=page_titles.length; j<l; j++) {
+	for(j=0,l=page_titles.length; j < l; j++) {
 		if (this.is_reserved(page_titles[j]))
 			continue;
 		if (this.is_menu(page_titles[j])) {	// check if the namespace has some pages
 			var ns = this.get_namespace(page_titles[j]);
 			if (ns === "") continue;
-			for(i=0;i<page_titles.length;i++) {
+			for(i=0;i < page_titles.length;i++) {
 				if (page_titles[i].indexOf(ns)===0) {
 					found = true;
 					break;
@@ -31,7 +31,7 @@ woas.special_orphaned_pages = function() {
 		} else {
 		// search for pages that link to it
 			var re = new RegExp("\\[\\[" + RegExp.escape(page_titles[j]) + "(\\]\\]|\\|)", "i");
-			for(i=0,l=page_titles.length; i<l; i++) {
+			for(i=0,l=page_titles.length; i < l; i++) {
 				if ((i==j) || this.is_reserved(page_titles[i]))
 					continue;
 				tmp = this.get_src_page(i);
@@ -62,7 +62,7 @@ woas.special_backlinks = function() {
 		this.render_title = null;
 	}
 	var reg = new RegExp("\\[\\["+RegExp.escape(pg_title)+"(\\||\\]\\])", "gi");
-	for(var j=0,l=pages.length; j<l; j++) {
+	for(var j=0,l=pages.length; j < l; j++) {
 		if (this.is_reserved(page_titles[j]))
 			continue;
 		// search for pages that link to it
@@ -102,7 +102,7 @@ woas.special_search = function( str ) {
 					replace(/\s+/g, ".*?") + ".*", "gi" );	*/
 	var tmp;
 	result_pages = [];
-	for(var i=0,l=pages.length; i<l; i++) {
+	for(var i=0,l=pages.length; i < l; i++) {
 
 		//TODO: implement searching in help pages
 
@@ -130,7 +130,7 @@ woas.special_search = function( str ) {
 				result_pages.push(page_titles[i]);
 			count = res_body.length;
 			res_body = "..."+res_body.join("...\n")+"..."; //.replace(/\n/g, " ");
-			pg_body.push( "* [[" + page_titles[i] + "]]: found *" + count + "* times :<div class=\"search_results\">{{{" + res_body +"\n}}}\n</div>");
+			pg_body.push( "* [[" + page_titles[i] + "]]: found *" + count + "* times :<"+"div class=\"search_results\">{{{" + res_body +"\n}}}\n<"+"/div>");
 		}
 	}
 	this.progress_finish();
@@ -147,7 +147,7 @@ woas.special_tagged = function() {
 	var	pg = [], folds = {"[pages]":[]}, tagns,
 		src, i, l, j, jl, tmp, tag;
 		
-	for(i=0,l=pages.length;i<l;++i) {
+	for(i=0,l=pages.length;i < l;++i) {
 		if (this.is_reserved(page_titles[i]))
 			continue;
 		src = this.get_src_page(i);
@@ -158,7 +158,7 @@ woas.special_tagged = function() {
 			function (str, $1) {
 				// get the tags and index the page under each tag
 				tmp=woas.split_tags($1);
-				for(j=0,jl=tmp.length;j<jl; ++j) {
+				for(j=0,jl=tmp.length;j < jl; ++j) {
 					tag=woas.trim(tmp[j]);
 					if (!tag.length) continue;
 					// we have a valid tag, check if it is already indexed
@@ -180,7 +180,7 @@ var reHasTags = /\[\[Tags?::([^\]]+)\]\]/;
 woas.special_untagged = function() {
 	var tmp;
 	var pg = [];
-	for(var i=0,l=pages.length; i<l; i++) {
+	for(var i=0,l=pages.length; i < l; i++) {
 		if (this.is_reserved(page_titles[i]))
 			continue;
 		tmp = this.get_src_page(i);
@@ -197,7 +197,7 @@ woas.special_untagged = function() {
 // Returns a index of all pages
 woas.special_all_pages = function() {
 	var pg = [];
-	for(var i=0, l=page_titles.length; i<l; i++) {
+	for(var i=0, l=page_titles.length; i < l; i++) {
 		if (!this.is_reserved(page_titles[i]))
 			pg.push( page_titles[i] );
 	}
@@ -209,7 +209,7 @@ woas.special_dead_pages = function() {
 	var dead_pages = [];
 	var from_pages = [];
 	var tmp, page_done;
-	for(var j=0,l=pages.length;j<l;j++) {
+	for(var j=0,l=pages.length;j < l;j++) {
 		if (this.is_reserved(page_titles[j]))
 			continue;
 		tmp = this.get_src_page(j);
@@ -234,7 +234,7 @@ woas.special_dead_pages = function() {
 					// true when page has been scanned for referrals
 					page_done = false;
 					// check that this not-existing page is already in the deads page list
-					for(var i=0;i<dead_pages.length;i++) {
+					for(var i=0;i < dead_pages.length;i++) {
 						// current page contains a link to an already indexed dead page,
 						// save the reference
 						if (dead_pages[i]==p) {
@@ -258,10 +258,10 @@ woas.special_dead_pages = function() {
 
 	// format the dead pages
 	var pg = [], s;
-	for(var i=0;i<dead_pages.length;i++) {
+	for(var i=0;i < dead_pages.length;i++) {
 		s = "[["+dead_pages[i]+"]] from ";
 		var from = from_pages[i];
-		for(j=0;j<from.length-1;j++) {
+		for(j=0;j < from.length-1;j++) {
 			s+="[["+from[j]+"]], ";
 		}
 		if (from.length>0)
@@ -300,7 +300,7 @@ woas.special_recent_changes = function() {
 	}
 	// build an array of (key := page_index, val := last_modified_timestamp) couples
 	var l=page_titles.length, hm = [], i;
-	for(i=0;i<l;++i) {
+	for(i=0;i < l;++i) {
 		// skip pages with the 'magic' zero timestamp
 		if (page_mts[i] === 0)
 			continue;
@@ -313,8 +313,8 @@ woas.special_recent_changes = function() {
 	hm.sort(function(a,b) { return (b[1]-a[1]); });
 	// display results
 	var pg=[];
-	for(i=0,l=hm.length;i<l;++i) {
-		pg.push("* [[" + page_titles[hm[i][0]] + "]] <span style=\"font-size: smaller;\">"+this.last_modified(hm[i][1])+"</"+"span>");
+	for(i=0,l=hm.length;i < l;++i) {
+		pg.push("* [[" + page_titles[hm[i][0]] + "]] <"+"span style=\"font-size: smaller;\">"+this.last_modified(hm[i][1])+"<"+"/span>");
 	}
 	if (!pg.length)
 		return "/No recently modified pages/";
@@ -338,7 +338,7 @@ woas._join_list = function(arr, sorted) {
 	result_pages = arr.slice(0);
 	// (1) create a recursable tree of namespaces
 	var ns,folds={"[pages]":[]},i,ni,nt,key;
-	for(i=0,it=arr.length;i<it;++i) {
+	for(i=0,it=arr.length;i < it;++i) {
 		ns = arr[i].split("::");
 		// remove first entry if empty
 		if (ns.length>1) {
@@ -407,18 +407,18 @@ woas.ns_recurse_parse = function(folds, output, prev_ns, recursion, sorted) {
 			// generate id for folding div
 			fold_id = "woas_fold"+output.fold_no++;
 			var vis_css = woas._visible_css(this._ns_expanded(prev_ns, it, fold_id, output.list_id));
-			output.s += "<h"+(recursion+1)+" id=\""+fold_id+"_head\"> [[Javascript::$.toggle('"+fold_id+"')|"+prev_ns+"]]";
-			output.s += " [["+prev_ns+"|"+String.fromCharCode(8594)+"]] ("+it+" pages)\n</h"+(recursion+1)+">";
-			output.s += "<div style=\""+vis_css+"\" id=\""+fold_id+"\">\n";
+			output.s += "<"+"h"+(recursion+1)+" id=\""+fold_id+"_head\"> [[Javascript::$.toggle('"+fold_id+"')|"+prev_ns+"]]";
+			output.s += " [["+prev_ns+"|"+String.fromCharCode(8594)+"]] ("+it+" pages)\n<"+"/h"+(recursion+1)+">";
+			output.s += "<"+"div style=\""+vis_css+"\" id=\""+fold_id+"\">\n";
 		}
 		// apply sorting
 		if (sorted)
 			folds["[pages]"].sort();
-		for(i=0;i<it;++i) {
+		for(i=0;i < it;++i) {
 			output.s += "* [["+folds["[pages]"][i]+"]]\n";
 		}
 		if (prev_ns.length)
-			output.s += "</div>";
+			output.s += "<"+"/div>";
 	}
 	// sort the actual namespaces
 	if (sorted) {
@@ -440,7 +440,7 @@ woas.ns_recurse_parse = function(folds, output, prev_ns, recursion, sorted) {
 		});
 		// parse second the sorted namespaces
 		it=nslist.length;
-		for(i=0;i<it;++i) {
+		for(i=0;i < it;++i) {
 			this.ns_recurse_parse(folds[nslist[i]], output, prev_ns+nslist[i], recursion, sorted);
 		}
 	} else { // directly parsed without any specific sorting
@@ -463,7 +463,7 @@ function _WoaS_list_expand_change(list_id, v) {
 			$.show("WoaS_"+list_id+"_folds");
 			$.hide("WoaS_"+list_id+"_flat");
 
-			for(var i=0,it=woas._ns_groups[list_id].items.length;i<it;++i) {
+			for(var i=0,it=woas._ns_groups[list_id].items.length;i < it;++i) {
 				$.hide(woas._ns_groups[list_id].items[i]);
 			}
 		break;
@@ -475,7 +475,7 @@ function _WoaS_list_expand_change(list_id, v) {
 			$.show("WoaS_"+list_id+"_folds");
 			$.hide("WoaS_"+list_id+"_flat");
 
-			for(var i=0,it=woas._ns_groups[list_id].items.length;i<it;++i) {
+			for(var i=0,it=woas._ns_groups[list_id].items.length;i < it;++i) {
 				$.show(woas._ns_groups[list_id].items[i]);
 			}
 		break;
@@ -494,19 +494,19 @@ woas.ns_listing = function(folds, flat_arr, sorted) {
 					"list_id":list_id
 	};
 	output.s = "<"+"span class=\"woas_listing_options\">List view:<"+"label for=\"WoaS_"+list_id+"_0\"><"+"input type=\"radio\" id=\"WoaS_"+list_id+"_0\" name=\"WoaS_"+list_id+"\" value=\"0\" "+(this._ns_groups[list_id].option === 0 ? " checked=\"checked\"" : "" )+"onclick=\"_WoaS_list_expand_change('"+list_id+"',0)\">Flat<"+"/label>&nbsp;|\
-<label for=\"WoaS_"+list_id+"_1\"><input type=\"radio\" id=\"WoaS_"+list_id+"_1\" name=\"WoaS_"+list_id+"\" value=\"1\" "+(this._ns_groups[list_id].option === 1 ? " checked=\"checked\"" : "" )+"onclick=\"_WoaS_list_expand_change('"+list_id+"',1)\" >By namespace, collapsed<"+"/label>&nbsp;|\
+<"+"label for=\"WoaS_"+list_id+"_1\"><"+"input type=\"radio\" id=\"WoaS_"+list_id+"_1\" name=\"WoaS_"+list_id+"\" value=\"1\" "+(this._ns_groups[list_id].option === 1 ? " checked=\"checked\"" : "" )+"onclick=\"_WoaS_list_expand_change('"+list_id+"',1)\" >By namespace, collapsed<"+"/label>&nbsp;|\
 <"+"label for=\"WoaS_"+list_id+"_2\"><"+"input type=\"radio\" id=\"WoaS_"+list_id+"_2\" name=\"WoaS_"+list_id+"\" value=\"2\" "+(this._ns_groups[list_id].option === 2 ? " checked=\"checked\"" : "" )+" onclick=\"_WoaS_list_expand_change('"+list_id+"',2)\">By namespace, expanded<"+"/label>\
 <"+"/span><"+"span style=\""+woas._visible_css(this._ns_groups[list_id].option !== 0)+"\" id=\"WoaS_"+list_id+"_folds\">\n";
 	
 	// first fill the span for foldings
 	this.ns_recurse_parse(folds, output, "", 0, sorted);
 	output.s += "<"+"/span>\n"+
-				"<span style=\""+woas._visible_css(this._ns_groups[list_id].option === 0)+"\" id=\"WoaS_"+list_id+"_flat\">\n";
+				"<"+"span style=\""+woas._visible_css(this._ns_groups[list_id].option === 0)+"\" id=\"WoaS_"+list_id+"_flat\">\n";
 	// then generate the flat list
 	if (sorted)
 		flat_arr.sort();
 	output.s += "* [["+flat_arr.join("]]\n* [[")+"]]\n";
-/*	for(var i=0,it=flat_arr.length;i<it;++i) {
+/*	for(var i=0,it=flat_arr.length;i < it;++i) {
 		output.s += "* [["+flat_arr[i]+"]]\n";
 	} */
 	output.s += "<"+"/span>";
