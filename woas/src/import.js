@@ -51,7 +51,6 @@ function _new_syntax_patch(text) {
 			* introduced Special::Bootscript
 */
 
-
 var reValidImage = /^data:\s*[^;]*;\s*base64,\s*/,
 	reOldStyleBlock = new RegExp("<"+"style\\s.*?type=\"?text\\/css\"?[^>]*>((\\n|.)*?)<"+"\\/style>", "i");
 woas.import_wiki = function() {
@@ -117,10 +116,9 @@ woas.import_wiki = function() {
 	
 	// get WoaS version
 	var old_version,
-		ver_str = ct.match(/var version = "([^"]*)";(\r\n|\n)/);
-	if (!ver_str)
 		ver_str = ct.match(/var woas = \{"version":\s+"([^"]+)"\s*\};(\r\n|\n)/);
 	if (!ver_str || !ver_str.length) {
+		this.alert("Could not determine WoaS version");
 		fail = true;
 		break;
 	}
