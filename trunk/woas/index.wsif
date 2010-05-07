@@ -949,6 +949,7 @@ woas.page.boundary: DFQRCTsKlU
 = Dead Pages
 This page displays a list of pages that contain links to nonexistent pages. Both the link and the page it's on are shown in each entry.
 
+Fixing dead pages is a good way to not break end-user browsing experience.
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::General usage
 woas.page.attributes: 0
@@ -1075,15 +1076,16 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Wiki is read-only
-If you clicked the *Disallow edits* button in the wiki Options, this wiki became read-only. To undo that:
-# Back up this wiki.
-# Open it in a text editor.
+If you have a read-only copy of WoaS and you want a write-enabled copy you should ask the author to provide it; read-only protection is by no way a security mechanism (see [[WoaS::Help::Security]]), but instead a /fair use/ invite e.g. you disable the write features because you assume that they won't be useful to end-user.
+
+If you want to re-enable the write features manually you should:
+# Back up your WoaS
+# Open it in a text editor
 # Do a search for: {{{"permit_edits":false,}}}
 # Replace it with: {{{"permit_edits":true,}}}
-# Save the file.
-# Close the text editor.
-# Open the wiki and use normally.
+# Save the file
 
+*NOTE:* this way of re-enabling WoaS write mode is *unsupported*, e.g. it might not work in future versions of WoaS.
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Create a page
 woas.page.attributes: 0
