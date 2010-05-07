@@ -52,9 +52,10 @@ woas.DOC_START = "<"+"html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\
 // general javascript-safe string quoting
 // NOTE: not completely binary safe!
 // should be used only for titles (which ought not to contain binary bytes)
+var reMinorG = new RegExp("<", "g");
 woas.js_encode = function (s, split_lines) {
 	// not to counfound browsers with saved tags
-	s = s.replace(/\\/g, "\\\\").replace(/</g, "\\x3C").replace(/>/g, "\\x3E").
+	s = s.replace(/\\/g, "\\\\").replace(reMinorG, "\\x3C").replace(/>/g, "\\x3E").
 		replace(/'/g, "\\'");
 	// escape newlines (\r\n happens only on the stupid IE) and eventually split the lines accordingly
 	if (!split_lines)
@@ -125,7 +126,7 @@ woas.xhtml_encode = function(src) {
 		}
 		return s;
 	})); */
-	return this.utf8_encode(src.replace(/&/g, '&amp;').replace(/</g, '&lt;').
+	return this.utf8_encode(src.replace(/&/g, '&amp;').replace(reMinorG, '&lt;').
 			replace(/>/g, '&gt;')); // .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 };
 
