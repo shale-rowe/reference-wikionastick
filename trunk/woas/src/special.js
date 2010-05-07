@@ -495,7 +495,7 @@ woas.ns_listing = function(folds, flat_arr, sorted) {
 	};
 	output.s = "<"+"span class=\"woas_listing_options\">List view:<"+"label for=\"WoaS_"+list_id+"_0\"><"+"input type=\"radio\" id=\"WoaS_"+list_id+"_0\" name=\"WoaS_"+list_id+"\" value=\"0\" "+(this._ns_groups[list_id].option === 0 ? " checked=\"checked\"" : "" )+"onclick=\"_WoaS_list_expand_change('"+list_id+"',0)\">Flat<"+"/label>&nbsp;|\
 <label for=\"WoaS_"+list_id+"_1\"><input type=\"radio\" id=\"WoaS_"+list_id+"_1\" name=\"WoaS_"+list_id+"\" value=\"1\" "+(this._ns_groups[list_id].option === 1 ? " checked=\"checked\"" : "" )+"onclick=\"_WoaS_list_expand_change('"+list_id+"',1)\" >By namespace, collapsed<"+"/label>&nbsp;|\
-<"+"label for=\"WoaS_"+list_id+"_2\"><"+"input type=\"radio\" id=\"WoaS_"+list_id+"_2\" name=\"WoaS_"+list_id+"\" value=\"2\" "+(this._ns_groups[list_id].option === 2 ? " checked=\"checked\"" : "" )+" onclick=\"_WoaS_list_expand_change('"+list_id+"',2)\">By namespace, expanded<"+"/label>\n\
+<"+"label for=\"WoaS_"+list_id+"_2\"><"+"input type=\"radio\" id=\"WoaS_"+list_id+"_2\" name=\"WoaS_"+list_id+"\" value=\"2\" "+(this._ns_groups[list_id].option === 2 ? " checked=\"checked\"" : "" )+" onclick=\"_WoaS_list_expand_change('"+list_id+"',2)\">By namespace, expanded<"+"/label>\
 <"+"/span><"+"span style=\""+woas._visible_css(this._ns_groups[list_id].option !== 0)+"\" id=\"WoaS_"+list_id+"_folds\">\n";
 	
 	// first fill the span for foldings
