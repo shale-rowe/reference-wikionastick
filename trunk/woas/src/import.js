@@ -126,13 +126,8 @@ woas.import_wiki = function() {
 	log("Version string: "+ver_str);	// log:1
 	switch (ver_str) {
 		case "0.9.6B":
-//		case "0.9.6C": // development only
-			old_version = 96;
-			break;
 		case "0.9.7B": // never released officially
-//		case "0.9.6C": // development only
-			old_version = 97;
-			break;
+			ver_str = ver_str.substr(0, ver_str.length-2);
 		case "0.10.0": case "0.10.1":
 		case "0.10.2": case "0.10.3":
 		case "0.10.4": case "0.10.5":
