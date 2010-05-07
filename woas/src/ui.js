@@ -216,7 +216,7 @@ function help() {
 	} else {
 		var htitle = null;
 		// change the target page in some special cases
-		for(var i=0,it=woas.help_system._help_lookup.length;i<it;++i) {
+		for(var i=0,it=woas.help_system._help_lookup.length;i < it;++i) {
 			if (current.substr(0, woas.help_system._help_lookup[i].length) === woas.help_system._help_lookup[i]) {
 				htitle = woas.help_system._help_lookup[i];
 				break;
@@ -345,16 +345,16 @@ function ro_woas() {
 
 function open_table_help() {
 	woas.popup("help", 350, 200, ",menubar=no,toolbar=no,location=no,status=no,dialog=yes", 
-	"<title>Building tables<\/title>",
-	"<u>Building tables:<\/u><br /><br />"
-	+"<tt>{|   <\/tt><br />"
-	+"<tt>|+ Table Caption<\/tt><br />"
-	+"<tt>| *colum 1* || *column 2* || *column 3*<\/tt><br />"
-	+"<tt>|-<\/tt><br />"
-	+"<tt>| line 2 || [[a link]] || something<\/tt><br />"
-	+"<tt>|-<\/tt><br />"
-	+"<tt>| line 3 || || more stuff<\/tt><br />"
-	+"<tt>|}   <\/tt>");
+	"<"+"title>Building tables<"+"/title>",
+	"<"+"u>Building tables:<"+"/u><"+"br /><"+"br />"
+	+"<"+"tt>{|   <"+"/tt><"+"br />"
+	+"<"+"tt>|+ Table Caption<"+"/tt><"+"br />"
+	+"<"+"tt>| *colum 1* || *column 2* || *column 3*<"+"/tt><"+"br />"
+	+"<"+"tt>|-<"+"/tt><"+"br />"
+	+"<"+"tt>| line 2 || [[a link]] || something<"+"/tt><"+"br />"
+	+"<"+"tt>|-<"+"/tt><"+"br />"
+	+"<"+"tt>| line 3 || || more stuff<"+"/tt><"+"br />"
+	+"<"+"tt>|}<"+"/tt>");
 }
 
 // Used by Special::Lock
@@ -436,7 +436,7 @@ function _hex_col(tone) {
 	var pwstrength = ((pwlength/18) * 65) + (numsymbols * 10 + u_lo*20 + numeric*5);
 	
 	var repco = woas.split_bytes(pw).toUnique().length/pwlength;
-	if (repco<0.8)
+	if (repco < 0.8)
 		pwstrength *= (repco+0.2);
 //		log("pwstrength = "+(pwstrength/100).toFixed(2)+", repco = "+repco);	// log:1
 	} else
@@ -491,11 +491,11 @@ function query_delete_file(cr) {
 function _img_properties_show(mime, tot_len, enc_len, mts) {
 	var img=$('img_tag');
 	woas.setHTML($('img_desc'),
-		woas.i18n.MIME_TYPE+": "+mime+"<br /"+
+		woas.i18n.MIME_TYPE+": "+mime+"<"+"br /"+
 		">"+woas.i18n.FILE_SIZE+": about "+_convert_bytes(((tot_len-enc_len)*3)/4)+
 		woas.i18n.B64_REQ.sprintf(_convert_bytes(tot_len))+
-	"<br />"+woas.last_modified(mts)+
-	"<br />"+woas.i18n.WIDTH+": "+img.width+"px<br />"+woas.i18n.HEIGHT+": "+img.height+"px");
+	"<"+"br />"+woas.last_modified(mts)+
+	"<"+"br />"+woas.i18n.WIDTH+": "+img.width+"px<"+"br />"+woas.i18n.HEIGHT+": "+img.height+"px");
 }
 
 function query_delete_image(cr) {
@@ -531,9 +531,9 @@ woas._customized_popup = function(page_title, page_body, additional_js, addition
 		Math.ceil(screen.height*0.75),
 		",status=yes,menubar=yes,resizable=yes,scrollbars=yes",
 		// head
-		"<title>" + page_title + "</title>" + "<st" + "yle type=\"text/css\">"
+		"<"+"title>" + page_title + "<"+"/title>" + "<"+"style type=\"text/css\">"
 		+ css_payload + woas.css.get() + additional_css +
-		"</sty" + "le>" + additional_js,
+		"<"+"/sty" + "le>" + additional_js,
 		page_body,
 		body_extra
 	);
@@ -612,9 +612,9 @@ woas.popup = function(name,fw,fh,extra,head,body, body_extra) {
 	var wnd = window.open("about:blank",name,"width="+fw+",height="+fh+		
 	",left="+hpos+",top="+vpos+extra);
 	wnd.focus();
-	wnd.document.writeln(this.DOCTYPE+"<ht"+"ml><he"+"ad>"+head+
-						"</h"+"ead><"+"body"+body_extra+">"+
-						body+"</bod"+"y></h"+"tml>\n");
+	wnd.document.writeln(this.DOCTYPE+"<"+"html><"+"head>"+head+
+						"<"+"/head><"+"body"+body_extra+">"+
+						body+"<"+"/body></"+"html>\n");
 	wnd.document.close();
 	return wnd;
 };
@@ -721,7 +721,7 @@ woas.update_nav_icons = function(page) {
 
 woas.update_lock_icons = function(page) {
 	var cyphered, can_lock, can_unlock;
-	if (result_pages.length<2) {
+	if (result_pages.length < 2) {
 		var pi = this.page_index(page);
 		if (pi==-1) {
 			can_lock = can_unlock = false;
@@ -833,14 +833,14 @@ woas._set_title = function (new_title) {
 // function which hooks all messages shown by WoaS
 // can be fed with multiple messages to show consecutively
 woas.alert = function() {
-	for(var i=0,l=arguments.length;i<l;++i) {
+	for(var i=0,l=arguments.length;i < l;++i) {
 		alert("WoaS: "+arguments[i]);
 	}
 };
 
 // same as above, but for unhandled errors
 woas.crash = function() {
-	for(var i=0,l=arguments.length;i<l;++i) {
+	for(var i=0,l=arguments.length;i < l;++i) {
 		alert("WoaS Unhandled error\n----\n"+arguments[i]);
 	}
 };

@@ -91,7 +91,7 @@ woas._export_get_fname = function (title, create_mode) {
 	// convert UTF8 characters to something else (cross-browser safe cheap solution)
 	.replace(/[^\u0000-\u007F]+/g, function ($1) {
 		var l=$1.length, r="";
-		for(var i=0;i<l;i++) {
+		for(var i=0;i < l;i++) {
 			/*switch ($1[i]) {
 				// TODO: add most common diacritics
 				case "\u00e2":
@@ -163,25 +163,25 @@ woas.export_one_page = function (data, title, fname, exp, mts) {
 				// fix also the encoding in the menus
 				_exp_menu = this.utf8_encode(_exp_menu);
 			}
-			data = '<div class="menu_area" id="sw_menu_area" style="position: absolute;"><div class="wiki" id="menu_area">'+_exp_menu+'</div></div><div class="woas_text_area" id="wiki_text">'+data+'</div>';
+			data = '<'+'div class="menu_area" id="sw_menu_area" style="position: absolute;"><'+'div class="wiki" id="menu_area">'+_exp_menu+'<'+'/div><'+'/div><'+'div class="woas_text_area" id="wiki_text">'+data+'<'+'/div>';
 		}
 		// craft a nice XHTML page
-		data = "<title>"+this.xhtml_encode(title)+"</title>"+
+		data = "<"+"title>"+this.xhtml_encode(title)+"<"+"/title>"+
 				// add the exported CSS
 				exp.css+
 				// add the last-modified header
-				(mts ? '<meta http-equiv="last-modified" content="'+
+				(mts ? '<'+'meta http-equiv="last-modified" content="'+
 				(new Date(mts*1000)).toGMTString()+'" />'+"\n" : '')+
 				// other useful META stuff
-		'<meta name="generator" content="Wiki on a Stick v'+this.version+' - http://stickwiki.sf.net/" />'+"\n"+
-		'<meta name="keywords" content="'+this.utf8_encode(this._attrib_escape(_auto_keywords(raw_text)))+'" />'+"\n"+
-		'<meta name="description" content="'+
+		'<'+'meta name="generator" content="Wiki on a Stick v'+this.version+' - http://stickwiki.sf.net/" />'+"\n"+
+		'<'+'meta name="keywords" content="'+this.utf8_encode(this._attrib_escape(_auto_keywords(raw_text)))+'" />'+"\n"+
+		'<'+'meta name="description" content="'+
 		this.utf8_encode(this._attrib_escape(raw_text.replace(/\s+/g, " ").substr(0,max_description_length)))+'" />'+"\n"+
 		exp.meta_author+
 		exp.custom_scripts+
-		"</h"+"ead><"+"body>"+data+
-		(mts ? "<div class=\"woas_page_mts\">"+this.last_modified(mts)+"</div>" : "")+
-		"</bod"+"y></h"+"tml>\n"; raw_text = null;
+		"<'+'/head><"+"body>"+data+
+		(mts ? "<"+"div class=\"woas_page_mts\">"+this.last_modified(mts)+"<"+"/div>" : "")+
+		"<"+"/body><"+"/html>\n"; raw_text = null;
 	return this.save_file(exp.xhtml_path+fname, this.file_mode.ASCII, woas.DOCTYPE+woas.DOC_START+data);
 };
 
@@ -202,7 +202,7 @@ woas.export_wiki = function () {
 		_export_default_ext = $("woas_ep_ext").value;
 		exp.meta_author = this.trim($("woas_ep_author").value);
 		if (exp.meta_author.length)
-			exp.meta_author = '<meta name="author" content="'+this._attrib_escape(this.xhtml_encode(exp.meta_author))+'" />'+"\n";
+			exp.meta_author = '<'+'meta name="author" content="'+this._attrib_escape(this.xhtml_encode(exp.meta_author))+'" />'+"\n";
 		_export_unix_norm = $("woas_cb_unix_norm").checked;
 	} catch (e) { this.crash(e); return false; }
 	
@@ -230,13 +230,13 @@ woas.export_wiki = function () {
 			if (this.plugins.is_external) {
 				// data is an array of sources, go through it
 				for(var i=0;i<data.length;++i) {
-					exp.custom_scripts += '<sc'+'ript type="text/javascript" src="'+data[i]+'"><'+'/sc'+"ript>\n";
+					exp.custom_scripts += '<'+'sc'+'ript type="text/javascript" src="'+data[i]+'"><'+"/script>\n";
 				}
 			} else {
 				js_fn = this._unix_normalize(this.plugins._active[pi])+".js";
 				if (this.save_file(exp.xhtml_path+js_fn,
 									this.file_mode.ASCII, data)) {
-					exp.custom_scripts += '<sc'+'ript type="text/javascript" src="'+js_fn+'"><'+'/sc'+"ript>\n";
+					exp.custom_scripts += '<'+'script type="text/javascript" src="'+js_fn+'"><'+"/script>\n";
 				}
 			}
 		}
@@ -244,7 +244,7 @@ woas.export_wiki = function () {
 
 	var l = page_titles.length, fname = "", done = 0, total = 0, mnupos;
 	data = null;
-	for (var pi=0;pi<l;pi++) {
+	for (var pi=0;pi < l;pi++) {
 		// do skip physical special pages
 		if (page_titles[pi].match(/^Special::/)) continue;
 		if (this.static_pages2.indexOf(page_titles[pi]) !== -1) continue;
@@ -290,7 +290,7 @@ woas.export_wiki = function () {
 	var eatable = _further_pages.slice(0);
 	while (eatable.length) {
 		_further_pages = [];
-		for(var i=0,el=eatable.length;i<el;i++) {
+		for(var i=0,el=eatable.length;i < el;i++) {
 			title = eatable[i];
 			data = this.get_text_special(title);
 			if (data===null) {
@@ -326,7 +326,7 @@ function _auto_keywords(source) {
 	var nu_words = new Array();
 	var density = new Array();
 	var wp=0;
-	for(var i=0;i<words.length;i++) {
+	for(var i=0;i < words.length;i++) {
 		if (words[i].length==0)
 			continue;
 		cond = (woas.i18n.common_words.indexOf(words[i].toLowerCase())<0);
@@ -344,7 +344,7 @@ function _auto_keywords(source) {
 	var keywords = "", nw = "";
 	density = density.sort(function(a,b){return b.w - a.w;});
 	var ol=0;
-	for(i=0;i<density.length;i++) {
+	for(i=0;i < density.length;i++) {
 		nw = nu_words[density[i].i];
 		if (ol+nw.length>max_keywords_length)
 			break;
