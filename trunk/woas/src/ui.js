@@ -168,10 +168,18 @@ function help_go_back() {\n\
 		var text;
 		// this is a namespace
 		if (pi === -1) {
-			woas.alert("Can't get help page "+wanted_page);
+			go_to(wanted_page);
 			return;
-		} else
-			text = woas.get__text(pi);
+		} else {
+			// see if this page shall be opened in the main wiki or in the help popup
+			var _pfx = "WoaS::Help::";
+			if (page_titles[pi].substr(0, _pfx.length) === _pfx)
+				text = woas.get__text(pi);
+			else { // open in main wiki
+				go_to(page_titles[pi]);
+				return;
+			}
+		}
 		if (text === null)
 			return;
 		// save previous page and set new
