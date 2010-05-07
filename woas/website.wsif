@@ -114,6 +114,6 @@ woas.page.boundary: DFQRCTsKlU
 * [[http://stickwiki.svn.sourceforge.net/viewvc/stickwiki/branches/littlegirl/fancytables/|fancytables]] - A temporary WSIF file you can import into your wiki to see how to use fancy tables.<br><br>
 * [[http://stickwiki.svn.sourceforge.net/viewvc/stickwiki/branches/littlegirl/sizetest/|sizetest]] - A collection of WSIF files of varying sizes you can import into your wiki as a stress test.<br><br>
 * [[http://stickwiki.svn.sourceforge.net/viewvc/stickwiki/branches/littlegirl/woasdeveloperguide/|woasdeveloperguide]] - A guide for WoaS developers that features links to useful WoaS pages, instructions for using the Subversion server to contribute code to the project, instructions for how to assemble the development version of WoaS into a single file, and a statement from Daniele on the philosophy of WoaS.<br><br>
-* [[http://stickwiki.svn.sourceforge.net/viewvc/stickwiki/branches/littlegirl/woasmods/|woasmods]] - A collection of modifications you can make to customize various versions of WoaS. Some of them are fixes while others are just fun or useful things you can add to your wiki.
-
+* [[http://stickwiki.svn.sourceforge.net/viewvc/stickwiki/branches/littlegirl/woasmods/|woasmods]] - A collection of modifications you can make to customize various versions of WoaS. Some of them are fixes while others are just fun or useful things you can add to your wiki.<br><br>
+* [[http://stickwiki.svn.sourceforge.net/viewvc/stickwiki/branches/littlegirl/woasplugins/|woasplugins]] - A (beginning) collection of plugins for WoaS 0.12.0.
 --DFQRCTsKlU
