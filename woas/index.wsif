@@ -761,66 +761,6 @@ And this is the actual result:
 33
 >>>
 --DFQRCTsKlU
-woas.page.title: WoaS::Help::Editing
-woas.page.attributes: 0
-woas.page.encoding: 8bit/plain
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-= Editing
-If a page is editable the relative Edit icon will be available in the navigation bar; you start editing the page by clicking such icon. The user interface will switch to an editor-mode set of buttons and edit areas.
-
-== Editor features
-* Cancel all changes by clicking the *Cancel* icon in the navigation bar at any time.
-* Change the title of a page by editing the contents of the *Page title* box.
-* Save all changes by clicking the *Save* icon in the navigation bar at any time.
-* See an example of how tables are built by clicking the *About tables* link.
-* Toggle the display of the button rows by clicking the *Show/Hide wiki buttons|Show/Hide XHTML buttons* links.
-
-{|
-|+ Wiki Code buttons
-| *Button* || *What it does*
-| Wiki URL || Add a wiki link to a page.
-| URL || Add an external link to a page.
-| = || Insert wiki syntax for a level one header. Use this at the beginning of any line.
-| == || Insert wiki syntax for a level two header. Use this at the beginning of any line.
-| Img || Include a wiki image in the page.
-| *B* || Wrap selected text with bold syntax.
-| /i/ || Wrap italic text with bold syntax.
-| u || Wrap selected text with underline syntax.
-| &#123;&#123;&#123; &#125;&#125;&#125; || Wrap wiki syntax around the selected text to make it nowiki (raw) text.
-| * || Insert the wiki syntax for a bulleted list item.
-| # || Insert the wiki syntax for a numbered list item.
-| @ || Insert the wiki syntax for an alphanumeric list item.
-| Ruler || Insert a ruler (horizontal line). Use this at the beginning of any line.
-| Tags || Interface for inserting tags in your page to categorize it. Use a pipe between multiple tags.
-|}
-
-*Note:* it's recommended to use wiki syntax instead of XHTML syntax, because this is a wiki.
-
-{|
-|+ XHTML Code buttons
-| *Button* || *What it does*
-| *B* || Wrap selected text with bold tags.
-| /i/ || Wrap selected text with emphasis tags (italics).
-| u || Wrap selected text with underline tags.
-| s || Wrap selected text with strike-through tags.
-| Sup || Wrap selected text with superscript tags (appearing half a character above the baseline).
-| Sub || Wrap selected text with subscript tags (appearing half a character below the baseline).
-| Left || Wrap selected text with a left-aligned div.
-| Center || Wrap selected text with a center-aligned div.
-| Right || Wrap selected text with a right-aligned div.
-| Justify || Wrap selected text with a justified div.
-| List || Add unordered list tags around the selected text.
-| List = || Add ordered list tags around the selected text.
-| li[*] || Wrap selected text with list item tags.
-| Blockquote || Wrap selected text with blockquote tags, indenting it beneath the current line.
-| Image || Include an external image.
-| Link || Include an external link URL.
-|}
-
---DFQRCTsKlU
 woas.page.title: WoaS::Help::Index
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
@@ -1185,13 +1125,66 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Edit a page
-All user-created pages can be edited or deleted, while some pages which are part of reserved [[WoaS::Help::Namespaces|namespaces]] can only be deleted.
+All user-created pages can be edited or deleted, while some pages which are part of reserved [[WoaS::Help::Namespaces|namespaces]] can only be edited.
+
+If a page is editable the relative Edit icon will be available in the navigation bar; you start editing the page by clicking such icon. The user interface will switch to an editor-mode set of buttons and edit areas.
+
+== Editing
 
 In order to edit pages, click the *Edit* icon in the navigation bar. You can find all the user pages by accessing [[Special::All Pages]] directly or either from [[Special::Advanced]].
 # Click the *Edit* icon in the navigation bar or double-click on the page if you've enabled that setting in the wiki Options.<br><br>
 # Edit the contents of the main text area by typing normally.<br><br>
 # Use the editor's buttons to insert code to format the text, or type the code in manually. Note that the use of plain text doesn't require any code.<br><br>
 # Save your changes by clicking on the *Save* icon in the navigation bar.
+ 
+== Editor features
+* Cancel all changes by clicking the *Cancel* icon in the navigation bar at any time.
+* Change the title of a page by editing the contents of the *Page title* box.
+* Save all changes by clicking the *Save* icon in the navigation bar at any time.
+* See an example of how tables are built by clicking the *About tables* link.
+* Toggle the display of the button rows by clicking the *Show/Hide wiki buttons|Show/Hide XHTML buttons* links.
+
+{|
+|+ Wiki Code buttons
+| *Button* || *What it does*
+| Wiki URL || Add a wiki link to a page.
+| URL || Add an external link to a page.
+| = || Insert wiki syntax for a level one header. Use this at the beginning of any line.
+| == || Insert wiki syntax for a level two header. Use this at the beginning of any line.
+| Img || Include a wiki image in the page.
+| *B* || Wrap selected text with bold syntax.
+| /i/ || Wrap italic text with bold syntax.
+| u || Wrap selected text with underline syntax.
+| &#123;&#123;&#123; &#125;&#125;&#125; || Wrap wiki syntax around the selected text to make it nowiki (raw) text.
+| * || Insert the wiki syntax for a bulleted list item.
+| # || Insert the wiki syntax for a numbered list item.
+| @ || Insert the wiki syntax for an alphanumeric list item.
+| Ruler || Insert a ruler (horizontal line). Use this at the beginning of any line.
+| Tags || Interface for inserting tags in your page to categorize it. Use a pipe between multiple tags.
+|}
+
+*Note:* it's recommended to use wiki syntax instead of XHTML syntax, because this is a wiki.
+
+{|
+|+ XHTML Code buttons
+| *Button* || *What it does*
+| *B* || Wrap selected text with bold tags.
+| /i/ || Wrap selected text with emphasis tags (italics).
+| u || Wrap selected text with underline tags.
+| s || Wrap selected text with strike-through tags.
+| Sup || Wrap selected text with superscript tags (appearing half a character above the baseline).
+| Sub || Wrap selected text with subscript tags (appearing half a character below the baseline).
+| Left || Wrap selected text with a left-aligned div.
+| Center || Wrap selected text with a center-aligned div.
+| Right || Wrap selected text with a right-aligned div.
+| Justify || Wrap selected text with a justified div.
+| List || Add unordered list tags around the selected text.
+| List = || Add ordered list tags around the selected text.
+| li[*] || Wrap selected text with list item tags.
+| Blockquote || Wrap selected text with blockquote tags, indenting it beneath the current line.
+| Image || Include an external image.
+| Link || Include an external link URL.
+|}
 
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Erase all pages
@@ -1216,7 +1209,7 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Edit the menu
-# Click the *Edit menu* button at the bottom of the menu.<br><br>
+# Click the <span class="woas_menu_button" style="font-size: medium">Edit menu</span> button at the bottom of the menu.<br><br>
 # Edit the contents of the main text area by typing normally. The menu can contain links, lists, tables, colored text, etc. as a normal wik page<br><br>
 # Save your changes by clicking on the *Save* icon in the top right navigation panel.
 
