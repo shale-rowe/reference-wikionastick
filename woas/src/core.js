@@ -122,22 +122,22 @@ woas.erase_wiki = function() {
 	// first entry is for main page
 	page_attrs = [0]; page_mts =   [0];
 	// zero is the magic timestamp
-	for (i=0;i<this.default_pages.length;++i) {
+	for (i=0;i < this.default_pages.length;++i) {
 		page_attrs.push(0); page_mts.push(0);
 	}
 	// build the array of help pages only once
 	var help_pfx = "WoaS::Help::";
 	if (this.help_pages === null) {
 		this.help_pages = [];
-		for(i=0,l=page_titles.length;i<l;++i) {
+		for(i=0,l=page_titles.length;i < l;++i) {
 			if (page_titles[i].substr(0, help_pfx.length) === help_pfx)
 				this.help_pages.push(page_titles[i].substr(help_pfx.length));
 		}
 	}
 	var copied_help_pages = [];
 	// now pick the static pages
-	for(i=0,l1=this.static_pages.length,l2=this.help_pages.length,l=l1+l2;i<l;++i) {
-		if (i<l1)
+	for(i=0,l1=this.static_pages.length,l2=this.help_pages.length,l=l1+l2;i < l;++i) {
+		if (i < l1)
 			t = this.static_pages[i];
 		else
 			t = help_pfx+this.help_pages[i-l1];
@@ -259,7 +259,7 @@ woas.unexportable_pages2 = ["WoaS::CSS::Custom", "WoaS::CSS::Core", "WoaS::Alias
 
 // return raw javascript tag to be included in XHTML page
 woas.raw_js = function(code) {
-	return "<scr"+"ipt type=\"text/javascript\">\n"+code+"\n<"+"/s"+"cript>";
+	return "<"+"script type=\"text/javascript\">\n"+code+"\n<"+"/s"+"cript>";
 };
 
 //API1.0: delete a page given title (without aliases)
@@ -285,7 +285,7 @@ woas.delete_page_i = function(i) {
 	page_mts.splice(i,1);
 	// remove the deleted page from history
 	var prev_page = null;
-	for(i=0,il=backstack.length;i<il;++i) {
+	for(i=0,il=backstack.length;i < il;++i) {
 		// remove also duplicate sequences
 		if ((backstack[i] === old_title) || (prev_page === backstack[i])) {
 			backstack.splice(i,1);
@@ -439,14 +439,14 @@ woas.utf8Decrypt = function(byte_arr) {
 woas.split_bytes = function(s) {
 	var l=s.length;
 	var arr=[];
-	for(var i=0;i<l;i++)
+	for(var i=0;i < l;i++)
 		arr.push(s.charCodeAt(i));
 	return arr;
 };
 	
 woas.merge_bytes = function(byte_arr) {
 	var l=byte_arr.length, s="";
-	for(var i=0;i<l;i++) {
+	for(var i=0;i < l;i++) {
 		s+=String.fromCharCode(byte_arr[i]);
 	}
 	return s;
@@ -463,7 +463,7 @@ woas.utf8_encode = function(src) {
 	return src.replace(/[^\u0000-\u007F]+/g, function ($1) {
 		var l=$1.length;
 		var s="";
-		for(var i=0;i<l;i++) {
+		for(var i=0;i < l;i++) {
 			s+="&#"+$1.charCodeAt(i)+";";
 		}
 		return s;
@@ -490,8 +490,8 @@ woas.dom = {
 	add_css: function(css_id, css_src, external, after_load) {
 /*		if (document.createStyleSheet) {// check for MSIE
 			this._cache.head.insertAdjacentHTML('beforeEnd',
-				'<span id="'+'" style="display:none">x</span>'  // MSIE needs this for some reason
-				+ '<style id="'+'" type="text/css">'+css_text+'</style>');
+				'<'+'span id="'+'" style="display:none">x<'+'/span>'  // MSIE needs this for some reason
+				+ '<+'style id="'+'" type="text/css">'+css_text+'<'+'/style>');
 			//TODO: check that style can then be properly removed
 		  } else { */
 		// always add this custom prefix
@@ -599,7 +599,7 @@ woas.dom = {
 	// get list of instances which are still loading
 	get_loading: function() {
 		var a=[];
-		for(var i=0,it=this._objects.length;i<it;++i) {
+		for(var i=0,it=this._objects.length;i < it;++i) {
 			if (!this._objects[i].loaded)
 				a.push(this._objects[i].instance);
 		}
@@ -608,7 +608,7 @@ woas.dom = {
 	
 	// short-hand to get index of an instance
 	index: function(instance) {
-		for(var i=0,it=this._objects.length;i<it;++i) {
+		for(var i=0,it=this._objects.length;i < it;++i) {
 			if (this._objects[i].instance === instance)
 				return i;
 		}
@@ -699,7 +699,7 @@ woas.dom = {
 	// remove all script objects
 	remove_all: function() {
 		var it=this._instances.length;
-		for(var i=0;i<it;++i) {
+		for(var i=0;i < it;++i) {
 			// remove the object
 			this._objects[i].parent.removeChild(this._objects[i].obj);
 		}
