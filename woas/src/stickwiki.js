@@ -45,7 +45,7 @@ woas.trim = function(str) {
 };
 
 // used to craft XHTML pages
-woas.DOCTYPE = "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\" \"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\">\n";
+woas.DOCTYPE = "<"+"!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\" \"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\">\n";
 woas.DOC_START = "<"+"html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\">\n<"+"head>\n"+
 	"<"+"meta woas_permanent=\"1\" http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\n";
 
@@ -81,7 +81,7 @@ woas._utf8_js_fix = function(s) {
 	// fix the >= 128 ascii chars (to prevent UTF-8 characters corruption)
 	return s.replace(new RegExp("[^\u0000-\u007F]+", "g"), function(str) {
 		var r="";
-		for(var a=0,l=str.length;a<l;++a) {
+		for(var a=0,l=str.length;a < l;++a) {
 			var s = str.charCodeAt(a).toString(16);
 			r += "\\u" + "0000".substr(s.length) + s;
 		}
@@ -93,7 +93,7 @@ woas.ecma_decode = function(s) {
 	return s.replace(new RegExp("(\\\\u[0-9a-f]{4})+", "g"), function (str, $1) {
 		// this will perform real UTF-8 decoding
 		var r = "";
-		for (var ic=0,totc=str.length;ic<totc;ic+=6) {
+		for (var ic=0,totc=str.length;ic < totc;ic+=6) {
 			// get the hexa-numeric part
 			var c = str.substr(ic+2, 4);
 			// remove leading zeroes and convert to base10
@@ -110,7 +110,7 @@ woas.xhtml_encode = function(src) {
 /*	return this.utf8_encode(src.replace(/[<>&]+/g, function ($1) {
 		var l=$1.length;
 		var s="";
-		for(var i=0;i<l;i++) {
+		for(var i=0;i < l;i++) {
 			switch ($1.charAt(i)) {
 				case '<':
 					s+="&lt;";
@@ -136,9 +136,9 @@ var reserved_namespaces = ["Special", "Lock", "Locked", "Unlocked", "Unlock",
 
 // create the regex for reserved namespaces
 var reserved_rx = "^";
-for(var i = (woas.tweak.edit_override ? 1 : 0);i<reserved_namespaces.length;i++) {
+for(var i = (woas.tweak.edit_override ? 1 : 0);i < reserved_namespaces.length;i++) {
 	reserved_rx += /*RegExp.Escape(*/reserved_namespaces[i] + "::";
-	if (i<reserved_namespaces.length-1)
+	if (i < reserved_namespaces.length-1)
 		reserved_rx += "|";
 }
 woas._reserved_rx = new RegExp(reserved_rx, "i"); reserved_namespaces = reserved_rx = null;
@@ -215,14 +215,14 @@ woas._get_namespace_pages = function (ns) {
 			return /*"= Pages in "+ns+" namespace\n" + */this.special_tagged(false);
 		case "Image":
 			var iHTML = "";
-			for(var i=0, l=page_titles.length;i<l;++i) {
+			for(var i=0, l=page_titles.length;i < l;++i) {
 				if (page_titles[i].indexOf(ns)===0)
 					iHTML += this.parser.parse("* [[Include::"+page_titles[i]+"]][["+page_titles[i]+"]]\n");
 			}
 			return "= Pages in "+ns+" namespace\n" + iHTML;
 	}
 
-	for(i=0, l=page_titles.length;i<l;++i) {
+	for(i=0, l=page_titles.length;i < l;++i) {
 		if (page_titles[i].indexOf(ns)===0)
 			pg.push(page_titles[i]);
 	}
@@ -235,7 +235,7 @@ woas._get_tagged = function(tag_filter) {
 	// allow tags filtering/searching
 	var tags = this.split_tags(tag_filter),
 		tags_ok = [], tags_not = [];
-	for(i=0,l=tags.length;i<l;++i) {
+	for(i=0,l=tags.length;i < l;++i) {
 		// skip empty tags
 		var tag = this.trim(tags[i]);
 		if (!tags[i].length)
@@ -248,7 +248,7 @@ woas._get_tagged = function(tag_filter) {
 	} tags = null;
 	
 	var tmp, fail, b, bl;
-	for(i=0,l=pages.length;i<l;++i) {
+	for(i=0,l=pages.length;i < l;++i) {
 		tmp = this.get_src_page(i);
 		// can be null in case of encrypted content w/o key
 		if (tmp==null)
@@ -261,7 +261,7 @@ woas._get_tagged = function(tag_filter) {
 				var found_tags = woas.split_tags($1);
 				fail = false;
 				// filter if "OK" tag is not present
-				for (var b=0,bl=tags_ok.length;b<bl;++b) {
+				for (var b=0,bl=tags_ok.length;b < bl;++b) {
 					if (found_tags.indexOf(tags_ok[b]) == -1) {
 						fail = true;
 						break;
@@ -271,7 +271,7 @@ woas._get_tagged = function(tag_filter) {
 					// filter if "NOT" tag is present
 					// we are applying this filter only to tagged pages
 					// so a page without tags at all does not fit into this filtering
-					for (b=0,bl=tags_not.length;b<bl;++b) {
+					for (b=0,bl=tags_not.length;b < bl;++b) {
 						if (found_tags.indexOf(tags_not[b]) != -1) {
 							fail = true;
 							break;
@@ -304,7 +304,7 @@ woas.get_page = function(pi) {
 	return pg;	
 };
 
-var reScriptTags = /<script[^>]*>((.|\n)*?)<\/script>/gi,
+var reScriptTags = new RegExp("<"+"script[^>]*>((.|\\n)*?)<"+"\\/script>", "gi"),
 	reAnyXHTML = /\<\/?\w+[^>]+>/g;
 // get the text of the page, stripped of html tags
 woas.get_src_page = function(pi, rawmode) {
@@ -313,7 +313,7 @@ woas.get_src_page = function(pi, rawmode) {
 	if ((typeof rawmode == "undefined") || (rawmode == false))
 		pg = pg.replace(/\{\{\{((.|\n)*?)\}\}\}/g, "");
 	else
-		pg = pg.replace(/(\{|\})(\1)(\1)/g, "$1<!-- -->$2<!-- -->$3");
+		pg = pg.replace(/(\{|\})(\1)(\1)/g, "$1<"+"!-- -"+"->$2<"+"!-- -"+"->$3");
 	// remove wiki and html that should not be viewed when previewing wiki snippets
 	return pg.replace(reScriptTags, "").
 			replace(reAnyXHTML, "");
@@ -535,35 +535,35 @@ woas._get__embedded = function (cr, pi, etype) {
 		var pview_data = decode64(text, 1024), pview_link = "";
 		var ext_size = Math.ceil((text.length*3)/4);
 		if (ext_size-pview_data.length>10)
-			pview_link = "<div id='_part_display'><em>"+this.i18n.FILE_DISPLAY_LIMIT+
-			"</em><br /><a href='javascript:show_full_file("+pi+")'>"+this.i18n.DISPLAY_FULL_FILE+"</a></div>";
+			pview_link = "<"+"div id='_part_display'><"+"em>"+this.i18n.FILE_DISPLAY_LIMIT+
+			"<"+"/em><"+"br /><"+"a href='javascript:show_full_file("+pi+")'>"+this.i18n.DISPLAY_FULL_FILE+"<"+"/a><"+"/div>";
 		var _del_lbl;
 		if (!this.is_reserved(cr))
-			_del_lbl = "\n\n<a href=\"javascript:query_delete_file('"+this.js_encode(cr)+"')\">"+this.i18n.DELETE_FILE+"</a>\n";
+			_del_lbl = "\n\n<"+"a href=\"javascript:query_delete_file('"+this.js_encode(cr)+"')\">"+this.i18n.DELETE_FILE+"<"+"/a>\n";
 		else
 			_del_lbl = "";
-		xhtml = "<pre id='_file_ct' class=\"embedded\">"+this.xhtml_encode(pview_data)+"</pre>"+
-				pview_link+"<br /><hr />"+this.i18n.FILE_SIZE+": "+_convert_bytes(ext_size)+
-				"<br />" + this.last_modified(this.config.store_mts ? page_mts[pi] : 0)+
-				"<br /><br />XHTML transclusion:"+this.parser.parse("\n{{{[[Include::"+cr+"]]}}}"+
+		xhtml = "<"+"pre id='_file_ct' class=\"embedded\">"+this.xhtml_encode(pview_data)+"<"+"/pre>"+
+				pview_link+"<"+"br /><"+"hr />"+this.i18n.FILE_SIZE+": "+_convert_bytes(ext_size)+
+				"<"+"br />" + this.last_modified(this.config.store_mts ? page_mts[pi] : 0)+
+				"<"+"br /><"+"br />XHTML transclusion:"+this.parser.parse("\n{{{[[Include::"+cr+"]]}}}"+
 				"\n\nRaw transclusion:\n\n{{{[[Include::"+cr+"|raw]]}}}"+
-				_del_lbl+"\n<a href=\"javascript:query_export_file('"+this.js_encode(cr)+"')\">"+this.i18n.EXPORT_FILE+"</a>\n");
+				_del_lbl+"\n<"+"a href=\"javascript:query_export_file('"+this.js_encode(cr)+"')\">"+this.i18n.EXPORT_FILE+"<"+"/a>\n");
 	} else { // etype == image
 		var img_name = cr.substr(cr.indexOf("::")+2);
 		xhtml = this.parser.parse("= "+img_name+"\n\n"+
-		"<s"+"cript> setTimeout(\"_img_properties_show('"+
+		"<"+"script> setTimeout(\"_img_properties_show('"+
 				text.match(/^data:\s*([^;]+);/)[1] + "', "+
 				text.length + ", " +
 				(text.match(/^data:\s*[^;]*;\s*[^,]*,\s*/)[0]).length+", "+
 				(this.config.store_mts ? page_mts[pi] : 0 ) +
 				")\");"+
-		"</s"+"cript>"+
-		"<img id=\"img_tag\" class=\"embedded\" src=\""+text+"\" alt=\""+this.xhtml_encode(img_name)+"\" />"+
-		"\n\n<div id=\"img_desc\">"+this.i18n.LOADING+"</div>"+
+		"<"+"/script>"+
+		"<"+"img id=\"img_tag\" class=\"embedded\" src=\""+text+"\" alt=\""+this.xhtml_encode(img_name)+"\" />"+
+		"\n\n<"+"div id=\"img_desc\">"+this.i18n.LOADING+"<"+"/div>"+
 		"\nSimple transclusion:\n\n{{{[[Include::"+cr+"]]}}}\n\nTransclusion with additional attributes:\n\n{{{[[Include::"+cr+"|border=\"0\" onclick=\"go_to('"+
 		this.js_encode(cr)+"')\" style=\"cursor:pointer\"]]}}}\n"+
-		"\n<a href=\"javascript:query_delete_image('"+this.js_encode(cr)+"')\">"+this.i18n.DELETE_IMAGE+"</a>\n"+
-		"\n<a href=\"javascript:query_export_image('"+this.js_encode(cr)+"')\">"+this.i18n.EXPORT_IMAGE+"</a>\n");
+		"\n<"+"a href=\"javascript:query_delete_image('"+this.js_encode(cr)+"')\">"+this.i18n.DELETE_IMAGE+"<"+"/a>\n"+
+		"\n<"+"a href=\"javascript:query_export_image('"+this.js_encode(cr)+"')\">"+this.i18n.EXPORT_IMAGE+"<"+"/a>\n");
 	}
 	return xhtml;
 };
@@ -758,7 +758,7 @@ woas.set_current = function (cr, interactive) {
 								if (this.plugins.is_external) {
 									text = this.plugins.describe_external(text);
 								} else
-									text = "<div class=\"woas_nowiki_multiline woas_core_page\">"+text+"</div>";
+									text = "<"+"div class=\"woas_nowiki_multiline woas_core_page\">"+text+"<"+"/div>";
 							}
 						} else {
 							text = this.get_text(real_t);
@@ -773,7 +773,7 @@ woas.set_current = function (cr, interactive) {
 									case "CSS::Boot":
 									case "CSS::Custom":
 										// page is stored plaintext
-										text = "<div class=\"woas_nowiki_multiline woas_core_page\">"+text+"</div>";
+										text = "<"+"div class=\"woas_nowiki_multiline woas_core_page\">"+text+"<"+"/div>";
 									break;
 									default:
 										// help pages and related resources
@@ -1021,7 +1021,7 @@ woas._on_load = function() {
 	// this will cause the alternate text to display on IE6/IE7
 	var nav_bar = ["back", "forward", "home", "edit", "print", "advanced",
 					"cancel", "save", "lock", "unlock", "setkey", "help"];
-	for(var i=0,it=nav_bar.length;i<it;++i) {
+	for(var i=0,it=nav_bar.length;i < it;++i) {
 		this.img_display(nav_bar[i], true);
 	}
 	
@@ -1266,7 +1266,7 @@ woas.rename_page = function(previous, newpage) {
 	page_titles[pi] = newpage;
 	var re = new RegExp("\\[\\[" + RegExp.escape(previous) + "(\\]\\]|\\|)", "gi");
 	var changed;
-	for(var i=0,l=pages.length;i<l;i++) {
+	for(var i=0,l=pages.length;i < l;i++) {
 		//FIXME: should not replace within the nowiki blocks!
 		var tmp = this.get_page(i);
 		if (tmp==null)
@@ -1514,14 +1514,14 @@ woas.create_breadcrumb = function(title) {
 	if (tmp.length==1)
 		return title;
 	var s="", partial="", js="";
-	for(var i=0;i<tmp.length-1;i++) {
+	for(var i=0;i < tmp.length-1;i++) {
 		// editing is active
 		if (this.ui.edit_mode)
 			s+= tmp[i]+" :: ";
 		else {
 			partial += tmp[i]+"::";
 			js = "go_to('"+this.js_encode(partial)+"')";
-			s += "<a title=\""+this.xhtml_encode(tmp[i])+"\" href=\"javascript:"+js+"\" onclick=\""+js+"; return false;\">"+tmp[i]+"</a> :: ";
+			s += "<"+"a title=\""+this.xhtml_encode(tmp[i])+"\" href=\"javascript:"+js+"\" onclick=\""+js+"; return false;\">"+tmp[i]+"<"+"/a> :: ";
 		}
 	}
 	// add page title

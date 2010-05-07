@@ -253,7 +253,7 @@ woas.import_wiki = function() {
 	// **** COMMON IMPORT CODE ****
 	if (import_content) {
 		// add new data
-		for (i=0, il=page_names.length; i<il; i++) {
+		for (i=0, il=page_names.length; i < il; i++) {
 			// we are not using is_reserved() because will be inconsistant in case of enabled edit_override
 			// check pages in WoaS:: namespace
 			if (page_names[i].substr(0,6) === "WoaS::") {
@@ -273,7 +273,7 @@ woas.import_wiki = function() {
 				if (old_version < 120) {
 					if (page_names[i] === "WoaS::Bootscript") {
 						// convert old base64 bootscript to plain text
-						if (old_version<107)
+						if (old_version < 107)
 							bootscript_code = decode64(page_contents[i]);
 						else
 							bootscript_code = page_contents[i];
@@ -407,10 +407,10 @@ woas.import_wiki = function() {
 		this._load_hotkeys(this.get_text("WoaS::Hotkeys"));
 	
 	// add/update plugins
-	for(var i=0,it=plugins_update.length;i<it;++i) {
+	for(var i=0,it=plugins_update.length;i < it;++i) {
 		this.plugins.update(plugins_update[i]);
 	}
-	for(var i=0,it=plugins_add.length;i<it;++i) {
+	for(var i=0,it=plugins_add.length;i < it;++i) {
 		this.plugins.enable(plugins_add[i]);
 	}
 	
@@ -482,7 +482,7 @@ function _import_wsif_pre_hook(NP) {
 	var snippets = [];
 	// put away text in nowiki blocks
 	var page = NP.page.replace(reNowiki, function (str, $1) {
-		var r = "<!-- "+parse_marker+"::"+snippets.length+" -->";
+		var r = "<"+"!-- "+parse_marker+"::"+snippets.length+" --"+">";
 		snippets.push($1);
 		return r;
 	});
