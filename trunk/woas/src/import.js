@@ -92,10 +92,16 @@ woas.import_wiki = function() {
 	// set hourglass
 	this.progress_init("Import WoaS");
 	
-	var fail=false;
 	var sys_pages=0,
+		fail=false,
 		page_names = [],
-		pages_imported = 0;
+		pages_imported = 0,
+		bootscript_code = "",	// collected bootscript code
+		update_aliases = false,
+		update_hotkeys = false,
+		plugins_update = [],
+		plugins_add = [],
+		css_was_imported = false;
 
 	do { // a fake do...while to ease failure return
 	// file will be loaded as ASCII to overcome browsers' limitations
@@ -111,14 +117,13 @@ woas.import_wiki = function() {
 	}
 	
 	var import_css = $('cb_import_css').checked,
-		import_content = $('cb_import_content').checked,
-		css_was_imported = false;
+		import_content = $('cb_import_content').checked;
 	
 	// get WoaS version
 	var old_version,
 		ver_str = ct.match(/var woas = \{"version":\s+"([^"]+)"\s*\};(\r\n|\n)/);
 	if (!ver_str || !ver_str.length) {
-		this.alert("Could not determine WoaS version");
+		this.alert("Could not determine WoaS version\n"+this.i18n.IMPORT_OLD_VER);
 		fail = true;
 		break;
 	}
@@ -142,7 +147,7 @@ woas.import_wiki = function() {
 		old_version = Number(ver_str.substr(2).replace(/\./g, ""));
 			break;
 		default:
-			this.alert(this.i18n.IMPORT_INCOMPAT.sprintf(ver_str));
+			this.alert(this.i18n.IMPORT_INCOMPAT.sprintf(ver_str)+this.i18n.IMPORT_OLD_VER);
 			fail=true;
 	}
 	if (fail) break;
@@ -231,7 +236,6 @@ woas.import_wiki = function() {
 		}
 		// check for any undefined config property - for safety
 		for(p in woas.config) {
-			woas.log(p+": "+(typeof woas.config[p]));
 			if ((typeof woas.config[p] == "undefined") && (typeof old_cfg[p] != "undefined"))
 				woas.config[p] = old_cfg[p];
 		}
@@ -242,14 +246,8 @@ woas.import_wiki = function() {
 	data = null;
 
 	// modified timestamp for pages before 0.10.0
-	var current_mts = Math.round(new Date().getTime()/1000),
-		// collected bootscript code
-		bootscript_code = "",
-		update_aliases = false,
-		update_hotkeys = false,
-		plugins_update = [],
-		plugins_add = [];
-
+	var current_mts = Math.round(new Date().getTime()/1000);
+	
 	// **** COMMON IMPORT CODE ****
 	if (import_content) {
 		// add new data
@@ -437,7 +435,7 @@ woas.import_wiki = function() {
 	// return false on failure
 	if (fail)
 		return false;
-	
+
 	// inform about the imported pages / total pages present in file
 	this.alert(this.i18n.IMPORT_OK.sprintf(pages_imported+"/"+(page_names.length-sys_pages).toString(), sys_pages));
 	
