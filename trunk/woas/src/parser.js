@@ -209,8 +209,9 @@ woas._make_preformatted = function(text, add_style) {
 	}
 	var xhtml = this.xhtml_encode(text);
 	// convert the newlines
-	if (this.browser.ie)
-		xhtml = xhtml.replace(/\n/g, "\r\n");
+//	if (this.browser.ie)		xhtml = xhtml.replace(/\n/g, "\r\n");
+	// to ease copy/pasting
+	xhtml = xhtml.replace(/\n/g, "<"+"br />");
 	if (typeof add_style != "undefined")
 		add_style = " style=\""+add_style+"\"";
 	else add_style = "";
