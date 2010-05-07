@@ -87,7 +87,7 @@ this.carretHandler.scroll=this.scrollTop;
 }
 
 function DivTagThis(align) {
-	TagThis('<div align="'+align+'">', '</div>');
+	TagThis('<'+'div align="'+align+'">', '<'+'/div>');
 }
 
 function TagThis(starttag, endtag){
@@ -95,7 +95,7 @@ function TagThis(starttag, endtag){
 }
 
 function FullTagThis(tag){
-	woas._editor.setSelectedText('<'+tag+'>','</'+tag+'>');
+	woas._editor.setSelectedText('<'+tag+'>','<'+'/'+tag+'>');
 }
 
 function setUrl(starttag,centertag,endtag) {
@@ -131,7 +131,7 @@ function setWikiIUrl() {
 }
 
 function setHTMLUrl() {
-	setUrl('<a href=\'','\' target=_blank>','</a>');
+	setUrl('<'+a href=\'','\' target=_blank>','<'+'/a>');
 }
 
 function setImage(starttag,endtag) {
