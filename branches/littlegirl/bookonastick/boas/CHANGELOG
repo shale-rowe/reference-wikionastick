@@ -1088,3 +1088,10 @@
 * Updated the [[Wiki::Help::Footnotes]] page.
 * Updated the [[Wiki::Help::Requirements]] page.
 ======================================================================================================================
+* Added the [[Wiki::Help::Presentation]] page.
+* Added the [[Wiki::Template::Presentation]] page.
+* Added CSS rules for presentations to the [[WoaS::CSS::Core]] page.
+* Removed the [[Wiki::Example::Bluebox]] page.
+* Removed the [[Wiki::Help::Bluebox]] page.
+* Updated the [[Wiki::Help::Publish wiki online]] page.
+======================================================================================================================
