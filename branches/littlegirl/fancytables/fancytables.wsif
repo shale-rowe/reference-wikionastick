@@ -6,315 +6,806 @@ woas.pages: 1
 
 woas.page.title: Tables::Fancy
 woas.page.attributes: 0
-woas.page.last_modified: 1272575036
-woas.page.length: 32528
+woas.page.last_modified: 1273346632
+woas.page.length: 24566
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 [[Special::TOC]]
+= Fancy tables
+Styling, formatting, and alignment can be used to control the look and behavior of tables. All example tables on this page use table comment lines ( {{{|-}}} ) to make it easier to see what is involved in creating the tables. These lines are not necessary when creating your tables.
 
-= Tables::Fancy
-This is new table syntax in WoaS 0.12.0 development version.
-
-[[Include::WoaS::Template::Info|The examples on this page use the *shadesofblue* class. The CSS rules for are embedded at the bottom of the page inside HTML &lt;style&gt; tags. To see the CSS used in the examples, edit this page. Replace *shadesofblue* with the name of your custom CSS class when using the examples in your pages.]]
+== Add some custom CSS rules to the wiki
+To create a custom table defined by [[WoaS::Help::CSS|CSS]], add some table rules to the wiki CSS using a class name of your choosing.
+* <div class="woas_help_text">Use these CSS rules in your wiki, replacing CLASS_NAME with the class name you'd like to use, and CSS_RULES with the rules you'd like to define for the table, the caption, the headers, the cells, and a [[#Styling table cells|special cell]]:</div><br>{{{
+table.CLASS_NAME {CSS_RULES}
+caption.CLASS_NAME {CSS_RULES}
+table.CLASS_NAME th {CSS_RULES}
+table.CLASS_NAME td {CSS_RULES}
+table.CLASS_NAME td.special {CSS_RULES}
+}}}<br>See the [[#The CSS rules used for the example tables|custom CSS rules]] used by the examples on this page.
 
 == Assign a class to a table
-The table opening tag ( {{{{|}}} ) has been enhanced. Now everything you put behind it will go into the {{{<table>}}} header. To create a custom table, add some table rules to the wiki CSS using a class name of your choosing.
+When custom CSS rules have been added to the wiki, you can replace the default {{{{|}}} table opening line with a custom one to assign the custom class to the table.
 
-* <div class="woas_help_text">Use these CSS rules in your wiki, replacing CLASS_NAME with the class name you'd like to use, and CSS_RULES with the rules you'd like to define for the table, the caption, the headers, the cells, and a special cell (see [[#Styling table cells]] below for how to use special cells):</div><pre>&#116;&#97;&#98;&#108;&#101;&#46;&#67;&#76;&#65;&#83;&#83;&#95;&#78;&#65;&#77;&#69;&#32;&#123;&#67;&#83;&#83;&#95;&#82;&#85;&#76;&#69;&#83;&#125;<br>&#99;&#97;&#112;&#116;&#105;&#111;&#110;&#46;&#67;&#76;&#65;&#83;&#83;&#95;&#78;&#65;&#77;&#69;&#32;&#123;&#67;&#83;&#83;&#95;&#82;&#85;&#76;&#69;&#83;&#125;<br>&#116;&#97;&#98;&#108;&#101;&#46;&#67;&#76;&#65;&#83;&#83;&#95;&#78;&#65;&#77;&#69;&#32;&#116;&#104;&#32;&#123;&#67;&#83;&#83;&#95;&#82;&#85;&#76;&#69;&#83;&#125;<br>&#116;&#97;&#98;&#108;&#101;&#46;&#67;&#76;&#65;&#83;&#83;&#95;&#78;&#65;&#77;&#69;&#32;&#116;&#100;&#32;&#123;&#67;&#83;&#83;&#95;&#82;&#85;&#76;&#69;&#83;&#125;<br>&#116;&#97;&#98;&#108;&#101;&#46;&#67;&#76;&#65;&#83;&#83;&#95;&#78;&#65;&#77;&#69;&#32;&#116;&#100;&#46;&#115;&#112;&#101;&#99;&#105;&#97;&#108;&#32;&#123;&#67;&#83;&#83;&#95;&#82;&#85;&#76;&#69;&#83;&#125;</pre>
+<div class="woas_help_text">Open a table with this line of code:</div><br>{{{
+| class="CLASS_NAME"
+}}}<br><div class="woas_help_text">To use a custom class for the table.</div>
 
-Once the CSS rules have been added to the wiki, insert {{{{| class="CLASS_NAME"}}} into your table, replacing CLASS_NAME with the class name you chose, and it will use the CSS rules you added for that class.
-
-<table width="100%"><tr><th align="center" bgcolor="#F5F5F5" width="50%" style="border:1px solid black;">DEFAULT TABLE</th><th align="center" bgcolor="#F5F5F5" width="50%" style="border:1px solid black;">FANCY TABLE</th></tr><tr><td align="center">
+<table width="100%"><tr><td width="50%"><div class="woas_help_text">Example default table:</div></td><td width="50%"><div class="woas_help_text">Use this code to create the table:</div></td></tr><tr><td valign="top">
 {|
-|+ Table Caption
-| *Header 1* || *Header 2* || *Header 3*
 |-
 | cell 1 || cell 2 || cell 3
 |-
-| cell 1 || || cell 3
-|} 
-</td><td align="center">
-{| class="shadesofblue"
-|+ Table Caption
-| =Header 1 || =Header 2 || =Header 3
+| cell 1 || cell 2 || cell 3
 |-
 | cell 1 || cell 2 || cell 3
 |-
-| cell 1 || || cell 3
 |} 
-</td></tr><tr><td>
-<div class="woas_help_text">Use this code to create the table:</div><pre>&#123;&#124;<br>&#124;&#43;&#32;&#84;&#97;&#98;&#108;&#101;&#32;&#67;&#97;&#112;&#116;&#105;&#111;&#110;<br>&#124;&#32;&#42;&#72;&#101;&#97;&#100;&#101;&#114;&#32;&#49;&#42;&#32;&#124;&#124;&#32;&#42;&#72;&#101;&#97;&#100;&#101;&#114;&#32;&#50;&#42;&#32;&#124;&#124;&#32;&#42;&#72;&#101;&#97;&#100;&#101;&#114;&#32;&#51;&#42;<br>&#124;&#45;<br>&#124;&#32;&#99;&#101;&#108;&#108;&#32;&#49;&#32;&#124;&#124;&#32;&#99;&#101;&#108;&#108;&#32;&#50;&#32;&#124;&#124;&#32;&#99;&#101;&#108;&#108;&#32;&#51;<br>&#124;&#45;<br>&#124;&#32;&#99;&#101;&#108;&#108;&#32;&#49;&#32;&#124;&#124;&#32;&#124;&#124;&#32;&#99;&#101;&#108;&#108;&#32;&#51;<br>&#124;&#125;</pre><div style="background-color:#FFFFAA; border: 0.1em solid black; padding:0.3em;">Note that the headers are created by using [[WoaS::Help::Text formatting|bold text formatting]].</div>
-</td><td>
-<div class="woas_help_text">Use this code to create the table:</div><pre>&#123;&#124;&#32;&#99;&#108;&#97;&#115;&#115;&#61;&#34;&#115;&#104;&#97;&#100;&#101;&#115;&#111;&#102;&#98;&#108;&#117;&#101;&#34;<br>&#124;&#43;&#32;&#84;&#97;&#98;&#108;&#101;&#32;&#67;&#97;&#112;&#116;&#105;&#111;&#110;<br>&#124;&#32;&#61;&#72;&#101;&#97;&#100;&#101;&#114;&#32;&#49;&#32;&#124;&#124;&#32;&#61;&#72;&#101;&#97;&#100;&#101;&#114;&#32;&#50;&#32;&#124;&#124;&#32;&#61;&#72;&#101;&#97;&#100;&#101;&#114;&#32;&#51;<br>&#124;&#45;<br>&#124;&#32;&#99;&#101;&#108;&#108;&#32;&#49;&#32;&#124;&#124;&#32;&#99;&#101;&#108;&#108;&#32;&#50;&#32;&#124;&#124;&#32;&#99;&#101;&#108;&#108;&#32;&#51;<br>&#124;&#45;<br>&#124;&#32;&#99;&#101;&#108;&#108;&#32;&#49;&#32;&#124;&#124;&#32;&#124;&#124;&#32;&#99;&#101;&#108;&#108;&#32;&#51;<br>&#124;&#125;&#32;</pre><div style="background-color:#FFFFAA; border: 0.1em solid black; padding:0.3em;">Note that the headers are created by using the [[#Headers]] method.</div>
+</td><td valign="top">
+{{{
+{|
+|-
+| cell 1 || cell 2 || cell 3
+|-
+| cell 1 || cell 2 || cell 3
+|-
+| cell 1 || cell 2 || cell 3
+|-
+|} 
+}}}
+</td></tr>
+<tr><td width="50%"><div class="woas_help_text">Example custom table:</div></td><td width="50%"><div class="woas_help_text">Use this code to create the table:</div></td></tr><tr><td valign="top">
+{| class="mycustomtable"
+|-
+| cell 1 || cell 2 || cell 3
+|-
+| cell 1 || cell 2 || cell 3
+|-
+| cell 1 || cell 2 || cell 3
+|-
+|} 
+</td><td valign="top">
+{{{
+{| class="mycustomtable"
+|-
+| cell 1 || cell 2 || cell 3
+|-
+| cell 1 || cell 2 || cell 3
+|-
+| cell 1 || cell 2 || cell 3
+|-
+|} 
+}}}
 </td></tr></table>
 
 == Alignment
-Alignment can be controlled by surrounding the cell contents with extra spaces or tabs:
+Tables are aligned to the left by default, but alignment can be controlled by surrounding the cell contents with extra spaces or tabs. Forcing content to the left is not necessary, but it may help to use forced alignment for debugging complex tables.
 
 {|
 | *Alignment* || *Example result* || *Effect*
-| {space}text{space} || text || default (thus aligned to the left)
+| {space}text{space} || text || default
 | {space}text{space}{space} || text  || text is aligned to the left
 | {space}{space}text{space} ||  text || text is aligned to the right
 | {space}{space}text{space}{space} ||  text  || text is centered
 |}
 
 == Captions
-CSS styling for the caption has been moved to CSS, and placement of the caption now determines whether it's above or below the table.
+Placement of the caption determines whether it's above or below the table.
 
-<table width="100%"><tr><th align="center" bgcolor="#F5F5F5" width="50%" style="border:1px solid black;">DEFAULT TABLE</th><th align="center" bgcolor="#F5F5F5" width="50%" style="border:1px solid black;">FANCY TABLE</th></tr><tr><td align="center">
+<div class="woas_help_text">Use this code in a table, replacing CAPTION with the caption of the table:</div><br>{{{
+|+ CAPTION
+}}}<br><div class="woas_help_text">To add a caption to a table.</div>
+
+<table width="100%"><tr><td width="50%"><div class="woas_help_text">Example default table:</div></td><td width="50%"><div class="woas_help_text">Use this code to create the table:</div></td></tr><tr><td valign="top">
 {|
+|-
 |+ caption above
-| *Header 1* || *Header 2* || *Header 3*
+|-
 | cell 1 || cell 2 || cell 3
-|}
-</td><td align="center">
-{| class="shadesofblue"
-|+ caption above
-| =Header 1 || =Header 2 || =Header 3
+|-
 | cell 1 || cell 2 || cell 3
+|-
+| cell 1 || cell 2 || cell 3
+|-
 |}
-</td></tr><tr><td>
-<div class="woas_help_text">Use this code to create the table:</div><pre>&#123;&#124;<br>&#124;&#43;&#32;&#99;&#97;&#112;&#116;&#105;&#111;&#110;&#32;&#97;&#98;&#111;&#118;&#101;<br>&#124;&#32;&#42;&#72;&#101;&#97;&#100;&#101;&#114;&#32;&#49;&#42;&#32;&#124;&#124;&#32;&#42;&#72;&#101;&#97;&#100;&#101;&#114;&#32;&#50;&#42;&#32;&#124;&#124;&#32;&#42;&#72;&#101;&#97;&#100;&#101;&#114;&#32;&#51;&#42;<br>&#124;&#32;&#99;&#101;&#108;&#108;&#32;&#49;&#32;&#124;&#124;&#32;&#99;&#101;&#108;&#108;&#32;&#50;&#32;&#124;&#124;&#32;&#99;&#101;&#108;&#108;&#32;&#51;<br>&#124;&#125;</pre>
-</td><td>
-<div class="woas_help_text">Use this code to create the table:</div><pre>&#123;&#124;&#32;&#99;&#108;&#97;&#115;&#115;&#61;&#34;&#115;&#104;&#97;&#100;&#101;&#115;&#111;&#102;&#98;&#108;&#117;&#101;&#34;<br>&#124;&#43;&#32;&#99;&#97;&#112;&#116;&#105;&#111;&#110;&#32;&#97;&#98;&#111;&#118;&#101;<br>&#124;&#32;&#61;&#72;&#101;&#97;&#100;&#101;&#114;&#32;&#49;&#32;&#124;&#124;&#32;&#61;&#72;&#101;&#97;&#100;&#101;&#114;&#32;&#50;&#32;&#124;&#124;&#32;&#61;&#72;&#101;&#97;&#100;&#101;&#114;&#32;&#51;<br>&#124;&#32;&#99;&#101;&#108;&#108;&#32;&#49;&#32;&#124;&#124;&#32;&#99;&#101;&#108;&#108;&#32;&#50;&#32;&#124;&#124;&#32;&#99;&#101;&#108;&#108;&#32;&#51;<br>&#124;&#125;</pre>
-</td></tr><td align="center">
+</td><td valign="top">
+{{{
 {|
-| *Header 1* || *Header 2* || *Header 3*
+|-
+|+ caption above
+|-
 | cell 1 || cell 2 || cell 3
-|+ caption below
-|}
-</td><td align="center">
-{| class="shadesofblue"
-| =Header 1 || =Header 2 || =Header 3
+|-
 | cell 1 || cell 2 || cell 3
-|+ caption below
+|-
+| cell 1 || cell 2 || cell 3
+|-
 |}
-</td></tr><tr><td>
-<div class="woas_help_text">Use this code to create the table:</div><pre>&#123;&#124;<br>&#124;&#32;&#42;&#72;&#101;&#97;&#100;&#101;&#114;&#32;&#49;&#42;&#32;&#124;&#124;&#32;&#42;&#72;&#101;&#97;&#100;&#101;&#114;&#32;&#50;&#42;&#32;&#124;&#124;&#32;&#42;&#72;&#101;&#97;&#100;&#101;&#114;&#32;&#51;&#42;<br>&#124;&#32;&#99;&#101;&#108;&#108;&#32;&#49;&#32;&#124;&#124;&#32;&#99;&#101;&#108;&#108;&#32;&#50;&#32;&#124;&#124;&#32;&#99;&#101;&#108;&#108;&#32;&#51;<br>&#124;&#43;&#32;&#99;&#97;&#112;&#116;&#105;&#111;&#110;&#32;&#98;&#101;&#108;&#111;&#119;<br>&#124;&#125;</pre><div style="background-color:#FFFFAA; border: 0.1em solid black; padding:0.3em;">Note that the headers are created by using [[WoaS::Help::Text formatting|bold text formatting]].</div>
-</td><td>
-<div class="woas_help_text">Use this code to create the table:</div><pre>&#123;&#124;&#32;&#99;&#108;&#97;&#115;&#115;&#61;&#34;&#115;&#104;&#97;&#100;&#101;&#115;&#111;&#102;&#98;&#108;&#117;&#101;&#34;<br>&#124;&#32;&#61;&#72;&#101;&#97;&#100;&#101;&#114;&#32;&#49;&#32;&#124;&#124;&#32;&#61;&#72;&#101;&#97;&#100;&#101;&#114;&#32;&#50;&#32;&#124;&#124;&#32;&#61;&#72;&#101;&#97;&#100;&#101;&#114;&#32;&#51;<br>&#124;&#32;&#99;&#101;&#108;&#108;&#32;&#49;&#32;&#124;&#124;&#32;&#99;&#101;&#108;&#108;&#32;&#50;&#32;&#124;&#124;&#32;&#99;&#101;&#108;&#108;&#32;&#51;<br>&#124;&#43;&#32;&#99;&#97;&#112;&#116;&#105;&#111;&#110;&#32;&#98;&#101;&#108;&#111;&#119;<br>&#124;&#125;</pre><div style="background-color:#FFFFAA; border: 0.1em solid black; padding:0.3em;">Note that headers are created by using the [[#Headers]] method.</div>
+}}}
+</td></tr>
+<tr><td width="50%"><div class="woas_help_text">Example custom table:</div></td><td width="50%"><div class="woas_help_text">Use this code to create the table:</div></td></tr><tr><td valign="top">
+{| class="mycustomtable"
+|-
+|+ caption above
+|-
+| cell 1 || cell 2 || cell 3
+|-
+| cell 1 || cell 2 || cell 3
+|-
+| cell 1 || cell 2 || cell 3
+|-
+|}
+</td><td valign="top">
+{{{
+{| class="mycustomtable"
+|-
+|+ caption above
+|-
+| cell 1 || cell 2 || cell 3
+|-
+| cell 1 || cell 2 || cell 3
+|-
+| cell 1 || cell 2 || cell 3
+|-
+|}
+}}}
+</td></tr>
+<tr><td width="50%"><div class="woas_help_text">Example default table:</div></td><td width="50%"><div class="woas_help_text">Use this code to create the table:</div></td></tr><tr><td valign="top">
+{|
+|-
+| cell 1 || cell 2 || cell 3
+|-
+| cell 1 || cell 2 || cell 3
+|-
+| cell 1 || cell 2 || cell 3
+|-
+|+ caption below
+|-
+|}
+</td><td valign="top">
+{{{
+{|
+|-
+| cell 1 || cell 2 || cell 3
+|-
+| cell 1 || cell 2 || cell 3
+|-
+| cell 1 || cell 2 || cell 3
+|-
+|+ caption below
+|-
+|}
+}}}
+</td></tr>
+<tr><td width="50%"><div class="woas_help_text">Example custom table:</div></td><td width="50%"><div class="woas_help_text">Use this code to create the table:</div></td></tr><tr><td valign="top">
+{| class="mycustomtable"
+|-
+| cell 1 || cell 2 || cell 3
+|-
+| cell 1 || cell 2 || cell 3
+|-
+| cell 1 || cell 2 || cell 3
+|-
+|+ caption below
+|-
+|}
+</td><td valign="top">
+{{{
+{| class="mycustomtable"
+|-
+| cell 1 || cell 2 || cell 3
+|-
+| cell 1 || cell 2 || cell 3
+|-
+| cell 1 || cell 2 || cell 3
+|-
+|+ caption below
+|-
+|}
+}}}
 </td></tr></table>
 
-== Column spans
-<font color="red">*ToDo: Write the introductory text for these.*</font>
+== Empty cells
+Empty cells can be created by inserting just one space after a pipe in your table.
 
-<table width="100%"><tr><th align="center" bgcolor="#F5F5F5" width="50%" style="border:1px solid black;">DEFAULT TABLE</th><th align="center" bgcolor="#F5F5F5" width="50%" style="border:1px solid black;">FANCY TABLE</th></tr><tr><td align="center">
+<table width="100%"><tr><td width="40%"><div class="woas_help_text">Example plain table:</div></td><td width="60%"><div class="woas_help_text">Use this code to create the table:</div></td></tr><tr><td valign="top">
 {|
-| *Header* || cell 2 || cell 3
-| *Header* || span last 2 columns ||
-||| span just last 2 columns ||
-| span all columns ||||
+|-
+| || cell 2 || cell 3
+|-
+| cell 1 || || cell 3
+|-
+| cell 1 || cell 2 || 
+|-
 |}
-</td><td align="center">
-{| class="shadesofblue"
-| =Header || cell 2 || cell 3
-| =Header || span last 2 columns ||
-||| span just last 2 columns ||
-| span all columns ||||
-|}
-</td></tr><tr><td>
-<div class="woas_help_text">Use this code to create the table:</div><pre>&#123;&#124;<br>&#124;&#32;&#42;&#72;&#101;&#97;&#100;&#101;&#114;&#42;&#32;&#124;&#124;&#32;&#99;&#101;&#108;&#108;&#32;&#50;&#32;&#124;&#124;&#32;&#99;&#101;&#108;&#108;&#32;&#51;<br>&#124;&#32;&#42;&#72;&#101;&#97;&#100;&#101;&#114;&#42;&#32;&#124;&#124;&#32;&#115;&#112;&#97;&#110;&#32;&#108;&#97;&#115;&#116;&#32;&#50;&#32;&#99;&#111;&#108;&#117;&#109;&#110;&#115;&#32;&#124;&#124;<br>&#124;&#124;&#124;&#32;&#115;&#112;&#97;&#110;&#32;&#106;&#117;&#115;&#116;&#32;&#108;&#97;&#115;&#116;&#32;&#50;&#32;&#99;&#111;&#108;&#117;&#109;&#110;&#115;&#32;&#124;&#124;<br>&#124;&#32;&#115;&#112;&#97;&#110;&#32;&#97;&#108;&#108;&#32;&#99;&#111;&#108;&#117;&#109;&#110;&#115;&#32;&#124;&#124;&#124;&#124;<br>&#124;&#125;</pre>
-</td><td>
-<div class="woas_help_text">Use this code to create the table:</div><pre>&#123;&#124;&#32;&#99;&#108;&#97;&#115;&#115;&#61;&#34;&#115;&#104;&#97;&#100;&#101;&#115;&#111;&#102;&#98;&#108;&#117;&#101;&#34;<br>&#124;&#32;&#61;&#72;&#101;&#97;&#100;&#101;&#114;&#32;&#124;&#124;&#32;&#99;&#101;&#108;&#108;&#32;&#50;&#32;&#124;&#124;&#32;&#99;&#101;&#108;&#108;&#32;&#51;<br>&#124;&#32;&#61;&#72;&#101;&#97;&#100;&#101;&#114;&#32;&#124;&#124;&#32;&#115;&#112;&#97;&#110;&#32;&#108;&#97;&#115;&#116;&#32;&#50;&#32;&#99;&#111;&#108;&#117;&#109;&#110;&#115;&#32;&#124;&#124;<br>&#124;&#124;&#124;&#32;&#115;&#112;&#97;&#110;&#32;&#106;&#117;&#115;&#116;&#32;&#108;&#97;&#115;&#116;&#32;&#50;&#32;&#99;&#111;&#108;&#117;&#109;&#110;&#115;&#32;&#124;&#124;<br>&#124;&#32;&#115;&#112;&#97;&#110;&#32;&#97;&#108;&#108;&#32;&#99;&#111;&#108;&#117;&#109;&#110;&#115;&#32;&#124;&#124;&#124;&#124;<br>&#124;&#125;</pre>
-</td></tr><tr><td align="center">
+</td><td valign="top">
+{{{
 {|
-| *Header 1* || *Header 2* || *Header 3*
-| cell 1 || cell 2 || cell 3
-| cell 1 || span last 2 columns ||
-||| span just last 2 columns ||
-| span all columns ||||
+|-
+| || cell 2 || cell 3
+|-
+| cell 1 || || cell 3
+|-
+| cell 1 || cell 2 || 
+|-
 |}
-</td><td align="center">
-{| class="shadesofblue"
-| =Header 1 || =Header 2 || =Header 3
-| cell 1 || cell 2 || cell 3
-| cell 1 || span last 2 columns ||
-||| span just last 2 columns ||
-| span all columns ||||
+}}}
+</td></tr>
+<tr><td width="40%"><div class="woas_help_text">Example fancy table:</div></td><td width="60%"><div class="woas_help_text">Use this code to create the table:</div></td></tr><tr><td valign="top">
+{| class="mycustomtable"
+|-
+| || cell 2 || cell 3
+|-
+| cell 1 || || cell 3
+|-
+| cell 1 || cell 2 || 
+|-
 |}
-</td></tr><tr><td>
-<div class="woas_help_text">Use this code to create the table:</div><pre>&#123;&#124;<br>&#124;&#32;&#42;&#72;&#101;&#97;&#100;&#101;&#114;&#32;&#49;&#42;&#32;&#124;&#124;&#32;&#42;&#72;&#101;&#97;&#100;&#101;&#114;&#32;&#50;&#42;&#32;&#124;&#124;&#32;&#42;&#72;&#101;&#97;&#100;&#101;&#114;&#32;&#51;&#42;<br>&#124;&#32;&#99;&#101;&#108;&#108;&#32;&#49;&#32;&#124;&#124;&#32;&#99;&#101;&#108;&#108;&#32;&#50;&#32;&#124;&#124;&#32;&#99;&#101;&#108;&#108;&#32;&#51;<br>&#124;&#32;&#99;&#101;&#108;&#108;&#32;&#49;&#32;&#124;&#124;&#32;&#115;&#112;&#97;&#110;&#32;&#108;&#97;&#115;&#116;&#32;&#50;&#32;&#99;&#111;&#108;&#117;&#109;&#110;&#115;&#32;&#124;&#124;<br>&#124;&#124;&#124;&#32;&#115;&#112;&#97;&#110;&#32;&#106;&#117;&#115;&#116;&#32;&#108;&#97;&#115;&#116;&#32;&#50;&#32;&#99;&#111;&#108;&#117;&#109;&#110;&#115;&#32;&#124;&#124;<br>&#124;&#32;&#115;&#112;&#97;&#110;&#32;&#97;&#108;&#108;&#32;&#99;&#111;&#108;&#117;&#109;&#110;&#115;&#32;&#124;&#124;&#124;&#124;<br>&#124;&#125;</pre>
-</td><td>
-<div class="woas_help_text">Use this code to create the table:</div><pre>&#123;&#124;&#32;&#99;&#108;&#97;&#115;&#115;&#61;&#34;&#115;&#104;&#97;&#100;&#101;&#115;&#111;&#102;&#98;&#108;&#117;&#101;&#34;<br>&#124;&#32;&#61;&#72;&#101;&#97;&#100;&#101;&#114;&#32;&#49;&#32;&#124;&#124;&#32;&#61;&#72;&#101;&#97;&#100;&#101;&#114;&#32;&#50;&#32;&#124;&#124;&#32;&#61;&#72;&#101;&#97;&#100;&#101;&#114;&#32;&#51;<br>&#124;&#32;&#99;&#101;&#108;&#108;&#32;&#49;&#32;&#124;&#124;&#32;&#99;&#101;&#108;&#108;&#32;&#50;&#32;&#124;&#124;&#32;&#99;&#101;&#108;&#108;&#32;&#51;<br>&#124;&#32;&#99;&#101;&#108;&#108;&#32;&#49;&#32;&#124;&#124;&#32;&#115;&#112;&#97;&#110;&#32;&#108;&#97;&#115;&#116;&#32;&#50;&#32;&#99;&#111;&#108;&#117;&#109;&#110;&#115;&#32;&#124;&#124;<br>&#124;&#124;&#124;&#32;&#115;&#112;&#97;&#110;&#32;&#106;&#117;&#115;&#116;&#32;&#108;&#97;&#115;&#116;&#32;&#50;&#32;&#99;&#111;&#108;&#117;&#109;&#110;&#115;&#32;&#124;&#124;<br>&#124;&#32;&#115;&#112;&#97;&#110;&#32;&#97;&#108;&#108;&#32;&#99;&#111;&#108;&#117;&#109;&#110;&#115;&#32;&#124;&#124;&#124;&#124;<br>&#124;&#125;</pre>
+</td><td valign="top">
+{{{
+{| class="mycustomtable"
+|-
+| || cell 2 || cell 3
+|-
+| cell 1 || || cell 3
+|-
+| cell 1 || cell 2 || 
+|-
+|}
+}}}
 </td></tr></table>
 
 == Headers
-Use a single = before the cell content to change the {{{<td>}}} into {{{<th>}}}, which can be styled differently through CSS.
+In default tables, table header cells ({{{<th>}}}) are created by surrounding the cell content in asterisks. In custom tables, use a single {{{=}}} symbol before the cell content to change the table data cell ({{{<td>}}}) into a table header cell {{{<th>}}}, which can be styled differently through CSS.
 
-<table width="100%"><tr><th align="center" bgcolor="#F5F5F5" width="50%" style="border:1px solid black;">DEFAULT TABLE</th><th align="center" bgcolor="#F5F5F5" width="50%" style="border:1px solid black;">FANCY TABLE</th></tr><tr><td align="center">
+<table width="100%"><tr><td width="40%"><div class="woas_help_text">Example default table:</div></td><td width="60%"><div class="woas_help_text">Use this code to create the table:</div></td></tr><tr><td valign="top">
 {|
-| =th || td
-| td || =th
+|-
+| *cell 1* || *cell 2* || *cell 3*
+|-
+| cell 1 || cell 2 || cell 3
+|-
+| cell 1 || cell 2 || cell 3
+|-
 |}
-</td><td align="center">
-{| class="shadesofblue"
-| =th || td
-| td || =th
+</td><td valign="top">
+{{{
+{|
+|-
+| *cell 1* || *cell 2* || *cell 3*
+|-
+| cell 1 || cell 2 || cell 3
+|-
+| cell 1 || cell 2 || cell 3
+|-
 |}
-</td></tr><tr><td>
-<div class="woas_help_text">Use this code to create the table:</div><pre>&#123;&#124;<br>&#124;&#32;&#61;&#116;&#104;&#32;&#124;&#124;&#32;&#116;&#100;<br>&#124;&#32;&#116;&#100;&#32;&#124;&#124;&#32;&#61;&#116;&#104;<br>&#124;&#125;</pre>
-</td><td>
-<div class="woas_help_text">Use this code to create the table:</div><pre>&#123;&#124;&#32;&#99;&#108;&#97;&#115;&#115;&#61;&#34;&#115;&#104;&#97;&#100;&#101;&#115;&#111;&#102;&#98;&#108;&#117;&#101;&#34;<br>&#124;&#32;&#61;&#116;&#104;&#32;&#124;&#124;&#32;&#116;&#100;<br>&#124;&#32;&#116;&#100;&#32;&#124;&#124;&#32;&#61;&#116;&#104;<br>&#124;&#125;</pre>
+}}}
+</td></tr>
+<tr><td width="40%"><div class="woas_help_text">Example custom table:</div></td><td width="60%"><div class="woas_help_text">Use this code to create the table:</div></td></tr><tr><td valign="top">
+{| class="mycustomtable"
+|-
+| =cell 1 || =cell 2 || =cell 3
+|-
+| cell 1 || cell 2 || cell 3
+|-
+| cell 1 || cell 2 || cell 3
+|-
+|}
+</td><td valign="top">
+{{{
+{| class="mycustomtable"
+|-
+| =cell 1 || =cell 2 || =cell 3
+|-
+| cell 1 || cell 2 || cell 3
+|-
+| cell 1 || cell 2 || cell 3
+|-
+|}
+}}}
 </td></tr></table>
-To get a cell to start with = use {{{<!-- -->=}}} before the {{{=}}} symbol.
 
-<table width="100%"><tr><th align="center" bgcolor="#F5F5F5" width="50%" style="border:1px solid black;">DEFAULT TABLE</th><th align="center" bgcolor="#F5F5F5" width="50%" style="border:1px solid black;">FANCY TABLE</th></tr><tr><td align="center">
+Placement of table header cells ({{{<th>}}}) can be anywhere in a table.
+
+<table width="100%"><tr><td width="40%"><div class="woas_help_text">Example default table:</div></td><td width="60%"><div class="woas_help_text">Use this code to create the table:</div></td></tr><tr><td valign="top">
 {|
-| <!-- -->=th || td
-| td || <!-- -->=th
+|-
+| *cell 1* || cell 2 || cell 3
+|-
+| cell 1 || cell 2 || cell 3
+|-
+| cell 1 || cell 2 || *cell 3*
+|-
 |}
-</td><td align="center">
-{| class="shadesofblue"
-| <!-- -->=th || td
-| td || <!-- -->=th
+</td><td valign="top">
+{{{
+{|
+|-
+| *cell 1* || cell 2 || cell 3
+|-
+| cell 1 || cell 2 || cell 3
+|-
+| cell 1 || cell 2 || *cell 3*
+|-
 |}
-</td></tr><tr><td>
-<div class="woas_help_text">Use this code to create the table:</div><pre>&#123;&#124;<br>&#124;&#32;&#60&#33;&#45;&#45;&#32;&#45;&#45;&#62&#61;&#116;&#104;&#32;&#124;&#124;&#32;&#116;&#100;<br>&#124;&#32;&#116;&#100;&#32;&#124;&#124;&#32;&#60&#33;&#45;&#45;&#32;&#45;&#45;&#62&#61;&#116;&#104;<br>&#124;&#125;</pre>
-</td><td>
-<div class="woas_help_text">Use this code to create the table:</div><pre>&#123;&#124;&#32;&#99;&#108;&#97;&#115;&#115;&#61;&#34;&#115;&#104;&#97;&#100;&#101;&#115;&#111;&#102;&#98;&#108;&#117;&#101;&#34;<br>&#124;&#32;&#60&#33;&#45;&#45;&#32;&#45;&#45;&#62&#61;&#116;&#104;&#32;&#124;&#124;&#32;&#116;&#100;<br>&#124;&#32;&#116;&#100;&#32;&#124;&#124;&#32;&#60&#33;&#45;&#45;&#32;&#45;&#45;&#62&#61;&#116;&#104;<br>&#124;&#125;</pre>
+}}}
+</td></tr>
+<tr><td width="40%"><div class="woas_help_text">Example custom table:</div></td><td width="60%"><div class="woas_help_text">Use this code to create the table:</div></td></tr><tr><td valign="top">
+{| class="mycustomtable"
+|-
+| =cell 1 || cell 2 || cell 3
+|-
+| cell 1 || cell 2 || cell 3
+|-
+| cell 1 || cell 2 || =cell 3
+|-
+|}
+</td><td valign="top">
+{{{
+{| class="mycustomtable"
+|-
+| =cell 1 || cell 2 || cell 3
+|-
+| cell 1 || cell 2 || cell 3
+|-
+| cell 1 || cell 2 || =cell 3
+|-
+|}
+}}}
+</td></tr></table>
+
+To get the contents of a cell to start with an equal symbol, use an HTML comment ( {{{<!-- -->}}} ) before the equal symbol:
+
+<table width="100%"><tr><td width="40%"><div class="woas_help_text">Example default table:</div></td><td width="60%"><div class="woas_help_text">Use this code to create the table:</div></td></tr><tr><td valign="top">
+{|
+|-
+| <!-- -->=cell 1 || cell 2 || cell 3
+|-
+| cell 1 || cell 2 || cell 3
+|-
+| cell 1 || cell 2 || <!-- -->=cell 3
+|-
+|}
+</td><td valign="top">
+{{{
+{|
+|-
+| <!-- -->=cell 1 || cell 2 || cell 3
+|-
+| cell 1 || cell 2 || cell 3
+|-
+| cell 1 || cell 2 || <!-- -->=cell 3
+|-
+|}
+}}}
+</td></tr>
+<tr><td width="40%"><div class="woas_help_text">Example custom table:</div></td><td width="60%"><div class="woas_help_text">Use this code to create the table:</div></td></tr><tr><td valign="top">
+{| class="mycustomtable"
+|-
+| <!-- -->=cell 1 || cell 2 || cell 3
+|-
+| cell 1 || cell 2 || cell 3
+|-
+| cell 1 || cell 2 || <!-- -->=cell 3
+|-
+|}
+</td><td valign="top">
+{{{
+{| class="mycustomtable"
+|-
+| <!-- -->=cell 1 || cell 2 || cell 3
+|-
+| cell 1 || cell 2 || cell 3
+|-
+| cell 1 || cell 2 || <!-- -->=cell 3
+|-
+|}
+}}}
+</td></tr></table>
+
+== Spans
+By removing all contents in a cell you can cause the content in the cell to the left or right of it to span more than one column.
+
+<table width="100%"><tr><td width="40%"><div class="woas_help_text">Example default table:</div></td><td width="60%"><div class="woas_help_text">Use this code to create the table:</div></td></tr><tr><td valign="top">
+{|
+|-
+| *cell 1* || cell 2 || cell 3
+|-
+| *cell 1* || span last 2 columns ||
+|-
+||| span just last 2 columns ||
+|-
+| span all columns ||||
+|-
+|}
+</td><td valign="top">
+{{{
+{|
+|-
+| *cell 1* || cell 2 || cell 3
+|-
+| *cell 1* || span last 2 columns ||
+|-
+||| span just last 2 columns ||
+|-
+| span all columns ||||
+|-
+|}
+}}}
+</td></tr>
+<tr><td width="40%"><div class="woas_help_text">Example custom table:</div></td><td width="60%"><div class="woas_help_text">Use this code to create the table:</div></td></tr><tr><td valign="top">
+{| class="mycustomtable"
+|-
+| =cell 1 || cell 2 || cell 3
+|-
+| =cell 1 || span last 2 columns ||
+|-
+||| span just last 2 columns ||
+|-
+| span all columns ||||
+|-
+|}
+</td><td valign="top">
+{{{
+{| class="mycustomtable"
+|-
+| =cell 1 || cell 2 || cell 3
+|-
+| =cell 1 || span last 2 columns ||
+|-
+||| span just last 2 columns ||
+|-
+| span all columns ||||
+|-
+|}
+}}}
+</td></tr>
+<tr><td width="40%"><div class="woas_help_text">Example default table:</div></td><td width="60%"><div class="woas_help_text">Use this code to create the table:</div></td></tr><tr><td valign="top">
+{|
+|-
+| *cell 1* || *cell 2* || *cell 3*
+|-
+| cell 1 || cell 2 || cell 3
+|-
+| cell 1 || span last 2 columns ||
+|-
+||| span just last 2 columns ||
+|-
+| span all columns ||||
+|-
+|}
+</td><td valign="top">
+{{{
+{|
+|-
+| *cell 1* || *cell 2* || *cell 3*
+|-
+| cell 1 || cell 2 || cell 3
+|-
+| cell 1 || span last 2 columns ||
+|-
+||| span just last 2 columns ||
+|-
+| span all columns ||||
+|-
+|}
+}}}
+</td></tr>
+<tr><td width="40%"><div class="woas_help_text">Example custom table:</div></td><td width="60%"><div class="woas_help_text">Use this code to create the table:</div></td></tr><tr><td valign="top">
+{| class="mycustomtable"
+|-
+| =cell 1 || =cell 2 || =cell 3
+|-
+| cell 1 || cell 2 || cell 3
+|-
+| cell 1 || span last 2 columns ||
+|-
+||| span just last 2 columns ||
+|-
+| span all columns ||||
+|-
+|}
+</td><td valign="top">
+{{{
+{| class="mycustomtable"
+|-
+| =cell 1 || =cell 2 || =cell 3
+|-
+| cell 1 || cell 2 || cell 3
+|-
+| cell 1 || span last 2 columns ||
+|-
+||| span just last 2 columns ||
+|-
+| span all columns ||||
+|-
+|}
+}}}
 </td></tr></table>
 
 == Styling table cells
-Definitions can be used within tables to style the cells.
-
-[[Include::WoaS::Template::Info|Note that a definition affects only the cells *following* it. If you wish to apply the definition to the entire table, insert it directly beneath the table opening tag.]]
+Definitions can be used within tables to style the cells. A definition affects only the cells *following* it. If you wish to apply the definition to the entire table, insert it directly beneath the table opening tag.
 
 === Method 1 - define styles in the wiki CSS
-First, add a custom "special" CSS rule to the wiki so that any table cell in the "special" class will use that rule.
-* <div class="woas_help_text">Add this code to your wiki CSS, replacing CSS_RULE with your custom CSS rule for special table cells:</div><pre>&#116;&#97;&#98;&#108;&#101;&#32;&#116;&#100;&#46;&#115;&#112;&#101;&#99;&#105;&#97;&#108;&#32;&#123;&#67;&#83;&#83;&#95;&#82;&#85;&#76;&#69;&#125;</pre>The examples on this page use this rule, which turns any cell in the "special" class hot pink:<pre>&#116;&#97;&#98;&#108;&#101;&#32;&#116;&#100;&#46;&#115;&#112;&#101;&#99;&#105;&#97;&#108;&#32;&#123;<br>	&#98;&#97;&#99;&#107;&#103;&#114;&#111;&#117;&#110;&#100;&#45;&#99;&#111;&#108;&#111;&#114;&#58;&#32;&#35;&#102;&#102;&#48;&#48;&#102;&#102;&#59;<br>&#125;</pre>
+This method requires that you add a custom "special" [[WoaS::Help::CSS|CSS rule]] to the wiki so that any table cell in the "special" class will use that rule. See the *table td.special* rule in the [[#The CSS rules used by the example tables|custom CSS]] used by this page for an example.
 
-Now you can define the style by inserting {{{|$ class="CLASS_NAME"}}} into a table, replacing CLASS_NAME with the name of your custom "special" class and use it by adding {{{==}}} before the contents of any cell.
+You can add a "special" class definition by using {{{|$ class="special"}}} in a table. The definition can be used by any row below the definition by adding {{{==}}} before the contents of a cell.
 
-These examples each have three cells in the "special" class:
-
-<table width="100%"><tr><th align="center" bgcolor="#F5F5F5" width="50%" style="border:1px solid black;">DEFAULT TABLE</th><th align="center" bgcolor="#F5F5F5" width="50%" style="border:1px solid black;">FANCY TABLE</th></tr><tr><td align="center">
+<table width="100%"><tr><td width="40%"><div class="woas_help_text">Example default table:</div></td><td width="60%"><div class="woas_help_text">Use this code to create the table:</div></td></tr><tr><td valign="top">
 {|
+|-
 |$ class="special"
-| *Header 1* || *Header 2* || *Header 3*
+|-
+| *cell 1* || *cell 2* || *cell 3*
+|-
 | ==cell 1 || cell 2 || ==cell 3
+|-
 | cell 1 || ==cell 2 || cell 3
+|-
 |}
-</td><td align="center">
-{| class="shadesofblue"
+</td><td valign="top">
+{{{
+{|
+|-
 |$ class="special"
-| =Header 1 || =Header 2 || =Header 3
+|-
+| *cell 1* || *cell 2* || *cell 3*
+|-
 | ==cell 1 || cell 2 || ==cell 3
+|-
 | cell 1 || ==cell 2 || cell 3
+|-
 |}
-</td></tr><tr><td>
-<div class="woas_help_text">Use this code to create the table:</div><pre>&#123;&#124;<br>&#124;&#36;&#32;&#99;&#108;&#97;&#115;&#115;&#61;&#34;&#115;&#112;&#101;&#99;&#105;&#97;&#108;&#34;<br>&#124;&#32;&#42;&#72;&#101;&#97;&#100;&#101;&#114;&#32;&#49;&#42;&#32;&#124;&#124;&#32;&#42;&#72;&#101;&#97;&#100;&#101;&#114;&#32;&#50;&#42;&#32;&#124;&#124;&#32;&#42;&#72;&#101;&#97;&#100;&#101;&#114;&#32;&#51;&#42;<br>&#124;&#32;&#61;&#61;&#99;&#101;&#108;&#108;&#32;&#49;&#32;&#124;&#124;&#32;&#99;&#101;&#108;&#108;&#32;&#50;&#32;&#124;&#124;&#32;&#61;&#61;&#99;&#101;&#108;&#108;&#32;&#51;<br>&#124;&#32;&#99;&#101;&#108;&#108;&#32;&#49;&#32;&#124;&#124;&#32;&#61;&#61;&#99;&#101;&#108;&#108;&#32;&#50;&#32;&#124;&#124;&#32;&#99;&#101;&#108;&#108;&#32;&#51;<br>&#124;&#125;</pre>
-</td><td>
-<div class="woas_help_text">Use this code to create the table:</div><pre>&#123;&#124;&#32;&#99;&#108;&#97;&#115;&#115;&#61;&#34;&#115;&#104;&#97;&#100;&#101;&#115;&#111;&#102;&#98;&#108;&#117;&#101;&#34;<br>&#124;&#36;&#32;&#99;&#108;&#97;&#115;&#115;&#61;&#34;&#115;&#112;&#101;&#99;&#105;&#97;&#108;&#34;<br>&#124;&#32;&#61;&#72;&#101;&#97;&#100;&#101;&#114;&#32;&#49;&#32;&#124;&#124;&#32;&#61;&#72;&#101;&#97;&#100;&#101;&#114;&#32;&#50;&#32;&#124;&#124;&#32;&#61;&#72;&#101;&#97;&#100;&#101;&#114;&#32;&#51;<br>&#124;&#32;&#61;&#61;&#99;&#101;&#108;&#108;&#32;&#49;&#32;&#124;&#124;&#32;&#99;&#101;&#108;&#108;&#32;&#50;&#32;&#124;&#124;&#32;&#61;&#61;&#99;&#101;&#108;&#108;&#32;&#51;<br>&#124;&#32;&#99;&#101;&#108;&#108;&#32;&#49;&#32;&#124;&#124;&#32;&#61;&#61;&#99;&#101;&#108;&#108;&#32;&#50;&#32;&#124;&#124;&#32;&#99;&#101;&#108;&#108;&#32;&#51;<br>&#124;&#125;</pre>
+}}}
+</td></tr>
+<tr><td width="40%"><div class="woas_help_text">Example custom table:</div></td><td width="60%"><div class="woas_help_text">Use this code to create the table:</div></td></tr><tr><td valign="top">
+{| class="mycustomtable"
+|-
+|$ class="special"
+|-
+| =cell 1 || =cell 2 || =cell 3
+|-
+| ==cell 1 || cell 2 || ==cell 3
+|-
+| cell 1 || ==cell 2 || cell 3
+|-
+|}
+</td><td valign="top">
+{{{
+{| class="mycustomtable"
+|-
+|$ class="special"
+|-
+| =cell 1 || =cell 2 || =cell 3
+|-
+| ==cell 1 || cell 2 || ==cell 3
+|-
+| cell 1 || ==cell 2 || cell 3
+|-
+|}
+}}}
 </td></tr></table>
 
 === Method 2 - define styles on the fly
-You can add a style definition by using {{{|$ style="CSSRULE"}}} in a table. The definition can be used in any cell by adding {{{==}}} before the contents of the cell.
+You can add a style definition by using {{{|$ style="CSSRULE"}}} in a table. The definition can be used in any row below the definition by adding {{{==}}} before the contents of a cell.
 
-<table width="100%"><tr><th align="center" bgcolor="#F5F5F5" width="50%" style="border:1px solid black;">DEFAULT TABLE</th><th align="center" bgcolor="#F5F5F5" width="50%" style="border:1px solid black;">FANCY TABLE</th></tr><tr><td align="center">
+<table width="100%"><tr><td width="40%"><div class="woas_help_text">Example default table:</div></td><td width="60%"><div class="woas_help_text">Use this code to create the table:</div></td></tr><tr><td valign="top">
 {|
+|-
 |$ style="background:springgreen"
-| *Header 1* || *Header 2* || *Header 3*
+|-
+| *cell 1* || *cell 2* || *cell 3*
+|-
 | ==cell 1 || cell 2 || ==cell 3
+|-
 | cell 1 || ==cell 2 || cell 3
+|-
 |}
-</td><td align="center">
-{| class="shadesofblue"
+</td><td valign="top">
+{{{
+{|
+|-
 |$ style="background:springgreen"
-| =Header 1 || =Header 2 || =Header 3
+|-
+| *cell 1* || *cell 2* || *cell 3*
+|-
 | ==cell 1 || cell 2 || ==cell 3
+|-
 | cell 1 || ==cell 2 || cell 3
+|-
 |}
-</td></tr><tr><td>
-<div class="woas_help_text">Use this code to create the table:</div><pre>&#123;&#124;<br>&#124;&#36;&#32;&#115;&#116;&#121;&#108;&#101;&#61;&#34;&#98;&#97;&#99;&#107;&#103;&#114;&#111;&#117;&#110;&#100;&#58;&#115;&#112;&#114;&#105;&#110;&#103;&#103;&#114;&#101;&#101;&#110;&#34;<br>&#124;&#32;&#42;&#72;&#101;&#97;&#100;&#101;&#114;&#32;&#49;&#42;&#32;&#124;&#124;&#32;&#42;&#72;&#101;&#97;&#100;&#101;&#114;&#32;&#50;&#42;&#32;&#124;&#124;&#32;&#42;&#72;&#101;&#97;&#100;&#101;&#114;&#32;&#51;&#42;<br>&#124;&#32;&#61;&#61;&#99;&#101;&#108;&#108;&#32;&#49;&#32;&#124;&#124;&#32;&#99;&#101;&#108;&#108;&#32;&#50;&#32;&#124;&#124;&#32;&#61;&#61;&#99;&#101;&#108;&#108;&#32;&#51;<br>&#124;&#32;&#99;&#101;&#108;&#108;&#32;&#49;&#32;&#124;&#124;&#32;&#61;&#61;&#99;&#101;&#108;&#108;&#32;&#50;&#32;&#124;&#124;&#32;&#99;&#101;&#108;&#108;&#32;&#51;<br>&#124;&#125;</pre>
-</td><td>
-<div class="woas_help_text">Use this code to create the table:</div><pre>&#123;&#124;&#32;&#99;&#108;&#97;&#115;&#115;&#61;&#34;&#115;&#104;&#97;&#100;&#101;&#115;&#111;&#102;&#98;&#108;&#117;&#101;&#34;<br>&#124;&#36;&#32;&#115;&#116;&#121;&#108;&#101;&#61;&#34;&#98;&#97;&#99;&#107;&#103;&#114;&#111;&#117;&#110;&#100;&#58;&#115;&#112;&#114;&#105;&#110;&#103;&#103;&#114;&#101;&#101;&#110;&#34;<br>&#124;&#32;&#61;&#72;&#101;&#97;&#100;&#101;&#114;&#32;&#49;&#32;&#124;&#124;&#32;&#61;&#72;&#101;&#97;&#100;&#101;&#114;&#32;&#50;&#32;&#124;&#124;&#32;&#61;&#72;&#101;&#97;&#100;&#101;&#114;&#32;&#51;<br>&#124;&#32;&#61;&#61;&#99;&#101;&#108;&#108;&#32;&#49;&#32;&#124;&#124;&#32;&#99;&#101;&#108;&#108;&#32;&#50;&#32;&#124;&#124;&#32;&#61;&#61;&#99;&#101;&#108;&#108;&#32;&#51;<br>&#124;&#32;&#99;&#101;&#108;&#108;&#32;&#49;&#32;&#124;&#124;&#32;&#61;&#61;&#99;&#101;&#108;&#108;&#32;&#50;&#32;&#124;&#124;&#32;&#99;&#101;&#108;&#108;&#32;&#51;<br>&#124;&#125;</pre>
+}}}
+</td></tr>
+<tr><td width="40%"><div class="woas_help_text">Example custom table:</div></td><td width="60%"><div class="woas_help_text">Use this code to create the table:</div></td></tr><tr><td valign="top">
+{| class="mycustomtable"
+|-
+|$ style="background:springgreen"
+|-
+| =cell 1 || =cell 2 || =cell 3
+|-
+| ==cell 1 || cell 2 || ==cell 3
+|-
+| cell 1 || ==cell 2 || cell 3
+|-
+|}
+</td><td valign="top">
+{{{
+{| class="mycustomtable"
+|-
+|$ style="background:springgreen"
+|-
+| =cell 1 || =cell 2 || =cell 3
+|-
+| ==cell 1 || cell 2 || ==cell 3
+|-
+| cell 1 || ==cell 2 || cell 3
+|-
+|}
+}}}
 </td></tr></table>
 
-Multiple style definitions can be added to a table. They can be used by adding {{{==}}} or {{{===}}} or {{{====}}} before the contents of any cell.
+Multiple style definitions can be added to a table. The first definition can be used by adding {{{==}}} before the contents of a cell. The second definition can be used by adding {{{===}}} before the contents of a cell. The third definition can be used by adding {{{====}}} before the contents of any cell. And so on.
 
-<table width="100%"><tr><th align="center" bgcolor="#F5F5F5" width="50%" style="border:1px solid black;">DEFAULT TABLE</th><th align="center" bgcolor="#F5F5F5" width="50%" style="border:1px solid black;">FANCY TABLE</th></tr><tr><td align="center">
+<table width="100%"><tr><td width="40%"><div class="woas_help_text">Example default table:</div></td><td width="60%"><div class="woas_help_text">Use this code to create the table:</div></td></tr><tr><td valign="top">
 {|
+|-
 |$ style="background:springgreen"
+|-
 |$ style="background:#ff00ff"
+|-
 |$ style="background:cyan"
-| *Header 1* || *Header 2* || *Header 3*
+|-
+| *cell 1* || *cell 2* || *cell 3*
+|-
 | ==cell 1 || ===cell 2 || ====cell 3
+|-
 | ====cell 1 || =====cell 2 || ===cell 3
+|-
 |}
-</td><td align="center">
-{| class="shadesofblue"
+</td><td valign="top">
+{{{
+{|
+|-
 |$ style="background:springgreen"
+|-
 |$ style="background:#ff00ff"
+|-
 |$ style="background:cyan"
-| =Header 1 || =Header 2 || =Header 3
+|-
+| *cell 1* || *cell 2* || *cell 3*
+|-
 | ==cell 1 || ===cell 2 || ====cell 3
+|-
 | ====cell 1 || =====cell 2 || ===cell 3
+|-
 |}
-</td></tr><tr><td>
-<div class="woas_help_text">Use this code to create the table:</div><pre>&#123;&#124;<br>&#124;&#36;&#32;&#115;&#116;&#121;&#108;&#101;&#61;&#34;&#98;&#97;&#99;&#107;&#103;&#114;&#111;&#117;&#110;&#100;&#58;&#115;&#112;&#114;&#105;&#110;&#103;&#103;&#114;&#101;&#101;&#110;&#34;<br>&#124;&#36;&#32;&#115;&#116;&#121;&#108;&#101;&#61;&#34;&#98;&#97;&#99;&#107;&#103;&#114;&#111;&#117;&#110;&#100;&#58;&#35;&#102;&#102;&#48;&#48;&#102;&#102;&#34;<br>&#124;&#36;&#32;&#115;&#116;&#121;&#108;&#101;&#61;&#34;&#98;&#97;&#99;&#107;&#103;&#114;&#111;&#117;&#110;&#100;&#58;&#99;&#121;&#97;&#110;&#34;<br>&#124;&#32;&#42;&#72;&#101;&#97;&#100;&#101;&#114;&#32;&#49;&#42;&#32;&#124;&#124;&#32;&#42;&#72;&#101;&#97;&#100;&#101;&#114;&#32;&#50;&#42;&#32;&#124;&#124;&#32;&#42;&#72;&#101;&#97;&#100;&#101;&#114;&#32;&#51;&#42;<br>&#124;&#32;&#61;&#61;&#99;&#101;&#108;&#108;&#32;&#49;&#32;&#124;&#124;&#32;&#61;&#61;&#61;&#99;&#101;&#108;&#108;&#32;&#50;&#32;&#124;&#124;&#32;&#61;&#61;&#61;&#61;&#99;&#101;&#108;&#108;&#32;&#51;<br>&#124;&#32;&#61;&#61;&#61;&#61;&#99;&#101;&#108;&#108;&#32;&#49;&#32;&#124;&#124;&#32;&#61;&#61;&#61;&#61;&#61;&#99;&#101;&#108;&#108;&#32;&#50;&#32;&#124;&#124;&#32;&#61;&#61;&#61;&#99;&#101;&#108;&#108;&#32;&#51;<br>&#124;&#125;</pre>
-</td><td>
-<div class="woas_help_text">Use this code to create the table:</div><pre>&#123;&#124;&#32;&#99;&#108;&#97;&#115;&#115;&#61;&#34;&#115;&#104;&#97;&#100;&#101;&#115;&#111;&#102;&#98;&#108;&#117;&#101;&#34;<br>&#124;&#36;&#32;&#115;&#116;&#121;&#108;&#101;&#61;&#34;&#98;&#97;&#99;&#107;&#103;&#114;&#111;&#117;&#110;&#100;&#58;&#115;&#112;&#114;&#105;&#110;&#103;&#103;&#114;&#101;&#101;&#110;&#34;<br>&#124;&#36;&#32;&#115;&#116;&#121;&#108;&#101;&#61;&#34;&#98;&#97;&#99;&#107;&#103;&#114;&#111;&#117;&#110;&#100;&#58;&#35;&#102;&#102;&#48;&#48;&#102;&#102;&#34;<br>&#124;&#36;&#32;&#115;&#116;&#121;&#108;&#101;&#61;&#34;&#98;&#97;&#99;&#107;&#103;&#114;&#111;&#117;&#110;&#100;&#58;&#99;&#121;&#97;&#110;&#34;<br>&#124;&#32;&#61;&#72;&#101;&#97;&#100;&#101;&#114;&#32;&#49;&#32;&#124;&#124;&#32;&#61;&#72;&#101;&#97;&#100;&#101;&#114;&#32;&#50;&#32;&#124;&#124;&#32;&#61;&#72;&#101;&#97;&#100;&#101;&#114;&#32;&#51;<br>&#124;&#32;&#61;&#61;&#99;&#101;&#108;&#108;&#32;&#49;&#32;&#124;&#124;&#32;&#61;&#61;&#61;&#99;&#101;&#108;&#108;&#32;&#50;&#32;&#124;&#124;&#32;&#61;&#61;&#61;&#61;&#99;&#101;&#108;&#108;&#32;&#51;<br>&#124;&#32;&#61;&#61;&#61;&#61;&#99;&#101;&#108;&#108;&#32;&#49;&#32;&#124;&#124;&#32;&#61;&#61;&#61;&#61;&#61;&#99;&#101;&#108;&#108;&#32;&#50;&#32;&#124;&#124;&#32;&#61;&#61;&#61;&#99;&#101;&#108;&#108;&#32;&#51;<br>&#124;&#125;</pre>
+}}}
+</td></tr>
+<tr><td width="40%"><div class="woas_help_text">Example custom table:</div></td><td width="60%"><div class="woas_help_text">Use this code to create the table:</div></td></tr><tr><td valign="top">
+{| class="mycustomtable"
+|-
+|$ style="background:springgreen"
+|-
+|$ style="background:#ff00ff"
+|-
+|$ style="background:cyan"
+|-
+| =cell 1 || =cell 2 || =cell 3
+|-
+| ==cell 1 || ===cell 2 || ====cell 3
+|-
+| ====cell 1 || =====cell 2 || ===cell 3
+|-
+|}
+</td><td valign="top">
+{{{
+{| class="mycustomtable"
+|-
+|$ style="background:springgreen"
+|-
+|$ style="background:#ff00ff"
+|-
+|$ style="background:cyan"
+|-
+| =cell 1 || =cell 2 || =cell 3
+|-
+| ==cell 1 || ===cell 2 || ====cell 3
+|-
+| ====cell 1 || =====cell 2 || ===cell 3
+|-
+|}
+}}}
 </td></tr></table>
 
 === Method 3 - combination of method 1 and method 2
-These examples use a combination of method 1 and method 2:
+These examples use a combination of method 1 and method 2. The first definition can be used by adding {{{==}}} before the contents of a cell. The second definition can be used by adding {{{===}}} before the contents of a cell. The third definition can be used by adding {{{====}}} before the contents of any cell. The fourth definition can be used by adding {{{=====}}} before the contents of any cell. And so on.
 
-<table width="100%"><tr><th align="center" bgcolor="#F5F5F5" width="50%" style="border:1px solid black;">DEFAULT TABLE</th><th align="center" bgcolor="#F5F5F5" width="50%" style="border:1px solid black;">FANCY TABLE</th></tr><tr><td align="center">
+<table width="100%"><tr><td width="40%"><div class="woas_help_text">Example default table:</div></td><td width="60%"><div class="woas_help_text">Use this code to create the table:</div></td></tr><tr><td valign="top">
 {|
+|-
 |$ class="special"
+|-
 |$ style="background:springgreen"
+|-
 |$ style="background:silver"
+|-
 |$ style="background:cyan"
-| *Header 1* || *Header 2* || *Header 3*
+|-
+| *cell 1* || *cell 2* || *cell 3*
+|-
 | ==cell 1 || ===cell 2 || ====cell 3
+|-
 | ====cell 1 || =====cell 2 || ===cell 3
+|-
 |}
-</td><td align="center">
-{| class="shadesofblue"
+</td><td valign="top">
+{{{
+{|
+|-
 |$ class="special"
+|-
 |$ style="background:springgreen"
+|-
 |$ style="background:silver"
+|-
 |$ style="background:cyan"
-| =Header 1 || =Header 2 || =Header 3
+|-
+| *cell 1* || *cell 2* || *cell 3*
+|-
 | ==cell 1 || ===cell 2 || ====cell 3
+|-
 | ====cell 1 || =====cell 2 || ===cell 3
+|-
 |}
-</td></tr><tr><td>
-<div class="woas_help_text">Use this code to create the table:</div><pre>&#123;&#124;<br>&#124;&#36;&#32;&#99;&#108;&#97;&#115;&#115;&#61;&#34;&#115;&#112;&#101;&#99;&#105;&#97;&#108;&#34;<br>&#124;&#36;&#32;&#115;&#116;&#121;&#108;&#101;&#61;&#34;&#98;&#97;&#99;&#107;&#103;&#114;&#111;&#117;&#110;&#100;&#58;&#115;&#112;&#114;&#105;&#110;&#103;&#103;&#114;&#101;&#101;&#110;&#34;<br>&#124;&#36;&#32;&#115;&#116;&#121;&#108;&#101;&#61;&#34;&#98;&#97;&#99;&#107;&#103;&#114;&#111;&#117;&#110;&#100;&#58;&#115;&#105;&#108;&#118;&#101;&#114;&#34;<br>&#124;&#36;&#32;&#115;&#116;&#121;&#108;&#101;&#61;&#34;&#98;&#97;&#99;&#107;&#103;&#114;&#111;&#117;&#110;&#100;&#58;&#99;&#121;&#97;&#110;&#34;<br>&#124;&#32;&#42;&#72;&#101;&#97;&#100;&#101;&#114;&#32;&#49;&#42;&#32;&#124;&#124;&#32;&#42;&#72;&#101;&#97;&#100;&#101;&#114;&#32;&#50;&#42;&#32;&#124;&#124;&#32;&#42;&#72;&#101;&#97;&#100;&#101;&#114;&#32;&#51;&#42;<br>&#124;&#32;&#61;&#61;&#99;&#101;&#108;&#108;&#32;&#49;&#32;&#124;&#124;&#32;&#61;&#61;&#61;&#99;&#101;&#108;&#108;&#32;&#50;&#32;&#124;&#124;&#32;&#61;&#61;&#61;&#61;&#99;&#101;&#108;&#108;&#32;&#51;<br>&#124;&#32;&#61;&#61;&#61;&#61;&#99;&#101;&#108;&#108;&#32;&#49;&#32;&#124;&#124;&#32;&#61;&#61;&#61;&#61;&#61;&#99;&#101;&#108;&#108;&#32;&#50;&#32;&#124;&#124;&#32;&#61;&#61;&#61;&#99;&#101;&#108;&#108;&#32;&#51;<br>&#124;&#125;</pre>
-</td><td>
-<div class="woas_help_text">Use this code to create the table:</div><pre>&#123;&#124;&#32;&#99;&#108;&#97;&#115;&#115;&#61;&#34;&#115;&#104;&#97;&#100;&#101;&#115;&#111;&#102;&#98;&#108;&#117;&#101;&#34;<br>&#124;&#36;&#32;&#99;&#108;&#97;&#115;&#115;&#61;&#34;&#115;&#112;&#101;&#99;&#105;&#97;&#108;&#34;<br>&#124;&#36;&#32;&#115;&#116;&#121;&#108;&#101;&#61;&#34;&#98;&#97;&#99;&#107;&#103;&#114;&#111;&#117;&#110;&#100;&#58;&#115;&#112;&#114;&#105;&#110;&#103;&#103;&#114;&#101;&#101;&#110;&#34;<br>&#124;&#36;&#32;&#115;&#116;&#121;&#108;&#101;&#61;&#34;&#98;&#97;&#99;&#107;&#103;&#114;&#111;&#117;&#110;&#100;&#58;&#115;&#105;&#108;&#118;&#101;&#114;&#34;<br>&#124;&#36;&#32;&#115;&#116;&#121;&#108;&#101;&#61;&#34;&#98;&#97;&#99;&#107;&#103;&#114;&#111;&#117;&#110;&#100;&#58;&#99;&#121;&#97;&#110;&#34;<br>&#124;&#32;&#61;&#72;&#101;&#97;&#100;&#101;&#114;&#32;&#49;&#32;&#124;&#124;&#32;&#61;&#72;&#101;&#97;&#100;&#101;&#114;&#32;&#50;&#32;&#124;&#124;&#32;&#61;&#72;&#101;&#97;&#100;&#101;&#114;&#32;&#51;<br>&#124;&#32;&#61;&#61;&#99;&#101;&#108;&#108;&#32;&#49;&#32;&#124;&#124;&#32;&#61;&#61;&#61;&#99;&#101;&#108;&#108;&#32;&#50;&#32;&#124;&#124;&#32;&#61;&#61;&#61;&#61;&#99;&#101;&#108;&#108;&#32;&#51;<br>&#124;&#32;&#61;&#61;&#61;&#61;&#99;&#101;&#108;&#108;&#32;&#49;&#32;&#124;&#124;&#32;&#61;&#61;&#61;&#61;&#61;&#99;&#101;&#108;&#108;&#32;&#50;&#32;&#124;&#124;&#32;&#61;&#61;&#61;&#99;&#101;&#108;&#108;&#32;&#51;<br>&#124;&#125;</pre>
+}}}
+</td></tr>
+<tr><td width="40%"><div class="woas_help_text">Example custom table:</div></td><td width="60%"><div class="woas_help_text">Use this code to create the table:</div></td></tr><tr><td valign="top">
+{| class="mycustomtable"
+|-
+|$ class="special"
+|-
+|$ style="background:springgreen"
+|-
+|$ style="background:silver"
+|-
+|$ style="background:cyan"
+|-
+| =cell 1 || =cell 2 || =cell 3
+|-
+| ==cell 1 || ===cell 2 || ====cell 3
+|-
+| ====cell 1 || =====cell 2 || ===cell 3
+|-
+|}
+</td><td valign="top">
+{{{
+{| class="mycustomtable"
+|-
+|$ class="special"
+|-
+|$ style="background:springgreen"
+|-
+|$ style="background:silver"
+|-
+|$ style="background:cyan"
+|-
+| =cell 1 || =cell 2 || =cell 3
+|-
+| ==cell 1 || ===cell 2 || ====cell 3
+|-
+| ====cell 1 || =====cell 2 || ===cell 3
+|-
+|}
+}}}
 </td></tr></table>
 
-<!-- NOTE: BELOW ARE CUSTOM CSS RULES EMBEDDED ON THIS PAGE FOR USE BY THIS PAGE. -->
-<style type="text/css">
-/* CODE INLINE - MOZILLA */
-.wiki_preformatted {color:black; background-color:#F5F5F5; padding-right:0.27em; padding-left:0.27em; white-space:-moz-pre-wrap !important;}
-/* CODE INLINE - CSS-3 */
-/* .wiki_preformatted {color:black; background-color:#F5F5F5; padding-right:0.27em; padding-left:0.27em; white-space:pre-wrap;} */
-/* CODE INLINE - OPERA 4-6 */
-/* .wiki_preformatted {color:black; background-color:#F5F5F5; padding-right:0.27em; padding-left:0.27em; white-space:-pre-wrap;} */
-/* CODE INLINE - OPERA 7 */
-/* .wiki_preformatted {color:black; background-color:#F5F5F5; padding-right:0.27em; padding-left:0.27em; white-space:-o-pre-wrap;} */
-/* CODE INLINE - IE 5.5+ */
-/* .wiki_preformatted {color:black; background-color:#F5F5F5; padding-right:0.27em; padding-left:0.27em; word-wrap:break-word;} */
-
-/* CODE BLOCKS - HTML - PRE TAGS - MOZILLA */
-pre {color:black; background-color:#F5F5F5; border:0.063em solid grey; padding:0.375em; white-space:-moz-pre-wrap !important;}
-/* CODE BLOCKS - HTML - PRE TAGS - CSS-3 */
-/* pre {color:black; background-color:#F5F5F5; border:0.063em solid grey; padding:0.375em; white-space:pre-wrap;} */
-/* CODE BLOCKS - HTML - PRE TAGS - OPERA 4-6 */
-/* pre {color:black; background-color:#F5F5F5; border:0.063em solid grey; padding:0.375em; white-space:-pre-wrap;} */
-/* CODE BLOCKS - HTML - PRE TAGS - OPERA 7 */
-/* pre {color:black; background-color:#F5F5F5; border:0.063em solid grey; padding:0.375em; white-space:-o-pre-wrap;} */
-/* CODE BLOCKS - HTML - PRE TAGS - IE 5.5+ */
-/* pre {color:black; background-color:#F5F5F5; border:0.063em solid grey; padding:0.375em; word-wrap:break-word;} */
-
-/* CUSTOM CSS FOR FANCY TABLES - SHADES OF BLUE */
-table.shadesofblue {
+== The CSS rules used by the example tables
+These are the custom CSS rules used by the example tables on this page:<br><br>{{{
+/* CUSTOM CSS FOR custom tableS */
+table.mycustomtable {
 	color: #404040;
 	background-color: #fafafa;
 	border-collapse: collapse;
@@ -325,39 +816,123 @@ table.shadesofblue {
 	font-weight: normal;
 	/*UNCOMMENT THE WIDTH LINE BELOW TO CONTROL THE WIDTH OF THE TABLE*/
 	/*width: 500px;*/
-}
-caption.shadesofblue {
+	}
+caption.mycustomtable {
 	color: #404040;
 	border: 1px solid #6699CC;
 	text-align: center;
 	width: 580px;
-}
-table.shadesofblue th { 
+	}
+table.mycustomtable th { 
 	color: #404040;
 	background-color: #BEC8D1;
 	border-bottom: 2px solid #6699CC;
 	border-left: 1px solid #6699CC;
 	font-weight: bold;
 	text-indent: 2px;
-}
-table.shadesofblue td {
+	}
+table.mycustomtable td {
 	color: #404040;
 	border-top: 0px;
 	border-right: 0px;
 	border-bottom: 1px solid #9CF;
 	border-left: 1px solid #9CF;
 	text-indent: 2px;
-}
-table.shadesofblue td.special {
+	}
+table.mycustomtable td.special {
 	background-color: #ff00ff;
-}
+	}
 
 /* CUSTOM CSS FOR DEFAULT TABLES */
 table td.special {
 	background-color: #ff00ff;
+	}
+}}}
+
+<!-- NOTE: BELOW ARE CUSTOM CSS RULES EMBEDDED ON THIS PAGE FOR USE BY THIS PAGE. -->
+<style type="text/css">
+/* CODE INLINE - MOZILLA */
+.wiki_preformatted {color:black; background-color:#F5F5F5; padding-right:0.27em; padding-left:0.27em; white-space:-moz-pre-wrap !important; font-family:monospace;}
+/* CODE INLINE - CSS-3 */
+/* .wiki_preformatted {color:black; background-color:#F5F5F5; padding-right:0.27em; padding-left:0.27em; white-space:pre-wrap; font-family:monospace;} */
+/* CODE INLINE - OPERA 4-6 */
+/* .wiki_preformatted {color:black; background-color:#F5F5F5; padding-right:0.27em; padding-left:0.27em; white-space:-pre-wrap; font-family:monospace;} */
+/* CODE INLINE - OPERA 7 */
+/* .wiki_preformatted {color:black; background-color:#F5F5F5; padding-right:0.27em; padding-left:0.27em; white-space:-o-pre-wrap; font-family:monospace;} */
+/* CODE INLINE - IE 5.5+ */
+/* .wiki_preformatted {color:black; background-color:#F5F5F5; padding-right:0.27em; padding-left:0.27em; word-wrap:break-word; font-family:monospace;} */
+
+/* CODE BLOCKS - HTML - PRE TAGS - MOZILLA */
+.woas_nowiki_multiline {color:black; background-color:#F5F5F5; border:0.063em solid grey; padding:0.375em; white-space:-moz-pre-wrap !important; font-family:monospace;}
+/* CODE BLOCKS - HTML - PRE TAGS - CSS-3 */
+/* .woas_nowiki_multiline {color:black; background-color:#F5F5F5; border:0.063em solid grey; padding:0.375em; white-space:pre-wrap; font-family:monospace;} */
+/* CODE BLOCKS - HTML - PRE TAGS - OPERA 4-6 */
+/* .woas_nowiki_multiline {color:black; background-color:#F5F5F5; border:0.063em solid grey; padding:0.375em; white-space:-pre-wrap; font-family:monospace;} */
+/* CODE BLOCKS - HTML - PRE TAGS - OPERA 7 */
+/* .woas_nowiki_multiline {color:black; background-color:#F5F5F5; border:0.063em solid grey; padding:0.375em; white-space:-o-pre-wrap; font-family:monospace;} */
+/* CODE BLOCKS - HTML - PRE TAGS - IE 5.5+ */
+/* .woas_nowiki_multiline {color:black; background-color:#F5F5F5; border:0.063em solid grey; padding:0.375em; word-wrap:break-word; font-family:monospace;} */
+
+/* CODE BLOCKS - HTML - PRE TAGS - MOZILLA */
+pre {color:black; background-color:#F5F5F5; border:0.063em solid grey; padding:0.375em; white-space:-moz-pre-wrap !important; font-family:monospace;}
+/* CODE BLOCKS - HTML - PRE TAGS - CSS-3 */
+/* pre {color:black; background-color:#F5F5F5; border:0.063em solid grey; padding:0.375em; white-space:pre-wrap; font-family:monospace;} */
+/* CODE BLOCKS - HTML - PRE TAGS - OPERA 4-6 */
+/* pre {color:black; background-color:#F5F5F5; border:0.063em solid grey; padding:0.375em; white-space:-pre-wrap; font-family:monospace;} */
+/* CODE BLOCKS - HTML - PRE TAGS - OPERA 7 */
+/* pre {color:black; background-color:#F5F5F5; border:0.063em solid grey; padding:0.375em; white-space:-o-pre-wrap; font-family:monospace;} */
+/* CODE BLOCKS - HTML - PRE TAGS - IE 5.5+ */
+/* pre {color:black; background-color:#F5F5F5; border:0.063em solid grey; padding:0.375em; word-wrap:break-word; font-family:monospace;} */
+
 
 /* CUSTOM HELP TEXT */
-.woas_help_text {color:dimgrey;}
+.woas_help_text {
+	color: darkcyan;
+	font-weight: bold;
+	}
+/* CUSTOM CSS FOR custom tableS */
+table.mycustomtable {
+	color: #404040;
+	background-color: #fafafa;
+	border-collapse: collapse;
+	border-spacing: 0px;
+	border: 1px solid #6699CC;
+	font-family: Verdana, sans-serif, Arial;
+	font-size: 11px;
+	font-weight: normal;
+	/*UNCOMMENT THE WIDTH LINE BELOW TO CONTROL THE WIDTH OF THE TABLE*/
+	/*width: 500px;*/
+	}
+caption.mycustomtable {
+	color: #404040;
+	border: 1px solid #6699CC;
+	text-align: center;
+	width: 580px;
+	}
+table.mycustomtable th { 
+	color: #404040;
+	background-color: #BEC8D1;
+	border-bottom: 2px solid #6699CC;
+	border-left: 1px solid #6699CC;
+	font-weight: bold;
+	text-indent: 2px;
+	}
+table.mycustomtable td {
+	color: #404040;
+	border-top: 0px;
+	border-right: 0px;
+	border-bottom: 1px solid #9CF;
+	border-left: 1px solid #9CF;
+	text-indent: 2px;
+	}
+table.mycustomtable td.special {
+	background-color: #ff00ff;
+	}
+
+/* CUSTOM CSS FOR DEFAULT TABLES */
+table td.special {
+	background-color: #ff00ff;
+	}
 </style>
 
 --DFQRCTsKlU
