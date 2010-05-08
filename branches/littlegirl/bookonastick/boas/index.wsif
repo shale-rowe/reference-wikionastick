@@ -156,19 +156,17 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 <div style="float:right; margin-top:10px; margin-right:5px; margin-bottom:20px; margin-left:20px;">[[Include::Wiki::Template::Logo]]</div>
 = Book on a Stick 1.0 (under development)
-If you're seeing this, then BoaS is in a state of transition and hasn't finished merging with WoaS 0.12.0 yet.
-
-Until this merge is finished, you will notice these things:
+If you're seeing this, then BoaS is in a state of transition as it merges with WoaS 0.12.0. Until the merge is finished, you will notice these things:
 * All page listings have a strange new header which will be removed.
+* Some instructions are inaccurate.
 * Some links are broken.
-* Some of the instructions are inaccurate.
 * Some [[Special::]] pages have unfamiliar content.
 * The BoaS editor buttons are missing.
+* The [[Help::]] namespace is showing up in page listings while I merge the contents of the pages with the pages in the [[Wiki::Help::]] namespace.
 * The separate fixed menu and fixed banner options are missing.
-* There are [[Help::|"duplicates"]] of [[Wiki::Help::|help pages]].
+* The [[Wiki::]] namespace is showing up in page listings. This is normal during development. Those pages will become reserved pages before release.
+* The [[WoaS::]] namespace is showing up in page listings so that I can hopefully rename them as [[Wiki::]] pages.
 * The word count button is broken.
-This will all look a lot better as time goes by, most of these things will be fixed, and the ones that can't be fixed will be removed until such a time as they can be made to work.
-
 I apologize for any inconvenience and I appreciate your patience.&nbsp;&nbsp;&nbsp;<img src="data:image/png;base64,R0lGODlhBgAFAIABAAAAAP///yH5BAEAAAEALAAAAAAGAAUAAAIJDGJ4ic1qgAwFADs=" width="2%" height="2%">
 <!-- [[Include::Special::About]] -->
 <!-- Delete all of the text in the main text area of this page and replace it with whatever you like. You can click the About button in the menu to see the welcome page again at any time. -->
@@ -828,6 +826,10 @@ You will find the [[Include::Wiki::Template::Icon::Help]] icon in the banner on 
 When browsing the pages in the Help pop-up, you will find a *Back* button in the upper right corner that takes you back to this page or a *Close* button in the same place that closes the pop-up.
 == Topics:
 [[Include::Wiki::Help::]]
+<style type="text/css">
+h2 {margin-bottom: -2em;}
+.woas_listing_options {visibility:hidden;} 
+</style>
 
 --DFQRCTsKlU
 woas.page.title: WoaS::Template::Button
@@ -876,39 +878,40 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = CSS
-The look of most of this wiki can be customized by adding rules to the {{{[[WoaS::CSS::Custom]]}}} page. WoaS keeps the default CSS rules on the {{{[[WoaS::CSS::Core]]}}} page, which can be used for reference in writing your own custom rules.
+The look of most of this wiki can be customized by adding rules to the [[WoaS::CSS::Custom]] page. The default CSS rules kept in the [[WoaS::CSS::Core]] page, which can be used for reference in writing your own custom rules.
 
-<<<woas.include:WoaS::Template::Info
-A tutorial about CSS is available at [[http://www.w3schools.com/css/]].>>>
+<<<woas.include:Wiki::Template::Info
+A tutorial on CSS is available at [[http://www.w3schools.com/css/]].>>>
 == Edit the CSS settings
 # Open the wiki in a browser.
-# Click the *Advanced* icon in the navigation bar.
-# Click the {{{[[WoaS::CSS::Core]]}}} link in the *Advanced* section to view the core CSS class and id names.
-# Copy the classes and ids which you want to modify.
-# Go back to the {{{[[Special::Advanced]]}}} page and click the {{{[[WoaS::CSS::Custom]]}}} link.
-# Click the *Edit* icon in the navigation bar to edit the page.
-# Paste the classes and ids you copied in step 4 into the page.
-# Define the rules for the CSS classes and ids.
-# Save your changes by clicking the *Save* icon in the navigation bar.
+# Click the [[Include::Wiki::Template::Icon::Advanced]] icon in the banner.
+# Click the [[WoaS::CSS::Core]] link in the *Advanced features* section of the page to view the core CSS rules.
+# Copy the rules you want to change.
+# Click the [[Include::Wiki::Template::Icon::Advanced]] icon in the banner.
+# Click the [[WoaS::CSS::Custom]] link in the *Advanced features* section of the page.
+# Click the [[Include::Wiki::Template::Icon::Edit]] icon in the banner to edit the page.
+# Paste the rules you copied into the page.
+# Customize the rules to suit your taste.
+# Click the [[Include::Wiki::Template::Icon::Save]] icon in the banner to save the changes.
 
 == Restore the default CSS settings
-To return to the default settings if you don't like the changes you've made:
-# Open your wiki in a browser.
-# Click the *Advanced* icon in the navigation bar.
-# Click the {{{[[WoaS::CSS::Custom]]}}} link in the *Advanced* section to open the custom CSS settings in the editor.
+# Open the wiki in a browser.
+# Click the [[Include::Wiki::Template::Icon::Advanced]] icon in the banner.
+# Click the [[WoaS::CSS::Custom]] link in the *Advanced features* section of the page
+# Click the [[Include::Wiki::Template::Icon::Edit]] icon in the banner to edit the page.
 # Delete all of the contents of the main text area.
-# Click the *Save* icon in the navigation bar to save the changes.
+# Click the [[Include::Wiki::Template::Icon::Save]] icon in the banner to save the changes.
 
 == Import CSS rules into your wiki
-You can import the CSS rules from another copy of WoaS by following the instructions for [[Wiki::Help::Import|importing]] another wiki into the current one and placing a check in the box next to *Import also CSS.*
+You can import the CSS rules from another copy of Book on a Stick (or from Wiki on a Stick) by following the instructions for [[Wiki::Help::Import|importing]] another wiki into the current one and placing a check in the box next to *Import also CSS.*
 
-Importing from older versions of WoaS can garble the layout of the wiki. There are two ways to avoid this:
-# Manually transfer the CSS from the older version of WoaS into the {{{[[WoaS::CSS::Custom]]}}} page by copying and pasting it, checking the class and id of each entry against the default CSS rules on the {{{[[WoaS::CSS::Core]]}}} page to verify that it's still in use before saving your changes.<br><br>
-# Create a new page with style tags in it and paste your CSS into that page to test it before adding it to the {{{[[WoaS::CSS::Custom]]}}} page.
+Importing from another wiki can garble the layout of the wiki. There are two ways to avoid this:
+# Manually transfer the CSS from the other wiki into the [[WoaS::CSS::Custom]] page by copying and pasting it, checking the class and id of each entry against the default CSS rules on the [[WoaS::CSS::Core]] page before saving your changes.<br><br>
+# Create a test page with the CSS from the other wiki inside HTML style tags to try out the CSS before adding it to the [[WoaS::CSS::Custom]] page.
 
 === Create a test page for your custom CSS
 # Click the *Advanced* icon in the navigation bar.<br><br>
-# Click the {{{[[Special::Options]]}}} link in the *Advanced features* section.<br><br>
+# Click the [[Special::Options]] link in the *Advanced features* section.<br><br>
 # Make sure that the box is /not/ checked next to *Remember current page and navigation history*. Save the change if you had to uncheck the box.<br><br>
 # Click the *New Page* link in the menu to create a new page with any name you like.<br><br>
 # Insert this opening tag at the top of the page:<br><br>{{{
@@ -919,12 +922,14 @@ Importing from older versions of WoaS can garble the layout of the wiki. There a
 </style>
 }}}<br>
 # Click the *Save* icon in the navigation bar to save the changes.<br><br>
-If the layout isn't garbled, use the CSS rules in the {{{[[WoaS::CSS::Custom]]}}} page and delete the new page you created.
-
 If the layout is garbled:
-# Reload the wiki.<br><br>
-# Click the *Delete Page* link in the menu.<br><br>
-# Type in the name of the new page your custom CSS is in and click the *OK* button.
+# Reload the wiki.
+# Click the *Delete page* button in the menu.
+# Type in the name of the test page your custom CSS is in and click the *OK* button.
+
+If the layout is not garbled:
+# Copy the CSS rules to the [[WoaS::CSS::Custom]] page.
+# Delete the test page you created.
 
 --DFQRCTsKlU
 woas.page.title: Wiki::Help::Special::Dead Pages
@@ -2291,115 +2296,6 @@ This method is useful when creating a fancy list with more than one list item ty
 </ol>
 
 --DFQRCTsKlU
-woas.page.title: Wiki::Help::Tables
-woas.page.attributes: 0
-woas.page.encoding: 8bit/plain
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-= Tables
-The content inside tables can contain internal and external links, and these kinds of text formatting:
-* Blinking
-* Bold
-* Colored
-* Italic
-* Plain
-* Underlined
-* Underlined Bold Italic
-
-== Basic Table:
-</font><div class="woas_helptext">Use this code in a page:</div><br>{{{
-{|
-| CELL1 || CELL2
-| CELL1 || CELL2
-|}
-}}}<br><div class="woas_helptext">To create this:</div>
-{|
-| CELL1 || CELL2
-| CELL1 || CELL2
-|}
-
-<div class="woas_helptext">Or use this code in a page:</div><br>{{{
-{|
-| CELL1 || CELL2
-|-
-| CELL1 || CELL2
-|}
-}}}<br><div class="woas_helptext">To create this:</div>
-{|
-| CELL1 || CELL2
-|-
-| CELL1 || CELL2
-|}
-
-The line that starts with {{{|- }}} is a comment line. You can type some text after it which will only be visible when viewing the source:
-
-<div class="woas_helptext">Use this code in a page:</div><br>{{{
-{|
-| CELL1 || CELL2
-|- This is a comment.
-| CELL1 || CELL2
-|}
-}}}<br><div class="woas_helptext">To create this:</div>
-{|
-| CELL1 || CELL2
-|- This is a comment.
-| CELL1 || CELL2
-|}
-
-== Complex Table:
-Tables can have a specially formatted title row created by adding a pipe followed by a plus symbol and a space before the title text (example: {{{|+ Title}}}), and can contain internal and external [[Wiki::Help::Links|wiki links]].
-
-<div class="woas_helptext">Use this code in a page:</div><br>{{{
-{|
-|+ TITLE
-| *HEADER1* || *HEADER2* || *HEADER3*
-|-
-| CELL1 || CELL2 || CELL3
-|-
-| CELL1 || CELL2 || CELL3
-|-
-| CELL1 || CELL2 || CELL3
-|-
-| CELL1 || || CELL3
-|}
-}}}<br><div class="woas_helptext">To create this:</div>
-{|
-|+ TITLE
-| *HEADER1* || *HEADER2* || *HEADER3*
-|-
-| CELL1 || CELL2 || CELL3
-|-
-| CELL1 || CELL2 || CELL3
-|-
-| CELL1 || CELL2 || CELL3
-|-
-| CELL1 || || CELL3
-|}
-
-<div class="woas_helptext">Or use this code in a page:</div><br>{{{
-{|
-|+ TITLE
-| *HEADER1* || *HEADER2* || *HEADER3*
-| CELL1 || CELL2 || CELL3
-| CELL1 || CELL2 || CELL3
-| CELL1 || CELL2 || CELL3
-| CELL1 || || CELL3
-|}
-}}}<br><div class="woas_helptext">To create this:</div>
-{|
-|+ TITLE
-| *HEADER1* || *HEADER2* || *HEADER3*
-| CELL1 || CELL2 || CELL3
-| CELL1 || CELL2 || CELL3
-| CELL1 || CELL2 || CELL3
-| CELL1 || || CELL3
-|}
-
-See also the [[Wiki::Help::Table of Contents]] page.
-
---DFQRCTsKlU
 woas.page.title: Wiki::Help::Links
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
@@ -2788,7 +2684,7 @@ woas.page.boundary: DFQRCTsKlU
 	padding-right: 0.313em;
 	padding-bottom: 0.188em;
 	padding-left: 0.313em;
-}
+	}
 
 /***** BANNER - BACKGROUND AND POSITION *****/
 div.wiki_header {
@@ -2801,7 +2697,7 @@ div.wiki_header {
 	top: 0em;
 	width: 99.9%;
 	z-index: 1;
-}
+	}
 
 /***** BANNER - PAGE TITLE *****/
 .title {
@@ -2811,17 +2707,17 @@ div.wiki_header {
 	margin-top: 0em;
 	margin-bottom: 0em;
 	text-shadow: #888 0.13em 0.13em 0.065em;
-} 
+	} 
 
 /***** BODY - FONT FAMILY *****/
 body {
 	font-family: Georgia, verdana;
-}
+	}
 
 /***** BODY - BACKGROUND COLOR *****/
 .woas_background {
 	background-color: silver;
-} 
+	} 
 
 /***** DEBUG PANEL *****/
 #woas_debug_panel {
@@ -2832,30 +2728,30 @@ body {
 	margin-right: 0.85em;
 	margin-left: 20.5%;
 	width: 77%;
-}
+	}
 
 /***** DEBUG CONSOLE *****/
 #woas_debug_console {
-}
+	}
 
 /***** DEBUG LOG *****/
 #woas_debug_log {
 	background-color: silver;
 	margin-bottom: 1%;
 	width: 97%;
-} 
+	} 
 
 /***** EDITOR - PAGE TITLE LINE *****/
 #woas_edit_page_title {
 	margin-top: -0.756em;
-}
+	}
 
 /***** EDITOR - WOAS BUTTON  *****/
 /***** NOTE TO LITTLE GIRL: REMOVE THIS ONCE YOU'RE SURE THERE ARE NO REFERENCES TO IT *****/
 .woas_editor_button {
 	margin-top: 0.063em;
 	margin-bottom: 0.063em;
-}
+	}
 
 /***** ENCRYPTION *****/
 /* ask password overlay */
@@ -2872,7 +2768,7 @@ body {
 	visibility: hidden;
 	width: 99%;
 	z-index: 100;
-}
+	}
 #woas_pwd_mask {
 	font-size: large;
 	height: 100%;
@@ -2883,14 +2779,14 @@ body {
 	visibility: hidden;
 	width: 99%;
 	z-index: 99;
-}
+	}
 .woas_password_desc {
 	background-color: #FAFAFB;
 	border: 2pt solid navy;
 	font-size: 0.8em;
 	margin-right: 25%;
 	margin-left: 25%;
-}
+	}
 
 /***** FOOTER *****/
 .woas_about_footer {
@@ -2908,12 +2804,12 @@ body {
 	padding-left: 0.813em;
 	text-align: justify;
 	width: 77.5%;
-}
+	}
 
 /***** FOOTER - LINKS *****/
 .woas_about_footer a {
 	color: mediumblue !important;
-}
+	}
 
 /***** FOOTNOTES *****/
 .footnote {
@@ -2923,7 +2819,7 @@ body {
 	line-height: 1em;
 	text-decoration: underline;
 	vertical-align: super;
-}
+	}
 
 /***** FOOTNOTES - CONTAINER *****/
 .footnotecontainer {
@@ -2933,33 +2829,33 @@ body {
 	line-height: 1em;
 	margin-top: 0em;
 	vertical-align: super;
-}
+	}
 
 /***** HEADERS *****/
 h1.woas_header {
 	font-size: 1.438em;
-}
+	}
 h2.woas_header {
 	font-size: 1.25em;
-}
+	}
 h3.woas_header {
 	font-size: 1.063em;
-}
+	}
 h4.woas_header {
 	font-size: 0.875em;
-}
+	}
 h5.woas_header {
 	font-size: 0.75em;
-}
+	}
 h6.woas_header {
 	font-size: 0.625em;
-}
+	}
 
 /***** HELP PAGE BACKGROUND *****/
 .woas_help_background {
 	background-attachment: fixed;
 	background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAYAAADDPmHLAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A%2FwD%2FoL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9oDDAonCzKHvroAAAEFSURBVHja7duxDYIhFIVRIA7EKk7qKoxkb2Ns1PzfObWNuRfyAB0DAAAAAAAAAAAAAAAAAAAAAAAAAIC%2FMEtf9pxzf%2FeZvfdDAYLBV4swBd8uwhR%2BuwhT%2BO0SLOE7BQg%2FvAssa8AOYPWHd4FbtfmvIVZnhyX8xnlfAVCA8kpPHAO%2FNUReqUQKEA7fDDDcHC7hmwGEHx4gp%2BDbpwc%2FCYsfHafw2%2FcG2beAevCpHeDT1V%2B6LfQWEA5fAeLhKwAKoAAAAOR4DRzt3wl6DYyXwGtgvAQeg%2BIlcBEUpwAKgALgHsAg6BTgHsAO0CyBfwwDAAAAAAAAAAAAAAAAAAAAAAAAAAAAv%2FIER4Nn%2B7YDG3wAAAAASUVORK5CYII%3D);
-}
+	}
 
 /***** HELP PAGE BUTTON *****/
 .woas_help_button {
@@ -2974,16 +2870,16 @@ h6.woas_header {
 	right: 0.625em;
 	text-align:center;
 	top: 0.188em;
-}
+	}
 .woas_help_button:hover {
 	background-color: darkgrey;
-}
+	}
 
 /***** HELP PAGE - EXAMPLES *****/
 .woas_helpcode {
 	font-family: monospace;
 	padding: 0.438em;
-}
+	}
 
 /***** HELP PAGE - EXAMPLES *****/
 /***** NOTE TO LITTLE GIRL: REMOVE THIS ONCE YOU'RE SURE THERE ARE NO REFERENCES TO IT *****/
@@ -2993,12 +2889,12 @@ div.wikihelpcode {
 	border:0.063em solid grey;
 	padding:0.438em;
 	font-family:monospace;
-}
+	}
 
 /***** HELP PAGE - EXAMPLE TEXT *****/
 .woas_helptext {
 	font-family: lucida;
-}
+	}
 
 /***** HELP PAGE - EXAMPLE TEXT *****/
 /***** NOTE TO LITTLE GIRL: REMOVE THIS ONCE YOU'RE SURE THERE ARE NO REFERENCES TO IT *****/
@@ -3006,13 +2902,13 @@ div.wikihelptext {
 	color:darkcyan;
 	font-weight:bold;
 	font-style:italic;
-}
+	}
 
 /***** HOTKEYS *****/
 #woas_custom_accesskeys {
 	display: none;
 	visibility: hidden;
-}
+	}
 
 /***** LAST MODIFIED LINE *****/
 .woas_page_mts {
@@ -3021,36 +2917,36 @@ div.wikihelptext {
 	margin-right: 0.80em;
 	margin-left: 20.5%;
 	z-index: 0;
-} 
+	}
 
 /* LINK - CURSOR WHEN ON A LINK */
 a {
 	cursor: pointer;
 /* cursor when on a link - IE5.5/IE6 */
 	/* cursor: hand; */
-}
+	}
 
 /* LINK - EXISTENT */
 a.link {
 	color: blue;
-}
+	}
 a.link:hover {
 	text-decoration: underline;
-}
+	}
 
 /***** LINK - EXTERNAL *****/
 a.world {
 	color: darkgreen;
 	text-decoration: underline;
-}
+	}
 
 /* LINK - NONEXISTENT */
 a.unlink {
 	color: red;
-}
+	}
 a.unlink:hover {
 	text-decoration: underline;
-}
+	}
 
 /***** MAIN TEXT AREA *****/
 div.woas_text_area {
@@ -3060,7 +2956,7 @@ div.woas_text_area {
 	padding-right:0.813em;
 	padding-bottom:0.813em;
 	padding-left:0.813em;
-}
+	}
 
 /***** MAIN TEXT AREA - TEXT *****/
 #wiki_text {
@@ -3071,14 +2967,14 @@ div.woas_text_area {
 	text-align: justify;
 	width: 77%;
 	z-index: 0;
-} 
+	}
 
 /***** MAIN WIKI PANE WHEN LOCKED *****/
 .woas_text_area.locked,
 #woas_pwd_mask {
 	background-color: #eeeeee;
 	background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAAAAACMmsGiAAAALHRFWHRDcmVhdGlvbiBUaW1lAGdpbyAyOSBtYXIgMjAwNyAxMTo1MToxMCArMDEwME%2BTNUAAAAAHdElNRQfXAx0JNByGxueSAAAACXBIWXMAAAsSAAALEgHS3X78AAAABGdBTUEAALGPC%2FxhBQAAABlJREFUeNpj%2FM%2FwmYHpMwMvAxOQwcvECyQBO1oE%2BlG5iisAAAAASUVORK5CYII%3D);
-}
+	}
 
 /***** MENU *****/
 div.menu {
@@ -3090,13 +2986,13 @@ div.menu_area {
 	left: 0.7%;
 	padding: 0.438em;
 	width: 18%;
-}
+	}
 
 /***** MENU - LISTS *****/
 div.menu_area ul li, div.menu_area ol li,
 div.ns_menu_area ul li, div.ns_menu_area ol li {
 	margin-left: -2em;
-}
+	}
 
 /***** MENU - BUTTONS - WOAS *****/
 /***** NOTE TO LITTLE GIRL: REMOVE THESE ONCE YOU'RE SURE THERE ARE NO REFERENCES TO THEM *****/
@@ -3109,10 +3005,10 @@ div.ns_menu_area ul li, div.ns_menu_area ol li {
 	margin-top: 0.438em;
 	text-align:center; font-size:1.3em;
 	width: 100%;
-}
+	}
 .woas_menu_button:hover {
 	background-color: darkgrey;
-}
+	}
 
 /***** MENU - BUTTONS - FULL *****/
 .boas_menu_button_full {
@@ -3124,7 +3020,7 @@ div.ns_menu_area ul li, div.ns_menu_area ol li {
 	font-variant: normal;
 	text-align: center;
 	width: 100%;
-}
+	}
 .boas_menu_button_full:hover {
 	background-color: darkgrey;
 	border: 0.063em solid grey;
@@ -3134,7 +3030,7 @@ div.ns_menu_area ul li, div.ns_menu_area ol li {
 	font-variant: normal;
 	text-align: center;
 	width: 100%;
-}
+	}
 
 /***** MENU - BUTTONS - HALF *****/
 .boas_menu_button_half {
@@ -3146,7 +3042,7 @@ div.ns_menu_area ul li, div.ns_menu_area ol li {
 	font-variant: normal;
 	text-align: center;
 	width: 50%;
-}
+	}
 .boas_menu_button_half:hover {
 	background-color: darkgrey;
 	border: 0.063em solid grey;
@@ -3156,11 +3052,11 @@ div.ns_menu_area ul li, div.ns_menu_area ol li {
 	font-variant: normal;
 	text-align: center;
 	width: 50%;
-}
+	}
 
 /***** MISCELLANEOUS ******/
 .woas_embedded {
-}
+	}
 
 /***** NOWIKI INLINE - MOZILLA *****/
 .wiki_preformatted {
@@ -3170,7 +3066,7 @@ div.ns_menu_area ul li, div.ns_menu_area ol li {
 	padding-right:0.27em;
 	padding-left:0.27em;
 	white-space:-moz-pre-wrap !important;
-}
+	}
 
 /***** NOWIKI INLINE - CSS-3 *****/
 /* .wiki_preformatted {
@@ -3180,7 +3076,7 @@ div.ns_menu_area ul li, div.ns_menu_area ol li {
 	padding-right:0.27em;
 	padding-left:0.27em;
 	white-space:pre-wrap;
-} */
+	} */
 
 /***** NOWIKI INLINE - OPERA 4-6 *****/
 /* .wiki_preformatted {
@@ -3190,7 +3086,7 @@ div.ns_menu_area ul li, div.ns_menu_area ol li {
 	padding-right:0.27em;
 	padding-left:0.27em;
 	white-space:-pre-wrap;
-} */
+	} */
 
 /***** NOWIKI INLINE - OPERA 7 *****/
 /* .wiki_preformatted {
@@ -3200,7 +3096,7 @@ div.ns_menu_area ul li, div.ns_menu_area ol li {
 	padding-right:0.27em;
 	padding-left:0.27em;
 	white-space:-o-pre-wrap;
-} */
+	} */
 
 /***** NOWIKI INLINE - IE 5.5+ *****/
 /* .wiki_preformatted {
@@ -3210,7 +3106,7 @@ div.ns_menu_area ul li, div.ns_menu_area ol li {
 	padding-right:0.27em;
 	padding-left:0.27em;
 	word-wrap:break-word;
-} */
+	} */
 
 /***** NOWIKI BLOCKS - MOZILLA *****/
 .woas_nowiki_multiline {
@@ -3221,7 +3117,7 @@ div.ns_menu_area ul li, div.ns_menu_area ol li {
 	padding-right:0.27em;
 	padding-left:0.27em;
 	white-space:-moz-pre-wrap !important;
-}
+	}
 
 /***** NOWIKI BLOCKS - CSS-3 *****/
 /* .woas_nowiki_multiline {
@@ -3232,7 +3128,7 @@ div.ns_menu_area ul li, div.ns_menu_area ol li {
 	padding-right:0.27em;
 	padding-left:0.27em;
 	white-space:pre-wrap;
-} */
+	} */
 
 /***** NOWIKI BLOCKS - OPERA 4-6 *****/
 /* .woas_nowiki_multiline {
@@ -3243,7 +3139,7 @@ div.ns_menu_area ul li, div.ns_menu_area ol li {
 	padding-right:0.27em;
 	padding-left:0.27em;
 	white-space:-pre-wrap;
-} */
+	} */
 
 /***** NOWIKI BLOCKS - OPERA 7 *****/
 /* .woas_nowiki_multiline {
@@ -3254,7 +3150,7 @@ div.ns_menu_area ul li, div.ns_menu_area ol li {
 	padding-right:0.27em;
 	padding-left:0.27em;
 	white-space:-o-pre-wrap;
-} */
+	} */
 
 /***** NOWIKI BLOCKS - IE 5.5+ *****/
 /* .woas_nowiki_multiline {
@@ -3265,7 +3161,7 @@ div.ns_menu_area ul li, div.ns_menu_area ol li {
 	padding-right:0.27em;
 	padding-left:0.27em;
 	word-wrap:break-word;
-} */
+	} */
 
 /***** NOWIKI BLOCKS - HTML - MOZILLA *****/
 pre {
@@ -3275,7 +3171,7 @@ pre {
 	font-family:monospace;
 	padding:0.375em;
 	white-space:-moz-pre-wrap !important;
-}
+	}
 
 /***** NOWIKI BLOCKS - HTML - CSS-3 *****/
 /* pre {
@@ -3285,7 +3181,7 @@ pre {
 	font-family:monospace;
 	padding:0.375em;
 	white-space:pre-wrap;
-} */
+	} */
 
 /***** NOWIKI BLOCKS - HTML - OPERA 4-6 *****/
 /* pre {
@@ -3295,7 +3191,7 @@ pre {
 	font-family:monospace;
 	padding:0.375em;
 	white-space:-pre-wrap;
-} */
+	} */
 
 /***** NOWIKI BLOCKS - HTML - OPERA 7 *****/
 /* pre {
@@ -3305,7 +3201,7 @@ pre {
 	font-family:monospace;
 	padding:0.375em;
 	white-space:-o-pre-wrap;
-} */
+	} */
 
 /***** NOWIKI BLOCKS - HTML - IE 5.5+ *****/
 /* pre {
@@ -3315,14 +3211,14 @@ pre {
 	font-family:monospace;
 	padding:0.375em;
 	word-wrap:break-word;
-} */
+	} */
 
 /***** PAGE LIST HEADER *****/
 .woas_listing_options {
 	background-color: gainsboro;
 	border: 0.1em solid grey;
 	padding: 0.2em;
-}
+	}
 
 /***** PRESENTATION - MAIN CONTAINER *****/
 div.presentation {
@@ -3331,7 +3227,7 @@ div.presentation {
 	color: #000000;
 	margin: 1.875em 0.313em 0em 0.625em;
 	padding: 0.313em;
-}
+	}
 
 /***** PRESENTATION - TITLE *****/
 div.presentation h1 {
@@ -3348,7 +3244,7 @@ div.presentation h1 {
 	padding-left: 0.313em;
 	position: relative;
 	top: -1.875em;
-} 
+	}
 
 /***** PRESENTATION - FIRST LETTER *****/
 div.innerpresentation:first-letter {
@@ -3369,7 +3265,7 @@ div.innerpresentation:first-letter {
 	padding-bottom: 0.5%;
 	text-decoration: none;
 	text-transform: capitalize;
-}
+	}
 
 /***** PRESENTATION - INNER CONTAINER *****/
 div.innerpresentation {
@@ -3378,7 +3274,7 @@ div.innerpresentation {
 	font-size: 0.80em;
 	font-weight: normal;
 	padding: 0.313em;
-}
+	}
 
 /***** PRESENTATION - HEADER LEVEL 2 *****/
 div.innerpresentation H2 {
@@ -3391,76 +3287,76 @@ div.innerpresentation H2 {
 	padding-right: 0.313em;
 	padding-bottom: 0.188em;
 	padding-left: 0.313em;
-} 
+	}
 
 /***** SEARCH RESULTS *****/
 div.search_results {
 	clear: both;
 	margin-top: 1em;
-}
+	}
 
 /***** SEARCH HIGHLIGHT *****/
 .search_highlight {
 	background-color: yellow;
-} 
+	}
 
 /***** SPOILERS *****/
 .spoiler {
 	background-color: black;
 	color: black;
-}
+	}
 .spoiler:hover {
 	background-color: black;
 	color: white;
-}
+	}
 .spoilerblock a:link {
 	text-decoration: none;
-}
+	}
 .spoilerblock a:visited {
 	text-decoration: none;
-}
+	}
 .spoilerblock a:hover .show {
 	background-color: black;
 	color: white;
 	display: block;
-}
+	}
 .spoilerblock a:active {
 	text-decoration: none;
-}
+	}
 .spoilerblock a span {
 	display: none;
-}
+	}
 .spoilerinline a:link {
 	text-decoration: none;
-}
+	}
 .spoilerinline a:visited {
 	text-decoration: none;
-}
+	}
 .spoilerinline a:hover .show {
 	background-color: black;
 	color: white;
 	display: inline;
-}
+	}
 .spoilerinline a:active {
 	text-decoration: none;
-}
+	}
 .spoilerinline a span {
 	display: none;
-}
+	}
 
 /***** TABLE *****/
 table.woas_text_area {
 	border: 1pt solid black;
 	border-spacing: 0em;
-}
+	}
 table.woas_text_area td {
 	border: 1pt solid;
 	padding: 0.313em;
-}
+	}
 table.woas_text_area caption {
         font-style: italic;
         font-weight: bold;
-}
+	}
 
 /***** TABLE - FANCY *****/
 table.shadesofblue {
@@ -3473,13 +3369,13 @@ table.shadesofblue {
 	font-size: 14px;
 	font-weight: normal;
 	/*width: 500px;*/
-}
+	}
 caption.shadesofblue {
 	border: 1px solid #6699CC;
 	color: #404040;
 	text-align: center;
 	width: 580px;
-}
+	}
 table.shadesofblue th { 
 	background-color: #BEC8D1;
 	border-bottom: 2px solid #6699CC;
@@ -3489,7 +3385,7 @@ table.shadesofblue th {
 	padding-right: 0.5em;
 	padding-left: 0.5em;
 	text-indent: 2px;
-}
+	}
 table.shadesofblue td {
 	border-top: 0px;
 	border-right: 0px;
@@ -3499,10 +3395,10 @@ table.shadesofblue td {
 	padding-right: 0.5em;
 	padding-left: 0.5em;
 	text-indent: 2px;
-}
+	}
 table.shadesofblue td.special {
 	background-color: #ff00ff;
-}
+	}
 
 /***** TABLE OF CONTENTS *****/
 div.woas_toc {
@@ -3511,19 +3407,19 @@ div.woas_toc {
 	font-size: 95%;
 	padding: 0.313em;
 	width: 50%;
-}
+	}
 
 /***** TABLE OF CONTENTS - LIST *****/
 div.woas_toc ol, li {
 	margin-left: 1.3em;
 	padding-left: 0em;
-}
+	}
 
 /***** TABLE OF CONTENTS - TITLE *****/
 p.woas_toc_title {
 	font-weight: bold;
 	text-align: center;
-}
+	}
 
 /***** TAG CONTAINER *****/
 /* tag container */
@@ -3533,7 +3429,7 @@ div.taglinks {
 	clear: both;
 	margin-top: 1em;
 	padding: 0.313em;
-}
+	}
 
 /***** TAG LINKS *****/
 /* styled boxes around tags */
@@ -3549,32 +3445,32 @@ div.taglinks > a {
 	-moz-border-radius: 7px;-webkit-border-radius:7px;
 	padding: 3px 5px 3px 5px;
 	text-decoration: none;
-}
+	}
 div.taglinks > a:hover {
 	background-color: grey;
 	color: white;
 	border:2px solid blue;
 	font-weight: bold;
 	text-decoration: none;
-}
+	}
 
 /***** TOOLTIPS *****/
 span.tooltip {
 	border-bottom: 0.125em dotted mediumblue;
 	cursor: help;
-}
+	}
 
 /***** TOPNOTES *****/
 div.topnote {
 	position: absolute;
 	right: 0.625em;
 	top: 0.188em;
-}
+	}
 
 /***** WIKI CORE PAGES *****/
 .woas_core_page {
  	padding: 1em;
-} 
+	}
 
 /***** WIKI LOADING OVERLAY *****/
 #loading_overlay {
@@ -3588,12 +3484,12 @@ div.topnote {
 	top: 0em;
 	width: 99%;
 	z-index: 100;
-}
+	}
 
 /***** WIKI WAIT TEXT *****/
 .woas_wait_text {
 	color: navy;
-}
+	}
 
 /***** SIZE CONVERSIONS: 1em = 16px = 12pt *****/
 
@@ -3814,6 +3710,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Renamed the *Help::Navigation* page to [[Wiki::Help::Navigation]].
 ** Renamed the *Help::Print a page* page to [[Wiki::Help::Print a page]].
 ** Renamed the *Help::Spoilers* page to [[Wiki::Help::Spoilers]].
+** Renamed the *Help::Tables* page to [[Wiki::Help::Tables]].
 ** Renamed the *Help::Tooltips* page to [[Wiki::Help::Tooltips]].
 ** Renamed the *Help::Topnote* page to [[Wiki::Help::Topnote]].
 ** Renamed the *Help::Transclusion* page to [[Wiki::Help::Transclusion]].
@@ -3832,6 +3729,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the [[Wiki::Example::Folding page styled button (HTML)]] page.
 ** Updated the [[Wiki::Example::Overview]] page.
 ** Updated the [[Wiki::Help::Create a page]] page.
+** Updated the [[Wiki::Help::CSS]] page.
 ** Updated the [[Wiki::Help::Delete a page]] page.
 ** Updated the [[Wiki::Help::Edit a page]] page.
 ** Updated the [[Wiki::Help::Edit the menu]] page.
@@ -3924,7 +3822,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the *Help::Add a search box* page.
 ** Updated the [[Help::Aliases]] page.
 ** Updated the *Help::Bugs* page.
-** Updated the [[Help::CSS]] page.
+** Updated the *Help::CSS* page.
 ** Updated the [[Help::Code blocks (preformatted text)]] page, removing the obsolete *Code blocks with syntax highlighting* section.
 ** Updated the *Help::Delete a page* page.
 ** Updated the *Help::Edit a page* page.
@@ -3952,7 +3850,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the *Help::Run wiki on a server* page.
 ** Updated the [[Help::Syntax]] page.
 ** Updated the *Help::Table of Contents* page.
-** Updated the [[Help::Tables]] page.
+** Updated the *Help::Tables* page.
 ** Updated the [[Help::Tags]] page.
 ** Updated the *Help::Tooltips* page thanks for information provided by [[http://woas.iragan.com/viewtopic.php?pid=2124#p2124|killermist]].
 ** Updated the *Help::Transclusion* page.
@@ -4032,7 +3930,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the [[Help::Bootscript]] page.
 ** Updated the *Help::Bugs* page.
 ** Updated the [[Help::Code blocks (preformatted text)]] page.
-** Updated the [[Help::CSS]] page.
+** Updated the *Help::CSS* page.
 ** Updated the *Help::Edit a page* page.
 ** Updated the *Help::Edit the menu* page.
 ** Updated the [[Help::Encrypt a page]] page.
@@ -4055,7 +3953,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the *Help::Spoilers* page, adding the *Dynamic block area wiki link (click)*.
 ** Updated the [[Help::Syntax]] page.
 ** Updated the *Help::Table of Contents* page.
-** Updated the [[Help::Tables]] page.
+** Updated the *Help::Tables* page.
 ** Updated the [[Help::Tags]] page.
 ** Updated the *Help::Text formatting* page.
 ** Updated the *Help::Tooltips* page.
@@ -4104,7 +4002,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the *History* page.
 ** Updated the *Help::Bugs* page.
 ** Updated the [[Help::Code blocks (preformatted text)]] page.
-** Updated the [[Help::CSS]] page.
+** Updated the *Help::CSS* page.
 ** Updated the *Help::Edit the menu* page.
 ** Updated the [[Help::Footer]] page.
 ** Updated the [[Help::Images]] page.
@@ -4183,7 +4081,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the *Example::Overview* page.
 ** Updated the *Help::Bugs* page.
 ** Updated the [[Help::Code blocks (preformatted text)]] page, adding instructions on how to use *code blocks with syntax highlighting* from code provided by [[http://woas.iragan.com/viewtopic.php?id=561|FBnil]].
-** Updated the [[Help::CSS]] page.
+** Updated the *Help::CSS* page.
 ** Updated the *Help::Delete a page* page.
 ** Updated the *Help::Edit the menu* page, adding the *Add expanding menu entries* section.
 ** Updated the *Help::Erase all pages* page.
@@ -4196,7 +4094,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the *Help::Page creation* page.
 ** Updated the *Help::Requirements* page.
 ** Updated the *Help::Table of Contents* page.
-** Updated the [[Help::Tables]] page.
+** Updated the *Help::Tables* page.
 ** Updated the *Help::Transclusion* page.
 ** Updated the *Help::Word count* page.
 ** Updated the *History* page.
@@ -4239,7 +4137,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the *Getting Started* page.
 ** Updated the *Help::Bugs* page.
 ** Updated the [[Help::Code blocks (preformatted text)]] page.
-** Updated the [[Help::CSS]] page.
+** Updated the *Help::CSS* page.
 ** Updated the *Help::Delete a page* page.
 ** Updated the *Help::Edit a page* page.
 ** Updated the *Help::Edit the menu* page.
@@ -4296,7 +4194,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Fixed an example link that said *MyReport.log* to the correct *MyFile.log* on the *Help::Embed a file* page.
 ** Updated the content of the warning when the wiki cannot be loaded because JavaScript is not enabled.
 ** Updated the [[Help::Code blocks (preformatted text)]] page.
-** Updated the [[Help::CSS]] page with a current copy of the default CSS code.
+** Updated the *Help::CSS* page with a current copy of the default CSS code.
 ** Updated the *Help::Edit the menu* page.
 ** Updated the [[Help::Encrypt a page]] page with instructions rather than a reference to the default description.
 ** Updated the *Help::Import* page, numbering the steps.
@@ -4359,7 +4257,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Renamed the *Example::Bootscript* page to [[Help::Bootscript]].
 ** Renamed the *Example::Custom JavaScript* page to *Example::JavaScript*.
 ** Renamed the *Example::Search Box* page to *Help::Add a search box*.
-** Renamed the *Help::CSS settings* page to [[Help::CSS]].
+** Renamed the *Help::CSS settings* page to *Help::CSS*.
 ** Renamed the *Help::Transclude pages* page to *Help::Transclusion*.
 ** Replaced the page creation sections in the *Getting Started* page with a link to the *Help::Page creation* page.
 ** Updated the comments on a couple of CSS entries.
@@ -4860,212 +4758,6 @@ Another method is to interrupt the code by dividing it up between multiple lines
 ]
 
 [[Tags::Help|Syntax]]
-
---DFQRCTsKlU
-woas.page.title: Help::CSS
-woas.page.attributes: 0
-woas.page.encoding: 8bit/plain
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-= CSS
-The look of most of this wiki can be customized by changing the CSS settings.
-
-[[Include::Wiki::Template::Info|A tutorial on CSS is available at <a class="world" onclick="window.open('http://www.w3schools.com/css/')">w3schools.com</a>.]]
-
-== Edit the CSS settings
-# Click the [[Include::Wiki::Template::Icon::Advanced]] icon in the banner.
-# Click the [[Special::Edit CSS]] link in the *Advanced* section to open the CSS settings in the editor.
-# Make whatever changes you like to the code.
-# Save your changes by clicking on the [[Include::Wiki::Template::Icon::Save]] icon in the banner.
-
-== Restore the default CSS settings
-To return to the default settings if you changed the CSS settings and don't like the changes:
-# Select and copy the default CSS settings from the bottom of this page.
-# Click the [[Include::Wiki::Template::Icon::Advanced]] icon in the banner.
-# Click the [[Special::Edit CSS]] link in the *Advanced* section to open the CSS settings in the editor.
-# Select the contents of the main text area on the page.
-# Delete all of the contents.
-# Paste in the settings you copied from this page.
-# Click the [[Include::Wiki::Template::Icon::Save]] icon in the banner to save the changes.
-
-== Default CSS settings
-{{{
-/* SIZE CONVERSIONS USED: 1em = 16px = 12pt */
-
-/* ALERT NOTES */
-.alertnote {border:0.063em groove #AA3; background-color:pink; font-size:80%; margin-top:0em; margin-bottom:0em; padding-top:0.188em; padding-right:0.313em; padding-bottom:0.188em; padding-left:0.313em;}
-
-/* BANNER - BACKGROUND */
-div.wiki_header {top:0em; left:0em; z-index:1; background-color:gainsboro; width:100%; border-top:0.188em solid grey; border-bottom:0.188em solid grey; margin-right:0em;}
-
-/* BANNER - PAGE TITLE */
-.title {font-size:2em; font-weight:bold; margin-top:0em; margin-right:0em; margin-bottom:0em; display:inline; color:black; text-shadow: #888 0.13em 0.13em 0.065em;}
-
-/* BLUEBOX */
-.bluebox {margin:1.875em 0.313em 0.938em 0.625em; border:#3c5a86 0.063em dashed; padding:0.313em; font-size:0.75em; font-weight:normal; color:#000000; background-color:#d1e0ef;}
-/* BLUEBOX - FIRST LETTER */
-.first-letter {font-size:4em; font-style:italic; display:block; float:left; background:#333; color:#fb9c39; border:0.063em solid #fff; line-height:0.85em; margin-right:0.1em; border-right-width:medium; border-left-width:medium; border-color:yellow; text-transform:capitalize; text-decoration:none; padding-right:1%;}
-/* BLUEBOX - HEADER LEVEL 1 */
-.bluebox H1 {margin:0em 0em -0.75em 0.313em; position:relative; top:-1.875em; border:#3c5a86 0.063em solid; padding-top:0.188em; padding-bottom:-0.188em; padding-left:0.313em; padding-right:0.313em; font-size:1.125em; font-weight:bold; color:#000000; display:inline; background-color:#99bbdd;} 
-/* BLUEBOX - HEADER LEVEL 2 */
-.bluebox H2 {padding-top:0.188em; padding-bottom:0.188em; padding-left:0.313em; padding-right:0.313em; font-size:1em; font-weight:bold; color:#000000; display:inline;} 
-
-/* BODY */
-body {font-family:tahoma;}
-
-/* BODY - BACKGROUND COLOR */
-.bg {background-color:silver}
-
-/* CODE INLINE - WIKI - CURLY BRACKETS */
-.wiki_preformatted {color:black; background-color:gainsboro; white-space:-moz-pre-wrap !important; padding-right:0.27em; padding-left:0.27em;}
-/* ALTERNATIVE FOR MOZILLA: .wiki_preformatted {color:black; background-color:gainsboro; white-space:-moz-pre-wrap !important; padding-right:0.27em; padding-left:0.27em;} */
-/* ALTERNATIVE FOR CSS-3: .wiki_preformatted {color:black; background-color:gainsboro; white-space:pre-wrap; padding-right:0.27em; padding-left:0.27em;} */
-/* ALTERNATIVE FOR OPERA 4-6: .wiki_preformatted {color:black; background-color:gainsboro; white-space:-pre-wrap; padding-right:0.27em; padding-left:0.27em;} */
-/* ALTERNATIVE FOR OPERA 7: .wiki_preformatted {color:black; background-color:gainsboro; white-space:-o-pre-wrap; padding-right:0.27em; padding-left:0.27em;} */
-/* ALTERNATIVE FOR IE 5.5+: .wiki_preformatted {color:black; background-color:gainsboro; word-wrap:break-word; padding-right:0.27em; padding-left:0.27em;} */
-
-/* CODE BLOCKS - HTML - PRE TAGS */
-pre {color:black; background-color:gainsboro; border:0.063em solid grey; padding:0.375em;}
-
-/* DEBUG CONSOLE */
-#debug_info {clear:both; background-color:gainsboro; margin-right:0.21em; margin-left:18.05em; border:0.125em solid grey;}
-#woas_debug_panel {}
-#woas_log {background-color:silver; width:95.5%; margin-left:2em;}
-#woas_clear {margin-top:0.5em; margin-left:1.6em;}
-
-/* EDITOR BUTTONS */
-.wiki_button {color:darkblue; background-color:gainsboro; border:0.063em solid grey; margin-top:0.188em; margin-bottom:0.188em; font-size:0.813em; cursor:pointer;}
-.wiki_button:hover {color:darkblue; background-color:darkgrey; border:0.063em solid grey; margin-top:0.188em; margin-bottom:0.188em; font-size:0.813em; cursor:pointer;}
-
-/* EDITOR CONTENT */
-#edit_page_title{margin-top:0.625em;}
-
-/* ENCRYPTION INTERFACE */
-#woas_pwd_query {position:absolute; z-index:100; background-color:#D6DFF7; padding-top:25%; top:0px; left:0px;width:100%; height:100%; border:1px solid #666666; font-size:large; text-align:center; visibility:hidden;}
-#woas_pwd_mask {position:absolute; z-index:99; top:0px; left:0px; width:100%; height:100%; font-size:large; text-align:center; visibility:hidden;}
-
-/* FOOTER */
-div.text_area_footer {background-color:gainsboro; position:relative; left:20.5%; width:77.5%; padding:0.813em; margin-top:0.438em; border:0.188em solid grey; text-align:justify; font-size:80%;}
-
-/* HEADERS */
-h1 {color:black; font-size:1.688em;}
-h2 {color:black; font-size:1.25em;}
-h3 {color:black; font-size:1.063em;}
-h4 {color:black; font-size:0.875em;}
-h5 {color:black; font-size:0.75em;}
-
-/* HELP PAGES - CODE BLOCKS */
-div.helpcode {color:black; background-color:gainsboro; border:0.063em solid grey; padding:0.438em; font-family:monospace;}
-
-/* HELP PAGES - TEXT */
-div.helptext {color:darkcyan; font-weight:bold; font-style:italic;}
-
-/* LINK - CURSOR WHEN ON A LINK */
-a {cursor:pointer;}
-/* ALTERNATIVE FOR IE 5.5+: a {cursor:hand;}*/
-
-/* LINK - EXTERNAL */
-a.world {color:darkgreen; text-decoration:none;}
-a.world:hover {color:darkgreen; text-decoration:underline;}
-
-/* LINK - INTERNAL */
-a.link {color:mediumblue; text-decoration:none;}
-a.link:hover {color:mediumblue; text-decoration:underline;}
-
-/* LINK - INVALID */
-a.unlink {color:red; text-decoration:none;}
-a.unlink:hover {color:red; text-decoration:underline;}
-
-/* LINK - NAMESPACE LINK IN BANNER */
-a {color:mediumblue; text-decoration:none;}
-a:hover {color:mediumblue; text-decoration:underline;}
-
-/* LOADING OVERLAY SHOWN WHILE WIKI IS LOADING OR WHEN IT CAN'T */
-#loading_overlay {background-color:white; position:absolute; top:0em; left:0em; z-index:100; width:99%; height:100%; padding-top:25%; text-align:center; font-size:large; cursor:wait;}
-
-/* MAIN TEXT AREA */
-div.text_area {background-color:white; border:0.188em solid grey; padding-top:0.438em; padding-right:0.813em; padding-bottom:0.813em; padding-left:0.813em;}
-
-/* MAIN TEXT AREA - IMAGES - THIS MAY OR MAY NOT BE NEEDED WHEN USING WOAS 0.10.2 */
-/* div.text_area img {margin-bottom:-0.188em;} */
-
-/* MAIN TEXT AREA - WIKI TEXT */
-#wiki_text {position:relative; top:0em; left:20.5%; z-index:0; width:77%; text-align:justify;}
-
-/* MAIN WIKI PANE WHEN LOCKED */
-div.text_area.locked, #woas_pwd_mask {background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAAAAACMmsGiAAAALHRFWHRDcmVhdGlvbiBUaW1lAGdpbyAyOSBtYXIgMjAwNyAxMTo1MToxMCArMDEwME%2BTNUAAAAAHdElNRQfXAx0JNByGxueSAAAACXBIWXMAAAsSAAALEgHS3X78AAAABGdBTUEAALGPC%2FxhBQAAABlJREFUeNpj%2FM%2FwmYHpMwMvAxOQwcvECyQBO1oE%2BlG5iisAAAAASUVORK5CYII%3D); background-color:#EEEEEE;}
-
-/* MENU */
-div.menu {}
-div.menu_area {background-color:white; left:0.7%; width:18%; padding:0.438em; border:0.188em solid grey; font-size:0.75em;}
-
-/* MENU - BUTTONS - FULL */
-.menu_button_full {color:darkblue; background-color:gainsboro; width:100%; border:0.063em solid grey; text-align:center; font-size:1em; font-variant:normal; cursor:pointer;}
-.menu_button_full:hover {color:darkblue; background-color:darkgrey; width:100%; border:0.063em solid grey; text-align:center; font-size:1em; font-variant:normal; cursor:pointer;}
-
-/* MENU - BUTTONS - HALF */
-.menu_button_half {color:darkblue; background-color:gainsboro; width:50%; border:0.063em solid grey; text-align:center; font-size:1em; font-variant:normal; cursor:pointer;}
-.menu_button_half:hover {color:darkblue; background-color:darkgrey; width:50%; border:0.063em solid grey; text-align:center; font-size:1em; font-variant:normal; cursor:pointer;}
-
-/* MENU - LISTS */
-div.menu_area ul li, div.menu_area ol li, div.ns_menu_area ul li, div.ns_menu_area ol li {color:black; margin-left:-2em;}
-
-/* PAGE LAST MODIFIED (BENEATH MAIN TEXT AREA) */
-.woas_page_mts {position:relative; z-index:0; left:20.5%; width:81%; font-size:small;}
-
-/* SEARCH RESULTS */
-.search_highlight {background-color:yellow;}
-div.search_results {clear:both;}
-
-/* SPOILERS */
-.spoiler {background-color:black; color:black;}
-.spoiler:hover {color:white; background-color:black;}
-.spoilerblock a:link {text-decoration:none;}
-.spoilerblock a:visited {text-decoration:none;}
-.spoilerblock a:hover .show {display:block; background-color:black; color:white;}
-.spoilerblock a:active {text-decoration:none;}
-.spoilerblock a span {display:none;}
-.spoilerinline a:link {text-decoration:none;}
-.spoilerinline a:visited {text-decoration:none;}
-.spoilerinline a:hover .show {display:inline; background-color:black; color:white;}
-.spoilerinline a:active {text-decoration:none;}
-.spoilerinline a span {display:none;}
-
-/* TABLE OF CONTENTS */
-div.wiki_toc {background-color:gainsboro; width:50%; padding-left:1em; border:0.188em solid grey; text-align:left; font-size:95%; margin-top:0.5em; margin-bottom:0.5em;}
-
-/* TABLE OF CONTENTS - LINKS */
-div.wiki_toc a.link {color:mediumblue; text-decoration:none;}
-div.wiki_toc a.link:hover {color:darkgreen; text-decoration:underline;}
-
-/* TABLE OF CONTENTS - LIST */
-div.wiki_toc ol, li {margin-left:0.65em; padding-left:0em;}
-
-/* TABLE OF CONTENTS - TITLE */
-p.wiki_toc_title {text-align:center; font-weight:bold;}
-
-/* TABLES */
-table.text_area caption {font-weight:bold; line-height:200%;}
-table.text_area {border:0.063em solid black; border-spacing:0em;}
-table.text_area td {border:0.063em solid black; padding:0.313em;}
-
-/* TAG CONTAINER */
-div.taglinks {clear:both; background-color:gainsboro; padding:0.313em; margin-top:1em; border:0.188em solid grey;}
-
-/* TAG LINKS */
-a.link.tag {color:darkgreen; text-decoration:none;}
-a.link.tag:hover {color:mediumblue; text-decoration:underline;}
-
-/* TOOLTIPS */
-span.tooltip {cursor:help; border-bottom:0.125em dashed mediumblue;}
-
-/* TOPNOTES */
-div.topnote {position:absolute; top:0.188em; right:0.625em;}
-}}}
-
-[[Tags::Help]]
 
 --DFQRCTsKlU
 woas.page.title: Help::Encrypt a page
@@ -6157,7 +5849,7 @@ This wiki accepts [[http://en.wikipedia.org/wiki/Plain_text|plain text]], [[Tagg
 [[Tags::Help|Syntax]]
 
 --DFQRCTsKlU
-woas.page.title: Help::Tables
+woas.page.title: Wiki::Help::Tables
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -6166,7 +5858,7 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 [[Special::TOC]]
 = Tables
-The content inside tables can contain internal and external links, and these kinds of [[Help::Text formatting|Text formatting]]:
+The content inside tables can contain [[Wiki::Help::Links|internal and external links]], and these kinds of [[Wiki::Help::Text formatting|Text formatting]]:
 * Blinking
 * Bold
 * Colored
@@ -6175,99 +5867,167 @@ The content inside tables can contain internal and external links, and these kin
 * Underlined
 * Underlined Bold Italic
 
-== Basic Table:
-</font><div class="helptext">Use this code in a page:</div>{{{
-{|
-| CELL1 || CELL2
-| CELL1 || CELL2
-|}
-}}}<div class="helptext">To create this:</div>
-{|
-| CELL1 || CELL2
-| CELL1 || CELL2
-|}
+== Basic table
+These are the basic parts of a table:
+# One opening tag ( {{{{|}}} ) on a line by itself.
+# One *optional* [[#Captions|caption line]] at the top or bottom.
+# One or more *optional* [[#Comment lines|comment line]].
+# One or more rows of cells beginning with a pipe ( {{{|}}} ) and separated by double pipes ( {{{||}}} ).
+# One closing tag ( {{{|}}}} ) on a line by itself.
 
-<div class="helptext">Or use this code in a page:</div>{{{
+</font><div class="wikihelptext">Use this code in a page:</div><br>{{{
 {|
-| CELL1 || CELL2
+| cell 1 || cell 2 || cell 3
+| cell 1 || cell 2 || cell 3
+| cell 1 || cell 2 || cell 3
+|}
+}}}<br><div class="wikihelptext">Or use this code in a page:</div><br>{{{
+{|
+| cell 1 || cell 2 || cell 3
 |-
-| CELL1 || CELL2
-|}
-}}}<div class="helptext">To create this:</div>
-{|
-| CELL1 || CELL2
+| cell 1 || cell 2 || cell 3
 |-
-| CELL1 || CELL2
+| cell 1 || cell 2 || cell 3
 |}
-
-The line that starts with {{{|- }}} is a comment line. You can type some text after it which will only be visible when viewing the source:
-
-<div class="helptext">Use this code in a page:</div>{{{
+}}}<br><div class="wikihelptext">To create this:</div>
 {|
-| CELL1 || CELL2
-|- This is a comment.
-| CELL1 || CELL2
-|}
-}}}<div class="helptext">To create this:</div>
-{|
-| CELL1 || CELL2
-|- This is a comment.
-| CELL1 || CELL2
+| cell 1 || cell 2 || cell 3
+| cell 1 || cell 2 || cell 3
+| cell 1 || cell 2 || cell 3
 |}
 
-== Complex Table:
-<div class="helptext">Use this code in a page:</div>{{{
+== Captions
+A table row that starts with {{{|+ }}} is a caption. Each table can only have one caption at the top or bottom. Placement of the caption is determined by where you place it in your table.
+
+</font><div class="wikihelptext">Use this code in a page:</div><br>{{{
+{|
+|+ Caption
+| cell 1 || cell 2 || cell 3
+| cell 1 || cell 2 || cell 3
+| cell 1 || cell 2 || cell 3
+|}
+}}}<br><div class="wikihelptext">Or use this code in a page:</div><br>{{{
+{|
+|+ Caption
+|-
+| cell 1 || cell 2 || cell 3
+|-
+| cell 1 || cell 2 || cell 3
+|-
+| cell 1 || cell 2 || cell 3
+|}
+}}}<br><div class="wikihelptext">To create this:</div>
+{|
+|+ Caption
+| cell 1 || cell 2 || cell 3
+| cell 1 || cell 2 || cell 3
+| cell 1 || cell 2 || cell 3
+|}
+
+</font><div class="wikihelptext">Use this code in a page:</div><br>{{{
+{|
+| cell 1 || cell 2 || cell 3
+| cell 1 || cell 2 || cell 3
+| cell 1 || cell 2 || cell 3
+|+ Caption
+|}
+}}}<br><div class="wikihelptext">Or use this code in a page:</div><br>{{{
+{|
+| cell 1 || cell 2 || cell 3
+|-
+| cell 1 || cell 2 || cell 3
+|-
+| cell 1 || cell 2 || cell 3
+|-
+|+ Caption
+|}
+}}}<br><div class="wikihelptext">To create this:</div>
+{|
+| cell 1 || cell 2 || cell 3
+| cell 1 || cell 2 || cell 3
+| cell 1 || cell 2 || cell 3
+|+ Caption
+|}
+
+== Comment lines
+A table row that starts with a pipe followed by a dash ( {{{|-}}} ) is a comment line. You can type some text after it, which will only be visible when viewing the source, or you can use it as is to act as a spacer between the rows of your table for debugging complex tables. Comment lines are optional.
+
+== Empty cells
+Empty cells can be created by inserting just one space as the content of a cell.
+
+</font><div class="wikihelptext">Use this code in a page:</div><br>{{{
+{|
+| || cell 2 || cell 3
+| cell 1 || || cell 3
+| cell 1 || cell 2 || 
+|}
+}}}<br><div class="wikihelptext">Or use this code in a page:</div><br>{{{
+{|
+|-
+| || cell 2 || cell 3
+|-
+| cell 1 || || cell 3
+|-
+| cell 1 || cell 2 || 
+|-
+|}
+}}}<br><div class="wikihelptext">To create this:</div>
+{|
+| || cell 2 || cell 3
+| cell 1 || || cell 3
+| cell 1 || cell 2 || 
+|}
+
+== Complex tables
+<div class="wikihelptext">Use this code in a page:</div><br>{{{
 {|
 |+ TITLE
 | *HEADER1* || *HEADER2* || *HEADER3*
 |-
-| CELL1 || CELL2 || CELL3
+| cell 1 || cell 2 || cell 3
 |-
-| CELL1 || [[http://www.google.com|Link to Google]] || CELL3
+| cell 1 || [[http://www.gnu.org/]] || cell 3
 |-
-| CELL1 || [[Main Page]] || CELL3
+| cell 1 || [[Main Page]] || cell 3
 |-
-| CELL1 || || CELL3
+| cell 1 || || cell 3
 |}
-}}}<div class="helptext">To create this:</div>
+}}}<br><div class="wikihelptext">To create this:</div>
 {|
 |+ TITLE
 | *HEADER1* || *HEADER2* || *HEADER3*
 |-
-| CELL1 || CELL2 || CELL3
+| cell 1 || cell 2 || cell 3
 |-
-| CELL1 || [[http://www.google.com|Link to Google]] || CELL3
+| cell 1 || [[http://www.gnu.org/]] || cell 3
 |-
-| CELL1 || [[Main Page]] || CELL3
+| cell 1 || [[Main Page]] || cell 3
 |-
-| CELL1 || || CELL3
+| cell 1 || || cell 3
 |}
 
-<div class="helptext">Or use this code in a page:</div>{{{
+<div class="wikihelptext">Or use this code in a page:</div><br>{{{
 {|
 |+ TITLE
 | *HEADER1* || *HEADER2* || *HEADER3*
-| CELL1 || CELL2 || CELL3
-| CELL1 || [[http://www.google.com|Link to Google]] || CELL3
-| CELL1 || [[Main Page]] || CELL3
-| CELL1 || || CELL3
+| cell 1 || cell 2 || cell 3
+| cell 1 || [[http://www.gnu.org/]] || cell 3
+| cell 1 || [[Main Page]] || cell 3
+| cell 1 || || cell 3
 |}
-}}}<div class="helptext">To create this:</div>
+}}}<br><div class="wikihelptext">To create this:</div>
 {|
 |+ TITLE
 | *HEADER1* || *HEADER2* || *HEADER3*
-| CELL1 || CELL2 || CELL3
-| CELL1 || [[http://www.google.com|Link to Google]] || CELL3
-| CELL1 || [[Main Page]] || CELL3
-| CELL1 || || CELL3
+| cell 1 || cell 2 || cell 3
+| cell 1 || [[http://www.gnu.org/]] || cell 3
+| cell 1 || [[Main Page]] || cell 3
+| cell 1 || || cell 3
 |}
 
-== Table of Contents:
-<div class="helptext">Use this code in a page:</div>{{{
-[[Special::TOC]]
-}}}<div class="helptext">To create an automatically populated Table of Contents like the one at the top of this page.</div>
-
-[[Tags::Help|Syntax]]
+== See also
+* See the [[Wiki::Help::Table of Contents]] page for help with Table of Contents.
+* See the [[Wiki::Help::Tables::Custom]] page for advanced table structure.
 
 --DFQRCTsKlU
 woas.page.title: Help::Tags
@@ -7673,7 +7433,7 @@ Placement of the caption determines whether it's above or below the table.
 </td></tr></table>
 
 == Empty cells
-Empty cells can be created by inserting just one space after a pipe in your table.
+Empty cells can be created by inserting just one space as the content of a cell.
 
 <table width="100%"><tr><td width="40%"><div class="woas_help_text">Example plain table:</div></td><td width="60%"><div class="woas_help_text">Use this code to create the table:</div></td></tr><tr><td valign="top">
 {|
