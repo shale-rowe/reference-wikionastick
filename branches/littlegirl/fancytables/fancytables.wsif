@@ -25,7 +25,7 @@ caption.CLASS_NAME {CSS_RULES}
 table.CLASS_NAME th {CSS_RULES}
 table.CLASS_NAME td {CSS_RULES}
 table.CLASS_NAME td.special {CSS_RULES}
-}}}<br>See the [[#The CSS rules used for the example tables|custom CSS rules]] used by the examples on this page.
+}}}<br>See the [[#The CSS rules used by the example tables|custom CSS rules]] used by the examples on this page.
 
 == Assign a class to a table
 When custom CSS rules have been added to the wiki, you can replace the default {{{{|}}} table opening line with a custom one to assign the custom class to the table.
