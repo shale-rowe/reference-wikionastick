@@ -1,10 +1,9 @@
 // WoaS 'exporter' module
 woas.exporter = {
-	//TODO: populate it
+	_main_index: false,
+	_unix_norm: false,
+	_default_ext: 'html'
 };
-
-var _export_main_index = false, _export_unix_norm = false,
-	_export_default_ext;
 
 var _title2fn;
 
@@ -71,8 +70,8 @@ woas._export_get_fname = function (title, create_mode) {
 		}
 		// beware: a special page or namespace index page cannot be main page
 		// considering the below code
-		if (_export_main_index && (title==this.config.main_page)) {
-			_title2fn[title] = "index."+_export_default_ext;
+		if (woas.exporter._main_index && (title==this.config.main_page)) {
+			_title2fn[title] = "index."+ woas.exporter._default_ext;
 			_export_fnames_array.push(_title2fn[title]);
 			return _title2fn[title];
 		}
@@ -81,10 +80,10 @@ woas._export_get_fname = function (title, create_mode) {
 	if (!sp && this.is__embedded(pi)) {
 		title = title.substr(title.indexOf("::")+2);
 //		if (!this.is__image(pi))
-//			ext = "."+_export_default_ext;
+//			ext = "."+woas.exporter._default_ext;
 //		emb = true;
 	} else {
-		ext = "."+_export_default_ext;
+		ext = "."+woas.exporter._default_ext;
 //		emb = false;
 	}
 	var fname = title
@@ -110,7 +109,7 @@ woas._export_get_fname = function (title, create_mode) {
 		return "_".repeat($1.length);
 	});
 	// fix the directory separator chars
-	if (_export_unix_norm)
+	if (woas.exporter._unix_norm)
 		fname = this._unix_normalize(fname);
 	else
 		fname = fname.replace(/::/g, " - ");
@@ -198,12 +197,12 @@ woas.export_wiki = function () {
 			exp.js_mode = 2;
 		sep_css = $("woas_cb_sep_css").checked;
 		exp.exp_menus = $("woas_cb_export_menu").checked;
-		_export_main_index = $("woas_cb_index_main").checked;
-		_export_default_ext = $("woas_ep_ext").value;
+		woas.exporter._main_index = $("woas_cb_index_main").checked;
+		woas.exporter._default_ext = $("woas_ep_ext").value;
 		exp.meta_author = this.trim($("woas_ep_author").value);
 		if (exp.meta_author.length)
 			exp.meta_author = '<'+'meta name="author" content="'+this._attrib_escape(this.xhtml_encode(exp.meta_author))+'" />'+"\n";
-		_export_unix_norm = $("woas_cb_unix_norm").checked;
+		woas.exporter._unix_norm = $("woas_cb_unix_norm").checked;
 	} catch (e) { this.crash(e); return false; }
 	
 	this.progress_init("Exporting XHTML");
