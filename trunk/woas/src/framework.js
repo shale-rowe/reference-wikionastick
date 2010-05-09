@@ -34,7 +34,7 @@ if((navigator.userAgent).indexOf("Opera")!=-1) {
 	woas.browser.safari = true;
 } else if(navigator.appName == "Netscape") {
 	// check that it is Gecko first
-	woas.browser.gecko = (new RegExp("Gecko\\/\\d")).test(navigator.userAgent) ? true : false;
+	woas.browser.firefox = woas.browser.gecko = (new RegExp("Gecko\\/\\d")).test(navigator.userAgent) ? true : false;
 	// match also development versions of Firefox "Shiretoko" / "Namoroka"
 	if (woas.browser.gecko) {
 		// match the last word of userAgent

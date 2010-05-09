@@ -3289,9 +3289,48 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 = Plugins
 
-All pages of the *WoaS::Plugins::* namespace will be treated as WoaS plugins. Such plugins are executed when loading WoaS and remain active during WoaS usage.
+All pages of the *WoaS::Plugins::* namespace are WoaS plugins; plugins are executed when loading WoaS and remain active during WoaS usage.
 
 You can share WoaS plugins as WSIF files by exporting them.
+
+== External plugins
+
+A WoaS plugin is just JavaScript code, unless you create a plugin whose name starts with '@'. Such plugins are made up of external file references and a specific notation to force browser into a specific inclusion mode.
+
+Example:
+{{{path/to/mylib1.js = +*
+path/to/mylib2.js = @*}}}
+
+The first resource, {{{path/to/mylib1.js}}}, will be included as an inline JavaScript (e.g. like source code inside a {{{<script />}}} tag), while the second, {{{path/to/mylib2.js}}}, will be included as external ({{{<script />}}} tag with proper 'src' attribute).
+
+=== Inclusion operators
+
+There are two inclusion operators which are valid for resource definitions:
+
+* *+* - which leads to inline inclusion
+* *@* - which leads to external inclusion
+
+The word which directly follows such inclusion operator can be any of the following supported tokens:
+
+* *{{{*}}}* catch-all, which means any browser/engine
+* *ie* Internet Explorer
+* *firefox* Mozilla Firefox (-)
+* *opera* Opera Internet Explorer
+* *safari* Apple Safari (-)
+* *chrome* Google Chrome
+* *gecko* Gecko engine (Mozilla)
+* *webkit* WebKit engine (Safari/Chrome)
+* *presto* Presto engine (Opera)
+* *trident* Trident engine (Internet Explorer)
+
+*Note: * tokens marked with (-) do not support version matching
+
+Now let's consider a more complex example:
+
+{{{path/to/mylib1.js = +* @gecko(1.9+)
+path/to/mylib2.js = @*}}}
+
+{{{path/to/mylib1.js}}} will be loaded as inline for all browsers except those which have a Gecko engine with version 1.9 or above (i.e. Firefox 3.6 and above).
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Aliases
 woas.page.attributes: 0
