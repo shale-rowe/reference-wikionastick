@@ -197,7 +197,7 @@ woas.parser.place_holder = function (i, separator) {
 // create a preformatted block ready to be displayed
 woas._make_preformatted = function(text, add_style) {
 	var cls, tag, p = text.indexOf("\n");
-	if (p == -1) {
+	if (p === -1) {
 		cls = "wiki_preformatted";
 		tag = "tt";
 	} else {
@@ -207,6 +207,10 @@ woas._make_preformatted = function(text, add_style) {
 		cls = "woas_nowiki_multiline";
 		tag = "div";
 	}
+	return this._raw_preformatted(tag, text, cls, add_style);
+};
+
+woas._raw_preformatted = function(tag, text, cls, add_style) {
 	var xhtml = this.xhtml_encode(text);
 	// convert the newlines
 //	if (this.browser.ie)		xhtml = xhtml.replace(/\n/g, "\r\n");
@@ -216,7 +220,7 @@ woas._make_preformatted = function(text, add_style) {
 		add_style = " style=\""+add_style+"\"";
 	else add_style = "";
 	return "<"+tag+" class=\""+cls+"\""+add_style+">"+xhtml+"</"+tag+">";
-}
+};
 
 // THIS is the method that you should override for your custom parsing needs
 // 'text' is the raw wiki source

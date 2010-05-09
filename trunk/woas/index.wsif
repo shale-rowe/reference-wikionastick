@@ -1235,9 +1235,9 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Edit the menu
-# Click the <span class="woas_menu_button" style="font-size: medium">Edit menu</span> button at the bottom of the menu.<br><br>
-# Edit the contents of the main text area by typing normally. The menu can contain links, lists, tables, colored text, etc. as a normal wik page<br><br>
-# Save your changes by clicking on the *Save* icon in the top right navigation panel.
+# Click the <span class="woas_menu_button" style="font-size: medium">Edit menu</span> button at the bottom of the menu
+# Edit the contents of the main text area; the menu page is like a normal wiki page
+# Save your changes by clicking on the *Save* icon in the top right navigation panel
 
 You can use various styles for your menu. A detailed explanation of list styles can be found in the [[WoaS::Help::Lists]] page.
 
@@ -2654,23 +2654,21 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Export
-You can export this wiki into multiple linked XHTML, CSS, and image files which will create a framed web page.
+= Exporting into XHTML static pages
+Your WoaS pages can be exported into web-compatible XHTML, CSS and eventually attachment files/images; generated pages do not use JavaScript for rendering and can be efficiently cached by webservers.
 
-# Click the *Advanced* icon in the navigation bar.<br><br>
-# Click the {{{[[Special::Export]]}}} link in the *Maintenance* section.<br><br>
-# Choose the directory to export the wiki to.<br><br>
-# Choose the settings for the export.<br><br>[[Include::WoaS::Template::Info|Note that the "Run before exporting but do not export the javascript" option means that JavaScript is run and then the XHTML is exported, but the JavaScript is not. This is useful if you have JavaScript that does custom parsing.]]<br>
-# Click the *Export XHTML* button. A confirmation will pop up.<br><br>
-# Click the *index.htm* file in the export directory to launch the framed page.
+# Access [[Special::Export]] directly or either from [[Special::Advanced#Maintenance]]
+# Modify the export directories if necessary
+# Choose the settings for the export.<br><br>[[Include::WoaS::Template::Info|Note that the "Run before exporting but do not export the javascript" option means that JavaScript is run and then the XHTML is exported, but the JavaScript source code itself is not. This is useful if you have JavaScript that does custom parsing.]]<br>
+# Click the *Export XHTML* button. A confirmation will pop up
 
-== ExportWSIF
-# Click the *Advanced* icon in the navigation bar.<br><br>
-# Click the {{{[[Special::ExportWSIF]]}}} link in the *Maintenance* section.<br><br>
-# Choose the directory to export the WSIF file(s) to.<br><br>
+== Exporting into WSIF
+# Access [[Special::ExportWSIF]] directly or iether from [[Special::Advanced#Maintenance]]
+# Modify the export directory if necessary
 # Choose the settings for the export.<br><br>[[Include::WoaS::Template::Info|Note that you can export into a single WSIF file or multiple WSIF files. Embedded files are exported as individual files unless you choose not to export them as external file blobs, in which case they'll be embedded in the WSIF file(s).]]<br>
-# Click the *Export WSIF* button. A confirmation will pop up, telling you how many pages were exported.<br><br>
-# The WSIF file(s) in the export directory can now be copied, shared, or stored for backup purposes.
+# Click the *Export WSIF* button. A confirmation will pop up, telling you how many pages were exported
+
+The WSIF file(s) in the export directory can now be copied, shared, or stored for backup purposes. See also [[WoaS::Help::WSIF]].
 
 --DFQRCTsKlU
 woas.page.title: WoaS::Template::Example::Transclusion
@@ -3304,7 +3302,27 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 = Hotkeys and access keys
 
-You can define key bindings for hotkeys and access keys by editing the *WoaS::Hotkeys* page.
+You can define key bindings for hotkeys and access keys by editing the [[WoaS::Hotkeys]] page.
+
+Example:
+
+{{{$SAVE s
+$EDIT e
+}}}
+
+The *$SAVE* and *$EDIT* definitions identify a WoaS action, while the /'s'/ and /'e'/ characters identify the associated hotkey.
+
+See also [[http://en.wikipedia.org/wiki/Access_keys]].
+
+== Custom hotkeys
+
+You can create a custom hotkey associated to a JavaScript function to be called when that hotkey is activated.
+
+Example:
+
+{{{$CUSTOM(myfunction)     k}}}
+
+The /myfunction/ JavaScript function will be called (without arguments) when the /'k'/ hotkey is activated.
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Plugins
 woas.page.attributes: 0
