@@ -1,4 +1,6 @@
-Version 0.12.0
+Version 0.12.0 (legolas558)
+* fixed some wrong dead pages listings
+* fixed section reference in wiki links
 * fixed page deletion bug (2994251, reported by rad30n)
 * fixed page rename bug (2997948, reported by thinker5555)
 * removed 'double-click to clear' feature of debug console

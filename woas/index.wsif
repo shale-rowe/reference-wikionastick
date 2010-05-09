@@ -477,7 +477,7 @@ Note: *Directory must exist if using a non-Mozilla browser.*
 
 Default extension for generated XHTML files
 
-<input id="woas_ep_ext" type="text" size="8" value="htm" />
+<input id="woas_ep_ext" type="text" size="8" />
 
 <label for="woas_cb_index_main"><input type="checkbox" id="woas_cb_index_main" checked="checked">The main page will be named index.htm</label>
 <label for="woas_cb_unix_norm"><input type="checkbox" id="woas_cb_unix_norm" checked="checked">Apply UNIX-style normalization (lowercase and spaces replaced by underscores) to generated filenames</label>
@@ -504,6 +504,7 @@ META author (optional)
 var path = woas.ROOT_DIRECTORY + "export" + woas.DIRECTORY_SEPARATOR;
 $('woas_ep_xhtml').value = path;
 $('woas_ep_img').value = path;
+$('woas_ep_ext').value = woas.exporter._default_ext;
 
 $('woas_ep_xhtml').onfocus = $('woas_ep_img').onfocus = $('woas_ep_ext').onfocus = woas.ui.focus_textbox;
 $('woas_ep_xhtml').onblur = $('woas_ep_img').onblur = $('woas_ep_ext').onblur = woas.ui.blur_textbox;
