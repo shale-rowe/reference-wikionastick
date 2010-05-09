@@ -183,6 +183,7 @@ var reScripts = new RegExp("<"+"script([^>]*)>([\\s\\S]*?)<"+"\\/script>", "gi")
 	reComments = /<\!--([\s\S]*?)-->/g,
 	reWikiLink = /\[\[([^\]\]]*?)\|(.*?)\]\]/g,
 	reWikiLinkSimple = /\[\[([^\]]*?)\]\]/g,
+	reMailto = /^mailto:\/\//,
 	reCleanupNewlines = new RegExp('((<\\/h[1-6]><'+'div class="woas_level[1-6]">)|(<\\/[uo]l>))(\n+)', 'g');
 
 var _MAX_TRANSCLUSION_RECURSE = 256;
@@ -464,7 +465,7 @@ woas.parser.parse = function(text, export_links, js_mode) {
 		// check for protocol
 		if ($1.search(/^\w+:\/\//)===0) {
 			r = woas.parser.place_holder(snippets.length);
-			url = $1.replace(/^mailto:\/\//, "mailto:");
+			url = $1.replace(reMailto, "mailto:");
 			snippets.push("<"+"a title=\""+woas.xhtml_encode(url)+"\" class=\"world\" href=\"" + url + "\" target=\"_blank\">" + $2 + "<\/a>");
 			return r;
 		}
@@ -480,11 +481,11 @@ woas.parser.parse = function(text, export_links, js_mode) {
 		}
 
 		var page = woas.title_unalias($1),
-			hashloc = $1.indexOf("#"),
+			hashloc = page.indexOf("#"),
 			gotohash = "";
 		if (hashloc > 0) {
-			page = $1.substr(0, hashloc);
-			gotohash = "; window.location.hash= \"" + $1.substr(hashloc) + "\"";
+			gotohash = "; window.location.hash= \"" + page.substr(hashloc) + "\"";
+			page = page.substr(0, hashloc);
 		}
 		if (woas.page_exists(page)) {
 			r = woas.parser.place_holder(snippets.length);
@@ -493,7 +494,7 @@ woas.parser.parse = function(text, export_links, js_mode) {
 //							wl = " onclick=\"alert('not yet implemented');\"";		else
 				wl = " href=\""+woas._export_get_fname(page)+"\"";
 			} else
-				wl = " onclick=\"go_to('" + woas.js_encode(page) +	"')" + gotohash + "\"";
+				wl = " onclick=\"woas.ui.go_to('" + woas.js_encode(page) +	"')" + gotohash + "\"";
 			snippets.push("<"+"a title=\""+woas.xhtml_encode(page)+"\" class=\"link\""+ wl + " >" + $2 + "<\/a>");
 			return r;
 		} else {
@@ -518,7 +519,7 @@ woas.parser.parse = function(text, export_links, js_mode) {
 					snippets.push("<"+"span class=\"broken_link\">" + $2 + "<\/span>");
 					return r;
 				}
-				wl = " onclick=\"go_to('" +woas.js_encode(page)+"')\"";
+				wl = " onclick=\"woas.ui.go_to('" +woas.js_encode(page)+"')\"";
 				snippets.push("<"+"a title=\""+woas.xhtml_encode(page)+"\" class=\"unlink\" "+wl+">" + $2 + "<\/a>");
 				return r;
 			}
@@ -530,7 +531,7 @@ woas.parser.parse = function(text, export_links, js_mode) {
 		// check for protocol
 		if ($1.search(/^\w+:\/\//)===0) {
 			r = woas.parser.place_holder(snippets.length);
-			$1 = $1.replace(/^mailto:\/\//, "mailto:");
+			$1 = $1.replace(reMailto, "mailto:");
 			snippets.push("<"+"a class=\"world\" href=\"" + $1 + "\" target=\"_blank\">" + $1 + "<\/a>");
 			return r;
 		}
@@ -544,7 +545,15 @@ woas.parser.parse = function(text, export_links, js_mode) {
 			++inline_tags;
 			return "<!-- "+parse_marker+":"+inline_tags+" -->";
 		}
-		var page = woas.title_unalias($1)
+		
+		// unaliasing happens only after above checks
+		var page = woas.title_unalias($1),
+			hashloc = page.indexOf("#"),
+			gotohash = "";
+		if (hashloc > 0) {
+			gotohash = "; window.location.hash= \"" + page.substr(hashloc) + "\"";
+			page = page.substr(0, hashloc);
+		}
 		if (woas.page_exists(page)) {
 			r = woas.parser.place_holder(snippets.length);
 			if (export_links) {
@@ -555,7 +564,7 @@ woas.parser.parse = function(text, export_links, js_mode) {
 				}
 				wl = " href=\""+wl+"\"";
 			} else
-				wl = " onclick=\"go_to('" + woas.js_encode(page) +"')\"";
+				wl = " onclick=\"woas.ui.go_to('" + woas.js_encode(page) +"')"+gotohash+"\"";
 			snippets.push("<"+"a title=\""+woas.xhtml_encode(page)+"\"  class=\"link\""+wl+">" + $1 + "<\/a>");
 			return r;
 		} else {
@@ -568,12 +577,13 @@ woas.parser.parse = function(text, export_links, js_mode) {
 					snippets.push("<"+"span class=\"unlink broken_link\">" + $1 + "<\/span>");
 					return r;
 				}
-				wl = " onclick=\"go_to('" + woas.js_encode(page) +"')\"";
+				wl = " onclick=\"woas.ui.go_to('" + woas.js_encode(page) +"')\"";
 				snippets.push("<"+"a title=\""+woas.xhtml_encode(page)+"\"  class=\"unlink\" "+wl+">" + $1 + "<\/a>");
 			}
 			return r;
 		}
 	});
+
 
 	// allow non-wrapping newlines
 	text = text.replace(/\\\n/g, "");
@@ -680,10 +690,10 @@ woas.parser.parse = function(text, export_links, js_mode) {
 			s = "<"+"div class=\"taglinks\">";
 		s += "Tags: ";
 		for(var i=0;i < tags.length-1;i++) {
-			s+="<"+"a class=\"link\" onclick=\"go_to('Tagged::"+woas.js_encode(tags[i])+"')\">"+tags[i]+"<"+"/a>&nbsp;&nbsp;";
+			s+="<"+"a class=\"link\" onclick=\"woas.ui.go_to('Tagged::"+woas.js_encode(tags[i])+"')\">"+tags[i]+"<"+"/a>&nbsp;&nbsp;";
 		}
 		if (tags.length>0)
-			s+="<"+"a class=\"link\" onclick=\"go_to('Tagged::"+woas.js_encode(tags[tags.length-1])+"')\">"+tags[tags.length-1]+"<"+"/a>";
+			s+="<"+"a class=\"link\" onclick=\"woas.ui.go_to('Tagged::"+woas.js_encode(tags[tags.length-1])+"')\">"+tags[tags.length-1]+"<"+"/a>";
 		if (!this.force_inline) {
 			s+="<"+"/div>";
 			text += s;

@@ -221,9 +221,12 @@ woas.special_dead_pages = function() {
 			function (str, $1, $2, $3) {
 				if (page_done)
 					return false;
-				var p = woas.title_unalias($1);
-				if (p.charAt(0)=="#")
+				var p = woas.title_unalias($1),
+					sectref = p.indexOf("#");
+				if (sectref === 0)
 					return;
+				else if (sectref > 0)
+					p = p.substr(0, sectref);
 				if (p.search(/^\w+:\/\//)===0)
 					return;
 				if (p.match(/Tag(s|ged)?:/gi))
