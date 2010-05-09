@@ -66,26 +66,29 @@ woas.ui = {
 		}
 
 		return orig_e;
+	},
+	
+	go_to: function(cr) {
+		if (cr === current)
+			return true;
+		return woas.set_current(cr, true)
 	}
 
 };
 
 // when home is clicked
 function home() {
-	go_to(woas.config.main_page);
+	woas.ui.go_to(woas.config.main_page);
 }
 
 // when Advanced is clicked
+//DEPRECATED
 function advanced() {
-	go_to("Special::Advanced");
+	woas.ui.go_to("Special::Advanced");
 }
 
-// follows a link
-function go_to(cr) {
-	if (cr == current)
-		return true;
-	return woas.set_current(cr, true)
-}
+//DEPRECATED
+function go_to(t) { return woas.ui.go_to(t); }
 
 function back_or(or_page) {
 	if (!go_back())
