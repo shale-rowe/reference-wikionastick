@@ -434,7 +434,7 @@ woas.ns_recurse_parse = function(folds, output, prev_ns, recursion, sorted) {
 		var nslist=[];
 		// get namespaces
 		for(i in folds) {
-			if (i != "[pages]")
+			if (i !== "[pages]")
 				nslist.push(i);
 		}
 		// sort alphabetically (case insensitive)
@@ -454,8 +454,9 @@ woas.ns_recurse_parse = function(folds, output, prev_ns, recursion, sorted) {
 		}
 	} else { // directly parsed without any specific sorting
 		for(i in folds) {
-			if (i != "[pages]")
+			if (i !== "[pages]") {
 				this.ns_recurse_parse(folds[i], output, prev_ns+i, recursion, sorted);
+			}
 		}
 	}
 };
@@ -492,6 +493,8 @@ function _WoaS_list_expand_change(list_id, v) {
 }
 
 woas.ns_listing = function(folds, flat_arr, sorted) {
+	if (flat_arr.length === 0)
+		return "/No pages in this listing/";
 	if (typeof sorted == "undefined")
 		sorted = false;
 	// this is kept here for now until some more appropriate place is individuated
@@ -512,12 +515,14 @@ woas.ns_listing = function(folds, flat_arr, sorted) {
 	output.s += "<"+"/span>\n"+
 				"<"+"span style=\""+woas._visible_css(this._ns_groups[list_id].option === 0)+"\" id=\"WoaS_"+list_id+"_flat\">\n";
 	// then generate the flat list
-	if (sorted)
-		flat_arr.sort();
-	output.s += "* [["+flat_arr.join("]]\n* [[")+"]]\n";
-/*	for(var i=0,it=flat_arr.length;i < it;++i) {
-		output.s += "* [["+flat_arr[i]+"]]\n";
-	} */
+	if (flat_arr.length) {
+		if (sorted)
+			flat_arr.sort();
+		output.s += "* [["+flat_arr.join("]]\n* [[")+"]]\n";
+	/*	for(var i=0,it=flat_arr.length;i < it;++i) {
+			output.s += "* [["+flat_arr[i]+"]]\n";
+		} */
+	}
 	output.s += "<"+"/span>";
 	return output.s;
 };
