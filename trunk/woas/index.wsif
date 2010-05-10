@@ -1173,8 +1173,8 @@ In order to edit pages, click the *Edit* icon in the navigation bar. You can fin
 | *Button* || *What it does*
 | Wiki URL || Add a wiki link to a page.
 | URL || Add an external link to a page.
-| = || Insert wiki syntax for a level one header. Use this at the beginning of any line.
-| == || Insert wiki syntax for a level two header. Use this at the beginning of any line.
+| {{{=}}} || Insert wiki syntax for a level one header. Use this at the beginning of any line.
+| {{{==}}} || Insert wiki syntax for a level two header. Use this at the beginning of any line.
 | Img || Include a wiki image in the page.
 | *B* || Wrap selected text with bold syntax.
 | /i/ || Wrap italic text with bold syntax.
