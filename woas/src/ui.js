@@ -174,7 +174,7 @@ go_to: function(page) { var woas = get_parent_woas();\n\
 function help_go_back() {\n\
 	var woas = get_parent_woas();\n\
 	if (woas === null) return;\n\
-	if (woas.browser.chrome || woas.browser.safari) {\n\
+	if (woas.browser.chrome || woas.browser.safari || woas.browser.opera) {\n\
 		woas.help_system.going_back = true;\n\
 		woas.help_system.go_to(woas.help_system.previous_page.pop());\n\
 		return;\n\
