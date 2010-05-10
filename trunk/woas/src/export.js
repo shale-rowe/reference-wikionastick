@@ -208,7 +208,7 @@ woas.export_wiki = function () {
 	this.progress_init("Exporting XHTML");
 	exp.css = this.css.get();
 	// add some other CSS which is not used by live WoaS
-	exp.css += "\n.broken_link { color: red; font-decoration: strike-through;}\n";
+	exp.css += "\n.woas_broken_link { color: red; font-decoration: strike-through;}\n";
 	// reset export globals - remember that arrays are object and cannot be initialized in 1 line
 	_export_fnames_array = [];
 	_title2fn = {};

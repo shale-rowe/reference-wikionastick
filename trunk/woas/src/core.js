@@ -121,7 +121,6 @@ woas._create_page_direct = function(ns, cr, fill_mode, default_ct) {
 	}
 };
 
-
 woas.cmd_erase_wiki = function() {
 	if (this.erase_wiki()) {
 		if (!this.full_commit())
