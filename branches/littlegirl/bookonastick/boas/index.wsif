@@ -7258,7 +7258,7 @@ When custom CSS rules have been added to the wiki, you can replace the default {
 | class="CLASS_NAME"
 }}}<br><div class="woas_help_text">To use a custom class for the table.</div>
 
-<table width="100%"><tr><td width="50%"><div class="woas_help_text">Example default table:</div></td><td width="50%"><div class="woas_help_text">Use this code to create the table:</div></td></tr><tr><td valign="top">
+<table width="100%"><tr><td width="40%"><div class="woas_help_text">Example default table:</div></td><td width="60%"><div class="woas_help_text">Use this code to create the table:</div></td></tr><tr><td valign="top">
 {|
 |-
 | cell 1 || cell 2 || cell 3
@@ -7281,7 +7281,7 @@ When custom CSS rules have been added to the wiki, you can replace the default {
 |} 
 }}}
 </td></tr>
-<tr><td width="50%"><div class="woas_help_text">Example custom table:</div></td><td width="50%"><div class="woas_help_text">Use this code to create the table:</div></td></tr><tr><td valign="top">
+<tr><td width="40%"><div class="woas_help_text">Example custom table:</div></td><td width="60%"><div class="woas_help_text">Use this code to create the table:</div></td></tr><tr><td valign="top">
 {| class="mycustomtable"
 |-
 | cell 1 || cell 2 || cell 3
@@ -7323,7 +7323,7 @@ Placement of the caption determines whether it's above or below the table.
 |+ CAPTION
 }}}<br><div class="woas_help_text">To add a caption to a table.</div>
 
-<table width="100%"><tr><td width="50%"><div class="woas_help_text">Example default table:</div></td><td width="50%"><div class="woas_help_text">Use this code to create the table:</div></td></tr><tr><td valign="top">
+<table width="100%"><tr><td width="40%"><div class="woas_help_text">Example default table:</div></td><td width="60%"><div class="woas_help_text">Use this code to create the table:</div></td></tr><tr><td valign="top">
 {|
 |-
 |+ caption above
@@ -7350,7 +7350,7 @@ Placement of the caption determines whether it's above or below the table.
 |}
 }}}
 </td></tr>
-<tr><td width="50%"><div class="woas_help_text">Example custom table:</div></td><td width="50%"><div class="woas_help_text">Use this code to create the table:</div></td></tr><tr><td valign="top">
+<tr><td width="40%"><div class="woas_help_text">Example custom table:</div></td><td width="60%"><div class="woas_help_text">Use this code to create the table:</div></td></tr><tr><td valign="top">
 {| class="mycustomtable"
 |-
 |+ caption above
@@ -7377,7 +7377,7 @@ Placement of the caption determines whether it's above or below the table.
 |}
 }}}
 </td></tr>
-<tr><td width="50%"><div class="woas_help_text">Example default table:</div></td><td width="50%"><div class="woas_help_text">Use this code to create the table:</div></td></tr><tr><td valign="top">
+<tr><td width="40%"><div class="woas_help_text">Example default table:</div></td><td width="60%"><div class="woas_help_text">Use this code to create the table:</div></td></tr><tr><td valign="top">
 {|
 |-
 | cell 1 || cell 2 || cell 3
@@ -7404,7 +7404,7 @@ Placement of the caption determines whether it's above or below the table.
 |}
 }}}
 </td></tr>
-<tr><td width="50%"><div class="woas_help_text">Example custom table:</div></td><td width="50%"><div class="woas_help_text">Use this code to create the table:</div></td></tr><tr><td valign="top">
+<tr><td width="40%"><div class="woas_help_text">Example custom table:</div></td><td width="60%"><div class="woas_help_text">Use this code to create the table:</div></td></tr><tr><td valign="top">
 {| class="mycustomtable"
 |-
 | cell 1 || cell 2 || cell 3
