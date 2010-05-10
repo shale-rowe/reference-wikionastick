@@ -3860,23 +3860,23 @@ a {
 }
 
 /* existent link */
-a.link {
+a.woas_link {
 	color: blue;
 }
-a.link:hover {
+a.woas_link:hover {
 	text-decoration: underline;
 }
 
 /* nonexistent link */
-a.unlink {
+a.woas_unlink {
 	color: red;
 }
-a.unlink:hover {
+a.woas_unlink:hover {
 	text-decoration: underline;
 }
 
 /* outside world link */
-a.world {
+a.woas_world {
 	color: darkgreen;
 	text-decoration: underline;
 }
@@ -4049,7 +4049,7 @@ table.woas_text_area caption {
 /* TAGS                                        */
 /* ------------------------------------------- */
 /* tag container */
-div.taglinks {
+div.woas_taglinks {
 	border: 1pt solid #aaa;
 /*	background-color: #f9f9f9; */
 	padding: 0.313em;
@@ -4058,7 +4058,7 @@ div.taglinks {
 }
 
 /* STYLED BOXES AROUND TAGS */
-div.taglinks > a {
+div.woas_taglinks > a {
 	color:navy;
 	background-color:gainsboro;
 	border:2px solid blue;
@@ -4072,7 +4072,7 @@ div.taglinks > a {
 	font-weight:bold;
 }
 
-div.taglinks > a:hover {
+div.woas_taglinks > a:hover {
 	background-color:grey;
 	color:white;border:2px solid blue;
 	text-decoration:none;
@@ -4181,7 +4181,7 @@ div.wiki_header {
 .woas_helpcode,.woas_helptext, .woas_page_mts, div.woas_text_area, .woas_text_area.locked,
 #woas_pwd_mask,.woas_core_page,div.menu,div.menu_area,.woas_menu_button,.title,
 .wiki_preformatted, .woas_nowiki_multiline,div.woas_search_results,div.wiki_toc,p.wiki_toc_title,
-table.woas_text_area,div.taglinks { }
+table.woas_text_area,div.woas_taglinks { }
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Hotkeys
 woas.page.attributes: 0
