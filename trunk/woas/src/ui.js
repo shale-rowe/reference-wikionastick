@@ -148,9 +148,11 @@ function get_parent_woas() {\n\
 		return window.opener.woas;\n\
 	else return null;\n\
 }\n\
-function go_to(page) { var woas = get_parent_woas();\n\
+woas = {\n\
+go_to: function(page) { var woas = get_parent_woas();\n\
 	if (woas !== null)\n\
 		woas.help_system.go_to(page);\n\
+}\n\
 }\n\
 // used in help popups to go back to previous page\n\
 function help_go_back() {\n\
@@ -246,7 +248,7 @@ function lock() {
 	if (result_pages.length)
 		_lock_pages(result_pages);
 	else
-		go_to("Lock::" + current);
+		woas.go_to("Lock::" + current);
 }
 
 //DEPRECATED
