@@ -221,7 +221,7 @@ function help() {
 	var pi = woas.page_index(wanted_page);
 	// we are editing
 	if (woas.ui.edit_mode) {
-		wanted_page = "WoaS::Help::Edit";
+		wanted_page = "WoaS::Help::Edit a page";
 		pi = woas.page_index(wanted_page);
 	} else {
 		var htitle = null;
