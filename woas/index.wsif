@@ -2219,8 +2219,6 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-[[Special::TOC]]
-
 = Tables syntax
 
 <div class="woas_helptext">Use this code in a page:</div><br>{{{
