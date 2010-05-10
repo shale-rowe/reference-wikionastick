@@ -578,11 +578,7 @@ woas._get_special = function(cr, interactive) {
 				return;
 			}	*/
 		text = this.get_text(cr);
-	if(text == null) {
-		if (this.tweak.edit_override && interactive) {
-			this._create_page("Special", cr.substr(9), true, false);
-			return null;
-		}
+	if(text === null) {
 		if (interactive)
 			this.alert(this.i18n.INVALID_SPECIAL);
 	}
@@ -763,10 +759,11 @@ woas.set_current = function (cr, interactive) {
 		}
 	}
 	
+	// action taken when no such page exists (or decryption failed)
 	if (text === null) {
 		if (this.pager.decrypt_failed())
 			return false;
-		return this._create_page(namespace, cr, true, false);
+		return this._new_page(this.i18n.PAGE_NOT_FOUND, false, namespace.length ? namespace+ "::"+ cr : cr);
 	}
 	
 	this._add_namespace_menu(namespace);
