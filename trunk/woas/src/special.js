@@ -81,65 +81,52 @@ woas.special_backlinks = function() {
 
 woas._reLastSearch = null;	// search highlighting regex
 
-// Returns a index of searched pages (by miz & legolas558)
-woas.special_search = function( str ) {
-	// amount of nearby characters to display
-	var nearby_chars = 200;
-	this.progress_init("Searching");
-	var pg_body = [], title_result = "", count = 0;
+woas._nearby_chars = 200;		// amount of nearby characters to display
 
-	log("Searching "+str);	//log:1
+// cached search results
+woas._cached_title_search = [];
+woas._cached_body_search = [];
+// last string searched
+woas._last_search = null;
+
+// returns a index of searched pages (by miz & legolas558)
+woas._cache_search = function( str ) {
+	var count = 0, tmp,
+		// matches the search string and nearby text
+		reg = new RegExp( ".{0,"+this._nearby_chars+"}" + RegExp.escape(this.trim(str)).
+					replace(/\s+/g, "(.|\n)*?") + ".{0,"+this._nearby_chars+"}", "gi" );
+
+	this._reLastSearch = new RegExp("("+RegExp.escape(str)+")", "gi");
 	
-	// matches the search string and nearby text
-	var reg = new RegExp( ".{0,"+nearby_chars+"}" + RegExp.escape(this.trim(str)).
-					replace(/\s+/g, "(.|\n)*?") + ".{0,"+nearby_chars+"}", "gi" ),
-			added;
-	woas._reLastSearch = new RegExp("("+RegExp.escape(str)+")", "gi");
-/*	woas._reLastSearch = new RegExp( ".*?" + RegExp.escape(str).
-					replace(/^\s+/, "").
-					replace(/\s+$/, "").
-					replace(/([^\s]+)/g, "($1)").
-					replace(/\s+/g, ".*?") + ".*", "gi" );	*/
-	var tmp;
-	result_pages = [];
+	this._last_search = str;
+
 	for(var i=0,l=pages.length; i < l; i++) {
 
 		//TODO: implement searching in help pages
 
-		if (this.is_reserved(page_titles[i]))
+		if (this.is_reserved(page_titles[i]) && !this.tweak.edit_override)
 			continue;
 
 		// this could be modified for wiki searching issues
 		tmp = this.get_src_page(i, true);
 		if (tmp===null)
 			continue;
-//		log("Searching into "+page_titles[i]);	// log:0
 	
-		added = false;
 		// look for string in title
 		if(page_titles[i].match(reg)) {
-			title_result += "* [[" + page_titles[i] + "]]\n";
-			result_pages.push(page_titles[i]);
-			added = true;
+			this._cached_title_search.push(page_titles[i]);
 		}
 
-		//Look for str in body
+		// look for string in body
 		res_body = tmp.match(reg);
 		if (res_body!==null) {
-			if (!added)
-				result_pages.push(page_titles[i]);
 			count = res_body.length;
-			res_body = "..."+res_body.join("...\n")+"..."; //.replace(/\n/g, " ");
-			pg_body.push( "* [[" + page_titles[i] + "]]: found *" + count + "* times :<"+"div class=\"search_results\">{{{" + res_body +"\n}}}\n<"+"/div>");
+			this._cached_body_search.push( { title: page_titles[i],
+				 body: "..."+res_body.join("...\n")+"...", //.replace(/\n/g, " ");
+				 count: count
+				});
 		}
 	}
-	this.progress_finish();
-
-	if (!pg_body.length && !title_result.length)
-		return "/No results found for *"+str+"*/";
-
-	woas.parser.force_inline = true;
-	return "Results for *" + woas.xhtml_encode(str) + "*\n" + title_result + "\n\n----\n" + this._simple_join_list(pg_body, false);
 };
 
 var reFindTags = /\[\[Tags?::([^\]]+)\]\]/g;

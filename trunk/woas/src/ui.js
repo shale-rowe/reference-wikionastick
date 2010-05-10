@@ -68,8 +68,20 @@ woas.ui = {
 		return orig_e;
 	},
 	tables_help: function() {
-	woas.help_system.go_to("WoaS::Help::Tables");
-}
+		woas.help_system.go_to("WoaS::Help::Tables");
+	},
+	clear_search: function() {
+		woas.log("Clearing search"); //log:1
+		if (current === "Special::Search") {
+			$("string_to_search").value = "";
+			$("string_to_search").focus();
+		}
+		// clear search results
+		woas._cached_body_search = [];
+		woas._cached_title_search = [];
+		//FIXME: result_pages should be cleared also?
+		woas.assert_current("Special::Search");
+	}
 
 	
 };
@@ -294,41 +306,74 @@ function edit_ns_menu() {
 
 /** Used by search box **/
 
+function menu_do_search() {
+	// directly use the search page if it is active
+    if (current === "Special::Search") {
+		$('string_to_search').value = $('menu_string_to_search').value;
+    }
+    woas.do_search($('menu_string_to_search').value, true);
+}
+
+// Used by Special::Search
+// make the actual search and cache the results
+function ssearch_do_search() {
+	var search_string = $("string_to_search").value;
+	if ( !search_string.length )
+		return;
+	woas.do_search(search_string, true);
+}
+
+function menu_key_hook(orig_e) {
+    var e;
+    if (!orig_e)
+        e = window.event;
+    else
+        e = orig_e;
+	
+    if (e.keyCode==13) {
+		ff_fix_focus();
+		menu_do_search();
+        return false;
+     }
+     return orig_e;
+}
+
 //FIXME: this is entirely a bad hack
 function menu_search_focus(f) {
 	if (f) {
+		// prevent focus on the menu search box when the search page is active
 		if (current == "Special::Search") {
 //		ff_fix_focus();
 			$('string_to_search').focus();
-		} else
+		} else {
 			woas.ui.focus_textbox();
+		}
 	} else {
 		if (current != "Special::Search")
 			woas.ui.blur_textbox();
 	}
 }
 
-function menu_do_search() {
-    if (current == "Special::Search") {
-	$('string_to_search').value = $('menu_string_to_search').value;
-       do_search($('menu_string_to_search').value);
-    } else {
-	_raw_do_search($('menu_string_to_search').value);
-    }
-}
+//NOTE: this is attached to onkeydown of menu's search box, so you can't use 'this'
+woas.do_search = function(str, noclear) {
+	woas.log("Called woas.do_search()");
+	// clear previous search results
+	if (!noclear)
+		woas.ui.clear_search();
 
-function _raw_do_search(str) {
-	woas._cached_search = woas.parser.parse(woas.special_search( str ));
-	woas.assert_current("Special::Search");
-}
+	woas.progress_init("Searching");
+	// reset result pages
+	result_pages = [];
 
-// Used by Special::Search
-// make the actual search and cache the results
-function do_search() {
-	var search_string = $("string_to_search").value;
-	if ( !search_string.length )
-		return;
-	_raw_do_search(search_string);
+	// cache new search results
+	woas._cache_search( str );
+	woas.progress_finish();
+
+	// render search results
+	if (current === "Special::Search") {
+		this._search_load();
+	} else // will call _search_load() on its own
+		go_to("Special::Search");
 }
 
 // Used by Special::Options page
@@ -661,18 +706,9 @@ woas.progress_finish = function(section) {
 	this._progress_section = false;
 };
 
-function clear_search() {
-	$("string_to_search").value = "";
-	$("string_to_search").focus();
-	if (!woas._cached_search.length)
-		return;
-	woas._cached_search = "";
-	woas.assert_current("Special::Search");
-}
-
 function search_focus(focused) {
 	if (focused) {
-		woas.ui._textbox_enter_event = do_search;
+		woas.ui._textbox_enter_event = ssearch_do_search;
 		woas.ui.focus_textbox();
 	} else {
 		woas.ui.blur_textbox();
@@ -680,19 +716,44 @@ function search_focus(focused) {
 	}
 }
 
-// cached XHTML content of last search
-var rePreTag = new RegExp("(<"+"div class=\"woas_search_results\">)((.|\\n)*?)<"+"\\/div>", "g");
+// display search results
 woas._search_load = function() {
-	var tmp = $('wiki_text'),
-		pre = '<'+'pre class="wiki_preformatted">',
-		hl_text = woas._cached_search.replace(rePreTag, function (str, tag_st, ct) {
-			return tag_st+pre+ct.substr(pre.length).replace(woas._reLastSearch,
-					'<'+'span class="search_highlight">$1<'+'/span>')+'<'+'/div>';
-	});
-	tmp.innerHTML = tmp.innerHTML + hl_text;
-	hl_text = null;
-	//woas._reLastSearch = null;
-	$("string_to_search").focus();
+	var results = "";
+	if (this._last_search === null) {
+		woas.log("No search done, returning blank");	//log:1
+	} else {
+		// proceed to parsing if there are matching pages
+		if (this._cached_title_search.length + this._cached_body_search.length !== 0) {
+		
+			// (1) prepare the title results
+			for(var i=0,it=this._cached_title_search.length;i<it;++i) {
+				results += "* [["+ this._cached_title_search[i] + "]]\n";
+				result_pages.push(this._cached_title_search[i]);
+			}
+			
+			// (2) parse the body snippets
+			for(var i=0,it=this._cached_body_search.length;i<it;++i) {
+				results += "* [[" + this._cached_body_search[i].title + "]]: found *" +
+							this._cached_body_search[i].count +
+							"* times: <"+"div class=\"woas_search_results\">" +
+							// apply highlighting
+							this._cached_body_search[i].body.replace(woas._reLastSearch,
+																	'<'+'span class="woas_search_highlight">$1<'+'/span>')
+							+"\n<"+"/div>";
+				if (result_pages.indexOf(this._cached_body_search[i].title) === -1)
+					result_pages.push(this._cached_body_search[i].title);
+			}
+
+			results = 'Results for <'+'strong class="woas_search_highlight">' + woas.xhtml_encode(woas._last_search) + "<"+"/strong>\n" + results;
+		} else
+			results = "/No results found for *"+woas.xhtml_encode(woas._last_search)+"*/";
+
+		// position cursor back in search box
+		$("string_to_search").focus();
+	}
+	
+	woas.parser.force_inline = true;
+	woas.setHTML($('woas_search_results'), woas.parser.parse( results ));
 };
 
 var _servm_shown = false;

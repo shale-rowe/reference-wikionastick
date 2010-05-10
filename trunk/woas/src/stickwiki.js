@@ -12,9 +12,6 @@ woas.save_queue = [];		// pages which need to be saved and are waiting in the qu
 // Automatic-Save TimeOut object
 woas._asto = null;
 
-// cached XHTML content of last search
-woas._cached_search = "";
-
 // title of page being rendered
 woas.render_title = null;
 
@@ -464,7 +461,7 @@ woas.set_text = function(text) {
 };
 
 woas.assert_current = function(page) {
-	if( current != page )
+	if( current !== page )
 		go_to( page ) ;
 	else
 		this.set_current( page, true);
