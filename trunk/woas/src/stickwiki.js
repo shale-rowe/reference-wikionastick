@@ -467,54 +467,6 @@ woas.assert_current = function(page) {
 		this.set_current( page, true);
 };
 
-// used to eventually remove the new-to-be page when cancel is pressed
-woas._ghost_page = false;
-
-woas._create_page = function (ns, cr, ask, fill_mode) {
-	if (this.is_reserved(ns+"::") && !this.tweak.edit_override) {
-		this.alert(this.i18n.ERR_RESERVED_NS.sprintf(ns));
-			return false;
-	}
-	if ((ns==="File") || (ns==="Image")) {
-		if (!fill_mode && ask)
-			this.alert(this.i18n.DUP_NS_ERROR);
-		else
-			go_to(ns+"::"+cr);
-		return false;
-	}
-	// this is what happens when you click a link of unexisting page
-	if (!fill_mode && ask && !confirm(this.i18n.PAGE_NOT_FOUND))
-		return false;
-	// create and edit the new page
-	var ct;
-	if (cr !== "Menu")
-		ct = "= "+cr+"\n";
-	else
-		ct = "\n";
-	this._create_page_direct(ns, cr, fill_mode, ct);
-	return true;
-};
-
-woas._create_page_direct = function(ns, cr, fill_mode, default_ct) {
-	// actual page creation
-	pages.push(default_ct);
-	if (ns.length)
-		cr = ns+"::"+cr;
-	page_attrs.push(0);
-	page_titles.push(cr);
-	// set modified timestamp
-	page_mts.push(this.config.store_mts ? Math.round(new Date().getTime()/1000) : 0);
-//	this.log("Page "+cr+" added to internal array");	// log:1
-	if (!fill_mode) {
-		// DO NOT set 'current = cr' here!!!
-		// enable ghost mode when creating a new-to-be page
-		this._ghost_page = true;
-		this.log("Ghost page enabled"); //log:1
-		// proceed with a normal wiki source page
-		this.edit_page(cr);
-	}
-};
-
 woas._get_embedded = function(cr, etype) {
 	this.log("Retrieving embedded source "+cr);	// log:1
 	var pi=this.page_index(cr);
