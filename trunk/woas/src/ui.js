@@ -66,7 +66,11 @@ woas.ui = {
 		}
 
 		return orig_e;
-	}
+	},
+	tables_help: function() {
+	woas.help_system.go_to("WoaS::Help::Tables");
+}
+
 	
 };
 
@@ -347,20 +351,6 @@ function ro_woas() {
 		woas.cfg_commit();
 		woas.set_current("Special::Advanced", true);
 	}
-}
-
-function open_table_help() {
-	woas.popup("help", 350, 200, ",menubar=no,toolbar=no,location=no,status=no,dialog=yes", 
-	"<"+"title>Building tables<"+"/title>",
-	"<"+"u>Building tables:<"+"/u><"+"br /><"+"br />"
-	+"<"+"tt>{|   <"+"/tt><"+"br />"
-	+"<"+"tt>|+ Table Caption<"+"/tt><"+"br />"
-	+"<"+"tt>| *colum 1* || *column 2* || *column 3*<"+"/tt><"+"br />"
-	+"<"+"tt>|-<"+"/tt><"+"br />"
-	+"<"+"tt>| line 2 || [[a link]] || something<"+"/tt><"+"br />"
-	+"<"+"tt>|-<"+"/tt><"+"br />"
-	+"<"+"tt>| line 3 || || more stuff<"+"/tt><"+"br />"
-	+"<"+"tt>|}<"+"/tt>");
 }
 
 // Used by Special::Lock
