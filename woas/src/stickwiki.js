@@ -1246,7 +1246,7 @@ woas.get_raw_content = function() {
 // action performed when save is clicked
 woas.save = function() {
 	// we will always save ghost pages if save button was hit
-	var null_save = !this._ghost_page;
+	var null_save = !this._ghost_page, was_ghost = this._ghost_page;
 	// always reset ghost page flag
 	this._ghost_page = false;
 	woas.log("Ghost page disabled"); //log:1
@@ -1301,10 +1301,25 @@ woas.save = function() {
 				if (!null_save || renaming) {
 					null_save = false;
 					// disallow empty titles
-					if (!this.valid_title(new_title, renaming))
+					if (renaming && !this.valid_title(new_title, renaming))
 						return false;
 					// actually set text only in case of new title
 					this.set_text(raw_content);
+					// check if this is a menu
+					if (this.is_menu(new_title)) {
+						this.refresh_menu_area();
+						back_to = this.prev_title;
+					} else {
+						//if (new_title !== current) {
+						if (renaming) {
+							if (!this.rename_page(this.old_title, new_title))
+								return false;
+						}
+						back_to = new_title;
+						// do not glitch when creating a new page
+						if (was_ghost)
+							this.prev_title = new_title;
+					}
 					// update the plugin if this was a plugin page
 					// NOTE: plugins are not allowed to be renamed, so
 					// old title is equal to new title
@@ -1316,21 +1331,15 @@ woas.save = function() {
 						this.plugins.disable(new_title.substr(_pfx.length));
 						this.plugins.enable(new_title.substr(_pfx.length));
 					}
-					// check if this is a menu
-					if (this.is_menu(new_title)) {
-						this.refresh_menu_area();
-						back_to = this.prev_title;
-					} else {
-						if (new_title !== current) {
-							if (!this.rename_page(current, new_title))
-								return false;
-						}
-						back_to = new_title;
-					}
-				} else
+				} else {
 					back_to = this.prev_title;
+					// do not glitch when creating a new page
+					if (was_ghost)
+						this.prev_title = new_title;
+				}
 			}
 	}
+
 	var saved = current;
 //	if (back_to !== null)
 		this.set_current(back_to, true);
@@ -1401,7 +1410,7 @@ woas.cancel_edit = function() {
 
 woas.create_breadcrumb = function(title) {
 	var tmp=title.split("::");
-	if (tmp.length==1)
+	if (tmp.length===1)
 		return title;
 	var s="", partial="", js="";
 	for(var i=0;i < tmp.length-1;i++) {
