@@ -70,7 +70,7 @@ woas._new_page_direct = function(title, fill_mode) {
 
 	// check if page deserves creation
 	if ((ns==="File") || (ns==="Image")) {
-		go_to(ns+"::"+cr);
+		go_to(title);
 		return title;
 	}
 	// create and edit the new page
@@ -84,6 +84,7 @@ woas._new_page_direct = function(title, fill_mode) {
 	var upd_menu = (cr==='Menu');
 	if (!upd_menu && confirm(this.i18n.ASK_MENU_LINK)) {
 		var menu = this.get_text("::Menu");
+		// try to put the menu link in a good position
 		p = menu.indexOf("\n\n");
 		if (p === -1)
 			menu += "\n[["+title+"]]";

@@ -1234,63 +1234,6 @@ woas.rename_page = function(previous, newpage) {
 	return true;
 };
 
-/** CSS -- IMHO, should be part of a woas.ui object (woas.ui.css) */
-
-/*
-API1.0: WoaS CSS (for me anyway :)
-woas.css.ff2 (string:valid CSS): css added if browser == ff2 when !raw 
-woas.css.set(css, raw)
-  css (string:valid CSS): the raw css to be set; replaces old css
-  raw (boolean, optional): if true browser fixes will not be applied to css
-woas.css.get(): returns currently set CSS (string:valid CSS)
-*/
-woas.css = {
-	FF2: "\n.wiki_preformatted { white-space: -moz-pre-wrap !important; }\n",
-	
-	// TODO: replace with factory function for just this browser
-	set: function(css, raw) {
-		raw = raw || false;
-		/*
-		This object could become much better in the future, grabbing content
-		from appropriate sources, or filtering WoaS::CSS (whatever) to match
-		the current browser ... this need only be done once on loading page,
-		with a callback function for CSS editing (e.g. woas.css.load and/or
-		woas.css.merge, etc.). Note that this change does not affect efficiency
-		much but now we can completely change the way this works (over time)
-		without having to modify other code. This is generally applicable
-		with OOP design concepts. The code is therefore much less fragile
-		and many programmers can work on it with changes tending to be much
-		more confined to the object they are modifying.
-		*/
-		//Add fixes
-		if (!raw) {
-			if (woas.browser.firefox2) {
-				// fixes are added first so they can be overridden
-				css = this.FF2 + css;
-			}
-		}
-		if (woas.browser.ie)
-			woas.dom._cache.stylesheet.cssText = css;
-		else {
-			if (woas.browser.chrome || woas.browser.safari)
-				woas.dom._cache.stylesheet.innerText = css;
-			else
-				woas.dom._cache.stylesheet.innerHTML = css;
-		}
-	},
-	
-	// Not used/needed in public API; can't easily fix this with current code.
-	// Can't see this being a problem though.
-	get: function() {
-		if (woas.browser.ie)
-			return woas.dom._cache.stylesheet.cssText;
-		// on Chrome/Safari innerHTML contains br tags
-		if (woas.browser.chrome || woas.browser.safari)
-			return woas.dom._cache.stylesheet.innerText;
-		return woas.dom._cache.stylesheet.innerHTML;
-	}
-};
-
 woas.get_raw_content = function() {
 	var c=$("woas_editor").value;
 	// remove CR added by some browsers
