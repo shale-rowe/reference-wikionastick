@@ -1756,13 +1756,16 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Tags
-Tags are used to group pages by categories/features/topics so they can easily be found again.
+Tag links are used to group pages by categories so that they can easily be found again. You can give a page more than one tag if the page fits into more than one category.
 
-Tags can be placed anywhere on a page, but choosing a standard location like the bottom of the page makes them easier to find and edit as your wiki grows.
+Tag links can be placed anywhere on a page, but putting them in a standard location like the bottom of the page makes them easy to find and edit as your wiki grows.
 
-Tag a page by using a {{{[[Tag::tag1]]}}} link, adding the tag name or names after the double colons; multiple tags should be separated with pipes.
+The tag container will be displayed at the bottom of the page. Clicking a tag in the container will display a list of all pages with that tag.
 
-You can also use the *Tag* button in the editor.
+Tag a page by using a {{{[[Tags::]]}}} link, adding the tag name (or names separated by pipes) after the double colons. This can be done by using the *Tags* button in the editor or by typing the tag in manually.
+=== Choosing tag names
+* Tag names are case sensitive. For example: {{{[[Tags::Recipes]]}}} and {{{[[Tags::recipes]]}}} are two different tags.<br><br>
+* Tag names can be more than one word long with a space between each word. For example: {{{[[Tags::Layered cakes]]}}}.
 
 === Add a tag to a page (method 1)
 # Click the *Tags* button in the editor.<br><br>
@@ -1770,43 +1773,36 @@ You can also use the *Tag* button in the editor.
 # Click the *OK* button.
 
 === Add a tag to a page (method 2)
-<div class="woas_helptext">Use this code in a page, replacing EXAMPLE with the name of the tag you'd like to add:</div>
-<div class="woas_helpcode">[<!-- -->[Tag::EXAMPLE]]</div>
-<div class="woas_helptext">To add a tag to your page.</div>
+<div class="wikihelptext">Use this code in a page, replacing EXAMPLE with the name of the tag:</div>
+<div class="wikihelpcode">[<!-- -->[T<!-- -->ags::EXAMPLE]<!-- -->]</div>
+<div class="wikihelptext">To add a tag to a page.</div>
 === Add more than one tag to a page (method 1)
 # Click the *Tags* button in the editor.<br><br>
-# Type in names for the tags, separating each from the one before it with a pipe. For example:<br><br><div class="woas_helptext">Use this code in a page, replacing EXAMPLE1, EXAMPLE2, and EXAMPLE3 with the names of the tags you'd like to add:</div><br><div class="woas_helpcode">[<!-- -->[T<!-- -->ags::EX<!-- -->AMPLE1|EX<!-- -->AMPLE2|EX<!-- -->AMPLE3]<!-- -->]</div><br><div class="woas_helptext">To add three tags to your page.</div><br>
+# Type in names for the tags, separating each from the one before it with a pipe. For example:<br><br><div class="wikihelptext">Use this code in a page, replacing EXAMPLE1, EXAMPLE2, and EXAMPLE3 with the names of the tags you'd like to add:</div><br><div class="wikihelpcode">[<!-- -->[T<!-- -->ags::EX<!-- -->AMPLE1|EX<!-- -->AMPLE2|EX<!-- -->AMPLE3]<!-- -->]</div><br><div class="wikihelptext">To add three tags to your page.</div><br>
 # Click the *OK* button.
 
 === Add more than one tag to a page (method 2)
 To use more than one tag on a page, use one tag link and add as many tags as you like, separating each from the one before it with a pipe. For example: {{{[[Tags::Recipes|Chocolate|Layered cakes]]}}}.
 
-=== Choosing tag names
-Tag names are case sensitive. For example: {{{[[Tags::Recipes]]}}} and {{{[[Tags::recipes]]}}} are two different tags.
-
-Tag names can be more than one word long with a space between each word. For example: {{{[[Tags::Layered cakes]]}}}.
-
 === Add a link to tagged pages
-<div class="woas_helptext">Use this code in a page, replacing EXAMPLE with the tag you'd like to use:</div>
-<div class="woas_helpcode">[<!-- -->[Tagged::EXAMPLE]<!-- -->]</div>
-<div class="woas_helptext">To create a listing of pages tagged with EXAMPLE.</div>
-
+<div class="wikihelptext">Use this code in a page, replacing EXAMPLE with the tag you'd like to use:</div>
+<div class="wikihelpcode">[<!-- -->[Tagged::EXAMPLE]<!-- -->]</div>
+<div class="wikihelptext">To create a listing of pages tagged with EXAMPLE.</div>
 === Add a filtered link to tagged pages
 By putting an exclamation mark (*!*) in front of the tag name, you can filter out a specific tag from a tagged pages list:<br>
-<div class="woas_helptext">Use this code in a page, replacing EXAMPLE with the tag you'd like to filter out:</div>
-<div class="woas_helpcode">[<!-- -->[Tagged::!EXAMPLE]<!-- -->]</div>
-<div class="woas_helptext">To create a filtered listing of tagged pages that are not tagged with EXAMPLE.</div>
-
+<div class="wikihelptext">Use this code in a page, replacing EXAMPLE with the tag you'd like to filter out:</div>
+<div class="wikihelpcode">[<!-- -->[Tagged::!EXAMPLE]<!-- -->]</div>
+<div class="wikihelptext">To create a listing of tagged pages that are not tagged with EXAMPLE.</div>
 === Include a listing of tagged pages
-<div class="woas_helptext">Use this code in a page, replacing EXAMPLE with the tag you'd like to use:</div>
-<div class="woas_helpcode">[<!-- -->[Include::Tagged::EXAMPLE]<!-- -->]</div>
-<div class="woas_helptext">To display a listing of pages tagged with EXAMPLE inside the current page.</div>
-
+<div class="wikihelptext">Use this code in a page, replacing EXAMPLE with the tag you'd like to use:</div>
+<div class="wikihelpcode">[<!-- -->[Include::Tagged::EXAMPLE]<!-- -->]</div>
+<div class="wikihelptext">To display a listing of pages tagged with EXAMPLE inside the current page.</div>
 === Include a filtered listing of tagged pages
-By putting an exclamation mark (*!*) in front of the tag name, you can filter out a specific tag from a tagged pages list:<br>
-<div class="woas_helptext">Use this code in a page, replacing EXAMPLE with the tag you'd like to filter out:</div>
-<div class="woas_helpcode">[<!-- -->[Include::Tagged::!EXAMPLE]<!-- -->]</div>
-<div class="woas_helptext">To display a filtered listing of tagged pages that are not tagged with EXAMPLE inside the current page.</div>
+By putting an exclamation mark (*!*) in front of the tag name, you can filter out a specific tag from a tagged pages list:
+
+<div class="wikihelptext">Use this code in a page, replacing EXAMPLE with the tag you'd like to filter out:</div>
+<div class="wikihelpcode">[<!-- -->[Include::Tagged::!EXAMPLE]<!-- -->]</div>
+<div class="wikihelptext">To display a listing of tagged pages that are not tagged with EXAMPLE inside the current page.</div>
 
 --DFQRCTsKlU
 woas.page.title: Wiki::Help::Publish wiki online
@@ -3748,6 +3744,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the [[Wiki::Help::Requirements]] page.
 ** Updated the [[Wiki::Help::Run wiki on a server]] page.
 ** Updated the [[Wiki::Help::Table of Contents]] page.
+** Updated the [[Wiki::Help::Tags]] page.
 ** Updated the [[Wiki::Help::Text formatting]] page.
 ** Updated the [[Wiki::Help::Wiki is read-only]] page.
 ** Updated the [[WoaS::CSS::Core]] page.
@@ -3851,7 +3848,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the [[Help::Syntax]] page.
 ** Updated the *Help::Table of Contents* page.
 ** Updated the *Help::Tables* page.
-** Updated the [[Help::Tags]] page.
+** Updated the *Help::Tags* page.
 ** Updated the *Help::Tooltips* page thanks for information provided by [[http://woas.iragan.com/viewtopic.php?pid=2124#p2124|killermist]].
 ** Updated the *Help::Transclusion* page.
 ** Updated the *Help::Word count* page.
@@ -3954,7 +3951,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the [[Help::Syntax]] page.
 ** Updated the *Help::Table of Contents* page.
 ** Updated the *Help::Tables* page.
-** Updated the [[Help::Tags]] page.
+** Updated the *Help::Tags* page.
 ** Updated the *Help::Text formatting* page.
 ** Updated the *Help::Tooltips* page.
 ** Updated the *Help::Transclusion* page.
@@ -4022,7 +4019,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 *** Added instructions on how to insert *wiki headers* into dynamic block areas, thanks to code provided by [[http://woas.iragan.com/viewtopic.php?pid=1488*p1488|MicBerlin]].
 *** Renamed *dynamic block text areas* to *dynamic block areas*.
 *** Renamed *dynamic inline text areas* to *dynamic inline areas*.
-** Updated the [[Help::Tags]] page.
+** Updated the *Help::Tags* page.
 ** Updated the *Help::Transclusion* page.
 ** Updated the *Help::Wiki is read-only* page.
 ** Updated the *Help::Word count* page.
@@ -4073,7 +4070,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Removed the *Utility::Creative Commons License* page.
 ** Removed the *Word count button* page.
 ** Renamed the *Help::Footers* page to [[Help::Footer]].
-** Renamed the *Help::Page tags* page to [[Help::Tags]].
+** Renamed the *Help::Page tags* page to *Help::Tags*.
 ** Renamed the *Links for writers* page to *Utility::Links for writers*.
 ** Renamed the [[Main Page]] to *Main page* (changing its case).
 ** Renamed the *Said* page to *Utility::Said*.
@@ -6028,75 +6025,6 @@ Empty cells can be created by inserting just one space as the content of a cell.
 == See also
 * See the [[Wiki::Help::Table of Contents]] page for help with Table of Contents.
 * See the [[Wiki::Help::Tables::Custom]] page for advanced table structure.
-
---DFQRCTsKlU
-woas.page.title: Help::Tags
-woas.page.attributes: 0
-woas.page.encoding: 8bit/plain
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-[[Special::TOC]]
-= Tags
-Tags are special links used by this wiki to group pages together into categories so that they can easily be found again. A tag link can be placed anywhere on a page, but putting them in a standard location, like the bottom of the page, makes them easy to find and edit as your wiki grows. The tag container will be displayed at the bottom of the page, and clicking a tag in the container will display a list of all pages with that tag. You can choose any name you like for the tag. You can also give a page more than one tag if the page fits into more than one category.
-
-This page has been tagged with *Help*. If you go to the bottom of this page and click on the *Help* tag, you'll get a listing of all other pages with the same tag.
-
-Tag a page by using a {{{[[Tags::]]}}} link, adding the tag name or names after the double colons. This can be done by using the *Tags* button in the editor or by typing the tag in manually using the instructions below.
-
-=== Add a tag to a page (method 1)
-# Place your cursor at the bottom of the page.
-# Click the *Tags* button in the editor.
-# Type in a name for the tag.
-# Click the *OK* button.
-
-=== Add a tag to a page (method 2)
-<div class="wikihelptext">Use this code in a page:</div>
-<div class="wikihelpcode">[<!-- -->[T<!-- -->ags::H<!-- -->elp]<!-- -->]</div>
-<div class="wikihelptext">To create a tag like the one at the bottom of this page.</div>
-=== Add more than one tag to a page (method 1)
-# Place your cursor at the bottom of the page.
-# Click the *Tags* button in the editor.
-# Type in names for the tags, separating each from the one before it with a pipe.
-# Click the *OK* button.
-
-=== Add more than one tag to a page (method 2)
-To use more than one tag on a page, use one tag link and add as many tags as you like, separating each from the one before it with a pipe. For example: {{{[[Tags::Recipes|Chocolate|Layered cakes]]}}}.
-
-=== Choosing tag names
-* Tag names are case sensitive.
-** Example: {{{[[Tags::Recipes]]}}} and {{{[[Tags::recipes]]}}} are two different tags.
-* Tag names can be more than one word long with a space between each word.
-** Example: {{{[[Tags::Layered cakes]]}}}.
-
-=== Add a link to tagged pages
-<div class="wikihelptext">Use this code in a page, replacing Help with the tag you'd like to use:</div>
-<div class="wikihelpcode">[<!-- -->[Tagged::Help]<!-- -->]</div>
-<div class="wikihelptext">To create a listing of tagged pages like this one:</div>
-[[Tagged::Help]]
-
-=== Add a filtered link to tagged pages
-By putting an exclamation mark (*!*) in front of the tag name, you can filter out a specific tag from a tagged pages list:
-
-<div class="wikihelptext">Use this code in a page, replacing Help with the tag you'd like to filter out:</div>
-<div class="wikihelpcode">[<!-- -->[Tagged::!Help]<!-- -->]</div>
-<div class="wikihelptext">To create a listing of tagged pages like this one:</div>
-[[Tagged::!Help]]
-
-=== Include a listing of tagged pages
-<div class="wikihelptext">Use this code in a page, replacing Help with the tag you'd like to use:</div>
-<div class="wikihelpcode">[<!-- -->[Include::Tagged::Help]<!-- -->]</div>
-<div class="wikihelptext">To display a listing of tagged pages inside the current page.</div>
-
-=== Include a filtered listing of tagged pages
-By putting an exclamation mark (*!*) in front of the tag name, you can filter out a specific tag from a tagged pages list:
-
-<div class="wikihelptext">Use this code in a page, replacing Help with the tag you'd like to filter out:</div>
-<div class="wikihelpcode">[<!-- -->[Include::Tagged::!Help]<!-- -->]</div>
-<div class="wikihelptext">To display a filtered listing of tagged pages inside the current page.</div>
-
-[[Tags::Help|Syntax]]
 
 --DFQRCTsKlU
 woas.page.title: Wiki::Help::Tooltips
