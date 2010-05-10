@@ -1,4 +1,5 @@
 Version 0.12.0 (legolas558)
+* only check for page title validity when renaming
 * addedd 'woas_' prefix to CSS classes for links
 * fixed some wrong dead pages listings
 * fixed section reference in wiki links
