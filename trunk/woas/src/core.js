@@ -35,6 +35,7 @@ woas._new_page = function(msg, fill_mode, def_title) {
 	return this._new_page_direct(title, fill_mode);
 };
 
+// will return a valid title for a next-to-be-created page
 woas._prompt_title = function(msg, def_title) {
 	// disallow editing when wiki is set to read-only
 	if (!this.config.permit_edits) {
@@ -66,9 +67,20 @@ woas._new_page_direct = function(title, fill_mode) {
 		ns = ns.substr(0, ns.length-2);
 		cr = title.substr(ns.length);
 	} else cr = title;
-	// attempt page creation
-	if (!this._create_page(ns, cr, false, fill_mode))
+
+	// check if page deserves creation
+	if ((ns==="File") || (ns==="Image")) {
+		go_to(ns+"::"+cr);
 		return title;
+	}
+	// create and edit the new page
+	var ct;
+	if (cr !== "Menu")
+		ct = "= "+cr+"\n";
+	else
+		ct = "\n";
+	this._create_page_direct(ns, cr, fill_mode, ct);
+
 	var upd_menu = (cr==='Menu');
 	if (!upd_menu && confirm(this.i18n.ASK_MENU_LINK)) {
 		var menu = this.get_text("::Menu");
@@ -87,31 +99,6 @@ woas._new_page_direct = function(title, fill_mode) {
 
 // used to eventually remove the new-to-be page when cancel is pressed
 woas._ghost_page = false;
-
-woas._create_page = function (ns, cr, ask, fill_mode) {
-	if (this.is_reserved(ns+"::") && !this.tweak.edit_override) {
-		this.alert(this.i18n.ERR_RESERVED_NS.sprintf(ns));
-			return false;
-	}
-	if ((ns==="File") || (ns==="Image")) {
-		if (!fill_mode && ask)
-			this.alert(this.i18n.DUP_NS_ERROR);
-		else
-			go_to(ns+"::"+cr);
-		return false;
-	}
-	// this is what happens when you click a link of unexisting page
-	if (!fill_mode && ask && !confirm(this.i18n.PAGE_NOT_FOUND))
-		return false;
-	// create and edit the new page
-	var ct;
-	if (cr !== "Menu")
-		ct = "= "+cr+"\n";
-	else
-		ct = "\n";
-	this._create_page_direct(ns, cr, fill_mode, ct);
-	return true;
-};
 
 woas._create_page_direct = function(ns, cr, fill_mode, default_ct) {
 	// actual page creation
