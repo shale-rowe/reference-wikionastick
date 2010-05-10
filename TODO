@@ -4,8 +4,6 @@
 
 * common import filtering & preview
 
-* fix links to special pages in help pages
-
 * check why Opera 10.53 (Windows) does not get a TiddlySaver applet definition
 
 * deprecate Special:: namespace in favor of WoaS:: namespace (where possible)
