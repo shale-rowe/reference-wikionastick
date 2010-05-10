@@ -2864,7 +2864,7 @@ h6.woas_header {
 	margin-top: 0.75em;
 	position: fixed;
 	right: 0.625em;
-	text-align:center;
+	text-align: center;
 	top: 0.188em;
 	}
 .woas_help_button:hover {
@@ -2872,32 +2872,28 @@ h6.woas_header {
 	}
 
 /***** HELP PAGE - EXAMPLES *****/
+div.wikihelpcode {
+	background-color: gainsboro;
+	border: 0.063em solid grey;
+	color: black;
+	font-family: monospace;
+	padding: 0.438em;
+	}
+/***** NOTE TO LITTLE GIRL: REMOVE THIS WOAS REFERENCE ONCE YOU'RE SURE THERE ARE NO REFERENCES TO IT *****/
 .woas_helpcode {
 	font-family: monospace;
 	padding: 0.438em;
 	}
 
-/***** HELP PAGE - EXAMPLES *****/
-/***** NOTE TO LITTLE GIRL: REMOVE THIS ONCE YOU'RE SURE THERE ARE NO REFERENCES TO IT *****/
-div.wikihelpcode {
-	color:black;
-	background-color:gainsboro;
-	border:0.063em solid grey;
-	padding:0.438em;
-	font-family:monospace;
-	}
-
 /***** HELP PAGE - EXAMPLE TEXT *****/
+div.wikihelptext {
+	color: darkcyan;
+	font-weight: bold;
+	font-style: italic;
+	}
+/***** NOTE TO LITTLE GIRL: REMOVE THIS WOAS REFERENCE ONCE YOU'RE SURE THERE ARE NO REFERENCES TO IT *****/
 .woas_helptext {
 	font-family: lucida;
-	}
-
-/***** HELP PAGE - EXAMPLE TEXT *****/
-/***** NOTE TO LITTLE GIRL: REMOVE THIS ONCE YOU'RE SURE THERE ARE NO REFERENCES TO IT *****/
-div.wikihelptext {
-	color:darkcyan;
-	font-weight:bold;
-	font-style:italic;
 	}
 
 /***** HOTKEYS *****/
@@ -2918,7 +2914,7 @@ div.wikihelptext {
 /* LINK - CURSOR WHEN ON A LINK */
 a {
 	cursor: pointer;
-/* cursor when on a link - IE5.5/IE6 */
+/* IE5.5/IE6 */
 	/* cursor: hand; */
 	}
 
@@ -2946,12 +2942,12 @@ a.unlink:hover {
 
 /***** MAIN TEXT AREA *****/
 div.woas_text_area {
-	background-color:white;
-	border:0.188em solid grey;
-	padding-top:0.438em;
-	padding-right:0.813em;
-	padding-bottom:0.813em;
-	padding-left:0.813em;
+	background-color: white;
+	border: 0.188em solid grey;
+	padding-top: 0.438em;
+	padding-right: 0.813em;
+	padding-bottom: 0.813em;
+	padding-left: 0.813em;
 	}
 
 /***** MAIN TEXT AREA - TEXT *****/
@@ -2966,15 +2962,14 @@ div.woas_text_area {
 	}
 
 /***** MAIN WIKI PANE WHEN LOCKED *****/
-.woas_text_area.locked,
-#woas_pwd_mask {
+.woas_text_area.locked, #woas_pwd_mask {
 	background-color: #eeeeee;
 	background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAAAAACMmsGiAAAALHRFWHRDcmVhdGlvbiBUaW1lAGdpbyAyOSBtYXIgMjAwNyAxMTo1MToxMCArMDEwME%2BTNUAAAAAHdElNRQfXAx0JNByGxueSAAAACXBIWXMAAAsSAAALEgHS3X78AAAABGdBTUEAALGPC%2FxhBQAAABlJREFUeNpj%2FM%2FwmYHpMwMvAxOQwcvECyQBO1oE%2BlG5iisAAAAASUVORK5CYII%3D);
 	}
 
 /***** MENU *****/
 div.menu {
-}
+	}
 div.menu_area {
 	background-color: white;
 	border: 0.188em solid grey;
@@ -2985,8 +2980,7 @@ div.menu_area {
 	}
 
 /***** MENU - LISTS *****/
-div.menu_area ul li, div.menu_area ol li,
-div.ns_menu_area ul li, div.ns_menu_area ol li {
+div.menu_area ul li, div.menu_area ol li, div.ns_menu_area ul li, div.ns_menu_area ol li {
 	margin-left: -2em;
 	}
 
@@ -3057,156 +3051,144 @@ div.ns_menu_area ul li, div.ns_menu_area ol li {
 /***** NOWIKI INLINE - MOZILLA *****/
 .wiki_preformatted {
 	background-color:gainsboro;
-	color:black;
-	font-family:monospace;
-	padding-right:0.27em;
-	padding-left:0.27em;
+	color: black;
+	font-family: monospace;
+	padding-right: 0.27em;
+	padding-left: 0.27em;
 	white-space:-moz-pre-wrap !important;
 	}
-
-/***** NOWIKI INLINE - CSS-3 *****/
+/***** NOWIKI INLINE - CSS 3 *****/
 /* .wiki_preformatted {
-	background-color:gainsboro;
-	color:black;
-	font-family:monospace;
-	padding-right:0.27em;
-	padding-left:0.27em;
-	white-space:pre-wrap;
+	background-color: gainsboro;
+	color: black;
+	font-family: monospace;
+	padding-right: 0.27em;
+	padding-left: 0.27em;
+	white-space: pre-wrap;
 	} */
-
 /***** NOWIKI INLINE - OPERA 4-6 *****/
 /* .wiki_preformatted {
-	background-color:gainsboro;
-	color:black;
-	font-family:monospace;
-	padding-right:0.27em;
-	padding-left:0.27em;
-	white-space:-pre-wrap;
+	background-color: gainsboro;
+	color: black;
+	font-family: monospace;
+	padding-right: 0.27em;
+	padding-left: 0.27em;
+	white-space: -pre-wrap;
 	} */
-
 /***** NOWIKI INLINE - OPERA 7 *****/
 /* .wiki_preformatted {
-	background-color:gainsboro;
-	color:black;
-	font-family:monospace;
-	padding-right:0.27em;
-	padding-left:0.27em;
-	white-space:-o-pre-wrap;
+	background-color: gainsboro;
+	color: black;
+	font-family: monospace;
+	padding-right: 0.27em;
+	padding-left: 0.27em;
+	white-space: -o-pre-wrap;
 	} */
-
 /***** NOWIKI INLINE - IE 5.5+ *****/
 /* .wiki_preformatted {
-	background-color:gainsboro;
-	color:black;
-	font-family:monospace;
-	padding-right:0.27em;
-	padding-left:0.27em;
-	word-wrap:break-word;
+	background-color: gainsboro;
+	color: black;
+	font-family: monospace;
+	padding-right: 0.27em;
+	padding-left: 0.27em;
+	word-wrap: break-word;
 	} */
 
 /***** NOWIKI BLOCKS - MOZILLA *****/
 .woas_nowiki_multiline {
-	background-color:gainsboro;
-	border:0.063em solid grey;
-	color:black;
-	font-family:monospace;
-	padding-right:0.27em;
-	padding-left:0.27em;
-	white-space:-moz-pre-wrap !important;
+	background-color: gainsboro;
+	border: 0.063em solid grey;
+	color: black;
+	font-family: monospace;
+	padding-right: 0.27em;
+	padding-left: 0.27em;
+	white-space: -moz-pre-wrap !important;
 	}
-
-/***** NOWIKI BLOCKS - CSS-3 *****/
+/***** NOWIKI BLOCKS - CSS 3 *****/
 /* .woas_nowiki_multiline {
-	background-color:gainsboro;
-	border:0.063em solid grey;
-	color:black;
-	font-family:monospace;
-	padding-right:0.27em;
-	padding-left:0.27em;
-	white-space:pre-wrap;
+	background-color: gainsboro;
+	border: 0.063em solid grey;
+	color: black;
+	font-family: monospace;
+	padding-right: 0.27em;
+	padding-left: 0.27em;
+	white-space: pre-wrap;
 	} */
-
 /***** NOWIKI BLOCKS - OPERA 4-6 *****/
 /* .woas_nowiki_multiline {
-	background-color:gainsboro;
-	border:0.063em solid grey;
-	color:black;
-	font-family:monospace;
-	padding-right:0.27em;
-	padding-left:0.27em;
-	white-space:-pre-wrap;
+	background-color: gainsboro;
+	border: 0.063em solid grey;
+	color: black;
+	font-family: monospace;
+	padding-right: 0.27em;
+	padding-left: 0.27em;
+	white-space: -pre-wrap;
 	} */
-
 /***** NOWIKI BLOCKS - OPERA 7 *****/
 /* .woas_nowiki_multiline {
-	background-color:gainsboro;
-	border:0.063em solid grey;
-	color:black;
-	font-family:monospace;
-	padding-right:0.27em;
-	padding-left:0.27em;
-	white-space:-o-pre-wrap;
+	background-color: gainsboro;
+	border: 0.063em solid grey;
+	color: black;
+	font-family: monospace;
+	padding-right: 0.27em;
+	padding-left: 0.27em;
+	white-space: -o-pre-wrap;
 	} */
-
 /***** NOWIKI BLOCKS - IE 5.5+ *****/
 /* .woas_nowiki_multiline {
-	background-color:gainsboro;
-	border:0.063em solid grey;
-	color:black;
-	font-family:monospace;
-	padding-right:0.27em;
-	padding-left:0.27em;
-	word-wrap:break-word;
+	background-color: gainsboro;
+	border: 0.063em solid grey;
+	color: black;
+	font-family: monospace;
+	padding-right: 0.27em;
+	padding-left: 0.27em;
+	word-wrap: break-word;
 	} */
 
 /***** NOWIKI BLOCKS - HTML - MOZILLA *****/
 pre {
-	background-color:gainsboro;
-	border:0.063em solid grey;
-	color:black;
-	font-family:monospace;
-	padding:0.375em;
-	white-space:-moz-pre-wrap !important;
+	background-color: gainsboro;
+	border: 0.063em solid grey;
+	color: black;
+	font-family: monospace;
+	padding: 0.375em;
+	white-space: -moz-pre-wrap !important;
 	}
-
-/***** NOWIKI BLOCKS - HTML - CSS-3 *****/
+/***** NOWIKI BLOCKS - HTML - CSS 3 *****/
 /* pre {
-	background-color:gainsboro;
-	border:0.063em solid grey;
-	color:black;
-	font-family:monospace;
-	padding:0.375em;
-	white-space:pre-wrap;
+	background-color: gainsboro;
+	border: 0.063em solid grey;
+	color: black;
+	font-family: monospace;
+	padding: 0.375em;
+	white-space: pre-wrap;
 	} */
-
 /***** NOWIKI BLOCKS - HTML - OPERA 4-6 *****/
 /* pre {
-	background-color:gainsboro;
-	border:0.063em solid grey;
-	color:black;
-	font-family:monospace;
-	padding:0.375em;
-	white-space:-pre-wrap;
+	background-color: gainsboro;
+	border: 0.063em solid grey;
+	color: black;
+	font-family: monospace;
+	padding: 0.375em;
+	white-space: -pre-wrap;
 	} */
-
 /***** NOWIKI BLOCKS - HTML - OPERA 7 *****/
 /* pre {
-	background-color:gainsboro;
-	border:0.063em solid grey;
-	color:black;
-	font-family:monospace;
-	padding:0.375em;
-	white-space:-o-pre-wrap;
+	background-color: gainsboro;
+	border: 0.063em solid grey;
+	color: black;
+	font-family: monospace;
+	padding: 0.375em;
+	white-space: -o-pre-wrap;
 	} */
-
 /***** NOWIKI BLOCKS - HTML - IE 5.5+ *****/
 /* pre {
-	background-color:gainsboro;
-	border:0.063em solid grey;
-	color:black;
-	font-family:monospace;
-	padding:0.375em;
-	word-wrap:break-word;
+	background-color: gainsboro;
+	border: 0.063em solid grey;
+	color: black;
+	font-family: monospace;
+	padding: 0.375em;
+	word-wrap: break-word;
 	} */
 
 /***** PAGE LIST HEADER *****/
@@ -3285,13 +3267,11 @@ div.innerpresentation H2 {
 	padding-left: 0.313em;
 	}
 
-/***** SEARCH RESULTS *****/
+/***** SEARCH *****/
 div.search_results {
 	clear: both;
 	margin-top: 1em;
 	}
-
-/***** SEARCH HIGHLIGHT *****/
 .search_highlight {
 	background-color: yellow;
 	}
@@ -3418,7 +3398,6 @@ p.woas_toc_title {
 	}
 
 /***** TAG CONTAINER *****/
-/* tag container */
 div.taglinks {
 /*	background-color: #f9f9f9; */
 	border: 1pt solid #aaa;
@@ -3428,7 +3407,6 @@ div.taglinks {
 	}
 
 /***** TAG LINKS *****/
-/* styled boxes around tags */
 div.taglinks > a {
 	background-color: gainsboro;
 	border: 2px solid blue;
@@ -3438,14 +3416,15 @@ div.taglinks > a {
 	font-weight: bold;
 	line-height: 2.4;
 	margin: 2px 2px 2px 0;
-	-moz-border-radius: 7px;-webkit-border-radius:7px;
+	-moz-border-radius: 7px;
 	padding: 3px 5px 3px 5px;
 	text-decoration: none;
+	-webkit-border-radius: 7px;
 	}
 div.taglinks > a:hover {
 	background-color: grey;
 	color: white;
-	border:2px solid blue;
+	border: 2px solid blue;
 	font-weight: bold;
 	text-decoration: none;
 	}
@@ -3657,6 +3636,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Now using [[http://sourceforge.net/projects/stickwiki/files/|Wiki on a Stick v0.12.0]] as the foundation for Book on a Stick.
 ** Reorganized the entries in the {{{var reserved_namespaces}}} section of the core code.
 ** Updated the *Help* button in the banner to open the Help pop-up.
+** Updated the wiki CSS rules.
 
 * _Content:_
 ** Added the [[Help::Embedding]] page, which needs to be rewritten.
