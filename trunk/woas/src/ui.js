@@ -66,29 +66,30 @@ woas.ui = {
 		}
 
 		return orig_e;
-	},
-	
-	go_to: function(cr) {
-		if (cr === current)
-			return true;
-		return woas.set_current(cr, true)
 	}
+	
+};
 
+//API1.0
+woas.go_to = function(cr) {
+	if (cr === current)
+			return true;
+	return this.set_current(cr, true)
 };
 
 // when home is clicked
 function home() {
-	woas.ui.go_to(woas.config.main_page);
+	woas.go_to(woas.config.main_page);
 }
 
 // when Advanced is clicked
 //DEPRECATED
 function advanced() {
-	woas.ui.go_to("Special::Advanced");
+	woas.go_to("Special::Advanced");
 }
 
 //DEPRECATED
-function go_to(t) { return woas.ui.go_to(t); }
+function go_to(t) { return woas.go_to(t); }
 
 function back_or(or_page) {
 	if (!go_back())
@@ -214,7 +215,7 @@ function help() {
 	var pi = woas.page_index(wanted_page);
 	// we are editing
 	if (woas.ui.edit_mode) {
-		wanted_page = "WoaS::Help::Editing";
+		wanted_page = "WoaS::Help::Edit";
 		pi = woas.page_index(wanted_page);
 	} else {
 		var htitle = null;
