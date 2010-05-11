@@ -3319,7 +3319,7 @@ With a combination of HTML and wiki syntax, you can create anchor links to anywh
 
 === Edit page link
 <div class="woas_helptext">Use this code in a page, replacing LABEL with the text for your link:</div><br>{{{
-<a class="link" onclick="javascript:edit()" title="Edit this page">LABEL</a>
+<a class="woas_link" onclick="javascript:edit()" title="Edit this page">LABEL</a>
 }}}<br><div class="woas_helptext">To create a link that opens the current page in the editor.</div>
 
 === External link (button)
