@@ -2331,7 +2331,7 @@ When custom CSS rules have been added to the wiki, you can replace the default {
 | class="CLASS_NAME"
 }}}<br><div class="woas_help_text">To use a custom class for the table.</div>
 
-<table width="100%"><tr><td width="50%"><div class="woas_help_text">Example default table:</div></td><td width="50%"><div class="woas_help_text">Use this code to create the table:</div></td></tr><tr><td valign="top">
+<table width="100%"><tr><td width="40%"><div class="woas_help_text">Example default table:</div></td><td width="60%"><div class="woas_help_text">Use this code to create the table:</div></td></tr><tr><td valign="top">
 {|
 |-
 | cell 1 || cell 2 || cell 3
@@ -2354,7 +2354,7 @@ When custom CSS rules have been added to the wiki, you can replace the default {
 |} 
 }}}
 </td></tr>
-<tr><td width="50%"><div class="woas_help_text">Example custom table:</div></td><td width="50%"><div class="woas_help_text">Use this code to create the table:</div></td></tr><tr><td valign="top">
+<tr><td width="40%"><div class="woas_help_text">Example custom table:</div></td><td width="60%"><div class="woas_help_text">Use this code to create the table:</div></td></tr><tr><td valign="top">
 {| class="mycustomtable"
 |-
 | cell 1 || cell 2 || cell 3
@@ -2396,7 +2396,7 @@ Placement of the caption determines whether it's above or below the table.
 |+ CAPTION
 }}}<br><div class="woas_help_text">To add a caption to a table.</div>
 
-<table width="100%"><tr><td width="50%"><div class="woas_help_text">Example default table:</div></td><td width="50%"><div class="woas_help_text">Use this code to create the table:</div></td></tr><tr><td valign="top">
+<table width="100%"><tr><td width="40%"><div class="woas_help_text">Example default table:</div></td><td width="60%"><div class="woas_help_text">Use this code to create the table:</div></td></tr><tr><td valign="top">
 {|
 |-
 |+ caption above
@@ -2423,7 +2423,7 @@ Placement of the caption determines whether it's above or below the table.
 |}
 }}}
 </td></tr>
-<tr><td width="50%"><div class="woas_help_text">Example custom table:</div></td><td width="50%"><div class="woas_help_text">Use this code to create the table:</div></td></tr><tr><td valign="top">
+<tr><td width="40%"><div class="woas_help_text">Example custom table:</div></td><td width="60%"><div class="woas_help_text">Use this code to create the table:</div></td></tr><tr><td valign="top">
 {| class="mycustomtable"
 |-
 |+ caption above
@@ -2450,7 +2450,7 @@ Placement of the caption determines whether it's above or below the table.
 |}
 }}}
 </td></tr>
-<tr><td width="50%"><div class="woas_help_text">Example default table:</div></td><td width="50%"><div class="woas_help_text">Use this code to create the table:</div></td></tr><tr><td valign="top">
+<tr><td width="40%"><div class="woas_help_text">Example default table:</div></td><td width="60%"><div class="woas_help_text">Use this code to create the table:</div></td></tr><tr><td valign="top">
 {|
 |-
 | cell 1 || cell 2 || cell 3
@@ -2477,7 +2477,7 @@ Placement of the caption determines whether it's above or below the table.
 |}
 }}}
 </td></tr>
-<tr><td width="50%"><div class="woas_help_text">Example custom table:</div></td><td width="50%"><div class="woas_help_text">Use this code to create the table:</div></td></tr><tr><td valign="top">
+<tr><td width="40%"><div class="woas_help_text">Example custom table:</div></td><td width="60%"><div class="woas_help_text">Use this code to create the table:</div></td></tr><tr><td valign="top">
 {| class="mycustomtable"
 |-
 | cell 1 || cell 2 || cell 3
@@ -3101,44 +3101,6 @@ These examples use a combination of method 1 and method 2. The first definition 
 
 == The CSS rules used by the example tables
 These are the custom CSS rules used by the example tables on this page:<br><br>{{{
-/* CODE INLINE - MOZILLA */
-.wiki_preformatted {color:black; background-color:#F5F5F5; padding-right:0.27em; padding-left:0.27em; white-space:-moz-pre-wrap !important; font-family:monospace;}
-/* CODE INLINE - CSS-3 */
-/* .wiki_preformatted {color:black; background-color:#F5F5F5; padding-right:0.27em; padding-left:0.27em; white-space:pre-wrap; font-family:monospace;} */
-/* CODE INLINE - OPERA 4-6 */
-/* .wiki_preformatted {color:black; background-color:#F5F5F5; padding-right:0.27em; padding-left:0.27em; white-space:-pre-wrap; font-family:monospace;} */
-/* CODE INLINE - OPERA 7 */
-/* .wiki_preformatted {color:black; background-color:#F5F5F5; padding-right:0.27em; padding-left:0.27em; white-space:-o-pre-wrap; font-family:monospace;} */
-/* CODE INLINE - IE 5.5+ */
-/* .wiki_preformatted {color:black; background-color:#F5F5F5; padding-right:0.27em; padding-left:0.27em; word-wrap:break-word; font-family:monospace;} */
-
-/* CODE BLOCKS - HTML - PRE TAGS - MOZILLA */
-.woas_nowiki_multiline {color:black; background-color:#F5F5F5; border:0.063em solid grey; padding:0.375em; white-space:-moz-pre-wrap !important; font-family:monospace;}
-/* CODE BLOCKS - HTML - PRE TAGS - CSS-3 */
-/* .woas_nowiki_multiline {color:black; background-color:#F5F5F5; border:0.063em solid grey; padding:0.375em; white-space:pre-wrap; font-family:monospace;} */
-/* CODE BLOCKS - HTML - PRE TAGS - OPERA 4-6 */
-/* .woas_nowiki_multiline {color:black; background-color:#F5F5F5; border:0.063em solid grey; padding:0.375em; white-space:-pre-wrap; font-family:monospace;} */
-/* CODE BLOCKS - HTML - PRE TAGS - OPERA 7 */
-/* .woas_nowiki_multiline {color:black; background-color:#F5F5F5; border:0.063em solid grey; padding:0.375em; white-space:-o-pre-wrap; font-family:monospace;} */
-/* CODE BLOCKS - HTML - PRE TAGS - IE 5.5+ */
-/* .woas_nowiki_multiline {color:black; background-color:#F5F5F5; border:0.063em solid grey; padding:0.375em; word-wrap:break-word; font-family:monospace;} */
-
-/* CODE BLOCKS - HTML - PRE TAGS - MOZILLA */
-pre {color:black; background-color:#F5F5F5; border:0.063em solid grey; padding:0.375em; white-space:-moz-pre-wrap !important; font-family:monospace;}
-/* CODE BLOCKS - HTML - PRE TAGS - CSS-3 */
-/* pre {color:black; background-color:#F5F5F5; border:0.063em solid grey; padding:0.375em; white-space:pre-wrap; font-family:monospace;} */
-/* CODE BLOCKS - HTML - PRE TAGS - OPERA 4-6 */
-/* pre {color:black; background-color:#F5F5F5; border:0.063em solid grey; padding:0.375em; white-space:-pre-wrap; font-family:monospace;} */
-/* CODE BLOCKS - HTML - PRE TAGS - OPERA 7 */
-/* pre {color:black; background-color:#F5F5F5; border:0.063em solid grey; padding:0.375em; white-space:-o-pre-wrap; font-family:monospace;} */
-/* CODE BLOCKS - HTML - PRE TAGS - IE 5.5+ */
-/* pre {color:black; background-color:#F5F5F5; border:0.063em solid grey; padding:0.375em; word-wrap:break-word; font-family:monospace;} */
-
-/* CUSTOM HELP TEXT */
-.woas_help_text {
-	color: darkcyan;
-	font-weight: bold;
-}
 /* CUSTOM CSS FOR custom tables */
 table.mycustomtable {
 	color: #404040;
@@ -3186,44 +3148,6 @@ table td.special {
 
 <!-- NOTE: BELOW ARE CUSTOM CSS RULES EMBEDDED ON THIS PAGE FOR USE BY THIS PAGE. -->
 <style type="text/css">
-/* CODE INLINE - MOZILLA */
-.wiki_preformatted {color:black; background-color:#F5F5F5; padding-right:0.27em; padding-left:0.27em; white-space:-moz-pre-wrap !important; font-family:monospace;}
-/* CODE INLINE - CSS-3 */
-/* .wiki_preformatted {color:black; background-color:#F5F5F5; padding-right:0.27em; padding-left:0.27em; white-space:pre-wrap; font-family:monospace;} */
-/* CODE INLINE - OPERA 4-6 */
-/* .wiki_preformatted {color:black; background-color:#F5F5F5; padding-right:0.27em; padding-left:0.27em; white-space:-pre-wrap; font-family:monospace;} */
-/* CODE INLINE - OPERA 7 */
-/* .wiki_preformatted {color:black; background-color:#F5F5F5; padding-right:0.27em; padding-left:0.27em; white-space:-o-pre-wrap; font-family:monospace;} */
-/* CODE INLINE - IE 5.5+ */
-/* .wiki_preformatted {color:black; background-color:#F5F5F5; padding-right:0.27em; padding-left:0.27em; word-wrap:break-word; font-family:monospace;} */
-
-/* CODE BLOCKS - HTML - PRE TAGS - MOZILLA */
-.woas_nowiki_multiline {color:black; background-color:#F5F5F5; border:0.063em solid grey; padding:0.375em; white-space:-moz-pre-wrap !important; font-family:monospace;}
-/* CODE BLOCKS - HTML - PRE TAGS - CSS-3 */
-/* .woas_nowiki_multiline {color:black; background-color:#F5F5F5; border:0.063em solid grey; padding:0.375em; white-space:pre-wrap; font-family:monospace;} */
-/* CODE BLOCKS - HTML - PRE TAGS - OPERA 4-6 */
-/* .woas_nowiki_multiline {color:black; background-color:#F5F5F5; border:0.063em solid grey; padding:0.375em; white-space:-pre-wrap; font-family:monospace;} */
-/* CODE BLOCKS - HTML - PRE TAGS - OPERA 7 */
-/* .woas_nowiki_multiline {color:black; background-color:#F5F5F5; border:0.063em solid grey; padding:0.375em; white-space:-o-pre-wrap; font-family:monospace;} */
-/* CODE BLOCKS - HTML - PRE TAGS - IE 5.5+ */
-/* .woas_nowiki_multiline {color:black; background-color:#F5F5F5; border:0.063em solid grey; padding:0.375em; word-wrap:break-word; font-family:monospace;} */
-
-/* CODE BLOCKS - HTML - PRE TAGS - MOZILLA */
-pre {color:black; background-color:#F5F5F5; border:0.063em solid grey; padding:0.375em; white-space:-moz-pre-wrap !important; font-family:monospace;}
-/* CODE BLOCKS - HTML - PRE TAGS - CSS-3 */
-/* pre {color:black; background-color:#F5F5F5; border:0.063em solid grey; padding:0.375em; white-space:pre-wrap; font-family:monospace;} */
-/* CODE BLOCKS - HTML - PRE TAGS - OPERA 4-6 */
-/* pre {color:black; background-color:#F5F5F5; border:0.063em solid grey; padding:0.375em; white-space:-pre-wrap; font-family:monospace;} */
-/* CODE BLOCKS - HTML - PRE TAGS - OPERA 7 */
-/* pre {color:black; background-color:#F5F5F5; border:0.063em solid grey; padding:0.375em; white-space:-o-pre-wrap; font-family:monospace;} */
-/* CODE BLOCKS - HTML - PRE TAGS - IE 5.5+ */
-/* pre {color:black; background-color:#F5F5F5; border:0.063em solid grey; padding:0.375em; word-wrap:break-word; font-family:monospace;} */
-
-/* CUSTOM HELP TEXT */
-.woas_help_text {
-	color: darkcyan;
-	font-weight: bold;
-}
 /* CUSTOM CSS FOR custom tables */
 table.mycustomtable {
 	color: #404040;
