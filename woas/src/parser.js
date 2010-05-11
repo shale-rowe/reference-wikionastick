@@ -315,7 +315,7 @@ woas.parser.parse = function(text, export_links, js_mode) {
 						var img, img_name = woas.xhtml_encode(templname.substr(templname.indexOf("::")+2));
 						if (export_links) {
 							// check that the URI is valid
-							var uri=woas._export_get_fname(templname);
+							var uri=woas.exporter._get_fname(templname);
 							if (uri == '#')
 								img = woas.parser.render_error(templname, "#8709");
 							else
@@ -492,7 +492,7 @@ woas.parser.parse = function(text, export_links, js_mode) {
 			if (export_links) {
 //						if (this.page_index(page)==-1)
 //							wl = " onclick=\"alert('not yet implemented');\"";		else
-				wl = " href=\""+woas._export_get_fname(page)+"\"";
+				wl = " href=\""+woas.exporter._get_fname(page)+"\"";
 			} else
 				wl = " onclick=\"woas.go_to('" + woas.js_encode(page) +	"')" + gotohash + "\"";
 			snippets.push("<"+"a title=\""+woas.xhtml_encode(page)+"\" class=\"woas_link\""+ wl + " >" + $2 + "<\/a>");
@@ -502,7 +502,7 @@ woas.parser.parse = function(text, export_links, js_mode) {
 			if ($1.charAt(0) === "#") {
 				r = woas.parser.place_holder(snippets.length);
 				if (export_links)
-					wl = woas._export_get_fname(page);
+					wl = woas.exporter._get_fname(page);
 				else
 					wl = '';
 				if (wl == '#')
@@ -557,7 +557,7 @@ woas.parser.parse = function(text, export_links, js_mode) {
 		if (woas.page_exists(page)) {
 			r = woas.parser.place_holder(snippets.length);
 			if (export_links) {
-				wl = woas._export_get_fname(page);
+				wl = woas.exporter._get_fname(page);
 				if (wl == '#') {
 					snippets.push("<"+"span class=\"woas_broken_link\">" + $1 + "<\/span>");
 					return r;

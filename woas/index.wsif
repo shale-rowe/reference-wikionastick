@@ -510,6 +510,7 @@ $('woas_ep_ext').value = woas.exporter._default_ext;
 
 $('woas_ep_xhtml').onfocus = $('woas_ep_img').onfocus = $('woas_ep_ext').onfocus = woas.ui.focus_textbox;
 $('woas_ep_xhtml').onblur = $('woas_ep_img').onblur = $('woas_ep_ext').onblur = woas.ui.blur_textbox;
+$('woas_ep_author').value = woas.config.wsif_author;
 
 </script>
 --DFQRCTsKlU
