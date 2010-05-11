@@ -79,6 +79,7 @@ woas.ui = {
 		// clear search results
 		woas._cached_body_search = [];
 		woas._cached_title_search = [];
+		woas._last_search = null;
 		//FIXME: result_pages should be cleared also?
 		this._search_render();
 	},
@@ -90,9 +91,9 @@ woas.ui = {
 	_search_render: function() {
 		// render search results
 		if (current === "Special::Search") {
-			this._search_load();
+			woas._search_load();
 		} else // will call _search_load() on its own
-			go_to("Special::Search");
+			woas.go_to("Special::Search");
 	}
 	
 };
