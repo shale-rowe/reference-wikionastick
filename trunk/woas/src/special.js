@@ -89,7 +89,7 @@ woas._cached_body_search = [];
 // last string searched
 woas._last_search = null;
 
-// returns a index of searched pages (by miz & legolas558)
+// create an index of searched pages (by miz & legolas558)
 woas._cache_search = function( str ) {
 	var count = 0, tmp,
 		// matches the search string and nearby text
@@ -119,13 +119,8 @@ woas._cache_search = function( str ) {
 
 		// look for string in body
 		res_body = tmp.match(reg);
-		if (res_body!==null) {
-			count = res_body.length;
-			this._cached_body_search.push( { title: page_titles[i],
-				 body: "..."+res_body.join("...\n")+"...", //.replace(/\n/g, " ");
-				 count: count
-				});
-		}
+		if (res_body !== null)
+			this._cached_body_search.push( { title: page_titles[i],	 matches: res_body} );
 	}
 };
 
