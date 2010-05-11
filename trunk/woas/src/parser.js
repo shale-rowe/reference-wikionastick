@@ -628,11 +628,8 @@ woas.parser._render_wiki_link = function(arg1, label, snippets, tags, export_lin
 		return r;
 	}
 	
-	// put back everything in a string to attempt tags extraction
-	var full_link = page + "|"+label;
-
 	// check for tags definitions
-	var found_tags = woas._get_tags(full_link);
+	var found_tags = woas._get_tags(page + "|"+label);
 	if (found_tags.length > 0) {
 		tags = tags.concat(found_tags);
 		if (!this.force_inline)
@@ -651,6 +648,7 @@ woas.parser._render_wiki_link = function(arg1, label, snippets, tags, export_lin
 
 	// get a snippet id which we will later fill
 	r = woas.parser.place_holder(snippets.length);
+	// create a title attribute only when page URI differs from page title
 	var _c_title = (page !== label) ? ' title="'+woas.xhtml_encode(page)+'"' : '';
 	if (hashloc === 0) { // section reference URIs
 		snippets.push("<"+"a"+_c_title+" class=\"woas_link\" href=\""+page+"\">" + label + "<\/a>");
