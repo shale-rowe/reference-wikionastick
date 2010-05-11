@@ -149,7 +149,7 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 = Search in Wiki
 
-<input id="string_to_search" type="text" onfocus="search_focus(true)" onblur="search_focus(false)" />&nbsp;<input type="button" value="Search" onclick="ssearch_do_search()" />&nbsp;<input type="button" value="Clear" onclick="woas.clear_search()" />
+<input id="string_to_search" type="text" onfocus="search_focus(true)" onblur="search_focus(false)" />&nbsp;<input type="button" value="Search" onclick="ssearch_do_search()" />&nbsp;<input type="button" value="Clear" onclick="woas.ui.clear_search()" />
 <div id="woas_search_results">&nbsp;</div>
 
 <script type="text/javascript" language="javascript">
