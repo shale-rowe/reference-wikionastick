@@ -532,7 +532,7 @@ woas.parser.parse = function(text, export_links, js_mode) {
 		if ($1.search(/^\w+:\/\//)===0) {
 			r = woas.parser.place_holder(snippets.length);
 			$1 = $1.replace(reMailto, "mailto:");
-			snippets.push("<"+"a class=\"woas_world_link\" href=\"" + $1 + "\" target=\"_blank\">" + $1 + "<\/a>");
+			snippets.push("<"+"a title=\""+woas.xhtml_encode($1)+"\" class=\"woas_world_link\" href=\"" + $1 + "\" target=\"_blank\">" + $1 + "<\/a>");
 			return r;
 		}
 		
