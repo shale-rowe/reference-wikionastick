@@ -182,7 +182,8 @@ woas.exporter = {
 				log("Reserved page will not be exported: "+title);
 				this._title2fn[title] = "#";
 				return "#";
-			}
+			} else // do export these special pages later
+				sp = true;
 		}
 		var pi;
 		if (sp) {
@@ -191,7 +192,7 @@ woas.exporter = {
 				this._further_pages.push(title);
 		} else {
 			pi=woas.page_index(title);
-			if (pi===-1) {
+			if (pi === -1) {
 				woas.alert(woas.i18n.PAGE_NOT_EXISTS+title);
 				this._title2fn[title] = "#";
 				return "#";
@@ -342,7 +343,7 @@ var reKeywords = new RegExp("[^\\s\x01-\x2F\x3A-\x40\x5B-\x60\x7B-\x7E]{2,}", "g
 function _auto_keywords(source) {
 	if (!source.length) return "";
 	var words = source.match(reKeywords);
-	if (!words.length) return "";
+	if ((words===null) || !words.length) return "";
 	var nu_words = [], density = [], wp=0, cond;
 	for(var i=0;i < words.length;i++) {
 		if (words[i].length === 0)
