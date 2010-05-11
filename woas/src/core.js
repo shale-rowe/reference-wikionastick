@@ -64,8 +64,8 @@ woas._new_page_direct = function(title, fill_mode) {
 	// properly split page title in (namespace, title) -> (ns, cr)
 	var ns = this.get_namespace(title, true), cr;
 	if (ns.length) {
-		ns = ns.substr(0, ns.length-2);
 		cr = title.substr(ns.length);
+		ns = ns.substr(0, ns.length-2);
 	} else cr = title;
 
 	// check if page deserves creation
