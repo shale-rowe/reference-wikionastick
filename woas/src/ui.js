@@ -80,14 +80,20 @@ woas.ui = {
 		woas._cached_body_search = [];
 		woas._cached_title_search = [];
 		//FIXME: result_pages should be cleared also?
-		woas.assert_current("Special::Search");
+		this._search_render();
 	},
 	// when user clicks the about link
 	about: function() {
 		if (!this.edit_mode)
 			woas.go_to("Special::About");
+	},
+	_search_render: function() {
+		// render search results
+		if (current === "Special::Search") {
+			this._search_load();
+		} else // will call _search_load() on its own
+			go_to("Special::Search");
 	}
-
 	
 };
 
@@ -374,11 +380,8 @@ woas.do_search = function(str, noclear) {
 	woas._cache_search( str );
 	woas.progress_finish();
 
-	// render search results
-	if (current === "Special::Search") {
-		this._search_load();
-	} else // will call _search_load() on its own
-		go_to("Special::Search");
+	// refresh the search page, or go to it if we are not
+	woas.ui._search_render();
 }
 
 // Used by Special::Options page
