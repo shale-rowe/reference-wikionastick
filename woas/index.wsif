@@ -3876,7 +3876,7 @@ a.woas_unlink:hover {
 }
 
 /* outside world link */
-a.woas_world {
+a.woas_world_link {
 	color: darkgreen;
 	text-decoration: underline;
 }
