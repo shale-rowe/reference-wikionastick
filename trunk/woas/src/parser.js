@@ -490,8 +490,6 @@ woas.parser.parse = function(text, export_links, js_mode) {
 		if (woas.page_exists(page)) {
 			r = woas.parser.place_holder(snippets.length);
 			if (export_links) {
-//						if (this.page_index(page)==-1)
-//							wl = " onclick=\"alert('not yet implemented');\"";		else
 				wl = " href=\""+woas.exporter._get_fname(page)+"\"";
 			} else
 				wl = " onclick=\"woas.go_to('" + woas.js_encode(page) +	"')" + gotohash + "\"";
@@ -558,32 +556,31 @@ woas.parser.parse = function(text, export_links, js_mode) {
 			r = woas.parser.place_holder(snippets.length);
 			if (export_links) {
 				wl = woas.exporter._get_fname(page);
-				if (wl == '#') {
-					snippets.push("<"+"span class=\"woas_broken_link\">" + $1 + "<\/span>");
+				if (wl === '#') {
+					snippets.push("<"+"span class=\"woas_broken_link\">" + page + "<\/span>");
 					return r;
 				}
 				wl = " href=\""+wl+"\"";
 			} else
 				wl = " onclick=\"woas.go_to('" + woas.js_encode(page) +"')"+gotohash+"\"";
-			snippets.push("<"+"a title=\""+woas.xhtml_encode(page)+"\"  class=\"woas_link\""+wl+">" + $1 + "<\/a>");
+			snippets.push("<"+"a title=\""+woas.xhtml_encode(page)+"\"  class=\"woas_link\""+wl+">" + page + "<\/a>");
 			return r;
 		} else {
 			r = woas.parser.place_holder(snippets.length);
-			if ($1.charAt(0)=="#") {
-				snippets.push("<"+"a class=\"link\" href=\"#" +woas.parser.header_anchor($1.substring(1)) + "\">" + $1.substring(1) + "<\/a>");
+			if (page.charAt(0)=="#") {
+				snippets.push("<"+"a class=\"link\" href=\"#" +woas.parser.header_anchor(page.substring(1)) + "\">" + $1.substring(1) + "<\/a>");
 			} else {
 				r = woas.parser.place_holder(snippets.length);
 				if (export_links) {
-					snippets.push("<"+"span class=\"woas_unlink woas_broken_link\">" + $1 + "<\/span>");
+					snippets.push("<"+"span class=\"woas_unlink woas_broken_link\">" + page + "<\/span>");
 					return r;
 				}
 				wl = " onclick=\"woas.go_to('" + woas.js_encode(page) +"')\"";
-				snippets.push("<"+"a title=\""+woas.xhtml_encode(page)+"\"  class=\"woas_unlink\" "+wl+">" + $1 + "<\/a>");
+				snippets.push("<"+"a title=\""+woas.xhtml_encode(page)+"\"  class=\"woas_unlink\" "+wl+">" + page + "<\/a>");
 			}
 			return r;
 		}
 	});
-
 
 	// allow non-wrapping newlines
 	text = text.replace(/\\\n/g, "");
