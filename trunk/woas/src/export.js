@@ -149,7 +149,7 @@ woas.exporter = {
 			woas.utf8_encode(woas._attrib_escape(raw_text.replace(/\s+/g, " ").substr(0,max_description_length)))+'" />'+"\n"+
 			this._settings.meta_author+
 			this._settings.custom_scripts+
-			"<'+'/head><"+"body>"+data+
+			'<'+'/head><'+'body>'+data+
 			(mts ? "<"+"div class=\"woas_page_mts\">"+woas.last_modified(mts)+"<"+"/div>" : "")+
 			"<"+"/body><"+"/html>\n"; raw_text = null;
 		return woas.save_file(this._settings.xhtml_path+fname, woas.file_mode.ASCII, woas.DOCTYPE+woas.DOC_START+data);
