@@ -74,9 +74,9 @@ woas.special_backlinks = function() {
 			pg.push( page_titles[j] );
 	}
 	if(pg.length === 0)
-		return "/No page links here/";
+		return "/No page links to [["+pg_title+"]]/";
 	else
-		return "== Links to "+pg_title+"\n"+this._join_list(pg);
+		return "== Links to [["+pg_title+"]]\n"+this._join_list(pg);
 };
 
 woas._reLastSearch = null;	// search highlighting regex

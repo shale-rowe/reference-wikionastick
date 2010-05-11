@@ -642,15 +642,17 @@ woas.set_current = function (cr, interactive) {
 					break;
 					case "Special":
 						text = this._get_special(cr, interactive);
+						//the 'false' special value is returned in case of command execution
 						if (text === false)
 							return true;
+						// no such special page exists
 						if (text === null)
 							return false;
 						break;
 					case "Tagged": // deprecated
 					case "Tags":
 						text = this._get_tagged(cr);
-						if (text == null)
+						if (text === null)
 							return false;
 						break;
 					case "Lock":
@@ -736,6 +738,8 @@ woas.set_current = function (cr, interactive) {
 						this._add_namespace_menu(namespace);
 						if (namespace.length)
 							cr = real_t;
+						// used by some special pages (e.g. backlinks) for page title override
+						this.render_title = cr;
 						return this.load_as_current(cr, text, this.config.store_mts ? page_mts[pi] : 0);
 					case "File":
 					case "Image":
@@ -748,6 +752,8 @@ woas.set_current = function (cr, interactive) {
 						this._add_namespace_menu(namespace);
 						if (namespace.length)
 							cr = namespace + "::" + cr;
+						// used by some special pages (e.g. backlinks) for page title override
+						this.render_title = cr;
 						return this.load_as_current(cr, text, this.config.store_mts ? page_mts[this.page_index(namespace+"::"+cr, namespace.toLowerCase())] : 0);
 					default:
 						text = this.get_text(namespace+"::"+cr);
@@ -780,7 +786,7 @@ woas.set_current = function (cr, interactive) {
 		cr = page_titles[pi];
 		mts = page_mts[pi];
 	}
-	// used by some special pages for page title override
+	// used by some special pages (e.g. backlinks) for page title override
 	this.render_title = cr;
 	return this.load_as_current(cr, this.parser.parse(text, false, this.js_mode(cr)), this.config.store_mts ? mts : 0);
 };
