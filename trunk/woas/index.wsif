@@ -43,6 +43,7 @@ woas.page.boundary: DFQRCTsKlU
 * [[Locked::]], [[Unlocked::]]: an index of all encrypted/plain pages
 * [[Tagged::]], [[Untagged::]]: an index of all tagged/untagged pages
 * [[Special::Go to]]: go to specific page
+* [[Special::New Page]]: create a new page
 * [[Special::Delete Page]]: delete specific page
 * [[Special::Recentchanges]]: view recently modified pages
 * [[Special::Search]]: search all wiki pages
