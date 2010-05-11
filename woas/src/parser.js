@@ -463,12 +463,12 @@ woas.parser.parse = function(text, export_links, js_mode) {
 		
 	// links with pipe e.g. [[Page|Title]]
 	text = text.replace(reWikiLink, function(str, $1, $2) {
-		return woas.parser._render_wiki_link(str, $1, $2, snippets, tags, export_links);
+		return woas.parser._render_wiki_link($1, $2, snippets, tags, export_links);
 	});
 
 	// links without pipe e.g. [[Page]]
 	text = text.replace(reWikiLinkSimple, function(str, $1) {
-		return woas.parser._render_wiki_link(str, $1, $1, snippets, tags, export_links);
+		return woas.parser._render_wiki_link($1, $1, snippets, tags, export_links);
 	});
 	
 	// allow non-wrapping newlines
@@ -611,20 +611,29 @@ woas.parser.parse = function(text, export_links, js_mode) {
 };
 
 // render a single wiki link
-woas.parser._render_wiki_link = function(full_link, arg1, label, snippets, tags, export_links) {
-	var r, url;
-	// check for protocol
-	if (arg1.search(/^\w+:\/\//)===0) {
+woas.parser._render_wiki_link = function(arg1, label, snippets, tags, export_links) {
+	// apply aliases to page title
+	var page = woas.title_unalias(arg1),
+		hashloc = page.indexOf("#"),
+		gotohash = "", r;
+
+	// check for protocol links
+	if (page.search(/^\w+:\/\//)===0) {
 		r = woas.parser.place_holder(snippets.length);
-		url = arg1.replace(reMailto, "mailto:");
-		snippets.push("<"+"a title=\""+woas.xhtml_encode(url)+"\" class=\"woas_world_link\" href=\"" + url +
+		// convert mailto:// to mailto:
+		page = page.replace(reMailto, "mailto:");
+		// always give title attribute
+		snippets.push("<"+"a title=\""+woas.xhtml_encode(page)+"\" class=\"woas_world_link\" href=\"" + page +
 			"\" target=\"_blank\">" + label + "<\/a>");
 		return r;
 	}
+	
+	// put back everything in a string to attempt tags extraction
+	var full_link = page + "|"+label;
 
-	// is this a tag definition?
-	var found_tags = woas._get_tags(full_link.substring(2, full_link.length-2));
-	if (found_tags.length>0) {
+	// check for tags definitions
+	var found_tags = woas._get_tags(full_link);
+	if (found_tags.length > 0) {
 		tags = tags.concat(found_tags);
 		if (!this.force_inline)
 			return "";
@@ -632,9 +641,6 @@ woas.parser._render_wiki_link = function(full_link, arg1, label, snippets, tags,
 		return "<!-- "+parse_marker+":"+inline_tags+" -->";
 	}
 
-	var page = woas.title_unalias(arg1),
-		hashloc = page.indexOf("#"),
-		gotohash = "";
 	if (hashloc > 0) {
 		if (export_links)
 			gotohash = page.substr(hashloc);
@@ -643,10 +649,10 @@ woas.parser._render_wiki_link = function(full_link, arg1, label, snippets, tags,
 		page = page.substr(0, hashloc);
 	}
 
+	// get a snippet id which we will later fill
 	r = woas.parser.place_holder(snippets.length);
-	// section reference URIs
 	var _c_title = (page !== label) ? ' title="'+woas.xhtml_encode(page)+'"' : '';
-	if (hashloc === 0) {
+	if (hashloc === 0) { // section reference URIs
 		snippets.push("<"+"a"+_c_title+" class=\"woas_link\" href=\""+page+"\">" + label + "<\/a>");
 	} else { // normal pages
 		if (woas.page_exists(page)) {
