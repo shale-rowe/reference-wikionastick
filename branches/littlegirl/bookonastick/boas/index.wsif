@@ -3573,36 +3573,38 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Aliases
-
 Aliases are replaceable shortcuts used in wiki links.
-
 == Add an alias
-# Click the *WoaS::Aliases* link in the menu.<br><br>
-# Add this line to the page, replacing ALIAS with the shortcut you'd like to use and PAGENAME with the name of the page you'd like the alias to represent:<br><br>{{{
-$ALIAS  PAGENAME
-}}}
+# Click the [[Include::Wiki::Template::Icon::Advanced]] icon in the banner.<br><br>
+# Click the [[WoaS::Aliases]] link in the *Advanced features* section of the page.<br><br>
+# Add this line to the page, replacing ALIAS with the shortcut you'd like to use, and PAGENAME with the name of the page you'd like the alias to represent:<br><br>{{{
+$ALIAS PAGENAME 
+}}}<br>
+# Click the [[Include::Wiki::Template::Icon::Save]] icon in the banner.
 
 == Use an alias
 Aliases can be used in links the same way a page name would be used.
 
 To create a plain link using an alias, surround the link with double square brackets, inserting a dollar sign before the alias name.
-* <div class="woas_helptext">Add this link to a page, replacing ALIAS with the alias you'd like to use:</div><br>{{{
-[[$ALIAS]]
-}}}
+* <div class="wikihelptext">Use this code in a page, replacing ALIAS with the alias you'd like to use:</div><br>{{{
+[[$ALIAS]] 
+}}}<br><div class="wikihelptext">To add a plain alias link to a page.</div>
 
 To create a labeled link, surround the link with double square brackets, inserting a dollar sign before the alias name, adding a pipe after the alias, and adding some link text after the pipe.
-* <div class="woas_helptext">Add this link to a page, replacing ALIAS with the alias you'd like to use, and replacing LABEL with the text for the link:</div><br>{{{
-[[$ALIAS|LABEL]]
-}}}
+* <div class="wikihelptext">Use this code in a page, replacing ALIAS with the alias you'd like to use, and replacing LABEL with the text for the link:</div><br>{{{
+[[$ALIAS|LABEL]] 
+}}}<br><div class="wikihelptext">To add a labeled alias link to a page.</div>
 
-== Example:
-# Click the *WoaS::Aliases* link in the menu.<br><br>
+=== Example
+# Click the [[Include::Wiki::Template::Icon::Advanced]] icon in the banner.<br><br>
+# Click the [[WoaS::Aliases]] link in the *Advanced features* section of the page.<br><br>
 # Add this line to the page:<br><br>{{{
-$HOME  Main Page
+$HOME Main Page
 }}}<br>
+# Click the [[Include::Wiki::Template::Icon::Save]] icon in the banner.<br><br>
 # Add {{{[[$HOME]]}}} to any page to make a plain link to the Main Page.<br><br>
 # Add {{{[[$HOME|home sweet home]]}}} to any page to make a labeled link to the Main Page.<br><br>
-# Add {{{[[include::$HOME]]}}} to any page to include the Main Page in the current page.
+# Add {{{[[Include::$HOME]]}}} to any page to include the Main Page in the current page.
 
 --DFQRCTsKlU
 woas.page.title: Wiki::History
@@ -3704,6 +3706,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the [[Wiki::Example::Folding page plain]] page.
 ** Updated the [[Wiki::Example::Folding page styled button (HTML)]] page.
 ** Updated the [[Wiki::Example::Overview]] page.
+** Updated the [[Wiki::Help::Aliases]] page.
 ** Updated the [[Wiki::Help::Create a page]] page.
 ** Updated the [[Wiki::Help::CSS]] page.
 ** Updated the [[Wiki::Help::Delete a page]] page.
@@ -3797,7 +3800,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated all tags to the new tag syntax.
 ** Updated the *Example::JavaScript* page.
 ** Updated the *Help::Add a search box* page.
-** Updated the [[Help::Aliases]] page.
+** Updated the *Help::Aliases* page.
 ** Updated the *Help::Bugs* page.
 ** Updated the *Help::CSS* page.
 ** Updated the [[Help::Code blocks (preformatted text)]] page, removing the obsolete *Code blocks with syntax highlighting* section.
@@ -6980,50 +6983,6 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 <div style="background-color: #FFFFAA; border: 0.1em solid; padding: 0.2em;"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QAAAAAAAD5Q7t/AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH1QMCBiAyOlCc9wAAADV0RVh0Q29tbWVudAAoYykgMjAwNCBKYWt1YiBTdGVpbmVyCgpDcmVhdGVkIHdpdGggVGhlIEdJTVCQ2YtvAAACq0lEQVQ4y5WSS0hUcRTGv//cO+O9OtdHJllqZlI+CEUiE8ShBiXUpKKQbGLKcGG0CBOyRcsQMapFj02ii4igAgMDJcgQSXQmSkrNijSVTJ1xdJy5d6739W/loDURfqtz4Pt+nHM4BBFUXNnUTCkcBiUpIISYiDHLEPq0/2Vr459edn1TVN6UwTCk72JtZVq5vQBxAg9VN+DxBVN7ej9cISbmLKV6SX9X69eIAJYlb++11G/fk7ljLBBSRmd9khJaVVlF06NtJflZ6enJe1tuPXYBiF/LMGtFSdXV2/Xnj5YVH8z5rKi6m7eYFQBEpyCqTg3vSmiWi+YQzXM7dSYlc3L8bScAmMIkhj1Xbi9AIKSOsSxDLWbGIIRQUBiabiiUwuganOwuKswBw3Kn1nJhwKpC4wUrD1nRV1XNSDQzpguJsZxzV7LgyN+91QElkDrlEf08zyEgqVxtXYNpww0IIUTRdEiyajIMKiZYo+D1Sy5RCjErQUkbnpaGFUU3qaqxFuEBiGFADM9KXl8gRpRVy4qk+jOSYzH6w/deVHQ6tyQp7m+LHsFqSfD6g4gTeLWjrVncsIKZ0QZ63gyDj2JzJ34tiwDw0yfqHye8/t7hmYUlUTZX7E+rGHKNwcph4q8bbBNCxzu7+uWZ6fnstCTroWvtAzfPHM665P4yH2JYkui0Z1X7F5dy3IMjqsD6SsOrr/+DY6cbq2QqPC8rLbIUHshGNM9B1XX4lkUMucbxzjWixXHS5SftNx5EBABAbV1DYohucQVkpDtOJDGEACwLdHXPBRnNv6+j7c4U/qeaGrvV6bRRz2IfFWUX/T75jDqdNhrJy/6DoQLA/bsPkZ2bjempaWxaTqeNzsy+MgLSEP00+sLY7AQAUFV98nqNIMQfWVhYeJ2XF/sokuk3Vkw2XnyKHQQAAAAASUVORK5CYII=" alt="Info" border="0" /> %1</div>
---DFQRCTsKlU
-woas.page.title: Help::Aliases
-woas.page.attributes: 0
-woas.page.encoding: 8bit/plain
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-= Aliases
-Aliases are replaceable shortcuts used in wiki links.
-== Add an alias
-# Click the [[Include::Wiki::Template::Icon::Advanced]] icon in the banner.<br><br>
-# Click the [[Special::Aliases]] link in the *Advanced features* section of the page.<br><br>
-# Add this line to the page, replacing ALIAS with the shortcut you'd like to use, and PAGENAME with the name of the page you'd like the alias to represent:{{{
-$ALIAS PAGENAME 
-}}}
-# Click the [[Include::Wiki::Template::Icon::Save]] icon in the banner.
-
-== Use an alias
-Aliases can be used in links the same way a page name would be used.
-
-To create a plain link using an alias, surround the link with double square brackets, inserting a dollar sign before the alias name.
-* <div class="helptext">Use this code in a page, replacing ALIAS with the alias you'd like to use:</div>{{{
-[[$ALIAS]] 
-}}}<div class="helptext">To add a plain alias link to a page.</div>
-
-To create a labeled link, surround the link with double square brackets, inserting a dollar sign before the alias name, adding a pipe after the alias, and adding some link text after the pipe.
-* <div class="helptext">Use this code in a page, replacing ALIAS with the alias you'd like to use, and replacing LABEL with the text for the link:</div>{{{
-[[$ALIAS|LABEL]] 
-}}}<div class="helptext">To add a labeled alias link to a page.</div>
-
-=== Example
-# Click the [[Include::Wiki::Template::Icon::Advanced]] icon in the banner.<br><br>
-# Click the [[Special::Aliases]] link in the *Advanced features* section of the page.<br><br>
-# Add this line to the page:{{{
-$HOME Main Page
-}}}
-# Click the [[Include::Wiki::Template::Icon::Save]] icon in the banner.<br><br>
-# Add {{{[[$HOME]]}}} to any page to make a plain link to the Main Page.<br><br>
-# Add {{{[[$HOME|home sweet home]]}}} to any page to make a labeled link to the Main Page.<br><br>
-# Add {{{[[Include::$HOME]]}}} to any page to include the Main Page in the current page.
-
-[[Tags::Help]]
-
 --DFQRCTsKlU
 woas.page.title: Help::Embedding
 woas.page.attributes: 0
