@@ -81,6 +81,11 @@ woas.ui = {
 		woas._cached_title_search = [];
 		//FIXME: result_pages should be cleared also?
 		woas.assert_current("Special::Search");
+	},
+	// when user clicks the about link
+	about: function() {
+		if (!this.edit_mode)
+			woas.go_to("Special::About");
 	}
 
 	
