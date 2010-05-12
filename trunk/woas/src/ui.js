@@ -512,7 +512,7 @@ function show_full_file(pi) {
 	woas.progress_init("Loading full file");
 	// clear the partial display and put in the whole file content
 	woas.setHTML($('_part_display'), '');
-	woas.setHTML($('_file_ct'), woas.xhtml_encode(decode64(text)));
+	woas.setHTML($('_file_ct'), woas.xhtml_encode(woas.base64.decode(text)));
 	// finished loading the file
 	woas.progress_finish();
 }

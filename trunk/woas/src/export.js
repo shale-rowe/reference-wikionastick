@@ -265,7 +265,7 @@ woas._unix_normalize = function(s) {
 // save a base64 data: stream into an external file
 woas._b64_export = function(data, dest_path) {
 	// decode the base64-encoded data
-	data = decode64(data.replace(/^data:\s*[^;]*;\s*base64,\s*/, ''));
+	data = this.base64.decode(data.replace(/^data:\s*[^;]*;\s*base64,\s*/, ''));
 	// attempt to save the file
 	return this.save_file(dest_path, this.file_mode.BINARY, data);
 };
@@ -382,7 +382,7 @@ woas.export_file = function(page, dest_path) {
 	if (data==null)
 		return false;
 	// attempt to save the file (binary mode)
-	return this.save_file(dest_path, this.file_mode.BINARY, decode64(data));
+	return this.save_file(dest_path, this.file_mode.BINARY, this.base64.decode(data));
 };
 
 // export a base64-encoded image to a file

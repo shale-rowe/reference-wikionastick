@@ -272,7 +272,7 @@ woas.import_wiki = function() {
 					if (page_names[i] === "WoaS::Bootscript") {
 						// convert old base64 bootscript to plain text
 						if (old_version < 107)
-							bootscript_code = decode64(page_contents[i]);
+							bootscript_code = this.base64.decode(page_contents[i]);
 						else
 							bootscript_code = page_contents[i];
 						pages_imported++;
@@ -313,7 +313,7 @@ woas.import_wiki = function() {
 					// the image is not valid as-is, attempt to fix it
 					if (!reValidImage.test(page_contents[i])) {
 						// do not continue with newer versions or if not base64-encoded
-						if ((old_version>=117) || !reValidBase64.test(page_contents[i])) {
+						if ((old_version>=117) || !woas.base64.reValid.test(page_contents[i])) {
 							log("Skipping invalid image "+page_names[i]);
 							continue;
 						}
@@ -329,7 +329,7 @@ woas.import_wiki = function() {
 						// finally rebuild image as valid
 						page_contents[i] = "data:image/"+mime+";base64,"+page_contents[i]; */
 						// we assume that image is double-encoded
-						page_contents[i] = decode64(page_contents[i]);
+						page_contents[i] = this.base64.decode(page_contents[i]);
 						// check again for validity
 						if (!reValidImage.test(page_contents[i])) {
 							log("Skipping invalid image "+page_names[i]); //log:1

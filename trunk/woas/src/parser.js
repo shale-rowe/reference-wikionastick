@@ -333,10 +333,10 @@ woas.parser.parse = function(text, export_links, js_mode) {
 						snippets.push(img+" />");
 					} else { // embedded file but not image
 						if ((parts.length>1) && (parts[1]=="raw"))
-							snippets.push(decode64(templtext));
+							snippets.push(woas.base64.decode(templtext));
 						else
 							snippets.push("<"+"pre class=\"woas_embedded\">"+
-									woas.xhtml_encode(decode64(templtext))+"<"+"/pre>");
+									woas.xhtml_encode(woas.base64.decode(templtext))+"<"+"/pre>");
 					}
 					templtext = r;
 				}

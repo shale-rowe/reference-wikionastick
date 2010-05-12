@@ -197,7 +197,7 @@ woas.ieLoadFile = function(filePath, load_mode, suggested_mime) {
 	if (load_mode == this.file_mode.DATA_URI)
 		return this._data_uri_enc(filePath, content, suggested_mime);
 	else if (load_mode == this.file_mode.BASE64)
-		return encode64(content);
+		return this.base64.encode(content);
 	// fallback for UTF8_TEXT
 	return(content);
 };
@@ -260,7 +260,7 @@ woas.mozillaLoadFile = function(filePath, load_mode, suggested_mime) {
 		else if (load_mode == this.file_mode.DATA_URI)
 			return this._data_uri_enc(filePath, this.merge_bytes(rd), suggested_mime);
 		else if (load_mode == this.file_mode.BASE64)
-			return encode64_array(rd);
+			return this.base64.encode_array(rd);
 	}
 	catch(e) {
 		log("Exception while attempting to load\n\n" + e);	// log:1
@@ -289,7 +289,7 @@ woas._data_uri_enc = function(filename, ct, guess_mime) {
 		}
 	}
 	// perform base64 encoding
-	return "data:"+guess_mime+";base64,"+encode64(ct);
+	return "data:"+guess_mime+";base64,"+this.base64.encode(ct);
 };
 
 //FIXME: save_mode is not enforced
@@ -349,7 +349,7 @@ woas.javaLoadFile = function(filePath, load_mode, suggested_mime) {
 			if (load_mode == this.file_mode.DATA_URI)
 				return this._data_uri_enc(filePath, content, suggested_mime);
 			else if (load_mode == this.file_mode.BASE6)
-				return encode64(content);
+				return this.base64.encode(content);
 			return content;
 		}
 	} catch(ex) {
@@ -377,7 +377,7 @@ woas.javaLoadFile = function(filePath, load_mode, suggested_mime) {
 	if (load_mode == this.file_mode.DATA_URI)
 		return this._data_uri_enc(filePath, content, suggested_mime);
 	else if (load_mode == this.file_mode.BASE64)
-		return encode64(content);
+		return this.base64.encode(content);
 	return content;
 };
 

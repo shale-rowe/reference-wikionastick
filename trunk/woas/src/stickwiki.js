@@ -440,7 +440,7 @@ woas.get__text = function(pi) {
 woas.set__text = function(pi, text) {
 	this.log("Setting wiki text for page #"+pi+" \""+page_titles[pi]+"\"");	// log:1
 	if (this.is__embedded(pi) && !this.is__image(pi))
-		text = encode64(text);
+		text = this.base64.encode(text);
 	if (!this.is__encrypted(pi)) {
 		pages[pi] = text;
 		return;
@@ -482,7 +482,7 @@ woas._get__embedded = function (cr, pi, etype) {
 	
 	if (etype=="file") {
 		var fn = cr.substr(cr.indexOf("::")+2);
-		var pview_data = decode64(text, 1024), pview_link = "";
+		var pview_data = this.base64.decode(text, 1024), pview_link = "";
 		var ext_size = Math.ceil((text.length*3)/4);
 		if (ext_size-pview_data.length>10)
 			pview_link = "<"+"div id='_part_display'><"+"em>"+this.i18n.FILE_DISPLAY_LIMIT+
@@ -1173,7 +1173,7 @@ woas.edit_page = function(page) {
 	var tmp = this.get_text(page);
 	if (tmp===null) return false;
 	if (this.is_embedded(page) && !this.is_image(page))
-		tmp = decode64(tmp);
+		tmp = this.base64.decode(tmp);
 	// setup the wiki editor textbox
 	this.current_editing(page, this.is_reserved(page));
 	this.edit_ready(tmp);
