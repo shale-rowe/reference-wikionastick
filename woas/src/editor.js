@@ -1,13 +1,13 @@
 
-woas.wiki_buttons_display = function (v) {
+woas["wiki_buttons_display"] = function (v) {
 	$('wiki_format_buttons').style.display = v ? 'block' : 'none';
 	$('wiki_format_buttons').style.visibility = v ? 'visible' : 'hidden';
-};
+}
 
-woas.html_buttons_display = function (v) {
+woas["html_buttons_display"] = function (v) {
 	$('html_format_buttons').style.display = v ? 'block' : 'none';
 	$('html_format_buttons').style.visibility = v ? 'visible' : 'hidden';
-};
+}
 
 // submitted by pr0xy
 function TextAreaSelectionHelper(obj) {
@@ -31,10 +31,10 @@ TextAreaSelectionHelper.prototype.getSelectedText=function() {
 	if(this.iesel)
 		return this.iesel.text;
 	// Fixes a problem in FF3 where the selection was not being stored in this.start and this.end when selecting multilines
-	this.start = $("woas_editor").selectionStart;
-	this.end = $("woas_editor").selectionEnd;
+	this.start = $("wiki_editor").selectionStart;
+	this.end = $("wiki_editor").selectionEnd;
 	return ((this.start>=0)&&(this.end>this.start))? this.target.value.substring(this.start,this.end): "";
-};
+}
 
 TextAreaSelectionHelper.prototype.setSelectedText=function(text, secondtag) {
 	if(this.iesel) {
@@ -66,15 +66,14 @@ TextAreaSelectionHelper.prototype.setSelectedText=function(text, secondtag) {
    this.target.value+=text + ((typeof(secondtag)=="string")? secondtag: "");
 if(this.scroll>=0) this.target.scrollTop=this.scroll;
  }
-};
+}
 
 TextAreaSelectionHelper.prototype.getText=function() {
  return this.target.value;
-};
-
+}
 TextAreaSelectionHelper.prototype.setText=function(text) {
  this.target.value=text;
-};
+}
 
 function _textareaSaver() {
  if(document.selection) {
@@ -86,8 +85,8 @@ this.carretHandler.scroll=this.scrollTop;
  } else {this.carretHandler.start=this.carretHandler.end=-1;}
 }
 
-function DivTagThis(align) {
-	TagThis('<'+'div align="'+align+'">', '<'+'/div>');
+function	DivTagThis(align) {
+	TagThis('<div align="'+align+'">', '</div>');
 }
 
 function TagThis(starttag, endtag){
@@ -95,7 +94,7 @@ function TagThis(starttag, endtag){
 }
 
 function FullTagThis(tag){
-	woas._editor.setSelectedText('<'+tag+'>','<'+'/'+tag+'>');
+	woas._editor.setSelectedText('<'+tag+'>','</'+tag+'>');
 }
 
 function setUrl(starttag,centertag,endtag) {
@@ -131,7 +130,7 @@ function setWikiIUrl() {
 }
 
 function setHTMLUrl() {
-	setUrl('<'+'a href=\'','\' target=_blank>','<'+'/a>');
+	setUrl('<a href=\'','\' target=_blank>','</a>');
 }
 
 function setImage(starttag,endtag) {
@@ -143,5 +142,5 @@ function setImage(starttag,endtag) {
 function setTag() {
         var tag=prompt('Set tag:','');
 	if (tag!==null)
-	woas._editor.setSelectedText("[[Tags::",tag+"]]");
+	woas._editor.setSelectedText("[[Tag::",tag+"]]");
 }
