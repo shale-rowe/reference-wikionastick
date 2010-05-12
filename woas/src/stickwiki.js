@@ -77,7 +77,7 @@ woas.needs_ecma_encoding = function(s) {
 
 woas._utf8_js_fix = function(s) {
 	// fix the >= 128 ascii chars (to prevent UTF-8 characters corruption)
-	return s.replace(new RegExp("[^\u0000-\u007F]+", "g"), function(str) {
+	return s.replace(woas.utf8.reUTF8Space, function(str) {
 		var r="";
 		for(var a=0,l=str.length;a < l;++a) {
 			var s = str.charCodeAt(a).toString(16);
@@ -105,7 +105,7 @@ woas.ecma_decode = function(s) {
 
 // used to escape blocks of source into HTML-valid output
 woas.xhtml_encode = function(src) {
-/*	return this.utf8_encode(src.replace(/[<>&]+/g, function ($1) {
+/*	return this.utf8.do_escape(src.replace(/[<>&]+/g, function ($1) {
 		var l=$1.length;
 		var s="";
 		for(var i=0;i < l;i++) {
@@ -123,7 +123,7 @@ woas.xhtml_encode = function(src) {
 		}
 		return s;
 	})); */
-	return this.utf8_encode(src.replace(/&/g, '&amp;').replace(reMinorG, '&lt;').
+	return this.utf8.do_escape(src.replace(/&/g, '&amp;').replace(reMinorG, '&lt;').
 			replace(/>/g, '&gt;')); // .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 };
 

@@ -1,4 +1,4 @@
-// core WoaS, WoaS::UI code
+// core modules
 
 // some tweak settings NOT to be touched - warranty void otherwise
 woas.tweak = {
@@ -379,7 +379,7 @@ woas.integrity_test = function() {
 	// test integrity of load/save functions if not on remote server
 	if (!this._server_mode) {
 		if (!this.save_file(woas.ROOT_DIRECTORY+"itest.bin", this.file_mode.UTF8_TEXT,
-				woas.merge_bytes(woas.utf8Encrypt(UTF8_TEST))
+				woas.utf8.encode(UTF8_TEST)
 	//			UTF8_TEST
 				)) {
 			this.crash("Save failure during integrity test\n"+woas.ROOT_DIRECTORY);
@@ -391,7 +391,7 @@ woas.integrity_test = function() {
 				this.crash("Load failure during integrity test\n"+woas.ROOT_DIRECTORY);
 			return false;
 		}
-		ct = woas.utf8Decrypt(woas.split_bytes(ct));
+		ct = woas.utf8.decode(ct);
 		if (ct !== UTF8_TEST) {
 			this.crash("UTF8 test failed.\nWritten:\n"+UTF8_TEST+"\nRead:\n"+ct);
 			return false;
@@ -458,20 +458,7 @@ woas.set_page_attrs = function(pi, attrs) {
 //API1.0: dynamically add a hotkey
 // returns true if hotkey was added successfully or if already present
 woas.add_hotkey = function(key, function_obj) {
-};
-
-woas.utf8Encrypt = function(s) {
-	return woas.split_bytes( unescape( encodeURIComponent( s ) ) );
-};
-
-woas.utf8Decrypt = function(byte_arr) {
-	try {
-		return decodeURIComponent( escape( woas.merge_bytes( byte_arr ) ) );
-	}
-	catch (e) {
-		log(e);	//log:1
-	}
-	return null;
+	//FIXME: this needs to be finished!
 };
 
 woas.split_bytes = function(s) {
@@ -494,18 +481,6 @@ var reReplaceBr = new RegExp("<"+"br\\s?\\/?>", "gi");
 woas.xhtml_to_text = function(s) {
 	return s.replace(reReplaceBr, "\n").replace(/<\/?\w+[^>]*>/g, ' ').
 					replace(/&#?([^;]+);/g, function(str, $1) { if (!isNaN($1)) return String.fromCharCode($1); else return ""; });
-};
-
-// convert UTF8 sequences of the XHTML source into &#dddd; sequences
-woas.utf8_encode = function(src) {
-	return src.replace(/[^\u0000-\u007F]+/g, function ($1) {
-		var l=$1.length;
-		var s="";
-		for(var i=0;i < l;i++) {
-			s+="&#"+$1.charCodeAt(i)+";";
-		}
-		return s;
-	});
 };
 
 // WoaS DOM manager

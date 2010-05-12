@@ -238,7 +238,7 @@ function blcDecrypt(dec){
 
 // sets global key to the utf-8 encoded key (byte array)
 function setKey(sKey){
-	key = woas.utf8Encrypt(sKey);
+	key = woas.utf8.encode_to_array(sKey);
 }
 
 function clearKey(){
@@ -252,7 +252,7 @@ function isKeySet(){
 
 // returns an array of encrypted characters
 function encrypt(raw_data){
-	bData = woas.utf8Encrypt(raw_data);
+	bData = woas.utf8.encode_to_array(raw_data);
 	
 	aes_i=tot=0;
 	do{ blcEncrypt(_encrypt); } while (aes_i<tot);
@@ -272,7 +272,7 @@ function decrypt(raw_data){
 			return null;
 	} while (aes_i<tot);
 	
-	sData = woas.utf8Decrypt(bData);
+	sData = woas.utf8.decode_from_array(bData);
 	bData = [];
 	var rv = sData;
 	sData = null;
