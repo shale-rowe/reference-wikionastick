@@ -86,7 +86,7 @@ woas._native_wsif_save = function(path, src_fname, locking, single_wsif, inline_
 		// normalize the page content, set encoding&disposition
 		var encoding = null, mime = null, disposition = "inline";
 		if (this.is__encrypted(pi)) {
-			ct = encode64_array(pages[pi]);
+			ct = this.base64.encode_array(pages[pi]);
 			encoding = "8bit/base64";
 			// special header used for encrypted pages
 			orig_len = pages[pi].length;
@@ -103,9 +103,9 @@ woas._native_wsif_save = function(path, src_fname, locking, single_wsif, inline_
 						m = ct.match(reMimeMatch);
 						record += this.wsif.header(pfx+"mime", m[1]);
 						// remove the matched part
-						ct = decode64(ct.substr(m[0].length));
+						ct = this.base64.decode(ct.substr(m[0].length));
 					} else // no data:uri for files
-						ct = decode64(ct);
+						ct = this.base64.decode(ct);
 				} else {
 					encoding = "8bit/base64";
 					if (this.is__image(pi)) {
@@ -487,7 +487,7 @@ woas._native_page_def = function(path,ct,p,last_p,overwrite,pre_import_hook, tit
 				return false;
 			}
 //			check_len = page.length;
-			page = decode64_array(page);
+			page = this.base64.decode_array(page);
 			// trim to correct length
 			// perhaps we could use woas.page.original_length field
 			// also, we could not make this check if version is 0.10.4
@@ -514,7 +514,7 @@ woas._native_page_def = function(path,ct,p,last_p,overwrite,pre_import_hook, tit
 					// base64 files will stay encoded
 					if (!(attrs & 4))
 						// WoaS does not encode pages normally, but this is supported by WSIF format
-						page = decode64(page);
+						page = this.base64.decode(page);
 				break;
 				case "ecma/plain":
 					page = this.ecma_decode(page);
@@ -557,7 +557,7 @@ woas._native_page_def = function(path,ct,p,last_p,overwrite,pre_import_hook, tit
 				this.wsif_error( "Page "+title+" is an external file/image but not encoded as 8bit/plain");
 				return false;
 			}
-			// load file and apply encode64 (if embedded)
+			// load file and apply base64 encoding if embedded
 			var wanted_mode;
 			// images
 			if ((attrs & 4) && (attrs & 8))
