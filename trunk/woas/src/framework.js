@@ -552,3 +552,41 @@ woas.base64 = {
 	}
 
 };
+
+woas.utf8 = {
+	// encode from string to string
+	encode: function(s) {
+		return unescape( encodeURIComponent( s ) );
+	},
+	
+	encode_to_array: function(s) {
+		return woas.split_bytes( this.encode(s) );
+	},
+	decode: function(s) {
+		return decodeURIComponent(escape(s));
+	},
+	decode_from_array: function(byte_arr) {
+		try {
+			return this.decode( woas.merge_bytes( byte_arr ) );
+		}
+		catch (e) {
+			woas.log(e);	//log:1
+		}
+		return null;
+	},
+	
+	reUTF8Space: /[^\u0000-\u007F]+/g,
+	
+	// convert UTF8 sequences of the XHTML source into &#dddd; sequences
+	do_escape: function(src) {
+		return src.replace(this.reUTF8Space, function ($1) {
+			var l=$1.length;
+			var s="";
+			for(var i=0;i < l;i++) {
+				s+="&#"+$1.charCodeAt(i)+";";
+			}
+			return s;
+		});
+	}
+
+};

@@ -108,7 +108,7 @@ woas.exporter = {
 	},
 	
 	_one_page: function (data, title, fname, mts) {
-		data = woas.utf8_encode(data);
+		data = woas.utf8.do_escape(data);
 		// prepare the raw text for later description/keywords generation
 		var raw_text = woas.trim(woas.xhtml_to_text(data));
 		if (this._settings.exp_menus) {
@@ -129,7 +129,7 @@ woas.exporter = {
 					if (this._settings.js_mode)
 						woas._activate_scripts();
 					// fix also the encoding in the menus
-					_exp_menu = woas.utf8_encode(_exp_menu);
+					_exp_menu = woas.utf8.do_escape(_exp_menu);
 				}
 				//TODO: use correct ids/class names
 				data = '<'+'div class="menu_area" id="sw_menu_area" style="position: absolute;"><'+'div class="wiki" id="menu_area">'+_exp_menu+'<'+'/div><'+
@@ -144,9 +144,9 @@ woas.exporter = {
 					(new Date(mts*1000)).toGMTString()+'" />'+"\n" : '')+
 					// other useful META stuff
 			'<'+'meta name="generator" content="Wiki on a Stick v'+woas.version+' - http://stickwiki.sf.net/" />'+"\n"+
-			'<'+'meta name="keywords" content="'+woas.utf8_encode(woas._attrib_escape(_auto_keywords(raw_text)))+'" />'+"\n"+
+			'<'+'meta name="keywords" content="'+woas.utf8.do_escape(woas._attrib_escape(_auto_keywords(raw_text)))+'" />'+"\n"+
 			'<'+'meta name="description" content="'+
-			woas.utf8_encode(woas._attrib_escape(raw_text.replace(/\s+/g, " ").substr(0,max_description_length)))+'" />'+"\n"+
+			woas.utf8.do_escape(woas._attrib_escape(raw_text.replace(/\s+/g, " ").substr(0,max_description_length)))+'" />'+"\n"+
 			this._settings.meta_author+
 			this._settings.custom_scripts+
 			'<'+'/head><'+'body>'+data+
