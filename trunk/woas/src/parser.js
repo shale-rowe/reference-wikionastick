@@ -1,5 +1,5 @@
-
 woas.parser = {
+	_MAX_TRANSCLUSION_RECURSE: 256,
 	has_toc: null,
 	toc: "",
 	force_inline: false,		// used not to break layout when presenting search results
@@ -188,8 +188,6 @@ var reScripts = new RegExp("<"+"script([^>]*)>([\\s\\S]*?)<"+"\\/script>", "gi")
 	reWikiLinkSimple = /\[\[([^\]]*?)\]\]/g,
 	reMailto = /^mailto:\/\//,
 	reCleanupNewlines = new RegExp('((<\\/h[1-6]><'+'div class="woas_level[1-6]">)|(<\\/[uo]l>))(\n+)', 'g');
-
-var _MAX_TRANSCLUSION_RECURSE = 256;
 
 woas.parser.place_holder = function (i, separator) {
 	if (typeof separator == "undefined")
@@ -382,8 +380,8 @@ woas.parser.parse = function(text, export_links, js_mode) {
 				return templtext;	
 			});
 			// keep transcluding when a transclusion was made and when transcluding depth is not excessive
-		} while (trans && (++trans_level < _MAX_TRANSCLUSION_RECURSE));
-		if (trans_level == _MAX_TRANSCLUSION_RECURSE) { // parse remaining inclusions as normal text
+		} while (trans && (++trans_level < this._MAX_TRANSCLUSION_RECURSE));
+		if (trans_level === this._MAX_TRANSCLUSION_RECURSE) { // parse remaining inclusions as normal text
 			text = text.replace(reTransclusion, function (str) {
 				r = woas.parser.place_holder(snippets.length);
 				snippets.push(woas.parser.render_error(str, "infin"));
