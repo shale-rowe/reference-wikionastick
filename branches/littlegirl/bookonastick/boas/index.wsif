@@ -970,85 +970,126 @@ This wiki accepts plain text, WoaS wiki syntax, and XHTML. See the *Syntax* sect
 [[Include::Wiki::Template::Info|WoaS syntax is partially compatible with Creole 0.1 syntax.]]
 
 --DFQRCTsKlU
-woas.page.title: Wiki::Help::Nowiki text
+woas.page.title: Wiki::Help::Raw text
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Nowiki text
-/Nowiki text/ is a section of raw or preformatted text that is not parsed as wiki syntax. Anything you place inside nowiki brackets will be displayed in monospace font exactly as you typed it.
+= Raw text (code blocks or preformatted text)
+Raw text is a section of preformatted text that is not parsed by the wiki, and can be used inline or as blocks of text (also known as code blocks). Anything you place inside nowiki brackets will be displayed in monospace font exactly as you typed it, with spaces and tabs preserved.
 
-== Multi-line blocks
-<div class="woas_helptext">Use this code in a page:</div>
-<div class="woas_helpcode">{\
+== Raw text block
+A raw text block is created by placing triple curly brackets above and below the text.
+
+<div class="wikihelptext">Use this code in a page:</div>
+<div class="wikihelpcode">{\
 {{
-This is a code block
+This is a raw text block
 made of one
 or more lines.
 }}\
 }</div>
-<div class="woas_helptext">To create this:</div>
+<div class="wikihelptext">To create this:</div>
 {{{
-This is a code block
-made of one
-or more lines.}}}
-== Inline nowiki blocks
-
-A normal sentence can contain an inline nowiki block, like {{<!-- -->{this block}}<!-- -->}.
-
-Example (with the mathematical equation inside a nowiki block):
-
-The equation {{{E = mc^2}}} indicates that energy always exhibits mass in whatever form the energy takes.
-
-== Nowiki blocks inside lists
-A nowiki block can be added to a list item by inserting the opening curly brackets at the end of the list item.
-
-<div class="woas_helptext">Use this code in a page:</div>
-<div class="woas_helpcode">* List item:&#123;&#123;&#123;
-This is a code block
+This is a raw text block
 made of one
 or more lines.
-&#125;&#125;&#125;</div>
-<div class="woas_helptext">To create this:</div>
+}}}
+== Raw text in-line
+Inline raw text is created by surrounding the text with triple curly brackets.
+
+<div class="wikihelptext">Use this code in a page:</div>
+<div class="wikihelpcode">{<!-- -->{{This is inline raw text}}<!-- -->} which is raw text inside a sentence.</div>
+<div class="wikihelptext">To create this:</div>
+{{{This is inline raw text}}} which is raw text inside a sentence.
+
+== Raw text block inside lists
+A raw text block can be added to a list item by inserting the opening curly brackets at the end of the list item.
+
+<div class="wikihelptext">Use this code in a page:</div>
+<div class="wikihelpcode">* List item:{<!-- -->{{
+This is a raw text block
+made of one
+or more lines.
+}<!-- -->}}</div>
+<div class="wikihelptext">To create this:</div>
 * List item:{{{
-This is a code block
+This is a raw text block
 made of one
 or more lines.
 }}}
+To insert a blank line between the list item and the raw text block, you can use HTML {{{<br>}}} tags before the opening curly brackets.
 
-To insert a newline between the list item and the nowiki block, you can use HTML {{{<br>}}} tags before the opening curly brackets.
-
-<div class="woas_helptext">Use this code in a page:</div>
-<div class="woas_helpcode">* List item:&lt:br&gt;&lt;br&gt;&#123;&#123;&#123;
-This is a code block
+<div class="wikihelptext">Use this code in a page:</div>
+<div class="wikihelpcode">* List item:&lt;br&gt;&lt;br&gt;{<!-- -->{{
+This is a raw text block
 made of one
 or more lines.
-&#125;&#125;&#125;</div>
-<div class="woas_helptext">To create this:</div>
+}<!-- -->}}</div>
+<div class="wikihelptext">To create this:</div>
 * List item:<br><br>{{{
-This is a code block
+This is a raw text block
 made of one
 or more lines.
 }}}
 
-== Nowiki block with custom CSS style
-The example uses /lightcyan/ and /purple/ colors, but you can replace those with whatever colors you like, using [[http://www.w3schools.com/Html/html_colornames.asp|color names or hexadecimal notation]].
+== Raw text block with custom colored background
+You can use HTML &lt;pre&gt; tags with the color defined in the /style/ section of the tag to create a raw text block with a custom colored background. The example uses /lightcyan/, but you can choose whatever [[http://www.w3schools.com/Html/html_colornames.asp|color or hexadecimal notation]] you like.
 
-<div class="woas_helptext">Use this code in a page:</div><div class="woas_helpcode">
-&lt;span style="background-color:lightcyan; color:purple;"&gt;&#123;&#123;&#123;
-This is a code block
+<div class="wikihelptext">Use this code in a page:</div><br>{{{
+<pre style="background-color:lightcyan;">This is a raw text block
 made of one
 or more lines.
-&#125;&#125;&#125;&lt;/span&gt;
-</div>
-<div class="woas_helptext">To create this:</div>
-<span style="background-color:lightcyan; color:purple;">{{{
-This is a code block
+</pre>
+}}}<br><div class="wikihelptext">To create this:</div><pre style="background-color:lightcyan;">This is a raw text block
 made of one
 or more lines.
-}}}</span>
+</pre>
+== Raw text block with custom colored font
+You can use HTML &lt;pre&gt; tags with the color defined in the /style/ section of the tag to create a raw text block with custom colored font. The example uses green, but you can choose whatever [[http://www.w3schools.com/Html/html_colornames.asp|color or hexadecimal notation]] you like.
+
+<div class="wikihelptext">Use this code in a page:</div><br>{{{
+<pre style="color:green">This is a raw text block
+made of one
+or more lines.
+</pre>}}}<br><div class="wikihelptext">To create this:</div><pre style="color:green">This is a raw text block
+made of one
+or more lines.
+</pre>
+== Raw text blocks containing example wiki syntax
+If you'd like to display syntax in a page without the wiki parsing the code (i.e.: you want the brackets to show), insert an HTML comment ({{{<!-- -->}}}) between two of the brackets on one or both sides of the code.
+
+<div class="wikihelptext">Use this code in a page:</div><br>{{{
+{<!-- -->{{Some code goes here}}<!-- -->}
+}}}<br><div class="wikihelptext">To create this:</div>
+{<!-- -->{{Some code goes here}}}
+
+<div class="wikihelptext">Or use this code in a page, replacing Page Name with the name of the page:</div><br>{{{
+[<!-- -->[Page Name]]
+}}}<br><div class="wikihelptext">To create this:</div>
+[<!-- -->[Page Name]]
+
+Another method is to split the content into multiple lines and end each line with a backslash to let the wiki parser know you want that line joined with the one below it.
+
+<div class="wikihelptext">Use this code in a page:</div><br>{{{
+{\
+{{Some code goes here}}\
+}
+}}}<br><div class="wikihelptext">To create this:</div>
+{\
+{{Some code goes here}}\
+}
+
+<div class="wikihelptext">Or use this code in a page:</div><br>{{{
+[\
+[Page Name]\
+]
+}}}<br><div class="wikihelptext">To create this:</div>
+[\
+[Page Name]\
+]
 
 --DFQRCTsKlU
 woas.page.title: Wiki::Help::Wiki is read-only
@@ -1365,7 +1406,7 @@ woas.page.boundary: DFQRCTsKlU
 You can include [[Wiki::Help::Embedding|embedded]] or external text files in wiki pages.
 
 == Include an embedded text file
-This will include an embedded text file in a wiki page as [[Wiki::Help::Nowiki text|nowiki text]] which is not parsed by the wiki.
+This will include an embedded text file in a wiki page as [[Wiki::Help::Raw text|nowiki text]] which is not parsed by the wiki.
 <div class="wikihelptext">Use this code in a page, replacing FILENAME with the name of the embedded file:</div><br>{{{
 [[Include::File::FILENAME]]
 }}}<br><div class="wikihelptext">To include an embedded text file in a page.</div>
@@ -2672,7 +2713,7 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-/***** ALERT NOTES *****/
+/*ALERT NOTES*/
 .alertnote {
 	background-color: pink;
 	border: 0.063em groove #AA3;
@@ -2685,7 +2726,7 @@ woas.page.boundary: DFQRCTsKlU
 	padding-left: 0.313em;
 	}
 
-/***** BANNER - BACKGROUND AND POSITION *****/
+/*BANNER - BACKGROUND AND POSITION*/
 div.wiki_header {
 	background-color: gainsboro;
 	border-top: 0.188em solid grey;
@@ -2698,7 +2739,7 @@ div.wiki_header {
 	z-index: 1;
 	}
 
-/***** BANNER - PAGE TITLE *****/
+/*BANNER - PAGE TITLE*/
 .title {
 	display: inline;
 	font-size: 2em;
@@ -2708,17 +2749,17 @@ div.wiki_header {
 	text-shadow: #888 0.13em 0.13em 0.065em;
 	} 
 
-/***** BODY - FONT FAMILY *****/
+/*BODY - FONT FAMILY*/
 body {
 	font-family: Georgia, verdana;
 	}
 
-/***** BODY - BACKGROUND COLOR *****/
+/*BODY - BACKGROUND COLOR*/
 .woas_background {
 	background-color: silver;
 	} 
 
-/***** DEBUG PANEL *****/
+/*DEBUG PANEL*/
 #woas_debug_panel {
 	background-color: gainsboro;
 	border: 1pt solid black;
@@ -2729,30 +2770,29 @@ body {
 	width: 77%;
 	}
 
-/***** DEBUG CONSOLE *****/
+/*DEBUG CONSOLE*/
 #woas_debug_console {
 	}
 
-/***** DEBUG LOG *****/
+/*DEBUG LOG*/
 #woas_debug_log {
 	background-color: silver;
 	margin-bottom: 1%;
 	width: 97%;
 	} 
 
-/***** EDITOR - PAGE TITLE LINE *****/
+/*EDITOR - PAGE TITLE LINE*/
 #woas_edit_page_title {
 	margin-top: -0.756em;
 	}
 
-/***** EDITOR - WOAS BUTTON  *****/
-/***** NOTE TO LITTLE GIRL: REMOVE THIS ONCE YOU'RE SURE THERE ARE NO REFERENCES TO IT *****/
+/*EDITOR - WOAS BUTTON - NOTE TO LITTLE GIRL: REMOVE THIS ONCE THE BOAS BUTTONS ARE IN PLACE AND YOU'RE SURE THERE ARE NO REFERENCES TO IT*/
 .woas_editor_button {
 	margin-top: 0.063em;
 	margin-bottom: 0.063em;
 	}
 
-/***** ENCRYPTION *****/
+/*ENCRYPTION*/
 /* ask password overlay */
 #woas_pwd_query {
 	background-color: #d6dff7;
@@ -2787,7 +2827,7 @@ body {
 	margin-left: 25%;
 	}
 
-/***** FOOTER *****/
+/*FOOTER*/
 .woas_about_footer {
 	background-color: gainsboro;
 	border: 0.188em solid grey;
@@ -2805,12 +2845,12 @@ body {
 	width: 77.5%;
 	}
 
-/***** FOOTER - LINKS *****/
+/*FOOTER - LINKS*/
 .woas_about_footer a {
 	color: mediumblue !important;
 	}
 
-/***** FOOTNOTES *****/
+/*FOOTNOTES*/
 .footnote {
 	color: mediumblue;
 	font-size: 0.55em;
@@ -2820,7 +2860,7 @@ body {
 	vertical-align: super;
 	}
 
-/***** FOOTNOTES - CONTAINER *****/
+/*FOOTNOTES - CONTAINER*/
 .footnotecontainer {
 	background-color: #EEEEFF;
 	font-size: 0.75em;
@@ -2830,7 +2870,7 @@ body {
 	vertical-align: super;
 	}
 
-/***** HEADERS *****/
+/*HEADERS*/
 h1.woas_header {
 	font-size: 1.438em;
 	}
@@ -2850,13 +2890,13 @@ h6.woas_header {
 	font-size: 0.625em;
 	}
 
-/***** HELP PAGE BACKGROUND *****/
+/*HELP PAGE BACKGROUND*/
 .woas_help_background {
 	background-attachment: fixed;
 	background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAYAAADDPmHLAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A%2FwD%2FoL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9oDDAonCzKHvroAAAEFSURBVHja7duxDYIhFIVRIA7EKk7qKoxkb2Ns1PzfObWNuRfyAB0DAAAAAAAAAAAAAAAAAAAAAAAAAIC%2FMEtf9pxzf%2FeZvfdDAYLBV4swBd8uwhR%2BuwhT%2BO0SLOE7BQg%2FvAssa8AOYPWHd4FbtfmvIVZnhyX8xnlfAVCA8kpPHAO%2FNUReqUQKEA7fDDDcHC7hmwGEHx4gp%2BDbpwc%2FCYsfHafw2%2FcG2beAevCpHeDT1V%2B6LfQWEA5fAeLhKwAKoAAAAOR4DRzt3wl6DYyXwGtgvAQeg%2BIlcBEUpwAKgALgHsAg6BTgHsAO0CyBfwwDAAAAAAAAAAAAAAAAAAAAAAAAAAAAv%2FIER4Nn%2B7YDG3wAAAAASUVORK5CYII%3D);
 	}
 
-/***** HELP PAGE BUTTON *****/
+/*HELP PAGE BUTTON*/
 .woas_help_button {
 	background-color: #F0F0F5;
 	border: 1pt solid grey;
@@ -2874,7 +2914,7 @@ h6.woas_header {
 	background-color: darkgrey;
 	}
 
-/***** HELP PAGE - EXAMPLES *****/
+/*HELP PAGE - EXAMPLES*/
 div.wikihelpcode {
 	background-color: gainsboro;
 	border: 0.063em solid grey;
@@ -2882,30 +2922,32 @@ div.wikihelpcode {
 	font-family: monospace;
 	padding: 0.438em;
 	}
-/***** NOTE TO LITTLE GIRL: REMOVE THIS WOAS REFERENCE ONCE YOU'RE SURE THERE ARE NO REFERENCES TO IT *****/
+
+/*HELP PAGE - EXAMPLES - WOAS - NOTE TO LITTLE GIRL: REMOVE THIS WOAS REFERENCE ONCE YOU'RE SURE THERE ARE NO REFERENCES TO IT*/
 .woas_helpcode {
 	font-family: monospace;
 	padding: 0.438em;
 	}
 
-/***** HELP PAGE - EXAMPLE TEXT *****/
+/*HELP PAGE - EXAMPLE TEXT*/
 div.wikihelptext {
 	color: darkcyan;
 	font-weight: bold;
 	font-style: italic;
 	}
-/***** NOTE TO LITTLE GIRL: REMOVE THIS WOAS REFERENCE ONCE YOU'RE SURE THERE ARE NO REFERENCES TO IT *****/
+
+/*HELP PAGE - EXAMPLE TEXT - WOAS - NOTE TO LITTLE GIRL: REMOVE THIS WOAS REFERENCE ONCE YOU'RE SURE THERE ARE NO REFERENCES TO IT*/
 .woas_helptext {
 	font-family: lucida;
 	}
 
-/***** HOTKEYS *****/
+/*HOTKEYS*/
 #woas_custom_accesskeys {
 	display: none;
 	visibility: hidden;
 	}
 
-/***** LAST MODIFIED LINE *****/
+/*LAST MODIFIED LINE*/
 .woas_page_mts {
 	font-size: small;
 	margin-top: 0.75em;
@@ -2914,14 +2956,14 @@ div.wikihelptext {
 	z-index: 0;
 	}
 
-/* LINK - CURSOR WHEN ON A LINK */
+/*LINK - CURSOR WHEN ON A LINK*/
 a {
 	cursor: pointer;
-/* IE5.5/IE6 */
+	/*IE5.5/IE6*/
 	/* cursor: hand; */
 	}
 
-/* LINK - EXISTENT */
+/*LINK - EXISTENT*/
 a.link {
 	color: blue;
 	}
@@ -2929,13 +2971,13 @@ a.link:hover {
 	text-decoration: underline;
 	}
 
-/***** LINK - EXTERNAL *****/
+/*LINK - EXTERNAL*/
 a.world {
 	color: darkgreen;
 	text-decoration: underline;
 	}
 
-/* LINK - NONEXISTENT */
+/*LINK - NONEXISTENT*/
 a.unlink {
 	color: red;
 	}
@@ -2943,7 +2985,7 @@ a.unlink:hover {
 	text-decoration: underline;
 	}
 
-/***** MAIN TEXT AREA *****/
+/*MAIN TEXT AREA*/
 div.woas_text_area {
 	background-color: white;
 	border: 0.188em solid grey;
@@ -2953,7 +2995,7 @@ div.woas_text_area {
 	padding-left: 0.813em;
 	}
 
-/***** MAIN TEXT AREA - TEXT *****/
+/*MAIN TEXT AREA - TEXT*/
 #wiki_text {
 	left: 20.5%;
 	margin-top: 1.313em;
@@ -2964,13 +3006,13 @@ div.woas_text_area {
 	z-index: 0;
 	}
 
-/***** MAIN WIKI PANE WHEN LOCKED *****/
+/*MAIN WIKI PANE WHEN LOCKED*/
 .woas_text_area.locked, #woas_pwd_mask {
 	background-color: #eeeeee;
 	background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAAAAACMmsGiAAAALHRFWHRDcmVhdGlvbiBUaW1lAGdpbyAyOSBtYXIgMjAwNyAxMTo1MToxMCArMDEwME%2BTNUAAAAAHdElNRQfXAx0JNByGxueSAAAACXBIWXMAAAsSAAALEgHS3X78AAAABGdBTUEAALGPC%2FxhBQAAABlJREFUeNpj%2FM%2FwmYHpMwMvAxOQwcvECyQBO1oE%2BlG5iisAAAAASUVORK5CYII%3D);
 	}
 
-/***** MENU *****/
+/*MENU*/
 div.menu {
 	}
 div.menu_area {
@@ -2982,13 +3024,12 @@ div.menu_area {
 	width: 18%;
 	}
 
-/***** MENU - LISTS *****/
+/*MENU - LISTS*/
 div.menu_area ul li, div.menu_area ol li, div.ns_menu_area ul li, div.ns_menu_area ol li {
 	margin-left: -2em;
 	}
 
-/***** MENU - BUTTONS - WOAS *****/
-/***** NOTE TO LITTLE GIRL: REMOVE THESE ONCE YOU'RE SURE THERE ARE NO REFERENCES TO THEM *****/
+/*MENU - BUTTONS - WOAS - NOTE TO LITTLE GIRL: REMOVE THESE ONCE YOU'RE SURE THERE ARE NO REFERENCES TO THEM*/
 .woas_menu_button {
 	background-color: #F0F0F5;
 	border: 1pt solid grey;
@@ -3003,7 +3044,7 @@ div.menu_area ul li, div.menu_area ol li, div.ns_menu_area ul li, div.ns_menu_ar
 	background-color: darkgrey;
 	}
 
-/***** MENU - BUTTONS - FULL *****/
+/*MENU - BUTTONS - FULL*/
 .boas_menu_button_full {
 	background-color: gainsboro;
 	border: 0.063em solid grey;
@@ -3025,7 +3066,7 @@ div.menu_area ul li, div.menu_area ol li, div.ns_menu_area ul li, div.ns_menu_ar
 	width: 100%;
 	}
 
-/***** MENU - BUTTONS - HALF *****/
+/*MENU - BUTTONS - HALF*/
 .boas_menu_button_half {
 	background-color: gainsboro;
 	border: 0.063em solid grey;
@@ -3047,161 +3088,18 @@ div.menu_area ul li, div.menu_area ol li, div.ns_menu_area ul li, div.ns_menu_ar
 	width: 50%;
 	}
 
-/***** MISCELLANEOUS ******/
+/*MISCELLANEOUS*/
 .woas_embedded {
 	}
 
-/***** NOWIKI INLINE - MOZILLA *****/
-.wiki_preformatted {
-	background-color:gainsboro;
-	color: black;
-	font-family: monospace;
-	padding-right: 0.27em;
-	padding-left: 0.27em;
-	white-space:-moz-pre-wrap !important;
-	}
-/***** NOWIKI INLINE - CSS 3 *****/
-/* .wiki_preformatted {
-	background-color: gainsboro;
-	color: black;
-	font-family: monospace;
-	padding-right: 0.27em;
-	padding-left: 0.27em;
-	white-space: pre-wrap;
-	} */
-/***** NOWIKI INLINE - OPERA 4-6 *****/
-/* .wiki_preformatted {
-	background-color: gainsboro;
-	color: black;
-	font-family: monospace;
-	padding-right: 0.27em;
-	padding-left: 0.27em;
-	white-space: -pre-wrap;
-	} */
-/***** NOWIKI INLINE - OPERA 7 *****/
-/* .wiki_preformatted {
-	background-color: gainsboro;
-	color: black;
-	font-family: monospace;
-	padding-right: 0.27em;
-	padding-left: 0.27em;
-	white-space: -o-pre-wrap;
-	} */
-/***** NOWIKI INLINE - IE 5.5+ *****/
-/* .wiki_preformatted {
-	background-color: gainsboro;
-	color: black;
-	font-family: monospace;
-	padding-right: 0.27em;
-	padding-left: 0.27em;
-	word-wrap: break-word;
-	} */
-
-/***** NOWIKI BLOCKS - MOZILLA *****/
-.woas_nowiki_multiline {
-	background-color: gainsboro;
-	border: 0.063em solid grey;
-	color: black;
-	font-family: monospace;
-	padding-right: 0.27em;
-	padding-left: 0.27em;
-	white-space: -moz-pre-wrap !important;
-	}
-/***** NOWIKI BLOCKS - CSS 3 *****/
-/* .woas_nowiki_multiline {
-	background-color: gainsboro;
-	border: 0.063em solid grey;
-	color: black;
-	font-family: monospace;
-	padding-right: 0.27em;
-	padding-left: 0.27em;
-	white-space: pre-wrap;
-	} */
-/***** NOWIKI BLOCKS - OPERA 4-6 *****/
-/* .woas_nowiki_multiline {
-	background-color: gainsboro;
-	border: 0.063em solid grey;
-	color: black;
-	font-family: monospace;
-	padding-right: 0.27em;
-	padding-left: 0.27em;
-	white-space: -pre-wrap;
-	} */
-/***** NOWIKI BLOCKS - OPERA 7 *****/
-/* .woas_nowiki_multiline {
-	background-color: gainsboro;
-	border: 0.063em solid grey;
-	color: black;
-	font-family: monospace;
-	padding-right: 0.27em;
-	padding-left: 0.27em;
-	white-space: -o-pre-wrap;
-	} */
-/***** NOWIKI BLOCKS - IE 5.5+ *****/
-/* .woas_nowiki_multiline {
-	background-color: gainsboro;
-	border: 0.063em solid grey;
-	color: black;
-	font-family: monospace;
-	padding-right: 0.27em;
-	padding-left: 0.27em;
-	word-wrap: break-word;
-	} */
-
-/***** NOWIKI BLOCKS - HTML - MOZILLA *****/
-pre {
-	background-color: gainsboro;
-	border: 0.063em solid grey;
-	color: black;
-	font-family: monospace;
-	padding: 0.375em;
-	white-space: -moz-pre-wrap !important;
-	}
-/***** NOWIKI BLOCKS - HTML - CSS 3 *****/
-/* pre {
-	background-color: gainsboro;
-	border: 0.063em solid grey;
-	color: black;
-	font-family: monospace;
-	padding: 0.375em;
-	white-space: pre-wrap;
-	} */
-/***** NOWIKI BLOCKS - HTML - OPERA 4-6 *****/
-/* pre {
-	background-color: gainsboro;
-	border: 0.063em solid grey;
-	color: black;
-	font-family: monospace;
-	padding: 0.375em;
-	white-space: -pre-wrap;
-	} */
-/***** NOWIKI BLOCKS - HTML - OPERA 7 *****/
-/* pre {
-	background-color: gainsboro;
-	border: 0.063em solid grey;
-	color: black;
-	font-family: monospace;
-	padding: 0.375em;
-	white-space: -o-pre-wrap;
-	} */
-/***** NOWIKI BLOCKS - HTML - IE 5.5+ *****/
-/* pre {
-	background-color: gainsboro;
-	border: 0.063em solid grey;
-	color: black;
-	font-family: monospace;
-	padding: 0.375em;
-	word-wrap: break-word;
-	} */
-
-/***** PAGE LIST HEADER *****/
+/*PAGE LIST HEADER*/
 .woas_listing_options {
 	background-color: gainsboro;
 	border: 0.1em solid grey;
 	padding: 0.2em;
 	}
 
-/***** PRESENTATION - MAIN CONTAINER *****/
+/*PRESENTATION - MAIN CONTAINER*/
 div.presentation {
 	background-color: #d1e0ef;
 	border: #3c5a86 0.063em dotted;
@@ -3210,7 +3108,7 @@ div.presentation {
 	padding: 0.313em;
 	}
 
-/***** PRESENTATION - TITLE *****/
+/*PRESENTATION - TITLE*/
 div.presentation h1 {
 	background-color: #99bbdd;
 	border: #3c5a86 0.063em solid;
@@ -3227,7 +3125,7 @@ div.presentation h1 {
 	top: -1.875em;
 	}
 
-/***** PRESENTATION - FIRST LETTER *****/
+/*PRESENTATION - FIRST LETTER*/
 div.innerpresentation:first-letter {
 	background-color: #333;
 	border: 0.063em solid #fff;
@@ -3248,7 +3146,7 @@ div.innerpresentation:first-letter {
 	text-transform: capitalize;
 	}
 
-/***** PRESENTATION - INNER CONTAINER *****/
+/*PRESENTATION - INNER CONTAINER*/
 div.innerpresentation {
 	border: 0em;
 	margin-top: -1.50em;
@@ -3257,7 +3155,7 @@ div.innerpresentation {
 	padding: 0.313em;
 	}
 
-/***** PRESENTATION - HEADER LEVEL 2 *****/
+/*PRESENTATION - HEADER LEVEL 2*/
 div.innerpresentation H2 {
 	color: #000000;
 	display: block;
@@ -3270,16 +3168,161 @@ div.innerpresentation H2 {
 	padding-left: 0.313em;
 	}
 
-/***** SEARCH *****/
-div.search_results {
-	clear: both;
-	margin-top: 1em;
+/*RAW TEXT INLINE - MOZILLA*/
+.wiki_preformatted {
+	background-color:gainsboro;
+	color: black;
+	font-family: monospace;
+	padding-right: 0.27em;
+	padding-left: 0.27em;
+	white-space:-moz-pre-wrap !important;
 	}
+/*RAW TEXT INLINE - CSS 3*/
+/* .wiki_preformatted {
+	background-color: gainsboro;
+	color: black;
+	font-family: monospace;
+	padding-right: 0.27em;
+	padding-left: 0.27em;
+	white-space: pre-wrap;
+	} */
+/*RAW TEXT INLINE - OPERA 4-6*/
+/* .wiki_preformatted {
+	background-color: gainsboro;
+	color: black;
+	font-family: monospace;
+	padding-right: 0.27em;
+	padding-left: 0.27em;
+	white-space: -pre-wrap;
+	} */
+/*RAW TEXT INLINE - OPERA 7*/
+/* .wiki_preformatted {
+	background-color: gainsboro;
+	color: black;
+	font-family: monospace;
+	padding-right: 0.27em;
+	padding-left: 0.27em;
+	white-space: -o-pre-wrap;
+	} */
+/*RAW TEXT INLINE - IE 5.5+*/
+/* .wiki_preformatted {
+	background-color: gainsboro;
+	color: black;
+	font-family: monospace;
+	padding-right: 0.27em;
+	padding-left: 0.27em;
+	word-wrap: break-word;
+	} */
+
+/*RAW TEXT BLOCKS - MOZILLA*/
+.woas_nowiki_multiline {
+	background-color: gainsboro;
+	border: 0.063em solid grey;
+	color: black;
+	font-family: monospace;
+	padding-right: 0.27em;
+	padding-left: 0.27em;
+	white-space: -moz-pre-wrap !important;
+	}
+/*RAW TEXT BLOCKS - CSS 3*/
+/* .woas_nowiki_multiline {
+	background-color: gainsboro;
+	border: 0.063em solid grey;
+	color: black;
+	font-family: monospace;
+	padding-right: 0.27em;
+	padding-left: 0.27em;
+	white-space: pre-wrap;
+	} */
+/*RAW TEXT BLOCKS - OPERA 4-6*/
+/* .woas_nowiki_multiline {
+	background-color: gainsboro;
+	border: 0.063em solid grey;
+	color: black;
+	font-family: monospace;
+	padding-right: 0.27em;
+	padding-left: 0.27em;
+	white-space: -pre-wrap;
+	} */
+/*RAW TEXT BLOCKS - OPERA 7*/
+/* .woas_nowiki_multiline {
+	background-color: gainsboro;
+	border: 0.063em solid grey;
+	color: black;
+	font-family: monospace;
+	padding-right: 0.27em;
+	padding-left: 0.27em;
+	white-space: -o-pre-wrap;
+	} */
+/*RAW TEXT BLOCKS - IE 5.5+*/
+/* .woas_nowiki_multiline {
+	background-color: gainsboro;
+	border: 0.063em solid grey;
+	color: black;
+	font-family: monospace;
+	padding-right: 0.27em;
+	padding-left: 0.27em;
+	word-wrap: break-word;
+	} */
+
+/*RAW TEXT BLOCKS - HTML - MOZILLA*/
+pre {
+	background-color: gainsboro;
+	border: 0.063em solid grey;
+	color: black;
+	font-family: monospace;
+	padding: 0.375em;
+	white-space: -moz-pre-wrap !important;
+	}
+/*RAW TEXT BLOCKS - HTML - CSS 3*/
+/* pre {
+	background-color: gainsboro;
+	border: 0.063em solid grey;
+	color: black;
+	font-family: monospace;
+	padding: 0.375em;
+	white-space: pre-wrap;
+	} */
+/*RAW TEXT BLOCKS - HTML - OPERA 4-6*/
+/* pre {
+	background-color: gainsboro;
+	border: 0.063em solid grey;
+	color: black;
+	font-family: monospace;
+	padding: 0.375em;
+	white-space: -pre-wrap;
+	} */
+/*RAW TEXT BLOCKS - HTML - OPERA 7*/
+/* pre {
+	background-color: gainsboro;
+	border: 0.063em solid grey;
+	color: black;
+	font-family: monospace;
+	padding: 0.375em;
+	white-space: -o-pre-wrap;
+	} */
+/*RAW TEXT BLOCKS - HTML - IE 5.5+*/
+/* pre {
+	background-color: gainsboro;
+	border: 0.063em solid grey;
+	color: black;
+	font-family: monospace;
+	padding: 0.375em;
+	word-wrap: break-word;
+	} */
+
+/*SEARCH HIGHLIGHT*/
 .search_highlight {
 	background-color: yellow;
 	}
 
-/***** SPOILERS *****/
+/*SEARCH RESULTS*/
+div.search_results {
+	clear: both;
+	margin-top: 1em;
+	}
+
+/*SPOILERS*/
 .spoiler {
 	background-color: black;
 	color: black;
@@ -3323,7 +3366,7 @@ div.search_results {
 	display: none;
 	}
 
-/***** TABLE *****/
+/*TABLE*/
 table.woas_text_area {
 	border: 1pt solid black;
 	border-spacing: 0em;
@@ -3337,7 +3380,7 @@ table.woas_text_area caption {
         font-weight: bold;
 	}
 
-/***** TABLE - FANCY *****/
+/*TABLE - FANCY*/
 table.shadesofblue {
 	background-color: #fafafa;
 	border-collapse: collapse;
@@ -3379,7 +3422,7 @@ table.shadesofblue td.special {
 	background-color: #ff00ff;
 	}
 
-/***** TABLE OF CONTENTS *****/
+/*TABLE OF CONTENTS*/
 div.woas_toc {
 	background-color: #F9F9F9;
 	border: 1pt dashed #aaa;
@@ -3388,19 +3431,19 @@ div.woas_toc {
 	width: 50%;
 	}
 
-/***** TABLE OF CONTENTS - LIST *****/
+/*TABLE OF CONTENTS - LIST*/
 div.woas_toc ol, li {
 	margin-left: 1.3em;
 	padding-left: 0em;
 	}
 
-/***** TABLE OF CONTENTS - TITLE *****/
+/*TABLE OF CONTENTS - TITLE*/
 p.woas_toc_title {
 	font-weight: bold;
 	text-align: center;
 	}
 
-/***** TAG CONTAINER *****/
+/*TAG CONTAINER*/
 div.taglinks {
 /*	background-color: #f9f9f9; */
 	border: 1pt solid #aaa;
@@ -3409,7 +3452,7 @@ div.taglinks {
 	padding: 0.313em;
 	}
 
-/***** TAG LINKS *****/
+/*TAG LINKS*/
 div.taglinks > a {
 	background-color: gainsboro;
 	border: 2px solid blue;
@@ -3432,25 +3475,25 @@ div.taglinks > a:hover {
 	text-decoration: none;
 	}
 
-/***** TOOLTIPS *****/
+/*TOOLTIPS*/
 span.tooltip {
 	border-bottom: 0.125em dotted mediumblue;
 	cursor: help;
 	}
 
-/***** TOPNOTES *****/
+/*TOPNOTES*/
 div.topnote {
 	position: absolute;
 	right: 0.625em;
 	top: 0.188em;
 	}
 
-/***** WIKI CORE PAGES *****/
+/*WIKI CORE PAGES*/
 .woas_core_page {
  	padding: 1em;
 	}
 
-/***** WIKI LOADING OVERLAY *****/
+/*WIKI LOADING OVERLAY*/
 #loading_overlay {
 	background-color: white;
 	font-size: large;
@@ -3464,7 +3507,7 @@ div.topnote {
 	z-index: 100;
 	}
 
-/***** WIKI WAIT TEXT *****/
+/*WIKI WAIT TEXT*/
 .woas_wait_text {
 	color: navy;
 	}
@@ -3686,6 +3729,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Renamed the *Help::Bugs* page to [[Wiki::Help::Bugs]].
 ** Renamed the *Help::Cancel any action* page to [[Wiki::Help::Cancel any action]].
 ** Renamed the *Help::Change wiki settings* page to [[Wiki::Help::Change wiki settings]].
+** Renamed the *Help::Code blocks (preformatted text)* page to [[Wiki::Help::Raw text]].
 ** Renamed the *Help::Footnotes* page to [[Wiki::Help::Footnotes]].
 ** Renamed the *Help::Horizontal rules (lines)* page to [[Wiki::Help::Horizontal rules (lines)]].
 ** Renamed the *Help::Navigation* page to [[Wiki::Help::Navigation]].
@@ -3807,7 +3851,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the *Help::Aliases* page.
 ** Updated the *Help::Bugs* page.
 ** Updated the *Help::CSS* page.
-** Updated the [[Help::Code blocks (preformatted text)]] page, removing the obsolete *Code blocks with syntax highlighting* section.
+** Updated the *Help::Code blocks (preformatted text)* page, removing the obsolete *Code blocks with syntax highlighting* section.
 ** Updated the *Help::Delete a page* page.
 ** Updated the *Help::Edit a page* page.
 ** Updated the *Help::Edit the menu* page.
@@ -3913,7 +3957,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the *Help::Add a search box* page.
 ** Updated the [[Help::Bootscript]] page.
 ** Updated the *Help::Bugs* page.
-** Updated the [[Help::Code blocks (preformatted text)]] page.
+** Updated the *Help::Code blocks (preformatted text)* page.
 ** Updated the *Help::CSS* page.
 ** Updated the *Help::Edit a page* page.
 ** Updated the *Help::Edit the menu* page.
@@ -3985,7 +4029,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Removed the *Help::New page template* page.
 ** Updated the *History* page.
 ** Updated the *Help::Bugs* page.
-** Updated the [[Help::Code blocks (preformatted text)]] page.
+** Updated the *Help::Code blocks (preformatted text)* page.
 ** Updated the *Help::CSS* page.
 ** Updated the *Help::Edit the menu* page.
 ** Updated the [[Help::Footer]] page.
@@ -4064,7 +4108,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the content of the *footer*.
 ** Updated the *Example::Overview* page.
 ** Updated the *Help::Bugs* page.
-** Updated the [[Help::Code blocks (preformatted text)]] page, adding instructions on how to use *code blocks with syntax highlighting* from code provided by [[http://woas.iragan.com/viewtopic.php?id=561|FBnil]].
+** Updated the *Help::Code blocks (preformatted text)* page, adding instructions on how to use *code blocks with syntax highlighting* from code provided by [[http://woas.iragan.com/viewtopic.php?id=561|FBnil]].
 ** Updated the *Help::CSS* page.
 ** Updated the *Help::Delete a page* page.
 ** Updated the *Help::Edit the menu* page, adding the *Add expanding menu entries* section.
@@ -4120,7 +4164,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Replaced the code for the buttons in the menu with an include link to the *Utility::Buttons* page.
 ** Updated the *Getting Started* page.
 ** Updated the *Help::Bugs* page.
-** Updated the [[Help::Code blocks (preformatted text)]] page.
+** Updated the *Help::Code blocks (preformatted text)* page.
 ** Updated the *Help::CSS* page.
 ** Updated the *Help::Delete a page* page.
 ** Updated the *Help::Edit a page* page.
@@ -4177,7 +4221,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Fixed the excess punctuation after two of the example links on the [[Help::Links]] page.
 ** Fixed an example link that said *MyReport.log* to the correct *MyFile.log* on the *Help::Embed a file* page.
 ** Updated the content of the warning when the wiki cannot be loaded because JavaScript is not enabled.
-** Updated the [[Help::Code blocks (preformatted text)]] page.
+** Updated the *Help::Code blocks (preformatted text)* page.
 ** Updated the *Help::CSS* page with a current copy of the default CSS code.
 ** Updated the *Help::Edit the menu* page.
 ** Updated the [[Help::Encrypt a page]] page with instructions rather than a reference to the default description.
@@ -4638,110 +4682,6 @@ woas.page.boundary: DFQRCTsKlU
 # Click the *Special::Options* link in the *Advanced features* section of the page.
 # Use the check-boxes to choose the settings you prefer.
 # Click the *Save options* button to save the changes.
-
---DFQRCTsKlU
-woas.page.title: Help::Code blocks (preformatted text)
-woas.page.attributes: 0
-woas.page.encoding: 8bit/plain
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-= Code blocks (preformatted text)
-[[Special::TOC]]
-
-== Code block
-<div class="helptext">Use this code in a page:</div>
-<div class="helpcode">{\
-{{
-This is a code block
-made of one
-or more lines.
-}}\
-}</div>
-<div class="helptext">To create this:</div>
-{{{
-This is a code block
-made of one
-or more lines.
-}}}
-== Code block in-line
-<div class="helptext">Use this code in a page:</div>
-<div class="helpcode">{<!-- -->{{This is an inline code block}}<!-- -->} which is a code block that's inside a sentence.</div>
-<div class="helptext">To create this:</div>
-{{{This is an inline code block}}} which is a code block that's inside a sentence.
-
-== Code block properly indented beneath a list item
-<div class="helptext">Use this code in a page:</div>
-<div class="helpcode">* List item:{<!-- -->{{
-This is a code block
-made of one
-or more lines.
-}<!-- -->}}</div>
-<div class="helptext">To create this:</div>
-* List item:{{{
-This is a code block
-made of one
-or more lines.
-}}}
-
-== Code block with custom colored background
-This is so you can choose a different color than the default one for your code blocks. The example uses lightcyan, but you can replace that with whatever color you like, using [[http://www.w3schools.com/Html/html_colornames.asp|color names or hexadecimal notation]].
-
-<div class="helptext">Use this code in a page:</div>{{{
-<pre style="background-color:lightcyan;">This is a code block
-made of one
-or more lines.
-</pre>
-}}}<div class="helptext">To create this:</div><pre style="background-color:lightcyan;">This is a code block
-made of one
-or more lines.
-</pre>
-== Code block with custom colored font
-This will only work on all the font inside a code block. Multi-colored code blocks would have to be done more creatively. If there's an interest, I can put together an example, but it would be for advanced users. The example uses green, but you can replace that with whatever color you like, using [[http://www.w3schools.com/Html/html_colornames.asp|color names or hexadecimal notation]]
-
-<div class="helptext">Use this code in a page:</div>{{{
-<pre style="color:green">This is a code block
-made of one
-or more lines.
-</pre>}}}<div class="helptext">To create this:</div><pre style="color:green">This is a code block
-made of one
-or more lines.
-</pre>
-== Code blocks containing example wiki syntax
-If you'd like to display syntax in a page without the wiki parsing the code (i.e.: you want the brackets to show), insert an html comment ({{{<!-- -->}}}) between two of the brackets on one or both sides of the code.
-
-<div class="helptext">Use this code in a page:</div>{{{
-{<!-- -->{{Some code goes here}}<!-- -->}
-}}}<div class="helptext">To create this:</div>
-{<!-- -->{{Some code goes here}}}
-
-<div class="helptext">Or use this code in a page, replacing Page Name with the name of the page:</div>{{{
-[<!-- -->[Page Name]]
-}}}<div class="helptext">To create this:</div>
-[<!-- -->[Page Name]]
-
-Another method is to interrupt the code by dividing it up between multiple lines and ending each line with a backslash to let the wiki parser know you want that line joined with the one below it.
-
-<div class="helptext">Use this code in a page:</div>{{{
-{\
-{{Some code goes here}}\
-}
-}}}<div class="helptext">To create this:</div>
-{\
-{{Some code goes here}}\
-}
-
-<div class="helptext">Or use this code in a page:</div>{{{
-[\
-[Page Name]\
-]
-}}}<div class="helptext">To create this:</div>
-[\
-[Page Name]\
-]
-
-[[Tags::Help|Syntax]]
 
 --DFQRCTsKlU
 woas.page.title: Help::Encrypt a page
@@ -6686,7 +6626,7 @@ This is a method for displaying your text in style by creating a presentation li
 * [[Wiki::Help::Horizontal rules (lines)|Horizontal rules (lines)]]
 * Level two HTML headers.
 * [[Wiki::Help::Lists|Lists]]
-* [[Wiki::Help::Nowiki text|Nowiki text]]
+* [[Wiki::Help::Raw text|Nowiki text]]
 * [[Wiki::Help::Text formatting|Text formatting]]
 * [[Wiki::Help::Tooltips|Tooltips]]
 To change the look of presentations, copy the Presentation rules from the *WoaS::CSS::Core* page to the *WoaS::CSS::Custom* page and [[Wiki::Help::CSS|edit them]] to suit your taste.
