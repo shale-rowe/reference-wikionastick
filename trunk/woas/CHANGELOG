@@ -1,4 +1,5 @@
 Version 0.12.0 (legolas558)
+* now using 'woas_nowiki' and 'woas_nowiki_multiline' to render nowiki syntax, coupled with <pre/> tag
 * fixed help pages browsing for Opera
 * only check for page title validity when renaming
 * addedd 'woas_' prefix to CSS classes for links
