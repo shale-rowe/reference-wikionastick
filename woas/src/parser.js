@@ -150,18 +150,20 @@ var	parse_marker = "#"+_random_string(8);
 woas._get_tags = function(text) {
 	var tags = [];
 	// remove the starting part
-	if (text.indexOf("Tag::")===0)
+	if (text.substr(0, 5) === "Tag::")
 		text = this.trim(text.substring(5));
-	else if (text.indexOf("Tags::")===0)
+	else if (text.substr(0,6)==="Tags::")
 		text = this.trim(text.substring(6));
 	else // not a valid tagging
 		return tags;
 	// check length only after having removed the part we don't need
 	if (!text.length)
 		return tags;
-	var alltags = this.split_tags(text);
+	var alltags = this.split_tags(text), tag;
 	for(var i=0;i < alltags.length;i++) {
-		tags.push(this.trim(alltags[i]));
+		tag = this.trim(alltags[i]);
+		if (tags.indexOf(tag)===-1)
+			tags.push(tag);
 	}
 	return tags;
 };
@@ -170,9 +172,9 @@ woas._get_tags = function(text) {
 // note: no trim applied
 woas.split_tags = function(tlist) {
 	var alltags;
-	if (tlist.indexOf("|")!=-1)
+	if (tlist.indexOf("|")!==-1)
 		return tlist.split("|");
-	else //DEPRECATED
+	else //DEPRECATED but still supported
 		return tlist.split(",");
 };
 
@@ -468,7 +470,7 @@ woas.parser.parse = function(text, export_links, js_mode) {
 
 	// links without pipe e.g. [[Page]]
 	text = text.replace(reWikiLinkSimple, function(str, $1) {
-		return woas.parser._render_wiki_link($1, $1, snippets, tags, export_links);
+		return woas.parser._render_wiki_link($1, null, snippets, tags, export_links);
 	});
 	
 	// allow non-wrapping newlines
@@ -615,7 +617,8 @@ woas.parser._render_wiki_link = function(arg1, label, snippets, tags, export_lin
 	// apply aliases to page title
 	var page = woas.title_unalias(arg1),
 		hashloc = page.indexOf("#"),
-		gotohash = "", r;
+		gotohash = "", r,
+		r_label = (label === null) ? page : label;
 
 	// check for protocol links
 	if (page.search(/^\w+:\/\//)===0) {
@@ -624,14 +627,17 @@ woas.parser._render_wiki_link = function(arg1, label, snippets, tags, export_lin
 		page = page.replace(reMailto, "mailto:");
 		// always give title attribute
 		snippets.push("<"+"a title=\""+woas.xhtml_encode(page)+"\" class=\"woas_world_link\" href=\"" + page +
-			"\" target=\"_blank\">" + label + "<\/a>");
+			"\" target=\"_blank\">" + r_label + "<\/a>");
 		return r;
 	}
 	
 	// check for tags definitions
-	var found_tags = woas._get_tags(page + "|"+label);
+	var found_tags = woas._get_tags((label === null) ? page : page+"|"+label);
 	if (found_tags.length > 0) {
-		tags = tags.concat(found_tags);
+		// do not use concat because 'tags' is passed byref
+		for(var i=0,it=found_tags.length;i<it;++i) {
+			tags.push(found_tags[i]);
+		}
 		if (!this.force_inline)
 			return "";
 		++this.inline_tags;
@@ -651,25 +657,25 @@ woas.parser._render_wiki_link = function(arg1, label, snippets, tags, export_lin
 	// create a title attribute only when page URI differs from page title
 	var _c_title = (page !== label) ? ' title="'+woas.xhtml_encode(page)+'"' : '';
 	if (hashloc === 0) { // section reference URIs
-		snippets.push("<"+"a"+_c_title+" class=\"woas_link\" href=\""+page+"\">" + label + "<\/a>");
+		snippets.push("<"+"a"+_c_title+" class=\"woas_link\" href=\""+page+"\">" + r_label + "<\/a>");
 	} else { // normal pages
 		if (woas.page_exists(page)) {
 			if (export_links) {
 				wl = woas.exporter._get_fname(page);
 				if (wl === '#') {
-					snippets.push("<"+"span class=\"woas_broken_link\">" + label + "<\/span>");
+					snippets.push("<"+"span class=\"woas_broken_link\">" + r_label + "<\/span>");
 					return r;
 				}
 				wl = " href=\""+wl+"\"";
 			} else
 				wl = " onclick=\"woas.go_to('" + woas.js_encode(page) +"')"+gotohash+"\"";
-			snippets.push("<"+"a"+_c_title+" class=\"woas_link\""+wl+">" + label + "<\/a>");
+			snippets.push("<"+"a"+_c_title+" class=\"woas_link\""+wl+">" + r_label + "<\/a>");
 		} else { // unexisting pages
 			if (export_links) {
-				snippets.push("<"+"span class=\"woas_broken_link\">" + label + "<\/span>");
+				snippets.push("<"+"span class=\"woas_broken_link\">" + r_label + "<\/span>");
 			} else {
 				wl = " onclick=\"woas.go_to('" +woas.js_encode(page)+"')\"";
-				snippets.push("<"+"a"+_c_title+" class=\"woas_unlink\" "+wl+">" + label + "<\/a>");
+				snippets.push("<"+"a"+_c_title+" class=\"woas_unlink\" "+wl+">" + r_label + "<\/a>");
 			}
 		}
 	} // not # at start of page
