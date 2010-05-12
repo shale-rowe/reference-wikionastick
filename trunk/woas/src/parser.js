@@ -393,14 +393,13 @@ woas.parser.parse = function(text, export_links, js_mode) {
 	}
 	
 	// take a backup copy of the macros, so that no new macros are defined after page processing
-	var backup_macro_n = woas.macro_parser.macro_names.slice(0),
-		backup_macro_f = woas.macro_parser.macro_functions.slice(0),
-		backup_hook = this.after_parse;
+	woas.macro.push_backup();
+	var	backup_hook = this.after_parse;
 	
 	// put away stuff contained in user-defined macro multi-line blocks
 	text = text.replace(reMacros, function (str, $1) {
 		// ask macro_parser to prepare this block
-		var macro = woas.macro_parser($1);
+		var macro = woas.macro.parser($1);
 		// allow further parser processing
 		if (macro.reprocess)
 			return macro.text;
@@ -596,8 +595,7 @@ woas.parser.parse = function(text, export_links, js_mode) {
 	if (this.force_inline)
 		this.force_inline = false;
 	// restore macros array
-	woas.macro_parser.macro_names = backup_macro_n;
-	woas.macro_parser.macro_functions = backup_macro_f;
+	woas.macro.pop_backup();
 
 	// trigger after_parse hook only when not defining any
 	if (this.after_parse === backup_hook) {

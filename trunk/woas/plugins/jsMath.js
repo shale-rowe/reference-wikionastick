@@ -85,4 +85,4 @@ woas.custom.jsMath = {
 //woas.custom.jsMath.init();
 
 // register the macro
-woas.macro_parser.register('woas.jsmath', woas.custom.jsMath._macro_hook);
+woas.macro.register('woas.jsmath', woas.custom.jsMath._macro_hook);
