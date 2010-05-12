@@ -1,34 +1,25 @@
-== 0.12.x development goals
 
-* allow UI customization at runtime
+== For 0.10.x
 
-* common import filtering & preview
+* "debug mode" option
 
-* check why Opera 10.53 (Windows) does not get a TiddlySaver applet definition
+* CSS inside a special page (better for export)
 
-* deprecate Special:: namespace in favor of WoaS:: namespace (where possible)
+* disallow pages with empty title
+** needs to be checked
 
-* attempt to use XHR to load files (not always a good idea: think about server scripts)
-
-* allow multiple external javascript sources in plugin pages starting with '@'
-
-* code documentation and modularization
-
-* have a page object for each page
-** this will optimize read operations because page objects will be passed by reference
-
-* finish implementation of WSIF datasource locking
+* editable hotkeys for various commands
 
 * XHTML compliance
-** rendering
-** export
+** seems OK
 
 * group operations on page lists (deletion, encryption, decryption etc.) maybe also with checkboxes
-** needs to be finished
+** possibly done?
+
+* possibility to delete an encrypted page even when password is not available (maybe through the group operations) (DONE)
 
 * icon themes (importing and changing of default graphics)
-** all icons should go into pages
-*** images/files without specific namespace
+** all icons should go into attachments
 
 * export of some special pages and namespace pages (almost complete)
 ** needs to be checked

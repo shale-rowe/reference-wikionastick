@@ -3,7 +3,7 @@
 ## WoaS compiler
 # @author legolas558
 # @copyright GNU/GPL license
-# @version 1.4.0
+# @version 1.3.0
 # 
 # run 'mkwoas.php woas.htm' to create a single-file version
 # from the multiple files version
@@ -11,55 +11,107 @@
 # 
 # woas=path/woas.htm		path to WoaS HTML file - defaults to woas.htm
 # wsif=path/index.wsif		path to pages data in WSIF format
+# log=[0|1|2]		0 - fully disable log, 1 - keep logging as is, 2 - enable all log lines
+# native_wsif=[0|1]	specify 1 to enable native WSIF saving, default is 0
 # edit_override=[0|1]	specify 1 to enable the edit override
 #
 
-/*** START OF FUNCTIONS BLOCK ***/
-function _script_replace($m) {
-	$orig = $m[0];
-	if (!preg_match_all('/src="([^"]+)"/', $m[0], $m)) {
-		fprintf(STDERR, "Could not find script sources\n");
-		return $orig;
-	}
-	$m = $m[1];
-	global $replaced, $base_dir;
-	$fullscript = '';
-	foreach($m as $scriptname) {
-		if (!file_exists($base_dir.$scriptname)) {
-			fprintf(STDERR, "Could not locate $base_dir".$scriptname."\n");
-			return $orig;
-		}
-		$ct = file_get_contents($base_dir.$scriptname);
-		// remove BOM if present
-		$ct = preg_replace('/\\x'.dechex(239).'\\x'.dechex(187).'\\x'.dechex(191).'/A', '', $ct);
-		//TODO: apply modifications to 'tweak' object here
+$woas = $wsif = null;
+$log = $edit_override = $native_wsif = false;
 
-		// check if this javascript contains any tag-similar syntax
-		// this will kill inline javascript for Opera, so we need to properly conceal those sequences
-		if (preg_match_all('!</?([A-Za-z]+)([^>]+)>!s', $ct, $m)) {
-			$tags = "";
-			reset($m[2]);
-			foreach($m[1] as $tag) {
-				$attrs = current($m[2]);
-				if (substr($attrs, 0, 1) != ';') {
-					$tags .= $tag.", ";
-				}
-				next($m[2]);
-			}
-			if (strlen($tags))
-				fprintf(STDERR, "%s: WARNING! found tag %s\n", $scriptname, $tags);
-		}
-		++$replaced;
-		echo "Replaced ".$scriptname."\n";
-		$fullscript .= "/*** ".$scriptname." ***/\n".$ct."\n";
+// parse the command line parameters
+for($i=1;$i<$argc;++$i) {
+	$a=explode('=', $argv[$i],2);
+	if (count($a)!=2 || !strlen($a[1])) {
+		echo "Invalid parameter: ".$argv[$i]."\n";
+		continue;
 	}
-	// return the script block
-	return '<script woas_permanent="1" language="javascript" type="text/javascript">'.
-		"\n/* <![CDATA[ */\n".$fullscript."\n/* ]]> */ </script>";
+	$v=$a[1];
+	switch ($a[0]) {
+		case 'woas':
+			if (!is_file($v)) {
+				fprintf(STDERR,"%s is not a valid file\n", $v);
+				continue 2;
+			}
+			$woas = $v;
+			break;
+		case 'wsif':
+			if (!is_file($v)) {
+				fprintf(STDERR,"%s is not a valid file\n", $v);
+				continue 2;
+			}
+			$wsif = $v;
+			break;
+		case 'log':
+			$log = $v?1:0;
+			break;
+		case 'edit_override':
+			$edit_override = $v?1:0;
+			break;
+		case 'native_wsif':
+			$edit_override = $v?1:0;
+			break;
+		default:
+			fprintf(STDERR, "Parameter \"%s\" is not recognized\n", $a[0]);
+	}
 }
 
+// default path
+if (!isset($woas))
+	$woas = 'woas.htm';
+if (!isset($wsif))
+	$wsif = 'index.wsif';
+
+$ct = file_get_contents($woas);
+
+if (!preg_match('/\\nvar __marker = "([^"]+)";/', $ct, $m)) {
+	fprintf(STDERR, "Could not find marker\n");
+	exit(-2);
+}
+
+$marker = $m[1];
+// locate marker end
+$p=strpos($ct, '/* '.$marker.'-END */');
+$ep = strpos($ct, '</head>', $p);
+
+$tail = substr($ct, $p, $ep-$p);
+
+global $replaced, $base_dir;
+$replaced=0;
+$base_dir = dirname($woas).'/';
+function _script_replace($m) {
+	global $replaced, $base_dir;
+	if (!file_exists($base_dir.$m[1])) {
+		fprintf(STDERR, "Could not locate $base_dir".$m[1]."\n");
+		return $m[0];
+	}
+	$ct = file_get_contents($base_dir.$m[1]);
+	// remove BOM if present
+	$ct = preg_replace('/\\x'.dechex(239).'\\x'.dechex(187).'\\x'.dechex(191).'/A', '', $ct);
+	//TODO: apply modifications now
+	++$replaced;
+	echo "Replaced ".$m[1]."\n";
+	return mkscript($ct, basename($m[1]));
+}
+
+function mkscript($ct, $desc = "") {
+	return '<script language="javascript" type="text/javascript">'.
+		"\n/* <![CDATA[ */\n".(strlen($desc) ? "/*** ".$desc." ***/\n" : "")
+		.$ct."\n/* ]]> */ </script>";
+}
+
+$tail = preg_replace_callback('/<script src=\"([^"]+)" type="text\\/javascript"><\\/script>/', '_script_replace', $tail);
+
+if (!$replaced) {
+	fprintf(STDERR, "ERROR: cannot find any external script to replace\n");
+	exit(-3);
+}
+
+// apply the custom settings
+$tail = preg_replace_callback("/woas\\[\"tweak\"\\]\\s*=\\s*\\{([^;]+);/s", '_replace_tweak_vars', $tail);
+
 function _replace_tweak_vars($m) {
-	return "woas.tweak = {".
+	return "woas[\"tweak\"] = {".
 		preg_replace_callback('/"([^"]+)"\\s*:\\s*(true|false)/', '_replace_tweak_vars_single', $m[1]).
 		";";
 }
@@ -70,15 +122,23 @@ function _replace_tweak_vars_single($m) {
 		case 'edit_override':
 			$v = $GLOBALS['edit_override'];
 		break;
-//		case 'native_wsif':
-//			$v = $GLOBALS['native_wsif'];
-//		break;
+		case 'native_wsif':
+			$v = $GLOBALS['native_wsif'];
+		break;
 		case 'integrity_test':
 			// always disable the integrity test
 			$v = false;
 	}
 	return '"'.$var.'": '.($v ? 'true' : 'false');
 }
+
+$ct = substr_replace($ct, $tail, $p, $ep-$p);
+
+// get the native pages data and convert them to javascript array data
+require dirname(__FILE__).'/libwsif.php';
+
+global $pages, $page_title,$page_attrs, $page_mts;
+$pages = $page_attrs = $page_titles = $page_mts = "";
 
 function _print_n($n, &$s) {
 	if ($n>=1000)
@@ -130,16 +190,19 @@ function _WSIF_get_page(&$WSIF, $title, &$page, $attrs, $mts) {
 	_print_n($mts, $page_mts);
 	// store title
 	$page_titles .= "'"._js_encode($WSIF, $title)."',\n";
-	// apply special replacements
-	if ($title === "Special::About") {
-		global $woas_ver;
-		$page = str_replace("@@WOAS_VERSION@@", $woas_ver, $page);
-	}
 	// store page data
 	_print_mixed($WSIF, $page, $attrs, $pages);
 	// all OK
 	return 0;
 }
+
+$WSIF = new WSIF();
+if (false === $WSIF->Load($wsif, '_WSIF_get_page'))
+	exit(-19);
+
+// put the data in the woas.htm file
+$ct = preg_replace_callback("/\nvar (page[^ ]+) = \\[(.*?)\\];/s", '_inline_vars_rep', $ct);
+unset($WSIF);
 
 function _inline_vars_rep($m) {
 	$var = $m[1];
@@ -162,131 +225,17 @@ function _inline_vars_rep($m) {
 	return $r;
 }
 
-function _woas_config_cb_single($m) {
-	switch ($m[1]) {
-		case "wsif_ds":
-			$v = "''";
-		break;
-		case "store_mts":
-		case "wsif_ds_multi":
-			$v = 'true';
-		default:
-			$v = $m[2];
-	}
-	return '"'.$m[1].'":'.$v;
-}
-
-function _woas_config_cb($m) {
-	return "woas[\"config\"] = {\n".
-		preg_replace_callback('/"([^"]+)"\\s*:\\s*([^,}]+)/', '_woas_config_cb_single', $m[1]).
-		"\n};\n";
-}
-
-/*** END OF FUNCTIONS BLOCK ***/
-
-// global variables initialization
-$woas = $wsif = null;
-$edit_override = false;
-
-// parse the command line parameters
-for($i=1;$i<$argc;++$i) {
-	$a=explode('=', $argv[$i],2);
-	if (count($a)!=2 || !strlen($a[1])) {
-		echo "Invalid parameter: ".$argv[$i]."\n";
-		continue;
-	}
-	$v=$a[1];
-	switch ($a[0]) {
-		case 'woas':
-			if (!is_file($v)) {
-				fprintf(STDERR,"%s is not a valid file\n", $v);
-				continue 2;
-			}
-			$woas = $v;
-			break;
-		case 'wsif':
-			if (!is_file($v)) {
-				fprintf(STDERR,"%s is not a valid file\n", $v);
-				continue 2;
-			}
-			$wsif = $v;
-			break;
-		case 'edit_override':
-			$edit_override = $v?1:0;
-			break;
-		default:
-			fprintf(STDERR, "Parameter \"%s\" is not recognized\n", $a[0]);
-	}
-}
-
-// default path
-if (!isset($woas))
-	$woas = 'woas.htm';
-if (!isset($wsif))
-	$wsif = 'index.wsif';
-
-$ct = file_get_contents($woas);
-
-if (!preg_match('/\\nvar __marker = "([^"]+)";/', $ct, $m)) {
-	fprintf(STDERR, "Could not find marker\n");
-	exit(-2);
-}
-
-// properly set default configuration variables
-$ct = preg_replace_callback("/woas\\[\"config\"\\]\\s*=\\s*\\{\\s*([^}]+)\\}/s", '_woas_config_cb', $ct);
-
-
 // get the version string
-global $woas_ver;
-if (!preg_match("/^var\\s+woas\\s*=\\s*\\{\\s*\"version\"\\s*:\\s*\"([^\"]+)\"\\s*\\}/m", $ct, $woas_ver)) {
+if (!preg_match("/^var\\s+woas\\s*=\\s*\\{\\s*\"version\"\\s*:\\s*\"([^\"]+)\"\\s*\\}/m", $ct, $ver)) {
 	fprintf(STDERR, "ERROR: cannot find WoaS version\n");
 	exit(-4);
 }
-$woas_ver = $woas_ver[1];
 
-$marker = $m[1];
-// locate marker end
-$p=strpos($ct, '/* '.$marker.'-END */');
-$ep = strpos($ct, '</head>', $p);
+$ver = $ver[1];
 
-$tail = substr($ct, $p, $ep-$p);
-
-global $replaced, $base_dir;
-$replaced=0;
-$base_dir = dirname($woas).'/';
-
-$tail = preg_replace_callback('/(<script woas_permanent=\"1\" src=\"[^"]+" type="text\\/javascript"><\\/script>\\s*)+/s', '_script_replace', $tail);
-
-if (!$replaced) {
-	fprintf(STDERR, "ERROR: cannot find any external script to replace\n");
-	exit(-3);
-}
-
-// apply the custom settings
-$tail = preg_replace_callback("/woas\\.tweak\\s*=\\s*\\{([^;]+);/s", '_replace_tweak_vars', $tail);
-
-$ct = substr_replace($ct, $tail, $p, $ep-$p);
-
-// replace the WoaS version string
-$ct = str_replace("@@WOAS_VERSION@@", $woas_ver, $ct);
-
-// get the native pages data and convert them to javascript array data
-require dirname(__FILE__).'/libwsif.php';
-
-global $pages, $page_title,$page_attrs, $page_mts;
-$pages = $page_attrs = $page_titles = $page_mts = "";
-
-$WSIF = new WSIF();
-if (false === $WSIF->Load($wsif, '_WSIF_get_page'))
-	exit(-19);
-
-// put the data in the woas.htm file
-$ct = preg_replace_callback("/\nvar (page[^ ]+) = \\[(.*?)\\];/s", '_inline_vars_rep', $ct);
-unset($WSIF);
-
-$ofile = 'woas-'.$woas_ver.'.html';
+$ofile = 'woas-'.$ver.'.htm';
 if (file_put_contents($ofile, $ct))
-	fprintf(STDOUT, "WoaS v%s merged into %s\n", $woas_ver, $ofile);
+	fprintf(STDOUT, "WoaS v%s merged into %s\n", $ver, $ofile);
 else
 	exit(-1);
 
