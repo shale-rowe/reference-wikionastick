@@ -1,47 +1,28 @@
 
-woas.browser = {
-	// browsers - when different from 'false' it contains the version string
-	ie: false, 
-	firefox: false,
-	opera: false,
-	safari: false,
-	chrome: false,
-	
-	// breeds - used internally, should not be used by external plugins
-	ie6: false, ie8: false,
-	firefox2: false,
-	firefox3: false, firefox_new: false,
-					
-	// engines - set to true when present
-	// gecko and webkit will contain the engine version
-	gecko: false, webkit: false, presto: false, trident: false
-};
+woas["debug"] = true;			// toggle debug mode (and console)
 
-// used to match browser version
-var m;
+//TODO: all variables should stay inside this object
+woas["browser"] = { ie: false, ie6: false, ie8: false,
+					firefox: false, firefox2: false,
+					firefox3: false, firefox_new: false,
+					opera: false, safari: false,
+					chrome: false
+				};
 
-if((navigator.userAgent).indexOf("Opera")!=-1) {
-	m = navigator.userAgent.match(/Opera\/(\S*)/);
-//	if (m && m[1])
-		woas.browser.opera = m[1];
-} else if (navigator.userAgent.indexOf("Chrome") != -1) {
-	// detect version
-	m = navigator.userAgent.match(/Chrome\/([^\s]+)/);
-//	if (m && m[1])
-		woas.browser.chrome = m[1];
-} else if (navigator.userAgent.toLowerCase().indexOf("applewebkit") != -1) {
-	// Safari never publicizes its version
-	woas.browser.safari = true;
-} else if(navigator.appName == "Netscape") {
+if((navigator.userAgent).indexOf("Opera")!=-1)
+	woas.browser.opera = true;
+else if (navigator.userAgent.indexOf("Chrome") != -1)
+	woas.browser.chrome = true;
+else if(navigator.appName == "Netscape") {
 	// check that it is Gecko first
-	woas.browser.firefox = woas.browser.gecko = (new RegExp("Gecko\\/\\d")).test(navigator.userAgent) ? true : false;
+	woas.browser.firefox = (new RegExp("Gecko\\/\\d+")).test(navigator.userAgent) ? true : false;
 	// match also development versions of Firefox "Shiretoko" / "Namoroka"
-	if (woas.browser.gecko) {
+	if (woas.browser.firefox) {
 		// match the last word of userAgent
-		m = navigator.userAgent.match(/rv:([^\s\)]*)/);
-//		if (m && m[1]) {
-			woas.browser.gecko = m[1];
-			switch (woas.browser.gecko.substr(3)) {
+		var gecko_ver = navigator.userAgent.match(/rv:(\d+\.\d+)/);
+		if (gecko_ver !== null) {
+			gecko_ver = gecko_ver[1];
+			switch (gecko_ver) {
 				case "1.8":
 					woas.browser.firefox2 = true;
 				break;
@@ -52,50 +33,35 @@ if((navigator.userAgent).indexOf("Opera")!=-1) {
 					// possibly Firefox4
 					woas.browser.firefox_new = true;
 			}
+		}
 	} // not Gecko
 } else if((navigator.appName).indexOf("Microsoft")!=-1) {
-	woas.browser.ie8 = document.documentMode ? true : false;
+	woas.browser.ie = true;
+	woas.browser.ie8 = (navigator.userAgent.search(/msie 8\./i)!=-1);
 	if (!woas.browser.ie8)
-		woas.browser.ie6 = window.XMLHttpRequest ? false : true;
-	// detect version
-	m = navigator.userAgent.match(/MSIE\s([^;]*)/);
-//	if (m && m[1])
-		woas.browser.ie = m[1];
+		woas.browser.ie6 = (navigator.userAgent.search(/msie 6\./i)!=-1);
+} else if (navigator.userAgent.indexOf("applewebkit") != -1) {
+	woas.browser.safari = true;
 }
 
 // finds out if Opera is trying to look like Mozilla
-if (woas.browser.firefox && (navigator.product != "Gecko")) {
-	woas.browser.firefox = woas.browser.firefox2
-	= woas.browser.firefox3 = woas.browser.firefox_new = false;
-	if (typeof window.opera != "undefined")
-		woas.browser.opera = true;
-}
+if (woas.browser.firefox && (navigator.product != "Gecko"))
+	woas.browser.firefox = woas.browser.firefox2 = woas.browser.firefox3
+							woas.browser.firefox_new = false;
 
 // finds out if Opera is trying to look like IE
-if (woas.browser.ie && (typeof window.opera != "undefined")) {
-	woas.browser.ie = woas.browser.ie6 = woas.browser.ie8 = false;
-	woas.browser.opera = true;
-}
-
-// detect engine type
-if (woas.browser.ie)
-	woas.browser.trident = true;
-else if (woas.browser.chrome || woas.browser.safari) {
-	m = navigator.userAgent.match(/AppleWebKit\/(\S*)/);
-//    if (m && m[1])
-		woas.browser.webkit = m[1];
-} else if (woas.browser.opera)
-	woas.browser.presto = true;
+if (woas.browser.ie && woas.browser.opera)
+	woas.browser.ie = false;
 
 var is_windows = (navigator.appVersion.toLowerCase().indexOf("windows")!=-1);
 
-woas._server_mode = (document.location.toString().match(/^file:\/\//) ? false:true);
+woas["_server_mode"] = (document.location.toString().match(/^file:\/\//) ? false:true);
 
 // set to true if we need Java-based file load/save
-woas.use_java_io = woas.browser.chrome || woas.browser.opera || woas.browser.safari;
+woas["use_java_io"] = woas.browser.chrome || woas.browser.opera || woas.browser.safari;
 
 // returns the DOM element object given its id - enables a try/catch mode when debugging
-if (woas.config.debug_mode) {
+if (woas.debug) {
 	// returns the DOM element object given its id, alerting if the element is not found (but that would never happen, right?)
 	function $(id){ try{return document.getElementById(id);}catch(e){alert("ERROR: $('"+id+"') invalid reference");} }
 } else {
@@ -103,73 +69,67 @@ if (woas.config.debug_mode) {
 	function $(id){return document.getElementById(id);}
 }
 
-$.hide = function(id) {
+$["hide"] = function(id) {
 	$(id).style.display = "none";
 	$(id).style.visibility = "hidden";
-};
+}
 
-$.show = function(id) {
+$["show"] = function(id) {
 	$(id).style.display = "inline";
 	$(id).style.visibility = "visible";
-};
+}
 
-$.hide_ni = function(id) {
+$["hide_ni"] = function(id) {
 	$(id).style.visibility = "hidden";
-};
+}
 
-$.show_ni = function(id) {
+$["show_ni"] = function(id) {
 	$(id).style.visibility = "visible";
-};
+}
 
-$.is_visible = function(id) {
+$["is_visible"] = function(id) {
 	return !!($(id).style.visibility == 'visible');
-};
+}
 
-$.toggle = function(id) {
+$["toggle"] = function(id) {
 	if ($.is_visible(id))
 		$.hide(id);
 	else
 		$.show(id);
-};
+}
 
-$.clone = function(obj) {
+$["clone"] = function(obj) {
 	var nobj = {};
 	for (var i in obj) {
 		nobj[i] = obj[i];
 	}
 	return nobj;
-};
+}
 
 // logging function has not to be in WoaS object
-if (woas.config.debug_mode) {
+var log;
+if (woas.debug) {
 	// logging function - used in development
-	woas.log = function (aMessage) {
-	    var logbox = $("woas_debug_log");
+	log = function (aMessage) {
+	    var logbox = $("woas_log");
 	    // count lines
-	    if (!woas.tweak.integrity_test) {
-			nls = logbox.value.match(/\n/g);
-			// log maximum 1024 lines
-			if (nls!=null && typeof(nls)==='object' && nls.length>1024)
-				logbox.value = "";
-		}
+		nls = logbox.value.match(/\n/g);
+		// log maximum 1024 lines
+		if (nls!=null && typeof(nls)=='object' && nls.length>1024)
+			logbox.value = "";
 		logbox.value += aMessage + "\n";
-		// keep the log scrolled down
-		logbox.scrollTop = logbox.scrollHeight;
 		if(window.opera)
 			opera.postError(aMessage);
 	};
 } else {
-	woas.log = function(aMessage) { };
+	log = function(aMessage) { };
 }
-
-//DEPRECATED but still supported
-var log = woas.log;
 
 // fixes the Array prototype for older browsers
 if (typeof Array.prototype.push == "undefined") {
   Array.prototype.push = function(str) {
     this[this.length] = str;
-  };
+  }
 }
 
 // the following methods complete the Array object for non-compliant browsers
@@ -186,7 +146,7 @@ if (typeof Array.prototype.splice == "undefined") {
       this[this.length] = temp[i];
     }
     return this;
-  };
+  }
 }
 
 if (typeof Array.prototype.indexOf == "undefined") {
@@ -195,7 +155,7 @@ if (typeof Array.prototype.indexOf == "undefined") {
 		for (var index = fromIndex,len = this.length; index < len; index++)
 			if (this[index] == val) return index;
 		return -1;
-	};
+	}
 }
 
 // implements a custom function which returns an array with unique elements - deprecated
@@ -203,7 +163,7 @@ Array.prototype.toUnique = function() {
 	var a_o = {}, new_arr = [];
 	var l=this.length;
 	for(var i=0; i<l;i++) {
-		if (a_o[this[i]]===undefined) {
+		if (a_o[this[i]]==null) {
 			a_o[this[i]] = true;
 			new_arr.push(this[i]);
 		}
@@ -211,7 +171,7 @@ Array.prototype.toUnique = function() {
 	if (new_arr.length!=l)
 		return new_arr;
 	return this;
-};
+}
 
 // provide regex escaping
 // thanks to S.Willison
@@ -223,7 +183,7 @@ RegExp.escape = function(text) {
     );
   }
   return text.replace(arguments.callee.sRE, '\\$1');
-};
+}
 
 // repeat string s for n times
  if (typeof String.prototype.repeat == "undefined") {
@@ -231,7 +191,7 @@ RegExp.escape = function(text) {
 		var r = "";
 		while (--n >= 0) r += this;
 		return r;
-	};
+	}
 }
 
 // return a random integer given the maximum value (scale)
@@ -243,7 +203,7 @@ function _rand(scale) {
 function _random_string(string_length) {
 	var chars = "ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
 	var randomstring = '';
-	for (var i=0; i < string_length; i++) {
+	for (var i=0; i<string_length; i++) {
 		var rnum = _rand(chars.length);
 		randomstring += chars.charAt(rnum);
 	}
@@ -278,7 +238,7 @@ String.prototype.sprintf = function() {
 		// return '%s' string
 		return fmt_args[i_pos++];
 	});
-};
+}
 
 // get filename of currently open file in browser
 function _get_this_filename() {
@@ -301,146 +261,10 @@ function _get_this_filename() {
 			if (filename.match(/^\\\w:\\/))
 				filename = filename.substr(1);
 			if (filename.charAt(1)!=':') {
-				if (woas.browser.ie)
+				if (ie)
 					filename = "\\\\"+filename;
 			}
 		}
 	}
 	return filename;
-}
-
-function ff_fix_focus() {
-//runtime fix for Firefox bug 374786
-	if (woas.browser.firefox)
-		$("wiki_text").blur();
-}
-
-if (is_windows) {
-	var reFwdSlash = new RegExp("/", "g");
-	woas.fix_path_separators = function(path) {
-		return path.replace(reFwdSlash, woas.DIRECTORY_SEPARATOR);
-	};
-} else { // UNIX or similar, no path change
-	woas.fix_path_separators = function(path) {
-		return path;
-	};
-}
-
-woas.strcmp = function ( str1, str2 ) {
-    // http://kevin.vanzonneveld.net
-    // +   original by: Waldo Malqui Silva
-    // +      input by: Steve Hilder
-    // +   improved by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
-    // +    revised by: gorthaur
-
-    return ( ( str1 == str2 ) ? 0 : ( ( str1 > str2 ) ? 1 : -1 ) );
-}
-
-woas.__strnatcmp_split = function ( f_string ) {
-        var result = [];
-        var buffer = '';
-        var chr = '';
-        var i = 0, f_stringl = 0;
-
-        var text = true;
-
-        f_stringl = f_string.length;
-        for (i = 0; i < f_stringl; i++) {
-            chr = f_string.substring(i, i + 1);
-            if (chr.match(/\d/)) {
-                if (text) {
-                    if (buffer.length > 0){
-                        result[result.length] = buffer;
-                        buffer = '';
-                    }
-
-                    text = false;
-                }
-                buffer += chr;
-            } else if ((text == false) && (chr == '.') && (i < (f_string.length - 1)) && (f_string.substring(i + 1, i + 2).match(/\d/))) {
-                result[result.length] = buffer;
-                buffer = '';
-            } else {
-                if (text == false) {
-                    if (buffer.length > 0) {
-                        result[result.length] = parseInt(buffer, 10);
-                        buffer = '';
-                    }
-                    text = true;
-                }
-                buffer += chr;
-            }
-        }
-
-        if (buffer.length > 0) {
-            if (text) {
-                result[result.length] = buffer;
-            } else {
-                result[result.length] = parseInt(buffer, 10);
-            }
-        }
-
-        return result;
-    };
-
-
-
-woas.strnatcmp = function( f_string1, f_string2 ) {
-    // http://kevin.vanzonneveld.net
-    // +   original by: Martijn Wieringa
-    // + namespaced by: Michael White (http://getsprink.com)
-    // +    tweaked by: Jack
-    // +   bugfixed by: Onno Marsman
-
-    var i = 0;
-
-    var array1 = this.__strnatcmp_split(f_string1+'');
-    var array2 = this.__strnatcmp_split(f_string2+'');
-
-    var len = array1.length;
-    var text = true;
-
-    var result = -1;
-    var r = 0;
-
-    if (len > array2.length) {
-        len = array2.length;
-        result = 1;
-    }
-
-    for (i = 0; i < len; i++) {
-        if (isNaN(array1[i])) {
-            if (isNaN(array2[i])) {
-                text = true;
-
-                if ((r = this.strcmp(array1[i], array2[i])) != 0) {
-                    return r;
-                }
-            } else if (text){
-                return 1;
-            } else {
-                return -1;
-            }
-        } else if (isNaN(array2[i])) {
-            if (text) {
-                return -1;
-            } else{
-                return 1;
-            }
-        } else {
-            if (text){
-                if ((r = (array1[i] - array2[i])) != 0) {
-                    return r;
-                }
-            } else {
-                if ((r = this.strcmp(array1[i].toString(), array2[i].toString())) != 0) {
-                    return r;
-                }
-            }
-
-            text = false;
-        }
-    }
-
-    return result;
 }

@@ -1,43 +1,44 @@
 
-woas.wiki_buttons_display = function (v) {
+woas["wiki_buttons_display"] = function (v) {
 	$('wiki_format_buttons').style.display = v ? 'block' : 'none';
 	$('wiki_format_buttons').style.visibility = v ? 'visible' : 'hidden';
-};
+}
 
-woas.html_buttons_display = function (v) {
+woas["html_buttons_display"] = function (v) {
 	$('html_format_buttons').style.display = v ? 'block' : 'none';
 	$('html_format_buttons').style.visibility = v ? 'visible' : 'hidden';
-};
+}
 
 // submitted by pr0xy
+
 function TextAreaSelectionHelper(obj) {
-	this.target=obj;
-	this.target.carretHandler=this; // ?
-	this.target.onchange=_textareaSaver;
-	this.target.onclick=_textareaSaver;
-	this.target.onkeyup=_textareaSaver;
-	this.target.onfocus=_textareaSaver;
+ this.target=obj;
+ this.target.carretHandler=this; // ?
+ this.target.onchange=_textareaSaver;
+ this.target.onclick=_textareaSaver;
+ this.target.onkeyup=_textareaSaver;
+ this.target.onfocus=_textareaSaver;
 // blurring handler disabled until META features are researched more
 // this.target.onblur=kbd_blur;
-	if(!document.selection) this.target.onSelect=_textareaSaver; // ?
+ if(!document.selection) this.target.onSelect=_textareaSaver; // ?
  
-	this.start=-1;
-	this.end=-1;
-	this.scroll=-1;
-	this.iesel=null;
+ this.start=-1;
+ this.end=-1;
+ this.scroll=-1;
+ this.iesel=null; // ?
 }
 
 TextAreaSelectionHelper.prototype.getSelectedText=function() {
 	if(this.iesel)
 		return this.iesel.text;
 	// Fixes a problem in FF3 where the selection was not being stored in this.start and this.end when selecting multilines
-	this.start = $("woas_editor").selectionStart;
-	this.end = $("woas_editor").selectionEnd;
-	return ((this.start>=0)&&(this.end>this.start))? this.target.value.substring(this.start,this.end): "";
-};
+	this.start = $("wiki_editor").selectionStart;
+	this.end = $("wiki_editor").selectionEnd;
+	return (this.start>=0&&this.end>this.start)? this.target.value.substring(this.start,this.end): "";
+}
 
 TextAreaSelectionHelper.prototype.setSelectedText=function(text, secondtag) {
-	if(this.iesel) {
+ if(this.iesel) {
 	if(typeof(secondtag)=="string") {
 	  var l=this.iesel.text.length;
 		 this.iesel.text=text+this.iesel.text+secondtag;
@@ -66,15 +67,14 @@ TextAreaSelectionHelper.prototype.setSelectedText=function(text, secondtag) {
    this.target.value+=text + ((typeof(secondtag)=="string")? secondtag: "");
 if(this.scroll>=0) this.target.scrollTop=this.scroll;
  }
-};
+}
 
 TextAreaSelectionHelper.prototype.getText=function() {
  return this.target.value;
-};
-
+}
 TextAreaSelectionHelper.prototype.setText=function(text) {
  this.target.value=text;
-};
+}
 
 function _textareaSaver() {
  if(document.selection) {
@@ -86,8 +86,8 @@ this.carretHandler.scroll=this.scrollTop;
  } else {this.carretHandler.start=this.carretHandler.end=-1;}
 }
 
-function DivTagThis(align) {
-	TagThis('<'+'div align="'+align+'">', '<'+'/div>');
+function	DivTagThis(align) {
+	TagThis('<div align="'+align+'">', '</div>');
 }
 
 function TagThis(starttag, endtag){
@@ -95,7 +95,7 @@ function TagThis(starttag, endtag){
 }
 
 function FullTagThis(tag){
-	woas._editor.setSelectedText('<'+tag+'>','<'+'/'+tag+'>');
+	woas._editor.setSelectedText('<'+tag+'>','</'+tag+'>');
 }
 
 function setUrl(starttag,centertag,endtag) {
@@ -118,20 +118,8 @@ function setWikiUrl() {
 	setUrl('[[','|',']]');
 }
 
-function setWikiIUrl() {
-	var url=prompt('Wiki page to link to:','');
-	if (url===null) return;
-	var comm=prompt('Link text:', url);
-	if (comm===null) return;
-	if (comm == url)
-		woas._editor.setSelectedText('[['+url+']]');
-	else
-		woas._editor.setSelectedText('[['+url+'|',comm+']]');
-
-}
-
 function setHTMLUrl() {
-	setUrl('<'+'a href=\'','\' target=_blank>','<'+'/a>');
+	setUrl('<a href=\'','\' target=_blank>','</a>');
 }
 
 function setImage(starttag,endtag) {
@@ -143,5 +131,5 @@ function setImage(starttag,endtag) {
 function setTag() {
         var tag=prompt('Set tag:','');
 	if (tag!==null)
-	woas._editor.setSelectedText("[[Tags::",tag+"]]");
+	woas._editor.setSelectedText("[[Tag::",tag+"]]");
 }
