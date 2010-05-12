@@ -23,6 +23,22 @@ function _new_syntax_patch(text) {
 	return text;
 }
 
+woas._fix_mts_val = function(mts, old_version) {
+	// we did not have a timestamp there
+	if (old_version < 100)
+		return this.current_mts;
+	// will catch the 'undefined' ones
+	if (!mts)
+		return 0;
+	// fixup the mts value in some old buggy version
+	if ((old_version===100) || (old_version===101)) {
+		// ignore the old null value
+		if (mts === 0x4b61cbad)
+			mts = 0;
+	}
+	return mts;
+};
+
 /* NOTES ABOUT BACKWARD IMPORT SUPPORT
 		0.12.0:
 			* introduced some config options: new_tables_syntax, store_mts, folding_style
@@ -156,7 +172,7 @@ woas.import_wiki = function() {
 	var new_main_page = this.config.main_page,
 		page_contents = [],
 		old_page_attrs = [],
-		old_page_mts = [],
+		old_page_mts,
 		pc = 0,
 		i, il, pi,
 		imported_css = null,
@@ -246,7 +262,7 @@ woas.import_wiki = function() {
 	data = null;
 
 	// modified timestamp for pages before 0.10.0
-	var current_mts = Math.round(new Date().getTime()/1000);
+	woas.current_mts = Math.round(new Date().getTime()/1000);
 	
 	// **** COMMON IMPORT CODE ****
 	if (import_content) {
@@ -345,10 +361,10 @@ woas.import_wiki = function() {
 				page_titles.push(page_names[i]);
 				pages.push(page_contents[i]);
 				page_attrs.push( old_page_attrs[i] );
-				if (old_version < 100)
-					page_mts.push( this.config.store_mts ? current_mts : 0);
+				if (!this.config.store_mts)
+					page_mts.push(0);
 				else
-					page_mts.push( this.config.store_mts ? old_page_mts[i] : 0);
+					page_mts.push( woas._fix_mts_val(old_page_mts[i], old_version) );
 			} else { // page already existing
 //				log("replacing "+page_names[i]);	//log:0
 				page_titles[pi] = page_names[i];
@@ -425,7 +441,7 @@ woas.import_wiki = function() {
 		page_titles.push(chosen_name);
 		pages.push("/* This JavaScript code was automatically imported by WoaS from your former WoaS::Bootscript */\n"+bootscript_code);
 		page_attrs.push( 0 );
-		page_mts.push( this.config.store_mts ? current_mts : 0);
+		page_mts.push( this.config.store_mts ? woas.current_mts : 0);
 		log("Old bootscript code has been saved in "+chosen_name);
 	}
 	
