@@ -10,7 +10,7 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-<<<%codeblock:
+<<<%my.codeblock:
 // codeblock sample macro by legolas558
 
 // count the number of newlines
@@ -18,10 +18,9 @@ var nl=0;
 macro.text.replace(/\n/g, function() { ++nl; });
 
 macro.text = '<strong>Code:</strong><br /><textarea style="border: 0px; color: black; background-color: #FAFAAC" wrap="off" rows="'+nl+'" cols="80" disabled="disabled">'+woas.xhtml_encode(macro.text)+"</textarea>";
-
 >>>
 
-<<<codeblock:
+<<<my.codeblock:
 this is a code block
 >>>
 --DFQRCTsKlU
