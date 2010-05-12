@@ -149,4 +149,4 @@ woas.custom.shjs = {
 woas.custom.shjs.init();
 
 // register the macro
-woas.macro_parser.register('woas.shjs', woas.custom.shjs._macro_hook);
+woas.macro.register('woas.shjs', woas.custom.shjs._macro_hook);
