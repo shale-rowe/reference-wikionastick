@@ -706,7 +706,7 @@ woas.set_current = function (cr, interactive) {
 								if (this.plugins.is_external) {
 									text = this.plugins.describe_external(text);
 								} else
-									text = this._raw_preformatted('div', text, 'woas_nowiki_multiline woas_core_page');
+									text = this._raw_preformatted('div', text, 'woas_core_page woas_nowiki woas_nowiki_multiline');
 							}
 						} else {
 							text = this.get_text(real_t);
@@ -721,7 +721,7 @@ woas.set_current = function (cr, interactive) {
 									case "CSS::Boot":
 									case "CSS::Custom":
 										// page is stored plaintext
-										text = this._raw_preformatted('div', text, 'woas_nowiki_multiline woas_core_page');
+										text = this._raw_preformatted('div', text, 'woas_core_page woas_nowiki woas_nowiki_multiline');
 									break;
 									default:
 										// help pages and related resources

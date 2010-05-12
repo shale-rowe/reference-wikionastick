@@ -768,7 +768,7 @@ woas._search_load = function() {
 		results = results.replace(this._hl_marker_rx, function(str, i) {
 			var r="",count=0;
 			for(var a=0,at=woas._cached_body_search[i].matches.length;a<at;++a) {
-				r += "<"+"pre class=\"woas_search_results wiki_preformatted\">" +
+				r += "<"+"pre class=\"woas_nowiki woas_search_results\">" +
 						// apply highlighting
 						woas._cached_body_search[i].matches[a].replace(woas._reLastSearch, function(str, $1) {
 							++count;
@@ -994,7 +994,7 @@ woas.css.get(): returns currently set CSS (string:valid CSS)
 */
 //FIXME: could be part of woas.ui object
 woas.css = {
-	FF2: "\n.wiki_preformatted { white-space: -moz-pre-wrap !important; }\n",
+	FF2: "\n.woas_nowiki { white-space: -moz-pre-wrap !important; }\n",
 	
 	// TODO: replace with factory function for just this browser
 	set: function(css, raw) {

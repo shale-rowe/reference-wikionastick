@@ -200,26 +200,25 @@ woas.parser.place_holder = function (i, separator) {
 
 // create a preformatted block ready to be displayed
 woas._make_preformatted = function(text, add_style) {
-	var cls, tag, p = text.indexOf("\n");
+	var cls = "woas_nowiki", tag, p = text.indexOf("\n");
 	if (p === -1) {
-		cls = "wiki_preformatted";
 		tag = "tt";
 	} else {
 		// remove the first newline to be compliant with old parsing
 		if (p===0)
 			text = text.substr(1);
-		cls = "woas_nowiki_multiline";
-		tag = "div";
+		cls += " woas_nowiki_multiline";
+		tag = "pre";
 	}
 	return this._raw_preformatted(tag, text, cls, add_style);
 };
 
 woas._raw_preformatted = function(tag, text, cls, add_style) {
 	var xhtml = this.xhtml_encode(text);
-	// convert the newlines
+	// convert the newlines - not necessary with pre tags
 //	if (this.browser.ie)		xhtml = xhtml.replace(/\n/g, "\r\n");
 	// to ease copy/pasting
-	xhtml = xhtml.replace(/\n/g, "<"+"br />");
+//	xhtml = xhtml.replace(/\n/g, "<"+"br />");
 	if (typeof add_style != "undefined")
 		add_style = " style=\""+add_style+"\"";
 	else add_style = "";
