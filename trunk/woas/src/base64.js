@@ -1,6 +1,6 @@
 woas.base64 = {
-	_b64arr = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=":
-	reValid = /^[A-Za-z0-9+\/=]+$/,
+	_b64arr: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",
+	reValid: /^[A-Za-z0-9+\/=]+$/,
 	
 	_core_encode: function(c1, c2, c3) {
 		var enc1, enc2, enc3, enc4;
