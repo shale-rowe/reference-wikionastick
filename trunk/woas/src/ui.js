@@ -755,26 +755,29 @@ woas._search_load = function() {
 		} else
 			results = "/No results found for *"+woas.xhtml_encode(woas._last_search)+"*/";
 
-		// position cursor back in search box
-		$("string_to_search").focus();
 	}
+
+	// position cursor back in search box
+	$("string_to_search").focus();
 	
-	// parse results before applying syntax highlighting
-	woas.parser.force_inline = true;
-	results = woas.parser.parse( results );
-	
-	results = results.replace(this._hl_marker_rx, function(str, i) {
-		var r="",count=0;
-		for(var a=0,at=woas._cached_body_search[i].matches.length;a<at;++a) {
-			r += "<"+"pre class=\"woas_search_results wiki_preformatted\">" +
-					// apply highlighting
-					woas._cached_body_search[i].matches[a].replace(woas._reLastSearch, function(str, $1) {
-						++count;
-							return '<'+'span class="woas_search_highlight">'+$1+'<'+'/span>';
-					})+"\n<"+"/pre>";
-		}
-		return " found <"+"strong>"+count+"<"+"/strong> times: "+r;
-	});
+	if (results.length) {
+		// parse results before applying syntax highlighting
+		woas.parser.force_inline = true;
+		results = woas.parser.parse( results );
+		
+		results = results.replace(this._hl_marker_rx, function(str, i) {
+			var r="",count=0;
+			for(var a=0,at=woas._cached_body_search[i].matches.length;a<at;++a) {
+				r += "<"+"pre class=\"woas_search_results wiki_preformatted\">" +
+						// apply highlighting
+						woas._cached_body_search[i].matches[a].replace(woas._reLastSearch, function(str, $1) {
+							++count;
+								return '<'+'span class="woas_search_highlight">'+$1+'<'+'/span>';
+						})+"\n<"+"/pre>";
+			}
+			return " found <"+"strong>"+count+"<"+"/strong> times: "+r;
+		});
+	}
 	
 	// finally output XHTML content
 	woas.setHTML($('woas_search_results'), results);
