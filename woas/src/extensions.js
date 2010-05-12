@@ -659,7 +659,7 @@ woas.macro = {
 		if (real_params.length)
 			other_params = ","+real_params.join(",");
 		else other_params = "";
-		var obj = woas.eval("function "+fn_name+"(macro"+other_params+") {\n"+fn_code+"\n}", true);
+		var obj = woas.eval("function (macro"+other_params+") {\n"+fn_code+"\n}", true);
 		if (woas.eval_failed) {
 			log("cannot define function "+fn_name+": "+woas.eval_fail_msg); //log:1
 			return false;
