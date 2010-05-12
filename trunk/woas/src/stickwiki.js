@@ -618,7 +618,7 @@ woas.eval = function(code, return_value) {
 // Load a new current page
 // return true if page needs to be saved in history, false otherwise
 woas.set_current = function (cr, interactive) {
-	this.log("Setting current page to \""+cr+"\"");	//log:1
+//	this.log("Setting current page to \""+cr+"\"");	//log:0
 	var text, namespace, pi;
 	result_pages = [];
 	// eventually remove the previous custom script
