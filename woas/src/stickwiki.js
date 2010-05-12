@@ -492,7 +492,7 @@ woas._get__embedded = function (cr, pi, etype) {
 			_del_lbl = "\n\n<"+"a href=\"javascript:query_delete_file('"+this.js_encode(cr)+"')\">"+this.i18n.DELETE_FILE+"<"+"/a>\n";
 		else
 			_del_lbl = "";
-		xhtml = "<"+"pre id='_file_ct' class=\"embedded\">"+this.xhtml_encode(pview_data)+"<"+"/pre>"+
+		xhtml = "<"+"pre id='_file_ct' class=\"woas_embedded\">"+this.xhtml_encode(pview_data)+"<"+"/pre>"+
 				pview_link+"<"+"br /><"+"hr />"+this.i18n.FILE_SIZE+": "+_convert_bytes(ext_size)+
 				"<"+"br />" + this.last_modified(this.config.store_mts ? page_mts[pi] : 0)+
 				"<"+"br /><"+"br />XHTML transclusion:"+this.parser.parse("\n{{{[[Include::"+cr+"]]}}}"+
@@ -508,7 +508,7 @@ woas._get__embedded = function (cr, pi, etype) {
 				(this.config.store_mts ? page_mts[pi] : 0 ) +
 				")\");"+
 		"<"+"/script>"+
-		"<"+"img id=\"img_tag\" class=\"embedded\" src=\""+text+"\" alt=\""+this.xhtml_encode(img_name)+"\" />"+
+		"<"+"img id=\"img_tag\" class=\"woas_embedded\" src=\""+text+"\" alt=\""+this.xhtml_encode(img_name)+"\" />"+
 		"\n\n<"+"div id=\"img_desc\">"+this.i18n.LOADING+"<"+"/div>"+
 		"\nSimple transclusion:\n\n{{{[[Include::"+cr+"]]}}}\n\nTransclusion with additional attributes:\n\n{{{[[Include::"+cr+"|border=\"0\" onclick=\"go_to('"+
 		this.js_encode(cr)+"')\" style=\"cursor:pointer\"]]}}}\n"+

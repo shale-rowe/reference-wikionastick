@@ -4037,6 +4037,7 @@ div.woas_taglinks > a:hover {
 /* MISCELLANEOUS                               */
 /* ------------------------------------------- */
 .woas_embedded {
+	background-color: #9E9EFF;
 }
 .woas_listing_options {
 	background-color: #AACCBB;
