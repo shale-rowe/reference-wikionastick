@@ -203,8 +203,7 @@ woas.erase_wiki = function() {
 	pages = pages.concat(backup_pages); backup_pages = null;
 	current = this.config.main_page;
 	this.refresh_menu_area();
-	backstack = [];
-	forstack = [];
+	this.history.clear();
 	// reload all extensions
 	this._load_aliases(this.get_text("WoaS::Aliases"));
 	this._load_hotkeys(this.get_text("WoaS::Hotkeys"));
@@ -321,32 +320,106 @@ woas.delete_page_i = function(i) {
 	pages.splice(i,1);
 	page_attrs.splice(i,1);
 	page_mts.splice(i,1);
-	// remove the deleted page from history
-	var prev_page = null;
-	for(i=0,il=backstack.length;i < il;++i) {
-		// remove also duplicate sequences
-		if ((backstack[i] === old_title) || (prev_page === backstack[i])) {
-			backstack.splice(i,1);
-			// fix the loop
-			--il;--i;
-			continue;
-		}
-		prev_page = backstack[i];
-	}
-	//TODO: delete also from forstack!
+	// be sure that this page is no more in history
+	this.history.check_deleted(old_title);
 	// if we were looking at the deleted page
-	if (current === old_title) {
-		// go back or to main page, do not save history
-		if(backstack.length > 0) {
-			this.set_current(backstack.pop(), true);
-		} else
-			this.set_current(this.config.main_page);
-	}
+	if (current === old_title)
+		// go to an existing page
+		this.set_current(this.history.previous(), true);
 	// always refresh the menu because it could contain the deleted page link
 	this.refresh_menu_area();
 	//TODO: send proper save notification
 	return this.commit_delete([i]);
 };
+
+woas.history = {
+	backstack: [],
+	forstack: [],			// forward history stack, discarded when saving
+	
+	check_deleted: function(old_title) {
+		// remove the deleted page from history
+		for(var i=0,it=this.backstack.length;i < it;++i) {
+			// remove also duplicate sequences
+			if (this.backstack[i] === old_title) {
+				this.backstack.splice(i, 1);
+				// fix the loop
+				--it;
+				// iterate again to remove duplicate sequences
+				--i;
+			}
+		}
+		// delete also from forstack
+		for(var i=0,it=this.forstack.length;i < it;++i) {
+			// remove also duplicate sequences
+			if (this.forstack[i] === old_title) {
+				this.forstack.splice(i,1);
+				// fix the loop
+				--it;
+				// iterate again to remove duplicate sequences
+				--i;
+			}
+		}
+		//TODO: remove subsequent duplicates in final array
+	},
+	
+	previous: function() {
+		// go back or to main page, do not save history
+		if (this.backstack.length > 0) {
+			return this.backstack.pop();
+		} else
+			return woas.config.main_page;
+	},
+	
+	back: function() {
+		if(this.backstack.length > 0) {
+			this.forstack.push(current);
+			return this.backstack.pop()
+		}
+		woas.log("No back history");
+		return null;
+	},
+	
+	has_forstack: function() {
+		return (this.forstack.length > 0);
+	},
+	has_backstack: function() {
+		return (this.backstack.length > 0);
+	},
+	
+	_forward_browse: false,	// used when browsing forward in the page queue
+	
+	MAX_BROWSE_HISTORY: 6,
+	
+	go: function(title) {
+		if (!this._forward_browse) {
+			this.store(title);
+			// reset forward stack
+			this.forstack = [];
+		} else this._forward_browse = false;
+	},
+	
+	// push a page into history
+	store: function(page) {
+		if (this.backstack.length > this.MAX_BROWSE_HISTORY)
+			this.backstack = this.backstack.slice(1);
+		this.backstack.push(page);
+	},
+	
+	forward: function() {
+		if(this.forstack.length > 0)
+			return this.forstack.pop();
+		woas.log("No forward history");
+		return null;
+	},
+	
+	clear: function() {
+		this.forstack = [];
+		this.backstack = [];
+	}
+
+};
+
+woas.history.backstack = backstack;
 
 // some general integrity tests - for debug purposes
 woas.integrity_test = function() {

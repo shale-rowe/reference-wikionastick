@@ -140,7 +140,7 @@ woas.plugins = {
 				return;
 			}
 			// parse the symbol if that browser token is active and version matches
-			if (woas.browser[browser_str] ) {
+			if (woas.browser[browser_str]) {
 				// make a version check only if necessary
 				var its_ok = false;
 				if (version.length !== 0) {
