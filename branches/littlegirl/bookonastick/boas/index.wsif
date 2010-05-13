@@ -70,7 +70,7 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 <div style="float:right; margin-top:10px; margin-right:5px; margin-bottom:20px; margin-left:20px;">[[Include::Wiki::Template::Logo]]</div>
 = Book on a Stick v1.0 (under development)
-Write a book in one self-contained file that runs entirely in your browser and can be kept on portable media in your pocket. This page is all you need! See the [[Help::Getting started|Getting started]] page to learn how this wiki works, or click the [[Include::Wiki::Template::Icon::Edit]] icon in the banner to replace this content with the beginning of your masterpiece.
+Write a book in one self-contained file that runs entirely in your browser and can be kept on portable media in your pocket. This page is all you need! Click the [[Include::Wiki::Template::Icon::Help]] icon in the banner for help with wiki functions.
 
 == Features:
 * Accepts [[http://en.wikipedia.org/wiki/Plain_text|plain text]], [[Tagged::Syntax|internal wiki syntax]], [[http://www.w3schools.com/html/default.asp|HTML]], [[http://www.w3schools.com/js/default.asp|JavaScript]], and some [[http://www.wikicreole.org/wiki/|Creole 0.1]].
@@ -98,7 +98,7 @@ Write a book in one self-contained file that runs entirely in your browser and c
 * See the latest changes [[Wiki::History|here]].
 
 == Licensing
-Book on a Stick is licensed under the [[Special::License|GNU GPL v2]].
+Book on a Stick is licensed under the [[Special::License|GNU General Public License version 2]].
 
 == Requirements:
 * Firefox 1.5
@@ -1909,7 +1909,7 @@ The *Chrome*, *Opera*, and *Safari* browsers must have Java enabled and require 
 * Firefox (and possibly other browsers, too) cannot save to filenames containing UTF8 characters. Use Unix-style filenames instead.
 * Internet Explorer 6 does not allow a fixed menu.
 * Internet Explorer 6 and 7 do not support embedded images (that's why you will not see button icons).
-* Internet Explorer does not allow saving to a network path in the form /\\machine\share\bookonastick.htm/. To use this wiki over a network with Internet Explorer, map network paths to network drives.
+* Internet Explorer does not allow saving to a network path in the form {{{\\machine\share\bookonastick.htm}}}. To use this wiki over a network with Internet Explorer, map network paths to network drives.
 === TiddlySaver Java applet use
 <sub>original text by J.Ruston, 13 August 2007 (created 21 August 2006)</sub>
 <sub>modified by Daniele C. on 29 September 2007</sub>
@@ -2717,8 +2717,8 @@ woas.page.boundary: DFQRCTsKlU
 	background-color: pink;
 	border: 0.063em groove #AA3;
 	font-size: 80%;
-	margin-top: 0em;
-	margin-bottom: 0em;
+	margin-top: 0;
+	margin-bottom: 0;
 	padding-top: 0.188em;
 	padding-right: 0.313em;
 	padding-bottom: 0.188em;
@@ -2730,10 +2730,10 @@ div.wiki_header {
 	background-color: gainsboro;
 	border-top: 0.188em solid grey;
 	border-bottom: 0.188em solid grey;
-	left: 0em;
+	left: 0;
 	/* opacity: .65; */ 
 	padding-right: 0.75em;
-	top: 0em;
+	top: 0;
 	width: 99.9%;
 	z-index: 1;
 	}
@@ -2743,8 +2743,8 @@ div.wiki_header {
 	display: inline;
 	font-size: 2em;
 	font-weight: bold;
-	margin-top: 0em;
-	margin-bottom: 0em;
+	margin-top: 0;
+	margin-bottom: 0;
 	text-shadow: #888 0.13em 0.13em 0.065em;
 	} 
 
@@ -2855,17 +2855,23 @@ body {
 	font-size: 0.55em;
 	font-style: italic;
 	line-height: 1em;
-	text-decoration: underline;
+	text-decoration: none;
 	vertical-align: super;
 	}
 
 /*FOOTNOTES - CONTAINER*/
+.footnotecontainer:before {
+	content: "Footnotes";
+	display: block;
+	text-align: center;
+	}
 .footnotecontainer {
 	background-color: #EEEEFF;
+	border: 0.125em solid mediumblue;
 	font-size: 0.75em;
 	font-style: italic;
 	line-height: 1em;
-	margin-top: 0em;
+	margin-top: 0;
 	vertical-align: super;
 	}
 
@@ -3706,6 +3712,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Removed the *Help::Edit the menu* page.
 ** Removed the *Help::Erase all pages* page.
 ** Removed the *Help::Export* page.
+** Removed the *Help::Getting started* page.
 ** Removed the *Help::Headers* page.
 ** Removed the *Help::Include text file* page.
 ** Removed the *Help::Include web page* page.
@@ -3969,7 +3976,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the *Help::Edit the menu* page.
 ** Updated the [[Help::Encrypt a page]] page.
 ** Updated the *Help::Footer* page.
-** Updated the [[Help::Getting started]] page.
+** Updated the *Help::Getting started* page.
 ** Updated the *Help::Headers* page.
 ** Updated the *Help::Horizontal rules (lines)* page.
 ** Updated the [[Help::Images]] page, adding instructions for how to write an include link to use the *Template::Image gallery*.
@@ -4761,39 +4768,6 @@ To change all of the contents in the footer rather than just the text:
 # Save the file.<br><br>
 # Close the text editor.
 
---DFQRCTsKlU
-woas.page.title: Help::Getting started
-woas.page.attributes: 0
-woas.page.encoding: 8bit/plain
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-= Getting started
-* The first time you save a change to this wiki, your browser will ask for permission to save data to the disk. This is normal and necessary for the wiki to make changes to itself.
-
-* [[Wiki::Help::Backup|Back up this wiki]].
-
-* [[Wiki::Help::Cancel any action|Cancel any action]].
-
-* [[Wiki::Help::Change wiki settings|Change the settings]].
-
-* [[Help::Page creation|Create a page]].
-
-* [[Help::Delete a page|Delete a page]].
-
-* [[Help::Edit a page|Edit a page]].
-
-* [[Help::CSS|Edit the CSS]].
-
-* [[Help::Edit the menu|Edit the menu]].
-
-* [[Help::|Get lots of help]].
-
-* [[Help::Syntax|Learn the syntax]].
-
-* [[Wiki::Help::Navigation|Navigate in this wiki]].
-[[Tags::Help]]
 --DFQRCTsKlU
 woas.page.title: Wiki::Help::Horizontal rules (lines)
 woas.page.attributes: 0
@@ -6505,8 +6479,6 @@ Punctuation and some HTML syntax(((This footnote uses HTML <b>bold</b>, <i>itali
 Line breaks (newlines) can be inserted with HTML tags or by pressing the *Enter* key(((This footnote is on multiple lines.
 
 The *Enter* key was pressed twice above this sentence.))) and splitting the footnote content over multiple lines in the editor.
-
-The look of footnotes can be styled by changing the footnote entry in the [[Help::CSS|global CSS settings]].
 
 Footnotes can be styled by copying their [[WoaS::CSS::Core|core CSS rules]], pasting them into the [[WoaS::CSS::Custom|custom CSS rules]] page, and then changing the rules to suit your taste. Your custom CSS rules will override the core rules.
 
