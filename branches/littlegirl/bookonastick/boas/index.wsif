@@ -163,13 +163,12 @@ If you're seeing this, then BoaS is in a state of transition as it merges with W
 * Some [[Special::]] pages have unfamiliar content.
 * The BoaS editor buttons are missing.
 * The [[Help::]] namespace is showing up in page listings while I merge the contents of the pages with the pages in the [[Wiki::Help::]] namespace.
+* There is a WoaS logo in the upper left corner.
 * The separate fixed menu and fixed banner options are missing.
 * The [[Wiki::]] namespace is showing up in page listings. This is normal during development. Those pages will become reserved pages before release.
 * The [[WoaS::]] namespace is showing up in page listings so that I can hopefully rename them as [[Wiki::]] pages.
 * The word count button is broken.
-I apologize for any inconvenience and I appreciate your patience.&nbsp;&nbsp;&nbsp;<img src="data:image/png;base64,R0lGODlhBgAFAIABAAAAAP///yH5BAEAAAEALAAAAAAGAAUAAAIJDGJ4ic1qgAwFADs=" width="2%" height="2%">
-<!-- [[Include::Special::About]] -->
-<!-- Delete all of the text in the main text area of this page and replace it with whatever you like. You can click the About button in the menu to see the welcome page again at any time. -->
+I apologize for any inconvenience and I appreciate your patience.&nbsp;&nbsp;<span style="color:#FF00FF; font-size:175%;">&#x263A;</span>
 
 --DFQRCTsKlU
 woas.page.title: Special::Search
@@ -3271,7 +3270,8 @@ pre {
 	border: 0.063em solid grey;
 	color: black;
 	font-family: monospace;
-	padding: 0.375em;
+	padding-right: 0.27em;
+	padding-left: 0.27em;
 	white-space: -moz-pre-wrap !important;
 	}
 /*RAW TEXT BLOCKS - HTML - CSS 3*/
@@ -3280,7 +3280,8 @@ pre {
 	border: 0.063em solid grey;
 	color: black;
 	font-family: monospace;
-	padding: 0.375em;
+	padding-right: 0.27em;
+	padding-left: 0.27em;
 	white-space: pre-wrap;
 	} */
 /*RAW TEXT BLOCKS - HTML - OPERA 4-6*/
@@ -3289,7 +3290,8 @@ pre {
 	border: 0.063em solid grey;
 	color: black;
 	font-family: monospace;
-	padding: 0.375em;
+	padding-right: 0.27em;
+	padding-left: 0.27em;
 	white-space: -pre-wrap;
 	} */
 /*RAW TEXT BLOCKS - HTML - OPERA 7*/
@@ -3298,7 +3300,8 @@ pre {
 	border: 0.063em solid grey;
 	color: black;
 	font-family: monospace;
-	padding: 0.375em;
+	padding-right: 0.27em;
+	padding-left: 0.27em;
 	white-space: -o-pre-wrap;
 	} */
 /*RAW TEXT BLOCKS - HTML - IE 5.5+*/
@@ -3307,7 +3310,8 @@ pre {
 	border: 0.063em solid grey;
 	color: black;
 	font-family: monospace;
-	padding: 0.375em;
+	padding-right: 0.27em;
+	padding-left: 0.27em;
 	word-wrap: break-word;
 	} */
 
@@ -3674,6 +3678,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 
 === Version 1.0 (under development)
 * _Interface:_
+** Added comments for the *Go to top* button in the source code.
 ** Added CSS styling to remove the gap below the banner when in the editor.
 ** Added the *Duplicate page* button to the menu.
 ** Added the *Go to* button to the menu.
@@ -3730,6 +3735,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Renamed the *Help::Cancel any action* page to [[Wiki::Help::Cancel any action]].
 ** Renamed the *Help::Change wiki settings* page to [[Wiki::Help::Change wiki settings]].
 ** Renamed the *Help::Code blocks (preformatted text)* page to [[Wiki::Help::Raw text]].
+** Renamed the *Help::Footer* page to [[Wiki::Help::Footer]].
 ** Renamed the *Help::Footnotes* page to [[Wiki::Help::Footnotes]].
 ** Renamed the *Help::Horizontal rules (lines)* page to [[Wiki::Help::Horizontal rules (lines)]].
 ** Renamed the *Help::Navigation* page to [[Wiki::Help::Navigation]].
@@ -3858,7 +3864,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the [[Help::Encrypt a page]] page.
 ** Updated the *Help::Export* page.
 ** Updated the [[Help::Folds]] page, adding instructions for *Foldaway*.
-** Updated the [[Help::Footer]] page.
+** Updated the *Help::Footer* page.
 ** Updated the [[Help::Images]] page.
 ** Updated the *Help::Import* page.
 ** Updated the *Help::Include text file* page.
@@ -3962,7 +3968,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the *Help::Edit a page* page.
 ** Updated the *Help::Edit the menu* page.
 ** Updated the [[Help::Encrypt a page]] page.
-** Updated the [[Help::Footer]] page.
+** Updated the *Help::Footer* page.
 ** Updated the [[Help::Getting started]] page.
 ** Updated the *Help::Headers* page.
 ** Updated the *Help::Horizontal rules (lines)* page.
@@ -4032,7 +4038,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the *Help::Code blocks (preformatted text)* page.
 ** Updated the *Help::CSS* page.
 ** Updated the *Help::Edit the menu* page.
-** Updated the [[Help::Footer]] page.
+** Updated the *Help::Footer* page.
 ** Updated the [[Help::Images]] page.
 ** Updated the *Help::Include web page* page.
 ** Updated the *Help::Include wiki page* page.
@@ -4100,7 +4106,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Removed the *spoiler* content from the *Help::Text formatting* page.
 ** Removed the *Utility::Creative Commons License* page.
 ** Removed the *Word count button* page.
-** Renamed the *Help::Footers* page to [[Help::Footer]].
+** Renamed the *Help::Footers* page to *Wiki::Help::Footer*.
 ** Renamed the *Help::Page tags* page to *Help::Tags*.
 ** Renamed the *Links for writers* page to *Utility::Links for writers*.
 ** Renamed the [[Main Page]] to *Main page* (changing its case).
@@ -4113,7 +4119,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the *Help::Delete a page* page.
 ** Updated the *Help::Edit the menu* page, adding the *Add expanding menu entries* section.
 ** Updated the *Help::Erase all pages* page.
-** Updated the [[Help::Footer]] page.
+** Updated the *Help::Footer* page.
 ** Updated the *Help::Headers* page.
 ** Updated the [[Help::Images]] page with instructions on how to use the image embedding interface, which has been fixed by [[http://woas.iragan.com/viewtopic.php?id=561|FBnil]].
 ** Updated the *Help::Include web page* page.
@@ -4708,7 +4714,7 @@ The [[Wiki::Example::Encrypted page]] can be opened by using *test* as the passw
 [[Tags::Help]]
 
 --DFQRCTsKlU
-woas.page.title: Help::Footer
+woas.page.title: Wiki::Help::Footer
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -4726,34 +4732,34 @@ The footer is a section beneath the main text area in which you can put content 
 # Save your changes by clicking on the [[Include::Wiki::Template::Icon::Save]] icon in the banner.
 
 == Change the contents of the footer
+You can change the text that's displayed in the footer at the bottom of every page by editing the wiki code:
 # Open this wiki in a text editor.
 # Scroll all the way to the bottom of the file.
-# Find the section that begins with {{{<!-- Begin your content here -->}}} and ends with {{{<!-- End your content here -->}}}.
+# Find the section that begins with {{{<!-- Begin your footer content here -->}}} and ends with {{{<!-- End your footer content here -->}}}.
 # Replace the content *between* those sections with whatever you'd like to see in the footer.
 # Save the file.
 # Close the text editor.
-# Open the wiki and use normally.
+To change all of the contents in the footer rather than just the text:
+# Open this wiki in a text editor.
+# Scroll all the way to the bottom of the file.
+# Find the section that begins with {{{<!-- BEGIN FOOTER -->}}}. and ends with {{{<!-- END FOOTER -->}}}.
+# Replace the content between the {{{<div class="woas_about_footer">}}} and {{{</div>}}} tags inside that section with whatever you'd like to see in the footer.
+# Save the file.
+# Close the text editor.
 
 == Disable the footer
 # Open this wiki in a text editor.<br><br>
 # Scroll to the bottom of the file.<br><br>
-# Find this section:{{{
+# Find this section:<br><br>{{{
 <!-- BEGIN FOOTER -->
-}}}
-# Replace it with this section:{{{
-<!-- BEGIN FOOTER --><!-- 
-}}}
-# Find this section:{{{
+}}}<br>
+# Replace it with this section:<br><pre>&lt;!-- BEGIN FOOTER --&gt;&lt;!-- </pre>
+# Find this section:<br><br>{{{
 <!-- END FOOTER -->
-}}}
-# Replace it with this section:{{{
---><!-- END FOOTER -->
-}}}
+}}}<br>
+# Replace it with this section:<br><pre>--&gt;&lt;!-- END FOOTER --&gt;</pre>
 # Save the file.<br><br>
-# Close the text editor.<br><br>
-# Open the wiki and use normally.
-
-[[Tags::Help|Syntax]]
+# Close the text editor.
 
 --DFQRCTsKlU
 woas.page.title: Help::Getting started
