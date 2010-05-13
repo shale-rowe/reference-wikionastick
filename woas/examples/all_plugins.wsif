@@ -3,14 +3,17 @@ wsif.generator: woas
 woas.version: 0.12.0
 woas.author: legolas558
 
-woas.page.title: Main Page
+woas.page.title: Example::All plugins
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-An example of plugins usage:
+An example of plugins usage.
+The below plugins are used:
+* [[WoaS::Plugin::@jsMath]]
+* [[WoaS::Plugin::@syntaxHL]]
 
 [[Math page]]
 

@@ -170,7 +170,7 @@ woas._native_wsif_save = function(path, src_fname, locking, single_wsif, inline_
 			if (!this.save_file(path + blob_fn,
 							(encoding === "8bit/plain") ?
 							this.file_mode.BINARY : this.file_mode.ASCII_TEXT, ct))
-				log("Could not save "+blob_fn);	//log:1
+				woas.log("Could not save "+blob_fn);	//log:1
 			// release any lock held previously
 			if (locking)
 				this.locks.release(path+blob_fn);
@@ -403,7 +403,7 @@ woas._native_wsif_load = function(path, locking, overwrite, and_save, recursing,
 				// ignored for now
 			break;
 			default:
-				log("Unknown WSIF header: "+s);	//log:1
+				woas.log("Unknown WSIF header: "+s);	//log:1
 		} // end switch(s)
 		if (fail)
 			break;

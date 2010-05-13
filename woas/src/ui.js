@@ -126,21 +126,22 @@ function back_or(or_page) {
 
 // when Back button is clicked
 function go_back() {
-	if(backstack.length > 0) {
-		forstack.push(current);
-		woas._forward_browse = true;
-		return woas.set_current(backstack.pop(), true);
-	}
-	return false;
+	var p = woas.history.back();
+	if (p === null)
+		return false;
+	woas.history._forward_browse = true;
+	return woas.set_current(p, true);
 }
 
 // when Forward button is clicked
 function go_forward() {
-	if(forstack.length > 0) {
-		var _b_current = current;
-		if (woas.set_current(forstack.pop(), true))
-			history_mem(_b_current);
-	}
+	var _b_current = current,
+		p = woas.history.forward();
+	if (p === null)
+		return false;
+	return woas.set_current(p, true)
+//	if (woas.set_current(p, true))
+//		woas.history.store(_b_current);
 }
 
 // when cancel is clicked
@@ -796,8 +797,8 @@ function _servm_alert() {
 }
 
 woas.update_nav_icons = function(page) {
-	this.menu_display("back", (backstack.length > 0));
-	this.menu_display("forward", (forstack.length > 0));
+	this.menu_display("back", this.history.has_backstack());
+	this.menu_display("forward", this.history.has_forstack());
 	this.menu_display("advanced", (page != "Special::Advanced"));
 	this.menu_display("edit", this.edit_allowed(page));
 	this.update_lock_icons(page);

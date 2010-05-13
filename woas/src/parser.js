@@ -252,7 +252,7 @@ woas.parser.parse = function(text, export_links, js_mode) {
 		comments = [],
 		r;
 	
-	// put away comments
+	// put away XHTML-style comments
 	text = text.replace(reComments, function (str, comment) {
 		// skip whitespace comments
 		if (comment.match(/^\s+$/))
@@ -273,6 +273,22 @@ woas.parser.parse = function(text, export_links, js_mode) {
 			});
 		}
 		snippets.push(woas._make_preformatted($1));
+		return r;
+	});
+
+	// take a backup copy of the macros, so that no new macros are defined after page processing
+	woas.macro.push_backup();
+	
+	// put away stuff contained in user-defined macro multi-line blocks
+	text = text.replace(reMacros, function (str, $1) {
+		// ask macro_parser to prepare this block
+		var macro = woas.macro.parser($1);
+		// allow further parser processing
+		if (macro.reprocess)
+			return macro.text;
+		r = woas.parser.place_holder(snippets.length);
+		// otherwise store it for later
+		snippets.push(macro.text);
 		return r;
 	});
 	
@@ -368,6 +384,19 @@ woas.parser.parse = function(text, export_links, js_mode) {
 						snippets.push(woas._make_preformatted($1));
 						return r;
 					});
+
+					// put away stuff contained in user-defined macro multi-line blocks
+					text = text.replace(reMacros, function (str, $1) {
+						// ask macro_parser to prepare this block
+						var macro = woas.macro.parser($1);
+						// allow further parser processing
+						if (macro.reprocess)
+							return macro.text;
+						r = woas.parser.place_holder(snippets.length);
+						// otherwise store it for later
+						snippets.push(macro.text);
+						return r;
+					});
 				
 					 if (parts.length) { // replace transclusion parameters
 						templtext = templtext.replace(/%\d+/g, function(str) {
@@ -393,22 +422,7 @@ woas.parser.parse = function(text, export_links, js_mode) {
 		}
 	}
 	
-	// take a backup copy of the macros, so that no new macros are defined after page processing
-	woas.macro.push_backup();
 	var	backup_hook = this.after_parse;
-	
-	// put away stuff contained in user-defined macro multi-line blocks
-	text = text.replace(reMacros, function (str, $1) {
-		// ask macro_parser to prepare this block
-		var macro = woas.macro.parser($1);
-		// allow further parser processing
-		if (macro.reprocess)
-			return macro.text;
-		r = woas.parser.place_holder(snippets.length);
-		// otherwise store it for later
-		snippets.push(macro.text);
-		return r;
-	});
 	
 	if (js_mode) {
 		// reset the array of custom scripts for the correct target

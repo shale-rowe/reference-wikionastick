@@ -1,4 +1,3 @@
-var forstack = [];			// forward history stack, discarded when saving
 var cfg_changed = false;	// true when configuration has been changed
 var result_pages = [];			// the pages indexed by the last result page
 var last_AES_page;				// the last page on which the cached AES key was used on
@@ -14,9 +13,6 @@ woas._asto = null;
 
 // title of page being rendered
 woas.render_title = null;
-
-// used when browsing forward in the page queue
-woas._forward_browse = false;
 
 // previous length of WSIF datasource
 woas._old_wsif_ds_len = null;
@@ -818,10 +814,9 @@ woas.load_as_current = function(title, xhtml, mts) {
 	this.refresh_mts(mts);
 
 	this._set_title(title);
-	if (!this._forward_browse) {
-		history_mem(current);
-		forstack = [];
-	} else this._forward_browse = false;
+	
+	this.history.go(current);
+	
 	this.update_nav_icons(title);
 	current = title;
 	// active menu or page scripts
@@ -1042,7 +1037,7 @@ woas._load_hangup_check = function(first) {
 }
 	
 woas._early_render = function() {
-	woas._forward_browse = true; // used to not store backstack
+	woas.history._forward_browse = true; // used to not store backstack
 	woas.set_current(current, true);
 	woas.refresh_menu_area();
 	// feed the current title before running the disable edit mode code
@@ -1359,13 +1354,6 @@ woas.save = function() {
 	if (!null_save)
 		this.save_page(saved);
 };
-
-// push a page into history
-function history_mem(page) {
-	if (backstack.length>6)
-		backstack = backstack.slice(1);
-	backstack.push(page);
-}
 
 woas.save_page = function(title) {
 	return this.save_page_i(this.page_index(title));
