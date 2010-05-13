@@ -329,9 +329,11 @@ horizontal rulers using only 3 hyphens}}}</span>
 You are invited to use at least 4 hyphens
 }}}
 == Tags
-<span class="bad_syntax">{{{[[Tags::some tag, some other tag]] and [[Tag::some tag]]}}}</span>
+<span class="bad_syntax">{{{[[Tag::some tag|other tag|another tag]]}}}</span>
+This syntax does not support transclusion of Tagged:: namespace; still supported but deprecated.
 
-<span class="good_syntax">{{{[[Tags::some tag|other tag|another tag]]}}}</span>
+<span class="good_syntax">{{{[[Tag::some tag, some other tag]] and [[Tag::some tag]]}}}</span>
+
 == Inline scripts
 <span class="bad_syntax">{{{<script>...</script>}}}</span>
 
@@ -1187,7 +1189,7 @@ In order to edit pages, click the *Edit* icon in the navigation bar. You can fin
 | # || Insert the wiki syntax for a numbered list item.
 | @ || Insert the wiki syntax for an alphanumeric list item.
 | Ruler || Insert a ruler (horizontal line). Use this at the beginning of any line.
-| Tags || Interface for inserting tags in your page to categorize it. Use a pipe between multiple tags.
+| Tags || Interface for inserting tags in your page to categorize it. Use a comma between multiple tags.
 |}
 
 *Note:* it's recommended to use wiki syntax instead of XHTML syntax, because this is a wiki.
@@ -1539,7 +1541,7 @@ Some namespaces are reserved by the wiki for its own internal use or for specifi
 * *::Menu* for sub-menus
 * *Special::* for all the special pages
 * *Tagged::* for all the tagged pages
-* *Tag::*, *Tags::* for tagging pages
+* *Tag::* for tagging pages
 * *Unlock::* used internally for encrypted pages
 * *Unlocked::* for plain (unencrypted) pages
 * *WoaS::* for core WoaS pages
@@ -1673,7 +1675,7 @@ Tags are used to group pages by categories/features/topics so they can easily be
 
 Tags can be placed anywhere on a page, but choosing a standard location like the bottom of the page makes them easier to find and edit as your wiki grows.
 
-Tag a page by using a {{{[[Tag::tag1]]}}} link, adding the tag name or names after the double colons; multiple tags should be separated with pipes.
+Tag a page by using a {{{[[Tag::tag1]]}}} link, adding the tag name or names after the double colons; multiple tags should be separated with commas.
 
 You can also use the *Tag* button in the editor.
 
@@ -1688,20 +1690,20 @@ You can also use the *Tag* button in the editor.
 <div class="woas_helptext">To add a tag to your page.</div>
 === Add more than one tag to a page (method 1)
 # Click the *Tags* button in the editor.<br><br>
-# Type in names for the tags, separating each from the one before it with a pipe. For example:<br><br><div class="woas_helptext">Use this code in a page, replacing EXAMPLE1, EXAMPLE2, and EXAMPLE3 with the names of the tags you'd like to add:</div><br><div class="woas_helpcode">[<!-- -->[T<!-- -->ags::EX<!-- -->AMPLE1|EX<!-- -->AMPLE2|EX<!-- -->AMPLE3]<!-- -->]</div><br><div class="woas_helptext">To add three tags to your page.</div><br>
+# Type in names for the tags, separating each from the one before it with a comma. For example:<br><br><div class="woas_helptext">Use this code in a page, replacing EXAMPLE1, EXAMPLE2, and EXAMPLE3 with the names of the tags you'd like to add:</div><br><div class="woas_helpcode">{{{[[Tag::EXAMPLE1, EXAMPLE2, EXAMPLE3]]}}}</div><br><div class="woas_helptext">To add three tags to your page.</div><br>
 # Click the *OK* button.
 
 === Add more than one tag to a page (method 2)
-To use more than one tag on a page, use one tag link and add as many tags as you like, separating each from the one before it with a pipe. For example: {{{[[Tags::Recipes|Chocolate|Layered cakes]]}}}.
+To use more than one tag on a page, use one tag link and add as many tags as you like, separating each from the one before it with a comma. For example: {{{[[Tag::Recipes, Chocolate, Layered cakes]]}}}.
 
 === Choosing tag names
-Tag names are case sensitive. For example: {{{[[Tags::Recipes]]}}} and {{{[[Tags::recipes]]}}} are two different tags.
+Tag names are case sensitive. For example: {{{[[Tag::Recipes]]}}} and {{{[[Tag::recipes]]}}} are two different tags.
 
-Tag names can be more than one word long with a space between each word. For example: {{{[[Tags::Layered cakes]]}}}.
+Tag names can be more than one word long with a space between each word. For example: {{{[[Tag::Layered cakes]]}}}.
 
 === Add a link to tagged pages
 <div class="woas_helptext">Use this code in a page, replacing EXAMPLE with the tag you'd like to use:</div>
-<div class="woas_helpcode">[<!-- -->[Tagged::EXAMPLE]<!-- -->]</div>
+<div class="woas_helpcode">{{{[[Tagged::EXAMPLE]]}}}</div>
 <div class="woas_helptext">To create a listing of pages tagged with EXAMPLE.</div>
 
 === Add a filtered link to tagged pages

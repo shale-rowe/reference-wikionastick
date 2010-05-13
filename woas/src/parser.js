@@ -155,9 +155,10 @@ woas._get_tags = function(text) {
 	// remove the starting part
 	if (text.substr(0, 5) === "Tag::")
 		text = this.trim(text.substring(5));
-	else if (text.substr(0,6)==="Tags::")
+	else if (text.substr(0,6)==="Tags::") {
+		woas.log("Using deprecated 'Tags' namespace");
 		text = this.trim(text.substring(6));
-	else // not a valid tagging
+	} else // not a valid tagging
 		return tags;
 	// check length only after having removed the part we don't need
 	if (!text.length)
@@ -174,11 +175,10 @@ woas._get_tags = function(text) {
 // split one or more tags
 // note: no trim applied
 woas.split_tags = function(tlist) {
-	var alltags;
-	if (tlist.indexOf("|")!==-1)
-		return tlist.split("|");
-	else //DEPRECATED but still supported
+	if (tlist.indexOf(",")!==-1)
 		return tlist.split(",");
+	//DEPRECATED but still supported
+	return tlist.split("|");
 };
 
 var reScripts = new RegExp("<"+"script([^>]*)>([\\s\\S]*?)<"+"\\/script>", "gi"),
@@ -190,7 +190,8 @@ var reScripts = new RegExp("<"+"script([^>]*)>([\\s\\S]*?)<"+"\\/script>", "gi")
 	reWikiLink = /\[\[([^\]\]]*?)\|(.*?)\]\]/g,
 	reWikiLinkSimple = /\[\[([^\]]*?)\]\]/g,
 	reMailto = /^mailto:\/\//,
-	reCleanupNewlines = new RegExp('((<\\/h[1-6]><'+'div class="woas_level[1-6]">)|(<\\/[uo]l>))(\n+)', 'g');
+	reCleanupNewlines = new RegExp('((<\\/h[1-6]><'+'div class="woas_level[1-6]">)|(<\\/[uo]l>))(\n+)', 'g'),
+	reNestedComment = new RegExp("<\\!-- "+parse_marker+":c:(\\d+) -->");
 
 woas.parser.place_holder = function (i, separator) {
 	if (typeof separator == "undefined")
@@ -266,9 +267,9 @@ woas.parser.parse = function(text, export_links, js_mode) {
 	text = text.replace(reNowiki, function (str, $1) {
 		r = woas.parser.place_holder(snippets.length);
 		if (comments.length) {
-			$1 = $1.replace(new RegExp("<\\!-- "+parse_marker+":c:(\\d+) -->", "g"), function (str, $1) {
+			$1 = $1.replace(reNestedComment, function (str, $1) {
 				var c=comments[$1];
-				comments[$1] = "";
+				comments[$1] = null;
 				return c;
 			});
 		}
@@ -300,11 +301,11 @@ woas.parser.parse = function(text, export_links, js_mode) {
 		do {
 			trans = 0;
 			text = text.replace(reTransclusion, function (str, $1) {
-				var parts = $1.split("|");
-				var templname = parts[0];
+				var parts = $1.split("|"),
+					templname = parts[0],
+					is_emb = false, templtext, ns=woas.get_namespace(templname, true);
 //				log("Transcluding "+templname+"("+parts.slice(0).toString()+")");	// log:0
 				// in case of embedded file, add the inline file or add the image
-				var is_emb = false, templtext, ns=woas.get_namespace(templname, true);
 				if (woas.is_reserved(templname) || (templname.substring(templname.length-2)=="::"))
 					templtext = woas.get_text_special(templname);
 				else {
@@ -375,9 +376,9 @@ woas.parser.parse = function(text, export_links, js_mode) {
 					templtext = templtext.replace(reNowiki, function (str, $1) {
 						r = woas.parser.place_holder(snippets.length);
 						if (comments.length) {
-							$1 = $1.replace(new RegExp("<\\!-- "+parse_marker+":c:(\\d+) -->", "g"), function (str, $1) {
+							$1 = $1.replace(reNestedComment, function (str, $1) {
 								var c=comments[$1];
-								comments[$1] = "";
+								comments[$1] = null;
 								return c;
 							});
 						}
@@ -456,7 +457,7 @@ woas.parser.parse = function(text, export_links, js_mode) {
 	
 	// put a placeholder for the TOC
 	var p = text.indexOf("[[Special::TOC]]");
-	if (p != -1) {
+	if (p !== -1) {
 		this.has_toc = true;
 		text = text.substring(0, p) + "<!-- "+parse_marker+":TOC -->" + text.substring(p+16
 //		+ 	((text.charAt(p+16)=="\n") ? 1 : 0)
@@ -475,7 +476,7 @@ woas.parser.parse = function(text, export_links, js_mode) {
 	var tags = [],
 		wl, url;
 	this.inline_tags = 0;
-		
+	
 	// links with pipe e.g. [[Page|Title]]
 	text = text.replace(reWikiLink, function(str, $1, $2) {
 		return woas.parser._render_wiki_link($1, $2, snippets, tags, export_links);
@@ -644,7 +645,7 @@ woas.parser._render_wiki_link = function(arg1, label, snippets, tags, export_lin
 	}
 	
 	// check for tags definitions
-	var found_tags = woas._get_tags((label === null) ? page : page+"|"+label);
+	var found_tags = woas._get_tags((label === null) ? page : page+","+label);
 	if (found_tags.length > 0) {
 		// do not use concat because 'tags' is passed byref
 		for(var i=0,it=found_tags.length;i<it;++i) {
