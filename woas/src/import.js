@@ -180,8 +180,7 @@ woas.importer = {
 		woas.log("get_import_vars() scanned "+this.pages.length+" page definitions");
 	},
 	
-	// normal import hook - shared for XHTML and WSIF import
-	_import_hook: function(page) {
+	_core_import_hook: function(page) {
 //		woas.log("Importing page "+page.title);	//log:0
 		var pi = woas.page_index(page.title);
 		if (pi === -1) {
@@ -196,6 +195,14 @@ woas.importer = {
 			page_attrs[pi] = page.attrs;
 			page_mts[pi] = page.mts;
 		}
+		// give the index
+		page.pi = pi;
+		return true;
+	},
+	
+	// normal import hook - shared for XHTML and WSIF import
+	_import_hook: function(page) {
+		this._core_import_hook(page);
 
 		// take note of plugin pages and other special runtime stuff
 		var _pfx = "WoaS::Plugins::";
@@ -626,8 +633,8 @@ woas.import_wiki_wsif = function() {
 	this._grab_import_settings();
 	
 	// automatically retrieve the filename (will call load_file())
-	var done = woas._native_wsif_load(null, true, false,
-			this.importer._filter_by_title, this.importer._import_hook);
+	var done = woas._native_wsif_load(null, false /* no locking */, false /* not native */, 0,
+			this.importer._import_hook, this.importer._filter_by_title);
 	if (done === false && (woas.wsif.emsg !== null))
 		woas.crash(woas.wsif.emsg);
 
