@@ -608,6 +608,7 @@ woas.eval = function(code, return_value) {
 		this.eval_fail_msg = e.toString();
 		this.eval_failed = true;
 	}
+//	woas.log("woas.eval(\""+code+"\", "+return_value+") = "+rv);	//log:0
 	return rv;
 };
 
