@@ -376,6 +376,16 @@ woas.importer = {
 			}
 		}
 		
+		// update run-time stuff
+		this._after_import(css_was_imported, update_aliases, update_hotkeys,
+							plugins_update, plugins_add, bootscript_code);
+		
+		// return false on failure
+		return !fail;
+	},
+	
+	_after_import: function(css_was_imported, update_aliases, update_hotkeys,
+							plugins_update, plugins_add, bootscript_code) {
 		// refresh in case of CSS, aliases and/or hotkeys modified
 		if (css_was_imported)
 			woas.css.set(woas.get_text("WoaS::CSS::Core")+"\n"+woas.get_text("WoaS::CSS::Custom"));
@@ -405,12 +415,10 @@ woas.importer = {
 			page_titles.push(chosen_name);
 			pages.push("/* This JavaScript code was automatically imported by WoaS from your former WoaS::Bootscript */\n"+bootscript_code);
 			page_attrs.push( 0 );
-			page_mts.push( woas.config.store_mts ? woas.current_mts : 0);
+			page_mts.push( woas.config.store_mts ? this.current_mts : 0);
 			log("Old bootscript code has been saved in "+chosen_name);
 		}
-		
-		// return false on failure
-		return !fail;
+
 	},
 
 	// regular expressions used to not mess with title/content strings
