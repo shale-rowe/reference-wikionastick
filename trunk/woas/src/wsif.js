@@ -236,18 +236,18 @@ woas._wsif_ds_load = function(subpath, locking) {
 	page_titles = [];
 	page_mts = [];
 	// get the data
-	return this._native_wsif_load(woas.ROOT_DIRECTORY+subpath, locking, false, false);
+	return this._native_wsif_load(woas.ROOT_DIRECTORY+subpath, locking, false);
 };
 
 /* description of parameters:
  - path: WSIF file path which will be loaded, can be null to use file specified in '_filename' element
  - locking: resource locking (not yet implemented)
- - overwrite: if true will overwrite pages with same title, otherwise ignore them
  - and_save: true when WoaS is datasourcing (private use only)
  - recursing: recursion depth variable, starts with 0
- - pre_import_hook: callback used to choose if page can be imported or not (optional)
+ - import_hook: callback used to actually import the page
+ - title_filter_hook: callback used to choose if page can be imported or not by title - optional
 */
-woas._native_wsif_load = function(path, locking, overwrite, and_save, recursing, pre_import_hook) {
+woas._native_wsif_load = function(path, locking, and_save, recursing, import_hook, title_filter_hook) {
 	if (!recursing) {
 		this.wsif.emsg = null;
 		this.progress_init("Initializing WSIF import");
@@ -352,7 +352,7 @@ woas._native_wsif_load = function(path, locking, overwrite, and_save, recursing,
 						// store the previously parsed page definition
 						var rv = this._native_page_def(path,ct,
 								previous_h, last_offset,	// offsets to grab the page content
-								overwrite,pre_import_hook,
+								import_hook, title_filter_hook,
 								title,attrs,last_mod,len,encoding,disposition,
 								d_fn,boundary,mime);
 						// save page index for later analysis
@@ -419,7 +419,7 @@ woas._native_wsif_load = function(path, locking, overwrite, and_save, recursing,
 	}
 	// process the last page (if any)
 	if ((previous_h !== null) && (title !== null)) {
-		var rv = this._native_page_def(path,ct,previous_h,last_offset,overwrite,pre_import_hook,
+		var rv = this._native_page_def(path,ct,previous_h,last_offset,import_hook, title_filter_hook,
 				title,attrs,last_mod,len,encoding,disposition,
 				d_fn,boundary,mime);
 		// save page index for later analysis
@@ -446,8 +446,8 @@ woas._native_wsif_load = function(path, locking, overwrite, and_save, recursing,
 };
 
 // returns true if a page was defined, and save it in wsif.imported array
-woas._native_page_def = function(path,ct,p,last_p,overwrite,pre_import_hook, title,attrs,last_mod,len,encoding,
-											disposition,d_fn,boundary,mime) {
+woas._native_page_def = function(path,ct,p,last_p,import_hook, title_filter_hook,
+								title,attrs,last_mod,len,encoding,disposition,d_fn,boundary,mime) {
 	var bpos_e, page;
 	// attributes must be defined
 	if (attrs === null) {
@@ -581,7 +581,7 @@ woas._native_page_def = function(path,ct,p,last_p,overwrite,pre_import_hook, tit
 				return false;
 			}
 			// check the result of external import
-			var rv = this._native_wsif_load(the_dir+d_fn, locking, overwrite, false, true, pre_import_hook);
+			var rv = this._native_wsif_load(the_dir+d_fn, locking, false, true, import_hook, title_filter_hook);
 			if (rv === false)
 				this.wsif.do_error( "Failed import of external "+the_dir+d_fn);
 			// return pointer after last read header
@@ -593,40 +593,15 @@ woas._native_page_def = function(path,ct,p,last_p,overwrite,pre_import_hook, tit
 		return false;
 	} // end of switch
 
-	// check if we need to call the pre-import hook
-	if (typeof pre_import_hook == "function") {
-		var NP = { "title": title, "attrs": attrs, "page": page, "modified": false };
-		if (!pre_import_hook(NP)) {
-			// return updated offset
+	var NP = { "title": title, "attrs": attrs, "page": page, "modified": false };
+	if (typeof title_filter_hook == "function") {
+		if (!title_filter_hook(NP))
 			return false;
-		}
-		if (NP.modified) {
-			page = NP.page;
-			title = NP.title;
-			attrs = NP.attrs;
-		}
-		NP = null;
 	}
-	// check if page already exists
-	var pi = page_titles.indexOf(title);
-	if (pi !== -1) {
-		if (overwrite) {
-			// update the page record
-			pages[pi] = page;
-			page_attrs[pi] = attrs;
-			page_mts[pi] = last_mod;
-			// page title does not change
-		} else
-			log("Skipping already existing page "+title); //log:1
-	} else { // creating a new page
-		pi = page_titles.length;
-		pages.push(page);
-		page_attrs.push(attrs);
-		page_mts.push(last_mod);
-		page_titles.push(title);
-	}
-	// all OK
-	this.wsif.imported.push(pi);
+	
+	if (import_hook(NP))
+		// all OK
+		this.wsif.imported.push(pages.indexOf(NP.title));
 	// return updated offset
 	return true;
 };

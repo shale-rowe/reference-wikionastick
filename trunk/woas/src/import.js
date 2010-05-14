@@ -180,7 +180,7 @@ woas.importer = {
 		woas.log("get_import_vars() scanned "+this.pages.length+" page definitions");
 	},
 	
-	// normal import hook
+	// normal import hook - shared for XHTML and WSIF import
 	_import_hook: function(page) {
 //		woas.log("Importing page "+page.title);	//log:0
 		var pi = woas.page_index(page.title);
@@ -521,6 +521,11 @@ woas.import_wiki = function() {
 		this.progress_finish();
 		return false;
 	}
+
+	// grab the XHTML-only options
+	this.importer.i_styles = $('cb_import_css').checked;
+	this.importer.i_config = $('cb_import_config').checked
+	this.importer.i_content = $('cb_import_content').checked
 	
 	this._grab_import_settings();
 	
@@ -555,12 +560,6 @@ woas._file_ext = function(fn) {
 };
 
 /*** generic import code follows ***/
-
-var _wsif_js_sec = {
-	"comment_js": true,
-	"comment_macros": true,
-	"woas_ns": true
-};
 
 // apply some javascript security settings
 function _import_wsif_pre_hook(NP) {
@@ -608,8 +607,6 @@ function _import_wsif_pre_hook(NP) {
 }
 
 woas._grab_import_settings = function() {
-	this.importer.i_styles = $('cb_import_css').checked;
-	this.importer.i_content = $('cb_import_content').checked
 	this.importer.i_comment_js = $("woas_cb_import_comment_js").checked;
 	this.importer.i_comment_macros = $("woas_cb_import_comment_macros").checked;
 	this.importer.i_woas_ns = $("woas_cb_import_woas_ns").checked;
@@ -622,12 +619,15 @@ woas.import_wiki_wsif = function() {
 		return false;
 	}
 	
+	// these options are not available for WSIF
+	this.importer.i_content = true;
+	this.importer.i_styles = true;
+	// grab the common options
 	this._grab_import_settings();
 	
-	var done;
 	// automatically retrieve the filename (will call load_file())
-	done = woas._native_wsif_load(null, $("woas_cb_import_overwrite").checked, true, false,
-			_import_wsif_pre_hook);
+	var done = woas._native_wsif_load(null, true, false,
+			this.importer._filter_by_title, this.importer._import_hook);
 	if (done === false && (woas.wsif.emsg !== null))
 		woas.crash(woas.wsif.emsg);
 
@@ -641,5 +641,4 @@ woas.import_wiki_wsif = function() {
 		woas.commit(woas.wsif.imported);
 	}
 	return done;
-}
-
+};
