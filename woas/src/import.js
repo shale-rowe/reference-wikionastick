@@ -33,6 +33,9 @@ woas.importer = {
 	i_config: true,
 	i_styles: false,
 	i_content: true,
+	i_comment_js: true,
+	i_comment_macros: true,
+	i_woas_ns: true,
 	
 	new_main_page: null,
 	current_mts: null,
@@ -492,7 +495,12 @@ woas.importer = {
 
 };
 
+// called from Special::Import - import WoaS from XHTML file
 woas.import_wiki = function() {
+	if (!this.config.permit_edits) {
+		this.alert(woas.i18n.READ_ONLY);
+		return false;
+	}
 
 	if(confirm(this.i18n.CONFIRM_IMPORT_OVERWRITE) === false)
 		return false;
@@ -514,8 +522,7 @@ woas.import_wiki = function() {
 		return false;
 	}
 	
-	this.importer.i_styles = $('cb_import_css').checked;
-	this.importer.i_content = $('cb_import_content').checked
+	this._grab_import_settings();
 	
 	var rv = this.importer.do_import(ct);
 	
@@ -599,3 +606,40 @@ function _import_wsif_pre_hook(NP) {
 	}
 	return true;
 }
+
+woas._grab_import_settings = function() {
+	this.importer.i_styles = $('cb_import_css').checked;
+	this.importer.i_content = $('cb_import_content').checked
+	this.importer.i_comment_js = $("woas_cb_import_comment_js").checked;
+	this.importer.i_comment_macros = $("woas_cb_import_comment_macros").checked;
+	this.importer.i_woas_ns = $("woas_cb_import_woas_ns").checked;
+};
+
+// called from Special::ImportWSIF
+woas.import_wiki_wsif = function() {
+	if (!this.config.permit_edits) {
+		this.alert(woas.i18n.READ_ONLY);
+		return false;
+	}
+	
+	this._grab_import_settings();
+	
+	var done;
+	// automatically retrieve the filename (will call load_file())
+	done = woas._native_wsif_load(null, $("woas_cb_import_overwrite").checked, true, false,
+			_import_wsif_pre_hook);
+	if (done === false && (woas.wsif.emsg !== null))
+		woas.crash(woas.wsif.emsg);
+
+	if (done !== false) {
+		// add some info about total pages
+		if (woas.wsif.expected_pages !== null)
+			done = String(done)+"/"+woas.wsif.expected_pages;
+		woas.alert(woas.i18n.IMPORT_OK.sprintf(done, woas.wsif.system_pages));
+		woas.refresh_menu_area();
+		// now proceed to actual saving
+		woas.commit(woas.wsif.imported);
+	}
+	return done;
+}
+
