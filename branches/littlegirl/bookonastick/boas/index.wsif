@@ -907,7 +907,7 @@ Raw text is a section of preformatted text that is not parsed by the wiki, and c
 A raw text block is created by placing triple curly brackets above and below the text.
 
 <div class="wiki_help_text">Use this code in a page:</div>
-<div class="wikihelpcode">{\
+<div class="wiki_help_code">{\
 {{
 This is a raw text block
 made of one
@@ -924,7 +924,7 @@ or more lines.
 Inline raw text is created by surrounding the text with triple curly brackets.
 
 <div class="wiki_help_text">Use this code in a page:</div>
-<div class="wikihelpcode">{<!-- -->{{This is inline raw text}}<!-- -->} which is raw text inside a sentence.</div>
+<div class="wiki_help_code">{<!-- -->{{This is inline raw text}}<!-- -->} which is raw text inside a sentence.</div>
 <div class="wiki_help_text">To create this:</div>
 {{{This is inline raw text}}} which is raw text inside a sentence.
 
@@ -932,7 +932,7 @@ Inline raw text is created by surrounding the text with triple curly brackets.
 A raw text block can be added to a list item by inserting the opening curly brackets at the end of the list item.
 
 <div class="wiki_help_text">Use this code in a page:</div>
-<div class="wikihelpcode">* List item:{<!-- -->{{
+<div class="wiki_help_code">* List item:{<!-- -->{{
 This is a raw text block
 made of one
 or more lines.
@@ -946,7 +946,7 @@ or more lines.
 To insert a blank line between the list item and the raw text block, you can use HTML {{{<br>}}} tags before the opening curly brackets.
 
 <div class="wiki_help_text">Use this code in a page:</div>
-<div class="wikihelpcode">* List item:&lt;br&gt;&lt;br&gt;{<!-- -->{{
+<div class="wiki_help_code">* List item:&lt;br&gt;&lt;br&gt;{<!-- -->{{
 This is a raw text block
 made of one
 or more lines.
@@ -1183,7 +1183,7 @@ To add expanding menu entries, see the instructions for *folding text* on the [[
 
 [[Include::Wiki::Template::Info|The links inside the example sub-menus are red because the pages don't exist.]]
 <div class="wiki_help_text">Use this code in a page or in the menu:</div>
-<div class="wikihelpcode">&lt;a href="javascript:expanddiv('MENU')"&gt;Click here for a sub-menu&lt;/a&gt;&lt;div id="MENU" style="display:none;"&gt;
+<div class="wiki_help_code">&lt;a href="javascript:expanddiv('MENU')"&gt;Click here for a sub-menu&lt;/a&gt;&lt;div id="MENU" style="display:none;"&gt;
 {{{*}}} [<!-- -->[PAGENAME1]]
 {{{*}}} [<!-- -->[PAGENAME2]]
 {{{*}}} [<!-- -->[PAGENAME3]]
@@ -1197,7 +1197,7 @@ To add expanding menu entries, see the instructions for *folding text* on the [[
 </div>
 
 <div class="wiki_help_text">Or use this code in a page or in the menu:</div>
-<div class="wikihelpcode">
+<div class="wiki_help_code">
 &lt;a href="javascript:expanddiv('MENU1')"&gt;Click here for a sub-menu1&lt;/a&gt;&lt;div id="MENU1" style="display:none;"&gt;
 {{{*}}} [<!-- -->[PAGENAME1]]
 {{{*}}} [<!-- -->[PAGENAME2]]
@@ -1750,11 +1750,11 @@ Tag a page by using a {{{[[Tags::]]}}} link, adding the tag name (or names separ
 
 === Add a tag to a page (method 2)
 <div class="wiki_help_text">Use this code in a page, replacing EXAMPLE with the name of the tag:</div>
-<div class="wikihelpcode">[<!-- -->[T<!-- -->ags::EXAMPLE]<!-- -->]</div>
+<div class="wiki_help_code">[<!-- -->[T<!-- -->ags::EXAMPLE]<!-- -->]</div>
 <div class="wiki_help_text">To add a tag to a page.</div>
 === Add more than one tag to a page (method 1)
 # Click the *Tags* button in the editor.<br><br>
-# Type in names for the tags, separating each from the one before it with a pipe. For example:<br><br><div class="wiki_help_text">Use this code in a page, replacing EXAMPLE1, EXAMPLE2, and EXAMPLE3 with the names of the tags you'd like to add:</div><br><div class="wikihelpcode">[<!-- -->[T<!-- -->ags::EX<!-- -->AMPLE1|EX<!-- -->AMPLE2|EX<!-- -->AMPLE3]<!-- -->]</div><br><div class="wiki_help_text">To add three tags to your page.</div><br>
+# Type in names for the tags, separating each from the one before it with a pipe. For example:<br><br><div class="wiki_help_text">Use this code in a page, replacing EXAMPLE1, EXAMPLE2, and EXAMPLE3 with the names of the tags you'd like to add:</div><br><div class="wiki_help_code">[<!-- -->[T<!-- -->ags::EX<!-- -->AMPLE1|EX<!-- -->AMPLE2|EX<!-- -->AMPLE3]<!-- -->]</div><br><div class="wiki_help_text">To add three tags to your page.</div><br>
 # Click the *OK* button.
 
 === Add more than one tag to a page (method 2)
@@ -1762,22 +1762,22 @@ To use more than one tag on a page, use one tag link and add as many tags as you
 
 === Add a link to tagged pages
 <div class="wiki_help_text">Use this code in a page, replacing EXAMPLE with the tag you'd like to use:</div>
-<div class="wikihelpcode">[<!-- -->[Tagged::EXAMPLE]<!-- -->]</div>
+<div class="wiki_help_code">[<!-- -->[Tagged::EXAMPLE]<!-- -->]</div>
 <div class="wiki_help_text">To create a listing of pages tagged with EXAMPLE.</div>
 === Add a filtered link to tagged pages
 By putting an exclamation mark (*!*) in front of the tag name, you can filter out a specific tag from a tagged pages list:<br>
 <div class="wiki_help_text">Use this code in a page, replacing EXAMPLE with the tag you'd like to filter out:</div>
-<div class="wikihelpcode">[<!-- -->[Tagged::!EXAMPLE]<!-- -->]</div>
+<div class="wiki_help_code">[<!-- -->[Tagged::!EXAMPLE]<!-- -->]</div>
 <div class="wiki_help_text">To create a listing of tagged pages that are not tagged with EXAMPLE.</div>
 === Include a listing of tagged pages
 <div class="wiki_help_text">Use this code in a page, replacing EXAMPLE with the tag you'd like to use:</div>
-<div class="wikihelpcode">[<!-- -->[Include::Tagged::EXAMPLE]<!-- -->]</div>
+<div class="wiki_help_code">[<!-- -->[Include::Tagged::EXAMPLE]<!-- -->]</div>
 <div class="wiki_help_text">To display a listing of pages tagged with EXAMPLE inside the current page.</div>
 === Include a filtered listing of tagged pages
 By putting an exclamation mark (*!*) in front of the tag name, you can filter out a specific tag from a tagged pages list:
 
 <div class="wiki_help_text">Use this code in a page, replacing EXAMPLE with the tag you'd like to filter out:</div>
-<div class="wikihelpcode">[<!-- -->[Include::Tagged::!EXAMPLE]<!-- -->]</div>
+<div class="wiki_help_code">[<!-- -->[Include::Tagged::!EXAMPLE]<!-- -->]</div>
 <div class="wiki_help_text">To display a listing of tagged pages that are not tagged with EXAMPLE inside the current page.</div>
 
 --DFQRCTsKlU
@@ -2306,19 +2306,19 @@ You can use a special anchor link to link to a header on the current page. After
 See the [[Wiki::Help::Images]] page.
 ==== Image as link to wiki page
 <div class="wiki_help_text">Use this code in a page, replacing IMAGENAME with the name of an embedded image page, and PAGENAME with the name of a page in this wiki:</div>
-<div class="woas_helpcode">[<!-- -->[I<!-- -->nclude:<!-- -->:Image:<!-- -->:IMAGENAME|style="cursor:pointer" oncl<!-- -->ick="go_<!-- -->to('PA<!-- -->GENAME')"]]</div>
+<div class="wiki_help_code">[<!-- -->[I<!-- -->nclude:<!-- -->:Image:<!-- -->:IMAGENAME|style="cursor:pointer" oncl<!-- -->ick="go_<!-- -->to('PA<!-- -->GENAME')"]]</div>
 <div class="wiki_help_text">To create an image that links to a page in this wiki.</div>
 
 ==== Image as link to web page
 <div class="wiki_help_text">Use this code in a page, replacing Image::IMAGENAME with the name of an embedded image page, and URL with the address of a web page:</div>
-<div class="woas_helpcode">[<!-- -->[In<!-- -->clude:<!-- -->:Image:<!-- -->:IMAGENAME|style="cursor:pointer" border="0" onc<!-- -->lick="win<!-- -->dow.o<!-- -->pen('URL')"]<!-- -->]</div>
+<div class="wiki_help_code">[<!-- -->[In<!-- -->clude:<!-- -->:Image:<!-- -->:IMAGENAME|style="cursor:pointer" border="0" onc<!-- -->lick="win<!-- -->dow.o<!-- -->pen('URL')"]<!-- -->]</div>
 <div class="wiki_help_text">To create an image that links to a web page.</div>
 
 === Include link
 You can include the contents of another page of this wiki in the current page by using an include link.
 
 <div class="wiki_help_text">Use this code in a page, replacing PAGENAME with the name of the page you'd like to include:</div>
-<div class="woas_helpcode">[<!-- -->[Include::PAGENAME]<!-- -->]</div>
+<div class="wiki_help_code">[<!-- -->[Include::PAGENAME]<!-- -->]</div>
 <div class="wiki_help_text">To include the contents of another page in the current page.</div>
 
 === Internal action link (labeled)
@@ -2704,15 +2704,30 @@ body {
 	width: 97%;
 	} 
 
+/*EDITOR - BUTTONS*/
+.wiki_editor_button {
+	background-color:gainsboro;
+	border:0.063em solid grey;
+	color:darkblue;
+	cursor:pointer;
+	font-size:0.813em;
+	margin-top:0.188em;
+	margin-bottom:0.188em;
+	}
+.wiki_editor_button:hover {
+	background-color:darkgrey;
+	border:0.063em solid grey;
+	color:darkblue;
+	cursor:pointer;
+	font-size:0.813em;
+	margin-top:0.188em;
+	margin-bottom:0.188em;
+	}
+
 /*EDITOR - PAGE TITLE LINE*/
 #woas_edit_page_title {
 	margin-top: -0.756em;
-	}
-
-/*EDITOR - WOAS BUTTON - NOTE TO LITTLE GIRL: REMOVE THIS ONCE THE BOAS BUTTONS ARE IN PLACE AND YOU'RE SURE THERE ARE NO REFERENCES TO IT*/
-.woas_editor_button {
-	margin-top: 0.063em;
-	margin-bottom: 0.063em;
+	margin-bottom:0.188em;
 	}
 
 /*ENCRYPTION*/
@@ -2819,13 +2834,13 @@ h6.woas_header {
 	font-size: 0.625em;
 	}
 
-/*HELP PAGE BACKGROUND*/
+/*HELP PAGES - BACKGROUND*/
 .woas_help_background {
 	background-attachment: fixed;
 	background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAYAAADDPmHLAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A%2FwD%2FoL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9oDDAonCzKHvroAAAEFSURBVHja7duxDYIhFIVRIA7EKk7qKoxkb2Ns1PzfObWNuRfyAB0DAAAAAAAAAAAAAAAAAAAAAAAAAIC%2FMEtf9pxzf%2FeZvfdDAYLBV4swBd8uwhR%2BuwhT%2BO0SLOE7BQg%2FvAssa8AOYPWHd4FbtfmvIVZnhyX8xnlfAVCA8kpPHAO%2FNUReqUQKEA7fDDDcHC7hmwGEHx4gp%2BDbpwc%2FCYsfHafw2%2FcG2beAevCpHeDT1V%2B6LfQWEA5fAeLhKwAKoAAAAOR4DRzt3wl6DYyXwGtgvAQeg%2BIlcBEUpwAKgALgHsAg6BTgHsAO0CyBfwwDAAAAAAAAAAAAAAAAAAAAAAAAAAAAv%2FIER4Nn%2B7YDG3wAAAAASUVORK5CYII%3D);
 	}
 
-/*HELP PAGE BUTTON*/
+/*HELP PAGES - BUTTON*/
 .wiki_help_button {
 	background-color:gainsboro;
 	border: 0.063em solid grey;
@@ -2843,8 +2858,8 @@ h6.woas_header {
 	background-color: darkgrey;
 	}
 
-/*HELP PAGE - EXAMPLES*/
-div.wikihelpcode {
+/*HELP PAGES - EXAMPLE CODE*/
+.wiki_help_code {
 	background-color: gainsboro;
 	border: 0.063em solid grey;
 	color: black;
@@ -2852,22 +2867,11 @@ div.wikihelpcode {
 	padding: 0.438em;
 	}
 
-/*HELP PAGE - EXAMPLES - WOAS - NOTE TO LITTLE GIRL: REMOVE THIS WOAS REFERENCE ONCE YOU'RE SURE THERE ARE NO REFERENCES TO IT*/
-.woas_helpcode {
-	font-family: monospace;
-	padding: 0.438em;
-	}
-
 /*HELP PAGE - EXAMPLE TEXT*/
-div.wiki_help_text {
+.wiki_help_text {
 	color: darkcyan;
 	font-weight: bold;
 	font-style: italic;
-	}
-
-/*HELP PAGE - EXAMPLE TEXT - WOAS - NOTE TO LITTLE GIRL: REMOVE THIS WOAS REFERENCE ONCE YOU'RE SURE THERE ARE NO REFERENCES TO IT*/
-.wiki_help_text {
-	font-family: lucida;
 	}
 
 /*HOTKEYS*/
@@ -3444,32 +3448,12 @@ woas.page.boundary: DFQRCTsKlU
 /* ADD YOUR CUSTOM CSS BENEATH THIS LINE */
 
 /*DISABLE PAGE LISTING HEADER*/
-.woas_listing_options ol, ul {
+.woas_listing_options ol,ul {
 	margin-top:0.25em;
 	}
 .woas_listing_options {
 	display:none;
 	visibility:hidden;
-	}
-
-/*EDITOR BUTTONS*/
-.wiki_button {
-	background-color:gainsboro;
-	border:0.063em solid grey;
-	color:darkblue;
-	cursor:pointer;
-	font-size:0.813em;
-	margin-top:0.188em;
-	margin-bottom:0.188em;
-	}
-.wiki_button:hover {
-	background-color:darkgrey;
-	border:0.063em solid grey;
-	color:darkblue;
-	cursor:pointer;
-	font-size:0.813em;
-	margin-top:0.188em;
-	margin-bottom:0.188em;
 	}
 
 --DFQRCTsKlU
@@ -3527,7 +3511,7 @@ div.wiki_header {
 	color: navy;
 }
 
-.woas_background, #woas_debug_panel, #woas_debug_console, #woas_debug_log, #woas_edit_page_title, .woas_editor_button, #woas_pwd_query, #woas_pwd_mask, .woas_password_desc, .woas_about_footer, .woas_help_background, .wiki_help_button, .wiki_help_text, .woas_page_mts, div.woas_text_area, .woas_text_area.locked, #woas_pwd_mask, .woas_core_page, div.menu,div.menu_area, .wiki_menu_button_full, .wiki_menu_button_half,.title, .wiki_preformatted, .woas_nowiki_multiline, div.search_results, div.wiki_toc, p.wiki_toc_title, table.woas_text_area, div.taglinks { }
+.woas_background, #woas_debug_panel, #woas_debug_console, #woas_debug_log, #woas_edit_page_title, .wiki_editor_button, #woas_pwd_query, #woas_pwd_mask, .woas_password_desc, .woas_about_footer, .woas_help_background, .wiki_help_button, .wiki_help_text, .woas_page_mts, div.woas_text_area, .woas_text_area.locked, #woas_pwd_mask, .woas_core_page, div.menu,div.menu_area, .wiki_menu_button_full, .wiki_menu_button_half,.title, .wiki_preformatted, .woas_nowiki_multiline, div.search_results, div.wiki_toc, p.wiki_toc_title, table.woas_text_area, div.taglinks { }
 --DFQRCTsKlU
 woas.page.title: Wiki::Help::Hotkeys
 woas.page.attributes: 0
@@ -3629,6 +3613,8 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Added the *Go to* button to the menu.
 ** Added tooltips to the menu buttons.
 ** Added two non-breaking spaces after the debug Clear button for consistency.
+** Changed the class of editor buttons to {{{wiki_editor_button}}}.
+** Changed the class of help code to {{{wiki_help_code}}}.
 ** Changed the class of help text to {{{wiki_help_text}}}.
 ** Changed the class of menu buttons to {{{wiki_menu_button_full}}} and {{{wiki_menu_button_half}}}.
 ** Changed the layout of the menu buttons.
@@ -5209,7 +5195,7 @@ woas.page.boundary: DFQRCTsKlU
 Spoilers are permanent areas with content that shows when you hover over them with the mouse, or hidden areas that show when you hover over the link that activates them. When creating HTML spoilers, you can substitute other HTML tags (like &lt;div&gt;, &lt;p&gt;, or &lt;td&gt;) for the &lt;span&gt; tags.
 
 == Spoiler (wiki)
-This method displays a permanently visible spoiler box, which can also be used to create an invisible hot spot by customizing the spoiler [[Help::CSS|CSS]] to make the box blend in with the background.
+This method displays a permanently visible spoiler box, which can also be used to create an invisible hot spot by customizing the spoiler [[Wiki::Help::CSS|CSS]] to make the box blend in with the background.
 
 <div class="wiki_help_text">Use this code in a page, replacing CONTENT GOES HERE with your content:</div><br>{{{
 [[Include::Wiki::Template::Spoiler|CONTENT GOES HERE]]
@@ -5217,7 +5203,7 @@ This method displays a permanently visible spoiler box, which can also be used t
 [[Include::Wiki::Template::Spoiler|CONTENT GOES HERE]]
 
 == Spoiler (HTML)
-This method displays a permanently visible spoiler box, which can also be used to create an invisible hot spot by customizing the spoiler [[Help::CSS|CSS]] to make the box blend in with the background.
+This method displays a permanently visible spoiler box, which can also be used to create an invisible hot spot by customizing the spoiler [[Wiki::Help::CSS|CSS]] to make the box blend in with the background.
 
 <div class="wiki_help_text">Use this code in a page, replacing CONTENT GOES HERE with your content:</div><br>{{{
 <span class="spoiler">CONTENT GOES HERE</span>
@@ -5268,11 +5254,10 @@ This wiki accepts [[http://en.wikipedia.org/wiki/Plain_text|plain text]], [[Tagg
 
 <<<woas.include:Wiki::Template::Info
 Feel free to use the [[Sandbox]] page to test out syntax without having to create a new page each time.>>>
-
 See below for pages that demonstrate syntax:
+
 * [[Wiki::Help::Add a search box]]
 * [[Wiki::Help::Aliases]]
-* [[Help::Bootscript]]
 * [[Wiki::Help::CSS]]
 * [[Wiki::Help::Create a page]]
 * [[Wiki::Help::Deprecated syntax]]
@@ -5526,13 +5511,13 @@ You can then create a transclusion link or links to that page by creating a norm
 
 * If you created a template page with *one* variable:<br><br>
 ** <div class="wiki_help_text">Use this code, replacing PAGENAME with the name of the page to be included, and VALUE with the value you'd like the variable to have when the included page is displayed:</div><br>\\
-<div class="wikihelpcode">{{{[[Include::PAGENAME|VALUE]]}}}</div><br>
+<div class="wiki_help_code">{{{[[Include::PAGENAME|VALUE]]}}}</div><br>
 * If you created a template page with *two* variables:<br><br>
 ** <div class="wiki_help_text">Use this code, replacing PAGENAME with the name of the page to be included, and VALUE1 and VALUE2 with the values you'd like the variables to have when the included page is displayed:</div><br>\\
-<div class="wikihelpcode">{{{[[Include::PAGENAME|VALUE1|VALUE2]]}}}</div><br>
+<div class="wiki_help_code">{{{[[Include::PAGENAME|VALUE1|VALUE2]]}}}</div><br>
 * If you created a template page with *three* variables:<br><br>
 ** <div class="wiki_help_text">Use this code, replacing PAGENAME with the name of the page to be included, and VALUE1, VALUE2, and VALUE3 with the values you'd like the variables to have when the included page is displayed:</div><br>\\
-<div class="wikihelpcode">{{{[[Include::PAGENAME|VALUE1|VALUE2|VALUE3]]}}}</div><br>
+<div class="wiki_help_code">{{{[[Include::PAGENAME|VALUE1|VALUE2|VALUE3]]}}}</div><br>
 * And so on.
 
 == Examples
@@ -5541,22 +5526,22 @@ The members of the board are %1, %2, and %3.
 }}}
 
 <div class="wiki_help_text">Use this code:</div>
-<div class="wikihelpcode">{{{[[Include::Wiki::Example::Transclusion|Mary|Steve|Dave]]}}}</div>
+<div class="wiki_help_code">{{{[[Include::Wiki::Example::Transclusion|Mary|Steve|Dave]]}}}</div>
 <div class="wiki_help_text">To create this:</div>
 [[Include::Wiki::Example::Transclusion|Mary|Steve|Dave]]
 <div class="wiki_help_text">Or use this code:</div>
-<div class="wikihelpcode">{{{[[Include::Wiki::Example::Transclusion|Fred|Mrs. Smith|Ryan]]}}}</div>
+<div class="wiki_help_code">{{{[[Include::Wiki::Example::Transclusion|Fred|Mrs. Smith|Ryan]]}}}</div>
 <div class="wiki_help_text">To create this:</div>
 [[Include::Wiki::Example::Transclusion|Fred|Mrs. Smith|Ryan]]
 <div class="wiki_help_text">Or use this code:</div>
-<div class="wikihelpcode">{{{[[Include::Wiki::Example::Transclusion|Bob|Jane|Jack]]}}}</div>
+<div class="wiki_help_code">{{{[[Include::Wiki::Example::Transclusion|Bob|Jane|Jack]]}}}</div>
 <div class="wiki_help_text">To create this:</div>
 [[Include::Wiki::Example::Transclusion|Bob|Jane|Jack]]
 == Wiki and HTML code in transclusion
 Some wiki code and HTML tags are accepted in the values. For example:
 
 <div class="wiki_help_text">Use this code:</div>
-<div class="wikihelpcode">{{{[[Include::Wiki::Example::Transclusion|*Bob*|*Jane*|*Jack*.<br><br>Please arrive on time to the meeting on Wednesday]]}}}</div>
+<div class="wiki_help_code">{{{[[Include::Wiki::Example::Transclusion|*Bob*|*Jane*|*Jack*.<br><br>Please arrive on time to the meeting on Wednesday]]}}}</div>
 <div class="wiki_help_text">To create this:</div>
 [[Include::Wiki::Example::Transclusion|*Bob*|*Jane*|*Jack*.<br><br>Please arrive on time to the meeting on Wednesday]]
 
@@ -6015,7 +6000,7 @@ The [[Wiki::Template::Foldtext|Foldtext]] template can be used to toggle additio
 This method allows you to toggle a single line of text, and accepts wiki [[Wiki::Help::Text formatting|text formatting]] for the link text.
 
 <div class="wiki_help_text">Use this code on your page, replacing LINK with the link text, and CONTENT with the content you'd like to display when the link is clicked:</div>
-<div class="wikihelpcode">[<!-- -->[Include::Wiki::Template::Foldtext|LINK|CONTENT|]<!-- -->]</div>
+<div class="wiki_help_code">[<!-- -->[Include::Wiki::Template::Foldtext|LINK|CONTENT|]<!-- -->]</div>
 <div class="wiki_help_text">To create this:</div>
 [[Include::Wiki::Template::Foldtext|LINK|CONTENT|]]
 
@@ -6023,7 +6008,7 @@ This method allows you to toggle a single line of text, and accepts wiki [[Wiki:
 This method allows you to toggle more than one line of text by using HTML {{{<br>}}} tags, and accepts wiki [[Wiki::Help::Text formatting|text formatting]] for the link text.
 
 <div class="wiki_help_text">Use this code on your page, replacing LINK with the link text, and CONTENT&lt;br&gt;MORE CONTENT with the content you'd like to display when the link is clicked:</div>
-<div class="wikihelpcode">[<!-- -->[Include::Wiki::Template::Foldtext|LINK|CONTENT&lt;br&gt;MORE CONTENT|]<!-- -->]</div>
+<div class="wiki_help_code">[<!-- -->[Include::Wiki::Template::Foldtext|LINK|CONTENT&lt;br&gt;MORE CONTENT|]<!-- -->]</div>
 <div class="wiki_help_text">To create this:</div>
 [[Include::Wiki::Template::Foldtext|LINK|CONTENT<br>MORE CONTENT|]]
 
@@ -6031,14 +6016,14 @@ This method allows you to toggle more than one line of text by using HTML {{{<br
 This method allows you to add text after the link on the same line, and accepts wiki [[Wiki::Help::Text formatting|text formatting]] for the link text.
 
 <div class="wiki_help_text">Use this code in your page, replacing LINK with the text for the link, CONTENTS with the content you'd like to display when the link is clicked, and TEXT with the text you'd like after the link:</div>
-<div class="wikihelpcode">[<!-- -->[Include::Wiki::Template::Foldtext|LINK|CONTENTS|TEXT]<!-- -->]</div>
+<div class="wiki_help_code">[<!-- -->[Include::Wiki::Template::Foldtext|LINK|CONTENTS|TEXT]<!-- -->]</div>
 <div class="wiki_help_text">To create this:</div>
 [[Include::Wiki::Template::Foldtext|LINK|CONTENTS|TEXT]]
 
 === Foldaway text
 The [[Wiki::Template::Foldawaylink|Foldawaylink]] and [[Wiki::Template::Foldawaytext|Foldawaytext]] templates can be used to toggle inclusion of additional text in the current page. The link and the toggled text can be in different places in the page.
-# Insert a Foldawaylink where you'd like the link to appear in the page:<br><br><div class="wiki_help_text">Use this code in your page, replacing LINK with the link text, and NAME with a unique name for the link:</div><br><div class="wikihelpcode">[<!-- -->[Include::Wiki::Template::Foldawaylink|LINK|NAME]<!-- -->]</div><br><div class="wiki_help_text">To create a Foldawaylink link.</div><br>
-# Insert a Foldawaytext link where you'd like the toggled text to appear in the page:<br><br><div class="wiki_help_text">Use this code in your page, replacing TEXT with the text you'd like to toggle, and NAME with the same unique name you used in the Foldaway link:</div><br><div class="wikihelpcode">[<!-- -->[Include::Wiki::Template::Foldawaytext|TEXT|NAME]<!-- -->]</div><br><div class="wiki_help_text">To create a Foldawaytext link.</div>
+# Insert a Foldawaylink where you'd like the link to appear in the page:<br><br><div class="wiki_help_text">Use this code in your page, replacing LINK with the link text, and NAME with a unique name for the link:</div><br><div class="wiki_help_code">[<!-- -->[Include::Wiki::Template::Foldawaylink|LINK|NAME]<!-- -->]</div><br><div class="wiki_help_text">To create a Foldawaylink link.</div><br>
+# Insert a Foldawaytext link where you'd like the toggled text to appear in the page:<br><br><div class="wiki_help_text">Use this code in your page, replacing TEXT with the text you'd like to toggle, and NAME with the same unique name you used in the Foldaway link:</div><br><div class="wiki_help_code">[<!-- -->[Include::Wiki::Template::Foldawaytext|TEXT|NAME]<!-- -->]</div><br><div class="wiki_help_text">To create a Foldawaytext link.</div>
 See [[Wiki::Example::Foldawaytext|this page]] for an example.
 
 == Folding page
@@ -6048,20 +6033,20 @@ The [[Wiki::Template::Foldpage|Foldpage]] template can be used to toggle inclusi
 This method works best when the link is at the beginning of a line, or there's no text after it on the same line. If there's text after the link, it will be pushed beneath the unfolded content when the link is clicked.
 
 <div class="wiki_help_text">Use this code in your page, replacing LINK with the text for the link, and PAGE with the name of the page you'd like to include when the link is clicked:</div>
-<div class="wikihelpcode">[<!-- -->[Include::Wiki::Template::Foldpage|LINK|PAGE|]<!-- -->]</div>
+<div class="wiki_help_code">[<!-- -->[Include::Wiki::Template::Foldpage|LINK|PAGE|]<!-- -->]</div>
 <div class="wiki_help_text">To create a Folding page link like the one on [[Wiki::Example::Folding page plain|this page]].</div>
 
 === Folding page inline
 This method allows you to add text after the link on the same line.
 
 <div class="wiki_help_text">Use this code in your page, replacing LINK with the text for the link, and PAGE with the name of the page you'd like to include when the link is clicked, and TEXT with the text you'd like after the link:</div>
-<div class="wikihelpcode">[<!-- -->[Include::Wiki::Template::Foldpage|LINK|PAGE|TEXT]<!-- -->]</div>
+<div class="wiki_help_code">[<!-- -->[Include::Wiki::Template::Foldpage|LINK|PAGE|TEXT]<!-- -->]</div>
 <div class="wiki_help_text">To create a Folding page link like the one on [[Wiki::Example::Folding page inline|this page]].</div>
 
 === Foldaway page
 The [[Wiki::Template::Foldawaylink|Foldawaylink]] and [[Wiki::Template::Foldawaypage|Foldawaycontent]] templates can be used to toggle inclusion of another page in the current page. The link and the toggled page can be in different places in the page.
-# Insert a Foldawaylink where you'd like the link to appear in the page:<br><br><div class="wiki_help_text">Use this code in your page, replacing LINK with the link text, and NAME with a unique name for the link:</div><br><div class="wikihelpcode">[<!-- -->[Include::Wiki::Template::Foldawaylink|LINK|NAME]<!-- -->]</div><br><div class="wiki_help_text">To create a Foldawaylink link.</div><br>
-# Insert a Foldawaycontent link where you'd like the toggled page to appear in the page:<br><br><div class="wiki_help_text">Use this code in your page, replacing PAGE with the name of the page you'd like to include, and NAME with the same unique name you used in the Foldaway link:</div><br><div class="wikihelpcode">[<!-- -->[Include::Wiki::Template::Foldawaycontent|PAGE|NAME]<!-- -->]</div><br><div class="wiki_help_text">To create a Foldawaycontent link.</div>
+# Insert a Foldawaylink where you'd like the link to appear in the page:<br><br><div class="wiki_help_text">Use this code in your page, replacing LINK with the link text, and NAME with a unique name for the link:</div><br><div class="wiki_help_code">[<!-- -->[Include::Wiki::Template::Foldawaylink|LINK|NAME]<!-- -->]</div><br><div class="wiki_help_text">To create a Foldawaylink link.</div><br>
+# Insert a Foldawaycontent link where you'd like the toggled page to appear in the page:<br><br><div class="wiki_help_text">Use this code in your page, replacing PAGE with the name of the page you'd like to include, and NAME with the same unique name you used in the Foldaway link:</div><br><div class="wiki_help_code">[<!-- -->[Include::Wiki::Template::Foldawaycontent|PAGE|NAME]<!-- -->]</div><br><div class="wiki_help_text">To create a Foldawaycontent link.</div>
 See [[Wiki::Example::Foldaway|this page]] for an example.
 
 == HTML Folds
@@ -6070,7 +6055,7 @@ See [[Wiki::Example::Foldaway|this page]] for an example.
 This method uses an additional &lt;div&gt; container to surround the include link. This type of fold is especially useful for creating expanding menu entries (see the [[Wiki::Help::Edit the menu]] page).
 
 <div class="wiki_help_text">Use this code in a page, replacing both instances of NAME with the same unique name for the fold, LINK with the text for the link, and PAGENAME with the name of the page you'd like to display when the link is clicked:</div>
-<div class="wikihelpcode"><<!-- -->a h<!-- -->ref="jav<!-- -->ascript:exp<!-- -->and<!-- -->div('NA<!-- -->ME')">LI<!-- -->NK<<!-- -->&#047;<!-- -->a><<!-- -->d<!-- -->iv i<!-- -->d="NA<!-- -->ME" sty<!-- -->le="dis<!-- -->play:no<!-- -->ne;"><br><<!-- -->div><br>[<!-- -->[In<!-- -->clude::PAGE<!-- -->NAME]<!-- -->]<br><<!-- -->&#047;<!-- -->div><br><<!-- -->&#047;<!-- -->div></div>
+<div class="wiki_help_code"><<!-- -->a h<!-- -->ref="jav<!-- -->ascript:exp<!-- -->and<!-- -->div('NA<!-- -->ME')">LI<!-- -->NK<<!-- -->&#047;<!-- -->a><<!-- -->d<!-- -->iv i<!-- -->d="NA<!-- -->ME" sty<!-- -->le="dis<!-- -->play:no<!-- -->ne;"><br><<!-- -->div><br>[<!-- -->[In<!-- -->clude::PAGE<!-- -->NAME]<!-- -->]<br><<!-- -->&#047;<!-- -->div><br><<!-- -->&#047;<!-- -->div></div>
 <div class="wiki_help_text">To create a folding page link like this one:</div>
 <a href="javascript:expanddiv('logopage')">LINK</a><div id="logopage" style="display:none;">
 <div>
@@ -6080,7 +6065,7 @@ This method uses an additional &lt;div&gt; container to surround the include lin
 
 === Folding page button
 <div class="wiki_help_text">Use this code in a page, replacing BUTTONTEXT with the text for your button, both instances of NAME with the same unique name for the fold, and PAGENAME with the name of the page you'd like to include:</div>
-<div class="wikihelpcode"><<!-- -->in<!-- -->put va<!-- -->lue="BUTTONTEXT" on<!-- -->click="expand<!-- -->span('NAME')" ty<!-- -->pe="button"<!-- -->>
+<div class="wiki_help_code"><<!-- -->in<!-- -->put va<!-- -->lue="BUTTONTEXT" on<!-- -->click="expand<!-- -->span('NAME')" ty<!-- -->pe="button"<!-- -->>
 <<!-- -->d<!-- -->iv i<!-- -->d="NA<!-- -->ME" st<!-- -->yle="dis<!-- -->play:n<!-- -->one;"<!-- -->><<!-- -->d<!-- -->iv<!-- -->>
 [<!-- -->[Include::PAGENAME]<!-- -->]
 <<!-- -->/di<!-- -->v<!-- -->><<!-- -->/<!-- -->di<!-- -->v<!-- -->></div>
@@ -6088,7 +6073,7 @@ This method uses an additional &lt;div&gt; container to surround the include lin
 
 === Folding page styled button
 <div class="wiki_help_text">Use this code in a page, replacing BUTTONTEXT with the text for your button, both instances of NAME with the same unique name for the fold, and PAGENAME with the name of the page you'd like to include:</div>
-<div class="wikihelpcode"><<!-- -->input class="wiki_button" value="BUTTONTEXT" onclick="expand<!-- -->span('NAME')" ty<!-- -->pe="button"<!-- -->>
+<div class="wiki_help_code"><<!-- -->input class="wiki_button" value="BUTTONTEXT" onclick="expand<!-- -->span('NAME')" ty<!-- -->pe="button"<!-- -->>
 <<!-- -->div id="NAME" style="display:none;"<!-- -->><<!-- -->div<!-- -->>
 [<!-- -->[Include::PAGENAME]<!-- -->]
 <<!-- -->/div<!-- -->><<!-- -->/div<!-- -->>

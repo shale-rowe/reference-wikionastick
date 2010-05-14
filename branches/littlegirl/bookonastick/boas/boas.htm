@@ -98,7 +98,7 @@ div.wiki_header {
 	color: navy;
 }
 
-.woas_background, #woas_debug_panel, #woas_debug_console, #woas_debug_log, #woas_edit_page_title, .woas_editor_button, #woas_pwd_query, #woas_pwd_mask, .woas_password_desc, .woas_about_footer, .woas_help_background, .wiki_help_button, .woas_helptext, .woas_page_mts, div.woas_text_area, .woas_text_area.locked, #woas_pwd_mask, .woas_core_page, div.menu,div.menu_area, .wiki_menu_button_full, .wiki_menu_button_half,.title, .wiki_preformatted, .woas_nowiki_multiline, div.search_results, div.wiki_toc, p.wiki_toc_title, table.woas_text_area, div.taglinks { }</style>
+.woas_background, #woas_debug_panel, #woas_debug_console, #woas_debug_log, #woas_edit_page_title, .wiki_editor_button, #woas_pwd_query, #woas_pwd_mask, .woas_password_desc, .woas_about_footer, .woas_help_background, .wiki_help_button, .wiki_help_text, .woas_page_mts, div.woas_text_area, .woas_text_area.locked, #woas_pwd_mask, .woas_core_page, div.menu,div.menu_area, .wiki_menu_button_full, .wiki_menu_button_half,.title, .wiki_preformatted, .woas_nowiki_multiline, div.search_results, div.wiki_toc, p.wiki_toc_title, table.woas_text_area, div.taglinks { }</style>
 <script woas_permanent="1" src="src/aes.js" type="text/javascript"></script>
 <script woas_permanent="1" src="src/framework.js" type="text/javascript"></script>
 <script woas_permanent="1" src="src/loadsave.js" type="text/javascript"></script>
@@ -179,40 +179,40 @@ div.wiki_header {
 <!-- EDITOR BUTTONS ROW 2 -->
 <div id="wiki_format_buttons" style="display: block; visibility: visible;">
 Wiki Code:
-<input class="woas_editor_button" name="btn11" value="Wiki URL" title="Wiki page link" style="text-decoration: underline; width: 70px;" onclick="setWikiIUrl()" type="button" />
-<input class="woas_editor_button" name="btn10" value="URL" title="External link" style="text-decoration: underline; width: 40px;" onclick="setWikiUrl()" type="button" />
-<input class="woas_editor_button" name="btn7" value="=" title="Level 1 header" style="width: 40px;" onclick="TagThis('= ','')" type="button" />
-<input class="woas_editor_button" name="btn8" value="==" title="Level 2 header" style="width: 40px;" onclick="TagThis('== ','')" type="button" />
-<input class="woas_editor_button" name="btn9" value="Img" title="Include wiki image" style="width: 40px;" onclick="setWikiImage()" type="button" />
-<input class="woas_editor_button" name="btn1" value=" B " title="Bold text" style="font-weight: bold; width: 30px;" onclick="TagThis('*', '*')" type="button" />
-<input class="woas_editor_button" name="btn2" value=" i " title="Italic text" style="font-style: italic; width: 30px;" onclick="TagThis('/', '/')" type="button" />
-<input class="woas_editor_button" name="btn3" value=" u " title="Underlined text" style="text-decoration: underline; width: 30px;" onclick="TagThis('_', '_')" type="button" />
-<input class="woas_editor_button" name="btn4" value="{{{ }}}" title="Nowiki text" style="width: 70px;" onclick="TagThis('{{{\n', '\n}}}')" type="button" />
-<input class="woas_editor_button" name="btn5" value="*" title="Bulleted list item" style="width: 40px;" onclick="TagThis('* ','')" type="button" />
-<input class="woas_editor_button" name="btn6" value="#" title="Numbered list item" style="width: 40px;" onclick="TagThis('# ','')" type="button" />
-<input class="woas_editor_button" name="btn7" value="@" title="Alphanumeric list item" style="width: 40px;" onclick="TagThis('@ ','')" type="button" />
-<input class="woas_editor_button" name="btn8" value="Ruler" title="Ruler (horizontal line)" style="width: 46px;" onclick="TagThis('---- ','')" type="button" />
-<input class="woas_editor_button" name="btn9" value="Tags" title="Wiki tag or tags" style="width: 43px;" onclick="setTag()" type="button" />
+<input class="wiki_editor_button" name="btn11" value="Wiki URL" title="Wiki page link" style="text-decoration: underline; width: 70px;" onclick="setWikiIUrl()" type="button" />
+<input class="wiki_editor_button" name="btn10" value="URL" title="External link" style="text-decoration: underline; width: 40px;" onclick="setWikiUrl()" type="button" />
+<input class="wiki_editor_button" name="btn7" value="=" title="Level 1 header" style="width: 40px;" onclick="TagThis('= ','')" type="button" />
+<input class="wiki_editor_button" name="btn8" value="==" title="Level 2 header" style="width: 40px;" onclick="TagThis('== ','')" type="button" />
+<input class="wiki_editor_button" name="btn9" value="Img" title="Include wiki image" style="width: 40px;" onclick="setWikiImage()" type="button" />
+<input class="wiki_editor_button" name="btn1" value=" B " title="Bold text" style="font-weight: bold; width: 30px;" onclick="TagThis('*', '*')" type="button" />
+<input class="wiki_editor_button" name="btn2" value=" i " title="Italic text" style="font-style: italic; width: 30px;" onclick="TagThis('/', '/')" type="button" />
+<input class="wiki_editor_button" name="btn3" value=" u " title="Underlined text" style="text-decoration: underline; width: 30px;" onclick="TagThis('_', '_')" type="button" />
+<input class="wiki_editor_button" name="btn4" value="{{{ }}}" title="Nowiki text" style="width: 70px;" onclick="TagThis('{{{\n', '\n}}}')" type="button" />
+<input class="wiki_editor_button" name="btn5" value="*" title="Bulleted list item" style="width: 40px;" onclick="TagThis('* ','')" type="button" />
+<input class="wiki_editor_button" name="btn6" value="#" title="Numbered list item" style="width: 40px;" onclick="TagThis('# ','')" type="button" />
+<input class="wiki_editor_button" name="btn7" value="@" title="Alphanumeric list item" style="width: 40px;" onclick="TagThis('@ ','')" type="button" />
+<input class="wiki_editor_button" name="btn8" value="Ruler" title="Ruler (horizontal line)" style="width: 46px;" onclick="TagThis('---- ','')" type="button" />
+<input class="wiki_editor_button" name="btn9" value="Tags" title="Wiki tag or tags" style="width: 43px;" onclick="setTag()" type="button" />
 <a class="world" onclick="open_table_help()">About tables</a>
 </div>
 <!-- EDITOR BUTTONS ROW 3 -->
 <div id="html_format_buttons" style="display: block; visibility: visible;">XHTML Code:
-  <input class="woas_editor_button" name="b" title="Bold text" id="b" value="B" style="font-weight: bold;" onclick="FullTagThis('strong')" type="submit" />
-  <input class="woas_editor_button" name="i" title="Italic text" id="i" value="i" style="font-style: italic;" onclick="FullTagThis('em')" type="submit" />
-  <input class="woas_editor_button" name="u" title="Underlined text" id="u" value="u" style="text-decoration: underline;" onclick="FullTagThis('u')" type="submit" />
-  <input class="woas_editor_button" name="s" title="Strike-through text" id="s" value="S" style="text-decoration: overline;" onclick="FullTagThis('s')" type="submit" />
-  <input class="woas_editor_button" name="sup" title="Superscript text" id="sup" value="Sup" onclick="FullTagThis('sup')" type="submit" />
-  <input class="woas_editor_button" name="sub" title="Subscript text" id="sub" value="Sub" onclick="FullTagThis('sub')" type="submit" />
-  <input class="woas_editor_button" name="left" title="Align selection left" id="left" value="Left" onclick="DivTagThis('left')" type="submit" />
-  <input class="woas_editor_button" name="center" title="Align selection center" id="center" value="Center" onclick="DivTagThis('center')" type="submit" />
-  <input class="woas_editor_button" name="right" title="Align selection right" id="right" value="Right" onclick="DivTagThis('right')" type="submit" />
-  <input class="woas_editor_button" name="justify" title="Justify selection" id="justify" value="Justify" onclick="DivTagThis('justify')" type="submit" />
-  <input class="woas_editor_button" name="list" title="Unordered list" id="list" value="List" onclick="FullTagThis('ul')" type="submit" />
-  <input class="woas_editor_button" name="list_eq" title="Ordered list" id="list_eq" value="List=" onclick="FullTagThis('ol')" type="submit" />
-  <input class="woas_editor_button" name="li" id="li" title="List item" value="li [*]" onclick="FullTagThis('li')" type="submit" />
-  <input class="woas_editor_button" name="blockquote" title="Blockquote (indented text)" id="blockquote" value="Blockquote" onclick="FullTagThis('blockquote')" type="submit" />
-  <input class="woas_editor_button" name="img" id="img" title="Image link" value="Image" onclick="setHTMLImage()" type="submit" />
-  <input class="woas_editor_button" name="url" id="url" title="External link" value="Link" onclick="setHTMLUrl()" type="submit" />
+  <input class="wiki_editor_button" name="b" title="Bold text" id="b" value="B" style="font-weight: bold;" onclick="FullTagThis('strong')" type="submit" />
+  <input class="wiki_editor_button" name="i" title="Italic text" id="i" value="i" style="font-style: italic;" onclick="FullTagThis('em')" type="submit" />
+  <input class="wiki_editor_button" name="u" title="Underlined text" id="u" value="u" style="text-decoration: underline;" onclick="FullTagThis('u')" type="submit" />
+  <input class="wiki_editor_button" name="s" title="Strike-through text" id="s" value="S" style="text-decoration: overline;" onclick="FullTagThis('s')" type="submit" />
+  <input class="wiki_editor_button" name="sup" title="Superscript text" id="sup" value="Sup" onclick="FullTagThis('sup')" type="submit" />
+  <input class="wiki_editor_button" name="sub" title="Subscript text" id="sub" value="Sub" onclick="FullTagThis('sub')" type="submit" />
+  <input class="wiki_editor_button" name="left" title="Align selection left" id="left" value="Left" onclick="DivTagThis('left')" type="submit" />
+  <input class="wiki_editor_button" name="center" title="Align selection center" id="center" value="Center" onclick="DivTagThis('center')" type="submit" />
+  <input class="wiki_editor_button" name="right" title="Align selection right" id="right" value="Right" onclick="DivTagThis('right')" type="submit" />
+  <input class="wiki_editor_button" name="justify" title="Justify selection" id="justify" value="Justify" onclick="DivTagThis('justify')" type="submit" />
+  <input class="wiki_editor_button" name="list" title="Unordered list" id="list" value="List" onclick="FullTagThis('ul')" type="submit" />
+  <input class="wiki_editor_button" name="list_eq" title="Ordered list" id="list_eq" value="List=" onclick="FullTagThis('ol')" type="submit" />
+  <input class="wiki_editor_button" name="li" id="li" title="List item" value="li [*]" onclick="FullTagThis('li')" type="submit" />
+  <input class="wiki_editor_button" name="blockquote" title="Blockquote (indented text)" id="blockquote" value="Blockquote" onclick="FullTagThis('blockquote')" type="submit" />
+  <input class="wiki_editor_button" name="img" id="img" title="Image link" value="Image" onclick="setHTMLImage()" type="submit" />
+  <input class="wiki_editor_button" name="url" id="url" title="External link" value="Link" onclick="setHTMLUrl()" type="submit" />
 </div>
 <!-- EDITOR MAIN PANE -->
 <textarea id="woas_editor" style="width: 1405px; height: 471px;" rows="0" cols="0"></textarea> 

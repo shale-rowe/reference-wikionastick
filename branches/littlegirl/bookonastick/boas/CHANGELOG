@@ -1151,3 +1151,8 @@
 * Updated the [[WoaS::CSS::Boot]] page.
 * Updated the [[WoaS::CSS::Core]] page.
 ======================================================================================================================
+* Changed the class of editor buttons to wiki_editor_button.
+* Changed the class of help code to wiki_help_code.
+* Fixed two links on the [[Wiki::Help::Spoilers]] page.
+* Updated the [[WoaS::CSS::Core]] page.
+======================================================================================================================
