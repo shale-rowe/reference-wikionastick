@@ -12,7 +12,7 @@
 define('LIBWSIF_VERSION', '1.3.3');
 define('_LIBWSIF_RANDOM_CHARSET', "ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz");
 
-define('WSIF_VERSION', '1.3.0');
+define('WSIF_VERSION', '1.3.1');
 
 define('_WSIF_DEFAULT_INDEX', 'index.wsif');
 
@@ -403,7 +403,7 @@ class WSIF {
 		// prepare the extra headers
 		$extra = $this->_header('wsif.version', WSIF_VERSION);
 		$extra = $this->_header('wsif.generator', 'libwsif');
-		$extra .= $this->_header('libwsif.version', LIBWSIF_VERSION);
+		$extra .= $this->_header('wsif.generator.version', LIBWSIF_VERSION);
 		if (strlen($author))
 			$extra .= $this->_header('woas.author', author);
 
