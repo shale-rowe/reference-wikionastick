@@ -3,7 +3,7 @@
 ## WoaS compiler
 # @author legolas558
 # @copyright GNU/GPL license
-# @version 1.4.0
+# @version 1.4.1
 # 
 # run 'mkwoas.php woas.htm' to create a single-file version
 # from the multiple files version
@@ -166,6 +166,9 @@ function _woas_config_cb_single($m) {
 	switch ($m[1]) {
 		case "wsif_ds":
 			$v = "''";
+		break;
+		case 'wsif_ds_lock':
+			$v = 'false';
 		break;
 		case "store_mts":
 		case "wsif_ds_multi":
