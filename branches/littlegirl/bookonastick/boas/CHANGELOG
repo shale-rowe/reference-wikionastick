@@ -1141,3 +1141,13 @@
 * Updated the [[Wiki::Help::Requirements]] page.
 * Updated the [[WoaS::CSS::Core]] page.
 ======================================================================================================================
+* Changed the woas_help_button class to wiki_help_button.
+* Changed the class of help text to wiki_help_text.
+* Removed the [[Help::Bootscript]] page.
+* Renamed the [[Help::Syntax]] page to [[Wiki::Help::Syntax]].
+* Started updating the [[Help::Links]] page.
+* Updated the [[Wiki::Help::Index]] page.
+* Updated the [[Wiki::History]] page.
+* Updated the [[WoaS::CSS::Boot]] page.
+* Updated the [[WoaS::CSS::Core]] page.
+======================================================================================================================

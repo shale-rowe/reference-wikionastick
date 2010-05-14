@@ -98,13 +98,7 @@ div.wiki_header {
 	color: navy;
 }
 
-.woas_background, #woas_debug_panel, #woas_debug_console, #woas_debug_log,
-#woas_edit_page_title, .woas_editor_button, #woas_pwd_query, #woas_pwd_mask,
-.woas_password_desc,.woas_about_footer,.woas_help_background,.woas_help_button,
-.woas_helpcode,.woas_helptext, .woas_page_mts, div.woas_text_area, .woas_text_area.locked,
-#woas_pwd_mask,.woas_core_page,div.menu,div.menu_area,.woas_menu_button,.title,
-.wiki_preformatted, .woas_nowiki_multiline,div.search_results,div.wiki_toc,p.wiki_toc_title,
-table.woas_text_area,div.taglinks { }</style>
+.woas_background, #woas_debug_panel, #woas_debug_console, #woas_debug_log, #woas_edit_page_title, .woas_editor_button, #woas_pwd_query, #woas_pwd_mask, .woas_password_desc, .woas_about_footer, .woas_help_background, .wiki_help_button, .woas_helptext, .woas_page_mts, div.woas_text_area, .woas_text_area.locked, #woas_pwd_mask, .woas_core_page, div.menu,div.menu_area, .wiki_menu_button_full, .wiki_menu_button_half,.title, .wiki_preformatted, .woas_nowiki_multiline, div.search_results, div.wiki_toc, p.wiki_toc_title, table.woas_text_area, div.taglinks { }</style>
 <script woas_permanent="1" src="src/aes.js" type="text/javascript"></script>
 <script woas_permanent="1" src="src/framework.js" type="text/javascript"></script>
 <script woas_permanent="1" src="src/loadsave.js" type="text/javascript"></script>
@@ -156,23 +150,23 @@ table.woas_text_area,div.taglinks { }</style>
 <!-- BEGIN MENU -->
 <div class="menu_area" id="sw_menu_area" style="position: fixed;">
 <!-- BEGIN MENU BUTTONS TOP -->
-<input class="boas_menu_button_full" value="Main page" title="Go to the Main page" onclick="go_to('Special::Main Page')" type="submit" />
-<input class="boas_menu_button_half" value="About" title="About this wiki." onclick="go_to('Special::About')" type="submit" /><input class="boas_menu_button_half" value="All pages" title="Get a listing of all pages in this wiki" onclick="go_to('Special::All Pages')" type="submit" />
-<input class="boas_menu_button_half" value="Back links" title="Display a list of pages linking to this page" onclick="go_to('Special::Backlinks')" type="submit" /><input class="boas_menu_button_half" value="Delete page" title="Delete this page" onclick="go_to('Special::Delete Page')" type="submit" />
-<input class="boas_menu_button_half" value="Examples" title="See some examples" onclick="go_to('Wiki::Example::')" type="submit" /><input class="boas_menu_button_half" value="Go to page" title="Go to a specific page or embed an image or file" onclick="go_to('Special::Go to')" type="submit" />
-<input class="boas_menu_button_half" value="Help" title="Get help" onclick="help()" type="submit" /><input class="boas_menu_button_half" value="New page" title="Create a new page" onclick="go_to('Special::New Page')" type="submit" />
-<input class="boas_menu_button_half" value="Search" title="Search this wiki" onclick="go_to('Special::Search')" type="submit" /><input class="boas_menu_button_half" value="Utilities" title="Wiki utilities" onclick="go_to('Wiki::Utility::')" type="submit" />
+<input class="wiki_menu_button_full" value="Main page" title="Go to the Main page" onclick="go_to('Special::Main Page')" type="submit" />
+<input class="wiki_menu_button_half" value="About" title="About this wiki." onclick="go_to('Special::About')" type="submit" /><input class="wiki_menu_button_half" value="All pages" title="Get a listing of all pages in this wiki" onclick="go_to('Special::All Pages')" type="submit" />
+<input class="wiki_menu_button_half" value="Back links" title="Display a list of pages linking to this page" onclick="go_to('Special::Backlinks')" type="submit" /><input class="wiki_menu_button_half" value="Delete page" title="Delete this page" onclick="go_to('Special::Delete Page')" type="submit" />
+<input class="wiki_menu_button_half" value="Examples" title="See some examples" onclick="go_to('Wiki::Example::')" type="submit" /><input class="wiki_menu_button_half" value="Go to page" title="Go to a specific page or embed an image or file" onclick="go_to('Special::Go to')" type="submit" />
+<input class="wiki_menu_button_half" value="Help" title="Get help" onclick="help()" type="submit" /><input class="wiki_menu_button_half" value="New page" title="Create a new page" onclick="go_to('Special::New Page')" type="submit" />
+<input class="wiki_menu_button_half" value="Search" title="Search this wiki" onclick="go_to('Special::Search')" type="submit" /><input class="wiki_menu_button_half" value="Utilities" title="Wiki utilities" onclick="go_to('Wiki::Utility::')" type="submit" />
 <!-- END MENU BUTTONS TOP -->
 <div class="wiki" id="menu_area" ondblclick="menu_dblclick()"></div>
 <div id="menu_edit_button" style="display: inline; visibility: visible;">
 <!-- BEGIN MENU BUTTON BOTTOM -->
-<input class="boas_menu_button_full" value="Edit menu" title="Edit the menu" onclick="edit_menu()" type="submit" />
+<input class="wiki_menu_button_full" value="Edit menu" title="Edit the menu" onclick="edit_menu()" type="submit" />
 <!-- END MENU BUTTON BOTTOM -->
 </div>
 <div class="wiki" id="ns_menu_area" ondblclick="ns_menu_dblclick()" style="display: none; visibility: hidden;"></div>
 <div id="ns_menu_edit_button" style="display: none; visibility: hidden;">
 <!-- BEGIN SUB-MENU BUTTON BOTTOM -->
-<input class="boas_menu_button_full" value="Edit sub-menu" title="Edit the sub-menu" onclick="edit_ns_menu()" type="submit" />
+<input class="wiki_menu_button_full" value="Edit sub-menu" title="Edit the sub-menu" onclick="edit_ns_menu()" type="submit" />
 <!-- END SUB-MENU BUTTON BOTTOM -->
 </div></div>
 <!-- END MENU -->
@@ -221,7 +215,7 @@ Wiki Code:
   <input class="woas_editor_button" name="url" id="url" title="External link" value="Link" onclick="setHTMLUrl()" type="submit" />
 </div>
 <!-- EDITOR MAIN PANE -->
-<textarea id="woas_editor" style="width: 1405px; height: 500px;" rows="0" cols="0"></textarea> 
+<textarea id="woas_editor" style="width: 1405px; height: 471px;" rows="0" cols="0"></textarea> 
 </div>
 <!-- END EDITOR -->
 <!-- BEGIN LAST MODIFIED LINE -->
