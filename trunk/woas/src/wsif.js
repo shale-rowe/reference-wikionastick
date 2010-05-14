@@ -16,6 +16,15 @@ woas.wsif = {
 	inline: function(boundary, content) {
 		return "\n--"+boundary+"\n"+content+"\n--"+boundary+"\n";
 	},
+	_generate_random_boundary: function(old_boundary, text) {
+		var b = old_boundary;
+		if (!b.length)
+			b = _random_string(10);
+		while (text.indexOf(b) != -1) {
+			b = _random_string(10);
+		}
+		return b;
+	},
 	do_error: function(msg) {
 		log("WSIF ERROR: "+msg);	//log:1
 		this.wsif.emsg = msg;
@@ -29,15 +38,6 @@ woas.wsif = {
 // - encrypted pages go inline in base64
 woas._native_wsif_save = function(path, src_fname, locking, single_wsif, inline_wsif, author,
 							save_all, plist) {
-	function _generate_random_boundary(old_boundary, text) {
-		var b = old_boundary;
-		if (!b.length)
-			b = _random_string(10);
-		while (text.indexOf(b) != -1) {
-			b = _random_string(10);
-		}
-		return b;
-	}
 
 	this.progress_init("WSIF save");
 	
@@ -160,7 +160,7 @@ woas._native_wsif_save = function(path, src_fname, locking, single_wsif, inline_
 			if (orig_len !== null)
 				record += this.wsif.header(pfx+"original_length", orig_len);
 			// create the inline page
-			boundary = _generate_random_boundary(boundary, ct);
+			boundary = this.wsif._generate_random_boundary(boundary, ct);
 			record += this.wsif.header(pfx+"boundary", boundary);
 			// add the inline content
 			record += this.wsif.inline(boundary, ct); ct = null;
@@ -236,7 +236,7 @@ woas._wsif_ds_load = function(subpath, locking) {
 	page_titles = [];
 	page_mts = [];
 	// get the data
-	return this._native_wsif_load(woas.ROOT_DIRECTORY+subpath, locking, false);
+	return this._native_wsif_load(woas.ROOT_DIRECTORY+subpath, locking, false /* no save */, 0, this.importer._core_import_hook);
 };
 
 /* description of parameters:
@@ -448,6 +448,13 @@ woas._native_wsif_load = function(path, locking, and_save, recursing, import_hoo
 // returns true if a page was defined, and save it in wsif.imported array
 woas._native_page_def = function(path,ct,p,last_p,import_hook, title_filter_hook,
 								title,attrs,last_mod,len,encoding,disposition,d_fn,boundary,mime) {
+
+	// apply title filtering
+	if (typeof title_filter_hook == "function") {
+		if (!title_filter_hook(title))
+			return false;
+	}
+
 	var bpos_e, page;
 	// attributes must be defined
 	if (attrs === null) {
@@ -462,7 +469,7 @@ woas._native_page_def = function(path,ct,p,last_p,import_hook, title_filter_hook
 	// last modified timestamp can be omitted
 	if (last_mod === null)
 		last_mod = 0;
-	
+		
 	switch (disposition) {
 		case "inline":
 		// craft the exact boundary match string
@@ -581,7 +588,8 @@ woas._native_page_def = function(path,ct,p,last_p,import_hook, title_filter_hook
 				return false;
 			}
 			// check the result of external import
-			var rv = this._native_wsif_load(the_dir+d_fn, locking, false, true, import_hook, title_filter_hook);
+			var rv = this._native_wsif_load(the_dir+d_fn, locking, false /* no save */,
+											1, import_hook, title_filter_hook);
 			if (rv === false)
 				this.wsif.do_error( "Failed import of external "+the_dir+d_fn);
 			// return pointer after last read header
@@ -593,15 +601,14 @@ woas._native_page_def = function(path,ct,p,last_p,import_hook, title_filter_hook
 		return false;
 	} // end of switch
 
-	var NP = { "title": title, "attrs": attrs, "page": page, "modified": false };
-	if (typeof title_filter_hook == "function") {
-		if (!title_filter_hook(NP))
-			return false;
-	}
-	
-	if (import_hook(NP))
+	// create the page object
+	var NP = { "title": title, "attrs": attrs, "body": page, "mts": last_mod, "pi": null };
+
+	// check that this was imported successfully
+	if (import_hook( NP ))
 		// all OK
-		this.wsif.imported.push(pages.indexOf(NP.title));
+		this.wsif.imported.push(NP.pi);
+	
 	// return updated offset
 	return true;
 };
