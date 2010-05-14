@@ -224,7 +224,7 @@ woas.importer = {
 	},
 	
 	_clear: function() {
-		this.pages = [];
+//		this.pages = [];
 		this._update_css = false;
 		this._update_aliases = false;
 		this._update_hotkeys = false;
@@ -410,8 +410,12 @@ woas.importer = {
 		data = null;
 		
 		// **** COMMON IMPORT CODE ****
-		if (this.i_content)
+		if (this.i_content) {
 			this._import_content(old_version);
+			this.total = this.pages.length;
+			// GC cleanup
+			this.pages = [];
+		}
 		
 		// eventually add the new missing page
 		if (old_version <= 112) {
@@ -466,7 +470,6 @@ woas.importer = {
 		// always update run-time stuff, even on failure
 		this._after_import();
 		
-		this.total = this.pages.length;
 		// clear everything off
 		this._clear();
 
