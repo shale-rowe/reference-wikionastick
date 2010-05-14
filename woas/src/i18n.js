@@ -41,7 +41,7 @@ woas.i18n = {
 	HEIGHT: "Height",
 	IMPORT_INCOMPAT: "Incompatible version: %s",
 	IMPORT_OLD_VER: "If this is a WoaS older than v0.9.6B, you should import it with WoaS 0.11.x",
-	IMPORT_OK: "%s pages imported successfully (%d system pages skipped)",
+	IMPORT_OK: "%s pages imported successfully (%d pages skipped)",
 	IMPORT_UNRECON: "Unrecognized format",
 	INSERT_NEW:"Insert new page title",
 	INVALID_ALIAS: "Invalid alias '%s', ignoring it",

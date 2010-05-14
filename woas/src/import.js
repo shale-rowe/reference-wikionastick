@@ -38,7 +38,6 @@ woas.importer = {
 	current_mts: null,
 	pages_imported: 0,
 	total: 0,
-	sys_pages: 0,
 	pages: [],			// imported page objects array
 	_reference: [],		// linear array containing page id or null, used privately by _get_import_vars()
 	
@@ -85,7 +84,6 @@ woas.importer = {
 			return true;
 		} else if (title.substr(0, 9) === "Special::") {
 			// always skip special pages and consider them system pages
-			++this.sys_pages;
 
 			return false;
 		}
@@ -181,7 +179,7 @@ woas.importer = {
 	
 	// normal import hook
 	_import_hook: function(page) {
-		woas.log("Importing page "+page.title);
+//		woas.log("Importing page "+page.title);	//log:0
 		var pi = woas.page_index(page.title);
 		if (pi === -1) {
 			page_titles.push(page.title);
@@ -222,8 +220,6 @@ woas.importer = {
 		this._update_hotkeys = false;
 		this._plugins_add = [];
 		this._plugins_update = [];
-		this.pages_imported = 0;
-		this.sys_pages = 0;
 	},
 	
 	_import_content: function(old_version) {
@@ -284,6 +280,10 @@ woas.importer = {
 	},
 	
 	do_import: function(ct) {
+		// initialize
+		this.pages_imported = 0;
+		this.total = 0;
+
 		var fail=false;
 		
 		do { // a fake do...while to ease failure return
@@ -492,12 +492,6 @@ woas.importer = {
 
 };
 
-woas._file_ext = function(fn) {
-	var m=fn.match(/\.(\w+)$/);
-	if (m === null) return "";
-	return "."+m[1];
-};
-
 woas.import_wiki = function() {
 
 	if(confirm(this.i18n.CONFIRM_IMPORT_OVERWRITE) === false)
@@ -532,8 +526,8 @@ woas.import_wiki = function() {
 		return false;
 
 	// inform about the imported pages / total pages present in file
-	this.alert(this.i18n.IMPORT_OK.sprintf(this.importer.pages_imported+"/"+
-				(this.importer.total-this.importer.sys_pages).toString(), this.importer.sys_pages));
+	this.alert(this.i18n.IMPORT_OK.sprintf(this.importer.pages_imported+"/"+this.importer.total,
+											this.importer.total - this.importer.pages_imported));
 	
 	// move to main page
 	current = this.config.main_page;
@@ -545,6 +539,12 @@ woas.import_wiki = function() {
 	
 	// supposedly, everything went OK
 	return true;
+};
+
+woas._file_ext = function(fn) {
+	var m=fn.match(/\.(\w+)$/);
+	if (m === null) return "";
+	return "."+m[1];
 };
 
 /*** generic import code follows ***/
