@@ -1,7 +1,7 @@
 
 // a class for some general WSIF operations
 woas.wsif = {
-	version: "1.3.0",
+	version: "1.3.1",			// version of WSIF format being used
 	DEFAULT_INDEX: "index.wsif",
 	emsg: null,
 	imported: [],				// _native_page_def() will always add imported pages here
@@ -41,7 +41,7 @@ woas._native_wsif_save = function(path, src_fname, locking, single_wsif, inline_
 	// prepare the extra headers
 	var extra = this.wsif.header('wsif.version', this.wsif.version);
 	extra += this.wsif.header('wsif.generator', 'woas');
-	extra += this.wsif.header('woas.version', this.version);
+	extra += this.wsif.header('wsif.generator.version', this.version);
 	if (author.length)
 		extra += this.wsif.header('woas.author', author);
 
@@ -233,8 +233,7 @@ woas._wsif_ds_load = function(subpath, locking) {
 	page_titles = [];
 	page_mts = [];
 	// get the data
-	var path = woas.ROOT_DIRECTORY+subpath;
-	return this._native_wsif_load(path, locking, false, false);
+	return this._native_wsif_load(woas.ROOT_DIRECTORY+subpath, locking, false, false);
 };
 
 /* description of parameters:
