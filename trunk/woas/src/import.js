@@ -37,6 +37,7 @@ woas.importer = {
 	new_main_page: null,
 	current_mts: null,
 	pages_imported: 0,
+	total: 0,
 	sys_pages: 0,
 	pages: [],			// imported page objects array
 	_reference: [],		// linear array containing page id or null, used privately by _get_import_vars()
@@ -111,7 +112,9 @@ woas.importer = {
 			if (
 					// main_page was not in config object for 0.10.8 and below
 					(old_version <= 108) && (var_name === "main_page") ) {
-				woas.importer.new_main_page = collected.main_page;
+				woas.importer.new_main_page = woas.eval(definition.replace(woas.importer.reJStringRep,
+								function (str, id) { return "'"+jstrings[id]+"'";}
+							), true);
 				return;
 			}
 			// the rest of variables are for content, so exit if we don't want content
@@ -178,6 +181,7 @@ woas.importer = {
 	
 	// normal import hook
 	_import_hook: function(page) {
+		woas.log("Importing page "+page.title);
 		var pi = woas.page_index(page.title);
 		if (pi === -1) {
 			page_titles.push(page.title);
@@ -270,7 +274,7 @@ woas.importer = {
 			}
 					
 			// proceed to actual import
-			if (this._import_hook(pages[i])) {
+			if (this._import_hook(this.pages[i])) {
 				++this.pages_imported;
 				woas.progress_status(this.pages_imported/this.pages.length);
 			}
@@ -448,10 +452,11 @@ woas.importer = {
 				mts: woas.config.store_mts ? this.current_mts : 0
 			} );
 		}
-
+		
 		// always update run-time stuff, even on failure
 		this._after_import();
 		
+		this.total = this.pages.length;
 		// clear everything off
 		this._clear();
 
@@ -528,7 +533,7 @@ woas.import_wiki = function() {
 
 	// inform about the imported pages / total pages present in file
 	this.alert(this.i18n.IMPORT_OK.sprintf(this.importer.pages_imported+"/"+
-				(this.importer.pages.length-this.importer.sys_pages).toString(), this.importer.sys_pages));
+				(this.importer.total-this.importer.sys_pages).toString(), this.importer.sys_pages));
 	
 	// move to main page
 	current = this.config.main_page;
