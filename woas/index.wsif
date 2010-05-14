@@ -71,10 +71,14 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-Import a wiki from an early (or current) version:
+Import a wiki /.html/ source from an early (or current) version:
 
 File: <input id="filename_" type="file" />&nbsp;<input id="btn_import" type="button" value="Import" onclick="import_wiki()" />
 
+== Source
+<label for="cb_import_config"><input type="checkbox" id="cb_import_config" checked="checked">&nbsp;Import configuration</label>
+<label for="cb_import_content"><input type="checkbox" id="cb_import_content" checked="checked">&nbsp;Import pages</label>
+<label for="cb_import_css"><input type="checkbox" id="cb_import_css">&nbsp;Import CSS</label>
 [[Include::WoaS::ImportSettings]]
 
 <script type="text/javascript">
@@ -4234,12 +4238,13 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-== Source
-<label for="cb_import_content"><input type="checkbox" id="cb_import_content" checked="checked">&nbsp;Import the wiki pages.</label>
-<label for="cb_import_css"><input type="checkbox" id="cb_import_css">&nbsp;Import also CSS.</label>
-<label for="woas_cb_import_overwrite"><input type="checkbox" id="woas_cb_import_overwrite" checked="checked">Overwrite pages with the same title</label>
+== Existing pages
+<label for="cb_import_erase"><input type="radio" id="cb_import_erase" name="cb_import_overwrite">Erase all user pages before import process</label>
+<label for="cb_import_ignore"><input type="radio" id="cb_import_ignore" name="cb_import_overwrite" checked="checked">Ignore</label>
+<label for="cb_import_overwrite"><input type="radio" id="cb_import_overwrite" name="cb_import_overwrite">Overwrite</label>
+<label for="cb_import_ask"><input type="radio" id="cb_import_ask" name="cb_import_overwrite">Ask before overwrite</label>
 == Security
-<label for="woas_cb_import_comment_js"><input type="checkbox" id="woas_cb_import_comment_js" checked="checked">Comment javascript code blocks</label>
-<label for="woas_cb_import_comment_macros"><input type="checkbox" id="woas_cb_import_comment_macros" checked="checked">Comment macro definition and call blocks</label>
-<label for="woas_cb_import_woas_ns"><input type="checkbox" id="woas_cb_import_woas_ns" checked="checked">Skip pages of the [[WoaS::]] namespace</label>
+<label for="woas_cb_import_comment_js"><input type="checkbox" id="woas_cb_import_comment_js" checked="checked">Comment JavaScript tags</label>
+<label for="woas_cb_import_comment_macros"><input type="checkbox" id="woas_cb_import_comment_macros" checked="checked">Comment macro definition/call</label>
+<label for="woas_cb_import_woas_ns"><input type="checkbox" id="woas_cb_import_woas_ns" checked="checked">Skip pages of the [[WoaS::]] namespace ([[WoaS::Hotkeys|hotkeys]], [[WoaS::Plugins|plugins]], [[WoaS::Aliases|aliases]] and [[WoaS::CSS::Custom|custom CSS]])</label>
 --DFQRCTsKlU
