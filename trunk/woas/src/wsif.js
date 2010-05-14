@@ -1,5 +1,7 @@
+// WSIF module
 
-// a class for some general WSIF operations
+var reMimeMatch = /^data:\s*([^;]*);\s*base64,\s*/;
+
 woas.wsif = {
 	version: "1.3.1",			// version of WSIF format being used
 	DEFAULT_INDEX: "index.wsif",
@@ -7,18 +9,19 @@ woas.wsif = {
 	imported: [],				// _native_page_def() will always add imported pages here
 	expected_pages: null,
 	system_pages: 0,
-	global_progress: 0
+	global_progress: 0,
+	header: function(header_name, value) {
+		return header_name+": "+value+"\n";
+	},
+	inline: function(boundary, content) {
+		return "\n--"+boundary+"\n"+content+"\n--"+boundary+"\n";
+	},
+	do_error: function(msg) {
+		log("WSIF ERROR: "+msg);	//log:1
+		this.wsif.emsg = msg;
+	}
+	
 };
-
-woas.wsif.header = function(header_name, value) {
-	return header_name+": "+value+"\n";
-};
-
-woas.wsif.inline = function(boundary, content) {
-	return "\n--"+boundary+"\n"+content+"\n--"+boundary+"\n";
-};
-
-var reMimeMatch = /^data:\s*([^;]*);\s*base64,\s*/;
 
 // default behavior:
 // - wiki pages go inline (utf-8), no container encoding
@@ -277,11 +280,11 @@ woas._native_wsif_load = function(path, locking, overwrite, and_save, recursing,
 		previous_h = null;
 	// too early failure
 	if (p === -1)
-		this.wsif_error("Invalid WSIF file");
+		this.wsif.do_error("Invalid WSIF file");
 	else { // OK, first page was located, now get some general WSIF info
 		var wsif_v = ct.substring(0,p).match(/^wsif\.version:\s+(.*)$/m);
 		if (wsif_v === null) {
-			this.wsif_error(this.i18n.WSIF_NO_VER);
+			this.wsif.do_error(this.i18n.WSIF_NO_VER);
 			p = -1;
 			fail = true;
 		} else {
@@ -290,7 +293,7 @@ woas._native_wsif_load = function(path, locking, overwrite, and_save, recursing,
 			var wsif_v_n = Number(wsif_v.replace(".", ""));
 			// check if WSIF is from future of it is the unsupported 1.0.0
 			if ((wsif_v_n == 100) || (wsif_v_n > Number(this.wsif.version.replace(".", "")))) {
-				this.wsif_error(this.i18n.WSIF_NS_VER.sprintf(wsif_v));
+				this.wsif.do_error(this.i18n.WSIF_NS_VER.sprintf(wsif_v));
 				p = -1;
 				fail = true;
 			} else { // get number of expected pages (not when recursing)
@@ -315,7 +318,7 @@ woas._native_wsif_load = function(path, locking, overwrite, and_save, recursing,
 		// remove prefix
 		sep = ct.indexOf(":", p+pfx_len);
 		if (sep === -1) {
-			this.wsif_error(this.i18n.WSIF_NO_HN);
+			this.wsif.do_error(this.i18n.WSIF_NO_HN);
 			fail = true;
 			break;
 		}
@@ -324,7 +327,7 @@ woas._native_wsif_load = function(path, locking, overwrite, and_save, recursing,
 		// get value
 		p = ct.indexOf("\n", sep+1);
 		if (p == -1) {
-			this.wsif_error(this.i18n.WSIF_BAD_HV);
+			this.wsif.do_error(this.i18n.WSIF_BAD_HV);
 			fail = true;
 			break;
 		}
@@ -421,7 +424,7 @@ woas._native_wsif_load = function(path, locking, overwrite, and_save, recursing,
 				d_fn,boundary,mime);
 		// save page index for later analysis
 		if (!rv)
-			this.wsif_error( "Import error for page "+title+" after import!" );
+			this.wsif.do_error( "Import error for page "+title+" after import!" );
 		// update status if not recursing
 		if (!recursing && (this.wsif.expected_pages !== null))
 			this.progress_status(this.wsif.global_progress++/this.wsif.expected_pages);
@@ -467,12 +470,12 @@ woas._native_page_def = function(path,ct,p,last_p,overwrite,pre_import_hook, tit
 		// locate start and ending boundaries
 		var bpos_s = ct.indexOf(boundary, p);
 		if (bpos_s == -1) {
-			this.wsif_error( "Failed to find start boundary "+boundary+" for page "+title );
+			this.wsif.do_error( "Failed to find start boundary "+boundary+" for page "+title );
 			return false;
 		}
 		bpos_e = ct.indexOf(boundary, bpos_s+boundary.length);
 		if (bpos_e == -1) {
-			this.wsif_error( "Failed to find end boundary "+boundary+" for page "+title );
+			this.wsif.do_error( "Failed to find end boundary "+boundary+" for page "+title );
 			return false;
 		}
 		// retrieve full page content
@@ -535,7 +538,7 @@ woas._native_page_def = function(path,ct,p,last_p,overwrite,pre_import_hook, tit
 	break;
 	case "external":	// import an external WSIF file
 		if (d_fn === null) {
-			this.wsif_error( "Page "+title+" is external but no filename was specified");
+			this.wsif.do_error( "Page "+title+" is external but no filename was specified");
 			return false;
 		}
 		// use last filename to get path
@@ -543,17 +546,17 @@ woas._native_page_def = function(path,ct,p,last_p,overwrite,pre_import_hook, tit
 		if (path === null) {
 			the_dir = this._get_path("filename_");
 			if (the_dir === false) {
-				this.wsif_error( "Cannot retrieve path name in this browser");
+				this.wsif.do_error( "Cannot retrieve path name in this browser");
 				return false;
 			}
 		} else {
-			this.wsif_error( "Recursive WSIF import not implemented");
+			this.wsif.do_error( "Recursive WSIF import not implemented");
 			return false;
 		}
 		// embedded image/file, not encrypted
 		if ((attrs & 4) || (attrs & 8)) {
 			if (encoding !== "8bit/plain") {
-				this.wsif_error( "Page "+title+" is an external file/image but not encoded as 8bit/plain");
+				this.wsif.do_error( "Page "+title+" is an external file/image but not encoded as 8bit/plain");
 				return false;
 			}
 			// load file and apply base64 encoding if embedded
@@ -568,25 +571,25 @@ woas._native_page_def = function(path,ct,p,last_p,overwrite,pre_import_hook, tit
 				wanted_mode = this.file_mode.BINARY;
 			page = this.load_file(the_dir+d_fn, wanted_mode, mime);
 			if (typeof page != "string") {
-				this.wsif_error( "Failed load of external "+the_dir+d_fn);
+				this.wsif.do_error( "Failed load of external "+the_dir+d_fn);
 				return false;
 			}
 			// fallback wanted to apply real page definition later
 		} else {
 			if (encoding != "text/wsif") {
-				this.wsif_error( "Page "+title+" is external but not encoded as text/wsif");
+				this.wsif.do_error( "Page "+title+" is external but not encoded as text/wsif");
 				return false;
 			}
 			// check the result of external import
 			var rv = this._native_wsif_load(the_dir+d_fn, locking, overwrite, false, true, pre_import_hook);
 			if (rv === false)
-				this.wsif_error( "Failed import of external "+the_dir+d_fn);
+				this.wsif.do_error( "Failed import of external "+the_dir+d_fn);
 			// return pointer after last read header
 			return rv;
 		}
 	break;
 	default: // no disposition or unknown disposition
-		this.wsif_error( "Page "+title+" has invalid disposition: "+disposition);
+		this.wsif.do_error( "Page "+title+" has invalid disposition: "+disposition);
 		return false;
 	} // end of switch
 
@@ -626,11 +629,6 @@ woas._native_page_def = function(path,ct,p,last_p,overwrite,pre_import_hook, tit
 	this.wsif.imported.push(pi);
 	// return updated offset
 	return true;
-};
-
-woas.wsif_error = function(msg) {
-	log("WSIF ERROR: "+msg);	//log:1
-	this.wsif.emsg = msg;
 };
 
 woas._last_filename = null;

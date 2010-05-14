@@ -624,36 +624,6 @@ function ff3_getPath(fileBrowser) {
 	return fileName;
 }
 
-// Special::ImportWSIF
-function import_wiki_wsif() {
-	if (!woas.config.permit_edits) {
-		this.alert(woas.i18n.READ_ONLY);
-		return false;
-	}
-	
-	var done;
-	// grab settings
-	_wsif_js_sec.comment_js = $("woas_cb_import_comment_js").checked;
-	_wsif_js_sec.comment_macros = $("woas_cb_import_comment_macros").checked;
-	_wsif_js_sec.woas_ns = $("woas_cb_import_woas_ns").checked;
-	// automatically retrieve the filename (will call load_file())
-	done = woas._native_wsif_load(null, $("woas_cb_import_overwrite").checked, true, false,
-			_import_wsif_pre_hook);
-	if (done === false && (woas.wsif.emsg !== null))
-		woas.crash(woas.wsif.emsg);
-
-	if (done !== false) {
-		// add some info about total pages
-		if (woas.wsif.expected_pages !== null)
-			done = String(done)+"/"+woas.wsif.expected_pages;
-		woas.alert(woas.i18n.IMPORT_OK.sprintf(done, woas.wsif.system_pages));
-		woas.refresh_menu_area();
-		// now proceed to actual saving
-		woas.commit(woas.wsif.imported);
-	}
-	return done;
-}
-
 // create a centered popup given some options
 woas.popup = function(name,fw,fh,extra,head,body, body_extra) {
 	if (typeof body_extra == "undefined")
