@@ -5,11 +5,11 @@
 <script type="text/javascript">
 /* <![CDATA[ */
 
-/* DFQRCTsKlU-0000226-START */
+/* DFQRCTsKlU-0000228-START */
 
 var woas = {"version": "0.11.9"};
 
-var __marker = "DFQRCTsKlU-0000226";
+var __marker = "DFQRCTsKlU-0000228";
 
 woas["config"] = {
 "permit_edits":true,
@@ -112,8 +112,6 @@ var page_titles = [
 'Theme::Red',
 'Theme::Thistle',
 'Theme::Yellow',
-'Theme::Pastel',
-'Theme::Purple',
 'Style::Example 01',
 'Style::Example 02',
 'Style::Example 03',
@@ -135,13 +133,15 @@ var page_titles = [
 'Style::Example 12',
 'Unicode chart',
 'Style::Example 13',
-'Theme::Orange'
+'Theme::Orange',
+'Template::Style',
+'Theme::Pastel'
 ];
 
-/* DFQRCTsKlU-0000226-DATA */
+/* DFQRCTsKlU-0000228-DATA */
 var page_attrs = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
 
-var page_mts = [0x4bef1884,0,0,0,0x4bef1877,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0x4be97606,0,0,0,0,0,0x4bbb7797,0x4bbb6a13,0x4bbb66c3,0x4bbb657c,0x4bbb772e,0x4bec08b5,0x4bec08d4,0x4bec08f9,0x4bec091e,0x4bec093d,0x4bec0960,0x4bec098d,0x4bec09e3,0x4bec0a4a,0x4bef1211,0x4bef19da,0x4bef19e5,0x4bef19ee,0x4bef19f9,0x4bec0a79,0x4bec0ab9,0x4be854d7,0x4be97a55,0x4bec0b17,0x4bec03aa,0x4bec0b52,0x4bef1a03];
+var page_mts = [0x4bef265d,0,0,0,0x4bef266e,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0x4be97606,0,0,0,0,0,0x4bef2d72,0x4bbb6a13,0x4bbb66c3,0x4bec08b5,0x4bec08d4,0x4bec08f9,0x4bec091e,0x4bec093d,0x4bec0960,0x4bec098d,0x4bec09e3,0x4bec0a4a,0x4bef1ad4,0x4bef2d27,0x4bef19e5,0x4bef2cb7,0x4bef19f9,0x4bec0a79,0x4bec0ab9,0x4be854d7,0x4be97a55,0x4bec0b17,0x4bec03aa,0x4bec0b52,0x4bef1a03,0x4bef1aaa,0x4bef2a43];
 
 var pages = [
 '[[Main Page]]\n\
@@ -152,6 +152,7 @@ var pages = [
 * [[Special::Search|Search]]\n\
 * *\x3Cfont color="blue"\x3EU\x3C/font\x3E\x3Cfont color="red"\x3Et\x3C/font\x3E\x3Cfont color="green"\x3Ei\x3C/font\x3E\x3Cfont color="brown"\x3El\x3C/font\x3E\x3Cfont color="orange"\x3Ei\x3C/font\x3E\x3Cfont color="purple"\x3Et\x3C/font\x3E\x3Cfont color="blue"\x3Ei\x3C/font\x3E\x3Cfont color="red"\x3Ee\x3C/font\x3E\x3Cfont color="green"\x3Es\x3C/font\x3E!*\n\
 ** [[Color chart]]\n\
+** [[Template::Style]]\n\
 ** [[Template::Theme]]\n\
 ** [[Unicode chart]]\n\
 * *\x3Cfont color="red"\x3EC\x3C/font\x3E\x3Cfont color="green"\x3Eo\x3C/font\x3E\x3Cfont color="brown"\x3El\x3C/font\x3E\x3Cfont color="orange"\x3Eo\x3C/font\x3E\x3Cfont color="purple"\x3Er\x3C/font\x3E\x3Cfont color="blue"\x3Es\x3C/font\x3E!*\n\
@@ -161,7 +162,6 @@ var pages = [
 ** [[Theme::Hot pink]]\n\
 ** [[Theme::Orange]]\n\
 ** [[Theme::Pastel]]\n\
-** [[Theme::Purple]]\n\
 ** [[Theme::Red]]\n\
 ** [[Theme::Thistle]]\n\
 ** [[Theme::Yellow]]\n\
@@ -272,7 +272,7 @@ Try out some example themes by clicking the *\x3Cfont color="red"\x3EC\x3C/font\
 Style your wiki in various ways to make small changes here and there rather than theming the whole wiki.\n\
 \n\
 Try out some example styles by clicking the *\x3Cfont color="red"\x3ES\x3C/font\x3E\x3Cfont color="green"\x3Et\x3C/font\x3E\x3Cfont color="brown"\x3Ey\x3C/font\x3E\x3Cfont color="orange"\x3El\x3C/font\x3E\x3Cfont color="purple"\x3Ee\x3C/font\x3E \x3Cfont color="blue"\x3Ey\x3C/font\x3E\x3Cfont color="red"\x3Eo\x3C/font\x3E\x3Cfont color="green"\x3Eu\x3C/font\x3E\x3Cfont color="brown"\x3Er\x3C/font\x3E \x3Cfont color="orange"\x3Ew\x3C/font\x3E\x3Cfont color="purple"\x3Ei\x3C/font\x3E\x3Cfont color="blue"\x3Ek\x3C/font\x3E\x3Cfont color="red"\x3Ei\x3C/font\x3E!* entries in the menu.\n\
-\x3C!-- NOTE TO LITTLE GIRL: CONTINUE CONVERSION TO 0.9.11 CSS AT PASTEL --\x3E\n\
+\x3C!-- NOTE TO LITTLE GIRL: CONTINUE CONVERSION TO 0.9.11 CSS AT RED --\x3E\n\
 \x3Cstyle type="text/css"\x3E\n\
 h1.woas_header {font-size: 150%}\n\
 h2.woas_header {font-size: 125%}\n\
@@ -3022,7 +3022,7 @@ Wiki on a Stick codebase has been rewritten as object-oriented in order to be mo
 Development of 0.9.7B was stale and WoaS was getting full of little bugs which prevented it from being successfully used; during last months of 2009 and first months of 2010 WoaS got new blood with 0.10.x releases.\n\
 Some of the best additions were [[WoaS::Help::WSIF|WSIF format]] and a pluggable macro syntax, but finally the product had reached the stability which its users deserved and exited its Beta status to enter a Production development stage.',
 '[[Special::TOC]]\n\
-= Pastel\n\
+= Red\n\
 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n\
 \n\
 == List\n\
@@ -4168,769 +4168,6 @@ div.ns_menu_area ul li, div.ns_menu_area ol li {\n\
 \x3C/style\x3E\n\
 [[Tags::Themes]]\n\
 ',
-'[[Special::TOC]]\n\
-= Pastel\n\
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n\
-\n\
-== List\n\
-* item 1\n\
-* item 2\n\
-* item 3\n\
-\n\
-=== Table\n\
-{|\n\
-|+ Header\n\
-| cell one || cell two || cell three\n\
-| cell one || cell two || cell three\n\
-| cell one || cell two || cell three\n\
-|}\n\
-\n\
-==== Links\n\
-[[Main Page|wiki link]]\n\
-[[http://www.gnu.org/|external link]]\n\
-\n\
-===== Nowiki text\n\
-{{{inline nowiki text}}}\n\
-\n\
-{{{\n\
-nowiki text block\n\
-}}}\n\
-\n\
-====== Text formatting\n\
-*bold text*\n\
-/italic text/\n\
-_underlined text_\n\
-\n\
-\x3Cstyle type="text/css"\x3E\n\
-/* existent link */\n\
-a.link {\n\
-  color: blue;\n\
-}\n\
-\n\
-a.link:hover {\n\
-  text-decoration: underline;\n\
-}\n\
-\n\
-/* unexistent link */\n\
-a.unlink {\n\
-	color: red;\n\
-}\n\
-a.unlink:hover {\n\
-	text-decoration: underline;\n\
-}\n\
-\n\
-/* outside world link */\n\
-a.world {\n\
-	color: darkgreen;\n\
-	text-decoration: underline;\n\
-}\n\
-\n\
-/* cursor when on a link */\n\
-a {\n\
-	cursor: pointer;\n\
-	/* FOR IE5.5/IE6 */\n\
-	/* cursor: hand; */\n\
-}\n\
-\n\
-/* main text area div */\n\
-div.woas_text_area {\n\
-	border: 1pt solid black;\n\
-	background-color: #FFFFAA;\n\
-	padding: 0.475em;\n\
-}\n\
-\n\
-body {\n\
-	font-family: Georgia, verdana;\n\
-}\n\
-\n\
-/* body background color */\n\
-.woas_background {\n\
-	background-color: violet;\n\
-}\n\
-\n\
-/* headers */\n\
-h1 { font-size: 1.438em; color:steelblue; }\n\
-\n\
-h2 { font-size: 1.25em; color:steelblue; }\n\
-\n\
-h3 { font-size: 1.063em; color:steelblue; }\n\
-\n\
-h4 { font-size: 0.875em; color:steelblue; }\n\
-\n\
-h5 { font-size: 0.75em; color:steelblue; }\n\
-\n\
-h6 { font-size: 0.625em; color:steelblue; }\n\
-\n\
-/* tag container */\n\
-div.taglinks {\n\
-	border: 1pt solid #aaa;\n\
-/*	background-color: #f9f9f9; */\n\
-	padding: 0.313em;\n\
-	margin-top: 1em;\n\
-	clear: both;\n\
-}\n\
-\n\
-/* tag link */\n\
-a.link.tag {\n\
-	color: navy;\n\
-}\n\
-\n\
-/* search results */\n\
-div.search_results {\n\
-	border: 1pt solid #aaa;\n\
-	background-color: #f9f9f9;\n\
-	padding: 0.313em;\n\
-	margin-top: 1em;\n\
-	clear: both;\n\
-}\n\
-\n\
-/* main wiki pane when locked */\n\
-.woas_text_area.locked,\n\
-#woas_pwd_mask {\n\
-	background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAAAAACMmsGiAAAALHRFWHRDcmVhdGlvbiBUaW1lAGdpbyAyOSBtYXIgMjAwNyAxMTo1MToxMCArMDEwME%2BTNUAAAAAHdElNRQfXAx0JNByGxueSAAAACXBIWXMAAAsSAAALEgHS3X78AAAABGdBTUEAALGPC%2FxhBQAAABlJREFUeNpj%2FM%2FwmYHpMwMvAxOQwcvECyQBO1oE%2BlG5iisAAAAASUVORK5CYII%3D);\n\
-	background-color: #eeeeee;\n\
-}\n\
-\n\
-/* page title */\n\
-.title {\n\
-	font-size: 2em;\n\
-	font-weight: bold;\n\
-	margin-bottom: 0em;\n\
-	margin-top: 0em;\n\
-	display:inline;\n\
-	text-shadow: #888 0.13em 0.13em 0.065em;\n\
-}\n\
-\n\
-/* main text area */\n\
-#wiki_text {\n\
-	position: relative;\n\
-	left: 15.5%;\n\
-	width: 82.3%;\n\
-	z-index: 0;\n\
-	margin-top: 1.313em;\n\
-	text-align:justify;\n\
-}\n\
-\n\
-table.woas_text_area {\n\
-	border: 1pt solid black;\n\
-	border-spacing: 0em;\n\
-}\n\
-\n\
-table.woas_text_area td {\n\
-	border: 1pt solid;\n\
-	padding: 0.313em;\n\
-}\n\
-\n\
-table.woas_text_area caption {\n\
-        font-weight: bold;\n\
-        font-style: italic;\n\
-}\n\
-\n\
-/* Left menu */\n\
-div.menu_area {\n\
-	border: 1pt solid grey;\n\
-	font-size: 0.75em;\n\
-	background-color: palegreen;\n\
-	padding: 0.499em;\n\
-	width: 13.2%;\n\
-	left: 1%;\n\
-}\n\
-div.menu {\n\
-}\n\
-\n\
-/* topbar */\n\
-div.wiki_header {\n\
-	top: 0em;\n\
-	left: 0em;\n\
-	border: 1pt solid #aaa;\n\
-	background-color: powderblue;\n\
-	opacity:.95;\n\
-	z-index: 1;\n\
-	width: 99.9%;\n\
-}\n\
-\n\
-/* table of contents */\n\
-div.wiki_toc {\n\
-	border: 1pt dashed #aaa;\n\
-	background-color: palegreen;\n\
-	padding: 0.313em;\n\
-	width: 50%;\n\
-	font-size: 95%;\n\
-}\n\
-\n\
-div.wiki_toc ol, li {\n\
-	margin-left: 1.3em;\n\
-	padding-left: 0em;\n\
-}\n\
-\n\
-p.wiki_toc_title {\n\
-	font-weight: bold;\n\
-	text-align: center;\n\
-}\n\
-\n\
-.search_highlight {\n\
-	background-color: yellow;\n\
-}\n\
-\n\
-/* loading overlay shown while wiki loads or can\'t load */\n\
-#loading_overlay {\n\
-	position: absolute;\n\
-	width: 99%;\n\
-	height: 100%;\n\
-	padding-top: 25%;\n\
-	z-index: 100;\n\
-	background-color: white;\n\
-	left: 0em;\n\
-	top: 0em;\n\
-	font-size: large;\n\
-	text-align: center;\n\
-}\n\
-\n\
-/* menu lists */\n\
-div.menu_area ul li, div.menu_area ol li, div.ns_menu_area ul li, div.ns_menu_area ol li {\n\
-	margin-left: -2em;\n\
-}\n\
-\n\
-/* nowiki text inline (curly brackets) */\n\
-.wiki_preformatted {\n\
-	/* css-3 */\n\
-	white-space: pre-wrap;\n\
-	/* Opera 4-6 */\n\
-/*	white-space: -pre-wrap;  */\n\
-	/* Opera 7 */\n\
-/*	white-space: -o-pre-wrap;  */\n\
-	/* Internet Explorer 5.5+ */\n\
-/*	word-wrap: break-word;     */\n\
-}\n\
-\n\
-/* ask password overlay */\n\
-#woas_pwd_query {\n\
-	position: absolute;\n\
-	width: 99%;\n\
-	height: 100%;\n\
-	text-align: center;\n\
-	padding-top: 25%;\n\
-	z-index: 100;\n\
-	left: 0em;\n\
-	top: 0em;\n\
-        border: 1pt solid #666666; \n\
-        background-color: #d6dff7;\n\
-	font-size: large;\n\
-        visibility: hidden;\n\
-}\n\
-\n\
-#woas_pwd_mask {\n\
-	position: absolute;\n\
-	width: 99%;\n\
-	height: 100%;\n\
-	text-align: center;\n\
-	z-index: 99;\n\
-	visibility: hidden;\n\
-	font-size: large;\n\
-	left: 0em;\n\
-	top: 0em;\n\
-}\n\
-\n\
-/* last modified line beneath main text area */\n\
-.woas_page_mts {\n\
-	position: relative;\n\
-	left: 16%;\n\
-	width: 81%;\n\
-	z-index: 0;\n\
-	font-size: small;\n\
-}\n\
-\n\
-/* area between topbar and editor buttons */\n\
-#edit_page_title{\n\
-         margin-top: 2.188em;\n\
-}\n\
-\n\
-/* since v0.10.1 */\n\
-\n\
-#debug_info {\n\
-	margin-right: 0.75em;\n\
-	margin-left: 14.05em;\n\
-	background-color: gray;\n\
-	border: 1pt solid black;\n\
-	margin-top: 1em;\n\
-}\n\
-\n\
-#woas_debug_panel {\n\
-}\n\
-\n\
-#woas_log {\n\
-	background-color: rgb(204, 204, 204);\n\
-	width: 99.3%;\n\
-}\n\
-\n\
-/* editor buttons */\n\
-.wiki_button {\n\
-	margin-top: 0.063em;\n\
-	margin-bottom: 0.063em;\n\
-}\n\
-\n\
-/* since v0.10.5 */\n\
-\n\
-.woas_wait_text {\n\
-	color: navy;\n\
-}\n\
-\n\
-.woas_menu_button {\n\
-	margin-top: 0.438em;\n\
-	color:darkblue;\n\
-	background-color: #F0F0F5;\n\
-	width:100%;\n\
-	border: 1pt solid grey;\n\
-	text-align:center; font-size:1.3em;\n\
-	font-variant:normal;\n\
-	cursor:pointer;\n\
-}\n\
-\n\
-.woas_menu_button:hover {\n\
-	background-color:darkgrey;\n\
-}\n\
-\n\
-.woas_password_desc {\n\
-	font-size: 0.8em;\n\
-	margin-left: 25%;\n\
-	margin-right: 25%;\n\
-	border: 2pt solid navy;\n\
-	background-color: #FAFAFB;\n\
-}\n\
-\n\
-.woas_help_button {\n\
-	margin-top: 0.75em;\n\
-	color:darkblue;\n\
-	background-color: #F0F0F5;\n\
-	border: 1pt solid grey;\n\
-	text-align:center; font-size:1em;\n\
-	font-variant:normal;\n\
-	cursor:pointer;\n\
-}\n\
-\n\
-.woas_help_button:hover {\n\
-	background-color:darkgrey;\n\
-}\n\
-\n\
-/* used in help pages */\n\
-.woas_topnote {\n\
-	position:fixed; right:0.625em; top:0.188em;\n\
-}\n\
-\n\
-.woas_help_background {\n\
-	background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAYAAADDPmHLAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A%2FwD%2FoL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9oDDAonCzKHvroAAAEFSURBVHja7duxDYIhFIVRIA7EKk7qKoxkb2Ns1PzfObWNuRfyAB0DAAAAAAAAAAAAAAAAAAAAAAAAAIC%2FMEtf9pxzf%2FeZvfdDAYLBV4swBd8uwhR%2BuwhT%2BO0SLOE7BQg%2FvAssa8AOYPWHd4FbtfmvIVZnhyX8xnlfAVCA8kpPHAO%2FNUReqUQKEA7fDDDcHC7hmwGEHx4gp%2BDbpwc%2FCYsfHafw2%2FcG2beAevCpHeDT1V%2B6LfQWEA5fAeLhKwAKoAAAAOR4DRzt3wl6DYyXwGtgvAQeg%2BIlcBEUpwAKgALgHsAg6BTgHsAO0CyBfwwDAAAAAAAAAAAAAAAAAAAAAAAAAAAAv%2FIER4Nn%2B7YDG3wAAAAASUVORK5CYII%3D);\n\
-	background-attachment:fixed;\n\
-}\n\
-\n\
-.woas_helpcode {\n\
-	padding:0.438em;\n\
-	font-family:monospace;\n\
-}\n\
-\n\
-.woas_helptext {\n\
-	font-family: lucida;\n\
-	color: darkcyan;\n\
-	font-weight: bold;\n\
-}\n\
-\n\
-.woas_about_footer {\n\
-	padding: 2pt;\n\
-	line-height: 1em;\n\
-	border: 1pt solid black;\n\
-	BACKGROUND: powderblue;\n\
-	FONT-WEIGHT: bold;\n\
-	text-align: center;\n\
-}\n\
-\n\
-.woas_about_footer a {\n\
-	color: purple;\n\
-}\n\
-\x3C/style\x3E\n\
-[[Tags::Themes]]\n\
-',
-'[[Special::TOC]]\n\
-= Purple\n\
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n\
-\n\
-== List\n\
-* item 1\n\
-* item 2\n\
-* item 3\n\
-\n\
-=== Table\n\
-{|\n\
-|+ Header\n\
-| cell one || cell two || cell three\n\
-| cell one || cell two || cell three\n\
-| cell one || cell two || cell three\n\
-|}\n\
-\n\
-==== Links\n\
-[[Main Page|wiki link]]\n\
-[[http://www.gnu.org/|external link]]\n\
-\n\
-===== Nowiki text\n\
-{{{inline nowiki text}}}\n\
-\n\
-{{{\n\
-nowiki text block\n\
-}}}\n\
-\n\
-====== Text formatting\n\
-*bold text*\n\
-/italic text/\n\
-_underlined text_\n\
-\n\
-\x3Cstyle type="text/css"\x3E\n\
-/* HIDE THE SUB-MENU WHILE IN THIS NAMESPACE */\n\
-#ns_menu_area {display:none !important; visibility:hidden  !important;}\n\
-#ns_menu_edit_button {display:none !important; visibility:hidden !important;}\n\
-\n\
-/* existent link */\n\
-a.link {\n\
-  color: blue;\n\
-}\n\
-a.link:hover {\n\
-  text-decoration: underline;\n\
-}\n\
-\n\
-/* unexistent link */\n\
-a.unlink {\n\
-  color: red;\n\
-}\n\
-a.unlink:hover {\n\
-  text-decoration: underline;\n\
-}\n\
-\n\
-/* outside world link */\n\
-a.world {\n\
-  color: darkgreen;\n\
-  text-decoration: underline;\n\
-}\n\
-\n\
-/* cursor when on a link */\n\
-a {\n\
-	cursor: pointer;\n\
-	/* FOR IE5.5/IE6 */\n\
-	/* cursor: hand; */\n\
-}\n\
-\n\
-/* main text area div */\n\
-div.woas_text_area {\n\
-  border: 3pt solid #048db4;\n\
-  background-color: white;\n\
-  padding: 0.475em;\n\
-}\n\
-\n\
-body {\n\
-  font-family: Georgia, verdana;\n\
-}\n\
-\n\
-/* body background color */\n\
-.woas_background {\n\
-	background-color: purple;\n\
-}\n\
-\n\
-/* headers */\n\
-h1 { font-size: 1.438em; }\n\
-\n\
-h2 { font-size: 1.25em; }\n\
-\n\
-h3 { font-size: 1.063em; }\n\
-\n\
-h4 { font-size: 0.875em; }\n\
-\n\
-h5 { font-size: 0.75em; }\n\
-\n\
-h6 { font-size: 0.625em; }\n\
-\n\
-/* tag container */\n\
-div.taglinks {\n\
-	border: 1pt solid #aaa;\n\
-/*	background-color: #f9f9f9; */\n\
-	padding: 0.313em;\n\
-	margin-top: 1em;\n\
-	clear: both;\n\
-}\n\
-\n\
-/* tag link */\n\
-a.link.tag {\n\
-  color: navy;\n\
-}\n\
-\n\
-/* search results */\n\
-div.search_results {\n\
-	border: 1pt solid #aaa;\n\
-	background-color: #f9f9f9;\n\
-	padding: 0.313em;\n\
-	margin-top: 1em;\n\
-	clear: both;\n\
-}\n\
-\n\
-/* main wiki pane when locked */\n\
-.woas_text_area.locked,\n\
-#woas_pwd_mask {\n\
-	background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAAAAACMmsGiAAAALHRFWHRDcmVhdGlvbiBUaW1lAGdpbyAyOSBtYXIgMjAwNyAxMTo1MToxMCArMDEwME%2BTNUAAAAAHdElNRQfXAx0JNByGxueSAAAACXBIWXMAAAsSAAALEgHS3X78AAAABGdBTUEAALGPC%2FxhBQAAABlJREFUeNpj%2FM%2FwmYHpMwMvAxOQwcvECyQBO1oE%2BlG5iisAAAAASUVORK5CYII%3D);\n\
-	background-color: #eeeeee;\n\
-}\n\
-\n\
-/* page title */\n\
-.title {\n\
-  font-size: 2em;\n\
-  font-weight: bold;\n\
-  margin-bottom: 0em;\n\
-  margin-top: 0em;\n\
-  display:inline;\n\
-  text-shadow: #888 0.13em 0.13em 0.065em;\n\
-}\n\
-\n\
-/* main text area */\n\
-#wiki_text {\n\
-	position: relative;\n\
-	left: 15.5%;\n\
-	width: 82.3%;\n\
-	z-index: 0;\n\
-	margin-top: 1.313em;\n\
-	text-align:justify;\n\
-}\n\
-\n\
-table.woas_text_area {\n\
-	border: 1pt solid black;\n\
-	border-spacing: 0em;\n\
-}\n\
-\n\
-table.woas_text_area td {\n\
-	border: 1pt solid;\n\
-	padding: 0.313em;\n\
-}\n\
-\n\
-table.woas_text_area caption {\n\
-        font-weight: bold;\n\
-        font-style: italic;\n\
-}\n\
-\n\
-/* Left menu */\n\
-div.menu_area {\n\
-	border: 3pt solid #048db4;\n\
-	font-size: 0.75em;\n\
-	background-color: mediumpurple;\n\
-	padding: 0.499em;\n\
-	width: 13.2%;\n\
-	left: 1%;\n\
-}\n\
-div.menu {\n\
-}\n\
-\n\
-/* topbar */\n\
-div.wiki_header {\n\
-	top: 0em;\n\
-	left: 0em;\n\
-	border-top: 3pt solid #048db4;\n\
-	border-bottom: 3pt solid #048db4;\n\
-	opacity:.95;\n\
-	z-index: 1;\n\
-	width: 99.9%;\n\
-	background-color: #048db4;\n\
-}\n\
-\n\
-/* table of contents */\n\
-div.wiki_toc {\n\
-	border: 2pt dashed mediumpurple;\n\
-	background-color: lavender;\n\
-	padding: 0.313em;\n\
-	width: 50%;\n\
-	font-size: 95%;\n\
-}\n\
-\n\
-div.wiki_toc ol, li {\n\
-	margin-left: 1.3em;\n\
-	padding-left: 0em;\n\
-}\n\
-\n\
-p.wiki_toc_title {\n\
-	font-weight: bold;\n\
-	text-align: center;\n\
-}\n\
-\n\
-.search_highlight { background-color: yellow; }\n\
-\n\
-/* loading overlay shown while wiki loads or can\'t load */\n\
-#loading_overlay {\n\
-	position: absolute;\n\
-	width: 99%;\n\
-	height: 100%;\n\
-	padding-top: 25%;\n\
-	z-index: 100;\n\
-	background-color: white;\n\
-	left: 0em;\n\
-	top: 0em;\n\
-	font-size: large;\n\
-	text-align: center;\n\
-}\n\
-\n\
-/* menu lists */\n\
-div.menu_area ul li, div.menu_area ol li,\n\
-div.ns_menu_area ul li, div.ns_menu_area ol li {\n\
-	margin-left: -2em;\n\
-}\n\
-\n\
-/* nowiki text inline (curly brackets) */\n\
-.wiki_preformatted {\n\
-	/* css-3 */\n\
-	white-space: pre-wrap;\n\
-	/* Opera 4-6 */\n\
-/*	white-space: -pre-wrap;  */\n\
-	/* Opera 7 */\n\
-/*	white-space: -o-pre-wrap;  */\n\
-	/* Internet Explorer 5.5+ */\n\
-/*	word-wrap: break-word;     */\n\
-}\n\
-\n\
-/* ask password overlay */\n\
-#woas_pwd_query {\n\
-	position: absolute;\n\
-	width: 99%;\n\
-	height: 100%;\n\
-	text-align: center;\n\
-	padding-top: 25%;\n\
-	z-index: 100;\n\
-	left: 0em;\n\
-	top: 0em;\n\
-        border: 1pt solid #666666; \n\
-        background-color: #d6dff7;\n\
-	font-size: large;\n\
-        visibility: hidden;\n\
-}\n\
-\n\
-#woas_pwd_mask {\n\
-	position: absolute;\n\
-	width: 99%;\n\
-	height: 100%;\n\
-	text-align: center;\n\
-	z-index: 99;\n\
-	visibility: hidden;\n\
-	font-size: large;\n\
-	left: 0em;\n\
-	top: 0em;\n\
-}\n\
-\n\
-/* last modified line beneath main text area */\n\
-.woas_page_mts {\n\
-	position: relative;\n\
-	left: 16%;\n\
-	width: 81%;\n\
-	z-index: 0;\n\
-	font-size: small;\n\
-}\n\
-\n\
-/* area between topbar and editor buttons */\n\
-#edit_page_title{\n\
-         margin-top: 2.188em;\n\
-}\n\
-\n\
-/* since v0.10.1 */\n\
-\n\
-#debug_info {\n\
-	margin-right: 0.75em;\n\
-	margin-left: 14.05em;\n\
-	background-color: gray;\n\
-	border: 1pt solid black;\n\
-	margin-top: 1em;\n\
-}\n\
-\n\
-#woas_debug_panel {\n\
-}\n\
-\n\
-#woas_log {\n\
-	background-color: rgb(204, 204, 204);\n\
-	width: 99.3%;\n\
-}\n\
-\n\
-/* editor buttons */\n\
-.wiki_button {\n\
-	margin-top: 0.063em;\n\
-	margin-bottom: 0.063em;\n\
-}\n\
-\n\
-/* since v0.10.5 */\n\
-\n\
-.woas_wait_text {\n\
-	color: navy;\n\
-}\n\
-\n\
-.woas_menu_button {\n\
-	margin-top: 0.438em;\n\
-	color:darkblue;\n\
-	background-color: #F0F0F5;\n\
-	width:100%;\n\
-	border: 1pt solid grey;\n\
-	text-align:center; font-size:1.3em;\n\
-	font-variant:normal;\n\
-	cursor:pointer;\n\
-}\n\
-\n\
-.woas_menu_button:hover {\n\
-	background-color:darkgrey;\n\
-}\n\
-\n\
-.woas_password_desc {\n\
-	font-size: 0.8em;\n\
-	margin-left: 25%;\n\
-	margin-right: 25%;\n\
-	border: 2pt solid navy;\n\
-	background-color: #FAFAFB;\n\
-}\n\
-\n\
-.woas_help_button {\n\
-	margin-top: 0.75em;\n\
-	color:darkblue;\n\
-	background-color: #F0F0F5;\n\
-	border: 1pt solid grey;\n\
-	text-align:center; font-size:1em;\n\
-	font-variant:normal;\n\
-	cursor:pointer;\n\
-}\n\
-\n\
-.woas_help_button:hover {\n\
-	background-color:darkgrey;\n\
-}\n\
-\n\
-/* used in help pages */\n\
-.woas_topnote {\n\
-	position:fixed; right:0.625em; top:0.188em;\n\
-}\n\
-\n\
-.woas_help_background {\n\
-	background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAYAAADDPmHLAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A%2FwD%2FoL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9oDDAonCzKHvroAAAEFSURBVHja7duxDYIhFIVRIA7EKk7qKoxkb2Ns1PzfObWNuRfyAB0DAAAAAAAAAAAAAAAAAAAAAAAAAIC%2FMEtf9pxzf%2FeZvfdDAYLBV4swBd8uwhR%2BuwhT%2BO0SLOE7BQg%2FvAssa8AOYPWHd4FbtfmvIVZnhyX8xnlfAVCA8kpPHAO%2FNUReqUQKEA7fDDDcHC7hmwGEHx4gp%2BDbpwc%2FCYsfHafw2%2FcG2beAevCpHeDT1V%2B6LfQWEA5fAeLhKwAKoAAAAOR4DRzt3wl6DYyXwGtgvAQeg%2BIlcBEUpwAKgALgHsAg6BTgHsAO0CyBfwwDAAAAAAAAAAAAAAAAAAAAAAAAAAAAv%2FIER4Nn%2B7YDG3wAAAAASUVORK5CYII%3D);\n\
-	background-attachment:fixed;\n\
-}\n\
-\n\
-.woas_helpcode {\n\
-	padding:0.438em;\n\
-	font-family:monospace;\n\
-}\n\
-\n\
-.woas_helptext {\n\
-	font-family: lucida;\n\
-	color: darkcyan;\n\
-	font-weight: bold;\n\
-}\n\
-\n\
-.woas_about_footer {\n\
-	padding: 2pt;\n\
-	line-height: 1em;\n\
-	border: 1pt solid black;\n\
-	BACKGROUND: #048db4;\n\
-	FONT-WEIGHT: bold;\n\
-	text-align: center;\n\
-}\n\
-\n\
-.woas_about_footer a {\n\
-	color: white;\n\
-}\n\
-\x3C/style\x3E\n\
-[[Tags::Themes]]\n\
-',
 '= Style::Nowiki block\n\
 This is an example of how nowiki multi-line text can be styled in custom CSS by using the *:before* pseudo element.\n\
 \n\
@@ -5733,458 +4970,6 @@ nowiki text block\n\
 *bold text*\n\
 /italic text/\n\
 _underlined text_\n\
-\n\
-\x3Cstyle type="text/css"\x3E\n\
-/* ------------------------------------------- */\n\
-/* BODY                                        */\n\
-/* ------------------------------------------- */\n\
-body {\n\
-	font-family: Georgia, verdana;\n\
-	}\n\
-.woas_background {\n\
-	background-color: #F0F0F5;\n\
-	}\n\
-\n\
-/* ------------------------------------------- */\n\
-/* CORE PAGES                                  */\n\
-/* ------------------------------------------- */\n\
-.woas_core_page {\n\
-	background-color: #bbccff;\n\
-	}\n\
-\n\
-/* ------------------------------------------- */\n\
-/* DEBUG CONSOLE                               */\n\
-/* ------------------------------------------- */\n\
-#woas_debug_panel {\n\
-	background-color: gray;\n\
-	border: 1pt solid black;\n\
-	margin-top: 0.75em;\n\
-	margin-right: 0.85em;\n\
-	margin-left: 15.5%;\n\
-	}\n\
-#woas_debug_console {\n\
-	}\n\
-#woas_debug_log {\n\
-	background-color: rgb(204, 204, 204);\n\
-	width: 99.3%;\n\
-	}\n\
-\n\
-/* ------------------------------------------- */\n\
-/* EDITOR                                      */\n\
-/* ------------------------------------------- */\n\
-#woas_edit_page_title{\n\
-	margin-top: 2.188em;\n\
-	}\n\
-.woas_editor_button {\n\
-	margin-top: 0.063em;\n\
-	margin-bottom: 0.063em;\n\
-	}\n\
-\n\
-/* ------------------------------------------- */\n\
-/* ENCRYPTION                                  */\n\
-/* ------------------------------------------- */\n\
-/* ask password overlay */\n\
-#woas_pwd_query {\n\
-        background-color: #d6dff7;\n\
-        border: 1pt solid #666666; \n\
-	font-size: large;\n\
-	height: 100%;\n\
-	left: 0em;\n\
-	padding-top: 25%;\n\
-	position: absolute;\n\
-	text-align: center;\n\
-	top: 0em;\n\
-        visibility: hidden;\n\
-	width: 99%;\n\
-	z-index: 100;\n\
-	}\n\
-#woas_pwd_mask {\n\
-	font-size: large;\n\
-	height: 100%;\n\
-	left: 0em;\n\
-	position: absolute;\n\
-	text-align: center;\n\
-	top: 0em;\n\
-	visibility: hidden;\n\
-	width: 99%;\n\
-	z-index: 99;\n\
-	}\n\
-.woas_password_desc {\n\
-	background-color: #FAFAFB;\n\
-	border: 2pt solid navy;\n\
-	font-size: 0.8em;\n\
-	margin-left: 25%;\n\
-	margin-right: 25%;\n\
-	}\n\
-\n\
-/* ------------------------------------------- */\n\
-/* FOOTER                                      */\n\
-/* ------------------------------------------- */\n\
-.woas_about_footer {\n\
-	background-color: #048db4;\n\
-	border: 1pt solid black;\n\
-	font-weight: bold;\n\
-	line-height: 1em;\n\
-	margin-top: 0.75em;\n\
-	margin-right: 0.85em;\n\
-	margin-left: 15.5%;\n\
-	padding: 2pt;\n\
-	text-align: center;\n\
-	}\n\
-.woas_about_footer a {\n\
-	color: white ! important;\n\
-	}\n\
-\n\
-/* ------------------------------------------- */\n\
-/* HEADERS                                     */\n\
-/* ------------------------------------------- */\n\
-h1.woas_header {\n\
-	font-size: 1.438em;\n\
-	}\n\
-h2.woas_header {\n\
-	font-size: 1.25em;\n\
-	}\n\
-h3.woas_header {\n\
-	font-size: 1.063em;\n\
-	}\n\
-h4.woas_header {\n\
-	font-size: 0.875em;\n\
-	}\n\
-h5.woas_header {\n\
-	font-size: 0.75em;\n\
-	}\n\
-h6.woas_header {\n\
-	font-size: 0.625em;\n\
-	}\n\
-\n\
-/* ------------------------------------------- */\n\
-/* HELP PAGES                                  */\n\
-/* ------------------------------------------- */\n\
-.woas_help_background {\n\
-	background-attachment: fixed;\n\
-	background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAYAAADDPmHLAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A%2FwD%2FoL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9oDDAonCzKHvroAAAEFSURBVHja7duxDYIhFIVRIA7EKk7qKoxkb2Ns1PzfObWNuRfyAB0DAAAAAAAAAAAAAAAAAAAAAAAAAIC%2FMEtf9pxzf%2FeZvfdDAYLBV4swBd8uwhR%2BuwhT%2BO0SLOE7BQg%2FvAssa8AOYPWHd4FbtfmvIVZnhyX8xnlfAVCA8kpPHAO%2FNUReqUQKEA7fDDDcHC7hmwGEHx4gp%2BDbpwc%2FCYsfHafw2%2FcG2beAevCpHeDT1V%2B6LfQWEA5fAeLhKwAKoAAAAOR4DRzt3wl6DYyXwGtgvAQeg%2BIlcBEUpwAKgALgHsAg6BTgHsAO0CyBfwwDAAAAAAAAAAAAAAAAAAAAAAAAAAAAv%2FIER4Nn%2B7YDG3wAAAAASUVORK5CYII%3D);\n\
-	}\n\
-.woas_help_button {\n\
-	background-color: #F0F0F5;\n\
-	border: 1pt solid grey;\n\
-	color:darkblue;\n\
-	cursor:pointer;\n\
-	font-size:1em;\n\
-	font-variant: normal;\n\
-	margin-top: 0.75em;\n\
-	position: fixed;\n\
-	right: 0.625em;\n\
-	text-align: center;\n\
-	top: 0.188em;\n\
-	}\n\
-.woas_help_button:hover {\n\
-	background-color: darkgrey;\n\
-	}\n\
-.woas_helpcode {\n\
-	font-family: monospace;\n\
-	padding: 0.438em;\n\
-	}\n\
-.woas_helptext {\n\
-	font-family: lucida;\n\
-	}\n\
-\n\
-/* ------------------------------------------- */\n\
-/* HOTKEYS                                     */\n\
-/* ------------------------------------------- */\n\
-#woas_custom_accesskeys {\n\
-	display: none;\n\
-	visibility: hidden;\n\
-	}\n\
-\n\
-/* ------------------------------------------- */\n\
-/* LAST MODIFIED LINE   */\n\
-/* ------------------------------------------- */\n\
-.woas_page_mts {\n\
-	font-size: small;\n\
-	margin-top: 0.75em;\n\
-	margin-right: 0.80em;\n\
-	margin-left: 15.5%;\n\
-	z-index: 0;\n\
-	}\n\
-\n\
-/* ------------------------------------------- */\n\
-/* LINKS                                       */\n\
-/* ------------------------------------------- */\n\
-/* cursor when on a link */\n\
-a {\n\
-	cursor: pointer;\n\
-	/* cursor when on a link - IE5.5/IE6 */\n\
-	/* cursor: hand; */\n\
-	}\n\
-/* existent link */\n\
-a.link {\n\
-	color: blue;\n\
-	}\n\
-a.link:hover {\n\
-	text-decoration: underline;\n\
-	}\n\
-/* nonexistent link */\n\
-a.unlink {\n\
-	color: red;\n\
-	}\n\
-a.unlink:hover {\n\
-	text-decoration: underline;\n\
-	}\n\
-/* outside world link */\n\
-a.world {\n\
-	color: darkgreen;\n\
-	text-decoration: underline;\n\
-	}\n\
-\n\
-/* ------------------------------------------- */\n\
-/* MAIN TEXT AREA                              */\n\
-/* ------------------------------------------- */\n\
-/* main text area div */\n\
-div.woas_text_area {\n\
-	background-color: white;\n\
-	border: 1pt solid black;\n\
-	padding: 0.475em;\n\
-	}\n\
-/* main text area */\n\
-#wiki_text {\n\
-	left: 15.5%;\n\
-	margin-top: 1.313em;\n\
-	margin-bottom: 0.75em;\n\
-	position: relative;\n\
-	text-align: justify;\n\
-	width: 82.3%;\n\
-	z-index: 0;\n\
-	}\n\
-\n\
-/* ------------------------------------------- */\n\
-/* MAIN WIKI PANE WHEN LOCKED                  */\n\
-/* ------------------------------------------- */\n\
-.woas_text_area.locked,\n\
-#woas_pwd_mask {\n\
-	background-color: #eeeeee;\n\
-	background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAAAAACMmsGiAAAALHRFWHRDcmVhdGlvbiBUaW1lAGdpbyAyOSBtYXIgMjAwNyAxMTo1MToxMCArMDEwME%2BTNUAAAAAHdElNRQfXAx0JNByGxueSAAAACXBIWXMAAAsSAAALEgHS3X78AAAABGdBTUEAALGPC%2FxhBQAAABlJREFUeNpj%2FM%2FwmYHpMwMvAxOQwcvECyQBO1oE%2BlG5iisAAAAASUVORK5CYII%3D);\n\
-	}\n\
-\n\
-/* ------------------------------------------- */\n\
-/* MENU                                        */\n\
-/* ------------------------------------------- */\n\
-div.menu {\n\
-	}\n\
-div.menu_area {\n\
-	background-color: white;\n\
-	border: 1pt solid grey;\n\
-	font-size: 0.75em;\n\
-	left: 1%;\n\
-	padding: 0.499em;\n\
-	width: 13.2%;\n\
-	}\n\
-div.menu_area ul li, div.menu_area ol li, div.ns_menu_area ul li, div.ns_menu_area ol li {\n\
-	margin-left: -2em;\n\
-	}\n\
-\n\
-/* ------------------------------------------- */\n\
-/* MENU - BUTTON                               */\n\
-/* ------------------------------------------- */\n\
-.woas_menu_button {\n\
-	background-color: #F0F0F5;\n\
-	border: 1pt solid grey;\n\
-	color: darkblue;\n\
-	cursor: pointer;\n\
-	font-size: 1.3em;\n\
-	font-variant: normal;\n\
-	margin-top: 0.438em;\n\
-	text-align: center;\n\
-	width: 100%;\n\
-	}\n\
-.woas_menu_button:hover {\n\
-	background-color: darkgrey;\n\
-	}\n\
-\n\
-/* ------------------------------------------- */\n\
-/* MISCELLANEOUS                               */\n\
-/* ------------------------------------------- */\n\
-.woas_embedded {\n\
-	}\n\
-\n\
-/* ------------------------------------------- */\n\
-/* NAVIGATION BAR                              */\n\
-/* ------------------------------------------- */\n\
-div.wiki_header {\n\
-	border: 1pt solid #aaa;\n\
-	left: 0em;\n\
-	opacity: .65;\n\
-	padding-right: 0.75em;\n\
-	top: 0em;\n\
-	width: 99%;\n\
-	z-index: 1;\n\
-	}\n\
-.title {\n\
-	display: inline;\n\
-	font-size: 2em;\n\
-	font-weight: bold;\n\
-	margin-bottom: 0em;\n\
-	margin-top: 0em;\n\
-	text-shadow: #888 0.13em 0.13em 0.065em;\n\
-	}\n\
-\n\
-/* ------------------------------------------- */\n\
-/* NOWIKI TEXT BLOCK - CSS 3                   */\n\
-/* ------------------------------------------- */\n\
-.woas_nowiki_multiline {\n\
-	white-space: pre-wrap;\n\
-	}\n\
-/* ------------------------------------------- */\n\
-/* NOWIKI TEXT BLOCK - IE 5.5+                 */\n\
-/* ------------------------------------------- */\n\
-/*.woas_nowiki_multiline {\n\
-	word-wrap: break-word;\n\
-	}/*\n\
-/* ------------------------------------------- */\n\
-/* NOWIKI TEXT BLOCK - OPERA 4-6               */\n\
-/* ------------------------------------------- */\n\
-/*.woas_nowiki_multiline {\n\
-	white-space: -pre-wrap;\n\
-	}*/\n\
-/* ------------------------------------------- */\n\
-/* NOWIKI TEXT BLOCK - OPERA 7                 */\n\
-/* ------------------------------------------- */\n\
-/*.woas_nowiki_multiline {\n\
-	white-space: -o-pre-wrap;\n\
-	}*/\n\
-\n\
-/* ------------------------------------------- */\n\
-/* NOWIKI TEXT INLINE - CSS 2                  */\n\
-/* ------------------------------------------- */\n\
-.wiki_preformatted {\n\
-	white-space: pre-wrap;\n\
-	}\n\
-/* ------------------------------------------- */\n\
-/* NOWIKI TEXT INLINE - IE 5.5+                */\n\
-/* ------------------------------------------- */\n\
-/*.wiki_preformatted {\n\
-	word-wrap: break-word;\n\
-	}*/\n\
-/* ------------------------------------------- */\n\
-/* NOWIKI TEXT INLINE - OPERA 4-6              */\n\
-/* ------------------------------------------- */\n\
-/*.wiki_preformatted {\n\
-	white-space: -pre-wrap;\n\
-	}*/\n\
-/* ------------------------------------------- */\n\
-/* NOWIKI TEXT INLINE - OPERA 7                */\n\
-/* ------------------------------------------- */\n\
-/*.wiki_preformatted {\n\
-	white-space: -o-pre-wrap;\n\
-	}*/\n\
-\n\
-/* ------------------------------------------- */\n\
-/* SEARCH                                      */\n\
-/* ------------------------------------------- */\n\
-div.search_results {\n\
-	background-color: #f9f9f9;\n\
-	border: 1pt solid #aaa;\n\
-	clear: both;\n\
-	margin-top: 1em;\n\
-	padding: 0.313em;\n\
-	}\n\
-.search_highlight {\n\
-	background-color: yellow;\n\
-	}\n\
-\n\
-/* ------------------------------------------- */\n\
-/* TABLE OF CONTENTS                           */\n\
-/* ------------------------------------------- */\n\
-div.woas_toc {\n\
-	background-color: #f9f9f9;\n\
-	border: 1pt dashed #aaa;\n\
-	font-size: 95%;\n\
-	padding: 0.313em;\n\
-	width: 50%;\n\
-	}\n\
-div.woas_toc ol, li {\n\
-	margin-left: 1.3em;\n\
-	padding-left: 0em;\n\
-	}\n\
-p.woas_toc_title {\n\
-	font-weight: bold;\n\
-	text-align: center;\n\
-	}\n\
-\n\
-/* ------------------------------------------- */\n\
-/* TABLES                                      */\n\
-/* ------------------------------------------- */\n\
-table.woas_text_area {\n\
-	border: 1pt solid black;\n\
-	border-spacing: 0em;\n\
-	}\n\
-table.woas_text_area td {\n\
-	border: 1pt solid;\n\
-	padding: 0.313em;\n\
-	}\n\
-table.woas_text_area caption {\n\
-        font-style: italic;\n\
-        font-weight: bold;\n\
-	}\n\
-\n\
-/* ------------------------------------------- */\n\
-/* TAGS                                        */\n\
-/* ------------------------------------------- */\n\
-/* tag container */\n\
-div.taglinks {\n\
-	background-color: #f9f9f9;\n\
-	border: 1pt solid #aaa;\n\
-	clear: both;\n\
-	margin-top: 1em;\n\
-	padding: 0.313em;\n\
-	}\n\
-\n\
-/* ------------------------------------------- */\n\
-/* STYLED BOXES AROUND TAGS                    */\n\
-/* ------------------------------------------- */\n\
-div.taglinks \x3E a {\n\
-	background-color: gainsboro;\n\
-	border:2px solid blue;\n\
-	/* border-radius: 7px; */\n\
-	color: navy;\n\
-	font-size: 90%;\n\
-	font-weight: bold;\n\
-	line-height: 2.4;\n\
-	margin: 2px 2px 2px 0;\n\
-	-moz-border-radius: 7px;-webkit-border-radius:7px;\n\
-	padding: 3px 5px 3px 5px;\n\
-	text-decoration: none;\n\
-	}\n\
-div.taglinks \x3E a:hover {\n\
-	background-color: grey;\n\
-	border: 2px solid blue;\n\
-	color: white;\n\
-	font-weight: bold;\n\
-	text-decoration: none;\n\
-	}\n\
-\n\
-/* ------------------------------------------- */\n\
-/* WIKI LOADING OVERLAY                        */\n\
-/* ------------------------------------------- */\n\
-#loading_overlay {\n\
-	background-color: white;\n\
-	font-size: large;\n\
-	height: 100%;\n\
-	left: 0em;\n\
-	padding-top: 25%;\n\
-	position: absolute;\n\
-	text-align: center;\n\
-	top: 0em;\n\
-	width: 99%;\n\
-	z-index: 100;\n\
-	}\n\
-\n\
-/* ------------------------------------------- */\n\
-/* WIKI WAIT TEXT                              */\n\
-/* ------------------------------------------- */\n\
-.woas_wait_text {\n\
-	color: navy;\n\
-	}\n\
-\x3C/style\x3E\n\
 ',
 '[[Include::Template::Theme|Crayon]]\n\
 [[Tags::Themes]]\n\
@@ -6317,64 +5102,66 @@ h6.woas_header {\n\
 	color: blue;\n\
 	font-size: 0.625em;\n\
 	}\n\
+\n\
+/* ------------------------------------------- */\n\
+/* HEADERS - CUSTOM                            */\n\
+/* ------------------------------------------- */\n\
 h1.woas_header:before {\n\
 	color: red;\n\
-	content: ":: ";\n\
-	font-size: 150%;\n\
+	content: "\\2710  ";\n\
 	}\n\
 h1.woas_header:after {\n\
-	color: red;\n\
-	content: " ::";\n\
-	font-size: 150%;\n\
+	color: green;\n\
+	content: " \\2710";\n\
 	}\n\
 h2.woas_header:before {\n\
 	color: red;\n\
-	content: ":: ";\n\
+	content: "\\2710  ";\n\
 	font-size: 150%;\n\
 	}\n\
 h2.woas_header:after {\n\
-	color: red;\n\
-	content: " ::";\n\
+	color: green;\n\
+	content: " \\2710";\n\
 	font-size: 150%;\n\
 	}\n\
 h3.woas_header:before {\n\
 	color: red;\n\
-	content: ":: ";\n\
+	content: "\\2710  ";\n\
 	font-size: 150%;\n\
 	}\n\
 h3.woas_header:after {\n\
-	color: red;\n\
-	content: " ::";\n\
+	color: green;\n\
+	content: " \\2710";\n\
 	font-size: 150%;\n\
 	}\n\
 h4.woas_header:before {\n\
 	color: red;\n\
-	content: ":: ";\n\
+	content: "\\2710  ";\n\
 	font-size: 150%;\n\
 	}\n\
 h4.woas_header:after {\n\
-	color: red;\n\
-	content: " ::";\n\
+	color: green;\n\
+	content: " \\2710";\n\
 	font-size: 150%;\n\
 	}\n\
 h5.woas_header:before {\n\
 	color: red;\n\
-	content: ":: ";\n\
+	content: "\\2710  ";\n\
 	font-size: 150%;\n\
 	}\n\
 h5.woas_header:after {\n\
-	color: red;\n\
-	content: " ::";\n\
+	color: green;\n\
+	content: " \\2710";\n\
 	font-size: 150%;\n\
 	}\n\
 h6.woas_header:before {\n\
 	color: red;\n\
-	content: ":: ";\n\
+	content: "\\2710  ";\n\
 	font-size: 150%;\n\
 	}\n\
 h6.woas_header:after {\n\
-	color: red;\n\
-	content: " ::";\n\
+	color: green;\n\
+	content: " \\2710";\n\
 	font-size: 150%;\n\
 	}\n\
 \n\
@@ -7347,6 +6134,70 @@ h5.woas_header {\n\
 	}\n\
 h6.woas_header {\n\
 	font-size: 0.625em;\n\
+	}\n\
+\n\
+/* ------------------------------------------- */\n\
+/* HEADERS - CUSTOM                            */\n\
+/* ------------------------------------------- */\n\
+h1.woas_header:before {\n\
+	color: red;\n\
+	content: "::  ";\n\
+	font-size: 150%;\n\
+	}\n\
+h1.woas_header:after {\n\
+	color: red;\n\
+	content: "  ::";\n\
+	font-size: 150%;\n\
+	}\n\
+h2.woas_header:before {\n\
+	color: red;\n\
+	content: "::  ";\n\
+	font-size: 150%;\n\
+	}\n\
+h2.woas_header:after {\n\
+	color: red;\n\
+	content: "  ::";\n\
+	font-size: 150%;\n\
+	}\n\
+h3.woas_header:before {\n\
+	color: red;\n\
+	content: "::  ";\n\
+	font-size: 150%;\n\
+	}\n\
+h3.woas_header:after {\n\
+	color: red;\n\
+	content: "  ::";\n\
+	font-size: 150%;\n\
+	}\n\
+h4.woas_header:before {\n\
+	color: red;\n\
+	content: "::  ";\n\
+	font-size: 150%;\n\
+	}\n\
+h4.woas_header:after {\n\
+	color: red;\n\
+	content: "  ::";\n\
+	font-size: 150%;\n\
+	}\n\
+h5.woas_header:before {\n\
+	color: red;\n\
+	content: "::  ";\n\
+	font-size: 150%;\n\
+	}\n\
+h5.woas_header:after {\n\
+	color: red;\n\
+	content: "  ::";\n\
+	font-size: 150%;\n\
+	}\n\
+h6.woas_header:before {\n\
+	color: red;\n\
+	content: "::  ";\n\
+	font-size: 150%;\n\
+	}\n\
+h6.woas_header:after {\n\
+	color: red;\n\
+	content: "  ::";\n\
+	font-size: 150%;\n\
 	}\n\
 \n\
 /* ------------------------------------------- */\n\
@@ -10297,10 +9148,966 @@ div.taglinks \x3E a:hover {\n\
 	color: navy;\n\
 	}\n\
 \x3C/style\x3E\n\
+',
+'\x3Cstyle type="text/css"\x3E\n\
+/* ------------------------------------------- */\n\
+/* BODY                                        */\n\
+/* ------------------------------------------- */\n\
+body {\n\
+	font-family: Georgia, verdana;\n\
+	}\n\
+.woas_background {\n\
+	background-color: #F0F0F5;\n\
+	}\n\
+\n\
+/* ------------------------------------------- */\n\
+/* CORE PAGES                                  */\n\
+/* ------------------------------------------- */\n\
+.woas_core_page {\n\
+	background-color: #bbccff;\n\
+	}\n\
+\n\
+/* ------------------------------------------- */\n\
+/* DEBUG CONSOLE                               */\n\
+/* ------------------------------------------- */\n\
+#woas_debug_panel {\n\
+	background-color: gray;\n\
+	border: 1pt solid black;\n\
+	margin-top: 0.75em;\n\
+	margin-right: 0.85em;\n\
+	margin-left: 15.5%;\n\
+	}\n\
+#woas_debug_console {\n\
+	}\n\
+#woas_debug_log {\n\
+	background-color: rgb(204, 204, 204);\n\
+	width: 99.3%;\n\
+	}\n\
+\n\
+/* ------------------------------------------- */\n\
+/* EDITOR                                      */\n\
+/* ------------------------------------------- */\n\
+#woas_edit_page_title{\n\
+	margin-top: 2.188em;\n\
+	}\n\
+.woas_editor_button {\n\
+	margin-top: 0.063em;\n\
+	margin-bottom: 0.063em;\n\
+	}\n\
+\n\
+/* ------------------------------------------- */\n\
+/* ENCRYPTION                                  */\n\
+/* ------------------------------------------- */\n\
+/* ask password overlay */\n\
+#woas_pwd_query {\n\
+        background-color: #d6dff7;\n\
+        border: 1pt solid #666666; \n\
+	font-size: large;\n\
+	height: 100%;\n\
+	left: 0em;\n\
+	padding-top: 25%;\n\
+	position: absolute;\n\
+	text-align: center;\n\
+	top: 0em;\n\
+        visibility: hidden;\n\
+	width: 99%;\n\
+	z-index: 100;\n\
+	}\n\
+#woas_pwd_mask {\n\
+	font-size: large;\n\
+	height: 100%;\n\
+	left: 0em;\n\
+	position: absolute;\n\
+	text-align: center;\n\
+	top: 0em;\n\
+	visibility: hidden;\n\
+	width: 99%;\n\
+	z-index: 99;\n\
+	}\n\
+.woas_password_desc {\n\
+	background-color: #FAFAFB;\n\
+	border: 2pt solid navy;\n\
+	font-size: 0.8em;\n\
+	margin-left: 25%;\n\
+	margin-right: 25%;\n\
+	}\n\
+\n\
+/* ------------------------------------------- */\n\
+/* FOOTER                                      */\n\
+/* ------------------------------------------- */\n\
+.woas_about_footer {\n\
+	background-color: #048db4;\n\
+	border: 1pt solid black;\n\
+	font-weight: bold;\n\
+	line-height: 1em;\n\
+	margin-top: 0.75em;\n\
+	margin-right: 0.85em;\n\
+	margin-left: 15.5%;\n\
+	padding: 2pt;\n\
+	text-align: center;\n\
+	}\n\
+.woas_about_footer a {\n\
+	color: white ! important;\n\
+	}\n\
+\n\
+/* ------------------------------------------- */\n\
+/* HEADERS                                     */\n\
+/* ------------------------------------------- */\n\
+h1.woas_header {\n\
+	font-size: 1.438em;\n\
+	}\n\
+h2.woas_header {\n\
+	font-size: 1.25em;\n\
+	}\n\
+h3.woas_header {\n\
+	font-size: 1.063em;\n\
+	}\n\
+h4.woas_header {\n\
+	font-size: 0.875em;\n\
+	}\n\
+h5.woas_header {\n\
+	font-size: 0.75em;\n\
+	}\n\
+h6.woas_header {\n\
+	font-size: 0.625em;\n\
+	}\n\
+\n\
+/* ------------------------------------------- */\n\
+/* HELP PAGES                                  */\n\
+/* ------------------------------------------- */\n\
+.woas_help_background {\n\
+	background-attachment: fixed;\n\
+	background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAYAAADDPmHLAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A%2FwD%2FoL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9oDDAonCzKHvroAAAEFSURBVHja7duxDYIhFIVRIA7EKk7qKoxkb2Ns1PzfObWNuRfyAB0DAAAAAAAAAAAAAAAAAAAAAAAAAIC%2FMEtf9pxzf%2FeZvfdDAYLBV4swBd8uwhR%2BuwhT%2BO0SLOE7BQg%2FvAssa8AOYPWHd4FbtfmvIVZnhyX8xnlfAVCA8kpPHAO%2FNUReqUQKEA7fDDDcHC7hmwGEHx4gp%2BDbpwc%2FCYsfHafw2%2FcG2beAevCpHeDT1V%2B6LfQWEA5fAeLhKwAKoAAAAOR4DRzt3wl6DYyXwGtgvAQeg%2BIlcBEUpwAKgALgHsAg6BTgHsAO0CyBfwwDAAAAAAAAAAAAAAAAAAAAAAAAAAAAv%2FIER4Nn%2B7YDG3wAAAAASUVORK5CYII%3D);\n\
+	}\n\
+.woas_help_button {\n\
+	background-color: #F0F0F5;\n\
+	border: 1pt solid grey;\n\
+	color:darkblue;\n\
+	cursor:pointer;\n\
+	font-size:1em;\n\
+	font-variant: normal;\n\
+	margin-top: 0.75em;\n\
+	position: fixed;\n\
+	right: 0.625em;\n\
+	text-align: center;\n\
+	top: 0.188em;\n\
+	}\n\
+.woas_help_button:hover {\n\
+	background-color: darkgrey;\n\
+	}\n\
+.woas_helpcode {\n\
+	font-family: monospace;\n\
+	padding: 0.438em;\n\
+	}\n\
+.woas_helptext {\n\
+	font-family: lucida;\n\
+	}\n\
+\n\
+/* ------------------------------------------- */\n\
+/* HOTKEYS                                     */\n\
+/* ------------------------------------------- */\n\
+#woas_custom_accesskeys {\n\
+	display: none;\n\
+	visibility: hidden;\n\
+	}\n\
+\n\
+/* ------------------------------------------- */\n\
+/* LAST MODIFIED LINE   */\n\
+/* ------------------------------------------- */\n\
+.woas_page_mts {\n\
+	font-size: small;\n\
+	margin-top: 0.75em;\n\
+	margin-right: 0.80em;\n\
+	margin-left: 15.5%;\n\
+	z-index: 0;\n\
+	}\n\
+\n\
+/* ------------------------------------------- */\n\
+/* LINKS                                       */\n\
+/* ------------------------------------------- */\n\
+/* cursor when on a link */\n\
+a {\n\
+	cursor: pointer;\n\
+	/* cursor when on a link - IE5.5/IE6 */\n\
+	/* cursor: hand; */\n\
+	}\n\
+/* existent link */\n\
+a.link {\n\
+	color: blue;\n\
+	}\n\
+a.link:hover {\n\
+	text-decoration: underline;\n\
+	}\n\
+/* nonexistent link */\n\
+a.unlink {\n\
+	color: red;\n\
+	}\n\
+a.unlink:hover {\n\
+	text-decoration: underline;\n\
+	}\n\
+/* outside world link */\n\
+a.world {\n\
+	color: darkgreen;\n\
+	text-decoration: underline;\n\
+	}\n\
+\n\
+/* ------------------------------------------- */\n\
+/* MAIN TEXT AREA                              */\n\
+/* ------------------------------------------- */\n\
+/* main text area div */\n\
+div.woas_text_area {\n\
+	background-color: white;\n\
+	border: 1pt solid black;\n\
+	padding: 0.475em;\n\
+	}\n\
+/* main text area */\n\
+#wiki_text {\n\
+	left: 15.5%;\n\
+	margin-top: 1.313em;\n\
+	margin-bottom: 0.75em;\n\
+	position: relative;\n\
+	text-align: justify;\n\
+	width: 82.3%;\n\
+	z-index: 0;\n\
+	}\n\
+\n\
+/* ------------------------------------------- */\n\
+/* MAIN WIKI PANE WHEN LOCKED                  */\n\
+/* ------------------------------------------- */\n\
+.woas_text_area.locked,\n\
+#woas_pwd_mask {\n\
+	background-color: #eeeeee;\n\
+	background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAAAAACMmsGiAAAALHRFWHRDcmVhdGlvbiBUaW1lAGdpbyAyOSBtYXIgMjAwNyAxMTo1MToxMCArMDEwME%2BTNUAAAAAHdElNRQfXAx0JNByGxueSAAAACXBIWXMAAAsSAAALEgHS3X78AAAABGdBTUEAALGPC%2FxhBQAAABlJREFUeNpj%2FM%2FwmYHpMwMvAxOQwcvECyQBO1oE%2BlG5iisAAAAASUVORK5CYII%3D);\n\
+	}\n\
+\n\
+/* ------------------------------------------- */\n\
+/* MENU                                        */\n\
+/* ------------------------------------------- */\n\
+div.menu {\n\
+	}\n\
+div.menu_area {\n\
+	background-color: white;\n\
+	border: 1pt solid grey;\n\
+	font-size: 0.75em;\n\
+	left: 1%;\n\
+	padding: 0.499em;\n\
+	width: 13.2%;\n\
+	}\n\
+div.menu_area ul li, div.menu_area ol li, div.ns_menu_area ul li, div.ns_menu_area ol li {\n\
+	margin-left: -2em;\n\
+	}\n\
+\n\
+/* ------------------------------------------- */\n\
+/* MENU - BUTTON                               */\n\
+/* ------------------------------------------- */\n\
+.woas_menu_button {\n\
+	background-color: #F0F0F5;\n\
+	border: 1pt solid grey;\n\
+	color: darkblue;\n\
+	cursor: pointer;\n\
+	font-size: 1.3em;\n\
+	font-variant: normal;\n\
+	margin-top: 0.438em;\n\
+	text-align: center;\n\
+	width: 100%;\n\
+	}\n\
+.woas_menu_button:hover {\n\
+	background-color: darkgrey;\n\
+	}\n\
+\n\
+/* ------------------------------------------- */\n\
+/* MISCELLANEOUS                               */\n\
+/* ------------------------------------------- */\n\
+.woas_embedded {\n\
+	}\n\
+\n\
+/* ------------------------------------------- */\n\
+/* NAVIGATION BAR                              */\n\
+/* ------------------------------------------- */\n\
+div.wiki_header {\n\
+	border: 1pt solid #aaa;\n\
+	left: 0em;\n\
+	opacity: .65;\n\
+	padding-right: 0.75em;\n\
+	top: 0em;\n\
+	width: 99%;\n\
+	z-index: 1;\n\
+	}\n\
+.title {\n\
+	display: inline;\n\
+	font-size: 2em;\n\
+	font-weight: bold;\n\
+	margin-bottom: 0em;\n\
+	margin-top: 0em;\n\
+	text-shadow: #888 0.13em 0.13em 0.065em;\n\
+	}\n\
+\n\
+/* ------------------------------------------- */\n\
+/* NOWIKI TEXT BLOCK - CSS 3                   */\n\
+/* ------------------------------------------- */\n\
+.woas_nowiki_multiline {\n\
+	white-space: pre-wrap;\n\
+	}\n\
+/* ------------------------------------------- */\n\
+/* NOWIKI TEXT BLOCK - IE 5.5+                 */\n\
+/* ------------------------------------------- */\n\
+/*.woas_nowiki_multiline {\n\
+	word-wrap: break-word;\n\
+	}/*\n\
+/* ------------------------------------------- */\n\
+/* NOWIKI TEXT BLOCK - OPERA 4-6               */\n\
+/* ------------------------------------------- */\n\
+/*.woas_nowiki_multiline {\n\
+	white-space: -pre-wrap;\n\
+	}*/\n\
+/* ------------------------------------------- */\n\
+/* NOWIKI TEXT BLOCK - OPERA 7                 */\n\
+/* ------------------------------------------- */\n\
+/*.woas_nowiki_multiline {\n\
+	white-space: -o-pre-wrap;\n\
+	}*/\n\
+\n\
+/* ------------------------------------------- */\n\
+/* NOWIKI TEXT INLINE - CSS 2                  */\n\
+/* ------------------------------------------- */\n\
+.wiki_preformatted {\n\
+	white-space: pre-wrap;\n\
+	}\n\
+/* ------------------------------------------- */\n\
+/* NOWIKI TEXT INLINE - IE 5.5+                */\n\
+/* ------------------------------------------- */\n\
+/*.wiki_preformatted {\n\
+	word-wrap: break-word;\n\
+	}*/\n\
+/* ------------------------------------------- */\n\
+/* NOWIKI TEXT INLINE - OPERA 4-6              */\n\
+/* ------------------------------------------- */\n\
+/*.wiki_preformatted {\n\
+	white-space: -pre-wrap;\n\
+	}*/\n\
+/* ------------------------------------------- */\n\
+/* NOWIKI TEXT INLINE - OPERA 7                */\n\
+/* ------------------------------------------- */\n\
+/*.wiki_preformatted {\n\
+	white-space: -o-pre-wrap;\n\
+	}*/\n\
+\n\
+/* ------------------------------------------- */\n\
+/* SEARCH                                      */\n\
+/* ------------------------------------------- */\n\
+div.search_results {\n\
+	background-color: #f9f9f9;\n\
+	border: 1pt solid #aaa;\n\
+	clear: both;\n\
+	margin-top: 1em;\n\
+	padding: 0.313em;\n\
+	}\n\
+.search_highlight {\n\
+	background-color: yellow;\n\
+	}\n\
+\n\
+/* ------------------------------------------- */\n\
+/* TABLE OF CONTENTS                           */\n\
+/* ------------------------------------------- */\n\
+div.woas_toc {\n\
+	background-color: #f9f9f9;\n\
+	border: 1pt dashed #aaa;\n\
+	font-size: 95%;\n\
+	padding: 0.313em;\n\
+	width: 50%;\n\
+	}\n\
+div.woas_toc ol, li {\n\
+	margin-left: 1.3em;\n\
+	padding-left: 0em;\n\
+	}\n\
+p.woas_toc_title {\n\
+	font-weight: bold;\n\
+	text-align: center;\n\
+	}\n\
+\n\
+/* ------------------------------------------- */\n\
+/* TABLES                                      */\n\
+/* ------------------------------------------- */\n\
+table.woas_text_area {\n\
+	border: 1pt solid black;\n\
+	border-spacing: 0em;\n\
+	}\n\
+table.woas_text_area td {\n\
+	border: 1pt solid;\n\
+	padding: 0.313em;\n\
+	}\n\
+table.woas_text_area caption {\n\
+        font-style: italic;\n\
+        font-weight: bold;\n\
+	}\n\
+\n\
+/* ------------------------------------------- */\n\
+/* TAGS                                        */\n\
+/* ------------------------------------------- */\n\
+/* tag container */\n\
+div.taglinks {\n\
+	background-color: #f9f9f9;\n\
+	border: 1pt solid #aaa;\n\
+	clear: both;\n\
+	margin-top: 1em;\n\
+	padding: 0.313em;\n\
+	}\n\
+\n\
+/* ------------------------------------------- */\n\
+/* STYLED BOXES AROUND TAGS                    */\n\
+/* ------------------------------------------- */\n\
+div.taglinks \x3E a {\n\
+	background-color: gainsboro;\n\
+	border:2px solid blue;\n\
+	/* border-radius: 7px; */\n\
+	color: navy;\n\
+	font-size: 90%;\n\
+	font-weight: bold;\n\
+	line-height: 2.4;\n\
+	margin: 2px 2px 2px 0;\n\
+	-moz-border-radius: 7px;-webkit-border-radius:7px;\n\
+	padding: 3px 5px 3px 5px;\n\
+	text-decoration: none;\n\
+	}\n\
+div.taglinks \x3E a:hover {\n\
+	background-color: grey;\n\
+	border: 2px solid blue;\n\
+	color: white;\n\
+	font-weight: bold;\n\
+	text-decoration: none;\n\
+	}\n\
+\n\
+/* ------------------------------------------- */\n\
+/* WIKI LOADING OVERLAY                        */\n\
+/* ------------------------------------------- */\n\
+#loading_overlay {\n\
+	background-color: white;\n\
+	font-size: large;\n\
+	height: 100%;\n\
+	left: 0em;\n\
+	padding-top: 25%;\n\
+	position: absolute;\n\
+	text-align: center;\n\
+	top: 0em;\n\
+	width: 99%;\n\
+	z-index: 100;\n\
+	}\n\
+\n\
+/* ------------------------------------------- */\n\
+/* WIKI WAIT TEXT                              */\n\
+/* ------------------------------------------- */\n\
+.woas_wait_text {\n\
+	color: navy;\n\
+	}\n\
+\x3C/style\x3E\n\
+',
+'[[Include::Template::Theme|Pastel]]\n\
+[[Tags::Themes]]\n\
+\n\
+\x3Cstyle type="text/css"\x3E\n\
+/* ------------------------------------------- */\n\
+/* BODY                                        */\n\
+/* ------------------------------------------- */\n\
+body {\n\
+	font-family: Georgia, verdana;\n\
+	}\n\
+.woas_background {\n\
+	background-color: violet;\n\
+	}\n\
+\n\
+/* ------------------------------------------- */\n\
+/* CORE PAGES                                  */\n\
+/* ------------------------------------------- */\n\
+.woas_core_page {\n\
+	background-color: #bbccff;\n\
+	}\n\
+\n\
+/* ------------------------------------------- */\n\
+/* DEBUG CONSOLE                               */\n\
+/* ------------------------------------------- */\n\
+#woas_debug_panel {\n\
+	background-color: gray;\n\
+	border: 1pt solid black;\n\
+	margin-top: 0.75em;\n\
+	margin-right: 0.85em;\n\
+	margin-left: 15.5%;\n\
+	}\n\
+#woas_debug_console {\n\
+	}\n\
+#woas_debug_log {\n\
+	background-color: rgb(204, 204, 204);\n\
+	width: 99.3%;\n\
+	}\n\
+\n\
+/* ------------------------------------------- */\n\
+/* EDITOR                                      */\n\
+/* ------------------------------------------- */\n\
+#woas_edit_page_title{\n\
+	margin-top: 2.188em;\n\
+	}\n\
+.woas_editor_button {\n\
+	margin-top: 0.063em;\n\
+	margin-bottom: 0.063em;\n\
+	}\n\
+\n\
+/* ------------------------------------------- */\n\
+/* ENCRYPTION                                  */\n\
+/* ------------------------------------------- */\n\
+/* ask password overlay */\n\
+#woas_pwd_query {\n\
+        background-color: #d6dff7;\n\
+        border: 1pt solid #666666; \n\
+	font-size: large;\n\
+	height: 100%;\n\
+	left: 0em;\n\
+	padding-top: 25%;\n\
+	position: absolute;\n\
+	text-align: center;\n\
+	top: 0em;\n\
+        visibility: hidden;\n\
+	width: 99%;\n\
+	z-index: 100;\n\
+	}\n\
+#woas_pwd_mask {\n\
+	font-size: large;\n\
+	height: 100%;\n\
+	left: 0em;\n\
+	position: absolute;\n\
+	text-align: center;\n\
+	top: 0em;\n\
+	visibility: hidden;\n\
+	width: 99%;\n\
+	z-index: 99;\n\
+	}\n\
+.woas_password_desc {\n\
+	background-color: #FAFAFB;\n\
+	border: 2pt solid navy;\n\
+	font-size: 0.8em;\n\
+	margin-left: 25%;\n\
+	margin-right: 25%;\n\
+	}\n\
+\n\
+/* ------------------------------------------- */\n\
+/* FOOTER                                      */\n\
+/* ------------------------------------------- */\n\
+.woas_about_footer {\n\
+	background-color: powderblue;\n\
+	border: 0.125em solid cornflowerblue;\n\
+	font-weight: bold;\n\
+	line-height: 1em;\n\
+	margin-top: 0.75em;\n\
+	margin-right: 0.85em;\n\
+	margin-left: 15.5%;\n\
+	padding: 2pt;\n\
+	text-align: center;\n\
+	}\n\
+.woas_about_footer a {\n\
+	color: mediumblue ! important;\n\
+	}\n\
+\n\
+/* ------------------------------------------- */\n\
+/* HEADERS                                     */\n\
+/* ------------------------------------------- */\n\
+h1.woas_header {\n\
+	font-size: 1.438em;\n\
+	}\n\
+h2.woas_header {\n\
+	font-size: 1.25em;\n\
+	}\n\
+h3.woas_header {\n\
+	font-size: 1.063em;\n\
+	}\n\
+h4.woas_header {\n\
+	font-size: 0.875em;\n\
+	}\n\
+h5.woas_header {\n\
+	font-size: 0.75em;\n\
+	}\n\
+h6.woas_header {\n\
+	font-size: 0.625em;\n\
+	}\n\
+\n\
+/* ------------------------------------------- */\n\
+/* HEADERS - CUSTOM                            */\n\
+/* ------------------------------------------- */\n\
+h1.woas_header:before {\n\
+	color: mediumorchid;\n\
+	content: "\\273F  ";\n\
+	}\n\
+h2.woas_header:before {\n\
+	color: mediumorchid;\n\
+	content: "\\273F  ";\n\
+	}\n\
+h3.woas_header:before {\n\
+	color: mediumorchid;\n\
+	content: "\\273F  ";\n\
+	}\n\
+h4.woas_header:before {\n\
+	color: mediumorchid;\n\
+	content: "\\273F  ";\n\
+	}\n\
+h5.woas_header:before {\n\
+	color: mediumorchid;\n\
+	content: "\\273F  ";\n\
+	}\n\
+h6.woas_header:before {\n\
+	color: mediumorchid;\n\
+	content: "\\273F  ";\n\
+	}\n\
+\n\
+/* ------------------------------------------- */\n\
+/* HELP PAGES                                  */\n\
+/* ------------------------------------------- */\n\
+.woas_help_background {\n\
+	background-attachment: fixed;\n\
+	background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAYAAADDPmHLAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A%2FwD%2FoL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9oDDAonCzKHvroAAAEFSURBVHja7duxDYIhFIVRIA7EKk7qKoxkb2Ns1PzfObWNuRfyAB0DAAAAAAAAAAAAAAAAAAAAAAAAAIC%2FMEtf9pxzf%2FeZvfdDAYLBV4swBd8uwhR%2BuwhT%2BO0SLOE7BQg%2FvAssa8AOYPWHd4FbtfmvIVZnhyX8xnlfAVCA8kpPHAO%2FNUReqUQKEA7fDDDcHC7hmwGEHx4gp%2BDbpwc%2FCYsfHafw2%2FcG2beAevCpHeDT1V%2B6LfQWEA5fAeLhKwAKoAAAAOR4DRzt3wl6DYyXwGtgvAQeg%2BIlcBEUpwAKgALgHsAg6BTgHsAO0CyBfwwDAAAAAAAAAAAAAAAAAAAAAAAAAAAAv%2FIER4Nn%2B7YDG3wAAAAASUVORK5CYII%3D);\n\
+	}\n\
+.woas_help_button {\n\
+	background-color: #F0F0F5;\n\
+	border: 1pt solid grey;\n\
+	color:darkblue;\n\
+	cursor:pointer;\n\
+	font-size:1em;\n\
+	font-variant: normal;\n\
+	margin-top: 0.75em;\n\
+	position: fixed;\n\
+	right: 0.625em;\n\
+	text-align: center;\n\
+	top: 0.188em;\n\
+	}\n\
+.woas_help_button:hover {\n\
+	background-color: darkgrey;\n\
+	}\n\
+.woas_helpcode {\n\
+	font-family: monospace;\n\
+	padding: 0.438em;\n\
+	}\n\
+.woas_helptext {\n\
+	font-family: lucida;\n\
+	}\n\
+\n\
+/* ------------------------------------------- */\n\
+/* HOTKEYS                                     */\n\
+/* ------------------------------------------- */\n\
+#woas_custom_accesskeys {\n\
+	display: none;\n\
+	visibility: hidden;\n\
+	}\n\
+\n\
+/* ------------------------------------------- */\n\
+/* LAST MODIFIED LINE   */\n\
+/* ------------------------------------------- */\n\
+.woas_page_mts {\n\
+	font-size: small;\n\
+	margin-top: 0.75em;\n\
+	margin-right: 0.80em;\n\
+	margin-left: 15.5%;\n\
+	z-index: 0;\n\
+	}\n\
+\n\
+/* ------------------------------------------- */\n\
+/* LINKS                                       */\n\
+/* ------------------------------------------- */\n\
+/* cursor when on a link */\n\
+a {\n\
+	cursor: pointer;\n\
+	/* cursor when on a link - IE5.5/IE6 */\n\
+	/* cursor: hand; */\n\
+	}\n\
+/* existent link */\n\
+a.link {\n\
+	color: blue;\n\
+	}\n\
+a.link:hover {\n\
+	text-decoration: underline;\n\
+	}\n\
+/* nonexistent link */\n\
+a.unlink {\n\
+	color: red;\n\
+	}\n\
+a.unlink:hover {\n\
+	text-decoration: underline;\n\
+	}\n\
+/* outside world link */\n\
+a.world {\n\
+	color: darkgreen;\n\
+	text-decoration: underline;\n\
+	}\n\
+\n\
+/* ------------------------------------------- */\n\
+/* MAIN TEXT AREA                              */\n\
+/* ------------------------------------------- */\n\
+/* main text area div */\n\
+div.woas_text_area {\n\
+	background-color: #FFFFAA;\n\
+	border: 1pt solid black;\n\
+	padding: 0.475em;\n\
+	}\n\
+/* main text area */\n\
+#wiki_text {\n\
+	left: 15.5%;\n\
+	margin-top: 1.313em;\n\
+	margin-bottom: 0.75em;\n\
+	position: relative;\n\
+	text-align: justify;\n\
+	width: 82.3%;\n\
+	z-index: 0;\n\
+	}\n\
+\n\
+/* ------------------------------------------- */\n\
+/* MAIN WIKI PANE WHEN LOCKED                  */\n\
+/* ------------------------------------------- */\n\
+.woas_text_area.locked,\n\
+#woas_pwd_mask {\n\
+	background-color: #eeeeee;\n\
+	background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAAAAACMmsGiAAAALHRFWHRDcmVhdGlvbiBUaW1lAGdpbyAyOSBtYXIgMjAwNyAxMTo1MToxMCArMDEwME%2BTNUAAAAAHdElNRQfXAx0JNByGxueSAAAACXBIWXMAAAsSAAALEgHS3X78AAAABGdBTUEAALGPC%2FxhBQAAABlJREFUeNpj%2FM%2FwmYHpMwMvAxOQwcvECyQBO1oE%2BlG5iisAAAAASUVORK5CYII%3D);\n\
+	}\n\
+\n\
+/* ------------------------------------------- */\n\
+/* MENU                                        */\n\
+/* ------------------------------------------- */\n\
+div.menu {\n\
+	}\n\
+div.menu_area {\n\
+	background-color: palegreen;\n\
+	border: 1pt solid grey;\n\
+	font-size: 0.75em;\n\
+	left: 1%;\n\
+	padding: 0.499em;\n\
+	width: 13.2%;\n\
+	}\n\
+div.menu_area ul li, div.menu_area ol li, div.ns_menu_area ul li, div.ns_menu_area ol li {\n\
+	margin-left: -2em;\n\
+	}\n\
+\n\
+/* ------------------------------------------- */\n\
+/* MENU - BUTTON                               */\n\
+/* ------------------------------------------- */\n\
+.woas_menu_button {\n\
+	background-color: powderblue;\n\
+	border: 1pt solid cornflowerblue;\n\
+	color: darkblue;\n\
+	cursor: pointer;\n\
+	font-size: 1.3em;\n\
+	font-variant: normal;\n\
+	margin-top: 0.438em;\n\
+	text-align: center;\n\
+	width: 100%;\n\
+	}\n\
+.woas_menu_button:hover {\n\
+	background-color: cornflowerblue;\n\
+	}\n\
+\n\
+/* ------------------------------------------- */\n\
+/* MISCELLANEOUS                               */\n\
+/* ------------------------------------------- */\n\
+.woas_embedded {\n\
+	}\n\
+\n\
+/* ------------------------------------------- */\n\
+/* NAVIGATION BAR                              */\n\
+/* ------------------------------------------- */\n\
+div.wiki_header {\n\
+	background-color: powderblue;\n\
+	border-top: 0.15em solid cornflowerblue;\n\
+	border-bottom: 0.15em solid cornflowerblue;\n\
+	left: 0em;\n\
+	opacity: .95;\n\
+	padding-right: 0.75em;\n\
+	top: 0em;\n\
+	width: 99%;\n\
+	z-index: 1;\n\
+	}\n\
+.title {\n\
+	display: inline;\n\
+	font-size: 2em;\n\
+	font-weight: bold;\n\
+	margin-bottom: 0em;\n\
+	margin-top: 0em;\n\
+	text-shadow: #888 0.13em 0.13em 0.065em;\n\
+	}\n\
+\n\
+/* ------------------------------------------- */\n\
+/* NOWIKI TEXT BLOCK - CSS 3                   */\n\
+/* ------------------------------------------- */\n\
+.woas_nowiki_multiline {\n\
+	background-color: palegreen;\n\
+	border: 0.125em solid mediumseagreen;\n\
+	white-space: pre-wrap;\n\
+	}\n\
+/* ------------------------------------------- */\n\
+/* NOWIKI TEXT BLOCK - IE 5.5+                 */\n\
+/* ------------------------------------------- */\n\
+/*.woas_nowiki_multiline {\n\
+	background-color: palegreen;\n\
+	border: 0.125em solid mediumseagreen;\n\
+	word-wrap: break-word;\n\
+	}/*\n\
+/* ------------------------------------------- */\n\
+/* NOWIKI TEXT BLOCK - OPERA 4-6               */\n\
+/* ------------------------------------------- */\n\
+/*.woas_nowiki_multiline {\n\
+	background-color: palegreen;\n\
+	border: 0.125em solid mediumseagreen;\n\
+	white-space: -pre-wrap;\n\
+	}*/\n\
+/* ------------------------------------------- */\n\
+/* NOWIKI TEXT BLOCK - OPERA 7                 */\n\
+/* ------------------------------------------- */\n\
+/*.woas_nowiki_multiline {\n\
+	background-color: palegreen;\n\
+	border: 0.125em solid mediumseagreen;\n\
+	white-space: -o-pre-wrap;\n\
+	}*/\n\
+\n\
+/* ------------------------------------------- */\n\
+/* NOWIKI TEXT INLINE - CSS 2                  */\n\
+/* ------------------------------------------- */\n\
+.wiki_preformatted {\n\
+	background-color: palegreen;\n\
+	white-space: pre-wrap;\n\
+	}\n\
+/* ------------------------------------------- */\n\
+/* NOWIKI TEXT INLINE - IE 5.5+                */\n\
+/* ------------------------------------------- */\n\
+/*.wiki_preformatted {\n\
+	background-color: palegreen;\n\
+	word-wrap: break-word;\n\
+	}*/\n\
+/* ------------------------------------------- */\n\
+/* NOWIKI TEXT INLINE - OPERA 4-6              */\n\
+/* ------------------------------------------- */\n\
+/*.wiki_preformatted {\n\
+	background-color: palegreen;\n\
+	white-space: -pre-wrap;\n\
+	}*/\n\
+/* ------------------------------------------- */\n\
+/* NOWIKI TEXT INLINE - OPERA 7                */\n\
+/* ------------------------------------------- */\n\
+/*.wiki_preformatted {\n\
+	background-color: palegreen;\n\
+	white-space: -o-pre-wrap;\n\
+	}*/\n\
+\n\
+/* ------------------------------------------- */\n\
+/* SEARCH                                      */\n\
+/* ------------------------------------------- */\n\
+div.search_results {\n\
+	background-color: #f9f9f9;\n\
+	border: 1pt solid #aaa;\n\
+	clear: both;\n\
+	margin-top: 1em;\n\
+	padding: 0.313em;\n\
+	}\n\
+.search_highlight {\n\
+	background-color: yellow;\n\
+	}\n\
+\n\
+/* ------------------------------------------- */\n\
+/* TABLE OF CONTENTS                           */\n\
+/* ------------------------------------------- */\n\
+div.woas_toc {\n\
+	background-color: palegreen;\n\
+	border: 0.25em dotted mediumseagreen;\n\
+	font-size: 95%;\n\
+	padding: 0.313em;\n\
+	width: 50%;\n\
+	}\n\
+div.woas_toc ol, li {\n\
+	margin-left: 1.3em;\n\
+	padding-left: 0em;\n\
+	}\n\
+p.woas_toc_title {\n\
+	font-weight: bold;\n\
+	text-align: center;\n\
+	}\n\
+\n\
+/* ------------------------------------------- */\n\
+/* TABLES                                      */\n\
+/* ------------------------------------------- */\n\
+table.woas_text_area {\n\
+	border: 1pt solid cornflowerblue;\n\
+	border-spacing: 0em;\n\
+	}\n\
+table.woas_text_area td {\n\
+	background-color: powderblue;\n\
+	border: 1pt solid cornflowerblue;\n\
+	padding: 0.313em;\n\
+	}\n\
+table.woas_text_area caption {\n\
+	background-color: cornflowerblue;\n\
+	color: white;\n\
+	font-style: normal;\n\
+	font-weight: bold;\n\
+	}\n\
+\n\
+/* ------------------------------------------- */\n\
+/* TAGS                                        */\n\
+/* ------------------------------------------- */\n\
+/* tag container */\n\
+div.taglinks {\n\
+	background-color: palegreen;\n\
+	border: 0.25em dotted orchid;\n\
+	clear: both;\n\
+	margin-top: 1em;\n\
+	padding: 0.313em;\n\
+	}\n\
+\n\
+/* ------------------------------------------- */\n\
+/* TAGS - STYLED BOXES AROUND TAGS             */\n\
+/* ------------------------------------------- */\n\
+div.taglinks \x3E a {\n\
+	background-color: violet;\n\
+	border:2px solid mediumorchid;\n\
+	/* border-radius: 7px; */\n\
+	color: mediumblue;\n\
+	font-size: 90%;\n\
+	font-weight: bold;\n\
+	line-height: 2.4;\n\
+	margin: 2px 2px 2px 0;\n\
+	-moz-border-radius: 7px;-webkit-border-radius:7px;\n\
+	padding: 3px 5px 3px 5px;\n\
+	text-decoration: none;\n\
+	}\n\
+div.taglinks \x3E a:hover {\n\
+	background-color: #FFFFAA;\n\
+	border: 2px solid mediumorchid;\n\
+	color: mediumblue;\n\
+	font-weight: bold;\n\
+	text-decoration: none;\n\
+	}\n\
+\n\
+/* ------------------------------------------- */\n\
+/* WIKI LOADING OVERLAY                        */\n\
+/* ------------------------------------------- */\n\
+#loading_overlay {\n\
+	background-color: white;\n\
+	font-size: large;\n\
+	height: 100%;\n\
+	left: 0em;\n\
+	padding-top: 25%;\n\
+	position: absolute;\n\
+	text-align: center;\n\
+	top: 0em;\n\
+	width: 99%;\n\
+	z-index: 100;\n\
+	}\n\
+\n\
+/* ------------------------------------------- */\n\
+/* WIKI WAIT TEXT                              */\n\
+/* ------------------------------------------- */\n\
+.woas_wait_text {\n\
+	color: navy;\n\
+	}\n\
+\x3C/style\x3E\n\
 '
 ];
 
-/* DFQRCTsKlU-0000226-END */
+/* DFQRCTsKlU-0000228-END */
+
+
+
+
 
 
 
@@ -18294,7 +18101,7 @@ Wiki Code:
   <input class="woas_editor_button" name="img" id="img" title="Image link" value="Image" onclick="setHTMLImage()" type="submit" />
   <input class="woas_editor_button" name="url" id="url" title="External link" value="Link" onclick="setHTMLUrl()" type="submit" />
 </div>
-<textarea id="woas_editor" style="width: 1405px; height: 500px;" rows="0" cols="0"></textarea> 
+<textarea id="woas_editor" style="width: 1405px; height: 471px;" rows="0" cols="0"></textarea> 
 </div>
 <div style="visibility: hidden;" id="woas_debug_panel">
 <p>&nbsp;<span style="font-size: large; font-weight: bold;">Debug console</span>&nbsp;&nbsp;<input value="Toggle" onclick="$.toggle('woas_debug_console')" type="button" /></p>
