@@ -98,6 +98,13 @@ woas.ui = {
 	
 };
 
+// this sub-module shall contain all editor code
+woas.ui.editor = {
+	_insert_ruler: function() {
+		TagThis("\n----\n", "");
+	}
+};
+
 //API1.0
 woas.go_to = function(cr) {
 	if (cr === current)

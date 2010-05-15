@@ -12,7 +12,6 @@ woas.i18n = {
 	CONFIRM_DELETE_FILE: "Are you sure you want to delete this file?",
 	CONFIRM_DELETE_IMAGE: "Are you sure you want to delete image '%s'?",
 	CONFIRM_EXPORT: "Do you want to export %s in the below specified path?",
-	CONFIRM_IMPORT_OVERWRITE: "This will OVERWRITE pages with the same title.\n\nAre you sure you want to continue?",
 	CONFIRM_LOCK: "Do you want to use the last password entered to lock this page '%s'?",
 	CONFIRM_LOCK_LAST: "The password was last time used on page: %s",
 	CONFIRM_READ_ONLY: "Are you sure you want to set this WoaS as read-only? You will have to manually edit the file to revert this change.",

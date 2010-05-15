@@ -9,7 +9,7 @@ woas.html_buttons_display = function (v) {
 	$('html_format_buttons').style.visibility = v ? 'visible' : 'hidden';
 };
 
-// submitted by pr0xy
+// class for managing textarea selection - by pr0xy
 function TextAreaSelectionHelper(obj) {
 	this.target=obj;
 	this.target.carretHandler=this; // ?
@@ -17,9 +17,8 @@ function TextAreaSelectionHelper(obj) {
 	this.target.onclick=_textareaSaver;
 	this.target.onkeyup=_textareaSaver;
 	this.target.onfocus=_textareaSaver;
-// blurring handler disabled until META features are researched more
-// this.target.onblur=kbd_blur;
-	if(!document.selection) this.target.onSelect=_textareaSaver; // ?
+	if(!document.selection)
+		this.target.onSelect=_textareaSaver; // ?
  
 	this.start=-1;
 	this.end=-1;
@@ -28,7 +27,7 @@ function TextAreaSelectionHelper(obj) {
 }
 
 TextAreaSelectionHelper.prototype.getSelectedText=function() {
-	if(this.iesel)
+	if (this.iesel)
 		return this.iesel.text;
 	// Fixes a problem in FF3 where the selection was not being stored in this.start and this.end when selecting multilines
 	this.start = $("woas_editor").selectionStart;
@@ -69,21 +68,22 @@ if(this.scroll>=0) this.target.scrollTop=this.scroll;
 };
 
 TextAreaSelectionHelper.prototype.getText=function() {
- return this.target.value;
+	return this.target.value;
 };
 
 TextAreaSelectionHelper.prototype.setText=function(text) {
- this.target.value=text;
+	this.target.value=text;
 };
 
 function _textareaSaver() {
- if(document.selection) {
-   this.carretHandler.iesel = document.selection.createRange().duplicate();
- } else if(typeof(this.selectionStart)!="undefined") {
-   this.carretHandler.start=this.selectionStart;
-this.carretHandler.end=this.selectionEnd;
-this.carretHandler.scroll=this.scrollTop;
- } else {this.carretHandler.start=this.carretHandler.end=-1;}
+	if (document.selection) {
+		this.carretHandler.iesel = document.selection.createRange().duplicate();
+	} else if(typeof(this.selectionStart)!="undefined") {
+		this.carretHandler.start=this.selectionStart;
+		this.carretHandler.end=this.selectionEnd;
+		this.carretHandler.scroll=this.scrollTop;
+	} else
+		this.carretHandler.start=this.carretHandler.end = -1;
 }
 
 function DivTagThis(align) {
