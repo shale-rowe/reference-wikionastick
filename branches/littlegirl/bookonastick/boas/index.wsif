@@ -158,7 +158,6 @@ woas.page.boundary: DFQRCTsKlU
 <div style="float:right; margin-top:10px; margin-right:5px; margin-bottom:20px; margin-left:20px;">[[Include::Wiki::Template::Logo]]</div>
 = Book on a Stick 1.0 (under development)
 If you're seeing this, then BoaS is in a state of transition as it merges with WoaS 0.12.0. Until the merge is finished, you will notice these things:
-* All page listings have a strange new header which will be removed.
 * Some instructions are inaccurate.
 * Some links are broken.
 * Some [[Special::]] pages have unfamiliar content.
@@ -166,8 +165,8 @@ If you're seeing this, then BoaS is in a state of transition as it merges with W
 * The [[Help::]] namespace is showing up in page listings while I merge the contents of the pages with the pages in the [[Wiki::Help::]] namespace.
 * There is a WoaS logo in the upper left corner.
 * The separate fixed menu and fixed banner options are missing.
-* The [[Wiki::]] namespace is showing up in page listings. This is normal during development. Those pages will become reserved pages before release.
-* The [[WoaS::]] namespace is showing up in page listings so that I can hopefully rename them as [[Wiki::]] pages.
+* The [[Wiki::]] namespace is showing in page listings. This is normal during development. Those pages will become hidden before release.
+* The [[WoaS::]] namespace is showing in page listings. This is so that I can rename them as [[Wiki::]] pages.
 * The word count button is broken.
 I apologize for any inconvenience and I appreciate your patience.&nbsp;&nbsp;<span style="color:#FF00FF; font-size:175%;">&#x263A;</span>
 
@@ -2694,7 +2693,7 @@ body {
 	}
 
 /*FOOTER*/
-.woas_about_footer {
+.wiki_footer {
 	background-color: gainsboro;
 	border: 0.188em solid grey;
 	font-size: 80%;
@@ -2712,7 +2711,7 @@ body {
 	}
 
 /*FOOTER - LINKS*/
-.woas_about_footer a {
+.wiki_footer a {
 	color: mediumblue !important;
 	}
 
@@ -2938,7 +2937,7 @@ div.menu_area ul li, div.menu_area ol li, div.ns_menu_area ul li, div.ns_menu_ar
 .woas_embedded {
 	}
 
-/*PAGE LIST HEADER*/
+/*PAGE LISTING HEADER*/
 .woas_listing_options {
 	background-color: gainsboro;
 	border: 0.1em solid grey;
@@ -3375,10 +3374,7 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 /* ADD YOUR CUSTOM CSS BENEATH THIS LINE */
 
-/*DISABLE PAGE LISTING HEADER*/
-.woas_listing_options ol,ul {
-	margin-top:0.25em;
-	}
+/*PAGE LISTING HEADER - DISABLE*/
 .woas_listing_options {
 	display:none;
 	visibility:hidden;
@@ -3439,7 +3435,7 @@ div.wiki_header {
 	color: navy;
 }
 
-.woas_background, #woas_debug_panel, #woas_debug_console, #woas_debug_log, #woas_edit_page_title, .wiki_editor_button, #woas_pwd_query, #woas_pwd_mask, .woas_password_desc, .woas_about_footer, .woas_help_background, .wiki_help_button, .wiki_help_text, .woas_page_mts, div.woas_text_area, .woas_text_area.locked, #woas_pwd_mask, .woas_core_page, div.menu,div.menu_area, .wiki_menu_button_full, .wiki_menu_button_half,.title, .wiki_preformatted, .woas_nowiki_multiline, div.search_results, div.wiki_toc, p.wiki_toc_title, table.woas_text_area, div.taglinks { }
+.woas_background, #woas_debug_panel, #woas_debug_console, #woas_debug_log, #woas_edit_page_title, .wiki_editor_button, #woas_pwd_query, #woas_pwd_mask, .woas_password_desc, .wiki_footer, .woas_help_background, .wiki_help_button, .wiki_help_text, .woas_page_mts, div.woas_text_area, .woas_text_area.locked, #woas_pwd_mask, .woas_core_page, div.menu,div.menu_area, .wiki_menu_button_full, .wiki_menu_button_half,.title, .wiki_preformatted, .woas_nowiki_multiline, div.search_results, div.wiki_toc, p.wiki_toc_title, table.woas_text_area, div.taglinks { }
 --DFQRCTsKlU
 woas.page.title: Wiki::Help::Hotkeys
 woas.page.attributes: 0
@@ -3540,16 +3536,18 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Added the *Duplicate page* button to the menu.
 ** Added the *Go to* button to the menu.
 ** Added tooltips to the menu buttons.
-** Added two non-breaking spaces after the debug Clear button for consistency.
+** Added two non-breaking spaces after the debug *Clear* button for consistency.
 ** Changed the class of editor buttons to {{{wiki_editor_button}}}.
 ** Changed the class of help code to {{{wiki_help_code}}}.
 ** Changed the class of help text to {{{wiki_help_text}}}.
 ** Changed the class of menu buttons to {{{wiki_menu_button_full}}} and {{{wiki_menu_button_half}}}.
+** Changed the class of the help pop-up *Back* and *Close* button to {{{wiki_help_button}}}.
+** Changed the class of the footer to {{{wiki_footer}}}.
 ** Changed the layout of the menu buttons.
 ** Changed the styling of the debugger.
 ** Now using [[http://sourceforge.net/projects/stickwiki/files/|Wiki on a Stick v0.12.0]] as the foundation for Book on a Stick.
 ** Reorganized the entries in the {{{var reserved_namespaces}}} section of the core code.
-** Updated the *Help* button in the banner to open the Help pop-up.
+** Updated the *Help* button in the menu to open the Help pop-up.
 ** Updated the wiki CSS rules.
 
 * _Content:_
@@ -3592,6 +3590,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Removed the *Wiki::Utility::Diary* page.
 ** Removed the *WoaS::Bootscript* page.
 ** Removed the *WoaS::History* page.
+** Renamed the *Example::JavaScript* page to [[Wiki::Example::JavaScript 1]].
 ** Renamed the *Help::Add a search box* page to [[Wiki::Help::Add a search box]].
 ** Renamed the *Help::Backup* page to [[Wiki::Help::Backup]].
 ** Renamed the *Help::Bugs* page to [[Wiki::Help::Bugs]].
@@ -4318,7 +4317,7 @@ This is a sample paragraph.
 This is another sample paragraph.
 
 --DFQRCTsKlU
-woas.page.title: Wiki::Example::JavaScript
+woas.page.title: Wiki::Example::JavaScript 1
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -4326,8 +4325,6 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Hit the ball
-This small demo is implemented using /&lt;script&gt;/ tags in the wiki page.
-
 <DIV id="score" align="center" style="width: 300px; font-weight: bold">Score: 0</DIV>
 <INPUT id="startbutton" type="button" onclick="StartGame();" value="Start Game"> <INPUT id="stopbutton" type="button" onclick="StopGame();" value="Stop Game" disabled>
 
@@ -4346,7 +4343,6 @@ var max_speed = 15;
 var base_speedD = max_speed/2;
 var xSpeed = max_speed;
 var ySpeed = -max_speed;
-
 var targ = "ball";
 
 function StartGame() {
@@ -4361,24 +4357,20 @@ FlyAround();
 ScoreDecay();
 }
 
-function StopGame()
-{
+function StopGame() {
 gameRunning = false;
 $('stopbutton').disabled = true;
 $('startbutton').disabled = false;
 }
 
-function FlyAround()
-{
+function FlyAround() {
 var speedD = base_speedD + Math.floor(Math.random()*base_speedD-(base_speedD/2));
-if ( Math.round(Math.random()*1) == 0 )
-{
+if ( Math.round(Math.random()*1) == 0 ) {
 xSpeed = Math.max(-max_speed, xSpeed - (1-Math.random())*speedD - difficulty/60);
 } else {
 xSpeed = Math.min(max_speed, xSpeed + (1-Math.random())*speedD + difficulty/60);
 }
-if ( Math.round(Math.random()*1) == 0 )
-{
+if ( Math.round(Math.random()*1) == 0 ) {
 ySpeed = Math.max(-max_speed, ySpeed - (1-Math.random())*speedD - difficulty/60);
 } else {
 ySpeed = Math.min(max_speed, ySpeed + (1-Math.random())*speedD + difficulty/60);
@@ -4398,26 +4390,25 @@ tmp.style.top = yPos+'px';
 tmp.style.left = xPos+'px';
 
 // Repeat the function every tenth of a second, but only if the gamestate is 'on'
-if ( gameRunning  )
+if (gameRunning)
 setTimeout ( "FlyAround()", 100 );
-
 }
 
-function UpdateScore ( delta )
-{
+function UpdateScore ( delta ) {
 if (!gameRunning) return;
 score += delta;
 $('score').innerHTML = "Score: " + score;
 }
 
-function ScoreDecay ( )
-{
+function ScoreDecay ( ) {
 if(!gameRunning) return;
 UpdateScore(-1);
 difficulty += 10;
 setTimeout ( "ScoreDecay()", 3000);
 }
 </script>
+== The code that makes it happen:
+<pre>&#60&#68;&#73;&#86;&#32;&#105;&#100;&#61;&#34;&#115;&#99;&#111;&#114;&#101;&#34;&#32;&#97;&#108;&#105;&#103;&#110;&#61;&#34;&#99;&#101;&#110;&#116;&#101;&#114;&#34;&#32;&#115;&#116;&#121;&#108;&#101;&#61;&#34;&#119;&#105;&#100;&#116;&#104;&#58;&#32;&#51;&#48;&#48;&#112;&#120;&#59;&#32;&#102;&#111;&#110;&#116;&#45;&#119;&#101;&#105;&#103;&#104;&#116;&#58;&#32;&#98;&#111;&#108;&#100;&#34;&#62&#83;&#99;&#111;&#114;&#101;&#58;&#32;&#48;&#60&#47;&#68;&#73;&#86;&#62<br>&#60&#73;&#78;&#80;&#85;&#84;&#32;&#105;&#100;&#61;&#34;&#115;&#116;&#97;&#114;&#116;&#98;&#117;&#116;&#116;&#111;&#110;&#34;&#32;&#116;&#121;&#112;&#101;&#61;&#34;&#98;&#117;&#116;&#116;&#111;&#110;&#34;&#32;&#111;&#110;&#99;&#108;&#105;&#99;&#107;&#61;&#34;&#83;&#116;&#97;&#114;&#116;&#71;&#97;&#109;&#101;&#40;&#41;&#59;&#34;&#32;&#118;&#97;&#108;&#117;&#101;&#61;&#34;&#83;&#116;&#97;&#114;&#116;&#32;&#71;&#97;&#109;&#101;&#34;&#62&#32;&#60&#73;&#78;&#80;&#85;&#84;&#32;&#105;&#100;&#61;&#34;&#115;&#116;&#111;&#112;&#98;&#117;&#116;&#116;&#111;&#110;&#34;&#32;&#116;&#121;&#112;&#101;&#61;&#34;&#98;&#117;&#116;&#116;&#111;&#110;&#34;&#32;&#111;&#110;&#99;&#108;&#105;&#99;&#107;&#61;&#34;&#83;&#116;&#111;&#112;&#71;&#97;&#109;&#101;&#40;&#41;&#59;&#34;&#32;&#118;&#97;&#108;&#117;&#101;&#61;&#34;&#83;&#116;&#111;&#112;&#32;&#71;&#97;&#109;&#101;&#34;&#32;&#100;&#105;&#115;&#97;&#98;&#108;&#101;&#100;&#62<br><br>&#60&#84;&#65;&#66;&#76;&#69;&#32;&#115;&#116;&#121;&#108;&#101;&#61;&#34;&#119;&#105;&#100;&#116;&#104;&#58;&#32;&#51;&#48;&#48;&#112;&#120;&#59;&#32;&#104;&#101;&#105;&#103;&#104;&#116;&#58;&#32;&#51;&#48;&#48;&#112;&#120;&#59;&#32;&#98;&#97;&#99;&#107;&#103;&#114;&#111;&#117;&#110;&#100;&#45;&#99;&#111;&#108;&#111;&#114;&#58;&#32;&#119;&#104;&#105;&#116;&#101;&#59;&#32;&#98;&#111;&#114;&#100;&#101;&#114;&#58;&#32;&#115;&#111;&#108;&#105;&#100;&#32;&#49;&#112;&#120;&#32;&#98;&#108;&#97;&#99;&#107;&#59;&#34;&#62&#60&#84;&#82;&#62&#60&#84;&#68;&#32;&#119;&#105;&#100;&#116;&#104;&#61;&#34;&#49;&#48;&#48;&#37;&#34;&#32;&#118;&#97;&#108;&#105;&#103;&#110;&#61;&#34;&#116;&#111;&#112;&#34;&#62&#60&#105;&#109;&#103;&#32;&#105;&#100;&#61;&#34;&#98;&#97;&#108;&#108;&#34;&#32;&#97;&#108;&#116;&#61;&#34;&#73;&#32;&#97;&#109;&#32;&#97;&#32;&#98;&#97;&#108;&#108;&#34;&#32;&#111;&#110;&#99;&#108;&#105;&#99;&#107;&#61;&#34;&#85;&#112;&#100;&#97;&#116;&#101;&#83;&#99;&#111;&#114;&#101;&#40;&#49;&#48;&#41;&#34;&#32;&#111;&#110;&#100;&#98;&#108;&#99;&#108;&#105;&#99;&#107;&#61;&#34;&#85;&#112;&#100;&#97;&#116;&#101;&#83;&#99;&#111;&#114;&#101;&#40;&#49;&#48;&#41;&#59;&#32;&#114;&#101;&#116;&#117;&#114;&#110;&#32;&#102;&#97;&#108;&#115;&#101;&#59;&#34;&#32;&#115;&#116;&#121;&#108;&#101;&#61;&#34;&#112;&#111;&#115;&#105;&#116;&#105;&#111;&#110;&#58;&#32;&#114;&#101;&#108;&#97;&#116;&#105;&#118;&#101;&#59;&#32;&#115;&#116;&#121;&#108;&#101;&#58;&#39;&#116;&#101;&#120;&#116;&#45;&#97;&#108;&#105;&#103;&#110;&#58;&#32;&#99;&#101;&#110;&#116;&#101;&#114;&#59;&#32;&#102;&#111;&#110;&#116;&#45;&#102;&#97;&#109;&#105;&#108;&#121;&#58;&#32;&#34;&#67;&#111;&#109;&#105;&#99;&#115;&#32;&#83;&#97;&#110;&#115;&#32;&#77;&#83;&#34;&#59;&#32;&#119;&#105;&#100;&#116;&#104;&#58;&#53;&#53;&#112;&#120;&#59;&#32;&#104;&#101;&#105;&#103;&#104;&#116;&#58;&#53;&#53;&#112;&#120;&#59;&#39;&#32;&#115;&#114;&#99;&#61;&#34;&#100;&#97;&#116;&#97;&#58;&#105;&#109;&#97;&#103;&#101;&#47;&#112;&#110;&#103;&#59;&#98;&#97;&#115;&#101;&#54;&#52;&#44;&#105;&#86;&#66;&#79;&#82;&#119;&#48;&#75;&#71;&#103;&#111;&#65;&#65;&#65;&#65;&#78;&#83;&#85;&#104;&#69;&#85;&#103;&#65;&#65;&#65;&#68;&#81;&#65;&#65;&#65;&#65;&#48;&#66;&#65;&#77;&#65;&#65;&#65;&#65;&#51;&#86;&#103;&#98;&#89;&#65;&#65;&#65;&#65;&#66;&#51;&#82;&#74;&#84;&#85;&#85;&#72;&#49;&#119;&#77;&#102;&#68;&#104;&#81;&#104;&#53;&#71;&#120;&#82;&#76;&#119;&#65;&#65;&#65;&#65;&#108;&#119;&#83;&#70;&#108;&#122;&#65;&#65;&#65;&#76;&#69;&#103;&#65;&#65;&#67;&#120;&#73;&#66;&#48;&#116;&#49;&#37;&#50;&#66;&#37;&#50;&#70;&#65;&#65;&#65;&#65;&#65;&#82;&#110;&#81;&#85;&#49;&#66;&#65;&#65;&#67;&#120;&#106;&#119;&#118;&#56;&#89;&#81;&#85;&#65;&#65;&#65;&#65;&#119;&#85;&#69;&#120;&#85;&#82;&#102;&#100;&#75;&#49;&#116;&#55;&#101;&#51;&#112;&#87;&#86;&#108;&#84;&#107;&#53;&#79;&#82;&#65;&#73;&#67;&#65;&#103;&#65;&#65;&#65;&#65;&#65;&#65;&#77;&#55;&#79;&#122;&#105;&#69;&#65;&#65;&#72;&#85;&#67;&#65;&#116;&#89;&#65;&#65;&#79;&#56;&#65;&#65;&#80;&#99;&#65;&#65;&#80;&#56;&#65;&#65;&#80;&#37;&#50;&#70;&#37;&#50;&#70;&#37;&#50;&#70;&#57;&#52;&#65;&#65;&#65;&#48;&#97;&#57;&#37;&#50;&#66;&#111;&#65;&#65;&#65;&#65;&#66;&#100;&#70;&#74;&#79;&#85;&#119;&#66;&#65;&#53;&#116;&#104;&#109;&#65;&#65;&#65;&#66;&#76;&#107;&#108;&#69;&#81;&#86;&#82;&#52;&#50;&#109;&#78;&#103;&#103;&#65;&#70;&#71;&#74;&#87;&#80;&#88;&#69;&#71;&#77;&#108;&#65;&#81;&#89;&#77;&#73;&#71;&#83;&#87;&#66;&#103;&#98;&#74;&#105;&#117;&#103;&#121;&#120;&#87;&#107;&#90;&#77;&#49;&#102;&#116;&#79;&#98;&#49;&#113;&#90;&#108;&#117;&#97;&#79;&#98;&#112;&#77;&#53;&#57;&#113;&#55;&#89;&#72;&#66;&#114;&#66;&#113;&#114;&#99;&#111;&#55;&#84;&#79;&#115;&#51;&#101;&#104;&#52;&#77;&#54;&#77;&#78;&#68;&#50;&#69;&#68;&#75;&#78;&#90;&#74;&#70;&#119;&#71;&#75;&#68;&#99;&#49;&#71;&#101;&#71;&#87;&#107;&#111;&#121;&#49;&#100;&#53;&#72;&#65;&#114;&#84;&#90;&#51;&#109;&#65;&#121;&#55;&#50;&#37;&#50;&#66;&#121;&#55;&#75;&#71;&#66;&#110;&#83;&#103;&#70;&#77;&#85;&#37;&#50;&#66;&#90;&#100;&#78;&#68;&#65;&#78;&#113;&#111;&#51;&#82;&#98;&#83;&#54;&#54;&#49;&#77;&#48;&#85;&#105;&#71;&#50;&#80;&#77;&#84;&#81;&#66;&#116;&#100;&#109;&#66;&#112;&#100;&#83;&#54;&#77;&#97;&#86;&#50;&#74;&#73;&#69;&#100;&#107;&#98;&#111;&#87;&#85;&#37;&#50;&#66;&#112;&#87;&#71;&#77;&#103;&#104;&#122;&#70;&#106;&#77;&#65;&#53;&#112;&#111;&#65;&#74;&#81;&#113;&#54;&#56;&#69;&#109;&#100;&#83;&#73;&#100;&#75;&#71;&#85;&#50;&#70;&#53;&#118;&#85;&#122;&#87;&#83;&#103;&#48;&#122;&#80;&#79;&#89;&#112;&#79;&#54;&#48;&#121;&#98;&#65;&#119;&#73;&#84;&#86;&#75;&#113;&#66;&#108;&#67;&#103;&#122;&#77;&#87;&#100;&#105;&#108;&#108;&#104;&#107;&#119;&#105;&#80;&#86;&#105;&#108;&#55;&#113;&#82;&#121;&#75;&#65;&#50;&#70;&#55;&#118;&#85;&#122;&#83;&#82;&#56;&#85;&#109;&#90;&#114;&#115;&#85;&#118;&#100;&#83;&#109;&#89;&#119;&#37;&#50;&#66;&#52;&#116;&#100;&#54;&#110;&#52;&#121;&#103;&#57;&#116;&#101;&#55;&#70;&#75;&#51;&#85;&#120;&#106;&#67;&#122;&#109;&#75;&#88;&#117;&#112;&#79;&#75;&#84;&#119;&#113;&#80;&#103;&#88;&#105;&#99;&#103;&#99;&#102;&#120;&#53;&#73;&#85;&#71;&#110;&#117;&#68;&#70;&#69;&#121;&#108;&#52;&#111;&#104;&#74;&#80;&#65;&#115;&#67;&#84;&#98;&#80;&#65;&#108;&#78;&#106;&#120;&#74;&#70;&#69;&#37;&#50;&#70;&#67;&#120;&#112;&#77;&#100;&#56;&#71;&#85;&#105;&#80;&#70;&#107;&#80;&#84;&#52;&#98;&#70;&#108;&#56;&#51;&#120;&#70;&#65;&#55;&#52;&#105;&#104;&#81;&#56;&#66;&#82;&#71;&#37;&#50;&#66;&#52;&#103;&#116;&#102;&#111;&#89;&#101;&#118;&#113;&#77;&#82;&#83;&#119;&#65;&#73;&#65;&#82;&#65;&#74;&#77;&#101;&#68;&#109;&#69;&#118;&#83;&#89;&#65;&#65;&#65;&#65;&#65;&#83;&#85;&#86;&#79;&#82;&#75;&#53;&#67;&#89;&#73;&#73;&#37;&#51;&#68;&#34;&#32;&#47;&#62&#60&#47;&#84;&#68;&#62&#60&#47;&#84;&#82;&#62&#60&#47;&#84;&#65;&#66;&#76;&#69;&#62<br><br>&#60&#115;&#99;&#114;&#105;&#112;&#116;&#32;&#116;&#121;&#112;&#101;&#61;&#34;&#116;&#101;&#120;&#116;&#47;&#106;&#97;&#118;&#97;&#115;&#99;&#114;&#105;&#112;&#116;&#34;&#62<br>&#47;&#47;&#32;&#102;&#97;&#110;&#99;&#121;&#103;&#97;&#109;&#101;&#46;&#106;&#115;&#32;&#45;&#32;&#98;&#121;&#32;&#114;&#111;&#103;&#101;&#114;&#64;&#107;&#105;&#108;&#108;&#101;&#114;&#122;&#45;&#116;&#101;&#99;&#104;&#46;&#110;&#101;&#116;&#32;&#102;&#111;&#114;&#117;&#109;&#115;<br>&#47;&#47;&#32;&#98;&#117;&#103;&#102;&#105;&#120;&#101;&#100;&#32;&#38;&#32;&#105;&#109;&#112;&#114;&#111;&#118;&#101;&#100;&#32;&#98;&#121;&#32;&#108;&#101;&#103;&#111;&#108;&#97;&#115;&#53;&#53;&#56;<br><br>&#47;&#47;&#32;&#79;&#117;&#114;&#32;&#103;&#108;&#111;&#98;&#97;&#108;&#32;&#118;&#97;&#114;&#105;&#97;&#98;&#108;&#101;&#115;&#58;<br>&#118;&#97;&#114;&#32;&#103;&#97;&#109;&#101;&#82;&#117;&#110;&#110;&#105;&#110;&#103;&#32;&#61;&#32;&#102;&#97;&#108;&#115;&#101;&#59;<br>&#118;&#97;&#114;&#32;&#115;&#99;&#111;&#114;&#101;&#44;&#32;&#100;&#105;&#102;&#102;&#105;&#99;&#117;&#108;&#116;&#121;&#59;<br>&#118;&#97;&#114;&#32;&#120;&#80;&#111;&#115;&#32;&#61;&#32;&#48;&#59;<br>&#118;&#97;&#114;&#32;&#121;&#80;&#111;&#115;&#32;&#61;&#32;&#48;&#59;<br>&#118;&#97;&#114;&#32;&#109;&#97;&#120;&#95;&#115;&#112;&#101;&#101;&#100;&#32;&#61;&#32;&#49;&#53;&#59;<br>&#118;&#97;&#114;&#32;&#98;&#97;&#115;&#101;&#95;&#115;&#112;&#101;&#101;&#100;&#68;&#32;&#61;&#32;&#109;&#97;&#120;&#95;&#115;&#112;&#101;&#101;&#100;&#47;&#50;&#59;<br>&#118;&#97;&#114;&#32;&#120;&#83;&#112;&#101;&#101;&#100;&#32;&#61;&#32;&#109;&#97;&#120;&#95;&#115;&#112;&#101;&#101;&#100;&#59;<br>&#118;&#97;&#114;&#32;&#121;&#83;&#112;&#101;&#101;&#100;&#32;&#61;&#32;&#45;&#109;&#97;&#120;&#95;&#115;&#112;&#101;&#101;&#100;&#59;<br>&#118;&#97;&#114;&#32;&#116;&#97;&#114;&#103;&#32;&#61;&#32;&#34;&#98;&#97;&#108;&#108;&#34;&#59;<br><br>&#102;&#117;&#110;&#99;&#116;&#105;&#111;&#110;&#32;&#83;&#116;&#97;&#114;&#116;&#71;&#97;&#109;&#101;&#40;&#41;&#32;&#123;<br>&#103;&#97;&#109;&#101;&#82;&#117;&#110;&#110;&#105;&#110;&#103;&#32;&#61;&#32;&#116;&#114;&#117;&#101;&#59;<br>&#115;&#99;&#111;&#114;&#101;&#32;&#61;&#32;&#49;&#59;<br>&#100;&#105;&#102;&#102;&#105;&#99;&#117;&#108;&#116;&#121;&#32;&#61;&#32;&#48;&#59;<br>&#36;&#40;&#39;&#115;&#116;&#97;&#114;&#116;&#98;&#117;&#116;&#116;&#111;&#110;&#39;&#41;&#46;&#100;&#105;&#115;&#97;&#98;&#108;&#101;&#100;&#32;&#61;&#32;&#116;&#114;&#117;&#101;&#59;<br>&#36;&#40;&#39;&#115;&#116;&#111;&#112;&#98;&#117;&#116;&#116;&#111;&#110;&#39;&#41;&#46;&#100;&#105;&#115;&#97;&#98;&#108;&#101;&#100;&#32;&#61;&#32;&#102;&#97;&#108;&#115;&#101;&#59;<br><br>&#70;&#108;&#121;&#65;&#114;&#111;&#117;&#110;&#100;&#40;&#41;&#59;<br><br>&#83;&#99;&#111;&#114;&#101;&#68;&#101;&#99;&#97;&#121;&#40;&#41;&#59;<br>&#125;<br><br>&#102;&#117;&#110;&#99;&#116;&#105;&#111;&#110;&#32;&#83;&#116;&#111;&#112;&#71;&#97;&#109;&#101;&#40;&#41;&#32;&#123;<br>&#103;&#97;&#109;&#101;&#82;&#117;&#110;&#110;&#105;&#110;&#103;&#32;&#61;&#32;&#102;&#97;&#108;&#115;&#101;&#59;<br>&#36;&#40;&#39;&#115;&#116;&#111;&#112;&#98;&#117;&#116;&#116;&#111;&#110;&#39;&#41;&#46;&#100;&#105;&#115;&#97;&#98;&#108;&#101;&#100;&#32;&#61;&#32;&#116;&#114;&#117;&#101;&#59;<br>&#36;&#40;&#39;&#115;&#116;&#97;&#114;&#116;&#98;&#117;&#116;&#116;&#111;&#110;&#39;&#41;&#46;&#100;&#105;&#115;&#97;&#98;&#108;&#101;&#100;&#32;&#61;&#32;&#102;&#97;&#108;&#115;&#101;&#59;<br>&#125;<br><br>&#102;&#117;&#110;&#99;&#116;&#105;&#111;&#110;&#32;&#70;&#108;&#121;&#65;&#114;&#111;&#117;&#110;&#100;&#40;&#41;&#32;&#123;<br>&#118;&#97;&#114;&#32;&#115;&#112;&#101;&#101;&#100;&#68;&#32;&#61;&#32;&#98;&#97;&#115;&#101;&#95;&#115;&#112;&#101;&#101;&#100;&#68;&#32;&#43;&#32;&#77;&#97;&#116;&#104;&#46;&#102;&#108;&#111;&#111;&#114;&#40;&#77;&#97;&#116;&#104;&#46;&#114;&#97;&#110;&#100;&#111;&#109;&#40;&#41;&#42;&#98;&#97;&#115;&#101;&#95;&#115;&#112;&#101;&#101;&#100;&#68;&#45;&#40;&#98;&#97;&#115;&#101;&#95;&#115;&#112;&#101;&#101;&#100;&#68;&#47;&#50;&#41;&#41;&#59;<br>&#105;&#102;&#32;&#40;&#32;&#77;&#97;&#116;&#104;&#46;&#114;&#111;&#117;&#110;&#100;&#40;&#77;&#97;&#116;&#104;&#46;&#114;&#97;&#110;&#100;&#111;&#109;&#40;&#41;&#42;&#49;&#41;&#32;&#61;&#61;&#32;&#48;&#32;&#41;&#32;&#123;<br>&#120;&#83;&#112;&#101;&#101;&#100;&#32;&#61;&#32;&#77;&#97;&#116;&#104;&#46;&#109;&#97;&#120;&#40;&#45;&#109;&#97;&#120;&#95;&#115;&#112;&#101;&#101;&#100;&#44;&#32;&#120;&#83;&#112;&#101;&#101;&#100;&#32;&#45;&#32;&#40;&#49;&#45;&#77;&#97;&#116;&#104;&#46;&#114;&#97;&#110;&#100;&#111;&#109;&#40;&#41;&#41;&#42;&#115;&#112;&#101;&#101;&#100;&#68;&#32;&#45;&#32;&#100;&#105;&#102;&#102;&#105;&#99;&#117;&#108;&#116;&#121;&#47;&#54;&#48;&#41;&#59;<br>&#125;&#32;&#101;&#108;&#115;&#101;&#32;&#123;<br>&#120;&#83;&#112;&#101;&#101;&#100;&#32;&#61;&#32;&#77;&#97;&#116;&#104;&#46;&#109;&#105;&#110;&#40;&#109;&#97;&#120;&#95;&#115;&#112;&#101;&#101;&#100;&#44;&#32;&#120;&#83;&#112;&#101;&#101;&#100;&#32;&#43;&#32;&#40;&#49;&#45;&#77;&#97;&#116;&#104;&#46;&#114;&#97;&#110;&#100;&#111;&#109;&#40;&#41;&#41;&#42;&#115;&#112;&#101;&#101;&#100;&#68;&#32;&#43;&#32;&#100;&#105;&#102;&#102;&#105;&#99;&#117;&#108;&#116;&#121;&#47;&#54;&#48;&#41;&#59;<br>&#125;<br>&#105;&#102;&#32;&#40;&#32;&#77;&#97;&#116;&#104;&#46;&#114;&#111;&#117;&#110;&#100;&#40;&#77;&#97;&#116;&#104;&#46;&#114;&#97;&#110;&#100;&#111;&#109;&#40;&#41;&#42;&#49;&#41;&#32;&#61;&#61;&#32;&#48;&#32;&#41;&#32;&#123;<br>&#121;&#83;&#112;&#101;&#101;&#100;&#32;&#61;&#32;&#77;&#97;&#116;&#104;&#46;&#109;&#97;&#120;&#40;&#45;&#109;&#97;&#120;&#95;&#115;&#112;&#101;&#101;&#100;&#44;&#32;&#121;&#83;&#112;&#101;&#101;&#100;&#32;&#45;&#32;&#40;&#49;&#45;&#77;&#97;&#116;&#104;&#46;&#114;&#97;&#110;&#100;&#111;&#109;&#40;&#41;&#41;&#42;&#115;&#112;&#101;&#101;&#100;&#68;&#32;&#45;&#32;&#100;&#105;&#102;&#102;&#105;&#99;&#117;&#108;&#116;&#121;&#47;&#54;&#48;&#41;&#59;<br>&#125;&#32;&#101;&#108;&#115;&#101;&#32;&#123;<br>&#121;&#83;&#112;&#101;&#101;&#100;&#32;&#61;&#32;&#77;&#97;&#116;&#104;&#46;&#109;&#105;&#110;&#40;&#109;&#97;&#120;&#95;&#115;&#112;&#101;&#101;&#100;&#44;&#32;&#121;&#83;&#112;&#101;&#101;&#100;&#32;&#43;&#32;&#40;&#49;&#45;&#77;&#97;&#116;&#104;&#46;&#114;&#97;&#110;&#100;&#111;&#109;&#40;&#41;&#41;&#42;&#115;&#112;&#101;&#101;&#100;&#68;&#32;&#43;&#32;&#100;&#105;&#102;&#102;&#105;&#99;&#117;&#108;&#116;&#121;&#47;&#54;&#48;&#41;&#59;<br>&#125;<br><br>&#120;&#80;&#111;&#115;&#32;&#43;&#61;&#32;&#77;&#97;&#116;&#104;&#46;&#114;&#111;&#117;&#110;&#100;&#40;&#120;&#83;&#112;&#101;&#101;&#100;&#41;&#59;<br>&#121;&#80;&#111;&#115;&#32;&#43;&#61;&#32;&#77;&#97;&#116;&#104;&#46;&#114;&#111;&#117;&#110;&#100;&#40;&#121;&#83;&#112;&#101;&#101;&#100;&#41;&#59;<br><br>&#47;&#47;&#32;&#109;&#97;&#107;&#101;&#32;&#115;&#117;&#114;&#101;&#32;&#116;&#104;&#101;&#32;&#116;&#97;&#114;&#103;&#101;&#116;&#32;&#100;&#111;&#101;&#115;&#110;&#39;&#116;&#32;&#109;&#111;&#118;&#101;&#32;&#111;&#117;&#116;&#32;&#111;&#102;&#32;&#116;&#104;&#101;&#32;&#112;&#108;&#97;&#121;&#102;&#105;&#101;&#108;&#100;<br>&#105;&#102;&#32;&#40;&#32;&#120;&#80;&#111;&#115;&#32;&#62&#32;&#51;&#48;&#48;&#45;&#54;&#48;&#32;&#41;&#32;&#123;&#32;&#120;&#80;&#111;&#115;&#32;&#61;&#32;&#51;&#48;&#48;&#45;&#54;&#48;&#59;&#32;&#120;&#83;&#112;&#101;&#101;&#100;&#32;&#42;&#61;&#32;&#45;&#49;&#59;&#32;&#125;<br>&#105;&#102;&#32;&#40;&#32;&#121;&#80;&#111;&#115;&#32;&#62&#32;&#51;&#48;&#48;&#45;&#54;&#48;&#32;&#41;&#32;&#123;&#32;&#121;&#80;&#111;&#115;&#32;&#61;&#32;&#51;&#48;&#48;&#45;&#54;&#48;&#59;&#32;&#121;&#83;&#112;&#101;&#101;&#100;&#32;&#42;&#61;&#32;&#45;&#49;&#59;&#32;&#125;<br>&#105;&#102;&#32;&#40;&#32;&#120;&#80;&#111;&#115;&#32;&#60&#32;&#48;&#32;&#41;&#32;&#123;&#32;&#120;&#80;&#111;&#115;&#32;&#61;&#32;&#48;&#59;&#32;&#120;&#83;&#112;&#101;&#101;&#100;&#32;&#42;&#61;&#32;&#45;&#49;&#59;&#32;&#125;<br>&#105;&#102;&#32;&#40;&#32;&#121;&#80;&#111;&#115;&#32;&#60&#32;&#48;&#32;&#41;&#32;&#123;&#32;&#121;&#80;&#111;&#115;&#32;&#61;&#32;&#48;&#59;&#32;&#121;&#83;&#112;&#101;&#101;&#100;&#32;&#42;&#61;&#32;&#45;&#49;&#59;&#32;&#125;<br><br>&#118;&#97;&#114;&#32;&#116;&#109;&#112;&#32;&#61;&#32;&#36;&#40;&#116;&#97;&#114;&#103;&#41;&#59;<br>&#116;&#109;&#112;&#46;&#115;&#116;&#121;&#108;&#101;&#46;&#116;&#111;&#112;&#32;&#61;&#32;&#121;&#80;&#111;&#115;&#43;&#39;&#112;&#120;&#39;&#59;<br>&#116;&#109;&#112;&#46;&#115;&#116;&#121;&#108;&#101;&#46;&#108;&#101;&#102;&#116;&#32;&#61;&#32;&#120;&#80;&#111;&#115;&#43;&#39;&#112;&#120;&#39;&#59;<br><br>&#47;&#47;&#32;&#82;&#101;&#112;&#101;&#97;&#116;&#32;&#116;&#104;&#101;&#32;&#102;&#117;&#110;&#99;&#116;&#105;&#111;&#110;&#32;&#101;&#118;&#101;&#114;&#121;&#32;&#116;&#101;&#110;&#116;&#104;&#32;&#111;&#102;&#32;&#97;&#32;&#115;&#101;&#99;&#111;&#110;&#100;&#44;&#32;&#98;&#117;&#116;&#32;&#111;&#110;&#108;&#121;&#32;&#105;&#102;&#32;&#116;&#104;&#101;&#32;&#103;&#97;&#109;&#101;&#115;&#116;&#97;&#116;&#101;&#32;&#105;&#115;&#32;&#39;&#111;&#110;&#39;<br>&#105;&#102;&#32;&#40;&#103;&#97;&#109;&#101;&#82;&#117;&#110;&#110;&#105;&#110;&#103;&#41;<br>&#115;&#101;&#116;&#84;&#105;&#109;&#101;&#111;&#117;&#116;&#32;&#40;&#32;&#34;&#70;&#108;&#121;&#65;&#114;&#111;&#117;&#110;&#100;&#40;&#41;&#34;&#44;&#32;&#49;&#48;&#48;&#32;&#41;&#59;<br>&#125;<br><br>&#102;&#117;&#110;&#99;&#116;&#105;&#111;&#110;&#32;&#85;&#112;&#100;&#97;&#116;&#101;&#83;&#99;&#111;&#114;&#101;&#32;&#40;&#32;&#100;&#101;&#108;&#116;&#97;&#32;&#41;&#32;&#123;<br>&#105;&#102;&#32;&#40;&#33;&#103;&#97;&#109;&#101;&#82;&#117;&#110;&#110;&#105;&#110;&#103;&#41;&#32;&#114;&#101;&#116;&#117;&#114;&#110;&#59;<br>&#115;&#99;&#111;&#114;&#101;&#32;&#43;&#61;&#32;&#100;&#101;&#108;&#116;&#97;&#59;<br>&#36;&#40;&#39;&#115;&#99;&#111;&#114;&#101;&#39;&#41;&#46;&#105;&#110;&#110;&#101;&#114;&#72;&#84;&#77;&#76;&#32;&#61;&#32;&#34;&#83;&#99;&#111;&#114;&#101;&#58;&#32;&#34;&#32;&#43;&#32;&#115;&#99;&#111;&#114;&#101;&#59;<br>&#125;<br><br>&#102;&#117;&#110;&#99;&#116;&#105;&#111;&#110;&#32;&#83;&#99;&#111;&#114;&#101;&#68;&#101;&#99;&#97;&#121;&#32;&#40;&#32;&#41;&#32;&#123;<br>&#105;&#102;&#40;&#33;&#103;&#97;&#109;&#101;&#82;&#117;&#110;&#110;&#105;&#110;&#103;&#41;&#32;&#114;&#101;&#116;&#117;&#114;&#110;&#59;<br>&#85;&#112;&#100;&#97;&#116;&#101;&#83;&#99;&#111;&#114;&#101;&#40;&#45;&#49;&#41;&#59;<br>&#100;&#105;&#102;&#102;&#105;&#99;&#117;&#108;&#116;&#121;&#32;&#43;&#61;&#32;&#49;&#48;&#59;<br>&#115;&#101;&#116;&#84;&#105;&#109;&#101;&#111;&#117;&#116;&#32;&#40;&#32;&#34;&#83;&#99;&#111;&#114;&#101;&#68;&#101;&#99;&#97;&#121;&#40;&#41;&#34;&#44;&#32;&#51;&#48;&#48;&#48;&#41;&#59;<br>&#125;<br>&#60&#47;&#115;&#99;&#114;&#105;&#112;&#116;&#62</pre>
 
 --DFQRCTsKlU
 woas.page.title: Wiki::Example::Overview
@@ -4584,7 +4575,7 @@ To change all of the contents in the footer rather than just the text:
 # Open this wiki in a text editor.
 # Scroll all the way to the bottom of the file.
 # Find the section that begins with {{{<!-- BEGIN FOOTER -->}}}. and ends with {{{<!-- END FOOTER -->}}}.
-# Replace the content between the {{{<div class="woas_about_footer">}}} and {{{</div>}}} tags inside that section with whatever you'd like to see in the footer.
+# Replace the content between the {{{<div class="wiki_footer">}}} and {{{</div>}}} tags inside that section with whatever you'd like to see in the footer.
 # Save the file.
 # Close the text editor.
 
@@ -4822,10 +4813,7 @@ To add JavaScript to your page, you must enclose it inside JavaScript tags.
 <script type="text/javascript">
 YOUR_CODE_HERE
 </script>
-}}}<br><div class="wiki_help_text">To add JavaScript to your page.</div>
-
-See an [[Wiki::Example::JavaScript|example]] of JavaScript being used in this wiki.
-
+}}}<br><div class="wiki_help_text">To add JavaScript to your page, as in [[Wiki::Example::JavaScript 1|this example]].</div>
 == Adding JavaScript to the wiki source
 According to the author of Wiki on a Stick:
 <blockquote>It is possible to add &lt;script/&gt; tags to your wiki source and they will be correctly rendered in the document &lt;head/&gt; tag upon page loading; also external scripts (using the /src/ attribute) will be parsed and activated, always respecting the order of declaration of the &lt;script /&gt; tags.
@@ -4837,33 +4825,34 @@ You can include external JavaScript on a page by placing the script file in the 
 <div class="wiki_help_text">Use this code in a page, replacing SCRIPTNAME.JS with the name of your script:</div><br>{{{
 <script src="SCRIPTNAME.JS"></script>
 }}}<br><div class="wiki_help_text">To include an external JavaScript in a page.</div>
-=== Example
-This page contains this code:<br><br>{{{
-<script src="example.js"></script>
-}}}<br>To see an example using external JavaScript:
-# Create a text file in the same directory as this wiki.<br><br>
-# Paste this into the file:<br><br>{{{
+To see an example of an external JavaScript being used:
+# Create a text file named *example.js* with these contents in the same directory as this wiki:<br><br>{{{
 alert("This is an example alert!");
 }}}<br>
-# Save the file as *example.js*<br><br>
-# Reload the wiki.<br><br>
-# Open this page /from the menu/ (by clicking the *Go to page* button and typing *Wiki::Help::JavaScript* into the box) to run the *example.js* script and see the alert.
+# Open the wiki in a browser.<br><br>
+# Paste this code into a page:<br><br>{{{
 <script src="example.js"></script>
-== Using JavaScript to create a temporary page
-Using this code, you can get this wiki to create a link to a dynamically created temporary page with custom content (it accepts HTML tags as part of the content) under the JavaScript [[Wiki::Help::Namespaces|namespace]]. The temporary page will be created each time the link is clicked, and uncreated as soon as you navigate to another page or close the wiki.
-
-<div class="wiki_help_text">Use this code in a page, replacing CONTENT with your content, NAME with the page name, and LINK with the text you want the link to have:</div><br>{{{
-<script>function temporary(arg) {return 'CONTENT';}</script>[[Javascript::temporary('NAME')|LINK]]
-}}}<br><div class="wiki_help_text">To create a dynamically created temporary page.</div>
-[[Include::Wiki::Template::Info|Only one of these links may be used per page.]]
-Paste each of these into a new page one by one to see what they do:<br><br>
-* This one uses the temporary page name as part of its content:<br><br>{{{
-<script>function temporary(arg) {return 'This page was dynamically created using *'+arg+'* as content!';}</script>[[Javascript::temporary('sample')|Click here]]
 }}}<br>
-* This one demonstrates the use of various HTML tags in the content of the page:<br><br>{{{
-<script>function temporary(arg) {return 'This page contains more than one line.<br>This line contains <b>bold</b>, <i>italic</i>, <u>underlined</u>, and <font color="red">colored</font> text.<br><br>And here is a list:<br><ul><li>item1</li><li>item2</li><li>item3</li></ul>';}</script>[[Javascript::temporary('My Page')|Click here]]
-}}}
+# Click the [[Include::Wiki::Template::Icon::Save]] icon in the banner to save the page.
+As the page loads, it will run the *example.js* script and display the alert.
 
+== Using JavaScript to create a temporary page
+You can get this wiki to dynamically create a temporary page in the JavaScript [[Wiki::Help::Namespaces|namespace]] with custom content determined by the link. The page will be created each time the link is clicked, and uncreated as soon as you navigate to another page or close the wiki. HTML tags are accepted in the content.
+
+[[Include::Wiki::Template::Info|Only one of these links may be used per page.]]
+<div class="wiki_help_text">Use this code in a page, replacing CONTENT with your content, NAME with the page name, and LINK with the text you want the link to have:</div><br>{{{
+<script type="text/javascript">function temporary(arg) {return 'CONTENT';}</script>[[Javascript::temporary('PAGENAME')|LINK]]
+}}}<br><div class="wiki_help_text">To create a dynamically created temporary page, as in [[Wiki::Example::JavaScript 2|this example]].</div>
+The temporary page will use the page name as part of its content if you insert *+arg* between quoted portions of the content:
+
+<div class="wiki_help_text">Use this code in a page, replacing both instances of CONTENT with your content, PAGENAME with the page name, and LINK with the text you want the link to have:</div><br>{{{
+<script type="text/javascript">function temporary(arg) {return 'CONTENT'+arg+'CONTENT';}</script>[[Javascript::temporary('PAGENAME')|LINK]]
+}}}<br><div class="wiki_help_text">To create a dynamically created temporary page, as in [[Wiki::Example::JavaScript 3|this example]].</div>
+HTML tags can be used as content in a temporary page:
+
+<div class="wiki_help_text">Use this code in a page, replacing the HTML tags and content with your HTML tags and content, NAME with the page name, and LINK with the text you want the link to have:</div><br>{{{
+<script type="text/javascript">function temporary(arg) {return '<h1>Level one header</h1>This page contains more than one line.<br><br>This line contains <b>bold</b>, <i>italic</i>, <u>underlined</u>, and <font color="green">colored</font> text.<br><br>And here is a list:<br><ul><li>item1</li><li>item2</li><li>item3</li></ul>';}</script>[[Javascript::temporary('PAGENAME')|LINK]]
+}}}<br><div class="wiki_help_text">To create a dynamically created temporary page, as in [[Wiki::Example::JavaScript 4|this example]].</div>
 == Using JavaScript for page redirection
 The code below will redirect from the current page to the wiki page you specify a predefined number of seconds after the current page loads.
 
@@ -7410,4 +7399,49 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 = Wiki::Help::Macros
 <font color="red">*Add this content after completing the merge...*</font>
+--DFQRCTsKlU
+woas.page.title: Wiki::Example::JavaScript 2
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Temporary JavaScript page from a link
+<script type="text/javascript">function temporary(arg) {return 'CONTENT';}</script>[[Javascript::temporary('PAGENAME')|LINK]]
+== The code that makes it happen
+{{{
+<script type="text/javascript">function temporary(arg) {return 'CONTENT';}</script>[[Javascript::temporary('PAGENAME')|LINK]]
+}}}
+
+--DFQRCTsKlU
+woas.page.title: Wiki::Example::JavaScript 3
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Temporary JavaScript page from a link
+<script type="text/javascript">function temporary(arg) {return 'This page was dynamically created and uses *'+arg+'* in the content!';}</script>[[Javascript::temporary('NAME')|LINK]]
+== The code that makes it happen
+{{{
+<script type="text/javascript">function temporary(arg) {return 'This page was dynamically created and uses *'+arg+'* in the content!';}</script>[[Javascript::temporary('NAME')|LINK]]
+}}}
+
+--DFQRCTsKlU
+woas.page.title: Wiki::Example::JavaScript 4
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Temporary JavaScript page from a link
+<script type="text/javascript">function temporary(arg) {return '<h1>Level one header</h1>This page contains more than one line.<br><br>This line contains <b>bold</b>, <i>italic</i>, <u>underlined</u>, and <font color="green">colored</font> text.<br><br>And here is a list:<br><ul><li>item1</li><li>item2</li><li>item3</li></ul>';}</script>[[Javascript::temporary('PAGENAME')|LINK]]
+== The code that makes it happen
+{{{
+<script type="text/javascript">function temporary(arg) {return '<h1>Level one header</h1>This page contains more than one line.<br><br>This line contains <b>bold</b>, <i>italic</i>, <u>underlined</u>, and <font color="green">colored</font> text.<br><br>And here is a list:<br><ul><li>item1</li><li>item2</li><li>item3</li></ul>';}</script>[[Javascript::temporary('PAGENAME')|LINK]]
+}}}
+
 --DFQRCTsKlU
