@@ -8,7 +8,6 @@ woas.wsif = {
 	emsg: null,
 	imported: [],				// _native_page_def() will always add imported pages here
 	expected_pages: null,
-	system_pages: 0,
 	global_progress: 0,
 	header: function(header_name, value) {
 		return header_name+": "+value+"\n";
@@ -27,7 +26,7 @@ woas.wsif = {
 	},
 	do_error: function(msg) {
 		log("WSIF ERROR: "+msg);	//log:1
-		this.wsif.emsg = msg;
+		this.emsg = msg;
 	}
 	
 };
@@ -186,7 +185,7 @@ woas._native_wsif_save = function(path, src_fname, locking, single_wsif, inline_
 			if (this.save_file(path+pi.toString()+".wsif",
 								this.file_mode.ASCII_TEXT,
 								// also add the pages counter (single)
-								extra + (this.config.allow_diff ? "" : this.wsif.header("woas.pages", 1)) +
+								extra + this.wsif.header("woas.pages", 1) +
 								"\n" + record))
 				++done;
 		}
@@ -195,12 +194,10 @@ woas._native_wsif_save = function(path, src_fname, locking, single_wsif, inline_
 		record = "";
 	} // foreach page
 	// add the total pages number
-	if (!this.config.allow_diff) {
-		if (full_save || single_wsif)
-			extra += this.wsif.header('woas.pages', done);
-		else
-			extra += this.wsif.header('woas.pages', page_titles.length);
-	}
+	if (full_save || single_wsif)
+		extra += this.wsif.header('woas.pages', done);
+	else
+		extra += this.wsif.header('woas.pages', page_titles.length);
 	// build (artificially) an index of all pages
 	if (!full_save && !single_wsif) {
 		for (pi=0,pl=page_titles.length;pi<pl;++pi) {
@@ -236,7 +233,8 @@ woas._wsif_ds_load = function(subpath, locking) {
 	page_titles = [];
 	page_mts = [];
 	// get the data
-	return this._native_wsif_load(woas.ROOT_DIRECTORY+subpath, locking, false /* no save */, 0, this.importer._core_import_hook);
+	return this._native_wsif_load(woas.ROOT_DIRECTORY+subpath, locking, false /* no save */, 0,
+			this.importer._inject_import_hook);
 };
 
 /* description of parameters:
@@ -246,8 +244,9 @@ woas._wsif_ds_load = function(subpath, locking) {
  - recursing: recursion depth variable, starts with 0
  - import_hook: callback used to actually import the page
  - title_filter_hook: callback used to choose if page can be imported or not by title - optional
+ - finalization_hook: callback used when import is finished
 */
-woas._native_wsif_load = function(path, locking, and_save, recursing, import_hook, title_filter_hook) {
+woas._native_wsif_load = function(path, locking, and_save, recursing, import_hook, title_filter_hook, finalization_hook) {
 	if (!recursing) {
 		this.wsif.emsg = null;
 		this.progress_init("Initializing WSIF import");
@@ -270,7 +269,6 @@ woas._native_wsif_load = function(path, locking, and_save, recursing, import_hoo
 		this.wsif.expected_pages = null;
 		this.wsif.emsg = this.i18n.NO_ERROR;
 		this.wsif.imported = [];
-		this.wsif.system_pages = 0;
 		this.wsif.global_progress = 0;
 	}
 	var pfx = "\nwoas.page.", pfx_len = pfx.length;
@@ -308,8 +306,7 @@ woas._native_wsif_load = function(path, locking, and_save, recursing, import_hoo
 	var title = null,	attrs = null,
 		last_mod = null,	len = null,
 		encoding = null,	disposition = null,
-		d_fn = null,
-		boundary = null,	mime = null;
+		d_fn = null,	boundary = null,	mime = null;
 	// position of last header end-of-line
 	var sep, s, v, last_offset;
 	while (p !== -1) {
@@ -344,8 +341,15 @@ woas._native_wsif_load = function(path, locking, and_save, recursing, import_hoo
 				// we have just jumped over a page definition
 				if (title !== null) {
 					// do not import special/reserved pages
-					if (and_save && (title.match(/^Special::/) || (this.static_pages2.indexOf(title) !== -1) || title.match(/^WoaS::Help::/) )) {
-						++this.wsif.system_pages;
+					var skip_page;
+					if (and_save) {
+						if (typeof title_filter_hook == "function")
+							skip_page = !title_filter_hook(title);
+						else skip_page = false;
+//						(title.match(/^Special::/) || (this.static_pages2.indexOf(title) !== -1)
+//							|| title.match(/^WoaS::Help::/) )
+					}
+					if (and_save && skip_page) {
 						title = attrs = last_mod = encoding = len =
 							 boundary = disposition = mime = d_fn = null;
 					} else {
@@ -429,8 +433,12 @@ woas._native_wsif_load = function(path, locking, and_save, recursing, import_hoo
 		if (!recursing && (this.wsif.expected_pages !== null))
 			this.progress_status(this.wsif.global_progress++/this.wsif.expected_pages);
 	}
-	if (!recursing)
+	if (!recursing) {
 		this.progress_finish();
+		// call the finalization callback (if any)
+		if (typeof finalization_hook == "function")
+			finalization_hook();
+	}
 	// save imported pages
 	if (this.wsif.imported.length) {
 		// commit pages only when not recursing
@@ -605,22 +613,10 @@ woas._native_page_def = function(path,ct,p,last_p,import_hook, title_filter_hook
 	var NP = { "title": title, "attrs": attrs, "body": page, "mts": last_mod, "pi": null };
 
 	// check that this was imported successfully
-	if (import_hook( NP ))
+	if (import_hook( NP ) )
 		// all OK
 		this.wsif.imported.push(NP.pi);
 	
 	// return updated offset
 	return true;
-};
-
-woas._last_filename = null;
-
-woas._get_path = function(id) {
-	if (this.browser.firefox3 || this.browser.firefox_new)
-		return this.dirname(ff3_getPath($(id)));
-	// use the last used path
-	if (this.browser.opera)
-		return this.dirname(this._last_filename);
-	// on older browsers this was allowed
-	return this.dirname($(id).value);
 };
