@@ -1178,3 +1178,6 @@
 * Updated the [[Wiki::History]] page.
 * Updated the [[WoaS::CSS::Boot]] page.
 ======================================================================================================================
+* Renamed the [[WoaS::Template::Button]] page to [[Wiki::Template::Help button]].
+* Changed the references to the new button name in the core.js and ui.js files.
+======================================================================================================================

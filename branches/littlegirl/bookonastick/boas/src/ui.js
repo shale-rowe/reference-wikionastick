@@ -150,7 +150,7 @@ woas.help_system.go_to = function(wanted_page, pi) {
 };
 
 function _mk_help_button(n) {
-	var w = "[[Include::WoaS::Template::Button|";
+	var w = "[[Include::Wiki::Template::Help button|";
 	if (n)
 		w += "Back|help_go_back";
 	else

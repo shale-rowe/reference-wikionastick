@@ -752,7 +752,7 @@ h2 {margin-bottom: -0.5em;}
 </style>
 
 --DFQRCTsKlU
-woas.page.title: WoaS::Template::Button
+woas.page.title: Wiki::Template::Help button
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -3379,7 +3379,7 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-/* CSS used when loading/saving WoaS - readonly */
+/* CSS USED WHEN LOADING/SAVING THE WIKI*/
 body {
 	font-family: Georgia, verdana;
 	}
@@ -3603,6 +3603,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Renamed the *Help::Transclusion* page to [[Wiki::Help::Transclusion]].
 ** Renamed the *Help::Word count* page to [[Wiki::Help::Word count]].
 ** Renamed the *History* page to [[Wiki::History]].
+** Renamed the *WoaS::Template::Button* page to [[Wiki::Template::Help button]].
 ** Updated the [[Wiki::History]] page.
 ** Updated the [[Wiki::Example::Embed web page iFrame]] page.
 ** Updated the [[Wiki::Example::Embed web page object]] page.
