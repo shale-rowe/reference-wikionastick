@@ -745,9 +745,7 @@ woas.page.boundary: DFQRCTsKlU
 = Help index
 The first time you save a change to this wiki, your browser will ask for permission to save data to the disk. This is normal and necessary for the wiki to make changes to itself. You can give permission each time or make the setting permanent.
 
-You will find the [[Include::Wiki::Template::Icon::Help]] icon in the banner on every page in this wiki. When you click on it, it will either open this page or a specific help page that explains how to work with the page you currently have open.
-
-When browsing the pages in the Help pop-up, you will find a *Back* button in the upper right corner that takes you back to this page or a *Close* button in the same place that closes the pop-up.
+The [[Include::Wiki::Template::Icon::Help]] icon in the banner opens this page or a specific help page associated with the page you currently have open, if one is available. The help pages have a *Back* button in the upper right corner that returns you to this page or a *Close* button in the same place that closes the pop-up.
 == Topics:
 [[Include::Wiki::Help::]]
 <style type="text/css">
@@ -1428,76 +1426,6 @@ The *Wiki::Example::Overview* page displays the contents of the three example Ch
 [[Include::Wiki::Example::Chapter 03]]
 }}}<br><div class="wiki_help_text">Creates this page:</div>
 [[Wiki::Example::Overview]]
-
---DFQRCTsKlU
-woas.page.title: Wiki::Help::JavaScript
-woas.page.attributes: 0
-woas.page.encoding: 8bit/plain
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-= JavaScript
-== Adding JavaScript to your page
-To add JavaScript to your page, you must enclose it inside JavaScript tags.
-
-<div class="wiki_help_text">Use this code in a page, replacing YOUR_CODE_HERE with your JavaScript code:</div><br>{{{
-<script type="text/javascript">
-YOUR_CODE_HERE
-</script>
-}}}<br><div class="wiki_help_text">To add JavaScript to your page.</div>
-== Adding JavaScript to the wiki source
-It is possible to add &lt;script/&gt; tags to your wiki source and they will be correctly rendered in the document &lt;head/&gt; tag upon page loading; also external scripts (using the /src/ attribute) will be parsed and activated, always respecting the order of declaration of the &lt;script /&gt; tags.
-
-[[Include::Wiki::Template::Info|Since the JavaScript tags are activated from within the &lt;head /&gt; tag, you cannot use document.write() or similar inline JavaScript statements.]]
-== Using external JavaScript
-You can include external JavaScript on a page by placing the script file in the same directory as this wiki and then inserting a reference to it in the body of the page.
-
-<div class="wiki_help_text">Use this code in a page, replacing SCRIPTNAME.JS with the name of your script:</div><br>{{{
-<script src="SCRIPTNAME.JS"></script>
-}}}<br><div class="wiki_help_text">To include an external JavaScript in a page.</div>
-=== Example
-This page contains this code:<br><br>{{{
-<script src="example.js"></script>
-}}}
-To see an example using external JavaScript:
-# Create a text file in the same directory as this wiki.<br><br>
-# Paste this into the file:<br><br>{{{
-alert("This is an example alert!");
-}}}<br>
-# Save the file as *example.js*<br><br>
-# Reload the wiki.<br><br>
-# Open this page from the menu (not in the help pop-up) to run the *example.js* script and see the alert.
-
-== Using JavaScript to create a temporary page
-Using this code, you can get this wiki to create a link to a dynamically created temporary page with custom content (it accepts HTML tags as part of the content) under the JavaScript namespace. The temporary page will be created each time the link is clicked and uncreated as soon as you navigate to another page or close the wiki.
-
-<div class="wiki_help_text">Use this code in a page, replacing CONTENT with your content, NAME with the page name, and LINK with the text you want the link to have:</div><br>{{{
-<script>function temporary(arg) {return 'CONTENT';}</script>[[Javascript::temporary('NAME')|LINK]]
-}}}<br><div class="wiki_help_text">To create a dynamically created temporary page.</div>
-[[Include::Wiki::Template::Info|Only one of these links may be used per page.]]
-Paste each of these into a new page one by one to see what they do:
-* This one uses the temporary page name as part of its content:<br><br>{{{
-<script>function temporary(arg) {return 'This page was dynamically created using *'+arg+'* as content!';}</script>[[Javascript::temporary('sample')|Click here]]
-}}}<br>
-* This one demonstrates the use of various HTML tags in the content of the page:<br><br>{{{
-<script>function temporary(arg) {return 'This page contains more than one line.<br>This line contains <b>bold</b>, <i>italic</i>, <u>underlined</u>, and <font color="red">colored</font> text.<br><br>And here is a list:<br><ul><li>item1</li><li>item2</li><li>item3</li></ul>';}</script>[[Javascript::temporary('My Page')|Click here]]
-}}}
-
-== Using JavaScript for page redirection
-The code below will redirect from the current page to the wiki page you specify a predefined number of seconds after the current page loads.
-
-[[Include::Wiki::Template::Info|WARNING! Use this code carefully! Back up your wiki before trying it!]]
-<div class="wiki_help_text">Use this code in a page, replacing PAGENAME with the name of the page to redirect to, and 10 with the number of seconds the script should delay:</div><br>{{{
-<script type="text/javascript">
-setTimeout("go_to('PAGENAME')",10*1000);
-</script>
-}}}<br><div class="wiki_help_text">To redirect the current page to the PAGENAME page 10 seconds after the current page loads.</div>
-[[Include::Wiki::Template::Info|Note that this will redirect to the next page even if you're in the editor! The only indication you will have if you're in the editor is that name in the the Page title box will change to the name of the redirected page. If you don't check this before saving, your changes will be saved to the redirected page, overwriting its contents.<br><br>It's a good idea to put this code near the top of any page (preferably directly beneath the first header on the page) so that you can find it quickly, and also to make the delay at *least* 10 seconds so that you have time to open the page in the editor, change the *PAGENAME* portion of the code to a nonexistent page, and then save the page before the timer runs out.<br><br>Then you can reopen the page safely without risk of it redirecting while you're working on it. All that will happen if you give the script a nonexistent page name is that an alert will pop up asking if you'd like to create the nonexistent page. You can click *Cancel* when that popup comes up and continue working without further interruption.<br><br>An even safer method is to open the wiki in a text editor and make changes to the page contents from there.]]
-== Using JavaScript to reload the wiki
-<div class="wiki_help_text">Use this code in a page:</div><br>{{{
-<input type="button" value="Reload wiki" onClick="window.location.href=window.location.href">
-}}}<br><div class="wiki_help_text">To create a button that reloads the wiki when you click it.</div>
 
 --DFQRCTsKlU
 woas.page.title: Wiki::Help::Join lines of text
@@ -3673,6 +3601,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Renamed the *Help::Footer* page to [[Wiki::Help::Footer]].
 ** Renamed the *Help::Footnotes* page to [[Wiki::Help::Footnotes]].
 ** Renamed the *Help::Horizontal rules (lines)* page to [[Wiki::Help::Horizontal rules (lines)]].
+** Renamed the *Help::JavaScript* page to [[Wiki::Help::JavaScript]].
 ** Renamed the *Help::Navigation* page to [[Wiki::Help::Navigation]].
 ** Renamed the *Help::Print a page* page to [[Wiki::Help::Print a page]].
 ** Renamed the *Help::Spoilers* page to [[Wiki::Help::Spoilers]].
@@ -3807,7 +3736,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the *Help::Include text file* page.
 ** Updated the *Help::Include web page* page.
 ** Updated the *Help::Include wiki page* page.
-** Updated the [[Help::JavaScript]] page.
+** Updated the *Help::JavaScript* page.
 ** Updated the *Help::Join lines of text* page.
 ** Updated the [[Help::Links]] page.
 ** Updated the *Help::Lists* page.
@@ -3913,7 +3842,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the *Help::Include text file* page.
 ** Updated the *Help::Include web page* page.
 ** Updated the *Help::Include wiki page* page.
-** Updated the [[Help::JavaScript]] page.
+** Updated the *Help::JavaScript* page.
 ** Updated the *Help::Join lines of text* page.
 ** Updated the [[Help::Links]] page.
 ** Updated the *Help::Lists* page.
@@ -3979,7 +3908,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the [[Help::Images]] page.
 ** Updated the *Help::Include web page* page.
 ** Updated the *Help::Include wiki page* page.
-** Updated the [[Help::JavaScript]] page.
+** Updated the *Help::JavaScript* page.
 ** Updated the *Help::Join lines of text* page.
 ** Updated the [[Help::Links]] page, adding instructions for *include links*.
 ** Updated the *Help::Lists* page.
@@ -4024,7 +3953,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the styling for the *Help* and *Delete this page* buttons in the editor to give them a bit of padding on the right.
 
 * _Content:_
-** Added instructions for *delayed page redirection* to the [[Help::JavaScript]] page.
+** Added instructions for *delayed page redirection* to the *Help::JavaScript* page.
 ** Added instructions for *dynamic block text areas* and *dynamic inline text areas* to the *Help::Spoilers* page.
 ** Added instructions for the *sort* button to the *Help* pop-up in the editor.
 ** Added the *About* button to the menu.
@@ -4117,7 +4046,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the [[Help::Images]] page.
 ** Updated the *Help::Import* page.
 ** Updated the *Help::Include wiki page* page.
-** Updated the [[Help::JavaScript]] page.
+** Updated the *Help::JavaScript* page.
 ** Updated the [[Help::Links]] page.
 ** Updated the *Help::Lists* page to include instructions for various types of *HTML lists*.
 ** Updated the *Help::Non-breaking spaces* page.
@@ -4211,7 +4140,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Added the *Help::Word count* page.
 ** Changed the logo.
 ** Made the *Help::* pages static to preserve them when deleting all pages from the wiki.
-** Moved the contents of the *Example::JavaScript Temporary Page* to the [[Help::JavaScript]] page.
+** Moved the contents of the *Example::JavaScript Temporary Page* to the *Help::JavaScript* page.
 ** Moved the contents of the page creation sections in the *Getting Started* page to the *Help::Page creation* page.
 ** Removed the *Cleanup* tag search from the [[Special::Advanced]] page.
 ** Removed the *Example::Creole Syntax* page.
@@ -4878,23 +4807,22 @@ See the [[Help::Links]] page for a list of all possible internal actions.
 [[Tags::Help|Syntax]]
 
 --DFQRCTsKlU
-woas.page.title: Help::JavaScript
+woas.page.title: Wiki::Help::JavaScript
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-[[Special::TOC]]
 = JavaScript
 == Adding JavaScript to your page
 To add JavaScript to your page, you must enclose it inside JavaScript tags.
 
-<div class="wiki_help_text">Use this code in a page, replacing YOUR_CODE_HERE with your JavaScript code:</div>{{{
+<div class="wiki_help_text">Use this code in a page, replacing YOUR_CODE_HERE with your JavaScript code:</div><br>{{{
 <script type="text/javascript">
 YOUR_CODE_HERE
 </script>
-}}}<div class="wiki_help_text">To add JavaScript to your page.</div>
+}}}<br><div class="wiki_help_text">To add JavaScript to your page.</div>
 
 See an [[Wiki::Example::JavaScript|example]] of JavaScript being used in this wiki.
 
@@ -4906,64 +4834,50 @@ According to the author of Wiki on a Stick:
 == Using external JavaScript
 You can include external JavaScript on a page by placing the script file in the same directory as this wiki and then inserting a reference to it in the body of the page.
 
-<div class="wiki_help_text">Use this code in a page, replacing SCRIPTNAME.JS with the name of your script:</div>{{{
+<div class="wiki_help_text">Use this code in a page, replacing SCRIPTNAME.JS with the name of your script:</div><br>{{{
 <script src="SCRIPTNAME.JS"></script>
-}}}<div class="wiki_help_text">To include an external JavaScript in a page.</div>
+}}}<br><div class="wiki_help_text">To include an external JavaScript in a page.</div>
 === Example
-This page contains this code:{{{
+This page contains this code:<br><br>{{{
 <script src="example.js"></script>
-}}}To see an example using external JavaScript:
+}}}<br>To see an example using external JavaScript:
 # Create a text file in the same directory as this wiki.<br><br>
-# Paste this into the file:{{{
+# Paste this into the file:<br><br>{{{
 alert("This is an example alert!");
-}}}
+}}}<br>
 # Save the file as *example.js*<br><br>
 # Reload the wiki.<br><br>
-# Open this page to run the *example.js* script and see the alert.
+# Open this page /from the menu/ (by clicking the *Go to page* button and typing *Wiki::Help::JavaScript* into the box) to run the *example.js* script and see the alert.
 <script src="example.js"></script>
 == Using JavaScript to create a temporary page
-This is quite interesting. Using this code, you can get this wiki to create a link to a dynamically created temporary page with custom content (it accepts HTML tags as part of the content) under the JavaScript [[Help::Namespaces|namespace]]. The temporary page will be created each time the link is clicked, and it will be uncreated as soon as you navigate to another page or close the wiki.
+Using this code, you can get this wiki to create a link to a dynamically created temporary page with custom content (it accepts HTML tags as part of the content) under the JavaScript [[Wiki::Help::Namespaces|namespace]]. The temporary page will be created each time the link is clicked, and uncreated as soon as you navigate to another page or close the wiki.
 
-<div class="wiki_help_text">Use this code in a page, replacing CONTENT with your content, NAME with the page name, and LINK with the text you want the link to have:</div>{{{
+<div class="wiki_help_text">Use this code in a page, replacing CONTENT with your content, NAME with the page name, and LINK with the text you want the link to have:</div><br>{{{
 <script>function temporary(arg) {return 'CONTENT';}</script>[[Javascript::temporary('NAME')|LINK]]
-}}}<div class="wiki_help_text">To create this:</div>
-<script>function temporary(arg) {return 'CONTENT';}</script>[[Javascript::temporary('NAME')|LINK]]
-
-[[Include::Image::alert.png]] Only one of these links may be used per page.
-
-Paste each of these into the [[Sandbox]] page one by one to see what they do:
-* This one uses the temporary page name as part of its content:{{{
+}}}<br><div class="wiki_help_text">To create a dynamically created temporary page.</div>
+[[Include::Wiki::Template::Info|Only one of these links may be used per page.]]
+Paste each of these into a new page one by one to see what they do:<br><br>
+* This one uses the temporary page name as part of its content:<br><br>{{{
 <script>function temporary(arg) {return 'This page was dynamically created using *'+arg+'* as content!';}</script>[[Javascript::temporary('sample')|Click here]]
-}}}
-* This one demonstrates the use of various HTML tags in the content of the page:{{{
+}}}<br>
+* This one demonstrates the use of various HTML tags in the content of the page:<br><br>{{{
 <script>function temporary(arg) {return 'This page contains more than one line.<br>This line contains <b>bold</b>, <i>italic</i>, <u>underlined</u>, and <font color="red">colored</font> text.<br><br>And here is a list:<br><ul><li>item1</li><li>item2</li><li>item3</li></ul>';}</script>[[Javascript::temporary('My Page')|Click here]]
 }}}
 
 == Using JavaScript for page redirection
 The code below will redirect from the current page to the wiki page you specify a predefined number of seconds after the current page loads.
 
-<div class="alertnote">WARNING! Use this code carefully! Back up your wiki before trying it!</div>
-<div class="wiki_help_text">Use this code in a page, replacing PAGENAME with the name of the page to redirect to, and 10 with the number of seconds the script should delay:</div>{{{
+[[Include::Wiki::Template::Info|WARNING! Use this code carefully! Back up your wiki before trying it!]]
+<div class="wiki_help_text">Use this code in a page, replacing PAGENAME with the name of the page to redirect to, and 10 with the number of seconds the script should delay:</div><br>{{{
 <script type="text/javascript">
-setTimeout(onload="go_to('PAGENAME')",10*1000);
+setTimeout("go_to('PAGENAME')",10*1000);
 </script>
-}}}<div class="wiki_help_text">To redirect the current page to the PAGENAME page 10 seconds after the current page loads.</div>
-<div class="alertnote">Note that this will redirect to the next page even if you're in the editor! The only indication you will have if you're in the editor is that name in the the Page title box will change to the name of the redirected page. If you don't check this before saving, your changes will be saved to the redirected page, overwriting its contents.
-
-I recommend that you put this code near the top of any page (preferably directly beneath the first header on the page) so that you can find it quickly. I also recommend that you make the delay at <b>least</b> 10 seconds so that you have time to open the page in the editor, change the <b>PAGENAME</b> portion of the code to a nonexistent page, and then save the page before the timer runs out. Then you can reopen the page safely without risk of it redirecting while you're working on it. All that will happen if you give the script a nonexistent page name is that an alert will pop up asking if you'd like to create the nonexistent page. You can click <b>Cancel</b> when that popup comes up and continue working without further interruption. An even safer method is to open the wiki in a text editor and make changes to the page contents from there.</div>
-
+}}}<br><div class="wiki_help_text">To redirect the current page to the PAGENAME page 10 seconds after the current page loads.</div>
+[[Include::Wiki::Template::Info|This will redirect to the next page even if you're in the editor! The only indication you will have if you're in the editor is that the name in the the *Page title* box will change to the name of the redirected page. If you don't check this before saving, your changes will be saved to the redirected page, overwriting its contents.<br><br>If you put this code near the top of a page (preferably directly beneath the first header) and make the delay at *least* 10 seconds, you'll have time to open the page in the editor, find the code, change the *PAGENAME* portion to a nonexistent page, and then save the page before the timer runs out.<br><br>Then you can reopen the page safely without risk of it redirecting while you're working on it. All that will happen if you give the script a nonexistent page name is that an alert will pop up asking if you'd like to create the nonexistent page. You can click *Cancel* when that popup comes up and continue working without further interruption.<br><br>An even safer method is to open the wiki in a text editor and make changes to the page contents from there.]]
 == Using JavaScript to reload the wiki
-<div class="wiki_help_text">Use this code in a page:</div>{{{
-<input type="button" value="Reload wiki" onClick="history.go(0)">
-}}}<div class="wiki_help_text">To create this:</div>
-<input type="button" value="Reload wiki" onClick="history.go(0)">
-
-<div class="wiki_help_text">Use this code in a page:</div>{{{
+<div class="wiki_help_text">Use this code in a page:</div><br>{{{
 <input type="button" value="Reload wiki" onClick="window.location.href=window.location.href">
-}}}<div class="wiki_help_text">To create this:</div>
-<input type="button" value="Reload wiki" onClick="window.location.href=window.location.href">
-
-[[Tags::Help|Syntax]]
+}}}<br><div class="wiki_help_text">To create a button that reloads the wiki when you click it.</div>
 
 --DFQRCTsKlU
 woas.page.title: Help::Links
