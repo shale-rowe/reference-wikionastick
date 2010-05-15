@@ -2502,15 +2502,6 @@ You can export this wiki to one or more WSIF file(s) that can be copied, shared,
 # Click the *Export WSIF* button. A confirmation will pop up, telling you how many pages were exported.
 
 --DFQRCTsKlU
-woas.page.title: WoaS::Template::Example::Transclusion
-woas.page.attributes: 0
-woas.page.encoding: 8bit/plain
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-<big style="color:lime">%1 had a little %2</big>
---DFQRCTsKlU
 woas.page.title: Wiki::Help::Special::ExportWSIF
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
@@ -3391,51 +3382,51 @@ woas.page.boundary: DFQRCTsKlU
 /* CSS used when loading/saving WoaS - readonly */
 body {
 	font-family: Georgia, verdana;
-}
+	}
 
 #woas_custom_accesskeys {
-	visibility: hidden;
 	display: none;
-}
+	visibility: hidden;
+	}
 
 #wiki_text {
-	position: relative;
 	left: 15.5%;
-	width: 82.3%;
-	z-index: 0;
 	margin-top: 1.313em;
 	margin-bottom: 0.75em;
+	position: relative;
 	text-align:justify;
-}
+	width: 82.3%;
+	z-index: 0;
+	}
 
 div.wiki_header {
-	top: 0em;
-	left: 0em;
 	border: 1pt solid #aaa;
+	left: 0em;
 	opacity:.65;
-	z-index: 1;
-	width: 99%;
 	padding-right:0.75em;
-}
+	top: 0em;
+	width: 99%;
+	z-index: 1;
+	}
 
 #loading_overlay {
-	position: absolute;
-	width: 99%;
-	height: 100%;
-	padding-top: 25%;
-	z-index: 100;
 	background-color: white;
-	left: 0em;
-	top: 0em;
 	font-size: large;
+	height: 100%;
+	left: 0em;
+	position: absolute;
 	text-align: center;
-}
+	top: 0em;
+	padding-top: 25%;
+	width: 99%;
+	z-index: 100;
+	}
 
 .woas_wait_text {
 	color: navy;
-}
+	}
 
-.woas_background, #woas_debug_panel, #woas_debug_console, #woas_debug_log, #woas_edit_page_title, .wiki_editor_button, #woas_pwd_query, #woas_pwd_mask, .woas_password_desc, .wiki_footer, .woas_help_background, .wiki_help_button, .wiki_help_text, .woas_page_mts, div.woas_text_area, .woas_text_area.locked, #woas_pwd_mask, .woas_core_page, div.menu,div.menu_area, .wiki_menu_button_full, .wiki_menu_button_half,.title, .wiki_preformatted, .woas_nowiki_multiline, div.search_results, div.wiki_toc, p.wiki_toc_title, table.woas_text_area, div.taglinks { }
+.woas_background, #woas_debug_panel, #woas_debug_console, #woas_debug_log, #woas_edit_page_title, .wiki_editor_button, #woas_pwd_query, #woas_pwd_mask, .woas_password_desc, .wiki_footer, .woas_help_background, .wiki_help_button, .wiki_help_text, .woas_page_mts, div.woas_text_area, .woas_text_area.locked, #woas_pwd_mask, .woas_core_page, div.menu, div.menu_area, .wiki_menu_button_full, .wiki_menu_button_half, .title, .wiki_preformatted, .woas_nowiki_multiline, div.search_results, div.wiki_toc, p.wiki_toc_title, table.woas_text_area, div.taglinks { }
 --DFQRCTsKlU
 woas.page.title: Wiki::Help::Hotkeys
 woas.page.attributes: 0
@@ -3537,12 +3528,12 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Added the *Go to* button to the menu.
 ** Added tooltips to the menu buttons.
 ** Added two non-breaking spaces after the debug *Clear* button for consistency.
-** Changed the class of editor buttons to {{{wiki_editor_button}}}.
-** Changed the class of help code to {{{wiki_help_code}}}.
-** Changed the class of help text to {{{wiki_help_text}}}.
-** Changed the class of menu buttons to {{{wiki_menu_button_full}}} and {{{wiki_menu_button_half}}}.
-** Changed the class of the help pop-up *Back* and *Close* button to {{{wiki_help_button}}}.
-** Changed the class of the footer to {{{wiki_footer}}}.
+** Changed the CSS class of editor buttons to {{{wiki_editor_button}}}.
+** Changed the CSS class of help code to {{{wiki_help_code}}}.
+** Changed the CSS class of help text to {{{wiki_help_text}}}.
+** Changed the CSS class of menu buttons to {{{wiki_menu_button_full}}} and {{{wiki_menu_button_half}}}.
+** Changed the CSS class of the help pop-up *Back* and *Close* button to {{{wiki_help_button}}}.
+** Changed the CSS class of the footer to {{{wiki_footer}}}.
 ** Changed the layout of the menu buttons.
 ** Changed the styling of the debugger.
 ** Now using [[http://sourceforge.net/projects/stickwiki/files/|Wiki on a Stick v0.12.0]] as the foundation for Book on a Stick.
@@ -3590,6 +3581,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Removed the *Wiki::Utility::Diary* page.
 ** Removed the *WoaS::Bootscript* page.
 ** Removed the *WoaS::History* page.
+** Removed the *WoaS::Template::Example::Transclusion* page.
 ** Renamed the *Example::JavaScript* page to [[Wiki::Example::JavaScript 1]].
 ** Renamed the *Help::Add a search box* page to [[Wiki::Help::Add a search box]].
 ** Renamed the *Help::Backup* page to [[Wiki::Help::Backup]].
