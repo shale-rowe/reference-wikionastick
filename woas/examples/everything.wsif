@@ -226,3 +226,142 @@ return true;
 = Example
 This is <<<woas.tooltip("I am a tooltip"): text with tooltip >>>.
 --DFQRCTsKlU
+
+woas.page.title: Example::Footnotes
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Footnotes usage
+This is a page with footnotes; please refer to <<<woas.footnote("WoaS Official Website"): [[http://stickwiki.sf.net/]]>>> and <<<woas.footnote("WoaS SF.net Project Home Page"): [[http://sourceforge.net/projects/stickwiki]]>>>.
+<style type="text/css">
+/* FOOTNOTES */
+.footnote {line-height:1em; font-size:0.55em; vertical-align:super; text-style:italic; color:mediumblue; text-decoration:underline;}
+.footnotecontainer {line-height:1em; font-size:0.75em; vertical-align:super; text-style:italic; background-color:#EEEEFF; margin-top:-3em;}
+</style>
+--DFQRCTsKlU
+woas.page.title: WoaS::Plugins::Footnotes
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+/* Footnotes plugin by legolas558
+	Adaption of Littlegirl's work from woasmods
+*/
+	
+woas.custom.footnotes = {
+	_footnotes: [],
+	
+	_orig_after_parse: null,
+	_after_parse: function(NP) {
+		var that = woas.custom.footnotes, n;
+		if (woas.parser.force_inline || !that._footnotes.length) {
+			that._orig_after_parse(NP);
+			return;
+		}
+		
+		NP.body += '<br/><br/><div width="90%" class="footnotecontainer"><table border="0">';
+        for(var i=0,l=that._footnotes.length;i<l;++i){
+			n = i+1;
+			NP.body += '<tr><td valign="top"><a name="_footnote'+n+'" href="#_notefoot'+n+'">[' +n+ "]</a></td><td>"+
+					woas.parser.syntax_parse(that._footnotes[i], []) +"</td></tr>";
+        }
+        NP.body +=  '</table></div>';
+		// reset footnotes before rendering next page
+		woas.custom.footnotes._footnotes = [];
+		NP.modified = true;
+        that._orig_after_parse(NP);
+	},
+	
+	// the actual macro code
+	_macro_hook: function(macro, tooltip) {
+		// save the footnote
+		var note = woas.trim(macro.text);
+		if (typeof tooltip == "undefined")
+			tooltip = "";
+		else tooltip = ' title="' + woas.xhtml_encode(tooltip)+'" ';
+		woas.custom.footnotes._footnotes.push(note);
+		var n = woas.custom.footnotes._footnotes.length;
+		macro.text = '<sup><a class="footnote" '+ tooltip +
+						'name="_notefoot'+n+'" href="#_footnote'+n+'">['+n+']</a></sup>';
+		return true;
+	}
+
+};
+
+// register the parse hook
+woas.custom.footnotes._orig_after_parse = woas.parser.after_parse;
+woas.parser.after_parse = woas.custom.footnotes._after_parse;
+
+// register the macro
+woas.macro.register('woas.footnote', woas.custom.footnotes._macro_hook);
+
+--DFQRCTsKlU
+
+woas.page.title: Example::Change icons
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Replace WoaS icons
+
+Select an image file:
+<input id="filename_" type="file" onfocus="woas.ui.focus_textbox()" onblur="woas.ui.blur_textbox()">
+
+== 2. Click on an icon to replace it with the selected file:
+<div id="themes_layer"></div>
+<script type="text/javascript">
+woas.custom.themes._load();
+</script>
+
+*Note:* you might need to reload WoaS if the icons are not updated
+--DFQRCTsKlU
+woas.page.title: WoaS::Plugins::Themes
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+/* Themes plugin by legolas558
+	Adaption of FBNil's work from Littlegirl's woasmods
+*/
+	
+woas.custom.themes = {
+	_load: function () {
+		$('themes_layer').innerHTML = woas.custom.themes._get_img('img_logo') +
+			woas.custom.themes._get_img('img_back') +
+			woas.custom.themes._get_img('img_forward') +
+			woas.custom.themes._get_img('img_advanced') +
+			woas.custom.themes._get_img('img_home') +
+			woas.custom.themes._get_img('img_lock') +
+			woas.custom.themes._get_img('img_unlock') +
+			woas.custom.themes._get_img('img_print') +
+			woas.custom.themes._get_img('img_setkey') +
+			woas.custom.themes._get_img('img_help') +
+			woas.custom.themes._get_img('img_edit') +
+			woas.custom.themes._get_img('img_cancel') +
+			woas.custom.themes._get_img('img_save');
+	},
+	_get_img: function(id) {
+		return '<img title="Change '+id.substr(4)+' icon" style="margin: 5px; border-color: green; cursor: pointer" border="2" src="' + $(id).src + '" onclick="javascript:woas.custom.themes._replace_from_file(\'' +id+ '\');" alt="' +id+ '"/>';
+	},
+	_replace_from_file: function(button) {
+		var ct = woas.load_file(null, woas.file_mode.BASE64);
+		if ((ct === false) || ((typeof ct != "string") || !ct.length)) {
+			woas.alert(woas.i18n.LOAD_ERR);
+			return false;
+		}
+		$(button).src = ct;
+		woas.full_commit();
+	}
+
+};
+
+--DFQRCTsKlU
