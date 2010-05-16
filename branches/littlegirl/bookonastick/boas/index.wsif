@@ -656,6 +656,8 @@ WSIF format is pretty straightforward to produce or interpret, however please co
 * it is safe to embed a WSIF file inside another, given that boundaries are properly implemented
 
 WoaS project offers an official PHP library (libwsif) for reading/writing WSIF files, as well as a documented example.
+[[Tags::Cleanup]]
+
 --DFQRCTsKlU
 woas.page.title: Special::ImportWSIF
 woas.page.attributes: 0
@@ -993,7 +995,7 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Wiki is read-only
-If you clicked the *Disallow edits* button in the wiki options, this wiki became read-only. To undo that:
+If you clicked the *Disallow edits* button in the [[Special::Options|wiki options]], this wiki became read-only. To undo that:
 # Back up this wiki.
 # Open it in a text editor.
 # Do a search for: {{{"permit_edits":false,}}}
@@ -1494,7 +1496,6 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-[[Special::TOC]]
 = Text formatting
 == Blinking
 <div class="wiki_help_text">Use this code in a page:</div><br>{{{
@@ -1581,7 +1582,7 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Table of Contents
-You can insert a Table of Contents into a page by using a special wiki tag. It will be automatically populated with all the [[Wiki::Help::Headers|headers]] on a page. The placement of the Table of Contents is  determined by where you put the tag in the page.
+You can insert a Table of Contents into a page by using a special wiki link. It will be automatically populated with all the [[Wiki::Help::Headers|headers]] on a page. The placement of the Table of Contents is  determined by where you put the link in the page.
 
 <div class="wiki_help_text">Use this code on a line by itself in a page:</div><br>{{{
 [[Special::TOC]]
@@ -3611,8 +3612,12 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the [[Wiki::Help::Run wiki on a server]] page.
 ** Updated the [[Wiki::Help::Special::Erase Wiki]] page.
 ** Updated the [[Wiki::Help::Table of Contents]] page.
+** Updated the [[Wiki::Help::Tables]] page.
+** Updated the [[Wiki::Help::Tables::Custom]] page.
 ** Updated the [[Wiki::Help::Tags]] page.
 ** Updated the [[Wiki::Help::Text formatting]] page.
+** Updated the [[Wiki::Help::Tooltips]] page.
+** Updated the [[Wiki::Help::Topnote]] page.
 ** Updated the [[Wiki::Help::Wiki is read-only]] page.
 ** Updated the [[WoaS::CSS::Boot]] page.
 ** Updated the [[WoaS::CSS::Core]] page.
@@ -5172,7 +5177,6 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-[[Special::TOC]]
 = Tables
 The content inside tables can contain [[Wiki::Help::Links|internal and external links]], and these kinds of [[Wiki::Help::Text formatting|Text formatting]]:
 * Blinking
@@ -5354,18 +5358,30 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Tooltips
-You can create tooltips by inserting specially formatted include links into a page. Tooltips accept only a single line of text without line breaks. Apostrophes and other punctuation are also accepted, with the exception of quotes. Quotes can be created by using two apostrophes next to each other (clumsy, but it works). It's not possible to use wiki or HTML text formatting on tooltip text. To change the appearance of tooltip links, edit the contents of the {{{/*TOOLTIPS*/}}} entry in the [[Wiki::Help::CSS|CSS]] settings.
+You can create tooltips by inserting specially formatted include links into a page. Tooltips accept only a single line of plain text without line breaks. Apostrophes and other punctuation are also accepted, with the exception of quotes. Quotes can be created by using two apostrophes next to each other (clumsy, but it works).
 
-<div class="wiki_help_text">Use this code in a page, replacing LINK with the link text, and TOOLTIP with the contents of the tooltip:</div>
-<div class="helpcode">[<!-- -->[Include::Wiki::Template::Tooltip|LINK|TOOLTIP]<!-- -->]</div>
-<div class="wiki_help_text">To create this:</div>
+<div class="wiki_help_text">Use this code in a page, replacing LINK with the link text, and TOOLTIP with the contents of the tooltip:</div><br>{{{
+[[Include::Wiki::Template::Tooltip|LINK|TOOLTIP]]</div>
+}}}<br><div class="wiki_help_text">To create this:</div>
 [[Include::Wiki::Template::Tooltip|LINK|TOOLTIP]]
 
 == Another example
-<div class="wiki_help_text">Use this code in a page:</div>
-<div class="helpcode">This is a [<!-- -->[Include::Wiki::Template::Tooltip|tooltip link|This is a tooltip.]<!-- -->] inside a sentence.</div>
+<div class="wiki_help_text">Use this code in a page:</div>\
+<pre>This is a [<!-- -->[Include::Wiki::Template::Tooltip|tooltip link|This is a tooltip.]<!-- -->] inside a sentence.</pre>\
 <div class="wiki_help_text">To create this:</div>
 This is a [[Include::Wiki::Template::Tooltip|tooltip link|This is a tooltip.]] inside a sentence.
+
+== Customize the look of tooltips
+To change the appearance of tooltip links:
+# Click the [[Include::Wiki::Template::Icon::Advanced]] icon in the banner.<br><br>
+# Click the [[WoaS::CSS::Core]] link in the *Advanced features* section of the page to go to the default CSS page.<br><br>
+# Copy the {{{/*TOOLTIPS*/}}} entry from the page.<br><br>
+# Click the [[Include::Wiki::Template::Icon::Back]] icon in the banner.<br><br>
+# Click the [[WoaS::CSS::Custom]] link in the *Advanced features* section of the page to go to the custom CSS page.<br><br>
+# Click the [[Include::Wiki::Template::Icon::Edit]] icon in the banner to edit the page.<br><br>
+# Paste the copied entry into the page.<br><br>
+# Change the entry to suit your taste.<br><br>
+# Click the [[Include::Wiki::Template::Icon::Save]] icon in the banner to save your changes.
 
 --DFQRCTsKlU
 woas.page.title: Wiki::Help::Transclusion
@@ -5485,6 +5501,7 @@ Every once in a while the word count button needs to be recalibrated. I have no 
 # Click the Word Count button.
 
 If all went well, the number it displays should be *0* and you've successfully recalibrated the Word Count button. If not, repeat the above steps.
+[[Tags::Cleanup]]
 
 --DFQRCTsKlU
 woas.page.title: Sandbox
@@ -5496,24 +5513,6 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 = Sandbox
 This page is for trying out new things without having to create a new page.
-
-<<<%woas.diary:
-
-var D = new Date(),
-    DAYNAMES = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-    MONTHNAMES = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"],
-    day  = D.getDate();
-if(day < 10) day = "0" + day;
-
-var newpagename = "Diary::" + D.getFullYear() +"::"+ MONTHNAMES[D.getMonth()] +"::"+ day +" "+DAYNAMES[D.getDay()];
-
-macro.text = "[["+newpagename+"]]\n";
-macro.reprocess = true;
-return true;
->>>
-
-= Example usage
-<<<woas.diary:>>>
 
 --DFQRCTsKlU
 woas.page.title: Wiki::Utility::Links for writers
@@ -5826,6 +5825,8 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 <form method="POST" name="wordcount"><script language="JavaScript">document.deepText= function(hoo){var A= []; if(hoo){hoo= hoo.firstChild; while(hoo!= null){if(hoo.nodeType== 3){A[A.length]= hoo.data;} else A= A.concat(arguments.callee(hoo)); hoo= hoo.nextSibling;}}return A;}
 function countwords(hoo){var text= document.deepText(hoo).join(' '); return text.match(/[A-Za-z\'\-]+/g).length-186;}</script><input type="button" value="Word Count" onClick="alert(countwords(document.body))"></form>
+[[Tags::Cleanup]]
+
 --DFQRCTsKlU
 woas.page.title: Wiki::Template::Topnote
 woas.page.attributes: 0
@@ -5846,9 +5847,9 @@ woas.page.boundary: DFQRCTsKlU
 = Topnote
 A topnote is a note in the upper right corner of a page that doesn't affect the existing layout of the page.
 
-<div class="wiki_help_text">Use this code on any line in a page, replacing TEXT with the text you'd like displayed in the topnote:</div>
-<div class="helpcode">[<!-- -->[In<!-- -->clude:<!-- -->:Ut<!-- -->ility:<!-- -->:To<!-- -->pnote|TEXT]<!-- -->]</div>
-<div class="wiki_help_text">To create a topnote like the one in the upper right corner of this page.</div>
+<div class="wiki_help_text">Use this code on any line in a page, replacing TEXT with the text you'd like displayed in the topnote:</div><br>{{{
+[[Include::Utility::Topnote|TEXT]]</div>
+}}}<br><div class="wiki_help_text">To create a topnote like the one in the upper right corner of this page.</div>
 [[Include::Wiki::Template::Topnote|This is a topnote!]]
 
 --DFQRCTsKlU
@@ -6455,7 +6456,6 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-[[Special::TOC]]
 = Custom tables
 Styling, formatting, and alignment can be used to control the look and behavior of tables. All example tables on this page use table comment lines ( {{{|-}}} ) to make it easier to see what is involved in creating the tables. These lines are not necessary when creating your tables.
 
