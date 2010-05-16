@@ -850,6 +850,11 @@ woas.pager = {
 	
 	get_by_index: function(i) {
 		return woas.get__text(i);
+	},
+	
+	// this yummy function needs can be overriden
+	browse_hook: function(title) {
+		return true;
 	}
 };
 

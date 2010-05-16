@@ -739,7 +739,7 @@ woas._search_load = function() {
 	$("string_to_search").focus();
 	
 	if (results.length) {
-		// parse results before applying syntax highlighting
+		// parse results before applying search terms highlighting
 		woas.parser.force_inline = true;
 		results = woas.parser.parse( results );
 		

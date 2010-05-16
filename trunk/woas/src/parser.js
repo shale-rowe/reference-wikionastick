@@ -473,100 +473,10 @@ woas.parser.parse = function(text, export_links, js_mode) {
 	});
 
 	// wiki tags
-	var tags = [],
-		wl, url;
+	var tags = [];
 	this.inline_tags = 0;
 	
-	// links with pipe e.g. [[Page|Title]]
-	text = text.replace(reWikiLink, function(str, $1, $2) {
-		return woas.parser._render_wiki_link($1, $2, snippets, tags, export_links);
-	});
-
-	// links without pipe e.g. [[Page]]
-	text = text.replace(reWikiLinkSimple, function(str, $1) {
-		return woas.parser._render_wiki_link($1, null, snippets, tags, export_links);
-	});
-	
-	// allow non-wrapping newlines
-	text = text.replace(/\\\n/g, "");
-	
-	// underline
-	text = text.replace(/(^|[^\w])_([^_]+)_/g, "$1"+parse_marker+"uS#$2"+parse_marker+"uE#");
-	
-	// italics
-	// need a space after ':'
-	text = text.replace(/(^|[^\w:])\/([^\n\/]+)\//g, function (str, $1, $2) {
-		// hotfix for URLs
-		if ($2.indexOf("//")!=-1)
-			return str;
-		return $1+"<"+"em>"+$2+"<"+"/em>";
-	});
-	
-	// ordered/unordered lists parsing (code by plumloco)
-	text = text.replace(reReapLists, this.parse_lists);
-	
-	// headers
-	//TODO: check that only h1~h6 are parsed
-	text = text.replace(reParseHeaders, this.header_replace);
-//	text = text.replace(reParseOldHeaders, this.header_replace);
-	
-	if (this.has_toc) {
-		// remove the trailing newline
-//		this.toc = this.toc.substr(0, this.toc.length-2);
-		// replace the TOC placeholder with the real TOC
-		text = text.replace("<!-- "+parse_marker+":TOC -->",
-				"<"+"div class=\"woas_toc\"><"+"p class=\"woas_toc_title\">Table of Contents<"+"/p>" +
-				this.toc.replace(reReapLists, this.parse_lists)
-				/*.replace("\n<", "<") */
-				+ "<"+"/div>" );
-		this.toc = "";
-	}
-	
-	// use 'strong' tag for bold text
-	text = text.replace(this.reBoldSyntax, "$1"+parse_marker+"bS#$2"+parse_marker+"bE#");
-
-	text = text.replace(new RegExp(parse_marker+"([ub])([SE])#", "g"), function (str, $1, $2) {
-		if ($2=='E') {
-			if ($1=='u')
-				return "<"+"/span>";
-			return "<"+"/strong>";
-		}
-		if ($1=='u')
-			tag = "<"+"span style=\"text-decoration:underline;\">";
-		else
-			tag = "<"+"strong>";
-		return tag;
-	});
-
-	// 'hr' horizontal rulers made with 3 hyphens, 4 suggested
-	// only white spaces are allowed after the hyphens
-	text = text.replace(/(^|\n)\s*\-{3,}[ \t]*(\n|$)/g, "<"+"hr class=\"woas_ruler\" />");
-	
-	// tables-parsing pass
-	if (woas.config.new_tables_syntax)
-		text = text.replace(reReapTablesNew, this.parse_tables_new);
-	else
-		text = text.replace(reReapTables, this.parse_tables);
-	
-	// cleanup \n after headers and lists
-	text = text.replace(reCleanupNewlines, function (str, $1, $2, $3, trailing_nl) {
-		if (trailing_nl.length>2)
-			return $1+trailing_nl.substr(2);
-		return $1;
-	});
-	
-	// remove \n before list start tags
-	text = text.replace(/\n(<[uo]l>)/g, "$1");
-
-	// end-trim
-//	if (end_trim)
-//		text = text.replace(/\s*$/, "");
-
-	// make some newlines cleanup after pre tags
-	text = text.replace(/(<\/?pre>)\n/gi, "$1");
-
-	// convert newlines to br tags
-	text = text.replace(/\n/g, "<"+"br />");
+	text = this.syntax_parse(text, this.has_toc, snippets, tags, export_links);
 
 	// put back in place all snippets
 	if (snippets.length>0) {
@@ -615,15 +525,115 @@ woas.parser.parse = function(text, export_links, js_mode) {
 
 	// trigger after_parse hook only when not defining any
 	if (this.after_parse === backup_hook) {
-		// 'text' can't yet be passed here (needs referenced objects)
-		this.after_parse();
+		//TODO: use properly referenced objects
+		var NP = { body: text, modified: false };
+		this.after_parse(NP);
+		if (NP.modified)
+			text = NP.body;
+		NP = null;
 	}
-		
+
 	if (text.substring(0,5)!=="<"+"/div")
 		return "<"+"div class=\"woas_level0\">" + text + "<"+"/div>";
 	// complete
 	return text.substring(6)+"<"+"/div>";
 };
+
+// parse passive syntax only
+woas.parser.syntax_parse = function(text, has_toc, snippets, tags, export_links) {
+	// links with pipe e.g. [[Page|Title]]
+	text = text.replace(reWikiLink, function(str, $1, $2) {
+		return woas.parser._render_wiki_link($1, $2, snippets, tags, export_links);
+	});
+
+	// links without pipe e.g. [[Page]]
+	text = text.replace(reWikiLinkSimple, function(str, $1) {
+		return woas.parser._render_wiki_link($1, null, snippets, tags, export_links);
+	});
+	
+	// allow non-wrapping newlines
+	text = text.replace(/\\\n/g, "");
+	
+	// underline
+	text = text.replace(/(^|[^\w])_([^_]+)_/g, "$1"+parse_marker+"uS#$2"+parse_marker+"uE#");
+	
+	// italics
+	// need a space after ':'
+	text = text.replace(/(^|[^\w:])\/([^\n\/]+)\//g, function (str, $1, $2) {
+		// hotfix for URLs
+		if ($2.indexOf("//")!=-1)
+			return str;
+		return $1+"<"+"em>"+$2+"<"+"/em>";
+	});
+	
+	// ordered/unordered lists parsing (code by plumloco)
+	text = text.replace(reReapLists, this.parse_lists);
+	
+	// headers
+	//TODO: check that only h1~h6 are parsed
+	text = text.replace(reParseHeaders, this.header_replace);
+//	text = text.replace(reParseOldHeaders, this.header_replace);
+	
+	if (has_toc) {
+		// remove the trailing newline
+//		this.toc = this.toc.substr(0, this.toc.length-2);
+		// replace the TOC placeholder with the real TOC
+		text = text.replace("<!-- "+parse_marker+":TOC -->",
+				"<"+"div class=\"woas_toc\"><"+"p class=\"woas_toc_title\">Table of Contents<"+"/p>" +
+				this.toc.replace(reReapLists, this.parse_lists)
+				/*.replace("\n<", "<") */
+				+ "<"+"/div>" );
+		this.toc = "";
+	}
+
+	// use 'strong' tag for bold text
+	text = text.replace(this.reBoldSyntax, "$1"+parse_marker+"bS#$2"+parse_marker+"bE#");
+
+	text = text.replace(new RegExp(parse_marker+"([ub])([SE])#", "g"), function (str, $1, $2) {
+		if ($2=='E') {
+			if ($1=='u')
+				return "<"+"/span>";
+			return "<"+"/strong>";
+		}
+		if ($1=='u')
+			tag = "<"+"span style=\"text-decoration:underline;\">";
+		else
+			tag = "<"+"strong>";
+		return tag;
+	});
+
+	// 'hr' horizontal rulers made with 3 hyphens, 4 suggested
+	// only white spaces are allowed after the hyphens
+	text = text.replace(/(^|\n)\s*\-{3,}[ \t]*(\n|$)/g, "<"+"hr class=\"woas_ruler\" />");
+	
+	// tables-parsing pass
+	if (woas.config.new_tables_syntax)
+		text = text.replace(reReapTablesNew, this.parse_tables_new);
+	else
+		text = text.replace(reReapTables, this.parse_tables);
+	
+	// cleanup \n after headers and lists
+	text = text.replace(reCleanupNewlines, function (str, $1, $2, $3, trailing_nl) {
+		if (trailing_nl.length>2)
+			return $1+trailing_nl.substr(2);
+		return $1;
+	});
+	
+	// remove \n before list start tags
+	text = text.replace(/\n(<[uo]l>)/g, "$1");
+
+	// end-trim
+//	if (end_trim)
+//		text = text.replace(/\s*$/, "");
+
+	// make some newlines cleanup after pre tags
+	text = text.replace(/(<\/?pre>)\n/gi, "$1");
+
+	// convert newlines to br tags
+	text = text.replace(/\n/g, "<"+"br />");
+	
+	return text;
+}
 
 // render a single wiki link
 woas.parser._render_wiki_link = function(arg1, label, snippets, tags, export_links) {
@@ -645,16 +655,18 @@ woas.parser._render_wiki_link = function(arg1, label, snippets, tags, export_lin
 	}
 	
 	// check for tags definitions
-	var found_tags = woas._get_tags((label === null) ? page : page+","+label);
-	if (found_tags.length > 0) {
-		// do not use concat because 'tags' is passed byref
-		for(var i=0,it=found_tags.length;i<it;++i) {
-			tags.push(found_tags[i]);
+	if (typeof tags == "Array") {
+		var found_tags = woas._get_tags((label === null) ? page : page+","+label);
+		if (found_tags.length > 0) {
+			// do not use concat because 'tags' is passed byref
+			for(var i=0,it=found_tags.length;i<it;++i) {
+				tags.push(found_tags[i]);
+			}
+			if (!this.force_inline)
+				return "";
+			++this.inline_tags;
+			return "<!-- "+parse_marker+":"+inline_tags+" -->";
 		}
-		if (!this.force_inline)
-			return "";
-		++this.inline_tags;
-		return "<!-- "+parse_marker+":"+inline_tags+" -->";
 	}
 
 	if (hashloc > 0) {
@@ -668,7 +680,7 @@ woas.parser._render_wiki_link = function(arg1, label, snippets, tags, export_lin
 	// get a snippet id which we will later fill
 	r = woas.parser.place_holder(snippets.length);
 	// create a title attribute only when page URI differs from page title
-	var _c_title = (page !== label) ? ' title="'+woas.xhtml_encode(page)+'"' : '';
+	var _c_title = (page !== label) ? ' title="'+woas.xhtml_encode(page)+'"' : '', wl;
 	if (hashloc === 0) { // section reference URIs
 		snippets.push("<"+"a"+_c_title+" class=\"woas_link\" href=\""+page+"\">" + r_label + "<\/a>");
 	} else { // normal pages

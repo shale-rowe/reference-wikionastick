@@ -561,18 +561,6 @@ woas._get_special = function(cr, interactive) {
 			// return a special value for executed commands
 			return false;
 	} else
-//	this.log("Getting special page "+cr);	// log:0
-/*			if (this.is_embedded(cr)) {
-				text = this._get_embedded(cr, this.is_image(cr) ? "image":"file");
-				if (text == null) {
-					if (this.pager.decrypt_failed())
-						return;
-				}
-				this._add_namespace_menu("Special");
-				
-				this.load_as_current(cr, text, );
-				return;
-			}	*/
 		text = this.get_text(cr);
 	if(text === null) {
 		if (interactive)
@@ -615,6 +603,9 @@ woas.eval = function(code, return_value) {
 // Load a new current page
 // return true if page needs to be saved in history, false otherwise
 woas.set_current = function (cr, interactive) {
+	// call hooks which decide upon our navigation capabilities
+	if (!woas.pager.browse_hook(cr))
+		return false;
 //	this.log("Setting current page to \""+cr+"\"");	//log:0
 	var text, namespace, pi;
 	result_pages = [];
@@ -735,8 +726,6 @@ woas.set_current = function (cr, interactive) {
 						this._add_namespace_menu(namespace);
 						if (namespace.length)
 							cr = real_t;
-						// used by some special pages (e.g. backlinks) for page title override
-						this.render_title = cr;
 						return this.load_as_current(cr, text, this.config.store_mts ? page_mts[pi] : 0);
 					case "File":
 					case "Image":
@@ -749,8 +738,6 @@ woas.set_current = function (cr, interactive) {
 						this._add_namespace_menu(namespace);
 						if (namespace.length)
 							cr = namespace + "::" + cr;
-						// used by some special pages (e.g. backlinks) for page title override
-						this.render_title = cr;
 						return this.load_as_current(cr, text, this.config.store_mts ? page_mts[this.page_index(namespace+"::"+cr, namespace.toLowerCase())] : 0);
 					default:
 						text = this.get_text(namespace+"::"+cr);
@@ -784,7 +771,6 @@ woas.set_current = function (cr, interactive) {
 		mts = page_mts[pi];
 	}
 	// used by some special pages (e.g. backlinks) for page title override
-	this.render_title = cr;
 	return this.load_as_current(cr, this.parser.parse(text, false, this.js_mode(cr)), this.config.store_mts ? mts : 0);
 };
 
@@ -809,6 +795,10 @@ woas.load_as_current = function(title, xhtml, mts) {
 		this.crash("load_as_current() called with undefined title");
 		return false;
 	}
+	
+	// used by some special pages (e.g. backlinks) for page title override
+	this.render_title = cr;
+	
 	scrollTo(0,0);
 	this.log("load_as_current(\""+title+"\") - "+(typeof xhtml == "string" ? (xhtml.length+" bytes") : (typeof xhtml)));	// log:1
 	$("wiki_text").innerHTML = xhtml;
