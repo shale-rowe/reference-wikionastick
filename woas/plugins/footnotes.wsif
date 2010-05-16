@@ -1,0 +1,80 @@
+wsif.version: 1.3.1
+wsif.generator: woas
+wsif.generator.version: 0.12.0
+woas.author: legolas558
+woas.pages: 2
+
+woas.page.title: Example::Footnotes
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Footnotes usage
+This is a page with footnotes; please refer to <<<woas.footnote("WoaS Official Website"): [[http://stickwiki.sf.net/]]>>> and <<<woas.footnote("WoaS SF.net Project Home Page"): [[http://sourceforge.net/projects/stickwiki]]>>>.
+<style type="text/css">
+/* FOOTNOTES */
+.footnote {line-height:1em; font-size:0.55em; vertical-align:super; text-style:italic; color:mediumblue; text-decoration:underline;}
+.footnotecontainer {line-height:1em; font-size:0.75em; vertical-align:super; text-style:italic; background-color:#EEEEFF; margin-top:-3em;}
+</style>
+--DFQRCTsKlU
+woas.page.title: WoaS::Plugins::Footnotes
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+/* Footnotes plugin by legolas558
+	Adaption of Littlegirl's work from woasmods
+*/
+	
+woas.custom.footnotes = {
+	_footnotes: [],
+	
+	_orig_after_parse: null,
+	_after_parse: function(NP) {
+		var that = woas.custom.footnotes, n;
+		if (woas.parser.force_inline || !that._footnotes.length) {
+			that._orig_after_parse(NP);
+			return;
+		}
+		
+		NP.body += '<br/><br/><div width="90%" class="footnotecontainer"><table border="0">';
+        for(var i=0,l=that._footnotes.length;i<l;++i){
+			n = i+1;
+			NP.body += '<tr><td valign="top"><a name="_footnote'+n+'" href="#_notefoot'+n+'">[' +n+ "]</a></td><td>"+
+					woas.parser.syntax_parse(that._footnotes[i], []) +"</td></tr>";
+        }
+        NP.body +=  '</table></div>';
+		// reset footnotes before rendering next page
+		woas.custom.footnotes._footnotes = [];
+		NP.modified = true;
+        that._orig_after_parse(NP);
+	},
+	
+	// the actual macro code
+	_macro_hook: function(macro, tooltip) {
+		// save the footnote
+		var note = woas.trim(macro.text);
+		if (typeof tooltip == "undefined")
+			tooltip = "";
+		else tooltip = ' title="' + woas.xhtml_encode(tooltip)+'" ';
+		woas.custom.footnotes._footnotes.push(note);
+		var n = woas.custom.footnotes._footnotes.length;
+		macro.text = '<sup><a class="footnote" '+ tooltip +
+						'name="_notefoot'+n+'" href="#_footnote'+n+'">['+n+']</a></sup>';
+		return true;
+	}
+
+};
+
+// register the parse hook
+woas.custom.footnotes._orig_after_parse = woas.parser.after_parse;
+woas.parser.after_parse = woas.custom.footnotes._after_parse;
+
+// register the macro
+woas.macro.register('woas.footnote', woas.custom.footnotes._macro_hook);
+
+--DFQRCTsKlU
