@@ -116,6 +116,7 @@ woas.custom.shjs = {
 		// get the desired languages
 		if (!pre_render)
 			woas.custom.shjs._queue_flush();
+		return true;
 	},
 	
 	// array of languages which we are loading (async)
