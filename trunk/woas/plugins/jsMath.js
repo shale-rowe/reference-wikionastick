@@ -72,11 +72,12 @@ woas.custom.jsMath = {
 						"<"+"input id=\"jsmath_postr_btn_"+woas.custom.jsMath._block+
 						"\" type=\"button\" value=\"Render\" onclick=\"woas.custom.jsMath.post_render("+woas.custom.jsMath._block+");\" /"+">";
 			++this._block;
-			return;
+			return true;
 		 }
 // 		this._block = 0;
 		jsMath.Init();
 		macro.text = jsMath.Translate.Parse('T', macro.text);
+		return true;
 	}
 	
 };
