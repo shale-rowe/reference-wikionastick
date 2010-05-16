@@ -123,7 +123,7 @@ This project wouldn't be what it is without the help of other people. If you con
 * *Cyril Mazard* - search feature
 * *jimmac* - author of [[http://jimmac.musichall.cz/i.php?i=gorilla-stock|the icons set]] which we are currently using in WoaS
 * *martinellison* - transclusion patch
-* *Nilton Castillo* - bugfixes and enhancements (pluggable macro syntax)
+* *Nilton Castillo* - bugfixes and enhancements (original pluggable macro syntax)
 * *Little Girl* - documentation, overall testing, various improvements
 * [[http://weekendtesting.com/archives/833|Europe Weekend Testing]] - which provided a testing session for WoaS
 * [[http://testconsultant.blogspot.com/|Jeroen Rosink]] - for testing WoaS releases
@@ -768,15 +768,18 @@ And this is the actual result:
 >>>
 
 == Macros with arguments
-Starting with WoaS 0.12.0 macros do support named arguments.
+Starting with WoaS 0.12.0 macros do support named arguments and should return a true/false value to tell about their success/failure at rendering the macro text.
 
 Example:
 {{{<<<%my_arg_macro(name, color):
 
 macro.text = "<strong>"+name+"</strong> says: <span style=\"color: "+color+"\">"+macro.text+"</span>";
 
+return true;
+
 >>>}}}<<<%my_arg_macro(name, color):
 macro.text = "<strong>"+name+"</strong> says: <span style=\"color: "+color+"\">"+macro.text+"</span>";
+return true;
 >>>
 Which is then called with:
 
@@ -790,6 +793,18 @@ I have 3 fruits in my basket
 >>>
 
 The passed arguments must be valid JavaScript expressions.
+
+== Global macros
+Macros can be available on all pages if they are registered by plugins.
+
+In order to define a global macro you should create or edit a plugin and then add JavaScript code like this:
+
+{{{woas.macro.register('my.arg_macro', function(macro, name, color) {
+macro.text = "<strong>"+name+"</strong> says: <span style=\"color: "+color+"\">"+macro.text+"</span>";
+return true;
+});
+}}}
+
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Index
 woas.page.attributes: 0
