@@ -68,7 +68,7 @@ woas.importer = {
 		// check pages in WoaS:: namespace
 		if (title.substr(0,6) === "WoaS::") {
 			// can we import from WoaS namespace?
-			if (!this.i_woas_ns)
+			if (!woas.importer.i_woas_ns)
 				return false;
 			// do not overwrite help pages with old ones
 			if (title.indexOf("WoaS::Help::") === 0)
@@ -78,7 +78,7 @@ woas.importer = {
 				return false;
 			if (title === "WoaS::Custom::CSS")
 				// custom CSS is allowed only when importing CSS
-				return this.i_styles;
+				return woas.importer.i_styles;
 			
 			// here we allow Plugins, Aliases, Hotkeys
 			
@@ -227,7 +227,7 @@ woas.importer = {
 		// during import timestamp is already fixed when originally reading the variable
 		page_mts.push(page.mts);
 		// set self reference
-		page.pi = pages.length-1;
+		page.i = pages.length-1;
 		return true;
 	},
 	
@@ -236,13 +236,14 @@ woas.importer = {
 		var pi = woas.page_index(page.title);
 		if (pi === -1) { // new page title
 			woas.importer._inject_import_hook(page);
+			page.pi = -1;
 		} else { // page already existing, overwriting
 			//TODO: parse options and ask interactively
 			page_titles[pi] = page.title;
 			pages[pi] = page.body;
 			page_attrs[pi] = page.attrs;
 			page_mts[pi] = page.mts;
-			page.pi = pi;
+			page.i = page.pi = pi;
 		}
 		return true;
 	},
@@ -258,7 +259,7 @@ woas.importer = {
 		var _pfx = "WoaS::Plugins::";
 		if (page.title.substr(0, _pfx.length) === _pfx) {
 			// does plugin already exist?
-			if (pi !== -1)
+			if (page.pi !== -1)
 				that._plugins_update.push(page.title.substr(_pfx.length));
 			else
 				that._plugins_add.push(page.title.substr(_pfx.length));
@@ -632,13 +633,12 @@ woas.import_wiki_wsif = function() {
 	}
 	
 	// these options are not available for WSIF
-	this.importer.i_content = true;
-	this.importer.i_styles = true;
+	this.importer.i_styles = this.importer.i_content = true;
 	// grab the common options
 	this._grab_import_settings();
 	
 	// automatically retrieve the filename (will call load_file())
-	var done = woas._native_wsif_load(null, false /* no locking */, false /* not native */, 0,
+	var done = woas._native_wsif_load(null, false /* no locking */, false /* no save */, 0,
 			this.importer._import_hook, this.importer._filter_by_title,
 			this.importer._after_import);
 	if (done === false && (woas.wsif.emsg !== null))

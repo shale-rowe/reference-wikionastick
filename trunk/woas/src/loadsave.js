@@ -238,7 +238,7 @@ woas.mozillaLoadFile = function(filePath, load_mode, suggested_mime) {
 		var file = Components.classes["@mozilla.org/file/local;1"].createInstance(Components.interfaces.nsILocalFile);
 		file.initWithPath(filePath);
 		if (!file.exists()) {
-			log("Unexisting file "+filePath);
+			woas.log("Unexisting file "+filePath);
 			return false;
 		}
 		var inputStream = Components.classes["@mozilla.org/network/file-input-stream;1"].createInstance(Components.interfaces.nsIFileInputStream);
