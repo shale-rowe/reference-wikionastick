@@ -1,6 +1,6 @@
-wsif.version: 1.3.0
+wsif.version: 1.3.1
 wsif.generator: woas
-woas.version: 0.12.0
+wsif.generator.version: 0.12.0
 woas.author: legolas558
 
 woas.page.title: Macro::Bold nowiki
