@@ -607,12 +607,12 @@ woas._native_page_def = function(path,ct,p,last_p,import_hook,
 	} // end of switch
 
 	// create the page object
-	var NP = { "title": title, "attrs": attrs, "body": page, "mts": last_mod, "pi": null };
+	var NP = { "title": title, "attrs": attrs, "body": page, "mts": last_mod };
 	
 	// check that this was imported successfully
 	if (import_hook( NP ) ) {
 		// all OK
-		this.wsif.imported.push(NP.pi);
+		this.wsif.imported.push(NP.i);
 		return true;
 	}
 
