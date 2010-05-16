@@ -211,7 +211,7 @@ woas._get_namespace_pages = function (ns) {
 			var iHTML = "";
 			for(var i=0, l=page_titles.length;i < l;++i) {
 				if (page_titles[i].indexOf(ns)===0)
-					iHTML += this.parser.parse("* [[Include::"+page_titles[i]+"]][["+page_titles[i]+"]]\n");
+					iHTML += this.parser.syntax_parse("* [[Include::"+page_titles[i]+"]][["+page_titles[i]+"]]\n", []);
 			}
 			return "= Pages in "+ns+" namespace\n" + iHTML;
 	}
@@ -467,7 +467,7 @@ woas._get_embedded = function(cr, etype) {
 	this.log("Retrieving embedded source "+cr);	// log:1
 	var pi=this.page_index(cr);
 	if (pi==-1)
-		return this.parser.parse("[[Include::Special::Embed|"+etype+"]]");
+		return this.parser.syntax_parse("[[Include::Special::Embed|"+etype+"]]", []);
 	return this._get__embedded(cr, pi, etype);
 };
 
@@ -491,13 +491,14 @@ woas._get__embedded = function (cr, pi, etype) {
 		xhtml = "<"+"pre id='_file_ct' class=\"woas_embedded\">"+this.xhtml_encode(pview_data)+"<"+"/pre>"+
 				pview_link+"<"+"br /><"+"hr />"+this.i18n.FILE_SIZE+": "+_convert_bytes(ext_size)+
 				"<"+"br />" + this.last_modified(this.config.store_mts ? page_mts[pi] : 0)+
-				"<"+"br /><"+"br />XHTML transclusion:"+this.parser.parse("\n{{{[[Include::"+cr+"]]}}}"+
+				"<"+"br /><"+"br />XHTML transclusion:"+this.parser.syntax_parse("\n{{{[[Include::"+cr+"]]}}}"+
 				"\n\nRaw transclusion:\n\n{{{[[Include::"+cr+"|raw]]}}}"+
-				_del_lbl+"\n<"+"a href=\"javascript:query_export_file('"+this.js_encode(cr)+"')\">"+this.i18n.EXPORT_FILE+"<"+"/a>\n");
+				_del_lbl+"\n<"+"a href=\"javascript:query_export_file('"+this.js_encode(cr)+"')\">"+this.i18n.EXPORT_FILE+"<"+"/a>\n", []);
 	} else { // etype == image
 		var img_name = cr.substr(cr.indexOf("::")+2);
+		//TODO: do not create a dynamic script! use after_parse hook
 		xhtml = this.parser.parse("= "+img_name+"\n\n"+
-		"<"+"script> setTimeout(\"_img_properties_show('"+
+		"<"+"script type=\"text/javascript\"> setTimeout(\"_img_properties_show('"+
 				text.match(/^data:\s*([^;]+);/)[1] + "', "+
 				text.length + ", " +
 				(text.match(/^data:\s*[^;]*;\s*[^,]*,\s*/)[0]).length+", "+
@@ -851,7 +852,7 @@ woas._add_namespace_menu = function(namespace) {
 		return;
 	}
 	var menu = this.get__text(pi);
-	if (menu == null) {
+	if (menu === null) {
 //		this.log("Could not retrieve namespace menu");	// log:0
 		$("ns_menu_area").innerHTML = "";
 	} else {

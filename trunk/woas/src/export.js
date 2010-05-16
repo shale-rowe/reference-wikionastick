@@ -124,6 +124,7 @@ woas.exporter = {
 							_exp_menu += tmp;
 					}
 				}
+				// parse the exported menu
 				if (_exp_menu.length) {
 					_exp_menu = woas.parser.parse(_exp_menu, true, this._settings.js_mode);
 					if (this._settings.js_mode)

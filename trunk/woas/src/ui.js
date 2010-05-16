@@ -741,7 +741,7 @@ woas._search_load = function() {
 	if (results.length) {
 		// parse results before applying search terms highlighting
 		woas.parser.force_inline = true;
-		results = woas.parser.parse( results );
+		results = woas.parser.syntax_parse( results, [] );
 		
 		results = results.replace(this._hl_marker_rx, function(str, i) {
 			var r="",count=0;
