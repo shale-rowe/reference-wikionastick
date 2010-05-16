@@ -13,18 +13,18 @@ woas.page.boundary: DFQRCTsKlU
 = Setup
 Edit this page to see definitions necessary for this macro.
 
-<style type="text/css">
+/definitions are here/<style type="text/css">
 /* SPOILERS MOD */
-.spoiler {background-color:black; color:black;}
-.spoiler:hover {color:white; background-color:black;}
+.spoiler_normal {background-color:black; color:black;}
+.spoiler_normal:hover {color:white; background-color:black;}
 .spoiler_block a:link {text-decoration:none;}
 .spoiler_block a:visited {text-decoration:none;}
-.spoiler_block a:hover .show {display:block; background-color:black; color:white;}
+.spoiler_block a:hover .spoiler_exposed {display:block; background-color:black; color:white;}
 .spoiler_block a:active {text-decoration:none;}
 .spoiler_block a span {display:none;}
 .spoiler_inline a:link {text-decoration:none;}
 .spoiler_inline a:visited {text-decoration:none;}
-.spoiler_inline a:hover .show {display:inline; background-color:black; color:white;}
+.spoiler_inline a:hover .spoiler_exposed {display:inline; background-color:black; color:white;}
 .spoiler_inline a:active {text-decoration:none;}
 .spoiler_inline a span {display:none;}
 </style><<<%woas.spoiler(type, title):
@@ -32,21 +32,24 @@ Edit this page to see definitions necessary for this macro.
 // based on work by littlegirl
 
 switch (type) {
+	case 'normal':
+		macro.text = '<span class="spoiler_normal">'+woas.xhtml_encode(macro.text)+'</span>';
+	break;
 	case 'inline': case 'block':
+		macro.text = '<span class="spoiler_'+type+'"><a href="#">'+woas.xhtml_encode(title)+
+		'<span class="spoiler_exposed">'+woas.xhtml_encode(macro.text)+
+		'</span></a></span>';
 	break;
 	default:
 		return false;
 }
 
-macro.text = '<span class="spoiler_'+type+'"><a>'+woas.xhtml_encode(title)+
-		'<span class="spoiler_exposed">'+woas.xhtml_encode(macro.text)+
-		'</span></a></span>';
+return true;
 >>>
-
 = Example usage
 This is a normal spoiler:
 
-<<<woas.spoiler('block', 'SPOILER HERE'):
+<<<woas.spoiler('normal'):
 There is no spoon
 >>>
 
@@ -55,4 +58,11 @@ This is a hidden inline spoiler:
 <<<woas.spoiler('inline', 'SPOILER HERE'):
 There is no spoon
 >>>
+
+This is a block spoiler:
+
+<<<woas.spoiler('block', 'SPOILER HERE'):
+There is no spoon
+>>>
+
 --DFQRCTsKlU
