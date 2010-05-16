@@ -804,23 +804,23 @@ The look of most of this wiki can be customized by adding rules to the [[WoaS::C
 <<<woas.include:Wiki::Template::Info
 A tutorial on CSS is available at [[http://www.w3schools.com/css/]].>>>
 == Edit the CSS settings
-# Open the wiki in a browser.
-# Click the [[Include::Wiki::Template::Icon::Advanced]] icon in the banner.
-# Click the [[WoaS::CSS::Core]] link in the *Advanced features* section of the page to view the core CSS rules.
-# Copy the rules you want to change.
-# Click the [[Include::Wiki::Template::Icon::Advanced]] icon in the banner.
-# Click the [[WoaS::CSS::Custom]] link in the *Advanced features* section of the page.
-# Click the [[Include::Wiki::Template::Icon::Edit]] icon in the banner to edit the page.
-# Paste the rules you copied into the page.
-# Customize the rules to suit your taste.
+# Open the wiki in a browser.<br><br>
+# Click the [[Include::Wiki::Template::Icon::Advanced]] icon in the banner.<br><br>
+# Click the [[WoaS::CSS::Core]] link in the *Advanced features* section of the page to view the default CSS rules.<br><br>
+# Copy the rules you want to change.<br><br>
+# Click the [[Include::Wiki::Template::Icon::Advanced]] icon in the banner.<br><br>
+# Click the [[WoaS::CSS::Custom]] link in the *Advanced features* section of the page.<br><br>
+# Click the [[Include::Wiki::Template::Icon::Edit]] icon in the banner to edit the page.<br><br>
+# Paste the rules you copied into the page.<br><br>
+# Customize the rules to suit your taste.<br><br>
 # Click the [[Include::Wiki::Template::Icon::Save]] icon in the banner to save the changes.
 
 == Restore the default CSS settings
-# Open the wiki in a browser.
-# Click the [[Include::Wiki::Template::Icon::Advanced]] icon in the banner.
-# Click the [[WoaS::CSS::Custom]] link in the *Advanced features* section of the page
-# Click the [[Include::Wiki::Template::Icon::Edit]] icon in the banner to edit the page.
-# Delete all of the contents of the main text area.
+# Open the wiki in a browser.<br><br>
+# Click the [[Include::Wiki::Template::Icon::Advanced]] icon in the banner.<br><br>
+# Click the [[WoaS::CSS::Custom]] link in the *Advanced features* section of the page.<br><br>
+# Click the [[Include::Wiki::Template::Icon::Edit]] icon in the banner to edit the page.<br><br>
+# Delete all of the contents of the main text area.<br><br>
 # Click the [[Include::Wiki::Template::Icon::Save]] icon in the banner to save the changes.
 
 == Import CSS rules into your wiki
@@ -842,14 +842,13 @@ Importing from another wiki can garble the layout of the wiki. There are two way
 # Insert this closing tag at the bottom of the page:<br><br>{{{
 </style>
 }}}<br>
-# Click the *Save* icon in the navigation bar to save the changes.<br><br>
-If the layout is garbled:
-# Reload the wiki.
-# Click the *Delete page* button in the menu.
+# Click the *Save* icon in the navigation bar to save the changes.
+==== If the layout is garbled:
+# Reload the wiki.<br><br>
+# Click the *Delete page* button in the menu.<br><br>
 # Type in the name of the test page your custom CSS is in and click the *OK* button.
-
-If the layout is not garbled:
-# Copy the CSS rules to the [[WoaS::CSS::Custom]] page.
+==== If the layout is not garbled:
+# Copy the CSS rules to the [[WoaS::CSS::Custom]] page.<br><br>
 # Delete the test page you created.
 
 --DFQRCTsKlU
@@ -1042,9 +1041,9 @@ woas.page.boundary: DFQRCTsKlU
 
 == From the menu
 # Click the *New page* button in the menu.<br><br>
-# Type the page title.<blockquote>The maximum length is 256 characters, although you might want to use a shorter title to prevent interference with the banner icons. Page titles are case sensitive. All characters (including spaces) are allowed except angled brackets, square brackets, curly brackets, and pipes ("&lt;&gt;[]{}|").</blockquote>
+# Type the page title. The maximum length is 256 characters, although you might want to use a shorter title to prevent interference with the banner icons. Page titles are case sensitive. All characters (including spaces) are allowed except angled brackets ( &lt; &gt; ), square brackets ( &#91; &#93; ), curly brackets ( &#123; &#125; ), and pipes ( | ).<br><br>
 # Press the *Enter* key or click the *OK* button.<br><br>
-# When asked if you'd like to add a link to the main menu, accept by pressing the *Enter* key or clicking the *OK* button, or refuse by clicking the *Cancel* button.<blockquote>A level one header with the title of your page will be inserted in the main text area automatically.</blockquote>
+# When asked if you'd like to add a link to the main menu, accept by pressing the *Enter* key or clicking the *OK* button, or refuse by clicking the *Cancel* button. A level one header with the title of your page will be inserted in the main text area automatically.<br><br>
 # Edit the contents of the main text area by typing normally, pasting in content, or using the editor's buttons to insert code to format the text. Note that the use of plain text doesn't require any code.<br><br>
 # Save your changes by clicking the [[Include::Wiki::Template::Icon::Save]] icon in the banner.
 
@@ -1054,11 +1053,10 @@ woas.page.boundary: DFQRCTsKlU
 # Save your changes by clicking the [[Include::Wiki::Template::Icon::Save]] icon in the banner. The link you created will be red.<br><br>
 # Click the link to create the new page.
 
-==== Example:
+=== Example
 * <div class="wiki_help_text">Type this into a page:</div><br>{{{
 [[My new page]]
-}}}<br>
-* <div class="wiki_help_text">To create this:</div><br>\
+}}}<br><div class="wiki_help_text">To create this:</div><br>\
 [[My new page]]
 
 == Create an overview page
@@ -1067,7 +1065,7 @@ woas.page.boundary: DFQRCTsKlU
 # Press the *Enter* key or click the *OK* button.<br><br>
 # When asked if you'd like to add a link to the main menu, accept by pressing the *Enter* key or clicking the *OK* button, or refuse by clicking the *Cancel* button.<br><br>
 # Include pages by inserting an {{{[[Include::PAGENAME]]}}} link for each page you'd like to see in the overview, replacing *PAGENAME* with the name of the page to include.<br><br>
-# Save your changes by clicking on the [[Include::Wiki::Template::Icon::Save]] icon in the banner.
+# Save your changes by clicking the [[Include::Wiki::Template::Icon::Save]] icon in the banner.
 
 == Troubleshooting
 * There are four reasons why you may not be able to create a page:<br><br>
@@ -3618,6 +3616,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the [[Wiki::Example::Folding page styled button (HTML)]] page.
 ** Updated the [[Wiki::Example::Overview]] page.
 ** Updated the [[Wiki::Help::Aliases]] page.
+** Updated the [[Wiki::Help::Change wiki settings]] page.
 ** Updated the [[Wiki::Help::Create a page]] page.
 ** Updated the [[Wiki::Help::CSS]] page.
 ** Updated the [[Wiki::Help::Delete a page]] page.
@@ -4511,7 +4510,7 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 = Change wiki settings
 # Click the [[Include::Wiki::Template::Icon::Advanced]] icon in the banner.
-# Click the *Special::Options* link in the *Advanced features* section of the page.
+# Click the [[Special::Options]] link in the *Advanced features* section of the page.
 # Use the check-boxes to choose the settings you prefer.
 # Click the *Save options* button to save the changes.
 
