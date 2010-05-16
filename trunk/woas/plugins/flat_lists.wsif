@@ -1,6 +1,6 @@
-wsif.version: 1.3.0
+wsif.version: 1.3.1
 wsif.generator: woas
-woas.version: 0.12.0
+wsif.generator.version: 0.12.0
 woas.author: legolas558
 
 woas.page.title: WoaS::Plugins::FlatLists
@@ -10,9 +10,8 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
+// NOTE: THIS IS NOT OFFICIALLY SUPPORTED BEFORE API1.0
 // override WoaS listing function
-// NOT OFFICIALLY SUPPORTED BEFORE API1.0
-
 woas.ns_listing = function(folds, flat_arr, sorted) {
 	if (flat_arr.length === 0)
 		return "/No pages in this listing/";
