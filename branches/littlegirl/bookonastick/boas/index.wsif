@@ -11,7 +11,8 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 [[Include::Wiki::Utility::Links for writers]]
-
+* *ToDo:*
+** [[Tagged::Cleanup]]
 --DFQRCTsKlU
 woas.page.title: Special::Advanced
 woas.page.attributes: 0
@@ -4474,14 +4475,14 @@ This wiki comes with an optional debug console that will be visible at the botto
 
 == Enable the debug console:
 # Click the [[Include::Wiki::Template::Icon::Advanced]] icon in the banner.<br><br>
-# Click the *Special::Options* link in the *Advanced features* section of the page.<br><br>
+# Click the [[Special::Options]] link in the *Advanced features* section of the page.<br><br>
 # Check the box next to the *Enable debug mode and debug console (requires wiki reload).* option in the *User interface* section of the page.<br><br>
 # Click the *Save options* button at the bottom of the page.<br><br>
 # Reload the wiki.
 
 == Disable the debug console:
 # Click the [[Include::Wiki::Template::Icon::Advanced]] icon in the banner.<br><br>
-# Click the *Special::Options* link in the *Advanced features* section of the page.<br><br>
+# Click the [[Special::Options]] link in the *Advanced features* section of the page.<br><br>
 # Uncheck the box next to the *Enable debug mode and debug console (requires wiki reload).* option in the *User interface* section of the page.<br><br>
 # Click the *Save options* button at the bottom of the page.<br><br>
 # Reload the wiki.
@@ -4536,7 +4537,7 @@ Clicking on the link to an encrypted page brings up an alert letting you know th
 == Example encrypted page
 The [[Wiki::Example::Encrypted page]] can be opened by using *test* as the password.
 
-[[Tags::Help]]
+[[Tags::Cleanup]]
 
 --DFQRCTsKlU
 woas.page.title: Wiki::Help::Footer
@@ -4788,7 +4789,7 @@ See the [[Help::Links]] page for a list of all possible internal actions.
 <div class="wiki_help_text">To create an image gallery like the one below that displays the images in the Template::Icon:: namespace:</div>
 [[Include::Wiki::Template::Image gallery|Template::Icon::]]
 
-[[Tags::Help|Syntax]]
+[[Tags::Cleanup]]
 
 --DFQRCTsKlU
 woas.page.title: Wiki::Help::JavaScript
@@ -5035,7 +5036,7 @@ These are internal wiki actions in the form of links:<br><br>
 }}}<div class="wiki_help_text">To create a plain menu link like this one:</div>
 [[Main Page]]
 
-[[Tags::Help|Syntax]]
+[[Tags::Cleanup]]
 
 --DFQRCTsKlU
 woas.page.title: Wiki::Help::Navigation
@@ -5064,7 +5065,7 @@ By default, this wiki offers a few choices for scrolling that can be enabled by 
 * Enabling *Fixed banner* locks the banner in place while allowing the menu and page to scroll together.<br><br>
 * Enabling *Fixed menu* locks the menu in place while allowing the banner and page to scroll together.<br><br>
 * Enabling both *Fixed banner* and *Fixed menu* locks the banner and menu in place while allowing the page to scroll.
-[[Tags::Help]]
+[[Tags::Cleanup]]
 
 --DFQRCTsKlU
 woas.page.title: Wiki::Help::Print a page
@@ -6066,7 +6067,7 @@ Some nested dynamic inline areas for you advanced users:
 == See also
 For more ways of working with hidden content, see the [[Wiki::Help::Spoilers]] page.
 
-[[Tags::Help|Syntax]]
+[[Tags::Cleanup]]
 
 --DFQRCTsKlU
 woas.page.title: Wiki::Template::Foldpage
@@ -6168,7 +6169,7 @@ woas.page.boundary: DFQRCTsKlU
 = Folding page styled button (HTML)
 This button toggles the display of the [[Sandbox]] page in this page.
 
-<input class="wiki_button" value="BUTTONTEXT" onclick="expandspan('NAME')" type="button">
+<input class="wiki_editor_button" value="BUTTONTEXT" onclick="expandspan('NAME')" type="button">
 <div id="NAME" style="display:none;"><div>
 [[Include::Sandbox]]
 </div></div>
@@ -6400,7 +6401,7 @@ File::FILENAME
 # Use the *Embed file* interface to browse to the file and embed it into the wiki.
 -->
 
-[[Tags::Help|ToDo]]
+[[Tags::Cleanup]]
 
 --DFQRCTsKlU
 woas.page.title: Wiki::Template::Icon::Help

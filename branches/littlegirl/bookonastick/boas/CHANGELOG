@@ -1181,3 +1181,7 @@
 * Renamed the [[WoaS::Template::Button]] page to [[Wiki::Template::Help button]].
 * Changed the references to the new button name in the core.js and ui.js files.
 ======================================================================================================================
+* Enabled the page links on the [[Wiki::Help::Bugs]] page.
+* Tagged pages that still need to be moved to another namespace with the Cleanup tag.
+* Updated the [[Folding page styled button (HTML)]] page.
+======================================================================================================================
