@@ -11,7 +11,7 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 [[Include::Wiki::Utility::Links for writers]]
-* *ToDo:*
+* <font color="#FF00FF">*ToDo:*</font>
 ** [[Tagged::Cleanup]]
 --DFQRCTsKlU
 woas.page.title: Special::Advanced
@@ -858,33 +858,6 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 = Dead Pages
 This page displays a list of pages that contain links to nonexistent pages. Both the link and the page it's on are shown in each entry.
-
---DFQRCTsKlU
-woas.page.title: Wiki::Help::General usage
-woas.page.attributes: 0
-woas.page.encoding: 8bit/plain
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-= General usage
-
-== Cancel any action
-Cancel any action by clicking the *Cancel* icon in the navigation bar, clicking the *Cancel* button on any alert that pops up, or pressing the *Esc* key.
-
-== Navigation
-Use the *Back* and *Forward* arrow icons in the navigation bar to go back or forward one page, the *Main Page* icon in the navigation bar to return to the {{{[[Main page]]}}}, or click the buttons and links in the menu and wiki pages.
-
-== Pages linking to the current page
-Click the *Backlinks* link in the menu to see which pages link to the page you currently have open.
-
-== Print a page
-Click the *Print* icon in the navigation bar. A new browser window will open with a printer-friendly version of the main text area. Use the browser's print functions to print the page.
-
-== Syntax
-This wiki accepts plain text, WoaS wiki syntax, and XHTML. See the *Syntax* section of the [[Wiki::Help::Index|Help index]] by clicking the *Help* icon in the navigation bar for help with using the syntax in your pages.
-
-[[Include::Wiki::Template::Info|WoaS syntax is partially compatible with Creole 0.1 syntax.]]
 
 --DFQRCTsKlU
 woas.page.title: Wiki::Help::Raw text
@@ -2482,8 +2455,8 @@ woas.page.boundary: DFQRCTsKlU
 = Export
 You can export this wiki into multiple linked XHTML, CSS, and image files which will create a framed web page.
 
-# Click the *Advanced* icon in the navigation bar.<br><br>
-# Click the {{{[[Special::Export]]}}} link in the *Maintenance* section.<br><br>
+# Click the [[Include::Wiki::Template::Icon::Advanced]] icon in the banner.<br><br>
+# Click the [[Special::Export]] link in the *Maintenance* section.<br><br>
 # Choose the directory to export the wiki to.<br><br>
 # Choose the settings for the export.<br><br>[[Include::Wiki::Template::Info|Note that the "Run before exporting but do not export the javascript" option means that JavaScript is run and then the XHTML is exported, but the JavaScript is not. This is useful if you have JavaScript that does custom parsing.]]<br>
 # Click the *Export XHTML* button. A confirmation will pop up.<br><br>
@@ -2491,12 +2464,12 @@ You can export this wiki into multiple linked XHTML, CSS, and image files which 
 
 == ExportWSIF
 You can export this wiki to one or more WSIF file(s) that can be copied, shared, or stored for backup purposes.
-# Click the *Advanced* icon in the navigation bar.<br><br>
+# Click the [[Include::Wiki::Template::Icon::Advanced]] icon in the banner.<br><br>
 # Click the {{{[[Special::ExportWSIF]]}}} link in the *Maintenance* section.<br><br>
 # Choose the directory to export the WSIF file(s) to.<br><br>
 # Choose the settings for the export.<br><br>[[Include::Wiki::Template::Info|Note that you can export into a single WSIF file or multiple WSIF files. Embedded files are exported as individual files unless you choose not to export them as external file blobs, in which case they'll be embedded in the WSIF file(s).]]<br>
 # Type a name into the *Author:* box if you like.<br><br>
-# Click the *Export WSIF* button. A confirmation will pop up, telling you how many pages were exported.
+# Click the *Export WSIF* button. A confirmation will pop up telling you how many pages were exported.
 
 --DFQRCTsKlU
 woas.page.title: Wiki::Help::Special::ExportWSIF
@@ -3570,11 +3543,12 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Removed the *Help::Text formatting* page.
 ** Removed the *Help::ToDo list* page and any ToDo items in the wiki.
 ** Removed the *Help::Wiki is read-only* page.
+** Removed the *Template::TODO* page.
 ** Removed the *ToDo list* page.
 ** Removed the *Wiki::Example::Bluebox* page.
 ** Removed the *Wiki::Example::Table of Contents* page.
 ** Removed the *Wiki::Help::Bluebox* page.
-** Removed the *Wiki::Template::TODO* page.
+** Removed the *Wiki::Help::General usage* page.
 ** Removed the *Wiki::Utility::Diary* page.
 ** Removed the *WoaS::Bootscript* page.
 ** Removed the *WoaS::History* page.
@@ -3626,6 +3600,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the [[Wiki::Help::Export]] page.
 ** Updated the [[Wiki::Help::Footnotes]] page.
 ** Updated the [[Wiki::Help::Headers]] page.
+** Updated the [[Wiki::Help::Horizontal rules (lines)]] page.
 ** Updated the [[Wiki::Help::Include text file]] page.
 ** Updated the [[Wiki::Help::Include web page]] page.
 ** Updated the [[Wiki::Help::Include wiki page]] page.
@@ -4550,30 +4525,34 @@ woas.page.boundary: DFQRCTsKlU
 The footer is a section beneath the main text area in which you can put content that's visible when viewing any page (see the copyright notice beneath this text area).
 
 == Change the look of the footer
-# Click the [[Include::Wiki::Template::Icon::Advanced]] icon in the banner.
-# Click the [[Special::Edit CSS|Edit the CSS]] link in the *Advanced* section.
-# Find the {{{/* FOOTER */}}} entry.
-# Make whatever changes you like to the code.
-# Save your changes by clicking on the [[Include::Wiki::Template::Icon::Save]] icon in the banner.
+# Click the [[Include::Wiki::Template::Icon::Advanced]] icon in the banner.<br><br>
+# Click the [[WoaS::CSS::Core]] link in the *Advanced* section to view the default CSS.<br><br>
+# Copy the {{{/* FOOTER */}}} entry from the page.<br><br>
+# Click the [[Include::Wiki::Template::Icon::Back]] button in the banner.<br><br>
+# Click the [[WoaS::CSS::Custom]] link in the *Advanced* section to go to the custom CSS page.<br><br>
+# Click the [[Include::Wiki::Template::Icon::Edit]] icon in the banner to edit the page.<br><br>
+# Paste the copied CSS entry into the page.<br><br>
+# Make whatever changes you like to customize the footer.<br><br>
+# Save your changes by clicking the [[Include::Wiki::Template::Icon::Save]] icon in the banner.
 
 == Change the contents of the footer
 You can change the text that's displayed in the footer at the bottom of every page by editing the wiki code:
-# Open this wiki in a text editor.
-# Scroll all the way to the bottom of the file.
-# Find the section that begins with {{{<!-- Begin your footer content here -->}}} and ends with {{{<!-- End your footer content here -->}}}.
-# Replace the content *between* those sections with whatever you'd like to see in the footer.
-# Save the file.
+# Open the wiki in a text editor.<br><br>
+# Scroll all the way to the bottom of the file.<br><br>
+# Find the section that begins with {{{<!-- Begin your footer content here -->}}} and ends with {{{<!-- End your footer content here -->}}}.<br><br>
+# Replace the content *between* those sections with whatever you'd like to see in the footer.<br><br>
+# Save the file.<br><br>
 # Close the text editor.
 To change all of the contents in the footer rather than just the text:
-# Open this wiki in a text editor.
-# Scroll all the way to the bottom of the file.
-# Find the section that begins with {{{<!-- BEGIN FOOTER -->}}}. and ends with {{{<!-- END FOOTER -->}}}.
-# Replace the content between the {{{<div class="wiki_footer">}}} and {{{</div>}}} tags inside that section with whatever you'd like to see in the footer.
-# Save the file.
+# Open the wiki in a text editor.<br><br>
+# Scroll all the way to the bottom of the file.<br><br>
+# Find the section that begins with {{{<!-- BEGIN FOOTER -->}}}. and ends with {{{<!-- END FOOTER -->}}}.<br><br>
+# Replace the content between the {{{<div class="wiki_footer">}}} and {{{</div>}}} tags inside that section with whatever you'd like to see in the footer.<br><br>
+# Save the file.<br><br>
 # Close the text editor.
 
 == Disable the footer
-# Open this wiki in a text editor.<br><br>
+# Open the wiki in a text editor.<br><br>
 # Scroll to the bottom of the file.<br><br>
 # Find this section:<br><br>{{{
 <!-- BEGIN FOOTER -->
@@ -4598,6 +4577,8 @@ woas.page.boundary: DFQRCTsKlU
 Horizontal rules use the full width of the page by default. They can be styled to a smaller width by surrounding them with *HTML &lt;div&gt;* tags. Styling can also control their position.
 
 == Standard horizontal rule ==
+A horizontal rule can be made by inserting four or more dashes on a line by themselves in a page.
+
 <div class="wiki_help_text">Use this code in a page:</div><br>{{{
 ----
 }}}<br><div class="wiki_help_text">To create this:</div><br>
@@ -6298,9 +6279,9 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Footnotes
-Footnotes(((This is a footnote))) are small, numbered links you can put next to any word on a page. They look like this(((This is another footnote))) and when you click on them, they take you to a container(((This is yet another footnote. You're reading it in a footnote container.))) at the bottom of the page that displays the content of the footnote links. Clicking on a footnote link in the container takes you back up to where its link is on the page.
+Footnotes(((This is a footnote))) are small, numbered links you can put next to any word on a page. They look like this(((This is another footnote))) and when you click on them they take you to a container(((This is yet another footnote. You're reading it in a footnote container.))) at the bottom of the page that displays the content of the footnote links. Clicking on a footnote link in the container takes you back up to where its link is on the page.
 
-Footnote links can be added to any word in your text by inserting a special tag made of text surrounded by triple parentheses to the right of a word, like this<span style="background-color:gainsboro;"><tt>(<!-- -->(<!-- -->(This is a footnote.)<!-- -->)<!-- -->)</tt></span>. When you save the page, the wiki will automatically turn that tag into a numbered link next to the word. You can add as many footnotes to a page as you like, and the wiki will number them sequentially for you automatically.
+Footnote links can be added to any word in your text by inserting a special tag made of text surrounded by triple parentheses to the right of a word, like this<span style="background-color:gainsboro;"><tt>(<!-- -->(<!-- -->(This is a footnote.)<!-- -->)<!-- -->)</tt></span>. When you save the page, the wiki will automatically turn that tag into a numbered link next to the word. You can add as many footnotes to a page as you like, and the wiki will automatically number them sequentially.
 
 Footnotes from [[Wiki::Help::Transclusion|transcluded]] pages get added automatically and are numbered properly based on where the transcluded page is inserted in the page.
 
@@ -6308,9 +6289,9 @@ Punctuation and some HTML syntax(((This footnote uses HTML <b>bold</b>, <i>itali
 
 Line breaks (newlines) can be inserted with HTML tags or by pressing the *Enter* key(((This footnote is on multiple lines.
 
-The *Enter* key was pressed twice above this sentence.))) and splitting the footnote content over multiple lines in the editor.
+The *Enter* key was pressed twice above this sentence.))) to split the footnote content over multiple lines in the editor.
 
-Footnotes can be styled by copying their [[WoaS::CSS::Core|core CSS rules]], pasting them into the [[WoaS::CSS::Custom|custom CSS rules]] page, and then changing the rules to suit your taste. Your custom CSS rules will override the core rules.
+Footnotes can be styled by copying their [[WoaS::CSS::Core|default CSS rules]], pasting them into the [[WoaS::CSS::Custom|custom CSS rules]] page, and then changing the rules to suit your taste. Your custom CSS rules will override the default rules.
 
 --DFQRCTsKlU
 woas.page.title: Image::alert.png
