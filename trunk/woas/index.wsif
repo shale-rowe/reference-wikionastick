@@ -4239,10 +4239,10 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 == Existing pages
-<label for="woas_cb_import_erase"><input type="radio" id="woas_cb_import_erase" name="woas_cb_import_overwrite" value="0">Erase all user pages before import process</label>
-<label for="woas_cb_import_ignore"><input type="radio" id="woas_cb_import_ignore" name="woas_cb_import_overwrite" value="1" checked="checked">Ignore</label>
-<label for="woas_cb_import_overwrite"><input type="radio" id="woas_cb_import_overwrite" name="woas_cb_import_overwrite" value="2">Overwrite</label>
-<label for="woas_cb_import_ask"><input type="radio" id="woas_cb_import_ask" name="woas_cb_import_overwrite" value="3">Ask before overwrite</label>
+<label for="woas_cb_import_erase"><input type="radio" id="woas_cb_import_erase" onclick="woas.importer.i_overwrite=0">Erase all user pages before import process</label>
+<label for="woas_cb_import_ignore"><input type="radio" id="woas_cb_import_ignore" onclick="woas.importer.i_overwrite=1" checked="checked">Ignore</label>
+<label for="woas_cb_import_overwrite"><input type="radio" id="woas_cb_import_overwrite" onclick="woas.importer.i_overwrite=2">Overwrite</label>
+<label for="woas_cb_import_ask"><input type="radio" id="woas_cb_import_ask" onclick="woas.importer.i_overwrite=3">Ask before overwrite</label>
 == Security
 <label for="woas_cb_import_comment_js"><input type="checkbox" id="woas_cb_import_comment_js" checked="checked">Comment JavaScript tags</label>
 <label for="woas_cb_import_comment_macros"><input type="checkbox" id="woas_cb_import_comment_macros" checked="checked">Comment macro definition/call</label>
