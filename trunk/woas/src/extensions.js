@@ -560,7 +560,7 @@ woas.macro = {
 			if (fi !== -1) {
 				macro.text = M[3];
 				// if we have no parameters, direct call function
-				var pl;
+				var pl, rv;
 				if (typeof M[2] == "undefined")
 					pl = 0;
 				else pl = M[2].length;
@@ -570,13 +570,23 @@ woas.macro = {
 					else {
 						// inline insertion of parameters
 						// cannot use woas.eval because we need context for 'macro'
-						eval( "(woas.macro.functions["+fi+"])"+
+						rv = eval( "(woas.macro.functions["+fi+"])"+
 									"(macro,"+M[2].substr(1,pl-2)+");"
 							);
 					}
 				}
 				catch(e) {
 					woas.log("Error during macro execution: "+e);
+				}
+				// analyze return value
+				if (typeof rv == "undefined")
+					woas.log("WARNING: "+this.names[fi]+" did not return any value");
+				else {
+					// when macro returns false we automatically highlight it
+					if (!rv) {
+						macro.reprocess = false;
+						macro.text = woas._make_preformatted(M[0], "color:red;font-weight:bold");
+					}
 				}
 			} else {
 				log("Undefined macro "+fn);	//log:1
@@ -606,10 +616,10 @@ woas.macro = {
 			var params = m.text.split("\n");
 			// embedded transclusion not supported
 			if (!params.length || !woas.page_exists(params[0]) || woas.is_embedded(params[0]))
-				return m;
+				return false;
 			var nt = woas.get_text_special(params[0]);
 			if (nt === null)
-				return m;
+				return false;
 			if (params.length) { // replace transclusion parameters
 				nt = nt.replace(/%\d+/g, function(str) {
 					var paramno = parseInt(str.substr(1));
@@ -621,7 +631,7 @@ woas.macro = {
 			}
 			m.text = nt;
 			m.reprocess = true;
-			return m;
+			return true;
 		}
 	},
 
