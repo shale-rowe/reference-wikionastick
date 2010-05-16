@@ -257,6 +257,8 @@ Security is never absolute. Data encrypted with these pages might be compromised
 * Your computer's security may have been compromised physically; when's the last time you checked that a bug that transmits your keystrokes and/or screen contents to that white van parked down the street wasn't lurking inside your computer cabinet?
 
 Apart from the above, your normal usage of encrypted pages can be considered secure.
+[[Tags::Cleanup]]
+
 --DFQRCTsKlU
 woas.page.title: Special::Options
 woas.page.attributes: 0
@@ -411,6 +413,7 @@ Will save to disk only when quitting
 
 === Disallow edits (button)
 Puts the wiki into /server mode/; users will be told that it is not possible to save their changes, but editing will be allowed for sandbox (testing) purposes.
+[[Tags::Cleanup]]
 
 --DFQRCTsKlU
 woas.page.title: Special::Embed
@@ -772,6 +775,7 @@ The Advanced page offers some tools for administration of your wiki. Description
 * *WoaS::Aliases* - See the [[Wiki::Help::Aliases]] page.
 * *WoaS::Hotkeys* - See the [[Wiki::Help::Hotkeys]] page.
 * *Special::Erase Wiki* - See the [[Wiki::Help::Special::Erase Wiki]] page
+[[Tags::Cleanup]]
 
 --DFQRCTsKlU
 woas.page.title: Wiki::Help::Special::Erase Wiki
@@ -782,9 +786,9 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Erase Wiki
-When you click the *Special::Erase Wiki* link in the {{{[[Special::Advanced]]}}} page you can erase all user-created pages. Doing this will also erase the {{{[[Main Page]]}}} and all content from the menu, which will then be re-populated with some common-use Special:: links. Global core CSS settings will be preserved, while the {{{[[WoaS::CSS::Custom]]}}} page will be reset to default values.
+When you click the [[Special::Erase Wiki]] link in the [[Special::Advanced]] page, you can erase all user-created pages. Doing this will also erase the [[Main Page]] and all content from the menu, which will then be re-populated with some common-use [[Special::]] links. [[WoaS::CSS::Core|Default CSS settings]] will be preserved, while the [[WoaS::CSS::Custom|custom CSS settings]] will be reset to default values.
 
-If you have not given permanent permission to your browser for editing wiki pages, you will receive a security warning when attempting to erase the wiki. If you deny permission to the browser, you will receive a message that saving the file failed. You will be returned to your wiki, but the Main Page will be blank. Reloading the wiki after a failure to save restores WoaS to the previous status.
+If you have not given permanent permission to your browser for editing wiki pages, you will receive a security warning when attempting to erase the wiki. If you deny permission to the browser, you will receive a message that saving the file failed. You will be returned to your wiki, but the [[Main Page]] will be blank. Reloading the wiki after a failure to save restores it to its previous status.
 
 --DFQRCTsKlU
 woas.page.title: Wiki::Help::CSS
@@ -1270,50 +1274,6 @@ Below are examples on how to use wiki or HTML syntax to create headers in this w
 <h6>Header level 6</h6>
 }}}<br><div class="wiki_help_text">To create this:</div>
 <h6>Header level 6</h6>
-
---DFQRCTsKlU
-woas.page.title: Wiki::Help::Rulers
-woas.page.attributes: 0
-woas.page.encoding: 8bit/plain
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-= Rulers 
-Rulers (horizontal rules or lines) use the full width of the page by default. They can be styled to a smaller width by surrounding them with HTML &lt;div&gt; tags. Styling can also control their position.
-
-== Standard ruler
-<div class="wiki_help_text">Use this code in a page:</div><br>{{{
-----
-}}}<br><div class="wiki_help_text">To create this:</div><br>
-----
-
-
-== Custom width ruler aligned left
-<div class="wiki_help_text">Use this code in a page, replacing 50% with the width you like:</div><br>{{{
-<div style="width:50%";>
-----
-</div>
-}}}<br><div class="wiki_help_text">To create this:</div>
-<div style="width:50%";>
-----
-</div>
-
-== Custom width ruler aligned right
-<div class="wiki_help_text">Use this code in a page, replacing 50% with the width you like:</div><br>{{{
-<div style="width:50%; float:right;"><hr></div>
-}}}<br><div class="wiki_help_text">To create this:</div>
-<div style="width:50%; float:right;"><hr></div>
-
-== Custom width centered ruler
-<div class="wiki_help_text">Use this code in a page, replacing 50% with the width you like:</div><br>{{{
-<center><div style="width:50%";>
-----
-</div></center>
-}}}<br><div class="wiki_help_text">To create this:</div>
-<center><div style="width:50%";>
-----
-</div></center>
 
 --DFQRCTsKlU
 woas.page.title: Wiki::Help::Include text file
@@ -3584,6 +3544,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Removed the *Wiki::Example::Table of Contents* page.
 ** Removed the *Wiki::Help::Bluebox* page.
 ** Removed the *Wiki::Help::General usage* page.
+** Removed the *Wiki::Help::Rulers* page.
 ** Removed the *Wiki::Utility::Diary* page.
 ** Removed the *WoaS::Bootscript* page.
 ** Removed the *WoaS::History* page.
@@ -3648,6 +3609,7 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the [[Wiki::Help::Rename a page]] page.
 ** Updated the [[Wiki::Help::Requirements]] page.
 ** Updated the [[Wiki::Help::Run wiki on a server]] page.
+** Updated the [[Wiki::Help::Special::Erase Wiki]] page.
 ** Updated the [[Wiki::Help::Table of Contents]] page.
 ** Updated the [[Wiki::Help::Tags]] page.
 ** Updated the [[Wiki::Help::Text formatting]] page.
@@ -5103,7 +5065,6 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-[[Special::TOC]]
 = Spoilers
 Spoilers are permanent areas with content that shows when you hover over them with the mouse, or hidden areas that show when you hover over the link that activates them. When creating HTML spoilers, you can substitute other HTML tags (like &lt;div&gt;, &lt;p&gt;, or &lt;td&gt;) for the &lt;span&gt; tags.
 
@@ -5192,7 +5153,6 @@ See below for pages that demonstrate syntax:
 * [[Wiki::Help::Non-breaking spaces]]
 * [[Wiki::Help::Presentation]]
 * [[Wiki::Help::Raw text]]
-* [[Wiki::Help::Rulers]]
 * [[Wiki::Help::Spoilers]]
 * [[Wiki::Help::Table of Contents]]
 * [[Wiki::Help::Tables]]
