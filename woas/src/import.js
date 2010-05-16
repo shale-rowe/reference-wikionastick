@@ -627,8 +627,7 @@ woas._grab_import_settings = function() {
 	this.importer.i_comment_js = $("woas_cb_import_comment_js").checked;
 	this.importer.i_comment_macros = $("woas_cb_import_comment_macros").checked;
 	this.importer.i_woas_ns = $("woas_cb_import_woas_ns").checked;
-	var el = document.getElementsByName("woas_cb_import_overwrite")[0];
-	this.importer.i_overwrite = parseInt(el.value);
+	// i_overwrite is automatically set
 };
 
 woas._import_pre_up = function() {
