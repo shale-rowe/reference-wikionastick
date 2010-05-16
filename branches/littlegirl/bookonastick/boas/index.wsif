@@ -332,55 +332,52 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Deprecated syntax
+Deprecated syntax is still supported, but will be unsupported in a future release.
 
-This page briefly summarizes WoaS deprecated syntax; the below deprecated syntax rules are still supported (unless otherwise specified), but you are invited to _no more_ use them because they will be declared /unsupported/ in some future release of WoaS.<style type="text/css">
-.bad_syntax {
-  color: red;
-  font-weight: bold;
-}
-.good_syntax {
-  color: green;
-  font-weight: bold;
-}
-</style>
-== Lists
-
-Lists with '+ sign are *unsupported*.
-<span class="bad_syntax">{{{
-+ unordered lists with + sign
-+ unordered lists with + sign
-}}}</span>
-<span class="good_syntax">{{{
-* unordered lists with an asterisk
-* unordered lists with an asterisk
-}}}</span>
 == Headers
-<span class="bad_syntax">{{{! headers using the exclamation mark}}}</span>
+Headers using exclamation marks are deprecated:<br><br>{{{
+! Level 1 header
+!! Level 2 header
+!!! Level 3 header
+!!!! Level 4 header
+!!!!! Level 5 header
+!!!!!! Level 6 header
+}}}<br>See the [[Wiki::Help::Headers]] page for supported methods.
 
-<span class="good_syntax">{{{= header which uses the equal sign}}}</span>
-== Pre tags
-{{{<pre />}}} acting as nowiki blocks are *unsupported*. Now {{{<pre />}}} tags have no special meaning and are treated as any other XHTML tag.
-
-<span class="bad_syntax">Pre tags acting as &lt;pre&gt;nowiki&lt;pre &#047;&gt; blocks.</span>
-
-<span class="good_syntax">You should use {<!-- -->{{nowiki}}<!-- -->} blocks instead.</span>
-== Rulers
-<span class="bad_syntax">{{{---
-horizontal rulers using only 3 hyphens}}}</span>
-
-<span class="good_syntax">{{{----
-You are invited to use at least 4 hyphens
+== Horizontal rules (lines)
+Horizontal rules using 3 dashes are deprecated:<br><br>{{{
+---
 }}}
-== Tags
-<span class="bad_syntax">{{{[[Tags::some tag, some other tag]] and [[Tag::some tag]]}}}</span>
+See the [[Wiki::Help::Horizontal rules (lines)]] page for the supported method.
 
-<span class="good_syntax">{{{[[Tags::some tag|other tag|another tag]]}}}</span>
 == Inline scripts
-<span class="bad_syntax">{{{<script>...</script>}}}</span>
+Inline scripts that don't define the type are deprecated:<br><br>{{{
+<script>...</script>
+}}}
+See the [[Wiki::Help::JavaScript]] page for the supported method.
 
-<span class="good_syntax">{{{<script type="text/javascript">...</script>}}}</span>
+== Lists
+Unordered lists using a plus symbol are *unsupported*:<br><br>{{{
++ list item
++ list item
++ list item
+}}}
+See the [[Wiki::Help::Lists]] page for supported methods.
 
-This is not enforced by WoaS wiki parser but is instead a correct XHTML practice.
+== Pre tags
+HTML pre tags acting as raw text blocks are *unsupported*:<br><br>{{{
+<pre>...</pre>
+}}}
+XHTML pre tags acting as raw text blocks are *unsupported*:<br><br>{{{
+<pre>...<pre />
+}}}
+See the [[Wiki::Help::Raw text]] page for supported methods.
+
+== Tags
+Tags using pipes to separate the tags are deprecated:<br><br>{{{
+[[Tag::some tag|other tag|another tag]]
+}}}
+See the [[Wiki::Help::Tags]] page for supported methods.
 
 --DFQRCTsKlU
 woas.page.title: Wiki::Help::Special::Options
@@ -686,9 +683,9 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 == Editor features
-* Cancel all changes by clicking the *Cancel* icon in the navigation bar at any time.
+* Cancel all changes by clicking the [[Include::Wiki::Template::Icon::Cancel]] icon in the banner at any time.
 * Change the title of a page by editing the contents of the *Page title* box.
-* Save all changes by clicking the *Save* icon in the navigation bar at any time.
+* Save all changes by clicking the [[Include::Wiki::Template::Icon::Save]] icon in the banner at any time.
 * See an example of how tables are built by clicking the *About tables* link.
 * Toggle the display of the button rows by clicking the *Show/Hide wiki buttons|Show/Hide XHTML buttons* links.
 
@@ -711,7 +708,6 @@ woas.page.boundary: DFQRCTsKlU
 | Tags || Interface for inserting tags in your page to categorize it. Use a pipe between multiple tags.
 |}
 
-*Note:* it's recommended to use wiki syntax instead of XHTML syntax, because this is a wiki.
 
 {|
 |+ XHTML Code buttons
@@ -733,6 +729,7 @@ woas.page.boundary: DFQRCTsKlU
 | Image || Include an external image.
 | Link || Include an external link URL.
 |}
+[[Tags::Cleanup]]
 
 --DFQRCTsKlU
 woas.page.title: Wiki::Help::Index
@@ -1085,16 +1082,16 @@ woas.page.boundary: DFQRCTsKlU
 = Delete a page
 All pages except those in reserved [[Wiki::Help::Namespaces|namespaces]] can be deleted.
 == From the editor
-# Click the [[Include::Wiki::Template::Icon::Edit]] icon in the banner.<br><br>
+# Click the [[Include::Wiki::Template::Icon::Edit]] icon in the banner while displaying the page you wish to delete.<br><br>
 # Select everything inside the main text area and delete it.<br><br>
 # Save your changes by clicking on the [[Include::Wiki::Template::Icon::Save]] icon in the banner.<br><br>
-# Edit the menu to remove the link to the deleted page if it isn't removed automatically.
+# You may have to remove links to the deleted page from the menu or other pages if they're not removed automatically.
 
 == From the menu
 # Click the *Delete page* button in the menu while displaying the page you wish to delete, or click it from any page and type in the name of the page you wish to delete.<br><br>
 # You'll be asked for confirmation.<br><br>
 # When the page is deleted, you'll be returned to the page you were on before deleting the page.<br><br>
-# You may have to remove any links to the deleted page from the menu or other pages.<br><br>
+# You may have to remove links to the deleted page from the menu or other pages if they're not removed automatically.
 
 --DFQRCTsKlU
 woas.page.title: Wiki::Help::Edit a page
@@ -1107,7 +1104,7 @@ woas.page.boundary: DFQRCTsKlU
 = Edit a page
 All pages except those in reserved [[Wiki::Help::Namespaces|namespaces]] can be edited. You can find all the user pages by clicking the *All pages* button in the menu.
 # Click the [[Include::Wiki::Template::Icon::Edit]] icon in the banner or double-click on the page if you've enabled that setting in the wiki options.<br><br>
-# Edit the contents of the main text area by typing normally, pasting in content, or using the editor's buttons to insert code to format the text. Note that the use of plain text doesn't require any code.
+# Edit the contents of the main text area by typing normally, pasting in content, or using the editor's buttons to insert code to format the text. Note that the use of plain text doesn't require any code.<br><br>
 # Save your changes by clicking the [[Include::Wiki::Template::Icon::Save]] icon in the banner.
 
 == Edit reserved pages
@@ -1144,7 +1141,7 @@ woas.page.boundary: DFQRCTsKlU
 = Erase all pages
 To erase all user-created pages in this wiki and start fresh:
 # Click the [[Include::Wiki::Template::Icon::Advanced]] icon in the banner.
-# Click the *Special::Erase Wiki* link in the *Maintenance* section of the page.
+# Click the [[Special::Erase Wiki]] link in the *Maintenance* section of the page.
 # You'll be asked for confirmation twice and must click the *OK* button each time to continue.
 [[Include::Wiki::Template::Info|Make sure you are using a wiki you don't mind losing. If not, make a copy and erase the copy.]]
 See also the [[Wiki::Help::Special::Erase Wiki]] page.
@@ -1226,7 +1223,7 @@ If you deleted the include link for the default *Links for writers* and would li
 # Type this code at the top of the menu:<br><br>{{{
 [[Include::Wiki::Utility::Links for writers]]
 }}}
-
+[[Tags::Cleanup]]
 
 --DFQRCTsKlU
 woas.page.title: Wiki::Help::Headers
@@ -1705,6 +1702,7 @@ By putting an exclamation mark (*!*) in front of the tag name, you can filter ou
 <div class="wiki_help_text">Use this code in a page, replacing EXAMPLE with the tag you'd like to filter out:</div>
 <div class="wiki_help_code">[<!-- -->[Include::Tagged::!EXAMPLE]<!-- -->]</div>
 <div class="wiki_help_text">To display a listing of tagged pages that are not tagged with EXAMPLE inside the current page.</div>
+[[Tags::Cleanup]]
 
 --DFQRCTsKlU
 woas.page.title: Wiki::Help::Publish wiki online
@@ -3620,7 +3618,9 @@ These are the things I'd like to do to this wiki in the future. If you're a code
 ** Updated the [[Wiki::Help::Create a page]] page.
 ** Updated the [[Wiki::Help::CSS]] page.
 ** Updated the [[Wiki::Help::Delete a page]] page.
+** Updated the [[Wiki::Help::Deprecated syntax]] page.
 ** Updated the [[Wiki::Help::Edit a page]] page.
+** Updated the [[Wiki::Help::Editing]] page.
 ** Updated the [[Wiki::Help::Edit the menu]] page.
 ** Updated the [[Wiki::Help::Erase all pages]] page.
 ** Updated the [[Wiki::Help::Export]] page.
