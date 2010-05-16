@@ -1206,8 +1206,9 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Headers
-Below are examples on how to use wiki markup to create headers in this wiki. There are six levels of supported headers. HTML headers can also be used.
+Below are examples on how to use wiki or HTML syntax to create headers in this wiki. There are six levels of supported headers.
 
+== Use Wiki syntax to create headers
 <div class="wiki_help_text">Use this code:</div><br>{{{
 = Header level 1
 }}}<br><div class="wiki_help_text">To create this:</div>
@@ -1237,6 +1238,38 @@ Below are examples on how to use wiki markup to create headers in this wiki. The
 ====== Header level 6
 }}}<br><div class="wiki_help_text">To create this:</div>
 ====== Header level 6
+
+
+== Use HTML syntax to create headers
+<div class="wiki_help_text">Use this code:</div><br>{{{
+<h1>Header level 1</h1>
+}}}<br><div class="wiki_help_text">To create this:</div>
+<h1>Header level 1</h1>
+
+<div class="wiki_help_text">Use this code:</div><br>{{{
+<h2>Header level 2</h2>
+}}}<br><div class="wiki_help_text">To create this:</div>
+<h2>Header level 2</h2>
+
+<div class="wiki_help_text">Use this code:</div><br>{{{
+<h3>Header level 3</h3>
+}}}<br><div class="wiki_help_text">To create this:</div>
+<h3>Header level 3</h3>
+
+<div class="wiki_help_text">Use this code:</div><br>{{{
+<h4>Header level 4</h4>
+}}}<br><div class="wiki_help_text">To create this:</div>
+<h4>Header level 4</h4>
+
+<div class="wiki_help_text">Use this code:</div><br>{{{
+<h5>Header level 5</h5>
+}}}<br><div class="wiki_help_text">To create this:</div>
+<h5>Header level 5</h5>
+
+<div class="wiki_help_text">Use this code:</div><br>{{{
+<h6>Header level 6</h6>
+}}}<br><div class="wiki_help_text">To create this:</div>
+<h6>Header level 6</h6>
 
 --DFQRCTsKlU
 woas.page.title: Wiki::Help::Rulers
@@ -1687,7 +1720,7 @@ woas.page.boundary: DFQRCTsKlU
 This wiki can be published online as a single-file, framed web page by making it read-only. The read-only format can also be used for sharing your work with others by email. Most email programs accept .html pages as attachments.
 # Make a backup copy of this wiki.
 # Click the [[Include::Wiki::Template::Icon::Advanced]] icon in the banner.
-# Click the *Special::Options* link in the *Advanced features* section of the page.
+# Click the [[Special::Options]] link in the *Advanced features* section of the page.
 # Scroll to the bottom of the page.
 # Click the *Disallow edits* button to make the file read-only.
 # Upload the wiki to a web server and publish a link to it.
@@ -1760,6 +1793,7 @@ grant codeBase "file://localhost/home/users/Desktop/
 TiddlySaver.jar"
  { permission java.security.AllPermission; };
 }}}<br>The TiddlySaver Java applet was written by J.Rouston.
+[[Tags::Cleanup]]
 
 --DFQRCTsKlU
 woas.page.title: Wiki::Help::Lists
@@ -3428,6 +3462,7 @@ Be careful not to break JavaScript execution during this stage. In order to debu
 try { your_code(here); } catch (e) { alert(e); }
 The bootscript can be used to override wiki core functions in order to replace them with customized functions which finally call the overridden functions or perfectly emulate their behavior.
 -->
+[[Tags::Cleanup]]
 --DFQRCTsKlU
 woas.page.title: Wiki::Help::Aliases
 woas.page.attributes: 0
@@ -6432,7 +6467,7 @@ woas.page.boundary: DFQRCTsKlU
 = Presentation
 This is a method for displaying your text in style by creating a presentation link. The first letter of the presentation is styled independently and the rest of the text will wrap around it automtatically. Blank lines and some wiki and HTML formatting is accepted inside presentation links. Wiki and HTML formatting that's known to work is:
 * [[Wiki::Help::Horizontal rules (lines)|Horizontal rules (lines)]]
-* Level two HTML headers.
+* Level two HTML [[Wiki::Help::Headers|headers]].
 * [[Wiki::Help::Lists|Lists]]
 * [[Wiki::Help::Raw text|Nowiki text]]
 * [[Wiki::Help::Text formatting|Text formatting]]
@@ -7391,7 +7426,8 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Wiki::Help::Macros
-<font color="red">*Add this content after completing the merge...*</font>
+[[Tags::Cleanup]]
+
 --DFQRCTsKlU
 woas.page.title: Wiki::Example::JavaScript 2
 woas.page.attributes: 0
