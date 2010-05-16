@@ -11,6 +11,8 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
+= Setup
+Edit this section to see the macro definition.
 <<<%my.bold_nowiki:
 // nowiki with bold support sample macro by legolas558
 
@@ -19,7 +21,7 @@ if (macro.text.indexOf("\n")!==-1) cls += " woas_nowiki_multiline";
 macro.text = "<pre class=\""+cls+"\">"+woas.xhtml_encode(macro.text).replace(woas.parser.reBoldSyntax, "$1<strong>$2</strong>")+"</pre>";
 return true;
 >>>
-
+= Example usage
 <<<my.bold_nowiki:
 this is a line without bold font
 *this is a line with bold font*
