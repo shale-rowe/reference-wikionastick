@@ -1,4 +1,5 @@
 Version 0.12.0 (legolas558)
+* better import options and overwrite settings
 * macros shall return a true/false value to tell about failure
 * commas are again best-preference for tags specification
 * now using 'woas_nowiki' and 'woas_nowiki_multiline' to render nowiki syntax, coupled with <pre/> tag

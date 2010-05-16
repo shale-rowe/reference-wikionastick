@@ -70,7 +70,7 @@ woas.importer = {
 			// can we import from WoaS namespace?
 			if (!woas.importer.i_woas_ns)
 				return false;
-			// do not overwrite help pages with old ones
+			// never overwrite help pages with old ones
 			if (title.indexOf("WoaS::Help::") === 0)
 				return false;
 			// skip other core WoaS:: pages
@@ -238,7 +238,13 @@ woas.importer = {
 			woas.importer._inject_import_hook(page);
 			page.pi = -1;
 		} else { // page already existing, overwriting
-			//TODO: parse options and ask interactively
+			if (woas.importer.i_overwrite === 1) {
+				// ignore already-existing pages
+				return false;
+			} else if (woas.importer.i_overwrite === 3) {
+				if (!confirm(woas.i18n.CONFIRM_OVERWRITE.sprintf(page.title)))
+					return false;
+			}
 			page_titles[pi] = page.title;
 			pages[pi] = page.body;
 			page_attrs[pi] = page.attrs;
@@ -559,10 +565,8 @@ woas.importer = {
 
 // called from Special::Import - import WoaS from XHTML file
 woas.import_wiki = function() {
-	if (!this.config.permit_edits) {
-		this.alert(woas.i18n.READ_ONLY);
+	if (!woas._import_pre_up())
 		return false;
-	}
 
 	// set hourglass
 	this.progress_init("Import WoaS");
@@ -586,30 +590,31 @@ woas.import_wiki = function() {
 	this.importer.i_config = $('woas_cb_import_config').checked
 	this.importer.i_content = $('woas_cb_import_content').checked
 	
-	this._grab_import_settings();
-	
 	var rv = this.importer.do_import(ct);
 	
 	// remove hourglass
 	this.progress_finish();
 	
-	if (!rv)
-		return false;
+	if (rv) {
+		// inform about the imported pages / total pages present in file
+		this.alert(this.i18n.IMPORT_OK.sprintf(this.importer.pages_imported+"/"+this.importer.total,
+												this.importer.total - this.importer.pages_imported));
+		
+		// move to main page
+		current = this.config.main_page;
+	}
+	
+	// always save if we have erased the wiki
+	if ((this.importer.i_overwrite === 0) || rv)
+		this.full_commit();
 
-	// inform about the imported pages / total pages present in file
-	this.alert(this.i18n.IMPORT_OK.sprintf(this.importer.pages_imported+"/"+this.importer.total,
-											this.importer.total - this.importer.pages_imported));
-	
-	// move to main page
-	current = this.config.main_page;
-	// save everything
-	this.full_commit();
-	
-	this.refresh_menu_area();
-	this.set_current(this.config.main_page, true);
+	if (rv) {
+		this.refresh_menu_area();
+		this.set_current(this.config.main_page, true);
+	}
 	
 	// supposedly, everything went OK
-	return true;
+	return rv;
 };
 
 woas._file_ext = function(fn) {
@@ -622,20 +627,34 @@ woas._grab_import_settings = function() {
 	this.importer.i_comment_js = $("woas_cb_import_comment_js").checked;
 	this.importer.i_comment_macros = $("woas_cb_import_comment_macros").checked;
 	this.importer.i_woas_ns = $("woas_cb_import_woas_ns").checked;
-	this.importer.i_overwrite = parseInt($("woas_cb_import_overwrite").value);
+	var el = document.getElementsByName("woas_cb_import_overwrite")[0];
+	this.importer.i_overwrite = parseInt(el.value);
 };
 
-// called from Special::ImportWSIF
-woas.import_wiki_wsif = function() {
+woas._import_pre_up = function() {
+	// check if this WoaS is read-only
 	if (!this.config.permit_edits) {
 		this.alert(woas.i18n.READ_ONLY);
 		return false;
 	}
+	// grab the common options
+	this._grab_import_settings();
+	// check if user wants total erase before going on
+	if (this.importer.i_overwrite === 0) {
+		if (!this.erase_wiki())
+			return false;
+	}
+	
+	return true;
+};
+
+// called from Special::ImportWSIF
+woas.import_wiki_wsif = function() {
+	if (!woas._import_pre_up())
+		return false;
 	
 	// these options are not available for WSIF
 	this.importer.i_styles = this.importer.i_content = true;
-	// grab the common options
-	this._grab_import_settings();
 	
 	// automatically retrieve the filename (will call load_file())
 	var done = woas._native_wsif_load(null, false /* no locking */, false /* no save */, 0,
@@ -655,6 +674,11 @@ woas.import_wiki_wsif = function() {
 		this.refresh_menu_area();
 		// now proceed to actual saving
 		this.commit(woas.wsif.imported);
+	} else {
+		// always save if we have erased the wiki
+		if (this.importer.i_overwrite === 0)
+			this.full_commit();
 	}
+
 	return done;
 };
