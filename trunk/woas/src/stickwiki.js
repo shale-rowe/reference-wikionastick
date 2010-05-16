@@ -797,7 +797,7 @@ woas.load_as_current = function(title, xhtml, mts) {
 	}
 	
 	// used by some special pages (e.g. backlinks) for page title override
-	this.render_title = cr;
+	this.render_title = title;
 	
 	scrollTo(0,0);
 	this.log("load_as_current(\""+title+"\") - "+(typeof xhtml == "string" ? (xhtml.length+" bytes") : (typeof xhtml)));	// log:1

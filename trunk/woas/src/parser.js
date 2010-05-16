@@ -476,14 +476,7 @@ woas.parser.parse = function(text, export_links, js_mode) {
 	var tags = [];
 	this.inline_tags = 0;
 	
-	text = this.syntax_parse(text, this.has_toc, snippets, tags, export_links);
-
-	// put back in place all snippets
-	if (snippets.length>0) {
-		text = text.replace(new RegExp("<\\!-- "+parse_marker+"::(\\d+) -->", "g"), function (str, $1) {
-			return snippets[$1];
-		});
-	} snippets = null;
+	text = this.syntax_parse(text, snippets, tags, export_links, this.has_toc);
 
 	// put back in place all XHTML comments
 	if (comments.length>0) {
@@ -540,7 +533,7 @@ woas.parser.parse = function(text, export_links, js_mode) {
 };
 
 // parse passive syntax only
-woas.parser.syntax_parse = function(text, has_toc, snippets, tags, export_links) {
+woas.parser.syntax_parse = function(text, snippets, tags, export_links, has_toc) {
 	// links with pipe e.g. [[Page|Title]]
 	text = text.replace(reWikiLink, function(str, $1, $2) {
 		return woas.parser._render_wiki_link($1, $2, snippets, tags, export_links);
@@ -631,6 +624,13 @@ woas.parser.syntax_parse = function(text, has_toc, snippets, tags, export_links)
 
 	// convert newlines to br tags
 	text = text.replace(/\n/g, "<"+"br />");
+
+	// put back in place all snippets
+	if (snippets.length>0) {
+		text = text.replace(new RegExp("<\\!-- "+parse_marker+"::(\\d+) -->", "g"), function (str, $1) {
+			return snippets[$1];
+		});
+	} snippets = null;
 	
 	return text;
 }
