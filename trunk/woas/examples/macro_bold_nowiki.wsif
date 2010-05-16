@@ -16,6 +16,7 @@ woas.page.boundary: DFQRCTsKlU
 var cls = "woas_nowiki";
 if (macro.text.indexOf("\n")!==-1) cls += " woas_nowiki_multiline";
 macro.text = "<pre class=\""+cls+"\">"+woas.xhtml_encode(macro.text).replace(woas.parser.reBoldSyntax, "$1<strong>$2</strong>")+"</pre>";
+return true;
 >>>
 
 <<<my.bold_nowiki:
