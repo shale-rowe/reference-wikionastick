@@ -128,7 +128,7 @@ var reFindTags = /\[\[Tags?::([^\]]+)\]\]/g;
 woas.special_tagged = function() {
 	var	pg = [], folds = {"[pages]":[]}, tagns,
 		src, i, l, j, jl, tmp, tag;
-		
+	
 	for(i=0,l=pages.length;i < l;++i) {
 		if (this.is_reserved(page_titles[i]))
 			continue;
@@ -160,7 +160,7 @@ woas.special_tagged = function() {
 	return woas.ns_listing(folds, pg, false);
 };
 
-var reHasTags = /\[\[Tags?::([^\]]+)\]\]/;
+var reHasTags = /\[\[Tags?::[^\]]+\]\]/;
 woas.special_untagged = function() {
 	var tmp;
 	var pg = [];

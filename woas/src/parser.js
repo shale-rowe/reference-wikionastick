@@ -334,17 +334,16 @@ woas.parser.parse = function(text, export_links, js_mode) {
 		else
 			s = "<"+"div class=\"woas_taglinks\">";
 		s += "Tags: ";
-		for(var i=0;i < tags.length-1;i++) {
-			s+="<"+"a class=\"woas_link\" onclick=\"woas.go_to('Tagged::"+woas.js_encode(tags[i])+"')\">"+tags[i]+"<"+"/a>&nbsp;&nbsp;";
+		for(var i=0;i < tags.length;++i) {
+			s += "<"+"a class=\"woas_link\" onclick=\"woas.go_to('Tagged::"+woas.js_encode(tags[i])+"')\">"+
+				woas.xhtml_encode(tags[i])+"<"+"/a>&nbsp;&nbsp;";
 		}
-		if (tags.length>0)
-			s+="<"+"a class=\"woas_link\" onclick=\"woas.go_to('Tagged::"+woas.js_encode(tags[tags.length-1])+"')\">"+tags[tags.length-1]+"<"+"/a>";
 		if (!this.force_inline) {
 			s+="<"+"/div>";
-			text += s;
+			P.body += s;
 		} else { // re-print the inline tags (works only on last tag definition?)
-			text = text.replace(new RegExp("<\\!-- "+parse_marker+":(\\d+) -->", "g"), function (str, $1) {
-				if ($1 == inline_tags)
+			P.body = P.body.replace(new RegExp("<\\!-- "+parse_marker+":(\\d+) -->", "g"), function (str, $1) {
+				if ($1 == woas.parser.inline_tags)
 					return s;
 				return "";
 			});
@@ -628,8 +627,10 @@ woas.parser._render_wiki_link = function(arg1, label, snippets, tags, export_lin
 	}
 	
 	// check for tags definitions
-	if (typeof tags == "Array") {
-		var found_tags = woas._get_tags((label === null) ? page : page+","+label);
+	if (typeof tags == "object") {
+		var found_tags = woas._get_tags(page);
+		if (label !== null)
+			found_tags.concat(woas._get_tags(label));
 		if (found_tags.length > 0) {
 			// do not use concat because 'tags' is passed byref
 			for(var i=0,it=found_tags.length;i<it;++i) {
