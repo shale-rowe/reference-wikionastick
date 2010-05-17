@@ -150,10 +150,10 @@ woas.special_tagged = function() {
 					if (typeof folds[tagns] == "undefined") {
 						folds[tagns] = {"[pages]":[page_titles[i]]};
 					} else {
-						if (folds[tagns]["[pages]"].indexOf(page_titles[i])===-1)
+//						if (folds[tagns]["[pages]"].indexOf(page_titles[i])===-1)
 							folds[tagns]["[pages]"].push(page_titles[i]);
 					}
-					// build also the flat list
+					// build also the flat list - without duplicates
 					if (pg.indexOf(page_titles[i])===-1)
 						pg.push(page_titles[i]);
 				}
