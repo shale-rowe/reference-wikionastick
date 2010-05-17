@@ -143,5 +143,5 @@ function setImage(starttag,endtag) {
 function setTag() {
         var tag=prompt('Set tag:','');
 	if (tag!==null)
-	woas._editor.setSelectedText("[[Tags::",tag+"]]");
+	woas._editor.setSelectedText("[[Tag::",tag+"]]");
 }

@@ -125,7 +125,7 @@ woas.xhtml_encode = function(src) {
 
 // DO NOT modify this list! these are namespaces that are reserved to WoaS
 var reserved_namespaces = ["Special", "Lock", "Locked", "Unlocked", "Unlock",
-						"Tags", "Tagged", "Untagged", "Include", "Javascript",
+						"Tags" /*DEPRECATED*/, "Tagged", "Untagged", "Include", "Javascript",
 						"WoaS"];
 
 // create the regex for reserved namespaces
@@ -205,7 +205,6 @@ woas._get_namespace_pages = function (ns) {
 		case "Untagged":
 			return /*"= Pages in "+ns+" namespace\n" + */this.special_untagged(false);
 		case "Tagged": // to be used in wiki source
-		case "Tags": // is this deprecated?
 			return /*"= Pages in "+ns+" namespace\n" + */this.special_tagged(false);
 		case "Image":
 			var iHTML = "", snippets;
@@ -336,7 +335,6 @@ woas.get_text_special = function(title) {
 				if (text === false) text = null;
 			break;
 			case "Tagged::":
-			case "Tags::": //DEPRECATED
 				text = this._get_tagged(title);
 			break;
 			default:
