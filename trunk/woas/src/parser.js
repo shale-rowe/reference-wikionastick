@@ -150,7 +150,7 @@ woas.parser.parse_tables_new = function (str, prop, p1) {
 var	parse_marker = "#"+_random_string(8);
 
 // extract the wiki tags from a wiki URL
-woas._get_tags = function(text) {
+woas._get_tags = function(text, last_tag) {
 	var tags = [];
 	// remove the starting part
 	if (text.substr(0, 5) === "Tag::")
@@ -164,6 +164,7 @@ woas._get_tags = function(text) {
 	if (!text.length)
 		return tags;
 	var alltags = this.split_tags(text), tag;
+	if (last_tag !== null) alltags = alltags.concat(this.split_tags(last_tag));
 	for(var i=0;i < alltags.length;i++) {
 		tag = this.trim(alltags[i]);
 		if (tags.indexOf(tag)===-1)
@@ -628,9 +629,7 @@ woas.parser._render_wiki_link = function(arg1, label, snippets, tags, export_lin
 	
 	// check for tags definitions
 	if (typeof tags == "object") {
-		var found_tags = woas._get_tags(page);
-		if (label !== null)
-			found_tags.concat(woas._get_tags(label));
+		var found_tags = woas._get_tags(page, label);
 		if (found_tags.length > 0) {
 			// do not use concat because 'tags' is passed byref
 			for(var i=0,it=found_tags.length;i<it;++i) {
