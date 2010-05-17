@@ -59,7 +59,7 @@ woas.mozillaLoadFileID = function(obj_id, load_mode, suggested_mime) {
 		return false;
 	
 	if (load_mode === this.file_mode.DATA_URI) {
-		if (typeof "suggested_mime" !== "string")
+		if (typeof suggested_mime != "string")
 			return D.getAsDataURL();
 		else // apply mime override
 			return D.getAsDataURL().replace(/^data:(\s*)([^;]*)/, "data:$1"+suggested_mime);
