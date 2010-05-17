@@ -2,8 +2,6 @@
 
 * apply version conversions on all imports (by checking version in WSIF)
 
-* check mime type of images which might have got 'undefined' mime type
-
 * allow registration of plugin deletion events
 
 * allow UI customization at runtime

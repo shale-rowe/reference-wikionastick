@@ -321,7 +321,14 @@ woas.importer = {
 						log("Skipping invalid image "+this.pages[i].title); //log:1
 						continue;
 					}
-					log("Fixed double-encoded image "+this.pages[i].title); //log:1
+					woas.log("Fixed double-encoded image "+this.pages[i].title); //log:1
+				}
+				// try to fix the 'undefined' mime type bug
+				if (old_version < 120) {
+					if (this.reImageBadMime.test(this.pages[i].body))
+						// attempt to find the correct mime
+						this.pages[i].body = "data:"+woas._guess_mime(pages[i].title)+
+											this.pages[i].body.substr(14);
 				}
 			} // check images
 
@@ -462,11 +469,10 @@ woas.importer = {
 		// import the pages data
 		this._get_import_vars(data, ['woas', '__marker', 'version', '__config'],
 							old_version);
-			
 		// some GC help
 		data = null;
 		
-		// **** COMMON IMPORT CODE ****
+		// apply upgrade fixes
 		if (this.i_content) {
 			this._import_content(old_version);
 			this.total = this.pages.length;
@@ -559,6 +565,7 @@ woas.importer = {
 	reJString: new RegExp("'[^']*'", "g"),
 	reJStringRep: new RegExp(parse_marker+":"+"(\\d+)", "g"),
 	reValidImage: /^data:\s*[^;]*;\s*base64,\s*/,
+	reImageBadMime: /^data:undefined;\s*base64,\s*/,
 	reOldStyleBlock: new RegExp("<"+"style\\s.*?type=\"?text\\/css\"?[^>]*>((\\n|.)*?)<"+"\\/style>", "i")
 
 };

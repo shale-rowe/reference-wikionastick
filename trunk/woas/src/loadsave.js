@@ -268,26 +268,28 @@ woas.mozillaLoadFile = function(filePath, load_mode, suggested_mime) {
 	return false;
 };
 
+woas._guess_mime = function(filename) {
+	var m=filename.match(/\.(\w+)$/);
+	if (m===null) m = "";
+	else m=m[1].toLowerCase();
+	var guess_mime = "image";
+	switch (m) {
+		case "png":
+		case "gif":
+			guess_mime += "/"+m;
+			break;
+		case "jpg":
+		case "jpeg":
+			guess_mime = "image/jpeg";
+			break;
+	}
+	return guess_mime;
+};
+
 // creates a DATA:URI from a plain content stream
 woas._data_uri_enc = function(filename, ct, guess_mime) {
-	if (typeof guess_mime != "string") {
-		var m=filename.match(/\.(\w+)$/);
-		if (m===null) m = "";
-		else m=m[1].toLowerCase();
-		guess_mime = "image";
-		switch (m) {
-			case "png":
-				guess_mime = "image/png";
-			break;
-			case "gif":
-				guess_mime = "image/gif";
-				break;
-			case "jpg":
-			case "jpeg":
-				guess_mime = "image/jpeg";
-				break;
-		}
-	}
+	if (typeof guess_mime != "string")
+		guess_mime = this._guess_mime(filename);
 	// perform base64 encoding
 	return "data:"+guess_mime+";base64,"+this.base64.encode(ct);
 };
