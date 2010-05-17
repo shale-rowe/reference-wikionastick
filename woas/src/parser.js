@@ -247,180 +247,27 @@ woas.parser.parse = function(text, export_links, js_mode) {
 		export_links = false;
 	if (typeof js_mode == "undefined")
 		js_mode = 1;
+	
+	// put text in an object
+	var P = { body: text }; text = null;
 
 	// this array will contain all the HTML snippets that will not be parsed by the wiki engine
 	var snippets = [],
-		comments = [],
 		r;
 	
-	// put away XHTML-style comments
-	text = text.replace(reComments, function (str, comment) {
-		// skip whitespace comments
-		if (comment.match(/^\s+$/))
-			return str;
-		r = woas.parser.place_holder(comments.length, "c");
-		comments.push(str);
-		return r;
-	});
-
-	// put away stuff contained in inline nowiki blocks {{{ }}}
-	text = text.replace(reNowiki, function (str, $1) {
-		r = woas.parser.place_holder(snippets.length);
-		if (comments.length) {
-			$1 = $1.replace(reNestedComment, function (str, $1) {
-				var c=comments[$1];
-				comments[$1] = null;
-				return c;
-			});
-		}
-		snippets.push(woas._make_preformatted($1));
-		return r;
-	});
+	this.pre_parse(P, snippets);
 
 	// take a backup copy of the macros, so that no new macros are defined after page processing
 	woas.macro.push_backup();
 	
-	// put away stuff contained in user-defined macro multi-line blocks
-	text = text.replace(reMacros, function (str, $1) {
-		// ask macro_parser to prepare this block
-		var macro = woas.macro.parser($1);
-		// allow further parser processing
-		if (macro.reprocess)
-			return macro.text;
-		r = woas.parser.place_holder(snippets.length);
-		// otherwise store it for later
-		snippets.push(macro.text);
-		return r;
-	});
+	this.parse_macros(P, snippets);
 	
 	// transclude pages (templates)
 	if (!this.force_inline) {
 		// reset all groups
 		this._ns_groups = { };
-		var trans_level = 0, trans;
-		do {
-			trans = 0;
-			text = text.replace(reTransclusion, function (str, $1) {
-				var parts = $1.split("|"),
-					templname = parts[0],
-					is_emb = false, templtext, ns=woas.get_namespace(templname, true);
-//				log("Transcluding "+templname+"("+parts.slice(0).toString()+")");	// log:0
-				// in case of embedded file, add the inline file or add the image
-				if (woas.is_reserved(templname) || (templname.substring(templname.length-2)=="::"))
-					templtext = woas.get_text_special(templname);
-				else {
-					var epi = woas.page_index(templname);
-					// offer a link for uploading, to implement feature as before 0.11.0
-					if (epi == -1)
-						templtext = "[<!-- -->[Include::[["+templname+"]]]]";
-					else {
-						templtext = woas.get__text(epi);
-						is_emb = woas.is_embedded(templname);
-					}
-				}
-				// template retrieval error
-				if (templtext === null) {
-					var templs="[["+templname+"]]";
-					if (parts.length>1)
-						templs += "|"+parts.slice(1).join("|");
-					r = woas.parser.place_holder(snippets.length);
-					// show an error with empty set symbol
-					snippets.push(woas.parser.render_error(str, "#8709"));
-					return r;
-				}
-				if (is_emb) {
-					r = woas.parser.place_holder(snippets.length);
-//					log("Embedded file transclusion: "+templname);	// log:0
-					if (woas.is_image(templname)) {
-						var img, img_name = woas.xhtml_encode(templname.substr(templname.indexOf("::")+2));
-						if (export_links) {
-							// check that the URI is valid
-							var uri=woas.exporter._get_fname(templname);
-							if (uri == '#')
-								img = woas.parser.render_error(templname, "#8709");
-							else
-								img = "<"+"img class=\"woas_embedded\" src=\""+uri+"\" alt=\""+img_name+"\" ";
-						} else
-							img = "<"+"img class=\"woas_embedded\" src=\""+templtext+"\" ";
-						if (parts.length>1) {
-							img += parts[1];
-							// always add the alt attribute to images
-							if (!export_links && !parts[1].match(/alt=('|").*?\1/))
-								img += " alt=\""+img_name+"\"";
-						}
-						snippets.push(img+" />");
-					} else { // embedded file but not image
-						if ((parts.length>1) && (parts[1]=="raw"))
-							snippets.push(woas.base64.decode(templtext));
-						else
-							snippets.push("<"+"pre class=\"woas_embedded\">"+
-									woas.xhtml_encode(woas.base64.decode(templtext))+"<"+"/pre>");
-					}
-					templtext = r;
-				}
-				trans = 1;
-				
-				if (!is_emb) {
-					// both comments and nowiki blocks are pre-parsed
-					// put away comments
-					templtext = templtext.replace(reComments, function (str, comment) {
-						// skip whitespace comments
-						if (comment.match(/^\s+$/))
-							return str;
-						r = woas.parser.place_holder(comments.length, "c");
-						comments.push(str);
-						return r;
-					});
-
-					// put away stuff contained in inline nowiki blocks {{{ }}}
-					templtext = templtext.replace(reNowiki, function (str, $1) {
-						r = woas.parser.place_holder(snippets.length);
-						if (comments.length) {
-							$1 = $1.replace(reNestedComment, function (str, $1) {
-								var c=comments[$1];
-								comments[$1] = null;
-								return c;
-							});
-						}
-						snippets.push(woas._make_preformatted($1));
-						return r;
-					});
-
-					// put away stuff contained in user-defined macro multi-line blocks
-					text = text.replace(reMacros, function (str, $1) {
-						// ask macro_parser to prepare this block
-						var macro = woas.macro.parser($1);
-						// allow further parser processing
-						if (macro.reprocess)
-							return macro.text;
-						r = woas.parser.place_holder(snippets.length);
-						// otherwise store it for later
-						snippets.push(macro.text);
-						return r;
-					});
-				
-					 if (parts.length) { // replace transclusion parameters
-						templtext = templtext.replace(/%\d+/g, function(str) {
-							var paramno = parseInt(str.substr(1));
-							if (paramno < parts.length)
-								return parts[paramno];
-							else
-								return str;
-						} );
-					}
-				} // not embedded
-				
-				return templtext;	
-			});
-			// keep transcluding when a transclusion was made and when transcluding depth is not excessive
-		} while (trans && (++trans_level < this._MAX_TRANSCLUSION_RECURSE));
-		if (trans_level === this._MAX_TRANSCLUSION_RECURSE) { // parse remaining inclusions as normal text
-			text = text.replace(reTransclusion, function (str) {
-				r = woas.parser.place_holder(snippets.length);
-				snippets.push(woas.parser.render_error(str, "infin"));
-				return r;
-			});
-		}
+		// apply transclusion syntax
+		this.transclude_syntax(P, snippets);
 	}
 	
 	var	backup_hook = this.after_parse;
@@ -430,7 +277,7 @@ woas.parser.parse = function(text, export_links, js_mode) {
 		var script_target = this._parsing_menu ? "menu" : "page";
 		woas.scripting.clear(script_target);
 		// gather all script tags
-		text = text.replace(reScripts, function (str, $1, $2) {
+		P.body = P.body.replace(reScripts, function (str, $1, $2) {
 			if (js_mode==2) {
 				r = woas.parser.place_holder(snippets.length);
 				snippets.push(str);
@@ -448,24 +295,24 @@ woas.parser.parse = function(text, export_links, js_mode) {
 		});
 	}
 	
-	// do not parse style blocks
-	text = text.replace(reStyles, function(str) {
+	// take away style blocks
+	P.body = P.body.replace(reStyles, function(str) {
 		r = woas.parser.place_holder(snippets.length);
 		snippets.push(str);
 		return r;
 	});
 	
 	// put a placeholder for the TOC
-	var p = text.indexOf("[[Special::TOC]]");
+	var p = P.body.indexOf("[[Special::TOC]]");
 	if (p !== -1) {
 		this.has_toc = true;
-		text = text.substring(0, p) + "<!-- "+parse_marker+":TOC -->" + text.substring(p+16
+		P.body = P.body.substring(0, p) + "<!-- "+parse_marker+":TOC -->" + P.body.substring(p+16
 //		+ 	((text.charAt(p+16)=="\n") ? 1 : 0)
 		);	
 	} else this.has_toc = false;
 
 	// put away big enough HTML tags sequences (with attributes)
-	text = text.replace(/(<\/?\w+[^>]*>[ \t]*)+/g, function (tag) {
+	P.body = P.body.replace(/(<\/?\w+[^>]*>[ \t]*)+/g, function (tag) {
 		// save the trailing spaces
 		r = woas.parser.place_holder(snippets.length);
 		snippets.push(tag);
@@ -476,15 +323,8 @@ woas.parser.parse = function(text, export_links, js_mode) {
 	var tags = [];
 	this.inline_tags = 0;
 	
-	text = this.syntax_parse(text, snippets, tags, export_links, this.has_toc);
+	this.syntax_parse(P, snippets, tags, export_links, this.has_toc);
 
-	// put back in place all XHTML comments
-	if (comments.length>0) {
-		text = text.replace(new RegExp("<\\!-- "+parse_marker+":c:(\\d+) -->", "g"), function (str, $1) {
-			return comments[$1];
-		});
-	} comments = null;
-	
 	// sort tags at bottom of page, also when showing namespaces
 	tags = tags.toUnique().sort();
 	if (tags.length && !export_links) {
@@ -517,61 +357,203 @@ woas.parser.parse = function(text, export_links, js_mode) {
 	woas.macro.pop_backup();
 
 	// trigger after_parse hook only when not defining any
-	if (this.after_parse === backup_hook) {
-		//TODO: use properly referenced objects
-		var NP = { body: text, modified: false };
-		this.after_parse(NP);
-		if (NP.modified)
-			text = NP.body;
-		NP = null;
-	}
+	if (this.after_parse === backup_hook)
+		this.after_parse(P);
 
-	if (text.substring(0,5)!=="<"+"/div")
-		return "<"+"div class=\"woas_level0\">" + text + "<"+"/div>";
+	if (P.body.substring(0,5)!=="<"+"/div")
+		return "<"+"div class=\"woas_level0\">" + P.body + "<"+"/div>";
 	// complete
-	return text.substring(6)+"<"+"/div>";
+	return P.body.substring(6)+"<"+"/div>";
+};
+
+woas.parser.parse_macros = function(P, snippets) {
+	// put away stuff contained in user-defined macro multi-line blocks
+	P.body = P.body.replace(reMacros, function (str, $1) {
+		// ask macro_parser to prepare this block
+		var macro = woas.macro.parser($1);
+		// allow further parser processing
+		if (macro.reprocess)
+			return macro.text;
+		r = woas.parser.place_holder(snippets.length);
+		// otherwise store it for later
+		snippets.push(macro.text);
+		return r;
+	});
+};
+
+woas.parser.pre_parse = function(P, snippets) {
+	// put away XHTML-style comments
+	P.body = P.body.replace(reComments, function (str, comment) {
+		// skip whitespace comments
+		if (comment.match(/^\s+$/))
+			return str;
+		r = woas.parser.place_holder(snippets.length);
+		snippets.push(str);
+		return r;
+	})
+	// put away stuff contained in inline nowiki blocks {{{ }}}
+	.replace(reNowiki, function (str, $1) {
+		r = woas.parser.place_holder(snippets.length);
+		$1 = $1.replace(reNestedComment, function (str, $1) {
+			var i=snippets.indexOf(parseInt($1));
+			if (i === -1) return str;
+			return snippets.splice(i,1);
+		});
+		snippets.push(woas._make_preformatted($1));
+		return r;
+	});
+
+};
+
+//API1.0
+woas.parser.transclude = function(title, snippets) {
+	this._snippets = snippets;
+	var rv = this._transclude("[[Include::"+title+"]]", title);
+	this._snippets = null;
+	return rv;
+};
+
+woas.parser._snippets = null;
+woas.parser._transclude = function (str, $1) {
+	var that = woas.parser,
+		parts = $1.split("|"),
+		templname = parts[0],
+		is_emb = false, ns=woas.get_namespace(templname, true),
+		// temporary page object
+		P = { body: null };
+//	log("Transcluding "+templname+"("+parts.slice(0).toString()+")");	// log:0
+	// in case of embedded file, add the inline file or add the image
+	if (woas.is_reserved(templname) || (templname.substring(templname.length-2)=="::"))
+		P.body = woas.get_text_special(templname);
+	else {
+		var epi = woas.page_index(templname);
+		// offer a link for uploading, to implement feature as before 0.11.0
+		if (epi == -1)
+			P.body = "[<!-- -->[Include::[["+templname+"]]]]";
+		else {
+			P.body = woas.get__text(epi);
+			is_emb = woas.is_embedded(templname);
+		}
+	}
+	// template retrieval error
+	if (P.body === null) {
+		var templs="[["+templname+"]]";
+		if (parts.length>1)
+			templs += "|"+parts.slice(1).join("|");
+		r = woas.parser.place_holder(that._snippets.length);
+		// show an error with empty set symbol
+		that._snippets.push(woas.parser.render_error(str, "#8709"));
+		return r;
+	}
+	if (is_emb) {
+		r = woas.parser.place_holder(that._snippets.length);
+//		log("Embedded file transclusion: "+templname);	// log:0
+		if (woas.is_image(templname)) {
+			var img, img_name = woas.xhtml_encode(templname.substr(templname.indexOf("::")+2));
+			if (export_links) {
+				// check that the URI is valid
+				var uri=woas.exporter._get_fname(templname);
+				if (uri == '#')
+					img = woas.parser.render_error(templname, "#8709");
+				else
+					img = "<"+"img class=\"woas_embedded\" src=\""+uri+"\" alt=\""+img_name+"\" ";
+			} else
+				img = "<"+"img class=\"woas_embedded\" src=\""+P.body+"\" ";
+			if (parts.length>1) {
+				img += parts[1];
+				// always add the alt attribute to images
+				if (!export_links && !parts[1].match(/alt=('|").*?\1/))
+					img += " alt=\""+img_name+"\"";
+			}
+			that._snippets.push(img+" />");
+		} else { // embedded file but not image
+			if ((parts.length>1) && (parts[1]=="raw"))
+				that._snippets.push(woas.base64.decode(P.body));
+			else
+				that._snippets.push("<"+"pre class=\"woas_embedded\">"+
+						woas.xhtml_encode(woas.base64.decode(P.body))+"<"+"/pre>");
+		}
+		P.body = r;
+	}
+				
+	if (!is_emb) {
+		// take away XHTML comments and nowiki blocks
+		that.pre_parse(P, that._snippets);
+		
+		that.parse_macros(P, that._snippets);
+		
+		// finally replace transclusion parameters
+		if (parts.length) {
+			P.body = P.body.replace(/%\d+/g, function(str) {
+				var paramno = parseInt(str.substr(1));
+				if (paramno < parts.length)
+					return parts[paramno];
+				else
+					return str;
+			} );
+		}
+	} // not embedded
+	
+	return P.body;
+};
+
+woas.parser.transclude_syntax = function(P, snippets) {
+	var trans_level = 0;
+	this._snippets = snippets;
+	do {
+		P.body = P.body.replace(reTransclusion, this._transclude);
+		// keep transcluding when a transclusion was made and when transcluding depth is not excessive
+	} while (++trans_level < this._MAX_TRANSCLUSION_RECURSE);
+	this._snippets = null;
+	if (trans_level === this._MAX_TRANSCLUSION_RECURSE) { // parse remaining inclusions as normal text
+		P.body = P.body.replace(reTransclusion, function (str) {
+			r = woas.parser.place_holder(snippets.length);
+			snippets.push(woas.parser.render_error(str, "infin"));
+			return r;
+		});
+	}
 };
 
 // parse passive syntax only
-woas.parser.syntax_parse = function(text, snippets, tags, export_links, has_toc) {
+woas.parser.syntax_parse = function(P, snippets, tags, export_links, has_toc) {
 	// links with pipe e.g. [[Page|Title]]
-	text = text.replace(reWikiLink, function(str, $1, $2) {
+	P.body = P.body.replace(reWikiLink, function(str, $1, $2) {
 		return woas.parser._render_wiki_link($1, $2, snippets, tags, export_links);
-	});
+	})
 
 	// links without pipe e.g. [[Page]]
-	text = text.replace(reWikiLinkSimple, function(str, $1) {
+	.replace(reWikiLinkSimple, function(str, $1) {
 		return woas.parser._render_wiki_link($1, null, snippets, tags, export_links);
-	});
+	})
 	
 	// allow non-wrapping newlines
-	text = text.replace(/\\\n/g, "");
+	.replace(/\\\n/g, "")
 	
 	// underline
-	text = text.replace(/(^|[^\w])_([^_]+)_/g, "$1"+parse_marker+"uS#$2"+parse_marker+"uE#");
+	.replace(/(^|[^\w])_([^_]+)_/g, "$1"+parse_marker+"uS#$2"+parse_marker+"uE#")
 	
 	// italics
 	// need a space after ':'
-	text = text.replace(/(^|[^\w:])\/([^\n\/]+)\//g, function (str, $1, $2) {
+	.replace(/(^|[^\w:])\/([^\n\/]+)\//g, function (str, $1, $2) {
 		// hotfix for URLs
 		if ($2.indexOf("//")!=-1)
 			return str;
 		return $1+"<"+"em>"+$2+"<"+"/em>";
-	});
+	})
 	
 	// ordered/unordered lists parsing (code by plumloco)
-	text = text.replace(reReapLists, this.parse_lists);
+	.replace(reReapLists, this.parse_lists)
 	
 	// headers
 	//TODO: check that only h1~h6 are parsed
-	text = text.replace(reParseHeaders, this.header_replace);
+	.replace(reParseHeaders, this.header_replace);
 //	text = text.replace(reParseOldHeaders, this.header_replace);
 	
 	if (has_toc) {
 		// remove the trailing newline
 //		this.toc = this.toc.substr(0, this.toc.length-2);
 		// replace the TOC placeholder with the real TOC
-		text = text.replace("<!-- "+parse_marker+":TOC -->",
+		P.body = P.body.replace("<!-- "+parse_marker+":TOC -->",
 				"<"+"div class=\"woas_toc\"><"+"p class=\"woas_toc_title\">Table of Contents<"+"/p>" +
 				this.toc.replace(reReapLists, this.parse_lists)
 				/*.replace("\n<", "<") */
@@ -580,9 +562,9 @@ woas.parser.syntax_parse = function(text, snippets, tags, export_links, has_toc)
 	}
 
 	// use 'strong' tag for bold text
-	text = text.replace(this.reBoldSyntax, "$1"+parse_marker+"bS#$2"+parse_marker+"bE#");
+	P.body = P.body.replace(this.reBoldSyntax, "$1"+parse_marker+"bS#$2"+parse_marker+"bE#")
 
-	text = text.replace(new RegExp(parse_marker+"([ub])([SE])#", "g"), function (str, $1, $2) {
+	.replace(new RegExp(parse_marker+"([ub])([SE])#", "g"), function (str, $1, $2) {
 		if ($2=='E') {
 			if ($1=='u')
 				return "<"+"/span>";
@@ -593,47 +575,38 @@ woas.parser.syntax_parse = function(text, snippets, tags, export_links, has_toc)
 		else
 			tag = "<"+"strong>";
 		return tag;
-	});
+	})
 
 	// 'hr' horizontal rulers made with 3 hyphens, 4 suggested
 	// only white spaces are allowed after the hyphens
-	text = text.replace(/(^|\n)\s*\-{3,}[ \t]*(\n|$)/g, "<"+"hr class=\"woas_ruler\" />");
-	
+	.replace(/(^|\n)\s*\-{3,}[ \t]*(\n|$)/g, "<"+"hr class=\"woas_ruler\" />")
 	// tables-parsing pass
-	if (woas.config.new_tables_syntax)
-		text = text.replace(reReapTablesNew, this.parse_tables_new);
-	else
-		text = text.replace(reReapTables, this.parse_tables);
+	.replace(woas.config.new_tables_syntax ? reReapTablesNew : reReapTables,
+				woas.config.new_tables_syntax ? this.parse_tables_new : this.parse_tables)
 	
 	// cleanup \n after headers and lists
-	text = text.replace(reCleanupNewlines, function (str, $1, $2, $3, trailing_nl) {
+	.replace(reCleanupNewlines, function (str, $1, $2, $3, trailing_nl) {
 		if (trailing_nl.length>2)
 			return $1+trailing_nl.substr(2);
 		return $1;
-	});
+	})
 	
 	// remove \n before list start tags
-	text = text.replace(/\n(<[uo]l>)/g, "$1");
-
-	// end-trim
-//	if (end_trim)
-//		text = text.replace(/\s*$/, "");
+	.replace(/\n(<[uo]l>)/g, "$1")
 
 	// make some newlines cleanup after pre tags
-	text = text.replace(/(<\/?pre>)\n/gi, "$1");
+	.replace(/(<\/?pre>)\n/gi, "$1")
 
 	// convert newlines to br tags
-	text = text.replace(/\n/g, "<"+"br />");
+	.replace(/\n/g, "<"+"br />");
 
 	// put back in place all snippets
 	if (snippets.length>0) {
-		text = text.replace(new RegExp("<\\!-- "+parse_marker+"::(\\d+) -->", "g"), function (str, $1) {
+		P.body = P.body.replace(new RegExp("<\\!-- "+parse_marker+"::(\\d+) -->", "g"), function (str, $1) {
 			return snippets[$1];
 		});
 	} snippets = null;
-	
-	return text;
-}
+};
 
 // render a single wiki link
 woas.parser._render_wiki_link = function(arg1, label, snippets, tags, export_links) {

@@ -208,10 +208,13 @@ woas._get_namespace_pages = function (ns) {
 		case "Tags": // is this deprecated?
 			return /*"= Pages in "+ns+" namespace\n" + */this.special_tagged(false);
 		case "Image":
-			var iHTML = "";
+			var iHTML = "", snippets;
 			for(var i=0, l=page_titles.length;i < l;++i) {
-				if (page_titles[i].indexOf(ns)===0)
-					iHTML += this.parser.syntax_parse("* [[Include::"+page_titles[i]+"]][["+page_titles[i]+"]]\n", []);
+				if (page_titles[i].indexOf(ns)===0) {
+					snippets = [];
+					iHTML += this.parser.syntax_parse("* "+this.parser.transclude(page_titles[i], snippets)+" [["+page_titles[i]+"]]\n", snippets);
+					snippets = null;
+				}
 			}
 			return "= Pages in "+ns+" namespace\n" + iHTML;
 	}
@@ -467,7 +470,7 @@ woas._get_embedded = function(cr, etype) {
 	this.log("Retrieving embedded source "+cr);	// log:1
 	var pi=this.page_index(cr);
 	if (pi==-1)
-		return this.parser.syntax_parse("[[Include::Special::Embed|"+etype+"]]", []);
+		return this.parser.transclude("Special::Embed|"+etype, []);
 	return this._get__embedded(cr, pi, etype);
 };
 
@@ -491,9 +494,9 @@ woas._get__embedded = function (cr, pi, etype) {
 		xhtml = "<"+"pre id='_file_ct' class=\"woas_embedded\">"+this.xhtml_encode(pview_data)+"<"+"/pre>"+
 				pview_link+"<"+"br /><"+"hr />"+this.i18n.FILE_SIZE+": "+_convert_bytes(ext_size)+
 				"<"+"br />" + this.last_modified(this.config.store_mts ? page_mts[pi] : 0)+
-				"<"+"br /><"+"br />XHTML transclusion:"+this.parser.syntax_parse("\n{{{[[Include::"+cr+"]]}}}"+
+				"<"+"br /><"+"br />XHTML transclusion:"+this.parser.syntax_parse({body:"\n{{{[[Include::"+cr+"]]}}}"+
 				"\n\nRaw transclusion:\n\n{{{[[Include::"+cr+"|raw]]}}}"+
-				_del_lbl+"\n<"+"a href=\"javascript:query_export_file('"+this.js_encode(cr)+"')\">"+this.i18n.EXPORT_FILE+"<"+"/a>\n", []);
+				_del_lbl+"\n<"+"a href=\"javascript:query_export_file('"+this.js_encode(cr)+"')\">"+this.i18n.EXPORT_FILE+"<"+"/a>\n"}, []);
 	} else { // etype == image
 		var img_name = cr.substr(cr.indexOf("::")+2);
 		//TODO: do not create a dynamic script! use after_parse hook
