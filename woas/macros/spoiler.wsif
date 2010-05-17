@@ -38,7 +38,7 @@ switch (type) {
 	break;
 	case 'inline': case 'block':
 		macro.text = '<span class="spoiler_'+type+'"><a href="#">'+woas.xhtml_encode(title)+
-		'<span class="spoiler_exposed">'+woas.xhtml_encode(macro.text)+
+		'&nbsp;<span class="spoiler_exposed">'+woas.xhtml_encode(macro.text)+
 		'</span></a></span>';
 	break;
 	default:
