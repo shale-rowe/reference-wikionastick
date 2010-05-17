@@ -27,8 +27,8 @@ id = _random_string(5);
 
 macro.text = "<a href=\"javascript:$.toggle('folding_"+id+"');\">"+woas.xhtml_encode(link)+"</a> "+label+
 		"<"+tag+" id=\"folding_"+id+"\" style=\"display: inline; visibility:hidden;\">"+
-		woas.xhtml_encode(macro.text)+"</"+tag+">";
-
+		macro.text+"</"+tag+">";
+macro.reprocess = true;
 return true;
 >>>
 = Example usage
