@@ -14,15 +14,13 @@ woas.page.boundary: DFQRCTsKlU
 = Replace WoaS icons
 
 Select an image file:
-<input id="filename_" type="file" onfocus="woas.ui.focus_textbox()" onblur="woas.ui.blur_textbox()">
+<input id="filename_" type="file" />
 
 == 2. Click on an icon to replace it with the selected file:
 <div id="themes_layer"></div>
 <script type="text/javascript">
 woas.custom.themes._load();
 </script>
-
-*Note:* you might need to reload WoaS if the icons are not updated
 --DFQRCTsKlU
 woas.page.title: WoaS::Plugins::Themes
 woas.page.attributes: 0
@@ -52,15 +50,15 @@ woas.custom.themes = {
 			woas.custom.themes._get_img('img_save');
 	},
 	_get_img: function(id) {
-		return '<img title="Change '+id.substr(4)+' icon" style="margin: 5px; border-color: green; cursor: pointer" border="2" src="' + $(id).src + '" onclick="javascript:woas.custom.themes._replace_from_file(\'' +id+ '\');" alt="' +id+ '"/>';
+		return '<img id="themes_'+id.substr(4)+'" title="Change '+id.substr(4)+' icon" style="margin: 5px; border-color: green; cursor: pointer" border="2" src="'+$(id).src+'" onclick="javascript:woas.custom.themes._replace_from_file(\''+id+'\');" alt="'+id+'"/>';
 	},
 	_replace_from_file: function(button) {
-		var ct = woas.load_file(null, woas.file_mode.BASE64);
+		var ct = woas.load_file(null, woas.file_mode.DATA_URI);
 		if ((ct === false) || ((typeof ct != "string") || !ct.length)) {
 			woas.alert(woas.i18n.LOAD_ERR);
 			return false;
 		}
-		$(button).src = ct;
+		$("themes_"+button.substr(4)).src = $(button).src = ct;
 		woas.full_commit();
 	}
 
