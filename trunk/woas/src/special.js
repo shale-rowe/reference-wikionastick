@@ -138,6 +138,8 @@ woas.special_tagged = function() {
 			continue;
 		src.replace(reFindTags,
 			function (str, $1) {
+				if (str.charAt(5) === 's')
+					woas.log("Using deprecated 'Tags' namespace");
 				// get the tags and index the page under each tag
 				tmp=woas.split_tags($1);
 				for(j=0,jl=tmp.length;j < jl; ++j) {
