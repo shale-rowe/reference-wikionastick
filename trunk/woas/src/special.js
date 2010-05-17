@@ -149,10 +149,13 @@ woas.special_tagged = function() {
 					tagns = "Tagged::"+tag;
 					if (typeof folds[tagns] == "undefined") {
 						folds[tagns] = {"[pages]":[page_titles[i]]};
-					} else
-						folds[tagns]["[pages]"].push(page_titles[i]);
+					} else {
+						if (folds[tagns]["[pages]"].indexOf(page_titles[i])===-1)
+							folds[tagns]["[pages]"].push(page_titles[i]);
+					}
 					// build also the flat list
-					pg.push(page_titles[i]);
+					if (pg.indexOf(page_titles[i])===-1)
+						pg.push(page_titles[i]);
 				}
 			});
 	}
