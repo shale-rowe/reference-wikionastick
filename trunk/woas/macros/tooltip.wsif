@@ -20,6 +20,15 @@ span.tooltip {cursor:help; border-bottom:0.125em dotted mediumblue;}
 macro.text = '<span title="'+woas.xhtml_encode(tooltip)+'" class="tooltip">'+woas.xhtml_encode(macro.text)+'</span>';
 return true;
 >>>
-= Example
+= Examples
 This is <<<woas.tooltip("I am a tooltip"): text with tooltip >>>.
+
+<<<woas.tooltip("CONTENT"): LINK>>>
+ 
+<<<woas.tooltip("This is tooltip text."): This is a tooltip link.>>>
+ 
+This <<<woas.tooltip("This is the explanation."): word>>> is explained in a tooltip.
+ 
+== Example of more than one tooltip in a sentence:
+<<<woas.tooltip("tooltip one"): one>>> and <<<woas.tooltip("tooltip two"): two>>>.
 --DFQRCTsKlU
