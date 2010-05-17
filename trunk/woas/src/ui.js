@@ -709,7 +709,7 @@ woas._hl_marker_rx = new RegExp(woas._hl_marker+":(\\d+):", "g");
 
 // display search results
 woas._search_load = function() {
-	var results = "";
+	var P = {body: ""};
 	if (this._last_search === null) {
 		woas.log("No search done, returning blank");	//log:1
 	} else {
@@ -718,32 +718,32 @@ woas._search_load = function() {
 		
 			// (1) prepare the title results
 			for(var i=0,it=this._cached_title_search.length;i<it;++i) {
-				results += "* [["+ this._cached_title_search[i] + "]]\n";
+				P.body += "* [["+ this._cached_title_search[i] + "]]\n";
 				result_pages.push(this._cached_title_search[i]);
 			}
 			
 			// (2) parse the body snippets
 			for(var i=0,it=this._cached_body_search.length;i<it;++i) {
-				results += "* [[" + this._cached_body_search[i].title + "]]: found " +	this._hl_marker+":"+i+":";
+				P.body += "* [[" + this._cached_body_search[i].title + "]]: found " +	this._hl_marker+":"+i+":";
 				if (result_pages.indexOf(this._cached_body_search[i].title) === -1)
 					result_pages.push(this._cached_body_search[i].title);
 			}
 
-			results = 'Results for <'+'strong class="woas_search_highlight">' + woas.xhtml_encode(woas._last_search) + "<"+"/strong>\n" + results;
+			P.body = 'Results for <'+'strong class="woas_search_highlight">' + woas.xhtml_encode(woas._last_search) + "<"+"/strong>\n" + P.body;
 		} else
-			results = "/No results found for *"+woas.xhtml_encode(woas._last_search)+"*/";
+			P.body = "/No results found for *"+woas.xhtml_encode(woas._last_search)+"*/";
 
 	}
 
 	// position cursor back in search box
 	$("string_to_search").focus();
 	
-	if (results.length) {
+	if (P.body.length) {
 		// parse results before applying search terms highlighting
 		woas.parser.force_inline = true;
-		results = woas.parser.syntax_parse( results, [] );
+		P.body = woas.parser.syntax_parse( P.body, [] );
 		
-		results = results.replace(this._hl_marker_rx, function(str, i) {
+		P.body = P.body.replace(this._hl_marker_rx, function(str, i) {
 			var r="",count=0;
 			for(var a=0,at=woas._cached_body_search[i].matches.length;a<at;++a) {
 				r += "<"+"pre class=\"woas_nowiki woas_search_results\">" +
@@ -758,7 +758,7 @@ woas._search_load = function() {
 	}
 	
 	// finally output XHTML content
-	woas.setHTML($('woas_search_results'), results);
+	woas.setHTML($('woas_search_results'), P.body);
 };
 
 var _servm_shown = false;
