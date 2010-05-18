@@ -14,7 +14,7 @@ woas.page.boundary: DFQRCTsKlU
 = Setup
 Edit this section to see the macro definition.
 <<<%woas.diary:
-
+/* Diary macro by legolas558 - original work by FBNil */
 var D = new Date(),
     DAYNAMES = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
     MONTHNAMES = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"],
