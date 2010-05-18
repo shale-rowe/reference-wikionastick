@@ -28,7 +28,7 @@ woas.wsif = {
 		this.emsg = msg;
 	},
 	
-	reMimeMatch = /^data:\s*([^;]*);\s*base64,\s*/
+	reMimeMatch: /^data:\s*([^;]*);\s*base64,\s*/
 };
 
 // default behavior:
@@ -316,7 +316,7 @@ woas._native_wsif_load = function(path, locking, and_save, recursing, import_hoo
 					// was generator information truly necessary?
 					if (and_save) {
 						if (this.wsif.generator.name === "woas") {
-							if (this.wsif.generator.version === null)) {
+							if (this.wsif.generator.version === null) {
 								this.wsif.do_error("Cannot import because WoaS generator version is not available");
 								p = -1;
 								fail = true;
