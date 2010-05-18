@@ -51,7 +51,7 @@ woas.importer = {
 		// we did not have a timestamp before 0.10.0
 		if (old_version < 100)
 			return this.current_mts;
-		// will catch the 'undefined' ones
+		// will catch the 'undefined' ones also
 		if (!mts)
 			return 0;
 		// fixup the mts value in some old buggy version
@@ -95,7 +95,7 @@ woas.importer = {
 
 	// function used to collect variables
 	_get_import_vars: function(data, ignore_array, old_version) {
-		var jstrings=[];
+		var jstrings=[], fail = false;
 		// (1) take away all javascript strings (most notably: content and titles)
 		// WARNING: quoting hacks lie here!
 		data = data.replace(/\\'/g, ":-"+parse_marker).replace(this.reJString, function (str) {
@@ -105,6 +105,7 @@ woas.importer = {
 		});
 		// (2) rename the variables
 		data.replace(/([^\\])\nvar\s+(\w+)\s*=\s*([^;]+);/g, function (str, $1, var_name, definition) {
+			if (fail) return;
 			// it must not be in array
 			if (ignore_array.indexOf(var_name) !== -1)
 				return;
@@ -145,6 +146,12 @@ woas.importer = {
 					}
 				break;
 				case "page_attrs":
+					// consistency check
+					if (the_var.length !== woas.importer._reference.length) {
+						woas.log("ERROR: page attributes array is not consistent ("+the_var.length+" != "+woas.importer._reference.length+")");
+						fail = true;
+						break;
+					}
 					for(var i=0,it=the_var.length;i < it;++i) {
 						// skip filtered pages
 						if (woas.importer._reference[i] === null)
@@ -153,6 +160,11 @@ woas.importer = {
 					}
 				break;
 				case "page_mts": // available only on 0.10.0 and above
+					// consistency check
+					if (the_var.length !== woas.importer._reference.length) {
+						woas.log("WARNING: page timestamps array is not consistent ("+the_var.length+" != "+woas.importer._reference.length+")");
+						break;
+					}
 					for(var i=0,it=the_var.length;i < it;++i) {
 						// skip filtered pages
 						if (woas.importer._reference[i] === null)
@@ -161,6 +173,12 @@ woas.importer = {
 					}
 				break;
 				case "pages":
+					// consistency check
+					if (the_var.length !== woas.importer._reference.length) {
+						woas.log("ERROR: page bodies array is not consistent ("+the_var.length+" != "+woas.importer._reference.length+")");
+						fail = true;
+						break;
+					}
 					for(var i=0,it=the_var.length;i < it;++i) {
 						// skip filtered pages
 						if (woas.importer._reference[i] === null)
@@ -175,6 +193,9 @@ woas.importer = {
 		});
 		// finished importing variables, clear references array
 		this._reference = [];
+		// clear partial results on failure
+		if (fail)
+			this.pages = [];
 		woas.log("get_import_vars() scanned "+this.pages.length+" page definitions");
 	},
 
