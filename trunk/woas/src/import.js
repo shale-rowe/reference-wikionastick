@@ -254,16 +254,6 @@ woas.importer = {
 		return true;
 	},
 	
-	_upgrade_and_import_hook: function(page) {
-		var that = woas.importer;
-		
-		// apply upgrade fixes from older versions
-		if (!that._upgrade_content(page))
-			return false;
-		
-		return that._import_hook(page);
-	},
-	
 	// normal import hook - shared for XHTML and WSIF import
 	_import_hook: function(page) {
 		var that = woas.importer;
@@ -679,7 +669,7 @@ woas.import_wiki_wsif = function() {
 	
 	// automatically retrieve the filename (will call load_file())
 	var done = woas._native_wsif_load(null, false /* no locking */, false /* no save */, 0,
-			this.importer._upgrade_and_import_hook, this.importer._filter_by_title,
+			this.importer._upgrade_content, this.importer._filter_by_title,
 			this.importer._after_import);
 	if (done === false && (woas.wsif.emsg !== null))
 		this.crash(woas.wsif.emsg);
