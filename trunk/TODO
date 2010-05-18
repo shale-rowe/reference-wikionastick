@@ -1,6 +1,6 @@
 == 0.12.x development goals
 
-* apply version conversions on all imports (by checking version in WSIF)
+* fix template examples in help pages (deleted when erasing wiki)
 
 * allow registration of plugin deletion events
 
