@@ -97,42 +97,49 @@ woas.use_java_io = woas.browser.chrome || woas.browser.opera || woas.browser.saf
 // returns the DOM element object given its id - enables a try/catch mode when debugging
 if (woas.config.debug_mode) {
 	// returns the DOM element object given its id, alerting if the element is not found (but that would never happen, right?)
-	function $(id){ try{return document.getElementById(id);}catch(e){alert("ERROR: $('"+id+"') invalid reference");} }
+	function d$(id){ try{return document.getElementById(id);}catch(e){alert("ERROR: d$('"+id+"') invalid reference");} }
 } else {
 	// much faster version
-	function $(id){return document.getElementById(id);}
+	function d$(id){return document.getElementById(id);}
 }
 
-$.hide = function(id) {
-	$(id).style.display = "none";
-	$(id).style.visibility = "hidden";
+d$.checked = function(id) {
+	cfg_changed = true;
+	if (d$(id).checked)
+		return true;
+	return false;
 };
 
-$.show = function(id) {
-	$(id).style.display = "inline";
-	$(id).style.visibility = "visible";
+d$.hide = function(id) {
+	d$(id).style.display = "none";
+	d$(id).style.visibility = "hidden";
 };
 
-$.hide_ni = function(id) {
-	$(id).style.visibility = "hidden";
+d$.show = function(id) {
+	d$(id).style.display = "inline";
+	d$(id).style.visibility = "visible";
 };
 
-$.show_ni = function(id) {
-	$(id).style.visibility = "visible";
+d$.hide_ni = function(id) {
+	d$(id).style.visibility = "hidden";
 };
 
-$.is_visible = function(id) {
-	return !!($(id).style.visibility == 'visible');
+d$.show_ni = function(id) {
+	d$(id).style.visibility = "visible";
 };
 
-$.toggle = function(id) {
-	if ($.is_visible(id))
-		$.hide(id);
+d$.is_visible = function(id) {
+	return !!(d$(id).style.visibility == 'visible');
+};
+
+d$.toggle = function(id) {
+	if (d$.is_visible(id))
+		d$.hide(id);
 	else
-		$.show(id);
+		d$.show(id);
 };
 
-$.clone = function(obj) {
+d$.clone = function(obj) {
 	var nobj = {};
 	for (var i in obj) {
 		nobj[i] = obj[i];
@@ -144,7 +151,7 @@ $.clone = function(obj) {
 if (woas.config.debug_mode) {
 	// logging function - used in development
 	woas.log = function (aMessage) {
-	    var logbox = $("woas_debug_log");
+	    var logbox = d$("woas_debug_log");
 	    // count lines
 	    if (!woas.tweak.integrity_test) {
 			nls = logbox.value.match(/\n/g);
@@ -312,7 +319,7 @@ function _get_this_filename() {
 function ff_fix_focus() {
 	//runtime fix for Firefox bug 374786
 	if (woas.browser.firefox)
-		$("wiki_text").blur();
+		d$("wiki_text").blur();
 }
 
 if (is_windows) {
@@ -595,10 +602,10 @@ woas._last_filename = null;
 
 woas._get_path = function(id) {
 	if (this.browser.firefox3 || this.browser.firefox_new)
-		return this.dirname(ff3_getPath($(id)));
+		return this.dirname(ff3_getPath(d$(id)));
 	// use the last used path
 	if (this.browser.opera)
 		return this.dirname(this._last_filename);
 	// on older browsers this was allowed
-	return this.dirname($(id).value);
+	return this.dirname(d$(id).value);
 };

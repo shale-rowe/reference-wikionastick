@@ -73,8 +73,8 @@ woas.ui = {
 	clear_search: function() {
 		woas.log("Clearing search"); //log:1
 		if (current === "Special::Search") {
-			$("string_to_search").value = "";
-			$("string_to_search").focus();
+			d$("string_to_search").value = "";
+			d$("string_to_search").focus();
 		}
 		// clear search results
 		woas._cached_body_search = [];
@@ -329,15 +329,15 @@ function edit_ns_menu() {
 function menu_do_search() {
 	// directly use the search page if it is active
     if (current === "Special::Search") {
-		$('string_to_search').value = $('menu_string_to_search').value;
+		d$('string_to_search').value = d$('menu_string_to_search').value;
     }
-    woas.do_search($('menu_string_to_search').value, true);
+    woas.do_search(d$('menu_string_to_search').value, true);
 }
 
 // Used by Special::Search
 // make the actual search and cache the results
 function ssearch_do_search() {
-	var search_string = $("string_to_search").value;
+	var search_string = d$("string_to_search").value;
 	if ( !search_string.length )
 		return;
 	woas.do_search(search_string, true);
@@ -364,7 +364,7 @@ function menu_search_focus(f) {
 		// prevent focus on the menu search box when the search page is active
 		if (current == "Special::Search") {
 //		ff_fix_focus();
-			$('string_to_search').focus();
+			d$('string_to_search').focus();
 		} else {
 			woas.ui.focus_textbox();
 		}
@@ -417,13 +417,13 @@ function ro_woas() {
 
 // Used by Special::Lock
 function lock_page(page) {
-	var pwd = $("pw1").value;
+	var pwd = d$("pw1").value;
 	if (!pwd.length) {
-		$("pw1").focus();
+		d$("pw1").focus();
 		return;
 	}
-	if (pwd!=$("pw2").value) {
-		$("pw2").focus();
+	if (pwd !== d$("pw2").value) {
+		d$("pw2").focus();
 		return;
 	}
 	var pi = woas.page_index(page);
@@ -465,7 +465,7 @@ function _hex_col(tone) {
 }
 
 	// original code from http://lxr.mozilla.org/seamonkey/source/security/manager/pki/resources/content/password.js
-	var pw=$('pw1').value;
+	var pw=d$('pw1').value;
 
 	//length of the password
 	var pwlength=pw.length;
@@ -505,8 +505,8 @@ function _hex_col(tone) {
 	else
 		color = "#" + _hex_col((100-pwstrength)*255/100) + _hex_col((pwstrength*255)/100) + "00";
   
-	$("pw1").style.backgroundColor = color;
-	$("txtBits").innerHTML = "Key size: "+(pwlength*8).toString() + " bits";
+	d$("pw1").style.backgroundColor = color;
+	d$("txtBits").innerHTML = "Key size: "+(pwlength*8).toString() + " bits";
 	
 	_pw_q_lock = false;
 }
@@ -519,8 +519,8 @@ function show_full_file(pi) {
 	// put WoaS in loading mode
 	woas.progress_init("Loading full file");
 	// clear the partial display and put in the whole file content
-	woas.setHTML($('_part_display'), '');
-	woas.setHTML($('woas_file_ct'), woas.xhtml_encode(woas.base64.decode(text)));
+	woas.setHTML(d$('_part_display'), '');
+	woas.setHTML(d$('woas_file_ct'), woas.xhtml_encode(woas.base64.decode(text)));
 	// finished loading the file
 	woas.progress_finish();
 }
@@ -547,8 +547,8 @@ function query_delete_file(cr) {
 
 // delayed function called after page loads and runs the script tag
 function _img_properties_show(mime, tot_len, enc_len, mts) {
-	var img=$('woas_img_tag');
-	woas.setHTML($('woas_img_desc'),
+	var img=d$('woas_img_tag');
+	woas.setHTML(d$('woas_img_desc'),
 		woas.i18n.MIME_TYPE+": "+mime+"<"+"br /"+
 		">"+woas.i18n.FILE_SIZE+": about "+_convert_bytes(((tot_len-enc_len)*3)/4)+
 		woas.i18n.B64_REQ.sprintf(_convert_bytes(tot_len))+
@@ -566,7 +566,7 @@ function query_delete_image(cr) {
 
 // triggered by UI graphic button
 function page_print() {
-	woas._customized_popup(current, $("wiki_text").innerHTML, 
+	woas._customized_popup(current, d$("wiki_text").innerHTML, 
 			"function go_to(page) { alert(\""+woas.js_encode(woas.i18n.PRINT_MODE_WARN)+"\");}");
 }
 
@@ -602,10 +602,10 @@ woas._customized_popup = function(page_title, page_body, additional_js, addition
 woas.export_wiki_wsif = function () {
 	var path, author, single_wsif, inline_wsif;
 	try {
-		path = $("woas_ep_wsif").value;
-		author = this.trim($("woas_ep_author").value);
-		single_wsif = $("woas_cb_single_wsif").checked ? true : false;
-		inline_wsif = $("woas_cb_inline_wsif").checked ? true : false;
+		path = d$("woas_ep_wsif").value;
+		author = this.trim(d$("woas_ep_author").value);
+		single_wsif = d$("woas_cb_single_wsif").checked ? true : false;
+		inline_wsif = d$("woas_cb_inline_wsif").checked ? true : false;
 	} catch (e) { this.crash(e); return false; }
 	
 	var done = this._native_wsif_save(path, this.wsif.DEFAULT_INDEX, false, single_wsif, inline_wsif, author, false);
@@ -651,7 +651,7 @@ woas.popup = function(name,fw,fh,extra,head,body, body_extra) {
 woas.progress_status = function (ratio) {
 	// no progress indicators in debug mode
 	if (this.config.debug_mode) return;
-	this.setHTML($("woas_wait_text"), this._progress_section + "\n" +
+	this.setHTML(d$("woas_wait_text"), this._progress_section + "\n" +
 				Math.ceil(ratio*100)+"% done");
 };
 
@@ -671,11 +671,11 @@ woas.progress_init = function(section) {
 	else section = "\n" + section;
 	// no progress indicators in debug mode
 	if (this.config.debug_mode) return;
-	this.setHTML($("woas_wait_text"), section);
+	this.setHTML(d$("woas_wait_text"), section);
 	document.body.style.cursor = "wait";
 	// put in busy mode and block interaction for a while
-	$.show("loading_overlay");
-	$("loading_overlay").focus();
+	d$.show("loading_overlay");
+	d$("loading_overlay").focus();
 };
 
 woas.progress_finish = function(section) {
@@ -686,9 +686,9 @@ woas.progress_finish = function(section) {
 	// no progress indicators in debug mode
 	if (!this.config.debug_mode) {
 		document.body.style.cursor = "auto";
-		this.setHTML($("woas_wait_text"), this.i18n.LOADING);
+		this.setHTML(d$("woas_wait_text"), this.i18n.LOADING);
 		// hide the progress area
-		$.hide("loading_overlay");
+		d$.hide("loading_overlay");
 	}
 	this._progress_section = false;
 };
@@ -736,7 +736,7 @@ woas._search_load = function() {
 	}
 
 	// position cursor back in search box
-	$("string_to_search").focus();
+	d$("string_to_search").focus();
 	
 	if (P.body.length) {
 		// parse results before applying search terms highlighting
@@ -757,7 +757,7 @@ woas._search_load = function() {
 	}
 	
 	// finally output XHTML content
-	woas.setHTML($('woas_search_results'), P.body);
+	woas.setHTML(d$('woas_search_results'), P.body);
 };
 
 var _servm_shown = false;
@@ -807,12 +807,12 @@ woas.update_lock_icons = function(page) {
 		cls = "woas_text_area locked";
 	else
 		cls = "woas_text_area";
-	$("wiki_text").className = cls;
+	d$("wiki_text").className = cls;
 };
 
 // when the page is resized
 woas._onresize = function() {
-	var we = $("woas_editor");
+	var we = d$("woas_editor");
 	if (!we) {
 		log("no wiki_editor");
 		return;
@@ -827,13 +827,13 @@ if (!woas.browser.ie)
 woas._set_debug = function(status) {
 	if (status) {
 		// activate debug panel
-		$.show_ni("woas_debug_panel");
-		$.show("woas_debug_log");
+		d$.show_ni("woas_debug_panel");
+		d$.show("woas_debug_log");
 		// hide the progress area
-		$.hide("loading_overlay");
+		d$.hide("loading_overlay");
 	} else {
-		$.hide_ni("woas_debug_panel");
-		$.hide("woas_debug_console");
+		d$.hide_ni("woas_debug_panel");
+		d$.hide("woas_debug_console");
 	}
 };
 
@@ -843,10 +843,10 @@ woas.refresh_menu_area = function() {
 	this._add_namespace_menu(tmp);
 	var menu = this.get_text("::Menu");
 	if (menu == null)
-		$("menu_area").innerHTML = "";
+		d$("menu_area").innerHTML = "";
 	else {
 		this.parser._parsing_menu = true;
-		$("menu_area").innerHTML = this.parser.parse(menu, false, this.js_mode("::Menu"));
+		d$("menu_area").innerHTML = this.parser.parse(menu, false, this.js_mode("::Menu"));
 		this.parser._parsing_menu = false;
 		this.scripting.clear("menu");
 		this.scripting.activate("menu");
@@ -855,9 +855,9 @@ woas.refresh_menu_area = function() {
 
 woas._gen_display = function(id, visible, prefix) {
 	if (visible)
-		$.show(prefix+"_"+id);
+		d$.show(prefix+"_"+id);
 	else
-		$.hide(prefix+"_"+id);
+		d$.hide(prefix+"_"+id);
 };
 
 woas.img_display = function(id, visible) {
@@ -872,20 +872,20 @@ woas.img_display = function(id, visible) {
 
 woas.menu_display = function(id, visible) {
 	this._gen_display(id, visible, "menu");
-//	log("menu_"+id+" is "+$("menu_"+id).style.display);
+//	log("menu_"+id+" is "+d$("menu_"+id).style.display);
 };
 
 woas.refresh_mts = function(mts) {
 	// generate the last modified string to append
 	if (mts) {
-		$("wiki_mts").innerHTML = this.last_modified(mts);
-		$.show("wiki_mts");
+		d$("wiki_mts").innerHTML = this.last_modified(mts);
+		d$.show("wiki_mts");
 	} else
-		$.hide("wiki_mts");
+		d$.hide("wiki_mts");
 };
 
 woas._set_title = function (new_title) {
-	var wt=$("wiki_title");
+	var wt=d$("wiki_title");
 	// works with IE6, FF, etc.
 	wt.innerHTML = this.create_breadcrumb(new_title);
 	document.title = new_title;
@@ -913,13 +913,13 @@ function _lock_page() {
 		return;
 	var page = current.substring(6);
 
-	$("btn_lock").value = "Lock "+page;
-	$("pw1").focus();
+	d$("btn_lock").value = "Lock "+page;
+	d$("pw1").focus();
 	//TODO: check for other browsers too
 	if (woas.browser.firefox)
-		$("btn_lock").setAttribute("onclick", "lock_page('"+woas.js_encode(page)+"')");
+		d$("btn_lock").setAttribute("onclick", "lock_page('"+woas.js_encode(page)+"')");
 	else
-		$("btn_lock").onclick = woas._make_delta_func('lock_page', "'"+woas.js_encode(page)+"'");
+		d$("btn_lock").onclick = woas._make_delta_func('lock_page', "'"+woas.js_encode(page)+"'");
 }
 
 function _woas_new_plugin() {
@@ -946,14 +946,14 @@ woas.get_input_file_url = function() {
 	var r = false;
 	if (this.browser.opera || this.browser.webkit) {
 		// ask user for path, since browser do not allow us to see where file really is
-		r = $("filename_").value;
+		r = d$("filename_").value;
 		r = prompt(this.i18n.ALT_BROWSER_INPUT.sprintf(this.basename(r)), this.ROOT_DIRECTORY);
 		if ((r === null) || !r.length)
 			r = false;
 		else
 			this._last_filename = r;
 	} else { // we have requested a direct read of the file from the input object
-		r = $("filename_").value;
+		r = d$("filename_").value;
 		if (!r.length)
 			r = false;
 	}

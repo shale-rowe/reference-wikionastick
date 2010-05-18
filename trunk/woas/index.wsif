@@ -82,7 +82,7 @@ File: <input id="filename_" type="file" />&nbsp;<input id="btn_import" type="but
 [[Include::WoaS::ImportSettings]]
 
 <script type="text/javascript">
-if (!woas.config.permit_edits) $("btn_import").disabled = true;
+if (!woas.config.permit_edits) d$("btn_import").disabled = true;
 </script>
 --DFQRCTsKlU
 woas.page.title: Special::About
@@ -232,23 +232,23 @@ woas.page.boundary: DFQRCTsKlU
 = Options
 
 == User Interface
-<label for="cb_dblclick_edit"><input type="checkbox" id="cb_dblclick_edit" onclick="woas.config.dblclick_edit = $.checked('cb_dblclick_edit')" />Double click to edit pages/menu</label>
-<label for="cb_key_cache"><input type="checkbox" id="cb_key_cache" onclick="woas.config.key_cache = !$.checked('cb_key_cache')" />Do not temporarily cache the AES key</label>
-<label for="cb_rem_history"><input type="checkbox" id="cb_rem_history" onclick="woas.config.nav_history = $.checked('cb_rem_history')" />Remember current page and navigation history</label>
-<label for="cb_fixed_layout"><input type="checkbox" id="cb_fixed_layout" onclick="_set_layout($.checked('cb_fixed_layout'))" />Fixed menu area and navigation bar</label>
-<label for="cb_debug_mode"><input type="checkbox" id="cb_debug_mode" onclick="woas.config.debug_mode = $.checked('cb_debug_mode')" />Enable debug mode and debug console (*requires WoaS reload*)</label>
+<label for="cb_dblclick_edit"><input type="checkbox" id="cb_dblclick_edit" onclick="woas.config.dblclick_edit = d$.checked('cb_dblclick_edit')" />Double click to edit pages/menu</label>
+<label for="cb_key_cache"><input type="checkbox" id="cb_key_cache" onclick="woas.config.key_cache = !d$.checked('cb_key_cache')" />Do not temporarily cache the AES key</label>
+<label for="cb_rem_history"><input type="checkbox" id="cb_rem_history" onclick="woas.config.nav_history = d$.checked('cb_rem_history')" />Remember current page and navigation history</label>
+<label for="cb_fixed_layout"><input type="checkbox" id="cb_fixed_layout" onclick="_set_layout(d$.checked('cb_fixed_layout'))" />Fixed menu area and navigation bar</label>
+<label for="cb_debug_mode"><input type="checkbox" id="cb_debug_mode" onclick="woas.config.debug_mode = d$.checked('cb_debug_mode')" />Enable debug mode and debug console (*requires WoaS reload*)</label>
 
 == Saving
-<label for="cb_allow_diff"><input type="checkbox" id="cb_allow_diff" onclick="woas.config.allow_diff = $.checked('cb_allow_diff')" />Make merge/diff of WoaS XHTML/WSIF datasource easier</label>
-<label for="cb_save_on_quit"><input type="checkbox" id="cb_save_on_quit" onclick="woas.config.save_on_quit = $.checked('cb_save_on_quit')" />Automatically save options (if changed) before quitting</label>
-<label for="cb_cumulative_save"><input type="checkbox" id="cb_cumulative_save" onclick="woas.config.cumulative_save = $.checked('cb_cumulative_save')" />Enable cumulative save (will save to disk only when quitting)</label>
-<label for="cb_safe_mode"><input type="checkbox" id="cb_safe_mode" onclick="woas.config.safe_mode = $.checked('cb_safe_mode')" />Enable safe mode (embedded &lt;script/&gt; blocks and WoaS::Plugins not executed, *requires WoaS reload*)</label>
-<label for="cb_store_mts"><input type="checkbox" id="cb_store_mts" onclick="woas.config.store_mts = $.checked('cb_store_mts')" />Store and display last modified timestamp</label>
-<label for="cb_new_tables_syntax"><input type="checkbox" id="cb_new_tables_syntax" onclick="woas.config.new_tables_syntax = $.checked('cb_new_tables_syntax')" />Enhanced tables syntax</label>
+<label for="cb_allow_diff"><input type="checkbox" id="cb_allow_diff" onclick="woas.config.allow_diff = d$.checked('cb_allow_diff')" />Make merge/diff of WoaS XHTML/WSIF datasource easier</label>
+<label for="cb_save_on_quit"><input type="checkbox" id="cb_save_on_quit" onclick="woas.config.save_on_quit = d$.checked('cb_save_on_quit')" />Automatically save options (if changed) before quitting</label>
+<label for="cb_cumulative_save"><input type="checkbox" id="cb_cumulative_save" onclick="woas.config.cumulative_save = d$.checked('cb_cumulative_save')" />Enable cumulative save (will save to disk only when quitting)</label>
+<label for="cb_safe_mode"><input type="checkbox" id="cb_safe_mode" onclick="woas.config.safe_mode = d$.checked('cb_safe_mode')" />Enable safe mode (embedded &lt;script/&gt; blocks and WoaS::Plugins not executed, *requires WoaS reload*)</label>
+<label for="cb_store_mts"><input type="checkbox" id="cb_store_mts" onclick="woas.config.store_mts = d$.checked('cb_store_mts')" />Store and display last modified timestamp</label>
+<label for="cb_new_tables_syntax"><input type="checkbox" id="cb_new_tables_syntax" onclick="woas.config.new_tables_syntax = d$.checked('cb_new_tables_syntax')" />Enhanced tables syntax</label>
 
 == Datasource
-<label for="cb_wsif_ds_lock"><input type="checkbox" id="cb_wsif_ds_lock" onclick="woas.config.wsif_ds_lock = $.checked('cb_wsif_ds_lock')" />Lock WSIF datasource when editing</label>
-<label for="cb_wsif_ds_multi"><input type="checkbox" id="cb_wsif_ds_multi" onclick="woas.config.wsif_ds_multi = $.checked('cb_wsif_ds_multi')" />Use multiple files in WSIF datasource</label>
+<label for="cb_wsif_ds_lock"><input type="checkbox" id="cb_wsif_ds_lock" onclick="woas.config.wsif_ds_lock = d$.checked('cb_wsif_ds_lock')" />Lock WSIF datasource when editing</label>
+<label for="cb_wsif_ds_multi"><input type="checkbox" id="cb_wsif_ds_multi" onclick="woas.config.wsif_ds_multi = d$.checked('cb_wsif_ds_multi')" />Use multiple files in WSIF datasource</label>
 /Disabling above option will not remove WSIF files created for each page/
 WSIF data source: <input id="txt_wsif_ds" type="text" size="60" value="" onchange="woas.config.wsif_ds=this.value" />
 /Relative path to WSIF datasource to use (blank to disable); file will be overwritten./
@@ -262,27 +262,27 @@ WSIF data author: <input id="txt_author" type="text" size="12" value="" onchange
 <p>&nbsp;&nbsp;<input type="button" onclick="ro_woas()" value="Disallow edits" />
 /Caution: to re-enable editing you will have to manually edit WoaS/</p>
 <script type="text/javascript">
-$("cb_allow_diff").checked = bool2chk(woas.config.allow_diff);
-$("cb_rem_history").checked = bool2chk(woas.config.nav_history);
-$("cb_store_mts").checked = bool2chk(woas.config.store_mts);
-$("cb_new_tables_syntax").checked = bool2chk(woas.config.new_tables_syntax);
-$("cb_key_cache").checked = bool2chk(!woas.config.key_cache);
-$("cb_dblclick_edit").checked = bool2chk(woas.config.dblclick_edit);
-$("cb_debug_mode").checked = bool2chk(woas.config.debug_mode);
-$("cb_save_on_quit").checked = bool2chk(woas.config.save_on_quit);
-$("cb_cumulative_save").checked = bool2chk(woas.config.cumulative_save);
-$("cb_safe_mode").checked = bool2chk(woas.config.safe_mode);
-$("cb_wsif_ds_multi").checked = bool2chk(woas.config.wsif_ds_multi);
-$("cb_wsif_ds_lock").checked = bool2chk(woas.config.wsif_ds_lock);
-$("cb_fixed_layout").checked = ($("sw_wiki_header").style.position == "fixed");
+d$("cb_allow_diff").checked = bool2chk(woas.config.allow_diff);
+d$("cb_rem_history").checked = bool2chk(woas.config.nav_history);
+d$("cb_store_mts").checked = bool2chk(woas.config.store_mts);
+d$("cb_new_tables_syntax").checked = bool2chk(woas.config.new_tables_syntax);
+d$("cb_key_cache").checked = bool2chk(!woas.config.key_cache);
+d$("cb_dblclick_edit").checked = bool2chk(woas.config.dblclick_edit);
+d$("cb_debug_mode").checked = bool2chk(woas.config.debug_mode);
+d$("cb_save_on_quit").checked = bool2chk(woas.config.save_on_quit);
+d$("cb_cumulative_save").checked = bool2chk(woas.config.cumulative_save);
+d$("cb_safe_mode").checked = bool2chk(woas.config.safe_mode);
+d$("cb_wsif_ds_multi").checked = bool2chk(woas.config.wsif_ds_multi);
+d$("cb_wsif_ds_lock").checked = bool2chk(woas.config.wsif_ds_lock);
+d$("cb_fixed_layout").checked = (d$("sw_wiki_header").style.position == "fixed");
 
-if (woas.browser.ie6) $("cb_fixed_layout").disabled = true;
+if (woas.browser.ie6) d$("cb_fixed_layout").disabled = true;
 
-$("txt_author").value = woas.config.wsif_author;
-$("txt_wsif_ds").value = woas.config.wsif_ds;
+d$("txt_author").value = woas.config.wsif_author;
+d$("txt_wsif_ds").value = woas.config.wsif_ds;
 
-$("txt_wsif_ds").onfocus = $("txt_author").onfocus = woas.ui.focus_textbox;
-$("txt_wsif_ds").onblur = $("txt_author").onblur = woas.ui.blur_textbox;
+d$("txt_wsif_ds").onfocus = d$("txt_author").onfocus = woas.ui.focus_textbox;
+d$("txt_wsif_ds").onblur = d$("txt_author").onblur = woas.ui.blur_textbox;
 </script>
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Deprecated syntax
@@ -510,13 +510,13 @@ META author (optional)
 
 <script type="text/javascript">
 var path = woas.ROOT_DIRECTORY + "export" + woas.DIRECTORY_SEPARATOR;
-$('woas_ep_xhtml').value = path;
-$('woas_ep_img').value = path;
-$('woas_ep_ext').value = woas.exporter._default_ext;
+d$('woas_ep_xhtml').value = path;
+d$('woas_ep_img').value = path;
+d$('woas_ep_ext').value = woas.exporter._default_ext;
 
-$('woas_ep_xhtml').onfocus = $('woas_ep_img').onfocus = $('woas_ep_ext').onfocus = woas.ui.focus_textbox;
-$('woas_ep_xhtml').onblur = $('woas_ep_img').onblur = $('woas_ep_ext').onblur = woas.ui.blur_textbox;
-$('woas_ep_author').value = woas.config.wsif_author;
+d$('woas_ep_xhtml').onfocus = d$('woas_ep_img').onfocus = d$('woas_ep_ext').onfocus = woas.ui.focus_textbox;
+d$('woas_ep_xhtml').onblur = d$('woas_ep_img').onblur = d$('woas_ep_ext').onblur = woas.ui.blur_textbox;
+d$('woas_ep_author').value = woas.config.wsif_author;
 
 </script>
 --DFQRCTsKlU
@@ -573,11 +573,11 @@ Author: <input id="woas_ep_author" type="text" size="12" value="" />
 
 <script type="text/javascript">
 var path = woas.ROOT_DIRECTORY + "wsif" + woas.DIRECTORY_SEPARATOR;
-$('woas_ep_wsif').value = path;
+d$('woas_ep_wsif').value = path;
 
-$('woas_ep_author').onfocus = $('woas_ep_wsif').onfocus = woas.ui.focus_textbox;
-$('woas_ep_author').onblur = $('woas_ep_wsif').onblur = woas.ui.blur_textbox;
-$('woas_ep_author').value = woas.config.wsif_author;
+d$('woas_ep_author').onfocus = $('woas_ep_wsif').onfocus = woas.ui.focus_textbox;
+d$('woas_ep_author').onblur = $('woas_ep_wsif').onblur = woas.ui.blur_textbox;
+d$('woas_ep_author').value = woas.config.wsif_author;
 
 </script>
 --DFQRCTsKlU
@@ -688,7 +688,7 @@ File: <input id="filename_" type="file" />&nbsp;<input id="btn_import" type="but
 [[Include::WoaS::ImportSettings]]
 
 <script type="text/javascript">
-if (!woas.config.permit_edits) $("btn_import").disabled = true;
+if (!woas.config.permit_edits) d$("btn_import").disabled = true;
 </script>
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Macros
@@ -3478,7 +3478,7 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 <input style="font-size:10px;" id="menu_string_to_search" type="text" size="12" onfocus="menu_search_focus(true)" onblur="menu_search_focus(false)" />&nbsp;<input style="font-size: 10px;" type="button" value="Search" onclick="menu_do_search()" />
 <script type="text/javascript">
-$('menu_string_to_search').onkeydown = menu_key_hook;
+d$('menu_string_to_search').onkeydown = menu_key_hook;
 </script>
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Export

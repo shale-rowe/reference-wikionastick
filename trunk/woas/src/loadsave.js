@@ -511,29 +511,29 @@ woas._save_to_file = function(full) {
 	}
 
 	// cleanup the DOM before saving
-	var bak_ed = $("woas_editor").value;
-	var bak_tx = $("wiki_text").innerHTML;
-	var bak_mn = $("menu_area").innerHTML;
-	var bak_mts = $("wiki_mts").innerHTML;
-	var bak_mts_shown = $.is_visible("wiki_mts");
-	var bak_wait_text = this.getHTML($("woas_wait_text"));
-	var bak_debug = $("woas_debug_log").value;
+	var bak_ed = d$("woas_editor").value,
+		bak_tx = d$("wiki_text").innerHTML,
+		bak_mn = d$("menu_area").innerHTML,
+		bak_mts = d$("wiki_mts").innerHTML,
+		bak_mts_shown = d$.is_visible("wiki_mts"),
+		bak_wait_text = this.getHTML(d$("woas_wait_text")),
+		bak_debug = d$("woas_debug_log").value,
 	// clear titles and css as well as they will be set on load.
-	var bak_title = $("wiki_title").innerHTML;
+		bak_title = d$("wiki_title").innerHTML;
 
 	if (bak_mts_shown)
-		$.hide("wiki_mts");
-	$("woas_editor").value = "";
-	$("wiki_text").innerHTML = "";
-	$("menu_area").innerHTML = "";
-	$("wiki_mts").innerHTML = "";
-	$("woas_debug_log").value = "";
-	$("wiki_title").innerHTML = "";
+		d$.hide("wiki_mts");
+	d$("woas_editor").value = "";
+	d$("wiki_text").innerHTML = "";
+	d$("menu_area").innerHTML = "";
+	d$("wiki_mts").innerHTML = "";
+	d$("woas_debug_log").value = "";
+	d$("wiki_title").innerHTML = "";
 
 	// set the loading message
-	this.setHTML($("woas_wait_text"), this.i18n.LOADING);
+	this.setHTML(d$("woas_wait_text"), this.i18n.LOADING);
 	// temporarily display such message
-	$.show("loading_overlay");
+	d$.show("loading_overlay");
 	var bak_cursor = document.body.style.cursor;
 	document.body.style.cursor = "auto";
 
@@ -541,8 +541,8 @@ woas._save_to_file = function(full) {
 	
 	// data is ready, now the actual save process begins
 	var r=false;
-	$.hide("loading_overlay");
-	this.setHTML($("woas_wait_text"), bak_wait_text);
+	d$.hide("loading_overlay");
+	this.setHTML(d$("woas_wait_text"), bak_wait_text);
 	document.body.style.cursor = bak_cursor;
 
 	//DEBUG check
@@ -564,14 +564,14 @@ woas._save_to_file = function(full) {
 	}
 	} //DEBUG check
 
-	$("woas_editor").value = bak_ed;
-	$("wiki_text").innerHTML = bak_tx;
-	$("menu_area").innerHTML = bak_mn;
-	$("wiki_mts").innerHTML = bak_mts;
+	d$("woas_editor").value = bak_ed;
+	d$("wiki_text").innerHTML = bak_tx;
+	d$("menu_area").innerHTML = bak_mn;
+	d$("wiki_mts").innerHTML = bak_mts;
 	if (bak_mts_shown)
-		$.show("wiki_mts");
-	$("woas_debug_log").value = bak_debug;
-	$("wiki_title").innerHTML = bak_title;
+		d$.show("wiki_mts");
+	d$("woas_debug_log").value = bak_debug;
+	d$("wiki_title").innerHTML = bak_title;
 	
 	this.progress_finish();
 	

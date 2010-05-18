@@ -426,7 +426,7 @@ woas.importer = {
 			// used during import from older versions
 			old_cfg;
 		if (this.i_config)
-			old_cfg = $.clone(woas.config);
+			old_cfg = d$.clone(woas.config);
 			
 		this.new_main_page = woas.config.main_page
 
@@ -627,9 +627,9 @@ woas.import_wiki = function() {
 	}
 
 	// grab the XHTML-only options
-	this.importer.i_styles = $('woas_cb_import_css').checked;
-	this.importer.i_config = $('woas_cb_import_config').checked
-	this.importer.i_content = $('woas_cb_import_content').checked
+	this.importer.i_styles = d$.checked('woas_cb_import_css');
+	this.importer.i_config = d$.checked('woas_cb_import_config');
+	this.importer.i_content = d$.checked('woas_cb_import_content');
 	
 	var rv = this.importer.do_import(ct);
 	
@@ -665,9 +665,9 @@ woas._file_ext = function(fn) {
 };
 
 woas._grab_import_settings = function() {
-	this.importer.i_comment_js = $("woas_cb_import_comment_js").checked;
-	this.importer.i_comment_macros = $("woas_cb_import_comment_macros").checked;
-	this.importer.i_woas_ns = $("woas_cb_import_woas_ns").checked;
+	this.importer.i_comment_js = d$.checked("woas_cb_import_comment_js");
+	this.importer.i_comment_macros = d$.checked("woas_cb_import_comment_macros");
+	this.importer.i_woas_ns = d$.checked("woas_cb_import_woas_ns");
 	// i_overwrite is automatically set
 };
 

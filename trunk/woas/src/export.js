@@ -279,7 +279,7 @@ woas.export_parse = function (data, js_mode) {
 	// a normal wiki page, parse it and eventually execute the attached javascript
 	data = this.parser.parse(data, true, js_mode);
 	if (js_mode) {
-		wt = $("wiki_text");
+		wt = d$("wiki_text");
 		wt.innerHTML = data;
 		this._activate_scripts();
 		data = wt.innerHTML;
@@ -291,21 +291,21 @@ woas.export_wiki = function() {
 	var sep_css;
 	// parse user export options
 	try {
-		this.exporter._settings.xhtml_path = $("woas_ep_xhtml").value;
-		this.exporter._settings.img_path = $("woas_ep_img").value;
+		this.exporter._settings.xhtml_path = d$("woas_ep_xhtml").value;
+		this.exporter._settings.img_path = d$("woas_ep_img").value;
 		this.exporter._settings.js_mode = 0;
-		if ($("woas_cb_js_dyn").checked)
+		if (d$("woas_cb_js_dyn").checked)
 			this.exporter._settings.js_mode = 1;
-		else if ($("woas_cb_js_exp").checked)
+		else if (d$("woas_cb_js_exp").checked)
 			this.exporter._settings.js_mode = 2;
-		sep_css = $("woas_cb_sep_css").checked;
-		this.exporter._settings.exp_menus = $("woas_cb_export_menu").checked;
-		this.exporter._settings._main_index = $("woas_cb_index_main").checked;
-		this.exporter._default_ext = $("woas_ep_ext").value;
-		this.exporter._settings.meta_author = this.trim($("woas_ep_author").value);
+		sep_css = d$("woas_cb_sep_css").checked;
+		this.exporter._settings.exp_menus = d$("woas_cb_export_menu").checked;
+		this.exporter._settings._main_index = d$("woas_cb_index_main").checked;
+		this.exporter._default_ext = d$("woas_ep_ext").value;
+		this.exporter._settings.meta_author = this.trim(d$("woas_ep_author").value);
 		if (this.exporter._settings.meta_author.length)
 			this.exporter._settings.meta_author = '<'+'meta name="author" content="'+this._attrib_escape(this.xhtml_encode(this.exporter._settings.meta_author))+'" />'+"\n";
-		this.exporter._settings._unix_norm = $("woas_cb_unix_norm").checked;
+		this.exporter._settings._unix_norm = d$("woas_cb_unix_norm").checked;
 	} catch (e) { this.crash(e); return false; }
 	
 	this.progress_init("Exporting XHTML");

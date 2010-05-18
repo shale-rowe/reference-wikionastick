@@ -350,9 +350,9 @@ woas.get_text_special = function(title) {
 woas.__last_title = null;
 
 woas.__password_finalize = function(pwd_obj) {
-	$.show_ni("wiki_text");
+	d$.show_ni("wiki_text");
 	document.title = this.__last_title;
-	$.hide("woas_pwd_mask");
+	d$.hide("woas_pwd_mask");
 //	scrollTo(0,0);
 	// hide input form
 	pwd_obj.value = "";
@@ -364,21 +364,21 @@ woas._set_password = function() {
 	this.__last_title = document.title;
 	document.title = "Enter password";
 	// hide browser scrollbars and show mask
-	$.show("woas_pwd_mask");
-	$.hide_ni("wiki_text");
+	d$.show("woas_pwd_mask");
+	d$.hide_ni("wiki_text");
 	scrollTo(0,0);
 	// show input form
-	$.show_ni("woas_pwd_query");
-	$("woas_password").focus();	
+	d$.show_ni("woas_pwd_query");
+	d$("woas_password").focus();	
 	this.ui.focus_textbox();
 };
 
 woas._password_cancel = function() {
-	this.__password_finalize($("woas_password"));
+	this.__password_finalize(d$("woas_password"));
 };
 
 woas._password_ok = function() {
-	var pwd_obj = $("woas_password");
+	var pwd_obj = d$("woas_password");
 	var pw = pwd_obj.value;
 	if (!pw.length) {
 		this.alert(this.i18n.PWD_QUERY);
@@ -807,7 +807,7 @@ woas.load_as_current = function(title, xhtml, mts) {
 	
 	scrollTo(0,0);
 	this.log("load_as_current(\""+title+"\") - "+(typeof xhtml == "string" ? (xhtml.length+" bytes") : (typeof xhtml)));	// log:1
-	$("wiki_text").innerHTML = xhtml;
+	d$("wiki_text").innerHTML = xhtml;
 	this.refresh_mts(mts);
 
 	this._set_title(title);
@@ -848,10 +848,10 @@ woas._add_namespace_menu = function(namespace) {
 		pi = this.page_index(namespace+"::Menu");
 	if (pi==-1) {
 //		this.log("no namespace menu found");	// log:0
-		$("ns_menu_area").innerHTML = "";
+		d$("ns_menu_area").innerHTML = "";
 		if (current_namespace!="") {
-			$.hide("ns_menu_area");
-			$.hide("ns_menu_edit_button");
+			d$.hide("ns_menu_area");
+			d$.hide("ns_menu_edit_button");
 		}
 		current_namespace = namespace;
 		return;
@@ -859,15 +859,15 @@ woas._add_namespace_menu = function(namespace) {
 	var menu = this.get__text(pi);
 	if (menu === null) {
 //		this.log("Could not retrieve namespace menu");	// log:0
-		$("ns_menu_area").innerHTML = "";
+		d$("ns_menu_area").innerHTML = "";
 	} else {
 //		this.log("Parsing "+menu.length+" bytes for namespace menu");	// log:0
-		$("ns_menu_area").innerHTML = this.parser.parse(menu, false, this.js_mode(namespace+"::Menu"));
+		d$("ns_menu_area").innerHTML = this.parser.parse(menu, false, this.js_mode(namespace+"::Menu"));
 	}
 	// if the previous namespace was empty, then show the submenu areas
 //	if (current_namespace=="") {
-		$.show("ns_menu_area");
-		$.show("ns_menu_edit_button");
+		d$.show("ns_menu_area");
+		d$.show("ns_menu_edit_button");
 //	}
 	current_namespace = namespace;	
 };
@@ -908,24 +908,24 @@ woas._on_load = function() {
 	if (this.browser.ie) {	// some hacks for IE
 		this.setHTML = function(elem, html) {elem.text = html;};
 		this.getHTML = function(elem) {return elem.text;};
-		var obj = $("sw_wiki_header");
+		var obj = d$("sw_wiki_header");
 		obj.style.filter = "alpha(opacity=75);";
 		if (this.browser.ie6) {
-			$("sw_wiki_header").style.position = "absolute";
+			d$("sw_wiki_header").style.position = "absolute";
 			$("sw_menu_area").style.position = "absolute";
 		}
 		// IE6/7 can't display logo
 		if (!this.browser.ie8) {
-			$.hide("img_logo");
+			d$.hide("img_logo");
 			// replace with css when capability exists:
-			$("woas_logo").style.width = "1%";
+			d$("woas_logo").style.width = "1%";
 		}
 	} else {
 		this.setHTML = function(elem, html) {elem.innerHTML = html;};
 		this.getHTML = function(elem) {return elem.innerHTML;};
 		// everyone else needs a logo; will be better when done in css.
-		$("woas_logo").style.width = "35px";
-		$.show("img_logo");
+		d$("woas_logo").style.width = "35px";
+		d$.show("img_logo");
 	}
 	
 	// (1) check integrity of WoaS features - only in debug mode
@@ -959,8 +959,8 @@ woas._on_load = function() {
 	this.css.set(this.get_text("WoaS::CSS::Core")+"\n"+this.get_text("WoaS::CSS::Custom"));
 	
 	// (5) continue with UI setup
-	$('woas_home_hl').title = this.config.main_page;
-	$('img_home').alt = this.config.main_page;
+	d$('woas_home_hl').title = this.config.main_page;
+	d$('img_home').alt = this.config.main_page;
 	
 	// properly initialize navigation bar icons
 	// this will cause the alternate text to display on IE6/IE7
@@ -985,23 +985,23 @@ woas._on_load = function() {
 	
 	// (6) initialize extensions - plugins go first so that external javascript/CSS
 	// starts loading
-	this.setHTML($("woas_wait_text"), "Initializing extensions...");
+	this.setHTML(d$("woas_wait_text"), "Initializing extensions...");
 	this.plugins.load();
 	this._load_aliases(this.get_text("WoaS::Aliases"));
 	this._load_hotkeys(this.get_text("WoaS::Hotkeys"));
 
 	if (this.config.permit_edits)
-		$.show("menu_edit_button");
+		d$.show("menu_edit_button");
 	else
-		$.hide("menu_edit_button");
+		d$.hide("menu_edit_button");
 	
 	// enable the auto-save thread
 	if (this.config.cumulative_save && this.config.auto_save)
 		this._asto = setTimeout("_auto_saver(woas)", this.config.auto_save);
 	
-	this._editor = new TextAreaSelectionHelper($("woas_editor"));
+	this._editor = new TextAreaSelectionHelper(d$("woas_editor"));
 
-	this.setHTML($("woas_wait_text"), "Completing load process...");
+	this.setHTML(d$("woas_wait_text"), "Completing load process...");
 	
 	// set a hook to be called when loading process is complete
 	if (!woas.dom.wait_loading(woas._early_render))
@@ -1042,7 +1042,7 @@ woas._early_render = function() {
 	woas.disable_edit();
 	
 //	this.progress_finish();
-	$.hide("loading_overlay");
+	d$.hide("loading_overlay");
 	
 	// launching post-load hook
 	woas.post_load();	
@@ -1065,9 +1065,9 @@ woas.disable_edit = function() {
 	this.menu_display("cancel", false);
 	this.menu_display("print", true);
 	this.menu_display("setkey", true);
-	$.show("i_woas_text_area");
+	d$.show("i_woas_text_area");
 	// aargh, FF eats the focus when cancelling edit
-	$.hide("edit_area");
+	d$.hide("edit_area");
 	this._set_title(this.prev_title);
 };
 
@@ -1113,8 +1113,8 @@ woas.edit_allowed_reserved = function(page) {
 woas.current_editing = function(page, disabled) {
 //	woas.log("current = \""+current+"\", current_editing(\""+page+"\", disabled: "+disabled+")");	// log:0
 	this.prev_title = current;
-	$("wiki_page_title").disabled = (disabled && !this.tweak.edit_override ? "disabled" : "");
-	$("wiki_page_title").value = page;
+	d$("wiki_page_title").disabled = (disabled && !this.tweak.edit_override ? "disabled" : "");
+	d$("wiki_page_title").value = page;
 	this.ui.edit_mode = true;
 	this._set_title(this.i18n.EDITING.sprintf(page));
 	// current must be set BEFORE calling enabling menu edit
@@ -1129,17 +1129,17 @@ woas.current_editing = function(page, disabled) {
 	this.menu_display("save", true);
 	this.menu_display("cancel", true);
 	this.update_lock_icons(page);
-	$.hide("i_woas_text_area");
+	d$.hide("i_woas_text_area");
 
 	// FIXME! hack to show the editor pane correctly on IE
 	if (!this.browser.ie)	{
-		$("woas_editor").style.width = window.innerWidth - 35 + "px";
-		$("woas_editor").style.height = window.innerHeight - 180 + "px";
+		d$("woas_editor").style.width = window.innerWidth - 35 + "px";
+		d$("woas_editor").style.height = window.innerHeight - 180 + "px";
 	}
 	
-	$.show("edit_area");
+	d$.show("edit_area");
 
-	$("woas_editor").focus();
+	d$("woas_editor").focus();
 	current = page;
 	scrollTo(0,0);
 };
@@ -1149,11 +1149,11 @@ woas.old_title = null;
 
 // sets the text and allows changes monitoring
 woas.edit_ready = function (txt) {
-	$("woas_editor").value = txt;
+	d$("woas_editor").value = txt;
 	// save copy of text to check if anything was changed
 	// do not store it in case of ghost pages
 	this.change_buffer = txt;
-	this.old_title = $("wiki_page_title").value;
+	this.old_title = d$("wiki_page_title").value;
 };
 
 woas.edit_page = function(page) {
@@ -1233,7 +1233,7 @@ woas.rename_page = function(previous, newpage) {
 };
 
 woas.get_raw_content = function() {
-	var c=$("woas_editor").value;
+	var c=d$("woas_editor").value;
 	// remove CR added by some browsers
 	//TODO: check if ie8 still adds these
 	if (this.browser.ie || this.browser.opera)
@@ -1271,7 +1271,7 @@ woas.save = function() {
 			}
 			back_to = this.prev_title;
 //			current = "Special::Advanced";
-//			$("wiki_page_title").disabled = "";
+//			d$("wiki_page_title").disabled = "";
 			break;
 		case "WoaS::Aliases":
 			if (!null_save)
@@ -1293,7 +1293,7 @@ woas.save = function() {
 				}
 				return;
 			} else {
-				var new_title = this.trim($("wiki_page_title").value),
+				var new_title = this.trim(d$("wiki_page_title").value),
 					renaming = (this.old_title !== new_title);
 				// here the page gets actually saved
 				if (!null_save || renaming) {
@@ -1379,7 +1379,7 @@ woas.save_page_i = function(pi) {
 woas.cancel_edit = function() {
 	// there was some change, ask for confirm before cancelling
 	if ((this.get_raw_content() !== this.change_buffer) ||
-		(this.trim($("wiki_page_title").value) !== this.old_title)) {
+		(this.trim(d$("wiki_page_title").value) !== this.old_title)) {
 		if (!confirm(this.i18n.CANCEL_EDITING))
 			return;
 	}
