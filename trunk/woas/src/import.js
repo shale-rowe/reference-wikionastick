@@ -403,6 +403,8 @@ woas.importer = {
 		// import the variables
 		var	imported_css = null,
 			// used during import from older versions
+			old_cfg;
+		if (this.i_config)
 			old_cfg = $.clone(woas.config);
 			
 		this.new_main_page = woas.config.main_page
@@ -447,13 +449,10 @@ woas.importer = {
 				// add the new debug option
 				if (old_version<=107)
 					woas.config.debug_mode = old_cfg.debug_mode;
-				// add the new safe mode and WSIF DS options
+				// add the new safe mode
 				if (old_version < 112) {
 					woas.config.safe_mode = old_cfg.safe_mode;
-					woas.config.wsif_author = old_cfg.wsif_author;
-					woas.config.wsif_ds = old_cfg.wsif_ds;
-					woas.config.wsif_ds_lock = old_cfg.wsif_ds_lock;
-					woas.config.wsif_ds_multi = old_cfg.wsif_ds_multi;
+					//NOTE: WSIF datasource options are not imported at all
 				}
 				if (old_version < 120) {
 					woas.config.new_tables_syntax = old_cfg.new_tables_syntax;
@@ -465,6 +464,13 @@ woas.importer = {
 					if ((typeof woas.config[p] == "undefined") && (typeof old_cfg[p] != "undefined"))
 						woas.config[p] = old_cfg[p];
 				}
+				
+				// put back the old values for WSIF datasource
+				woas.config.wsif_author = old_cfg.wsif_author;
+				woas.config.wsif_ds = old_cfg.wsif_ds;
+				woas.config.wsif_ds_lock = old_cfg.wsif_ds_lock;
+				woas.config.wsif_ds_multi = old_cfg.wsif_ds_multi;
+				
 			} // done importing config object
 		} // i_config
 
@@ -499,11 +505,13 @@ woas.importer = {
 			}
 		}
 		// set the new config variable
-		if (old_version<=108)
-			woas.config.main_page = old_cfg.main_page;
-		// apply the new main page if that page exists
-		if ((this.new_main_page !== old_cfg.main_page) && woas.page_exists(this.new_main_page))
-			woas.config.main_page = this.new_main_page;
+		if (this.i_config) {
+			if (old_version<=108)
+				woas.config.main_page = old_cfg.main_page;
+			// apply the new main page if that page exists
+			if ((this.new_main_page !== old_cfg.main_page) && woas.page_exists(this.new_main_page))
+				woas.config.main_page = this.new_main_page;
+		}
 		
 		} while (false); // fake do..while ends here
 		

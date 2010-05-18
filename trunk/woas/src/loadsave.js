@@ -504,7 +504,7 @@ woas._save_to_file = function(full) {
 			computed_js += "var pages = [\n];\n\n";
 		} else {
 			computed_js += "var page_attrs = [" + printout_num_arr(page_attrs) + "];\n\n";
-			computed_js += "var page_mts = [" + printout_num_arr(this.config.store_mts ? page_mts : []) + "];\n\n";
+			computed_js += "var page_mts = [" + (this.config.store_mts ? printout_num_arr(page_mts) : "0, ".repeat(page_mts.length-1)+"0") + "];\n\n";
 			computed_js += "var pages = [\n" + printout_mixed_arr(pages, this.config.allow_diff, page_attrs) + "];\n\n";
 		}
 		computed_js += "/* " + new_marker + "-END */\n";
