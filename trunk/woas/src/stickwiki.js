@@ -207,12 +207,14 @@ woas._get_namespace_pages = function (ns) {
 		case "Tagged": // to be used in wiki source
 			return /*"= Pages in "+ns+" namespace\n" + */this.special_tagged(false);
 		case "Image":
-			var iHTML = "", snippets;
+			var iHTML = "", snippets, P = {body:null};
 			for(var i=0, l=page_titles.length;i < l;++i) {
 				if (page_titles[i].indexOf(ns)===0) {
 					snippets = [];
-					iHTML += this.parser.syntax_parse("* "+this.parser.transclude(page_titles[i], snippets)+" [["+page_titles[i]+"]]\n", snippets);
-					snippets = null;
+					P.body = "* "+this.parser.transclude(page_titles[i], snippets)+" [["+page_titles[i]+"]]\n";
+					this.parser.syntax_parse(P, snippets);
+					iHTML += P.body;
+					snippets = P.body = null;
 				}
 			}
 			return "= Pages in "+ns+" namespace\n" + iHTML;
@@ -484,17 +486,19 @@ woas._get__embedded = function (cr, pi, etype) {
 		if (ext_size-pview_data.length>10)
 			pview_link = "<"+"div id='_part_display'><"+"em>"+this.i18n.FILE_DISPLAY_LIMIT+
 			"<"+"/em><"+"br /><"+"a href='javascript:show_full_file("+pi+")'>"+this.i18n.DISPLAY_FULL_FILE+"<"+"/a><"+"/div>";
-		var _del_lbl;
+		var P = {body: "\n{{{[[Include::"+cr+"]]}}}"+
+				"\n\nRaw transclusion:\n\n{{{[[Include::"+cr+"|raw]]}}}"};
 		if (!this.is_reserved(cr))
-			_del_lbl = "\n\n<"+"a href=\"javascript:query_delete_file('"+this.js_encode(cr)+"')\">"+this.i18n.DELETE_FILE+"<"+"/a>\n";
-		else
-			_del_lbl = "";
-		xhtml = "<"+"pre id='_file_ct' class=\"woas_embedded\">"+this.xhtml_encode(pview_data)+"<"+"/pre>"+
+			P.body += "\n\n<"+"a href=\"javascript:query_delete_file('"+this.js_encode(cr)+"')\">"+this.i18n.DELETE_FILE+"<"+"/a>";
+		P.body += "\n";
+		this.parser.syntax_parse(P, []);
+		xhtml = "<"+"pre id='woas_file_ct' class=\"woas_embedded\">"+this.xhtml_encode(pview_data)+"<"+"/pre>"+
 				pview_link+"<"+"br /><"+"hr />"+this.i18n.FILE_SIZE+": "+_convert_bytes(ext_size)+
 				"<"+"br />" + this.last_modified(this.config.store_mts ? page_mts[pi] : 0)+
-				"<"+"br /><"+"br />XHTML transclusion:"+this.parser.syntax_parse({body:"\n{{{[[Include::"+cr+"]]}}}"+
-				"\n\nRaw transclusion:\n\n{{{[[Include::"+cr+"|raw]]}}}"+
-				_del_lbl+"\n<"+"a href=\"javascript:query_export_file('"+this.js_encode(cr)+"')\">"+this.i18n.EXPORT_FILE+"<"+"/a>\n"}, []);
+				"<"+"br /><"+"br />XHTML transclusion:"+
+				P.body +
+				"<"+"a href=\"javascript:query_export_file('"+this.js_encode(cr)+"')\">"+this.i18n.EXPORT_FILE+"<"+"/a><"+"br />";
+		P = null;
 	} else { // etype == image
 		var img_name = cr.substr(cr.indexOf("::")+2);
 		//TODO: do not create a dynamic script! use after_parse hook
@@ -506,8 +510,8 @@ woas._get__embedded = function (cr, pi, etype) {
 				(this.config.store_mts ? page_mts[pi] : 0 ) +
 				")\");"+
 		"<"+"/script>"+
-		"<"+"img id=\"img_tag\" class=\"woas_embedded\" src=\""+text+"\" alt=\""+this.xhtml_encode(img_name)+"\" />"+
-		"\n\n<"+"div id=\"img_desc\">"+this.i18n.LOADING+"<"+"/div>"+
+		"<"+"img id=\"woas_img_tag\" class=\"woas_embedded\" src=\""+text+"\" alt=\""+this.xhtml_encode(img_name)+"\" />"+
+		"\n\n<"+"div id=\"woas_img_desc\">"+this.i18n.LOADING+"<"+"/div>"+
 		"\nSimple transclusion:\n\n{{{[[Include::"+cr+"]]}}}\n\nTransclusion with additional attributes:\n\n{{{[[Include::"+cr+"|border=\"0\" onclick=\"go_to('"+
 		this.js_encode(cr)+"')\" style=\"cursor:pointer\"]]}}}\n"+
 		"\n<"+"a href=\"javascript:query_delete_image('"+this.js_encode(cr)+"')\">"+this.i18n.DELETE_IMAGE+"<"+"/a>\n"+
