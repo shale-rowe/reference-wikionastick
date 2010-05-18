@@ -11,12 +11,17 @@ WoaS needs a modern javascript-capable browser, currently supported browsers
 are:
 
 - Firefox (Gecko-based, all versions)
-- Internet Explorer (6.0 and above)
-- Chrome and Safari (AppleWebkit-based)
-- Opera
+- Internet Explorer (6.0 and above) *
+- Chrome and Safari (AppleWebkit-based) **
+- Opera **
 
-You can't use WoaS with javascript disabled; also you will need java applets
-to exploit file loading/saving features for browsers like Chrome, Safari and Opera.
+You can't use WoaS with javascript disabled.
+
+* = Renaming woas.html to woas.hta might help with file permissions errors in
+more recent versions of IE
+
+** = You will need java applets to exploit file loading/saving features for
+browsers like Chrome, Safari and Opera.
 
 TiddlySaver.jar is the java applet used in such cases (borrowed from
 TiddlyWiki project); if you do not need TiddlySaver.jar feature, you can remove
