@@ -36,7 +36,7 @@ table.columns-plugin td.last {
 	padding-right: 0.5em
 	}
 </style><<<%woas.columns(width, colsw):
-// columns macro by legolas558 - based on work by littlegirl
+// columns macro by legolas558 - original work by Stanky
 
 	// split using the 'nextcolumn' separator
 	var cols = macro.text.replace(/\n*<nextcolumn>\n*/g, "<nextcolumn>").split("<nextcolumn>");
