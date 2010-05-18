@@ -26,16 +26,13 @@ else { tag = "div"; label += "<br/>"; }
 id = _random_string(5);
 
 macro.text = "<a href=\"javascript:d$.toggle('folding_"+id+"');\">"+woas.xhtml_encode(link)+"</a> "+label+
-		"<"+tag+" id=\"folding_"+id+"\" style=\"display: inline; visibility:hidden;\">"+
-		macro.text+"</"+tag+">";
-macro.reprocess = true;
+		"<"+tag+" id=\"folding_"+id+"\" style=\"display: none; visibility:hidden;\">"+macro.text+"</"+tag+">";
+	macro.reprocess = true;
 return true;
 >>>
 = Example usage
 <<<woas.folding("Click me", "to toggle the below folded content"):
 There is no spoon
 >>>
-<<<woas.folding("Click me", "to toggle inline folded content", true):
-There is no spoon
->>>
+<<<woas.folding("Click me", "to toggle inline folded content", true): There is no spoon >>>
 --DFQRCTsKlU
