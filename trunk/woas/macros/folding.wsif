@@ -25,7 +25,7 @@ else { tag = "div"; label += "<br/>"; }
 // a bit hacky
 id = _random_string(5);
 
-macro.text = "<a href=\"javascript:$.toggle('folding_"+id+"');\">"+woas.xhtml_encode(link)+"</a> "+label+
+macro.text = "<a href=\"javascript:d$.toggle('folding_"+id+"');\">"+woas.xhtml_encode(link)+"</a> "+label+
 		"<"+tag+" id=\"folding_"+id+"\" style=\"display: inline; visibility:hidden;\">"+
 		macro.text+"</"+tag+">";
 macro.reprocess = true;

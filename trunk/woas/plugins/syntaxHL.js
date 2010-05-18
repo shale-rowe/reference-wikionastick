@@ -31,7 +31,7 @@ woas.custom.shjs = {
 //			woas.log("OK, now rendering");
 			// render all blocks by clicking their button
 			for(var i=0;i < woas.custom.shjs._block;++i) {
-				$("shjs_postr_btn_"+woas.custom.shjs._uid+"_"+i).click();
+				d$("shjs_postr_btn_"+woas.custom.shjs._uid+"_"+i).click();
 			}
 			// clear
 			woas.custom.shjs._block = 0;
@@ -60,9 +60,9 @@ woas.custom.shjs = {
 
 	// used for post-rendering after library was loaded
 	post_render: function(i, languages) {
-		var elem = $("woas_shjs_"+this._uid+"_"+i);
+		var elem = d$("woas_shjs_"+this._uid+"_"+i);
 		if (this._highlight_element(elem, languages))
-			$.hide("shjs_postr_btn_"+this._uid+"_"+i);
+			d$.hide("shjs_postr_btn_"+this._uid+"_"+i);
 	},
 	
 	_macro_hook: function(macro, classes) {
@@ -104,7 +104,7 @@ woas.custom.shjs = {
 			// TODO: check why the script_extension private array does not work
 //			woas.parser.script_extension.push(
 			macro.text += "<"+"script type=\"text/javascript\">\n"+
-					"woas.custom.shjs._highlight_element($('woas_shjs_"+woas.custom.shjs._uid+"_"+woas.custom.shjs._block+"'),"+classes_v+");"+
+					"woas.custom.shjs._highlight_element(d$('woas_shjs_"+woas.custom.shjs._uid+"_"+woas.custom.shjs._block+"'),"+classes_v+");"+
 					"<"+"/script>";
 //			);
 			macro.reprocess = true;

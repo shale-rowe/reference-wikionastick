@@ -59,9 +59,9 @@ woas.custom.jsMath = {
 			woas.log("jsMath library does not seem to be loaded");
 			return;
 		}
-		var elem = $("jsmath_postrender_"+i);
+		var elem = d$("jsmath_postrender_"+i);
 		woas.setHTML(elem, jsMath.Translate.Parse('T', woas.getHTML(elem)));
-		$.hide("jsmath_postr_btn_"+i);
+		d$.hide("jsmath_postr_btn_"+i);
 	},
 	
 	_macro_hook : function(macro) {
