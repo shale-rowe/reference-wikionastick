@@ -1173,7 +1173,7 @@ woas.edit_page = function(page) {
 };
 
 //API1.0: check if a title is valid
-woas.valid_title = function(title, renaming) {
+woas.valid_title = function(title) {
 	if (title.length == 0) {
 		this.alert(this.i18n.EMPTY_TITLE);
 		return false;
@@ -1194,7 +1194,7 @@ woas.valid_title = function(title, renaming) {
 		return false;
 	}
 	var ns = this.get_namespace(title, true);
-	if (ns.length && renaming && this.is_reserved(ns+"::") && !this.tweak.edit_override) {
+	if (ns.length && this.is_reserved(ns+"::") && !this.tweak.edit_override) {
 		this.alert(this.i18n.ERR_RESERVED_NS.sprintf(ns));
 		return false;
 	}
@@ -1299,7 +1299,7 @@ woas.save = function() {
 				if (!null_save || renaming) {
 					null_save = false;
 					// disallow empty titles
-					if (renaming && !this.valid_title(new_title, renaming))
+					if (renaming && !this.valid_title(new_title))
 						return false;
 					// actually set text only in case of new title
 					this.set_text(raw_content);
