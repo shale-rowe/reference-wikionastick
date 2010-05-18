@@ -291,63 +291,63 @@ woas.importer = {
 	
 	_old_version: null,
 	_upgrade_content: function (P) {
-			// fix the old bootscript page
-			if (this._old_version < 120) {
-				if (P.title === "WoaS::Bootscript") {
-					// convert old base64 bootscript to plain text
-					if (this._old_version < 107)
-						this._bootscript_code = woas.base64.decode(P.body);
-					else
-						this._bootscript_code = P.body;
-					this.pages_imported++;
-					woas.progress_status(this.pages_imported/this.pages.length);
+		var that = woas.importer;
+		// fix the old bootscript page
+		if (that._old_version < 120) {
+			if (P.title === "WoaS::Bootscript") {
+				// convert old base64 bootscript to plain text
+				if (that._old_version < 107)
+					that._bootscript_code = woas.base64.decode(P.body);
+				else
+					that._bootscript_code = P.body;
+				that.pages_imported++;
+				woas.progress_status(that.pages_imported/that.pages.length);
+				return false;
+			}
+		} // since 0.12.0 we no more have a bootscript page
+
+		// check that imported image is valid
+		if (P.attrs & 8) {
+			// the image is not valid as-is, attempt to fix it
+			if (!that.reValidImage.test(P.body)) {
+				// do not continue with newer versions or if not base64-encoded
+				if ((that._old_version>=117) || !woas.base64.reValid.test(P.body)) {
+					woas.log("Skipping invalid image "+P.title);
 					return false;
 				}
-			} // from 0.12.0 we no more have a bootscript page
-
-			// check that imported image is valid
-			if (P.attrs & 8) {
-				// the image is not valid as-is, attempt to fix it
-				if (!this.reValidImage.test(P.body)) {
-					// do not continue with newer versions or if not base64-encoded
-					if ((this._old_version>=117) || !woas.base64.reValid.test(P.body)) {
-						log("Skipping invalid image "+P.title);
-						return false;
-					}
-					// we assume that image is double-encoded
-					P.body = woas.base64.decode(P.body);
-					// check again for validity
-					if (!this.reValidImage.test(P.body)) {
-						log("Skipping invalid image "+P.title); //log:1
-						return false;
-					}
-					woas.log("Fixed double-encoded image "+P.title); //log:1
+				// we assume that image is double-encoded
+				P.body = woas.base64.decode(P.body);
+				// check again for validity
+				if (!that.reValidImage.test(P.body)) {
+					log("Skipping invalid image "+P.title); //log:1
+					return false;
 				}
-				// try to fix the 'undefined' mime type bug
-				if (this._old_version < 120) {
-					if (this.reImageBadMime.test(P.body))
-						// attempt to find the correct mime
-						P.body = "data:"+woas._guess_mime(P.title)+
-											P.body.substr(14);
-				}
-			} // check images
-
-			// fix the trailing nul bytes bug in encrypted pages
-			// extended from 0.10.4 to 0.12.0 because was not fixed on new pages
-			if ((this._old_version>=102) && (this._old_version<120)
-				&& (P.attrs & 2)) {
-				var rest = P.body.length % 16;
-				if (rest) {
-					woas.log("removing "+rest+" trailing bytes from page "+P.title); //log:1
-					while (rest-- > 0) {P.body.pop();}
-				}
+				woas.log("Fixed double-encoded image "+P.title); //log:1
 			}
-					
-			// proceed to actual import
-			if (this._import_hook(P)) {
-				++this.pages_imported;
-				woas.progress_status(this.pages_imported/this.pages.length);
+			// try to fix the 'undefined' mime type bug
+			if (that._old_version < 120) {
+				if (that.reImageBadMime.test(P.body))
+					// attempt to find the correct mime
+					P.body = "data:"+woas._guess_mime(P.title)+P.body.substr(14);
 			}
+		} // check images
+
+		// fix the trailing nul bytes bug in encrypted pages
+		// extended from 0.10.4 to 0.12.0 because was not fixed on new pages
+		if ((that._old_version>=102) && (that._old_version<120)
+			&& (P.attrs & 2)) {
+			var rest = P.body.length % 16;
+			if (rest) {
+				woas.log("removing "+rest+" trailing bytes from page "+P.title); //log:1
+				while (rest-- > 0) {P.body.pop();}
+			}
+		}
+			
+		// proceed to actual import
+		if (that._import_hook(P)) {
+			++that.pages_imported;
+			woas.progress_status(that.pages_imported/that.pages.length);
+		}
 		return true;
 	},
 	
