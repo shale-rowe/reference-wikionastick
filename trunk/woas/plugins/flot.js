@@ -8,12 +8,12 @@ woas.custom.flot = {
 		return (typeof this.series[name] != "undefined");
 	},
 	
-	_macro_define_series: function(macro, name) {
+	_macro_define_series: function(macro, name, label) {
 		// check that this name is available
 		if (woas.custom.flot.has_series(name))
 			 return false;
 		var lines = macro.text.split("\n"),m, new_series = [], row;
-		macro.text = "<strong>"+name+"</strong><br/><table style='border: 1px dotted'>";
+		macro.text = "<strong>"+(typeof label == "undefined" ? name : label)+"</strong><br/><table style='border: 1px dotted'>";
 		for(var i=0;i<lines.length;++i) {
 			m = lines[i].match(/\d+(\.\d+)?/g);
 			if (m === null) continue;
@@ -29,8 +29,11 @@ woas.custom.flot = {
 		}
 		macro.text += "</table>";
 		
-		// finally add the series
-		woas.custom.flot.series[name] = new_series;
+		// finally add the series, taking care of label
+		if (typeof label != "undefined")
+			woas.custom.flot.series[name] = { data: new_series, label: label };
+		else
+			woas.custom.flot.series[name] = new_series;
 		return true;
 	},
 	
@@ -46,7 +49,8 @@ woas.custom.flot = {
 	_render_one: function(a) {
 		var ds = [],
 			// expand variables
-			series = woas.custom.flot._queue[a];
+			series = woas.custom.flot._queue[a][0],
+			options = woas.custom.flot._queue[a][1];
 		// get the registered series
 		for(var i=0;i < series.length;++i) {
 			if (!woas.custom.flot.has_series(series[i])) {
@@ -62,7 +66,7 @@ woas.custom.flot = {
 		d$("woas_flot_placeholder_"+a).style.backgroundColor = "inherit";
 		var rv = true;
 		try {
-			$.plot($("#woas_flot_placeholder_"+a), ds);
+			$.plot($("#woas_flot_placeholder_"+a), ds, options);
 		} catch (e) {
 			woas.log(e);
 			rv = false;
@@ -70,10 +74,11 @@ woas.custom.flot = {
 		return rv;
 	},
 	
-	_macro_plot: function(macro, width, height, series) {
+	_macro_plot: function(macro, width, height, series, options) {
 		var a = woas.custom.flot._queue.length;
-		woas.custom.flot._queue.push(series);
-		macro.text = '<div id="woas_flot_placeholder_'+a+'" style="width:'+width+'px;height:'+height+'px; background-color: #CCCCCC; text-align: center; line-height:'+height+'px; color: gray"><em>(plot canvas is empty)</em></div>'+
+		woas.custom.flot._queue.push([series, options]);
+		macro.text = '<div id="woas_flot_placeholder_'+a+'" style="width:'+width+'px;height:'+height+'px; background-color: #CCCCCC; text-align: center; line-height:'+height+
+						'px; color: gray"><em>(plot canvas is empty)</em></div>'+
 					'<input id="woas_plot_btn_'+a+'" type="button" onclick="woas.custom.flot._render_one('+a+')" value="Plot" />';
 		return true;
 	}

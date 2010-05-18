@@ -27,7 +27,7 @@ woas.page.boundary: DFQRCTsKlU
 
 Press /Plot/ button to plot using the *flot library*.
 
-<<<woas.flot.series("d1"):
+<<<woas.flot.series("d1", "My data"):
 0    3
 4    8
 8    5
