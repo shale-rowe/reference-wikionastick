@@ -1,6 +1,4 @@
-// WSIF module
-
-var reMimeMatch = /^data:\s*([^;]*);\s*base64,\s*/;
+// @module wsif
 
 woas.wsif = {
 	version: "1.3.1",			// version of WSIF format being used
@@ -28,8 +26,9 @@ woas.wsif = {
 	do_error: function(msg) {
 		log("WSIF ERROR: "+msg);	//log:1
 		this.emsg = msg;
-	}
+	},
 	
+	reMimeMatch = /^data:\s*([^;]*);\s*base64,\s*/
 };
 
 // default behavior:
@@ -103,7 +102,7 @@ woas._native_wsif_save = function(path, src_fname, locking, single_wsif, inline_
 					encoding = "8bit/plain";
 					// decode the base64-encoded data
 					if (this.is__image(pi)) {
-						m = ct.match(reMimeMatch);
+						m = ct.match(this.wsif.reMimeMatch);
 						record += this.wsif.header(pfx+"mime", m[1]);
 						// remove the matched part
 						ct = this.base64.decode(ct.substr(m[0].length));
@@ -112,7 +111,7 @@ woas._native_wsif_save = function(path, src_fname, locking, single_wsif, inline_
 				} else {
 					encoding = "8bit/base64";
 					if (this.is__image(pi)) {
-						m = ct.match(reMimeMatch);
+						m = ct.match(this.wsif.reMimeMatch);
 						if (m === null) {
 							this.crash(page_titles[pi]+" is not a valid image!"+ct);							
 							continue;
@@ -316,13 +315,16 @@ woas._native_wsif_load = function(path, locking, and_save, recursing, import_hoo
 
 					// was generator information truly necessary?
 					if (and_save) {
-						if ((this.wsif.generator.name !== "woas") || (this.wsif.generator.version === null)) {
-							this.wsif.do_error("Cannot import because generator is not WoaS or version is not available");
-							p = -1;
-							fail = true;
-						} else
-							// copy to importer module
-							this.importer._old_version = Number(this.wsif.generator.version.replace(".", ""));
+						if (this.wsif.generator.name === "woas") {
+							if (this.wsif.generator.version === null)) {
+								this.wsif.do_error("Cannot import because WoaS generator version is not available");
+								p = -1;
+								fail = true;
+							} else
+								// copy to importer module
+								this.importer._old_version = Number(this.wsif.generator.version.replace(".", ""));
+						} else // assume that any content generated with libwsif is up-to-date
+							this.importer._old_version = Number(this.version.replace(".", ""))
 					}
 
 				} // !recursing
