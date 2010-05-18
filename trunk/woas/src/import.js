@@ -254,6 +254,16 @@ woas.importer = {
 		return true;
 	},
 	
+	_upgrade_and_import_hook: function(page) {
+		var that = woas.importer;
+		
+		// apply upgrade fixes from older versions
+		if (!that._upgrade_content(page))
+			return false;
+		
+		return that._import_hook(page);
+	},
+	
 	// normal import hook - shared for XHTML and WSIF import
 	_import_hook: function(page) {
 		var that = woas.importer;
@@ -289,68 +299,73 @@ woas.importer = {
 		this._plugins_update = [];
 	},
 	
-	_import_content: function(old_version) {
-		for (var i=0; i < this.pages.length; i++) {
+	_old_version: null,
+	_upgrade_content: function (P) {
 			// fix the old bootscript page
-			if (old_version < 120) {
-				if (pages[i].title === "WoaS::Bootscript") {
+			if (this._old_version < 120) {
+				if (P.title === "WoaS::Bootscript") {
 					// convert old base64 bootscript to plain text
-					if (old_version < 107)
-						this._bootscript_code = woas.base64.decode(pages[i].body);
+					if (this._old_version < 107)
+						this._bootscript_code = woas.base64.decode(P.body);
 					else
-						this._bootscript_code = pages[i].body;
+						this._bootscript_code = P.body;
 					this.pages_imported++;
 					woas.progress_status(this.pages_imported/this.pages.length);
-					continue;
+					return false;
 				}
 			} // from 0.12.0 we no more have a bootscript page
 
 			// check that imported image is valid
-			if (this.pages[i].attrs & 8) {
+			if (P.attrs & 8) {
 				// the image is not valid as-is, attempt to fix it
-				if (!this.reValidImage.test(this.pages[i].body)) {
+				if (!this.reValidImage.test(P.body)) {
 					// do not continue with newer versions or if not base64-encoded
-					if ((old_version>=117) || !woas.base64.reValid.test(this.pages[i].body)) {
-						log("Skipping invalid image "+this.pages[i].title);
-						continue;
+					if ((this._old_version>=117) || !woas.base64.reValid.test(P.body)) {
+						log("Skipping invalid image "+P.title);
+						return false;
 					}
 					// we assume that image is double-encoded
-					this.pages[i].body = woas.base64.decode(this.pages[i].body);
+					P.body = woas.base64.decode(P.body);
 					// check again for validity
-					if (!this.reValidImage.test(this.pages[i].body)) {
-						log("Skipping invalid image "+this.pages[i].title); //log:1
-						continue;
+					if (!this.reValidImage.test(P.body)) {
+						log("Skipping invalid image "+P.title); //log:1
+						return false;
 					}
-					woas.log("Fixed double-encoded image "+this.pages[i].title); //log:1
+					woas.log("Fixed double-encoded image "+P.title); //log:1
 				}
 				// try to fix the 'undefined' mime type bug
-				if (old_version < 120) {
-					if (this.reImageBadMime.test(this.pages[i].body))
+				if (this._old_version < 120) {
+					if (this.reImageBadMime.test(P.body))
 						// attempt to find the correct mime
-						this.pages[i].body = "data:"+woas._guess_mime(pages[i].title)+
-											this.pages[i].body.substr(14);
+						P.body = "data:"+woas._guess_mime(P.title)+
+											P.body.substr(14);
 				}
 			} // check images
 
 			// fix the trailing nul bytes bug in encrypted pages
 			// extended from 0.10.4 to 0.12.0 because was not fixed on new pages
-			if ((old_version>=102) && (old_version<120)
-				&& (this.pages[i].attrs & 2)) {
-				var rest = this.pages[i].body.length % 16;
+			if ((this._old_version>=102) && (this._old_version<120)
+				&& (P.attrs & 2)) {
+				var rest = P.body.length % 16;
 				if (rest) {
-					woas.log("removing "+rest+" trailing bytes from page "+this.pages[i].title); //log:1
-					while (rest-- > 0) {this.pages[i].body.pop();}
+					woas.log("removing "+rest+" trailing bytes from page "+P.title); //log:1
+					while (rest-- > 0) {P.body.pop();}
 				}
 			}
 					
 			// proceed to actual import
-			if (this._import_hook(this.pages[i])) {
+			if (this._import_hook(P)) {
 				++this.pages_imported;
 				woas.progress_status(this.pages_imported/this.pages.length);
 			}
-		
-		} // for cycle
-
+		return true;
+	},
+	
+	_import_content: function(old_version) {
+		this._old_version = old_version;
+		for (var i=0; i < this.pages.length; i++) {
+			this._upgrade_content(this.pages[i]);
+		}
 	},
 	
 	do_import: function(ct) {
@@ -664,7 +679,7 @@ woas.import_wiki_wsif = function() {
 	
 	// automatically retrieve the filename (will call load_file())
 	var done = woas._native_wsif_load(null, false /* no locking */, false /* no save */, 0,
-			this.importer._import_hook, this.importer._filter_by_title,
+			this.importer._upgrade_and_import_hook, this.importer._filter_by_title,
 			this.importer._after_import);
 	if (done === false && (woas.wsif.emsg !== null))
 		this.crash(woas.wsif.emsg);
