@@ -36,22 +36,34 @@ table.columns-plugin td.last {
 	padding-right: 0.5em
 	}
 </style><<<%woas.columns(width, colsw):
-// columns macro by legolas558 - original work by Stanky
+// columns macro by legolas558 - based on original work by Stanky
 
 	// split using the 'nextcolumn' separator
 	var cols = macro.text.replace(/\n*<nextcolumn>\n*/g, "<nextcolumn>").split("<nextcolumn>");
 	// properly initialize
-    if (!colsw)
+	if (!colsw)
 		colsw = [];
-	// add null widths when not specified
+	// add null widths where not specified
 	for (var i=colsw.length;i <= cols.length; ++i)
 		colsw.push(null);
-	macro.text =  "<table class='columns-plugin'" + (colsw[0] !== null?" style='width:" + colsw.shift() + "'": colsw.shift()) + ">";
-	for (var i=0;i < colsw.length; ++i)
-		macro.text = macro.text + "<col" + (colsw[i] !== null?" style='width:" + colsw[i] + "'": "") + ">";
+	// set table width
+	macro.text =  "<table class='columns-plugin'";
+	if (width !== null)
+		macro.text += " style='width:" + width + "%'";
+	macro.text +=  ">";
+	// output the '<col>' definitions
+	for (var i=0;i < colsw.length; ++i) {
+		macro.text = macro.text + "<col" + (colsw[i] !== null ? " style='width:" + colsw[i] + "%'": "") + ">";
+	}
 	macro.text += "<tr>";
-	for (var i=0; i<cols.length; ++i)
-		macro.text += "<td class='" + (i == 0?"first" : "last") + "'>" + cols[i] + "</td>"; 
+	for (var i=0; i < cols.length; ++i) {
+		macro.text += "<td ";
+		if (i === 0)
+			macro.text += " class='first'";
+		else if (i === cols.length-1)
+			macro.text += " class='last'";
+		macro.text += ">" + cols[i] + "</td>"; 
+	}
 	macro.text += "</tr></table>";
 	macro.reprocess = true;
 	return true;

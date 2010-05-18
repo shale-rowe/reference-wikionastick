@@ -45,11 +45,6 @@ for more information.
 
 WoaS comes with some sample macros which can be found in 'macros/' directory.
 
-= Examples
-
-The 'examples/' directory contains WSIF collections with various purposes; you
-shall refer to each one of them for their content.
-
 = Removal instructions
 
 Delete the files you extracted from the release archive.
