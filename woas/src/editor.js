@@ -1,12 +1,12 @@
 
 woas.wiki_buttons_display = function (v) {
-	$('wiki_format_buttons').style.display = v ? 'block' : 'none';
-	$('wiki_format_buttons').style.visibility = v ? 'visible' : 'hidden';
+	d$('wiki_format_buttons').style.display = v ? 'block' : 'none';
+	d$('wiki_format_buttons').style.visibility = v ? 'visible' : 'hidden';
 };
 
 woas.html_buttons_display = function (v) {
-	$('html_format_buttons').style.display = v ? 'block' : 'none';
-	$('html_format_buttons').style.visibility = v ? 'visible' : 'hidden';
+	d$('html_format_buttons').style.display = v ? 'block' : 'none';
+	d$('html_format_buttons').style.visibility = v ? 'visible' : 'hidden';
 };
 
 // class for managing textarea selection - by pr0xy
@@ -30,8 +30,8 @@ TextAreaSelectionHelper.prototype.getSelectedText=function() {
 	if (this.iesel)
 		return this.iesel.text;
 	// Fixes a problem in FF3 where the selection was not being stored in this.start and this.end when selecting multilines
-	this.start = $("woas_editor").selectionStart;
-	this.end = $("woas_editor").selectionEnd;
+	this.start = d$("woas_editor").selectionStart;
+	this.end = d$("woas_editor").selectionEnd;
 	return ((this.start>=0)&&(this.end>this.start))? this.target.value.substring(this.start,this.end): "";
 };
 

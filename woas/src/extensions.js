@@ -360,7 +360,7 @@ woas.plugins = {
 		this._all.splice(i,1);
 		if (current === "WoaS::Plugins") {
 			// reload plugins
-			$("wiki_text").innerHTML = woas.parser.parse(woas.get_text("WoaS::Plugins") + this.list());
+			d$("wiki_text").innerHTML = woas.parser.parse(woas.get_text("WoaS::Plugins") + this.list());
 		}
 		return true;
 	}
@@ -410,10 +410,10 @@ woas._load_hotkeys = function(s) {
 		}
 	});
 	// once finished loading hotkey definitions, associate them
-	$("woas_save_hl").accessKey = this.hotkeys.save;
-	$("woas_edit_hl").accessKey = this.hotkeys.edit;
-	$("woas_print_hl").accessKey = this.hotkeys.print;
-	$("woas_help_hl").accessKey = this.hotkeys.help;
+	d$("woas_save_hl").accessKey = this.hotkeys.save;
+	d$("woas_edit_hl").accessKey = this.hotkeys.edit;
+	d$("woas_print_hl").accessKey = this.hotkeys.print;
+	d$("woas_help_hl").accessKey = this.hotkeys.help;
 	//TODO: set access key for goto feature
 	// (1) delete access keys which no more exist
 	var found,a,b;
@@ -431,7 +431,7 @@ woas._load_hotkeys = function(s) {
 		}
 		// proceed to removal
 		if (!found) {
-			$("woas_custom_accesskeys").removeChild(this.custom_accesskeys[a].obj);
+			d$("woas_custom_accesskeys").removeChild(this.custom_accesskeys[a].obj);
 			delete this.custom_accesskeys[a].obj;
 			this.custom_accesskeys.splice(a,1);
 			--at;
@@ -464,12 +464,12 @@ woas._update_accesskeys = function(new_custom_accesskeys) {
 			// store the new access key
 			this.custom_accesskeys.push({"fn":new_custom_accesskeys[a].fn,"key":new_custom_accesskeys[a].key,
 										 "obj":ak});
-			$("woas_custom_accesskeys").appendChild(ak);
+			d$("woas_custom_accesskeys").appendChild(ak);
 		}
 	}
 	// (3) clear the div content if no custom access key is there (just for safety)
 	if (this.custom_accesskeys.length == 0)
-		this.setHTML($("woas_custom_accesskeys"), "&nbsp;");
+		this.setHTML(d$("woas_custom_accesskeys"), "&nbsp;");
 }
 
 // return the default hotkeys/key bindings

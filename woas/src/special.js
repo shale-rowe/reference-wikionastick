@@ -277,16 +277,9 @@ function bool2chk(b) {
 	return "";
 }
 
-$.checked = function(id) {
-	cfg_changed = true;
-	if ($(id).checked)
-		return true;
-	return false;
-};
-
 // Used by Special::Options
 function _set_layout(fixed) {
-	$("sw_menu_area").style.position = $("sw_wiki_header").style.position = (fixed ? "fixed" : "absolute");
+	d$("sw_menu_area").style.position = d$("sw_wiki_header").style.position = (fixed ? "fixed" : "absolute");
 }
 
 //Special::Recentchanges shows a sorted list of pages by modified timestamp
@@ -403,7 +396,7 @@ woas.ns_recurse_parse = function(folds, output, prev_ns, recursion, sorted) {
 			// generate id for folding div
 			fold_id = "woas_fold"+output.fold_no++;
 			var vis_css = woas._visible_css(this._ns_expanded(prev_ns, it, fold_id, output.list_id));
-			output.s += "<"+"h"+(recursion+1)+" id=\""+fold_id+"_head\"> [[Javascript::$.toggle('"+fold_id+"')|"+prev_ns+"]]";
+			output.s += "<"+"h"+(recursion+1)+" id=\""+fold_id+"_head\"> [[Javascript::d$.toggle('"+fold_id+"')|"+prev_ns+"]]";
 			output.s += " [["+prev_ns+"|"+String.fromCharCode(8594)+"]] ("+it+" pages)\n<"+"/h"+(recursion+1)+">";
 			output.s += "<"+"div style=\""+vis_css+"\" id=\""+fold_id+"\">\n";
 		}
@@ -457,23 +450,23 @@ function _WoaS_list_expand_change(list_id, v) {
 	woas.config.folding_style = woas._ns_groups[list_id].option = parseInt(v);
 	switch (woas._ns_groups[list_id].option) {
 		case 1: // collapse all
-			$.show("WoaS_"+list_id+"_folds");
-			$.hide("WoaS_"+list_id+"_flat");
+			d$.show("WoaS_"+list_id+"_folds");
+			d$.hide("WoaS_"+list_id+"_flat");
 
 			for(var i=0,it=woas._ns_groups[list_id].items.length;i < it;++i) {
-				$.hide(woas._ns_groups[list_id].items[i]);
+				d$.hide(woas._ns_groups[list_id].items[i]);
 			}
 		break;
 		case 0: // flat list
-			$.hide("WoaS_"+list_id+"_folds");
-			$.show("WoaS_"+list_id+"_flat");
+			d$.hide("WoaS_"+list_id+"_folds");
+			d$.show("WoaS_"+list_id+"_flat");
 			break;
 		case 2: // expand all
-			$.show("WoaS_"+list_id+"_folds");
-			$.hide("WoaS_"+list_id+"_flat");
+			d$.show("WoaS_"+list_id+"_folds");
+			d$.hide("WoaS_"+list_id+"_flat");
 
 			for(var i=0,it=woas._ns_groups[list_id].items.length;i < it;++i) {
-				$.show(woas._ns_groups[list_id].items[i]);
+				d$.show(woas._ns_groups[list_id].items[i]);
 			}
 		break;
 	}
