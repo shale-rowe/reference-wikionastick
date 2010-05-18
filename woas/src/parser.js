@@ -13,7 +13,7 @@ woas.parser = {
 	},
 	
 	// hook which can be overriden by extensions
-	after_parse: function() {
+	after_parse: function(P) {
 	},
 	
 	// a variety of regular expressions used by the parser
