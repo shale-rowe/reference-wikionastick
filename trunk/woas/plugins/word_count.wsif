@@ -34,7 +34,8 @@ woas.custom.wordcount._button = "<input type=\"button\" value=\"Word Count\" onc
 
 // register the macro
 woas.macro.register('woas.wordcount', function(macro) {
-     return woas.custom.wordcount._button;
+    macro.text = woas.custom.wordcount._button;
+    return true;
 });
 
 --DFQRCTsKlU
