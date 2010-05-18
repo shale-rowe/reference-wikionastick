@@ -9,6 +9,7 @@ woas.wsif = {
 	imported: [],				// _native_page_def() will always add imported pages here
 	expected_pages: null,
 	global_progress: 0,
+	generator: { version: null, name: null },
 	header: function(header_name, value) {
 		return header_name+": "+value+"\n";
 	},
@@ -270,6 +271,7 @@ woas._native_wsif_load = function(path, locking, and_save, recursing, import_hoo
 		this.wsif.emsg = this.i18n.NO_ERROR;
 		this.wsif.imported = [];
 		this.wsif.global_progress = 0;
+		this.wsif.generator = { version: null, name: null };
 	}
 	var pfx = "\nwoas.page.", pfx_len = pfx.length;
 	// start looping to find each page
@@ -294,14 +296,38 @@ woas._native_wsif_load = function(path, locking, and_save, recursing, import_hoo
 				this.wsif.do_error(this.i18n.WSIF_NS_VER.sprintf(wsif_v));
 				p = -1;
 				fail = true;
-			} else { // get number of expected pages (not when recursing)
+			} else {
 				if (!recursing) {
+					// get number of expected pages
 					this.wsif.expected_pages = ct.substring(0,p).match(/^woas\.pages:\s+(\d+)$/m);
 					if (this.wsif.expected_pages !== null)
 						this.wsif.expected_pages = Number(this.wsif.expected_pages[1]);
-				}
-			}
-		}
+					// gather generator information
+					this.wsif.generator.name = ct.substring(0,p).
+						match(/^wsif\.generator:\s+(.+)$/m);
+					if (this.wsif.generator.name !== null) {
+						this.wsif.generator.name = this.wsif.generator.name[1]
+						this.wsif.generator.version = ct.substring(0,p).
+							match((wsif_v_n < 131) ? /^woas\.version:\s+(.+)$/m : /^wsif\.generator\.version:\s+(.+)$/m);
+						if (this.wsif.generator.version !== null) {
+							this.wsif.generator.version = this.wsif.generator.version[1];
+						}
+					}
+
+					// was generator information truly necessary?
+					if (and_save) {
+						if ((this.wsif.generator.name !== "woas") || (this.wsif.generator.version === null)) {
+							this.wsif.do_error("Cannot import because generator is not WoaS or version is not available");
+							p = -1;
+							fail = true;
+						} else
+							// copy to importer module
+							this.importer._old_version = Number(this.wsif.generator.version.replace(".", ""));
+					}
+
+				} // !recursing
+			} // valid version
+		} // has version
 	}
 	var title = null,	attrs = null,
 		last_mod = null,	len = null,
