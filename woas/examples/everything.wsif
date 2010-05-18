@@ -131,7 +131,7 @@ else { tag = "div"; label += "<br/>"; }
 // a bit hacky
 id = _random_string(5);
 
-macro.text = "<a href=\"javascript:$.toggle('folding_"+id+"');\">"+woas.xhtml_encode(link)+"</a> "+label+
+macro.text = "<a href=\"javascript:d$.toggle('folding_"+id+"');\">"+woas.xhtml_encode(link)+"</a> "+label+
 		"<"+tag+" id=\"folding_"+id+"\" style=\"display: inline; visibility:hidden;\">"+
 		macro.text+"</"+tag+">";
 macro.reprocess = true;
@@ -345,7 +345,7 @@ woas.page.boundary: DFQRCTsKlU
 	
 woas.custom.themes = {
 	_load: function () {
-		$('themes_layer').innerHTML = woas.custom.themes._get_img('img_logo') +
+		d$('themes_layer').innerHTML = woas.custom.themes._get_img('img_logo') +
 			woas.custom.themes._get_img('img_back') +
 			woas.custom.themes._get_img('img_forward') +
 			woas.custom.themes._get_img('img_advanced') +
@@ -360,7 +360,7 @@ woas.custom.themes = {
 			woas.custom.themes._get_img('img_save');
 	},
 	_get_img: function(id) {
-		return '<img title="Change '+id.substr(4)+' icon" style="margin: 5px; border-color: green; cursor: pointer" border="2" src="' + $(id).src + '" onclick="javascript:woas.custom.themes._replace_from_file(\'' +id+ '\');" alt="' +id+ '"/>';
+		return '<img title="Change '+id.substr(4)+' icon" style="margin: 5px; border-color: green; cursor: pointer" border="2" src="' + d$(id).src + '" onclick="javascript:woas.custom.themes._replace_from_file(\'' +id+ '\');" alt="' +id+ '"/>';
 	},
 	_replace_from_file: function(button) {
 		var ct = woas.load_file(null, woas.file_mode.BASE64);
@@ -368,7 +368,7 @@ woas.custom.themes = {
 			woas.alert(woas.i18n.LOAD_ERR);
 			return false;
 		}
-		$(button).src = ct;
+		d$(button).src = ct;
 		woas.full_commit();
 	}
 
