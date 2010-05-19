@@ -23,18 +23,18 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 /* Word count plugin by legolas558 */
 	
-woas.custom.wordcount = function(xhtml) {
+woas.custom.word_count = function(xhtml) {
     var words = woas.xhtml_to_text(xhtml).match(/[A-Za-z\'\-]+/g);
     if (!words) return 0;
     return words.length;
 };
 
-woas.custom.wordcount._button = "<input type=\"button\" value=\"Word Count\" onclick=\""+
-				"alert(_word_count(woas.getHTML(d$('woas_wiki_area'))))\" />";
+woas.custom.word_count._button = "<input type=\"button\" value=\"Word Count\" onclick=\""+
+				"alert(woas.custom.word_count(woas.getHTML(d$('woas_wiki_area'))))\" />";
 
 // register the macro
 woas.macro.register('woas.wordcount', function(macro) {
-    macro.text = woas.custom.wordcount._button;
+    macro.text = woas.custom.word_count._button;
     return true;
 });
 
