@@ -1,5 +1,17 @@
+wsif.version: 1.3.1
+wsif.generator: woas
+wsif.generator.version: 0.12.0
+woas.author: legolas558
+woas.pages: 1
 
-// internationalization language resources
+woas.page.title: WoaS::Plugins::@I18N_IT
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+/* Italian translation */
 woas.i18n = {
 	ACCESS_DENIED: "Access denied to page '%s'",
 	ALT_BROWSER_INPUT: "Please specify full path to file '%s' because your browser does not allow such path to be read directly for security reasons.",
@@ -82,3 +94,4 @@ woas.i18n = {
 
 // do not use any copyrighted wordlist here
 woas.i18n.common_words = ['the','of','to' ,'and' ,'a' ,'in' ,'is' ,'it' ,'you' ,'that' ,'he' ,'was' ,'for','on' ,'are' ,'with' ,'as' ,'I' ,'his' ,'they' ,'be' ,'at' ,'one' ,'have' ,'this' ,'from' ,'or' ,'had' ,'by' , 'an', 'all' ];
+--DFQRCTsKlU
