@@ -1,4 +1,5 @@
 Version 0.12.0 (legolas558)
+* will remember import options
 * better import options and overwrite settings
 * macros shall return a true/false value to tell about failure
 * commas are again best-preference for tags specification

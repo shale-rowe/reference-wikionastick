@@ -108,7 +108,7 @@ woas.ui = {
 		if (!woas.config.permit_edits)
 			d$("btn_import").disabled = true;
 		// restore default settings - with some exceptions
-		for(var i=0;i<woas.importer._settings_props.length-except;++i) {
+		for(var i=0;i < woas.importer._settings_props.length-except;++i) {
 			d$("woas_cb_import"+woas.importer._settings_props[i].substr(1)).checked =
 							woas.bitfield.get(woas.config.import_settings, i);
 		}
