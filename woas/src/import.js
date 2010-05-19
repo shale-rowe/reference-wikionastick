@@ -98,10 +98,10 @@ woas.importer = {
 		var jstrings=[], fail = false;
 		// (1) take away all javascript strings (most notably: content and titles)
 		// WARNING: quoting hacks lie here!
-		data = data.replace(/\\'/g, ":-"+parse_marker).replace(this.reJString, function (str) {
+		data = data.replace(/\\'/g, ":-"+woas.parser.marker).replace(this.reJString, function (str) {
 			// restore quotes
 			jstrings.push(str.substr(1, str.length-2).replace(woas.importer.reRequote, "\\'"));
-			return parse_marker+":"+(jstrings.length-1).toString();
+			return woas.parser.marker+":"+(jstrings.length-1).toString();
 		});
 		// (2) rename the variables
 		data.replace(/([^\\])\nvar\s+(\w+)\s*=\s*([^;]+);/g, function (str, $1, var_name, definition) {
@@ -211,11 +211,11 @@ woas.importer = {
 		var snippets = [];
 		// put away text in XHTML comments and nowiki blocks
 		var page = NP.body.replace(reComments, function (str, $1) {
-				var r = "<"+"!-- "+parse_marker+"::"+snippets.length+" --"+">";
+				var r = "<"+"!-- "+woas.parser.marker+"::"+snippets.length+" --"+">";
 				snippets.push(str);
 				return r;
 			}).replace(reNowiki, function (str, $1) {
-				var r = "<"+"!-- "+parse_marker+"::"+snippets.length+" --"+">";
+				var r = "<"+"!-- "+woas.parser.marker+"::"+snippets.length+" --"+">";
 				snippets.push("{{{"+$1+"}}}");
 				return r;
 		});
@@ -230,7 +230,7 @@ woas.importer = {
 		if (NP.modified) {
 			// put back in place all HTML snippets
 			if (snippets.length>0) {
-				NP.body = page.replace(new RegExp("<\\!-- "+parse_marker+"::(\\d+) -->", "g"), function (str, $1) {
+				NP.body = page.replace(new RegExp("<\\!-- "+woas.parser.marker+"::(\\d+) -->", "g"), function (str, $1) {
 					return snippets[parseInt($1)];
 				});
 			} else
@@ -595,9 +595,9 @@ woas.importer = {
 	},
 
 	// regular expressions used to not mess with title/content strings
-	reRequote: new RegExp(":-"+parse_marker, "g"),
+	reRequote: new RegExp(":-"+woas.parser.marker, "g"),
 	reJString: new RegExp("'[^']*'", "g"),
-	reJStringRep: new RegExp(parse_marker+":"+"(\\d+)", "g"),
+	reJStringRep: new RegExp(woas.parser.marker+":"+"(\\d+)", "g"),
 	reValidImage: /^data:\s*[^;]*;\s*base64,\s*/,
 	reImageBadMime: /^data:undefined;\s*base64,\s*/,
 	reOldStyleBlock: new RegExp("<"+"style\\s.*?type=\"?text\\/css\"?[^>]*>((\\n|.)*?)<"+"\\/style>", "i")
