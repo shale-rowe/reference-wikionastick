@@ -609,3 +609,39 @@ woas._get_path = function(id) {
 	// on older browsers this was allowed
 	return this.dirname(d$(id).value);
 };
+
+// tool to read/store flags in an integer
+woas.binaryflag = {
+	// 32bit full mask
+	_field_mask: [0x2, 0x4, 0x8, 0x10, 0x20, 0x40, 0x80, 0x100, 0x200, 0x400, 0x800, 0x1000, 0x2000, 0x4000, 0x8000, 0x10000,
+				0x20000, 0x40000, 0x80000, 0x100000, 0x200000, 0x400000, 0x800000, 0x1000000, 0x2000000, 0x4000000, 0x8000000, 0x10000000, 0x20000000, 0x40000000, 0x80000000, 0x100000000],
+	
+	get: function(bm, pos) {
+		return (bm & this._field_mask[pos]) ? true : false;
+	},
+	
+	set: function(bm, pos, value) {
+		if (value)
+			return bm | this._field_mask[pos];
+		return bm & ~this._field_mask[pos];
+	},
+	
+	// return an integer after having parsed given object with given order
+	get_object: function(obj, order) {
+		var rv=0;
+		for(var i=0;i<order.length;++i) {
+			if (obj[order[i]])
+				rv &= this._field_mask[i];
+		}
+		return rv;
+	},
+
+	// set object properties to true/false after parsing the bits by given order
+	set_object: function(obj, order, bm) {
+		for(var i=0;i<order.length;++i) {
+			obj[order[i]] = (bm & this._field_mask[i]) ? true : false;
+		}
+	}
+
+	
+};
