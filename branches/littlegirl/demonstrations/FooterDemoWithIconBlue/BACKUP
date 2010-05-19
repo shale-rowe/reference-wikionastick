@@ -1,5 +1,0 @@
-#!/bin/bash
-DIRECTORY=$(cd `dirname $0` && pwd)
-cp -p $DIRECTORY/woas.htm $DIRECTORY/woas--`date +%Y-%m-%d--%T`.htm
-cp -p $DIRECTORY/index.wsif $DIRECTORY/index--`date +%Y-%m-%d--%T`.wsif
-cp -Rp $DIRECTORY/src $DIRECTORY/src--`date +%Y-%m-%d--%T`
