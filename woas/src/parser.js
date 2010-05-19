@@ -12,8 +12,12 @@ woas.parser = {
 		return s.replace(/[^a-zA-Z0-9]/g, '_')
 	},
 	
-	// hook which can be overriden by extensions
+	// @override to apply some further customization before parse output
 	after_parse: function(P) {
+	},
+	
+	// @override to parse further syntax before final replace
+	extend_syntax: function(P) {
 	},
 	
 	// a variety of regular expressions used by the parser
@@ -227,7 +231,9 @@ woas._raw_preformatted = function(tag, text, cls, add_style) {
 	return "<"+tag+" class=\""+cls+"\""+add_style+">"+xhtml+"</"+tag+">";
 };
 
-// THIS is the method that you should override for your custom parsing needs
+// This method can be overriden to customize parsing
+// Other useful callbacks to control flow of page display: woas.after_parse and woas.pager.browse
+
 // 'text' is the raw wiki source
 // 'export_links' is set to true when exporting wiki pages and is used to generate proper href for hyperlinks
 // 'js_mode' controls javascript behavior. Allowed values are:
@@ -255,11 +261,10 @@ woas.parser.parse = function(text, export_links, js_mode) {
 	var snippets = [],
 		r;
 	
+	// comments and nowiki blocks
 	this.pre_parse(P, snippets);
 
-	// take a backup copy of the macros, so that no new macros are defined after page processing
-	woas.macro.push_backup();
-	
+	// macros
 	this.parse_macros(P, snippets);
 	
 	// transclude pages (templates)
@@ -352,10 +357,11 @@ woas.parser.parse = function(text, export_links, js_mode) {
 	// reset the flaggers
 	if (this.force_inline)
 		this.force_inline = false;
-	// restore macros array
-	woas.macro.pop_backup();
+	if (woas.macro.has_backup())
+		// restore macros array
+		woas.macro.pop_backup();
 
-	// trigger after_parse hook only when not defining any
+	// syntax parsing has finished, do you want to apply some final cosmethic?
 	if (this.after_parse === backup_hook)
 		this.after_parse(P);
 
@@ -368,6 +374,10 @@ woas.parser.parse = function(text, export_links, js_mode) {
 woas.parser.parse_macros = function(P, snippets) {
 	// put away stuff contained in user-defined macro multi-line blocks
 	P.body = P.body.replace(reMacros, function (str, $1) {
+		if (!woas.macro.has_backup())
+			// take a backup copy of the macros, so that no new macros are defined after page processing
+			woas.macro.push_backup();
+
 		// ask macro_parser to prepare this block
 		var macro = woas.macro.parser($1);
 		// allow further parser processing
@@ -546,11 +556,12 @@ woas.parser.syntax_parse = function(P, snippets, tags, export_links, has_toc) {
 	// headers
 	//TODO: check that only h1~h6 are parsed
 	.replace(reParseHeaders, this.header_replace);
-//	text = text.replace(reParseOldHeaders, this.header_replace);
 	
+	// other custom syntax should go into this callback
+	this.extend_syntax(P);
+	
+	// replace [[Special::TOC]]
 	if (has_toc) {
-		// remove the trailing newline
-//		this.toc = this.toc.substr(0, this.toc.length-2);
 		// replace the TOC placeholder with the real TOC
 		P.body = P.body.replace("<!-- "+woas.parser.marker+":TOC -->",
 				"<"+"div class=\"woas_toc\"><"+"p class=\"woas_toc_title\">Table of Contents<"+"/p>" +
@@ -598,7 +609,7 @@ woas.parser.syntax_parse = function(P, snippets, tags, export_links, has_toc) {
 
 	// convert newlines to br tags
 	.replace(/\n/g, "<"+"br />");
-
+	
 	// put back in place all snippets
 	if (snippets.length>0) {
 		P.body = P.body.replace(new RegExp("<\\!-- "+woas.parser.marker+"::(\\d+) -->", "g"), function (str, $1) {
