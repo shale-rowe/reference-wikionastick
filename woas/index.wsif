@@ -274,7 +274,7 @@ d$("cb_cumulative_save").checked = bool2chk(woas.config.cumulative_save);
 d$("cb_safe_mode").checked = bool2chk(woas.config.safe_mode);
 d$("cb_wsif_ds_multi").checked = bool2chk(woas.config.wsif_ds_multi);
 d$("cb_wsif_ds_lock").checked = bool2chk(woas.config.wsif_ds_lock);
-d$("cb_fixed_layout").checked = (d$("sw_wiki_header").style.position == "fixed");
+d$("cb_fixed_layout").checked = (d$("woas_wiki_header").style.position == "fixed");
 
 if (woas.browser.ie6) d$("cb_fixed_layout").disabled = true;
 
@@ -3702,7 +3702,7 @@ body {
 /* ------------------------------------------- */
 /* FOOTER                                      */
 /* ------------------------------------------- */
-.woas_about_footer {
+#woas_about_footer {
 	padding: 2pt;
 	margin-top: 0.75em;
 	margin-right: 0.85em;
@@ -3714,7 +3714,7 @@ body {
 	text-align: center;
 }
 
-.woas_about_footer a {
+#woas_about_footer a {
 	color: white ! important;
 }
 
@@ -3828,7 +3828,7 @@ a.woas_world_link {
 /* ------------------------------------------- */
 /* MAIN TEXT AREA                              */
 /* ------------------------------------------- */
-/* main text area div */
+/* any text area div */
 div.woas_text_area {
 	border: 1pt solid black;
 	background-color: white;
@@ -3836,7 +3836,7 @@ div.woas_text_area {
 }
 
 /* main text area */
-#wiki_text {
+#woas_wiki_area {
 	position: relative;
 	left: 15.5%;
 	width: 82.3%;
@@ -3865,10 +3865,7 @@ div.woas_text_area {
 /* ------------------------------------------- */
 /* MENU                                        */
 /* ------------------------------------------- */
-div.menu {
-}
-
-div.menu_area {
+#i_woas_menu_area {
 	border: 1pt solid grey;
 	font-size: 0.75em;
 	background-color: white;
@@ -3877,7 +3874,8 @@ div.menu_area {
 	left: 1%;
 }
 
-div.menu_area ul li, div.menu_area ol li,
+#woas_menu_area ul li,
+#woas_menu_area ol li,
 div.ns_menu_area ul li, div.ns_menu_area ol li {
 	margin-left: -2em;
 }
@@ -3900,7 +3898,7 @@ div.ns_menu_area ul li, div.ns_menu_area ol li {
 /* ------------------------------------------- */
 /* NAVIGATION BAR                              */
 /* ------------------------------------------- */
-div.wiki_header {
+#woas_wiki_header {
 	top: 0em;
 	left: 0em;
 	border: 1pt solid #aaa;
@@ -3910,7 +3908,7 @@ div.wiki_header {
 	padding-right:0.75em;
 }
 
-.title {
+#woas_title {
 	font-size: 2em;
 	font-weight: bold;
 	margin-bottom: 0em;
@@ -4089,7 +4087,7 @@ body {
 	display: none;
 }
 
-#wiki_text {
+#woas_wiki_area {
 	position: relative;
 	left: 15.5%;
 	width: 82.3%;
@@ -4099,7 +4097,7 @@ body {
 	text-align:justify;
 }
 
-div.wiki_header {
+#woas_wiki_header {
 	top: 0em;
 	left: 0em;
 	border: 1pt solid #aaa;
@@ -4130,8 +4128,8 @@ div.wiki_header {
 #woas_edit_page_title, .woas_editor_button, #woas_pwd_query, #woas_pwd_mask,
 .woas_password_desc,.woas_about_footer,.woas_help_background,.woas_help_button,
 .woas_helpcode,.woas_helptext, .woas_page_mts, div.woas_text_area, .woas_text_area.locked,
-#woas_pwd_mask,.woas_core_page,div.menu,div.menu_area,.woas_menu_button,.title,
-.woas_nowiki, .woas_nowiki_multiline,pre.woas_search_results,div.wiki_toc,p.wiki_toc_title,
+#woas_pwd_mask,.woas_core_page,div.menu,#woas_menu_area,.woas_menu_button,#woas_title,
+.woas_nowiki, .woas_nowiki_multiline,pre.woas_search_results,div.woas_toc,p.woas_toc_title,
 table.woas_text_area,div.woas_taglinks { }
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Hotkeys

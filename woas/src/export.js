@@ -133,8 +133,8 @@ woas.exporter = {
 					_exp_menu = woas.utf8.do_escape(_exp_menu);
 				}
 				//TODO: use correct ids/class names
-				data = '<'+'div class="menu_area" id="sw_menu_area" style="position: absolute;"><'+'div class="wiki" id="menu_area">'+_exp_menu+'<'+'/div><'+
-						'/div><'+'div class="woas_text_area" id="wiki_text">'+data+'<'+'/div>';
+				data = '<'+'div id="i_woas_menu_area" style="position: absolute;"><'+'div class="woas_wiki" id="woas_menu_area">'+_exp_menu+'<'+'/div><'+
+						'/div><'+'div class="woas_text_area" id="woas_wiki_area">'+data+'<'+'/div>';
 			}
 			// craft a nice XHTML page
 			data = "<"+"title>"+woas.xhtml_encode(title)+"<"+"/title>"+
@@ -279,7 +279,7 @@ woas.export_parse = function (data, js_mode) {
 	// a normal wiki page, parse it and eventually execute the attached javascript
 	data = this.parser.parse(data, true, js_mode);
 	if (js_mode) {
-		wt = d$("wiki_text");
+		wt = d$("woas_wiki_area");
 		wt.innerHTML = data;
 		this._activate_scripts();
 		data = wt.innerHTML;

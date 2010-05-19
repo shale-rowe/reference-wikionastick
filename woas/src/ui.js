@@ -566,7 +566,7 @@ function query_delete_image(cr) {
 
 // triggered by UI graphic button
 function page_print() {
-	woas._customized_popup(current, d$("wiki_text").innerHTML, 
+	woas._customized_popup(current, d$("woas_wiki_area").innerHTML, 
 			"function go_to(page) { alert(\""+woas.js_encode(woas.i18n.PRINT_MODE_WARN)+"\");}");
 }
 
@@ -807,7 +807,7 @@ woas.update_lock_icons = function(page) {
 		cls = "woas_text_area locked";
 	else
 		cls = "woas_text_area";
-	d$("wiki_text").className = cls;
+	d$("woas_wiki_area").className = cls;
 };
 
 // when the page is resized
@@ -843,10 +843,10 @@ woas.refresh_menu_area = function() {
 	this._add_namespace_menu(tmp);
 	var menu = this.get_text("::Menu");
 	if (menu == null)
-		d$("menu_area").innerHTML = "";
+		d$("woas_menu_area").innerHTML = "";
 	else {
 		this.parser._parsing_menu = true;
-		d$("menu_area").innerHTML = this.parser.parse(menu, false, this.js_mode("::Menu"));
+		d$("woas_menu_area").innerHTML = this.parser.parse(menu, false, this.js_mode("::Menu"));
 		this.parser._parsing_menu = false;
 		this.scripting.clear("menu");
 		this.scripting.activate("menu");
@@ -878,15 +878,15 @@ woas.menu_display = function(id, visible) {
 woas.refresh_mts = function(mts) {
 	// generate the last modified string to append
 	if (mts) {
-		d$("wiki_mts").innerHTML = this.last_modified(mts);
-		d$.show("wiki_mts");
+		d$("woas_mts").innerHTML = this.last_modified(mts);
+		d$.show("woas_mts");
 	} else
-		d$.hide("wiki_mts");
+		d$.hide("woas_mts");
 };
 
 woas._set_title = function (new_title) {
-	var wt=d$("wiki_title");
-	// works with IE6, FF, etc.
+	var wt=d$("woas_title");
+	// this indirect object reference is apparently needed for IE
 	wt.innerHTML = this.create_breadcrumb(new_title);
 	document.title = new_title;
 };

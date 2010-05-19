@@ -319,7 +319,7 @@ function _get_this_filename() {
 function ff_fix_focus() {
 	//runtime fix for Firefox bug 374786
 	if (woas.browser.firefox)
-		d$("wiki_text").blur();
+		d$("woas_wiki_area").blur();
 }
 
 if (is_windows) {

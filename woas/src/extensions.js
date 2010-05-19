@@ -360,7 +360,7 @@ woas.plugins = {
 		this._all.splice(i,1);
 		if (current === "WoaS::Plugins") {
 			// reload plugins
-			d$("wiki_text").innerHTML = woas.parser.parse(woas.get_text("WoaS::Plugins") + this.list());
+			d$("woas_wiki_area").innerHTML = woas.parser.parse(woas.get_text("WoaS::Plugins") + this.list());
 		}
 		return true;
 	}
