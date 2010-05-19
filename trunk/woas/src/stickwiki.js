@@ -898,8 +898,8 @@ woas.setHTML = woas.getHTML = null;
 
 // when the page is loaded - onload, on_load
 woas._on_load = function() {
-
-	woas.log("***** Woas v"+this.version+" started *****");	// log:1
+	// output platform information - note that revision is filled in only in releases
+	woas.log("*** WoaS v"+this.version+"-r@@WOAS_REVISION@@"+" started");	// log:1
 	
 	// store the old length to eventually force full save when entering/exiting WSIF datasource mode
 	this._old_wsif_ds_len = this.config.wsif_ds.length;
