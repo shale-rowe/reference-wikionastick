@@ -696,12 +696,12 @@ woas._import_pre_up = function(all_options) {
 	
 	cfg_changed = true;
 	// now store these values
-	woas.config.import_settings = this.binaryflag.get_object(this.importer, this.importer._settings_props);
+	woas.config.import_settings = this.bitfield.get_object(this.importer, this.importer._settings_props);
 	// set also bits for overwrite options
-	woas.config.import_settings = this.binaryflag.set(this.config.import_settings, this.importer._OVR_ID,
+	woas.config.import_settings = this.bitfield.set(this.config.import_settings, this.importer._OVR_ID,
+									this.importer.i_overwrite & 1, this.config.import_settings);
+	woas.config.import_settings = this.bitfield.set(this.config.import_settings, this.importer._OVR_ID+1,
 									this.importer.i_overwrite & 2, this.config.import_settings);
-	woas.config.import_settings = this.binaryflag.set(this.config.import_settings, this.importer._OVR_ID+1,
-									this.importer.i_overwrite & 4, this.config.import_settings);
 	woas.log(woas.config.import_settings);
 	// check if user wants total erase before going on
 	if (this.importer.i_overwrite === 0) {
