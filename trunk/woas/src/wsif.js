@@ -175,7 +175,7 @@ woas._native_wsif_save = function(path, src_fname, locking, single_wsif, inline_
 				woas.log("Could not save "+blob_fn);	//log:1
 			// release any lock held previously
 			if (locking)
-				this.locks.release(path+blob_fn);
+				this.lock.release(path+blob_fn);
 		}
 		// the page record is now ready, proceed to save
 		if (single_wsif) {// append to main page record
@@ -220,7 +220,7 @@ woas._native_wsif_save = function(path, src_fname, locking, single_wsif, inline_
 	
 	// release any lock held previously
 	if (locking)
-		this.locks.release(path+src_fname);
+		this.lock.release(path+src_fname);
 	
 	this.progress_finish();
 	return done;
