@@ -110,12 +110,15 @@ woas.ui = {
 		// restore default settings - with some exceptions
 		for(var i=0;i<woas.importer._settings_props.length-except;++i) {
 			d$("woas_cb_import"+woas.importer._settings_props[i].substr(1)).checked =
-							woas.binaryflag.get(woas.config.import_settings, i);
+							woas.bitfield.get(woas.config.import_settings, i);
 		}
 		// restore the overwrite option which covers other 2 bits
-		var ovr = (woas.binaryflag.get(woas.config.import_settings, woas.importer._OVR_ID) ? 2:0) +
-					(woas.binaryflag.get(woas.config.import_settings, woas.importer._OVR_ID+1) ? 1 : 0),
-			params = ["erase", "ignore", "overwrite", "ask"];
+		var ovr = 0;
+		if (woas.bitfield.get(woas.config.import_settings, woas.importer._OVR_ID))
+			ovr += 1;
+		if (woas.bitfield.get(woas.config.import_settings, woas.importer._OVR_ID+1))
+			ovr += 2;
+		var params = ["erase", "ignore", "overwrite", "ask"];
 		// apply parameter
 		d$('woas_import_'+params[ovr]).checked = true;
 	}
