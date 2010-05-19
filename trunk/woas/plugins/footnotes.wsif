@@ -105,10 +105,12 @@ woas.custom.footnotes = {
 		}
 		
 		NP.body += '<br/><br/><div width="90%" class="footnotecontainer"><table border="0">';
+		var P = {body:null};
         for(var i=0,l=that._footnotes.length;i<l;++i){
 			n = i+1;
-			NP.body += '<tr><td valign="top"><a name="_footnote'+n+'" href="#_notefoot'+n+'">[' +n+ "]</a></td><td>"+
-					woas.parser.syntax_parse(that._footnotes[i], []) +"</td></tr>";
+			P.body = that._footnotes[i];
+			woas.parser.syntax_parse(P, []);
+			NP.body += '<tr><td valign="top"><a name="_footnote'+n+'" href="#_notefoot'+n+'">[' +n+ "]</a></td><td>"+P.body+"</td></tr>";
         }
         NP.body +=  '</table></div>';
 		// reset footnotes before rendering next page
