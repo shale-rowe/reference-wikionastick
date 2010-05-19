@@ -688,6 +688,10 @@ woas.macro = {
 	pop_backup: function() {
 		this.functions = this._backup.pop();
 		this.names = this._backup.pop();
+	},
+	
+	has_backup: function() {
+		return (this._backup.length !== 0);
 	}
 
 }; // end of woas.macro module
