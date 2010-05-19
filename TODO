@@ -1,5 +1,7 @@
 == 0.12.x development goals
 
+* possibly allow macro calls without trailing ':' when no macro text needs to be specified
+
 * fix template examples in help pages (deleted when erasing wiki)
 
 * allow registration of plugin deletion events
