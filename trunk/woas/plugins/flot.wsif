@@ -33,5 +33,5 @@ Press /Plot/ button to plot using the *flot library*.
 8    5
 9    13
 >>>
-<<<woas.flot.plot(300, 150, ["d1"]): >>>
+<<<woas.flot.graph(300, 150, ["d1"]): >>>
 --DFQRCTsKlU

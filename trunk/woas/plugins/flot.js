@@ -8,26 +8,32 @@ woas.custom.flot = {
 		return (typeof this.series[name] != "undefined");
 	},
 	
-	_macro_define_series: function(macro, name, label) {
+	_macro_define_series: function(macro, name, label, hidden) {
 		// check that this name is available
 		if (woas.custom.flot.has_series(name))
 			 return false;
 		var lines = macro.text.split("\n"),m, new_series = [], row;
-		macro.text = "<strong>"+(typeof label == "undefined" ? name : label)+"</strong><br/><table style='border: 1px dotted'>";
+		if (hidden)
+			macro.text = "";
+		else
+			macro.text = "<strong>"+(typeof label == "undefined" ? name : label)+"</strong><br/><table style='border: 1px dotted'>";
 		for(var i=0;i<lines.length;++i) {
 			m = lines[i].match(/\d+(\.\d+)?/g);
 			if (m === null) continue;
 			// parse each row as numbers
 			row = [];
-			macro.text += "<tr>";
+			if (!hidden)
+				macro.text += "<tr>";
 			for(var b=0;b < m.length;++b) {
 				row.push(new Number(m[b]));
-				macro.text += "<td style='border: 1px dotted'>"+m[b]+"</td>";
+				if (!hidden)
+					macro.text += "<td style='border: 1px dotted'>"+m[b]+"</td>";
 			}
 			macro.text += "</tr>";
 			new_series.push(row);
 		}
-		macro.text += "</table>";
+		if (!hidden)
+			macro.text += "</table>";
 		
 		// finally add the series, taking care of label
 		if (typeof label != "undefined")
@@ -74,7 +80,7 @@ woas.custom.flot = {
 		return rv;
 	},
 	
-	_macro_plot: function(macro, width, height, series, options) {
+	_macro_graph_canvas: function(macro, width, height, series, options) {
 		var a = woas.custom.flot._queue.length;
 		woas.custom.flot._queue.push([series, options]);
 		macro.text = '<div id="woas_flot_placeholder_'+a+'" style="width:'+width+'px;height:'+height+'px; background-color: #CCCCCC; text-align: center; line-height:'+height+
@@ -87,7 +93,7 @@ woas.custom.flot = {
 
 // register the useful macros
 woas.macro.register("woas.flot.series", woas.custom.flot._macro_define_series);
-woas.macro.register("woas.flot.plot", woas.custom.flot._macro_plot);
+woas.macro.register("woas.flot.graph", woas.custom.flot._macro_graph_canvas);
 
 // register the new hook executed when accessing a new page
 woas.custom.flot._prev_bh = woas.pager.browse_hook;
