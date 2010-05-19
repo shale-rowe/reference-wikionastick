@@ -31,6 +31,10 @@ woas.wsif = {
 	reMimeMatch: /^data:\s*([^;]*);\s*base64,\s*/
 };
 
+woas._normver = function(s) {
+	return parseInt(s.replace(/\./g, ""));
+};
+
 // default behavior:
 // - wiki pages go inline (utf-8), no container encoding
 // - embedded files/images go outside as blobs
@@ -281,7 +285,7 @@ woas._native_wsif_load = function(path, locking, and_save, recursing, import_hoo
 	if (p === -1)
 		this.wsif.do_error("Invalid WSIF file");
 	else { // OK, first page was located, now get some general WSIF info
-		var wsif_v = ct.substring(0,p).match(/^wsif\.version:\s+(.*)$/m);
+		var wsif_v = ct.substring(0,p).match(/^wsif\.version:\s+(.+)$/m);
 		if (wsif_v === null) {
 			this.wsif.do_error(this.i18n.WSIF_NO_VER);
 			p = -1;
@@ -289,9 +293,9 @@ woas._native_wsif_load = function(path, locking, and_save, recursing, import_hoo
 		} else {
 			// convert to a number
 			wsif_v = wsif_v[1];
-			var wsif_v_n = Number(wsif_v.replace(".", ""));
+			var wsif_v_n = this._normver(wsif_v);
 			// check if WSIF is from future of it is the unsupported 1.0.0
-			if ((wsif_v_n == 100) || (wsif_v_n > Number(this.wsif.version.replace(".", "")))) {
+			if ((wsif_v_n == 100) || (wsif_v_n > this._normver(this.wsif.version))) {
 				this.wsif.do_error(this.i18n.WSIF_NS_VER.sprintf(wsif_v));
 				p = -1;
 				fail = true;
@@ -322,7 +326,7 @@ woas._native_wsif_load = function(path, locking, and_save, recursing, import_hoo
 						} else {
 							if (and_save)
 								// copy to importer module
-								this.importer._old_version = Number(this.wsif.generator.version.replace(".", ""));
+								this.importer._old_version = this._normver(this.wsif.generator.version);
 							else {
 								if (this.wsif.generator.version !== this.version) {
 									this.wsif.do_error("WSIF generator version should match WoaS version");
@@ -334,7 +338,7 @@ woas._native_wsif_load = function(path, locking, and_save, recursing, import_hoo
 					} else {
 						if (and_save) {
 							// assume that any content generated with libwsif is up-to-date for import
-							this.importer._old_version = Number(this.version.replace(".", ""));
+							this.importer._old_version = this._normver(this.version);
 						} else {
 							this.wsif.do_error("WSIF generator is not 'woas'");
 							p = -1;
