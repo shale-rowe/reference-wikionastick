@@ -192,6 +192,8 @@ woas.importer = {
 						woas.importer._reference[i].body = the_var[i];
 					}
 				break;
+				// silently ignore these
+				case "backstack": case "current": break;
 				default:
 					woas.log("Ignoring unexpected variable "+var_name);
 			} // switch
@@ -489,6 +491,11 @@ woas.importer = {
 				}
 				// check for any undefined config property - for safety
 				for(p in woas.config) {
+					// remove things from the past
+/*					if (typeof old_cfg[p] == "undefined") {
+						delete woas.config[p];
+						continue;
+					} */
 					if ((typeof woas.config[p] == "undefined") && (typeof old_cfg[p] != "undefined"))
 						woas.config[p] = old_cfg[p];
 				}
