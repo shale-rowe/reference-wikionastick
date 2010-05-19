@@ -279,7 +279,7 @@ function bool2chk(b) {
 
 // Used by Special::Options
 function _set_layout(fixed) {
-	d$("sw_menu_area").style.position = d$("sw_wiki_header").style.position = (fixed ? "fixed" : "absolute");
+	d$("i_woas_menu_area").style.position = d$("woas_wiki_header").style.position = (fixed ? "fixed" : "absolute");
 }
 
 //Special::Recentchanges shows a sorted list of pages by modified timestamp

@@ -350,7 +350,7 @@ woas.get_text_special = function(title) {
 woas.__last_title = null;
 
 woas.__password_finalize = function(pwd_obj) {
-	d$.show_ni("wiki_text");
+	d$.show_ni("woas_wiki_area");
 	document.title = this.__last_title;
 	d$.hide("woas_pwd_mask");
 //	scrollTo(0,0);
@@ -365,7 +365,7 @@ woas._set_password = function() {
 	document.title = "Enter password";
 	// hide browser scrollbars and show mask
 	d$.show("woas_pwd_mask");
-	d$.hide_ni("wiki_text");
+	d$.hide_ni("woas_wiki_area");
 	scrollTo(0,0);
 	// show input form
 	d$.show_ni("woas_pwd_query");
@@ -807,7 +807,7 @@ woas.load_as_current = function(title, xhtml, mts) {
 	
 	scrollTo(0,0);
 	this.log("load_as_current(\""+title+"\") - "+(typeof xhtml == "string" ? (xhtml.length+" bytes") : (typeof xhtml)));	// log:1
-	d$("wiki_text").innerHTML = xhtml;
+	d$("woas_wiki_area").innerHTML = xhtml;
 	this.refresh_mts(mts);
 
 	this._set_title(title);
@@ -908,11 +908,11 @@ woas._on_load = function() {
 	if (this.browser.ie) {	// some hacks for IE
 		this.setHTML = function(elem, html) {elem.text = html;};
 		this.getHTML = function(elem) {return elem.text;};
-		var obj = d$("sw_wiki_header");
+		var obj = d$("woas_wiki_header");
 		obj.style.filter = "alpha(opacity=75);";
 		if (this.browser.ie6) {
-			d$("sw_wiki_header").style.position = "absolute";
-			$("sw_menu_area").style.position = "absolute";
+			d$("woas_wiki_header").style.position = "absolute";
+			$("i_woas_menu_area").style.position = "absolute";
 		}
 		// IE6/7 can't display logo
 		if (!this.browser.ie8) {

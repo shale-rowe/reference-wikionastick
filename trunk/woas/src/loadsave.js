@@ -512,23 +512,23 @@ woas._save_to_file = function(full) {
 
 	// cleanup the DOM before saving
 	var bak_ed = d$("woas_editor").value,
-		bak_tx = d$("wiki_text").innerHTML,
-		bak_mn = d$("menu_area").innerHTML,
-		bak_mts = d$("wiki_mts").innerHTML,
-		bak_mts_shown = d$.is_visible("wiki_mts"),
+		bak_tx = d$("woas_wiki_area").innerHTML,
+		bak_mn = d$("woas_menu_area").innerHTML,
+		bak_mts = d$("woas_mts").innerHTML,
+		bak_mts_shown = d$.is_visible("woas_mts"),
 		bak_wait_text = this.getHTML(d$("woas_wait_text")),
 		bak_debug = d$("woas_debug_log").value,
 	// clear titles and css as well as they will be set on load.
-		bak_title = d$("wiki_title").innerHTML;
+		bak_title = d$("woas_title").innerHTML;
 
 	if (bak_mts_shown)
-		d$.hide("wiki_mts");
+		d$.hide("woas_mts");
 	d$("woas_editor").value = "";
-	d$("wiki_text").innerHTML = "";
-	d$("menu_area").innerHTML = "";
-	d$("wiki_mts").innerHTML = "";
+	d$("woas_wiki_area").innerHTML = "";
+	d$("woas_menu_area").innerHTML = "";
+	d$("woas_mts").innerHTML = "";
 	d$("woas_debug_log").value = "";
-	d$("wiki_title").innerHTML = "";
+	d$("woas_title").innerHTML = "";
 
 	// set the loading message
 	this.setHTML(d$("woas_wait_text"), this.i18n.LOADING);
@@ -565,13 +565,13 @@ woas._save_to_file = function(full) {
 	} //DEBUG check
 
 	d$("woas_editor").value = bak_ed;
-	d$("wiki_text").innerHTML = bak_tx;
-	d$("menu_area").innerHTML = bak_mn;
-	d$("wiki_mts").innerHTML = bak_mts;
+	d$("woas_wiki_area").innerHTML = bak_tx;
+	d$("woas_menu_area").innerHTML = bak_mn;
+	d$("woas_mts").innerHTML = bak_mts;
 	if (bak_mts_shown)
-		d$.show("wiki_mts");
+		d$.show("woas_mts");
 	d$("woas_debug_log").value = bak_debug;
-	d$("wiki_title").innerHTML = bak_title;
+	d$("woas_title").innerHTML = bak_title;
 	
 	this.progress_finish();
 	
