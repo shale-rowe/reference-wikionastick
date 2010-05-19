@@ -3,7 +3,7 @@
 */
 
 // locks read from datasource files or set by us
-woas.locks = {
+woas.lock = {
 	// hashmap with a lock entry for each active filename
 	datasources : {},
 	
@@ -18,6 +18,8 @@ woas.locks = {
 	},
 	
 	_load_locks : function() {
+		// locking currently disabled
+		return true;
 		var lck_file = woas.ROOT_DIRECTORY + woas.config.wsif_ds + ".lock";
 		// attempt reading the lock file index
 		var lock_data = woas.load_file(lck_file);
@@ -51,6 +53,8 @@ woas.locks = {
 	// called when editing some page which modifies one or more datasources
 	// returns true if lock could be held successfully
 	hold : function(filename, whom) {
+		// locking currently disabled
+		return true;
 		// (1) each time there is an attempt to lock/unlock something we read the lock file index
 		// and check if the datasource has been locked or if there have been changes to some lock
 		if (!this._load_locks())
@@ -80,6 +84,8 @@ woas.locks = {
 	},
 	
 	release : function(filename) {
+		// locking currently disabled
+		return true;
 		// (1) each time there is an attempt to lock/unlock something we read the lock file index
 		// and check if the datasource has been locked or if there have been changes to some lock
 		if (!this._load_locks())
