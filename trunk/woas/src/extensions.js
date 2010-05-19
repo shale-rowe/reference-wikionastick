@@ -522,7 +522,6 @@ woas.title_unalias = function(aliased_title) {
 };
 
 woas.macro = {
-
 	// macro definition regex
 	reMacroDef: /^(%?[A-Za-z0-9_\.]+)\s*(\(.*?\))?\s*:([\s\S]*)$/,
 

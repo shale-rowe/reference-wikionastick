@@ -9,7 +9,7 @@ woas.parser = {
 	header_anchor: function(s) {
 		// apply a hard normalization
 		// WARNING: will not preserve header ids uniqueness
-		return s.replace(/[^a-zA-Z0-9]/g, '_')
+		return s.replace(this.reNormHeader, '_')
 	},
 	
 	// @override to apply some further customization before parse output
@@ -19,9 +19,17 @@ woas.parser = {
 	// @override to parse further syntax before final replace
 	extend_syntax: function(P) {
 	},
+
+	render_error: function(str, symbol) {
+		//	if (typeof symbol == "undefined")
+		//		symbol = "infin";
+		symbol = "&"+symbol+";";
+		return "<"+"span style=\"color:red;font-weight:bold;\">"+symbol+" "+str+" "+symbol+"<"+"/span>";
+	},
 	
 	// a variety of regular expressions used by the parser
 	reBoldSyntax: /(^|[^\w\/\\])\*([^\*\n]+)\*/g,
+	reNormHeader: /[^a-zA-Z0-9]/g,
 	marker: "#"+_random_string(8)
 };
 
@@ -688,11 +696,4 @@ woas.parser._render_wiki_link = function(arg1, label, snippets, tags, export_lin
 		}
 	} // not # at start of page
 	return r;
-};
-
-woas.parser.render_error = function(str, symbol) {
-//	if (typeof symbol == "undefined")
-//		symbol = "infin";
-	symbol = "&"+symbol+";";
-	return "<"+"span style=\"color: red;font-weight:bold;\">"+symbol+" "+str+" "+symbol+"<"+"/span>";
 };
