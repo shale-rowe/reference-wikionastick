@@ -24,6 +24,12 @@ woas.importer = {
 	total: 0,
 
 //private:
+	// property names used to retrieve default values from stored bitmask
+	_settings_props: ["i_comment_js", "i_comment_macros", "i_woas_ns",
+	// the last 3 options are ignored for WSIF import
+					"i_config", "i_styles", "i_content"],
+	// the overwrite option covers bits 6,7
+	_OVR_ID: 6,
 	// options
 	i_config: true,					// import configuration (XHTML only)
 	i_styles: false,				// import stylesheet (XHTML only)
@@ -606,7 +612,7 @@ woas.importer = {
 
 // called from Special::Import - import WoaS from XHTML file
 woas.import_wiki = function() {
-	if (!woas._import_pre_up())
+	if (!woas._import_pre_up(true))
 		return false;
 
 	// set hourglass
@@ -626,11 +632,6 @@ woas.import_wiki = function() {
 		return false;
 	}
 
-	// grab the XHTML-only options
-	this.importer.i_styles = d$.checked('woas_cb_import_css');
-	this.importer.i_config = d$.checked('woas_cb_import_config');
-	this.importer.i_content = d$.checked('woas_cb_import_content');
-	
 	var rv = this.importer.do_import(ct);
 	
 	// remove hourglass
@@ -664,21 +665,36 @@ woas._file_ext = function(fn) {
 	return "."+m[1];
 };
 
-woas._grab_import_settings = function() {
-	this.importer.i_comment_js = d$.checked("woas_cb_import_comment_js");
-	this.importer.i_comment_macros = d$.checked("woas_cb_import_comment_macros");
-	this.importer.i_woas_ns = d$.checked("woas_cb_import_woas_ns");
-	// i_overwrite is automatically set
-};
-
-woas._import_pre_up = function() {
+woas._import_pre_up = function(all_options) {
 	// check if this WoaS is read-only
 	if (!this.config.permit_edits) {
 		this.alert(woas.i18n.READ_ONLY);
 		return false;
 	}
 	// grab the common options
-	this._grab_import_settings();
+	this.importer.i_comment_js = d$.checked("woas_cb_import_comment_js");
+	this.importer.i_comment_macros = d$.checked("woas_cb_import_comment_macros");
+	this.importer.i_woas_ns = d$.checked("woas_cb_import_woas_ns");
+	//NOTE: i_overwrite is automatically set when clicking
+	if (all_options) {
+		// grab the XHTML-only options
+		this.importer.i_styles = d$.checked('woas_cb_import_styles');
+		this.importer.i_config = d$.checked('woas_cb_import_config');
+		this.importer.i_content = d$.checked('woas_cb_import_content');
+	} else {
+		// these options are not available for WSIF
+		this.importer.i_styles = this.importer.i_content = true;
+	}
+	
+	cfg_changed = true;
+	// now store these values
+	woas.config.import_settings = this.binaryflag.get_object(this.importer, this.importer._settings_props);
+	// set also bits for overwrite options
+	woas.config.import_settings = this.binaryflag.set(this.config.import_settings, this.importer._OVR_ID,
+									this.importer.i_overwrite & 2, this.config.import_settings);
+	woas.config.import_settings = this.binaryflag.set(this.config.import_settings, this.importer._OVR_ID+1,
+									this.importer.i_overwrite & 4, this.config.import_settings);
+	woas.log(woas.config.import_settings);
 	// check if user wants total erase before going on
 	if (this.importer.i_overwrite === 0) {
 		if (!this.erase_wiki())
@@ -690,11 +706,8 @@ woas._import_pre_up = function() {
 
 // called from Special::ImportWSIF
 woas.import_wiki_wsif = function() {
-	if (!woas._import_pre_up())
+	if (!woas._import_pre_up(false))
 		return false;
-	
-	// these options are not available for WSIF
-	this.importer.i_styles = this.importer.i_content = true;
 	
 	// automatically retrieve the filename (will call load_file())
 	var done = woas._native_wsif_load(null, false /* no locking */, false /* no save */, 0,

@@ -631,7 +631,7 @@ woas.binaryflag = {
 		var rv=0;
 		for(var i=0;i<order.length;++i) {
 			if (obj[order[i]])
-				rv &= this._field_mask[i];
+				rv |= this._field_mask[i];
 		}
 		return rv;
 	},
