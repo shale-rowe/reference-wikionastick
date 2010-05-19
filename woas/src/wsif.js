@@ -31,7 +31,21 @@ woas.wsif = {
 	reMimeMatch: /^data:\s*([^;]*);\s*base64,\s*/
 };
 
+// properly calculate an incremental value for version strings
+// we consider each place is worth 10^2
+woas._version_to_int = function(s) {
+	// split into all tokens
+	var v = s.split("."), rv = 0;
+	for(var i=v.length-1;i >= 0;--i) {
+		rv += (v[i] * Math.pow(100, v.length-i-1));
+	}
+	return rv;
+};
+
 woas._normver = function(s) {
+	// to be enabled after 1.0.0 release
+	//var rv = this._version_to_int(s);
+	//if (rv >= 10000) return rv;
 	return parseInt(s.replace(/\./g, ""));
 };
 

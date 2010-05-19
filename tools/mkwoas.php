@@ -34,6 +34,15 @@ function _script_replace($m) {
 		$ct = preg_replace('/\\x'.dechex(239).'\\x'.dechex(187).'\\x'.dechex(191).'/A', '', $ct);
 		//TODO: apply modifications to 'tweak' object here
 
+		// put the SVN revision here
+		if ($scriptname === "src/stickwiki.js") {
+			// attempt to grab SVN revision
+			if (preg_match("/revision=\"(\\d+)\"/", shell_exec("svn --xml info ."), $rev))
+				$rev = (int)$rev[1];
+			else $rev = null;
+			$ct = str_replace("-r@@WOAS_REVISION@@", ($rev === null) ? "" : "-r".$rev, $ct);
+		}
+
 		// check if this javascript contains any tag-similar syntax
 		// this will kill inline javascript for Opera, so we need to properly conceal those sequences
 		if (preg_match_all('!</?([A-Za-z]+)([^>]+)>!s', $ct, $m)) {
@@ -51,8 +60,9 @@ function _script_replace($m) {
 		}
 		++$replaced;
 		echo "Replaced ".$scriptname."\n";
-		$fullscript .= "/*** ".$scriptname." ***/\n".$ct."\n";
+		$fullscript .= "/*** ".$scriptname." ***/\n".$ct."\n"; $ct = null;
 	}
+	
 	// return the script block
 	return '<script woas_permanent="1" language="javascript" type="text/javascript">'.
 		"\n/* <![CDATA[ */\n".$fullscript."\n/* ]]> */ </script>";
