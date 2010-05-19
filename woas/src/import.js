@@ -485,6 +485,7 @@ woas.importer = {
 					woas.config.new_tables_syntax = old_cfg.new_tables_syntax;
 					woas.config.store_mts = old_cfg.store_mts;
 					woas.config.folding_style = old_cfg.folding_style;
+					woas.config.import_settings = old_cfg.import_settings;
 				}
 				// check for any undefined config property - for safety
 				for(p in woas.config) {
