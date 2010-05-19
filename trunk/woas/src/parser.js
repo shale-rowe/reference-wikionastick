@@ -17,7 +17,8 @@ woas.parser = {
 	},
 	
 	// a variety of regular expressions used by the parser
-	reBoldSyntax: /(^|[^\w\/\\])\*([^\*\n]+)\*/g
+	reBoldSyntax: /(^|[^\w\/\\])\*([^\*\n]+)\*/g,
+	marker: "#"+_random_string(8)
 };
 
 //DEPRECATED "!" syntax is supported but shall me removed soon
@@ -147,8 +148,6 @@ woas.parser.parse_tables_new = function (str, prop, p1) {
     return '<'+'table ' + ((prop.indexOf("class=")!==-1) ? '' : 'class="woas_text_area" ') + prop + '>' + caption + colgroup + '<'+'tr>' + stk.join('<'+'/tr><'+'tr>') + '<'+'/tr>' + '<'+'/table>'
 }
 
-var	parse_marker = "#"+_random_string(8);
-
 // extract the wiki tags from a wiki URL
 woas._get_tags = function(text, last_tag) {
 	var tags = [];
@@ -192,13 +191,13 @@ var reScripts = new RegExp("<"+"script([^>]*)>([\\s\\S]*?)<"+"\\/script>", "gi")
 	reWikiLinkSimple = /\[\[([^\]]*?)\]\]/g,
 	reMailto = /^mailto:\/\//,
 	reCleanupNewlines = new RegExp('((<\\/h[1-6]><'+'div class="woas_level[1-6]">)|(<\\/[uo]l>))(\n+)', 'g'),
-	reNestedComment = new RegExp("<\\!-- "+parse_marker+":c:(\\d+) -->");
+	reNestedComment = new RegExp("<\\!-- "+woas.parser.marker+":c:(\\d+) -->");
 
 woas.parser.place_holder = function (i, separator) {
 	if (typeof separator == "undefined")
 		separator = "";
 	separator = ":"+separator+":";
-	return "<!-- "+parse_marker+separator+i+" -->";
+	return "<!-- "+woas.parser.marker+separator+i+" -->";
 };
 
 // create a preformatted block ready to be displayed
@@ -307,7 +306,7 @@ woas.parser.parse = function(text, export_links, js_mode) {
 	var p = P.body.indexOf("[[Special::TOC]]");
 	if (p !== -1) {
 		this.has_toc = true;
-		P.body = P.body.substring(0, p) + "<!-- "+parse_marker+":TOC -->" + P.body.substring(p+16
+		P.body = P.body.substring(0, p) + "<!-- "+woas.parser.marker+":TOC -->" + P.body.substring(p+16
 //		+ 	((text.charAt(p+16)=="\n") ? 1 : 0)
 		);	
 	} else this.has_toc = false;
@@ -343,7 +342,7 @@ woas.parser.parse = function(text, export_links, js_mode) {
 			s+="<"+"/div>";
 			P.body += s;
 		} else { // re-print the inline tags (works only on last tag definition?)
-			P.body = P.body.replace(new RegExp("<\\!-- "+parse_marker+":(\\d+) -->", "g"), function (str, $1) {
+			P.body = P.body.replace(new RegExp("<\\!-- "+woas.parser.marker+":(\\d+) -->", "g"), function (str, $1) {
 				if ($1 == woas.parser.inline_tags)
 					return s;
 				return "";
@@ -530,7 +529,7 @@ woas.parser.syntax_parse = function(P, snippets, tags, export_links, has_toc) {
 	.replace(/\\\n/g, "")
 	
 	// underline
-	.replace(/(^|[^\w])_([^_]+)_/g, "$1"+parse_marker+"uS#$2"+parse_marker+"uE#")
+	.replace(/(^|[^\w])_([^_]+)_/g, "$1"+woas.parser.marker+"uS#$2"+woas.parser.marker+"uE#")
 	
 	// italics
 	// need a space after ':'
@@ -553,7 +552,7 @@ woas.parser.syntax_parse = function(P, snippets, tags, export_links, has_toc) {
 		// remove the trailing newline
 //		this.toc = this.toc.substr(0, this.toc.length-2);
 		// replace the TOC placeholder with the real TOC
-		P.body = P.body.replace("<!-- "+parse_marker+":TOC -->",
+		P.body = P.body.replace("<!-- "+woas.parser.marker+":TOC -->",
 				"<"+"div class=\"woas_toc\"><"+"p class=\"woas_toc_title\">Table of Contents<"+"/p>" +
 				this.toc.replace(reReapLists, this.parse_lists)
 				/*.replace("\n<", "<") */
@@ -562,9 +561,9 @@ woas.parser.syntax_parse = function(P, snippets, tags, export_links, has_toc) {
 	}
 
 	// use 'strong' tag for bold text
-	P.body = P.body.replace(this.reBoldSyntax, "$1"+parse_marker+"bS#$2"+parse_marker+"bE#")
+	P.body = P.body.replace(this.reBoldSyntax, "$1"+woas.parser.marker+"bS#$2"+woas.parser.marker+"bE#")
 
-	.replace(new RegExp(parse_marker+"([ub])([SE])#", "g"), function (str, $1, $2) {
+	.replace(new RegExp(woas.parser.marker+"([ub])([SE])#", "g"), function (str, $1, $2) {
 		if ($2=='E') {
 			if ($1=='u')
 				return "<"+"/span>";
@@ -602,7 +601,7 @@ woas.parser.syntax_parse = function(P, snippets, tags, export_links, has_toc) {
 
 	// put back in place all snippets
 	if (snippets.length>0) {
-		P.body = P.body.replace(new RegExp("<\\!-- "+parse_marker+"::(\\d+) -->", "g"), function (str, $1) {
+		P.body = P.body.replace(new RegExp("<\\!-- "+woas.parser.marker+"::(\\d+) -->", "g"), function (str, $1) {
 			return snippets[$1];
 		});
 	} snippets = null;
@@ -638,7 +637,7 @@ woas.parser._render_wiki_link = function(arg1, label, snippets, tags, export_lin
 			if (!this.force_inline)
 				return "";
 			++this.inline_tags;
-			return "<!-- "+parse_marker+":"+inline_tags+" -->";
+			return "<!-- "+woas.parser.marker+":"+inline_tags+" -->";
 		}
 	}
 

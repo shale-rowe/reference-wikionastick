@@ -839,7 +839,7 @@ woas._set_debug = function(status) {
 
 woas.refresh_menu_area = function() {
 	var tmp = current_namespace;
-	current_namespace=parse_marker;
+ 	current_namespace = this.parser.marker;
 	this._add_namespace_menu(tmp);
 	var menu = this.get_text("::Menu");
 	if (menu == null)
