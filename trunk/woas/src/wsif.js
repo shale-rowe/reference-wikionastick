@@ -314,17 +314,32 @@ woas._native_wsif_load = function(path, locking, and_save, recursing, import_hoo
 					}
 
 					// was generator information truly necessary?
-					if (and_save) {
-						if (this.wsif.generator.name === "woas") {
-							if (this.wsif.generator.version === null) {
-								this.wsif.do_error("Cannot import because WoaS generator version is not available");
-								p = -1;
-								fail = true;
-							} else
+					if (this.wsif.generator.name === "woas") {
+						if (this.wsif.generator.version === null) {
+							this.wsif.do_error("WSIF generator version is not available");
+							p = -1;
+							fail = true;
+						} else {
+							if (and_save)
 								// copy to importer module
 								this.importer._old_version = Number(this.wsif.generator.version.replace(".", ""));
-						} else // assume that any content generated with libwsif is up-to-date
-							this.importer._old_version = Number(this.version.replace(".", ""))
+							else {
+								if (this.wsif.generator.version !== this.version) {
+									this.wsif.do_error("WSIF generator version should match WoaS version");
+									p = -1;
+									fail = true;
+								}
+							}
+						}
+					} else {
+						if (and_save) {
+							// assume that any content generated with libwsif is up-to-date for import
+							this.importer._old_version = Number(this.version.replace(".", ""));
+						} else {
+							this.wsif.do_error("WSIF generator is not 'woas'");
+							p = -1;
+							fail = true;
+						}
 					}
 
 				} // !recursing
