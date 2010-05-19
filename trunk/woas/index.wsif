@@ -945,16 +945,16 @@ Importing from older versions of WoaS can garble the layout of the wiki. There a
 # Create a new page with style tags in it and paste your CSS into that page to test it before adding it to the [[WoaS::CSS::Custom]] page.
 
 === Create a test page for your custom CSS
-# Access {{{[[Special::Options]] either directly or from [[Special::Advanced]]
+# Access [[Special::Options]] either directly or from [[Special::Advanced]]
 # Make sure that the box is /not/ checked next to *Remember current page and navigation history*. Save the change if you had to uncheck the box.
 # Create a [[Special::New Page|new page]]
-# Insert this opening tag at the top of the page:<br/><br/>{{{
+# Insert this opening tag at the top of the page:<br/>{{{
 <style type="text/CSS">
-}}}<br/>
+}}}
 # Paste your CSS rules beneath the tag.
-# Insert this closing tag at the bottom of the page:<br/><br/>{{{
+# Insert this closing tag at the bottom of the page:<br/>{{{
 </style>
-}}}<br/>
+}}}
 # Save changes
 
 Once you have tested your CSS on a single page you can choose whether to move such CSS definitions to [[WoaS::CSS::Custom]] or not.
