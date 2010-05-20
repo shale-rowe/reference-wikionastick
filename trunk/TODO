@@ -1,5 +1,7 @@
 == 0.12.x development goals
 
+* have all <input type="button" /> use the same class
+
 * possibly allow macro calls without trailing ':' when no macro text needs to be specified
 
 * fix template examples in help pages (deleted when erasing wiki)
