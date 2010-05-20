@@ -718,7 +718,7 @@ woas.import_wiki_wsif = function() {
 		return false;
 	
 	// automatically retrieve the filename (will call load_file())
-	var done = woas._native_wsif_load(null, false /* no locking */, false /* no save */, 0,
+	var done = woas._native_wsif_load(null, false /* no locking */, false /* not native */, 0,
 			this.importer._upgrade_content, this.importer._filter_by_title,
 			this.importer._after_import);
 	if (done === false && (woas.wsif.emsg !== null))

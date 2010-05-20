@@ -251,20 +251,20 @@ woas._wsif_ds_load = function(subpath, locking) {
 	page_titles = [];
 	page_mts = [];
 	// get the data
-	return this._native_wsif_load(woas.ROOT_DIRECTORY+subpath, locking, false /* no save */, 0,
+	return this._native_wsif_load(woas.ROOT_DIRECTORY+subpath, locking, true, 0,
 			this.importer._inject_import_hook);
 };
 
 /* description of parameters:
  - path: WSIF file path which will be loaded, can be null to use file specified in '_filename' element
  - locking: resource locking (not yet implemented)
- - and_save: true when WoaS is datasourcing (private use only)
+ - _native: true when WoaS is in native mode (private use only)
  - recursing: recursion depth variable, starts with 0
  - import_hook: callback used to actually import the page
  - title_filter_hook: callback used to choose if page can be imported or not by title - optional
  - finalization_hook: callback used when import is finished
 */
-woas._native_wsif_load = function(path, locking, and_save, recursing, import_hook, title_filter_hook, finalization_hook) {
+woas._native_wsif_load = function(path, locking, _native, recursing, import_hook, title_filter_hook, finalization_hook) {
 	if (!recursing) {
 		this.wsif.emsg = null;
 		this.progress_init("Initializing WSIF import");
@@ -338,10 +338,10 @@ woas._native_wsif_load = function(path, locking, and_save, recursing, import_hoo
 							p = -1;
 							fail = true;
 						} else {
-							if (and_save)
+							if (!_native)
 								// copy to importer module
 								this.importer._old_version = this._normver(this.wsif.generator.version);
-							else {
+							else { // native mode
 								if (this.wsif.generator.version !== this.version) {
 									this.wsif.do_error("WSIF generator version should match WoaS version");
 									p = -1;
@@ -350,10 +350,10 @@ woas._native_wsif_load = function(path, locking, and_save, recursing, import_hoo
 							}
 						}
 					} else {
-						if (and_save) {
+						if (!_native) {
 							// assume that any content generated with libwsif is up-to-date for import
 							this.importer._old_version = this._normver(this.version);
-						} else {
+						} else { // native mode
 							this.wsif.do_error("WSIF generator is not 'woas'");
 							p = -1;
 							fail = true;
@@ -503,18 +503,8 @@ woas._native_wsif_load = function(path, locking, and_save, recursing, import_hoo
 		if (typeof finalization_hook == "function")
 			finalization_hook();
 	}
-	// save imported pages
-	if (this.wsif.imported.length) {
-		// commit pages only when not recursing
-		if (!recursing && and_save) {
-			var ep = this.wsif.expected_pages;
-			this.commit(this.wsif.imported);
-			this.wsif.expected_pages = ep;
-		}
-		return this.wsif.imported.length;
-	}
-	// no pages were changed
-	return 0;
+	// return total imported pages
+	return this.wsif.imported.length;
 };
 
 // returns true if a page was defined, and save it in wsif.imported array
@@ -654,7 +644,7 @@ woas._native_page_def = function(path,ct,p,last_p,import_hook,
 				return false;
 			}
 			// check the result of external import
-			var rv = this._native_wsif_load(the_dir+d_fn, locking, false /* no save */,
+			var rv = this._native_wsif_load(the_dir+d_fn, locking, _native,
 											1, import_hook, title_filter_hook);
 			if (rv === false)
 				this.wsif.do_error( "Failed import of external "+the_dir+d_fn);
