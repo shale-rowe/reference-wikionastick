@@ -184,7 +184,7 @@ woas._get_tags = function(text, last_tag) {
 };
 
 // split one or more tags
-// note: no trim applied
+//NOTE: no trim applied
 woas.split_tags = function(tlist) {
 	if (tlist.indexOf(",")!==-1)
 		return tlist.split(",");

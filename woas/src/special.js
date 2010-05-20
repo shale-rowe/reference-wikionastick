@@ -125,10 +125,16 @@ woas._cache_search = function( str ) {
 };
 
 var reFindTags = /\[\[Tags?::([^\]]+)\]\]/g;
-woas.special_tagged = function() {
+woas.special_tagged = function(filter_string) {
 	var	pg = [], folds = {"[pages]":[]}, tagns,
-		src, i, l, j, jl, tmp, tag;
-	
+		src, i, l, j, jl, tmp, tag,
+		filtering;
+	// filtering setup
+	if (typeof filter_string != "undefined") {
+		woas.tagging._prepare_filter(filter_string);
+		filtering = true;
+	} else filtering = false;
+	// scan all pages
 	for(i=0,l=pages.length;i < l;++i) {
 		if (this.is_reserved(page_titles[i]))
 			continue;
@@ -144,7 +150,17 @@ woas.special_tagged = function() {
 				tmp=woas.split_tags($1);
 				for(j=0,jl=tmp.length;j < jl; ++j) {
 					tag=woas.trim(tmp[j]);
-					if (!tag.length) continue;
+					// skip invalid tags
+					if (!tag.length) {
+						woas.log("WARNING: check your tag separators");
+						continue;
+					}
+					// call the filtering callback, if necessary
+					if (filtering) {
+						if (!woas.tagging._filter_cb(tag))
+							// skip this page from listing
+							break;
+					}
 					// we have a valid tag, check if it is already indexed
 					tagns = "Tagged::"+tag;
 					if (typeof folds[tagns] == "undefined") {
@@ -158,65 +174,60 @@ woas.special_tagged = function() {
 						pg.push(page_titles[i]);
 				}
 			});
-	}
+	} // scan pages loop
+	if (filtering)
+		woas.tagging._finish();
 	// parse tree with sorting
 	return woas.ns_listing(folds, pg, false);
 };
 
-woas._get_tagged = function(tag_filter) {
-	var pg = [];
-	var i, l;
-	// allow tags filtering/searching
-	var tags = this.split_tags(tag_filter),
-		tags_ok = [], tags_not = [];
-	for(i=0,l=tags.length;i < l;++i) {
-		// skip empty tags
-		var tag = this.trim(tags[i]);
-		if (!tags[i].length)
-			continue;
-		// add a negation tag
-		if (tags[i].charAt(0)=='!')
-			tags_not.push( tags[i].substr(1) );
-		else // normal match tag
-			tags_ok.push(tags[i]);
-	} tags = null;
+// @module 'tagging'
+woas.tagging = {
+	tags_ok: null,
+	tags_not: null,
 	
-	var tmp, fail, b, bl;
-	for(i=0,l=pages.length;i < l;++i) {
-		tmp = this.get_src_page(i);
-		// can be null in case of encrypted content w/o key
-		if (tmp==null)
-			continue;
-		tmp.replace(/\[\[Tags?::([^\]]*?)\]\]/g, function(str, $1) {
-				// get array of tags in this wiki link
-				var found_tags = woas.split_tags($1);
-				fail = false;
-				// filter if "OK" tag is not present
-				for (var b=0,bl=tags_ok.length;b < bl;++b) {
-					if (found_tags.indexOf(tags_ok[b]) === -1) {
-						fail = true;
-						break;
-					}
-				}
-				if (!fail) {
-					// filter if "NOT" tag is present
-					// we are applying this filter only to tagged pages
-					// so a page without tags at all does not fit into this filtering
-					for (b=0,bl=tags_not.length;b < bl;++b) {
-						if (found_tags.indexOf(tags_not[b]) !== -1) {
-							fail = true;
-							break;
-						}
-					}
-					if (!fail)
-						// no failure, we add this page
-						pg.push(page_titles[i]);
-				}
-			});
+	_finish: function() {
+		this.tags_ok = this.tags_not = null;
+	},
+
+	_prepare_filter: function(filter_string) {
+		var pg = [];
+		var i, l;
+		// allow tags filtering/searching
+		var tags = this.split_tags(filter_string);
+		// reset filter
+		this.tags_ok = [];
+		this.tags_not = [];
+		
+		// parse filter
+		for(i=0,l=tags.length;i < l;++i) {
+			// skip empty tags
+			var tag = this.trim(tags[i]);
+			if (!tags[i].length)
+				continue;
+			// add a negation tag
+			if (tags[i].charAt(0)=='!')
+				this.tags_not.push( tags[i].substr(1) );
+			else // normal match tag
+				this.tags_ok.push(tags[i]);
+		} tags = null;
+		
+		return (this.tags_ok.length + this.tags_not.length > 0);
+	},
+	
+	_filter_cb: function(tag) {
+		// filter if "OK" tag is not present
+		if (this.tags_ok.indexOf(tag) === -1)
+			return false;
+		// filter if "NOT" tag is present
+		// we are applying this filter only to tagged pages
+		// so a page without tags at all does not fit into this filtering
+		if (this.tags_not.indexOf(tag) !== -1)
+			return false;
+		// no failure, this page passes
+		return true;
 	}
-	if (!pg.length)
-		return "No pages tagged with *"+tag_filter+"*";
-	return "= Pages tagged with " + tag_filter + "\n" + this._join_list(pg);
+		
 };
 
 var reHasTags = /\[\[Tags?::[^\]]+\]\]/;
@@ -227,7 +238,7 @@ woas.special_untagged = function() {
 		if (this.is_reserved(page_titles[i]))
 			continue;
 		tmp = this.get_src_page(i);
-		if (tmp===null)
+		if (tmp === null)
 			continue;
 		if (!tmp.match(reHasTags))
 			pg.push(page_titles[i]);
