@@ -36,19 +36,17 @@ woas.parser = {
 //DEPRECATED "!" syntax is supported but shall me removed soon
 var reParseHeaders = /^([\!=]+)\s*(.*)$/gm;
 woas.parser.header_replace = function(str, $1, $2) {
-		var header = $2;
-		var len = $1.length;
+		var header = $2, len = $1.length;
 		// remove the mirrored header syntax from right
 		var hpos = header.indexOf($1);
-		if ((hpos != -1) && (hpos==header.length - len))
+		if ((hpos !== -1) && (hpos === header.length - len))
 			header = header.substring(0, header.length - len);
 		// automatically build the TOC if needed
-		len = $1.length;
-		if (woas.parser.has_toc) {
-			woas.parser.toc += String("#").repeat(len)+" <"+"a class=\"woas_link\" href=\"#" +
-			woas.parser.header_anchor(header) + "\">" + header + "<\/a>\n";
+		if (this.has_toc) {
+			this.toc += String("#").repeat(len)+" <"+"a class=\"woas_link\" href=\"#" +
+			this.header_anchor(header) + "\">" + header + "<\/a>\n";
 		}
-		return "</"+"div><"+"h"+len+" class=\"woas_header\" id=\""+woas.parser.header_anchor(header)+"\">"+header+"<"+"/h"+len+"><"+"div class=\"woas_level"+len+"\">";
+		return "<"+"h"+len+" class=\"woas_header\" id=\""+woas.parser.header_anchor(header)+"\">"+header+"<"+"/h"+len+">";
 };
 
 woas.parser.sublist = function (lst, ll, suoro, euoro) {   
@@ -202,7 +200,7 @@ var reScripts = new RegExp("<"+"script([^>]*)>([\\s\\S]*?)<"+"\\/script>", "gi")
 	reWikiLink = /\[\[([^\]\]]*?)\|(.*?)\]\]/g,
 	reWikiLinkSimple = /\[\[([^\]]*?)\]\]/g,
 	reMailto = /^mailto:\/\//,
-	reCleanupNewlines = new RegExp('((<\\/h[1-6]><'+'div class="woas_level[1-6]">)|(<\\/[uo]l>))(\n+)', 'g'),
+	reCleanupNewlines = new RegExp('((<\\/h[1-6]>)|(<\\/[uo]l>))(\n+)', 'g'),
 	reNestedComment = new RegExp("<\\!-- "+woas.parser.marker+":c:(\\d+) -->");
 
 woas.parser.place_holder = function (i, separator) {
@@ -267,7 +265,8 @@ woas.parser.parse = function(text, export_links, js_mode) {
 
 	// this array will contain all the HTML snippets that will not be parsed by the wiki engine
 	var snippets = [],
-		r;
+		r,
+		backup_hook = this.after_parse;
 	
 	// comments and nowiki blocks
 	this.pre_parse(P, snippets);
@@ -282,8 +281,6 @@ woas.parser.parse = function(text, export_links, js_mode) {
 		// apply transclusion syntax
 		this.transclude_syntax(P, snippets);
 	}
-	
-	var	backup_hook = this.after_parse;
 	
 	if (js_mode) {
 		// reset the array of custom scripts for the correct target
@@ -372,11 +369,9 @@ woas.parser.parse = function(text, export_links, js_mode) {
 	// syntax parsing has finished, do you want to apply some final cosmethic?
 	if (this.after_parse === backup_hook)
 		this.after_parse(P);
-
-	if (P.body.substring(0,5)!=="<"+"/div")
-		return "<"+"div class=\"woas_level0\">" + P.body + "<"+"/div>";
-	// complete
-	return P.body.substring(6)+"<"+"/div>";
+	
+	// finished
+	return P.body;
 };
 
 woas.parser.parse_macros = function(P, snippets) {
@@ -423,6 +418,7 @@ woas.parser.pre_parse = function(P, snippets) {
 };
 
 //API1.0
+//TODO: offer transclusion parameters argument
 woas.parser.transclude = function(title, snippets) {
 	this._snippets = snippets;
 	var rv = this._transclude("[[Include::"+title+"]]", title);
@@ -510,7 +506,7 @@ woas.parser._transclude = function (str, $1) {
 			} );
 		}
 	} // not embedded
-	
+
 	return P.body;
 };
 
