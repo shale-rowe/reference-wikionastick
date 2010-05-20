@@ -163,6 +163,62 @@ woas.special_tagged = function() {
 	return woas.ns_listing(folds, pg, false);
 };
 
+woas._get_tagged = function(tag_filter) {
+	var pg = [];
+	var i, l;
+	// allow tags filtering/searching
+	var tags = this.split_tags(tag_filter),
+		tags_ok = [], tags_not = [];
+	for(i=0,l=tags.length;i < l;++i) {
+		// skip empty tags
+		var tag = this.trim(tags[i]);
+		if (!tags[i].length)
+			continue;
+		// add a negation tag
+		if (tags[i].charAt(0)=='!')
+			tags_not.push( tags[i].substr(1) );
+		else // normal match tag
+			tags_ok.push(tags[i]);
+	} tags = null;
+	
+	var tmp, fail, b, bl;
+	for(i=0,l=pages.length;i < l;++i) {
+		tmp = this.get_src_page(i);
+		// can be null in case of encrypted content w/o key
+		if (tmp==null)
+			continue;
+		tmp.replace(/\[\[Tags?::([^\]]*?)\]\]/g, function(str, $1) {
+				// get array of tags in this wiki link
+				var found_tags = woas.split_tags($1);
+				fail = false;
+				// filter if "OK" tag is not present
+				for (var b=0,bl=tags_ok.length;b < bl;++b) {
+					if (found_tags.indexOf(tags_ok[b]) === -1) {
+						fail = true;
+						break;
+					}
+				}
+				if (!fail) {
+					// filter if "NOT" tag is present
+					// we are applying this filter only to tagged pages
+					// so a page without tags at all does not fit into this filtering
+					for (b=0,bl=tags_not.length;b < bl;++b) {
+						if (found_tags.indexOf(tags_not[b]) !== -1) {
+							fail = true;
+							break;
+						}
+					}
+					if (!fail)
+						// no failure, we add this page
+						pg.push(page_titles[i]);
+				}
+			});
+	}
+	if (!pg.length)
+		return "No pages tagged with *"+tag_filter+"*";
+	return "= Pages tagged with " + tag_filter + "\n" + this._join_list(pg);
+};
+
 var reHasTags = /\[\[Tags?::[^\]]+\]\]/;
 woas.special_untagged = function() {
 	var tmp;
@@ -507,61 +563,16 @@ woas.ns_listing = function(folds, flat_arr, sorted) {
 	return output.s;
 };
 
-woas._get_tagged = function(tag_filter) {
-	var pg = [];
-	var i, l;
-	// allow tags filtering/searching
-	var tags = this.split_tags(tag_filter),
-		tags_ok = [], tags_not = [];
-	for(i=0,l=tags.length;i < l;++i) {
-		// skip empty tags
-		var tag = this.trim(tags[i]);
-		if (!tags[i].length)
-			continue;
-		// add a negation tag
-		if (tags[i].charAt(0)=='!')
-			tags_not.push( tags[i].substr(1) );
-		else // normal match tag
-			tags_ok.push(tags[i]);
-	} tags = null;
-	
-	var tmp, fail, b, bl;
-	for(i=0,l=pages.length;i < l;++i) {
-		tmp = this.get_src_page(i);
-		// can be null in case of encrypted content w/o key
-		if (tmp==null)
-			continue;
-		tmp.replace(/\[\[Tags?::([^\]]*?)\]\]/g, function(str, $1) {
-				// skip protocol references
-//				if ($1.search(/^\w+:\/\//)==0)
-//					return;
-				// get array of tags in this wiki link
-				var found_tags = woas.split_tags($1);
-				fail = false;
-				// filter if "OK" tag is not present
-				for (var b=0,bl=tags_ok.length;b < bl;++b) {
-					if (found_tags.indexOf(tags_ok[b]) == -1) {
-						fail = true;
-						break;
-					}
-				}
-				if (!fail) {
-					// filter if "NOT" tag is present
-					// we are applying this filter only to tagged pages
-					// so a page without tags at all does not fit into this filtering
-					for (b=0,bl=tags_not.length;b < bl;++b) {
-						if (found_tags.indexOf(tags_not[b]) != -1) {
-							fail = true;
-							break;
-						}
-					}
-					if (!fail)
-						// no failure, we add this page
-						pg.push(page_titles[i]);
-				}
-			});
+woas._special_image_gallery = function(ns) {
+	var iHTML = "", snippets, P = {body:null};
+	for(var i=0, l=page_titles.length;i < l;++i) {
+		if (page_titles[i].indexOf(ns)===0) {
+		snippets = [];
+		P.body = "* "+this.parser.transclude(page_titles[i], snippets)+" [["+page_titles[i]+"]]\n";
+		this.parser.syntax_parse(P, snippets);
+		iHTML += P.body;
+		snippets = P.body = null;
+		}
 	}
-	if (!pg.length)
-		return "No pages tagged with *"+tag_filter+"*";
-	return "= Pages tagged with " + tag_filter + "\n" + this._join_list(pg);
+	return "= Pages in "+ns+" namespace\n" + iHTML;
 };
