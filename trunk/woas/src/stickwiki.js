@@ -572,7 +572,7 @@ woas.set_current = function (cr, interactive) {
 							return false;
 						break;
 					case "Tagged":
-						text = this._get_tagged(cr);
+						text = this.special_tagged(cr);
 						if (text === null)
 							return false;
 						break;
