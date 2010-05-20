@@ -565,13 +565,20 @@ woas._save_to_file = function(full) {
 	} //DEBUG check
 
 	d$("woas_editor").value = bak_ed;
-	d$("woas_wiki_area").innerHTML = bak_tx;
+	//HACK will not restore text because we'll head to main page
+	if (current === this.config.main_page)
+		d$("woas_wiki_area").innerHTML = bak_tx;
+	else
+		woas.go_to(this.config.main_page);
 	d$("woas_menu_area").innerHTML = bak_mn;
 	d$("woas_mts").innerHTML = bak_mts;
 	if (bak_mts_shown)
 		d$.show("woas_mts");
 	d$("woas_debug_log").value = bak_debug;
 	d$("woas_title").innerHTML = bak_title;
+	
+	//TODO: re-run after parsing hooks
+	// would fix issues with import page for example
 	
 	this.progress_finish();
 	
