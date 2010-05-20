@@ -571,12 +571,11 @@ woas.set_current = function (cr, interactive) {
 						if (text === null)
 							return false;
 						break;
-/*					case "Tagged": // deprecated
-					case "Tags":
+					case "Tagged":
 						text = this._get_tagged(cr);
 						if (text === null)
 							return false;
-						break; */
+						break;
 					case "Lock":
 						// prevent special pages from being locked
 						if (this.is_reserved(cr)) {
