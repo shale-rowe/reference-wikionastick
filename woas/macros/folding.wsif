@@ -35,4 +35,5 @@ return true;
 There is no spoon
 >>>
 <<<woas.folding("Click me", "to toggle inline folded content", true): There is no spoon >>>
+<<<woas.folding("Click me", "to toggle a folded transcluded page"): [[Main Page]] >>>
 --DFQRCTsKlU
