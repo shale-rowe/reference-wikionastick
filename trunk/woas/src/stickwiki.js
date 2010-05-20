@@ -200,9 +200,9 @@ woas._get_namespace_pages = function (ns) {
 		case "Unlocked":
 			return this.special_encrypted_pages(false);
 		case "Untagged":
-			return this.special_untagged(false);
+			return this.special_untagged();
 		case "Tagged": // to be used in wiki source
-			return this.special_tagged(false);
+			return this.special_tagged();
 		case "Image":
 			return this._special_image_gallery(ns);
 	}
@@ -265,7 +265,7 @@ woas.get_text_special = function(title) {
 				if (text === false) text = null;
 			break;
 			case "Tagged::":
-				text = this._get_tagged(title);
+				text = this.special_tagged(title);
 			break;
 			default:
 				text = this.get_text(ns+title);
