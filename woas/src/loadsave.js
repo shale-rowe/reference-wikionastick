@@ -565,11 +565,7 @@ woas._save_to_file = function(full) {
 	} //DEBUG check
 
 	d$("woas_editor").value = bak_ed;
-	//HACK will not restore text because we'll head to main page
-	if (current === this.config.main_page)
-		d$("woas_wiki_area").innerHTML = bak_tx;
-	else
-		woas.go_to(this.config.main_page);
+	d$("woas_wiki_area").innerHTML = bak_tx;
 	d$("woas_menu_area").innerHTML = bak_mn;
 	d$("woas_mts").innerHTML = bak_mts;
 	if (bak_mts_shown)
