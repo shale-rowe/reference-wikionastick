@@ -224,65 +224,6 @@ woas._get_namespace_pages = function (ns) {
 	return /*"= Pages in "+ns+" namespace\n" + */this._join_list(pg);
 };
 
-woas._get_tagged = function(tag_filter) {
-	var pg = [];
-	var i, l;
-	// allow tags filtering/searching
-	var tags = this.split_tags(tag_filter),
-		tags_ok = [], tags_not = [];
-	for(i=0,l=tags.length;i < l;++i) {
-		// skip empty tags
-		var tag = this.trim(tags[i]);
-		if (!tags[i].length)
-			continue;
-		// add a negation tag
-		if (tags[i].charAt(0)=='!')
-			tags_not.push( tags[i].substr(1) );
-		else // normal match tag
-			tags_ok.push(tags[i]);
-	} tags = null;
-	
-	var tmp, fail, b, bl;
-	for(i=0,l=pages.length;i < l;++i) {
-		tmp = this.get_src_page(i);
-		// can be null in case of encrypted content w/o key
-		if (tmp==null)
-			continue;
-		tmp.replace(/\[\[Tags?::([^\]]*?)\]\]/g, function(str, $1) {
-				// skip protocol references
-//				if ($1.search(/^\w+:\/\//)==0)
-//					return;
-				// get array of tags in this wiki link
-				var found_tags = woas.split_tags($1);
-				fail = false;
-				// filter if "OK" tag is not present
-				for (var b=0,bl=tags_ok.length;b < bl;++b) {
-					if (found_tags.indexOf(tags_ok[b]) == -1) {
-						fail = true;
-						break;
-					}
-				}
-				if (!fail) {
-					// filter if "NOT" tag is present
-					// we are applying this filter only to tagged pages
-					// so a page without tags at all does not fit into this filtering
-					for (b=0,bl=tags_not.length;b < bl;++b) {
-						if (found_tags.indexOf(tags_not[b]) != -1) {
-							fail = true;
-							break;
-						}
-					}
-					if (!fail)
-						// no failure, we add this page
-						pg.push(page_titles[i]);
-				}
-			});
-	}
-	if (!pg.length)
-		return "No pages tagged with *"+tag_filter+"*";
-	return "= Pages tagged with " + tag_filter + "\n" + this._join_list(pg);
-};
-
 // return a plain page or a decrypted one if available through the latest key
 woas.get_page = function(pi) {
 	if (this.is__embedded(pi))
