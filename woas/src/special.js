@@ -131,8 +131,7 @@ woas.special_tagged = function(filter_string) {
 		filtering;
 	// filtering setup
 	if (typeof filter_string != "undefined") {
-		woas.tagging._prepare_filter(filter_string);
-		filtering = true;
+		filtering = woas.tagging._prepare_filter(filter_string);
 	} else filtering = false;
 	// scan all pages
 	for(i=0,l=pages.length;i < l;++i) {
@@ -194,7 +193,7 @@ woas.tagging = {
 		var pg = [];
 		var i, l;
 		// allow tags filtering/searching
-		var tags = this.split_tags(filter_string);
+		var tags = woas.split_tags(filter_string);
 		// reset filter
 		this.tags_ok = [];
 		this.tags_not = [];
@@ -202,7 +201,7 @@ woas.tagging = {
 		// parse filter
 		for(i=0,l=tags.length;i < l;++i) {
 			// skip empty tags
-			var tag = this.trim(tags[i]);
+			var tag = woas.trim(tags[i]);
 			if (!tags[i].length)
 				continue;
 			// add a negation tag
@@ -217,13 +216,17 @@ woas.tagging = {
 	
 	_filter_cb: function(tag) {
 		// filter if "OK" tag is not present
-		if (this.tags_ok.indexOf(tag) === -1)
-			return false;
+		if (this.tags_ok.length) {
+			if (this.tags_ok.indexOf(tag) === -1)
+				return false;
+		}
 		// filter if "NOT" tag is present
 		// we are applying this filter only to tagged pages
 		// so a page without tags at all does not fit into this filtering
-		if (this.tags_not.indexOf(tag) !== -1)
-			return false;
+		if (this.tags_not.length) {
+			if (this.tags_not.indexOf(tag) !== -1)
+				return false;
+		}
 		// no failure, this page passes
 		return true;
 	}
