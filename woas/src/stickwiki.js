@@ -196,25 +196,15 @@ woas._get_namespace_pages = function (ns) {
 	var pg = [];
 	switch (ns.substr(0, ns.length-2)) {
 		case "Locked":
-			return /*"= Pages in "+ns+" namespace\n" + */this.special_encrypted_pages(true);
+			return this.special_encrypted_pages(true);
 		case "Unlocked":
-			return /*"= Pages in "+ns+" namespace\n" + */this.special_encrypted_pages(false);
+			return this.special_encrypted_pages(false);
 		case "Untagged":
-			return /*"= Pages in "+ns+" namespace\n" + */this.special_untagged(false);
+			return this.special_untagged(false);
 		case "Tagged": // to be used in wiki source
-			return /*"= Pages in "+ns+" namespace\n" + */this.special_tagged(false);
+			return this.special_tagged(false);
 		case "Image":
-			var iHTML = "", snippets, P = {body:null};
-			for(var i=0, l=page_titles.length;i < l;++i) {
-				if (page_titles[i].indexOf(ns)===0) {
-					snippets = [];
-					P.body = "* "+this.parser.transclude(page_titles[i], snippets)+" [["+page_titles[i]+"]]\n";
-					this.parser.syntax_parse(P, snippets);
-					iHTML += P.body;
-					snippets = P.body = null;
-				}
-			}
-			return "= Pages in "+ns+" namespace\n" + iHTML;
+			return this._special_image_gallery(ns);
 	}
 
 	for(i=0, l=page_titles.length;i < l;++i) {
@@ -581,12 +571,12 @@ woas.set_current = function (cr, interactive) {
 						if (text === null)
 							return false;
 						break;
-					case "Tagged": // deprecated
+/*					case "Tagged": // deprecated
 					case "Tags":
 						text = this._get_tagged(cr);
 						if (text === null)
 							return false;
-						break;
+						break; */
 					case "Lock":
 						// prevent special pages from being locked
 						if (this.is_reserved(cr)) {
