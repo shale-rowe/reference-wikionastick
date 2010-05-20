@@ -547,33 +547,37 @@ woas.ns_listing = function(folds, flat_arr, sorted) {
 		return "/No pages in this listing/";
 	if (typeof sorted == "undefined")
 		sorted = false;
-	// this is kept here for now until some more appropriate place is individuated
-	var list_id = _random_string(8);
-	// setup the group object
-	this._ns_groups[list_id] = { "items":[], "option": woas.config.folding_style};
-	var output={	"s": "",
-					"fold_no":0,
-					"list_id":list_id
-	};
-	output.s = "<"+"span class=\"woas_listing_options\">List view:<"+"label for=\"WoaS_"+list_id+"_0\"><"+"input type=\"radio\" id=\"WoaS_"+list_id+"_0\" name=\"WoaS_"+list_id+"\" value=\"0\" "+(this._ns_groups[list_id].option === 0 ? " checked=\"checked\"" : "" )+"onclick=\"_WoaS_list_expand_change('"+list_id+"',0)\">Flat<"+"/label>&nbsp;|\
-<"+"label for=\"WoaS_"+list_id+"_1\"><"+"input type=\"radio\" id=\"WoaS_"+list_id+"_1\" name=\"WoaS_"+list_id+"\" value=\"1\" "+(this._ns_groups[list_id].option === 1 ? " checked=\"checked\"" : "" )+"onclick=\"_WoaS_list_expand_change('"+list_id+"',1)\" >By namespace, collapsed<"+"/label>&nbsp;|\
-<"+"label for=\"WoaS_"+list_id+"_2\"><"+"input type=\"radio\" id=\"WoaS_"+list_id+"_2\" name=\"WoaS_"+list_id+"\" value=\"2\" "+(this._ns_groups[list_id].option === 2 ? " checked=\"checked\"" : "" )+" onclick=\"_WoaS_list_expand_change('"+list_id+"',2)\">By namespace, expanded<"+"/label>\
-<"+"/span><"+"span style=\""+woas._visible_css(this._ns_groups[list_id].option !== 0)+"\" id=\"WoaS_"+list_id+"_folds\">\n";
-	
-	// first fill the span for foldings
-	this.ns_recurse_parse(folds, output, "", 0, sorted);
-	output.s += "<"+"/span>\n"+
-				"<"+"span style=\""+woas._visible_css(this._ns_groups[list_id].option === 0)+"\" id=\"WoaS_"+list_id+"_flat\">\n";
-	// then generate the flat list
-	if (flat_arr.length) {
-		if (sorted)
-			flat_arr.sort();
-		output.s += "* [["+flat_arr.join("]]\n* [[")+"]]\n";
-	/*	for(var i=0,it=flat_arr.length;i < it;++i) {
-			output.s += "* [["+flat_arr[i]+"]]\n";
-		} */
+	// do not produce the header if this has no subnamespaces
+	var i=0;
+	for(var f in folds) {
+		if (i++) break;
+		if (f !== "[pages]") {
+			i=2;
+			break;
+		}
 	}
-	output.s += "<"+"/span>";
+	var output={"s": "","fold_no":0};
+	if (i!==1) {
+		// this is kept here for now until some more appropriate place is individuated
+		output.list_id = _random_string(8);
+		// setup the group object
+		this._ns_groups[output.list_id] = { "items":[], "option": woas.config.folding_style};
+		output.s = "<"+"span class=\"woas_listing_options\">List view:<"+"label for=\"WoaS_"+output.list_id+"_0\"><"+"input type=\"radio\" id=\"WoaS_"+output.list_id+"_0\" name=\"WoaS_"+output.list_id+"\" value=\"0\" "+(this._ns_groups[output.list_id].option === 0 ? " checked=\"checked\"" : "" )+"onclick=\"_WoaS_list_expand_change('"+output.list_id+"',0)\">Flat<"+"/label>&nbsp;|\
+	<"+"label for=\"WoaS_"+output.list_id+"_1\"><"+"input type=\"radio\" id=\"WoaS_"+output.list_id+"_1\" name=\"WoaS_"+output.list_id+"\" value=\"1\" "+(this._ns_groups[output.list_id].option === 1 ? " checked=\"checked\"" : "" )+"onclick=\"_WoaS_list_expand_change('"+output.list_id+"',1)\" >By namespace, collapsed<"+"/label>&nbsp;|\
+	<"+"label for=\"WoaS_"+output.list_id+"_2\"><"+"input type=\"radio\" id=\"WoaS_"+output.list_id+"_2\" name=\"WoaS_"+output.list_id+"\" value=\"2\" "+(this._ns_groups[output.list_id].option === 2 ? " checked=\"checked\"" : "" )+" onclick=\"_WoaS_list_expand_change('"+output.list_id+"',2)\">By namespace, expanded<"+"/label>\
+	<"+"/span><"+"span style=\""+woas._visible_css(this._ns_groups[output.list_id].option !== 0)+"\" id=\"WoaS_"+output.list_id+"_folds\">\n";
+		
+		// first fill the span for foldings
+		this.ns_recurse_parse(folds, output, "", 0, sorted);
+		output.s += "<"+"/span>\n"+
+					"<"+"span style=\""+woas._visible_css(this._ns_groups[output.list_id].option === 0)+"\" id=\"WoaS_"+output.list_id+"_flat\">\n";
+	}
+	// then generate the flat list
+	if (sorted)
+		flat_arr.sort();
+	output.s += "* [["+flat_arr.join("]]\n* [[")+"]]\n";
+	if (i !== 1)
+		output.s += "<"+"/span>";
 	return output.s;
 };
 
