@@ -11,9 +11,6 @@ woas.save_queue = [];		// pages which need to be saved and are waiting in the qu
 // Automatic-Save TimeOut object
 woas._asto = null;
 
-// title of page being rendered
-woas.render_title = null;
-
 // previous length of WSIF datasource
 woas._old_wsif_ds_len = null;
 
@@ -803,7 +800,7 @@ woas.load_as_current = function(title, xhtml, mts) {
 	}
 	
 	// used by some special pages (e.g. backlinks) for page title override
-	this.render_title = title;
+	this.parser.render_title = title;
 	
 	scrollTo(0,0);
 	this.log("load_as_current(\""+title+"\") - "+(typeof xhtml == "string" ? (xhtml.length+" bytes") : (typeof xhtml)));	// log:1

@@ -55,11 +55,11 @@ woas.special_orphaned_pages = function() {
 
 woas.special_backlinks = function() {
 	var pg = [], pg_title, tmp;
-	if (this.render_title === null)
+	if (this.parser.render_title === null)
 		pg_title = current;
 	else {
-		pg_title = this.render_title;
-		this.render_title = null;
+		pg_title = this.parser.render_title;
+		this.parser.render_title = null;
 	}
 	var reg = new RegExp("\\[\\["+RegExp.escape(pg_title)+"(\\||\\]\\])", "gi");
 	for(var j=0,l=pages.length; j < l; j++) {

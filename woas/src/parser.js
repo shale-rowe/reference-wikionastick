@@ -1,5 +1,5 @@
 woas.parser = {
-	_MAX_TRANSCLUSION_RECURSE: 256,
+	render_title: null,			// title of page being rendered
 	has_toc: null,
 	toc: "",
 	force_inline: false,		// used not to break layout when presenting search results
@@ -30,6 +30,7 @@ woas.parser = {
 	// a variety of regular expressions used by the parser
 	reBoldSyntax: /(^|[^\w\/\\])\*([^\*\n]+)\*/g,
 	reNormHeader: /[^a-zA-Z0-9]/g,
+	_MAX_TRANSCLUSION_RECURSE: 256,
 	marker: "#"+_random_string(8)
 };
 
