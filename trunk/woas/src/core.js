@@ -209,6 +209,7 @@ woas.erase_wiki = function() {
 	// reload all extensions
 	this._load_aliases(this.get_text("WoaS::Aliases"));
 	this._load_hotkeys(this.get_text("WoaS::Hotkeys"));
+	// remove all plugins
 	this.plugins.clear();
 	this.plugins.load();
 
@@ -769,7 +770,7 @@ woas.dom = {
 				
 		this._cache.head.appendChild(s_elem);
 		if (!external) {
-//			alert("Inline code:\n"+script_content);
+//			woas.alert("Inline code:\n"+script_content);
 			woas.setHTML(s_elem, script_content);
 		}
 		return true;

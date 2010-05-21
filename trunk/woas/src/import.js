@@ -702,7 +702,6 @@ woas._import_pre_up = function(all_options) {
 									this.importer.i_overwrite & 1, this.config.import_settings);
 	woas.config.import_settings = this.bitfield.set(this.config.import_settings, this.importer._OVR_ID+1,
 									this.importer.i_overwrite & 2, this.config.import_settings);
-	woas.log(woas.config.import_settings);
 	// check if user wants total erase before going on
 	if (this.importer.i_overwrite === 0) {
 		if (!this.erase_wiki())
