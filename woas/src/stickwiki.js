@@ -1088,9 +1088,12 @@ woas.edit_ready = function (txt) {
 };
 
 woas.edit_page = function(page) {
+	// can't edit again if already editing
+	if (this.ui.edit_mode)
+		return false;
 	if (!this.edit_allowed(page)) {
 		woas.log("Not allowed to edit page "+page);	// log:1
-		return;
+		return false;
 	}
 	_servm_alert();
 	var tmp = this.get_text(page);
@@ -1174,6 +1177,9 @@ woas.get_raw_content = function() {
 
 // action performed when save is clicked
 woas.save = function() {
+	// you can't save if not editing
+	if (!this.ui.edit_mode)
+		return false;
 	// we will always save ghost pages if save button was hit
 	var null_save = !this._ghost_page, was_ghost = this._ghost_page;
 	// always reset ghost page flag

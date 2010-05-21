@@ -121,6 +121,10 @@ woas.ui = {
 		var params = ["erase", "ignore", "overwrite", "ask"];
 		// apply parameter
 		d$('woas_import_'+params[ovr]).checked = true;
+	},
+	// click on edit icon
+	edit: function() {
+		woas.edit_page(current);
 	}
 	
 };
@@ -180,11 +184,13 @@ function go_forward() {
 
 // when cancel is clicked
 function cancel() {
+	woas.log("Called deprecated function: cancel");
 	woas.cancel_edit();
 }
 
 //DEPRECATED
 function save() {
+	woas.log("Called deprecated function: save");
 	woas.save();
 }
 
@@ -302,7 +308,10 @@ function help() {
 
 // when edit is clicked
 //DEPRECATED
-function edit() {	woas.edit_page(current);	}
+function edit() {
+	woas.log("Called deprecated function: edit");
+	woas.ui.edit();
+}
 
 //DEPRECATED
 function lock() {
