@@ -3,9 +3,9 @@
 // some tweak settings NOT to be touched - warranty void otherwise
 woas.tweak = {
 	// DANGER: might cause WoaS corruption!
-	"edit_override": false,
+	edit_override: false,
 	// perform integrity test of browser features
-	"integrity_test": true
+	integrity_test: true
 };
 
 woas.cmd_duplicate_page = function() {
@@ -201,14 +201,14 @@ woas.erase_wiki = function() {
 	page_titles = page_titles.concat(copied_help_pages);
 	// now build pages
 	pages = ["A blank sheet is a catalyst for ideas", "[["+this.config.main_page+"]]\n\n[[Special::All Pages]]\n[[Special::New Page]]\n[[Special::Duplicate Page]]\n[[Special::Go to]]\n[[Special::Delete Page]]\n[[Special::Backlinks]]\n[[Special::Search]]",
-			"", this._default_hotkeys(), "/* Your CSS customization goes here */"];
+			"", this.hotkey._cache_default(), "/* Your CSS customization goes here */"];
 	pages = pages.concat(backup_pages); backup_pages = null;
 	current = this.config.main_page;
 	this.refresh_menu_area();
 	this.history.clear();
 	// reload all extensions
 	this._load_aliases(this.get_text("WoaS::Aliases"));
-	this._load_hotkeys(this.get_text("WoaS::Hotkeys"));
+	this.hotkey.load(this.get_text("WoaS::Hotkeys"));
 	// remove all plugins
 	this.plugins.clear();
 	this.plugins.load();

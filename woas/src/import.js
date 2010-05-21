@@ -596,7 +596,7 @@ woas.importer = {
 		if (that._update_aliases)
 			woas._load_aliases(woas.get_text("WoaS::Aliases"));
 		if (that._update_hotkeys)
-			woas._load_hotkeys(woas.get_text("WoaS::Hotkeys"));
+			woas.hotkey.load(woas.get_text("WoaS::Hotkeys"));
 		
 		// add/update plugins
 		for(var i=0,it=that._plugins_update.length;i < it;++i) {
