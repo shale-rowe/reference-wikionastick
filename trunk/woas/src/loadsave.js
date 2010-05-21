@@ -289,6 +289,7 @@ woas._guess_mime = function(filename) {
 	switch (m) {
 		case "png":
 		case "gif":
+		case "bmp":
 			guess_mime += "/"+m;
 			break;
 		case "jpg":
