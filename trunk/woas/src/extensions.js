@@ -361,6 +361,7 @@ woas.hotkey = {
 	
 	all: {
 		"save":		"s",
+		"save_and_continue":	"a",
 		"edit":		"e",
 		"print":	"p",
 		"help":		"h",
@@ -388,8 +389,7 @@ woas.hotkey = {
 			// proceed to addition
 			if (!found) {
 				ak = document.createElement("a");
-	//			ak.setAttribute("onclick", new_custom_accesskeys[a].fn+"(); return false;");
-				ak.href="javascript:"+new_custom_accesskeys[a].fn+"()";
+				this._hook_fn(ak, new_custom_accesskeys[a].fn);
 				ak.accessKey = new_custom_accesskeys[a].key;
 				// store the new access key
 				this.custom_accesskeys.push({"fn":new_custom_accesskeys[a].fn,"key":new_custom_accesskeys[a].key,
@@ -400,6 +400,11 @@ woas.hotkey = {
 		// (3) clear the div content if no custom access key is there (just for safety)
 		if (this.custom_accesskeys.length === 0)
 			this.setHTML(d$("woas_custom_accesskeys"), "&nbsp;");
+	},
+	
+	_hook_fn: function(obj, fn) {
+		obj.setAttribute("onclick", fn+"()");
+//		obj.onclick = fn+"()";
 	},
 
 	// return the default hotkeys/key bindings
@@ -469,6 +474,8 @@ woas.hotkey = {
 		d$("woas_help_hl").accessKey = this.all.help;
 		// set access key for goto feature
 		new_custom_accesskeys.push({fn:"woas.cmd_go_to", key: this.all.goto});
+		// set access key for save&continue feature
+		new_custom_accesskeys.push({fn:"woas.full_commit", key: this.all.save_and_continue});
 		
 		// (1) delete access keys which no more exist
 		var found,a,b;
@@ -479,7 +486,7 @@ woas.hotkey = {
 					found = true;
 					// access key element was found, update the associated function (if necessary)
 					if (this.custom_accesskeys[a].fn !== new_custom_accesskeys[b].fn) {
-						this.custom_accesskeys[a].obj.onclick = new_custom_accesskeys[b].fn+"(); return false;";
+						this._hook_fn(this.custom_accesskeys[a].obj, new_custom_accesskeys[b].fn);
 					}
 					break;
 				}
