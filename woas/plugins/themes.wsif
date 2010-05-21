@@ -35,7 +35,7 @@ woas.page.boundary: DFQRCTsKlU
 	
 woas.custom.themes = {
 	_load: function () {
-		d$('themes_layer').innerHTML = woas.custom.themes._get_img('img_logo') +
+		woas.setHTMLDiv(d$('themes_layer'), woas.custom.themes._get_img('img_logo') +
 			woas.custom.themes._get_img('img_back') +
 			woas.custom.themes._get_img('img_forward') +
 			woas.custom.themes._get_img('img_advanced') +
@@ -47,10 +47,15 @@ woas.custom.themes = {
 			woas.custom.themes._get_img('img_help') +
 			woas.custom.themes._get_img('img_edit') +
 			woas.custom.themes._get_img('img_cancel') +
-			woas.custom.themes._get_img('img_save');
+			woas.custom.themes._get_img('img_save') );
 	},
 	_get_img: function(id) {
-		return '<img id="themes_'+id.substr(4)+'" title="Change '+id.substr(4)+' icon" style="margin: 5px; border-color: green; cursor: pointer" border="2" src="'+d$(id).src+'" onclick="javascript:woas.custom.themes._replace_from_file(\''+id+'\');" alt="'+id+'"/>';
+		var src = "";
+		try {
+			src = d$(id).src;
+		}
+		catch (e) { woas.crash(e); }
+		return '<'+'img id="themes_'+id.substr(4)+'" title="Change '+id.substr(4)+' icon" style="margin: 5px; border-color: green; cursor: pointer" border="2" src="'+src+'" onclick="javascript:woas.custom.themes._replace_from_file(\''+id+'\');" alt="'+id+'"/'+'>';
 	},
 	_replace_from_file: function(button) {
 		var ct = woas.load_file(null, woas.file_mode.DATA_URI);
