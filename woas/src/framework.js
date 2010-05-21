@@ -396,6 +396,8 @@ woas.strnatcmp = function( f_string1, f_string2 ) {
     // + namespaced by: Michael White (http://getsprink.com)
     // +    tweaked by: Jack
     // +   bugfixed by: Onno Marsman
+	if (f_string1 === f_string2)
+		return 0;
 
     var i = 0;
 

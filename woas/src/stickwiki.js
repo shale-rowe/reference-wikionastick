@@ -734,7 +734,7 @@ woas.load_as_current = function(title, xhtml, mts) {
 	
 	scrollTo(0,0);
 	this.log("load_as_current(\""+title+"\") - "+(typeof xhtml == "string" ? (xhtml.length+" bytes") : (typeof xhtml)));	// log:1
-	d$("woas_wiki_area").innerHTML = xhtml;
+	this.setHTMLDiv(d$("woas_wiki_area"), xhtml);
 	this.refresh_mts(mts);
 
 	this._set_title(title);
@@ -775,8 +775,8 @@ woas._add_namespace_menu = function(namespace) {
 		pi = this.page_index(namespace+"::Menu");
 	if (pi==-1) {
 //		this.log("no namespace menu found");	// log:0
-		d$("ns_menu_area").innerHTML = "";
-		if (current_namespace!="") {
+		this.setHTMLDiv(d$("ns_menu_area"), "");
+		if (current_namespace !== "") {
 			d$.hide("ns_menu_area");
 			d$.hide("ns_menu_edit_button");
 		}
@@ -786,10 +786,10 @@ woas._add_namespace_menu = function(namespace) {
 	var menu = this.get__text(pi);
 	if (menu === null) {
 //		this.log("Could not retrieve namespace menu");	// log:0
-		d$("ns_menu_area").innerHTML = "";
+		this.setHTMLDiv(d$("ns_menu_area"), "");
 	} else {
 //		this.log("Parsing "+menu.length+" bytes for namespace menu");	// log:0
-		d$("ns_menu_area").innerHTML = this.parser.parse(menu, false, this.js_mode(namespace+"::Menu"));
+		this.setHTMLDiv(d$("ns_menu_area"), this.parser.parse(menu, false, this.js_mode(namespace+"::Menu")));
 	}
 	// if the previous namespace was empty, then show the submenu areas
 //	if (current_namespace=="") {
@@ -823,6 +823,10 @@ woas._on_unload = function () {
  // DO NOT use setHTML for the document.body object in IE browsers
 woas.setHTML = woas.getHTML = null;
 
+// these are unchanged for all browsers
+woas.getHTMLDiv = function(elem) {return elem.innerHTML;};
+woas.setHTMLDiv = function(elem, html) {elem.innerHTML = html;};
+
 // when the page is loaded - onload, on_load
 woas._on_load = function() {
 	// output platform information - note that revision is filled in only in releases
@@ -848,8 +852,8 @@ woas._on_load = function() {
 			d$("woas_logo").style.width = "1%";
 		}
 	} else {
-		this.setHTML = function(elem, html) {elem.innerHTML = html;};
-		this.getHTML = function(elem) {return elem.innerHTML;};
+		this.setHTML = this.setHTMLDiv;
+		this.getHTML = this.getHTMLDiv;
 		// everyone else needs a logo; will be better when done in css.
 		d$("woas_logo").style.width = "35px";
 		d$.show("img_logo");
