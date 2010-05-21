@@ -130,23 +130,33 @@ woas.ui = {
 		if (!this.edit_mode)
 			return;
 		// there was some change, ask for confirm before cancelling
-		if ((this.get_raw_content() !== this.change_buffer) ||
-			(this.trim(d$("wiki_page_title").value) !== this.old_title)) {
-			if (!confirm(this.i18n.CANCEL_EDITING))
+		if ((woas.get_raw_content() !== woas.change_buffer) ||
+			(woas.trim(d$("wiki_page_title").value) !== woas.old_title)) {
+			if (!confirm(woas.i18n.CANCEL_EDITING))
 				return;
 		}
 		// we will cancel the creation of last page
-		if (this._ghost_page) {
+		if (woas._ghost_page) {
 			// we assume that the last page is the ghost page
 			pages.pop();
 			page_mts.pop();
 			page_titles.pop();
 			page_attrs.pop();
-			this._ghost_page = false;
+			woas._ghost_page = false;
 			woas.log("Ghost page disabled"); //log:1
 		}
-		this.disable_edit();
-		current = this.prev_title;
+		woas.disable_edit();
+		current = woas.prev_title;
+	},
+	// when back button is clicked
+	back: function() {
+		if (this.edit_mode)
+			return false;
+		var p = woas.history.back();
+		if (p === null)
+			return false;
+		woas.history._forward_browse = true;
+		return woas.set_current(p, true);
 	}
 	
 };
@@ -184,13 +194,9 @@ function back_or(or_page) {
 		woas.set_current(or_page, true);
 }
 
-// when Back button is clicked
+//DEPRECATED
 function go_back() {
-	var p = woas.history.back();
-	if (p === null)
-		return false;
-	woas.history._forward_browse = true;
-	return woas.set_current(p, true);
+	woas.ui.back();
 }
 
 // when Forward button is clicked

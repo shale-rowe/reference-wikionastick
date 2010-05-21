@@ -765,21 +765,24 @@ woas._extract_src_data = function(marker, source, full, current_page, data_only)
 	}
 	
 	// remove the tail (if any)
-		var tail_end_mark = "<"+"!-- "+marker+"-TAIL-END -"+"->",
+	var tail_end_mark = "<"+"!-- "+marker+"-TAIL-END -"+"->",
 			tail_st_mark = "<"+"!-- "+marker+"-TAIL-START --"+">",
 			tail_start = source.indexOf(tail_st_mark, e_offset);
-		if (tail_start !== -1) {
-			var tail_end = source.indexOf(tail_end_mark, tail_start);
-			if (tail_end === -1)
-				log("Cannot find tail end!"); //log:1
-			else {
-				// remove the tail content (but not the tail itself)
-				source =	source.substring(0, tail_start + tail_st_mark.length)+
-							source.substring(tail_end+tail_end_mark.length);
-				//TODO: replace textarea with a standard one
-			}
+	if (tail_start !== -1) {
+		var tail_end = source.indexOf(tail_end_mark, tail_start);
+		if (tail_end === -1)
+			log("Cannot find tail end!"); //log:1
+		else {
+			// remove the tail content (but not the tail itself)
+			source =	source.substring(0, tail_start + tail_st_mark.length)+
+						source.substring(tail_end+tail_end_mark.length);
+			//TODO: replace textarea with a standard one
 		}
-
+	}
+	
+	// remove the custom keys defined
+	var ck_block = new RegExp('<'+'div\\s+id="?woas_custom_accesskeys"?\\s*>(.*?)<'+'/div>', 'gi');
+	source = source.replace(ck_block, '<'+'div id="woas_custom_accesskeys">&'+'nbsp;<'+'/div>');
 
 	if (!full) {
 		e_offset = source.indexOf("/* "+marker+ "-DATA */", s_offset);

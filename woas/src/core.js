@@ -249,6 +249,9 @@ woas.cmd_edit_special = function(cr) {
 };
 
 woas.cmd_go_to = function() {
+	// don't go anywhere if editing
+	if (this.ui.edit_mode)
+		return;
 	var pname;
 	do {
 		pname = prompt("Go to page:", current);
