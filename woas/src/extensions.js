@@ -51,7 +51,7 @@ woas.scripting = {
 	
 };
 
-// 'plugins' WoaS module
+// @module 'plugins'
 woas.plugins = {
 	
 	// flag set by last call to get()
@@ -63,7 +63,6 @@ woas.plugins = {
 		this.is_external = false;
 		var text = woas.pager.get("WoaS::Plugins::"+name);
 		// check if this is an external page reference
-		// -- NOT YET SUPPORTED FEATURE --
 		if (name.charAt(0) === '@') {
 			// hack for external files loading at run-time
 			// each source file specified in a new line as a definition with flags for different browsers
@@ -265,7 +264,9 @@ woas.plugins = {
 				}
 				return false;
 			}
-		} 
+		}
+		// should anyway be on the list
+		this._all.push(name);
 		// normal plugins
 		if (woas.dom.add_script("plugin", this._mapping(name),
 					p, false)) {
