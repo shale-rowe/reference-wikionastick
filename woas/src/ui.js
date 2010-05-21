@@ -60,7 +60,7 @@ woas.ui = {
 
 		// cancel key
 		if (e.keyCode==woas.hotkey.all.cancel) {
-			cancel();
+			woas.ui.cancel();
 			ff_fix_focus();
 			return false;
 		}
@@ -125,6 +125,28 @@ woas.ui = {
 	// click on edit icon
 	edit: function() {
 		woas.edit_page(current);
+	},
+	cancel: function() {
+		if (!this.edit_mode)
+			return;
+		// there was some change, ask for confirm before cancelling
+		if ((this.get_raw_content() !== this.change_buffer) ||
+			(this.trim(d$("wiki_page_title").value) !== this.old_title)) {
+			if (!confirm(this.i18n.CANCEL_EDITING))
+				return;
+		}
+		// we will cancel the creation of last page
+		if (this._ghost_page) {
+			// we assume that the last page is the ghost page
+			pages.pop();
+			page_mts.pop();
+			page_titles.pop();
+			page_attrs.pop();
+			this._ghost_page = false;
+			woas.log("Ghost page disabled"); //log:1
+		}
+		this.disable_edit();
+		current = this.prev_title;
 	}
 	
 };
@@ -185,7 +207,7 @@ function go_forward() {
 // when cancel is clicked
 function cancel() {
 	woas.log("Called deprecated function: cancel");
-	woas.cancel_edit();
+	woas.ui.cancel();
 }
 
 //DEPRECATED

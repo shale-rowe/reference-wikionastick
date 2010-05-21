@@ -1313,29 +1313,6 @@ woas.save_page_i = function(pi) {
 	return this.commit([pi]);
 };
 
-woas.cancel_edit = function() {
-	// there was some change, ask for confirm before cancelling
-	if ((this.get_raw_content() !== this.change_buffer) ||
-		(this.trim(d$("wiki_page_title").value) !== this.old_title)) {
-		if (!confirm(this.i18n.CANCEL_EDITING))
-			return;
-	}
-	if (this.ui.edit_mode) {
-		// we will cancel the creation of last page
-		if (this._ghost_page) {
-			// we assume that the last page is the ghost page
-			pages.pop();
-			page_mts.pop();
-			page_titles.pop();
-			page_attrs.pop();
-			this._ghost_page = false;
-			woas.log("Ghost page disabled"); //log:1
-		}
-		this.disable_edit();
-		current = this.prev_title;
-	}
-};
-
 woas.create_breadcrumb = function(title) {
 	var tmp=title.split("::");
 	if (tmp.length===1)
