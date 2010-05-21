@@ -4,7 +4,9 @@ woas.file_mode = {
 	ASCII_TEXT:		1,
 	DATA_URI:		2,
 	BINARY:			3,
-	BASE64:			4
+	BASE64:			4,
+	// will only be available on IE
+	UTF16_TEXT:		8
 };
 
 // save the currently open WoaS
@@ -57,16 +59,23 @@ woas.mozillaLoadFileID = function(obj_id, load_mode, suggested_mime) {
 	var D=obj.files.item(0);
 	if (D === null)
 		return false;
-	
-	if (load_mode === this.file_mode.DATA_URI) {
-		if (typeof suggested_mime != "string")
-			return D.getAsDataURL();
-		else // apply mime override
-			return D.getAsDataURL().replace(/^data:(\s*)([^;]*)/, "data:$1"+suggested_mime);
-	} else if (load_mode === this.file_mode.BASE64) {
-		return D.getAsDataURL().replace(/^data:\s*([^;]*);\s*base64,\s*/, '');
-	} else if (load_mode === this.file_mode.BINARY) {
-		return D.getAsBinary();
+
+	switch (load_mode) {
+		case this.file_mode.DATA_URI:
+			if (typeof suggested_mime != "string")
+				return D.getAsDataURL();
+			else // apply mime override
+				return D.getAsDataURL().replace(/^data:(\s*)([^;]*)/, "data:$1"+suggested_mime);
+			break;
+		case this.file_mode.BASE64:
+			return D.getAsDataURL().replace(/^data:\s*([^;]*);\s*base64,\s*/, '');
+		case this.file_mode.BINARY:
+			return D.getAsBinary();
+		case this.file_mode.UTF16_TEXT:
+			// not available
+			this.crash(this.i18n.MODE_NOT_AVAIL.sprintf(this.file_mode.toString(16)));
+			return null;
+//		default:
 	}
 	// case UTF8_TEXT:
 	// case ASCII_TEXT:
@@ -166,11 +175,15 @@ woas.ieLoadFile = function(filePath, load_mode, suggested_mime) {
 	var o_mode;
 	switch (load_mode) {
 		case this.file_mode.BINARY:
+		case this.file_mode.DATA_URI:
+			// not available
+			this.crash(this.i18n.MODE_NOT_AVAIL.sprintf(this.file_mode.toString(16)));
+			return null;
+		default:	// covers also BASE64
 		case this.file_mode.ASCII_TEXT:
 			o_mode = 0; // ASCII
 		break;
-		default:
-			// DATA_URI and UTF8_TEXT modes
+		case this.file_mode.UTF16_TEXT:
 			o_mode = -1; // Unicode
 		break;
 	}
@@ -512,23 +525,23 @@ woas._save_to_file = function(full) {
 
 	// cleanup the DOM before saving
 	var bak_ed = d$("woas_editor").value,
-		bak_tx = d$("woas_wiki_area").innerHTML,
-		bak_mn = d$("woas_menu_area").innerHTML,
-		bak_mts = d$("woas_mts").innerHTML,
+		bak_tx = this.getHTMLDiv(d$("woas_wiki_area")),
+		bak_mn = this.getHTMLDiv(d$("woas_menu_area")),
+		bak_mts = this.getHTMLDiv(d$("woas_mts")),
 		bak_mts_shown = d$.is_visible("woas_mts"),
 		bak_wait_text = this.getHTML(d$("woas_wait_text")),
 		bak_debug = d$("woas_debug_log").value,
 	// clear titles and css as well as they will be set on load.
-		bak_title = d$("woas_title").innerHTML;
+		bak_title = this.getHTMLDiv(d$("woas_title"));
 
 	if (bak_mts_shown)
 		d$.hide("woas_mts");
 	d$("woas_editor").value = "";
-	d$("woas_wiki_area").innerHTML = "";
-	d$("woas_menu_area").innerHTML = "";
-	d$("woas_mts").innerHTML = "";
+	this.setHTMLDiv(d$("woas_wiki_area"), "");
+	this.setHTMLDiv(d$("woas_menu_area"), "");
+	this.setHTMLDiv(d$("woas_mts"), "");
+	this.setHTMLDiv(d$("woas_title"), "");
 	d$("woas_debug_log").value = "";
-	d$("woas_title").innerHTML = "";
 
 	// set the loading message
 	this.setHTML(d$("woas_wait_text"), this.i18n.LOADING);
@@ -565,13 +578,13 @@ woas._save_to_file = function(full) {
 	} //DEBUG check
 
 	d$("woas_editor").value = bak_ed;
-	d$("woas_wiki_area").innerHTML = bak_tx;
-	d$("woas_menu_area").innerHTML = bak_mn;
-	d$("woas_mts").innerHTML = bak_mts;
+	this.setHTMLDiv(d$("woas_wiki_area"), bak_tx);
+	this.setHTMLDiv(d$("woas_menu_area"), bak_mn);
+	this.setHTMLDiv(d$("woas_mts"), bak_mts);
 	if (bak_mts_shown)
 		d$.show("woas_mts");
 	d$("woas_debug_log").value = bak_debug;
-	d$("woas_title").innerHTML = bak_title;
+	this.setHTMLDiv(d$("woas_title"), bak_title);
 	
 	//TODO: re-run after parsing hooks
 	// would fix issues with import page for example

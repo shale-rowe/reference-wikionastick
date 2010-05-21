@@ -359,8 +359,8 @@ woas.plugins = {
 		var i = this._all.indexOf(name);
 		this._all.splice(i,1);
 		if (current === "WoaS::Plugins") {
-			// reload plugins
-			d$("woas_wiki_area").innerHTML = woas.parser.parse(woas.get_text("WoaS::Plugins") + this.list());
+			//HACK: reload plugins
+			this.setHTMLDiv(d$("woas_wiki_area"), woas.parser.parse(woas.get_text("WoaS::Plugins") + this.list()));
 		}
 		return true;
 	}

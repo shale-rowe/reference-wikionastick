@@ -265,9 +265,7 @@ function help_go_back() {\n\
 				"", " class=\"woas_help_background\"");
 		} else { // hotfix the page
 			this.popup_window.document.title = wanted_page;
-			// works also with IE
-			this.popup_window.document.body.innerHTML = woas.parser.parse(
-				this._mk_help_button(this.previous_page.length)+text);
+			woas.setHTMLDiv(this.popup_window.document.body, woas.parser.parse(this._mk_help_button(this.previous_page.length)+text));
 			this.popup_window.scrollTo(0,0);
 		}
 		this.page_title = wanted_page;
@@ -533,7 +531,7 @@ function _hex_col(tone) {
 		color = "#" + _hex_col((100-pwstrength)*255/100) + _hex_col((pwstrength*255)/100) + "00";
   
 	d$("pw1").style.backgroundColor = color;
-	d$("txtBits").innerHTML = "Key size: "+(pwlength*8).toString() + " bits";
+	woas.setHTMLDiv(d$("txtBits"), "Key size: "+(pwlength*8).toString() + " bits");
 	
 	_pw_q_lock = false;
 }
@@ -593,7 +591,7 @@ function query_delete_image(cr) {
 
 // triggered by UI graphic button
 function page_print() {
-	woas._customized_popup(current, d$("woas_wiki_area").innerHTML, 
+	woas._customized_popup(current, woas.getHTMLDiv(d$("woas_wiki_area")), 
 			"function go_to(page) { alert(\""+woas.js_encode(woas.i18n.PRINT_MODE_WARN)+"\");}");
 }
 
@@ -870,10 +868,10 @@ woas.refresh_menu_area = function() {
 	this._add_namespace_menu(tmp);
 	var menu = this.get_text("::Menu");
 	if (menu == null)
-		d$("woas_menu_area").innerHTML = "";
+		this.setHTMLDiv(d$("woas_menu_area"), "");
 	else {
 		this.parser._parsing_menu = true;
-		d$("woas_menu_area").innerHTML = this.parser.parse(menu, false, this.js_mode("::Menu"));
+		this.setHTMLDiv(d$("woas_menu_area"), this.parser.parse(menu, false, this.js_mode("::Menu")));
 		this.parser._parsing_menu = false;
 		this.scripting.clear("menu");
 		this.scripting.activate("menu");
@@ -905,16 +903,14 @@ woas.menu_display = function(id, visible) {
 woas.refresh_mts = function(mts) {
 	// generate the last modified string to append
 	if (mts) {
-		d$("woas_mts").innerHTML = this.last_modified(mts);
+		this.setHTMLDiv(d$("woas_mts"), this.last_modified(mts));
 		d$.show("woas_mts");
 	} else
 		d$.hide("woas_mts");
 };
 
 woas._set_title = function (new_title) {
-	var wt=d$("woas_title");
-	// this indirect object reference is apparently needed for IE
-	wt.innerHTML = this.create_breadcrumb(new_title);
+	this.setHTMLDiv(d$("woas_title"), this.create_breadcrumb(new_title));
 	document.title = new_title;
 };
 

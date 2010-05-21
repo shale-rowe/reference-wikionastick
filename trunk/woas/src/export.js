@@ -279,10 +279,9 @@ woas.export_parse = function (data, js_mode) {
 	// a normal wiki page, parse it and eventually execute the attached javascript
 	data = this.parser.parse(data, true, js_mode);
 	if (js_mode) {
-		wt = d$("woas_wiki_area");
-		wt.innerHTML = data;
+		this.setHTMLDiv(d$("woas_wiki_area"), data);
 		this._activate_scripts();
-		data = wt.innerHTML;
+		data = this.getHTMLDiv(d$("woas_wiki_area"));
 	}
 	return data;
 };
