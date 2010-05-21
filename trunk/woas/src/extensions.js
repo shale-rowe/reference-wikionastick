@@ -361,7 +361,6 @@ woas.hotkey = {
 	
 	all: {
 		"save":		"s",
-		"save_and_continue":	"a",
 		"edit":		"e",
 		"print":	"p",
 		"help":		"h",
@@ -403,8 +402,11 @@ woas.hotkey = {
 	},
 	
 	_hook_fn: function(obj, fn) {
-		obj.setAttribute("onclick", fn+"()");
-//		obj.onclick = fn+"()";
+		woas.log("setting onclick for "+fn);
+		if (woas.browser.gecko || woas.browser.webkit)
+			obj.setAttribute("onclick", fn+"()");
+		else //HACK
+			obj.onclick = eval(fn);
 	},
 
 	// return the default hotkeys/key bindings
@@ -474,8 +476,6 @@ woas.hotkey = {
 		d$("woas_help_hl").accessKey = this.all.help;
 		// set access key for goto feature
 		new_custom_accesskeys.push({fn:"woas.cmd_go_to", key: this.all.goto});
-		// set access key for save&continue feature
-		new_custom_accesskeys.push({fn:"woas.full_commit", key: this.all.save_and_continue});
 		
 		// (1) delete access keys which no more exist
 		var found,a,b;
