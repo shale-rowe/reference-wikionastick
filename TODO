@@ -1,5 +1,13 @@
 == 0.12.x development goals
 
+* disallow all XHTML tags also in plugins source code (when inline) (to prevent ILLEGAL_TOKEN error on Webkit browsers)
+
+* disallow opening/saving to empty string paths
+
+* shall delete plugins when erasing?
+
+* last search item in serach results list not wiki-parsed to be <li/>
+
 * have all <input type="button" /> use the same class
 
 * possibly allow macro calls without trailing ':' when no macro text needs to be specified
