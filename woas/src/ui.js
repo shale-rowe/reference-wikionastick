@@ -51,15 +51,15 @@ woas.ui = {
 				return orig_e;
 			}
 			// back or cancel keys
-			if ((e.keyCode == woas.hotkeys.back) || (e.keyCode == woas.hotkeys.cancel)) {
+			if ((e.keyCode == woas.hotkey.all.back) || (e.keyCode == woas.hotkey.all.cancel)) {
 				go_back();
 				ff_fix_focus();
 				return false;
 			}
 		}
 
-		// escape
-		if (e.keyCode==woas.hotkeys.cancel) {
+		// cancel key
+		if (e.keyCode==woas.hotkey.all.cancel) {
 			cancel();
 			ff_fix_focus();
 			return false;

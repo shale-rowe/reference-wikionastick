@@ -919,7 +919,7 @@ woas._on_load = function() {
 	this.setHTML(d$("woas_wait_text"), "Initializing extensions...");
 	this.plugins.load();
 	this._load_aliases(this.get_text("WoaS::Aliases"));
-	this._load_hotkeys(this.get_text("WoaS::Hotkeys"));
+	this.hotkey.load(this.get_text("WoaS::Hotkeys"));
 
 	if (this.config.permit_edits)
 		d$.show("menu_edit_button");
@@ -1212,7 +1212,7 @@ woas.save = function() {
 			skip = true;
 		case "WoaS::Hotkeys":
 			if (!skip && !null_save)
-				this._load_hotkeys(raw_content);
+				this.hotkey.load(raw_content);
 		default:
 			// check if text is empty (page deletion)
 			if (!null_save && !can_be_empty && (raw_content === "")) {

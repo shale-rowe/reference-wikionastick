@@ -1,17 +1,5 @@
-// the hotkeys runtime object
-woas.hotkeys = {
-	"save":		"s",
-	"edit":		"e",
-	"print":	"p",
-	"help":		"h",
-	"goto":		"g",
-	"cancel":	0x1b,
-	"back":		0x8
-};
-woas.cached_default_hotkeys = null;
-woas.custom_accesskeys = [];
-
-// WoaS 'scripting' module manages custom scripts declared in menu and main page
+// @module scripting
+// @description manages custom scripts declared in menu and main page
 // All custom scripts can be defined in one of the two
 woas.scripting = {
 	menu: [],	// scripts active in menu
@@ -368,132 +356,151 @@ woas.plugins = {
 
 };
 
-woas.validate_hotkey = function(k) {
-	// validate hexadecimal hotkey
-	if (k.substr(0, 2) == "0x") {
-		k = parseInt(k.substr(2), 16);
-		if (!k)
+// @module hotkey
+woas.hotkey = {
+	
+	all: {
+		"save":		"s",
+		"edit":		"e",
+		"print":	"p",
+		"help":		"h",
+		"goto":		"g",
+		"cancel":	0x1b,
+		"back":		0x8
+	},
+	cached_default: null,
+	custom_accesskeys: [],
+
+	_update_accesskeys: function(new_custom_accesskeys) {
+		var ak, a, b, at, bt;
+		// we store the length of old access keys before looping because
+		// other entries might be added during the cycles
+		bt=this.custom_accesskeys.length;
+		for(a=0,at=new_custom_accesskeys.length;a < at;++a) {
+			found = false;
+			for (b=0;b < bt;++b) {
+				// access key already exists
+				if (this.custom_accesskeys[b].key === new_custom_accesskeys[a].key) {
+					found = true;
+					break;
+				}
+			}
+			// proceed to addition
+			if (!found) {
+				ak = document.createElement("a");
+	//			ak.setAttribute("onclick", new_custom_accesskeys[a].fn+"(); return false;");
+				ak.href="javascript:"+new_custom_accesskeys[a].fn+"()";
+				ak.accessKey = new_custom_accesskeys[a].key;
+				// store the new access key
+				this.custom_accesskeys.push({"fn":new_custom_accesskeys[a].fn,"key":new_custom_accesskeys[a].key,
+											 "obj":ak});
+				d$("woas_custom_accesskeys").appendChild(ak);
+			}
+		}
+		// (3) clear the div content if no custom access key is there (just for safety)
+		if (this.custom_accesskeys.length === 0)
+			this.setHTML(d$("woas_custom_accesskeys"), "&nbsp;");
+	},
+
+	// return the default hotkeys/key bindings
+	_cache_default: function() {
+		if (this.cached_default === null) {
+			this.cached_default="";
+			var k;
+			for(var hkey in this.all) {
+				k = this.all[hkey];
+				switch(typeof k) {
+					case "string":
+					break;
+					default: // Number
+						k = "0x"+k.toString(16);
+				}
+				this.cached_default += "$"+hkey.toUpperCase()+"\t"+k+"\n";
+			}
+		}
+		return this.cached_default;
+	},
+
+	validate: function(k) {
+		// validate hexadecimal hotkey
+		if (k.substr(0, 2) == "0x") {
+			k = parseInt(k.substr(2), 16);
+			if (!k)
+				return null;
+			return k;
+		}
+		// validate single ASCII character
+		if (k.length>1)
 			return null;
 		return k;
-	}
-	// validate single ASCII character
-	if (k.length>1)
-		return null;
-	return k;
-}
+	},
 
-var reHotkeys = /^\$([A-Za-z0-9_]{2,})(\([A-Za-z0-9_]+\))?\s+([\S]+)\s*$/gm;
-woas._load_hotkeys = function(s) {
-	var new_custom_accesskeys=[];
-	// identify valid alias lines and get the key binding/hotkey
-	s.replace(reHotkeys, function(str, hkey, lambda, binding) {
-		// check that binding is a valid key
-		binding = woas.validate_hotkey(binding);
-		if (binding === null) {
-			log("Skipping invalid key binding for hotkey "+hkey);	//log:1
-			return;
-		}
-		// associate a custom key binding
-		if (hkey === "CUSTOM") {
-			// store the custom definition for later update
-			lambda = lambda.substr(1, lambda.length-2);
-			new_custom_accesskeys.push({"fn":lambda, "key":binding});
-		} else {
-			// convert hotkey to lowercase
-			hkey = hkey.toLowerCase();
-			// check that hotkey exists
-			if (typeof woas.hotkeys[hkey] == "undefined") {
-				log("Skipping unknown hotkey "+hkey);	//log:1
+	load: function(s) {
+		var new_custom_accesskeys=[];
+		// identify valid alias lines and get the key binding/hotkey
+		s.replace(this.reHotkeys, function(str, hkey, lambda, binding) {
+			// check that binding is a valid key
+			binding = woas.hotkey.validate(binding);
+			if (binding === null) {
+				woas.log("Skipping invalid key binding for hotkey "+hkey);	//log:1
 				return;
 			}
-			// associate hotkey and key binding
-			woas.hotkeys[hkey] = binding;
-		}
-	});
-	// once finished loading hotkey definitions, associate them
-	d$("woas_save_hl").accessKey = this.hotkeys.save;
-	d$("woas_edit_hl").accessKey = this.hotkeys.edit;
-	d$("woas_print_hl").accessKey = this.hotkeys.print;
-	d$("woas_help_hl").accessKey = this.hotkeys.help;
-	//TODO: set access key for goto feature
-	// (1) delete access keys which no more exist
-	var found,a,b;
-	for(a=0,at=this.custom_accesskeys.length;a < at;++a) {
-		found = false;
-		for (b=0,bt=new_custom_accesskeys.length;b < bt;++b) {
-			if (this.custom_accesskeys[a].key === new_custom_accesskeys[b].key) {
-				found = true;
-				// access key element was found, update the associated function (if necessary)
-				if (this.custom_accesskeys[a].fn !== new_custom_accesskeys[b].fn) {
-					this.custom_accesskeys[a].obj.onclick = new_custom_accesskeys[b].fn+"(); return false;";
+			// associate a custom key binding
+			if (hkey === "CUSTOM") {
+				// store the custom definition for later update
+				lambda = lambda.substr(1, lambda.length-2);
+				new_custom_accesskeys.push({"fn":lambda, "key":binding});
+			} else {
+				// convert hotkey to lowercase
+				hkey = hkey.toLowerCase();
+				// check that hotkey exists
+				if (typeof woas.hotkey.all[hkey] == "undefined") {
+					woas.log("Skipping unknown hotkey "+hkey);	//log:1
+					return;
 				}
-				break;
+				// associate hotkey and key binding
+				woas.hotkey.all[hkey] = binding;
+			}
+		});
+		// once finished loading hotkey definitions, associate them
+		d$("woas_save_hl").accessKey = this.all.save;
+		d$("woas_edit_hl").accessKey = this.all.edit;
+		d$("woas_print_hl").accessKey = this.all.print;
+		d$("woas_help_hl").accessKey = this.all.help;
+		// set access key for goto feature
+		new_custom_accesskeys.push({fn:"woas.cmd_go_to", key: this.all.goto});
+		
+		// (1) delete access keys which no more exist
+		var found,a,b;
+		for(a=0,at=this.custom_accesskeys.length;a < at;++a) {
+			found = false;
+			for (b=0,bt=new_custom_accesskeys.length;b < bt;++b) {
+				if (this.custom_accesskeys[a].key === new_custom_accesskeys[b].key) {
+					found = true;
+					// access key element was found, update the associated function (if necessary)
+					if (this.custom_accesskeys[a].fn !== new_custom_accesskeys[b].fn) {
+						this.custom_accesskeys[a].obj.onclick = new_custom_accesskeys[b].fn+"(); return false;";
+					}
+					break;
+				}
+			}
+			// proceed to removal
+			if (!found) {
+				d$("woas_custom_accesskeys").removeChild(this.custom_accesskeys[a].obj);
+				delete this.custom_accesskeys[a].obj;
+				this.custom_accesskeys.splice(a,1);
+				--at;
 			}
 		}
-		// proceed to removal
-		if (!found) {
-			d$("woas_custom_accesskeys").removeChild(this.custom_accesskeys[a].obj);
-			delete this.custom_accesskeys[a].obj;
-			this.custom_accesskeys.splice(a,1);
-			--at;
-		}
-	}
-	// (2) add new access keys
-	this._update_accesskeys(new_custom_accesskeys);
-}
-
-woas._update_accesskeys = function(new_custom_accesskeys) {
-	var ak, a, b, at, bt;
-	// we store the length of old access keys before looping because
-	// other entries might be added during the cycles
-	bt=this.custom_accesskeys.length;
-	for(a=0,at=new_custom_accesskeys.length;a < at;++a) {
-		found = false;
-		for (b=0;b < bt;++b) {
-			// access key already exists
-			if (this.custom_accesskeys[b].key === new_custom_accesskeys[a].key) {
-				found = true;
-				break;
-			}
-		}
-		// proceed to addition
-		if (!found) {
-			ak = document.createElement("a");
-//			ak.setAttribute("onclick", new_custom_accesskeys[a].fn+"(); return false;");
-			ak.href="javascript:"+new_custom_accesskeys[a].fn+"()";
-			ak.accessKey = new_custom_accesskeys[a].key;
-			// store the new access key
-			this.custom_accesskeys.push({"fn":new_custom_accesskeys[a].fn,"key":new_custom_accesskeys[a].key,
-										 "obj":ak});
-			d$("woas_custom_accesskeys").appendChild(ak);
-		}
-	}
-	// (3) clear the div content if no custom access key is there (just for safety)
-	if (this.custom_accesskeys.length == 0)
-		this.setHTML(d$("woas_custom_accesskeys"), "&nbsp;");
-}
-
-// return the default hotkeys/key bindings
-woas._default_hotkeys = function() {
-	if (this.cached_default_hotkeys === null) {
-		this.cached_default_hotkeys="";
-		var k;
-		for(var hkey in this.hotkeys) {
-			k = this.hotkeys[hkey];
-			switch(typeof k) {
-				case "string":
-				break;
-				default: // Number
-					k = "0x"+k.toString(16);
-			}
-			this.cached_default_hotkeys += "$"+hkey.toUpperCase()+"\t"+k+"\n";
-		}
-	}
-	return this.cached_default_hotkeys;
+		// (2) add new access keys
+		this._update_accesskeys(new_custom_accesskeys);
+	},
+	
+	reHotkeys: /^\$([A-Za-z0-9_]{2,})(\([A-Za-z0-9_]+\))?\s+([\S]+)\s*$/gm
 };
 
 // call once during code setup to store the current default hotkeys
-woas._default_hotkeys();
+woas.hotkey._cache_default();
 
 woas._edit_plugin = function(name) {
 	if (go_to("WoaS::Plugins::"+name))
