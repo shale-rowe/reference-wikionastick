@@ -843,7 +843,7 @@ woas._on_load = function() {
 		obj.style.filter = "alpha(opacity=75);";
 		if (this.browser.ie6) {
 			d$("woas_wiki_header").style.position = "absolute";
-			$("i_woas_menu_area").style.position = "absolute";
+			d$("i_woas_menu_area").style.position = "absolute";
 		}
 		// IE6/7 can't display logo
 		if (!this.browser.ie8) {
