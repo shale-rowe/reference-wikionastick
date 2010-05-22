@@ -1,3 +1,10 @@
+// @module ui.editor
+// this sub-module shall contain the whole editor code
+woas.ui.editor = {
+	_insert_ruler: function() {
+		TagThis("\n----\n", "");
+	}
+};
 
 woas.wiki_buttons_display = function (v) {
 	d$('wiki_format_buttons').style.display = v ? 'block' : 'none';

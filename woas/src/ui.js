@@ -157,15 +157,21 @@ woas.ui = {
 			return false;
 		woas.history._forward_browse = true;
 		return woas.set_current(p, true);
+	},
+	// when home is clicked
+	home: function() {
+		woas.go_to(woas.config.main_page);
+	},
+	ns_menu_dblclick: function() {
+		if (!woas.config.dblclick_edit)
+			return false;
+		woas.ui.edit_ns_menu();
+		return true;
+	},
+	edit_ns_menu: function() {
+		woas.edit_page(current_namespace+"::Menu");
 	}
 	
-};
-
-// this sub-module shall contain all editor code
-woas.ui.editor = {
-	_insert_ruler: function() {
-		TagThis("\n----\n", "");
-	}
 };
 
 //API1.0
@@ -175,9 +181,9 @@ woas.go_to = function(cr) {
 	return this.set_current(cr, true)
 };
 
-// when home is clicked
+//DEPRECATED
 function home() {
-	woas.go_to(woas.config.main_page);
+	woas.ui.home();
 }
 
 // when Advanced is clicked
@@ -364,13 +370,6 @@ function menu_dblclick() {
 	return true;
 }
 
-function ns_menu_dblclick() {
-	if (!woas.config.dblclick_edit)
-		return false;
-	edit_ns_menu();
-	return true;
-}
-
 function page_dblclick() {
 	if (!woas.config.dblclick_edit)
 		return false;
@@ -380,10 +379,6 @@ function page_dblclick() {
 
 function edit_menu() {
 	woas.edit_page("::Menu");
-}
-
-function edit_ns_menu() {
-	woas.edit_page(current_namespace+"::Menu");
 }
 
 /** Used by search box **/

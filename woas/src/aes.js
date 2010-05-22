@@ -1,8 +1,9 @@
-// AES encryption for WoaS
-// adapted by legolas558
-// license: GNU/GPL
+// AES encryption
+// license: GNU/GPLv2
 // original code from http://home.versatel.nl/MAvanEverdingen/Code/
 // this is a javascript conversion of a C implementation by Mike Scott
+// adapted for WoaS by legolas558
+// namespace wrapping by pvhl
 
 // namespace wrapper for woas.AES
 (function() {
@@ -236,70 +237,47 @@ function blcDecrypt(dec){
 	return true;
 }
 
-// sets global key to the utf-8 encoded key (byte array)
-function setKey(sKey){
-	key = woas.utf8.encode_to_array(sKey);
-}
+// @module aes
+woas.AES = {
+	// sets global key to the utf-8 encoded key (byte array)
+	setKey: function(sKey) {
+		key = woas.utf8.encode_to_array(sKey);
+	},
+	clearKey: function(){
+		key = [];
+	},
+	// keep 'key' private to this code
+	isKeySet: function(){
+		return key.length > 0;
+	},
+	// returns an array of encrypted characters
+	encrypt: function(raw_data){
+		bData = woas.utf8.encode_to_array(raw_data);
+		
+		aes_i=tot=0;
+		do{ blcEncrypt(_encrypt); } while (aes_i<tot);
+		
+		var rv = bData;
+		bData = null;
+		return rv;
+	},
 
-function clearKey(){
-	key = [];
-}
-
-function isKeySet(){
-	//return key.length > 0 ? true : false;
-	return key.length > 0;
-}
-
-// returns an array of encrypted characters
-function encrypt(raw_data){
-	bData = woas.utf8.encode_to_array(raw_data);
-	
-	aes_i=tot=0;
-	do{ blcEncrypt(_encrypt); } while (aes_i<tot);
-	
-	var rv = bData;
-	bData = null;
-	return rv;
-}
-
-// decrypts an array of encrypted characters
-function decrypt(raw_data){
-	bData = raw_data;
-	
-	aes_i=tot=0;
-	do {
-		if (!blcDecrypt(_decrypt))
-			return null;
-	} while (aes_i<tot);
-	
-	sData = woas.utf8.decode_from_array(bData);
-	bData = [];
-	var rv = sData;
-	sData = null;
-	return rv;
-}
-
-/*
-Expose namespace; this allows:
-* simple calls in above code, so much more readable;
-* obvious definition of API;
-* for API to be overridden by other modules in whole or in part.
-This is all of the above code that is exposed to other code.
-
-If namespace was "woas.crypto" would allow replacement plugins for different
-crypto methods to be called; a sort of Inversion Of Control injection. Just write
-your new code to expose the same API. Pages could define their encryption method,
-e.g. ("woas.page.encryption: aes256" ?) if desired, and the code just hooks into
-the defined api as here. Would work for other namespace APIs also. Simple.
-*/
-
-// Expose namespace as an object
-if (typeof woas.AES == "undefined") woas.AES = {};
-
-woas.AES.clearKey = clearKey;
-woas.AES.setKey = setKey;
-woas.AES.isKeySet = isKeySet; // keep key private to this code.
-woas.AES.encrypt = encrypt;
-woas.AES.decrypt = decrypt;
+	// decrypts an array of encrypted characters
+	decrypt: function(raw_data){
+		bData = raw_data;
+		
+		aes_i=tot=0;
+		do {
+			if (!blcDecrypt(_decrypt))
+				return null;
+		} while (aes_i<tot);
+		
+		sData = woas.utf8.decode_from_array(bData);
+		bData = [];
+		var rv = sData;
+		sData = null;
+		return rv;
+	}
+};
 
 })(); // end of AES closure
