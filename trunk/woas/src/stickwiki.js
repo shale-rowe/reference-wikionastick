@@ -766,36 +766,28 @@ woas._perform_lock = function(pi) {
 };
 
 woas._add_namespace_menu = function(namespace) {
-	if (current_namespace == namespace)
+	if (current_namespace === namespace)
 		return;
 	var pi;
-	if (namespace == "")
+	if (namespace === "")
 		pi = -1;
-	else
+	else // locate the menu for current namespace
 		pi = this.page_index(namespace+"::Menu");
-	if (pi==-1) {
+	if (pi === -1) {
 //		this.log("no namespace menu found");	// log:0
-		this.setHTMLDiv(d$("ns_menu_area"), "");
+		this.setHTMLDiv(d$("woas_ns_menu_area"), "");
 		if (current_namespace !== "") {
-			d$.hide("ns_menu_area");
-			d$.hide("ns_menu_edit_button");
+			d$.hide("woas_ns_menu_area");
+			d$.hide("woas_ns_menu_edit_button");
 		}
 		current_namespace = namespace;
 		return;
 	}
 	var menu = this.get__text(pi);
-	if (menu === null) {
-//		this.log("Could not retrieve namespace menu");	// log:0
-		this.setHTMLDiv(d$("ns_menu_area"), "");
-	} else {
-//		this.log("Parsing "+menu.length+" bytes for namespace menu");	// log:0
-		this.setHTMLDiv(d$("ns_menu_area"), this.parser.parse(menu, false, this.js_mode(namespace+"::Menu")));
-	}
-	// if the previous namespace was empty, then show the submenu areas
-//	if (current_namespace=="") {
-		d$.show("ns_menu_area");
-		d$.show("ns_menu_edit_button");
-//	}
+	this.setHTMLDiv(d$("woas_ns_menu_area"), menu === null ? "" : this.parser.parse(menu, false, this.js_mode(namespace+"::Menu")) );
+	// show sub-menu
+	d$.show("woas_ns_menu_area");
+	d$.show("woas_ns_menu_edit_button");
 	current_namespace = namespace;	
 };
 

@@ -1,4 +1,6 @@
 Version 0.12.0 (legolas558)
+* dropped 'Special::Aliases' and 'Special::Edit CSS'
+* fixed a bug happening in case of encrypted page duplication
 * dropped support of 'woas_level' divs for sections
 * will remember import options
 * better import options and overwrite settings

@@ -15,7 +15,10 @@ woas.cmd_duplicate_page = function() {
 	var pi = this.page_index(current);
 	var dpi = this.page_index(pname);
 	// duplicate the page
-	pages[dpi] = pages[pi]; // .slice ?
+	if (this.is__encrypted(pi)) // encrypted pages are arrays
+		pages[dpi] = pages[pi].slice(0);
+	else // string copy is OK
+		pages[dpi] = pages[pi]; // .slice ?
 	page_attrs[dpi] = page_attrs[pi];	
 	// go to new page
 	go_to(pname);
@@ -124,7 +127,7 @@ woas._create_page_direct = function(ns, cr, fill_mode, default_ct) {
 woas.cmd_erase_wiki = function() {
 	if (this.erase_wiki()) {
 		if (!this.full_commit())
-			alert(this.i18n.FAILED_ERASE);
+			this.alert(this.i18n.FAILED_ERASE);
 		back_or(this.config.main_page);
 	}
 	return null;
@@ -288,11 +291,10 @@ woas.cmd_delete = function() {
 };
 
 // javascript shortcuts for special pages
-woas.shortcuts = ["New Page", "Duplicate Page", "All Pages", "Orphaned Pages", "Backlinks", "Dead Pages", "Erase Wiki", "Edit CSS", "Main Page", "Aliases", "Go to", "Delete Page", "Recentchanges"];
+woas.shortcuts = ["New Page", "Duplicate Page", "All Pages", "Orphaned Pages", "Backlinks",
+					"Dead Pages", "Erase Wiki", "Main Page", "Go to", "Delete Page", "Recentchanges"];
 woas.shortcuts_js = ["cmd_new_page", "cmd_duplicate_page", "special_all_pages", "special_orphaned_pages", "special_backlinks",
-					"special_dead_pages", "cmd_erase_wiki", "cmd_edit_css", "cmd_main_page",
-					"cmd_edit_aliases", "cmd_go_to", "cmd_delete",
-					"special_recent_changes"];
+					"special_dead_pages", "cmd_erase_wiki",	"cmd_main_page", "cmd_go_to", "cmd_delete",	"special_recent_changes"];
 					
 woas.unexportable_pages = ["New Page", "Duplicate Page", "Backlinks", "Erase Wiki", "Edit CSS",
 								"Go to", "Delete Page", "Search"];

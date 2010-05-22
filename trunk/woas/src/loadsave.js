@@ -174,7 +174,8 @@ woas.ieSaveFile = function(filePath, save_mode, content) {
 woas.ieLoadFile = function(filePath, load_mode, suggested_mime) {
 	var o_mode;
 	switch (load_mode) {
-		case this.file_mode.BINARY:
+		//TODO: check if binary works or not
+		//case this.file_mode.BINARY:
 		case this.file_mode.DATA_URI:
 			// not available
 			this.crash(this.i18n.MODE_NOT_AVAIL.sprintf(this.file_mode.toString(16)));
@@ -187,13 +188,12 @@ woas.ieLoadFile = function(filePath, load_mode, suggested_mime) {
 			o_mode = -1; // Unicode
 		break;
 	}
-	var content = null;
-	// first let's see if we can do ActiveX
-	var fso;
+	var fso, content = null;
 	try	{
 		fso = new ActiveXObject("Scripting.FileSystemObject");
 	}
 	catch (e) {
+		woas.log(e);
 		return null;
 	}
 	try {
