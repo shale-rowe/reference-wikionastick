@@ -225,15 +225,6 @@ woas.cmd_main_page = function() {
 	return null;
 };
 
-woas.cmd_edit_css = function() {
-	return this.cmd_edit_special("WoaS::CSS::Custom");
-};
-
-//DEPRECATED
-woas.cmd_edit_aliases = function() {
-	return this.cmd_edit_special("WoaS::Aliases");
-};
-
 // used to edit many special pages
 woas.cmd_edit_special = function(cr) {
 	if (!this.config.permit_edits && !this.tweak.edit_override) {
@@ -322,7 +313,7 @@ woas.delete_page = function(title) {
 //API1.0: @protected
 woas.delete_page_i = function(i) {
 	var il, old_title = page_titles[i];
-	log("DELETED page "+old_title);	// log:1
+//	this.log("NOTICE: deleted page "+old_title);	// log:0
 	// remove the elements
 	page_titles.splice(i,1);
 	pages.splice(i,1);
@@ -431,7 +422,7 @@ woas.history.backstack = backstack;
 
 // some general integrity tests - for debug purposes
 woas.integrity_test = function() {
-	log("Starting integrity test"); //log:1
+	woas.log("Starting integrity test"); //log:1
 	// test integrity of data arrays
 	var len = pages.length;
 	if ((page_attrs.length != len) ||
@@ -478,7 +469,7 @@ woas.integrity_test = function() {
 			return false;
 		}
 	} else { // we are on a remote server
-		log("Skipping save integrity test because running from web server");	//log:1
+		woas.log("Skipping save integrity test because running from web server");	//log:1
 		//TODO: remote load integrity test
 	}
 	// now test AES encryption
@@ -496,7 +487,7 @@ woas.integrity_test = function() {
 		return false;
 	}
 	woas.AES.clearKey();
-	log("Integrity test successful"); //log:1
+	woas.log("Integrity test successful"); //log:1
 	return true;
 };
 

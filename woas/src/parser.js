@@ -251,7 +251,7 @@ woas._raw_preformatted = function(tag, text, cls, add_style) {
 woas.parser.parse = function(text, export_links, js_mode) {
 	if (woas.config.debug_mode) {
 		if ((typeof text).toLowerCase() != "string") {
-			log("Called parse() with bad text!");	// log:1
+			woas.crash("Called parse() with invalid argument: "+(typeof text));	// log:1
 			return null;
 		}
 	}
@@ -435,7 +435,7 @@ woas.parser._transclude = function (str, $1) {
 		is_emb = false, ns=woas.get_namespace(templname, true),
 		// temporary page object
 		P = { body: null };
-//	log("Transcluding "+templname+"("+parts.slice(0).toString()+")");	// log:0
+//	woas.log("Transcluding "+templname+"("+parts.slice(0).toString()+")");	// log:0
 	// in case of embedded file, add the inline file or add the image
 	if (woas.is_reserved(templname) || (templname.substring(templname.length-2)=="::"))
 		P.body = woas.get_text_special(templname);
@@ -461,7 +461,7 @@ woas.parser._transclude = function (str, $1) {
 	}
 	if (is_emb) {
 		r = woas.parser.place_holder(that._snippets.length);
-//		log("Embedded file transclusion: "+templname);	// log:0
+//		woas.log("Embedded file transclusion: "+templname);	// log:0
 		if (woas.is_image(templname)) {
 			var img, img_name = woas.xhtml_encode(templname.substr(templname.indexOf("::")+2));
 			if (export_links) {

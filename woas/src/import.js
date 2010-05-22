@@ -348,7 +348,7 @@ woas.importer = {
 				P.body = woas.base64.decode(P.body);
 				// check again for validity
 				if (!that.reValidImage.test(P.body)) {
-					log("Skipping invalid image "+P.title); //log:1
+					woas.log("WARNING: skipping invalid image "+P.title); //log:1
 					return false;
 				}
 				woas.log("Fixed double-encoded image "+P.title); //log:1
@@ -405,7 +405,7 @@ woas.importer = {
 			break;
 		}
 		ver_str = ver_str[1];
-		log("Imported file version string: "+ver_str);	// log:1
+		woas.log("Imported file version string: "+ver_str);	// log:1
 		switch (ver_str) {
 			case "0.9.6B":
 			case "0.9.7B": // never released officially
@@ -568,7 +568,7 @@ woas.importer = {
 			while (page_titles.indexOf(chosen_name) !== -1) {
 				chosen_name = base_name + "_" + (i++).toString();
 			}
-			log("Old bootscript code will be imported as "+chosen_name);
+			woas.log("Old bootscript code will be imported as "+chosen_name);
 			// now create such plugin by directly importing it
 			this._import_hook( {
 				title: chosen_name,
@@ -694,7 +694,7 @@ woas._import_pre_up = function(all_options) {
 		this.importer.i_styles = this.importer.i_content = true;
 	}
 	
-	cfg_changed = true;
+	var old_is = woas.config.import_settings;
 	// now store these values
 	woas.config.import_settings = this.bitfield.get_object(this.importer, this.importer._settings_props);
 	// set also bits for overwrite options
@@ -702,6 +702,8 @@ woas._import_pre_up = function(all_options) {
 									this.importer.i_overwrite & 1, this.config.import_settings);
 	woas.config.import_settings = this.bitfield.set(this.config.import_settings, this.importer._OVR_ID+1,
 									this.importer.i_overwrite & 2, this.config.import_settings);
+	// check if configuration changed
+	cfg_changed |= (woas.config.import_settings !== old_is);
 	// check if user wants total erase before going on
 	if (this.importer.i_overwrite === 0) {
 		if (!this.erase_wiki())
