@@ -24,7 +24,7 @@ woas.wsif = {
 		return b;
 	},
 	do_error: function(msg) {
-		log("WSIF ERROR: "+msg);	//log:1
+		woas.log("WSIF ERROR: "+msg);	//log:1
 		this.emsg = msg;
 	},
 	
@@ -548,7 +548,7 @@ woas._native_page_def = function(path,ct,p,last_p,import_hook,
 		// split encrypted pages into byte arrays
 		if (attrs & 2) {
 			if (encoding != "8bit/base64") {
-				log("Encrypted page "+title+" is not encoded as 8bit/base64");	//log:1
+				woas.log("Encrypted page "+title+" is not encoded as 8bit/base64");	//log:1
 				return false;
 			}
 //			check_len = page.length;
@@ -559,7 +559,7 @@ woas._native_page_def = function(path,ct,p,last_p,import_hook,
 			// but for now it's a good safety
 			var rest = page.length % 16;
 			if (rest)
-				log("removing "+rest+" trailing bytes from page "+title); //log:1
+				woas.log("NOTICE: removing "+rest+" trailing bytes from page "+title); //log:1
 			while (rest-- > 0) {page.pop();}
 		} else if (attrs & 8) { // embedded image, not encrypted
 			// NOTE: encrypted images are not obviously processed, as per previous 'if'

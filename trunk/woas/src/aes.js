@@ -218,7 +218,7 @@ function blcDecrypt(dec){
 		aes_i=16;
 		tot = bData.length;
 		if ( (tot%16) || (tot < aes_i) ) {
-			log('AES: Incorrect length (tot='+tot+', aes_i='+aes_i+')'); //log:1
+			woas.log('AES: Incorrect length (tot='+tot+', aes_i='+aes_i+')'); //log:1
 			return false;
 		}
 		aesInit();

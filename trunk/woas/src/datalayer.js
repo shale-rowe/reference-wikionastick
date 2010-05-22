@@ -2,7 +2,8 @@
  *  API for the data layer abstraction
 */
 
-// locks read from datasource files or set by us
+// @module lock
+// provides locking facilities by using a file describing locked entries
 woas.lock = {
 	// hashmap with a lock entry for each active filename
 	datasources : {},
@@ -92,7 +93,7 @@ woas.lock = {
 			return false;
 		// (2) check if datasource is actually locked
 		if (typeof this.datasources[filename] == "undefined") {
-//			log("BUG: NO LOCK exists for "+filename);	//log:0
+//			woas.log("BUG: NO LOCK exists for "+filename);	//log:0
 			return false;
 		}
 		// unactive the lock object (but keep it to check if file was modified)
@@ -156,12 +157,12 @@ woas.after_pages_saved = function(plist) {
 	// we remove each of the saved pages from queue (needs TESTING!)
 	for(var i=0,l=plist.length;i<l;i++) {
 		var p = this.save_queue.indexOf(plist[i]);
-		if (p != -1)
-			this.save_queue = this.save_queue.slice(0,p).concat(this.save_queue.slice(p+1));
+		if (p !== -1)
+			this.save_queue.splice(p,1);
 	}
 };
 
 //API1.0: event called when the config was successfully saved
 woas.after_config_saved = function() {
-	cfg_changed = false;
+	woas.cfg_changed = false;
 };

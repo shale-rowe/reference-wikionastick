@@ -1,15 +1,17 @@
-var cfg_changed = false;	// true when configuration has been changed
 var result_pages = [];			// the pages indexed by the last result page
 var last_AES_page;				// the last page on which the cached AES key was used on
 var current_namespace = "";		// the namespace(+subnamespaces) of the current page
+
+// tells if configuration has been changed
+woas.cfg_changed = false;
 
 // new variables will be properly declared here
 woas.prev_title = current;		// previous page's title used when entering/exiting edit mode
 
 woas.save_queue = [];		// pages which need to be saved and are waiting in the queue
 
-// Automatic-Save TimeOut object
-woas._asto = null;
+// Auto-Save Thread
+woas._autosave_thread = null;
 
 // previous length of WSIF datasource
 woas._old_wsif_ds_len = null;
@@ -122,7 +124,8 @@ woas.xhtml_encode = function(src) {
 
 // DO NOT modify this list! these are namespaces that are reserved to WoaS
 var reserved_namespaces = ["Special", "Lock", "Locked", "Unlocked", "Unlock",
-						"Tags" /*DEPRECATED*/, "Tagged", "Untagged", "Include", "Javascript",
+						"Tags" /*DEPRECATED*/,
+						"Tagged", "Untagged", "Include", "Javascript",
 						"WoaS"];
 
 // create the regex for reserved namespaces
@@ -792,13 +795,16 @@ woas._add_namespace_menu = function(namespace) {
 };
 
 // auto-save thread
-function _auto_saver() {
+woas._auto_saver = function() {
 	if (woas.save_queue.length && !woas.ui.edit_mode) {
 		woas.commit(woas.save_queue);
 		woas.menu_display("save", false);
 	}
+	// always clear previous thread
+	clearTimeout(woas._autosave_thread);
+	// re-launch the thread
 	if (_this.config.auto_save)
-		woas._asto = setTimeout("_auto_saver()", woas.config.auto_save);
+		woas._autosave_thread = setTimeout("woas._auto_saver()", woas.config.auto_save);
 }
 
 // save configuration on exit
@@ -806,7 +812,7 @@ woas._on_unload = function () {
 	if (this.save_queue.length)
 		this.commit(this.save_queue);
 	else {
-		if (this.config.save_on_quit && cfg_changed)
+		if (this.config.save_on_quit && woas.cfg_changed)
 			this.cfg_commit();
 	}
 	return true;
@@ -920,7 +926,7 @@ woas._on_load = function() {
 	
 	// enable the auto-save thread
 	if (this.config.cumulative_save && this.config.auto_save)
-		this._asto = setTimeout("_auto_saver(woas)", this.config.auto_save);
+		this._autosave_thread = setTimeout("woas._auto_saver()", this.config.auto_save);
 	
 	this._editor = new TextAreaSelectionHelper(d$("woas_editor"));
 
@@ -982,7 +988,7 @@ woas.disable_edit = function() {
 	this.update_nav_icons(current);
 	this.menu_display("home", true);
 	if (this.config.cumulative_save)
-		this.menu_display("save", this.save_queue.length!=0);
+		this.menu_display("save", (this.save_queue.length!==0));
 	else
 		this.menu_display("save", false);
 	this.menu_display("cancel", false);

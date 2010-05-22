@@ -80,7 +80,7 @@ woas.ui = {
 		woas._cached_body_search = [];
 		woas._cached_title_search = [];
 		woas._last_search = null;
-		//FIXME: result_pages should be cleared also?
+		woas.pager.bucket.clear();
 		this._search_render();
 	},
 	// when user clicks the about link
@@ -170,6 +170,18 @@ woas.ui = {
 	},
 	edit_ns_menu: function() {
 		woas.edit_page(current_namespace+"::Menu");
+	},
+	lock: function() {
+		if (woas.pager.bucket.items.length)
+			_lock_pages(woas.pager.bucket.items);
+		else
+			woas.go_to("Lock::" + current);
+	},
+	unlock: function() {
+		if (woas.pager.bucket.items.length)
+			_unlock_pages(woas.pager.bucket.items);
+		else
+			go_to("Unlock::" + current);
 	}
 	
 };
@@ -181,28 +193,9 @@ woas.go_to = function(cr) {
 	return this.set_current(cr, true)
 };
 
-//DEPRECATED
-function home() {
-	woas.ui.home();
-}
-
-// when Advanced is clicked
-//DEPRECATED
-function advanced() {
-	woas.go_to("Special::Advanced");
-}
-
-//DEPRECATED
-function go_to(t) { return woas.go_to(t); }
-
 function back_or(or_page) {
 	if (!go_back())
 		woas.set_current(or_page, true);
-}
-
-//DEPRECATED
-function go_back() {
-	woas.ui.back();
 }
 
 // when Forward button is clicked
@@ -222,12 +215,7 @@ function cancel() {
 	woas.ui.cancel();
 }
 
-//DEPRECATED
-function save() {
-	woas.log("Called deprecated function: save");
-	woas.save();
-}
-
+// @module help_system
 woas.help_system = {
 	popup_window: null,
 	page_title: null,
@@ -338,29 +326,6 @@ function help() {
 		}
 	}
 	woas.help_system.go_to(wanted_page, pi);
-}
-
-// when edit is clicked
-//DEPRECATED
-function edit() {
-	woas.log("Called deprecated function: edit");
-	woas.ui.edit();
-}
-
-//DEPRECATED
-function lock() {
-	if (result_pages.length)
-		_lock_pages(result_pages);
-	else
-		woas.go_to("Lock::" + current);
-}
-
-//DEPRECATED
-function unlock() {
-	if (result_pages.length)
-		_unlock_pages(result_pages);
-	else
-		go_to("Unlock::" + current);
 }
 
 function menu_dblclick() {
@@ -553,7 +518,7 @@ function _hex_col(tone) {
 	var repco = woas.split_bytes(pw).toUnique().length/pwlength;
 	if (repco < 0.8)
 		pwstrength *= (repco+0.2);
-//		log("pwstrength = "+(pwstrength/100).toFixed(2)+", repco = "+repco);	// log:1
+//		woas.log("pwstrength = "+(pwstrength/100).toFixed(2)+", repco = "+repco);	// log:1
 	} else
 		pwstrength = 0;
   
@@ -849,7 +814,7 @@ woas.update_lock_icons = function(page) {
 			can_lock = !can_unlock && this.config.permit_edits;
 		}
 	} else {
-//		log("result_pages is ("+result_pages+")");	// log:0
+//		woas.log("result_pages is ("+result_pages+")");	// log:0
 		can_lock = can_unlock = (result_pages.length>0);
 		cyphered = false;
 	}
@@ -870,10 +835,6 @@ woas.update_lock_icons = function(page) {
 // when the page is resized
 woas._onresize = function() {
 	var we = d$("woas_editor");
-	if (!we) {
-		log("no wiki_editor");
-		return;
-	}
 	we.style.width = window.innerWidth - 30 + "px";
 	we.style.height = window.innerHeight - 150 + "px";
 };

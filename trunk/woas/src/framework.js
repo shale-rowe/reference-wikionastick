@@ -104,7 +104,8 @@ if (woas.config.debug_mode) {
 }
 
 d$.checked = function(id) {
-	cfg_changed = true;
+	//FIXME: configuration should not be changed by reading a property!!
+	woas.cfg_changed = true;
 	if (d$(id).checked)
 		return true;
 	return false;
@@ -168,9 +169,6 @@ if (woas.config.debug_mode) {
 } else {
 	woas.log = function(aMessage) { };
 }
-
-//DEPRECATED but still supported
-var log = woas.log;
 
 // fixes the Array prototype for older browsers
 if (typeof Array.prototype.push == "undefined") {

@@ -552,7 +552,7 @@ woas.macro = {
 			// check validity of macro name
 			if ((fn.indexOf("..") !== -1) || (fn.charAt(0) === '.') ||
 				(fn.charAt(fn.length-1) === '.')) {
-					log("Invalid macro name: "+fn);	//log:1
+					woas.log("Invalid macro name: "+fn);	//log:1
 					return macro;
 			}
 			// check that this is not a macro definition request
@@ -603,7 +603,7 @@ woas.macro = {
 					}
 				}
 			} else {
-				log("Undefined macro "+fn);	//log:1
+				woas.log("Undefined macro "+fn);	//log:1
 				macro.text = woas._make_preformatted(macro.text, "color:red");
 			}
 		}
@@ -615,7 +615,7 @@ woas.macro = {
 	// such object (it is always passed by reference)
 	register: function(fn_name, fn_object) {
 		if (this.names.indexOf(fn_name) != -1) {
-			log("cannot redefine macro "+fn_name); //log:1
+			woas.log("cannot redefine macro "+fn_name); //log:1
 			return false;
 		}
 		this.names.push(fn_name);
@@ -660,7 +660,7 @@ woas.macro = {
 	create: function(fn_name, fn_params, fn_code) {
 		// duplicated from register function
 		if (this.names.indexOf(fn_name) != -1) {
-			log("cannot redefine macro "+fn_name); //log:1
+			woas.log("cannot redefine macro "+fn_name); //log:1
 			return false;
 		}
 		// prepare for passing other params
@@ -685,7 +685,7 @@ woas.macro = {
 		else other_params = "";
 		var obj = woas.eval("function (macro"+other_params+") {\n"+fn_code+"\n}", true);
 		if (woas.eval_failed) {
-			log("cannot define function "+fn_name+": "+woas.eval_fail_msg); //log:1
+			woas.log("cannot define function "+fn_name+": "+woas.eval_fail_msg); //log:1
 			return false;
 		}
 		return this.register(fn_name, obj);

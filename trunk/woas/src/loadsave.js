@@ -17,7 +17,7 @@ woas._save_this_file = function(new_data, old_data) {
 		this.DOCTYPE + this.DOC_START + "<"+"script woas_permanent=\"1\" type=\"tex"+"t/javascript\">"
 		+ new_data + "\n" + old_data + "<"+"/html>");
 	if (r===true)
-		log("\""+filename+"\" saved successfully");	// log:1
+		woas.log("NOTICE: \""+filename+"\" saved successfully");	// log:1
 	else {
 		var msg = this.i18n.SAVE_ERROR.sprintf(filename) + "\n\n";
 		if (this.use_java_io) {
@@ -164,7 +164,7 @@ woas.ieSaveFile = function(filePath, save_mode, content) {
 		file.Close();
 	}
 	catch(e) {
-		log("Exception while attempting to save: " + e.toString());	// log:1
+		woas.log("ERROR: exception while attempting to save: " + e.toString());	// log:1
 		return false;
 	}
 	return(true);
@@ -203,7 +203,7 @@ woas.ieLoadFile = function(filePath, load_mode, suggested_mime) {
 		file.Close();
 	}
 	catch(e) {
-		log("Exception while attempting to load\n\n" + e.toString());	// log:1
+		woas.log("ERROR: exception while attempting to load\n\n" + e.toString());	// log:1
 		return false;
 	}
 	// return a valid DATA:URI
@@ -227,7 +227,7 @@ woas.mozillaSaveFile = function(filePath, save_mode, content) {
 		if (!file.exists())
 			file.create(0, 0664);
 		else
-			log("File \""+filePath+"\" exists, overwriting");	// log:1
+			woas.log("NOTICE: file \""+filePath+"\" exists, overwriting");	// log:1
 		var out = Components.classes["@mozilla.org/network/file-output-stream;1"].createInstance(Components.interfaces.nsIFileOutputStream);
 		out.init(file, 0x08 | 0x20 | 0x02, 0700, 0);
 		out.write(content, content.length);
@@ -235,7 +235,7 @@ woas.mozillaSaveFile = function(filePath, save_mode, content) {
 		out.close();
 	}
 	catch(e) {
-		log("Exception while attempting to save\n\n" + e);	// log:1
+		woas.log("NOTICE: exception while attempting to save:\n\n" + e);	// log:1
 		return(false);
 	}
 	return(true);
@@ -251,7 +251,7 @@ woas.mozillaLoadFile = function(filePath, load_mode, suggested_mime) {
 		var file = Components.classes["@mozilla.org/file/local;1"].createInstance(Components.interfaces.nsILocalFile);
 		file.initWithPath(filePath);
 		if (!file.exists()) {
-			woas.log("Unexisting file "+filePath);
+			woas.log("NOTICE: unexisting file "+filePath);
 			return false;
 		}
 		var inputStream = Components.classes["@mozilla.org/network/file-input-stream;1"].createInstance(Components.interfaces.nsIFileInputStream);
@@ -276,7 +276,7 @@ woas.mozillaLoadFile = function(filePath, load_mode, suggested_mime) {
 			return this.base64.encode_array(rd);
 	}
 	catch(e) {
-		log("Exception while attempting to load\n\n" + e);	// log:1
+		woas.log("NOTICE: exception while attempting to load:\n\n" + e);	// log:1
 	}
 	return false;
 };
@@ -311,14 +311,14 @@ woas._data_uri_enc = function(filename, ct, guess_mime) {
 //FIXME: save_mode is not enforced
 woas.javaSaveFile = function(filePath,save_mode,content) {
 	if ((save_mode != this.file_mode.ASCII_TEXT) && (save_mode != this.file_mode.UTF8_TEXT)) {
-		log("Only ASCII and UTF8 file modes are supported with Java/TiddlySaver");	//log:1
+		woas.log("Only ASCII and UTF8 file modes are supported with Java/TiddlySaver");	//log:1
 		return false;
 	}
 	try {
 		if(document.applets.TiddlySaver) {
 			var rv = document.applets.TiddlySaver.saveFile(filePath,"UTF-8",content);
 			if (typeof rv == "undefined") {
-				log("Save failure, this is usually a Java configuration issue");
+				woas.log("Save failure, this is usually a Java configuration issue");
 				return null;
 			} else {
 				return rv ? true : false;
@@ -326,11 +326,11 @@ woas.javaSaveFile = function(filePath,save_mode,content) {
 		}
 	} catch(ex) {
 		// report but check next method
-		log("TiddlySaver applet not available"); //log:1
+		woas.log("TiddlySaver applet not available"); //log:1
 	}
 	// check if no JRE is available
 	if (typeof java == "undefined") {
-		log("No JRE detected"); //log:1
+		woas.log("No JRE detected"); //log:1
 		return null;
 	}
 	// try reading the file with java.io
@@ -339,7 +339,7 @@ woas.javaSaveFile = function(filePath,save_mode,content) {
 		s.print(content);
 		s.close();
 	} catch(ex) {
-		log("Failed reading file directly with Java: "+ex.toString());
+		woas.log("Failed reading file directly with Java: "+ex.toString());
 		return false;
 	}
 	return true;
@@ -357,7 +357,7 @@ woas.javaLoadFile = function(filePath, load_mode, suggested_mime) {
 			}
 			// check that it is not an "undefined" string
 			if (typeof content == "undefined") {
-				log("Load failure, this is usually a Java configuration issue"); //log:1
+				woas.log("Load failure, this is usually a Java configuration issue"); //log:1
 				return null;
 			}
 			// convert to string only after checking that it was successfully loaded
@@ -370,11 +370,11 @@ woas.javaLoadFile = function(filePath, load_mode, suggested_mime) {
 		}
 	} catch(ex) {
 		// report but check next method
-		log("TiddlySaver applet not available"); //log:1
+		woas.log("TiddlySaver applet not available"); //log:1
 	}
 	// check if no JRE is available
 	if (typeof java == "undefined") {
-		log("No JRE detected"); //log:1
+		woas.log("No JRE detected"); //log:1
 		return null;
 	}
 	var a_content = [];
@@ -385,7 +385,7 @@ woas.javaLoadFile = function(filePath, load_mode, suggested_mime) {
 			a_content.push(new String(line));
 		r.close();
 	} catch(ex) {
-		log("Exception in javaLoadFile(\""+filePath+"\"): "+ex);
+		woas.log("Exception in javaLoadFile(\""+filePath+"\"): "+ex);
 		return false;
 	}
 	// re-normalize input
@@ -771,7 +771,7 @@ woas._extract_src_data = function(marker, source, full, current_page, data_only)
 	if (tail_start !== -1) {
 		var tail_end = source.indexOf(tail_end_mark, tail_start);
 		if (tail_end === -1)
-			log("Cannot find tail end!"); //log:1
+			woas.log("Cannot find tail end!"); //log:1
 		else {
 			// remove the tail content (but not the tail itself)
 			source =	source.substring(0, tail_start + tail_st_mark.length)+
