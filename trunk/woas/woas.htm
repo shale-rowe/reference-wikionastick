@@ -201,18 +201,17 @@ Wiki Code:
 </div>
 <textarea id="woas_editor" style="width: 989px; height: 388px;" rows="0" cols="0"></textarea> 
 </div>
-<div style="visibility: visible;" id="woas_debug_panel">
-<p>&nbsp;<span style="font-size: large; font-weight: bold;">Debug console</span>&nbsp;&nbsp;<input value="Toggle" onclick="d$.toggle('woas_debug_console')" type="button" /></p>
-<p><span id="woas_debug_console" style="visibility: visible; display: inline;">
-<textarea style="display: inline; visibility: visible;" id="woas_debug_log" rows="12" readonly="readonly" cols="60"></textarea><br /><input onclick="d$('woas_debug_log').value=''" value="Clear" type="button" /></span></p>
-</div>
-<div id="woas_about_footer"><a class="woas_link" onclick="woas.ui.about()">About Wiki on a Stick v@@WOAS_VERSION@@</a></div>
-<script type="text/javascript">
+<div id="woas_footer"><table width="100%"><tbody><tr>
+<td align="left" width="15%"><span style="visibility: visible;" id="woas_debug_panel"><input id="woas_debug_button" title="Toggle debug console display" onclick="d$.toggle('woas_debug_console')" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAAsTAAALEwEAmpwYAAAB0klEQVQ4ja2VsWobQRRFz0g2AkGaoCjFBjsKi0CL/8C4UsAq9APp0quw1ah24cLgav8iKL8QkcqFwSAwGJcOEmmCMSFFCFjSTbFvxKy0IgnxhcvbvW/u292ZebNOEk+JUpHonJNn4/Xu8olvGrsKc0XerSJRkguLj4+OBHD3ZZLLFUIS9tny10v2+xonie7LZd2XyxonidTvr40LvTkxTVNJ4mYw0LDV0rBa1RD0zTiETGu1dDMYSBJpmiqO4+KCgK47hzqv1VSHJS+M/v4F6LxW03XnUN63VlASZwf7unXoxAZ5fjaG2gno1qGzg/3cFOQW5f2rHZ7pgj3gXaC/tBhqe8COMs/GVfbGGOgE+nOLoRYDVWNhQeecPtXrtIEfwDQY9MtiqDUsjkYj3jonv51Kvli4vxbALKCfuFBbBMUlOb/Rc53Sbrf5V6x6Clvvf1AC/txOf4HcHHr8JJufLTY0ucHnZ+ZZe0OPjw8PTMhWMAa2C4ptW64BTMyz+qq51rtKEs0rFU1BH0CnoDvjqWlT0LxS0VWSbG69KIp03OtliW5XM9BX0CXou/HStBlI3a4kcdzrKYqi4sNh9eiaN5t6BC2Mj6B5s7l2hIVe99S/gN+TKYI2aWAJIwAAAABJRU5ErkJggg==" type="image" /></span></td>
+<td align="center" width="70%"><span><a class="woas_link" title="About Wiki on a Stick" onclick="woas.ui.about()">About Wiki on a Stick v@@WOAS_VERSION@@</a></span></td>
+<td align="right" width="15%"><input id="woas_go_to_top_button" title="Go to top of page" onclick="javascript:woas.ui.top()" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9oFFhAeHvCLsxYAAASDSURBVDjLZZRLbFRlHMV//+/OnemdmXZaoLxbFBCogmjwxSsxUZCNmKghmBBxgW7QhIUxxpgQ4yMxMbpRE41bF24MiRKIj5igIC8XPKSCxRYKpdJ2KJ3HvfPd+31/F0gweDbnbM5vc5Ij/CsB9IYh0I3QJ7AR4QGUuYAiDKMcVvgOZUBh4lb1FudmEIWi3ADsDAIeq5To6u4QypEgQNPC2HXlWk2vZo59InzqlZOAvQkN0q/LTCuLXL2undWabnOed6a1s27D/Sbasj7QretDnlkbylMPhzx+X6CrFhmplKU0WtWV9RarjGFKlQEgA5Cpr9pl5JpGz38Yv3ByyL0xvV1mv7I5kIeXGJnRYSgVkELgKOaFtrYQEaPVRDl0JtPXv7Du/N9+UITd3vM1kAZvbW8PNr8drxkc9e+WI3pefTowq5cZKbWJtOVE2kIhXLCFRuF+CnaAtqgopbayLO3Ns3KhNwdOZpXJBncY4bjCaDCVzem+MBrvHruernlxk5FHlhgJcyJR3hAVy1RW7KJj5WuUe5/gupuLtMbJR9NQStI7yzG/y8pPJ9I5TYszwkFz2S2/u/9StmHlnSL39IooSGAgV6hQXrqDaOFWUCUw0LX0WZpzdtDILcFEs8B0ypp7I9lwX06M8CTQa8KwsFG8rSzrEUptNxY3YZmOpdsoLdqC5IqICRATko/aqSzcRLNzE42sRGCEWWXD6r5A2iOZp7DaDA2efai9iM6ZLoggqobu5dup3LUFMSG+OQKqePWkcZV8IaJyx3pqlY0kcUxAKovnGp3RIWLgQTMx0j+3EKpEeSRNlUrPOmb2PYdISHL5R+LzX6Le4myd1h+fwLUjhDlD5+LN1IOF+DSmUhSKBUSF+TnUea+QOcV5Ja6Pk9RGSCZOMHXqMyo9ayl5izpDNnYcre5H+94kCMpErbPEVrCp4hQFfG56uwwPXKFvsqF4RKpXTnF6704KUievdUouxWcW54UkdeQmTyLHX0YVbDyO0xyXqxlTTQXlgpndxa+1GC5eVRILmRdqk6M04yatzGAzj3MWlyXEaUbdGur1KvXaOA0bMBU7PTXkZGJKvSpHTGz5vpBjon8YqnXVVgrWGVqZEFullSo+i/GuRWKVeqzUW0LDGhqJ0+Fxz8EzXhPLIMIxM28653pnyt5zl5Tf/kSdR5stT2KV2EIcNzCSQ7OYpFml3lIaiWey4WllsPeY1+MDHoU9wMXgo5fC1v7f/BWb8uDpIe0uR5iebsF5FUVIpi7RnBxk4s9vaYydJvOGJFX1CnsOO/34W5cllgMC7yuMBM+sMzy6QsZ+OeMnqzXuPX2RSiBiOooQ5gD1Uh//i6R2BY8hsejoNeWbI04/3+ezxPK7CO8pHAY0V615PXpObbXGnszjfcauPYf8A6eGRJbMU3pniu8qGwKj1GPH8DjSf1G1f1hJM34W4UNVfgAct0mAPLAK+BQYDAOyzhJ+dhd+9jR8Vxkf5rACZ4EPgOVAcNtR/w8KUAEWAKtFWCUwH/AKF1Q5JnAUGFao/ff+Af4BcrxRdAqYJcAAAAAASUVORK5CYII=" type="image" /></td></tr><tr>
+<td colspan="3"><span id="woas_debug_console" style="visibility: hidden; display: none;"><p style="font-weight:bold">Debug console</p>
+<textarea style="display: inline; visibility: visible;" id="woas_debug_log" rows="12" readonly="readonly" cols="60"></textarea><br /><input id="woas_debug_log_clear_button" title="Clear debug log" onclick="d$('woas_debug_log').value=''" value="Clear" type="button" /></span></td></tr></tbody></table>
+</div><script type="text/javascript">
 //<![CDATA[
 // this code needs to stay here for some Opera/Safari/Chrome restriction
 // on DOM generation from extenal JavaScript
 if (woas.use_java_io) {
-	// output an applet tag
 	document.write("<"+"!-- "+__marker+"-TAIL-START -"+"->" +
 					 "<applet style='position:absolute;left:-1px' name='TiddlySaver' code='TiddlySaver.class' archive='TiddlySaver.jar' width='1' height='1'></applet>"
 					 + "<"+"!-- "+__marker+"-TAIL-END -"+"->");

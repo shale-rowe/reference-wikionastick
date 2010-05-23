@@ -182,6 +182,10 @@ woas.ui = {
 			_unlock_pages(woas.pager.bucket.items);
 		else
 			go_to("Unlock::" + current);
+	},
+	// scroll to top of page
+	top: function() {
+		scrollTo(0,0);
 	}
 	
 };
