@@ -97,7 +97,7 @@ woas.use_java_io = woas.browser.chrome || woas.browser.opera || woas.browser.saf
 // returns the DOM element object given its id - enables a try/catch mode when debugging
 if (woas.config.debug_mode) {
 	// returns the DOM element object given its id, alerting if the element is not found (but that would never happen, right?)
-	function d$(id){ try{return document.getElementById(id);}catch(e){alert("ERROR: d$('"+id+"') invalid reference");} }
+	function d$(id){ try{return document.getElementById(id);}catch(e){woas.crash("d$('"+id+"') invalid reference:\n\n"+e);} }
 } else {
 	// much faster version
 	function d$(id){return document.getElementById(id);}
