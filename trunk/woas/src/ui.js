@@ -1,7 +1,5 @@
-/*
- * User Interface module
-*/
-
+// @module ui
+// User Interface bindings
 woas.ui = {
 	edit_mode: false,		// set to true when inside an edit textarea
 	_textbox_focus: false,	// true when a text box is currently focused
@@ -57,7 +55,6 @@ woas.ui = {
 				return false;
 			}
 		}
-
 		// cancel key
 		if (e.keyCode==woas.hotkey.all.cancel) {
 			woas.ui.cancel();
@@ -69,8 +66,7 @@ woas.ui = {
 	},
 	// could have a better name
 	help: function() {
-		var wanted_page = "WoaS::Help::Index",
-			pi = woas.page_index(wanted_page);
+		var wanted_page, pi;
 		// we are editing
 		if (this.edit_mode) {
 			wanted_page = "WoaS::Help::Edit a page";
@@ -78,18 +74,19 @@ woas.ui = {
 		} else {
 			var htitle = null;
 			// change the target page in some special cases
-			for(var i=0,it=woas.help_system._help_lookup.length;i < it;++i) {
-				if (current.substr(0, woas.help_system._help_lookup[i].length) === woas.help_system._help_lookup[i]) {
-					htitle = woas.help_system._help_lookup[i];
-					break;
-				}
-			}
-			if (htitle === null)
-				htitle = current;
+			if (current.substr(0, 6) === "WoaS::") {
+				if (woas.help_system._help_lookup.indexOf(current.substr(6)) !== -1)
+					htitle = current.substr(6);
+				else
+					htitle = current;
+			} else htitle = current;
 			var npi = woas.page_index("WoaS::Help::"+htitle);
-			if (npi != -1) {
+			if (npi !== -1) {
 				wanted_page = "WoaS::Help::"+htitle;
 				pi = npi;
+			} else {
+				wanted_page = "WoaS::Help::Index";
+				pi = woas.page_index(wanted_page);
 			}
 		}
 		woas.help_system.go_to(wanted_page, pi);
