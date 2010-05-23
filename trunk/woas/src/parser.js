@@ -40,17 +40,18 @@ woas.parser = {
 //DEPRECATED "!" syntax is supported but shall me removed soon
 var reParseHeaders = /^([\!=]+)\s*(.*)$/gm;
 woas.parser.header_replace = function(str, $1, $2) {
-		var header = $2, len = $1.length;
+		var header = $2, len = $1.length,
 		// remove the mirrored header syntax from right
-		var hpos = header.indexOf($1);
+			hpos = header.indexOf($1),
+			that = woas.parser;
 		if ((hpos !== -1) && (hpos === header.length - len))
 			header = header.substring(0, header.length - len);
 		// automatically build the TOC if needed
-		if (this.has_toc) {
-			this.toc += String("#").repeat(len)+" <"+"a class=\"woas_link\" href=\"#" +
-			this.header_anchor(header) + "\">" + header + "<\/a>\n";
+		if (that.has_toc) {
+			that.toc += String("#").repeat(len)+" <"+"a class=\"woas_link\" href=\"#" +
+			that.header_anchor(header) + "\">" + header + "<\/a>\n";
 		}
-		return "<"+"h"+len+" class=\"woas_header\" id=\""+woas.parser.header_anchor(header)+"\">"+header+"<"+"/h"+len+">";
+		return "<"+"h"+len+" class=\"woas_header\" id=\""+that.header_anchor(header)+"\">"+header+"<"+"/h"+len+">";
 };
 
 woas.parser.sublist = function (lst, ll, suoro, euoro) {   
