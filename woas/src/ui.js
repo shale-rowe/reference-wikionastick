@@ -93,8 +93,7 @@ woas.ui = {
 			}
 		}
 		woas.help_system.go_to(wanted_page, pi);
-	}
-
+	},
 	tables_help: function() {
 		woas.help_system.go_to("WoaS::Help::Tables");
 	},

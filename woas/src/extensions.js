@@ -222,6 +222,10 @@ woas.plugins = {
 
 	// enable a single plugin
 	enable: function(name) {
+		if (this._active.indexOf(name) !== -1) {
+			woas.log("BUG: Plugin "+name+" is already active");
+			return true;
+		}
 		// generate the script element
 		var p = this.get(name);
 		if (this.is_external) { // *special* external plugins
@@ -253,8 +257,6 @@ woas.plugins = {
 				return false;
 			}
 		}
-		// should anyway be on the list
-		this._all.push(name);
 		// normal plugins
 		if (woas.dom.add_script("plugin", this._mapping(name),
 					p, false)) {
@@ -349,7 +351,7 @@ woas.plugins = {
 		this._all.splice(i,1);
 		if (current === "WoaS::Plugins") {
 			//HACK: reload plugins
-			this.setHTMLDiv(d$("woas_wiki_area"), woas.parser.parse(woas.get_text("WoaS::Plugins") + this.list()));
+			woas.setHTMLDiv(d$("woas_wiki_area"), woas.parser.parse(woas.get_text("WoaS::Plugins") + this.list()));
 		}
 		return true;
 	}
