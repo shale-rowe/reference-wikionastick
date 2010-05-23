@@ -80,8 +80,8 @@ This<<<woas.footnote("This is the tooltip."):
 >>> contains a wiki table.
 <style type="text/css">
 /* FOOTNOTES */
-.footnote {line-height:1em; font-size:0.55em; vertical-align:super; text-style:italic; color:mediumblue; text-decoration:underline;}
-.footnotecontainer {line-height:1em; font-size:0.75em; vertical-align:super; text-style:italic; background-color:#EEEEFF; margin-top:-3em;}
+.footnote {line-height:1em; font-size:0.55em; vertical-align:super; font-style:italic; color:mediumblue; text-decoration:underline;}
+.footnotecontainer {line-height:1em; font-size:0.75em; vertical-align:super; font-style:italic; background-color:#EEEEFF; margin-top:-3em;}
 </style>
 --DFQRCTsKlU
 woas.page.title: WoaS::Plugins::Footnotes
