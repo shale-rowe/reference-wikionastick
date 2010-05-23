@@ -67,6 +67,34 @@ woas.ui = {
 
 		return orig_e;
 	},
+	// could have a better name
+	help: function() {
+		var wanted_page = "WoaS::Help::Index",
+			pi = woas.page_index(wanted_page);
+		// we are editing
+		if (this.edit_mode) {
+			wanted_page = "WoaS::Help::Edit a page";
+			pi = woas.page_index(wanted_page);
+		} else {
+			var htitle = null;
+			// change the target page in some special cases
+			for(var i=0,it=woas.help_system._help_lookup.length;i < it;++i) {
+				if (current.substr(0, woas.help_system._help_lookup[i].length) === woas.help_system._help_lookup[i]) {
+					htitle = woas.help_system._help_lookup[i];
+					break;
+				}
+			}
+			if (htitle === null)
+				htitle = current;
+			var npi = woas.page_index("WoaS::Help::"+htitle);
+			if (npi != -1) {
+				wanted_page = "WoaS::Help::"+htitle;
+				pi = npi;
+			}
+		}
+		woas.help_system.go_to(wanted_page, pi);
+	}
+
 	tables_help: function() {
 		woas.help_system.go_to("WoaS::Help::Tables");
 	},
@@ -303,34 +331,6 @@ function help_go_back() {\n\
 		this.page_title = wanted_page;
 	}
 };
-
-// could have a better name
-function help() {
-	var wanted_page = "WoaS::Help::Index";
-	var pi = woas.page_index(wanted_page);
-	// we are editing
-	if (woas.ui.edit_mode) {
-		wanted_page = "WoaS::Help::Edit a page";
-		pi = woas.page_index(wanted_page);
-	} else {
-		var htitle = null;
-		// change the target page in some special cases
-		for(var i=0,it=woas.help_system._help_lookup.length;i < it;++i) {
-			if (current.substr(0, woas.help_system._help_lookup[i].length) === woas.help_system._help_lookup[i]) {
-				htitle = woas.help_system._help_lookup[i];
-				break;
-			}
-		}
-		if (htitle === null)
-			htitle = current;
-		var npi = woas.page_index("WoaS::Help::"+htitle);
-		if (npi != -1) {
-			wanted_page = "WoaS::Help::"+htitle;
-			pi = npi;
-		}
-	}
-	woas.help_system.go_to(wanted_page, pi);
-}
 
 function menu_dblclick() {
 	if (!woas.config.dblclick_edit)
