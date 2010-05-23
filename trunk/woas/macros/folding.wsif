@@ -29,8 +29,8 @@ Edit this section to see how to setup the folding macro.
 >>>
 = Example usage
 <<<woas.folding("Click me", "to toggle the below folded content"):
-There is no spoon
->>>
-<<<woas.folding("Click me", "to toggle inline folded content", true): There is no spoon >>>
-<<<woas.folding("Click me", "to toggle a folded transcluded page"): [[Main Page]] >>>
+There is no spoon>>>
+<<<woas.folding("Click me", "to toggle inline folded content", true): There is no spoon>>>
+<<<woas.folding("Click me", "to toggle a folded transcluded page"):
+[[Include::Main Page]]>>>
 --DFQRCTsKlU
