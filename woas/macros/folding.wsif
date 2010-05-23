@@ -15,20 +15,17 @@ woas.page.boundary: DFQRCTsKlU
 Edit this section to see how to setup the folding macro.
 <<<%woas.folding(link, label, inline):
 // folding sample macro by legolas558
-// label is optional
-if (typeof label == "undefined")
-   label = "";
-var tag;
-if (inline)
-	tag = "span";
-else { tag = "div"; label += "<br/>"; }
-// a bit hacky
-id = _random_string(5);
+	// label is optional
+	if (typeof label == "undefined")
+	   label = "";
+	var tag = inline ? "span" : "div";
+	// a bit hacky
+	id = _random_string(5);
 
-macro.text = "<a href=\"javascript:d$.toggle('folding_"+id+"');\">"+woas.xhtml_encode(link)+"</a> "+label+
+	macro.text = "<a href=\"javascript:d$.toggle('folding_"+id+"');\">"+woas.xhtml_encode(link)+"</a> "+label+
 		"<"+tag+" id=\"folding_"+id+"\" style=\"display: none; visibility:hidden;\">"+macro.text+"</"+tag+">";
 	macro.reprocess = true;
-return true;
+	return true;
 >>>
 = Example usage
 <<<woas.folding("Click me", "to toggle the below folded content"):
