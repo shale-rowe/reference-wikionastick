@@ -19,7 +19,7 @@ function help() {
 //DEPRECATED
 function advanced() {
 	woas.log("WARNING: Called deprecated function: advanced");
-	woas.go_to("Special::Advanced");
+	woas.ui.advanced();
 }
 
 //DEPRECATED
