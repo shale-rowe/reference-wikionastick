@@ -703,7 +703,7 @@ woas._import_pre_up = function(all_options) {
 	woas.config.import_settings = this.bitfield.set(this.config.import_settings, this.importer._OVR_ID+1,
 									this.importer.i_overwrite & 2, this.config.import_settings);
 	// check if configuration changed
-	cfg_changed |= (woas.config.import_settings !== old_is);
+	this.cfg_changed |= (woas.config.import_settings !== old_is);
 	// check if user wants total erase before going on
 	if (this.importer.i_overwrite === 0) {
 		if (!this.erase_wiki())
