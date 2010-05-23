@@ -9,6 +9,12 @@ function home() {
 	woas.ui.home();
 }
 
+//DEPRECATED
+function help() {
+	woas.log("WARNING: Called deprecated function: help");
+	woas.ui.help();
+}
+
 // when Advanced is clicked
 //DEPRECATED
 function advanced() {
