@@ -3619,19 +3619,91 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-/* ------------------------------------------- */
-/* BODY                                        */
-/* ------------------------------------------- */
+/* BODY */
 body {
 	font-family: Georgia, verdana;
 }
-
 .woas_background {
 	background-color: #F0F0F5;
 }
-/* ------------------------------------------- */
-/* FOOTER                                      */
-/* ------------------------------------------- */
+
+/* DEBUG CONSOLE */
+#woas_debug_button {
+	margin-bottom: -0.4em;
+}
+#woas_debug_log {
+	background-color: #F0F0F5;
+	border: 1px solid black;
+	margin-top: 0.5%;
+	margin-bottom: 0.5%;
+	width: 100%;
+}
+#woas_debug_log_clear_button {
+	background-color: #F0F0F5;
+	border: 1pt solid black;
+	color: darkblue;
+	cursor: pointer;
+	font-variant: normal;
+	text-align: center;
+}
+#woas_debug_log_clear_button:hover {
+	background-color: darkgrey;
+}
+#woas_debug_panel {
+	background-color: #048db4;
+	border: 0;
+	margin-top: -0.4em;
+}
+
+/* EDITOR */
+#woas_edit_page_title{
+	margin-top: 2.188em;
+}
+.woas_editor_button {
+	margin-top: 0.063em;
+	margin-bottom: 0.063em;
+}
+
+/* EMBEDDED FILES */
+.woas_embedded {
+	background-color: #9E9EFF;
+}
+
+/* ENCRYPTION */
+.woas_password_desc {
+	background-color: #FAFAFB;
+	border: 2pt solid navy;
+	font-size: 0.8em;
+	margin-right: 25%;
+	margin-left: 25%;
+}
+#woas_pwd_mask {
+	font-size: large;
+	height: 100%;
+	left: 0em;
+	position: absolute;
+	text-align: center;
+	top: 0em;
+	visibility: hidden;
+	width: 99%;
+	z-index: 99;
+}
+#woas_pwd_query {/* ask password overlay */
+	background-color: #d6dff7;
+	border: 1pt solid #666666; 
+	font-size: large;
+	height: 100%;
+	left: 0em;
+	padding-top: 25%;
+	position: absolute;
+	text-align: center;
+	top: 0em;
+	visibility: hidden;
+	width: 99%;
+	z-index: 100;
+}
+
+/* FOOTER */
 #woas_footer {
 	background-color: #048db4;
 	border: 1pt solid black;
@@ -3645,116 +3717,15 @@ body {
 	padding-right: 0.5%;
 	padding-bottom: 0;
 	padding-left: 0.5%;
-	}
+}
 #woas_footer a {
-	color: white;
-}
-/* ------------------------------------------- */
-/* DEBUG CONSOLE                               */
-/* ------------------------------------------- */
-#woas_debug_panel {
-	background-color: #048db4;
-	border: 0;
-	margin-top: -0.4em;
-	} 
-#woas_debug_button {
-	margin-bottom: -0.4em;
-	}
-#woas_go_to_top_button {
-	margin-bottom: -0.4em;
-	}
-#woas_debug_log {
-	background-color: #F0F0F5;
-	border: 1px solid black;
-	margin-top: 0.5%;
-	margin-bottom: 0.5%;
-	width: 100%;
-	}
-#woas_debug_log_clear_button {
-	background-color: #F0F0F5;
-	border: 1pt solid black;
-	color: darkblue;
-	cursor: pointer;
-	font-variant: normal;
-	text-align: center;
-	}
-#woas_debug_log_clear_button:hover {
-	background-color: darkgrey;
-	} 
-
-/* ------------------------------------------- */
-/* EDITOR                                      */
-/* ------------------------------------------- */
-#woas_edit_page_title{
-	margin-top: 2.188em;
-}
-
-.woas_editor_button {
-	margin-top: 0.063em;
-	margin-bottom: 0.063em;
-}
-
-/* ------------------------------------------- */
-/* ENCRYPTION                                  */
-/* ------------------------------------------- */
-/* ask password overlay */
-#woas_pwd_query {
-	position: absolute;
-	width: 99%;
-	height: 100%;
-	text-align: center;
-	padding-top: 25%;
-	z-index: 100;
-	left: 0em;
-	top: 0em;
-        border: 1pt solid #666666; 
-        background-color: #d6dff7;
-	font-size: large;
-        visibility: hidden;
-}
-
-#woas_pwd_mask {
-	position: absolute;
-	width: 99%;
-	height: 100%;
-	text-align: center;
-	z-index: 99;
-	visibility: hidden;
-	font-size: large;
-	left: 0em;
-	top: 0em;
-}
-
-.woas_password_desc {
-	font-size: 0.8em;
-	margin-left: 25%;
-	margin-right: 25%;
-	border: 2pt solid navy;
-	background-color: #FAFAFB;
-}
-
-/* ------------------------------------------- */
-/* FOOTER                                      */
-/* ------------------------------------------- */
-#woas_about_footer {
-	padding: 2pt;
-	margin-top: 0.75em;
-	margin-right: 0.85em;
-	margin-left: 15.5%;
-	line-height: 1em;
-	border: 1pt solid black;
-	background-color: #048db4;
-	font-weight: bold;
-	text-align: center;
-}
-
-#woas_about_footer a {
 	color: white ! important;
 }
+#woas_go_to_top_button {
+	margin-bottom: -0.4em;
+}
 
-/* ------------------------------------------- */
-/* HEADERS                                     */
-/* ------------------------------------------- */
+/* HEADERS */
 h1.woas_header {
 	font-size: 1.438em;
 }
@@ -3774,70 +3745,56 @@ h6.woas_header {
 	font-size: 0.625em;
 }
 
-/* ------------------------------------------- */
-/* HELP PAGES                                  */
-/* ------------------------------------------- */
+/* HELP PAGES */
 .woas_help_background {
-	background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAYAAADDPmHLAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A%2FwD%2FoL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9oDDAonCzKHvroAAAEFSURBVHja7duxDYIhFIVRIA7EKk7qKoxkb2Ns1PzfObWNuRfyAB0DAAAAAAAAAAAAAAAAAAAAAAAAAIC%2FMEtf9pxzf%2FeZvfdDAYLBV4swBd8uwhR%2BuwhT%2BO0SLOE7BQg%2FvAssa8AOYPWHd4FbtfmvIVZnhyX8xnlfAVCA8kpPHAO%2FNUReqUQKEA7fDDDcHC7hmwGEHx4gp%2BDbpwc%2FCYsfHafw2%2FcG2beAevCpHeDT1V%2B6LfQWEA5fAeLhKwAKoAAAAOR4DRzt3wl6DYyXwGtgvAQeg%2BIlcBEUpwAKgALgHsAg6BTgHsAO0CyBfwwDAAAAAAAAAAAAAAAAAAAAAAAAAAAAv%2FIER4Nn%2B7YDG3wAAAAASUVORK5CYII%3D);
 	background-attachment:fixed;
+	background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAYAAADDPmHLAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A%2FwD%2FoL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9oDDAonCzKHvroAAAEFSURBVHja7duxDYIhFIVRIA7EKk7qKoxkb2Ns1PzfObWNuRfyAB0DAAAAAAAAAAAAAAAAAAAAAAAAAIC%2FMEtf9pxzf%2FeZvfdDAYLBV4swBd8uwhR%2BuwhT%2BO0SLOE7BQg%2FvAssa8AOYPWHd4FbtfmvIVZnhyX8xnlfAVCA8kpPHAO%2FNUReqUQKEA7fDDDcHC7hmwGEHx4gp%2BDbpwc%2FCYsfHafw2%2FcG2beAevCpHeDT1V%2B6LfQWEA5fAeLhKwAKoAAAAOR4DRzt3wl6DYyXwGtgvAQeg%2BIlcBEUpwAKgALgHsAg6BTgHsAO0CyBfwwDAAAAAAAAAAAAAAAAAAAAAAAAAAAAv%2FIER4Nn%2B7YDG3wAAAAASUVORK5CYII%3D);
 }
-
 .woas_help_button {
-	margin-top: 0.75em;
-	border: 1pt solid grey;
-	color:darkblue;
 	background-color: #F0F0F5;
-	position:fixed;
-	right:0.625em;
-	top:0.188em;
-	text-align:center; font-size:1em;
-	font-variant:normal;
-	cursor:pointer;
+	border: 1pt solid grey;
+	color: darkblue;
+	cursor: pointer;
+	font-size: 1em;
+	font-variant: normal;
+	margin-top: 0.75em;
+	position: fixed;
+	right: 0.625em;
+	text-align: center;
+	top: 0.188em;
 }
-
 .woas_help_button:hover {
-	background-color:darkgrey;
+	background-color: darkgrey;
 }
-
 .woas_helpcode {
-	padding:0.438em;
-	font-family:monospace;
+	font-family: monospace;
+	padding: 0.438em;
 }
-
 .woas_helptext {
 	font-family: lucida;
 }
 
-/* ------------------------------------------- */
-/* HOTKEYS                                     */
-/* ------------------------------------------- */
+/* HOTKEYS */
 #woas_custom_accesskeys {
-	visibility: hidden;
 	display: none;
+	visibility: hidden;
 }
 
-/* ------------------------------------------- */
-/* LAST MODIFIED LINE   */
-/* ------------------------------------------- */
+/* LAST MODIFIED LINE */
 .woas_page_mts {
+	font-size: small;
 	margin-top: 0.75em;
 	margin-right: 0.80em;
 	margin-left: 15.5%;
 	z-index: 0;
-	font-size: small;
 }
 
-/* ------------------------------------------- */
-/* LINKS                                       */
-/* ------------------------------------------- */
-/* cursor when on a link */
+/* LINK - CURSOR */
 a {
 	cursor: pointer;
-/* cursor when on a link - IE5.5/IE6 */
-	/* cursor: hand; */
 }
 
-/* existent link */
+/* LINK - EXISTENT */
 a.woas_link {
 	color: blue;
 }
@@ -3845,7 +3802,13 @@ a.woas_link:hover {
 	text-decoration: underline;
 }
 
-/* nonexistent link */
+/* LINK - EXTERNAL */
+a.woas_world_link {
+	color: darkgreen;
+	text-decoration: underline;
+}
+
+/* LINK - NONEXISTENT */
 a.woas_unlink {
 	color: red;
 }
@@ -3853,52 +3816,29 @@ a.woas_unlink:hover {
 	text-decoration: underline;
 }
 
-/* outside world link */
-a.woas_world_link {
-	color: darkgreen;
-	text-decoration: underline;
-}
-
-/* ------------------------------------------- */
-/* MAIN TEXT AREA                              */
-/* ------------------------------------------- */
-/* any text area div */
-div.woas_text_area {
-	border: 1pt solid black;
+/* MAIN TEXT AREA */
+div.woas_text_area {/* any text area div */
 	background-color: white;
+	border: 1pt solid black;
 	padding: 0.475em;
 }
-
-/* main text area */
-#woas_wiki_area {
-	position: relative;
+#woas_wiki_area {/* main text area */
 	left: 15.5%;
-	width: 82.3%;
-	z-index: 0;
 	margin-top: 1.313em;
 	margin-bottom: 0.75em;
-	text-align:justify;
+	position: relative;
+	text-align: justify;
+	width: 82.3%;
+	z-index: 0;
 }
 
-/* ------------------------------------------- */
-/* MAIN WIKI PANE WHEN LOCKED                  */
-/* ------------------------------------------- */
-.woas_text_area.locked,
-#woas_pwd_mask {
-	background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAAAAACMmsGiAAAALHRFWHRDcmVhdGlvbiBUaW1lAGdpbyAyOSBtYXIgMjAwNyAxMTo1MToxMCArMDEwME%2BTNUAAAAAHdElNRQfXAx0JNByGxueSAAAACXBIWXMAAAsSAAALEgHS3X78AAAABGdBTUEAALGPC%2FxhBQAAABlJREFUeNpj%2FM%2FwmYHpMwMvAxOQwcvECyQBO1oE%2BlG5iisAAAAASUVORK5CYII%3D);
+/* MAIN WIKI PANE WHEN LOCKED */
+.woas_text_area.locked, #woas_pwd_mask {
 	background-color: #eeeeee;
+	background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAAAAACMmsGiAAAALHRFWHRDcmVhdGlvbiBUaW1lAGdpbyAyOSBtYXIgMjAwNyAxMTo1MToxMCArMDEwME%2BTNUAAAAAHdElNRQfXAx0JNByGxueSAAAACXBIWXMAAAsSAAALEgHS3X78AAAABGdBTUEAALGPC%2FxhBQAAABlJREFUeNpj%2FM%2FwmYHpMwMvAxOQwcvECyQBO1oE%2BlG5iisAAAAASUVORK5CYII%3D);
 }
 
-/* ------------------------------------------- */
-/* CORE PAGES                                  */
-/* ------------------------------------------- */
-.woas_core_page {
-	background-color: #bbccff;
-}
-
-/* ------------------------------------------- */
-/* MENU                                        */
-/* ------------------------------------------- */
+/* MENU */
 #i_woas_menu_area {
 	border: 1pt solid grey;
 	font-size: 0.75em;
@@ -3907,75 +3847,66 @@ div.woas_text_area {
 	width: 13.2%;
 	left: 1%;
 }
-
-#woas_menu_area ul li,
-#woas_menu_area ol li,
-div.ns_menu_area ul li, div.ns_menu_area ol li {
+#woas_menu_area ul li, #woas_menu_area ol li, div.ns_menu_area ul li, div.ns_menu_area ol li {
 	margin-left: -2em;
 }
-
 .woas_menu_button {
-	margin-top: 0.438em;
-	color:darkblue;
 	background-color: #F0F0F5;
-	width:100%;
 	border: 1pt solid grey;
-	text-align:center; font-size:1.3em;
-	font-variant:normal;
-	cursor:pointer;
+	color: darkblue;
+	cursor: pointer;
+	font-size:1.3em;
+	font-variant: normal;
+	margin-top: 0.438em;
+	text-align: center;
+	width: 100%;
 }
-
 .woas_menu_button:hover {
-	background-color:darkgrey;
+	background-color: darkgrey;
 }
 
-/* ------------------------------------------- */
-/* NAVIGATION BAR                              */
-/* ------------------------------------------- */
+/* NAVIGATION BAR */
 #woas_wiki_header {
-	top: 0em;
-	left: 0em;
 	border: 1pt solid #aaa;
-	opacity:.65;
-	z-index: 1;
+	left: 0em;
+	opacity: .65;
+	padding-right: 0.75em;
+	top: 0em;
 	width: 99%;
-	padding-right:0.75em;
+	z-index: 1;
 }
-
 #woas_title {
+	display: inline;
 	font-size: 2em;
 	font-weight: bold;
-	margin-bottom: 0em;
 	margin-top: 0em;
-	display:inline;
+	margin-bottom: 0em;
 	text-shadow: #888 0.13em 0.13em 0.065em;
 }
 
-/* ------------------------------------------- */
-/* NOWIKI TEXT                                 */
-/* ------------------------------------------- */
-/* nowiki text */
+/* NOWIKI TEXT */
 .woas_nowiki {
-/* CSS-3 */
-	white-space: pre-wrap;
-/* IE 5.5+ */
-	/* word-wrap: break-word; */
-/* Opera 4-6 */
-	/* white-space: -pre-wrap; */
-/* Opera 7 */
-	/* white-space: -o-pre-wrap; */
-	background-color:#F5F5F5; padding-right:0.27em; padding-left:0.27em;
+	background-color: #F5F5F5;
+	white-space: pre-wrap; /* CSS 3 */
+	word-wrap: break-word; /* IE5.5+ */
+	white-space: -pre-wrap; /* Opera 4-6 */
+	white-space: -o-pre-wrap; /* Opera 7 */
+	padding-right: 0.27em;
+	padding-left: 0.27em;
 }
-
 .woas_nowiki_multiline {
-	border:0.063em solid grey;
+	border: 0.063em solid grey;
 	padding-left: 0.4em;
 }
 
-/* ------------------------------------------- */
-/* SEARCH                                      */
-/* ------------------------------------------- */
-/* search results */
+/* PAGE LISTING HEADER */
+.woas_listing_options {
+	background-color: #AACCBB;
+	border: 0.1em solid blue;
+	padding: 0.2em;
+}
+
+/* SEARCH */
 pre.woas_search_results {
 	border: 1pt solid #aaa;
 	background-color: #f9f9f9;
@@ -3983,14 +3914,11 @@ pre.woas_search_results {
 	margin-top: 1em;
 	clear: both;
 }
-
 .woas_search_highlight {
 	background-color: yellow;
 }
 
-/* ------------------------------------------- */
-/* TABLE OF CONTENTS                           */
-/* ------------------------------------------- */
+/* TABLE OF CONTENTS */
 div.woas_toc {
 	border: 1pt dashed #aaa;
 	background-color: #f9f9f9;
@@ -3998,101 +3926,82 @@ div.woas_toc {
 	width: 50%;
 	font-size: 95%;
 }
-
 div.woas_toc ol, li {
 	margin-left: 1.3em;
 	padding-left: 0em;
 }
-
 p.woas_toc_title {
 	font-weight: bold;
 	text-align: center;
 }
 
-/* ------------------------------------------- */
-/* TABLES                                      */
-/* ------------------------------------------- */
+/* TABLES */
 table.woas_text_area {
 	border: 1pt solid black;
 	border-spacing: 0em;
 }
-
 table.woas_text_area td {
 	border: 1pt solid;
 	padding: 0.313em;
 }
-
 table.woas_text_area caption {
-        font-weight: bold;
-        font-style: italic;
+	font-style: italic;
+	font-weight: bold;
 }
 
-/* ------------------------------------------- */
-/* TAGS                                        */
-/* ------------------------------------------- */
-/* tag container */
+/* TAG - CONTAINER */
 div.woas_taglinks {
 	border: 1pt solid #aaa;
-/*	background-color: #f9f9f9; */
-	padding: 0.313em;
 	margin-top: 1em;
-	clear: both;
+	overflow: auto;
+	padding: 0.313em;
 }
 
-/* STYLED BOXES AROUND TAGS */
+/* TAG - LINKS */
 div.woas_taglinks > a {
-	color:navy;
-	background-color:gainsboro;
-	border:2px solid blue;
-	margin:2px 2px 2px 0;
-	padding:3px 5px 3px 5px;
-	text-decoration:none;
-	font-size:90%;
-	line-height:2.4;
-	-moz-border-radius:7px;-webkit-border-radius:7px;
-	/* border-radius:7px; */
-	font-weight:bold;
+	background-color: gainsboro;
+	border: 2px solid blue;
+	/* border-radius: 7px; */
+	color: navy;
+	font-size: 90%;
+	font-weight: bold;
+	line-height: 2.4;
+	margin: 2px 2px 2px 0;
+	-moz-border-radius: 7px;
+	padding: 3px 5px 3px 5px;
+	text-decoration: none;
+	-webkit-border-radius: 7px;
 }
-
 div.woas_taglinks > a:hover {
-	background-color:grey;
-	color:white;border:2px solid blue;
-	text-decoration:none;
-	font-weight:bold;
+	background-color: grey;
+	color: white;
+	border: 2px solid blue;
+	text-decoration: none;
+	font-weight: bold;
 }
 
-/* ------------------------------------------- */
-/* WIKI LOADING OVERLAY                        */
-/* ------------------------------------------- */
+/* WIKI CORE PAGES */
+.woas_core_page {
+	background-color: #bbccff;
+}
+
+/* WIKI LOADING OVERLAY */
 #loading_overlay {
-	position: absolute;
-	width: 99%;
-	height: 100%;
-	padding-top: 25%;
-	z-index: 100;
 	background-color: white;
-	left: 0em;
-	top: 0em;
 	font-size: large;
+	height: 100%;
+	left: 0em;
+	padding-top: 25%;
+	position: absolute;
 	text-align: center;
+	top: 0em;
+	width: 99%;
+	z-index: 100;
 }
 
-/* ------------------------------------------- */
-/* WIKI WAIT TEXT                              */
-/* ------------------------------------------- */
+/* WIKI WAIT TEXT */
 .woas_wait_text {
 	color: navy;
-}
-/* ------------------------------------------- */
-/* MISCELLANEOUS                               */
-/* ------------------------------------------- */
-.woas_embedded {
-	background-color: #9E9EFF;
-}
-.woas_listing_options {
-	background-color: #AACCBB;
-	border: 0.1em solid blue;
-	padding: 0.2em;
 }
 --DFQRCTsKlU
 woas.page.title: WoaS::CSS::Custom
