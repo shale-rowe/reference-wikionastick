@@ -3682,6 +3682,56 @@ body {
 }
 
 /* ------------------------------------------- */
+/* FOOTER                                      */
+/* ------------------------------------------- */
+#woas_debug_button {
+	margin-bottom: -0.4em;
+	}
+#woas_debug_log {
+	background-color: #F0F0F5;
+	border: 1px solid black;
+	margin-top: 0.5%;
+	margin-bottom: 0.5%;
+	width: 100%;
+	}
+#woas_debug_log_clear_button {
+	background-color: #F0F0F5;
+	border: 1pt solid black;
+	color: darkblue;
+	cursor: pointer;
+	font-variant: normal;
+	text-align: center;
+	}
+#woas_debug_log_clear_button:hover {
+	background-color: darkgrey;
+	} 
+#woas_debug_panel {
+	background-color: #048db4;
+	border: 0;
+	margin-top: -0.4em;
+	} 
+#woas_footer {
+	background-color: #048db4;
+	border: 1pt solid black;
+	font-size: 95%;
+	font-weight: bold;
+	line-height: 1em;
+	margin-top: 0.75em;
+	margin-right: 0.85em;
+	margin-left: 15.5%;
+	padding-top: 0;
+	padding-right: 0.5%;
+	padding-bottom: 0;
+	padding-left: 0.5%;
+	}
+#woas_footer a {
+	color: white ! important;
+	}
+#woas_go_to_top_button {
+	margin-bottom: -0.4em;
+	}
+
+/* ------------------------------------------- */
 /* HEADERS                                     */
 /* ------------------------------------------- */
 h1.woas_header {
