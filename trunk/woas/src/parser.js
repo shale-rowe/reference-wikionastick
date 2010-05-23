@@ -5,6 +5,9 @@ woas.parser = {
 	force_inline: false,		// used not to break layout when presenting search results
 	inline_tags: 0,
 	_parsing_menu: false,		// true when we are parsing the menu page
+	// properties used by _transclude
+	_snippets: null,
+	_export_links: null,
 
 	header_anchor: function(s) {
 		// apply a hard normalization
@@ -280,7 +283,7 @@ woas.parser.parse = function(text, export_links, js_mode) {
 		// reset all groups
 		this._ns_groups = { };
 		// apply transclusion syntax
-		this.transclude_syntax(P, snippets);
+		this.transclude_syntax(P, snippets, export_links);
 	}
 	
 	if (js_mode) {
@@ -420,10 +423,11 @@ woas.parser.pre_parse = function(P, snippets) {
 
 //API1.0
 //TODO: offer transclusion parameters argument
-woas.parser.transclude = function(title, snippets) {
+woas.parser.transclude = function(title, snippets, export_links) {
 	this._snippets = snippets;
+	this._export_links = export_links ? true : false;
 	var rv = this._transclude("[[Include::"+title+"]]", title);
-	this._snippets = null;
+	this._export_links = this._snippets = null;
 	return rv;
 };
 
@@ -464,7 +468,7 @@ woas.parser._transclude = function (str, $1) {
 //		woas.log("Embedded file transclusion: "+templname);	// log:0
 		if (woas.is_image(templname)) {
 			var img, img_name = woas.xhtml_encode(templname.substr(templname.indexOf("::")+2));
-			if (export_links) {
+			if (woas.parser._export_links) {
 				// check that the URI is valid
 				var uri=woas.exporter._get_fname(templname);
 				if (uri == '#')
@@ -476,7 +480,7 @@ woas.parser._transclude = function (str, $1) {
 			if (parts.length>1) {
 				img += parts[1];
 				// always add the alt attribute to images
-				if (!export_links && !parts[1].match(/alt=('|").*?\1/))
+				if (!woas.parser._export_links && !parts[1].match(/alt=('|").*?\1/))
 					img += " alt=\""+img_name+"\"";
 			}
 			that._snippets.push(img+" />");
@@ -511,9 +515,10 @@ woas.parser._transclude = function (str, $1) {
 	return P.body;
 };
 
-woas.parser.transclude_syntax = function(P, snippets) {
+woas.parser.transclude_syntax = function(P, snippets, export_links) {
 	var trans_level = 0;
 	this._snippets = snippets;
+	this._export_links = export_links ? true : false;
 	do {
 		P.body = P.body.replace(reTransclusion, this._transclude);
 		// keep transcluding when a transclusion was made and when transcluding depth is not excessive
@@ -526,6 +531,7 @@ woas.parser.transclude_syntax = function(P, snippets) {
 			return r;
 		});
 	}
+	this._snippets = this._export_links = null;
 };
 
 // parse passive syntax only
