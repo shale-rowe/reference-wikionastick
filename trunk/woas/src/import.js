@@ -5,6 +5,8 @@
 			* introduced some config options: new_tables_syntax, store_mts, folding_style
 			* introduced plugins (which deprecate WoaS::Bootscript)
 			* dropping support for all WoaS before 0.9.6B
+		0.11.7:
+			* 'nav_history' config option replaces 'open_last_page'
 		0.11.2:
 			* introduced parsing mechanism which does not mess with var declarations inside JavaScript strings
 			* introduced WoaS::Hotkeys, WoaS::CSS::Core, WoaS::CSS::Custom
@@ -483,6 +485,12 @@ woas.importer = {
 					woas.config.safe_mode = old_cfg.safe_mode;
 					//NOTE: WSIF datasource options are not imported at all
 				}
+				// renamed one config option
+				if (old_version < 117) {
+					woas.config.nav_history = woas.config.open_last_page;
+					delete woas.config.open_last_page;
+				}
+				// introduced new options
 				if (old_version < 120) {
 					woas.config.new_tables_syntax = old_cfg.new_tables_syntax;
 					woas.config.store_mts = old_cfg.store_mts;
@@ -492,10 +500,11 @@ woas.importer = {
 				// check for any undefined config property - for safety
 				for(p in woas.config) {
 					// remove things from the past
-/*					if (typeof old_cfg[p] == "undefined") {
+					if (typeof old_cfg[p] == "undefined") {
+						woas.log("BUG: removing invalid config option '"+p+"'");
 						delete woas.config[p];
 						continue;
-					} */
+					}
 					if ((typeof woas.config[p] == "undefined") && (typeof old_cfg[p] != "undefined"))
 						woas.config[p] = old_cfg[p];
 				}
