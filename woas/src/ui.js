@@ -214,8 +214,10 @@ woas.ui = {
 	// scroll to top of page
 	top: function() {
 		scrollTo(0,0);
+	},
+	advanced: function() {
+		woas.go_to("Special::Advanced");
 	}
-	
 };
 
 //API1.0
