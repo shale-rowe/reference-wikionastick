@@ -612,6 +612,8 @@ woas.importer = {
 			woas.plugins.update(that._plugins_update[i]);
 		}
 		for(var i=0,it=that._plugins_add.length;i < it;++i) {
+			// plugin should be on the list
+			woas._all.push(that._plugins_add[i]);
 			woas.plugins.enable(that._plugins_add[i]);
 		}
 		
