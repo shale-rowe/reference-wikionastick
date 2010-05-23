@@ -3631,25 +3631,6 @@ body {
 }
 
 /* ------------------------------------------- */
-/* DEBUG CONSOLE                               */
-/* ------------------------------------------- */
-#woas_debug_panel {
-	margin-top: 0.75em;
-	margin-right: 0.85em;
-	margin-left: 15.5%;
-	background-color: gray;
-	border: 1pt solid black;
-}
-
-#woas_debug_console {
-}
-
-#woas_debug_log {
-	background-color: rgb(204, 204, 204);
-	width: 99.3%;
-}
-
-/* ------------------------------------------- */
 /* EDITOR                                      */
 /* ------------------------------------------- */
 #woas_edit_page_title{
@@ -3698,25 +3679,6 @@ body {
 	margin-right: 25%;
 	border: 2pt solid navy;
 	background-color: #FAFAFB;
-}
-
-/* ------------------------------------------- */
-/* FOOTER                                      */
-/* ------------------------------------------- */
-#woas_about_footer {
-	padding: 2pt;
-	margin-top: 0.75em;
-	margin-right: 0.85em;
-	margin-left: 15.5%;
-	line-height: 1em;
-	border: 1pt solid black;
-	background-color: #048db4;
-	font-weight: bold;
-	text-align: center;
-}
-
-#woas_about_footer a {
-	color: white ! important;
 }
 
 /* ------------------------------------------- */
