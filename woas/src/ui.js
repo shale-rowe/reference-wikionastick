@@ -193,7 +193,7 @@ woas.ui = {
 		return true;
 	},
 	edit_ns_menu: function() {
-		woas.edit_page(current_namespace+"::Menu");
+		woas.edit_page(woas.current_namespace+"::Menu");
 	},
 	lock: function() {
 		if (woas.pager.bucket.items.length)
@@ -856,8 +856,8 @@ woas._set_debug = function(status) {
 };
 
 woas.refresh_menu_area = function() {
-	var tmp = current_namespace;
- 	current_namespace = this.parser.marker;
+	var tmp = this.current_namespace;
+ 	this.current_namespace = this.parser.marker;
 	this._add_namespace_menu(tmp);
 	var menu = this.get_text("::Menu");
 	if (menu == null)

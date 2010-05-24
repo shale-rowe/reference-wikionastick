@@ -1,4 +1,5 @@
-var current_namespace = "";		// the namespace(+subnamespaces) of the current page
+// the namespace(+subnamespaces) of the current page
+woas.current_namespace = "";
 
 // the last page on which the cached AES key was used on
 woas.last_AES_page = "";
@@ -770,7 +771,7 @@ woas._perform_lock = function(pi) {
 };
 
 woas._add_namespace_menu = function(namespace) {
-	if (current_namespace === namespace)
+	if (this.current_namespace === namespace)
 		return;
 	var pi;
 	if (namespace === "")
@@ -780,11 +781,11 @@ woas._add_namespace_menu = function(namespace) {
 	if (pi === -1) {
 //		this.log("no namespace menu found");	// log:0
 		this.setHTMLDiv(d$("woas_ns_menu_area"), "");
-		if (current_namespace !== "") {
+		if (this.current_namespace !== "") {
 			d$.hide("woas_ns_menu_area");
 			d$.hide("woas_ns_menu_edit_button");
 		}
-		current_namespace = namespace;
+		this.current_namespace = namespace;
 		return;
 	}
 	var menu = this.get__text(pi);
@@ -792,7 +793,7 @@ woas._add_namespace_menu = function(namespace) {
 	// show sub-menu
 	d$.show("woas_ns_menu_area");
 	d$.show("woas_ns_menu_edit_button");
-	current_namespace = namespace;	
+	this.current_namespace = namespace;	
 };
 
 // auto-save thread
