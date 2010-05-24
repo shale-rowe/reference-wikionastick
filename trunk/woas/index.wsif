@@ -40,23 +40,23 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 == Pages
+* [[Locked::]], [[Unlocked::]]: a list of all encrypted/plain pages
 * [[Special::All Pages]]: a list of all user created pages in this wiki
-* [[Locked::]], [[Unlocked::]]: an index of all encrypted/plain pages
-* [[Tagged::]], [[Untagged::]]: an index of all tagged/untagged pages
+* [[Special::Dead Pages]]: a list of nonexistent pages that other pages link to 
+* [[Special::Delete Page]]: delete specific page
 * [[Special::Go to]]: go to specific page
 * [[Special::New Page]]: create a new page
-* [[Special::Delete Page]]: delete specific page
+* [[Special::Orphaned Pages]]: a list of pages that no other pages link to
 * [[Special::Recentchanges]]: view recently modified pages
 * [[Special::Search]]: search all wiki pages
-* [[Special::Dead Pages]]: a list of pages that have links to them, but were still not created 
-* [[Special::Orphaned Pages]]: a list of pages that once were linked to, but now no page links to them anymore
+* [[Tagged::]], [[Untagged::]]: a list of all tagged/untagged pages
 
 == Advanced features
 * [[Special::Options]]: general WoaS options
-* [[WoaS::CSS::Custom]], [[WoaS::CSS::Core]]: view the core CSS and edit the custom CSS
-* [[WoaS::Plugins]]: enable/disable and view/edit WoaS JavaScript plugins
 * [[WoaS::Aliases]]: view/edit page title aliases
+* [[WoaS::CSS::Core]], [[WoaS::CSS::Custom]]: view the core CSS and edit the custom CSS
 * [[WoaS::Hotkeys]]: view/edit WoaS access keys and default key bindings
+* [[WoaS::Plugins]]: enable/disable and view/edit WoaS JavaScript plugins
 
 == Maintenance
 * [[Special::Import]]: import wiki from an early (or current) version
