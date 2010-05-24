@@ -335,7 +335,7 @@ woas.special_dead_pages = function() {
 		pg.push(s);
 	}
 
-	result_pages = dead_pages;	
+	woas.pager.bucket.items = dead_pages.slice(0);
 	if (!pg.length)
 		return '/No dead pages/';
 	return this._simple_join_list(pg, true);
@@ -394,7 +394,7 @@ woas._join_list = function(arr, sorted) {
 	if (typeof sorted == "undefined")
 		sorted = true;
 	// copy the array to currently selected pages
-	result_pages = arr.slice(0);
+	woas.pager.bucket.items = arr.slice(0);
 	// (1) create a recursable tree of namespaces
 	var ns,folds={"[pages]":[]},i,ni,nt,key;
 	for(i=0,it=arr.length;i < it;++i) {

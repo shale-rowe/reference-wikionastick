@@ -1,4 +1,3 @@
-var result_pages = [];			// the pages indexed by the last result page
 var last_AES_page;				// the last page on which the cached AES key was used on
 var current_namespace = "";		// the namespace(+subnamespaces) of the current page
 
@@ -545,7 +544,7 @@ woas.set_current = function (cr, interactive) {
 		return false;
 //	this.log("Setting current page to \""+cr+"\"");	//log:0
 	var text, namespace, pi;
-	result_pages = [];
+	woas.pager.bucket.clear();
 	// eventually remove the previous custom script
 	if (cr.substring(cr.length-2)==="::") {
 		text = this._get_namespace_pages(cr);

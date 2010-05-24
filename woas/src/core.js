@@ -828,7 +828,7 @@ woas._make_delta_func = function(fn_name, fn_args) {
 	return fn_obj;
 }
 
-// WoaS 'pager' module
+// @module pager
 woas.pager = {
 
 	_decrypt_failed: false,	// the last decryption failed due to wrong password attempts
@@ -852,6 +852,18 @@ woas.pager = {
 	// this yummy function needs can be overriden
 	browse_hook: function(title) {
 		return true;
+	}
+};
+
+// @module pager.bucket
+woas.pager.bucket = {
+	items: [],		// multi-pages selection
+	clear: function() {
+		items = [];
+	},
+	add: function(title) {
+		if (items.indexOf(title) === -1)
+			items.push(title);
 	}
 };
 
