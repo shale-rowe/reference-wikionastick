@@ -1,5 +1,7 @@
-var last_AES_page;				// the last page on which the cached AES key was used on
 var current_namespace = "";		// the namespace(+subnamespaces) of the current page
+
+// the last page on which the cached AES key was used on
+woas.last_AES_page = "";
 
 // tells if configuration has been changed
 woas.cfg_changed = false;
@@ -223,12 +225,12 @@ woas.get_page = function(pi) {
 	if (!this.is__encrypted(pi))
 		return pages[pi];
 	if (!this.AES.isKeySet()) {
-		last_AES_page = "";
+		this.last_AES_page = "";
 		return null;
 	}
 	// decrypt by using a copy of the array
 	var pg = this.AES.decrypt(pages[pi].slice(0));
-	last_AES_page = page_titles[pi];
+	this.last_AES_page = page_titles[pi];
 	return pg;	
 };
 
@@ -336,7 +338,7 @@ woas.get__text = function(pi) {
 //			if ((pw==null) || !pw.length) {
 			// we are waiting for the password to be set programmatically
 /*			if (!pw.length) {
-				last_AES_page = "";
+				this.last_AES_page = "";
 				AES_clearKey();
 				document.body.style.cursor = "auto";
 				return null;
@@ -349,18 +351,18 @@ woas.get__text = function(pi) {
 		// pass a copied instance to the decrypt function
 		// AES_decrypt can return null on failure, but can also return a garbled output
 		var pg = this.AES.decrypt(pages[pi].slice(0));
-		last_AES_page = page_titles[pi];
+		this.last_AES_page = page_titles[pi];
 //		if (pg != null)
 //			break;
 	if (!this.config.key_cache)
 		this.AES.clearKey();
 	if (pg !== null) {
 		this.pager._decrypt_failed = false;
-//		if (this.config.key_cache)			last_AES_page = page_titles[pi];
+//		if (this.config.key_cache)			this.last_AES_page = page_titles[pi];
 	} else {
 		this.alert(this.i18n.ACCESS_DENIED.sprintf(page_titles[pi]));
 //		AES_clearKey();
-		last_AES_page = "";
+		this.last_AES_page = "";
 	}
 	this.progress_finish();
 	return pg;
@@ -375,7 +377,7 @@ woas.set__text = function(pi, text) {
 		return;
 	}
 	pages[pi] = this.AES.encrypt(text);
-	last_AES_page = page_titles[pi];
+	this.last_AES_page = page_titles[pi];
 };
 
 // set content of current page
@@ -588,7 +590,7 @@ woas.set_current = function (cr, interactive) {
 						if (this.AES.isKeySet()) {
 							// display a message
 							if (confirm(this.i18n.CONFIRM_LOCK.sprintf(cr)+
-								(last_AES_page ? this.i18n.CONFIRM_LOCK_LAST.sprintf(last_AES_page) : ''))) {
+								(this.last_AES_page ? this.i18n.CONFIRM_LOCK_LAST.sprintf(last_AES_page) : ''))) {
 								this._finalize_lock(pi);
 								return false;
 							}
@@ -756,9 +758,9 @@ woas._finalize_lock = function(pi) {
 	this.set_current(title, true);
 	if (!this.config.key_cache) {
 		this.AES.clearKey();
-		last_AES_page = "";
+		this.last_AES_page = "";
 	} else
-		last_AES_page = title;
+		this.last_AES_page = title;
 	this.save_page_i(pi);
 };
 
