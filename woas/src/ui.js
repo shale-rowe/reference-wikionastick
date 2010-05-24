@@ -95,7 +95,7 @@ woas.ui = {
 		woas.help_system.go_to("WoaS::Help::Tables");
 	},
 	clear_search: function() {
-		woas.log("Clearing search"); //log:1
+//		woas.log("Clearing search"); //log:0
 		if (current === "Special::Search") {
 			d$("string_to_search").value = "";
 			d$("string_to_search").focus();
@@ -355,7 +355,7 @@ function menu_do_search() {
     if (current === "Special::Search") {
 		d$('string_to_search').value = d$('menu_string_to_search').value;
     }
-    woas.do_search(d$('menu_string_to_search').value, true);
+    woas.do_search(d$('menu_string_to_search').value);
 }
 
 // Used by Special::Search
@@ -364,7 +364,7 @@ function ssearch_do_search() {
 	var search_string = d$("string_to_search").value;
 	if ( !search_string.length )
 		return;
-	woas.do_search(search_string, true);
+	woas.do_search(search_string);
 }
 
 function menu_key_hook(orig_e) {
@@ -400,7 +400,6 @@ function menu_search_focus(f) {
 
 //NOTE: this is attached to onkeydown of menu's search box, so you can't use 'this'
 woas.do_search = function(str, noclear) {
-	woas.log("Called woas.do_search()");
 	// clear previous search results
 	if (!noclear)
 		woas.ui.clear_search();
@@ -735,7 +734,7 @@ woas._hl_marker_rx = new RegExp(woas._hl_marker+":(\\d+):", "g");
 woas._search_load = function() {
 	var P = {body: ""};
 	if (this._last_search === null) {
-		woas.log("No search done, returning blank");	//log:1
+//		woas.log("No search done, returning blank");	//log:0
 	} else {
 		// proceed to parsing if there are matching pages
 		if (this._cached_title_search.length + this._cached_body_search.length !== 0) {

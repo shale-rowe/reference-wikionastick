@@ -639,7 +639,7 @@ woas.parser._render_wiki_link = function(arg1, label, snippets, tags, export_lin
 		r_label = (label === null) ? page : label;
 
 	// check for protocol links
-	if (page.search(/^\w+:\/\//)===0) {
+	if (page.match(/^\w+:\/\//)) {
 		r = woas.parser.place_holder(snippets.length);
 		// convert mailto:// to mailto:
 		page = page.replace(reMailto, "mailto:");
