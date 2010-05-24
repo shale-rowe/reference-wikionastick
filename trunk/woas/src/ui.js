@@ -407,7 +407,7 @@ woas.do_search = function(str, noclear) {
 
 	woas.progress_init("Searching");
 	// reset result pages
-	result_pages = [];
+	woas.pager.bucket.clear();
 
 	// cache new search results
 	woas._cache_search( str );
@@ -743,14 +743,13 @@ woas._search_load = function() {
 			// (1) prepare the title results
 			for(var i=0,it=this._cached_title_search.length;i<it;++i) {
 				P.body += "* [["+ this._cached_title_search[i] + "]]\n";
-				result_pages.push(this._cached_title_search[i]);
+				woas.pager.bucket.add(this._cached_title_search[i]);
 			}
 			
 			// (2) parse the body snippets
 			for(var i=0,it=this._cached_body_search.length;i<it;++i) {
 				P.body += "* [[" + this._cached_body_search[i].title + "]]: found " + this._hl_marker+":"+i+":";
-				if (result_pages.indexOf(this._cached_body_search[i].title) === -1)
-					result_pages.push(this._cached_body_search[i].title);
+				woas.pager.bucket.add(this._cached_body_search[i].title);
 			}
 
 			P.body = 'Results for <'+'strong class="woas_search_highlight">' + woas.xhtml_encode(woas._last_search) + "<"+"/strong>\n" + P.body;
@@ -806,7 +805,7 @@ woas.update_nav_icons = function(page) {
 
 woas.update_lock_icons = function(page) {
 	var cyphered, can_lock, can_unlock;
-	if (result_pages.length < 2) {
+	if (woas.pager.bucket.items.length < 2) {
 		var pi = this.page_index(page);
 		if (pi==-1) {
 			can_lock = can_unlock = false;
@@ -816,8 +815,7 @@ woas.update_lock_icons = function(page) {
 			can_lock = !can_unlock && this.config.permit_edits;
 		}
 	} else {
-//		woas.log("result_pages is ("+result_pages+")");	// log:0
-		can_lock = can_unlock = (result_pages.length>0);
+		can_lock = can_unlock = (woas.pager.bucket.items.length>0);
 		cyphered = false;
 	}
 	
