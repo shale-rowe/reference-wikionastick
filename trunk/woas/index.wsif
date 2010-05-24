@@ -3847,8 +3847,11 @@ div.woas_text_area {/* any text area div */
 	width: 13.2%;
 	left: 1%;
 }
-#woas_menu_area ul li, #woas_menu_area ol li, div.ns_menu_area ul li, div.ns_menu_area ol li {
+#woas_menu_area ul li, #woas_menu_area ol li, div.woas_ns_menu_area ul li, div.woas_ns_menu_area ol li {
 	margin-left: -2em;
+}
+#woas_wiki_area ul li, #woas_wiki_area ol li {
+	margin-left: -1em;
 }
 .woas_menu_button {
 	background-color: #F0F0F5;
