@@ -814,7 +814,7 @@ woas._on_unload = function () {
 	if (this.save_queue.length)
 		this.commit(this.save_queue);
 	else {
-		if (this.config.save_on_quit && woas.cfg_changed)
+		if (this.config.save_on_quit && this.cfg_changed)
 			this.cfg_commit();
 	}
 	return true;
@@ -1240,21 +1240,18 @@ woas.save = function() {
 						return false;
 					// actually set text only in case of new title
 					this.set_text(raw_content);
-					// check if this is a menu
+					if (renaming) {
+						if (!this.rename_page(this.old_title, new_title))
+							return false;
+					}
 					if (this.is_menu(new_title)) {
 						this.refresh_menu_area();
 						back_to = this.prev_title;
-					} else {
-						//if (new_title !== current) {
-						if (renaming) {
-							if (!this.rename_page(this.old_title, new_title))
-								return false;
-						}
+					} else
 						back_to = new_title;
-						// do not glitch when creating a new page
-						if (was_ghost)
-							this.prev_title = new_title;
-					}
+					// do not glitch when creating a new page
+					if (was_ghost)
+						this.prev_title = new_title;
 					// update the plugin if this was a plugin page
 					// NOTE: plugins are not allowed to be renamed, so
 					// old title is equal to new title
