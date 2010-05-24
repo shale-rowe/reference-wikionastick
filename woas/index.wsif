@@ -3847,11 +3847,17 @@ div.woas_text_area {/* any text area div */
 	width: 13.2%;
 	left: 1%;
 }
-#woas_menu_area ul li, #woas_menu_area ol li, div.woas_ns_menu_area ul li, div.woas_ns_menu_area ol li {
-	margin-left: -2em;
+#woas_menu_area ul li, #woas_ns_menu_area ul li {
+	margin-left: -1.85em;
 }
-#woas_wiki_area ul li, #woas_wiki_area ol li {
-	margin-left: -1em;
+#woas_menu_area ol li, #woas_ns_menu_area ol li {
+	margin-left: -1.55em;
+}
+#woas_wiki_area ul li {
+	margin-left: -0.8em;
+}
+#woas_wiki_area ol li {
+	margin-left: -0.6em;
 }
 .woas_menu_button {
 	background-color: #F0F0F5;
@@ -3927,7 +3933,7 @@ div.woas_toc {
 	font-size: 95%;
 }
 div.woas_toc ol, li {
-	margin-left: 1.3em;
+	margin-left: 2.3em;
 	padding-left: 0em;
 }
 p.woas_toc_title {
