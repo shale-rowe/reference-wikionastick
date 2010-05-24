@@ -3891,9 +3891,6 @@ div.woas_text_area {/* any text area div */
 .woas_nowiki {
 	background-color: #F5F5F5;
 	white-space: pre-wrap; /* CSS 3 */
-	word-wrap: break-word; /* IE5.5+ */
-	white-space: -pre-wrap; /* Opera 4-6 */
-	white-space: -o-pre-wrap; /* Opera 7 */
 	padding-right: 0.27em;
 	padding-left: 0.27em;
 }

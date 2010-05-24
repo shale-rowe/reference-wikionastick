@@ -988,6 +988,8 @@ woas.css.get(): returns currently set CSS (string:valid CSS)
 //FIXME: could be part of woas.ui object
 woas.css = {
 	FF2: "\n.woas_nowiki { white-space: -moz-pre-wrap !important; }\n",
+	IE: "\n.woas_nowiki { word-wrap: break-word !important; }\n",
+	OPERA: "\n.woas_nowiki { white-space: -o-pre-wrap !important; }\n",
 	
 	// TODO: replace with factory function for just this browser
 	set: function(css, raw) {
@@ -1004,12 +1006,16 @@ woas.css = {
 		and many programmers can work on it with changes tending to be much
 		more confined to the object they are modifying.
 		*/
-		//Add fixes
+		// add some browser-specific wrapping fixes
 		if (!raw) {
-			if (woas.browser.firefox2) {
+			if (woas.browser.firefox2)
 				// fixes are added first so they can be overridden
+				// (although they have an !important property attribute)
 				css = this.FF2 + css;
-			}
+			else if (woas.browser.trident)
+				css = this.IE + css;
+			else if (woas.browser.presto)
+				css = this.OPERA + css;
 		}
 		if (woas.browser.ie)
 			woas.dom._cache.stylesheet.cssText = css;
