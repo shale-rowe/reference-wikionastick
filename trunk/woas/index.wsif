@@ -3871,18 +3871,8 @@ div.woas_text_area {/* any text area div */
 	margin-left: -1.55em;
 }
 .woas_menu_button {
-	background-color: #F0F0F5;
-	border: 1pt solid grey;
-	color: darkblue;
-	cursor: pointer;
-	font-size:1.3em;
-	font-variant: normal;
 	margin-top: 0.438em;
-	text-align: center;
 	width: 100%;
-}
-.woas_menu_button:hover {
-	background-color: darkgrey;
 }
 
 /* NAVIGATION BAR */
