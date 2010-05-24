@@ -4014,6 +4014,9 @@ div.woas_taglinks > a:hover {
 	margin-top: 0.438em;
 	text-align: center;
 }
+.woas_button:hover {
+	background-color: darkgrey;
+}
 --DFQRCTsKlU
 woas.page.title: WoaS::CSS::Custom
 woas.page.attributes: 0
