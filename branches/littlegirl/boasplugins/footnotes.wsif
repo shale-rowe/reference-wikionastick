@@ -1,10 +1,11 @@
 wsif.version: 1.3.1
 wsif.generator: woas
 wsif.generator.version: 0.12.0
-woas.author: legolas558
+woas.author: legolas558 with modifications by Little Girl
 woas.pages: 2
 
-woas.page.title: Example::Footnotes
+--DFQRCTsKlU
+woas.page.title: Plug-in::Help::Footnotes
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -14,7 +15,7 @@ woas.page.boundary: DFQRCTsKlU
 = Footnotes
 Footnotes are small, numbered links you can put next to any word on a page. Clicking a footnote takes you to a container at the bottom of the page that displays the contents of the footnote links. Clicking a footnote link in the container takes you back up to its corresponding link in the page.
 == Instructions
-Use this code, replacing TOOLTIP with the text displayed when the mouse hovers over the link, and CONTENT with the contents of the footnote:
+Use this code, replacing TOOLTIP with the text to be displayed when the mouse hovers over the link, and CONTENT with the contents of the footnote:
 {{{
 <<<woas.footnote("TOOLTIP"): CONTENT>>>
 }}}To create this:
