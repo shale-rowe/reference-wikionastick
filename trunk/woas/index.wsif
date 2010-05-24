@@ -3833,11 +3833,11 @@ div.woas_text_area {/* any text area div */
 	width: 82.3%;
 	z-index: 0;
 }
-#woas_wiki_area ul li {
-	margin-left: -0.8em;
-}
 #woas_wiki_area ol li {
 	margin-left: -0.6em;
+}
+#woas_wiki_area ul li {
+	margin-left: -0.8em;
 }
 
 /* MAIN WIKI PANE WHEN LOCKED */
@@ -3855,11 +3855,11 @@ div.woas_text_area {/* any text area div */
 	width: 13.2%;
 	left: 1%;
 }
-#woas_menu_area ul li, #woas_ns_menu_area ul li {
-	margin-left: -1.85em;
-}
 #woas_menu_area ol li, #woas_ns_menu_area ol li {
 	margin-left: -1.55em;
+}
+#woas_menu_area ul li, #woas_ns_menu_area ul li {
+	margin-left: -1.85em;
 }
 .woas_menu_button {
 	margin-top: 0.438em;
