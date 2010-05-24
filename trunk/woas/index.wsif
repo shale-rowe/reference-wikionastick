@@ -74,7 +74,7 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 Import a wiki /.html/ source from an early (or current) version:
 
-File: <input id="filename_" type="file" />&nbsp;<input id="btn_import" type="button" value="Import" onclick="import_wiki()" />
+File: <input id="filename_" type="file" />&nbsp;<input id="btn_import" class="woas_button" type="button" value="Import" onclick="import_wiki()" />
 
 == Source
 <label for="woas_cb_import_config"><input type="checkbox" id="woas_cb_import_config" checked="checked">&nbsp;Import configuration (except WSIF datasource settings)</label>
@@ -155,7 +155,7 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 = Search in Wiki
 
-<input id="string_to_search" type="text" onfocus="search_focus(true)" onblur="search_focus(false)" />&nbsp;<input type="button" value="Search" onclick="ssearch_do_search()" />&nbsp;<input type="button" value="Clear" onclick="woas.ui.clear_search()" />
+<input id="string_to_search" type="text" onfocus="search_focus(true)" onblur="search_focus(false)" />&nbsp;<input class="woas_button" type="button" value="Search" onclick="ssearch_do_search()" />&nbsp;<input class="woas_button" type="button" value="Clear" onclick="woas.ui.clear_search()" />
 <div id="woas_search_results">&nbsp;</div>
 
 <script type="text/javascript" language="javascript">
@@ -174,7 +174,7 @@ Read more about the [[WoaS::Help::Security|embedded AES encryption]] used in Wik
 
 == Password
 Enter your password for AES encryption. The more complex your password is, the more difficult it will be to attack the encryption. It is suggested *not* to use passwords whose textbox color is <span style="background-color:red">&nbsp;red&nbsp;</span>, and to accept passwords only when the textbox color is <span style="background-color:lime">&nbsp;green&nbsp;</span>. Punctuation and Mixed case characters will exponentially increase the strength of your password.
-<dl><dt><label for="pw1">Enter password:</label></dt><dd><input type="password" id="pw1" style="background-color:red" value="" size="50" onfocus="woas.ui.focus_textbox()" onblur="woas.ui.blur_textbox()" onkeyup="pw_quality()" />&nbsp;<span id="txtBits">&nbsp;</span></dd><dt><label for="pw2">Re-enter password:</label></dt><dd><input type="password" id="pw2" value="" size="50" onfocus="woas.ui.focus_textbox()" onblur="woas.ui.blur_textbox()" /></dd></dl><input id="btn_lock" type="button" value="" />
+<dl><dt><label for="pw1">Enter password:</label></dt><dd><input type="password" id="pw1" style="background-color:red" value="" size="50" onfocus="woas.ui.focus_textbox()" onblur="woas.ui.blur_textbox()" onkeyup="pw_quality()" />&nbsp;<span id="txtBits">&nbsp;</span></dd><dt><label for="pw2">Re-enter password:</label></dt><dd><input type="password" id="pw2" value="" size="50" onfocus="woas.ui.focus_textbox()" onblur="woas.ui.blur_textbox()" /></dd></dl><input id="btn_lock" class="woas_button" type="button" value="" />
 <script type="text/javascript">
 	_lock_page();
 </script>
@@ -258,9 +258,9 @@ A file named as above WSIF data source and ending with ".lck" will also be creat
 WSIF data author: <input id="txt_author" type="text" size="12" value="" onchange="woas.config.wsif_author=this.value" />
 /Used in exported WSIF content or in WSIF datasources./
 
-<p><input type="button" onclick="save_options()" value="Save options" /></p>
+<p><input class="woas_button" type="button" onclick="save_options()" value="Save options" /></p>
 == Permanent changes
-<p>&nbsp;&nbsp;<input type="button" onclick="ro_woas()" value="Disallow edits" />
+<p>&nbsp;&nbsp;<input class="woas_button" type="button" onclick="ro_woas()" value="Disallow edits" />
 /Caution: to re-enable editing you will have to manually edit WoaS/</p>
 <script type="text/javascript">
 d$("cb_allow_diff").checked = bool2chk(woas.config.allow_diff);
@@ -390,7 +390,7 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 = Embed %1
 
-<input id="filename_" type="file" />&nbsp;<input type="button" value="Embed" onclick="woas._embed_process('%1')" />
+<input id="filename_" type="file" />&nbsp;<input class="woas_button" type="button" value="Embed" onclick="woas._embed_process('%1')" />
 
 --DFQRCTsKlU
 woas.page.title: WoaS::Plugins
@@ -402,7 +402,7 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 = Plugins
 This page contains options for the active WoaS plugins; see [[WoaS::Help::Plugins]] for more information.
-[[Special::ImportWSIF|Import plugin...]] [[Javascript::_woas_new_plugin()|New plugin...]]
+<input class="woas_button" title="Create a new plugin" value="Create plugin..." onclick="javascript:_woas_new_plugin()" type="button" />&nbsp;&nbsp;<input class="woas_button" title="Import a plugin" value="Import plugin..." onclick="go_to('Special::ImportWSIF')" type="button" />
 --DFQRCTsKlU
 woas.page.title: WoaS History
 woas.page.attributes: 0
@@ -507,7 +507,7 @@ META author (optional)
 <label for="woas_cb_sep_css"><input type="checkbox" id="woas_cb_sep_css" checked="checked">Export CSS into shared file</label>
 <label for="woas_cb_export_menu"><input type="checkbox" id="woas_cb_export_menu" checked="checked">Export menu and submenus</label>
 
-<input type="button" value="Export XHTML" onclick="woas.export_wiki()" />
+<input class="woas_button" type="button" value="Export XHTML" onclick="woas.export_wiki()" />
 
 <script type="text/javascript">
 var path = woas.ROOT_DIRECTORY + "export" + woas.DIRECTORY_SEPARATOR;
@@ -570,7 +570,7 @@ Note: *Directory must exist if using a non-Mozilla browser.*
 == Other options
 Author: <input id="woas_ep_author" type="text" size="12" value="" />
 
-<input type="button" value="Export WSIF" onclick="woas.export_wiki_wsif()" />
+<input class="woas_button" type="button" value="Export WSIF" onclick="woas.export_wiki_wsif()" />
 
 <script type="text/javascript">
 var path = woas.ROOT_DIRECTORY + "wsif" + woas.DIRECTORY_SEPARATOR;
@@ -684,7 +684,7 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 Import a wiki page (or collection of) in [[WoaS::Help::WSIF|WSIF format]].
 
-File: <input id="filename_" type="file" />&nbsp;<input id="btn_import" type="button" value="Import WSIF" onclick="woas.import_wiki_wsif()" />
+File: <input id="filename_" type="file" />&nbsp;<input id="btn_import" class="woas_button" type="button" value="Import WSIF" onclick="woas.import_wiki_wsif()" />
 
 [[Include::WoaS::ImportSettings]]
 
@@ -1495,7 +1495,7 @@ Paste each of these into a new page one by one to see what they do:
 
 == Using JavaScript to reload the wiki
 <div class="woas_helptext">Use this code in a page:</div><br>{{{
-<input type="button" value="Reload wiki" onClick="window.location.href=window.location.href">
+<input type="button" value="Reload wiki" onclick="window.location.href=window.location.href">
 }}}<br><div class="woas_helptext">To create a button that reloads the wiki when you click it.</div>
 
 --DFQRCTsKlU
@@ -3477,7 +3477,7 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-<input style="font-size:10px;" id="menu_string_to_search" type="text" size="12" onfocus="menu_search_focus(true)" onblur="menu_search_focus(false)" />&nbsp;<input style="font-size: 10px;" type="button" value="Search" onclick="menu_do_search()" />
+<input style="font-size:10px;" id="menu_string_to_search" type="text" size="12" onfocus="menu_search_focus(true)" onblur="menu_search_focus(false)" />&nbsp;<input style="font-size: 10px;" class="woas_button" type="button" value="Search" onclick="menu_do_search()" />
 <script type="text/javascript">
 d$('menu_string_to_search').onkeydown = menu_key_hook;
 </script>
@@ -4002,6 +4002,17 @@ div.woas_taglinks > a:hover {
 /* WIKI WAIT TEXT */
 .woas_wait_text {
 	color: navy;
+}
+
+/* BUTTONS */
+.woas_button {
+	background-color: #F0F0F5;
+	border: 1pt solid grey;
+	color: darkblue;
+	cursor: pointer;
+	font-variant: normal;
+	margin-top: 0.438em;
+	text-align: center;
 }
 --DFQRCTsKlU
 woas.page.title: WoaS::CSS::Custom
