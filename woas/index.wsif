@@ -3842,6 +3842,12 @@ div.woas_text_area {/* any text area div */
 	width: 82.3%;
 	z-index: 0;
 }
+#woas_wiki_area ul li {
+	margin-left: -0.8em;
+}
+#woas_wiki_area ol li {
+	margin-left: -0.6em;
+}
 
 /* MAIN WIKI PANE WHEN LOCKED */
 .woas_text_area.locked, #woas_pwd_mask {
@@ -3863,12 +3869,6 @@ div.woas_text_area {/* any text area div */
 }
 #woas_menu_area ol li, #woas_ns_menu_area ol li {
 	margin-left: -1.55em;
-}
-#woas_wiki_area ul li {
-	margin-left: -0.8em;
-}
-#woas_wiki_area ol li {
-	margin-left: -0.6em;
 }
 .woas_menu_button {
 	background-color: #F0F0F5;
