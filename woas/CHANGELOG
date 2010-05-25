@@ -1,4 +1,5 @@
 Version 0.12.0 (legolas558)
+* disallow unsupported file modes on non-Gecko browsers
 * dropped 'Special::Aliases' and 'Special::Edit CSS'
 * fixed a bug happening in case of encrypted page duplication
 * dropped support of 'woas_level' divs for sections
