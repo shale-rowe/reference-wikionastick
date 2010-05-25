@@ -198,15 +198,15 @@ woas.split_tags = function(tlist) {
 
 var reScripts = new RegExp("<"+"script([^>]*)>([\\s\\S]*?)<"+"\\/script>", "gi"),
 	reStyles = new RegExp("<"+"style([^>]*)>[\\s\\S]*?<"+"\\/style>", "gi"),
-	reNowiki = /\{\{\{([\s\S]*?)\}\}\}/g,
-	reTransclusion = /\[\[Include::([\s\S]+?)\]\]/g,
-	reMacros = /<<<([\s\S]*?)>>>/g,
-	reComments = /<\!--([\s\S]*?)-->/g,
+	reNowiki = /\{\{\{([\s\S]*?)\}\}\}(\s*\n)?/g,
+	reTransclusion = /\[\[Include::([\s\S]+?)\]\](\s*\n)?/g,
+	reMacros = /<<<([\s\S]*?)>>>(\s*\n)?/g,
+	reComments = /<\!--([\s\S]*?)-->(\s*\n)?/g,
 	reWikiLink = /\[\[([^\]\]]*?)\|(.*?)\]\]/g,
 	reWikiLinkSimple = /\[\[([^\]]*?)\]\]/g,
 	reMailto = /^mailto:\/\//,
 	reCleanupNewlines = new RegExp('((<\\/h[1-6]>)|(<\\/[uo]l>))(\n+)', 'g'),
-	reNestedComment = new RegExp("<\\!-- "+woas.parser.marker+":c:(\\d+) -->");
+	reNestedComment = new RegExp("<\\!-- "+woas.parser.marker+":c:(\\d+) -->(\\s*\\n)?");
 
 woas.parser.place_holder = function (i, separator) {
 	if (typeof separator == "undefined")
@@ -400,7 +400,7 @@ woas.parser.parse_macros = function(P, snippets) {
 
 woas.parser.pre_parse = function(P, snippets) {
 	// put away XHTML-style comments
-	P.body = P.body.replace(reComments, function (str, comment) {
+	P.body = P.body.replace(reComments, function (str, comment /* 3rd parameter, ending newline, is ignored */) {
 		// skip whitespace comments
 		if (comment.match(/^\s+$/))
 			return str;
@@ -409,11 +409,12 @@ woas.parser.pre_parse = function(P, snippets) {
 		return r;
 	})
 	// put away stuff contained in inline nowiki blocks {{{ }}}
-	.replace(reNowiki, function (str, $1) {
+	.replace(reNowiki, function (str, $1 /* 3rd parameter, ending newline, is ignored */) {
 		r = woas.parser.place_holder(snippets.length);
 		$1 = $1.replace(reNestedComment, function (str, $1) {
 			var i=snippets.indexOf(parseInt($1));
 			if (i === -1) return str;
+			//FIXME: will this cause array index inconsistencies?
 			return snippets.splice(i,1);
 		});
 		snippets.push(woas._make_preformatted($1));
@@ -433,7 +434,7 @@ woas.parser.transclude = function(title, snippets, export_links) {
 };
 
 woas.parser._snippets = null;
-woas.parser._transclude = function (str, $1) {
+woas.parser._transclude = function (str, $1 /* 3rd parameter, ending newline, is ignored */) {
 	var that = woas.parser,
 		parts = $1.split("|"),
 		templname = parts[0],
@@ -615,9 +616,6 @@ woas.parser.syntax_parse = function(P, snippets, tags, export_links, has_toc) {
 	
 	// remove \n before list start tags
 	.replace(/\n(<[uo]l>)/g, "$1")
-
-	// make some newlines cleanup after pre tags
-	.replace(/(<\/?pre>)\n/gi, "$1")
 
 	// convert newlines to br tags
 	.replace(/\n/g, "<"+"br />");
