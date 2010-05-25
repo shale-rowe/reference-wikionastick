@@ -220,13 +220,13 @@ woas.importer = {
 		// comment out all javascript blocks
 		var snippets = [];
 		// put away text in XHTML comments and nowiki blocks
-		var page = NP.body.replace(reComments, function (str, $1) {
+		var page = NP.body.replace(reComments, function (str) {
 				var r = "<"+"!-- "+woas.parser.marker+"::"+snippets.length+" --"+">";
 				snippets.push(str);
 				return r;
-			}).replace(reNowiki, function (str, $1) {
+			}).replace(reNowiki, function (str, $1, enl) {
 				var r = "<"+"!-- "+woas.parser.marker+"::"+snippets.length+" --"+">";
-				snippets.push("{{{"+$1+"}}}");
+				snippets.push("{{{"+$1+"}}}"+enl);
 				return r;
 		});
 		if (this.i_comment_js) {
