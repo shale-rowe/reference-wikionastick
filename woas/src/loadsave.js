@@ -5,8 +5,40 @@ woas.file_mode = {
 	DATA_URI:		2,
 	BINARY:			3,
 	BASE64:			4,
-	// will only be available on IE
 	UTF16_TEXT:		8
+};
+
+woas._guess_mime = function(filename) {
+	var m=filename.match(/\.(\w+)$/);
+	if (m===null) m = "";
+	else m=m[1].toLowerCase();
+	var guess_mime = "image";
+	switch (m) {
+		case "png":
+		case "gif":
+		case "bmp":
+			guess_mime += "/"+m;
+			break;
+		case "jpg":
+		case "jpeg":
+			guess_mime = "image/jpeg";
+			break;
+	}
+	return guess_mime;
+};
+
+// creates a DATA:URI from a plain content stream
+woas._data_uri_enc = function(filename, ct, guess_mime) {
+	if (typeof guess_mime != "string")
+		guess_mime = this._guess_mime(filename);
+	// perform base64 encoding
+	return "data:"+guess_mime+";base64,"+this.base64.encode(ct);
+};
+woas._data_uri_enc_array = function(filename, arr, guess_mime) {
+	if (typeof guess_mime != "string")
+		guess_mime = this._guess_mime(filename);
+	// perform base64 encoding
+	return "data:"+guess_mime+";base64,"+this.base64.encode_array(arr);
 };
 
 // save the currently open WoaS
@@ -51,6 +83,7 @@ woas.save_file = function(fileUrl, save_mode, content) {
 	return r;
 };
 
+var reDataUrlPfx = new RegExp("^data:\\s*([^;]*);\\s*base64,\\s*");
 // get file content in FF3 without .enablePrivilege() (FBNil)
 woas.mozillaLoadFileID = function(obj_id, load_mode, suggested_mime) {
 	var obj = document.getElementById(obj_id);
@@ -68,27 +101,62 @@ woas.mozillaLoadFileID = function(obj_id, load_mode, suggested_mime) {
 				return D.getAsDataURL().replace(/^data:(\s*)([^;]*)/, "data:$1"+suggested_mime);
 			break;
 		case this.file_mode.BASE64:
-			return D.getAsDataURL().replace(/^data:\s*([^;]*);\s*base64,\s*/, '');
+			return D.getAsDataURL().replace(reDataUrlPfx, '');
 		case this.file_mode.BINARY:
 			return D.getAsBinary();
-		case this.file_mode.UTF16_TEXT:
-			// not available
-			this.crash(this.i18n.MODE_NOT_AVAIL.sprintf(this.file_mode.toString(16)));
-			return null;
-//		default:
+		case UTF8_TEXT:
+			return D.getAsText("utf-8");
+		case UTF16_TEXT:
+			return D.getAsText("utf-16");
+		case ASCII_TEXT:
+			return D.getAsText("");
 	}
-	// case UTF8_TEXT:
-	// case ASCII_TEXT:
-	// return UTF-8 text by default
-	return D.getAsText("utf-8");
+	// not available
+	this.crash(this.i18n.MODE_NOT_AVAIL.sprintf(load_mode.toString(16)));
+	return null;
 };
+
+// see http://dev.w3.org/2006/webapi/FileAPI/
+/*woas.ECMALoadFile = function(fileUrl, load_mode, suggested_mime) {
+	if (typeof FileReaderSync == "undefined")
+		return null;
+	var D = new FileReaderSync();
+	try {
+		switch (load_mode) {
+			case this.file_mode.DATA_URI:
+				if (typeof suggested_mime != "string")
+					return D.readAsDataURL(fileUrl);
+				else // apply mime override
+					return D.readAsDataURL(fileUrl).replace(/^data:(\s*)([^;]*)/, "data:$1"+suggested_mime);
+				break;
+			case this.file_mode.BASE64:
+				return D.readAsDataURL(fileUrl).replace(reDataUrlPfx, '');
+			case this.file_mode.BINARY:
+				return D.readAsBinaryString();
+			case UTF8_TEXT:
+				return D.readAsText("utf-8");
+			case UTF16_TEXT:
+				return D.readAsText("utf-16");
+			case ASCII_TEXT:
+				return D.readAsText("");
+		}
+	} catch (e) {
+		woas.log("ECMALoadFile: "+e);
+		return false;
+	}
+	// not available
+	this.crash(this.i18n.MODE_NOT_AVAIL.sprintf(load_mode.toString(16)));
+	return null;
+};*/
 
 // API1.0: load-file handler
 woas.load_file = function(fileUrl, load_mode, mime){
 	// parameter consistency check
-	if (!load_mode)
+	if (!load_mode) {
+		woas.log("WARNING: No load mode specified, defaulting to UTF8_TEXT");
 		// perhaps should be ASCII?
 		load_mode = this.file_mode.UTF8_TEXT;
+	}
 	// try loading the file without using the path (FF3+)
 	// (object id hardcoded here)
 	var r = null;
@@ -105,6 +173,11 @@ woas.load_file = function(fileUrl, load_mode, mime){
 		else return r;
 		if(r === false)
 			return false;
+		// attempt using ECMAscript
+		// disabled because no browser support it yet
+/*		if (r === null)
+			r = this.ECMALoadFile(fileUrl, load_mode, mime);
+		else return r; */
 		// no mozillas here, attempt the IE way
 		if (r === null)
 			r = this.ieLoadFile(fileUrl, load_mode, mime);
@@ -141,12 +214,18 @@ woas.load_file = function(fileUrl, load_mode, mime){
 woas.ieSaveFile = function(filePath, save_mode, content) {
 	var s_mode;
 	switch (save_mode) {
-		case this.file_mode.BINARY:
+		default:
+/*		case this.file_mode.BINARY:
+		case this.file_mode.DATA_URI:
+		case this.file_mode.BASE64: */
+			this.crash(this.i18n.MODE_NOT_AVAIL.sprintf(save_mode.toString(16)));
+			return null;
+		break;
 		case this.file_mode.ASCII_TEXT:
 			s_mode = 0; // ASCII
 		break;
-		default:
-			// DATA_URI and UTF8_TEXT modes
+		case this.file_mode.UTF8_TEXT:
+		case this.file_mode.UTF16_TEXT:
 			s_mode = -1; // Unicode mode 
 		break;
 	}
@@ -167,24 +246,27 @@ woas.ieSaveFile = function(filePath, save_mode, content) {
 		woas.log("ERROR: exception while attempting to save: " + e.toString());	// log:1
 		return false;
 	}
-	return(true);
+	return true;
 };
 
 // load through ActiveX
 woas.ieLoadFile = function(filePath, load_mode, suggested_mime) {
 	var o_mode;
 	switch (load_mode) {
-		//TODO: check if binary works or not
-		//case this.file_mode.BINARY:
-		case this.file_mode.DATA_URI:
+		//TODO: use Java applet for these modes
+		//TODO: allow these modes when file is supposedly ASCII
+/*		case this.file_mode.DATA_URI:
+		case this.file_mode.BINARY:
+		case this.file_mode.BASE64: */
+		default:
 			// not available
-			this.crash(this.i18n.MODE_NOT_AVAIL.sprintf(this.file_mode.toString(16)));
+			this.crash(this.i18n.MODE_NOT_AVAIL.sprintf(load_mode.toString(16)));
 			return null;
-		default:	// covers also BASE64
 		case this.file_mode.ASCII_TEXT:
 			o_mode = 0; // ASCII
 		break;
 		case this.file_mode.UTF16_TEXT:
+		case this.file_mode.UTF8_TEXT:
 			o_mode = -1; // Unicode
 		break;
 	}
@@ -207,12 +289,11 @@ woas.ieLoadFile = function(filePath, load_mode, suggested_mime) {
 		return false;
 	}
 	// return a valid DATA:URI
-	if (load_mode == this.file_mode.DATA_URI)
+/*	if (load_mode == this.file_mode.DATA_URI)
 		return this._data_uri_enc(filePath, content, suggested_mime);
 	else if (load_mode == this.file_mode.BASE64)
-		return this.base64.encode(content);
-	// fallback for UTF8_TEXT
-	return(content);
+		return this.base64.encode(content); */
+	return content;
 };
 
 // save through UniversalXPConnect
@@ -269,9 +350,9 @@ woas.mozillaLoadFile = function(filePath, load_mode, suggested_mime) {
 			rd.push(c.charCodeAt(0));
 		}
 		if (load_mode == this.file_mode.BINARY)
-				return(this.merge_bytes(rd));
+			return(this.merge_bytes(rd));
 		else if (load_mode == this.file_mode.DATA_URI)
-			return this._data_uri_enc(filePath, this.merge_bytes(rd), suggested_mime);
+			return this._data_uri_enc_array(filePath, rd, suggested_mime);
 		else if (load_mode == this.file_mode.BASE64)
 			return this.base64.encode_array(rd);
 	}
@@ -281,42 +362,16 @@ woas.mozillaLoadFile = function(filePath, load_mode, suggested_mime) {
 	return false;
 };
 
-woas._guess_mime = function(filename) {
-	var m=filename.match(/\.(\w+)$/);
-	if (m===null) m = "";
-	else m=m[1].toLowerCase();
-	var guess_mime = "image";
-	switch (m) {
-		case "png":
-		case "gif":
-		case "bmp":
-			guess_mime += "/"+m;
-			break;
-		case "jpg":
-		case "jpeg":
-			guess_mime = "image/jpeg";
-			break;
-	}
-	return guess_mime;
-};
-
-// creates a DATA:URI from a plain content stream
-woas._data_uri_enc = function(filename, ct, guess_mime) {
-	if (typeof guess_mime != "string")
-		guess_mime = this._guess_mime(filename);
-	// perform base64 encoding
-	return "data:"+guess_mime+";base64,"+this.base64.encode(ct);
-};
-
 //FIXME: save_mode is not enforced
 woas.javaSaveFile = function(filePath,save_mode,content) {
 	if ((save_mode != this.file_mode.ASCII_TEXT) && (save_mode != this.file_mode.UTF8_TEXT)) {
-		woas.log("Only ASCII and UTF8 file modes are supported with Java/TiddlySaver");	//log:1
-		return false;
+		woas.log("Only ASCII and UTF8 file modes are currently supported with Java/TiddlySaver");	//log:1
+		return null;
 	}
+	var encoding = (save_mode === this.file_mode.ASCII_TEXT) ? "" : "UTF-8";
 	try {
 		if(document.applets.TiddlySaver) {
-			var rv = document.applets.TiddlySaver.saveFile(filePath,"UTF-8",content);
+			var rv = document.applets.TiddlySaver.saveFile(filePath, encoding, content);
 			if (typeof rv == "undefined") {
 				woas.log("Save failure, this is usually a Java configuration issue");
 				return null;
@@ -347,10 +402,15 @@ woas.javaSaveFile = function(filePath,save_mode,content) {
 
 //FIXME: UTF8_TEXT/BINARY is not enforced here
 woas.javaLoadFile = function(filePath, load_mode, suggested_mime) {
-	var content = null;
+	if ((load_mode != this.file_mode.ASCII_TEXT) && (load_mode != this.file_mode.UTF8_TEXT)) {
+		woas.log("Only ASCII and UTF8 file modes are currently supported with Java/TiddlySaver");	//log:1
+		return null;
+	}
+	var encoding = (load_mode === this.file_mode.ASCII_TEXT) ? "" : "UTF-8",
+		content = null;
 	try {
 		if(document.applets.TiddlySaver) {
-			content = document.applets.TiddlySaver.loadFile(filePath, "UTF-8");
+			content = document.applets.TiddlySaver.loadFile(filePath, encoding);
 			if (content === null) {
 				woas.log("Load failure, maybe file does not exist? "+filePath); //log:1
 				return false;
@@ -377,19 +437,17 @@ woas.javaLoadFile = function(filePath, load_mode, suggested_mime) {
 		woas.log("No JRE detected"); //log:1
 		return null;
 	}
-	var a_content = [];
+	content = "";
+	var r, line;
 	try {
-		var r = new java.io.BufferedReader(new java.io.FileReader(filePath));
-		var line;
+		r = new java.io.BufferedReader(new java.io.FileReader(filePath));
 		while((line = r.readLine()) !== null)
-			a_content.push(new String(line));
+			content += new String(line) + "\n";
 		r.close();
 	} catch(ex) {
 		woas.log("Exception in javaLoadFile(\""+filePath+"\"): "+ex);
 		return false;
 	}
-	// re-normalize input
-	content = a_content.join("\n");
 	if (load_mode == this.file_mode.DATA_URI)
 		return this._data_uri_enc(filePath, content, suggested_mime);
 	else if (load_mode == this.file_mode.BASE64)
