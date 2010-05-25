@@ -31,6 +31,7 @@ woas.ui = {
 			e = window.event;
 		else
 			e = orig_e;
+		var ck = woas.browser.ie ? e.keyCode : e.which;
 		
 		if (!woas.ui.edit_mode) {
 			// there is a custom focus active, call the hook
@@ -39,7 +40,7 @@ woas.ui = {
 				return orig_e;
 			if (woas.ui._textbox_focus) {
 				// return key
-				if (e.keyCode==13) {
+				if (ck == 13) {
 					// clear focus
 					ff_fix_focus();
 					// run attached event
@@ -49,14 +50,14 @@ woas.ui = {
 				return orig_e;
 			}
 			// back or cancel keys
-			if ((e.keyCode == woas.hotkey.all.back) || (e.keyCode == woas.hotkey.all.cancel)) {
+			if ((ck == woas.hotkey.all.back) || (ck == woas.hotkey.all.cancel)) {
 				go_back();
 				ff_fix_focus();
 				return false;
 			}
 		}
 		// cancel key
-		if (e.keyCode==woas.hotkey.all.cancel) {
+		if (ck == woas.hotkey.all.cancel) {
 			woas.ui.cancel();
 			ff_fix_focus();
 			return false;
@@ -373,8 +374,8 @@ function menu_key_hook(orig_e) {
         e = window.event;
     else
         e = orig_e;
-	
-    if (e.keyCode==13) {
+	var ck = woas.browser.ie ? e.keyCode : e.which;
+    if (ck == 13) {
 		ff_fix_focus();
 		menu_do_search();
         return false;
