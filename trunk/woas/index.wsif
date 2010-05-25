@@ -3831,10 +3831,10 @@ div.woas_text_area {/* any text area div */
 	z-index: 0;
 }
 #woas_wiki_area ol li {
-	margin-left: -0.6em;
+	margin-left: -0.5em;
 }
 #woas_wiki_area ul li {
-	margin-left: -0.8em;
+	margin-left: -0.7em;
 }
 
 /* MAIN WIKI PANE WHEN LOCKED */
