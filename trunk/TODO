@@ -1,5 +1,21 @@
 == 0.12.x development goals
 
+* use Java on IE for binary operations
+
+* optimize file splitting after reading from Java (without TiddlySaver)
+
+* find how to use direct Java for binary operations on Presto/Webkit
+
+* load binary files through TiddlySaver
+
+* fix rendering of Special::Embed:: pages
+
+* 'display full file' doesn't work
+
+* file preview should be wrapped correctly
+
+* inclusion link examples should not be parsed in File:: or Image:: pages
+
 * disallow all XHTML tags also in plugins source code (when inline) (to prevent ILLEGAL_TOKEN error on Webkit browsers)
 
 * disallow opening/saving to empty string paths
