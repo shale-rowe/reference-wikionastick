@@ -1,5 +1,9 @@
 == 0.12.x development goals
 
+* use spans for tags
+
+* do not eat first character of table rows definition
+
 * use Java on IE for binary operations
 
 * optimize file splitting after reading from Java (without TiddlySaver)

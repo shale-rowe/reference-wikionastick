@@ -104,11 +104,11 @@ woas.mozillaLoadFileID = function(obj_id, load_mode, suggested_mime) {
 			return D.getAsDataURL().replace(reDataUrlPfx, '');
 		case this.file_mode.BINARY:
 			return D.getAsBinary();
-		case UTF8_TEXT:
+		case this.file_mode.UTF8_TEXT:
 			return D.getAsText("utf-8");
-		case UTF16_TEXT:
+		case this.file_mode.UTF16_TEXT:
 			return D.getAsText("utf-16");
-		case ASCII_TEXT:
+		case this.file_mode.ASCII_TEXT:
 			return D.getAsText("");
 	}
 	// not available
@@ -133,11 +133,11 @@ woas.mozillaLoadFileID = function(obj_id, load_mode, suggested_mime) {
 				return D.readAsDataURL(fileUrl).replace(reDataUrlPfx, '');
 			case this.file_mode.BINARY:
 				return D.readAsBinaryString();
-			case UTF8_TEXT:
+			case this.file_mode.UTF8_TEXT:
 				return D.readAsText("utf-8");
-			case UTF16_TEXT:
+			case this.file_mode.UTF16_TEXT:
 				return D.readAsText("utf-16");
-			case ASCII_TEXT:
+			case this.file_mode.ASCII_TEXT:
 				return D.readAsText("");
 		}
 	} catch (e) {
