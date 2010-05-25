@@ -331,125 +331,6 @@ if (is_windows) {
 	};
 }
 
-woas.strcmp = function ( str1, str2 ) {
-    // http://kevin.vanzonneveld.net
-    // +   original by: Waldo Malqui Silva
-    // +      input by: Steve Hilder
-    // +   improved by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
-    // +    revised by: gorthaur
-
-    return ( ( str1 == str2 ) ? 0 : ( ( str1 > str2 ) ? 1 : -1 ) );
-}
-
-woas.__strnatcmp_split = function ( f_string ) {
-        var result = [];
-        var buffer = '';
-        var chr = '';
-        var i = 0, f_stringl = 0;
-
-        var text = true;
-
-        f_stringl = f_string.length;
-        for (i = 0; i < f_stringl; i++) {
-            chr = f_string.substring(i, i + 1);
-            if (chr.match(/\d/)) {
-                if (text) {
-                    if (buffer.length > 0){
-                        result[result.length] = buffer;
-                        buffer = '';
-                    }
-
-                    text = false;
-                }
-                buffer += chr;
-            } else if ((text == false) && (chr == '.') && (i < (f_string.length - 1)) && (f_string.substring(i + 1, i + 2).match(/\d/))) {
-                result[result.length] = buffer;
-                buffer = '';
-            } else {
-                if (text == false) {
-                    if (buffer.length > 0) {
-                        result[result.length] = parseInt(buffer, 10);
-                        buffer = '';
-                    }
-                    text = true;
-                }
-                buffer += chr;
-            }
-        }
-
-        if (buffer.length > 0) {
-            if (text) {
-                result[result.length] = buffer;
-            } else {
-                result[result.length] = parseInt(buffer, 10);
-            }
-        }
-
-        return result;
-};
-
-woas.strnatcmp = function( f_string1, f_string2 ) {
-    // http://kevin.vanzonneveld.net
-    // +   original by: Martijn Wieringa
-    // + namespaced by: Michael White (http://getsprink.com)
-    // +    tweaked by: Jack
-    // +   bugfixed by: Onno Marsman
-	if (f_string1 === f_string2)
-		return 0;
-
-    var i = 0;
-
-    var array1 = this.__strnatcmp_split(f_string1+'');
-    var array2 = this.__strnatcmp_split(f_string2+'');
-
-    var len = array1.length;
-    var text = true;
-
-    var result = -1;
-    var r = 0;
-
-    if (len > array2.length) {
-        len = array2.length;
-        result = 1;
-    }
-
-    for (i = 0; i < len; i++) {
-        if (isNaN(array1[i])) {
-            if (isNaN(array2[i])) {
-                text = true;
-
-                if ((r = this.strcmp(array1[i], array2[i])) != 0) {
-                    return r;
-                }
-            } else if (text){
-                return 1;
-            } else {
-                return -1;
-            }
-        } else if (isNaN(array2[i])) {
-            if (text) {
-                return -1;
-            } else{
-                return 1;
-            }
-        } else {
-            if (text){
-                if ((r = (array1[i] - array2[i])) != 0) {
-                    return r;
-                }
-            } else {
-                if ((r = this.strcmp(array1[i].toString(), array2[i].toString())) != 0) {
-                    return r;
-                }
-            }
-
-            text = false;
-        }
-    }
-
-    return result;
-}
-
 woas.base64 = {
 	_b64arr: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",
 	reValid: /^[A-Za-z0-9+\/=]+$/,
@@ -644,6 +525,73 @@ woas.bitfield = {
 			obj[order[i]] = (bm & this._field_mask[i]) ? true : false;
 		}
 	}
-
-	
 };
+
+// natural sorting algorithms by B.Huisman
+// original algorithms by D.Koelle
+// http://my.opera.com/GreyWyvern/blog/show.dml/1671288
+woas.chunkify = function(t) {
+    var tz = [], x = 0, y = -1, n = 0, i, j;
+
+    while (i = (j = t.charAt(x++)).charCodeAt(0)) {
+      var m = (i == 46 || (i >=48 && i <= 57));
+      if (m !== n) {
+        tz[++y] = "";
+        n = m;
+      }
+      tz[y] += j;
+    }
+    return tz;
+}
+
+woas.strnatcmp = function(a, b) {
+  var	aa = woas.chunkify(a),
+		bb = woas.chunkify(b);
+
+  for (x = 0; aa[x] && bb[x]; x++) {
+    if (aa[x] !== bb[x]) {
+      var c = Number(aa[x]), d = Number(bb[x]);
+      if (c == aa[x] && d == bb[x]) {
+        return c - d;
+      } else return (aa[x] > bb[x]) ? 1 : -1;
+    }
+  }
+  return aa.length - bb.length;
+}
+
+/*
+Array.prototype.natsort = function(caseInsensitive) {
+  for (var z = 0, t; t = this[z]; z++) {
+    this[z] = [];
+    var x = 0, y = -1, n = 0, i, j;
+
+    while (i = (j = t.charAt(x++)).charCodeAt(0)) {
+      var m = (i == 46 || (i >=48 && i <= 57));
+      if (m !== n) {
+        this[z][++y] = "";
+        n = m;
+      }
+      this[z][y] += j;
+    }
+  }
+
+  this.sort(function(a, b) {
+    for (var x = 0, aa, bb; (aa = a[x]) && (bb = b[x]); x++) {
+      if (caseInsensitive) {
+        aa = aa.toLowerCase();
+        bb = bb.toLowerCase();
+      }
+      if (aa !== bb) {
+        var c = Number(aa), d = Number(bb);
+        if (c == aa && d == bb) {
+          return c - d;
+        } else return (aa > bb) ? 1 : -1;
+      }
+    }
+    return a.length - b.length;
+  });
+
+  for (var z = 0; z < this.length; z++)
+    this[z] = this[z].join("");
+}
+*/
