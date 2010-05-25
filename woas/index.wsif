@@ -3922,7 +3922,7 @@ div.woas_toc {
 	font-size: 95%;
 }
 div.woas_toc ol, li {
-	margin-left: 2.3em;
+	margin-left: 3.3em;
 	padding-left: 0em;
 }
 p.woas_toc_title {
