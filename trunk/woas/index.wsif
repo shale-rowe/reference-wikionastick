@@ -3477,10 +3477,7 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-<input style="font-size:10px;" id="menu_string_to_search" type="text" size="12" onfocus="menu_search_focus(true)" onblur="menu_search_focus(false)" />&nbsp;<input style="font-size: 10px;" class="woas_button" type="button" value="Search" onclick="menu_do_search()" />
-<script type="text/javascript">
-d$('menu_string_to_search').onkeydown = menu_key_hook;
-</script>
+<input style="font-size:10px;" id="menu_string_to_search" type="text" size="12" onkeydown="return menu_key_hook(event)" onfocus="menu_search_focus(true)" onblur="menu_search_focus(false)" />&nbsp;<input style="font-size: 10px;" class="woas_button" type="button" value="Search" onclick="menu_do_search()" />
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Export
 woas.page.attributes: 0
