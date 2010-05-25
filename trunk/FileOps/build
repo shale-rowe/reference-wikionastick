@@ -1,0 +1,10 @@
+#!/bin/bash
+## FileOps compilation script
+#
+PATH="$PATH:/opt/java/bin"
+
+APPLET=FileOps
+
+javac -source 1.2 -target 1.2 -g:none $APPLET.java
+jar cf $APPLET.jar ${APPLET}*.class
+#jarsigner -keystore *.keystore $APPLET.jar Author
