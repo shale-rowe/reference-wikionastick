@@ -218,9 +218,9 @@ woas.importer = {
 		if (NP.attrs > 1)
 			return;
 		// comment out all javascript blocks
-		var snippets = [];
+		var snippets = [],
 		// put away text in XHTML comments and nowiki blocks
-		var page = NP.body.replace(reComments, function (str) {
+			page = NP.body.replace(reComments, function (str) {
 				var r = "<"+"!-- "+woas.parser.marker+"::"+snippets.length+" --"+">";
 				snippets.push(str);
 				return r;
@@ -228,24 +228,17 @@ woas.importer = {
 				var r = "<"+"!-- "+woas.parser.marker+"::"+snippets.length+" --"+">";
 				snippets.push("{{{"+$1+"}}}"+enl);
 				return r;
-		});
-		if (this.i_comment_js) {
+		}),
+			comments_len = snippets.length;
+		if (this.i_comment_js)
 			page = page.replace(reScripts, "<"+"disabled_script$1>$2<"+"/disabled_script>");
-			NP.modified = true;
-		}
-		if (this.i_comment_macros) {
+		if (this.i_comment_macros)
 			page = page.replace(reMacros, "<<< Macro disabled\n$1>>>");
-			NP.modified = true;
-		}
-		if (NP.modified) {
-			// put back in place all HTML snippets
-			if (snippets.length>0) {
-				NP.body = page.replace(new RegExp("<\\!-- "+woas.parser.marker+"::(\\d+) -->", "g"), function (str, $1) {
-					return snippets[parseInt($1)];
-				});
-			} else
-				// must be replaced anyway because of modifications
-				NP.body = page;
+		// put back in place all HTML snippets if there was a modification
+		if (snippets.length>comments_len) {
+			NP.body = page.replace(new RegExp("<\\!-- "+woas.parser.marker+"::(\\d+) -->", "g"), function (str, $1) {
+				return snippets[parseInt($1)];
+			});
 		}
 	},
 	
