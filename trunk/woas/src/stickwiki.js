@@ -1142,16 +1142,17 @@ woas.rename_page = function(previous, newpage) {
 		return false;
 	}
 	// this is the actual rename
+	var pi = this.page_index(previous);
 	page_titles[pi] = newpage;
-	var pi = this.page_index(previous),
-		reTitles = new RegExp("\\[\\[" + RegExp.escape(previous) + "(\\]\\]|\\|)", "g"),
-		reTitlesInc = new RegExp("\\[\\[Include::" + RegExp.escape(previous) + "(\\]\\]|\\|)", "g"),
+	// variables used to change all occurrencies of previous title to new title
+	var reTitles = new RegExp("\\[\\[(Include::)?" + RegExp.escape(previous) + "(\\]\\]|\\|)", "g"),
 		// the original page (dried)
 		P = {body:null},
 		// the expanded
 		NP = {body:null},
 		changed,
-		snippets;
+		snippets,
+		ilen;
 	for(var i=0,l=pages.length;i < l;i++) {
 		P.body = this.get_page(i);
 		if (P.body === null)
@@ -1160,12 +1161,10 @@ woas.rename_page = function(previous, newpage) {
 		snippets = [];
 		// the parser will know what to take away from the page
 		this.parser.dry(P, NP, snippets);
-		NP.body = NP.body.replace(reTitles, function (str) {
+		NP.body = NP.body.replace(reTitles, function (str, inc) {
 			changed = true;
-			return "[["+newpage+str.substring(previous.length+2);
-		}).replace(reTitlesInc, function (str) {
-			changed = true;
-			return "[[Include::"+newpage+str.substring(previous.length+11);
+			ilen = 2 + inc.length;
+			return str.substr(0, ilen)+newpage+str.substr(previous.length+ilen);
 		});
 		if (changed) {
 			this.parser.undry(NP, snippets);
@@ -1248,42 +1247,48 @@ woas.save = function() {
 			} else {
 				var new_title = this.trim(d$("wiki_page_title").value),
 					renaming = (this.old_title !== new_title);
+				// do not glitch when creating a new page
+				if (was_ghost)
+					this.prev_title = new_title;
 				// here the page gets actually saved
 				if (!null_save || renaming) {
-					null_save = false;
 					// disallow empty titles
 					if (renaming && !this.valid_title(new_title))
 						return false;
-					// actually set text only in case of new title
-					this.set_text(raw_content);
+					// actually set text only if it was changed
+					if (!null_save)
+						this.set_text(raw_content);
 					if (renaming) {
 						if (!this.rename_page(this.old_title, new_title))
 							return false;
 					}
+					var maybe_plugin;
 					if (this.is_menu(new_title)) {
-						this.refresh_menu_area();
-						back_to = this.prev_title;
-					} else
+						if (renaming || !null_save) {
+							this.refresh_menu_area();
+							back_to = this.prev_title;
+						}
+						maybe_plugin = false;
+					} else {
 						back_to = new_title;
-					// do not glitch when creating a new page
-					if (was_ghost)
-						this.prev_title = new_title;
+						maybe_plugin = true;
+					}
 					// update the plugin if this was a plugin page
 					// NOTE: plugins are not allowed to be renamed, so
 					// old title is equal to new title
-					var _pfx = "WoaS::Plugins::";
-					if (new_title.substr(0, _pfx.length) === _pfx) {
-						// we do not directly call _update_plugin because
-						// plugin does not exist before creation so disabling it
-						// would fail
-						this.plugins.disable(new_title.substr(_pfx.length));
-						this.plugins.enable(new_title.substr(_pfx.length));
+					if (maybe_plugin) {
+						var _pfx = "WoaS::Plugins::";
+						if (new_title.substr(0, _pfx.length) === _pfx) {
+							// we do not directly call _update_plugin because
+							// plugin does not exist before creation so disabling it
+							// would fail
+							this.plugins.disable(new_title.substr(_pfx.length));
+							this.plugins.enable(new_title.substr(_pfx.length));
+						}
 					}
-				} else {
+				} else { // not renaming and not changed text
 					back_to = this.prev_title;
 					// do not glitch when creating a new page
-					if (was_ghost)
-						this.prev_title = new_title;
 				}
 			}
 	}
