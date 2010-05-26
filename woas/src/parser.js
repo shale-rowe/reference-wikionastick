@@ -79,18 +79,16 @@ woas.parser.sublist = function (lst, ll, suoro, euoro) {
 };
 
 // XHTML lists and tables parsing code by plumloco
-// This is a bit of a monster, if you know an easier way please tell me!
-// There is no limit to the level of nesting and it produces
-// valid xhtml markup.
-var reReapLists = /^([\*#@])[ \t].*(?:\n\1+[ \t].+)*/gm;
-var reItems = /^([\*#@]+)[ \t]([^\n]+)/mg;
+// There is no limit to the level of nesting and produces valid XHTML markup
+var reReapLists = /^([\*#@])[ \t].*(?:\n\1+[ \t].+)*/gm,
+	reItems = /^([\*#@]+)[ \t]([^\n]+)/mg;
 woas.parser.parse_lists = function(str, type, $2) {
-	var uoro = (type!='*')?'ol':'ul';
-	var suoro = '<' + uoro + ((type=='@') ? " type=\"a\"":"")+'>';
-	var euoro = '</' + uoro + '>';
+	var uoro = (type!='*')?'ol':'ul',
+		suoro = '<' + uoro + ((type=='@') ? " type=\"a\"":"")+'>',
+		euoro = '</' + uoro + '>',
+		// collect all items in a stack
+		stk = [];
 
-	// collect all items in a stack
-	var stk = [];
 	str.replace( reItems, function(str, p1, p2) {
 		stk.push([str, p1, p2]);
 	} );
@@ -98,25 +96,28 @@ woas.parser.parse_lists = function(str, type, $2) {
 	return suoro + woas.parser.sublist(stk, 1, suoro, euoro) + euoro;
 };
 
-var reReapTables = /^\{\|.*((?:\n\|.*)*)$/gm;
-var reReapTableRows = /\n\|([+ -])(.*)/g;
+// old tables parsing syntax - DEPRECATED
+var reReapTables = /^\{\|.*((?:\n\|.*)*)$/gm,
+	reReapTableRows = /\n\|([+ -])(.*)/g;
 woas.parser.parse_tables =  function (str, p1) {
-	var caption = false;
-	var stk = [];
+	var caption = false,
+		stk = [];
 	p1.replace(reReapTableRows, function(str, pp1, pp2) {
 			if (pp1 == '-')
 				return;
-			if (pp1 == '+') {
+			else if (pp1 == '+') {
 				caption = caption || pp2;
 				return;
 			}
 			stk.push('<'+'td>' + pp2.split('||').join('<'+'/td><'+'td>') + '<'+'/td>');
 		} 
 	);
-	return  '<'+'table class="woas_text_area">' +
+	if (stk.length)
+		return  '<'+'table class="woas_text_area">' +
 				(caption?('<'+'caption>' + caption + '<'+'/caption>'):'') +
 				'<'+'tr>' + stk.join('<'+'/tr><'+'tr>') + '<'+'/tr>' +
 			'<'+'/table>';
+	return str;
 };
 
 // new table parsing by FBNil
@@ -134,21 +135,36 @@ woas.parser.parse_tables_new = function (str, prop, p1) {
 		cols = [],
 		CC = [];
 	// variables used by replace callback
-	var cells, row, stag, cs, i, C, CL;
+	var i, C, CL;
     p1.replace(reReapTablesNewSub1, function (str, pp1, pp2) {
-        if (pp1 == '-') return;
-        if (pp1 == '+') return caption = caption || ('<'+'caption' + (stk.length > 0 ? ' style="caption-side:bottom">' : '>') + pp2 + '<'+'/caption>');
-        if (pp1 == '*') return colgroup = pp2;
-        if (pp1 == '$') return CC.push(pp2);
-        if (pp1 == '|') pp2 = " |" + pp2;
-        if (pp1 == ' ' && pp2.match(/^\|/)) // fix empty first cell
-        pp2 = "  " + pp2;
+		switch (pp1) {
+			case '-': // comment
+				return;
+			case '+':
+				return caption = caption || ('<'+'caption' + (stk.length > 0 ? ' style="caption-side:bottom">' : '>') + pp2 + '<'+'/caption>');
+			case '*':
+				return colgroup = pp2;
+			case '$':
+				return CC.push(pp2);
+			case '|':
+				pp2 = " |" + pp2;
+			break;
+			case ' ':
+				if (pp2.match(/^\|/)) // fix empty first cell
+					pp2 = "  " + pp2;
+			break;
+			default:
+				// do not eat the first character if it's not a control character
+				pp2 = pp1+pp2;
+		}
 
-        cells = pp2.replace(reReapTablesNewSub2, "$1$2$3  ").
-				replace(reReapTablesNewSub3, "$1 ").replace(reReapTablesNewSub4, "|| ").replace(reReapTablesNewSub5, " ||").split(" || ");
-        row = [];
-        stag = "";
-        cs = 0;
+        var cells = pp2.replace(reReapTablesNewSub2, "$1$2$3  ").
+				replace(reReapTablesNewSub3, "$1 ").
+				replace(reReapTablesNewSub4, "|| ").
+				replace(reReapTablesNewSub5, " ||").split(" || "),
+			row = [],
+			stag = "",
+			cs = 0;
         for (i = cells.length - 1; i >= 0; --i) {
             C = cells[i].match(/^(\s*)(?:(=+)\s*)?(.*?)(\s*)$/);
             if (i && !C[3] && !C[1] && !C[2]) {
