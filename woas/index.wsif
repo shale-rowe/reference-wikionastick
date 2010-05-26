@@ -391,7 +391,6 @@ woas.page.boundary: DFQRCTsKlU
 = Embed %1
 
 <input id="filename_" type="file" />&nbsp;<input class="woas_button" type="button" value="Embed" onclick="woas._embed_process('%1')" />
-
 --DFQRCTsKlU
 woas.page.title: WoaS::Plugins
 woas.page.attributes: 0

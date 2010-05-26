@@ -2,21 +2,15 @@
 
 * allow fixed navigation bar and scrolling menu bar (littlegirl's mod)
 
-* fix page renaming code
-
 * use spans for tags
 
 * do not eat first character of table rows definition
 
 * use also Java on IE for binary operations
 
-* optimize file splitting after reading from Java (without TiddlySaver)
-
 * find how to use direct Java for binary operations on Presto/Webkit/Trident
 
-* load binary files through FileOps
-
-* fix rendering of Special::Embed:: pages
+* load binary files through FileOps (possibly returning byte arrays)
 
 * 'display full file' doesn't work
 
