@@ -4,8 +4,6 @@
 
 * use spans for tags
 
-* do not eat first character of table rows definition
-
 * use also Java on IE for binary operations
 
 * find how to use direct Java for binary operations on Presto/Webkit/Trident
