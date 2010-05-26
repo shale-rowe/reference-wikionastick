@@ -1,5 +1,7 @@
 == 0.12.x development goals
 
+* allow fixed navigation bar and scrolling menu bar (littlegirl's mod)
+
 * fix page renaming code
 
 * use spans for tags
