@@ -1627,6 +1627,8 @@ woas.page.boundary: DFQRCTsKlU
 # Edit the contents of the text inside the *Page title* area at the top of the page.
 # Save your changes by clicking on the *Save* icon in the navigation bar.
 
+= Reference links
+Renaming a page will automatically rename also the references to such page in other pages.
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Page scrolling
 woas.page.attributes: 0
