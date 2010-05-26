@@ -16,8 +16,7 @@ woas.ui = {
 	// for example, searching
 	_textbox_enter_event_dummy: function() {
 	},
-	_textbox_enter_event: this._textbox_enter_event_dummy,
-	
+	_textbox_enter_event: null,
 	// custom event handler which can be overriden to process the keypresses
 	_custom_key_hook: function(orig_e) {
 		// continue parsing as normal
@@ -95,7 +94,7 @@ woas.ui = {
 	tables_help: function() {
 		woas.help_system.go_to("WoaS::Help::Tables");
 	},
-	clear_search: function() {
+	clear_search: function(no_render) {
 //		woas.log("Clearing search"); //log:0
 		if (current === "Special::Search") {
 			d$("string_to_search").value = "";
@@ -106,7 +105,8 @@ woas.ui = {
 		woas._cached_title_search = [];
 		woas._last_search = null;
 		woas.pager.bucket.clear();
-		this._search_render();
+		if (!no_render)
+			this._search_render();
 	},
 	// when user clicks the about link
 	about: function() {
@@ -226,6 +226,8 @@ woas.ui = {
 		woas.go_to("Special::Advanced");
 	}
 };
+
+woas.ui._textbox_enter_event = woas.ui._textbox_enter_event_dummy;
 
 //API1.0
 woas.go_to = function(cr) {
@@ -402,7 +404,7 @@ function menu_search_focus(f) {
 woas.do_search = function(str, noclear) {
 	// clear previous search results
 	if (!noclear)
-		woas.ui.clear_search();
+		woas.ui.clear_search(true);
 
 	woas.progress_init("Searching");
 	// reset result pages
@@ -732,6 +734,7 @@ woas._hl_marker_rx = new RegExp(woas._hl_marker+":(\\d+):", "g");
 
 // display search results
 woas._search_load = function() {
+	woas.log("called _search_load()");
 	var P = {body: ""};
 	if (this._last_search === null) {
 //		woas.log("No search done, returning blank");	//log:0
@@ -779,7 +782,7 @@ woas._search_load = function() {
 	}
 	
 	// finally output XHTML content
-	woas.setHTML(d$('woas_search_results'), P.body);
+	woas.setHTMLDiv(d$('woas_search_results'), P.body);
 };
 
 var _servm_shown = false;
