@@ -34,7 +34,7 @@ function go_back() {
 }
 //DEPRECATED
 function go_forward() {
-	woas.log("WARNING: Called deprecated function: go_back");
+	woas.log("WARNING: Called deprecated function: go_forward");
 	woas.ui.forward();
 }
 //DEPRECATED
