@@ -711,7 +711,7 @@ woas.parser.dry = function(P, NP, snippets) {
 
 woas.parser.undry = function(NP, snippets) {
 	if (!snippets.length) return;
-	NP.body = page.replace(this.reBaseSnippet, function (str, $1) {
+	NP.body = NP.body.replace(this.reBaseSnippet, function (str, $1) {
 		return snippets[parseInt($1)];
 	});
 };
