@@ -852,6 +852,18 @@ woas.pager = {
 	// this yummy function needs can be overriden
 	browse_hook: function(title) {
 		return true;
+	},
+	
+	// set content of specified page
+	set_body: function(title, new_body) {
+		var pi = woas.page_index(title);
+		if (woas.debug_mode) {
+			if (pi === -1) {
+				woas.log("BUG: page \""+title+"\" does not exist!");	// log:1
+				return;
+			}
+		}
+		woas.set__text(pi, new_body);
 	}
 };
 

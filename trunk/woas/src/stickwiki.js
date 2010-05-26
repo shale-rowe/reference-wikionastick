@@ -381,17 +381,6 @@ woas.set__text = function(pi, text) {
 	this.last_AES_page = page_titles[pi];
 };
 
-// set content of current page
-woas.set_text = function(text) {
-	var pi = this.page_index(current);
-	//DEBUG: this should never happen
-	if (pi===-1) {
-		this.log("current page \""+current+"\" is not cached!");	// log:1
-		return;
-	}
-	this.set__text(pi, text);
-};
-
 woas.assert_current = function(page) {
 	if( current !== page )
 		go_to( page ) ;
@@ -1141,7 +1130,7 @@ woas.rename_page = function(previous, newpage) {
 		this.alert(this.i18n.PAGE_EXISTS.sprintf(newpage));
 		return false;
 	}
-	// this is the actual rename
+	// this is the actual rename operation
 	var pi = this.page_index(previous);
 	page_titles[pi] = newpage;
 	// variables used to change all occurrencies of previous title to new title
@@ -1161,6 +1150,7 @@ woas.rename_page = function(previous, newpage) {
 		snippets = [];
 		// the parser will know what to take away from the page
 		this.parser.dry(P, NP, snippets);
+		// replace direct links and transclusion links
 		NP.body = NP.body.replace(reTitles, function (str, inc) {
 			changed = true;
 			ilen = 2 + inc.length;
@@ -1213,13 +1203,13 @@ woas.save = function() {
 	if (null_save)
 		null_save = (raw_content === this.change_buffer);
 	
-	var can_be_empty = false, skip = false;
+	var can_be_empty = false, skip = false, renaming = false;
 	switch(current) {
 //		case "Special::Edit CSS":
 		case "WoaS::CSS::Custom":
 			if (!null_save) {
 				this.css.set(this.get_text("WoaS::CSS::Core")+"\n"+raw_content);
-				this.set_text(raw_content);
+				this.pager.set_body(current, raw_content);
 			}
 			back_to = this.prev_title;
 //			current = "Special::Advanced";
@@ -1245,8 +1235,8 @@ woas.save = function() {
 				}
 				return;
 			} else {
-				var new_title = this.trim(d$("wiki_page_title").value),
-					renaming = (this.old_title !== new_title);
+				var new_title = this.trim(d$("wiki_page_title").value);
+				renaming = (this.old_title !== new_title);
 				// do not glitch when creating a new page
 				if (was_ghost)
 					this.prev_title = new_title;
@@ -1255,13 +1245,14 @@ woas.save = function() {
 					// disallow empty titles
 					if (renaming && !this.valid_title(new_title))
 						return false;
-					// actually set text only if it was changed
-					if (!null_save)
-						this.set_text(raw_content);
+					// rename before eventually setting the changes
 					if (renaming) {
 						if (!this.rename_page(this.old_title, new_title))
 							return false;
 					}
+					// actually set text only if it was changed
+					if (!null_save)
+						this.pager.set_body(new_title, raw_content);
 					var maybe_plugin;
 					if (this.is_menu(new_title)) {
 						if (renaming || !null_save) {
@@ -1300,10 +1291,10 @@ woas.save = function() {
 		back_or(this.config.main_page);
 		//TODO: refresh mts?
 	} */
-	if (!null_save)
+	if (!null_save || renaming)
 		this.refresh_menu_area();
 	this.disable_edit();
-	if (!null_save)
+	if (!null_save || renaming)
 		this.save_page(saved);
 };
 
