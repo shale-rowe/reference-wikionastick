@@ -12,9 +12,7 @@
 
 * 'display full file' doesn't work
 
-* file preview should be wrapped correctly
-
-* inclusion link examples should not be parsed in File:: or Image:: pages
+* fix color in woas_embedded class
 
 * disallow all XHTML tags also in plugins source code (when inline) (to prevent ILLEGAL_TOKEN error on Webkit browsers)
 

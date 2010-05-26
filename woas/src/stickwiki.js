@@ -390,8 +390,11 @@ woas.assert_current = function(page) {
 
 woas._get_embedded = function(cr, etype) {
 	var pi = this.page_index(cr);
-	if (pi === -1)
-		return this.parser.transclude("Special::Embed|"+etype, []);
+	if (pi === -1) {
+		var P = {body:this.parser.transclude("Special::Embed|"+etype, [])};
+		this.parser.syntax_parse(P, []);
+		return P.body;
+	}
 	return this._get__embedded(cr, pi, etype);
 };
 
@@ -402,18 +405,25 @@ woas._get__embedded = function (cr, pi, etype) {
 	
 	if (etype=="file") {
 		var fn = cr.substr(cr.indexOf("::")+2);
-		var pview_data = this.base64.decode(text, 1024), pview_link = "";
-		var ext_size = Math.ceil((text.length*3)/4);
+		var pview_data = this.base64.decode(text, 1024), pview_link = "",
+			ext_size = Math.ceil((text.length*3)/4);
+		//FIXME: is this even correct?
 		if (ext_size-pview_data.length>10)
 			pview_link = "<"+"div id='_part_display'><"+"em>"+this.i18n.FILE_DISPLAY_LIMIT+
 			"<"+"/em><"+"br /><"+"a href='javascript:show_full_file("+pi+")'>"+this.i18n.DISPLAY_FULL_FILE+"<"+"/a><"+"/div>";
 		var P = {body: "\n{{{[[Include::"+cr+"]]}}}"+
 				"\n\nRaw transclusion:\n\n{{{[[Include::"+cr+"|raw]]}}}"};
 		if (!this.is_reserved(cr))
-			P.body += "\n\n<"+"a href=\"javascript:query_delete_file('"+this.js_encode(cr)+"')\">"+this.i18n.DELETE_FILE+"<"+"/a>";
+			P.body += "\n\n\n<"+"a href=\"javascript:query_delete_file('"+this.js_encode(cr)+"')\">"+this.i18n.DELETE_FILE+"<"+"/a>\n";
 		P.body += "\n";
-		this.parser.syntax_parse(P, []);
-		xhtml = "<"+"pre id='woas_file_ct' class=\"woas_embedded\">"+this.xhtml_encode(pview_data)+"<"+"/pre>"+
+		
+		// correct syntax parsing of nowiki syntax
+		var snippets = [];
+		this.parser.pre_parse(P, snippets);
+		this.parser.syntax_parse(P, snippets);
+		this.parser.undry(P, snippets);
+		
+		xhtml = "<"+"pre id='woas_file_ct' class=\"woas_nowiki woas_embedded\">"+this.xhtml_encode(pview_data)+"<"+"/pre>"+
 				pview_link+"<"+"br /><"+"hr />"+this.i18n.FILE_SIZE+": "+_convert_bytes(ext_size)+
 				"<"+"br />" + this.last_modified(this.config.store_mts ? page_mts[pi] : 0)+
 				"<"+"br /><"+"br />XHTML transclusion:"+
@@ -655,14 +665,12 @@ woas.set_current = function (cr, interactive) {
 						return this.load_as_current(cr, text, this.config.store_mts ? page_mts[pi] : 0);
 					case "File":
 					case "Image":
-						var P = {body:null};
-						P.body = this._get_embedded(namespace+"::"+cr, namespace.toLowerCase());
-						if(P.body === null) {
+						text = this._get_embedded(namespace+"::"+cr, namespace.toLowerCase());
+						if(text === null) {
 							// called for reset purposes
 							this.pager.decrypt_failed();
 							return false;
 						}
-						this.parser.syntax_parse(P, []);
 						this._add_namespace_menu(namespace);
 						if (namespace.length)
 							cr = namespace + "::" + cr;
@@ -670,7 +678,7 @@ woas.set_current = function (cr, interactive) {
 						if (this.config.store_mts)
 							mts = page_mts[this.page_index(namespace+"::"+cr, namespace.toLowerCase())];
 						else mts = 0;
-						return this.load_as_current(cr, P.body, mts);
+						return this.load_as_current(cr, text, mts);
 					default:
 						text = this.get_text(namespace+"::"+cr);
 				}
