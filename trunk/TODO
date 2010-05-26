@@ -1,16 +1,18 @@
 == 0.12.x development goals
 
+* fix page renaming code
+
 * use spans for tags
 
 * do not eat first character of table rows definition
 
-* use Java on IE for binary operations
+* use also Java on IE for binary operations
 
 * optimize file splitting after reading from Java (without TiddlySaver)
 
-* find how to use direct Java for binary operations on Presto/Webkit
+* find how to use direct Java for binary operations on Presto/Webkit/Trident
 
-* load binary files through TiddlySaver
+* load binary files through FileOps
 
 * fix rendering of Special::Embed:: pages
 
@@ -27,8 +29,6 @@
 * shall delete plugins when erasing?
 
 * last search item in serach results list not wiki-parsed to be <li/>
-
-* have all <input type="button" /> use the same class
 
 * possibly allow macro calls without trailing ':' when no macro text needs to be specified
 
