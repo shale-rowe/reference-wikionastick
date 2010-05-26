@@ -63,8 +63,7 @@ woas.parser.sublist = function (lst, ll, suoro, euoro) {
 	if (lst[0][1].length > ll)
 		return this.sublist(lst, ll+1, suoro, euoro);
 	
-	var item, subl;
-	var s = '';
+	var item, subl, s = '';
 	while (lst[0][1].length == ll ) {
                 item = lst.shift();
                 subl = this.sublist(lst, ll + 1, suoro, euoro);
@@ -216,10 +215,10 @@ woas.split_tags = function(tlist) {
 
 var reScripts = new RegExp("<"+"script([^>]*)>([\\s\\S]*?)<"+"\\/script>", "gi"),
 	reStyles = new RegExp("<"+"style([^>]*)>[\\s\\S]*?<"+"\\/style>", "gi"),
-	reNowiki = /\{\{\{([\s\S]*?)\}\}\}(\s*\n)?/g,
-	reTransclusion = /\[\[Include::([\s\S]+?)\]\](\s*\n)?/g,
-	reMacros = /<<<([\s\S]*?)>>>(\s*\n)?/g,
-	reComments = /<\!--([\s\S]*?)-->(\s*\n)?/g,
+	reNowiki = /\{\{\{([\s\S]*?)\}\}\}([ \t]*\n)?/g,
+	reTransclusion = /\[\[Include::([\s\S]+?)\]\]([ \t]*\n)?/g,
+	reMacros = /<<<([\s\S]*?)>>>([ \t]*\n)?/g,
+	reComments = /<\!--([\s\S]*?)-->([ \t]*\n)?/g,
 	reWikiLink = /\[\[([^\]\]]*?)\|(.*?)\]\]/g,
 	reWikiLinkSimple = /\[\[([^\]]*?)\]\]/g,
 	reMailto = /^mailto:\/\//,
