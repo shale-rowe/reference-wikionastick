@@ -183,6 +183,16 @@ woas.ui = {
 		woas.history._forward_browse = true;
 		return woas.set_current(p, true);
 	},
+	// when Forward button is clicked
+	forward: function() {
+		//var _b_current = current,
+		var p = woas.history.forward();
+		if (p === null)
+			return false;
+		return woas.set_current(p, true)
+	//	if (woas.set_current(p, true))
+	//		woas.history.store(_b_current);
+	},
 	// when home is clicked
 	home: function() {
 		woas.go_to(woas.config.main_page);
@@ -227,17 +237,6 @@ woas.go_to = function(cr) {
 function back_or(or_page) {
 	if (!go_back())
 		woas.set_current(or_page, true);
-}
-
-// when Forward button is clicked
-function go_forward() {
-	var _b_current = current,
-		p = woas.history.forward();
-	if (p === null)
-		return false;
-	return woas.set_current(p, true)
-//	if (woas.set_current(p, true))
-//		woas.history.store(_b_current);
 }
 
 // when cancel is clicked

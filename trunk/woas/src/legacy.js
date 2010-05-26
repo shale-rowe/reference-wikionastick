@@ -27,11 +27,15 @@ function go_to(t) {
 	woas.log("WARNING: Called deprecated function: go_to");
 	return woas.go_to(t);
 }
-
 //DEPRECATED
 function go_back() {
 	woas.log("WARNING: Called deprecated function: go_back");
 	woas.ui.back();
+}
+//DEPRECATED
+function go_forward() {
+	woas.log("WARNING: Called deprecated function: go_back");
+	woas.ui.forward();
 }
 //DEPRECATED
 function edit() {
