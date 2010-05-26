@@ -389,9 +389,8 @@ woas.assert_current = function(page) {
 };
 
 woas._get_embedded = function(cr, etype) {
-	this.log("Retrieving embedded source "+cr);	// log:1
-	var pi=this.page_index(cr);
-	if (pi==-1)
+	var pi = this.page_index(cr);
+	if (pi === -1)
 		return this.parser.transclude("Special::Embed|"+etype, []);
 	return this._get__embedded(cr, pi, etype);
 };
@@ -656,16 +655,22 @@ woas.set_current = function (cr, interactive) {
 						return this.load_as_current(cr, text, this.config.store_mts ? page_mts[pi] : 0);
 					case "File":
 					case "Image":
-						text = this._get_embedded(namespace+"::"+cr, namespace.toLowerCase());
-						if(text == null) {
+						var P = {body:null};
+						P.body = this._get_embedded(namespace+"::"+cr, namespace.toLowerCase());
+						if(P.body === null) {
 							// called for reset purposes
 							this.pager.decrypt_failed();
 							return false;
 						}
+						this.parser.syntax_parse(P, []);
 						this._add_namespace_menu(namespace);
 						if (namespace.length)
 							cr = namespace + "::" + cr;
-						return this.load_as_current(cr, text, this.config.store_mts ? page_mts[this.page_index(namespace+"::"+cr, namespace.toLowerCase())] : 0);
+						var mts;
+						if (this.config.store_mts)
+							mts = page_mts[this.page_index(namespace+"::"+cr, namespace.toLowerCase())];
+						else mts = 0;
+						return this.load_as_current(cr, P.body, mts);
 					default:
 						text = this.get_text(namespace+"::"+cr);
 				}
@@ -1205,15 +1210,12 @@ woas.save = function() {
 	
 	var can_be_empty = false, skip = false, renaming = false;
 	switch(current) {
-//		case "Special::Edit CSS":
 		case "WoaS::CSS::Custom":
 			if (!null_save) {
 				this.css.set(this.get_text("WoaS::CSS::Core")+"\n"+raw_content);
 				this.pager.set_body(current, raw_content);
 			}
 			back_to = this.prev_title;
-//			current = "Special::Advanced";
-//			d$("wiki_page_title").disabled = "";
 			break;
 		case "WoaS::Aliases":
 			if (!null_save)
@@ -1224,6 +1226,7 @@ woas.save = function() {
 		case "WoaS::Hotkeys":
 			if (!skip && !null_save)
 				this.hotkey.load(raw_content);
+			// fallback wanted
 		default:
 			// check if text is empty (page deletion)
 			if (!null_save && !can_be_empty && (raw_content === "")) {

@@ -324,14 +324,6 @@ woas.parser.parse = function(text, export_links, js_mode) {
 		);	
 	} else this.has_toc = false;
 
-	// put away big enough HTML tags sequences (with attributes)
-	P.body = P.body.replace(/(<\/?\w+[^>]*>[ \t]*)+/g, function (tag) {
-		// save the trailing spaces
-		r = woas.parser.place_holder(snippets.length);
-		snippets.push(tag);
-		return r;
-	});
-
 	// wiki tags
 	var tags = [];
 	this.inline_tags = 0;
@@ -532,6 +524,13 @@ woas.parser.transclude_syntax = function(P, snippets, export_links) {
 
 // parse passive syntax only
 woas.parser.syntax_parse = function(P, snippets, tags, export_links, has_toc) {
+	// put away big enough HTML tags sequences (with attributes)
+	P.body = P.body.replace(/(<\/?\w+[^>]*>[ \t]*)+/g, function (tag) {
+		r = woas.parser.place_holder(snippets.length);
+		snippets.push(tag);
+		return r;
+	});
+
 	// links with pipe e.g. [[Page|Title]]
 	P.body = P.body.replace(reWikiLink, function(str, $1, $2) {
 		return woas.parser._render_wiki_link($1, $2, snippets, tags, export_links);
