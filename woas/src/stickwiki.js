@@ -1141,16 +1141,18 @@ woas.rename_page = function(previous, newpage) {
 		this.alert(this.i18n.PAGE_EXISTS.sprintf(newpage));
 		return false;
 	}
-	var pi = this.page_index(previous);
+	// this is the actual rename
 	page_titles[pi] = newpage;
-	var re = new RegExp("\\[\\[" + RegExp.escape(previous) + "(\\]\\]|\\|)", "gi");
-	var changed;
+	var pi = this.page_index(previous),
+		re = new RegExp("\\[\\[" + RegExp.escape(previous) + "(\\]\\]|\\|)", "g"),
+		changed, tmp;
 	for(var i=0,l=pages.length;i < l;i++) {
-		//FIXME: should not replace within the nowiki blocks!
-		var tmp = this.get_page(i);
-		if (tmp==null)
+		tmp = this.get_page(i);
+		if (tmp === null)
 			continue;
 		changed = false;
+		//TODO: take away macros, nowiki, comments blocks
+		//TODO: fix also transclusion links
 		tmp = tmp.replace(re, function (str) {
 			changed = true;
 			return "[["+newpage+str.substring(previous.length+2);
@@ -1158,11 +1160,12 @@ woas.rename_page = function(previous, newpage) {
 		if (changed)
 			this.set__text(i, tmp);
 	}
-	if (previous == this.config.main_page)
+	if (previous === this.config.main_page)
 		this.config.main_page = newpage;
 	// make sure that previous title is consistent
 	if (this.prev_title === previous)
 		this.prev_title = newpage;
+	//TODO: propagate rename to backstack and forstack!
 	return true;
 };
 
