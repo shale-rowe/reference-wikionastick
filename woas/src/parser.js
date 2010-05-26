@@ -37,6 +37,8 @@ woas.parser = {
 	marker: "#"+_random_string(8)
 };
 
+woas.parser.reBaseSnippet = new RegExp("<\\!-- "+woas.parser.marker+"::(\\d+) -->", "g");
+
 //DEPRECATED "!" syntax is supported but shall me removed soon
 var reParseHeaders = /^([\!=]+)\s*(.*)$/gm;
 woas.parser.header_replace = function(str, $1, $2) {
@@ -205,8 +207,7 @@ var reScripts = new RegExp("<"+"script([^>]*)>([\\s\\S]*?)<"+"\\/script>", "gi")
 	reWikiLink = /\[\[([^\]\]]*?)\|(.*?)\]\]/g,
 	reWikiLinkSimple = /\[\[([^\]]*?)\]\]/g,
 	reMailto = /^mailto:\/\//,
-	reCleanupNewlines = new RegExp('((<\\/h[1-6]>)|(<\\/[uo]l>))(\n+)', 'g'),
-	reNestedComment = new RegExp("<\\!-- "+woas.parser.marker+":c:(\\d+) -->(\\s*\\n)?");
+	reCleanupNewlines = new RegExp('((<\\/h[1-6]>)|(<\\/[uo]l>))(\n+)', 'g');
 
 woas.parser.place_holder = function (i, separator) {
 	if (typeof separator == "undefined")
@@ -267,11 +268,8 @@ woas.parser.parse = function(text, export_links, js_mode) {
 	
 	// put text in an object
 	var P = { body: text }; text = null;
-
-	// this array will contain all the HTML snippets that will not be parsed by the wiki engine
-	var snippets = [],
-		r,
-		backup_hook = this.after_parse;
+	// snippets array will contain all the HTML snippets that will not be parsed by the wiki engine
+	var snippets = [], r, backup_hook = this.after_parse;
 	
 	// comments and nowiki blocks
 	this.pre_parse(P, snippets);
@@ -358,6 +356,7 @@ woas.parser.parse = function(text, export_links, js_mode) {
 			P.body += s;
 		} else { // re-print the inline tags (works only on last tag definition?)
 			P.body = P.body.replace(new RegExp("<\\!-- "+woas.parser.marker+":(\\d+) -->", "g"), function (str, $1) {
+				// loose comparison is OK here
 				if ($1 == woas.parser.inline_tags)
 					return s;
 				return "";
@@ -381,7 +380,7 @@ woas.parser.parse = function(text, export_links, js_mode) {
 
 woas.parser.parse_macros = function(P, snippets) {
 	// put away stuff contained in user-defined macro multi-line blocks
-	P.body = P.body.replace(reMacros, function (str, $1) {
+	P.body = P.body.replace(reMacros, function (str, $1 /* 3rd parameter, ending newline, is ignored */) {
 		if (!woas.macro.has_backup())
 			// take a backup copy of the macros, so that no new macros are defined after page processing
 			woas.macro.push_backup();
@@ -398,6 +397,7 @@ woas.parser.parse_macros = function(P, snippets) {
 	});
 };
 
+//NOTE: XHTML comments cannot be contained in nowiki or macro blocks
 woas.parser.pre_parse = function(P, snippets) {
 	// put away XHTML-style comments
 	P.body = P.body.replace(reComments, function (str, comment /* 3rd parameter, ending newline, is ignored */) {
@@ -411,12 +411,6 @@ woas.parser.pre_parse = function(P, snippets) {
 	// put away stuff contained in inline nowiki blocks {{{ }}}
 	.replace(reNowiki, function (str, $1 /* 3rd parameter, ending newline, is ignored */) {
 		r = woas.parser.place_holder(snippets.length);
-		$1 = $1.replace(reNestedComment, function (str, $1) {
-			var i=snippets.indexOf(parseInt($1));
-			if (i === -1) return str;
-			//FIXME: will this cause array index inconsistencies?
-			return snippets.splice(i,1);
-		});
 		snippets.push(woas._make_preformatted($1));
 		return r;
 	});
@@ -621,11 +615,8 @@ woas.parser.syntax_parse = function(P, snippets, tags, export_links, has_toc) {
 	.replace(/\n/g, "<"+"br />");
 	
 	// put back in place all snippets
-	if (snippets.length>0) {
-		P.body = P.body.replace(new RegExp("<\\!-- "+woas.parser.marker+"::(\\d+) -->", "g"), function (str, $1) {
-			return snippets[$1];
-		});
-	} snippets = null;
+	this.undry(P, snippets);	
+	snippets = null;
 };
 
 // render a single wiki link
@@ -698,4 +689,29 @@ woas.parser._render_wiki_link = function(arg1, label, snippets, tags, export_lin
 		}
 	} // not # at start of page
 	return r;
+};
+
+// take away macros, nowiki, comments blocks
+woas.parser.dry = function(P, NP, snippets) {
+	// put away text in XHTML comments and nowiki blocks
+	NP.body = P.body.replace(reComments, function (str) {
+		var r = woas.parser.place_holder(snippets.length);
+		snippets.push(str);
+		return r;
+	}).replace(reNowiki, function (str) {
+		var r = woas.parser.place_holder(snippets.length);
+		snippets.push(str);
+		return r;
+	}).replace(reMacros, function (str) {
+		var r = woas.parser.place_holder(snippets.length);
+		snippets.push(str);
+		return r;
+	});
+};
+
+woas.parser.undry = function(NP, snippets) {
+	if (!snippets.length) return;
+	NP.body = page.replace(this.reBaseSnippet, function (str, $1) {
+		return snippets[parseInt($1)];
+	});
 };

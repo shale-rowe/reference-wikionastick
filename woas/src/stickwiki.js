@@ -1144,21 +1144,34 @@ woas.rename_page = function(previous, newpage) {
 	// this is the actual rename
 	page_titles[pi] = newpage;
 	var pi = this.page_index(previous),
-		re = new RegExp("\\[\\[" + RegExp.escape(previous) + "(\\]\\]|\\|)", "g"),
-		changed, tmp;
+		reTitles = new RegExp("\\[\\[" + RegExp.escape(previous) + "(\\]\\]|\\|)", "g"),
+		reTitlesInc = new RegExp("\\[\\[Include::" + RegExp.escape(previous) + "(\\]\\]|\\|)", "g"),
+		// the original page (dried)
+		P = {body:null},
+		// the expanded
+		NP = {body:null},
+		changed,
+		snippets;
 	for(var i=0,l=pages.length;i < l;i++) {
-		tmp = this.get_page(i);
-		if (tmp === null)
+		P.body = this.get_page(i);
+		if (P.body === null)
 			continue;
 		changed = false;
-		//TODO: take away macros, nowiki, comments blocks
-		//TODO: fix also transclusion links
-		tmp = tmp.replace(re, function (str) {
+		snippets = [];
+		// the parser will know what to take away from the page
+		this.parser.dry(P, NP, snippets);
+		NP.body = NP.body.replace(reTitles, function (str) {
 			changed = true;
 			return "[["+newpage+str.substring(previous.length+2);
+		}).replace(reTitlesInc, function (str) {
+			changed = true;
+			return "[[Include::"+newpage+str.substring(previous.length+11);
 		});
-		if (changed)
-			this.set__text(i, tmp);
+		if (changed) {
+			this.parser.undry(NP, snippets);
+			this.set__text(i, NP.body);
+		}
+		P.body = NP.body = snippets = null;
 	}
 	if (previous === this.config.main_page)
 		this.config.main_page = newpage;

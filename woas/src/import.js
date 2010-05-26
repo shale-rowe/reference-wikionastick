@@ -221,12 +221,12 @@ woas.importer = {
 		var snippets = [],
 		// put away text in XHTML comments and nowiki blocks
 			page = NP.body.replace(reComments, function (str) {
-				var r = "<"+"!-- "+woas.parser.marker+"::"+snippets.length+" --"+">";
+				var r = woas.parser.place_holder(snippets.length);
 				snippets.push(str);
 				return r;
-			}).replace(reNowiki, function (str, $1, enl) {
-				var r = "<"+"!-- "+woas.parser.marker+"::"+snippets.length+" --"+">";
-				snippets.push("{{{"+$1+"}}}"+enl);
+			}).replace(reNowiki, function (str) {
+				var r = woas.parser.place_holder(snippets.length);
+				snippets.push(str);
 				return r;
 		}),
 			comments_len = snippets.length;
@@ -236,9 +236,7 @@ woas.importer = {
 			page = page.replace(reMacros, "<<< Macro disabled\n$1>>>");
 		// put back in place all HTML snippets if there was a modification
 		if (snippets.length>comments_len) {
-			NP.body = page.replace(new RegExp("<\\!-- "+woas.parser.marker+"::(\\d+) -->", "g"), function (str, $1) {
-				return snippets[parseInt($1)];
-			});
+			woas.parser.undry(NP, snippets);
 		}
 	},
 	
