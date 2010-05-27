@@ -44,8 +44,8 @@ woas.parser = {
 	_init: function() {
 		this.marker = "#"+_random_string(8);
 		this.reBaseSnippet = new RegExp("<\\!-- "+this.marker+"::(\\d+) -->", "g");
-		this.NL_MARKER = "<!-- "+this.marker+"_NL -->\n";
-		this.reNL_MARKER = new RegExp("<\\!-- "+this.marker+"_NL -->", "g");
+		this.NL_MARKER = "<!-- "+this.marker+"_NL -->";
+		this.reNL_MARKER = new RegExp("<\\!-- "+this.marker+"_NL -->([ \\t]*\\n)?", "g");
 	}
 };
 
@@ -243,7 +243,7 @@ woas.parser.place_holder = function (i, separator, dynamic_nl) {
 	if (typeof dynamic_nl == "undefined")
 		dynamic_nl = "";
 	else if (dynamic_nl !== "") // put newlines after blocks which have an ending newline
-		dynamic_nl = this.NL_MARKER;
+		dynamic_nl = this.NL_MARKER+dynamic_nl;
 	separator = ":"+separator+":";
 	return "<!-- "+woas.parser.marker+separator+i+" -->"+dynamic_nl;
 };
@@ -412,8 +412,11 @@ woas.parser.parse_macros = function(P, snippets) {
 		// ask macro_parser to prepare this block
 		var macro = woas.macro.parser($1);
 		// allow further parser processing
-		if (macro.reprocess)
+		if (macro.reprocess) {
+			if (typeof dynamic_nl != "undefined" && dynamic_nl!=="")
+				macro.text += woas.parser.NL_MARKER+dynamic_nl;
 			return macro.text;
+		}
 		r = woas.parser.place_holder(snippets.length, "", dynamic_nl);
 		// otherwise store it for later
 		snippets.push(macro.text);
@@ -534,7 +537,7 @@ woas.parser._transclude = function (str, $1, dynamic_nl) {
 	
 	//add the previous dynamic newline
 	if (typeof dynamic_nl != "undefined" && dynamic_nl!=="")
-		P.body += that.NL_MARKER;
+		P.body += that.NL_MARKER+dynamic_nl;
 	return P.body;
 };
 
