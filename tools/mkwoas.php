@@ -56,7 +56,7 @@ function _script_replace($m) {
 				next($m[2]);
 			}
 			if (strlen($tags))
-				fprintf(STDERR, "%s: WARNING! found tag %s\n", $scriptname, $tags);
+				fprintf(STDERR, "%s: WARNING! found tag \"%s\"\n", $scriptname, $tags);
 		}
 		++$replaced;
 		echo "Replaced ".$scriptname."\n";
@@ -70,13 +70,14 @@ function _script_replace($m) {
 
 function _replace_tweak_vars($m) {
 	return "woas.tweak = {".
-		preg_replace_callback('/"([^"]+)"\\s*:\\s*(true|false)/', '_replace_tweak_vars_single', $m[1]).
+		preg_replace_callback('/([^\\s]+)\\s*:\\s*(true|false)/', '_replace_tweak_vars_single', $m[1]).
 		";";
 }
 
 function _replace_tweak_vars_single($m) {
-	$var = $m[1];
-	switch ($var) {
+	$the_var = $m[1];
+	$v = null;
+	switch ($the_var) {
 		case 'edit_override':
 			$v = $GLOBALS['edit_override'];
 		break;
@@ -87,7 +88,7 @@ function _replace_tweak_vars_single($m) {
 			// always disable the integrity test
 			$v = false;
 	}
-	return '"'.$var.'": '.($v ? 'true' : 'false');
+	return $the_var.': '.($v ? 'true' : 'false');
 }
 
 function _print_n($n, &$s) {
