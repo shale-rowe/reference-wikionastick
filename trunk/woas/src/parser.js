@@ -35,6 +35,8 @@ woas.parser = {
 	//DEPRECATED "!" syntax is supported but shall me removed soon
 	reHeaders: /^([\!=]+)\s*(.*)$/gm,
 	reNormHeader: /[^a-zA-Z0-9]/g,
+	sTOC: "[[Special::TOC]]",
+	reHasDNL: new RegExp("^[ \\t]*\\n"),
 	_MAX_TRANSCLUSION_RECURSE: 256,
 
 	marker: null,
@@ -348,11 +350,12 @@ woas.parser.parse = function(text, export_links, js_mode) {
 	});
 	
 	// put a placeholder for the TOC
-	var p = P.body.indexOf("[[Special::TOC]]");
+	var p = P.body.indexOf(this.sTOC);
 	if (p !== -1) {
 		this.has_toc = true;
-		P.body = P.body.substring(0, p) + "<!-- "+woas.parser.marker+":TOC -->" + P.body.substring(p+16
-//		+ 	((text.charAt(p+16)=="\n") ? 1 : 0)
+		P.body = P.body.substring(0, p) + "<!-- "+woas.parser.marker+":TOC -->" +
+				// dynamic newlines also after TOC
+				P.body.substring(p+this.sTOC.length).replace(reHasDNL, this.NL_MARKER+"$0");
 		);	
 	} else this.has_toc = false;
 
