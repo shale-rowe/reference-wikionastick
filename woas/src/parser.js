@@ -36,7 +36,7 @@ woas.parser = {
 	reHeaders: /^([\!=]+)\s*(.*)$/gm,
 	reNormHeader: /[^a-zA-Z0-9]/g,
 	sTOC: "[[Special::TOC]]",
-	reHasDNL: new RegExp("^[ \\t]*\\n"),
+	reHasDNL: new RegExp("^([ \\t]*\\n)"),
 	_MAX_TRANSCLUSION_RECURSE: 256,
 
 	marker: null,
@@ -355,8 +355,7 @@ woas.parser.parse = function(text, export_links, js_mode) {
 		this.has_toc = true;
 		P.body = P.body.substring(0, p) + "<!-- "+woas.parser.marker+":TOC -->" +
 				// dynamic newlines also after TOC
-				P.body.substring(p+this.sTOC.length).replace(reHasDNL, this.NL_MARKER+"$0");
-		);	
+				P.body.substring(p+this.sTOC.length).replace(this.reHasDNL, this.NL_MARKER+"$1");
 	} else this.has_toc = false;
 
 	// wiki tags
