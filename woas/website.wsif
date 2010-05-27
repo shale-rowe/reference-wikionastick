@@ -110,10 +110,11 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Index of littlegirl branch
+* [[http://stickwiki.svn.sourceforge.net/viewvc/stickwiki/branches/littlegirl/boasplugins/|boasplugins]] - A collection of plug-ins (made from WoaS macros or modifications of WoaS plug-ins) that will be used by Book on a Stick.<br><br>
 * [[http://stickwiki.svn.sourceforge.net/viewvc/stickwiki/branches/littlegirl/bookonastick/|bookonastick]] - The Book on a Stick project, which is a sister project to the Wiki on a Stick project. It uses WoaS as its foundation, and is geared toward writers.<br><br>
-* [[http://stickwiki.svn.sourceforge.net/viewvc/stickwiki/branches/littlegirl/fancytables/|fancytables]] - A temporary WSIF file you can import into your wiki to see how to use fancy tables.<br><br>
-* [[http://stickwiki.svn.sourceforge.net/viewvc/stickwiki/branches/littlegirl/sizetest/|sizetest]] - A collection of WSIF files of varying sizes you can import into your wiki as a stress test.<br><br>
+* [[http://stickwiki.svn.sourceforge.net/viewvc/stickwiki/branches/littlegirl/miscellaneous/|miscellaneous]] - A collection of various WSIF files that may be useful to others.<br><br>
 * [[http://stickwiki.svn.sourceforge.net/viewvc/stickwiki/branches/littlegirl/woasdeveloperguide/|woasdeveloperguide]] - A guide for WoaS developers that features links to useful WoaS pages, instructions for using the Subversion server to contribute code to the project, instructions for how to assemble the development version of WoaS into a single file, and a statement from Daniele on the philosophy of WoaS.<br><br>
+* [[http://stickwiki.svn.sourceforge.net/viewvc/stickwiki/branches/littlegirl/woasexperiments/|woasexperiments]] - A place for WSIF files that are created to try out new things with the wiki.<br><br>
 * [[http://stickwiki.svn.sourceforge.net/viewvc/stickwiki/branches/littlegirl/woasmods/|woasmods]] - A collection of modifications you can make to customize various versions of WoaS. Some of them are fixes while others are just fun or useful things you can add to your wiki.<br><br>
-* [[http://stickwiki.svn.sourceforge.net/viewvc/stickwiki/branches/littlegirl/woasplugins/|woasplugins]] - A (beginning) collection of plugins for WoaS 0.12.0.
+* [[http://stickwiki.svn.sourceforge.net/viewvc/stickwiki/branches/littlegirl/woassizetest/|woassizetest]] - A collection of WSIF files of varying sizes you can import into your wiki as a stress test.
 --DFQRCTsKlU
