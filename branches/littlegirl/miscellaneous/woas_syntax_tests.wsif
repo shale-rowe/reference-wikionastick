@@ -1,0 +1,433 @@
+wsif.version: 1.3.1
+wsif.generator: woas
+wsif.generator.version: 0.12.0
+woas.author: Little Girl
+woas.pages: 14
+
+--DFQRCTsKlU
+woas.page.title: Test::Headers
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Header test
+
+== Test 1
+<span style="background-color:springgreen;padding:0.2em;">There should be six levels of headers:</span>
+= Level one header
+== Level two header
+=== Level three header
+==== Level four header
+===== Level five header
+====== Level six header
+
+== Test 2
+<span style="background-color:springgreen;padding:0.2em;">There should be a link in the header:</span>
+= This header should have a [[Main Page|link]] in it
+
+== Test 3
+<span style="background-color:springgreen;padding:0.2em;">The header should be a link:</span>
+= [[Main Page|This header should be a link]]
+
+--DFQRCTsKlU
+woas.page.title: Test::Horizontal rules
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Horizontal rule test
+== Test 1
+<span style="background-color:springgreen;padding:0.2em;">There should be a horizontal rule with text directly above and below it:</span>
+
+<font color="#FF00FF">*This text should be above the horizontal rule.*</font>
+----
+<font color="#FF00FF">*This text should be below the horizontal rule.*</font>
+
+== Test 2
+<span style="background-color:springgreen;padding:0.2em;">There should be a horizontal rule with headers directly above and below it:</span>
+== This header should be above the horizontal rule
+----
+== This header should be below the horizontal rule
+
+--DFQRCTsKlU
+woas.page.title: Test::Links
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Link test
+
+== Test 1
+<span style="background-color:springgreen;padding:0.2em;">There should be a blue existent link:</span>
+
+[[Main Page]]
+
+== Test 2
+<span style="background-color:springgreen;padding:0.2em;">There should be a green external link:</span>
+
+[[http://www.gnu.org/]]
+
+== Test 3
+<span style="background-color:springgreen;padding:0.2em;">There should be a red nonexistent link:</span>
+
+[[nonexistent link]]
+
+--DFQRCTsKlU
+woas.page.title: Test::Lists
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= List test
+== Test 1
+<span style="background-color:springgreen;padding:0.2em;">There should be a bulleted list:</span>
+* item 1
+* item 2
+* item 3
+== Test 2
+<span style="background-color:springgreen;padding:0.2em;">There should be a numeric list:</span>
+# item 1
+# item 2
+# item 3
+== Test 3
+<span style="background-color:springgreen;padding:0.2em;">There should be an alphanumeric list:</span>
+@ item 1
+@ item 2
+@ item 3
+== Test 4
+<span style="background-color:springgreen;padding:0.2em;">There should be a multi-level bulleted list:</span>
+* item 1
+** item 1
+*** item 1
+* item 1
+** item 1
+*** item 1
+* item 1
+** item 1
+*** item 1
+== Test 5
+<span style="background-color:springgreen;padding:0.2em;">There should be a multi-level numbered list:</span>
+# item 1
+## item 1
+### item 1
+# item 1
+## item 1
+### item 1
+# item 1
+## item 1
+### item 1
+== Test 6
+<span style="background-color:springgreen;padding:0.2em;">There should be a multi-level alphanumeric list:</span>
+@ item 1
+@@ item 1
+@@@ item 1
+@ item 1
+@@ item 1
+@@@ item 1
+@ item 1
+@@ item 1
+@@@ item 1
+
+--DFQRCTsKlU
+woas.page.title: Test::Menu
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Sub-menu test
+* *Pages:*
+** [[Test::Headers]]
+** [[Test::Horizontal rules]]
+** [[Test::Links]]
+** [[Test::Lists]]
+** [[Test::Menu]]
+** [[Test::Nowiki]]
+** [[Test::Page listings]]
+** [[Test::Table of Contents]]
+** [[Test::Tables]]
+** [[Test::Tag 1]]
+** [[Test::Tag 2]]
+** [[Test::Tag overflow]]
+** [[Test::Transclusion]]
+
+--DFQRCTsKlU
+woas.page.title: Test::Nowiki
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Nowiki test
+== Test 1
+<span style="background-color:springgreen;padding:0.2em;">There should be inline nowiki text that does not take up the entire width of the page:</span>
+
+{{{test}}}
+
+== Test 2
+<span style="background-color:springgreen;padding:0.2em;">There should be inline nowiki text with text *above* and *below* it:</span>
+
+<font color="#FF00FF">*This text should be above the inline nowiki text.*</font>
+{{{test}}}
+<font color="#FF00FF">*This text should be below the inline nowiki text.*</font>
+
+== Test 3
+<span style="background-color:springgreen;padding:0.2em;">There should be inline nowiki with text *before* and *after* it:</span>
+
+<font color="#FF00FF">*This text should be before the inline nowiki text.*</font> {{{test}}} <font color="#FF00FF">*This text should be after the inline nowiki text.*</font>
+== Test 4
+<span style="background-color:springgreen;padding:0.2em;">There should be multi-line nowiki text that takes up the entire width of the page:</span>
+{{{
+test
+test
+test
+}}}
+== Test 5
+<span style="background-color:springgreen;padding:0.2em;">There should be multi-line nowiki text that takes up the entire width of the page with text *above* and *below* it:</span>
+
+<font color="#FF00FF">*This text should be above the multi-line nowiki text.*</font>
+{{{
+test
+test
+test
+}}}
+<font color="#FF00FF">*This text should be below the multi-line nowiki text.*</font>
+== Test 6
+<span style="background-color:springgreen;padding:0.2em;">There should be multi-line nowiki text that takes up the entire width of the page with text *before* and *after* it:</span>
+
+<font color="#FF00FF">*This text should be before the multi-line nowiki text.*</font>{{{
+test
+test
+test
+}}}<font color="#FF00FF">*This text should be after the multi-line nowiki text.*</font>
+== Test 7
+<span style="background-color:springgreen;padding:0.2em;">There should be multi-line nowiki text properly indented in a list:</span>
+* <font color="#FF00FF">*This text should be before the multi-line nowiki text.*</font>{{{
+test
+test
+test
+}}}<font color="#FF00FF">*This text should be after the multi-line nowiki text.*</font>
+== Test 8
+<span style="background-color:springgreen;padding:0.2em;">There should be multi-line nowiki text that takes up the entire width of the page and wraps properly:</span>
+{{{
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+}}}
+
+{{{
+a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+}}}
+
+{{{
+ab ab ab ab ab ab ab ab ab ab ab ab ab ab ab ab ab ab ab ab ab ab ab ab ab ab ab ab ab ab ab ab ab ab ab ab ab ab ab ab ab ab ab ab ab ab ab ab ab ab ab ab ab ab ab ab
+}}}
+
+{{{
+abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc
+}}}
+
+{{{
+abcd abcd abcd abcd abcd abcd abcd abcd abcd abcd abcd abcd abcd abcd abcd abcd abcd abcd abcd abcd abcd abcd abcd abcd abcd abcd abcd abcd abcd abcd abcd abcd abcd abcd abcd abcd abcd abcd abcd abcd abcd abcd abcd abcd abcd abcd abcd abcd abcd abcd abcd abcd abcd abcd abcd abcd
+}}}
+
+{{{
+abcde abcde abcde abcde abcde abcde abcde abcde abcde abcde abcde abcde abcde abcde abcde abcde abcde abcde abcde abcde abcde abcde abcde abcde abcde abcde abcde abcde abcde abcde abcde abcde abcde abcde abcde abcde abcde abcde abcde abcde abcde abcde abcde abcde abcde abcde abcde abcde abcde abcde abcde abcde abcde abcde abcde abcde
+}}}
+
+{{{
+abcdef abcdef abcdef abcdef abcdef abcdef abcdef abcdef abcdef abcdef abcdef abcdef abcdef abcdef abcdef abcdef abcdef abcdef abcdef abcdef abcdef abcdef abcdef abcdef abcdef abcdef abcdef abcdef abcdef abcdef abcdef abcdef abcdef abcdef abcdef abcdef abcdef abcdef abcdef abcdef abcdef abcdef abcdef abcdef abcdef abcdef abcdef abcdef abcdef abcdef abcdef abcdef abcdef abcdef abcdef abcdef
+}}}
+
+{{{
+abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg
+}}}
+
+--DFQRCTsKlU
+woas.page.title: Test::Orphaned page
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Orphaned page test
+<span style="background-color:springgreen;padding:0.2em;">This should be an orphaned page.</span>
+
+--DFQRCTsKlU
+woas.page.title: Test::Page listings
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Page listings
+== Test 1
+<span style="background-color:springgreen;padding:0.2em;">There should be a listing of all pages:</span>
+
+[[Special::All Pages]]
+
+== Test 2
+<span style="background-color:springgreen;padding:0.2em;">There should be a listing of dead pages that shows the nonexistent link from Test::Links:</span>
+
+[[Special::Dead Pages]]
+
+== Test 3
+<span style="background-color:springgreen;padding:0.2em;">There should be a listing of orphaned pages that shows the Test::Orphaned page:</span>
+
+[[Special::Orphaned Pages]]
+
+== Test 4
+<span style="background-color:springgreen;padding:0.2em;">There should be a listing of tagged pages:</span>
+
+[[Tagged::]]
+
+== Test 5
+<span style="background-color:springgreen;padding:0.2em;">There should be a listing of untagged pages:</span>
+
+[[Untagged::]]
+
+--DFQRCTsKlU
+woas.page.title: Test::Table of Contents
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+[[Special::TOC]]
+<span style="background-color:springgreen;padding:0.2em;">There should be a Table of Contents with level one through six headers properly indented with all content fitting iside the borders of the Table of Contents container at the top of the page.</span>
+= Level one header
+== Level two header
+=== Level three header
+==== Level four header
+===== Level five header
+====== Level six header
+= Level one header
+= Level one header
+= Level one header
+= Level one header
+= Level one header
+= Level one header
+= Level one header
+= Level one header
+= Level one header
+
+--DFQRCTsKlU
+woas.page.title: Test::Tables
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Tables test
+
+== Test 1
+<span style="background-color:springgreen;padding:0.2em;">There should be a table with no caption:</span>
+
+{|
+| cell one || cell two || cell three
+| cell one || cell two || cell three
+| cell one || cell two || cell three
+|}
+
+== Test 2
+<span style="background-color:springgreen;padding:0.2em;">There should be a table with a caption above it:</span>
+
+{|
+|+ Test
+| cell one || cell two || cell three
+| cell one || cell two || cell three
+| cell one || cell two || cell three
+|}
+
+== Test 3
+<span style="background-color:springgreen;padding:0.2em;">There should be a table with a caption below it:</span>
+
+{|
+| cell one || cell two || cell three
+| cell one || cell two || cell three
+| cell one || cell two || cell three
+|+ Test
+|}
+
+== Test 4
+<span style="background-color:springgreen;padding:0.2em;">There should be a table with an empty cell:</span>
+
+{|
+| cell one || cell two || cell three
+| cell one || || cell three
+| cell one || cell two || cell three
+|}
+
+== Test 5
+<span style="background-color:springgreen;padding:0.2em;">There should be a table with a link in one of the cells:</span>
+
+{|
+| cell one || cell two || cell three
+| cell one || [[Main Page]] || cell three
+| cell one || cell two || cell three
+|}
+
+--DFQRCTsKlU
+woas.page.title: Test::Tag 1
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Tag test 1
+<span style="background-color:springgreen;padding:0.2em;">There should be a tag in the container:</span>
+[[Tag::Test1]]
+
+--DFQRCTsKlU
+woas.page.title: Test::Tag 2
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Tag test 2
+<span style="background-color:springgreen;padding:0.2em;">There should be a tag in the container:</span>
+[[Tag::Test2]]
+
+--DFQRCTsKlU
+woas.page.title: Test::Tag overflow
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Tag overflow test
+<span style="background-color:springgreen;padding:0.2em;">There should be too many tags in the container and they should either wrap or be scrollable from within the container depending on what the wiki default settings are:</span>
+[[Tag::one,two,three,four,five,six,seven,eight,nine,ten,eleven,twelve,thirteen,fourteen,fifteen,sixteen,seventeen,eighteen,nineteen,twenty]]
+
+--DFQRCTsKlU
+woas.page.title: Test::Transclusion
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Transclusion test
+<span style="background-color:springgreen;padding:0.2em;">There should be a transcluded page with text directly *above* and *below* it:</span>
+
+<font color="#FF00FF">*This text should be above the transcluded page.*</font>
+[[Include::Main Page]]
+<font color="#FF00FF">*This text should be below the transcluded page.*</font>
+
+--DFQRCTsKlU
