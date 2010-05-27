@@ -220,20 +220,20 @@ woas.importer = {
 		// comment out all javascript blocks
 		var snippets = [],
 		// put away text in XHTML comments and nowiki blocks
-			page = NP.body.replace(reComments, function (str) {
-				var r = woas.parser.place_holder(snippets.length);
+			page = NP.body.replace(reComments, function (str, $1, dynamic_nl) {
+				var r = woas.parser.place_holder(snippets.length, "", dynamic_nl);
 				snippets.push(str);
 				return r;
-			}).replace(reNowiki, function (str) {
-				var r = woas.parser.place_holder(snippets.length);
+			}).replace(reNowiki, function (str, $1, dynamic_nl) {
+				var r = woas.parser.place_holder(snippets.length, "", dynamic_nl);
 				snippets.push(str);
 				return r;
 		}),
 			comments_len = snippets.length;
 		if (this.i_comment_js)
-			page = page.replace(reScripts, "<"+"disabled_script$1>$2<"+"/disabled_script>");
+			page = page.replace(reScripts, "<"+"disabled_script$1>$2<"+"/disabled_script>$3");
 		if (this.i_comment_macros)
-			page = page.replace(reMacros, "<<< Macro disabled\n$1>>>");
+			page = page.replace(reMacros, "<<< Macro disabled\n$1>>>$2");
 		// put back in place all HTML snippets if there was a modification
 		if (snippets.length>comments_len) {
 			woas.parser.undry(NP, snippets);
