@@ -231,6 +231,9 @@ woas.ui._textbox_enter_event = woas.ui._textbox_enter_event_dummy;
 
 //API1.0
 woas.go_to = function(cr) {
+	// won't go anywhere while editing!
+	if (this.ui.edit_mode)
+		return false;
 	if (cr === current)
 			return true;
 	return this.set_current(cr, true)
@@ -299,7 +302,7 @@ function help_go_back() {\n\
 }\n\
 ",
 	go_to: function(wanted_page, pi) {
-		woas.log("help_system.go_to(\""+wanted_page+"\")");
+//		woas.log("help_system.go_to(\""+wanted_page+"\")");	//log:0
 		if (typeof pi == "undefined")
 			pi = woas.page_index(wanted_page);
 		var text;
