@@ -42,6 +42,7 @@ woas.parser = {
 
 	marker: null,
 	reBaseSnippet: null,
+	_HR: "<"+"hr class=\"woas_ruler\" />",
 	NL_MARKER: null,
 	reNL_MARKER: null,
 	_init: function() {
@@ -205,7 +206,8 @@ woas.split_tags = function(tlist) {
 // elements which have one dynamic newline
 var reScripts = new RegExp("<"+"script([^>]*)>([\\s\\S]*?)<"+"\\/script>([ \t]*\n)?", "gi"),
 	reStyles = new RegExp("<"+"style([^>]*)>[\\s\\S]*?<"+"\\/style>([ \t]*\n)?", "gi"),
-	reRuler = /^\s*\-{3,}\s*$/gm,
+	//DEPRECATED rulers with 3 hyphens (shall be 4)
+	reRuler = /(\n\s*\-{3,}[ \t]*){1,}(\n|$)/g,
 	reNowiki = /\{\{\{([\s\S]*?)\}\}\}([ \t]*\n)?/g,
 	reTransclusion = /\[\[Include::([\s\S]+?)\]\]([ \t]*\n)?/g,
 	reMacros = /<<<([\s\S]*?)>>>([ \t]*\n)?/g,
@@ -605,7 +607,14 @@ woas.parser.syntax_parse = function(P, snippets, tags, export_links, has_toc) {
 
 	// 'hr' horizontal rulers made with 3 hyphens, 4 suggested
 	// only white spaces are allowed before/after the hyphens
-	.replace(reRuler, "<"+"hr class=\"woas_ruler\" />")
+	.replace(reRuler, function () {
+		var n = arguments[0].replace(/\s+/g, " ").split(/\ /g).length,
+			last_nl;
+		if (arguments[arguments.length-3].length)
+			last_nl = woas.parser.NL_MARKER+arguments[arguments.length-3];
+		else last_nl = "";
+		return woas.parser._HR.repeat(n)+last_nl;
+	})
 	// tables-parsing pass
 	.replace(woas.config.new_tables_syntax ? reReapTablesNew : reReapTables,
 				woas.config.new_tables_syntax ? this.parse_tables_new : this.parse_tables)
