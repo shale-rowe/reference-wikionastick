@@ -32,7 +32,7 @@ woas.parser = {
 	},
 	
 	// a variety of regular expressions used by the parser
-	reBoldSyntax: /(^|[^\w\/\\])\*([^\*\n]+)\*/g,
+	reBoldSyntax: /([^\w\/\\])\*([^\*\n]+)\*/g,
 	//DEPRECATED "!" syntax is supported but shall me removed soon
 	reHeaders: /^([\!=]{1,6})\s*(.*)$/gm,
 	reNormHeader: /[^a-zA-Z0-9]/g,
@@ -203,7 +203,7 @@ woas.split_tags = function(tlist) {
 	return tlist.split("|");
 };
 
-// elements which have one dynamic newline
+// elements which can have one dynamic newline
 var reScripts = new RegExp("<"+"script([^>]*)>([\\s\\S]*?)<"+"\\/script>([ \t]*\n)?", "gi"),
 	reStyles = new RegExp("<"+"style([^>]*)>[\\s\\S]*?<"+"\\/style>([ \t]*\n)?", "gi"),
 	//DEPRECATED rulers with 3 hyphens (shall be 4)
