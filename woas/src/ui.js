@@ -69,7 +69,7 @@ woas.ui = {
 		var wanted_page, pi;
 		// we are editing
 		if (this.edit_mode) {
-			wanted_page = "WoaS::Help::Edit a page";
+			wanted_page = "WoaS::Help::Editor";
 			pi = woas.page_index(wanted_page);
 		} else {
 			var htitle = null;
@@ -253,6 +253,7 @@ woas.help_system = {
 	page_title: null,
 	going_back: false,
 	previous_page: [],
+	_index_btn: '<'+'input class="woas_button" type="button" value="Index" onclick="help_go_index()" /'+'>',
 
 	_mk_help_button: function(n) {
 		var w = "[[Include::WoaS::Template::Button|";
@@ -277,6 +278,12 @@ go_to: function(page) { var woas = get_parent_woas();\n\
 		woas.help_system.go_to(page);\n\
 }\n\
 }\n\
+// used in help popups to access index\n\
+function help_go_index() {\n\
+	var woas = get_parent_woas();\n\
+	if (woas === null) return;\n\
+	woas.help_system.go_to('WoaS::Help::Index');\n\
+}\n\
 // used in help popups to go back to previous page\n\
 function help_go_back() {\n\
 	var woas = get_parent_woas();\n\
@@ -292,6 +299,7 @@ function help_go_back() {\n\
 }\n\
 ",
 	go_to: function(wanted_page, pi) {
+		woas.log("help_system.go_to(\""+wanted_page+"\")");
 		if (typeof pi == "undefined")
 			pi = woas.page_index(wanted_page);
 		var text;
@@ -319,13 +327,13 @@ function help_go_back() {\n\
 		// now create the popup
 		if ((this.popup_window === null) || this.popup_window.closed) {
 			this.previous_page = [];
-			this.popup_window = woas._customized_popup(wanted_page, woas.parser.parse(
+			this.popup_window = woas._customized_popup(wanted_page, this._index_btn+woas.parser.parse(
 					this._mk_help_button(0)+text),
 					this.cPopupCode,
 				"", " class=\"woas_help_background\"");
 		} else { // hotfix the page
 			this.popup_window.document.title = wanted_page;
-			woas.setHTMLDiv(this.popup_window.document.body, woas.parser.parse(this._mk_help_button(this.previous_page.length)+text));
+			woas.setHTMLDiv(this.popup_window.document.body, this._index_btn+woas.parser.parse(this._mk_help_button(this.previous_page.length)+text));
 			this.popup_window.scrollTo(0,0);
 		}
 		this.page_title = wanted_page;
@@ -351,7 +359,6 @@ function edit_menu() {
 }
 
 /** Used by search box **/
-
 function menu_do_search() {
 	// directly use the search page if it is active
     if (current === "Special::Search") {
