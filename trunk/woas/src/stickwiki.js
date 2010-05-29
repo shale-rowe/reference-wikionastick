@@ -1170,6 +1170,8 @@ woas.rename_page = function(previous, newpage) {
 			return str.substr(0, ilen)+newpage+str.substr(previous.length+ilen);
 		});
 		if (changed) {
+			// clear dynamic newlines
+			NP.body = NP.body.replace(this.parser.reNL_MARKER, "");
 			this.parser.undry(NP, snippets);
 			this.set__text(i, NP.body);
 		}

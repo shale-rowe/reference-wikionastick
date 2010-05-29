@@ -619,6 +619,9 @@ woas.parser.syntax_parse = function(P, snippets, tags, export_links, has_toc) {
 	
 	// remove \n before list start tags
 	.replace(/\n(<[uo]l>)/g, "$1")
+	
+	// clear dynamic newlines
+	.replace(this.reNL_MARKER, "")
 
 	// convert newlines to br tags
 	.replace(/\n/g, "<"+"br />");
@@ -719,8 +722,6 @@ woas.parser.dry = function(P, NP, snippets) {
 };
 
 woas.parser.undry = function(NP, snippets) {
-	//TODO: do not undry newlines if it's not necessary
-	NP.body = NP.body.replace(this.reNL_MARKER, "");
 	if (!snippets.length) return;
 	NP.body = NP.body.replace(this.reBaseSnippet, function (str, $1) {
 		return snippets[parseInt($1)];
