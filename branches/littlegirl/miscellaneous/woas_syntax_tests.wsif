@@ -2,7 +2,22 @@ wsif.version: 1.3.1
 wsif.generator: woas
 wsif.generator.version: 0.12.0
 woas.author: Little Girl
-woas.pages: 14
+woas.pages: 18
+
+--DFQRCTsKlU
+woas.page.title: Test::Comments
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Comments test
+<span style="background-color:springgreen;padding:0.2em;">There should be a hidden XHTML comment (<tt>&#60&#33;&#45;&#45;&#32;&#45;&#45;&#62</tt>) surrounded by text directly above, before, after, and below it:</span>
+
+<font color="#FF00FF">*This text should be above the hidden XHTML comment.*</font>
+<font color="#FF00FF">*This text should be before the hidden XHTML comment.*</font><!-- XHTML comment --><font color="#FF00FF">*This text should be after the hidden XHTML comment.*</font>
+<font color="#FF00FF">*This text should be below the hidden XHTML comment.*</font>
 
 --DFQRCTsKlU
 woas.page.title: Test::Headers
@@ -52,6 +67,29 @@ woas.page.boundary: DFQRCTsKlU
 == This header should be above the horizontal rule
 ----
 == This header should be below the horizontal rule
+
+--DFQRCTsKlU
+woas.page.title: Test::JavaScript
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= JavaScript
+<div style="background-color:springgreen;padding:0.2em;">This page should have a JavaScript alert that pops up when the page loads.</div>
+== About the &lt;script&gt; tags used in this page
+The script tags are properly formatted by XHTML standards as described here: [[http://www.w3schools.com/tags/tag_script.asp|w3schools]].
+{{{
+<script type="text/javascript">//<![CDATA[
+JAVASCRIPT CODE GOES HERE
+//]]></script>
+}}}
+<font color="#FF00FF">*This text should be directly above the &lt;script&gt; section.*</font>
+<font color="#FF00FF">*This text should be directly before the &lt;script&gt; section.*</font><script type="text/javascript">//<![CDATA[
+alert("This is an example alert!");
+//]]></script><font color="#FF00FF">*This text should be directly after the &lt;script&gt; section.*</font>
+<font color="#FF00FF">*This text should be directly below the &lt;script&gt; section.*</font>
 
 --DFQRCTsKlU
 woas.page.title: Test::Links
@@ -137,6 +175,36 @@ woas.page.boundary: DFQRCTsKlU
 @@@ item 1
 
 --DFQRCTsKlU
+woas.page.title: Test::Macro
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Macro
+<span style="background-color:springgreen;padding:0.2em;">There should be six levels of headers:</span>
+
+<font color="#FF00FF">*This text should be directly above the hidden macro definition.*</font>
+<<<%woas.diary:
+/* Diary macro by legolas558 - original work by FBNil */
+var D = new Date(),
+    DAYNAMES = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+    MONTHNAMES = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"],
+    day  = D.getDate();
+if(day < 10) day = "0" + day;
+
+var newpagename = "Diary::" + D.getFullYear() +"::"+ MONTHNAMES[D.getMonth()] +"::"+ day +" "+DAYNAMES[D.getDay()];
+
+macro.text = "[["+newpagename+"]]\n";
+macro.reprocess = true;
+return true;
+>>>
+<font color="#FF00FF">*This text should be directly below the hidden macro definition and directly above the macro call.*</font>
+<font color="#FF00FF">*This text should be directly before the macro call.*</font><<<woas.diary:>>><font color="#FF00FF">*This text should be directly after the macro call.*</font>
+<font color="#FF00FF">*This text should be directly below the macro call.*</font>
+
+--DFQRCTsKlU
 woas.page.title: Test::Menu
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
@@ -145,20 +213,34 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Sub-menu test
+<div style="background-color:springgreen;padding:0.2em;">This entire menu (including the sub-menu) should take up 80% of the height of this window and have a scrollbar on the right because of the embedded CSS styling at the bottom of the sub-menu.</div>
 * *Pages:*
+** [[Test::Comments]]
 ** [[Test::Headers]]
 ** [[Test::Horizontal rules]]
+** [[Test::JavaScript]]
 ** [[Test::Links]]
 ** [[Test::Lists]]
+** [[Test::Macro]]
 ** [[Test::Menu]]
 ** [[Test::Nowiki]]
 ** [[Test::Page listings]]
-** [[Test::Table of Contents]]
+** [[Test::Style]]
 ** [[Test::Tables]]
 ** [[Test::Tag 1]]
 ** [[Test::Tag 2]]
 ** [[Test::Tag overflow]]
+** [[Test::ToC]]
 ** [[Test::Transclusion]]
+<style type="text/css">
+#i_woas_menu_area {
+	height: 80%;
+	overflow: auto;
+	}
+#woas_ns_menu_edit_button {
+	padding-bottom: 0.4em;
+	}
+</style>
 
 --DFQRCTsKlU
 woas.page.title: Test::Nowiki
@@ -184,7 +266,7 @@ woas.page.boundary: DFQRCTsKlU
 == Test 3
 <span style="background-color:springgreen;padding:0.2em;">There should be inline nowiki with text *before* and *after* it:</span>
 
-<font color="#FF00FF">*This text should be before the inline nowiki text.*</font> {{{test}}} <font color="#FF00FF">*This text should be after the inline nowiki text.*</font>
+<font color="#FF00FF">*This text should be before the inline nowiki text.*</font>{{{test}}}<font color="#FF00FF">*This text should be after the inline nowiki text.*</font>
 == Test 4
 <span style="background-color:springgreen;padding:0.2em;">There should be multi-line nowiki text that takes up the entire width of the page:</span>
 {{{
@@ -297,30 +379,23 @@ woas.page.boundary: DFQRCTsKlU
 [[Untagged::]]
 
 --DFQRCTsKlU
-woas.page.title: Test::Table of Contents
+woas.page.title: Test::Style
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-[[Special::TOC]]
-<span style="background-color:springgreen;padding:0.2em;">There should be a Table of Contents with level one through six headers properly indented with all content fitting iside the borders of the Table of Contents container at the top of the page.</span>
-= Level one header
-== Level two header
-=== Level three header
-==== Level four header
-===== Level five header
-====== Level six header
-= Level one header
-= Level one header
-= Level one header
-= Level one header
-= Level one header
-= Level one header
-= Level one header
-= Level one header
-= Level one header
+= Style
+<span style="background-color:springgreen;">The background of this page should be pale yellow because of the &lt:style&gt;&lt;/style&gt; tags with a CSS rule inside them embedded in this page, and there should be text directly above, before, after, and below the style tags:</span>
+
+<font color="#FF00FF">*This text should be above the hidden style tags.*</font>
+<font color="#FF00FF">*This text should be before the hidden  style tags.*</font><style type="text/css">
+#woas_wiki_area {
+	background-color: #FFFFAA;
+}
+</style><font color="#FF00FF">*This text should be after the hidden  style tags.*</font>
+<font color="#FF00FF">*This text should be below the hidden  style tags.*</font>
 
 --DFQRCTsKlU
 woas.page.title: Test::Tables
@@ -416,6 +491,32 @@ woas.page.boundary: DFQRCTsKlU
 [[Tag::one,two,three,four,five,six,seven,eight,nine,ten,eleven,twelve,thirteen,fourteen,fifteen,sixteen,seventeen,eighteen,nineteen,twenty]]
 
 --DFQRCTsKlU
+woas.page.title: Test::ToC
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+[[Special::TOC]]
+<span style="background-color:springgreen;padding:0.2em;">There should be a Table of Contents with level one through six headers properly indented with all content fitting iside the borders of the Table of Contents container at the top of the page.</span>
+= Level one header
+== Level two header
+=== Level three header
+==== Level four header
+===== Level five header
+====== Level six header
+= Level one header
+= Level one header
+= Level one header
+= Level one header
+= Level one header
+= Level one header
+= Level one header
+= Level one header
+= Level one header
+
+--DFQRCTsKlU
 woas.page.title: Test::Transclusion
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
@@ -426,8 +527,8 @@ woas.page.boundary: DFQRCTsKlU
 = Transclusion test
 <span style="background-color:springgreen;padding:0.2em;">There should be a transcluded page with text directly *above* and *below* it:</span>
 
-<font color="#FF00FF">*This text should be above the transcluded page.*</font>
+<font color="#FF00FF">*This text should be directly above the transcluded page.*</font>
 [[Include::Main Page]]
-<font color="#FF00FF">*This text should be below the transcluded page.*</font>
+<font color="#FF00FF">*This text should be directly below the transcluded page.*</font>
 
 --DFQRCTsKlU
