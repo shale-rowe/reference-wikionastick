@@ -828,6 +828,7 @@ When browsing the pages in this Help pop-up, you will find a *Back* button in th
 ** [[WoaS::Help::Aliases]]
 ** [[WoaS::Help::CSS]]
 ** [[WoaS::Help::Edit the menu]]
+** [[WoaS::Help::Editor]]
 ** [[WoaS::Help::Export]]
 ** [[WoaS::Help::General usage]]
 ** [[WoaS::Help::Hotkeys]]
@@ -851,6 +852,17 @@ When browsing the pages in this Help pop-up, you will find a *Back* button in th
 ** [[WoaS::Help::Special::ExportWSIF]]
 ** [[WoaS::Help::Special::ImportWSIF]]
 ** [[WoaS::Help::Special::Options]]
+[[Include::WoaS::Help::Syntax]]
+* *Troubleshooting*
+** [[WoaS::Help::Wiki is read-only]]
+--DFQRCTsKlU
+woas.page.title: WoaS::Help::Syntax
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
 * *Syntax*
 ** [[WoaS::Help::Deprecated syntax]]
 ** [[WoaS::Help::Headers]]
@@ -870,9 +882,6 @@ When browsing the pages in this Help pop-up, you will find a *Back* button in th
 ** [[WoaS::Help::Tags]]
 ** [[WoaS::Help::Text formatting]]
 ** [[WoaS::Help::Transclusion]]
-* *Troubleshooting*
-** [[WoaS::Help::Wiki is read-only]]
-
 --DFQRCTsKlU
 woas.page.title: WoaS::Template::Button
 woas.page.attributes: 0
@@ -1163,33 +1172,22 @@ woas.page.boundary: DFQRCTsKlU
 = References to deleted pages
 Access [[Special::Dead Pages]] directly or either from [[Special::Advanced]] to remove references to the deleted page
 --DFQRCTsKlU
-woas.page.title: WoaS::Help::Edit a page
+woas.page.title: WoaS::Help::Editor
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Edit a page
-All user-created pages can be edited or deleted, while some pages which are part of reserved [[WoaS::Help::Namespaces|namespaces]] can only be edited.
-
-If a page is editable the relative Edit icon will be available in the navigation bar; you start editing the page by clicking such icon. The user interface will switch to an editor-mode set of buttons and edit areas.
-
-== Editing
-
-In order to edit pages, click the *Edit* icon in the navigation bar. You can find all the user pages by accessing [[Special::All Pages]] directly or either from [[Special::Advanced]].
-# Click the *Edit* icon in the navigation bar or double-click on the page if you've enabled that setting in the wiki Options.<br><br>
-# Edit the contents of the main text area by typing normally.<br><br>
-# Use the editor's buttons to insert code to format the text, or type the code in manually. Note that the use of plain text doesn't require any code.<br><br>
-# Save your changes by clicking on the *Save* icon in the navigation bar.
- 
-== Editor features
+= Editor features
 * Cancel all changes by clicking the *Cancel* icon in the navigation bar at any time.
 * Change the title of a page by editing the contents of the *Page title* box.
 * Save all changes by clicking the *Save* icon in the navigation bar at any time.
 * See an example of how tables are built by clicking the *About tables* link.
 * Toggle the display of the button rows by clicking the *Show/Hide wiki buttons|Show/Hide XHTML buttons* links.
 
+== Wiki buttons
+Buttons to ease printing [[WoaS::Help::Syntax|wiki syntax]].
 {|
 |+ Wiki Code buttons
 | *Button* || *What it does*
@@ -1209,8 +1207,9 @@ In order to edit pages, click the *Edit* icon in the navigation bar. You can fin
 | Tags || Interface for inserting tags in your page to categorize it. Use a comma between multiple tags.
 |}
 
-*Note:* it's recommended to use wiki syntax instead of XHTML syntax, because this is a wiki.
+*Note:* it's recommended to use [[WoaS::Help::Syntax|wiki syntax]] instead of XHTML syntax, because this is a wiki.
 
+== XHTML buttons
 {|
 |+ XHTML Code buttons
 | *Button* || *What it does*
@@ -1231,7 +1230,29 @@ In order to edit pages, click the *Edit* icon in the navigation bar. You can fin
 | Image || Include an external image.
 | Link || Include an external link URL.
 |}
+--DFQRCTsKlU
+woas.page.title: WoaS::Help::Edit a page
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
 
+--DFQRCTsKlU
+= Edit a page
+All user-created pages (and some which are part of reserved [[WoaS::Help::Namespaces|namespaces]]) can be edited.
+
+If a page is editable the relative Edit icon will be available in the navigation bar; you start editing the page by clicking such icon. The user interface will switch to an [[Woas::Help::Editor|editor-mode set of buttons and edit areas]].
+
+== Editing
+
+In order to edit pages, click the *Edit* icon in the navigation bar. You can find all the user pages by accessing [[Special::All Pages]] directly or either from [[Special::Advanced]].
+# Click the *Edit* icon in the navigation bar or double-click on the page if you've enabled that setting in the wiki Options.<br><br>
+# Edit the contents of the main text area by typing normally.<br><br>
+# Use the editor's buttons to insert code to format the text, or type the code in manually. Note that the use of plain text doesn't require any code.<br><br>
+# Save your changes by clicking on the *Save* icon in the navigation bar.
+
+== Deleting
+See [[WoaS::Help::Delete a page]].
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Erase all pages
 woas.page.attributes: 0
