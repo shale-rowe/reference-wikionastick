@@ -1,5 +1,9 @@
 == 0.12.x development goals
 
+* online facility to produce ready-to-use WoaS with plugins
+
+* convert show/hide links to buttons in editor mode
+
 * disallow 'this' usage in object declaration to fix IE quirks
 
 * allow fixed navigation bar and scrolling menu bar (littlegirl's mod)
