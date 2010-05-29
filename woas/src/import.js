@@ -218,26 +218,25 @@ woas.importer = {
 		if (NP.attrs > 1)
 			return;
 		// comment out all javascript blocks
-		var snippets = [],
-		// put away text in XHTML comments and nowiki blocks
-			page = NP.body.replace(reComments, function (str, $1, dynamic_nl) {
+		var snippets = [];
+		// put away XHTML comments and nowiki blocks
+		NP.body = NP.body.replace(reComments, function (str, $1, dynamic_nl) {
 				var r = woas.parser.place_holder(snippets.length, "", dynamic_nl);
 				snippets.push(str);
 				return r;
-			}).replace(reNowiki, function (str, $1, dynamic_nl) {
+		}).replace(reNowiki, function (str, $1, dynamic_nl) {
 				var r = woas.parser.place_holder(snippets.length, "", dynamic_nl);
 				snippets.push(str);
 				return r;
-		}),
-			comments_len = snippets.length;
+		});
 		if (this.i_comment_js)
-			page = page.replace(reScripts, "<"+"disabled_script$1>$2<"+"/disabled_script>$3");
+			NP.body = NP.body.replace(reScripts, "<"+"disabled_script$1>$2<"+"/disabled_script>$3");
 		if (this.i_comment_macros)
-			page = page.replace(reMacros, "<<< Macro disabled\n$1>>>$2");
-		// put back in place all HTML snippets if there was a modification
-		if (snippets.length>comments_len) {
-			woas.parser.undry(NP, snippets);
-		}
+			NP.body = NP.body.replace(reMacros, "<<< Macro disabled\n$1>>>$2");
+		// clear dynamic newlines
+		NP.body = NP.body.replace(woas.parser.reNL_MARKER, "");
+		// restore everything
+		woas.parser.undry(NP, snippets);
 	},
 	
 	// add directly without checking for duplicates
