@@ -547,13 +547,18 @@ woas.ns_listing = function(folds, flat_arr, sorted) {
 		return "/No pages in this listing/";
 	if (typeof sorted == "undefined")
 		sorted = false;
-	// do not produce the header if this has no subnamespaces
 	var i=0;
-	for(var f in folds) {
-		if (i++) break;
-		if (f !== "[pages]") {
-			i=2;
-			break;
+	// do not produce the header if it is transcluded
+	if (woas.parser._transcluding)
+		i = 1;
+	else {
+		// or if this has no subnamespaces
+		for(var f in folds) {
+			if (i++) break;
+			if (f !== "[pages]") {
+				i=2;
+				break;
+			}
 		}
 	}
 	var output={"s": "","fold_no":0};
