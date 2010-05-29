@@ -1,5 +1,5 @@
 Version 0.12.0 (legolas558)
-* dynamic newlines after TOC,nowiki, macro, comments, transclusion, style and script syntax
+* dynamic newlines after TOC, rulers, nowiki, macro, comments, transclusion, style and script syntax
 * disallow unsupported file modes on non-Gecko browsers
 * dropped 'Special::Aliases' and 'Special::Edit CSS'
 * fixed a bug happening in case of encrypted page duplication
