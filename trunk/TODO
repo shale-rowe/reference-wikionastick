@@ -1,5 +1,7 @@
 == 0.12.x development goals
 
+* disallow 'this' usage in object declaration to fix IE quirks
+
 * allow fixed navigation bar and scrolling menu bar (littlegirl's mod)
 
 * use spans for tags
