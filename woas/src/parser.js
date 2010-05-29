@@ -1,3 +1,4 @@
+// module @parser
 woas.parser = {
 	render_title: null,			// title of page being rendered
 	has_toc: null,
@@ -33,7 +34,7 @@ woas.parser = {
 	// a variety of regular expressions used by the parser
 	reBoldSyntax: /(^|[^\w\/\\])\*([^\*\n]+)\*/g,
 	//DEPRECATED "!" syntax is supported but shall me removed soon
-	reHeaders: /^([\!=]+)\s*(.*)$/gm,
+	reHeaders: /^([\!=]{1,6})\s*(.*)$/gm,
 	reNormHeader: /[^a-zA-Z0-9]/g,
 	sTOC: "[[Special::TOC]]",
 	reHasDNL: new RegExp("^([ \\t]*\\n)"),
@@ -57,7 +58,7 @@ woas.parser._init();
 woas.parser.header_replace = function(str, $1, $2) {
 		var header = $2, len = $1.length,
 		// remove the mirrored header syntax from right
-			hpos = header.indexOf($1),
+			hpos = header.lastIndexOf($1),
 			that = woas.parser;
 		if ((hpos !== -1) && (hpos === header.length - len))
 			header = header.substring(0, header.length - len);
@@ -108,30 +109,6 @@ woas.parser.parse_lists = function(str, type, $2) {
 	return suoro + woas.parser.sublist(stk, 1, suoro, euoro) + euoro;
 };
 
-// old tables parsing syntax - DEPRECATED
-var reReapTables = /^\{\|.*((?:\n\|.*)*)$/gm,
-	reReapTableRows = /\n\|([+ -])(.*)/g;
-woas.parser.parse_tables =  function (str, p1) {
-	var caption = false,
-		stk = [];
-	p1.replace(reReapTableRows, function(str, pp1, pp2) {
-			if (pp1 == '-')
-				return;
-			else if (pp1 == '+') {
-				caption = caption || pp2;
-				return;
-			}
-			stk.push('<'+'td>' + pp2.split('||').join('<'+'/td><'+'td>') + '<'+'/td>');
-		} 
-	);
-	if (stk.length)
-		return  '<'+'table class="woas_text_area">' +
-				(caption?('<'+'caption>' + caption + '<'+'/caption>'):'') +
-				'<'+'tr>' + stk.join('<'+'/tr><'+'tr>') + '<'+'/tr>' +
-			'<'+'/table>';
-	return str;
-};
-
 // new table parsing by FBNil
 var reReapTablesNew = /^\{\|(.*)((?:\n\|.*)*)$/gm,
 	reReapTablesNewSub1 = /\n\|([+ \t-\|])(.*)/g,
@@ -139,7 +116,6 @@ var reReapTablesNew = /^\{\|(.*)((?:\n\|.*)*)$/gm,
 	reReapTablesNewSub3 = /(\|\|\s*)$/,
 	reReapTablesNewSub4 = /\|\|\t/g,
 	reReapTablesNewSub5 = /\t\|\|/g;
-	
 woas.parser.parse_tables_new = function (str, prop, p1) {
     var caption = '',
 		colgroup = '',
@@ -229,6 +205,7 @@ woas.split_tags = function(tlist) {
 // elements which have one dynamic newline
 var reScripts = new RegExp("<"+"script([^>]*)>([\\s\\S]*?)<"+"\\/script>([ \t]*\n)?", "gi"),
 	reStyles = new RegExp("<"+"style([^>]*)>[\\s\\S]*?<"+"\\/style>([ \t]*\n)?", "gi"),
+	reRuler = /^\s*\-{3,}\s*$/gm,
 	reNowiki = /\{\{\{([\s\S]*?)\}\}\}([ \t]*\n)?/g,
 	reTransclusion = /\[\[Include::([\s\S]+?)\]\]([ \t]*\n)?/g,
 	reMacros = /<<<([\s\S]*?)>>>([ \t]*\n)?/g,
@@ -569,40 +546,30 @@ woas.parser.syntax_parse = function(P, snippets, tags, export_links, has_toc) {
 		r = woas.parser.place_holder(snippets.length);
 		snippets.push(tag);
 		return r;
-	});
-
+	})
 	// links with pipe e.g. [[Page|Title]]
-	P.body = P.body.replace(reWikiLink, function(str, $1, $2) {
+	.replace(reWikiLink, function(str, $1, $2) {
 		return woas.parser._render_wiki_link($1, $2, snippets, tags, export_links);
 	})
-
 	// links without pipe e.g. [[Page]]
 	.replace(reWikiLinkSimple, function(str, $1) {
 		return woas.parser._render_wiki_link($1, null, snippets, tags, export_links);
 	})
-	
 	// allow non-wrapping newlines
 	.replace(/\\\n/g, "")
-	
 	// underline
 	.replace(/(^|[^\w])_([^_]+)_/g, "$1"+woas.parser.marker+"uS#$2"+woas.parser.marker+"uE#")
-	
-	// italics
-	// need a space after ':'
+	// italics - need a space after ':'
 	.replace(/(^|[^\w:])\/([^\n\/]+)\//g, function (str, $1, $2) {
 		// hotfix for URLs
 		if ($2.indexOf("//")!=-1)
 			return str;
 		return $1+"<"+"em>"+$2+"<"+"/em>";
 	})
-	
 	// ordered/unordered lists parsing (code by plumloco)
 	.replace(reReapLists, this.parse_lists)
-	
-	// headers
-	//TODO: check that only h1~h6 are parsed
+	// headers - only h1~h6 are parsed
 	.replace(this.reHeaders, this.header_replace);
-	
 	// other custom syntax should go into this callback
 	this.extend_syntax(P);
 	
@@ -616,6 +583,9 @@ woas.parser.syntax_parse = function(P, snippets, tags, export_links, has_toc) {
 				+ "<"+"/div>" );
 		this.toc = "";
 	}
+
+	// add a dynamic newline at start to have consistent newlines for the ruler and other syntax regex
+	P.body = this.NL_MARKER + "\n" + P.body;
 
 	// use 'strong' tag for bold text
 	P.body = P.body.replace(this.reBoldSyntax, "$1"+woas.parser.marker+"bS#$2"+woas.parser.marker+"bE#")
@@ -634,8 +604,8 @@ woas.parser.syntax_parse = function(P, snippets, tags, export_links, has_toc) {
 	})
 
 	// 'hr' horizontal rulers made with 3 hyphens, 4 suggested
-	// only white spaces are allowed after the hyphens
-	.replace(/(^|\n)\s*\-{3,}[ \t]*(\n|$)/g, "<"+"hr class=\"woas_ruler\" />")
+	// only white spaces are allowed before/after the hyphens
+	.replace(reRuler, "<"+"hr class=\"woas_ruler\" />")
 	// tables-parsing pass
 	.replace(woas.config.new_tables_syntax ? reReapTablesNew : reReapTables,
 				woas.config.new_tables_syntax ? this.parse_tables_new : this.parse_tables)

@@ -521,13 +521,12 @@ woas._save_to_file = function(full) {
 	this.progress_init("Saving to file");
 
 	// force full mode if WSIF datasource mode changed since last time loading/saving
-	var ds_changed = (this.config.wsif_ds.length !== this._old_wsif_ds_len);
-	
+	var ds_changed = (this.config.wsif_ds.length !== this._old_wsif_ds_len),
 	// increase the marker only when performing full save
-	var new_marker = ((full | ds_changed) && !this.config.wsif_ds.length) ? _inc_marker(__marker) : __marker;
-	
+		new_marker = ((full | ds_changed) && !this.config.wsif_ds.length) ? this._inc_marker(__marker) : __marker,
+		safe_current;
+
 	// setup the page to be opened on next start
-	var safe_current;
 	if (this.config.nav_history) {
 		if (!this.page_exists(current))
 			safe_current = this.config.main_page;
@@ -664,7 +663,9 @@ var reXHTMLFix = /<(img|hr|br|input|meta)[^>]*>/gi;
 var reHeadTagEnd = new RegExp("<\\/"+"head[^>]*>", "ig");
 	reHeadTagStart = new RegExp("<"+"head[^>]*>", "ig"),
 	reTagStart = /<(\w+)([^>]*)>/g,
-	reTagEnd = /<\/(\w+)[^>]*>/g;
+	reTagEnd = /<\/(\w+)[^>]*>/g,
+	reEditorTA = new RegExp('<'+'textarea\\s+id="?woas_editor"?\\s*[^>]+>(.*?)<'+'/textarea>', 'gi'),
+	reCKDiv = new RegExp('<'+'div\\s+id="?woas_custom_accesskeys"?\\s*>(.*?)<'+'/div>', 'gi');
 
 woas._extract_src_data = function(marker, source, full, current_page, data_only) {
 	var e_offset, s_offset;
@@ -783,7 +784,7 @@ woas._extract_src_data = function(marker, source, full, current_page, data_only)
 		reTagStart.lastIndex = tag_end;
 		m = reTagStart.exec(the_head);
 	}
-	
+
 	// rebuild the source by using splicings
 	if (splicings.length) {
 		var prev_ofs = 0;
@@ -811,55 +812,51 @@ woas._extract_src_data = function(marker, source, full, current_page, data_only)
 		}
 		// properly update offset (+2 is for newlines)
 		e_offset += 3 + marker.length + 7 + 2;
-
-		source += rest_of_source.replace(reXHTMLFix, reXHTMLFix_hook);
-		rest_of_source = null;
 	} else {
-		// XHTML hotfixes (FF doesn't either save correctly)
-		//TODO: check if FF3 has still this behaviour
-		
-		source = the_head + rest_of_source.replace(reXHTMLFix, reXHTMLFix_hook);
-		the_head = rest_of_source = null;
+		source = the_head;
+		the_head = null;
 	}
 	
 	// remove the tail (if any)
 	var tail_end_mark = "<"+"!-- "+marker+"-TAIL-END -"+"->",
-			tail_st_mark = "<"+"!-- "+marker+"-TAIL-START --"+">",
-			tail_start = source.indexOf(tail_st_mark, e_offset);
+		tail_st_mark = "<"+"!-- "+marker+"-TAIL-START --"+">",
+		tail_start = rest_of_source.indexOf(tail_st_mark, e_offset);
 	if (tail_start !== -1) {
-		var tail_end = source.indexOf(tail_end_mark, tail_start);
+		var tail_end = rest_of_source.indexOf(tail_end_mark, tail_start);
 		if (tail_end === -1)
 			woas.log("Cannot find tail end!"); //log:1
 		else {
 			// remove the tail content (but not the tail itself)
-			source =	source.substring(0, tail_start + tail_st_mark.length)+
-						source.substring(tail_end+tail_end_mark.length);
-			//TODO: replace textarea with a standard one
+			rest_of_source =	rest_of_source.substring(0, tail_start + tail_st_mark.length)+
+						rest_of_source.substring(tail_end+tail_end_mark.length);
 		}
 	}
-	
-	// remove the custom keys defined
-	var ck_block = new RegExp('<'+'div\\s+id="?woas_custom_accesskeys"?\\s*>(.*?)<'+'/div>', 'gi');
-	source = source.replace(ck_block, '<'+'div id="woas_custom_accesskeys">&'+'nbsp;<'+'/div>');
 
+	// replace textarea with a standard one
+	source += rest_of_source.replace(reEditorTA, '<'+'textarea id="woas_editor" rows="0" cols="0">&'+'nbsp;<'+'/textarea>')
+	// remove the custom keys defined
+			.replace(reCKDiv, '<'+'div id="woas_custom_accesskeys">&'+'nbsp;<'+'/div>')
+	// XHTML hotfixes (FF2/FF3 doesn't either save correctly)
+			.replace(reXHTMLFix, reXHTMLFix_hook);
+	rest_of_source = null;
+	
 	if (!full) {
 		e_offset = source.indexOf("/* "+marker+ "-DATA */", s_offset);
 		if (e_offset === -1) {
 			this.alert(this.i18n.ERR_MARKER.sprintf("DATA"));
 			return false;
 		}
-		e_offset += 3 + marker.length + 8;
+		e_offset += 3 + marker.length + 8 + 1 /* newlines */;
 	}
 	return source.substring(e_offset);
 }
 
 // increment the save-counter portion of the marker
 var reMarker = /([^\-]*)\-(\d{7,7})$/;
-function _inc_marker(old_marker) {
+woas._inc_marker = function(old_marker) {
 	var m = old_marker.match(reMarker);
-	if (m===null) {
+	if (m===null)
 		return _random_string(10)+"-0000001";
-	}
 	var n = new Number(m[2].replace(/^0+/, '')) + 1;
 	n = n.toString();
 	// marker part + 0-padded save count number
