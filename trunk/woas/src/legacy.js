@@ -60,3 +60,27 @@ function save() {
 	woas.log("WARNING: Called deprecated function: save");
 	woas.save();
 }
+
+// old tables parsing syntax - DEPRECATED
+var reReapTables = /^\{\|.*((?:\n\|.*)*)$/gm,
+	reReapTableRows = /\n\|([+ -])(.*)/g;
+woas.parser.parse_tables =  function (str, p1) {
+	var caption = false,
+		stk = [];
+	p1.replace(reReapTableRows, function(str, pp1, pp2) {
+			if (pp1 == '-')
+				return;
+			else if (pp1 == '+') {
+				caption = caption || pp2;
+				return;
+			}
+			stk.push('<'+'td>' + pp2.split('||').join('<'+'/td><'+'td>') + '<'+'/td>');
+		} 
+	);
+	if (stk.length)
+		return  '<'+'table class="woas_text_area">' +
+				(caption?('<'+'caption>' + caption + '<'+'/caption>'):'') +
+				'<'+'tr>' + stk.join('<'+'/tr><'+'tr>') + '<'+'/tr>' +
+			'<'+'/table>';
+	return str;
+};
