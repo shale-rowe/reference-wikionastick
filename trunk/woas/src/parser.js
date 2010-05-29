@@ -436,6 +436,7 @@ woas.parser.transclude = function(title, snippets, export_links) {
 };
 
 woas.parser._snippets = null;
+woas.parser._transcluding = 0;
 woas.parser._transclude = function (str, $1, dynamic_nl) {
 	var that = woas.parser,
 		parts = $1.split("|"),
@@ -443,6 +444,8 @@ woas.parser._transclude = function (str, $1, dynamic_nl) {
 		is_emb = false, ns=woas.get_namespace(templname, true),
 		// temporary page object
 		P = { body: null };
+	// increase transclusion depth
+	++that._transcluding;
 //	woas.log("Transcluding "+templname+"("+parts.slice(0).toString()+")");	// log:0
 	// in case of embedded file, add the inline file or add the image
 	if (woas.is_reserved(templname) || (templname.substring(templname.length-2)=="::"))
@@ -465,6 +468,7 @@ woas.parser._transclude = function (str, $1, dynamic_nl) {
 		r = woas.parser.place_holder(that._snippets.length, "", dynamic_nl);
 		// show an error with empty set symbol
 		that._snippets.push(woas.parser.render_error(str, "#8709"));
+		--that._transcluding;
 		return r;
 	}
 	if (is_emb) {
@@ -515,7 +519,7 @@ woas.parser._transclude = function (str, $1, dynamic_nl) {
 			} );
 		}
 	} // not embedded
-	
+	--that._transcluding;
 	//add the previous dynamic newline
 	if (typeof dynamic_nl != "undefined" && dynamic_nl!=="")
 		P.body += that.NL_MARKER+dynamic_nl;
