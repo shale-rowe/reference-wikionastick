@@ -116,7 +116,8 @@ var reReapTablesNew = /^\{\|(.*)((?:\n\|.*)*)$/gm,
 	reReapTablesNewSub2 = /(\|\|)(\s{0,1})(\s?)(?=\|\|)/g,
 	reReapTablesNewSub3 = /(\|\|\s*)$/,
 	reReapTablesNewSub4 = /\|\|\t/g,
-	reReapTablesNewSub5 = /\t\|\|/g;
+	reReapTablesNewSub5 = /\t\|\|/g,
+	reReapTablesHead = /^(\s*)(?:(=+)\s*)?(.*?)(\s*)$/;
 woas.parser.parse_tables_new = function (str, prop, p1) {
     var caption = '',
 		colgroup = '',
@@ -155,13 +156,13 @@ woas.parser.parse_tables_new = function (str, prop, p1) {
 			stag = "",
 			cs = 0;
         for (i = cells.length - 1; i >= 0; --i) {
-            C = cells[i].match(/^(\s*)(?:(=+)\s*)?(.*?)(\s*)$/);
+            C = cells[i].match(reReapTablesHead);
             if (i && !C[3] && !C[1] && !C[2]) {
                 ++cs;
                 continue;
             } else if (i == 0 && !C[3]) C[3] = "&nbsp;";
             CL = C[2] ? C[2].length : 0;
-            stag = '<' + (CL == 1 ? 'th' : 'td') + (CL > 1 ? ' ' + CC[CL - 2] || '' : '') + (cs ? ' colspan=' + ++cs : '') + (C[1] ? ' align=' + (C[4] ? 'center' : 'right') : '') + '>';
+            stag = '<' + (CL == 1 ? 'th' : 'td') + (CL > 1 ? ' ' + CC[CL - 2] || '' : '') + (cs ? ' colspan=' + (++cs) : '') + (C[1] ? ' align=' + (C[4] ? 'center' : 'right') : '') + '>';
             cs = 0;
             row.unshift(stag + C[3] + (CL == 1 ? '<'+'/th>' : '<'+'/td>'));
         }
