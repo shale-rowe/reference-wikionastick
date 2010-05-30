@@ -426,7 +426,7 @@ woas.do_search = function(str, noclear) {
 
 	// refresh the search page, or go to it if we are not
 	woas.ui._search_render();
-}
+};
 
 // Used by Special::Options page
 function save_options() {
@@ -601,8 +601,8 @@ function query_delete_image(cr) {
 
 // triggered by UI graphic button
 function page_print() {
-	woas._customized_popup(current, woas.getHTMLDiv(d$("woas_wiki_area")), 
-			"function go_to(page) { alert(\""+woas.js_encode(woas.i18n.PRINT_MODE_WARN)+"\");}");
+	woas._customized_popup(current, woas.getHTMLDiv(d$("woas_wiki_area")),
+			'function go_to(page) { alert("'+woas.js_encode(woas.i18n.PRINT_MODE_WARN)+'");}');
 }
 
 woas._customized_popup = function(page_title, page_body, additional_js, additional_css, body_extra) {

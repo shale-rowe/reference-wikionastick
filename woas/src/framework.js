@@ -542,7 +542,7 @@ woas.chunkify = function(t) {
       tz[y] += j;
     }
     return tz;
-}
+};
 
 woas.strnatcmp = function(a, b) {
   var	aa = woas.chunkify(a),
@@ -557,7 +557,7 @@ woas.strnatcmp = function(a, b) {
     }
   }
   return aa.length - bb.length;
-}
+};
 
 /*
 Array.prototype.natsort = function(caseInsensitive) {

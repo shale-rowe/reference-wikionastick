@@ -169,7 +169,7 @@ woas.parser.parse_tables_new = function (str, prop, p1) {
         stk.push(row.join(""));
     });
     return '<'+'table ' + ((prop.indexOf("class=")!==-1) ? '' : 'class="woas_text_area" ') + prop + '>' + caption + colgroup + '<'+'tr>' + stk.join('<'+'/tr><'+'tr>') + '<'+'/tr>' + '<'+'/table>'
-}
+};
 
 // extract the wiki tags from a wiki URL
 woas._get_tags = function(text, last_tag) {

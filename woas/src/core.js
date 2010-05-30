@@ -99,7 +99,7 @@ woas._new_page_direct = function(title, fill_mode) {
 	if (upd_menu)
 		this.refresh_menu_area();
 	return title;
-}
+};
 
 // used to eventually remove the new-to-be page when cancel is pressed
 woas._ghost_page = false;
@@ -590,7 +590,7 @@ woas.dom = {
 		
 		var style;
 		if (external) {
-			style = document.createElement("link")
+			style = document.createElement("link");
 			style.setAttribute("rel", "stylesheet");
 			style.setAttribute("type", "text/css");
 			style.setAttribute("id", css_id);
@@ -826,7 +826,7 @@ woas._make_delta_func = function(fn_name, fn_args) {
 	} else
 		fn_obj = woas._delta_cache[id];
 	return fn_obj;
-}
+};
 
 // @module pager
 woas.pager = {
