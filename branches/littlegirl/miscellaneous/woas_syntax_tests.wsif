@@ -2,7 +2,7 @@ wsif.version: 1.3.1
 wsif.generator: woas
 wsif.generator.version: 0.12.0
 woas.author: Little Girl
-woas.pages: 18
+woas.pages: 19
 
 --DFQRCTsKlU
 woas.page.title: Test::Comments
@@ -12,12 +12,12 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Comments test
-<span style="background-color:springgreen;padding:0.2em;">There should be a hidden XHTML comment (<tt>&#60&#33;&#45;&#45;&#32;&#45;&#45;&#62</tt>) surrounded by text directly above, before, after, and below it:</span>
+= Test::Comments
+<span class="intro">There should be a hidden XHTML comment (<tt>&#60;&#33;&#45;&#45;&#32;&#45;&#45;&#62;</tt>) surrounded by text directly above, before, after, and below it:</span>
 
-<font color="#FF00FF">*This text should be above the hidden XHTML comment.*</font>
-<font color="#FF00FF">*This text should be before the hidden XHTML comment.*</font><!-- XHTML comment --><font color="#FF00FF">*This text should be after the hidden XHTML comment.*</font>
-<font color="#FF00FF">*This text should be below the hidden XHTML comment.*</font>
+<span class="wrap_test">ABOVE</span>
+<span class="wrap_test">BEFORE</span><!-- XHTML comment --><span class="wrap_test">AFTER</span>
+<span class="wrap_test">BELOW</span>
 
 --DFQRCTsKlU
 woas.page.title: Test::Headers
@@ -27,10 +27,10 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Header test
+= Test::Headers
 
 == Test 1
-<span style="background-color:springgreen;padding:0.2em;">There should be six levels of headers:</span>
+<span class="intro">There should be six levels of headers:</span>
 = Level one header
 == Level two header
 === Level three header
@@ -39,11 +39,11 @@ woas.page.boundary: DFQRCTsKlU
 ====== Level six header
 
 == Test 2
-<span style="background-color:springgreen;padding:0.2em;">There should be a link in the header:</span>
+<span class="intro">There should be a link in the header:</span>
 = This header should have a [[Main Page|link]] in it
 
 == Test 3
-<span style="background-color:springgreen;padding:0.2em;">The header should be a link:</span>
+<span class="intro">The header should be a link:</span>
 = [[Main Page|This header should be a link]]
 
 --DFQRCTsKlU
@@ -54,19 +54,19 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Horizontal rule test
+= Test::Horizontal rules
 == Test 1
-<span style="background-color:springgreen;padding:0.2em;">There should be a horizontal rule with text directly above and below it:</span>
+<span class="intro">There should be a horizontal rule with text directly above and below it:</span>
 
-<font color="#FF00FF">*This text should be above the horizontal rule.*</font>
+<span class="wrap_test">ABOVE</span>
 ----
-<font color="#FF00FF">*This text should be below the horizontal rule.*</font>
+<span class="wrap_test">BELOW</span>
 
 == Test 2
-<span style="background-color:springgreen;padding:0.2em;">There should be a horizontal rule with headers directly above and below it:</span>
-== This header should be above the horizontal rule
+<span class="intro">There should be a horizontal rule with headers directly above and below it:</span>
+== ABOVE
 ----
-== This header should be below the horizontal rule
+== BELOW
 
 --DFQRCTsKlU
 woas.page.title: Test::JavaScript
@@ -76,20 +76,13 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= JavaScript
-<div style="background-color:springgreen;padding:0.2em;">This page should have a JavaScript alert that pops up when the page loads.</div>
-== About the &lt;script&gt; tags used in this page
-The script tags are properly formatted by XHTML standards as described here: [[http://www.w3schools.com/tags/tag_script.asp|w3schools]].
-{{{
-<script type="text/javascript">//<![CDATA[
-JAVASCRIPT CODE GOES HERE
-//]]></script>
-}}}
-<font color="#FF00FF">*This text should be directly above the &lt;script&gt; section.*</font>
-<font color="#FF00FF">*This text should be directly before the &lt;script&gt; section.*</font><script type="text/javascript">//<![CDATA[
+= Test::JavaScript
+<span class="intro">There should be a JavaScript alert that pops up when the page loads, and a hidden &lt;script&gt; section wrapped in text above, before, after, and below it.</span>
+<span class="wrap_test">ABOVE</span>
+<span class="wrap_test">BEFORE</span><script type="text/javascript">//<![CDATA[
 alert("This is an example alert!");
-//]]></script><font color="#FF00FF">*This text should be directly after the &lt;script&gt; section.*</font>
-<font color="#FF00FF">*This text should be directly below the &lt;script&gt; section.*</font>
+//]]></script><span class="wrap_test">AFTER</span>
+<span class="wrap_test">BELOW</span>
 
 --DFQRCTsKlU
 woas.page.title: Test::Links
@@ -99,20 +92,20 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Link test
+= Test::Links
 
 == Test 1
-<span style="background-color:springgreen;padding:0.2em;">There should be a blue existent link:</span>
+<span class="intro">There should be a blue existent link:</span>
 
 [[Main Page]]
 
 == Test 2
-<span style="background-color:springgreen;padding:0.2em;">There should be a green external link:</span>
+<span class="intro">There should be a green external link:</span>
 
 [[http://www.gnu.org/]]
 
 == Test 3
-<span style="background-color:springgreen;padding:0.2em;">There should be a red nonexistent link:</span>
+<span class="intro">There should be a red nonexistent link:</span>
 
 [[nonexistent link]]
 
@@ -124,24 +117,24 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= List test
+= Test::Lists
 == Test 1
-<span style="background-color:springgreen;padding:0.2em;">There should be a bulleted list:</span>
+<span class="intro">There should be a bulleted list:</span>
 * item 1
 * item 2
 * item 3
 == Test 2
-<span style="background-color:springgreen;padding:0.2em;">There should be a numeric list:</span>
+<span class="intro">There should be a numeric list:</span>
 # item 1
 # item 2
 # item 3
 == Test 3
-<span style="background-color:springgreen;padding:0.2em;">There should be an alphanumeric list:</span>
+<span class="intro">There should be an alphanumeric list:</span>
 @ item 1
 @ item 2
 @ item 3
 == Test 4
-<span style="background-color:springgreen;padding:0.2em;">There should be a multi-level bulleted list:</span>
+<span class="intro">There should be a multi-level bulleted list:</span>
 * item 1
 ** item 1
 *** item 1
@@ -152,7 +145,7 @@ woas.page.boundary: DFQRCTsKlU
 ** item 1
 *** item 1
 == Test 5
-<span style="background-color:springgreen;padding:0.2em;">There should be a multi-level numbered list:</span>
+<span class="intro">There should be a multi-level numbered list:</span>
 # item 1
 ## item 1
 ### item 1
@@ -163,7 +156,7 @@ woas.page.boundary: DFQRCTsKlU
 ## item 1
 ### item 1
 == Test 6
-<span style="background-color:springgreen;padding:0.2em;">There should be a multi-level alphanumeric list:</span>
+<span class="intro">There should be a multi-level alphanumeric list:</span>
 @ item 1
 @@ item 1
 @@@ item 1
@@ -182,11 +175,12 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Macro
-<span style="background-color:springgreen;padding:0.2em;">There should be six levels of headers:</span>
+= Test::Macro
+== Test 1
+<span class="intro">There should be a hidden macro definition with text above, before, after, and below it:</span>
 
-<font color="#FF00FF">*This text should be directly above the hidden macro definition.*</font>
-<<<%woas.diary:
+<span class="wrap_test">ABOVE</span>
+<span class="wrap_test">BEFORE</span><<<%woas.diary:
 /* Diary macro by legolas558 - original work by FBNil */
 var D = new Date(),
     DAYNAMES = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
@@ -199,10 +193,15 @@ var newpagename = "Diary::" + D.getFullYear() +"::"+ MONTHNAMES[D.getMonth()] +"
 macro.text = "[["+newpagename+"]]\n";
 macro.reprocess = true;
 return true;
->>>
-<font color="#FF00FF">*This text should be directly below the hidden macro definition and directly above the macro call.*</font>
-<font color="#FF00FF">*This text should be directly before the macro call.*</font><<<woas.diary:>>><font color="#FF00FF">*This text should be directly after the macro call.*</font>
-<font color="#FF00FF">*This text should be directly below the macro call.*</font>
+>>><span class="wrap_test">AFTER</span>
+<span class="wrap_test">BELOW</span>
+
+== Test 2
+<span class="intro">There should be a macro call with text above, before, after, and below it:</span>
+
+<span class="wrap_test">ABOVE</span>
+<span class="wrap_test">BEFORE</span><<<woas.diary:>>><span class="wrap_test">AFTER</span>
+<span class="wrap_test">BELOW</span>
 
 --DFQRCTsKlU
 woas.page.title: Test::Menu
@@ -212,8 +211,8 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Sub-menu test
-<div style="background-color:springgreen;padding:0.2em;">This entire menu (including the sub-menu) should take up 80% of the height of this window and have a scrollbar on the right because of the embedded CSS styling at the bottom of the sub-menu.</div>
+= Test::Menu
+<div class="intro">This entire menu and sub-menu should take up 80% of the height of this window and have a scrollbar on the right because of the embedded CSS styling at the bottom of the sub-menu.</div>
 * *Pages:*
 ** [[Test::Comments]]
 ** [[Test::Headers]]
@@ -230,9 +229,11 @@ woas.page.boundary: DFQRCTsKlU
 ** [[Test::Tag 1]]
 ** [[Test::Tag 2]]
 ** [[Test::Tag overflow]]
+** [[Test::Text formatting]]
 ** [[Test::ToC]]
 ** [[Test::Transclusion]]
 <style type="text/css">
+/*SUB-MENU*/
 #i_woas_menu_area {
 	height: 80%;
 	overflow: auto;
@@ -240,8 +241,24 @@ woas.page.boundary: DFQRCTsKlU
 #woas_ns_menu_edit_button {
 	padding-bottom: 0.4em;
 	}
+/*EXAMPLES INTRODUCTORY TEXT*/
+.intro {
+/*	background-color: springgreen;*/
+	background-color: #048db4;
+	color: white;
+	font-weight: bold;
+	padding: 0.2em;
+	}
+/*EXAMPLES WRAP-TEST*/
+.wrap_test {
+/*	background-color: #048db4;*/
+	background-color: black;
+	color: white;
+	font-weight: bold;
+	padding-right: 0.2em;
+	padding-left: 0.2em;
+	}
 </style>
-
 --DFQRCTsKlU
 woas.page.title: Test::Nowiki
 woas.page.attributes: 0
@@ -250,57 +267,57 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Nowiki test
+= Test::Nowiki
 == Test 1
-<span style="background-color:springgreen;padding:0.2em;">There should be inline nowiki text that does not take up the entire width of the page:</span>
+<span class="intro">There should be inline nowiki text that does not take up the entire width of the page:</span>
 
 {{{test}}}
 
 == Test 2
-<span style="background-color:springgreen;padding:0.2em;">There should be inline nowiki text with text *above* and *below* it:</span>
+<span class="intro">There should be inline nowiki text with text above and below it:</span>
 
-<font color="#FF00FF">*This text should be above the inline nowiki text.*</font>
+<span class="wrap_test">ABOVE</span>
 {{{test}}}
-<font color="#FF00FF">*This text should be below the inline nowiki text.*</font>
+<span class="wrap_test">BELOW</span>
 
 == Test 3
-<span style="background-color:springgreen;padding:0.2em;">There should be inline nowiki with text *before* and *after* it:</span>
+<span class="intro">There should be inline nowiki with text before and after it:</span>
 
-<font color="#FF00FF">*This text should be before the inline nowiki text.*</font>{{{test}}}<font color="#FF00FF">*This text should be after the inline nowiki text.*</font>
+<span class="wrap_test">BEFORE</span>{{{test}}}<span class="wrap_test">AFTER</span>
 == Test 4
-<span style="background-color:springgreen;padding:0.2em;">There should be multi-line nowiki text that takes up the entire width of the page:</span>
+<span class="intro">There should be multi-line nowiki text that takes up the entire width of the page:</span>
 {{{
 test
 test
 test
 }}}
 == Test 5
-<span style="background-color:springgreen;padding:0.2em;">There should be multi-line nowiki text that takes up the entire width of the page with text *above* and *below* it:</span>
+<span class="intro">There should be multi-line nowiki text that takes up the entire width of the page with text above and below it:</span>
 
-<font color="#FF00FF">*This text should be above the multi-line nowiki text.*</font>
+<span class="wrap_test">ABOVE</span>
 {{{
 test
 test
 test
 }}}
-<font color="#FF00FF">*This text should be below the multi-line nowiki text.*</font>
+<span class="wrap_test">BELOW</span>
 == Test 6
-<span style="background-color:springgreen;padding:0.2em;">There should be multi-line nowiki text that takes up the entire width of the page with text *before* and *after* it:</span>
+<span class="intro">There should be multi-line nowiki text that takes up the entire width of the page with text before and after it:</span>
 
-<font color="#FF00FF">*This text should be before the multi-line nowiki text.*</font>{{{
+<span class="wrap_test">BEFORE</span>{{{
 test
 test
 test
-}}}<font color="#FF00FF">*This text should be after the multi-line nowiki text.*</font>
+}}}<span class="wrap_test">AFTER</span>
 == Test 7
-<span style="background-color:springgreen;padding:0.2em;">There should be multi-line nowiki text properly indented in a list:</span>
-* <font color="#FF00FF">*This text should be before the multi-line nowiki text.*</font>{{{
+<span class="intro">There should be multi-line nowiki text properly indented in a list:</span>
+* <span class="wrap_test">BEFORE</span>{{{
 test
 test
 test
-}}}<font color="#FF00FF">*This text should be after the multi-line nowiki text.*</font>
+}}}<span class="wrap_test">AFTER</span>
 == Test 8
-<span style="background-color:springgreen;padding:0.2em;">There should be multi-line nowiki text that takes up the entire width of the page and wraps properly:</span>
+<span class="intro">There should be multi-line nowiki text that takes up the entire width of the page and wraps properly:</span>
 {{{
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 }}}
@@ -341,8 +358,8 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Orphaned page test
-<span style="background-color:springgreen;padding:0.2em;">This should be an orphaned page.</span>
+= Test::Orphaned page
+<span class="intro">This should be an orphaned page.</span>
 
 --DFQRCTsKlU
 woas.page.title: Test::Page listings
@@ -352,29 +369,29 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Page listings
+= Test::Page listings
 == Test 1
-<span style="background-color:springgreen;padding:0.2em;">There should be a listing of all pages:</span>
+<span class="intro">There should be a listing of all pages:</span>
 
 [[Special::All Pages]]
 
 == Test 2
-<span style="background-color:springgreen;padding:0.2em;">There should be a listing of dead pages that shows the nonexistent link from Test::Links:</span>
+<span class="intro">There should be a listing of dead pages that shows the nonexistent link from Test::Links:</span>
 
 [[Special::Dead Pages]]
 
 == Test 3
-<span style="background-color:springgreen;padding:0.2em;">There should be a listing of orphaned pages that shows the Test::Orphaned page:</span>
+<span class="intro">There should be a listing of orphaned pages that shows the Test::Orphaned page:</span>
 
 [[Special::Orphaned Pages]]
 
 == Test 4
-<span style="background-color:springgreen;padding:0.2em;">There should be a listing of tagged pages:</span>
+<span class="intro">There should be a listing of tagged pages:</span>
 
 [[Tagged::]]
 
 == Test 5
-<span style="background-color:springgreen;padding:0.2em;">There should be a listing of untagged pages:</span>
+<span class="intro">There should be a listing of untagged pages:</span>
 
 [[Untagged::]]
 
@@ -386,16 +403,16 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Style
-<span style="background-color:springgreen;">The background of this page should be pale yellow because of the &lt:style&gt;&lt;/style&gt; tags with a CSS rule inside them embedded in this page, and there should be text directly above, before, after, and below the style tags:</span>
+= Test::Style
+<span class="intro">There should be a yellow background on this page and a hidden &lt;style&gt; section with text directly above, before, after, and below it:</span>
 
-<font color="#FF00FF">*This text should be above the hidden style tags.*</font>
-<font color="#FF00FF">*This text should be before the hidden  style tags.*</font><style type="text/css">
+<span class="wrap_test">ABOVE</span>
+<span class="wrap_test">BEFORE</span><style type="text/css">
 #woas_wiki_area {
 	background-color: #FFFFAA;
 }
-</style><font color="#FF00FF">*This text should be after the hidden  style tags.*</font>
-<font color="#FF00FF">*This text should be below the hidden  style tags.*</font>
+</style><span class="wrap_test">AFTER</span>
+<span class="wrap_test">BELOW</span>
 
 --DFQRCTsKlU
 woas.page.title: Test::Tables
@@ -405,10 +422,10 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Tables test
+= Test::Tables
 
 == Test 1
-<span style="background-color:springgreen;padding:0.2em;">There should be a table with no caption:</span>
+<span class="intro">There should be a table with no caption:</span>
 
 {|
 | cell one || cell two || cell three
@@ -417,7 +434,7 @@ woas.page.boundary: DFQRCTsKlU
 |}
 
 == Test 2
-<span style="background-color:springgreen;padding:0.2em;">There should be a table with a caption above it:</span>
+<span class="intro">There should be a table with a caption above it:</span>
 
 {|
 |+ Test
@@ -427,7 +444,7 @@ woas.page.boundary: DFQRCTsKlU
 |}
 
 == Test 3
-<span style="background-color:springgreen;padding:0.2em;">There should be a table with a caption below it:</span>
+<span class="intro">There should be a table with a caption below it:</span>
 
 {|
 | cell one || cell two || cell three
@@ -437,7 +454,7 @@ woas.page.boundary: DFQRCTsKlU
 |}
 
 == Test 4
-<span style="background-color:springgreen;padding:0.2em;">There should be a table with an empty cell:</span>
+<span class="intro">There should be a table with an empty cell:</span>
 
 {|
 | cell one || cell two || cell three
@@ -446,7 +463,7 @@ woas.page.boundary: DFQRCTsKlU
 |}
 
 == Test 5
-<span style="background-color:springgreen;padding:0.2em;">There should be a table with a link in one of the cells:</span>
+<span class="intro">There should be a table with a link in one of the cells:</span>
 
 {|
 | cell one || cell two || cell three
@@ -462,9 +479,9 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Tag test 1
-<span style="background-color:springgreen;padding:0.2em;">There should be a tag in the container:</span>
-[[Tag::Test1]]
+= Test::Tag 1
+<span class="intro">There should be a tag in the container:</span>
+[[Tag::Tag1]]
 
 --DFQRCTsKlU
 woas.page.title: Test::Tag 2
@@ -474,9 +491,9 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Tag test 2
-<span style="background-color:springgreen;padding:0.2em;">There should be a tag in the container:</span>
-[[Tag::Test2]]
+= Test::Tag 2
+<span class="intro">There should be a tag in the container:</span>
+[[Tag::Tag2]]
 
 --DFQRCTsKlU
 woas.page.title: Test::Tag overflow
@@ -486,9 +503,30 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Tag overflow test
-<span style="background-color:springgreen;padding:0.2em;">There should be too many tags in the container and they should either wrap or be scrollable from within the container depending on what the wiki default settings are:</span>
+= Test::Tag overflow
+<span class="intro">There should be too many tags in the container and they should either wrap or be scrollable from within the container depending on what the wiki default settings are:</span>
 [[Tag::one,two,three,four,five,six,seven,eight,nine,ten,eleven,twelve,thirteen,fourteen,fifteen,sixteen,seventeen,eighteen,nineteen,twenty]]
+
+--DFQRCTsKlU
+woas.page.title: Test::Text formatting
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Test::Text formatting
+<span class="intro">There should be bold text:</span>
+
+*bold text*
+
+<span class="intro">There should be italic text:</span>
+
+/italic text/
+
+<span class="intro">There should be underlined text:</span>
+
+_underlined text_
 
 --DFQRCTsKlU
 woas.page.title: Test::ToC
@@ -499,7 +537,8 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 [[Special::TOC]]
-<span style="background-color:springgreen;padding:0.2em;">There should be a Table of Contents with level one through six headers properly indented with all content fitting iside the borders of the Table of Contents container at the top of the page.</span>
+
+<span class="intro">There should be a Table of Contents container at the top of the page with level one through six headers properly indented and all content fitting inside the borders of the container.</span>
 = Level one header
 == Level two header
 === Level three header
@@ -524,11 +563,11 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Transclusion test
-<span style="background-color:springgreen;padding:0.2em;">There should be a transcluded page with text directly *above* and *below* it:</span>
+= Test::Transclusion
+<span class="intro">There should be a transcluded page with text directly above and below it:</span>
 
-<font color="#FF00FF">*This text should be directly above the transcluded page.*</font>
+<span class="wrap_test">ABOVE</div>
 [[Include::Main Page]]
-<font color="#FF00FF">*This text should be directly below the transcluded page.*</font>
+<span class="wrap_test">BELOW</div>
 
 --DFQRCTsKlU
