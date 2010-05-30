@@ -428,7 +428,7 @@ woas.importer = {
 		if (this.i_config)
 			old_cfg = d$.clone(woas.config);
 			
-		this.new_main_page = woas.config.main_page
+		this.new_main_page = woas.config.main_page;
 
 		// locate the random marker
 		var old_marker = ct.match(/\nvar __marker = "([A-Za-z\-\d]+)";(\r\n|\n)/);

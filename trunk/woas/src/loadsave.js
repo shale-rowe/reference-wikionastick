@@ -65,7 +65,7 @@ woas._save_this_file = function(new_data, old_data) {
 		this.alert(msg);
 	}
 	return r;
-}
+};
 
 //API1.0: save-file handler
 //NOTE: save_mode is not always enforced by browser binding
@@ -693,7 +693,7 @@ woas._extract_src_data = function(marker, source, full, current_page, data_only)
 	var head_start, head_end,
 		m = reHeadTagStart.exec(source);
 	if (m !== null)
-		head_start = m.index+m[0].length
+		head_start = m.index+m[0].length;
 	else {
 		this.crash("Cannot find head start tag");
 		return false;
@@ -849,7 +849,7 @@ woas._extract_src_data = function(marker, source, full, current_page, data_only)
 		e_offset += 3 + marker.length + 8 + 1 /* newlines */;
 	}
 	return source.substring(e_offset);
-}
+};
 
 // increment the save-counter portion of the marker
 var reMarker = /([^\-]*)\-(\d{7,7})$/;
@@ -861,13 +861,13 @@ woas._inc_marker = function(old_marker) {
 	n = n.toString();
 	// marker part + 0-padded save count number
 	return m[1]+"-"+String("0").repeat(7-n.length)+n;
-}
+};
 
 // load URL via XHR
 woas.remote_load = function(url) {
 	var HttpReq = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
 	HttpReq.open('GET', url, false);
-	HttpReq.setRequestHeader('Content-Type', 'text/plain')
+	HttpReq.setRequestHeader('Content-Type', 'text/plain');
 	HttpReq.send(null);
 	return HttpReq.responseText;
-}
+};

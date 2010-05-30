@@ -124,8 +124,9 @@ woas._native_wsif_save = function(path, src_fname, locking, single_wsif, inline_
 						record += this.wsif.header(pfx+"mime", m[1]);
 						// remove the matched part
 						ct = this.base64.decode(ct.substr(m[0].length));
-					} else // no data:uri for files
+					} else { // no data:uri for files
 						ct = this.base64.decode(ct);
+					}
 				} else {
 					encoding = "8bit/base64";
 					if (this.is__image(pi)) {
@@ -264,7 +265,8 @@ woas._wsif_ds_load = function(subpath, locking) {
  - title_filter_hook: callback used to choose if page can be imported or not by title - optional
  - finalization_hook: callback used when import is finished
 */
-woas._native_wsif_load = function(path, locking, _native, recursing, import_hook, title_filter_hook, finalization_hook) {
+woas._native_wsif_load = function(path, locking, _native, recursing, import_hook,
+								title_filter_hook, finalization_hook) {
 	if (!recursing) {
 		this.wsif.emsg = null;
 		this.progress_init("Initializing WSIF import");
@@ -272,7 +274,7 @@ woas._native_wsif_load = function(path, locking, _native, recursing, import_hook
 	var ct;
 	// allow remote loading when running in native WSIF mode
 	if (this._server_mode && (this.config.wsif_ds.length !== 0))
-		ct = this.remote_load(path)
+		ct = this.remote_load(path);
 	else
 		ct = this.load_file(path, this.file_mode.ASCII_TEXT);
 	if (typeof ct != "string") {
@@ -323,7 +325,7 @@ woas._native_wsif_load = function(path, locking, _native, recursing, import_hook
 					this.wsif.generator.name = ct.substring(0,p).
 						match(/^wsif\.generator:\s+(.+)$/m);
 					if (this.wsif.generator.name !== null) {
-						this.wsif.generator.name = this.wsif.generator.name[1]
+						this.wsif.generator.name = this.wsif.generator.name[1];
 						this.wsif.generator.version = ct.substring(0,p).
 							match((wsif_v_n < 131) ? /^woas\.version:\s+(.+)$/m : /^wsif\.generator\.version:\s+(.+)$/m);
 						if (this.wsif.generator.version !== null) {
@@ -510,7 +512,6 @@ woas._native_wsif_load = function(path, locking, _native, recursing, import_hook
 // returns true if a page was defined, and save it in wsif.imported array
 woas._native_page_def = function(path,ct,p,last_p,import_hook,
 								title,attrs,last_mod,len,encoding,disposition,d_fn,boundary,mime) {
-
 	var bpos_e, page;
 	// attributes must be defined
 	if (attrs === null) {

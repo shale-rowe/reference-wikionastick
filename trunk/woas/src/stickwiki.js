@@ -518,7 +518,7 @@ woas.get_javascript_page = function(cr) {
 	if ((typeof text).toLowerCase() != "string")
 		return null;
 	return text;
-}
+};
 
 woas.eval = function(code, return_value) {
 	var rv;
@@ -720,7 +720,7 @@ woas.js_mode = function(cr) {
 		return this.is_reserved(cr) ? 1 : 3;
 //	else
 	return 1;
-}
+};
 
 woas.last_modified = function(mts) {
 	// do not show anything when the timestamp is magic (zero)
@@ -809,7 +809,7 @@ woas._auto_saver = function() {
 	// re-launch the thread
 	if (_this.config.auto_save)
 		woas._autosave_thread = setTimeout("woas._auto_saver()", woas.config.auto_save);
-}
+};
 
 // save configuration on exit
 woas._on_unload = function () {
@@ -964,7 +964,7 @@ woas._load_hangup_check = function(first) {
 	// launch again this thread, every 3s
 	woas.log("_load_hangup_check() respawned (still loading: "+woas.dom.get_loading()+")");
 	setTimeout("woas._load_hangup_check(false);", 3000);
-}
+};
 	
 woas._early_render = function() {
 	woas.history._forward_browse = true; // used to not store backstack
@@ -1040,7 +1040,7 @@ woas.edit_allowed_reserved = function(page) {
 			return true;
 	}
 	return false;
-}
+};
 
 // setup the title boxes and gets ready to edit text
 woas.current_editing = function(page, disabled) {
