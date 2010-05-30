@@ -222,12 +222,12 @@ Array.prototype.toUnique = function() {
 // thanks to S.Willison
 RegExp.escape = function(text) {
   if (!arguments.callee.sRE) {
-    var specials = ['/', '.', '*', '+', '?', '|', '$', '(', ')', '[', ']', '{', '}', '\\' ];
+    var specials = ['/', '.', '*', '+', '?', '|', '$', '(', ')', '[', ']', '{', '}', "\\" ];
     arguments.callee.sRE = new RegExp(
-      '(\\' + specials.join('|\\') + ')', 'g'
+      "(\\" + specials.join("|\\") + ')', 'g'
     );
   }
-  return text.replace(arguments.callee.sRE, '\\$1');
+  return text.replace(arguments.callee.sRE, "\\$1");
 };
 
 // repeat string s for n times
