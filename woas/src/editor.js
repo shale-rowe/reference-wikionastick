@@ -137,7 +137,7 @@ function setWikiIUrl() {
 }
 
 function setHTMLUrl() {
-	setUrl('<'+'a href=\'','\' target=_blank>','<'+'/a>');
+	setUrl('<'+'a href="','" target="_blank">','<'+'/a>');
 }
 
 function setImage(starttag,endtag) {
