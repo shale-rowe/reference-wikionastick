@@ -613,7 +613,7 @@ woas.parser.syntax_parse = function(P, snippets, tags, export_links, has_toc) {
 	// 'hr' horizontal rulers made with 3 hyphens, 4 suggested
 	// only white spaces are allowed before/after the hyphens
 	.replace(reRuler, function () {
-		var n = arguments[0].replace(/\s+/g, " ").split(/\ /g).length,
+		var n = woas.trim(arguments[0].replace(/\s+/g, " ")).split(/\ /g).length,
 			last_nl;
 		if (arguments[arguments.length-3].length)
 			last_nl = woas.parser.NL_MARKER+arguments[arguments.length-3];
