@@ -11,10 +11,12 @@
 # 
 # woas=path/woas.htm		path to WoaS HTML file - defaults to woas.htm
 # wsif=path/index.wsif		path to pages data in WSIF format
-# edit_override=[0|1]	specify 1 to enable the edit override
+# edit_override=[0|1]		specify 1 to enable the edit override
 #
 
 /*** START OF FUNCTIONS BLOCK ***/
+global $ALL_SCRIPTS;
+$ALL_SCRIPTS = "";
 function _script_replace($m) {
 	$orig = $m[0];
 	if (!preg_match_all('/src="([^"]+)"/', $m[0], $m)) {
@@ -22,8 +24,7 @@ function _script_replace($m) {
 		return $orig;
 	}
 	$m = $m[1];
-	global $replaced, $base_dir;
-	$fullscript = '';
+	global $replaced, $base_dir, $ALL_SCRIPTS;
 	foreach($m as $scriptname) {
 		if (!file_exists($base_dir.$scriptname)) {
 			fprintf(STDERR, "Could not locate $base_dir".$scriptname."\n");
@@ -41,6 +42,11 @@ function _script_replace($m) {
 				$rev = (int)$rev[1];
 			else $rev = null;
 			$ct = str_replace("-r@@WOAS_REVISION@@", ($rev === null) ? "" : "-r".$rev, $ct);
+		} else if ($scriptname === "src/ui.js") { // a necessary hotfix for JS packing
+			function _fix_newlines($m) {
+				return str_replace("\\n\\\n", "\\n", $m[0]);
+			}
+			$ct = preg_replace_callback('/cPopupCode:\\s*"[^"]+"/s', '_fix_newlines', $ct);
 		}
 
 		// check if this javascript contains any tag-similar syntax
@@ -60,12 +66,9 @@ function _script_replace($m) {
 		}
 		++$replaced;
 		echo "Replaced ".$scriptname."\n";
-		$fullscript .= "/*** ".$scriptname." ***/\n".$ct."\n"; $ct = null;
+		$ALL_SCRIPTS .= "/*** ".$scriptname." ***/\n".$ct."\n"; $ct = null;
 	}
-	
-	// return the script block
-	return '<script woas_permanent="1" language="javascript" type="text/javascript">'.
-		"\n/* <![CDATA[ */\n".$fullscript."\n/* ]]> */ </script>";
+	return '@@WOAS_SCRIPT@@';
 }
 
 function _replace_tweak_vars($m) {
@@ -298,11 +301,47 @@ if (false === $WSIF->Load($wsif, '_WSIF_get_page'))
 $ct = preg_replace_callback("/\nvar (page[^ ]+) = \\[(.*?)\\];/s", '_inline_vars_rep', $ct);
 unset($WSIF);
 
+function _mk_woas($ct, $scripts) {
+	return str_replace('@@WOAS_SCRIPT@@',
+		// return the script block
+		'<script woas_permanent="1" language="javascript" type="text/javascript">'.
+		"\n/* <![CDATA[ */\n".$scripts."\n/* ]]> */ </script>"
+		, $ct);
+}
+
+// the normal WoaS
 $ofile = 'woas-'.$woas_ver.'.html';
-if (file_put_contents($ofile, $ct))
+if (file_put_contents($ofile, _mk_woas($ct, $ALL_SCRIPTS)))
 	fprintf(STDOUT, "WoaS v%s merged into %s\n", $woas_ver, $ofile);
 else
 	exit(-1);
+
+// create minified version (the old way, since proc_open() doesn't work)
+// http://www.crockford.com/javascript/jsmin.html
+file_put_contents('/tmp/woas.js', $ALL_SCRIPTS);
+$MIN_SCRIPTS = shell_exec('jsmin < /tmp/woas.js');
+unlink('/tmp/woas.js');
+// do not create it in case of failure
+if (strlen($MIN_SCRIPTS)) {
+	$ofile_min = 'woas-'.$woas_ver.'.min.html';
+	if (file_put_contents($ofile_min, _mk_woas($ct, $MIN_SCRIPTS)))
+		fprintf(STDOUT, "Created compressed WoaS: %s\n", $ofile_min);
+} unset($MIN_SCRIPTS);
+
+$BPATH = dirname(__FILE__).'/';
+// create compressed version only if JSCompressor is available
+// http://joliclic.free.fr/php/javascript-packer/en/
+if (file_exists($BPATH.'class.JavaScriptPacker.php')) {
+	require_once $BPATH.'class.JavaScriptPacker.php';
+
+	$packer = new JavaScriptPacker($ALL_SCRIPTS, 10, true);
+
+	$ofile_comp = 'woas-'.$woas_ver.'.comp.html';
+	if (file_put_contents($ofile_comp, _mk_woas($ct, $packer->pack())))
+		fprintf(STDOUT, "Created compressed WoaS: %s\n", $ofile_comp);
+	unset($packer);
+}
+unset($ALL_SCRIPTS);
 
 exit(0);
 
