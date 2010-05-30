@@ -118,7 +118,7 @@ function setWikiImage() {
 }
 
 function setHTMLImage() {
-	setImage('<'+'img src=\'','\' />');
+	setImage('<'+"img src='","' /"+">");
 }
 
 function setWikiUrl() {
@@ -134,7 +134,6 @@ function setWikiIUrl() {
 		woas._editor.setSelectedText('[['+url+']]');
 	else
 		woas._editor.setSelectedText('[['+url+'|',comm+']]');
-
 }
 
 function setHTMLUrl() {
