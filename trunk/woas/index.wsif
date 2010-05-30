@@ -3604,8 +3604,21 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-[[Include::WoaS::Help::WSIF]]
+= Importing WSIF files
+The [[Special::ImportWSIF]] page allows to import a [[WoaS::Help::WSIF|WSIF]] file which contains one or more wiki pages; wiki pages imported into the *WoaS::* namespace will offer special features.
+== Existing pages
+Availabe options for imported pages whose title collides with existing page titles:
+* *Erase all user pages before import process*
+* *Ignore* - do not import colliding pages
+* *Overwrite* - replace existing page with imported page
+* *Ask before overwrite* - ask for each colliding page before replacing
+== Security
+General JavaScript security options to prevent possibly malicious code from being imported.
+* *Comment JavaScript tags*: convert all {{{<script ...>...</script>}}} tags to {{{<disabled_script ...>...</disabled_script>}}}
+* *Comment macro definition/call*: comment all macro definitions/calls {{{<<<...>>>}}} so that they are not parsed/called
+* *Import pages of the WoaS:: namespace*: allow importing hotkeys, plugins, aliases and custom CSS
 
+*Note:* if you have enabled some JavaScript code by mistake you should enable *safe mode* in [[Special::Options]]
 --DFQRCTsKlU
 woas.page.title: WoaS::Hotkeys
 woas.page.attributes: 0
