@@ -12,7 +12,9 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-// Tooltip plug-in based on tooltip sample macro by legolas558
+// Tooltip macro by legolas558.
+// Converted to a plug-in by Little Girl.
+
 woas.macro.register('woas.tooltip', function(macro, tooltip) {
 macro.text = '<span title="'+woas.xhtml_encode(tooltip)+'" class="tooltip">'+woas.xhtml_encode(macro.text)+'</span>';
 macro.reprocess = true;
