@@ -12,8 +12,9 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-/* Word count plug-in by legolas558 */
-	
+// Word count plug-in by legolas558.
+// Modified slightly by Little Girl.
+
 woas.custom.word_count = function(xhtml) {
     var words = woas.xhtml_to_text(xhtml).match(/[A-Za-z\'\-]+/g);
     if (!words) return 0;
