@@ -13,7 +13,10 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-/* Diary plugin - based on Diary macro by legolas558 - based on original work by FBNil and pvhl. */
+// Diary macro by legolas558.
+// Based on original work by FBNil and pvhl.
+// Converted to a plug-in by Little Girl.
+// Modified slightly by Little Girl.
 
 woas.macro.register('woas.diary', function(macro) {
 var D = new Date(),
@@ -24,7 +27,7 @@ if(day < 10) day = "0" + day;
 
 var newpagename = "Diary::" + D.getFullYear() +"::"+ MONTHNAMES[D.getMonth()] +"::"+ day +" "+DAYNAMES[D.getDay()];
 
-macro.text = "[["+newpagename+"|Daily diary]]\n";
+macro.text = "[["+newpagename+"|Daily diary]]";
 macro.reprocess = true;
 return true;
 });
