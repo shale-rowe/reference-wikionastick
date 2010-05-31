@@ -1,20 +1,19 @@
 wsif.version: 1.3.1
 wsif.generator: woas
 wsif.generator.version: 0.12.0
-woas.author: legolas558
-woas.pages: 1
+woas.author: legolas558 with modifications by Little Girl
+woas.pages: 2
 
-woas.page.title: Macro::Folding
+woas.page.title: WoaS::Plugins::Folds
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Setup
-Edit this section to see how to setup the folding macro.
-<<<%woas.folding(link, label, inline):
-// folding sample macro by legolas558
+/* Folds plugin based on folding sample macro by legolas558 */
+
+woas.macro.register('fold', function(macro, link, label, inline) {
 	// label is optional
 	if (typeof label == "undefined")
 	   label = "";
@@ -26,11 +25,90 @@ Edit this section to see how to setup the folding macro.
 		"<"+tag+" id=\"folding_"+id+"\" style=\"display: none; visibility:hidden;\">"+macro.text+"</"+tag+">";
 	macro.reprocess = true;
 	return true;
+});
+
+--DFQRCTsKlU
+woas.page.title: Plug-in::Help::Folds
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Folds
+Folds are special links that toggle inclusion of additional content in a page when you click the link. You can add as many folds as you like to a page. They begin collapsed and expand when you click on them. Each is independent of the others, and can be expanded and collapsed as many times as you like.
+
+<<<woas.include:WoaS::Template::Info
+Unfortunately, hidden content inside folds can conflict with the [[WoaS::Help::Table of Contents|Table of Contents]] and the [[WoaS::Help::Tags|Tags]] container at the bottom of the page by being visible in both of them even when the content isn't unfolded.>>>
+== Folding text block - Method 1
+This method is for folded multi-line content. The content will unfold beneath the link.
+
+<div class="wiki_help_text">Use this code in a page, replacing LINK with text for the link, and CONTENT with the content to unfold when the link is clicked:</div>{{{
+<<<fold("LINK"):
+CONTENT>>>
+}}}
+<div class="wiki_help_text">To create this:</div>
+<<<fold("LINK"):
+CONTENT>>>
+
+=== Folding text block - Method 2
+This method is for folded multi-line content with text after the link. The content will unfold beneath the link. The text will remain in place when the link is clicked.
+
+<div class="wiki_help_text">Use this code in a page, replacing LINK with text for the link, TEXT with text to be placed after the link on the same line, and CONTENT with the content to unfold when the link is clicked:</div>{{{
+<<<fold("LINK", "TEXT"):
+CONTENT>>>
+}}}<div class="wiki_help_text">To create this:</div>
+<<<fold("LINK", "TEXT"):
+CONTENT>>>
+
+== Folding text inline - Method 1
+This method is for folded single-line content. The content will unfold after the link.
+
+<div class="wiki_help_text">Use this code in a page, replacing LINK with text for the link, and CONTENT with the content to unfold when the link is clicked:</div>{{{
+<<<fold("LINK", "", true): CONTENT>>>
+}}}<div class="wiki_help_text">To create this:</div>
+<<<fold("LINK", "", true): CONTENT>>>
+
+== Folding text inline - Method 2
+This method is for folded single-line content with text after the link. The text will remain in place when the link is clicked. The content will unfold after the text.
+
+<div class="wiki_help_text">Use this code in a page, replacing LINK with text for the link, TEXT with text to be placed after the link on the same line, and CONTENT with the content to unfold when the link is clicked:</div>{{{
+<<<fold("LINK", "TEXT", true): CONTENT>>>
+}}}<div class="wiki_help_text">To create this:</div>
+<<<fold("LINK", "TEXT", true): CONTENT>>>
+
+== Folding transcluded page - Method 1
+This method is for folded [[WoaS::Help::Transclusion|transcluded]] pages. The page will unfold beneath the link.
+
+<div class="wiki_help_text">Use this code in a page, replacing LINK with text for the link, and PAGENAME with the name of the page to transclude and unfold when the link is clicked:</div>{{{
+<<<fold("LINK"):
+[[Include::PAGENAME]]
 >>>
-= Example usage
-<<<woas.folding("Click me", "to toggle the below folded content"):
-There is no spoon>>>
-<<<woas.folding("Click me", "to toggle inline folded content", true): There is no spoon>>>
-<<<woas.folding("Click me", "to toggle a folded transcluded page"):
-[[Include::Main Page]]>>>
+}}}<div class="wiki_help_text">To create a folding transcluded page like this:</div>
+<<<fold("LINK"):
+[[Include::WoaS History]]
+>>>
+
+== Folding transcluded page - Method 2
+This method is for folded [[WoaS::Help::Transclusion|transcluded]] pages with text after the link. The page will unfold beneath the link. The text will remain in place when the link is clicked.
+
+
+<div class="wiki_help_text">Use this code in a page, replacing LINK with text for the link, TEXT with text to be placed after the link on the same line, and PAGENAME with the name of the page to transclude and unfold when the link is clicked:</div>{{{
+{{{
+<<<fold("LINK", "TEXT"):
+[[Include::PAGENAME]]
+>>>
+}}}<div class="wiki_help_text">To create a folding transcluded page like this:</div>
+<<<fold("LINK", "TEXT"):
+[[Include::WoaS History]]
+>>>
+
+<style type="text/css">
+.wiki_help_text {
+	color: darkcyan;
+	font-weight: bold;
+	font-style: italic;
+	}
+</style>
+
 --DFQRCTsKlU
