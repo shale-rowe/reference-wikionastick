@@ -78,6 +78,7 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 = Test::JavaScript
 <span class="intro">There should be a JavaScript alert that pops up when the page loads, and a hidden &lt;script&gt; section wrapped in text above, before, after, and below it.</span>
+
 <span class="wrap_test">ABOVE</span>
 <span class="wrap_test">BEFORE</span><script type="text/javascript">//<![CDATA[
 alert("This is an example alert!");
@@ -190,7 +191,7 @@ if(day < 10) day = "0" + day;
 
 var newpagename = "Diary::" + D.getFullYear() +"::"+ MONTHNAMES[D.getMonth()] +"::"+ day +" "+DAYNAMES[D.getDay()];
 
-macro.text = "[["+newpagename+"]]\n";
+macro.text = "[["+newpagename+"]]";
 macro.reprocess = true;
 return true;
 >>><span class="wrap_test">AFTER</span>
