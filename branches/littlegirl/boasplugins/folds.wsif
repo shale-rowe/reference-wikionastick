@@ -11,7 +11,8 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-/* Folds plugin based on folding sample macro by legolas558 */
+// Folding sample macro by legolas558.
+// Converted to a plug-in by Little Girl.
 
 woas.macro.register('fold', function(macro, link, label, inline) {
 	// label is optional
