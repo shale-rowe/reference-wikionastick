@@ -92,8 +92,9 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-/* Footnotes plugin by legolas558 - based on original work by FBNil */
-	
+// Footnotes plugin by legolas558.
+// Based on original work by FBNil.
+
 woas.custom.footnotes = {
 	_footnotes: [],
 	
