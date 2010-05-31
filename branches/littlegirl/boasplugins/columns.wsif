@@ -12,7 +12,9 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-/* Columns plug-in based on columns macro by legolas558 which is based on original work by Stanky. */
+// Columns macro by legolas558.
+// Based on original work by Stanky.
+// Converted to a plug-in by Little Girl.
 
 woas.macro.register('columns', function(macro, width, colsw) {
 	// split using the 'nextcolumn' separator
