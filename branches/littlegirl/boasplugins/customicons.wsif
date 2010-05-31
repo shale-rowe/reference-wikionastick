@@ -12,8 +12,11 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-/* Custom icons plugin based on Themes plugin by legolas558 which is an adaption of FBNil's original work, and has been modified slightly by Little Girl. */
-	
+// Themes plug-in by legolas558.
+// Based on original work by FBNil.
+// Renamed to Custom icons plug-in by Little Girl.
+// Modified slightly by Little Girl.
+
 woas.custom.themes = {
 	_load: function () {
 		woas.setHTMLDiv(d$('themes_layer'), woas.custom.themes._get_img('img_logo') +
