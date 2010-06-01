@@ -60,8 +60,7 @@ woas.page.boundary: DFQRCTsKlU
 This plug-in makes it so you can insert columns of text into your pages. Columns accept [[WoaS::Help::Headers|headers]], HTML text formatting, [[WoaS::Help::Images|images]], [[WoaS::Help::Links|links]], [[WoaS::Help::Lists|lists]], [[WoaS::Help::Tables|tables]], [[WoaS::Help::Nowiki text|nowiki text]], [[WoaS::Help::Rulers|rulers]], [[WoaS::Help::Transclusion|transclusions]], and [[WoaS::Help::Text formatting|wiki text formatting]]. Thanks go to [[http://woas.iragan.com/viewtopic.php?id=759|Stanky]] for the original version!
 
 == Setup
-Edit this section to see what is necessary for columns macro definition.
-# Add these rules to the [[WoaS::CSS::Custom|custom CSS]]:<br>{{{
+Add these rules to the [[WoaS::CSS::Custom|custom CSS]]:<br>{{{
 /*COLUMNS MOD*/
 table.columns-plugin {
 	border-spacing: 0;
