@@ -1065,11 +1065,13 @@ woas.current_editing = function(page, disabled) {
 	d$.hide("i_woas_text_area");
 
 	// FIXME! hack to show the editor pane correctly on IE
-	if (!this.browser.ie)	{
+	if (!this.browser.ie) {
 		d$("woas_editor").style.width = window.innerWidth - 35 + "px";
 		d$("woas_editor").style.height = window.innerHeight - 180 + "px";
+	} else {
+		d$("woas_editor").style.width = document.documentElement.clientWidth - 35 + "px";
+		d$("woas_editor").style.height = document.documentElement.clientHeight - 180 + "px";
 	}
-	
 	d$.show("edit_area");
 
 	d$("woas_editor").focus();
