@@ -96,7 +96,7 @@ table.columns-plugin td.last {
 }}}
 ### The first number is the total width of all columns in percentage of page width.
 ### The next number defines the width of the first column.
-### The null represents an additional columns that will use the remaining width.<br><br>
+### The null represents any additional columns that will use the remaining width.<br><br>
 # Begin the next column (and any additional columns) with a nextcolumn tag:<br>{{{
 <nextcolumn> CONTENT
 }}}You can add an empty line above each *nextcolumn* section or put the *nextcolumn* tag on a line by iteslf to make it easier to spot them when editing the page.<br><br>
