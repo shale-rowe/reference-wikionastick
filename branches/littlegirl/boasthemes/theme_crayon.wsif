@@ -83,13 +83,13 @@ body {
 	margin-top: 0.5%;
 	}
 #woas_debug_console_title {
-	color: darkgreen;
+	color: navy;
 	font-weight: bold;
 	text-align: left;
 	}
 #woas_debug_log {
-	background-color: #9AFF9A;
-	border: 1px solid black;
+	background-color: yellow;
+	border: 1px solid blue;
 	margin-top: 0.5%;
 	width: 100%;
 	}
@@ -155,7 +155,7 @@ body {
 #woas_footer {
 	background-color: cyan;
 	border: 0.25em solid blue;
-	color: darkgreen;
+	color: blue;
 	font-size: 95%;
 	font-weight: bold;
 	line-height: 1em;
@@ -168,7 +168,7 @@ body {
 	padding-left: 0.5%;
 	}
 #woas_footer a {
-	color: darkgreen ! important;
+	color: blue ! important;
 	}
 #woas_go_to_top_button {
 	margin-bottom: -0.4em;
