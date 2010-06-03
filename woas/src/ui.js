@@ -207,16 +207,16 @@ woas.ui = {
 		woas.edit_page(woas.current_namespace+"::Menu");
 	},
 	lock: function() {
-		if (woas.pager.bucket.items.length)
+		if (woas.pager.bucket.items.length>1)
 			_lock_pages(woas.pager.bucket.items);
 		else
 			woas.go_to("Lock::" + current);
 	},
 	unlock: function() {
-		if (woas.pager.bucket.items.length)
+		if (woas.pager.bucket.items.length>1)
 			_unlock_pages(woas.pager.bucket.items);
 		else
-			go_to("Unlock::" + current);
+			woas.go_to("Unlock::" + current);
 	},
 	// scroll to top of page
 	top: function() {
@@ -235,7 +235,7 @@ woas.go_to = function(cr) {
 	if (this.ui.edit_mode)
 		return false;
 	if (cr === current)
-			return true;
+		return true;
 	return this.set_current(cr, true)
 };
 
