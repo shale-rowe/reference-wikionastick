@@ -1,2 +1,17 @@
 These themes will overwrite everything in the [[WoaS::CSS::Custom]] page. Before using them, back up anything you have on that page so you can add it back into the page after applying the theme.
 
+Use:
+
+1) Click the Advanced icon in the navigation bar.
+
+2) Click the Special::ImportWSIF link in the Maintenance section of the page.
+
+3) Use the radio button to select Overwrite in the Existing pages section.
+
+4) Make sure the box next to "Import pages of the WoaS:: namespace (hotkeys, plugins, aliases and custom CSS)" is checked.
+
+5) Click the Browse... button and browse to the theme file you downloaded.
+
+6) Click the Open button (or the OK button or whatever your browser offers) to select the file and return to the wiki.
+
+7) Click the ImportWSIF button.
