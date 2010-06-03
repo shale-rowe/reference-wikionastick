@@ -871,11 +871,15 @@ woas.pager = {
 woas.pager.bucket = {
 	items: [],		// multi-pages selection
 	clear: function() {
-		items = [];
+		this.items = [];
 	},
 	add: function(title) {
-		if (items.indexOf(title) === -1)
-			items.push(title);
+		if (this.items.indexOf(title) === -1)
+			this.items.push(title);
+	},
+	// used when we want to set a single page in bucket
+	one: function(title) {
+		this.items = [title];
 	}
 };
 

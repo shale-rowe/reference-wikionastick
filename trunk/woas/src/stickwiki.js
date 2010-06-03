@@ -544,7 +544,9 @@ woas.set_current = function (cr, interactive) {
 	if (!woas.pager.browse_hook(cr))
 		return false;
 //	this.log("Setting current page to \""+cr+"\"");	//log:0
-	var text, namespace, pi;
+	var text, namespace, pi,
+		// whether to reset bucket or not
+		set_b = false;
 	woas.pager.bucket.clear();
 	// eventually remove the previous custom script
 	if (cr.substring(cr.length-2)==="::") {
@@ -662,7 +664,7 @@ woas.set_current = function (cr, interactive) {
 						this._add_namespace_menu(namespace);
 						if (namespace.length)
 							cr = real_t;
-						return this.load_as_current(cr, text, this.config.store_mts ? page_mts[pi] : 0);
+						return this.load_as_current(cr, text, this.config.store_mts ? page_mts[pi] : 0, true);
 					case "File":
 					case "Image":
 						text = this._get_embedded(namespace+"::"+cr, namespace.toLowerCase());
@@ -678,14 +680,16 @@ woas.set_current = function (cr, interactive) {
 						if (this.config.store_mts)
 							mts = page_mts[this.page_index(namespace+"::"+cr, namespace.toLowerCase())];
 						else mts = 0;
-						return this.load_as_current(cr, text, mts);
+						return this.load_as_current(cr, text, mts, true);
 					default:
 						text = this.get_text(namespace+"::"+cr);
+						set_b = true;
 				}
 
 		} else {
 			namespace = "";
 			text = this.get_text(cr);
+			set_b = true;
 		}
 	}
 	
@@ -711,7 +715,7 @@ woas.set_current = function (cr, interactive) {
 		mts = page_mts[pi];
 	}
 	// used by some special pages (e.g. backlinks) for page title override
-	return this.load_as_current(cr, this.parser.parse(text, false, this.js_mode(cr)), this.config.store_mts ? mts : 0);
+	return this.load_as_current(cr, this.parser.parse(text, false, this.js_mode(cr)), this.config.store_mts ? mts : 0, set_b);
 };
 
 // enable safe mode for non-reserved pages
@@ -730,7 +734,7 @@ woas.last_modified = function(mts) {
 };
 
 // actually load a page given the title and the proper XHTML
-woas.load_as_current = function(title, xhtml, mts) {
+woas.load_as_current = function(title, xhtml, mts, set_b) {
 	if (typeof title == "undefined") {
 		this.crash("load_as_current() called with undefined title");
 		return false;
@@ -738,9 +742,13 @@ woas.load_as_current = function(title, xhtml, mts) {
 	
 	// used by some special pages (e.g. backlinks) for page title override
 	this.parser.render_title = title;
+	// the bucket will contain only the rendered page
+	if (set_b)
+		this.pager.bucket.one(title);
+
 	
 	scrollTo(0,0);
-	this.log("load_as_current(\""+title+"\") - "+(typeof xhtml == "string" ? (xhtml.length+" bytes") : (typeof xhtml)));	// log:1
+	this.log("load_as_current(\""+title+"\", "+set_b+") - "+(typeof xhtml == "string" ? (xhtml.length+" bytes") : (typeof xhtml)));	// log:1
 	this.setHTMLDiv(d$("woas_wiki_area"), xhtml);
 	this.refresh_mts(mts);
 
