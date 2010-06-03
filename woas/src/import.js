@@ -177,7 +177,7 @@ woas.importer = {
 						// skip filtered pages
 						if (woas.importer._reference[i] === null)
 							continue;
-						woas.importer._reference[i].mts = this._fix_mts_val(the_var[i], old_version);
+						woas.importer._reference[i].mts = woas.importer._fix_mts_val(the_var[i], old_version);
 					}
 				break;
 				case "pages":
