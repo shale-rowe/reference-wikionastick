@@ -4005,8 +4005,8 @@ div.woas_taglinks > a {
 }
 div.woas_taglinks > a:hover {
 	background-color: grey;
-	color: white;
 	border: 2px solid blue;
+	color: white;
 	text-decoration: none;
 	font-weight: bold;
 }
