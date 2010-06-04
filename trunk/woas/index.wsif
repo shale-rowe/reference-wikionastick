@@ -3939,11 +3939,11 @@ div.woas_text_area {/* any text area div */
 
 /* SEARCH */
 pre.woas_search_results {
-	border: 1pt solid #aaa;
 	background-color: #f9f9f9;
+	border: 1pt solid #aaa;
+	clear: both;
 	padding: 0.313em;
 	margin-top: 1em;
-	clear: both;
 }
 .woas_search_highlight {
 	background-color: yellow;
