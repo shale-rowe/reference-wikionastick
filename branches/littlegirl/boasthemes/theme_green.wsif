@@ -113,7 +113,7 @@ body {
 }
 
 /* EMBEDDED FILES */
-.woas_embedded {
+pre.woas_embedded {
 	background-color: #9E9EFF;
 }
 
