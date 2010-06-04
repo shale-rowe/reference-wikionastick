@@ -906,7 +906,8 @@ woas._on_load = function() {
 	// properly initialize navigation bar icons
 	// this will cause the alternate text to display on IE6/IE7
 	var nav_bar = ["back", "forward", "home", "edit", "print", "advanced",
-					"cancel", "save", "lock", "unlock", "setkey", "help"];
+					"cancel", "save", "lock", "unlock", "setkey", "help",
+					"top", "debug"];
 	for(var i=0,it=nav_bar.length;i < it;++i) {
 		this.img_display(nav_bar[i], true);
 	}
