@@ -3881,12 +3881,12 @@ div.woas_text_area {/* any text area div */
 
 /* MENU */
 #i_woas_menu_area {
+	background-color: white;
 	border: 1pt solid grey;
 	font-size: 0.75em;
-	background-color: white;
+	left: 1%;
 	padding: 0.499em;
 	width: 13.2%;
-	left: 1%;
 }
 #woas_menu_area ol li, #woas_ns_menu_area ol li {
 	margin-left: -1.55em;
