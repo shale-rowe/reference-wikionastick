@@ -2,7 +2,7 @@ wsif.version: 1.3.1
 wsif.generator: woas
 wsif.generator.version: 0.12.0
 woas.author: Little Girl
-woas.pages: 19
+woas.pages: 20
 
 --DFQRCTsKlU
 woas.page.title: Test::Comments
@@ -67,6 +67,18 @@ woas.page.boundary: DFQRCTsKlU
 == ABOVE
 ----
 == BELOW
+
+--DFQRCTsKlU
+woas.page.title: Test::Images
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Test::Images
+<div class="intro">The background of this image should be transparent:</div>
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAMAAADzapwJAAAAB3RJTUUH1wcHEBwwMJCsHwAAAAlwSFlzAAAewQAAHsEBw2lUUwAAAARnQU1BAACxjwv8YQUAAAJzUExURf8f7evr67W1taWlpdbW1uzs7J6enmouJGosI4ODg93d3TcyMdQdB9EUBzYxMcXFxenp6Y+Pj402G+0VAN4MAIwlGnd3d9ra2tXV1UA1L+Y7Be4eAekRANYQAz8wLrCwsOXl5YCAgKdRGPdEA/QxAfIdAeERAaEjFW1tbe/v71hAKvlpB/pbBfZDA/IuAu0bAd0UAlYwKZOTk+Dg4F5eXsxqEvt3CflwCf////IpAuoYAcIjDVNTU9DQ0JaWlnlOI/uEDPuFEPqEEfU9BO0kAugYAXYyIX5+fu3t7Tc0MeZ7DvuTFvuZHPqXHvqKGft3EfZTB+81A+ohAdwpB+jo6ImJiZFXHvuYGPyjJ/ysM/ytOfpwDfdOBfAwAu8lAo87HHR0dNjY2MnJyUc6LvKLE/ypKfy2P/y9S/y/UfuGGPliCvJFBPIzA+s5BUc3LaampuPj43V1dbRmF/ymJfy3Of3DU/3KYv3MY/ubJPt4EvpUCfVCA/E2A7NNFmRkZNPT06ioqGFFKPuVFPytLv2+Sf3KYf3Qbf3PafuiKfuKFfppC/lQBfg+A/U8A2FBKIuLi9/f3zQzMtV2E/yhH/yxNf2+R/3HXP3LZ/3NafykJ/yOF/lxC/pcBvZGBPU3A9VRDTQzMdfX15qamn5QIvuSEfyfHPysL/y6QfzBTfzDV/zBU/ydH/yLE/t2DPpgB/dLA/Y6A/U6A3tIIvPz8zs2MPuSE/ydGPymJPyyNfy0OfyzN/ysKfyhIPuUF/uGDft0CvtlB/taBfZPA/ZFA+RXCjs1MPDw8E49LIJSIYJRIYJPIYJOIYJNIIJMIIJMIU47LKysrKzWV/gAAAABdFJOUwBA5thmAAABNUlEQVR42mNgwAGML2AAY6Do8RNQcPLkyVOnz5w9e+7ceWOGzVu8tm7b3rxj567de/bu23/g4KHDR44eY2BYtHjJ0mXLV6xcZWGxes3ades3bNwkuBlo+MRJk6dMnTZ9hoXFzFmz58ydN3/BQpCdDY1NzS2tbe0WFh2dXd09vX39E8BuKSwqLiktK7ewqKisqq6prauHODEpOSU1LT3DwiIzKzsnNy+/AOr00LDwiMgoC4vomNi4+IREmI88PL28fXz9/AMCg4K5+UPgPrWzd3B0srBwdnF1c+dCCgETUzNzCwtLK2sbW1YkYXktbR1dPX0DQyNjlABTVFJWUVVT15DQRBGWkJSSlpGVk1dAC19BIWERUTFxjHDn5uHl4xfAEGZj5+DkYsAETMwsrFiEGRgZGQgAAEPKcWQFSaWtAAAAAElFTkSuQmCCAAA=">
 
 --DFQRCTsKlU
 woas.page.title: Test::JavaScript
@@ -218,6 +230,7 @@ woas.page.boundary: DFQRCTsKlU
 ** [[Test::Comments]]
 ** [[Test::Headers]]
 ** [[Test::Horizontal rules]]
+** [[Test::Images]]
 ** [[Test::JavaScript]]
 ** [[Test::Links]]
 ** [[Test::Lists]]
