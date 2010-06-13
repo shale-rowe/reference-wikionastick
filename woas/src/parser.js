@@ -209,6 +209,7 @@ var reScripts = new RegExp("<"+"script([^>]*)>([\\s\\S]*?)<"+"\\/script>([ \t]*\
 	reStyles = new RegExp("<"+"style([^>]*)>[\\s\\S]*?<"+"\\/style>([ \t]*\n)?", "gi"),
 	//DEPRECATED rulers with 3 hyphens (shall be 4)
 	reRuler = /(\n\s*\-{3,}[ \t]*){1,}(\n|$)/g,
+//	reNowikiSL = /\n\{\{\{([\s\S]*?)\}\}\}[ \t]*\n/g,
 	reNowiki = /\{\{\{([\s\S]*?)\}\}\}([ \t]*\n)?/g,
 	reTransclusion = /\[\[Include::([\s\S]+?)\]\]([ \t]*\n)?/g,
 	reMacros = /<<<([\s\S]*?)>>>([ \t]*\n)?/g,
@@ -418,6 +419,11 @@ woas.parser.pre_parse = function(P, snippets) {
 		return r;
 	})
 	// put away stuff contained in inline nowiki blocks {{{ }}}
+/*	.replace(reNowikiSL, function (str, $1) {
+		r = woas.parser.place_holder(snippets.length, "", "\n");
+		snippets.push("\n"+woas._raw_preformatted("pre", $1, "woas_nowiki woas_nowikimultiline"));
+		return r;
+	}) */
 	.replace(reNowiki, function (str, $1, dynamic_nl) {
 		r = woas.parser.place_holder(snippets.length, "", dynamic_nl);
 		snippets.push(woas._make_preformatted($1));
