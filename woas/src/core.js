@@ -137,15 +137,14 @@ woas.cmd_erase_wiki = function() {
 woas.static_pages = ["Special::About", "Special::Advanced", "Special::Options","Special::Import",
 						"Special::Lock","Special::Search", "Special::Embed",
 						"Special::Export", "Special::License", "Special::ExportWSIF",
-						"Special::ImportWSIF", "WoaS::Plugins", "WoaS::CSS::Core",
-						"WoaS::Template::Button", "WoaS::Template::Info",
-						"WoaS::Template::Search", "WoaS::CSS::Boot",
-						"WoaS::ImportSettings"];
+						"Special::ImportWSIF"];
 
 woas.static_pages2 = ["WoaS::Plugins", "WoaS::CSS::Core",
 						"WoaS::Template::Button", "WoaS::Template::Info",
 						"WoaS::Template::Search", "WoaS::CSS::Boot",
-						"WoaS::ImportSettings"];
+						"WoaS::ImportSettings", "WoaS::Template::Example::Transclusion"];
+
+woas.static_pages = woas.static_pages.concat(woas.static_pages2);
 						
 woas.help_pages = null;
 woas.default_pages = ["::Menu", "WoaS::Aliases", "WoaS::Hotkeys", "WoaS::CSS::Custom"];
