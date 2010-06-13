@@ -127,8 +127,8 @@ woas._cache_search = function( str ) {
 var reFindTags = /\[\[Tags?::([^\]]+)\]\]/g;
 woas.special_tagged = function(filter_string) {
 	var	pg = [], folds = {"[pages]":[]}, tagns,
-		src, i, l, j, jl, tmp, tag,
-		filtering;
+		src, i, l, j, jl, tmp, tag,	filtering,
+		alltags;
 	// filtering setup
 	if (typeof filter_string != "undefined") {
 		filtering = woas.tagging._prepare_filter(filter_string);
@@ -141,12 +141,12 @@ woas.special_tagged = function(filter_string) {
 		// encrypted w/o key
 		if (src === null)
 			continue;
-		src.replace(reFindTags,
-			function (str, $1) {
+		src.replace(reFindTags, function (str, $1) {
 				if (str.charAt(5) === 's')
 					woas.log("Using deprecated 'Tags' namespace");
 				// get the tags and index the page under each tag
 				tmp=woas.split_tags($1);
+				alltags = [];
 				for(j=0,jl=tmp.length;j < jl; ++j) {
 					tag=woas.trim(tmp[j]);
 					// skip invalid tags
@@ -156,10 +156,18 @@ woas.special_tagged = function(filter_string) {
 					}
 					// call the filtering callback, if necessary
 					if (filtering) {
-						if (!woas.tagging._filter_cb(tag))
-							// skip this page from listing
+						// skip this page from listing in case of negative filter result
+						if (!woas.tagging._filter_not_cb(tag))
 							break;
 					}
+					alltags.push(tag);
+				} tmp = null;
+				// check that page has at least one of the positive tags
+				if (filtering && !woas.tagging._filter_ok_cb(alltags))
+					return;
+				// add page to proper leaves
+				for(j=0,jl=alltags.length;j < jl; ++j) {
+					tag = alltags[j];
 					// we have a valid tag, check if it is already indexed
 					tagns = "Tagged::"+tag;
 					if (typeof folds[tagns] == "undefined") {
@@ -190,8 +198,7 @@ woas.tagging = {
 	},
 
 	_prepare_filter: function(filter_string) {
-		var pg = [];
-		var i, l;
+		var i,l, pg = [];
 		// allow tags filtering/searching
 		var tags = woas.split_tags(filter_string);
 		// reset filter
@@ -205,7 +212,7 @@ woas.tagging = {
 			if (!tags[i].length)
 				continue;
 			// add a negation tag
-			if (tags[i].charAt(0)=='!')
+			if (tags[i].charAt(0) === '!')
 				this.tags_not.push( tags[i].substr(1) );
 			else // normal match tag
 				this.tags_ok.push(tags[i]);
@@ -214,12 +221,19 @@ woas.tagging = {
 		return (this.tags_ok.length + this.tags_not.length > 0);
 	},
 	
-	_filter_cb: function(tag) {
-		// filter if "OK" tag is not present
+	// return true if all OK tag are present
+	_filter_ok_cb: function(tags) {
+		var ok = 0;
 		if (this.tags_ok.length) {
-			if (this.tags_ok.indexOf(tag) === -1)
-				return false;
+			for(var i=0,il=tags.length;i < il;++i) {
+				if (this.tags_ok.indexOf(tags[i]) !== -1)
+					++ok
+			}
 		}
+		return (ok === this.tags_ok.length);
+	},
+
+	_filter_not_cb: function(tag) {
 		// filter if "NOT" tag is present
 		// we are applying this filter only to tagged pages
 		// so a page without tags at all does not fit into this filtering
