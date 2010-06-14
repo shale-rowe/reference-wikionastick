@@ -2,8 +2,19 @@ wsif.version: 1.3.1
 wsif.generator: woas
 wsif.generator.version: 0.12.0
 woas.author: Little Girl
-woas.pages: 20
+woas.pages: 21
 
+--DFQRCTsKlU
+woas.page.title: Main Page
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+<div style="border:5px dotted red; padding:1em;">To properly use this file, read and check *every* bit of information in *every* blue and *every* red box on *every* test page *each* time you import this test file into the wiki.
+
+<center>[[Test::Comments|Begin the test]]</center></div>
 --DFQRCTsKlU
 woas.page.title: Test::Comments
 woas.page.attributes: 0
@@ -13,11 +24,12 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Test::Comments
-<span class="intro">There should be a hidden XHTML comment (<tt>&#60;&#33;&#45;&#45;&#32;&#45;&#45;&#62;</tt>) surrounded by text directly above, before, after, and below it:</span>
-
+<div class="intro">There should be a hidden XHTML comment (<tt>&#60;&#33;&#45;&#45;&#32;&#45;&#45;&#62;</tt>) surrounded by text directly above, before, after, and below it:</div>
 <span class="wrap_test">ABOVE</span>
 <span class="wrap_test">BEFORE</span><!-- XHTML comment --><span class="wrap_test">AFTER</span>
 <span class="wrap_test">BELOW</span>
+
+<div class="fail">This test has failed if there are any characters or text between BEFORE and AFTER.</div>
 
 --DFQRCTsKlU
 woas.page.title: Test::Headers
@@ -30,21 +42,22 @@ woas.page.boundary: DFQRCTsKlU
 = Test::Headers
 
 == Test 1
-<span class="intro">There should be six levels of headers:</span>
+<div class="intro">There should be six levels of headers:</div>
 = Level one header
 == Level two header
 === Level three header
 ==== Level four header
 ===== Level five header
 ====== Level six header
-
+<div class="fail">Test 1 has failed if there are not six different sizes of headers.</div>
 == Test 2
-<span class="intro">There should be a link in the header:</span>
+<div class="intro">There should be a link in the header:</div>
 = This header should have a [[Main Page|link]] in it
-
+<div class="fail">Test 2 has failed if there is not a clickable link in the header.</div>
 == Test 3
-<span class="intro">The header should be a link:</span>
+<div class="intro">The header should be a link:</div>
 = [[Main Page|This header should be a link]]
+<div class="fail">Test 3 has failed if the header is not a clickable link.</div>
 
 --DFQRCTsKlU
 woas.page.title: Test::Horizontal rules
@@ -56,17 +69,20 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 = Test::Horizontal rules
 == Test 1
-<span class="intro">There should be a horizontal rule with text directly above and below it:</span>
+<div class="intro">There should be a horizontal rule with text directly above and below it:</div>
 
 <span class="wrap_test">ABOVE</span>
 ----
 <span class="wrap_test">BELOW</span>
 
+<div class="fail">Test 1 has failed if there are four dashes instead of a horizontal rule.<br>Test 1 has failed if there are any newlines between the horizontal rule and the text above and/or below it.</div>
+
 == Test 2
-<span class="intro">There should be a horizontal rule with headers directly above and below it:</span>
+<div class="intro">There should be a horizontal rule with headers directly above and below it:</div>
 == ABOVE
 ----
 == BELOW
+<div class="fail">Test 2 has failed if there are four dashes instead of a horizontal rule.<br>Test 2 has failed if the headers above and below the horizontal rule are plain text.</div>
 
 --DFQRCTsKlU
 woas.page.title: Test::Images
@@ -80,6 +96,8 @@ woas.page.boundary: DFQRCTsKlU
 <div class="intro">The background of this image should be transparent:</div>
 <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAMAAADzapwJAAAAB3RJTUUH1wcHEBwwMJCsHwAAAAlwSFlzAAAewQAAHsEBw2lUUwAAAARnQU1BAACxjwv8YQUAAAJzUExURf8f7evr67W1taWlpdbW1uzs7J6enmouJGosI4ODg93d3TcyMdQdB9EUBzYxMcXFxenp6Y+Pj402G+0VAN4MAIwlGnd3d9ra2tXV1UA1L+Y7Be4eAekRANYQAz8wLrCwsOXl5YCAgKdRGPdEA/QxAfIdAeERAaEjFW1tbe/v71hAKvlpB/pbBfZDA/IuAu0bAd0UAlYwKZOTk+Dg4F5eXsxqEvt3CflwCf////IpAuoYAcIjDVNTU9DQ0JaWlnlOI/uEDPuFEPqEEfU9BO0kAugYAXYyIX5+fu3t7Tc0MeZ7DvuTFvuZHPqXHvqKGft3EfZTB+81A+ohAdwpB+jo6ImJiZFXHvuYGPyjJ/ysM/ytOfpwDfdOBfAwAu8lAo87HHR0dNjY2MnJyUc6LvKLE/ypKfy2P/y9S/y/UfuGGPliCvJFBPIzA+s5BUc3LaampuPj43V1dbRmF/ymJfy3Of3DU/3KYv3MY/ubJPt4EvpUCfVCA/E2A7NNFmRkZNPT06ioqGFFKPuVFPytLv2+Sf3KYf3Qbf3PafuiKfuKFfppC/lQBfg+A/U8A2FBKIuLi9/f3zQzMtV2E/yhH/yxNf2+R/3HXP3LZ/3NafykJ/yOF/lxC/pcBvZGBPU3A9VRDTQzMdfX15qamn5QIvuSEfyfHPysL/y6QfzBTfzDV/zBU/ydH/yLE/t2DPpgB/dLA/Y6A/U6A3tIIvPz8zs2MPuSE/ydGPymJPyyNfy0OfyzN/ysKfyhIPuUF/uGDft0CvtlB/taBfZPA/ZFA+RXCjs1MPDw8E49LIJSIYJRIYJPIYJOIYJNIIJMIIJMIU47LKysrKzWV/gAAAABdFJOUwBA5thmAAABNUlEQVR42mNgwAGML2AAY6Do8RNQcPLkyVOnz5w9e+7ceWOGzVu8tm7b3rxj567de/bu23/g4KHDR44eY2BYtHjJ0mXLV6xcZWGxes3ades3bNwkuBlo+MRJk6dMnTZ9hoXFzFmz58ydN3/BQpCdDY1NzS2tbe0WFh2dXd09vX39E8BuKSwqLiktK7ewqKisqq6prauHODEpOSU1LT3DwiIzKzsnNy+/AOr00LDwiMgoC4vomNi4+IREmI88PL28fXz9/AMCg4K5+UPgPrWzd3B0srBwdnF1c+dCCgETUzNzCwtLK2sbW1YkYXktbR1dPX0DQyNjlABTVFJWUVVT15DQRBGWkJSSlpGVk1dAC19BIWERUTFxjHDn5uHl4xfAEGZj5+DkYsAETMwsrFiEGRgZGQgAAEPKcWQFSaWtAAAAAElFTkSuQmCCAAA=">
 
+<div class="fail">This test has failed if the image does not display.<br>This test has failed if there is a visible background around the image.</div>
+
 --DFQRCTsKlU
 woas.page.title: Test::JavaScript
 woas.page.attributes: 0
@@ -89,13 +107,15 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Test::JavaScript
-<span class="intro">There should be a JavaScript alert that pops up when the page loads, and a hidden &lt;script&gt; section wrapped in text above, before, after, and below it.</span>
+<div class="intro">There should be a JavaScript alert that pops up when the page loads, and a hidden &lt;script&gt; section wrapped in text above, before, after, and below it.</div>
 
 <span class="wrap_test">ABOVE</span>
 <span class="wrap_test">BEFORE</span><script type="text/javascript">//<![CDATA[
 alert("This is an example alert!");
 //]]></script><span class="wrap_test">AFTER</span>
 <span class="wrap_test">BELOW</span>
+
+<div class="fail">This test has failed if an alert doesn't pop up when this page loads.<br>This test has failed if there are any characters or text between BEFORE and AFTER.<br>This test has failed if there are any newlines between BEFORE and AFTER.</div>
 
 --DFQRCTsKlU
 woas.page.title: Test::Links
@@ -108,19 +128,20 @@ woas.page.boundary: DFQRCTsKlU
 = Test::Links
 
 == Test 1
-<span class="intro">There should be a blue existent link:</span>
-
+<div class="intro">There should be a blue existent link:</div>
 [[Main Page]]
 
+<div class="fail">Test 1 has failed if there isn't a plain blue link.<br>Test 1 has failed if the link doesn't open the Main Page in this tab or window.</div>
 == Test 2
-<span class="intro">There should be a green external link:</span>
-
+<div class="intro">There should be a green external link:</div>
 [[http://www.gnu.org/]]
 
+<div class="fail">Test 2 has failed if there isn't an underlined dark green link.<br>Test 2 has failed if the link doesn't open the GNU website in a new tab or window.</div>
 == Test 3
-<span class="intro">There should be a red nonexistent link:</span>
-
+<div class="intro">There should be a red nonexistent link:</div>
 [[nonexistent link]]
+
+<div class="fail">Test 3 has failed if there isn't a plain red link.<br>Test 3 has failed if the link doesn't open the page creation interface.</div>
 
 --DFQRCTsKlU
 woas.page.title: Test::Lists
@@ -132,22 +153,25 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 = Test::Lists
 == Test 1
-<span class="intro">There should be a bulleted list:</span>
+<div class="intro">There should be a bulleted list:</div>
 * item 1
 * item 2
 * item 3
+<div class="fail">Test 1 has failed if there are no bullets in front of the list items.<br>Test 1 has failed if the bullets are not offset from the left edge of the main text area.<br>Test 1 has failed if there is more than one newline between the blue introductory text box and the beginning of the list.</div>
 == Test 2
-<span class="intro">There should be a numeric list:</span>
+<div class="intro">There should be a numeric list:</div>
 # item 1
 # item 2
 # item 3
+<div class="fail">Test 2 has failed if there are no numbers in front of the list items.<br>Test 2 has failed if the numbers are not offset from the left edge of the main text area.<br>Test 2 has failed if there is more than one newline between the blue introductory text box and the beginning of the list.</div>
 == Test 3
-<span class="intro">There should be an alphanumeric list:</span>
+<div class="intro">There should be an alphanumeric list:</div>
 @ item 1
 @ item 2
 @ item 3
+<div class="fail">Test 3 has failed if there are no letters in front of the list items.<br>Test 3 has failed if the letters are not offset from the left edge of the main text area.<br>Test 3 has failed if there is more than one newline between the blue introductory text box and the beginning of the list.</div>
 == Test 4
-<span class="intro">There should be a multi-level bulleted list:</span>
+<div class="intro">There should be a multi-level bulleted list:</div>
 * item 1
 ** item 1
 *** item 1
@@ -157,8 +181,9 @@ woas.page.boundary: DFQRCTsKlU
 * item 1
 ** item 1
 *** item 1
+<div class="fail">Test 4 has failed if there are no bullets in front of the list items.<br>Test 4 has failed if there are not 3 levels of list items.<br>Test 4 has failed if the bullets are not offset from the left edge of the main text area.<br>Test 4 has failed if there is more than one newline between the blue introductory text box and the beginning of the list.</div>
 == Test 5
-<span class="intro">There should be a multi-level numbered list:</span>
+<div class="intro">There should be a multi-level numbered list:</div>
 # item 1
 ## item 1
 ### item 1
@@ -168,8 +193,9 @@ woas.page.boundary: DFQRCTsKlU
 # item 1
 ## item 1
 ### item 1
+<div class="fail">Test 5 has failed if there are no numbers in front of the list items.<br>Test 5 has failed if there are not 3 levels of list items.<br>Test 5 has failed if the numbers are not offset from the left edge of the main text area.<br>Test 5 has failed if there is more than one newline between the blue introductory text box and the beginning of the list.</div>
 == Test 6
-<span class="intro">There should be a multi-level alphanumeric list:</span>
+<div class="intro">There should be a multi-level alphanumeric list:</div>
 @ item 1
 @@ item 1
 @@@ item 1
@@ -179,6 +205,7 @@ woas.page.boundary: DFQRCTsKlU
 @ item 1
 @@ item 1
 @@@ item 1
+<div class="fail">Test 6 has failed if there are no letters in front of the list items.<br>Test 6 has failed if there are not 3 levels of list items.<br>Test 6 has failed if the letters are not offset from the left edge of the main text area.<br>Test 6 has failed if there is more than one newline between the blue introductory text box and the beginning of the list.</div>
 
 --DFQRCTsKlU
 woas.page.title: Test::Macro
@@ -190,7 +217,7 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 = Test::Macro
 == Test 1
-<span class="intro">There should be a hidden macro definition with text above, before, after, and below it:</span>
+<div class="intro">There should be a hidden macro definition with text above, before, after, and below it:</div>
 
 <span class="wrap_test">ABOVE</span>
 <span class="wrap_test">BEFORE</span><<<%woas.diary:
@@ -209,12 +236,15 @@ return true;
 >>><span class="wrap_test">AFTER</span>
 <span class="wrap_test">BELOW</span>
 
+<div class="fail">Test 1 has failed if there are any characters or text between BEFORE and AFTER.<br>Test 1 has failed if there are any newlines between BEFORE and AFTER.</div>
 == Test 2
-<span class="intro">There should be a macro call with text above, before, after, and below it:</span>
+<div class="intro">There should be a macro call with text above, before, after, and below it:</div>
 
 <span class="wrap_test">ABOVE</span>
 <span class="wrap_test">BEFORE</span><<<woas.diary:>>><span class="wrap_test">AFTER</span>
 <span class="wrap_test">BELOW</span>
+
+<div class="fail">Test 2 has failed if there is no red link to a diary page between BEFORE and AFTER.<br>Test 2 has failed if there are spaces between the red diary link and BEFORE and/or AFTER.<br>Test 2 has failed if there are newlines between the red diary link and BEFORE and/or AFTER.<br>Test 2 has failed if clicking the red diary link does not open the page creation interface.</div>
 
 --DFQRCTsKlU
 woas.page.title: Test::Menu
@@ -246,6 +276,7 @@ woas.page.boundary: DFQRCTsKlU
 ** [[Test::Text formatting]]
 ** [[Test::ToC]]
 ** [[Test::Transclusion]]
+<div class="fail">This test has failed if there is no scrollbar on the right side of this menu.<br>This test has failed if the pages in the Test:: namespace aren't styled with colorful contents.</div>
 <style type="text/css">
 /*SUB-MENU*/
 #i_woas_menu_area {
@@ -254,6 +285,12 @@ woas.page.boundary: DFQRCTsKlU
 	}
 #woas_ns_menu_edit_button {
 	padding-bottom: 0.4em;
+	}
+/*EXAMPLES FAIL TEXT*/
+.fail {
+	background-color: red;
+	color: white;
+	font-weight: bold;
 	}
 /*EXAMPLES INTRODUCTORY TEXT*/
 .intro {
@@ -272,7 +309,15 @@ woas.page.boundary: DFQRCTsKlU
 	padding-right: 0.2em;
 	padding-left: 0.2em;
 	}
+/* NOWIKI TEXT */
+.woas_nowiki {
+	background-color: gainsboro;
+	}
+.woas_nowiki_multiline {
+	border: 0.063em solid grey;
+	} 
 </style>
+
 --DFQRCTsKlU
 woas.page.title: Test::Nowiki
 woas.page.attributes: 0
@@ -282,32 +327,33 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Test::Nowiki
+
 == Test 1
-<span class="intro">There should be inline nowiki text that does not take up the entire width of the page:</span>
-
+<div class="intro">There should be inline nowiki text that does NOT take up the entire width of the page:</div>
 {{{test}}}
-
+<div class="fail">Test 1 has failed if its background is as wide as this red box.</div>
 == Test 2
-<span class="intro">There should be inline nowiki text with text above and below it:</span>
-
+<div class="intro">There should be inline nowiki text that does NOT take up the entire width of the page with text ABOVE and BELOW it:</div>
 <span class="wrap_test">ABOVE</span>
 {{{test}}}
 <span class="wrap_test">BELOW</span>
 
+<div class="fail">Test 2 has failed if its background is as wide as this red box.<br>Test 2 has failed if there are any newlines between the nowiki text and the text above and/or below it.</div>
 == Test 3
-<span class="intro">There should be inline nowiki with text before and after it:</span>
-
+<div class="intro">There should be inline nowiki text that does NOT take up the entire width of the page with text BEFORE and AFTER it:</div>
 <span class="wrap_test">BEFORE</span>{{{test}}}<span class="wrap_test">AFTER</span>
+
+<div class="fail">Test 3 has failed if its background is as wide as this red box.<br>Test 3 has failed if there are any newlines between the nowiki text and the text before and/or after it.<br>Test 3 has failed if there are any spaces between the nowiki text and the text before and/or after it.</div>
 == Test 4
-<span class="intro">There should be multi-line nowiki text that takes up the entire width of the page:</span>
+<div class="intro">There should be multi-line nowiki text that DOES take up the entire width of the page:</div>
 {{{
 test
 test
 test
 }}}
+<div class="fail">Test 4 has failed if its background is not as wide as this red box.</div>
 == Test 5
-<span class="intro">There should be multi-line nowiki text that takes up the entire width of the page with text above and below it:</span>
-
+<div class="intro">There should be multi-line nowiki text that DOES take up the entire width of the page with text ABOVE and BELOW it:</div>
 <span class="wrap_test">ABOVE</span>
 {{{
 test
@@ -315,23 +361,26 @@ test
 test
 }}}
 <span class="wrap_test">BELOW</span>
-== Test 6
-<span class="intro">There should be multi-line nowiki text that takes up the entire width of the page with text before and after it:</span>
 
+<div class="fail">Test 5 has failed if its background is not as wide as this red box.<br>Test 5 has failed if there is not a newline between the nowiki text and the text above it.<br>Test 5 has failed if there is not a newline between the nowiki text and the text below it.</div>
+== Test 6
+<div class="intro">There should be multi-line nowiki text that DOES take up the entire width of the page with text BEFORE and AFTER it:</div>
 <span class="wrap_test">BEFORE</span>{{{
 test
 test
 test
 }}}<span class="wrap_test">AFTER</span>
+
+<div class="fail">Test 6 has failed if its background is not as wide as this red box.<br>Test 6 has failed if there are any newlines between the nowiki text and the text before and/or after it.</div>
 == Test 7
-<span class="intro">There should be multi-line nowiki text properly indented in a list:</span>
+<div class="intro">There should be multi-line nowiki text that DOES take up the entire width of the page properly indented in a list:</div>
 * <span class="wrap_test">BEFORE</span>{{{
 test
 test
 test
-}}}<span class="wrap_test">AFTER</span>
+}}}<span class="wrap_test">AFTER</span><br><br><div class="fail">Test 7 has failed if its background is not as wide as this red box.<br>Test 7 has failed if there are any newlines between the nowiki text and the text before and/or after it.</div>
 == Test 8
-<span class="intro">There should be multi-line nowiki text that takes up the entire width of the page and wraps properly:</span>
+<div class="intro">There should be multi-line nowiki text that DOES take up the entire width of the page and wraps properly:</div>
 {{{
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 }}}
@@ -363,6 +412,7 @@ abcdef abcdef abcdef abcdef abcdef abcdef abcdef abcdef abcdef abcdef abcdef abc
 {{{
 abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg
 }}}
+<div class="fail">Test 8 has failed if its background is not as wide as this red box.<br>Test 8 has failed if it doesn't wrap within the colored background.</div>
 
 --DFQRCTsKlU
 woas.page.title: Test::Orphaned page
@@ -385,29 +435,30 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 = Test::Page listings
 == Test 1
-<span class="intro">There should be a listing of all pages:</span>
-
+<div class="intro">There should be a link to a listing of all pages:</div>
 [[Special::All Pages]]
 
+<div class="fail">Test 1 has failed if the link does NOT open a listing of all pages in this tab or window.</div>
 == Test 2
-<span class="intro">There should be a listing of dead pages that shows the nonexistent link from Test::Links:</span>
-
+<div class="intro">There should be a link to a listing of dead pages:</div>
 [[Special::Dead Pages]]
 
+<div class="fail">Test 2 has failed if the link does NOT open a listing of dead pages in this tab or window.<br>Test 2 has failed if the listing does NOT include the nonexistent link from the [[Test::Links]] page.</div>
 == Test 3
-<span class="intro">There should be a listing of orphaned pages that shows the Test::Orphaned page:</span>
-
+<div class="intro">There should be a link to a listing of orphaned pages:</div>
 [[Special::Orphaned Pages]]
 
+<div class="fail">Test 3 has failed if the link does NOT open a listing of orphaned pages in this tab or window.<br>Test 3 has failed if the listing does NOT include the [[Test::Orphaned page]] page.</div>
 == Test 4
-<span class="intro">There should be a listing of tagged pages:</span>
-
+<div class="intro">There should be a listing of tagged pages:</div>
 [[Tagged::]]
 
+<div class="fail">Test 4 has failed if the link does NOT open a listing of tagged pages in this tab or window.<br>Test 4 has failed if the listing does NOT include just the [[Test::Tag 1]], [[Test::Tag 2]], and [[Test::Tag overflow]] pages.</div>
 == Test 5
-<span class="intro">There should be a listing of untagged pages:</span>
-
+<div class="intro">There should be a listing of untagged pages:</div>
 [[Untagged::]]
+
+<div class="fail">Test 5 has failed if the link does NOT open a listing of untagged pages in this tab or window.<br>Test 5 has failed if the listing DOES include the [[Test::Tag 1]], [[Test::Tag 2]], and [[Test::Tag overflow]] pages.</div>
 
 --DFQRCTsKlU
 woas.page.title: Test::Style
@@ -418,7 +469,7 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Test::Style
-<span class="intro">There should be a yellow background on this page and a hidden &lt;style&gt; section with text directly above, before, after, and below it:</span>
+<div class="intro">There should be a yellow background on this page and a hidden &lt;style&gt; section with text directly above, before, after, and below it:</div>
 
 <span class="wrap_test">ABOVE</span>
 <span class="wrap_test">BEFORE</span><style type="text/css">
@@ -427,6 +478,8 @@ woas.page.boundary: DFQRCTsKlU
 }
 </style><span class="wrap_test">AFTER</span>
 <span class="wrap_test">BELOW</span>
+
+<div class="fail">This test has failed if the background of the page is not yellow.<br>This test has failed if there are any characters or text between BEFORE and AFTER.<br>This test has failed if there are any newlines between BEFORE and AFTER.</div>
 
 --DFQRCTsKlU
 woas.page.title: Test::Tables
@@ -439,51 +492,49 @@ woas.page.boundary: DFQRCTsKlU
 = Test::Tables
 
 == Test 1
-<span class="intro">There should be a table with no caption:</span>
-
+<div class="intro">There should be a table with no caption:</div>
 {|
 | cell one || cell two || cell three
 | cell one || cell two || cell three
 | cell one || cell two || cell three
 |}
-
+<div class="fail">Test 1 has failed if there are not nine cells in the table with no caption.</div>
 == Test 2
-<span class="intro">There should be a table with a caption above it:</span>
-
+<div class="intro">There should be a table with a caption above it:</div>
 {|
 |+ Test
 | cell one || cell two || cell three
 | cell one || cell two || cell three
 | cell one || cell two || cell three
 |}
+<div class="fail">Test 2 has failed if there are not nine cells in the table with a caption at the top.</div>
 
 == Test 3
-<span class="intro">There should be a table with a caption below it:</span>
-
+<div class="intro">There should be a table with a caption below it:</div>
 {|
 | cell one || cell two || cell three
 | cell one || cell two || cell three
 | cell one || cell two || cell three
 |+ Test
 |}
+<div class="fail">Test 3 has failed if there are not nine cells in the table with a caption at the bottom.</div>
 
 == Test 4
-<span class="intro">There should be a table with an empty cell:</span>
-
+<div class="intro">There should be a table with an empty cell:</div>
 {|
 | cell one || cell two || cell three
 | cell one || || cell three
 | cell one || cell two || cell three
 |}
-
+<div class="fail">Test 4 has failed if there are not nine cells in the table with one empty cell in the center.</div>
 == Test 5
-<span class="intro">There should be a table with a link in one of the cells:</span>
-
+<div class="intro">There should be a table with a link in one of the cells:</div>
 {|
 | cell one || cell two || cell three
 | cell one || [[Main Page]] || cell three
 | cell one || cell two || cell three
 |}
+<div class="fail">Test 5 has failed if there are not nine cells in the table with a link in the center cell.</div>
 
 --DFQRCTsKlU
 woas.page.title: Test::Tag 1
@@ -494,7 +545,8 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Test::Tag 1
-<span class="intro">There should be a tag in the container:</span>
+<div class="intro">There should be a tag in the container:</div>
+<div class="fail">This test has failed if there is no tag container at the bottom of the page.<br>This test has failed if there is no tag in the container at the bottom of the page.<br>This test has failed if the tag in the container at the bottom of the page does NOT lead to a listing of pages tagged with Tag1.</div>\
 [[Tag::Tag1]]
 
 --DFQRCTsKlU
@@ -506,7 +558,8 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Test::Tag 2
-<span class="intro">There should be a tag in the container:</span>
+<div class="intro">There should be a tag in the container:</div>
+<div class="fail">This test has failed if there is no tag container at the bottom of the page.<br>This test has failed if there is no tag in the container at the bottom of the page.<br>This test has failed if the tag in the container at the bottom of the page does NOT lead to a listing of pages tagged with Tag2.</div>\
 [[Tag::Tag2]]
 
 --DFQRCTsKlU
@@ -518,7 +571,8 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Test::Tag overflow
-<span class="intro">There should be too many tags in the container and they should either wrap or be scrollable from within the container depending on what the wiki default settings are:</span>
+<div class="intro">There should be too many tags in the container and they should either wrap or be scrollable from within the container depending on what the wiki default settings are.</div>
+<div class="fail">This test has failed if there is no tag container at the bottom of the page.<br>This test has failed if there are not twenty tags in the container at the bottom of the page.<br>This test has failed if the tags in the container at the bottom of the page aren't scrollable.<br>This test has failed if the window gets a scrollbar at the bottom.</div>\
 [[Tag::one,two,three,four,five,six,seven,eight,nine,ten,eleven,twelve,thirteen,fourteen,fifteen,sixteen,seventeen,eighteen,nineteen,twenty]]
 
 --DFQRCTsKlU
@@ -530,17 +584,22 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Test::Text formatting
-<span class="intro">There should be bold text:</span>
 
+== Test 1
+<div class="intro">There should be bold text:</div>
 *bold text*
 
-<span class="intro">There should be italic text:</span>
-
+<div class="fail">Test 1 has failed if the text is not bold.</div>
+== Test 2
+<div class="intro">There should be italic text:</div>
 /italic text/
 
-<span class="intro">There should be underlined text:</span>
-
+<div class="fail">Test 2 has failed if the text is not italic.</div>
+== Test 3
+<div class="intro">There should be underlined text:</div>
 _underlined text_
+
+<div class="fail">Test 3 has failed if the text is not underlined.</div>
 
 --DFQRCTsKlU
 woas.page.title: Test::ToC
@@ -552,7 +611,8 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 [[Special::TOC]]
 
-<span class="intro">There should be a Table of Contents container at the top of the page with level one through six headers properly indented and all content fitting inside the borders of the container.</span>
+<div class="intro">There should be a Table of Contents container at the top of the page with level one through six headers properly indented and all content fitting inside the borders of the container.</div>
+<div class="fail">This test has failed if there is no visible Table of Contents on the page.<br>This test has failed if there are NOT six levels of headers properly indented in the Table of Contents.<br>This test has failed if there are not ten level one headers in the Table of Contents.<br>This test has failed if the entries in the Table of Contents are not offset from the left margin of the Table of Contents.</div>
 = Level one header
 == Level two header
 === Level three header
@@ -578,10 +638,11 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Test::Transclusion
-<span class="intro">There should be a transcluded page with text directly above and below it:</span>
-
+<div class="intro">There should be a transcluded page with text directly above and below it:</div>
 <span class="wrap_test">ABOVE</div>
 [[Include::Main Page]]
 <span class="wrap_test">BELOW</div>
+
+<div class="fail">This test has failed if the contents of the Main Page are not displayed between ABOVE and BELOW.<br>This test has failed if there are newlines between the contents of the Main Page and ABOVE and/or BELOW.</div>
 
 --DFQRCTsKlU
