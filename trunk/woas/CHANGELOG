@@ -1,4 +1,5 @@
-Version 0.12.0 (legolas558)
+Version 0.12.0 (legolas558) released 2010-06-21
+* minimized and compressed versions in release
 * dynamic newlines after TOC, rulers, nowiki, macro, comments, transclusion, style and script syntax
 * disallow unsupported file modes on non-Gecko browsers
 * dropped 'Special::Aliases' and 'Special::Edit CSS'
