@@ -1,7 +1,3 @@
-I am in the middle of recreating my sources.
+The only useful (?) file in this branch currently is
 
-The code in woas/src has been removed as everything is now merged with trunk by Daniele.
-
-The code in woas/src-fix is updated, but there are still a few little changes to make to get (non-strict) jslint-type warnings to go away.
-
-There are some minor changes to wsif.js, stickwiki.js just for code validation. I just have a few more to add and then I will work on additions and/or bug fixes.
+* woas-0.12.0.testComp.html
