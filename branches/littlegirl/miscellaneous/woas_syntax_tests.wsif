@@ -2,8 +2,77 @@ wsif.version: 1.3.1
 wsif.generator: woas
 wsif.generator.version: 0.12.0
 woas.author: Little Girl
-woas.pages: 21
+woas.pages: 51
 
+woas.page.title: ::Menu
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+[[Main Page]]
+* [[WoaS::Aliases|Aliases]]
+* [[Special::All Pages|All pages]]
+* [[Special::Backlinks|Back links]]
+* [[Special::Delete Page|Delete page]]
+* [[Special::Duplicate Page|Duplicate page]]
+* [[Special::Erase Wiki|Erase wiki]]
+* [[Special::Go to|Go to...]]
+* [[WoaS::Help::|Help]]
+* [[WoaS History|History]]
+* [[WoaS::Hotkeys|Hotkeys]]
+* [[Special::New Page|New page]]
+* [[WoaS::Plugins|Plug-ins]]
+* [[Special::Recentchanges|Recent changes]]
+[[Include::WoaS::Template::Search]]
+* [[Test::Comments]]
+* [[Test::Headers 1]]
+* [[Test::Headers 2]]
+* [[Test::Headers 3]]
+* [[Test::Horizontal rules 1]]
+* [[Test::Horizontal rules 2]]
+* [[Test::Images]]
+* [[Test::JavaScript]]
+* [[Test::Links 1]]
+* [[Test::Links 2]]
+* [[Test::Links 3]]
+* [[Test::Lists 1]]
+* [[Test::Lists 2]]
+* [[Test::Lists 3]]
+* [[Test::Lists 4]]
+* [[Test::Lists 5]]
+* [[Test::Lists 6]]
+* [[Test::Macro]]
+* [[Tesst::Menu]]
+* [[Test::Nowiki 1]]
+* [[Test::Nowiki 2]]
+* [[Test::Nowiki 3]]
+* [[Test::Nowiki 4]]
+* [[Test::Nowiki 5]]
+* [[Test::Nowiki 6]]
+* [[Test::Nowiki 7]]
+* [[Test::Nowiki 8]]
+* [[Test::Page listings 1]]
+* [[Test::Page listings 2]]
+* [[Test::Page listings 3]]
+* [[Test::Page listings 4]]
+* [[Test::Page listings 5]]
+* [[Test::Style]]
+* [[Test::Tables 1]]
+* [[Test::Tables 2]]
+* [[Test::Tables 3]]
+* [[Test::Tables 4]]
+* [[Test::Tables 5]]
+* [[Test::Tag 1]]
+* [[Test::Tag 2]]
+* [[Test::Tag overflow]]
+* [[Test::Text formatting 1]]
+* [[Test::Text formatting 2]]
+* [[Test::Text formatting 3]]
+* [[Test::ToC]]
+* [[Test::Transclusion]]
+* [[Test::Use the wiki]]
 --DFQRCTsKlU
 woas.page.title: Main Page
 woas.page.attributes: 0
@@ -12,9 +81,87 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-<div style="border:5px dotted red; padding:1em;">To properly use this file, read and check *every* bit of information in *every* blue and *every* red box on *every* test page *each* time you import this test file into the wiki.
+<div style="border:5px dotted red; padding:1em;">To properly use this file, read and answer *every* question (marked by a blinking arrow) on *every* page *each* time you import this file into the wiki.<br><br><center><font color="#048db4">&#x26AB;</font>&nbsp;[[Test::Comments|CLICK HERE TO BEGIN THE TEST]]&nbsp;<font color="#048db4">&#x26AB;</font></center></div>
+--DFQRCTsKlU
+woas.page.title: WoaS::CSS::Custom
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
 
-<center>[[Test::Comments|Begin the test]]</center></div>
+--DFQRCTsKlU
+/* Your CSS customization goes here */
+
+/*EXAMPLES FAIL TEXT*/
+.fail {
+	background-color: red;
+	color: white;
+	font-weight: bold;
+	}
+
+/*EXAMPLES INTRODUCTORY TEXT*/
+.intro {
+	background-color: #048db4;
+	color: white;
+	font-weight: bold;
+	padding: 0.2em;
+	}
+
+/*EXAMPLES WRAP-TEST*/
+.wrap_test {
+/*	background-color: #048db4;*/
+	background-color: black;
+	color: white;
+	font-weight: bold;
+	padding-right: 0.2em;
+	padding-left: 0.2em;
+	}
+
+/* NOWIKI TEXT */
+.woas_nowiki {
+	background-color: gainsboro;
+	}
+.woas_nowiki_multiline {
+	border: 0.063em solid grey;
+	} 
+
+/*SUB-MENU*/
+#i_woas_menu_area {
+	height: 80%;
+	overflow: auto;
+	}
+#woas_ns_menu_edit_button {
+	padding-bottom: 0.4em;
+	}
+
+/* TEST QUESTIONS */
+.test {
+	background-color: powderblue;
+	}
+.test:before {
+	background-color: #048db4;
+	color: white;
+	content: "TAKE THE TEST";
+	display: block;
+	font-weight: bold;
+	text-align: center;
+	} 
+.test:after {
+	background-color: #048db4;
+	color: white;
+	content: "\00A0";
+	display: block;
+	font-weight: bold;
+	text-align: center;
+	} 
+
+/*TOPNOTES*/
+div.topnote {
+	position: absolute;
+	top: 0.188em;
+	right: 0.625em;
+	}
+
 --DFQRCTsKlU
 woas.page.title: Test::Comments
 woas.page.attributes: 0
@@ -29,19 +176,28 @@ woas.page.boundary: DFQRCTsKlU
 <span class="wrap_test">BEFORE</span><!-- XHTML comment --><span class="wrap_test">AFTER</span>
 <span class="wrap_test">BELOW</span>
 
-<div class="fail">This test has failed if there are any characters or text between BEFORE and AFTER.</div>
+<div class="test">
+<span id="choose1"><blink>*&#x279C;*</blink></span> Is there any text between *BEFORE* and *AFTER*?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='FailIt1()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='PassIt1()'>
+<span id="choose2"><blink>*&#x279C;*</blink></span> Is there a newline between *BEFORE* and *AFTER*?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='FailIt2()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='PassIt2()'>
+
+<script type="text/javascript">
+function PassIt1(){document.getElementById('choose1').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt1(){document.getElementById('choose1').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+function PassIt2(){document.getElementById('choose2').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt2(){document.getElementById('choose2').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+</script>\
+</div>
+<center><font color="#048db4">&#x26AB;</font>&nbsp;[[Main Page|BACK]]&nbsp;<font color="#048db4">&#x26AB;</font>&nbsp;[[Test::Headers 1|NEXT]]&nbsp;<font color="#048db4">&#x26AB;</font></center>
 
 --DFQRCTsKlU
-woas.page.title: Test::Headers
+woas.page.title: Test::Headers 1
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Test::Headers
-
-== Test 1
+= Test::Headers 1
 <div class="intro">There should be six levels of headers:</div>
 = Level one header
 == Level two header
@@ -49,40 +205,47 @@ woas.page.boundary: DFQRCTsKlU
 ==== Level four header
 ===== Level five header
 ====== Level six header
-<div class="fail">Test 1 has failed if there are not six different sizes of headers.</div>
-== Test 2
-<div class="intro">There should be a link in the header:</div>
-= This header should have a [[Main Page|link]] in it
-<div class="fail">Test 2 has failed if there is not a clickable link in the header.</div>
-== Test 3
-<div class="intro">The header should be a link:</div>
-= [[Main Page|This header should be a link]]
-<div class="fail">Test 3 has failed if the header is not a clickable link.</div>
+
+<div class="test">
+<span id="choose"><blink>*&#x279C;*</blink></span> Are there 6 different sizes of headers?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='PassIt()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='FailIt()'>
+
+<script type="text/javascript">
+function PassIt(){document.getElementById('choose').innerHTML='<big><font color="forestgreen"><b><big>PASS &#x2714;&nbsp;</big></b></font></big>';}
+function FailIt(){document.getElementById('choose').innerHTML='<big><font color="red"><b><big>FAIL &#x2716;&nbsp;</big></b></font></big>';}
+</script>\
+</div>
+<center><font color="#048db4">&#x26AB;</font>&nbsp;[[Test::Comments|BACK]]&nbsp;<font color="#048db4">&#x26AB;</font>&nbsp;[[Test::Headers 2|NEXT]]&nbsp;<font color="#048db4">&#x26AB;</font></center>
 
 --DFQRCTsKlU
-woas.page.title: Test::Horizontal rules
+woas.page.title: Test::Horizontal rules 1
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Test::Horizontal rules
-== Test 1
+= Test::Horizontal rules 1
 <div class="intro">There should be a horizontal rule with text directly above and below it:</div>
 
 <span class="wrap_test">ABOVE</span>
 ----
 <span class="wrap_test">BELOW</span>
 
-<div class="fail">Test 1 has failed if there are four dashes instead of a horizontal rule.<br>Test 1 has failed if there are any newlines between the horizontal rule and the text above and/or below it.</div>
+<div class="test">
+<span id="choose1"><blink>*&#x279C;*</blink></span> Are there four dashes rather than a horizontal rule?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='FailIt1()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='PassIt1()'>
+<span id="choose2"><blink>*&#x279C;*</blink></span> Are there are any newlines between *ABOVE* and the horizontal rule?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='FailIt2()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='PassIt2()'>
+<span id="choose3"><blink>*&#x279C;*</blink></span> Are there are any newlines between the horizontal rule and *BELOW*?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='FailIt3()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='PassIt3()'>
 
-== Test 2
-<div class="intro">There should be a horizontal rule with headers directly above and below it:</div>
-== ABOVE
-----
-== BELOW
-<div class="fail">Test 2 has failed if there are four dashes instead of a horizontal rule.<br>Test 2 has failed if the headers above and below the horizontal rule are plain text.</div>
+<script type="text/javascript">
+function PassIt1(){document.getElementById('choose1').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt1(){document.getElementById('choose1').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+function PassIt2(){document.getElementById('choose2').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt2(){document.getElementById('choose2').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+function PassIt3(){document.getElementById('choose3').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt3(){document.getElementById('choose3').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+</script>\
+</div>
+<center><font color="#048db4">&#x26AB;</font>&nbsp;[[Test::Headers 3|BACK]]&nbsp;<font color="#048db4">&#x26AB;</font>&nbsp;[[Test::Horizontal rules 2|NEXT]]&nbsp;<font color="#048db4">&#x26AB;</font></center>
 
 --DFQRCTsKlU
 woas.page.title: Test::Images
@@ -96,7 +259,18 @@ woas.page.boundary: DFQRCTsKlU
 <div class="intro">The background of this image should be transparent:</div>
 <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAMAAADzapwJAAAAB3RJTUUH1wcHEBwwMJCsHwAAAAlwSFlzAAAewQAAHsEBw2lUUwAAAARnQU1BAACxjwv8YQUAAAJzUExURf8f7evr67W1taWlpdbW1uzs7J6enmouJGosI4ODg93d3TcyMdQdB9EUBzYxMcXFxenp6Y+Pj402G+0VAN4MAIwlGnd3d9ra2tXV1UA1L+Y7Be4eAekRANYQAz8wLrCwsOXl5YCAgKdRGPdEA/QxAfIdAeERAaEjFW1tbe/v71hAKvlpB/pbBfZDA/IuAu0bAd0UAlYwKZOTk+Dg4F5eXsxqEvt3CflwCf////IpAuoYAcIjDVNTU9DQ0JaWlnlOI/uEDPuFEPqEEfU9BO0kAugYAXYyIX5+fu3t7Tc0MeZ7DvuTFvuZHPqXHvqKGft3EfZTB+81A+ohAdwpB+jo6ImJiZFXHvuYGPyjJ/ysM/ytOfpwDfdOBfAwAu8lAo87HHR0dNjY2MnJyUc6LvKLE/ypKfy2P/y9S/y/UfuGGPliCvJFBPIzA+s5BUc3LaampuPj43V1dbRmF/ymJfy3Of3DU/3KYv3MY/ubJPt4EvpUCfVCA/E2A7NNFmRkZNPT06ioqGFFKPuVFPytLv2+Sf3KYf3Qbf3PafuiKfuKFfppC/lQBfg+A/U8A2FBKIuLi9/f3zQzMtV2E/yhH/yxNf2+R/3HXP3LZ/3NafykJ/yOF/lxC/pcBvZGBPU3A9VRDTQzMdfX15qamn5QIvuSEfyfHPysL/y6QfzBTfzDV/zBU/ydH/yLE/t2DPpgB/dLA/Y6A/U6A3tIIvPz8zs2MPuSE/ydGPymJPyyNfy0OfyzN/ysKfyhIPuUF/uGDft0CvtlB/taBfZPA/ZFA+RXCjs1MPDw8E49LIJSIYJRIYJPIYJOIYJNIIJMIIJMIU47LKysrKzWV/gAAAABdFJOUwBA5thmAAABNUlEQVR42mNgwAGML2AAY6Do8RNQcPLkyVOnz5w9e+7ceWOGzVu8tm7b3rxj567de/bu23/g4KHDR44eY2BYtHjJ0mXLV6xcZWGxes3ades3bNwkuBlo+MRJk6dMnTZ9hoXFzFmz58ydN3/BQpCdDY1NzS2tbe0WFh2dXd09vX39E8BuKSwqLiktK7ewqKisqq6prauHODEpOSU1LT3DwiIzKzsnNy+/AOr00LDwiMgoC4vomNi4+IREmI88PL28fXz9/AMCg4K5+UPgPrWzd3B0srBwdnF1c+dCCgETUzNzCwtLK2sbW1YkYXktbR1dPX0DQyNjlABTVFJWUVVT15DQRBGWkJSSlpGVk1dAC19BIWERUTFxjHDn5uHl4xfAEGZj5+DkYsAETMwsrFiEGRgZGQgAAEPKcWQFSaWtAAAAAElFTkSuQmCCAAA=">
 
-<div class="fail">This test has failed if the image does not display.<br>This test has failed if there is a visible background around the image.</div>
+<div class="test">
+<span id="choose1"><blink>*&#x279C;*</blink></span> Does the image display?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='PassIt1()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='FailIt1()'>
+<span id="choose2"><blink>*&#x279C;*</blink></span> Is there a visible background around the image?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='FailIt2()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='PassIt2()'>
+
+<script type="text/javascript">
+function PassIt1(){document.getElementById('choose1').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt1(){document.getElementById('choose1').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+function PassIt2(){document.getElementById('choose2').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt2(){document.getElementById('choose2').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+</script>\
+</div>
+<center><font color="#048db4">&#x26AB;</font>&nbsp;[[Test::Horizontal rules 2|BACK]]&nbsp;<font color="#048db4">&#x26AB;</font>&nbsp;[[Test::JavaScript|NEXT]]&nbsp;<font color="#048db4">&#x26AB;</font></center>
 
 --DFQRCTsKlU
 woas.page.title: Test::JavaScript
@@ -107,7 +281,7 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Test::JavaScript
-<div class="intro">There should be a JavaScript alert that pops up when the page loads, and a hidden &lt;script&gt; section wrapped in text above, before, after, and below it.</div>
+<div class="intro">There should be a JavaScript alert that pops up when the page loads, and a HIDDEN &lt;script&gt; section wrapped in text above, before, after, and below it.</div>
 
 <span class="wrap_test">ABOVE</span>
 <span class="wrap_test">BEFORE</span><script type="text/javascript">//<![CDATA[
@@ -115,97 +289,76 @@ alert("This is an example alert!");
 //]]></script><span class="wrap_test">AFTER</span>
 <span class="wrap_test">BELOW</span>
 
-<div class="fail">This test has failed if an alert doesn't pop up when this page loads.<br>This test has failed if there are any characters or text between BEFORE and AFTER.<br>This test has failed if there are any newlines between BEFORE and AFTER.</div>
+<div class="test">
+<span id="choose1"><blink>*&#x279C;*</blink></span> Does an alert pop up when this page loads?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='PassIt1()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='FailIt1()'>
+<span id="choose2"><blink>*&#x279C;*</blink></span> Are there any characters or text between *BEFORE* and *AFTER*?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='FailIt2()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='PassIt2()'>
+<span id="choose3"><blink>*&#x279C;*</blink></span> Are there any newlines between *BEFORE* and *AFTER*?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='FailIt3()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='PassIt3()'>
+
+<script type="text/javascript">
+function PassIt1(){document.getElementById('choose1').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt1(){document.getElementById('choose1').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+function PassIt2(){document.getElementById('choose2').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt2(){document.getElementById('choose2').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+function PassIt3(){document.getElementById('choose3').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt3(){document.getElementById('choose3').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+</script>\
+</div>
+<center><font color="#048db4">&#x26AB;</font>&nbsp;[[Test::Images|BACK]]&nbsp;<font color="#048db4">&#x26AB;</font>&nbsp;[[Test::Links 1|NEXT]]&nbsp;<font color="#048db4">&#x26AB;</font></center>
 
 --DFQRCTsKlU
-woas.page.title: Test::Links
+woas.page.title: Test::Links 1
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Test::Links
+= Test::Links 1
 
-== Test 1
 <div class="intro">There should be a blue existent link:</div>
 [[Main Page]]
 
-<div class="fail">Test 1 has failed if there isn't a plain blue link.<br>Test 1 has failed if the link doesn't open the Main Page in this tab or window.</div>
-== Test 2
-<div class="intro">There should be a green external link:</div>
-[[http://www.gnu.org/]]
+<div class="test">
+<span id="choose1"><blink>*&#x279C;*</blink></span> Is there a plain blue link?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='PassIt1()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='FailIt1()'>
+<span id="choose2"><blink>*&#x279C;*</blink></span> Does the link open the Main Page in this tab or window?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='PassIt2()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='FailIt2()'>
 
-<div class="fail">Test 2 has failed if there isn't an underlined dark green link.<br>Test 2 has failed if the link doesn't open the GNU website in a new tab or window.</div>
-== Test 3
-<div class="intro">There should be a red nonexistent link:</div>
-[[nonexistent link]]
-
-<div class="fail">Test 3 has failed if there isn't a plain red link.<br>Test 3 has failed if the link doesn't open the page creation interface.</div>
+<script type="text/javascript">
+function PassIt1(){document.getElementById('choose1').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt1(){document.getElementById('choose1').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+function PassIt2(){document.getElementById('choose2').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt2(){document.getElementById('choose2').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+</script>\
+</div>
+<center><font color="#048db4">&#x26AB;</font>&nbsp;[[Test::JavaScript|BACK]]&nbsp;<font color="#048db4">&#x26AB;</font>&nbsp;[[Test::Links 2|NEXT]]&nbsp;<font color="#048db4">&#x26AB;</font></center>
 
 --DFQRCTsKlU
-woas.page.title: Test::Lists
+woas.page.title: Test::Lists 1
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Test::Lists
-== Test 1
+= Test::Lists 1
 <div class="intro">There should be a bulleted list:</div>
 * item 1
 * item 2
 * item 3
-<div class="fail">Test 1 has failed if there are no bullets in front of the list items.<br>Test 1 has failed if the bullets are not offset from the left edge of the main text area.<br>Test 1 has failed if there is more than one newline between the blue introductory text box and the beginning of the list.</div>
-== Test 2
-<div class="intro">There should be a numeric list:</div>
-# item 1
-# item 2
-# item 3
-<div class="fail">Test 2 has failed if there are no numbers in front of the list items.<br>Test 2 has failed if the numbers are not offset from the left edge of the main text area.<br>Test 2 has failed if there is more than one newline between the blue introductory text box and the beginning of the list.</div>
-== Test 3
-<div class="intro">There should be an alphanumeric list:</div>
-@ item 1
-@ item 2
-@ item 3
-<div class="fail">Test 3 has failed if there are no letters in front of the list items.<br>Test 3 has failed if the letters are not offset from the left edge of the main text area.<br>Test 3 has failed if there is more than one newline between the blue introductory text box and the beginning of the list.</div>
-== Test 4
-<div class="intro">There should be a multi-level bulleted list:</div>
-* item 1
-** item 1
-*** item 1
-* item 1
-** item 1
-*** item 1
-* item 1
-** item 1
-*** item 1
-<div class="fail">Test 4 has failed if there are no bullets in front of the list items.<br>Test 4 has failed if there are not 3 levels of list items.<br>Test 4 has failed if the bullets are not offset from the left edge of the main text area.<br>Test 4 has failed if there is more than one newline between the blue introductory text box and the beginning of the list.</div>
-== Test 5
-<div class="intro">There should be a multi-level numbered list:</div>
-# item 1
-## item 1
-### item 1
-# item 1
-## item 1
-### item 1
-# item 1
-## item 1
-### item 1
-<div class="fail">Test 5 has failed if there are no numbers in front of the list items.<br>Test 5 has failed if there are not 3 levels of list items.<br>Test 5 has failed if the numbers are not offset from the left edge of the main text area.<br>Test 5 has failed if there is more than one newline between the blue introductory text box and the beginning of the list.</div>
-== Test 6
-<div class="intro">There should be a multi-level alphanumeric list:</div>
-@ item 1
-@@ item 1
-@@@ item 1
-@ item 1
-@@ item 1
-@@@ item 1
-@ item 1
-@@ item 1
-@@@ item 1
-<div class="fail">Test 6 has failed if there are no letters in front of the list items.<br>Test 6 has failed if there are not 3 levels of list items.<br>Test 6 has failed if the letters are not offset from the left edge of the main text area.<br>Test 6 has failed if there is more than one newline between the blue introductory text box and the beginning of the list.</div>
+<div class="test">
+<span id="choose1"><blink>*&#x279C;*</blink></span> Are there bullets in front of list items?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='PassIt1()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='FailIt1()'>
+<span id="choose2"><blink>*&#x279C;*</blink></span> Are the bullets indented from the left edge of the main text area?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='PassIt2()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='FailIt2()'>
+<span id="choose3"><blink>*&#x279C;*</blink></span> Is there more than one newline between the blue introductory text box and the beginning of the list?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='FailIt3()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='PassIt3()'>
+
+<script type="text/javascript">
+function PassIt1(){document.getElementById('choose1').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt1(){document.getElementById('choose1').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+function PassIt2(){document.getElementById('choose2').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt2(){document.getElementById('choose2').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+function PassIt3(){document.getElementById('choose3').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt3(){document.getElementById('choose3').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+</script>\
+</div>
+<center><font color="#048db4">&#x26AB;</font>&nbsp;[[Test::Links 3|BACK]]&nbsp;<font color="#048db4">&#x26AB;</font>&nbsp;[[Test::Lists 2|NEXT]]&nbsp;<font color="#048db4">&#x26AB;</font></center>
 
 --DFQRCTsKlU
 woas.page.title: Test::Macro
@@ -216,9 +369,7 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Test::Macro
-== Test 1
-<div class="intro">There should be a hidden macro definition with text above, before, after, and below it:</div>
-
+<div class="intro">There should be a HIDDEN macro definition with text above, before, after, and below it:</div>
 <span class="wrap_test">ABOVE</span>
 <span class="wrap_test">BEFORE</span><<<%woas.diary:
 /* Diary macro by legolas558 - original work by FBNil */
@@ -236,124 +387,750 @@ return true;
 >>><span class="wrap_test">AFTER</span>
 <span class="wrap_test">BELOW</span>
 
-<div class="fail">Test 1 has failed if there are any characters or text between BEFORE and AFTER.<br>Test 1 has failed if there are any newlines between BEFORE and AFTER.</div>
-== Test 2
-<div class="intro">There should be a macro call with text above, before, after, and below it:</div>
+<div class="test">
+<span id="choose1"><blink>*&#x279C;*</blink></span> Are there any characters or text between *BEFORE* and *AFTER*?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='FailIt1()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='PassIt1()'>
+<span id="choose2"><blink>*&#x279C;*</blink></span> Are there any newlines between *BEFORE* and *AFTER*?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='FailIt2()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='PassIt2()'>
+<br></div>
 
+<div class="intro">There should be a macro call with text above, before, after, and below it:</div>
 <span class="wrap_test">ABOVE</span>
 <span class="wrap_test">BEFORE</span><<<woas.diary:>>><span class="wrap_test">AFTER</span>
 <span class="wrap_test">BELOW</span>
 
-<div class="fail">Test 2 has failed if there is no red link to a diary page between BEFORE and AFTER.<br>Test 2 has failed if there are spaces between the red diary link and BEFORE and/or AFTER.<br>Test 2 has failed if there are newlines between the red diary link and BEFORE and/or AFTER.<br>Test 2 has failed if clicking the red diary link does not open the page creation interface.</div>
+<div class="test">
+<span id="choose3"><blink>*&#x279C;*</blink></span> Is there a red link to a diary page between *BEFORE* and *AFTER*?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='PassIt3()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='FailIt3()'>
+<span id="choose4"><blink>*&#x279C;*</blink></span> Are there any spaces between the red diary link and *BEFORE* and/or *AFTER*?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='FailIt4()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='PassIt4()'>
+<span id="choose5"><blink>*&#x279C;*</blink></span> Are there any newlines between the red diary link and *BEFORE* and/or *AFTER*?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='FailIt5()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='PassIt5()'>
+<span id="choose6"><blink>*&#x279C;*</blink></span> Does clicking the red link open the page creation interface?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='PassIt6()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='FailIt6()'>
+
+<script type="text/javascript">
+function PassIt1(){document.getElementById('choose1').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt1(){document.getElementById('choose1').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+function PassIt2(){document.getElementById('choose2').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt2(){document.getElementById('choose2').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+function PassIt3(){document.getElementById('choose3').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt3(){document.getElementById('choose3').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+function PassIt4(){document.getElementById('choose4').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt4(){document.getElementById('choose4').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+function PassIt5(){document.getElementById('choose5').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt5(){document.getElementById('choose5').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+function PassIt6(){document.getElementById('choose6').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt6(){document.getElementById('choose6').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+</script>\
+</div>
+<center><font color="#048db4">&#x26AB;</font>&nbsp;[[Test::Lists 6|BACK]]&nbsp;<font color="#048db4">&#x26AB;</font>&nbsp;[[Tesst::Menu|NEXT]]&nbsp;<font color="#048db4">&#x26AB;</font></center>
 
 --DFQRCTsKlU
-woas.page.title: Test::Menu
+woas.page.title: Test::Nowiki 1
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Test::Menu
-<div class="intro">This entire menu and sub-menu should take up 80% of the height of this window and have a scrollbar on the right because of the embedded CSS styling at the bottom of the sub-menu.</div>
-* *Pages:*
-** [[Test::Comments]]
-** [[Test::Headers]]
-** [[Test::Horizontal rules]]
-** [[Test::Images]]
-** [[Test::JavaScript]]
-** [[Test::Links]]
-** [[Test::Lists]]
-** [[Test::Macro]]
-** [[Test::Menu]]
-** [[Test::Nowiki]]
-** [[Test::Page listings]]
-** [[Test::Style]]
-** [[Test::Tables]]
-** [[Test::Tag 1]]
-** [[Test::Tag 2]]
-** [[Test::Tag overflow]]
-** [[Test::Text formatting]]
-** [[Test::ToC]]
-** [[Test::Transclusion]]
-<div class="fail">This test has failed if there is no scrollbar on the right side of this menu.<br>This test has failed if the pages in the Test:: namespace aren't styled with colorful contents.</div>
-<style type="text/css">
-/*SUB-MENU*/
-#i_woas_menu_area {
-	height: 80%;
-	overflow: auto;
-	}
-#woas_ns_menu_edit_button {
-	padding-bottom: 0.4em;
-	}
-/*EXAMPLES FAIL TEXT*/
-.fail {
-	background-color: red;
-	color: white;
-	font-weight: bold;
-	}
-/*EXAMPLES INTRODUCTORY TEXT*/
-.intro {
-/*	background-color: springgreen;*/
-	background-color: #048db4;
-	color: white;
-	font-weight: bold;
-	padding: 0.2em;
-	}
-/*EXAMPLES WRAP-TEST*/
-.wrap_test {
-/*	background-color: #048db4;*/
-	background-color: black;
-	color: white;
-	font-weight: bold;
-	padding-right: 0.2em;
-	padding-left: 0.2em;
-	}
-/* NOWIKI TEXT */
-.woas_nowiki {
-	background-color: gainsboro;
-	}
-.woas_nowiki_multiline {
-	border: 0.063em solid grey;
-	} 
-</style>
-
---DFQRCTsKlU
-woas.page.title: Test::Nowiki
-woas.page.attributes: 0
-woas.page.encoding: 8bit/plain
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-= Test::Nowiki
-
-== Test 1
-<div class="intro">There should be inline nowiki text that does NOT take up the entire width of the page:</div>
+= Test::Nowiki 1
+<div class="intro">There should be INLINE nowiki text that does NOT have a border and does NOT take up the entire width of the page:</div>
 {{{test}}}
-<div class="fail">Test 1 has failed if its background is as wide as this red box.</div>
+<div class="test">
+<span id="choose1"><blink>*&#x279C;*</blink></span> Is there monospace font text on a grey background?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='PassIt1()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='FailIt1()'>
+<span id="choose2"><blink>*&#x279C;*</blink></span> Is there a black border around the grey background?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='FailIt2()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='PassIt2()'>
+<span id="choose3"><blink>*&#x279C;*</blink></span> Is the grey background as wide as the blue introductory text box?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='FailIt3()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='PassIt3()'>
+
+<script type="text/javascript">
+function PassIt1(){document.getElementById('choose1').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt1(){document.getElementById('choose1').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+function PassIt2(){document.getElementById('choose2').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt2(){document.getElementById('choose2').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+function PassIt3(){document.getElementById('choose3').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt3(){document.getElementById('choose3').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+</script>\
+</div>
+<center><font color="#048db4">&#x26AB;</font>&nbsp;[[Tesst::Menu|BACK]]&nbsp;<font color="#048db4">&#x26AB;</font>&nbsp;[[Test::Nowiki 2|NEXT]]&nbsp;<font color="#048db4">&#x26AB;</font></center>
+
+--DFQRCTsKlU
+woas.page.title: Test::Orphaned page
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Test::Orphaned page
+<span class="intro">This should be an orphaned page.</span>
+
+--DFQRCTsKlU
+woas.page.title: Test::Page listings 1
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Test::Page listings 1
+<div class="intro">There should be a link to a listing of all pages:</div>
+[[Special::All Pages]]
+
+<div class="test">
+<span id="choose1"><blink>*&#x279C;*</blink></span> Is there a plain blue link?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='PassIt1()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='FailIt1()'>
+<span id="choose2"><blink>*&#x279C;*</blink></span> Does the link open a listing of all pages in THIS tab/window?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='PassIt2()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='FailIt2()'>
+
+<script type="text/javascript">
+function PassIt1(){document.getElementById('choose1').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt1(){document.getElementById('choose1').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+function PassIt2(){document.getElementById('choose2').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt2(){document.getElementById('choose2').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+</script>\
+</div>
+<center><font color="#048db4">&#x26AB;</font>&nbsp;[[Test::Nowiki 8|BACK]]&nbsp;<font color="#048db4">&#x26AB;</font>&nbsp;[[Test::Page listings 2|NEXT]]&nbsp;<font color="#048db4">&#x26AB;</font></center>
+--DFQRCTsKlU
+woas.page.title: Test::Style
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Test::Style
+<div class="intro">There should be a yellow background on this page and a hidden &lt;style&gt; section with text directly above, before, after, and below it:</div>
+
+<span class="wrap_test">ABOVE</span>
+<span class="wrap_test">BEFORE</span><style type="text/css">
+#woas_wiki_area {
+	background-color: #FFFFAA;
+}
+</style><span class="wrap_test">AFTER</span>
+<span class="wrap_test">BELOW</span>
+
+<div class="test">
+<span id="choose1"><blink>*&#x279C;*</blink></span> Is the background of the main text area yellow?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='PassIt1()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='FailIt1()'>
+<span id="choose2"><blink>*&#x279C;*</blink></span> Are there any characters or text between *BEFORE* and *AFTER*?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='FailIt2()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='PassIt2()'>
+<span id="choose3"><blink>*&#x279C;*</blink></span> Are there any newlines between *BEFORE* and *AFTER*?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='FailIt3()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='PassIt3()'>
+
+<script type="text/javascript">
+function PassIt1(){document.getElementById('choose1').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt1(){document.getElementById('choose1').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+function PassIt2(){document.getElementById('choose2').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt2(){document.getElementById('choose2').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+function PassIt3(){document.getElementById('choose3').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt3(){document.getElementById('choose3').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+</script>\
+</div>
+<center><font color="#048db4">&#x26AB;</font>&nbsp;[[Test::Page listings 5|BACK]]&nbsp;<font color="#048db4">&#x26AB;</font>&nbsp;[[Test::Tables 1|NEXT]]&nbsp;<font color="#048db4">&#x26AB;</font></center>
+
+--DFQRCTsKlU
+woas.page.title: Test::Tables 1
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Test::Tables 1
+<div class="intro">There should be a table with no caption:</div>
+{|
+| cell one || cell two || cell three
+| cell one || cell two || cell three
+| cell one || cell two || cell three
+|}
+<div class="test">
+<span id="choose1"><blink>*&#x279C;*</blink></span> Is there a table with nine cells?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='PassIt1()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='FailIt1()'>
+<span id="choose2"><blink>*&#x279C;*</blink></span> Is there a caption at the top or bottom of the table?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='FailIt2()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='PassIt2()'>
+
+<script type="text/javascript">
+function PassIt1(){document.getElementById('choose1').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt1(){document.getElementById('choose1').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+function PassIt2(){document.getElementById('choose2').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt2(){document.getElementById('choose2').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+</script>\
+</div>
+<center><font color="#048db4">&#x26AB;</font>&nbsp;[[Test::Style|BACK]]&nbsp;<font color="#048db4">&#x26AB;</font>&nbsp;[[Test::Tables 2|NEXT]]&nbsp;<font color="#048db4">&#x26AB;</font></center>
+
+--DFQRCTsKlU
+woas.page.title: Test::Tag 1
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Test::Tag 1
+<div class="intro">There should be a tag in the container at the bottom of the main text area.</div>
+<div class="test">
+<span id="choose1"><blink>*&#x279C;*</blink></span> Is there a tag container at the bottom of the main text area?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='PassIt1()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='FailIt1()'>
+<span id="choose2"><blink>*&#x279C;*</blink></span> Is there a tag IN the tag container?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='PassIt2()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='FailIt2()'>
+<span id="choose3"><blink>*&#x279C;*</blink></span> Does the tag in the tag container lead to a listing of pages tagged with Tag1?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='PassIt3()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='FailIt3()'>
+
+<script type="text/javascript">
+function PassIt1(){document.getElementById('choose1').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt1(){document.getElementById('choose1').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+function PassIt2(){document.getElementById('choose2').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt2(){document.getElementById('choose2').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+function PassIt3(){document.getElementById('choose3').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt3(){document.getElementById('choose3').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+</script>\
+</div>
+<center><font color="#048db4">&#x26AB;</font>&nbsp;[[Test::Tables 5|BACK]]&nbsp;<font color="#048db4">&#x26AB;</font>&nbsp;[[Test::Tag 2|NEXT]]&nbsp;<font color="#048db4">&#x26AB;</font></center>
+
+[[Tag::Tag1]]
+
+--DFQRCTsKlU
+woas.page.title: Test::Tag 2
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Test::Tag 2
+<div class="intro">There should be a tag in the container at the bottom of the main text area.</div>
+<div class="test">
+<span id="choose1"><blink>*&#x279C;*</blink></span> Is there a tag container at the bottom of the main text area?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='PassIt1()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='FailIt1()'>
+<span id="choose2"><blink>*&#x279C;*</blink></span> Is there a tag IN the tag container?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='PassIt2()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='FailIt2()'>
+<span id="choose3"><blink>*&#x279C;*</blink></span> Does the tag in the tag container lead to a listing of pages tagged with Tag2?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='PassIt3()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='FailIt3()'>
+
+<script type="text/javascript">
+function PassIt1(){document.getElementById('choose1').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt1(){document.getElementById('choose1').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+function PassIt2(){document.getElementById('choose2').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt2(){document.getElementById('choose2').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+function PassIt3(){document.getElementById('choose3').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt3(){document.getElementById('choose3').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+</script>\
+</div>
+<center><font color="#048db4">&#x26AB;</font>&nbsp;[[Test::Tag 1|BACK]]&nbsp;<font color="#048db4">&#x26AB;</font>&nbsp;[[Test::Tag overflow|NEXT]]&nbsp;<font color="#048db4">&#x26AB;</font></center>
+[[Tag::Tag2]]
+
+--DFQRCTsKlU
+woas.page.title: Test::Tag overflow
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Test::Tag overflow
+<div class="intro">There should be too many tags in the container at the bottom of the main text area, and they should either wrap or be scrollable from within the container depending on what the wiki default settings are.</div>
+<div class="test">
+<span id="choose1"><blink>*&#x279C;*</blink></span> Is there a tag container at the bottom of the main text area?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='PassIt1()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='FailIt1()'>
+<span id="choose2"><blink>*&#x279C;*</blink></span> Are there twenty tags in the container?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='PassIt2()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='FailIt2()'>
+<span id="choose3"><blink>*&#x279C;*</blink></span> Is there a scroll bar at the bottom of the container?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='PassIt3()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='FailIt3()'>
+<span id="choose4"><blink>*&#x279C;*</blink></span> Is there a scroll bar at the bottom of this page?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='FailIt4()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='PassIt4()'>
+
+<script type="text/javascript">
+function PassIt1(){document.getElementById('choose1').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt1(){document.getElementById('choose1').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+function PassIt2(){document.getElementById('choose2').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt2(){document.getElementById('choose2').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+function PassIt3(){document.getElementById('choose3').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt3(){document.getElementById('choose3').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+function PassIt4(){document.getElementById('choose4').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt4(){document.getElementById('choose4').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+</script>\
+</div>
+<center><font color="#048db4">&#x26AB;</font>&nbsp;[[Test::Tag 2|BACK]]&nbsp;<font color="#048db4">&#x26AB;</font>&nbsp;[[Test::Text formatting 1|NEXT]]&nbsp;<font color="#048db4">&#x26AB;</font></center>
+[[Tag::one,two,three,four,five,six,seven,eight,nine,ten,eleven,twelve,thirteen,fourteen,fifteen,sixteen,seventeen,eighteen,nineteen,twenty]]
+
+--DFQRCTsKlU
+woas.page.title: Test::Text formatting 1
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Test::Text formatting 1
+<div class="intro">There should be bold text:</div>
+*bold text*
+
+<div class="test">
+<span id="choose1"><blink>*&#x279C;*</blink></span> Is there bold text?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='PassIt1()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='FailIt1()'>
+
+<script type="text/javascript">
+function PassIt1(){document.getElementById('choose1').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt1(){document.getElementById('choose1').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+</script>\
+</div>
+<center><font color="#048db4">&#x26AB;</font>&nbsp;[[Test::Tag overflow|BACK]]&nbsp;<font color="#048db4">&#x26AB;</font>&nbsp;[[Test::Text formatting 2|NEXT]]&nbsp;<font color="#048db4">&#x26AB;</font></center>
+--DFQRCTsKlU
+woas.page.title: Test::ToC
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+[[Special::TOC]]
+
+<div class="intro">There should be a Table of Contents container at the top of the page with level one through six headers properly indented and all content fitting inside the borders of the container.</div>
+= Level one header
+== Level two header
+=== Level three header
+==== Level four header
+===== Level five header
+====== Level six header
+= Level one header
+= Level one header
+= Level one header
+= Level one header
+= Level one header
+= Level one header
+= Level one header
+= Level one header
+= Level one header
+<div class="test">
+<span id="choose1"><blink>*&#x279C;*</blink></span> Is there a Table of Contents at the top of the main text area?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='PassIt1()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='FailIt1()'>
+<span id="choose2"><blink>*&#x279C;*</blink></span> Are there 6 levels of headers properly indented in the Table of Contents?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='PassIt2()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='FailIt2()'>
+<span id="choose3"><blink>*&#x279C;*</blink></span> Are there 10 level one headers in the Table of Contents?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='PassIt3()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='FailIt3()'>
+<span id="choose4"><blink>*&#x279C;*</blink></span> Are all of the entries in the Table of Contents indented from the left margin of the Table of Contents?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='PassIt4()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='FailIt4()'>
+
+<script type="text/javascript">
+function PassIt1(){document.getElementById('choose1').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt1(){document.getElementById('choose1').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+function PassIt2(){document.getElementById('choose2').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt2(){document.getElementById('choose2').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+function PassIt3(){document.getElementById('choose3').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt3(){document.getElementById('choose3').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+function PassIt4(){document.getElementById('choose4').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt4(){document.getElementById('choose4').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+</script>\
+</div>
+<center><font color="#048db4">&#x26AB;</font>&nbsp;[[Test::Text formatting 3|BACK]]&nbsp;<font color="#048db4">&#x26AB;</font>&nbsp;[[Test::Transclusion|NEXT]]&nbsp;<font color="#048db4">&#x26AB;</font></center>
+
+--DFQRCTsKlU
+woas.page.title: Test::Transclusion
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Test::Transclusion
+<div class="intro">There should be a transcluded page with text directly above and below it:</div>
+<span class="wrap_test">ABOVE</div>
+[[Include::Main Page]]
+<span class="wrap_test">BELOW</div>
+
+<div class="test">
+<span id="choose1"><blink>*&#x279C;*</blink></span> Are the contents of the [[Main Page]] displayed between *ABOVE* and *BELOW*?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='PassIt1()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='FailIt1()'>
+<span id="choose2"><blink>*&#x279C;*</blink></span> Are there any newlines between *ABOVE* and the contents of the [[Main Page]]?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='FailIt2()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='PassIt2()'>
+<span id="choose3"><blink>*&#x279C;*</blink></span> Are there any newlines between the contents of the [[Main Page]] and *BELOW*?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='FailIt3()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='PassIt3()'>
+
+<script type="text/javascript">
+function PassIt1(){document.getElementById('choose1').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt1(){document.getElementById('choose1').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+function PassIt2(){document.getElementById('choose2').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt2(){document.getElementById('choose2').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+function PassIt3(){document.getElementById('choose3').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt3(){document.getElementById('choose3').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+</script>\
+</div>
+<center><font color="#048db4">&#x26AB;</font>&nbsp;[[Test::ToC|BACK]]&nbsp;<font color="#048db4">&#x26AB;</font>&nbsp;[[Test::Use the wiki|NEXT]]&nbsp;<font color="#048db4">&#x26AB;</font></center>
+
+--DFQRCTsKlU
+woas.page.title: Test::Headers 2
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Test::Headers 2
+<div class="intro">There should be a link in the header:</div>
+= This header should have a [[Main Page|link]] in it
+
+<div class="test">
+<span id="choose"><blink>*&#x279C;*</blink></span> Is there a clickable link in the header?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='PassIt()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='FailIt()'>
+
+<script type="text/javascript">
+function PassIt(){document.getElementById('choose').innerHTML='<big><font color="forestgreen"><b><big>PASS &#x2714;&nbsp;</big></b></font></big>';}
+function FailIt(){document.getElementById('choose').innerHTML='<big><font color="red"><b><big>FAIL &#x2716;&nbsp;</big></b></font></big>';}
+</script>\
+</div>
+<center><font color="#048db4">&#x26AB;</font>&nbsp;[[Test::Headers 1|BACK]]&nbsp;<font color="#048db4">&#x26AB;</font>&nbsp;[[Test::Headers 3|NEXT]]&nbsp;<font color="#048db4">&#x26AB;</font></center>
+
+--DFQRCTsKlU
+woas.page.title: Test::Headers 3
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Test::Headers 3
+<div class="intro">The header should be a link:</div>
+= [[Main Page|This header should be a link]]
+
+<div class="test">
+<span id="choose"><blink>*&#x279C;*</blink></span> Is the header a clickable link?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='PassIt()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='FailIt()'>
+
+<script type="text/javascript">
+function PassIt(){document.getElementById('choose').innerHTML='<big><font color="forestgreen"><b><big>PASS &#x2714;&nbsp;</big></b></font></big>';}
+function FailIt(){document.getElementById('choose').innerHTML='<big><font color="red"><b><big>FAIL &#x2716;&nbsp;</big></b></font></big>';}
+</script>\
+</div>
+<center><font color="#048db4">&#x26AB;</font>&nbsp;[[Test::Headers 2|BACK]]&nbsp;<font color="#048db4">&#x26AB;</font>&nbsp;[[Test::Horizontal rules 1|NEXT]]&nbsp;<font color="#048db4">&#x26AB;</font></center>
+
+--DFQRCTsKlU
+woas.page.title: Test::Horizontal rules 2
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Test::Horizontal rules 2
 == Test 2
-<div class="intro">There should be inline nowiki text that does NOT take up the entire width of the page with text ABOVE and BELOW it:</div>
+<div class="intro">There should be a horizontal rule with headers directly above and below it:</div>
+== ABOVE
+----
+== BELOW
+
+<div class="test">
+<span id="choose1"><blink>*&#x279C;*</blink></span> Are there four dashes rather than a horizontal rule?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='FailIt1()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='PassIt1()'>
+<span id="choose2"><blink>*&#x279C;*</blink></span> Are the headers above and below the horizontal rule plain text?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='FailIt2()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='PassIt2()'>
+
+<script type="text/javascript">
+function PassIt1(){document.getElementById('choose1').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt1(){document.getElementById('choose1').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+function PassIt2(){document.getElementById('choose2').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt2(){document.getElementById('choose2').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+</script>\
+</div>
+<center><font color="#048db4">&#x26AB;</font>&nbsp;[[Test::Horizontal rules 1|BACK]]&nbsp;<font color="#048db4">&#x26AB;</font>&nbsp;[[Test::Images|NEXT]]&nbsp;<font color="#048db4">&#x26AB;</font></center>
+
+--DFQRCTsKlU
+woas.page.title: Test::Links 2
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Test::Links 2
+
+<div class="intro">There should be a green external link:</div>
+[[http://www.gnu.org/]]
+
+<div class="test">
+<span id="choose1"><blink>*&#x279C;*</blink></span> Is there a dark green, underlined link?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='PassIt1()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='FailIt1()'>
+<span id="choose2"><blink>*&#x279C;*</blink></span> Does the link open the GNU website in a new tab or window?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='PassIt2()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='FailIt2()'>
+
+<script type="text/javascript">
+function PassIt1(){document.getElementById('choose1').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt1(){document.getElementById('choose1').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+function PassIt2(){document.getElementById('choose2').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt2(){document.getElementById('choose2').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+</script>\
+</div>
+<center><font color="#048db4">&#x26AB;</font>&nbsp;[[Test::Links 1|BACK]]&nbsp;<font color="#048db4">&#x26AB;</font>&nbsp;[[Test::Links 3|NEXT]]&nbsp;<font color="#048db4">&#x26AB;</font></center>
+
+--DFQRCTsKlU
+woas.page.title: Test::Links 3
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Test::Links 3
+
+<div class="intro">There should be a red nonexistent link:</div>
+[[nonexistent link]]
+
+<div class="test">
+<span id="choose1"><blink>*&#x279C;*</blink></span> Is there a plain, red link?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='PassIt1()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='FailIt1()'>
+<span id="choose2"><blink>*&#x279C;*</blink></span> Does the link open the page creation interface?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='PassIt2()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='FailIt2()'>
+
+<script type="text/javascript">
+function PassIt1(){document.getElementById('choose1').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt1(){document.getElementById('choose1').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+function PassIt2(){document.getElementById('choose2').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt2(){document.getElementById('choose2').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+</script>\
+</div>
+<center><font color="#048db4">&#x26AB;</font>&nbsp;[[Test::Links 2|BACK]]&nbsp;<font color="#048db4">&#x26AB;</font>&nbsp;[[Test::Lists 1|NEXT]]&nbsp;<font color="#048db4">&#x26AB;</font></center>
+
+--DFQRCTsKlU
+woas.page.title: Test::Lists 2
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Test::Lists 2
+<div class="intro">There should be a numeric list:</div>
+# item 1
+# item 2
+# item 3
+<div class="test">
+<span id="choose1"><blink>*&#x279C;*</blink></span> Are there numbers in front of the list items?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='PassIt1()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='FailIt1()'>
+<span id="choose2"><blink>*&#x279C;*</blink></span> Are the numbers indented from the left edge of the main text area?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='PassIt2()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='FailIt2()'>
+<span id="choose3"><blink>*&#x279C;*</blink></span> Is there more than one newline between the blue introductory text box and the beginning of the list?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='FailIt3()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='PassIt3()'>
+
+<script type="text/javascript">
+function PassIt1(){document.getElementById('choose1').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt1(){document.getElementById('choose1').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+function PassIt2(){document.getElementById('choose2').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt2(){document.getElementById('choose2').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+function PassIt3(){document.getElementById('choose3').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt3(){document.getElementById('choose3').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+</script>\
+</div>
+<center><font color="#048db4">&#x26AB;</font>&nbsp;[[Test::Lists 1|BACK]]&nbsp;<font color="#048db4">&#x26AB;</font>&nbsp;[[Test::Lists 3|NEXT]]&nbsp;<font color="#048db4">&#x26AB;</font></center>
+
+--DFQRCTsKlU
+woas.page.title: Test::Lists 3
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Test::Lists 3
+<div class="intro">There should be an alphanumeric list:</div>
+@ item 1
+@ item 2
+@ item 3
+<div class="test">
+<span id="choose1"><blink>*&#x279C;*</blink></span> Are there letters in front of the list items?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='PassIt1()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='FailIt1()'>
+<span id="choose2"><blink>*&#x279C;*</blink></span> Are the letters indented from the left edge of the main text area?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='PassIt2()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='FailIt2()'>
+<span id="choose3"><blink>*&#x279C;*</blink></span> Is there more than one newline between the blue introductory text box and the beginning of the list?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='FailIt3()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='PassIt3()'>
+
+<script type="text/javascript">
+function PassIt1(){document.getElementById('choose1').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt1(){document.getElementById('choose1').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+function PassIt2(){document.getElementById('choose2').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt2(){document.getElementById('choose2').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+function PassIt3(){document.getElementById('choose3').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt3(){document.getElementById('choose3').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+</script>\
+</div>
+<center><font color="#048db4">&#x26AB;</font>&nbsp;[[Test::Lists 2|BACK]]&nbsp;<font color="#048db4">&#x26AB;</font>&nbsp;[[Test::Lists 4|NEXT]]&nbsp;<font color="#048db4">&#x26AB;</font></center>
+--DFQRCTsKlU
+woas.page.title: Test::Lists 4
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Test::Lists 4
+<div class="intro">There should be a multi-level bulleted list:</div>
+* item 1
+** item 1
+*** item 1
+* item 1
+** item 1
+*** item 1
+* item 1
+** item 1
+*** item 1
+<div class="test">
+<span id="choose1"><blink>*&#x279C;*</blink></span> Are there bullets in front of the list items?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='PassIt1()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='FailIt1()'>
+<span id="choose3"><blink>*&#x279C;*</blink></span> Are the bullets indented from the left edge of the main text area?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='PassIt3()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='FailIt3()'>
+<span id="choose2"><blink>*&#x279C;*</blink></span> Are there three levels of list items?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='PassIt2()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='FailIt2()'>
+<span id="choose4"><blink>*&#x279C;*</blink></span> Is there more than one newline between the blue introductory text box and the beginning of the list?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='FailIt4()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='PassIt4()'>
+
+<script type="text/javascript">
+function PassIt1(){document.getElementById('choose1').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt1(){document.getElementById('choose1').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+function PassIt2(){document.getElementById('choose2').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt2(){document.getElementById('choose2').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+function PassIt3(){document.getElementById('choose3').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt3(){document.getElementById('choose3').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+function PassIt4(){document.getElementById('choose4').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt4(){document.getElementById('choose4').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+</script>\
+</div>
+<center><font color="#048db4">&#x26AB;</font>&nbsp;[[Test::Lists 3|BACK]]&nbsp;<font color="#048db4">&#x26AB;</font>&nbsp;[[Test::Lists 5|NEXT]]&nbsp;<font color="#048db4">&#x26AB;</font></center>
+
+--DFQRCTsKlU
+woas.page.title: Test::Lists 5
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Test::Lists 5
+<div class="intro">There should be a multi-level numbered list:</div>
+# item 1
+## item 1
+### item 1
+# item 1
+## item 1
+### item 1
+# item 1
+## item 1
+### item 1
+<div class="test">
+<span id="choose1"><blink>*&#x279C;*</blink></span> Are there numbers in front of the list items?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='PassIt1()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='FailIt1()'>
+<span id="choose2"><blink>*&#x279C;*</blink></span> Are the numbers indented from the left edge of the main text area?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='PassIt2()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='FailIt2()'>
+<span id="choose3"><blink>*&#x279C;*</blink></span> Are there three levels of list items?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='PassIt3()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='FailIt3()'>
+<span id="choose4"><blink>*&#x279C;*</blink></span> Is there more than one newline between the blue introductory text box and the beginning of the list?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='FailIt4()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='PassIt4()'>
+
+<script type="text/javascript">
+function PassIt1(){document.getElementById('choose1').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt1(){document.getElementById('choose1').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+function PassIt2(){document.getElementById('choose2').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt2(){document.getElementById('choose2').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+function PassIt3(){document.getElementById('choose3').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt3(){document.getElementById('choose3').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+function PassIt4(){document.getElementById('choose4').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt4(){document.getElementById('choose4').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+</script></div>
+<center><font color="#048db4">&#x26AB;</font>&nbsp;[[Test::Lists 4|BACK]]&nbsp;<font color="#048db4">&#x26AB;</font>&nbsp;[[Test::Lists 6|NEXT]]&nbsp;<font color="#048db4">&#x26AB;</font></center>
+
+--DFQRCTsKlU
+woas.page.title: Test::Lists 6
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Test::Lists 6
+<div class="intro">There should be a multi-level alphanumeric list:</div>
+@ item 1
+@@ item 1
+@@@ item 1
+@ item 1
+@@ item 1
+@@@ item 1
+@ item 1
+@@ item 1
+@@@ item 1
+<div class="test">
+<span id="choose1"><blink>*&#x279C;*</blink></span> Are there letters in front of the list items?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='PassIt1()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='FailIt1()'>
+<span id="choose2"><blink>*&#x279C;*</blink></span> Are the letters indented from the left edge of the main text area?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='PassIt2()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='FailIt2()'>
+<span id="choose3"><blink>*&#x279C;*</blink></span> Are there three levels of list items?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='PassIt3()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='FailIt3()'>
+<span id="choose4"><blink>*&#x279C;*</blink></span> Is there more than one newline between the blue introductory text box and the beginning of the list?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='FailIt4()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='PassIt4()'>
+
+<script type="text/javascript">
+function PassIt1(){document.getElementById('choose1').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt1(){document.getElementById('choose1').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+function PassIt2(){document.getElementById('choose2').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt2(){document.getElementById('choose2').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+function PassIt3(){document.getElementById('choose3').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt3(){document.getElementById('choose3').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+function PassIt4(){document.getElementById('choose4').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt4(){document.getElementById('choose4').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+</script>\
+</div>
+<center><font color="#048db4">&#x26AB;</font>&nbsp;[[Test::Lists 5|BACK]]&nbsp;<font color="#048db4">&#x26AB;</font>&nbsp;[[Test::Macro|NEXT]]&nbsp;<font color="#048db4">&#x26AB;</font></center>
+
+--DFQRCTsKlU
+woas.page.title: Test::Nowiki 2
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Test::Nowiki 2
+<div class="intro">There should be INLINE nowiki text that does NOT have a border and does NOT take up the entire width of the page with text ABOVE and BELOW it:</div>
 <span class="wrap_test">ABOVE</span>
 {{{test}}}
 <span class="wrap_test">BELOW</span>
 
-<div class="fail">Test 2 has failed if its background is as wide as this red box.<br>Test 2 has failed if there are any newlines between the nowiki text and the text above and/or below it.</div>
-== Test 3
-<div class="intro">There should be inline nowiki text that does NOT take up the entire width of the page with text BEFORE and AFTER it:</div>
+<div class="test">
+<span id="choose1"><blink>*&#x279C;*</blink></span> Is there monospace font text on a grey background?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='PassIt1()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='FailIt1()'>
+<span id="choose2"><blink>*&#x279C;*</blink></span> Is there a black border around the grey background?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='FailIt2()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='PassIt2()'>
+<span id="choose3"><blink>*&#x279C;*</blink></span> Is the grey background as wide as the blue introductory text box?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='FailIt3()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='PassIt3()'>
+<span id="choose4"><blink>*&#x279C;*</blink></span> Are there any newlines between the nowiki text and *ABOVE*?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='FailIt4()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='PassIt4()'>
+<span id="choose5"><blink>*&#x279C;*</blink></span> Are there any newlines between the nowiki text and *BELOW*?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='FailIt5()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='PassIt5()'>
+
+<script type="text/javascript">
+function PassIt1(){document.getElementById('choose1').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt1(){document.getElementById('choose1').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+function PassIt2(){document.getElementById('choose2').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt2(){document.getElementById('choose2').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+function PassIt3(){document.getElementById('choose3').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt3(){document.getElementById('choose3').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+function PassIt4(){document.getElementById('choose4').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt4(){document.getElementById('choose4').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+function PassIt5(){document.getElementById('choose5').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt5(){document.getElementById('choose5').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+</script>\
+</div>
+<center><font color="#048db4">&#x26AB;</font>&nbsp;[[Test::Nowiki 1|BACK]]&nbsp;<font color="#048db4">&#x26AB;</font>&nbsp;[[Test::Nowiki 3|NEXT]]&nbsp;<font color="#048db4">&#x26AB;</font></center>
+
+--DFQRCTsKlU
+woas.page.title: Test::Nowiki 3
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Test::Nowiki 3
+<div class="intro">There should be INLINE nowiki text that does NOT have a border and does NOT take up the entire width of the page with text BEFORE and AFTER it:</div>
 <span class="wrap_test">BEFORE</span>{{{test}}}<span class="wrap_test">AFTER</span>
 
-<div class="fail">Test 3 has failed if its background is as wide as this red box.<br>Test 3 has failed if there are any newlines between the nowiki text and the text before and/or after it.<br>Test 3 has failed if there are any spaces between the nowiki text and the text before and/or after it.</div>
-== Test 4
-<div class="intro">There should be multi-line nowiki text that DOES take up the entire width of the page:</div>
+<div class="test">
+<span id="choose1"><blink>*&#x279C;*</blink></span> Is there monospace font text on a grey background?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='PassIt1()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='FailIt1()'>
+<span id="choose2"><blink>*&#x279C;*</blink></span> Is there a black border around the grey background?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='FailIt2()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='PassIt2()'>
+<span id="choose3"><blink>*&#x279C;*</blink></span> Is the grey background as wide as the blue introductory text box?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='FailIt3()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='PassIt3()'>
+<span id="choose4"><blink>*&#x279C;*</blink></span> Are there any spaces between the grey background and *BEFORE* and/or *AFTER*?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='FailIt4()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='PassIt4()'>
+<span id="choose5"><blink>*&#x279C;*</blink></span> Are there any newlines between the grey background and *BEFORE* and/or *AFTER*?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='FailIt5()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='PassIt5()'>
+
+<script type="text/javascript">
+function PassIt1(){document.getElementById('choose1').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt1(){document.getElementById('choose1').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+function PassIt2(){document.getElementById('choose2').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt2(){document.getElementById('choose2').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+function PassIt3(){document.getElementById('choose3').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt3(){document.getElementById('choose3').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+function PassIt4(){document.getElementById('choose4').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt4(){document.getElementById('choose4').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+function PassIt5(){document.getElementById('choose5').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt5(){document.getElementById('choose5').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+</script>\
+</div>
+<center><font color="#048db4">&#x26AB;</font>&nbsp;[[Test::Nowiki 2|BACK]]&nbsp;<font color="#048db4">&#x26AB;</font>&nbsp;[[Test::Nowiki 4|NEXT]]&nbsp;<font color="#048db4">&#x26AB;</font></center>
+
+--DFQRCTsKlU
+woas.page.title: Test::Nowiki 4
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Test::Nowiki 4
+<div class="intro">There should be MULTI-LINE nowiki text that DOES have a border and DOES take up the entire width of the page:</div>
 {{{
 test
 test
 test
 }}}
-<div class="fail">Test 4 has failed if its background is not as wide as this red box.</div>
-== Test 5
-<div class="intro">There should be multi-line nowiki text that DOES take up the entire width of the page with text ABOVE and BELOW it:</div>
+<div class="test">
+<span id="choose1"><blink>*&#x279C;*</blink></span> Is there monospace font text on a grey background?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='PassIt1()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='FailIt1()'>
+<span id="choose2"><blink>*&#x279C;*</blink></span> Is there a black border around the grey background?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='PassIt2()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='FailIt2()'>
+<span id="choose3"><blink>*&#x279C;*</blink></span> Is the grey background as wide as the blue introductory text box?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='PassIt3()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='FailIt3()'>
+
+<script type="text/javascript">
+function PassIt1(){document.getElementById('choose1').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt1(){document.getElementById('choose1').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+function PassIt2(){document.getElementById('choose2').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt2(){document.getElementById('choose2').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+function PassIt3(){document.getElementById('choose3').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt3(){document.getElementById('choose3').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+</script>\
+</div>
+<center><font color="#048db4">&#x26AB;</font>&nbsp;[[Test::Nowiki 3|BACK]]&nbsp;<font color="#048db4">&#x26AB;</font>&nbsp;[[Test::Nowiki 5|NEXT]]&nbsp;<font color="#048db4">&#x26AB;</font></center>
+
+--DFQRCTsKlU
+woas.page.title: Test::Nowiki 5
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Test::Nowiki 5
+<div class="intro">There should be MULTI-LINE nowiki text that DOES have a border and DOES take up the entire width of the page with text ABOVE and BELOW it:</div>
 <span class="wrap_test">ABOVE</span>
 {{{
 test
@@ -362,25 +1139,113 @@ test
 }}}
 <span class="wrap_test">BELOW</span>
 
-<div class="fail">Test 5 has failed if its background is not as wide as this red box.<br>Test 5 has failed if there is not a newline between the nowiki text and the text above it.<br>Test 5 has failed if there is not a newline between the nowiki text and the text below it.</div>
-== Test 6
-<div class="intro">There should be multi-line nowiki text that DOES take up the entire width of the page with text BEFORE and AFTER it:</div>
+<div class="test">
+<span id="choose1"><blink>*&#x279C;*</blink></span> Is there monospace font text on a grey background?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='PassIt1()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='FailIt1()'>
+<span id="choose2"><blink>*&#x279C;*</blink></span> Is there a black border around the grey background?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='PassIt2()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='FailIt2()'>
+<span id="choose3"><blink>*&#x279C;*</blink></span> Is the grey background as wide as the blue introductory text box?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='PassIt3()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='FailIt3()'>
+<span id="choose4"><blink>*&#x279C;*</blink></span> Is there a newline between *ABOVE* and the grey background?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='FailIt4()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='PassIt4()'>
+<span id="choose5"><blink>*&#x279C;*</blink></span> Is there a newline between the grey background and *BELOW*?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='FailIt5()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='PassIt5()'>
+
+<script type="text/javascript">
+function PassIt1(){document.getElementById('choose1').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt1(){document.getElementById('choose1').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+function PassIt2(){document.getElementById('choose2').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt2(){document.getElementById('choose2').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+function PassIt3(){document.getElementById('choose3').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt3(){document.getElementById('choose3').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+function PassIt4(){document.getElementById('choose4').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt4(){document.getElementById('choose4').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+function PassIt5(){document.getElementById('choose5').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt6(){document.getElementById('choose5').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+</script>\
+</div>
+<center><font color="#048db4">&#x26AB;</font>&nbsp;[[Test::Nowiki 4|BACK]]&nbsp;<font color="#048db4">&#x26AB;</font>&nbsp;[[Test::Nowiki 6|NEXT]]&nbsp;<font color="#048db4">&#x26AB;</font></center>
+
+--DFQRCTsKlU
+woas.page.title: Test::Nowiki 6
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Test::Nowiki 6
+<div class="intro">There should be MULTI-LINE nowiki text that DOES have a border and DOES take up the entire width of the page with text BEFORE and AFTER it:</div>
 <span class="wrap_test">BEFORE</span>{{{
 test
 test
 test
 }}}<span class="wrap_test">AFTER</span>
 
-<div class="fail">Test 6 has failed if its background is not as wide as this red box.<br>Test 6 has failed if there are any newlines between the nowiki text and the text before and/or after it.</div>
-== Test 7
-<div class="intro">There should be multi-line nowiki text that DOES take up the entire width of the page properly indented in a list:</div>
+<div class="test">
+<span id="choose1"><blink>*&#x279C;*</blink></span> Is there monospace font text on a grey background?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='PassIt1()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='FailIt1()'>
+<span id="choose2"><blink>*&#x279C;*</blink></span> Is there a black border around the grey background?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='PassIt2()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='FailIt2()'>
+<span id="choose3"><blink>*&#x279C;*</blink></span> Is the grey background as wide as the blue introductory text box?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='PassIt3()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='FailIt3()'>
+<span id="choose4"><blink>*&#x279C;*</blink></span> Is there a newline between *BEFORE* and the grey background?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='FailIt4()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='PassIt4()'>
+<span id="choose5"><blink>*&#x279C;*</blink></span> Is there a newline between the grey background and *AFTER*?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='FailIt5()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='PassIt5()'>
+
+<script type="text/javascript">
+function PassIt1(){document.getElementById('choose1').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt1(){document.getElementById('choose1').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+function PassIt2(){document.getElementById('choose2').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt2(){document.getElementById('choose2').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+function PassIt3(){document.getElementById('choose3').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt3(){document.getElementById('choose3').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+function PassIt4(){document.getElementById('choose4').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt4(){document.getElementById('choose4').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+function PassIt5(){document.getElementById('choose5').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt6(){document.getElementById('choose5').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+</script>\
+</div>
+<center><font color="#048db4">&#x26AB;</font>&nbsp;[[Test::Nowiki 5|BACK]]&nbsp;<font color="#048db4">&#x26AB;</font>&nbsp;[[Test::Nowiki 7|NEXT]]&nbsp;<font color="#048db4">&#x26AB;</font></center>
+
+--DFQRCTsKlU
+woas.page.title: Test::Nowiki 7
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Test::Nowiki 7
+<div class="intro">There should be MULTI-LINE nowiki text that DOES have a border and DOES take up the entire width of the page properly indented in a list:</div>
 * <span class="wrap_test">BEFORE</span>{{{
 test
 test
 test
-}}}<span class="wrap_test">AFTER</span><br><br><div class="fail">Test 7 has failed if its background is not as wide as this red box.<br>Test 7 has failed if there are any newlines between the nowiki text and the text before and/or after it.</div>
-== Test 8
-<div class="intro">There should be multi-line nowiki text that DOES take up the entire width of the page and wraps properly:</div>
+}}}<span class="wrap_test">AFTER</span>
+
+<div class="test">
+<span id="choose1"><blink>*&#x279C;*</blink></span> Is there monospace font text on a grey background?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='PassIt1()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='FailIt1()'>
+<span id="choose2"><blink>*&#x279C;*</blink></span> Is there a black border around the grey background?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='PassIt2()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='FailIt2()'>
+<span id="choose3"><blink>*&#x279C;*</blink></span> Is the grey background as wide as the blue introductory text box (other than the indent)?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='PassIt3()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='FailIt3()'>
+<span id="choose4"><blink>*&#x279C;*</blink></span> Is there a newline between BEFORE and the grey background?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='FailIt4()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='PassIt4()'>
+<span id="choose5"><blink>*&#x279C;*</blink></span> Is there a newline between the grey background and AFTER?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='FailIt5()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='PassIt5()'>
+
+<script type="text/javascript">
+function PassIt1(){document.getElementById('choose1').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt1(){document.getElementById('choose1').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+function PassIt2(){document.getElementById('choose2').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt2(){document.getElementById('choose2').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+function PassIt3(){document.getElementById('choose3').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt3(){document.getElementById('choose3').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+function PassIt4(){document.getElementById('choose4').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt4(){document.getElementById('choose4').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+function PassIt5(){document.getElementById('choose5').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt5(){document.getElementById('choose5').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+</script>\
+</div>
+<center><font color="#048db4">&#x26AB;</font>&nbsp;[[Test::Nowiki 6|BACK]]&nbsp;<font color="#048db4">&#x26AB;</font>&nbsp;[[Test::Nowiki 8|NEXT]]&nbsp;<font color="#048db4">&#x26AB;</font></center>
+--DFQRCTsKlU
+woas.page.title: Test::Nowiki 8
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Test::Nowiki 8
+<div class="intro">There should be MULTI-LINE nowiki text that DOES have a border and DOES take up the entire width of the page and wraps properly:</div>
 {{{
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 }}}
@@ -412,94 +1277,206 @@ abcdef abcdef abcdef abcdef abcdef abcdef abcdef abcdef abcdef abcdef abcdef abc
 {{{
 abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg abcdefg
 }}}
-<div class="fail">Test 8 has failed if its background is not as wide as this red box.<br>Test 8 has failed if it doesn't wrap within the colored background.</div>
 
+<div class="test">
+<span id="choose1"><blink>*&#x279C;*</blink></span> Is there monospace font text on a grey background?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='PassIt1()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='FailIt1()'>
+<span id="choose2"><blink>*&#x279C;*</blink></span> Is there a black border around the grey background?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='PassIt2()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='FailIt2()'>
+<span id="choose3"><blink>*&#x279C;*</blink></span> Is the grey background as wide as the blue introductory text box?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='PassIt3()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='FailIt3()'>
+<span id="choose4"><blink>*&#x279C;*</blink></span> Does the text wrap within the grey background on all but the top example?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='PassIt4()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='FailIt4()'>
+
+<script type="text/javascript">
+function PassIt1(){document.getElementById('choose1').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt1(){document.getElementById('choose1').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+function PassIt2(){document.getElementById('choose2').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt2(){document.getElementById('choose2').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+function PassIt3(){document.getElementById('choose3').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt3(){document.getElementById('choose3').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+</script>\
+</div>
+<center><font color="#048db4">&#x26AB;</font>&nbsp;[[Test::Nowiki 7|BACK]]&nbsp;<font color="#048db4">&#x26AB;</font>&nbsp;[[Test::Page listings 1|NEXT]]&nbsp;<font color="#048db4">&#x26AB;</font></center>
 --DFQRCTsKlU
-woas.page.title: Test::Orphaned page
+woas.page.title: Tesst::Menu
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Test::Orphaned page
-<span class="intro">This should be an orphaned page.</span>
+= Tesst::Menu
+<div class="intro">This entire menu should take up 80% of the height of this window and have a scrollbar on the right.</div>
+* [[Test::Comments]]
+* [[Test::Headers 1]]
+* [[Test::Headers 2]]
+* [[Test::Headers 3]]
+* [[Test::Horizontal rules 1]]
+* [[Test::Horizontal rules 2]]
+* [[Test::Images]]
+* [[Test::JavaScript]]
+* [[Test::Links 1]]
+* [[Test::Links 2]]
+* [[Test::Links 3]]
+* [[Test::Lists 1]]
+* [[Test::Lists 2]]
+* [[Test::Lists 3]]
+* [[Test::Lists 4]]
+* [[Test::Lists 5]]
+* [[Test::Lists 6]]
+* [[Test::Macro]]
+* [[Test::Nowiki 1]]
+* [[Test::Nowiki 2]]
+* [[Test::Nowiki 3]]
+* [[Test::Nowiki 4]]
+* [[Test::Nowiki 5]]
+* [[Test::Nowiki 6]]
+* [[Test::Nowiki 7]]
+* [[Test::Nowiki 8]]
+* [[Test::Page listings 1]]
+* [[Test::Style]]
+* [[Test::Tables 1]]
+* [[Test::Tag 1]]
+* [[Test::Tag 2]]
+* [[Test::Tag overflow]]
+* [[Test::Text formatting 1]]
+* [[Test::ToC]]
+* [[Test::Transclusion]]
+</div>
+<div class="test">
+<center>/Results of this test will *only* display in the menu./</center>
+<span id="menuchoose1"><blink>*&#x279C;*</blink></span> Is there a scrollbar on the right side of this menu?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='MenuPassIt1()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='MenuFailIt1()'>
+<span id="menuchoose2"><blink>*&#x279C;*</blink></span> Are the list items indented from the left edge of the menu?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='MenuPassIt2()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='MenuFailIt2()'>
+
+<script type="text/javascript">
+function MenuPassIt1(){document.getElementById('menuchoose1').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function MenuFailIt1(){document.getElementById('menuchoose1').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+function MenuPassIt2(){document.getElementById('menuchoose2').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function MenuFailIt2(){document.getElementById('menuchoose2').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+</script>\
+</div>
+<center><font color="#048db4">&#x26AB;</font>&nbsp;[[Test::Macro|BACK]]&nbsp;<font color="#048db4">&#x26AB;</font>&nbsp;[[Test::Nowiki 1|NEXT]]&nbsp;<font color="#048db4">&#x26AB;</font></center>
 
 --DFQRCTsKlU
-woas.page.title: Test::Page listings
+woas.page.title: Test::Page listings 2
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Test::Page listings
-== Test 1
-<div class="intro">There should be a link to a listing of all pages:</div>
-[[Special::All Pages]]
-
-<div class="fail">Test 1 has failed if the link does NOT open a listing of all pages in this tab or window.</div>
-== Test 2
+= Test::Page listings 2
 <div class="intro">There should be a link to a listing of dead pages:</div>
 [[Special::Dead Pages]]
 
-<div class="fail">Test 2 has failed if the link does NOT open a listing of dead pages in this tab or window.<br>Test 2 has failed if the listing does NOT include the nonexistent link from the [[Test::Links]] page.</div>
-== Test 3
+<div class="test">
+<span id="choose1"><blink>*&#x279C;*</blink></span> Is there a plain, blue link?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='PassIt1()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='FailIt1()'>
+<span id="choose2"><blink>*&#x279C;*</blink></span> Does the link open a listing of dead pages in THIS tab/window?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='PassIt2()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='FailIt2()'>
+<span id="choose3"><blink>*&#x279C;*</blink></span> Does the listing include the *+newpagename+* link from the [[Test::Macro]] page?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='PassIt3()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='FailIt3()'>
+<span id="choose4"><blink>*&#x279C;*</blink></span> Does the listing include the *nonexistent* link from the [[Test::Links 3]] page?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='PassIt4()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='FailIt4()'>
+
+<script type="text/javascript">
+function PassIt1(){document.getElementById('choose1').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt1(){document.getElementById('choose1').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+function PassIt2(){document.getElementById('choose2').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt2(){document.getElementById('choose2').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+function PassIt3(){document.getElementById('choose3').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt3(){document.getElementById('choose3').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+function PassIt4(){document.getElementById('choose4').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt4(){document.getElementById('choose4').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+</script>\
+</div>
+<center><font color="#048db4">&#x26AB;</font>&nbsp;[[Test::Page listings 1|BACK]]&nbsp;<font color="#048db4">&#x26AB;</font>&nbsp;[[Test::Page listings 3|NEXT]]&nbsp;<font color="#048db4">&#x26AB;</font></center>
+
+--DFQRCTsKlU
+woas.page.title: Test::Page listings 3
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Test::Page listings 3
 <div class="intro">There should be a link to a listing of orphaned pages:</div>
 [[Special::Orphaned Pages]]
 
-<div class="fail">Test 3 has failed if the link does NOT open a listing of orphaned pages in this tab or window.<br>Test 3 has failed if the listing does NOT include the [[Test::Orphaned page]] page.</div>
-== Test 4
+<div class="test">
+<span id="choose1"><blink>*&#x279C;*</blink></span> Is there a plain, blue link?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='PassIt1()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='FailIt1()'>
+<span id="choose2"><blink>*&#x279C;*</blink></span> Does the link open a listing of orphaned pages in THIS tab/window?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='PassIt2()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='FailIt2()'>
+<span id="choose3"><blink>*&#x279C;*</blink></span> Does the listing include the *Test::Orphaned page*?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='PassIt3()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='FailIt3()'>
+
+<script type="text/javascript">
+function PassIt1(){document.getElementById('choose1').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt1(){document.getElementById('choose1').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+function PassIt2(){document.getElementById('choose2').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt2(){document.getElementById('choose2').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+function PassIt3(){document.getElementById('choose3').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt3(){document.getElementById('choose3').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+</script>\
+</div>
+<center><font color="#048db4">&#x26AB;</font>&nbsp;[[Test::Page listings 2|BACK]]&nbsp;<font color="#048db4">&#x26AB;</font>&nbsp;[[Test::Page listings 4|NEXT]]&nbsp;<font color="#048db4">&#x26AB;</font></center>
+--DFQRCTsKlU
+woas.page.title: Test::Page listings 4
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Test::Page listings 4
 <div class="intro">There should be a listing of tagged pages:</div>
 [[Tagged::]]
 
-<div class="fail">Test 4 has failed if the link does NOT open a listing of tagged pages in this tab or window.<br>Test 4 has failed if the listing does NOT include just the [[Test::Tag 1]], [[Test::Tag 2]], and [[Test::Tag overflow]] pages.</div>
-== Test 5
+<div class="test">
+<span id="choose1"><blink>*&#x279C;*</blink></span> Is there a plain, blue link?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='PassIt1()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='FailIt1()'>
+<span id="choose2"><blink>*&#x279C;*</blink></span> Does the link open a listing of tagged pages in THIS tab/window?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='PassIt2()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='FailIt2()'>
+<span id="choose3"><blink>*&#x279C;*</blink></span> Does the listing include just the [[Test::Tag 1]], [[Test::Tag 2]], and [[Test::Tag overflow]] pages?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='PassIt3()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='FailIt3()'>
+
+<script type="text/javascript">
+function PassIt1(){document.getElementById('choose1').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt1(){document.getElementById('choose1').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+function PassIt2(){document.getElementById('choose2').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt2(){document.getElementById('choose2').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+function PassIt3(){document.getElementById('choose3').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt3(){document.getElementById('choose3').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+</script>\
+</div>
+<center><font color="#048db4">&#x26AB;</font>&nbsp;[[Test::Page listings 3|BACK]]&nbsp;<font color="#048db4">&#x26AB;</font>&nbsp;[[Test::Page listings 5|NEXT]]&nbsp;<font color="#048db4">&#x26AB;</font></center>
+
+--DFQRCTsKlU
+woas.page.title: Test::Page listings 5
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Test::Page listings 5
 <div class="intro">There should be a listing of untagged pages:</div>
 [[Untagged::]]
 
-<div class="fail">Test 5 has failed if the link does NOT open a listing of untagged pages in this tab or window.<br>Test 5 has failed if the listing DOES include the [[Test::Tag 1]], [[Test::Tag 2]], and [[Test::Tag overflow]] pages.</div>
+<div class="test">
+<span id="choose1"><blink>*&#x279C;*</blink></span> Is there a plain, blue link?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='PassIt1()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='FailIt1()'>
+<span id="choose2"><blink>*&#x279C;*</blink></span> Does the link open a listing of untagged pages in THIS tab/window?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='PassIt2()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='FailIt2()'>
+<span id="choose3"><blink>*&#x279C;*</blink></span> Does the listing include the [[Test::Tag 1]], [[Test::Tag 2]], and/or [[Test::Tag overflow]] pages?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='FailIt3()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='PassIt3()'>
+
+<script type="text/javascript">
+function PassIt1(){document.getElementById('choose1').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt1(){document.getElementById('choose1').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+function PassIt2(){document.getElementById('choose2').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt2(){document.getElementById('choose2').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+function PassIt3(){document.getElementById('choose3').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt3(){document.getElementById('choose3').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+</script>\
+</div>
+<center><font color="#048db4">&#x26AB;</font>&nbsp;[[Test::Page listings 4|BACK]]&nbsp;<font color="#048db4">&#x26AB;</font>&nbsp;[[Test::Style|NEXT]]&nbsp;<font color="#048db4">&#x26AB;</font></center>
 
 --DFQRCTsKlU
-woas.page.title: Test::Style
+woas.page.title: Test::Tables 2
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Test::Style
-<div class="intro">There should be a yellow background on this page and a hidden &lt;style&gt; section with text directly above, before, after, and below it:</div>
-
-<span class="wrap_test">ABOVE</span>
-<span class="wrap_test">BEFORE</span><style type="text/css">
-#woas_wiki_area {
-	background-color: #FFFFAA;
-}
-</style><span class="wrap_test">AFTER</span>
-<span class="wrap_test">BELOW</span>
-
-<div class="fail">This test has failed if the background of the page is not yellow.<br>This test has failed if there are any characters or text between BEFORE and AFTER.<br>This test has failed if there are any newlines between BEFORE and AFTER.</div>
-
---DFQRCTsKlU
-woas.page.title: Test::Tables
-woas.page.attributes: 0
-woas.page.encoding: 8bit/plain
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-= Test::Tables
-
-== Test 1
-<div class="intro">There should be a table with no caption:</div>
-{|
-| cell one || cell two || cell three
-| cell one || cell two || cell three
-| cell one || cell two || cell three
-|}
-<div class="fail">Test 1 has failed if there are not nine cells in the table with no caption.</div>
-== Test 2
+= Test::Tables 2
 <div class="intro">There should be a table with a caption above it:</div>
 {|
 |+ Test
@@ -507,9 +1484,28 @@ woas.page.boundary: DFQRCTsKlU
 | cell one || cell two || cell three
 | cell one || cell two || cell three
 |}
-<div class="fail">Test 2 has failed if there are not nine cells in the table with a caption at the top.</div>
+<div class="test">
+<span id="choose1"><blink>*&#x279C;*</blink></span> Is there a table with nine cells?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='PassIt1()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='FailIt1()'>
+<span id="choose2"><blink>*&#x279C;*</blink></span> Is there a caption at the top of the table?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='PassIt2()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='FailIt2()'>
 
-== Test 3
+<script type="text/javascript">
+function PassIt1(){document.getElementById('choose1').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt1(){document.getElementById('choose1').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+function PassIt2(){document.getElementById('choose2').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt2(){document.getElementById('choose2').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+</script>\
+</div>
+<center><font color="#048db4">&#x26AB;</font>&nbsp;[[Test::Tables 1|BACK]]&nbsp;<font color="#048db4">&#x26AB;</font>&nbsp;[[Test::Tables 3|NEXT]]&nbsp;<font color="#048db4">&#x26AB;</font></center>
+
+--DFQRCTsKlU
+woas.page.title: Test::Tables 3
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Test::Tables 3
 <div class="intro">There should be a table with a caption below it:</div>
 {|
 | cell one || cell two || cell three
@@ -517,132 +1513,148 @@ woas.page.boundary: DFQRCTsKlU
 | cell one || cell two || cell three
 |+ Test
 |}
-<div class="fail">Test 3 has failed if there are not nine cells in the table with a caption at the bottom.</div>
+<div class="test">
+<span id="choose1"><blink>*&#x279C;*</blink></span> Is there a table with nine cells?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='PassIt1()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='FailIt1()'>
+<span id="choose2"><blink>*&#x279C;*</blink></span> Is there a caption at the bottom of the table?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='PassIt2()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='FailIt2()'>
 
-== Test 4
+<script type="text/javascript">
+function PassIt1(){document.getElementById('choose1').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt1(){document.getElementById('choose1').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+function PassIt2(){document.getElementById('choose2').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt2(){document.getElementById('choose2').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+</script>\
+</div>
+<center><font color="#048db4">&#x26AB;</font>&nbsp;[[Test::Tables 2|BACK]]&nbsp;<font color="#048db4">&#x26AB;</font>&nbsp;[[Test::Tables 4|NEXT]]&nbsp;<font color="#048db4">&#x26AB;</font></center>
+
+--DFQRCTsKlU
+woas.page.title: Test::Tables 4
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Test::Tables 4
 <div class="intro">There should be a table with an empty cell:</div>
 {|
 | cell one || cell two || cell three
 | cell one || || cell three
 | cell one || cell two || cell three
 |}
-<div class="fail">Test 4 has failed if there are not nine cells in the table with one empty cell in the center.</div>
-== Test 5
+<div class="test">
+<span id="choose1"><blink>*&#x279C;*</blink></span> Is there a table with nine cells?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='PassIt1()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='FailIt1()'>
+<span id="choose2"><blink>*&#x279C;*</blink></span> Is the center cell empty?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='PassIt2()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='FailIt2()'>
+<span id="choose3"><blink>*&#x279C;*</blink></span> Is there a caption at the top or bottom of the table?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='FailIt3()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='PassIt3()'>
+
+<script type="text/javascript">
+function PassIt1(){document.getElementById('choose1').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt1(){document.getElementById('choose1').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+function PassIt2(){document.getElementById('choose2').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt2(){document.getElementById('choose2').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+function PassIt3(){document.getElementById('choose3').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt3(){document.getElementById('choose3').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+</script>\
+</div>
+<center><font color="#048db4">&#x26AB;</font>&nbsp;[[Test::Tables 3|BACK]]&nbsp;<font color="#048db4">&#x26AB;</font>&nbsp;[[Test::Tables 5|NEXT]]&nbsp;<font color="#048db4">&#x26AB;</font></center>
+
+--DFQRCTsKlU
+woas.page.title: Test::Tables 5
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Test::Tables 5
 <div class="intro">There should be a table with a link in one of the cells:</div>
 {|
 | cell one || cell two || cell three
 | cell one || [[Main Page]] || cell three
 | cell one || cell two || cell three
 |}
-<div class="fail">Test 5 has failed if there are not nine cells in the table with a link in the center cell.</div>
+<div class="test">
+<span id="choose1"><blink>*&#x279C;*</blink></span> Is there a table with nine cells?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='PassIt1()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='FailIt1()'>
+<span id="choose2"><blink>*&#x279C;*</blink></span> Is there a plain, blue link in the center cell?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='PassIt2()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='FailIt2()'>
+<span id="choose3"><blink>*&#x279C;*</blink></span> Is there a caption at the top or bottom of the table?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='FailIt3()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='PassIt3()'>
+
+<script type="text/javascript">
+function PassIt1(){document.getElementById('choose1').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt1(){document.getElementById('choose1').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+function PassIt2(){document.getElementById('choose2').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt2(){document.getElementById('choose2').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+function PassIt3(){document.getElementById('choose3').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt3(){document.getElementById('choose3').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+</script>\
+</div>
+<center><font color="#048db4">&#x26AB;</font>&nbsp;[[Test::Tables 4|BACK]]&nbsp;<font color="#048db4">&#x26AB;</font>&nbsp;[[Test::Tag 1|NEXT]]&nbsp;<font color="#048db4">&#x26AB;</font></center>
 
 --DFQRCTsKlU
-woas.page.title: Test::Tag 1
+woas.page.title: Test::Text formatting 2
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Test::Tag 1
-<div class="intro">There should be a tag in the container:</div>
-<div class="fail">This test has failed if there is no tag container at the bottom of the page.<br>This test has failed if there is no tag in the container at the bottom of the page.<br>This test has failed if the tag in the container at the bottom of the page does NOT lead to a listing of pages tagged with Tag1.</div>\
-[[Tag::Tag1]]
-
---DFQRCTsKlU
-woas.page.title: Test::Tag 2
-woas.page.attributes: 0
-woas.page.encoding: 8bit/plain
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-= Test::Tag 2
-<div class="intro">There should be a tag in the container:</div>
-<div class="fail">This test has failed if there is no tag container at the bottom of the page.<br>This test has failed if there is no tag in the container at the bottom of the page.<br>This test has failed if the tag in the container at the bottom of the page does NOT lead to a listing of pages tagged with Tag2.</div>\
-[[Tag::Tag2]]
-
---DFQRCTsKlU
-woas.page.title: Test::Tag overflow
-woas.page.attributes: 0
-woas.page.encoding: 8bit/plain
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-= Test::Tag overflow
-<div class="intro">There should be too many tags in the container and they should either wrap or be scrollable from within the container depending on what the wiki default settings are.</div>
-<div class="fail">This test has failed if there is no tag container at the bottom of the page.<br>This test has failed if there are not twenty tags in the container at the bottom of the page.<br>This test has failed if the tags in the container at the bottom of the page aren't scrollable.<br>This test has failed if the window gets a scrollbar at the bottom.</div>\
-[[Tag::one,two,three,four,five,six,seven,eight,nine,ten,eleven,twelve,thirteen,fourteen,fifteen,sixteen,seventeen,eighteen,nineteen,twenty]]
-
---DFQRCTsKlU
-woas.page.title: Test::Text formatting
-woas.page.attributes: 0
-woas.page.encoding: 8bit/plain
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-= Test::Text formatting
-
-== Test 1
-<div class="intro">There should be bold text:</div>
-*bold text*
-
-<div class="fail">Test 1 has failed if the text is not bold.</div>
-== Test 2
+= Test::Text formatting 2
 <div class="intro">There should be italic text:</div>
 /italic text/
 
-<div class="fail">Test 2 has failed if the text is not italic.</div>
-== Test 3
+<div class="test">
+<span id="choose1"><blink>*&#x279C;*</blink></span> Is there italic text?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='PassIt1()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='FailIt1()'>
+
+<script type="text/javascript">
+function PassIt1(){document.getElementById('choose1').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt1(){document.getElementById('choose1').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+</script>\
+</div>
+<center><font color="#048db4">&#x26AB;</font>&nbsp;[[Test::Text formatting 1|BACK]]&nbsp;<font color="#048db4">&#x26AB;</font>&nbsp;[[Test::Text formatting 3|NEXT]]&nbsp;<font color="#048db4">&#x26AB;</font></center>
+
+--DFQRCTsKlU
+woas.page.title: Test::Text formatting 3
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Test::Text formatting 3
 <div class="intro">There should be underlined text:</div>
 _underlined text_
 
-<div class="fail">Test 3 has failed if the text is not underlined.</div>
+<div class="test">
+<span id="choose1"><blink>*&#x279C;*</blink></span> Is there underlined text?&nbsp;&nbsp;<input type="submit" value="Yes" class="woas_button" onclick='PassIt1()'>&nbsp;&nbsp;<input type="submit" value="No" class="woas_button" onclick='FailIt1()'>
+
+<script type="text/javascript">
+function PassIt1(){document.getElementById('choose1').innerHTML='<big><font color="forestgreen"><b>PASS &#x2714;&nbsp;</b></font></big>';}
+function FailIt1(){document.getElementById('choose1').innerHTML='<big><font color="red"><b>FAIL &#x2716;&nbsp;</b></font></big>';}
+</script>\
+</div>
+<center><font color="#048db4">&#x26AB;</font>&nbsp;[[Test::Text formatting 2|BACK]]&nbsp;<font color="#048db4">&#x26AB;</font>&nbsp;[[Test::ToC|NEXT]]&nbsp;<font color="#048db4">&#x26AB;</font></center>
 
 --DFQRCTsKlU
-woas.page.title: Test::ToC
+woas.page.title: Test::Use the wiki
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-[[Special::TOC]]
-
-<div class="intro">There should be a Table of Contents container at the top of the page with level one through six headers properly indented and all content fitting inside the borders of the container.</div>
-<div class="fail">This test has failed if there is no visible Table of Contents on the page.<br>This test has failed if there are NOT six levels of headers properly indented in the Table of Contents.<br>This test has failed if there are not ten level one headers in the Table of Contents.<br>This test has failed if the entries in the Table of Contents are not offset from the left margin of the Table of Contents.</div>
-= Level one header
-== Level two header
-=== Level three header
-==== Level four header
-===== Level five header
-====== Level six header
-= Level one header
-= Level one header
-= Level one header
-= Level one header
-= Level one header
-= Level one header
-= Level one header
-= Level one header
-= Level one header
-
---DFQRCTsKlU
-woas.page.title: Test::Transclusion
-woas.page.attributes: 0
-woas.page.encoding: 8bit/plain
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-= Test::Transclusion
-<div class="intro">There should be a transcluded page with text directly above and below it:</div>
-<span class="wrap_test">ABOVE</div>
-[[Include::Main Page]]
-<span class="wrap_test">BELOW</div>
-
-<div class="fail">This test has failed if the contents of the Main Page are not displayed between ABOVE and BELOW.<br>This test has failed if there are newlines between the contents of the Main Page and ABOVE and/or BELOW.</div>
+= Use the wiki
+For final testing, use the wiki in various ways:
+* Assign and use some [[WoaS::Aliases|aliases]].
+* Assign and use some [[WoaS::Hotkeys|hotkeys]].
+* Change a bunch of [[Special::Options|options]].
+* Click all the links in the menu.
+* Change the [[WoaS::CSS::Custom:|custom CSS]], noting things like whether the images in the debug console have a colored background, etc.
+* Do some [[Special::Search|searches]].
+* Encrypt and decrypt a page.
+* [[Special::Export|Export]] and [[Special::Import|import]] the wiki.
+* [[Special::ExportWSIF|ExportWSIF]] and [[Special::ImportWSIF|ImportWSIF]].
+* [[Special::Erase Wiki|Erase]] the wiki.
+* Install and create some [[WoaS::Plugins|plug-ins]].
+* Use all the buttons in the editor.
+* Etc., etc., etc.
+<center><font color="#048db4">&#x26AB;</font>&nbsp;[[Test::Transclusion|BACK]]&nbsp;<font color="#048db4">&#x26AB;</font>&nbsp;[[Main Page|RESTART]]&nbsp;<font color="#048db4">&#x26AB;</font></center>
 
 --DFQRCTsKlU
