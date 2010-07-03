@@ -1,9 +1,0 @@
-All but one of the icons I use in BoaS are from the Tango project:
-
-http://tango.freedesktop.org/Tango_Desktop_Project
-
-These icons are in the public domain, but the Tango project appreciates a mention if you use them.
-
-The littlegirl_alert.png is an alert I created to fit better in a line of text without creating unwanted white-space between lines. It's in the public domain. Feel free to use it without any obligations.
-
-There are smaller versions of the Tango icons in the Template::Icons:: namespace for inclusion in Help pages, but this is hopefully temporary since I'd like to use code to dynamically grab the existing icons and transform them to a smaller size for inclusion in pages. That way if a user changes the icons that are used, the new icons will be used automatically.
