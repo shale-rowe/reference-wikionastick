@@ -1,17 +1,11 @@
-These themes will overwrite everything in the [[WoaS::CSS::Custom]] page. Before using them, back up anything you have on that page so you can add it back into the page after applying the theme.
+Themes to "BoaSize" WoaS v0.12.0 will no longer be updated on this Subversion server, and can instead be found here from now on:
 
-Use:
+http://www.box.net/shared/t9xlakz4h8
 
-1) Click the Advanced icon in the navigation bar.
+For more information, see:
 
-2) Click the Special::ImportWSIF link in the Maintenance section of the page.
+http://bookonastick.wordpress.com/
 
-3) Use the radio button to select Overwrite in the Existing pages section.
+and/or:
 
-4) Make sure the box next to "Import pages of the WoaS:: namespace (hotkeys, plugins, aliases and custom CSS)" is checked.
-
-5) Click the Browse... button and browse to the theme file you downloaded.
-
-6) Click the Open button (or the OK button or whatever your browser offers) to select the file and return to the wiki.
-
-7) Click the ImportWSIF button.
+http://s7.invisionfree.com/Book_on_a_Stick/index.php
