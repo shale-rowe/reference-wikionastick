@@ -1,8 +1,7 @@
-This is a collection of WoaS 0.11.1 WSIF files of varying sizes as sort of a stress test of the wiki. There are currently four files, and more will be added as time permits.
+The collection of WoaS 0.11.0 WSIF files of varying sizes will no longer be updated on this Subversion server. If I decide to update them, the information pertaining to where the updated files can be found will be available here:
 
-* Each file contains a different number of pages.
-* Each page is 50 paragraphs, has 5696 words, is 37.6 KB, and is 10 pages long if pasted into OpenOffice word processor.
-* The pages are numbered sequentially.
-* The file name tells how many stress test pages the wiki contains, how many words are in the pages, and how large the wiki is with those pages in it.
+http://bookonastick.wordpress.com/
 
-To use these files, import them into a fresh copy of WoaS 0.11.1 with Special::ImportWSIF.
+and/or here:
+
+http://s7.invisionfree.com/Book_on_a_Stick/index.php
