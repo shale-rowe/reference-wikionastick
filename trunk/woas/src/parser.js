@@ -421,7 +421,7 @@ woas.parser.pre_parse = function(P, snippets) {
 	// put away stuff contained in inline nowiki blocks {{{ }}}
 	.replace(reNowikiSL, function (str, $1) {
 		r = woas.parser.place_holder(snippets.length, "", "\n");
-		snippets.push("\n"+woas._raw_preformatted("pre", $1, "woas_nowiki woas_nowikimultiline"));
+		snippets.push("\n"+woas._raw_preformatted("pre", $1, "woas_nowiki woas_nowiki_multiline"));
 		return r;
 	})
 	.replace(reNowiki, function (str, $1, dynamic_nl) {
@@ -689,7 +689,9 @@ woas.parser._render_wiki_link = function(arg1, label, snippets, tags, export_lin
 		if (export_links)
 			gotohash = page.substr(hashloc);
 		else
-			gotohash = "; window.location.hash= \"" + page.substr(hashloc) + "\"";
+			// PVHL: line below was causing hash location encoding to fail.
+//			gotohash = "; window.location.hash= \"" + page.substr(hashloc) + "\"";
+			gotohash = "; window.location.hash= '" + page.substr(hashloc) + "'";
 		page = page.substr(0, hashloc);
 	}
 
