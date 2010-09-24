@@ -1,0 +1,115 @@
+wsif.version: 1.3.0
+wsif.generator: woas
+woas.version: 0.12.0
+woas.author: Little Girl
+
+--DFQRCTsKlU
+woas.page.title: Fold::Example
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Fold plugin example
+Fold links will unfold hidden content when you click them. These pages are included:
+* [[Fold::Example]] - Examples of fold links being used with a brief explanation.
+* [[Template::FoldBlock]] - Template that makes fold block links work.
+* [[Template::FoldInline]] - Template that makes fold inline links work.
+* [[Template::FoldPage]] - Template that makes fold page links work.
+[[Include::WoaS::Template::Info|If you have more than one fold link on a page, each one must have a *unique* name.]]
+== FoldBlock
+<div class="woas_helptext">Insert this link into a page, replacing NAME with a unique name for the link, LINK with the link text, and TEXT with the text you'd like to unfold when the link is clicked:</div><br>{{{
+[[Include::Template::FoldBlock|NAME|LINK|TEXT]]
+}}}<br><div class="woas_helptext">To create this:</div>
+[[Include::Template::FoldBlock|NAME1|LINK|TEXT]]
+
+== FoldBlock Multi-line
+<div class="woas_helptext">Insert this link into a page, replacing NAME with a unique name for the link, LINK with the link text, and TEXT and MORE TEXT with the text you'd like to unfold when the link is clicked:</div><br>{{{
+[[Include::Template::FoldBlock|NAME|LINK|TEXT
+
+MORE TEXT]]
+}}}<br><div class="woas_helptext">To create this:</div>
+[[Include::Template::FoldBlock|NAME2|LINK|TEXT
+
+MORE TEXT]]
+
+== FoldInline
+<div class="woas_helptext">Insert this link into a page, replacing NAME with a unique name for the link, LINK with the link text, and TEXT with the text you'd like to unfold when the link is clicked:</div><br>{{{
+[[Include::Template::FoldInline|NAME|LINK|TEXT]]
+}}}<br><div class="woas_helptext">To create this:</div>
+[[Include::Template::FoldInline|NAME3|LINK|TEXT]]
+
+== FoldPage
+<div class="woas_helptext">Insert this link into a page, replacing NAME with a unique name for the link, LINK with the link text, and PAGENAME with the name of the wiki page you'd like to unfold when the link is clicked:</div><br>{{{
+[[Include::Template::FoldPage|NAME|LINK|PAGENAME]]
+}}}<br><div class="woas_helptext">To create this:</div>
+[[Include::Template::FoldPage|NAME4|LINK|WoaS History]]
+<!-- THE STYLE INFORMATION BELOW THIS LINE MAKES THIS PAGE PRETTY -->
+<style type="text/css">
+/* HELP TEXT */
+.woas_helptext {color:darkcyan; font-weight:bold;}
+
+/* CODE BLOCKS - MOZILLA */
+.woas_nowiki_multiline {color:black; background-color:#F5F5F5; border:0.063em solid grey; padding:0.375em; white-space:-moz-.woas_nowiki_multiline-wrap !important; font-family:monospace;}
+/* CODE BLOCKS - CSS-3 */
+/* .woas_nowiki_multiline {color:black; background-color:#F5F5F5; border:0.063em solid grey; padding:0.375em; white-space:.woas_nowiki_multiline-wrap; font-family:monospace;} */
+/* CODE BLOCKS - OPERA 4-6 */
+/* .woas_nowiki_multiline {color:black; background-color:#F5F5F5; border:0.063em solid grey; padding:0.375em; white-space:-.woas_nowiki_multiline-wrap; font-family:monospace;} */
+/* CODE BLOCKS - OPERA 7 */
+/* .woas_nowiki_multiline {color:black; background-color:#F5F5F5; border:0.063em solid grey; padding:0.375em; white-space:-o-.woas_nowiki_multiline-wrap; font-family:monospace;} */
+/* CODE BLOCKS - IE 5.5+ */
+/* .woas_nowiki_multiline {color:black; background-color:#F5F5F5; border:0.063em solid grey; padding:0.375em; word-wrap:break-word; font-family:monospace;} */
+</style>
+
+--DFQRCTsKlU
+woas.page.title: Template::FoldBlock
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+<a href="javascript:expanddiv('%1')">%2</a><div id="%1" style="display:none;"><div>
+%3
+</div></div>
+--DFQRCTsKlU
+woas.page.title: Template::FoldInline
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+<a href="javascript:expandspan('%1')">%2</a> <span id="%1" style="display:none;">%3</span>
+--DFQRCTsKlU
+woas.page.title: Template::FoldPage
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+<a href="javascript:expanddiv('%1')">%2</a><div id="%1" style="display:none;"><div>
+[[Include::%3]]</div></div>
+--DFQRCTsKlU
+woas.page.title: WoaS::Plugins::Fold
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+/* Fold plugin */
+function expanddiv(div){
+var divElementStyle=document.getElementById(div).style;
+if (divElementStyle.display=="none"){divElementStyle.display="block";}
+else {divElementStyle.display="none";}
+};
+function expandspan(span){
+var spanElementStyle=document.getElementById(span).style;
+if (spanElementStyle.display=="none"){spanElementStyle.display="inline";}
+else {spanElementStyle.display="none";}
+};
+
+--DFQRCTsKlU
