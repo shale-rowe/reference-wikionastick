@@ -1,0 +1,480 @@
+wsif.version: 1.3.1
+wsif.generator: woas
+wsif.generator.version: 0.12.0
+woas.author: legolas558
+woas.pages: 14
+
+woas.page.title: Example::All plugins
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+An example of plugins usage.
+The below plugins are used:
+* [[WoaS::Plugin::@jsMath]]
+* [[WoaS::Plugin::@syntaxHL]]
+
+[[Math page]]
+
+The above examples directly transcluded here:
+[[Include::Math page]]
+
+--DFQRCTsKlU
+woas.page.title: WoaS::Plugins::@jsMath
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+plugins/jsMath/plugins/noImageFonts.js = @*
+plugins/jsMath.js = +*
+plugins/jsMath/jsMath.js = @*
+
+--DFQRCTsKlU
+woas.page.title: WoaS::Plugins::@syntaxHL
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+plugins/syntaxHL.js = @*
+
+--DFQRCTsKlU
+woas.page.title: Math page
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Math page
+
+This is an equation written in LaTeX and highlighted through [[http://shjs.sourceforge.net/|shjs library]]:
+<<<woas.shjs("sh_latex"):
+\int_0^\infty f(x)\,dx \approx \sum_{i=1}^n w_i e^{x_i} f(x_i)
+>>>
+And this is how it renders with [[http://www.math.union.edu/~dpvc/jsMath/|jsMath]]:
+
+<<<woas.jsmath:
+\int_0^\infty f(x)\,dx \approx \sum_{i=1}^n w_i e^{x_i} f(x_i)
+>>>
+
+--DFQRCTsKlU
+woas.page.title: Macro::Bold nowiki
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Setup
+Edit this section to see the macro definition.
+<<<%my.bold_nowiki:
+// nowiki with bold support sample macro by legolas558
+
+var cls = "woas_nowiki";
+if (macro.text.indexOf("\n")!==-1) cls += " woas_nowiki_multiline";
+macro.text = "<pre class=\""+cls+"\">"+woas.xhtml_encode(macro.text).replace(woas.parser.reBoldSyntax, "$1<strong>$2</strong>")+"</pre>";
+return true;
+>>>
+= Example usage
+<<<my.bold_nowiki:
+this is a line without bold font
+*this is a line with bold font*
+and again one line without bold font
+>>>
+--DFQRCTsKlU
+woas.page.title: Macro::Code block
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+<<<%woas.codeblock:
+// codeblock sample macro by legolas558
+
+// count the number of newlines
+var nl=0;
+macro.text.replace(/\n/g, function() { ++nl; });
+
+macro.text = '<strong>Code:</strong><br /><textarea style="border: 0px; color: black; background-color: #FAFAAC" wrap="off" rows="'+nl+'" cols="80" disabled="disabled">'+woas.xhtml_encode(macro.text)+"</textarea>";
+return true;
+>>>
+
+<<<woas.codeblock:
+this is a code block
+>>>
+--DFQRCTsKlU
+woas.page.title: Macro::Folding
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Setup
+Edit this section to see how to setup the folding macro.
+<<<%woas.folding(link, label, inline):
+// folding sample macro by legolas558
+// label is optional
+if (typeof label == "undefined")
+   label = "";
+var tag;
+if (inline)
+	tag = "span";
+else { tag = "div"; label += "<br/>"; }
+// a bit hacky
+id = _random_string(5);
+
+macro.text = "<a href=\"javascript:d$.toggle('folding_"+id+"');\">"+woas.xhtml_encode(link)+"</a> "+label+
+		"<"+tag+" id=\"folding_"+id+"\" style=\"display: inline; visibility:hidden;\">"+
+		macro.text+"</"+tag+">";
+macro.reprocess = true;
+return true;
+>>>
+= Example usage
+<<<woas.folding("Click me", "to toggle the below folded content"):
+There is no spoon
+>>>
+<<<woas.folding("Click me", "to toggle inline folded content", true):
+There is no spoon
+>>>
+--DFQRCTsKlU
+woas.page.title: Macro::Spoiler
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Setup
+Edit this page to see definitions necessary for this macro.
+
+/definitions are here/<style type="text/css">
+/* SPOILERS MOD */
+.spoiler_normal {background-color:black; color:black;}
+.spoiler_normal:hover {color:white; background-color:black;}
+.spoiler_block a:link {text-decoration:none;}
+.spoiler_block a:visited {text-decoration:none;}
+.spoiler_block a:hover .spoiler_exposed {display:block; background-color:black; color:white;}
+.spoiler_block a:active {text-decoration:none;}
+.spoiler_block a span {display:none;}
+.spoiler_inline a:link {text-decoration:none;}
+.spoiler_inline a:visited {text-decoration:none;}
+.spoiler_inline a:hover .spoiler_exposed {display:inline; background-color:black; color:white;}
+.spoiler_inline a:active {text-decoration:none;}
+.spoiler_inline a span {display:none;}
+</style><<<%woas.spoiler(type, title):
+// spoiler sample macro by legolas558
+// based on work by littlegirl
+
+switch (type) {
+	case 'normal':
+		macro.text = '<span class="spoiler_normal">'+woas.xhtml_encode(macro.text)+'</span>';
+	break;
+	case 'inline': case 'block':
+		macro.text = '<span class="spoiler_'+type+'"><a href="#">'+woas.xhtml_encode(title)+
+		'&nbsp;<span class="spoiler_exposed">'+woas.xhtml_encode(macro.text)+
+		'</span></a></span>';
+	break;
+	default:
+		return false;
+}
+
+return true;
+>>>
+= Example usage
+This is a normal spoiler:
+
+<<<woas.spoiler('normal'):
+There is no spoon
+>>>
+
+This is a hidden inline spoiler:
+
+<<<woas.spoiler('inline', 'SPOILER HERE'):
+There is no spoon
+>>>
+
+This is a block spoiler:
+
+<<<woas.spoiler('block', 'SPOILER HERE'):
+There is no spoon
+>>>
+
+--DFQRCTsKlU
+woas.page.title: Macro::Tooltip
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Setup
+Edit this section to see the necessary definitions.<style type="text/css">
+/* TOOLTIP MOD */
+span.tooltip {cursor:help; border-bottom:0.125em dotted mediumblue;}
+</style><<<%woas.tooltip(tooltip):
+// tooltip sample macro by legolas558
+macro.text = '<span title="'+woas.xhtml_encode(tooltip)+'" class="tooltip">'+woas.xhtml_encode(macro.text)+'</span>';
+return true;
+>>>
+= Examples
+This is <<<woas.tooltip("I am a tooltip"): text with tooltip >>>.
+
+<<<woas.tooltip("CONTENT"): LINK>>>
+ 
+<<<woas.tooltip("This is tooltip text."): This is a tooltip link.>>>
+ 
+This <<<woas.tooltip("This is the explanation."): word>>> is explained in a tooltip.
+ 
+== Example of more than one tooltip in a sentence:
+<<<woas.tooltip("tooltip one"): one>>> and <<<woas.tooltip("tooltip two"): two>>>.
+--DFQRCTsKlU
+
+woas.page.title: Example::Footnotes
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Footnotes usage
+This is a page with footnotes; please refer to <<<woas.footnote("WoaS Official Website"): [[http://stickwiki.sf.net/]]>>> and <<<woas.footnote("WoaS SF.net Project Home Page"): [[http://sourceforge.net/projects/stickwiki]]>>>.
+<style type="text/css">
+/* FOOTNOTES */
+.footnote {line-height:1em; font-size:0.55em; vertical-align:super; text-style:italic; color:mediumblue; text-decoration:underline;}
+.footnotecontainer {line-height:1em; font-size:0.75em; vertical-align:super; text-style:italic; background-color:#EEEEFF; margin-top:-3em;}
+</style>
+--DFQRCTsKlU
+woas.page.title: WoaS::Plugins::Footnotes
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+/* Footnotes plugin by legolas558
+	Adaption of Littlegirl's work from woasmods
+*/
+	
+woas.custom.footnotes = {
+	_footnotes: [],
+	
+	_orig_after_parse: null,
+	_after_parse: function(NP) {
+		var that = woas.custom.footnotes, n;
+		if (woas.parser.force_inline || !that._footnotes.length) {
+			that._orig_after_parse(NP);
+			return;
+		}
+		
+		NP.body += '<br/><br/><div width="90%" class="footnotecontainer"><table border="0">';
+        for(var i=0,l=that._footnotes.length;i<l;++i){
+			n = i+1;
+			NP.body += '<tr><td valign="top"><a name="_footnote'+n+'" href="#_notefoot'+n+'">[' +n+ "]</a></td><td>"+
+					woas.parser.syntax_parse(that._footnotes[i], []) +"</td></tr>";
+        }
+        NP.body +=  '</table></div>';
+		// reset footnotes before rendering next page
+		woas.custom.footnotes._footnotes = [];
+		NP.modified = true;
+        that._orig_after_parse(NP);
+	},
+	
+	// the actual macro code
+	_macro_hook: function(macro, tooltip) {
+		// save the footnote
+		var note = woas.trim(macro.text);
+		if (typeof tooltip == "undefined")
+			tooltip = "";
+		else tooltip = ' title="' + woas.xhtml_encode(tooltip)+'" ';
+		woas.custom.footnotes._footnotes.push(note);
+		var n = woas.custom.footnotes._footnotes.length;
+		macro.text = '<sup><a class="footnote" '+ tooltip +
+						'name="_notefoot'+n+'" href="#_footnote'+n+'">['+n+']</a></sup>';
+		return true;
+	}
+
+};
+
+// register the parse hook
+woas.custom.footnotes._orig_after_parse = woas.parser.after_parse;
+woas.parser.after_parse = woas.custom.footnotes._after_parse;
+
+// register the macro
+woas.macro.register('woas.footnote', woas.custom.footnotes._macro_hook);
+
+--DFQRCTsKlU
+
+woas.page.title: Example::Change icons
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Replace WoaS icons
+
+Select an image file:
+<input id="filename_" type="file" onfocus="woas.ui.focus_textbox()" onblur="woas.ui.blur_textbox()">
+
+== 2. Click on an icon to replace it with the selected file:
+<div id="themes_layer"></div>
+<script type="text/javascript">
+woas.custom.themes._load();
+</script>
+
+*Note:* you might need to reload WoaS if the icons are not updated
+--DFQRCTsKlU
+woas.page.title: WoaS::Plugins::Themes
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+/* Themes plugin by legolas558
+	Adaption of FBNil's work from Littlegirl's woasmods
+*/
+	
+woas.custom.themes = {
+	_load: function () {
+		d$('themes_layer').innerHTML = woas.custom.themes._get_img('img_logo') +
+			woas.custom.themes._get_img('img_back') +
+			woas.custom.themes._get_img('img_forward') +
+			woas.custom.themes._get_img('img_advanced') +
+			woas.custom.themes._get_img('img_home') +
+			woas.custom.themes._get_img('img_lock') +
+			woas.custom.themes._get_img('img_unlock') +
+			woas.custom.themes._get_img('img_print') +
+			woas.custom.themes._get_img('img_setkey') +
+			woas.custom.themes._get_img('img_help') +
+			woas.custom.themes._get_img('img_edit') +
+			woas.custom.themes._get_img('img_cancel') +
+			woas.custom.themes._get_img('img_save');
+	},
+	_get_img: function(id) {
+		return '<img title="Change '+id.substr(4)+' icon" style="margin: 5px; border-color: green; cursor: pointer" border="2" src="' + d$(id).src + '" onclick="javascript:woas.custom.themes._replace_from_file(\'' +id+ '\');" alt="' +id+ '"/>';
+	},
+	_replace_from_file: function(button) {
+		var ct = woas.load_file(null, woas.file_mode.BASE64);
+		if ((ct === false) || ((typeof ct != "string") || !ct.length)) {
+			woas.alert(woas.i18n.LOAD_ERR);
+			return false;
+		}
+		d$(button).src = ct;
+		woas.full_commit();
+	}
+
+};
+
+--DFQRCTsKlU
+
+woas.page.title: Macro::Columns
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Setup
+Edit this section to see what is necessary for columns macro definition.
+<style type="text/css">
+/*COLUMNS MOD*/
+table.columns-plugin {
+	border-spacing: 0;
+	border-collapse: collapse;
+	border-width: 0px 0px 0px 0px;
+	margin: 0px;
+	}
+table.columns-plugin td {
+	border-left: rgb(192,192,192) 1px dotted;
+	padding-top: 0px;
+	padding: 0em 1em 0em 1em;
+	vertical-align: top;
+	}
+table.columns-plugin td.first {
+	border-top: 0px;
+	border-width: 0px 1px 0px 0px;
+	padding-left: 0px;
+	}
+table.columns-plugin td.last {
+	padding-right: 0.5em
+	}
+</style><<<%woas.columns(width, colsw):
+// columns macro by legolas558 - based on work by littlegirl
+
+	// split using the 'nextcolumn' separator
+	var cols = macro.text.replace(/\n*<nextcolumn>\n*/g, "<nextcolumn>").split("<nextcolumn>");
+	// properly initialize
+    if (!colsw)
+		colsw = [];
+	// add null widths when not specified
+	for (var i=colsw.length;i <= cols.length; ++i)
+		colsw.push(null);
+	macro.text =  "<table class='columns-plugin'" + (colsw[0] !== null?" style='width:" + colsw.shift() + "'": colsw.shift()) + ">";
+	for (var i=0;i < colsw.length; ++i)
+		macro.text = macro.text + "<col" + (colsw[i] !== null?" style='width:" + colsw[i] + "'": "") + ">";
+	macro.text += "<tr>";
+	for (var i=0; i<cols.length; ++i)
+		macro.text += "<td class='" + (i == 0?"first" : "last") + "'>" + cols[i] + "</td>"; 
+	macro.text += "</tr></table>";
+	macro.reprocess = true;
+	return true;
+>>>
+
+= Examples
+*Example using 100% of the page width. Each column uses 50%:*
+
+<<<woas.columns(100, [50, 50]):
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+<nextcolumn>
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+>>>
+
+*Example using 100% of the page width. The first column uses 75% and the second column uses 25%:*
+
+<<<woas.columns(100, [75, 25]):
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+<nextcolumn>
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+>>>
+
+*Example using 100% of the page width. Each column uses 33%:*
+
+<<<woas.columns(100, [33, null, null]):
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+<nextcolumn>
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+<nextcolumn>
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+>>>
+
+*Example using 75% of the page width. The first column uses 50% and the other two columns split the remainder of the width between them evenly:*
+
+<<<woas.columns(75, [50, null, null]):
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+<nextcolumn>
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+<nextcolumn>
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+>>>
+
+*Example using 100% of the page width. Each column uses 25%:*
+
+<<<woas.columns(100, [25, null, null, null]):
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+<nextcolumn>
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+<nextcolumn>
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+<nextcolumn>
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+>>>
+--DFQRCTsKlU

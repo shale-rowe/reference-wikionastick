@@ -1,0 +1,7 @@
+This directory contains tools for generation of single-file Book on a Stick.
+
+For instructions, see the [[Assemble WoaS]] page in the woasdeveloperguide.htm file from here:
+
+http://stickwiki.svn.sourceforge.net/viewvc/stickwiki/branches/littlegirl/woasdeveloperguide/
+
+Note that you'll need to replace woas with boas when following the instructions.
