@@ -124,10 +124,16 @@ woas.full_commit = function() {
 };
 
 //API1.0: save WoaS configuration
+// PVHL: There is a very bad bug here: when options page is saved all edits are lost.
+//   Also, if cumulative save is set the woas is completely corrupted. Though saved
+//   changes exist in file, they don't exist in DOM and so are lost in config only save.
+//   I'm not interested in finding & fixing as WoaS should be saving layout from a page.
+//   Quick fix is to disable config-only save and save everything every time.
 woas.cfg_commit = function() {
 	if (this.config.wsif_ds.length !== this._old_wsif_ds_len)
 		this._wsif_ds_save(this.config.wsif_ds, this.config.wsif_ds_lock);
-	return this._save_to_file(false);
+	//return this._save_to_file(false);
+	return this._save_to_file(true);
 };
 
 //API1.0: save specific list of pages

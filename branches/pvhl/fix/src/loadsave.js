@@ -152,7 +152,7 @@ woas.mozillaLoadFileID = function(obj_id, load_mode, suggested_mime) {
 // API1.0: load-file handler
 woas.load_file = function(fileUrl, load_mode, mime){
 	// parameter consistency check
-	if (!load_mode) {
+	if (typeof load_mode === "undefined") {
 		woas.log("WARNING: No load mode specified, defaulting to UTF8_TEXT");
 		// perhaps should be ASCII?
 		load_mode = this.file_mode.UTF8_TEXT;
