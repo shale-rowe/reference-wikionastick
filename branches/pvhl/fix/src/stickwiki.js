@@ -125,14 +125,13 @@ woas.xhtml_encode = function(src) {
 };
 
 // DO NOT modify this list! these are namespaces that are reserved to WoaS
-var reserved_namespaces = ["Special", "Lock", "Locked", "Unlocked", "Unlock",
+var reserved_namespaces = ["Special", "WoaS", "Lock", "Locked", "Unlocked", "Unlock",
 						"Tags" /*DEPRECATED*/,
-						"Tagged", "Untagged", "Include", "Javascript",
-						"WoaS"];
+						"Tagged", "Untagged", "Include", "Javascript"];
 
 // create the regex for reserved namespaces
 var reserved_rx = "^";
-for(var i = (woas.tweak.edit_override ? 1 : 0);i < reserved_namespaces.length;i++) {
+for(var i = (woas.tweak.edit_override ? 2 : 0);i < reserved_namespaces.length;i++) {
 	reserved_rx += /*RegExp.Escape(*/reserved_namespaces[i] + "::";
 	if (i < reserved_namespaces.length-1)
 		reserved_rx += "|";
@@ -1010,6 +1009,7 @@ woas.disable_edit = function() {
 	// aargh, FF eats the focus when cancelling edit
 	d$.hide("edit_area");
 	this._set_title(this.prev_title);
+	this.log(); // scroll to bottom of log
 };
 
 function _lock_pages(arr) {
@@ -1232,98 +1232,92 @@ woas.save = function() {
 	
 	var back_to, can_be_empty = false, skip = false, renaming = false;
 	switch(current) {
-		case "WoaS::CSS::Custom":
-			if (!null_save) {
-				this.css.set(this.get_text("WoaS::CSS::Core")+"\n"+raw_content);
-				this.pager.set_body(current, raw_content);
+	case "WoaS::CSS::Custom":
+		if (!null_save) {
+			this.css.set(this.get_text("WoaS::CSS::Core")+"\n"+raw_content);
+			this.pager.set_body(current, raw_content);
+		}
+		back_to = this.prev_title;
+		break;
+	case "WoaS::Aliases":
+		if (!null_save)
+			this._load_aliases(raw_content);
+		can_be_empty = true;
+		// fallthrough wanted
+		skip = true;
+	case "WoaS::Hotkeys":
+		if (!skip && !null_save)
+			this.hotkey.load(raw_content);
+		// fallthrough wanted
+	default:
+		// check if text is empty (page deletion)
+		if (!null_save && !can_be_empty && (raw_content === "")) {
+			if (confirm(this.i18n.CONFIRM_DELETE.sprintf(current))) {
+				this.plugins.delete_check(current);
+				this.delete_page(current);
+				this.disable_edit();
+				back_or(this.config.main_page);
 			}
-			back_to = this.prev_title;
-			break;
-		case "WoaS::Aliases":
-			if (!null_save)
-				this._load_aliases(raw_content);
-			can_be_empty = true;
-			// fallthrough wanted
-			skip = true;
-		case "WoaS::Hotkeys":
-			if (!skip && !null_save)
-				this.hotkey.load(raw_content);
-			// fallthrough wanted
-		default:
-			// check if text is empty (page deletion)
-			if (!null_save && !can_be_empty && (raw_content === "")) {
-				if (confirm(this.i18n.CONFIRM_DELETE.sprintf(current))) {
-					this.plugins.delete_check(current);
-					this.delete_page(current);
-					this.disable_edit();
-					back_or(this.config.main_page);
-				}
-				return;
-			} else {
-				var new_title = this.trim(d$("wiki_page_title").value);
-				renaming = (this.old_title !== new_title);
-				// do not glitch when creating a new page
-				if (was_ghost) {
-					// PVHL: new page needs history -- temporary hack
-					this.history.store(this.prev_title);
-					this.prev_title = new_title;
-				}
-				// here the page gets actually saved
-				if (!null_save || renaming) {
-					// disallow empty titles
-					if (renaming && !this.valid_title(new_title))
+			return;
+		} else {
+			var new_title = this.trim(d$("wiki_page_title").value);
+			renaming = (this.old_title !== new_title);
+			// do not glitch when creating a new page
+			if (was_ghost) {
+				// PVHL: new page needs history -- temporary hack
+				this.history.store(this.prev_title);
+				this.prev_title = new_title;
+			}
+			// here the page gets actually saved
+			if (!null_save || renaming) {
+				// disallow empty titles
+				if (renaming && !this.valid_title(new_title))
+					return false;
+				// rename before eventually setting the changes
+				if (renaming) {
+					if (!this.rename_page(this.old_title, new_title))
 						return false;
-					// rename before eventually setting the changes
-					if (renaming) {
-						if (!this.rename_page(this.old_title, new_title))
-							return false;
-					}
-					// actually set text only if it was changed
-					if (!null_save)
-						this.pager.set_body(new_title, raw_content);
-					var maybe_plugin;
-					if (this.is_menu(new_title)) {
-						if (renaming || !null_save) {
-							this.refresh_menu_area();
-							back_to = this.prev_title;
-						}
-						maybe_plugin = false;
-					} else {
-						back_to = new_title;
-						maybe_plugin = true;
-					}
-					// update the plugin if this was a plugin page
-					// NOTE: plugins are not allowed to be renamed, so
-					// old title is equal to new title
-					if (maybe_plugin) {
-						var _pfx = "WoaS::Plugins::";
-						if (new_title.substr(0, _pfx.length) === _pfx) {
-							// we do not directly call _update_plugin because
-							// plugin does not exist before creation so disabling it
-							// would fail
-							this.plugins.disable(new_title.substr(_pfx.length));
-							this.plugins.enable(new_title.substr(_pfx.length));
-						}
-					}
-				} else { // not renaming and not changed text
-					back_to = this.prev_title;
-					// do not glitch when creating a new page
 				}
+				// actually set text only if it was changed
+				if (!null_save)
+					this.pager.set_body(new_title, raw_content);
+				var maybe_plugin;
+				if (this.is_menu(new_title)) {
+					if (renaming || !null_save) {
+						this.refresh_menu_area();
+						back_to = this.prev_title;
+					}
+					maybe_plugin = false;
+				} else {
+					back_to = new_title;
+					maybe_plugin = true;
+				}
+				// update the plugin if this was a plugin page
+				// NOTE: plugins are not allowed to be renamed, so
+				// old title is equal to new title
+				if (maybe_plugin) {
+					var _pfx = "WoaS::Plugins::";
+					if (new_title.substr(0, _pfx.length) === _pfx) {
+						// we do not directly call _update_plugin because
+						// plugin does not exist before creation so disabling it
+						// would fail
+						this.plugins.disable(new_title.substr(_pfx.length));
+						this.plugins.enable(new_title.substr(_pfx.length));
+					}
+				}
+			} else { // not renaming and not changed text
+				back_to = this.prev_title;
+				// do not glitch when creating a new page
 			}
+		}
 	}
-
 	var saved = current;
-//	if (back_to !== null)
-		this.set_current(back_to, true);
-/*	else { // used for CSS editing
-		back_or(this.config.main_page);
-		//TODO: refresh mts?
-	} */
-	if (!null_save || renaming)
-		this.refresh_menu_area();
-	this.disable_edit();
-	if (!null_save || renaming)
+	this.set_current(back_to, true);
+	if (!null_save || renaming) {
 		this.save_page(saved);
+		this.refresh_menu_area();
+	}
+	this.disable_edit();
 };
 
 woas.save_page = function(title) {

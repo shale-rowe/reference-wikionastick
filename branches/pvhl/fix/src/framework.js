@@ -148,26 +148,28 @@ d$.clone = function(obj) {
 	return nobj;
 };
 
-// logging function has not to be in WoaS object
 if (woas.config.debug_mode) {
-	// logging function - used in development
+	// logging function - used in development; call without argument to scroll to bottom
 	woas.log = function (aMessage) {
-	    var logbox = d$("woas_debug_log");
-	    // count lines
-	    if (!woas.tweak.integrity_test) {
-			nls = logbox.value.match(/\n/g);
-			// log maximum 1024 lines
-			if (nls!=null && typeof(nls)==='object' && nls.length>1024)
-				logbox.value = "";
+		var logbox = d$("woas_debug_log");
+		if (typeof aMessage !== "undefined") {
+			// count lines
+			if (!woas.tweak.integrity_test) {
+				var log = logbox.value, nls = log.match(/\n/g);
+				// log maximum 1024 lines; cut in half if too big
+				if (nls!=null && typeof(nls)==='object' && nls.length>1024) {
+					logbox.value = log.substring(log.indexOf("\n", log.length / 2) + 1);
+				}
+			}
+			logbox.value += aMessage + "\n";
 		}
-		logbox.value += aMessage + "\n";
 		// keep the log scrolled down
 		logbox.scrollTop = logbox.scrollHeight;
 		if(window.opera)
 			opera.postError(aMessage);
 	};
 } else {
-	woas.log = function(aMessage) { };
+	woas.log = function() { };
 }
 
 // fixes the Array prototype for older browsers

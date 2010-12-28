@@ -169,7 +169,16 @@ woas.ui = {
 			page_attrs.pop();
 			woas._ghost_page = false;
 			// menu entry may have been added for cancelled new page
-			woas.refresh_menu_area();
+			var menu_i = woas.page_index("::Menu");
+			if (menu_i !== -1) {
+				// try to remove menu link
+				var menu_orig = woas.get__text(menu_i);
+				var menu = menu_orig.replace("\n[["+current+"]]", "");
+				if (menu !== menu_orig) {
+					woas.set__text(menu_i, menu);
+					woas.refresh_menu_area();
+				}
+			}
 			woas.log("Ghost page disabled"); //log:1
 		}
 		woas.disable_edit();
