@@ -512,7 +512,7 @@ woas.hotkey = {
 woas.hotkey._cache_default();
 
 woas._edit_plugin = function(name) {
-	if (go_to("WoaS::Plugins::"+name))
+	if (this.go_to("WoaS::Plugins::"+name))
 		woas.edit_page(current);
 };
 

@@ -50,7 +50,7 @@ woas.ui = {
 			}
 			// back or cancel keys
 			if ((ck == woas.hotkey.all.back) || (ck == woas.hotkey.all.cancel)) {
-				go_back();
+				woas.ui.back();
 				ff_fix_focus();
 				return false;
 			}
@@ -240,7 +240,7 @@ woas.go_to = function(cr) {
 };
 
 function back_or(or_page) {
-	if (!go_back())
+	if (!woas.ui.back())
 		woas.set_current(or_page, true);
 }
 
@@ -276,10 +276,10 @@ function get_parent_woas() {\n\
 	else return null;\n\
 }\n\
 woas = {\n\
-go_to: function(page) { var woas = get_parent_woas();\n\
-	if (woas !== null)\n\
-		woas.help_system.go_to(page);\n\
-}\n\
+	go_to: function(page) { var woas = get_parent_woas();\n\
+		if (woas !== null)\n\
+			woas.help_system.go_to(page);\n\
+	}\n\
 }\n\
 // used in help popups to access index\n\
 function help_go_index() {\n\
@@ -308,7 +308,7 @@ function help_go_back() {\n\
 		var text;
 		// this is a namespace
 		if (pi === -1) {
-			go_to(wanted_page);
+			woas.go_to(wanted_page);
 			return;
 		} else {
 			// see if this page shall be opened in the main wiki or in the help popup
@@ -316,7 +316,7 @@ function help_go_back() {\n\
 			if (page_titles[pi].substr(0, _pfx.length) === _pfx)
 				text = woas.get__text(pi);
 			else { // open in main wiki
-				go_to(page_titles[pi]);
+				woas.go_to(page_titles[pi]);
 				return;
 			}
 		}
@@ -1006,18 +1006,6 @@ woas.css = {
 	// TODO: replace with factory function for just this browser
 	set: function(css, raw) {
 		raw = raw || false;
-		/*
-		This object could become much better in the future, grabbing content
-		from appropriate sources, or filtering WoaS::CSS (whatever) to match
-		the current browser ... this need only be done once on loading page,
-		with a callback function for CSS editing (e.g. woas.css.load and/or
-		woas.css.merge, etc.). Note that this change does not affect efficiency
-		much but now we can completely change the way this works (over time)
-		without having to modify other code. This is generally applicable
-		with OOP design concepts. The code is therefore much less fragile
-		and many programmers can work on it with changes tending to be much
-		more confined to the object they are modifying.
-		*/
 		// add some browser-specific wrapping fixes
 		if (!raw) {
 			if (woas.browser.firefox2)

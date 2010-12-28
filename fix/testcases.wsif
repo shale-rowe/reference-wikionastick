@@ -3217,7 +3217,7 @@ div.taglinks > a:hover {
 /* ------------------------------------------- */
 /* WIKI WAIT TEXT                              */
 /* ------------------------------------------- */
-.woas_wait_text {
+#woas_wait_text {
 	color: navy;
 }
 /* ------------------------------------------- */
@@ -3287,7 +3287,7 @@ div.wiki_header {
 	text-align: center;
 }
 
-.woas_wait_text {
+#woas_wait_text {
 	color: navy;
 }
 

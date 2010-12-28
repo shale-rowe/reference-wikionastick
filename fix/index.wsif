@@ -12,6 +12,7 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 [[Main Page]]
+
 * [[WoaS History]]
 
 * [[WoaS::Help::]]
@@ -1245,7 +1246,7 @@ woas.page.boundary: DFQRCTsKlU
 = Edit a page
 All user-created pages (and some which are part of reserved [[WoaS::Help::Namespaces|namespaces]]) can be edited.
 
-If a page is editable the relative Edit icon will be available in the navigation bar; you start editing the page by clicking such icon. The user interface will switch to an [[Woas::Help::Editor|editor-mode set of buttons and edit areas]].
+If a page is editable the relative Edit icon will be available in the navigation bar; you start editing the page by clicking such icon. The user interface will switch to an [[WoaS::Help::Editor|editor-mode set of buttons and edit areas]].
 
 == Editing
 
@@ -4035,7 +4036,7 @@ div.woas_taglinks > a:hover {
 }
 
 /* WIKI WAIT TEXT */
-.woas_wait_text {
+#woas_wait_text {
 	color: navy;
 }
 --DFQRCTsKlU
@@ -4098,7 +4099,7 @@ body {
 	text-align: center;
 }
 
-.woas_wait_text {
+#woas_wait_text {
 	color: navy;
 }
 

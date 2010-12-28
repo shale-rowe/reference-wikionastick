@@ -66,7 +66,7 @@ woas.i18n = {
 					"The correct usage of Wiki on a Stick is local, so you should use a local copy of this page to exploit the save features.\n"+
 					"All changes made to this copy of Wiki on a Stick will be lost.",
 	STATIC_NOT_FOUND: "Static page '%s' not found!",
-	TIDDLY_HELP:"Please check that TiddlySaver.jar is in the same directory of this WoaS and that you have enabled Java permissions for it",
+	TIDDLY_HELP:"Please check that TiddlySaver.jar is in the same directory as this WoaS and that you have enabled Java permissions for it",
 	TOO_LONG_TITLE: "Maximum title length is %d characters",
 	UNSPECIFIED_JAVA_ERROR: "Please check the Java console for errors regarding last operation and check that it's not due to your browser/java restrictions",
 	UNSUPPORTED_BROWSER: "Your browser might not be supported, please report a bug with your UserAgent string:\n%s",

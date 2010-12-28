@@ -55,9 +55,9 @@ woas._save_this_file = function(new_data, old_data) {
 		if (this.use_java_io) {
 			// try to understand what went bad with Java
 			if (typeof document.applets.TiddlySaver == "undefined")
-				msg += this.i18n.NO_TIDDLY_SAVER+" "+TIDDLY_HELP;
+				msg += this.i18n.NO_TIDDLY_SAVER+" "+this.i18n.TIDDLY_HELP;
 			else if (typeof java == "undefined")
-				msg += this.i18n.NO_JAVA+" "+TIDDLY_HELP;
+				msg += this.i18n.NO_JAVA+" "+this.i18n.TIDDLY_HELP;
 			else
 				msg += this.i18n.UNSPECIFIED_JAVA_ERROR;
 		} else

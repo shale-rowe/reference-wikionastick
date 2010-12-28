@@ -103,7 +103,8 @@ woas.lock = {
 	}
 };
 
-woas._wsif_ds_save = function(subpath, plist) {
+// PVHL: changed parameter list to match calls; though disabled should still match
+woas._wsif_ds_save = function(subpath, ds_lock, plist) {
 	// if we have a native sub-path, trigger the WSIF datasource save
 	if (subpath.length === 0)
 		return;
@@ -131,6 +132,7 @@ woas.cfg_commit = function() {
 
 //API1.0: save specific list of pages
 // plist is a list of page indexes which need to be saved
+// Currently just saving all the pages.
 woas.commit = function(plist) {
 	this._wsif_ds_save(this.config.wsif_ds, this.config.wsif_ds_lock, plist);
 	// performs full save, while the single page + global header could be saved instead
