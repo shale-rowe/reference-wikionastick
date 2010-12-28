@@ -319,7 +319,7 @@ woas.delete_page_i = function(i) {
 	page_attrs.splice(i,1);
 	page_mts.splice(i,1);
 	// be sure that this page is no more in history
-	this.history.check_deleted(old_title);
+	this.history.clear(old_title);
 	// if we were looking at the deleted page
 	if (current === old_title)
 		// go to an existing page
@@ -330,92 +330,137 @@ woas.delete_page_i = function(i) {
 	return this.commit_delete([i]);
 };
 
-woas.history = {
-	backstack: [],
-	forstack: [],			// forward history stack, discarded when saving
+// PVHL: Can't make changes to API I would like to without reworking a lot of
+//       code. The changes I have made fix current history issues.
+ 
+(function(){ // woas.history closure
+	// Should be one stack, but this way for historical reasons
+	var backstack = [],
+		forstack = [], // forward history stack, discarded when saving
+		going_back = true,	// true if back called and for initial page load
+		going_forward = false; // true if forward called
 	
-	check_deleted: function(old_title) {
-		// remove the deleted page from history
-		for(var i=0,it=this.backstack.length;i < it;++i) {
-			// remove also duplicate sequences
-			if (this.backstack[i] === old_title) {
-				this.backstack.splice(i, 1);
-				// fix the loop
-				--it;
-				// iterate again to remove duplicate sequences
-				--i;
-			}
-		}
-		// delete also from forstack
-		for(var i=0,it=this.forstack.length;i < it;++i) {
-			// remove also duplicate sequences
-			if (this.forstack[i] === old_title) {
-				this.forstack.splice(i,1);
-				// fix the loop
-				--it;
-				// iterate again to remove duplicate sequences
-				--i;
-			}
-		}
-		//TODO: remove subsequent duplicates in final array
+	// push a page into history
+	function store(page) {
+		if (backstack.length > woas.history.MAX_BROWSE_HISTORY)
+			backstack = backstack.slice(1);
+		backstack.push(page);
+	}
+	
+woas.history = {
+	MAX_BROWSE_HISTORY: 6, // public for overriding
+	
+	has_forstack: function() {
+		return (forstack.length > 0);
+	},
+	
+	has_backstack: function() {
+		return (backstack.length > 0);
 	},
 	
 	previous: function() {
 		// go back or to main page, do not save history
-		if (this.backstack.length > 0) {
-			return this.backstack.pop();
+		if (backstack.length > 0) {
+			return backstack.pop();
 		} else
 			return woas.config.main_page;
 	},
 	
 	back: function() {
-		if(this.backstack.length > 0) {
-			this.forstack.push(current);
-			return this.backstack.pop()
+		if (backstack.length > 0) {
+			forstack.push(current);
+			var title = backstack.pop();
+			if (title)
+				going_back = true;
+			return title;			
 		}
 		woas.log("No back history");
 		return null;
 	},
 	
-	has_forstack: function() {
-		return (this.forstack.length > 0);
-	},
-	has_backstack: function() {
-		return (this.backstack.length > 0);
-	},
-	
-	_forward_browse: false,	// used when browsing forward in the page queue
-	
-	MAX_BROWSE_HISTORY: 6,
-	
-	go: function(title) {
-		if (!this._forward_browse) {
-			this.store(title);
-			// reset forward stack
-			this.forstack = [];
-		} else this._forward_browse = false;
-	},
-	
-	// push a page into history
-	store: function(page) {
-		if (this.backstack.length > this.MAX_BROWSE_HISTORY)
-			this.backstack = this.backstack.slice(1);
-		this.backstack.push(page);
-	},
-	
 	forward: function() {
-		if(this.forstack.length > 0)
-			return this.forstack.pop();
+		if (forstack.length > 0)
+			going_forward = true;
+			return forstack.pop();
 		woas.log("No forward history");
 		return null;
 	},
 	
-	clear: function() {
-		this.forstack = [];
-		this.backstack = [];
+	go: function(title) {
+		if (!going_back && !woas.ui.edit_mode) {
+			store(title);
+		}
+		if (!going_forward && !going_back) {
+			forstack = [];
+		}
+		going_back = going_forward = false;
+	},
+	
+	// remove title if it exists. If no title given clear history
+	// return false if title was given but not found (could be useful)
+	clear: function(title) {
+		if  (title && title.length) {
+			// remove the deleted page from history
+			var found = false, i, it;
+			for (i = 0, it = backstack.length; i < it; ++i) {
+				// remove also duplicate sequences
+				if (backstack[i] === title) {
+					found = true;
+					backstack.splice(i, 1);
+					// fix the loop
+					--it;
+					// iterate again to remove duplicate sequences
+					--i;
+				}
+			}
+			// delete also from forstack
+			for (i = 0, it = forstack.length; i < it; ++i) {
+				// remove also duplicate sequences
+				if (forstack[i] === title) {
+					found = true;
+					forstack.splice(i,1);
+					--it;
+					--i;
+				}
+			}
+			//TODO: remove subsequent duplicates in final array (?)
+			return found;
+		} else {
+			forstack = [];
+			backstack = [];
+			return true;
+		}
+	},
+	
+	// rename old_title; titles must be valid
+	rename: function (old_title, new_title) {
+		var i;
+		for (i = 0; i < backstack.length; ++i) {
+			if (backstack[i] === old_title) {
+				backstack[i] = new_title;
+			}
+		}
+		for (i = 0; i < forstack.length; ++i) {
+			if (forstack[i] === old_title) {
+				forstack[i] = new_title;
+			}
+		}
+	},
+	
+	// use: log(woas.history.log_entry())
+	log_entry: function() {
+		function frmt(arr) {
+			var str = [], i;
+			for (i = 0; i < arr.length; ++i) {
+				str.push(arr[i]);
+			}
+			return str.join(" | ");
+		}
+		return "history: " + frmt(backstack) + (backstack.length ? " | " : "")
+			+ "[[" + current + "]]" + (forstack.length ? " | " : "")
+			+ frmt(forstack.slice(0).reverse());
 	}
-
-};
+}})();
 
 woas.history.backstack = backstack;
 

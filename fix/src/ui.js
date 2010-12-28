@@ -180,7 +180,6 @@ woas.ui = {
 		var p = woas.history.back();
 		if (p === null)
 			return false;
-		woas.history._forward_browse = true;
 		return woas.set_current(p, true);
 	},
 	// when Forward button is clicked
@@ -291,16 +290,11 @@ function help_go_index() {\n\
 function help_go_back() {\n\
 	var woas = get_parent_woas();\n\
 	if (woas === null) return;\n\
-	if (woas.browser.chrome || woas.browser.safari || woas.browser.opera) {\n\
-		woas.help_system.going_back = true;\n\
-		woas.help_system.go_to(woas.help_system.previous_page.pop());\n\
-		return;\n\
-	}\n\
-	// this works for other browsers\n\
-	scrollTo(0,0);\n\
-	history.go(0);\n\
-}\n\
-",
+	woas.help_system.going_back = true;\n\
+	woas.help_system.go_to(woas.help_system.previous_page.pop());\n\
+	return;\n\
+}\n"
+	,
 	go_to: function(wanted_page, pi) {
 //		woas.log("help_system.go_to(\""+wanted_page+"\")");	//log:0
 		if (typeof pi == "undefined")
