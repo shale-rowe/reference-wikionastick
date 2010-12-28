@@ -137,7 +137,8 @@ for(var i = (woas.tweak.edit_override ? 1 : 0);i < reserved_namespaces.length;i+
 	if (i < reserved_namespaces.length-1)
 		reserved_rx += "|";
 }
-woas._reserved_rx = new RegExp(reserved_rx, "i"); reserved_namespaces = reserved_rx = null;
+woas._reserved_rx = new RegExp(reserved_rx, "i");
+reserved_namespaces = reserved_rx = null;
 
 // return page index (progressive number) given its title
 woas.page_index = function(title) {
@@ -383,7 +384,7 @@ woas.set__text = function(pi, text) {
 
 woas.assert_current = function(page) {
 	if( current !== page )
-		go_to( page ) ;
+		this.go_to( page ) ;
 	else
 		this.set_current( page, true);
 };
@@ -443,7 +444,7 @@ woas._get__embedded = function (cr, pi, etype) {
 		"<"+"/script>"+
 		"<"+"img id=\"woas_img_tag\" class=\"woas_embedded\" src=\""+text+"\" alt=\""+this.xhtml_encode(img_name)+"\" />"+
 		"\n\n<"+"div id=\"woas_img_desc\">"+this.i18n.LOADING+"<"+"/div>"+
-		"\nSimple transclusion:\n\n{{{[[Include::"+cr+"]]}}}\n\nTransclusion with additional attributes:\n\n{{{[[Include::"+cr+"|border=\"0\" onclick=\"go_to('"+
+		"\nSimple transclusion:\n\n{{{[[Include::"+cr+"]]}}}\n\nTransclusion with additional attributes:\n\n{{{[[Include::"+cr+"|border=\"0\" onclick=\"woas.go_to('"+
 		this.js_encode(cr)+"')\" style=\"cursor:pointer\"]]}}}\n"+
 		"\n<"+"a href=\"javascript:query_delete_image('"+this.js_encode(cr)+"')\">"+this.i18n.DELETE_IMAGE+"<"+"/a>\n"+
 		"\n<"+"a href=\"javascript:query_export_image('"+this.js_encode(cr)+"')\">"+this.i18n.EXPORT_IMAGE+"<"+"/a>\n");
@@ -538,9 +539,9 @@ woas.eval = function(code, return_value) {
 };
 
 // Load a new current page
-// return true if page needs to be saved in history, false otherwise
+// return true if page was successfully loaded
 woas.set_current = function (cr, interactive) {
-	// call hooks which decide upon our navigation capabilities
+	// pager.browse_hook determines if cr is allowed to be set
 	if (!woas.pager.browse_hook(cr))
 		return false;
 //	this.log("Setting current page to \""+cr+"\"");	//log:0
@@ -643,7 +644,7 @@ woas.set_current = function (cr, interactive) {
 									break;
 									case "Aliases":
 									case "Hotkeys":
-										case "CSS::Core":
+									case "CSS::Core":
 									case "CSS::Boot":
 									case "CSS::Custom":
 										// page is stored plaintext
@@ -1357,7 +1358,7 @@ woas.create_breadcrumb = function(title) {
 			s+= tmp[i]+" :: ";
 		else {
 			partial += tmp[i]+"::";
-			js = "go_to('"+this.js_encode(partial)+"')";
+			js = "woas.go_to('"+this.js_encode(partial)+"')";
 			s += "<"+"a title=\""+this.xhtml_encode(tmp[i])+"\" href=\"javascript:"+js+"\" onclick=\""+js+"; return false;\">"+tmp[i]+"<"+"/a> :: ";
 		}
 	}

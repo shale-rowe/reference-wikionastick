@@ -21,7 +21,7 @@ woas.cmd_duplicate_page = function() {
 		pages[dpi] = pages[pi]; // .slice ?
 	page_attrs[dpi] = page_attrs[pi];	
 	// go to new page
-	go_to(pname);
+	this.go_to(pname);
 	// commit changes
 	this.commit([dpi]);
 };
@@ -73,7 +73,7 @@ woas._new_page_direct = function(title, fill_mode) {
 
 	// check if page deserves creation
 	if ((ns==="File") || (ns==="Image")) {
-		go_to(title);
+		this.go_to(title);
 		return title;
 	}
 	// create and edit the new page
@@ -220,7 +220,7 @@ woas.erase_wiki = function() {
 };
 
 woas.cmd_main_page = function() {
-	go_to(this.config.main_page);
+	this.go_to(this.config.main_page);
 	return null;
 };
 
@@ -249,7 +249,7 @@ woas.cmd_go_to = function() {
 	do {
 		pname = prompt("Go to page:", current);
 		if ((pname !== null) && pname.length)
-			if (go_to(pname))
+			if (this.go_to(pname))
 				return;
 	} while (pname !== null);
 };
@@ -849,6 +849,8 @@ woas.pager = {
 	},
 	
 	// this yummy function needs can be overriden
+	// Determines if page 'title' is allowed to be loaded by woas.set_current
+	// return false to block the page from being loading, true to allow.
 	browse_hook: function(title) {
 		return true;
 	},
