@@ -715,7 +715,6 @@ woas.set_current = function (cr, interactive) {
 		cr = page_titles[pi];
 		mts = page_mts[pi];
 	}
-	// used by some special pages (e.g. backlinks) for page title override
 	return this.load_as_current(cr, this.parser.parse(text, false, this.js_mode(cr)), this.config.store_mts ? mts : 0, set_b);
 };
 
@@ -749,16 +748,16 @@ woas.load_as_current = function(title, xhtml, mts, set_b) {
 
 	
 	scrollTo(0,0);
-	this.log("load_as_current(\""+title+"\", "+set_b+") - "+(typeof xhtml == "string" ? (xhtml.length+" bytes") : (typeof xhtml)));	// log:1
+//	this.log("load_as_current(\""+title+"\", "+set_b+") - "+(typeof xhtml == "string" ? (xhtml.length+" bytes") : (typeof xhtml)));	// log:0
 	this.setHTMLDiv(d$("woas_wiki_area"), xhtml);
 	this.refresh_mts(mts);
 
 	this._set_title(title);
 	
 	this.history.go(current);
-	
 	this.update_nav_icons(title);
 	current = title;
+	this.log(this.history.log_entry());	// log:1
 	// active menu or page scripts
 	this.scripting.activate(this.is_menu(current) ? "menu" : "page");
 	return true;
@@ -977,7 +976,6 @@ woas._load_hangup_check = function(first) {
 };
 	
 woas._early_render = function() {
-	woas.history._forward_browse = true; // used to not store backstack
 	woas.set_current(current, true);
 	woas.refresh_menu_area();
 	// feed the current title before running the disable edit mode code
@@ -1194,7 +1192,7 @@ woas.rename_page = function(previous, newpage) {
 	// make sure that previous title is consistent
 	if (this.prev_title === previous)
 		this.prev_title = newpage;
-	//TODO: propagate rename to backstack and forstack!
+	this.history.rename(previous, newpage);
 	return true;
 };
 
@@ -1230,7 +1228,7 @@ woas.save = function() {
 	if (null_save)
 		null_save = (raw_content === this.change_buffer);
 	
-	var can_be_empty = false, skip = false, renaming = false;
+	var back_to, can_be_empty = false, skip = false, renaming = false;
 	switch(current) {
 		case "WoaS::CSS::Custom":
 			if (!null_save) {
@@ -1243,12 +1241,12 @@ woas.save = function() {
 			if (!null_save)
 				this._load_aliases(raw_content);
 			can_be_empty = true;
-			// fallback wanted
+			// fallthrough wanted
 			skip = true;
 		case "WoaS::Hotkeys":
 			if (!skip && !null_save)
 				this.hotkey.load(raw_content);
-			// fallback wanted
+			// fallthrough wanted
 		default:
 			// check if text is empty (page deletion)
 			if (!null_save && !can_be_empty && (raw_content === "")) {

@@ -1,3 +1,7 @@
+* fix history
+* fix help back button (not working in FF/IE)
+
+Revision 2286:
 * syntax fixes found by Little Girl
 * syntax fixes found by PVHL
 * fixed up deprecated go_to() & go_back
