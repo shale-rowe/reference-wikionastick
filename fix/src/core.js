@@ -396,6 +396,12 @@ woas.history = {
 		going_back = going_forward = false;
 	},
 	
+	// PVHL: this shouldn't be here, but needed for new pages by current design
+	// store() should be an internal, private function
+	store: function(title) {
+		store(title);
+	},
+
 	// remove title if it exists. If no title given clear history
 	// return false if title was given but not found (could be useful)
 	clear: function(title) {

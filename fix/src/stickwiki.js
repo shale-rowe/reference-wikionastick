@@ -478,7 +478,7 @@ woas._embed_process = function(etype) {
 	page_mts.push(this.config.store_mts ? Math.round(new Date().getTime()/1000) : 0);
 	
 	// save this last page
-	this.commit(page_titles.length-1);
+	this.commit([page_titles.length-1]);
 	
 	this.refresh_menu_area();
 	return this.set_current(current, true);
@@ -1207,21 +1207,23 @@ woas.get_raw_content = function() {
 
 // action performed when save is clicked
 woas.save = function() {
-	// you can't save if not editing
-	if (!this.ui.edit_mode)
-		return false;
+	if (!this.ui.edit_mode) {
+		if (this.config.cumulative_save) {
+			// when this function is called in non-edit mode we perform
+			// a full commit for cumulative save
+			this.full_commit();
+			this.menu_display("save", false);
+			return;
+		} else {
+			// you can't save if not editing
+			return false;
+		}
+	}
 	// we will always save ghost pages if save button was hit
 	var null_save = !this._ghost_page, was_ghost = this._ghost_page;
 	// always reset ghost page flag
 	this._ghost_page = false;
 	woas.log("Ghost page disabled"); //log:1
-	// when this function is called in non-edit mode we perform a full commit
-	// for cumulative save
-	if (this.config.cumulative_save && !this.ui.edit_mode) {
-		this.full_commit();
-		this.menu_display("save", false);
-		return;
-	}
 	var raw_content = this.get_raw_content();
 	
 	// check if this is a null save only if page was not a ghost page
@@ -1261,8 +1263,11 @@ woas.save = function() {
 				var new_title = this.trim(d$("wiki_page_title").value);
 				renaming = (this.old_title !== new_title);
 				// do not glitch when creating a new page
-				if (was_ghost)
+				if (was_ghost) {
+					// PVHL: new page needs history -- temporary hack
+					this.history.store(this.prev_title);
 					this.prev_title = new_title;
+				}
 				// here the page gets actually saved
 				if (!null_save || renaming) {
 					// disallow empty titles

@@ -168,6 +168,8 @@ woas.ui = {
 			page_titles.pop();
 			page_attrs.pop();
 			woas._ghost_page = false;
+			// menu entry may have been added for cancelled new page
+			woas.refresh_menu_area();
 			woas.log("Ghost page disabled"); //log:1
 		}
 		woas.disable_edit();
@@ -429,7 +431,8 @@ function save_options() {
 		return false;
 	}
 	woas.cfg_commit();
-	woas.set_current("Special::Advanced", true);
+	woas.ui.back(); // works now history is somewhat fixed
+	//woas.set_current("Special::Advanced", true);
 }
 
 function ro_woas() {
