@@ -1,0 +1,59 @@
+Files:
+
+* woas-fix.html - latest single-file woas generated from the code in fix
+* woas-fix-min.html - as above, but with code minimized using jsmin tool
+
+Directories:
+
+* fix/ - latest code for testing and use (probably also tagged)
+* fix-wip/ - work-in-progress; may not be usable ... my current commit
+* enhance/ - latest code for testing and use (probably also tagged)
+* enhance-wip/ - work-in-progress; may not be usable ... my current commit 
+
+Only the fix directory exists currently.
+
+The -wip directories are present only for the benefit of those who may 
+want/need to see my current work. I have to do a lot of work off-line 
+and usually use git for version control, so this is likely only up to 
+date if I am working with someone or have just made a back-up of my 
+local work.
+
+Notes:
+
+See the file log.txt in the directories for information on changes.
+	
+I am using this repository to maintain fixes I have made to WoaS 0.12.0 
+and also any enhancements/changes I have made to how WoaS works. The 
+fixes are in the subdirectory "fix" and enhancements are in "enhance". 
+The changes in "fix" will likely be absorbed into the official trunk 
+code, the changes in "enhance" will likely not become official as they 
+probably change some basic aspect of WoaS operation. This could be a
+change in how parsing works or some backwards-incompatible change. 
+
+Right now I am working on fixing some important, basic bugs in WoaS 
+operation. I do not have time or inclination to fix all the current 
+bugs, but I am fixing the ones that affect normal operation the most and 
+can be fixed without major changes to WoaS' current design (thus, some
+of my fixes are hacks to fix a problem in the simplest way). 
+
+My current plan is to then finish work on defining what I would like to 
+see in a tool of this sort and start work on building it. This new tool 
+fits in with a greater mission I am working on and will soon be 
+launching. I am likely to pursue this further work in a separate project 
+as my needs are perhaps not quite aligned with those of WoaS. I have 
+struggled with this for a while as I like WoaS and haven't wanted to 
+fork the project. My new project will reuse as much code as possible 
+from WoaS, but will have a different basic design and probably not use 
+the wsif format natively. It is my hope that these two projects might 
+someday reunite, as much of their basic purpose will be te same. 
+
+I will also make updated single-file versions of these branches 
+available in this directory. The file will be the latest, tested 
+version, and will overwrite the previous one; if you need a specific 
+version you can retrieve it from SVN. I will also tag the main code if 
+it seems necessary. 
+
+I hope this work will be of use. Due to limited time available I will 
+not be able to provide support on this, but let me know if there are 
+issues (especially specific to my versions) and I will do my best to fix 
+them.
