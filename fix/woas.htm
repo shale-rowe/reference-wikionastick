@@ -213,9 +213,7 @@ debug]</span></a></span></td>
 // this code needs to stay here for some Opera/Safari/Chrome restriction
 // on DOM generation from extenal JavaScript
 if (woas.use_java_io) {
-	document.write("<"+"!-- "+__marker+"-TAIL-START -"+"->" +
-					 "<applet style='position:absolute;left:-1px' name='TiddlySaver' code='TiddlySaver.class' archive='TiddlySaver.jar' width='1' height='1'></applet>"
-					 + "<"+"!-- "+__marker+"-TAIL-END -"+"->");
+	document.write("<applet style='position:absolute;left:-1px' name='TiddlySaver' code='TiddlySaver.class' archive='TiddlySaver.jar' width='1' height='1'></applet>");
 }
 //]]>
 </script>

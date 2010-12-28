@@ -652,6 +652,7 @@ woas._save_to_file = function(full) {
 	return r;
 };
 
+// make sure self-closing tags are actually closed
 function reXHTMLFix_hook(str, tag) {
 	var l=str.length;
 	if (str.charAt(l-1)!=='/')
@@ -664,8 +665,7 @@ var reHeadTagEnd = new RegExp("<\\/"+"head[^>]*>", "ig");
 	reHeadTagStart = new RegExp("<"+"head[^>]*>", "ig"),
 	reTagStart = /<(\w+)([^>]*)>/g,
 	reTagEnd = /<\/(\w+)[^>]*>/g,
-	reEditorTA = new RegExp('<'+'textarea\\s+id="?woas_editor"?\\s*[^>]+>(.*?)<'+'/textarea>', 'gi'),
-	reCKDiv = new RegExp('<'+'div\\s+id="?woas_custom_accesskeys"?\\s*>(.*?)<'+'/div>', 'gi');
+	reEditorTA = new RegExp('<'+'textarea\\s+id="?woas_editor"?\\s*[^>]+>(.*?)<'+'/textarea>', 'gi');
 
 woas._extract_src_data = function(marker, source, full, current_page, data_only) {
 	var e_offset, s_offset;
@@ -714,6 +714,7 @@ woas._extract_src_data = function(marker, source, full, current_page, data_only)
 	// first take away the head
 	var needle, m2, l_attrs, the_head = source.substring(0, head_end),
 		splicings = [], tag_end,
+		// rest_of_source is everything from the body tag to the end
 		rest_of_source = source.substring(head_end);
 	// reset big string
 	source = "";
@@ -817,29 +818,20 @@ woas._extract_src_data = function(marker, source, full, current_page, data_only)
 		the_head = null;
 	}
 	
-	// remove the tail (if any)
-	var tail_end_mark = "<"+"!-- "+marker+"-TAIL-END -"+"->",
-		tail_st_mark = "<"+"!-- "+marker+"-TAIL-START --"+">",
-		tail_start = rest_of_source.indexOf(tail_st_mark, e_offset);
-	if (tail_start !== -1) {
-		var tail_end = rest_of_source.indexOf(tail_end_mark, tail_start);
-		if (tail_end === -1)
-			woas.log("Cannot find tail end!"); //log:1
-		else {
-			// remove the tail content (but not the tail itself)
-			rest_of_source =	rest_of_source.substring(0, tail_start + tail_st_mark.length)+
-						rest_of_source.substring(tail_end+tail_end_mark.length);
-		}
-	}
+// PVHL: simplest fix for multiple Chrome induced problems is to just find the
+//       last script closing tag and fix the end of the markup. Saves a lot of
+//       code! IE makes all the tags uppercase!
+	var last_script = rest_of_source.lastIndexOf('<'+'/script>');
+	if (last_script === -1) last_script = rest_of_source.lastIndexOf('<'+'/SCRIPT>'); // IE
+	rest_of_source = rest_of_source.substring(0, last_script) + '<'+'/script>\n<'
+					+ 'div id="woas_custom_accesskeys">&'+'nbsp;<'+'/div>\n<'+'/body>';
 
 	// replace textarea with a standard one
-	source += rest_of_source.replace(reEditorTA, '<'+'textarea id="woas_editor" rows="0" cols="0">&'+'nbsp;<'+'/textarea>')
-	// remove the custom keys defined
-			.replace(reCKDiv, '<'+'div id="woas_custom_accesskeys">&'+'nbsp;<'+'/div>')
+	source += rest_of_source
+			.replace(reEditorTA, '<'+'textarea id="woas_editor" rows="0" cols="0">&'+'nbsp;<'+'/textarea>')
 	// XHTML hotfixes (FF2/FF3 doesn't either save correctly)
 			.replace(reXHTMLFix, reXHTMLFix_hook);
 	rest_of_source = null;
-	
 	if (!full) {
 		e_offset = source.indexOf("/* "+marker+ "-DATA */", s_offset);
 		if (e_offset === -1) {

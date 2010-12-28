@@ -92,7 +92,7 @@ woas._new_page_direct = function(title, fill_mode) {
 		if (p === -1)
 			menu += "\n[["+title+"]]";
 		else
-			menu = menu.substring(0,p)+"\n[["+title+"]]"+menu.substring(p)+"\n";
+			menu = menu.substring(0,p+2)+"[["+title+"]]\n"+menu.substring(p+2);
 		this.set__text(this.page_index("::Menu"), menu);
 		upd_menu = true;
 	}
@@ -462,11 +462,12 @@ woas.history = {
 			}
 			return str.join(" | ");
 		}
-		return "history: " + frmt(backstack) + (backstack.length ? " | " : "")
-			+ "[[" + current + "]]" + (forstack.length ? " | " : "")
+		return "history" + (backstack.length ? " : " : " > ")
+			+ frmt(backstack) + (backstack.length ? " > " : "")
+			+ current + (forstack.length ? " < " : " <")
 			+ frmt(forstack.slice(0).reverse());
 	}
-}})();
+}}());
 
 woas.history.backstack = backstack;
 

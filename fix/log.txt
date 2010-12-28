@@ -1,3 +1,13 @@
+Revision 2289:
+* fix Chrome file corruption issues
+* fix edit_override to allow edit of WoaS namespace
+* quick changes (hack) to remove cancelled new page from menu
+* slight change to menu to allow better addition placement
+* fix logbox scroll position after save and improve function
+* small formatting change for readability
+* some minor comment additions
+
+Revision 2288:
 * hack for cumulative save issues
 * fix no-load mode error when mode = 0
 * fix new page history (still some edge case issues)
