@@ -6,6 +6,8 @@
 ## (c) 2010 pvhl
 #
 
+// NEED SWITCH TO SAY IF NEW SINGLE-FILEs SHOULD BE GENERATED
+
 if ($argc<2) {
 	fprintf(STDERR, "Usage:\n\t%s 'simple log message'\n", $argv[0]);
 	exit(-1);
@@ -33,8 +35,12 @@ if (!preg_match("/(?s)((?!(\r?\n){2}).)*+/", $txt, $full_msg)) {
 	exit(-3);
 }
 
+echo "Ensuring git repository is up to date\n";
+shell_exec("git add .");
+shell_exec(sprintf("git commit -m \"%s\")", $msg));
+
 // commit changes to svn
-$full_msg = sprintf("svn commit -m \"%s\n\"", $full_msg[0]);
+$full_msg = sprintf("svn commit -m \"%s\"", $full_msg[0]);
 //shell_exec($full_msg);
 echo "Committed to SourceForge\n";
 
@@ -77,44 +83,5 @@ fprintf(STDERR, "svn_result: %s\n", $svn_result);
 //fprintf(STDERR, "log text is: %s\n", $full_msg);
 
 exit(0);
-
-
-file_put_contents('woas.js', $ALL_SCRIPTS);
-$MIN_SCRIPTS = shell_exec('jsmin < woas.js');
-unlink('woas.js');
-// do not create it in case of failure
-if (strlen($MIN_SCRIPTS)) {
-	$ofile_min = 'woas-fix-min.html';
-	if (file_put_contents($ofile_min, _mk_woas($ct, $MIN_SCRIPTS)))
-		fprintf(STDOUT, "Created compressed WoaS: %s\n", $ofile_min);
-}
-
-unset($MIN_SCRIPTS);
-function example_read_cb() {
-	global $sources,$titles;
-	if (!count($titles))
-		return false;
-	$src = array_pop($sources);
-	$src = file_get_contents($src);
-	if ($src === FALSE) {
-		array_pop($titles);
-		return false;
-	}
-	$NP = new WoaS_Page();
-	$NP->title = array_pop($titles);
-	$NP->content = $src;
-	$pages[] = $NP;
-
-	return $NP;
-}
-
-$WSIF = new WSIF();
-$done = $WSIF->Save('example_read_cb', dirname(__FILE__).'/');
-
-sprintf("%d pages written\n", $done);
-
-$done -= count($sources);
-
-exit($done);
 
 ?>
