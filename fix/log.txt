@@ -1,4 +1,10 @@
-Revision 2289:
+* some changes to the About page to explain this version
+* add php files that will be used to create single-file (not finished)
+* stop '#' being used in page titles (found by jufooo)
+* change to log display: closed on loading
+* fix wrong mts display (reported by)
+
+Revision pvhl-2289:
 * fix Chrome file corruption issues
 * fix edit_override to allow edit of WoaS namespace
 * quick changes (hack) to remove cancelled new page from menu
@@ -7,17 +13,17 @@ Revision 2289:
 * small formatting change for readability
 * some minor comment additions
 
-Revision 2288:
+Revision pvhl-2288:
 * hack for cumulative save issues
 * fix no-load mode error when mode = 0
 * fix new page history (still some edge case issues)
 * fix commit bug in unused code :(
 
-Revision 2287:
+Revision pvhl-2287:
 * fix history so back/forward buttons work
 * fix help back button (not working in FF/IE)
 
-Revision 2286:
+Revision pvhl-2286:
 * syntax fixes found by Little Girl
 * syntax fixes found by PVHL
 * fixed up deprecated go_to() & go_back

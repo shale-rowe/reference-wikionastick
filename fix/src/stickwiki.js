@@ -1128,10 +1128,7 @@ woas.valid_title = function(title) {
 		this.alert(this.i18n.TOO_LONG_TITLE.sprintf(256));
 		return false;
 	}
-	if (title.indexOf("[")!==-1 || title.indexOf("]")!==-1 ||
-		title.indexOf("{")!==-1 || title.indexOf("}")!==-1 ||
-		title.indexOf("<") !== -1 || title.indexOf(">")!==-1 ||
-		title.indexOf("|")!==-1 || title.indexOf(":::")!==-1) {
+	if (title.match(/(\[|\]|\{|\}|\<|\>|\||\#|:::)/)) {
 		this.alert(this.i18n.INVALID_TITLE);
 		return false;
 	}
@@ -1311,12 +1308,10 @@ woas.save = function() {
 			}
 		}
 	}
-	var saved = current;
-	this.set_current(back_to, true);
 	if (!null_save || renaming) {
-		this.save_page(saved);
-		this.refresh_menu_area();
+		this.save_page(current);
 	}
+	this.set_current(back_to, true);
 	this.disable_edit();
 };
 
