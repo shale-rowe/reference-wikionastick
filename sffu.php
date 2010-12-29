@@ -35,8 +35,8 @@ if (!preg_match("/(?s)((?!(\r?\n){2}).)*+/", $txt, $full_msg)) {
 
 // commit changes to svn
 $full_msg = sprintf("svn commit -m \"%s\n\"", $full_msg[0]);
-$svn_result = shell_exec($full_msg);
-echo "Committed to SourceForge";
+//shell_exec($full_msg);
+echo "Committed to SourceForge\n";
 
 // make single file woas' 
 //$result2 = exec("mkfix.php");
@@ -62,7 +62,6 @@ else $rev = "";
 // write new log file
 $txt = "Revision ".$auth.$rev.$hash."\n".$txt;
 file_put_contents($log, $txt);
-unlink($log);
 
 //commit to git ("update single-file woas-fix")
 //commit to svn ("update single-file woas-fix")

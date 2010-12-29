@@ -1,8 +1,9 @@
+Revision pvhl-2291 (git: '9f7bedd')
 * some changes to the About page to explain this version
 * add php files that will be used to create single-file (not finished)
 * stop '#' being used in page titles (found by jufooo)
 * change to log display: closed on loading
-* fix wrong mts display (reported by)
+* fix wrong mts display (reported by Winterblood)
 
 Revision pvhl-2289:
 * fix Chrome file corruption issues
