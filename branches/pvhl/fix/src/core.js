@@ -5,7 +5,7 @@ woas.tweak = {
 	// DANGER: might cause WoaS corruption!
 	edit_override: false,
 	// perform integrity test of browser features
-	integrity_test: true
+	integrity_test: false
 };
 
 woas.cmd_duplicate_page = function() {

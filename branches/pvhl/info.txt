@@ -3,6 +3,9 @@ Files:
 * woas-fix.html - latest single-file woas generated from the code in fix
 * woas-fix-min.html - as above, but with code minimized using jsmin tool
 
+(The php files are used to build the single-file woas and update svn.
+They are configured to use both git and svn per my development set-up.)
+
 Directories:
 
 * fix/ - latest code for testing and use (probably also tagged)
