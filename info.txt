@@ -1,17 +1,24 @@
+The files in this directory and in the non-wip directories are intended 
+to be working and stable. 
+
 Files:
 
 * woas-fix.html - latest single-file woas generated from the code in ./fix
 * woas-fix-min.html - as above, but with code minimized using jsmin tool
 
+If you use a webkit-based browser you will need the TiddlySaver.jar file 
+(and possibly the java.policy file) so that WoaS can read and write files;
+if you only use WoaS to read existing pages you will not need the jar 
+file when using this version. If the java.policy file is needed (it 
+isn't if you are able to save changes) it should be edited to suit your 
+environment and placed in your home directory. If your home directory 
+already has a java.policy file the new policy can simply be added to the 
+exisitng ones. 
+
 The php files are used to build the single-file woas and use information
 from svn if available. They are taken and/or modified from the 
 'trunk/tools' directory. 'mkfix.php' is set-up to simply create the
 woas-fix[-min].html files; it takes no arguments.
-
-(I have removed the sffu.php file as it is only useful to me currently
-and belongs in a wip (work-in-progress) branch -- the version I had
-here previously was broken. The files in this directory and in the non-
-wip directories are intended to be working and stable.)
 
 Directories:
 
@@ -63,7 +70,7 @@ from WoaS, but will have a different basic design and probably not use
 the wsif format natively. It is my hope that these two projects might 
 someday reunite, as much of their basic purpose will be te same. 
 
-I will also make updated single-file versions of these branches 
+I will also make updated single-file versions of the stable branches 
 available in this directory. The file will be the latest, tested 
 version, and will overwrite the previous one; if you need a specific 
 version you can retrieve it from SVN. I will also tag the main code if 
