@@ -1,3 +1,8 @@
+Revision pvhl-2291 (git: 2c3d953)
+* Just testing out sffu.php - woas unchanged
+* Need at least 2 lines to test
+* but 3 is even better
+
 Revision pvhl-2291 (git: 9f7bedd)
 * some changes to the About page to explain this version
 * add php files that will be used to create single-file (not finished)

@@ -44,51 +44,53 @@ if ($msg) {
 	else $hash = "";
 	shell_exec("svn commit -m \"".$msg.$hash."\"");
 	echo "Committed changes to local git repository and SourceForge svn.\n";
-	echo "Logged to svn:\n\n".$msg.$hash;
+	echo "Logged to svn:\n\n".$msg.$hash."\n";
 	exit(0);
 } else {
-## This still needs works -- checking $msg part is OK
+	// full commit from fix/log.txt includes rebuilding single-files
+	
 	// check we haven't forgotten to create a log entry in log.txt
-	if (!$msg && preg_match("/Revision.*\(git:/", $txt)) {
+/*	if (preg_match("/Revision.*\(git:/", $txt, $msg)) {
+		echo $msg[0]; // why is this crossing lines?
 		fprintf(STDERR, "\nERROR: %s has already been committed!\n", $log);
 		exit(-3);
 	}
-
-	## add revision to log.txt (e.g. pvhl-r2289 (git: ):\n + rest of file)
-	## SHOULD ONLY DO THIS IF SINGLE-FILES UPDATED
-	// get the full log message (adapted from http://stackoverflow.com/questions/2222209/
-	//   regular-expression-to-match-a-block-of-text-up-to-the-first-double-new-line)
-	$full_msg;
-	if (!preg_match("/(?s)((?!(\r?\n){2}).)*+/", $txt, $full_msg)) {
+*/
+	// get the full log message ; adapted from http://stackoverflow.com/questions/2222209/
+	//    regular-expression-to-match-a-block-of-text-up-to-the-first-double-new-line
+	if (!preg_match("/(?s)((?!(\r?\n){2}).)*+/", $txt, $msg)) {
 		fprintf(STDERR, "ERROR: cannot find log entry in %s!\n", $log);
 		exit(-4);
 	}
-
+	$msg = $msg[0];
+	
 	echo "Ensuring git repository is up to date\n";
 	shell_exec("git add .");
-	shell_exec(sprintf("git commit -m \"%s\")", $msg));
+	shell_exec("git commit -m \"".$msg."\"");
 
-    ## -m didn't work (only one line) -- try writing a temp file and using -F
-	
-	// Write log entry to use with svn
-	echo "Writing svn log to temp.log\n";
-	file_put_contents("temp.log", $full_msg[0]);
-
-	// commit changes to svn
-	$full_msg = sprintf("svn commit -F 'temp.log'");
-	//shell_exec($full_msg);
-	unlink('temp/log');
-	echo "Committed to SourceForge\n";
-
-	// make single file woas' 
-	$result2 = exec("php mkfix.php");
-	echo "Single-file WoaS' created\n";
-
-	// get short git commit hash
+	// get short git commit hash  -- move to subroutine
+	// want this one as this one relates to the actual commit we used
 	$hash = shell_exec("git log -1 --format=format:%h");
 	if ($hash)
 		$hash = " (git: ".$hash.")";
 	else $hash = "";
+
+	## -m didn't work for svn (only one line was present in log)
+	## -- try writing to a temp file and using -F
+
+	// Write log entry to use with svn
+	echo "Writing svn log to temp.log\n";
+	file_put_contents("temp.log", $msg);
+
+	// commit changes to svn
+	shell_exec("svn commit -F \"".temp.log."\"");
+	unlink('temp/log');
+	echo "Committed to SourceForge\n";
+
+	// make single file woas' 
+	shell_exec("php mkfix.php");
+	echo "woas-fix[-min].html created\n";
+
 	// attempt to grab SVN information
 	$info = shell_exec("svn info --xml");
 	// attempt to grab SVN author
@@ -103,21 +105,18 @@ if ($msg) {
 	// write new log file
 	$txt = "Revision ".$auth.$rev.$hash."\n".$txt;
 	file_put_contents($log, $txt);
+	
+	// create message for final commits
+	$msg = "Update woas-fix[-min].html";
+	
+	//commit to git
+	shell_exec("git commit -m \"".$msg."\"");
+	
+	// commit changes to svn
+	shell_exec("svn commit -m \"".$msg.$hash."\"");
+
+	echo "Committed changes to local git repository and SourceForge svn.\n";
+	exit(0);
 }
-
-
-//commit to git ("update single-file woas-fix")
-//commit to svn ("update single-file woas-fix")
-
-//fprintf(STDERR, "result2 is: %s\n", $result2);
-//fprintf(STDERR, "hash is: %s\n", $hash);
-//fprintf(STDERR, "log is: %s\n", $txt);
-//fprintf(STDERR, "msg is: %s\n", $msg);
-
-//fprintf(STDERR, "log is: %s\n", $txt);
-
-//fprintf(STDERR, "log text is: %s\n", $full_msg);
-
-exit(0);
 
 ?>
