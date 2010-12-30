@@ -1,19 +1,21 @@
-The files in this directory and in the non-wip directories are intended 
-to be working and stable. 
+The files in this directory and in the non '-wip' directories are
+intended to be working and stable. 
 
 Files:
 
 * woas-fix.html - latest single-file woas generated from the code in ./fix
-* woas-fix-min.html - as above, but with code minimized using jsmin tool
+* woas-fix-min.html - as above, but with code minimized using jsmin
 
-If you use a webkit-based browser you will need the TiddlySaver.jar file 
-(and possibly the java.policy file) so that WoaS can read and write files;
-if you only use WoaS to read existing pages you will not need the jar 
-file when using this version. If the java.policy file is needed (it 
-isn't if you are able to save changes) it should be edited to suit your 
-environment and placed in your home directory. If your home directory 
-already has a java.policy file the new policy can simply be added to the 
-exisitng ones. 
+Webkit-based browsers need the TiddlySaver.jar file to write files and 
+to read external files; if you only use the single-file WoaS versions I 
+have here (e.g. woas-fix.html) to read existing pages you will not need 
+the jar file. To edit pages, or to use the wsif-based version, you will 
+need the TiddlySaver.jar file (and possibly the java.policy file) so 
+that WoaS can read and write files; If the java.policy file is needed 
+(it isn't if you are able to save changes) it should be edited to suit 
+your environment and placed in your home directory. If your home 
+directory already has a java.policy file the new policy can simply be 
+added to the existing ones. 
 
 The php files are used to build the single-file woas and use information
 from svn if available. They are taken and/or modified from the 
@@ -27,19 +29,20 @@ Directories:
 * enhance/ - latest code for testing and use
 * enhance-wip/ - work-in-progress; may not be usable ... my current commit 
 
-Only the fix* directories exist currently. The difference between fix and
-enhance versions is that I expect most of the changes in fix to be used
-by the woas project, whereas work in enhance may or may not be. Enhance
-is nevertheless basically compatible with the fix version; it will not
-contain changes that break the basic design of WoaS, though changes in
-the way it handles syntax, etc., may cause some content to look or
-behave differently. 
+Only the fix* directories exist currently. The difference between fix 
+and enhance versions is that I expect most of the changes in fix to be 
+used by the woas project whereas work in enhance may or may not be. 
+Enhance is nevertheless basically compatible with the fix version; it 
+will not contain changes that break the basic design of WoaS, though 
+changes in the way it handles syntax, etc., may cause some content to 
+look or behave differently. 
 
 The -wip directories are present only for the benefit of those who may 
 want/need to see my current work. I have to do a lot of work off-line 
 and usually use git for version control, so this is likely only up to 
 date if I am working with someone or have just made a back-up of my 
-local work.
+local work. It may or may not be working at any given moment and
+usually should not be used.
 
 Notes:
 
@@ -56,19 +59,20 @@ change in how parsing works or some backwards-incompatible change.
 Right now I am working on fixing some important, basic bugs in WoaS 
 operation. I do not have time or inclination to fix all the current 
 bugs, but I am fixing the ones that affect normal operation the most and 
-can be fixed without major changes to WoaS' current design (thus, some
+can be fixed without major changes to WoaS' current design (thus, some 
 of my fixes are hacks to fix a problem in the simplest way). 
 
 My current plan is to then finish work on defining what I would like to 
 see in a tool of this sort and start work on building it. This new tool 
-fits in with a greater mission I am working on and will soon be 
+fits in with the greater mission I am working on and will soon be 
 launching. I am likely to pursue this further work in a separate project 
 as my needs are perhaps not quite aligned with those of WoaS. I have 
 struggled with this for a while as I like WoaS and haven't wanted to 
-fork the project. My new project will reuse as much code as possible 
-from WoaS, but will have a different basic design and probably not use 
-the wsif format natively. It is my hope that these two projects might 
-someday reunite, as much of their basic purpose will be te same. 
+fork the project. My new project will likely reuse code from WoaS, but 
+will have a different basic design and will not use the wsif format 
+natively. It is my hope that these two projects might someday reunite in 
+some way, as much of their basic purpose and philosophy will remain the 
+same. 
 
 I will also make updated single-file versions of the stable branches 
 available in this directory. The file will be the latest, tested 
