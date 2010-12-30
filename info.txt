@@ -1,6 +1,6 @@
 Files:
 
-* woas-fix.html - latest single-file woas generated from the code in fix
+* woas-fix.html - latest single-file woas generated from the code in ./fix
 * woas-fix-min.html - as above, but with code minimized using jsmin tool
 
 The php files are used to build the single-file woas and use information
@@ -10,17 +10,23 @@ woas-fix[-min].html files; it takes no arguments.
 
 (I have removed the sffu.php file as it is only useful to me currently
 and belongs in a wip (work-in-progress) branch -- the version I had
-here previously was broken. The files in this branch are intended to be
-working and stable.)
+here previously was broken. The files in this directory and in the non-
+wip directories are intended to be working and stable.)
 
 Directories:
 
-* fix/ - latest code for testing and use (probably also tagged)
+* fix/ - latest code for testing and use
 * fix-wip/ - work-in-progress; may not be usable ... my current commit
-* enhance/ - latest code for testing and use (probably also tagged)
+* enhance/ - latest code for testing and use
 * enhance-wip/ - work-in-progress; may not be usable ... my current commit 
 
-Only the fix directory exists currently.
+Only the fix* directories exist currently. The difference between fix and
+enhance versions is that I expect most of the changes in fix to be used
+by the woas project, whereas work in enhance may or may not be. Enhance
+is nevertheless basically compatible with the fix version; it will not
+contain changes that break the basic design of WoaS, though changes in
+the way it handles syntax, etc., may cause some content to look or
+behave differently. 
 
 The -wip directories are present only for the benefit of those who may 
 want/need to see my current work. I have to do a lot of work off-line 
