@@ -3,8 +3,15 @@ Files:
 * woas-fix.html - latest single-file woas generated from the code in fix
 * woas-fix-min.html - as above, but with code minimized using jsmin tool
 
-(The php files are used to build the single-file woas and update svn.
-They are configured to use both git and svn per my development set-up.)
+The php files are used to build the single-file woas and use information
+from svn if available. They are taken and/or modified from the 
+'trunk/tools' directory. 'mkfix.php' is set-up to simply create the
+woas-fix[-min].html files; it takes no arguments.
+
+(I have removed the sffu.php file as it is only useful to me currently
+and belongs in a wip (work-in-progress) branch -- the version I had
+here previously was broken. The files in this branch are intended to be
+working and stable.)
 
 Directories:
 
