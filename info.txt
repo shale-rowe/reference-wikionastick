@@ -1,33 +1,40 @@
 The files in this directory and in the non '-wip' directories are
-intended to be working and stable. 
+intended to be working and stable. All files are for local use on your
+computer.
 
 Files:
 
 * woas-fix.html - latest single-file woas generated from the code in ./fix
-* woas-fix-min.html - as above, but with code minimized using jsmin
+* woas-fix.min.html - as above, but with code minimized using jsmin
+* TiddlySaver.jar - an updated, signed version from the TiddlyWiki project
 
 Webkit-based browsers need the TiddlySaver.jar file to write files and 
 to read external files; if you only use the single-file WoaS versions I 
 have here (e.g. woas-fix.html) to read existing pages you will not need 
 the jar file. To edit pages, or to use the wsif-based version, you will 
 need the TiddlySaver.jar file (and possibly the java.policy file) so 
-that WoaS can read and write files; If the java.policy file is needed 
+that WoaS can read and write files. If the java.policy file is needed 
 (it isn't if you are able to save changes) it should be edited to suit 
 your environment and placed in your home directory. If your home 
 directory already has a java.policy file the new policy can simply be 
-added to the existing ones. 
+added to the existing ones. The signed jar file should fix issues where
+TiddlyWiki would work on a particular Java setup, but WoaS would not.
 
 The php files are used to build the single-file woas and use information
 from svn if available. They are taken and/or modified from the 
-'trunk/tools' directory. 'mkfix.php' is set-up to simply create the
-woas-fix[-min].html files; it takes no arguments.
+'trunk/tools' directory.
+
+* mk - creates the version for the directory passed in. So 'mk fix'
+       makes woas-fix[.min].html files; so does 'mk f'. See the file
+	   for other shortcuts.
+* libwsif.php - the standard tools file copied here for simplicity.
 
 Directories:
 
-* fix/ - latest code for testing and use
-* fix-wip/ - work-in-progress; may not be usable ... my current commit
-* enhance/ - latest code for testing and use
-* enhance-wip/ - work-in-progress; may not be usable ... my current commit 
+* fix/         - latest code for testing and use
+* fix-wip/     - work-in-progress; may not be usable; my current commit
+* enhance/     - latest code for testing and use
+* enhance-wip/ - work-in-progress; may not be usable; my current commit 
 
 Only the fix* directories exist currently. The difference between fix 
 and enhance versions is that I expect most of the changes in fix to be 
@@ -80,7 +87,7 @@ version, and will overwrite the previous one; if you need a specific
 version you can retrieve it from SVN. I will also tag the main code if 
 it seems necessary. 
 
-I hope this work will be of use. Due to limited time available I will 
-not be able to provide support on this, but let me know if there are 
-issues (especially specific to my versions) and I will do my best to fix 
-them.
+I hope this work will be of use to you. Due to limited time available I 
+will not be able to provide support on this, but let me know if there 
+are issues (especially specific to my versions) and I will do my best to 
+fix them.
