@@ -6,29 +6,82 @@
 # @copyright GNU/GPL license
 # @version 1.4.1
 # 
-# run 'mkfix.php' to create a single-file version from 
-# the multiple files version in the 'fix' directory
+# Run 'mk version' to create a single-file version from 
+# the multiple files version in the 'version' directory
+#
+# 'version' can be the following shortcuts:
+#	* f  - fix
+#	* fw - fix-wip
+#	* e  - enhance
+#	* ew - enhance-wip
 #
 # pvhl changes:
 #	* removed compress code
-#	* removed command-line options
 #	* changed output filenames
+#	* changed command-line options
 #	* added support for svn author in woas version string
+#	* added support for passing in directory name of woas version
+#	* added support for directory name shortcuts
+#	* improved error reporting
 #
-	
+
+/*** SET-UP ***/
+
+require dirname(__FILE__).'/libwsif.php';
+
+if ($argc<2) {
+	fprintf(STDERR, "\nUsage: %s version_directory\n", $argv[0]);
+	exit(-1);
+}
+
+switch ($argv[1]) {
+	case 'f':
+		$base = 'fix';
+		break;
+	case 'fw':
+		$base = 'fix-wip';
+		break;
+	case 'e':
+		$base = 'enhance';
+		break;
+	case 'ew':
+		$base = 'enhance-wip';
+		break;
+	default:
+		$base = $argv[1];
+}
+
+global $ALL_SCRIPTS, $base_dir, $woas_ver, $replaced;
+global $pages, $page_title,$page_attrs, $page_mts;
+
+// initialize global variables
+
+$base_dir = $base.'/';
+$woas = $base_dir.'woas.htm';
+
+// make sure the directory exists
+if (!file_exists($woas)) {
+	fprintf(STDERR, "ERROR: ".$woas." does not exist\n");
+	exit(-2);
+}
+
+$wsif = $base_dir.'index.wsif';
+$ofile = 'woas-'.$base.'.html';
+$ofile_min = 'woas-'.$base.'.min.html';
+
+$ALL_SCRIPTS = $pages = $page_attrs = $page_titles = $page_mts = "";
+$replaced=0;
+
 /*** START OF FUNCTIONS BLOCK ***/
 
-global $ALL_SCRIPTS;
-$ALL_SCRIPTS = "";
-
 function _script_replace($m) {
+	global $replaced, $base_dir, $ALL_SCRIPTS;
 	$orig = $m[0];
 	if (!preg_match_all('/src="([^"]+)"/', $m[0], $m)) {
 		fprintf(STDERR, "Could not find script sources\n");
 		return $orig;
 	}
 	$m = $m[1];
-	global $replaced, $base_dir, $ALL_SCRIPTS;
 	foreach($m as $scriptname) {
 		if (!file_exists($base_dir.$scriptname)) {
 			fprintf(STDERR, "Could not locate $base_dir".$scriptname."\n");
@@ -129,7 +182,7 @@ function _print_mixed(&$WSIF, &$page, $attrs, &$pages) {
 }
 
 function _WSIF_get_page(&$WSIF, $title, &$page, $attrs, $mts) {
-	global $pages, $page_titles, $page_attrs, $page_mts;
+	global $woas_ver, $pages, $page_titles, $page_attrs, $page_mts;
 	// store attributes
 	_print_n($attrs, $page_attrs);
 	// store timestamp
@@ -138,7 +191,6 @@ function _WSIF_get_page(&$WSIF, $title, &$page, $attrs, $mts) {
 	$page_titles .= "'"._js_encode($WSIF, $title)."',\n";
 	// apply special replacements
 	if ($title === "Special::About") {
-		global $woas_ver;
 		$page = str_replace("@@WOAS_VERSION@@", $woas_ver, $page);
 	}
 	// store page data
@@ -201,23 +253,17 @@ function _mk_woas($ct, $scripts) {
 
 /*** END OF FUNCTIONS BLOCK ***/
 
-// global variables initialization
-$woas = 'fix/woas.htm';
-$wsif = 'fix/index.wsif';
-
 $ct = file_get_contents($woas);
 
 if (!preg_match('/\\nvar __marker = "([^"]+)";/', $ct, $m)) {
 	fprintf(STDERR, "Could not find marker\n");
-	exit(-2);
+	exit(-3);
 }
 
 // properly set default configuration variables
 $ct = preg_replace_callback("/woas\\[\"config\"\\]\\s*=\\s*\\{\\s*([^}]+)\\}/s", '_woas_config_cb', $ct);
 
-
 // get the version string
-global $woas_ver;
 if (!preg_match("/^var\\s+woas\\s*=\\s*\\{\\s*\"version\"\\s*:\\s*\"([^\"]+)\"\\s*\\}/m", $ct, $woas_ver)) {
 	fprintf(STDERR, "ERROR: cannot find WoaS version\n");
 	exit(-4);
@@ -231,15 +277,11 @@ $ep = strpos($ct, '</head>', $p);
 
 $tail = substr($ct, $p, $ep-$p);
 
-global $replaced, $base_dir;
-$replaced=0;
-$base_dir = dirname($woas).'/';
-
 $tail = preg_replace_callback('/(<script woas_permanent=\"1\" src=\"[^"]+" type="text\\/javascript"><\\/script>\\s*)+/s', '_script_replace', $tail);
 
 if (!$replaced) {
 	fprintf(STDERR, "ERROR: cannot find any external script to replace\n");
-	exit(-3);
+	exit(-5);
 }
 
 // apply the custom settings
@@ -251,41 +293,35 @@ $ct = substr_replace($ct, $tail, $p, $ep-$p);
 $ct = str_replace("@@WOAS_VERSION@@", $woas_ver, $ct);
 
 // get the native pages data and convert them to javascript array data
-require dirname(__FILE__).'/libwsif.php';
-
-global $pages, $page_title,$page_attrs, $page_mts;
-$pages = $page_attrs = $page_titles = $page_mts = "";
-
 $WSIF = new WSIF();
 if (false === $WSIF->Load($wsif, '_WSIF_get_page'))
-	exit(-19);
+	exit(-6);
 
 // put the data in the woas.htm file
 $ct = preg_replace_callback("/\nvar (page[^ ]+) = \\[(.*?)\\];/s", '_inline_vars_rep', $ct);
 unset($WSIF);
 
 // the normal WoaS
-$ofile = 'woas-fix.html';
 if (file_put_contents($ofile, _mk_woas($ct, $ALL_SCRIPTS)))
 	fprintf(STDOUT, "WoaS v%s merged into %s\n", $woas_ver, $ofile);
-else
-	exit(-1);
-
+else {
+	fprintf(STDERR, "ERROR: unable to create %s\n", $ofile_min);
+	exit(-7);
+}
+	
 // create minified version (the old way, since proc_open() doesn't work)
 // http://www.crockford.com/javascript/jsmin.html
 file_put_contents('woas.js', $ALL_SCRIPTS);
 $MIN_SCRIPTS = shell_exec('jsmin < woas.js');
 unlink('woas.js');
-// do not create it in case of failure
+
+// do not create it if compression failed
 if (strlen($MIN_SCRIPTS)) {
-	$ofile_min = 'woas-fix-min.html';
 	if (file_put_contents($ofile_min, _mk_woas($ct, $MIN_SCRIPTS)))
 		fprintf(STDOUT, "Created compressed WoaS: %s\n", $ofile_min);
 }
 
 unset($MIN_SCRIPTS);
 unset($ALL_SCRIPTS);
-
 exit(0);
-
 ?>
