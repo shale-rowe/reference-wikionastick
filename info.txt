@@ -1,9 +1,22 @@
 The files in this directory and in the non '-wip' directories are
-intended to be working and stable. All files are for local use on your
-computer.
+intended to be working and stable. I have a few more fixes to make yet
+and intend to only upload fixed, working copies of these single-file
+WoaS versions.
+
+The official WoaS 0.12.0 is broken when using any browser that requires 
+java (including webkit-based browsers like Safari). My fixed version 
+fixes this and a number of other issues (the log.txt file in the fix 
+folder lists the major changes). I cannot change the officially released 
+single-file WoaS versions (nor do I want to) so I want to let people 
+know about and use my fixed version. Usually the project leader, 
+Daniele, will update the official version with my fixes at some point. 
+Until then my fixed version is available instead. 
 
 Files:
 
+All files are for local use on your computer. Files in fix-wip are not
+intended for general use.
+	
 * woas-fix.html - latest single-file woas generated from the code in ./fix
 * woas-fix.min.html - as above, but with code minimized using jsmin
 * TiddlySaver.jar - an updated, signed version from the TiddlyWiki project
@@ -24,9 +37,9 @@ The php files are used to build the single-file woas and use information
 from svn if available. They are taken and/or modified from the 
 'trunk/tools' directory.
 
-* mk - creates the version for the directory passed in. So 'mk fix'
-       makes woas-fix[.min].html files; so does 'mk f'. See the file
-	   for other shortcuts.
+* mk - creates the single-file version for the directory passed in. So
+       'mk fix' makes woas-fix[.min].html files; so does 'mk f'. See
+	   the file for other shortcuts.
 * libwsif.php - the standard tools file copied here for simplicity.
 
 Directories:
@@ -55,13 +68,14 @@ Notes:
 
 See the file log.txt in the directories for information on changes.
 	
-I am using this repository to maintain fixes I have made to WoaS 0.12.0 
-and also any enhancements/changes I have made to how WoaS works. The 
-fixes are in the subdirectory "fix" and enhancements are in "enhance". 
-The changes in "fix" will likely be absorbed into the official trunk 
-code, the changes in "enhance" will likely not become official as they 
-probably change some basic aspect of WoaS operation. This could be a
-change in how parsing works or some backwards-incompatible change. 
+I am using this repository to maintain fixes I have made to the WoaS 
+code and also any enhancements/changes I have made to how WoaS works. 
+The fixes are in the subdirectory "fix" and enhancements are in 
+"enhance". The changes in "fix" will likely be absorbed into the 
+official trunk code, the changes in "enhance" will likely not become 
+official as they probably change some basic aspect of WoaS operation. 
+This could be a change in how parsing works or some backwards-
+incompatible change. 
 
 Right now I am working on fixing some important, basic bugs in WoaS 
 operation. I do not have time or inclination to fix all the current 
@@ -91,3 +105,15 @@ I hope this work will be of use to you. Due to limited time available I
 will not be able to provide support on this, but let me know if there 
 are issues (especially specific to my versions) and I will do my best to 
 fix them.
+
+Discussion:
+
+Though I have premission to work directly on the WoaS trunk code I have 
+found that doing so makes much more work for me. It has been difficult 
+to keep track of which of my changes were kept and which reversed, which 
+trunk changes I wanted in my own version, etc. It just seems much 
+simpler for everyone involved if I have a version of the official 
+(single- file) release, and the files it was based on, to which I have 
+added any fixes I have made, received from others, or taken from trunk.
+Then the official code can be updated from my fix branch as and when
+desired by those maintaining it.
