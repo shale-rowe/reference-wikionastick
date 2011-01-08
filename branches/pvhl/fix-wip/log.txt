@@ -1,2 +1,4 @@
 * slight grammatical change
 * macroTagThis and reformat
+* restore print no browsing warnings
+* slight ui.js changes
