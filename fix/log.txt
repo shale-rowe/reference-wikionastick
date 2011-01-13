@@ -1,3 +1,7 @@
+Revision pvhl-2308 (git: 311a6c2)
+* fix nowiki class spelling I thought I'd already fixed
+* update single files
+
 Revision pvhl-2291 (git: 9f7bedd)
 * some changes to the About page to explain this version
 * add php files that will be used to create single-file (not finished)

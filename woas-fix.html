@@ -6011,7 +6011,7 @@ woas.parser.pre_parse = function(P, snippets) {
 	// put away stuff contained in inline nowiki blocks {{{ }}}
 	.replace(reNowikiSL, function (str, $1) {
 		r = woas.parser.place_holder(snippets.length, "", "\n");
-		snippets.push("\n"+woas._raw_preformatted("pre", $1, "woas_nowiki woas_nowikimultiline"));
+		snippets.push("\n"+woas._raw_preformatted("pre", $1, "woas_nowiki woas_nowiki_multiline"));
 		return r;
 	})
 	.replace(reNowiki, function (str, $1, dynamic_nl) {
@@ -8740,7 +8740,7 @@ woas.setHTMLDiv = function(elem, html) {elem.innerHTML = html;};
 // when the page is loaded - onload, on_load
 woas._on_load = function() {
 	// output platform information - note that revision is filled in only in releases
-	woas.log("*** WoaS v"+this.version+"-pvhl-r2291"+" started");	// log:1
+	woas.log("*** WoaS v"+this.version+"-pvhl-r2307"+" started");	// log:1
 	
 	// store the old length to eventually force full save when entering/exiting WSIF datasource mode
 	this._old_wsif_ds_len = this.config.wsif_ds.length;
