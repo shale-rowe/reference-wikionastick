@@ -3243,6 +3243,7 @@ $BACK              0x8\n\
 '/* BODY */\n\
 body {\n\
 	font-family: Georgia, verdana;\n\
+	word-wrap: break-word;\n\
 }\n\
 .woas_background {\n\
 	background-color: #F0F0F5;\n\
@@ -4078,13 +4079,14 @@ return tags;if(!text.length)
 return tags;var alltags=this.split_tags(text),tag;if(last_tag!==null)alltags=alltags.concat(this.split_tags(last_tag));for(var i=0;i<alltags.length;i++){tag=this.trim(alltags[i]);if(tags.indexOf(tag)===-1)
 tags.push(tag);}
 return tags;};woas.split_tags=function(tlist){if(tlist.indexOf(",")!==-1)
-return tlist.split(",");return tlist.split("|");};var reScripts=new RegExp("<"+"script([^>]*)>([\\s\\S]*?)<"+"\\/script>([ \t]*\n)?","gi"),reStyles=new RegExp("<"+"style([^>]*)>[\\s\\S]*?<"+"\\/style>([ \t]*\n)?","gi"),reRuler=/(\n\s*\-{3,}[ \t]*){1,}(\n|$)/g,reNowikiSL=/\n\{\{\{([\s\S]*?)\}\}\}[ \t]*\n/g,reNowiki=/\{\{\{([\s\S]*?)\}\}\}([ \t]*\n)?/g,reTransclusion=/\[\[Include::([\s\S]+?)\]\]([ \t]*\n)?/g,reMacros=/<<<([\s\S]*?)>>>([ \t]*\n)?/g,reComments=/<\!--([\s\S]*?)-->([ \t]*\n)?/g,reWikiLink=/\[\[([^\]\]]*?)\|(.*?)\]\]/g,reWikiLinkSimple=/\[\[([^\]]*?)\]\]/g,reMailto=/^mailto:\/\//,reCleanupNewlines=new RegExp('((<\\/h[1-6]>)|(<\\/[uo]l>))(\n+)','g');woas.parser.place_holder=function(i,separator,dynamic_nl){if(typeof separator=="undefined")
-separator="";if(typeof dynamic_nl=="undefined")
-dynamic_nl="";else if(dynamic_nl!=="")
-dynamic_nl=this.NL_MARKER+dynamic_nl;separator=":"+separator+":";return"<!-- "+woas.parser.marker+separator+i+" -->"+dynamic_nl;};woas._make_preformatted=function(text,add_style){var cls="woas_nowiki",tag,p=text.indexOf("\n");if(p===-1){tag="tt";}else{if(p===0)
+return tlist.split(",");return tlist.split("|");};var reScripts=new RegExp("<"+"script([^>]*)>([\\s\\S]*?)<"+"\\/script>([ \t]*\n)?","gi"),reStyles=new RegExp("<"+"style([^>]*)>[\\s\\S]*?<"+"\\/style>([ \t]*\n)?","gi"),reRuler=/(\n\s*\-{3,}[ \t]*){1,}(\n|$)/g,reNowiki=/\{\{\{([\s\S]*?)\}\}\}([ \t]*\n)?/g,reTransclusion=/\[\[Include::([\s\S]+?)\]\]([ \t]*\n)?/g,reMacros=/<<<([\s\S]*?)>>>([ \t]*\n)?/g,reComments=/<\!--([\s\S]*?)-->([ \t]*\n)?/g,reWikiLink=/\[\[([^\]\]]*?)\|(.*?)\]\]/g,reWikiLinkSimple=/\[\[([^\]]*?)\]\]/g,reMailto=/^mailto:\/\//,reCleanupNewlines=new RegExp('((<\\/h[1-6]>)|(<\\/[uo]l>))(\n+)','g');woas.parser.place_holder=function(i,separator,dynamic_nl){if(typeof separator=="undefined")
+separator="";if(dynamic_nl&&dynamic_nl.length)
+dynamic_nl=this.NL_MARKER+"\n";else
+dynamic_nl="";separator=":"+separator+":";return"<!-- "+woas.parser.marker+separator+i+" -->"+dynamic_nl;};woas._make_preformatted=function(text,add_style){var cls="woas_nowiki",tag,p=text.indexOf("\n");if(p===-1){tag="tt";}else{if(p===0)
 text=text.substr(1);cls+=" woas_nowiki_multiline";tag="pre";}
-return this._raw_preformatted(tag,text,cls,add_style);};woas._raw_preformatted=function(tag,text,cls,add_style){var xhtml=this.xhtml_encode(text);if(typeof add_style!="undefined")
-add_style=" style=\""+add_style+"\"";else add_style="";return"<"+tag+" class=\""+cls+"\""+add_style+">"+xhtml+"</"+tag+">";};woas.parser.parse=function(text,export_links,js_mode){if(woas.config.debug_mode){if((typeof text).toLowerCase()!="string"){woas.crash("Called parse() with invalid argument: "+(typeof text));return null;}}
+return this._raw_preformatted(tag,text,cls,add_style);};woas._raw_preformatted=function(tag,text,cls,add_style){if(typeof add_style!="undefined")
+add_style=" style=\""+add_style+"\"";else add_style="";return"<"+tag+" class=\""+cls+"\""+add_style+">"
++this.xhtml_encode(text)+"</"+tag+">";};woas.parser.parse=function(text,export_links,js_mode){if(woas.config.debug_mode){if((typeof text).toLowerCase()!="string"){woas.crash("Called parse() with invalid argument: "+(typeof text));return null;}}
 if(typeof export_links=="undefined")
 export_links=false;if(typeof js_mode=="undefined")
 js_mode=1;var P={body:text};text=null;var snippets=[],r,backup_hook=this.after_parse;this.pre_parse(P,snippets);this.parse_macros(P,snippets);if(!this.force_inline){this._ns_groups={};this.transclude_syntax(P,snippets,export_links);}
@@ -4103,8 +4105,9 @@ woas.macro.pop_backup();if(this.after_parse===backup_hook)
 this.after_parse(P);return P.body;};woas.parser.parse_macros=function(P,snippets){P.body=P.body.replace(reMacros,function(str,$1,dynamic_nl){if(!woas.macro.has_backup())
 woas.macro.push_backup();var macro=woas.macro.parser($1);if(macro.reprocess){if(typeof dynamic_nl!="undefined"&&dynamic_nl!=="")
 macro.text+=woas.parser.NL_MARKER+dynamic_nl;return macro.text;}
-r=woas.parser.place_holder(snippets.length,"",dynamic_nl);snippets.push(macro.text);return r;});};woas.parser.pre_parse=function(P,snippets){P.body=P.body.replace(reComments,function(str,comment,dynamic_nl){if(comment.match(/^\s+$/))
-return str;r=woas.parser.place_holder(snippets.length,"",dynamic_nl);snippets.push(str);return r;}).replace(reNowikiSL,function(str,$1){r=woas.parser.place_holder(snippets.length,"","\n");snippets.push("\n"+woas._raw_preformatted("pre",$1,"woas_nowiki woas_nowiki_multiline"));return r;}).replace(reNowiki,function(str,$1,dynamic_nl){r=woas.parser.place_holder(snippets.length,"",dynamic_nl);snippets.push(woas._make_preformatted($1));return r;});};woas.parser.transclude=function(title,snippets,export_links){this._snippets=snippets;this._export_links=export_links?true:false;var rv=this._transclude("[[Include::"+title+"]]",title);this._export_links=this._snippets=null;return rv;};woas.parser._snippets=null;woas.parser._transcluding=0;woas.parser._transclude=function(str,$1,dynamic_nl){var that=woas.parser,parts=$1.split("|"),templname=parts[0],is_emb=false,ns=woas.get_namespace(templname,true),P={body:null};++that._transcluding;if(woas.is_reserved(templname)||(templname.substring(templname.length-2)=="::"))
+r=woas.parser.place_holder(snippets.length,"",dynamic_nl);snippets.push(macro.text);return r;});};woas.parser.pre_parse=function(P,snippets){var r;P.body=P.body.replace(reComments,function(str,comment,dynamic_nl){if(comment.match(/^\s+$/))
+return str;r=woas.parser.place_holder(snippets.length,"",dynamic_nl);snippets.push(str);return r;}).replace(reNowiki,function(str,nw,dynamic_nl){r=woas.parser.place_holder(snippets.length,"",dynamic_nl);nw=woas._make_preformatted(nw);if(nw.indexOf("<tt")===0&&dynamic_nl&&dynamic_nl.length)
+nw+="<br/>";snippets.push(nw);return r;});};woas.parser.transclude=function(title,snippets,export_links){this._snippets=snippets;this._export_links=export_links?true:false;var rv=this._transclude("[[Include::"+title+"]]",title);this._export_links=this._snippets=null;return rv;};woas.parser._snippets=null;woas.parser._transcluding=0;woas.parser._transclude=function(str,$1,dynamic_nl){var that=woas.parser,parts=$1.split("|"),templname=parts[0],is_emb=false,ns=woas.get_namespace(templname,true),P={body:null};++that._transcluding;if(woas.is_reserved(templname)||(templname.substring(templname.length-2)=="::"))
 P.body=woas.get_text_special(templname);else{var epi=woas.page_index(templname);if(epi==-1)
 P.body="[<!-- -->[Include::[["+templname+"]]]]";else{P.body=woas.get__text(epi);is_emb=woas.is_embedded(templname);}}
 if(P.body===null){var templs="[["+templname+"]]";if(parts.length>1)
@@ -4443,7 +4446,7 @@ clearTimeout(woas._autosave_thread);if(_this.config.auto_save)
 woas._autosave_thread=setTimeout("woas._auto_saver()",woas.config.auto_save);};woas._on_unload=function(){if(this.save_queue.length)
 this.commit(this.save_queue);else{if(this.config.save_on_quit&&this.cfg_changed)
 this.cfg_commit();}
-return true;};woas.setHTML=woas.getHTML=null;woas.getHTMLDiv=function(elem){return elem.innerHTML;};woas.setHTMLDiv=function(elem,html){elem.innerHTML=html;};woas._on_load=function(){woas.log("*** WoaS v"+this.version+"-pvhl-r2307"+" started");this._old_wsif_ds_len=this.config.wsif_ds.length;if(this.browser.ie){this.setHTML=function(elem,html){elem.text=html;};this.getHTML=function(elem){return elem.text;};var obj=d$("woas_wiki_header");obj.style.filter="alpha(opacity=75);";if(this.browser.ie6){d$("woas_wiki_header").style.position="absolute";d$("i_woas_menu_area").style.position="absolute";}
+return true;};woas.setHTML=woas.getHTML=null;woas.getHTMLDiv=function(elem){return elem.innerHTML;};woas.setHTMLDiv=function(elem,html){elem.innerHTML=html;};woas._on_load=function(){woas.log("*** WoaS v"+this.version+"-pvhl-r2308"+" started");this._old_wsif_ds_len=this.config.wsif_ds.length;if(this.browser.ie){this.setHTML=function(elem,html){elem.text=html;};this.getHTML=function(elem){return elem.text;};var obj=d$("woas_wiki_header");obj.style.filter="alpha(opacity=75);";if(this.browser.ie6){d$("woas_wiki_header").style.position="absolute";d$("i_woas_menu_area").style.position="absolute";}
 if(!this.browser.ie8){d$.hide("img_logo");d$("woas_logo").style.width="1%";}}else{this.setHTML=this.setHTMLDiv;this.getHTML=this.getHTMLDiv;d$("woas_logo").style.width="35px";d$.show("img_logo");}
 if(this.config.debug_mode){this._set_debug(true);if(this.tweak.integrity_test){if(!this.integrity_test())
 return;}}else

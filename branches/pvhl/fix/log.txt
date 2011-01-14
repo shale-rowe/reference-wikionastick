@@ -1,3 +1,4 @@
+Revision pvhl-2309 (git: 938beaa)
 * fix broken nowiki (was failing after heading; better fix to come)
 * fix potential edge-case failure in placeholder.
 * slight cleanup to woas._raw_preformatted
