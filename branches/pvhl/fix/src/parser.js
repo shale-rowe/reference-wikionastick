@@ -209,7 +209,6 @@ var reScripts = new RegExp("<"+"script([^>]*)>([\\s\\S]*?)<"+"\\/script>([ \t]*\
 	reStyles = new RegExp("<"+"style([^>]*)>[\\s\\S]*?<"+"\\/style>([ \t]*\n)?", "gi"),
 	//DEPRECATED rulers with 3 hyphens (shall be 4)
 	reRuler = /(\n\s*\-{3,}[ \t]*){1,}(\n|$)/g,
-	reNowikiSL = /\n\{\{\{([\s\S]*?)\}\}\}[ \t]*\n/g,
 	reNowiki = /\{\{\{([\s\S]*?)\}\}\}([ \t]*\n)?/g,
 	reTransclusion = /\[\[Include::([\s\S]+?)\]\]([ \t]*\n)?/g,
 	reMacros = /<<<([\s\S]*?)>>>([ \t]*\n)?/g,
@@ -223,10 +222,10 @@ var reScripts = new RegExp("<"+"script([^>]*)>([\\s\\S]*?)<"+"\\/script>([ \t]*\
 woas.parser.place_holder = function (i, separator, dynamic_nl) {
 	if (typeof separator == "undefined")
 		separator = "";
-	if (typeof dynamic_nl == "undefined")
+	if (dynamic_nl && dynamic_nl.length)
+		dynamic_nl = this.NL_MARKER+"\n"; // don't care what it was
+	else
 		dynamic_nl = "";
-	else if (dynamic_nl !== "") // put newlines after blocks which have an ending newline
-		dynamic_nl = this.NL_MARKER+dynamic_nl;
 	separator = ":"+separator+":";
 	return "<!-- "+woas.parser.marker+separator+i+" -->"+dynamic_nl;
 };
@@ -247,15 +246,11 @@ woas._make_preformatted = function(text, add_style) {
 };
 
 woas._raw_preformatted = function(tag, text, cls, add_style) {
-	var xhtml = this.xhtml_encode(text);
-	// convert the newlines - not necessary with pre tags
-//	if (this.browser.ie)		xhtml = xhtml.replace(/\n/g, "\r\n");
-	// to ease copy/pasting
-//	xhtml = xhtml.replace(/\n/g, "<"+"br />");
 	if (typeof add_style != "undefined")
-		add_style = " style=\""+add_style+"\"";
+		add_style = " style=\"" + add_style + "\"";
 	else add_style = "";
-	return "<"+tag+" class=\""+cls+"\""+add_style+">"+xhtml+"</"+tag+">";
+	return "<" + tag + " class=\"" + cls + "\"" + add_style + ">"
+	+ this.xhtml_encode(text) + "</" + tag + ">";
 };
 
 // This method can be overriden to customize parsing
@@ -409,6 +404,7 @@ woas.parser.parse_macros = function(P, snippets) {
 
 //NOTE: XHTML comments cannot be contained in nowiki or macro blocks
 woas.parser.pre_parse = function(P, snippets) {
+	var r;
 	// put away XHTML-style comments
 	P.body = P.body.replace(reComments, function (str, comment, dynamic_nl) {
 		// skip whitespace comments
@@ -418,18 +414,17 @@ woas.parser.pre_parse = function(P, snippets) {
 		snippets.push(str);
 		return r;
 	})
-	// put away stuff contained in inline nowiki blocks {{{ }}}
-	.replace(reNowikiSL, function (str, $1) {
-		r = woas.parser.place_holder(snippets.length, "", "\n");
-		snippets.push("\n"+woas._raw_preformatted("pre", $1, "woas_nowiki woas_nowiki_multiline"));
-		return r;
-	})
-	.replace(reNowiki, function (str, $1, dynamic_nl) {
+	// put away stuff contained in nowiki blocks {{{ }}}
+	// 'inline' has no breaks at all between the markers. Dealt with by _make_preformatted.
+	.replace(reNowiki, function (str, nw, dynamic_nl) {
 		r = woas.parser.place_holder(snippets.length, "", dynamic_nl);
-		snippets.push(woas._make_preformatted($1));
+		nw = woas._make_preformatted(nw);
+		// quick hack to fix disappearing breaks after inline nowiki.
+		if (nw.indexOf("<tt") === 0 && dynamic_nl && dynamic_nl.length)
+			nw += "<br/>";
+		snippets.push(nw);
 		return r;
 	});
-
 };
 
 //API1.0
@@ -723,7 +718,7 @@ woas.parser._render_wiki_link = function(arg1, label, snippets, tags, export_lin
 	return r;
 };
 
-// take away macros, nowiki, comments blocks
+// take away comment, nowiki, and macro blocks
 woas.parser.dry = function(P, NP, snippets) {
 	// put away text in XHTML comments and nowiki blocks
 	NP.body = P.body.replace(reComments, function (str, $1, dynamic_nl) {

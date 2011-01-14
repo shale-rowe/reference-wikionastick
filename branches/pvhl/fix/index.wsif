@@ -3661,6 +3661,7 @@ woas.page.boundary: DFQRCTsKlU
 /* BODY */
 body {
 	font-family: Georgia, verdana;
+	word-wrap: break-word;
 }
 .woas_background {
 	background-color: #F0F0F5;

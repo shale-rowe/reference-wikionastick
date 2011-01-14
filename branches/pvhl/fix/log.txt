@@ -1,3 +1,8 @@
+* fix broken nowiki (was failing after heading; better fix to come)
+* fix potential edge-case failure in placeholder.
+* slight cleanup to woas._raw_preformatted
+* added CSS3 rule to core CSS to break unbreakable lines
+
 Revision pvhl-2308 (git: 311a6c2)
 * fix nowiki class spelling I thought I'd already fixed
 * update single files
