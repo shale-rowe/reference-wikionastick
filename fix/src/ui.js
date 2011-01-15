@@ -822,21 +822,31 @@ woas.update_nav_icons = function(page) {
 };
 
 woas.update_lock_icons = function(page) {
+	// PVHL: Changes made
+	// - default is both icons off; turn on if desired
+	// - don't turn on lock icon if page is reserved
+	//   (probably obviates CANNOT_LOCK_RESERVED message)
 	var cyphered, can_lock, can_unlock;
+	cyphered = can_lock = can_unlock = false;
 	if (woas.pager.bucket.items.length < 2) {
 		var pi = this.page_index(page);
-		if (pi==-1) {
-			can_lock = can_unlock = false;
-			cyphered = false;
-		} else {
+		if (pi !== -1) {
 			can_unlock = cyphered = this.is__encrypted(pi);
-			can_lock = !can_unlock && this.config.permit_edits;
+			can_lock = !can_unlock
+				&& !this.is_reserved(page)
+				&& this.config.permit_edits;
 		}
-	} else {
-		can_lock = can_unlock = (woas.pager.bucket.items.length>0);
-		cyphered = false;
 	}
-	
+	/*
+	else {
+PVHL: this will always be true, so both on for lists. looks like it is
+intended for some future functionality: locking/unlocking lists of pages
+(see _[un]lock_pages). Disabled because it is on in inappropriate places;
+e.g. WoaS:: & Special:: list pages. Needs to be modified to check namespace
+and should also check if any of the pages in bucket are locked/unlocked.
+		can_lock = can_unlock = (woas.pager.bucket.items.length>0);
+	}
+	*/
 	// update the encryption icons accordingly
 	this.menu_display("lock", !woas.ui.edit_mode && can_lock);
 	this.menu_display("unlock", !woas.ui.edit_mode && can_unlock);

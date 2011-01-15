@@ -1,3 +1,6 @@
+Revision pvhl-2313 (git: 9b0136d)
+* hack incorrect lock icon display
+
 Revision pvhl-2312 (git: 792396f)
 * macroTagThis and reformat
 * restore print page no browsing warnings

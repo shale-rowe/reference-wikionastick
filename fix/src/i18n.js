@@ -55,6 +55,7 @@ woas.i18n = {
 	NO_ERROR: "No error",
 	NO_JAVA:"It was not possible to use TiddlySaver java applet nor direct Java saving.",
 	NO_TIDDLY_SAVER:"The TiddlySaver java applet was not available.",
+	NOT_YET_IMPLEMENTED: "Feature not implemented yet.",
 	PAGE_EXISTS: "A page with title '%s' already exists!",
 	PAGE_NOT_EXISTS: "Page does not exist: ",
 	PAGE_NOT_FOUND: "Page not found. Do you want to create it?",
