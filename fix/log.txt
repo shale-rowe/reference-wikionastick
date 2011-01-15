@@ -1,3 +1,9 @@
+Revision pvhl-2314 (git: 41984c5)
+* fix broken Italian language plugin and update design (adding a change to i18n
+  during lock fix was a reminder that translations will break using the current
+  'overwrite everything' system; rewrote the Italian language plugin and added
+  a 'pvhl.notes' file on improving language support in WoaS)
+
 Revision pvhl-2313 (git: 9b0136d)
 * hack incorrect lock icon display
 
