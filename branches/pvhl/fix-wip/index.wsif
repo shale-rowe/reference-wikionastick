@@ -828,6 +828,7 @@ You will find the *Help* icon in the navigation bar on every page in this wiki. 
 When browsing the pages in this Help pop-up, you will find a *Back* button in the upper right corner that takes you back to this page or a *Close* button in the same place that closes the pop-up.
 == Contents:
 * *Features*
+** [[WoaS::Help::Plugins]]
 ** [[WoaS::Help::Security]]
 ** [[WoaS::Help::WSIF]]
 * *Interface*
