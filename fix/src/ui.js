@@ -195,13 +195,10 @@ woas.ui = {
 	},
 	// when Forward button is clicked
 	forward: function() {
-		//var _b_current = current,
 		var p = woas.history.forward();
 		if (p === null)
 			return false;
 		return woas.set_current(p, true)
-	//	if (woas.set_current(p, true))
-	//		woas.history.store(_b_current);
 	},
 	// when home is clicked
 	home: function() {
@@ -608,9 +605,12 @@ function query_delete_image(cr) {
 // triggered by UI graphic button
 function page_print() {
 	woas._customized_popup(current, woas.getHTMLDiv(d$("woas_wiki_area")),
-			'function go_to(page) { alert("'+woas.js_encode(woas.i18n.PRINT_MODE_WARN)+'");}');
+		'woas={};woas.go_to=function(page){alert("'
+		+woas.js_encode(woas.i18n.PRINT_MODE_WARN)+'");}');
 }
 
+// PVHL: this is incorrect as css_payload will get overwritten by css.get
+// But why is it here at all? I use custom CSS for TOC -- what did this fix?
 woas._customized_popup = function(page_title, page_body, additional_js, additional_css, body_extra) {
 	var css_payload = "";
 	if (woas.browser.ie && !woas.browser.ie8) {
