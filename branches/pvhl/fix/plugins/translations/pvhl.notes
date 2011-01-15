@@ -1,0 +1,78 @@
+@Author: PVHL
+
+Some notes on language plugins: changes I've made and ideas for improvement.
+
+I have rewritten the Italian plugin so that it works and as a preview of how such plugins
+should be handled. The code that is present in the plugin is needed currently, but WoaS
+should have such code implemented within the i18n object.
+
+Anyone loading the official plugin will find it doesn't work. I have changed the name of
+the Italian plugin from WoaS::Plugins::@I18N_IT to WoaS::Plugins::i18n_it. The '@' in the
+name tells WoaS that this is a description of external resources; as this is currently
+untrue the name is incorrect and the load fails.
+
+It would be better to use the namespace 'WoaS::i18n::it', etc. We can then have a language
+loader specifically for these pages. The loader will load the selected i18n language page
+just as a plugin page is loaded, as a javascript object. If we are concerned with security
+-- that is, not needing to disable scripts on untrusted i18n pages -- the page could
+instead be loaded as JSON. I don't see the need for this, personally, as language files
+will be WoaS project files.
+
+The process could be as follows:
+ * create woas.i18n object by loading default user interface phrases and common_words page
+ * check if an optional language page is set in config
+  * check if config wants common_words list (if it exists) to replace default or be merged
+  * merge ui phrases/common_words as directed (common_words should not be duplicated)
+ * check if config wants any other common_word sets merged/loaded from other i18n language
+   pages and do as instructed
+
+Advantages:
+
+* Because interface strings are merged with the official strings a new string added to
+  WoaS code doesn't break existing language files; at worst the user will be shown an
+  English phrase.
+
+* common_words lists are used during export of pages to HTML. The fact that I am using WoaS
+  with an Italian interface doesn't mean I am writing Italian content pages. I need to be
+  able to exclude common words of as many different languages as I choose.
+
+* The i18n system becomes much more robust as even if the internal i18n system changes
+  the language files will continue to be usable; e.g. common_words might someday be used
+  for additional purposes, but the plugin doesn't need to be updated to support this.
+
+Related Ideas (that I think I will develop):
+
+If the suggested boot-loader defined all the phrase strings not needed for loading,
+testing, etc., as nulls then the loader can know if it has a complete phrase set after
+loading and merge in those it is missing from a default set (as opposed to loading the
+default set first). I would create this object from a description (e.g. using a for loop),
+especially if the simple numbering scheme described below is used. Very efficient.
+
+Another obvious need for i18n is for user pages, like import/export, Lock, etc., to be
+able to be replaced by a language plugin. This can be easily done with template pages and
+the modifications below. Doing this will also remove html from the code, something WoaS
+really needs.
+
+I would also separate phrases into user page, dialog, prompt, log, and error strings,
+allowing subsets (like log messages) to be dropped or replaced individually, and the
+namespace to be simpler/shorter. If the phrase names are replaced with ones using simple
+identifiers and commented as to meaning in the code, then the minimized version would be
+smaller and faster. Achieving both of the above could be as simple as having identifiers
+like u3, p1, l23, e12, etc.
+
+WoaS can then have a development mode translation page for generating language plugins by
+exporting woas.i18n (the English version) to a text (wsif plugin?) file that a service
+like Google can translate as a first try and a native speaker can then fix-up; as the
+simple phrase names include numbers they are protected from translation. (One of my
+favourite ideas, especially if the initial translation is done automatically by the
+translation page using a web service (in which case the change to numbers is less
+important). I claim all of this as an original idea for patent purposes, but am happy to
+share via GPL. :o)
+
+Could check for existing words before adding. woas.i18n.common_words should probably be a
+hash for search speed, but _auto_keywords() needs a rewrite for efficiency before that
+becomes useful.
+
+The code in the Italian plugin doesn't check common_words for duplicates. The routines in
+export.js that use this array need to be rewritten for efficiency. After this is done
+common_words will be a hash so duplicates won't be possible.
