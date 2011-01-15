@@ -1013,11 +1013,11 @@ woas.disable_edit = function() {
 };
 
 function _lock_pages(arr) {
-	this.alert("Not yet implemented");
+	this.alert(woas.i18n.NOT_YET_IMPLEMENTED);
 }
 
 function _unlock_pages(arr) {
-	this.alert("Not yet implemented");
+	this.alert(woas.i18n.NOT_YET_IMPLEMENTED);
 }
 
 woas.edit_allowed = function(page) {
@@ -1069,7 +1069,11 @@ woas.current_editing = function(page, disabled) {
 	this.menu_display("print", false);
 	this.menu_display("save", true);
 	this.menu_display("cancel", true);
-	this.update_lock_icons(page);
+	// PVHL: See no sense in calling this -- icons must be off for edit
+	//       and update_lock_icons is currently having troubles.
+	// this.update_lock_icons(page);
+	this.menu_display("lock", false);
+	this.menu_display("unlock", false);
 	d$.hide("i_woas_text_area");
 
 	// FIXME! hack to show the editor pane correctly on IE
