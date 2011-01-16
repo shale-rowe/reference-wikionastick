@@ -1,10 +1,1 @@
-* slight grammatical change
-* macroTagThis and reformat
-* restore print no browsing warnings
-* slight ui.js changes
-* added Plugins help page to index
-* hack incorrect lock icon display
-* fix broken Italian language plugin and update design (adding a change to i18n
-  during lock fix was a reminder that translations will break using the current
-  'overwrite everything' system; rewrote the Italian language plugin and added
-  a 'pvhl.notes' file on improving language support in WoaS)
+Changes from Revision pvhl-2314 (git: 41984c5)
