@@ -26,7 +26,6 @@ function TextAreaSelectionHelper(obj) {
 	this.target.onfocus=_textareaSaver;
 	if(!document.selection)
 		this.target.onSelect=_textareaSaver; // ?
- 
 	this.start=-1;
 	this.end=-1;
 	this.scroll=-1;
@@ -48,7 +47,7 @@ TextAreaSelectionHelper.prototype.setSelectedText=function(text, secondtag) {
 			var l=this.iesel.text.length;
 			this.iesel.text=text+this.iesel.text+secondtag;
 			this.iesel.moveEnd("character", -secondtag.length);
-			this.iesel.moveStart("character", -l);   
+			this.iesel.moveStart("character", -l);
 		} else {
 			this.iesel.text=text;
 		}
@@ -60,7 +59,7 @@ TextAreaSelectionHelper.prototype.setSelectedText=function(text, secondtag) {
 		if(typeof(secondtag)=="string") {
 			this.target.value=left+text+scont+secondtag+right;
 			this.end=this.target.selectionEnd=this.start+text.length+scont.length;
-			this.start=this.target.selectionStart=this.start+text.length;    
+			this.start=this.target.selectionStart=this.start+text.length;
 		} else {
 			this.target.value=left+text+right;
 			this.end=this.target.selectionEnd=this.start+text.length;
