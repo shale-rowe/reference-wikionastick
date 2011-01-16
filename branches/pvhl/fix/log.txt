@@ -1,3 +1,6 @@
+Revision pvhl-2317 (git: 3d939c7)
+* fix non-breaking tags display issue
+
 Revision pvhl-2314 (git: 41984c5)
 * fix broken Italian language plugin and update design (adding a change to i18n
   during lock fix was a reminder that translations will break using the current
