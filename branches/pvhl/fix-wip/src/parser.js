@@ -351,7 +351,7 @@ woas.parser.parse = function(text, export_links, js_mode) {
 		s += "Tags: ";
 		for(var i=0;i < tags.length;++i) {
 			s += "<"+"a class=\"woas_link\" onclick=\"woas.go_to('Tagged::"+woas.js_encode(tags[i])+"')\">"+
-				woas.xhtml_encode(tags[i])+"<"+"/a>&nbsp;&nbsp;";
+				woas.xhtml_encode(tags[i])+"<"+"/a> ";
 		}
 		if (!this.force_inline) {
 			s+="<"+"/div>";
