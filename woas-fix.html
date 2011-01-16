@@ -5943,7 +5943,7 @@ woas.parser.parse = function(text, export_links, js_mode) {
 		s += "Tags: ";
 		for(var i=0;i < tags.length;++i) {
 			s += "<"+"a class=\"woas_link\" onclick=\"woas.go_to('Tagged::"+woas.js_encode(tags[i])+"')\">"+
-				woas.xhtml_encode(tags[i])+"<"+"/a>&nbsp;&nbsp;";
+				woas.xhtml_encode(tags[i])+"<"+"/a> ";
 		}
 		if (!this.force_inline) {
 			s+="<"+"/div>";
@@ -6012,8 +6012,8 @@ woas.parser.pre_parse = function(P, snippets) {
 		r = woas.parser.place_holder(snippets.length, "", dynamic_nl);
 		nw = woas._make_preformatted(nw);
 		// quick hack to fix disappearing breaks after inline nowiki.
-		if (nw.indexOf("<tt") === 0 && dynamic_nl && dynamic_nl.length)
-			nw += "<br/>";
+		if (nw.indexOf("t") === 1 && dynamic_nl && dynamic_nl.length)
+			nw += "<"+"br/>";
 		snippets.push(nw);
 		return r;
 	});

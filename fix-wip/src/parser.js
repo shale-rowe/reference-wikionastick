@@ -420,8 +420,8 @@ woas.parser.pre_parse = function(P, snippets) {
 		r = woas.parser.place_holder(snippets.length, "", dynamic_nl);
 		nw = woas._make_preformatted(nw);
 		// quick hack to fix disappearing breaks after inline nowiki.
-		if (nw.indexOf("<tt") === 0 && dynamic_nl && dynamic_nl.length)
-			nw += "<br/>";
+		if (nw.indexOf("t") === 1 && dynamic_nl && dynamic_nl.length)
+			nw += "<"+"br/>";
 		snippets.push(nw);
 		return r;
 	});
