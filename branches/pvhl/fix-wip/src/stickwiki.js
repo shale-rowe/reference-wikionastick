@@ -216,7 +216,7 @@ woas._get_namespace_pages = function (ns) {
 		if (page_titles[i].indexOf(ns)===0)
 			pg.push(page_titles[i]);
 	}
-	return /*"= Pages in "+ns+" namespace\n" + */this._join_list(pg);
+	return !pg.length ? woas.i18n.EMPTY_NS.sprintf(ns) : this._join_list(pg);
 };
 
 // return a plain page or a decrypted one if available through the latest key
@@ -417,7 +417,7 @@ woas._get__embedded = function (cr, pi, etype) {
 			P.body += "\n\n\n<"+"a href=\"javascript:query_delete_file('"+this.js_encode(cr)+"')\">"+this.i18n.DELETE_FILE+"<"+"/a>\n";
 		P.body += "\n";
 		
-		// correct syntax parsing of nowiki syntax
+		// correct syntax parsing of nowiki syntax (also does macros and XHTML comments)
 		var snippets = [];
 		this.parser.pre_parse(P, snippets);
 		this.parser.syntax_parse(P, snippets);
@@ -462,14 +462,14 @@ woas._embed_process = function(etype) {
 		desired_mode = this.file_mode.BASE64;
 		etype = 4;
 	}
-	
+
 	// load the data in DATA:URI mode
 	var ct = this.load_file(null, desired_mode);
 	if ((ct === false) || ((typeof ct != "string") || !ct.length)) {
 		this.alert(this.i18n.LOAD_ERR);
 		return false;
 	}
-	
+
 	pages.push(ct);
 	page_attrs.push(etype);
 	page_titles.push(current);
@@ -632,7 +632,8 @@ woas.set_current = function (cr, interactive) {
 								if (this.plugins.is_external) {
 									text = this.plugins.describe_external(text);
 								} else
-									text = this._raw_preformatted('div', text, 'woas_core_page woas_nowiki woas_nowiki_multiline');
+									text = this.parser._raw_preformatted('div', text,
+										'woas_core_page woas_nowiki woas_nowiki_multiline');
 							}
 						} else {
 							text = this.get_text(real_t);
@@ -647,7 +648,8 @@ woas.set_current = function (cr, interactive) {
 									case "CSS::Boot":
 									case "CSS::Custom":
 										// page is stored plaintext
-										text = this._raw_preformatted('div', text, 'woas_core_page woas_nowiki woas_nowiki_multiline');
+										text = this.parser._raw_preformatted('div', text,
+											'woas_core_page woas_nowiki woas_nowiki_multiline');
 									break;
 									default:
 										// help pages and related resources
@@ -838,6 +840,7 @@ woas.setHTMLDiv = function(elem, html) {elem.innerHTML = html;};
 
 // when the page is loaded - onload, on_load
 woas._on_load = function() {
+	d$("woas_debug_log").value = ""; // for Firefox
 	// output platform information - note that revision is filled in only in releases
 	woas.log("*** WoaS v"+this.version+"-r@@WOAS_REVISION@@"+" started");	// log:1
 	
@@ -991,12 +994,11 @@ woas._early_render = function() {
 // disable edit-mode after cancel/save actions
 woas.disable_edit = function() {
 //	woas.log("DISABLING edit mode");	// log:0
-	this.ui.edit_mode = false;
 	// reset change buffer used to check for page changes
 	this.change_buffer = null;
 	this.old_title = null;
 	// check for back and forward buttons - TODO grey out icons
-	this.update_nav_icons(current);
+	// this.update_nav_icons(current); // PVHL: done in load_current
 	this.menu_display("home", true);
 	if (this.config.cumulative_save)
 		this.menu_display("save", (this.save_queue.length!==0));
@@ -1009,7 +1011,12 @@ woas.disable_edit = function() {
 	// aargh, FF eats the focus when cancelling edit
 	d$.hide("edit_area");
 	this._set_title(this.prev_title);
+	if (woas._ghost_page) {
+		woas._ghost_page = false;
+		woas.log("Ghost page disabled"); //log:1
+	}
 	this.log(); // scroll to bottom of log
+	this.ui.edit_mode = false;
 };
 
 function _lock_pages(arr) {
@@ -1052,13 +1059,13 @@ woas.edit_allowed_reserved = function(page) {
 
 // setup the title boxes and gets ready to edit text
 woas.current_editing = function(page, disabled) {
+	this.ui.edit_mode = true;
 //	woas.log("current = \""+current+"\", current_editing(\""+page+"\", disabled: "+disabled+")");	// log:0
 	this.prev_title = current;
+	current = page;
 	d$("wiki_page_title").disabled = (disabled && !this.tweak.edit_override ? "disabled" : "");
 	d$("wiki_page_title").value = page;
-	this.ui.edit_mode = true;
 	this._set_title(this.i18n.EDITING.sprintf(page));
-	// current must be set BEFORE calling enabling menu edit
 //	woas.log("ENABLING edit mode");	// log:0
 	this.menu_display("back", false);
 	this.menu_display("forward", false);
@@ -1087,7 +1094,6 @@ woas.current_editing = function(page, disabled) {
 	d$.show("edit_area");
 
 	d$("woas_editor").focus();
-	current = page;
 	scrollTo(0,0);
 };
 
@@ -1172,7 +1178,7 @@ woas.rename_page = function(previous, newpage) {
 			continue;
 		changed = false;
 		snippets = [];
-		// the parser will know what to take away from the page
+		// dry removes nowiki/macros/comments, but without dynamic newlines
 		this.parser.dry(P, NP, snippets);
 		// replace direct links and transclusion links
 		NP.body = NP.body.replace(reTitles, function (str, inc) {
@@ -1181,8 +1187,6 @@ woas.rename_page = function(previous, newpage) {
 			return str.substr(0, ilen)+newpage+str.substr(previous.length+ilen);
 		});
 		if (changed) {
-			// clear dynamic newlines
-			NP.body = NP.body.replace(this.parser.reNL_MARKER, "");
 			this.parser.undry(NP, snippets);
 			this.set__text(i, NP.body);
 		}
@@ -1220,83 +1224,71 @@ woas.save = function() {
 			return false;
 		}
 	}
-	// we will always save ghost pages if save button was hit
-	var null_save = !this._ghost_page, was_ghost = this._ghost_page;
-	// always reset ghost page flag
-	this._ghost_page = false;
-	woas.log("Ghost page disabled"); //log:1
-	var raw_content = this.get_raw_content();
-	
-	// check if this is a null save only if page was not a ghost page
-	if (null_save)
-		null_save = (raw_content === this.change_buffer);
-	
-	var back_to, can_be_empty = false, skip = false, renaming = false;
+	var raw_content = this.get_raw_content(),
+		do_save = this._ghost_page || (raw_content !== this.change_buffer),
+		back_to = this.prev_title,
+		can_be_empty = false,
+		skip = false,
+		renaming = false,
+		menu = false;
+
 	switch(current) {
 	case "WoaS::CSS::Custom":
-		if (!null_save) {
+		if (do_save) {
 			this.css.set(this.get_text("WoaS::CSS::Core")+"\n"+raw_content);
 			this.pager.set_body(current, raw_content);
 		}
-		back_to = this.prev_title;
 		break;
 	case "WoaS::Aliases":
-		if (!null_save)
+		if (do_save)
 			this._load_aliases(raw_content);
 		can_be_empty = true;
-		// fallthrough wanted
 		skip = true;
+		// fallthrough wanted
 	case "WoaS::Hotkeys":
-		if (!skip && !null_save)
+		if (!skip && do_save)
 			this.hotkey.load(raw_content);
 		// fallthrough wanted
 	default:
 		// check if text is empty (page deletion)
-		if (!null_save && !can_be_empty && (raw_content === "")) {
-			if (confirm(this.i18n.CONFIRM_DELETE.sprintf(current))) {
+		if (do_save && (raw_content === "") && !can_be_empty) {
+			if (this._ghost_page) {
+				this.ui.cancel();
+			} else if (confirm(this.i18n.CONFIRM_DELETE.sprintf(current))) {
 				this.plugins.delete_check(current);
 				this.delete_page(current);
+				this.prev_title = current;
 				this.disable_edit();
-				back_or(this.config.main_page);
 			}
 			return;
 		} else {
 			var new_title = this.trim(d$("wiki_page_title").value);
 			renaming = (this.old_title !== new_title);
-			// do not glitch when creating a new page
-			if (was_ghost) {
-				// PVHL: new page needs history -- temporary hack
+			if (this._ghost_page) {
+				// new page needs history
 				this.history.store(this.prev_title);
 				this.prev_title = new_title;
 			}
-			// here the page gets actually saved
-			if (!null_save || renaming) {
-				// disallow empty titles
-				if (renaming && !this.valid_title(new_title))
+			if (do_save || renaming) {
+				// rename if title is valid
+				if (renaming && (
+						!this.valid_title(new_title) ||
+						!this.rename_page(this.old_title, new_title))) {
 					return false;
-				// rename before eventually setting the changes
-				if (renaming) {
-					if (!this.rename_page(this.old_title, new_title))
-						return false;
 				}
 				// actually set text only if it was changed
-				if (!null_save)
+				if (do_save)
 					this.pager.set_body(new_title, raw_content);
-				var maybe_plugin;
+				var menu = false;
 				if (this.is_menu(new_title)) {
-					if (renaming || !null_save) {
-						this.refresh_menu_area();
-						back_to = this.prev_title;
-					}
-					maybe_plugin = false;
+					menu = true;
 				} else {
 					back_to = new_title;
-					maybe_plugin = true;
 				}
 				// update the plugin if this was a plugin page
 				// NOTE: plugins are not allowed to be renamed, so
 				// old title is equal to new title
-				if (maybe_plugin) {
+				if (!menu) {
 					var _pfx = "WoaS::Plugins::";
 					if (new_title.substr(0, _pfx.length) === _pfx) {
 						// we do not directly call _update_plugin because
@@ -1306,14 +1298,14 @@ woas.save = function() {
 						this.plugins.enable(new_title.substr(_pfx.length));
 					}
 				}
-			} else { // not renaming and not changed text
-				back_to = this.prev_title;
-				// do not glitch when creating a new page
 			}
 		}
 	}
-	if (!null_save || renaming) {
+	if (do_save || renaming) {
 		this.save_page(current);
+	}
+	if (renaming || menu || this._ghost_page) {
+		this.refresh_menu_area();
 	}
 	this.set_current(back_to, true);
 	this.disable_edit();

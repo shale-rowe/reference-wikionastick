@@ -268,7 +268,7 @@ function _convert_bytes(bytes) {
 	}
 	return bytes.toFixed(2).replace(/\.00$/, "") +' '+ U[n];
 }
-
+/*
 // implement an sprintf() bare function
 String.prototype.sprintf = function() {
 	// check that arguments are OK
@@ -280,10 +280,33 @@ String.prototype.sprintf = function() {
 		// replace with the original unparsed token in case of undefined parameter
 		if (i_pos > max_pos)
 			return str;
-/*		if (str == '%d')
-			return Number(arguments[i_pos++]); */
-		// return '%s' string
+		//if (str == '%d')
+			//return Number(arguments[i_pos++]);
+		//return '%s' string
 		return fmt_args[i_pos++];
+	});
+};
+*/
+/* PVHL:
+- previous version was't catching undefined arguments in Firefox
+- string can now include a '%': use '100%% correct, %s'. Should drop %d; this isn't sprintf.
+- added a log msg if called with no arguments.
+- consider change of name; sprintf means nothing to js programmers plus this isn't that. fmt?
+- we need to have better i18n support; better to ask for a formatted string by passing
+  arguments to an i18n object than add to String prototype; gives better error messages too.
+- could have log error message if arguments not as expected. If keeping %d/%s then should
+  check if correct.
+*/
+String.prototype.sprintf = function() {
+	// check arguments exist; return original string if not
+	if (!arguments || arguments.length === 0) {
+		woas.log("ERROR: String.sprintf called with no arguments on '" + this + "'");
+		return this;
+	}
+	var i = 0, a = arguments;
+	return this.replace(/%((%)|[sd])/g, function(str, $1, keep) {
+		// keep original unparsed token in case of undefined parameter; use %% for a %
+		return keep || (i < a.length ? a[i++] : str);
 	});
 };
 

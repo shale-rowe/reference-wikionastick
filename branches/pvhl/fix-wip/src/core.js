@@ -84,20 +84,21 @@ woas._new_page_direct = function(title, fill_mode) {
 		ct = "\n";
 	this._create_page_direct(ns, cr, fill_mode, ct);
 
-	var upd_menu = (cr==='Menu');
-	if (!upd_menu && confirm(this.i18n.ASK_MENU_LINK)) {
-		var menu = this.get_text("::Menu");
-		// try to put the menu link in a good position
-		p = menu.indexOf("\n\n");
-		if (p === -1)
-			menu += "\n[["+title+"]]";
-		else
-			menu = menu.substring(0,p+2)+"[["+title+"]]\n"+menu.substring(p+2);
-		this.set__text(this.page_index("::Menu"), menu);
-		upd_menu = true;
+	// PVHL: todo - add config option to eliminate this question
+	if (cr !== 'Menu') {
+		var menu = this.get_text("::Menu"),
+			test = new RegExp("\\[\\["+title+"\\s*[\\|\\]]");
+		// ask if menu link wanted if one doesn't already exist
+		if (!menu.match(test) && confirm(this.i18n.ASK_MENU_LINK)) {
+			// try to put the menu link in a good position
+			p = menu.indexOf("\n\n");
+			if (p === -1)
+				menu += "\n[["+title+"]]";
+			else
+				menu = menu.substring(0,p+2)+"[["+title+"]]\n"+menu.substring(p+2);
+			this.set__text(this.page_index("::Menu"), menu);
+		}
 	}
-	if (upd_menu)
-		this.refresh_menu_area();
 	return title;
 };
 
@@ -275,6 +276,10 @@ woas.cmd_delete = function() {
 	if (confirm(this.i18n.CONFIRM_DELETE.sprintf(pname))) {
 		this.plugins.delete_check(pname);
 		this.delete_page_i(pi);
+		if (pname !== current) {
+			this.update_nav_icons(current);
+			this.log(this.history.log_entry());	// log:1
+		}
 		return true;
 	}
 	return false;
@@ -289,8 +294,8 @@ woas.shortcuts_js = ["cmd_new_page", "cmd_duplicate_page", "special_all_pages", 
 woas.unexportable_pages = ["New Page", "Duplicate Page", "Backlinks", "Erase Wiki", "Edit CSS",
 								"Go to", "Delete Page", "Search"];
 
-woas.unexportable_pages2 = ["WoaS::CSS::Custom", "WoaS::CSS::Core", "WoaS::Aliases", "WoaS::Hotkeys",
-							"WoaS::Plugins"];
+woas.unexportable_pages2 = ["WoaS::CSS::Custom", "WoaS::CSS::Core", "WoaS::CSS::Boot",
+							"WoaS::Aliases", "WoaS::Hotkeys", "WoaS::Plugins"];
 
 // return raw javascript tag to be included in XHTML page
 woas.raw_js = function(code) {
@@ -321,9 +326,10 @@ woas.delete_page_i = function(i) {
 	// be sure that this page is no more in history
 	this.history.clear(old_title);
 	// if we were looking at the deleted page
-	if (current === old_title)
+	if (current === old_title) {
 		// go to an existing page
 		this.set_current(this.history.previous(), true);
+	}
 	// always refresh the menu because it could contain the deleted page link
 	this.refresh_menu_area();
 	//TODO: send proper save notification
@@ -464,7 +470,7 @@ woas.history = {
 		}
 		return "history" + (backstack.length ? " : " : " > ")
 			+ frmt(backstack) + (backstack.length ? " > " : "")
-			+ current + (forstack.length ? " < " : " <")
+			+ current + (forstack.length ? " | " : "")
 			+ frmt(forstack.slice(0).reverse());
 	}
 }}());

@@ -568,7 +568,7 @@ woas.macro = {
 		//			macro.text = "<!-- defined "+fn+" macro -->";
 				} else { // set some error message
 					macro.reprocess = false;
-					macro.text = woas._make_preformatted(M[0], "color:red;font-weight:bold");
+					macro.text = woas.parser._make_preformatted(M[0], "color:red;font-weight:bold");
 				}
 				return macro;
 			}
@@ -601,12 +601,12 @@ woas.macro = {
 					// when macro returns false we automatically highlight it
 					if (!rv) {
 						macro.reprocess = false;
-						macro.text = woas._make_preformatted(M[0], "color:red;font-weight:bold");
+						macro.text = woas.parser._make_preformatted(M[0], "color:red;font-weight:bold");
 					}
 				}
 			} else {
 				woas.log("Undefined macro "+fn);	//log:1
-				macro.text = woas._make_preformatted(macro.text, "color:red");
+				macro.text = woas.parser._make_preformatted(macro.text, "color:red");
 			}
 		}
 		return macro;
