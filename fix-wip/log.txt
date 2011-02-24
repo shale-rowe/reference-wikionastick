@@ -1,1 +1,32 @@
-Changes from Revision pvhl-2314 (git: 41984c5)
+Changes since Revision pvhl-2317 (git: 3d939c7)
+
+* Fix broken search results display and adjust its CSS
+* fix newline before alpha list bug and tiny change to list code
+* stop all WoaS::CSS pages being exported (Boot and namespace were)
+* fix incorrect display of exported pages because of help pages being exported twice
+* fix bad file_mode in export.js (ASCII -> ASCII_TEXT)
+* refactored woas.parser._render_wiki_link (to test an idea and for a coming plugin)
+* update aes module closures to recommended practice (removes jslint warning)
+* fix extra line after tables 
+* optimize list parsing code
+* mostly parser module rearrangement and relocation of some parse code to parser.js
+* fix empty namespace listing
+* change 'header' to 'heading' where heading is intended (avoid confusion with wsif headers)
+* fix double calling of nav icon update for certain instances
+* don't ask to create menu link if already in menu (needs rewrite for namespace menus)
+* more page delete fixes including deleting page that is not current but in history
+* mostly more ghost page fixes
+* move ghost page disabling to disable_edit()
+* clear log div at start-up (fixes a Firefox bug)
+* improve page saving (removes unneeded save of editor text)
+* modified sprintf function
+* tiny history log format change
+* stop some block HTML markup from having a br tag added
+* fix ruler bug (eats multiple preceding \n); also simplifies code
+* added NL_MARKER_NL (trailing \n)
+* changes to allow html comments in nowiki and macro output
+* changed all marker formats; also fixes potential bug if marker followed by a numeral
+* parser.dry made more efficient and simpler; combined macro expansion into pre_parse
+* change place_holder to simplify code; now pushes to array and returns marker text
+* minor change to tag display (moved a space)
+* minor change to menu updating for import wiki

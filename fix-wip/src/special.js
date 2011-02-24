@@ -145,7 +145,7 @@ woas.special_tagged = function(filter_string) {
 				if (str.charAt(5) === 's')
 					woas.log("Using deprecated 'Tags' namespace");
 				// get the tags and index the page under each tag
-				tmp=woas.split_tags($1);
+				tmp = woas.parser.split_tags($1);
 				alltags = [];
 				for(j=0,jl=tmp.length;j < jl; ++j) {
 					tag=woas.trim(tmp[j]);
@@ -200,7 +200,7 @@ woas.tagging = {
 	_prepare_filter: function(filter_string) {
 		var i,l, pg = [];
 		// allow tags filtering/searching
-		var tags = woas.split_tags(filter_string);
+		var tags = woas.parser.split_tags(filter_string);
 		// reset filter
 		this.tags_ok = [];
 		this.tags_not = [];

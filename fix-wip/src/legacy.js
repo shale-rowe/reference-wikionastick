@@ -62,12 +62,12 @@ function save() {
 }
 
 // old tables parsing syntax - DEPRECATED
-var reReapTables = /^\{\|.*((?:\n\|.*)*)$/gm,
-	reReapTableRows = /\n\|([+ -])(.*)/g;
+woas.parser.reReapTables = /^\{\|.*((?:\n\|.*)*)$/gm;
+woas.parser.reReapTableRows = /\n\|([+ -])(.*)/g;
 woas.parser.parse_tables =  function (str, p1) {
 	var caption = false,
 		stk = [];
-	p1.replace(reReapTableRows, function(str, pp1, pp2) {
+	p1.replace(woas.parser.reReapTableRows, function(str, pp1, pp2) {
 			if (pp1 == '-')
 				return;
 			else if (pp1 == '+') {
@@ -78,9 +78,8 @@ woas.parser.parse_tables =  function (str, p1) {
 		} 
 	);
 	if (stk.length)
-		return  '<'+'table class="woas_text_area">' +
-				(caption?('<'+'caption>' + caption + '<'+'/caption>'):'') +
-				'<'+'tr>' + stk.join('<'+'/tr><'+'tr>') + '<'+'/tr>' +
-			'<'+'/table>';
+		return  '<' + 'table class="woas_text_area">' + (caption?('<' + 'caption>' + caption +
+			'<' + '/caption>'):'') + '<' + 'tr>' + stk.join('<' + '/tr><' + 'tr>') + '<' +
+			'/tr>' + '<' + '/table>' + woas.parser.NL_MARKER;
 	return str;
 };

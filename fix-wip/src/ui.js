@@ -167,7 +167,6 @@ woas.ui = {
 			page_mts.pop();
 			page_titles.pop();
 			page_attrs.pop();
-			woas._ghost_page = false;
 			// menu entry may have been added for cancelled new page
 			var menu_i = woas.page_index("::Menu");
 			if (menu_i !== -1) {
@@ -179,10 +178,11 @@ woas.ui = {
 					woas.refresh_menu_area();
 				}
 			}
-			woas.log("Ghost page disabled"); //log:1
 		}
-		woas.disable_edit();
 		current = woas.prev_title;
+		woas.update_nav_icons(current);
+		woas.log(woas.history.log_entry()); //log:1
+		woas.disable_edit();
 	},
 	// when back button is clicked
 	back: function() {
@@ -247,7 +247,7 @@ woas.go_to = function(cr) {
 };
 
 function back_or(or_page) {
-	if (!woas.ui.back())
+	if (!woas.ui.back() && or_page !== current)
 		woas.set_current(or_page, true);
 }
 
@@ -476,7 +476,8 @@ function import_wiki() {
 		return false;
 	}
 	woas.import_wiki();
-	woas.refresh_menu_area();
+	// PVHL: refresh already done by woas.import_wiki
+	// woas.refresh_menu_area();
 }
 
 function set_key() {
@@ -765,14 +766,16 @@ woas._search_load = function() {
 			}
 			
 			// (2) parse the body snippets
-			for(var i=0,it=this._cached_body_search.length;i<it;++i) {
-				P.body += "* [[" + this._cached_body_search[i].title + "]]: found " + this._hl_marker+":"+i+":";
+			for(var i = 0, it = this._cached_body_search.length; i < it; ++i) {
+				P.body += "\n* [[" + this._cached_body_search[i].title + "]] - found "
+						+ this._hl_marker+":" + i + ":";
 				woas.pager.bucket.add(this._cached_body_search[i].title);
 			}
 
-			P.body = 'Results for <'+'strong class="woas_search_highlight">' + woas.xhtml_encode(woas._last_search) + "<"+"/strong>\n" + P.body;
+			P.body = 'Results for <'+'strong class="woas_search_highlight">'
+					+ woas.xhtml_encode(woas._last_search) + "<"+"/strong>\n" + P.body;
 		} else
-			P.body = "/No results found for *"+woas.xhtml_encode(woas._last_search)+"*/";
+			P.body = "/No results found for *" + woas.xhtml_encode(woas._last_search) + "*/";
 
 	}
 
@@ -791,7 +794,7 @@ woas._search_load = function() {
 						woas._cached_body_search[i].matches[a].replace(woas._reLastSearch, function(str, $1) {
 							++count;
 								return '<'+'span class="woas_search_highlight">'+$1+'<'+'/span>';
-						})+"\n<"+"/pre>";
+						})+"<"+"/pre>";
 			}
 			return " <"+"strong>"+count+"<"+"/strong> times: "+r;
 		});
@@ -819,6 +822,7 @@ woas.update_nav_icons = function(page) {
 	this.menu_display("advanced", (page != "Special::Advanced"));
 	this.menu_display("edit", this.edit_allowed(page));
 	this.update_lock_icons(page);
+	// this.log("nav icons updated"); // log:0
 };
 
 woas.update_lock_icons = function(page) {
@@ -848,8 +852,13 @@ and should also check if any of the pages in bucket are locked/unlocked.
 	}
 	*/
 	// update the encryption icons accordingly
-	this.menu_display("lock", !woas.ui.edit_mode && can_lock);
-	this.menu_display("unlock", !woas.ui.edit_mode && can_unlock);
+/*
+PVHL: the ui display code really needs to be rewritten. edit_mode is being used
+to lock out certain functions but being turned off too soon so that this will work;
+diabling it for now. Needs to be a seperate ui.render function.
+*/
+	this.menu_display("lock", /* !woas.ui.edit_mode && */ can_lock);
+	this.menu_display("unlock", /* !woas.ui.edit_mode && */ can_unlock);
 	// we can always input decryption keys by clicking the setkey icon
 	//this.menu_display("setkey", cyphered);
 	var cls;

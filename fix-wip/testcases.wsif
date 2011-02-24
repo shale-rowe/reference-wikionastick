@@ -2895,24 +2895,24 @@ body {
 }
 
 /* ------------------------------------------- */
-/* HEADERS                                     */
+/* HEADINGS                                    */
 /* ------------------------------------------- */
-h1.woas_header {
+h1.woas_heading {
 	font-size: 1.438em;
 }
-h2.woas_header {
+h2.woas_heading {
 	font-size: 1.25em;
 }
-h3.woas_header {
+h3.woas_heading {
 	font-size: 1.063em;
 }
-h4.woas_header {
+h4.woas_heading {
 	font-size: 0.875em;
 }
-h5.woas_header {
+h5.woas_heading {
 	font-size: 0.75em;
 }
-h6.woas_header {
+h6.woas_heading {
 	font-size: 0.625em;
 }
 

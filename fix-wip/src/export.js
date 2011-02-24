@@ -33,7 +33,7 @@ woas.exporter = {
 				} else {
 					js_fn = woas._unix_normalize(woas.plugins._active[pi])+".js";
 					if (woas.save_file(this._settings.xhtml_path+js_fn,
-										woas.file_mode.ASCII, data)) {
+										woas.file_mode.ASCII_TEXT, data)) {
 						this._settings.custom_scripts += '<'+'script type="text/javascript" src="'+js_fn+'"><'+"/script>\n";
 					}
 				}
@@ -153,7 +153,7 @@ woas.exporter = {
 			'<'+'/head><'+'body>'+data+
 			(mts ? "<"+"div class=\"woas_page_mts\">"+woas.last_modified(mts)+"<"+"/div>" : "")+
 			"<"+"/body><"+"/html>\n"; raw_text = null;
-		return woas.save_file(this._settings.xhtml_path+fname, woas.file_mode.ASCII, woas.DOCTYPE+woas.DOC_START+data);
+		return woas.save_file(this._settings.xhtml_path+fname, woas.file_mode.ASCII_TEXT, woas.DOCTYPE+woas.DOC_START+data);
 	},
 	
 	_get_fname: function (title, create_mode) {
@@ -169,9 +169,12 @@ woas.exporter = {
 		}
 		var sp, orig_title = title;
 		// handle the valid exportable special pages
-		if (title.match(/::$/))
+		if (title.match(/::$/)) {
+			// PVHL: don't export WoaS::CSS::
+			if (title.match("WoaS::CSS"))
+				return '#';
 			sp = true;
-		else if (woas.is_reserved(title)) {
+		} else if (woas.is_reserved(title)) {
 			var nogo;
 			if (title.match(/^WoaS::/))
 				nogo = (woas.unexportable_pages2.indexOf(title)!==-1);
@@ -184,7 +187,8 @@ woas.exporter = {
 				this._title2fn[title] = "#";
 				return "#";
 			} else // do export these special pages later
-				sp = true;
+				// PVHL: but don't rewrite actual help pages
+				if (!title.match("WoaS::Help")) sp = true;
 		}
 		var pi;
 		if (sp) {
@@ -315,7 +319,7 @@ woas.export_wiki = function() {
 	if (sep_css) {
 		this.exporter._settings.css_path = "woas.css";
 		this.exporter._export_fnames_array.push(this.exporter._settings.css_path);
-		this.save_file(this.exporter._settings.xhtml_path+this.exporter._settings.css_path, this.file_mode.ASCII, this.exporter._settings.css);
+		this.save_file(this.exporter._settings.xhtml_path+this.exporter._settings.css_path, this.file_mode.ASCII_TEXT, this.exporter._settings.css);
 		this.exporter._settings.css = "<"+"link rel=\"stylesheet\" type=\"text/css\" media=\"all\" href=\""+this.exporter._settings.css_path+"\" /"+">";
 		} else
 	this.exporter._settings.css = "<"+"style type=\"text/css\">"+this.exporter._settings.css+"<"+"/style>";

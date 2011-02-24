@@ -164,7 +164,6 @@ woas.page.boundary: DFQRCTsKlU
 
 <input id="string_to_search" type="text" onfocus="search_focus(true)" onblur="search_focus(false)" />&nbsp;<input class="woas_button" type="button" value="Search" onclick="ssearch_do_search()" />&nbsp;<input class="woas_button" type="button" value="Clear" onclick="woas.ui.clear_search()" />
 <div id="woas_search_results">&nbsp;</div>
-
 <script type="text/javascript" language="javascript">
 woas._search_load();
 </script>
@@ -323,10 +322,10 @@ Lists with '+ sign are *unsupported*.
 * unordered lists with an asterisk
 * unordered lists with an asterisk
 }}}</span>
-== Headers
-<span class="bad_syntax">{{{! headers using the exclamation mark}}}</span>
+== Headings
+<span class="bad_syntax">{{{! headings using the exclamation mark}}}</span>
 
-<span class="good_syntax">{{{= header which uses the equal sign}}}</span>
+<span class="good_syntax">{{{= heading which uses the equal sign}}}</span>
 == Pre tags
 {{{<pre />}}} acting as nowiki blocks are *unsupported*. Now {{{<pre />}}} tags have no special meaning and are treated as any other XHTML tag.
 
@@ -872,7 +871,7 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 * *Syntax*
 ** [[WoaS::Help::Deprecated syntax]]
-** [[WoaS::Help::Headers]]
+** [[WoaS::Help::Headings]]
 ** [[WoaS::Help::Images]]
 ** [[WoaS::Help::Include text file]]
 ** [[WoaS::Help::Include web page]]
@@ -1135,7 +1134,7 @@ woas.page.boundary: DFQRCTsKlU
 # Type the page title. Maximum length is 256 characters, although you might want to use a shorter title to not interfere with the navigation bar. Page titles are case sensitive, all characters are allowed except angled brackets, square brackets, curly braces and pipe characters ("&lt;&gt;[]{}|")
 # Press the *Enter* key or click the *OK* button
 # When asked if you'd like to add a link into the main menu, accept by pressing the *Enter* key or clicking the *OK* button, or refuse by pressing the Escape key or clicking the *Cancel* button
-# Edit the contents of the main text area by typing normally. You can freely change the default text (a level one header with the page name)
+# Edit the contents of the main text area by typing normally. You can freely change the default text (a level one heading with the page name)
 # Use the editor's buttons to insert wiki syntax to format the text or type the wiki syntax manually (plain text does not need any wiki syntax)
 # Save your changes
 
@@ -1200,8 +1199,8 @@ Buttons to ease printing [[WoaS::Help::Syntax|wiki syntax]].
 | *Button* || *What it does*
 | Wiki URL || Add a wiki link to a page.
 | URL || Add an external link to a page.
-| {{{=}}} || Insert wiki syntax for a level one header. Use this at the beginning of any line.
-| {{{==}}} || Insert wiki syntax for a level two header. Use this at the beginning of any line.
+| {{{=}}} || Insert wiki syntax for a level one heading. Use this at the beginning of any line.
+| {{{==}}} || Insert wiki syntax for a level two heading. Use this at the beginning of any line.
 | Img || Include a wiki image in the page.
 | *B* || Wrap selected text with bold syntax.
 | /i/ || Wrap italic text with bold syntax.
@@ -1293,45 +1292,45 @@ You can use various styles for your menu. A detailed explanation of list styles 
 See the *Namespace sub-menu* section of the [[WoaS::Help::Namespaces]] page.
 
 --DFQRCTsKlU
-woas.page.title: WoaS::Help::Headers
+woas.page.title: WoaS::Help::Headings
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Headers
-Below are examples on how to use wiki markup to create headers in this wiki. There are six levels of supported headers.
+= Headings
+Below are examples on how to use wiki markup to create headings in this wiki. There are six levels of supported headings.
 
 {{{
-= Header level 1
+= Heading level 1
 }}}
-= Header level 1 =
+= Heading level 1 =
 
 {{{
-== Header level 2
+== Heading level 2
 }}}
-== Header level 2
+== Heading level 2
 
 {{{
-== Header level 3
+== Heading level 3
 }}}
-== Header level 3
+== Heading level 3
 
 {{{
-== Header level 4
+== Heading level 4
 }}}
-== Header level 4
+== Heading level 4
 
 {{{
-== Header level 5
+== Heading level 5
 }}}
-== Header level 5
+== Heading level 5
 
 {{{
-== Header level 6
+== Heading level 6
 }}}
-== Header level 6
+== Heading level 6
 
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Rulers
@@ -1679,34 +1678,34 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Table of Contents
-You can insert a Table of Contents into your page by using a special wiki tag. It will be automatically populated with all the headers on a page. The placement of the Table of Contents is  determined by where you put the tag in the page.
+You can insert a Table of Contents into your page by using a special wiki tag. It will be automatically populated with all the headings on a page. The placement of the Table of Contents is  determined by where you put the tag in the page.
 
 <div class="woas_helptext">Use this code on a line by itself in a page:</div><br>{{{
 [[Special::TOC]]
 }}}
 <div class="woas_helptext">To add a Table of Contents to the page.</div>
 
-[[Include::WoaS::Template::Info|The Table of Contents expects the first header on a page to be a Level 1 header. If you use any other level header first, that header and any headers after it will be represented by hash marks until a Level 1 header is encountered. From that point on, the headers will be numbered properly.]]
+[[Include::WoaS::Template::Info|The Table of Contents expects the first heading on a page to be a Level 1 heading. If you use any other level heading first, that heading and any headings after it will be represented by hash marks until a Level 1 heading is encountered. From that point on, the headings will be numbered properly.]]
 == Example
 Create a page with these contents:<br><br>{{{
 [[Special::TOC]]
-= My level one header
-== My level two header
-=== My level three header
-==== My level four header
-===== My level five header
-====== My level six header
+= My level one heading
+== My level two heading
+=== My level three heading
+==== My level four heading
+===== My level five heading
+====== My level six heading
 }}}
 When you save the page, there will be a Table of Contents that looks like this at the top of the page:
 
 <div style="border:1pt dashed #aaa; background-color:#f9f9f9; padding:0.313em; 
 width:50%; font-size:95%;"><center><b>Table of Contents</b></center>
-&nbsp;&nbsp;&nbsp;1. <span style="color:blue; text-decoration:underline;">My level one header</span>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. <span style="color:blue; text-decoration:underline;">My level two header</span>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. <span style="color:blue; text-decoration:underline;">My level three header</span>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. <span style="color:blue; text-decoration:underline;">My level four header</span>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. <span style="color:blue; text-decoration:underline;">My level five header</span>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. <span style="color:blue; text-decoration:underline;">My level six header</span>
+&nbsp;&nbsp;&nbsp;1. <span style="color:blue; text-decoration:underline;">My level one heading</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. <span style="color:blue; text-decoration:underline;">My level two heading</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. <span style="color:blue; text-decoration:underline;">My level three heading</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. <span style="color:blue; text-decoration:underline;">My level four heading</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. <span style="color:blue; text-decoration:underline;">My level five heading</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. <span style="color:blue; text-decoration:underline;">My level six heading</span>
 </div>
 
 --DFQRCTsKlU
@@ -3258,10 +3257,10 @@ This wiki accepts wiki and HTML links.
 Below are methods for creating links using wiki syntax.
 
 === Anchor link
-You can use a special anchor link to link to a header on the current page. After clicking an anchor link, use the browser's back button to return to where you were on the page.
+You can use a special anchor link to link to a heading on the current page. After clicking an anchor link, use the browser's back button to return to where you were on the page.
 
-<div class="woas_helptext">Use this code in a page, replacing HEADER NAME with the name of the header you'd like to link to:</div><br>{{{
-[[#HEADER NAME]]
+<div class="woas_helptext">Use this code in a page, replacing HEADING NAME with the name of the heading you'd like to link to:</div><br>{{{
+[[#HEADING NAME]]
 }}}<br><div class="woas_helptext">To create an anchor link.</div>
 === Email link
 <div class="woas_helptext">Use this code in a page, replacing USERNAME with the name of the person, SERVER with the name of their server, and LABEL with the text you'd like displayed as a link:</div><br>{{{
@@ -3357,7 +3356,7 @@ function alertme () {alert("MESSAGE");}
 }}}<br><div class="woas_helptext">To create a labeled text link that opens an alert.</div>
 
 === Anchor links to anywhere on a page
-With a combination of HTML and wiki syntax, you can create anchor links to anywhere on a page, rather than just to headers.
+With a combination of HTML and wiki syntax, you can create anchor links to anywhere on a page, rather than just to headings.
 
 <div class="woas_helptext">Use this code in a page, replacing NAME with the name of the anchor:</div><br>{{{
 <a name="NAME">
@@ -3777,23 +3776,23 @@ pre.woas_embedded {
 	margin-bottom: -0.4em;
 }
 
-/* HEADERS */
-h1.woas_header {
+/* HEADINGS */
+h1.woas_heading {
 	font-size: 1.438em;
 }
-h2.woas_header {
+h2.woas_heading {
 	font-size: 1.25em;
 }
-h3.woas_header {
+h3.woas_heading {
 	font-size: 1.063em;
 }
-h4.woas_header {
+h4.woas_heading {
 	font-size: 0.875em;
 }
-h5.woas_header {
+h5.woas_heading {
 	font-size: 0.75em;
 }
-h6.woas_header {
+h6.woas_heading {
 	font-size: 0.625em;
 }
 
@@ -3946,6 +3945,10 @@ div.woas_text_area {/* any text area div */
 }
 
 /* SEARCH */
+#woas_search_results {
+	padding-top: 1em;
+	padding-right: 1em
+}
 pre.woas_search_results {
 	background-color: #f9f9f9;
 	border: 1pt solid #aaa;

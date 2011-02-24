@@ -120,7 +120,7 @@ function aesByteSub(x){
     aesRi[m+2]=(4+j-3)%4;
   }
 
-})();
+}());
 
 function aesInit(){
   key=key.slice(0,43);
@@ -280,4 +280,4 @@ woas.AES = {
 	}
 };
 
-})(); // end of AES closure
+}()); // end of AES closure
