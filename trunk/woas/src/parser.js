@@ -555,9 +555,12 @@ woas.parser.transclude_syntax = function(P, snippets, export_links) {
 // parse passive syntax only
 woas.parser.syntax_parse = function(P, snippets, tags, export_links, has_toc) {
 	// put away big enough HTML tags sequences (with attributes)
-	P.body = P.body.replace(/(<\/?\w+[^>]*>[ \t]*)+/g, function (tag) {
-		r = woas.parser.place_holder(snippets.length);
-		snippets.push(tag);
+	P.body = P.body.replace(/([ \t]*)((?:[ \t]*<\/?\w+.*?>)+)/g, function (str, ws, tags) {
+		if (typeof ws === 'undefined') {
+			ws = ''; // IE
+		}
+		r = ws + woas.parser.place_holder(snippets.length);
+		snippets.push(tags);
 		return r;
 	})
 	// links with pipe e.g. [[Page|Title]]
