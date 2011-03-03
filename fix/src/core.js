@@ -289,8 +289,7 @@ woas.shortcuts_js = ["cmd_new_page", "cmd_duplicate_page", "special_all_pages", 
 woas.unexportable_pages = ["New Page", "Duplicate Page", "Backlinks", "Erase Wiki", "Edit CSS",
 								"Go to", "Delete Page", "Search"];
 
-woas.unexportable_pages2 = ["WoaS::CSS::Custom", "WoaS::CSS::Core", "WoaS::Aliases", "WoaS::Hotkeys",
-							"WoaS::Plugins"];
+woas.unexportable_pages2 = ["WoaS::CSS", "WoaS::Aliases", "WoaS::Hotkeys", "WoaS::Plugins"];
 
 // return raw javascript tag to be included in XHTML page
 woas.raw_js = function(code) {
