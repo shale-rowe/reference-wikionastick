@@ -1,3 +1,5 @@
+No log being kept while updating fix files from fix-wip. Single files not updated.
+
 Revision pvhl-2317 (git: 3d939c7)
 * fix non-breaking tags display issue
 
