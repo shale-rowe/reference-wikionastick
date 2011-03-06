@@ -591,7 +591,7 @@ woas.set_current = function (cr, interactive) {
 						if (this.AES.isKeySet()) {
 							// display a message
 							if (confirm(this.i18n.CONFIRM_LOCK.sprintf(cr)+
-								(this.last_AES_page ? this.i18n.CONFIRM_LOCK_LAST.sprintf(last_AES_page) : ''))) {
+								(this.last_AES_page ? this.i18n.CONFIRM_LOCK_LAST.sprintf(this.last_AES_page) : ''))) {
 								this._finalize_lock(pi);
 								return false;
 							}

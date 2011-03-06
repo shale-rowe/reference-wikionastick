@@ -31,13 +31,13 @@ reHasDNL: /^([ \t]*\n)/,
 // DEPRECATED "!" syntax is supported but will be removed soon
 reHeading: /^([\!=]{1,6})\s*(.*)$/gm,
 reHeadingNormalize: /[^a-zA-Z0-9]/g,
-reHtml: /((<\/?\w.*?>[ \t]*)+)(\n)?/g,
+reHtml: /([ \t]*)((?:(?:[ \t]*)?(<\/?\w+.*?>))+)([ \t]*\n)?/g,
 reListReap: /^([\*#@])[ \t].*(?:\n\1+[ \t].+)*/gm,
 reListItem: /^([\*#@]+)[ \t]([^\n]+)/gm,
 reMailto: /^mailto:\/\//,
 // tags that can have an optional newline before before/after them
-reNewlineBefore: /\n(<[uo]l.*?>)/g,
-reNewlineAfter: /(<\/h[1-6]>|<\/[uo]l>)(\n+)/g,
+reNewlineBefore: /\n(<(?:[uo]l).*?>)/g,
+reNewlineAfter: /(<\/(?:h[1-6]|[uo]l)>)\n/g,
 reReapTablesNew: /^\{\|(.*)((?:\n\|.*)*)$/gm,
 reReapTablesNewSub1: /\n\|([+ \t-\|])(.*)/g,
 reReapTablesNewSub2: /(\|\|)(\s{0,1})(\s?)(?=\|\|)/g,
@@ -213,7 +213,7 @@ _transclude: function (str, $1, dynamic_nl) {
 	}
 	// increase transclusion depth
 	++that._transcluding;
-	// add the inline file/image if embedded 
+	// add the inline file/image if embedded
 	if (is_emb) {
 	//woas.log("Embedded file transclusion: "+templname);	// log:0
 		if (woas.is_image(templname)) {
@@ -295,7 +295,7 @@ heading_replace: function(str, $1, $2) {
 		woas.parser.heading_anchor(heading) + "\">" + heading + "<\/a>\n";
 	}
 	return "<"+"h"+len+" class=\"woas_heading\" id=\"" + woas.parser.heading_anchor(heading) +
-		"\">" + heading + "<"+"/h"+len+">";
+		"\">" + heading + "<"+"/h"+len+">" + woas.parser.NL_MARKER;
 },
 
 import_disable: function(NP, js, macros) {
@@ -341,7 +341,7 @@ parse: function(text, export_links, js_mode) {
 		backup_hook = this.after_parse,
 		P = { body: text }; // allow passing text by reference
 	text = null;
-	
+
 	// process nowiki, macros, and XHTML comments
 	this.pre_parse(P, snippets);
 
@@ -352,7 +352,7 @@ parse: function(text, export_links, js_mode) {
 		// apply transclusion syntax
 		this.transclude_syntax(P, snippets, export_links);
 	}
-	
+
 	if (js_mode) {
 		// reset the array of custom scripts for the correct target
 		var script_target = this._parsing_menu ? "menu" : "page";
@@ -371,12 +371,12 @@ parse: function(text, export_links, js_mode) {
 			return "";
 		});
 	}
-	
+
 	// take away style blocks
 	P.body = P.body.replace(this.reStyles, function(str, $1, dynamic_nl) {
 		return that.place_holder(snippets, str, dynamic_nl);
 	});
-	
+
 	// put a placeholder for the TOC
 	p = P.body.indexOf(this.sTOC);
 	if (p !== -1) {
@@ -388,7 +388,7 @@ parse: function(text, export_links, js_mode) {
 
 	// wiki tags
 	this.inline_tags = 0;
-	
+
 	// static syntax parsing
 	this.syntax_parse(P, snippets, tags, export_links, this.has_toc);
 
@@ -426,7 +426,7 @@ parse: function(text, export_links, js_mode) {
 	// syntax parsing has finished; apply any final changes
 	if (this.after_parse === backup_hook)
 		this.after_parse(P);
-	
+
 	// finished
 	return P.body;
 },
@@ -435,7 +435,7 @@ parse: function(text, export_links, js_mode) {
 // There is no limit to the level of nesting and produces valid XHTML markup
 // Refactored by PVHL to avoid some string copying and incorporate sublist
 parse_lists: function(str, type) {
-	function sublist(lst, ll, type) {   
+	function sublist(lst, ll, type) {
 		if (!lst.length)
 			return '';
 		if (lst[0][1].length > ll)
@@ -451,11 +451,15 @@ parse_lists: function(str, type) {
 			if (!lst.length)
 				break;
 		}
-		return s;  
+		return s;
 	};
 
 	var lst_item = '<'+'li>%s<'+'/li>',
-		lst_type = ['<'+'ul>%s<'+'/ul>', '<'+'ol>%s<'+'/ol>', '<'+'ol type="a">%s<'+'/ol>'],
+		lst_type = [
+			'<'+'ul>%s<'+'/ul>' + woas.parser.NL_MARKER,
+			'<'+'ol>%s<'+'/ol>' + woas.parser.NL_MARKER,
+			'<'+'ol type="a">%s<'+'/ol>' + woas.parser.NL_MARKER
+		],
 		stk = []; // collect all items in a stack
 	type = "*#@".indexOf(type);
 	if (type === -1) return; // shouldn't be possible
@@ -594,16 +598,14 @@ syntax_parse: function(P, snippets, tags, export_links, has_toc) {
 
 	// add dynamic newline at start to have consistent newlines for some later syntax regex
 	// put away HTML tags and tag sequences (along with attributes)
-	P.body = this.NL_MARKER_NL + P.body.replace(this.reHtml, function (str, tags, last, dnl) {
-		// stop certain html block tags from having a br tag appended
-		if (dnl !== "\n") {
-			dnl = "";
-		} else if (last.match(that.reBlkHtml)) {
-			// dnl is "\n"
-			dnl = that.NL_MARKER_NL;
+	P.body = this.NL_MARKER_NL + P.body.replace(this.reHtml, function (str, ws, tags, last, dnl) {
+		if (typeof dnl === "undefined") {
+			dnl = ""; // IE
+		// stop certain html block tags from having a br tag appended when at line end
+		} else if (dnl !== "" && last.match(that.reBlkHtml)) {
+			dnl = that.NL_MARKER + dnl;
 		}
-		// could right-trim tags but OK as is I think
-		return that.place_holder(snippets, tags) + dnl;
+		return ws + that.place_holder(snippets, tags) + dnl;
 	})
 
 	// render links e.g. [[target]] & [[target|label]]
@@ -636,7 +638,7 @@ syntax_parse: function(P, snippets, tags, export_links, has_toc) {
 
 	// other custom syntax should go into this callback
 	this.extend_syntax(P);
-	
+
 	// replace [[Special::TOC]]
 	if (has_toc) {
 		// replace the TOC placeholder with the real TOC
@@ -668,25 +670,21 @@ syntax_parse: function(P, snippets, tags, export_links, has_toc) {
 	// tables-parsing pass (parse_tables & reReapTables are in legacy.js)
 	.replace(woas.config.new_tables_syntax ? this.reReapTablesNew : this.reReapTables,
 				woas.config.new_tables_syntax ? this.parse_tables_new : this.parse_tables)
-	
-	// cleanup \n after headings and lists
-	.replace(this.reNewlineAfter, function (str, $1, trailing_nl) {
-		if (trailing_nl.length > 2)
-			return $1 + trailing_nl.substr(2);
-		return $1;
-	})
 
-	// remove \n before list start tags
-	.replace(this.reNewlineBefore, "$1")
-	
 	// clear dynamic newlines
 	.replace(this.reNL_MARKER, "")
 
+	// cleanup \n after certain block tags (set by reNewlineAfter)
+	.replace(this.reNewlineAfter, "$1")
+
+	// cleanup \n before certain block tags (set by reNewlineBefore)
+	.replace(this.reNewlineBefore, "$1")
+
 	// convert newlines to br tags
 	.replace(/\n/g, "<"+"br />");
-	
+
 	// put back in place all snippets
-	this.undry(P, snippets);	
+	this.undry(P, snippets);
 	snippets = null;
 },
 
