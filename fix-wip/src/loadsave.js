@@ -556,7 +556,7 @@ woas._save_to_file = function(full) {
 	
 	computed_js += "\nvar current = '" + this.js_encode(safe_current)+"';\n\n";
 	
-	computed_js += "var backstack = [\n" + printout_arr(this.config.nav_history ? backstack : [], false) + "];\n\n";
+	computed_js += "var backstack = [\n" + printout_arr(this.config.nav_history ? woas.history.backstack : [], false) + "];\n\n";
 	
 	// in WSIF datasource mode we will save empty arrays
 	if (this.config.wsif_ds.length !== 0)

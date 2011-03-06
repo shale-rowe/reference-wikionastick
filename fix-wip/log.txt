@@ -1,6 +1,11 @@
 Changes since Revision pvhl-2317 (git: 3d939c7)
 
-* Fix broken search results display and adjust its CSS
+* fix bad lock message
+* initial spacing fix -- same issues as official (a better fix coming)
+* redo fix for replacing html tag(s)
+* some more history.backstack fixes missed earlier
+* refix css export
+* fix broken search results display and adjust its CSS
 * fix newline before alpha list bug and tiny change to list code
 * stop all WoaS::CSS pages being exported (Boot and namespace were)
 * fix incorrect display of exported pages because of help pages being exported twice

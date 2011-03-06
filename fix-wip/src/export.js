@@ -170,9 +170,6 @@ woas.exporter = {
 		var sp, orig_title = title;
 		// handle the valid exportable special pages
 		if (title.match(/::$/)) {
-			// PVHL: don't export WoaS::CSS::
-			if (title.match("WoaS::CSS"))
-				return '#';
 			sp = true;
 		} else if (woas.is_reserved(title)) {
 			var nogo;
