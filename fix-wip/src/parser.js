@@ -123,7 +123,7 @@ _render_wiki_link: function(target, label, snippets, tags, export_links) {
 		scWorld = 'woas_world_link', scWoas = 'woas_link', scWoasUn = 'woas_unlink',
 		sHref = ' href="%s"', sHrefTrgt = ' href="%s" target="_blank"',
 		sOnClick = ' onclick="woas.go_to(\'%s\')%s"',
-		sWindowHash = '; window.location.hash="%s"';
+		sWindowHash = '; window.location.hash=\'%s\'';
 
 	// check for tag definitions if they might exist
 	if (page.match('Tag') && typeof tags === 'object') {
@@ -154,7 +154,7 @@ _render_wiki_link: function(target, label, snippets, tags, export_links) {
 		if (export_links)
 			gotohash = page.substr(hashloc);
 		else
-			gotohash = sWindowHash.sprintf(page.substr(hashloc));
+			gotohash = sWindowHash.sprintf(page.substr(hashloc + 1));
 		page = page.substr(0, hashloc);
 	}
 
@@ -171,7 +171,7 @@ _render_wiki_link: function(target, label, snippets, tags, export_links) {
 			if (wl === '#') {
 				return woas.parser.place_holder(snippets, sLinkBroken.sprintf(r_label), '');
 			}
-			wl = sHref.sprintf(wl);
+			wl = sHref.sprintf(wl + gotohash);
 		} else
 			wl = sOnClick.sprintf(woas.js_encode(page), gotohash);
 		str = sLink.sprintf(scWoas, title, wl, r_label);

@@ -3,6 +3,8 @@ IT IS NOT BEING TESTED MUCH DURING THIS PROCESS AND IS OCCASIONALLY BROKEN.
 
 Changes since Revision pvhl-2317 (git: 3d939c7)
 
+* fix sorting in tag listing
+* fix hash location issues introduced earlier
 * refix some previous fixes to remove side-effects
 * fix transclusion loop
 * fix double-quotes in title
