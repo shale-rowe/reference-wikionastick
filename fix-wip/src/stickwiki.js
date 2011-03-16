@@ -1138,7 +1138,7 @@ woas.valid_title = function(title) {
 		this.alert(this.i18n.TOO_LONG_TITLE.sprintf(256));
 		return false;
 	}
-	if (title.match(/(\[|\]|\{|\}|\<|\>|\||\#|:::)/)) {
+	if (title.match(/(\[|\]|\{|\}|\<|\>|\||\#|\"|:::)/)) {
 		this.alert(this.i18n.INVALID_TITLE);
 		return false;
 	}

@@ -3,6 +3,10 @@ IT IS NOT BEING TESTED MUCH DURING THIS PROCESS AND IS OCCASIONALLY BROKEN.
 
 Changes since Revision pvhl-2317 (git: 3d939c7)
 
+* refix some previous fixes to remove side-effects
+* fix transclusion loop
+* fix double-quotes in title
+* fix plug-in name check when creating
 * fix bad lock message
 * initial spacing fix -- same issues as official (a better fix coming)
 * redo fix for replacing html tag(s)
@@ -31,7 +35,6 @@ Changes since Revision pvhl-2317 (git: 3d939c7)
 * tiny history log format change
 * stop some block HTML markup from having a br tag added
 * fix ruler bug (eats multiple preceding \n); also simplifies code
-* added NL_MARKER_NL (trailing \n)
 * changes to allow html comments in nowiki and macro output
 * changed all marker formats; also fixes potential bug if marker followed by a numeral
 * parser.dry made more efficient and simpler; combined macro expansion into pre_parse

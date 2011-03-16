@@ -557,7 +557,7 @@ woas.macro = {
 					woas.log("Invalid macro name: "+fn);	//log:1
 					return macro;
 			}
-			// check that this is not a macro definition request
+			// check if this is a macro definition request
 			if (fn.charAt(0) === '%') {
 				fn = fn.substr(1);
 				// when macro is not defined, define it
