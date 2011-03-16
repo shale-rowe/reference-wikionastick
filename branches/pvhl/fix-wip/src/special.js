@@ -185,7 +185,7 @@ woas.special_tagged = function(filter_string) {
 	if (filtering)
 		woas.tagging._finish();
 	// parse tree with sorting
-	return woas.ns_listing(folds, pg, false);
+	return woas.ns_listing(folds, pg, true);
 };
 
 // @module 'tagging'
