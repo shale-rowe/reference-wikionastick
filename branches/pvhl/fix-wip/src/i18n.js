@@ -48,7 +48,7 @@ woas.i18n = {
 	INVALID_ALIAS: "Invalid alias '%s', ignoring it",
 	INVALID_DATA:"Invalid collected data!",
 	INVALID_SPECIAL: "Invalid special page.",
-	INVALID_TITLE: "Title cannot contain ':::' or any of these characters:\n# < > | [ ] { }",
+	INVALID_TITLE: "Title cannot contain ':::' or any of these characters:\n# \" | < > [ ] { }",
 	LAST_MODIFIED: "Last Modified: ",
 	LOADING: "Loading Wiki on a Stick...",
 	LOAD_ERR: "Cannot load specified file",

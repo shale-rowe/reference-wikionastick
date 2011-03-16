@@ -31,36 +31,44 @@ woas.cmd_new_page = function() {
 };
 
 // used to create a new page in the wiki
-woas._new_page = function(msg, fill_mode, def_title) {
-	var title = this._prompt_title(msg, def_title);
+woas._new_page = function(msg, fill_mode, title) {
+	title = this._prompt_title(msg, title, false);
 	if (title === null)
 		return null;
 	return this._new_page_direct(title, fill_mode);
 };
 
-// will return a valid title for a next-to-be-created page
-woas._prompt_title = function(msg, def_title) {
+// will return a valid title for an about-to-be-created page
+// PVHL: if called with plugin = true will check plugin title.
+// EXISTING BUG: tweak.edit_override could create a bad plug-in here (@), but this
+// fixes issue of not allowing plug-in with same name as an existing page.
+// Workaround: don't create plugins with "new page" in edit_override mode!
+woas._prompt_title = function(msg, title, plugin) {
 	// disallow editing when wiki is set to read-only
 	if (!this.config.permit_edits) {
 		this.alert(this.i18n.READ_ONLY);
 		return null;
 	}
-	var title = def_title;
-	do {
+	var _title;
+	while (true) {
 		title = prompt(msg, title);
 		if (title === null)
-			break;
+			return null;
 		title = this.trim(title);
-		if (this.valid_title(title))
-			break;
-	} while (1);
-	if ((title!==null) && title.length) {
-		if (this.page_index(title)!=-1)
-			this.alert(this.i18n.PAGE_EXISTS.sprintf(title));
-		else
-			return title;
+		if (this.valid_title(title)) {
+			if (plugin) {
+				_title = title;
+				title =  "WoaS::Plugins::" + title;
+			}
+			if (this.page_index(title) === -1) {
+				return plugin ? _title : title;
+			} else {
+				// page exists: warn and try again
+				this.alert(this.i18n.PAGE_EXISTS.sprintf(title));
+				if (plugin) title = _title;
+			}
+		}
 	}
-	return null;
 };
 
 woas._new_page_direct = function(title, fill_mode) {

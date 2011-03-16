@@ -976,7 +976,7 @@ function _lock_page() {
 }
 
 function _woas_new_plugin() {
-	var title = woas._prompt_title("Please enter plugin name", "Myplugin");
+	var title = woas._prompt_title("Please enter plugin name", "Myplugin", true);
 	if (title === null)
 		return;
 	var def_text;
@@ -984,7 +984,6 @@ function _woas_new_plugin() {
 	// --UNSUPPORTED FEATURE--
 	if (title.charAt(0) === '@') {
 		def_text = "plugins/"+title.substr(1)+".js\n";
-//		title = title.substr(1);
 	} else {
 		def_text = "/* "+title+" plugin */\n";
 	}

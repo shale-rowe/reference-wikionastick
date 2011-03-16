@@ -15,13 +15,15 @@ _snippets: null,
 _export_links: null,
 
 // a variety of regular expressions used by the parser
+
 // these REs look for one optional (dynamic) newline
 reComments: /<\!--([\s\S]*?)-->([ \t]*\n)?/g,
 reMacros: /<<<([\s\S]*?)>>>/g,/*([ \t]*\n)?*/
 reNowiki: /\{\{\{([\s\S]*?)\}\}\}([ \t]*\n)?/g,
-reScripts: new RegExp("<"+"script([^>]*)>([\\s\\S]*?)<"+"\\/script>([ \t]*\n)?", "gi"),
-reStyles: new RegExp("<"+"style([^>]*)>[\\s\\S]*?<"+"\\/style>([ \t]*\n)?", "gi"),
-reTransclusion: /\[\[Include::([\s\S]+?)\]\]/g,/*([ \t]*\n)?*/
+reScripts: new RegExp("<"+"script([^>]*)>([\\s\\S]*?)<"+"\\/script>([ \\t]*\\n)?", "gi"),
+reStyles: new RegExp("<"+"style([^>]*)>[\\s\\S]*?<"+"\\/style>([ \\t]*\\n)?", "gi"),
+reTOC: /\[\[Special::TOC\]\]([ \t]*\n)?/,
+
 // REs without optional newline search
 // stops automatic br tag generation for listed tags
 reBlkHtml: /<\/?(p|div|br|h[1-6r]|[uo]l|li|table|t[rhd]|tbody|thead|center)[\/> \t]/i,
@@ -48,9 +50,8 @@ reReapTablesHead: /^(\s*)(?:(=+)\s*)?(.*?)(\s*)$/,
 // rulers with 3 hyphens DEPRECATED (should be 4 or more: ----)
 // only white space is allowed before/after the hyphens
 reRuler: /^[ \t]*\-{3,}[ \t]*$/gm,
+reTransclusion: /\[\[Include::([\s\S]+?)\]\]/g,
 reWikiLink: /\[\[(.*?)(?:\|(.*?))??\]\]/g,
-
-sTOC: "[[Special::TOC]]",
 
 // xhtml output strings
 _HR: "<"+"hr class=\"woas_ruler\" />",
@@ -80,11 +81,10 @@ _get_tags: function(text, last_tag) {
 },
 
 _init: function() {
-	this.marker = _random_string(3) + ";:;" + _random_string(3);
+	this.marker = _random_string(3) + ":" + _random_string(3);
 	this.reBaseSnippet = new RegExp(this.marker + "(\\d+);", "g");
 	this.NL_MARKER = this.marker + "NL";
-	this.NL_MARKER_NL = this.NL_MARKER + "\n";
-	this.reNL_MARKER = new RegExp(this.marker + "NL(\\n)?", "g");
+	this.reNL_MARKER = new RegExp(this.marker + "NL([ \\t]*\\n)?", "g");
 },
 
 // create a preformatted block ready to be displayed
@@ -146,7 +146,7 @@ _render_wiki_link: function(target, label, snippets, tags, export_links) {
 		page = page.replace(this.reMailto, 'mailto:');
 		// always give title attribute
 		str = sLink.sprintf(scWorld, woas.xhtml_encode(page), sHrefTrgt.sprintf(page), r_label);
-		return woas.parser.place_holder(snippets, str);
+		return woas.parser.place_holder(snippets, str, '');
 	}
 
 	// create section heading info
@@ -169,7 +169,7 @@ _render_wiki_link: function(target, label, snippets, tags, export_links) {
 		if (export_links) {
 			wl = woas.exporter._get_fname(page);
 			if (wl === '#') {
-				return woas.parser.place_holder(snippets, sLinkBroken.sprintf(r_label));
+				return woas.parser.place_holder(snippets, sLinkBroken.sprintf(r_label), '');
 			}
 			wl = sHref.sprintf(wl);
 		} else
@@ -183,10 +183,10 @@ _render_wiki_link: function(target, label, snippets, tags, export_links) {
 			str = sLink.sprintf(scWoasUn, title, wl, r_label);
 		}
 	}
-	return woas.parser.place_holder(snippets, str);
+	return woas.parser.place_holder(snippets, str, '');
 },
 
-_transclude: function (str, $1, dynamic_nl) {
+_transclude: function (str, $1) {
 	var that = woas.parser,
 		parts = $1.split("|"),
 		templname = parts[0],
@@ -209,20 +209,20 @@ _transclude: function (str, $1, dynamic_nl) {
 	// template retrieval error
 	if (P.body === null) {
 		// show an error with empty set symbol
-		return woas.parser.place_holder(that._snippets, woas.parser.render_error(str, "#8709"), dynamic_nl);
+		return that.place_holder(that._snippets, that.render_error(str, "#8709"), '');
 	}
-	// increase transclusion depth
+	// increase transclusion depth (used by namespace listing)
 	++that._transcluding;
 	// add the inline file/image if embedded
 	if (is_emb) {
 	//woas.log("Embedded file transclusion: "+templname);	// log:0
 		if (woas.is_image(templname)) {
 			var img, img_name = woas.xhtml_encode(templname.substr(templname.indexOf("::")+2));
-			if (woas.parser._export_links) {
+			if (that._export_links) {
 				// check that the URI is valid
 				var uri=woas.exporter._get_fname(templname);
 				if (uri == '#')
-					img = woas.parser.render_error(templname, "#8709");
+					img = that.render_error(templname, "#8709");
 				else
 					img = "<" + "img class=\"woas_embedded\" src=\"" + uri + "\" alt=\"" + img_name + "\" ";
 			} else
@@ -230,7 +230,7 @@ _transclude: function (str, $1, dynamic_nl) {
 			if (parts.length > 1) {
 				img += parts[1];
 				// always add the alt attribute to images
-				if (!woas.parser._export_links && !parts[1].match(/alt=('|").*?\1/))
+				if (!that._export_links && !parts[1].match(/alt=('|").*?\1/))
 					img += " alt=\"" + img_name + "\"";
 			}
 			P.body = img + " />";
@@ -241,7 +241,7 @@ _transclude: function (str, $1, dynamic_nl) {
 				P.body = "<"+"pre class=\"woas_embedded\">"+
 						woas.xhtml_encode(woas.base64.decode(P.body))+"<"+"/pre>";
 		}
-		P.body = woas.parser.place_holder(that._snippets, P.body, dynamic_nl);
+		P.body = that.place_holder(that._snippets, P.body, '');
 	} else { // not embedded
 		// process nowiki, macros, and XHTML comments
 		that.pre_parse(P, that._snippets);
@@ -252,9 +252,6 @@ _transclude: function (str, $1, dynamic_nl) {
 				return paramno < parts.length ? parts[paramno] : str;
 			});
 		}
-		// add the previous dynamic newline
-		if (typeof dynamic_nl != "undefined" && dynamic_nl !== "")
-			P.body += that.NL_MARKER_NL;
 	}
 	--that._transcluding;
 	return P.body;
@@ -267,7 +264,7 @@ after_parse: function(P) {
 // remove comment/nowiki/macro blocks while renaming pages (no dynamic newlines)
 dry: function(P, NP, snippets) {
 	NP.body = P.body.replace(this.reDry, function (str) {
-		return woas.parser.place_holder(snippets, str);
+		return woas.parser.place_holder(snippets, str, '');
 	});
 },
 
@@ -336,7 +333,7 @@ parse: function(text, export_links, js_mode) {
 	if (typeof js_mode == "undefined")
 		js_mode = 1;
 
-	var that = this, p, tags = [],
+	var that = this, pLength, tags = [],
 		snippets = [], // HTML markup removed from further parsing
 		backup_hook = this.after_parse,
 		P = { body: text }; // allow passing text by reference
@@ -377,14 +374,14 @@ parse: function(text, export_links, js_mode) {
 		return that.place_holder(snippets, str, dynamic_nl);
 	});
 
-	// put a placeholder for the TOC
-	p = P.body.indexOf(this.sTOC);
-	if (p !== -1) {
-		this.has_toc = true;
-		P.body = P.body.substring(0, p) + this.marker + "TOC" +
-				// dynamic newlines also after TOC
-				P.body.substring(p + this.sTOC.length).replace(this.reHasDNL, this.NL_MARKER_NL);
-	} else this.has_toc = false;
+	// put a placeholder for the TOC (including dynamic newline)
+	this.has_toc = false;
+	P.body = P.body.replace(this.reTOC, function(str, dnl) {
+		that.has_toc = true;
+		if (typeof dnl === "undefined") dnl = ""; // IE
+		else if (dnl !== "") dnl = that.NL_MARKER + dnl;
+		return that.marker + "TOC" + dnl;
+	});
 
 	// wiki tags
 	this.inline_tags = 0;
@@ -434,6 +431,7 @@ parse: function(text, export_links, js_mode) {
 // XHTML lists and tables parsing code by plumloco
 // There is no limit to the level of nesting and produces valid XHTML markup
 // Refactored by PVHL to avoid some string copying and incorporate sublist
+// (can be improved further by pushing strings to array and joining at end)
 parse_lists: function(str, type) {
 	function sublist(lst, ll, type) {
 		if (!lst.length)
@@ -480,8 +478,8 @@ parse_macros: function(P, snippets) {
 		var macro = woas.macro.parser($1);
 		// allow further parser processing
 		if (macro.reprocess) {
-			if (typeof dynamic_nl != "undefined" && dynamic_nl!=="")
-				macro.text += woas.parser.NL_MARKER_NL;
+			if (typeof dynamic_nl !== "undefined" && dynamic_nl !== "")
+				macro.text += woas.parser.NL_MARKER + dynamic_nl;
 			return macro.text;
 		}
 		// otherwise store it for later
@@ -544,15 +542,16 @@ parse_tables_new: function (str, prop, p1) {
 },
 
 /** PVHL:
- * Removed separator as unneeded. nl not preserved as it will be deleted later.
+ * Removed separator as unneeded.
  * Rewrote to perform entire place_holder function here. Will be slightly slower
    but only optimize if truly needed. Rest of code is much simpler this way.
- * Existence of nl needs to be checked for IE so parameter is optional.
+ * Existence of dnl needs to be checked for IE so parameter is technically optional.
 */
-place_holder: function (snippets, str, nl) {
+place_holder: function (snippets, str, dnl) {
 	snippets.push(str);
-	return woas.parser.marker + (snippets.length - 1) + ";" +
-		(nl && nl.length ? this.NL_MARKER_NL : "");
+	if (typeof dnl === 'undefined') dnl = ''; // IE
+	else if (dnl !== '') dnl = this.NL_MARKER + dnl;
+	return this.marker + (snippets.length - 1) + ';' + dnl;
 },
 
 // NOTE: XHTML comments can now be contained in nowiki and macro blocks
@@ -563,7 +562,7 @@ pre_parse: function(P, snippets) {
 	// 'inline' has no breaks at all between the markers. Dealt with by _make_preformatted.
 		nw = that._make_preformatted(nw);
 		// quick hack to fix disappearing breaks after inline nowiki.
-		if (nw.indexOf("t") === 1 && dynamic_nl && dynamic_nl.length)
+		if (nw.indexOf("t") === 1 && typeof dynamic_nl !== "undefined" && dynamic_nl !== "")
 			nw += "<"+"br/>";
 		return that.place_holder(snippets, nw, dynamic_nl);
 	});
@@ -598,14 +597,15 @@ syntax_parse: function(P, snippets, tags, export_links, has_toc) {
 
 	// add dynamic newline at start to have consistent newlines for some later syntax regex
 	// put away HTML tags and tag sequences (along with attributes)
-	P.body = this.NL_MARKER_NL + P.body.replace(this.reHtml, function (str, ws, tags, last, dnl) {
+	P.body = this.NL_MARKER + "\n" + P.body.replace(this.reHtml,
+			function (str, ws, tags, last, dnl) {
 		if (typeof dnl === "undefined") {
 			dnl = ""; // IE
 		// stop certain html block tags from having a br tag appended when at line end
 		} else if (dnl !== "" && last.match(that.reBlkHtml)) {
 			dnl = that.NL_MARKER + dnl;
 		}
-		return ws + that.place_holder(snippets, tags) + dnl;
+		return ws + that.place_holder(snippets, tags, '') + dnl;
 	})
 
 	// render links e.g. [[target]] & [[target|label]]
@@ -699,16 +699,20 @@ transclude: function(title, snippets, export_links) {
 },
 
 transclude_syntax: function(P, snippets, export_links) {
-	var trans_level = 0;
+	var trans_level = 0, that = this, found;
 	this._snippets = snippets;
 	this._export_links = export_links ? true : false;
 	do {
-		P.body = P.body.replace(this.reTransclusion, this._transclude);
+		found = false;
+		P.body = P.body.replace(this.reTransclusion, function(str, $1) {
+			found = true;
+			return that._transclude(str, $1);
+		});
 		// keep transcluding when a transclusion was made and when transcluding depth is not excessive
-	} while (++trans_level < this._MAX_TRANSCLUSION_RECURSE);
+	} while (found && ++trans_level < this._MAX_TRANSCLUSION_RECURSE);
 	if (trans_level === this._MAX_TRANSCLUSION_RECURSE) { // parse remaining inclusions as normal text
-		P.body = P.body.replace(this.reTransclusion, function (str, $1, dynamic_nl) {
-			return woas.parser.place_holder(snippets, woas.parser.render_error(str, "infin"), dynamic_nl);
+		P.body = P.body.replace(this.reTransclusion, function (str, $1) {
+			return that.place_holder(snippets, that.render_error(str, 'infin'), '');
 		});
 	}
 	this._snippets = this._export_links = null;
