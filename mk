@@ -95,7 +95,7 @@ function _script_replace($m) {
 		// put the SVN revision here
 		if ($scriptname === "src/stickwiki.js") {
 			// attempt to grab SVN revision
-			$info = shell_exec("svn info --xml");
+			$info = shell_exec("svn info --xml ".$base_dir);
 			if (preg_match("/revision=\"(\\d+)\"/", $info, $rev))
 				$rev = "-r".(int)$rev[1];
 			else $rev = "";
