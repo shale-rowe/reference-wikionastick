@@ -26,7 +26,7 @@ reTOC: /\[\[Special::TOC\]\]([ \t]*\n)?/,
 
 // REs without optional newline search
 // reAutoLinks removes sequences that look like URLs (x://x)
-reAutoLinks: /(?:(https?|ftp|file)|[a-zA-Z]+):\/\/(?:[^\s]*[^\s*.;,:?!])+/g,
+reAutoLinks: /(?:(https?|ftp|file)|[a-zA-Z]+):\/\/(?:[^\s]*[^\s*.;,:?!\)\}\]])+/g,
 // removes possible parse conflicts but no automatic links; must match str only, no subgroups
 reAutoLinksNo: /[a-zA-Z]+:\/\/(?:[^\s]*[\/*_])+/g,
 // stops automatic br tag generation for listed tags
