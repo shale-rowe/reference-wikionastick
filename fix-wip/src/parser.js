@@ -18,15 +18,19 @@ _export_links: null,
 
 // these REs look for one optional (dynamic) newline
 reComments: /<\!--([\s\S]*?)-->([ \t]*\n)?/g,
-reMacros: /<<<([\s\S]*?)>>>/g,/*([ \t]*\n)?*/
+reMacros: /<<<([\s\S]*?)>>>([ \t]*\n)?/g,
 reNowiki: /\{\{\{([\s\S]*?)\}\}\}([ \t]*\n)?/g,
 reScripts: new RegExp("<"+"script([^>]*)>([\\s\\S]*?)<"+"\\/script>([ \\t]*\\n)?", "gi"),
 reStyles: new RegExp("<"+"style([^>]*)>[\\s\\S]*?<"+"\\/style>([ \\t]*\\n)?", "gi"),
 reTOC: /\[\[Special::TOC\]\]([ \t]*\n)?/,
 
 // REs without optional newline search
+// reAutoLinks removes sequences that look like URLs (x://x)
+reAutoLinks: /(?:(https?|ftp|file)|[a-zA-Z]+):\/\/(?:[^\s]*[^\s*.;,:?!])+/g,
+// removes possible parse conflicts but no automatic links; must match str only, no subgroups
+reAutoLinksNo: /[a-zA-Z]+:\/\/(?:[^\s]*[\/*_])+/g,
 // stops automatic br tag generation for listed tags
-reBlkHtml: /<\/?(p|div|br|h[1-6r]|[uo]l|li|table|t[rhd]|tbody|thead|center)[\/> \t]/i,
+reBlkHtml: /<\/?(p|div|br|blockquote|[uo]l|li|table|t[rhd]|tbody|thead|h[1-6r]|center)[\/> \t]/i,
 reBoldSyntax: /([^\w\/\\])\*([^\*\n]+)\*/g,
 reDry: /(\{\{\{[\s\S]*?\}\}\}|<<<[\s\S]*?>>>|<\!--[\s\S]*?-->)/g,
 reHasDNL: /^([ \t]*\n)/,
@@ -36,7 +40,6 @@ reHeadingNormalize: /[^a-zA-Z0-9]/g,
 reHtml: /([ \t]*)((?:(?:[ \t]*)?(<\/?\w+.*?>))+)([ \t]*\n)?/g,
 reListReap: /^([\*#@])[ \t].*(?:\n\1+[ \t].+)*/gm,
 reListItem: /^([\*#@]+)[ \t]([^\n]+)/gm,
-reMailto: /^mailto:\/\//,
 // tags that can have an optional newline before before/after them
 reNewlineBefore: /\n(<(?:[uo]l).*?>)/g,
 reNewlineAfter: /(<\/(?:h[1-6]|[uo]l)>)\n/g,
@@ -74,7 +77,7 @@ _get_tags: function(text, last_tag) {
 	if (last_tag !== null) alltags = alltags.concat(this.split_tags(last_tag));
 	for(var i=0;i < alltags.length;i++) {
 		tag = woas.trim(alltags[i]);
-		if (tags.indexOf(tag)===-1)
+		if (tag.length && tags.indexOf(tag) === -1)
 			tags.push(tag);
 	}
 	return tags;
@@ -89,13 +92,10 @@ _init: function() {
 
 // create a preformatted block ready to be displayed
 _make_preformatted: function(text, add_style) {
-	var cls = "woas_nowiki", tag, p = text.indexOf("\n");
-	if (p === -1) {
-		tag = "tt";
-	} else {
+	var cls = "woas_nowiki", tag = "tt", p = text.indexOf("\n");
+	if (p !== -1) {
 		// remove the first newline to be compliant with old parsing
-		if (p===0)
-			text = text.substr(1);
+		if (p===0) { text = text.substr(1); }
 		cls += " woas_nowiki_multiline";
 		tag = "pre";
 	}
@@ -103,9 +103,8 @@ _make_preformatted: function(text, add_style) {
 },
 
 _raw_preformatted: function(tag, text, cls, add_style) {
-	if (typeof add_style != "undefined")
-		add_style = " style=\"" + add_style + "\"";
-	else add_style = "";
+	if (typeof add_style !== "undefined") { add_style = " style=\"" + add_style + "\""; }
+	else { add_style = ""; }
 	return "<" + tag + " class=\"" + cls + "\"" + add_style + ">"
 		+ woas.xhtml_encode(text) + "</" + tag + ">";
 },
@@ -143,7 +142,7 @@ _render_wiki_link: function(target, label, snippets, tags, export_links) {
 	// check for protocol links
 	if (page.match(/^\w+:\/\//)) {
 		// convert mailto:// to mailto:
-		page = page.replace(this.reMailto, 'mailto:');
+		page = page.replace(/^mailto:\/\//, 'mailto:');
 		// always give title attribute
 		str = sLink.sprintf(scWorld, woas.xhtml_encode(page), sHrefTrgt.sprintf(page), r_label);
 		return woas.parser.place_holder(snippets, str, '');
@@ -303,8 +302,13 @@ import_disable: function(NP, js, macros) {
 	});
 	if (js)
 		NP.body = NP.body.replace(this.reScripts, "<"+"disabled_script$1>$2<"+"/disabled_script>$3");
-	if (macros)
-		NP.body = NP.body.replace(this.reMacros, "<<< Macro disabled\n$1>>>$2");
+	if (macros) {
+		NP.body = NP.body.replace(this.reMacros, function(str, $1, $2) {
+			if (typeof $1 === 'undefined') { $1 = ''; } // IE
+			if (typeof $2 === 'undefined') { $2 = ''; }
+			return '<<< Macro disabled\n' + $1 + '>>>' + $2;
+		});
+	}
 	// clear dynamic newlines
 	NP.body = NP.body.replace(this.reNL_MARKER, "");
 	// restore everything
@@ -389,8 +393,9 @@ parse: function(text, export_links, js_mode) {
 	// static syntax parsing
 	this.syntax_parse(P, snippets, tags, export_links, this.has_toc);
 
-	// sort tags at bottom of page, also when showing namespaces
-	tags = tags.toUnique().sort();
+	// sort tags at bottom of pageif set in config
+	tags = tags.toUnique();
+	if (woas.config.sort_tags) { tags = tags.sort(); }
 	if (tags.length && !export_links) {
 		var s;
 		if (this.force_inline)
@@ -470,20 +475,19 @@ parse_lists: function(str, type) {
 parse_macros: function(P, snippets) {
 	// put away stuff contained in user-defined macro multi-line blocks
 	P.body = P.body.replace(this.reMacros, function (str, $1, dynamic_nl) {
-		if (!woas.macro.has_backup())
-			// take a backup copy of the macros, so that no new macros are defined after page processing
-			woas.macro.push_backup();
-
+		// take a backup copy of the macros, so no new macros are defined after page processing
+		if (!woas.macro.has_backup()) { woas.macro.push_backup(); }
 		// ask macro_parser to prepare this block
-		var macro = woas.macro.parser($1);
-		// allow further parser processing
-		if (macro.reprocess) {
-			if (typeof dynamic_nl !== "undefined" && dynamic_nl !== "")
-				macro.text += woas.parser.NL_MARKER + dynamic_nl;
-			return macro.text;
+		var ws = '', macro = woas.macro.parser($1);
+		// if this is not a macro definition don't remove a \n following
+		if ($1.charAt(0) !== '%' && typeof dynamic_nl !== 'undefined' && dynamic_nl !== '') {
+			ws += dynamic_nl;
+			dynamic_nl = '';
 		}
+		// allow further parser processing
+		if (macro.reprocess) { return macro.text + ws; }
 		// otherwise store it for later
-		return woas.parser.place_holder(snippets, macro.text, dynamic_nl);
+		return woas.parser.place_holder(snippets, macro.text, dynamic_nl) + ws;
 	});
 },
 
@@ -561,9 +565,9 @@ pre_parse: function(P, snippets) {
 	// put away stuff contained in nowiki blocks {{{ }}}
 	// 'inline' has no breaks at all between the markers. Dealt with by _make_preformatted.
 		nw = that._make_preformatted(nw);
-		// quick hack to fix disappearing breaks after inline nowiki.
+		// simple hack to fix disappearing breaks after inline nowiki.
 		if (nw.indexOf("t") === 1 && typeof dynamic_nl !== "undefined" && dynamic_nl !== "")
-			nw += "<"+"br/>";
+			{ dynamic_nl += '\n'; }
 		return that.place_holder(snippets, nw, dynamic_nl);
 	});
 
@@ -595,10 +599,11 @@ split_tags: function(tlist) {
 syntax_parse: function(P, snippets, tags, export_links, has_toc) {
 	var that = this;
 
-	// add dynamic newline at start to have consistent newlines for some later syntax regex
-	// put away HTML tags and tag sequences (along with attributes)
-	P.body = this.NL_MARKER + "\n" + P.body.replace(this.reHtml,
-			function (str, ws, tags, last, dnl) {
+	// restore text lines (lines ending in '\' are joined)
+	P.body = P.body.replace(/\\\n/g, "")
+
+	// put HTML tags and tag sequences away (along with attributes)
+	.replace(this.reHtml, function(str, ws, tags, last, dnl) {
 		if (typeof dnl === "undefined") {
 			dnl = ""; // IE
 		// stop certain html block tags from having a br tag appended when at line end
@@ -614,27 +619,45 @@ syntax_parse: function(P, snippets, tags, export_links, has_toc) {
 			return that._render_wiki_link(target, label, snippets, tags, export_links);
 		else
 			return str; // not a valid link
-		})
+	})
 
-	// allow non-wrapping newlines
-	.replace(/\\\n/g, "")
+	// remove URL style text ('*://*') to avoid parsing problems.
+	.replace(woas.config.auto_links ? this.reAutoLinks : this.reAutoLinksNo,
+			function(str, prot) {
+		if (typeof prot === 'string' && prot !== '')
+			str = '<a'+' class="woas_world_link" href="' + str + '">' + str + '<'+'/a>';
+		return that.place_holder(snippets, str, '');
+	})
 
-	// underline
-	.replace(/(^|[^\w])_([^_]+)_/g, "$1"+that.marker+"uS#$2"+that.marker+"uE#")
-
-	// italics - need a space after ':'
-	.replace(/(^|[^\w:])\/([^\n\/]+)\//g, function (str, $1, $2) {
-		// hotfix for URLs
-		if ($2.indexOf("//")!=-1)
-			return str;
+	// italics/underline/bold all operate on a single line
+	// italics (needs to be done before code that adds html)
+	.replace(/(^|[^\w])\/(.+?)\//mg, function(str, $1, $2) {
 		return $1+"<"+"em>"+$2+"<"+"/em>";
 	})
 
 	// ordered/unordered lists parsing (code by plumloco)
 	.replace(this.reListReap, this.parse_lists)
 
+	// tables-parsing pass (parse_tables & reReapTables are in legacy.js)
+	.replace(woas.config.new_tables_syntax ? this.reReapTablesNew : this.reReapTables,
+				woas.config.new_tables_syntax ? this.parse_tables_new : this.parse_tables
+	)
+
+	// underline (now works on a single line the same as bold/italics)
+	.replace(/(^|[^\w])_(.+?)_/mg, function(str, $1, $2) {
+		return $1+"<"+"span style=\"text-decoration:underline;\">"+$2+"<"+"/span>";
+	})
+
+	// bold (needs to be after lists and tables)
+	.replace(/(^|[^\w])\*(.+?)\*/mg, function(str, $1, $2) {
+		return $1+"<"+"strong>"+$2+"<"+"/strong>";
+	})
+
 	// headings - only h1~h6 are parsed
-	.replace(this.reHeading, this.heading_replace);
+	.replace(this.reHeading, this.heading_replace)
+
+	// horizontal rulers: multiline RE used; adding NL_MARKER will remove the \n following.
+	.replace(this.reRuler, this._HR + this.NL_MARKER);
 
 	// other custom syntax should go into this callback
 	this.extend_syntax(P);
@@ -648,31 +671,8 @@ syntax_parse: function(P, snippets, tags, export_links, has_toc) {
 		this.toc = "";
 	}
 
-	// use 'strong' tag for bold text
-	P.body = P.body.replace(this.reBoldSyntax, "$1"+this.marker+"bS#$2"+this.marker+"bE#")
-
-	.replace(new RegExp(this.marker+"([ub])([SE])#", "g"), function (str, $1, $2) {
-		if ($2=='E') {
-			if ($1=='u')
-				return "<"+"/span>";
-			return "<"+"/strong>";
-		}
-		if ($1=='u')
-			tag = "<"+"span style=\"text-decoration:underline;\">";
-		else
-			tag = "<"+"strong>";
-		return tag;
-	})
-
-	// horizontal rulers: multiline RE used; adding NL_MARKER will remove the \n following.
-	.replace(this.reRuler, this._HR + this.NL_MARKER)
-
-	// tables-parsing pass (parse_tables & reReapTables are in legacy.js)
-	.replace(woas.config.new_tables_syntax ? this.reReapTablesNew : this.reReapTables,
-				woas.config.new_tables_syntax ? this.parse_tables_new : this.parse_tables)
-
 	// clear dynamic newlines
-	.replace(this.reNL_MARKER, "")
+	P.body = P.body.replace(this.reNL_MARKER, "")
 
 	// cleanup \n after certain block tags (set by reNewlineAfter)
 	.replace(this.reNewlineAfter, "$1")
@@ -683,7 +683,7 @@ syntax_parse: function(P, snippets, tags, export_links, has_toc) {
 	// convert newlines to br tags
 	.replace(/\n/g, "<"+"br />");
 
-	// put back in place all snippets
+	// put back snippets removed by place_holder
 	this.undry(P, snippets);
 	snippets = null;
 },
