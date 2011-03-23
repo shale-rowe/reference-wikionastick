@@ -239,15 +239,15 @@ woas.page.boundary: DFQRCTsKlU
 <p style="float:right;padding-right:1em"><input class="woas_button" type="button" onclick="save_options()" value="Save options" /></p>
 = Options
 == User Interface
-<label for="cb_dblclick_edit"><input type="checkbox" id="cb_dblclick_edit" onclick="woas.config.dblclick_edit = d$.checked('cb_dblclick_edit')" />Double click to edit pages/menu</label>
+<label for="cb_auto_links"><input type="checkbox" id="cb_auto_links" onclick="woas.config.auto_links = d$.checked('cb_auto_links')" />Automatically create URL hyperlinks when displaying page content</label>
 <label for="cb_key_cache"><input type="checkbox" id="cb_key_cache" onclick="woas.config.key_cache = !d$.checked('cb_key_cache')" />Do not temporarily cache the AES key</label>
-<label for="cb_rem_history"><input type="checkbox" id="cb_rem_history" onclick="woas.config.nav_history = d$.checked('cb_rem_history')" />Remember current page and navigation history</label>
-<label for="cb_fixed_layout"><input type="checkbox" id="cb_fixed_layout" onclick="_set_layout(d$.checked('cb_fixed_layout'))" />Fixed menu area and navigation bar</label>
+<label for="cb_dblclick_edit"><input type="checkbox" id="cb_dblclick_edit" onclick="woas.config.dblclick_edit = d$.checked('cb_dblclick_edit')" />Double click to edit pages/menu</label>
 <label for="cb_debug_mode"><input type="checkbox" id="cb_debug_mode" onclick="woas.config.debug_mode = d$.checked('cb_debug_mode')" />Enable debug mode and debug console (*requires WoaS reload*)</label>
-== Syntax
-<label for="cb_auto_links"><input type="checkbox" id="cb_auto_links" onclick="woas.config.auto_links = d$.checked('cb_auto_links')" />Automatic link generation in page content</label>
-<label for="cb_new_tables_syntax"><input type="checkbox" id="cb_new_tables_syntax" onclick="woas.config.new_tables_syntax = d$.checked('cb_new_tables_syntax')" />Enhanced tables syntax</label>
+<label for="cb_fixed_layout"><input type="checkbox" id="cb_fixed_layout" onclick="_set_layout(d$.checked('cb_fixed_layout'))" />Fixed menu area and navigation bar</label>
+<label for="cb_rem_history"><input type="checkbox" id="cb_rem_history" onclick="woas.config.nav_history = d$.checked('cb_rem_history')" />Remember current page and navigation history</label>
 <label for="cb_sort_tags"><input type="checkbox" id="cb_sort_tags" onclick="woas.config.sort_tags = d$.checked('cb_sort_tags')" />Sort tags in tag display</label>
+== Syntax
+<label for="cb_new_tables_syntax"><input type="checkbox" id="cb_new_tables_syntax" onclick="woas.config.new_tables_syntax = d$.checked('cb_new_tables_syntax')" />Enhanced tables syntax</label>
 == Saving
 <label for="cb_allow_diff"><input type="checkbox" id="cb_allow_diff" onclick="woas.config.allow_diff = d$.checked('cb_allow_diff')" />Make merge/diff of WoaS XHTML/WSIF datasource easier</label>
 <label for="cb_save_on_quit"><input type="checkbox" id="cb_save_on_quit" onclick="woas.config.save_on_quit = d$.checked('cb_save_on_quit')" />Automatically save options (if changed) before quitting</label>

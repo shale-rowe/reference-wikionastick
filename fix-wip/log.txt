@@ -3,6 +3,8 @@ IT IS NOT BEING TESTED MUCH DURING THIS PROCESS AND IS OCCASIONALLY BROKEN.
 
 Changes since Revision pvhl-2317 (git: 3d939c7)
 
+* add (currently inactive) code to remove blank line between same-type lists
+* simplify heading parser
 * add sort_tags configuration option
 * add auto_links configuration option and tidy option page slightly
 * fix import disable issues for IE
