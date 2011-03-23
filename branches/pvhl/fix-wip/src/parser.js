@@ -35,7 +35,7 @@ reBoldSyntax: /([^\w\/\\])\*([^\*\n]+)\*/g,
 reDry: /(\{\{\{[\s\S]*?\}\}\}|<<<[\s\S]*?>>>|<\!--[\s\S]*?-->)/g,
 reHasDNL: /^([ \t]*\n)/,
 // DEPRECATED "!" syntax is supported but will be removed soon
-reHeading: /^([\!=]{1,6})\s*(.*)$/gm,
+reHeading: /^([\!=]{1,6})[ \t]*(.*?)[ \t]*(?:\1?)$/gm,
 reHeadingNormalize: /[^a-zA-Z0-9]/g,
 reHtml: /([ \t]*)((?:(?:[ \t]*)?(<\/?\w+.*?>))+)([ \t]*\n)?/g,
 reListReap: /^([\*#@])[ \t].*(?:\n\1+[ \t].+)*/gm,
@@ -279,13 +279,8 @@ heading_anchor: function(s) {
 },
 
 heading_replace: function(str, $1, $2) {
-	// can't use 'that = this' because called as a function parameter
-	var heading = $2, len = $1.length,
-		// remove the mirrored heading syntax from right
-		hpos = heading.lastIndexOf($1);
-	if ((hpos !== -1) && (hpos === heading.length - len))
-		heading = heading.substring(0, heading.length - len);
-	// automatically build the TOC if needed
+	var heading = $2, len = $1.length;
+	if (typeof $2 === 'undefined' || $2 === '') { return str; }
 	if (woas.parser.has_toc) {
 		woas.parser.toc += String("#").repeat(len)+" <"+"a class=\"woas_link\" href=\"#" +
 		woas.parser.heading_anchor(heading) + "\">" + heading + "<\/a>\n";
@@ -601,6 +596,14 @@ syntax_parse: function(P, snippets, tags, export_links, has_toc) {
 
 	// restore text lines (lines ending in '\' are joined)
 	P.body = P.body.replace(/\\\n/g, "")
+
+/* NOTE: the line below will be used once the editor takes care of spacing display
+ * and all content is saved without optional newlines except the one needed between
+ * same-type lists. At that point newlineBefore/After code will be removed.
+ */
+	// remove the required \n between same-type lists by marking it for removal
+	// (so always one less \n than typed between lists of the same type)
+	//.replace(/^([*#@])+[ \t].*\n(?=\n+\1[ \t].)/gm, '$&' + this.NL_MARKER)
 
 	// put HTML tags and tag sequences away (along with attributes)
 	.replace(this.reHtml, function(str, ws, tags, last, dnl) {
