@@ -3,6 +3,9 @@ IT IS NOT BEING TESTED MUCH DURING THIS PROCESS AND IS OCCASIONALLY BROKEN.
 
 Changes since Revision pvhl-2317 (git: 3d939c7)
 
+* fix external disposition wsif import failure
+* changes to allow more custom help pages
+* slight Special::Options rearrangement
 * add (currently inactive) code to remove blank line between same-type lists
 * simplify heading parser
 * add sort_tags configuration option

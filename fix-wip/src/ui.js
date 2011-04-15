@@ -74,12 +74,15 @@ woas.ui = {
 		} else {
 			var htitle = null;
 			// change the target page in some special cases
-			if (current.substr(0, 6) === "WoaS::") {
+			if (current.indexOf('WoaS::') === 0) {
 				if (woas.help_system._help_lookup.indexOf(current.substr(6)) !== -1)
 					htitle = current.substr(6);
 				else
 					htitle = current;
-			} else htitle = current;
+			} else
+				// allow for Locked::, Unlocked::, etc.
+				htitle = current.indexOf('::') === current.length-2
+							? current.substring(0, current.length-2) : current;
 			var npi = woas.page_index("WoaS::Help::"+htitle);
 			if (npi !== -1) {
 				wanted_page = "WoaS::Help::"+htitle;
@@ -275,7 +278,7 @@ woas.help_system = {
 		return w;
 	},
 
-	_help_lookup: ["Plugins", "CSS", "Aliases", "Hotkeys"],
+	_help_lookup: ["Aliases", "CSS::Boot", "CSS::Core", "CSS::Custom", "Hotkeys", "Plugins"],
 	cPopupCode: "\n\
 function get_parent_woas() {\n\
 	if (window.opener && !window.opener.closed)\n\
