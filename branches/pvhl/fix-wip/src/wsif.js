@@ -417,7 +417,7 @@ woas._native_wsif_load = function(path, locking, _native, recursing, import_hook
 								previous_h, last_offset,	// offsets to grab the page content
 								import_hook,
 								title,attrs,last_mod,len,encoding,disposition,
-								d_fn,boundary,mime);
+								d_fn,boundary,mime,locking,_native,title_filter_hook);
 						// save page index for later analysis
 						var was_title = title;
 						title = attrs = last_mod = encoding = len =
@@ -490,7 +490,7 @@ woas._native_wsif_load = function(path, locking, _native, recursing, import_hook
 			var rv = this._native_page_def(path,ct,previous_h,last_offset,
 					import_hook,
 					title,attrs,last_mod,len,encoding,disposition,
-					d_fn,boundary,mime);
+					d_fn,boundary,mime,locking,_native,title_filter_hook);
 			// save page index for later analysis
 			if (!rv)
 				this.wsif.do_error( "Import error for page "+title+" after import!" );
@@ -511,10 +511,10 @@ woas._native_wsif_load = function(path, locking, _native, recursing, import_hook
 
 // returns true if a page was defined, and save it in wsif.imported array
 woas._native_page_def = function(path,ct,p,last_p,import_hook,
-								title,attrs,last_mod,len,encoding,disposition,d_fn,boundary,mime) {
+								title,attrs,last_mod,len,encoding,disposition,d_fn,boundary,mime,locking,_native,title_filter_hook) {
 	var bpos_e, page;
 	// attributes must be defined
-	if (attrs === null) {
+	if (attrs === null && d_fn === null) {
 		woas.log("No attributes defined for page "+title);	//log:1
 		return false;
 	}
