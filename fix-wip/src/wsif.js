@@ -513,8 +513,8 @@ woas._native_wsif_load = function(path, locking, _native, recursing, import_hook
 woas._native_page_def = function(path,ct,p,last_p,import_hook,
 								title,attrs,last_mod,len,encoding,disposition,d_fn,boundary,mime,locking,_native,title_filter_hook) {
 	var bpos_e, page;
-	// attributes must be defined
-	if (attrs === null && d_fn === null) {
+	// attributes must be defined unless importing an exported multifile index.wsif
+	if (attrs === null && !(disposition === "external" && encoding === "text/wsif")) {
 		woas.log("No attributes defined for page "+title);	//log:1
 		return false;
 	}
