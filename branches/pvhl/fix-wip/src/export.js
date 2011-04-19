@@ -128,7 +128,7 @@ woas.exporter = {
 				if (_exp_menu.length) {
 					_exp_menu = woas.parser.parse(_exp_menu, true, this._settings.js_mode);
 					if (this._settings.js_mode)
-						woas._activate_scripts();
+						woas.scripting.activate("menu");
 					// fix also the encoding in the menus
 					_exp_menu = woas.utf8.do_escape(_exp_menu);
 				}
@@ -150,7 +150,7 @@ woas.exporter = {
 			woas.utf8.do_escape(woas._attrib_escape(raw_text.replace(/\s+/g, " ").substr(0,max_description_length)))+'" />'+"\n"+
 			this._settings.meta_author+
 			this._settings.custom_scripts+
-			'<'+'/head><'+'body>'+data+
+			'<'+'/head><'+'body class="woas_background">'+data+
 			(mts ? "<"+"div class=\"woas_page_mts\">"+woas.last_modified(mts)+"<"+"/div>" : "")+
 			"<"+"/body><"+"/html>\n"; raw_text = null;
 		return woas.save_file(this._settings.xhtml_path+fname, woas.file_mode.ASCII_TEXT, woas.DOCTYPE+woas.DOC_START+data);
@@ -281,7 +281,7 @@ woas.export_parse = function (data, js_mode) {
 	data = this.parser.parse(data, true, js_mode);
 	if (js_mode) {
 		this.setHTMLDiv(d$("woas_wiki_area"), data);
-		this._activate_scripts();
+		this.scripting.activate("page");
 		data = this.getHTMLDiv(d$("woas_wiki_area"));
 	}
 	return data;
@@ -307,7 +307,7 @@ woas.export_wiki = function() {
 			this.exporter._settings.meta_author = '<'+'meta name="author" content="'+this._attrib_escape(this.xhtml_encode(this.exporter._settings.meta_author))+'" />'+"\n";
 		this.exporter._settings._unix_norm = d$("woas_cb_unix_norm").checked;
 	} catch (e) { this.crash(e); return false; }
-	
+
 	this.progress_init("Exporting XHTML");
 
 	this.exporter._settings.css = this.css.get();
@@ -320,18 +320,18 @@ woas.export_wiki = function() {
 		this.exporter._settings.css = "<"+"link rel=\"stylesheet\" type=\"text/css\" media=\"all\" href=\""+this.exporter._settings.css_path+"\" /"+">";
 		} else
 	this.exporter._settings.css = "<"+"style type=\"text/css\">"+this.exporter._settings.css+"<"+"/style>";
-	
+
 	// actual exporting
 	var stats = this.exporter.do_export();
-	
-	// clear allocated resources during export
-	this.exporter.clear();
-	
-	// refresh if javascript was ran
+
+	// refresh if javascript was run
 	if (this.exporter._settings.js_mode) {
 		this.refresh_menu_area();
 		this.set_current(current, false);
 	}
+	// clear allocated resources used during export
+	this.exporter.clear();
+
 	this.progress_finish();
 	this.alert(this.i18n.EXPORT_OK.sprintf(stats[0], stats[1]));
 	return true;
