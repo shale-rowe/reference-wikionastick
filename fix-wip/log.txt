@@ -3,6 +3,11 @@ IT IS NOT BEING TESTED MUCH DURING THIS PROCESS AND COULD OCCASIONALLY BE BROKEN
 
 Changes since Revision pvhl-2317 (git: 3d939c7)
 
+* redo fix for block html to allow tags to break across lines + simplify
+* changes to stop 'tag found' warning during build
+* slight clean up; simplify/clarify place_holder function by adding place_holder_dnl
+* fix bad export CSS
+* redo nowiki to fix insanity of my new code
 * partial fix for export html problems
 * fix export html CSS background
 * remove width settings from woas.htm (broke layout in some browsers)

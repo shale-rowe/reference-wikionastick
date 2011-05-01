@@ -753,7 +753,7 @@ woas._extract_src_data = function(marker, source, full, current_page, data_only)
 				broken = true;
 			break;
 		}
-		
+
 		l_attrs = m[2].toLowerCase();
 		// this was marked as permanent tag
 		var was_replaced = false;

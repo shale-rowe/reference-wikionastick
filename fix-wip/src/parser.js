@@ -30,14 +30,14 @@ reAutoLinks: /(?:(https?|ftp|file)|[a-zA-Z]+):\/\/(?:[^\s]*[^\s*.;,:?!\)\}\]])+/
 // removes possible parse conflicts but no automatic links; must match str only, no subgroups
 reAutoLinksNo: /[a-zA-Z]+:\/\/(?:[^\s]*[\/*_])+/g,
 // stops automatic br tag generation for listed tags
-reBlkHtml: /<\/?(p|div|br|blockquote|[uo]l|li|table|t[rhd]|tbody|thead|h[1-6r]|center)[\/> \t]/i,
+reBlkHtml: /^(p|div|br|blockquote|[uo]l|li|table|t[rhd]|tbody|thead|h[1-6r]|center)$/i,
 reBoldSyntax: /([^\w\/\\])\*([^\*\n]+)\*/g,
 reDry: /(\{\{\{[\s\S]*?\}\}\}|<<<[\s\S]*?>>>|<\!--[\s\S]*?-->)/g,
 reHasDNL: /^([ \t]*\n)/,
 // DEPRECATED "!" syntax is supported but will be removed soon
 reHeading: /^([\!=]{1,6})[ \t]*(.*?)[ \t]*(?:\1?)$/gm,
 reHeadingNormalize: /[^a-zA-Z0-9]/g,
-reHtml: /([ \t]*)((?:(?:[ \t]*)?(<\/?\w+.*?>))+)([ \t]*\n)?/g,
+reHtml: /([ \t]*)((?:(?:[ \t]*)?<\/?([^<\/\s>]+)[^<\/>]*\/?>)+)([ \t]*\n)?/g,
 reListReap: /^([\*#@])[ \t].*(?:\n\1+[ \t].+)*/gm,
 reListItem: /^([\*#@]+)[ \t]([^\n]+)/gm,
 // tags that can have an optional newline before before/after them
@@ -145,7 +145,7 @@ _render_wiki_link: function(target, label, snippets, tags, export_links) {
 		page = page.replace(/^mailto:\/\//, 'mailto:');
 		// always give title attribute
 		str = sLink.sprintf(scWorld, woas.xhtml_encode(page), sHrefTrgt.sprintf(page), r_label);
-		return woas.parser.place_holder(snippets, str, '');
+		return woas.parser.place_holder(snippets, str);
 	}
 
 	// create section heading info
@@ -168,7 +168,7 @@ _render_wiki_link: function(target, label, snippets, tags, export_links) {
 		if (export_links) {
 			wl = woas.exporter._get_fname(page);
 			if (wl === '#') {
-				return woas.parser.place_holder(snippets, sLinkBroken.sprintf(r_label), '');
+				return woas.parser.place_holder(snippets, sLinkBroken.sprintf(r_label));
 			}
 			wl = sHref.sprintf(wl + gotohash);
 		} else
@@ -182,7 +182,7 @@ _render_wiki_link: function(target, label, snippets, tags, export_links) {
 			str = sLink.sprintf(scWoasUn, title, wl, r_label);
 		}
 	}
-	return woas.parser.place_holder(snippets, str, '');
+	return woas.parser.place_holder(snippets, str);
 },
 
 _transclude: function (str, $1) {
@@ -208,7 +208,7 @@ _transclude: function (str, $1) {
 	// template retrieval error
 	if (P.body === null) {
 		// show an error with empty set symbol
-		return that.place_holder(that._snippets, that.render_error(str, "#8709"), '');
+		return that.place_holder(that._snippets, that.render_error(str, "#8709"));
 	}
 	// increase transclusion depth (used by namespace listing)
 	++that._transcluding;
@@ -240,7 +240,7 @@ _transclude: function (str, $1) {
 				P.body = "<"+"pre class=\"woas_embedded\">"+
 						woas.xhtml_encode(woas.base64.decode(P.body))+"<"+"/pre>";
 		}
-		P.body = that.place_holder(that._snippets, P.body, '');
+		P.body = that.place_holder(that._snippets, P.body);
 	} else { // not embedded
 		// process nowiki, macros, and XHTML comments
 		that.pre_parse(P, that._snippets);
@@ -263,7 +263,7 @@ after_parse: function(P) {
 // remove comment/nowiki/macro blocks while renaming pages (no dynamic newlines)
 dry: function(P, NP, snippets) {
 	NP.body = P.body.replace(this.reDry, function (str) {
-		return woas.parser.place_holder(snippets, str, '');
+		return woas.parser.place_holder(snippets, str);
 	});
 },
 
@@ -293,7 +293,7 @@ import_disable: function(NP, js, macros) {
 	var that = this, snippets = [];
 	// put away nowiki blocks - XHTML comments now allowed in macros
 	NP.body = NP.body.replace(this.reNowiki, function (str, $1, dynamic_nl) {
-			return that.place_holder(snippets, str, dynamic_nl);
+			return that.place_holder_dnl(snippets, str, dynamic_nl);
 	});
 	if (js)
 		NP.body = NP.body.replace(this.reScripts, "<"+"disabled_script$1>$2<"+"/disabled_script>$3");
@@ -356,10 +356,10 @@ parse: function(text, export_links, js_mode) {
 		// gather all script tags
 		P.body = P.body.replace(this.reScripts, function (str, $1, $2, dynamic_nl) {
 			if (js_mode==2) {
-				return that.place_holder(snippets, str, dynamic_nl);
+				return that.place_holder_dnl(snippets, str, dynamic_nl);
 			} else if (js_mode==3) {
 				// during safe mode do not activate scripts, transform them to nowiki blocks
-				return that.place_holder(snippets, that._make_preformatted(str), dynamic_nl);
+				return that.place_holder_dnl(snippets, that._make_preformatted(str), dynamic_nl);
 			} // else
 			var m=$1.match(/src=(?:"|')([^\s'">]+)/),
 				external = (m!==null);
@@ -370,7 +370,7 @@ parse: function(text, export_links, js_mode) {
 
 	// take away style blocks
 	P.body = P.body.replace(this.reStyles, function(str, $1, dynamic_nl) {
-		return that.place_holder(snippets, str, dynamic_nl);
+		return that.place_holder_dnl(snippets, str, dynamic_nl);
 	});
 
 	// put a placeholder for the TOC (including dynamic newline)
@@ -482,7 +482,7 @@ parse_macros: function(P, snippets) {
 		// allow further parser processing
 		if (macro.reprocess) { return macro.text + ws; }
 		// otherwise store it for later
-		return woas.parser.place_holder(snippets, macro.text, dynamic_nl) + ws;
+		return woas.parser.place_holder_dnl(snippets, macro.text, dynamic_nl) + ws;
 	});
 },
 
@@ -545,12 +545,17 @@ parse_tables_new: function (str, prop, p1) {
  * Rewrote to perform entire place_holder function here. Will be slightly slower
    but only optimize if truly needed. Rest of code is much simpler this way.
  * Existence of dnl needs to be checked for IE so parameter is technically optional.
+ * Split function into place_holder_dnl and place_holder for simplicity/readability
+ * place_holder_dnl marks a following newline for later removal if it exists
 */
-place_holder: function (snippets, str, dnl) {
+place_holder: function (snippets, str) {
 	snippets.push(str);
-	if (typeof dnl === 'undefined') dnl = ''; // IE
-	else if (dnl !== '') dnl = this.NL_MARKER + dnl;
-	return this.marker + (snippets.length - 1) + ';' + dnl;
+	return this.marker + (snippets.length - 1) + ';';
+},
+
+place_holder_dnl: function (snippets, str, dnl) {
+	snippets.push(str);
+	return this.marker + (snippets.length - 1) + ';' + (!dnl ? '' : this.NL_MARKER + dnl);
 },
 
 // NOTE: XHTML comments can now be contained in nowiki and macro blocks
@@ -560,10 +565,10 @@ pre_parse: function(P, snippets) {
 	// put away stuff contained in nowiki blocks {{{ }}}
 	// 'inline' has no breaks at all between the markers. Dealt with by _make_preformatted.
 		nw = that._make_preformatted(nw);
-		// simple hack to fix disappearing breaks after inline nowiki.
-		if (nw.indexOf("t") === 1 && typeof dynamic_nl !== "undefined" && dynamic_nl !== "")
-			{ dynamic_nl += '\n'; }
-		return that.place_holder(snippets, nw, dynamic_nl);
+		// simple hack so we can use _make_preformatted.
+		if (nw.indexOf('t') === 1)
+			return that.place_holder(snippets, nw) + (!dynamic_nl ? '' : dynamic_nl);
+		return that.place_holder_dnl(snippets, nw, dynamic_nl);
 	});
 
 	this.parse_macros(P, snippets);
@@ -571,7 +576,7 @@ pre_parse: function(P, snippets) {
 	// put away XHTML-style comments
 	P.body = P.body.replace(this.reComments, function (str, comment, dynamic_nl) {
 		// don't skip anything -- remove all comments for future syntax needs
-		return that.place_holder(snippets, str, dynamic_nl);
+		return that.place_holder_dnl(snippets, str, dynamic_nl);
 	});
 },
 
@@ -607,29 +612,25 @@ syntax_parse: function(P, snippets, tags, export_links, has_toc) {
 
 	// put HTML tags and tag sequences away (along with attributes)
 	.replace(this.reHtml, function(str, ws, tags, last, dnl) {
-		if (typeof dnl === "undefined") {
-			dnl = ""; // IE
 		// stop certain html block tags from having a br tag appended when at line end
-		} else if (dnl !== "" && last.match(that.reBlkHtml)) {
-			dnl = that.NL_MARKER + dnl;
-		}
-		return ws + that.place_holder(snippets, tags, '') + dnl;
+		if (that.reBlkHtml.test(last))
+			return ws + that.place_holder_dnl(snippets, tags, dnl);
+		return ws + that.place_holder(snippets, tags) + (!dnl ? '' : dnl);
 	})
 
 	// render links e.g. [[target]] & [[target|label]]
 	.replace(this.reWikiLink, function(str, target, label) {
 		if (target)
 			return that._render_wiki_link(target, label, snippets, tags, export_links);
-		else
-			return str; // not a valid link
+		return str; // not a valid link
 	})
 
 	// remove URL style text ('*://*') to avoid parsing problems.
 	.replace(woas.config.auto_links ? this.reAutoLinks : this.reAutoLinksNo,
 			function(str, prot) {
 		if (typeof prot === 'string' && prot !== '')
-			str = '<a'+' class="woas_world_link" href="' + str + '">' + str + '<'+'/a>';
-		return that.place_holder(snippets, str, '');
+			str = '<'+'a class="woas_world_link" href="' + str + '">' + str + '<'+'/a>';
+		return that.place_holder(snippets, str);
 	})
 
 	// italics/underline/bold all operate on a single line
@@ -715,7 +716,7 @@ transclude_syntax: function(P, snippets, export_links) {
 	} while (found && ++trans_level < this._MAX_TRANSCLUSION_RECURSE);
 	if (trans_level === this._MAX_TRANSCLUSION_RECURSE) { // parse remaining inclusions as normal text
 		P.body = P.body.replace(this.reTransclusion, function (str, $1) {
-			return that.place_holder(snippets, that.render_error(str, 'infin'), '');
+			return that.place_holder(snippets, that.render_error(str, 'infin'));
 		});
 	}
 	this._snippets = this._export_links = null;
