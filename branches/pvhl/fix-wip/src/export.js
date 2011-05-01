@@ -312,7 +312,7 @@ woas.export_wiki = function() {
 
 	this.exporter._settings.css = this.css.get();
 	// add some other CSS which is not used by live WoaS
-	this.exporter._settings.css += "\n.woas_broken_link { color: red; font-decoration: strike-through;}\n";
+	this.exporter._settings.css += "\n.woas_broken_link { color: red; text-decoration: underline; }\n";
 	if (sep_css) {
 		this.exporter._settings.css_path = "woas.css";
 		this.exporter._export_fnames_array.push(this.exporter._settings.css_path);

@@ -536,8 +536,8 @@ woas.bitfield = {
 	
 	// return an integer after having parsed given object with given order
 	get_object: function(obj, order) {
-		var rv=0;
-		for(var i=0;i<order.length;++i) {
+		var rv = 0;
+		for(var i = 0; i < order.length; ++i) {
 			if (obj[order[i]])
 				rv |= this._field_mask[i];
 		}
@@ -546,7 +546,7 @@ woas.bitfield = {
 
 	// set object properties to true/false after parsing the bits by given order
 	set_object: function(obj, order, bm) {
-		for(var i=0;i<order.length;++i) {
+		for(var i = 0; i < order.length; ++i) {
 			obj[order[i]] = (bm & this._field_mask[i]) ? true : false;
 		}
 	}
