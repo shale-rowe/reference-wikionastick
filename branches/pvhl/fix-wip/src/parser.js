@@ -37,7 +37,7 @@ reHasDNL: /^([ \t]*\n)/,
 // DEPRECATED "!" syntax is supported but will be removed soon
 reHeading: /^([\!=]{1,6})[ \t]*(.*?)[ \t]*(?:\1?)$/gm,
 reHeadingNormalize: /[^a-zA-Z0-9]/g,
-reHtml: /([ \t]*)((?:(?:[ \t]*)?<\/?([^<\/\s>]+)[^<\/>]*\/?>)+)([ \t]*\n)?/g,
+reHtml: /([ \t]*)((?:(?:[ \t]*)?<\/?([^<\/\s>]+)[^<>]*>)+)([ \t]*\n)?/g,
 reListReap: /^([\*#@])[ \t].*(?:\n\1+[ \t].+)*/gm,
 reListItem: /^([\*#@]+)[ \t]([^\n]+)/gm,
 // tags that can have an optional newline before before/after them
