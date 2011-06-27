@@ -41,7 +41,7 @@ if((navigator.userAgent).indexOf("Opera")!=-1) {
 		m = navigator.userAgent.match(/rv:([^\s\)]*)/);
 //		if (m && m[1]) {
 			woas.browser.gecko = m[1];
-			switch (woas.browser.gecko.substr(3)) {
+			switch (woas.browser.gecko.substr(0,3)) {
 				case "1.8":
 					woas.browser.firefox2 = true;
 				break;
