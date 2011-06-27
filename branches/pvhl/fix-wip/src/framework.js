@@ -34,24 +34,23 @@ if((navigator.userAgent).indexOf("Opera")!=-1) {
 	woas.browser.safari = true;
 } else if(navigator.appName == "Netscape") {
 	// check that it is Gecko first
-	woas.browser.firefox = woas.browser.gecko = (new RegExp("Gecko\\/\\d")).test(navigator.userAgent) ? true : false;
+	woas.browser.firefox = woas.browser.gecko = (new RegExp("Gecko\\/\\d")).test(navigator.userAgent);
 	// match also development versions of Firefox "Shiretoko" / "Namoroka"
 	if (woas.browser.gecko) {
 		// match the last word of userAgent
 		m = navigator.userAgent.match(/rv:([^\s\)]*)/);
-//		if (m && m[1]) {
-			woas.browser.gecko = m[1];
-			switch (woas.browser.gecko.substr(0,3)) {
-				case "1.8":
-					woas.browser.firefox2 = true;
-				break;
-				case "1.9":
-					woas.browser.firefox3 = true;
-				break;
-				default:
-					// possibly Firefox4
-					woas.browser.firefox_new = true;
-			}
+		woas.browser.gecko = m[1];
+		switch (woas.browser.gecko.substr(0,3)) {
+			case "1.8":
+				woas.browser.firefox2 = true;
+			break;
+			case "1.9":
+				woas.browser.firefox3 = true;
+			break;
+			default:
+				// possibly Firefox4 - but could be earlier than 1.8 :(
+				woas.browser.firefox_new = true;
+		}
 	} // not Gecko
 } else if((navigator.appName).indexOf("Microsoft")!=-1) {
 	woas.browser.ie8 = document.documentMode ? true : false;
