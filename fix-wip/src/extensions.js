@@ -580,8 +580,9 @@ woas.macro = {
 				if (typeof M[2] == "undefined") { pl = 0; }
 				else { pl = M[2].length; }
 				try {
-					if (pl === 0) { (this.functions[fi])(macro); }
-					else {
+					if (pl === 0) {
+						rv = this.functions[fi](macro);
+					} else {
 						// inline insertion of parameters
 						// cannot use woas.eval because we need context for 'macro'
 						rv = eval( "(woas.macro.functions[" + fi + "])" +
