@@ -1264,12 +1264,13 @@ woas.save = function() {
 		} else {
 			var new_title = this.trim(d$("wiki_page_title").value);
 			renaming = (this.old_title !== new_title);
+			do_save |= renaming;
 			if (this._ghost_page) {
 				// new page needs history
 				this.history.store(this.prev_title);
 				this.prev_title = new_title;
 			}
-			if (do_save || renaming) {
+			if (do_save) {
 				// rename if title is valid
 				if (renaming && (
 						!this.valid_title(new_title) ||
@@ -1301,13 +1302,11 @@ woas.save = function() {
 			}
 		}
 	}
-	if (do_save || renaming) {
+	if (do_save) {
 		this.save_page(current);
 	}
-	if (renaming || menu || this._ghost_page) {
-		this.refresh_menu_area();
-	}
 	this.set_current(back_to, true);
+	this.refresh_menu_area();
 	this.disable_edit();
 };
 
