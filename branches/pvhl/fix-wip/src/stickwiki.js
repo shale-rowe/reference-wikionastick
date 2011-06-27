@@ -1010,13 +1010,13 @@ woas.disable_edit = function() {
 	d$.show("i_woas_text_area");
 	// aargh, FF eats the focus when cancelling edit
 	d$.hide("edit_area");
-	this._set_title(this.prev_title);
 	if (woas._ghost_page) {
 		woas._ghost_page = false;
 		woas.log("Ghost page disabled"); //log:1
 	}
 	this.log(); // scroll to bottom of log
-	this.ui.edit_mode = false;
+	this.ui.edit_mode = false; // PVHL: want this at end
+	this._set_title(this.prev_title); // PVHL: here because edit_mode must be false.
 };
 
 function _lock_pages(arr) {
