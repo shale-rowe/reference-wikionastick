@@ -3,6 +3,7 @@ IT IS NOT BEING TESTED MUCH DURING THIS PROCESS AND COULD OCCASIONALLY BE BROKEN
 
 Changes since Revision pvhl-2317 (git: 3d939c7)
 
+* fix macro error - no returned value bug
 * fix bad Firefox identification
 * fix bug I introduced: missing menu update after edit (found by Michele1995)
 * fix bug I introduced: missing namespace links after edit (found by Michele1995)
