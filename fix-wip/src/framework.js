@@ -1,17 +1,17 @@
 
 woas.browser = {
 	// browsers - when different from 'false' it contains the version string
-	ie: false, 
+	ie: false,
 	firefox: false,
 	opera: false,
 	safari: false,
 	chrome: false,
-	
+
 	// breeds - used internally, should not be used by external plugins
 	ie6: false, ie8: false,
 	firefox2: false,
 	firefox3: false, firefox_new: false,
-					
+
 	// engines - set to true when present
 	// gecko and webkit will contain the engine version
 	gecko: false, webkit: false, presto: false, trident: false
@@ -358,59 +358,84 @@ if (is_windows) {
 woas.base64 = {
 	_b64arr: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",
 	reValid: /^[A-Za-z0-9+\/=]+$/,
-	
+
 	_core_encode: function(c1, c2, c3) {
 		var enc1, enc2, enc3, enc4;
-		
+
 		enc1 = c1 >> 2;
 		enc2 = ((c1 & 3) << 4) | (c2 >> 4);
 		enc3 = ((c2 & 15) << 2) | (c3 >> 6);
 		enc4 = c3 & 63;
 
-		if (isNaN(c2))	enc3 = enc4 = 64;
-		else if (isNaN(c3))
-			enc4 = 64;
-
 		return this._b64arr.charAt(enc1) + this._b64arr.charAt(enc2) +
 				this._b64arr.charAt(enc3) +	this._b64arr.charAt(enc4);
 	},
 
-	encode_array: function(input_arr) {
-		var c1, c2, c3, i = 0, z = input_arr.length,output = "";
-		
+	_core_encode_left: function(c1, c2, both) {
+		var enc1, enc2, enc3;
+
+		enc1 = c1 >> 2;
+		enc2 = ((c1 & 3) << 4) | (c2 >> 4);
+		enc3 = both ? 64 : (((c2 & 15) << 2));
+
+		return this._b64arr.charAt(enc1) + this._b64arr.charAt(enc2) +
+				this._b64arr.charAt(enc3) +	this._b64arr.charAt(64);
+	},
+
+	encode_array: function(input) {
+		var c1, c2, c3, i = 0, left, z, output = "", both = false;
+		left = input.length % 3;
+		z = input.length - left;
 		do {
-			c1 = input_arr[i++];
-			if (i == z)
-				c3 = c2 = null;
-			else {
-				c2 = input_arr[i++];
-				if (i == z)
-					c3 = null;
-				else
-					c3 = input_arr[i++];
-			}
+			c1 = input[i++];
+			c2 = input[i++];
+			c3 = input[i++];
 			output += this._core_encode(c1, c2, c3);
 		} while (i < z);
+
+		if (left) {
+			c1 = input[i++];
+			if (left === 2) {
+				c2 = input[i++];
+				both = true;
+			} else {
+				c2 = null;
+			}
+			output += this._core_encode_left(c1, c2, both);
+		}
+
 		return output;
 	},
 
 	encode: function(input) {
-		var c1, c2, c3, i = 0, z = input.length, output = "";
-		
+		var c1, c2, c3, i = 0, left, z, output = "", both = false;
+		left = input.length % 3;
+		z = input.length - left;
 		do {
 			c1 = input.charCodeAt(i++);
 			c2 = input.charCodeAt(i++);
 			c3 = input.charCodeAt(i++);
-			
 			output += this._core_encode(c1, c2, c3);
 		} while (i < z);
+
+		if (left) {
+			c1 = input.charCodeAt(i++);
+			if (left === 2) {
+				c2 = input.charCodeAt(i++);
+				both = true;
+			} else {
+				c2 = null;
+			}
+			output += this._core_encode_left(c1, c2, both);
+		}
+
 		return output;
 	},
 
 	decode: function(input, z) {
 		var c1, c2, c3, enc1, enc2, enc3, enc4, i = 0,
 			output = "";
-		
+
 		var l=input.length;
 		if (typeof z=='undefined') z = l;
 		else if (z>l) z=l;
@@ -439,7 +464,7 @@ woas.base64 = {
 	decode_array: function(input, z) {
 		var c1, c2, c3, enc1, enc2, enc3, enc4, i = 0;
 		var output = [];
-		
+
 		var l=input.length;
 		if (typeof z=='undefined') z = l;
 		else if (z>l) z=l;
@@ -470,7 +495,7 @@ woas.utf8 = {
 	encode: function(s) {
 		return unescape( encodeURIComponent( s ) );
 	},
-	
+
 	encode_to_array: function(s) {
 		return woas.split_bytes( this.encode(s) );
 	},
@@ -486,9 +511,9 @@ woas.utf8 = {
 		}
 		return null;
 	},
-	
+
 	reUTF8Space: /[^\u0000-\u007F]+/g,
-	
+
 	// convert UTF8 sequences of the XHTML source into &#dddd; sequences
 	do_escape: function(src) {
 		return src.replace(this.reUTF8Space, function ($1) {
@@ -522,17 +547,17 @@ woas.bitfield = {
 				0x100, 0x200, 0x400, 0x800, 0x1000, 0x2000, 0x4000, 0x8000,
 				0x10000, 0x20000, 0x40000, 0x80000, 0x100000, 0x200000, 0x400000, 0x800000,
 				0x1000000, 0x2000000, 0x4000000, 0x8000000, 0x10000000, 0x20000000, 0x40000000, 0x80000000],
-	
+
 	get: function(bm, pos) {
 		return (bm & this._field_mask[pos]) ? true : false;
 	},
-	
+
 	set: function(bm, pos, value) {
 		if (value)
 			return bm | this._field_mask[pos];
 		return bm & ~this._field_mask[pos];
 	},
-	
+
 	// return an integer after having parsed given object with given order
 	get_object: function(obj, order) {
 		var rv = 0;
