@@ -345,7 +345,7 @@ woas.mozillaLoadFile = function(filePath, load_mode, suggested_mime) {
 		// this byte-by-byte read allows retrieval of binary files
 		var tot=sInputStream.available(), i=tot;
 		var rd=[];
-		while (i-->=0) {
+		while (--i >= 0) {
 			var c=sInputStream.read(1);
 			rd.push(c.charCodeAt(0));
 		}
