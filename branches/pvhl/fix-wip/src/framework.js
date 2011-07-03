@@ -357,138 +357,146 @@ if (is_windows) {
 
 woas.base64 = {
 	_b64arr: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",
-	reValid: /^[A-Za-z0-9+\/=]+$/,
+	reValid: /^[A-Za-z0-9+\/=]+$/
+};
 
-	_core_encode: function(c1, c2, c3) {
-		var enc1, enc2, enc3, enc4;
+if (window.atob) {
+	woas.base64.encode = function(input) {
+		return btoa(input);
+	};
 
-		enc1 = c1 >> 2;
-		enc2 = ((c1 & 3) << 4) | (c2 >> 4);
-		enc3 = ((c2 & 15) << 2) | (c3 >> 6);
-		enc4 = c3 & 63;
-
-		return this._b64arr.charAt(enc1) + this._b64arr.charAt(enc2) +
-				this._b64arr.charAt(enc3) +	this._b64arr.charAt(enc4);
-	},
-
-	_core_encode_left: function(c1, c2, both) {
-		var enc1, enc2, enc3;
-
-		enc1 = c1 >> 2;
-		enc2 = ((c1 & 3) << 4) | (c2 >> 4);
-		enc3 = both ? 64 : (((c2 & 15) << 2));
-
-		return this._b64arr.charAt(enc1) + this._b64arr.charAt(enc2) +
-				this._b64arr.charAt(enc3) +	this._b64arr.charAt(64);
-	},
-
-	encode_array: function(input) {
-		var c1, c2, c3, i = 0, left, z, output = "", both = false;
-		left = input.length % 3;
-		z = input.length - left;
-		do {
-			c1 = input[i++];
-			c2 = input[i++];
-			c3 = input[i++];
-			output += this._core_encode(c1, c2, c3);
-		} while (i < z);
-
-		if (left) {
-			c1 = input[i++];
-			if (left === 2) {
-				c2 = input[i++];
-				both = true;
-			} else {
-				c2 = null;
-			}
-			output += this._core_encode_left(c1, c2, both);
+	woas.base64.encode_array = function(input) {
+		var i, l = input.length, arr = [];
+		for (i = 0; i < l; i++) {
+			arr[i] = String.fromCharCode(input[i]);
 		}
+		return btoa(arr.join(''));
+	};
 
-		return output;
-	},
+	woas.base64.decode = function(input, z) {
+		if (!z || z > input.length) {
+			z = input.length;
+		}
+		return atob(input.substr(0, z));
+	};
 
-	encode: function(input) {
-		var c1, c2, c3, i = 0, left, z, output = "", both = false;
+	woas.base64.decode_array = function(input, z) {
+		var i, l, arr = [];
+		if (!z || z > input.length) {
+			z = input.length;
+		}
+		input = atob(input.substr(0, z));
+		l = input.length;
+		for (i = 0; i < l; i++) {
+			arr[i] = input.charCodeAt(i);
+		}
+		return arr;
+	};
+} else { //IE
+	woas.base64.encode = function(input) {
+		var c1, c2, c3, i = 0, left, z, output = [];
 		left = input.length % 3;
 		z = input.length - left;
-		do {
+		while (i < z) {
 			c1 = input.charCodeAt(i++);
 			c2 = input.charCodeAt(i++);
 			c3 = input.charCodeAt(i++);
-			output += this._core_encode(c1, c2, c3);
-		} while (i < z);
-
+			output.push(this._b64arr.charAt(c1 >> 2));
+			output.push(this._b64arr.charAt(((c1 & 3) << 4) | (c2 >> 4)));
+			output.push(this._b64arr.charAt(((c2 & 15) << 2) | (c3 >> 6)));
+			output.push(this._b64arr.charAt(c3 & 63));
+		}
 		if (left) {
 			c1 = input.charCodeAt(i++);
-			if (left === 2) {
-				c2 = input.charCodeAt(i++);
-				both = true;
-			} else {
-				c2 = null;
-			}
-			output += this._core_encode_left(c1, c2, both);
+			c2 = left === 2 ? input.charCodeAt(i++) : Number.NaN;
+			output.push(this._b64arr.charAt(c1 >> 2));
+			output.push(this._b64arr.charAt(((c1 & 3) << 4) | (c2 >> 4)));
+			output.push(isNaN(c2) ? "=" : this._b64arr.charAt(((c2 & 15) << 2)));
+			output.push('=');
 		}
+		return output.join('');
+	};
 
-		return output;
-	},
+	woas.base64.encode_array = function(input) {
+		var c1, c2, c3, i = 0, left, z, output = [];
+		left = input.length % 3;
+		z = input.length - left;
+		while (i < z) {
+			c1 = input[i++];
+			c2 = input[i++];
+			c3 = input[i++];
+			output.push(this._b64arr.charAt(c1 >> 2));
+			output.push(this._b64arr.charAt(((c1 & 3) << 4) | (c2 >> 4)));
+			output.push(this._b64arr.charAt(((c2 & 15) << 2) | (c3 >> 6)));
+			output.push(this._b64arr.charAt(c3 & 63));
+		}
+		if (left) {
+			c1 = input[i++];
+			c2 = left === 2 ? input[i++] : Number.NaN;
+			output.push(this._b64arr.charAt(c1 >> 2));
+			output.push(this._b64arr.charAt(((c1 & 3) << 4) | (c2 >> 4)));
+			output.push(isNaN(c2) ? "=" : this._b64arr.charAt(((c2 & 15) << 2)));
+			output.push('=');
+		}
+		return output.join('');
+	};
 
-	decode: function(input, z) {
-		var c1, c2, c3, enc1, enc2, enc3, enc4, i = 0,
-			output = "";
-
-		var l=input.length;
-		if (typeof z=='undefined') z = l;
-		else if (z>l) z=l;
-
-		do {
+	woas.base64.decode = function(input, z) {
+		var c1, c2, c3, enc1, enc2, enc3, enc4, i = 0, l = input.length, output = [];
+		z = !z || z > l ? l - 4 : z - 4;
+		if (z >= 0) {
+			while (i < z) {
+				enc1 = this._b64arr.indexOf(input.charAt(i++));
+				enc2 = this._b64arr.indexOf(input.charAt(i++));
+				enc3 = this._b64arr.indexOf(input.charAt(i++));
+				enc4 = this._b64arr.indexOf(input.charAt(i++));
+				output.push(String.fromCharCode((enc1 << 2) | (enc2 >> 4)));
+				output.push(String.fromCharCode(((enc2 & 15) << 4) | (enc3 >> 2)));
+				output.push(String.fromCharCode(((enc3 & 3) << 6) | enc4));
+			}
 			enc1 = this._b64arr.indexOf(input.charAt(i++));
 			enc2 = this._b64arr.indexOf(input.charAt(i++));
 			enc3 = this._b64arr.indexOf(input.charAt(i++));
 			enc4 = this._b64arr.indexOf(input.charAt(i++));
+			output.push(String.fromCharCode((enc1 << 2) | (enc2 >> 4)));
+			if (enc3 !== 64) {
+				output.push(String.fromCharCode(((enc2 & 15) << 4) | (enc3 >> 2)));
+			}
+			if (enc4 !== 64) {
+				output.push(String.fromCharCode(((enc3 & 3) << 6) | enc4));
+			}
+		}
+		return output.join('');
+	};
 
-			c1 = (enc1 << 2) | (enc2 >> 4);
-			c2 = ((enc2 & 15) << 4) | (enc3 >> 2);
-			c3 = ((enc3 & 3) << 6) | enc4;
-
-			output += String.fromCharCode(c1);
-			if (enc3 != 64)
-				output += String.fromCharCode(c2);
-			if (enc4 != 64)
-				output += String.fromCharCode(c3);
-
-		} while (i < z);
-
-		return output;
-	},
-
-	decode_array: function(input, z) {
-		var c1, c2, c3, enc1, enc2, enc3, enc4, i = 0;
-		var output = [];
-
-		var l=input.length;
-		if (typeof z=='undefined') z = l;
-		else if (z>l) z=l;
-
-		do {
+	woas.base64.decode_array = function(input, z) {
+		var c1, c2, c3, enc1, enc2, enc3, enc4, i = 0, l = input.length, output = [];
+		z = !z || z > l ? l - 4 : z - 4;
+		if (z >= 0) {
+			while (i < z) {
+				enc1 = this._b64arr.indexOf(input.charAt(i++));
+				enc2 = this._b64arr.indexOf(input.charAt(i++));
+				enc3 = this._b64arr.indexOf(input.charAt(i++));
+				enc4 = this._b64arr.indexOf(input.charAt(i++));
+				output.push((enc1 << 2) | (enc2 >> 4));
+				output.push(((enc2 & 15) << 4) | (enc3 >> 2));
+				output.push(((enc3 & 3) << 6) | enc4);
+			}
 			enc1 = this._b64arr.indexOf(input.charAt(i++));
 			enc2 = this._b64arr.indexOf(input.charAt(i++));
 			enc3 = this._b64arr.indexOf(input.charAt(i++));
 			enc4 = this._b64arr.indexOf(input.charAt(i++));
-
-			c1 = (enc1 << 2) | (enc2 >> 4);
-			c2 = ((enc2 & 15) << 4) | (enc3 >> 2);
-			c3 = ((enc3 & 3) << 6) | enc4;
-
-			output.push(c1);
-			if (enc3 != 64)
-				output.push(c2);
-			if (enc4 != 64)
-				output.push(c3);
-		} while (i < z);
+			output.push((enc1 << 2) | (enc2 >> 4));
+			if (enc3 !== 64) {
+				output.push(((enc2 & 15) << 4) | (enc3 >> 2));
+			}
+			if (enc4 !== 64) {
+				output.push(((enc3 & 3) << 6) | enc4);
+			}
+		}
 		return output;
-	}
-
-};
+	};
+}
 
 woas.utf8 = {
 	// encode from string to string
