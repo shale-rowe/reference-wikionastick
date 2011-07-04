@@ -424,7 +424,7 @@ woas.javaLoadFile = function(filePath, load_mode, suggested_mime) {
 			content = String(content);
 			if (load_mode == this.file_mode.DATA_URI)
 				return this._data_uri_enc(filePath, content, suggested_mime);
-			else if (load_mode == this.file_mode.BASE6)
+			else if (load_mode == this.file_mode.BASE64)
 				return this.base64.encode(content);
 			return content;
 		}
