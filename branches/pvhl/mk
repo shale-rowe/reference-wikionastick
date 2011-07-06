@@ -108,11 +108,12 @@ function _script_replace($m) {
 				return str_replace("\\n\\\n", "\\n", $m[0]);
 			}
 			$ct = preg_replace_callback('/cPopupCode:\\s*"[^"]+"/s', '_fix_newlines', $ct);
-		} else if ($scriptname === "src/core.js") { // turn off tweak settings
+		} else if ($scriptname === "src/core.js") {
+			// simple turn off of tweak settings
 			function _replace_tweak_vars($m) {
 				return preg_replace('/(true|false)/', 'false', $m[0]);
 			}
-			$ct = preg_replace_callback("/woas\\.tweak\\s*=\\s*\\{([^;]+)/s", '_replace_tweak_vars', $ct);
+			$ct = preg_replace_callback("/woas\\.tweak\\s*=\\s*\\{[^;]+/s", '_replace_tweak_vars', $ct);
 		}
 
 		// check if this javascript contains any tag-similar syntax
