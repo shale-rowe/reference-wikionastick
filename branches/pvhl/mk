@@ -110,8 +110,7 @@ function _script_replace($m) {
 			$ct = preg_replace_callback('/cPopupCode:\\s*"[^"]+"/s', '_fix_newlines', $ct);
 		} else if ($scriptname === "src/core.js") { // turn off tweak settings
 			function _replace_tweak_vars($m) {
-				return "woas.tweak = {".
-					preg_replace('/(true|false)/', 'false', $m[0]);
+				return preg_replace('/(true|false)/', 'false', $m[0]);
 			}
 			$ct = preg_replace_callback("/woas\\.tweak\\s*=\\s*\\{([^;]+)/s", '_replace_tweak_vars', $ct);
 		}
