@@ -90,7 +90,6 @@ function _script_replace($m) {
 		$ct = file_get_contents($base_dir.$scriptname);
 		// remove BOM if present
 		$ct = preg_replace('/\\x'.dechex(239).'\\x'.dechex(187).'\\x'.dechex(191).'/A', '', $ct);
-		//TODO: apply modifications to 'tweak' object here
 
 		// put the SVN revision here
 		if ($scriptname === "src/stickwiki.js") {
@@ -109,6 +108,12 @@ function _script_replace($m) {
 				return str_replace("\\n\\\n", "\\n", $m[0]);
 			}
 			$ct = preg_replace_callback('/cPopupCode:\\s*"[^"]+"/s', '_fix_newlines', $ct);
+		} else if ($scriptname === "src/core.js") { // turn off tweak settings
+			function _replace_tweak_vars($m) {
+				return "woas.tweak = {".
+					preg_replace('/(true|false)/', 'false', $m[0]);
+			}
+			$ct = preg_replace_callback("/woas\\.tweak\\s*=\\s*\\{([^;]+)/s", '_replace_tweak_vars', $ct);
 		}
 
 		// check if this javascript contains any tag-similar syntax
@@ -131,12 +136,6 @@ function _script_replace($m) {
 		$ALL_SCRIPTS .= "/*** ".$scriptname." ***/\n".$ct."\n"; $ct = null;
 	}
 	return '@@WOAS_SCRIPT@@';
-}
-
-function _replace_tweak_vars($m) {
-	return "woas.tweak = {".
-		preg_replace('/([^\\s]+)\\s*:\\s*(true|false)/', 'false', $m).
-		";";
 }
 
 function _print_n($n, &$s) {
@@ -283,9 +282,6 @@ if (!$replaced) {
 	fprintf(STDERR, "ERROR: cannot find any external script to replace\n");
 	exit(-5);
 }
-
-// apply the custom settings
-$tail = preg_replace_callback("/woas\\.tweak\\s*=\\s*\\{([^;]+);/s", '_replace_tweak_vars', $tail);
 
 $ct = substr_replace($ct, $tail, $p, $ep-$p);
 
