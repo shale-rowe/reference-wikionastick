@@ -3,7 +3,8 @@ IT IS NOT BEING TESTED MUCH DURING THIS PROCESS AND COULD OCCASIONALLY BE BROKEN
 
 Changes since Revision pvhl-2317 (git: 3d939c7)
 
-* stop WoaS History being exported in WSIF files
+* fix tweak var replacement in mk
+* stop WoaS History being exported in user page WSIF files
 * correct incorrect number of pages in index.wsif
 * some base64 rearrangement
 * error in load_mode spelling
