@@ -33,7 +33,6 @@ function _script_replace($m) {
 		$ct = file_get_contents($base_dir.$scriptname);
 		// remove BOM if present
 		$ct = preg_replace('/\\x'.dechex(239).'\\x'.dechex(187).'\\x'.dechex(191).'/A', '', $ct);
-		//TODO: apply modifications to 'tweak' object here
 
 		// put the SVN revision here
 		if ($scriptname === "src/stickwiki.js") {
@@ -47,6 +46,9 @@ function _script_replace($m) {
 				return str_replace("\\n\\\n", "\\n", $m[0]);
 			}
 			$ct = preg_replace_callback('/cPopupCode:\\s*"[^"]+"/s', '_fix_newlines', $ct);
+		} else if ($scriptname === "src/core.js") {
+			// apply the custom settings
+			$ct = preg_replace_callback("/woas\\.tweak\\s*=\\s*\\{([^;]+)/s", '_replace_tweak_vars', $ct);
 		}
 
 		// check if this javascript contains any tag-similar syntax
@@ -73,8 +75,7 @@ function _script_replace($m) {
 
 function _replace_tweak_vars($m) {
 	return "woas.tweak = {".
-		preg_replace_callback('/([^\\s]+)\\s*:\\s*(true|false)/', '_replace_tweak_vars_single', $m[1]).
-		";";
+		preg_replace_callback('/([^\\s]+)\\s*:\\s*(true|false)/', '_replace_tweak_vars_single', $m[1]);
 }
 
 function _replace_tweak_vars_single($m) {
@@ -84,9 +85,6 @@ function _replace_tweak_vars_single($m) {
 		case 'edit_override':
 			$v = $GLOBALS['edit_override'];
 		break;
-//		case 'native_wsif':
-//			$v = $GLOBALS['native_wsif'];
-//		break;
 		case 'integrity_test':
 			// always disable the integrity test
 			$v = false;
