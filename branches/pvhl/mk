@@ -1,5 +1,10 @@
 #!/usr/bin/php -q
 <?php
+
+global $edit_override;
+if (is_null($edit_override = $argv[2]))
+	$edit_override = 1; // default for development
+
 ## WoaS compiler
 # @author legolas558
 # @author pvhl
@@ -30,7 +35,8 @@
 require dirname(__FILE__).'/libwsif.php';
 
 if ($argc<2) {
-	fprintf(STDERR, "\nUsage: %s version_directory edit_override\n", $argv[0]);
+	fprintf(STDERR, "\nUsage: %s version_directory [edit_override 0|1 (default: %s)]\n",
+		$argv[0], $edit_override);
 	exit(-1);
 }
 
@@ -53,7 +59,6 @@ switch ($argv[1]) {
 
 global $ALL_SCRIPTS, $base_dir, $woas_ver, $replaced;
 global $pages, $page_title,$page_attrs, $page_mts;
-global $edit_override; $edit_override = $argv[2] || true; // for development
 
 // initialize global variables
 
