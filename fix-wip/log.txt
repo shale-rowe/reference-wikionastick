@@ -51,7 +51,7 @@ Changes since Revision pvhl-2317 (git: 3d939c7)
 * fix bad file_mode in export.js (ASCII -> ASCII_TEXT)
 * refactored woas.parser._render_wiki_link (to test an idea and for a coming plugin)
 * update aes module closures to recommended practice (removes jslint warning)
-* fix extra line after tables 
+* fix extra line after tables
 * optimize list parsing code
 * mostly parser module rearrangement and relocation of some parse code to parser.js
 * fix empty namespace listing
