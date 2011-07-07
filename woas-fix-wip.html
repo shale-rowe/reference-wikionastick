@@ -7010,7 +7010,7 @@ woas._special_image_gallery = function(ns) {
 // some tweak settings NOT to be touched - warranty void otherwise
 woas.tweak = {
 	// DANGER: might cause WoaS corruption!
-	edit_override: true,
+	edit_override: false,
 	// perform integrity test of browser features
 	integrity_test: false
 };
@@ -8806,7 +8806,7 @@ woas.setHTMLDiv = function(elem, html) {elem.innerHTML = html;};
 woas._on_load = function() {
 	d$("woas_debug_log").value = ""; // for Firefox
 	// output platform information - note that revision is filled in only in releases
-	woas.log("*** WoaS v"+this.version+"-pvhl-r2352"+" started");	// log:1
+	woas.log("*** WoaS v"+this.version+"-pvhl-r2353"+" started");	// log:1
 	
 	// store the old length to eventually force full save when entering/exiting WSIF datasource mode
 	this._old_wsif_ds_len = this.config.wsif_ds.length;
