@@ -30,14 +30,15 @@ woas.special_orphaned_pages = function() {
 			}
 		} else {
 		// search for pages that link to it
-			var re = new RegExp("\\[\\[" + RegExp.escape(page_titles[j]) + "(\\]\\]|\\|)", "i");
+			var re = new RegExp("\\[\\[(?:Include::)?" + RegExp.escape(page_titles[j])
+				+ "(\\]\\]|\\|)", "i");
 			for(i=0,l=page_titles.length; i < l; i++) {
 				if ((i==j) || this.is_reserved(page_titles[i]))
 					continue;
 				tmp = this.get_src_page(i);
 				if (tmp===null)
 					continue;
-				if (tmp.search(re)!=-1) {
+				if (re.test(tmp)) {
 					found = true;
 					break;
 				}
