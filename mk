@@ -30,7 +30,7 @@
 require dirname(__FILE__).'/libwsif.php';
 
 if ($argc<2) {
-	fprintf(STDERR, "\nUsage: %s version_directory\n", $argv[0]);
+	fprintf(STDERR, "\nUsage: %s version_directory edit_override\n", $argv[0]);
 	exit(-1);
 }
 
@@ -53,6 +53,7 @@ switch ($argv[1]) {
 
 global $ALL_SCRIPTS, $base_dir, $woas_ver, $replaced;
 global $pages, $page_title,$page_attrs, $page_mts;
+global $edit_override; $edit_override = $argv[2] || true; // for development
 
 // initialize global variables
 
@@ -109,11 +110,25 @@ function _script_replace($m) {
 			}
 			$ct = preg_replace_callback('/cPopupCode:\\s*"[^"]+"/s', '_fix_newlines', $ct);
 		} else if ($scriptname === "src/core.js") {
-			// simple turn off of tweak settings
 			function _replace_tweak_vars($m) {
-				return preg_replace('/(true|false)/', 'false', $m[0]);
+				return "woas.tweak = {".
+					preg_replace_callback('/([^\\s]+)\\s*:\\s*(true|false)/', '_replace_tweak_vars_single', $m[1]);
 			}
-			$ct = preg_replace_callback("/woas\\.tweak\\s*=\\s*\\{[^;]+/s", '_replace_tweak_vars', $ct);
+			function _replace_tweak_vars_single($m) {
+				$the_var = $m[1];
+				$v = null;
+				switch ($the_var) {
+					case 'edit_override':
+						$v = $GLOBALS['edit_override'];
+					break;
+					case 'integrity_test':
+						// always disable the integrity test
+						$v = false;
+				}
+				return $the_var.': '.($v ? 'true' : 'false');
+			}
+			// apply the custom settings
+			$ct = preg_replace_callback("/woas\\.tweak\\s*=\\s*\\{([^;]+)/s", '_replace_tweak_vars', $ct);
 		}
 
 		// check if this javascript contains any tag-similar syntax
