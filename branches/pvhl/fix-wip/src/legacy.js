@@ -4,6 +4,18 @@
 var log = woas.log;
 
 //DEPRECATED
+function bool2chk(b) {
+	woas.log("WARNING: Called deprecated function: bool2chk (now woas.bool2chk)");
+	woas.bool2chk(b);
+}
+
+//DEPRECATED
+function _set_layout(fixed) {
+	woas.log("WARNING: Called deprecated function: _set_layout (now woas.set_layout)");
+	woas.ui.set_layout(fixed);
+}
+
+//DEPRECATED
 function home() {
 	woas.log("WARNING: Called deprecated function: home");
 	woas.ui.home();

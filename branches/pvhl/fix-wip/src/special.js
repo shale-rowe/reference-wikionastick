@@ -362,11 +362,6 @@ function bool2chk(b) {
 	return "";
 }
 
-// Used by Special::Options
-function _set_layout(fixed) {
-	d$("i_woas_menu_area").style.position = d$("woas_wiki_header").style.position = (fixed ? "fixed" : "absolute");
-}
-
 //Special::Recentchanges shows a sorted list of pages by modified timestamp
 woas.special_recent_changes = function() {
 	if (!this.config.store_mts) {
