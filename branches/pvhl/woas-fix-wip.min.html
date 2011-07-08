@@ -32,7 +32,9 @@ woas["config"] = {
 "folding_style":0,
 "import_settings":107,
 "auto_links":false,
-"sort_tags":true
+"sort_tags":true,
+"fixed_header":false,
+"fixed_menu":false
 };
 ;
 
@@ -284,23 +286,23 @@ Security is never absolute. Data encrypted with these pages might be compromised
 * Your computer\'s security may have been compromised physically; when\'s the last time you checked that a bug that transmits your keystrokes and/or screen contents to that white van parked down the street wasn\'t lurking inside your computer cabinet?\n\
 \n\
 Apart from the above, your normal usage of encrypted pages can be considered secure.',
-'\x3Cp style="float:right;padding-right:1em"\x3E\x3Cinput class="woas_button" type="button" onclick="save_options()" value="Save options" /\x3E\x3C/p\x3E\n\
-= Options\n\
+'= Options\n\
 == User Interface\n\
 \x3Clabel for="cb_auto_links"\x3E\x3Cinput type="checkbox" id="cb_auto_links" onclick="woas.config.auto_links = d$.checked(\'cb_auto_links\')" /\x3EAutomatically create URL hyperlinks when displaying page content\x3C/label\x3E\n\
 \x3Clabel for="cb_key_cache"\x3E\x3Cinput type="checkbox" id="cb_key_cache" onclick="woas.config.key_cache = !d$.checked(\'cb_key_cache\')" /\x3EDo not temporarily cache the AES key\x3C/label\x3E\n\
 \x3Clabel for="cb_dblclick_edit"\x3E\x3Cinput type="checkbox" id="cb_dblclick_edit" onclick="woas.config.dblclick_edit = d$.checked(\'cb_dblclick_edit\')" /\x3EDouble click to edit pages/menu\x3C/label\x3E\n\
-\x3Clabel for="cb_debug_mode"\x3E\x3Cinput type="checkbox" id="cb_debug_mode" onclick="woas.config.debug_mode = d$.checked(\'cb_debug_mode\')" /\x3EEnable debug mode and debug console (*requires WoaS reload*)\x3C/label\x3E\n\
-\x3Clabel for="cb_fixed_layout"\x3E\x3Cinput type="checkbox" id="cb_fixed_layout" onclick="_set_layout(d$.checked(\'cb_fixed_layout\'))" /\x3EFixed menu area and navigation bar\x3C/label\x3E\n\
-\x3Clabel for="cb_rem_history"\x3E\x3Cinput type="checkbox" id="cb_rem_history" onclick="woas.config.nav_history = d$.checked(\'cb_rem_history\')" /\x3ERemember current page and navigation history\x3C/label\x3E\n\
+\x3Clabel for="cb_debug_mode"\x3E\x3Cinput type="checkbox" id="cb_debug_mode" onclick="woas.config.debug_mode = d$.checked(\'cb_debug_mode\');woas._set_debug(woas.config.debug_mode)" /\x3EEnable debug mode and debug console\x3C/label\x3E\n\
+\x3Clabel for="cb_fixed_header"\x3E\x3Cinput type="checkbox" id="cb_fixed_header" onclick="var fl=d$.checked(\'cb_fixed_header\');woas.config.fixed_header=fl;woas.ui.set_header(fl)" /\x3EFixed navigation bar\x3C/label\x3E\n\
+\x3Clabel for="cb_fixed_menu"\x3E\x3Cinput type="checkbox" id="cb_fixed_menu" onclick="var fl=d$.checked(\'cb_fixed_menu\');woas.config.fixed_menu=fl;woas.ui.set_menu(fl)" /\x3EFixed menu area\x3C/label\x3E\n\
 \x3Clabel for="cb_sort_tags"\x3E\x3Cinput type="checkbox" id="cb_sort_tags" onclick="woas.config.sort_tags = d$.checked(\'cb_sort_tags\')" /\x3ESort tags in tag display\x3C/label\x3E\n\
 == Syntax\n\
 \x3Clabel for="cb_new_tables_syntax"\x3E\x3Cinput type="checkbox" id="cb_new_tables_syntax" onclick="woas.config.new_tables_syntax = d$.checked(\'cb_new_tables_syntax\')" /\x3EEnhanced tables syntax\x3C/label\x3E\n\
 == Saving\n\
-\x3Clabel for="cb_allow_diff"\x3E\x3Cinput type="checkbox" id="cb_allow_diff" onclick="woas.config.allow_diff = d$.checked(\'cb_allow_diff\')" /\x3EMake merge/diff of WoaS XHTML/WSIF datasource easier\x3C/label\x3E\n\
 \x3Clabel for="cb_save_on_quit"\x3E\x3Cinput type="checkbox" id="cb_save_on_quit" onclick="woas.config.save_on_quit = d$.checked(\'cb_save_on_quit\')" /\x3EAutomatically save options (if changed) before quitting\x3C/label\x3E\n\
 \x3Clabel for="cb_cumulative_save"\x3E\x3Cinput type="checkbox" id="cb_cumulative_save" onclick="woas.config.cumulative_save = d$.checked(\'cb_cumulative_save\')" /\x3EEnable cumulative save (will save to disk only when quitting)\x3C/label\x3E\n\
 \x3Clabel for="cb_safe_mode"\x3E\x3Cinput type="checkbox" id="cb_safe_mode" onclick="woas.config.safe_mode = d$.checked(\'cb_safe_mode\')" /\x3EEnable safe mode (embedded &lt;script/&gt; blocks and WoaS::Plugins not executed, *requires WoaS reload*)\x3C/label\x3E\n\
+\x3Clabel for="cb_allow_diff"\x3E\x3Cinput type="checkbox" id="cb_allow_diff" onclick="woas.config.allow_diff = d$.checked(\'cb_allow_diff\')" /\x3EMake merge/diff of WoaS XHTML/WSIF datasource easier\x3C/label\x3E\n\
+\x3Clabel for="cb_rem_history"\x3E\x3Cinput type="checkbox" id="cb_rem_history" onclick="woas.config.nav_history = d$.checked(\'cb_rem_history\')" /\x3ERemember current page and navigation history\x3C/label\x3E\n\
 \x3Clabel for="cb_store_mts"\x3E\x3Cinput type="checkbox" id="cb_store_mts" onclick="woas.config.store_mts = d$.checked(\'cb_store_mts\')" /\x3EStore and display last modified timestamp\x3C/label\x3E\n\
 == Datasource\n\
 \x3Clabel for="cb_wsif_ds_lock"\x3E\x3Cinput type="checkbox" id="cb_wsif_ds_lock" onclick="woas.config.wsif_ds_lock = d$.checked(\'cb_wsif_ds_lock\')" /\x3ELock WSIF datasource when editing\x3C/label\x3E\n\
@@ -315,24 +317,26 @@ WSIF data author: \x3Cinput id="txt_author" type="text" size="12" value="" oncha
 /Used in exported WSIF content or in WSIF datasources./\n\
 == Permanent changes\n\
 \x3Cp\x3E&nbsp;&nbsp;\x3Cinput class="woas_button" type="button" onclick="ro_woas()" value="Disallow edits" /\x3E&nbsp;&nbsp;/Caution: to re-enable editing you will have to manually edit WoaS/\x3C/p\x3E\n\
+\x3Cinput class="woas_button_top" type="button" onclick="save_options()" value="Save options" /\x3E\n\
 \x3Cscript type="text/javascript"\x3E\n\
-d$("cb_allow_diff").checked = bool2chk(woas.config.allow_diff);\n\
-d$("cb_rem_history").checked = bool2chk(woas.config.nav_history);\n\
-d$("cb_store_mts").checked = bool2chk(woas.config.store_mts);\n\
-d$("cb_new_tables_syntax").checked = bool2chk(woas.config.new_tables_syntax);\n\
-d$("cb_auto_links").checked = bool2chk(woas.config.auto_links);\n\
-d$("cb_sort_tags").checked = bool2chk(woas.config.sort_tags);\n\
-d$("cb_key_cache").checked = bool2chk(!woas.config.key_cache);\n\
-d$("cb_dblclick_edit").checked = bool2chk(woas.config.dblclick_edit);\n\
-d$("cb_debug_mode").checked = bool2chk(woas.config.debug_mode);\n\
-d$("cb_save_on_quit").checked = bool2chk(woas.config.save_on_quit);\n\
-d$("cb_cumulative_save").checked = bool2chk(woas.config.cumulative_save);\n\
-d$("cb_safe_mode").checked = bool2chk(woas.config.safe_mode);\n\
-d$("cb_wsif_ds_multi").checked = bool2chk(woas.config.wsif_ds_multi);\n\
-d$("cb_wsif_ds_lock").checked = bool2chk(woas.config.wsif_ds_lock);\n\
-d$("cb_fixed_layout").checked = (d$("woas_wiki_header").style.position == "fixed");\n\
+d$("cb_allow_diff").checked = woas.bool2chk(woas.config.allow_diff);\n\
+d$("cb_rem_history").checked = woas.bool2chk(woas.config.nav_history);\n\
+d$("cb_store_mts").checked = woas.bool2chk(woas.config.store_mts);\n\
+d$("cb_new_tables_syntax").checked = woas.bool2chk(woas.config.new_tables_syntax);\n\
+d$("cb_auto_links").checked = woas.bool2chk(woas.config.auto_links);\n\
+d$("cb_sort_tags").checked = woas.bool2chk(woas.config.sort_tags);\n\
+d$("cb_key_cache").checked = woas.bool2chk(!woas.config.key_cache);\n\
+d$("cb_dblclick_edit").checked = woas.bool2chk(woas.config.dblclick_edit);\n\
+d$("cb_debug_mode").checked = woas.bool2chk(woas.config.debug_mode);\n\
+d$("cb_save_on_quit").checked = woas.bool2chk(woas.config.save_on_quit);\n\
+d$("cb_cumulative_save").checked = woas.bool2chk(woas.config.cumulative_save);\n\
+d$("cb_safe_mode").checked = woas.bool2chk(woas.config.safe_mode);\n\
+d$("cb_wsif_ds_multi").checked = woas.bool2chk(woas.config.wsif_ds_multi);\n\
+d$("cb_wsif_ds_lock").checked = woas.bool2chk(woas.config.wsif_ds_lock);\n\
+d$("cb_fixed_header").checked = woas.bool2chk(woas.config.fixed_header);;\n\
+d$("cb_fixed_menu").checked = woas.bool2chk(woas.config.fixed_menu);;\n\
 \n\
-if (woas.browser.ie6) d$("cb_fixed_layout").disabled = true;\n\
+if (woas.browser.ie6) d$("cb_fixed_header").disabled =  d$("cb_fixed_menu").disabled = true;\n\
 \n\
 d$("txt_author").value = woas.config.wsif_author;\n\
 d$("txt_wsif_ds").value = woas.config.wsif_ds;\n\
@@ -3253,7 +3257,7 @@ body {\n\
 }\n\
 \n\
 /* BUTTONS */\n\
-.woas_button {\n\
+.woas_button, .woas_button_top, .woas_editor_button {\n\
 	background-color: #F0F0F5;\n\
 	border: 1pt solid grey;\n\
 	color: darkblue;\n\
@@ -3262,8 +3266,13 @@ body {\n\
 	margin-top: 0.438em;\n\
 	text-align: center;\n\
 }\n\
-.woas_button:hover {\n\
+.woas_button:hover, .woas_button_top:hover {\n\
 	background-color: darkgrey;\n\
+}\n\
+.woas_button_top {\n\
+	position: absolute;\n\
+	right: 1em;\n\
+	top: .5em\n\
 }\n\
 \n\
 /* DEBUG CONSOLE */\n\
@@ -3880,7 +3889,7 @@ aesInit();}else{aes_i=tot-aes_i;dec();for(aes_j=aes_i-16;aes_j<aes_i;aes_j++)bDa
 if(aes_i>=tot){aesClose();bData.splice(0,16);while(bData[bData.length-1]===0)bData.pop();}
 return true;}
 woas.AES={setKey:function(sKey){key=woas.utf8.encode_to_array(sKey);},clearKey:function(){key=[];},isKeySet:function(){return key.length>0;},encrypt:function(raw_data){bData=woas.utf8.encode_to_array(raw_data);aes_i=tot=0;do{blcEncrypt(_encrypt);}while(aes_i<tot);var rv=bData;bData=null;return rv;},decrypt:function(raw_data){bData=raw_data;aes_i=tot=0;do{if(!blcDecrypt(_decrypt))
-return null;}while(aes_i<tot);sData=woas.utf8.decode_from_array(bData);bData=[];var rv=sData;sData=null;return rv;}};}());woas.browser={ie:false,firefox:false,opera:false,safari:false,chrome:false,ie6:false,ie8:false,firefox2:false,firefox3:false,firefox_new:false,gecko:false,webkit:false,presto:false,trident:false};var m;if((navigator.userAgent).indexOf("Opera")!=-1){m=navigator.userAgent.match(/Opera\/(\S*)/);woas.browser.opera=m[1];}else if(navigator.userAgent.indexOf("Chrome")!=-1){m=navigator.userAgent.match(/Chrome\/([^\s]+)/);woas.browser.chrome=m[1];}else if(navigator.userAgent.toLowerCase().indexOf("applewebkit")!=-1){woas.browser.safari=true;}else if(navigator.appName=="Netscape"){woas.browser.firefox=woas.browser.gecko=(new RegExp("Gecko\\/\\d")).test(navigator.userAgent);if(woas.browser.gecko){m=navigator.userAgent.match(/rv:([^\s\)]*)/);woas.browser.gecko=m[1];switch(woas.browser.gecko.substr(0,3)){case"1.8":woas.browser.firefox2=true;break;case"1.9":woas.browser.firefox3=true;break;default:woas.browser.firefox_new=true;}}}else if((navigator.appName).indexOf("Microsoft")!=-1){woas.browser.ie8=document.documentMode?true:false;if(!woas.browser.ie8)
+return null;}while(aes_i<tot);sData=woas.utf8.decode_from_array(bData);bData=[];var rv=sData;sData=null;return rv;}};}());woas.browser={ie:false,firefox:false,opera:false,safari:false,chrome:false,ie6:false,ie8:false,firefox2:false,firefox3:false,firefox_new:false,gecko:false,webkit:false,presto:false,trident:false};var m;if((navigator.userAgent).indexOf("Opera")!=-1){m=navigator.userAgent.match(/Opera\/(\S*)/);woas.browser.opera=m[1];}else if(navigator.userAgent.indexOf("Chrome")!=-1){m=navigator.userAgent.match(/Chrome\/([^\s]+)/);woas.browser.chrome=m[1];}else if(navigator.userAgent.toLowerCase().indexOf("applewebkit")!=-1){woas.browser.safari=true;}else if(navigator.appName=="Netscape"){woas.browser.firefox=woas.browser.gecko=(new RegExp("Gecko\\/\\d")).test(navigator.userAgent);if(woas.browser.gecko){m=navigator.userAgent.match(/rv:([^\s\)]*)/);woas.browser.gecko=m[1];switch(woas.browser.gecko.substr(0,3)){case"1.8":woas.browser.firefox2=true;break;case"1.9":woas.browser.firefox3=true;break;default:if(Number(woas.browser.gecko.substr(0,3))>1.9){woas.browser.firefox_new=true;}}}}else if((navigator.appName).indexOf("Microsoft")!=-1){woas.browser.ie8=document.documentMode?true:false;if(!woas.browser.ie8)
 woas.browser.ie6=window.XMLHttpRequest?false:true;m=navigator.userAgent.match(/MSIE\s([^;]*)/);woas.browser.ie=m[1];}
 if(woas.browser.firefox&&(navigator.product!="Gecko")){woas.browser.firefox=woas.browser.firefox2=woas.browser.firefox3=woas.browser.firefox_new=false;if(typeof window.opera!="undefined")
 woas.browser.opera=true;}
@@ -4217,7 +4226,6 @@ if(from.length>0)
 s+="[["+from[from.length-1]+"]]";pg.push(s);}
 woas.pager.bucket.items=dead_pages.slice(0);if(!pg.length)
 return'/No dead pages/';return this._simple_join_list(pg,true);};function bool2chk(b){if(b)return"checked";return"";}
-function _set_layout(fixed){d$("i_woas_menu_area").style.position=d$("woas_wiki_header").style.position=(fixed?"fixed":"absolute");}
 woas.special_recent_changes=function(){if(!this.config.store_mts){return"/Last modified timestamp storage is disabled in [[Special::Options]]./";}
 var l=page_titles.length,hm=[],i;for(i=0;i<l;++i){if(page_mts[i]===0)
 continue;if(!this.edit_allowed_reserved(page_titles[i])&&this.is_reserved(page_titles[i]))
@@ -4446,13 +4454,13 @@ clearTimeout(woas._autosave_thread);if(_this.config.auto_save)
 woas._autosave_thread=setTimeout("woas._auto_saver()",woas.config.auto_save);};woas._on_unload=function(){if(this.save_queue.length)
 this.commit(this.save_queue);else{if(this.config.save_on_quit&&this.cfg_changed)
 this.cfg_commit();}
-return true;};woas.setHTML=woas.getHTML=null;woas.getHTMLDiv=function(elem){return elem.innerHTML;};woas.setHTMLDiv=function(elem,html){elem.innerHTML=html;};woas._on_load=function(){d$("woas_debug_log").value="";woas.log("*** WoaS v"+this.version+"-pvhl-r2355"+" started");this._old_wsif_ds_len=this.config.wsif_ds.length;if(this.browser.ie){this.setHTML=function(elem,html){elem.text=html;};this.getHTML=function(elem){return elem.text;};var obj=d$("woas_wiki_header");obj.style.filter="alpha(opacity=75);";if(this.browser.ie6){d$("woas_wiki_header").style.position="absolute";d$("i_woas_menu_area").style.position="absolute";}
+return true;};woas.setHTML=woas.getHTML=null;woas.getHTMLDiv=function(elem){return elem.innerHTML;};woas.setHTMLDiv=function(elem,html){elem.innerHTML=html;};woas._on_load=function(){d$("woas_debug_log").value="";woas.log("*** WoaS v"+this.version+"-pvhl-r2359"+" started");this._old_wsif_ds_len=this.config.wsif_ds.length;if(this.browser.ie){this.setHTML=function(elem,html){elem.text=html;};this.getHTML=function(elem){return elem.text;};var obj=d$("woas_wiki_header");obj.style.filter="alpha(opacity=75);";if(this.browser.ie6){d$("woas_wiki_header").style.position="absolute";d$("i_woas_menu_area").style.position="absolute";}
 if(!this.browser.ie8){d$.hide("img_logo");d$("woas_logo").style.width="1%";}}else{this.setHTML=this.setHTMLDiv;this.getHTML=this.getHTMLDiv;d$("woas_logo").style.width="35px";d$.show("img_logo");}
 if(this.config.debug_mode){this._set_debug(true);if(this.tweak.integrity_test){if(!this.integrity_test())
 return;}}else
 this._set_debug(false);if(this.config.wsif_ds.length){if(!this._wsif_ds_load(this.config.wsif_ds,this.config.wsif_ds_lock)){if(this.wsif.emsg!==null){this._set_debug(true);this.crash("Could not load WSIF pages data!\n"+this.wsif.emsg);}
 return;}}
-this.dom.init();this.css.set(this.get_text("WoaS::CSS::Core")+"\n"+this.get_text("WoaS::CSS::Custom"));d$('woas_home_hl').title=this.config.main_page;d$('img_home').alt=this.config.main_page;var nav_bar=["back","forward","home","edit","print","advanced","cancel","save","lock","unlock","setkey","help","top","debug"];for(var i=0,it=nav_bar.length;i<it;++i){this.img_display(nav_bar[i],true);}
+this.dom.init();this.css.set(this.get_text("WoaS::CSS::Core")+"\n"+this.get_text("WoaS::CSS::Custom"));d$('woas_home_hl').title=this.config.main_page;d$('img_home').alt=this.config.main_page;this.ui.set_header(this.config.fixed_header);this.ui.set_menu(this.config.fixed_menu);var nav_bar=["back","forward","home","edit","print","advanced","cancel","save","lock","unlock","setkey","help","top","debug"];for(var i=0,it=nav_bar.length;i<it;++i){this.img_display(nav_bar[i],true);}
 document.onkeydown=woas.ui._keyboard_event_hook;var qpage=document.location.href.split("?")[1];if(qpage){current=unescape(qpage);var p=current.indexOf("#");if(p!==-1)
 current=current.substring(0,p);}
 this.setHTML(d$("woas_wait_text"),"Initializing extensions...");this.plugins.load();this._load_aliases(this.get_text("WoaS::Aliases"));this.hotkey.load(this.get_text("WoaS::Hotkeys"));if(this.config.permit_edits)
@@ -4814,7 +4822,9 @@ var rv=this._native_wsif_load(the_dir+d_fn,locking,_native,1,import_hook,title_f
 this.wsif.do_error("Failed import of external "+the_dir+d_fn);return rv;}
 break;default:this.wsif.do_error("Page "+title+" has invalid disposition: "+disposition);return false;}
 var NP={"title":title,"attrs":attrs,"body":page,"mts":last_mod};if(import_hook(NP)){this.wsif.imported.push(NP.i);return true;}
-return false;};var log=woas.log;function home(){woas.log("WARNING: Called deprecated function: home");woas.ui.home();}
+return false;};var log=woas.log;function bool2chk(b){woas.log("WARNING: Called deprecated function: bool2chk (now woas.bool2chk)");woas.bool2chk(b);}
+function _set_layout(fixed){woas.log("WARNING: Called deprecated function: _set_layout (now woas.set_layout)");woas.ui.set_layout(fixed);}
+function home(){woas.log("WARNING: Called deprecated function: home");woas.ui.home();}
 function help(){woas.log("WARNING: Called deprecated function: help");woas.ui.help();}
 function advanced(){woas.log("WARNING: Called deprecated function: advanced");woas.ui.advanced();}
 function go_to(t){woas.log("WARNING: Called deprecated function: go_to");return woas.go_to(t);}
@@ -4858,7 +4868,7 @@ return false;woas.ui.edit_ns_menu();return true;},edit_ns_menu:function(){woas.e
 _lock_pages(woas.pager.bucket.items);else
 woas.go_to("Lock::"+current);},unlock:function(){if(woas.pager.bucket.items.length>1)
 _unlock_pages(woas.pager.bucket.items);else
-woas.go_to("Unlock::"+current);},top:function(){scrollTo(0,0);},advanced:function(){woas.go_to("Special::Advanced");}};woas.ui._textbox_enter_event=woas.ui._textbox_enter_event_dummy;woas.go_to=function(cr){if(this.ui.edit_mode)
+woas.go_to("Unlock::"+current);},top:function(){scrollTo(0,0);},advanced:function(){woas.go_to("Special::Advanced");},set_header:function(fixed){if(!woas.browser.ie6){d$("woas_wiki_header").style.position=(fixed?"fixed":"absolute");}},set_menu:function(fixed){if(!woas.browser.ie6){d$("i_woas_menu_area").style.position=(fixed?"fixed":"absolute");}},set_layout:function(fixed){this.set_header(fixed);this.set_menu(fixed);}};woas.ui._textbox_enter_event=woas.ui._textbox_enter_event_dummy;woas.go_to=function(cr){if(this.ui.edit_mode)
 return false;if(cr===current)
 return true;return this.set_current(cr,true)};function back_or(or_page){if(!woas.ui.back()&&or_page!==current)
 woas.set_current(or_page,true);}
@@ -4895,6 +4905,7 @@ if(confirm(woas.i18n.CONFIRM_READ_ONLY)){woas.config.permit_edits=false;woas.cfg
 function lock_page(page){var pwd=d$("pw1").value;if(!pwd.length){d$("pw1").focus();return;}
 if(pwd!==d$("pw2").value){d$("pw2").focus();return;}
 var pi=woas.page_index(page);woas.AES.setKey(pwd);woas._finalize_lock(pi);}
+woas.bool2chk=function(b){if(b)return"checked";return"";}
 function import_wiki(){if(!woas.config.permit_edits){alert(woas.i18n.READ_ONLY);return false;}
 woas.import_wiki();}
 function set_key(){woas._set_password();}
@@ -5012,7 +5023,7 @@ woas._editor.setSelectedText("[[Tag::",tag+"]]");}
 </form>
 </div>
 </div>
-<div class="woas_background" id="woas_wiki_header" style="position: fixed;">
+<div class="woas_background" id="woas_wiki_header">
 <table cellspacing="0" width="100%">
 <tbody><tr>
 <td style="width: 35px;" id="woas_logo"><img style="display: inline; visibility: visible;" id="img_logo" alt="WoaS Logo" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAQAAADZc7J%2FAAAAAXNSR0IArs4c6QAAAAJiS0dEAP%2BHj8y%2FAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH2gEcDzUY4t9JowAAABl0RVh0Q29tbWVudABDcmVhdGVkIHdpdGggR0lNUFeBDhcAAAI7SURBVEjHtdVPSFRRFAbw33ujljETWhaGo9YiCGoVuHDTIggE2xRBbgeEoFWQFARBq3ZCELQKgqJtbWtTEAitgqBNCZJFGGb%2B18Hxz20xr3HSmXEU%2Bt7ivnvf%2B757z3feOydSAZNh2QrW0IAm%2Bx2LVMS25e9h0UbFF5u1aI1qCvwMs9ZVRyStK6oq8D3M2xn7HdYSVRAYC3n1ocHRslDi4vCtbjprpspmcTH2BbtBwddQJjATZu0Wi36FvwFZqOk861atbUttvDku1SAHeUsKFb6MueQM8c%2BwUcOuJatVnxYDb8hX3XtFoWZoxZM3LFkpW0wlfmxY29HIvNnQEsV5fQql62IyVqO%2FknPegNtgFfG6wyZ80GtaQRrjcnpdN5eQhvTrNwaG5Tx3S0%2BSH%2BIga9SItA8mZTGs21MZTxKBnMfuJLOsLzLOupL4RJySNeadGyWBT645adAbMO6xnCHvwUNcMmg0cYy4Ubc30vp9NaG7FG1TYueQHve9sAjSBr10xj3QiLhZp1F96PRWJ854ZsIjF8CK07LeYQ4PfJRyCuzTGhEfkJVyAeeMyOKmTy5bkAODbhsw4ZyrGDekz2t3kSnWg5nwWbAXHHcsIm6NDu2J%2FrfMxrRJ7UGgffNvPBQd2TU9UyrzMZyIDu6K3qRja13o0Fw3PaWrrKiWbmbCDwt17d7lSFSlsYyG3zukNKNjS3fa0md%2BhUnzVRPXXqFDVmiZU2HOouV%2Fjn1QRntUV3PdxHRYRUpb5H%2FiD%2FUerIBA%2BEx5AAAAAElFTkSuQmCC" /></td>
@@ -5032,7 +5043,7 @@ woas._editor.setSelectedText("[[Tag::",tag+"]]");}
 <div id="menu_save" style="display: none; cursor: pointer; visibility: hidden;"><a accesskey="s" id="woas_save_hl" title="Save" onclick="woas.save()"><img id="img_save" style="display: inline; visibility: visible;" alt="Save" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAAK/INwWK6QAAAAZiS0dEAP8A/wD/oL2nkwAAA0FJREFUeNq1lc+KHFUUxn/n3qqu6h7tGdPByTBOEjQunK26EQRdhAGRuHGE2agLH8C1j5AXCFnkAYyBEIKoRHeabWQyJKIm+IdAdwSd0HZPdVXdc1xU9UynbZIe/xy4XG5R93z3fN937hWqeALYqGcFhH8WBkTAD8DXTCS64n18Jo6ToFo4792hAEQEVUUVc87baDR0ZvYBcEFAngO7eeatD5vHjq2XKysDee/dNxkOc9zcOIJzgXPnrhD0mfDVl+cbt29f/0zEvREBHqD9ZIckWfCdIwnLy8v0+3t47x7PiRkAcexoLy6SZW1arTaAQyq+ACSEAtVAURQyGo3I8/krMANVoSxLQigtaKjKsgkAREAEmRjOzVeBCDgnCPXecU7g8Rn+ZfzvANHkYprxsYD/GYABiExAzS+yWcX/IwEATEu8V7w3vNc5skvVvt7Qyj2zAVSVVqvJj3d6nD37MeAxJimSh+qxuj5DMVNUA7t/wFNHInSC2mhyh6AkyQrd3gOKYhcRv2/V6dOJCBoCjWSJNG2jqiSpAPrQUaLpTXk+4mhnyObma4QAWTZABNJ0AdWDk5mB98bFi9fJ8gWSxBFCybQt/gagqjSbTU6cOMknl66xvd0DjJdfWmNj41WGwwznBFVIU0+z1WQwDMRRNNMUUyJXzIYQyPOMbvcB8DSqSre7S1mOKIoc5xxmRp57NITaebMjmvlVqmq8czingOJ8Zd8DK8pB3ke0y34n26y/qutp8n45dEQ1fPA+qkU0MzMxM4q8JMsCqkpelJgZqoZz4xvU6m6vZqs6bnxYA4hEBDNz/f7vliQtnBuQNBJL0xbr68cpw6+Asf7CsyRJimpFk1klcqOR4HxEVIvsfSzeRQAmApGZfQ9c/uLz81tpupB3Oidd736X7e0dVlc7rK4u1g6LuHXru30NzMA55f5vPfLc0CCEMkgIZTkY7Hog7PebiHNLS8uXKlQpqR5+O+wQEQVCvX6/lrHq+M13PmplWf760c7QnT79Cnt7h3nRFO+Fq1e/saLoRDd3rv10986Nb0WECMTAiOMkWzv+4qfPnyrY2nqb/p97+DletDFdcSz8/EtgNFrj3r0d7nJDRMT+AqKAkRUl/oStAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAABJRU5ErkJggg==" /><span id="alt_save" style="display: none; visibility: hidden;">&nbsp;<strong>[Save]</strong>&nbsp;</span></a></div>
 </td></tr></tbody></table></div><p style="font-size: 20px;">&nbsp;</p>
 <div id="i_woas_text_area" style="display: inline; visibility: visible;">
-<div id="i_woas_menu_area" style="position: fixed;">
+<div id="i_woas_menu_area">
 <div class="woas_wiki" id="woas_menu_area" ondblclick="menu_dblclick()"></div>
 <div id="menu_edit_button" style="display: inline; visibility: visible;"><input class="woas_button woas_menu_button" value="Edit menu" title="Edit menu" onclick="edit_menu()" type="button" /></div>
 <div class="woas_wiki" id="woas_ns_menu_area" ondblclick="woas.ui.ns_menu_dblclick()" style="display: none; visibility: hidden;"></div>
