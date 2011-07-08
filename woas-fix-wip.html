@@ -32,7 +32,9 @@ woas["config"] = {
 "folding_style":0,
 "import_settings":107,
 "auto_links":false,
-"sort_tags":true
+"sort_tags":true,
+"fixed_header":false,
+"fixed_menu":false
 };
 ;
 
@@ -284,23 +286,23 @@ Security is never absolute. Data encrypted with these pages might be compromised
 * Your computer\'s security may have been compromised physically; when\'s the last time you checked that a bug that transmits your keystrokes and/or screen contents to that white van parked down the street wasn\'t lurking inside your computer cabinet?\n\
 \n\
 Apart from the above, your normal usage of encrypted pages can be considered secure.',
-'\x3Cp style="float:right;padding-right:1em"\x3E\x3Cinput class="woas_button" type="button" onclick="save_options()" value="Save options" /\x3E\x3C/p\x3E\n\
-= Options\n\
+'= Options\n\
 == User Interface\n\
 \x3Clabel for="cb_auto_links"\x3E\x3Cinput type="checkbox" id="cb_auto_links" onclick="woas.config.auto_links = d$.checked(\'cb_auto_links\')" /\x3EAutomatically create URL hyperlinks when displaying page content\x3C/label\x3E\n\
 \x3Clabel for="cb_key_cache"\x3E\x3Cinput type="checkbox" id="cb_key_cache" onclick="woas.config.key_cache = !d$.checked(\'cb_key_cache\')" /\x3EDo not temporarily cache the AES key\x3C/label\x3E\n\
 \x3Clabel for="cb_dblclick_edit"\x3E\x3Cinput type="checkbox" id="cb_dblclick_edit" onclick="woas.config.dblclick_edit = d$.checked(\'cb_dblclick_edit\')" /\x3EDouble click to edit pages/menu\x3C/label\x3E\n\
-\x3Clabel for="cb_debug_mode"\x3E\x3Cinput type="checkbox" id="cb_debug_mode" onclick="woas.config.debug_mode = d$.checked(\'cb_debug_mode\')" /\x3EEnable debug mode and debug console (*requires WoaS reload*)\x3C/label\x3E\n\
-\x3Clabel for="cb_fixed_layout"\x3E\x3Cinput type="checkbox" id="cb_fixed_layout" onclick="_set_layout(d$.checked(\'cb_fixed_layout\'))" /\x3EFixed menu area and navigation bar\x3C/label\x3E\n\
-\x3Clabel for="cb_rem_history"\x3E\x3Cinput type="checkbox" id="cb_rem_history" onclick="woas.config.nav_history = d$.checked(\'cb_rem_history\')" /\x3ERemember current page and navigation history\x3C/label\x3E\n\
+\x3Clabel for="cb_debug_mode"\x3E\x3Cinput type="checkbox" id="cb_debug_mode" onclick="woas.config.debug_mode = d$.checked(\'cb_debug_mode\');woas._set_debug(woas.config.debug_mode)" /\x3EEnable debug mode and debug console\x3C/label\x3E\n\
+\x3Clabel for="cb_fixed_header"\x3E\x3Cinput type="checkbox" id="cb_fixed_header" onclick="var fl=d$.checked(\'cb_fixed_header\');woas.config.fixed_header=fl;woas.ui.set_header(fl)" /\x3EFixed navigation bar\x3C/label\x3E\n\
+\x3Clabel for="cb_fixed_menu"\x3E\x3Cinput type="checkbox" id="cb_fixed_menu" onclick="var fl=d$.checked(\'cb_fixed_menu\');woas.config.fixed_menu=fl;woas.ui.set_menu(fl)" /\x3EFixed menu area\x3C/label\x3E\n\
 \x3Clabel for="cb_sort_tags"\x3E\x3Cinput type="checkbox" id="cb_sort_tags" onclick="woas.config.sort_tags = d$.checked(\'cb_sort_tags\')" /\x3ESort tags in tag display\x3C/label\x3E\n\
 == Syntax\n\
 \x3Clabel for="cb_new_tables_syntax"\x3E\x3Cinput type="checkbox" id="cb_new_tables_syntax" onclick="woas.config.new_tables_syntax = d$.checked(\'cb_new_tables_syntax\')" /\x3EEnhanced tables syntax\x3C/label\x3E\n\
 == Saving\n\
-\x3Clabel for="cb_allow_diff"\x3E\x3Cinput type="checkbox" id="cb_allow_diff" onclick="woas.config.allow_diff = d$.checked(\'cb_allow_diff\')" /\x3EMake merge/diff of WoaS XHTML/WSIF datasource easier\x3C/label\x3E\n\
 \x3Clabel for="cb_save_on_quit"\x3E\x3Cinput type="checkbox" id="cb_save_on_quit" onclick="woas.config.save_on_quit = d$.checked(\'cb_save_on_quit\')" /\x3EAutomatically save options (if changed) before quitting\x3C/label\x3E\n\
 \x3Clabel for="cb_cumulative_save"\x3E\x3Cinput type="checkbox" id="cb_cumulative_save" onclick="woas.config.cumulative_save = d$.checked(\'cb_cumulative_save\')" /\x3EEnable cumulative save (will save to disk only when quitting)\x3C/label\x3E\n\
 \x3Clabel for="cb_safe_mode"\x3E\x3Cinput type="checkbox" id="cb_safe_mode" onclick="woas.config.safe_mode = d$.checked(\'cb_safe_mode\')" /\x3EEnable safe mode (embedded &lt;script/&gt; blocks and WoaS::Plugins not executed, *requires WoaS reload*)\x3C/label\x3E\n\
+\x3Clabel for="cb_allow_diff"\x3E\x3Cinput type="checkbox" id="cb_allow_diff" onclick="woas.config.allow_diff = d$.checked(\'cb_allow_diff\')" /\x3EMake merge/diff of WoaS XHTML/WSIF datasource easier\x3C/label\x3E\n\
+\x3Clabel for="cb_rem_history"\x3E\x3Cinput type="checkbox" id="cb_rem_history" onclick="woas.config.nav_history = d$.checked(\'cb_rem_history\')" /\x3ERemember current page and navigation history\x3C/label\x3E\n\
 \x3Clabel for="cb_store_mts"\x3E\x3Cinput type="checkbox" id="cb_store_mts" onclick="woas.config.store_mts = d$.checked(\'cb_store_mts\')" /\x3EStore and display last modified timestamp\x3C/label\x3E\n\
 == Datasource\n\
 \x3Clabel for="cb_wsif_ds_lock"\x3E\x3Cinput type="checkbox" id="cb_wsif_ds_lock" onclick="woas.config.wsif_ds_lock = d$.checked(\'cb_wsif_ds_lock\')" /\x3ELock WSIF datasource when editing\x3C/label\x3E\n\
@@ -315,24 +317,26 @@ WSIF data author: \x3Cinput id="txt_author" type="text" size="12" value="" oncha
 /Used in exported WSIF content or in WSIF datasources./\n\
 == Permanent changes\n\
 \x3Cp\x3E&nbsp;&nbsp;\x3Cinput class="woas_button" type="button" onclick="ro_woas()" value="Disallow edits" /\x3E&nbsp;&nbsp;/Caution: to re-enable editing you will have to manually edit WoaS/\x3C/p\x3E\n\
+\x3Cinput class="woas_button_top" type="button" onclick="save_options()" value="Save options" /\x3E\n\
 \x3Cscript type="text/javascript"\x3E\n\
-d$("cb_allow_diff").checked = bool2chk(woas.config.allow_diff);\n\
-d$("cb_rem_history").checked = bool2chk(woas.config.nav_history);\n\
-d$("cb_store_mts").checked = bool2chk(woas.config.store_mts);\n\
-d$("cb_new_tables_syntax").checked = bool2chk(woas.config.new_tables_syntax);\n\
-d$("cb_auto_links").checked = bool2chk(woas.config.auto_links);\n\
-d$("cb_sort_tags").checked = bool2chk(woas.config.sort_tags);\n\
-d$("cb_key_cache").checked = bool2chk(!woas.config.key_cache);\n\
-d$("cb_dblclick_edit").checked = bool2chk(woas.config.dblclick_edit);\n\
-d$("cb_debug_mode").checked = bool2chk(woas.config.debug_mode);\n\
-d$("cb_save_on_quit").checked = bool2chk(woas.config.save_on_quit);\n\
-d$("cb_cumulative_save").checked = bool2chk(woas.config.cumulative_save);\n\
-d$("cb_safe_mode").checked = bool2chk(woas.config.safe_mode);\n\
-d$("cb_wsif_ds_multi").checked = bool2chk(woas.config.wsif_ds_multi);\n\
-d$("cb_wsif_ds_lock").checked = bool2chk(woas.config.wsif_ds_lock);\n\
-d$("cb_fixed_layout").checked = (d$("woas_wiki_header").style.position == "fixed");\n\
+d$("cb_allow_diff").checked = woas.bool2chk(woas.config.allow_diff);\n\
+d$("cb_rem_history").checked = woas.bool2chk(woas.config.nav_history);\n\
+d$("cb_store_mts").checked = woas.bool2chk(woas.config.store_mts);\n\
+d$("cb_new_tables_syntax").checked = woas.bool2chk(woas.config.new_tables_syntax);\n\
+d$("cb_auto_links").checked = woas.bool2chk(woas.config.auto_links);\n\
+d$("cb_sort_tags").checked = woas.bool2chk(woas.config.sort_tags);\n\
+d$("cb_key_cache").checked = woas.bool2chk(!woas.config.key_cache);\n\
+d$("cb_dblclick_edit").checked = woas.bool2chk(woas.config.dblclick_edit);\n\
+d$("cb_debug_mode").checked = woas.bool2chk(woas.config.debug_mode);\n\
+d$("cb_save_on_quit").checked = woas.bool2chk(woas.config.save_on_quit);\n\
+d$("cb_cumulative_save").checked = woas.bool2chk(woas.config.cumulative_save);\n\
+d$("cb_safe_mode").checked = woas.bool2chk(woas.config.safe_mode);\n\
+d$("cb_wsif_ds_multi").checked = woas.bool2chk(woas.config.wsif_ds_multi);\n\
+d$("cb_wsif_ds_lock").checked = woas.bool2chk(woas.config.wsif_ds_lock);\n\
+d$("cb_fixed_header").checked = woas.bool2chk(woas.config.fixed_header);;\n\
+d$("cb_fixed_menu").checked = woas.bool2chk(woas.config.fixed_menu);;\n\
 \n\
-if (woas.browser.ie6) d$("cb_fixed_layout").disabled = true;\n\
+if (woas.browser.ie6) d$("cb_fixed_header").disabled =  d$("cb_fixed_menu").disabled = true;\n\
 \n\
 d$("txt_author").value = woas.config.wsif_author;\n\
 d$("txt_wsif_ds").value = woas.config.wsif_ds;\n\
@@ -3253,7 +3257,7 @@ body {\n\
 }\n\
 \n\
 /* BUTTONS */\n\
-.woas_button {\n\
+.woas_button, .woas_button_top, .woas_editor_button {\n\
 	background-color: #F0F0F5;\n\
 	border: 1pt solid grey;\n\
 	color: darkblue;\n\
@@ -3262,8 +3266,13 @@ body {\n\
 	margin-top: 0.438em;\n\
 	text-align: center;\n\
 }\n\
-.woas_button:hover {\n\
+.woas_button:hover, .woas_button_top:hover {\n\
 	background-color: darkgrey;\n\
+}\n\
+.woas_button_top {\n\
+	position: absolute;\n\
+	right: 1em;\n\
+	top: .5em\n\
 }\n\
 \n\
 /* DEBUG CONSOLE */\n\
@@ -4178,8 +4187,9 @@ if((navigator.userAgent).indexOf("Opera")!=-1) {
 				woas.browser.firefox3 = true;
 			break;
 			default:
-				// possibly Firefox4 - but could be earlier than 1.8 :(
-				woas.browser.firefox_new = true;
+				if (Number(woas.browser.gecko.substr(0,3)) > 1.9) {
+					woas.browser.firefox_new = true;
+				}
 		}
 	} // not Gecko
 } else if((navigator.appName).indexOf("Microsoft")!=-1) {
@@ -6752,11 +6762,6 @@ function bool2chk(b) {
 	return "";
 }
 
-// Used by Special::Options
-function _set_layout(fixed) {
-	d$("i_woas_menu_area").style.position = d$("woas_wiki_header").style.position = (fixed ? "fixed" : "absolute");
-}
-
 //Special::Recentchanges shows a sorted list of pages by modified timestamp
 woas.special_recent_changes = function() {
 	if (!this.config.store_mts) {
@@ -8807,7 +8812,7 @@ woas.setHTMLDiv = function(elem, html) {elem.innerHTML = html;};
 woas._on_load = function() {
 	d$("woas_debug_log").value = ""; // for Firefox
 	// output platform information - note that revision is filled in only in releases
-	woas.log("*** WoaS v"+this.version+"-pvhl-r2355"+" started");	// log:1
+	woas.log("*** WoaS v"+this.version+"-pvhl-r2359"+" started");	// log:1
 	
 	// store the old length to eventually force full save when entering/exiting WSIF datasource mode
 	this._old_wsif_ds_len = this.config.wsif_ds.length;
@@ -8869,7 +8874,8 @@ woas._on_load = function() {
 	// (5) continue with UI setup
 	d$('woas_home_hl').title = this.config.main_page;
 	d$('img_home').alt = this.config.main_page;
-	
+	this.ui.set_header(this.config.fixed_header); // not done by function if IE6
+	this.ui.set_menu(this.config.fixed_menu);
 	// properly initialize navigation bar icons
 	// this will cause the alternate text to display on IE6/IE7
 	var nav_bar = ["back", "forward", "home", "edit", "print", "advanced",
@@ -12108,6 +12114,18 @@ woas._native_page_def = function(path,ct,p,last_p,import_hook,
 var log = woas.log;
 
 //DEPRECATED
+function bool2chk(b) {
+	woas.log("WARNING: Called deprecated function: bool2chk (now woas.bool2chk)");
+	woas.bool2chk(b);
+}
+
+//DEPRECATED
+function _set_layout(fixed) {
+	woas.log("WARNING: Called deprecated function: _set_layout (now woas.set_layout)");
+	woas.ui.set_layout(fixed);
+}
+
+//DEPRECATED
 function home() {
 	woas.log("WARNING: Called deprecated function: home");
 	woas.ui.home();
@@ -12425,6 +12443,20 @@ woas.ui = {
 	},
 	advanced: function() {
 		woas.go_to("Special::Advanced");
+	},
+	set_header: function(fixed) {
+		if (!woas.browser.ie6) {
+			d$("woas_wiki_header").style.position = (fixed ? "fixed" : "absolute");
+		}
+	},
+	set_menu: function(fixed) {
+		if (!woas.browser.ie6) {
+			d$("i_woas_menu_area").style.position = (fixed ? "fixed" : "absolute");
+		}
+	},
+	set_layout: function(fixed)  {
+		this.set_header(fixed);
+		this.set_menu(fixed);
 	}
 };
 
@@ -12636,6 +12668,12 @@ function lock_page(page) {
 	var pi = woas.page_index(page);
 	woas.AES.setKey(pwd);
 	woas._finalize_lock(pi);
+}
+
+// used in Special::Options
+woas.bool2chk = function(b) {
+	if (b) return "checked";
+	return "";
 }
 
 // import wiki from external file
@@ -13404,7 +13442,7 @@ function setTag() {
 </form>
 </div>
 </div>
-<div class="woas_background" id="woas_wiki_header" style="position: fixed;">
+<div class="woas_background" id="woas_wiki_header">
 <table cellspacing="0" width="100%">
 <tbody><tr>
 <td style="width: 35px;" id="woas_logo"><img style="display: inline; visibility: visible;" id="img_logo" alt="WoaS Logo" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAQAAADZc7J%2FAAAAAXNSR0IArs4c6QAAAAJiS0dEAP%2BHj8y%2FAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH2gEcDzUY4t9JowAAABl0RVh0Q29tbWVudABDcmVhdGVkIHdpdGggR0lNUFeBDhcAAAI7SURBVEjHtdVPSFRRFAbw33ujljETWhaGo9YiCGoVuHDTIggE2xRBbgeEoFWQFARBq3ZCELQKgqJtbWtTEAitgqBNCZJFGGb%2B18Hxz20xr3HSmXEU%2Bt7ivnvf%2B757z3feOydSAZNh2QrW0IAm%2Bx2LVMS25e9h0UbFF5u1aI1qCvwMs9ZVRyStK6oq8D3M2xn7HdYSVRAYC3n1ocHRslDi4vCtbjprpspmcTH2BbtBwddQJjATZu0Wi36FvwFZqOk861atbUttvDku1SAHeUsKFb6MueQM8c%2BwUcOuJatVnxYDb8hX3XtFoWZoxZM3LFkpW0wlfmxY29HIvNnQEsV5fQql62IyVqO%2FknPegNtgFfG6wyZ80GtaQRrjcnpdN5eQhvTrNwaG5Tx3S0%2BSH%2BIga9SItA8mZTGs21MZTxKBnMfuJLOsLzLOupL4RJySNeadGyWBT645adAbMO6xnCHvwUNcMmg0cYy4Ubc30vp9NaG7FG1TYueQHve9sAjSBr10xj3QiLhZp1F96PRWJ854ZsIjF8CK07LeYQ4PfJRyCuzTGhEfkJVyAeeMyOKmTy5bkAODbhsw4ZyrGDekz2t3kSnWg5nwWbAXHHcsIm6NDu2J%2FrfMxrRJ7UGgffNvPBQd2TU9UyrzMZyIDu6K3qRja13o0Fw3PaWrrKiWbmbCDwt17d7lSFSlsYyG3zukNKNjS3fa0md%2BhUnzVRPXXqFDVmiZU2HOouV%2Fjn1QRntUV3PdxHRYRUpb5H%2FiD%2FUerIBA%2BEx5AAAAAElFTkSuQmCC" /></td>
@@ -13424,7 +13462,7 @@ function setTag() {
 <div id="menu_save" style="display: none; cursor: pointer; visibility: hidden;"><a accesskey="s" id="woas_save_hl" title="Save" onclick="woas.save()"><img id="img_save" style="display: inline; visibility: visible;" alt="Save" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAAK/INwWK6QAAAAZiS0dEAP8A/wD/oL2nkwAAA0FJREFUeNq1lc+KHFUUxn/n3qqu6h7tGdPByTBOEjQunK26EQRdhAGRuHGE2agLH8C1j5AXCFnkAYyBEIKoRHeabWQyJKIm+IdAdwSd0HZPdVXdc1xU9UynbZIe/xy4XG5R93z3fN937hWqeALYqGcFhH8WBkTAD8DXTCS64n18Jo6ToFo4792hAEQEVUUVc87baDR0ZvYBcEFAngO7eeatD5vHjq2XKysDee/dNxkOc9zcOIJzgXPnrhD0mfDVl+cbt29f/0zEvREBHqD9ZIckWfCdIwnLy8v0+3t47x7PiRkAcexoLy6SZW1arTaAQyq+ACSEAtVAURQyGo3I8/krMANVoSxLQigtaKjKsgkAREAEmRjOzVeBCDgnCPXecU7g8Rn+ZfzvANHkYprxsYD/GYABiExAzS+yWcX/IwEATEu8V7w3vNc5skvVvt7Qyj2zAVSVVqvJj3d6nD37MeAxJimSh+qxuj5DMVNUA7t/wFNHInSC2mhyh6AkyQrd3gOKYhcRv2/V6dOJCBoCjWSJNG2jqiSpAPrQUaLpTXk+4mhnyObma4QAWTZABNJ0AdWDk5mB98bFi9fJ8gWSxBFCybQt/gagqjSbTU6cOMknl66xvd0DjJdfWmNj41WGwwznBFVIU0+z1WQwDMRRNNMUUyJXzIYQyPOMbvcB8DSqSre7S1mOKIoc5xxmRp57NITaebMjmvlVqmq8czingOJ8Zd8DK8pB3ke0y34n26y/qutp8n45dEQ1fPA+qkU0MzMxM4q8JMsCqkpelJgZqoZz4xvU6m6vZqs6bnxYA4hEBDNz/f7vliQtnBuQNBJL0xbr68cpw6+Asf7CsyRJimpFk1klcqOR4HxEVIvsfSzeRQAmApGZfQ9c/uLz81tpupB3Oidd736X7e0dVlc7rK4u1g6LuHXru30NzMA55f5vPfLc0CCEMkgIZTkY7Hog7PebiHNLS8uXKlQpqR5+O+wQEQVCvX6/lrHq+M13PmplWf760c7QnT79Cnt7h3nRFO+Fq1e/saLoRDd3rv10986Nb0WECMTAiOMkWzv+4qfPnyrY2nqb/p97+DletDFdcSz8/EtgNFrj3r0d7nJDRMT+AqKAkRUl/oStAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAABJRU5ErkJggg==" /><span id="alt_save" style="display: none; visibility: hidden;">&nbsp;<strong>[Save]</strong>&nbsp;</span></a></div>
 </td></tr></tbody></table></div><p style="font-size: 20px;">&nbsp;</p>
 <div id="i_woas_text_area" style="display: inline; visibility: visible;">
-<div id="i_woas_menu_area" style="position: fixed;">
+<div id="i_woas_menu_area">
 <div class="woas_wiki" id="woas_menu_area" ondblclick="menu_dblclick()"></div>
 <div id="menu_edit_button" style="display: inline; visibility: visible;"><input class="woas_button woas_menu_button" value="Edit menu" title="Edit menu" onclick="edit_menu()" type="button" /></div>
 <div class="woas_wiki" id="woas_ns_menu_area" ondblclick="woas.ui.ns_menu_dblclick()" style="display: none; visibility: hidden;"></div>
