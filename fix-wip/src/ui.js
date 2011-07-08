@@ -665,15 +665,17 @@ woas._customized_popup = function(page_title, page_body, additional_js, addition
 // below functions used by Special::Export
 
 woas.export_wiki_wsif = function () {
-	var path, author, single_wsif, inline_wsif;
+	var path, fname, author, single_wsif, inline_wsif, all_wsif, done;
 	try {
 		path = d$("woas_ep_wsif").value;
+		fname = d$('woas_ep_fname').value;
 		author = this.trim(d$("woas_ep_author").value);
-		single_wsif = d$("woas_cb_single_wsif").checked ? true : false;
-		inline_wsif = d$("woas_cb_inline_wsif").checked ? true : false;
+		single_wsif = d$("woas_cb_multi_wsif").checked ? false : true;
+		inline_wsif = d$("woas_cb_linked_wsif").checked ? false : true;
+		all_wsif = d$("woas_cb_all_wsif").checked ? true : false;
 	} catch (e) { this.crash(e); return false; }
 	
-	var done = this._native_wsif_save(path, this.wsif.DEFAULT_INDEX, false, single_wsif, inline_wsif, author, false);
+	done = this._native_wsif_save(path, fname, false, single_wsif, inline_wsif, author, all_wsif);
 
 	this.alert(this.i18n.EXPORT_OK.sprintf(done, this.wsif.expected_pages));
 	return true;

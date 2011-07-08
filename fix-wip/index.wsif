@@ -109,7 +109,7 @@ Original version (v0.01 &tilde; v0.04) by Andr\u00e9 Wagner
 
 == Official Website
 
-<img style="display: inline; visibility: visible;" id="img_logo" alt="WoaS Logo" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAQAAADZc7J%2FAAAAAXNSR0IArs4c6QAAAAJiS0dEAP%2BHj8y%2FAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH2gEcDzUY4t9JowAAABl0RVh0Q29tbWVudABDcmVhdGVkIHdpdGggR0lNUFeBDhcAAAI7SURBVEjHtdVPSFRRFAbw33ujljETWhaGo9YiCGoVuHDTIggE2xRBbgeEoFWQFARBq3ZCELQKgqJtbWtTEAitgqBNCZJFGGb%2B18Hxz20xr3HSmXEU%2Bt7ivnvf%2B757z3feOydSAZNh2QrW0IAm%2Bx2LVMS25e9h0UbFF5u1aI1qCvwMs9ZVRyStK6oq8D3M2xn7HdYSVRAYC3n1ocHRslDi4vCtbjprpspmcTH2BbtBwddQJjATZu0Wi36FvwFZqOk861atbUttvDku1SAHeUsKFb6MueQM8c%2BwUcOuJatVnxYDb8hX3XtFoWZoxZM3LFkpW0wlfmxY29HIvNnQEsV5fQql62IyVqO%2FknPegNtgFfG6wyZ80GtaQRrjcnpdN5eQhvTrNwaG5Tx3S0%2BSH%2BIga9SItA8mZTGs21MZTxKBnMfuJLOsLzLOupL4RJySNeadGyWBT645adAbMO6xnCHvwUNcMmg0cYy4Ubc30vp9NaG7FG1TYueQHve9sAjSBr10xj3QiLhZp1F96PRWJ854ZsIjF8CK07LeYQ4PfJRyCuzTGhEfkJVyAeeMyOKmTy5bkAODbhsw4ZyrGDekz2t3kSnWg5nwWbAXHHcsIm6NDu2J%2FrfMxrRJ7UGgffNvPBQd2TU9UyrzMZyIDu6K3qRja13o0Fw3PaWrrKiWbmbCDwt17d7lSFSlsYyG3zukNKNjS3fa0md%2BhUnzVRPXXqFDVmiZU2HOouV%2Fjn1QRntUV3PdxHRYRUpb5H%2FiD%2FUerIBA%2BEx5AAAAAElFTkSuQmCC" /> [[http://stickwiki.sourceforge.net|WoaS Official Website]]
+<img style="display: inline" id="img_logo" alt="WoaS Logo" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAQAAADZc7J%2FAAAAAXNSR0IArs4c6QAAAAJiS0dEAP%2BHj8y%2FAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH2gEcDzUY4t9JowAAABl0RVh0Q29tbWVudABDcmVhdGVkIHdpdGggR0lNUFeBDhcAAAI7SURBVEjHtdVPSFRRFAbw33ujljETWhaGo9YiCGoVuHDTIggE2xRBbgeEoFWQFARBq3ZCELQKgqJtbWtTEAitgqBNCZJFGGb%2B18Hxz20xr3HSmXEU%2Bt7ivnvf%2B757z3feOydSAZNh2QrW0IAm%2Bx2LVMS25e9h0UbFF5u1aI1qCvwMs9ZVRyStK6oq8D3M2xn7HdYSVRAYC3n1ocHRslDi4vCtbjprpspmcTH2BbtBwddQJjATZu0Wi36FvwFZqOk861atbUttvDku1SAHeUsKFb6MueQM8c%2BwUcOuJatVnxYDb8hX3XtFoWZoxZM3LFkpW0wlfmxY29HIvNnQEsV5fQql62IyVqO%2FknPegNtgFfG6wyZ80GtaQRrjcnpdN5eQhvTrNwaG5Tx3S0%2BSH%2BIga9SItA8mZTGs21MZTxKBnMfuJLOsLzLOupL4RJySNeadGyWBT645adAbMO6xnCHvwUNcMmg0cYy4Ubc30vp9NaG7FG1TYueQHve9sAjSBr10xj3QiLhZp1F96PRWJ854ZsIjF8CK07LeYQ4PfJRyCuzTGhEfkJVyAeeMyOKmTy5bkAODbhsw4ZyrGDekz2t3kSnWg5nwWbAXHHcsIm6NDu2J%2FrfMxrRJ7UGgffNvPBQd2TU9UyrzMZyIDu6K3qRja13o0Fw3PaWrrKiWbmbCDwt17d7lSFSlsYyG3zukNKNjS3fa0md%2BhUnzVRPXXqFDVmiZU2HOouV%2Fjn1QRntUV3PdxHRYRUpb5H%2FiD%2FUerIBA%2BEx5AAAAAElFTkSuQmCC" /> [[http://stickwiki.sourceforge.net|WoaS Official Website]]
 
 == Download
 Wiki on a Stick can always be downloaded through the official SF.net WoaS project file download service:
@@ -564,31 +564,33 @@ woas.page.boundary: DFQRCTsKlU
 See also [[WoaS::Help::WSIF]].
 
 == Destination path
-Destination directory that will contain the exported WSIF file(s).
+Path and filename for the exported WSIF file(s).  Filename is the name of the page index file if /'Export as multiple WSIF files'/ is selected.
 
-Note: *Directory must exist if using a non-Mozilla browser.*
+*Please note:* Directory path must exist if using a non-Mozilla browser.
 
-<input id="woas_ep_wsif" type="text" size="80" />
+<input id="woas_ep_wsif" type="text" size="80" />&nbsp;&nbsp;<input id="woas_ep_fname" type="text" size="40" />
 
-== File generation
+== File generation Options
 
-<label for="woas_cb_single_wsif"><input type="checkbox" id="woas_cb_single_wsif" checked="checked">Export all pages into a single WSIF file</label>
-<label for="woas_cb_inline_wsif"><input type="checkbox" id="woas_cb_inline_wsif">Do not export embedded files as external file blobs</label>
-
+{|class="woas_file_options"
+| <input type="checkbox" id="woas_cb_multi_wsif" /> || <label for="woas_cb_single_wsif">Export as multiple WSIF files (instead of saving all pages to a single wsif file)</label>
+| <input type="checkbox" id="woas_cb_linked_wsif" /> || <label for="woas_cb_blobs_wsif">Export embedded files as linked binary files (instead of keeping embedded content inside the wsif file)</label>
+|<input type="checkbox" id="woas_cb_all_wsif"> <label for="woas_cb_all_wsif" /> || Include ALL pages from this WoaS (instead of only user created pages)</label>
+|}
 == Other options
-Author: <input id="woas_ep_author" type="text" size="12" value="" />
-
-<input class="woas_button" type="button" value="Export WSIF" onclick="woas.export_wiki_wsif()" />
-
+Author: <input id="woas_ep_author" type="text" size="12" value="Anonymous" />
+<input class="woas_button_top" type="button" value="Export WSIF" onclick="woas.export_wiki_wsif()" />
 <script type="text/javascript">
 var path = woas.ROOT_DIRECTORY + "wsif" + woas.DIRECTORY_SEPARATOR;
 d$('woas_ep_wsif').value = path;
-
-d$('woas_ep_author').onfocus = $('woas_ep_wsif').onfocus = woas.ui.focus_textbox;
-d$('woas_ep_author').onblur = $('woas_ep_wsif').onblur = woas.ui.blur_textbox;
+d$('woas_ep_fname').value = woas.wsif.DEFAULT_INDEX;
+d$('woas_ep_author').onfocus = d$('woas_ep_wsif').onfocus = d$('woas_ep_fname').onfocus = woas.ui.focus_textbox;
+d$('woas_ep_author').onblur = d$('woas_ep_wsif').onblur = d$('woas_ep_fname').onfocus = woas.ui.blur_textbox;
 d$('woas_ep_author').value = woas.config.wsif_author;
-
 </script>
+<style>
+table.woas_file_options, table.woas_file_options td { border-style:none; vertical-align:top}
+</style>
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::WSIF
 woas.page.attributes: 0
