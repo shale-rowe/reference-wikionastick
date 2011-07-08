@@ -48,8 +48,9 @@ if((navigator.userAgent).indexOf("Opera")!=-1) {
 				woas.browser.firefox3 = true;
 			break;
 			default:
-				// possibly Firefox4 - but could be earlier than 1.8 :(
-				woas.browser.firefox_new = true;
+				if (Number(woas.browser.gecko.substr(0,3)) > 1.9) {
+					woas.browser.firefox_new = true;
+				}
 		}
 	} // not Gecko
 } else if((navigator.appName).indexOf("Microsoft")!=-1) {
