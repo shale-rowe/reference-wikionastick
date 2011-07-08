@@ -234,6 +234,20 @@ woas.ui = {
 	},
 	advanced: function() {
 		woas.go_to("Special::Advanced");
+	},
+	set_header: function(fixed) {
+		if (!woas.browser.ie6) {
+			d$("woas_wiki_header_wrap").style.position = (fixed ? "fixed" : "absolute");
+		}
+	},
+	set_menu: function(fixed) {
+		if (!woas.browser.ie6) {
+			d$("woas_menu_area_wrap").style.position = (fixed ? "fixed" : "absolute");
+		}
+	},
+	set_layout: function(fixed)  {
+		this.set_header(fixed);
+		this.set_menu(fixed);
 	}
 };
 
@@ -470,6 +484,12 @@ function lock_page(page) {
 	var pi = woas.page_index(page);
 	woas.AES.setKey(pwd);
 	woas._finalize_lock(pi);
+}
+
+// used in Special::Options
+woas.bool2chk = function(b) {
+	if (b) return "checked";
+	return "";
 }
 
 // import wiki from external file
