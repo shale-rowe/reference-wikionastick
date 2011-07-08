@@ -199,7 +199,7 @@ Original version (v0.01 &tilde; v0.04) by Andr\u00e9 Wagner\n\
 \n\
 == Official Website\n\
 \n\
-\x3Cimg style="display: inline; visibility: visible;" id="img_logo" alt="WoaS Logo" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAQAAADZc7J%2FAAAAAXNSR0IArs4c6QAAAAJiS0dEAP%2BHj8y%2FAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH2gEcDzUY4t9JowAAABl0RVh0Q29tbWVudABDcmVhdGVkIHdpdGggR0lNUFeBDhcAAAI7SURBVEjHtdVPSFRRFAbw33ujljETWhaGo9YiCGoVuHDTIggE2xRBbgeEoFWQFARBq3ZCELQKgqJtbWtTEAitgqBNCZJFGGb%2B18Hxz20xr3HSmXEU%2Bt7ivnvf%2B757z3feOydSAZNh2QrW0IAm%2Bx2LVMS25e9h0UbFF5u1aI1qCvwMs9ZVRyStK6oq8D3M2xn7HdYSVRAYC3n1ocHRslDi4vCtbjprpspmcTH2BbtBwddQJjATZu0Wi36FvwFZqOk861atbUttvDku1SAHeUsKFb6MueQM8c%2BwUcOuJatVnxYDb8hX3XtFoWZoxZM3LFkpW0wlfmxY29HIvNnQEsV5fQql62IyVqO%2FknPegNtgFfG6wyZ80GtaQRrjcnpdN5eQhvTrNwaG5Tx3S0%2BSH%2BIga9SItA8mZTGs21MZTxKBnMfuJLOsLzLOupL4RJySNeadGyWBT645adAbMO6xnCHvwUNcMmg0cYy4Ubc30vp9NaG7FG1TYueQHve9sAjSBr10xj3QiLhZp1F96PRWJ854ZsIjF8CK07LeYQ4PfJRyCuzTGhEfkJVyAeeMyOKmTy5bkAODbhsw4ZyrGDekz2t3kSnWg5nwWbAXHHcsIm6NDu2J%2FrfMxrRJ7UGgffNvPBQd2TU9UyrzMZyIDu6K3qRja13o0Fw3PaWrrKiWbmbCDwt17d7lSFSlsYyG3zukNKNjS3fa0md%2BhUnzVRPXXqFDVmiZU2HOouV%2Fjn1QRntUV3PdxHRYRUpb5H%2FiD%2FUerIBA%2BEx5AAAAAElFTkSuQmCC" /\x3E [[http://stickwiki.sourceforge.net|WoaS Official Website]]\n\
+\x3Cimg style="display: inline" id="img_logo" alt="WoaS Logo" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAQAAADZc7J%2FAAAAAXNSR0IArs4c6QAAAAJiS0dEAP%2BHj8y%2FAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH2gEcDzUY4t9JowAAABl0RVh0Q29tbWVudABDcmVhdGVkIHdpdGggR0lNUFeBDhcAAAI7SURBVEjHtdVPSFRRFAbw33ujljETWhaGo9YiCGoVuHDTIggE2xRBbgeEoFWQFARBq3ZCELQKgqJtbWtTEAitgqBNCZJFGGb%2B18Hxz20xr3HSmXEU%2Bt7ivnvf%2B757z3feOydSAZNh2QrW0IAm%2Bx2LVMS25e9h0UbFF5u1aI1qCvwMs9ZVRyStK6oq8D3M2xn7HdYSVRAYC3n1ocHRslDi4vCtbjprpspmcTH2BbtBwddQJjATZu0Wi36FvwFZqOk861atbUttvDku1SAHeUsKFb6MueQM8c%2BwUcOuJatVnxYDb8hX3XtFoWZoxZM3LFkpW0wlfmxY29HIvNnQEsV5fQql62IyVqO%2FknPegNtgFfG6wyZ80GtaQRrjcnpdN5eQhvTrNwaG5Tx3S0%2BSH%2BIga9SItA8mZTGs21MZTxKBnMfuJLOsLzLOupL4RJySNeadGyWBT645adAbMO6xnCHvwUNcMmg0cYy4Ubc30vp9NaG7FG1TYueQHve9sAjSBr10xj3QiLhZp1F96PRWJ854ZsIjF8CK07LeYQ4PfJRyCuzTGhEfkJVyAeeMyOKmTy5bkAODbhsw4ZyrGDekz2t3kSnWg5nwWbAXHHcsIm6NDu2J%2FrfMxrRJ7UGgffNvPBQd2TU9UyrzMZyIDu6K3qRja13o0Fw3PaWrrKiWbmbCDwt17d7lSFSlsYyG3zukNKNjS3fa0md%2BhUnzVRPXXqFDVmiZU2HOouV%2Fjn1QRntUV3PdxHRYRUpb5H%2FiD%2FUerIBA%2BEx5AAAAAElFTkSuQmCC" /\x3E [[http://stickwiki.sourceforge.net|WoaS Official Website]]\n\
 \n\
 == Download\n\
 Wiki on a Stick can always be downloaded through the official SF.net WoaS project file download service:\n\
@@ -542,31 +542,33 @@ $JS  Javascript',
 See also [[WoaS::Help::WSIF]].\n\
 \n\
 == Destination path\n\
-Destination directory that will contain the exported WSIF file(s).\n\
+Path and filename for the exported WSIF file(s).  Filename is the name of the page index file if /\'Export as multiple WSIF files\'/ is selected.\n\
 \n\
-Note: *Directory must exist if using a non-Mozilla browser.*\n\
+*Please note:* Directory path must exist if using a non-Mozilla browser.\n\
 \n\
-\x3Cinput id="woas_ep_wsif" type="text" size="80" /\x3E\n\
+\x3Cinput id="woas_ep_wsif" type="text" size="80" /\x3E&nbsp;&nbsp;\x3Cinput id="woas_ep_fname" type="text" size="40" /\x3E\n\
 \n\
-== File generation\n\
+== File generation Options\n\
 \n\
-\x3Clabel for="woas_cb_single_wsif"\x3E\x3Cinput type="checkbox" id="woas_cb_single_wsif" checked="checked"\x3EExport all pages into a single WSIF file\x3C/label\x3E\n\
-\x3Clabel for="woas_cb_inline_wsif"\x3E\x3Cinput type="checkbox" id="woas_cb_inline_wsif"\x3EDo not export embedded files as external file blobs\x3C/label\x3E\n\
-\n\
+{|class="woas_file_options"\n\
+| \x3Cinput type="checkbox" id="woas_cb_multi_wsif" /\x3E || \x3Clabel for="woas_cb_single_wsif"\x3EExport as multiple WSIF files (instead of saving all pages to a single wsif file)\x3C/label\x3E\n\
+| \x3Cinput type="checkbox" id="woas_cb_linked_wsif" /\x3E || \x3Clabel for="woas_cb_blobs_wsif"\x3EExport embedded files as linked binary files (instead of keeping embedded content inside the wsif file)\x3C/label\x3E\n\
+|\x3Cinput type="checkbox" id="woas_cb_all_wsif"\x3E \x3Clabel for="woas_cb_all_wsif" /\x3E || Include ALL pages from this WoaS (instead of only user created pages)\x3C/label\x3E\n\
+|}\n\
 == Other options\n\
-Author: \x3Cinput id="woas_ep_author" type="text" size="12" value="" /\x3E\n\
-\n\
-\x3Cinput class="woas_button" type="button" value="Export WSIF" onclick="woas.export_wiki_wsif()" /\x3E\n\
-\n\
+Author: \x3Cinput id="woas_ep_author" type="text" size="12" value="Anonymous" /\x3E\n\
+\x3Cinput class="woas_button_top" type="button" value="Export WSIF" onclick="woas.export_wiki_wsif()" /\x3E\n\
 \x3Cscript type="text/javascript"\x3E\n\
 var path = woas.ROOT_DIRECTORY + "wsif" + woas.DIRECTORY_SEPARATOR;\n\
 d$(\'woas_ep_wsif\').value = path;\n\
-\n\
-d$(\'woas_ep_author\').onfocus = $(\'woas_ep_wsif\').onfocus = woas.ui.focus_textbox;\n\
-d$(\'woas_ep_author\').onblur = $(\'woas_ep_wsif\').onblur = woas.ui.blur_textbox;\n\
+d$(\'woas_ep_fname\').value = woas.wsif.DEFAULT_INDEX;\n\
+d$(\'woas_ep_author\').onfocus = d$(\'woas_ep_wsif\').onfocus = d$(\'woas_ep_fname\').onfocus = woas.ui.focus_textbox;\n\
+d$(\'woas_ep_author\').onblur = d$(\'woas_ep_wsif\').onblur = d$(\'woas_ep_fname\').onfocus = woas.ui.blur_textbox;\n\
 d$(\'woas_ep_author\').value = woas.config.wsif_author;\n\
-\n\
-\x3C/script\x3E',
+\x3C/script\x3E\n\
+\x3Cstyle\x3E\n\
+table.woas_file_options, table.woas_file_options td { border-style:none; vertical-align:top}\n\
+\x3C/style\x3E',
 '= WSIF\n\
 \n\
 *W*iki on a *S*tick *I*nterchange *F*ormat is the preferred format for exporting full WoaS data into a single file and share it with whoever you like.\n\
@@ -4454,7 +4456,7 @@ clearTimeout(woas._autosave_thread);if(_this.config.auto_save)
 woas._autosave_thread=setTimeout("woas._auto_saver()",woas.config.auto_save);};woas._on_unload=function(){if(this.save_queue.length)
 this.commit(this.save_queue);else{if(this.config.save_on_quit&&this.cfg_changed)
 this.cfg_commit();}
-return true;};woas.setHTML=woas.getHTML=null;woas.getHTMLDiv=function(elem){return elem.innerHTML;};woas.setHTMLDiv=function(elem,html){elem.innerHTML=html;};woas._on_load=function(){d$("woas_debug_log").value="";woas.log("*** WoaS v"+this.version+"-pvhl-r2359"+" started");this._old_wsif_ds_len=this.config.wsif_ds.length;if(this.browser.ie){this.setHTML=function(elem,html){elem.text=html;};this.getHTML=function(elem){return elem.text;};var obj=d$("woas_wiki_header");obj.style.filter="alpha(opacity=75);";if(this.browser.ie6){d$("woas_wiki_header").style.position="absolute";d$("i_woas_menu_area").style.position="absolute";}
+return true;};woas.setHTML=woas.getHTML=null;woas.getHTMLDiv=function(elem){return elem.innerHTML;};woas.setHTMLDiv=function(elem,html){elem.innerHTML=html;};woas._on_load=function(){d$("woas_debug_log").value="";woas.log("*** WoaS v"+this.version+"-pvhl-r2361"+" started");this._old_wsif_ds_len=this.config.wsif_ds.length;if(this.browser.ie){this.setHTML=function(elem,html){elem.text=html;};this.getHTML=function(elem){return elem.text;};var obj=d$("woas_wiki_header");obj.style.filter="alpha(opacity=75);";if(this.browser.ie6){d$("woas_wiki_header").style.position="absolute";d$("i_woas_menu_area").style.position="absolute";}
 if(!this.browser.ie8){d$.hide("img_logo");d$("woas_logo").style.width="1%";}}else{this.setHTML=this.setHTMLDiv;this.getHTML=this.getHTMLDiv;d$("woas_logo").style.width="35px";d$.show("img_logo");}
 if(this.config.debug_mode){this._set_debug(true);if(this.tweak.integrity_test){if(!this.integrity_test())
 return;}}else
@@ -4936,8 +4938,8 @@ css_payload="div.woas_toc { align: center;}";else
 css_payload="div.woas_toc { position: relative; left:25%; right: 25%;}";}else
 css_payload="div.woas_toc { margin: 0 auto;}\n";if(additional_js.length)
 additional_js=woas.raw_js(additional_js);return woas.popup("print_popup",Math.ceil(screen.width*0.75),Math.ceil(screen.height*0.75),",status=yes,menubar=yes,resizable=yes,scrollbars=yes","<"+"title>"+page_title+"<"+"/title>"+"<"+"style type=\"text/css\">"
-+css_payload+woas.css.get()+additional_css+"<"+"/sty"+"le>"+additional_js,page_body,body_extra);};woas.export_wiki_wsif=function(){var path,author,single_wsif,inline_wsif;try{path=d$("woas_ep_wsif").value;author=this.trim(d$("woas_ep_author").value);single_wsif=d$("woas_cb_single_wsif").checked?true:false;inline_wsif=d$("woas_cb_inline_wsif").checked?true:false;}catch(e){this.crash(e);return false;}
-var done=this._native_wsif_save(path,this.wsif.DEFAULT_INDEX,false,single_wsif,inline_wsif,author,false);this.alert(this.i18n.EXPORT_OK.sprintf(done,this.wsif.expected_pages));return true;};function ff3_getPath(fileBrowser){try{netscape.security.PrivilegeManager.enablePrivilege("UniversalXPConnect");}catch(e){alert('Unable to access local files due to browser security settings. '
++css_payload+woas.css.get()+additional_css+"<"+"/sty"+"le>"+additional_js,page_body,body_extra);};woas.export_wiki_wsif=function(){var path,fname,author,single_wsif,inline_wsif,all_wsif,done;try{path=d$("woas_ep_wsif").value;fname=d$('woas_ep_fname').value;author=this.trim(d$("woas_ep_author").value);single_wsif=d$("woas_cb_multi_wsif").checked?false:true;inline_wsif=d$("woas_cb_linked_wsif").checked?false:true;all_wsif=d$("woas_cb_all_wsif").checked?true:false;}catch(e){this.crash(e);return false;}
+done=this._native_wsif_save(path,fname,false,single_wsif,inline_wsif,author,all_wsif);this.alert(this.i18n.EXPORT_OK.sprintf(done,this.wsif.expected_pages));return true;};function ff3_getPath(fileBrowser){try{netscape.security.PrivilegeManager.enablePrivilege("UniversalXPConnect");}catch(e){alert('Unable to access local files due to browser security settings. '
 +'To overcome this, follow these steps: (1) Enter "about:config" in the URL field; '+'(2) Right click and select New->Boolean; (3) Enter "signed.applets.codebase_principal_support" '+'(without the quotes) as a new preference name; (4) Click OK and try loading the file'+' again.');return false;}
 var fileName=fileBrowser.value;return fileName;}
 woas.popup=function(name,fw,fh,extra,head,body,body_extra){if(typeof body_extra=="undefined")
