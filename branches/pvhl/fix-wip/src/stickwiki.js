@@ -904,7 +904,8 @@ woas._on_load = function() {
 	// (5) continue with UI setup
 	d$('woas_home_hl').title = this.config.main_page;
 	d$('img_home').alt = this.config.main_page;
-	
+	this.ui.set_header(this.config.fixed_header); // not done by function if IE6
+	this.ui.set_menu(this.config.fixed_menu);
 	// properly initialize navigation bar icons
 	// this will cause the alternate text to display on IE6/IE7
 	var nav_bar = ["back", "forward", "home", "edit", "print", "advanced",

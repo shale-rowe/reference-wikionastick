@@ -237,12 +237,12 @@ woas.ui = {
 	},
 	set_header: function(fixed) {
 		if (!woas.browser.ie6) {
-			d$("woas_wiki_header_wrap").style.position = (fixed ? "fixed" : "absolute");
+			d$("woas_wiki_header").style.position = (fixed ? "fixed" : "absolute");
 		}
 	},
 	set_menu: function(fixed) {
 		if (!woas.browser.ie6) {
-			d$("woas_menu_area_wrap").style.position = (fixed ? "fixed" : "absolute");
+			d$("i_woas_menu_area").style.position = (fixed ? "fixed" : "absolute");
 		}
 	},
 	set_layout: function(fixed)  {
