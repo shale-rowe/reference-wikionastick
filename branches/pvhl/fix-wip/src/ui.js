@@ -904,7 +904,7 @@ woas._onresize = function() {
 if (!woas.browser.ie)
 	window.onresize = woas._onresize;
 
-woas._set_debug = function(status) {
+woas._set_debug = function(status, closed) {
 	var logbox = d$("woas_debug_log");
 	if (status) {
 	// logging function - used in development; call without argument to scroll to bottom
@@ -929,7 +929,8 @@ woas._set_debug = function(status) {
 		};
 		// activate debug panel
 		d$.show("woas_debug_panel");
-		d$.show("woas_debug_console");
+		if (!closed) { d$.show("woas_debug_console")
+		} else {  d$.hide("woas_debug_console") }
 		// hide the progress area
 		d$.hide("loading_overlay");
 	} else {

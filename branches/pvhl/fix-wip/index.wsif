@@ -241,7 +241,7 @@ woas.page.boundary: DFQRCTsKlU
 <label for="cb_auto_links"><input type="checkbox" id="cb_auto_links" onclick="woas.config.auto_links = d$.checked('cb_auto_links')" />Automatically create URL hyperlinks when displaying page content</label>
 <label for="cb_key_cache"><input type="checkbox" id="cb_key_cache" onclick="woas.config.key_cache = !d$.checked('cb_key_cache')" />Do not temporarily cache the AES key</label>
 <label for="cb_dblclick_edit"><input type="checkbox" id="cb_dblclick_edit" onclick="woas.config.dblclick_edit = d$.checked('cb_dblclick_edit')" />Double click to edit pages/menu</label>
-<label for="cb_debug_mode"><input type="checkbox" id="cb_debug_mode" onclick="woas.config.debug_mode = d$.checked('cb_debug_mode');woas._set_debug(woas.config.debug_mode)" />Enable debug mode and debug console</label>
+<label for="cb_debug_mode"><input type="checkbox" id="cb_debug_mode" onclick="woas.config.debug_mode = d$.checked('cb_debug_mode');woas._set_debug(woas.config.debug_mode);d$('cb_debug_closed').disabled=!woas.config.debug_mode" />Enable debug mode</label>&nbsp;&nbsp;<label for="cb_debug_closed"><input type="checkbox" id="cb_debug_closed" onclick="woas.config.debug_closed = d$.checked('cb_debug_closed')" />Start with console closed</label>
 <label for="cb_fixed_header"><input type="checkbox" id="cb_fixed_header" onclick="var fl=d$.checked('cb_fixed_header');woas.config.fixed_header=fl;woas.ui.set_header(fl)" />Fixed navigation bar</label>
 <label for="cb_fixed_menu"><input type="checkbox" id="cb_fixed_menu" onclick="var fl=d$.checked('cb_fixed_menu');woas.config.fixed_menu=fl;woas.ui.set_menu(fl)" />Fixed menu area</label>
 <label for="cb_sort_tags"><input type="checkbox" id="cb_sort_tags" onclick="woas.config.sort_tags = d$.checked('cb_sort_tags')" />Sort tags in tag display</label>
@@ -278,6 +278,7 @@ d$("cb_sort_tags").checked = woas.bool2chk(woas.config.sort_tags);
 d$("cb_key_cache").checked = woas.bool2chk(!woas.config.key_cache);
 d$("cb_dblclick_edit").checked = woas.bool2chk(woas.config.dblclick_edit);
 d$("cb_debug_mode").checked = woas.bool2chk(woas.config.debug_mode);
+d$("cb_debug_closed").checked = woas.bool2chk(woas.config.debug_closed);
 d$("cb_save_on_quit").checked = woas.bool2chk(woas.config.save_on_quit);
 d$("cb_cumulative_save").checked = woas.bool2chk(woas.config.cumulative_save);
 d$("cb_safe_mode").checked = woas.bool2chk(woas.config.safe_mode);
