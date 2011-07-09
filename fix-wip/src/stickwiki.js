@@ -841,7 +841,7 @@ woas.setHTMLDiv = function(elem, html) {elem.innerHTML = html;};
 // when the page is loaded - onload, on_load
 woas._on_load = function() {
 	// set up log functions so enable/disable does not require reload
-	this._set_debug(this.config.debug_mode);
+	this._set_debug(this.config.debug_mode, this.config.debug_closed);
 	d$("woas_debug_log").value = ""; // for Firefox
 	// output platform information - note that revision is filled in only in releases
 	woas.log("*** WoaS v"+this.version+"-r@@WOAS_REVISION@@"+" started");	// log:1
@@ -874,13 +874,9 @@ woas._on_load = function() {
 	}
 	
 	// (1) check integrity of WoaS features - only in debug mode
-	if (this.log()) {
-		this._set_debug(true);
-		if (this.tweak.integrity_test) {
-			if (!this.integrity_test())
-				// test failed, stop loading
-				return;
-		}
+	if (this.log() && this.tweak.integrity_test && !this.integrity_test()) {
+		// test failed, stop loading
+		return;
 	}
 
 	// (2) load the actual pages (if necessary)
