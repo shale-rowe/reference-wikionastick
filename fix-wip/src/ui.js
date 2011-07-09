@@ -905,15 +905,38 @@ if (!woas.browser.ie)
 	window.onresize = woas._onresize;
 
 woas._set_debug = function(status) {
+	var logbox = d$("woas_debug_log");
 	if (status) {
+	// logging function - used in development; call without argument to scroll to bottom
+	// and see if we are in debug mode
+		woas.log = function (aMessage) {
+			if (typeof aMessage !== "undefined") {
+				// count lines
+				if (!woas.tweak.integrity_test) {
+					var log = logbox.value, nls = log.match(/\n/g);
+					// log maximum 1024 lines; cut in half if too big
+					if (nls!=null && typeof(nls)==='object' && nls.length>1024) {
+						logbox.value = log.substring(log.indexOf("\n", log.length / 2) + 1);
+					}
+				}
+				logbox.value += aMessage + '\n';
+			}
+			// keep the log scrolled down
+			logbox.scrollTop = logbox.scrollHeight;
+			if(window.opera)
+				opera.postError(aMessage);
+			return true;
+		};
 		// activate debug panel
-		d$.show_ni("woas_debug_panel");
-		d$.show("woas_debug_log");
+		d$.show("woas_debug_panel");
+		d$.show("woas_debug_console");
 		// hide the progress area
 		d$.hide("loading_overlay");
 	} else {
-		d$.hide_ni("woas_debug_panel");
+		d$.hide("woas_debug_panel");
 		d$.hide("woas_debug_console");
+		logbox.value = '';
+		woas.log = function() { return false; };
 	}
 };
 

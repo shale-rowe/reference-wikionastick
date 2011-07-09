@@ -3,6 +3,7 @@ IT IS NOT BEING TESTED MUCH DURING THIS PROCESS AND COULD OCCASIONALLY BE BROKEN
 
 Changes since Revision pvhl-2317 (git: 3d939c7)
 
+* change debug/log function so it can be turned on/off dynamically
 * add all pages option and filename to Special::ExportWSIF
 * add fix header/menu options and rearrange things a bit
 * fix woas.browser.firefox_new test
