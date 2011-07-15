@@ -21,6 +21,7 @@ woas["config"] = {
 "cumulative_save":false,
 "safe_mode":false,
 "debug_mode":true,
+"debug_closed":true,
 "main_page":'Main Page',
 "wsif_author":'Anonymous',
 "wsif_ds":'',
@@ -291,7 +292,7 @@ Apart from the above, your normal usage of encrypted pages can be considered sec
 \x3Clabel for="cb_auto_links"\x3E\x3Cinput type="checkbox" id="cb_auto_links" onclick="woas.config.auto_links = d$.checked(\'cb_auto_links\')" /\x3EAutomatically create URL hyperlinks when displaying page content\x3C/label\x3E\n\
 \x3Clabel for="cb_key_cache"\x3E\x3Cinput type="checkbox" id="cb_key_cache" onclick="woas.config.key_cache = !d$.checked(\'cb_key_cache\')" /\x3EDo not temporarily cache the AES key\x3C/label\x3E\n\
 \x3Clabel for="cb_dblclick_edit"\x3E\x3Cinput type="checkbox" id="cb_dblclick_edit" onclick="woas.config.dblclick_edit = d$.checked(\'cb_dblclick_edit\')" /\x3EDouble click to edit pages/menu\x3C/label\x3E\n\
-\x3Clabel for="cb_debug_mode"\x3E\x3Cinput type="checkbox" id="cb_debug_mode" onclick="woas.config.debug_mode = d$.checked(\'cb_debug_mode\');woas._set_debug(woas.config.debug_mode)" /\x3EEnable debug mode and debug console\x3C/label\x3E\n\
+\x3Clabel for="cb_debug_mode"\x3E\x3Cinput type="checkbox" id="cb_debug_mode" onclick="woas.config.debug_mode = d$.checked(\'cb_debug_mode\');woas._set_debug(woas.config.debug_mode);d$(\'cb_debug_closed\').disabled=!woas.config.debug_mode" /\x3EEnable debug mode\x3C/label\x3E&nbsp;&nbsp;\x3Clabel for="cb_debug_closed"\x3E\x3Cinput type="checkbox" id="cb_debug_closed" onclick="woas.config.debug_closed = d$.checked(\'cb_debug_closed\')" /\x3EStart with console closed\x3C/label\x3E\n\
 \x3Clabel for="cb_fixed_header"\x3E\x3Cinput type="checkbox" id="cb_fixed_header" onclick="var fl=d$.checked(\'cb_fixed_header\');woas.config.fixed_header=fl;woas.ui.set_header(fl)" /\x3EFixed navigation bar\x3C/label\x3E\n\
 \x3Clabel for="cb_fixed_menu"\x3E\x3Cinput type="checkbox" id="cb_fixed_menu" onclick="var fl=d$.checked(\'cb_fixed_menu\');woas.config.fixed_menu=fl;woas.ui.set_menu(fl)" /\x3EFixed menu area\x3C/label\x3E\n\
 \x3Clabel for="cb_sort_tags"\x3E\x3Cinput type="checkbox" id="cb_sort_tags" onclick="woas.config.sort_tags = d$.checked(\'cb_sort_tags\')" /\x3ESort tags in tag display\x3C/label\x3E\n\
@@ -328,6 +329,7 @@ d$("cb_sort_tags").checked = woas.bool2chk(woas.config.sort_tags);\n\
 d$("cb_key_cache").checked = woas.bool2chk(!woas.config.key_cache);\n\
 d$("cb_dblclick_edit").checked = woas.bool2chk(woas.config.dblclick_edit);\n\
 d$("cb_debug_mode").checked = woas.bool2chk(woas.config.debug_mode);\n\
+d$("cb_debug_closed").checked = woas.bool2chk(woas.config.debug_closed);\n\
 d$("cb_save_on_quit").checked = woas.bool2chk(woas.config.save_on_quit);\n\
 d$("cb_cumulative_save").checked = woas.bool2chk(woas.config.cumulative_save);\n\
 d$("cb_safe_mode").checked = woas.bool2chk(woas.config.safe_mode);\n\
@@ -4289,30 +4291,6 @@ d$.clone = function(obj) {
 	return nobj;
 };
 
-if (woas.config.debug_mode) {
-	// logging function - used in development; call without argument to scroll to bottom
-	woas.log = function (aMessage) {
-		var logbox = d$("woas_debug_log");
-		if (typeof aMessage !== "undefined") {
-			// count lines
-			if (!woas.tweak.integrity_test) {
-				var log = logbox.value, nls = log.match(/\n/g);
-				// log maximum 1024 lines; cut in half if too big
-				if (nls!=null && typeof(nls)==='object' && nls.length>1024) {
-					logbox.value = log.substring(log.indexOf("\n", log.length / 2) + 1);
-				}
-			}
-			logbox.value += aMessage + "\n";
-		}
-		// keep the log scrolled down
-		logbox.scrollTop = logbox.scrollHeight;
-		if(window.opera)
-			opera.postError(aMessage);
-	};
-} else {
-	woas.log = function() { };
-}
-
 // fixes the Array prototype for older browsers
 if (typeof Array.prototype.push == "undefined") {
   Array.prototype.push = function(str) {
@@ -8164,28 +8142,59 @@ woas.is__image = function(pi) {
 woas.is_image = function(page) { return this.is__image(this.page_index(page)); };
 
 // a page physically exists if it is not part of a reserved namespace, if it is not a (sub)namespace and if it actually exists
+// PVHL: the above description doesn't seem to work anymore. For this function a page exists if
+// clicking on it would produce a page; e.g. a real or dynamic page. A listing page always
+// produces a page, as does an entry in pages. For WoaS and Special it depends on edit_override
+// whether is_reserved is accurate. Need to check properly.
 woas.page_exists = function(page) {
-	return (this.is_reserved(page) || (page.substring(page.length-2)==="::") || (this.page_index(page)!==-1));
+//	return (this.is_reserved(page) || (page.substring(page.length-2)==="::") || (this.page_index(page)!==-1));
+	var exists = false, s = /^Special::/, w = /^WoaS::/;
+	exists = ((page.substring(page.length-2)==="::") || (this.page_index(page)!==-1));
+	if (!exists && this.is_reserved(page) && !(s.test(page) || w.test(page))) {
+		exists = true;
+	}
+	if (!exists && s.test(page)) {
+		for (i = 0; i < this.shortcuts.length; ++i) {
+			if (page.substr(9) === this.shortcuts[i]) {
+				exists = true;
+				break;
+			}
+		}
+	}
+	return exists;
 };
 
-// with two trailing double colon
+// with two trailing colons 'xx::'
 woas._get_namespace_pages = function (ns) {
-	var pg = [];
+	var pg = [], i, l;
 	switch (ns.substr(0, ns.length-2)) {
-		case "Locked":
-			return this.special_encrypted_pages(true);
-		case "Unlocked":
-			return this.special_encrypted_pages(false);
-		case "Untagged":
-			return this.special_untagged();
-		case "Tagged": // to be used in wiki source
-			return this.special_tagged();
-		case "Image":
-			return this._special_image_gallery(ns);
+	case "Locked":
+		return this.special_encrypted_pages(true);
+	case "Unlocked":
+		return this.special_encrypted_pages(false);
+	case "Untagged":
+		return this.special_untagged();
+	case "Tagged": // to be used in wiki source
+		return this.special_tagged();
+	case "Image":
+		return this._special_image_gallery(ns);
+	case "Special":
+		for (i = 0; i < this.shortcuts.length; ++i) {
+				pg.push(ns + this.shortcuts[i]);
+		}
+		for(i = 0, l = page_titles.length; i < l; ++i) {
+			if (page_titles[i].indexOf(ns) === 0
+					// don't show pages used by special functions
+					&& page_titles[i] !== 'Special::Embed'
+					&& page_titles[i] !== 'Special::Lock') {
+				pg.push(page_titles[i]);
+			}
+		}
+		return this._join_list(pg);
 	}
 
-	for(i=0, l=page_titles.length;i < l;++i) {
-		if (page_titles[i].indexOf(ns)===0)
+	for(i = 0, l = page_titles.length; i < l; ++i) {
+		if (page_titles[i].indexOf(ns) === 0)
 			pg.push(page_titles[i]);
 	}
 	return !pg.length ? woas.i18n.EMPTY_NS.sprintf(ns) : this._join_list(pg);
@@ -8473,7 +8482,7 @@ woas._get_special = function(cr, interactive) {
 		text = this.get_text(cr);
 	if(text === null) {
 		if (interactive)
-			this.alert(this.i18n.INVALID_SPECIAL);
+			this.alert(this.i18n.INVALID_PAGE.sprintf('Special'));
 	}
 	return text;
 };
@@ -8589,8 +8598,12 @@ woas.set_current = function (cr, interactive) {
 					case "WoaS":
 						pi = woas.page_index(namespace+"::"+cr);
 						// unexisting page
-						if (pi === -1)
+						if (pi === -1) {
+							if (interactive) {
+								this.alert(this.i18n.INVALID_PAGE.sprintf('WoaS'));
+							}
 							return false;
+						}
 						var real_t = page_titles[pi];
 /*						if (this.is__embedded(pi)) {
 							//TODO: do not use namespace to guess the embedded file type
@@ -8812,9 +8825,11 @@ woas.setHTMLDiv = function(elem, html) {elem.innerHTML = html;};
 
 // when the page is loaded - onload, on_load
 woas._on_load = function() {
+	// set up log functions so enable/disable does not require reload
+	this._set_debug(this.config.debug_mode, this.config.debug_closed);
 	d$("woas_debug_log").value = ""; // for Firefox
 	// output platform information - note that revision is filled in only in releases
-	woas.log("*** WoaS v"+this.version+"-pvhl-r2361"+" started");	// log:1
+	woas.log("*** WoaS v"+this.version+"-pvhl-r2365"+" started");	// log:1
 	
 	// store the old length to eventually force full save when entering/exiting WSIF datasource mode
 	this._old_wsif_ds_len = this.config.wsif_ds.length;
@@ -8844,15 +8859,10 @@ woas._on_load = function() {
 	}
 	
 	// (1) check integrity of WoaS features - only in debug mode
-	if (this.config.debug_mode) {
-		this._set_debug(true);
-		if (this.tweak.integrity_test) {
-			if (!this.integrity_test())
-				// test failed, stop loading
-				return;
-		}
-	} else
-		this._set_debug(false);
+	if (this.log() && this.tweak.integrity_test && !this.integrity_test()) {
+		// test failed, stop loading
+		return;
+	}
 
 	// (2) load the actual pages (if necessary)
 	if (this.config.wsif_ds.length) {
@@ -10271,7 +10281,7 @@ woas.i18n = {
 	INSERT_NEW:"Insert new page title",
 	INVALID_ALIAS: "Invalid alias '%s', ignoring it",
 	INVALID_DATA:"Invalid collected data!",
-	INVALID_SPECIAL: "Invalid special page.",
+	INVALID_PAGE: "Invalid %s page.",
 	INVALID_TITLE: "Title cannot contain ':::' or any of these characters:\n# \" | < > [ ] { }",
 	LAST_MODIFIED: "Last Modified: ",
 	LOADING: "Loading Wiki on a Stick...",
@@ -13090,16 +13100,40 @@ woas._onresize = function() {
 if (!woas.browser.ie)
 	window.onresize = woas._onresize;
 
-woas._set_debug = function(status) {
+woas._set_debug = function(status, closed) {
+	var logbox = d$("woas_debug_log");
 	if (status) {
+	// logging function - used in development; call without argument to scroll to bottom
+	// and see if we are in debug mode
+		woas.log = function (aMessage) {
+			if (typeof aMessage !== "undefined") {
+				// count lines
+				if (!woas.tweak.integrity_test) {
+					var log = logbox.value, nls = log.match(/\n/g);
+					// log maximum 1024 lines; cut in half if too big
+					if (nls!=null && typeof(nls)==='object' && nls.length>1024) {
+						logbox.value = log.substring(log.indexOf("\n", log.length / 2) + 1);
+					}
+				}
+				logbox.value += aMessage + '\n';
+			}
+			// keep the log scrolled down
+			logbox.scrollTop = logbox.scrollHeight;
+			if(window.opera)
+				opera.postError(aMessage);
+			return true;
+		};
 		// activate debug panel
-		d$.show_ni("woas_debug_panel");
-		d$.show("woas_debug_log");
+		d$.show("woas_debug_panel");
+		if (!closed) { d$.show("woas_debug_console")
+		} else {  d$.hide("woas_debug_console") }
 		// hide the progress area
 		d$.hide("loading_overlay");
 	} else {
-		d$.hide_ni("woas_debug_panel");
+		d$.hide("woas_debug_panel");
 		d$.hide("woas_debug_console");
+		logbox.value = '';
+		woas.log = function() { return false; };
 	}
 };
 
@@ -13515,12 +13549,14 @@ Wiki Code:
 <textarea style="width: 1405px; height: 500px;" id="woas_editor" rows="0" cols="0">&nbsp;</textarea> 
 </div>
 <div id="woas_footer"><table width="100%"><tbody><tr>
-<td align="left" width="15%"><span style="visibility: visible;" id="woas_debug_panel"><a title="Toggle debug display" onclick="d$.toggle('woas_debug_console')"><img style="display: inline; visibility: visible;" id="img_debug" alt="[Debug]" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAAXNSR0IArs4c6QAAAGBQTFRFeWgJnLPK5%2FL%2BobXKwtryrMXeWXKK2Ov%2Bk6zFy%2BT9pLzTvNXtSmJ6tc7njKW9nLDE9vn%2BvdLovtfwfZauutLpkKjA%2Bvz%2Fp8DZaYKbmLHKvNTrx%2BD4y%2BD18ff%2BwNjv%2F%2F%2F%2FN2g9%2FwAAAAF0Uk5TAEDm2GYAAAABYktHRACIBR1IAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH2gUXFDkoWkFbUwAAAINJREFUGNN9j9sOwiAQRNstF7lUEKRIq87%2F%2F6WkpQkmxnk72bOb2WH4HdR8sXNlQjd23hPlU8Kkny%2FDMPOMg72%2F3QMUiBL2%2FcqmsjIyNoVWxEih8YCRsEUss2pCZQZaeElM7Dc0EVTIJb1Xeyhac5nHdBX2LIKLVBuzXXs8hBD491yXD6ahCoFA3xZkAAAAAElFTkSuQmCC" /><!-- Needed for IE6 and IE7 --><span id="alt_debug" style="display: none; visibility: hidden;">[toggle
-debug]</span></a></span></td>
+<td align="left" width="15%"><span style="visibility: visible;" id="woas_debug_panel"><a title="Toggle debug display" onclick="d$.toggle('woas_debug_console')"><img style="display: inline; visibility: visible;" id="img_debug" alt="[Debug]" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAAXNSR0IArs4c6QAAAGBQTFRFeWgJnLPK5%2FL%2BobXKwtryrMXeWXKK2Ov%2Bk6zFy%2BT9pLzTvNXtSmJ6tc7njKW9nLDE9vn%2BvdLovtfwfZauutLpkKjA%2Bvz%2Fp8DZaYKbmLHKvNTrx%2BD4y%2BD18ff%2BwNjv%2F%2F%2F%2FN2g9%2FwAAAAF0Uk5TAEDm2GYAAAABYktHRACIBR1IAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH2gUXFDkoWkFbUwAAAINJREFUGNN9j9sOwiAQRNstF7lUEKRIq87%2F%2F6WkpQkmxnk72bOb2WH4HdR8sXNlQjd23hPlU8Kkny%2FDMPOMg72%2F3QMUiBL2%2FcqmsjIyNoVWxEih8YCRsEUss2pCZQZaeElM7Dc0EVTIJb1Xeyhac5nHdBX2LIKLVBuzXXs8hBD491yXD6ahCoFA3xZkAAAAAElFTkSuQmCC" /><!-- Needed for IE6 and IE7 --><span id="alt_debug" style="display: none; visibility: hidden;">[Debug]</span></a></span></td>
 <td align="center" width="70%"><span><a class="woas_link" title="About Wiki on a Stick" onclick="woas.ui.about()">About Wiki on a Stick v0.12.0</a></span></td>
-<td align="right" width="15%"><a title="Go to top of page" onclick="javascript:woas.ui.top()"><img style="display: inline; visibility: visible;" id="img_top" alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9oFFhAeHvCLsxYAAASDSURBVDjLZZRLbFRlHMV//+/OnemdmXZaoLxbFBCogmjwxSsxUZCNmKghmBBxgW7QhIUxxpgQ4yMxMbpRE41bF24MiRKIj5igIC8XPKSCxRYKpdJ2KJ3HvfPd+31/F0gweDbnbM5vc5Ij/CsB9IYh0I3QJ7AR4QGUuYAiDKMcVvgOZUBh4lb1FudmEIWi3ADsDAIeq5To6u4QypEgQNPC2HXlWk2vZo59InzqlZOAvQkN0q/LTCuLXL2undWabnOed6a1s27D/Sbasj7QretDnlkbylMPhzx+X6CrFhmplKU0WtWV9RarjGFKlQEgA5Cpr9pl5JpGz38Yv3ByyL0xvV1mv7I5kIeXGJnRYSgVkELgKOaFtrYQEaPVRDl0JtPXv7Du/N9+UITd3vM1kAZvbW8PNr8drxkc9e+WI3pefTowq5cZKbWJtOVE2kIhXLCFRuF+CnaAtqgopbayLO3Ns3KhNwdOZpXJBncY4bjCaDCVzem+MBrvHruernlxk5FHlhgJcyJR3hAVy1RW7KJj5WuUe5/gupuLtMbJR9NQStI7yzG/y8pPJ9I5TYszwkFz2S2/u/9StmHlnSL39IooSGAgV6hQXrqDaOFWUCUw0LX0WZpzdtDILcFEs8B0ypp7I9lwX06M8CTQa8KwsFG8rSzrEUptNxY3YZmOpdsoLdqC5IqICRATko/aqSzcRLNzE42sRGCEWWXD6r5A2iOZp7DaDA2efai9iM6ZLoggqobu5dup3LUFMSG+OQKqePWkcZV8IaJyx3pqlY0kcUxAKovnGp3RIWLgQTMx0j+3EKpEeSRNlUrPOmb2PYdISHL5R+LzX6Le4myd1h+fwLUjhDlD5+LN1IOF+DSmUhSKBUSF+TnUea+QOcV5Ja6Pk9RGSCZOMHXqMyo9ayl5izpDNnYcre5H+94kCMpErbPEVrCp4hQFfG56uwwPXKFvsqF4RKpXTnF6704KUievdUouxWcW54UkdeQmTyLHX0YVbDyO0xyXqxlTTQXlgpndxa+1GC5eVRILmRdqk6M04yatzGAzj3MWlyXEaUbdGur1KvXaOA0bMBU7PTXkZGJKvSpHTGz5vpBjon8YqnXVVgrWGVqZEFullSo+i/GuRWKVeqzUW0LDGhqJ0+Fxz8EzXhPLIMIxM28653pnyt5zl5Tf/kSdR5stT2KV2EIcNzCSQ7OYpFml3lIaiWey4WllsPeY1+MDHoU9wMXgo5fC1v7f/BWb8uDpIe0uR5iebsF5FUVIpi7RnBxk4s9vaYydJvOGJFX1CnsOO/34W5cllgMC7yuMBM+sMzy6QsZ+OeMnqzXuPX2RSiBiOooQ5gD1Uh//i6R2BY8hsejoNeWbI04/3+ezxPK7CO8pHAY0V615PXpObbXGnszjfcauPYf8A6eGRJbMU3pniu8qGwKj1GPH8DjSf1G1f1hJM34W4UNVfgAct0mAPLAK+BQYDAOyzhJ+dhd+9jR8Vxkf5rACZ4EPgOVAcNtR/w8KUAEWAKtFWCUwH/AKF1Q5JnAUGFao/ff+Af4BcrxRdAqYJcAAAAAASUVORK5CYII=" /><span id="alt_top" style="display: none; visibility: hidden;"></span></a></td></tr><tr>
-<td colspan="3"><span id="woas_debug_console" style="visibility: hidden; display: none;"><div id="woas_debug_console_title">Debug console</div>
-<textarea style="display: inline; visibility: visible;" id="woas_debug_log" rows="12" readonly="readonly" cols="60"></textarea><br /><input id="woas_debug_log_clear_button" title="Clear debug log" onclick="d$('woas_debug_log').value=''" value="Clear" class="woas_button" type="button" /></span></td></tr></tbody></table>
+<td align="right" width="15%"><a title="Go to top of page" onclick="javascript:woas.ui.top()"><img style="display: inline; visibility: visible;" id="img_top" alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9oFFhAeHvCLsxYAAASDSURBVDjLZZRLbFRlHMV//+/OnemdmXZaoLxbFBCogmjwxSsxUZCNmKghmBBxgW7QhIUxxpgQ4yMxMbpRE41bF24MiRKIj5igIC8XPKSCxRYKpdJ2KJ3HvfPd+31/F0gweDbnbM5vc5Ij/CsB9IYh0I3QJ7AR4QGUuYAiDKMcVvgOZUBh4lb1FudmEIWi3ADsDAIeq5To6u4QypEgQNPC2HXlWk2vZo59InzqlZOAvQkN0q/LTCuLXL2undWabnOed6a1s27D/Sbasj7QretDnlkbylMPhzx+X6CrFhmplKU0WtWV9RarjGFKlQEgA5Cpr9pl5JpGz38Yv3ByyL0xvV1mv7I5kIeXGJnRYSgVkELgKOaFtrYQEaPVRDl0JtPXv7Du/N9+UITd3vM1kAZvbW8PNr8drxkc9e+WI3pefTowq5cZKbWJtOVE2kIhXLCFRuF+CnaAtqgopbayLO3Ns3KhNwdOZpXJBncY4bjCaDCVzem+MBrvHruernlxk5FHlhgJcyJR3hAVy1RW7KJj5WuUe5/gupuLtMbJR9NQStI7yzG/y8pPJ9I5TYszwkFz2S2/u/9StmHlnSL39IooSGAgV6hQXrqDaOFWUCUw0LX0WZpzdtDILcFEs8B0ypp7I9lwX06M8CTQa8KwsFG8rSzrEUptNxY3YZmOpdsoLdqC5IqICRATko/aqSzcRLNzE42sRGCEWWXD6r5A2iOZp7DaDA2efai9iM6ZLoggqobu5dup3LUFMSG+OQKqePWkcZV8IaJyx3pqlY0kcUxAKovnGp3RIWLgQTMx0j+3EKpEeSRNlUrPOmb2PYdISHL5R+LzX6Le4myd1h+fwLUjhDlD5+LN1IOF+DSmUhSKBUSF+TnUea+QOcV5Ja6Pk9RGSCZOMHXqMyo9ayl5izpDNnYcre5H+94kCMpErbPEVrCp4hQFfG56uwwPXKFvsqF4RKpXTnF6704KUievdUouxWcW54UkdeQmTyLHX0YVbDyO0xyXqxlTTQXlgpndxa+1GC5eVRILmRdqk6M04yatzGAzj3MWlyXEaUbdGur1KvXaOA0bMBU7PTXkZGJKvSpHTGz5vpBjon8YqnXVVgrWGVqZEFullSo+i/GuRWKVeqzUW0LDGhqJ0+Fxz8EzXhPLIMIxM28653pnyt5zl5Tf/kSdR5stT2KV2EIcNzCSQ7OYpFml3lIaiWey4WllsPeY1+MDHoU9wMXgo5fC1v7f/BWb8uDpIe0uR5iebsF5FUVIpi7RnBxk4s9vaYydJvOGJFX1CnsOO/34W5cllgMC7yuMBM+sMzy6QsZ+OeMnqzXuPX2RSiBiOooQ5gD1Uh//i6R2BY8hsejoNeWbI04/3+ezxPK7CO8pHAY0V615PXpObbXGnszjfcauPYf8A6eGRJbMU3pniu8qGwKj1GPH8DjSf1G1f1hJM34W4UNVfgAct0mAPLAK+BQYDAOyzhJ+dhd+9jR8Vxkf5rACZ4EPgOVAcNtR/w8KUAEWAKtFWCUwH/AKF1Q5JnAUGFao/ff+Af4BcrxRdAqYJcAAAAAASUVORK5CYII=" /><span id="alt_top" style="display: none; visibility: hidden;">[Top]</span></a></td></tr>
+<tr></tr>
+</tbody></table>
+<div id="woas_debug_console"><span id="woas_debug_console_title">Debug console</span>
+<textarea id="woas_debug_log" rows="12" readonly="readonly" cols="60"></textarea><br /><input id="woas_debug_log_clear_button" title="Clear debug log" onclick="d$('woas_debug_log').value=''" value="Clear" class="woas_button" type="button" /></div>
+
 </div><script type="text/javascript">
 //<![CDATA[
 // this code needs to stay here for some Opera/Safari/Chrome restriction
