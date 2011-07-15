@@ -47,7 +47,7 @@ woas.i18n = {
 	INSERT_NEW:"Insert new page title",
 	INVALID_ALIAS: "Invalid alias '%s', ignoring it",
 	INVALID_DATA:"Invalid collected data!",
-	INVALID_SPECIAL: "Invalid special page.",
+	INVALID_PAGE: "Invalid %s page.",
 	INVALID_TITLE: "Title cannot contain ':::' or any of these characters:\n# \" | < > [ ] { }",
 	LAST_MODIFIED: "Last Modified: ",
 	LOADING: "Loading Wiki on a Stick...",
