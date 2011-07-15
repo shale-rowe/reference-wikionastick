@@ -192,28 +192,59 @@ woas.is__image = function(pi) {
 woas.is_image = function(page) { return this.is__image(this.page_index(page)); };
 
 // a page physically exists if it is not part of a reserved namespace, if it is not a (sub)namespace and if it actually exists
+// PVHL: the above description doesn't seem to work anymore. For this function a page exists if
+// clicking on it would produce a page; e.g. a real or dynamic page. A listing page always
+// produces a page, as does an entry in pages. For WoaS and Special it depends on edit_override
+// whether is_reserved is accurate. Need to check properly.
 woas.page_exists = function(page) {
-	return (this.is_reserved(page) || (page.substring(page.length-2)==="::") || (this.page_index(page)!==-1));
+//	return (this.is_reserved(page) || (page.substring(page.length-2)==="::") || (this.page_index(page)!==-1));
+	var exists = false, s = /^Special::/, w = /^WoaS::/;
+	exists = ((page.substring(page.length-2)==="::") || (this.page_index(page)!==-1));
+	if (!exists && this.is_reserved(page) && !(s.test(page) || w.test(page))) {
+		exists = true;
+	}
+	if (!exists && s.test(page)) {
+		for (i = 0; i < this.shortcuts.length; ++i) {
+			if (page.substr(9) === this.shortcuts[i]) {
+				exists = true;
+				break;
+			}
+		}
+	}
+	return exists;
 };
 
-// with two trailing double colon
+// with two trailing colons 'xx::'
 woas._get_namespace_pages = function (ns) {
-	var pg = [];
+	var pg = [], i, l;
 	switch (ns.substr(0, ns.length-2)) {
-		case "Locked":
-			return this.special_encrypted_pages(true);
-		case "Unlocked":
-			return this.special_encrypted_pages(false);
-		case "Untagged":
-			return this.special_untagged();
-		case "Tagged": // to be used in wiki source
-			return this.special_tagged();
-		case "Image":
-			return this._special_image_gallery(ns);
+	case "Locked":
+		return this.special_encrypted_pages(true);
+	case "Unlocked":
+		return this.special_encrypted_pages(false);
+	case "Untagged":
+		return this.special_untagged();
+	case "Tagged": // to be used in wiki source
+		return this.special_tagged();
+	case "Image":
+		return this._special_image_gallery(ns);
+	case "Special":
+		for (i = 0; i < this.shortcuts.length; ++i) {
+				pg.push(ns + this.shortcuts[i]);
+		}
+		for(i = 0, l = page_titles.length; i < l; ++i) {
+			if (page_titles[i].indexOf(ns) === 0
+					// don't show pages used by special functions
+					&& page_titles[i] !== 'Special::Embed'
+					&& page_titles[i] !== 'Special::Lock') {
+				pg.push(page_titles[i]);
+			}
+		}
+		return this._join_list(pg);
 	}
 
-	for(i=0, l=page_titles.length;i < l;++i) {
-		if (page_titles[i].indexOf(ns)===0)
+	for(i = 0, l = page_titles.length; i < l; ++i) {
+		if (page_titles[i].indexOf(ns) === 0)
 			pg.push(page_titles[i]);
 	}
 	return !pg.length ? woas.i18n.EMPTY_NS.sprintf(ns) : this._join_list(pg);
@@ -501,7 +532,7 @@ woas._get_special = function(cr, interactive) {
 		text = this.get_text(cr);
 	if(text === null) {
 		if (interactive)
-			this.alert(this.i18n.INVALID_SPECIAL);
+			this.alert(this.i18n.INVALID_PAGE.sprintf('Special'));
 	}
 	return text;
 };
@@ -617,8 +648,12 @@ woas.set_current = function (cr, interactive) {
 					case "WoaS":
 						pi = woas.page_index(namespace+"::"+cr);
 						// unexisting page
-						if (pi === -1)
+						if (pi === -1) {
+							if (interactive) {
+								this.alert(this.i18n.INVALID_PAGE.sprintf('WoaS'));
+							}
 							return false;
+						}
 						var real_t = page_titles[pi];
 /*						if (this.is__embedded(pi)) {
 							//TODO: do not use namespace to guess the embedded file type
