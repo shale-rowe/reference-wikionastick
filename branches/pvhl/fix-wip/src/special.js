@@ -577,22 +577,22 @@ woas.ns_listing = function(folds, flat_arr, sorted) {
 		output.list_id = _random_string(8);
 		// setup the group object
 		this._ns_groups[output.list_id] = { "items":[], "option": woas.config.folding_style};
-		output.s = "<"+"span class=\"woas_listing_options\">List view:<"+"label for=\"WoaS_"+output.list_id+"_0\"><"+"input type=\"radio\" id=\"WoaS_"+output.list_id+"_0\" name=\"WoaS_"+output.list_id+"\" value=\"0\" "+(this._ns_groups[output.list_id].option === 0 ? " checked=\"checked\"" : "" )+"onclick=\"_WoaS_list_expand_change('"+output.list_id+"',0)\">Flat<"+"/label>&nbsp;|\
+		output.s = "<"+"div class=\"woas_listing_options\">List view:<"+"label for=\"WoaS_"+output.list_id+"_0\"><"+"input type=\"radio\" id=\"WoaS_"+output.list_id+"_0\" name=\"WoaS_"+output.list_id+"\" value=\"0\" "+(this._ns_groups[output.list_id].option === 0 ? " checked=\"checked\"" : "" )+"onclick=\"_WoaS_list_expand_change('"+output.list_id+"',0)\">Flat<"+"/label>&nbsp;|\
 	<"+"label for=\"WoaS_"+output.list_id+"_1\"><"+"input type=\"radio\" id=\"WoaS_"+output.list_id+"_1\" name=\"WoaS_"+output.list_id+"\" value=\"1\" "+(this._ns_groups[output.list_id].option === 1 ? " checked=\"checked\"" : "" )+"onclick=\"_WoaS_list_expand_change('"+output.list_id+"',1)\" >By namespace, collapsed<"+"/label>&nbsp;|\
 	<"+"label for=\"WoaS_"+output.list_id+"_2\"><"+"input type=\"radio\" id=\"WoaS_"+output.list_id+"_2\" name=\"WoaS_"+output.list_id+"\" value=\"2\" "+(this._ns_groups[output.list_id].option === 2 ? " checked=\"checked\"" : "" )+" onclick=\"_WoaS_list_expand_change('"+output.list_id+"',2)\">By namespace, expanded<"+"/label>\
-	<"+"/span><"+"span style=\""+woas._visible_css(this._ns_groups[output.list_id].option !== 0)+"\" id=\"WoaS_"+output.list_id+"_folds\">\n";
+	<"+"/div><"+"div style=\""+woas._visible_css(this._ns_groups[output.list_id].option !== 0)+"\" id=\"WoaS_"+output.list_id+"_folds\">\n";
 		
-		// first fill the span for foldings
+		// first fill the div for foldings
 		this.ns_recurse_parse(folds, output, "", 0, sorted);
-		output.s += "<"+"/span>\n"+
-					"<"+"span style=\""+woas._visible_css(this._ns_groups[output.list_id].option === 0)+"\" id=\"WoaS_"+output.list_id+"_flat\">\n";
+		output.s += "<"+"/div>\n"+
+					"<"+"div style=\""+woas._visible_css(this._ns_groups[output.list_id].option === 0)+"\" id=\"WoaS_"+output.list_id+"_flat\">\n";
 	}
 	// then generate the flat list
 	if (sorted)
 		flat_arr.sort();
 	output.s += "* [["+flat_arr.join("]]\n* [[")+"]]\n";
 	if (i !== 1)
-		output.s += "<"+"/span>";
+		output.s += "<"+"/div>";
 	return output.s;
 };
 
