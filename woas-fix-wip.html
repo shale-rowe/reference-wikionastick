@@ -6957,22 +6957,22 @@ woas.ns_listing = function(folds, flat_arr, sorted) {
 		output.list_id = _random_string(8);
 		// setup the group object
 		this._ns_groups[output.list_id] = { "items":[], "option": woas.config.folding_style};
-		output.s = "<"+"span class=\"woas_listing_options\">List view:<"+"label for=\"WoaS_"+output.list_id+"_0\"><"+"input type=\"radio\" id=\"WoaS_"+output.list_id+"_0\" name=\"WoaS_"+output.list_id+"\" value=\"0\" "+(this._ns_groups[output.list_id].option === 0 ? " checked=\"checked\"" : "" )+"onclick=\"_WoaS_list_expand_change('"+output.list_id+"',0)\">Flat<"+"/label>&nbsp;|\
+		output.s = "<"+"div class=\"woas_listing_options\">List view:<"+"label for=\"WoaS_"+output.list_id+"_0\"><"+"input type=\"radio\" id=\"WoaS_"+output.list_id+"_0\" name=\"WoaS_"+output.list_id+"\" value=\"0\" "+(this._ns_groups[output.list_id].option === 0 ? " checked=\"checked\"" : "" )+"onclick=\"_WoaS_list_expand_change('"+output.list_id+"',0)\">Flat<"+"/label>&nbsp;|\
 	<"+"label for=\"WoaS_"+output.list_id+"_1\"><"+"input type=\"radio\" id=\"WoaS_"+output.list_id+"_1\" name=\"WoaS_"+output.list_id+"\" value=\"1\" "+(this._ns_groups[output.list_id].option === 1 ? " checked=\"checked\"" : "" )+"onclick=\"_WoaS_list_expand_change('"+output.list_id+"',1)\" >By namespace, collapsed<"+"/label>&nbsp;|\
 	<"+"label for=\"WoaS_"+output.list_id+"_2\"><"+"input type=\"radio\" id=\"WoaS_"+output.list_id+"_2\" name=\"WoaS_"+output.list_id+"\" value=\"2\" "+(this._ns_groups[output.list_id].option === 2 ? " checked=\"checked\"" : "" )+" onclick=\"_WoaS_list_expand_change('"+output.list_id+"',2)\">By namespace, expanded<"+"/label>\
-	<"+"/span><"+"span style=\""+woas._visible_css(this._ns_groups[output.list_id].option !== 0)+"\" id=\"WoaS_"+output.list_id+"_folds\">\n";
+	<"+"/div><"+"div style=\""+woas._visible_css(this._ns_groups[output.list_id].option !== 0)+"\" id=\"WoaS_"+output.list_id+"_folds\">\n";
 		
-		// first fill the span for foldings
+		// first fill the div for foldings
 		this.ns_recurse_parse(folds, output, "", 0, sorted);
-		output.s += "<"+"/span>\n"+
-					"<"+"span style=\""+woas._visible_css(this._ns_groups[output.list_id].option === 0)+"\" id=\"WoaS_"+output.list_id+"_flat\">\n";
+		output.s += "<"+"/div>\n"+
+					"<"+"div style=\""+woas._visible_css(this._ns_groups[output.list_id].option === 0)+"\" id=\"WoaS_"+output.list_id+"_flat\">\n";
 	}
 	// then generate the flat list
 	if (sorted)
 		flat_arr.sort();
 	output.s += "* [["+flat_arr.join("]]\n* [[")+"]]\n";
 	if (i !== 1)
-		output.s += "<"+"/span>";
+		output.s += "<"+"/div>";
 	return output.s;
 };
 
@@ -8687,8 +8687,6 @@ woas.set_current = function (cr, interactive) {
 		return this._new_page(this.i18n.PAGE_NOT_FOUND, false, namespace.length ? namespace+ "::"+ cr : cr);
 	}
 	
-	this._add_namespace_menu(namespace);
-
 	// hard-set the current page to the namespace page
 	if (namespace.length) {
 		cr = namespace + "::" + cr;
@@ -8701,6 +8699,7 @@ woas.set_current = function (cr, interactive) {
 		cr = page_titles[pi];
 		mts = page_mts[pi];
 	}
+	this._add_namespace_menu(namespace.length ? cr.substring(0, cr.lastIndexOf("::")) : "");
 	return this.load_as_current(cr, this.parser.parse(text, false, this.js_mode(cr)), this.config.store_mts ? mts : 0, set_b);
 };
 
@@ -8767,13 +8766,18 @@ woas._perform_lock = function(pi) {
 };
 
 woas._add_namespace_menu = function(namespace) {
-	if (this.current_namespace === namespace)
-		return;
-	var pi;
-	if (namespace === "")
-		pi = -1;
-	else // locate the menu for current namespace
-		pi = this.page_index(namespace+"::Menu");
+	var pi, menu, ns;
+	if (this.current_namespace === namespace) {	return;	}
+	if (namespace === "") {	pi = -1; }
+	else {// locate the menu for current namespace, or a previous one if not found
+		ns = namespace;
+		do {
+//		this.log("namespace menu testing "+ns+"::Menu");	// log:0
+			pi = this.page_index(ns+"::Menu");
+			if (pi !== -1) { break; }
+			ns = ns.substring(0, ns.lastIndexOf("::"));
+		} while (ns !== "");
+	}
 	if (pi === -1) {
 //		this.log("no namespace menu found");	// log:0
 		this.setHTMLDiv(d$("woas_ns_menu_area"), "");
@@ -8782,14 +8786,16 @@ woas._add_namespace_menu = function(namespace) {
 			d$.hide("woas_ns_menu_edit_button");
 		}
 		this.current_namespace = namespace;
-		return;
+	} else {
+//		this.log("namespace menu found: "+page_titles[pi]);	// log:0
+		menu = this.get__text(pi);
+		this.setHTMLDiv(d$("woas_ns_menu_area"), menu === null ? ""
+			: this.parser.parse(menu, false, this.js_mode(namespace+"::Menu")) );
+		// show sub-menu
+		d$.show("woas_ns_menu_area");
+		d$.show("woas_ns_menu_edit_button");
+		this.current_namespace = namespace;
 	}
-	var menu = this.get__text(pi);
-	this.setHTMLDiv(d$("woas_ns_menu_area"), menu === null ? "" : this.parser.parse(menu, false, this.js_mode(namespace+"::Menu")) );
-	// show sub-menu
-	d$.show("woas_ns_menu_area");
-	d$.show("woas_ns_menu_edit_button");
-	this.current_namespace = namespace;	
 };
 
 // auto-save thread
@@ -8829,7 +8835,7 @@ woas._on_load = function() {
 	this._set_debug(this.config.debug_mode, this.config.debug_closed);
 	d$("woas_debug_log").value = ""; // for Firefox
 	// output platform information - note that revision is filled in only in releases
-	woas.log("*** WoaS v"+this.version+"-pvhl-r2365"+" started");	// log:1
+	woas.log("*** WoaS v"+this.version+"-pvhl-r2369"+" started");	// log:1
 	
 	// store the old length to eventually force full save when entering/exiting WSIF datasource mode
 	this._old_wsif_ds_len = this.config.wsif_ds.length;
@@ -9966,16 +9972,19 @@ woas.macro = {
 	default_macros: {
 		// advanced transclusion: each newline creates a parameter
 		"include" : function(m) {
-			var params = m.text.split("\n");
+			var params = m.text.split("\n"), nt, paramno;
 			// embedded transclusion not supported
 			if (!params.length || !woas.page_exists(params[0]) || woas.is_embedded(params[0]))
 				return false;
-			var nt = woas.get_text_special(params[0]);
+			// tell parser we are transcluding a page (stops header display for page listings)
+			++woas.parser._transcluding;
+			nt = woas.get_text_special(params[0]);
+			--woas.parser._transcluding;
 			if (nt === null)
 				return false;
 			if (params.length) { // replace transclusion parameters
 				nt = nt.replace(/%\d+/g, function(str) {
-					var paramno = parseInt(str.substr(1));
+					paramno = parseInt(str.substr(1));
 					if (paramno < params.length)
 						return params[paramno];
 					else
