@@ -737,8 +737,6 @@ woas.set_current = function (cr, interactive) {
 		return this._new_page(this.i18n.PAGE_NOT_FOUND, false, namespace.length ? namespace+ "::"+ cr : cr);
 	}
 	
-	this._add_namespace_menu(namespace);
-
 	// hard-set the current page to the namespace page
 	if (namespace.length) {
 		cr = namespace + "::" + cr;
@@ -751,6 +749,7 @@ woas.set_current = function (cr, interactive) {
 		cr = page_titles[pi];
 		mts = page_mts[pi];
 	}
+	this._add_namespace_menu(namespace.length ? cr.substring(0, cr.lastIndexOf("::")) : "");
 	return this.load_as_current(cr, this.parser.parse(text, false, this.js_mode(cr)), this.config.store_mts ? mts : 0, set_b);
 };
 
@@ -817,13 +816,18 @@ woas._perform_lock = function(pi) {
 };
 
 woas._add_namespace_menu = function(namespace) {
-	if (this.current_namespace === namespace)
-		return;
-	var pi;
-	if (namespace === "")
-		pi = -1;
-	else // locate the menu for current namespace
-		pi = this.page_index(namespace+"::Menu");
+	var pi, menu, ns;
+	if (this.current_namespace === namespace) {	return;	}
+	if (namespace === "") {	pi = -1; }
+	else {// locate the menu for current namespace, or a previous one if not found
+		ns = namespace;
+		do {
+//		this.log("namespace menu testing "+ns+"::Menu");	// log:0
+			pi = this.page_index(ns+"::Menu");
+			if (pi !== -1) { break; }
+			ns = ns.substring(0, ns.lastIndexOf("::"));
+		} while (ns !== "");
+	}
 	if (pi === -1) {
 //		this.log("no namespace menu found");	// log:0
 		this.setHTMLDiv(d$("woas_ns_menu_area"), "");
@@ -832,14 +836,16 @@ woas._add_namespace_menu = function(namespace) {
 			d$.hide("woas_ns_menu_edit_button");
 		}
 		this.current_namespace = namespace;
-		return;
+	} else {
+//		this.log("namespace menu found: "+page_titles[pi]);	// log:0
+		menu = this.get__text(pi);
+		this.setHTMLDiv(d$("woas_ns_menu_area"), menu === null ? ""
+			: this.parser.parse(menu, false, this.js_mode(namespace+"::Menu")) );
+		// show sub-menu
+		d$.show("woas_ns_menu_area");
+		d$.show("woas_ns_menu_edit_button");
+		this.current_namespace = namespace;
 	}
-	var menu = this.get__text(pi);
-	this.setHTMLDiv(d$("woas_ns_menu_area"), menu === null ? "" : this.parser.parse(menu, false, this.js_mode(namespace+"::Menu")) );
-	// show sub-menu
-	d$.show("woas_ns_menu_area");
-	d$.show("woas_ns_menu_edit_button");
-	this.current_namespace = namespace;	
 };
 
 // auto-save thread
