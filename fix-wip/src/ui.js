@@ -184,7 +184,7 @@ woas.ui = {
 		}
 		current = woas.prev_title;
 		woas.update_nav_icons(current);
-		woas.log(woas.history.log_entry()); //log:1
+//		woas.log(woas.history.log_entry()); //log:0
 		woas.disable_edit();
 	},
 	// when back button is clicked

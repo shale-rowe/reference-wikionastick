@@ -286,7 +286,7 @@ woas.cmd_delete = function() {
 		this.delete_page_i(pi);
 		if (pname !== current) {
 			this.update_nav_icons(current);
-			this.log(this.history.log_entry());	// log:1
+//			this.log(this.history.log_entry());	// log:0
 		}
 		return true;
 	}
