@@ -627,16 +627,19 @@ woas.macro = {
 	default_macros: {
 		// advanced transclusion: each newline creates a parameter
 		"include" : function(m) {
-			var params = m.text.split("\n");
+			var params = m.text.split("\n"), nt, paramno;
 			// embedded transclusion not supported
 			if (!params.length || !woas.page_exists(params[0]) || woas.is_embedded(params[0]))
 				return false;
-			var nt = woas.get_text_special(params[0]);
+			// tell parser we are transcluding a page (stops header display for page listings)
+			++woas.parser._transcluding;
+			nt = woas.get_text_special(params[0]);
+			--woas.parser._transcluding;
 			if (nt === null)
 				return false;
 			if (params.length) { // replace transclusion parameters
 				nt = nt.replace(/%\d+/g, function(str) {
-					var paramno = parseInt(str.substr(1));
+					paramno = parseInt(str.substr(1));
 					if (paramno < params.length)
 						return params[paramno];
 					else
