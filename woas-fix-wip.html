@@ -7279,7 +7279,7 @@ woas.cmd_delete = function() {
 		this.delete_page_i(pi);
 		if (pname !== current) {
 			this.update_nav_icons(current);
-			this.log(this.history.log_entry());	// log:1
+//			this.log(this.history.log_entry());	// log:0
 		}
 		return true;
 	}
@@ -7459,7 +7459,7 @@ woas.history = {
 		}
 	},
 	
-	// use: log(woas.history.log_entry())
+	// use: woas.log(woas.history.log_entry())
 	log_entry: function() {
 		function frmt(arr) {
 			var str = [], i;
@@ -8742,7 +8742,7 @@ woas.load_as_current = function(title, xhtml, mts, set_b) {
 	this.history.go(current);
 	this.update_nav_icons(title);
 	current = title;
-	this.log(this.history.log_entry());	// log:1
+//	this.log(this.history.log_entry());	// log:0
 	// active menu or page scripts
 	this.scripting.activate(this.is_menu(current) ? "menu" : "page");
 	return true;
@@ -8835,7 +8835,7 @@ woas._on_load = function() {
 	this._set_debug(this.config.debug_mode, this.config.debug_closed);
 	d$("woas_debug_log").value = ""; // for Firefox
 	// output platform information - note that revision is filled in only in releases
-	woas.log("*** WoaS v"+this.version+"-pvhl-r2369"+" started");	// log:1
+	woas.log("*** WoaS v"+this.version+"-pvhl-r2377"+" started");	// log:1
 	
 	// store the old length to eventually force full save when entering/exiting WSIF datasource mode
 	this._old_wsif_ds_len = this.config.wsif_ds.length;
@@ -8855,6 +8855,9 @@ woas._on_load = function() {
 			d$.hide("img_logo");
 			// replace with css when capability exists:
 			d$("woas_logo").style.width = "1%";
+		} else {
+			d$("woas_logo").style.width = "35px";
+			d$.show("img_logo");
 		}
 	} else {
 		this.setHTML = this.setHTMLDiv;
@@ -11116,7 +11119,7 @@ woas.exporter = {
 			fname = this._get_fname(page_titles[pi], true);
 			// will skip WoaS::Plugins::* and WoaS::Aliases
 			if (fname === '#') {
-	//			log("skipping "+page_titles[pi]);
+	//			woas.log("skipping "+page_titles[pi]);
 				continue;
 			}
 			++total;
@@ -11139,7 +11142,7 @@ woas.exporter = {
 				break;
 			++done;
 		}
-		log("pages yet to process: "+this._further_pages);	// log:1
+		woas.log("pages yet to process: "+this._further_pages);	// log:1
 		// process further pages
 		var title;
 		// exchange arrays to parse at some extent
@@ -11150,7 +11153,7 @@ woas.exporter = {
 				title = eatable[i];
 				data = woas.get_text_special(title);
 				if (data===null) {
-					log("cannot process "+title);
+					woas.log("cannot process "+title);
 					continue;
 				}
 				// TODO: allow special pages to have extended attributes
@@ -11238,7 +11241,7 @@ woas.exporter = {
 			else // other reserved pages, deny
 				nogo = true;
 			if (nogo) {
-				log("Reserved page will not be exported: "+title);
+				woas.log("Reserved page will not be exported: "+title);
 				this._title2fn[title] = "#";
 				return "#";
 			} else // do export these special pages later
@@ -11305,7 +11308,7 @@ woas.exporter = {
 			fname = fname.replace(/::/g, " - ");
 		var test_fname = fname+ext, i=0;
 		while (this._export_fnames_array.indexOf(test_fname) !== -1) {
-			log(test_fname+" already created, checking next fname");	// log:1
+			woas.log(test_fname+" already created, checking next fname");	// log:1
 			test_fname = fname+"_".repeat(++i)+ext;
 		}
 	//	if (i)		_export_replace_fname[fname+"_".repeat(i-1)+ext] = test_fname;
@@ -12132,7 +12135,7 @@ woas._native_page_def = function(path,ct,p,last_p,import_hook,
 // deprecated/legacy functions
 
 //DEPRECATED but still supported
-var log = woas.log;
+// var log = woas.log; set by woas._set_debug
 
 //DEPRECATED
 function bool2chk(b) {
@@ -12414,7 +12417,7 @@ woas.ui = {
 		}
 		current = woas.prev_title;
 		woas.update_nav_icons(current);
-		woas.log(woas.history.log_entry()); //log:1
+//		woas.log(woas.history.log_entry()); //log:0
 		woas.disable_edit();
 	},
 	// when back button is clicked
@@ -13110,18 +13113,20 @@ if (!woas.browser.ie)
 	window.onresize = woas._onresize;
 
 woas._set_debug = function(status, closed) {
-	var logbox = d$("woas_debug_log");
+	var logbox = d$("woas_debug_log"), lines = -1, position = 0,
+		cut = 100, max = 200; // cut > 0, max > cut
 	if (status) {
 	// logging function - used in development; call without argument to scroll to bottom
 	// and see if we are in debug mode
 		woas.log = function (aMessage) {
 			if (typeof aMessage !== "undefined") {
-				// count lines
 				if (!woas.tweak.integrity_test) {
-					var log = logbox.value, nls = log.match(/\n/g);
-					// log maximum 1024 lines; cut in half if too big
-					if (nls!=null && typeof(nls)==='object' && nls.length>1024) {
-						logbox.value = log.substring(log.indexOf("\n", log.length / 2) + 1);
+					// log up to max lines; 'cut' lines removed if too big
+					if (++lines === max) { // lines is line count now, before this post
+						logbox.value = logbox.value.substring(position);
+						lines = max - cut;
+					} else if (lines === cut) {
+						position = logbox.value.length;
 					}
 				}
 				logbox.value += aMessage + '\n';
@@ -13144,6 +13149,7 @@ woas._set_debug = function(status, closed) {
 		logbox.value = '';
 		woas.log = function() { return false; };
 	}
+	window.log = woas.log // for deprecated function - legacy.js
 };
 
 woas.refresh_menu_area = function() {
@@ -13181,7 +13187,7 @@ woas.img_display = function(id, visible) {
 
 woas.menu_display = function(id, visible) {
 	this._gen_display(id, visible, "menu");
-//	log("menu_"+id+" is "+d$("menu_"+id).style.display);
+//	woas.log("menu_"+id+" is "+d$("menu_"+id).style.display);
 };
 
 woas.refresh_mts = function(mts) {
@@ -13478,7 +13484,7 @@ function setTag() {
 
 
 /* ]]> */ </script></head><body class="woas_background" id="body" style="cursor: auto;" onload="woas._on_load()" onunload="woas._on_unload()">
-<div style="display: inline; visibility: visible;" id="loading_overlay"><noscript><h1>If you are seeing this text, your browser is not javascript-enabled.</h1></noscript><div id="woas_wait_text">Loading Wiki on a Stick...</div></div>
+<div style="display: inline; visibility: visible;" id="loading_overlay"><noscript>If you are seeing this text, your browser is not javascript-enabled.</noscript><div id="woas_wait_text">Loading Wiki on a Stick...</div></div>
 <div style="display: none; visibility: hidden;" id="woas_pwd_mask">
 <div style="visibility: visible;" id="woas_pwd_query">
 <form id="stealthpwd" action="" onsubmit="woas._password_ok(); return false">
