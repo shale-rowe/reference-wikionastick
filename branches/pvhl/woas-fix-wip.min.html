@@ -4298,7 +4298,7 @@ return;}while(pname!==null);};woas.cmd_delete=function(){if(!this.config.permit_
 var pname=prompt(this.i18n.DELETE_PAGE_PROMPT,current);if((pname===null)||!pname.length)
 return false;var pi=this.page_index(pname);if(pi==-1){this.alert(this.i18n.PAGE_NOT_EXISTS+pname);return false;}
 if(this.is_reserved(pname)){this.alert(this.i18n.ERR_RESERVED_NS.sprintf(this.get_namespace(pname,true)));return false;}
-if(confirm(this.i18n.CONFIRM_DELETE.sprintf(pname))){this.plugins.delete_check(pname);this.delete_page_i(pi);if(pname!==current){this.update_nav_icons(current);this.log(this.history.log_entry());}
+if(confirm(this.i18n.CONFIRM_DELETE.sprintf(pname))){this.plugins.delete_check(pname);this.delete_page_i(pi);if(pname!==current){this.update_nav_icons(current);}
 return true;}
 return false;};woas.shortcuts=["New Page","Duplicate Page","All Pages","Orphaned Pages","Backlinks","Dead Pages","Erase Wiki","Main Page","Go to","Delete Page","Recentchanges"];woas.shortcuts_js=["cmd_new_page","cmd_duplicate_page","special_all_pages","special_orphaned_pages","special_backlinks","special_dead_pages","cmd_erase_wiki","cmd_main_page","cmd_go_to","cmd_delete","special_recent_changes"];woas.unexportable_pages=["New Page","Duplicate Page","Backlinks","Erase Wiki","Edit CSS","Go to","Delete Page","Search"];woas.unexportable_pages2=["WoaS::CSS","WoaS::Aliases","WoaS::Hotkeys","WoaS::Plugins"];woas.raw_js=function(code){return"<"+"script type=\"text/javascript\">\n"+code+"\n<"+"/s"+"cript>";};woas.delete_page=function(title){var pi=page_titles.indexOf(title);if(pi===-1){this.crash("Requesting deletion of unexisting page!");return false;}
 return this.delete_page_i(pi);};woas.delete_page_i=function(i){var il,old_title=page_titles[i];page_titles.splice(i,1);pages.splice(i,1);page_attrs.splice(i,1);page_mts.splice(i,1);this.history.clear(old_title);if(current===old_title){this.set_current(this.history.previous(),true);}
@@ -4448,7 +4448,7 @@ this._add_namespace_menu(namespace.length?cr.substring(0,cr.lastIndexOf("::")):"
 return this.is_reserved(cr)?1:3;return 1;};woas.last_modified=function(mts){if(mts==0)
 return"";return this.i18n.LAST_MODIFIED+(new Date(mts*1000)).toLocaleString();};woas.load_as_current=function(title,xhtml,mts,set_b){if(typeof title=="undefined"){this.crash("load_as_current() called with undefined title");return false;}
 this.parser.render_title=title;if(set_b)
-this.pager.bucket.one(title);scrollTo(0,0);this.setHTMLDiv(d$("woas_wiki_area"),xhtml);this.refresh_mts(mts);this._set_title(title);this.history.go(current);this.update_nav_icons(title);current=title;this.log(this.history.log_entry());this.scripting.activate(this.is_menu(current)?"menu":"page");return true;};woas._finalize_lock=function(pi){this._perform_lock(pi);var title=page_titles[pi];this.set_current(title,true);if(!this.config.key_cache){this.AES.clearKey();this.last_AES_page="";}else
+this.pager.bucket.one(title);scrollTo(0,0);this.setHTMLDiv(d$("woas_wiki_area"),xhtml);this.refresh_mts(mts);this._set_title(title);this.history.go(current);this.update_nav_icons(title);current=title;this.scripting.activate(this.is_menu(current)?"menu":"page");return true;};woas._finalize_lock=function(pi){this._perform_lock(pi);var title=page_titles[pi];this.set_current(title,true);if(!this.config.key_cache){this.AES.clearKey();this.last_AES_page="";}else
 this.last_AES_page=title;this.save_page_i(pi);};woas._perform_lock=function(pi){pages[pi]=this.AES.encrypt(pages[pi]);page_attrs[pi]+=2;};woas._add_namespace_menu=function(namespace){var pi,menu,ns;if(this.current_namespace===namespace){return;}
 if(namespace===""){pi=-1;}
 else{ns=namespace;do{pi=this.page_index(ns+"::Menu");if(pi!==-1){break;}
@@ -4459,8 +4459,8 @@ clearTimeout(woas._autosave_thread);if(_this.config.auto_save)
 woas._autosave_thread=setTimeout("woas._auto_saver()",woas.config.auto_save);};woas._on_unload=function(){if(this.save_queue.length)
 this.commit(this.save_queue);else{if(this.config.save_on_quit&&this.cfg_changed)
 this.cfg_commit();}
-return true;};woas.setHTML=woas.getHTML=null;woas.getHTMLDiv=function(elem){return elem.innerHTML;};woas.setHTMLDiv=function(elem,html){elem.innerHTML=html;};woas._on_load=function(){this._set_debug(this.config.debug_mode,this.config.debug_closed);d$("woas_debug_log").value="";woas.log("*** WoaS v"+this.version+"-pvhl-r2369"+" started");this._old_wsif_ds_len=this.config.wsif_ds.length;if(this.browser.ie){this.setHTML=function(elem,html){elem.text=html;};this.getHTML=function(elem){return elem.text;};var obj=d$("woas_wiki_header");obj.style.filter="alpha(opacity=75);";if(this.browser.ie6){d$("woas_wiki_header").style.position="absolute";d$("i_woas_menu_area").style.position="absolute";}
-if(!this.browser.ie8){d$.hide("img_logo");d$("woas_logo").style.width="1%";}}else{this.setHTML=this.setHTMLDiv;this.getHTML=this.getHTMLDiv;d$("woas_logo").style.width="35px";d$.show("img_logo");}
+return true;};woas.setHTML=woas.getHTML=null;woas.getHTMLDiv=function(elem){return elem.innerHTML;};woas.setHTMLDiv=function(elem,html){elem.innerHTML=html;};woas._on_load=function(){this._set_debug(this.config.debug_mode,this.config.debug_closed);d$("woas_debug_log").value="";woas.log("*** WoaS v"+this.version+"-pvhl-r2377"+" started");this._old_wsif_ds_len=this.config.wsif_ds.length;if(this.browser.ie){this.setHTML=function(elem,html){elem.text=html;};this.getHTML=function(elem){return elem.text;};var obj=d$("woas_wiki_header");obj.style.filter="alpha(opacity=75);";if(this.browser.ie6){d$("woas_wiki_header").style.position="absolute";d$("i_woas_menu_area").style.position="absolute";}
+if(!this.browser.ie8){d$.hide("img_logo");d$("woas_logo").style.width="1%";}else{d$("woas_logo").style.width="35px";d$.show("img_logo");}}else{this.setHTML=this.setHTMLDiv;this.getHTML=this.getHTMLDiv;d$("woas_logo").style.width="35px";d$.show("img_logo");}
 if(this.log()&&this.tweak.integrity_test&&!this.integrity_test()){return;}
 if(this.config.wsif_ds.length){if(!this._wsif_ds_load(this.config.wsif_ds,this.config.wsif_ds_lock)){if(this.wsif.emsg!==null){this._set_debug(true);this.crash("Could not load WSIF pages data!\n"+this.wsif.emsg);}
 return;}}
@@ -4689,7 +4689,7 @@ break;else{++done;continue;}}else{if(!woas._b64_export(data,this._settings.xhtml
 break;else{++done;continue;}}}else
 data=woas.export_parse(data,this._settings.js_mode);if(!this._one_page(data,page_titles[pi],fname,woas.config.store_mts?page_mts[pi]:0))
 break;++done;}
-log("pages yet to process: "+this._further_pages);var title;var eatable=this._further_pages.slice(0);while(eatable.length){this._further_pages=[];for(var i=0,el=eatable.length;i<el;i++){title=eatable[i];data=woas.get_text_special(title);if(data===null){log("cannot process "+title);continue;}
+woas.log("pages yet to process: "+this._further_pages);var title;var eatable=this._further_pages.slice(0);while(eatable.length){this._further_pages=[];for(var i=0,el=eatable.length;i<el;i++){title=eatable[i];data=woas.get_text_special(title);if(data===null){woas.log("cannot process "+title);continue;}
 data=woas.export_parse(data,this._settings.js_mode);++total;if(this._one_page(data,title,this._title2fn[title]))
 ++done;}
 eatable=this._further_pages.slice(0);}
@@ -4712,7 +4712,7 @@ return this._title2fn[title];}
 var sp,orig_title=title;if(title.match(/::$/)){sp=true;}else if(woas.is_reserved(title)){var nogo;if(title.match(/^WoaS::/))
 nogo=(woas.unexportable_pages2.indexOf(title)!==-1);else if(title.match(/^Special::/))
 nogo=(woas.unexportable_pages.indexOf(title.substr(9))!==-1);else
-nogo=true;if(nogo){log("Reserved page will not be exported: "+title);this._title2fn[title]="#";return"#";}else
+nogo=true;if(nogo){woas.log("Reserved page will not be exported: "+title);this._title2fn[title]="#";return"#";}else
 if(!title.match("WoaS::Help"))sp=true;}
 var pi;if(sp){if(this._further_pages.indexOf(title)==-1)
 this._further_pages.push(title);}else{pi=woas.page_index(title);if(pi===-1){woas.alert(woas.i18n.PAGE_NOT_EXISTS+title);this._title2fn[title]="#";return"#";}
@@ -4721,7 +4721,7 @@ var ext="";if(!sp&&woas.is__embedded(pi)){title=title.substr(title.indexOf("::")
 var fname=title.replace(/[^\u0000-\u007F]+/g,function($1){var l=$1.length,r="";for(var i=0;i<l;i++){r+=($1[i]=="\u00e2")?"a":"_";}
 return r;}).replace(/[:\\\/<>?#=!]+/g,function($1){return"_".repeat($1.length);});if(this._settings._unix_norm)
 fname=woas._unix_normalize(fname);else
-fname=fname.replace(/::/g," - ");var test_fname=fname+ext,i=0;while(this._export_fnames_array.indexOf(test_fname)!==-1){log(test_fname+" already created, checking next fname");test_fname=fname+"_".repeat(++i)+ext;}
+fname=fname.replace(/::/g," - ");var test_fname=fname+ext,i=0;while(this._export_fnames_array.indexOf(test_fname)!==-1){woas.log(test_fname+" already created, checking next fname");test_fname=fname+"_".repeat(++i)+ext;}
 this._export_fnames_array.push(test_fname);this._title2fn[orig_title]=test_fname;if(!create_mode)
 return escape(test_fname);return test_fname;}};woas._unix_normalize=function(s){return s.toLowerCase().replace(/\s+/g,"_").replace(/::/g,"-")};woas._b64_export=function(data,dest_path){data=this.base64.decode(data.replace(/^data:\s*[^;]*;\s*base64,\s*/,''));return this.save_file(dest_path,this.file_mode.BINARY,data);};woas._attrib_escape=function(s){return s.replace(/"/g,'&quot;');};woas.export_parse=function(data,js_mode){data=this.parser.parse(data,true,js_mode);if(js_mode){this.setHTMLDiv(d$("woas_wiki_area"),data);this.scripting.activate("page");data=this.getHTMLDiv(d$("woas_wiki_area"));}
 return data;};woas.export_wiki=function(){var sep_css;try{this.exporter._settings.xhtml_path=d$("woas_ep_xhtml").value;this.exporter._settings.img_path=d$("woas_ep_img").value;this.exporter._settings.js_mode=0;if(d$("woas_cb_js_dyn").checked)
@@ -4826,7 +4826,7 @@ var rv=this._native_wsif_load(the_dir+d_fn,locking,_native,1,import_hook,title_f
 this.wsif.do_error("Failed import of external "+the_dir+d_fn);return rv;}
 break;default:this.wsif.do_error("Page "+title+" has invalid disposition: "+disposition);return false;}
 var NP={"title":title,"attrs":attrs,"body":page,"mts":last_mod};if(import_hook(NP)){this.wsif.imported.push(NP.i);return true;}
-return false;};var log=woas.log;function bool2chk(b){woas.log("WARNING: Called deprecated function: bool2chk (now woas.bool2chk)");woas.bool2chk(b);}
+return false;};function bool2chk(b){woas.log("WARNING: Called deprecated function: bool2chk (now woas.bool2chk)");woas.bool2chk(b);}
 function _set_layout(fixed){woas.log("WARNING: Called deprecated function: _set_layout (now woas.set_layout)");woas.ui.set_layout(fixed);}
 function home(){woas.log("WARNING: Called deprecated function: home");woas.ui.home();}
 function help(){woas.log("WARNING: Called deprecated function: help");woas.ui.help();}
@@ -4864,7 +4864,7 @@ ovr+=2;var params=["erase","ignore","overwrite","ask"];d$('woas_import_'+params[
 return;if((woas.get_raw_content()!==woas.change_buffer)||(woas.trim(d$("wiki_page_title").value)!==woas.old_title)){if(!confirm(woas.i18n.CANCEL_EDITING))
 return;}
 if(woas._ghost_page){pages.pop();page_mts.pop();page_titles.pop();page_attrs.pop();var menu_i=woas.page_index("::Menu");if(menu_i!==-1){var menu_orig=woas.get__text(menu_i);var menu=menu_orig.replace("\n[["+current+"]]","");if(menu!==menu_orig){woas.set__text(menu_i,menu);woas.refresh_menu_area();}}}
-current=woas.prev_title;woas.update_nav_icons(current);woas.log(woas.history.log_entry());woas.disable_edit();},back:function(){if(this.edit_mode)
+current=woas.prev_title;woas.update_nav_icons(current);woas.disable_edit();},back:function(){if(this.edit_mode)
 return false;var p=woas.history.back();if(p===null)
 return false;return woas.set_current(p,true);},forward:function(){var p=woas.history.forward();if(p===null)
 return false;return woas.set_current(p,true)},home:function(){woas.go_to(woas.config.main_page);},ns_menu_dblclick:function(){if(!woas.config.dblclick_edit)
@@ -4966,11 +4966,12 @@ woas.update_nav_icons=function(page){this.menu_display("back",this.history.has_b
 this.menu_display("lock",can_lock);this.menu_display("unlock",can_unlock);var cls;if(cyphered||(page.indexOf("Locked::")==0))
 cls="woas_text_area locked";else
 cls="woas_text_area";d$("woas_wiki_area").className=cls;};woas._onresize=function(){var we=d$("woas_editor");we.style.width=window.innerWidth-30+"px";we.style.height=window.innerHeight-150+"px";};if(!woas.browser.ie)
-window.onresize=woas._onresize;woas._set_debug=function(status,closed){var logbox=d$("woas_debug_log");if(status){woas.log=function(aMessage){if(typeof aMessage!=="undefined"){if(!woas.tweak.integrity_test){var log=logbox.value,nls=log.match(/\n/g);if(nls!=null&&typeof(nls)==='object'&&nls.length>1024){logbox.value=log.substring(log.indexOf("\n",log.length/2)+1);}}
+window.onresize=woas._onresize;woas._set_debug=function(status,closed){var logbox=d$("woas_debug_log"),lines=-1,position=0,cut=100,max=200;if(status){woas.log=function(aMessage){if(typeof aMessage!=="undefined"){if(!woas.tweak.integrity_test){if(++lines===max){logbox.value=logbox.value.substring(position);lines=max-cut;}else if(lines===cut){position=logbox.value.length;}}
 logbox.value+=aMessage+'\n';}
 logbox.scrollTop=logbox.scrollHeight;if(window.opera)
 opera.postError(aMessage);return true;};d$.show("woas_debug_panel");if(!closed){d$.show("woas_debug_console")}else{d$.hide("woas_debug_console")}
-d$.hide("loading_overlay");}else{d$.hide("woas_debug_panel");d$.hide("woas_debug_console");logbox.value='';woas.log=function(){return false;};}};woas.refresh_menu_area=function(){var tmp=this.current_namespace;this.current_namespace=this.parser.marker;this._add_namespace_menu(tmp);var menu=this.get_text("::Menu");if(menu==null)
+d$.hide("loading_overlay");}else{d$.hide("woas_debug_panel");d$.hide("woas_debug_console");logbox.value='';woas.log=function(){return false;};}
+window.log=woas.log};woas.refresh_menu_area=function(){var tmp=this.current_namespace;this.current_namespace=this.parser.marker;this._add_namespace_menu(tmp);var menu=this.get_text("::Menu");if(menu==null)
 this.setHTMLDiv(d$("woas_menu_area"),"");else{this.parser._parsing_menu=true;this.setHTMLDiv(d$("woas_menu_area"),this.parser.parse(menu,false,this.js_mode("::Menu")));this.parser._parsing_menu=false;this.scripting.clear("menu");this.scripting.activate("menu");}};woas._gen_display=function(id,visible,prefix){if(visible)
 d$.show(prefix+"_"+id);else
 d$.hide(prefix+"_"+id);};woas.img_display=function(id,visible){if(!this.browser.ie||this.browser.ie8){this._gen_display(id,visible,"img");this._gen_display(id,!visible,"alt");}else{this._gen_display(id,!visible,"img");this._gen_display(id,visible,"alt");}};woas.menu_display=function(id,visible){this._gen_display(id,visible,"menu");};woas.refresh_mts=function(mts){if(mts){this.setHTMLDiv(d$("woas_mts"),this.last_modified(mts));d$.show("woas_mts");}else
@@ -5020,7 +5021,7 @@ woas._editor.setSelectedText(starttag,woas.js_encode(pic)+endtag);}
 function setTag(){var tag=prompt('Set tag:','');if(tag!==null)
 woas._editor.setSelectedText("[[Tag::",tag+"]]");}
 /* ]]> */ </script></head><body class="woas_background" id="body" style="cursor: auto;" onload="woas._on_load()" onunload="woas._on_unload()">
-<div style="display: inline; visibility: visible;" id="loading_overlay"><noscript><h1>If you are seeing this text, your browser is not javascript-enabled.</h1></noscript><div id="woas_wait_text">Loading Wiki on a Stick...</div></div>
+<div style="display: inline; visibility: visible;" id="loading_overlay"><noscript>If you are seeing this text, your browser is not javascript-enabled.</noscript><div id="woas_wait_text">Loading Wiki on a Stick...</div></div>
 <div style="display: none; visibility: hidden;" id="woas_pwd_mask">
 <div style="visibility: visible;" id="woas_pwd_query">
 <form id="stealthpwd" action="" onsubmit="woas._password_ok(); return false">
