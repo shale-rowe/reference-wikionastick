@@ -466,7 +466,7 @@ woas.history = {
 		}
 	},
 	
-	// use: log(woas.history.log_entry())
+	// use: woas.log(woas.history.log_entry())
 	log_entry: function() {
 		function frmt(arr) {
 			var str = [], i;

@@ -1,7 +1,7 @@
 // deprecated/legacy functions
 
 //DEPRECATED but still supported
-var log = woas.log;
+// var log = woas.log; set by woas._set_debug
 
 //DEPRECATED
 function bool2chk(b) {

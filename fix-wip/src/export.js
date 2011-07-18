@@ -58,7 +58,7 @@ woas.exporter = {
 			fname = this._get_fname(page_titles[pi], true);
 			// will skip WoaS::Plugins::* and WoaS::Aliases
 			if (fname === '#') {
-	//			log("skipping "+page_titles[pi]);
+	//			woas.log("skipping "+page_titles[pi]);
 				continue;
 			}
 			++total;
@@ -81,7 +81,7 @@ woas.exporter = {
 				break;
 			++done;
 		}
-		log("pages yet to process: "+this._further_pages);	// log:1
+		woas.log("pages yet to process: "+this._further_pages);	// log:1
 		// process further pages
 		var title;
 		// exchange arrays to parse at some extent
@@ -92,7 +92,7 @@ woas.exporter = {
 				title = eatable[i];
 				data = woas.get_text_special(title);
 				if (data===null) {
-					log("cannot process "+title);
+					woas.log("cannot process "+title);
 					continue;
 				}
 				// TODO: allow special pages to have extended attributes
@@ -180,7 +180,7 @@ woas.exporter = {
 			else // other reserved pages, deny
 				nogo = true;
 			if (nogo) {
-				log("Reserved page will not be exported: "+title);
+				woas.log("Reserved page will not be exported: "+title);
 				this._title2fn[title] = "#";
 				return "#";
 			} else // do export these special pages later
@@ -247,7 +247,7 @@ woas.exporter = {
 			fname = fname.replace(/::/g, " - ");
 		var test_fname = fname+ext, i=0;
 		while (this._export_fnames_array.indexOf(test_fname) !== -1) {
-			log(test_fname+" already created, checking next fname");	// log:1
+			woas.log(test_fname+" already created, checking next fname");	// log:1
 			test_fname = fname+"_".repeat(++i)+ext;
 		}
 	//	if (i)		_export_replace_fname[fname+"_".repeat(i-1)+ext] = test_fname;
