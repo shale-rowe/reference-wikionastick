@@ -905,18 +905,20 @@ if (!woas.browser.ie)
 	window.onresize = woas._onresize;
 
 woas._set_debug = function(status, closed) {
-	var logbox = d$("woas_debug_log");
+	var logbox = d$("woas_debug_log"), lines = -1, position = 0,
+		cut = 100, max = 200; // cut > 0, max > cut
 	if (status) {
 	// logging function - used in development; call without argument to scroll to bottom
 	// and see if we are in debug mode
 		woas.log = function (aMessage) {
 			if (typeof aMessage !== "undefined") {
-				// count lines
 				if (!woas.tweak.integrity_test) {
-					var log = logbox.value, nls = log.match(/\n/g);
-					// log maximum 1024 lines; cut in half if too big
-					if (nls!=null && typeof(nls)==='object' && nls.length>1024) {
-						logbox.value = log.substring(log.indexOf("\n", log.length / 2) + 1);
+					// log up to max lines; 'cut' lines removed if too big
+					if (++lines === max) { // lines is line count now, before this post
+						logbox.value = logbox.value.substring(position);
+						lines = max - cut;
+					} else if (lines === cut) {
+						position = logbox.value.length;
 					}
 				}
 				logbox.value += aMessage + '\n';

@@ -3,6 +3,7 @@ IT IS NOT BEING TESTED MUCH DURING THIS PROCESS AND COULD OCCASIONALLY BE BROKEN
 
 Changes since Revision pvhl-2317 (git: 3d939c7)
 
+* refactor woas.log for better efficiency
 * fix legacy log function I broke; replace remaining log() calls in code
 * disable debug history log
 * remove h1 from no script; corrupted by IE on save
