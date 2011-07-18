@@ -792,7 +792,7 @@ woas.load_as_current = function(title, xhtml, mts, set_b) {
 	this.history.go(current);
 	this.update_nav_icons(title);
 	current = title;
-	this.log(this.history.log_entry());	// log:1
+//	this.log(this.history.log_entry());	// log:0
 	// active menu or page scripts
 	this.scripting.activate(this.is_menu(current) ? "menu" : "page");
 	return true;
