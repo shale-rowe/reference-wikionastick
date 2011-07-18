@@ -3,6 +3,7 @@ IT IS NOT BEING TESTED MUCH DURING THIS PROCESS AND COULD OCCASIONALLY BE BROKEN
 
 Changes since Revision pvhl-2317 (git: 3d939c7)
 
+* fix logo width in IE8+
 * modify <<<woas.include>>> to stop page listing header display
 * allow menu for earlier namespace to show up if no ns menu found
 * change namespace listing to use divs instead of spans

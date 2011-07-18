@@ -905,6 +905,9 @@ woas._on_load = function() {
 			d$.hide("img_logo");
 			// replace with css when capability exists:
 			d$("woas_logo").style.width = "1%";
+		} else {
+			d$("woas_logo").style.width = "35px";
+			d$.show("img_logo");
 		}
 	} else {
 		this.setHTML = this.setHTMLDiv;
