@@ -33,14 +33,14 @@ Anyway, this is what I will do going forward:
 	(assuming I remembered to update my local SVN). Again, use this with 
 	caution and test first, but it should be working fine -- certainly much 
 	better than the current WoaS version. I will try to remember to write a 
-	page (or update WoaS History).
+	page (or update WoaS History) that lists the differences between my
+	version and the current official code.
 
 *	I want to add a woas-pvhl.html (and compressed version) to the files 
 	section of the SourceForge site. It will simply be a woas-fix-wip.html 
 	file that I believe is stable. I want to discuss this with Daniele 
-	first. The current WoaS.0.12.0 corrupts files in some instances. Before 
-	I can do this I need to remove the ability to read a multi-file index.wsif 
-	that I added, as this overwrites the index.wsif if changes are saved.
+	first. The current WoaS.0.12.0 corrupts files in some instances, as
+	discussed below.
 
 *	I am abandoning further work on fix. I do not have the time to update 
 	it. It is very important to me to finish off my current work (including 
@@ -61,6 +61,10 @@ Anyway, this is what I will do going forward:
 Paul - pvhl
 
 ------
+
+PLEASE READ STATEMENT ABOVE. THE 'FIX' DIRECTORY IS NOW ABANDONED; USE FIX-WIP
+INSTEAD As EXPLAINED.
+ 
 The files in this directory and in the non '-wip' directories are
 intended to be working and stable. I have a few more fixes to make yet
 and intend to only upload fixed, working copies of these single-file
