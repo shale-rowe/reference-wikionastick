@@ -939,6 +939,7 @@ woas._set_debug = function(status, closed) {
 		logbox.value = '';
 		woas.log = function() { return false; };
 	}
+	window.log = woas.log // for deprecated function - legacy.js
 };
 
 woas.refresh_menu_area = function() {
@@ -976,7 +977,7 @@ woas.img_display = function(id, visible) {
 
 woas.menu_display = function(id, visible) {
 	this._gen_display(id, visible, "menu");
-//	log("menu_"+id+" is "+d$("menu_"+id).style.display);
+//	woas.log("menu_"+id+" is "+d$("menu_"+id).style.display);
 };
 
 woas.refresh_mts = function(mts) {
