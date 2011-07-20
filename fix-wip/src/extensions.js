@@ -540,7 +540,10 @@ woas.title_unalias = function(aliased_title) {
 
 woas.macro = {
 	// macro definition regex
-	reMacroDef: /^(%?[A-Za-z0-9_\.]+)\s*(\(.*?\))?\s*:([\s\S]*)$/,
+	// Follows nowiki block rules. If line after tag contains only whitespace it is removed,
+	// as is the last \n (so text is just what appears between the tags). Also allows an
+	// optional single space after colon if text is on the same line as opening tag.
+	reMacroDef: /^(%?[A-Za-z0-9_\.]+)\s*(\(.*?\))?\s*: ?(?:[ \t]*(\n))?([\s\S]*?)(?:\n[ \t]*)?$/,
 
 	// macro syntax plugin code adapted from FBNil's implementation
 	parser: function(text){
@@ -561,7 +564,7 @@ woas.macro = {
 			if (fn.charAt(0) === '%') {
 				fn = fn.substr(1);
 				// when macro is not defined, define it
-				if (this.create(fn, M[2], M[3])) {
+				if (this.create(fn, M[2], M[4])) {
 					// we totally remove the block
 					macro.reprocess = false;
 					macro.text = "";
@@ -574,7 +577,7 @@ woas.macro = {
 			}
 			var fi = this.names.indexOf(fn);
 			if (fi !== -1) {
-				macro.text = M[3];
+				macro.text = M[4];
 				// if we have no parameters, direct call function
 				var pl, rv;
 				if (typeof M[2] == "undefined") { pl = 0; }
@@ -592,16 +595,22 @@ woas.macro = {
 					woas.log("Error during macro execution: "+e);
 				}
 				// analyze return value
-				if (typeof rv == "undefined") {
-					woas.log("WARNING: " + this.names[fi] + " did not return any value");
-				} else if (!rv) {
+				if (rv === false) {
 					// when macro returns false we automatically highlight it
 					macro.reprocess = false;
-					macro.text = woas.parser._make_preformatted(M[0], "color:red;font-weight:bold");
+					macro.text = woas.parser._make_preformatted(text, "color:red;font-weight:bold");
+				} else {
+					if (M[3] && macro.reprocess === true) {
+						// allows block level syntax to be used (headings, lists, etc.)
+						macro.text = woas.parser.NL_MARKER + '\n' + macro.text;
+					}
+					if (typeof rv === "undefined") {
+						woas.log("WARNING: " + this.names[fi] + " did not return any value");
+					}
 				}
 			} else {
-				woas.log("Undefined macro "+fn);	//log:1
-				macro.text = woas.parser._make_preformatted(macro.text, "color:red");
+				woas.log("Undefined macro " + fn);	//log:1
+				macro.text = woas.parser._make_preformatted(text, "color:red");
 			}
 		} else { // bad macro name definition (e.g. '<') can wipe out other text; mark it
 			woas.log("Macro failed validity test: '" + text + "'");	//log:1
