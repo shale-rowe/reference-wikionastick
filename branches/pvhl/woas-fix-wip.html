@@ -37,7 +37,7 @@ woas["config"] = {
 "fixed_header":false,
 "fixed_menu":false
 };
-;
+
 
 var current = 'Main Page';
 
@@ -5979,6 +5979,9 @@ parse: function(text, export_links, js_mode) {
 		P = { body: text }; // allow passing text by reference
 	text = null;
 
+	// make a backup copy of current macros, so no new macros remain after page processing
+	woas.macro.make_backup()
+
 	// process nowiki, macros, and XHTML comments
 	this.pre_parse(P, snippets);
 
@@ -6029,7 +6032,10 @@ parse: function(text, export_links, js_mode) {
 	// static syntax parsing
 	this.syntax_parse(P, snippets, tags, export_links, this.has_toc);
 
-	// sort tags at bottom of pageif set in config
+	// restore macros to those already defined before page was parsed
+	woas.macro.remove_backup();
+
+	// sort tags at bottom of page if set in config
 	tags = tags.toUnique();
 	if (woas.config.sort_tags) { tags = tags.sort(); }
 	if (tags.length && !export_links) {
@@ -6056,10 +6062,6 @@ parse: function(text, export_links, js_mode) {
 			P.body += s;
 		}
 	}
-
-	if (woas.macro.has_backup())
-		// restore macros array
-		woas.macro.pop_backup();
 
 	// syntax parsing has finished; apply any final changes
 	if (this.after_parse === backup_hook)
@@ -6111,8 +6113,6 @@ parse_lists: function(str, type) {
 parse_macros: function(P, snippets) {
 	// put away stuff contained in user-defined macro multi-line blocks
 	P.body = P.body.replace(this.reMacros, function (str, $1, dynamic_nl) {
-		// take a backup copy of the macros, so no new macros are defined after page processing
-		if (!woas.macro.has_backup()) { woas.macro.push_backup(); }
 		// ask macro_parser to prepare this block
 		var ws = '', macro = woas.macro.parser($1);
 		// if this is not a macro definition don't remove a \n following
@@ -6200,7 +6200,7 @@ place_holder_dnl: function (snippets, str, dnl) {
 },
 
 // NOTE: XHTML comments can now be contained in nowiki and macro blocks
-pre_parse: function(P, snippets) {
+pre_parse: function(P, snippets, no_macros) {
 	var that = this;
 	P.body = P.body.replace(this.reNowiki, function (str, nw, dynamic_nl) {
 	// put away stuff contained in nowiki blocks {{{ }}}
@@ -6212,7 +6212,7 @@ pre_parse: function(P, snippets) {
 		return that.place_holder_dnl(snippets, nw, dynamic_nl);
 	});
 
-	this.parse_macros(P, snippets);
+	if (no_macros !== true) { this.parse_macros(P, snippets); }
 
 	// put away XHTML-style comments
 	P.body = P.body.replace(this.reComments, function (str, comment, dynamic_nl) {
@@ -8402,7 +8402,6 @@ woas._get__embedded = function (cr, pi, etype) {
 		var snippets = [];
 		this.parser.pre_parse(P, snippets);
 		this.parser.syntax_parse(P, snippets);
-		this.parser.undry(P, snippets);
 		
 		xhtml = "<"+"pre id='woas_file_ct' class=\"woas_nowiki woas_embedded\">"+this.xhtml_encode(pview_data)+"<"+"/pre>"+
 				pview_link+"<"+"br /><"+"hr />"+this.i18n.FILE_SIZE+": "+_convert_bytes(ext_size)+
@@ -8835,7 +8834,7 @@ woas._on_load = function() {
 	this._set_debug(this.config.debug_mode, this.config.debug_closed);
 	d$("woas_debug_log").value = ""; // for Firefox
 	// output platform information - note that revision is filled in only in releases
-	woas.log("*** WoaS v"+this.version+"-pvhl-r2377"+" started");	// log:1
+	woas.log("*** WoaS v"+this.version+"-pvhl-r2382"+" started");	// log:1
 	
 	// store the old length to eventually force full save when entering/exiting WSIF datasource mode
 	this._old_wsif_ds_len = this.config.wsif_ds.length;
@@ -9888,12 +9887,26 @@ woas.title_unalias = function(aliased_title) {
 
 woas.macro = {
 	// macro definition regex
-	reMacroDef: /^(%?[A-Za-z0-9_\.]+)\s*(\(.*?\))?\s*:([\s\S]*)$/,
+	// Follows nowiki block rules. If line after tag contains only whitespace it is removed,
+	// as is the last \n (so text is just what appears between the tags). Also allows an
+	// optional single space after colon if text is on the same line as opening tag.
+	reMacroDef: /^(%?[A-Za-z0-9_\.]+)\s*(\(.*?\))?\s*: ?(?:[ \t]*(\n))?([\s\S]*?)(?:\n[ \t]*)?$/,
+
+	// allows macros to safely parse text; normal syntax allowed, macros and tags not parsed.
+	// Passed to macro in the macro object: macro.parse()
+	// 'this' is macro object that was passed to macro
+	_parse: function(text) {
+		var snippets = [], P = {};
+		P.body = text ? text : this.text;
+		woas.parser.pre_parse(P, snippets, true);
+		woas.parser.syntax_parse(P, snippets);
+		return P.body;
+	},
 
 	// macro syntax plugin code adapted from FBNil's implementation
 	parser: function(text){
 		// standard macro object
-		var macro = { "reprocess": false, "text": text };
+		var macro = { "reprocess": false, "text": text, parse: this._parse };
 		// match macro definition/call
 		var M = text.match(this.reMacroDef);
 		// if no double colon declaration was found, then do not process anything
@@ -9909,7 +9922,7 @@ woas.macro = {
 			if (fn.charAt(0) === '%') {
 				fn = fn.substr(1);
 				// when macro is not defined, define it
-				if (this.create(fn, M[2], M[3])) {
+				if (this.create(fn, M[2], M[4])) {
 					// we totally remove the block
 					macro.reprocess = false;
 					macro.text = "";
@@ -9922,7 +9935,7 @@ woas.macro = {
 			}
 			var fi = this.names.indexOf(fn);
 			if (fi !== -1) {
-				macro.text = M[3];
+				macro.text = M[4];
 				// if we have no parameters, direct call function
 				var pl, rv;
 				if (typeof M[2] == "undefined") { pl = 0; }
@@ -9940,16 +9953,22 @@ woas.macro = {
 					woas.log("Error during macro execution: "+e);
 				}
 				// analyze return value
-				if (typeof rv == "undefined") {
-					woas.log("WARNING: " + this.names[fi] + " did not return any value");
-				} else if (!rv) {
+				if (rv === false) {
 					// when macro returns false we automatically highlight it
 					macro.reprocess = false;
-					macro.text = woas.parser._make_preformatted(M[0], "color:red;font-weight:bold");
+					macro.text = woas.parser._make_preformatted(text, "color:red;font-weight:bold");
+				} else {
+					if (M[3] && macro.reprocess === true) {
+						// allows block level syntax to be used (headings, lists, etc.)
+						macro.text = woas.parser.NL_MARKER + '\n' + macro.text;
+					}
+					if (typeof rv === "undefined") {
+						woas.log("WARNING: " + this.names[fi] + " did not return any value");
+					}
 				}
 			} else {
-				woas.log("Undefined macro "+fn);	//log:1
-				macro.text = woas.parser._make_preformatted(macro.text, "color:red");
+				woas.log("Undefined macro " + fn);	//log:1
+				macro.text = woas.parser._make_preformatted(text, "color:red");
 			}
 		} else { // bad macro name definition (e.g. '<') can wipe out other text; mark it
 			woas.log("Macro failed validity test: '" + text + "'");	//log:1
@@ -10045,16 +10064,25 @@ woas.macro = {
 	// code used to save backups of macro definitions
 	// called by parser
 	_backup: [],
-	push_backup: function() {
-		this._backup.push(this.names.slice(0));
-		this._backup.push(this.functions.slice(0));
+	make_backup: function() {
+		if (this._backup.length) {
+			woas.log("BUG: macro.make_backup called when backup already exists");
+		} else {
+			this._backup.push(this.names.slice(0));
+			this._backup.push(this.functions.slice(0));
+		}
 	},
 
-	pop_backup: function() {
-		this.functions = this._backup.pop();
-		this.names = this._backup.pop();
+	remove_backup: function() {
+		if (this._backup.length) {
+			this.functions = this._backup.pop();
+			this.names = this._backup.pop();
+		} else {
+			woas.log("BUG:  macro.remove_backup called when no backup exists");
+		}
 	},
 
+	// not used but left as possibly useful for testing
 	has_backup: function() {
 		return (this._backup.length !== 0);
 	}

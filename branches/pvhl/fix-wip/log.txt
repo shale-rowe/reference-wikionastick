@@ -5,7 +5,7 @@ Changes since Revision pvhl-2317 (git: 3d939c7)
 
 * fix macro backup functionality
 * add macro.parse ability
-* fix macro regexp and related issues
+* fix macro regexp and related issues (follow rules similar to nowiki and work better with block syntax)
 * refactor woas.log for better efficiency
 * fix legacy log function I broke; replace remaining log() calls in code
 * disable debug history log
