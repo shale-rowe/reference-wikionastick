@@ -452,7 +452,6 @@ woas._get__embedded = function (cr, pi, etype) {
 		var snippets = [];
 		this.parser.pre_parse(P, snippets);
 		this.parser.syntax_parse(P, snippets);
-		this.parser.undry(P, snippets);
 		
 		xhtml = "<"+"pre id='woas_file_ct' class=\"woas_nowiki woas_embedded\">"+this.xhtml_encode(pview_data)+"<"+"/pre>"+
 				pview_link+"<"+"br /><"+"hr />"+this.i18n.FILE_SIZE+": "+_convert_bytes(ext_size)+
