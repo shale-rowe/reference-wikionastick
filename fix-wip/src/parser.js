@@ -338,6 +338,9 @@ parse: function(text, export_links, js_mode) {
 		P = { body: text }; // allow passing text by reference
 	text = null;
 
+	// make a backup copy of current macros, so no new macros remain after page processing
+	woas.macro.make_backup()
+
 	// process nowiki, macros, and XHTML comments
 	this.pre_parse(P, snippets);
 
@@ -388,7 +391,10 @@ parse: function(text, export_links, js_mode) {
 	// static syntax parsing
 	this.syntax_parse(P, snippets, tags, export_links, this.has_toc);
 
-	// sort tags at bottom of pageif set in config
+	// restore macros to those already defined before page was parsed
+	woas.macro.remove_backup();
+
+	// sort tags at bottom of page if set in config
 	tags = tags.toUnique();
 	if (woas.config.sort_tags) { tags = tags.sort(); }
 	if (tags.length && !export_links) {
@@ -415,10 +421,6 @@ parse: function(text, export_links, js_mode) {
 			P.body += s;
 		}
 	}
-
-	if (woas.macro.has_backup())
-		// restore macros array
-		woas.macro.pop_backup();
 
 	// syntax parsing has finished; apply any final changes
 	if (this.after_parse === backup_hook)
@@ -470,8 +472,6 @@ parse_lists: function(str, type) {
 parse_macros: function(P, snippets) {
 	// put away stuff contained in user-defined macro multi-line blocks
 	P.body = P.body.replace(this.reMacros, function (str, $1, dynamic_nl) {
-		// take a backup copy of the macros, so no new macros are defined after page processing
-		if (!woas.macro.has_backup()) { woas.macro.push_backup(); }
 		// ask macro_parser to prepare this block
 		var ws = '', macro = woas.macro.parser($1);
 		// if this is not a macro definition don't remove a \n following
