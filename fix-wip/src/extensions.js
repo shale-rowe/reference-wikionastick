@@ -545,10 +545,21 @@ woas.macro = {
 	// optional single space after colon if text is on the same line as opening tag.
 	reMacroDef: /^(%?[A-Za-z0-9_\.]+)\s*(\(.*?\))?\s*: ?(?:[ \t]*(\n))?([\s\S]*?)(?:\n[ \t]*)?$/,
 
+	// allows macros to safely parse text; normal syntax allowed, macros and tags not parsed.
+	// Passed to macro in the macro object: macro.parse()
+	// 'this' is macro object that was passed to macro
+	_parse: function(text) {
+		var snippets = [], P = {};
+		P.body = text ? text : this.text;
+		woas.parser.pre_parse(P, snippets, true);
+		woas.parser.syntax_parse(P, snippets);
+		return P.body;
+	},
+
 	// macro syntax plugin code adapted from FBNil's implementation
 	parser: function(text){
 		// standard macro object
-		var macro = { "reprocess": false, "text": text };
+		var macro = { "reprocess": false, "text": text, parse: this._parse };
 		// match macro definition/call
 		var M = text.match(this.reMacroDef);
 		// if no double colon declaration was found, then do not process anything

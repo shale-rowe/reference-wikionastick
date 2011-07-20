@@ -559,7 +559,7 @@ place_holder_dnl: function (snippets, str, dnl) {
 },
 
 // NOTE: XHTML comments can now be contained in nowiki and macro blocks
-pre_parse: function(P, snippets) {
+pre_parse: function(P, snippets, no_macros) {
 	var that = this;
 	P.body = P.body.replace(this.reNowiki, function (str, nw, dynamic_nl) {
 	// put away stuff contained in nowiki blocks {{{ }}}
@@ -571,7 +571,7 @@ pre_parse: function(P, snippets) {
 		return that.place_holder_dnl(snippets, nw, dynamic_nl);
 	});
 
-	this.parse_macros(P, snippets);
+	if (no_macros !== true) { this.parse_macros(P, snippets); }
 
 	// put away XHTML-style comments
 	P.body = P.body.replace(this.reComments, function (str, comment, dynamic_nl) {
