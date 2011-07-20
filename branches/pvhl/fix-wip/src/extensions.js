@@ -717,16 +717,25 @@ woas.macro = {
 	// code used to save backups of macro definitions
 	// called by parser
 	_backup: [],
-	push_backup: function() {
-		this._backup.push(this.names.slice(0));
-		this._backup.push(this.functions.slice(0));
+	make_backup: function() {
+		if (this._backup.length) {
+			woas.log("BUG: macro.make_backup called when backup already exists");
+		} else {
+			this._backup.push(this.names.slice(0));
+			this._backup.push(this.functions.slice(0));
+		}
 	},
 
-	pop_backup: function() {
-		this.functions = this._backup.pop();
-		this.names = this._backup.pop();
+	remove_backup: function() {
+		if (this._backup.length) {
+			this.functions = this._backup.pop();
+			this.names = this._backup.pop();
+		} else {
+			woas.log("BUG:  macro.remove_backup called when no backup exists");
+		}
 	},
 
+	// not used but left as possibly useful for testing
 	has_backup: function() {
 		return (this._backup.length !== 0);
 	}
