@@ -962,7 +962,7 @@ woas.refresh_menu_area = function() {
 
 woas._gen_display = function(id, visible, prefix) {
 	if (visible)
-		d$.show(prefix+"_"+id);
+		d$.show(prefix+"_"+id, true);
 	else
 		d$.hide(prefix+"_"+id);
 };
