@@ -274,7 +274,7 @@ woas.cmd_delete = function() {
 		return false;
 	var pi = this.page_index(pname);
 	if (pi == -1) {
-		this.alert(this.i18n.PAGE_NOT_EXISTS+pname);
+		this.alert(this.i18n.PAGE_NOT_EXISTS.sprintf(pname));
 		return false;
 	}
 	if (this.is_reserved(pname)) {

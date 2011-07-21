@@ -195,7 +195,7 @@ woas.exporter = {
 		} else {
 			pi=woas.page_index(title);
 			if (pi === -1) {
-				woas.alert(woas.i18n.PAGE_NOT_EXISTS+title);
+				woas.alert(woas.i18n.PAGE_NOT_EXISTS.sprintf(title));
 				this._title2fn[title] = "#";
 				return "#";
 			}
