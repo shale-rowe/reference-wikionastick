@@ -264,11 +264,14 @@ WSIF data source: <input id="txt_wsif_ds" type="text" size="60" value="" onchang
 A file named as above WSIF data source and ending with ".lck" will also be created to manage locking.
 
 WSIF data author: <input id="txt_author" type="text" size="12" value="" onchange="woas.config.wsif_author=this.value" />
-/Used in exported WSIF content or in WSIF datasources./
+/Used in exported WSIF content and WSIF datasources./
+<div id="woas_read_only_div">
 == Permanent changes
 <p>&nbsp;&nbsp;<input class="woas_button" type="button" onclick="ro_woas()" value="Disallow edits" />&nbsp;&nbsp;/Caution: to re-enable editing you will have to manually edit WoaS/</p>
+</div>
 <input class="woas_button_top" type="button" onclick="save_options()" value="Save options" />
 <script type="text/javascript">
+if (!woas.config.permit_edits) { d$.hide("woas_read_only_div"); }
 d$("cb_allow_diff").checked = woas.bool2chk(woas.config.allow_diff);
 d$("cb_rem_history").checked = woas.bool2chk(woas.config.nav_history);
 d$("cb_store_mts").checked = woas.bool2chk(woas.config.store_mts);

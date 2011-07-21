@@ -3,6 +3,7 @@ IT IS NOT BEING TESTED MUCH DURING THIS PROCESS AND COULD OCCASIONALLY BE BROKEN
 
 Changes since Revision pvhl-2317 (git: 3d939c7)
 
+* hide 'make woas read only' in read only woas
 * fix macro backup functionality
 * add macro.parse ability
 * fix macro regexp and related issues (follow rules similar to nowiki and work better with block syntax)
