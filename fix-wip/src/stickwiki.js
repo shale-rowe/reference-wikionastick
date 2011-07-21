@@ -314,7 +314,7 @@ woas.get_text_special = function(title) {
 woas.__last_title = null;
 
 woas.__password_finalize = function(pwd_obj) {
-	d$.show_ni("woas_wiki_area");
+	d$.show("woas_wiki_area");
 	document.title = this.__last_title;
 	d$.hide("woas_pwd_mask");
 //	scrollTo(0,0);
@@ -329,10 +329,10 @@ woas._set_password = function() {
 	document.title = "Enter password";
 	// hide browser scrollbars and show mask
 	d$.show("woas_pwd_mask");
-	d$.hide_ni("woas_wiki_area");
+	d$.hide("woas_wiki_area");
 	scrollTo(0,0);
 	// show input form
-	d$.show_ni("woas_pwd_query");
+	d$.show("woas_pwd_query");
 	d$("woas_password").focus();	
 	this.ui.focus_textbox();
 };
@@ -954,6 +954,7 @@ woas._on_load = function() {
 	for(var i=0,it=nav_bar.length;i < it;++i) {
 		this.img_display(nav_bar[i], true);
 	}
+	this.menu_display("help", true); // the only one not done later
 	
 	// customized keyboard hook
 	document.onkeydown = woas.ui._keyboard_event_hook;

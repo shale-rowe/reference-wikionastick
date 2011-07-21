@@ -3,6 +3,7 @@ IT IS NOT BEING TESTED MUCH DURING THIS PROCESS AND COULD OCCASIONALLY BE BROKEN
 
 Changes since Revision pvhl-2317 (git: 3d939c7)
 
+* improve show/hide/toggle functions
 * remove visibility attribute from WoaS (display is sufficient in all cases)
 * update i18n strings (mostly Little Girl's work)
 * hide 'make woas read only' in read only woas

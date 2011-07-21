@@ -115,27 +115,22 @@ d$.hide = function(id) {
 	d$(id).style.display = "none";
 };
 
-d$.show = function(id) {
-	d$(id).style.display = "inline";
-};
-
-d$.hide_ni = function(id) {
-	d$(id).style.display = "none";
-};
-
-d$.show_ni = function(id) {
-	d$(id).style.display = "block";
+d$.show = function(id, inline) {
+	d$(id).style.display = inline ? "inline" : "block";
 };
 
 d$.is_visible = function(id) {
-	return !!(d$(id).offsetWidth);
+	return !!d$(id).offsetWidth;
 };
 
-d$.toggle = function(id) {
-	if (d$.is_visible(id))
-		d$.hide(id);
-	else
-		d$.show(id);
+d$.toggle = function(id, inline) {
+	var d = d$(id);
+	d.style.display = d.offsetWidth ? 'none' : inline ? 'inline' : 'block';
+};
+
+d$.toggle_resize = function(id, inline) {
+	d$.toggle(id);
+	woas.ui._onresize();
 };
 
 d$.clone = function(obj) {
