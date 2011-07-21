@@ -113,24 +113,22 @@ d$.checked = function(id) {
 
 d$.hide = function(id) {
 	d$(id).style.display = "none";
-	d$(id).style.visibility = "hidden";
 };
 
 d$.show = function(id) {
 	d$(id).style.display = "inline";
-	d$(id).style.visibility = "visible";
 };
 
 d$.hide_ni = function(id) {
-	d$(id).style.visibility = "hidden";
+	d$(id).style.display = "none";
 };
 
 d$.show_ni = function(id) {
-	d$(id).style.visibility = "visible";
+	d$(id).style.display = "block";
 };
 
 d$.is_visible = function(id) {
-	return !!(d$(id).style.visibility == 'visible');
+	return !!(d$(id).offsetWidth);
 };
 
 d$.toggle = function(id) {
