@@ -8,12 +8,10 @@ woas.ui.editor = {
 
 woas.wiki_buttons_display = function (v) {
 	d$('wiki_format_buttons').style.display = v ? 'block' : 'none';
-	d$('wiki_format_buttons').style.visibility = v ? 'visible' : 'hidden';
 };
 
 woas.html_buttons_display = function (v) {
 	d$('html_format_buttons').style.display = v ? 'block' : 'none';
-	d$('html_format_buttons').style.visibility = v ? 'visible' : 'hidden';
 };
 
 // class for managing textarea selection - by pr0xy

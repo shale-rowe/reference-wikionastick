@@ -463,7 +463,7 @@ woas._ns_expanded = function(ns, items_count, id, list_id) {
 };
 
 woas._visible_css = function(v){
-	return v ? "visibility: visible; display: inline" : "visibility: hidden; display: none";
+	return "display: " + (v ? "block" : "none");
 };
 
 woas.ns_recurse_parse = function(folds, output, prev_ns, recursion, sorted) {

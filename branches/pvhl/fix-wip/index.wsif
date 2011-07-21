@@ -3749,7 +3749,6 @@ pre.woas_embedded {
 	position: absolute;
 	text-align: center;
 	top: 0em;
-	visibility: hidden;
 	width: 99%;
 	z-index: 99;
 }
@@ -3763,7 +3762,6 @@ pre.woas_embedded {
 	position: absolute;
 	text-align: center;
 	top: 0em;
-	visibility: hidden;
 	width: 99%;
 	z-index: 100;
 }
@@ -3833,7 +3831,6 @@ h6.woas_heading {
 /* HOTKEYS */
 #woas_custom_accesskeys {
 	display: none;
-	visibility: hidden;
 }
 
 /* LAST MODIFIED LINE */
@@ -4082,7 +4079,6 @@ body {
 }
 
 #woas_custom_accesskeys {
-	visibility: hidden;
 	display: none;
 }
 
