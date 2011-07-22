@@ -6,14 +6,6 @@ woas.ui.editor = {
 	}
 };
 
-woas.wiki_buttons_display = function (v) {
-	d$('wiki_format_buttons').style.display = v ? 'block' : 'none';
-};
-
-woas.html_buttons_display = function (v) {
-	d$('html_format_buttons').style.display = v ? 'block' : 'none';
-};
-
 // class for managing textarea selection - by pr0xy
 function TextAreaSelectionHelper(obj) {
 	this.target=obj;
