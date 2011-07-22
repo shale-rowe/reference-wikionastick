@@ -339,7 +339,7 @@ parse: function(text, export_links, js_mode) {
 	text = null;
 
 	// make a backup copy of current macros, so no new macros remain after page processing
-	woas.macro.make_backup()
+	woas.macro.make_backup();
 
 	// process nowiki, macros, and XHTML comments
 	this.pre_parse(P, snippets);
@@ -500,9 +500,9 @@ parse_tables_new: function (str, prop, p1) {
 			case '-': // comment
 				return;
 			case '+':
-				return caption = caption || ('<'+'caption' + (stk.length > 0 ? ' style="caption-side:bottom">' : '>') + pp2 + '<'+'/caption>');
+				return (caption = caption || ('<'+'caption' + (stk.length > 0 ? ' style="caption-side:bottom">' : '>') + pp2 + '<'+'/caption>'));
 			case '*':
-				return colgroup = pp2;
+				return (colgroup = pp2);
 			case '$':
 				return CC.push(pp2);
 			case '|':

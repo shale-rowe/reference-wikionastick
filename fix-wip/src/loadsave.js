@@ -659,7 +659,7 @@ function reXHTMLFix_hook(str, tag) {
 }
 var reXHTMLFix = /<(img|hr|br|input|meta)[^>]*>/gi;
 
-var reHeadTagEnd = new RegExp("<\\/"+"head[^>]*>", "ig");
+var reHeadTagEnd = new RegExp("<\\/"+"head[^>]*>", "ig"),
 	reHeadTagStart = new RegExp("<"+"head[^>]*>", "ig"),
 	reTagStart = /<(\w+)([^>]*)>/g,
 	reTagEnd = /<\/(\w+)[^>]*>/g,
