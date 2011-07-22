@@ -166,8 +166,8 @@ table.woas_text_area,div.woas_taglinks { }</style>
 <div style="" class="woas_text_area" id="woas_wiki_area" ondblclick="page_dblclick()"></div>
 <div style="display: none;" class="woas_page_mts" id="woas_mts"></div></div>
 <div id="edit_area" style="display: none;">
-<div id="woas_edit_page_title" style="display: block;">Page title: <input id="wiki_page_title" size="50" value="" />&nbsp;<a style="color: blue;" onclick="woas.wiki_buttons_display(d$('wiki_format_buttons').style.display != 'block')">Show/Hide wiki buttons</a>&nbsp;|&nbsp;<a style="color: blue;" onclick="woas.html_buttons_display(d$('html_format_buttons').style.display != 'block')">Show/Hide XHTML buttons</a></div>
-<div id="wiki_format_buttons" style="display: block;">
+<div id="woas_edit_page_title" style="display: block;">Page title: <input id="wiki_page_title" size="50" value="" />&nbsp;Toggle buttons:&nbsp;<a title="Toggle wiki formatting buttons" style="color: #00f;" onclick="d$.toggle('wiki_format_buttons')">wiki</a>&nbsp;|&nbsp;<a title="Toggle XHTML formatting buttons"  style="color: #00f;" onclick="d$.toggle('html_format_buttons')">XHTML</a></div>
+<div id="wiki_format_buttons">
 Wiki Code:
 <input class="woas_editor_button woas_button" name="btn11" value="Wiki URL" title="Wiki page link" style="text-decoration: underline" onclick="setWikiIUrl()" type="button" />
 <input class="woas_editor_button woas_button" name="btn10" value="URL" title="External link" style="text-decoration: underline" onclick="setWikiUrl()" type="button" />
@@ -185,7 +185,7 @@ Wiki Code:
 <input class="woas_editor_button woas_button" name="btn9" value="Tags" title="Wiki tag or tags" onclick="setTag()" type="button" />
 <a class="woas_world_link" onclick="woas.ui.tables_help()">Tables syntax</a>
 </div>
-<div id="html_format_buttons" style="display: block;">XHTML Code:
+<div id="html_format_buttons">XHTML Code:
 <input class="woas_editor_button woas_button" name="b" title="Bold text" id="b" value="B" style="font-weight: bold;" onclick="FullTagThis('strong')" type="submit" />
 <input class="woas_editor_button woas_button" name="i" title="Italic text" id="i" value="i" style="font-style: italic;" onclick="FullTagThis('em')" type="submit" />
 <input class="woas_editor_button woas_button" name="u" title="Underlined text" id="u" value="u" style="text-decoration: underline;" onclick="FullTagThis('u')" type="submit" />
