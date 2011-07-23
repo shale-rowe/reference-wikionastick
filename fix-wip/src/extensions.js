@@ -477,7 +477,7 @@ woas.hotkey = {
 		d$("woas_print_hl").accessKey = this.all.print;
 		d$("woas_help_hl").accessKey = this.all.help;
 		// set access key for goto feature
-		new_custom_accesskeys.push({fn:"woas.cmd_go_to", key: this.all.goto});
+		new_custom_accesskeys.push({fn:"woas.cmd_go_to", key: this.all["goto"]});
 
 		// (1) delete access keys which no more exist
 		var found,a,b;
