@@ -392,9 +392,10 @@ woas.history = {
 	},
 	
 	forward: function() {
-		if (forstack.length > 0)
+		if (forstack.length > 0) {
 			going_forward = true;
 			return forstack.pop();
+		}
 		woas.log("No forward history");
 		return null;
 	},
