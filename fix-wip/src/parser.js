@@ -16,10 +16,10 @@ _export_links: null,
 
 // a variety of regular expressions used by the parser
 
-// these REs look for one optional (dynamic) newline
+// these REs look for one optional (dynamic) newline at the end
 reComments: /<\!--([\s\S]*?)-->([ \t]*\n)?/g,
 reMacros: /<<<([\s\S]*?)>>>([ \t]*\n)?/g,
-reNowiki: /\{\{\{([\s\S]*?)\}\}\}([ \t]*\n)?/g,
+reNowiki: /\{\{\{([ \t]*\n)?([\s\S]*?)(\n[ \t]*)?\}\}\}([ \t]*\n)?/g,
 reScripts: new RegExp("<"+"script([^>]*)>([\\s\\S]*?)<"+"\\/script>([ \\t]*\\n)?", "gi"),
 reStyles: new RegExp("<"+"style([^>]*)>[\\s\\S]*?<"+"\\/style>([ \\t]*\\n)?", "gi"),
 reTOC: /\[\[Special::TOC\]\]([ \t]*\n)?/,
@@ -486,6 +486,21 @@ parse_macros: function(P, snippets) {
 	});
 },
 
+// 'inline' has no breaks at all between the markers.
+// 'multiline' has first and last \n removed
+parse_nowiki: function(P, snippets) {
+	var that = this;
+	P.body = P.body.replace(this.reNowiki, function (str, n1, nw, n2, dynamic_nl) {
+		if (n1 || n2 || nw.indexOf("\n") !== -1) {
+			nw = woas.parser._raw_preformatted("pre", nw, "woas_nowiki woas_nowiki_multiline");
+			return that.place_holder_dnl(snippets, nw, dynamic_nl);
+		} else {
+			nw = woas.parser._raw_preformatted("tt", nw, "woas_nowiki");
+			return that.place_holder(snippets, nw) + (!dynamic_nl ? '' : dynamic_nl);
+		}
+	});
+},
+
 // new table parsing by FBNil
 parse_tables_new: function (str, prop, p1) {
     var caption = '',
@@ -561,19 +576,9 @@ place_holder_dnl: function (snippets, str, dnl) {
 // NOTE: XHTML comments can now be contained in nowiki and macro blocks
 pre_parse: function(P, snippets, no_macros) {
 	var that = this;
-	P.body = P.body.replace(this.reNowiki, function (str, nw, dynamic_nl) {
-	// put away stuff contained in nowiki blocks {{{ }}}
-	// 'inline' has no breaks at all between the markers. Dealt with by _make_preformatted.
-		nw = that._make_preformatted(nw);
-		// simple hack so we can use _make_preformatted.
-		if (nw.indexOf('t') === 1)
-			return that.place_holder(snippets, nw) + (!dynamic_nl ? '' : dynamic_nl);
-		return that.place_holder_dnl(snippets, nw, dynamic_nl);
-	});
-
+	// put away stuff contained in nowiki blocks {{{ }}}, macros, and XHTML-style comments
+	this.parse_nowiki(P, snippets);
 	if (no_macros !== true) { this.parse_macros(P, snippets); }
-
-	// put away XHTML-style comments
 	P.body = P.body.replace(this.reComments, function (str, comment, dynamic_nl) {
 		// don't skip anything -- remove all comments for future syntax needs
 		return that.place_holder_dnl(snippets, str, dynamic_nl);

@@ -3,7 +3,8 @@ IT IS NOT BEING TESTED MUCH DURING THIS PROCESS AND COULD OCCASIONALLY BE BROKEN
 
 Changes since Revision pvhl-2317 (git: 3d939c7)
 
-* change hotkey's use of restricted word 'goto' to 'go_to'
+* change nowiki_multiline parsing to match macro parsing rules and break-out function
+* modify how hotkey accesses restricted word 'goto'
 * improve show/hide/toggle functions
 * remove visibility attribute from WoaS (display is sufficient in all cases)
 * update i18n strings (mostly Little Girl's work)
