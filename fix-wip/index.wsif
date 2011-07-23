@@ -3647,7 +3647,7 @@ $SAVE              s
 $EDIT              e
 $PRINT             p
 $HELP              h
-$GOTO              g
+$GO_TO             g
 
 ; Key bindings
 ; Cancel key is by default escape (ASCII 0x1b)
