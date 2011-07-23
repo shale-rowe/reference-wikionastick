@@ -3242,7 +3242,7 @@ $SAVE              s\n\
 $EDIT              e\n\
 $PRINT             p\n\
 $HELP              h\n\
-$GOTO              g\n\
+$GOTO             g\n\
 \n\
 ; Key bindings\n\
 ; Cancel key is by default escape (ASCII 0x1b)\n\
@@ -3900,7 +3900,7 @@ if(woas.browser.ie)
 woas.browser.trident=true;else if(woas.browser.chrome||woas.browser.safari){m=navigator.userAgent.match(/AppleWebKit\/(\S*)/);woas.browser.webkit=m[1];}else if(woas.browser.opera)
 woas.browser.presto=true;var is_windows=(navigator.appVersion.toLowerCase().indexOf("windows")!=-1);woas._server_mode=(document.location.toString().match(/^file:\/\//)?false:true);woas.use_java_io=woas.browser.chrome||woas.browser.opera||woas.browser.safari;if(woas.config.debug_mode){function d$(id){try{return document.getElementById(id);}catch(e){woas.crash("d$('"+id+"') invalid reference:\n\n"+e);}}}else{function d$(id){return document.getElementById(id);}}
 d$.checked=function(id){woas.cfg_changed=true;if(d$(id).checked)
-return true;return false;};d$.hide=function(id){d$(id).style.display="none";};d$.show=function(id,inline){d$(id).style.display=inline?"inline":"block";};d$.is_visible=function(id){return!!d$(id).offsetWidth;};d$.toggle=function(id,inline){var d=d$(id);d.style.display=d.offsetWidth?'none':inline?'inline':'block';};d$.toggle_resize=function(id,inline){d$.toggle(id);woas.ui._onresize();};d$.clone=function(obj){var nobj={};for(var i in obj){nobj[i]=obj[i];}
+return true;return false;};d$.hide=function(id){d$(id).style.display="none";};d$.show=function(id,inline){d$(id).style.display=inline?"inline":"block";};d$.is_visible=function(id){return!!d$(id).offsetWidth;};d$.toggle=function(id,inline){var d=d$(id);d.style.display=d.offsetWidth?'none':inline?'inline':'block';};d$.clone=function(obj){var nobj={};for(var i in obj){nobj[i]=obj[i];}
 return nobj;};if(typeof Array.prototype.push=="undefined"){Array.prototype.push=function(str){this[this.length]=str;};}
 if(typeof Array.prototype.splice=="undefined"){Array.prototype.splice=function(offset,length){var temp=[];for(var i=this.length-1;i>=0;i--){if(i<offset||i>(offset+length-1)){temp[temp.length]=this[i];}
 this.length--;}
@@ -4302,8 +4302,8 @@ backstack=backstack.slice(1);backstack.push(page);}
 woas.history={MAX_BROWSE_HISTORY:6,has_forstack:function(){return(forstack.length>0);},has_backstack:function(){return(backstack.length>0);},previous:function(){if(backstack.length>0){return backstack.pop();}else
 return woas.config.main_page;},back:function(){if(backstack.length>0){forstack.push(current);var title=backstack.pop();if(title)
 going_back=true;return title;}
-woas.log("No back history");return null;},forward:function(){if(forstack.length>0)
-going_forward=true;return forstack.pop();woas.log("No forward history");return null;},go:function(title){if(!going_back&&!woas.ui.edit_mode){store(title);}
+woas.log("No back history");return null;},forward:function(){if(forstack.length>0){going_forward=true;return forstack.pop();}
+woas.log("No forward history");return null;},go:function(title){if(!going_back&&!woas.ui.edit_mode){store(title);}
 if(!going_forward&&!going_back){forstack=[];}
 going_back=going_forward=false;},store:function(title){store(title);},clear:function(title){if(title&&title.length){var found=false,i,it;for(i=0,it=backstack.length;i<it;++i){if(backstack[i]===title){found=true;backstack.splice(i,1);--it;--i;}}
 for(i=0,it=forstack.length;i<it;++i){if(forstack[i]===title){found=true;forstack.splice(i,1);--it;--i;}}
@@ -4344,7 +4344,7 @@ return i;}
 return-1;},set_loaded:function(instance){var i=this.index(instance);if(i!==-1){this._objects[i].loaded=true;if(typeof this._objects[i].after_load=="function"){(this._objects[i].after_load)();}
 --this._loading;woas.log("DOM: "+instance+" completed loading"+this._show_load());if(this._loading===0)
 this._run_post_load_hook();return true;}
-woas.log("DOM: "+instance+" completed loading, but was not indexed"+this._show_load());return false;},_show_load:function(){return"";return" (%d/%d)".sprintf(this._loading,this._objects.length)+"\n"+"still loading: "+this.get_loading();},reJSComments:/^\s*\/\*[\s\S]*?\*\/\s*/g,_internal_add:function(script_token,script_content,external,after_load){script_token="woas_script_"+script_token;if(this.index(script_token)!==-1){woas.log("DOM: instance "+script_token+" already exists");return false;}
+woas.log("DOM: "+instance+" completed loading, but was not indexed"+this._show_load());return false;},_show_load:function(){return"";},reJSComments:/^\s*\/\*[\s\S]*?\*\/\s*/g,_internal_add:function(script_token,script_content,external,after_load){script_token="woas_script_"+script_token;if(this.index(script_token)!==-1){woas.log("DOM: instance "+script_token+" already exists");return false;}
 var s_elem=document.createElement("script");s_elem.type="text/javascript";s_elem.id=script_token;this._objects.push({obj:s_elem,parent:this._cache.head,instance:script_token,external:external?true:false,loaded:external?false:true,after_load:external?after_load:null});if(external)
 ++this._loading;woas.log("DOM: "+script_token+" created "+(external?"("+script_content+") ":"(inline) ")+this._show_load());if(external){if(woas.browser.ie)
 s_elem.onreadystatechange=woas._make_delta_func("woas.dom._elem_onload","'"+woas.js_encode(s_elem.id)+"'");else
@@ -4454,7 +4454,7 @@ clearTimeout(woas._autosave_thread);if(_this.config.auto_save)
 woas._autosave_thread=setTimeout("woas._auto_saver()",woas.config.auto_save);};woas._on_unload=function(){if(this.save_queue.length)
 this.commit(this.save_queue);else{if(this.config.save_on_quit&&this.cfg_changed)
 this.cfg_commit();}
-return true;};woas.setHTML=woas.getHTML=null;woas.getHTMLDiv=function(elem){return elem.innerHTML;};woas.setHTMLDiv=function(elem,html){elem.innerHTML=html;};woas._on_load=function(){this._set_debug(this.config.debug_mode,this.config.debug_closed);d$("woas_debug_log").value="";woas.log("*** WoaS v"+this.version+"-pvhl-r2391"+" started");this._old_wsif_ds_len=this.config.wsif_ds.length;if(this.browser.ie){this.setHTML=function(elem,html){elem.text=html;};this.getHTML=function(elem){return elem.text;};var obj=d$("woas_wiki_header");obj.style.filter="alpha(opacity=75);";if(this.browser.ie6){d$("woas_wiki_header").style.position="absolute";d$("i_woas_menu_area").style.position="absolute";}
+return true;};woas.setHTML=woas.getHTML=null;woas.getHTMLDiv=function(elem){return elem.innerHTML;};woas.setHTMLDiv=function(elem,html){elem.innerHTML=html;};woas._on_load=function(){this._set_debug(this.config.debug_mode,this.config.debug_closed);d$("woas_debug_log").value="";woas.log("*** WoaS v"+this.version+"-pvhl-r2397"+" started");this._old_wsif_ds_len=this.config.wsif_ds.length;if(this.browser.ie){this.setHTML=function(elem,html){elem.text=html;};this.getHTML=function(elem){return elem.text;};var obj=d$("woas_wiki_header");obj.style.filter="alpha(opacity=75);";if(this.browser.ie6){d$("woas_wiki_header").style.position="absolute";d$("i_woas_menu_area").style.position="absolute";}
 if(!this.browser.ie8){d$.hide("img_logo");d$("woas_logo").style.width="1%";}else{d$("woas_logo").style.width="35px";d$.show("img_logo");}}else{this.setHTML=this.setHTMLDiv;this.getHTML=this.getHTMLDiv;d$("woas_logo").style.width="35px";d$.show("img_logo");}
 if(this.log()&&this.tweak.integrity_test&&!this.integrity_test()){return;}
 if(this.config.wsif_ds.length){if(!this._wsif_ds_load(this.config.wsif_ds,this.config.wsif_ds_lock)){if(this.wsif.emsg!==null){this._set_debug(true);this.crash("Could not load WSIF pages data!\n"+this.wsif.emsg);}
@@ -4560,7 +4560,7 @@ return null;return k;}
 if(k.length>1)
 return null;return k;},load:function(s){var new_custom_accesskeys=[];s.replace(this.reHotkeys,function(str,hkey,lambda,binding){binding=woas.hotkey.validate(binding);if(binding===null){woas.log("Skipping invalid key binding for hotkey "+hkey);return;}
 if(hkey==="CUSTOM"){lambda=lambda.substr(1,lambda.length-2);new_custom_accesskeys.push({"fn":lambda,"key":binding});}else{hkey=hkey.toLowerCase();if(typeof woas.hotkey.all[hkey]=="undefined"){woas.log("Skipping unknown hotkey "+hkey);return;}
-woas.hotkey.all[hkey]=binding;}});d$("woas_save_hl").accessKey=this.all.save;d$("woas_edit_hl").accessKey=this.all.edit;d$("woas_print_hl").accessKey=this.all.print;d$("woas_help_hl").accessKey=this.all.help;new_custom_accesskeys.push({fn:"woas.cmd_go_to",key:this.all.goto});var found,a,b;for(a=0,at=this.custom_accesskeys.length;a<at;++a){found=false;for(b=0,bt=new_custom_accesskeys.length;b<bt;++b){if(this.custom_accesskeys[a].key===new_custom_accesskeys[b].key){found=true;if(this.custom_accesskeys[a].fn!==new_custom_accesskeys[b].fn){this._hook_fn(this.custom_accesskeys[a].obj,new_custom_accesskeys[b].fn);}
+woas.hotkey.all[hkey]=binding;}});d$("woas_save_hl").accessKey=this.all.save;d$("woas_edit_hl").accessKey=this.all.edit;d$("woas_print_hl").accessKey=this.all.print;d$("woas_help_hl").accessKey=this.all.help;new_custom_accesskeys.push({fn:"woas.cmd_go_to",key:this.all["goto"]});var found,a,b;for(a=0,at=this.custom_accesskeys.length;a<at;++a){found=false;for(b=0,bt=new_custom_accesskeys.length;b<bt;++b){if(this.custom_accesskeys[a].key===new_custom_accesskeys[b].key){found=true;if(this.custom_accesskeys[a].fn!==new_custom_accesskeys[b].fn){this._hook_fn(this.custom_accesskeys[a].obj,new_custom_accesskeys[b].fn);}
 break;}}
 if(!found){d$("woas_custom_accesskeys").removeChild(this.custom_accesskeys[a].obj);delete this.custom_accesskeys[a].obj;this.custom_accesskeys.splice(a,1);--at;}}
 this._update_accesskeys(new_custom_accesskeys);},reHotkeys:/^\$([A-Za-z0-9_]{2,})(\([A-Za-z0-9_]+\))?\s+([\S]+)\s*$/gm};woas.hotkey._cache_default();woas._edit_plugin=function(name){if(this.go_to("WoaS::Plugins::"+name))
@@ -4583,15 +4583,8 @@ m.text=nt;m.reprocess=true;return true;}},names:[],functions:[],reFindArgDef:/([
 var real_params=[],other_params="";if(((typeof fn_params).toLowerCase()=="string")&&fn_params.length){fn_params=fn_params.substr(1,fn_params.length-2);this.reFindArgDef.lastIndex=0;fn_params.replace(this.reFindArgDef,function(str,pname){real_params.push(pname);});this.reFindArgDefLast.lastIndex=this.reFindArgDef.lastIndex;fn_params.replace(this.reFindArgDefLast,function(str,pname){real_params.push(pname);});}
 if(real_params.length)
 other_params=","+real_params.join(",");else other_params="";var obj=woas.eval("function (macro"+other_params+") {\n"+fn_code+"\n}",true);if(woas.eval_failed){woas.log("cannot define function "+fn_name+": "+woas.eval_fail_msg);return false;}
-return this.register(fn_name,obj);},_backup:[],make_backup:function(){if(this._backup.length){woas.log("BUG: macro.make_backup called when backup already exists");}else{this._backup.push(this.names.slice(0));this._backup.push(this.functions.slice(0));}},remove_backup:function(){if(this._backup.length){this.functions=this._backup.pop();this.names=this._backup.pop();}else{woas.log("BUG:  macro.remove_backup called when no backup exists");}},has_backup:function(){return(this._backup.length!==0);}};woas.macro.names.push("woas.include");woas.macro.functions.push(woas.macro.default_macros.include);woas.lock={datasources:{},_reset:function(){this.datasources={};},_generate_magic_lock:function(){return _random_string(10);},_load_locks:function(){return true;var lck_file=woas.ROOT_DIRECTORY+woas.config.wsif_ds+".lock";var lock_data=woas.load_file(lck_file);if(lock_data===null)
-return false;var need_save=false;if(lock_data===false){this._reset();need_save=true;}else{}
-return true;},_update_locks:function(){return true;},is_locked:function(filename){if(typeof this.datasources[filename]=="undefined")
-return false;return this.datasources[filename].active;},hold:function(filename,whom){return true;if(!this._load_locks())
-return false;if(this.is_locked(filename)){var lock=this.datasources[filename];if(!confirm("%s was locked by %s at %s.\nDo you want to ignore this lock?\n\nWARNING: PRESS OK ONLY IF NOBODY ELSE IS EDITING".sprintf(filename,lock.owner,lock.when.toLocaleString())))
-return false;lock=null;}
-this.datasources[filename]={magic:this._generate_magic_lock(),owner:whom,when:new Date(),active:true};return this._update_locks();},release:function(filename){return true;if(!this._load_locks())
-return false;if(typeof this.datasources[filename]=="undefined"){return false;}
-this.datasources[filename].active=false;return this._update_locks();}};woas._wsif_ds_save=function(subpath,ds_lock,plist){if(subpath.length===0)
+return this.register(fn_name,obj);},_backup:[],make_backup:function(){if(this._backup.length){woas.log("BUG: macro.make_backup called when backup already exists");}else{this._backup.push(this.names.slice(0));this._backup.push(this.functions.slice(0));}},remove_backup:function(){if(this._backup.length){this.functions=this._backup.pop();this.names=this._backup.pop();}else{woas.log("BUG:  macro.remove_backup called when no backup exists");}},has_backup:function(){return(this._backup.length!==0);}};woas.macro.names.push("woas.include");woas.macro.functions.push(woas.macro.default_macros.include);woas.lock={datasources:{},_reset:function(){this.datasources={};},_generate_magic_lock:function(){return _random_string(10);},_load_locks:function(){return true;},_update_locks:function(){return true;},is_locked:function(filename){if(typeof this.datasources[filename]=="undefined")
+return false;return this.datasources[filename].active;},hold:function(filename,whom){return true;},release:function(filename){return true;}};woas._wsif_ds_save=function(subpath,ds_lock,plist){if(subpath.length===0)
 return;this._native_wsif_save(woas.ROOT_DIRECTORY,subpath,this.config.wsif_ds_lock,!this.config.wsif_ds_multi,!this.config.wsif_ds_multi,this.config.wsif_author,true);};woas.full_commit=function(){this._wsif_ds_save(this.config.wsif_ds,this.config.wsif_ds_lock);return this._save_to_file(true);};woas.cfg_commit=function(){if(this.config.wsif_ds.length!==this._old_wsif_ds_len)
 this._wsif_ds_save(this.config.wsif_ds,this.config.wsif_ds_lock);return this._save_to_file(true);};woas.commit=function(plist){this._wsif_ds_save(this.config.wsif_ds,this.config.wsif_ds_lock,plist);return this._save_to_file(true);};woas.commit_delete=function(plist){this._wsif_ds_save(this.config.wsif_ds,this.config.wsif_ds_lock,[]);return this._save_to_file(true);};woas.after_pages_saved=function(plist){if(typeof plist=="undefined"){this.save_queue=[];return;}
 for(var i=0,l=plist.length;i<l;i++){var p=this.save_queue.indexOf(plist[i]);if(p!==-1)

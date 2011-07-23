@@ -3242,7 +3242,7 @@ $SAVE              s\n\
 $EDIT              e\n\
 $PRINT             p\n\
 $HELP              h\n\
-$GOTO              g\n\
+$GOTO             g\n\
 \n\
 ; Key bindings\n\
 ; Cancel key is by default escape (ASCII 0x1b)\n\
@@ -4267,11 +4267,6 @@ d$.is_visible = function(id) {
 d$.toggle = function(id, inline) {
 	var d = d$(id);
 	d.style.display = d.offsetWidth ? 'none' : inline ? 'inline' : 'block';
-};
-
-d$.toggle_resize = function(id, inline) {
-	d$.toggle(id);
-	woas.ui._onresize();
 };
 
 d$.clone = function(obj) {
@@ -7376,9 +7371,10 @@ woas.history = {
 	},
 	
 	forward: function() {
-		if (forstack.length > 0)
+		if (forstack.length > 0) {
 			going_forward = true;
 			return forstack.pop();
+		}
 		woas.log("No forward history");
 		return null;
 	},
@@ -7774,8 +7770,9 @@ woas.dom = {
 	
 	_show_load: function() {
 		return "";
-		return " (%d/%d)".sprintf(this._loading, this._objects.length)+"\n"+
+/*		return " (%d/%d)".sprintf(this._loading, this._objects.length)+"\n"+
 				"still loading: "+this.get_loading();
+*/
 	},
 	
 	// regex used to remove some comments
@@ -8825,7 +8822,7 @@ woas._on_load = function() {
 	this._set_debug(this.config.debug_mode, this.config.debug_closed);
 	d$("woas_debug_log").value = ""; // for Firefox
 	// output platform information - note that revision is filled in only in releases
-	woas.log("*** WoaS v"+this.version+"-pvhl-r2391"+" started");	// log:1
+	woas.log("*** WoaS v"+this.version+"-pvhl-r2397"+" started");	// log:1
 	
 	// store the old length to eventually force full save when entering/exiting WSIF datasource mode
 	this._old_wsif_ds_len = this.config.wsif_ds.length;
@@ -9816,7 +9813,7 @@ woas.hotkey = {
 		d$("woas_print_hl").accessKey = this.all.print;
 		d$("woas_help_hl").accessKey = this.all.help;
 		// set access key for goto feature
-		new_custom_accesskeys.push({fn:"woas.cmd_go_to", key: this.all.goto});
+		new_custom_accesskeys.push({fn:"woas.cmd_go_to", key: this.all["goto"]});
 
 		// (1) delete access keys which no more exist
 		var found,a,b;
@@ -10109,7 +10106,7 @@ woas.lock = {
 	_load_locks : function() {
 		// locking currently disabled
 		return true;
-		var lck_file = woas.ROOT_DIRECTORY + woas.config.wsif_ds + ".lock";
+/*		var lck_file = woas.ROOT_DIRECTORY + woas.config.wsif_ds + ".lock";
 		// attempt reading the lock file index
 		var lock_data = woas.load_file(lck_file);
 		// fail in case of no loading API available
@@ -10125,6 +10122,7 @@ woas.lock = {
 			// check that
 		}
 		return true;
+*/
 	},
 	
 	_update_locks : function() {
@@ -10144,7 +10142,7 @@ woas.lock = {
 	hold : function(filename, whom) {
 		// locking currently disabled
 		return true;
-		// (1) each time there is an attempt to lock/unlock something we read the lock file index
+/*		// (1) each time there is an attempt to lock/unlock something we read the lock file index
 		// and check if the datasource has been locked or if there have been changes to some lock
 		if (!this._load_locks())
 			return false;
@@ -10170,12 +10168,13 @@ woas.lock = {
 		
 		// update the lock index
 		return this._update_locks();
+*/
 	},
 	
 	release : function(filename) {
 		// locking currently disabled
 		return true;
-		// (1) each time there is an attempt to lock/unlock something we read the lock file index
+/*		// (1) each time there is an attempt to lock/unlock something we read the lock file index
 		// and check if the datasource has been locked or if there have been changes to some lock
 		if (!this._load_locks())
 			return false;
@@ -10188,6 +10187,7 @@ woas.lock = {
 		this.datasources[filename].active = false;
 		// update the lock index
 		return this._update_locks();
+*/
 	}
 };
 
