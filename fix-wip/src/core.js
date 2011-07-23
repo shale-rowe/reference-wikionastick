@@ -791,8 +791,9 @@ woas.dom = {
 	
 	_show_load: function() {
 		return "";
-		return " (%d/%d)".sprintf(this._loading, this._objects.length)+"\n"+
+/*		return " (%d/%d)".sprintf(this._loading, this._objects.length)+"\n"+
 				"still loading: "+this.get_loading();
+*/
 	},
 	
 	// regex used to remove some comments

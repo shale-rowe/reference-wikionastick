@@ -21,7 +21,7 @@ woas.lock = {
 	_load_locks : function() {
 		// locking currently disabled
 		return true;
-		var lck_file = woas.ROOT_DIRECTORY + woas.config.wsif_ds + ".lock";
+/*		var lck_file = woas.ROOT_DIRECTORY + woas.config.wsif_ds + ".lock";
 		// attempt reading the lock file index
 		var lock_data = woas.load_file(lck_file);
 		// fail in case of no loading API available
@@ -37,6 +37,7 @@ woas.lock = {
 			// check that
 		}
 		return true;
+*/
 	},
 	
 	_update_locks : function() {
@@ -56,7 +57,7 @@ woas.lock = {
 	hold : function(filename, whom) {
 		// locking currently disabled
 		return true;
-		// (1) each time there is an attempt to lock/unlock something we read the lock file index
+/*		// (1) each time there is an attempt to lock/unlock something we read the lock file index
 		// and check if the datasource has been locked or if there have been changes to some lock
 		if (!this._load_locks())
 			return false;
@@ -82,12 +83,13 @@ woas.lock = {
 		
 		// update the lock index
 		return this._update_locks();
+*/
 	},
 	
 	release : function(filename) {
 		// locking currently disabled
 		return true;
-		// (1) each time there is an attempt to lock/unlock something we read the lock file index
+/*		// (1) each time there is an attempt to lock/unlock something we read the lock file index
 		// and check if the datasource has been locked or if there have been changes to some lock
 		if (!this._load_locks())
 			return false;
@@ -100,6 +102,7 @@ woas.lock = {
 		this.datasources[filename].active = false;
 		// update the lock index
 		return this._update_locks();
+*/
 	}
 };
 
