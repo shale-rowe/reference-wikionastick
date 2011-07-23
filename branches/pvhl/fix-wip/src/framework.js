@@ -128,11 +128,6 @@ d$.toggle = function(id, inline) {
 	d.style.display = d.offsetWidth ? 'none' : inline ? 'inline' : 'block';
 };
 
-d$.toggle_resize = function(id, inline) {
-	d$.toggle(id);
-	woas.ui._onresize();
-};
-
 d$.clone = function(obj) {
 	var nobj = {};
 	for (var i in obj) {
