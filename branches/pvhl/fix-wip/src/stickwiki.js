@@ -815,7 +815,7 @@ woas._perform_lock = function(pi) {
 };
 
 woas._add_namespace_menu = function(namespace) {
-	var pi, menu, ns;
+	var pi, menu, ns, tmp;
 	if (this.current_namespace === namespace) {	return;	}
 	if (namespace === "") {	pi = -1; }
 	else {// locate the menu for current namespace, or a previous one if not found
@@ -824,7 +824,8 @@ woas._add_namespace_menu = function(namespace) {
 //		this.log("namespace menu testing "+ns+"::Menu");	// log:0
 			pi = this.page_index(ns+"::Menu");
 			if (pi !== -1) { break; }
-			ns = ns.substring(0, ns.lastIndexOf("::"));
+			tmp = ns.lastIndexOf("::");
+			ns = tmp === -1 ? "" : ns.substring(0, tmp);
 		} while (ns !== "");
 	}
 	if (pi === -1) {
@@ -834,7 +835,6 @@ woas._add_namespace_menu = function(namespace) {
 			d$.hide("woas_ns_menu_area");
 			d$.hide("woas_ns_menu_edit_button");
 		}
-		this.current_namespace = namespace;
 	} else {
 //		this.log("namespace menu found: "+page_titles[pi]);	// log:0
 		menu = this.get__text(pi);
@@ -843,8 +843,8 @@ woas._add_namespace_menu = function(namespace) {
 		// show sub-menu
 		d$.show("woas_ns_menu_area");
 		d$.show("woas_ns_menu_edit_button");
-		this.current_namespace = namespace;
 	}
+	this.current_namespace = namespace;
 };
 
 // auto-save thread
