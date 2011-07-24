@@ -214,7 +214,16 @@ woas.ui = {
 		return true;
 	},
 	edit_ns_menu: function() {
-		woas.edit_page(woas.current_namespace+"::Menu");
+		var ns = woas.current_namespace, mpi, tmp;
+		while (ns !== "") {
+			mpi = woas.page_index(ns + "::Menu");
+			if (mpi !== -1) {
+				woas.edit_page(ns + "::Menu");
+				break;
+			}
+			tmp = ns.lastIndexOf("::");
+			ns = tmp === -1 ? "" : ns.substring(0, tmp);
+		}
 	},
 	lock: function() {
 		if (woas.pager.bucket.items.length>1)
