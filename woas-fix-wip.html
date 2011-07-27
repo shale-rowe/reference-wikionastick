@@ -7364,9 +7364,10 @@ woas._create_page_direct = function(ns, cr, fill_mode, default_ct) {
 woas.cmd_erase_wiki = function() {
 	if (this.erase_wiki()) {
 		if (!this.full_commit())
-// pvhl: need to reload page data from file here.
 			this.alert(this.i18n.FAILED_ERASE);
-		back_or(this.config.main_page);
+		// reload page because all data is lost - works in IE6
+		window.location = window.location;
+		//back_or(this.config.main_page);
 	}
 	return null;
 };
@@ -9072,7 +9073,7 @@ woas._on_load = function() {
 	this._set_debug(this.config.debug_mode, this.config.debug_closed);
 	d$("woas_debug_log").value = ""; // for Firefox
 	// output platform information - note that revision is filled in only in releases
-	woas.log("*** WoaS v"+this.version+"-pvhl-r2408"+" started");	// log:1
+	woas.log("*** WoaS v"+this.version+"-pvhl-r2410"+" started");	// log:1
 	
 	// store the old length to eventually force full save when entering/exiting WSIF datasource mode
 	this._old_wsif_ds_len = this.config.wsif_ds.length;
