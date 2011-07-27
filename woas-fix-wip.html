@@ -1022,7 +1022,7 @@ If you want to re-enable the write features manually you should:\n\
 *NOTE:* this way of re-enabling WoaS write mode is *unsupported*, e.g. it might not work in future versions of WoaS.',
 '= Create a page\n\
 # Access [[Special::New Page]]\n\
-# Type the page title. Maximum length is 256 characters, although you might want to use a shorter title to not interfere with the navigation bar. Page titles are case sensitive, all characters are allowed except angled brackets, square brackets, curly braces and pipe characters ("&lt;&gt;[]{}|")\n\
+# Type the page title. Maximum length is 256 characters, although you might want to use a shorter title to not interfere with the navigation bar. Page titles are case sensitive, all characters are allowed except angled brackets, square brackets, curly braces, and pipe, hash, or double-quote characters ({{{\x3C\x3E[]{}|#"}}})\n\
 # Press the *Enter* key or click the *OK* button\n\
 # When asked if you\'d like to add a link into the main menu, accept by pressing the *Enter* key or clicking the *OK* button, or refuse by pressing the Escape key or clicking the *Cancel* button\n\
 # Edit the contents of the main text area by typing normally. You can freely change the default text (a level one heading with the page name)\n\
@@ -1356,11 +1356,19 @@ For example, let\'s say you have these pages:\n\
 If you open the {{{[[Recipes::Desserts::Cakes]]}}} page, the title contains links to *Recipes* and *Desserts*. The *Recipes* link opens a page listing all pages in the *Recipes::* namespace, and the *Desserts* link opens a page listing all pages in the *Desserts::* sub-namespace.\n\
 \n\
 === Namespace sub-menu\n\
-All pages in any namespace can be given a custom sub-menu by creating a *::Menu* page inside the namespace. A sub-menu will be temporarily added to the main menu when any pages belonging to that page\'s namespace are opened. You can determine what goes into the sub-menu by editing the page with *::Menu* in its name. The sub-menu will vanish as soon as you navigate away from its namespace.\n\
+All pages in any namespace can be given a custom sub-menu by creating a *::Menu* page inside the namespace. The sub-menu will be displayed beneath the main menu while any pages belonging to that page\'s namespace are open. You can determine what goes into the sub-menu by editing the page with *::Menu* in its name. The sub-menu will vanish as soon as you navigate away from its namespace.\n\
 \n\
 For example, if you create the {{{[[Recipes::Menu]]}}} page with *My favorite recipes!* as its content, then whenever you open a page in the {{{Recipes::}}} namespace, a sub-menu will appear with *My favorite recipes!* in it.\n\
 \n\
-\x3Cdiv style="background-color: #FFFFAA; border: 0.1em solid; padding: 0.2em;"\x3E\x3Cimg src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAMAAADXqc3KAAAAAXNSR0IArs4c6QAAArtQTFRF8ox%2FAAAAAAABAQEBAQECAgICAwMDBAQFBQUABgYGCQgJCgoLDAsMDQwPDQ0NDw4PDw8HEhETExMUFRQUGRkNGhsUGxscHx8eISATIR8lJCQVJiUsJyUqKCcuLCwtLiw0Ly4vMzE4NzYoQT9FQz9ERkZGSkdTS0hMTEhNUk5bU1JVY15kYWBkZWFubGh5bmt1cGt6c212cm5%2BcXFwfHaDfXxehoKQjIiUkYyfkoyllZKal5CpmJGqmJGrmZKtmpaim5WunJaunZewn5mxoJqyopquoZuxpJylopyyopy1pJ22pJ24pJ61pJ%2B1paC1pqC1qaC0pqG1qKG7qqKuqaKxqKK4paWkq6O7qaS3q6p%2BraW4rae6rKmvrqm1rqm6r6nDsKu1sKu9sKu%2Bs6yxs7GDsay9sq29s667tK7FuK%2FBtbDAtbDBt7HEubS%2BubTCurTKurXFvLqjvLfGvLjEv72LvL2VvbjLvr%2BPwL%2BKvbvBw7nHv7vDwMGHw7rHwb3Fwr3Lw8SQxb%2FRxsDRxsHMxcLGxsPLyMPQx8XKyMXIysuOycbIzMfVzcrMz8zU0NGi0czZ0M%2FL0c%2FL0c%2FN0s7X08%2FZ1NPN1ten1tTR1tXP19XS2tfc3Nyt3N2s3dni397W4N%2FX4N%2FZ4t7m4eDY4t%2Fm4eHY4uHb4uDl4uLX4%2BLa5OLo5OTb5ubd6OjJ6Ofh6erE6efr6efs6ujs6%2Bju6%2B3B6%2Brj6%2Bnt6%2Brl7O6%2F6%2Bvk7Ovr7Ovu7evu7vDC7ezv7e3p7u7p7%2B7w7%2B7x7%2B%2Fx8fPF8PDt8e%2F18fDs8fDy8fDz8%2FXC8fHx8%2FD38vLt8vLu8vL08%2FPt8%2FPu9PP09vjI9fXw9vX09vbx9%2FX59%2Fby9%2Fb39%2Ffx%2BPf4%2Bfj5%2Bfj6%2Bfnz%2Bfn1%2Bfr1%2B%2F7K%2Bvr2%2B%2Fr5%2FPr%2F%2B%2Fv7%2FP%2FR%2Ffv%2B%2Ffz9%2F%2F7%2FFnlyNwAAAAF0Uk5TAEDm2GYAAAABYktHRACIBR1IAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH2gMHDxg0DfX8UQAAAUBJREFUKM9jYCAIGBl5hLgYGTGEuXViWpvTzZVZUaUYFdofXzu4YW53o5kgsgyj3LIXFy8e2rphclaZBS%2BSDHvlsxvPb5%2FbtXFKQVyGHkKCUev08TtPbp3Yu7KtKMnfUxIuw2h19MCVu9dP7Z41c3qeR5AmXII1YdOuy%2Ffv3dyyZMfqLhdvA7gEZ%2BzC9UcePrp6%2Fuz%2B%2BdWOXiYIo%2Bz7F%2B%2B8cGb5qkUz6vxsww0REvpN9b3zjq3oKU7zcbLOVEdIyOSkZk%2FatrYj1NfZNiCYH8mDuvmB1Qv2TYxwsHGt0kDyICObUXz01KUT3OyiarVRAouJWc0ysSU3JNldBT18mYUL16ybXaHEiBkfNQ%2B290WKyGNKNFzaMy1FQhZTovzp4TklUtKYEp0nN5eaCihiSPBxiIapMopjSw5iLIzGhBMNAHCEbLFZHo5dAAAAAElFTkSuQmCC" alt="Info" border="0" /\x3E Sub-menus work the same way menus do. For more information on menus, see the [[WoaS::Help::Edit the menu]] page.\x3C/div\x3E\n\
+=== Sub-namespace sub-menu\n\
+All pages in any sub-namespace can be given a custom sub-menu by creating a *::Menu* page inside the sub-namespace. The sub-menu will be displayed beneath the main menu while any pages belonging to that page\'s sub-namespace are open. You can determine what goes into the sub-menu by editing the page with *::Menu* in its name. The sub-menu will vanish as soon as you navigate away from its sub-namespace.\n\
+\n\
+For example, if you create the {{{[[Recipes::Desserts::Menu]]}}} page with *My favorite desserts!* as its content, then whenever you open a page in the {{{Recipes::Desserts::}}} sub-namespace, a sub-menu will appear with *My favorite desserts!* in it.\n\
+\n\
+If a namespace contains namespace and sub-namespace ::Menu pages and you open a page in the sub-namespace, the contents of the sub-namespace ::Menu page will be displayed.\n\
+\n\
+[[Include::WoaS::Template::Info|Sub-menus work the same way menus do. For more information on menus, see the \x3Ca class="woas_link" onclick="woas.go_to(\'WoaS::Help::Edit the menu\')"\x3EWoaS::Help::Edit the menu\x3C/a\x3E page.]]\n\
+\n\
 == Reserved namespaces\n\
 Some namespaces are reserved by the wiki for its own internal use or for specific use by the user:\n\
 * *File::* for embedded files\n\
@@ -1368,15 +1376,16 @@ Some namespaces are reserved by the wiki for its own internal use or for specifi
 * *Include::* for transclusion\n\
 * *Javascript::* for direct JavaScript execution\n\
 * *Lock::* used internally for encrypted pages\n\
-* *Locked::* for encrypted pages\n\
+* *Locked::* for listing encrypted pages\n\
 * *::Menu* for sub-menus\n\
 * *Special::* for all the special pages\n\
-* *Tagged::* for all the tagged pages\n\
+* *Tagged::* for listing tagged pages\n\
+* *Tags::* for tagging pages (this namespace is [[WoaS::Help::Deprecated syntax|deprecated]])\n\
 * *Tag::* for tagging pages\n\
 * *Unlock::* used internally for encrypted pages\n\
-* *Unlocked::* for plain (unencrypted) pages\n\
-* *WoaS::* for core WoaS pages\n\
-',
+* *Unlocked::* for listing plain (unencrypted) pages\n\
+* *Untagged::* for listing untagged pages\n\
+* *WoaS::* for core WoaS pages',
 '= Text formatting\n\
 == Bold\n\
 \x3Cdiv class="woas_helptext"\x3EUse this code in a page:\x3C/div\x3E\x3Cbr\x3E{{{\n\
@@ -3889,13 +3898,13 @@ You will find the *Help* icon in the navigation bar on every page in this wiki. 
 [[Include::WoaS::Help::]]\n\
 ',
 '= Special::Orphaned Pages\n\
-The [[Special::Orphaned Pages]] page displays a listing of all pages that no other pages link to.\n\
+The [[Special::Orphaned Pages]] page displays a listing of all pages that no other pages [[WoaS::Help::Links|link to]].\n\
 ',
 '= Special::Recentchanges\n\
-The [[Special::Recentchanges]] page is an optional wiki feature that keeps track of changed pages when enabled.\n\
+The [[Special::Recentchanges]] page is an optional wiki feature that keeps track of [[WoaS::Help::Edit a page|changed pages]] when enabled.\n\
 * When the feature is not enabled, the page displays a notice stating that the last modified timestamp storage is disabled in Special::Options.\n\
 * When the feature is enabled, the page displays a list of links to pages that have been changed followed by the date and time of the most recent change.\n\
-== Enable tracking page changes\n\
+== Enable tracking of page changes\n\
 # Click the *Advanced* icon in the navigation bar.\n\
 # Click the [[Special::Options]] link in the *Advanced features* section of the page.\n\
 # Click the box next to the /Store and display last modified timestamp/ option in the *Saving* section of the page to place a check mark in the box.\n\
@@ -3913,7 +3922,7 @@ The results display links to pages with the search term in their title followed 
 The search box in the menu can be deleted by editing the menu and removing the {{{[[Include::WoaS::Template::Search]]}}} line. If you would like a search box in another page in the wiki, add the line you removed from the menu where you would like the box to appear in the page. To add a link to the [[Special::Search]] page to any page in the wiki, insert {{{[[Special::Search]]}}} anywhere in the page.\n\
 ',
 '= Special::All Pages\n\
-The [[Special::All Pages]] page displays a list of all user-created pages.\n\
+The [[Special::All Pages]] page displays a list of all [[WoaS::Help::Create a page|user-created pages]].\n\
 ',
 '= Tagged\n\
 The [[Tagged::]] page displays a list of all pages that have been [[WoaS::Help::Tags|tagged]].\n\
@@ -9073,7 +9082,7 @@ woas._on_load = function() {
 	this._set_debug(this.config.debug_mode, this.config.debug_closed);
 	d$("woas_debug_log").value = ""; // for Firefox
 	// output platform information - note that revision is filled in only in releases
-	woas.log("*** WoaS v"+this.version+"-pvhl-r2412"+" started");	// log:1
+	woas.log("*** WoaS v"+this.version+"-pvhl-r2414"+" started");	// log:1
 	
 	// store the old length to eventually force full save when entering/exiting WSIF datasource mode
 	this._old_wsif_ds_len = this.config.wsif_ds.length;
