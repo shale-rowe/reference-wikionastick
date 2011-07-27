@@ -33,7 +33,7 @@ woas.i18n = {
  	EXPORT_FILE:"Export file",
  	EXPORT_IMAGE:"Export image",
 	EXPORT_OK: "%d/%d pages exported successfully.",
-	FAILED_ERASE:"Saving the erased WoaS has failed. Please reload it or you will be working with inconsistent data.",
+	FAILED_ERASE:"Saving the erased WoaS has failed. Original content will be restored.",
 	FILE_DISPLAY_LIMIT: "Only the first 1024 bytes are displayed.",
 	FILE_SELECT_ERR: "A file must be selected.",
 	FILE_SIZE: "File size",
