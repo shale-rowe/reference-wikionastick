@@ -3,6 +3,7 @@ IT IS NOT BEING TESTED MUCH DURING THIS PROCESS AND COULD OCCASIONALLY BE BROKEN
 
 Changes since Revision pvhl-2317 (git: 3d939c7)
 
+* fix backspace/erase causing page back action when in textbox
 * reload file if erase wiki failed
 * add new help pages and help page updates from Little Girl
 * change default setting for config import to safer setting

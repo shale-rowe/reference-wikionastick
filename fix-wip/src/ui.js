@@ -4,10 +4,12 @@ woas.ui = {
 	edit_mode: false,		// set to true when inside an edit textarea
 	_textbox_focus: false,	// true when a text box is currently focused
 	focus_textbox: function() { // called when a textbox has currently focus
-		this._textbox_focus = true;
+		// 'this' belongs to the text box
+		woas.ui._textbox_focus = true;
 	},
 	blur_textbox: function() { // called when a textbox looses focus
-		this._textbox_focus = false;
+		// 'this' belongs to the text box
+		woas.ui._textbox_focus = false;
 		ff_fix_focus();
 		// reset event handler
 		this._textbox_enter_event = this._textbox_enter_event_dummy;
@@ -26,12 +28,8 @@ woas.ui = {
 	// event called on key press
 	//NOTE: since this is attached directly to DOM, you should not use 'this'
 	_keyboard_event_hook: function(orig_e) {
-		if (!orig_e)
-			e = window.event;
-		else
-			e = orig_e;
-		var ck = woas.browser.ie ? e.keyCode : e.which;
-		
+		var e = orig_e || window.event,
+			ck = e.keyCode || e.which;
 		if (!woas.ui.edit_mode) {
 			// there is a custom focus active, call the hook
 			// and return if it told us to do so
@@ -61,7 +59,6 @@ woas.ui = {
 			ff_fix_focus();
 			return false;
 		}
-
 		return orig_e;
 	},
 	// could have a better name
