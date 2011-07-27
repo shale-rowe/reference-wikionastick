@@ -15,7 +15,7 @@ woas.page.boundary: DFQRCTsKlU
 
 * [[WoaS History]]
 
-* [[WoaS::Help::]]
+* [[WoaS::Help::Info|WoaS::Help]]
 * [[WoaS::Aliases]]
 * [[WoaS::Hotkeys]]
 * [[WoaS::Plugins]]
@@ -41,30 +41,30 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 == Pages
-* [[Locked::]], [[Unlocked::]]: a list of all encrypted/plain pages
-* [[Special::All Pages]]: a list of all user created pages in this wiki
-* [[Special::Dead Pages]]: a list of nonexistent pages that other pages link to 
-* [[Special::Delete Page]]: delete specific page
-* [[Special::Go to]]: go to specific page
-* [[Special::New Page]]: create a new page
-* [[Special::Orphaned Pages]]: a list of pages that no other pages link to
-* [[Special::Recentchanges]]: view recently modified pages
-* [[Special::Search]]: search all wiki pages
-* [[Tagged::]], [[Untagged::]]: a list of all tagged/untagged pages
+* [[Locked::]], [[Unlocked::]] - a list of all encrypted/plain pages
+* [[Special::All Pages]] - a list of all user created pages
+* [[Special::Dead Pages]] - a list of nonexistent pages that other pages link to
+* [[Special::Delete Page]] - delete a specific page
+* [[Special::Go to]] - go to a specific page
+* [[Special::New Page]] - create a new page
+* [[Special::Orphaned Pages]] - a list of pages that no other page links to
+* [[Special::Recentchanges]] - a list of all recently modified pages
+* [[Special::Search]] - search all wiki pages
+* [[Tagged::]], [[Untagged::]] - a list of all tagged/untagged pages
 
 == Advanced features
-* [[Special::Options]]: general WoaS options
-* [[WoaS::Aliases]]: view/edit page title aliases
-* [[WoaS::CSS::Core]], [[WoaS::CSS::Custom]]: view the core CSS and edit the custom CSS
-* [[WoaS::Hotkeys]]: view/edit WoaS access keys and default key bindings
-* [[WoaS::Plugins]]: enable/disable and view/edit WoaS JavaScript plugins
+* [[Special::Options]] - general WoaS options
+* [[WoaS::Aliases]] - view/edit page title aliases
+* [[WoaS::CSS::Core]], [[WoaS::CSS::Custom]] - view the core CSS and edit the custom CSS
+* [[WoaS::Hotkeys]] - view/edit WoaS access keys and default key bindings
+* [[WoaS::Plugins]] - enable/disable and view/edit WoaS JavaScript plugins
 
 == Maintenance
-* [[Special::Import]]: import wiki from an early (or current) version
-* [[Special::ImportWSIF]]: import a [[WoaS::Help::WSIF|WSIF]] file containing one or more wiki pages
-* [[Special::Export]]: export wiki into multiple linked static XHTML files
-* [[Special::ExportWSIF]]: export wiki into multiple or single [[WoaS::Help::WSIF|WSIF]] files
-* [[Special::Erase Wiki]]: delete ALL wiki pages and reset with default data
+* [[Special::Import]] - import wiki from a WoaS html file (including earlier versions)
+* [[Special::ImportWSIF]] - import a [[WoaS::Help::WSIF|WSIF]] file containing one or more wiki pages
+* [[Special::Export]] - export wiki into multiple linked static XHTML files
+* [[Special::ExportWSIF]] - export wiki into multiple or single [[WoaS::Help::WSIF|WSIF]] files
+* [[Special::Erase Wiki]] - delete ALL wiki pages and reset with default data
 --DFQRCTsKlU
 woas.page.title: Special::Import
 woas.page.attributes: 0
@@ -73,14 +73,13 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-Import a wiki /.html/ source from an early (or current) version:
+Import a wiki from an /.html/ source (current or earlier version):
 
-File: <input id="filename_" type="file" />&nbsp;<input id="btn_import" class="woas_button" type="button" value="Import" onclick="import_wiki()" />
-
+File: <input id="filename_" type="file" />&nbsp;<input id="btn_import" class="woas_button_top" type="button" value="Import" onclick="import_wiki()" />
 == Source
 <label for="woas_cb_import_config"><input type="checkbox" id="woas_cb_import_config" checked="checked">&nbsp;Import configuration (except WSIF datasource settings)</label>
-<label for="woas_cb_import_content"><input type="checkbox" id="woas_cb_import_content" checked="checked">&nbsp;Import pages</label>
 <label for="woas_cb_import_styles"><input type="checkbox" id="woas_cb_import_styles">&nbsp;Import CSS</label>
+<label for="woas_cb_import_content"><input type="checkbox" id="woas_cb_import_content" checked="checked">&nbsp;Import pages</label>
 [[Include::WoaS::ImportSettings]]
 
 <script type="text/javascript">
@@ -96,7 +95,7 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 [[Special::TOC]]
 = Welcome to Wiki on a Stick!
-Wiki on a Stick (in short *WoaS*) is a [[http://en.wikipedia.org/wiki/Wiki|wiki]] that lives in *one self-modifying XHTML file*. It's perfect to be used at home or at office, on your laptop or USB pen drive. It can be used as a personal notepad, calendar, repository for software documentation and for many other purposes; it allows full customization and extension by your own scripts and plugins. It also offers [[WoaS::Help::Security|AES encryption]] of pages.
+Wiki on a Stick (*WoaS*) is a [[http://en.wikipedia.org/wiki/Wiki|wiki]] that lives in *one self-modifying XHTML file*. It's perfect for use at home or office, on your laptop or USB pen drive. It can be used as a personal notepad, calendar, repository for software documentation, and for many other purposes; it allows full customization and extension by your own scripts and plugins. It also offers [[WoaS::Help::Security|AES encryption]] of pages.
 
 == Version
 
@@ -113,6 +112,7 @@ Original version (v0.01 &tilde; v0.04) by Andr\u00e9 Wagner
 
 == Download
 Wiki on a Stick can always be downloaded through the official SF.net WoaS project file download service:
+
 <big>[[https://sourceforge.net/projects/stickwiki/files/|Download Wiki on a Stick]]</big>
 
 == Get support
@@ -120,28 +120,28 @@ Wiki on a Stick can always be downloaded through the official SF.net WoaS projec
 You can use the [[http://woas.iragan.com/|official WoaS forums]] and the [[http://sf.net/projects/stickwiki/|SF.net WoaS project facilities]].
 
 == Thanks to
-This project wouldn't be what it is without the help of other people. If you contributed to Wiki on a Stick and your name is not here (or if you do not want it to be listed here), please [[http://sourceforge.net/sendmessage.php?touser=799761|contact the mantainer]].
-* *Jeremy Ruston* - the creator of the wonderful [[http://www.tiddlywiki.com/|TiddlyWiki]], who served as inspiration for Wiki on a Stick
-* *Philip O'Donnel* - creator of the table syntax & parsing code
+This project wouldn't be what it is without the help of other people. If you contributed to Wiki on a Stick and your name is not here (or if you do not want it to be listed here), please [[http://sourceforge.net/sendmessage.php?touser=799761|contact the maintainer]].
+* *Jeremy Ruston* - the creator of the wonderful [[http://www.tiddlywiki.com/|TiddlyWiki]] that served as inspiration for Wiki on a Stick.
+* *Philip O'Donnel* - the creator of the table syntax and parsing code.
 * *Tim Lord*
 * *Knut Kohl*
 * *Rob Schmersel*
-* *Michiel van Everdingen* - [[http://home.versatel.nl/MAvanEverdingen/Code/|original javascript implementation]] of AES encryption
+* *Michiel van Everdingen* - [[http://home.versatel.nl/MAvanEverdingen/Code/|original JavaScript implementation]] of AES encryption
 * *Cyril Mazard* - search feature
-* *jimmac* - author of [[http://jimmac.musichall.cz/i.php?i=gorilla-stock|the icons set]] which we are currently using in WoaS
+* *jimmac* - author of [[http://jimmac.musichall.cz/i.php?i=gorilla-stock|the icon set]] that we are currently using in WoaS
 * *martinellison* - transclusion patch
-* *Nilton Castillo* - bugfixes and enhancements (original pluggable macro syntax)
-* *Little Girl* - documentation, overall testing, various improvements
-* [[http://weekendtesting.com/archives/833|Europe Weekend Testing]] - which provided a testing session for WoaS
-* [[http://testconsultant.blogspot.com/|Jeroen Rosink]] - for testing WoaS releases
+* *Nilton Castillo* - bug fixes and enhancements (original pluggable macro syntax)
+* *Little Girl* - assistance with documentation, overall testing, and various improvements
+* [[http://weekendtesting.com/archives/833|Europe Weekend Testing]] - provided a testing session for WoaS
+* [[http://testconsultant.blogspot.com/|Jeroen Rosink]] - testing of WoaS releases
 
 == Important links
-* [[http://sf.net/projects/stickwiki/|SourceForge project home page]] - useful for contributing
-* [[http://woas.iragan.com/|Official WoaS forums]] - our discussion forums where you can also participate to the decision processes
+* [[http://sf.net/projects/stickwiki/|SourceForge project home page]] - useful for contributing.
+* [[http://woas.iragan.com/|Official WoaS forums]] - our discussion forums where you can also participate in the decision processes
 * [[http://sourceforge.net/tracker/?group_id=155218&atid=794925|SF.net WoaS project bug tracker]] - if you find a bug, post it here
-* [[http://sourceforge.net/tracker/?group_id=155218&atid=794928|SF.net WoaS project feature tracker]] - if you have have suggestions for improvements
+* [[http://sourceforge.net/tracker/?group_id=155218&atid=794928|SF.net WoaS project feature tracker]] - if you have have a suggestion for improvement, post it here
 * [[http://www.iragan.com/woas_irc/|Official WoaS IRC Channel]] - #woas room at FreeNode servers
-* [[https://lists.sourceforge.net/lists/listinfo/stickwiki-devel|SF.net WoaS Development mailing list]] - for public discussion
+* [[https://lists.sourceforge.net/lists/listinfo/stickwiki-devel|SF.net WoaS Development mailing list]] - for discussion of WoaS development
 --DFQRCTsKlU
 woas.page.title: Main Page
 woas.page.attributes: 0
@@ -151,7 +151,6 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 A blank sheet is a catalyst for ideas
-
 --DFQRCTsKlU
 woas.page.title: Special::Search
 woas.page.attributes: 0
@@ -199,11 +198,11 @@ WoaS has two different interfaces for encryption passwords, namely one for encry
 
 == Encryption
 
-An interface for page encryption shows also a colored meter for estimated password quality; encryption password is not stored in your saved files (true AES encryption is used).
+The page encryption interface shows a colored meter for estimated password quality; the encryption password is not stored in your saved files (true AES encryption is used).
 
 [[Include::WoaS::Template::Info|*If you forget the password there is no way to retrieve it or your data.*]]
 
-In order to encrypt a page you will have to click on the /lock/ icon in the navigation bar. The page locking interface will have two password boxes (the second for verification); the background color of the first box will hint about password estimated strength.
+Click on the /lock/ icon in the navigation bar to encrypt the page being viewed. The page locking interface has two password boxes (the second for verification); the background color of the first box provides a hint about estimated password strength.
 
 Once you've chosen and typed in your password, click the *Lock* button to encrypt the page.
 
@@ -211,20 +210,20 @@ When encrypting additional pages during a session, you'll be offered to use the 
 
 == Decryption
 
-Click the *Set password* icon in the navigation bar to set the decryption password used for next page.
+Click the *Set password* icon in the navigation bar to set the decryption password used for the next page.
 
 The password for decrypting a page (or pages) is cached so that you only need to enter it once per session. If you close or reload the wiki, you will need to reenter the password to work with the encrypted page(s). To disable the password cache, check the box for *Do not temporarily cache the AES key* in the wiki [[WoaS::Help::Special::Options|Options]]. If you've used more than one password for encrypting your pages, you'll need to enter the password to unlock each encrypted page.
 
 == Security level
 Security is never absolute. Data encrypted with these pages might be compromised in a variety of ways, including but not limited to the following:
 
-* WoaS uses random numbers generated by the browser itself, and they are not secure (user-generated entropy will be used in future versions)
-* User-generated passwords are weak by nature (PBKDF2 will be used in future)
-* You have not disabled the AES key cache, so when you will enter the password for the first time other users (if not you) will be able to see encrypted pages and could possibly get your key
+* User-generated passwords are weak by nature (PBKDF2 will be used in a future version)
+* You have not disabled the AES key cache, so when you enter the password for the first time other users (if not you) will be able to see encrypted pages and could possibly get your key
+* WoaS uses random numbers generated by the browser itself using local time; if someone was somehow able to gain access to the particular time used they could perhaps discover the key (user-generated entropy will be used in a future version)
 * Your Web browser and/or JavaScript interpreter may contain bugs or deliberate security violations which report activity on your computer back to some other Internet site
-* Some other applet running on another page in your browser, perhaps without you being aware of its existence, is spying on other windows
-* Some other "spyware" application running on your computer may have compromised your system's security and be snooping on your activity
-* The implementation of the encryption may contain a bug which makes its results insecure, Wiki on a Stick is open-source, you can judge for yourself whether the tool merits your confidence.
+* Some other applet running on another page in your browser, perhaps without you being aware of its existence, is spying on other windows.
+* Some other "spyware" application running on your computer may have compromised your system's security and be snooping on your activity.
+* The implementation of the encryption may contain a bug that makes its results insecure, Wiki on a Stick is open-source; you can judge for yourself whether the tool merits your confidence.
 * Your computer's security may have been compromised physically; when's the last time you checked that a bug that transmits your keystrokes and/or screen contents to that white van parked down the street wasn't lurking inside your computer cabinet?
 
 Apart from the above, your normal usage of encrypted pages can be considered secure.
@@ -238,36 +237,37 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 = Options
 == User Interface
-<label for="cb_auto_links"><input type="checkbox" id="cb_auto_links" onclick="woas.config.auto_links = d$.checked('cb_auto_links')" />Automatically create URL hyperlinks when displaying page content</label>
+<label for="cb_auto_links"><input type="checkbox" id="cb_auto_links" onclick="woas.config.auto_links = d$.checked('cb_auto_links')" />Automatically convert URLs to hyperlinks in displayed pages</label>
 <label for="cb_key_cache"><input type="checkbox" id="cb_key_cache" onclick="woas.config.key_cache = !d$.checked('cb_key_cache')" />Do not temporarily cache the AES key</label>
 <label for="cb_dblclick_edit"><input type="checkbox" id="cb_dblclick_edit" onclick="woas.config.dblclick_edit = d$.checked('cb_dblclick_edit')" />Double click to edit pages/menu</label>
 <label for="cb_debug_mode"><input type="checkbox" id="cb_debug_mode" onclick="woas.config.debug_mode = d$.checked('cb_debug_mode');woas._set_debug(woas.config.debug_mode);d$('cb_debug_closed').disabled=!woas.config.debug_mode" />Enable debug mode</label>&nbsp;&nbsp;<label for="cb_debug_closed"><input type="checkbox" id="cb_debug_closed" onclick="woas.config.debug_closed = d$.checked('cb_debug_closed')" />Start with console closed</label>
-<label for="cb_fixed_header"><input type="checkbox" id="cb_fixed_header" onclick="var fl=d$.checked('cb_fixed_header');woas.config.fixed_header=fl;woas.ui.set_header(fl)" />Fixed navigation bar</label>
 <label for="cb_fixed_menu"><input type="checkbox" id="cb_fixed_menu" onclick="var fl=d$.checked('cb_fixed_menu');woas.config.fixed_menu=fl;woas.ui.set_menu(fl)" />Fixed menu area</label>
+<label for="cb_fixed_header"><input type="checkbox" id="cb_fixed_header" onclick="var fl=d$.checked('cb_fixed_header');woas.config.fixed_header=fl;woas.ui.set_header(fl)" />Fixed navigation bar</label>
 <label for="cb_sort_tags"><input type="checkbox" id="cb_sort_tags" onclick="woas.config.sort_tags = d$.checked('cb_sort_tags')" />Sort tags in tag display</label>
 == Syntax
 <label for="cb_new_tables_syntax"><input type="checkbox" id="cb_new_tables_syntax" onclick="woas.config.new_tables_syntax = d$.checked('cb_new_tables_syntax')" />Enhanced tables syntax</label>
 == Saving
 <label for="cb_save_on_quit"><input type="checkbox" id="cb_save_on_quit" onclick="woas.config.save_on_quit = d$.checked('cb_save_on_quit')" />Automatically save options (if changed) before quitting</label>
-<label for="cb_cumulative_save"><input type="checkbox" id="cb_cumulative_save" onclick="woas.config.cumulative_save = d$.checked('cb_cumulative_save')" />Enable cumulative save (will save to disk only when quitting)</label>
-<label for="cb_safe_mode"><input type="checkbox" id="cb_safe_mode" onclick="woas.config.safe_mode = d$.checked('cb_safe_mode')" />Enable safe mode (embedded &lt;script/&gt; blocks and WoaS::Plugins not executed, *requires WoaS reload*)</label>
-<label for="cb_allow_diff"><input type="checkbox" id="cb_allow_diff" onclick="woas.config.allow_diff = d$.checked('cb_allow_diff')" />Make merge/diff of WoaS XHTML/WSIF datasource easier</label>
-<label for="cb_rem_history"><input type="checkbox" id="cb_rem_history" onclick="woas.config.nav_history = d$.checked('cb_rem_history')" />Remember current page and navigation history</label>
+<label for="cb_safe_mode"><input type="checkbox" id="cb_safe_mode" onclick="woas.config.safe_mode = d$.checked('cb_safe_mode')" />Enable safe mode with embedded scripts and plugins not executed (/requires reload/)</label>
+<label for="cb_allow_diff"><input type="checkbox" id="cb_allow_diff" onclick="woas.config.allow_diff = d$.checked('cb_allow_diff')" />Make merge/diff of WoaS XHTML/WSIF data source easier</label>
+<label for="cb_cumulative_save"><input type="checkbox" id="cb_cumulative_save" onclick="woas.config.cumulative_save = d$.checked('cb_cumulative_save')" />Only save to disk when quitting (potentially risky)</label>
 <label for="cb_store_mts"><input type="checkbox" id="cb_store_mts" onclick="woas.config.store_mts = d$.checked('cb_store_mts')" />Store and display last modified timestamp</label>
-== Datasource
-<label for="cb_wsif_ds_lock"><input type="checkbox" id="cb_wsif_ds_lock" onclick="woas.config.wsif_ds_lock = d$.checked('cb_wsif_ds_lock')" />Lock WSIF datasource when editing</label>
-<label for="cb_wsif_ds_multi"><input type="checkbox" id="cb_wsif_ds_multi" onclick="woas.config.wsif_ds_multi = d$.checked('cb_wsif_ds_multi')" />Use multiple files in WSIF datasource</label>
-/Disabling above option will not remove WSIF files created for each page/
+<label for="cb_rem_history"><input type="checkbox" id="cb_rem_history" onclick="woas.config.nav_history = d$.checked('cb_rem_history')" />Store current page and navigation history</label>
+== Data source
+Pages are stored internally if the WSIF data source is blank. *Existing internal pages will be lost if WSIF data source is changed from blank to an external source!*
 
-WSIF data source: <input id="txt_wsif_ds" type="text" size="60" value="" onchange="woas.config.wsif_ds=this.value" />
-/Relative path to WSIF datasource to use (blank to disable); file will be overwritten./
-A file named as above WSIF data source and ending with ".lck" will also be created to manage locking.
+If the /Use multiple files in WSIF data source/ option is being used (creating one WSIF file for each page) then disabling the option will not remove existing WSIF files, though the WSIF data source file will be overwritten with the full page content.
 
-WSIF data author: <input id="txt_author" type="text" size="12" value="" onchange="woas.config.wsif_author=this.value" />
-/Used in exported WSIF content and WSIF datasources./
+<style>
+#txt_wsif_ds {margin-bottom: .25em}
+</style>
+Relative path to WSIF data source, including file name: <input id="txt_wsif_ds" type="text" size="60" value="" onchange="woas.config.wsif_ds=this.value" />
+<label for="cb_wsif_ds_multi"><input type="checkbox" id="cb_wsif_ds_multi" onclick="woas.config.wsif_ds_multi = d$.checked('cb_wsif_ds_multi')" />Use multiple files in WSIF data source</label>
+
+WSIF author: <input id="txt_author" type="text" size="30" value="" onchange="woas.config.wsif_author=this.value" />
 <div id="woas_read_only_div">
 == Permanent changes
-<p>&nbsp;&nbsp;<input class="woas_button" type="button" onclick="ro_woas()" value="Disallow edits" />&nbsp;&nbsp;/Caution: to re-enable editing you will have to manually edit WoaS/</p>
+<p>&nbsp;&nbsp;<input class="woas_button" type="button" onclick="ro_woas()" value="Prevent edits" />&nbsp;&nbsp;/Caution: to re-enable editing you will have to manually edit WoaS/</p>
 </div>
 <input class="woas_button_top" type="button" onclick="save_options()" value="Save options" />
 <script type="text/javascript">
@@ -492,7 +492,7 @@ woas.page.boundary: DFQRCTsKlU
 </style>
 = Export content into XHTML files
 ==Paths
-Note: *All directories must exist if using a non-Mozilla browser.*
+*All directories must exist if using a non-Mozilla browser.*
 
 Directory for XHTML files:&nbsp; <input id="woas_ep_xhtml" type="text" size="80" />
 Directory for embedded pictures:&nbsp; <input id="woas_ep_img" type="text" size="80" />
@@ -502,7 +502,7 @@ Extension for generated XHTML files:&nbsp; <input id="woas_ep_ext" type="text" s
 ==Custom page scripts
 <label for="woas_cb_js_ign"><input type="radio" id="woas_cb_js_ign" name="woas_cb_js" checked="checked">Do not export JavaScript</label>
 <label for="woas_cb_js_exp"><input type="radio" id="woas_cb_js_exp" name="woas_cb_js">Export JavaScript as-is</label>
-<label for="woas_cb_js_dyn"><input type="radio" id="woas_cb_js_dyn" name="woas_cb_js">Run before exporting but do not export the JavaScript</label>
+<label for="woas_cb_js_dyn"><input type="radio" id="woas_cb_js_dyn" name="woas_cb_js">Run before exporting, but do not export the JavaScript</label>
 <!-- remove until available <label for="woas_cb_js_head"><input type="radio" id="woas_cb_js_head" name="woas_cb_js" disabled="disabled">Export javascript into &lt;head /&gt; (you might need to include the framework code)</label>
 
 <label for="woas_cb_js_fw"><input type="checkbox" id="woas_cb_js_fw" disabled="disabled">Export the javascript framework too</label> -->
@@ -1795,7 +1795,6 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 = Run wiki on a webserver
 Wiki on a Stick is a client software not designed to be used on a webserver; WoaS will anyway recognize that it is being run from a webserver and prevent save operations with an appropriate user message informing about the impossibility to save permanent changes.
-
 == Server integration
 
 WoaS 1.0 will offer an API to allow server-side integrations.
@@ -1807,11 +1806,9 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Requirements =
-
+= Requirements
 == Supported Browsers
 Wiki on a Stick is actively supported on the following browsers:
-
 * Firefox 1.5
 * Firefox 2
 * Firefox 3
@@ -1822,7 +1819,8 @@ Wiki on a Stick is actively supported on the following browsers:
 * Internet Explorer 8*
 * Chrome
 * Safari
-<div class="alertnote">* On IE7 (and above) you might want to rename your application to .hta to enable its trusted privileges.</div>
+
+/On IE7 (and above) you might want to rename your application to .hta to enable its trusted privileges./
 == Limitations
 * Firefox (and possibly other browsers, too) cannot save to filenames containing UTF8 characters. Use unix-style filenames instead.
 * Internet Explorer 6 and 7 do not support embedded images (that's why you will not see button icons).
@@ -1830,7 +1828,6 @@ Wiki on a Stick is actively supported on the following browsers:
 * Internet Explorer 6 does not allow a fixed menu.
 
 If you are using Chrome, Safari or Opera you will need the TiddlySaver Java applet, hence you need that Java is enabled in your browser and that it properly works.
-
 == TiddlySaver
 
 The Java applet "TiddlySaver.jar", a very small file, must be placed in the same directory as your WoaS file. In order to use it you will need to give it the necessary privileges by editing your .java.policy file.

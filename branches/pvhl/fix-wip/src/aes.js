@@ -198,7 +198,6 @@ function _decrypt(){
 function blcEncrypt(enc){
 	if (tot === 0){
 		if (key.length < 1) return;
-		// pre-pend random data to pad length? really?
 		for (aes_i=0; aes_i<16; ++aes_i) bData.unshift( _rand(256) );
 		while( bData.length%16 !== 0 ) bData.push(0);
 		tot = bData.length;
