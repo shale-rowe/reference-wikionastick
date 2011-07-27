@@ -137,6 +137,7 @@ woas._create_page_direct = function(ns, cr, fill_mode, default_ct) {
 woas.cmd_erase_wiki = function() {
 	if (this.erase_wiki()) {
 		if (!this.full_commit())
+// pvhl: need to reload page data from file here.
 			this.alert(this.i18n.FAILED_ERASE);
 		back_or(this.config.main_page);
 	}
