@@ -97,7 +97,8 @@ woas._new_page_direct = function(title, fill_mode) {
 		var menu = this.get_text("::Menu"),
 			test = new RegExp("\\[\\["+title+"\\s*[\\|\\]]");
 		// ask if menu link wanted if one doesn't already exist
-		if (!menu.match(test) && confirm(this.i18n.ASK_MENU_LINK)) {
+		if (!menu.match(test) && (this.config.menu_link === 1 ||
+				(!this.config.menu_link && confirm(this.i18n.ASK_MENU_LINK)))) {
 			// try to put the menu link in a good position
 			p = menu.indexOf("\n\n");
 			if (p === -1)

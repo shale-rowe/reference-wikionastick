@@ -3,7 +3,8 @@ IT IS NOT BEING TESTED MUCH DURING THIS PROCESS AND COULD OCCASIONALLY BE BROKEN
 
 Changes since Revision pvhl-2317 (git: 3d939c7)
 
-* small changes to export page layout
+* add new page menu link options
+* small changes to various page layouts
 * fix export and edit for submenus and fix up _add_namespace_menu
 * change nowiki_multiline parsing to match macro parsing rules and break-out function
 * modify how hotkey accesses restricted word 'goto'

@@ -244,6 +244,8 @@ woas.page.boundary: DFQRCTsKlU
 <label for="cb_fixed_menu"><input type="checkbox" id="cb_fixed_menu" onclick="var fl=d$.checked('cb_fixed_menu');woas.config.fixed_menu=fl;woas.ui.set_menu(fl)" />Fixed menu area</label>
 <label for="cb_fixed_header"><input type="checkbox" id="cb_fixed_header" onclick="var fl=d$.checked('cb_fixed_header');woas.config.fixed_header=fl;woas.ui.set_header(fl)" />Fixed navigation bar</label>
 <label for="cb_sort_tags"><input type="checkbox" id="cb_sort_tags" onclick="woas.config.sort_tags = d$.checked('cb_sort_tags')" />Sort tags in tag display</label>
+
+Create a link to newly created pages in main menu: <select id="sel_menu_link" onChange="woas.config.menu_link=this.selectedIndex"><option>Always ask</option><option>Always</option> <option>Never</option></select>
 == Syntax
 <label for="cb_new_tables_syntax"><input type="checkbox" id="cb_new_tables_syntax" onclick="woas.config.new_tables_syntax = d$.checked('cb_new_tables_syntax')" />Enhanced tables syntax</label>
 == Saving
@@ -286,9 +288,10 @@ d$("cb_save_on_quit").checked = woas.bool2chk(woas.config.save_on_quit);
 d$("cb_cumulative_save").checked = woas.bool2chk(woas.config.cumulative_save);
 d$("cb_safe_mode").checked = woas.bool2chk(woas.config.safe_mode);
 d$("cb_wsif_ds_multi").checked = woas.bool2chk(woas.config.wsif_ds_multi);
-d$("cb_wsif_ds_lock").checked = woas.bool2chk(woas.config.wsif_ds_lock);
-d$("cb_fixed_header").checked = woas.bool2chk(woas.config.fixed_header);;
-d$("cb_fixed_menu").checked = woas.bool2chk(woas.config.fixed_menu);;
+//d$("cb_wsif_ds_lock").checked = woas.bool2chk(woas.config.wsif_ds_lock);
+d$("cb_fixed_header").checked = woas.bool2chk(woas.config.fixed_header);
+d$("cb_fixed_menu").checked = woas.bool2chk(woas.config.fixed_menu);
+d$("sel_menu_link").selectedIndex = woas.config.menu_link;
 
 if (woas.browser.ie6) d$("cb_fixed_header").disabled =  d$("cb_fixed_menu").disabled = true;
 
