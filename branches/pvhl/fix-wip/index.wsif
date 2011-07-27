@@ -479,48 +479,38 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
+<style>
+#woas_ep_xhtml, #woas_ep_img, #woas_ep_ext, #woas_ep_author {
+	margin: .25em 0em .75em
+}
+#woas_wiki_area {
+	text-align: left
+}
+#woas_wiki_area h2 {
+	margin-bottom: .4em
+}
+</style>
 = Export content into XHTML files
-
 ==Paths
-Specify the destination directory which will contain all the exported XHTML files.
+Note: *All directories must exist if using a non-Mozilla browser.*
 
-Note: *Directory must exist if using a non-Mozilla browser.*
+Directory for XHTML files:&nbsp; <input id="woas_ep_xhtml" type="text" size="80" />
+Directory for embedded pictures:&nbsp; <input id="woas_ep_img" type="text" size="80" />
+Extension for generated XHTML files:&nbsp; <input id="woas_ep_ext" type="text" size="8" />
+<label for="woas_cb_index_main"><input type="checkbox" id="woas_cb_index_main" checked="checked">Name the main page /index/</label>
+<label for="woas_cb_unix_norm"><input type="checkbox" id="woas_cb_unix_norm" checked="checked">Use UNIX-style normalization to generated filenames (all lowercase letters; non-alphanumeric characters replaced with underscores)</label>
+==Custom page scripts
+<label for="woas_cb_js_ign"><input type="radio" id="woas_cb_js_ign" name="woas_cb_js" checked="checked">Do not export JavaScript</label>
+<label for="woas_cb_js_exp"><input type="radio" id="woas_cb_js_exp" name="woas_cb_js">Export JavaScript as-is</label>
+<label for="woas_cb_js_dyn"><input type="radio" id="woas_cb_js_dyn" name="woas_cb_js">Run before exporting but do not export the JavaScript</label>
+<!-- remove until available <label for="woas_cb_js_head"><input type="radio" id="woas_cb_js_head" name="woas_cb_js" disabled="disabled">Export javascript into &lt;head /&gt; (you might need to include the framework code)</label>
 
-<input id="woas_ep_xhtml" type="text" size="80" />
-
-Specify the destination directory which will contain all the exported embedded pictures.
-
-Note: *Directory must exist if using a non-Mozilla browser.*
-
-<input id="woas_ep_img" type="text" size="80" />
-
-==File naming
-
-Default extension for generated XHTML files
-
-<input id="woas_ep_ext" type="text" size="8" />
-
-<label for="woas_cb_index_main"><input type="checkbox" id="woas_cb_index_main" checked="checked">The main page will be named index.htm</label>
-<label for="woas_cb_unix_norm"><input type="checkbox" id="woas_cb_unix_norm" checked="checked">Apply UNIX-style normalization (lowercase and spaces replaced by underscores) to generated filenames</label>
-
-==Custom JavaScripts
-<label for="woas_cb_js_ign"><input type="radio" id="woas_cb_js_ign" name="woas_cb_js" checked="checked">Do not export</label>
-<label for="woas_cb_js_dyn"><input type="radio" id="woas_cb_js_dyn" name="woas_cb_js">Run before exporting but do not export the javascript</label>
-<label for="woas_cb_js_exp"><input type="radio" id="woas_cb_js_exp" name="woas_cb_js">Export javascript as-is</label>
-<label for="woas_cb_js_head"><input type="radio" id="woas_cb_js_head" name="woas_cb_js" disabled="disabled">Export javascript into &lt;head /&gt; (you might need to include the framework code)</label>
-
-<label for="woas_cb_js_fw"><input type="checkbox" id="woas_cb_js_fw" disabled="disabled">Export the javascript framework too</label>
-
+<label for="woas_cb_js_fw"><input type="checkbox" id="woas_cb_js_fw" disabled="disabled">Export the javascript framework too</label> -->
 ==Other options
-META author (optional)
-
-<input id="woas_ep_author" type="text" size="12" value="" />
-
+META author (optional):&nbsp; <input id="woas_ep_author" type="text" size="20" value="" />
 <label for="woas_cb_sep_css"><input type="checkbox" id="woas_cb_sep_css" checked="checked">Export CSS into shared file</label>
 <label for="woas_cb_export_menu"><input type="checkbox" id="woas_cb_export_menu" checked="checked">Export menu and submenus</label>
-
-<input class="woas_button" type="button" value="Export XHTML" onclick="woas.export_wiki()" />
-
+<input class="woas_button_top" type="button" value="Export XHTML" onclick="woas.export_wiki()" />
 <script type="text/javascript">
 var path = woas.ROOT_DIRECTORY + "export" + woas.DIRECTORY_SEPARATOR;
 d$('woas_ep_xhtml').value = path;
