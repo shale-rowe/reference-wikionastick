@@ -86,8 +86,6 @@ var page_titles = [
 'WoaS::Help::Edit the menu',
 'WoaS::Help::Headings',
 'WoaS::Help::Rulers',
-'WoaS::Help::Include text file',
-'WoaS::Help::Include web page',
 'WoaS::Help::Include wiki page',
 'WoaS::Help::JavaScript',
 'WoaS::Help::Join lines of text',
@@ -98,7 +96,7 @@ var page_titles = [
 'WoaS::Help::Table of Contents',
 'WoaS::Help::Tags',
 'WoaS::Help::Publish wiki online',
-'WoaS::Help::Run wiki on a webserver',
+'WoaS::Help::Run wiki on a web server',
 'WoaS::Help::Requirements',
 'WoaS::Help::Lists',
 'WoaS::Help::Tables',
@@ -138,9 +136,9 @@ var page_titles = [
 ];
 
 /* DFQRCTsKlU-0000212-DATA */
-var page_attrs = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+var page_attrs = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
 
-var page_mts = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+var page_mts = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
 
 var pages = [
 '[[Main Page]]\n\
@@ -244,7 +242,7 @@ This project wouldn\'t be what it is without the help of other people. If you co
 * [[http://testconsultant.blogspot.com/|Jeroen Rosink]] - testing of WoaS releases\n\
 \n\
 == Important links\n\
-* [[http://sf.net/projects/stickwiki/|SourceForge project home page]] - useful for contributing.\n\
+* [[http://sf.net/projects/stickwiki/|SourceForge project home page]] - useful for getting the latest files and contributing to the project.\n\
 * [[http://woas.iragan.com/|Official WoaS forums]] - our discussion forums where you can also participate in the decision processes\n\
 * [[http://sourceforge.net/tracker/?group_id=155218&atid=794925|SF.net WoaS project bug tracker]] - if you find a bug, post it here\n\
 * [[http://sourceforge.net/tracker/?group_id=155218&atid=794928|SF.net WoaS project feature tracker]] - if you have have a suggestion for improvement, post it here\n\
@@ -324,20 +322,19 @@ Create a link to newly created pages in main menu: \x3Cselect id="sel_menu_link"
 \x3Clabel for="cb_store_mts"\x3E\x3Cinput type="checkbox" id="cb_store_mts" onclick="woas.config.store_mts = d$.checked(\'cb_store_mts\')" /\x3EStore and display last modified timestamp\x3C/label\x3E\n\
 \x3Clabel for="cb_rem_history"\x3E\x3Cinput type="checkbox" id="cb_rem_history" onclick="woas.config.nav_history = d$.checked(\'cb_rem_history\')" /\x3EStore current page and navigation history\x3C/label\x3E\n\
 == Data source\n\
-Pages are stored internally if the WSIF data source is blank. *Existing internal pages will be lost if WSIF data source is changed from blank to an external source!*\n\
+Pages are stored internally if /WSIF data source/ is blank. *Existing internal pages will be lost on the next save if /WSIF data source/ is changed from blank to an external source, and the external source will be overwritten with the internal page content!*\n\
 \n\
 If the /Use multiple files in WSIF data source/ option is being used (creating one WSIF file for each page) then disabling the option will not remove existing WSIF files, though the WSIF data source file will be overwritten with the full page content.\n\
 \n\
-\x3Cstyle\x3E\n\
-#txt_wsif_ds {margin-bottom: .25em}\n\
-\x3C/style\x3E\n\
-Relative path to WSIF data source, including file name: \x3Cinput id="txt_wsif_ds" type="text" size="60" value="" onchange="woas.config.wsif_ds=this.value" /\x3E\n\
+Path may be entered in Windows or UNIX style. *Any directories in the path must exist if you are not using a Mozilla browser.*\n\
+\n\
+\x3Cdiv style="text-align:left;display:inline-block"\x3ERelative path to WSIF data source, including file name:&nbsp; \x3C/div\x3E\x3Cinput id="txt_wsif_ds" type="text" size="60" value="" onchange="woas.config.wsif_ds=this.value" style="margin-bottom: .25em" /\x3E\n\
 \x3Clabel for="cb_wsif_ds_multi"\x3E\x3Cinput type="checkbox" id="cb_wsif_ds_multi" onclick="woas.config.wsif_ds_multi = d$.checked(\'cb_wsif_ds_multi\')" /\x3EUse multiple files in WSIF data source\x3C/label\x3E\n\
 \n\
 WSIF author: \x3Cinput id="txt_author" type="text" size="30" value="" onchange="woas.config.wsif_author=this.value" /\x3E\n\
 \x3Cdiv id="woas_read_only_div"\x3E\n\
 == Permanent changes\n\
-\x3Cp\x3E&nbsp;&nbsp;\x3Cinput class="woas_button" type="button" onclick="ro_woas()" value="Prevent edits" /\x3E&nbsp;&nbsp;/Caution: to re-enable editing you will have to manually edit WoaS/\x3C/p\x3E\n\
+\x3Cp\x3E&nbsp;&nbsp;\x3Cinput class="woas_button" type="button" onclick="ro_woas()" value="Prevent edits" /\x3E&nbsp;&nbsp;/Caution: to re-enable editing you will have to manually edit this WoaS file/\x3C/p\x3E\n\
 \x3C/div\x3E\n\
 \x3Cinput class="woas_button_top" type="button" onclick="save_options()" value="Save options" /\x3E\n\
 \x3Cscript type="text/javascript"\x3E\n\
@@ -371,7 +368,82 @@ d$("txt_wsif_ds").onblur = d$("txt_author").onblur = woas.ui.blur_textbox;\n\
 \x3C/script\x3E',
 '= Deprecated syntax\n\
 \n\
-A summary of WoaS deprecated syntax; you are invited to _no more_ use deprecated syntax which is still supported because they will be declared /unsupported/ in some future release of WoaS.\x3Cstyle type="text/css"\x3E\n\
+A summary of WoaS deprecated syntax; you should not use deprecated syntax because it will be declared /unsupported/ in a future release of WoaS. The red examples demonstrate deprecated syntax and the green examples demonstrate syntax currently accepted by the wiki.\n\
+== Headings\n\
+\n\
+Headings using exclamation marks are deprecated:\x3Cspan class="bad_syntax"\x3E{{{\n\
+! Heading level 1\n\
+!! Heading level 2\n\
+!!! Heading level 3\n\
+!!!! Heading level 4\n\
+!!!!! Heading level 5\n\
+!!!!!! Heading level 6\n\
+}}}\x3C/span\x3E\n\
+Headings using equal signs are accepted:\x3Cspan class="good_syntax"\x3E{{{\n\
+= Heading level 1\n\
+== Heading level 2\n\
+=== Heading level 3\n\
+==== Heading level 4\n\
+===== Heading level 5\n\
+====== Heading level 6\n\
+}}}\x3C/span\x3E\n\
+== Inline scripts\n\
+\n\
+HTML script tags with no type attribute are not supported:\x3Cspan class="bad_syntax"\x3E{{{\n\
+\x3Cspan class="bad_syntax"\x3E\n\
+}}}\x3C/span\x3EHTML script tags with the *text/javascript* type attribute are accepted:\x3Cspan class="good_syntax"\x3E{{{\n\
+\x3Cscript type="text/javascript"\x3E...\x3C/script\x3E\n\
+}}}\x3C/span\x3EThis is not enforced by WoaS wiki parser but is instead a correct XHTML practice.\n\
+== Lists\n\
+Unordered lists using plus signs are not supported:\x3Cspan class="bad_syntax"\x3E{{{\n\
++ unordered list item\n\
++ unordered list item\n\
++ unordered list item\n\
+}}}\x3C/span\x3E\n\
+Unordered lists using asterisks are accepted:\x3Cspan class="good_syntax"\x3E{{{\n\
+* unordered list item\n\
+* unordered list item\n\
+* unordered list item\n\
+}}}\x3C/span\x3E\n\
+== Pre tags\n\
+\n\
+HTML pre tags surrounding raw or preformatted text are not supported:\x3Cspan class="bad_syntax"\x3E{{{\n\
+\x3Cpre\x3Eraw or preformatted text\x3C/pre\x3E\n\
+}}}\x3C/span\x3E\n\
+Nowiki brackets surrounding raw or preformatted text are accepted:\x3Cspan class="good_syntax"\x3E\x3Cpre style="background-color: #F5F5F5; border: 0.063em solid grey; font-family: monospace; padding-right: 0.27em; padding-left: 0.4em;"\x3E{\x3C!-- --\x3E{{raw or preformatted text}}\x3C!-- --\x3E}\n\
+\n\
+{\x3C!-- --\x3E{{\n\
+raw or preformatted text\n\
+}}\x3C!-- --\x3E}\x3C/pre\x3E\x3C/span\x3E\n\
+== Rulers\n\
+\n\
+Horizontal rules using 3 hyphens are deprecated:\x3Cspan class="bad_syntax"\x3E{{{\n\
+---\n\
+}}}\x3C/span\x3E\n\
+Horizontal rules using 4 or more hyphens are accepted:\x3Cspan class="good_syntax"\x3E{{{\n\
+----\n\
+}}}\x3C/span\x3E\n\
+== Tags\n\
+=== Single tags\n\
+\n\
+Tags in the [[Tagged::]] and [[Tags::]] [[WoaS::Help::Namespaces|namespace]] are deprecated:\x3Cspan class="bad_syntax"\x3E{{{\n\
+[[Tagged::some tag]]\n\
+[[Tags::some tag]]\n\
+}}}\x3C/span\x3E\n\
+Tags in the [[Tag::]] namespace are accepted:\x3Cspan class="good_syntax"\x3E{{{\n\
+[[Tag::some tag]]\n\
+}}}\x3C/span\x3E\n\
+=== Multiple tags\n\
+\n\
+Tags separated by pipes in the [[Tag::]], [[Tagged::]], or [[Tags::]] namespace are deprecated:\x3Cspan class="bad_syntax"\x3E{{{\n\
+[[Tag::some tag|other tag|another tag]]\n\
+[[Tagged::some tag|other tag|another tag]]\n\
+[[Tags::some tag|other tag|another tag]]\n\
+}}}\x3C/span\x3E\n\
+Tags separated by commas in the [[Tag::]] namespace are accepted:\x3Cspan class="good_syntax"\x3E{{{\n\
+[[Tag::some tag, other tag, another tag]]\n\
+}}}\x3C/span\x3E\n\
+\x3Cstyle type="text/css"\x3E\n\
 .bad_syntax {\n\
   color: red;\n\
   font-weight: bold;\n\
@@ -380,48 +452,7 @@ A summary of WoaS deprecated syntax; you are invited to _no more_ use deprecated
   color: green;\n\
   font-weight: bold;\n\
 }\n\
-\x3C/style\x3E\n\
-== Lists\n\
-\n\
-Lists with \'+ sign are *unsupported*.\n\
-\x3Cspan class="bad_syntax"\x3E{{{\n\
-+ unordered lists with + sign\n\
-+ unordered lists with + sign\n\
-}}}\x3C/span\x3E\n\
-\x3Cspan class="good_syntax"\x3E{{{\n\
-* unordered lists with an asterisk\n\
-* unordered lists with an asterisk\n\
-}}}\x3C/span\x3E\n\
-== Headings\n\
-\x3Cspan class="bad_syntax"\x3E{{{! headings using the exclamation mark}}}\x3C/span\x3E\n\
-\n\
-\x3Cspan class="good_syntax"\x3E{{{= heading which uses the equal sign}}}\x3C/span\x3E\n\
-== Pre tags\n\
-{{{\x3Cpre /\x3E}}} acting as nowiki blocks are *unsupported*. Now {{{\x3Cpre /\x3E}}} tags have no special meaning and are treated as any other XHTML tag.\n\
-\n\
-\x3Cspan class="bad_syntax"\x3EPre tags acting as &lt;pre&gt;nowiki&lt;pre &#047;&gt; blocks.\x3C/span\x3E\n\
-\n\
-\x3Cspan class="good_syntax"\x3EYou should use {\x3C!-- --\x3E{{nowiki}}\x3C!-- --\x3E} blocks instead.\x3C/span\x3E\n\
-== Rulers\n\
-\x3Cspan class="bad_syntax"\x3E{{{---\n\
-horizontal rulers using only 3 hyphens}}}\x3C/span\x3E\n\
-\n\
-\x3Cspan class="good_syntax"\x3E{{{----\n\
-You are invited to use at least 4 hyphens\n\
-}}}\n\
-== Tags\n\
-\x3Cspan class="bad_syntax"\x3E{{{[[Tag::some tag|other tag|another tag]]}}}\x3C/span\x3E\n\
-This syntax does not support transclusion of Tagged:: namespace; still supported but deprecated.\n\
-\n\
-\x3Cspan class="good_syntax"\x3E{{{[[Tag::some tag, some other tag]] and [[Tag::some tag]]}}}\x3C/span\x3E\n\
-\n\
-== Inline scripts\n\
-\x3Cspan class="bad_syntax"\x3E{{{\x3Cscript\x3E...\x3C/script\x3E}}}\x3C/span\x3E\n\
-\n\
-\x3Cspan class="good_syntax"\x3E{{{\x3Cscript type="text/javascript"\x3E...\x3C/script\x3E}}}\x3C/span\x3E\n\
-\n\
-This is not enforced by WoaS wiki parser but is instead a correct XHTML practice.\n\
-',
+\x3C/style\x3E',
 '= Options\n\
 \n\
 === Use consistent newlines in saved data\n\
@@ -807,7 +838,7 @@ When browsing the pages in this Help pop-up, you will find an *Index* button in 
 ** [[WoaS::Help::Requirements]]\n\
 * *Online use*\n\
 ** [[WoaS::Help::Publish wiki online]]\n\
-** [[WoaS::Help::Run wiki on a webserver]]\n\
+** [[WoaS::Help::Run wiki on a web server]]\n\
 * *Page management*\n\
 ** [[WoaS::Help::Create a page]]\n\
 ** [[WoaS::Help::Delete a page]]\n\
@@ -1211,57 +1242,6 @@ Rulers (horizontal rules or lines) use the full width of the page by default. Th
 ----\n\
 \x3C/div\x3E\x3C/center\x3E\n\
 ',
-'= Include text file\n\
-\x3Cdiv class="woas_helptext"\x3EUse this code in a page, replacing PATH with the full path to the file:\x3C/div\x3E\x3Cbr\x3E{{{\n\
-\x3Ciframe height="400" width="100%" src="file:///PATH"\x3E\x3C/iframe\x3E\n\
-}}}\x3Cbr\x3E\x3Cdiv class="woas_helptext"\x3ETo include a text file in the page inside an iFrame.\x3C/div\x3E\n\
-* *Linux example:*\x3Cbr\x3E\x3Cbr\x3E{{{\n\
-\x3Ciframe height="400" width="100%" src="file:///home/username/Desktop/file.txt"\x3E\x3C/iframe\x3E\n\
-}}}\x3Cbr\x3E\n\
-* *Windows example:*\x3Cbr\x3E\x3Cbr\x3E{{{\n\
-\x3Ciframe height="400" width="100%" src="file:///C:/Users/Username/Documents/file.txt"\x3E\x3C/iframe\x3E\n\
-}}}\n\
-',
-'= Include web page\n\
-Web pages can be included in a page as embedded objects or in iFrames.\n\
-\n\
-[[Include::WoaS::Template::Info|Some pages may not render correctly depending on how they\'re coded. Embedding more than one web page in a wiki page will cause the final embedded web page to steal the focus when the page is loaded, so it\'s recommended to have only one per page.]]\n\
-== Embed a web page as an object\n\
-This method makes the embedded web page become a seamless part of the page.\n\
-\n\
-* *Embed a local HTML file as an object:*\x3Cbr\x3E\x3Cbr\x3E\n\
-** \x3Cdiv class="woas_helptext"\x3EUse this code in a page, replacing PATH with the full path to the HTML file you wish to include, and changing the width and height to suit your taste:\x3C/div\x3E\x3Cbr\x3E{{{\n\
-\x3Cobject data="PATH" style="width:100%; height:630px;"\x3EFile not found.\x3C/object\x3E\n\
-}}}\x3Cbr\x3E\x3Cdiv class="woas_helptext"\x3ETo embed a local HTML file in a page.\x3C/div\x3E\x3Cbr\x3E\n\
-*** For example, if you want to embed the {{{/Work/MyProject.html}}} file as an object, you\'d use this command:\x3Cbr\x3E\x3Cbr\x3E{{{\n\
-\x3Cobject data="/Work/MyProject.html" style="width:100%; height:630px;"\x3EFile not found.\x3C/object\x3E\n\
-}}}\x3Cbr\x3E\x3Cbr\x3E\n\
-* *Embed a remote URL as an object:*\x3Cbr\x3E\x3Cbr\x3E\n\
-** \x3Cdiv class="woas_helptext"\x3EUse this code in a page, replacing URL with the URL of the page you wish to include, and changing the width and height to suit your taste:\x3C/div\x3E\x3Cbr\x3E{{{\n\
-\x3Cobject data="URL" style="width:100%; height:630px;"\x3EURL not found.\x3C/object\x3E\x3C\n\
-}}}\x3Cbr\x3E\x3Cdiv class="woas_helptext"\x3ETo embed an external URL in a page.\x3C/div\x3E\x3Cbr\x3E\n\
-*** For example, if you want to embed the WoaS official website at {{{http://stickwiki.sf.net/}}} as an object, you\'d use this command:\x3Cbr\x3E\x3Cbr\x3E{{{\n\
-\x3Cobject data="http://stickwiki.sf.net/" style="width:100%; height:630px;"\x3EURL not found.\x3C/object\x3E\n\
-}}}\n\
-\n\
-== Embed a web page in an iFrame\n\
-This method creates a frame around the embedded web page. The code shown below is for a plain frame, but you can style the iFrame further by adding a border, changing the border style to dotted, dashed, solid, double, groove, ridge, inset, or outset, changing the border width to whatever thickness you like, and the border color to whatever color you like.\n\
-\n\
-* *Embed a local HTML file in an iFrame:*\x3Cbr\x3E\x3Cbr\x3E\n\
-** \x3Cdiv class="woas_helptext"\x3EUse this code in a page, replacing PATH with the full path to HTML file you wish to include, and changing the width and height to suit your taste:\x3C/div\x3E\x3Cbr\x3E{{{\n\
-\x3Ciframe height="400" width="100%" height:630px; src="PATH"\x3E\x3C/iframe\x3E\n\
-}}}\x3Cbr\x3E\x3Cdiv class="woas_helptext"\x3ETo include a local HTML file in a wiki page.\x3C/div\x3E\x3Cbr\x3E\n\
-*** For example, if you want to embed the {{{/Work/MyProject.html}}} file in an iFrame, you\'d use this command:\x3Cbr\x3E\x3Cbr\x3E{{{\n\
-\x3Ciframe height="400" width="100%" height:630px; src="/Work/MyProject.html"\x3E\x3C/iframe\x3E\n\
-}}}\x3Cbr\x3E\x3Cbr\x3E\n\
-* *Embed a remote URL in an iFrame:*\x3Cbr\x3E\x3Cbr\x3E\n\
-** \x3Cdiv class="woas_helptext"\x3EUse this code in a page, replacing URL with the URL of the page you wish to include, and changing the width and height to suit your taste:\x3C/div\x3E\x3Cbr\x3E{{{\n\
-\x3Ciframe height="400" width="100%" height:630px; src="URL"\x3E\x3C/iframe\x3E\n\
-}}}\x3Cbr\x3E\x3Cdiv class="woas_helptext"\x3ETo include a web page in a wiki page.\x3C/div\x3E\x3Cbr\x3E\n\
-*** For example, if you want to embed the WoaS official website at {{{http://stickwiki.sf.net/}}} in an iFrame, you\'d use this command:\x3Cbr\x3E\x3Cbr\x3E{{{\n\
-\x3Ciframe height="400" width="100%" height:630px; src="http://stickwiki.sf.net/"\x3E\x3C/iframe\x3E\n\
-}}}\n\
-',
 '= Include wiki page\n\
 To include the contents of a wiki page inside another wiki page, use an {{{[[Include::]]}}} tag on a line by itself, inserting the name of the page you\'d like to include after the double colons in the tag.\n\
 \n\
@@ -1353,7 +1333,7 @@ For example, let\'s say you have these pages:\n\
 \n\
 *Recipes::* is a namespace. *Desserts::* is a sub-namespace of the *Recipes::* namespace. *Cakes::* is a sub-namespace of the *Desserts::* sub-namespace.\n\
 \n\
-If you open the {{{[[Recipes::Desserts::Cakes]]}}} page, the title contains links to *Recipes* and *Desserts*. The *Recipes* link opens a page listing all pages in the *Recipes::* namespace, and the *Desserts* link opens a page listing all pages in the *Desserts::* sub-namespace.\n\
+If you open the {{{[[Recipes::Desserts::Cakes]]}}} page, the title in the navigation bar contains links to *Recipes* and *Desserts*. The *Recipes* link opens a page listing all pages in the *Recipes::* namespace, and the *Desserts* link opens a page listing all pages in the *Desserts::* sub-namespace.\n\
 \n\
 === Namespace sub-menu\n\
 All pages in any namespace can be given a custom sub-menu by creating a *::Menu* page inside the namespace. The sub-menu will be displayed beneath the main menu while any pages belonging to that page\'s namespace are open. You can determine what goes into the sub-menu by editing the page with *::Menu* in its name. The sub-menu will vanish as soon as you navigate away from its namespace.\n\
@@ -1534,8 +1514,8 @@ This wiki can be published online as a single-file, framed web page by making it
 # Upload the wiki to a web server and publish a link to it.\n\
 To enable wiki editing again, see the [[WoaS::Help::Wiki is read-only]] page.\n\
 ',
-'= Run wiki on a webserver\n\
-Wiki on a Stick is a client software not designed to be used on a webserver; WoaS will anyway recognize that it is being run from a webserver and prevent save operations with an appropriate user message informing about the impossibility to save permanent changes.\n\
+'= Run wiki on a web server\n\
+Wiki on a Stick is a client software not designed to be used on a web server; WoaS will anyway recognize that it is being run from a web server and prevent save operations with an appropriate user message informing about the impossibility to save permanent changes.\n\
 == Server integration\n\
 WoaS 1.0 will offer an API to allow server-side integrations.',
 '= Requirements\n\
@@ -3188,7 +3168,7 @@ This method is used to import pages that have been exported using the WSIF forma
 ',
 '\x3Cinput style="font-size:10px;" id="menu_string_to_search" type="text" size="12" onkeydown="return menu_key_hook(event)" onfocus="menu_search_focus(true)" onblur="menu_search_focus(false)" /\x3E&nbsp;\x3Cinput style="font-size: 10px;" class="woas_button" type="button" value="Search" onclick="menu_do_search()" /\x3E',
 '= Exporting into XHTML static pages\n\
-Your WoaS pages can be exported into web-compatible XHTML, CSS and eventually attachment files/images; generated pages do not use JavaScript for rendering and can be efficiently cached by webservers.\n\
+Your WoaS pages can be exported into web-compatible XHTML, CSS and eventually attachment files/images; generated pages do not use JavaScript for rendering and can be efficiently cached by web servers.\n\
 \n\
 # Access [[Special::Export]] directly or either from [[Special::Advanced#Maintenance]]\n\
 # Modify the export directories if necessary\n\
@@ -4706,10 +4686,10 @@ clearTimeout(woas._autosave_thread);if(_this.config.auto_save)
 woas._autosave_thread=setTimeout("woas._auto_saver()",woas.config.auto_save);};woas._on_unload=function(){if(this.save_queue.length)
 this.commit(this.save_queue);else{if(this.config.save_on_quit&&this.cfg_changed)
 this.cfg_commit();}
-return true;};woas.setHTML=woas.getHTML=null;woas.getHTMLDiv=function(elem){return elem.innerHTML;};woas.setHTMLDiv=function(elem,html){elem.innerHTML=html;};woas._on_load=function(){this._set_debug(this.config.debug_mode,this.config.debug_closed);d$("woas_debug_log").value="";woas.log("*** WoaS v"+this.version+"-pvhl-r2416"+" started");this._old_wsif_ds_len=this.config.wsif_ds.length;if(this.browser.ie){this.setHTML=function(elem,html){elem.text=html;};this.getHTML=function(elem){return elem.text;};var obj=d$("woas_wiki_header");obj.style.filter="alpha(opacity=75);";if(this.browser.ie6){d$("woas_wiki_header").style.position="absolute";d$("i_woas_menu_area").style.position="absolute";}
+return true;};woas.setHTML=woas.getHTML=null;woas.getHTMLDiv=function(elem){return elem.innerHTML;};woas.setHTMLDiv=function(elem,html){elem.innerHTML=html;};woas._on_load=function(){this._set_debug(this.config.debug_mode,this.config.debug_closed);d$("woas_debug_log").value="";woas.log("*** WoaS v"+this.version+"-pvhl-r2423"+" started");this._old_wsif_ds_len=this.config.wsif_ds.length;if(this.browser.ie){this.setHTML=function(elem,html){elem.text=html;};this.getHTML=function(elem){return elem.text;};var obj=d$("woas_wiki_header");obj.style.filter="alpha(opacity=75);";if(this.browser.ie6){d$("woas_wiki_header").style.position="absolute";d$("i_woas_menu_area").style.position="absolute";}
 if(!this.browser.ie8){d$.hide("img_logo");d$("woas_logo").style.width="1%";}else{d$("woas_logo").style.width="35px";d$.show("img_logo");}}else{this.setHTML=this.setHTMLDiv;this.getHTML=this.getHTMLDiv;d$("woas_logo").style.width="35px";d$.show("img_logo");}
 if(this.log()&&this.tweak.integrity_test&&!this.integrity_test()){return;}
-if(this.config.wsif_ds.length){if(!this._wsif_ds_load(this.config.wsif_ds,this.config.wsif_ds_lock)){if(this.wsif.emsg!==null){this._set_debug(true);this.crash("Could not load WSIF pages data!\n"+this.wsif.emsg);}
+if(this.config.wsif_ds.length){var path=is_windows?this.config.wsif_ds.replace(/\//g,'\\'):this.config.wsif_ds.replace(/\\/g,'/');if(!this._wsif_ds_load(path,this.config.wsif_ds_lock)){if(this.wsif.emsg!==null){this._set_debug(true);this.crash("Could not load WSIF pages data!\n"+this.wsif.emsg);}
 return;}}
 this.dom.init();this.css.set(this.get_text("WoaS::CSS::Core")+"\n"+this.get_text("WoaS::CSS::Custom"));d$('woas_home_hl').title=this.config.main_page;d$('img_home').alt=this.config.main_page;this.ui.set_header(this.config.fixed_header);this.ui.set_menu(this.config.fixed_menu);var nav_bar=["back","forward","home","edit","print","advanced","cancel","save","lock","unlock","setkey","help","top","debug"];for(var i=0,it=nav_bar.length;i<it;++i){this.img_display(nav_bar[i],true);}
 this.menu_display("help",true);document.onkeydown=woas.ui._keyboard_event_hook;var qpage=document.location.href.split("?")[1];if(qpage){current=unescape(qpage);var p=current.indexOf("#");if(p!==-1)
@@ -4837,10 +4817,12 @@ if(real_params.length)
 other_params=","+real_params.join(",");else other_params="";var obj=woas.eval("function (macro"+other_params+") {\n"+fn_code+"\n}",true);if(woas.eval_failed){woas.log("cannot define function "+fn_name+": "+woas.eval_fail_msg);return false;}
 return this.register(fn_name,obj);},_backup:[],make_backup:function(){if(this._backup.length){woas.log("BUG: macro.make_backup called when backup already exists");}else{this._backup.push(this.names.slice(0));this._backup.push(this.functions.slice(0));}},remove_backup:function(){if(this._backup.length){this.functions=this._backup.pop();this.names=this._backup.pop();}else{woas.log("BUG:  macro.remove_backup called when no backup exists");}},has_backup:function(){return(this._backup.length!==0);}};woas.macro.names.push("woas.include");woas.macro.functions.push(woas.macro.default_macros.include);woas.lock={datasources:{},_reset:function(){this.datasources={};},_generate_magic_lock:function(){return _random_string(10);},_load_locks:function(){return true;},_update_locks:function(){return true;},is_locked:function(filename){if(typeof this.datasources[filename]=="undefined")
 return false;return this.datasources[filename].active;},hold:function(filename,whom){return true;},release:function(filename){return true;}};woas._wsif_ds_save=function(subpath,ds_lock,plist){if(subpath.length===0)
-return;this._native_wsif_save(woas.ROOT_DIRECTORY,subpath,this.config.wsif_ds_lock,!this.config.wsif_ds_multi,!this.config.wsif_ds_multi,this.config.wsif_author,true);};woas.full_commit=function(){this._wsif_ds_save(this.config.wsif_ds,this.config.wsif_ds_lock);return this._save_to_file(true);};woas.cfg_commit=function(){if(this.config.wsif_ds.length!==this._old_wsif_ds_len)
-this._wsif_ds_save(this.config.wsif_ds,this.config.wsif_ds_lock);return this._save_to_file(true);};woas.commit=function(plist){this._wsif_ds_save(this.config.wsif_ds,this.config.wsif_ds_lock,plist);return this._save_to_file(true);};woas.commit_delete=function(plist){this._wsif_ds_save(this.config.wsif_ds,this.config.wsif_ds_lock,[]);return this._save_to_file(true);};woas.after_pages_saved=function(plist){if(typeof plist=="undefined"){this.save_queue=[];return;}
+return-1;var fname,pos;subpath=subpath.replace(/\\/g,'/');pos=subpath.lastIndexOf('/')+1;if(pos){fname=subpath.substring(pos);subpath=woas.ROOT_DIRECTORY+subpath.substring(0,pos);}else{fname=subpath;subpath=woas.ROOT_DIRECTORY;}
+if(is_windows){subpath=subpath.replace(/\//g,'\\');}
+return this._native_wsif_save(subpath,fname,this.config.wsif_ds_lock,!this.config.wsif_ds_multi,!this.config.wsif_ds_multi,this.config.wsif_author,true);};woas.full_commit=function(){var r=this._wsif_ds_save(this.config.wsif_ds,this.config.wsif_ds_lock);if(!r)this.alert(this.i18n.WSIF_SAVE_FAIL);return r?this._save_to_file(true):false;};woas.cfg_commit=function(){if(this.config.wsif_ds.length!==this._old_wsif_ds_len){var r=this._wsif_ds_save(this.config.wsif_ds,this.config.wsif_ds_lock);if(!r)this.alert(this.i18n.WSIF_SAVE_FAIL);return r?this._save_to_file(true):false;}
+return this._save_to_file(true);};woas.commit=function(plist){var r=this._wsif_ds_save(this.config.wsif_ds,this.config.wsif_ds_lock,plist);if(!r)this.alert(this.i18n.WSIF_SAVE_FAIL);return r?this._save_to_file(true):false;};woas.commit_delete=function(plist){var r=this._wsif_ds_save(this.config.wsif_ds,this.config.wsif_ds_lock,[]);if(!r)this.alert(this.i18n.WSIF_SAVE_FAIL);return r?this._save_to_file(true):false;};woas.after_pages_saved=function(plist){if(typeof plist=="undefined"){this.save_queue=[];return;}
 for(var i=0,l=plist.length;i<l;i++){var p=this.save_queue.indexOf(plist[i]);if(p!==-1)
-this.save_queue.splice(p,1);}};woas.after_config_saved=function(){woas.cfg_changed=false;};woas.i18n={ACCESS_DENIED:"Access denied to the '%s' page.",ALT_BROWSER_INPUT:"Your browser does not allow the directory path to be read directly. Please specify the full path to the '%s' file.",ASK_MENU_LINK:"Do you want the menu to have a link to this page?",B64_REQ:" (requires %s due to base64 encoding)",CANCEL_EDITING:"Changes to this page will not be saved.",CONFIRM_OVERWRITE:"Page \"%s\" already exists. Overwrite it?",CONFIRM_DELETE:"Are you sure you want to DELETE the '%s' page?",CONFIRM_DELETE_ALL1:"You are about to ERASE all your pages.\n\nDo you want to continue?",CONFIRM_DELETE_ALL2:"This is the last confirmation needed before ERASING all your pages.\n\nALL YOUR PAGES WILL BE LOST\n\nAre you sure you want to continue?",CONFIRM_DELETE_IMAGE:"Are you sure you want to delete the '%s' image?",CONFIRM_EXPORT:"Export '%s' to the path specified below?",CONFIRM_LOCK:"Do you want to use the last password entered to lock the '%s' page? ",CONFIRM_LOCK_LAST:"The password was last used on the '%s' page.",CONFIRM_READ_ONLY:"You will have to manually edit the file to revert this change.\n\nAre you sure you want to set this WoaS as read-only?",CONFIRM_REMOVE_ENCRYPT:"Do you want to remove encryption from the '%s' page?",DELETE:"Delete page:",DELETE_FILE:"Delete embedded file",DELETE_IMAGE:"Delete embedded image",DELETE_PAGE_PROMPT:"Delete page:",DISPLAY_FULL_FILE:"Display full file",DUP_NS_ERROR:"Cannot duplicate into File:: or Image:: namespace!",EDITING:"Editing '%s'.",EMPTY_TITLE:"An empty title is not allowed.",EMPTY_NS:"/No pages in '%s' namespace./",ERR_MARKER:"'%s' marker not found!",ERR_NO_PWD:"No password set for decrypting the '%s' page.\nPlease click the key icon and enter a password.",ERR_PAGE_NS:"You cannot create a page as a namespace.",ERR_RESERVED_NS:"Namespace '%s' is reserved.",ERR_SEL_FILE:"A file must be selected.",ERR_VAR_MARKER:"Marker variable not found!",EXPORT_FILE:"Export file",EXPORT_IMAGE:"Export image",EXPORT_OK:"%d/%d pages exported successfully.",FAILED_ERASE:"Saving the erased WoaS has failed. Original content will be restored.",FILE_DISPLAY_LIMIT:"Only the first 1024 bytes are displayed.",FILE_SELECT_ERR:"A file must be selected.",FILE_SIZE:"File size",HEIGHT:"Height",IMPORT_INCOMPAT:"Incompatible version: %s",IMPORT_OLD_VER:"If this is a WoaS older than v0.9.6B, you should import it by using WoaS 0.11.x.",IMPORT_OK:"%s pages imported successfully (%d pages skipped)",IMPORT_UNRECON:"Unrecognized format.",INSERT_NEW:"Insert new page title",INVALID_ALIAS:"Invalid '%s' alias will be ignored.",INVALID_DATA:"Invalid collected data!",INVALID_PAGE:"Invalid %s page.",INVALID_TITLE:"Title cannot contain ':::' or any of these characters:\n# \" | < > [ ] { }",LAST_MODIFIED:"Last modified: ",LOADING:"Loading Wiki on a Stick...",LOAD_ERR:"Cannot load specified file.",MIME_TYPE:"Mime type",NO_ERROR:"No error",NO_JAVA:"It was not possible to use TiddlySaver Java applet nor direct Java saving.",NO_TIDDLY_SAVER:"The TiddlySaver Java applet was not available.",NOT_YET_IMPLEMENTED:"Feature not implemented yet.",PAGE_EXISTS:"A page with title '%s' already exists!",PAGE_NOT_EXISTS:"'%s' page does not exist.",PAGE_NOT_FOUND:"Page not found. Do you want to create it?",PRINT_MODE_WARN:"Sorry, you cannot browse the wiki while in print mode.",PWD_QUERY:"Please enter a password.",READ_ONLY:"This Wiki on a Stick is read-only.",SAVE_ERROR:"Unable to save the '%s' file.",SERVER_MODE:"This Wiki on a Stick is not a local file; changes can only be saved to a local copy of the wiki. Please save this file if you want to make changes.\n\n"+"None of the changes made to this copy of Wiki on a Stick will be saved.",STATIC_NOT_FOUND:"Static page '%s' not found!",TIDDLY_HELP:"Please check that TiddlySaver.jar is in the same directory as this WoaS and that you have enabled Java permissions for it.",TOO_LONG_TITLE:"Maximum title length is %d characters.",UNSPECIFIED_JAVA_ERROR:"Please check the Java console for errors regarding the last operation and check that it's not due to your browser/Java restrictions.",UNSUPPORTED_BROWSER:"Your browser might not be supported. Please report a bug with your UserAgent string:\n%s",WIDTH:"Width",WRITE_PROTECTED:"This Wiki on a Stick is already write-protected.",WSIF_BAD_HV:"Could not locate end of header value.",WSIF_NO_HN:"Could not locate header name.",WSIF_NO_VER:"Could not read WSIF version.",WSIF_NS_VER:"WSIF version %s is not supported!",CANNOT_LOCK_RESERVED:"You cannot lock a page in a reserved namespace.",CONTINUE_WAIT_LOAD:"The loading process seems stuck.\nPlease click OK to keep waiting or Cancel to break.",MODE_NOT_AVAIL:"File mode 0x%s is not available on this browser."};woas.i18n.common_words=['the','of','to','and','a','in','is','it','you','that','he','was','for','on','are','with','as','I','his','they','be','at','one','have','this','from','or','had','by','an','all'];woas.importer={pages_imported:0,total:0,_settings_props:["i_comment_js","i_comment_macros","i_woas_ns","i_config","i_styles","i_content"],_OVR_ID:6,i_config:true,i_styles:false,i_content:true,i_comment_js:true,i_comment_macros:true,i_woas_ns:true,i_overwrite:1,new_main_page:null,current_mts:null,pages:[],_reference:[],_plugins_update:[],_plugins_add:[],_update_css:false,_update_hotkeys:false,_update_aliases:false,_bootscript_code:"",_fix_mts_val:function(mts,old_version){if(old_version<100)
+this.save_queue.splice(p,1);}};woas.after_config_saved=function(){woas.cfg_changed=false;};woas.i18n={ACCESS_DENIED:"Access denied to the '%s' page.",ALT_BROWSER_INPUT:"Your browser does not allow the directory path to be read directly. Please specify the full path to the '%s' file.",ASK_MENU_LINK:"Do you want the menu to have a link to this page?",B64_REQ:" (requires %s due to base64 encoding)",CANCEL_EDITING:"Changes to this page will not be saved.",CONFIRM_OVERWRITE:"Page \"%s\" already exists. Overwrite it?",CONFIRM_DELETE:"Are you sure you want to DELETE the '%s' page?",CONFIRM_DELETE_ALL1:"You are about to ERASE all your pages.\n\nDo you want to continue?",CONFIRM_DELETE_ALL2:"This is the last confirmation needed before ERASING all your pages.\n\nALL YOUR PAGES WILL BE LOST\n\nAre you sure you want to continue?",CONFIRM_DELETE_IMAGE:"Are you sure you want to delete the '%s' image?",CONFIRM_EXPORT:"Export '%s' to the path specified below?",CONFIRM_LOCK:"Do you want to use the last password entered to lock the '%s' page? ",CONFIRM_LOCK_LAST:"The password was last used on the '%s' page.",CONFIRM_READ_ONLY:"You will have to manually edit the file to revert this change.\n\nAre you sure you want to set this WoaS as read-only?",CONFIRM_REMOVE_ENCRYPT:"Do you want to remove encryption from the '%s' page?",DELETE:"Delete page:",DELETE_FILE:"Delete embedded file",DELETE_IMAGE:"Delete embedded image",DELETE_PAGE_PROMPT:"Delete page:",DISPLAY_FULL_FILE:"Display full file",DUP_NS_ERROR:"Cannot duplicate into File:: or Image:: namespace!",EDITING:"Editing '%s'.",EMPTY_TITLE:"An empty title is not allowed.",EMPTY_NS:"/No pages in '%s' namespace./",ERR_MARKER:"'%s' marker not found!",ERR_NO_PWD:"No password set for decrypting the '%s' page.\nPlease click the key icon and enter a password.",ERR_PAGE_NS:"You cannot create a page as a namespace.",ERR_RESERVED_NS:"Namespace '%s' is reserved.",ERR_SEL_FILE:"A file must be selected.",ERR_VAR_MARKER:"Marker variable not found!",EXPORT_FILE:"Export file",EXPORT_IMAGE:"Export image",EXPORT_OK:"%d/%d pages exported successfully.",FAILED_ERASE:"Saving the erased WoaS has failed. Original content will be restored.",FILE_DISPLAY_LIMIT:"Only the first 1024 bytes are displayed.",FILE_SELECT_ERR:"A file must be selected.",FILE_SIZE:"File size",HEIGHT:"Height",IMPORT_INCOMPAT:"Incompatible version: %s",IMPORT_OLD_VER:"If this is a WoaS older than v0.9.6B, you should import it by using WoaS 0.11.x.",IMPORT_OK:"%s pages imported successfully (%d pages skipped)",IMPORT_UNRECON:"Unrecognized format.",INSERT_NEW:"Insert new page title",INVALID_ALIAS:"Invalid '%s' alias will be ignored.",INVALID_DATA:"Invalid collected data!",INVALID_PAGE:"Invalid %s page.",INVALID_TITLE:"Title cannot contain ':::' or any of these characters:\n# \" | < > [ ] { }",LAST_MODIFIED:"Last modified: ",LOADING:"Loading Wiki on a Stick...",LOAD_ERR:"Cannot load specified file.",MIME_TYPE:"Mime type",NO_ERROR:"No error",NO_JAVA:"It was not possible to use TiddlySaver Java applet nor direct Java saving.",NO_TIDDLY_SAVER:"The TiddlySaver Java applet was not available.",NOT_YET_IMPLEMENTED:"Feature not implemented yet.",PAGE_EXISTS:"A page with title '%s' already exists!",PAGE_NOT_EXISTS:"'%s' page does not exist.",PAGE_NOT_FOUND:"Page not found. Do you want to create it?",PRINT_MODE_WARN:"Sorry, you cannot browse the wiki while in print mode.",PWD_QUERY:"Please enter a password.",READ_ONLY:"This Wiki on a Stick is read-only.",SAVE_ERROR:"Unable to save the '%s' file.",SERVER_MODE:"This Wiki on a Stick is not a local file; changes can only be saved to a local copy of the wiki. Please save this file if you want to make changes.\n\n"+"None of the changes made to this copy of Wiki on a Stick will be saved.",STATIC_NOT_FOUND:"Static page '%s' not found!",TIDDLY_HELP:"Please check that TiddlySaver.jar is in the same directory as this WoaS and that you have enabled Java permissions for it.",TOO_LONG_TITLE:"Maximum title length is %d characters.",UNSPECIFIED_JAVA_ERROR:"Please check the Java console for errors regarding the last operation and check that it's not due to your browser/Java restrictions.",UNSUPPORTED_BROWSER:"Your browser might not be supported. Please report a bug with your UserAgent string:\n%s",WIDTH:"Width",WRITE_PROTECTED:"This Wiki on a Stick is already write-protected.",WSIF_BAD_HV:"Could not locate end of header value.",WSIF_NO_HN:"Could not locate header name.",WSIF_NO_VER:"Could not read WSIF version.",WSIF_NS_VER:"WSIF version %s is not supported!",WSIF_SAVE_FAIL:"Unable to save WSIF file with path given!\nCheck your data source setting in Special::Options",CANNOT_LOCK_RESERVED:"You cannot lock a page in a reserved namespace.",CONTINUE_WAIT_LOAD:"The loading process seems stuck.\nPlease click OK to keep waiting or Cancel to break.",MODE_NOT_AVAIL:"File mode 0x%s is not available on this browser."};woas.i18n.common_words=['the','of','to','and','a','in','is','it','you','that','he','was','for','on','are','with','as','I','his','they','be','at','one','have','this','from','or','had','by','an','all'];woas.importer={pages_imported:0,total:0,_settings_props:["i_comment_js","i_comment_macros","i_woas_ns","i_config","i_styles","i_content"],_OVR_ID:6,i_config:true,i_styles:false,i_content:true,i_comment_js:true,i_comment_macros:true,i_woas_ns:true,i_overwrite:1,new_main_page:null,current_mts:null,pages:[],_reference:[],_plugins_update:[],_plugins_add:[],_update_css:false,_update_hotkeys:false,_update_aliases:false,_bootscript_code:"",_fix_mts_val:function(mts,old_version){if(old_version<100)
 return this.current_mts;if(!mts)
 return 0;if((old_version===100)||(old_version===101)){if(mts===0x4b61cbad)
 mts=0;}
@@ -5010,8 +4992,7 @@ this.progress_status(done/l);record="";}
 if(full_save||single_wsif)
 extra+=this.wsif.header('woas.pages',done);else
 extra+=this.wsif.header('woas.pages',page_titles.length);if(!full_save&&!single_wsif){for(pi=0,pl=page_titles.length;pi<pl;++pi){full_wsif+=this.wsif.header(pfx+"title",this.ecma_encode(page_titles[pi]));full_wsif+=this.wsif.header(pfx+"encoding","text/wsif");full_wsif+=this.wsif.header(pfx+"disposition","external");full_wsif+=this.wsif.header(pfx+"disposition.filename",pi.toString()+".wsif")+"\n";}}
-if(!this.save_file(path+src_fname,this.file_mode.ASCII_TEXT,extra+"\n"+full_wsif)){if(single_wsif)
-done=0;}
+if(done&&!this.save_file(path+src_fname,this.file_mode.ASCII_TEXT,extra+"\n"+full_wsif)){done=0;}
 if(locking)
 this.lock.release(path+src_fname);this.progress_finish();return done;};woas._wsif_ds_load=function(subpath,locking){pages=[];page_attrs=[];page_titles=[];page_mts=[];return this._native_wsif_load(woas.ROOT_DIRECTORY+subpath,locking,true,0,this.importer._inject_import_hook);};woas._native_wsif_load=function(path,locking,_native,recursing,import_hook,title_filter_hook,finalization_hook){if(!recursing){this.wsif.emsg=null;this.progress_init("Initializing WSIF import");}
 var ct;if(this._server_mode&&(this.config.wsif_ds.length!==0))
@@ -5019,6 +5000,7 @@ ct=this.remote_load(path);else
 ct=this.load_file(path,this.file_mode.ASCII_TEXT);if(typeof ct!="string"){if(!recursing)
 this.progress_finish();if(ct===false)
 this.alert(this.i18n.LOAD_ERR);return false;}
+if(path){var pos=path.lastIndexOf('/')+1||path.lastIndexOf('\\')+1;if(pos)path=path.substring(0,pos);}
 if(!recursing){this.wsif.expected_pages=null;this.wsif.emsg=this.i18n.NO_ERROR;this.wsif.imported=[];this.wsif.global_progress=0;this.wsif.generator={version:null,name:null};}
 var pfx="\nwoas.page.",pfx_len=pfx.length;var p=ct.indexOf(pfx),fail=false,previous_h=null;if(p===-1)
 this.wsif.do_error("Invalid WSIF file");else{var wsif_v=ct.substring(0,p).match(/^wsif\.version:\s+(.+)$/m);if(wsif_v===null){this.wsif.do_error(this.i18n.WSIF_NO_VER);p=-1;fail=true;}else{wsif_v=wsif_v[1];var wsif_v_n=this._normver(wsif_v);if((wsif_v_n==100)||(wsif_v_n>this._normver(this.wsif.version))){this.wsif.do_error(this.i18n.WSIF_NS_VER.sprintf(wsif_v));p=-1;fail=true;}else{if(!recursing){this.wsif.expected_pages=ct.substring(0,p).match(/^woas\.pages:\s+(\d+)$/m);if(this.wsif.expected_pages!==null)
@@ -5059,14 +5041,14 @@ page=this.base64.decode(page);break;case"ecma/plain":page=this.ecma_decode(page)
 if(len!==null){if(len!=check_len)
 woas.log("Length mismatch for page %s: ought to be %d but was %d".sprintf(title,len,check_len));}
 break;case"external":if(d_fn===null){this.wsif.do_error("Page "+title+" is external but no filename was specified");return false;}
-var the_dir;if(path===null){the_dir=this._get_path("filename_");if(the_dir===false){this.wsif.do_error("Cannot retrieve path name in this browser");return false;}}else{this.wsif.do_error("Recursive WSIF import not implemented");return false;}
+if(path===null){path=this._get_path("filename_");if(path===false){this.wsif.do_error("Cannot retrieve path name in this browser");return false;}}
 if((attrs&4)||(attrs&8)){if(encoding!=="8bit/plain"){this.wsif.do_error("Page "+title+" is an external file/image but not encoded as 8bit/plain");return false;}
 var wanted_mode;if((attrs&4)&&(attrs&8))
 wanted_mode=this.file_mode.DATA_URI;else if(attrs&4)
 wanted_mode=this.file_mode.BASE64;else
-wanted_mode=this.file_mode.BINARY;page=this.load_file(the_dir+d_fn,wanted_mode,mime);if(typeof page!="string"){this.wsif.do_error("Failed load of external "+the_dir+d_fn);return false;}}else{if(encoding!="text/wsif"){this.wsif.do_error("Page "+title+" is external but not encoded as text/wsif");return false;}
-var rv=this._native_wsif_load(the_dir+d_fn,locking,_native,1,import_hook,title_filter_hook);if(rv===false)
-this.wsif.do_error("Failed import of external "+the_dir+d_fn);return rv;}
+wanted_mode=this.file_mode.BINARY;page=this.load_file(path+d_fn,wanted_mode,mime);if(typeof page!="string"){this.wsif.do_error("Failed load of external "+path+d_fn);return false;}}else{if(encoding!="text/wsif"){this.wsif.do_error("Page "+title+" is external but not encoded as text/wsif");return false;}
+var rv=this._native_wsif_load(path+d_fn,locking,_native,1,import_hook,title_filter_hook);if(rv===false)
+this.wsif.do_error("Failed import of external "+path+d_fn);return rv;}
 break;default:this.wsif.do_error("Page "+title+" has invalid disposition: "+disposition);return false;}
 var NP={"title":title,"attrs":attrs,"body":page,"mts":last_mod};if(import_hook(NP)){this.wsif.imported.push(NP.i);return true;}
 return false;};function bool2chk(b){woas.log("WARNING: Called deprecated function: bool2chk (now woas.bool2chk)");woas.bool2chk(b);}
@@ -5183,7 +5165,8 @@ css_payload="div.woas_toc { position: relative; left:25%; right: 25%;}";}else
 css_payload="div.woas_toc { margin: 0 auto;}\n";if(additional_js.length)
 additional_js=woas.raw_js(additional_js);return woas.popup("print_popup",Math.ceil(screen.width*0.75),Math.ceil(screen.height*0.75),",status=yes,menubar=yes,resizable=yes,scrollbars=yes","<"+"title>"+page_title+"<"+"/title>"+"<"+"style type=\"text/css\">"
 +css_payload+woas.css.get()+additional_css+"<"+"/sty"+"le>"+additional_js,page_body,body_extra);};woas.export_wiki_wsif=function(){var path,fname,author,single_wsif,inline_wsif,all_wsif,done;try{path=d$("woas_ep_wsif").value;fname=d$('woas_ep_fname').value;author=this.trim(d$("woas_ep_author").value);single_wsif=d$("woas_cb_multi_wsif").checked?false:true;inline_wsif=d$("woas_cb_linked_wsif").checked?false:true;all_wsif=d$("woas_cb_all_wsif").checked?true:false;}catch(e){this.crash(e);return false;}
-done=this._native_wsif_save(path,fname,false,single_wsif,inline_wsif,author,all_wsif);this.alert(this.i18n.EXPORT_OK.sprintf(done,this.wsif.expected_pages));return true;};function ff3_getPath(fileBrowser){try{netscape.security.PrivilegeManager.enablePrivilege("UniversalXPConnect");}catch(e){alert('Unable to access local files due to browser security settings. '
+done=this._native_wsif_save(path,fname,false,single_wsif,inline_wsif,author,all_wsif);if(done){this.alert(this.i18n.EXPORT_OK.sprintf(done,this.wsif.expected_pages));}else{this.alert(this.i18n.SAVE_ERROR.sprintf(fname));}
+return true;};function ff3_getPath(fileBrowser){try{netscape.security.PrivilegeManager.enablePrivilege("UniversalXPConnect");}catch(e){alert('Unable to access local files due to browser security settings. '
 +'To overcome this, follow these steps: (1) Enter "about:config" in the URL field; '+'(2) Right click and select New->Boolean; (3) Enter "signed.applets.codebase_principal_support" '+'(without the quotes) as a new preference name; (4) Click OK and try loading the file'+' again.');return false;}
 var fileName=fileBrowser.value;return fileName;}
 woas.popup=function(name,fw,fh,extra,head,body,body_extra){if(typeof body_extra=="undefined")
