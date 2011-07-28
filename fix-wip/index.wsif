@@ -256,14 +256,11 @@ Create a link to newly created pages in main menu: <select id="sel_menu_link" on
 <label for="cb_store_mts"><input type="checkbox" id="cb_store_mts" onclick="woas.config.store_mts = d$.checked('cb_store_mts')" />Store and display last modified timestamp</label>
 <label for="cb_rem_history"><input type="checkbox" id="cb_rem_history" onclick="woas.config.nav_history = d$.checked('cb_rem_history')" />Store current page and navigation history</label>
 == Data source
-Pages are stored internally if the WSIF data source is blank. *Existing internal pages will be lost if WSIF data source is changed from blank to an external source!*
+Pages are stored internally if /WSIF data source/ is blank. *Existing internal pages will be lost on next save if /WSIF data source/ is changed from blank to an external source!*
 
 If the /Use multiple files in WSIF data source/ option is being used (creating one WSIF file for each page) then disabling the option will not remove existing WSIF files, though the WSIF data source file will be overwritten with the full page content.
 
-<style>
-#txt_wsif_ds {margin-bottom: .25em}
-</style>
-Relative path to WSIF data source, including file name: <input id="txt_wsif_ds" type="text" size="60" value="" onchange="woas.config.wsif_ds=this.value" />
+<div style="text-align:left;display:inline-block">Relative path to WSIF data source, including file name:  </div><input id="txt_wsif_ds" type="text" size="60" value="" onchange="woas.config.wsif_ds=this.value" style="margin-bottom: .25em" />
 <label for="cb_wsif_ds_multi"><input type="checkbox" id="cb_wsif_ds_multi" onclick="woas.config.wsif_ds_multi = d$.checked('cb_wsif_ds_multi')" />Use multiple files in WSIF data source</label>
 
 WSIF author: <input id="txt_author" type="text" size="30" value="" onchange="woas.config.wsif_author=this.value" />
