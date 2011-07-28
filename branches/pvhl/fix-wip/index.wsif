@@ -2,7 +2,7 @@ wsif.version: 1.3.1
 wsif.generator: woas
 wsif.generator.version: 0.12.0
 woas.author: Anonymous
-woas.pages: 89
+woas.pages: 87
 
 woas.page.title: ::Menu
 woas.page.attributes: 0
@@ -136,7 +136,7 @@ This project wouldn't be what it is without the help of other people. If you con
 * [[http://testconsultant.blogspot.com/|Jeroen Rosink]] - testing of WoaS releases
 
 == Important links
-* [[http://sf.net/projects/stickwiki/|SourceForge project home page]] - useful for contributing.
+* [[http://sf.net/projects/stickwiki/|SourceForge project home page]] - useful for getting the latest files and contributing to the project.
 * [[http://woas.iragan.com/|Official WoaS forums]] - our discussion forums where you can also participate in the decision processes
 * [[http://sourceforge.net/tracker/?group_id=155218&atid=794925|SF.net WoaS project bug tracker]] - if you find a bug, post it here
 * [[http://sourceforge.net/tracker/?group_id=155218&atid=794928|SF.net WoaS project feature tracker]] - if you have have a suggestion for improvement, post it here
@@ -268,7 +268,7 @@ Path may be entered in Windows or UNIX style. *Any directories in the path must 
 WSIF author: <input id="txt_author" type="text" size="30" value="" onchange="woas.config.wsif_author=this.value" />
 <div id="woas_read_only_div">
 == Permanent changes
-<p>&nbsp;&nbsp;<input class="woas_button" type="button" onclick="ro_woas()" value="Prevent edits" />&nbsp;&nbsp;/Caution: to re-enable editing you will have to manually edit WoaS/</p>
+<p>&nbsp;&nbsp;<input class="woas_button" type="button" onclick="ro_woas()" value="Prevent edits" />&nbsp;&nbsp;/Caution: to re-enable editing you will have to manually edit this WoaS file/</p>
 </div>
 <input class="woas_button_top" type="button" onclick="save_options()" value="Save options" />
 <script type="text/javascript">
@@ -310,7 +310,82 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 = Deprecated syntax
 
-A summary of WoaS deprecated syntax; you are invited to _no more_ use deprecated syntax which is still supported because they will be declared /unsupported/ in some future release of WoaS.<style type="text/css">
+A summary of WoaS deprecated syntax; you should not use deprecated syntax because it will be declared /unsupported/ in a future release of WoaS. The red examples demonstrate deprecated syntax and the green examples demonstrate syntax currently accepted by the wiki.
+== Headings
+
+Headings using exclamation marks are deprecated:<span class="bad_syntax">{{{
+! Heading level 1
+!! Heading level 2
+!!! Heading level 3
+!!!! Heading level 4
+!!!!! Heading level 5
+!!!!!! Heading level 6
+}}}</span>
+Headings using equal signs are accepted:<span class="good_syntax">{{{
+= Heading level 1
+== Heading level 2
+=== Heading level 3
+==== Heading level 4
+===== Heading level 5
+====== Heading level 6
+}}}</span>
+== Inline scripts
+
+HTML script tags with no type attribute are not supported:<span class="bad_syntax">{{{
+<span class="bad_syntax">
+}}}</span>HTML script tags with the *text/javascript* type attribute are accepted:<span class="good_syntax">{{{
+<script type="text/javascript">...</script>
+}}}</span>This is not enforced by WoaS wiki parser but is instead a correct XHTML practice.
+== Lists
+Unordered lists using plus signs are not supported:<span class="bad_syntax">{{{
++ unordered list item
++ unordered list item
++ unordered list item
+}}}</span>
+Unordered lists using asterisks are accepted:<span class="good_syntax">{{{
+* unordered list item
+* unordered list item
+* unordered list item
+}}}</span>
+== Pre tags
+
+HTML pre tags surrounding raw or preformatted text are not supported:<span class="bad_syntax">{{{
+<pre>raw or preformatted text</pre>
+}}}</span>
+Nowiki brackets surrounding raw or preformatted text are accepted:<span class="good_syntax"><pre style="background-color: #F5F5F5; border: 0.063em solid grey; font-family: monospace; padding-right: 0.27em; padding-left: 0.4em;">{<!-- -->{{raw or preformatted text}}<!-- -->}
+
+{<!-- -->{{
+raw or preformatted text
+}}<!-- -->}</pre></span>
+== Rulers
+
+Horizontal rules using 3 hyphens are deprecated:<span class="bad_syntax">{{{
+---
+}}}</span>
+Horizontal rules using 4 or more hyphens are accepted:<span class="good_syntax">{{{
+----
+}}}</span>
+== Tags
+=== Single tags
+
+Tags in the [[Tagged::]] and [[Tags::]] [[WoaS::Help::Namespaces|namespace]] are deprecated:<span class="bad_syntax">{{{
+[[Tagged::some tag]]
+[[Tags::some tag]]
+}}}</span>
+Tags in the [[Tag::]] namespace are accepted:<span class="good_syntax">{{{
+[[Tag::some tag]]
+}}}</span>
+=== Multiple tags
+
+Tags separated by pipes in the [[Tag::]], [[Tagged::]], or [[Tags::]] namespace are deprecated:<span class="bad_syntax">{{{
+[[Tag::some tag|other tag|another tag]]
+[[Tagged::some tag|other tag|another tag]]
+[[Tags::some tag|other tag|another tag]]
+}}}</span>
+Tags separated by commas in the [[Tag::]] namespace are accepted:<span class="good_syntax">{{{
+[[Tag::some tag, other tag, another tag]]
+}}}</span>
+<style type="text/css">
 .bad_syntax {
   color: red;
   font-weight: bold;
@@ -320,47 +395,6 @@ A summary of WoaS deprecated syntax; you are invited to _no more_ use deprecated
   font-weight: bold;
 }
 </style>
-== Lists
-
-Lists with '+ sign are *unsupported*.
-<span class="bad_syntax">{{{
-+ unordered lists with + sign
-+ unordered lists with + sign
-}}}</span>
-<span class="good_syntax">{{{
-* unordered lists with an asterisk
-* unordered lists with an asterisk
-}}}</span>
-== Headings
-<span class="bad_syntax">{{{! headings using the exclamation mark}}}</span>
-
-<span class="good_syntax">{{{= heading which uses the equal sign}}}</span>
-== Pre tags
-{{{<pre />}}} acting as nowiki blocks are *unsupported*. Now {{{<pre />}}} tags have no special meaning and are treated as any other XHTML tag.
-
-<span class="bad_syntax">Pre tags acting as &lt;pre&gt;nowiki&lt;pre &#047;&gt; blocks.</span>
-
-<span class="good_syntax">You should use {<!-- -->{{nowiki}}<!-- -->} blocks instead.</span>
-== Rulers
-<span class="bad_syntax">{{{---
-horizontal rulers using only 3 hyphens}}}</span>
-
-<span class="good_syntax">{{{----
-You are invited to use at least 4 hyphens
-}}}
-== Tags
-<span class="bad_syntax">{{{[[Tag::some tag|other tag|another tag]]}}}</span>
-This syntax does not support transclusion of Tagged:: namespace; still supported but deprecated.
-
-<span class="good_syntax">{{{[[Tag::some tag, some other tag]] and [[Tag::some tag]]}}}</span>
-
-== Inline scripts
-<span class="bad_syntax">{{{<script>...</script>}}}</span>
-
-<span class="good_syntax">{{{<script type="text/javascript">...</script>}}}</span>
-
-This is not enforced by WoaS wiki parser but is instead a correct XHTML practice.
-
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Special::Options
 woas.page.attributes: 0
@@ -842,7 +876,7 @@ When browsing the pages in this Help pop-up, you will find an *Index* button in 
 ** [[WoaS::Help::Requirements]]
 * *Online use*
 ** [[WoaS::Help::Publish wiki online]]
-** [[WoaS::Help::Run wiki on a webserver]]
+** [[WoaS::Help::Run wiki on a web server]]
 * *Page management*
 ** [[WoaS::Help::Create a page]]
 ** [[WoaS::Help::Delete a page]]
@@ -1391,73 +1425,6 @@ Rulers (horizontal rules or lines) use the full width of the page by default. Th
 </div></center>
 
 --DFQRCTsKlU
-woas.page.title: WoaS::Help::Include text file
-woas.page.attributes: 0
-woas.page.encoding: 8bit/plain
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-= Include text file
-<div class="woas_helptext">Use this code in a page, replacing PATH with the full path to the file:</div><br>{{{
-<iframe height="400" width="100%" src="file:///PATH"></iframe>
-}}}<br><div class="woas_helptext">To include a text file in the page inside an iFrame.</div>
-* *Linux example:*<br><br>{{{
-<iframe height="400" width="100%" src="file:///home/username/Desktop/file.txt"></iframe>
-}}}<br>
-* *Windows example:*<br><br>{{{
-<iframe height="400" width="100%" src="file:///C:/Users/Username/Documents/file.txt"></iframe>
-}}}
-
---DFQRCTsKlU
-woas.page.title: WoaS::Help::Include web page
-woas.page.attributes: 0
-woas.page.encoding: 8bit/plain
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-= Include web page
-Web pages can be included in a page as embedded objects or in iFrames.
-
-[[Include::WoaS::Template::Info|Some pages may not render correctly depending on how they're coded. Embedding more than one web page in a wiki page will cause the final embedded web page to steal the focus when the page is loaded, so it's recommended to have only one per page.]]
-== Embed a web page as an object
-This method makes the embedded web page become a seamless part of the page.
-
-* *Embed a local HTML file as an object:*<br><br>
-** <div class="woas_helptext">Use this code in a page, replacing PATH with the full path to the HTML file you wish to include, and changing the width and height to suit your taste:</div><br>{{{
-<object data="PATH" style="width:100%; height:630px;">File not found.</object>
-}}}<br><div class="woas_helptext">To embed a local HTML file in a page.</div><br>
-*** For example, if you want to embed the {{{/Work/MyProject.html}}} file as an object, you'd use this command:<br><br>{{{
-<object data="/Work/MyProject.html" style="width:100%; height:630px;">File not found.</object>
-}}}<br><br>
-* *Embed a remote URL as an object:*<br><br>
-** <div class="woas_helptext">Use this code in a page, replacing URL with the URL of the page you wish to include, and changing the width and height to suit your taste:</div><br>{{{
-<object data="URL" style="width:100%; height:630px;">URL not found.</object><
-}}}<br><div class="woas_helptext">To embed an external URL in a page.</div><br>
-*** For example, if you want to embed the WoaS official website at {{{http://stickwiki.sf.net/}}} as an object, you'd use this command:<br><br>{{{
-<object data="http://stickwiki.sf.net/" style="width:100%; height:630px;">URL not found.</object>
-}}}
-
-== Embed a web page in an iFrame
-This method creates a frame around the embedded web page. The code shown below is for a plain frame, but you can style the iFrame further by adding a border, changing the border style to dotted, dashed, solid, double, groove, ridge, inset, or outset, changing the border width to whatever thickness you like, and the border color to whatever color you like.
-
-* *Embed a local HTML file in an iFrame:*<br><br>
-** <div class="woas_helptext">Use this code in a page, replacing PATH with the full path to HTML file you wish to include, and changing the width and height to suit your taste:</div><br>{{{
-<iframe height="400" width="100%" height:630px; src="PATH"></iframe>
-}}}<br><div class="woas_helptext">To include a local HTML file in a wiki page.</div><br>
-*** For example, if you want to embed the {{{/Work/MyProject.html}}} file in an iFrame, you'd use this command:<br><br>{{{
-<iframe height="400" width="100%" height:630px; src="/Work/MyProject.html"></iframe>
-}}}<br><br>
-* *Embed a remote URL in an iFrame:*<br><br>
-** <div class="woas_helptext">Use this code in a page, replacing URL with the URL of the page you wish to include, and changing the width and height to suit your taste:</div><br>{{{
-<iframe height="400" width="100%" height:630px; src="URL"></iframe>
-}}}<br><div class="woas_helptext">To include a web page in a wiki page.</div><br>
-*** For example, if you want to embed the WoaS official website at {{{http://stickwiki.sf.net/}}} in an iFrame, you'd use this command:<br><br>{{{
-<iframe height="400" width="100%" height:630px; src="http://stickwiki.sf.net/"></iframe>
-}}}
-
---DFQRCTsKlU
 woas.page.title: WoaS::Help::Include wiki page
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
@@ -1810,15 +1777,15 @@ This wiki can be published online as a single-file, framed web page by making it
 To enable wiki editing again, see the [[WoaS::Help::Wiki is read-only]] page.
 
 --DFQRCTsKlU
-woas.page.title: WoaS::Help::Run wiki on a webserver
+woas.page.title: WoaS::Help::Run wiki on a web server
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Run wiki on a webserver
-Wiki on a Stick is a client software not designed to be used on a webserver; WoaS will anyway recognize that it is being run from a webserver and prevent save operations with an appropriate user message informing about the impossibility to save permanent changes.
+= Run wiki on a web server
+Wiki on a Stick is a client software not designed to be used on a web server; WoaS will anyway recognize that it is being run from a web server and prevent save operations with an appropriate user message informing about the impossibility to save permanent changes.
 == Server integration
 WoaS 1.0 will offer an API to allow server-side integrations.
 --DFQRCTsKlU
@@ -3535,7 +3502,7 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Exporting into XHTML static pages
-Your WoaS pages can be exported into web-compatible XHTML, CSS and eventually attachment files/images; generated pages do not use JavaScript for rendering and can be efficiently cached by webservers.
+Your WoaS pages can be exported into web-compatible XHTML, CSS and eventually attachment files/images; generated pages do not use JavaScript for rendering and can be efficiently cached by web servers.
 
 # Access [[Special::Export]] directly or either from [[Special::Advanced#Maintenance]]
 # Modify the export directories if necessary
