@@ -229,10 +229,17 @@ woas._native_wsif_save = function(path, src_fname, locking, single_wsif, inline_
 		}
 	}
 	// output the index WSIF file now
-	if (!this.save_file(path+src_fname,
+/**
+PVHL: need to quickly fix (with minimal side-effects) a really bad bug in saving to a bad data source.
+if done == 0 here then there has been a failure in saving; blob failure will pass though -- this is
+a separate bug that needs to be fixed as well; I am not addressing that bug at this time.
+So: if !done don't save index. return value of 0 signals save failed; this is used to stop a save
+of the html file -- otherwise a bad data source value wipes out the wiki.
+*/
+	if (done && !this.save_file(path+src_fname,
 						this.file_mode.ASCII_TEXT,
 						extra + "\n" + full_wsif)) {
-		if (single_wsif)
+		//if (single_wsif) - needs to be for any save type
 			done = 0;
 	} // we do not increment page counter when saving index.wsif
 	
@@ -241,7 +248,7 @@ woas._native_wsif_save = function(path, src_fname, locking, single_wsif, inline_
 		this.lock.release(path+src_fname);
 	
 	this.progress_finish();
-	return done;
+	return done; // PVHL: if 0 save failed
 };
 
 woas._wsif_ds_load = function(subpath, locking) {

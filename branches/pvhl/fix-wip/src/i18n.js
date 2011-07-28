@@ -75,6 +75,7 @@ woas.i18n = {
 	WSIF_NO_HN: "Could not locate header name.",
 	WSIF_NO_VER: "Could not read WSIF version.",
 	WSIF_NS_VER: "WSIF version %s is not supported!",
+	WSIF_SAVE_FAIL: "Unable to save WSIF file with path given!\nCheck your data source setting in Special::Options",
 	CANNOT_LOCK_RESERVED: "You cannot lock a page in a reserved namespace.",
 	CONTINUE_WAIT_LOAD: "The loading process seems stuck.\nPlease click OK to keep waiting or Cancel to break.",
 	MODE_NOT_AVAIL: "File mode 0x%s is not available on this browser."

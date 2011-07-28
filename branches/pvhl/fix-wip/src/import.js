@@ -634,7 +634,7 @@ woas.import_wiki = function() {
 	
 	// always save if we have erased the wiki
 	if ((this.importer.i_overwrite === 0) || rv)
-		this.full_commit();
+		this.full_commit(); // PVHL: this could have failed!
 
 	if (rv) {
 		this.refresh_menu_area();
@@ -717,7 +717,7 @@ woas.import_wiki_wsif = function() {
 	} else {
 		// always save if we have erased the wiki
 		if (this.importer.i_overwrite === 0)
-			this.full_commit();
+			this.full_commit(); // PVHL: this could have failed!
 	}
 
 	return done;
