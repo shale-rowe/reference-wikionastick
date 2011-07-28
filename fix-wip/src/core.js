@@ -138,7 +138,7 @@ woas.cmd_erase_wiki = function() {
 	if (this.erase_wiki()) {
 		if (!this.full_commit())
 			this.alert(this.i18n.FAILED_ERASE);
-		// reload page because all data is lost - works in IE6
+		// reload page because all data is lost - works even in IE6
 		window.location = window.location;
 		//back_or(this.config.main_page);
 	}
