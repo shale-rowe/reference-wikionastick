@@ -106,24 +106,45 @@ woas.lock = {
 	}
 };
 
-// PVHL: changed parameter list to match calls; though disabled should still match
+// PVHL: if 0 returned then save failed
 woas._wsif_ds_save = function(subpath, ds_lock, plist) {
 	// if we have a native sub-path, trigger the WSIF datasource save
 	if (subpath.length === 0)
-		return;
+		return -1; // this will test true
 	// always save in the root directory
-	// code disabled since we always save the full backup
-//	if (typeof plist != "undefined" )
-//		done = this._native_wsif_save(path,	subpath, true, true, "", true, plist); else
-	this._native_wsif_save(woas.ROOT_DIRECTORY, subpath, this.config.wsif_ds_lock,
+	// plist not being used yet
+/**
+PVHL: the option page has always stated that a relative path can be entered
+for the WSIF data source -- as the argument 'subpath' suggests -- so we can't
+just save to rootdirectory. The original code saved the index file to the
+subpath, and multiple-WSIF files to the root!
+*/
+	var fname, pos;
+	// convert to unix path for processing
+	subpath = subpath.replace(/\\/g, '/');
+	pos = subpath.lastIndexOf('/') + 1;
+	if (pos) {
+		fname = subpath.substring(pos);
+		subpath = woas.ROOT_DIRECTORY + subpath.substring(0, pos);
+	}  else {
+		fname = subpath;
+		subpath  = woas.ROOT_DIRECTORY;
+	}
+	if (is_windows) {
+		// convert unix path to windows path
+		subpath = subpath.replace(/\//g, '\\');
+	}
+	return this._native_wsif_save(subpath, fname, this.config.wsif_ds_lock,
 							!this.config.wsif_ds_multi,	!this.config.wsif_ds_multi,
 							this.config.wsif_author, true);
 };
 
 //API1.0: save all pages
 woas.full_commit = function() {
-	this._wsif_ds_save(this.config.wsif_ds, this.config.wsif_ds_lock);
-	return this._save_to_file(true);
+	var r = this._wsif_ds_save(this.config.wsif_ds, this.config.wsif_ds_lock);
+	// PVHL: don't save html if wsif save failed (added to all commit functions)
+	if (!r) this.alert(this.i18n.WSIF_SAVE_FAIL);
+	return r ? this._save_to_file(true) : false;
 };
 
 //API1.0: save WoaS configuration
@@ -132,10 +153,13 @@ woas.full_commit = function() {
 //   changes exist in file, they don't exist in DOM and so are lost in config only save.
 //   I'm not interested in finding & fixing as WoaS should be saving layout from a page.
 //   Quick fix is to disable config-only save and save everything every time.
+//   Was: return this._save_to_file(false);
 woas.cfg_commit = function() {
-	if (this.config.wsif_ds.length !== this._old_wsif_ds_len)
-		this._wsif_ds_save(this.config.wsif_ds, this.config.wsif_ds_lock);
-	//return this._save_to_file(false);
+	if (this.config.wsif_ds.length !== this._old_wsif_ds_len) {
+		var r = this._wsif_ds_save(this.config.wsif_ds, this.config.wsif_ds_lock);
+		if (!r) this.alert(this.i18n.WSIF_SAVE_FAIL);
+		return r ? this._save_to_file(true) : false;
+	}
 	return this._save_to_file(true);
 };
 
@@ -143,18 +167,20 @@ woas.cfg_commit = function() {
 // plist is a list of page indexes which need to be saved
 // Currently just saving all the pages.
 woas.commit = function(plist) {
-	this._wsif_ds_save(this.config.wsif_ds, this.config.wsif_ds_lock, plist);
+	var r = this._wsif_ds_save(this.config.wsif_ds, this.config.wsif_ds_lock, plist);
+	if (!r) this.alert(this.i18n.WSIF_SAVE_FAIL);
 	// performs full save, while the single page + global header could be saved instead
-	return this._save_to_file(true);
+	return r ? this._save_to_file(true) : false;
 };
 
 //API1.0: delete specific list of pages
 // plist is a list of page indexes which need to be saved (not allowed to be empty)
 woas.commit_delete = function(plist) {
 	// update only the native WSIF index (leaves back deleted pages)
-	this._wsif_ds_save(this.config.wsif_ds, this.config.wsif_ds_lock, []);
+	var r = this._wsif_ds_save(this.config.wsif_ds, this.config.wsif_ds_lock, []);
+	if (!r) this.alert(this.i18n.WSIF_SAVE_FAIL);
 	// performs full save, while the single page + global header could be saved instead
-	return this._save_to_file(true);
+	return r ? this._save_to_file(true) : false;
 };
 
 //API1.0: event called after some page is being saved

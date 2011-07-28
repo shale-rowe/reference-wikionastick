@@ -682,8 +682,11 @@ woas.export_wiki_wsif = function () {
 	} catch (e) { this.crash(e); return false; }
 	
 	done = this._native_wsif_save(path, fname, false, single_wsif, inline_wsif, author, all_wsif);
-
-	this.alert(this.i18n.EXPORT_OK.sprintf(done, this.wsif.expected_pages));
+	if (done) {
+		this.alert(this.i18n.EXPORT_OK.sprintf(done, this.wsif.expected_pages));
+	} else {
+		this.alert(this.i18n.SAVE_ERROR.sprintf(fname));
+	}
 	return true;
 };
 
