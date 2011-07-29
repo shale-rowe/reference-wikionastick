@@ -583,26 +583,19 @@ Retrieved from [[http://www.gnu.org/licenses/gpl2.txt]]:\n\
 \x3Ciframe border="0" width="100%" height="300" src="http://www.gnu.org/licenses/gpl2.txt"\x3E\x3C/iframe\x3E',
 '# all lines not starting with \'$\' are ignored\n\
 $JS  Javascript',
-'= Export into WSIF format\n\
-\n\
-See also [[WoaS::Help::WSIF]].\n\
-\n\
+'= Export to WSIF format\n\
+/See Help for information on WSIF files./\n\
 == Destination path\n\
-Path and filename for the exported WSIF file(s).  Filename is the name of the page index file if /\'Export as multiple WSIF files\'/ is selected.\n\
+*Directory path must exist if using a non-Mozilla browser*.\n\
 \n\
-*Please note:* Directory path must exist if using a non-Mozilla browser.\n\
+Path and filename for the exported WSIF file(s). Filename is the name of the page index file if /\'Export as multiple WSIF files\'/ is selected.\n\
 \n\
-\x3Cinput id="woas_ep_wsif" type="text" size="80" /\x3E&nbsp;&nbsp;\x3Cinput id="woas_ep_fname" type="text" size="40" /\x3E\n\
-\n\
+\x3Cinput id="woas_ep_wsif" type="text" size="60" /\x3E&nbsp;&nbsp;\x3Cinput id="woas_ep_fname" type="text" size="20" /\x3E\n\
 == File generation Options\n\
-\n\
-{|class="woas_file_options"\n\
-| \x3Cinput type="checkbox" id="woas_cb_multi_wsif" /\x3E || \x3Clabel for="woas_cb_single_wsif"\x3EExport as multiple WSIF files (instead of saving all pages to a single wsif file)\x3C/label\x3E\n\
-| \x3Cinput type="checkbox" id="woas_cb_linked_wsif" /\x3E || \x3Clabel for="woas_cb_blobs_wsif"\x3EExport embedded files as linked binary files (instead of keeping embedded content inside the wsif file)\x3C/label\x3E\n\
-|\x3Cinput type="checkbox" id="woas_cb_all_wsif"\x3E \x3Clabel for="woas_cb_all_wsif" /\x3E || Include ALL pages from this WoaS (instead of only user created pages)\x3C/label\x3E\n\
-|}\n\
+\x3Cinput type="checkbox" id="woas_cb_multi_wsif" class="woas_cb" /\x3E\x3Clabel for="woas_cb_single_wsif" class="woas_cb"\x3EExport as multiple WSIF files (instead of saving all pages to a single wsif file)\x3C/label\x3E\\\n\
+\x3Cinput type="checkbox" id="woas_cb_all_wsif" class="woas_cb"\x3E\x3Clabel for="woas_cb_all_wsif" /\x3EInclude ALL pages from this WoaS (instead of only user created pages)\x3C/label\x3E\n\
 == Other options\n\
-Author: \x3Cinput id="woas_ep_author" type="text" size="12" value="Anonymous" /\x3E\n\
+Author: \x3Cinput id="woas_ep_author" type="text" size="30" value="Anonymous" /\x3E\n\
 \x3Cinput class="woas_button_top" type="button" value="Export WSIF" onclick="woas.export_wiki_wsif()" /\x3E\n\
 \x3Cscript type="text/javascript"\x3E\n\
 var path = woas.ROOT_DIRECTORY + "wsif" + woas.DIRECTORY_SEPARATOR;\n\
@@ -611,10 +604,7 @@ d$(\'woas_ep_fname\').value = woas.wsif.DEFAULT_INDEX;\n\
 d$(\'woas_ep_author\').onfocus = d$(\'woas_ep_wsif\').onfocus = d$(\'woas_ep_fname\').onfocus = woas.ui.focus_textbox;\n\
 d$(\'woas_ep_author\').onblur = d$(\'woas_ep_wsif\').onblur = d$(\'woas_ep_fname\').onfocus = woas.ui.blur_textbox;\n\
 d$(\'woas_ep_author\').value = woas.config.wsif_author;\n\
-\x3C/script\x3E\n\
-\x3Cstyle\x3E\n\
-table.woas_file_options, table.woas_file_options td { border-style:none; vertical-align:top}\n\
-\x3C/style\x3E',
+\x3C/script\x3E',
 '= WSIF\n\
 \n\
 *W*iki on a *S*tick *I*nterchange *F*ormat is the preferred format for exporting full WoaS data into a single file and share it with whoever you like.\n\
@@ -1536,7 +1526,7 @@ Wiki on a Stick is actively supported on the following browsers:\n\
 == Limitations\n\
 * Firefox (and possibly other browsers, too) cannot save to filenames containing UTF8 characters. Use unix-style filenames instead.\n\
 * Internet Explorer 6 and 7 do not support embedded images (that\'s why you will not see button icons).\n\
-* Internet Explorer does not allow saving to a network path in the form /\\\\machine\\share\\bookonastick.htm/. To use this wiki over a network with Internet Explorer, map network paths to network drives first.\n\
+* Internet Explorer does not allow saving to a network path in the form /\\\\machine\\share\\woas.htm/. To use this wiki over a network with Internet Explorer, map network paths to network drives first.\n\
 * Internet Explorer 6 does not allow a fixed menu.\n\
 \n\
 If you are using Chrome, Safari or Opera you will need the TiddlySaver Java applet, hence you need that Java is enabled in your browser and that it properly works.\n\
@@ -3288,6 +3278,17 @@ body {\n\
 	position: absolute;\n\
 	right: 1em;\n\
 	top: .5em\n\
+}\n\
+\n\
+/* CHECKBOX (cross-browser method) */\n\
+input.woas_cb {\n\
+	clear: both;\n\
+	float: left;\n\
+	margin-right: .5em\n\
+}\n\
+label.woas_cb { /* don\'t use on last in block */\n\
+	display: block;\n\
+	margin: 0em 0em .2em\n\
 }\n\
 \n\
 /* DEBUG CONSOLE */\n\
@@ -9062,7 +9063,7 @@ woas._on_load = function() {
 	this._set_debug(this.config.debug_mode, this.config.debug_closed);
 	d$("woas_debug_log").value = ""; // for Firefox
 	// output platform information - note that revision is filled in only in releases
-	woas.log("*** WoaS v"+this.version+"-pvhl-r2423"+" started");	// log:1
+	woas.log("*** WoaS v"+this.version+"-pvhl-r2426"+" started");	// log:1
 	
 	// store the old length to eventually force full save when entering/exiting WSIF datasource mode
 	this._old_wsif_ds_len = this.config.wsif_ds.length;
@@ -10435,13 +10436,16 @@ woas.lock = {
 	}
 };
 
-// PVHL: if 0 returned then save failed
+/*
+PVHL: returns 0 if save failed, -1 if path not specified;
+blob save disabled until it works cross-browser; at that time inline_wsif needs
+to be passed into this function - was always set for multi-file wsif.
+*/
 woas._wsif_ds_save = function(subpath, ds_lock, plist) {
 	// if we have a native sub-path, trigger the WSIF datasource save
 	if (subpath.length === 0)
-		return -1; // this will test true
-	// always save in the root directory
-	// plist not being used yet
+		return -1; // this will test true (no error)
+	// always save in the root directory or a path below it
 /**
 PVHL: the option page has always stated that a relative path can be entered
 for the WSIF data source -- as the argument 'subpath' suggests -- so we can't
@@ -10464,8 +10468,8 @@ subpath, and multiple-WSIF files to the root!
 		subpath = subpath.replace(/\//g, '\\');
 	}
 	return this._native_wsif_save(subpath, fname, this.config.wsif_ds_lock,
-							!this.config.wsif_ds_multi,	!this.config.wsif_ds_multi,
-							this.config.wsif_author, true);
+							!this.config.wsif_ds_multi,	false,
+							this.config.wsif_author, true, plist);
 };
 
 //API1.0: save all pages
@@ -11755,6 +11759,43 @@ woas.export_image = function(page, dest_path) {
 
 /*** src/wsif.js ***/
 // @module wsif
+/**
+PVHL: WoaS 0.12.0 has multiple ways to corrupt files, including WSIF files;
+e.g.: the whole wiki was being deleted if there was a data source path error.
+I have modified the WSIF object to allow loading and saving of the files
+WoaS is able to export with Special::ExportWSIF. To make this safer, I have
+added a new header: 'wsif.type: index'. Recursion is allowed if the root file
+is is an index and/or the external file has a mime-type. This works in testing
+with image files, but only in Firefox because binary load and save doesn't work
+yet in other browsers. WoaS 0.12.0 fails silently, possibly corrupting the wiki.
+
+Given the above it makes no sense to allow blob saves in WoaS, given other
+browsers can neither load, edit, or save the resulting files. I have therefore
+disabled blob saving until the capability works cross-browser. Also, the default
+was to save mime files as a blob; this has been changed.
+
+A multi-file index is indicated by the 'wsif.type: index' wsif header and is only
+allowed in the root wsif index file (now generated by save). This allows safe
+saving of multifile wsif files (the index file was corrupted previously if
+multi_file wasn't set)
+
+TODO:
+
+* make any save failure cancel the save; this will help protect data and speed up
+  error discovery
+
+* make multi-file save only save the file that was changed/added and the index;
+  it is very slow right now and this would improve things greatly -- mostof the
+  code to do this is already present.
+
+  It would also be a good idea to only save index if:
+    * a new page is added
+    * page name is changed
+    * page is deleted
+  Given that we can't delete files it would only be necessary to read the current
+  index file, modify it, and write it back out; not sure the time saved is worth
+  the extra effort: index files seem to be created very quickly.
+*/
 
 woas.wsif = {
 	version: "1.3.1",			// version of WSIF format being used
@@ -11807,7 +11848,7 @@ woas._normver = function(s) {
 
 // default behavior:
 // - wiki pages go inline (utf-8), no container encoding
-// - embedded files/images go outside as blobs
+// - embedded files/images go outside as blobs - disabled; now inline ... wasn't default here
 // - encrypted pages go inline in base64
 woas._native_wsif_save = function(path, src_fname, locking, single_wsif, inline_wsif, author,
 							save_all, plist) {
@@ -11818,6 +11859,8 @@ woas._native_wsif_save = function(path, src_fname, locking, single_wsif, inline_
 	var extra = this.wsif.header('wsif.version', this.wsif.version);
 	extra += this.wsif.header('wsif.generator', 'woas');
 	extra += this.wsif.header('wsif.generator.version', this.version);
+	if (woas.config.wsif_ds_multi)
+		extra += this.wsif.header('wsif.type', 'index'); // for safety in recursive loading
 	if (author.length)
 		extra += this.wsif.header('woas.author', author);
 
@@ -11995,7 +12038,7 @@ of the html file -- otherwise a bad data source value wipes out the wiki.
 	if (done && !this.save_file(path+src_fname,
 						this.file_mode.ASCII_TEXT,
 						extra + "\n" + full_wsif)) {
-		//if (single_wsif) - needs to be for any save type
+		//if (single_wsif) - needs to be for any save type; signals error
 			done = 0;
 	} // we do not increment page counter when saving index.wsif
 	
@@ -12029,11 +12072,11 @@ woas._wsif_ds_load = function(subpath, locking) {
 */
 woas._native_wsif_load = function(path, locking, _native, recursing, import_hook,
 								title_filter_hook, finalization_hook) {
+	var ct, is_index = false;
 	if (!recursing) {
 		this.wsif.emsg = null;
 		this.progress_init("Initializing WSIF import");
 	}
-	var ct;
 	// allow remote loading when running in native WSIF mode
 	if (this._server_mode && (this.config.wsif_ds.length !== 0))
 		ct = this.remote_load(path);
@@ -12084,6 +12127,12 @@ woas._native_wsif_load = function(path, locking, _native, recursing, import_hook
 				fail = true;
 			} else {
 				if (!recursing) {
+					// PVHL: added 'wsif.type: index' to allow safe recursion
+					is_index = ct.substring(0, p).indexOf('wsif.type: index') !== -1;
+					// PVHL: automatically set multi_file mode to prevent index file
+					// corruption on save; this can be overridden in options, allowing
+					// simple conversion to single-file.
+					if (is_index) woas.config.wsif_ds_multi = true;
 					// get number of expected pages
 					this.wsif.expected_pages = ct.substring(0,p).match(/^woas\.pages:\s+(\d+)$/m);
 					if (this.wsif.expected_pages !== null)
@@ -12184,7 +12233,7 @@ woas._native_wsif_load = function(path, locking, _native, recursing, import_hook
 								previous_h, last_offset,	// offsets to grab the page content
 								import_hook,
 								title,attrs,last_mod,len,encoding,disposition,
-								d_fn,boundary,mime,locking,_native,title_filter_hook);
+								d_fn,boundary,mime,locking,_native,title_filter_hook,is_index);
 						// save page index for later analysis
 						var was_title = title;
 						title = attrs = last_mod = encoding = len =
@@ -12257,7 +12306,7 @@ woas._native_wsif_load = function(path, locking, _native, recursing, import_hook
 			var rv = this._native_page_def(path,ct,previous_h,last_offset,
 					import_hook,
 					title,attrs,last_mod,len,encoding,disposition,
-					d_fn,boundary,mime,locking,_native,title_filter_hook);
+					d_fn,boundary,mime,locking,_native,title_filter_hook,is_index);
 			// save page index for later analysis
 			if (!rv)
 				this.wsif.do_error( "Import error for page "+title+" after import!" );
@@ -12278,7 +12327,7 @@ woas._native_wsif_load = function(path, locking, _native, recursing, import_hook
 
 // returns true if a page was defined, and save it in wsif.imported array
 woas._native_page_def = function(path,ct,p,last_p,import_hook,
-								title,attrs,last_mod,len,encoding,disposition,d_fn,boundary,mime,locking,_native,title_filter_hook) {
+								title,attrs,last_mod,len,encoding,disposition,d_fn,boundary,mime,locking,_native,title_filter_hook, is_index) {
 	var bpos_e, page;
 	// attributes must be defined unless importing an exported multifile index.wsif
 	if (attrs === null && !(disposition === "external" && encoding === "text/wsif")) {
@@ -12380,18 +12429,11 @@ woas._native_page_def = function(path,ct,p,last_p,import_hook,
 				return false;
 			}
 		}
-/*		else {
-			//this.wsif.do_error( "Recursive WSIF import not implemented");
-			//return false;
-// PVHL: so far testing shows this is working fine and allows use of the
-// multi-file index generated by WoaS. Haven't tested with external images
-// but that functionality should be disabled until fixed (corrupts WoaS if
-// browser can't save binary with no error given); should work though.
-// Only change needed was to adjust the path after loading content.
-// BUT! multi-file index should be indicated by a wsif header and set automatically,
-// otherwise it is way to easy to corrupt the file. May implement.
+		else if (!(is_index || mime)) {
+			this.wsif.do_error( "Recursive WSIF import only allowed for index and blob files");
+			return false;
 		}
-*/
+
 		// embedded image/file, not encrypted
 		if ((attrs & 4) || (attrs & 8)) {
 			if (encoding !== "8bit/plain") {
@@ -13193,6 +13235,7 @@ woas._customized_popup = function(page_title, page_body, additional_js, addition
 
 // below functions used by Special::Export
 
+// PVHL: blob saving disabled until it works cross-browser
 woas.export_wiki_wsif = function () {
 	var path, fname, author, single_wsif, inline_wsif, all_wsif, done;
 	try {
@@ -13200,7 +13243,8 @@ woas.export_wiki_wsif = function () {
 		fname = d$('woas_ep_fname').value;
 		author = this.trim(d$("woas_ep_author").value);
 		single_wsif = d$("woas_cb_multi_wsif").checked ? false : true;
-		inline_wsif = d$("woas_cb_linked_wsif").checked ? false : true;
+		//inline_wsif = d$("woas_cb_linked_wsif").checked ? false : true;
+		inline_wsif = false;
 		all_wsif = d$("woas_cb_all_wsif").checked ? true : false;
 	} catch (e) { this.crash(e); return false; }
 	
