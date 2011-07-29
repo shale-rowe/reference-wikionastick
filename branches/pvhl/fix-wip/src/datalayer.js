@@ -106,13 +106,16 @@ woas.lock = {
 	}
 };
 
-// PVHL: if 0 returned then save failed
+/*
+PVHL: returns 0 if save failed, -1 if path not specified;
+blob save disabled until it works cross-browser; at that time inline_wsif needs
+to be passed into this function - was always set for multi-file wsif.
+*/
 woas._wsif_ds_save = function(subpath, ds_lock, plist) {
 	// if we have a native sub-path, trigger the WSIF datasource save
 	if (subpath.length === 0)
-		return -1; // this will test true
-	// always save in the root directory
-	// plist not being used yet
+		return -1; // this will test true (no error)
+	// always save in the root directory or a path below it
 /**
 PVHL: the option page has always stated that a relative path can be entered
 for the WSIF data source -- as the argument 'subpath' suggests -- so we can't
