@@ -670,6 +670,7 @@ woas._customized_popup = function(page_title, page_body, additional_js, addition
 
 // below functions used by Special::Export
 
+// PVHL: blob saving disabled until it works cross-browser
 woas.export_wiki_wsif = function () {
 	var path, fname, author, single_wsif, inline_wsif, all_wsif, done;
 	try {
@@ -677,7 +678,8 @@ woas.export_wiki_wsif = function () {
 		fname = d$('woas_ep_fname').value;
 		author = this.trim(d$("woas_ep_author").value);
 		single_wsif = d$("woas_cb_multi_wsif").checked ? false : true;
-		inline_wsif = d$("woas_cb_linked_wsif").checked ? false : true;
+		//inline_wsif = d$("woas_cb_linked_wsif").checked ? false : true;
+		inline_wsif = false;
 		all_wsif = d$("woas_cb_all_wsif").checked ? true : false;
 	} catch (e) { this.crash(e); return false; }
 	
