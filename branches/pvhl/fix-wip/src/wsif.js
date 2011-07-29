@@ -88,7 +88,7 @@ woas._normver = function(s) {
 
 // default behavior:
 // - wiki pages go inline (utf-8), no container encoding
-// - embedded files/images go outside as blobs
+// - embedded files/images go outside as blobs - disabled; now inline ... wasn't default here
 // - encrypted pages go inline in base64
 woas._native_wsif_save = function(path, src_fname, locking, single_wsif, inline_wsif, author,
 							save_all, plist) {

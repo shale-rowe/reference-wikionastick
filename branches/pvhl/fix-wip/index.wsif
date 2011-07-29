@@ -589,26 +589,19 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Export into WSIF format
-
-See also [[WoaS::Help::WSIF]].
-
+= Export to WSIF format
+/See Help for information on WSIF files./
 == Destination path
-Path and filename for the exported WSIF file(s).  Filename is the name of the page index file if /'Export as multiple WSIF files'/ is selected.
+*Directory path must exist if using a non-Mozilla browser*.
 
-*Please note:* Directory path must exist if using a non-Mozilla browser.
+Path and filename for the exported WSIF file(s). Filename is the name of the page index file if /'Export as multiple WSIF files'/ is selected.
 
-<input id="woas_ep_wsif" type="text" size="80" />&nbsp;&nbsp;<input id="woas_ep_fname" type="text" size="40" />
-
+<input id="woas_ep_wsif" type="text" size="60" />&nbsp;&nbsp;<input id="woas_ep_fname" type="text" size="20" />
 == File generation Options
-
-{|class="woas_file_options"
-| <input type="checkbox" id="woas_cb_multi_wsif" /> || <label for="woas_cb_single_wsif">Export as multiple WSIF files (instead of saving all pages to a single wsif file)</label>
-| <input type="checkbox" id="woas_cb_linked_wsif" /> || <label for="woas_cb_blobs_wsif">Export embedded files as linked binary files (instead of keeping embedded content inside the wsif file)</label>
-|<input type="checkbox" id="woas_cb_all_wsif"> <label for="woas_cb_all_wsif" /> || Include ALL pages from this WoaS (instead of only user created pages)</label>
-|}
+<input type="checkbox" id="woas_cb_multi_wsif" class="woas_cb" /><label for="woas_cb_single_wsif" class="woas_cb">Export as multiple WSIF files (instead of saving all pages to a single wsif file)</label>\
+<input type="checkbox" id="woas_cb_all_wsif" class="woas_cb"><label for="woas_cb_all_wsif" />Include ALL pages from this WoaS (instead of only user created pages)</label>
 == Other options
-Author: <input id="woas_ep_author" type="text" size="12" value="Anonymous" />
+Author: <input id="woas_ep_author" type="text" size="30" value="Anonymous" />
 <input class="woas_button_top" type="button" value="Export WSIF" onclick="woas.export_wiki_wsif()" />
 <script type="text/javascript">
 var path = woas.ROOT_DIRECTORY + "wsif" + woas.DIRECTORY_SEPARATOR;
@@ -618,9 +611,6 @@ d$('woas_ep_author').onfocus = d$('woas_ep_wsif').onfocus = d$('woas_ep_fname').
 d$('woas_ep_author').onblur = d$('woas_ep_wsif').onblur = d$('woas_ep_fname').onfocus = woas.ui.blur_textbox;
 d$('woas_ep_author').value = woas.config.wsif_author;
 </script>
-<style>
-table.woas_file_options, table.woas_file_options td { border-style:none; vertical-align:top}
-</style>
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::WSIF
 woas.page.attributes: 0
@@ -1814,7 +1804,7 @@ Wiki on a Stick is actively supported on the following browsers:
 == Limitations
 * Firefox (and possibly other browsers, too) cannot save to filenames containing UTF8 characters. Use unix-style filenames instead.
 * Internet Explorer 6 and 7 do not support embedded images (that's why you will not see button icons).
-* Internet Explorer does not allow saving to a network path in the form /\\machine\share\bookonastick.htm/. To use this wiki over a network with Internet Explorer, map network paths to network drives first.
+* Internet Explorer does not allow saving to a network path in the form /\\machine\share\woas.htm/. To use this wiki over a network with Internet Explorer, map network paths to network drives first.
 * Internet Explorer 6 does not allow a fixed menu.
 
 If you are using Chrome, Safari or Opera you will need the TiddlySaver Java applet, hence you need that Java is enabled in your browser and that it properly works.
@@ -3670,6 +3660,17 @@ body {
 	position: absolute;
 	right: 1em;
 	top: .5em
+}
+
+/* CHECKBOX (cross-browser method) */
+input.woas_cb {
+	clear: both;
+	float: left;
+	margin-right: .5em
+}
+label.woas_cb { /* don't use on last in block */
+	display: block;
+	margin: 0em 0em .2em
 }
 
 /* DEBUG CONSOLE */

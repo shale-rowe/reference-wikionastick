@@ -138,8 +138,8 @@ subpath, and multiple-WSIF files to the root!
 		subpath = subpath.replace(/\//g, '\\');
 	}
 	return this._native_wsif_save(subpath, fname, this.config.wsif_ds_lock,
-							!this.config.wsif_ds_multi,	!this.config.wsif_ds_multi,
-							this.config.wsif_author, true);
+							!this.config.wsif_ds_multi,	false,
+							this.config.wsif_author, true, plist);
 };
 
 //API1.0: save all pages
