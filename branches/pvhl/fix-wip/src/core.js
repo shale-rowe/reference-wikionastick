@@ -248,7 +248,7 @@ woas.cmd_edit_special = function(cr) {
 	if (tmp === null)
 		return null;
 	// setup the wiki editor textbox
-	this.current_editing(cr, this.config.permit_edits | this._server_mode);
+	this.current_editing(cr, this.config.permit_edits || this._server_mode);
 	this.edit_ready(tmp);
 	return null;
 };
