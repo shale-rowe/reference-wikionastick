@@ -302,41 +302,45 @@ Security is never absolute. Data encrypted with these pages might be compromised
 \n\
 Apart from the above, your normal usage of encrypted pages can be considered secure.',
 '= Options\n\
-== User Interface\n\
-\x3Clabel for="cb_auto_links"\x3E\x3Cinput type="checkbox" id="cb_auto_links" onclick="woas.config.auto_links = d$.checked(\'cb_auto_links\')" /\x3EAutomatically convert URLs to hyperlinks in displayed pages\x3C/label\x3E\n\
-\x3Clabel for="cb_key_cache"\x3E\x3Cinput type="checkbox" id="cb_key_cache" onclick="woas.config.key_cache = !d$.checked(\'cb_key_cache\')" /\x3EDo not temporarily cache the AES key\x3C/label\x3E\n\
-\x3Clabel for="cb_dblclick_edit"\x3E\x3Cinput type="checkbox" id="cb_dblclick_edit" onclick="woas.config.dblclick_edit = d$.checked(\'cb_dblclick_edit\')" /\x3EDouble click to edit pages/menu\x3C/label\x3E\n\
-\x3Clabel for="cb_debug_mode"\x3E\x3Cinput type="checkbox" id="cb_debug_mode" onclick="woas.config.debug_mode = d$.checked(\'cb_debug_mode\');woas._set_debug(woas.config.debug_mode);d$(\'cb_debug_closed\').disabled=!woas.config.debug_mode" /\x3EEnable debug mode\x3C/label\x3E&nbsp;&nbsp;\x3Clabel for="cb_debug_closed"\x3E\x3Cinput type="checkbox" id="cb_debug_closed" onclick="woas.config.debug_closed = d$.checked(\'cb_debug_closed\')" /\x3EStart with console closed\x3C/label\x3E\n\
-\x3Clabel for="cb_fixed_menu"\x3E\x3Cinput type="checkbox" id="cb_fixed_menu" onclick="var fl=d$.checked(\'cb_fixed_menu\');woas.config.fixed_menu=fl;woas.ui.set_menu(fl)" /\x3EFixed menu area\x3C/label\x3E\n\
-\x3Clabel for="cb_fixed_header"\x3E\x3Cinput type="checkbox" id="cb_fixed_header" onclick="var fl=d$.checked(\'cb_fixed_header\');woas.config.fixed_header=fl;woas.ui.set_header(fl)" /\x3EFixed navigation bar\x3C/label\x3E\n\
-\x3Clabel for="cb_sort_tags"\x3E\x3Cinput type="checkbox" id="cb_sort_tags" onclick="woas.config.sort_tags = d$.checked(\'cb_sort_tags\')" /\x3ESort tags in tag display\x3C/label\x3E\n\
+\x3Cinput class="woas_button_top" type="button" onclick="save_options()" value="Save options" /\x3E\\\n\
+\x3Cfieldset class="woas_input_wrap"\x3E\x3Clegend\x3EUser Interface\x3C/legend\x3E\\\n\
+\x3Clabel\x3E\x3Cinput type="checkbox" id="cb_auto_links" onclick="woas.config.auto_links = d$.checked(\'cb_auto_links\')" /\x3EAutomatically convert URLs to hyperlinks\x3C/label\x3E\n\
+\x3Clabel\x3E\x3Cinput type="checkbox" id="cb_key_cache" onclick="woas.config.key_cache = !d$.checked(\'cb_key_cache\')" /\x3EDo not temporarily cache the AES key\x3C/label\x3E\n\
+\x3Clabel\x3E\x3Cinput type="checkbox" id="cb_dblclick_edit" onclick="woas.config.dblclick_edit = d$.checked(\'cb_dblclick_edit\')" /\x3EDouble click to edit pages/menu\x3C/label\x3E\n\
+\x3Clabel\x3E\x3Cinput type="checkbox" id="cb_debug_mode" onclick="woas.config.debug_mode = d$.checked(\'cb_debug_mode\');woas._set_debug(woas.config.debug_mode);d$(\'cb_debug_closed\').disabled=!woas.config.debug_mode" /\x3EEnable debug mode\x3C/label\x3E&nbsp;&nbsp;\x3Clabel\x3E\x3Cinput type="checkbox" id="cb_debug_closed" class="woas_input_wrap_inline" onclick="woas.config.debug_closed = d$.checked(\'cb_debug_closed\')" /\x3EStart with console closed\x3C/label\x3E\n\
+\x3Clabel\x3E\x3Cinput type="checkbox" id="cb_fixed_menu" onclick="var fl=d$.checked(\'cb_fixed_menu\');woas.config.fixed_menu=fl;woas.ui.set_menu(fl)" /\x3EFixed menu\x3C/label\x3E\n\
+\x3Clabel\x3E\x3Cinput type="checkbox" id="cb_fixed_header" onclick="var fl=d$.checked(\'cb_fixed_header\');woas.config.fixed_header=fl;woas.ui.set_header(fl)" /\x3EFixed navigation bar\x3C/label\x3E\n\
+\x3Clabel\x3E\x3Cinput type="checkbox" id="cb_sort_tags" onclick="woas.config.sort_tags = d$.checked(\'cb_sort_tags\')" /\x3ESort tags in tag display\x3C/label\x3E\n\
+\x3Clabel\x3E\x3Cselect id="sel_menu_link" onChange="woas.config.menu_link=this.selectedIndex"\x3E\x3Coption\x3EAlways ask\x3C/option\x3E\x3Coption\x3EAlways\x3C/option\x3E \x3Coption\x3ENever\x3C/option\x3E\x3C/select\x3E Create a main menu link to newly created pages\x3C/label\x3E\\\n\
+\x3C/fieldset\x3E\\\n\
+\x3Cfieldset class="woas_input_wrap"\x3E\x3Clegend\x3ESyntax\x3C/legend\x3E\\\n\
+\x3Clabel\x3E\x3Cinput type="checkbox" id="cb_new_tables_syntax" onclick="woas.config.new_tables_syntax = d$.checked(\'cb_new_tables_syntax\')" /\x3EEnhanced tables syntax\x3C/label\x3E\\\n\
+\x3C/fieldset\x3E\\\n\
+\x3Cfieldset class="woas_input_wrap"\x3E\x3Clegend\x3ESaving\x3C/legend\x3E\\\n\
+\x3Clabel\x3E\x3Cinput type="checkbox" id="cb_save_on_quit" onclick="woas.config.save_on_quit = d$.checked(\'cb_save_on_quit\')" /\x3EAutomatically save options before quitting (if changed)\x3C/label\x3E\n\
+\x3Clabel\x3E\x3Cinput type="checkbox" id="cb_safe_mode" onclick="woas.config.safe_mode = d$.checked(\'cb_safe_mode\')" /\x3EEnable safe mode with embedded scripts and plugins not executed (/requires reload/)\x3C/label\x3E\n\
+\x3Clabel\x3E\x3Cinput type="checkbox" id="cb_allow_diff" onclick="woas.config.allow_diff = d$.checked(\'cb_allow_diff\')" /\x3EMake merge/diff of WoaS XHTML/WSIF data source easier\x3C/label\x3E\n\
+\x3Clabel\x3E\x3Cinput type="checkbox" id="cb_cumulative_save" onclick="woas.config.cumulative_save = d$.checked(\'cb_cumulative_save\')" /\x3EOnly save to disk when quitting (potentially risky)\x3C/label\x3E\n\
+\x3Clabel\x3E\x3Cinput type="checkbox" id="cb_store_mts" onclick="woas.config.store_mts = d$.checked(\'cb_store_mts\')" /\x3EStore and display last modified timestamp\x3C/label\x3E\n\
+\x3Clabel\x3E\x3Cinput type="checkbox" id="cb_rem_history" onclick="woas.config.nav_history = d$.checked(\'cb_rem_history\')" /\x3EStore current page and navigation history\x3C/label\x3E\\\n\
+\x3C/fieldset\x3E\\\n\
+\x3Cfieldset class="woas_input_wrap"\x3E\x3Clegend\x3EData source\x3C/legend\x3E\\\n\
+\x3Cdiv class="woas_input_wrap_left"\x3EPages are stored internally if /WSIF data source/ is blank. *Existing internal pages will be lost on the next save if /WSIF data source/ is changed from blank to an external source, and the external source will be overwritten with this wiki\'s content!*\n\
 \n\
-Create a link to newly created pages in main menu: \x3Cselect id="sel_menu_link" onChange="woas.config.menu_link=this.selectedIndex"\x3E\x3Coption\x3EAlways ask\x3C/option\x3E\x3Coption\x3EAlways\x3C/option\x3E \x3Coption\x3ENever\x3C/option\x3E\x3C/select\x3E\n\
-== Syntax\n\
-\x3Clabel for="cb_new_tables_syntax"\x3E\x3Cinput type="checkbox" id="cb_new_tables_syntax" onclick="woas.config.new_tables_syntax = d$.checked(\'cb_new_tables_syntax\')" /\x3EEnhanced tables syntax\x3C/label\x3E\n\
-== Saving\n\
-\x3Clabel for="cb_save_on_quit"\x3E\x3Cinput type="checkbox" id="cb_save_on_quit" onclick="woas.config.save_on_quit = d$.checked(\'cb_save_on_quit\')" /\x3EAutomatically save options (if changed) before quitting\x3C/label\x3E\n\
-\x3Clabel for="cb_safe_mode"\x3E\x3Cinput type="checkbox" id="cb_safe_mode" onclick="woas.config.safe_mode = d$.checked(\'cb_safe_mode\')" /\x3EEnable safe mode with embedded scripts and plugins not executed (/requires reload/)\x3C/label\x3E\n\
-\x3Clabel for="cb_allow_diff"\x3E\x3Cinput type="checkbox" id="cb_allow_diff" onclick="woas.config.allow_diff = d$.checked(\'cb_allow_diff\')" /\x3EMake merge/diff of WoaS XHTML/WSIF data source easier\x3C/label\x3E\n\
-\x3Clabel for="cb_cumulative_save"\x3E\x3Cinput type="checkbox" id="cb_cumulative_save" onclick="woas.config.cumulative_save = d$.checked(\'cb_cumulative_save\')" /\x3EOnly save to disk when quitting (potentially risky)\x3C/label\x3E\n\
-\x3Clabel for="cb_store_mts"\x3E\x3Cinput type="checkbox" id="cb_store_mts" onclick="woas.config.store_mts = d$.checked(\'cb_store_mts\')" /\x3EStore and display last modified timestamp\x3C/label\x3E\n\
-\x3Clabel for="cb_rem_history"\x3E\x3Cinput type="checkbox" id="cb_rem_history" onclick="woas.config.nav_history = d$.checked(\'cb_rem_history\')" /\x3EStore current page and navigation history\x3C/label\x3E\n\
-== Data source\n\
-Pages are stored internally if /WSIF data source/ is blank. *Existing internal pages will be lost on the next save if /WSIF data source/ is changed from blank to an external source, and the external source will be overwritten with the internal page content!*\n\
+If the /Use multiple files in WSIF data source/ option is being used (creating one WSIF file for each page) then disabling the option will not remove existing WSIF files, though the /WSIF data source/ file will be overwritten with the full page content.\n\
 \n\
-If the /Use multiple files in WSIF data source/ option is being used (creating one WSIF file for each page) then disabling the option will not remove existing WSIF files, though the WSIF data source file will be overwritten with the full page content.\n\
+The path may be entered in Windows or UNIX style. *Any directories in the path must exist if you are not using a Mozilla browser.*\x3C/div\x3E\n\
 \n\
-Path may be entered in Windows or UNIX style. *Any directories in the path must exist if you are not using a Mozilla browser.*\n\
+\x3Clabel class="woas_input_wrap_left"\x3ERelative path to WSIF data source, including filename: \x3Cinput class="woas_input_wrap_inline" id="txt_wsif_ds" type="text" size="60" value="" onblur="this.value=woas.ui.wsif_ds(this);woas.ui.blur_textbox()" /\x3E\x3C/label\x3E\n\
+\x3Clabel\x3E\x3Cinput type="checkbox" id="cb_wsif_ds_multi" onclick="woas.config.wsif_ds_multi = d$.checked(\'cb_wsif_ds_multi\')" /\x3EUse multiple files in WSIF data source\x3C/label\x3E\n\
 \n\
-\x3Cdiv style="text-align:left;display:inline-block"\x3ERelative path to WSIF data source, including file name:&nbsp; \x3C/div\x3E\x3Cinput id="txt_wsif_ds" type="text" size="60" value="" onchange="woas.config.wsif_ds=this.value" style="margin-bottom: .25em" /\x3E\n\
-\x3Clabel for="cb_wsif_ds_multi"\x3E\x3Cinput type="checkbox" id="cb_wsif_ds_multi" onclick="woas.config.wsif_ds_multi = d$.checked(\'cb_wsif_ds_multi\')" /\x3EUse multiple files in WSIF data source\x3C/label\x3E\n\
-\n\
-WSIF author: \x3Cinput id="txt_author" type="text" size="30" value="" onchange="woas.config.wsif_author=this.value" /\x3E\n\
-\x3Cdiv id="woas_read_only_div"\x3E\n\
-== Permanent changes\n\
-\x3Cp\x3E&nbsp;&nbsp;\x3Cinput class="woas_button" type="button" onclick="ro_woas()" value="Prevent edits" /\x3E&nbsp;&nbsp;/Caution: to re-enable editing you will have to manually edit this WoaS file/\x3C/p\x3E\n\
+\x3Clabel class="woas_input_wrap_left"\x3EWSIF author: \x3Cinput class="woas_input_wrap_inline" id="txt_author" type="text" size="30" value="" onchange="woas.config.wsif_author=this.value" /\x3E\x3C/label\x3E\\\n\
+\x3C/fieldset\x3E\\\n\
+\x3Cdiv id="woas_read_only_div"\x3E\\\n\
+\x3Cfieldset class="woas_input_wrap" style="border-color:#f00"\x3E\x3Clegend\x3EPermanent changes\x3C/legend\x3E\\\n\
+\x3Clabel\x3E\x3Cinput style="background-color: #FFF0F0" class="woas_button" type="button" onclick="ro_woas()" value="Prevent edits" /\x3E /Caution: to re-enable editing you will have to manually edit this WoaS file/\x3C/label\x3E\\\n\
+\x3C/fieldset\x3E\\\n\
 \x3C/div\x3E\n\
-\x3Cinput class="woas_button_top" type="button" onclick="save_options()" value="Save options" /\x3E\n\
 \x3Cscript type="text/javascript"\x3E\n\
 if (!woas.config.permit_edits) { d$.hide("woas_read_only_div"); }\n\
 d$("cb_allow_diff").checked = woas.bool2chk(woas.config.allow_diff);\n\
@@ -361,10 +365,10 @@ d$("sel_menu_link").selectedIndex = woas.config.menu_link;\n\
 if (woas.browser.ie6) d$("cb_fixed_header").disabled =  d$("cb_fixed_menu").disabled = true;\n\
 \n\
 d$("txt_author").value = woas.config.wsif_author;\n\
-d$("txt_wsif_ds").value = woas.config.wsif_ds;\n\
+d$("txt_wsif_ds").value = woas.ui.wsif_ds();\n\
 \n\
 d$("txt_wsif_ds").onfocus = d$("txt_author").onfocus = woas.ui.focus_textbox;\n\
-d$("txt_wsif_ds").onblur = d$("txt_author").onblur = woas.ui.blur_textbox;\n\
+d$("txt_author").onblur = woas.ui.blur_textbox;\n\
 \x3C/script\x3E',
 '= Deprecated syntax\n\
 \n\
@@ -453,31 +457,69 @@ Tags separated by commas in the [[Tag::]] namespace are accepted:\x3Cspan class=
   font-weight: bold;\n\
 }\n\
 \x3C/style\x3E',
-'= Options\n\
+'=Special::Options\n\
+/Options are stored within the WoaS file if the/ Save options /button is clicked. Currently the options will also be saved whenever a page is edited.\n\
+==User Interface\n\
+===Automatically convert URLs to hyperlinks\n\
+converts URLs to [[WoaS::Help::Links|external links]] when the page content is displayed.\n\
+===Do not temporarily cache the AES key\n\
+Clears the [[WoaS::Help::Security|AES key]] immediately after encrypting or decrypting a page to prevent possible unauthorized access. Using this option will require the key to be entered each time you want to read an encrypted page.\n\
+===Double-click to edit pages/menu\n\
+Opens the editor when the main text area or menu are double-clicked.\n\
+===Enable debug mode\n\
+Enables display of the debug console at the bottom of the main text area and allows the wiki to log its history. This can be useful if you asking are for help or reporting a problem.\n\
+===Start with console closed\n\
+Ensures that the debug console will start closed. This option is disabled if /Enable debug mode/ is not selected.\n\
+===Fixed menu\n\
+Fixes the menu in place while allowing the page to scroll. This option is disabled in IE6.\n\
+===Fixed navigation bar\n\
+Fixes the navigation bar in place while allowing the page to scroll. This option is disabled in IE6.\n\
+===Sort tags in tag display\n\
+Sorts the tags in the tag display alphabetically.\n\
+===Create a main menu link to newly created pages\n\
+WoaS is able to put a link to newly created pages in the main menu. Whether or not it does so depends on the setting of this option. The link will not be created if the new page is cancelled.\n\
+* /Always Ask/ prompts for a decision each time a new page is created\n\
+* /Always/ creates a link without asking\n\
+* /Never/ disables this function\n\
+== Syntax\n\
+===Enhanced tables syntax\n\
+Tables will use the enhanced [[WoaS::Help::Tables|table syntax]].\n\
+== Saving\n\
+===Automatically save options before quitting (if changed)\n\
+Saves changes to options automatically when closing the wiki. This will not happen if you are just reloading the file.\n\
+===Enable safe mode with embedded scripts and plugins not executed (/requires reload/)\n\
+Prevents the wiki from executing [[WoaS::Help::JavaScript|embedded scripts]] and [[WoaS::Help::Plugins|plugins]].\n\
+===Make merge/diff of WoaS XHTML/WSIF data source easier\n\
+Adds a [[WoaS::Help::Join lines of text|backslash]] and line-end character (\\\\n) to the end of every line of page text. This breaks the text into multiple lines, instead of it being one page-length line, making it easier for source code revision tools (like SVN or git) and merge tools to mark and show changes efficiently.\n\
+===Only save to disk when quitting (potentially risky)\n\
+Makes the wiki save to disk only when quitting. This is potentially risky because a browser crash for any reason will cause your edits to be lost. This setting is therefore not recommended.\n\
+===Store and display last modified time-stamp\n\
+Allows the wiki to store the last time each page was changed and display it as a time-stamp beneath the main text area.\n\
+===Store current page and navigation history\n\
+Remembers the most recent back history and automatically opens the most recently saved page whenever you load the wiki into a browser.\n\
+== Data source\n\
+WoaS is most often used as a single-file wiki, with all of it\'s content inside one self-modifying XHTML file, but it can also be used with external content files, called [[WoaS::Help::WSIF|WSIF]] files. It can use a single WSIF file containing all of the wiki\'s page content, or a single WSIF index file that links to the WSIF files of individual pages. Everything works the same whichever way it is used.\n\
 \n\
-=== Use consistent newlines in saved data\n\
-Forces pages to be saved using consistent newlines splitting. This is particularly useful if you use a versioning system like Subversion (SVN), git or CVS.\n\
+If you just want to use a WSIF file for backing up or sharing your data with others you should use [[WoaS::Help::Special::ExportWSIF|Special::ExportWSIF]] instead as the file is then not altered.\n\
+===Relative path to WSIF data source, including filename\n\
+This is the relative path and name of the file the wiki should use to save and retrieve data. A relative path is one that starts in the same directory the WoaS file is in; {{{temp/file.wsif}}} is a relative path, {{{/temp/file.wsif}}} is not; {{{c:\\temp\\file.wsif}}} and {{{c:temp\\file.wsif}}} are also incorrect. The file name can have any extension or none at all, but the /wsif/ extension will let you know that it\'s a WoaS data source file. The path may be entered in Windows or UNIX format, but will be converted to the correct format upon entry (it is stored in the WoaS file in UNIX format).\n\
 \n\
-=== Double click to edit pages/menu\n\
-Allows to switch to edit mode when double-clicking the page content or menu area.\n\
+Providing a filename causes the wiki to create a WSIF file by that name and use that file to store and retrieve all data. If just a filename is entered the file will be created inside the directory the WoaS file is in. The path can additionally specify a directory path relative to the location of the wiki. WoaS will create the specified subdirectory only if you are using a Gecko-based browser like Firefox. If you are using a different browser you must create the subdirectory yourself before saving the file.\n\
 \n\
-=== Automatically save options (if changed) before quitting\n\
-Allows option changes to be automatically saved without having to click the *Save options* button at the bottom of the page.\n\
+[[Include::WoaS::Template::Info|If you enter the name of an existing file that file will be overwritten on the next save; any associated files will also be overwritten if /multiple files/ mode is selected.]]\n\
 \n\
-=== Do not temporarily cache the AES key\n\
-Clears AES key right after decryption, useful if you leave WoaS open to possible unauthorized access; will require to re-enter the decryption key each time you want to read a page.\n\
+The data source name will be used as the index page name when using multiple files as a data source.\n\
 \n\
-=== Fixed menu area and navigation bar\n\
-Fixes the menu and navigation bar in place, while allowing the page to scroll.\n\
+The box is blank by default. Leaving the box blank, or deleting an existing filename from the box, causes the wiki to save all the currently loaded data to itself and retrieve all data from itself. Deleting the filename from the box does not delete any files.\n\
+===Use multiple files in WSIF data source\n\
+Causes the wiki to create individual WSIF files for each page. The pages will be automatically named by page number in their order of creation. An index page with the WSIF data source filename will be created containing a list of the numbered file names and their corresponding wiki page names. WoaS will use this file to load data and save edits to the correct file.\n\
+===WSIF Data author\n\
+This is the name of the author as displayed in exported WSIF files. Replace the default name with your own to be credited as the author of the file(s). Deleting the contents of the box prevents the author line from being added to WSIF files.\n\
+==Permanent changes\n\
+===Prevent edits\n\
+Clicking this button puts the wiki into read-only mode. The edit icon is removed and all editing is disabled. To re-enable editing, the wiki must be [[WoaS::Help::Wiki is read-only|manually edited]].\n\
 \n\
-=== Return to last saved page when quitting\n\
-Automatically opens the last saved page.\n\
-\n\
-=== Enable cumulative save\n\
-Will save to disk only when quitting\n\
-\n\
-=== Disallow edits (button)\n\
-Puts the wiki into /server mode/; users will be told that it is not possible to save their changes, but editing will be allowed for sandbox (testing) purposes.\n\
+If the file is already in read-only mode the /Prevent Edits/ button is not displayed.\n\
 ',
 '= Embed %1\n\
 \n\
@@ -584,25 +626,17 @@ Retrieved from [[http://www.gnu.org/licenses/gpl2.txt]]:\n\
 '# all lines not starting with \'$\' are ignored\n\
 $JS  Javascript',
 '= Export to WSIF format\n\
-/See Help for information on WSIF files./\n\
-== Destination path\n\
-*Directory path must exist if using a non-Mozilla browser*.\n\
+\x3Cinput class="woas_button_top" type="button" value="Export WSIF" onclick="woas.export_wiki_wsif()" /\x3E\\\n\
+\x3Cfieldset class="woas_input_wrap"\x3E\x3Clegend\x3EFile generation Options\x3C/legend\x3E\x3Cdiv style="margin-bottom:5px" class="woas_input_wrap_left"\x3E*Directory path must exist if using a non-Mozilla browser. If file exists it will be overwritten, along with any associated files if exporting to multiple files.* Filename is the name of the page index file if /Export as multiple WSIF files/ is selected.\x3C/div\x3E\n\
 \n\
-Path and filename for the exported WSIF file(s). Filename is the name of the page index file if /\'Export as multiple WSIF files\'/ is selected.\n\
-\n\
-\x3Cinput id="woas_ep_wsif" type="text" size="60" /\x3E&nbsp;&nbsp;\x3Cinput id="woas_ep_fname" type="text" size="20" /\x3E\n\
-== File generation Options\n\
-\x3Cinput type="checkbox" id="woas_cb_multi_wsif" class="woas_cb" /\x3E\x3Clabel for="woas_cb_single_wsif" class="woas_cb"\x3EExport as multiple WSIF files (instead of saving all pages to a single wsif file)\x3C/label\x3E\\\n\
-\x3Cinput type="checkbox" id="woas_cb_all_wsif" class="woas_cb"\x3E\x3Clabel for="woas_cb_all_wsif" /\x3EInclude ALL pages from this WoaS (instead of only user created pages)\x3C/label\x3E\n\
-== Other options\n\
-Author: \x3Cinput id="woas_ep_author" type="text" size="30" value="Anonymous" /\x3E\n\
-\x3Cinput class="woas_button_top" type="button" value="Export WSIF" onclick="woas.export_wiki_wsif()" /\x3E\n\
+\x3Clabel class="woas_input_wrap_left"\x3ERelative path for WSIF file, including filename: \x3Cinput class="woas_input_wrap_inline" id="woas_ep_path" type="text" size="60" value="" onblur="this.value=woas.ui.wsif_ds(this, true);woas.ui.blur_textbox()" /\x3E\x3C/label\x3E\n\
+\x3Clabel\x3E\x3Cinput type="checkbox" id="woas_cb_multi_wsif" /\x3EExport as multiple WSIF files (instead of saving all pages to a single wsif file)\x3C/label\x3E\n\
+\x3Clabel\x3E\x3Cinput type="checkbox" id="woas_cb_all_wsif"\x3EInclude ALL pages from this WoaS (instead of only user created pages)\x3C/label\x3E\x3C/fieldset\x3E\\\n\
+\x3Cfieldset class="woas_input_wrap"\x3E\x3Clegend\x3EOther options\x3C/legend\x3E\x3Clabel class="woas_input_wrap_left"\x3EAuthor: \x3Cinput class="woas_input_wrap_inline" id="woas_ep_author" type="text" size="30" value="Anonymous" /\x3E\x3C/label\x3E\n\
 \x3Cscript type="text/javascript"\x3E\n\
-var path = woas.ROOT_DIRECTORY + "wsif" + woas.DIRECTORY_SEPARATOR;\n\
-d$(\'woas_ep_wsif\').value = path;\n\
-d$(\'woas_ep_fname\').value = woas.wsif.DEFAULT_INDEX;\n\
-d$(\'woas_ep_author\').onfocus = d$(\'woas_ep_wsif\').onfocus = d$(\'woas_ep_fname\').onfocus = woas.ui.focus_textbox;\n\
-d$(\'woas_ep_author\').onblur = d$(\'woas_ep_wsif\').onblur = d$(\'woas_ep_fname\').onfocus = woas.ui.blur_textbox;\n\
+d$(\'woas_ep_path\').value = "wsif" + woas.DIRECTORY_SEPARATOR + woas.wsif.DEFAULT_INDEX;\n\
+d$(\'woas_ep_author\').onfocus = d$(\'woas_ep_path\').onfocus = woas.ui.focus_textbox;\n\
+d$(\'woas_ep_author\').onblur = woas.ui.blur_textbox;\n\
 d$(\'woas_ep_author\').value = woas.config.wsif_author;\n\
 \x3C/script\x3E',
 '= WSIF\n\
@@ -1409,7 +1443,7 @@ Renaming a page will automatically rename also the references to such page in ot
 '= Page scrolling\n\
 By default, this wiki offers two choices for scrolling. You can change these settings by clicking the *Advanced* icon in the navigation bar and then clicking the {{{[[Special::Options]]}}} link.\n\
 \n\
-The *Fixed menu area and navigation bar* option can be enabled and disabled by placing a check mark in the box next to the option. Enabling it locks the navigation bar and menu in place while allowing the rest of the page to scroll. Disabling it allows the entire page to scroll as one connected unit.\n\
+The *Fixed menu* and "Fixed navigation bar* options can be enabled and disabled by placing a check mark in the box next to the option. Enabling them locks the navigation bar and/or the menu in place while allowing the rest of the page to scroll. Disabling them allows the entire page to scroll as one connected unit.\n\
 ',
 '= Table of Contents\n\
 You can insert a Table of Contents into your page by using a special wiki tag. It will be automatically populated with all the headings on a page. The placement of the Table of Contents is  determined by where you put the tag in the page.\n\
@@ -3218,7 +3252,25 @@ Infinite recursion happens when you create an include link to the current page o
 \x3Cfont color="red"\x3E*{{{\u221e [[Include::PAGENAME]] \u221e}}}*\x3C/font\x3E\n\
 \n\
 You should always prevent infinite recursions from happening.',
-'[[Include::WoaS::Help::WSIF]]\n\
+'= Special::ExportWSIF\n\
+The [[Special::ExportWSIF]] page allows you to export wiki content into one or more [[WoaS::Help::WSIF|WSIF]] files for backup, sharing with others, or importing into an updated WoaS file.\n\
+\n\
+== File generation options\n\
+===Relative path for WSIF file, including filename\n\
+The box contains a default path and filename when the page is loaded. This is the relative path and name of the file for the exported WSIF file. A relative path is one that starts in the same directory the WoaS file is in; {{{temp/file.wsif}}} is a relative path, {{{/temp/file.wsif}}} is not; {{{c:\\temp\\file.wsif}}} and {{{c:temp\\file.wsif}}} are also incorrect. The file name can have any extension or none at all, but the /wsif/ extension will let you know that it\'s a WoaS data source file. The path may be entered in Windows or UNIX format, but will be converted to the correct format upon entry.\n\
+\n\
+If just a filename is entered the file will be created inside the directory the WoaS file is in. The path can additionally specify a directory path relative to the location of the wiki. WoaS will create the specified subdirectory only if you are using a Gecko-based browser like Firefox. If you are using a different browser you must create the subdirectory yourself before saving the file.\n\
+\n\
+[[Include::WoaS::Template::Info|If you enter the name of an existing file that file will be overwritten on the next save; any associated files will also be overwritten if /multiple files/ mode is selected.]]\n\
+\n\
+The filename will be used as the index page name when exporting to multiple files.\n\
+===Export as multiple WSIF files (instead of saving all pages to a single wsif file)\n\
+If the box is checked, the content of all the user pages will be exported into multiple WSIF files, with each page being exported into its own WSIF file. All the files will be numbered using the wiki\'s page numbering method, and an index.wsif file will be created in the same directory to act as a reference for which page is in which numbered file. If the box is not checked, the content of all the user pages in the wiki will be exported into one WSIF file.\n\
+===Include ALL pages from this WoaS (instead of only user created pages)\n\
+If the box is checked, all wiki pages will be exported. If the box is not checked, only user-created pages will be exported.\n\
+== Other options\n\
+===Author\n\
+If you type a name into this box, a *woas.author:* line will be added near the top of the WSIF file to display the name you typed as the author of the file. If nothing is in the box, the *woas.author:* line will not be added to the WSIF file.\n\
 ',
 '= Importing WSIF files\n\
 The [[Special::ImportWSIF]] page allows to import a [[WoaS::Help::WSIF|WSIF]] file which contains one or more wiki pages; wiki pages imported into the *WoaS::* namespace will offer special features.\n\
@@ -3278,17 +3330,6 @@ body {\n\
 	position: absolute;\n\
 	right: 1em;\n\
 	top: .5em\n\
-}\n\
-\n\
-/* CHECKBOX (cross-browser method) */\n\
-input.woas_cb {\n\
-	clear: both;\n\
-	float: left;\n\
-	margin-right: .5em\n\
-}\n\
-label.woas_cb { /* don\'t use on last in block */\n\
-	display: block;\n\
-	margin: 0em 0em .2em\n\
 }\n\
 \n\
 /* DEBUG CONSOLE */\n\
@@ -3409,6 +3450,9 @@ h6.woas_heading {\n\
 	background-attachment:fixed;\n\
 	background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAYAAADDPmHLAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A%2FwD%2FoL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9oDDAonCzKHvroAAAEFSURBVHja7duxDYIhFIVRIA7EKk7qKoxkb2Ns1PzfObWNuRfyAB0DAAAAAAAAAAAAAAAAAAAAAAAAAIC%2FMEtf9pxzf%2FeZvfdDAYLBV4swBd8uwhR%2BuwhT%2BO0SLOE7BQg%2FvAssa8AOYPWHd4FbtfmvIVZnhyX8xnlfAVCA8kpPHAO%2FNUReqUQKEA7fDDDcHC7hmwGEHx4gp%2BDbpwc%2FCYsfHafw2%2FcG2beAevCpHeDT1V%2B6LfQWEA5fAeLhKwAKoAAAAOR4DRzt3wl6DYyXwGtgvAQeg%2BIlcBEUpwAKgALgHsAg6BTgHsAO0CyBfwwDAAAAAAAAAAAAAAAAAAAAAAAAAAAAv%2FIER4Nn%2B7YDG3wAAAAASUVORK5CYII%3D);\n\
 }\n\
+.woas_help_background h3 {\n\
+	margin-bottom: .2em\n\
+}\n\
 .woas_help_button {\n\
 	font-size: 1em;\n\
 	margin-top: 0.75em;\n\
@@ -3429,6 +3473,28 @@ h6.woas_heading {\n\
 /* HOTKEYS */\n\
 #woas_custom_accesskeys {\n\
 	display: none;\n\
+}\n\
+\n\
+/* INPUT LAYOUT */\n\
+.woas_input_wrap {\n\
+	margin-bottom: 5px;\n\
+	padding: 10px 10px 10px 30px;\n\
+	text-align: left\n\
+}\n\
+.woas_input_wrap legend {\n\
+	font-weight: bold\n\
+}\n\
+.woas_input_wrap label input, .woas_input_wrap label select {\n\
+	margin: 0 7px 5px -20px\n\
+}\n\
+.woas_input_wrap label input {\n\
+	vertical-align: -1px\n\
+}\n\
+.woas_input_wrap .woas_input_wrap_inline {\n\
+	margin-left: 10px;\n\
+}\n\
+.woas_input_wrap .woas_input_wrap_left {\n\
+	margin: 0px 0px 5px -20px;\n\
 }\n\
 \n\
 /* LAST MODIFIED LINE */\n\
@@ -3577,7 +3643,7 @@ div.woas_toc {\n\
 	width: 50%;\n\
 	font-size: 95%;\n\
 }\n\
-div.woas_toc ol, li {\n\
+div.woas_toc ol, div.woas_toc li {\n\
 	margin-left: 3.3em;\n\
 	padding-left: 0em;\n\
 }\n\
@@ -7465,7 +7531,7 @@ woas.cmd_edit_special = function(cr) {
 	if (tmp === null)
 		return null;
 	// setup the wiki editor textbox
-	this.current_editing(cr, this.config.permit_edits | this._server_mode);
+	this.current_editing(cr, this.config.permit_edits || this._server_mode);
 	this.edit_ready(tmp);
 	return null;
 };
@@ -9063,7 +9129,7 @@ woas._on_load = function() {
 	this._set_debug(this.config.debug_mode, this.config.debug_closed);
 	d$("woas_debug_log").value = ""; // for Firefox
 	// output platform information - note that revision is filled in only in releases
-	woas.log("*** WoaS v"+this.version+"-pvhl-r2426"+" started");	// log:1
+	woas.log("*** WoaS v"+this.version+"-pvhl-r2431"+" started");	// log:1
 	
 	// store the old length to eventually force full save when entering/exiting WSIF datasource mode
 	this._old_wsif_ds_len = this.config.wsif_ds.length;
@@ -10453,7 +10519,7 @@ just save to rootdirectory. The original code saved the index file to the
 subpath, and multiple-WSIF files to the root!
 */
 	var fname, pos;
-	// convert to unix path for processing
+	// wsif_ds is stored in UNIX format, but just in case
 	subpath = subpath.replace(/\\/g, '/');
 	pos = subpath.lastIndexOf('/') + 1;
 	if (pos) {
@@ -10545,6 +10611,8 @@ woas.i18n = {
 	ASK_MENU_LINK: "Do you want the menu to have a link to this page?",
 	B64_REQ: " (requires %s due to base64 encoding)",
 	CANCEL_EDITING:"Changes to this page will not be saved.",
+	CANNOT_LOCK_RESERVED: "You cannot lock a page in a reserved namespace.",
+	CHOOSE_CANCEL: "\n\nIf you don't want this to happen choose Cancel.",
 	CONFIRM_OVERWRITE: "Page \"%s\" already exists. Overwrite it?",
 	CONFIRM_DELETE:"Are you sure you want to DELETE the '%s' page?",
 	CONFIRM_DELETE_ALL1: "You are about to ERASE all your pages.\n\nDo you want to continue?",
@@ -10555,6 +10623,7 @@ woas.i18n = {
 	CONFIRM_LOCK_LAST: "The password was last used on the '%s' page.",
 	CONFIRM_READ_ONLY: "You will have to manually edit the file to revert this change.\n\nAre you sure you want to set this WoaS as read-only?",
 	CONFIRM_REMOVE_ENCRYPT: "Do you want to remove encryption from the '%s' page?",
+	CONTINUE_WAIT_LOAD: "The loading process seems stuck.\nPlease click OK to keep waiting or Cancel to break.",
 	DELETE:"Delete page:",
  	DELETE_FILE:"Delete embedded file",
  	DELETE_IMAGE:"Delete embedded image",
@@ -10591,6 +10660,7 @@ woas.i18n = {
 	LOADING: "Loading Wiki on a Stick...",
 	LOAD_ERR: "Cannot load specified file.",
 	MIME_TYPE: "Mime type",
+	MODE_NOT_AVAIL: "File mode 0x%s is not available on this browser.",
 	NO_ERROR: "No error",
 	NO_JAVA:"It was not possible to use TiddlySaver Java applet nor direct Java saving.",
 	NO_TIDDLY_SAVER:"The TiddlySaver Java applet was not available.",
@@ -10612,13 +10682,14 @@ woas.i18n = {
 	WIDTH: "Width",
 	WRITE_PROTECTED: "This Wiki on a Stick is already write-protected.",
 	WSIF_BAD_HV: "Could not locate end of header value.",
+	WSIF_DS_TO_EXTERNAL: "The contents of this wiki will be saved in WSIF format to the filename you entered.\n\nAll internal content will be deleted.\n\n",
+	WSIF_DS_TO_INTERNAL: "The current wiki content will be stored internally on the next save.",
+	WSIF_EXIST: "If the filename you entered already exists it will be overwritten on the next save!",
 	WSIF_NO_HN: "Could not locate header name.",
 	WSIF_NO_VER: "Could not read WSIF version.",
 	WSIF_NS_VER: "WSIF version %s is not supported!",
-	WSIF_SAVE_FAIL: "Unable to save WSIF file with path given!\nCheck your data source setting in Special::Options",
-	CANNOT_LOCK_RESERVED: "You cannot lock a page in a reserved namespace.",
-	CONTINUE_WAIT_LOAD: "The loading process seems stuck.\nPlease click OK to keep waiting or Cancel to break.",
-	MODE_NOT_AVAIL: "File mode 0x%s is not available on this browser."
+	WSIF_ORIGINAL: "\n\nThe original WSIF file will not be affected.",
+	WSIF_SAVE_FAIL: "Unable to save WSIF file with path given!\nCheck your data source setting in Special::Options"
 };
 
 // do not use any copyrighted wordlist here
@@ -12844,6 +12915,32 @@ woas.ui = {
 	set_layout: function(fixed)  {
 		this.set_header(fixed);
 		this.set_menu(fixed);
+	},
+	// if called with input 'el' and !'check' then sets config in UNIX format,
+	// if called with input 'el' and 'check' then checks/repairs filename.
+	// else gets config value. Returns OS native path.
+	wsif_ds: function(el, check) {
+		// get path in UNIX format; stored this way - but just to be safe
+		var ds = woas.config.wsif_ds.replace(/\\/g, '/'), i, c, e, o,
+			subpath = (el ? el.value.replace(/\\/g, '/') : ds);
+		// make sure it's relative - assume stored value is
+		while (subpath[0] === '/') subpath = subpath.substr(1);
+		if (el && !check) {
+			i = woas.i18n, c = i.CHOOSE_CANCEL, e = i.WSIF_EXIST, o = i.WSIF_ORIGINAL;
+			// warn of potential risks before setting; restore original if needed
+			if ((subpath && ds && subpath !== ds && confirm(e + o + c)) ||
+					(subpath && !ds && confirm(i.WSIF_DS_TO_EXTERNAL + e + c)) ||
+					(!subpath && ds && confirm(i.WSIF_DS_TO_INTERNAL + o + c))) {
+				woas.config.wsif_ds = subpath;
+			} else {
+				subpath = ds;
+			}
+		}
+		if (is_windows) {
+			// convert unix path to windows path
+			subpath = subpath.replace(/\//g, '\\');
+		}
+		return subpath;
 	}
 };
 
@@ -12871,6 +12968,7 @@ function cancel() {
 }
 
 // @module help_system
+// PVHL: TODO close window in unload function
 woas.help_system = {
 	popup_window: null,
 	page_title: null,
@@ -12928,6 +13026,7 @@ woas.help_system = {
 			this.popup_window.document.title = wanted_page;
 			woas.setHTMLDiv(this.popup_window.document.body, this._index_btn+woas.parser.parse(this._mk_help_button(this.previous_page.length)+text));
 			this.popup_window.scrollTo(0,0);
+			this.popup_window.focus();
 		}
 		this.page_title = wanted_page;
 	}
@@ -13037,7 +13136,10 @@ function ro_woas() {
 	if (confirm(woas.i18n.CONFIRM_READ_ONLY)) {
 		woas.config.permit_edits = false;
 		woas.cfg_commit();
-		woas.set_current("Special::Advanced", true);
+		// reparse page
+		woas.setHTMLDiv(d$("woas_wiki_area"),
+			woas.parser.parse(woas.get_text("Special::Options"), false, 1));
+		woas.scripting.activate("page");
 	}
 }
 
@@ -13204,8 +13306,12 @@ function page_print() {
 		+woas.js_encode(woas.i18n.PRINT_MODE_WARN)+'");}');
 }
 
-// PVHL: this is incorrect as css_payload will get overwritten by css.get
-// But why is it here at all? I use custom CSS for TOC -- what did this fix?
+/*
+PVHL: this is incorrect as css_payload will be overwritten by css.get
+But why is it here at all? I use custom CSS for TOC -- what did this fix?
+My guess is it fixes the print function.
+Change to custom help/print css. Read from WoaS::CSS::[Help|Print]
+*/
 woas._customized_popup = function(page_title, page_body, additional_js, additional_css, body_extra) {
 	var css_payload = "";
 	if (woas.browser.ie && !woas.browser.ie8) {
@@ -13237,15 +13343,22 @@ woas._customized_popup = function(page_title, page_body, additional_js, addition
 
 // PVHL: blob saving disabled until it works cross-browser
 woas.export_wiki_wsif = function () {
-	var path, fname, author, single_wsif, inline_wsif, all_wsif, done;
+	var path, fname, author, single_wsif, inline_wsif, all_wsif, done, pos;
 	try {
-		path = d$("woas_ep_wsif").value;
-		fname = d$('woas_ep_fname').value;
+		path = d$("woas_ep_path").value;
+		pos = path.lastIndexOf('/') + 1 || path.lastIndexOf('\\') + 1;
+		if (pos) {
+			fname = path.substring(pos);
+			path = woas.ROOT_DIRECTORY + path.substring(0, pos);
+		}  else {
+			fname = path;
+			path  = woas.ROOT_DIRECTORY;
+		}
 		author = this.trim(d$("woas_ep_author").value);
-		single_wsif = d$("woas_cb_multi_wsif").checked ? false : true;
-		//inline_wsif = d$("woas_cb_linked_wsif").checked ? false : true;
+		single_wsif = !d$("woas_cb_multi_wsif").checked;
+		//inline_wsif = !d$("woas_cb_linked_wsif").checked;
 		inline_wsif = false;
-		all_wsif = d$("woas_cb_all_wsif").checked ? true : false;
+		all_wsif = !!d$("woas_cb_all_wsif").checked;
 	} catch (e) { this.crash(e); return false; }
 	
 	done = this._native_wsif_save(path, fname, false, single_wsif, inline_wsif, author, all_wsif);
