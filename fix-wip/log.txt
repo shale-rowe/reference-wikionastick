@@ -3,6 +3,7 @@ IT IS NOT BEING TESTED MUCH DURING THIS PROCESS AND COULD OCCASIONALLY BE BROKEN
 
 Changes since Revision pvhl-2317 (git: 3d939c7)
 
+* Fix 2 small errors including broken list CSS
 * Bring Help window forward if hidden
 * disable WSIF blob saving as only Gecko can do it and others corrupt file
 * add 'wsif.type: index' to allow safe loading/saving of exported multi-file WSIF
