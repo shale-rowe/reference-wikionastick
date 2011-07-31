@@ -5,6 +5,8 @@ woas.i18n = {
 	ASK_MENU_LINK: "Do you want the menu to have a link to this page?",
 	B64_REQ: " (requires %s due to base64 encoding)",
 	CANCEL_EDITING:"Changes to this page will not be saved.",
+	CANNOT_LOCK_RESERVED: "You cannot lock a page in a reserved namespace.",
+	CHOOSE_CANCEL: "\n\nIf you don't want this to happen choose Cancel.",
 	CONFIRM_OVERWRITE: "Page \"%s\" already exists. Overwrite it?",
 	CONFIRM_DELETE:"Are you sure you want to DELETE the '%s' page?",
 	CONFIRM_DELETE_ALL1: "You are about to ERASE all your pages.\n\nDo you want to continue?",
@@ -15,6 +17,7 @@ woas.i18n = {
 	CONFIRM_LOCK_LAST: "The password was last used on the '%s' page.",
 	CONFIRM_READ_ONLY: "You will have to manually edit the file to revert this change.\n\nAre you sure you want to set this WoaS as read-only?",
 	CONFIRM_REMOVE_ENCRYPT: "Do you want to remove encryption from the '%s' page?",
+	CONTINUE_WAIT_LOAD: "The loading process seems stuck.\nPlease click OK to keep waiting or Cancel to break.",
 	DELETE:"Delete page:",
  	DELETE_FILE:"Delete embedded file",
  	DELETE_IMAGE:"Delete embedded image",
@@ -51,6 +54,7 @@ woas.i18n = {
 	LOADING: "Loading Wiki on a Stick...",
 	LOAD_ERR: "Cannot load specified file.",
 	MIME_TYPE: "Mime type",
+	MODE_NOT_AVAIL: "File mode 0x%s is not available on this browser.",
 	NO_ERROR: "No error",
 	NO_JAVA:"It was not possible to use TiddlySaver Java applet nor direct Java saving.",
 	NO_TIDDLY_SAVER:"The TiddlySaver Java applet was not available.",
@@ -72,13 +76,14 @@ woas.i18n = {
 	WIDTH: "Width",
 	WRITE_PROTECTED: "This Wiki on a Stick is already write-protected.",
 	WSIF_BAD_HV: "Could not locate end of header value.",
+	WSIF_DS_TO_EXTERNAL: "The contents of this wiki will be saved in WSIF format to the filename you entered.\n\nAll internal content will be deleted.\n\n",
+	WSIF_DS_TO_INTERNAL: "The current wiki content will be stored internally on the next save.",
+	WSIF_EXIST: "If the filename you entered already exists it will be overwritten on the next save!",
 	WSIF_NO_HN: "Could not locate header name.",
 	WSIF_NO_VER: "Could not read WSIF version.",
 	WSIF_NS_VER: "WSIF version %s is not supported!",
-	WSIF_SAVE_FAIL: "Unable to save WSIF file with path given!\nCheck your data source setting in Special::Options",
-	CANNOT_LOCK_RESERVED: "You cannot lock a page in a reserved namespace.",
-	CONTINUE_WAIT_LOAD: "The loading process seems stuck.\nPlease click OK to keep waiting or Cancel to break.",
-	MODE_NOT_AVAIL: "File mode 0x%s is not available on this browser."
+	WSIF_ORIGINAL: "\n\nThe original WSIF file will not be affected.",
+	WSIF_SAVE_FAIL: "Unable to save WSIF file with path given!\nCheck your data source setting in Special::Options"
 };
 
 // do not use any copyrighted wordlist here

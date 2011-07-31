@@ -236,41 +236,45 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Options
-== User Interface
-<label for="cb_auto_links"><input type="checkbox" id="cb_auto_links" onclick="woas.config.auto_links = d$.checked('cb_auto_links')" />Automatically convert URLs to hyperlinks in displayed pages</label>
-<label for="cb_key_cache"><input type="checkbox" id="cb_key_cache" onclick="woas.config.key_cache = !d$.checked('cb_key_cache')" />Do not temporarily cache the AES key</label>
-<label for="cb_dblclick_edit"><input type="checkbox" id="cb_dblclick_edit" onclick="woas.config.dblclick_edit = d$.checked('cb_dblclick_edit')" />Double click to edit pages/menu</label>
-<label for="cb_debug_mode"><input type="checkbox" id="cb_debug_mode" onclick="woas.config.debug_mode = d$.checked('cb_debug_mode');woas._set_debug(woas.config.debug_mode);d$('cb_debug_closed').disabled=!woas.config.debug_mode" />Enable debug mode</label>&nbsp;&nbsp;<label for="cb_debug_closed"><input type="checkbox" id="cb_debug_closed" onclick="woas.config.debug_closed = d$.checked('cb_debug_closed')" />Start with console closed</label>
-<label for="cb_fixed_menu"><input type="checkbox" id="cb_fixed_menu" onclick="var fl=d$.checked('cb_fixed_menu');woas.config.fixed_menu=fl;woas.ui.set_menu(fl)" />Fixed menu area</label>
-<label for="cb_fixed_header"><input type="checkbox" id="cb_fixed_header" onclick="var fl=d$.checked('cb_fixed_header');woas.config.fixed_header=fl;woas.ui.set_header(fl)" />Fixed navigation bar</label>
-<label for="cb_sort_tags"><input type="checkbox" id="cb_sort_tags" onclick="woas.config.sort_tags = d$.checked('cb_sort_tags')" />Sort tags in tag display</label>
+<input class="woas_button_top" type="button" onclick="save_options()" value="Save options" />\
+<fieldset class="woas_input_wrap"><legend>User Interface</legend>\
+<label><input type="checkbox" id="cb_auto_links" onclick="woas.config.auto_links = d$.checked('cb_auto_links')" />Automatically convert URLs to hyperlinks</label>
+<label><input type="checkbox" id="cb_key_cache" onclick="woas.config.key_cache = !d$.checked('cb_key_cache')" />Do not temporarily cache the AES key</label>
+<label><input type="checkbox" id="cb_dblclick_edit" onclick="woas.config.dblclick_edit = d$.checked('cb_dblclick_edit')" />Double click to edit pages/menu</label>
+<label><input type="checkbox" id="cb_debug_mode" onclick="woas.config.debug_mode = d$.checked('cb_debug_mode');woas._set_debug(woas.config.debug_mode);d$('cb_debug_closed').disabled=!woas.config.debug_mode" />Enable debug mode</label>&nbsp;&nbsp;<label><input type="checkbox" id="cb_debug_closed" class="woas_input_wrap_inline" onclick="woas.config.debug_closed = d$.checked('cb_debug_closed')" />Start with console closed</label>
+<label><input type="checkbox" id="cb_fixed_menu" onclick="var fl=d$.checked('cb_fixed_menu');woas.config.fixed_menu=fl;woas.ui.set_menu(fl)" />Fixed menu</label>
+<label><input type="checkbox" id="cb_fixed_header" onclick="var fl=d$.checked('cb_fixed_header');woas.config.fixed_header=fl;woas.ui.set_header(fl)" />Fixed navigation bar</label>
+<label><input type="checkbox" id="cb_sort_tags" onclick="woas.config.sort_tags = d$.checked('cb_sort_tags')" />Sort tags in tag display</label>
+<label><select id="sel_menu_link" onChange="woas.config.menu_link=this.selectedIndex"><option>Always ask</option><option>Always</option> <option>Never</option></select> Create a main menu link to newly created pages</label>\
+</fieldset>\
+<fieldset class="woas_input_wrap"><legend>Syntax</legend>\
+<label><input type="checkbox" id="cb_new_tables_syntax" onclick="woas.config.new_tables_syntax = d$.checked('cb_new_tables_syntax')" />Enhanced tables syntax</label>\
+</fieldset>\
+<fieldset class="woas_input_wrap"><legend>Saving</legend>\
+<label><input type="checkbox" id="cb_save_on_quit" onclick="woas.config.save_on_quit = d$.checked('cb_save_on_quit')" />Automatically save options before quitting (if changed)</label>
+<label><input type="checkbox" id="cb_safe_mode" onclick="woas.config.safe_mode = d$.checked('cb_safe_mode')" />Enable safe mode with embedded scripts and plugins not executed (/requires reload/)</label>
+<label><input type="checkbox" id="cb_allow_diff" onclick="woas.config.allow_diff = d$.checked('cb_allow_diff')" />Make merge/diff of WoaS XHTML/WSIF data source easier</label>
+<label><input type="checkbox" id="cb_cumulative_save" onclick="woas.config.cumulative_save = d$.checked('cb_cumulative_save')" />Only save to disk when quitting (potentially risky)</label>
+<label><input type="checkbox" id="cb_store_mts" onclick="woas.config.store_mts = d$.checked('cb_store_mts')" />Store and display last modified timestamp</label>
+<label><input type="checkbox" id="cb_rem_history" onclick="woas.config.nav_history = d$.checked('cb_rem_history')" />Store current page and navigation history</label>\
+</fieldset>\
+<fieldset class="woas_input_wrap"><legend>Data source</legend>\
+<div class="woas_input_wrap_left">Pages are stored internally if /WSIF data source/ is blank. *Existing internal pages will be lost on the next save if /WSIF data source/ is changed from blank to an external source, and the external source will be overwritten with this wiki's content!*
 
-Create a link to newly created pages in main menu: <select id="sel_menu_link" onChange="woas.config.menu_link=this.selectedIndex"><option>Always ask</option><option>Always</option> <option>Never</option></select>
-== Syntax
-<label for="cb_new_tables_syntax"><input type="checkbox" id="cb_new_tables_syntax" onclick="woas.config.new_tables_syntax = d$.checked('cb_new_tables_syntax')" />Enhanced tables syntax</label>
-== Saving
-<label for="cb_save_on_quit"><input type="checkbox" id="cb_save_on_quit" onclick="woas.config.save_on_quit = d$.checked('cb_save_on_quit')" />Automatically save options (if changed) before quitting</label>
-<label for="cb_safe_mode"><input type="checkbox" id="cb_safe_mode" onclick="woas.config.safe_mode = d$.checked('cb_safe_mode')" />Enable safe mode with embedded scripts and plugins not executed (/requires reload/)</label>
-<label for="cb_allow_diff"><input type="checkbox" id="cb_allow_diff" onclick="woas.config.allow_diff = d$.checked('cb_allow_diff')" />Make merge/diff of WoaS XHTML/WSIF data source easier</label>
-<label for="cb_cumulative_save"><input type="checkbox" id="cb_cumulative_save" onclick="woas.config.cumulative_save = d$.checked('cb_cumulative_save')" />Only save to disk when quitting (potentially risky)</label>
-<label for="cb_store_mts"><input type="checkbox" id="cb_store_mts" onclick="woas.config.store_mts = d$.checked('cb_store_mts')" />Store and display last modified timestamp</label>
-<label for="cb_rem_history"><input type="checkbox" id="cb_rem_history" onclick="woas.config.nav_history = d$.checked('cb_rem_history')" />Store current page and navigation history</label>
-== Data source
-Pages are stored internally if /WSIF data source/ is blank. *Existing internal pages will be lost on the next save if /WSIF data source/ is changed from blank to an external source, and the external source will be overwritten with the internal page content!*
+If the /Use multiple files in WSIF data source/ option is being used (creating one WSIF file for each page) then disabling the option will not remove existing WSIF files, though the /WSIF data source/ file will be overwritten with the full page content.
 
-If the /Use multiple files in WSIF data source/ option is being used (creating one WSIF file for each page) then disabling the option will not remove existing WSIF files, though the WSIF data source file will be overwritten with the full page content.
+The path may be entered in Windows or UNIX style. *Any directories in the path must exist if you are not using a Mozilla browser.*</div>
 
-Path may be entered in Windows or UNIX style. *Any directories in the path must exist if you are not using a Mozilla browser.*
+<label class="woas_input_wrap_left">Relative path to WSIF data source, including filename: <input class="woas_input_wrap_inline" id="txt_wsif_ds" type="text" size="60" value="" onblur="this.value=woas.ui.wsif_ds(this);woas.ui.blur_textbox()" /></label>
+<label><input type="checkbox" id="cb_wsif_ds_multi" onclick="woas.config.wsif_ds_multi = d$.checked('cb_wsif_ds_multi')" />Use multiple files in WSIF data source</label>
 
-<div style="text-align:left;display:inline-block">Relative path to WSIF data source, including file name:&nbsp; </div><input id="txt_wsif_ds" type="text" size="60" value="" onchange="woas.config.wsif_ds=this.value" style="margin-bottom: .25em" />
-<label for="cb_wsif_ds_multi"><input type="checkbox" id="cb_wsif_ds_multi" onclick="woas.config.wsif_ds_multi = d$.checked('cb_wsif_ds_multi')" />Use multiple files in WSIF data source</label>
-
-WSIF author: <input id="txt_author" type="text" size="30" value="" onchange="woas.config.wsif_author=this.value" />
-<div id="woas_read_only_div">
-== Permanent changes
-<p>&nbsp;&nbsp;<input class="woas_button" type="button" onclick="ro_woas()" value="Prevent edits" />&nbsp;&nbsp;/Caution: to re-enable editing you will have to manually edit this WoaS file/</p>
+<label class="woas_input_wrap_left">WSIF author: <input class="woas_input_wrap_inline" id="txt_author" type="text" size="30" value="" onchange="woas.config.wsif_author=this.value" /></label>\
+</fieldset>\
+<div id="woas_read_only_div">\
+<fieldset class="woas_input_wrap" style="border-color:#f00"><legend>Permanent changes</legend>\
+<label><input style="background-color: #FFF0F0" class="woas_button" type="button" onclick="ro_woas()" value="Prevent edits" /> /Caution: to re-enable editing you will have to manually edit this WoaS file/</label>\
+</fieldset>\
 </div>
-<input class="woas_button_top" type="button" onclick="save_options()" value="Save options" />
 <script type="text/javascript">
 if (!woas.config.permit_edits) { d$.hide("woas_read_only_div"); }
 d$("cb_allow_diff").checked = woas.bool2chk(woas.config.allow_diff);
@@ -295,10 +299,10 @@ d$("sel_menu_link").selectedIndex = woas.config.menu_link;
 if (woas.browser.ie6) d$("cb_fixed_header").disabled =  d$("cb_fixed_menu").disabled = true;
 
 d$("txt_author").value = woas.config.wsif_author;
-d$("txt_wsif_ds").value = woas.config.wsif_ds;
+d$("txt_wsif_ds").value = woas.ui.wsif_ds();
 
 d$("txt_wsif_ds").onfocus = d$("txt_author").onfocus = woas.ui.focus_textbox;
-d$("txt_wsif_ds").onblur = d$("txt_author").onblur = woas.ui.blur_textbox;
+d$("txt_author").onblur = woas.ui.blur_textbox;
 </script>
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Deprecated syntax
@@ -403,31 +407,69 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Options
+=Special::Options
+/Options are stored within the WoaS file if the/ Save options /button is clicked. Currently the options will also be saved whenever a page is edited.
+==User Interface
+===Automatically convert URLs to hyperlinks
+converts URLs to [[WoaS::Help::Links|external links]] when the page content is displayed.
+===Do not temporarily cache the AES key
+Clears the [[WoaS::Help::Security|AES key]] immediately after encrypting or decrypting a page to prevent possible unauthorized access. Using this option will require the key to be entered each time you want to read an encrypted page.
+===Double-click to edit pages/menu
+Opens the editor when the main text area or menu are double-clicked.
+===Enable debug mode
+Enables display of the debug console at the bottom of the main text area and allows the wiki to log its history. This can be useful if you asking are for help or reporting a problem.
+===Start with console closed
+Ensures that the debug console will start closed. This option is disabled if /Enable debug mode/ is not selected.
+===Fixed menu
+Fixes the menu in place while allowing the page to scroll. This option is disabled in IE6.
+===Fixed navigation bar
+Fixes the navigation bar in place while allowing the page to scroll. This option is disabled in IE6.
+===Sort tags in tag display
+Sorts the tags in the tag display alphabetically.
+===Create a main menu link to newly created pages
+WoaS is able to put a link to newly created pages in the main menu. Whether or not it does so depends on the setting of this option. The link will not be created if the new page is cancelled.
+* /Always Ask/ prompts for a decision each time a new page is created
+* /Always/ creates a link without asking
+* /Never/ disables this function
+== Syntax
+===Enhanced tables syntax
+Tables will use the enhanced [[WoaS::Help::Tables|table syntax]].
+== Saving
+===Automatically save options before quitting (if changed)
+Saves changes to options automatically when closing the wiki. This will not happen if you are just reloading the file.
+===Enable safe mode with embedded scripts and plugins not executed (/requires reload/)
+Prevents the wiki from executing [[WoaS::Help::JavaScript|embedded scripts]] and [[WoaS::Help::Plugins|plugins]].
+===Make merge/diff of WoaS XHTML/WSIF data source easier
+Adds a [[WoaS::Help::Join lines of text|backslash]] and line-end character (\\n) to the end of every line of page text. This breaks the text into multiple lines, instead of it being one page-length line, making it easier for source code revision tools (like SVN or git) and merge tools to mark and show changes efficiently.
+===Only save to disk when quitting (potentially risky)
+Makes the wiki save to disk only when quitting. This is potentially risky because a browser crash for any reason will cause your edits to be lost. This setting is therefore not recommended.
+===Store and display last modified time-stamp
+Allows the wiki to store the last time each page was changed and display it as a time-stamp beneath the main text area.
+===Store current page and navigation history
+Remembers the most recent back history and automatically opens the most recently saved page whenever you load the wiki into a browser.
+== Data source
+WoaS is most often used as a single-file wiki, with all of it's content inside one self-modifying XHTML file, but it can also be used with external content files, called [[WoaS::Help::WSIF|WSIF]] files. It can use a single WSIF file containing all of the wiki's page content, or a single WSIF index file that links to the WSIF files of individual pages. Everything works the same whichever way it is used.
 
-=== Use consistent newlines in saved data
-Forces pages to be saved using consistent newlines splitting. This is particularly useful if you use a versioning system like Subversion (SVN), git or CVS.
+If you just want to use a WSIF file for backing up or sharing your data with others you should use [[WoaS::Help::Special::ExportWSIF|Special::ExportWSIF]] instead as the file is then not altered.
+===Relative path to WSIF data source, including filename
+This is the relative path and name of the file the wiki should use to save and retrieve data. A relative path is one that starts in the same directory the WoaS file is in; {{{temp/file.wsif}}} is a relative path, {{{/temp/file.wsif}}} is not; {{{c:\temp\file.wsif}}} and {{{c:temp\file.wsif}}} are also incorrect. The file name can have any extension or none at all, but the /wsif/ extension will let you know that it's a WoaS data source file. The path may be entered in Windows or UNIX format.
 
-=== Double click to edit pages/menu
-Allows to switch to edit mode when double-clicking the page content or menu area.
+Providing a filename causes the wiki to create a WSIF file by that name and use that file to store and retrieve all data. If just a filename is entered the file will be created inside the directory the WoaS file is in. The path can additionally specify a directory path relative to the location of the wiki. WoaS will create the specified subdirectory only if you are using a Gecko-based browser like Firefox. If you are using a different browser you must create the subdirectory yourself before entering the file name.
 
-=== Automatically save options (if changed) before quitting
-Allows option changes to be automatically saved without having to click the *Save options* button at the bottom of the page.
+[[Include::WoaS::Template::Info|If you enter the name of an existing file that file will be overwritten on the next save; any associated files will also be overwritten if /multiple files/ mode is selected.]]
 
-=== Do not temporarily cache the AES key
-Clears AES key right after decryption, useful if you leave WoaS open to possible unauthorized access; will require to re-enter the decryption key each time you want to read a page.
+The data source name will be used as the index page name when using multiple files as a data source.
 
-=== Fixed menu area and navigation bar
-Fixes the menu and navigation bar in place, while allowing the page to scroll.
+The box is blank by default. Leaving the box blank, or deleting an existing filename from the box, causes the wiki to save all the currently loaded data to itself and retrieve all data from itself. Deleting the filename from the box does not delete any files.
+===Use multiple files in WSIF data source
+Causes the wiki to create individual WSIF files for each page. The pages will be automatically named by page number in their order of creation. An index page with the WSIF data source filename will be created containing a list of the numbered file names and their corresponding wiki page names. WoaS will use this file to load data and save edits to the correct file.
+===WSIF Data author
+This is the name of the author as displayed in exported WSIF files. Replace the default name with your own to be credited as the author of the file(s). Deleting the contents of the box prevents the author line from being added to WSIF files.
+==Permanent changes
+===Prevent edits
+Clicking this button puts the wiki into read-only mode. The edit icon is removed and all editing is disabled. To re-enable editing, the wiki must be [[WoaS::Help::Wiki is read-only|manually edited]].
 
-=== Return to last saved page when quitting
-Automatically opens the last saved page.
-
-=== Enable cumulative save
-Will save to disk only when quitting
-
-=== Disallow edits (button)
-Puts the wiki into /server mode/; users will be told that it is not possible to save their changes, but editing will be allowed for sandbox (testing) purposes.
+If the file is already in read-only mode the /Prevent Edits/ button is not displayed.
 
 --DFQRCTsKlU
 woas.page.title: Special::Embed
@@ -1647,7 +1689,7 @@ woas.page.boundary: DFQRCTsKlU
 = Page scrolling
 By default, this wiki offers two choices for scrolling. You can change these settings by clicking the *Advanced* icon in the navigation bar and then clicking the {{{[[Special::Options]]}}} link.
 
-The *Fixed menu area and navigation bar* option can be enabled and disabled by placing a check mark in the box next to the option. Enabling it locks the navigation bar and menu in place while allowing the rest of the page to scroll. Disabling it allows the entire page to scroll as one connected unit.
+The *Fixed menu* and "Fixed navigation bar* options can be enabled and disabled by placing a check mark in the box next to the option. Enabling them locks the navigation bar and/or the menu in place while allowing the rest of the page to scroll. Disabling them allows the entire page to scroll as one connected unit.
 
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Table of Contents
@@ -3662,17 +3704,6 @@ body {
 	top: .5em
 }
 
-/* CHECKBOX (cross-browser method) */
-input.woas_cb {
-	clear: both;
-	float: left;
-	margin-right: .5em
-}
-label.woas_cb { /* don't use on last in block */
-	display: block;
-	margin: 0em 0em .2em
-}
-
 /* DEBUG CONSOLE */
 #woas_debug_button {
 	margin-top: 0.5%;
@@ -3791,6 +3822,9 @@ h6.woas_heading {
 	background-attachment:fixed;
 	background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAYAAADDPmHLAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A%2FwD%2FoL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9oDDAonCzKHvroAAAEFSURBVHja7duxDYIhFIVRIA7EKk7qKoxkb2Ns1PzfObWNuRfyAB0DAAAAAAAAAAAAAAAAAAAAAAAAAIC%2FMEtf9pxzf%2FeZvfdDAYLBV4swBd8uwhR%2BuwhT%2BO0SLOE7BQg%2FvAssa8AOYPWHd4FbtfmvIVZnhyX8xnlfAVCA8kpPHAO%2FNUReqUQKEA7fDDDcHC7hmwGEHx4gp%2BDbpwc%2FCYsfHafw2%2FcG2beAevCpHeDT1V%2B6LfQWEA5fAeLhKwAKoAAAAOR4DRzt3wl6DYyXwGtgvAQeg%2BIlcBEUpwAKgALgHsAg6BTgHsAO0CyBfwwDAAAAAAAAAAAAAAAAAAAAAAAAAAAAv%2FIER4Nn%2B7YDG3wAAAAASUVORK5CYII%3D);
 }
+.woas_help_background h3 {
+	margin-bottom: .2em
+}
 .woas_help_button {
 	font-size: 1em;
 	margin-top: 0.75em;
@@ -3811,6 +3845,28 @@ h6.woas_heading {
 /* HOTKEYS */
 #woas_custom_accesskeys {
 	display: none;
+}
+
+/* INPUT LAYOUT */
+.woas_input_wrap {
+	margin-bottom: 5px;
+	padding: 10px 10px 10px 30px;
+	text-align: left
+}
+.woas_input_wrap legend {
+	font-weight: bold
+}
+.woas_input_wrap label input, .woas_input_wrap label select {
+	margin: 0 7px 5px -20px
+}
+.woas_input_wrap label input {
+	vertical-align: -1px
+}
+.woas_input_wrap .woas_input_wrap_inline {
+	margin-left: 10px;
+}
+.woas_input_wrap .woas_input_wrap_left {
+	margin: 0px 0px 5px -20px;
 }
 
 /* LAST MODIFIED LINE */

@@ -254,6 +254,32 @@ woas.ui = {
 	set_layout: function(fixed)  {
 		this.set_header(fixed);
 		this.set_menu(fixed);
+	},
+	// if called with input 'el' and !'check' then sets config in UNIX format,
+	// if called with input 'el' and 'check' then checks/repairs filename.
+	// else gets config value. Returns OS native path.
+	wsif_ds: function(el, check) {
+		// get path in UNIX format; stored this way - but just to be safe
+		var ds = woas.config.wsif_ds.replace(/\\/g, '/'), i, c, e, o,
+			subpath = (el ? el.value.replace(/\\/g, '/') : ds);
+		// make sure it's relative - assume stored value is
+		while (subpath[0] === '/') subpath = subpath.substr(1);
+		if (el && !check) {
+			i = woas.i18n, c = i.CHOOSE_CANCEL, e = i.WSIF_EXIST, o = i.WSIF_ORIGINAL;
+			// warn of potential risks before setting; restore original if needed
+			if ((subpath && ds && subpath !== ds && confirm(e + o + c)) ||
+					(subpath && !ds && confirm(i.WSIF_DS_TO_EXTERNAL + e + c)) ||
+					(!subpath && ds && confirm(i.WSIF_DS_TO_INTERNAL + o + c))) {
+				woas.config.wsif_ds = subpath;
+			} else {
+				subpath = ds;
+			}
+		}
+		if (is_windows) {
+			// convert unix path to windows path
+			subpath = subpath.replace(/\//g, '\\');
+		}
+		return subpath;
 	}
 };
 
@@ -474,7 +500,10 @@ function ro_woas() {
 	if (confirm(woas.i18n.CONFIRM_READ_ONLY)) {
 		woas.config.permit_edits = false;
 		woas.cfg_commit();
-		woas.set_current("Special::Advanced", true);
+		// reparse page
+		woas.setHTMLDiv(d$("woas_wiki_area"),
+			woas.parser.parse(woas.get_text("Special::Options"), false, 1));
+		woas.scripting.activate("page");
 	}
 }
 
