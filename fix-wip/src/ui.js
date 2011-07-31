@@ -707,15 +707,22 @@ woas._customized_popup = function(page_title, page_body, additional_js, addition
 
 // PVHL: blob saving disabled until it works cross-browser
 woas.export_wiki_wsif = function () {
-	var path, fname, author, single_wsif, inline_wsif, all_wsif, done;
+	var path, fname, author, single_wsif, inline_wsif, all_wsif, done, pos;
 	try {
-		path = d$("woas_ep_wsif").value;
-		fname = d$('woas_ep_fname').value;
+		path = d$("woas_ep_path").value;
+		pos = path.lastIndexOf('/') + 1 || path.lastIndexOf('\\') + 1;
+		if (pos) {
+			fname = path.substring(pos);
+			path = woas.ROOT_DIRECTORY + path.substring(0, pos);
+		}  else {
+			fname = path;
+			path  = woas.ROOT_DIRECTORY;
+		}
 		author = this.trim(d$("woas_ep_author").value);
-		single_wsif = d$("woas_cb_multi_wsif").checked ? false : true;
-		//inline_wsif = d$("woas_cb_linked_wsif").checked ? false : true;
+		single_wsif = !d$("woas_cb_multi_wsif").checked;
+		//inline_wsif = !d$("woas_cb_linked_wsif").checked;
 		inline_wsif = false;
-		all_wsif = d$("woas_cb_all_wsif").checked ? true : false;
+		all_wsif = !!d$("woas_cb_all_wsif").checked;
 	} catch (e) { this.crash(e); return false; }
 	
 	done = this._native_wsif_save(path, fname, false, single_wsif, inline_wsif, author, all_wsif);
