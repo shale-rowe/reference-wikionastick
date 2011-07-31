@@ -281,6 +281,7 @@ function cancel() {
 }
 
 // @module help_system
+// PVHL: TODO close window in unload function
 woas.help_system = {
 	popup_window: null,
 	page_title: null,
@@ -363,6 +364,7 @@ function help_go_back() {\n\
 			this.popup_window.document.title = wanted_page;
 			woas.setHTMLDiv(this.popup_window.document.body, this._index_btn+woas.parser.parse(this._mk_help_button(this.previous_page.length)+text));
 			this.popup_window.scrollTo(0,0);
+			this.popup_window.focus();
 		}
 		this.page_title = wanted_page;
 	}
@@ -639,8 +641,12 @@ function page_print() {
 		+woas.js_encode(woas.i18n.PRINT_MODE_WARN)+'");}');
 }
 
-// PVHL: this is incorrect as css_payload will get overwritten by css.get
-// But why is it here at all? I use custom CSS for TOC -- what did this fix?
+/*
+PVHL: this is incorrect as css_payload will be overwritten by css.get
+But why is it here at all? I use custom CSS for TOC -- what did this fix?
+My guess is it fixes the print function.
+Change to custom help/print css. Read from WoaS::CSS::[Help|Print]
+*/
 woas._customized_popup = function(page_title, page_body, additional_js, additional_css, body_extra) {
 	var css_payload = "";
 	if (woas.browser.ie && !woas.browser.ie8) {
