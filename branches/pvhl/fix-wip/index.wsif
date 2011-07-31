@@ -452,9 +452,9 @@ WoaS is most often used as a single-file wiki, with all of it's content inside o
 
 If you just want to use a WSIF file for backing up or sharing your data with others you should use [[WoaS::Help::Special::ExportWSIF|Special::ExportWSIF]] instead as the file is then not altered.
 ===Relative path to WSIF data source, including filename
-This is the relative path and name of the file the wiki should use to save and retrieve data. A relative path is one that starts in the same directory the WoaS file is in; {{{temp/file.wsif}}} is a relative path, {{{/temp/file.wsif}}} is not; {{{c:\temp\file.wsif}}} and {{{c:temp\file.wsif}}} are also incorrect. The file name can have any extension or none at all, but the /wsif/ extension will let you know that it's a WoaS data source file. The path may be entered in Windows or UNIX format.
+This is the relative path and name of the file the wiki should use to save and retrieve data. A relative path is one that starts in the same directory the WoaS file is in; {{{temp/file.wsif}}} is a relative path, {{{/temp/file.wsif}}} is not; {{{c:\temp\file.wsif}}} and {{{c:temp\file.wsif}}} are also incorrect. The file name can have any extension or none at all, but the /wsif/ extension will let you know that it's a WoaS data source file. The path may be entered in Windows or UNIX format, but will be converted to the correct format upon entry (it is stored in the WoaS file in UNIX format).
 
-Providing a filename causes the wiki to create a WSIF file by that name and use that file to store and retrieve all data. If just a filename is entered the file will be created inside the directory the WoaS file is in. The path can additionally specify a directory path relative to the location of the wiki. WoaS will create the specified subdirectory only if you are using a Gecko-based browser like Firefox. If you are using a different browser you must create the subdirectory yourself before entering the file name.
+Providing a filename causes the wiki to create a WSIF file by that name and use that file to store and retrieve all data. If just a filename is entered the file will be created inside the directory the WoaS file is in. The path can additionally specify a directory path relative to the location of the wiki. WoaS will create the specified subdirectory only if you are using a Gecko-based browser like Firefox. If you are using a different browser you must create the subdirectory yourself before saving the file.
 
 [[Include::WoaS::Template::Info|If you enter the name of an existing file that file will be overwritten on the next save; any associated files will also be overwritten if /multiple files/ mode is selected.]]
 
@@ -632,25 +632,17 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Export to WSIF format
-/See Help for information on WSIF files./
-== Destination path
-*Directory path must exist if using a non-Mozilla browser*.
+<input class="woas_button_top" type="button" value="Export WSIF" onclick="woas.export_wiki_wsif()" />\
+<fieldset class="woas_input_wrap"><legend>File generation Options</legend><div style="margin-bottom:5px" class="woas_input_wrap_left">*Directory path must exist if using a non-Mozilla browser. If file exists it will be overwritten, along with any associated files if exporting to multiple files.* Filename is the name of the page index file if /Export as multiple WSIF files/ is selected.</div>
 
-Path and filename for the exported WSIF file(s). Filename is the name of the page index file if /'Export as multiple WSIF files'/ is selected.
-
-<input id="woas_ep_wsif" type="text" size="60" />&nbsp;&nbsp;<input id="woas_ep_fname" type="text" size="20" />
-== File generation Options
-<input type="checkbox" id="woas_cb_multi_wsif" class="woas_cb" /><label for="woas_cb_single_wsif" class="woas_cb">Export as multiple WSIF files (instead of saving all pages to a single wsif file)</label>\
-<input type="checkbox" id="woas_cb_all_wsif" class="woas_cb"><label for="woas_cb_all_wsif" />Include ALL pages from this WoaS (instead of only user created pages)</label>
-== Other options
-Author: <input id="woas_ep_author" type="text" size="30" value="Anonymous" />
-<input class="woas_button_top" type="button" value="Export WSIF" onclick="woas.export_wiki_wsif()" />
+<label class="woas_input_wrap_left">Relative path for WSIF file, including filename: <input class="woas_input_wrap_inline" id="woas_ep_path" type="text" size="60" value="" onblur="this.value=woas.ui.wsif_ds(this, true);woas.ui.blur_textbox()" /></label>
+<label><input type="checkbox" id="woas_cb_multi_wsif" />Export as multiple WSIF files (instead of saving all pages to a single wsif file)</label>
+<label><input type="checkbox" id="woas_cb_all_wsif">Include ALL pages from this WoaS (instead of only user created pages)</label></fieldset>\
+<fieldset class="woas_input_wrap"><legend>Other options</legend><label class="woas_input_wrap_left">Author: <input class="woas_input_wrap_inline" id="woas_ep_author" type="text" size="30" value="Anonymous" /></label>
 <script type="text/javascript">
-var path = woas.ROOT_DIRECTORY + "wsif" + woas.DIRECTORY_SEPARATOR;
-d$('woas_ep_wsif').value = path;
-d$('woas_ep_fname').value = woas.wsif.DEFAULT_INDEX;
-d$('woas_ep_author').onfocus = d$('woas_ep_wsif').onfocus = d$('woas_ep_fname').onfocus = woas.ui.focus_textbox;
-d$('woas_ep_author').onblur = d$('woas_ep_wsif').onblur = d$('woas_ep_fname').onfocus = woas.ui.blur_textbox;
+d$('woas_ep_path').value = "wsif" + woas.DIRECTORY_SEPARATOR + woas.wsif.DEFAULT_INDEX;
+d$('woas_ep_author').onfocus = d$('woas_ep_path').onfocus = woas.ui.focus_textbox;
+d$('woas_ep_author').onblur = woas.ui.blur_textbox;
 d$('woas_ep_author').value = woas.config.wsif_author;
 </script>
 --DFQRCTsKlU
@@ -3618,7 +3610,25 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-[[Include::WoaS::Help::WSIF]]
+= Special::ExportWSIF
+The [[Special::ExportWSIF]] page allows you to export wiki content into one or more [[WoaS::Help::WSIF|WSIF]] files for backup, sharing with others, or importing into an updated WoaS file.
+
+== File generation options
+===Relative path for WSIF file, including filename
+The box contains a default path and filename when the page is loaded. This is the relative path and name of the file for the exported WSIF file. A relative path is one that starts in the same directory the WoaS file is in; {{{temp/file.wsif}}} is a relative path, {{{/temp/file.wsif}}} is not; {{{c:\temp\file.wsif}}} and {{{c:temp\file.wsif}}} are also incorrect. The file name can have any extension or none at all, but the /wsif/ extension will let you know that it's a WoaS data source file. The path may be entered in Windows or UNIX format, but will be converted to the correct format upon entry.
+
+If just a filename is entered the file will be created inside the directory the WoaS file is in. The path can additionally specify a directory path relative to the location of the wiki. WoaS will create the specified subdirectory only if you are using a Gecko-based browser like Firefox. If you are using a different browser you must create the subdirectory yourself before saving the file.
+
+[[Include::WoaS::Template::Info|If you enter the name of an existing file that file will be overwritten on the next save; any associated files will also be overwritten if /multiple files/ mode is selected.]]
+
+The filename will be used as the index page name when exporting to multiple files.
+===Export as multiple WSIF files (instead of saving all pages to a single wsif file)
+If the box is checked, the content of all the user pages will be exported into multiple WSIF files, with each page being exported into its own WSIF file. All the files will be numbered using the wiki's page numbering method, and an index.wsif file will be created in the same directory to act as a reference for which page is in which numbered file. If the box is not checked, the content of all the user pages in the wiki will be exported into one WSIF file.
+===Include ALL pages from this WoaS (instead of only user created pages)
+If the box is checked, all wiki pages will be exported. If the box is not checked, only user-created pages will be exported.
+== Other options
+===Author
+If you type a name into this box, a *woas.author:* line will be added near the top of the WSIF file to display the name you typed as the author of the file. If nothing is in the box, the *woas.author:* line will not be added to the WSIF file.
 
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Special::ImportWSIF

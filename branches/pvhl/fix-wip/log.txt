@@ -3,6 +3,7 @@ IT IS NOT BEING TESTED MUCH DURING THIS PROCESS AND COULD OCCASIONALLY BE BROKEN
 
 Changes since Revision pvhl-2317 (git: 3d939c7)
 
+* Redesign of Special::ExportWSIF and associated Help page; others to follow
 * Redesign of Special::Options and associated CSS and Help page
 * Fix 2 small errors including broken list CSS
 * Bring Help window forward if hidden
