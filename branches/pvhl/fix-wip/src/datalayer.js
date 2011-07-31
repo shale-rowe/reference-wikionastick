@@ -123,7 +123,7 @@ just save to rootdirectory. The original code saved the index file to the
 subpath, and multiple-WSIF files to the root!
 */
 	var fname, pos;
-	// convert to unix path for processing
+	// wsif_ds is stored in UNIX format, but just in case
 	subpath = subpath.replace(/\\/g, '/');
 	pos = subpath.lastIndexOf('/') + 1;
 	if (pos) {
