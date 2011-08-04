@@ -170,6 +170,7 @@ woas.erase_wiki = function() {
 		!confirm(this.i18n.CONFIRM_DELETE_ALL2))
 		return false;
 	var i,l,l1,l2,pi,t;
+// PVHL: should be in cmd_erase_wiki; also menu refresh below
 	this.progress_init("Erasing...");
 	var backup_pages = [];
 	// attributes and last modified timestamps for default pages
