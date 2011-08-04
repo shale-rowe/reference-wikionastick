@@ -254,25 +254,27 @@ woas.page.boundary: DFQRCTsKlU
 <label><input type="checkbox" id="cb_save_on_quit" onclick="woas.config.save_on_quit = d$.checked('cb_save_on_quit')" />Automatically save options before quitting (if changed)</label>
 <label><input type="checkbox" id="cb_safe_mode" onclick="woas.config.safe_mode = d$.checked('cb_safe_mode')" />Enable safe mode with embedded scripts and plugins not executed (/requires reload/)</label>
 <label><input type="checkbox" id="cb_allow_diff" onclick="woas.config.allow_diff = d$.checked('cb_allow_diff')" />Make merge/diff of WoaS XHTML/WSIF data source easier</label>
-<label><input type="checkbox" id="cb_cumulative_save" onclick="woas.config.cumulative_save = d$.checked('cb_cumulative_save')" />Only save to disk when quitting (potentially risky)</label>
+<!--<label><input type="checkbox" id="cb_cumulative_save" onclick="woas.config.cumulative_save = d$.checked('cb_cumulative_save')" />Only save to disk when quitting (potentially risky)</label>-->
 <label><input type="checkbox" id="cb_store_mts" onclick="woas.config.store_mts = d$.checked('cb_store_mts')" />Store and display last modified timestamp</label>
 <label><input type="checkbox" id="cb_rem_history" onclick="woas.config.nav_history = d$.checked('cb_rem_history')" />Store current page and navigation history</label>\
 </fieldset>\
-<fieldset class="woas_input_wrap"><legend>Data source</legend>\
-<div class="woas_input_wrap_left">Pages are stored internally if /WSIF data source/ is blank. *Existing internal pages will be lost on the next save if /WSIF data source/ is changed from blank to an external source, and the external source will be overwritten with this wiki's content!*
+<fieldset class="woas_input_wrap"><legend>WSIF settings</legend>\
+<div class="woas_input_wrap_left">Pages are stored internally if /WSIF data source/ is blank. *Existing internal pages will be lost on the next save if /WSIF data source/ is changed from blank to an external source, and the external source will be overwritten with this wiki's content if it already exists!*
 
 If the /Use multiple files in WSIF data source/ option is being used (creating one WSIF file for each page) then disabling the option will not remove existing WSIF files, though the /WSIF data source/ file will be overwritten with the full page content.
 
-The path may be entered in Windows or UNIX style. *Any directories in the path must exist if you are not using a Mozilla browser.*</div>
+The path may be entered in Windows or UNIX format. *Any directories in the path must exist if you are not using a Mozilla browser.*</div>
+<div class="woas_input_wrap_left" style="background-color:#FAFAFF; padding:10px; margin-top:10px; margin-bottom:10px">
+<label>Relative path to WSIF data source, including filename: <input class="woas_input_wrap_inline" id="txt_wsif_ds" type="text" size="60" value="" /></label>
+<label><input class="woas_input_wrap_no_left" type="checkbox" id="cb_wsif_ds_multi" onclick="woas.config.wsif_ds_multi = d$.checked('cb_wsif_ds_multi')" />Use multiple files in WSIF data source</label>
 
-<label class="woas_input_wrap_left">Relative path to WSIF data source, including filename: <input class="woas_input_wrap_inline" id="txt_wsif_ds" type="text" size="60" value="" onblur="this.value=woas.ui.wsif_ds(this);woas.ui.blur_textbox()" /></label>
-<label><input type="checkbox" id="cb_wsif_ds_multi" onclick="woas.config.wsif_ds_multi = d$.checked('cb_wsif_ds_multi')" />Use multiple files in WSIF data source</label>
-
+<label><input class="woas_button woas_input_wrap_no_left" type="button" onclick="woas.ui.wsif_ds(d$('txt_wsif_ds'))" value="Change data source" />/Data source changes will not be used unless confirmed with the /Change data source /button./</label>
+</div>
 <label class="woas_input_wrap_left">WSIF author: <input class="woas_input_wrap_inline" id="txt_author" type="text" size="30" value="" onchange="woas.config.wsif_author=this.value" /></label>\
 </fieldset>\
 <div id="woas_read_only_div">\
 <fieldset class="woas_input_wrap" style="border-color:#f00"><legend>Permanent changes</legend>\
-<label><input style="background-color: #FFF0F0" class="woas_button" type="button" onclick="ro_woas()" value="Prevent edits" /> /Caution: to re-enable editing you will have to manually edit this WoaS file/</label>\
+<label><input class="woas_button_ro" type="button" onclick="ro_woas()" value="Prevent edits" /> /Caution: to re-enable editing you will have to manually edit this WoaS file/</label>\
 </fieldset>\
 </div>
 <script type="text/javascript">
@@ -288,7 +290,7 @@ d$("cb_dblclick_edit").checked = woas.bool2chk(woas.config.dblclick_edit);
 d$("cb_debug_mode").checked = woas.bool2chk(woas.config.debug_mode);
 d$("cb_debug_closed").checked = woas.bool2chk(woas.config.debug_closed);
 d$("cb_save_on_quit").checked = woas.bool2chk(woas.config.save_on_quit);
-d$("cb_cumulative_save").checked = woas.bool2chk(woas.config.cumulative_save);
+//d$("cb_cumulative_save").checked = woas.bool2chk(woas.config.cumulative_save);
 d$("cb_safe_mode").checked = woas.bool2chk(woas.config.safe_mode);
 d$("cb_wsif_ds_multi").checked = woas.bool2chk(woas.config.wsif_ds_multi);
 //d$("cb_wsif_ds_lock").checked = woas.bool2chk(woas.config.wsif_ds_lock);
@@ -300,9 +302,8 @@ if (woas.browser.ie6) d$("cb_fixed_header").disabled =  d$("cb_fixed_menu").disa
 
 d$("txt_author").value = woas.config.wsif_author;
 d$("txt_wsif_ds").value = woas.ui.wsif_ds();
-
 d$("txt_wsif_ds").onfocus = d$("txt_author").onfocus = woas.ui.focus_textbox;
-d$("txt_author").onblur = woas.ui.blur_textbox;
+d$("txt_wsif_ds").onblur = d$("txt_author").onblur = woas.ui.blur_textbox;
 </script>
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Deprecated syntax
@@ -441,20 +442,20 @@ Saves changes to options automatically when closing the wiki. This will not happ
 Prevents the wiki from executing [[WoaS::Help::JavaScript|embedded scripts]] and [[WoaS::Help::Plugins|plugins]].
 ===Make merge/diff of WoaS XHTML/WSIF data source easier
 Adds a [[WoaS::Help::Join lines of text|backslash]] and line-end character (\\n) to the end of every line of page text. This breaks the text into multiple lines, instead of it being one page-length line, making it easier for source code revision tools (like SVN or git) and merge tools to mark and show changes efficiently.
-===Only save to disk when quitting (potentially risky)
-Makes the wiki save to disk only when quitting. This is potentially risky because a browser crash for any reason will cause your edits to be lost. This setting is therefore not recommended.
+<!-- ===Only save to disk when quitting (potentially risky)
+Makes the wiki save to disk only when quitting. This is potentially risky because a browser crash for any reason will cause your edits to be lost. This setting is therefore not recommended.-->
 ===Store and display last modified time-stamp
 Allows the wiki to store the last time each page was changed and display it as a time-stamp beneath the main text area.
 ===Store current page and navigation history
 Remembers the most recent back history and automatically opens the most recently saved page whenever you load the wiki into a browser.
-== Data source
+== WSIF Settings
 WoaS is most often used as a single-file wiki, with all of it's content inside one self-modifying XHTML file, but it can also be used with external content files, called [[WoaS::Help::WSIF|WSIF]] files. It can use a single WSIF file containing all of the wiki's page content, or a single WSIF index file that links to the WSIF files of individual pages. Everything works the same whichever way it is used.
 
-If you just want to use a WSIF file for backing up or sharing your data with others you should use [[WoaS::Help::Special::ExportWSIF|Special::ExportWSIF]] instead as the file is then not altered.
+If you just want to use a WSIF file for backing up or sharing your data with others you should use [[WoaS::Help::Special::ExportWSIF|Special::ExportWSIF]] instead as the WoaS file is then not altered.
 ===Relative path to WSIF data source, including filename
 This is the relative path and name of the file the wiki should use to save and retrieve data. A relative path is one that starts in the same directory the WoaS file is in; {{{temp/file.wsif}}} is a relative path, {{{/temp/file.wsif}}} is not; {{{c:\temp\file.wsif}}} and {{{c:temp\file.wsif}}} are also incorrect. The file name can have any extension or none at all, but the /wsif/ extension will let you know that it's a WoaS data source file. The path may be entered in Windows or UNIX format, but will be converted to the correct format upon entry (it is stored in the WoaS file in UNIX format).
 
-Providing a filename causes the wiki to create a WSIF file by that name and use that file to store and retrieve all data. If just a filename is entered the file will be created inside the directory the WoaS file is in. The path can additionally specify a directory path relative to the location of the wiki. WoaS will create the specified subdirectory only if you are using a Gecko-based browser like Firefox. If you are using a different browser you must create the subdirectory yourself before saving the file.
+Providing a filename causes the wiki to create a WSIF file by that name and use that file to store and retrieve all page data (configuration options are always stored in the WoaS file itself). If just a filename is entered the file will be created inside the directory the WoaS file is in. The path can additionally specify a directory path relative to the location of the wiki. WoaS will create the specified subdirectory only if you are using a Gecko-based browser like Firefox. If you are using a different browser you must create the subdirectory yourself before saving the file.
 
 [[Include::WoaS::Template::Info|If you enter the name of an existing file that file will be overwritten on the next save; any associated files will also be overwritten if /multiple files/ mode is selected.]]
 
@@ -463,6 +464,9 @@ The data source name will be used as the index page name when using multiple fil
 The box is blank by default. Leaving the box blank, or deleting an existing filename from the box, causes the wiki to save all the currently loaded data to itself and retrieve all data from itself. Deleting the filename from the box does not delete any files.
 ===Use multiple files in WSIF data source
 Causes the wiki to create individual WSIF files for each page. The pages will be automatically named by page number in their order of creation. An index page with the WSIF data source filename will be created containing a list of the numbered file names and their corresponding wiki page names. WoaS will use this file to load data and save edits to the correct file.
+
+[[Include::WoaS::Template::Info|The two WSIF data source settings described above will *not* be used or saved unless you confirm the change with the /Change data source/ button. WoaS will then describe the impact of the changes you are about to make so you can change your mind if you want to by pressing cancel. Though confirmed, the settings will not take effect until the options are saved to the WoaS file, just like the other options]]
+
 ===WSIF Data author
 This is the name of the author as displayed in exported WSIF files. Replace the default name with your own to be credited as the author of the file(s). Deleting the contents of the box prevents the author line from being added to WSIF files.
 ==Permanent changes
@@ -3695,7 +3699,7 @@ body {
 }
 
 /* BUTTONS */
-.woas_button, .woas_button_top, .woas_editor_button {
+.woas_button, .woas_button_top, .woas_editor_button, .woas_button_ro {
 	background-color: #F0F0F5;
 	border: 1pt solid grey;
 	color: darkblue;
@@ -3704,13 +3708,16 @@ body {
 	margin-top: 0.438em;
 	text-align: center;
 }
-.woas_button:hover, .woas_button_top:hover {
+.woas_button:hover, .woas_button_top:hover, .woas_button_ro:hover {
 	background-color: darkgrey;
 }
 .woas_button_top {
 	position: absolute;
 	right: 1em;
 	top: .5em
+}
+.woas_button_ro {
+	background-color: #FFF0F0
 }
 
 /* DEBUG CONSOLE */
@@ -3873,6 +3880,9 @@ h6.woas_heading {
 }
 .woas_input_wrap .woas_input_wrap_inline {
 	margin-left: 10px;
+}
+.woas_input_wrap .woas_input_wrap_no_left {
+	margin-left: 0px;
 }
 .woas_input_wrap .woas_input_wrap_left {
 	margin: 0px 0px 5px -20px;

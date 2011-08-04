@@ -274,6 +274,7 @@ woas.ui = {
 			} else {
 				subpath = ds;
 			}
+			el.value = subpath;
 		}
 		if (is_windows) {
 			// convert unix path to windows path
@@ -497,7 +498,7 @@ function ro_woas() {
 		alert(woas.i18n.WRITE_PROTECTED);
 		return false;
 	}
-	if (confirm(woas.i18n.CONFIRM_READ_ONLY)) {
+	if (confirm(woas.i18n.CONFIRM_READ_ONLY + woas.i18n.CHOOSE_CANCEL)) {
 		woas.config.permit_edits = false;
 		woas.cfg_commit();
 		// reparse page
