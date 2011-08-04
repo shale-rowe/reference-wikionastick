@@ -46,7 +46,7 @@ woas.importer = {
 	current_mts: null,
 	pages: [],			// imported page objects array
 	_reference: [],		// linear array containing page id or null, used privately by _get_import_vars()
-	
+
 	// runtime dynamic update variables
 	_plugins_update: [],
 	_plugins_add: [],
@@ -70,7 +70,7 @@ woas.importer = {
 		}
 		return mts;
 	},
-	
+
 	_filter_by_title: function(title) {
 		// we are not using is_reserved() because will be inconsistant in case of enabled edit_override
 		// check pages in WoaS:: namespace
@@ -87,16 +87,16 @@ woas.importer = {
 			if (title === "WoaS::Custom::CSS")
 				// custom CSS is allowed only when importing CSS
 				return woas.importer.i_styles;
-			
+
 			// here we allow Plugins, Aliases, Hotkeys
-			
+
 			return true;
 		} else if (title.substr(0, 9) === "Special::") {
 			// always skip special pages and consider them system pages
 
 			return false;
 		}
-		
+
 		// if not on bad list, it's OK
 		return true;
 	},
@@ -131,7 +131,7 @@ woas.importer = {
 			// save evaluation if we don't want last modified timestamp
 			if (!woas.config.store_mts && (var_name === "page_mts"))
 				return;
-			
+
 			// evaluate the real array
 			var the_var = woas.eval(definition.replace(woas.importer.reJStringRep,
 								function (str, id) { return "'"+jstrings[id]+"'";}
@@ -144,9 +144,13 @@ woas.importer = {
 					for(var i=0,it=the_var.length;i < it;++i) {
 						// call the title filtering hook
 						if (woas.importer._filter_by_title(the_var[i])) {
-							woas.importer.pages.push( { title: the_var[i], attrs: 0,
-												mts: (old_version > 97) ? 0 : (woas.config.store_mts ? woas.importer.current_mts : 0),
-												body: null } );
+							woas.importer.pages.push( {
+								title: the_var[i],
+								attrs: 0,
+								mts: (old_version > 97
+									? 0
+									: (woas.config.store_mts ? woas.importer.current_mts : 0),
+								body: null } );
 							// add object by-ref
 							woas.importer._reference.push( woas.importer.pages[woas.importer.pages.length-1] );
 						} else // no page reference
@@ -199,7 +203,7 @@ woas.importer = {
 				default:
 					woas.log("Ignoring unexpected variable "+var_name);
 			} // switch
-				
+
 		});
 		// finished importing variables, clear references array
 		this._reference = [];
@@ -215,7 +219,7 @@ woas.importer = {
 		if (NP.attrs < 2 && (this.i_comment_js || this.i_comment_macros))
 			woas.parser.import_disable(NP, this.i_comment_js, this.i_comment_macros);
 	},
-	
+
 	// add directly without checking for duplicates
 	//NOTE: will not set 'pi' property
 	_inject_import_hook: function(page) {
@@ -228,7 +232,7 @@ woas.importer = {
 		page.i = pages.length-1;
 		return true;
 	},
-	
+
 	_core_import_hook: function(page) {
 //		woas.log("Importing page "+page.title);	//log:0
 		var pi = woas.page_index(page.title);
@@ -251,7 +255,7 @@ woas.importer = {
 		}
 		return true;
 	},
-	
+
 	// normal import hook - shared for XHTML and WSIF import
 	_import_hook: function(page) {
 		var that = woas.importer;
@@ -274,10 +278,10 @@ woas.importer = {
 			that._update_hotkeys = true;
 		else if (page.title === "WoaS::CSS::Custom")
 			that._update_css = true;
-		
+
 		return true;
 	},
-	
+
 	_clear: function() {
 //		this.pages = [];
 		this._update_css = false;
@@ -286,7 +290,7 @@ woas.importer = {
 		this._plugins_add = [];
 		this._plugins_update = [];
 	},
-	
+
 	_old_version: null,
 	_upgrade_content: function (P) {
 		var that = woas.importer;
@@ -340,7 +344,7 @@ woas.importer = {
 				while (rest-- > 0) {P.body.pop();}
 			}
 		}
-			
+
 		// proceed to actual import
 		if (that._import_hook(P)) {
 			++that.pages_imported;
@@ -348,23 +352,23 @@ woas.importer = {
 		}
 		return true;
 	},
-	
+
 	_import_content: function(old_version) {
 		this._old_version = old_version;
 		for (var i=0; i < this.pages.length; i++) {
 			this._upgrade_content(this.pages[i]);
 		}
 	},
-	
+
 	do_import: function(ct) {
 		// initialize
 		this.pages_imported = 0;
 		this.total = 0;
 
 		var fail=false;
-		
+
 		do { // a fake do...while to ease failure return
-		
+
 		// get WoaS version
 		var old_version,
 			ver_str = ct.match(/var woas = \{"version":\s+"([^"]+)"\s*\};(\r\n|\n)/);
@@ -404,7 +408,7 @@ woas.importer = {
 			old_cfg;
 		if (this.i_config)
 			old_cfg = d$.clone(woas.config);
-			
+
 		this.new_main_page = woas.config.main_page;
 
 		// locate the random marker
@@ -425,14 +429,14 @@ woas.importer = {
 
 		var data = woas._extract_src_data(old_marker, ct, true, this.new_main_page, true);
 		// some GC help: we no more need the big content variable
-		ct = null;		
-		
+		ct = null;
+
 		if (this.i_config) {
 			var cfgStartMarker = 'woas["'+'config"] = {',
 				// grab the woas config definition
 				cfg_start = data.indexOf(cfgStartMarker),
 				cfg_found = false;
-			
+
 			if (cfg_start !== -1) {
 				var cfg_end = data.indexOf('}', cfg_start+cfgStartMarker.length);
 				if (cfg_end !== -1) {
@@ -440,7 +444,7 @@ woas.importer = {
 					cfg_found = !woas.eval_failed;
 				}
 			}
-						
+
 			if (!cfg_found) {
 				woas.log("Failed to import old configuration object");
 			} else {
@@ -475,25 +479,25 @@ woas.importer = {
 					if ((typeof woas.config[p] == "undefined") && (typeof old_cfg[p] != "undefined"))
 						woas.config[p] = old_cfg[p];
 				}
-				
+
 				// put back the old values for WSIF datasource
 				woas.config.wsif_author = old_cfg.wsif_author;
 				woas.config.wsif_ds = old_cfg.wsif_ds;
 				woas.config.wsif_ds_lock = old_cfg.wsif_ds_lock;
 				woas.config.wsif_ds_multi = old_cfg.wsif_ds_multi;
-				
+
 			} // done importing config object
 		} // i_config
 
 		// modified timestamp for pages before 0.10.0
 		this.current_mts = Math.round(new Date().getTime()/1000);
-		
+
 		// import the pages data
 		this._get_import_vars(data, ['woas', '__marker', 'version', '__config'],
 							old_version);
 		// some GC help
 		data = null;
-		
+
 		// apply upgrade fixes
 		if (this.i_content) {
 			this._import_content(old_version);
@@ -501,7 +505,7 @@ woas.importer = {
 			// GC cleanup
 			this.pages = [];
 		}
-		
+
 		// eventually add the new missing page
 		if (old_version <= 112) {
 			// take care of custom CSS (if any)
@@ -523,9 +527,9 @@ woas.importer = {
 			if ((this.new_main_page !== old_cfg.main_page) && woas.page_exists(this.new_main_page))
 				woas.config.main_page = this.new_main_page;
 		}
-		
+
 		} while (false); // fake do..while ends here
-		
+
 		// fix configuration for older versions
 		if (old_version < 114) {
 			if (!woas.config.nav_history) {
@@ -553,17 +557,17 @@ woas.importer = {
 				mts: woas.config.store_mts ? this.current_mts : 0
 			} );
 		}
-		
+
 		// always update run-time stuff, even on failure
 		this._after_import();
-		
+
 		// clear everything else
 		this._clear();
 
 		// return false on failure
 		return !fail;
 	},
-	
+
 	_after_import: function() {
 		var that = woas.importer;
 		// refresh in case of CSS, aliases and/or hotkeys modified
@@ -573,7 +577,7 @@ woas.importer = {
 			woas._load_aliases(woas.get_text("WoaS::Aliases"));
 		if (that._update_hotkeys)
 			woas.hotkey.load(woas.get_text("WoaS::Hotkeys"));
-		
+
 		// add/update plugins
 		for(var i=0,it=that._plugins_update.length;i < it;++i) {
 			woas.plugins.update(that._plugins_update[i]);
@@ -583,7 +587,7 @@ woas.importer = {
 			woas.plugins._all.push(that._plugins_add[i]);
 			woas.plugins.enable(that._plugins_add[i]);
 		}
-		
+
 	},
 
 	// regular expressions used to not mess with title/content strings
@@ -619,19 +623,19 @@ woas.import_wiki = function() {
 	}
 
 	var rv = this.importer.do_import(ct);
-	
+
 	// remove hourglass
 	this.progress_finish();
-	
+
 	if (rv) {
 		// inform about the imported pages / total pages present in file
 		this.alert(this.i18n.IMPORT_OK.sprintf(this.importer.pages_imported+"/"+this.importer.total,
 												this.importer.total - this.importer.pages_imported));
-		
+
 		// move to main page
 		current = this.config.main_page;
 	}
-	
+
 	// always save if we have erased the wiki
 	if ((this.importer.i_overwrite === 0) || rv)
 		this.full_commit(); // PVHL: this could have failed!
@@ -640,7 +644,7 @@ woas.import_wiki = function() {
 		this.refresh_menu_area();
 		this.set_current(this.config.main_page, true);
 	}
-	
+
 	// supposedly, everything went OK
 	return rv;
 };
@@ -671,7 +675,7 @@ woas._import_pre_up = function(all_options) {
 		// these options are not available for WSIF
 		this.importer.i_styles = this.importer.i_content = true;
 	}
-	
+
 	var old_is = woas.config.import_settings;
 	// now store these values
 	woas.config.import_settings = this.bitfield.get_object(this.importer, this.importer._settings_props);
@@ -687,7 +691,7 @@ woas._import_pre_up = function(all_options) {
 		if (!this.erase_wiki())
 			return false;
 	}
-	
+
 	return true;
 };
 
@@ -695,7 +699,7 @@ woas._import_pre_up = function(all_options) {
 woas.import_wiki_wsif = function() {
 	if (!woas._import_pre_up(false))
 		return false;
-	
+
 	// automatically retrieve the filename (will call load_file())
 	var done = woas._native_wsif_load(null, false /* no locking */, false /* not native */, 0,
 			this.importer._upgrade_content, this.importer._filter_by_title,
