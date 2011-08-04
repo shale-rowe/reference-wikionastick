@@ -25,7 +25,7 @@ TODO:
   error discovery
 
 * make multi-file save only save the file that was changed/added and the index;
-  it is very slow right now and this would improve things greatly -- mostof the
+  it is very slow right now and this would improve things greatly -- most of the
   code to do this is already present.
 
   It would also be a good idea to only save index if:
@@ -93,6 +93,14 @@ woas._normver = function(s) {
 woas._native_wsif_save = function(path, src_fname, locking, single_wsif, inline_wsif, author,
 							save_all, plist) {
 
+	// PVHL: plist is no longer optional, but disabled until the broken commit code is fixed
+	// sometimes plist is used as a list of all pages to be saved, sometimes as a list of single
+	// pages to be saved. Obviously this is a conflict in operation.
+	// plist should only be used in multi-wsif mode where separate pages exist. It is almost
+	// certainly faster to create pages for saving than to load file and manipulate content,
+	// so this is best even after WoaS save process is changed to use pages to create file.
+	plist = [];
+
 	this.progress_init("WSIF save");
 	
 	// prepare the extra headers
@@ -112,12 +120,12 @@ woas._native_wsif_save = function(path, src_fname, locking, single_wsif, inline_
 	if (p !== -1)
 		boundary = boundary.substr(0,p);
 
-	if (typeof plist == "undefined") {
-		full_save = true;
-		l = page_titles.length;
-	} else {
+	if (plist.length) {
 		l = plist.length;
 		full_save = false;
+	} else {
+		full_save = true;
+		l = page_titles.length;
 	}
 	// save count of total pages which need to be exported
 	this.wsif.expected_pages = l;
@@ -273,7 +281,7 @@ PVHL: need to quickly fix (with minimal side-effects) a really bad bug in saving
 if done == 0 here then there has been a failure in saving; blob failure will pass though -- this is
 a separate bug that needs to be fixed as well; I am not addressing that bug at this time.
 So: if !done don't save index. return value of 0 signals save failed; this is used to stop a save
-of the html file -- otherwise a bad data source value wipes out the wiki.
+of the html file -- otherwise a bad data source save wipes out the wiki.
 */
 	if (done && !this.save_file(path+src_fname,
 						this.file_mode.ASCII_TEXT,
