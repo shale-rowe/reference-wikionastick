@@ -31,7 +31,8 @@ woas["config"] = {
 "new_tables_syntax":true,
 "store_mts":false,
 "folding_style":0,
-"import_settings":228,
+"import_woas":224,
+"import_wsif":248,
 "auto_links":false,
 "sort_tags":true,
 "fixed_header":false,
@@ -187,17 +188,18 @@ var pages = [
 * [[Special::Export]] - export wiki into multiple linked static XHTML files\n\
 * [[Special::ExportWSIF]] - export wiki into multiple or single [[WoaS::Help::WSIF|WSIF]] files\n\
 * [[Special::Erase Wiki]] - delete ALL wiki pages and reset with default data',
-'Import a wiki from an /.html/ source (current or earlier version):\n\
+'=Import a wiki from a WoaS /HTML/ file\n\
+/The imported WoaS file can be from a current or earlier version./\n\
 \n\
-File: \x3Cinput id="filename_" type="file" /\x3E&nbsp;\x3Cinput id="btn_import" class="woas_button_top" type="button" value="Import" onclick="import_wiki()" /\x3E\n\
-== Source\n\
-\x3Clabel for="woas_cb_import_config"\x3E\x3Cinput type="checkbox" id="woas_cb_import_config" checked="checked"\x3E&nbsp;Import configuration (except WSIF datasource settings)\x3C/label\x3E\n\
-\x3Clabel for="woas_cb_import_styles"\x3E\x3Cinput type="checkbox" id="woas_cb_import_styles"\x3E&nbsp;Import CSS\x3C/label\x3E\n\
-\x3Clabel for="woas_cb_import_content"\x3E\x3Cinput type="checkbox" id="woas_cb_import_content" checked="checked"\x3E&nbsp;Import pages\x3C/label\x3E\n\
-[[Include::WoaS::ImportSettings]]\n\
-\n\
+\x3Cinput id="btn_import" class="woas_button_top" type="button" value="Import" onclick="import_wiki()" /\x3E\\\n\
+\x3Cfieldset class="woas_input_wrap"\x3E\x3Clegend\x3ESource\x3C/legend\x3E\\\n\
+\x3Clabel class="woas_input_wrap_left"\x3EFile: \x3Cinput class="woas_input_wrap_inline" id="filename_" type="file" /\x3E\x3C/label\x3E\n\
+\x3Clabel\x3E\x3Cinput type="checkbox" id="woas_cb_import_config" onclick="woas.importer.i_config=this.checked"\x3EImport configuration (except WSIF datasource settings)\x3C/label\x3E\n\
+\x3Clabel\x3E\x3Cinput type="checkbox" id="woas_cb_import_content" onclick="woas.ui._import_load_change()"\x3EImport content\x3C/label\x3E\x3Clabel\x3E\x3Cinput type="checkbox" class="woas_input_wrap_inline" id="woas_cb_import_styles" onclick="woas.importer.i_styles=this.checked"\x3EImport custom CSS\x3C/label\x3E\n\
+\x3C/fieldset\x3E\\\n\
+[[Include::WoaS::ImportSettings]]\\\n\
 \x3Cscript type="text/javascript"\x3E\n\
-woas.ui._import_xhtml_load();\n\
+woas.ui._import_load(false);\n\
 \x3C/script\x3E',
 '[[Special::TOC]]\n\
 = Welcome to Wiki on a Stick!\n\
@@ -320,25 +322,27 @@ Apart from the above, your normal usage of encrypted pages can be considered sec
 \x3Clabel\x3E\x3Cinput type="checkbox" id="cb_save_on_quit" onclick="woas.config.save_on_quit = d$.checked(\'cb_save_on_quit\')" /\x3EAutomatically save options before quitting (if changed)\x3C/label\x3E\n\
 \x3Clabel\x3E\x3Cinput type="checkbox" id="cb_safe_mode" onclick="woas.config.safe_mode = d$.checked(\'cb_safe_mode\')" /\x3EEnable safe mode with embedded scripts and plugins not executed (/requires reload/)\x3C/label\x3E\n\
 \x3Clabel\x3E\x3Cinput type="checkbox" id="cb_allow_diff" onclick="woas.config.allow_diff = d$.checked(\'cb_allow_diff\')" /\x3EMake merge/diff of WoaS XHTML/WSIF data source easier\x3C/label\x3E\n\
-\x3Clabel\x3E\x3Cinput type="checkbox" id="cb_cumulative_save" onclick="woas.config.cumulative_save = d$.checked(\'cb_cumulative_save\')" /\x3EOnly save to disk when quitting (potentially risky)\x3C/label\x3E\n\
+\x3C!--\x3Clabel\x3E\x3Cinput type="checkbox" id="cb_cumulative_save" onclick="woas.config.cumulative_save = d$.checked(\'cb_cumulative_save\')" /\x3EOnly save to disk when quitting (potentially risky)\x3C/label\x3E--\x3E\n\
 \x3Clabel\x3E\x3Cinput type="checkbox" id="cb_store_mts" onclick="woas.config.store_mts = d$.checked(\'cb_store_mts\')" /\x3EStore and display last modified timestamp\x3C/label\x3E\n\
 \x3Clabel\x3E\x3Cinput type="checkbox" id="cb_rem_history" onclick="woas.config.nav_history = d$.checked(\'cb_rem_history\')" /\x3EStore current page and navigation history\x3C/label\x3E\\\n\
 \x3C/fieldset\x3E\\\n\
-\x3Cfieldset class="woas_input_wrap"\x3E\x3Clegend\x3EData source\x3C/legend\x3E\\\n\
-\x3Cdiv class="woas_input_wrap_left"\x3EPages are stored internally if /WSIF data source/ is blank. *Existing internal pages will be lost on the next save if /WSIF data source/ is changed from blank to an external source, and the external source will be overwritten with this wiki\'s content!*\n\
+\x3Cfieldset class="woas_input_wrap"\x3E\x3Clegend\x3EWSIF settings\x3C/legend\x3E\\\n\
+\x3Cdiv class="woas_input_wrap_left"\x3EPages are stored internally if /WSIF data source/ is blank. *Existing internal pages will be lost on the next save if /WSIF data source/ is changed from blank to an external source, and the external source will be overwritten with this wiki\'s content if it already exists!*\n\
 \n\
 If the /Use multiple files in WSIF data source/ option is being used (creating one WSIF file for each page) then disabling the option will not remove existing WSIF files, though the /WSIF data source/ file will be overwritten with the full page content.\n\
 \n\
-The path may be entered in Windows or UNIX style. *Any directories in the path must exist if you are not using a Mozilla browser.*\x3C/div\x3E\n\
+The path may be entered in Windows or UNIX format. *Any directories in the path must exist if you are not using a Mozilla browser.*\x3C/div\x3E\n\
+\x3Cdiv class="woas_input_wrap_left" style="background-color:#FAFAFF; padding:10px; margin-top:10px; margin-bottom:10px"\x3E\n\
+\x3Clabel\x3ERelative path to WSIF data source, including filename: \x3Cinput class="woas_input_wrap_inline" id="txt_wsif_ds" type="text" size="60" value="" /\x3E\x3C/label\x3E\n\
+\x3Clabel\x3E\x3Cinput class="woas_input_wrap_no_left" type="checkbox" id="cb_wsif_ds_multi" onclick="woas.config.wsif_ds_multi = d$.checked(\'cb_wsif_ds_multi\')" /\x3EUse multiple files in WSIF data source\x3C/label\x3E\n\
 \n\
-\x3Clabel class="woas_input_wrap_left"\x3ERelative path to WSIF data source, including filename: \x3Cinput class="woas_input_wrap_inline" id="txt_wsif_ds" type="text" size="60" value="" onblur="this.value=woas.ui.wsif_ds(this);woas.ui.blur_textbox()" /\x3E\x3C/label\x3E\n\
-\x3Clabel\x3E\x3Cinput type="checkbox" id="cb_wsif_ds_multi" onclick="woas.config.wsif_ds_multi = d$.checked(\'cb_wsif_ds_multi\')" /\x3EUse multiple files in WSIF data source\x3C/label\x3E\n\
-\n\
+\x3Clabel\x3E\x3Cinput class="woas_button woas_input_wrap_no_left" type="button" onclick="woas.ui.wsif_ds(d$(\'txt_wsif_ds\'))" value="Change data source" /\x3E/Data source changes will not be used unless confirmed with the /Change data source /button./\x3C/label\x3E\n\
+\x3C/div\x3E\n\
 \x3Clabel class="woas_input_wrap_left"\x3EWSIF author: \x3Cinput class="woas_input_wrap_inline" id="txt_author" type="text" size="30" value="" onchange="woas.config.wsif_author=this.value" /\x3E\x3C/label\x3E\\\n\
 \x3C/fieldset\x3E\\\n\
 \x3Cdiv id="woas_read_only_div"\x3E\\\n\
 \x3Cfieldset class="woas_input_wrap" style="border-color:#f00"\x3E\x3Clegend\x3EPermanent changes\x3C/legend\x3E\\\n\
-\x3Clabel\x3E\x3Cinput style="background-color: #FFF0F0" class="woas_button" type="button" onclick="ro_woas()" value="Prevent edits" /\x3E /Caution: to re-enable editing you will have to manually edit this WoaS file/\x3C/label\x3E\\\n\
+\x3Clabel\x3E\x3Cinput class="woas_button_ro" type="button" onclick="ro_woas()" value="Prevent edits" /\x3E /Caution: to re-enable editing you will have to manually edit this WoaS file/\x3C/label\x3E\\\n\
 \x3C/fieldset\x3E\\\n\
 \x3C/div\x3E\n\
 \x3Cscript type="text/javascript"\x3E\n\
@@ -354,7 +358,7 @@ d$("cb_dblclick_edit").checked = woas.bool2chk(woas.config.dblclick_edit);\n\
 d$("cb_debug_mode").checked = woas.bool2chk(woas.config.debug_mode);\n\
 d$("cb_debug_closed").checked = woas.bool2chk(woas.config.debug_closed);\n\
 d$("cb_save_on_quit").checked = woas.bool2chk(woas.config.save_on_quit);\n\
-d$("cb_cumulative_save").checked = woas.bool2chk(woas.config.cumulative_save);\n\
+//d$("cb_cumulative_save").checked = woas.bool2chk(woas.config.cumulative_save);\n\
 d$("cb_safe_mode").checked = woas.bool2chk(woas.config.safe_mode);\n\
 d$("cb_wsif_ds_multi").checked = woas.bool2chk(woas.config.wsif_ds_multi);\n\
 //d$("cb_wsif_ds_lock").checked = woas.bool2chk(woas.config.wsif_ds_lock);\n\
@@ -366,9 +370,8 @@ if (woas.browser.ie6) d$("cb_fixed_header").disabled =  d$("cb_fixed_menu").disa
 \n\
 d$("txt_author").value = woas.config.wsif_author;\n\
 d$("txt_wsif_ds").value = woas.ui.wsif_ds();\n\
-\n\
 d$("txt_wsif_ds").onfocus = d$("txt_author").onfocus = woas.ui.focus_textbox;\n\
-d$("txt_author").onblur = woas.ui.blur_textbox;\n\
+d$("txt_wsif_ds").onblur = d$("txt_author").onblur = woas.ui.blur_textbox;\n\
 \x3C/script\x3E',
 '= Deprecated syntax\n\
 \n\
@@ -491,20 +494,20 @@ Saves changes to options automatically when closing the wiki. This will not happ
 Prevents the wiki from executing [[WoaS::Help::JavaScript|embedded scripts]] and [[WoaS::Help::Plugins|plugins]].\n\
 ===Make merge/diff of WoaS XHTML/WSIF data source easier\n\
 Adds a [[WoaS::Help::Join lines of text|backslash]] and line-end character (\\\\n) to the end of every line of page text. This breaks the text into multiple lines, instead of it being one page-length line, making it easier for source code revision tools (like SVN or git) and merge tools to mark and show changes efficiently.\n\
-===Only save to disk when quitting (potentially risky)\n\
-Makes the wiki save to disk only when quitting. This is potentially risky because a browser crash for any reason will cause your edits to be lost. This setting is therefore not recommended.\n\
+\x3C!-- ===Only save to disk when quitting (potentially risky)\n\
+Makes the wiki save to disk only when quitting. This is potentially risky because a browser crash for any reason will cause your edits to be lost. This setting is therefore not recommended.--\x3E\n\
 ===Store and display last modified time-stamp\n\
 Allows the wiki to store the last time each page was changed and display it as a time-stamp beneath the main text area.\n\
 ===Store current page and navigation history\n\
 Remembers the most recent back history and automatically opens the most recently saved page whenever you load the wiki into a browser.\n\
-== Data source\n\
+== WSIF Settings\n\
 WoaS is most often used as a single-file wiki, with all of it\'s content inside one self-modifying XHTML file, but it can also be used with external content files, called [[WoaS::Help::WSIF|WSIF]] files. It can use a single WSIF file containing all of the wiki\'s page content, or a single WSIF index file that links to the WSIF files of individual pages. Everything works the same whichever way it is used.\n\
 \n\
-If you just want to use a WSIF file for backing up or sharing your data with others you should use [[WoaS::Help::Special::ExportWSIF|Special::ExportWSIF]] instead as the file is then not altered.\n\
+If you just want to use a WSIF file for backing up or sharing your data with others you should use [[WoaS::Help::Special::ExportWSIF|Special::ExportWSIF]] instead as the WoaS file is then not altered.\n\
 ===Relative path to WSIF data source, including filename\n\
 This is the relative path and name of the file the wiki should use to save and retrieve data. A relative path is one that starts in the same directory the WoaS file is in; {{{temp/file.wsif}}} is a relative path, {{{/temp/file.wsif}}} is not; {{{c:\\temp\\file.wsif}}} and {{{c:temp\\file.wsif}}} are also incorrect. The file name can have any extension or none at all, but the /wsif/ extension will let you know that it\'s a WoaS data source file. The path may be entered in Windows or UNIX format, but will be converted to the correct format upon entry (it is stored in the WoaS file in UNIX format).\n\
 \n\
-Providing a filename causes the wiki to create a WSIF file by that name and use that file to store and retrieve all data. If just a filename is entered the file will be created inside the directory the WoaS file is in. The path can additionally specify a directory path relative to the location of the wiki. WoaS will create the specified subdirectory only if you are using a Gecko-based browser like Firefox. If you are using a different browser you must create the subdirectory yourself before saving the file.\n\
+Providing a filename causes the wiki to create a WSIF file by that name and use that file to store and retrieve all page data (configuration options are always stored in the WoaS file itself). If just a filename is entered the file will be created inside the directory the WoaS file is in. The path can additionally specify a directory path relative to the location of the wiki. WoaS will create the specified subdirectory only if you are using a Gecko-based browser like Firefox. If you are using a different browser you must create the subdirectory yourself before saving the file.\n\
 \n\
 [[Include::WoaS::Template::Info|If you enter the name of an existing file that file will be overwritten on the next save; any associated files will also be overwritten if /multiple files/ mode is selected.]]\n\
 \n\
@@ -513,6 +516,9 @@ The data source name will be used as the index page name when using multiple fil
 The box is blank by default. Leaving the box blank, or deleting an existing filename from the box, causes the wiki to save all the currently loaded data to itself and retrieve all data from itself. Deleting the filename from the box does not delete any files.\n\
 ===Use multiple files in WSIF data source\n\
 Causes the wiki to create individual WSIF files for each page. The pages will be automatically named by page number in their order of creation. An index page with the WSIF data source filename will be created containing a list of the numbered file names and their corresponding wiki page names. WoaS will use this file to load data and save edits to the correct file.\n\
+\n\
+[[Include::WoaS::Template::Info|The two WSIF data source settings described above will *not* be used or saved unless you confirm the change with the /Change data source/ button. WoaS will then describe the impact of the changes you are about to make so you can change your mind if you want to by pressing cancel. Though confirmed, the settings will not take effect until the options are saved to the WoaS file, just like the other options]]\n\
+\n\
 ===WSIF Data author\n\
 This is the name of the author as displayed in exported WSIF files. Replace the default name with your own to be credited as the author of the file(s). Deleting the contents of the box prevents the author line from being added to WSIF files.\n\
 ==Permanent changes\n\
@@ -724,14 +730,14 @@ WSIF format is pretty straightforward to produce or interpret, however please co
 * it is safe to embed a WSIF file inside another, given that boundaries are properly implemented\n\
 \n\
 WoaS project offers an official PHP library (libwsif) for reading/writing WSIF files, as well as a documented example.',
-'Import a wiki page (or collection of) in [[WoaS::Help::WSIF|WSIF format]].\n\
-\n\
-File: \x3Cinput id="filename_" type="file" /\x3E&nbsp;\x3Cinput id="btn_import" class="woas_button" type="button" value="Import WSIF" onclick="woas.import_wiki_wsif()" /\x3E\n\
-\n\
-[[Include::WoaS::ImportSettings]]\n\
-\n\
+'=Import content in [[WoaS::Help::WSIF|WSIF]] format.\n\
+\x3Cinput id="btn_import" class="woas_button_top" type="button" value="Import WSIF" onclick="woas.import_wiki_wsif()" /\x3E\\\n\
+\x3Cfieldset class="woas_input_wrap"\x3E\x3Clegend\x3ESource\x3C/legend\x3E\\\n\
+\x3Clabel class="woas_input_wrap_left"\x3EFile: \x3Cinput class="woas_input_wrap_inline" id="filename_" type="file" /\x3E\x3C/label\x3E\n\
+\x3C/fieldset\x3E\\\n\
+[[Include::WoaS::ImportSettings]]\\\n\
 \x3Cscript type="text/javascript"\x3E\n\
-woas.ui._import_wsif_load();\n\
+woas.ui._import_load(true);\n\
 \x3C/script\x3E',
 '= Macros\n\
 \n\
@@ -3313,7 +3319,7 @@ body {\n\
 }\n\
 \n\
 /* BUTTONS */\n\
-.woas_button, .woas_button_top, .woas_editor_button {\n\
+.woas_button, .woas_button_top, .woas_editor_button, .woas_button_ro {\n\
 	background-color: #F0F0F5;\n\
 	border: 1pt solid grey;\n\
 	color: darkblue;\n\
@@ -3322,13 +3328,16 @@ body {\n\
 	margin-top: 0.438em;\n\
 	text-align: center;\n\
 }\n\
-.woas_button:hover, .woas_button_top:hover {\n\
+.woas_button:hover, .woas_button_top:hover, .woas_button_ro:hover {\n\
 	background-color: darkgrey;\n\
 }\n\
 .woas_button_top {\n\
 	position: absolute;\n\
 	right: 1em;\n\
 	top: .5em\n\
+}\n\
+.woas_button_ro {\n\
+	background-color: #FFF0F0\n\
 }\n\
 \n\
 /* DEBUG CONSOLE */\n\
@@ -3491,6 +3500,9 @@ h6.woas_heading {\n\
 }\n\
 .woas_input_wrap .woas_input_wrap_inline {\n\
 	margin-left: 10px;\n\
+}\n\
+.woas_input_wrap .woas_input_wrap_no_left {\n\
+	margin-left: 0px;\n\
 }\n\
 .woas_input_wrap .woas_input_wrap_left {\n\
 	margin: 0px 0px 5px -20px;\n\
@@ -3860,15 +3872,18 @@ In order to add an alias you should edit the [[WoaS::Aliases]] reserved page; yo
 {{{$JD    John Doe}}}\n\
 \n\
 *$JD* is the alias, which will be replaced when found in wiki page title references, and /"John Doe"/ is the text which will replace *$JD*. You can specify any part of page titles in aliases, like namespaces or page prefixes/suffixes.',
-'== Existing pages\n\
-\x3Clabel for="woas_import_erase"\x3E\x3Cinput type="radio" id="woas_import_erase" name="woas_import_overwrite" onclick="woas.importer.i_overwrite=0"\x3EErase all user pages before import process\x3C/label\x3E\n\
-\x3Clabel for="woas_import_ignore"\x3E\x3Cinput type="radio" id="woas_import_ignore" name="woas_import_overwrite" onclick="woas.importer.i_overwrite=1" checked="checked"\x3EIgnore\x3C/label\x3E\n\
-\x3Clabel for="woas_import_overwrite"\x3E\x3Cinput type="radio" id="woas_import_overwrite" name="woas_import_overwrite" onclick="woas.importer.i_overwrite=2"\x3EOverwrite\x3C/label\x3E\n\
-\x3Clabel for="woas_import_ask"\x3E\x3Cinput type="radio" id="woas_import_ask" name="woas_import_overwrite" onclick="woas.importer.i_overwrite=3"\x3EAsk before overwrite\x3C/label\x3E\n\
-== Security\n\
-\x3Clabel for="woas_cb_import_comment_js"\x3E\x3Cinput type="checkbox" id="woas_cb_import_comment_js" checked="checked"\x3EComment JavaScript tags\x3C/label\x3E\n\
-\x3Clabel for="woas_cb_import_comment_macros"\x3E\x3Cinput type="checkbox" id="woas_cb_import_comment_macros" checked="checked"\x3EComment macro definition/call\x3C/label\x3E\n\
-\x3Clabel for="woas_cb_import_woas_ns"\x3E\x3Cinput type="checkbox" id="woas_cb_import_woas_ns" checked="checked"\x3EImport pages of the [[WoaS::]] namespace ([[WoaS::Hotkeys|hotkeys]], [[WoaS::Plugins|plugins]], [[WoaS::Aliases|aliases]] and [[WoaS::CSS::Custom|custom CSS]])\x3C/label\x3E',
+'\x3Cdiv id="woas_import_content"\x3E\x3Cfieldset class="woas_input_wrap"\x3E\x3Clegend\x3EExisting pages\x3C/legend\x3E\\\n\
+\x3Clabel\x3E\x3Cinput type="radio" id="woas_import_ask" name="woas_import_overwrite" onclick="woas.importer.i_overwrite=3" checked="checked"\x3EAsk before overwrite\x3C/label\x3E\n\
+\x3Clabel\x3E\x3Cinput type="radio" id="woas_import_erase" name="woas_import_overwrite" onclick="woas.importer.i_overwrite=0"\x3EErase all user pages before import process\x3C/label\x3E\n\
+\x3Clabel\x3E\x3Cinput type="radio" id="woas_import_ignore" name="woas_import_overwrite" onclick="woas.importer.i_overwrite=1"\x3EIgnore\x3C/label\x3E\n\
+\x3Clabel\x3E\x3Cinput type="radio" id="woas_import_overwrite" name="woas_import_overwrite" onclick="woas.importer.i_overwrite=2"\x3EOverwrite\x3C/label\x3E\n\
+\x3C/fieldset\x3E\\\n\
+\x3Cfieldset class="woas_input_wrap"\x3E\x3Clegend\x3ESecurity\x3C/legend\x3E\\\n\
+\x3Cdiv class="woas_input_wrap_left"\x3E/If you don\'t trust the pages you are importing you may want to disable imported JavaScript, macros, and special WoaS pages until you can review their content./\x3C/div\x3E\n\
+\x3Clabel\x3E\x3Cinput type="checkbox" id="woas_cb_import_comment_js" onclick="woas.importer.i_comment_js=this.checked"\x3EComment JavaScript tags\x3C/label\x3E\n\
+\x3Clabel\x3E\x3Cinput type="checkbox" id="woas_cb_import_comment_macros" onclick="woas.importer.i_comment_macros=this.checked"\x3EComment macro definition/call\x3C/label\x3E\n\
+\x3Clabel\x3E\x3Cinput type="checkbox" id="woas_cb_import_no_woas" onclick="woas.importer.i_no_woas=this.checked"\x3EDo not import [[WoaS::]] namespace pages ([[WoaS::Hotkeys|hotkeys]], [[WoaS::Plugins|plugins]], and [[WoaS::Aliases|aliases]])\x3C/label\x3E\n\
+\x3C/fieldset\x3E\x3C/div\x3E',
 '= Include web page\n\
 Web pages can be included in a page as embedded HTML objects or in HTML iframes.\n\
 \n\
@@ -7417,13 +7432,12 @@ woas._create_page_direct = function(ns, cr, fill_mode, default_ct) {
 };
 
 woas.cmd_erase_wiki = function() {
-	if (this.erase_wiki()) {
-		if (!this.full_commit())
-			this.alert(this.i18n.FAILED_ERASE);
+	if (this.erase_wiki() && !this.full_commit()) {
+		this.alert(this.i18n.FAILED_ERASE);
 		// reload page because all data is lost - works even in IE6
 		window.location = window.location;
-		//back_or(this.config.main_page);
 	}
+	back_or(this.config.main_page);
 	return null;
 };
 
@@ -7452,6 +7466,7 @@ woas.erase_wiki = function() {
 		!confirm(this.i18n.CONFIRM_DELETE_ALL2))
 		return false;
 	var i,l,l1,l2,pi,t;
+// PVHL: should be in cmd_erase_wiki; also menu refresh below
 	this.progress_init("Erasing...");
 	var backup_pages = [];
 	// attributes and last modified timestamps for default pages
@@ -9125,7 +9140,7 @@ woas._on_load = function() {
 	this._set_debug(this.config.debug_mode, this.config.debug_closed);
 	d$("woas_debug_log").value = ""; // for Firefox
 	// output platform information - note that revision is filled in only in releases
-	woas.log("*** WoaS v"+this.version+"-pvhl-r2437"+" started");	// log:1
+	woas.log("*** WoaS v"+this.version+"-pvhl-r2443"+" started");	// log:1
 	
 	// needed to check if data source changes; forces full save when entering/exiting
 	// WSIF datasource mode or changing the name of the data source file
@@ -10554,11 +10569,7 @@ woas.full_commit = function() {
 //   Quick fix is to disable config-only save and save everything every time.
 //   Was: return this._save_to_file(false);
 woas.cfg_commit = function() {
-	if (this.config.wsif_ds !== this._old_wsif_ds) {
-		var r = this._wsif_ds_save(this.config.wsif_ds, this.config.wsif_ds_lock, []);
-		if (!r) this.alert(this.i18n.WSIF_SAVE_FAIL);
-		return r ? this._save_to_file(true) : false;
-	}
+	// only saves to the html file; options not currently in a page
 	return this._save_to_file(true);
 };
 
@@ -10568,7 +10579,6 @@ woas.cfg_commit = function() {
 woas.commit = function(plist) {
 	var r = this._wsif_ds_save(this.config.wsif_ds, this.config.wsif_ds_lock, plist);
 	if (!r) this.alert(this.i18n.WSIF_SAVE_FAIL);
-	// performs full save, while the single page + global header could be saved instead
 	return r ? this._save_to_file(true) : false;
 };
 
@@ -10621,7 +10631,7 @@ woas.i18n = {
 	CONFIRM_EXPORT: "Export '%s' to the path specified below?",
 	CONFIRM_LOCK: "Do you want to use the last password entered to lock the '%s' page? ",
 	CONFIRM_LOCK_LAST: "The password was last used on the '%s' page.",
-	CONFIRM_READ_ONLY: "You will have to manually edit the file to revert this change.\n\nAre you sure you want to set this WoaS as read-only?",
+	CONFIRM_READ_ONLY: "You will have to manually edit the file to revert this change.\n\nAny other changes to options will also be saved.",
 	CONFIRM_REMOVE_ENCRYPT: "Do you want to remove encryption from the '%s' page?",
 	CONTINUE_WAIT_LOAD: "The loading process seems stuck.\nPlease click OK to keep waiting or Cancel to break.",
 	DELETE:"Delete page:",
@@ -10725,26 +10735,25 @@ woas.importer = {
 
 //private:
 	// property names used to retrieve default values from stored bitmask
-	_settings_props: ["i_comment_js", "i_comment_macros", "i_woas_ns",
+	_settings_props: ["i_comment_js", "i_comment_macros", "i_no_woas",
 	// the last 3 options are ignored for WSIF import
 					"i_config", "i_styles", "i_content"],
-	// the overwrite option covers bits 6,7
+	// default options
+	//  1 i_comment_js: false		- disable 'script' tags
+	//  2 i_comment_macros: false	- disable macro blocks '<<<...>>>'
+	//  4 i_no_woas: false			- do not import pages from WoaS:: namespace
+	//  8 i_config: false			- import configuration (XHTML only)
+	// 16 i_styles: false			- import stylesheet (XHTML only)
+	// 32 i_content: true			- import content pages (XHTML only)
+	// 64, 128 - the overwrite option covers bits 6,7
+	//    i_overwrite: 3			- overwrite mode (0 - erase, 1 - ignore, 2 - overwrite, 3 - ask)
 	_OVR_ID: 6,
-	// options
-	i_config: true,					// import configuration (XHTML only)
-	i_styles: false,				// import stylesheet (XHTML only)
-	i_content: true,				// import content pages (XHTML only)
-	i_comment_js: true,				// disable 'script' tags
-	i_comment_macros: true,			// disable macro blocks '<<<...>>>'
-	i_woas_ns: true,				// import pages from WoaS:: namespace
-	i_overwrite: 1,					// overwrite mode (0 - erase, 1 - ignore, 2 - overwrite, 3 - ask)
-
 	// used internally
 	new_main_page: null,
 	current_mts: null,
 	pages: [],			// imported page objects array
 	_reference: [],		// linear array containing page id or null, used privately by _get_import_vars()
-	
+
 	// runtime dynamic update variables
 	_plugins_update: [],
 	_plugins_add: [],
@@ -10768,13 +10777,17 @@ woas.importer = {
 		}
 		return mts;
 	},
-	
+
 	_filter_by_title: function(title) {
 		// we are not using is_reserved() because will be inconsistant in case of enabled edit_override
 		// check pages in WoaS:: namespace
 		if (title.substr(0,6) === "WoaS::") {
+			// allow CSS same as WoaS < 11.2 (and makes most sense)
+			if (title === "WoaS::CSS::Custom")
+				// custom CSS is allowed only when importing CSS
+				return woas.importer.i_styles;
 			// can we import from WoaS namespace?
-			if (!woas.importer.i_woas_ns)
+			if (!woas.importer.i_no_woas)
 				return false;
 			// never overwrite help pages with old ones
 			if (title.indexOf("WoaS::Help::") === 0)
@@ -10782,19 +10795,13 @@ woas.importer = {
 			// skip other core WoaS:: pages
 			if (woas.static_pages2.indexOf(title) !== -1)
 				return false;
-			if (title === "WoaS::Custom::CSS")
-				// custom CSS is allowed only when importing CSS
-				return woas.importer.i_styles;
-			
-			// here we allow Plugins, Aliases, Hotkeys
-			
+			// the rest are Plugins, Aliases, or Hotkeys
 			return true;
 		} else if (title.substr(0, 9) === "Special::") {
 			// always skip special pages and consider them system pages
-
 			return false;
 		}
-		
+
 		// if not on bad list, it's OK
 		return true;
 	},
@@ -10829,7 +10836,7 @@ woas.importer = {
 			// save evaluation if we don't want last modified timestamp
 			if (!woas.config.store_mts && (var_name === "page_mts"))
 				return;
-			
+
 			// evaluate the real array
 			var the_var = woas.eval(definition.replace(woas.importer.reJStringRep,
 								function (str, id) { return "'"+jstrings[id]+"'";}
@@ -10842,9 +10849,13 @@ woas.importer = {
 					for(var i=0,it=the_var.length;i < it;++i) {
 						// call the title filtering hook
 						if (woas.importer._filter_by_title(the_var[i])) {
-							woas.importer.pages.push( { title: the_var[i], attrs: 0,
-												mts: (old_version > 97) ? 0 : (woas.config.store_mts ? woas.importer.current_mts : 0),
-												body: null } );
+							woas.importer.pages.push({
+								title: the_var[i],
+								attrs: 0,
+								mts: (old_version > 97
+									? 0
+									: (woas.config.store_mts ? woas.importer.current_mts : 0)),
+								body: null });
 							// add object by-ref
 							woas.importer._reference.push( woas.importer.pages[woas.importer.pages.length-1] );
 						} else // no page reference
@@ -10897,7 +10908,7 @@ woas.importer = {
 				default:
 					woas.log("Ignoring unexpected variable "+var_name);
 			} // switch
-				
+
 		});
 		// finished importing variables, clear references array
 		this._reference = [];
@@ -10913,7 +10924,7 @@ woas.importer = {
 		if (NP.attrs < 2 && (this.i_comment_js || this.i_comment_macros))
 			woas.parser.import_disable(NP, this.i_comment_js, this.i_comment_macros);
 	},
-	
+
 	// add directly without checking for duplicates
 	//NOTE: will not set 'pi' property
 	_inject_import_hook: function(page) {
@@ -10926,20 +10937,18 @@ woas.importer = {
 		page.i = pages.length-1;
 		return true;
 	},
-	
+
 	_core_import_hook: function(page) {
 //		woas.log("Importing page "+page.title);	//log:0
 		var pi = woas.page_index(page.title);
 		if (pi === -1) { // new page title
 			woas.importer._inject_import_hook(page);
 			page.pi = -1;
-		} else { // page already existing, overwriting
-			if (woas.importer.i_overwrite === 1) {
-				// ignore already-existing pages
+		} else { // page already existing, overwriting unless not allowed
+			if (woas.importer.i_overwrite === 1 ||
+					(woas.importer.i_overwrite === 3
+					&& !confirm(woas.i18n.CONFIRM_OVERWRITE.sprintf(page.title)))) {
 				return false;
-			} else if (woas.importer.i_overwrite === 3) {
-				if (!confirm(woas.i18n.CONFIRM_OVERWRITE.sprintf(page.title)))
-					return false;
 			}
 			page_titles[pi] = page.title;
 			pages[pi] = page.body;
@@ -10949,33 +10958,32 @@ woas.importer = {
 		}
 		return true;
 	},
-	
+
 	// normal import hook - shared for XHTML and WSIF import
 	_import_hook: function(page) {
-		var that = woas.importer;
-		that._hotfix_on_import(page);
-
-		that._core_import_hook(page);
-
-		// take note of plugin pages and other special runtime stuff
-		var _pfx = "WoaS::Plugins::";
-		if (page.title.substr(0, _pfx.length) === _pfx) {
-			// does plugin already exist?
-			if (page.pi !== -1)
-				that._plugins_update.push(page.title.substr(_pfx.length));
-			else
-				that._plugins_add.push(page.title.substr(_pfx.length));
-		} else if (page.title === "WoaS::Aliases")
-			// check if we need to update aliases and hotkeys
-			that._update_aliases = true;
-		else if (page.title === "WoaS::Hotkeys")
-			that._update_hotkeys = true;
-		else if (page.title === "WoaS::CSS::Custom")
-			that._update_css = true;
-		
-		return true;
+		if (woas.importer._core_import_hook(page)) {
+			var that = woas.importer;
+			that._hotfix_on_import(page);
+			// take note of plugin pages and other special runtime stuff
+			var _pfx = "WoaS::Plugins::";
+			if (page.title.substr(0, _pfx.length) === _pfx) {
+				// does plugin already exist?
+				if (page.pi !== -1)
+					that._plugins_update.push(page.title.substr(_pfx.length));
+				else
+					that._plugins_add.push(page.title.substr(_pfx.length));
+			} else if (page.title === "WoaS::Aliases")
+				// check if we need to update aliases and hotkeys
+				that._update_aliases = true;
+			else if (page.title === "WoaS::Hotkeys")
+				that._update_hotkeys = true;
+			else if (page.title === "WoaS::CSS::Custom")
+				that._update_css = true;
+			return true;
+		}
+		return false;
 	},
-	
+
 	_clear: function() {
 //		this.pages = [];
 		this._update_css = false;
@@ -10984,7 +10992,7 @@ woas.importer = {
 		this._plugins_add = [];
 		this._plugins_update = [];
 	},
-	
+
 	_old_version: null,
 	_upgrade_content: function (P) {
 		var that = woas.importer;
@@ -11038,7 +11046,7 @@ woas.importer = {
 				while (rest-- > 0) {P.body.pop();}
 			}
 		}
-			
+
 		// proceed to actual import
 		if (that._import_hook(P)) {
 			++that.pages_imported;
@@ -11046,23 +11054,23 @@ woas.importer = {
 		}
 		return true;
 	},
-	
+
 	_import_content: function(old_version) {
 		this._old_version = old_version;
 		for (var i=0; i < this.pages.length; i++) {
 			this._upgrade_content(this.pages[i]);
 		}
 	},
-	
+
 	do_import: function(ct) {
 		// initialize
 		this.pages_imported = 0;
 		this.total = 0;
 
 		var fail=false;
-		
+
 		do { // a fake do...while to ease failure return
-		
+
 		// get WoaS version
 		var old_version,
 			ver_str = ct.match(/var woas = \{"version":\s+"([^"]+)"\s*\};(\r\n|\n)/);
@@ -11102,7 +11110,7 @@ woas.importer = {
 			old_cfg;
 		if (this.i_config)
 			old_cfg = d$.clone(woas.config);
-			
+
 		this.new_main_page = woas.config.main_page;
 
 		// locate the random marker
@@ -11123,14 +11131,14 @@ woas.importer = {
 
 		var data = woas._extract_src_data(old_marker, ct, true, this.new_main_page, true);
 		// some GC help: we no more need the big content variable
-		ct = null;		
-		
+		ct = null;
+
 		if (this.i_config) {
 			var cfgStartMarker = 'woas["'+'config"] = {',
 				// grab the woas config definition
 				cfg_start = data.indexOf(cfgStartMarker),
 				cfg_found = false;
-			
+
 			if (cfg_start !== -1) {
 				var cfg_end = data.indexOf('}', cfg_start+cfgStartMarker.length);
 				if (cfg_end !== -1) {
@@ -11138,7 +11146,7 @@ woas.importer = {
 					cfg_found = !woas.eval_failed;
 				}
 			}
-						
+
 			if (!cfg_found) {
 				woas.log("Failed to import old configuration object");
 			} else {
@@ -11160,7 +11168,7 @@ woas.importer = {
 					woas.config.new_tables_syntax = old_cfg.new_tables_syntax;
 					woas.config.store_mts = old_cfg.store_mts;
 					woas.config.folding_style = old_cfg.folding_style;
-					woas.config.import_settings = old_cfg.import_settings;
+					woas.config.import_wsif = woas.config.import_woas = old_cfg.import_settings;
 				}
 				// check for any undefined config property - for safety
 				for(p in woas.config) {
@@ -11173,25 +11181,25 @@ woas.importer = {
 					if ((typeof woas.config[p] == "undefined") && (typeof old_cfg[p] != "undefined"))
 						woas.config[p] = old_cfg[p];
 				}
-				
+
 				// put back the old values for WSIF datasource
 				woas.config.wsif_author = old_cfg.wsif_author;
 				woas.config.wsif_ds = old_cfg.wsif_ds;
 				woas.config.wsif_ds_lock = old_cfg.wsif_ds_lock;
 				woas.config.wsif_ds_multi = old_cfg.wsif_ds_multi;
-				
+
 			} // done importing config object
 		} // i_config
 
 		// modified timestamp for pages before 0.10.0
 		this.current_mts = Math.round(new Date().getTime()/1000);
-		
+
 		// import the pages data
 		this._get_import_vars(data, ['woas', '__marker', 'version', '__config'],
 							old_version);
 		// some GC help
 		data = null;
-		
+
 		// apply upgrade fixes
 		if (this.i_content) {
 			this._import_content(old_version);
@@ -11199,7 +11207,7 @@ woas.importer = {
 			// GC cleanup
 			this.pages = [];
 		}
-		
+
 		// eventually add the new missing page
 		if (old_version <= 112) {
 			// take care of custom CSS (if any)
@@ -11221,9 +11229,9 @@ woas.importer = {
 			if ((this.new_main_page !== old_cfg.main_page) && woas.page_exists(this.new_main_page))
 				woas.config.main_page = this.new_main_page;
 		}
-		
+
 		} while (false); // fake do..while ends here
-		
+
 		// fix configuration for older versions
 		if (old_version < 114) {
 			if (!woas.config.nav_history) {
@@ -11251,17 +11259,17 @@ woas.importer = {
 				mts: woas.config.store_mts ? this.current_mts : 0
 			} );
 		}
-		
+
 		// always update run-time stuff, even on failure
 		this._after_import();
-		
+
 		// clear everything else
 		this._clear();
 
 		// return false on failure
 		return !fail;
 	},
-	
+
 	_after_import: function() {
 		var that = woas.importer;
 		// refresh in case of CSS, aliases and/or hotkeys modified
@@ -11271,7 +11279,7 @@ woas.importer = {
 			woas._load_aliases(woas.get_text("WoaS::Aliases"));
 		if (that._update_hotkeys)
 			woas.hotkey.load(woas.get_text("WoaS::Hotkeys"));
-		
+
 		// add/update plugins
 		for(var i=0,it=that._plugins_update.length;i < it;++i) {
 			woas.plugins.update(that._plugins_update[i]);
@@ -11281,7 +11289,7 @@ woas.importer = {
 			woas.plugins._all.push(that._plugins_add[i]);
 			woas.plugins.enable(that._plugins_add[i]);
 		}
-		
+
 	},
 
 	// regular expressions used to not mess with title/content strings
@@ -11296,7 +11304,7 @@ woas.importer = {
 
 // called from Special::Import - import WoaS from XHTML file
 woas.import_wiki = function() {
-	if (!woas._import_pre_up(true))
+	if (!woas._import_pre_up(false))
 		return false;
 
 	// set hourglass
@@ -11317,19 +11325,19 @@ woas.import_wiki = function() {
 	}
 
 	var rv = this.importer.do_import(ct);
-	
+
 	// remove hourglass
 	this.progress_finish();
-	
+
 	if (rv) {
 		// inform about the imported pages / total pages present in file
 		this.alert(this.i18n.IMPORT_OK.sprintf(this.importer.pages_imported+"/"+this.importer.total,
 												this.importer.total - this.importer.pages_imported));
-		
+
 		// move to main page
 		current = this.config.main_page;
 	}
-	
+
 	// always save if we have erased the wiki
 	if ((this.importer.i_overwrite === 0) || rv)
 		this.full_commit(); // PVHL: this could have failed!
@@ -11338,7 +11346,7 @@ woas.import_wiki = function() {
 		this.refresh_menu_area();
 		this.set_current(this.config.main_page, true);
 	}
-	
+
 	// supposedly, everything went OK
 	return rv;
 };
@@ -11349,51 +11357,36 @@ woas._file_ext = function(fn) {
 	return "."+m[1];
 };
 
-woas._import_pre_up = function(all_options) {
+woas._import_pre_up = function(wsif) {
+	var tmp, old_is;
 	// check if this WoaS is read-only
 	if (!this.config.permit_edits) {
 		this.alert(woas.i18n.READ_ONLY);
 		return false;
 	}
-	// grab the common options
-	this.importer.i_comment_js = d$.checked("woas_cb_import_comment_js");
-	this.importer.i_comment_macros = d$.checked("woas_cb_import_comment_macros");
-	this.importer.i_woas_ns = d$.checked("woas_cb_import_woas_ns");
-	//NOTE: i_overwrite is automatically set when clicking
-	if (all_options) {
-		// grab the XHTML-only options
-		this.importer.i_styles = d$.checked('woas_cb_import_styles');
-		this.importer.i_config = d$.checked('woas_cb_import_config');
-		this.importer.i_content = d$.checked('woas_cb_import_content');
-	} else {
-		// these options are not available for WSIF
-		this.importer.i_styles = this.importer.i_content = true;
-	}
-	
-	var old_is = woas.config.import_settings;
+	tmp = wsif ? woas.config.import_wsif : woas.config.import_woas, old_is = tmp;
 	// now store these values
-	woas.config.import_settings = this.bitfield.get_object(this.importer, this.importer._settings_props);
+	tmp = this.bitfield.get_object(this.importer, this.importer._settings_props);
 	// set also bits for overwrite options
-	woas.config.import_settings = this.bitfield.set(this.config.import_settings, this.importer._OVR_ID,
-									this.importer.i_overwrite & 1, this.config.import_settings);
-	woas.config.import_settings = this.bitfield.set(this.config.import_settings, this.importer._OVR_ID+1,
-									this.importer.i_overwrite & 2, this.config.import_settings);
+	tmp = this.bitfield.set(tmp, this.importer._OVR_ID, this.importer.i_overwrite & 1, tmp);
+	tmp = this.bitfield.set(tmp, this.importer._OVR_ID+1, this.importer.i_overwrite & 2, tmp);
+	if (wsif) woas.config.import_wsif = tmp;
+	else woas.config.import_woas = tmp;
 	// check if configuration changed
-	this.cfg_changed |= (woas.config.import_settings !== old_is);
+	this.cfg_changed |= (tmp !== old_is);
 	// check if user wants total erase before going on
 	if (this.importer.i_overwrite === 0) {
 		if (!this.erase_wiki())
 			return false;
 	}
-	
 	return true;
 };
 
 // called from Special::ImportWSIF
 woas.import_wiki_wsif = function() {
-	if (!woas._import_pre_up(false))
+	if (!woas._import_pre_up(true))
 		return false;
-	
+
 	// automatically retrieve the filename (will call load_file())
 	var done = woas._native_wsif_load(null, false /* no locking */, false /* not native */, 0,
 			this.importer._upgrade_content, this.importer._filter_by_title,
@@ -12769,32 +12762,58 @@ woas.ui = {
 		} else // will call _search_load() on its own
 			woas.go_to("Special::Search");
 	},
-	// used by Special::Import
-	_import_xhtml_load: function() {
-		this._import_load(0);
-	},
-	// used by Special::ImportWSIF
-	_import_wsif_load: function() {
-		this._import_load(3);
-	},
-	
-	_import_load: function(except) {
+	// wsif: for Special::Import false, Special::ImportWSIF true
+	_import_load: function(wsif) {
+		var except = wsif ? 3 : 0, i, settings, chk;
 		if (!woas.config.permit_edits)
 			d$("btn_import").disabled = true;
 		// restore default settings - with some exceptions
-		for(var i=0;i < woas.importer._settings_props.length-except;++i) {
-			d$("woas_cb_import"+woas.importer._settings_props[i].substr(1)).checked =
-							woas.bitfield.get(woas.config.import_settings, i);
+		settings = wsif ? woas.config.import_wsif : woas.config.import_woas;
+		for(i=0;i < woas.importer._settings_props.length-except;++i) {
+			chk = woas.bitfield.get(settings, i);
+			d$("woas_cb_import"+woas.importer._settings_props[i].substr(1))
+				.checked = chk
+			woas.importer[woas.importer._settings_props[i]] = chk;
+		}
+		if (wsif) {
+			// these options are not available for WSIF
+			woas.importer.i_styles = woas.importer.i_content = true;
+			woas.importer.i_config = false;
+		} else {
+			// disable settings if needed by content setting
+			this._import_load_change(true);
 		}
 		// restore the overwrite option which covers other 2 bits
 		var ovr = 0;
-		if (woas.bitfield.get(woas.config.import_settings, woas.importer._OVR_ID))
+		if (woas.bitfield.get(settings, woas.importer._OVR_ID))
 			ovr += 1;
-		if (woas.bitfield.get(woas.config.import_settings, woas.importer._OVR_ID+1))
+		if (woas.bitfield.get(settings, woas.importer._OVR_ID+1))
 			ovr += 2;
 		var params = ["erase", "ignore", "overwrite", "ask"];
 		// apply parameter
 		d$('woas_import_'+params[ovr]).checked = true;
+		// need to set i_overwrite; importer doesn't read it
+		woas.importer.i_overwrite = ovr;
+	},
+	// WoaS::Import can disable page import
+	_import_load_change: function(init) {
+		if (init) {
+			this._import_load_css = d$("woas_cb_import_styles").checked;
+		}
+		if (d$("woas_cb_import_content").checked) {
+			woas.importer.i_content = true;
+			d$.show("woas_import_content");
+			// import CSS only possible if import content selected
+			d$("woas_cb_import_styles").checked = woas.importer.i_styles
+				= this._import_load_css;
+			d$("woas_cb_import_styles").disabled = false;
+		} else {
+			woas.importer.i_content = false;
+			d$.hide("woas_import_content");
+			this._import_load_css = d$("woas_cb_import_styles").checked;
+			d$("woas_cb_import_styles").checked = woas.importer.i_styles = false;
+			d$("woas_cb_import_styles").disabled = true;
+		}
 	},
 	// click on edit icon
 	edit: function() {
@@ -12923,6 +12942,7 @@ woas.ui = {
 			} else {
 				subpath = ds;
 			}
+			el.value = subpath;
 		}
 		if (is_windows) {
 			// convert unix path to windows path
@@ -13121,7 +13141,7 @@ function ro_woas() {
 		alert(woas.i18n.WRITE_PROTECTED);
 		return false;
 	}
-	if (confirm(woas.i18n.CONFIRM_READ_ONLY)) {
+	if (confirm(woas.i18n.CONFIRM_READ_ONLY + woas.i18n.CHOOSE_CANCEL)) {
 		woas.config.permit_edits = false;
 		woas.cfg_commit();
 		// reparse page
