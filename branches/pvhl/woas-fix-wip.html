@@ -31,7 +31,7 @@ woas["config"] = {
 "new_tables_syntax":true,
 "store_mts":false,
 "folding_style":0,
-"import_settings":99,
+"import_settings":228,
 "auto_links":false,
 "sort_tags":true,
 "fixed_header":false,
@@ -3254,7 +3254,6 @@ Infinite recursion happens when you create an include link to the current page o
 You should always prevent infinite recursions from happening.',
 '= Special::ExportWSIF\n\
 The [[Special::ExportWSIF]] page allows you to export wiki content into one or more [[WoaS::Help::WSIF|WSIF]] files for backup, sharing with others, or importing into an updated WoaS file.\n\
-\n\
 == File generation options\n\
 ===Relative path for WSIF file, including filename\n\
 The box contains a default path and filename when the page is loaded. This is the relative path and name of the file for the exported WSIF file. A relative path is one that starts in the same directory the WoaS file is in; {{{temp/file.wsif}}} is a relative path, {{{/temp/file.wsif}}} is not; {{{c:\\temp\\file.wsif}}} and {{{c:temp\\file.wsif}}} are also incorrect. The file name can have any extension or none at all, but the /wsif/ extension will let you know that it\'s a WoaS data source file. The path may be entered in Windows or UNIX format, but will be converted to the correct format upon entry.\n\
@@ -4729,7 +4728,7 @@ function _get_this_filename() {
 	filename = filename.replace(/#.*$/g, ""); // remove fragment (if any)
 	if (is_windows) {
 		// convert unix path to windows path
-		filename = filename.replace(/\//g, "\\");
+		filename = filename.replace(reFwdSlash, "\\");
 		if (filename.substr(0,2)!="\\\\") { // if this is not a network path - will be true in case of Firefox for example
 			// remove leading slash before unit:
 			if (filename.match(/^\\\w:\\/))
@@ -5582,7 +5581,7 @@ woas._save_to_file = function(full) {
 	this.progress_init("Saving to file");
 
 	// force full mode if WSIF datasource mode changed since last time loading/saving
-	var ds_changed = (this.config.wsif_ds.length !== this._old_wsif_ds_len),
+	var ds_changed = (this.config.wsif_ds !== this._old_wsif_ds),
 	// increase the marker only when performing full save
 		new_marker = ((full | ds_changed) && !this.config.wsif_ds.length) ? this._inc_marker(__marker) : __marker,
 		safe_current;
@@ -5628,7 +5627,7 @@ woas._save_to_file = function(full) {
 	computed_js += "/* " + new_marker + "-DATA */\n";
 
 	if (full || ds_changed) {
-		this._old_wsif_ds_len = this.config.wsif_ds.length;
+		this._old_wsif_ds = this.config.wsif_ds;
 		if (this.config.wsif_ds.length) {
 			// everything empty when the javascript layer is not used
 			computed_js += "var page_attrs = [];\n\n";
@@ -8260,9 +8259,6 @@ woas.save_queue = [];		// pages which need to be saved and are waiting in the qu
 // Auto-Save Thread
 woas._autosave_thread = null;
 
-// previous length of WSIF datasource
-woas._old_wsif_ds_len = null;
-
 // this will likely happen when javascript code block was corrupted
 woas._on_load = woas_on_unload = function() { this.crash("Deferred load/unload function not available!");};
 
@@ -9129,10 +9125,14 @@ woas._on_load = function() {
 	this._set_debug(this.config.debug_mode, this.config.debug_closed);
 	d$("woas_debug_log").value = ""; // for Firefox
 	// output platform information - note that revision is filled in only in releases
-	woas.log("*** WoaS v"+this.version+"-pvhl-r2431"+" started");	// log:1
+	woas.log("*** WoaS v"+this.version+"-pvhl-r2437"+" started");	// log:1
 	
-	// store the old length to eventually force full save when entering/exiting WSIF datasource mode
-	this._old_wsif_ds_len = this.config.wsif_ds.length;
+	// needed to check if data source changes; forces full save when entering/exiting
+	// WSIF datasource mode or changing the name of the data source file
+	this._old_wsif_ds = is_windows
+		// convert unix path to windows path
+		? this.config.wsif_ds.replace(reFwdSlash, '\\')
+		: this.config.wsif_ds;
 
 	// (0) set some browser-tied functions
 	if (this.browser.ie) {	// some hacks for IE
@@ -9171,7 +9171,7 @@ woas._on_load = function() {
 	if (this.config.wsif_ds.length) {
 		// make sure file path is good for current browser
 		var path = is_windows
-			? this.config.wsif_ds.replace(/\//g, '\\')
+			? this.config.wsif_ds.replace(reFwdSlash, '\\')
 			: this.config.wsif_ds.replace(/\\/g, '/');
 		if (!this._wsif_ds_load(path, this.config.wsif_ds_lock)) {
 			// the file load error is already documented to user
@@ -10531,7 +10531,7 @@ subpath, and multiple-WSIF files to the root!
 	}
 	if (is_windows) {
 		// convert unix path to windows path
-		subpath = subpath.replace(/\//g, '\\');
+		subpath = subpath.replace(reFwdSlash, '\\');
 	}
 	return this._native_wsif_save(subpath, fname, this.config.wsif_ds_lock,
 							!this.config.wsif_ds_multi,	false,
@@ -10540,7 +10540,7 @@ subpath, and multiple-WSIF files to the root!
 
 //API1.0: save all pages
 woas.full_commit = function() {
-	var r = this._wsif_ds_save(this.config.wsif_ds, this.config.wsif_ds_lock);
+	var r = this._wsif_ds_save(this.config.wsif_ds, this.config.wsif_ds_lock, []);
 	// PVHL: don't save html if wsif save failed (added to all commit functions)
 	if (!r) this.alert(this.i18n.WSIF_SAVE_FAIL);
 	return r ? this._save_to_file(true) : false;
@@ -10554,8 +10554,8 @@ woas.full_commit = function() {
 //   Quick fix is to disable config-only save and save everything every time.
 //   Was: return this._save_to_file(false);
 woas.cfg_commit = function() {
-	if (this.config.wsif_ds.length !== this._old_wsif_ds_len) {
-		var r = this._wsif_ds_save(this.config.wsif_ds, this.config.wsif_ds_lock);
+	if (this.config.wsif_ds !== this._old_wsif_ds) {
+		var r = this._wsif_ds_save(this.config.wsif_ds, this.config.wsif_ds_lock, []);
 		if (!r) this.alert(this.i18n.WSIF_SAVE_FAIL);
 		return r ? this._save_to_file(true) : false;
 	}
@@ -10576,7 +10576,7 @@ woas.commit = function(plist) {
 // plist is a list of page indexes which need to be saved (not allowed to be empty)
 woas.commit_delete = function(plist) {
 	// update only the native WSIF index (leaves back deleted pages)
-	var r = this._wsif_ds_save(this.config.wsif_ds, this.config.wsif_ds_lock, []);
+	var r = this._wsif_ds_save(this.config.wsif_ds, this.config.wsif_ds_lock, plist);
 	if (!r) this.alert(this.i18n.WSIF_SAVE_FAIL);
 	// performs full save, while the single page + global header could be saved instead
 	return r ? this._save_to_file(true) : false;
@@ -11856,7 +11856,7 @@ TODO:
   error discovery
 
 * make multi-file save only save the file that was changed/added and the index;
-  it is very slow right now and this would improve things greatly -- mostof the
+  it is very slow right now and this would improve things greatly -- most of the
   code to do this is already present.
 
   It would also be a good idea to only save index if:
@@ -11924,6 +11924,14 @@ woas._normver = function(s) {
 woas._native_wsif_save = function(path, src_fname, locking, single_wsif, inline_wsif, author,
 							save_all, plist) {
 
+	// PVHL: plist is no longer optional, but disabled until the broken commit code is fixed
+	// sometimes plist is used as a list of all pages to be saved, sometimes as a list of single
+	// pages to be saved. Obviously this is a conflict in operation.
+	// plist should only be used in multi-wsif mode where separate pages exist. It is almost
+	// certainly faster to create pages for saving than to load file and manipulate content,
+	// so this is best even after WoaS save process is changed to use pages to create file.
+	plist = [];
+
 	this.progress_init("WSIF save");
 	
 	// prepare the extra headers
@@ -11943,12 +11951,12 @@ woas._native_wsif_save = function(path, src_fname, locking, single_wsif, inline_
 	if (p !== -1)
 		boundary = boundary.substr(0,p);
 
-	if (typeof plist == "undefined") {
-		full_save = true;
-		l = page_titles.length;
-	} else {
+	if (plist.length) {
 		l = plist.length;
 		full_save = false;
+	} else {
+		full_save = true;
+		l = page_titles.length;
 	}
 	// save count of total pages which need to be exported
 	this.wsif.expected_pages = l;
@@ -12104,7 +12112,7 @@ PVHL: need to quickly fix (with minimal side-effects) a really bad bug in saving
 if done == 0 here then there has been a failure in saving; blob failure will pass though -- this is
 a separate bug that needs to be fixed as well; I am not addressing that bug at this time.
 So: if !done don't save index. return value of 0 signals save failed; this is used to stop a save
-of the html file -- otherwise a bad data source value wipes out the wiki.
+of the html file -- otherwise a bad data source save wipes out the wiki.
 */
 	if (done && !this.save_file(path+src_fname,
 						this.file_mode.ASCII_TEXT,
@@ -12562,80 +12570,60 @@ woas._native_page_def = function(path,ct,p,last_p,import_hook,
 /*** src/legacy.js ***/
 // deprecated/legacy functions
 
-//DEPRECATED but still supported
+// All the functions in this file are still supported but deprecated.
+// They will be removed from WoaS before version 1.0
+
 // var log = woas.log; set by woas._set_debug
 
-//DEPRECATED
 function bool2chk(b) {
 	woas.log("WARNING: Called deprecated function: bool2chk (now woas.bool2chk)");
 	woas.bool2chk(b);
 }
-
-//DEPRECATED
 function _set_layout(fixed) {
-	woas.log("WARNING: Called deprecated function: _set_layout (now woas.set_layout)");
+	woas.log("WARNING: Called deprecated function: _set_layout (now woas.ui.set_layout)");
 	woas.ui.set_layout(fixed);
 }
-
-//DEPRECATED
 function home() {
-	woas.log("WARNING: Called deprecated function: home");
+	woas.log("WARNING: Called deprecated function: home (now woas.ui.home)");
 	woas.ui.home();
 }
-
-//DEPRECATED
 function help() {
-	woas.log("WARNING: Called deprecated function: help");
+	woas.log("WARNING: Called deprecated function: help (now woas.ui.help)");
 	woas.ui.help();
 }
-
-// when Advanced is clicked
-//DEPRECATED
 function advanced() {
-	woas.log("WARNING: Called deprecated function: advanced");
+	woas.log("WARNING: Called deprecated function: advanced (now woas.ui.advanced)");
 	woas.ui.advanced();
 }
-
-//DEPRECATED
 function go_to(t) {
-	woas.log("WARNING: Called deprecated function: go_to");
+	woas.log("WARNING: Called deprecated function: go_to (now woas.go_to(t))");
 	return woas.go_to(t);
 }
-//DEPRECATED
 function go_back() {
-	woas.log("WARNING: Called deprecated function: go_back");
+	woas.log("WARNING: Called deprecated function: go_back (now woas.ui.back)");
 	woas.ui.back();
 }
-//DEPRECATED
 function go_forward() {
-	woas.log("WARNING: Called deprecated function: go_forward");
+	woas.log("WARNING: Called deprecated function: go_forward (now woas.ui.forward)");
 	woas.ui.forward();
 }
-//DEPRECATED
 function edit() {
-	woas.log("WARNING: Called deprecated function: edit");
+	woas.log("WARNING: Called deprecated function: edit (now woas.ui.edit)");
 	woas.ui.edit();
 }
-
-//DEPRECATED
 function lock() {
-	woas.log("WARNING: Called deprecated function: lock");
+	woas.log("WARNING: Called deprecated function: lock (now woas.ui.lock)");
 	woas.ui.lock();
 }
-
-//DEPRECATED
 function unlock() {
-	woas.log("WARNING: Called deprecated function: unlock");
+	woas.log("WARNING: Called deprecated function: unlock (now woas.ui.unlock)");
 	woas.ui.unlock();
 }
-
-//DEPRECATED
 function save() {
-	woas.log("WARNING: Called deprecated function: save");
+	woas.log("WARNING: Called deprecated function: save (now woas.save)");
 	woas.save();
 }
-
-// old tables parsing syntax - DEPRECATED
+// old tables parsing syntax
 woas.parser.reReapTables = /^\{\|.*((?:\n\|.*)*)$/gm;
 woas.parser.reReapTableRows = /\n\|([+ -])(.*)/g;
 woas.parser.parse_tables =  function (str, p1) {
@@ -12917,7 +12905,7 @@ woas.ui = {
 		this.set_menu(fixed);
 	},
 	// if called with input 'el' and !'check' then sets config in UNIX format,
-	// if called with input 'el' and 'check' then checks/repairs filename.
+	// if called with input 'el' and 'check' then checks/repairs filename in el.
 	// else gets config value. Returns OS native path.
 	wsif_ds: function(el, check) {
 		// get path in UNIX format; stored this way - but just to be safe
@@ -12938,7 +12926,7 @@ woas.ui = {
 		}
 		if (is_windows) {
 			// convert unix path to windows path
-			subpath = subpath.replace(/\//g, '\\');
+			subpath = subpath.replace(reFwdSlash, '\\');
 		}
 		return subpath;
 	}
@@ -13361,7 +13349,7 @@ woas.export_wiki_wsif = function () {
 		all_wsif = !!d$("woas_cb_all_wsif").checked;
 	} catch (e) { this.crash(e); return false; }
 	
-	done = this._native_wsif_save(path, fname, false, single_wsif, inline_wsif, author, all_wsif);
+	done = this._native_wsif_save(path, fname, false, single_wsif, inline_wsif, author, all_wsif, []);
 	if (done) {
 		this.alert(this.i18n.EXPORT_OK.sprintf(done, this.wsif.expected_pages));
 	} else {
