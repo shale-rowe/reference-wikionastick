@@ -15,7 +15,7 @@ woas.i18n = {
 	CONFIRM_EXPORT: "Export '%s' to the path specified below?",
 	CONFIRM_LOCK: "Do you want to use the last password entered to lock the '%s' page? ",
 	CONFIRM_LOCK_LAST: "The password was last used on the '%s' page.",
-	CONFIRM_READ_ONLY: "You will have to manually edit the file to revert this change.\n\nAre you sure you want to set this WoaS as read-only?",
+	CONFIRM_READ_ONLY: "You will have to manually edit the file to revert this change.\n\nAny other changes to options will also be saved.",
 	CONFIRM_REMOVE_ENCRYPT: "Do you want to remove encryption from the '%s' page?",
 	CONTINUE_WAIT_LOAD: "The loading process seems stuck.\nPlease click OK to keep waiting or Cancel to break.",
 	DELETE:"Delete page:",

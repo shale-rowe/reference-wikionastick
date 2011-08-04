@@ -158,11 +158,7 @@ woas.full_commit = function() {
 //   Quick fix is to disable config-only save and save everything every time.
 //   Was: return this._save_to_file(false);
 woas.cfg_commit = function() {
-	if (this.config.wsif_ds !== this._old_wsif_ds) {
-		var r = this._wsif_ds_save(this.config.wsif_ds, this.config.wsif_ds_lock, []);
-		if (!r) this.alert(this.i18n.WSIF_SAVE_FAIL);
-		return r ? this._save_to_file(true) : false;
-	}
+	// only saves to the html file; options not currently in a page
 	return this._save_to_file(true);
 };
 
@@ -172,7 +168,6 @@ woas.cfg_commit = function() {
 woas.commit = function(plist) {
 	var r = this._wsif_ds_save(this.config.wsif_ds, this.config.wsif_ds_lock, plist);
 	if (!r) this.alert(this.i18n.WSIF_SAVE_FAIL);
-	// performs full save, while the single page + global header could be saved instead
 	return r ? this._save_to_file(true) : false;
 };
 
