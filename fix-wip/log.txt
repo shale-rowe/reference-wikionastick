@@ -3,6 +3,7 @@ IT IS NOT BEING TESTED MUCH DURING THIS PROCESS AND COULD OCCASIONALLY BE BROKEN
 
 Changes since Revision pvhl-2317 (git: 3d939c7)
 
+* use reFwdSlash instead of new regexp each time
 * change wsif_ds check to whole name instead of length
 * Updated legacy.js to include call information (with help from Little Girl)
 * Redesign of Special::ExportWSIF and associated Help page; others to follow

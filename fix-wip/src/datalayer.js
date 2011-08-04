@@ -135,7 +135,7 @@ subpath, and multiple-WSIF files to the root!
 	}
 	if (is_windows) {
 		// convert unix path to windows path
-		subpath = subpath.replace(/\//g, '\\');
+		subpath = subpath.replace(reFwdSlash, '\\');
 	}
 	return this._native_wsif_save(subpath, fname, this.config.wsif_ds_lock,
 							!this.config.wsif_ds_multi,	false,

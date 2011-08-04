@@ -289,7 +289,7 @@ function _get_this_filename() {
 	filename = filename.replace(/#.*$/g, ""); // remove fragment (if any)
 	if (is_windows) {
 		// convert unix path to windows path
-		filename = filename.replace(/\//g, "\\");
+		filename = filename.replace(reFwdSlash, "\\");
 		if (filename.substr(0,2)!="\\\\") { // if this is not a network path - will be true in case of Firefox for example
 			// remove leading slash before unit:
 			if (filename.match(/^\\\w:\\/))
