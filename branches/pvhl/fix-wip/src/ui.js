@@ -277,7 +277,7 @@ woas.ui = {
 		}
 		if (is_windows) {
 			// convert unix path to windows path
-			subpath = subpath.replace(/\//g, '\\');
+			subpath = subpath.replace(reFwdSlash, '\\');
 		}
 		return subpath;
 	}

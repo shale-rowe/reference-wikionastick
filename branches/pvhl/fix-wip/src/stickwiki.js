@@ -887,7 +887,7 @@ woas._on_load = function() {
 	// WSIF datasource mode or changing the name of the data source file
 	this._old_wsif_ds = is_windows
 		// convert unix path to windows path
-		? this.config.wsif_ds.replace(/\//g, '\\')
+		? this.config.wsif_ds.replace(reFwdSlash, '\\')
 		: this.config.wsif_ds;
 
 	// (0) set some browser-tied functions
@@ -927,7 +927,7 @@ woas._on_load = function() {
 	if (this.config.wsif_ds.length) {
 		// make sure file path is good for current browser
 		var path = is_windows
-			? this.config.wsif_ds.replace(/\//g, '\\')
+			? this.config.wsif_ds.replace(reFwdSlash, '\\')
 			: this.config.wsif_ds.replace(/\\/g, '/');
 		if (!this._wsif_ds_load(path, this.config.wsif_ds_lock)) {
 			// the file load error is already documented to user
