@@ -15,9 +15,6 @@ woas.save_queue = [];		// pages which need to be saved and are waiting in the qu
 // Auto-Save Thread
 woas._autosave_thread = null;
 
-// previous length of WSIF datasource
-woas._old_wsif_ds_len = null;
-
 // this will likely happen when javascript code block was corrupted
 woas._on_load = woas_on_unload = function() { this.crash("Deferred load/unload function not available!");};
 
@@ -886,8 +883,12 @@ woas._on_load = function() {
 	// output platform information - note that revision is filled in only in releases
 	woas.log("*** WoaS v"+this.version+"-r@@WOAS_REVISION@@"+" started");	// log:1
 	
-	// store the old length to eventually force full save when entering/exiting WSIF datasource mode
-	this._old_wsif_ds_len = this.config.wsif_ds.length;
+	// needed to check if data source changes; forces full save when entering/exiting
+	// WSIF datasource mode or changing the name of the data source file
+	this._old_wsif_ds = is_windows
+		// convert unix path to windows path
+		? this.config.wsif_ds.replace(/\//g, '\\')
+		: this.config.wsif_ds;
 
 	// (0) set some browser-tied functions
 	if (this.browser.ie) {	// some hacks for IE

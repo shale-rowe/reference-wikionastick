@@ -158,7 +158,7 @@ woas.full_commit = function() {
 //   Quick fix is to disable config-only save and save everything every time.
 //   Was: return this._save_to_file(false);
 woas.cfg_commit = function() {
-	if (this.config.wsif_ds.length !== this._old_wsif_ds_len) {
+	if (this.config.wsif_ds !== this._old_wsif_ds) {
 		var r = this._wsif_ds_save(this.config.wsif_ds, this.config.wsif_ds_lock);
 		if (!r) this.alert(this.i18n.WSIF_SAVE_FAIL);
 		return r ? this._save_to_file(true) : false;
