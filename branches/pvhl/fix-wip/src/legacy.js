@@ -1,79 +1,59 @@
 // deprecated/legacy functions
 
-//DEPRECATED but still supported
+// All the functions in this file are still supported but deprecated.
+// They will be removed from WoaS before version 1.0
+
 // var log = woas.log; set by woas._set_debug
 
-//DEPRECATED
 function bool2chk(b) {
 	woas.log("WARNING: Called deprecated function: bool2chk (now woas.bool2chk)");
 	woas.bool2chk(b);
 }
-
-//DEPRECATED
 function _set_layout(fixed) {
-	woas.log("WARNING: Called deprecated function: _set_layout (now woas.set_layout)");
+	woas.log("WARNING: Called deprecated function: _set_layout (now woas.ui.set_layout)");
 	woas.ui.set_layout(fixed);
 }
-
-//DEPRECATED
 function home() {
-	woas.log("WARNING: Called deprecated function: home");
+	woas.log("WARNING: Called deprecated function: home (now woas.ui.home)");
 	woas.ui.home();
 }
-
-//DEPRECATED
 function help() {
-	woas.log("WARNING: Called deprecated function: help");
+	woas.log("WARNING: Called deprecated function: help (now woas.ui.help)");
 	woas.ui.help();
 }
-
-// when Advanced is clicked
-//DEPRECATED
 function advanced() {
-	woas.log("WARNING: Called deprecated function: advanced");
+	woas.log("WARNING: Called deprecated function: advanced (now woas.ui.advanced)");
 	woas.ui.advanced();
 }
-
-//DEPRECATED
 function go_to(t) {
-	woas.log("WARNING: Called deprecated function: go_to");
+	woas.log("WARNING: Called deprecated function: go_to (now woas.go_to(t))");
 	return woas.go_to(t);
 }
-//DEPRECATED
 function go_back() {
-	woas.log("WARNING: Called deprecated function: go_back");
+	woas.log("WARNING: Called deprecated function: go_back (now woas.ui.back)");
 	woas.ui.back();
 }
-//DEPRECATED
 function go_forward() {
-	woas.log("WARNING: Called deprecated function: go_forward");
+	woas.log("WARNING: Called deprecated function: go_forward (now woas.ui.forward)");
 	woas.ui.forward();
 }
-//DEPRECATED
 function edit() {
-	woas.log("WARNING: Called deprecated function: edit");
+	woas.log("WARNING: Called deprecated function: edit (now woas.ui.edit)");
 	woas.ui.edit();
 }
-
-//DEPRECATED
 function lock() {
-	woas.log("WARNING: Called deprecated function: lock");
+	woas.log("WARNING: Called deprecated function: lock (now woas.ui.lock)");
 	woas.ui.lock();
 }
-
-//DEPRECATED
 function unlock() {
-	woas.log("WARNING: Called deprecated function: unlock");
+	woas.log("WARNING: Called deprecated function: unlock (now woas.ui.unlock)");
 	woas.ui.unlock();
 }
-
-//DEPRECATED
 function save() {
-	woas.log("WARNING: Called deprecated function: save");
+	woas.log("WARNING: Called deprecated function: save (now woas.save)");
 	woas.save();
 }
-
-// old tables parsing syntax - DEPRECATED
+// old tables parsing syntax
 woas.parser.reReapTables = /^\{\|.*((?:\n\|.*)*)$/gm;
 woas.parser.reReapTableRows = /\n\|([+ -])(.*)/g;
 woas.parser.parse_tables =  function (str, p1) {
