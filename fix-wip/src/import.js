@@ -144,13 +144,13 @@ woas.importer = {
 					for(var i=0,it=the_var.length;i < it;++i) {
 						// call the title filtering hook
 						if (woas.importer._filter_by_title(the_var[i])) {
-							woas.importer.pages.push( {
+							woas.importer.pages.push({
 								title: the_var[i],
 								attrs: 0,
 								mts: (old_version > 97
 									? 0
-									: (woas.config.store_mts ? woas.importer.current_mts : 0),
-								body: null } );
+									: (woas.config.store_mts ? woas.importer.current_mts : 0)),
+								body: null });
 							// add object by-ref
 							woas.importer._reference.push( woas.importer.pages[woas.importer.pages.length-1] );
 						} else // no page reference
@@ -239,13 +239,11 @@ woas.importer = {
 		if (pi === -1) { // new page title
 			woas.importer._inject_import_hook(page);
 			page.pi = -1;
-		} else { // page already existing, overwriting
-			if (woas.importer.i_overwrite === 1) {
-				// ignore already-existing pages
+		} else { // page already existing, overwriting unless not allowed
+			if (woas.importer.i_overwrite === 1 ||
+					(woas.importer.i_overwrite === 3
+					&& !confirm(woas.i18n.CONFIRM_OVERWRITE.sprintf(page.title)))) {
 				return false;
-			} else if (woas.importer.i_overwrite === 3) {
-				if (!confirm(woas.i18n.CONFIRM_OVERWRITE.sprintf(page.title)))
-					return false;
 			}
 			page_titles[pi] = page.title;
 			pages[pi] = page.body;
@@ -258,28 +256,27 @@ woas.importer = {
 
 	// normal import hook - shared for XHTML and WSIF import
 	_import_hook: function(page) {
-		var that = woas.importer;
-		that._hotfix_on_import(page);
-
-		that._core_import_hook(page);
-
-		// take note of plugin pages and other special runtime stuff
-		var _pfx = "WoaS::Plugins::";
-		if (page.title.substr(0, _pfx.length) === _pfx) {
-			// does plugin already exist?
-			if (page.pi !== -1)
-				that._plugins_update.push(page.title.substr(_pfx.length));
-			else
-				that._plugins_add.push(page.title.substr(_pfx.length));
-		} else if (page.title === "WoaS::Aliases")
-			// check if we need to update aliases and hotkeys
-			that._update_aliases = true;
-		else if (page.title === "WoaS::Hotkeys")
-			that._update_hotkeys = true;
-		else if (page.title === "WoaS::CSS::Custom")
-			that._update_css = true;
-
-		return true;
+		if (woas.importer._core_import_hook(page)) {
+			var that = woas.importer;
+			that._hotfix_on_import(page);
+			// take note of plugin pages and other special runtime stuff
+			var _pfx = "WoaS::Plugins::";
+			if (page.title.substr(0, _pfx.length) === _pfx) {
+				// does plugin already exist?
+				if (page.pi !== -1)
+					that._plugins_update.push(page.title.substr(_pfx.length));
+				else
+					that._plugins_add.push(page.title.substr(_pfx.length));
+			} else if (page.title === "WoaS::Aliases")
+				// check if we need to update aliases and hotkeys
+				that._update_aliases = true;
+			else if (page.title === "WoaS::Hotkeys")
+				that._update_hotkeys = true;
+			else if (page.title === "WoaS::CSS::Custom")
+				that._update_css = true;
+			return true;
+		}
+		return false;
 	},
 
 	_clear: function() {
