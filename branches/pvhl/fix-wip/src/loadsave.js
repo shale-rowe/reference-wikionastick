@@ -521,7 +521,7 @@ woas._save_to_file = function(full) {
 	this.progress_init("Saving to file");
 
 	// force full mode if WSIF datasource mode changed since last time loading/saving
-	var ds_changed = (this.config.wsif_ds.length !== this._old_wsif_ds_len),
+	var ds_changed = (this.config.wsif_ds !== this._old_wsif_ds),
 	// increase the marker only when performing full save
 		new_marker = ((full | ds_changed) && !this.config.wsif_ds.length) ? this._inc_marker(__marker) : __marker,
 		safe_current;
@@ -567,7 +567,7 @@ woas._save_to_file = function(full) {
 	computed_js += "/* " + new_marker + "-DATA */\n";
 
 	if (full || ds_changed) {
-		this._old_wsif_ds_len = this.config.wsif_ds.length;
+		this._old_wsif_ds = this.config.wsif_ds;
 		if (this.config.wsif_ds.length) {
 			// everything empty when the javascript layer is not used
 			computed_js += "var page_attrs = [];\n\n";

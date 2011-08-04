@@ -256,7 +256,7 @@ woas.ui = {
 		this.set_menu(fixed);
 	},
 	// if called with input 'el' and !'check' then sets config in UNIX format,
-	// if called with input 'el' and 'check' then checks/repairs filename.
+	// if called with input 'el' and 'check' then checks/repairs filename in el.
 	// else gets config value. Returns OS native path.
 	wsif_ds: function(el, check) {
 		// get path in UNIX format; stored this way - but just to be safe
