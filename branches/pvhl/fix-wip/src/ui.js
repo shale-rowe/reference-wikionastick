@@ -120,32 +120,58 @@ woas.ui = {
 		} else // will call _search_load() on its own
 			woas.go_to("Special::Search");
 	},
-	// used by Special::Import
-	_import_xhtml_load: function() {
-		this._import_load(0);
-	},
-	// used by Special::ImportWSIF
-	_import_wsif_load: function() {
-		this._import_load(3);
-	},
-	
-	_import_load: function(except) {
+	// wsif: for Special::Import false, Special::ImportWSIF true
+	_import_load: function(wsif) {
+		var except = wsif ? 3 : 0, i, settings, chk;
 		if (!woas.config.permit_edits)
 			d$("btn_import").disabled = true;
 		// restore default settings - with some exceptions
-		for(var i=0;i < woas.importer._settings_props.length-except;++i) {
-			d$("woas_cb_import"+woas.importer._settings_props[i].substr(1)).checked =
-							woas.bitfield.get(woas.config.import_settings, i);
+		settings = wsif ? woas.config.import_wsif : woas.config.import_woas;
+		for(i=0;i < woas.importer._settings_props.length-except;++i) {
+			chk = woas.bitfield.get(settings, i);
+			d$("woas_cb_import"+woas.importer._settings_props[i].substr(1))
+				.checked = chk
+			woas.importer[woas.importer._settings_props[i]] = chk;
+		}
+		if (wsif) {
+			// these options are not available for WSIF
+			woas.importer.i_styles = woas.importer.i_content = true;
+			woas.importer.i_config = false;
+		} else {
+			// disable settings if needed by content setting
+			this._import_load_change(true);
 		}
 		// restore the overwrite option which covers other 2 bits
 		var ovr = 0;
-		if (woas.bitfield.get(woas.config.import_settings, woas.importer._OVR_ID))
+		if (woas.bitfield.get(settings, woas.importer._OVR_ID))
 			ovr += 1;
-		if (woas.bitfield.get(woas.config.import_settings, woas.importer._OVR_ID+1))
+		if (woas.bitfield.get(settings, woas.importer._OVR_ID+1))
 			ovr += 2;
 		var params = ["erase", "ignore", "overwrite", "ask"];
 		// apply parameter
 		d$('woas_import_'+params[ovr]).checked = true;
+		// need to set i_overwrite; importer doesn't read it
+		woas.importer.i_overwrite = ovr;
+	},
+	// WoaS::Import can disable page import
+	_import_load_change: function(init) {
+		if (init) {
+			this._import_load_css = d$("woas_cb_import_styles").checked;
+		}
+		if (d$("woas_cb_import_content").checked) {
+			woas.importer.i_content = true;
+			d$.show("woas_import_content");
+			// import CSS only possible if import content selected
+			d$("woas_cb_import_styles").checked = woas.importer.i_styles
+				= this._import_load_css;
+			d$("woas_cb_import_styles").disabled = false;
+		} else {
+			woas.importer.i_content = false;
+			d$.hide("woas_import_content");
+			this._import_load_css = d$("woas_cb_import_styles").checked;
+			d$("woas_cb_import_styles").checked = woas.importer.i_styles = false;
+			d$("woas_cb_import_styles").disabled = true;
+		}
 	},
 	// click on edit icon
 	edit: function() {

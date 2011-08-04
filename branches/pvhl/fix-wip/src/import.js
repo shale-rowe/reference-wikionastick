@@ -27,20 +27,19 @@ woas.importer = {
 
 //private:
 	// property names used to retrieve default values from stored bitmask
-	_settings_props: ["i_comment_js", "i_comment_macros", "i_woas_ns",
+	_settings_props: ["i_comment_js", "i_comment_macros", "i_no_woas",
 	// the last 3 options are ignored for WSIF import
 					"i_config", "i_styles", "i_content"],
-	// the overwrite option covers bits 6,7
+	// default options
+	//  1 i_comment_js: false		- disable 'script' tags
+	//  2 i_comment_macros: false	- disable macro blocks '<<<...>>>'
+	//  4 i_no_woas: false			- do not import pages from WoaS:: namespace
+	//  8 i_config: false			- import configuration (XHTML only)
+	// 16 i_styles: false			- import stylesheet (XHTML only)
+	// 32 i_content: true			- import content pages (XHTML only)
+	// 64, 128 - the overwrite option covers bits 6,7
+	//    i_overwrite: 3			- overwrite mode (0 - erase, 1 - ignore, 2 - overwrite, 3 - ask)
 	_OVR_ID: 6,
-	// options
-	i_config: true,					// import configuration (XHTML only)
-	i_styles: false,				// import stylesheet (XHTML only)
-	i_content: true,				// import content pages (XHTML only)
-	i_comment_js: true,				// disable 'script' tags
-	i_comment_macros: true,			// disable macro blocks '<<<...>>>'
-	i_woas_ns: true,				// import pages from WoaS:: namespace
-	i_overwrite: 1,					// overwrite mode (0 - erase, 1 - ignore, 2 - overwrite, 3 - ask)
-
 	// used internally
 	new_main_page: null,
 	current_mts: null,
@@ -75,8 +74,12 @@ woas.importer = {
 		// we are not using is_reserved() because will be inconsistant in case of enabled edit_override
 		// check pages in WoaS:: namespace
 		if (title.substr(0,6) === "WoaS::") {
+			// allow CSS same as WoaS < 11.2 (and makes most sense)
+			if (title === "WoaS::CSS::Custom")
+				// custom CSS is allowed only when importing CSS
+				return woas.importer.i_styles;
 			// can we import from WoaS namespace?
-			if (!woas.importer.i_woas_ns)
+			if (!woas.importer.i_no_woas)
 				return false;
 			// never overwrite help pages with old ones
 			if (title.indexOf("WoaS::Help::") === 0)
@@ -84,16 +87,10 @@ woas.importer = {
 			// skip other core WoaS:: pages
 			if (woas.static_pages2.indexOf(title) !== -1)
 				return false;
-			if (title === "WoaS::Custom::CSS")
-				// custom CSS is allowed only when importing CSS
-				return woas.importer.i_styles;
-
-			// here we allow Plugins, Aliases, Hotkeys
-
+			// the rest are Plugins, Aliases, or Hotkeys
 			return true;
 		} else if (title.substr(0, 9) === "Special::") {
 			// always skip special pages and consider them system pages
-
 			return false;
 		}
 
@@ -463,7 +460,7 @@ woas.importer = {
 					woas.config.new_tables_syntax = old_cfg.new_tables_syntax;
 					woas.config.store_mts = old_cfg.store_mts;
 					woas.config.folding_style = old_cfg.folding_style;
-					woas.config.import_settings = old_cfg.import_settings;
+					woas.config.import_wsif = woas.config.import_woas = old_cfg.import_settings;
 				}
 				// check for any undefined config property - for safety
 				for(p in woas.config) {
@@ -599,7 +596,7 @@ woas.importer = {
 
 // called from Special::Import - import WoaS from XHTML file
 woas.import_wiki = function() {
-	if (!woas._import_pre_up(true))
+	if (!woas._import_pre_up(false))
 		return false;
 
 	// set hourglass
@@ -652,49 +649,34 @@ woas._file_ext = function(fn) {
 	return "."+m[1];
 };
 
-woas._import_pre_up = function(all_options) {
+woas._import_pre_up = function(wsif) {
+	var tmp, old_is;
 	// check if this WoaS is read-only
 	if (!this.config.permit_edits) {
 		this.alert(woas.i18n.READ_ONLY);
 		return false;
 	}
-	// grab the common options
-	this.importer.i_comment_js = d$.checked("woas_cb_import_comment_js");
-	this.importer.i_comment_macros = d$.checked("woas_cb_import_comment_macros");
-	this.importer.i_woas_ns = d$.checked("woas_cb_import_woas_ns");
-	//NOTE: i_overwrite is automatically set when clicking
-	if (all_options) {
-		// grab the XHTML-only options
-		this.importer.i_styles = d$.checked('woas_cb_import_styles');
-		this.importer.i_config = d$.checked('woas_cb_import_config');
-		this.importer.i_content = d$.checked('woas_cb_import_content');
-	} else {
-		// these options are not available for WSIF
-		this.importer.i_styles = this.importer.i_content = true;
-	}
-
-	var old_is = woas.config.import_settings;
+	tmp = wsif ? woas.config.import_wsif : woas.config.import_woas, old_is = tmp;
 	// now store these values
-	woas.config.import_settings = this.bitfield.get_object(this.importer, this.importer._settings_props);
+	tmp = this.bitfield.get_object(this.importer, this.importer._settings_props);
 	// set also bits for overwrite options
-	woas.config.import_settings = this.bitfield.set(this.config.import_settings, this.importer._OVR_ID,
-									this.importer.i_overwrite & 1, this.config.import_settings);
-	woas.config.import_settings = this.bitfield.set(this.config.import_settings, this.importer._OVR_ID+1,
-									this.importer.i_overwrite & 2, this.config.import_settings);
+	tmp = this.bitfield.set(tmp, this.importer._OVR_ID, this.importer.i_overwrite & 1, tmp);
+	tmp = this.bitfield.set(tmp, this.importer._OVR_ID+1, this.importer.i_overwrite & 2, tmp);
+	if (wsif) woas.config.import_wsif = tmp;
+	else woas.config.import_woas = tmp;
 	// check if configuration changed
-	this.cfg_changed |= (woas.config.import_settings !== old_is);
+	this.cfg_changed |= (tmp !== old_is);
 	// check if user wants total erase before going on
 	if (this.importer.i_overwrite === 0) {
 		if (!this.erase_wiki())
 			return false;
 	}
-
 	return true;
 };
 
 // called from Special::ImportWSIF
 woas.import_wiki_wsif = function() {
-	if (!woas._import_pre_up(false))
+	if (!woas._import_pre_up(true))
 		return false;
 
 	// automatically retrieve the filename (will call load_file())

@@ -73,17 +73,18 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-Import a wiki from an /.html/ source (current or earlier version):
+=Import a wiki from a WoaS /HTML/ file
+/The imported WoaS file can be from a current or earlier version./
 
-File: <input id="filename_" type="file" />&nbsp;<input id="btn_import" class="woas_button_top" type="button" value="Import" onclick="import_wiki()" />
-== Source
-<label for="woas_cb_import_config"><input type="checkbox" id="woas_cb_import_config" checked="checked">&nbsp;Import configuration (except WSIF datasource settings)</label>
-<label for="woas_cb_import_styles"><input type="checkbox" id="woas_cb_import_styles">&nbsp;Import CSS</label>
-<label for="woas_cb_import_content"><input type="checkbox" id="woas_cb_import_content" checked="checked">&nbsp;Import pages</label>
-[[Include::WoaS::ImportSettings]]
-
+<input id="btn_import" class="woas_button_top" type="button" value="Import" onclick="import_wiki()" />\
+<fieldset class="woas_input_wrap"><legend>Source</legend>\
+<label class="woas_input_wrap_left">File: <input class="woas_input_wrap_inline" id="filename_" type="file" /></label>
+<label><input type="checkbox" id="woas_cb_import_config" onclick="woas.importer.i_config=this.checked">Import configuration (except WSIF datasource settings)</label>
+<label><input type="checkbox" id="woas_cb_import_content" onclick="woas.ui._import_load_change()">Import content</label><label><input type="checkbox" class="woas_input_wrap_inline" id="woas_cb_import_styles" onclick="woas.importer.i_styles=this.checked">Import custom CSS</label>
+</fieldset>\
+[[Include::WoaS::ImportSettings]]\
 <script type="text/javascript">
-woas.ui._import_xhtml_load();
+woas.ui._import_load(false);
 </script>
 --DFQRCTsKlU
 woas.page.title: Special::About
@@ -750,14 +751,14 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-Import a wiki page (or collection of) in [[WoaS::Help::WSIF|WSIF format]].
-
-File: <input id="filename_" type="file" />&nbsp;<input id="btn_import" class="woas_button" type="button" value="Import WSIF" onclick="woas.import_wiki_wsif()" />
-
-[[Include::WoaS::ImportSettings]]
-
+=Import content in [[WoaS::Help::WSIF|WSIF]] format.
+<input id="btn_import" class="woas_button_top" type="button" value="Import WSIF" onclick="woas.import_wiki_wsif()" />\
+<fieldset class="woas_input_wrap"><legend>Source</legend>\
+<label class="woas_input_wrap_left">File: <input class="woas_input_wrap_inline" id="filename_" type="file" /></label>
+</fieldset>\
+[[Include::WoaS::ImportSettings]]\
 <script type="text/javascript">
-woas.ui._import_wsif_load();
+woas.ui._import_load(true);
 </script>
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Macros
@@ -4300,15 +4301,18 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-== Existing pages
-<label for="woas_import_erase"><input type="radio" id="woas_import_erase" name="woas_import_overwrite" onclick="woas.importer.i_overwrite=0">Erase all user pages before import process</label>
-<label for="woas_import_ignore"><input type="radio" id="woas_import_ignore" name="woas_import_overwrite" onclick="woas.importer.i_overwrite=1" checked="checked">Ignore</label>
-<label for="woas_import_overwrite"><input type="radio" id="woas_import_overwrite" name="woas_import_overwrite" onclick="woas.importer.i_overwrite=2">Overwrite</label>
-<label for="woas_import_ask"><input type="radio" id="woas_import_ask" name="woas_import_overwrite" onclick="woas.importer.i_overwrite=3">Ask before overwrite</label>
-== Security
-<label for="woas_cb_import_comment_js"><input type="checkbox" id="woas_cb_import_comment_js" checked="checked">Comment JavaScript tags</label>
-<label for="woas_cb_import_comment_macros"><input type="checkbox" id="woas_cb_import_comment_macros" checked="checked">Comment macro definition/call</label>
-<label for="woas_cb_import_woas_ns"><input type="checkbox" id="woas_cb_import_woas_ns" checked="checked">Import pages of the [[WoaS::]] namespace ([[WoaS::Hotkeys|hotkeys]], [[WoaS::Plugins|plugins]], [[WoaS::Aliases|aliases]] and [[WoaS::CSS::Custom|custom CSS]])</label>
+<div id="woas_import_content"><fieldset class="woas_input_wrap"><legend>Existing pages</legend>\
+<label><input type="radio" id="woas_import_ask" name="woas_import_overwrite" onclick="woas.importer.i_overwrite=3" checked="checked">Ask before overwrite</label>
+<label><input type="radio" id="woas_import_erase" name="woas_import_overwrite" onclick="woas.importer.i_overwrite=0">Erase all user pages before import process</label>
+<label><input type="radio" id="woas_import_ignore" name="woas_import_overwrite" onclick="woas.importer.i_overwrite=1">Ignore</label>
+<label><input type="radio" id="woas_import_overwrite" name="woas_import_overwrite" onclick="woas.importer.i_overwrite=2">Overwrite</label>
+</fieldset>\
+<fieldset class="woas_input_wrap"><legend>Security</legend>\
+<div class="woas_input_wrap_left">/If you don't trust the pages you are importing you may want to disable imported JavaScript, macros, and special WoaS pages until you can review their content./</div>
+<label><input type="checkbox" id="woas_cb_import_comment_js" onclick="woas.importer.i_comment_js=this.checked">Comment JavaScript tags</label>
+<label><input type="checkbox" id="woas_cb_import_comment_macros" onclick="woas.importer.i_comment_macros=this.checked">Comment macro definition/call</label>
+<label><input type="checkbox" id="woas_cb_import_no_woas" onclick="woas.importer.i_no_woas=this.checked">Do not import [[WoaS::]] namespace pages ([[WoaS::Hotkeys|hotkeys]], [[WoaS::Plugins|plugins]], and [[WoaS::Aliases|aliases]])</label>
+</fieldset></div>
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Include web page
 woas.page.attributes: 0
