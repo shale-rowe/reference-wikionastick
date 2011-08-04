@@ -144,7 +144,7 @@ subpath, and multiple-WSIF files to the root!
 
 //API1.0: save all pages
 woas.full_commit = function() {
-	var r = this._wsif_ds_save(this.config.wsif_ds, this.config.wsif_ds_lock);
+	var r = this._wsif_ds_save(this.config.wsif_ds, this.config.wsif_ds_lock, []);
 	// PVHL: don't save html if wsif save failed (added to all commit functions)
 	if (!r) this.alert(this.i18n.WSIF_SAVE_FAIL);
 	return r ? this._save_to_file(true) : false;
@@ -159,7 +159,7 @@ woas.full_commit = function() {
 //   Was: return this._save_to_file(false);
 woas.cfg_commit = function() {
 	if (this.config.wsif_ds !== this._old_wsif_ds) {
-		var r = this._wsif_ds_save(this.config.wsif_ds, this.config.wsif_ds_lock);
+		var r = this._wsif_ds_save(this.config.wsif_ds, this.config.wsif_ds_lock, []);
 		if (!r) this.alert(this.i18n.WSIF_SAVE_FAIL);
 		return r ? this._save_to_file(true) : false;
 	}
@@ -180,7 +180,7 @@ woas.commit = function(plist) {
 // plist is a list of page indexes which need to be saved (not allowed to be empty)
 woas.commit_delete = function(plist) {
 	// update only the native WSIF index (leaves back deleted pages)
-	var r = this._wsif_ds_save(this.config.wsif_ds, this.config.wsif_ds_lock, []);
+	var r = this._wsif_ds_save(this.config.wsif_ds, this.config.wsif_ds_lock, plist);
 	if (!r) this.alert(this.i18n.WSIF_SAVE_FAIL);
 	// performs full save, while the single page + global header could be saved instead
 	return r ? this._save_to_file(true) : false;
