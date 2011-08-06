@@ -5,7 +5,7 @@ Changes since Revision pvhl-2317 (git: 3d939c7)
 
 * Allow import of encrypted images (partial fix; will revisit later)
 * Redesign of Special::Import and Special::ImportWSIF and associated functions
-* add separate settings for import and importWSIF
+* add separate settings for import and importWSIF and fix import of old settings
 * disable plist use until various broken commit and autosave code is fixed
 * use reFwdSlash instead of new regexp each time
 * change wsif_ds check to whole name instead of length
