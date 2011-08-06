@@ -466,16 +466,22 @@ woas.importer = {
 					woas.config.new_tables_syntax = old_cfg.new_tables_syntax;
 					woas.config.store_mts = old_cfg.store_mts;
 					woas.config.folding_style = old_cfg.folding_style;
-					woas.config.import_wsif = woas.config.import_woas = old_cfg.import_settings;
 				}
 				// check for any undefined config property - for safety
 				for(p in woas.config) {
 					// remove things from the past
-					if (typeof old_cfg[p] == "undefined") {
-						woas.log("BUG: removing invalid config option '"+p+"'");
-						delete woas.config[p];
-						continue;
+					if (typeof old_cfg[p] === "undefined") {
+						// PVHL: my version doesn't have a separate version#
+						if (p = "import_settings") {
+							woas.config.import_wsif = woas.config.import_woas = woas.config[p];
+							delete woas.config[p];
+						} else {
+							woas.log("BUG: removing invalid config option '"+p+"'");
+							delete woas.config[p];
+							continue; // PVHL: this breaks out of do loop! Why?
+						}
 					}
+					// PVHL: I guess this would be for a broken option in old file
 					if ((typeof woas.config[p] == "undefined") && (typeof old_cfg[p] != "undefined"))
 						woas.config[p] = old_cfg[p];
 				}
