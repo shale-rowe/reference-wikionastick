@@ -150,7 +150,6 @@ woas.ui = {
 		var params = ["erase", "ignore", "overwrite", "ask"];
 		// apply parameter
 		d$('woas_import_'+params[ovr]).checked = true;
-		// need to set i_overwrite; importer doesn't read it
 		woas.importer.i_overwrite = ovr;
 	},
 	// WoaS::Import can disable page import
