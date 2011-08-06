@@ -3,6 +3,7 @@ IT IS NOT BEING TESTED MUCH DURING THIS PROCESS AND COULD OCCASIONALLY BE BROKEN
 
 Changes since Revision pvhl-2317 (git: 3d939c7)
 
+* Allow import of encrypted images (partial fix; will revisit later)
 * Redesign of Special::Import and Special::ImportWSIF and associated functions
 * add separate settings for import and importWSIF
 * disable plist use until various broken commit and autosave code is fixed

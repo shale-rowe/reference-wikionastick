@@ -303,8 +303,14 @@ woas.importer = {
 		} // since 0.12.0 we no more have a bootscript page
 
 		// check that imported image is valid
-		if (P.attrs & 8) {
-			// the image is not valid as-is, attempt to fix it
+// PVHL: TODO should add import options to allow/deny/unlock encrypted pages
+// There is a downside to this quick fix: an encrypted image that has issues from
+// earlier versions won't be fixed. Only way to fix is to either decrypt now or to
+// add the fix code to the normal image opening code with an offer to fix the issue.
+// Will do one or both of these later. (For now just need to be able to import my
+// encrypted password image =)
+		if (P.attrs & 8 && !(P.attrs & 2)) {
+			// if the image is not valid as-is, attempt to fix it
 			if (!that.reValidImage.test(P.body)) {
 				// do not continue with newer versions or if not base64-encoded
 				if ((that._old_version>=117) || !woas.base64.reValid.test(P.body)) {
