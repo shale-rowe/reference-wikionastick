@@ -9140,7 +9140,7 @@ woas._on_load = function() {
 	this._set_debug(this.config.debug_mode, this.config.debug_closed);
 	d$("woas_debug_log").value = ""; // for Firefox
 	// output platform information - note that revision is filled in only in releases
-	woas.log("*** WoaS v"+this.version+"-pvhl-r2443"+" started");	// log:1
+	woas.log("*** WoaS v"+this.version+"-pvhl-r2446"+" started");	// log:1
 	
 	// needed to check if data source changes; forces full save when entering/exiting
 	// WSIF datasource mode or changing the name of the data source file
@@ -11011,8 +11011,14 @@ woas.importer = {
 		} // since 0.12.0 we no more have a bootscript page
 
 		// check that imported image is valid
-		if (P.attrs & 8) {
-			// the image is not valid as-is, attempt to fix it
+// PVHL: TODO should add import options to allow/deny/unlock encrypted pages
+// There is a downside to this quick fix: an encrypted image that has issues from
+// earlier versions won't be fixed. Only way to fix is to either decrypt now or to
+// add the fix code to the normal image opening code with an offer to fix the issue.
+// Will do one or both of these later. (For now just need to be able to import my
+// encrypted password image =)
+		if (P.attrs & 8 && !(P.attrs & 2)) {
+			// if the image is not valid as-is, attempt to fix it
 			if (!that.reValidImage.test(P.body)) {
 				// do not continue with newer versions or if not base64-encoded
 				if ((that._old_version>=117) || !woas.base64.reValid.test(P.body)) {
@@ -11168,16 +11174,22 @@ woas.importer = {
 					woas.config.new_tables_syntax = old_cfg.new_tables_syntax;
 					woas.config.store_mts = old_cfg.store_mts;
 					woas.config.folding_style = old_cfg.folding_style;
-					woas.config.import_wsif = woas.config.import_woas = old_cfg.import_settings;
 				}
 				// check for any undefined config property - for safety
 				for(p in woas.config) {
 					// remove things from the past
-					if (typeof old_cfg[p] == "undefined") {
-						woas.log("BUG: removing invalid config option '"+p+"'");
-						delete woas.config[p];
-						continue;
+					if (typeof old_cfg[p] === "undefined") {
+						// PVHL: my version doesn't have a separate version#
+						if (p = "import_settings") {
+							woas.config.import_wsif = woas.config.import_woas = woas.config[p];
+							delete woas.config[p];
+						} else {
+							woas.log("BUG: removing invalid config option '"+p+"'");
+							delete woas.config[p];
+							continue; // PVHL: this breaks out of do loop! Why?
+						}
 					}
+					// PVHL: I guess this would be for a broken option in old file
 					if ((typeof woas.config[p] == "undefined") && (typeof old_cfg[p] != "undefined"))
 						woas.config[p] = old_cfg[p];
 				}
@@ -12792,7 +12804,6 @@ woas.ui = {
 		var params = ["erase", "ignore", "overwrite", "ask"];
 		// apply parameter
 		d$('woas_import_'+params[ovr]).checked = true;
-		// need to set i_overwrite; importer doesn't read it
 		woas.importer.i_overwrite = ovr;
 	},
 	// WoaS::Import can disable page import
