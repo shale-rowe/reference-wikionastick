@@ -62,31 +62,30 @@ woas.ui = {
 		return orig_e;
 	},
 	// could have a better name
+	// PVHL: most of this should be moved into woas.help_system
+	//  Also, allow an optional page title to be passed in, even if in editor
+	//  This function should use full page titles; help_system should use postfix
+	//  (everything after WoaS::Help)
 	help: function() {
-		var wanted_page, pi;
+		var wanted_page, pi, htitle = current;
 		// we are editing
 		if (this.edit_mode) {
 			wanted_page = "WoaS::Help::Editor";
 			pi = woas.page_index(wanted_page);
 		} else {
-			var htitle = null;
-			// change the target page in some special cases
-			if (current.indexOf('WoaS::') === 0) {
-				if (woas.help_system._help_lookup.indexOf(current.substr(6)) !== -1)
-					htitle = current.substr(6);
-				else
-					htitle = current;
-			} else
-				// allow for Locked::, Unlocked::, etc.
-				htitle = current.indexOf('::') === current.length-2
-							? current.substring(0, current.length-2) : current;
-			var npi = woas.page_index("WoaS::Help::"+htitle);
-			if (npi !== -1) {
-				wanted_page = "WoaS::Help::"+htitle;
-				pi = npi;
-			} else {
+			// normalize namespace listngs
+			if (htitle.lastIndexOf('::') === htitle.length - 2)
+				htitle = htitle.substring(0, htitle.length - 2);
+			if (htitle.indexOf('WoaS::') === 0 &&
+					woas.help_system._help_lookup.indexOf(htitle.substr(6)) !== -1)
+				// change the target page in some special cases
+				htitle = htitle.substr(6);
+			pi = woas.page_index("WoaS::Help::"+htitle);
+			if (pi === -1) {
 				wanted_page = "WoaS::Help::Index";
 				pi = woas.page_index(wanted_page);
+			} else {
+				wanted_page = "WoaS::Help::"+htitle;
 			}
 		}
 		woas.help_system.go_to(wanted_page, pi);
@@ -335,24 +334,15 @@ function cancel() {
 // @module help_system
 // PVHL: TODO close window in unload function
 woas.help_system = {
+	// page names that need to be modified for help lookup: WoaS:: +
+	_help_lookup: ["Aliases", "CSS", "CSS::Boot", "CSS::Core", "CSS::Custom", "Hotkeys", "Plugins"],
 	popup_window: null,
-	page_title: null,
-	going_back: false,
-	previous_page: [],
-	_index_btn: '<'+'input class="woas_button" type="button" value="Index" onclick="help_go_index()" /'+'>',
+	popup_wnd: ',status=no,menubar=no,resizable=yes,scrollbars=no,location=no,toolbar=no',
+	popup_w: Math.ceil(screen.width * 0.75),
+	popup_h: Math.ceil(screen.height * 0.75),
+	popup_title: null,
 
-	_mk_help_button: function(n) {
-		var w = "[[Include::WoaS::Template::Button|";
-		if (n)
-			w += "Back|help_go_back";
-		else
-			w += "Close|window.close";
-		w += "();]]\n";
-		return w;
-	},
-
-	_help_lookup: ["Aliases", "CSS::Boot", "CSS::Core", "CSS::Custom", "Hotkeys", "Plugins"],
-	cPopupCode: "\n\
+	popup_code: woas.raw_js("\n\
 function get_parent_woas() {\n\
 	if (window.opener && !window.opener.closed)\n\
 		return window.opener.woas;\n\
@@ -377,48 +367,85 @@ function help_go_back() {\n\
 	woas.help_system.going_back = true;\n\
 	woas.help_system.go_to(woas.help_system.previous_page.pop());\n\
 	return;\n\
-}\n"
-	,
+}\n\
+function d$(id) {\n\
+	return document.getElementById(id);\n\
+}\n\
+function help_resize() {\n\
+	var top = d$('woas_help_top_wrap').offsetHeight,\n\
+		body = d$('woas_help_body_wrap');\n\
+	body.style.top = top; // stops a slight flash on some browsers\n\
+	body.style.height = document.body.offsetHeight - top + 'px';\n\
+}\n\
+window.onresize = help_resize;\n"
+	),
+
+	// PVHL: this needs to be replaced with content from a page; too many side-effects
+	//   to bother with right now; redesign coming in new version.
+	// params: back|close value, back|close title, back|close function, display title, body
+	popup_page: '<'+'div id="woas_help_top_wrap"><'+'div class="woas_help_top">\n\
+<'+'input tabindex=2 class="woas_help_button" value="%s" title="%s" onclick="%s()"\
+type="button" /><'+'input tabindex=1 class="woas_help_button" value="Index" onclick\
+="help_go_index()" type="button" />%s<'+'/div><'+'/div><'+'div id="woas_help_body_wrap">\
+<'+'div class="woas_help_body">\n%s<'+'/div><'+'/div>',
+
+	going_back: false,
+	previous_page: [],
+
 	go_to: function(wanted_page, pi) {
 //		woas.log("help_system.go_to(\""+wanted_page+"\")");	//log:0
+		var t = {}, _pfx = "WoaS::Help::";
 		if (typeof pi == "undefined")
 			pi = woas.page_index(wanted_page);
-		var text;
 		// this is a namespace
 		if (pi === -1) {
 			woas.go_to(wanted_page);
 			return;
 		} else {
 			// see if this page shall be opened in the main wiki or in the help popup
-			var _pfx = "WoaS::Help::";
 			if (page_titles[pi].substr(0, _pfx.length) === _pfx)
-				text = woas.get__text(pi);
+				t.text = woas.get__text(pi);
 			else { // open in main wiki
 				woas.go_to(page_titles[pi]);
 				return;
 			}
 		}
-		if (text === null)
+		if (t.text === null)
 			return;
 		// save previous page and set new
 		if (this.going_back)
 			this.going_back = false;
 		else if (this.page_title !== null)
 			this.previous_page.push( this.page_title );
-		// now create the popup
+		this.page_title = wanted_page;
+		// allow overriding this function
+		this.make_pop_up(t);
+	},
+
+	// PVHL: create a custom help page from scratch that works in all browsers
+	make_pop_up: function(t) {
+		var title = this.page_title.substr(12), btn, fn;
 		if ((this.popup_window === null) || this.popup_window.closed) {
 			this.previous_page = [];
-			this.popup_window = woas._customized_popup(wanted_page, this._index_btn+woas.parser.parse(
-					this._mk_help_button(0)+text),
-					this.cPopupCode,
-				"", " class=\"woas_help_background\"");
-		} else { // hotfix the page
-			this.popup_window.document.title = wanted_page;
-			woas.setHTMLDiv(this.popup_window.document.body, this._index_btn+woas.parser.parse(this._mk_help_button(this.previous_page.length)+text));
+			this.popup_window = woas.popup("help_popup", this.popup_w,
+				this.popup_h, this.popup_wnd,
+				'<'+'title>' + this.page_title + '<'+'/title>' + '<'+'style type="text/css">'
+				+ woas.css.get() + '<'+'/style>' + this.popup_code,
+				woas.parser.parse(this.popup_page.sprintf(
+					'Close', 'Close', 'window.close', title, t.text)),
+				' class="woas_help" onload="help_resize()"', ' class="woas_help"');
+			this.popup_window.help_resize(); //seems to help a bit with flash
+		} else { // load new page
+			btn = this.previous_page.length ? 'Back' : 'Close';
+			fn = this.previous_page.length ? 'help_go_back' : 'window.close';
+			woas.setHTMLDiv(this.popup_window.document.body,
+				woas.parser.parse(this.popup_page.sprintf(btn, btn, fn, title, t.text)));
+			this.popup_window.document.title = this.page_title;
 			this.popup_window.scrollTo(0,0);
-			this.popup_window.focus();
+			this.popup_window.help_resize();
+			// stop flash on page load
+			setTimeout("woas.help_system.popup_window.focus()", 0);
 		}
-		this.page_title = wanted_page;
 	}
 };
 
@@ -702,7 +729,8 @@ But why is it here at all? I use custom CSS for TOC -- what did this fix?
 My guess is it fixes the print function.
 Change to custom help/print css. Read from WoaS::CSS::[Help|Print]
 */
-woas._customized_popup = function(page_title, page_body, additional_js, additional_css, body_extra) {
+woas._customized_popup = function(page_title, page_body, additional_js,
+		additional_css, body_extra) {
 	var css_payload = "";
 	if (woas.browser.ie && !woas.browser.ie8) {
 		if (woas.browser.ie6)
@@ -723,9 +751,7 @@ woas._customized_popup = function(page_title, page_body, additional_js, addition
 		// head
 		"<"+"title>" + page_title + "<"+"/title>" + "<"+"style type=\"text/css\">"
 		+ css_payload + woas.css.get() + additional_css +
-		"<"+"/sty" + "le>" + additional_js,
-		page_body,
-		body_extra
+		"<"+"/sty" + "le>" + additional_js, page_body, body_extra
 	);
 };
 
@@ -778,15 +804,15 @@ function ff3_getPath(fileBrowser) {
 }
 
 // create a centered popup given some options
-woas.popup = function(name,fw,fh,extra,head,body, body_extra) {
-	if (typeof body_extra == "undefined")
-		body_extra = "";
+woas.popup = function(name,fw,fh,extra,head,body, body_extra, html_extra) {
+	body_extra = body_extra || "";
+	html_extra = html_extra || "";
 	var hpos=Math.ceil((screen.width-fw)/2);
 	var vpos=Math.ceil((screen.height-fh)/2);
 	var wnd = window.open("about:blank",name,"width="+fw+",height="+fh+		
 	",left="+hpos+",top="+vpos+extra);
 	wnd.focus();
-	wnd.document.writeln(this.DOCTYPE+"<"+"html><"+"head>"+head+
+	wnd.document.writeln(this.DOCTYPE+"<"+"html"+html_extra+"><"+"head>"+head+
 						"<"+"/head><"+"body"+body_extra+">"+
 						body+"<"+"/body></"+"html>\n");
 	wnd.document.close();
