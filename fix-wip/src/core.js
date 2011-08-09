@@ -135,12 +135,16 @@ woas._create_page_direct = function(ns, cr, fill_mode, default_ct) {
 };
 
 woas.cmd_erase_wiki = function() {
-	if (this.erase_wiki() && !this.full_commit()) {
-		this.alert(this.i18n.FAILED_ERASE);
-		// reload page because all data is lost - works even in IE6
-		window.location = window.location;
+	if (this.erase_wiki()) {
+		if (!this.full_commit()) {
+			this.alert(this.i18n.FAILED_ERASE);
+			// reload page because all data is lost - works even in IE6
+			window.location = window.location;
+		}
+		// PVHL: next line can't work; history is deleted & current is main page
+		//back_or(this.config.main_page);
+		this.set_current(this.config.main_page, true);
 	}
-	back_or(this.config.main_page);
 	return null;
 };
 
@@ -169,7 +173,6 @@ woas.erase_wiki = function() {
 		!confirm(this.i18n.CONFIRM_DELETE_ALL2))
 		return false;
 	var i,l,l1,l2,pi,t;
-// PVHL: should be in cmd_erase_wiki; also menu refresh below
 	this.progress_init("Erasing...");
 	var backup_pages = [];
 	// attributes and last modified timestamps for default pages
@@ -226,7 +229,6 @@ woas.erase_wiki = function() {
 	// remove all plugins
 	this.plugins.clear();
 	this.plugins.load();
-
 	this.progress_finish();
 	return true;
 };
