@@ -99,24 +99,6 @@ woas.ecma_decode = function(s) {
 
 // used to escape blocks of source into HTML-valid output
 woas.xhtml_encode = function(src) {
-/*	return this.utf8.do_escape(src.replace(/[<>&]+/g, function ($1) {
-		var l=$1.length;
-		var s="";
-		for(var i=0;i < l;i++) {
-			switch ($1.charAt(i)) {
-				case '<':
-					s+="&lt;";
-					break;
-				case '>':
-					s+="&gt;";
-					break;
-//				case '&':
-				default:
-					s+="&amp;";
-			}
-		}
-		return s;
-	})); */
 	return this.utf8.do_escape(src.replace(/&/g, '&amp;').replace(reMinorG, '&lt;').
 			replace(/>/g, '&gt;')); // .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 };
@@ -142,22 +124,17 @@ woas.page_index = function(title) {
 };
 
 woas.is_reserved = function(page) {
-	return (page.search(this._reserved_rx)==0);
+	return (page.search(this._reserved_rx) == 0);
 };
 
 woas.is_menu = function(title) {
-	return (title.substr(title.length-6) === "::Menu");
+	return title.substr(-6) === "::Menu";
 };
 
 // returns namespace with trailing ::
 woas.get_namespace = function(page, root_only) {
-	var p;
-	if ((typeof root_only == "boolean") && (root_only == true))
-		p = page.indexOf("::");
-	else
-		p = page.lastIndexOf("::");
-	if (p==-1) return "";
-	return page.substring(0,p+2);	
+	var	p = root_only ? page.indexOf("::") : page.lastIndexOf("::");
+	return p === -1 ? "" : page.substring(0, p + 2);	
 };
 
 // page attributes bits are mapped to (readonly, encrypted, ...)
@@ -311,9 +288,10 @@ woas.get_text_special = function(title) {
 woas.__last_title = null;
 
 woas.__password_finalize = function(pwd_obj) {
-	d$.show("woas_wiki_area");
+	//d$.show("woas_scroll_wrap");
 	document.title = this.__last_title;
-	d$.hide("woas_pwd_mask");
+	//d$.hide("woas_pwd_mask");
+	this.ui.display({pswd:false});
 //	scrollTo(0,0);
 	// hide input form
 	pwd_obj.value = "";
@@ -325,11 +303,12 @@ woas._set_password = function() {
 	this.__last_title = document.title;
 	document.title = "Enter password";
 	// hide browser scrollbars and show mask
-	d$.show("woas_pwd_mask");
-	d$.hide("woas_wiki_area");
+	//d$.show("woas_pwd_mask");
+	//d$.hide("woas_scroll_wrap");
+	this.ui.display({pswd:true});
 	scrollTo(0,0);
 	// show input form
-	d$.show("woas_pwd_query");
+	//d$.show("woas_pwd_query");
 	d$("woas_password").focus();	
 	this.ui.focus_textbox();
 };
@@ -757,11 +736,12 @@ woas.js_mode = function(cr) {
 	return 1;
 };
 
-woas.last_modified = function(mts) {
+// no is optional; used by recently modified page
+woas.last_modified = function(mts, no) {
 	// do not show anything when the timestamp is magic (zero)
 	if (mts == 0)
 		return "";
-	return this.i18n.LAST_MODIFIED + (new Date(mts*1000)).toLocaleString();
+	return (no ? "" : this.i18n.LAST_MODIFIED) + (new Date(mts*1000)).toLocaleString();
 };
 
 // actually load a page given the title and the proper XHTML
@@ -776,21 +756,17 @@ woas.load_as_current = function(title, xhtml, mts, set_b) {
 	// the bucket will contain only the rendered page
 	if (set_b)
 		this.pager.bucket.one(title);
-
-	
 	scrollTo(0,0);
 //	this.log("load_as_current(\""+title+"\", "+set_b+") - "+(typeof xhtml == "string" ? (xhtml.length+" bytes") : (typeof xhtml)));	// log:0
-	this.setHTMLDiv(d$("woas_wiki_area"), xhtml);
+	this.setHTMLDiv(d$("woas_page"), xhtml);
 	this.refresh_mts(mts);
-
-	this._set_title(title);
-	
 	this.history.go(current);
-	this.update_nav_icons(title);
 	current = title;
-//	this.log(this.history.log_entry());	// log:0
-	// active menu or page scripts
+	// activate menu or page scripts
 	this.scripting.activate(this.is_menu(current) ? "menu" : "page");
+	this._set_title(title);
+	this.update_view();
+//	this.log(this.history.log_entry());	// log:0
 	return true;
 };
 
@@ -827,18 +803,18 @@ woas._add_namespace_menu = function(namespace) {
 	}
 	if (pi === -1) {
 //		this.log("no namespace menu found");	// log:0
-		this.setHTMLDiv(d$("woas_ns_menu_area"), "");
+		this.setHTMLDiv(d$("woas_ns_menu_content"), "");
 		if (this.current_namespace !== "") {
-			d$.hide("woas_ns_menu_area");
+			d$.hide("woas_ns_menu_content");
 			d$.hide("woas_ns_menu_edit_button");
 		}
 	} else {
 //		this.log("namespace menu found: "+page_titles[pi]);	// log:0
 		menu = this.get__text(pi);
-		this.setHTMLDiv(d$("woas_ns_menu_area"), menu === null ? ""
+		this.setHTMLDiv(d$("woas_ns_menu_content"), menu === null ? ""
 			: this.parser.parse(menu, false, this.js_mode(namespace+"::Menu")) );
 		// show sub-menu
-		d$.show("woas_ns_menu_area");
+		d$.show("woas_ns_menu_content");
 		d$.show("woas_ns_menu_edit_button");
 	}
 	this.current_namespace = namespace;
@@ -882,7 +858,7 @@ woas._on_load = function() {
 	d$("woas_debug_log").value = ""; // for Firefox
 	// output platform information - note that revision is filled in only in releases
 	woas.log("*** WoaS v"+this.version+"-r@@WOAS_REVISION@@"+" started");	// log:1
-	
+
 	// needed to check if data source changes; forces full save when entering/exiting
 	// WSIF datasource mode or changing the name of the data source file
 	this._old_wsif_ds = is_windows
@@ -891,32 +867,14 @@ woas._on_load = function() {
 		: this.config.wsif_ds;
 
 	// (0) set some browser-tied functions
-	if (this.browser.ie) {	// some hacks for IE
+	if (Number(this.browser.ie) < 9) {	// some hacks for IE
 		this.setHTML = function(elem, html) {elem.text = html;};
 		this.getHTML = function(elem) {return elem.text;};
-		var obj = d$("woas_wiki_header");
-		obj.style.filter = "alpha(opacity=75);";
-		if (this.browser.ie6) {
-			d$("woas_wiki_header").style.position = "absolute";
-			d$("i_woas_menu_area").style.position = "absolute";
-		}
-		// IE6/7 can't display logo
-		if (!this.browser.ie8) {
-			d$.hide("img_logo");
-			// replace with css when capability exists:
-			d$("woas_logo").style.width = "1%";
-		} else {
-			d$("woas_logo").style.width = "35px";
-			d$.show("img_logo");
-		}
 	} else {
 		this.setHTML = this.setHTMLDiv;
 		this.getHTML = this.getHTMLDiv;
-		// everyone else needs a logo; will be better when done in css.
-		d$("woas_logo").style.width = "35px";
-		d$.show("img_logo");
 	}
-	
+
 	// (1) check integrity of WoaS features - only in debug mode
 	if (this.log() && this.tweak.integrity_test && !this.integrity_test()) {
 		// test failed, stop loading
@@ -945,25 +903,16 @@ woas._on_load = function() {
 
 	// (4) activate the CSS, with eventual fixups for some browsers
 	this.css.set(this.get_text("WoaS::CSS::Core")+"\n"+this.get_text("WoaS::CSS::Custom"));
-	
+
 	// (5) continue with UI setup
-	d$('woas_home_hl').title = this.config.main_page;
-	d$('img_home').alt = this.config.main_page;
+	this.ui.img_display(); /* turn off images if data_uri doesn't work */
+	d$('woas_home').title = this.config.main_page;
 	this.ui.set_header(this.config.fixed_header); // not done by function if IE6
 	this.ui.set_menu(this.config.fixed_menu);
-	// properly initialize navigation bar icons
-	// this will cause the alternate text to display on IE6/IE7
-	var nav_bar = ["back", "forward", "home", "edit", "print", "advanced",
-					"cancel", "save", "lock", "unlock", "setkey", "help",
-					"top", "debug"];
-	for(var i=0,it=nav_bar.length;i < it;++i) {
-		this.img_display(nav_bar[i], true);
-	}
-	this.menu_display("help", true); // the only one not done later
-	
+
 	// customized keyboard hook
 	document.onkeydown = woas.ui._keyboard_event_hook;
-	
+
 	// Go straight to requested page
 	var qpage=document.location.href.split("?")[1];
 	if (qpage) {
@@ -973,27 +922,22 @@ woas._on_load = function() {
 		if (p !== -1)
 			current = current.substring(0,p);
 	}
-	
+
 	// (6) initialize extensions - plugins go first so that external javascript/CSS
 	// starts loading
 	this.setHTML(d$("woas_wait_text"), "Initializing extensions...");
 	this.plugins.load();
 	this._load_aliases(this.get_text("WoaS::Aliases"));
-	this.hotkey.load(this.get_text("WoaS::Hotkeys"));
+	//this.hotkey.load(this.get_text("WoaS::Hotkeys"));
 
-	if (this.config.permit_edits)
-		d$.show("menu_edit_button");
-	else
-		d$.hide("menu_edit_button");
-	
 	// enable the auto-save thread
 	if (this.config.cumulative_save && this.config.auto_save)
 		this._autosave_thread = setTimeout("woas._auto_saver()", this.config.auto_save);
-	
+
 	this._editor = new TextAreaSelectionHelper(d$("woas_editor"));
 
 	this.setHTML(d$("woas_wait_text"), "Completing load process...");
-	
+
 	// set a hook to be called when loading process is complete
 	if (!woas.dom.wait_loading(woas._early_render))
 		woas._load_hangup_check(true);
@@ -1042,28 +986,15 @@ woas._early_render = function() {
 woas.disable_edit = function() {
 //	woas.log("DISABLING edit mode");	// log:0
 	// reset change buffer used to check for page changes
+	this.ui.edit_mode = false;
 	this.change_buffer = null;
 	this.old_title = null;
-	// check for back and forward buttons - TODO grey out icons
-	// this.update_nav_icons(current); // PVHL: done in load_current
-	this.menu_display("home", true);
-	if (this.config.cumulative_save)
-		this.menu_display("save", (this.save_queue.length!==0));
-	else
-		this.menu_display("save", false);
-	this.menu_display("cancel", false);
-	this.menu_display("print", true);
-	this.menu_display("setkey", true);
-	d$.show("i_woas_text_area");
-	// aargh, FF eats the focus when cancelling edit
-	d$.hide("edit_area");
 	if (woas._ghost_page) {
 		woas._ghost_page = false;
 		woas.log("Ghost page disabled"); //log:1
 	}
 	this.log(); // scroll to bottom of log
-	this.ui.edit_mode = false; // PVHL: want this at end
-	this._set_title(this.prev_title); // PVHL: here because edit_mode must be false.
+	this._set_title(this.prev_title);
 };
 
 function _lock_pages(arr) {
@@ -1105,55 +1036,38 @@ woas.edit_allowed_reserved = function(page) {
 };
 
 // setup the title boxes and gets ready to edit text
-woas.current_editing = function(page, disabled) {
-	this.ui.edit_mode = true;
+woas.current_editing = function(page, disabled, txt) {
+//	woas.log("ENABLING edit mode");	// log:0
 //	woas.log("current = \""+current+"\", current_editing(\""+page+"\", disabled: "+disabled+")");	// log:0
+	_servm_alert();
+	this.ui.edit_mode = true;
 	this.prev_title = current;
 	current = page;
 	d$("wiki_page_title").disabled = (disabled && !this.tweak.edit_override ? "disabled" : "");
-	d$("wiki_page_title").value = page;
+	d$("wiki_page_title").value = this.old_title = page;
+	// save copy of text to check if anything was changed
+	// do not store it in case of ghost pages
+	d$("woas_editor").value = this.change_buffer = txt;
+	//scrollTo(0,0); PVHL: needed by any browser? Need to position text cursor
 	this._set_title(this.i18n.EDITING.sprintf(page));
-//	woas.log("ENABLING edit mode");	// log:0
-	this.menu_display("back", false);
-	this.menu_display("forward", false);
-	this.menu_display("advanced", false);
-	this.menu_display("setkey", false);
-	this.menu_display("home", false);
-	this.menu_display("edit", false);
-	this.menu_display("print", false);
-	this.menu_display("save", true);
-	this.menu_display("cancel", true);
-	// PVHL: See no sense in calling this -- icons must be off for edit
-	//       and update_lock_icons is currently having troubles.
-	// this.update_lock_icons(page);
-	this.menu_display("lock", false);
-	this.menu_display("unlock", false);
-	d$.hide("i_woas_text_area");
-
-	// FIXME! hack to show the editor pane correctly on IE
-	if (!this.browser.ie) {
-		d$("woas_editor").style.width = window.innerWidth - 35 + "px";
-		d$("woas_editor").style.height = window.innerHeight - 180 + "px";
-	} else {
-		d$("woas_editor").style.width = document.documentElement.clientWidth - 35 + "px";
-		d$("woas_editor").style.height = document.documentElement.clientHeight - 180 + "px";
-	}
-	d$.show("edit_area");
-
+	woas.ui.display({view: false, edit: true});
+	this.ui._resize();
 	d$("woas_editor").focus();
-	scrollTo(0,0);
 };
 
-woas.change_buffer = null;
-woas.old_title = null;
+//woas.change_buffer = null;
+//woas.old_title = null;
 
 // sets the text and allows changes monitoring
 woas.edit_ready = function (txt) {
-	d$("woas_editor").value = txt;
+	woas.log("Called woas.edit_ready!");	// log:1
+	return;
+/*	d$("woas_editor").value = txt;
 	// save copy of text to check if anything was changed
 	// do not store it in case of ghost pages
 	this.change_buffer = txt;
 	this.old_title = d$("wiki_page_title").value;
+*/
 };
 
 woas.edit_page = function(page) {
@@ -1164,14 +1078,12 @@ woas.edit_page = function(page) {
 		woas.log("Not allowed to edit page "+page);	// log:1
 		return false;
 	}
-	_servm_alert();
 	var tmp = this.get_text(page);
 	if (tmp===null) return false;
 	if (this.is_embedded(page) && !this.is_image(page))
 		tmp = this.base64.decode(tmp);
 	// setup the wiki editor textbox
-	this.current_editing(page, this.is_reserved(page));
-	this.edit_ready(tmp);
+	this.current_editing(page, this.is_reserved(page), tmp);
 	return true;
 };
 
@@ -1382,20 +1294,26 @@ woas.save_page_i = function(pi) {
 };
 
 woas.create_breadcrumb = function(title) {
-	var tmp=title.split("::");
-	if (tmp.length===1)
+	if (title === "::Menu") {
 		return title;
-	var s="", partial="", js="";
-	for(var i=0;i < tmp.length-1;i++) {
-		// editing is active
+	}
+	var tmp = title.split("::");
+	if (tmp.length === 1)
+		return title;
+	var s = "", partial = "", js = "", i, il;
+	for(i = 0 , il = tmp.length - 1; i < il; i++) {
+		// editing is active - PVHL: not used any more?
 		if (this.ui.edit_mode)
-			s+= tmp[i]+" :: ";
+			s += tmp[i]+" :: ";
 		else {
 			partial += tmp[i]+"::";
 			js = "woas.go_to('"+this.js_encode(partial)+"')";
-			s += "<"+"a title=\""+this.xhtml_encode(tmp[i])+"\" href=\"javascript:"+js+"\" onclick=\""+js+"; return false;\">"+tmp[i]+"<"+"/a> :: ";
+			// add link to "::" if it isn't on the end of the title
+			s += tmp[i] + (tmp[i + 1] ? " <"+"a class=\"woas_link\" title=\"" +
+				this.xhtml_encode(partial)+"\" onclick=\"" + js +
+				"; return false;\">::<"+"/a> " : " ::");
 		}
 	}
 	// add page title
-	return s+tmp[tmp.length-1];
+	return s + tmp[tmp.length-1];
 };

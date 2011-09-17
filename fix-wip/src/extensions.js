@@ -351,7 +351,7 @@ woas.plugins = {
 		this._all.splice(i,1);
 		if (current === "WoaS::Plugins") {
 			//HACK: reload plugins
-			woas.setHTMLDiv(d$("woas_wiki_area"), woas.parser.parse(woas.get_text("WoaS::Plugins") + this.list()));
+			woas.setHTMLDiv(d$("woas_page"), woas.parser.parse(woas.get_text("WoaS::Plugins") + this.list()));
 		}
 		return true;
 	}
@@ -472,10 +472,10 @@ woas.hotkey = {
 			}
 		});
 		// once finished loading hotkey definitions, associate them
-		d$("woas_save_hl").accessKey = this.all.save;
-		d$("woas_edit_hl").accessKey = this.all.edit;
-		d$("woas_print_hl").accessKey = this.all.print;
-		d$("woas_help_hl").accessKey = this.all.help;
+		d$("woas_save").accessKey = this.all.save;
+		d$("woas_edit").accessKey = this.all.edit;
+		d$("woas_print").accessKey = this.all.print;
+		d$("woas_help").accessKey = this.all.help;
 		// set access key for goto feature
 		new_custom_accesskeys.push({fn:"woas.cmd_go_to", key: this.all["goto"]});
 

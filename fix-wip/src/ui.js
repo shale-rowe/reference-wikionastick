@@ -204,7 +204,7 @@ woas.ui = {
 			}
 		}
 		current = woas.prev_title;
-		woas.update_nav_icons(current);
+		woas.update_view();
 //		woas.log(woas.history.log_entry()); //log:0
 		woas.disable_edit();
 	},
@@ -267,14 +267,19 @@ woas.ui = {
 	},
 	set_header: function(fixed) {
 		if (!woas.browser.ie6) {
-			d$("woas_wiki_header").style.position = (fixed ? "fixed" : "absolute");
+			d$("woas_header_wrap").style.position = (fixed ? "fixed" : "absolute");
 		}
 	},
 	set_menu: function(fixed) {
 		if (!woas.browser.ie6) {
-			d$("i_woas_menu_area").style.position = (fixed ? "fixed" : "absolute");
+			d$("woas_menu_wrap").style.position = (fixed ? "fixed" : "absolute");
 		}
 	},
+/*	set_mode: function(edit) {
+		if (edit) {
+		} else {
+		}
+	},*/
 	set_layout: function(fixed)  {
 		this.set_header(fixed);
 		this.set_menu(fixed);
@@ -554,7 +559,7 @@ function ro_woas() {
 		woas.config.permit_edits = false;
 		woas.cfg_commit();
 		// reparse page
-		woas.setHTMLDiv(d$("woas_wiki_area"),
+		woas.setHTMLDiv(d$("woas_page"),
 			woas.parser.parse(woas.get_text("Special::Options"), false, 1));
 		woas.scripting.activate("page");
 	}
@@ -718,7 +723,7 @@ function query_delete_image(cr) {
 
 // triggered by UI graphic button
 function page_print() {
-	woas._customized_popup(current, woas.getHTMLDiv(d$("woas_wiki_area")),
+	woas._customized_popup(current, woas.getHTMLDiv(d$("woas_page")),
 		'woas={};woas.go_to=function(page){alert("'
 		+woas.js_encode(woas.i18n.PRINT_MODE_WARN)+'");}');
 }
@@ -946,68 +951,46 @@ function _servm_alert() {
 	}
 }
 
-woas.update_nav_icons = function(page) {
-	this.menu_display("back", this.history.has_backstack());
-	this.menu_display("forward", this.history.has_forstack());
-	this.menu_display("advanced", (page != "Special::Advanced"));
-	this.menu_display("edit", this.edit_allowed(page));
-	this.update_lock_icons(page);
-	// this.log("nav icons updated"); // log:0
+woas.update_view = function() {
+	var v = {view: true, edit: false};
+	v.no_back = !this.history.has_backstack();
+	v.no_fwd = !this.history.has_forstack();
+	v.no_home = current === this.config.main_page;
+	v.no_tools = current === "Special::Advanced";
+	v.no_edit = !(this.config.permit_edits && this.edit_allowed(current));
+	/* turn correct lock/unlock icons on/off then disable/enable them both */
+	v.locked = this.is_encrypted(current);
+	v.unlocked = !v.locked;
+	v.no_lock = !this.config.permit_edits || this.is_reserved(current);
+	this.ui.display(v);
 };
 
-woas.update_lock_icons = function(page) {
-	// PVHL: Changes made
-	// - default is both icons off; turn on if desired
-	// - don't turn on lock icon if page is reserved
-	//   (probably obviates CANNOT_LOCK_RESERVED message)
-	var cyphered, can_lock, can_unlock;
-	cyphered = can_lock = can_unlock = false;
-	if (woas.pager.bucket.items.length < 2) {
-		var pi = this.page_index(page);
-		if (pi !== -1) {
-			can_unlock = cyphered = this.is__encrypted(pi);
-			can_lock = !can_unlock
-				&& !this.is_reserved(page)
-				&& this.config.permit_edits;
-		}
-	}
-	/*
-	else {
-PVHL: this will always be true, so both on for lists. looks like it is
-intended for some future functionality: locking/unlocking lists of pages
-(see _[un]lock_pages). Disabled because it is on in inappropriate places;
-e.g. WoaS:: & Special:: list pages. Needs to be modified to check namespace
-and should also check if any of the pages in bucket are locked/unlocked.
-		can_lock = can_unlock = (woas.pager.bucket.items.length>0);
-	}
-	*/
-	// update the encryption icons accordingly
-/*
-PVHL: the ui display code really needs to be rewritten. edit_mode is being used
-to lock out certain functions but being turned off too soon so that this will work;
-diabling it for now. Needs to be a seperate ui.render function.
-*/
-	this.menu_display("lock", /* !woas.ui.edit_mode && */ can_lock);
-	this.menu_display("unlock", /* !woas.ui.edit_mode && */ can_unlock);
-	// we can always input decryption keys by clicking the setkey icon
-	//this.menu_display("setkey", cyphered);
-	var cls;
-	if (cyphered || (page.indexOf("Locked::")==0))
-		cls = "woas_text_area locked";
-	else
-		cls = "woas_text_area";
-	d$("woas_wiki_area").className = cls;
-};
+// PVHL: this function not used by update_nav_icons (now update_view) any more as it
+// had added functionality that is currently untested and unused.
+// See 0.12.0 code (or my earlier code) for code
+//
+// woas.update_lock_icons = function(page) {
 
 // when the page is resized
-woas._onresize = function() {
-	var we = d$("woas_editor");
-	we.style.width = window.innerWidth - 30 + "px";
-	we.style.height = window.innerHeight - 150 + "px";
-};
-
-if (!woas.browser.ie)
-	window.onresize = woas._onresize;
+// PVHL: still some edit resize issues with Safari. Works well enough though.
+//   document.documentElement.clientHeight works in all browsers so window.height
+//   not used; old IEs don't have window.height.
+woas.ui._resize = (function() {
+	function resize() {
+		if (woas.ui.edit_mode) {
+			var h = d$("woas_editor").offsetHeight +
+				document.documentElement.clientHeight - document.body.offsetHeight;
+			// PVHL: stops Opera overflow on resize while editing; don't know why it happens yet
+			if (woas.browser.opera) { --h };
+			d$("woas_editor").style.height = (h > 64 ? h : 64) + "px";
+		}
+	}
+	return woas.browser.ie6
+		// stops initial textarea overflow for IE6
+		? function() { setTimeout(resize, 0) }
+		: function() { resize(); };
+}());
+window.onresize = woas.ui._resize;
 
 woas._set_debug = function(status, closed) {
 	var logbox = d$("woas_debug_log"), lines = -1, position = 0,
@@ -1034,14 +1017,14 @@ woas._set_debug = function(status, closed) {
 				opera.postError(aMessage);
 			return true;
 		};
-		// activate debug panel
-		d$.show("woas_debug_panel");
+		// activate debug icon
+		d$.show("woas_debug");
 		if (!closed) { d$.show("woas_debug_console")
 		} else {  d$.hide("woas_debug_console") }
 		// hide the progress area
 		d$.hide("loading_overlay");
 	} else {
-		d$.hide("woas_debug_panel");
+		d$.hide("woas_debug");
 		d$.hide("woas_debug_console");
 		logbox.value = '';
 		woas.log = function() { return false; };
@@ -1055,10 +1038,10 @@ woas.refresh_menu_area = function() {
 	this._add_namespace_menu(tmp);
 	var menu = this.get_text("::Menu");
 	if (menu == null)
-		this.setHTMLDiv(d$("woas_menu_area"), "");
+		this.setHTMLDiv(d$("woas_menu"), "");
 	else {
 		this.parser._parsing_menu = true;
-		this.setHTMLDiv(d$("woas_menu_area"), this.parser.parse(menu, false, this.js_mode("::Menu")));
+		this.setHTMLDiv(d$("woas_menu"), this.parser.parse(menu, false, this.js_mode("::Menu")));
 		this.parser._parsing_menu = false;
 		this.scripting.clear("menu");
 		this.scripting.activate("menu");
@@ -1072,19 +1055,36 @@ woas._gen_display = function(id, visible, prefix) {
 		d$.hide(prefix+"_"+id);
 };
 
-woas.img_display = function(id, visible) {
-	if (!this.browser.ie || this.browser.ie8) {
-		this._gen_display(id, visible, "img");
-		this._gen_display(id, !visible, "alt");
-	} else {
-		this._gen_display(id, !visible, "img");
-		this._gen_display(id, visible, "alt");
+// adapted by PVHL from: weston.ruter.net/2009/05/07/detecting-support-for-data-uris
+woas.ui.img_display = function() {
+	function loaded(el){ /*alert(el.width+" "+el.height);*/
+		if (el.width !== 1 || el.height !== 1) {
+			woas.ui.display({no_img: true}, false);
+		}
 	}
+	var data = new Image();
+	data.onload = function() {/*alert("onload");*/loaded(this);}
+	data.onerror = function() {/*alert("onerror");*/loaded(this);}
+	data.src = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
 };
 
-woas.menu_display = function(id, visible) {
-	this._gen_display(id, visible, "menu");
-//	woas.log("menu_"+id+" is "+d$("menu_"+id).style.display);
+woas.menu_display = function(id, visible, opaque) {
+	// menu images now controlled through anchor tag; dim instead of hiding
+	//visible ? d$.show("woas_"+id, true) : d$.hide("woas_"+id);
+	i=id;id = d$('woas_' + id);
+	opaque = opaque || false;
+	var c = opaque ? 'woas_disabled' : 'woas_hide', ic = id.className, p = ic.indexOf(c);
+	if (visible && p !== -1) {
+		if (p) {
+			id.className = ic.substr(0, ic[p - 1] === ' ' ? p - 1 : p) + ic.substr(p + c.length);
+		} else {
+			id.className = ic.substr(c.length + (ic.length > c.length && ic[c.length + 1] === ' ' ? 1 : 0));
+		}
+	} else if (!visible && p === -1) {
+		id.className += (ic.length ? ' ' : '') + c;
+	}
+	if (window.console) console.log(i+" "+opaque+"  '"+ic + "'  " + p + "  '"+id.className+"'");
+	//visible ? woas.ui.set_css("woas_" + id, visible);
 };
 
 woas.refresh_mts = function(mts) {
@@ -1219,3 +1219,34 @@ woas.css = {
 		return woas.dom._cache.stylesheet.innerHTML;
 	}
 };
+
+/*
+woas.ui.display() closure
+	pfx:(private) defines the prefix that will be added to all CSS classes
+	state: (private) used to track current control state
+	dsp: object passed to display to set new state;
+	       - any dsp key that tests true is set in state
+		   - any dsp key that tests false is reset in state if it exists
+*/
+(function() {
+	var pfx = 'woas_',
+		state = {};
+	woas.ui.display = function(dsp) {
+		var clas, s = [];
+		for (clas in dsp) {
+			if (dsp.hasOwnProperty(clas)) {
+				if (dsp[clas]) {
+					state[clas] = true;
+				} else if (state[clas] && state.hasOwnProperty(clas)) {
+					state[clas] = false;
+				}
+			}
+		}
+		for (clas in state) {
+			if (state[clas] && state.hasOwnProperty(clas)) {
+				s.push(pfx + clas);
+			}
+		}
+		document.documentElement.className = s.join(' ');
+	}
+}())

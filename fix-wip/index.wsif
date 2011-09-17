@@ -153,7 +153,36 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-A blank sheet is a catalyst for ideas
+= Buyer Beware!
+*Please be aware* that this version is unfinished. I have uploaded it to update my code and let others take a look at current changes. I believe it is safe with data, but will be uploading a better version within the next day or two.
+
+* *This version uses a completely new way to control the layout* (adding CSS classes to the HTML tag). It works very well but means that if you try plugins that change the display style (block/hidden) of the main HTML it will likely break the file. This will be fixed later by loading layout from a page (or code) on start up. This new code makes future theming and skinning much easier to implement. (This is a key issue for me.) It also stops the multiple changes that  mess up version control and diffs.
+* The /Fixed Header/ is not done yet. Right now content disappears behind it. This will be put right by the next upload. It is actually just a bit of code that I have already written, but I haven't had time to get to it yet as I wanted to finish up some other layout issues and got side-tracked with the /Orphaned Pages/ code.
+* I haven't finished with export to HTML yet -- or even checked it recently; much of the layout and IDs have changed during this phase. I will make it right before release.
+* Some lists may actually have slowed down a bit as they are now much more capable; the /Orphaned Pages/ list is now 100 times faster.
+* I found it took a few hours to get used to the new page/tag list format, because it works differently from 0.12.0 (so I kept going to pages instead of toggling DIVs); once used to it I found it much easier to use. And I think it looks much better. (The 0.12.0 look actually breaks in one major browser on my system.)
+* I have rearranged some icons to make the code simpler and because it is more consistent to my eyes.
+* The locks are now opposite in looks to 0.12.0; it just makes more sense to me.
+* I am aware of an issue in the Help pages that breaks one page because of a bad link. I will fix it before release.
+* My new WoaS logo is to differentiate my version from the official one. I haven't decided yet whether to use it for this version or to reserve it for my later, enhanced WoaS version (assuming I ever get to it).
+* Though I have fixed up the /Password Entry/ layout (and made a new icon for it) I may change it to use a page (like all the other functions), and may eventually remove the need for it entirely
+
+Again, some things are in transition. Some pages are not finished and a lot of the help pages have not been updated yet, though /Little Girl/ has done a lot of work on them.
+
+Do let me know what you think and any issues you find. Be sure to check out some of the new options. Sorry to have taken so long to get the code up. Hopefully I'll be more or less finished with this soon. I have tested quite a bit with a quite large WoaS file and things seem to be working well, but I haven't tested every function recently; I will before release.
+
+Some of these changes will have broken some plug-ins; future changes will break some more. They can be fixed once things are stable. Thanks for your patience.
+
+By the way, if you want to change the menu width the CSS you need to add to WoaS::Custom:CSS looks like this
+{{{
+#woas_footer_wrap, #woas_page_wrap {
+	margin-left: 13em;
+}
+#woas_menu_wrap {
+	width: 13em; /* to match page and footer wrap */
+}
+}}}
+They should be specified in {{{em}}} values for best cross-browser compatibility and both need to be the same value (this is also much more usable than the old {{{%}}} CSS). I have spent a lot of time testing most popular browsers, but only in Windows 7 and Windows XP. I didn't realize before that WoaS really only works at its best in /Firefox/.
 
 --DFQRCTsKlU
 woas.page.title: Special::Search
@@ -184,7 +213,7 @@ Read more about the [[WoaS::Help::Security|embedded AES encryption]] used in Wik
 
 == Password
 Enter your password for AES encryption. The more complex your password is, the more difficult it will be to attack the encryption. It is suggested *not* to use passwords whose textbox color is <span style="background-color:red">&nbsp;red&nbsp;</span>, and to accept passwords only when the textbox color is <span style="background-color:lime">&nbsp;green&nbsp;</span>. Punctuation and Mixed case characters will exponentially increase the strength of your password.
-<dl><dt><label for="pw1">Enter password:</label></dt><dd><input type="password" id="pw1" style="background-color:red" value="" size="50" onfocus="woas.ui.focus_textbox()" onblur="woas.ui.blur_textbox()" onkeyup="pw_quality()" />&nbsp;<span id="txtBits">&nbsp;</span></dd><dt><label for="pw2">Re-enter password:</label></dt><dd><input type="password" id="pw2" value="" size="50" onfocus="woas.ui.focus_textbox()" onblur="woas.ui.blur_textbox()" /></dd></dl><input id="btn_lock" class="woas_button" type="button" value="" />
+<dl><dt><label for="pw1">Enter password:</label></dt><dd><input type="password" id="pw1" style="background-color:red" value="" size="50" onfocus="woas.ui.focus_textbox()" onblur="woas.ui.blur_textbox()" onkeyup="pw_quality()" />&nbsp;<span id="txtBits">&nbsp;</span></dd><dt><label for="pw2">Re-enter password:</label></dt><dd><input type="password" id="pw2" value="" size="50" onfocus="woas.ui.focus_textbox()" onblur="woas.ui.blur_textbox()" /></dd></dl><input id="btn_lock" class="woas_button_top" type="button" value="" />\
 <script type="text/javascript">
 	_lock_page();
 </script>
@@ -355,7 +384,7 @@ Unordered lists using asterisks are accepted:<span class="good_syntax">{{{
 HTML pre tags surrounding raw or preformatted text are not supported:<span class="bad_syntax">{{{
 <pre>raw or preformatted text</pre>
 }}}</span>
-Nowiki brackets surrounding raw or preformatted text are accepted:<span class="good_syntax"><pre style="background-color: #F5F5F5; border: 0.063em solid grey; font-family: monospace; padding-right: 0.27em; padding-left: 0.4em;">{<!-- -->{{raw or preformatted text}}<!-- -->}
+Nowiki brackets surrounding raw or preformatted text are accepted:<span class="good_syntax"><pre style="background-color: #F5F5F5; border: 1px solid #808080; font-family: monospace; padding-right: 0.27em; padding-left: 0.4em;">{<!-- -->{{raw or preformatted text}}<!-- -->}
 
 {<!-- -->{{
 raw or preformatted text
@@ -387,11 +416,11 @@ Tags separated by commas in the [[Tag::]] namespace are accepted:<span class="go
 }}}</span>
 <style type="text/css">
 .bad_syntax {
-  color: red;
+  color: #f00; /* red */
   font-weight: bold;
 }
 .good_syntax {
-  color: green;
+  color: #008000; /* green */
   font-weight: bold;
 }
 </style>
@@ -562,10 +591,10 @@ woas.page.boundary: DFQRCTsKlU
 #woas_ep_xhtml, #woas_ep_img, #woas_ep_ext, #woas_ep_author {
 	margin: .25em 0em .75em
 }
-#woas_wiki_area {
+#woas_page {
 	text-align: left
 }
-#woas_wiki_area h2 {
+#woas_page h2 {
 	margin-bottom: .4em
 }
 </style>
@@ -1648,8 +1677,7 @@ Create a page with these contents:<br><br>{{{
 }}}
 When you save the page, there will be a Table of Contents that looks like this at the top of the page:
 
-<div style="border:1pt dashed #aaa; background-color:#f9f9f9; padding:0.313em; 
-width:50%; font-size:95%;"><center><b>Table of Contents</b></center>
+<div style="border:1px dashed #aaa;background-color:#f9f9f9;padding:0.313em;width:50%;font-size:95%"><center><b>Table of Contents</b></center>
 &nbsp;&nbsp;&nbsp;1. <span style="color:blue; text-decoration:underline;">My level one heading</span>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. <span style="color:blue; text-decoration:underline;">My level two heading</span>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. <span style="color:blue; text-decoration:underline;">My level three heading</span>
@@ -3544,27 +3572,125 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
+/*******************************
+ | CRITICAL LAYOUT/DISPLAY CSS |
+ | ALTERATION CAN BREAK LAYOUT |
+ | EVEN BY CHANGING THE ORDER  |
+ ******************************/
+
+/* hidden layout */
+#loading_overlay, #woas_wait_text, #woas_pwd_mask, #woas_custom_accesskeys {
+	display: none;
+}
+
+/* general layout design */
+
+body, #woas_header_wrap, #woas_view, #woas_edit,
+#woas_page_wrap, #woas_menu_wrap, #woas_footer_wrap,
+#woas_debug_log, #woas_editor {
+	margin: 0px;
+	padding: 0px;
+	border-width: 0px
+}
+#woas_header_wrap {
+	top: 0px;
+	width: 100%;
+	z-index: 1
+}
+#woas_footer_wrap, #woas_page_wrap {
+	margin-left: 13em;
+	position: relative
+}
+.woas_edit #woas_footer_wrap {
+	margin-left: 0em
+}
+#woas_menu_wrap {
+	width: 13em; /* to match page and footer wrap */
+	_float: left; /* for IE6 */
+}
+#woas_header_wrap, #woas_menu_wrap {
+	_position: absolute; /* IE6 can't do fixed */
+}
+
+/* control disabling of navbar icons (or text if no images) */
+
+.woas_no_back #woas_back, .woas_no_fwd #woas_fwd, .woas_no_home #woas_home,
+.woas_no_tools #woas_tools, .woas_no_edit #woas_edit,
+.woas_no_lock #woas_lock, .woas_no_lock #woas_unlock {
+	display: inline-block; /* IE 6-8 needs this for filter to work */
+	filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=20,Style=0);
+	opacity: .2;
+	cursor: default
+}
+
+/* select images or text for display */
+/* LOOK AT MAKING THESE MORE EFFICIENT - though dynamic creation removes completely */
+
+.woas_nav a span, .woas_no_img .woas_nav img, .woas_no_img img.woas_nav,
+.woas_no_img #woas_debug img, .woas_no_img .woas_top img,
+#woas_debug span, .woas_top span {
+	display: none
+}
+.woas_no_img .woas_nav a span, .woas_no_img #woas_debug span,
+.woas_no_img .woas_top span {
+	display: inline;
+}
+
+/* control read-only and locks */
+
+.woas_locked #woas_unlock {
+	display: inline;
+}
+.woas_ro #woas_edit, .woas_ro #woas_lock, .woas_ro #woas_unlock,
+.woas_locked #woas_lock, .woas_unlocked #woas_unlock {
+	display: none
+}
+
+/* control overall display */
+
+.woas_view #woas_edit_mode, .woas_view #woas_edit_wrap,
+.woas_edit #woas_view_mode, .woas_edit #woas_page_wrap, .woas_edit #woas_menu_wrap,
+.woas_pswd #woas_scroll_wrap, .woas_load #woas_scroll_wrap {
+	display: none
+}
+.woas_edit #woas_edit_wrap, .woas_view #woas_page_wrap, .woas_view #woas_menu_wrap,
+.woas_pswd #woas_pwd_mask, .woas_load #loading_overlay {
+	display: block
+}
+
+
+/*****************
+ | WOAS STYLING  |
+ | SAFE TO ALTER |
+ *****************/
+
+/*
+	All measures except borders in em because IE6 doesn't resize pixel measures properly
+	and IE9 giving some border errors with em measures.
+*/
+
+/* BACKGROUND */
+.woas_background, body, #woas_header_wrap {
+	background-color: #F0F0F5; /* no color name */
+}
+
 /* BODY */
 body {
 	font-family: Georgia, verdana;
-	word-wrap: break-word;
-}
-.woas_background {
-	background-color: #F0F0F5;
 }
 
 /* BUTTONS */
 .woas_button, .woas_button_top, .woas_editor_button, .woas_button_ro {
-	background-color: #F0F0F5;
-	border: 1pt solid grey;
-	color: darkblue;
+	background-color: #F0F0F5; /* matches background */
+	border: 1px solid #808080; /* grey */
+	color: #00008b; /* darkblue */
 	cursor: pointer;
 	font-variant: normal;
-	margin-top: 0.438em;
+	margin-top: .438em;
 	text-align: center;
 }
-.woas_button:hover, .woas_button_top:hover, .woas_button_ro:hover {
-	background-color: darkgrey;
+.woas_button:hover, .woas_button_top:hover, .woas_editor_button:hover, .woas_button_ro:hover {
+	background-color: #A9A9A9 /* darkgrey */
 }
 .woas_button_top {
 	position: absolute;
@@ -3575,38 +3701,50 @@ body {
 	background-color: #FFF0F0
 }
 
+/* CONTENT (page layout) */
+#woas_content {
+	padding: 4em .75em .75em
+}
+
 /* DEBUG CONSOLE */
-#woas_debug_button {
-	margin-top: 0.5%;
+#woas_debug_log_container {
+	border: 1px solid #000; /* black */
+	background-color: #F0F0F5; /* matches background */
+	margin-top: .375em; /* matches woas_footer padding-bottom */
+	padding: .25em 0em .25em .375em;
 }
-#woas_debug_console_title {
-	color: white;
-	font-weight: bold;
-	text-align: left;
-}
+
+/* textarea cannot contain padding/margins for cross-browser */
 #woas_debug_log {
-	background-color: #F0F0F5;
-	border: 1px solid black;
-	margin-top: 0.5%;
 	width: 100%;
+	background-color: #F0F0F5; /* matches background */
+	resize: vertical;
+	overflow: auto
 }
-#woas_debug_log_clear_button {
-	margin-top: 0.3%;
-	margin-bottom: 0.3%;
-}
-#woas_debug_panel {
-	background-color: #048db4;
-	border: 0;
-	margin-top: -0.4em;
+#woas_debug_log_clear {
+	margin: .375em 0px 0px
 }
 
 /* EDITOR */
-#woas_edit_page_title{
+/*#woas_edit_page_title{
 	margin-top: 2.188em;
-}
+}*/
 .woas_editor_button {
-	margin-top: 0.063em;
-	margin-bottom: 0.063em;
+	margin-top: .25em
+}
+.woas_editor_toggle {
+	color: #00008b; /* darkblue */
+}
+.woas_editor_toggle:hover {
+	text-decoration: underline;
+}
+#woas_editor_container {
+	margin-top: .5em
+}
+#woas_editor {
+	width: 100%;
+	resize: vertical;
+	overflow: auto
 }
 
 /* EMBEDDED FILES */
@@ -3614,61 +3752,43 @@ pre.woas_embedded {
 	background-color: #9E9EFF;
 }
 
-/* ENCRYPTION */
-.woas_password_desc {
-	background-color: #FAFAFB;
-	border: 2pt solid navy;
-	font-size: 0.8em;
-	margin-right: 25%;
-	margin-left: 25%;
-}
-#woas_pwd_mask {
-	font-size: large;
-	height: 100%;
-	left: 0em;
-	position: absolute;
-	text-align: center;
-	top: 0em;
-	width: 99%;
-	z-index: 99;
-}
-#woas_pwd_query {/* ask password overlay */
-	background-color: #d6dff7;
-	border: 1pt solid #666666; 
-	font-size: large;
-	height: 100%;
-	left: 0em;
-	padding-top: 25%;
-	position: absolute;
-	text-align: center;
-	top: 0em;
-	width: 99%;
-	z-index: 100;
-}
-
 /* FOOTER */
 #woas_footer {
 	background-color: #048db4;
-	border: 1pt solid black;
-	font-size: 95%;
-	font-weight: bold;
-	line-height: 1em;
+	border: 1px solid #000; /* black */
 	margin-top: 0.75em;
-	margin-right: 0.85em;
-	margin-left: 15.5%;
-	padding-top: 0;
-	padding-right: 0.5%;
-	padding-bottom: 0;
-	padding-left: 0.5%;
+	padding: .375em
 }
 #woas_footer a {
-	color: white ! important;
+	font-size: .688em;
+	font-weight: bold;
+	color: #fff; /* white */
 }
-#woas_go_to_top_button {
-	margin-bottom: -0.4em;
+#woas_footer_panel {
+	position: relative;
+	width: 100%;
+	line-height: 1em
+}
+.woas_about, #woas_debug, .woas_top {
+	position: absolute;
+}
+.woas_about {
+	width: 100%;
+	text-align: center;
+}
+#woas_debug {
+	left: 0px
+}
+.woas_top {
+	right: 0px
 }
 
 /* HEADINGS */
+h1.woas_heading, h2.woas_heading, h3.woas_heading,
+h4.woas_heading, h5.woas_heading, h6.woas_heading {
+	margin: .5em 0px .188em;
+	padding: 0px
+}
 h1.woas_heading {
 	font-size: 1.438em;
 }
@@ -3695,60 +3815,60 @@ next three are for layout; no changes allowed except colors;
 wraps cannot contain margins, paddings, or borders
 */
 .woas_help {
-	border-width: 0;
+	border-width: 0px;
 	height: 100%;
 	width: 100%;
-	margin: 0;
-	padding: 0;
-	overflow: hidden
+	margin: 0px;
+	padding: 0px;
+	overflow: hidden;
+	background-color: #fff; /* white */
 }
 #woas_help_top_wrap {
-	background-color: #00F;
-	position: absolute;
-	top:0;
-	left:0;
 	width: 100%
 }
 #woas_help_body_wrap {
 	position: absolute;
-	bottom: 0;
+	bottom: 0px;
 	width: 100%;
-	overflow-x: hidden; /* helps IE6; gets overflow:auto wrong sometimes */
-	overflow-y: auto
+	overflow: auto;
+	_overflow-x: hidden; /* helps IE6; gets overflow:auto wrong sometimes */
 }
+/* end of Help layout CSS; rest can be styled */
+
 /*body.woas_help {
 	background-attachment:fixed;
 	background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAYAAADDPmHLAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A%2FwD%2FoL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9oDDAonCzKHvroAAAEFSURBVHja7duxDYIhFIVRIA7EKk7qKoxkb2Ns1PzfObWNuRfyAB0DAAAAAAAAAAAAAAAAAAAAAAAAAIC%2FMEtf9pxzf%2FeZvfdDAYLBV4swBd8uwhR%2BuwhT%2BO0SLOE7BQg%2FvAssa8AOYPWHd4FbtfmvIVZnhyX8xnlfAVCA8kpPHAO%2FNUReqUQKEA7fDDDcHC7hmwGEHx4gp%2BDbpwc%2FCYsfHafw2%2FcG2beAevCpHeDT1V%2B6LfQWEA5fAeLhKwAKoAAAAOR4DRzt3wl6DYyXwGtgvAQeg%2BIlcBEUpwAKgALgHsAg6BTgHsAO0CyBfwwDAAAAAAAAAAAAAAAAAAAAAAAAAAAAv%2FIER4Nn%2B7YDG3wAAAAASUVORK5CYII%3D);
 }*/
 .woas_help_top {
+	background-color: #048DB4; /* matches footer */
 	color: #FFF;
 	font-family: Arial Black, Gadget, sans-serif;
-	font-size: 24px;
-	padding: 10px 10px 20px
+	font-size: 1.5em;
+	padding: .625em .625em 1em
 }
 .woas_help_body {
-	padding: 16px
+	background-color: #FFF; /* white */
+	padding: 1em
 }
 .woas_help h3 {
-	margin-bottom: .2em
+	margin-bottom: .188em
 }
 /*
-perhaps use next one for all the headings? explicit margins are needed
-for IE6/7 or they will be collapsed under certain circumstances.
+explicit margins are needed for IE6/7 otherwise collapsed under certain circumstances.
 */
 .woas_help h1 {
-	margin: .5em 0em .25em
+	margin: .5em 0px .25em
 }
 .woas_help_button {
 	float: right;
-	margin-left: 10px;
-	background-color: #F0F0F5;
-	border: 1pt solid grey;
-	color: darkblue;
+	margin-left: .625em;
+	background-color: #F0F0F5; /* matches background */
+	border: 1px solid #808080; /* grey */
+	color: #00008b; /* darkblue */
 	cursor: pointer
 }
 .woas_help_button:hover {
-	background-color: darkgrey
+	background-color: #A9A9A9 /* darkgrey */
 }
 .woas_helpcode {
 	font-family: monospace;
@@ -3760,114 +3880,98 @@ for IE6/7 or they will be collapsed under certain circumstances.
 	font-weight: bold
 }
 
-/* HOTKEYS */
-#woas_custom_accesskeys {
-	display: none;
-}
-
 /* INPUT LAYOUT */
 .woas_input_wrap {
-	margin-bottom: 5px;
-	padding: 10px 10px 10px 30px;
+	margin-bottom: .313em;
+	padding: .625em .625em .625em 1.875em;
 	text-align: left
 }
 .woas_input_wrap legend {
 	font-weight: bold
 }
 .woas_input_wrap label input, .woas_input_wrap label select {
-	margin: 0 7px 5px -20px
+	margin: 0px .434em .313em -1.25em
 }
 .woas_input_wrap label input {
-	vertical-align: -1px
+	vertical-align: -0.063em
 }
 .woas_input_wrap .woas_input_wrap_inline {
-	margin-left: 10px;
+	margin-left: .625em;
 }
 .woas_input_wrap .woas_input_wrap_no_left {
 	margin-left: 0px;
 }
 .woas_input_wrap .woas_input_wrap_left {
-	margin: 0px 0px 5px -20px;
+	margin: 0px 0px .313em -1.25em;
 }
 
 /* LAST MODIFIED LINE */
 .woas_page_mts {
 	font-size: small;
 	margin-top: 0.75em;
-	margin-right: 0.80em;
-	margin-left: 15.5%;
+	margin-right: 0.813em;
 	z-index: 0;
 }
 
-/* LINK - CURSOR */
+/* LINK */
 a {
 	cursor: pointer;
 }
-
-/* LINK - EXISTENT */
-a.woas_link {
-	color: blue;
-}
-a.woas_link:hover {
+a:hover {
 	text-decoration: underline;
 }
 
+/* LINK - EXISTENT */
+.woas_link {
+	color: #00f; /* blue */
+}
+
 /* LINK - EXTERNAL */
-a.woas_world_link {
-	color: darkgreen;
+.woas_world_link {
+	color: #006400; /* darkgreen */
 	text-decoration: underline;
 }
 
 /* LINK - NONEXISTENT */
-a.woas_unlink {
-	color: red;
-}
-a.woas_unlink:hover {
-	text-decoration: underline;
+.woas_unlink {
+	color: #f00; /* red */
 }
 
 /* MAIN TEXT AREA */
-div.woas_text_area {/* any text area div */
-	background-color: white;
-	border: 1pt solid black;
-	padding: 0.475em;
-}
-#woas_wiki_area {/* main text area */
-	left: 15.5%;
-	margin-top: 1.313em;
+#woas_page {/* main text area */
+	overflow: hidden;
 	margin-bottom: 0.75em;
-	position: relative;
-	text-align: justify;
-	width: 82.3%;
-	z-index: 0;
+	background-color: #fff; /* white */
+	border: 1px solid #000; /* black */
+	padding: 1em;
+	text-align: left;
 }
-#woas_wiki_area ol li {
+#woas_page ol li {
 	margin-left: -0.5em;
 }
-#woas_wiki_area ul li {
-	margin-left: -0.7em;
+#woas_page ul li {
+	margin-left: -0.688em;
 }
 
 /* MAIN WIKI PANE WHEN LOCKED */
-.woas_text_area.locked, #woas_pwd_mask {
+.woas_locked #woas_page, #woas_pwd_mask {
 	background-color: #eeeeee;
-	background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAAAAACMmsGiAAAALHRFWHRDcmVhdGlvbiBUaW1lAGdpbyAyOSBtYXIgMjAwNyAxMTo1MToxMCArMDEwME%2BTNUAAAAAHdElNRQfXAx0JNByGxueSAAAACXBIWXMAAAsSAAALEgHS3X78AAAABGdBTUEAALGPC%2FxhBQAAABlJREFUeNpj%2FM%2FwmYHpMwMvAxOQwcvECyQBO1oE%2BlG5iisAAAAASUVORK5CYII%3D);
+	background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAJElEQVR42lXIgQkAAAgCQTf4/actjIoSFDlFB5DrWRx4WOdiAmzEIUk0vrnLAAAAAElFTkSuQmCC);
 }
 
 /* MENU */
-#i_woas_menu_area {
-	background-color: white;
-	border: 1pt solid grey;
+#woas_menu_pad {
+	margin-right: 1.25em;
+	background-color: #fff; /* white */
+	border: 1px solid #000; /* black */
 	font-size: 0.75em;
-	left: 1%;
-	padding: 0.499em;
-	width: 13.2%;
+	padding: 1em;
 }
-#woas_menu_area ol li, #woas_ns_menu_area ol li {
-	margin-left: -1.55em;
+#woas_menu ol li, #woas_ns_menu_area ol li {
+	margin-left: -1.563em;
 }
-#woas_menu_area ul li, #woas_ns_menu_area ul li {
-	margin-left: -1.85em;
+#woas_menu ul li, #woas_ns_menu_area ul li {
+	margin-left: -1.875em;
 }
 .woas_menu_button {
 	margin-top: 0.438em;
@@ -3875,41 +3979,93 @@ div.woas_text_area {/* any text area div */
 }
 
 /* NAVIGATION BAR */
-#woas_wiki_header {
-	border: 1pt solid #aaa;
-	left: 0em;
-	opacity: .65;
-	padding-right: 0.75em;
-	top: 0em;
-	width: 99%;
-	z-index: 1;
+
+#woas_header {
+	padding: 0.75em;
 }
 #woas_title {
-	display: inline;
-	font-size: 2em;
+	line-height: 1;
+	font-size: 1.813em;
 	font-weight: bold;
-	margin-top: 0em;
-	margin-bottom: 0em;
-	text-shadow: #888 0.13em 0.13em 0.065em;
+	margin-right: .188em;
+	text-shadow: #888 0.125em 0.125em 0.065em
+}
+div.woas_nav { /* navbar icon/text link container */
+	float: right;
+	margin-top: .188em;
+}
+.woas_nav a { /* navbar links */
+}
+.woas_nav a span { /* no-image text */
+	font-weight: bold;
+	font-size: 70%
+}
+.woas_nav img { /* icons */
+	/* fix for IE8 images; stops bad alpha; same color as background */
+	background-color: #F0F0F5;
+}
+img.woas_nav { /* woas logo */
+	float: left;
+	margin-right: .375em;
+	margin-top: -0.188em
 }
 
 /* NOWIKI TEXT */
 .woas_nowiki {
 	background-color: #F5F5F5;
 	white-space: pre-wrap; /* CSS 3 */
-	padding-right: 0.27em;
-	padding-left: 0.27em;
+	padding-right: 0.25em;
+	padding-left: 0.25em;
 }
 .woas_nowiki_multiline {
-	border: 0.063em solid grey;
-	padding-left: 0.4em;
+	border: 1px solid #808080; /* grey */
+	padding-left: 0.375em;
 }
 
-/* PAGE LISTING HEADER */
-.woas_listing_options {
-	background-color: #AACCBB;
-	border: 0.1em solid blue;
-	padding: 0.2em;
+/* PAGE LISTINGS */
+.woas_list {
+	margin: .188em 0px .25em 1.5em;
+}
+.woas_list_heading {
+	margin: .375em 0px 0px;
+	font-weight: bold
+}
+.woas_list_link {
+	color: #00008b; /* darkblue */
+}
+.woas_list_options {
+	float: right;
+	padding: .188em .375em;
+	border: 1px solid #000; /* black */
+	background-color: #F0F0F5; /* matches background */
+	font-size: .8em;
+}
+
+/* PASSWORD */
+.woas_password_desc {
+	background-color: #FAFAFB;
+	border: 1px solid #000080; /* navy */
+	font-size: 0.75em;
+	margin: 0px 10%;
+	padding: 2em
+}
+#woas_pwd_mask {
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	top: 0px;
+	left: 0px;
+	z-index: 99;
+	font-size: large;
+	text-align: center;
+}
+#woas_pwd_query {/* ask password overlay */
+	position: relative;
+	margin: 0px 10%;
+	top: 10%;
+	background-color: #d6dff7;
+	border: 2px solid #666666;
+	z-index: 100;
 }
 
 /* SEARCH */
@@ -3919,26 +4075,26 @@ div.woas_text_area {/* any text area div */
 }
 pre.woas_search_results {
 	background-color: #f9f9f9;
-	border: 1pt solid #aaa;
+	border: 1px solid #aaa;
 	clear: both;
 	padding: 0.313em;
 	margin-top: 1em;
 }
 .woas_search_highlight {
-	background-color: yellow;
+	background-color: #ff0; /* yellow */
 }
 
 /* TABLE OF CONTENTS */
 div.woas_toc {
-	border: 1pt dashed #aaa;
+	border: 1px dashed #aaa;
 	background-color: #f9f9f9;
 	padding: 0.313em;
 	width: 50%;
 	font-size: 95%;
 }
 div.woas_toc ol, div.woas_toc li {
-	margin-left: 3.3em;
-	padding-left: 0em;
+	margin-left: 3.25em;
+	padding-left: 0px;
 }
 p.woas_toc_title {
 	font-weight: bold;
@@ -3946,72 +4102,62 @@ p.woas_toc_title {
 }
 
 /* TABLES */
-table.woas_text_area {
-	border: 1pt solid black;
-	border-spacing: 0em;
+#woas_page table {
+	border: 1px solid #000; /* black */
+	border-spacing: 0px;
 }
-table.woas_text_area td {
-	border: 1pt solid;
-	padding: 0.313em;
+#woas_page table td {
+	border: 1px solid;
+	padding: .313em;
 }
-table.woas_text_area caption {
+#woas_page table caption {
 	font-style: italic;
 	font-weight: bold;
 }
 
 /* TAG - CONTAINER */
 div.woas_taglinks {
-	border: 1pt solid #aaa;
+	border: 1px solid #aaa;
 	margin-top: 1em;
 	overflow: auto;
-	padding: 0.313em;
+	padding: .5em 1em;
+	font-size: 80%;
+	text-align: left;
+	color: #aaa; /* matches border */
 }
 
 /* TAG - LINKS */
 div.woas_taglinks > a {
-	background-color: gainsboro;
-	border: 2px solid blue;
-	/* border-radius: 7px; */
-	color: navy;
-	font-size: 90%;
-	font-weight: bold;
-	line-height: 2.4;
-	margin: 2px 2px 2px 0;
-	-moz-border-radius: 7px;
-	padding: 3px 5px 3px 5px;
-	text-decoration: none;
-	-webkit-border-radius: 7px;
+	margin: 0px;
+	padding: .125em .313em;
+	background-color: #fff; /* white */
+	color: #000; /* black */
+	text-decoration: none
 }
 div.woas_taglinks > a:hover {
-	background-color: grey;
-	border: 2px solid blue;
-	color: white;
-	text-decoration: none;
-	font-weight: bold;
+	background-color: #808080; /* grey */
+	color: #fff; /* white */
+	font-weight: normal;
+	text-decoration: none
 }
 
 /* WIKI CORE PAGES */
 .woas_core_page {
-	background-color: #bbccff;
+	background-color: #bcf;
 }
 
 /* WIKI LOADING OVERLAY */
 #loading_overlay {
-	background-color: white;
-	font-size: large;
-	height: 100%;
-	left: 0em;
-	padding-top: 25%;
 	position: absolute;
-	text-align: center;
-	top: 0em;
-	width: 99%;
+	width: 100%;
+	height: 100%;
+	padding-top: 25%;
 	z-index: 100;
-}
-
-/* WIKI WAIT TEXT */
-#woas_wait_text {
-	color: navy;
+	left: 0px;
+	top: 0px;
+	color: 	#000080; /* navy */
+	font-size: large;
+	text-align: center;
 }
 
 --DFQRCTsKlU
@@ -4034,57 +4180,35 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 /* CSS used when loading/saving WoaS - readonly */
 body {
+	margin: 0px;
+	padding: 0px;
+	border-width: 0px;
 	font-family: Georgia, verdana;
+	background-color: #F0F0F5; /* to match layout */
 }
-
-#woas_custom_accesskeys {
-	display: none;
-}
-
-#woas_wiki_area {
-	position: relative;
-	left: 15.5%;
-	width: 82.3%;
-	z-index: 0;
-	margin-top: 1.313em;
-	margin-bottom: 0.75em;
-	text-align:justify;
-}
-
-#woas_wiki_header {
-	top: 0em;
-	left: 0em;
-	border: 1pt solid #aaa;
-	opacity:.65;
-	z-index: 1;
-	width: 99%;
-	padding-right:0.75em;
-}
-
 #loading_overlay {
 	position: absolute;
-	width: 99%;
+	width: 100%;
 	height: 100%;
 	padding-top: 25%;
 	z-index: 100;
-	background-color: white;
-	left: 0em;
-	top: 0em;
+	left: 0px;
+	top: 0px;
+	color: 	#000080; /* navy */
 	font-size: large;
 	text-align: center;
 }
-
-#woas_wait_text {
-	color: navy;
+#woas_debug_console {
+	width:50%;
+	margin: 3em auto;
 }
-
-.woas_background, #woas_debug_panel, #woas_debug_console, #woas_debug_log,
-#woas_edit_page_title, .woas_editor_button, #woas_pwd_query, #woas_pwd_mask,
-.woas_password_desc,.woas_about_footer,.woas_help_background,.woas_help_button,
-.woas_helpcode,.woas_helptext, .woas_page_mts, div.woas_text_area, .woas_text_area.locked,
-#woas_pwd_mask,.woas_core_page,div.menu,#woas_menu_area,.woas_menu_button,#woas_title,
-.woas_nowiki, .woas_nowiki_multiline,pre.woas_search_results,div.woas_toc,p.woas_toc_title,
-table.woas_text_area,div.woas_taglinks { }
+#woas_debug_log {
+	width: 100%;
+}
+#woas_wait_text, #woas_pwd_mask, #woas_header_wrap, #woas_menu_wrap, #woas_page_wrap,
+#woas_edit_wrap, #woas_custom_accesskeys, #woas_footer_panel, #woas_debug_log_clear {
+	display: none;
+}
 
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Hotkeys

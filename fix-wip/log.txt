@@ -3,6 +3,12 @@ IT IS NOT BEING TESTED MUCH DURING THIS PROCESS AND COULD OCCASIONALLY BE BROKEN
 
 Changes since Revision pvhl-2317 (git: 3d939c7)
 
+* Asthetic adjustment to Recent Changes
+* Changes to breadcrumbs display: improve asthetics and fix issue with ::Menu & Namespace listings
+* Changes to Tagged:: listing to improve capability
+* Refactor of listing code to simplify and add no-namespace folding
+* Refactor of orphan pages code (100 times faster)
+* Redesign and tuning of HTML, CSS, and control code for main layout
 * New Help pop-up code; works in all browsers (even IE6)
 * Allow import of encrypted images (partial fix; will revisit later)
 * Redesign of Special::Import and Special::ImportWSIF and associated functions

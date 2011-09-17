@@ -128,6 +128,12 @@ d$.toggle = function(id, inline) {
 	d.style.display = d.offsetWidth ? 'none' : inline ? 'inline' : 'block';
 };
 
+// this toggle will resize display; used by editor
+d$.toggle_resize = function(id, inline) {
+	this.toggle(id, inline);
+	woas.ui._resize();
+};
+
 d$.clone = function(obj) {
 	var nobj = {};
 	for (var i in obj) {
@@ -306,7 +312,7 @@ function _get_this_filename() {
 function ff_fix_focus() {
 	//runtime fix for Firefox bug 374786
 	if (woas.browser.firefox)
-		d$("woas_wiki_area").blur();
+		d$("woas_page").blur();
 }
 
 if (is_windows) {
