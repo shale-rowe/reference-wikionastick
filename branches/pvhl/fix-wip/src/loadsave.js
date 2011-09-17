@@ -582,8 +582,8 @@ woas._save_to_file = function(full) {
 	}
 
 	// cleanup the DOM before saving
-	var bak_tx = this.getHTMLDiv(d$("woas_wiki_area")),
-		bak_mn = this.getHTMLDiv(d$("woas_menu_area")),
+	var bak_tx = this.getHTMLDiv(d$("woas_page")),
+		bak_mn = this.getHTMLDiv(d$("woas_menu")),
 		bak_mts = this.getHTMLDiv(d$("woas_mts")),
 		bak_mts_shown = d$.is_visible("woas_mts"),
 		bak_wait_text = this.getHTML(d$("woas_wait_text")),
@@ -594,8 +594,8 @@ woas._save_to_file = function(full) {
 	if (bak_mts_shown)
 		d$.hide("woas_mts");
 	d$("woas_editor").value = "";
-	this.setHTMLDiv(d$("woas_wiki_area"), "");
-	this.setHTMLDiv(d$("woas_menu_area"), "");
+	this.setHTMLDiv(d$("woas_page"), "");
+	this.setHTMLDiv(d$("woas_menu"), "");
 	this.setHTMLDiv(d$("woas_mts"), "");
 	this.setHTMLDiv(d$("woas_title"), "");
 	d$("woas_debug_log").value = "";
@@ -634,8 +634,8 @@ woas._save_to_file = function(full) {
 	}
 	} //DEBUG check
 
-	this.setHTMLDiv(d$("woas_wiki_area"), bak_tx);
-	this.setHTMLDiv(d$("woas_menu_area"), bak_mn);
+	this.setHTMLDiv(d$("woas_page"), bak_tx);
+	this.setHTMLDiv(d$("woas_menu"), bak_mn);
 	this.setHTMLDiv(d$("woas_mts"), bak_mts);
 	if (bak_mts_shown)
 		d$.show("woas_mts");

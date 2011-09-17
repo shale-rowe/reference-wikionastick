@@ -92,11 +92,10 @@ woas._new_page_direct = function(title, fill_mode) {
 		ct = "\n";
 	this._create_page_direct(ns, cr, fill_mode, ct);
 
-	// PVHL: todo - add config option to eliminate this question
 	if (cr !== 'Menu') {
 		var menu = this.get_text("::Menu"),
 			test = new RegExp("\\[\\["+title+"\\s*[\\|\\]]");
-		// ask if menu link wanted if one doesn't already exist
+		// ask if menu link wanted (if option allows) if one doesn't already exist
 		if (!menu.match(test) && (this.config.menu_link === 1 ||
 				(!this.config.menu_link && confirm(this.i18n.ASK_MENU_LINK)))) {
 			// try to put the menu link in a good position
@@ -242,16 +241,14 @@ woas.cmd_main_page = function() {
 woas.cmd_edit_special = function(cr) {
 	if (!this.config.permit_edits && !this.tweak.edit_override) {
 		this.alert(this.i18n.READ_ONLY);
-		return null;
+	} else {
+		// get source text (ASCII/UTF-8)
+		var tmp = this.get_text(cr);
+		if (tmp !== null) {
+			// setup the wiki editor textbox
+			this.current_editing(cr, this.config.permit_edits || this._server_mode, tmp);
+		}
 	}
-	_servm_alert();
-	// get source text (ASCII/UTF-8)
-	var tmp = this.get_text(cr);
-	if (tmp === null)
-		return null;
-	// setup the wiki editor textbox
-	this.current_editing(cr, this.config.permit_edits || this._server_mode);
-	this.edit_ready(tmp);
 	return null;
 };
 
@@ -272,28 +269,24 @@ woas.cmd_delete = function() {
 	// disallow editing when wiki is set to read-only
 	if (!this.config.permit_edits) {
 		this.alert(this.i18n.READ_ONLY);
-		return false;
-	}
-	var pname = prompt(this.i18n.DELETE_PAGE_PROMPT, current);
-	if ((pname === null) || !pname.length)
-		return false;
-	var pi = this.page_index(pname);
-	if (pi == -1) {
-		this.alert(this.i18n.PAGE_NOT_EXISTS.sprintf(pname));
-		return false;
-	}
-	if (this.is_reserved(pname)) {
-		this.alert(this.i18n.ERR_RESERVED_NS.sprintf(this.get_namespace(pname, true)));
-		return false;
-	}
-	if (confirm(this.i18n.CONFIRM_DELETE.sprintf(pname))) {
-		this.plugins.delete_check(pname);
-		this.delete_page_i(pi);
-		if (pname !== current) {
-			this.update_nav_icons(current);
-//			this.log(this.history.log_entry());	// log:0
+	} else {
+		var pname, pi;
+		while ((pname = prompt(this.i18n.DELETE_PAGE_PROMPT, current)) !== null) {
+			if (!pname.length)
+				continue;
+			pi = this.page_index(pname);
+			if (pi === -1) {
+				this.alert(this.i18n.PAGE_NOT_EXISTS.sprintf(pname));
+				continue;
+			} else if (this.is_reserved(pname)) {
+				this.alert(this.i18n.ERR_RESERVED_NS.sprintf(this.get_namespace(pname, true)));
+				continue;
+			} else if (confirm(this.i18n.CONFIRM_DELETE.sprintf(pname))) {
+				this.plugins.delete_check(pname);
+				this.delete_page_i(pi);
+				return true;
+			}
 		}
-		return true;
 	}
 	return false;
 };
@@ -335,13 +328,13 @@ woas.delete_page_i = function(i) {
 	pages.splice(i,1);
 	page_attrs.splice(i,1);
 	page_mts.splice(i,1);
-	// be sure that this page is no more in history
-	this.history.clear(old_title);
 	// if we were looking at the deleted page
 	if (current === old_title) {
 		// go to an existing page
 		this.set_current(this.history.previous(), true);
 	}
+	// remove page from history
+	this.history.clear(old_title);
 	// always refresh the menu because it could contain the deleted page link
 	this.refresh_menu_area();
 	//TODO: send proper save notification
@@ -448,7 +441,6 @@ woas.history = {
 					--i;
 				}
 			}
-			//TODO: remove subsequent duplicates in final array (?)
 			return found;
 		} else {
 			forstack = [];

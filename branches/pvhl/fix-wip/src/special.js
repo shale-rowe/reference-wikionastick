@@ -9,49 +9,67 @@ woas.special_encrypted_pages = function(locked) {
 	if (!pg.length)
 		return "/No locked pages found/";
 	else
-		return this._join_list(pg); // TODO - Delete repeated data
+		return this._join_list(pg);
 };
 
+// PVHL: original algorithm was O(n*n) - this one is O(n).
+// found contains every non-reserved page
+// links contains every wiki link found in the page source
+// ns contains every namespace found for page titles
 woas.special_orphaned_pages = function() {
-	var pg = [],
-		found = false,
-		i, j, l, tmp;
-	for(j=0,l=page_titles.length; j < l; j++) {
-		if (this.is_reserved(page_titles[j]))
-			continue;
-		if (this.is_menu(page_titles[j])) {	// check if the namespace has some pages
-			var ns = this.get_namespace(page_titles[j]);
-			if (ns === "") continue;
-			for(i=0;i < page_titles.length;i++) {
-				if (page_titles[i].indexOf(ns)===0) {
-					found = true;
-					break;
-				}
-			}
-		} else {
-		// search for pages that link to it
-			var re = new RegExp("\\[\\[(?:Include::)?" + RegExp.escape(page_titles[j])
-				+ "(\\]\\]|\\|)", "i");
-			for(i=0,l=page_titles.length; i < l; i++) {
-				if ((i==j) || this.is_reserved(page_titles[i]))
-					continue;
-				tmp = this.get_src_page(i);
-				if (tmp===null)
-					continue;
-				if (re.test(tmp)) {
-					found = true;
-					break;
+	//var t1 = Date.now();
+	var wikiLinks = /\[\[(?:Include\:\:)?([^\|\]\#]*)(?:[^\]]*)?\]\]/g,
+		found = {}, links = {}, ns = {}, lnks, lnk, pg = [],
+		i, il, t, tmp;
+	// find all titles and namespaces in titles
+	for (i = 0, il = page_titles.length; i < il; i++) {
+		t = page_titles[i]; // to simplify reading
+		if (!this.is_reserved(t)) {
+			found[t] = true;
+			if (!this.is_menu(t)) {
+				tmp = this.get_namespace(t);
+				if (tmp) {
+					ns[tmp] = true;
 				}
 			}
 		}
-		if(found === false) {
-			pg.push( page_titles[j] );
-		} else found = false;
 	}
+	// find all links in pages
+	for (i = 0, il = page_titles.length; i < il; i++) {
+		t = page_titles[i]; // to simplify reading
+		if (found[t] && (tmp = this.get_src_page(i))) {
+			while((lnks = wikiLinks.exec(tmp)) !== null) {
+				lnk = woas.title_unalias(this.trim(lnks[1]));
+				if (lnk !== t && found[lnk]) {
+					// don't care what kind of link it is
+					links[lnk] = true;
+				}
+			}
+		}
+	}
+	// check pages are linked
+	for (t in found) {
+		if (found.hasOwnProperty(t)) {
+			if (this.is_menu(t)) {
+				// check if the menu namespace has a page
+				tmp = this.get_namespace(t);
+				if (t === "::Menu" || tmp && ns[tmp]) {
+					continue;
+				}
+			} else {
+				// check if title has been found in pages
+				if (links[t]) {
+					continue;
+				}
+			}
+			pg.push(t);
+		}
+	}
+	//console.log(Date.now() - t1);
 	if (!pg.length)
 		return "/No orphaned pages found/";
 	else
-		return this._join_list(pg); // TODO - Delete repeated data
+		return this._join_list(pg);
 };
 
 woas.special_backlinks = function() {
@@ -125,17 +143,18 @@ woas._cache_search = function( str ) {
 	}
 };
 
-var reFindTags = /\[\[Tags?::([^\]]+)\]\]/g;
 woas.special_tagged = function(filter_string) {
-	var	pg = [], folds = {"[pages]":[]}, tagns,
-		src, i, l, j, jl, tmp, tag,	filtering,
-		alltags;
+	var	reFindTags = /\[\[Tags?::([^\]]+)\]\]/g,
+		pg = [], pgi = [], folds = {}, tags, tag, tagns, alltags,
+		src, i, il, j, jl, k, kl, tmp, filtering;
 	// filtering setup
 	if (typeof filter_string != "undefined") {
 		filtering = woas.tagging._prepare_filter(filter_string);
-	} else filtering = false;
+	} else {
+		filtering = false;
+	}
 	// scan all pages
-	for(i=0,l=pages.length;i < l;++i) {
+	for(i = 0, il = pages.length; i < il; ++i) {
 		if (this.is_reserved(page_titles[i]))
 			continue;
 		src = this.get_src_page(i);
@@ -143,13 +162,11 @@ woas.special_tagged = function(filter_string) {
 		if (src === null)
 			continue;
 		src.replace(reFindTags, function (str, $1) {
-				if (str.charAt(5) === 's')
-					woas.log("Using deprecated 'Tags' namespace");
 				// get the tags and index the page under each tag
 				tmp = woas.parser.split_tags($1);
 				alltags = [];
-				for(j=0,jl=tmp.length;j < jl; ++j) {
-					tag=woas.trim(tmp[j]);
+				for(j = 0, jl = tmp.length; j < jl; ++j) {
+					tag = woas.trim(tmp[j]);
 					// skip invalid tags
 					if (!tag.length) {
 						woas.log("WARNING: check your tag separators");
@@ -162,38 +179,53 @@ woas.special_tagged = function(filter_string) {
 							break;
 					}
 					alltags.push(tag);
-				} tmp = null;
+				}
+				tmp = null;
 				// check that page has at least one of the positive tags
 				if (filtering && !woas.tagging._filter_ok_cb(alltags))
 					return;
 				// add page to proper leaves
-				for(j=0,jl=alltags.length;j < jl; ++j) {
+				for (j = 0, jl = alltags.length; j < jl; ++j) {
 					tag = alltags[j];
-					// we have a valid tag, check if it is already indexed
-					tagns = "Tagged::"+tag;
-					if (typeof folds[tagns] == "undefined") {
-						folds[tagns] = {"[pages]":[page_titles[i]]};
-					} else {
-//						if (folds[tagns]["[pages]"].indexOf(page_titles[i])===-1)
-							folds[tagns]["[pages]"].push(page_titles[i]);
+					if (filtering && !woas.tagging._filter_ok_tag(tag)) {
+						continue;
 					}
-					// build also the flat list - without duplicates
-					if (pg.indexOf(page_titles[i])===-1)
-						pg.push(page_titles[i]);
+					// we have a valid tag, check if it is already indexed
+					if (!folds[tag]) {
+						folds[tag] = [page_titles[i]];
+					} else {
+						folds[tag].push(page_titles[i]);
+					}
+					// build the flat list with tags listed
+					if (!pgi[i]) {
+						pgi[i] = true;
+						tags = alltags.slice(0).sort();
+						tmp = "[["+page_titles[i]+"]]\n** [[Tagged::"+tags.join()+"|Tags]]: ";
+						for (k = 0, kl = tags.length; k < kl;) {
+							tmp += " [[Tagged::"+tags[k]+"|"+tags[k]+"]]"+(++k === kl ? "" : ", ");
+						}
+						pg.push(tmp);
+					}
 				}
 			});
 	} // scan pages loop
-	if (filtering)
+	pgi = null;
+	if (filtering) {
 		woas.tagging._finish();
-	// parse tree with sorting
-	return woas.ns_listing(folds, pg, true);
+	}
+	if (pg.length) {
+		// parse tree with sorting
+		return woas.ns_listing("", pg, folds);
+	} else {
+		return "/No tagged pages found/";
+	}
 };
 
 // @module 'tagging'
 woas.tagging = {
 	tags_ok: null,
 	tags_not: null,
-	
+
 	_finish: function() {
 		this.tags_ok = this.tags_not = null;
 	},
@@ -205,7 +237,7 @@ woas.tagging = {
 		// reset filter
 		this.tags_ok = [];
 		this.tags_not = [];
-		
+
 		// parse filter
 		for(i=0,l=tags.length;i < l;++i) {
 			// skip empty tags
@@ -217,12 +249,12 @@ woas.tagging = {
 				this.tags_not.push( tags[i].substr(1) );
 			else // normal match tag
 				this.tags_ok.push(tags[i]);
-		} tags = null;
-		
+		}
+		tags = null;
 		return (this.tags_ok.length + this.tags_not.length > 0);
 	},
-	
-	// return true if all OK tag are present
+
+	// return true if all OK tags are present
 	_filter_ok_cb: function(tags) {
 		var ok = 0;
 		if (this.tags_ok.length) {
@@ -232,6 +264,11 @@ woas.tagging = {
 			}
 		}
 		return (ok === this.tags_ok.length);
+	},
+
+	// check single tag is in OK filter
+	_filter_ok_tag: function(tag) {
+		return this.tags_ok.indexOf(tag) !== -1;
 	},
 
 	_filter_not_cb: function(tag) {
@@ -263,7 +300,7 @@ woas.special_untagged = function() {
 	}
 	if (!pg.length)
 		return '/No untagged pages/';
-	return this._join_list(pg, true);
+	return this._join_list(pg);
 };
 
 // Returns a index of all pages
@@ -383,7 +420,7 @@ woas.special_recent_changes = function() {
 	// display results
 	var pg=[];
 	for(i=0,l=hm.length;i < l;++i) {
-		pg.push("* [[" + page_titles[hm[i][0]] + "]] <"+"span style=\"font-size: smaller;\">"+this.last_modified(hm[i][1])+"<"+"/span>");
+		pg.push("* [[" + page_titles[hm[i][0]] + "]]&nbsp; <"+"span style=\"font-size: smaller;\">"+this.last_modified(hm[i][1],true)+"<"+"/span>");
 	}
 	if (!pg.length)
 		return "/No recently modified pages/";
@@ -391,209 +428,133 @@ woas.special_recent_changes = function() {
 };
 
 woas._simple_join_list = function(arr, sorted) {
-	if (sorted)
-		arr = arr.sort();
-	// a newline is added here
+	if (sorted) { arr = arr.sort(); }
 	return arr.join("\n")+"\n";
 };
 
-// joins a list of pages - always sorted by default
-woas._join_list = function(arr, sorted) {
-	if (!arr.length)
-		return "";
-	if (typeof sorted == "undefined")
-		sorted = true;
+// creates a tree from array then sorts and creates listing
+woas._join_list = function(arr) {
+	if (!arr.length) { return ""; }
 	// copy the array to currently selected pages
 	woas.pager.bucket.items = arr.slice(0);
-	// (1) create a recursable tree of namespaces
-	var ns,folds={"[pages]":[]},i,ni,nt,key;
-	for(i=0,it=arr.length;i < it;++i) {
-		ns = arr[i].split("::");
-		// remove first entry if empty
-		if (ns.length>1) {
-			// in case of special menu pages
-			if (ns[0].length === 0) {
-//				ns.shift();
-//				ns[0] = "::"+ns[0];
-				// this shan't be a namespace
-			} else if (ns[ns.length-1].length === 0) {
-				// namespace pages, do nothing and consider them as normal pages
-			} else { // pages with some namespace, recurse their namespaces and finally the page
-				this.ns_recurse(ns, folds, "");
-				continue;
-			}
+	var root = "::", ns = {}, folds = {}, i, il, tmp;
+	folds[root] = [];
+	for (i = 0, il = arr.length; i < il; ++i) {
+		tmp = this.get_namespace(arr[i]);
+		if (tmp === "::") {
+			tmp = "";
 		}
-		folds["[pages]"].push(arr[i]);
-	}
-	// (2) output the tree
-	return this.ns_listing(folds, arr, sorted);
-};
-
-woas.ns_recurse = function(ns_arr, folds, prev_ns) {
-	var ns = prev_ns+ns_arr.shift()+"::", item, left=ns_arr.length;;
-	if (typeof folds[ns] == "undefined") {
-		// last item, build the array
-		if (left == 1) {
-			folds[ns] = {"[pages]": [ns+ns_arr[0]] };
-			return;
-		}
-		// namespace, create object
-		folds[ns] = {"[pages]":[]};
-	} else { // object already exists, add only leaves
-		if (left == 1) {
-			folds[ns]["[pages]"].push(ns+ns_arr[0]);
-			return;
+		if (tmp && !folds[tmp]) {
+			folds[tmp] = [arr[i]];
+		} else {
+			folds[tmp ? tmp : root].push(arr[i]);
 		}
 	}
-	if (left > 1)
-		this.ns_recurse(ns_arr, folds, ns);
+	return this.ns_listing(root, arr, folds);
 };
 
-// grab expansion setting from UI radio boxes
-woas._ns_expanded = function(ns, items_count, id, list_id) {
-	this._ns_groups[list_id].items.push(id);
-	switch (this._ns_groups[list_id].option) {
-		case 1:
-			return false;
-		case 2:
-			return true;
-	}
-	// ?
-	return false;
-};
-
-woas._visible_css = function(v){
-	return "display: " + (v ? "block" : "none");
-};
-
-woas.ns_recurse_parse = function(folds, output, prev_ns, recursion, sorted) {
-	var i,it=folds["[pages]"].length,fold_id;
-	if (it !== 0) {
-		// increase recursion depth
-		++recursion;
-		// disable folding for pages outside namespaces
-		if (prev_ns.length) {
-			// generate id for folding div
-			fold_id = "woas_fold"+output.fold_no++;
-			var vis_css = woas._visible_css(this._ns_expanded(prev_ns, it, fold_id, output.list_id));
-			output.s += "<"+"h"+(recursion+1)+" id=\""+fold_id+"_head\"> [[Javascript::d$.toggle('"+fold_id+"')|"+prev_ns+"]]";
-			output.s += " [["+prev_ns+"|"+String.fromCharCode(8594)+"]] ("+it+" pages)\n<"+"/h"+(recursion+1)+">";
-			output.s += "<"+"div style=\""+vis_css+"\" id=\""+fold_id+"\">\n";
-		}
-		// apply sorting
-		if (sorted)
-			folds["[pages]"].sort();
-		for(i=0;i < it;++i) {
-			output.s += "* [["+folds["[pages]"][i]+"]]\n";
-		}
-		if (prev_ns.length)
-			output.s += "<"+"/div>";
-	}
-	// sort the actual namespaces
-	if (sorted) {
-		var nslist=[];
-		// get namespaces
-		for(i in folds) {
-			if (i !== "[pages]")
-				nslist.push(i);
-		}
-		// sort alphabetically (case insensitive)
-		nslist.sort(function(x,y){
-		  var a = String(x).toUpperCase();
-		  var b = String(y).toUpperCase();
-		  if (a > b)
-			 return 1;
-		  if (a < b)
-			 return -1;
-		  return 0;
-		});
-		// parse second the sorted namespaces
-		it=nslist.length;
-		for(i=0;i < it;++i) {
-			this.ns_recurse_parse(folds[nslist[i]], output, prev_ns+nslist[i], recursion, sorted);
-		}
-	} else { // directly parsed without any specific sorting
-		for(i in folds) {
-			if (i !== "[pages]") {
-				this.ns_recurse_parse(folds[i], output, prev_ns+i, recursion, sorted);
-			}
-		}
-	}
-};
-
-// cache of current namespace listings
-woas._ns_groups = {};
-
-function _WoaS_list_expand_change(list_id, v) {
+function _WoaS_list_expand_change(list, list_id, count) {
+	var i, s;
 	// store selected option both in global config variable and
 	// in relative list option
-	woas.config.folding_style = woas._ns_groups[list_id].option = parseInt(v);
-	switch (woas._ns_groups[list_id].option) {
+	woas.config.folding_style = list.selectedIndex;
+	switch (woas.config.folding_style) {
 		case 1: // collapse all
-			d$.show("WoaS_"+list_id+"_folds");
-			d$.hide("WoaS_"+list_id+"_flat");
-
-			for(var i=0,it=woas._ns_groups[list_id].items.length;i < it;++i) {
-				d$.hide(woas._ns_groups[list_id].items[i]);
+			d$.show(list_id+"folds");
+			d$.hide(list_id+"flat");
+			for(i = 0; i < count; ++i) {
+				d$.hide(list_id + i);
 			}
 		break;
 		case 0: // flat list
-			d$.hide("WoaS_"+list_id+"_folds");
-			d$.show("WoaS_"+list_id+"_flat");
+			d$.hide(list_id+"folds");
+			d$.show(list_id+"flat");
 			break;
 		case 2: // expand all
-			d$.show("WoaS_"+list_id+"_folds");
-			d$.hide("WoaS_"+list_id+"_flat");
-
-			for(var i=0,it=woas._ns_groups[list_id].items.length;i < it;++i) {
-				d$.show(woas._ns_groups[list_id].items[i]);
+			d$.show(list_id+"folds");
+			d$.hide(list_id+"flat");
+			for(i = 0; i < count; ++i) {
+				d$.show(list_id + i);
 			}
 		break;
 	}
 }
 
-woas.ns_listing = function(folds, flat_arr, sorted) {
-	if (flat_arr.length === 0)
-		return "/No pages in this listing/";
-	if (typeof sorted == "undefined")
-		sorted = false;
-	var i=0;
-	// do not produce the header if it is transcluded
-	if (woas.parser._transcluding)
-		i = 1;
-	else {
-		// or if this has no subnamespaces
-		for(var f in folds) {
-			if (i++) break;
-			if (f !== "[pages]") {
-				i=2;
-				break;
+// PVHL: have removed non-functional list caching until it can be made to work
+// (cache needs to be invalidated after edit/import, etc; should work off of history)
+// listing is always sorted using sort function woas.sort_nat
+// flat_arr must have content
+woas.ns_listing = function(root, flat_arr, folds) {
+	dsp = function(v){
+		return v ? "display:block" : "display:none";
+	};
+	opt = function(str) {
+		return "<"+"option "+(fs === opt_n++ ? "selected=\"selected\"" : "" ) +
+			">"+str+"<"+"/option>\n";
+	};
+	
+	var order = [], root_title = "/No Namespace/", fold_n = 0, opt_n = 0, s = "",
+		list_id = "woas_"+_random_string(6)+"_", f, i, il, it, oi, ns, fs;
+	flat_arr.sort();
+	// sort folds content and folds
+	// do not produce the header if listing is transcluded
+	if (!woas.parser._transcluding) {
+		for (f in folds) {
+			if (folds.hasOwnProperty(f)) {
+				folds[f].sort();
+				if (f !== root) {
+					order.push(f);
+				}
 			}
 		}
+		f = false;
+		// or if it has no subnamespaces
+		if (order.length) {
+			order.sort();
+			f = true;
+		}
+		if (root && folds[root].length) {
+			order.splice(0, 0, root);
+		}
+	};
+	if (f) {
+		// create list control
+		fs = woas.config.folding_style;
+		s = "<"+"div class=\"woas_list_options\">List view:&nbsp;<" +
+			"select onchange=\"_WoaS_list_expand_change(this,'"+list_id+"',[" +
+			order.length+"])\">\n" + opt("Pages") +
+			opt(root ? "Namespace, collapsed" : "Tags, collapsed") +
+			opt(root ? "Namespace, expanded" : "Tags, expanded") +
+			"<"+"/select>\n<"+"/div>\n<"+"div style=\""+dsp(fs !== 0) +
+			"\" id=\""+list_id+"folds\">\n"+(root ? "" : "==Tags\n");
+		// fill the folding divs
+		for (i = 0, il = order.length; i < il; ++i) {
+			fold_id = list_id + fold_n++;
+			oi = order[i];
+			if (root) {
+				ns = i === 0 && oi === root ? root_title : "[["+oi+"]]";
+			} else {
+				ns = "[[Tagged::"+oi+"|"+oi+"]]";
+			}
+			it = folds[oi].length;
+			s += "<"+"div"+" class=\"woas_list_heading\">"+ns+"&nbsp;&nbsp;<" +
+				"a class=\"woas_list_link\" title=\"Toggle page display\" onclick=\"d$.toggle('" +
+				fold_id+"')\">"+it+" page"+(it > 1 ? "s" : "")+"<"+"/a>\n<"+"/div>\n" +
+				"<"+"div style=\""+dsp(fs === 2)+"\" id=\""+fold_id+"\">\n<" + 
+				"div class=\"woas_list\">\n[["+folds[oi].join("]]\n[[")+"]]<"+"/div><"+"/div>\n";
+		}
+		// finish up
+		s += "<"+"/div>\n"+
+			"<"+"div style=\""+dsp(fs === 0)+
+			"\" id=\""+list_id+"flat\">\n";
 	}
-	var output={"s": "","fold_no":0};
-	if (i!==1) {
-		// this is kept here for now until some more appropriate place is individuated
-		output.list_id = _random_string(8);
-		// setup the group object
-		this._ns_groups[output.list_id] = { "items":[], "option": woas.config.folding_style};
-		output.s = "<"+"div class=\"woas_listing_options\">List view:<"+"label for=\"WoaS_"+output.list_id+"_0\"><"+"input type=\"radio\" id=\"WoaS_"+output.list_id+"_0\" name=\"WoaS_"+output.list_id+"\" value=\"0\" "+(this._ns_groups[output.list_id].option === 0 ? " checked=\"checked\"" : "" )+"onclick=\"_WoaS_list_expand_change('"+output.list_id+"',0)\">Flat<"+"/label>&nbsp;|\
-	<"+"label for=\"WoaS_"+output.list_id+"_1\"><"+"input type=\"radio\" id=\"WoaS_"+output.list_id+"_1\" name=\"WoaS_"+output.list_id+"\" value=\"1\" "+(this._ns_groups[output.list_id].option === 1 ? " checked=\"checked\"" : "" )+"onclick=\"_WoaS_list_expand_change('"+output.list_id+"',1)\" >By namespace, collapsed<"+"/label>&nbsp;|\
-	<"+"label for=\"WoaS_"+output.list_id+"_2\"><"+"input type=\"radio\" id=\"WoaS_"+output.list_id+"_2\" name=\"WoaS_"+output.list_id+"\" value=\"2\" "+(this._ns_groups[output.list_id].option === 2 ? " checked=\"checked\"" : "" )+" onclick=\"_WoaS_list_expand_change('"+output.list_id+"',2)\">By namespace, expanded<"+"/label>\
-	<"+"/div><"+"div style=\""+woas._visible_css(this._ns_groups[output.list_id].option !== 0)+"\" id=\"WoaS_"+output.list_id+"_folds\">\n";
-		
-		// first fill the div for foldings
-		this.ns_recurse_parse(folds, output, "", 0, sorted);
-		output.s += "<"+"/div>\n"+
-					"<"+"div style=\""+woas._visible_css(this._ns_groups[output.list_id].option === 0)+"\" id=\"WoaS_"+output.list_id+"_flat\">\n";
+	// generate the flat list
+	s += root ? "* [["+flat_arr.join("]]\n* [[")+"]]\n" : "==Pages\n* "+flat_arr.join("\n* ")+"\n";
+	if (f) {
+		s += "<"+"/div>";
 	}
-	// then generate the flat list
-	if (sorted)
-		flat_arr.sort();
-	output.s += "* [["+flat_arr.join("]]\n* [[")+"]]\n";
-	if (i !== 1)
-		output.s += "<"+"/div>";
-	return output.s;
+	//console.log(s)
+	return s;
 };
 
 woas._special_image_gallery = function(ns) {

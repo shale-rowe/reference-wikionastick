@@ -30,7 +30,7 @@ woas.custom.word_count = function(xhtml) {
 };
 
 woas.custom.word_count._button = "<input type=\"button\" value=\"Word Count\" onclick=\""+
-				"alert(woas.custom.word_count(woas.getHTML(d$('woas_wiki_area'))))\" />";
+				"alert(woas.custom.word_count(woas.getHTML(d$('woas_page'))))\" />";
 
 // register the macro
 woas.macro.register('woas.wordcount', function(macro) {

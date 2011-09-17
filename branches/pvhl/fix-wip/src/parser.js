@@ -346,8 +346,6 @@ parse: function(text, export_links, js_mode) {
 
 	// transclude pages (templates)
 	if (!this.force_inline) {
-		// reset all groups
-		this._ns_groups = { };
 		// apply transclusion syntax
 		this.transclude_syntax(P, snippets, export_links);
 	}
@@ -405,7 +403,7 @@ parse: function(text, export_links, js_mode) {
 			s = "<"+"div class=\"woas_taglinks\">";
 		s += "Tags:";
 		for(var i=0;i < tags.length;++i) {
-			s += " <"+"a class=\"woas_link\" onclick=\"woas.go_to('Tagged::"+woas.js_encode(tags[i])+"')\">"+
+			s += " <"+"a onclick=\"woas.go_to('Tagged::"+woas.js_encode(tags[i])+"')\">"+
 				woas.xhtml_encode(tags[i])+"<"+"/a>";
 		}
 		if (this.force_inline) { // re-print the inline tags (works only on last tag definition?)

@@ -24,7 +24,7 @@ woas.i18n = {
 	DELETE_PAGE_PROMPT: "Delete page:",
 	DISPLAY_FULL_FILE: "Display full file",
 	DUP_NS_ERROR: "Cannot duplicate into File:: or Image:: namespace!",
-	EDITING:"Editing '%s'.",
+	EDITING:"Editing '%s'",
 	EMPTY_TITLE: "An empty title is not allowed.",
 	EMPTY_NS: "/No pages in '%s' namespace./",
 	ERR_MARKER: "'%s' marker not found!",
