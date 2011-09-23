@@ -5,6 +5,7 @@ All changes listed with most recent commits first.
 
 Changes while updating fix from fix-wip
 
+* some small changes to index.wsif
 * make control buttons consistent across special pages
 * restore default list control to 'collapsed' as in 0.12.0 (according to commit notes)
 * make last few control buttons stay at top.
