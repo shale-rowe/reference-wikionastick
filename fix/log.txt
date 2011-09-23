@@ -1,10 +1,17 @@
-WHILE FIX & FIX-WIP ARE BEING UPDATED/MERGED THIS CODE MAY NOT BE WORKING AS FOUND -- PLEASE WAIT FOR FINAL COMMIT
-(woas-fix.html is not being updated during this process.)
+WHILE fix IS BEING UPDATED/MERGED FROM fix-wip THIS CODE MAY NOT BE WORKING AS FOUND -- PLEASE WAIT FOR FINAL COMMIT
+(woas-fix.html and woas-fix-wip are not being updated during this process.)
 
-* update fix to SVN rev. 2426 in preparation for fixes from fix-wip to make final version of woas-fix.
+All changes listed with most recent commits first.
+
+Changes while updating fix from fix-wip
+
+* make control buttons consistent across special pages
+* restore default list control to 'collapsed' as in 0.12.0 (according to commit notes)
+* make last few control buttons stay at top.
 * fix 'Include::' error I introduced (list control inclusion) and remove include macro 'fix'
+* update fix to SVN rev. 2426 in preparation for fixes from fix-wip to make final version of woas-fix.
 
-Changes since Revision pvhl-2317 (git: 3d939c7)
+Changes since Revision pvhl-2317
 
 * disable WSIF blob saving as only Gecko can do it and others corrupt file
 * add 'wsif.type: index' to allow safe loading/saving of exported multi-file WSIF
@@ -111,3 +118,66 @@ Changes since Revision pvhl-2317 (git: 3d939c7)
 * change place_holder to simplify code; now pushes to array and returns marker text
 * minor change to tag display (moved a space)
 * minor change to menu updating for import wiki
+
+Changes made before move to fix-wip
+
+Revision pvhl-2317 (fix branch)
+* fix non-breaking tags display issue
+
+Revision pvhl-2314
+* fix broken Italian language plugin and update design (adding a change to i18n
+  during lock fix was a reminder that translations will break using the current
+  'overwrite everything' system; rewrote the Italian language plugin and added
+  a 'pvhl.notes' file on improving language support in WoaS)
+
+Revision pvhl-2313
+* hack incorrect lock icon display
+
+Revision pvhl-2312
+* macroTagThis and reformat
+* restore print page no browsing warnings
+* added Plugins help page to index
+* slight grammatical change
+* slight ui.js changes
+
+Revision pvhl-2309
+* fix broken nowiki (was failing after heading; better fix to come)
+* fix potential edge-case failure in placeholder.
+* slight cleanup to woas._raw_preformatted
+* added CSS3 rule to core CSS to break unbreakable lines
+
+Revision pvhl-2308
+* fix nowiki class spelling I thought I'd already fixed
+* update single files
+
+Revision pvhl-2291
+* some changes to the About page to explain this version
+* add php files that will be used to create single-file (not finished)
+* stop '#' being used in page titles (found by jufooo)
+* change to log display: closed on loading
+* fix wrong mts display (reported by Winterblood)
+
+Revision pvhl-2289
+* fix Chrome file corruption issues3
+* fix edit_override to allow edit of WoaS namespace
+* quick changes (hack) to remove cancelled new page from menu
+* slight change to menu to allow better addition placement
+* fix logbox scroll position after save and improve function
+* small formatting change for readability
+* some minor comment additions
+
+Revision pvhl-2288
+* hack for cumulative save issues
+* fix no-load mode error when mode = 0
+* fix new page history (still some edge case issues)
+* fix commit bug in unused code :(
+
+Revision pvhl-2287
+* fix history so back/forward buttons work
+* fix help back button (not working in FF/IE)
+
+Revision pvhl-2286
+* syntax fixes found by Little Girl
+* syntax fixes found by PVHL
+* fixed up deprecated go_to() & go_back
+* minor documentation clarifications

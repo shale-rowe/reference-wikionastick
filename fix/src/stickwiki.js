@@ -234,9 +234,9 @@ woas._get_namespace_pages = function (ns) {
 		}
 		for(i = 0, l = page_titles.length; i < l; ++i) {
 			if (page_titles[i].indexOf(ns) === 0
-					// don't show pages used by special functions
-					&& page_titles[i] !== 'Special::Embed'
-					&& page_titles[i] !== 'Special::Lock') {
+					// don't show pages used by special functions unless override
+					&& (woas.tweak.edit_override ||
+					(page_titles[i] !== 'Special::Embed' && page_titles[i] !== 'Special::Lock'))){
 				pg.push(page_titles[i]);
 			}
 		}
