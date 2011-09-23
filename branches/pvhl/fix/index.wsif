@@ -4521,56 +4521,40 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Special::Export
-The [[Special::Export]] page provides an interface for exporting the wiki content into multiple linked XHTML files. Various settings are available:
+The [[Special::Export]] page provides an interface for exporting the wiki content into multiple linked XHTML files.
 
+[[Include::WoaS::Template::Info|WoaS code generates valid XHTML, but if the WoaS author has included invalid XHTML code within a wiki page, WoaS will not attempt to reform it. /Garbage in, garbage out!/]]
 == Paths
-* *Destination directory for exported XHTML files:*
-** The exported XHTML files will be placed into the /export/ subdirectory in the directory the wiki is in by default. You can specify a different directory.
-
-* *Destination directory for exported embedded pictures:*
-** The exported embedded pictures (if any) will be placed into the /export/ subdirectory in the directory the wiki is in by default. You can specify a different directory. If there are no embedded pictures, this setting will be ignored.
+===Destination directory for exported XHTML files
+The exported XHTML files will be placed into the /export/ subdirectory in the directory the wiki is in by default. You can specify a different directory.
+===Destination directory for exported embedded pictures
+The exported embedded pictures (if any) will be placed into the /export/ subdirectory in the directory the wiki is in by default. You can specify a different directory. If there are no embedded pictures, this setting will be ignored.
 
 [[Include::WoaS::Template::Info|In both cases, the destination directory must exist if you are not using a Mozilla browser.]]
 
 == File naming
-* *Default extension for generated XHTML files:*
-** The default extension for generated XHTML files is /html/. You can specify a different extension.
+===Default extension for generated XHTML files
+The default extension for generated XHTML files is /html/. You can specify a different extension.
+===The main page will be named index with the extension specified above
+If this choice is enabled, the main page will be named /index/ with the extension specified above, otherwise it will be named /main_page/, also with the extension specified above.
 
-* *The main page will be named index with the extension specified above*
-** If this choice is enabled, the main page will be named /index/ with the extension specified above.
-** If this choice is not enabled, the main page will be named /main_page/ with the extension specified above.
-** For example, if the default extension is used and this option is enabled, the main page would be named /index.html/
-
-* *Use UNIX-style normalization (lower-case letters and spaces replaced by underscores) to generate file names*
-** If this option is enabled, all exported file names will be in lower case with all spaces replaced by underscores.
-** If this option is not enabled, all exported file names will have their case preserved as it is in the wiki, and the exported files from user-created pages will not get spaces replaced by underscores.
-
-== Custom JavaScripts
-* *Do not export*
-** If this option is enabled, JavaScript will be disabled in the exported pages.
-
-* *Export JavaScript as-is*
-** <font color="red">*UNFINISHED*</font>
-
-* *Export JavaScript into <head /> (you might need to include the framework code)*
-** <font color="red">*UNFINISHED*</font>
-
-* *Run before exporting but do not export the JavaScript*
-** <font color="red">*UNFINISHED*</font>
-
-* *Also export the JavaScript framework*
-** <font color="red">*UNFINISHED*</font>
-
+For example, if the default extension is used and this option is enabled, the main page would be named /index.html/
+===Use UNIX-style normalization (lower-case letters and spaces replaced by underscores) to generate file names
+If this option is enabled, all exported file names will be in lower case with all spaces and non-alphanumeric characters replaced by underscores, otherwise the files will be named according to the page name.
+== Custom page scripts
+===Do not export JavaScript
+If selected any scripts embedded in the page to be exported will not be run before exporting the page, nor will they be included in the exported XHTML file.
+===Export JavaScript as-is
+If selected any scripts embedded in the page to be exported will be included in the parsed, exported XHTML file in the same position they were found in the WoaS page. They will not be run before exporting.
+===Run before exporting but do not export the JavaScript
+If selected any scripts embedded in the page to be exported will be run before exporting the parsed, exported XHTML file. This is only useful if a script on the page affects the parsed output -- a syntax highlighter, for example -- and it is desired that the exported pages do not require the viewer to have JavaScript enabled in their browser as the scripts themselves will not be exported.
 == Other options
-* *META author (optional):*
-** If a name is in this box, the name will be used as the content of an HTML author meta tag inserted into each exported HTML page.
-** If the box is empty, the HTML author meta tag will not be inserted into any of the exported HTML pages.
-
-* *Export CSS into shared file.*
-** <font color="red">*UNFINISHED*</font>
-
-* *Export menu and submenus.*
-** <font color="red">*UNFINISHED*</font>
+===META author (optional)
+If a name is in this box it will be used as the content of an HTML author meta tag inserted into each exported XHTML page. If the box is empty, the XHTML author meta tag will not be inserted into any of the exported XHTML pages.
+===Export CSS into shared file
+If selected a CSS stylesheet will be generated for the entire file set and imported by each exported XHTML file; if not selected the full CSS will be included within each XHTML file.
+===Export menu and submenus
+If selected any menus that would show for a particular WoaS page will also be rendered in the output XHTML file; if not selected only the main page area wil be rendered and exported
 
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Special::Import
@@ -4581,64 +4565,62 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Special::Import
-The [[Special::Import]] page provides an interface for importing the contents of a previous or current version of the wiki from an .html source file. Various settings are available:
-
+The [[Special::Import]] page provides an interface for importing the contents of a previous or current version of the wiki from an .html source file.
+==Import a wiki from a WoaS /HTML/ file
+Click the *Browse...* button to select the wiki file to import.
 == Source
-* *File to import:*<br><br>
-** Click the *Browse...* button to select the wiki file to import.
+===Import configuration (except WSIF datasource settings)
+Imports all the settings from the [[Special::Options]] page in the source file into the destination file.<br><br>[[Include::WoaS::Template::Info|The settings in the /External data source/ section of the <a class="woas_link" onclick="woas.go_to('Special::Options')">Special::Options</a> page will not be imported.]]
+===Import CSS
+Imports the [[WoaS::CSS::Custom]] page from the source file, overwriting the [[WoaS::CSS::Custom]] page in the destination file. CSS rules from older releases of the wiki may not work properly in the current version.
 
-* *Import configuration (except WSIF datasource settings)*<br><br>
-** Imports all the settings from the [[Special::Options]] page in the source file into the destination file.<br><br>[[Include::WoaS::Template::Info|The settings in the /External data source/ section of the <a class="woas_link" onclick="woas.go_to('Special::Options')">Special::Options</a> page will not be imported.]]
-
-* *Import pages*<br><br>
-** Imports the following pages from the source file:
-*** [[Main Page]]
-*** [[::Menu]]
-*** [[WoaS::Aliases]]
-*** [[WoaS::CSS::Custom]] if the /Import CSS/ option is enabled.
-*** [[WoaS History]]
-*** [[WoaS::Hotkeys]]
-*** User-created pages if any.
-
-* *Import CSS*<br><br>
-** Imports the rules [[WoaS::CSS::Custom]] page from the source file, overwriting the [[WoaS::CSS::Custom]] page in the destination file. CSS rules from older releases of the wiki may not work properly in the current version.<br><br>[[Include::WoaS::Template::Info|If this choice is enabled, the /Import pages/ option must also be enabled.]]
-
+[[Include::WoaS::Template::Info|If this choice is enabled, the /Import pages/ option must also be enabled.]]
+===Import pages
+Imports the following pages from the source file:
+* Any user-created pages.
+* [[Main Page]]
+* [[::Menu]]
+* [[WoaS::Aliases]] if /Import pages of the WoaS:: namespace/ is selected
+* [[WoaS::CSS::Custom]] if /Import CSS/ is selected
+* [[WoaS History]]
+* [[WoaS::Hotkeys]] if /Import pages of the WoaS:: namespace/ is selected
+* [[WoaS::Plugins]] if /Import pages of the WoaS:: namespace/ is selected
 == Existing pages
-* *Ask before overwrite*<br><br>
-** Forces the import interface to ask your permission to overwrite individual pages in the destination file.
-
-* *Erase all user pages befpre import process*<br><br>
-** Erases all user-created pages before importing content into the destination file. The import interface will pop up two confirmation boxes to verify that you're sure you want to erase the pages.
-
-* *Ignore*<br><br>
-** Prevents the import interface from overwriting existing pages, and allows it to only import new pages into the destination file.
-
-* *Overwrite*<br><br>
-** Gives the import interface blanket permission to overwrite existing pages in the destination file.
-
+===Erase all user pages befpre import process
+Erases all user-created pages before importing content into the destination file. The import interface will pop up two confirmation boxes to verify that you're sure you want to erase the pages.
+===Ignore
+Prevents the import interface from overwriting existing pages, allowing only  new pages to be imported into the destination file.
+===Overwrite
+Gives the import interface blanket permission to overwrite existing pages in the destination file.
+===Ask before overwrite
+Forces the import interface to ask your permission to overwrite individual pages in the destination file.
 == Security
-* *Comment JavaScript tags*<br><br>
-** Inserts /disabled_/ into any script tags in the pages that are imported into the destination file so that scripts will not run.<br><br>
-*** Example script tag:<br>{{{
+===Comment JavaScript tags
+Inserts /disabled_/ into any script tags in the pages that are imported into the destination file so that scripts will not run.
+
+Example script tag:
+{{{
 <script type="text/javascript">alert("This is an example alert!");</script>
 }}}
-*** Example disabled script tag:<br>{{{
+Example disabled script tag:
+{{{
 <disabled_script type="text/javascript">alert("This is an example alert!");</disabled_script>
 }}}
+===Comment macro definition/call
+Inserts /Macro disabled/ into any macro definitions or macro calls in the pages that are imported into the destination file so that macros will not run.
 
-* *Comment macro definition/call*<br><br>
-** Inserts /Macro disabled/ into any macro definitions or macro calls in the pages that are imported into the destination file so that macros will not run.<br><br>
-*** Example macro call:<br>{{{
+Example macro call:
+{{{
 <<<woas.include:WoaS::Template::Info
 [[Main Page]] >>>
 }}}
-*** Example disabled macro call:<br>{{{
+Example disabled macro call:
+{{{
 <<< Macro disabled
 woas.include:WoaS::Template::Info
 [[Main Page]] >>>
 }}}
-
-* *Import pages of the [[WoaS::]] [[WoaS::Help::Namespaces|namespace]] ([[WoaS::Aliases|aliases]], [[WoaS::CSS::Custom|custom CSS]], [[WoaS::Hotkeys|hotkeys]], and [[WoaS::Plugins|plugins]]).*<br><br>
-** Gives the import interface blanket permission to import the specified pages from the [[WoaS::]] [[WoaS::Help::Namespaces|namespace]].
+===Import pages of the [[WoaS::]] [[WoaS::Help::Namespaces|namespace]] ([[WoaS::Aliases|aliases]], [[WoaS::CSS::Custom|custom CSS]], [[WoaS::Hotkeys|hotkeys]], and [[WoaS::Plugins|plugins]])
+Gives the import interface blanket permission to import the specified pages from the [[WoaS::]] [[WoaS::Help::Namespaces|namespace]].
 
 --DFQRCTsKlU
