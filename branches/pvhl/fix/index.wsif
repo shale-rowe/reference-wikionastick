@@ -761,7 +761,7 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 <div><input id="btn_import" class="woas_button_top" type="button" value="Import WSIF" onclick="woas.import_wiki_wsif()" /></div>
-=Import content in [[WoaS::Help::WSIF|WSIF]] format.
+=Import content in [[WoaS::Help::WSIF|WSIF]] format
 File: <input id="filename_" type="file" />
 [[Include::WoaS::ImportSettings]]
 <script type="text/javascript">
@@ -1724,8 +1724,7 @@ Create a page with these contents:<br><br>{{{
 }}}
 When you save the page, there will be a Table of Contents that looks like this at the top of the page:
 
-<div style="border:1px dashed #aaa; background-color:#f9f9f9; padding:0.313em;
-width:50%; font-size:95%;"><center><b>Table of Contents</b></center>
+<div style="border:1px dashed #aaa; background-color:#f9f9f9; padding:0.313em;width:50%; font-size:95%;"><center><b>Table of Contents</b></center>
 &nbsp;&nbsp;&nbsp;1. <span style="color:blue; text-decoration:underline;">My level one heading</span>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. <span style="color:blue; text-decoration:underline;">My level two heading</span>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. <span style="color:blue; text-decoration:underline;">My level three heading</span>
@@ -3622,7 +3621,24 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-[[Include::WoaS::Help::WSIF]]
+= Special::ExportWSIF
+The [[Special::ExportWSIF]] page allows you to export wiki content into one or more [[WoaS::Help::WSIF|WSIF]] files for backup, sharing with others, or importing into an updated WoaS file.
+==Destination path
+This is the full path and filename for the exported WSIF file.
+
+WoaS will create the specified subdirectory only if you are using a Gecko-based browser like Firefox. If you are using a different browser you must create the subdirectory yourself before saving the file.
+
+[[Include::WoaS::Template::Info|If you enter the name of an existing file that file will be overwritten on the next save; any associated files will also be overwritten if /multiple files/ mode is selected.]]
+
+The filename will be used as the index page name when exporting to multiple files.
+== File generation options
+===Export as multiple WSIF files (instead of saving all pages to a single wsif file)
+If the box is checked, the content of all the user pages will be exported into multiple WSIF files, with each page being exported into its own WSIF file. All the files will be numbered using the wiki's page numbering method, and an index.wsif file will be created in the same directory to act as a reference for which page is in which numbered file. If the box is not checked, the content of all the user pages in the wiki will be exported into one WSIF file.
+===Include ALL pages from this WoaS (instead of only user created pages)
+If the box is checked, all wiki pages will be exported. If the box is not checked, only user-created pages will be exported.
+== Other options
+===Author
+If you type a name into this box, a *woas.author:* line will be added near the top of the WSIF file to display the name you typed as the author of the file. If nothing is in the box, the *woas.author:* line will not be added to the WSIF file.
 
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Special::ImportWSIF
@@ -3632,7 +3648,7 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Importing WSIF files
+= Special::ImportWSIF
 The [[Special::ImportWSIF]] page allows one to import a [[WoaS::Help::WSIF|WSIF]] file which contains one or more wiki pages; wiki pages imported into the *WoaS::* namespace will offer special features.
 == Existing pages
 Available options for imported pages whose title collides with existing page titles:
