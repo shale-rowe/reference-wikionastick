@@ -266,6 +266,10 @@ If the /Use multiple files in WSIF data source/ option is being used (creating o
 
 Path may be entered in Windows or UNIX style. *Any directories in the path must exist if you are not using a Mozilla browser.*
 
+
+
+
+
 <div style="text-align:left;display:inline-block">Relative path to WSIF data source, including file name:&nbsp; </div><input id="txt_wsif_ds" type="text" size="60" value="" onchange="woas.config.wsif_ds=this.value" style="margin-bottom: .25em" />
 <label for="cb_wsif_ds_multi"><input type="checkbox" id="cb_wsif_ds_multi" onclick="woas.config.wsif_ds_multi = d$.checked('cb_wsif_ds_multi')" />Use multiple files in WSIF data source</label>
 
@@ -371,22 +375,23 @@ Horizontal rules using 4 or more hyphens are accepted:<span class="good_syntax">
 == Tags
 === Single tags
 
-Tags in the [[Tagged::]] and [[Tags::]] [[WoaS::Help::Namespaces|namespace]] are deprecated:<span class="bad_syntax">{{{
-[[Tagged::some tag]]
+Tags in the Tags:: reserved [[WoaS::Help::Namespaces|namespace]] are deprecated:<span class="bad_syntax">{{{
 [[Tags::some tag]]
 }}}</span>
-Tags in the [[Tag::]] namespace are accepted:<span class="good_syntax">{{{
+Tags in the Tag:: reserved namespace are accepted:<span class="good_syntax">{{{
 [[Tag::some tag]]
 }}}</span>
 === Multiple tags
 
-Tags separated by pipes in the [[Tag::]], [[Tagged::]], or [[Tags::]] namespace are deprecated:<span class="bad_syntax">{{{
+Tags separated by pipes in the Tag::, [[Tagged::]], or Tags:: namespace are deprecated:<span class="bad_syntax">{{{
 [[Tag::some tag|other tag|another tag]]
 [[Tagged::some tag|other tag|another tag]]
 [[Tags::some tag|other tag|another tag]]
 }}}</span>
-Tags separated by commas in the [[Tag::]] namespace are accepted:<span class="good_syntax">{{{
-[[Tag::some tag, other tag, another tag]]
+Tags separated by commas in the Tag::, [[Tagged::]], and Tags:: namespace are accepted:<span class="good_syntax">
+{{{[[Tag::some tag, other tag, another tag]]
+[[Tags::some tag, other tag, another tag]]
+[[Tagged::some tag, other tag, another tag]]
 }}}</span>
 <style type="text/css">
 .bad_syntax {
@@ -1255,7 +1260,7 @@ woas.page.boundary: DFQRCTsKlU
 # Save your changes, you will be asked for deletion confirmation
 
 = References to deleted pages
-Access [[Special::Dead Pages]] directly or either from [[Special::Advanced]] to remove references to the deleted page
+Access [[Special::Dead Pages]] either directly or from [[Special::Advanced]] to remove references to the deleted page.
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Editor
 woas.page.attributes: 0
@@ -1384,7 +1389,7 @@ Below are examples on how to use wiki markup to create headings in this wiki. Th
 {{{
 = Heading level 1
 }}}
-= Heading level 1 =
+= Heading level 1
 
 {{{
 == Heading level 2
@@ -1392,24 +1397,24 @@ Below are examples on how to use wiki markup to create headings in this wiki. Th
 == Heading level 2
 
 {{{
-== Heading level 3
+=== Heading level 3
 }}}
-== Heading level 3
+=== Heading level 3
 
 {{{
-== Heading level 4
+==== Heading level 4
 }}}
-== Heading level 4
+==== Heading level 4
 
 {{{
-== Heading level 5
+===== Heading level 5
 }}}
-== Heading level 5
+===== Heading level 5
 
 {{{
-== Heading level 6
+====== Heading level 6
 }}}
-== Heading level 6
+====== Heading level 6
 
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Rulers
@@ -1604,9 +1609,9 @@ Some namespaces are reserved by the wiki for its own internal use or for specifi
 * *Locked::* for listing encrypted pages
 * *::Menu* for sub-menus
 * *Special::* for all the special pages
+* *Tag::* for tagging pages
 * *Tagged::* for listing tagged pages
 * *Tags::* for tagging pages (this namespace is [[WoaS::Help::Deprecated syntax|deprecated]])
-* *Tag::* for tagging pages
 * *Unlock::* used internally for encrypted pages
 * *Unlocked::* for listing plain (unencrypted) pages
 * *Untagged::* for listing untagged pages
@@ -1688,7 +1693,7 @@ woas.page.boundary: DFQRCTsKlU
 = Page scrolling
 By default, this wiki offers two choices for scrolling. You can change these settings by clicking the *Advanced* icon in the navigation bar and then clicking the {{{[[Special::Options]]}}} link.
 
-The *Fixed menu area and navigation bar* option can be enabled and disabled by placing a check mark in the box next to the option. Enabling it locks the navigation bar and menu in place while allowing the rest of the page to scroll. Disabling it allows the entire page to scroll as one connected unit.
+The *Fixed menu* and *Fixed navigation bar* options can be enabled and disabled by placing a check mark in the box next to the option. Enabling them locks the navigation bar and/or the menu in place while allowing the rest of the page to scroll. Disabling them allows the entire page to scroll as one connected unit.
 
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Table of Contents
@@ -1719,7 +1724,7 @@ Create a page with these contents:<br><br>{{{
 }}}
 When you save the page, there will be a Table of Contents that looks like this at the top of the page:
 
-<div style="border:1pt dashed #aaa; background-color:#f9f9f9; padding:0.313em; 
+<div style="border:1px dashed #aaa; background-color:#f9f9f9; padding:0.313em;
 width:50%; font-size:95%;"><center><b>Table of Contents</b></center>
 &nbsp;&nbsp;&nbsp;1. <span style="color:blue; text-decoration:underline;">My level one heading</span>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. <span style="color:blue; text-decoration:underline;">My level two heading</span>
@@ -2287,7 +2292,7 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Tables syntax
+= Table syntax
 
 <div class="woas_helptext">Use this code in a page:</div><br>{{{
 {|
@@ -2395,7 +2400,7 @@ table.CLASS_NAME td.special {CSS_RULES}
 When custom CSS rules have been added to the wiki, you can replace the default {{{{|}}} table opening line with a custom one to assign the custom class to the table.
 
 <div class="woas_help_text">Open a table with this line of code:</div><br>{{{
-| class="CLASS_NAME"
+{| class="CLASS_NAME"
 }}}<br><div class="woas_help_text">To use a custom class for the table.</div>
 
 <table width="100%"><tr><td width="40%"><div class="woas_help_text">Example default table:</div></td><td width="60%"><div class="woas_help_text">Use this code to create the table:</div></td></tr><tr><td valign="top">
@@ -3494,12 +3499,12 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Importing full WoaS
-A WoaS .html file from an older version or a current version can always be imported into your WoaS.
+A WoaS .html file from a current or earlier version can always be imported into your WoaS.
 
-[[Include::WoaS::Template::Info|To import WoaS < 0.9.6B you will need a WoaS 0.11.x release]]
+[[Include::WoaS::Template::Info|To import a version 0.9.6B or earlier WoaS file you will need a WoaS 0.11.x release as this WoaS cannot import it.]]
 
 == Import wiki
-An older Wiki on a Stick can be imported into the current wiki by using the [[Special::Import]] page
+Another Wiki on a Stick can be imported into the current wiki by using the [[Special::Import]] page. Help pages and the WoaS JavaScript code are not imported so it is always best to import an older wiki into a current one as this will also update the older wiki.
 # Access [[Special::Import]] directly or either from [[Special::Advanced#Maintenance]]
 # Click the *Browse* button and select the wiki you'd like to import
 # Choose the settings you'd like to use.<br><br>[[Include::WoaS::Template::Info|If you are importing WoaS < 0.12.0 it is much better to import CSS manually and not automatically because CSS definitions have changed]]<br>
@@ -3508,7 +3513,7 @@ An older Wiki on a Stick can be imported into the current wiki by using the [[Sp
 # Click the *OK* button if you're sure. Otherwise, click the *Cancel* button.
 
 == Importing WSIF
-This method is used to import pages that have been exported using the WSIF format (see the [[WoaS::Help::WSIF]] page for more information).
+This method is used to import pages that have been exported using the WSIF format (see the [[WoaS::Help::WSIF]] page for more information). Help pages are not imported so it is always best to import WSIF content into a current WoaS file.
 
 # Access [[Special::ImportWSIF]] directly or either from [[Special::Advanced#Maintenance]]
 # Click the *Browse* button and select the .wsif file to import
@@ -3628,9 +3633,9 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Importing WSIF files
-The [[Special::ImportWSIF]] page allows to import a [[WoaS::Help::WSIF|WSIF]] file which contains one or more wiki pages; wiki pages imported into the *WoaS::* namespace will offer special features.
+The [[Special::ImportWSIF]] page allows one to import a [[WoaS::Help::WSIF|WSIF]] file which contains one or more wiki pages; wiki pages imported into the *WoaS::* namespace will offer special features.
 == Existing pages
-Availabe options for imported pages whose title collides with existing page titles:
+Available options for imported pages whose title collides with existing page titles:
 * *Erase all user pages before import process*
 * *Ignore* - do not import colliding pages
 * *Overwrite* - replace existing page with imported page
@@ -3687,7 +3692,7 @@ body {
 /* BUTTONS */
 .woas_button, .woas_button_top, .woas_editor_button {
 	background-color: #F0F0F5;
-	border: 1pt solid grey;
+	border: 1px solid grey;
 	color: darkblue;
 	cursor: pointer;
 	font-variant: normal;
@@ -3701,6 +3706,9 @@ body {
 	float: right;
 	margin: .5em;
 }
+
+
+
 
 /* CHECKBOX (cross-browser method) */
 input.woas_cb {
@@ -3729,8 +3737,7 @@ label.woas_cb { /* don't use on last in block */
 	width: 100%;
 }
 #woas_debug_log_clear_button {
-	margin-top: 0.3%;
-	margin-bottom: 0.3%;
+	margin: .375em 0px 0px
 }
 #woas_debug_panel {
 	background-color: #048db4;
@@ -3787,7 +3794,7 @@ pre.woas_embedded {
 /* FOOTER */
 #woas_footer {
 	background-color: #048db4;
-	border: 1pt solid black;
+	border: 1px solid black;
 	font-size: 95%;
 	font-weight: bold;
 	line-height: 1em;
@@ -3857,7 +3864,7 @@ h6.woas_heading {
 .woas_page_mts {
 	font-size: small;
 	margin-top: 0.75em;
-	margin-right: 0.80em;
+	margin-right: 0.813em;
 	margin-left: 15.5%;
 	z-index: 0;
 }
@@ -3920,17 +3927,17 @@ div.woas_text_area {/* any text area div */
 /* MENU */
 #i_woas_menu_area {
 	background-color: white;
-	border: 1pt solid grey;
+	border: 1px solid grey;
 	font-size: 0.75em;
 	left: 1%;
-	padding: 0.499em;
+	padding: 0.5em;
 	width: 13.2%;
 }
 #woas_menu_area ol li, #woas_ns_menu_area ol li {
-	margin-left: -1.55em;
+	margin-left: -1.563em;
 }
 #woas_menu_area ul li, #woas_ns_menu_area ul li {
-	margin-left: -1.85em;
+	margin-left: -1.875em;
 }
 .woas_menu_button {
 	margin-top: 0.438em;
@@ -3960,19 +3967,19 @@ div.woas_text_area {/* any text area div */
 .woas_nowiki {
 	background-color: #F5F5F5;
 	white-space: pre-wrap; /* CSS 3 */
-	padding-right: 0.27em;
-	padding-left: 0.27em;
+	padding-right: 0.25em;
+	padding-left: 0.25em;
 }
 .woas_nowiki_multiline {
-	border: 0.063em solid grey;
-	padding-left: 0.4em;
+	border: 1px solid grey;
+	padding-left: 0.375em;
 }
 
 /* PAGE LISTING HEADER */
 .woas_listing_options {
 	background-color: #AACCBB;
-	border: 0.1em solid blue;
-	padding: 0.2em;
+	border: 1px solid blue;
+	padding: 0.188em;
 }
 
 /* SEARCH */
@@ -3982,7 +3989,7 @@ div.woas_text_area {/* any text area div */
 }
 pre.woas_search_results {
 	background-color: #f9f9f9;
-	border: 1pt solid #aaa;
+	border: 1px solid #aaa;
 	clear: both;
 	padding: 0.313em;
 	margin-top: 1em;
@@ -3993,15 +4000,15 @@ pre.woas_search_results {
 
 /* TABLE OF CONTENTS */
 div.woas_toc {
-	border: 1pt dashed #aaa;
+	border: 1px dashed #aaa;
 	background-color: #f9f9f9;
 	padding: 0.313em;
 	width: 50%;
 	font-size: 95%;
 }
 div.woas_toc ol, li {
-	margin-left: 3.3em;
-	padding-left: 0em;
+	margin-left: 3.25em;
+	padding-left: 0px;
 }
 p.woas_toc_title {
 	font-weight: bold;
@@ -4010,11 +4017,11 @@ p.woas_toc_title {
 
 /* TABLES */
 table.woas_text_area {
-	border: 1pt solid black;
-	border-spacing: 0em;
+	border: 1px solid black;
+	border-spacing: 0px;
 }
 table.woas_text_area td {
-	border: 1pt solid;
+	border: 1px solid;
 	padding: 0.313em;
 }
 table.woas_text_area caption {
@@ -4024,7 +4031,7 @@ table.woas_text_area caption {
 
 /* TAG - CONTAINER */
 div.woas_taglinks {
-	border: 1pt solid #aaa;
+	border: 1px solid #aaa;
 	margin-top: 1em;
 	overflow: auto;
 	padding: 0.313em;
@@ -4063,7 +4070,7 @@ div.woas_taglinks > a:hover {
 	background-color: white;
 	font-size: large;
 	height: 100%;
-	left: 0em;
+	left: 0px;
 	padding-top: 25%;
 	position: absolute;
 	text-align: center;
@@ -4129,8 +4136,8 @@ body {
 	padding-top: 25%;
 	z-index: 100;
 	background-color: white;
-	left: 0em;
-	top: 0em;
+	left: 0px;
+	top: 0px;
 	font-size: large;
 	text-align: center;
 }
@@ -4240,19 +4247,12 @@ woas.page.boundary: DFQRCTsKlU
 = Aliases
 
 Aliases are replaceable shortcuts used in wiki links.
-
-*Example:*
-
-{{{[[$JD::Bio]]}}}
-
-Where /$JD/ is defined as:
-{{{$JD    John Doe}}}
+==Example
+If /$JD/ is defined in [[WoaS::Aliases]] as {{{John Doe}}} then the link {{{[[$JD::Bio]]}}} will be converted to {{{[[John Doe::Bio]]}}} when rendered by WoaS.
 
 Aliases can turn out to be particularly useful to shorten typing of long page names.
-
 == Add an alias
-
-In order to add an alias you should edit the [[WoaS::Aliases]] reserved page; you should add a line to the page, like the below example:
+An alias is added by editing the [[WoaS::Aliases]] reserved page and adding an alias line to the page. For example:
 
 {{{$JD    John Doe}}}
 
