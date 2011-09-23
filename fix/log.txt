@@ -1,7 +1,8 @@
-WHILE FIX & WIP ARE BEING UPDATED/MERGED THIS CODE MAY NOT BE WORKING AS FOUND -- WAIT FOR FINAL COMMIT
+WHILE FIX & FIX-WIP ARE BEING UPDATED/MERGED THIS CODE MAY NOT BE WORKING AS FOUND -- PLEASE WAIT FOR FINAL COMMIT
 (woas-fix.html is not being updated during this process.)
 
-* Update fix to SVN rev. 2426 in preparation for fixes from fix-wip to make final woas-fix
+* update fix to SVN rev. 2426 in preparation for fixes from fix-wip to make final version of woas-fix.
+* fix 'Include::' error I introduced (list control inclusion) and remove include macro 'fix'
 
 Changes since Revision pvhl-2317 (git: 3d939c7)
 

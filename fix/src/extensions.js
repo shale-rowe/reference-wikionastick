@@ -647,14 +647,15 @@ woas.macro = {
 	default_macros: {
 		// advanced transclusion: each newline creates a parameter
 		"include" : function(m) {
-			var params = m.text.split("\n"), nt, paramno;
+			var params = m.text.split("\n"), nt, paramno, trans;
 			// embedded transclusion not supported
 			if (!params.length || !woas.page_exists(params[0]) || woas.is_embedded(params[0]))
 				return false;
-			// tell parser we are transcluding a page (stops header display for page listings)
-			++woas.parser._transcluding;
+			// PVHL: allow control for page listings, even if we are deeply transcluded
+			trans = woas.parser._transcluding;
+			woas.parser._transcluding = 0;
 			nt = woas.get_text_special(params[0]);
-			--woas.parser._transcluding;
+			woas.parser._transcluding = trans;
 			if (nt === null)
 				return false;
 			if (params.length) { // replace transclusion parameters

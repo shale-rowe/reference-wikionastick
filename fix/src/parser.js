@@ -1,6 +1,7 @@
 // module @parser
 woas.parser = {
 
+
 render_title: null, // title of page being rendered
 has_toc: null,
 toc: "",
@@ -192,6 +193,8 @@ _transclude: function (str, $1) {
 		is_emb = false, ns = woas.get_namespace(templname, true),
 		// temporary page object
 		P = { body: null };
+	// increase transclusion depth (used by namespace listing)
+	++that._transcluding;
 	//woas.log("Transcluding "+templname+"("+parts.slice(0).toString()+")");	// log:0
 	if (woas.is_reserved(templname) || (templname.substring(templname.length - 2) === "::"))
 		P.body = woas.get_text_special(templname);
@@ -207,11 +210,10 @@ _transclude: function (str, $1) {
 	}
 	// template retrieval error
 	if (P.body === null) {
+		--that._transcluding;
 		// show an error with empty set symbol
 		return that.place_holder(that._snippets, that.render_error(str, "#8709"));
 	}
-	// increase transclusion depth (used by namespace listing)
-	++that._transcluding;
 	// add the inline file/image if embedded
 	if (is_emb) {
 	//woas.log("Embedded file transclusion: "+templname);	// log:0
@@ -532,6 +534,7 @@ parse_tables_new: function (str, prop, p1) {
 				pp2 = pp1+pp2;
 		}
 
+
         var cells = pp2.replace(woas.parser.reReapTablesNewSub2, "$1$2$3  ").
 				replace(woas.parser.reReapTablesNewSub3, "$1 ").
 				replace(woas.parser.reReapTablesNewSub4, "|| ").
@@ -691,6 +694,7 @@ syntax_parse: function(P, snippets, tags, export_links, has_toc) {
 
 	// convert newlines to br tags
 	.replace(/\n/g, "<"+"br />");
+
 
 	// put back snippets removed by place_holder
 	this.undry(P, snippets);
