@@ -30,14 +30,15 @@ woas.special_orphaned_pages = function() {
 			}
 		} else {
 		// search for pages that link to it
-			var re = new RegExp("\\[\\[" + RegExp.escape(page_titles[j]) + "(\\]\\]|\\|)", "i");
+			var re = new RegExp("\\[\\[(?:Include::)?" + RegExp.escape(page_titles[j])
+				+ "(\\]\\]|\\|)", "i");
 			for(i=0,l=page_titles.length; i < l; i++) {
 				if ((i==j) || this.is_reserved(page_titles[i]))
 					continue;
 				tmp = this.get_src_page(i);
 				if (tmp===null)
 					continue;
-				if (tmp.search(re)!=-1) {
+				if (re.test(tmp)) {
 					found = true;
 					break;
 				}
@@ -145,7 +146,7 @@ woas.special_tagged = function(filter_string) {
 				if (str.charAt(5) === 's')
 					woas.log("Using deprecated 'Tags' namespace");
 				// get the tags and index the page under each tag
-				tmp=woas.split_tags($1);
+				tmp = woas.parser.split_tags($1);
 				alltags = [];
 				for(j=0,jl=tmp.length;j < jl; ++j) {
 					tag=woas.trim(tmp[j]);
@@ -185,7 +186,7 @@ woas.special_tagged = function(filter_string) {
 	if (filtering)
 		woas.tagging._finish();
 	// parse tree with sorting
-	return woas.ns_listing(folds, pg, false);
+	return woas.ns_listing(folds, pg, true);
 };
 
 // @module 'tagging'
@@ -200,7 +201,7 @@ woas.tagging = {
 	_prepare_filter: function(filter_string) {
 		var i,l, pg = [];
 		// allow tags filtering/searching
-		var tags = woas.split_tags(filter_string);
+		var tags = woas.parser.split_tags(filter_string);
 		// reset filter
 		this.tags_ok = [];
 		this.tags_not = [];
@@ -361,11 +362,6 @@ function bool2chk(b) {
 	return "";
 }
 
-// Used by Special::Options
-function _set_layout(fixed) {
-	d$("i_woas_menu_area").style.position = d$("woas_wiki_header").style.position = (fixed ? "fixed" : "absolute");
-}
-
 //Special::Recentchanges shows a sorted list of pages by modified timestamp
 woas.special_recent_changes = function() {
 	if (!this.config.store_mts) {
@@ -467,7 +463,7 @@ woas._ns_expanded = function(ns, items_count, id, list_id) {
 };
 
 woas._visible_css = function(v){
-	return v ? "visibility: visible; display: inline" : "visibility: hidden; display: none";
+	return "display: " + (v ? "block" : "none");
 };
 
 woas.ns_recurse_parse = function(folds, output, prev_ns, recursion, sorted) {
@@ -581,22 +577,22 @@ woas.ns_listing = function(folds, flat_arr, sorted) {
 		output.list_id = _random_string(8);
 		// setup the group object
 		this._ns_groups[output.list_id] = { "items":[], "option": woas.config.folding_style};
-		output.s = "<"+"span class=\"woas_listing_options\">List view:<"+"label for=\"WoaS_"+output.list_id+"_0\"><"+"input type=\"radio\" id=\"WoaS_"+output.list_id+"_0\" name=\"WoaS_"+output.list_id+"\" value=\"0\" "+(this._ns_groups[output.list_id].option === 0 ? " checked=\"checked\"" : "" )+"onclick=\"_WoaS_list_expand_change('"+output.list_id+"',0)\">Flat<"+"/label>&nbsp;|\
+		output.s = "<"+"div class=\"woas_listing_options\">List view:<"+"label for=\"WoaS_"+output.list_id+"_0\"><"+"input type=\"radio\" id=\"WoaS_"+output.list_id+"_0\" name=\"WoaS_"+output.list_id+"\" value=\"0\" "+(this._ns_groups[output.list_id].option === 0 ? " checked=\"checked\"" : "" )+"onclick=\"_WoaS_list_expand_change('"+output.list_id+"',0)\">Flat<"+"/label>&nbsp;|\
 	<"+"label for=\"WoaS_"+output.list_id+"_1\"><"+"input type=\"radio\" id=\"WoaS_"+output.list_id+"_1\" name=\"WoaS_"+output.list_id+"\" value=\"1\" "+(this._ns_groups[output.list_id].option === 1 ? " checked=\"checked\"" : "" )+"onclick=\"_WoaS_list_expand_change('"+output.list_id+"',1)\" >By namespace, collapsed<"+"/label>&nbsp;|\
 	<"+"label for=\"WoaS_"+output.list_id+"_2\"><"+"input type=\"radio\" id=\"WoaS_"+output.list_id+"_2\" name=\"WoaS_"+output.list_id+"\" value=\"2\" "+(this._ns_groups[output.list_id].option === 2 ? " checked=\"checked\"" : "" )+" onclick=\"_WoaS_list_expand_change('"+output.list_id+"',2)\">By namespace, expanded<"+"/label>\
-	<"+"/span><"+"span style=\""+woas._visible_css(this._ns_groups[output.list_id].option !== 0)+"\" id=\"WoaS_"+output.list_id+"_folds\">\n";
+	<"+"/div><"+"div style=\""+woas._visible_css(this._ns_groups[output.list_id].option !== 0)+"\" id=\"WoaS_"+output.list_id+"_folds\">\n";
 		
-		// first fill the span for foldings
+		// first fill the div for foldings
 		this.ns_recurse_parse(folds, output, "", 0, sorted);
-		output.s += "<"+"/span>\n"+
-					"<"+"span style=\""+woas._visible_css(this._ns_groups[output.list_id].option === 0)+"\" id=\"WoaS_"+output.list_id+"_flat\">\n";
+		output.s += "<"+"/div>\n"+
+					"<"+"div style=\""+woas._visible_css(this._ns_groups[output.list_id].option === 0)+"\" id=\"WoaS_"+output.list_id+"_flat\">\n";
 	}
 	// then generate the flat list
 	if (sorted)
 		flat_arr.sort();
 	output.s += "* [["+flat_arr.join("]]\n* [[")+"]]\n";
 	if (i !== 1)
-		output.s += "<"+"/span>";
+		output.s += "<"+"/div>";
 	return output.s;
 };
 

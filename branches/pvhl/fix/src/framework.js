@@ -1,17 +1,17 @@
 
 woas.browser = {
 	// browsers - when different from 'false' it contains the version string
-	ie: false, 
+	ie: false,
 	firefox: false,
 	opera: false,
 	safari: false,
 	chrome: false,
-	
+
 	// breeds - used internally, should not be used by external plugins
 	ie6: false, ie8: false,
 	firefox2: false,
 	firefox3: false, firefox_new: false,
-					
+
 	// engines - set to true when present
 	// gecko and webkit will contain the engine version
 	gecko: false, webkit: false, presto: false, trident: false
@@ -34,24 +34,24 @@ if((navigator.userAgent).indexOf("Opera")!=-1) {
 	woas.browser.safari = true;
 } else if(navigator.appName == "Netscape") {
 	// check that it is Gecko first
-	woas.browser.firefox = woas.browser.gecko = (new RegExp("Gecko\\/\\d")).test(navigator.userAgent) ? true : false;
+	woas.browser.firefox = woas.browser.gecko = (new RegExp("Gecko\\/\\d")).test(navigator.userAgent);
 	// match also development versions of Firefox "Shiretoko" / "Namoroka"
 	if (woas.browser.gecko) {
 		// match the last word of userAgent
 		m = navigator.userAgent.match(/rv:([^\s\)]*)/);
-//		if (m && m[1]) {
-			woas.browser.gecko = m[1];
-			switch (woas.browser.gecko.substr(3)) {
-				case "1.8":
-					woas.browser.firefox2 = true;
-				break;
-				case "1.9":
-					woas.browser.firefox3 = true;
-				break;
-				default:
-					// possibly Firefox4
+		woas.browser.gecko = m[1];
+		switch (woas.browser.gecko.substr(0,3)) {
+			case "1.8":
+				woas.browser.firefox2 = true;
+			break;
+			case "1.9":
+				woas.browser.firefox3 = true;
+			break;
+			default:
+				if (Number(woas.browser.gecko.substr(0,3)) > 1.9) {
 					woas.browser.firefox_new = true;
-			}
+				}
+		}
 	} // not Gecko
 } else if((navigator.appName).indexOf("Microsoft")!=-1) {
 	woas.browser.ie8 = document.documentMode ? true : false;
@@ -113,31 +113,19 @@ d$.checked = function(id) {
 
 d$.hide = function(id) {
 	d$(id).style.display = "none";
-	d$(id).style.visibility = "hidden";
 };
 
-d$.show = function(id) {
-	d$(id).style.display = "inline";
-	d$(id).style.visibility = "visible";
-};
-
-d$.hide_ni = function(id) {
-	d$(id).style.visibility = "hidden";
-};
-
-d$.show_ni = function(id) {
-	d$(id).style.visibility = "visible";
+d$.show = function(id, inline) {
+	d$(id).style.display = inline ? "inline" : "block";
 };
 
 d$.is_visible = function(id) {
-	return !!(d$(id).style.visibility == 'visible');
+	return !!d$(id).offsetWidth;
 };
 
-d$.toggle = function(id) {
-	if (d$.is_visible(id))
-		d$.hide(id);
-	else
-		d$.show(id);
+d$.toggle = function(id, inline) {
+	var d = d$(id);
+	d.style.display = d.offsetWidth ? 'none' : inline ? 'inline' : 'block';
 };
 
 d$.clone = function(obj) {
@@ -147,30 +135,6 @@ d$.clone = function(obj) {
 	}
 	return nobj;
 };
-
-if (woas.config.debug_mode) {
-	// logging function - used in development; call without argument to scroll to bottom
-	woas.log = function (aMessage) {
-		var logbox = d$("woas_debug_log");
-		if (typeof aMessage !== "undefined") {
-			// count lines
-			if (!woas.tweak.integrity_test) {
-				var log = logbox.value, nls = log.match(/\n/g);
-				// log maximum 1024 lines; cut in half if too big
-				if (nls!=null && typeof(nls)==='object' && nls.length>1024) {
-					logbox.value = log.substring(log.indexOf("\n", log.length / 2) + 1);
-				}
-			}
-			logbox.value += aMessage + "\n";
-		}
-		// keep the log scrolled down
-		logbox.scrollTop = logbox.scrollHeight;
-		if(window.opera)
-			opera.postError(aMessage);
-	};
-} else {
-	woas.log = function() { };
-}
 
 // fixes the Array prototype for older browsers
 if (typeof Array.prototype.push == "undefined") {
@@ -268,7 +232,7 @@ function _convert_bytes(bytes) {
 	}
 	return bytes.toFixed(2).replace(/\.00$/, "") +' '+ U[n];
 }
-
+/*
 // implement an sprintf() bare function
 String.prototype.sprintf = function() {
 	// check that arguments are OK
@@ -280,10 +244,33 @@ String.prototype.sprintf = function() {
 		// replace with the original unparsed token in case of undefined parameter
 		if (i_pos > max_pos)
 			return str;
-/*		if (str == '%d')
-			return Number(arguments[i_pos++]); */
-		// return '%s' string
+		//if (str == '%d')
+			//return Number(arguments[i_pos++]);
+		//return '%s' string
 		return fmt_args[i_pos++];
+	});
+};
+*/
+/* PVHL:
+- previous version was't catching undefined arguments in Firefox
+- string can now include a '%': use '100%% correct, %s'. Should drop %d; this isn't sprintf.
+- added a log msg if called with no arguments.
+- consider change of name; sprintf means nothing to js programmers plus this isn't that. fmt?
+- we need to have better i18n support; better to ask for a formatted string by passing
+  arguments to an i18n object than add to String prototype; gives better error messages too.
+- could have log error message if arguments not as expected. If keeping %d/%s then should
+  check if correct.
+*/
+String.prototype.sprintf = function() {
+	// check arguments exist; return original string if not
+	if (!arguments || arguments.length === 0) {
+		woas.log("ERROR: String.sprintf called with no arguments on '" + this + "'");
+		return this;
+	}
+	var i = 0, a = arguments;
+	return this.replace(/%((%)|[sd])/g, function(str, $1, keep) {
+		// keep original unparsed token in case of undefined parameter; use %% for a %
+		return keep || (i < a.length ? a[i++] : str);
 	});
 };
 
@@ -335,120 +322,153 @@ if (is_windows) {
 
 woas.base64 = {
 	_b64arr: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",
-	reValid: /^[A-Za-z0-9+\/=]+$/,
-	
-	_core_encode: function(c1, c2, c3) {
-		var enc1, enc2, enc3, enc4;
-		
-		enc1 = c1 >> 2;
-		enc2 = ((c1 & 3) << 4) | (c2 >> 4);
-		enc3 = ((c2 & 15) << 2) | (c3 >> 6);
-		enc4 = c3 & 63;
+	reValid: /^[A-Za-z0-9+\/=]+$/
+};
 
-		if (isNaN(c2))	enc3 = enc4 = 64;
-		else if (isNaN(c3))
-			enc4 = 64;
+if (window.atob) {
+	woas.base64.encode = function(input) {
+		return btoa(input);
+	};
 
-		return this._b64arr.charAt(enc1) + this._b64arr.charAt(enc2) +
-				this._b64arr.charAt(enc3) +	this._b64arr.charAt(enc4);
-	},
+	woas.base64.encode_array = function(input) {
+		var i, l = input.length, arr = [];
+		for (i = 0; i < l; i++) {
+			arr[i] = String.fromCharCode(input[i]);
+		}
+		return btoa(arr.join(''));
+	};
 
-	encode_array: function(input_arr) {
-		var c1, c2, c3, i = 0, z = input_arr.length,output = "";
-		
-		do {
-			c1 = input_arr[i++];
-			if (i == z)
-				c3 = c2 = null;
-			else {
-				c2 = input_arr[i++];
-				if (i == z)
-					c3 = null;
-				else
-					c3 = input_arr[i++];
-			}
-			output += this._core_encode(c1, c2, c3);
-		} while (i < z);
-		return output;
-	},
+	woas.base64.decode = function(input, z) {
+		if (!z || z > input.length) {
+			z = input.length;
+		}
+		return atob(input.substr(0, z));
+	};
 
-	encode: function(input) {
-		var c1, c2, c3, i = 0, z = input.length, output = "";
-		
-		do {
+	woas.base64.decode_array = function(input, z) {
+		var i, l, arr = [];
+		if (!z || z > input.length) {
+			z = input.length;
+		}
+		input = atob(input.substr(0, z));
+		l = input.length;
+		for (i = 0; i < l; i++) {
+			arr[i] = input.charCodeAt(i);
+		}
+		return arr;
+	};
+} else { //IE
+	woas.base64.encode = function(input) {
+		var c1, c2, c3, i = 0, left, z, output = [];
+		left = input.length % 3;
+		z = input.length - left;
+		while (i < z) {
 			c1 = input.charCodeAt(i++);
 			c2 = input.charCodeAt(i++);
 			c3 = input.charCodeAt(i++);
-			
-			output += this._core_encode(c1, c2, c3);
-		} while (i < z);
-		return output;
-	},
+			output.push(this._b64arr.charAt(c1 >> 2));
+			output.push(this._b64arr.charAt(((c1 & 3) << 4) | (c2 >> 4)));
+			output.push(this._b64arr.charAt(((c2 & 15) << 2) | (c3 >> 6)));
+			output.push(this._b64arr.charAt(c3 & 63));
+		}
+		if (left) {
+			c1 = input.charCodeAt(i++);
+			c2 = left === 2 ? input.charCodeAt(i++) : Number.NaN;
+			output.push(this._b64arr.charAt(c1 >> 2));
+			output.push(this._b64arr.charAt(((c1 & 3) << 4) | (c2 >> 4)));
+			output.push(isNaN(c2) ? "=" : this._b64arr.charAt(((c2 & 15) << 2)));
+			output.push('=');
+		}
+		return output.join('');
+	};
 
-	decode: function(input, z) {
-		var c1, c2, c3, enc1, enc2, enc3, enc4, i = 0,
-			output = "";
-		
-		var l=input.length;
-		if (typeof z=='undefined') z = l;
-		else if (z>l) z=l;
+	woas.base64.encode_array = function(input) {
+		var c1, c2, c3, i = 0, left, z, output = [];
+		left = input.length % 3;
+		z = input.length - left;
+		while (i < z) {
+			c1 = input[i++];
+			c2 = input[i++];
+			c3 = input[i++];
+			output.push(this._b64arr.charAt(c1 >> 2));
+			output.push(this._b64arr.charAt(((c1 & 3) << 4) | (c2 >> 4)));
+			output.push(this._b64arr.charAt(((c2 & 15) << 2) | (c3 >> 6)));
+			output.push(this._b64arr.charAt(c3 & 63));
+		}
+		if (left) {
+			c1 = input[i++];
+			c2 = left === 2 ? input[i++] : Number.NaN;
+			output.push(this._b64arr.charAt(c1 >> 2));
+			output.push(this._b64arr.charAt(((c1 & 3) << 4) | (c2 >> 4)));
+			output.push(isNaN(c2) ? "=" : this._b64arr.charAt(((c2 & 15) << 2)));
+			output.push('=');
+		}
+		return output.join('');
+	};
 
-		do {
+	woas.base64.decode = function(input, z) {
+		var c1, c2, c3, enc1, enc2, enc3, enc4, i = 0, l = input.length, output = [];
+		z = !z || z > l ? l - 4 : z - 4;
+		if (z >= 0) {
+			while (i < z) {
+				enc1 = this._b64arr.indexOf(input.charAt(i++));
+				enc2 = this._b64arr.indexOf(input.charAt(i++));
+				enc3 = this._b64arr.indexOf(input.charAt(i++));
+				enc4 = this._b64arr.indexOf(input.charAt(i++));
+				output.push(String.fromCharCode((enc1 << 2) | (enc2 >> 4)));
+				output.push(String.fromCharCode(((enc2 & 15) << 4) | (enc3 >> 2)));
+				output.push(String.fromCharCode(((enc3 & 3) << 6) | enc4));
+			}
 			enc1 = this._b64arr.indexOf(input.charAt(i++));
 			enc2 = this._b64arr.indexOf(input.charAt(i++));
 			enc3 = this._b64arr.indexOf(input.charAt(i++));
 			enc4 = this._b64arr.indexOf(input.charAt(i++));
+			output.push(String.fromCharCode((enc1 << 2) | (enc2 >> 4)));
+			if (enc3 !== 64) {
+				output.push(String.fromCharCode(((enc2 & 15) << 4) | (enc3 >> 2)));
+			}
+			if (enc4 !== 64) {
+				output.push(String.fromCharCode(((enc3 & 3) << 6) | enc4));
+			}
+		}
+		return output.join('');
+	};
 
-			c1 = (enc1 << 2) | (enc2 >> 4);
-			c2 = ((enc2 & 15) << 4) | (enc3 >> 2);
-			c3 = ((enc3 & 3) << 6) | enc4;
-
-			output += String.fromCharCode(c1);
-			if (enc3 != 64)
-				output += String.fromCharCode(c2);
-			if (enc4 != 64)
-				output += String.fromCharCode(c3);
-
-		} while (i < z);
-
-		return output;
-	},
-
-	decode_array: function(input, z) {
-		var c1, c2, c3, enc1, enc2, enc3, enc4, i = 0;
-		var output = [];
-		
-		var l=input.length;
-		if (typeof z=='undefined') z = l;
-		else if (z>l) z=l;
-
-		do {
+	woas.base64.decode_array = function(input, z) {
+		var c1, c2, c3, enc1, enc2, enc3, enc4, i = 0, l = input.length, output = [];
+		z = !z || z > l ? l - 4 : z - 4;
+		if (z >= 0) {
+			while (i < z) {
+				enc1 = this._b64arr.indexOf(input.charAt(i++));
+				enc2 = this._b64arr.indexOf(input.charAt(i++));
+				enc3 = this._b64arr.indexOf(input.charAt(i++));
+				enc4 = this._b64arr.indexOf(input.charAt(i++));
+				output.push((enc1 << 2) | (enc2 >> 4));
+				output.push(((enc2 & 15) << 4) | (enc3 >> 2));
+				output.push(((enc3 & 3) << 6) | enc4);
+			}
 			enc1 = this._b64arr.indexOf(input.charAt(i++));
 			enc2 = this._b64arr.indexOf(input.charAt(i++));
 			enc3 = this._b64arr.indexOf(input.charAt(i++));
 			enc4 = this._b64arr.indexOf(input.charAt(i++));
-
-			c1 = (enc1 << 2) | (enc2 >> 4);
-			c2 = ((enc2 & 15) << 4) | (enc3 >> 2);
-			c3 = ((enc3 & 3) << 6) | enc4;
-
-			output.push(c1);
-			if (enc3 != 64)
-				output.push(c2);
-			if (enc4 != 64)
-				output.push(c3);
-		} while (i < z);
+			output.push((enc1 << 2) | (enc2 >> 4));
+			if (enc3 !== 64) {
+				output.push(((enc2 & 15) << 4) | (enc3 >> 2));
+			}
+			if (enc4 !== 64) {
+				output.push(((enc3 & 3) << 6) | enc4);
+			}
+		}
 		return output;
-	}
-
-};
+	};
+}
 
 woas.utf8 = {
 	// encode from string to string
 	encode: function(s) {
 		return unescape( encodeURIComponent( s ) );
 	},
-	
+
 	encode_to_array: function(s) {
 		return woas.split_bytes( this.encode(s) );
 	},
@@ -464,9 +484,9 @@ woas.utf8 = {
 		}
 		return null;
 	},
-	
+
 	reUTF8Space: /[^\u0000-\u007F]+/g,
-	
+
 	// convert UTF8 sequences of the XHTML source into &#dddd; sequences
 	do_escape: function(src) {
 		return src.replace(this.reUTF8Space, function ($1) {
@@ -500,21 +520,21 @@ woas.bitfield = {
 				0x100, 0x200, 0x400, 0x800, 0x1000, 0x2000, 0x4000, 0x8000,
 				0x10000, 0x20000, 0x40000, 0x80000, 0x100000, 0x200000, 0x400000, 0x800000,
 				0x1000000, 0x2000000, 0x4000000, 0x8000000, 0x10000000, 0x20000000, 0x40000000, 0x80000000],
-	
+
 	get: function(bm, pos) {
 		return (bm & this._field_mask[pos]) ? true : false;
 	},
-	
+
 	set: function(bm, pos, value) {
 		if (value)
 			return bm | this._field_mask[pos];
 		return bm & ~this._field_mask[pos];
 	},
-	
+
 	// return an integer after having parsed given object with given order
 	get_object: function(obj, order) {
-		var rv=0;
-		for(var i=0;i<order.length;++i) {
+		var rv = 0;
+		for(var i = 0; i < order.length; ++i) {
 			if (obj[order[i]])
 				rv |= this._field_mask[i];
 		}
@@ -523,7 +543,7 @@ woas.bitfield = {
 
 	// set object properties to true/false after parsing the bits by given order
 	set_object: function(obj, order, bm) {
-		for(var i=0;i<order.length;++i) {
+		for(var i = 0; i < order.length; ++i) {
 			obj[order[i]] = (bm & this._field_mask[i]) ? true : false;
 		}
 	}

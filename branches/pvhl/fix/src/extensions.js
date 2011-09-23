@@ -6,7 +6,7 @@ woas.scripting = {
 	page: [],	// scripts active in page
 	_menu_stacked: 0,	// number of elements which shall be cleared
 	_page_stacked: 0,	// ''
-	
+
 	// remove all scripts from specified array (can be 'menu' or 'page')
 	clear: function(which) {
 		for(var i=0;i < this["_"+which+"_stacked"];++i) {
@@ -14,12 +14,12 @@ woas.scripting = {
 		}
 		this["_"+which+"_stacked"] = 0;
 	},
-	
+
 	// add a custom script for later activation
 	add: function(which, content, external) {
 		this[which].push([content, external]);
 	},
-	
+
 	activate: function(which) {
 		for(var i=0;i < this[which].length;++i) {
 			if (woas.dom.add_script(which, i, this[which][i][0], this[which][i][1]))
@@ -28,7 +28,7 @@ woas.scripting = {
 		// free memory
 		this[which] = [];
 	},
-	
+
 	remove: function(which, index) {
 		if (woas.dom.remove_script(which, index)) {
 			--this["_"+which+"_stacked"];
@@ -36,17 +36,17 @@ woas.scripting = {
 		}
 		return false;
 	}
-	
+
 };
 
 // @module 'plugins'
 woas.plugins = {
-	
+
 	// flag set by last call to get()
 	is_external: false,
 	_all: [],
 	_active: [],	// list of enabled plugins
-	
+
 	get: function(name) {
 		this.is_external = false;
 		var text = woas.pager.get("WoaS::Plugins::"+name);
@@ -63,7 +63,7 @@ woas.plugins = {
 		}
 		return text;
 	},
-	
+
 	_parse_external: function(text) {
 		var uris=[], uri_def, p, sb;
 		text = text.split("\n");
@@ -87,9 +87,9 @@ woas.plugins = {
 			woas.log("no valid source URIs found");
 		return uris;
 	},
-	
+
 	reIncludeDef: new RegExp("([\\+@])(\\*|([a-zA-Z0-9_]+)(\\([0-9\\.]+[-\\+]?\\))?)", "g"),
-	
+
 	// parse definitions for browser include type
 	_craft_object: function(s) {
 		var sb = {
@@ -194,7 +194,7 @@ woas.plugins = {
 	update: function(name) {
 		return this.disable(name) && this.enable(name);
 	},
-	
+
 	_internal_add: function(name, s) {
 		if (s.is_async) {
 			if (woas.dom.add_script("plugin", this._mapping(name), s.src, true)) {
@@ -265,7 +265,7 @@ woas.plugins = {
 		}
 		return false;
 	},
-	
+
 	// remove DOM object for all active plugins
 	clear: function() {
 		for(var i=0,it=this._active.length;i < it;++i) {
@@ -276,7 +276,7 @@ woas.plugins = {
 		this._active = [];
 		this._all = [];
 	},
-	
+
 	// map a plugin name to an unique name
 	_mapping_cache:[],
 	_mapping: function(name) {
@@ -290,7 +290,7 @@ woas.plugins = {
 			return woas._unix_normalize(name).replace("@", '')+"_"+i;
 		return i;
 	},
-	
+
 	load: function() {
 		//TODO: get plugins configuration
 
@@ -305,7 +305,7 @@ woas.plugins = {
 			}
 		} //efor
 	},
-	
+
 	list: function() {
 		var pt = this._all.length;
 		if (pt === 0)
@@ -320,7 +320,7 @@ woas.plugins = {
 		}
 		return "\n\n"+woas._simple_join_list(pg);
 	},
-	
+
 	describe_external: function(uris) {
 		// show a list of external sources
 		var ntext = "<"+"p>This plugin is made up of the following external sources:<"+"/p><"+"ul>", uri;
@@ -330,7 +330,7 @@ woas.plugins = {
 		}
 		return ntext+"<"+"/ul>";
 	},
-	
+
 	// if given page name is a plugin, disable it
 	// used when deleting pages
 	delete_check: function(pname) {
@@ -360,7 +360,7 @@ woas.plugins = {
 
 // @module hotkey
 woas.hotkey = {
-	
+
 	all: {
 		"save":		"s",
 		"edit":		"e",
@@ -402,7 +402,7 @@ woas.hotkey = {
 		if (this.custom_accesskeys.length === 0)
 			this.setHTML(d$("woas_custom_accesskeys"), "&nbsp;");
 	},
-	
+
 	_hook_fn: function(obj, fn) {
 		woas.log("setting onclick for "+fn);
 		if (woas.browser.gecko || woas.browser.webkit)
@@ -477,8 +477,8 @@ woas.hotkey = {
 		d$("woas_print_hl").accessKey = this.all.print;
 		d$("woas_help_hl").accessKey = this.all.help;
 		// set access key for goto feature
-		new_custom_accesskeys.push({fn:"woas.cmd_go_to", key: this.all.goto});
-		
+		new_custom_accesskeys.push({fn:"woas.cmd_go_to", key: this.all["goto"]});
+
 		// (1) delete access keys which no more exist
 		var found,a,b;
 		for(a=0,at=this.custom_accesskeys.length;a < at;++a) {
@@ -504,7 +504,7 @@ woas.hotkey = {
 		// (2) add new access keys
 		this._update_accesskeys(new_custom_accesskeys);
 	},
-	
+
 	reHotkeys: /^\$([A-Za-z0-9_]{2,})(\([A-Za-z0-9_]+\))?\s+([\S]+)\s*$/gm
 };
 
@@ -540,74 +540,92 @@ woas.title_unalias = function(aliased_title) {
 
 woas.macro = {
 	// macro definition regex
-	reMacroDef: /^(%?[A-Za-z0-9_\.]+)\s*(\(.*?\))?\s*:([\s\S]*)$/,
+	// Follows nowiki block rules. If line after tag contains only whitespace it is removed,
+	// as is the last \n (so text is just what appears between the tags). Also allows an
+	// optional single space after colon if text is on the same line as opening tag.
+	reMacroDef: /^(%?[A-Za-z0-9_\.]+)\s*(\(.*?\))?\s*: ?(?:[ \t]*(\n))?([\s\S]*?)(?:\n[ \t]*)?$/,
+
+	// allows macros to safely parse text; normal syntax allowed, macros and tags not parsed.
+	// Passed to macro in the macro object: macro.parse()
+	// 'this' is macro object that was passed to macro
+	_parse: function(text) {
+		var snippets = [], P = {};
+		P.body = text ? text : this.text;
+		woas.parser.pre_parse(P, snippets, true);
+		woas.parser.syntax_parse(P, snippets);
+		return P.body;
+	},
 
 	// macro syntax plugin code adapted from FBNil's implementation
 	parser: function(text){
 		// standard macro object
-		var macro = { "reprocess": false, "text": text };
+		var macro = { "reprocess": false, "text": text, parse: this._parse };
 		// match macro definition/call
-		var M=text.match(this.reMacroDef);
+		var M = text.match(this.reMacroDef);
 		// if no double colon declaration was found, then do not process anything
 		if (M !== null) {
 			var fn = M[1];
 			// check validity of macro name
 			if ((fn.indexOf("..") !== -1) || (fn.charAt(0) === '.') ||
 				(fn.charAt(fn.length-1) === '.')) {
-					woas.log("Invalid macro name: "+fn);	//log:1
+					woas.log("Invalid macro name: " + fn);	//log:1
 					return macro;
 			}
-			// check that this is not a macro definition request
+			// check if this is a macro definition request
 			if (fn.charAt(0) === '%') {
 				fn = fn.substr(1);
 				// when macro is not defined, define it
-				if (this.create(fn, M[2], M[3])) {
+				if (this.create(fn, M[2], M[4])) {
 					// we totally remove the block
 					macro.reprocess = false;
 					macro.text = "";
 		//			macro.text = "<!-- defined "+fn+" macro -->";
 				} else { // set some error message
 					macro.reprocess = false;
-					macro.text = woas._make_preformatted(M[0], "color:red;font-weight:bold");
+					macro.text = woas.parser._make_preformatted(M[0], "color:red;font-weight:bold");
 				}
 				return macro;
 			}
 			var fi = this.names.indexOf(fn);
 			if (fi !== -1) {
-				macro.text = M[3];
+				macro.text = M[4];
 				// if we have no parameters, direct call function
 				var pl, rv;
-				if (typeof M[2] == "undefined")
-					pl = 0;
-				else pl = M[2].length;
+				if (typeof M[2] == "undefined") { pl = 0; }
+				else { pl = M[2].length; }
 				try {
-					if (pl === 0)
-						(this.functions[fi])(macro);
-					else {
+					if (pl === 0) {
+						rv = this.functions[fi](macro);
+					} else {
 						// inline insertion of parameters
 						// cannot use woas.eval because we need context for 'macro'
-						rv = eval( "(woas.macro.functions["+fi+"])"+
-									"(macro,"+M[2].substr(1,pl-2)+");"
-							);
+						rv = eval( "(woas.macro.functions[" + fi + "])" +
+									"(macro," + M[2].substr(1, pl-2) + ");" );
 					}
-				}
-				catch(e) {
+				} catch(e) {
 					woas.log("Error during macro execution: "+e);
 				}
 				// analyze return value
-				if (typeof rv == "undefined")
-					woas.log("WARNING: "+this.names[fi]+" did not return any value");
-				else {
+				if (rv === false) {
 					// when macro returns false we automatically highlight it
-					if (!rv) {
-						macro.reprocess = false;
-						macro.text = woas._make_preformatted(M[0], "color:red;font-weight:bold");
+					macro.reprocess = false;
+					macro.text = woas.parser._make_preformatted(text, "color:red;font-weight:bold");
+				} else {
+					if (M[3] && macro.reprocess === true) {
+						// allows block level syntax to be used (headings, lists, etc.)
+						macro.text = woas.parser.NL_MARKER + '\n' + macro.text;
+					}
+					if (typeof rv === "undefined") {
+						woas.log("WARNING: " + this.names[fi] + " did not return any value");
 					}
 				}
 			} else {
-				woas.log("Undefined macro "+fn);	//log:1
-				macro.text = woas._make_preformatted(macro.text, "color:red");
+				woas.log("Undefined macro " + fn);	//log:1
+				macro.text = woas.parser._make_preformatted(text, "color:red");
 			}
+		} else { // bad macro name definition (e.g. '<') can wipe out other text; mark it
+			woas.log("Macro failed validity test: '" + text + "'");	//log:1
+			macro.text = woas.parser._make_preformatted(text, "color:red");
 		}
 		return macro;
 	},
@@ -629,16 +647,19 @@ woas.macro = {
 	default_macros: {
 		// advanced transclusion: each newline creates a parameter
 		"include" : function(m) {
-			var params = m.text.split("\n");
+			var params = m.text.split("\n"), nt, paramno;
 			// embedded transclusion not supported
 			if (!params.length || !woas.page_exists(params[0]) || woas.is_embedded(params[0]))
 				return false;
-			var nt = woas.get_text_special(params[0]);
+			// tell parser we are transcluding a page (stops header display for page listings)
+			++woas.parser._transcluding;
+			nt = woas.get_text_special(params[0]);
+			--woas.parser._transcluding;
 			if (nt === null)
 				return false;
 			if (params.length) { // replace transclusion parameters
 				nt = nt.replace(/%\d+/g, function(str) {
-					var paramno = parseInt(str.substr(1));
+					paramno = parseInt(str.substr(1));
 					if (paramno < params.length)
 						return params[paramno];
 					else
@@ -675,7 +696,7 @@ woas.macro = {
 			fn_params.replace(this.reFindArgDef, function(str, pname) {
 				real_params.push(pname);
 			});
-			
+
 			this.reFindArgDefLast.lastIndex = this.reFindArgDef.lastIndex;
 			fn_params.replace(this.reFindArgDefLast, function(str, pname) {
 				real_params.push(pname);
@@ -692,20 +713,29 @@ woas.macro = {
 		}
 		return this.register(fn_name, obj);
 	},
-	
+
 	// code used to save backups of macro definitions
 	// called by parser
 	_backup: [],
-	push_backup: function() {
-		this._backup.push(this.names.slice(0));
-		this._backup.push(this.functions.slice(0));
+	make_backup: function() {
+		if (this._backup.length) {
+			woas.log("BUG: macro.make_backup called when backup already exists");
+		} else {
+			this._backup.push(this.names.slice(0));
+			this._backup.push(this.functions.slice(0));
+		}
 	},
-	
-	pop_backup: function() {
-		this.functions = this._backup.pop();
-		this.names = this._backup.pop();
+
+	remove_backup: function() {
+		if (this._backup.length) {
+			this.functions = this._backup.pop();
+			this.names = this._backup.pop();
+		} else {
+			woas.log("BUG:  macro.remove_backup called when no backup exists");
+		}
 	},
-	
+
+	// not used but left as possibly useful for testing
 	has_backup: function() {
 		return (this._backup.length !== 0);
 	}

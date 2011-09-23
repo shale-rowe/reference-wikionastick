@@ -33,7 +33,7 @@ woas.exporter = {
 				} else {
 					js_fn = woas._unix_normalize(woas.plugins._active[pi])+".js";
 					if (woas.save_file(this._settings.xhtml_path+js_fn,
-										woas.file_mode.ASCII, data)) {
+										woas.file_mode.ASCII_TEXT, data)) {
 						this._settings.custom_scripts += '<'+'script type="text/javascript" src="'+js_fn+'"><'+"/script>\n";
 					}
 				}
@@ -58,7 +58,7 @@ woas.exporter = {
 			fname = this._get_fname(page_titles[pi], true);
 			// will skip WoaS::Plugins::* and WoaS::Aliases
 			if (fname === '#') {
-	//			log("skipping "+page_titles[pi]);
+	//			woas.log("skipping "+page_titles[pi]);
 				continue;
 			}
 			++total;
@@ -81,7 +81,7 @@ woas.exporter = {
 				break;
 			++done;
 		}
-		log("pages yet to process: "+this._further_pages);	// log:1
+		woas.log("pages yet to process: "+this._further_pages);	// log:1
 		// process further pages
 		var title;
 		// exchange arrays to parse at some extent
@@ -92,7 +92,7 @@ woas.exporter = {
 				title = eatable[i];
 				data = woas.get_text_special(title);
 				if (data===null) {
-					log("cannot process "+title);
+					woas.log("cannot process "+title);
 					continue;
 				}
 				// TODO: allow special pages to have extended attributes
@@ -110,50 +110,57 @@ woas.exporter = {
 	_one_page: function (data, title, fname, mts) {
 		data = woas.utf8.do_escape(data);
 		// prepare the raw text for later description/keywords generation
-		var raw_text = woas.trim(woas.xhtml_to_text(data));
+		var raw_text = woas.trim(woas.xhtml_to_text(data)),
+			exp_menu, ns, mpi, tmp;
 		if (this._settings.exp_menus) {
-			var _exp_menu = woas.get_text("::Menu");
-			if (_exp_menu === null)
-				_exp_menu = "";
-			var _ns = woas.get_namespace(title);
-				if (_ns.length) {
-					var mpi = woas.page_index(_ns+"::Menu");
-					if (mpi !== -1) {
-						var tmp=woas.get_text_special(_ns+"::Menu");
-						if (tmp!==null)
-							_exp_menu += tmp;
-					}
+			exp_menu = woas.get_text("::Menu");
+			if (exp_menu === null)
+				exp_menu = "";
+			ns = woas.get_namespace(title);
+			// get submenu, if available, from first available namespace
+			while (ns !== "") {
+				mpi = woas.page_index(ns + "::Menu");
+				if (mpi !== -1) {
+					tmp = woas.get__text(mpi);
+					if (tmp !== null)
+						exp_menu += tmp;
+					break;
 				}
-				// parse the exported menu
-				if (_exp_menu.length) {
-					_exp_menu = woas.parser.parse(_exp_menu, true, this._settings.js_mode);
-					if (this._settings.js_mode)
-						woas._activate_scripts();
-					// fix also the encoding in the menus
-					_exp_menu = woas.utf8.do_escape(_exp_menu);
-				}
-				//TODO: use correct ids/class names
-				data = '<'+'div id="i_woas_menu_area" style="position: absolute;"><'+'div class="woas_wiki" id="woas_menu_area">'+_exp_menu+'<'+'/div><'+
-						'/div><'+'div class="woas_text_area" id="woas_wiki_area">'+data+'<'+'/div>';
+				tmp = ns.lastIndexOf("::");
+				ns = tmp === -1 ? "" : ns.substring(0, tmp);
 			}
-			// craft a nice XHTML page
-			data = "<"+"title>"+woas.xhtml_encode(title)+"<"+"/title>"+
-					// add the exported CSS
-					this._settings.css+
-					// add the last-modified header
-					(mts ? '<'+'meta http-equiv="last-modified" content="'+
-					(new Date(mts*1000)).toGMTString()+'" />'+"\n" : '')+
-					// other useful META stuff
-			'<'+'meta name="generator" content="Wiki on a Stick v'+woas.version+' - http://stickwiki.sf.net/" />'+"\n"+
-			'<'+'meta name="keywords" content="'+woas.utf8.do_escape(woas._attrib_escape(_auto_keywords(raw_text)))+'" />'+"\n"+
-			'<'+'meta name="description" content="'+
-			woas.utf8.do_escape(woas._attrib_escape(raw_text.replace(/\s+/g, " ").substr(0,max_description_length)))+'" />'+"\n"+
-			this._settings.meta_author+
-			this._settings.custom_scripts+
-			'<'+'/head><'+'body>'+data+
-			(mts ? "<"+"div class=\"woas_page_mts\">"+woas.last_modified(mts)+"<"+"/div>" : "")+
-			"<"+"/body><"+"/html>\n"; raw_text = null;
-		return woas.save_file(this._settings.xhtml_path+fname, woas.file_mode.ASCII, woas.DOCTYPE+woas.DOC_START+data);
+			// parse the exported menu
+			if (exp_menu.length) {
+				exp_menu = woas.parser.parse(exp_menu, true, this._settings.js_mode);
+				if (this._settings.js_mode)
+					woas.scripting.activate("menu");
+				// fix also the encoding in the menus
+				exp_menu = woas.utf8.do_escape(exp_menu);
+			}
+			//TODO: use correct ids/class names
+			data = '<'+'div id="i_woas_menu_area" style="position: absolute;"><'+'div class="woas_wiki" id="woas_menu_area">'+exp_menu+'<'+'/div><'+
+					'/div><'+'div class="woas_text_area" id="woas_wiki_area">'+data+'<'+'/div>';
+		}
+		// craft a nice XHTML page
+		data = "<"+"title>"+woas.xhtml_encode(title)+"<"+"/title>"+
+				// add the exported CSS
+				this._settings.css+
+				// add the last-modified header
+				(mts ? '<'+'meta http-equiv="last-modified" content="'+
+				(new Date(mts*1000)).toGMTString()+'" />'+"\n" : '')+
+				// other useful META stuff
+				'<'+'meta name="generator" content="Wiki on a Stick v'+woas.version+' - http://stickwiki.sf.net/" />'+"\n"+
+				'<'+'meta name="keywords" content="'+
+				woas.utf8.do_escape(woas._attrib_escape(_auto_keywords(raw_text)))+'" />'+"\n"+
+				'<'+'meta name="description" content="'+
+				woas.utf8.do_escape(woas._attrib_escape(raw_text.replace(/\s+/g, " ")
+				.substr(0,max_description_length)))+'" />'+"\n"+
+				this._settings.meta_author+this._settings.custom_scripts+
+				'<'+'/head><'+'body class="woas_background">'+data+
+				(mts ? "<"+"div class=\"woas_page_mts\">"+woas.last_modified(mts)+
+				"<"+"/div>" : "")+"<"+"/body><"+"/html>\n"; raw_text = null;
+		return woas.save_file(this._settings.xhtml_path+
+			fname, woas.file_mode.ASCII_TEXT, woas.DOCTYPE+woas.DOC_START+data);
 	},
 	
 	_get_fname: function (title, create_mode) {
@@ -169,9 +176,9 @@ woas.exporter = {
 		}
 		var sp, orig_title = title;
 		// handle the valid exportable special pages
-		if (title.match(/::$/))
+		if (title.match(/::$/)) {
 			sp = true;
-		else if (woas.is_reserved(title)) {
+		} else if (woas.is_reserved(title)) {
 			var nogo;
 			if (title.match(/^WoaS::/))
 				nogo = (woas.unexportable_pages2.indexOf(title)!==-1);
@@ -180,11 +187,12 @@ woas.exporter = {
 			else // other reserved pages, deny
 				nogo = true;
 			if (nogo) {
-				log("Reserved page will not be exported: "+title);
+				woas.log("Reserved page will not be exported: "+title);
 				this._title2fn[title] = "#";
 				return "#";
 			} else // do export these special pages later
-				sp = true;
+				// PVHL: but don't rewrite actual help pages
+				if (!title.match("WoaS::Help")) sp = true;
 		}
 		var pi;
 		if (sp) {
@@ -194,7 +202,7 @@ woas.exporter = {
 		} else {
 			pi=woas.page_index(title);
 			if (pi === -1) {
-				woas.alert(woas.i18n.PAGE_NOT_EXISTS+title);
+				woas.alert(woas.i18n.PAGE_NOT_EXISTS.sprintf(title));
 				this._title2fn[title] = "#";
 				return "#";
 			}
@@ -246,7 +254,7 @@ woas.exporter = {
 			fname = fname.replace(/::/g, " - ");
 		var test_fname = fname+ext, i=0;
 		while (this._export_fnames_array.indexOf(test_fname) !== -1) {
-			log(test_fname+" already created, checking next fname");	// log:1
+			woas.log(test_fname+" already created, checking next fname");	// log:1
 			test_fname = fname+"_".repeat(++i)+ext;
 		}
 	//	if (i)		_export_replace_fname[fname+"_".repeat(i-1)+ext] = test_fname;
@@ -280,7 +288,7 @@ woas.export_parse = function (data, js_mode) {
 	data = this.parser.parse(data, true, js_mode);
 	if (js_mode) {
 		this.setHTMLDiv(d$("woas_wiki_area"), data);
-		this._activate_scripts();
+		this.scripting.activate("page");
 		data = this.getHTMLDiv(d$("woas_wiki_area"));
 	}
 	return data;
@@ -306,31 +314,31 @@ woas.export_wiki = function() {
 			this.exporter._settings.meta_author = '<'+'meta name="author" content="'+this._attrib_escape(this.xhtml_encode(this.exporter._settings.meta_author))+'" />'+"\n";
 		this.exporter._settings._unix_norm = d$("woas_cb_unix_norm").checked;
 	} catch (e) { this.crash(e); return false; }
-	
+
 	this.progress_init("Exporting XHTML");
 
 	this.exporter._settings.css = this.css.get();
 	// add some other CSS which is not used by live WoaS
-	this.exporter._settings.css += "\n.woas_broken_link { color: red; font-decoration: strike-through;}\n";
+	this.exporter._settings.css += "\n.woas_broken_link { color: red; text-decoration: underline; }\n";
 	if (sep_css) {
 		this.exporter._settings.css_path = "woas.css";
 		this.exporter._export_fnames_array.push(this.exporter._settings.css_path);
-		this.save_file(this.exporter._settings.xhtml_path+this.exporter._settings.css_path, this.file_mode.ASCII, this.exporter._settings.css);
+		this.save_file(this.exporter._settings.xhtml_path+this.exporter._settings.css_path, this.file_mode.ASCII_TEXT, this.exporter._settings.css);
 		this.exporter._settings.css = "<"+"link rel=\"stylesheet\" type=\"text/css\" media=\"all\" href=\""+this.exporter._settings.css_path+"\" /"+">";
 		} else
 	this.exporter._settings.css = "<"+"style type=\"text/css\">"+this.exporter._settings.css+"<"+"/style>";
-	
+
 	// actual exporting
 	var stats = this.exporter.do_export();
-	
-	// clear allocated resources during export
-	this.exporter.clear();
-	
-	// refresh if javascript was ran
+
+	// refresh if javascript was run
 	if (this.exporter._settings.js_mode) {
 		this.refresh_menu_area();
 		this.set_current(current, false);
 	}
+	// clear allocated resources used during export
+	this.exporter.clear();
+
 	this.progress_finish();
 	this.alert(this.i18n.EXPORT_OK.sprintf(stats[0], stats[1]));
 	return true;

@@ -345,7 +345,7 @@ woas.mozillaLoadFile = function(filePath, load_mode, suggested_mime) {
 		// this byte-by-byte read allows retrieval of binary files
 		var tot=sInputStream.available(), i=tot;
 		var rd=[];
-		while (i-->=0) {
+		while (--i >= 0) {
 			var c=sInputStream.read(1);
 			rd.push(c.charCodeAt(0));
 		}
@@ -424,7 +424,7 @@ woas.javaLoadFile = function(filePath, load_mode, suggested_mime) {
 			content = String(content);
 			if (load_mode == this.file_mode.DATA_URI)
 				return this._data_uri_enc(filePath, content, suggested_mime);
-			else if (load_mode == this.file_mode.BASE6)
+			else if (load_mode == this.file_mode.BASE64)
 				return this.base64.encode(content);
 			return content;
 		}
@@ -556,7 +556,7 @@ woas._save_to_file = function(full) {
 	
 	computed_js += "\nvar current = '" + this.js_encode(safe_current)+"';\n\n";
 	
-	computed_js += "var backstack = [\n" + printout_arr(this.config.nav_history ? backstack : [], false) + "];\n\n";
+	computed_js += "var backstack = [\n" + printout_arr(this.config.nav_history ? woas.history.backstack : [], false) + "];\n\n";
 	
 	// in WSIF datasource mode we will save empty arrays
 	if (this.config.wsif_ds.length !== 0)
@@ -582,8 +582,7 @@ woas._save_to_file = function(full) {
 	}
 
 	// cleanup the DOM before saving
-	var bak_ed = d$("woas_editor").value,
-		bak_tx = this.getHTMLDiv(d$("woas_wiki_area")),
+	var bak_tx = this.getHTMLDiv(d$("woas_wiki_area")),
 		bak_mn = this.getHTMLDiv(d$("woas_menu_area")),
 		bak_mts = this.getHTMLDiv(d$("woas_mts")),
 		bak_mts_shown = d$.is_visible("woas_mts"),
@@ -635,7 +634,6 @@ woas._save_to_file = function(full) {
 	}
 	} //DEBUG check
 
-	d$("woas_editor").value = bak_ed;
 	this.setHTMLDiv(d$("woas_wiki_area"), bak_tx);
 	this.setHTMLDiv(d$("woas_menu_area"), bak_mn);
 	this.setHTMLDiv(d$("woas_mts"), bak_mts);
@@ -661,7 +659,7 @@ function reXHTMLFix_hook(str, tag) {
 }
 var reXHTMLFix = /<(img|hr|br|input|meta)[^>]*>/gi;
 
-var reHeadTagEnd = new RegExp("<\\/"+"head[^>]*>", "ig");
+var reHeadTagEnd = new RegExp("<\\/"+"head[^>]*>", "ig"),
 	reHeadTagStart = new RegExp("<"+"head[^>]*>", "ig"),
 	reTagStart = /<(\w+)([^>]*)>/g,
 	reTagEnd = /<\/(\w+)[^>]*>/g,
@@ -755,7 +753,7 @@ woas._extract_src_data = function(marker, source, full, current_page, data_only)
 				broken = true;
 			break;
 		}
-		
+
 		l_attrs = m[2].toLowerCase();
 		// this was marked as permanent tag
 		var was_replaced = false;

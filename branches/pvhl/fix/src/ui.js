@@ -4,10 +4,12 @@ woas.ui = {
 	edit_mode: false,		// set to true when inside an edit textarea
 	_textbox_focus: false,	// true when a text box is currently focused
 	focus_textbox: function() { // called when a textbox has currently focus
-		this._textbox_focus = true;
+		// 'this' belongs to the text box
+		woas.ui._textbox_focus = true;
 	},
 	blur_textbox: function() { // called when a textbox looses focus
-		this._textbox_focus = false;
+		// 'this' belongs to the text box
+		woas.ui._textbox_focus = false;
 		ff_fix_focus();
 		// reset event handler
 		this._textbox_enter_event = this._textbox_enter_event_dummy;
@@ -26,12 +28,8 @@ woas.ui = {
 	// event called on key press
 	//NOTE: since this is attached directly to DOM, you should not use 'this'
 	_keyboard_event_hook: function(orig_e) {
-		if (!orig_e)
-			e = window.event;
-		else
-			e = orig_e;
-		var ck = woas.browser.ie ? e.keyCode : e.which;
-		
+		var e = orig_e || window.event,
+			ck = e.keyCode || e.which;
 		if (!woas.ui.edit_mode) {
 			// there is a custom focus active, call the hook
 			// and return if it told us to do so
@@ -61,7 +59,6 @@ woas.ui = {
 			ff_fix_focus();
 			return false;
 		}
-
 		return orig_e;
 	},
 	// could have a better name
@@ -74,12 +71,15 @@ woas.ui = {
 		} else {
 			var htitle = null;
 			// change the target page in some special cases
-			if (current.substr(0, 6) === "WoaS::") {
+			if (current.indexOf('WoaS::') === 0) {
 				if (woas.help_system._help_lookup.indexOf(current.substr(6)) !== -1)
 					htitle = current.substr(6);
 				else
 					htitle = current;
-			} else htitle = current;
+			} else
+				// allow for Locked::, Unlocked::, etc.
+				htitle = current.indexOf('::') === current.length-2
+							? current.substring(0, current.length-2) : current;
 			var npi = woas.page_index("WoaS::Help::"+htitle);
 			if (npi !== -1) {
 				wanted_page = "WoaS::Help::"+htitle;
@@ -167,7 +167,6 @@ woas.ui = {
 			page_mts.pop();
 			page_titles.pop();
 			page_attrs.pop();
-			woas._ghost_page = false;
 			// menu entry may have been added for cancelled new page
 			var menu_i = woas.page_index("::Menu");
 			if (menu_i !== -1) {
@@ -179,10 +178,11 @@ woas.ui = {
 					woas.refresh_menu_area();
 				}
 			}
-			woas.log("Ghost page disabled"); //log:1
 		}
-		woas.disable_edit();
 		current = woas.prev_title;
+		woas.update_nav_icons(current);
+//		woas.log(woas.history.log_entry()); //log:0
+		woas.disable_edit();
 	},
 	// when back button is clicked
 	back: function() {
@@ -211,7 +211,16 @@ woas.ui = {
 		return true;
 	},
 	edit_ns_menu: function() {
-		woas.edit_page(woas.current_namespace+"::Menu");
+		var ns = woas.current_namespace, mpi, tmp;
+		while (ns !== "") {
+			mpi = woas.page_index(ns + "::Menu");
+			if (mpi !== -1) {
+				woas.edit_page(ns + "::Menu");
+				break;
+			}
+			tmp = ns.lastIndexOf("::");
+			ns = tmp === -1 ? "" : ns.substring(0, tmp);
+		}
 	},
 	lock: function() {
 		if (woas.pager.bucket.items.length>1)
@@ -231,6 +240,20 @@ woas.ui = {
 	},
 	advanced: function() {
 		woas.go_to("Special::Advanced");
+	},
+	set_header: function(fixed) {
+		if (!woas.browser.ie6) {
+			d$("woas_wiki_header").style.position = (fixed ? "fixed" : "absolute");
+		}
+	},
+	set_menu: function(fixed) {
+		if (!woas.browser.ie6) {
+			d$("i_woas_menu_area").style.position = (fixed ? "fixed" : "absolute");
+		}
+	},
+	set_layout: function(fixed)  {
+		this.set_header(fixed);
+		this.set_menu(fixed);
 	}
 };
 
@@ -247,7 +270,7 @@ woas.go_to = function(cr) {
 };
 
 function back_or(or_page) {
-	if (!woas.ui.back())
+	if (!woas.ui.back() && or_page !== current)
 		woas.set_current(or_page, true);
 }
 
@@ -275,7 +298,7 @@ woas.help_system = {
 		return w;
 	},
 
-	_help_lookup: ["Plugins", "CSS", "Aliases", "Hotkeys"],
+	_help_lookup: ["Aliases", "CSS::Boot", "CSS::Core", "CSS::Custom", "Hotkeys", "Plugins"],
 	cPopupCode: "\n\
 function get_parent_woas() {\n\
 	if (window.opener && !window.opener.closed)\n\
@@ -469,6 +492,12 @@ function lock_page(page) {
 	woas._finalize_lock(pi);
 }
 
+// used in Special::Options
+woas.bool2chk = function(b) {
+	if (b) return "checked";
+	return "";
+}
+
 // import wiki from external file
 function import_wiki() {
 	if (!woas.config.permit_edits) {
@@ -476,7 +505,8 @@ function import_wiki() {
 		return false;
 	}
 	woas.import_wiki();
-	woas.refresh_menu_area();
+	// PVHL: refresh already done by woas.import_wiki
+	// woas.refresh_menu_area();
 }
 
 function set_key() {
@@ -640,18 +670,25 @@ woas._customized_popup = function(page_title, page_body, additional_js, addition
 
 // below functions used by Special::Export
 
+// PVHL: blob saving disabled until it works cross-browser
 woas.export_wiki_wsif = function () {
-	var path, author, single_wsif, inline_wsif;
+	var path, fname, author, single_wsif, inline_wsif, all_wsif, done;
 	try {
 		path = d$("woas_ep_wsif").value;
+		fname = d$('woas_ep_fname').value;
 		author = this.trim(d$("woas_ep_author").value);
-		single_wsif = d$("woas_cb_single_wsif").checked ? true : false;
-		inline_wsif = d$("woas_cb_inline_wsif").checked ? true : false;
+		single_wsif = d$("woas_cb_multi_wsif").checked ? false : true;
+		//inline_wsif = d$("woas_cb_linked_wsif").checked ? false : true;
+		inline_wsif = false;
+		all_wsif = d$("woas_cb_all_wsif").checked ? true : false;
 	} catch (e) { this.crash(e); return false; }
 	
-	var done = this._native_wsif_save(path, this.wsif.DEFAULT_INDEX, false, single_wsif, inline_wsif, author, false);
-
-	this.alert(this.i18n.EXPORT_OK.sprintf(done, this.wsif.expected_pages));
+	done = this._native_wsif_save(path, fname, false, single_wsif, inline_wsif, author, all_wsif);
+	if (done) {
+		this.alert(this.i18n.EXPORT_OK.sprintf(done, this.wsif.expected_pages));
+	} else {
+		this.alert(this.i18n.SAVE_ERROR.sprintf(fname));
+	}
 	return true;
 };
 
@@ -765,14 +802,16 @@ woas._search_load = function() {
 			}
 			
 			// (2) parse the body snippets
-			for(var i=0,it=this._cached_body_search.length;i<it;++i) {
-				P.body += "* [[" + this._cached_body_search[i].title + "]]: found " + this._hl_marker+":"+i+":";
+			for(var i = 0, it = this._cached_body_search.length; i < it; ++i) {
+				P.body += "\n* [[" + this._cached_body_search[i].title + "]] - found "
+						+ this._hl_marker+":" + i + ":";
 				woas.pager.bucket.add(this._cached_body_search[i].title);
 			}
 
-			P.body = 'Results for <'+'strong class="woas_search_highlight">' + woas.xhtml_encode(woas._last_search) + "<"+"/strong>\n" + P.body;
+			P.body = 'Results for <'+'strong class="woas_search_highlight">'
+					+ woas.xhtml_encode(woas._last_search) + "<"+"/strong>\n" + P.body;
 		} else
-			P.body = "/No results found for *"+woas.xhtml_encode(woas._last_search)+"*/";
+			P.body = "/No results found for *" + woas.xhtml_encode(woas._last_search) + "*/";
 
 	}
 
@@ -791,7 +830,7 @@ woas._search_load = function() {
 						woas._cached_body_search[i].matches[a].replace(woas._reLastSearch, function(str, $1) {
 							++count;
 								return '<'+'span class="woas_search_highlight">'+$1+'<'+'/span>';
-						})+"\n<"+"/pre>";
+						})+"<"+"/pre>";
 			}
 			return " <"+"strong>"+count+"<"+"/strong> times: "+r;
 		});
@@ -819,6 +858,7 @@ woas.update_nav_icons = function(page) {
 	this.menu_display("advanced", (page != "Special::Advanced"));
 	this.menu_display("edit", this.edit_allowed(page));
 	this.update_lock_icons(page);
+	// this.log("nav icons updated"); // log:0
 };
 
 woas.update_lock_icons = function(page) {
@@ -848,8 +888,13 @@ and should also check if any of the pages in bucket are locked/unlocked.
 	}
 	*/
 	// update the encryption icons accordingly
-	this.menu_display("lock", !woas.ui.edit_mode && can_lock);
-	this.menu_display("unlock", !woas.ui.edit_mode && can_unlock);
+/*
+PVHL: the ui display code really needs to be rewritten. edit_mode is being used
+to lock out certain functions but being turned off too soon so that this will work;
+diabling it for now. Needs to be a seperate ui.render function.
+*/
+	this.menu_display("lock", /* !woas.ui.edit_mode && */ can_lock);
+	this.menu_display("unlock", /* !woas.ui.edit_mode && */ can_unlock);
 	// we can always input decryption keys by clicking the setkey icon
 	//this.menu_display("setkey", cyphered);
 	var cls;
@@ -870,17 +915,44 @@ woas._onresize = function() {
 if (!woas.browser.ie)
 	window.onresize = woas._onresize;
 
-woas._set_debug = function(status) {
+woas._set_debug = function(status, closed) {
+	var logbox = d$("woas_debug_log"), lines = -1, position = 0,
+		cut = 100, max = 200; // cut > 0, max > cut
 	if (status) {
+	// logging function - used in development; call without argument to scroll to bottom
+	// and see if we are in debug mode
+		woas.log = function (aMessage) {
+			if (typeof aMessage !== "undefined") {
+				if (!woas.tweak.integrity_test) {
+					// log up to max lines; 'cut' lines removed if too big
+					if (++lines === max) { // lines is line count now, before this post
+						logbox.value = logbox.value.substring(position);
+						lines = max - cut;
+					} else if (lines === cut) {
+						position = logbox.value.length;
+					}
+				}
+				logbox.value += aMessage + '\n';
+			}
+			// keep the log scrolled down
+			logbox.scrollTop = logbox.scrollHeight;
+			if(window.opera)
+				opera.postError(aMessage);
+			return true;
+		};
 		// activate debug panel
-		d$.show_ni("woas_debug_panel");
-		d$.show("woas_debug_log");
+		d$.show("woas_debug_panel");
+		if (!closed) { d$.show("woas_debug_console")
+		} else {  d$.hide("woas_debug_console") }
 		// hide the progress area
 		d$.hide("loading_overlay");
 	} else {
-		d$.hide_ni("woas_debug_panel");
+		d$.hide("woas_debug_panel");
 		d$.hide("woas_debug_console");
+		logbox.value = '';
+		woas.log = function() { return false; };
 	}
+	window.log = woas.log // for deprecated function - legacy.js
 };
 
 woas.refresh_menu_area = function() {
@@ -901,7 +973,7 @@ woas.refresh_menu_area = function() {
 
 woas._gen_display = function(id, visible, prefix) {
 	if (visible)
-		d$.show(prefix+"_"+id);
+		d$.show(prefix+"_"+id, true);
 	else
 		d$.hide(prefix+"_"+id);
 };
@@ -918,7 +990,7 @@ woas.img_display = function(id, visible) {
 
 woas.menu_display = function(id, visible) {
 	this._gen_display(id, visible, "menu");
-//	log("menu_"+id+" is "+d$("menu_"+id).style.display);
+//	woas.log("menu_"+id+" is "+d$("menu_"+id).style.display);
 };
 
 woas.refresh_mts = function(mts) {
@@ -967,7 +1039,7 @@ function _lock_page() {
 }
 
 function _woas_new_plugin() {
-	var title = woas._prompt_title("Please enter plugin name", "Myplugin");
+	var title = woas._prompt_title("Please enter plugin name", "Myplugin", true);
 	if (title === null)
 		return;
 	var def_text;
@@ -975,7 +1047,6 @@ function _woas_new_plugin() {
 	// --UNSUPPORTED FEATURE--
 	if (title.charAt(0) === '@') {
 		def_text = "plugins/"+title.substr(1)+".js\n";
-//		title = title.substr(1);
 	} else {
 		def_text = "/* "+title+" plugin */\n";
 	}

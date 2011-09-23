@@ -1,7 +1,19 @@
 // deprecated/legacy functions
 
 //DEPRECATED but still supported
-var log = woas.log;
+// var log = woas.log; set by woas._set_debug
+
+//DEPRECATED
+function bool2chk(b) {
+	woas.log("WARNING: Called deprecated function: bool2chk (now woas.bool2chk)");
+	woas.bool2chk(b);
+}
+
+//DEPRECATED
+function _set_layout(fixed) {
+	woas.log("WARNING: Called deprecated function: _set_layout (now woas.set_layout)");
+	woas.ui.set_layout(fixed);
+}
 
 //DEPRECATED
 function home() {
@@ -62,12 +74,12 @@ function save() {
 }
 
 // old tables parsing syntax - DEPRECATED
-var reReapTables = /^\{\|.*((?:\n\|.*)*)$/gm,
-	reReapTableRows = /\n\|([+ -])(.*)/g;
+woas.parser.reReapTables = /^\{\|.*((?:\n\|.*)*)$/gm;
+woas.parser.reReapTableRows = /\n\|([+ -])(.*)/g;
 woas.parser.parse_tables =  function (str, p1) {
 	var caption = false,
 		stk = [];
-	p1.replace(reReapTableRows, function(str, pp1, pp2) {
+	p1.replace(woas.parser.reReapTableRows, function(str, pp1, pp2) {
 			if (pp1 == '-')
 				return;
 			else if (pp1 == '+') {
@@ -78,9 +90,8 @@ woas.parser.parse_tables =  function (str, p1) {
 		} 
 	);
 	if (stk.length)
-		return  '<'+'table class="woas_text_area">' +
-				(caption?('<'+'caption>' + caption + '<'+'/caption>'):'') +
-				'<'+'tr>' + stk.join('<'+'/tr><'+'tr>') + '<'+'/tr>' +
-			'<'+'/table>';
+		return  '<' + 'table class="woas_text_area">' + (caption?('<' + 'caption>' + caption +
+			'<' + '/caption>'):'') + '<' + 'tr>' + stk.join('<' + '/tr><' + 'tr>') + '<' +
+			'/tr>' + '<' + '/table>' + woas.parser.NL_MARKER;
 	return str;
 };
