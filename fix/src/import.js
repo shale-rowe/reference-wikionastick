@@ -109,7 +109,7 @@ woas.importer = {
 		data = data.replace(/\\'/g, ":-"+woas.parser.marker).replace(this.reJString, function (str) {
 			// restore quotes
 			jstrings.push(str.substr(1, str.length-2).replace(woas.importer.reRequote, "\\'"));
-			return woas.parser.marker+":"+(jstrings.length-1).toString();
+			return woas.parser.marker+(jstrings.length-1).toString()+":";
 		});
 		// (2) rename the variables
 		data.replace(/([^\\])\nvar\s+(\w+)\s*=\s*([^;]+);/g, function (str, $1, var_name, definition) {
@@ -211,32 +211,9 @@ woas.importer = {
 
 	// apply options i.e. javascript security settings
 	_hotfix_on_import: function(NP) {
-		// exit if no replace is needed
-		if (!this.i_comment_js && !this.i_comment_macros)
-			return;
 		// only plain wiki and locked pages can be hotfixed
-		if (NP.attrs > 1)
-			return;
-		// comment out all javascript blocks
-		var snippets = [];
-		// put away XHTML comments and nowiki blocks
-		NP.body = NP.body.replace(reComments, function (str, $1, dynamic_nl) {
-				var r = woas.parser.place_holder(snippets.length, "", dynamic_nl);
-				snippets.push(str);
-				return r;
-		}).replace(reNowiki, function (str, $1, dynamic_nl) {
-				var r = woas.parser.place_holder(snippets.length, "", dynamic_nl);
-				snippets.push(str);
-				return r;
-		});
-		if (this.i_comment_js)
-			NP.body = NP.body.replace(reScripts, "<"+"disabled_script$1>$2<"+"/disabled_script>$3");
-		if (this.i_comment_macros)
-			NP.body = NP.body.replace(reMacros, "<<< Macro disabled\n$1>>>$2");
-		// clear dynamic newlines
-		NP.body = NP.body.replace(woas.parser.reNL_MARKER, "");
-		// restore everything
-		woas.parser.undry(NP, snippets);
+		if (NP.attrs < 2 && (this.i_comment_js || this.i_comment_macros))
+			woas.parser.import_disable(NP, this.i_comment_js, this.i_comment_macros);
 	},
 	
 	// add directly without checking for duplicates
@@ -612,7 +589,7 @@ woas.importer = {
 	// regular expressions used to not mess with title/content strings
 	reRequote: new RegExp(":-"+woas.parser.marker, "g"),
 	reJString: new RegExp("'[^']*'", "g"),
-	reJStringRep: new RegExp(woas.parser.marker+":"+"(\\d+)", "g"),
+	reJStringRep: new RegExp(woas.parser.marker+"(\\d+):", "g"),
 	reValidImage: /^data:\s*[^;]*;\s*base64,\s*/,
 	reImageBadMime: /^data:undefined;\s*base64,\s*/,
 	reOldStyleBlock: new RegExp("<"+"style\\s.*?type=\"?text\\/css\"?[^>]*>((\\n|.)*?)<"+"\\/style>", "i")
@@ -657,7 +634,7 @@ woas.import_wiki = function() {
 	
 	// always save if we have erased the wiki
 	if ((this.importer.i_overwrite === 0) || rv)
-		this.full_commit();
+		this.full_commit(); // PVHL: this could have failed!
 
 	if (rv) {
 		this.refresh_menu_area();
@@ -740,7 +717,7 @@ woas.import_wiki_wsif = function() {
 	} else {
 		// always save if we have erased the wiki
 		if (this.importer.i_overwrite === 0)
-			this.full_commit();
+			this.full_commit(); // PVHL: this could have failed!
 	}
 
 	return done;

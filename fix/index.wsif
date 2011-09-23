@@ -2,7 +2,7 @@ wsif.version: 1.3.1
 wsif.generator: woas
 wsif.generator.version: 0.12.0
 woas.author: Anonymous
-woas.pages: 71
+woas.pages: 87
 
 woas.page.title: ::Menu
 woas.page.attributes: 0
@@ -15,7 +15,7 @@ woas.page.boundary: DFQRCTsKlU
 
 * [[WoaS History]]
 
-* [[WoaS::Help::]]
+* [[WoaS::Help::Info|WoaS::Help]]
 * [[WoaS::Aliases]]
 * [[WoaS::Hotkeys]]
 * [[WoaS::Plugins]]
@@ -41,30 +41,30 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 == Pages
-* [[Locked::]], [[Unlocked::]]: a list of all encrypted/plain pages
-* [[Special::All Pages]]: a list of all user created pages in this wiki
-* [[Special::Dead Pages]]: a list of nonexistent pages that other pages link to 
-* [[Special::Delete Page]]: delete specific page
-* [[Special::Go to]]: go to specific page
-* [[Special::New Page]]: create a new page
-* [[Special::Orphaned Pages]]: a list of pages that no other pages link to
-* [[Special::Recentchanges]]: view recently modified pages
-* [[Special::Search]]: search all wiki pages
-* [[Tagged::]], [[Untagged::]]: a list of all tagged/untagged pages
+* [[Locked::]], [[Unlocked::]] - a list of all encrypted/plain pages
+* [[Special::All Pages]] - a list of all user created pages
+* [[Special::Dead Pages]] - a list of nonexistent pages that other pages link to
+* [[Special::Delete Page]] - delete a specific page
+* [[Special::Go to]] - go to a specific page
+* [[Special::New Page]] - create a new page
+* [[Special::Orphaned Pages]] - a list of pages that no other page links to
+* [[Special::Recentchanges]] - a list of all recently modified pages
+* [[Special::Search]] - search all wiki pages
+* [[Tagged::]], [[Untagged::]] - a list of all tagged/untagged pages
 
 == Advanced features
-* [[Special::Options]]: general WoaS options
-* [[WoaS::Aliases]]: view/edit page title aliases
-* [[WoaS::CSS::Core]], [[WoaS::CSS::Custom]]: view the core CSS and edit the custom CSS
-* [[WoaS::Hotkeys]]: view/edit WoaS access keys and default key bindings
-* [[WoaS::Plugins]]: enable/disable and view/edit WoaS JavaScript plugins
+* [[Special::Options]] - general WoaS options
+* [[WoaS::Aliases]] - view/edit page title aliases
+* [[WoaS::CSS::Core]], [[WoaS::CSS::Custom]] - view the core CSS and edit the custom CSS
+* [[WoaS::Hotkeys]] - view/edit WoaS access keys and default key bindings
+* [[WoaS::Plugins]] - enable/disable and view/edit WoaS JavaScript plugins
 
 == Maintenance
-* [[Special::Import]]: import wiki from an early (or current) version
-* [[Special::ImportWSIF]]: import a [[WoaS::Help::WSIF|WSIF]] file containing one or more wiki pages
-* [[Special::Export]]: export wiki into multiple linked static XHTML files
-* [[Special::ExportWSIF]]: export wiki into multiple or single [[WoaS::Help::WSIF|WSIF]] files
-* [[Special::Erase Wiki]]: delete ALL wiki pages and reset with default data
+* [[Special::Import]] - import wiki from a WoaS html file (including earlier versions)
+* [[Special::ImportWSIF]] - import a [[WoaS::Help::WSIF|WSIF]] file containing one or more wiki pages
+* [[Special::Export]] - export wiki into multiple linked static XHTML files
+* [[Special::ExportWSIF]] - export wiki into multiple or single [[WoaS::Help::WSIF|WSIF]] files
+* [[Special::Erase Wiki]] - delete ALL wiki pages and reset with default data
 --DFQRCTsKlU
 woas.page.title: Special::Import
 woas.page.attributes: 0
@@ -73,14 +73,13 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-Import a wiki /.html/ source from an early (or current) version:
+Import a wiki from an /.html/ source (current or earlier version):
 
-File: <input id="filename_" type="file" />&nbsp;<input id="btn_import" class="woas_button" type="button" value="Import" onclick="import_wiki()" />
-
+File: <input id="filename_" type="file" />&nbsp;<input id="btn_import" class="woas_button_top" type="button" value="Import" onclick="import_wiki()" />
 == Source
 <label for="woas_cb_import_config"><input type="checkbox" id="woas_cb_import_config" checked="checked">&nbsp;Import configuration (except WSIF datasource settings)</label>
-<label for="woas_cb_import_content"><input type="checkbox" id="woas_cb_import_content" checked="checked">&nbsp;Import pages</label>
 <label for="woas_cb_import_styles"><input type="checkbox" id="woas_cb_import_styles">&nbsp;Import CSS</label>
+<label for="woas_cb_import_content"><input type="checkbox" id="woas_cb_import_content" checked="checked">&nbsp;Import pages</label>
 [[Include::WoaS::ImportSettings]]
 
 <script type="text/javascript">
@@ -96,7 +95,7 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 [[Special::TOC]]
 = Welcome to Wiki on a Stick!
-Wiki on a Stick (in short *WoaS*) is a [[http://en.wikipedia.org/wiki/Wiki|wiki]] that lives in *one self-modifying XHTML file*. It's perfect to be used at home or at office, on your laptop or USB pen drive. It can be used as a personal notepad, calendar, repository for software documentation and for many other purposes; it allows full customization and extension by your own scripts and plugins. It also offers [[WoaS::Help::Security|AES encryption]] of pages.
+Wiki on a Stick (*WoaS*) is a [[http://en.wikipedia.org/wiki/Wiki|wiki]] that lives in *one self-modifying XHTML file*. It's perfect for use at home or office, on your laptop or USB pen drive. It can be used as a personal notepad, calendar, repository for software documentation, and for many other purposes; it allows full customization and extension by your own scripts and plugins. It also offers [[WoaS::Help::Security|AES encryption]] of pages.
 
 == Version
 
@@ -109,10 +108,11 @@ Original version (v0.01 &tilde; v0.04) by Andr\u00e9 Wagner
 
 == Official Website
 
-<img style="display: inline; visibility: visible;" id="img_logo" alt="WoaS Logo" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAQAAADZc7J%2FAAAAAXNSR0IArs4c6QAAAAJiS0dEAP%2BHj8y%2FAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH2gEcDzUY4t9JowAAABl0RVh0Q29tbWVudABDcmVhdGVkIHdpdGggR0lNUFeBDhcAAAI7SURBVEjHtdVPSFRRFAbw33ujljETWhaGo9YiCGoVuHDTIggE2xRBbgeEoFWQFARBq3ZCELQKgqJtbWtTEAitgqBNCZJFGGb%2B18Hxz20xr3HSmXEU%2Bt7ivnvf%2B757z3feOydSAZNh2QrW0IAm%2Bx2LVMS25e9h0UbFF5u1aI1qCvwMs9ZVRyStK6oq8D3M2xn7HdYSVRAYC3n1ocHRslDi4vCtbjprpspmcTH2BbtBwddQJjATZu0Wi36FvwFZqOk861atbUttvDku1SAHeUsKFb6MueQM8c%2BwUcOuJatVnxYDb8hX3XtFoWZoxZM3LFkpW0wlfmxY29HIvNnQEsV5fQql62IyVqO%2FknPegNtgFfG6wyZ80GtaQRrjcnpdN5eQhvTrNwaG5Tx3S0%2BSH%2BIga9SItA8mZTGs21MZTxKBnMfuJLOsLzLOupL4RJySNeadGyWBT645adAbMO6xnCHvwUNcMmg0cYy4Ubc30vp9NaG7FG1TYueQHve9sAjSBr10xj3QiLhZp1F96PRWJ854ZsIjF8CK07LeYQ4PfJRyCuzTGhEfkJVyAeeMyOKmTy5bkAODbhsw4ZyrGDekz2t3kSnWg5nwWbAXHHcsIm6NDu2J%2FrfMxrRJ7UGgffNvPBQd2TU9UyrzMZyIDu6K3qRja13o0Fw3PaWrrKiWbmbCDwt17d7lSFSlsYyG3zukNKNjS3fa0md%2BhUnzVRPXXqFDVmiZU2HOouV%2Fjn1QRntUV3PdxHRYRUpb5H%2FiD%2FUerIBA%2BEx5AAAAAElFTkSuQmCC" /> [[http://stickwiki.sourceforge.net|WoaS Official Website]]
+<img style="display: inline" id="img_logo" alt="WoaS Logo" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAQAAADZc7J%2FAAAAAXNSR0IArs4c6QAAAAJiS0dEAP%2BHj8y%2FAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH2gEcDzUY4t9JowAAABl0RVh0Q29tbWVudABDcmVhdGVkIHdpdGggR0lNUFeBDhcAAAI7SURBVEjHtdVPSFRRFAbw33ujljETWhaGo9YiCGoVuHDTIggE2xRBbgeEoFWQFARBq3ZCELQKgqJtbWtTEAitgqBNCZJFGGb%2B18Hxz20xr3HSmXEU%2Bt7ivnvf%2B757z3feOydSAZNh2QrW0IAm%2Bx2LVMS25e9h0UbFF5u1aI1qCvwMs9ZVRyStK6oq8D3M2xn7HdYSVRAYC3n1ocHRslDi4vCtbjprpspmcTH2BbtBwddQJjATZu0Wi36FvwFZqOk861atbUttvDku1SAHeUsKFb6MueQM8c%2BwUcOuJatVnxYDb8hX3XtFoWZoxZM3LFkpW0wlfmxY29HIvNnQEsV5fQql62IyVqO%2FknPegNtgFfG6wyZ80GtaQRrjcnpdN5eQhvTrNwaG5Tx3S0%2BSH%2BIga9SItA8mZTGs21MZTxKBnMfuJLOsLzLOupL4RJySNeadGyWBT645adAbMO6xnCHvwUNcMmg0cYy4Ubc30vp9NaG7FG1TYueQHve9sAjSBr10xj3QiLhZp1F96PRWJ854ZsIjF8CK07LeYQ4PfJRyCuzTGhEfkJVyAeeMyOKmTy5bkAODbhsw4ZyrGDekz2t3kSnWg5nwWbAXHHcsIm6NDu2J%2FrfMxrRJ7UGgffNvPBQd2TU9UyrzMZyIDu6K3qRja13o0Fw3PaWrrKiWbmbCDwt17d7lSFSlsYyG3zukNKNjS3fa0md%2BhUnzVRPXXqFDVmiZU2HOouV%2Fjn1QRntUV3PdxHRYRUpb5H%2FiD%2FUerIBA%2BEx5AAAAAElFTkSuQmCC" /> [[http://stickwiki.sourceforge.net|WoaS Official Website]]
 
 == Download
 Wiki on a Stick can always be downloaded through the official SF.net WoaS project file download service:
+
 <big>[[https://sourceforge.net/projects/stickwiki/files/|Download Wiki on a Stick]]</big>
 
 == Get support
@@ -120,28 +120,28 @@ Wiki on a Stick can always be downloaded through the official SF.net WoaS projec
 You can use the [[http://woas.iragan.com/|official WoaS forums]] and the [[http://sf.net/projects/stickwiki/|SF.net WoaS project facilities]].
 
 == Thanks to
-This project wouldn't be what it is without the help of other people. If you contributed to Wiki on a Stick and your name is not here (or if you do not want it to be listed here), please [[http://sourceforge.net/sendmessage.php?touser=799761|contact the mantainer]].
-* *Jeremy Ruston* - the creator of the wonderful [[http://www.tiddlywiki.com/|TiddlyWiki]], who served as inspiration for Wiki on a Stick
-* *Philip O'Donnel* - creator of the table syntax & parsing code
+This project wouldn't be what it is without the help of other people. If you contributed to Wiki on a Stick and your name is not here (or if you do not want it to be listed here), please [[http://sourceforge.net/sendmessage.php?touser=799761|contact the maintainer]].
+* *Jeremy Ruston* - the creator of the wonderful [[http://www.tiddlywiki.com/|TiddlyWiki]] that served as inspiration for Wiki on a Stick.
+* *Philip O'Donnel* - the creator of the table syntax and parsing code.
 * *Tim Lord*
 * *Knut Kohl*
 * *Rob Schmersel*
-* *Michiel van Everdingen* - [[http://home.versatel.nl/MAvanEverdingen/Code/|original javascript implementation]] of AES encryption
+* *Michiel van Everdingen* - [[http://home.versatel.nl/MAvanEverdingen/Code/|original JavaScript implementation]] of AES encryption
 * *Cyril Mazard* - search feature
-* *jimmac* - author of [[http://jimmac.musichall.cz/i.php?i=gorilla-stock|the icons set]] which we are currently using in WoaS
+* *jimmac* - author of [[http://jimmac.musichall.cz/i.php?i=gorilla-stock|the icon set]] that we are currently using in WoaS
 * *martinellison* - transclusion patch
-* *Nilton Castillo* - bugfixes and enhancements (original pluggable macro syntax)
-* *Little Girl* - documentation, overall testing, various improvements
-* [[http://weekendtesting.com/archives/833|Europe Weekend Testing]] - which provided a testing session for WoaS
-* [[http://testconsultant.blogspot.com/|Jeroen Rosink]] - for testing WoaS releases
+* *Nilton Castillo* - bug fixes and enhancements (original pluggable macro syntax)
+* *Little Girl* - assistance with documentation, overall testing, and various improvements
+* [[http://weekendtesting.com/archives/833|Europe Weekend Testing]] - provided a testing session for WoaS
+* [[http://testconsultant.blogspot.com/|Jeroen Rosink]] - testing of WoaS releases
 
 == Important links
-* [[http://sf.net/projects/stickwiki/|SourceForge project home page]] - useful for contributing
-* [[http://woas.iragan.com/|Official WoaS forums]] - our discussion forums where you can also participate to the decision processes
+* [[http://sf.net/projects/stickwiki/|SourceForge project home page]] - useful for getting the latest files and contributing to the project.
+* [[http://woas.iragan.com/|Official WoaS forums]] - our discussion forums where you can also participate in the decision processes
 * [[http://sourceforge.net/tracker/?group_id=155218&atid=794925|SF.net WoaS project bug tracker]] - if you find a bug, post it here
-* [[http://sourceforge.net/tracker/?group_id=155218&atid=794928|SF.net WoaS project feature tracker]] - if you have have suggestions for improvements
+* [[http://sourceforge.net/tracker/?group_id=155218&atid=794928|SF.net WoaS project feature tracker]] - if you have have a suggestion for improvement, post it here
 * [[http://www.iragan.com/woas_irc/|Official WoaS IRC Channel]] - #woas room at FreeNode servers
-* [[https://lists.sourceforge.net/lists/listinfo/stickwiki-devel|SF.net WoaS Development mailing list]] - for public discussion
+* [[https://lists.sourceforge.net/lists/listinfo/stickwiki-devel|SF.net WoaS Development mailing list]] - for discussion of WoaS development
 --DFQRCTsKlU
 woas.page.title: Main Page
 woas.page.attributes: 0
@@ -151,7 +151,6 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 A blank sheet is a catalyst for ideas
-
 --DFQRCTsKlU
 woas.page.title: Special::Search
 woas.page.attributes: 0
@@ -164,7 +163,6 @@ woas.page.boundary: DFQRCTsKlU
 
 <input id="string_to_search" type="text" onfocus="search_focus(true)" onblur="search_focus(false)" />&nbsp;<input class="woas_button" type="button" value="Search" onclick="ssearch_do_search()" />&nbsp;<input class="woas_button" type="button" value="Clear" onclick="woas.ui.clear_search()" />
 <div id="woas_search_results">&nbsp;</div>
-
 <script type="text/javascript" language="javascript">
 woas._search_load();
 </script>
@@ -200,11 +198,11 @@ WoaS has two different interfaces for encryption passwords, namely one for encry
 
 == Encryption
 
-An interface for page encryption shows also a colored meter for estimated password quality; encryption password is not stored in your saved files (true AES encryption is used).
+The page encryption interface shows a colored meter for estimated password quality; the encryption password is not stored in your saved files (true AES encryption is used).
 
 [[Include::WoaS::Template::Info|*If you forget the password there is no way to retrieve it or your data.*]]
 
-In order to encrypt a page you will have to click on the /lock/ icon in the navigation bar. The page locking interface will have two password boxes (the second for verification); the background color of the first box will hint about password estimated strength.
+Click on the /lock/ icon in the navigation bar to encrypt the page being viewed. The page locking interface has two password boxes (the second for verification); the background color of the first box provides a hint about estimated password strength.
 
 Once you've chosen and typed in your password, click the *Lock* button to encrypt the page.
 
@@ -212,20 +210,20 @@ When encrypting additional pages during a session, you'll be offered to use the 
 
 == Decryption
 
-Click the *Set password* icon in the navigation bar to set the decryption password used for next page.
+Click the *Set password* icon in the navigation bar to set the decryption password used for the next page.
 
 The password for decrypting a page (or pages) is cached so that you only need to enter it once per session. If you close or reload the wiki, you will need to reenter the password to work with the encrypted page(s). To disable the password cache, check the box for *Do not temporarily cache the AES key* in the wiki [[WoaS::Help::Special::Options|Options]]. If you've used more than one password for encrypting your pages, you'll need to enter the password to unlock each encrypted page.
 
 == Security level
 Security is never absolute. Data encrypted with these pages might be compromised in a variety of ways, including but not limited to the following:
 
-* WoaS uses random numbers generated by the browser itself, and they are not secure (user-generated entropy will be used in future versions)
-* User-generated passwords are weak by nature (PBKDF2 will be used in future)
-* You have not disabled the AES key cache, so when you will enter the password for the first time other users (if not you) will be able to see encrypted pages and could possibly get your key
+* User-generated passwords are weak by nature (PBKDF2 will be used in a future version)
+* You have not disabled the AES key cache, so when you enter the password for the first time other users (if not you) will be able to see encrypted pages and could possibly get your key
+* WoaS uses random numbers generated by the browser itself using local time; if someone was somehow able to gain access to the particular time used they could perhaps discover the key (user-generated entropy will be used in a future version)
 * Your Web browser and/or JavaScript interpreter may contain bugs or deliberate security violations which report activity on your computer back to some other Internet site
-* Some other applet running on another page in your browser, perhaps without you being aware of its existence, is spying on other windows
-* Some other "spyware" application running on your computer may have compromised your system's security and be snooping on your activity
-* The implementation of the encryption may contain a bug which makes its results insecure, Wiki on a Stick is open-source, you can judge for yourself whether the tool merits your confidence.
+* Some other applet running on another page in your browser, perhaps without you being aware of its existence, is spying on other windows.
+* Some other "spyware" application running on your computer may have compromised your system's security and be snooping on your activity.
+* The implementation of the encryption may contain a bug that makes its results insecure, Wiki on a Stick is open-source; you can judge for yourself whether the tool merits your confidence.
 * Your computer's security may have been compromised physically; when's the last time you checked that a bug that transmits your keystrokes and/or screen contents to that white van parked down the street wasn't lurking inside your computer cabinet?
 
 Apart from the above, your normal usage of encrypted pages can be considered secure.
@@ -238,53 +236,63 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Options
-
 == User Interface
-<label for="cb_dblclick_edit"><input type="checkbox" id="cb_dblclick_edit" onclick="woas.config.dblclick_edit = d$.checked('cb_dblclick_edit')" />Double click to edit pages/menu</label>
+<label for="cb_auto_links"><input type="checkbox" id="cb_auto_links" onclick="woas.config.auto_links = d$.checked('cb_auto_links')" />Automatically convert URLs to hyperlinks in displayed pages</label>
 <label for="cb_key_cache"><input type="checkbox" id="cb_key_cache" onclick="woas.config.key_cache = !d$.checked('cb_key_cache')" />Do not temporarily cache the AES key</label>
-<label for="cb_rem_history"><input type="checkbox" id="cb_rem_history" onclick="woas.config.nav_history = d$.checked('cb_rem_history')" />Remember current page and navigation history</label>
-<label for="cb_fixed_layout"><input type="checkbox" id="cb_fixed_layout" onclick="_set_layout(d$.checked('cb_fixed_layout'))" />Fixed menu area and navigation bar</label>
-<label for="cb_debug_mode"><input type="checkbox" id="cb_debug_mode" onclick="woas.config.debug_mode = d$.checked('cb_debug_mode')" />Enable debug mode and debug console (*requires WoaS reload*)</label>
+<label for="cb_dblclick_edit"><input type="checkbox" id="cb_dblclick_edit" onclick="woas.config.dblclick_edit = d$.checked('cb_dblclick_edit')" />Double click to edit pages/menu</label>
+<label for="cb_debug_mode"><input type="checkbox" id="cb_debug_mode" onclick="woas.config.debug_mode = d$.checked('cb_debug_mode');woas._set_debug(woas.config.debug_mode);d$('cb_debug_closed').disabled=!woas.config.debug_mode" />Enable debug mode</label>&nbsp;&nbsp;<label for="cb_debug_closed"><input type="checkbox" id="cb_debug_closed" onclick="woas.config.debug_closed = d$.checked('cb_debug_closed')" />Start with console closed</label>
+<label for="cb_fixed_menu"><input type="checkbox" id="cb_fixed_menu" onclick="var fl=d$.checked('cb_fixed_menu');woas.config.fixed_menu=fl;woas.ui.set_menu(fl)" />Fixed menu area</label>
+<label for="cb_fixed_header"><input type="checkbox" id="cb_fixed_header" onclick="var fl=d$.checked('cb_fixed_header');woas.config.fixed_header=fl;woas.ui.set_header(fl)" />Fixed navigation bar</label>
+<label for="cb_sort_tags"><input type="checkbox" id="cb_sort_tags" onclick="woas.config.sort_tags = d$.checked('cb_sort_tags')" />Sort tags in tag display</label>
 
-== Saving
-<label for="cb_allow_diff"><input type="checkbox" id="cb_allow_diff" onclick="woas.config.allow_diff = d$.checked('cb_allow_diff')" />Make merge/diff of WoaS XHTML/WSIF datasource easier</label>
-<label for="cb_save_on_quit"><input type="checkbox" id="cb_save_on_quit" onclick="woas.config.save_on_quit = d$.checked('cb_save_on_quit')" />Automatically save options (if changed) before quitting</label>
-<label for="cb_cumulative_save"><input type="checkbox" id="cb_cumulative_save" onclick="woas.config.cumulative_save = d$.checked('cb_cumulative_save')" />Enable cumulative save (will save to disk only when quitting)</label>
-<label for="cb_safe_mode"><input type="checkbox" id="cb_safe_mode" onclick="woas.config.safe_mode = d$.checked('cb_safe_mode')" />Enable safe mode (embedded &lt;script/&gt; blocks and WoaS::Plugins not executed, *requires WoaS reload*)</label>
-<label for="cb_store_mts"><input type="checkbox" id="cb_store_mts" onclick="woas.config.store_mts = d$.checked('cb_store_mts')" />Store and display last modified timestamp</label>
+Create a link to newly created pages in main menu: <select id="sel_menu_link" onChange="woas.config.menu_link=this.selectedIndex"><option>Always ask</option><option>Always</option> <option>Never</option></select>
+== Syntax
 <label for="cb_new_tables_syntax"><input type="checkbox" id="cb_new_tables_syntax" onclick="woas.config.new_tables_syntax = d$.checked('cb_new_tables_syntax')" />Enhanced tables syntax</label>
+== Saving
+<label for="cb_save_on_quit"><input type="checkbox" id="cb_save_on_quit" onclick="woas.config.save_on_quit = d$.checked('cb_save_on_quit')" />Automatically save options (if changed) before quitting</label>
+<label for="cb_safe_mode"><input type="checkbox" id="cb_safe_mode" onclick="woas.config.safe_mode = d$.checked('cb_safe_mode')" />Enable safe mode with embedded scripts and plugins not executed (/requires reload/)</label>
+<label for="cb_allow_diff"><input type="checkbox" id="cb_allow_diff" onclick="woas.config.allow_diff = d$.checked('cb_allow_diff')" />Make merge/diff of WoaS XHTML/WSIF data source easier</label>
+<label for="cb_cumulative_save"><input type="checkbox" id="cb_cumulative_save" onclick="woas.config.cumulative_save = d$.checked('cb_cumulative_save')" />Only save to disk when quitting (potentially risky)</label>
+<label for="cb_store_mts"><input type="checkbox" id="cb_store_mts" onclick="woas.config.store_mts = d$.checked('cb_store_mts')" />Store and display last modified timestamp</label>
+<label for="cb_rem_history"><input type="checkbox" id="cb_rem_history" onclick="woas.config.nav_history = d$.checked('cb_rem_history')" />Store current page and navigation history</label>
+== Data source
+Pages are stored internally if /WSIF data source/ is blank. *Existing internal pages will be lost on the next save if /WSIF data source/ is changed from blank to an external source, and the external source will be overwritten with the internal page content!*
 
-== Datasource
-<label for="cb_wsif_ds_lock"><input type="checkbox" id="cb_wsif_ds_lock" onclick="woas.config.wsif_ds_lock = d$.checked('cb_wsif_ds_lock')" />Lock WSIF datasource when editing</label>
-<label for="cb_wsif_ds_multi"><input type="checkbox" id="cb_wsif_ds_multi" onclick="woas.config.wsif_ds_multi = d$.checked('cb_wsif_ds_multi')" />Use multiple files in WSIF datasource</label>
-/Disabling above option will not remove WSIF files created for each page/
-WSIF data source: <input id="txt_wsif_ds" type="text" size="60" value="" onchange="woas.config.wsif_ds=this.value" />
-/Relative path to WSIF datasource to use (blank to disable); file will be overwritten./
-A file named as above WSIF data source and ending with ".lck" will also be created to manage locking.
+If the /Use multiple files in WSIF data source/ option is being used (creating one WSIF file for each page) then disabling the option will not remove existing WSIF files, though the WSIF data source file will be overwritten with the full page content.
 
-WSIF data author: <input id="txt_author" type="text" size="12" value="" onchange="woas.config.wsif_author=this.value" />
-/Used in exported WSIF content or in WSIF datasources./
+Path may be entered in Windows or UNIX style. *Any directories in the path must exist if you are not using a Mozilla browser.*
 
-<p><input class="woas_button" type="button" onclick="save_options()" value="Save options" /></p>
+<div style="text-align:left;display:inline-block">Relative path to WSIF data source, including file name:&nbsp; </div><input id="txt_wsif_ds" type="text" size="60" value="" onchange="woas.config.wsif_ds=this.value" style="margin-bottom: .25em" />
+<label for="cb_wsif_ds_multi"><input type="checkbox" id="cb_wsif_ds_multi" onclick="woas.config.wsif_ds_multi = d$.checked('cb_wsif_ds_multi')" />Use multiple files in WSIF data source</label>
+
+WSIF author: <input id="txt_author" type="text" size="30" value="" onchange="woas.config.wsif_author=this.value" />
+<div id="woas_read_only_div">
 == Permanent changes
-<p>&nbsp;&nbsp;<input class="woas_button" type="button" onclick="ro_woas()" value="Disallow edits" />
-/Caution: to re-enable editing you will have to manually edit WoaS/</p>
+<p>&nbsp;&nbsp;<input class="woas_button" type="button" onclick="ro_woas()" value="Prevent edits" />&nbsp;&nbsp;/Caution: to re-enable editing you will have to manually edit this WoaS file/</p>
+</div>
+<input class="woas_button_top" type="button" onclick="save_options()" value="Save options" />
 <script type="text/javascript">
-d$("cb_allow_diff").checked = bool2chk(woas.config.allow_diff);
-d$("cb_rem_history").checked = bool2chk(woas.config.nav_history);
-d$("cb_store_mts").checked = bool2chk(woas.config.store_mts);
-d$("cb_new_tables_syntax").checked = bool2chk(woas.config.new_tables_syntax);
-d$("cb_key_cache").checked = bool2chk(!woas.config.key_cache);
-d$("cb_dblclick_edit").checked = bool2chk(woas.config.dblclick_edit);
-d$("cb_debug_mode").checked = bool2chk(woas.config.debug_mode);
-d$("cb_save_on_quit").checked = bool2chk(woas.config.save_on_quit);
-d$("cb_cumulative_save").checked = bool2chk(woas.config.cumulative_save);
-d$("cb_safe_mode").checked = bool2chk(woas.config.safe_mode);
-d$("cb_wsif_ds_multi").checked = bool2chk(woas.config.wsif_ds_multi);
-d$("cb_wsif_ds_lock").checked = bool2chk(woas.config.wsif_ds_lock);
-d$("cb_fixed_layout").checked = (d$("woas_wiki_header").style.position == "fixed");
+if (!woas.config.permit_edits) { d$.hide("woas_read_only_div"); }
+d$("cb_allow_diff").checked = woas.bool2chk(woas.config.allow_diff);
+d$("cb_rem_history").checked = woas.bool2chk(woas.config.nav_history);
+d$("cb_store_mts").checked = woas.bool2chk(woas.config.store_mts);
+d$("cb_new_tables_syntax").checked = woas.bool2chk(woas.config.new_tables_syntax);
+d$("cb_auto_links").checked = woas.bool2chk(woas.config.auto_links);
+d$("cb_sort_tags").checked = woas.bool2chk(woas.config.sort_tags);
+d$("cb_key_cache").checked = woas.bool2chk(!woas.config.key_cache);
+d$("cb_dblclick_edit").checked = woas.bool2chk(woas.config.dblclick_edit);
+d$("cb_debug_mode").checked = woas.bool2chk(woas.config.debug_mode);
+d$("cb_debug_closed").checked = woas.bool2chk(woas.config.debug_closed);
+d$("cb_save_on_quit").checked = woas.bool2chk(woas.config.save_on_quit);
+d$("cb_cumulative_save").checked = woas.bool2chk(woas.config.cumulative_save);
+d$("cb_safe_mode").checked = woas.bool2chk(woas.config.safe_mode);
+d$("cb_wsif_ds_multi").checked = woas.bool2chk(woas.config.wsif_ds_multi);
+//d$("cb_wsif_ds_lock").checked = woas.bool2chk(woas.config.wsif_ds_lock);
+d$("cb_fixed_header").checked = woas.bool2chk(woas.config.fixed_header);
+d$("cb_fixed_menu").checked = woas.bool2chk(woas.config.fixed_menu);
+d$("sel_menu_link").selectedIndex = woas.config.menu_link;
 
-if (woas.browser.ie6) d$("cb_fixed_layout").disabled = true;
+if (woas.browser.ie6) d$("cb_fixed_header").disabled =  d$("cb_fixed_menu").disabled = true;
 
 d$("txt_author").value = woas.config.wsif_author;
 d$("txt_wsif_ds").value = woas.config.wsif_ds;
@@ -302,7 +310,82 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 = Deprecated syntax
 
-A summary of WoaS deprecated syntax; you are invited to _no more_ use deprecated syntax which is still supported because they will be declared /unsupported/ in some future release of WoaS.<style type="text/css">
+A summary of WoaS deprecated syntax; you should not use deprecated syntax because it will be declared /unsupported/ in a future release of WoaS. The red examples demonstrate deprecated syntax and the green examples demonstrate syntax currently accepted by the wiki.
+== Headings
+
+Headings using exclamation marks are deprecated:<span class="bad_syntax">{{{
+! Heading level 1
+!! Heading level 2
+!!! Heading level 3
+!!!! Heading level 4
+!!!!! Heading level 5
+!!!!!! Heading level 6
+}}}</span>
+Headings using equal signs are accepted:<span class="good_syntax">{{{
+= Heading level 1
+== Heading level 2
+=== Heading level 3
+==== Heading level 4
+===== Heading level 5
+====== Heading level 6
+}}}</span>
+== Inline scripts
+
+HTML script tags with no type attribute are not supported:<span class="bad_syntax">{{{
+<span class="bad_syntax">
+}}}</span>HTML script tags with the *text/javascript* type attribute are accepted:<span class="good_syntax">{{{
+<script type="text/javascript">...</script>
+}}}</span>This is not enforced by WoaS wiki parser but is instead a correct XHTML practice.
+== Lists
+Unordered lists using plus signs are not supported:<span class="bad_syntax">{{{
++ unordered list item
++ unordered list item
++ unordered list item
+}}}</span>
+Unordered lists using asterisks are accepted:<span class="good_syntax">{{{
+* unordered list item
+* unordered list item
+* unordered list item
+}}}</span>
+== Pre tags
+
+HTML pre tags surrounding raw or preformatted text are not supported:<span class="bad_syntax">{{{
+<pre>raw or preformatted text</pre>
+}}}</span>
+Nowiki brackets surrounding raw or preformatted text are accepted:<span class="good_syntax"><pre style="background-color: #F5F5F5; border: 0.063em solid grey; font-family: monospace; padding-right: 0.27em; padding-left: 0.4em;">{<!-- -->{{raw or preformatted text}}<!-- -->}
+
+{<!-- -->{{
+raw or preformatted text
+}}<!-- -->}</pre></span>
+== Rulers
+
+Horizontal rules using 3 hyphens are deprecated:<span class="bad_syntax">{{{
+---
+}}}</span>
+Horizontal rules using 4 or more hyphens are accepted:<span class="good_syntax">{{{
+----
+}}}</span>
+== Tags
+=== Single tags
+
+Tags in the [[Tagged::]] and [[Tags::]] [[WoaS::Help::Namespaces|namespace]] are deprecated:<span class="bad_syntax">{{{
+[[Tagged::some tag]]
+[[Tags::some tag]]
+}}}</span>
+Tags in the [[Tag::]] namespace are accepted:<span class="good_syntax">{{{
+[[Tag::some tag]]
+}}}</span>
+=== Multiple tags
+
+Tags separated by pipes in the [[Tag::]], [[Tagged::]], or [[Tags::]] namespace are deprecated:<span class="bad_syntax">{{{
+[[Tag::some tag|other tag|another tag]]
+[[Tagged::some tag|other tag|another tag]]
+[[Tags::some tag|other tag|another tag]]
+}}}</span>
+Tags separated by commas in the [[Tag::]] namespace are accepted:<span class="good_syntax">{{{
+[[Tag::some tag, other tag, another tag]]
+}}}</span>
+<style type="text/css">
 .bad_syntax {
   color: red;
   font-weight: bold;
@@ -312,47 +395,6 @@ A summary of WoaS deprecated syntax; you are invited to _no more_ use deprecated
   font-weight: bold;
 }
 </style>
-== Lists
-
-Lists with '+ sign are *unsupported*.
-<span class="bad_syntax">{{{
-+ unordered lists with + sign
-+ unordered lists with + sign
-}}}</span>
-<span class="good_syntax">{{{
-* unordered lists with an asterisk
-* unordered lists with an asterisk
-}}}</span>
-== Headers
-<span class="bad_syntax">{{{! headers using the exclamation mark}}}</span>
-
-<span class="good_syntax">{{{= header which uses the equal sign}}}</span>
-== Pre tags
-{{{<pre />}}} acting as nowiki blocks are *unsupported*. Now {{{<pre />}}} tags have no special meaning and are treated as any other XHTML tag.
-
-<span class="bad_syntax">Pre tags acting as &lt;pre&gt;nowiki&lt;pre &#047;&gt; blocks.</span>
-
-<span class="good_syntax">You should use {<!-- -->{{nowiki}}<!-- -->} blocks instead.</span>
-== Rulers
-<span class="bad_syntax">{{{---
-horizontal rulers using only 3 hyphens}}}</span>
-
-<span class="good_syntax">{{{----
-You are invited to use at least 4 hyphens
-}}}
-== Tags
-<span class="bad_syntax">{{{[[Tag::some tag|other tag|another tag]]}}}</span>
-This syntax does not support transclusion of Tagged:: namespace; still supported but deprecated.
-
-<span class="good_syntax">{{{[[Tag::some tag, some other tag]] and [[Tag::some tag]]}}}</span>
-
-== Inline scripts
-<span class="bad_syntax">{{{<script>...</script>}}}</span>
-
-<span class="good_syntax">{{{<script type="text/javascript">...</script>}}}</span>
-
-This is not enforced by WoaS wiki parser but is instead a correct XHTML practice.
-
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Special::Options
 woas.page.attributes: 0
@@ -361,31 +403,69 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Options
+=Special::Options
+/Options are stored within the WoaS file if the/ Save options /button is clicked. Currently the options will also be saved whenever a page is edited.
+==User Interface
+===Automatically convert URLs to hyperlinks in displayed pages
+converts URLs to [[WoaS::Help::Links|external links]] when the page content is displayed.
+===Do not temporarily cache the AES key
+Clears the [[WoaS::Help::Security|AES key]] immediately after encrypting or decrypting a page to prevent possible unauthorized access. Using this option will require the key to be entered each time you want to read an encrypted page.
+===Double-click to edit pages/menu
+Opens the editor when the main text area or menu are double-clicked.
+===Enable debug mode
+Enables display of the debug console at the bottom of the main text area and allows the wiki to log its history. This can be useful if you asking are for help or reporting a problem.
+===Start with console closed
+Ensures that the debug console will start closed. This option is disabled if /Enable debug mode/ is not selected.
+===Fixed menu
+Fixes the menu in place while allowing the page to scroll. This option is disabled in IE6.
+===Fixed navigation bar
+Fixes the navigation bar in place while allowing the page to scroll. This option is disabled in IE6.
+===Sort tags in tag display
+Sorts the tags in the tag display alphabetically.
+===Create a link to newly created pages in main menu
+WoaS is able to put a link to newly created pages in the main menu. Whether or not it does so depends on the setting of this option. The link will not be created if the new page is cancelled.
+* /Always Ask/ prompts for a decision each time a new page is created
+* /Always/ creates a link without asking
+* /Never/ disables this function
+== Syntax
+===Enhanced tables syntax
+Tables will use the enhanced [[WoaS::Help::Tables|table syntax]].
+== Saving
+===Automatically save options before quitting (if changed)
+Saves changes to options automatically when closing the wiki. This will not happen if you are just reloading the file.
+===Enable safe mode with embedded scripts and plugins not executed (/requires reload/)
+Prevents the wiki from executing [[WoaS::Help::JavaScript|embedded scripts]] and [[WoaS::Help::Plugins|plugins]].
+===Make merge/diff of WoaS XHTML/WSIF data source easier
+Adds a [[WoaS::Help::Join lines of text|backslash]] and line-end character (\\n) to the end of every line of page text. This breaks the text into multiple lines, instead of it being one page-length line, making it easier for source code revision tools (like SVN or git) and merge tools to mark and show changes efficiently.
+===Only save to disk when quitting (potentially risky)
+Makes the wiki save to disk only when quitting. This is potentially risky because a browser crash for any reason will cause your edits to be lost. This setting is therefore not recommended.
+===Store and display last modified time-stamp
+Allows the wiki to store the last time each page was changed and display it as a time-stamp beneath the main text area.
+===Store current page and navigation history
+Remembers the most recent back history and automatically opens the most recently saved page whenever you load the wiki into a browser.
+== Data source
+WoaS is most often used as a single-file wiki, with all of it's content inside one self-modifying XHTML file, but it can also be used with external content files, called [[WoaS::Help::WSIF|WSIF]] files. It can use a single WSIF file containing all of the wiki's page content, or a single WSIF index file that links to the WSIF files of individual pages. Everything works the same whichever way it is used.
 
-=== Use consistent newlines in saved data
-Forces pages to be saved using consistent newlines splitting. This is particularly useful if you use a versioning system like Subversion (SVN), git or CVS.
+If you just want to use a WSIF file for backing up or sharing your data with others you should use [[WoaS::Help::Special::ExportWSIF|Special::ExportWSIF]] instead as the file is then not altered.
+===Relative path to WSIF data source, including filename
+This is the relative path and name of the file the wiki should use to save and retrieve data. A relative path is one that starts in the same directory the WoaS file is in. The file name can have any extension or none at all, but the /wsif/ extension will let you know that it's a WoaS data source file. The path may be entered in Windows or UNIX format.
 
-=== Double click to edit pages/menu
-Allows to switch to edit mode when double-clicking the page content or menu area.
+Providing a filename causes the wiki to create a WSIF file by that name and use that file to store and retrieve all data. If just a filename is entered the file will be created inside the directory the WoaS file is in. The path can additionally specify a directory path relative to the location of the wiki. WoaS will create the specified subdirectory only if you are using a Gecko-based browser like Firefox. If you are using a different browser you must create the subdirectory yourself before entering the file name.
 
-=== Automatically save options (if changed) before quitting
-Allows option changes to be automatically saved without having to click the *Save options* button at the bottom of the page.
+[[Include::WoaS::Template::Info|If you enter the name of an existing file that file will be overwritten along with any associated files if /multiple files/ mode is selected.]]
 
-=== Do not temporarily cache the AES key
-Clears AES key right after decryption, useful if you leave WoaS open to possible unauthorized access; will require to re-enter the decryption key each time you want to read a page.
+The data source name will be used as the index page name when using multiple files as a data source.
 
-=== Fixed menu area and navigation bar
-Fixes the menu and navigation bar in place, while allowing the page to scroll.
+The box is blank by default. Leaving the box blank, or deleting an existing filename from the box, causes the wiki to save all the currently loaded data to itself and retrieve all data from itself. Deleting the filename from the box does not delete any files.
+===Use multiple files in WSIF data source
+Causes the wiki to create individual WSIF files for each page. The pages will be automatically named by page number in their order of creation. An index page with the WSIF data source filename will be created containing a list of the numbered file names and their corresponding wiki page names. WoaS will use this file to load data and save edits to the correct file.
+===WSIF Data author
+This is the name of the author as displayed in exported WSIF files. Replace the default name with your own to be credited as the author of the file(s). Deleting the contents of the box prevents the author line from being added to WSIF files.
+==Permanent changes
+===Prevent edits
+Clicking this button puts the wiki into read-only mode. If the edit button is clicked a warning is given that changes will not be saved, but editing is allowed for sandbox (testing) purposes. This behaviour is the same as when a WoaS file is [[WoaS::Help::Run wiki on a web server|accessed online]]. To re-enable editing, the wiki must be [[WoaS::Help::Wiki is read-only|manually edited]].
 
-=== Return to last saved page when quitting
-Automatically opens the last saved page.
-
-=== Enable cumulative save
-Will save to disk only when quitting
-
-=== Disallow edits (button)
-Puts the wiki into /server mode/; users will be told that it is not possible to save their changes, but editing will be allowed for sandbox (testing) purposes.
+If WoaS is already in read-only mode the /Prevent Edits/ button is not displayed.
 
 --DFQRCTsKlU
 woas.page.title: Special::Embed
@@ -473,48 +553,38 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
+<style>
+#woas_ep_xhtml, #woas_ep_img, #woas_ep_ext, #woas_ep_author {
+	margin: .25em 0em .75em
+}
+#woas_wiki_area {
+	text-align: left
+}
+#woas_wiki_area h2 {
+	margin-bottom: .4em
+}
+</style>
 = Export content into XHTML files
-
 ==Paths
-Specify the destination directory which will contain all the exported XHTML files.
+*All directories must exist if using a non-Mozilla browser.*
 
-Note: *Directory must exist if using a non-Mozilla browser.*
+Directory for XHTML files:&nbsp; <input id="woas_ep_xhtml" type="text" size="80" />
+Directory for embedded pictures:&nbsp; <input id="woas_ep_img" type="text" size="80" />
+Extension for generated XHTML files:&nbsp; <input id="woas_ep_ext" type="text" size="8" />
+<label for="woas_cb_index_main"><input type="checkbox" id="woas_cb_index_main" checked="checked">Name the main page /index/</label>
+<label for="woas_cb_unix_norm"><input type="checkbox" id="woas_cb_unix_norm" checked="checked">Use UNIX-style normalization to generated filenames (all lowercase letters; non-alphanumeric characters replaced with underscores)</label>
+==Custom page scripts
+<label for="woas_cb_js_ign"><input type="radio" id="woas_cb_js_ign" name="woas_cb_js" checked="checked">Do not export JavaScript</label>
+<label for="woas_cb_js_exp"><input type="radio" id="woas_cb_js_exp" name="woas_cb_js">Export JavaScript as-is</label>
+<label for="woas_cb_js_dyn"><input type="radio" id="woas_cb_js_dyn" name="woas_cb_js">Run before exporting, but do not export the JavaScript</label>
+<!-- remove until available <label for="woas_cb_js_head"><input type="radio" id="woas_cb_js_head" name="woas_cb_js" disabled="disabled">Export javascript into &lt;head /&gt; (you might need to include the framework code)</label>
 
-<input id="woas_ep_xhtml" type="text" size="80" />
-
-Specify the destination directory which will contain all the exported embedded pictures.
-
-Note: *Directory must exist if using a non-Mozilla browser.*
-
-<input id="woas_ep_img" type="text" size="80" />
-
-==File naming
-
-Default extension for generated XHTML files
-
-<input id="woas_ep_ext" type="text" size="8" />
-
-<label for="woas_cb_index_main"><input type="checkbox" id="woas_cb_index_main" checked="checked">The main page will be named index.htm</label>
-<label for="woas_cb_unix_norm"><input type="checkbox" id="woas_cb_unix_norm" checked="checked">Apply UNIX-style normalization (lowercase and spaces replaced by underscores) to generated filenames</label>
-
-==Custom JavaScripts
-<label for="woas_cb_js_ign"><input type="radio" id="woas_cb_js_ign" name="woas_cb_js" checked="checked">Do not export</label>
-<label for="woas_cb_js_dyn"><input type="radio" id="woas_cb_js_dyn" name="woas_cb_js">Run before exporting but do not export the javascript</label>
-<label for="woas_cb_js_exp"><input type="radio" id="woas_cb_js_exp" name="woas_cb_js">Export javascript as-is</label>
-<label for="woas_cb_js_head"><input type="radio" id="woas_cb_js_head" name="woas_cb_js" disabled="disabled">Export javascript into &lt;head /&gt; (you might need to include the framework code)</label>
-
-<label for="woas_cb_js_fw"><input type="checkbox" id="woas_cb_js_fw" disabled="disabled">Export the javascript framework too</label>
-
+<label for="woas_cb_js_fw"><input type="checkbox" id="woas_cb_js_fw" disabled="disabled">Export the javascript framework too</label> -->
 ==Other options
-META author (optional)
-
-<input id="woas_ep_author" type="text" size="12" value="" />
-
+META author (optional):&nbsp; <input id="woas_ep_author" type="text" size="20" value="" />
 <label for="woas_cb_sep_css"><input type="checkbox" id="woas_cb_sep_css" checked="checked">Export CSS into shared file</label>
 <label for="woas_cb_export_menu"><input type="checkbox" id="woas_cb_export_menu" checked="checked">Export menu and submenus</label>
-
-<input class="woas_button" type="button" value="Export XHTML" onclick="woas.export_wiki()" />
-
+<input class="woas_button_top" type="button" value="Export XHTML" onclick="woas.export_wiki()" />
 <script type="text/javascript">
 var path = woas.ROOT_DIRECTORY + "export" + woas.DIRECTORY_SEPARATOR;
 d$('woas_ep_xhtml').value = path;
@@ -557,35 +627,27 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Export into WSIF format
-
-See also [[WoaS::Help::WSIF]].
-
+= Export to WSIF format
+/See Help for information on WSIF files./
 == Destination path
-Destination directory that will contain the exported WSIF file(s).
+*Directory path must exist if using a non-Mozilla browser*.
 
-Note: *Directory must exist if using a non-Mozilla browser.*
+Path and filename for the exported WSIF file(s). Filename is the name of the page index file if /'Export as multiple WSIF files'/ is selected.
 
-<input id="woas_ep_wsif" type="text" size="80" />
-
-== File generation
-
-<label for="woas_cb_single_wsif"><input type="checkbox" id="woas_cb_single_wsif" checked="checked">Export all pages into a single WSIF file</label>
-<label for="woas_cb_inline_wsif"><input type="checkbox" id="woas_cb_inline_wsif">Do not export embedded files as external file blobs</label>
-
+<input id="woas_ep_wsif" type="text" size="60" />&nbsp;&nbsp;<input id="woas_ep_fname" type="text" size="20" />
+== File generation Options
+<input type="checkbox" id="woas_cb_multi_wsif" class="woas_cb" /><label for="woas_cb_single_wsif" class="woas_cb">Export as multiple WSIF files (instead of saving all pages to a single wsif file)</label>\
+<input type="checkbox" id="woas_cb_all_wsif" class="woas_cb"><label for="woas_cb_all_wsif" />Include ALL pages from this WoaS (instead of only user created pages)</label>
 == Other options
-Author: <input id="woas_ep_author" type="text" size="12" value="" />
-
-<input class="woas_button" type="button" value="Export WSIF" onclick="woas.export_wiki_wsif()" />
-
+Author: <input id="woas_ep_author" type="text" size="30" value="Anonymous" />
+<input class="woas_button_top" type="button" value="Export WSIF" onclick="woas.export_wiki_wsif()" />
 <script type="text/javascript">
 var path = woas.ROOT_DIRECTORY + "wsif" + woas.DIRECTORY_SEPARATOR;
 d$('woas_ep_wsif').value = path;
-
-d$('woas_ep_author').onfocus = $('woas_ep_wsif').onfocus = woas.ui.focus_textbox;
-d$('woas_ep_author').onblur = $('woas_ep_wsif').onblur = woas.ui.blur_textbox;
+d$('woas_ep_fname').value = woas.wsif.DEFAULT_INDEX;
+d$('woas_ep_author').onfocus = d$('woas_ep_wsif').onfocus = d$('woas_ep_fname').onfocus = woas.ui.focus_textbox;
+d$('woas_ep_author').onblur = d$('woas_ep_wsif').onblur = d$('woas_ep_fname').onfocus = woas.ui.blur_textbox;
 d$('woas_ep_author').value = woas.config.wsif_author;
-
 </script>
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::WSIF
@@ -811,7 +873,6 @@ macro.text = "<strong>"+name+"</strong> says: <span style=\"color: "+color+"\">"
 return true;
 });
 }}}
-
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Index
 woas.page.attributes: 0
@@ -825,7 +886,7 @@ The first time you save a change to Wiki on a Stick, your browser will ask for p
 
 You will find the *Help* icon in the navigation bar on every page in this wiki. When you click on it, it will either open this page or a specific help page that explains how to work with the page you currently have open.
 
-When browsing the pages in this Help pop-up, you will find a *Back* button in the upper right corner that takes you back to this page or a *Close* button in the same place that closes the pop-up.
+When browsing the pages in this Help pop-up, you will find an *Index* button in the upper left corner that takes you back to this page, a *Back* button in the upper right corner that takes you back one page if you've visited more than one page, or a *Close* button in the upper right corner that closes the pop-up.
 == Contents:
 * *Features*
 ** [[WoaS::Help::Plugins]]
@@ -843,7 +904,7 @@ When browsing the pages in this Help pop-up, you will find a *Back* button in th
 ** [[WoaS::Help::Requirements]]
 * *Online use*
 ** [[WoaS::Help::Publish wiki online]]
-** [[WoaS::Help::Run wiki on a webserver]]
+** [[WoaS::Help::Run wiki on a web server]]
 * *Page management*
 ** [[WoaS::Help::Create a page]]
 ** [[WoaS::Help::Delete a page]]
@@ -853,12 +914,26 @@ When browsing the pages in this Help pop-up, you will find a *Back* button in th
 ** [[WoaS::Help::Page scrolling]]
 ** [[WoaS::Help::Rename a page]]
 * *Specific Help pages*
+** [[WoaS::Help::CSS::Boot]]
+** [[WoaS::Help::CSS::Core]]
+** [[WoaS::Help::CSS::Custom]]
+** [[WoaS::Help::Info]]
+** [[WoaS::Help::Locked]]
 ** [[WoaS::Help::Special::Advanced]]
+** [[WoaS::Help::Special::All Pages]]
 ** [[WoaS::Help::Special::Dead Pages]]
 ** [[WoaS::Help::Special::Erase Wiki]]
+** [[WoaS::Help::Special::Export]]
 ** [[WoaS::Help::Special::ExportWSIF]]
+** [[WoaS::Help::Special::Import]]
 ** [[WoaS::Help::Special::ImportWSIF]]
 ** [[WoaS::Help::Special::Options]]
+** [[WoaS::Help::Special::Orphaned Pages]]
+** [[WoaS::Help::Special::Recentchanges]]
+** [[WoaS::Help::Special::Search]]
+** [[WoaS::Help::Tagged]]
+** [[WoaS::Help::Unlocked]]
+** [[WoaS::Help::Untagged]]
 [[Include::WoaS::Help::Syntax]]
 * *Troubleshooting*
 ** [[WoaS::Help::Wiki is read-only]]
@@ -872,7 +947,7 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 * *Syntax*
 ** [[WoaS::Help::Deprecated syntax]]
-** [[WoaS::Help::Headers]]
+** [[WoaS::Help::Headings]]
 ** [[WoaS::Help::Images]]
 ** [[WoaS::Help::Include text file]]
 ** [[WoaS::Help::Include web page]]
@@ -1132,10 +1207,10 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 = Create a page
 # Access [[Special::New Page]]
-# Type the page title. Maximum length is 256 characters, although you might want to use a shorter title to not interfere with the navigation bar. Page titles are case sensitive, all characters are allowed except angled brackets, square brackets, curly braces and pipe characters ("&lt;&gt;[]{}|")
+# Type the page title. Maximum length is 256 characters, although you might want to use a shorter title to not interfere with the navigation bar. Page titles are case sensitive, all characters are allowed except angled brackets, square brackets, curly braces, and pipe, hash, or double-quote characters ({{{<>[]{}|#"}}})
 # Press the *Enter* key or click the *OK* button
 # When asked if you'd like to add a link into the main menu, accept by pressing the *Enter* key or clicking the *OK* button, or refuse by pressing the Escape key or clicking the *Cancel* button
-# Edit the contents of the main text area by typing normally. You can freely change the default text (a level one header with the page name)
+# Edit the contents of the main text area by typing normally. You can freely change the default text (a level one heading with the page name)
 # Use the editor's buttons to insert wiki syntax to format the text or type the wiki syntax manually (plain text does not need any wiki syntax)
 # Save your changes
 
@@ -1200,8 +1275,8 @@ Buttons to ease printing [[WoaS::Help::Syntax|wiki syntax]].
 | *Button* || *What it does*
 | Wiki URL || Add a wiki link to a page.
 | URL || Add an external link to a page.
-| {{{=}}} || Insert wiki syntax for a level one header. Use this at the beginning of any line.
-| {{{==}}} || Insert wiki syntax for a level two header. Use this at the beginning of any line.
+| {{{=}}} || Insert wiki syntax for a level one heading. Use this at the beginning of any line.
+| {{{==}}} || Insert wiki syntax for a level two heading. Use this at the beginning of any line.
 | Img || Include a wiki image in the page.
 | *B* || Wrap selected text with bold syntax.
 | /i/ || Wrap italic text with bold syntax.
@@ -1293,45 +1368,45 @@ You can use various styles for your menu. A detailed explanation of list styles 
 See the *Namespace sub-menu* section of the [[WoaS::Help::Namespaces]] page.
 
 --DFQRCTsKlU
-woas.page.title: WoaS::Help::Headers
+woas.page.title: WoaS::Help::Headings
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Headers
-Below are examples on how to use wiki markup to create headers in this wiki. There are six levels of supported headers.
+= Headings
+Below are examples on how to use wiki markup to create headings in this wiki. There are six levels of supported headings.
 
 {{{
-= Header level 1
+= Heading level 1
 }}}
-= Header level 1 =
+= Heading level 1 =
 
 {{{
-== Header level 2
+== Heading level 2
 }}}
-== Header level 2
+== Heading level 2
 
 {{{
-== Header level 3
+== Heading level 3
 }}}
-== Header level 3
+== Heading level 3
 
 {{{
-== Header level 4
+== Heading level 4
 }}}
-== Header level 4
+== Heading level 4
 
 {{{
-== Header level 5
+== Heading level 5
 }}}
-== Header level 5
+== Heading level 5
 
 {{{
-== Header level 6
+== Heading level 6
 }}}
-== Header level 6
+== Heading level 6
 
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Rulers
@@ -1376,73 +1451,6 @@ Rulers (horizontal rules or lines) use the full width of the page by default. Th
 <center><div style="width:50%";>
 ----
 </div></center>
-
---DFQRCTsKlU
-woas.page.title: WoaS::Help::Include text file
-woas.page.attributes: 0
-woas.page.encoding: 8bit/plain
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-= Include text file
-<div class="woas_helptext">Use this code in a page, replacing PATH with the full path to the file:</div><br>{{{
-<iframe height="400" width="100%" src="file:///PATH"></iframe>
-}}}<br><div class="woas_helptext">To include a text file in the page inside an iFrame.</div>
-* *Linux example:*<br><br>{{{
-<iframe height="400" width="100%" src="file:///home/username/Desktop/file.txt"></iframe>
-}}}<br>
-* *Windows example:*<br><br>{{{
-<iframe height="400" width="100%" src="file:///C:/Users/Username/Documents/file.txt"></iframe>
-}}}
-
---DFQRCTsKlU
-woas.page.title: WoaS::Help::Include web page
-woas.page.attributes: 0
-woas.page.encoding: 8bit/plain
-woas.page.disposition: inline
-woas.page.boundary: DFQRCTsKlU
-
---DFQRCTsKlU
-= Include web page
-Web pages can be included in a page as embedded objects or in iFrames.
-
-[[Include::WoaS::Template::Info|Some pages may not render correctly depending on how they're coded. Embedding more than one web page in a wiki page will cause the final embedded web page to steal the focus when the page is loaded, so it's recommended to have only one per page.]]
-== Embed a web page as an object
-This method makes the embedded web page become a seamless part of the page.
-
-* *Embed a local HTML file as an object:*<br><br>
-** <div class="woas_helptext">Use this code in a page, replacing PATH with the full path to the HTML file you wish to include, and changing the width and height to suit your taste:</div><br>{{{
-<object data="PATH" style="width:100%; height:630px;">File not found.</object>
-}}}<br><div class="woas_helptext">To embed a local HTML file in a page.</div><br>
-*** For example, if you want to embed the {{{/Work/MyProject.html}}} file as an object, you'd use this command:<br><br>{{{
-<object data="/Work/MyProject.html" style="width:100%; height:630px;">File not found.</object>
-}}}<br><br>
-* *Embed a remote URL as an object:*<br><br>
-** <div class="woas_helptext">Use this code in a page, replacing URL with the URL of the page you wish to include, and changing the width and height to suit your taste:</div><br>{{{
-<object data="URL" style="width:100%; height:630px;">URL not found.</object><
-}}}<br><div class="woas_helptext">To embed an external URL in a page.</div><br>
-*** For example, if you want to embed the WoaS official website at {{{http://stickwiki.sf.net/}}} as an object, you'd use this command:<br><br>{{{
-<object data="http://stickwiki.sf.net/" style="width:100%; height:630px;">URL not found.</object>
-}}}
-
-== Embed a web page in an iFrame
-This method creates a frame around the embedded web page. The code shown below is for a plain frame, but you can style the iFrame further by adding a border, changing the border style to dotted, dashed, solid, double, groove, ridge, inset, or outset, changing the border width to whatever thickness you like, and the border color to whatever color you like.
-
-* *Embed a local HTML file in an iFrame:*<br><br>
-** <div class="woas_helptext">Use this code in a page, replacing PATH with the full path to HTML file you wish to include, and changing the width and height to suit your taste:</div><br>{{{
-<iframe height="400" width="100%" height:630px; src="PATH"></iframe>
-}}}<br><div class="woas_helptext">To include a local HTML file in a wiki page.</div><br>
-*** For example, if you want to embed the {{{/Work/MyProject.html}}} file in an iFrame, you'd use this command:<br><br>{{{
-<iframe height="400" width="100%" height:630px; src="/Work/MyProject.html"></iframe>
-}}}<br><br>
-* *Embed a remote URL in an iFrame:*<br><br>
-** <div class="woas_helptext">Use this code in a page, replacing URL with the URL of the page you wish to include, and changing the width and height to suit your taste:</div><br>{{{
-<iframe height="400" width="100%" height:630px; src="URL"></iframe>
-}}}<br><div class="woas_helptext">To include a web page in a wiki page.</div><br>
-*** For example, if you want to embed the WoaS official website at {{{http://stickwiki.sf.net/}}} in an iFrame, you'd use this command:<br><br>{{{
-<iframe height="400" width="100%" height:630px; src="http://stickwiki.sf.net/"></iframe>
-}}}
 
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Include wiki page
@@ -1567,14 +1575,22 @@ For example, let's say you have these pages:
 
 *Recipes::* is a namespace. *Desserts::* is a sub-namespace of the *Recipes::* namespace. *Cakes::* is a sub-namespace of the *Desserts::* sub-namespace.
 
-If you open the {{{[[Recipes::Desserts::Cakes]]}}} page, the title contains links to *Recipes* and *Desserts*. The *Recipes* link opens a page listing all pages in the *Recipes::* namespace, and the *Desserts* link opens a page listing all pages in the *Desserts::* sub-namespace.
+If you open the {{{[[Recipes::Desserts::Cakes]]}}} page, the title in the navigation bar contains links to *Recipes* and *Desserts*. The *Recipes* link opens a page listing all pages in the *Recipes::* namespace, and the *Desserts* link opens a page listing all pages in the *Desserts::* sub-namespace.
 
 === Namespace sub-menu
-All pages in any namespace can be given a custom sub-menu by creating a *::Menu* page inside the namespace. A sub-menu will be temporarily added to the main menu when any pages belonging to that page's namespace are opened. You can determine what goes into the sub-menu by editing the page with *::Menu* in its name. The sub-menu will vanish as soon as you navigate away from its namespace.
+All pages in any namespace can be given a custom sub-menu by creating a *::Menu* page inside the namespace. The sub-menu will be displayed beneath the main menu while any pages belonging to that page's namespace are open. You can determine what goes into the sub-menu by editing the page with *::Menu* in its name. The sub-menu will vanish as soon as you navigate away from its namespace.
 
 For example, if you create the {{{[[Recipes::Menu]]}}} page with *My favorite recipes!* as its content, then whenever you open a page in the {{{Recipes::}}} namespace, a sub-menu will appear with *My favorite recipes!* in it.
 
-<div style="background-color: #FFFFAA; border: 0.1em solid; padding: 0.2em;"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAMAAADXqc3KAAAAAXNSR0IArs4c6QAAArtQTFRF8ox%2FAAAAAAABAQEBAQECAgICAwMDBAQFBQUABgYGCQgJCgoLDAsMDQwPDQ0NDw4PDw8HEhETExMUFRQUGRkNGhsUGxscHx8eISATIR8lJCQVJiUsJyUqKCcuLCwtLiw0Ly4vMzE4NzYoQT9FQz9ERkZGSkdTS0hMTEhNUk5bU1JVY15kYWBkZWFubGh5bmt1cGt6c212cm5%2BcXFwfHaDfXxehoKQjIiUkYyfkoyllZKal5CpmJGqmJGrmZKtmpaim5WunJaunZewn5mxoJqyopquoZuxpJylopyyopy1pJ22pJ24pJ61pJ%2B1paC1pqC1qaC0pqG1qKG7qqKuqaKxqKK4paWkq6O7qaS3q6p%2BraW4rae6rKmvrqm1rqm6r6nDsKu1sKu9sKu%2Bs6yxs7GDsay9sq29s667tK7FuK%2FBtbDAtbDBt7HEubS%2BubTCurTKurXFvLqjvLfGvLjEv72LvL2VvbjLvr%2BPwL%2BKvbvBw7nHv7vDwMGHw7rHwb3Fwr3Lw8SQxb%2FRxsDRxsHMxcLGxsPLyMPQx8XKyMXIysuOycbIzMfVzcrMz8zU0NGi0czZ0M%2FL0c%2FL0c%2FN0s7X08%2FZ1NPN1ten1tTR1tXP19XS2tfc3Nyt3N2s3dni397W4N%2FX4N%2FZ4t7m4eDY4t%2Fm4eHY4uHb4uDl4uLX4%2BLa5OLo5OTb5ubd6OjJ6Ofh6erE6efr6efs6ujs6%2Bju6%2B3B6%2Brj6%2Bnt6%2Brl7O6%2F6%2Bvk7Ovr7Ovu7evu7vDC7ezv7e3p7u7p7%2B7w7%2B7x7%2B%2Fx8fPF8PDt8e%2F18fDs8fDy8fDz8%2FXC8fHx8%2FD38vLt8vLu8vL08%2FPt8%2FPu9PP09vjI9fXw9vX09vbx9%2FX59%2Fby9%2Fb39%2Ffx%2BPf4%2Bfj5%2Bfj6%2Bfnz%2Bfn1%2Bfr1%2B%2F7K%2Bvr2%2B%2Fr5%2FPr%2F%2B%2Fv7%2FP%2FR%2Ffv%2B%2Ffz9%2F%2F7%2FFnlyNwAAAAF0Uk5TAEDm2GYAAAABYktHRACIBR1IAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH2gMHDxg0DfX8UQAAAUBJREFUKM9jYCAIGBl5hLgYGTGEuXViWpvTzZVZUaUYFdofXzu4YW53o5kgsgyj3LIXFy8e2rphclaZBS%2BSDHvlsxvPb5%2FbtXFKQVyGHkKCUev08TtPbp3Yu7KtKMnfUxIuw2h19MCVu9dP7Z41c3qeR5AmXII1YdOuy%2Ffv3dyyZMfqLhdvA7gEZ%2BzC9UcePrp6%2Fuz%2B%2BdWOXiYIo%2Bz7F%2B%2B8cGb5qkUz6vxsww0REvpN9b3zjq3oKU7zcbLOVEdIyOSkZk%2FatrYj1NfZNiCYH8mDuvmB1Qv2TYxwsHGt0kDyICObUXz01KUT3OyiarVRAouJWc0ysSU3JNldBT18mYUL16ybXaHEiBkfNQ%2B290WKyGNKNFzaMy1FQhZTovzp4TklUtKYEp0nN5eaCihiSPBxiIapMopjSw5iLIzGhBMNAHCEbLFZHo5dAAAAAElFTkSuQmCC" alt="Info" border="0" /> Sub-menus work the same way menus do. For more information on menus, see the [[WoaS::Help::Edit the menu]] page.</div>
+=== Sub-namespace sub-menu
+All pages in any sub-namespace can be given a custom sub-menu by creating a *::Menu* page inside the sub-namespace. The sub-menu will be displayed beneath the main menu while any pages belonging to that page's sub-namespace are open. You can determine what goes into the sub-menu by editing the page with *::Menu* in its name. The sub-menu will vanish as soon as you navigate away from its sub-namespace.
+
+For example, if you create the {{{[[Recipes::Desserts::Menu]]}}} page with *My favorite desserts!* as its content, then whenever you open a page in the {{{Recipes::Desserts::}}} sub-namespace, a sub-menu will appear with *My favorite desserts!* in it.
+
+If a namespace contains namespace and sub-namespace ::Menu pages and you open a page in the sub-namespace, the contents of the sub-namespace ::Menu page will be displayed.
+
+[[Include::WoaS::Template::Info|Sub-menus work the same way menus do. For more information on menus, see the <a class="woas_link" onclick="woas.go_to('WoaS::Help::Edit the menu')">WoaS::Help::Edit the menu</a> page.]]
+
 == Reserved namespaces
 Some namespaces are reserved by the wiki for its own internal use or for specific use by the user:
 * *File::* for embedded files
@@ -1582,15 +1598,16 @@ Some namespaces are reserved by the wiki for its own internal use or for specifi
 * *Include::* for transclusion
 * *Javascript::* for direct JavaScript execution
 * *Lock::* used internally for encrypted pages
-* *Locked::* for encrypted pages
+* *Locked::* for listing encrypted pages
 * *::Menu* for sub-menus
 * *Special::* for all the special pages
-* *Tagged::* for all the tagged pages
+* *Tagged::* for listing tagged pages
+* *Tags::* for tagging pages (this namespace is [[WoaS::Help::Deprecated syntax|deprecated]])
 * *Tag::* for tagging pages
 * *Unlock::* used internally for encrypted pages
-* *Unlocked::* for plain (unencrypted) pages
+* *Unlocked::* for listing plain (unencrypted) pages
+* *Untagged::* for listing untagged pages
 * *WoaS::* for core WoaS pages
-
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Text formatting
 woas.page.attributes: 0
@@ -1679,34 +1696,34 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Table of Contents
-You can insert a Table of Contents into your page by using a special wiki tag. It will be automatically populated with all the headers on a page. The placement of the Table of Contents is  determined by where you put the tag in the page.
+You can insert a Table of Contents into your page by using a special wiki tag. It will be automatically populated with all the headings on a page. The placement of the Table of Contents is  determined by where you put the tag in the page.
 
 <div class="woas_helptext">Use this code on a line by itself in a page:</div><br>{{{
 [[Special::TOC]]
 }}}
 <div class="woas_helptext">To add a Table of Contents to the page.</div>
 
-[[Include::WoaS::Template::Info|The Table of Contents expects the first header on a page to be a Level 1 header. If you use any other level header first, that header and any headers after it will be represented by hash marks until a Level 1 header is encountered. From that point on, the headers will be numbered properly.]]
+[[Include::WoaS::Template::Info|The Table of Contents expects the first heading on a page to be a Level 1 heading. If you use any other level heading first, that heading and any headings after it will be represented by hash marks until a Level 1 heading is encountered. From that point on, the headings will be numbered properly.]]
 == Example
 Create a page with these contents:<br><br>{{{
 [[Special::TOC]]
-= My level one header
-== My level two header
-=== My level three header
-==== My level four header
-===== My level five header
-====== My level six header
+= My level one heading
+== My level two heading
+=== My level three heading
+==== My level four heading
+===== My level five heading
+====== My level six heading
 }}}
 When you save the page, there will be a Table of Contents that looks like this at the top of the page:
 
 <div style="border:1pt dashed #aaa; background-color:#f9f9f9; padding:0.313em; 
 width:50%; font-size:95%;"><center><b>Table of Contents</b></center>
-&nbsp;&nbsp;&nbsp;1. <span style="color:blue; text-decoration:underline;">My level one header</span>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. <span style="color:blue; text-decoration:underline;">My level two header</span>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. <span style="color:blue; text-decoration:underline;">My level three header</span>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. <span style="color:blue; text-decoration:underline;">My level four header</span>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. <span style="color:blue; text-decoration:underline;">My level five header</span>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. <span style="color:blue; text-decoration:underline;">My level six header</span>
+&nbsp;&nbsp;&nbsp;1. <span style="color:blue; text-decoration:underline;">My level one heading</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. <span style="color:blue; text-decoration:underline;">My level two heading</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. <span style="color:blue; text-decoration:underline;">My level three heading</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. <span style="color:blue; text-decoration:underline;">My level four heading</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. <span style="color:blue; text-decoration:underline;">My level five heading</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. <span style="color:blue; text-decoration:underline;">My level six heading</span>
 </div>
 
 --DFQRCTsKlU
@@ -1788,18 +1805,16 @@ This wiki can be published online as a single-file, framed web page by making it
 To enable wiki editing again, see the [[WoaS::Help::Wiki is read-only]] page.
 
 --DFQRCTsKlU
-woas.page.title: WoaS::Help::Run wiki on a webserver
+woas.page.title: WoaS::Help::Run wiki on a web server
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Run wiki on a webserver
-Wiki on a Stick is a client software not designed to be used on a webserver; WoaS will anyway recognize that it is being run from a webserver and prevent save operations with an appropriate user message informing about the impossibility to save permanent changes.
-
+= Run wiki on a web server
+Wiki on a Stick is a client software not designed to be used on a web server; WoaS will anyway recognize that it is being run from a web server and prevent save operations with an appropriate user message informing about the impossibility to save permanent changes.
 == Server integration
-
 WoaS 1.0 will offer an API to allow server-side integrations.
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Requirements
@@ -1809,11 +1824,9 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= Requirements =
-
+= Requirements
 == Supported Browsers
 Wiki on a Stick is actively supported on the following browsers:
-
 * Firefox 1.5
 * Firefox 2
 * Firefox 3
@@ -1824,15 +1837,15 @@ Wiki on a Stick is actively supported on the following browsers:
 * Internet Explorer 8*
 * Chrome
 * Safari
-<div class="alertnote">* On IE7 (and above) you might want to rename your application to .hta to enable its trusted privileges.</div>
+
+/On IE7 (and above) you might want to rename your application to .hta to enable its trusted privileges./
 == Limitations
 * Firefox (and possibly other browsers, too) cannot save to filenames containing UTF8 characters. Use unix-style filenames instead.
 * Internet Explorer 6 and 7 do not support embedded images (that's why you will not see button icons).
-* Internet Explorer does not allow saving to a network path in the form /\\machine\share\bookonastick.htm/. To use this wiki over a network with Internet Explorer, map network paths to network drives first.
+* Internet Explorer does not allow saving to a network path in the form /\\machine\share\woas.htm/. To use this wiki over a network with Internet Explorer, map network paths to network drives first.
 * Internet Explorer 6 does not allow a fixed menu.
 
 If you are using Chrome, Safari or Opera you will need the TiddlySaver Java applet, hence you need that Java is enabled in your browser and that it properly works.
-
 == TiddlySaver
 
 The Java applet "TiddlySaver.jar", a very small file, must be placed in the same directory as your WoaS file. In order to use it you will need to give it the necessary privileges by editing your .java.policy file.
@@ -3258,10 +3271,10 @@ This wiki accepts wiki and HTML links.
 Below are methods for creating links using wiki syntax.
 
 === Anchor link
-You can use a special anchor link to link to a header on the current page. After clicking an anchor link, use the browser's back button to return to where you were on the page.
+You can use a special anchor link to link to a heading on the current page. After clicking an anchor link, use the browser's back button to return to where you were on the page.
 
-<div class="woas_helptext">Use this code in a page, replacing HEADER NAME with the name of the header you'd like to link to:</div><br>{{{
-[[#HEADER NAME]]
+<div class="woas_helptext">Use this code in a page, replacing HEADING NAME with the name of the heading you'd like to link to:</div><br>{{{
+[[#HEADING NAME]]
 }}}<br><div class="woas_helptext">To create an anchor link.</div>
 === Email link
 <div class="woas_helptext">Use this code in a page, replacing USERNAME with the name of the person, SERVER with the name of their server, and LABEL with the text you'd like displayed as a link:</div><br>{{{
@@ -3357,7 +3370,7 @@ function alertme () {alert("MESSAGE");}
 }}}<br><div class="woas_helptext">To create a labeled text link that opens an alert.</div>
 
 === Anchor links to anywhere on a page
-With a combination of HTML and wiki syntax, you can create anchor links to anywhere on a page, rather than just to headers.
+With a combination of HTML and wiki syntax, you can create anchor links to anywhere on a page, rather than just to headings.
 
 <div class="woas_helptext">Use this code in a page, replacing NAME with the name of the anchor:</div><br>{{{
 <a name="NAME">
@@ -3517,7 +3530,7 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Exporting into XHTML static pages
-Your WoaS pages can be exported into web-compatible XHTML, CSS and eventually attachment files/images; generated pages do not use JavaScript for rendering and can be efficiently cached by webservers.
+Your WoaS pages can be exported into web-compatible XHTML, CSS and eventually attachment files/images; generated pages do not use JavaScript for rendering and can be efficiently cached by web servers.
 
 # Access [[Special::Export]] directly or either from [[Special::Advanced#Maintenance]]
 # Modify the export directories if necessary
@@ -3639,7 +3652,7 @@ $SAVE              s
 $EDIT              e
 $PRINT             p
 $HELP              h
-$GOTO              g
+$GOTO             g
 
 ; Key bindings
 ; Cancel key is by default escape (ASCII 0x1b)
@@ -3669,7 +3682,7 @@ body {
 }
 
 /* BUTTONS */
-.woas_button {
+.woas_button, .woas_button_top, .woas_editor_button {
 	background-color: #F0F0F5;
 	border: 1pt solid grey;
 	color: darkblue;
@@ -3678,8 +3691,24 @@ body {
 	margin-top: 0.438em;
 	text-align: center;
 }
-.woas_button:hover {
+.woas_button:hover, .woas_button_top:hover {
 	background-color: darkgrey;
+}
+.woas_button_top {
+	position: absolute;
+	right: 1em;
+	top: .5em
+}
+
+/* CHECKBOX (cross-browser method) */
+input.woas_cb {
+	clear: both;
+	float: left;
+	margin-right: .5em
+}
+label.woas_cb { /* don't use on last in block */
+	display: block;
+	margin: 0em 0em .2em
 }
 
 /* DEBUG CONSOLE */
@@ -3736,7 +3765,6 @@ pre.woas_embedded {
 	position: absolute;
 	text-align: center;
 	top: 0em;
-	visibility: hidden;
 	width: 99%;
 	z-index: 99;
 }
@@ -3750,7 +3778,6 @@ pre.woas_embedded {
 	position: absolute;
 	text-align: center;
 	top: 0em;
-	visibility: hidden;
 	width: 99%;
 	z-index: 100;
 }
@@ -3777,23 +3804,23 @@ pre.woas_embedded {
 	margin-bottom: -0.4em;
 }
 
-/* HEADERS */
-h1.woas_header {
+/* HEADINGS */
+h1.woas_heading {
 	font-size: 1.438em;
 }
-h2.woas_header {
+h2.woas_heading {
 	font-size: 1.25em;
 }
-h3.woas_header {
+h3.woas_heading {
 	font-size: 1.063em;
 }
-h4.woas_header {
+h4.woas_heading {
 	font-size: 0.875em;
 }
-h5.woas_header {
+h5.woas_heading {
 	font-size: 0.75em;
 }
-h6.woas_header {
+h6.woas_heading {
 	font-size: 0.625em;
 }
 
@@ -3815,12 +3842,13 @@ h6.woas_header {
 }
 .woas_helptext {
 	font-family: lucida;
+	color: #048db4;
+	font-weight: bold;
 }
 
 /* HOTKEYS */
 #woas_custom_accesskeys {
 	display: none;
-	visibility: hidden;
 }
 
 /* LAST MODIFIED LINE */
@@ -3946,6 +3974,10 @@ div.woas_text_area {/* any text area div */
 }
 
 /* SEARCH */
+#woas_search_results {
+	padding-top: 1em;
+	padding-right: 1em
+}
 pre.woas_search_results {
 	background-color: #f9f9f9;
 	border: 1pt solid #aaa;
@@ -4065,7 +4097,6 @@ body {
 }
 
 #woas_custom_accesskeys {
-	visibility: hidden;
 	display: none;
 }
 
@@ -4241,4 +4272,355 @@ woas.page.boundary: DFQRCTsKlU
 <label for="woas_cb_import_comment_js"><input type="checkbox" id="woas_cb_import_comment_js" checked="checked">Comment JavaScript tags</label>
 <label for="woas_cb_import_comment_macros"><input type="checkbox" id="woas_cb_import_comment_macros" checked="checked">Comment macro definition/call</label>
 <label for="woas_cb_import_woas_ns"><input type="checkbox" id="woas_cb_import_woas_ns" checked="checked">Import pages of the [[WoaS::]] namespace ([[WoaS::Hotkeys|hotkeys]], [[WoaS::Plugins|plugins]], [[WoaS::Aliases|aliases]] and [[WoaS::CSS::Custom|custom CSS]])</label>
+--DFQRCTsKlU
+woas.page.title: WoaS::Help::Include web page
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Include web page
+Web pages can be included in a page as embedded HTML objects or in HTML iframes.
+
+[[Include::WoaS::Template::Info|Some pages may not render correctly depending on how they're coded. Embedding more than one web page in a wiki page will cause the final embedded web page to steal the focus when the page is loaded, so it's recommended to have only one per page.]]
+== Embed a web page as an object
+This method makes the embedded web page become a seamless part of the page.
+
+* *Embed a local HTML file as an object:*<br><br>
+** <div class="woas_helptext">Use this code in a page, replacing PATH with the full path to the HTML file you wish to include, and changing the width and height to suit your taste:</div><br>{{{
+<object data="PATH" style="width:100%; height:630px;">File not found.</object>
+}}}<br><div class="woas_helptext">To embed a local HTML file in a page.</div><br>
+*** For example, this command embeds the {{{/Work/MyProject.html}}} file into a page as an object:<br><br>{{{
+<object data="/Work/MyProject.html" style="width:100%; height:630px;">File not found.</object>
+}}}<br><br>
+* *Embed a remote URL as an object:*<br><br>
+** <div class="woas_helptext">Use this code in a page, replacing URL with the URL of the page you wish to include, and changing the width and height to suit your taste:</div><br>{{{
+<object data="URL" style="width:100%; height:630px;">URL not found.</object><
+}}}<br><div class="woas_helptext">To embed an external URL in a page.</div><br>
+*** For example, this command embeds the WoaS official website at {{{http://stickwiki.sf.net/}}} into a page as an object:<br><br>{{{
+<object data="http://stickwiki.sf.net/" style="width:100%; height:630px;">URL not found.</object>
+}}}
+
+== Embed a web page in an HTML iframe
+This method creates a frame around the embedded web page. The code shown below is for a plain frame, but you can style the iframe further by adding a border, changing the border style to dotted, dashed, solid, double, groove, ridge, inset, or outset, changing the border width to whatever thickness you like, and the border color to whatever color you like.
+
+* *Embed a local HTML file in an iframe:*<br><br>
+** <div class="woas_helptext">Use this code in a page, replacing PATH with the full path to HTML file you wish to include, and changing the width and height to suit your taste:</div><br>{{{
+<iframe height="400" width="100%" height:630px; src="PATH"></iframe>
+}}}<br><div class="woas_helptext">To include a local HTML file in a wiki page.</div><br>
+*** For example, this command embeds the {{{/Work/MyProject.html}}} file into a page in an iframe:<br><br>{{{
+<iframe height="400" width="100%" height:630px; src="/Work/MyProject.html"></iframe>
+}}}<br><br>
+* *Embed a remote URL in an iframe:*<br><br>
+** <div class="woas_helptext">Use this code in a page, replacing URL with the URL of the page you wish to include, and changing the width and height to suit your taste:</div><br>{{{
+<iframe height="400" width="100%" height:630px; src="URL"></iframe>
+}}}<br><div class="woas_helptext">To include a web page in a wiki page.</div><br>
+*** For example, this command embeds the WoaS official website at {{{http://stickwiki.sf.net/}}} into a page in an iframe:<br><br>{{{
+<iframe height="400" width="100%" height:630px; src="http://stickwiki.sf.net/"></iframe>
+}}}
+
+--DFQRCTsKlU
+woas.page.title: WoaS::Help::Include text file
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Include text file
+You can include a text file in a page by placing it inside of an HTML iframe.
+
+<div class="woas_helptext">Use this code in a page, replacing PATH with the full path to the file:</div><br>{{{
+<iframe height="400" width="100%" src="file:///PATH"></iframe>
+}}}<br><div class="woas_helptext">To include a text file in the page inside an iFrame.</div>
+
+== Examples
+* *Linux example:*<br><br>{{{
+<iframe height="400" width="100%" src="file:///home/username/Desktop/file.txt"></iframe>
+}}}<br>
+* *Windows example:*<br><br>{{{
+<iframe height="400" width="100%" src="file:///C:/Users/Username/Documents/file.txt"></iframe>
+}}}
+
+--DFQRCTsKlU
+woas.page.title: WoaS::Help::CSS::Core
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= CSS::Core
+The look and feel of the wiki is determined by the default CSS definitions in the [[WoaS::CSS::Core]] page. Although the [[WoaS::CSS::Core]] page cannot be edited, the definitions can be copied and used as a foundation for customizing the wiki in any of the ways described in the [[WoaS::Help::CSS]] page.
+
+--DFQRCTsKlU
+woas.page.title: WoaS::Help::CSS::Custom
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= CSS::Custom
+The [[WoaS::CSS::Custom]] page can be used to add new CSS definitions to the wiki or to override the definitions in the [[WoaS::CSS::Core]] page by copying them to the [[WoaS::CSS::Custom]] page and [[WoaS::Help::CSS|customizing them]] to suit your taste.
+
+--DFQRCTsKlU
+woas.page.title: WoaS::Help::Locked
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Locked
+The [[Locked::]] page displays a list of all pages that have been locked with [[WoaS::Help::Security|AES encryption]].
+
+--DFQRCTsKlU
+woas.page.title: WoaS::Help::CSS::Boot
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= CSS::Boot
+The [[WoaS::CSS::Boot]] page cannot be edited, and contains the CSS definitions that determine how the wiki will look and feel while it is loading.
+
+--DFQRCTsKlU
+woas.page.title: WoaS::Help::Info
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Help
+The first time you save a change to Wiki on a Stick, your browser will ask for permission to save data to the disk. This is normal and necessary for the wiki to make changes to itself. You can give permission each time or make the setting permanent.
+
+You will find the *Help* icon in the navigation bar on every page in this wiki. When you click on it, it will open a pop-up window with either the [[WoaS::Help::Index]] page or a specific help page associated with the page you currently have open.
+== Contents:
+[[Include::WoaS::Help::]]
+
+--DFQRCTsKlU
+woas.page.title: WoaS::Help::Special::Orphaned Pages
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Special::Orphaned Pages
+The [[Special::Orphaned Pages]] page displays a listing of all pages that no other pages [[WoaS::Help::Links|link to]].
+
+--DFQRCTsKlU
+woas.page.title: WoaS::Help::Special::Recentchanges
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Special::Recentchanges
+The [[Special::Recentchanges]] page is an optional wiki feature that keeps track of [[WoaS::Help::Edit a page|changed pages]] when enabled.
+* When the feature is not enabled, the page displays a notice stating that the last modified timestamp storage is disabled in Special::Options.
+* When the feature is enabled, the page displays a list of links to pages that have been changed followed by the date and time of the most recent change.
+== Enable tracking of page changes
+# Click the *Advanced* icon in the navigation bar.
+# Click the [[Special::Options]] link in the *Advanced features* section of the page.
+# Click the box next to the /Store and display last modified timestamp/ option in the *Saving* section of the page to place a check mark in the box.
+# Click the *Save options* button to save the change.
+
+--DFQRCTsKlU
+woas.page.title: WoaS::Help::Special::Search
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Special::Search
+This wiki offers two ways to search for content:
+* The search box in the menu which uses the [[WoaS::Template::Search]] page as a template.
+* The [[Special::Search]] page, which you can get to by clicking the *Advanced* icon in the menu and looking in the *Pages* section.
+It is recommended that you do one-word searches to avoid lengthy searches that pop up unresponsive script warnings. Also, type only the exact search term(s) into the box without surrounding the term(s) with quotes or using other characters unless the content you're searching for contains them.
+
+The results display links to pages with the search term in their title followed by links to pages that contain the search term, the number of hits, and the the highlighted search term surrounded by content.
+
+== Add a search box or search link to a page
+The search box in the menu can be deleted by editing the menu and removing the {{{[[Include::WoaS::Template::Search]]}}} line. If you would like a search box in another page in the wiki, add the line you removed from the menu where you would like the box to appear in the page. To add a link to the [[Special::Search]] page to any page in the wiki, insert {{{[[Special::Search]]}}} anywhere in the page.
+
+--DFQRCTsKlU
+woas.page.title: WoaS::Help::Special::All Pages
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Special::All Pages
+The [[Special::All Pages]] page displays a list of all [[WoaS::Help::Create a page|user-created pages]].
+
+--DFQRCTsKlU
+woas.page.title: WoaS::Help::Tagged
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Tagged
+The [[Tagged::]] page displays a list of all pages that have been [[WoaS::Help::Tags|tagged]].
+
+--DFQRCTsKlU
+woas.page.title: WoaS::Help::Unlocked
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Unlocked
+The [[Unlocked::]] page displays a list of all plain pages (pages that have not been locked with [[WoaS::Help::Security|AES encryption]]).
+
+--DFQRCTsKlU
+woas.page.title: WoaS::Help::Untagged
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Untagged
+The [[Untagged::]] page displays a list of all pages that have not been [[WoaS::Help::Tags|tagged]].
+
+--DFQRCTsKlU
+woas.page.title: WoaS::Help::Special::Export
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Special::Export
+The [[Special::Export]] page provides an interface for exporting the wiki content into multiple linked XHTML files. Various settings are available:
+
+== Paths
+* *Destination directory for exported XHTML files:*
+** The exported XHTML files will be placed into the /export/ subdirectory in the directory the wiki is in by default. You can specify a different directory.
+
+* *Destination directory for exported embedded pictures:*
+** The exported embedded pictures (if any) will be placed into the /export/ subdirectory in the directory the wiki is in by default. You can specify a different directory. If there are no embedded pictures, this setting will be ignored.
+
+[[Include::WoaS::Template::Info|In both cases, the destination directory must exist if you are not using a Mozilla browser.]]
+
+== File naming
+* *Default extension for generated XHTML files:*
+** The default extension for generated XHTML files is /html/. You can specify a different extension.
+
+* *The main page will be named index with the extension specified above*
+** If this choice is enabled, the main page will be named /index/ with the extension specified above.
+** If this choice is not enabled, the main page will be named /main_page/ with the extension specified above.
+** For example, if the default extension is used and this option is enabled, the main page would be named /index.html/
+
+* *Use UNIX-style normalization (lower-case letters and spaces replaced by underscores) to generate file names*
+** If this option is enabled, all exported file names will be in lower case with all spaces replaced by underscores.
+** If this option is not enabled, all exported file names will have their case preserved as it is in the wiki, and the exported files from user-created pages will not get spaces replaced by underscores.
+
+== Custom JavaScripts
+* *Do not export*
+** If this option is enabled, JavaScript will be disabled in the exported pages.
+
+* *Export JavaScript as-is*
+** <font color="red">*UNFINISHED*</font>
+
+* *Export JavaScript into <head /> (you might need to include the framework code)*
+** <font color="red">*UNFINISHED*</font>
+
+* *Run before exporting but do not export the JavaScript*
+** <font color="red">*UNFINISHED*</font>
+
+* *Also export the JavaScript framework*
+** <font color="red">*UNFINISHED*</font>
+
+== Other options
+* *META author (optional):*
+** If a name is in this box, the name will be used as the content of an HTML author meta tag inserted into each exported HTML page.
+** If the box is empty, the HTML author meta tag will not be inserted into any of the exported HTML pages.
+
+* *Export CSS into shared file.*
+** <font color="red">*UNFINISHED*</font>
+
+* *Export menu and submenus.*
+** <font color="red">*UNFINISHED*</font>
+
+--DFQRCTsKlU
+woas.page.title: WoaS::Help::Special::Import
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= Special::Import
+The [[Special::Import]] page provides an interface for importing the contents of a previous or current version of the wiki from an .html source file. Various settings are available:
+
+== Source
+* *File to import:*<br><br>
+** Click the *Browse...* button to select the wiki file to import.
+
+* *Import configuration (except WSIF datasource settings)*<br><br>
+** Imports all the settings from the [[Special::Options]] page in the source file into the destination file.<br><br>[[Include::WoaS::Template::Info|The settings in the /External data source/ section of the <a class="woas_link" onclick="woas.go_to('Special::Options')">Special::Options</a> page will not be imported.]]
+
+* *Import pages*<br><br>
+** Imports the following pages from the source file:
+*** [[Main Page]]
+*** [[::Menu]]
+*** [[WoaS::Aliases]]
+*** [[WoaS::CSS::Custom]] if the /Import CSS/ option is enabled.
+*** [[WoaS History]]
+*** [[WoaS::Hotkeys]]
+*** User-created pages if any.
+
+* *Import CSS*<br><br>
+** Imports the rules [[WoaS::CSS::Custom]] page from the source file, overwriting the [[WoaS::CSS::Custom]] page in the destination file. CSS rules from older releases of the wiki may not work properly in the current version.<br><br>[[Include::WoaS::Template::Info|If this choice is enabled, the /Import pages/ option must also be enabled.]]
+
+== Existing pages
+* *Ask before overwrite*<br><br>
+** Forces the import interface to ask your permission to overwrite individual pages in the destination file.
+
+* *Erase all user pages befpre import process*<br><br>
+** Erases all user-created pages before importing content into the destination file. The import interface will pop up two confirmation boxes to verify that you're sure you want to erase the pages.
+
+* *Ignore*<br><br>
+** Prevents the import interface from overwriting existing pages, and allows it to only import new pages into the destination file.
+
+* *Overwrite*<br><br>
+** Gives the import interface blanket permission to overwrite existing pages in the destination file.
+
+== Security
+* *Comment JavaScript tags*<br><br>
+** Inserts /disabled_/ into any script tags in the pages that are imported into the destination file so that scripts will not run.<br><br>
+*** Example script tag:<br>{{{
+<script type="text/javascript">alert("This is an example alert!");</script>
+}}}
+*** Example disabled script tag:<br>{{{
+<disabled_script type="text/javascript">alert("This is an example alert!");</disabled_script>
+}}}
+
+* *Comment macro definition/call*<br><br>
+** Inserts /Macro disabled/ into any macro definitions or macro calls in the pages that are imported into the destination file so that macros will not run.<br><br>
+*** Example macro call:<br>{{{
+<<<woas.include:WoaS::Template::Info
+[[Main Page]] >>>
+}}}
+*** Example disabled macro call:<br>{{{
+<<< Macro disabled
+woas.include:WoaS::Template::Info
+[[Main Page]] >>>
+}}}
+
+* *Import pages of the [[WoaS::]] [[WoaS::Help::Namespaces|namespace]] ([[WoaS::Aliases|aliases]], [[WoaS::CSS::Custom|custom CSS]], [[WoaS::Hotkeys|hotkeys]], and [[WoaS::Plugins|plugins]]).*<br><br>
+** Gives the import interface blanket permission to import the specified pages from the [[WoaS::]] [[WoaS::Help::Namespaces|namespace]].
+
 --DFQRCTsKlU

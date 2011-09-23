@@ -1,62 +1,112 @@
-No log being kept while updating fix files from fix-wip. Single files not updated.
+WHILE FIX & WIP ARE BEING UPDATED/MERGED THIS CODE MAY NOT BE WORKING AS FOUND -- WAIT FOR FINAL COMMIT
+(woas-fix.html is not being updated during this process.)
 
-Revision pvhl-2317 (git: 3d939c7)
-* fix non-breaking tags display issue
+* Update fix to SVN rev. 2426 in preparation for fixes from fix-wip to make final woas-fix
 
-Revision pvhl-2314 (git: 41984c5)
-* fix broken Italian language plugin and update design (adding a change to i18n
-  during lock fix was a reminder that translations will break using the current
-  'overwrite everything' system; rewrote the Italian language plugin and added
-  a 'pvhl.notes' file on improving language support in WoaS)
+Changes since Revision pvhl-2317 (git: 3d939c7)
 
-Revision pvhl-2313 (git: 9b0136d)
-* hack incorrect lock icon display
-
-Revision pvhl-2312 (git: 792396f)
-* macroTagThis and reformat
-* restore print page no browsing warnings
-* added Plugins help page to index
-* slight grammatical change
-* slight ui.js changes
-
-Revision pvhl-2309 (git: 938beaa)
-* fix broken nowiki (was failing after heading; better fix to come)
-* fix potential edge-case failure in placeholder.
-* slight cleanup to woas._raw_preformatted
-* added CSS3 rule to core CSS to break unbreakable lines
-
-Revision pvhl-2308 (git: 311a6c2)
-* fix nowiki class spelling I thought I'd already fixed
-* update single files
-
-Revision pvhl-2291 (git: 9f7bedd)
-* some changes to the About page to explain this version
-* add php files that will be used to create single-file (not finished)
-* stop '#' being used in page titles (found by jufooo)
-* change to log display: closed on loading
-* fix wrong mts display (reported by Winterblood)
-
-Revision pvhl-2289
-* fix Chrome file corruption issues3
-* fix edit_override to allow edit of WoaS namespace
-* quick changes (hack) to remove cancelled new page from menu
-* slight change to menu to allow better addition placement
-* fix logbox scroll position after save and improve function
-* small formatting change for readability
-* some minor comment additions
-
-Revision pvhl-2288
-* hack for cumulative save issues
-* fix no-load mode error when mode = 0
-* fix new page history (still some edge case issues)
-* fix commit bug in unused code :(
-
-Revision pvhl-2287
-* fix history so back/forward buttons work
-* fix help back button (not working in FF/IE)
-
-Revision pvhl-2286
-* syntax fixes found by Little Girl
-* syntax fixes found by PVHL
-* fixed up deprecated go_to() & go_back
-* minor documentation clarifications
+* disable WSIF blob saving as only Gecko can do it and others corrupt file
+* add 'wsif.type: index' to allow safe loading/saving of exported multi-file WSIF
+* allow recursive load of WSIF files so multi-file index file can be used
+* hack fix of path in WSIF data source; stop file being corrupted for bad path
+* fix backspace/erase causing page back action when in textbox
+* reload file if erase wiki failed
+* add new help pages and help page updates from Little Girl
+* change default setting for config import to safer setting
+* add new page menu link options
+* small changes to various page layouts
+* fix export and edit for submenus and fix up _add_namespace_menu
+* change nowiki_multiline parsing to match macro parsing rules and break-out function
+* modify how hotkey accesses restricted word 'goto'
+* improve show/hide/toggle functions
+* remove visibility attribute from WoaS (display is sufficient in all cases)
+* update i18n strings (mostly Little Girl's work)
+* hide 'make woas read only' in read only woas
+* fix macro backup functionality
+* add macro.parse ability
+* fix macro regexp and related issues (follow rules similar to nowiki and work better with block syntax)
+* refactor woas.log for better efficiency
+* fix legacy log function I broke; replace remaining log() calls in code
+* disable debug history log
+* remove h1 from no script; corrupted by IE on save
+* fix logo width in IE8+
+* modify <<<woas.include>>> to stop page listing header display
+* allow menu for earlier namespace to show up if no ns menu found
+* change namespace listing to use divs instead of spans
+* fix Special:: namespace listing and associated issues
+* add option to start with console closed and clean up the html a bit
+* change debug/log function so it can be turned on/off dynamically
+* add all pages option and filename to Special::ExportWSIF
+* add fix header/menu options and rearrange things a bit
+* fix woas.browser.firefox_new test
+* fix included pages shown in Special::Orphans (found by Michele1995)
+* fix tweak var replacement in mk
+* stop WoaS History being exported in user page WSIF files
+* correct incorrect number of pages in index.wsif
+* some base64 rearrangement
+* error in load_mode spelling
+* fix file read 'off by one error' (extra byte was read for binary); also fixes html comment issue (-->)
+* fix base64 encoding (was failing for images with NULL)
+* fix macro error - no returned value bug
+* fix bad Firefox identification
+* fix bug I introduced: missing menu update after edit (found by Michele1995)
+* fix bug I introduced: missing namespace links after edit (found by Michele1995)
+* redo last fix to correct error introduced (broke img tags; found by Michele1995)
+* redo fix for block html to allow tags to break across lines + simplify
+* changes to stop 'tag found' warning during build
+* slight clean up; simplify/clarify place_holder function by adding place_holder_dnl
+* fix bad export CSS
+* redo nowiki to fix insanity of my new code
+* partial fix for export html problems
+* fix export html CSS background
+* remove width settings from woas.htm (broke layout in some browsers)
+* fix external disposition wsif import failure (found by tomas)
+* changes to allow more custom help pages
+* slight Special::Options rearrangement
+* add (currently inactive) code to remove blank line between same-type lists
+* simplify heading parser
+* add sort_tags configuration option
+* add auto_links configuration option and tidy option page slightly
+* fix import disable issues for IE
+* fix macro dynamic_nl issues
+* fix italic/underline parsing issues and add autolinks
+* fix sorting in tag listing
+* fix hash location issues introduced earlier
+* refix some previous fixes to remove side-effects
+* fix transclusion loop
+* fix double-quotes in title
+* fix plug-in name check when creating
+* fix bad lock message
+* initial spacing fix -- same issues as official (a better fix coming)
+* redo fix for replacing html tag(s)
+* some more history.backstack fixes missed earlier
+* refix css export
+* fix broken search results display and adjust its CSS
+* fix newline before alpha list bug and tiny change to list code
+* stop all WoaS::CSS pages being exported (Boot and namespace were)
+* fix incorrect display of exported pages because of help pages being exported twice
+* fix bad file_mode in export.js (ASCII -> ASCII_TEXT)
+* refactored woas.parser._render_wiki_link (to test an idea and for a coming plugin)
+* update aes module closures to recommended practice (removes jslint warning)
+* fix extra line after tables
+* optimize list parsing code
+* mostly parser module rearrangement and relocation of some parse code to parser.js
+* fix empty namespace listing
+* change 'header' to 'heading' where heading is intended (avoid confusion with wsif headers)
+* fix double calling of nav icon update for certain instances
+* don't ask to create menu link if already in menu (needs rewrite for namespace menus)
+* more page delete fixes including deleting page that is not current but in history
+* mostly more ghost page fixes
+* move ghost page disabling to disable_edit()
+* clear log div at start-up (fixes a Firefox bug)
+* improve page saving (removes unneeded save of editor text)
+* modified sprintf function
+* tiny history log format change
+* stop some block HTML markup from having a br tag added
+* fix ruler bug (eats multiple preceding \n); also simplifies code
+* changes to allow html comments in nowiki and macro output
+* changed all marker formats; also fixes potential bug if marker followed by a numeral
+* parser.dry made more efficient and simpler; combined macro expansion into pre_parse
+* change place_holder to simplify code; now pushes to array and returns marker text
+* minor change to tag display (moved a space)
+* minor change to menu updating for import wiki
