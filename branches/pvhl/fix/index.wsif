@@ -496,8 +496,7 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 <div><input class="woas_button_top" title="Import a plugin" value="Import plugin..." onclick="go_to('Special::ImportWSIF')" type="button" /><input class="woas_button_top" title="Create a new plugin" value="Create plugin..." onclick="javascript:_woas_new_plugin()" type="button" /></div>
-= Plugins
-This page contains options for the active WoaS plugins; see [[WoaS::Help::Plugins]] for more information.
+= Installed plugins
 --DFQRCTsKlU
 woas.page.title: WoaS History
 woas.page.attributes: 0
@@ -570,13 +569,14 @@ woas.page.boundary: DFQRCTsKlU
 	text-align: left
 }
 #woas_wiki_area h2 {
-	margin-bottom: .4em
+	margin-bottom: .375em
 }
 </style>
 <div><input class="woas_button_top" type="button" value="Export XHTML" onclick="woas.export_wiki()" /></div>
 = Export content into XHTML files
+Export wiki content into multiple linked XHTML files.
 ==Paths
-*All directories must exist if using a non-Mozilla browser.*
+[[Include::WoaS::Template::Info|All directories must exist if using a non-Mozilla browser.]]
 
 Directory for XHTML files:&nbsp; <input id="woas_ep_xhtml" type="text" size="80" />
 Directory for embedded pictures:&nbsp; <input id="woas_ep_img" type="text" size="80" />
@@ -587,9 +587,6 @@ Extension for generated XHTML files:&nbsp; <input id="woas_ep_ext" type="text" s
 <label for="woas_cb_js_ign"><input type="radio" id="woas_cb_js_ign" name="woas_cb_js" checked="checked">Do not export JavaScript</label>
 <label for="woas_cb_js_exp"><input type="radio" id="woas_cb_js_exp" name="woas_cb_js">Export JavaScript as-is</label>
 <label for="woas_cb_js_dyn"><input type="radio" id="woas_cb_js_dyn" name="woas_cb_js">Run before exporting, but do not export the JavaScript</label>
-<!-- remove until available <label for="woas_cb_js_head"><input type="radio" id="woas_cb_js_head" name="woas_cb_js" disabled="disabled">Export javascript into &lt;head /&gt; (you might need to include the framework code)</label>
-
-<label for="woas_cb_js_fw"><input type="checkbox" id="woas_cb_js_fw" disabled="disabled">Export the javascript framework too</label> -->
 ==Other options
 META author (optional):&nbsp; <input id="woas_ep_author" type="text" size="20" value="" />
 <label for="woas_cb_sep_css"><input type="checkbox" id="woas_cb_sep_css" checked="checked">Export CSS into shared file</label>

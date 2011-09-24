@@ -643,7 +643,8 @@ syntax_parse: function(P, snippets, tags, export_links, has_toc) {
 
 	// italics/underline/bold all operate on a single line
 	// italics (needs to be done before code that adds html)
-	.replace(/(^|[^\w])\/(.+?)\//mg, function(str, $1, $2) {
+	// PVHL: bug-fix - can't use \w as in bold/underline as it rejects '_'
+	.replace(/(^|[^a-zA-Z0-9])\/(.+?)\//mg, function(str, $1, $2) {
 		return $1+"<"+"em>"+$2+"<"+"/em>";
 	})
 
@@ -656,6 +657,7 @@ syntax_parse: function(P, snippets, tags, export_links, has_toc) {
 	)
 
 	// underline (now works on a single line the same as bold/italics)
+	// needs to be before bold with this regexp (see italics)
 	.replace(/(^|[^\w])_(.+?)_/mg, function(str, $1, $2) {
 		return $1+"<"+"span style=\"text-decoration:underline;\">"+$2+"<"+"/span>";
 	})
