@@ -266,10 +266,6 @@ If the /Use multiple files in WSIF data source/ option is being used (creating o
 
 Path may be entered in Windows or UNIX style. *Any directories in the path must exist if you are not using a Mozilla browser.*
 
-
-
-
-
 <div style="text-align:left;display:inline-block">Relative path to WSIF data source, including file name:&nbsp; </div><input id="txt_wsif_ds" type="text" size="60" value="" onchange="woas.config.wsif_ds=this.value" style="margin-bottom: .25em" />
 <label for="cb_wsif_ds_multi"><input type="checkbox" id="cb_wsif_ds_multi" onclick="woas.config.wsif_ds_multi = d$.checked('cb_wsif_ds_multi')" />Use multiple files in WSIF data source</label>
 
