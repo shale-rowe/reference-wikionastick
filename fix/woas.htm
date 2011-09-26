@@ -60,57 +60,36 @@ var pages = [
 <title woas_permanent="1">Main Page</title>
 <style type="text/css" woas_permanent="1" woas_core_style="1">/* CSS used when loading/saving WoaS - readonly */
 body {
+	margin: 0px;
+	padding: 0px;
+	border-width: 0px;
 	font-family: Georgia, verdana;
+	background-color: #F0F0F5; /* to match layout */
 }
-
-#woas_custom_accesskeys {
-	display: none;
-}
-
-#woas_wiki_area {
-	position: relative;
-	left: 15.5%;
-	width: 82.3%;
-	z-index: 0;
-	margin-top: 1.313em;
-	margin-bottom: 0.75em;
-	text-align:justify;
-}
-
-#woas_wiki_header {
-	top: 0em;
-	left: 0em;
-	border: 1pt solid #aaa;
-	opacity:.65;
-	z-index: 1;
-	width: 99%;
-	padding-right:0.75em;
-}
-
 #loading_overlay {
 	position: absolute;
-	width: 99%;
+	width: 100%;
 	height: 100%;
 	padding-top: 25%;
 	z-index: 100;
-	background-color: white;
-	left: 0em;
-	top: 0em;
+	left: 0px;
+	top: 0px;
+	color: 	#000080; /* navy */
 	font-size: large;
-	text-align: center;
+	text-align: center
 }
-
-#woas_wait_text {
-	color: navy;
+#woas_debug_console {
+	width:50%;
+	margin: 3em auto
 }
-
-.woas_background, #woas_debug_panel, #woas_debug_console, #woas_debug_log,
-#woas_edit_page_title, .woas_editor_button, #woas_pwd_query, #woas_pwd_mask,
-.woas_password_desc,.woas_about_footer,.woas_help_background,.woas_help_button,
-.woas_helpcode,.woas_helptext, .woas_page_mts, div.woas_text_area, .woas_text_area.locked,
-#woas_pwd_mask,.woas_core_page,div.menu,#woas_menu_area,.woas_menu_button,#woas_title,
-.woas_nowiki, .woas_nowiki_multiline,pre.woas_search_results,div.woas_toc,p.woas_toc_title,
-table.woas_text_area,div.woas_taglinks { }</style>
+#woas_debug_log {
+	width: 100%
+}
+#woas_wait_text, #woas_pwd_mask, #woas_wiki_header, #i_woas_text_area,
+#edit_area, #woas_footer_panel, #woas_debug_log_clear_button, #woas_custom_accesskeys {
+	display: none
+}
+</style>
 <script woas_permanent="1" src="src/aes.js" type="text/javascript"></script>
 <script woas_permanent="1" src="src/framework.js" type="text/javascript"></script>
 <script woas_permanent="1" src="src/loadsave.js" type="text/javascript"></script>
@@ -206,7 +185,7 @@ Wiki Code:
 </div>
 <textarea style="width: 1405px; height: 500px;" id="woas_editor" rows="0" cols="0">&nbsp;</textarea> 
 </div>
-<div id="woas_footer"><table width="100%"><tbody><tr>
+<div id="woas_footer"><table id="woas_footer_panel" width="100%"><tbody><tr>
 <td align="left" width="15%"><span style="" id="woas_debug_panel"><a title="Toggle debug display" onclick="d$.toggle('woas_debug_console')"><img style="display: inline;" id="img_debug" alt="[Debug]" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAAXNSR0IArs4c6QAAAGBQTFRFeWgJnLPK5%2FL%2BobXKwtryrMXeWXKK2Ov%2Bk6zFy%2BT9pLzTvNXtSmJ6tc7njKW9nLDE9vn%2BvdLovtfwfZauutLpkKjA%2Bvz%2Fp8DZaYKbmLHKvNTrx%2BD4y%2BD18ff%2BwNjv%2F%2F%2F%2FN2g9%2FwAAAAF0Uk5TAEDm2GYAAAABYktHRACIBR1IAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH2gUXFDkoWkFbUwAAAINJREFUGNN9j9sOwiAQRNstF7lUEKRIq87%2F%2F6WkpQkmxnk72bOb2WH4HdR8sXNlQjd23hPlU8Kkny%2FDMPOMg72%2F3QMUiBL2%2FcqmsjIyNoVWxEih8YCRsEUss2pCZQZaeElM7Dc0EVTIJb1Xeyhac5nHdBX2LIKLVBuzXXs8hBD491yXD6ahCoFA3xZkAAAAAElFTkSuQmCC" /><!-- Needed for IE6 and IE7 --><span id="alt_debug" style="display: none;">[Debug]</span></a></span></td>
 <td align="center" width="70%"><span><a class="woas_link" title="About Wiki on a Stick" onclick="woas.ui.about()">About Wiki on a Stick v@@WOAS_VERSION@@</a></span></td>
 <td align="right" width="15%"><a title="Go to top of page" onclick="javascript:woas.ui.top()"><img style="display: inline;" id="img_top" alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9oFFhAeHvCLsxYAAASDSURBVDjLZZRLbFRlHMV//+/OnemdmXZaoLxbFBCogmjwxSsxUZCNmKghmBBxgW7QhIUxxpgQ4yMxMbpRE41bF24MiRKIj5igIC8XPKSCxRYKpdJ2KJ3HvfPd+31/F0gweDbnbM5vc5Ij/CsB9IYh0I3QJ7AR4QGUuYAiDKMcVvgOZUBh4lb1FudmEIWi3ADsDAIeq5To6u4QypEgQNPC2HXlWk2vZo59InzqlZOAvQkN0q/LTCuLXL2undWabnOed6a1s27D/Sbasj7QretDnlkbylMPhzx+X6CrFhmplKU0WtWV9RarjGFKlQEgA5Cpr9pl5JpGz38Yv3ByyL0xvV1mv7I5kIeXGJnRYSgVkELgKOaFtrYQEaPVRDl0JtPXv7Du/N9+UITd3vM1kAZvbW8PNr8drxkc9e+WI3pefTowq5cZKbWJtOVE2kIhXLCFRuF+CnaAtqgopbayLO3Ns3KhNwdOZpXJBncY4bjCaDCVzem+MBrvHruernlxk5FHlhgJcyJR3hAVy1RW7KJj5WuUe5/gupuLtMbJR9NQStI7yzG/y8pPJ9I5TYszwkFz2S2/u/9StmHlnSL39IooSGAgV6hQXrqDaOFWUCUw0LX0WZpzdtDILcFEs8B0ypp7I9lwX06M8CTQa8KwsFG8rSzrEUptNxY3YZmOpdsoLdqC5IqICRATko/aqSzcRLNzE42sRGCEWWXD6r5A2iOZp7DaDA2efai9iM6ZLoggqobu5dup3LUFMSG+OQKqePWkcZV8IaJyx3pqlY0kcUxAKovnGp3RIWLgQTMx0j+3EKpEeSRNlUrPOmb2PYdISHL5R+LzX6Le4myd1h+fwLUjhDlD5+LN1IOF+DSmUhSKBUSF+TnUea+QOcV5Ja6Pk9RGSCZOMHXqMyo9ayl5izpDNnYcre5H+94kCMpErbPEVrCp4hQFfG56uwwPXKFvsqF4RKpXTnF6704KUievdUouxWcW54UkdeQmTyLHX0YVbDyO0xyXqxlTTQXlgpndxa+1GC5eVRILmRdqk6M04yatzGAzj3MWlyXEaUbdGur1KvXaOA0bMBU7PTXkZGJKvSpHTGz5vpBjon8YqnXVVgrWGVqZEFullSo+i/GuRWKVeqzUW0LDGhqJ0+Fxz8EzXhPLIMIxM28653pnyt5zl5Tf/kSdR5stT2KV2EIcNzCSQ7OYpFml3lIaiWey4WllsPeY1+MDHoU9wMXgo5fC1v7f/BWb8uDpIe0uR5iebsF5FUVIpi7RnBxk4s9vaYydJvOGJFX1CnsOO/34W5cllgMC7yuMBM+sMzy6QsZ+OeMnqzXuPX2RSiBiOooQ5gD1Uh//i6R2BY8hsejoNeWbI04/3+ezxPK7CO8pHAY0V615PXpObbXGnszjfcauPYf8A6eGRJbMU3pniu8qGwKj1GPH8DjSf1G1f1hJM34W4UNVfgAct0mAPLAK+BQYDAOyzhJ+dhd+9jR8Vxkf5rACZ4EPgOVAcNtR/w8KUAEWAKtFWCUwH/AKF1Q5JnAUGFao/ff+Af4BcrxRdAqYJcAAAAAASUVORK5CYII=" /><span id="alt_top" style="display: none;">[Top]</span></a></td></tr>

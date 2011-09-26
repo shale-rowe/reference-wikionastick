@@ -3746,12 +3746,11 @@ label.woas_cb { /* don't use on last in block */
 	width: 100%;
 }
 #woas_debug_log_clear_button {
-	margin: .375em 0px 0px
+	margin: .375em 0px
 }
 #woas_debug_panel {
 	background-color: #048db4;
 	border: 0;
-	margin-top: -0.4em;
 }
 
 /* EDITOR */
@@ -3818,8 +3817,8 @@ pre.woas_embedded {
 #woas_footer a {
 	color: white ! important;
 }
-#woas_go_to_top_button {
-	margin-bottom: -0.4em;
+#img_debug, #img_top {
+	padding-top: 0.188em;
 }
 
 /* HEADINGS */
@@ -4111,57 +4110,29 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 /* CSS used when loading/saving WoaS - readonly */
 body {
+	margin: 0px;
+	padding: 0px;
+	border-width: 0px;
 	font-family: Georgia, verdana;
+	background-color: #F0F0F5; /* to match layout */
 }
-
-#woas_custom_accesskeys {
-	display: none;
-}
-
-#woas_wiki_area {
-	position: relative;
-	left: 15.5%;
-	width: 82.3%;
-	z-index: 0;
-	margin-top: 1.313em;
-	margin-bottom: 0.75em;
-	text-align:justify;
-}
-
-#woas_wiki_header {
-	top: 0em;
-	left: 0em;
-	border: 1pt solid #aaa;
-	opacity:.65;
-	z-index: 1;
-	width: 99%;
-	padding-right:0.75em;
-}
-
 #loading_overlay {
 	position: absolute;
-	width: 99%;
+	width: 100%;
 	height: 100%;
 	padding-top: 25%;
 	z-index: 100;
-	background-color: white;
 	left: 0px;
 	top: 0px;
+	color: 	#000080; /* navy */
 	font-size: large;
-	text-align: center;
+	text-align: center
+}
+#woas_wait_text, #woas_pwd_mask, #woas_wiki_header, #i_woas_text_area,
+#edit_area, #woas_footer_panel, #woas_debug_log_clear_button, #woas_custom_accesskeys {
+	display: none
 }
 
-#woas_wait_text {
-	color: navy;
-}
-
-.woas_background, #woas_debug_panel, #woas_debug_console, #woas_debug_log,
-#woas_edit_page_title, .woas_editor_button, #woas_pwd_query, #woas_pwd_mask,
-.woas_password_desc,.woas_about_footer,.woas_help_background,.woas_help_button,
-.woas_helpcode,.woas_helptext, .woas_page_mts, div.woas_text_area, .woas_text_area.locked,
-#woas_pwd_mask,.woas_core_page,div.menu,#woas_menu_area,.woas_menu_button,#woas_title,
-.woas_nowiki, .woas_nowiki_multiline,pre.woas_search_results,div.woas_toc,p.woas_toc_title,
-table.woas_text_area,div.woas_taglinks { }
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Hotkeys
 woas.page.attributes: 0
