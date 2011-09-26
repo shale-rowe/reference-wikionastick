@@ -4014,7 +4014,7 @@ div.woas_toc {
 	width: 50%;
 	font-size: 95%;
 }
-div.woas_toc ol, li {
+div.woas_toc ol, div.woas_toc li {
 	margin-left: 3.25em;
 	padding-left: 0px;
 }

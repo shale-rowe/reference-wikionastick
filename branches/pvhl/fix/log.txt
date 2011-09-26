@@ -5,6 +5,7 @@ All changes listed with most recent commits first.
 
 Changes while updating fix from fix-wip
 
+* fix bad CSS for lists
 * bring help window to front when hidden
 * small layout and CSS changes
 * update Special::Import and Special::Export Help pages
