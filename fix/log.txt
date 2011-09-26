@@ -5,6 +5,8 @@ All changes listed with most recent commits first.
 
 Changes while updating fix from fix-wip
 
+* bring help window to front when hidden
+* small layout and CSS changes
 * update Special::Import and Special::Export Help pages
 * some small changes to index.wsif
 * make control buttons consistent across special pages

@@ -363,6 +363,7 @@ function help_go_back() {\n\
 			this.popup_window.document.title = wanted_page;
 			woas.setHTMLDiv(this.popup_window.document.body, this._index_btn+woas.parser.parse(this._mk_help_button(this.previous_page.length)+text));
 			this.popup_window.scrollTo(0,0);
+			this.popup_window.focus();
 		}
 		this.page_title = wanted_page;
 	}
