@@ -40,6 +40,7 @@ TODO:
 woas.wsif = {
 	version: "1.3.1",			// version of WSIF format being used
 	DEFAULT_INDEX: "index.wsif",
+	ds_multi: false, // just to document; set by wsif loader if index file was loaded
 	emsg: null,
 	imported: [],				// _native_page_def() will always add imported pages here
 	expected_pages: null,
@@ -90,6 +91,7 @@ woas._normver = function(s) {
 // - wiki pages go inline (utf-8), no container encoding
 // - embedded files/images go outside as blobs - disabled; now inline ... wasn't default here
 // - encrypted pages go inline in base64
+// inline_wsif is currently always true (external blobs are disabled until it works properly)
 woas._native_wsif_save = function(path, src_fname, locking, single_wsif, inline_wsif, author,
 							save_all, plist) {
 
@@ -100,14 +102,14 @@ woas._native_wsif_save = function(path, src_fname, locking, single_wsif, inline_
 	// certainly faster to create pages for saving than to load file and manipulate content,
 	// so this is best even after WoaS save process is changed to use pages to create file.
 	plist = [];
-
+	inline_wsif = true;
 	this.progress_init("WSIF save");
 	
 	// prepare the extra headers
 	var extra = this.wsif.header('wsif.version', this.wsif.version);
 	extra += this.wsif.header('wsif.generator', 'woas');
 	extra += this.wsif.header('wsif.generator.version', this.version);
-	if (woas.config.wsif_ds_multi)
+	if (!single_wsif)
 		extra += this.wsif.header('wsif.type', 'index'); // for safety in recursive loading
 	if (author.length)
 		extra += this.wsif.header('woas.author', author);
@@ -380,7 +382,7 @@ woas._native_wsif_load = function(path, locking, _native, recursing, import_hook
 					// PVHL: automatically set multi_file mode to prevent index file
 					// corruption on save; this can be overridden in options, allowing
 					// simple conversion to single-file.
-					if (is_index) woas.config.wsif_ds_multi = true;
+					if (is_index) this.wsif.ds_multi = true;
 					// get number of expected pages
 					this.wsif.expected_pages = ct.substring(0,p).match(/^woas\.pages:\s+(\d+)$/m);
 					if (this.wsif.expected_pages !== null)
@@ -669,11 +671,13 @@ woas._native_page_def = function(path,ct,p,last_p,import_hook,
 			this.wsif.do_error( "Page "+title+" is external but no filename was specified");
 			return false;
 		}
-		// use last filename to get path
+		// use filename from file input control to get path
+		// PVHL: should not be here - always pass path in
+		//	 What if it is erased during import?
 		if (path === null) {
 			path = this._get_path("filename_");
-			if (path === false) {
-				this.wsif.do_error( "Cannot retrieve path name in this browser");
+			if (!path) {
+				this.wsif.do_error( "Could not retrieve path for external file");
 				return false;
 			}
 		}

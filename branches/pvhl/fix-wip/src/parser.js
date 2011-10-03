@@ -115,14 +115,12 @@ _render_wiki_link: function(target, label, snippets, tags, export_links) {
 	var page = woas.title_unalias(target), // apply aliases to page title
 		hashloc = page.indexOf('#'),
 		r_label = (label === '') ? page : label,
-		title = '', gotohash = '', str, wl,
-		// class, title, other attributes (escape '), label
+		title = '', gotohash = '', str, wl, pg,
 		sLink = '<'+'a class="%s" title="%s"%s>%s<'+'\/a>',
 		sLinkBroken = '<'+'span class="woas_broken_link">%s<'+'\/span>',
 		scWorld = 'woas_world_link', scWoas = 'woas_link', scWoasUn = 'woas_unlink',
 		sHref = ' href="%s"', sHrefTrgt = ' href="%s" target="_blank"',
-		sOnClick = ' onclick="woas.go_to(\'%s\')%s"',
-		sWindowHash = '; window.location.hash=\'%s\'';
+		sOnClick = ' onclick="woas.go_to(\'%s\')"';
 
 	// check for tag definitions if they might exist
 	if (page.match('Tag') && typeof tags === 'object') {
@@ -149,36 +147,34 @@ _render_wiki_link: function(target, label, snippets, tags, export_links) {
 	}
 
 	// create section heading info
-	if (hashloc > 0) {
-		if (export_links)
-			gotohash = page.substr(hashloc);
-		else
-			gotohash = sWindowHash.sprintf(page.substr(hashloc + 1));
-		page = page.substr(0, hashloc);
-	}
+	if (hashloc !== -1) {
+		gotohash = this.heading_anchor(page.substr(hashloc + 1));
+		pg = page.substr(0, hashloc);
+	} else
+		pg = page;
+	if (!pg && !gotohash)
+		return ""; // PVHL: needs error report?
 
 	// create a title attribute only when page URI differs from page title
-	if (label !== '') {
+	if (label !== '' || gotohash) {
 		title = woas.xhtml_encode(page);
 	}
 
-	if (hashloc === 0) { // section reference URIs
-		str = sLink.sprintf(scWoas, title, sHref.sprintf(page), r_label);
-	} else if (woas.page_exists(page)) { // normal page
+	if ((!pg && gotohash) || woas.page_exists(pg)) { // normal page
 		if (export_links) {
-			wl = woas.exporter._get_fname(page);
+			wl = woas.exporter._get_fname(pg);
 			if (wl === '#') {
 				return woas.parser.place_holder(snippets, sLinkBroken.sprintf(r_label));
 			}
-			wl = sHref.sprintf(wl + gotohash);
+			wl = sHref.sprintf(wl + '#' + gotohash);
 		} else
-			wl = sOnClick.sprintf(woas.js_encode(page), gotohash);
+			wl = sOnClick.sprintf(woas.js_encode(pg) + (gotohash ? '#' + woas.js_encode(gotohash) : ''));
 		str = sLink.sprintf(scWoas, title, wl, r_label);
 	} else { // page does not exist
 		if (export_links) {
 			str = sLinkBroken.sprintf(r_label);
 		} else {
-			wl = sOnClick.sprintf(woas.js_encode(page), ''); // gotohash = ''
+			wl = sOnClick.sprintf(woas.js_encode(pg));
 			str = sLink.sprintf(scWoasUn, title, wl, r_label);
 		}
 	}
@@ -193,6 +189,8 @@ _transclude: function (str, $1) {
 		// temporary page object
 		P = { body: null };
 	//woas.log("Transcluding "+templname+"("+parts.slice(0).toString()+")");	// log:0
+	// increase transclusion depth (used by namespace listing)
+	++that._transcluding;
 	if (woas.is_reserved(templname) || (templname.substring(templname.length - 2) === "::"))
 		P.body = woas.get_text_special(templname);
 	else {
@@ -207,11 +205,10 @@ _transclude: function (str, $1) {
 	}
 	// template retrieval error
 	if (P.body === null) {
+		--that._transcluding;
 		// show an error with empty set symbol
 		return that.place_holder(that._snippets, that.render_error(str, "#8709"));
 	}
-	// increase transclusion depth (used by namespace listing)
-	++that._transcluding;
 	// add the inline file/image if embedded
 	if (is_emb) {
 	//woas.log("Embedded file transclusion: "+templname);	// log:0
@@ -638,7 +635,12 @@ syntax_parse: function(P, snippets, tags, export_links, has_toc) {
 
 	// italics/underline/bold all operate on a single line
 	// italics (needs to be done before code that adds html)
-	.replace(/(^|[^\w])\/(.+?)\//mg, function(str, $1, $2) {
+	// PVHL: bug-fix - can't use \w as in bold/underline as it rejects '_'
+	//   */_ need a rewrite (again) so that Me*n*u works, 9/3/83 doesn't, etc.
+	//   Just needs simpler capture with another test regexp for in word stuff.
+	//   Also need to combine these; get tables and lists to put away HTML as above?
+	//   Use word break instead? Recurse for proper */_ nesting, etc? Line by line simple
+	.replace(/(^|[^a-zA-Z0-9])\/(.+?)\//mg, function(str, $1, $2) {
 		return $1+"<"+"em>"+$2+"<"+"/em>";
 	})
 
@@ -651,6 +653,7 @@ syntax_parse: function(P, snippets, tags, export_links, has_toc) {
 	)
 
 	// underline (now works on a single line the same as bold/italics)
+	// needs to be before bold with this regexp (see italics)
 	.replace(/(^|[^\w])_(.+?)_/mg, function(str, $1, $2) {
 		return $1+"<"+"span style=\"text-decoration:underline;\">"+$2+"<"+"/span>";
 	})

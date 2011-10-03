@@ -208,13 +208,21 @@ woas._get_namespace_pages = function (ns) {
 		}
 		for(i = 0, l = page_titles.length; i < l; ++i) {
 			if (page_titles[i].indexOf(ns) === 0
-					// don't show pages used by special functions
-					&& page_titles[i] !== 'Special::Embed'
-					&& page_titles[i] !== 'Special::Lock') {
+					// don't show pages used by special functions unless override
+					&& (woas.tweak.edit_override ||
+					(page_titles[i] !== 'Special::Embed' && page_titles[i] !== 'Special::Lock'))){
 				pg.push(page_titles[i]);
 			}
 		}
 		return this._join_list(pg);
+	case "Tag":
+	case "Tags":
+	case "Include":
+	case "Lock":
+	case "Unlock":
+	case "Javascript":
+		// these should not be viewed as a namespace
+		return woas.i18n.NOT_A_NS.sprintf(ns);
 	}
 
 	for(i = 0, l = page_titles.length; i < l; ++i) {
@@ -545,7 +553,9 @@ woas.eval = function(code, return_value) {
 
 // Load a new current page
 // return true if page was successfully loaded
-woas.set_current = function (cr, interactive) {
+// PVHL: needs to handle section references;
+//   no_history added for Lock/Unlock/Options, etc. to stop history problems
+woas.set_current = function (cr, interactive, keep_fwd) {
 	// pager.browse_hook determines if cr is allowed to be set
 	if (!woas.pager.browse_hook(cr))
 		return false;
@@ -606,18 +616,22 @@ woas.set_current = function (cr, interactive) {
 						break;
 					case "Unlock":
 						pi = this.page_index(cr);
-						if (!confirm(this.i18n.CONFIRM_REMOVE_ENCRYPT.sprintf(cr)))
-							return false;
-						text = this.get_text(cr);
-						if (this.pager.decrypt_failed())
-							return false;
-						pages[pi] = text;
-						page_attrs[pi] -= 2;
-						if (!this.config.key_cache)
-							this.AES.clearKey();
-						if (this.set_current(cr, true)) {
-							this.save_page(cr);
-							return true;
+						// PVHL: Just a preventive; could be a bug: only unlock if locked;
+						//   maybe the wrong place but OK for now
+						if (pi !== -1 && (page_attrs[pi] & 0x2)) {
+							if (!confirm(this.i18n.CONFIRM_REMOVE_ENCRYPT.sprintf(cr)))
+								return false;
+							text = this.get_text(cr);
+							if (this.pager.decrypt_failed())
+								return false;
+							pages[pi] = text;
+							page_attrs[pi] ^= 0x2;
+							if (!this.config.key_cache)
+								this.AES.clearKey();
+							if (this.set_current(cr, true, true)) {
+								this.save_page(cr);
+								return true;
+							}
 						}
 						return false;
 					case "WoaS":
@@ -725,7 +739,8 @@ woas.set_current = function (cr, interactive) {
 		mts = page_mts[pi];
 	}
 	this._add_namespace_menu(namespace.length ? cr.substring(0, cr.lastIndexOf("::")) : "");
-	return this.load_as_current(cr, this.parser.parse(text, false, this.js_mode(cr)), this.config.store_mts ? mts : 0, set_b);
+	return this.load_as_current(cr, this.parser.parse(text, false, this.js_mode(cr)),
+		this.config.store_mts ? mts : 0, set_b, keep_fwd);
 };
 
 // enable safe mode for non-reserved pages
@@ -745,7 +760,7 @@ woas.last_modified = function(mts, no) {
 };
 
 // actually load a page given the title and the proper XHTML
-woas.load_as_current = function(title, xhtml, mts, set_b) {
+woas.load_as_current = function(title, xhtml, mts, set_b, keep_fwd) {
 	if (typeof title == "undefined") {
 		this.crash("load_as_current() called with undefined title");
 		return false;
@@ -760,31 +775,41 @@ woas.load_as_current = function(title, xhtml, mts, set_b) {
 //	this.log("load_as_current(\""+title+"\", "+set_b+") - "+(typeof xhtml == "string" ? (xhtml.length+" bytes") : (typeof xhtml)));	// log:0
 	this.setHTMLDiv(d$("woas_page"), xhtml);
 	this.refresh_mts(mts);
-	this.history.go(current);
+	this.history.go(title, keep_fwd);
 	current = title;
 	// activate menu or page scripts
 	this.scripting.activate(this.is_menu(current) ? "menu" : "page");
 	this._set_title(title);
 	this.update_view();
-//	this.log(this.history.log_entry());	// log:0
+	//this.log(this.history.log_entry());	// log:0
+//if (console) console.log('load_as_current: ' + this.history.log_entry());
 	return true;
 };
 
-woas._finalize_lock = function(pi) {
+woas._finalize_lock = function(pi, back) {
 	this._perform_lock(pi);
 	var title = page_titles[pi];
-	this.set_current(title, true);
 	if (!this.config.key_cache) {
 		this.AES.clearKey();
 		this.last_AES_page = "";
 	} else
 		this.last_AES_page = title;
 	this.save_page_i(pi);
+	if (back) { // only if called from Lock:: page
+		this.ui.back();
+	} else {
+		// need to refresh display; no history
+		this.set_current(title, true, true);
+	}
 };
 
 woas._perform_lock = function(pi) {
-	pages[pi] = this.AES.encrypt(pages[pi]);
-	page_attrs[pi] += 2;
+	// PVHL: Just a preventive; may be a bug that could lock twice:
+	//   only lock if unlocked
+	if (!(page_attrs[pi] & 0x2)) {
+		pages[pi] = this.AES.encrypt(pages[pi]);
+		page_attrs[pi] |= 0x2;
+	}
 };
 
 woas._add_namespace_menu = function(namespace) {
@@ -982,7 +1007,7 @@ woas._early_render = function() {
 	woas.post_load();	
 };
 
-// disable edit-mode after cancel/save actions
+// disable edit-mode after cancel/save actions and on initial load
 woas.disable_edit = function() {
 //	woas.log("DISABLING edit mode");	// log:0
 	// reset change buffer used to check for page changes
@@ -993,8 +1018,11 @@ woas.disable_edit = function() {
 		woas._ghost_page = false;
 		woas.log("Ghost page disabled"); //log:1
 	}
+	scrollTo(0,0);
 	this.log(); // scroll to bottom of log
 	this._set_title(this.prev_title);
+	//woas.log(woas.history.log_entry()); //log:0
+//if (console) console.log('disable edit: ' + this.history.log_entry());
 };
 
 function _lock_pages(arr) {
@@ -1264,7 +1292,7 @@ woas.save = function() {
 	if (do_save) {
 		this.save_page(current);
 	}
-	this.set_current(back_to, true);
+	this.set_current(back_to, true, true); // don't clear fwd history
 	this.refresh_menu_area();
 	this.disable_edit();
 };

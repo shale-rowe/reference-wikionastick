@@ -489,9 +489,9 @@ woas.importer = {
 				// put back the old values for WSIF datasource
 				woas.config.wsif_author = old_cfg.wsif_author;
 				woas.config.wsif_ds = old_cfg.wsif_ds;
-				woas.config.wsif_ds_lock = old_cfg.wsif_ds_lock;
-				woas.config.wsif_ds_multi = old_cfg.wsif_ds_multi;
-
+				// below are not being used - Check that save doesn't write out nulls
+				woas.config.wsif_ds_lock = null; //old_cfg.wsif_ds_lock;
+				woas.config.wsif_ds_multi = null; //old_cfg.wsif_ds_multi;
 			} // done importing config object
 		} // i_config
 

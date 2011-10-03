@@ -148,20 +148,25 @@ woas.cmd_erase_wiki = function() {
 };
 
 // pages which shall never be modified
-woas.static_pages = ["Special::About", "Special::Advanced", "Special::Options","Special::Import",
-						"Special::Lock","Special::Search", "Special::Embed",
-						"Special::Export", "Special::License", "Special::ExportWSIF",
-						"Special::ImportWSIF"];
+woas.static_pages = [
+	"Special::About", "Special::Advanced", "Special::Options",
+	"Special::Import", "Special::Lock","Special::Search", "Special::Embed",
+	"Special::Export", "Special::License", "Special::ExportWSIF",
+	"Special::ImportWSIF"
+];
 
-woas.static_pages2 = ["WoaS::Plugins", "WoaS::CSS::Core",
-						"WoaS::Template::Button", "WoaS::Template::Info",
-						"WoaS::Template::Search", "WoaS::CSS::Boot",
-						"WoaS::ImportSettings", "WoaS::Template::Example::Transclusion"];
+woas.static_pages2 = [
+	"WoaS::Plugins", "WoaS::CSS::Boot", "WoaS::CSS::Core",
+	"WoaS::ImportSettings", "WoaS::Template::Search",
+	"WoaS::Template::Example::Transclusion"
+];
 
 woas.static_pages = woas.static_pages.concat(woas.static_pages2);
 						
 woas.help_pages = null;
-woas.default_pages = ["::Menu", "WoaS::Aliases", "WoaS::Hotkeys", "WoaS::CSS::Custom"];
+woas.default_pages = [
+	"::Menu", "WoaS::Aliases", "WoaS::Hotkeys", "WoaS::CSS::Custom"
+];
 
 woas.erase_wiki = function() {
 	if (!this.config.permit_edits) {
@@ -342,11 +347,12 @@ woas.delete_page_i = function(i) {
 };
 
 // PVHL: Can't make changes to API I would like to without reworking a lot of
-//       code. The changes I have made fix current history issues.
+//   the code. The changes I have made attempt to fix current history issues.
  
-(function(){ // woas.history closure
-	// Should be one stack, but this way for historical reasons
-	var backstack = [],
+woas.history = (function(){ // woas.history closure
+	// commandeer the old backstack (breaks privacy; good enough for now)
+	// much easier if it was one stack, but this way for historical reasons
+	var backstack = window.backstack,
 		forstack = [], // forward history stack, discarded when saving
 		going_back = true,	// true if back called and for initial page load
 		going_forward = false; // true if forward called
@@ -358,7 +364,9 @@ woas.delete_page_i = function(i) {
 		backstack.push(page);
 	}
 	
-woas.history = {
+	// the public API
+	return {
+	
 	MAX_BROWSE_HISTORY: 6, // public for overriding
 	
 	has_forstack: function() {
@@ -379,7 +387,9 @@ woas.history = {
 	
 	back: function() {
 		if (backstack.length > 0) {
-			forstack.push(current);
+			if (!/^Lock::/.test(current)) {
+				forstack.push(current);
+			}
 			var title = backstack.pop();
 			if (title)
 				going_back = true;
@@ -398,11 +408,11 @@ woas.history = {
 		return null;
 	},
 	
-	go: function(title) {
-		if (!going_back && !woas.ui.edit_mode) {
-			store(title);
+	go: function(title, keep_fwd) {
+		if (!going_back && !woas.ui.edit_mode && current !== title && !/^Lock::/.test(current)) {
+			store(current);
 		}
-		if (!going_forward && !going_back) {
+		if (!keep_fwd && !going_forward && !going_back/* && !/^Lock::/.test(title)*/) {		
 			forstack = [];
 		}
 		going_back = going_forward = false;
@@ -479,9 +489,6 @@ woas.history = {
 			+ frmt(forstack.slice(0).reverse());
 	}
 }}());
-
-woas.history.backstack = backstack;
-backstack = null;
 
 // some general integrity tests - for debug purposes
 woas.integrity_test = function() {

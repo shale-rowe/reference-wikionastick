@@ -67,11 +67,11 @@ woas.ui = {
 	//  This function should use full page titles; help_system should use postfix
 	//  (everything after WoaS::Help)
 	help: function() {
-		var wanted_page, pi, htitle = current;
+		var pg, pi, htitle = current;
 		// we are editing
 		if (this.edit_mode) {
-			wanted_page = "WoaS::Help::Editor";
-			pi = woas.page_index(wanted_page);
+			pg = "WoaS::Help::Editor";
+			pi = woas.page_index(pg);
 		} else {
 			// normalize namespace listngs
 			if (htitle.lastIndexOf('::') === htitle.length - 2)
@@ -82,13 +82,13 @@ woas.ui = {
 				htitle = htitle.substr(6);
 			pi = woas.page_index("WoaS::Help::"+htitle);
 			if (pi === -1) {
-				wanted_page = "WoaS::Help::Index";
-				pi = woas.page_index(wanted_page);
+				pg = "WoaS::Help::Index";
+				pi = woas.page_index(pg);
 			} else {
-				wanted_page = "WoaS::Help::"+htitle;
+				pg = "WoaS::Help::"+htitle;
 			}
 		}
-		woas.help_system.go_to(wanted_page, pi);
+		woas.help_system.go_to(pg, pi);
 	},
 	tables_help: function() {
 		woas.help_system.go_to("WoaS::Help::Tables");
@@ -205,7 +205,6 @@ woas.ui = {
 		}
 		current = woas.prev_title;
 		woas.update_view();
-//		woas.log(woas.history.log_entry()); //log:0
 		woas.disable_edit();
 	},
 	// when back button is clicked
@@ -250,13 +249,16 @@ woas.ui = {
 		if (woas.pager.bucket.items.length>1)
 			_lock_pages(woas.pager.bucket.items);
 		else
-			woas.go_to("Lock::" + current);
+			//woas.go_to("Lock::" + current);
+			// Icon lockout allows using this to prevent history issues
+			woas.set_current("Lock::" + current, true, true);
 	},
 	unlock: function() {
 		if (woas.pager.bucket.items.length>1)
 			_unlock_pages(woas.pager.bucket.items);
 		else
-			woas.go_to("Unlock::" + current);
+			woas.set_current("Unlock::" + current, true);
+			//woas.go_to("Unlock::" + current);
 	},
 	// scroll to top of page
 	top: function() {
@@ -275,47 +277,83 @@ woas.ui = {
 			d$("woas_menu_wrap").style.position = (fixed ? "fixed" : "absolute");
 		}
 	},
-/*	set_mode: function(edit) {
-		if (edit) {
-		} else {
-		}
-	},*/
 	set_layout: function(fixed)  {
 		this.set_header(fixed);
 		this.set_menu(fixed);
 	},
-	// if called with input 'el' and !'check' then sets config in UNIX format,
-	// if called with input 'el' and 'check' then checks/repairs filename in el.
-	// else gets config value. Returns OS native path.
-	wsif_ds: function(el, check) {
-		// get path in UNIX format; stored this way - but just to be safe
-		var ds = woas.config.wsif_ds.replace(/\\/g, '/'), i, c, e, o,
-			subpath = (el ? el.value.replace(/\\/g, '/') : ds);
-		// make sure it's relative - assume stored value is
-		while (subpath[0] === '/') subpath = subpath.substr(1);
-		if (el && !check) {
-			i = woas.i18n, c = i.CHOOSE_CANCEL, e = i.WSIF_EXIST, o = i.WSIF_ORIGINAL;
-			// warn of potential risks before setting; restore original if needed
-			if ((subpath && ds && subpath !== ds && confirm(e + o + c)) ||
-					(subpath && !ds && confirm(i.WSIF_DS_TO_EXTERNAL + e + c)) ||
-					(!subpath && ds && confirm(i.WSIF_DS_TO_INTERNAL + o + c))) {
-				woas.config.wsif_ds = subpath;
-			} else {
-				subpath = ds;
+
+	// Used by Special::Options page (also used to check/repair filename in ExportWSIF)
+	// chk_box & set are optional
+	//
+	// 1. if called with 'txt_box' & 'chk_box', and 'set' is true then may set config in
+	//      UNIX format and save file -- only to be called from Special::Options code
+	// 2. if called with 'txt_box', 'chk_box' only then sets elements with correct values
+	// 3. if called with 'txt_box' alone then checks/repairs relative filename in txt_box
+	//    (used by Special::ExportWSIF)
+	wsif_ds: function(txt_box, chk_box, set) {
+		// get path in UNIX format and trim; stored this way - but just to be safe
+		var fn = txt_box.value.replace(/\\/g, '/').trim(),
+			ds = woas.config.wsif_ds.replace(/\\/g, '/').trim(),
+			str = '', i;
+		// make sure path is relative - assume stored value is
+		while (fn[0] === '/') fn = fn.substr(1);
+		if ( set && (ds || fn) ) {
+			i = woas.i18n;
+			// 1. change data source settings and save file
+			// create prompt string (truth table logic used; if str created
+			// then a valid condition exists; otherwise reset options)
+			if ( !( ds === fn && woas.wsif.ds_multi === this.wsif_ds_multi ) ) {
+				if ( ds && !fn ) {
+					str = i.WSIF_DS_TO_INTERNAL;
+				} else if ( !ds && fn ) {
+					str = i.WSIF_DS_TO_EXTERNAL + i.WSIF_EXIST;
+				} else if (ds && fn && ds === fn) {
+					if ( woas.wsif.ds_multi && !this.wsif_ds_multi ) {
+						str = i.WSIF_DS_TO_SINGLE;
+					} else if ( !woas.wsif.ds_multi && this.wsif_ds_multi ) {
+						str = i.WSIF_DS_TO_MULTI;
+					}
+				}
+				if ( ( ds && fn && ds !== fn ) ) {
+					str += i.WSIF_EXIST;
+				}
+				if ( this.wsif_ds_multi && ( !ds || fn ) ) {
+					str += i.WSIF_PAGES;
+				}
 			}
-			el.value = subpath;
+			// warn of potential risks before setting; restore original if needed
+			if ( str && confirm(str + i.CHOOSE_CANCEL) ) {
+				// update settings and save file
+				woas.config.wsif_ds = fn; // save in UNIX format
+				woas.wsif.ds_multi = fn && this.wsif_ds_multi;
+				woas.full_commit(); // this currently destroys the DOM :(
+				woas.set_current(current, true, true); // stop forward history destruction
+			} else { // reset settings - approval not given or settings not valid
+				fn = ds;
+				this.wsif_ds_multi = woas.wsif.ds_multi;
+				str = '';
+			}
 		}
-		if (is_windows) {
-			// convert unix path to windows path
-			subpath = subpath.replace(reFwdSlash, '\\');
+		if (chk_box) {
+			// 2. load correct values
+			chk_box.checked = woas.bool2chk(woas.wsif.ds_multi);
+			if (!set) {
+				fn = ds;
+			}
 		}
-		return subpath;
+		// 3. check/repair/set filename
+		// convert unix path to windows path for display
+		if (!str) {
+			txt_box.value = is_windows ? fn.replace(reFwdSlash, '\\') : fn;
+		}
 	}
 };
 
 woas.ui._textbox_enter_event = woas.ui._textbox_enter_event_dummy;
 
 //API1.0
+// PVHL: needs to be fixed for proper handling of section anchors
+//   consider adding a 'no history' option for internal use.
 woas.go_to = function(cr) {
 	// won't go anywhere while editing!
 	if (this.ui.edit_mode)
@@ -345,7 +383,6 @@ woas.help_system = {
 	popup_wnd: ',status=no,menubar=no,resizable=yes,scrollbars=no,location=no,toolbar=no',
 	popup_w: Math.ceil(screen.width * 0.75),
 	popup_h: Math.ceil(screen.height * 0.75),
-	popup_title: null,
 
 	popup_code: woas.raw_js("\n\
 function get_parent_woas() {\n\
@@ -397,39 +434,53 @@ type="button" /><'+'input tabindex=1 class="woas_help_button" value="Index" oncl
 	going_back: false,
 	previous_page: [],
 
-	go_to: function(wanted_page, pi) {
-//		woas.log("help_system.go_to(\""+wanted_page+"\")");	//log:0
-		var t = {}, _pfx = "WoaS::Help::";
-		if (typeof pi == "undefined")
-			pi = woas.page_index(wanted_page);
-		// this is a namespace
-		if (pi === -1) {
-			woas.go_to(wanted_page);
-			return;
-		} else {
+	go_to: function(page, pi) {
+//		woas.log("help_system.go_to(\""+pg+"\")");	//log:0
+		var t = {hash: '', title: ''}, _pfx = "WoaS::Help::",
+			hash_i = page.indexOf('#'), pg;
+		if (hash_i !== -1) {
+			t.hash = page.substr(hash_i); // includes #
+			// pg is empty for same-page section links
+			pg = page.substr(0, hash_i);
+		} else
+			pg = page;
+		if (pg) {
+			if (!pi) {
+				pi = woas.page_index(pg);
+				// this is a namespace (PVHL: possibly; or misspelled; FIX)
+				if (pi === -1) {
+					woas.go_to(page);
+					return;
+				}
+			}
 			// see if this page shall be opened in the main wiki or in the help popup
-			if (page_titles[pi].substr(0, _pfx.length) === _pfx)
+			if (pg.substr(0, _pfx.length) === _pfx) {
 				t.text = woas.get__text(pi);
-			else { // open in main wiki
-				woas.go_to(page_titles[pi]);
+				if (t.text === null)
+					return;
+				t.title = pg.substr(_pfx.length);
+			} else { // open in main wiki
+				woas.go_to(page);
 				return;
 			}
 		}
-		if (t.text === null)
-			return;
 		// save previous page and set new
 		if (this.going_back)
 			this.going_back = false;
 		else if (this.page_title !== null)
 			this.previous_page.push( this.page_title );
-		this.page_title = wanted_page;
+		else if (!pg)
+			// can't just have a section if there's no current page
+			return
+		if (pg) this.page_title = pg;
 		// allow overriding this function
 		this.make_pop_up(t);
 	},
 
 	// PVHL: create a custom help page from scratch that works in all browsers
+	// This needs to be modified to accept a hash section
 	make_pop_up: function(t) {
-		var title = this.page_title.substr(12), btn, fn;
+		var btn, fn, el;
 		if ((this.popup_window === null) || this.popup_window.closed) {
 			this.previous_page = [];
 			this.popup_window = woas.popup("help_popup", this.popup_w,
@@ -437,17 +488,23 @@ type="button" /><'+'input tabindex=1 class="woas_help_button" value="Index" oncl
 				'<'+'title>' + this.page_title + '<'+'/title>' + '<'+'style type="text/css">'
 				+ woas.css.get() + '<'+'/style>' + this.popup_code,
 				woas.parser.parse(this.popup_page.sprintf(
-					'Close', 'Close', 'window.close', title, t.text)),
-				' class="woas_help" onload="help_resize()"', ' class="woas_help"');
+					'Close', 'Close', 'window.close', t.title, t.text)),
+				' class="woas_help"', ' class="woas_help"');
+			setTimeout("woas.help_system.popup_window.focus()", 0);
 			this.popup_window.help_resize(); //seems to help a bit with flash
 		} else { // load new page
 			btn = this.previous_page.length ? 'Back' : 'Close';
 			fn = this.previous_page.length ? 'help_go_back' : 'window.close';
-			woas.setHTMLDiv(this.popup_window.document.body,
-				woas.parser.parse(this.popup_page.sprintf(btn, btn, fn, title, t.text)));
-			this.popup_window.document.title = this.page_title;
-			this.popup_window.scrollTo(0,0);
+			if (t.text) {
+				woas.setHTMLDiv(this.popup_window.document.body, woas.parser.parse(
+					this.popup_page.sprintf(btn, btn, fn, t.title, t.text)));
+			}
+			this.popup_window.document.title = this.page_title+t.hash;
 			this.popup_window.help_resize();
+			if (t.hash) {
+				d$("woas_help_body_wrap").scrollTop = d$(t.hash.substr(1)).offsetTop
+			}
+			//this.popup_window.scrollTo(0,0);
 			// stop flash on page load
 			setTimeout("woas.help_system.popup_window.focus()", 0);
 		}
@@ -546,8 +603,8 @@ function save_options() {
 		return false;
 	}
 	woas.cfg_commit();
-	woas.ui.back(); // works now history is somewhat fixed
-	//woas.set_current("Special::Advanced", true);
+	// prefer to stay on the options page after saving
+	woas.set_current(current, false);
 }
 
 function ro_woas() {
@@ -558,10 +615,8 @@ function ro_woas() {
 	if (confirm(woas.i18n.CONFIRM_READ_ONLY + woas.i18n.CHOOSE_CANCEL)) {
 		woas.config.permit_edits = false;
 		woas.cfg_commit();
-		// reparse page
-		woas.setHTMLDiv(d$("woas_page"),
-			woas.parser.parse(woas.get_text("Special::Options"), false, 1));
-		woas.scripting.activate("page");
+		// next is OK now history is fixed; reloads page
+		woas.set_current(current, false);
 	}
 }
 
@@ -578,7 +633,7 @@ function lock_page(page) {
 	}
 	var pi = woas.page_index(page);
 	woas.AES.setKey(pwd);
-	woas._finalize_lock(pi);
+	woas._finalize_lock(pi, true);
 }
 
 // used in Special::Options
@@ -778,7 +833,7 @@ woas.export_wiki_wsif = function () {
 		author = this.trim(d$("woas_ep_author").value);
 		single_wsif = !d$("woas_cb_multi_wsif").checked;
 		//inline_wsif = !d$("woas_cb_linked_wsif").checked;
-		inline_wsif = false;
+		inline_wsif = true;
 		all_wsif = !!d$("woas_cb_all_wsif").checked;
 	} catch (e) { this.crash(e); return false; }
 	
@@ -790,23 +845,6 @@ woas.export_wiki_wsif = function () {
 	}
 	return true;
 };
-
-// workaround to get full file path on FF3
-// by Chris
-function ff3_getPath(fileBrowser) {
-	try {
-		netscape.security.PrivilegeManager.enablePrivilege("UniversalXPConnect");
-	} catch (e) {
-	    alert('Unable to access local files due to browser security settings. '
-	    +'To overcome this, follow these steps: (1) Enter "about:config" in the URL field; '+ 
-	    '(2) Right click and select New->Boolean; (3) Enter "signed.applets.codebase_principal_support" '+
-	     '(without the quotes) as a new preference name; (4) Click OK and try loading the file'+
-	     ' again.');
-	    return false;
-	}
-	var fileName=fileBrowser.value;
-	return fileName;
-}
 
 // create a centered popup given some options
 woas.popup = function(name,fw,fh,extra,head,body, body_extra, html_extra) {
@@ -992,6 +1030,10 @@ woas.ui._resize = (function() {
 }());
 window.onresize = woas.ui._resize;
 
+
+
+
+
 woas._set_debug = function(status, closed) {
 	var logbox = d$("woas_debug_log"), lines = -1, position = 0,
 		cut = 100, max = 200; // cut > 0, max > cut
@@ -1083,7 +1125,6 @@ woas.menu_display = function(id, visible, opaque) {
 	} else if (!visible && p === -1) {
 		id.className += (ic.length ? ' ' : '') + c;
 	}
-	if (window.console) console.log(i+" "+opaque+"  '"+ic + "'  " + p + "  '"+id.className+"'");
 	//visible ? woas.ui.set_css("woas_" + id, visible);
 };
 
@@ -1148,28 +1189,58 @@ function _woas_new_plugin() {
 	// now we will be editing the plugin code
 }
 
-// get file URL from input XHTML element
-// this might not work on some browsers
-// not to be called for Mozilla-based browsers
-woas.get_input_file_url = function() {
-	var r = false;
-	if (this.browser.opera || this.browser.webkit) {
-		// ask user for path, since browser do not allow us to see where file really is
-		r = d$("filename_").value;
-		r = prompt(this.i18n.ALT_BROWSER_INPUT.sprintf(this.basename(r)), this.ROOT_DIRECTORY);
-		if ((r === null) || !r.length)
-			r = false;
-		else
-			this._last_filename = r;
-	} else { // we have requested a direct read of the file from the input object
-		r = d$("filename_").value;
-		if (!r.length)
-			r = false;
-	}
-	if (r === false)
+// PVHL: make this part of closure for method below
+woas._last_filename = null;
+
+// works - one way or another - for all browsers
+// retrieve complete path & filename from file input control
+// 	 id is optional, default is 'filename_'
+//   use_last is optional (used with id)
+//   filename is returned if it exists, otherwise empty string
+woas.get_input_file_url = function(id, use_last) {
+	id = id || 'filename_';
+	var f = d$(id), fn = f.value, is_path = /[\\\/]+/;
+	if (!fn) {
 		this.alert(this.i18n.FILE_SELECT_ERR);
-	return r;
-};
+	} else {
+		if (!is_path.test(fn)) {
+			// read of control failed to provide directory path
+			// try known firefox method (early firefox succeeded, so not here)
+			if (this.browser.firefox) {
+				try {
+					netscape.security.PrivilegeManager.enablePrivilege("UniversalXPConnect");
+					fn = f.value;
+				} catch (e) {
+					woas.log("NOTICE: exception while attempting to access file path:\n\n" + e);	// log:1
+					// PVHL: replace with i18n string!
+					alert('Unable to access local files due to browser security settings. ' +
+						'To overcome this, follow these steps:\n' +
+						'(1) Enter "about:config" in the URL field;\n' +
+						'(2) Right click and select New->Boolean;\n' +
+						'(3) Enter "signed.applets.codebase_principal_support" ' +
+						'(without the quotes) as a new preference name;\n' +
+						'(4) Click OK and try loading the file again.');
+					fn = '';
+				}
+			}
+			if (!is_path.test(fn)) {
+				// couldn't get path; ask for direct entry unless use_last specified
+				if (use_last) {
+					fn = this._last_filename;
+				} else {
+					fn = prompt(this.i18n.ALT_BROWSER_INPUT
+							.sprintf(this.basename(fn)), this.ROOT_DIRECTORY);
+				}
+			}
+			if (!is_path.test(fn)) {
+				fn = false; // why not '' ?
+			} else {
+				this._last_filename = fn;
+			}
+		}
+	}
+	return fn;
+}
 
 /*
 woas.css.ff2 (string:valid CSS): css added if browser == ff2 when !raw 

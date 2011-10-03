@@ -646,15 +646,16 @@ woas.macro = {
 	// some default macros
 	default_macros: {
 		// advanced transclusion: each newline creates a parameter
-		"include" : function(m) {
-			var params = m.text.split("\n"), nt, paramno;
+		include : function(m) {
+			var params = m.text.split("\n"), nt, paramno, trans;
 			// embedded transclusion not supported
 			if (!params.length || !woas.page_exists(params[0]) || woas.is_embedded(params[0]))
 				return false;
-			// tell parser we are transcluding a page (stops header display for page listings)
-			++woas.parser._transcluding;
+			// PVHL: allow control for page listings, even if we are deeply transcluded
+			trans = woas.parser._transcluding;
+			woas.parser._transcluding = 0;
 			nt = woas.get_text_special(params[0]);
-			--woas.parser._transcluding;
+			woas.parser._transcluding = trans;
 			if (nt === null)
 				return false;
 			if (params.length) { // replace transclusion parameters
@@ -667,6 +668,21 @@ woas.macro = {
 					} );
 			}
 			m.text = nt;
+			m.reprocess = true;
+			return true;
+		},
+		// PVHL: this is mostly to make the Help note more flexible, but...
+		//   why not pass in the type and make it text box - or add such; so:
+		//   woas.box(note): blah.... <<.box(alert) hi>> (I want this '.'
+		// 	 form for official, and to drop the ':' after - unneeded; or maybe
+		//   use '::' as for system pages: e.g. ::box(info) my text...)
+		//   <<.box blah ...>> would give the default box -- note probably.
+		//   All this need do is change the class through a switch; all done in CSS.
+		//   Or don't use a switch and rely on user -- any can be added then.
+		note: function(m) {
+			// the extra div helps IE6
+			var txt = "<"+"div><"+"div class='woas_note'>*%s* %s</"+"div><"+"/div>";
+			m.text = txt.sprintf(woas.i18n.NOTE_TEXT, m.text);
 			m.reprocess = true;
 			return true;
 		}
@@ -745,3 +761,5 @@ woas.macro = {
 // some initialization
 woas.macro.names.push("woas.include");
 woas.macro.functions.push(woas.macro.default_macros.include);
+woas.macro.names.push("woas.note");
+woas.macro.functions.push(woas.macro.default_macros.note);
