@@ -48,7 +48,7 @@ woas._save_this_file = function(new_data, old_data) {
 	var r = woas.save_file(filename, this.file_mode.ASCII_TEXT,
 		this.DOCTYPE + this.DOC_START + "<"+"script woas_permanent=\"1\" type=\"tex"+"t/javascript\">"
 		+ new_data + "\n" + old_data + "<"+"/html>");
-	if (r===true)
+	if (r)
 		woas.log("NOTICE: \""+filename+"\" saved successfully");	// log:1
 	else {
 		var msg = this.i18n.SAVE_ERROR.sprintf(filename) + "\n\n";
@@ -71,16 +71,19 @@ woas._save_this_file = function(new_data, old_data) {
 //NOTE: save_mode is not always enforced by browser binding
 woas.save_file = function(fileUrl, save_mode, content) {
 	var r = null;
-	if (!this.use_java_io) {
+	// not bothering with Java failover - can't see need and needs testing
+	// and proper error testing.
+	if (this.browser.firefox) {
 		r = this.mozillaSaveFile(fileUrl, save_mode, content);
-		if((r === null) || (r === false))
-			r = this.ieSaveFile(fileUrl, save_mode, content);
-		// fallback to try also with Java saving
-	} else
-		return this.javaSaveFile(fileUrl, save_mode, content);
-	if((r === null) || (r === false))
+	} else if (this.browser.ie) {
+		r = this.ieSaveFile(fileUrl, save_mode, content);
+	} else if (!this.use_java_io) {
 		r = this.javaSaveFile(fileUrl, save_mode, content);
-	return r;
+	}
+	if (r === null) {
+		this.alert('Could not save "'+fileUrl+'"');
+	}
+	return r
 };
 
 var reDataUrlPfx = new RegExp("^data:\\s*([^;]*);\\s*base64,\\s*");
@@ -89,7 +92,7 @@ woas.mozillaLoadFileID = function(obj_id, load_mode, suggested_mime) {
 	var obj = document.getElementById(obj_id);
 	if(!window.Components || !obj.files)
 		return null;
-	var D=obj.files.item(0);
+	var D=obj.files.item(0); // or: obj.files[0]; faster?
 	if (D === null)
 		return false;
 
@@ -117,39 +120,18 @@ woas.mozillaLoadFileID = function(obj_id, load_mode, suggested_mime) {
 };
 
 // see http://dev.w3.org/2006/webapi/FileAPI/
-/*woas.ECMALoadFile = function(fileUrl, load_mode, suggested_mime) {
-	if (typeof FileReaderSync == "undefined")
-		return null;
-	var D = new FileReaderSync();
-	try {
-		switch (load_mode) {
-			case this.file_mode.DATA_URI:
-				if (typeof suggested_mime != "string")
-					return D.readAsDataURL(fileUrl);
-				else // apply mime override
-					return D.readAsDataURL(fileUrl).replace(/^data:(\s*)([^;]*)/, "data:$1"+suggested_mime);
-				break;
-			case this.file_mode.BASE64:
-				return D.readAsDataURL(fileUrl).replace(reDataUrlPfx, '');
-			case this.file_mode.BINARY:
-				return D.readAsBinaryString();
-			case this.file_mode.UTF8_TEXT:
-				return D.readAsText("utf-8");
-			case this.file_mode.UTF16_TEXT:
-				return D.readAsText("utf-16");
-			case this.file_mode.ASCII_TEXT:
-				return D.readAsText("");
-		}
-	} catch (e) {
-		woas.log("ECMALoadFile: "+e);
-		return false;
-	}
-	// not available
-	this.crash(this.i18n.MODE_NOT_AVAIL.sprintf(load_mode.toString(16)));
-	return null;
-};*/
+// PVHL: removed ... FileReaderSync interface doesn't work as this disabled code assumed
+/*woas.ECMALoadFile = function(fileUrl, load_mode, suggested_mime) {*/
 
 // API1.0: load-file handler
+//
+// Refactored by PVHL for FF7 breakdown. NOTE: FF7 broke because they went to standards.
+// WoaS must be rewritten for asynchronous file read as this is the future standard;
+// once done modern browsers will be able to read/write without Java -- including binary..
+// Same probably true for write also -- haven't researched it yet.
+//
+// fileUrl is null if interactive read from file control.
+// returns file contents, false if browser-specific (or java) load failed, or null
 woas.load_file = function(fileUrl, load_mode, mime){
 	// parameter consistency check
 	if (typeof load_mode === "undefined") {
@@ -157,50 +139,36 @@ woas.load_file = function(fileUrl, load_mode, mime){
 		// perhaps should be ASCII?
 		load_mode = this.file_mode.UTF8_TEXT;
 	}
-	// try loading the file without using the path (FF3+)
-	// (object id hardcoded here)
-	var r = null;
-	if (!this.use_java_io) {
-		// correctly retrieve fileUrl
-		if (fileUrl === null) {
-			if (this.browser.firefox3 || this.browser.firefox_new)
-				r = this.mozillaLoadFileID("filename_", load_mode, mime);
-			else
-				fileUrl = this.get_input_file_url();
+	var r = null, g;
+	if (fileUrl === null) {
+		// try loading the file without using the path (if 3 < firefox < 7)
+		// Firefox 7 has broken file reading with mozillaLoadFileID; use old method instead
+		// Now uses gecko value for FF3-6; these version #s should be numeric
+		g = Number(woas.browser.gecko.substr(0,3)); // false = 0
+		if (g > 1.8 && g < 7) {
+			r = this.mozillaLoadFileID("filename_", load_mode, mime);
+			if (r !== null) { // mozillaLoadFileID worked (content or error)
+				return r;
+			}
 		}
-		if (r === null) // load file using file absolute path
-			r = this.mozillaLoadFile(fileUrl, load_mode, mime);
-		else return r;
-		if(r === false)
-			return false;
-		// attempt using ECMAscript
-		// disabled because no browser support it yet
-/*		if (r === null)
-			r = this.ECMALoadFile(fileUrl, load_mode, mime);
-		else return r; */
-		// no mozillas here, attempt the IE way
-		if (r === null)
-			r = this.ieLoadFile(fileUrl, load_mode, mime);
-		else return r;
-		if (r === false)
-			return false;
-//		if (r === null)
-			// finally attempt to use Java
-//			r = this.javaLoadFile(fileUrl, load_mode);
-	} else {
-		if (fileUrl === null)
-			fileUrl = this.get_input_file_url();
-		if (fileUrl === false)
-			return false;
+		// retrieve fileUrl from input control 'filename_' (this shouldn't be hardwired)
+		fileUrl = this.get_input_file_url();
+		if (!fileUrl) return null; // user already warned
+	}
+	// can't see point of trying Java if IE/FF failed; if FF failed
+	// we can't read the file path; IE fail is a security issue.
+	// may look into this further, but needs a lot of testing.
+	if (this.browser.gecko) { // old firefox load method; now FF7+ too
+		r = this.mozillaLoadFile(fileUrl, load_mode, mime);
+	} else if (this.browser.ie) {
+		r = this.ieLoadFile(fileUrl, load_mode, mime);
+	} else if (this.use_java_io) {
+		// PVHL: this is now anything that is not IE or Firefox
 		r = this.javaLoadFile(fileUrl, load_mode, mime);
 	}
-	if (r === false)
-		return false;
 	if (r === null) {
 		this.alert('Could not load "'+fileUrl+'"');
-		return null;
 	}
-	// wow, java worked!
 	return r;
 };
 
@@ -343,6 +311,10 @@ woas.mozillaLoadFile = function(filePath, load_mode, suggested_mime) {
 			 (load_mode == this.file_mode.ASCII_TEXT))
 			return sInputStream.read(sInputStream.available());
 		// this byte-by-byte read allows retrieval of binary files
+		// PVHL: look at https://developer.mozilla.org/en/nsIScriptableInputStream;
+		//   new capabilities for Gecko 2+ (FF4+) may allow efficient binary read.
+		//   very simple but don't have time to test it right now; obviates need
+		//   for array methods and merge_bytes use.
 		var tot=sInputStream.available(), i=tot;
 		var rd=[];
 		while (--i >= 0) {
@@ -556,7 +528,7 @@ woas._save_to_file = function(full) {
 	
 	computed_js += "\nvar current = '" + this.js_encode(safe_current)+"';\n\n";
 	
-	computed_js += "var backstack = [\n" + printout_arr(this.config.nav_history ? woas.history.backstack : [], false) + "];\n\n";
+	computed_js += "var backstack = [\n" + printout_arr(this.config.nav_history ? woas.backstack : [], false) + "];\n\n";
 	
 	// in WSIF datasource mode we will save empty arrays
 	if (this.config.wsif_ds.length !== 0)
@@ -607,7 +579,7 @@ woas._save_to_file = function(full) {
 	var bak_cursor = document.body.style.cursor;
 	document.body.style.cursor = "auto";
 
-	var data = this._extract_src_data(__marker, document.documentElement.innerHTML, full | ds_changed, safe_current);
+	var data = this._extract_src_data(__marker, document.documentElement.innerHTML, full || ds_changed, safe_current);
 	
 	// data is ready, now the actual save process begins
 	var r=false;

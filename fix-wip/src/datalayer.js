@@ -138,7 +138,7 @@ subpath, and multiple-WSIF files to the root!
 		subpath = subpath.replace(reFwdSlash, '\\');
 	}
 	return this._native_wsif_save(subpath, fname, this.config.wsif_ds_lock,
-							!this.config.wsif_ds_multi,	false,
+							!this.ui.wsif_ds_multi,	true,
 							this.config.wsif_author, true, plist);
 };
 
@@ -154,8 +154,11 @@ woas.full_commit = function() {
 // PVHL: There is a very bad bug here: when options page is saved all edits are lost.
 //   Also, if cumulative save is set the woas is completely corrupted. Though saved
 //   changes exist in file, they don't exist in DOM and so are lost in config only save.
-//   I'm not interested in finding & fixing as WoaS should be saving layout from a page.
-//   Quick fix is to disable config-only save and save everything every time.
+//   I'm not interested in finding & fixing as WoaS should be saving layout from a page
+//   (probable fix is to reload file and then apply cumulative save changes before saving,
+//   but the whole save process needs to be upgraded (and this issue will disappear).
+//   Quick fix is to disable config-only save and save everything every time -- BUT:
+//   if using external wsif file this actually WILL only save the config to html file.
 //   Was: return this._save_to_file(false);
 woas.cfg_commit = function() {
 	// only saves to the html file; options not currently in a page

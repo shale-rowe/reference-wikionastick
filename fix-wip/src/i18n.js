@@ -1,7 +1,7 @@
 // internationalization language resources
 woas.i18n = {
 	ACCESS_DENIED: "Access denied to the '%s' page.",
-	ALT_BROWSER_INPUT: "Your browser does not allow the directory path to be read directly. Please specify the full path to the '%s' file.",
+	ALT_BROWSER_INPUT: "This browser is not allowing the directory path to be read directly.\n\nPlease specify the full path to the '%s' file.",
 	ASK_MENU_LINK: "Do you want the menu to have a link to this page?",
 	B64_REQ: " (requires %s due to base64 encoding)",
 	CANCEL_EDITING:"Changes to this page will not be saved.",
@@ -58,7 +58,11 @@ woas.i18n = {
 	NO_ERROR: "No error",
 	NO_JAVA:"It was not possible to use TiddlySaver Java applet nor direct Java saving.",
 	NO_TIDDLY_SAVER:"The TiddlySaver Java applet was not available.",
+	// PVHL: not possible yet.
+	//NOT_A_NS:"/'%s' is a reserved namespace. See [[WoaS::Help::Namespaces#Reserved namespaces|Help]]./",
+	NOT_A_NS:"/'%s' is a reserved namespace. See [[WoaS::Help::Namespaces|Help]]./",
 	NOT_YET_IMPLEMENTED: "Feature not implemented yet.",
+	NOTE_TEXT: "NOTE:",
 	PAGE_EXISTS: "A page with title '%s' already exists!",
 	PAGE_NOT_EXISTS: "'%s' page does not exist.",
 	PAGE_NOT_FOUND: "Page not found. Do you want to create it?",
@@ -76,13 +80,15 @@ woas.i18n = {
 	WIDTH: "Width",
 	WRITE_PROTECTED: "This Wiki on a Stick is already write-protected.",
 	WSIF_BAD_HV: "Could not locate end of header value.",
-	WSIF_DS_TO_EXTERNAL: "The contents of this wiki will be saved in WSIF format to the filename you entered.\n\nAll internal content will be deleted.\n\n",
-	WSIF_DS_TO_INTERNAL: "The current wiki content will be stored internally on the next save.",
-	WSIF_EXIST: "If the filename you entered already exists it will be overwritten on the next save!",
+	WSIF_DS_TO_EXTERNAL: "The content of this wiki is about to be saved in WSIF format to the filename you entered.\n\nAll internal content will be deleted.\n\n",
+	WSIF_DS_TO_INTERNAL: "The current wiki content is about to be stored internally.\n\nThe current WSIF data source file(s) will not be affected.",
+	WSIF_DS_TO_MULTI: "The WSIF data source file is about to be rewritten as a page index WSIF file.",
+	WSIF_DS_TO_SINGLE: "The current WSIF index file, listing individual page WSIF files, is about to be overwritten with page content.\n\nExisting WSIF files for pages will not be affected.",
+	WSIF_EXIST: "If the filename you entered already exists it is about to be overwritten!",
 	WSIF_NO_HN: "Could not locate header name.",
 	WSIF_NO_VER: "Could not read WSIF version.",
 	WSIF_NS_VER: "WSIF version %s is not supported!",
-	WSIF_ORIGINAL: "\n\nThe original WSIF file will not be affected.",
+	WSIF_PAGES: "\n\nIf individual page files already exist for this data source file they will be overwritten.",
 	WSIF_SAVE_FAIL: "Unable to save WSIF file with path given!\nCheck your data source setting in Special::Options"
 };
 

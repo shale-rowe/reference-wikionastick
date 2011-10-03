@@ -1,3 +1,6 @@
+// returns link exclusive of Include:: and any section or alternate text
+var reAllWikiLinks = /\[\[(?:Include\:\:)?([^\|\]\#]+)(?:[^\]]*)?\]\]/g;
+
 woas.special_encrypted_pages = function(locked) {
 	var pg = [];
 	for(var i=0,l=pages.length;i < l;i++) {
@@ -17,9 +20,7 @@ woas.special_encrypted_pages = function(locked) {
 // links contains every wiki link found in the page source
 // ns contains every namespace found for page titles
 woas.special_orphaned_pages = function() {
-	//var t1 = Date.now();
-	var wikiLinks = /\[\[(?:Include\:\:)?([^\|\]\#]*)(?:[^\]]*)?\]\]/g,
-		found = {}, links = {}, ns = {}, lnks, lnk, pg = [],
+	var found = {}, links = {}, ns = {}, lnks, lnk, pg = [],
 		i, il, t, tmp;
 	// find all titles and namespaces in titles
 	for (i = 0, il = page_titles.length; i < il; i++) {
@@ -38,8 +39,8 @@ woas.special_orphaned_pages = function() {
 	for (i = 0, il = page_titles.length; i < il; i++) {
 		t = page_titles[i]; // to simplify reading
 		if (found[t] && (tmp = this.get_src_page(i))) {
-			while((lnks = wikiLinks.exec(tmp)) !== null) {
-				lnk = woas.title_unalias(this.trim(lnks[1]));
+			while((lnks = reAllWikiLinks.exec(tmp)) !== null) {
+				lnk = this.title_unalias(this.trim(lnks[1]));
 				if (lnk !== t && found[lnk]) {
 					// don't care what kind of link it is
 					links[lnk] = true;
@@ -65,7 +66,6 @@ woas.special_orphaned_pages = function() {
 			pg.push(t);
 		}
 	}
-	//console.log(Date.now() - t1);
 	if (!pg.length)
 		return "/No orphaned pages found/";
 	else
@@ -314,12 +314,11 @@ woas.special_all_pages = function() {
 };
 
 // Returns a index of all dead pages
-var reAllWikiLinks = /\[\[([^\]\]]*?)(\|([^\]\]]+))?\]\]/g;
 woas.special_dead_pages = function() {
-	var dead_pages = [];
-	var from_pages = [];
-	var tmp, page_done;
-	for(var j=0,l=pages.length;j < l;j++) {
+	var dead_pages = [], from_pages = [], pg = [],
+		reIgnore = /^(\w+:\/\/|Tags?::|Tagged::|mailto:|Special::TOC)/i,
+		tmp, page_done, i, j, l, p, sectref;
+	for(j=0,l=pages.length;j < l;j++) {
 		if (this.is_reserved(page_titles[j]) && !this.tweak.edit_override)
 			continue;
 		tmp = this.get_src_page(j);
@@ -328,23 +327,11 @@ woas.special_dead_pages = function() {
 		page_done = false;
 		tmp.replace(reAllWikiLinks,
 			function (str, $1, $2, $3) {
-				if (page_done)
-					return false;
-				var p = woas.title_unalias($1),
-					sectref = p.indexOf("#");
-				if (sectref === 0)
+				p = woas.trim(woas.title_unalias($1));
+				// ignore external and reserved links
+				if (reIgnore.test(p)) {
 					return;
-				else if (sectref > 0)
-					p = p.substr(0, sectref);
-				if (p.search(/^\w+:\/\//)===0)
-					return;
-				if (p.match(/Tag(s|ged)?:/gi))
-					return;
-				// skip mailto URLs
-				if (p.match(/^mailto:/gi))
-					return;
-				if (p === "Special::TOC")
-					return;
+				}
 				if ((p.substr(0, 9) === "Special::") &&
 					(woas.shortcuts.indexOf(p.substr(9)) !== -1))
 					return;
@@ -352,7 +339,7 @@ woas.special_dead_pages = function() {
 					// true when page has been scanned for referrals
 					page_done = false;
 					// check that this not-existing page is already in the deads page list
-					for(var i=0;i < dead_pages.length;i++) {
+					for(i=0;i < dead_pages.length;i++) {
 						// current page contains a link to an already indexed dead page,
 						// save the reference
 						if (dead_pages[i]===p) {
@@ -375,16 +362,11 @@ woas.special_dead_pages = function() {
 	}
 
 	// format the dead pages
-	var pg = [], s;
 	for(var i=0;i < dead_pages.length;i++) {
-		s = "[["+dead_pages[i]+"]] from ";
-		var from = from_pages[i];
-		for(j=0;j < from.length-1;j++) {
-			s+="[["+from[j]+"]], ";
-		}
-		if (from.length>0)
-			s+="[["+from[from.length-1]+"]]";
-		pg.push(s);
+		j = from_pages[i];
+		l = j.length;
+		pg.push("[["+dead_pages[i]+"]] from " + (l ? "[[" : "") +
+			j.sort().join("]], [[") + (l ? "]]" : ""));
 	}
 
 	woas.pager.bucket.items = dead_pages.slice(0);
@@ -455,8 +437,7 @@ woas._join_list = function(arr) {
 
 function _WoaS_list_expand_change(list, list_id, count) {
 	var i, s;
-	// store selected option both in global config variable and
-	// in relative list option
+	// store selected option in global config variable
 	woas.config.folding_style = list.selectedIndex;
 	switch (woas.config.folding_style) {
 		case 1: // collapse all
@@ -482,7 +463,7 @@ function _WoaS_list_expand_change(list, list_id, count) {
 
 // PVHL: have removed non-functional list caching until it can be made to work
 // (cache needs to be invalidated after edit/import, etc; should work off of history)
-// listing is always sorted using sort function woas.sort_nat
+// listing is always sorted
 // flat_arr must have content
 woas.ns_listing = function(root, flat_arr, folds) {
 	dsp = function(v){
@@ -492,7 +473,7 @@ woas.ns_listing = function(root, flat_arr, folds) {
 		return "<"+"option "+(fs === opt_n++ ? "selected=\"selected\"" : "" ) +
 			">"+str+"<"+"/option>\n";
 	};
-	
+
 	var order = [], root_title = "/No Namespace/", fold_n = 0, opt_n = 0, s = "",
 		list_id = "woas_"+_random_string(6)+"_", f, i, il, it, oi, ns, fs;
 	flat_arr.sort();
@@ -553,7 +534,6 @@ woas.ns_listing = function(root, flat_arr, folds) {
 	if (f) {
 		s += "<"+"/div>";
 	}
-	//console.log(s)
 	return s;
 };
 
