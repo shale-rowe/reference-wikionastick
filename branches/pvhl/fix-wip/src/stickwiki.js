@@ -794,13 +794,14 @@ woas._finalize_lock = function(pi, back) {
 		this.last_AES_page = "";
 	} else
 		this.last_AES_page = title;
-	this.save_page_i(pi);
 	if (back) { // only if called from Lock:: page
 		this.ui.back();
 	} else {
 		// need to refresh display; no history
 		this.set_current(title, true, true);
 	}
+	// PVHL: moved because current page was saved as 'Lock::xxx'
+	this.save_page_i(pi);
 };
 
 woas._perform_lock = function(pi) {

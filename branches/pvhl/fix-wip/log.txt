@@ -3,6 +3,8 @@ IT IS NOT BEING TESTED MUCH DURING THIS PROCESS AND COULD OCCASIONALLY BE BROKEN
 
 Changes since Revision pvhl-2317 (git: 3d939c7)
 
+* fix all the array printouts; failed if length was 1; also removed base16 array encoding as no shorter
+* fix 'Lock::xxx' being saved as current page to open
 * fix some woas history issues, especially with options and locking/unlocking
 * add Special::Options information concerning what is about to happen
 * fix broken FF7 path access, and general rewrite of file load

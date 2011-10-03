@@ -433,59 +433,44 @@ function printout_arr(arr, split_lines) {
 		return "'" + woas.js_encode(e, split_lines) + "'";
 	}
 
-	var s = "";
-	for(var i=0;i < arr.length-1;i++) {
-		s += elem_print(arr[i]) + ",\n";
+	var il = arr.length, i, s;
+	if (!il) { return "" }
+	s = elem_print(arr[0]);
+	for (i = 1; i < il; i++) {
+		s += ",\n" + elem_print(arr[i]);
 	}
-	if (arr.length>1)
-		s += elem_print(arr[arr.length-1]) + "\n";
-	return s;
+	return s + "\n";
 }
 
 function printout_mixed_arr(arr, split_lines, attrs) {
 
 	function elem_print(e, attr) {
 		if (attr & 2) {
-			return "[" + printout_num_arr(e) + "]";
+			return "[" + e.join(',') + "]";
 		}
 		return "'" + woas.js_encode(e, split_lines) + "'";
 	}
 
-	var s = "";
-	for(var i=0;i < arr.length-1;i++) {
-		s += elem_print(arr[i], attrs[i]) + ",\n";
+	var il = arr.length, i, s;
+	if (!il) { return "" }
+	s = elem_print(arr[0], attrs[0]);
+	for (i = 1; i < il; i++) {
+		s += ",\n" + elem_print(arr[i], attrs[i]);
 	}
-	if (arr.length>1)
-		s += elem_print(arr[arr.length-1], attrs[arr.length-1]) + "\n";
-	return s;
+	return s + "\n";
 }
 
 // used to print out encrypted page bytes and attributes
+// PVHL: removed encoding; tests show it is not shorter to encode
+//  but must take a lot more time to produce; replacing in save;
+//  leaving in in case others are using it
 function printout_num_arr(arr) {
-	var s = "",it=arr.length-1;
-	for(var i=0;i<it;i++) {
-		if (arr[i]>=1000)
-			s += "0x"+arr[i].toString(16) + ",";
-		else
-			s+=arr[i].toString() + ",";
-	}
-	// do not write comma on last element, workaround due to IE6 not recognizing it
-	if (it>0) {
-		if (arr[it]>=1000)
-			s += "0x"+arr[it].toString(16);
-		else
-			s+=arr[it].toString();
-	}
-
-	return s;
+	// works fine with empty array
+	return arr.join(',');
 }
 
 function printout_fixed(elem, n) {
-	var s = (elem+",").repeat(n-1);
-	// do not write comma on last element, workaround due to IE6 not recognizing it
-	if (n>1)
-		s += elem;
-	return s;
+	return n ? elem + ("," + elem).repeat(n - 1) : '';
 }
 
 // save full WoaS to file
@@ -528,7 +513,7 @@ woas._save_to_file = function(full) {
 	
 	computed_js += "\nvar current = '" + this.js_encode(safe_current)+"';\n\n";
 	
-	computed_js += "var backstack = [\n" + printout_arr(this.config.nav_history ? woas.backstack : [], false) + "];\n\n";
+	computed_js += "var backstack = [\n" + printout_arr(this.config.nav_history ? backstack : [], false) + "];\n\n";
 	
 	// in WSIF datasource mode we will save empty arrays
 	if (this.config.wsif_ds.length !== 0)
@@ -546,8 +531,8 @@ woas._save_to_file = function(full) {
 			computed_js += "var page_mts = [];\n\n";
 			computed_js += "var pages = [\n];\n\n";
 		} else {
-			computed_js += "var page_attrs = [" + printout_num_arr(page_attrs) + "];\n\n";
-			computed_js += "var page_mts = [" + (this.config.store_mts ? printout_num_arr(page_mts) : "0, ".repeat(page_mts.length-1)+"0") + "];\n\n";
+			computed_js += "var page_attrs = [" + page_attrs.join(',') + "];\n\n";
+			computed_js += "var page_mts = [" + (this.config.store_mts ? page_mts.join(',') : "0,".repeat(page_mts.length-1)+"0") + "];\n\n";
 			computed_js += "var pages = [\n" + printout_mixed_arr(pages, this.config.allow_diff, page_attrs) + "];\n\n";
 		}
 		computed_js += "/* " + new_marker + "-END */\n";
