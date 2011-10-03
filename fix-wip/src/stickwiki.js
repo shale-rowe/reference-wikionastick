@@ -841,7 +841,10 @@ woas._add_namespace_menu = function(namespace) {
 			: this.parser.parse(menu, false, this.js_mode(namespace+"::Menu")) );
 		// show sub-menu
 		d$.show("woas_ns_menu_content");
-		d$.show("woas_ns_menu_edit_button");
+		// PVHL: change to use class after change to one menu
+		if (woas.config.permit_edits) {
+			d$.show("woas_ns_menu_edit_button");
+		}
 	}
 	this.current_namespace = namespace;
 };

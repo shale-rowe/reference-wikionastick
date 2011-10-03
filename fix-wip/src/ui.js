@@ -173,7 +173,9 @@ woas.ui = {
 	},
 	// click on edit icon
 	edit: function() {
-		woas.edit_page(current);
+		if (!this.display('no_edit')) {
+			woas.edit_page(current);
+		}
 	},
 	cancel: function() {
 		if (!this.edit_mode)
@@ -209,23 +211,26 @@ woas.ui = {
 	},
 	// when back button is clicked
 	back: function() {
-		if (this.edit_mode)
+		if (this.edit_mode || this.display('no_back')) {
 			return false;
+		}
 		var p = woas.history.back();
-		if (p === null)
-			return false;
-		return woas.set_current(p, true);
+		return p === null ? false : woas.set_current(p, true);
 	},
 	// when Forward button is clicked
 	forward: function() {
-		var p = woas.history.forward();
-		if (p === null)
+		if (this.display('no_fwd')) {
 			return false;
-		return woas.set_current(p, true)
+		}
+		var p = woas.history.forward();
+		return p === null ? false : woas.set_current(p, true)
 	},
 	// when home is clicked
 	home: function() {
-		woas.go_to(woas.config.main_page);
+		if (!this.display('no_home')) {
+			woas.go_to(woas.config.main_page);
+		}
+		
 	},
 	ns_menu_dblclick: function() {
 		if (!woas.config.dblclick_edit)
@@ -246,26 +251,29 @@ woas.ui = {
 		}
 	},
 	lock: function() {
-		if (woas.pager.bucket.items.length>1)
-			_lock_pages(woas.pager.bucket.items);
-		else
-			//woas.go_to("Lock::" + current);
-			// Icon lockout allows using this to prevent history issues
-			woas.set_current("Lock::" + current, true, true);
+		if (!this.display('no_lock')) {
+			if (woas.pager.bucket.items.length>1)
+				_lock_pages(woas.pager.bucket.items);
+			else
+				woas.set_current("Lock::" + current, true, true);
+		}
 	},
 	unlock: function() {
-		if (woas.pager.bucket.items.length>1)
-			_unlock_pages(woas.pager.bucket.items);
-		else
-			woas.set_current("Unlock::" + current, true);
-			//woas.go_to("Unlock::" + current);
+		if (!this.display('no_unlock')) {
+			if (woas.pager.bucket.items.length>1)
+				_unlock_pages(woas.pager.bucket.items);
+			else
+				woas.set_current("Unlock::" + current, true);
+		}
 	},
 	// scroll to top of page
 	top: function() {
 		scrollTo(0,0);
 	},
 	advanced: function() {
-		woas.go_to("Special::Advanced");
+		if (!this.display('no_tools')) {
+			woas.go_to("Special::Advanced");
+		}
 	},
 	set_header: function(fixed) {
 		if (!woas.browser.ie6) {
@@ -614,9 +622,10 @@ function ro_woas() {
 	}
 	if (confirm(woas.i18n.CONFIRM_READ_ONLY + woas.i18n.CHOOSE_CANCEL)) {
 		woas.config.permit_edits = false;
+		woas.ui.display({ro:true}); // turn off icons
 		woas.cfg_commit();
-		// next is OK now history is fixed; reloads page
-		woas.set_current(current, false);
+		// reloads page without killing forward history
+		woas.set_current(current, true, true);
 	}
 }
 
@@ -1030,10 +1039,6 @@ woas.ui._resize = (function() {
 }());
 window.onresize = woas.ui._resize;
 
-
-
-
-
 woas._set_debug = function(status, closed) {
 	var logbox = d$("woas_debug_log"), lines = -1, position = 0,
 		cut = 100, max = 200; // cut > 0, max > cut
@@ -1101,7 +1106,7 @@ woas._gen_display = function(id, visible, prefix) {
 woas.ui.img_display = function() {
 	function loaded(el){ /*alert(el.width+" "+el.height);*/
 		if (el.width !== 1 || el.height !== 1) {
-			woas.ui.display({no_img: true}, false);
+			woas.ui.display({no_img: true});
 		}
 	}
 	var data = new Image();
@@ -1295,29 +1300,40 @@ woas.css = {
 woas.ui.display() closure
 	pfx:(private) defines the prefix that will be added to all CSS classes
 	state: (private) used to track current control state
-	dsp: object passed to display to set new state;
+	dsp is either:
+	  (1) object passed to display to set new state;
 	       - any dsp key that tests true is set in state
 		   - any dsp key that tests false is reset in state if it exists
+	  (2) a string that will be tested to see if such a key is set.
+	      Possibilities are:
+	         view, edit, pswd, wait, locked, unlocked, ro
+	         no_img, no_back, no_fwd, no_home, no_tools, no_edit, no_lock
+	      Plug-ins can add anything desired; everything controlled through CSS.
 */
-(function() {
+woas.ui.display = (function() {
 	var pfx = 'woas_',
 		state = {};
-	woas.ui.display = function(dsp) {
+	return function(dsp) {
 		var clas, s = [];
-		for (clas in dsp) {
-			if (dsp.hasOwnProperty(clas)) {
-				if (dsp[clas]) {
-					state[clas] = true;
-				} else if (state[clas] && state.hasOwnProperty(clas)) {
-					state[clas] = false;
+		// show if state exists for disabling functions
+		if (typeof dsp === 'string') {
+			return !!state[dsp];
+		} else {
+			for (clas in dsp) {
+				if (dsp.hasOwnProperty(clas)) {
+					if (dsp[clas]) {
+						state[clas] = true;
+					} else if (state[clas] && state.hasOwnProperty(clas)) {
+						state[clas] = false;
+					}
 				}
 			}
-		}
-		for (clas in state) {
-			if (state[clas] && state.hasOwnProperty(clas)) {
-				s.push(pfx + clas);
+			for (clas in state) {
+				if (state[clas] && state.hasOwnProperty(clas)) {
+					s.push(pfx + clas);
+				}
 			}
+			document.documentElement.className = s.join(' ');
 		}
-		document.documentElement.className = s.join(' ');
 	}
 }())

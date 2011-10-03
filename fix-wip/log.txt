@@ -3,6 +3,8 @@ IT IS NOT BEING TESTED MUCH DURING THIS PROCESS AND COULD OCCASIONALLY BE BROKEN
 
 Changes since Revision pvhl-2317 (git: 3d939c7)
 
+* disable menu edit and Options save buttons, and remove some options when read-only
+* add icon lockout code for new display system, and a ui state discovery system
 * fix all the array printouts; failed if length was 1; also removed base16 array encoding as no shorter
 * fix 'Lock::xxx' being saved as current page to open
 * fix some woas history issues, especially with options and locking/unlocking
