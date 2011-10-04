@@ -129,13 +129,24 @@ d$.toggle = function(id, inline) {
 	d.style.display = d.offsetWidth ? 'none' : inline ? 'inline' : 'block';
 };
 
-// this toggle will resize display; used by editor
+// this toggle will also resize display
 d$.toggle_resize = function(id, inline) {
 	this.toggle(id, inline);
 	woas.ui._resize();
 };
 
-d$.clone = function(obj) {
+// this toggle will set/reset a class, and resize if optional r true; used by editor
+d$.toggle_cls = function(c, r) {
+	var o = {};
+	o[c] = !woas.ui.display(c);
+	woas.ui.display(o);
+	if (r) {
+		woas.ui._resize();
+	}
+};
+
+// PVHL: shallow object copy; prefer shallow extend, with filter; was d$.clone
+woas.clone = function(obj) {
 	var nobj = {};
 	for (var i in obj) {
 		nobj[i] = obj[i];

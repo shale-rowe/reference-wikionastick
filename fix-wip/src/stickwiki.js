@@ -296,9 +296,7 @@ woas.get_text_special = function(title) {
 woas.__last_title = null;
 
 woas.__password_finalize = function(pwd_obj) {
-	//d$.show("woas_scroll_wrap");
 	document.title = this.__last_title;
-	//d$.hide("woas_pwd_mask");
 	this.ui.display({pswd:false});
 //	scrollTo(0,0);
 	// hide input form
@@ -311,12 +309,8 @@ woas._set_password = function() {
 	this.__last_title = document.title;
 	document.title = "Enter password";
 	// hide browser scrollbars and show mask
-	//d$.show("woas_pwd_mask");
-	//d$.hide("woas_scroll_wrap");
 	this.ui.display({pswd:true});
 	scrollTo(0,0);
-	// show input form
-	//d$.show("woas_pwd_query");
 	d$("woas_password").focus();	
 	this.ui.focus_textbox();
 };
@@ -831,8 +825,7 @@ woas._add_namespace_menu = function(namespace) {
 //		this.log("no namespace menu found");	// log:0
 		this.setHTMLDiv(d$("woas_ns_menu_content"), "");
 		if (this.current_namespace !== "") {
-			d$.hide("woas_ns_menu_content");
-			d$.hide("woas_ns_menu_edit_button");
+			this.ui.display({"no_ns_menu": true});
 		}
 	} else {
 //		this.log("namespace menu found: "+page_titles[pi]);	// log:0
@@ -840,11 +833,7 @@ woas._add_namespace_menu = function(namespace) {
 		this.setHTMLDiv(d$("woas_ns_menu_content"), menu === null ? ""
 			: this.parser.parse(menu, false, this.js_mode(namespace+"::Menu")) );
 		// show sub-menu
-		d$.show("woas_ns_menu_content");
-		// PVHL: change to use class after change to one menu
-		if (woas.config.permit_edits) {
-			d$.show("woas_ns_menu_edit_button");
-		}
+		this.ui.display({"no_ns_menu": false});
 	}
 	this.current_namespace = namespace;
 };
@@ -1005,7 +994,7 @@ woas._early_render = function() {
 	woas.disable_edit();
 	
 //	this.progress_finish();
-	d$.hide("loading_overlay");
+	this.ui.display({wait: false});
 	
 	// launching post-load hook
 	woas.post_load();	

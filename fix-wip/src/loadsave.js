@@ -542,14 +542,12 @@ woas._save_to_file = function(full) {
 	var bak_tx = this.getHTMLDiv(d$("woas_page")),
 		bak_mn = this.getHTMLDiv(d$("woas_menu")),
 		bak_mts = this.getHTMLDiv(d$("woas_mts")),
-		bak_mts_shown = d$.is_visible("woas_mts"),
+		bak_mts_shown = !this.ui.display("no_mts"),
 		bak_wait_text = this.getHTML(d$("woas_wait_text")),
 		bak_debug = d$("woas_debug_log").value,
 	// clear titles and css as well as they will be set on load.
 		bak_title = this.getHTMLDiv(d$("woas_title"));
 
-	if (bak_mts_shown)
-		d$.hide("woas_mts");
 	d$("woas_editor").value = "";
 	this.setHTMLDiv(d$("woas_page"), "");
 	this.setHTMLDiv(d$("woas_menu"), "");
@@ -560,15 +558,15 @@ woas._save_to_file = function(full) {
 	// set the loading message
 	this.setHTML(d$("woas_wait_text"), this.i18n.LOADING);
 	// temporarily display such message
-	d$.show("loading_overlay");
+	this.ui.display({"wait": true});
 	var bak_cursor = document.body.style.cursor;
 	document.body.style.cursor = "auto";
 
 	var data = this._extract_src_data(__marker, document.documentElement.innerHTML, full || ds_changed, safe_current);
 	
 	// data is ready, now the actual save process begins
-	var r=false;
-	d$.hide("loading_overlay");
+	var r = false;
+	this.ui.display({"wait": false});
 	this.setHTML(d$("woas_wait_text"), bak_wait_text);
 	document.body.style.cursor = bak_cursor;
 
@@ -594,8 +592,6 @@ woas._save_to_file = function(full) {
 	this.setHTMLDiv(d$("woas_page"), bak_tx);
 	this.setHTMLDiv(d$("woas_menu"), bak_mn);
 	this.setHTMLDiv(d$("woas_mts"), bak_mts);
-	if (bak_mts_shown)
-		d$.show("woas_mts");
 	d$("woas_debug_log").value = bak_debug;
 	this.setHTMLDiv(d$("woas_title"), bak_title);
 	
