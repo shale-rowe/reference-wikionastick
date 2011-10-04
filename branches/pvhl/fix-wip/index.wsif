@@ -3663,7 +3663,7 @@ body, div, textarea {
 	display: inline
 }
 .woas_ro #woas_edit, .woas_ro #woas_lock, .woas_ro #woas_unlock,
-.woas_ro #woas_menu_edit_button,
+.woas_ro #woas_menu_edit_button, .woas_ro #woas_ns_menu_edit_button,
 .woas_locked #woas_lock, .woas_unlocked #woas_unlock {
 	display: none
 }
@@ -3672,11 +3672,13 @@ body, div, textarea {
 
 .woas_view #woas_edit_mode, .woas_view #woas_edit_wrap,
 .woas_edit #woas_view_mode, .woas_edit #woas_page_wrap, .woas_edit #woas_menu_wrap,
-.woas_pswd #woas_scroll_wrap, .woas_pswd #woas_header_wrap, .woas_load #woas_scroll_wrap {
+.woas_pswd #woas_scroll_wrap, .woas_pswd #woas_header_wrap, .woas_wait #woas_scroll_wrap,
+.woas_no_mts #woas_mts, .woas_no_debug #woas_debug, .woas_no_log #woas_debug_console,
+.woas_no_ns_menu #woas_ns_menu_content, .woas_no_ns_menu #woas_ns_menu_edit_button  {
 	display: none
 }
 .woas_edit #woas_edit_wrap, .woas_view #woas_page_wrap, .woas_view #woas_menu_wrap,
-.woas_pswd #woas_pwd_mask, .woas_load #loading_overlay {
+.woas_pswd #woas_pwd_mask, .woas_wait #loading_overlay {
 	display: block
 }
 
@@ -3762,8 +3764,13 @@ body {
 	text-decoration: underline
 }
 #woas_editor_container {
-	margin-top: .5em
+	background-color: #fff; /* white */
+	border: 1px solid #000; /* black */
+	margin-top: 0.5em;
+	/* a little spacing for the text */
+	padding: 0.5em 0px 0.5em 0.5em
 }
+/* no padding/margins/borders for x-browser */
 #woas_editor {
 	width: 100%;
 	resize: vertical;

@@ -898,7 +898,7 @@ woas.progress_init = function(section) {
 	this.setHTML(d$("woas_wait_text"), section);
 	document.body.style.cursor = "wait";
 	// put in busy mode and block interaction for a while
-	d$.show("loading_overlay");
+	this.ui.display({"wait": true});
 	d$("loading_overlay").focus();
 };
 
@@ -912,7 +912,7 @@ woas.progress_finish = function(section) {
 		document.body.style.cursor = "auto";
 		this.setHTML(d$("woas_wait_text"), this.i18n.LOADING);
 		// hide the progress area
-		d$.hide("loading_overlay");
+		this.ui.display({wait: false});
 	}
 	this._progress_section = false;
 };
@@ -1033,7 +1033,7 @@ woas.ui._resize = (function() {
 		}
 	}
 	return woas.browser.ie6
-		// stops initial textarea overflow for IE6
+		// stops initial textarea overflow for IE6; will fix later
 		? function() { setTimeout(resize, 0) }
 		: function() { resize(); };
 }());
@@ -1065,17 +1065,17 @@ woas._set_debug = function(status, closed) {
 			return true;
 		};
 		// activate debug icon
-		d$.show("woas_debug");
-		if (!closed) { d$.show("woas_debug_console")
-		} else {  d$.hide("woas_debug_console") }
+		this.ui.display({no_debug: false});
+		this.ui.display({no_log: closed});
 		// hide the progress area
-		d$.hide("loading_overlay");
+		//this.ui.display({wait: false});
 	} else {
-		d$.hide("woas_debug");
-		d$.hide("woas_debug_console");
+		this.ui.display({no_debug: true});
+		this.ui.display({no_log: true});
 		logbox.value = '';
 		woas.log = function() { return false; };
 	}
+	this.ui.display({wait: false});
 	window.log = woas.log // for deprecated function - legacy.js
 };
 
@@ -1095,13 +1095,6 @@ woas.refresh_menu_area = function() {
 	}
 };
 
-woas._gen_display = function(id, visible, prefix) {
-	if (visible)
-		d$.show(prefix+"_"+id, true);
-	else
-		d$.hide(prefix+"_"+id);
-};
-
 // adapted by PVHL from: weston.ruter.net/2009/05/07/detecting-support-for-data-uris
 woas.ui.img_display = function() {
 	function loaded(el){ /*alert(el.width+" "+el.height);*/
@@ -1116,9 +1109,8 @@ woas.ui.img_display = function() {
 };
 
 woas.menu_display = function(id, visible, opaque) {
-	// menu images now controlled through anchor tag; dim instead of hiding
-	//visible ? d$.show("woas_"+id, true) : d$.hide("woas_"+id);
-	i=id;id = d$('woas_' + id);
+	// toolbar images now controlled through anchor tag; dim instead of hiding
+	i=id; id = d$('woas_' + id);
 	opaque = opaque || false;
 	var c = opaque ? 'woas_disabled' : 'woas_hide', ic = id.className, p = ic.indexOf(c);
 	if (visible && p !== -1) {
@@ -1130,16 +1122,15 @@ woas.menu_display = function(id, visible, opaque) {
 	} else if (!visible && p === -1) {
 		id.className += (ic.length ? ' ' : '') + c;
 	}
-	//visible ? woas.ui.set_css("woas_" + id, visible);
 };
 
 woas.refresh_mts = function(mts) {
 	// generate the last modified string to append
 	if (mts) {
 		this.setHTMLDiv(d$("woas_mts"), this.last_modified(mts));
-		d$.show("woas_mts");
+		this.ui.display({"no_mts": false});
 	} else
-		d$.hide("woas_mts");
+		this.ui.display({"no_mts": true});
 };
 
 woas._set_title = function (new_title) {
@@ -1307,7 +1298,8 @@ woas.ui.display() closure
 	  (2) a string that will be tested to see if such a key is set.
 	      Possibilities are:
 	         view, edit, pswd, wait, locked, unlocked, ro
-	         no_img, no_back, no_fwd, no_home, no_tools, no_edit, no_lock
+	         no_img, no_back, no_fwd, no_home, no_tools, no_edit, no_lock,
+			 no_log, no_debug, no_mts, no_ns_menu 
 	      Plug-ins can add anything desired; everything controlled through CSS.
 */
 woas.ui.display = (function() {

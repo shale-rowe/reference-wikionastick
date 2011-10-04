@@ -5,6 +5,10 @@
 
 // var log = woas.log; set by woas._set_debug
 
+d$.clone = function(o) {
+	woas.log("WARNING: Called deprecated function: d$.clone (now woas.clone)");
+	woas.clone(o);
+};
 function bool2chk(b) {
 	woas.log("WARNING: Called deprecated function: bool2chk (now woas.bool2chk)");
 	woas.bool2chk(b);
