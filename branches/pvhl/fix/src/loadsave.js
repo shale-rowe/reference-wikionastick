@@ -48,7 +48,7 @@ woas._save_this_file = function(new_data, old_data) {
 	var r = woas.save_file(filename, this.file_mode.ASCII_TEXT,
 		this.DOCTYPE + this.DOC_START + "<"+"script woas_permanent=\"1\" type=\"tex"+"t/javascript\">"
 		+ new_data + "\n" + old_data + "<"+"/html>");
-	if (r===true)
+	if (r)
 		woas.log("NOTICE: \""+filename+"\" saved successfully");	// log:1
 	else {
 		var msg = this.i18n.SAVE_ERROR.sprintf(filename) + "\n\n";
@@ -71,16 +71,19 @@ woas._save_this_file = function(new_data, old_data) {
 //NOTE: save_mode is not always enforced by browser binding
 woas.save_file = function(fileUrl, save_mode, content) {
 	var r = null;
-	if (!this.use_java_io) {
+	// not bothering with Java failover - can't see need and needs testing
+	// and proper error testing.
+	if (this.browser.firefox) {
 		r = this.mozillaSaveFile(fileUrl, save_mode, content);
-		if((r === null) || (r === false))
-			r = this.ieSaveFile(fileUrl, save_mode, content);
-		// fallback to try also with Java saving
-	} else
-		return this.javaSaveFile(fileUrl, save_mode, content);
-	if((r === null) || (r === false))
+	} else if (this.browser.ie) {
+		r = this.ieSaveFile(fileUrl, save_mode, content);
+	} else if (!this.use_java_io) {
 		r = this.javaSaveFile(fileUrl, save_mode, content);
-	return r;
+	}
+	if (r === null) {
+		this.alert('Could not save "'+fileUrl+'"');
+	}
+	return r
 };
 
 var reDataUrlPfx = new RegExp("^data:\\s*([^;]*);\\s*base64,\\s*");
@@ -89,7 +92,7 @@ woas.mozillaLoadFileID = function(obj_id, load_mode, suggested_mime) {
 	var obj = document.getElementById(obj_id);
 	if(!window.Components || !obj.files)
 		return null;
-	var D=obj.files.item(0);
+	var D=obj.files.item(0); // or: obj.files[0]; faster?
 	if (D === null)
 		return false;
 
@@ -117,39 +120,18 @@ woas.mozillaLoadFileID = function(obj_id, load_mode, suggested_mime) {
 };
 
 // see http://dev.w3.org/2006/webapi/FileAPI/
-/*woas.ECMALoadFile = function(fileUrl, load_mode, suggested_mime) {
-	if (typeof FileReaderSync == "undefined")
-		return null;
-	var D = new FileReaderSync();
-	try {
-		switch (load_mode) {
-			case this.file_mode.DATA_URI:
-				if (typeof suggested_mime != "string")
-					return D.readAsDataURL(fileUrl);
-				else // apply mime override
-					return D.readAsDataURL(fileUrl).replace(/^data:(\s*)([^;]*)/, "data:$1"+suggested_mime);
-				break;
-			case this.file_mode.BASE64:
-				return D.readAsDataURL(fileUrl).replace(reDataUrlPfx, '');
-			case this.file_mode.BINARY:
-				return D.readAsBinaryString();
-			case this.file_mode.UTF8_TEXT:
-				return D.readAsText("utf-8");
-			case this.file_mode.UTF16_TEXT:
-				return D.readAsText("utf-16");
-			case this.file_mode.ASCII_TEXT:
-				return D.readAsText("");
-		}
-	} catch (e) {
-		woas.log("ECMALoadFile: "+e);
-		return false;
-	}
-	// not available
-	this.crash(this.i18n.MODE_NOT_AVAIL.sprintf(load_mode.toString(16)));
-	return null;
-};*/
+// PVHL: removed ... FileReaderSync interface doesn't work as this disabled code assumed
+/*woas.ECMALoadFile = function(fileUrl, load_mode, suggested_mime) {*/
 
 // API1.0: load-file handler
+//
+// Refactored by PVHL for FF7 breakdown. NOTE: FF7 broke because they went to standards.
+// WoaS must be rewritten for asynchronous file read as this is the future standard;
+// once done modern browsers will be able to read/write without Java -- including binary..
+// Same probably true for write also -- haven't researched it yet.
+//
+// fileUrl is null if interactive read from file control.
+// returns file contents, false if browser-specific (or java) load failed, or null
 woas.load_file = function(fileUrl, load_mode, mime){
 	// parameter consistency check
 	if (typeof load_mode === "undefined") {
@@ -157,50 +139,38 @@ woas.load_file = function(fileUrl, load_mode, mime){
 		// perhaps should be ASCII?
 		load_mode = this.file_mode.UTF8_TEXT;
 	}
-	// try loading the file without using the path (FF3+)
-	// (object id hardcoded here)
-	var r = null;
-	if (!this.use_java_io) {
-		// correctly retrieve fileUrl
-		if (fileUrl === null) {
-			if (this.browser.firefox3 || this.browser.firefox_new)
+	var r = null, g;
+	if (fileUrl === null) {
+		// try loading the file without using the path (if 3 < firefox < 7)
+		// Firefox 7 has broken file reading with mozillaLoadFileID; use old method instead
+		// Now uses gecko value for FF3-6; these version #s should be numeric
+		if (this.browser.gecko) {
+			g = Number(woas.browser.gecko.substr(0,3)); // false = 0
+			if (g > 1.8 && g < 7) {
 				r = this.mozillaLoadFileID("filename_", load_mode, mime);
-			else
-				fileUrl = this.get_input_file_url();
+				if (r !== null) { // mozillaLoadFileID worked (content or error)
+					return r;
+				}
+			}
 		}
-		if (r === null) // load file using file absolute path
-			r = this.mozillaLoadFile(fileUrl, load_mode, mime);
-		else return r;
-		if(r === false)
-			return false;
-		// attempt using ECMAscript
-		// disabled because no browser support it yet
-/*		if (r === null)
-			r = this.ECMALoadFile(fileUrl, load_mode, mime);
-		else return r; */
-		// no mozillas here, attempt the IE way
-		if (r === null)
-			r = this.ieLoadFile(fileUrl, load_mode, mime);
-		else return r;
-		if (r === false)
-			return false;
-//		if (r === null)
-			// finally attempt to use Java
-//			r = this.javaLoadFile(fileUrl, load_mode);
-	} else {
-		if (fileUrl === null)
-			fileUrl = this.get_input_file_url();
-		if (fileUrl === false)
-			return false;
+		// retrieve fileUrl from input control 'filename_' (this shouldn't be hardwired)
+		fileUrl = this.get_input_file_url();
+		if (!fileUrl) return null; // user already warned
+	}
+	// can't see point of trying Java if IE/FF failed; if FF failed
+	// we can't read the file path; IE fail is a security issue.
+	// may look into this further, but needs a lot of testing.
+	if (this.browser.gecko) { // old firefox load method; now FF7+ too
+		r = this.mozillaLoadFile(fileUrl, load_mode, mime);
+	} else if (this.browser.ie) {
+		r = this.ieLoadFile(fileUrl, load_mode, mime);
+	} else if (this.use_java_io) {
+		// PVHL: this is now anything that is not IE or Firefox
 		r = this.javaLoadFile(fileUrl, load_mode, mime);
 	}
-	if (r === false)
-		return false;
 	if (r === null) {
 		this.alert('Could not load "'+fileUrl+'"');
-		return null;
 	}
-	// wow, java worked!
 	return r;
 };
 
@@ -343,6 +313,10 @@ woas.mozillaLoadFile = function(filePath, load_mode, suggested_mime) {
 			 (load_mode == this.file_mode.ASCII_TEXT))
 			return sInputStream.read(sInputStream.available());
 		// this byte-by-byte read allows retrieval of binary files
+		// PVHL: look at https://developer.mozilla.org/en/nsIScriptableInputStream;
+		//   new capabilities for Gecko 2+ (FF4+) may allow efficient binary read.
+		//   very simple but don't have time to test it right now; obviates need
+		//   for array methods and merge_bytes use.
 		var tot=sInputStream.available(), i=tot;
 		var rd=[];
 		while (--i >= 0) {
@@ -461,59 +435,44 @@ function printout_arr(arr, split_lines) {
 		return "'" + woas.js_encode(e, split_lines) + "'";
 	}
 
-	var s = "";
-	for(var i=0;i < arr.length-1;i++) {
-		s += elem_print(arr[i]) + ",\n";
+	var il = arr.length, i, s;
+	if (!il) { return "" }
+	s = elem_print(arr[0]);
+	for (i = 1; i < il; i++) {
+		s += ",\n" + elem_print(arr[i]);
 	}
-	if (arr.length>1)
-		s += elem_print(arr[arr.length-1]) + "\n";
-	return s;
+	return s + "\n";
 }
 
 function printout_mixed_arr(arr, split_lines, attrs) {
 
 	function elem_print(e, attr) {
 		if (attr & 2) {
-			return "[" + printout_num_arr(e) + "]";
+			return "[" + e.join(',') + "]";
 		}
 		return "'" + woas.js_encode(e, split_lines) + "'";
 	}
 
-	var s = "";
-	for(var i=0;i < arr.length-1;i++) {
-		s += elem_print(arr[i], attrs[i]) + ",\n";
+	var il = arr.length, i, s;
+	if (!il) { return "" }
+	s = elem_print(arr[0], attrs[0]);
+	for (i = 1; i < il; i++) {
+		s += ",\n" + elem_print(arr[i], attrs[i]);
 	}
-	if (arr.length>1)
-		s += elem_print(arr[arr.length-1], attrs[arr.length-1]) + "\n";
-	return s;
+	return s + "\n";
 }
 
 // used to print out encrypted page bytes and attributes
+// PVHL: removed encoding; tests show it is not shorter to encode
+//  but must take a lot more time to produce; replacing in save;
+//  leaving in in case others are using it
 function printout_num_arr(arr) {
-	var s = "",it=arr.length-1;
-	for(var i=0;i<it;i++) {
-		if (arr[i]>=1000)
-			s += "0x"+arr[i].toString(16) + ",";
-		else
-			s+=arr[i].toString() + ",";
-	}
-	// do not write comma on last element, workaround due to IE6 not recognizing it
-	if (it>0) {
-		if (arr[it]>=1000)
-			s += "0x"+arr[it].toString(16);
-		else
-			s+=arr[it].toString();
-	}
-
-	return s;
+	// works fine with empty array
+	return arr.join(',');
 }
 
 function printout_fixed(elem, n) {
-	var s = (elem+",").repeat(n-1);
-	// do not write comma on last element, workaround due to IE6 not recognizing it
-	if (n>1)
-		s += elem;
-	return s;
+	return n ? elem + ("," + elem).repeat(n - 1) : '';
 }
 
 // save full WoaS to file
@@ -521,7 +480,7 @@ woas._save_to_file = function(full) {
 	this.progress_init("Saving to file");
 
 	// force full mode if WSIF datasource mode changed since last time loading/saving
-	var ds_changed = (this.config.wsif_ds.length !== this._old_wsif_ds_len),
+	var ds_changed = (this.config.wsif_ds !== this._old_wsif_ds),
 	// increase the marker only when performing full save
 		new_marker = ((full | ds_changed) && !this.config.wsif_ds.length) ? this._inc_marker(__marker) : __marker,
 		safe_current;
@@ -556,7 +515,7 @@ woas._save_to_file = function(full) {
 	
 	computed_js += "\nvar current = '" + this.js_encode(safe_current)+"';\n\n";
 	
-	computed_js += "var backstack = [\n" + printout_arr(this.config.nav_history ? woas.history.backstack : [], false) + "];\n\n";
+	computed_js += "var backstack = [\n" + printout_arr(this.config.nav_history ? backstack : [], false) + "];\n\n";
 	
 	// in WSIF datasource mode we will save empty arrays
 	if (this.config.wsif_ds.length !== 0)
@@ -567,35 +526,33 @@ woas._save_to_file = function(full) {
 	computed_js += "/* " + new_marker + "-DATA */\n";
 
 	if (full || ds_changed) {
-		this._old_wsif_ds_len = this.config.wsif_ds.length;
+		this._old_wsif_ds = this.config.wsif_ds;
 		if (this.config.wsif_ds.length) {
 			// everything empty when the javascript layer is not used
 			computed_js += "var page_attrs = [];\n\n";
 			computed_js += "var page_mts = [];\n\n";
 			computed_js += "var pages = [\n];\n\n";
 		} else {
-			computed_js += "var page_attrs = [" + printout_num_arr(page_attrs) + "];\n\n";
-			computed_js += "var page_mts = [" + (this.config.store_mts ? printout_num_arr(page_mts) : "0, ".repeat(page_mts.length-1)+"0") + "];\n\n";
+			computed_js += "var page_attrs = [" + page_attrs.join(',') + "];\n\n";
+			computed_js += "var page_mts = [" + (this.config.store_mts ? page_mts.join(',') : "0,".repeat(page_mts.length-1)+"0") + "];\n\n";
 			computed_js += "var pages = [\n" + printout_mixed_arr(pages, this.config.allow_diff, page_attrs) + "];\n\n";
 		}
 		computed_js += "/* " + new_marker + "-END */\n";
 	}
 
 	// cleanup the DOM before saving
-	var bak_tx = this.getHTMLDiv(d$("woas_wiki_area")),
-		bak_mn = this.getHTMLDiv(d$("woas_menu_area")),
+	var bak_tx = this.getHTMLDiv(d$("woas_page")),
+		bak_mn = this.getHTMLDiv(d$("woas_menu")),
 		bak_mts = this.getHTMLDiv(d$("woas_mts")),
-		bak_mts_shown = d$.is_visible("woas_mts"),
+		bak_mts_shown = !this.ui.display("no_mts"),
 		bak_wait_text = this.getHTML(d$("woas_wait_text")),
 		bak_debug = d$("woas_debug_log").value,
 	// clear titles and css as well as they will be set on load.
 		bak_title = this.getHTMLDiv(d$("woas_title"));
 
-	if (bak_mts_shown)
-		d$.hide("woas_mts");
 	d$("woas_editor").value = "";
-	this.setHTMLDiv(d$("woas_wiki_area"), "");
-	this.setHTMLDiv(d$("woas_menu_area"), "");
+	this.setHTMLDiv(d$("woas_page"), "");
+	this.setHTMLDiv(d$("woas_menu"), "");
 	this.setHTMLDiv(d$("woas_mts"), "");
 	this.setHTMLDiv(d$("woas_title"), "");
 	d$("woas_debug_log").value = "";
@@ -603,15 +560,15 @@ woas._save_to_file = function(full) {
 	// set the loading message
 	this.setHTML(d$("woas_wait_text"), this.i18n.LOADING);
 	// temporarily display such message
-	d$.show("loading_overlay");
+	this.ui.display({"wait": true});
 	var bak_cursor = document.body.style.cursor;
 	document.body.style.cursor = "auto";
 
-	var data = this._extract_src_data(__marker, document.documentElement.innerHTML, full | ds_changed, safe_current);
+	var data = this._extract_src_data(__marker, document.documentElement.innerHTML, full || ds_changed, safe_current);
 	
 	// data is ready, now the actual save process begins
-	var r=false;
-	d$.hide("loading_overlay");
+	var r = false;
+	this.ui.display({"wait": false});
 	this.setHTML(d$("woas_wait_text"), bak_wait_text);
 	document.body.style.cursor = bak_cursor;
 
@@ -634,11 +591,9 @@ woas._save_to_file = function(full) {
 	}
 	} //DEBUG check
 
-	this.setHTMLDiv(d$("woas_wiki_area"), bak_tx);
-	this.setHTMLDiv(d$("woas_menu_area"), bak_mn);
+	this.setHTMLDiv(d$("woas_page"), bak_tx);
+	this.setHTMLDiv(d$("woas_menu"), bak_mn);
 	this.setHTMLDiv(d$("woas_mts"), bak_mts);
-	if (bak_mts_shown)
-		d$.show("woas_mts");
 	d$("woas_debug_log").value = bak_debug;
 	this.setHTMLDiv(d$("woas_title"), bak_title);
 	

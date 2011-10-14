@@ -123,7 +123,7 @@ just save to rootdirectory. The original code saved the index file to the
 subpath, and multiple-WSIF files to the root!
 */
 	var fname, pos;
-	// convert to unix path for processing
+	// wsif_ds is stored in UNIX format, but just in case
 	subpath = subpath.replace(/\\/g, '/');
 	pos = subpath.lastIndexOf('/') + 1;
 	if (pos) {
@@ -135,16 +135,16 @@ subpath, and multiple-WSIF files to the root!
 	}
 	if (is_windows) {
 		// convert unix path to windows path
-		subpath = subpath.replace(/\//g, '\\');
+		subpath = subpath.replace(reFwdSlash, '\\');
 	}
 	return this._native_wsif_save(subpath, fname, this.config.wsif_ds_lock,
-							!this.config.wsif_ds_multi,	false,
+							!this.ui.wsif_ds_multi,	true,
 							this.config.wsif_author, true, plist);
 };
 
 //API1.0: save all pages
 woas.full_commit = function() {
-	var r = this._wsif_ds_save(this.config.wsif_ds, this.config.wsif_ds_lock);
+	var r = this._wsif_ds_save(this.config.wsif_ds, this.config.wsif_ds_lock, []);
 	// PVHL: don't save html if wsif save failed (added to all commit functions)
 	if (!r) this.alert(this.i18n.WSIF_SAVE_FAIL);
 	return r ? this._save_to_file(true) : false;
@@ -154,15 +154,14 @@ woas.full_commit = function() {
 // PVHL: There is a very bad bug here: when options page is saved all edits are lost.
 //   Also, if cumulative save is set the woas is completely corrupted. Though saved
 //   changes exist in file, they don't exist in DOM and so are lost in config only save.
-//   I'm not interested in finding & fixing as WoaS should be saving layout from a page.
-//   Quick fix is to disable config-only save and save everything every time.
+//   I'm not interested in finding & fixing as WoaS should be saving layout from a page
+//   (probable fix is to reload file and then apply cumulative save changes before saving,
+//   but the whole save process needs to be upgraded (and this issue will disappear).
+//   Quick fix is to disable config-only save and save everything every time -- BUT:
+//   if using external wsif file this actually WILL only save the config to html file.
 //   Was: return this._save_to_file(false);
 woas.cfg_commit = function() {
-	if (this.config.wsif_ds.length !== this._old_wsif_ds_len) {
-		var r = this._wsif_ds_save(this.config.wsif_ds, this.config.wsif_ds_lock);
-		if (!r) this.alert(this.i18n.WSIF_SAVE_FAIL);
-		return r ? this._save_to_file(true) : false;
-	}
+	// only saves to the html file; options not currently in a page
 	return this._save_to_file(true);
 };
 
@@ -172,7 +171,6 @@ woas.cfg_commit = function() {
 woas.commit = function(plist) {
 	var r = this._wsif_ds_save(this.config.wsif_ds, this.config.wsif_ds_lock, plist);
 	if (!r) this.alert(this.i18n.WSIF_SAVE_FAIL);
-	// performs full save, while the single page + global header could be saved instead
 	return r ? this._save_to_file(true) : false;
 };
 
@@ -180,7 +178,7 @@ woas.commit = function(plist) {
 // plist is a list of page indexes which need to be saved (not allowed to be empty)
 woas.commit_delete = function(plist) {
 	// update only the native WSIF index (leaves back deleted pages)
-	var r = this._wsif_ds_save(this.config.wsif_ds, this.config.wsif_ds_lock, []);
+	var r = this._wsif_ds_save(this.config.wsif_ds, this.config.wsif_ds_lock, plist);
 	if (!r) this.alert(this.i18n.WSIF_SAVE_FAIL);
 	// performs full save, while the single page + global header could be saved instead
 	return r ? this._save_to_file(true) : false;

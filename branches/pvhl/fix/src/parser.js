@@ -1,7 +1,6 @@
 // module @parser
 woas.parser = {
 
-
 render_title: null, // title of page being rendered
 has_toc: null,
 toc: "",
@@ -116,14 +115,12 @@ _render_wiki_link: function(target, label, snippets, tags, export_links) {
 	var page = woas.title_unalias(target), // apply aliases to page title
 		hashloc = page.indexOf('#'),
 		r_label = (label === '') ? page : label,
-		title = '', gotohash = '', str, wl,
-		// class, title, other attributes (escape '), label
+		title = '', gotohash = '', str, wl, pg,
 		sLink = '<'+'a class="%s" title="%s"%s>%s<'+'\/a>',
 		sLinkBroken = '<'+'span class="woas_broken_link">%s<'+'\/span>',
 		scWorld = 'woas_world_link', scWoas = 'woas_link', scWoasUn = 'woas_unlink',
 		sHref = ' href="%s"', sHrefTrgt = ' href="%s" target="_blank"',
-		sOnClick = ' onclick="woas.go_to(\'%s\')%s"',
-		sWindowHash = '; window.location.hash=\'%s\'';
+		sOnClick = ' onclick="woas.go_to(\'%s\')"';
 
 	// check for tag definitions if they might exist
 	if (page.match('Tag') && typeof tags === 'object') {
@@ -150,36 +147,34 @@ _render_wiki_link: function(target, label, snippets, tags, export_links) {
 	}
 
 	// create section heading info
-	if (hashloc > 0) {
-		if (export_links)
-			gotohash = page.substr(hashloc);
-		else
-			gotohash = sWindowHash.sprintf(page.substr(hashloc + 1));
-		page = page.substr(0, hashloc);
-	}
+	if (hashloc !== -1) {
+		gotohash = this.heading_anchor(page.substr(hashloc + 1));
+		pg = page.substr(0, hashloc);
+	} else
+		pg = page;
+	if (!pg && !gotohash)
+		return ""; // PVHL: needs error report?
 
 	// create a title attribute only when page URI differs from page title
-	if (label !== '') {
+	if (label !== '' || gotohash) {
 		title = woas.xhtml_encode(page);
 	}
 
-	if (hashloc === 0) { // section reference URIs
-		str = sLink.sprintf(scWoas, title, sHref.sprintf(page), r_label);
-	} else if (woas.page_exists(page)) { // normal page
+	if ((!pg && gotohash) || woas.page_exists(pg)) { // normal page
 		if (export_links) {
-			wl = woas.exporter._get_fname(page);
+			wl = woas.exporter._get_fname(pg);
 			if (wl === '#') {
 				return woas.parser.place_holder(snippets, sLinkBroken.sprintf(r_label));
 			}
-			wl = sHref.sprintf(wl + gotohash);
+			wl = sHref.sprintf(wl + '#' + gotohash);
 		} else
-			wl = sOnClick.sprintf(woas.js_encode(page), gotohash);
+			wl = sOnClick.sprintf(woas.js_encode(pg) + (gotohash ? '#' + woas.js_encode(gotohash) : ''));
 		str = sLink.sprintf(scWoas, title, wl, r_label);
 	} else { // page does not exist
 		if (export_links) {
 			str = sLinkBroken.sprintf(r_label);
 		} else {
-			wl = sOnClick.sprintf(woas.js_encode(page), ''); // gotohash = ''
+			wl = sOnClick.sprintf(woas.js_encode(pg));
 			str = sLink.sprintf(scWoasUn, title, wl, r_label);
 		}
 	}
@@ -193,9 +188,9 @@ _transclude: function (str, $1) {
 		is_emb = false, ns = woas.get_namespace(templname, true),
 		// temporary page object
 		P = { body: null };
+	//woas.log("Transcluding "+templname+"("+parts.slice(0).toString()+")");	// log:0
 	// increase transclusion depth (used by namespace listing)
 	++that._transcluding;
-	//woas.log("Transcluding "+templname+"("+parts.slice(0).toString()+")");	// log:0
 	if (woas.is_reserved(templname) || (templname.substring(templname.length - 2) === "::"))
 		P.body = woas.get_text_special(templname);
 	else {
@@ -281,13 +276,12 @@ heading_anchor: function(s) {
 },
 
 heading_replace: function(str, $1, $2) {
-	var heading = $2, len = $1.length;
+	var heading = $2, len = $1.length, anchor = woas.parser.heading_anchor(heading);
 	if (typeof $2 === 'undefined' || $2 === '') { return str; }
 	if (woas.parser.has_toc) {
-		woas.parser.toc += String("#").repeat(len)+" <"+"a class=\"woas_link\" href=\"#" +
-		woas.parser.heading_anchor(heading) + "\">" + heading + "<\/a>\n";
+		woas.parser.toc += String("#").repeat(len)+" [[#"+anchor + "|" + heading + "]]\n";
 	}
-	return "<"+"h"+len+" class=\"woas_heading\" id=\"" + woas.parser.heading_anchor(heading) +
+	return "<"+"h"+len+" class=\"woas_heading\" id=\"" + anchor +
 		"\">" + heading + "<"+"/h"+len+">" + woas.parser.NL_MARKER;
 },
 
@@ -348,8 +342,6 @@ parse: function(text, export_links, js_mode) {
 
 	// transclude pages (templates)
 	if (!this.force_inline) {
-		// reset all groups
-		this._ns_groups = { };
 		// apply transclusion syntax
 		this.transclude_syntax(P, snippets, export_links);
 	}
@@ -407,7 +399,7 @@ parse: function(text, export_links, js_mode) {
 			s = "<"+"div class=\"woas_taglinks\">";
 		s += "Tags:";
 		for(var i=0;i < tags.length;++i) {
-			s += " <"+"a class=\"woas_link\" onclick=\"woas.go_to('Tagged::"+woas.js_encode(tags[i])+"')\">"+
+			s += " <"+"a onclick=\"woas.go_to('Tagged::"+woas.js_encode(tags[i])+"')\">"+
 				woas.xhtml_encode(tags[i])+"<"+"/a>";
 		}
 		if (this.force_inline) { // re-print the inline tags (works only on last tag definition?)
@@ -534,7 +526,6 @@ parse_tables_new: function (str, prop, p1) {
 				pp2 = pp1+pp2;
 		}
 
-
         var cells = pp2.replace(woas.parser.reReapTablesNewSub2, "$1$2$3  ").
 				replace(woas.parser.reReapTablesNewSub3, "$1 ").
 				replace(woas.parser.reReapTablesNewSub4, "|| ").
@@ -644,6 +635,10 @@ syntax_parse: function(P, snippets, tags, export_links, has_toc) {
 	// italics/underline/bold all operate on a single line
 	// italics (needs to be done before code that adds html)
 	// PVHL: bug-fix - can't use \w as in bold/underline as it rejects '_'
+	//   */_ need a rewrite (again) so that Me*n*u works, 9/3/83 doesn't, etc.
+	//   Just needs simpler capture with another test regexp for in word stuff.
+	//   Also need to combine these; get tables and lists to put away HTML as above?
+	//   Use word break instead? Recurse for proper */_ nesting, etc? Line by line simple
 	.replace(/(^|[^a-zA-Z0-9])\/(.+?)\//mg, function(str, $1, $2) {
 		return $1+"<"+"em>"+$2+"<"+"/em>";
 	})
@@ -679,9 +674,12 @@ syntax_parse: function(P, snippets, tags, export_links, has_toc) {
 	// replace [[Special::TOC]]
 	if (has_toc) {
 		// replace the TOC placeholder with the real TOC
+		var tmp1 = {body:that.toc.replace(that.reListReap, that.parse_lists)};
+		that.syntax_parse(tmp1, snippets, tags, export_links);
+		//alert(tmp1.body)
 		P.body = P.body.replace(that.marker+"TOC",
-				"<"+"div class=\"woas_toc\"><"+"p class=\"woas_toc_title\">Table of Contents<"+"/p>" +
-				this.toc.replace(this.reListReap, this.parse_lists) + "<"+"/div>" );
+				"<"+"div class=\"woas_toc\"><"+"p class=\"woas_toc_title\">Table of Contents<" +
+				"/p>" +	tmp1.body + "<"+"/div>" );
 		this.toc = "";
 	}
 
@@ -696,7 +694,6 @@ syntax_parse: function(P, snippets, tags, export_links, has_toc) {
 
 	// convert newlines to br tags
 	.replace(/\n/g, "<"+"br />");
-
 
 	// put back snippets removed by place_holder
 	this.undry(P, snippets);
