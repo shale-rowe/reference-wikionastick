@@ -351,7 +351,7 @@ woas.plugins = {
 		this._all.splice(i,1);
 		if (current === "WoaS::Plugins") {
 			//HACK: reload plugins
-			woas.setHTMLDiv(d$("woas_wiki_area"), woas.parser.parse(woas.get_text("WoaS::Plugins") + this.list()));
+			woas.setHTMLDiv(d$("woas_page"), woas.parser.parse(woas.get_text("WoaS::Plugins") + this.list()));
 		}
 		return true;
 	}
@@ -472,10 +472,10 @@ woas.hotkey = {
 			}
 		});
 		// once finished loading hotkey definitions, associate them
-		d$("woas_save_hl").accessKey = this.all.save;
-		d$("woas_edit_hl").accessKey = this.all.edit;
-		d$("woas_print_hl").accessKey = this.all.print;
-		d$("woas_help_hl").accessKey = this.all.help;
+		d$("woas_save").accessKey = this.all.save;
+		d$("woas_edit").accessKey = this.all.edit;
+		d$("woas_print").accessKey = this.all.print;
+		d$("woas_help").accessKey = this.all.help;
 		// set access key for goto feature
 		new_custom_accesskeys.push({fn:"woas.cmd_go_to", key: this.all["goto"]});
 
@@ -646,7 +646,7 @@ woas.macro = {
 	// some default macros
 	default_macros: {
 		// advanced transclusion: each newline creates a parameter
-		"include" : function(m) {
+		include : function(m) {
 			var params = m.text.split("\n"), nt, paramno, trans;
 			// embedded transclusion not supported
 			if (!params.length || !woas.page_exists(params[0]) || woas.is_embedded(params[0]))
@@ -668,6 +668,21 @@ woas.macro = {
 					} );
 			}
 			m.text = nt;
+			m.reprocess = true;
+			return true;
+		},
+		// PVHL: this is mostly to make the Help note more flexible, but...
+		//   why not pass in the type and make it text box - or add such; so:
+		//   woas.box(note): blah.... <<.box(alert) hi>> (I want this '.'
+		// 	 form for official, and to drop the ':' after - unneeded; or maybe
+		//   use '::' as for system pages: e.g. ::box(info) my text...)
+		//   <<.box blah ...>> would give the default box -- note probably.
+		//   All this need do is change the class through a switch; all done in CSS.
+		//   Or don't use a switch and rely on user -- any can be added then.
+		note: function(m) {
+			// the extra div helps IE6
+			var txt = "<"+"div><"+"div class='woas_note'>*%s* %s</"+"div><"+"/div>";
+			m.text = txt.sprintf(woas.i18n.NOTE_TEXT, m.text);
 			m.reprocess = true;
 			return true;
 		}
@@ -746,3 +761,5 @@ woas.macro = {
 // some initialization
 woas.macro.names.push("woas.include");
 woas.macro.functions.push(woas.macro.default_macros.include);
+woas.macro.names.push("woas.note");
+woas.macro.functions.push(woas.macro.default_macros.note);

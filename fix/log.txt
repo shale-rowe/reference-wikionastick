@@ -1,24 +1,49 @@
-WHILE fix IS BEING UPDATED/MERGED FROM fix-wip THIS CODE MAY NOT BE WORKING AS FOUND -- PLEASE WAIT FOR FINAL COMMIT
-(woas-fix.html and woas-fix-wip are not being updated during this process.)
+WHILE FIX & WIP ARE BEING UPDATED/MERGED THIS CODE MAY NOT BE WORKING AS FOUND.
+IT IS NOT BEING TESTED MUCH DURING THIS PROCESS AND COULD OCCASIONALLY BE BROKEN.
 
-All changes listed with most recent commits first.
+I am near to having a finished, fixed 0.12.0. to upload. I simply don't have the time to commit changes piece by piece. If anyone really wants to see it later I'll consider sending them my git development repository (what a mess!)
 
-Changes while updating fix from fix-wip
+Changes since Revision pvhl-2317 (git: 3d939c7)
 
-* reset marker
-* fix bad CSS for lists
-* bring help window to front when hidden
-* small layout and CSS changes
+(needing to archive my work in an incomplete though working state)
+
+* a start on revamping menu - incomplete
+* capture enter key in password pages to avoid having to click the button
+* improve image pages and image gallery (an incomplete beginning; more tomorrow I hope)
+* fix loading of page reference at start-up
+* adjust the colour scheme
+* fix go_to code to handle page section links
+* multiple fixes to allow my current fix-wip code to work with ie6/7 and be left with WoaS
+* more work on using CSS classes to control layout
+* change d$.clone to woas.clone, add d$.toggle_class with optional resize
+* disable menu edit and Options save buttons, and remove some options when read-only
+* add icon lockout code for new display system, and a ui state discovery system
+* fix all the array printouts; failed if length was 1; also removed base16 array encoding as no shorter
+* fix 'Lock::xxx' being saved as current page to open
+* fix some woas history issues, especially with options and locking/unlocking
+* add Special::Options information concerning what is about to happen
+* fix broken FF7 path access, and general rewrite of file load
 * update Special::Import and Special::Export Help pages
-* some small changes to index.wsif
-* make control buttons consistent across special pages
-* restore default list control to 'collapsed' as in 0.12.0 (according to commit notes)
-* make last few control buttons stay at top.
-* fix 'Include::' error I introduced (list control inclusion) and remove include macro 'fix'
-* update fix to SVN rev. 2426 in preparation for fixes from fix-wip to make final version of woas-fix.
-
-Changes since Revision pvhl-2317
-
+* delete WoaS::Template::Button as no longer needed and remove it and WoaS::Template::Info from code
+* add official macro for info box and use in Help Pages; will expand function later
+* Asthetic adjustment to Recent Changes
+* Changes to breadcrumbs display: improve asthetics and fix issue with ::Menu & Namespace listings
+* Changes to Tagged:: listing to improve capability
+* Refactor of listing code to simplify and add no-namespace folding
+* Refactor of orphan pages code ( Order(n) instead of O(n*n) )
+* Redesign and tuning of HTML, CSS, and control code for main layout
+* New Help pop-up code; works in all browsers (even IE6)
+* Allow import of encrypted images (partial fix; will revisit later)
+* Redesign of Special::Import and Special::ImportWSIF and associated functions
+* add separate settings for import and importWSIF and fix import of old settings
+* disable plist use until various broken commit and autosave code is fixed
+* use reFwdSlash instead of new regexp each time
+* change wsif_ds check to whole name instead of length
+* Updated legacy.js to include call information (with help from Little Girl)
+* Redesign of Special::ExportWSIF and associated Help page; others to follow
+* Redesign of Special::Options and associated CSS and Help page
+* Fix 2 small errors including broken list CSS
+* Bring Help window forward if hidden
 * disable WSIF blob saving as only Gecko can do it and others corrupt file
 * add 'wsif.type: index' to allow safe loading/saving of exported multi-file WSIF
 * allow recursive load of WSIF files so multi-file index file can be used
@@ -124,66 +149,3 @@ Changes since Revision pvhl-2317
 * change place_holder to simplify code; now pushes to array and returns marker text
 * minor change to tag display (moved a space)
 * minor change to menu updating for import wiki
-
-Changes made before move to fix-wip
-
-Revision pvhl-2317 (fix branch)
-* fix non-breaking tags display issue
-
-Revision pvhl-2314
-* fix broken Italian language plugin and update design (adding a change to i18n
-  during lock fix was a reminder that translations will break using the current
-  'overwrite everything' system; rewrote the Italian language plugin and added
-  a 'pvhl.notes' file on improving language support in WoaS)
-
-Revision pvhl-2313
-* hack incorrect lock icon display
-
-Revision pvhl-2312
-* macroTagThis and reformat
-* restore print page no browsing warnings
-* added Plugins help page to index
-* slight grammatical change
-* slight ui.js changes
-
-Revision pvhl-2309
-* fix broken nowiki (was failing after heading; better fix to come)
-* fix potential edge-case failure in placeholder.
-* slight cleanup to woas._raw_preformatted
-* added CSS3 rule to core CSS to break unbreakable lines
-
-Revision pvhl-2308
-* fix nowiki class spelling I thought I'd already fixed
-* update single files
-
-Revision pvhl-2291
-* some changes to the About page to explain this version
-* add php files that will be used to create single-file (not finished)
-* stop '#' being used in page titles (found by jufooo)
-* change to log display: closed on loading
-* fix wrong mts display (reported by Winterblood)
-
-Revision pvhl-2289
-* fix Chrome file corruption issues3
-* fix edit_override to allow edit of WoaS namespace
-* quick changes (hack) to remove cancelled new page from menu
-* slight change to menu to allow better addition placement
-* fix logbox scroll position after save and improve function
-* small formatting change for readability
-* some minor comment additions
-
-Revision pvhl-2288
-* hack for cumulative save issues
-* fix no-load mode error when mode = 0
-* fix new page history (still some edge case issues)
-* fix commit bug in unused code :(
-
-Revision pvhl-2287
-* fix history so back/forward buttons work
-* fix help back button (not working in FF/IE)
-
-Revision pvhl-2286
-* syntax fixes found by Little Girl
-* syntax fixes found by PVHL
-* fixed up deprecated go_to() & go_back
-* minor documentation clarifications

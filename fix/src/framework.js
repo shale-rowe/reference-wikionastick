@@ -7,7 +7,7 @@ woas.browser = {
 	safari: false,
 	chrome: false,
 
-	// breeds - used internally, should not be used by external plugins
+	// versions - used internally, should not be used by external plugins
 	ie6: false, ie8: false,
 	firefox2: false,
 	firefox3: false, firefox_new: false,
@@ -92,7 +92,8 @@ var is_windows = (navigator.appVersion.toLowerCase().indexOf("windows")!=-1);
 woas._server_mode = (document.location.toString().match(/^file:\/\//) ? false:true);
 
 // set to true if we need Java-based file load/save
-woas.use_java_io = woas.browser.chrome || woas.browser.opera || woas.browser.safari;
+// PVHL: changed to anything we don't know how to handle
+woas.use_java_io = !woas.browser.ie && !woas.browser.firefox;
 
 // returns the DOM element object given its id - enables a try/catch mode when debugging
 if (woas.config.debug_mode) {
@@ -112,23 +113,37 @@ d$.checked = function(id) {
 };
 
 d$.hide = function(id) {
-	d$(id).style.display = "none";
+	d$(id).style.display = 'none';
 };
 
 d$.show = function(id, inline) {
-	d$(id).style.display = inline ? "inline" : "block";
+	d$(id).style.display = inline ? 'inline' : 'block';
 };
 
 d$.is_visible = function(id) {
 	return !!d$(id).offsetWidth;
 };
 
+// always resizes to be safe
 d$.toggle = function(id, inline) {
 	var d = d$(id);
 	d.style.display = d.offsetWidth ? 'none' : inline ? 'inline' : 'block';
+	woas.ui._resize();
 };
 
-d$.clone = function(obj) {
+// set/reset a class, and resize if optional r is true; may make resize required
+// experimentally used by debug console
+d$.toggle_cls = function(c, r) {
+	var o = {};
+	o[c] = !woas.ui.display(c);
+	woas.ui.display(o);
+	if (r) {
+		woas.ui._resize();
+	}
+};
+
+// PVHL: shallow object copy; prefer shallow extend, with filter; was d$.clone
+woas.clone = function(obj) {
 	var nobj = {};
 	for (var i in obj) {
 		nobj[i] = obj[i];
@@ -222,15 +237,15 @@ function _random_string(string_length) {
 }
 
 // converts the number of bytes to a human readable form
-function _convert_bytes(bytes) {
-	var U=['bytes','Kb','Mb','Gb','Pb'];
-	var n=0;
-	bytes=Math.ceil(bytes);
-	while(bytes>=1024) {
+function _convert_bytes(bytes, p) {
+	var U=['bytes','Kb','Mb','Gb','Pb'], n = 0;
+	if (typeof p !== 'number') { p = 2; }
+	bytes = Math.ceil(bytes);
+	while (bytes >= 1024 && n < 4) {
 		 ++n;
 		 bytes /= 1024;
 	}
-	return bytes.toFixed(2).replace(/\.00$/, "") +' '+ U[n];
+	return bytes.toFixed(p).replace(/\.0+$/, "") +' '+ U[n];
 }
 /*
 // implement an sprintf() bare function
@@ -289,7 +304,7 @@ function _get_this_filename() {
 	filename = filename.replace(/#.*$/g, ""); // remove fragment (if any)
 	if (is_windows) {
 		// convert unix path to windows path
-		filename = filename.replace(/\//g, "\\");
+		filename = filename.replace(reFwdSlash, "\\");
 		if (filename.substr(0,2)!="\\\\") { // if this is not a network path - will be true in case of Firefox for example
 			// remove leading slash before unit:
 			if (filename.match(/^\\\w:\\/))
@@ -306,7 +321,7 @@ function _get_this_filename() {
 function ff_fix_focus() {
 	//runtime fix for Firefox bug 374786
 	if (woas.browser.firefox)
-		d$("woas_wiki_area").blur();
+		d$("woas_page").blur();
 }
 
 if (is_windows) {
@@ -501,16 +516,11 @@ woas.utf8 = {
 
 };
 
-woas._last_filename = null;
-
+// get path using file input control, or woas._last_filename if not available
+// PVHL: rewrote; special knowledge (e.g. what opera and firefox can/can't do)
+//   should be minimized where possible -- get_input_file_url knows how.
 woas._get_path = function(id) {
-	if (this.browser.firefox3 || this.browser.firefox_new)
-		return this.dirname(ff3_getPath(d$(id)));
-	// use the last used path
-	if (this.browser.opera)
-		return this.dirname(this._last_filename);
-	// on older browsers this was allowed
-	return this.dirname(d$(id).value);
+	return this.dirname(this.get_input_file_url(id, true));
 };
 
 // tool to read/store flags in an integer
