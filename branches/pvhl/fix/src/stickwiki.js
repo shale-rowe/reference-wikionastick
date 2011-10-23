@@ -778,7 +778,7 @@ woas.load_as_current = function(title, xhtml, mts, set_b, keep_fwd) {
 	// the bucket will contain only the rendered page
 	if (set_b)
 		this.pager.bucket.one(title);
-	//this.ui.top();
+	this.ui.top();
 //	this.log("load_as_current(\""+title+"\", "+set_b+") - "+(typeof xhtml == "string" ? (xhtml.length+" bytes") : (typeof xhtml)));	// log:0
 	this.setHTMLDiv(d$("woas_page"), xhtml);
 	this.refresh_mts(mts);
