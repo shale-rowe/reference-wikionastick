@@ -64,34 +64,29 @@ woas.ui = {
 	// could have a better name
 	// PVHL: most of this should be moved into woas.help_system
 	//  Also, allow an optional page title to be passed in, even if in editor
-	//  This function should use full page titles; help_system should use postfix
-	//  (everything after WoaS::Help)
+	//  This function now sends help system just the help page name (everything
+	//  after WoaS::Help)
 	help: function() {
-		var pg, pi, htitle = current;
+		var pg;
 		// we are editing
 		if (this.edit_mode) {
-			pg = "WoaS::Help::Editor";
-			pi = woas.page_index(pg);
+			pg = "Editor";
 		} else {
-			// normalize namespace listngs
-			if (htitle.lastIndexOf('::') === htitle.length - 2)
-				htitle = htitle.substring(0, htitle.length - 2);
-			if (htitle.indexOf('WoaS::') === 0 &&
-					woas.help_system._help_lookup.indexOf(htitle.substr(6)) !== -1)
+			// normalize namespace listings
+			pg = current;
+			if (pg.lastIndexOf('::') === pg.length - 2) {
+				pg = pg.substring(0, pg.length - 2);
+			}
+			if (pg.indexOf('WoaS::') === 0 &&
+					woas.help_system._help_lookup.indexOf(pg.substr(6)) !== -1) {
 				// change the target page in some special cases
-				htitle = htitle.substr(6);
-			pi = woas.page_index("WoaS::Help::"+htitle);
-			if (pi === -1) {
-				pg = "WoaS::Help::Index";
-				pi = woas.page_index(pg);
-			} else {
-				pg = "WoaS::Help::"+htitle;
+				pg = pg.substr(6);
 			}
 		}
-		woas.help_system.go_to(pg, pi);
+		woas.help_system.go_to([pg, '']);
 	},
 	tables_help: function() {
-		woas.help_system.go_to("WoaS::Help::Tables");
+		woas.help_system.go_to(["Tables", '']);
 	},
 	clear_search: function(no_render) {
 //		woas.log("Clearing search"); //log:0
@@ -201,7 +196,7 @@ woas.ui = {
 				var menu = menu_orig.replace("\n[["+current+"]]", "");
 				if (menu !== menu_orig) {
 					woas.set__text(menu_i, menu);
-					woas.refresh_menu_area();
+					woas.refresh_menu();
 				}
 			}
 		}
@@ -232,15 +227,9 @@ woas.ui = {
 		}
 		
 	},
-	ns_menu_dblclick: function() {
-		if (!woas.config.dblclick_edit)
-			return false;
-		woas.ui.edit_ns_menu();
-		return true;
-	},
-	edit_ns_menu: function() {
+	edit_menu: function() {
 		var ns = woas.current_namespace, mpi, tmp;
-		while (ns !== "") {
+		do {
 			mpi = woas.page_index(ns + "::Menu");
 			if (mpi !== -1) {
 				woas.edit_page(ns + "::Menu");
@@ -248,7 +237,7 @@ woas.ui = {
 			}
 			tmp = ns.lastIndexOf("::");
 			ns = tmp === -1 ? "" : ns.substring(0, tmp);
-		}
+		} while (ns !== "");
 	},
 	lock: function() {
 		if (!this.display('no_lock')) {
@@ -342,7 +331,7 @@ woas.ui = {
 				// update settings and save file
 				woas.config.wsif_ds = fn; // save in UNIX format
 				woas.wsif.ds_multi = fn && this.wsif_ds_multi;
-				woas.full_commit(); // this currently destroys the DOM :(
+				woas.full_commit();
 				woas.set_current(current, true, true); // stop forward history destruction
 			} else { // reset settings - approval not given or settings not valid
 				fn = ds;
@@ -376,6 +365,17 @@ woas.go_to = function(cr) {
 	}
 	var parts = cr.split('#'), section = parts[1], r = true, mv = 0, el;
 	cr = parts[0];
+	if (cr.indexOf(this.help_system._pfx) === 0 && cr.substr(-2) !== '::'
+			&& current && page_titles.indexOf(parts[0]) !== -1) {
+		// help system handles all help pages except WoaS::Help and namespace
+		// listings unless loading wiki (current is empty)
+		parts[0] = cr.substr(this.help_system._pfx.length);
+		if (!parts[1]) {
+			parts[1] = '';
+		}
+		woas.help_system.go_to(parts);
+		return true;
+	}
 	if (cr && cr !== current) {
 			r = this.set_current(cr, true);
 	}
@@ -394,7 +394,7 @@ woas.go_to = function(cr) {
 			mv = el.offsetTop - mv;
 		}
 	}
-//console.log(cr+'  '+section+'  '+mv);
+//if (console) console.log(cr+'  '+section+'  '+mv);
 	// there must be a better way!
 	if (cr !== 'Special::Go to') {
 		// just for now! (Chrome uses body - Webkit?)
@@ -420,9 +420,12 @@ function cancel() {
 woas.help_system = {
 	// page names that need to be modified for help lookup: WoaS:: +
 	_help_lookup: ["Aliases", "CSS", "CSS::Boot", "CSS::Core", "CSS::Custom", "Hotkeys", "Plugins"],
+	// make it easier to change names of help pages
+	_pfx: "WoaS::Help::",
 	popup_window: null,
 	popup_wnd: ',status=no,menubar=no,resizable=yes,scrollbars=no,location=no,toolbar=no',
-	popup_w: Math.ceil(screen.width * 0.75),
+	// PVHL: TODO store values of these on resize in a config var - add top & left
+	popup_w: Math.ceil(screen.width * 0.4),
 	popup_h: Math.ceil(screen.height * 0.75),
 
 	popup_code: woas.raw_js("\n\
@@ -432,24 +435,31 @@ function get_parent_woas() {\n\
 	else return null;\n\
 }\n\
 woas = {\n\
-	go_to: function(page) { var woas = get_parent_woas();\n\
-		if (woas !== null)\n\
-			woas.help_system.go_to(page);\n\
+	go_to: function(pg) {\n\
+		var woas = get_parent_woas();\n\
+		if (woas !== null) {\n\
+			// handle section-only links\n\
+			if (pg.indexOf('#') === 0) {\n\
+				woas.help_system.go_to(['', pg.substr(1)]);\n\
+			}\n\
+			woas.go_to(pg);\n\
+		}\n\
 	}\n\
 }\n\
 // used in help popups to access index\n\
 function help_go_index() {\n\
 	var woas = get_parent_woas();\n\
-	if (woas === null) return;\n\
-	woas.help_system.go_to('WoaS::Help::Index');\n\
+	if (woas !== null) {\n\
+		woas.help_system.go_to(['Index', '']);\n\
+	}\n\
 }\n\
 // used in help popups to go back to previous page\n\
 function help_go_back() {\n\
 	var woas = get_parent_woas();\n\
-	if (woas === null) return;\n\
-	woas.help_system.going_back = true;\n\
-	woas.help_system.go_to(woas.help_system.previous_page.pop());\n\
-	return;\n\
+	if (woas !== null) {\n\
+		woas.help_system.going_back = true;\n\
+		woas.help_system.go_to([woas.help_system.previous_page.pop(), '']);\n\
+	}\n\
 }\n\
 function d$(id) {\n\
 	return document.getElementById(id);\n\
@@ -470,91 +480,91 @@ window.onresize = help_resize;\n"
 <'+'input tabindex=2 class="woas_help_button" value="%s" title="%s" onclick="%s()"\
 type="button" /><'+'input tabindex=1 class="woas_help_button" value="Index" onclick\
 ="help_go_index()" type="button" />%s<'+'/div><'+'/div><'+'div id="woas_help_body_wrap">\
-<'+'div class="woas_help_body">\n%s<'+'/div><'+'/div>',
+<'+'div id="woas_help_body">\n%s<'+'/div><'+'/div>',
 
 	going_back: false,
 	previous_page: [],
-
-	go_to: function(page, pi) {
-//		woas.log("help_system.go_to(\""+pg+"\")");	//log:0
-		var t = {hash: '', title: ''}, _pfx = "WoaS::Help::",
-			hash_i = page.indexOf('#'), pg;
-		if (hash_i !== -1) {
-			t.hash = page.substr(hash_i); // includes #
-			// pg is empty for same-page section links
-			pg = page.substr(0, hash_i);
-		} else
-			pg = page;
-		if (pg) {
-			if (!pi) {
-				pi = woas.page_index(pg);
-				// this is a namespace (PVHL: possibly; or misspelled; FIX)
-				if (pi === -1) {
-					woas.go_to(page);
+	// PVHL: code changed to accept an array containing [page, section]
+	//   - only comes here if a help page is targeted
+	//   - page is name of help page without prefix
+	//   - section must be a string (e.g. '')
+	//   - no test has been done to see if help page exists
+	go_to: function(pg) {
+//		woas.log("help_system.go_to(["+pg.join('#')+"])");	//log:0
+		if (!pg || pg.length !== 2 || !this.page_title && !pg[0]) {
+			// add a log msg?
+			this.going_back = false;
+			pg = null;
+			return;
+		}
+		if (pg[0]) {
+			pg.push(woas.get_text(this._pfx + pg[0]));
+			if (!pg[2]) {
+				pg[2] = woas.get_text(this._pfx + 'Index');
+				if (!pg[2]) { // add a log msg?
+					this.going_back = false;
+					pg = null;
 					return;
 				}
-			}
-			// see if this page shall be opened in the main wiki or in the help popup
-			if (pg.substr(0, _pfx.length) === _pfx) {
-				t.text = woas.get__text(pi);
-				if (t.text === null)
-					return;
-				t.title = pg.substr(_pfx.length);
-			} else { // open in main wiki
-				woas.go_to(page);
-				return;
+				pg[0] = 'Index';
 			}
 		}
 		// save previous page and set new
-		if (this.going_back)
+		if (this.going_back) {
 			this.going_back = false;
-		else if (this.page_title !== null)
-			this.previous_page.push( this.page_title );
-		else if (!pg)
-			// can't just have a section if there's no current page
-			return
-		if (pg) this.page_title = pg;
+		} else if (this.page_title) {
+			if (pg[0] !== this.page_title) {
+				this.previous_page.push( this.page_title );
+			} else if (!pg[1] && !this.popup_window.closed) {
+				// same page and no section; just bring to front
+				setTimeout('woas.help_system.popup_window.focus()', 0);
+				return;
+			}
+		}
+		if (pg[0]) {
+			this.page_title = pg[0];
+		}
 		// allow overriding this function
-		this.make_pop_up(t);
+		this.make_pop_up(pg);
 	},
 
 	// PVHL: create a custom help page from scratch that works in all browsers
-	// This needs to be modified to accept a hash section
-	make_pop_up: function(t) {
-		var btn, fn, el;
+	//   pg = [title, section, text]; all must be strings
+	make_pop_up: function(pg) {
+		var title = this._pfx + pg[0], btn, fn, el;
 		if ((this.popup_window === null) || this.popup_window.closed) {
 			this.previous_page = [];
 			this.popup_window = woas.popup("help_popup", this.popup_w,
 				this.popup_h, this.popup_wnd,
-				'<'+'title>' + this.page_title + '<'+'/title>' + '<'+'style type="text/css">'
+				'<'+'title>' + title + '<'+'/title>' + '<'+'style type="text/css">'
 				+ woas.css.get() + '<'+'/style>' + this.popup_code,
 				woas.parser.parse(this.popup_page.sprintf(
-					'Close', 'Close', 'window.close', t.title, t.text)),
+					'Close', 'Close', 'window.close', pg[0], pg[2])),
 				' class="woas_help"', ' class="woas_help"');
-			setTimeout("woas.help_system.popup_window.focus()", 0);
-			this.popup_window.help_resize(); //seems to help a bit with flash
 		} else { // load new page
 			btn = this.previous_page.length ? 'Back' : 'Close';
 			fn = this.previous_page.length ? 'help_go_back' : 'window.close';
-			if (t.text) {
-				woas.setHTMLDiv(this.popup_window.document.body, woas.parser.parse(
-					this.popup_page.sprintf(btn, btn, fn, t.title, t.text)));
-			}
-			this.popup_window.document.title = this.page_title+t.hash;
-			this.popup_window.help_resize();
-			if (t.hash) {
-				d$("woas_help_body_wrap").scrollTop = d$(t.hash.substr(1)).offsetTop
-			}
-			// stop flash on page load
-			setTimeout("woas.help_system.popup_window.focus()", 0);
+			woas.setHTMLDiv(this.popup_window.document.body, woas.parser.parse(
+					this.popup_page.sprintf(btn, btn, fn, pg[0], pg[2])));
+			this.popup_window.document.title = title;
 		}
+		this.popup_window.help_resize();
+		if (pg[1]) {
+			el = this.popup_window.d$(pg[1]);
+			if (el) {
+				this.popup_window.d$("woas_help_body_wrap").scrollTop = el.offsetTop;
+			}
+		}
+		// stop page load flash
+		pg = null;
+		setTimeout('woas.help_system.popup_window.focus()', 0);
 	}
 };
 
 function menu_dblclick() {
 	if (!woas.config.dblclick_edit)
 		return false;
-	edit_menu();
+	woas.ui.edit_menu();
 	return true;
 }
 
@@ -563,10 +573,6 @@ function page_dblclick() {
 		return false;
 	edit();
 	return true;
-}
-
-function edit_menu() {
-	woas.edit_page("::Menu");
 }
 
 /** Used by search box **/
@@ -700,8 +706,6 @@ function import_wiki() {
 		return false;
 	}
 	woas.import_wiki();
-	// PVHL: refresh already done by woas.import_wiki
-	// woas.refresh_menu_area();
 }
 
 function set_key() {
@@ -842,28 +846,21 @@ function query_delete_image(cr) {
 
 // triggered by UI graphic button
 function page_print() {
-	woas._customized_popup(current, woas.getHTMLDiv(d$("woas_page")),
+	woas._customized_popup(current,
+		woas.getHTMLDiv(d$("woas_page")),
 		'woas={};woas.go_to=function(page){alert("'
-		+woas.js_encode(woas.i18n.PRINT_MODE_WARN)+'");}');
+		+woas.js_encode(woas.i18n.PRINT_MODE_WARN)+'");}',
+		'#woas_page { overflow: auto; border: none !important; padding: 0px;\
+margin: 0px }\n.woas_nowiki_multiline { page-break-inside: avoid }',
+		' id="woas_page"');
 }
 
 /*
-PVHL: this is incorrect as css_payload will be overwritten by css.get
-But why is it here at all? I use custom CSS for TOC -- what did this fix?
-My guess is it fixes the print function.
-Change to custom help/print css. Read from WoaS::CSS::[Help|Print]
+Needs change to custom help/print css. Read from WoaS::CSS::[Help|Print]
+This function is no longer used by the help system; print_popup is hardwired!
 */
 woas._customized_popup = function(page_title, page_body, additional_js,
 		additional_css, body_extra) {
-	var css_payload = "";
-	if (woas.browser.ie && !woas.browser.ie8) {
-		if (woas.browser.ie6)
-			css_payload = "div.woas_toc { align: center;}";
-		else
-			css_payload = "div.woas_toc { position: relative; left:25%; right: 25%;}";
-	} else
-		css_payload = "div.woas_toc { margin: 0 auto;}\n";
-	
 	if (additional_js.length)
 		additional_js = woas.raw_js(additional_js);
 	// create the popup
@@ -873,8 +870,8 @@ woas._customized_popup = function(page_title, page_body, additional_js,
 		Math.ceil(screen.height*0.75),
 		",status=yes,menubar=yes,resizable=yes,scrollbars=yes",
 		// head
-		"<"+"title>" + page_title + "<"+"/title>" + "<"+"style type=\"text/css\">"
-		+ css_payload + woas.css.get() + additional_css +
+		"<"+"title>" + page_title + "<"+"/title>" + "<"+
+		"style type=\"text/css\">"+ woas.css.get() + additional_css +
 		"<"+"/sty" + "le>" + additional_js, page_body, body_extra
 	);
 };
@@ -1026,8 +1023,9 @@ woas._search_load = function() {
 		
 		P.body = P.body.replace(this._hl_marker_rx, function(str, i) {
 			var r="",count=0;
+			// PVHL: don't worry about IE pre as results are single line
 			for(var a=0,at=woas._cached_body_search[i].matches.length;a<at;++a) {
-				r += "<"+"pre class=\"woas_nowiki woas_search_results\">" +
+				r += "<"+"pre class=\"woas_search_results\">" +
 						// apply highlighting
 						woas._cached_body_search[i].matches[a].replace(woas._reLastSearch, function(str, $1) {
 							++count;
@@ -1139,20 +1137,50 @@ woas._set_debug = function(status, closed) {
 	window.log = woas.log // for deprecated function - legacy.js
 };
 
-woas.refresh_menu_area = function() {
-	var tmp = this.current_namespace;
- 	this.current_namespace = this.parser.marker;
-	this._add_namespace_menu(tmp);
-	var menu = this.get_text("::Menu");
-	if (menu == null)
-		this.setHTMLDiv(d$("woas_menu"), "");
-	else {
-		this.parser._parsing_menu = true;
-		this.setHTMLDiv(d$("woas_menu"), this.parser.parse(menu, false, this.js_mode("::Menu")));
-		this.parser._parsing_menu = false;
-		this.scripting.clear("menu");
-		this.scripting.activate("menu");
+/*
+PVHL:
+  this function (was refresh_menu_area) now sets the menu using the highest
+  namespace menu found for much greater flexibility and better looks.
+  If people have problems with this I'll write an update plugin to put
+  menu at beginning of sub-menu.
+*/
+woas.refresh_menu = function() {
+	var pi = -1, menu, ns, tmp;
+	// locate the menu for current namespace, or a previous one if not found
+	// (all the way back to ::Menu if need be). Menu is set every time, though
+	// I will see if it makes sense not to for ns=''. There are issues with
+	// this, though, and I had to disable optional loading in original code.
+	// For now no special menus for any core pages - nice to have later.
+	if (current.indexOf('WoaS::') === 0 || current.indexOf('Special') === 0) {
+		tmp = -1;
+	} else {
+		tmp = current.lastIndexOf("::");
 	}
+	ns = tmp > 0 ? current.substr(0, tmp) : '';
+	while (true) {
+//		this.log("menu testing "+ns+"::Menu");	// log:0
+		pi = this.page_index(ns+"::Menu");
+		if (pi !== -1 || !ns) { break; }
+		tmp = ns.lastIndexOf("::");
+		ns = tmp === -1 ? "" : ns.substr(0, tmp);
+	}
+	menu = pi === -1 ? 'ERROR: No menu!' : this.get__text(pi);
+	if (menu) {
+//		this.log("menu found: "+page_titles[pi]);	// log:0
+		this.parser._parsing_menu = true;
+		this.setHTMLDiv(d$("woas_menu"),
+			this.parser.parse(menu, false, this.js_mode(ns+"::Menu")));
+		this.parser._parsing_menu = false;
+		if (!ns) {
+// PVHL: check why this is done every time; change to when needed
+			this.scripting.clear("menu");
+			this.scripting.activate("menu");
+		}
+	} else {
+		this.setHTMLDiv(d$("woas_menu"), '');
+		this.scripting.clear("menu");
+	}
+	this.current_namespace = ns;
 };
 
 // adapted by PVHL from: weston.ruter.net/2009/05/07/detecting-support-for-data-uris
@@ -1303,9 +1331,10 @@ woas.css.set(css, raw)
 woas.css.get(): returns currently set CSS (string:valid CSS)
 */
 woas.css = {
-	FF2: "\n.woas_nowiki { white-space: -moz-pre-wrap !important; }\n",
-	IE: "\n.woas_nowiki { word-wrap: break-word !important; }\n",
-	OPERA: "\n.woas_nowiki { white-space: -o-pre-wrap !important; }\n",
+	// PVHL: these probably aren't needed anymore - check.
+	FF2: "\npre { white-space: -moz-pre-wrap !important; }\n",
+	IE: "\npre { word-wrap: break-word !important; }\n",
+	OPERA: "\npre { white-space: -o-pre-wrap !important; }\n",
 	
 	// TODO: replace with factory function for just this browser
 	set: function(css, raw) {
@@ -1358,7 +1387,7 @@ woas.ui.display() closure
 	      Possibilities are:
 	         view, edit, pswd, wait, locked, unlocked, ro, fix_h, fix_m,
 	         no_img, no_back, no_fwd, no_home, no_tools, no_edit, no_lock,
-			 no_log, no_debug, no_mts, no_ns_menu 
+			 no_log, no_debug, no_mts
 	      Plug-ins can add anything desired; everything controlled through CSS.
 */
 woas.ui.display = (function() {

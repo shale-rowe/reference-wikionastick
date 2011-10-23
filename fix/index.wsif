@@ -2,7 +2,7 @@ wsif.version: 1.3.1
 wsif.generator: woas
 wsif.generator.version: 0.12.0
 woas.author: Anonymous
-woas.pages: 86
+woas.pages: 90
 
 woas.page.title: ::Menu
 woas.page.attributes: 0
@@ -12,22 +12,25 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 [[Main Page]]
+[[Special::Options|Options]]
+[[WoaS History]]
 
-* [[WoaS History]]
-
-* [[WoaS::Help::Info|WoaS::Help]]
+* [[WoaS::Help]]
 * [[WoaS::Aliases]]
 * [[WoaS::Hotkeys]]
 * [[WoaS::Plugins]]
 
-* [[Special::All Pages]]
-* [[Special::Erase Wiki]]
-* [[Special::Recentchanges|Recentchanges]]
+* [[Special::All Pages|All Pages]]
+* [[Special::Go to|Go to...]]
+* [[Special::Recent Changes|Recent Changes]]
+
 * [[Special::Backlinks|Backlinks]]
 * [[Special::New Page|New Page]]
 * [[Special::Duplicate Page|Duplicate Page]]
 * [[Special::Delete Page|Delete Page]]
-* [[Special::Go to|Go to...]]
+
+* [[Special::Erase Wiki|Erase Wiki]]
+
 
 [[Include::WoaS::Template::Search]]
 
@@ -47,17 +50,15 @@ woas.page.boundary: DFQRCTsKlU
 * [[Special::Go to]] - go to a specific page
 * [[Special::New Page]] - create a new page
 * [[Special::Orphaned Pages]] - a list of pages that no other page links to
-* [[Special::Recentchanges]] - a list of all recently modified pages
+* [[Special::Recent Changes]] - a list of all recently modified pages
 * [[Special::Search]] - search all wiki pages
 * [[Tagged::]], [[Untagged::]] - a list of all tagged/untagged pages
-
 == Advanced features
 * [[Special::Options]] - general WoaS options
 * [[WoaS::Aliases]] - view/edit page title aliases
 * [[WoaS::CSS::Core]], [[WoaS::CSS::Custom]] - view the core CSS and edit the custom CSS
 * [[WoaS::Hotkeys]] - view/edit WoaS access keys and default key bindings
 * [[WoaS::Plugins]] - enable/disable and view/edit WoaS JavaScript plugins
-
 == Maintenance
 * [[Special::Import]] - import wiki from a WoaS html file (including earlier versions)
 * [[Special::ImportWSIF]] - import a [[WoaS::Help::WSIF|WSIF]] file containing one or more wiki pages
@@ -97,29 +98,21 @@ woas.page.boundary: DFQRCTsKlU
 [[Special::TOC]]
 = Welcome to Wiki on a Stick!
 Wiki on a Stick (*WoaS*) is a [[http://en.wikipedia.org/wiki/Wiki|wiki]] that lives in *one self-modifying XHTML file*. It's perfect for use at home or office, on your laptop or USB pen drive. It can be used as a personal notepad, calendar, repository for software documentation, and for many other purposes; it allows full customization and extension by your own scripts and plugins. It also offers [[WoaS::Help::Security|AES encryption]] of pages.
-
 == Version
-
-This version of WoaS is based on v@@WOAS_VERSION@@ but has been modified by Paul Levey ([[http://pvhl.users.sourceforge.net/|pvhl]]) to fix various bugs present in the official @@WOAS_VERSION@@ release. It is expected that these changes will some day make their way into the official code. The latest version of this file (woas-fix.html) can be found on [[http://stickwiki.svn.sourceforge.net/viewvc/stickwiki/branches/pvhl/|my WoaS SVN branch]]. It is a simple matter to import any content you have in other WoaS files using the [[Special::Import|import page]]. My thanks to [[http://bookonastick.wordpress.com/|Little Girl]] for her help with testing.
+This version of WoaS is based on v@@WOAS_VERSION@@ but has been modified by Paul Levey ([[http://pvhl.users.sourceforge.net/|pvhl]]) to fix various bugs present in the official @@WOAS_VERSION@@ release. It is expected that these changes will some day make their way into the official code. The latest version of this file (woas-fix.html) can be found on [[http://stickwiki.svn.sourceforge.net/viewvc/stickwiki/branches/pvhl/|my WoaS SVN branch]]. It is a simple matter to import any content you have in other WoaS files using the [[Special::Import|import page]]. My thanks to [[http://bookonastick.wordpress.com/|Little Girl]] for her work on the Help pages and help with testing.
 
 Versions 0.9&tilde;@@WOAS_VERSION@@ by Daniele C. ([[http://sf.net/users/legolas558/|legolas558]])
 Original version (v0.01 &tilde; v0.04) by Andr\u00e9 Wagner
 
 <big>[[Special::License|Wiki on a Stick is licensed under the GNU/GPL license]].</big>
-
 == Official Website
-
 <img style="display: inline" id="img_logo" alt="WoaS Logo" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAQAAADZc7J%2FAAAAAXNSR0IArs4c6QAAAAJiS0dEAP%2BHj8y%2FAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH2gEcDzUY4t9JowAAABl0RVh0Q29tbWVudABDcmVhdGVkIHdpdGggR0lNUFeBDhcAAAI7SURBVEjHtdVPSFRRFAbw33ujljETWhaGo9YiCGoVuHDTIggE2xRBbgeEoFWQFARBq3ZCELQKgqJtbWtTEAitgqBNCZJFGGb%2B18Hxz20xr3HSmXEU%2Bt7ivnvf%2B757z3feOydSAZNh2QrW0IAm%2Bx2LVMS25e9h0UbFF5u1aI1qCvwMs9ZVRyStK6oq8D3M2xn7HdYSVRAYC3n1ocHRslDi4vCtbjprpspmcTH2BbtBwddQJjATZu0Wi36FvwFZqOk861atbUttvDku1SAHeUsKFb6MueQM8c%2BwUcOuJatVnxYDb8hX3XtFoWZoxZM3LFkpW0wlfmxY29HIvNnQEsV5fQql62IyVqO%2FknPegNtgFfG6wyZ80GtaQRrjcnpdN5eQhvTrNwaG5Tx3S0%2BSH%2BIga9SItA8mZTGs21MZTxKBnMfuJLOsLzLOupL4RJySNeadGyWBT645adAbMO6xnCHvwUNcMmg0cYy4Ubc30vp9NaG7FG1TYueQHve9sAjSBr10xj3QiLhZp1F96PRWJ854ZsIjF8CK07LeYQ4PfJRyCuzTGhEfkJVyAeeMyOKmTy5bkAODbhsw4ZyrGDekz2t3kSnWg5nwWbAXHHcsIm6NDu2J%2FrfMxrRJ7UGgffNvPBQd2TU9UyrzMZyIDu6K3qRja13o0Fw3PaWrrKiWbmbCDwt17d7lSFSlsYyG3zukNKNjS3fa0md%2BhUnzVRPXXqFDVmiZU2HOouV%2Fjn1QRntUV3PdxHRYRUpb5H%2FiD%2FUerIBA%2BEx5AAAAAElFTkSuQmCC" /> [[http://stickwiki.sourceforge.net|WoaS Official Website]]
-
 == Download
 Wiki on a Stick can always be downloaded through the official SF.net WoaS project file download service:
 
 <big>[[https://sourceforge.net/projects/stickwiki/files/|Download Wiki on a Stick]]</big>
-
 == Get support
-
 You can use the [[http://woas.iragan.com/|official WoaS forums]] and the [[http://sf.net/projects/stickwiki/|SF.net WoaS project facilities]].
-
 == Thanks to
 This project wouldn't be what it is without the help of other people. If you contributed to Wiki on a Stick and your name is not here (or if you do not want it to be listed here), please [[http://sourceforge.net/sendmessage.php?touser=799761|contact the maintainer]].
 * *Jeremy Ruston* - the creator of the wonderful [[http://www.tiddlywiki.com/|TiddlyWiki]] that served as inspiration for Wiki on a Stick.
@@ -135,7 +128,6 @@ This project wouldn't be what it is without the help of other people. If you con
 * *Little Girl* - assistance with documentation, overall testing, and various improvements
 * [[http://weekendtesting.com/archives/833|Europe Weekend Testing]] - provided a testing session for WoaS
 * [[http://testconsultant.blogspot.com/|Jeroen Rosink]] - testing of WoaS releases
-
 == Important links
 * [[http://sf.net/projects/stickwiki/|SourceForge project home page]] - useful for getting the latest files and contributing to the project.
 * [[http://woas.iragan.com/|Official WoaS forums]] - our discussion forums where you can also participate in the decision processes
@@ -152,10 +144,36 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-===This is a non-complete transfer of code to 'fix'. It should be working but has some way to go. Hopefully finished in the next few days. Image:: listing is messed up on the way to a much more powerful system; a few other issues, like the edit menu experiment, etc. Wanted to archive code, but suggest you wait for the complete product -- unless you are wanting to help with my testing :)
+= Buyer Beware!
+*Please be aware* that this version is unfinished. I have uploaded it to update my code and let others take a look at current changes. I believe it is safe with data, but will be uploading a better version within the next day or two.
 
+* *This version uses a completely new way to control the layout* (adding CSS classes to the HTML tag). It works very well but means that if you try plugins that change the display style (block/hidden) of the main HTML it will likely break the file. This will be fixed later by loading layout from a page (or code) on start up. This new code makes future theming and skinning much easier to implement. (This is a key issue for me.) It also stops the multiple changes that  mess up version control and diffs.
+* The /Fixed Header/ is not done yet. Right now content disappears behind it. This will be put right by the next upload. It is actually just a bit of code that I have already written, but I haven't had time to get to it yet as I wanted to finish up some other layout issues and got side-tracked with the /Orphaned Pages/ code.
+* I haven't finished with export to HTML yet -- or even checked it recently; much of the layout and IDs have changed during this phase. I will make it right before release.
+* Some lists may actually have slowed down a bit as they are now much more capable; the /Orphaned Pages/ list is now 100 times faster.
+* I found it took a few hours to get used to the new page/tag list format, because it works differently from 0.12.0 (so I kept going to pages instead of toggling DIVs); once used to it I found it much easier to use. And I think it looks much better. (The 0.12.0 look actually breaks in one major browser on my system.)
+* I have rearranged some icons to make the code simpler and because it is more consistent to my eyes.
+* The locks are now opposite in looks to 0.12.0; it just makes more sense to me.
+* I am aware of an issue in the Help pages that breaks one page because of a bad link. I will fix it before release.
+* My new WoaS logo is to differentiate my version from the official one. I haven't decided yet whether to use it for this version or to reserve it for my later, enhanced WoaS version (assuming I ever get to it).
+* Though I have fixed up the /Password Entry/ layout (and made a new icon for it) I may change it to use a page (like all the other functions), and may eventually remove the need for it entirely
 
-===Thanks, Paul (PVHL)
+Again, some things are in transition. Some pages are not finished and a lot of the help pages have not been updated yet, though /Little Girl/ has done a lot of work on them.
+
+Do let me know what you think and any issues you find. Be sure to check out some of the new options. Sorry to have taken so long to get the code up. Hopefully I'll be more or less finished with this soon. I have tested quite a bit with a quite large WoaS file and things seem to be working well, but I haven't tested every function recently; I will before release.
+
+Some of these changes will have broken some plug-ins; future changes will break some more. They can be fixed once things are stable. Thanks for your patience.
+
+By the way, if you want to change the menu width the CSS you need to add to WoaS::Custom:CSS looks like this
+{{{
+#woas_footer_wrap, #woas_page_wrap {
+	margin-left: 13em;
+}
+#woas_menu_wrap {
+	width: 13em; /* to match page and footer wrap */
+}
+}}}
+They should be specified in {{{em}}} values for best cross-browser compatibility and both need to be the same value (this is also much more usable than the old {{{%}}} CSS). I have spent a lot of time testing most popular browsers, but only in Windows 7 and Windows XP. I didn't realize before that WoaS really only works at its best in /Firefox/.
 
 --DFQRCTsKlU
 woas.page.title: Special::Search
@@ -166,7 +184,6 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Search in Wiki
-
 <input id="string_to_search" type="text" onfocus="search_focus(true)" onblur="search_focus(false)" />&nbsp;<input class="woas_button" type="button" value="Search" onclick="ssearch_do_search()" />&nbsp;<input class="woas_button" type="button" value="Clear" onclick="woas.ui.clear_search()" />
 <div id="woas_search_results">&nbsp;</div>
 <script type="text/javascript" language="javascript">
@@ -184,7 +201,6 @@ woas.page.boundary: DFQRCTsKlU
 <div><input id="btn_lock" class="woas_button_top" type="button" value="" /></div>
 == AES encryption
 Read more about the [[WoaS::Help::Security|embedded AES encryption]] used in Wiki On a Stick.
-
 == Password
 Enter your password for AES encryption. The more complex your password is, the more difficult it will be to attack the encryption. It is suggested *not* to use passwords whose textbox color is <span style="background-color:red">&nbsp;red&nbsp;</span>, and to accept passwords only when the textbox color is <span style="background-color:lime">&nbsp;green&nbsp;</span>. Punctuation and Mixed case characters will exponentially increase the strength of your password.
 <dl><dt><label for="pw1">Enter password:</label></dt><dd><input type="password" id="pw1" style="background-color:red" value="" size="50" onfocus="woas.ui.focus_textbox()" onblur="woas.ui.blur_textbox()" onkeyup="pw_quality()" />&nbsp;<span id="txtBits">&nbsp;</span></dd><dt><label for="pw2">Re-enter password:</label></dt><dd><input type="password" id="pw2" value="" size="50" onfocus="woas.ui.focus_textbox()" onblur="woas.ui.blur_textbox()" onkeydown="lock_page(event)" /></dd></dl>\
@@ -412,7 +428,7 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-/Options are stored within the WoaS file if the/ Save options /button is clicked. Currently the options will also be saved whenever a page is edited.
+/The [[Special::Options]] page currently stores all options within the WoaS HTML file when the/ Save options /button is clicked; they are never stored inside an external datasource [[WoaS::Help::WSIF|WSIF]] file. Currently the options will also be saved whenever a page is edited, though this will be changed in a future version./
 ==User Interface
 ===Automatically convert URLs to hyperlinks
 converts URLs to [[WoaS::Help::Links|external links]] when the page content is displayed.
@@ -482,7 +498,6 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 <div><input class="woas_button_top" type="button" value="Embed" onclick="woas._embed_process('%1')" /></div>
 = Embed %1
-
 <input id="filename_" type="file" />
 
 --DFQRCTsKlU
@@ -493,7 +508,7 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-<div><input class="woas_button_top" title="Import a plugin" value="Import plugin..." onclick="go_to('Special::ImportWSIF')" type="button" /><input class="woas_button_top" title="Create a new plugin" value="Create plugin..." onclick="javascript:_woas_new_plugin()" type="button" /></div>
+<div><input class="woas_button_top" title="Import a plugin" value="Import plugin..." onclick="woas.go_to('Special::ImportWSIF')" type="button" /><input class="woas_button_top" title="Create a new plugin" value="Create plugin..." onclick="javascript:_woas_new_plugin()" type="button" /></div>
 = Installed plugins
 --DFQRCTsKlU
 woas.page.title: WoaS History
@@ -504,7 +519,6 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Wiki on a Stick History
-
 == Versions 0.01 &tilde; 0.04
 <sub>by Andr\u00e9 Wagner</sub>
 
@@ -513,14 +527,12 @@ As they say, /"necessity is the mother of invention"/. I needed a way to store i
 The closest thing I found was [[http://www.tiddlywiki.com/|TiddlyWiki]], but it still wasn't perfect: it was too much blog-like, and what I needed was something wiki-like. So TiddlyWiki served as inspiration for the software I was about to create (I even used their saving routines).
 
 The core part of the code was written in one rainy afternoon. A few days later (after correcting most problems) I released it and the feedback I received was much more than I could ever expect. I guess that many other people had my same needs  :-) So this gave me motivation to continue working on Wiki on a Stick and to release three more versions.
-
 === The principles
 Since the beginning I followed two basic principles: *simplicity* and *stability*. For simplicity I mean that the software should be easy enough for anyone to use, and the interface should be as plain as possible. And for stability I mean that the user data is sacred above all things, and the user should never loose his data, no matter what happens. I think these were the two facts that brought the good acceptance from the users.
 
 Unfortunatly, the duties of my graduation thesis made me stop working on WoaS and the software became dormant for a couple of months. It made me feel bad, since the mailing lists were at full throttle, with many people requesting features and sending patches that I couldn't even test.
 
 So I was very glad when Daniele offered himself to take over the task of managing the project. He did a great work and now WoaS is a much more rich application, with a even greater userbase. It feels really nice to see that people all around the world are using the software I created, and my desire is to see that WoaS grows in quality, features and userbase, and to remain a simple yet useful tool to everyone.
-
 == Versions 0.9.x
 <sub>by Daniele C.</sub>
 
@@ -533,22 +545,14 @@ My first big project management change was to switch to [[http://subversion.tigr
 Version 0.9B was the first official version which I worked on. My first big change was to have storage of pages not in content-escaped hidden divs but as javascript strings; this brought more speed to the page loading process. I also had to solve some problems inherent to the double file vs single file compatibility (WoaS can since then work with the 2-files version and single file version) and some IE saving issues, but finally the result was good enough.
 
 A lot of features and improvements have been implemented during the (still current) v0.9.x development cycle, without never slowing down some parts of WoaS for each new feature implemented (further speed optimizations will be engineered when the codebase is stable enough); we are as always gathering the users' feedback to add usability and more powerful features to WoaS. Such features must of course be coherent with WoaS principles and base philosophy.
-
 === Object orienting
-
 Wiki on a Stick codebase has been rewritten as object-oriented in order to be more maintanable and modular (the development version contains multiple javascript source files which are as always merged into one before releases). Such process is not yet complete and is being carried out during the 0.12.x development.
-
 == 0.10.x
-
 Development of 0.9.7B was stale and WoaS was getting full of little bugs which prevented it from being successfully used; during last months of 2009 and first months of 2010 WoaS got new blood with 0.10.x releases.
 Some of the best additions were [[WoaS::Help::WSIF|WSIF format]] and a pluggable macro syntax, but finally the product had reached the stability which its users deserved and exited its Beta status to enter a Production development stage.
-
 == 0.11.x
-
 The 0.11.x development stage is focusing new features and fixing old bugs; there have been many new important enchancements like access keys.
-
 == 0.12.x
-
 During development of 0.12.0 plugins support has been added and code has been re-organized for modularity.
 
 --DFQRCTsKlU
@@ -587,7 +591,7 @@ Extension for generated XHTML files:&nbsp; <input id="woas_ep_ext" type="text" s
 ==Other options
 META author (optional):&nbsp; <input id="woas_ep_author" type="text" size="20" value="" />
 <label for="woas_cb_sep_css"><input type="checkbox" id="woas_cb_sep_css" checked="checked">Export CSS into shared file</label>
-<label for="woas_cb_export_menu"><input type="checkbox" id="woas_cb_export_menu" checked="checked">Export menu and submenus</label>
+<label for="woas_cb_export_menu"><input type="checkbox" id="woas_cb_export_menu" checked="checked">Export menus</label>
 <script type="text/javascript">
 var path = woas.ROOT_DIRECTORY + "export" + woas.DIRECTORY_SEPARATOR;
 d$('woas_ep_xhtml').value = path;
@@ -608,7 +612,6 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Special::License
-
 Retrieved from [[http://www.gnu.org/licenses/gpl2.txt]]:
 
 <iframe border="0" width="100%" height="300" src="http://www.gnu.org/licenses/gpl2.txt"></iframe>
@@ -694,7 +697,6 @@ The *wsif.* namespace currently defines only an information header:
 * *wsif.generator* - program/library used to generate WSIF content
 Version 1.1.0 and above are currently supported.
 = woas namespace
-
 The *woas.* namespace defines general WoaS content properties and specific WoaS pages; the following headers are defined for general context:
 
 * *woas.version* - version of WoaS used to produce the WSIF file
@@ -869,56 +871,59 @@ The first time you save a change to Wiki on a Stick, your browser will ask for p
 You will find the *Help* icon in the navigation bar on every page in this wiki. When you click on it, it will either open this page or a specific help page that explains how to work with the page you currently have open.
 
 When browsing the pages in this Help pop-up, you will find an *Index* button in the upper left corner that takes you back to this page, a *Back* button in the upper right corner that takes you back one page if you've visited more than one page, or a *Close* button in the upper right corner that closes the pop-up.
-== Contents:
+== Contents
 * *Features*
-** [[WoaS::Help::Plugins]]
-** [[WoaS::Help::Security]]
-** [[WoaS::Help::WSIF]]
+** [[WoaS::Help::Plugins|Plugins]]
+** [[WoaS::Help::Security|Security]]
+** [[WoaS::Help::WSIF|WSIF]]
 * *Interface*
-** [[WoaS::Help::Aliases]]
-** [[WoaS::Help::CSS]]
-** [[WoaS::Help::Edit the menu]]
-** [[WoaS::Help::Editor]]
-** [[WoaS::Help::Export]]
-** [[WoaS::Help::General usage]]
-** [[WoaS::Help::Hotkeys]]
-** [[WoaS::Help::Import]]
-** [[WoaS::Help::Requirements]]
+** [[WoaS::Help::Aliases|Aliases]]
+** [[WoaS::Help::CSS|CSS]]
+** [[WoaS::Help::Edit the menu|Edit the menu]]
+** [[WoaS::Help::Editor|Editor]]
+** [[WoaS::Help::Export|Export]]
+** [[WoaS::Help::General usage|General usage]]
+** [[WoaS::Help::Go to a page|Go to]]
+** [[WoaS::Help::Hotkeys|Hotkeys]]
+** [[WoaS::Help::Import|Import]]
+** [[WoaS::Help::Menu|Menu]]
+** [[WoaS::Help::Requirements|Requirements]]
 * *Online use*
-** [[WoaS::Help::Publish wiki online]]
-** [[WoaS::Help::Run wiki on a web server]]
+** [[WoaS::Help::Publish wiki online|Publish wiki online]]
+** [[WoaS::Help::Run wiki on a web server|Run wiki on a web server]]
 * *Page management*
-** [[WoaS::Help::Create a page]]
-** [[WoaS::Help::Delete a page]]
-** [[WoaS::Help::Edit a page]]
-** [[WoaS::Help::Erase all pages]]
-** [[WoaS::Help::Namespaces]]
-** [[WoaS::Help::Page scrolling]]
-** [[WoaS::Help::Rename a page]]
+** [[WoaS::Help::Create a page|Create a page]]
+** [[WoaS::Help::Delete a page|Delete a page]]
+** [[WoaS::Help::Duplicate a page|Duplicate a page]]
+** [[WoaS::Help::Edit a page|Edit a page]]
+** [[WoaS::Help::Erase all pages|Erase all pages]]
+** [[WoaS::Help::Namespaces|Namespaces]]
+** [[WoaS::Help::Page scrolling|Page scrolling]]
+** [[WoaS::Help::Rename a page|Rename a page]]
 * *Specific Help pages*
-** [[WoaS::Help::CSS::Boot]]
-** [[WoaS::Help::CSS::Core]]
-** [[WoaS::Help::CSS::Custom]]
-** [[WoaS::Help::Info]]
-** [[WoaS::Help::Locked]]
-** [[WoaS::Help::Special::Advanced]]
-** [[WoaS::Help::Special::All Pages]]
-** [[WoaS::Help::Special::Dead Pages]]
-** [[WoaS::Help::Special::Erase Wiki]]
-** [[WoaS::Help::Special::Export]]
-** [[WoaS::Help::Special::ExportWSIF]]
-** [[WoaS::Help::Special::Import]]
-** [[WoaS::Help::Special::ImportWSIF]]
-** [[WoaS::Help::Special::Options]]
-** [[WoaS::Help::Special::Orphaned Pages]]
-** [[WoaS::Help::Special::Recentchanges]]
-** [[WoaS::Help::Special::Search]]
-** [[WoaS::Help::Tagged]]
-** [[WoaS::Help::Unlocked]]
-** [[WoaS::Help::Untagged]]
+** [[WoaS::Help::CSS::Boot|CSS::Boot]]
+** [[WoaS::Help::CSS::Core|CSS::Core]]
+** [[WoaS::Help::CSS::Custom|CSS::Custom]]
+** [[WoaS::Help::Locked|Locked]]
+** [[WoaS::Help::Special::Advanced|Special::Advanced]]
+** [[WoaS::Help::Special::All Pages|Special::All Pages]]
+** [[WoaS::Help::Special::Backlinks|Special::Backlinks]]
+** [[WoaS::Help::Special::Dead Pages|Special::Dead Pages]]
+** [[WoaS::Help::Special::Erase Wiki|Special::Erase Wiki]]
+** [[WoaS::Help::Special::Export|Special::Export]]
+** [[WoaS::Help::Special::ExportWSIF|Special::ExportWSIF]]
+** [[WoaS::Help::Special::Import|Special::Import]]
+** [[WoaS::Help::Special::ImportWSIF|Special::ImportWSIF]]
+** [[WoaS::Help::Special::Options|Special::Options]]
+** [[WoaS::Help::Special::Orphaned Pages|Special::Orphaned Pages]]
+** [[WoaS::Help::Special::Recent Changes|Special::Recent Changes]]
+** [[WoaS::Help::Special::Search|Special::Search]]
+** [[WoaS::Help::Tagged|Tagged]]
+** [[WoaS::Help::Unlocked|Unlocked]]
+** [[WoaS::Help::Untagged|Untagged]]
 [[Include::WoaS::Help::Syntax]]
 * *Troubleshooting*
-** [[WoaS::Help::Wiki is read-only]]
+** [[WoaS::Help::Wiki is read-only|Wiki is read-only]]
 
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Syntax
@@ -929,25 +934,24 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 * *Syntax*
-** [[WoaS::Help::Deprecated syntax]]
-** [[WoaS::Help::Headings]]
-** [[WoaS::Help::Images]]
-** [[WoaS::Help::Include text file]]
-** [[WoaS::Help::Include web page]]
-** [[WoaS::Help::Include wiki page]]
-** [[WoaS::Help::JavaScript]]
-** [[WoaS::Help::Join lines of text]]
-** [[WoaS::Help::Links]]
-** [[WoaS::Help::Lists]]
-** [[WoaS::Help::Macros]]
-** [[WoaS::Help::Nowiki text]]
-** [[WoaS::Help::Rulers]]
-** [[WoaS::Help::Table of Contents]]
-** [[WoaS::Help::Tables]]
-** [[WoaS::Help::Tags]]
-** [[WoaS::Help::Text formatting]]
-** [[WoaS::Help::Transclusion]]
-
+** [[WoaS::Help::Deprecated syntax|Deprecated syntax]]
+** [[WoaS::Help::Headings|Headings]]
+** [[WoaS::Help::Images|Images]]
+** [[WoaS::Help::Include text file|Include text file]]
+** [[WoaS::Help::Include web page|Include web page]]
+** [[WoaS::Help::Include wiki page|Include wiki page]]
+** [[WoaS::Help::JavaScript|JavaScript]]
+** [[WoaS::Help::Join lines of text|Join lines of text]]
+** [[WoaS::Help::Links|Links]]
+** [[WoaS::Help::Lists|Lists]]
+** [[WoaS::Help::Macros|Macros]]
+** [[WoaS::Help::Nowiki text|Nowiki text]]
+** [[WoaS::Help::Rulers|Rulers]]
+** [[WoaS::Help::Table of Contents|Table of Contents]]
+** [[WoaS::Help::Tables|Tables]]
+** [[WoaS::Help::Tags|Tags]]
+** [[WoaS::Help::Text formatting|Text formatting]]
+** [[WoaS::Help::Transclusion|Transclusion]]
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Special::Advanced
 woas.page.attributes: 0
@@ -959,7 +963,7 @@ woas.page.boundary: DFQRCTsKlU
 The Advanced page offers some tools for administration of your wiki. The Special links lead to pages that have individual help available, except for the dynamic commands that create a prompt. Below are links to relevant help pages for those /Special::/ commands.
 * *Special::Delete Page* - See [[WoaS::Help::Delete a page|Delete a page]]
 * *Special::Erase Wiki* - See [[WoaS::Help::Special::Erase Wiki|Erase Wiki]]
-* *Special::Go to* - See [[WoaS::Help::Special::Go to|Go to a page]]
+* *Special::Go to* - See [[WoaS::Help::Go to a page|Go to a page]]
 * *Special::New Page* - See [[WoaS::Help::Create a page|Create a page]]
 
 --DFQRCTsKlU
@@ -970,7 +974,7 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-The *Special::Erase Wiki* link on the [[Special::Advanced]] page allows you to erase all user-created pages and the original /Main Page/ if it still exists, and all content from the menu. The new file will contain default /Main Page/ and /::Menu pages/. Global core CSS settings will be preserved, but the [[WoaS::CSS::Custom]], Alias, and Hotkey pages will be reset to default values.
+The *Special::Erase Wiki* link on the [[Special::Advanced]] page allows you to erase all user-created pages and the original /Main Page/ if it still exists, and all content from the menu. The new file will contain default /Main Page/ and /::Menu/ pages. Global core CSS settings will be preserved, but the [[WoaS::CSS::Custom]], Alias, and Hotkey pages will be reset to default values.
 
 If you have not given permanent permission to your browser for editing wiki pages, you will receive a security warning when attempting to erase the wiki. If you deny permission to the browser, you will receive a message that saving the file failed. The orginal wiki should then be automatically reloaded from the file..
 
@@ -1058,15 +1062,15 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 /Nowiki text/ is a section of raw or preformatted text that is not parsed as wiki syntax. Anything you place inside nowiki brackets will be displayed in monospace font exactly as you typed it.
 == Multi-line blocks
-<div class="woas_helptext">Use this code in a page:</div>
-<div class="woas_helpcode">{\
+<div class="woas_help_text">Use this code in a page:</div>
+<div class="woas_help_code">{\
 {{
 This is a code block
 made of one
 or more lines.
 }}\
 }</div>
-<div class="woas_helptext">To create this:</div>
+<div class="woas_help_text">To create this:</div>
 {{{
 This is a code block
 made of one
@@ -1080,13 +1084,13 @@ The equation {{{E = mc^2}}} indicates that energy always exhibits mass in whatev
 == Nowiki blocks inside lists
 A nowiki block can be added to a list item by inserting the opening curly brackets at the end of the list item.
 
-<div class="woas_helptext">Use this code in a page:</div>
-<div class="woas_helpcode">* List item:&#123;&#123;&#123;
+<div class="woas_help_text">Use this code in a page:</div>
+<div class="woas_help_code">* List item:&#123;&#123;&#123;
 This is a code block
 made of one
 or more lines.
 &#125;&#125;&#125;</div>
-<div class="woas_helptext">To create this:</div>
+<div class="woas_help_text">To create this:</div>
 * List item:{{{
 This is a code block
 made of one
@@ -1095,13 +1099,13 @@ or more lines.
 
 To insert a newline between the list item and the nowiki block, you can use HTML {{{<br>}}} tags before the opening curly brackets.
 
-<div class="woas_helptext">Use this code in a page:</div>
-<div class="woas_helpcode">* List item:&lt:br&gt;&lt;br&gt;&#123;&#123;&#123;
+<div class="woas_help_text">Use this code in a page:</div>
+<div class="woas_help_code">* List item:&lt:br&gt;&lt;br&gt;&#123;&#123;&#123;
 This is a code block
 made of one
 or more lines.
 &#125;&#125;&#125;</div>
-<div class="woas_helptext">To create this:</div>
+<div class="woas_help_text">To create this:</div>
 * List item:<br><br>{{{
 This is a code block
 made of one
@@ -1110,14 +1114,14 @@ or more lines.
 == Nowiki block with custom CSS style
 The example uses /lightcyan/ and /purple/ colors, but you can replace those with whatever colors you like, using [[http://www.w3schools.com/Html/html_colornames.asp|color names or hexadecimal notation]].
 
-<div class="woas_helptext">Use this code in a page:</div><div class="woas_helpcode">
+<div class="woas_help_text">Use this code in a page:</div><div class="woas_help_code">
 &lt;span style="background-color:lightcyan; color:purple;"&gt;&#123;&#123;&#123;
 This is a code block
 made of one
 or more lines.
 &#125;&#125;&#125;&lt;/span&gt;
 </div>
-<div class="woas_helptext">To create this:</div>
+<div class="woas_help_text">To create this:</div>
 <span style="background-color:lightcyan; color:purple;">{{{
 This is a code block
 made of one
@@ -1148,16 +1152,16 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-If you have a read-only copy of WoaS and you want a write-enabled copy you should ask the author to provide it; read-only protection is by no way a security mechanism (see [[WoaS::Help::Security]]), but instead a /fair use/ invite e.g. you disable the write features because you assume that they won't be useful to end-user.
+Read-only protection is by no means a security mechanism (see [[WoaS::Help::Security|Security]]), but rather an invitation to /fair use/ of the content. The author disables the write features assuming they won't be useful to the end-user or to indicate their expectation that the content won't be edited or copied.
 
-If you want to re-enable the write features manually you should:
+To re-enable the write features manually:
 # Back up your WoaS
 # Open it in a text editor
 # Do a search for: {{{"permit_edits":false,}}}
 # Replace it with: {{{"permit_edits":true,}}}
 # Save the file
 
-*NOTE:* this way of re-enabling WoaS write mode is *unsupported*, e.g. it might not work in future versions of WoaS.
+*NOTE:* this way of re-enabling WoaS write mode is *unsupported*, i.e. it might not work in future versions of WoaS.
 
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Create a page
@@ -1181,14 +1185,14 @@ An alternate method of creating a page is to type a new page title inside square
 {{{
 [[My new page]]
 }}}
-<div class="woas_helptext">Is rendered as:</div>
+<div class="woas_help_text">Is rendered as:</div>
 [[My new page]]
 = Troubleshooting
 There are some issues which could prevent you from creating a page.
 
 * You didn't type a title for the page in the input box that popped up
 * There is already a page by that title
-* The wiki is being run in [[WoaS::Help::Publish wiki online|read-only mode]], so no changes are allowed. See the [[WoaS::Help::Wiki is read-only]] page for instructions on how to return the wiki to editing mode
+* The wiki is being run in [[WoaS::Help::Publish wiki online|read-only mode]], so no changes are allowed. See the [[WoaS::Help::Wiki is read-only|Wiki is read-only]] page for instructions on how to return the wiki to editing mode
 * You are trying to use a [[WoaS::Help::Namespaces|namespace]] that is reserved by WoaS. In this case a message will pop up letting you know the namespace is reserved and giving you an opportunity to choose a different title/namespace for the page
 
 --DFQRCTsKlU
@@ -1199,8 +1203,8 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-= By action link
-# Access [[Special::Delete Page]] either directly or from [[Special::Advanced]]
+= By /Special::Delete Page/ action link/command
+# Access [[Special::Delete Page]] from a [[WoaS::Help::Links|link]] (e.g. from the Special::[[WoaS::Help::Special::Advanced|Advanced]] page, default [[WoaS::Help::Menu|menu]], or user page) or by using the Special::[[WoaS::Help::Go to a page|Go to]] command.
 # You'll be asked for the exact title of the page and then for confirmation
 # When the page is deleted, you'll be returned to the page you were on before deleting the page.
 = By editing
@@ -1285,7 +1289,7 @@ In order to edit pages, click the *Edit* icon in the navigation bar. You can fin
 # Use the editor's buttons to insert code to format the text, or type the code in manually. Note that the use of plain text doesn't require any code.<br><br>
 # Save your changes by clicking on the *Save* icon in the navigation bar.
 == Deleting
-See [[WoaS::Help::Delete a page]].
+See [[WoaS::Help::Delete a page|Delete a page]].
 
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Erase all pages
@@ -1298,7 +1302,7 @@ woas.page.boundary: DFQRCTsKlU
 To erase all user-created pages in this wiki and start fresh:
 # Access [[Special::Erase Wiki]] directly or either from [[Special::Advanced]]
 <<<woas.note: Make sure you are using a wiki you don't mind losing. If not, make a copy and erase the copy.>>>
-See also the [[WoaS::Help::Special::Erase Wiki]] page.
+See also the [[WoaS::Help::Special::Erase Wiki|Erase Wiki]] page.
 
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Edit the menu
@@ -1312,9 +1316,9 @@ woas.page.boundary: DFQRCTsKlU
 # Edit the contents of the main text area; the menu page is like a normal wiki page
 # Save your changes by clicking on the *Save* icon in the top right navigation panel
 
-You can use various styles for your menu. A detailed explanation of list styles can be found in the [[WoaS::Help::Lists]] page.
-== Add a sub-menu beneath the menu
-See the *Namespace sub-menu* section of the [[WoaS::Help::Namespaces]] page.
+You can use various styles for your menu. A detailed explanation of list styles can be found on the [[WoaS::Help::Lists|Lists]] page.
+== Using sub-menus
+See the [[WoaS::Help::Namespaces#Namespace sub-menu|Namespace sub-menu]] section of the [[WoaS::Help::Namespaces|Namespaces]] page.
 
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Headings
@@ -1330,27 +1334,22 @@ Below are examples on how to use wiki markup to create headings in this wiki. Th
 = Heading level 1
 }}}
 = Heading level 1
-
 {{{
 == Heading level 2
 }}}
 == Heading level 2
-
 {{{
 === Heading level 3
 }}}
 === Heading level 3
-
 {{{
 ==== Heading level 4
 }}}
 ==== Heading level 4
-
 {{{
 ===== Heading level 5
 }}}
 ===== Heading level 5
-
 {{{
 ====== Heading level 6
 }}}
@@ -1366,30 +1365,30 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 Rulers (horizontal rules or lines) use the full width of the page by default. They can be styled to a smaller width by surrounding them with HTML &lt;div&gt; tags. Styling can also control their position.
 == Standard ruler
-<div class="woas_helptext">Use this code in a page:</div><br>{{{
+<div class="woas_help_text">Use this code in a page:</div><br>{{{
 ----
-}}}<br><div class="woas_helptext">To create this:</div><br>
+}}}<br><div class="woas_help_text">To create this:</div><br>
 ----
 == Custom width ruler aligned left
-<div class="woas_helptext">Use this code in a page, replacing 50% with the width you like:</div><br>{{{
+<div class="woas_help_text">Use this code in a page, replacing 50% with the width you like:</div><br>{{{
 <div style="width:50%";>
 ----
 </div>
-}}}<br><div class="woas_helptext">To create this:</div>
+}}}<br><div class="woas_help_text">To create this:</div>
 <div style="width:50%";>
 ----
 </div>
 == Custom width ruler aligned right
-<div class="woas_helptext">Use this code in a page, replacing 50% with the width you like:</div><br>{{{
+<div class="woas_help_text">Use this code in a page, replacing 50% with the width you like:</div><br>{{{
 <div style="width:50%; float:right;"><hr></div>
-}}}<br><div class="woas_helptext">To create this:</div>
+}}}<br><div class="woas_help_text">To create this:</div>
 <div style="width:50%; float:right;"><hr></div>
 == Custom width centered ruler
-<div class="woas_helptext">Use this code in a page, replacing 50% with the width you like:</div><br>{{{
+<div class="woas_help_text">Use this code in a page, replacing 50% with the width you like:</div><br>{{{
 <center><div style="width:50%";>
 ----
 </div></center>
-}}}<br><div class="woas_helptext">To create this:</div>
+}}}<br><div class="woas_help_text">To create this:</div>
 <center><div style="width:50%";>
 ----
 </div></center>
@@ -1404,13 +1403,13 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 To include the contents of a wiki page inside another wiki page, use an {{{[[Include::]]}}} tag on a line by itself, inserting the name of the page you'd like to include after the double colons in the tag.
 <<<woas.note: Page names are case sensitive.>>>
-<div class="woas_helptext">Use this code in a page, replacing Page Name with the name of the page you wish to include:</div>
-<div class="woas_helpcode">[<!-- -->[Include::Page Name]]</div>
-<div class="woas_helptext">To include the contents of another wiki page in the current page.</div>
+<div class="woas_help_text">Use this code in a page, replacing Page Name with the name of the page you wish to include:</div>
+<div class="woas_help_code">[<!-- -->[Include::Page Name]]</div>
+<div class="woas_help_text">To include the contents of another wiki page in the current page.</div>
 == Example
-<div class="woas_helptext">Use this code in a page:</div>
-<div class="woas_helpcode">[<!-- -->[Include::Special::Search]<!-- -->]</div>
-<div class="woas_helptext">To create this:</div>
+<div class="woas_help_text">Use this code in a page:</div>
+<div class="woas_help_code">[<!-- -->[Include::Special::Search]<!-- -->]</div>
+<div class="woas_help_text">To create this:</div>
 [[Include::Special::Search]]
 
 --DFQRCTsKlU
@@ -1421,32 +1420,27 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-<style>/* PVHL: replace in CSS later */
-#woas_page ol li, .woas_help_body ol li {
-	margin-bottom: .5em;
-}
-</style>
 == Adding JavaScript to your page
 To add JavaScript to your page, you must enclose it inside JavaScript tags.
 
-<div class="woas_helptext">Use this code in a page, replacing YOUR_CODE_HERE with your JavaScript code:</div>
+<div class="woas_help_text">Use this code in a page, replacing YOUR_CODE_HERE with your JavaScript code:</div>
 {{{
 <script type="text/javascript">
 YOUR_CODE_HERE
 </script>
 }}}
-<div class="woas_helptext">To add JavaScript to your page.</div>
+<div class="woas_help_text">To add JavaScript to your page.</div>
 == Adding JavaScript to the wiki source
 It is possible to add &lt;script/&gt; tags to your wiki source and they will be correctly rendered in the document &lt;head/&gt; tag upon page loading; also external scripts (using the /src/ attribute) will be parsed and activated, always respecting the order of declaration of the &lt;script /&gt; tags.
 <<<woas.note: Since the JavaScript tags are activated from within the &lt;head /&gt; tag, you cannot use document.write() or similar inline JavaScript statements.>>>
 == Using external JavaScript
 You can include external JavaScript on a page by placing the script file in the same directory as this wiki and then inserting a reference to it in the body of the page.
 
-<div class="woas_helptext">Use this code in a page, replacing SCRIPTNAME.JS with the name of your script:</div>
+<div class="woas_help_text">Use this code in a page, replacing SCRIPTNAME.JS with the name of your script:</div>
 {{{
 <script src="SCRIPTNAME.JS"></script>
 }}}
-<div class="woas_helptext">To include an external JavaScript in a page.</div>
+<div class="woas_help_text">To include an external JavaScript in a page.</div>
 === Example
 This page contains this code:
 {{{
@@ -1463,11 +1457,11 @@ alert("This is an example alert!");
 == Using JavaScript to create a temporary page
 Using this code, you can get this wiki to create a link to a dynamically created temporary page with custom content (it accepts HTML tags as part of the content) under the JavaScript namespace. The temporary page will be created each time the link is clicked and uncreated as soon as you navigate to another page or close the wiki.
 
-<div class="woas_helptext">Use this code in a page, replacing CONTENT with your content, NAME with the page name, and LINK with the text you want the link to have:</div>
+<div class="woas_help_text">Use this code in a page, replacing CONTENT with your content, NAME with the page name, and LINK with the text you want the link to have:</div>
 {{{
 <script type="text/javascript">function temporary(arg) {return 'CONTENT';}</script>[[Javascript::temporary('NAME')|LINK]]
 }}}
-<div class="woas_helptext">To create a dynamically created temporary page.</div>
+<div class="woas_help_text">To create a dynamically created temporary page.</div>
 <<<woas.note: Only one of these links may be used per page.>>>
 Paste each of these into a new page one by one to see what they do:
 * This one uses the temporary page name as part of its content:{{{
@@ -1477,11 +1471,11 @@ Paste each of these into a new page one by one to see what they do:
 <script type="text/javascript">function temporary(arg) {return 'This page contains more than one line.<br>This line contains <b>bold</b>, <i>italic</i>, <u>underlined</u>, and <font color="red">colored</font> text.<br><br>And here is a list:<br><ul><li>item1</li><li>item2</li><li>item3</li></ul>';}</script>[[Javascript::temporary('My Page')|Click here]]
 }}}
 == Using JavaScript to reload the wiki
-<div class="woas_helptext">Use this code in a page:</div>
+<div class="woas_help_text">Use this code in a page:</div>
 {{{
 <input type="button" value="Reload wiki" onclick="window.location.href=window.location.href">
 }}}
-<div class="woas_helptext">To create a button that reloads the wiki when you click it.</div>
+<div class="woas_help_text">To create a button that reloads the wiki when you click it.</div>
 
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Join lines of text
@@ -1493,13 +1487,13 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 Lengthy wiki page content can be broken up into shorter lines in the editor (while still being parsed as a single line when the page is viewed) by using a backslash at the *end* of any line; such a line will be joined with the one below it.
 <<<woas.note: Backslashes *within* a line will be ignored by the wiki parser and will not influence how the text is displayed.>>>
-<div class="woas_helptext">Use this code in a page:</div>
+<div class="woas_help_text">Use this code in a page:</div>
 {{{
 Putting a \ at the end of any line \
 makes it join together \
 with the line below it.
 }}}
-<div class="woas_helptext">To create this:</div>
+<div class="woas_help_text">To create this:</div>
 Putting a \ at the end of any line \
 makes it join together \
 with the line below it.
@@ -1525,33 +1519,42 @@ For example, let's say you have these pages:
 
 If you open the {{{[[Recipes::Desserts::Cakes]]}}} page, the title in the navigation bar contains links to *Recipes* and *Desserts*. The *Recipes* link opens a page listing all pages in the *Recipes::* namespace, and the *Desserts* link opens a page listing all pages in the *Desserts::* sub-namespace.
 === Namespace sub-menu
-All pages in any namespace can be given a custom sub-menu by creating a *::Menu* page inside the namespace. The sub-menu will be displayed beneath the main menu while any pages belonging to that page's namespace are open. You can determine what goes into the sub-menu by editing the page with *::Menu* in its name. The sub-menu will vanish as soon as you navigate away from its namespace.
+All pages in any namespace can be given a custom sub-menu by creating a *::Menu* page inside the namespace. The sub-menu content will replace the [[WoaS::Help::Menu|::Menu]] content while any pages belonging to that page's namespace are open. The sub-menu will vanish as soon as you navigate away from its namespace.
+
+You can control what the sub-menu displays by editing the page with *::Menu* in its name, or by clicking the menu edit icon (bottom right corner of the menu) while it is being displayed. A menu is just a wiki page that is displayed in the menu area, so anything a normal page can contain a menu page can as well; this includes JavaScript scripts and CSS style sheets, allowing very flexible customization of namespaces. To [[WoaS::Help::Transclusion|include]] the main menu in a sub-menu use {{{[[Include::::Menu]]}}}.
 
 For example, if you create the {{{[[Recipes::Menu]]}}} page with *My favorite recipes!* as its content, then whenever you open a page in the {{{Recipes::}}} namespace, a sub-menu will appear with *My favorite recipes!* in it.
 === Sub-namespace sub-menu
 All pages in any sub-namespace can be given a custom sub-menu by creating a *::Menu* page inside the sub-namespace. The sub-menu will be displayed beneath the main menu while any pages belonging to that page's sub-namespace are open. You can determine what goes into the sub-menu by editing the page with *::Menu* in its name. The sub-menu will vanish as soon as you navigate away from its sub-namespace.
 
+To include the main menu in a sub-menu use {{{[[Include::::Menu]]}}}. You can also include menus from lower namespaces in the same way.
+
 For example, if you create the {{{[[Recipes::Desserts::Menu]]}}} page with *My favorite desserts!* as its content, then whenever you open a page in the {{{Recipes::Desserts::}}} sub-namespace, a sub-menu will appear with *My favorite desserts!* in it.
 
-If a namespace contains namespace and sub-namespace ::Menu pages and you open a page in the sub-namespace, the contents of the sub-namespace ::Menu page will be displayed.
-<<<woas.note: Sub-menus work the same way menus do. For more information on menus see the [[WoaS::Help::Edit the menu]] page.>>>
+If a namespace contains namespace and sub-namespace ::Menu pages and you open a page in the sub-namespace, the contents of the sub-namespace ::Menu page will be displayed. If a sub-namespace has no menu but a lower namespace does, then that menu will be used instead.
+<<<woas.note: Sub-menus work the same way menus do. For more information on menus see the [[WoaS::Help::Edit the menu|Edit the menu]] page.>>>
+There is no limit to how many sub-namespaces you can have, other than the 256 character limit for title length.
 == Reserved namespaces
-Some namespaces are reserved by the wiki for its own internal use or for specific use by the user:
+Some namespaces are reserved by the wiki for its own internal use or for specific use by the user
+* *::Menu* is a special reserved namespace used for the [[WoaS::Help::Menu|menu]] and sub-menus
+
+These are listable namespaces:
 * *File::* for embedded files
 * *Image::* for embedded images
-* *Include::* for transclusion
-* *Javascript::* for direct JavaScript execution
-* *Lock::* used internally for encrypted pages
 * *Locked::* for listing encrypted pages
-* *::Menu* for sub-menus
 * *Special::* for all the special pages
-* *Tag::* for tagging pages
 * *Tagged::* for listing tagged pages
-* *Tags::* for tagging pages
-* *Unlock::* used internally for encrypted pages
 * *Unlocked::* for listing plain (unencrypted) pages
 * *Untagged::* for listing untagged pages
 * *WoaS::* for core WoaS pages
+
+Some namespaces cannot be listed but are used inside wiki links to accomplish a task:
+* *Include::* for transclusion
+* *Javascript::* for direct JavaScript execution
+* *Lock::* used internally or in a link to lock (encrypt) a page
+* *Tag::* syntax used to tag a page
+* *Tags::* alternative syntax used to tag a page
+* *Unlock::* used internally or in a link to unlock (decrypt) a page
 
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Text formatting
@@ -1562,39 +1565,39 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 == Bold
-<div class="woas_helptext">Use this code in a page:</div><br>{{{
+<div class="woas_help_text">Use this code in a page:</div><br>{{{
 *This is bold text.*
-}}}<br><div class="woas_helptext">To create this:</div>
+}}}<br><div class="woas_help_text">To create this:</div>
 *This is bold text.*
 == Colored
-<div class="woas_helptext">Use this code in a page:</div><br>{{{
+<div class="woas_help_text">Use this code in a page:</div><br>{{{
 <span style="color:#FF00FF">This is colored text.</span>
-}}}<br><div class="woas_helptext">To create this:</div>
+}}}<br><div class="woas_help_text">To create this:</div>
 <span style="color:#FF00FF">This is colored text.</span>
 
-<div class="woas_helptext">Or use this code in a page:</div><br>{{{
+<div class="woas_help_text">Or use this code in a page:</div><br>{{{
 <span style="color:fuchsia">This is colored text.</span>
-}}}<br><div class="woas_helptext">To create this:</div>
+}}}<br><div class="woas_help_text">To create this:</div>
 <span style="color:fuchsia">This is colored text.</span>
 == Italic
-<div class="woas_helptext">Use this code in a page:</div><br>{{{
+<div class="woas_help_text">Use this code in a page:</div><br>{{{
 /This is italic text./
-}}}<br><div class="woas_helptext">To create this:</div>
+}}}<br><div class="woas_help_text">To create this:</div>
 /This is italic text./
 == Plain
-<div class="woas_helptext">Use this code in a page:</div><br>{{{
+<div class="woas_help_text">Use this code in a page:</div><br>{{{
 This is plain text.
-}}}<br><div class="woas_helptext">To create this:</div>
+}}}<br><div class="woas_help_text">To create this:</div>
 This is plain text.
 == Underlined
-<div class="woas_helptext">Use this code in a page:</div><br>{{{
+<div class="woas_help_text">Use this code in a page:</div><br>{{{
 _This is underlined text._
-}}}<br><div class="woas_helptext">To create this:</div>
+}}}<br><div class="woas_help_text">To create this:</div>
 _This is underlined text._
 == Underlined Bold Italic
-<div class="woas_helptext">Use this code in a page:</div><br>{{{
+<div class="woas_help_text">Use this code in a page:</div><br>{{{
 _*/This is underlined and bold and italic text./*_
-}}}<br><div class="woas_helptext">To create this:</div>
+}}}<br><div class="woas_help_text">To create this:</div>
 _*/This is underlined and bold and italic text./*_
 
 --DFQRCTsKlU
@@ -1631,15 +1634,15 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-You can insert a Table of Contents into your page by using a special wiki tag. It will be automatically populated with all the headings on a page. The placement of the Table of Contents is  determined by where you put the tag in the page.
+You can insert a Table of Contents into your page by using a special wiki tag. It will be automatically populated with all the headings on a page. The placement of the Table of Contents is determined by where you put the tag in the page.
 
-<div class="woas_helptext">Use this code on a line by itself in a page:</div><br>{{{
+<div class="woas_help_text">Use this code on a line by itself in a page:</div>{{{
 [[Special::TOC]]
 }}}
-<div class="woas_helptext">To add a Table of Contents to the page.</div>
-<<<woas.note: The Table of Contents expects the first heading on a page to be a Level 1 heading. If you use any other level heading first, that heading and any headings after it will be represented by hash marks until a Level 1 heading is encountered. From that point on, the headings will be numbered properly.>>>
+<div class="woas_help_text">To add a Table of Contents to the page.</div>
 == Example
-Create a page with these contents:<br><br>{{{
+If you were to create a page with these contents:
+{{{
 [[Special::TOC]]
 = My level one heading
 == My level two heading
@@ -1647,18 +1650,21 @@ Create a page with these contents:<br><br>{{{
 ==== My level four heading
 ===== My level five heading
 ====== My level six heading
+= My next level one heading
 }}}
-When you save the page, there will be a Table of Contents that looks like this at the top of the page:
+the displayed page would have a Table of Contents at the top of the page similar to the following:
 
-<div style="border:1px dashed #aaa;background-color:#f9f9f9;padding:0.313em;width:50%;font-size:95%"><center><b>Table of Contents</b></center>
-&nbsp;&nbsp;&nbsp;1. <span style="color:blue; text-decoration:underline;">My level one heading</span>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. <span style="color:blue; text-decoration:underline;">My level two heading</span>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. <span style="color:blue; text-decoration:underline;">My level three heading</span>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. <span style="color:blue; text-decoration:underline;">My level four heading</span>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. <span style="color:blue; text-decoration:underline;">My level five heading</span>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. <span style="color:blue; text-decoration:underline;">My level six heading</span>
-</div>
-
+<div id="woas_page"><div id="woas_toc">
+<div id="woas_toc_title">Table of Contents</div>
+<div class="woas_toc_h1"><a class="woas_link">My level one heading</a></div>
+<div class="woas_toc_h2" style="margin: 0px 1.5em "><a class="woas_link">My level two heading</a></div>
+<div class="woas_toc_h3" style="margin-left: 3em"><a class="woas_link">My level three heading</a></div>
+<div class="woas_toc_h4" style="margin-left: 4.5em"><a class="woas_link">My level four heading</a></div>
+<div class="woas_toc_h5" style="margin-left: 6em"><a class="woas_link">My level five heading</a></div>
+<div class="woas_toc_h6" style="margin-left: 7.5em"><a class="woas_link">My level six heading</a></div>
+<div><a class="woas_link">My next level one heading</a></div>
+</div></div>
+The exact look of the TOC is controlled by the current CSS and javascript, both of which can be changed. The WoaS default implementation includes the ability to toggle the TOC display by clicking the /Table of Contents/ title text.
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Tags
 woas.page.attributes: 0
@@ -1679,12 +1685,12 @@ You can also use the *Tag* button in the editor.
 # Type in a name for the tag.<br><br>
 # Click the *OK* button.
 === Add a tag to a page (method 2)
-<div class="woas_helptext">Use this code in a page, replacing EXAMPLE with the name of the tag you'd like to add:</div>
-<div class="woas_helpcode">[<!-- -->[Tag::EXAMPLE]]</div>
-<div class="woas_helptext">To add a tag to your page.</div>
+<div class="woas_help_text">Use this code in a page, replacing EXAMPLE with the name of the tag you'd like to add:</div>
+<div class="woas_help_code">[<!-- -->[Tag::EXAMPLE]]</div>
+<div class="woas_help_text">To add a tag to your page.</div>
 === Add more than one tag to a page (method 1)
 # Click the *Tags* button in the editor.<br><br>
-# Type in names for the tags, separating each from the one before it with a comma. For example:<br><br><div class="woas_helptext">Use this code in a page, replacing EXAMPLE1, EXAMPLE2, and EXAMPLE3 with the names of the tags you'd like to add:</div><br><div class="woas_helpcode">{{{[[Tag::EXAMPLE1, EXAMPLE2, EXAMPLE3]]}}}</div><br><div class="woas_helptext">To add three tags to your page.</div><br>
+# Type in names for the tags, separating each from the one before it with a comma. For example:<br><br><div class="woas_help_text">Use this code in a page, replacing EXAMPLE1, EXAMPLE2, and EXAMPLE3 with the names of the tags you'd like to add:</div><br><div class="woas_help_code">{{{[[Tag::EXAMPLE1, EXAMPLE2, EXAMPLE3]]}}}</div><br><div class="woas_help_text">To add three tags to your page.</div><br>
 # Click the *OK* button.
 === Add more than one tag to a page (method 2)
 To use more than one tag on a page, use one tag link and add as many tags as you like, separating each from the one before it with a comma. For example: {{{[[Tag::Recipes, Chocolate, Layered cakes]]}}}.
@@ -1693,23 +1699,23 @@ Tag names are case sensitive. For example: {{{[[Tag::Recipes]]}}} and {{{[[Tag::
 
 Tag names can be more than one word long with a space between each word. For example: {{{[[Tag::Layered cakes]]}}}.
 === Add a link to tagged pages
-<div class="woas_helptext">Use this code in a page, replacing EXAMPLE with the tag you'd like to use:</div>
-<div class="woas_helpcode">{{{[[Tagged::EXAMPLE]]}}}</div>
-<div class="woas_helptext">To create a listing of pages tagged with EXAMPLE.</div>
+<div class="woas_help_text">Use this code in a page, replacing EXAMPLE with the tag you'd like to use:</div>
+<div class="woas_help_code">{{{[[Tagged::EXAMPLE]]}}}</div>
+<div class="woas_help_text">To create a listing of pages tagged with EXAMPLE.</div>
 === Add a filtered link to tagged pages
 By putting an exclamation mark (*!*) in front of the tag name, you can filter out a specific tag from a tagged pages list:<br>
-<div class="woas_helptext">Use this code in a page, replacing EXAMPLE with the tag you'd like to filter out:</div>
-<div class="woas_helpcode">[<!-- -->[Tagged::!EXAMPLE]<!-- -->]</div>
-<div class="woas_helptext">To create a filtered listing of tagged pages that are not tagged with EXAMPLE.</div>
+<div class="woas_help_text">Use this code in a page, replacing EXAMPLE with the tag you'd like to filter out:</div>
+<div class="woas_help_code">[<!-- -->[Tagged::!EXAMPLE]<!-- -->]</div>
+<div class="woas_help_text">To create a filtered listing of tagged pages that are not tagged with EXAMPLE.</div>
 === Include a listing of tagged pages
-<div class="woas_helptext">Use this code in a page, replacing EXAMPLE with the tag you'd like to use:</div>
-<div class="woas_helpcode">[<!-- -->[Include::Tagged::EXAMPLE]<!-- -->]</div>
-<div class="woas_helptext">To display a listing of pages tagged with EXAMPLE inside the current page.</div>
+<div class="woas_help_text">Use this code in a page, replacing EXAMPLE with the tag you'd like to use:</div>
+<div class="woas_help_code">[<!-- -->[Include::Tagged::EXAMPLE]<!-- -->]</div>
+<div class="woas_help_text">To display a listing of pages tagged with EXAMPLE inside the current page.</div>
 === Include a filtered listing of tagged pages
 By putting an exclamation mark (*!*) in front of the tag name, you can filter out a specific tag from a tagged pages list:<br>
-<div class="woas_helptext">Use this code in a page, replacing EXAMPLE with the tag you'd like to filter out:</div>
-<div class="woas_helpcode">[<!-- -->[Include::Tagged::!EXAMPLE]<!-- -->]</div>
-<div class="woas_helptext">To display a filtered listing of tagged pages that are not tagged with EXAMPLE inside the current page.</div>
+<div class="woas_help_text">Use this code in a page, replacing EXAMPLE with the tag you'd like to filter out:</div>
+<div class="woas_help_code">[<!-- -->[Include::Tagged::!EXAMPLE]<!-- -->]</div>
+<div class="woas_help_text">To display a filtered listing of tagged pages that are not tagged with EXAMPLE inside the current page.</div>
 
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Publish wiki online
@@ -1725,7 +1731,7 @@ This wiki can be published online as a single-file, framed web page by making it
 # Scroll to the bottom of the page.
 # Click the *Disallow edits* button to make the file read-only.
 # Upload the wiki to a web server and publish a link to it.
-To enable wiki editing again, see the [[WoaS::Help::Wiki is read-only]] page.
+To enable wiki editing again, see the [[WoaS::Help::Wiki is read-only|Wiki is read-only]] page.
 
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Run wiki on a web server
@@ -1812,7 +1818,7 @@ If you'd like to create mixed lists, nested lists, or lists with additional type
 == Wiki markup lists
 Wiki markup lists are created with between one and five specific characters ({{{@}}}, {{{*}}}, or {{{#}}}) at the beginning of a line, followed by a space, and then whatever text you'd like the list item to have. Each list must begin with a list item with only one character at the beginning of the line, and there can be no blank lines between entries in the list. To create a blank line beneath a list item, you can insert two HTML {{{<br>}}} tags at the end of of the list item's text. Wiki and HTML markup are accepted in list items.
 === Alphanumeric List
-<div class="woas_helptext">Use this code in a page:</div><br>{{{
+<div class="woas_help_text">Use this code in a page:</div><br>{{{
 @ Test
 @ Test
 @ Test
@@ -1821,7 +1827,7 @@ Wiki markup lists are created with between one and five specific characters ({{{
 @@@@ Test
 @ Test
 @ Test
-}}}<br><div class="woas_helptext">To create this:</div>
+}}}<br><div class="woas_help_text">To create this:</div>
 @ Test
 @ Test
 @ Test
@@ -1831,7 +1837,7 @@ Wiki markup lists are created with between one and five specific characters ({{{
 @ Test
 @ Test
 === Bulleted List
-<div class="woas_helptext">Use this code in a page:</div><br>{{{
+<div class="woas_help_text">Use this code in a page:</div><br>{{{
 * Test
 * Test
 ** Test
@@ -1839,7 +1845,7 @@ Wiki markup lists are created with between one and five specific characters ({{{
 **** Test
 * Test
 * Test
-}}}<br><div class="woas_helptext">To create this:</div><br>
+}}}<br><div class="woas_help_text">To create this:</div><br>
 * Test
 * Test
 ** Test
@@ -1848,16 +1854,16 @@ Wiki markup lists are created with between one and five specific characters ({{{
 * Test
 * Test
 === Fancy List
-<div class="woas_helptext">Use this code in a page:</div><br>{{{
+<div class="woas_help_text">Use this code in a page:</div><br>{{{
 * ITEM 1 - ITEM 1 SUBTEXT <blockquote>ITEM 1 MORE SUBTEXT</blockquote>
 * ITEM 2 - ITEM 2 SUBTEXT <blockquote>ITEM 2 MORE SUBTEXT</blockquote>
 * ITEM 3 - ITEM 3 SUBTEXT <blockquote>ITEM 3 MORE SUBTEXT</blockquote>
-}}}<br><div class="woas_helptext">To create this:</div><br>
+}}}<br><div class="woas_help_text">To create this:</div><br>
 * ITEM 1 - ITEM 1 SUBTEXT <blockquote>ITEM 1 MORE SUBTEXT</blockquote>
 * ITEM 2 - ITEM 2 SUBTEXT <blockquote>ITEM 2 MORE SUBTEXT</blockquote>
 * ITEM 3 - ITEM 3 SUBTEXT <blockquote>ITEM 3 MORE SUBTEXT</blockquote>
 === Numbered List
-<div class="woas_helptext">Use this code in a page:</div><br>{{{
+<div class="woas_help_text">Use this code in a page:</div><br>{{{
 # Test
 # Test
 ## Test
@@ -1865,7 +1871,7 @@ Wiki markup lists are created with between one and five specific characters ({{{
 #### Test
 # Test
 # Test
-}}}<br><div class="woas_helptext">To create this:</div><br>
+}}}<br><div class="woas_help_text">To create this:</div><br>
 # Test
 # Test
 ## Test
@@ -1874,11 +1880,11 @@ Wiki markup lists are created with between one and five specific characters ({{{
 # Test
 # Test
 === Numbered Fancy List
-<div class="woas_helptext">Use this code in a page:</div><br>{{{
+<div class="woas_help_text">Use this code in a page:</div><br>{{{
 # ITEM 1 - ITEM 1 SUBTEXT <blockquote>ITEM 1 MORE SUBTEXT</blockquote>
 # ITEM 2 - ITEM 2 SUBTEXT <blockquote>ITEM 2 MORE SUBTEXT</blockquote>
 # ITEM 3 - ITEM 3 SUBTEXT <blockquote>ITEM 3 MORE SUBTEXT</blockquote>
-}}}<br><div class="woas_helptext">To create this:</div><br>
+}}}<br><div class="woas_help_text">To create this:</div><br>
 # ITEM 1 - ITEM 1 SUBTEXT <blockquote>ITEM 1 MORE SUBTEXT</blockquote>
 # ITEM 2 - ITEM 2 SUBTEXT <blockquote>ITEM 2 MORE SUBTEXT</blockquote>
 # ITEM 3 - ITEM 3 SUBTEXT <blockquote>ITEM 3 MORE SUBTEXT</blockquote>
@@ -1887,65 +1893,65 @@ HTML lists work the same way as they do in any web page. Specifying the list typ
 === Specifying list type in the &lt;ol&gt; tag
 This method is useful when an entire list will use one list item type. This way you only need to specify the type once, and all the list items can be entered normally.
 
-<div class="woas_helptext">Use this code in a page:</div><br>{{{
+<div class="woas_help_text">Use this code in a page:</div><br>{{{
 <ol style="list-style-type:lower-alpha;">
 <li>lower-alpha</li>
 <li>lower-alpha</li>
 <li>lower-alpha</li>
 </ol>
-}}}<br><div class="woas_helptext">To create this:</div>
+}}}<br><div class="woas_help_text">To create this:</div>
 <ol style="list-style-type:lower-alpha;">
 <li>lower-alpha</li>
 <li>lower-alpha</li>
 <li>lower-alpha</li>
 </ol>
 
-<div class="woas_helptext">Use this code in a page:</div><br>{{{
+<div class="woas_help_text">Use this code in a page:</div><br>{{{
 <ol style="list-style-type:upper-alpha;">
 <li>upper-alpha</li>
 <li>upper-alpha</li>
 <li>upper-alpha</li>
 </ol>
-}}}<br><div class="woas_helptext">To create this:</div>
+}}}<br><div class="woas_help_text">To create this:</div>
 <ol style="list-style-type:upper-alpha;">
 <li>upper-alpha</li>
 <li>upper-alpha</li>
 <li>upper-alpha</li>
 </ol>
 
-<div class="woas_helptext">Use this code in a page:</div><br>{{{
+<div class="woas_help_text">Use this code in a page:</div><br>{{{
 <ol style="list-style-type:decimal;">
 <li>decimal</li>
 <li>decimal</li>
 <li>decimal</li>
 </ol>
-}}}<br><div class="woas_helptext">To create this:</div>
+}}}<br><div class="woas_help_text">To create this:</div>
 <ol style="list-style-type:decimal;">
 <li>decimal</li>
 <li>decimal</li>
 <li>decimal</li>
 </ol>
 
-<div class="woas_helptext">Use this code in a page:</div><br>{{{
+<div class="woas_help_text">Use this code in a page:</div><br>{{{
 <ol style="list-style-type:lower-roman;">
 <li>lower-roman</li>
 <li>lower-roman</li>
 <li>lower-roman</li>
 </ol>
-}}}<br><div class="woas_helptext">To create this:</div>
+}}}<br><div class="woas_help_text">To create this:</div>
 <ol style="list-style-type:lower-roman;">
 <li>lower-roman</li>
 <li>lower-roman</li>
 <li>lower-roman</li>
 </ol>
 
-<div class="woas_helptext">Use this code in a page:</div><br>{{{
+<div class="woas_help_text">Use this code in a page:</div><br>{{{
 <ol style="list-style-type:upper-roman;">
 <li>upper-roman</li>
 <li>upper-roman</li>
 <li>upper-roman</li>
 </ol>
-}}}<br><div class="woas_helptext">To create this:</div>
+}}}<br><div class="woas_help_text">To create this:</div>
 <ol style="list-style-type:upper-roman;">
 <li>upper-roman</li>
 <li>upper-roman</li>
@@ -1954,52 +1960,52 @@ This method is useful when an entire list will use one list item type. This way 
 === Specifying list type in the &lt;ul&gt; tag
 This method is useful when an entire list will use one list item type. This way you only need to specify the type once, and all the list items can be entered normally.
 
-<div class="woas_helptext">Use this code in a page:</div><br>{{{
+<div class="woas_help_text">Use this code in a page:</div><br>{{{
 <ul style="list-style-type:circle;">
 <li>circle</li>
 <li>circle</li>
 <li>circle</li>
 </ul>
-}}}<br><div class="woas_helptext">To create this:</div>
+}}}<br><div class="woas_help_text">To create this:</div>
 <ul style="list-style-type:circle;">
 <li>circle</li>
 <li>circle</li>
 <li>circle</li>
 </ul>
 
-<div class="woas_helptext">Use this code in a page:</div><br>{{{
+<div class="woas_help_text">Use this code in a page:</div><br>{{{
 <ul style="list-style-type:disc;">
 <li>disc</li>
 <li>disc</li>
 <li>disc</li>
 </ul>
-}}}<br><div class="woas_helptext">To create this:</div>
+}}}<br><div class="woas_help_text">To create this:</div>
 <ul style="list-style-type:disc;">
 <li>disc</li>
 <li>disc</li>
 <li>disc</li>
 </ul>
 
-<div class="woas_helptext">Use this code in a page:</div><br>{{{
+<div class="woas_help_text">Use this code in a page:</div><br>{{{
 <ul style="list-style-type:none;">
 <li>none</li>
 <li>none</li>
 <li>none</li>
 </ul>
-}}}<br><div class="woas_helptext">To create this:</div>
+}}}<br><div class="woas_help_text">To create this:</div>
 <ul style="list-style-type:none;">
 <li>none</li>
 <li>none</li>
 <li>none</li>
 </ul>
 
-<div class="woas_helptext">Use this code in a page:</div><br>{{{
+<div class="woas_help_text">Use this code in a page:</div><br>{{{
 <ul style="list-style-type:square;">
 <li>square</li>
 <li>square</li>
 <li>square</li>
 </ul>
-}}}<br><div class="woas_helptext">To create this:</div>
+}}}<br><div class="woas_help_text">To create this:</div>
 <ul style="list-style-type:square;">
 <li>square</li>
 <li>square</li>
@@ -2008,124 +2014,124 @@ This method is useful when an entire list will use one list item type. This way 
 === Specifying list type in the &lt;li&gt; tag
 This method is useful when creating a fancy list with more than one list item type.
 
-<div class="woas_helptext">Use this code in a page:</div><br>{{{
+<div class="woas_help_text">Use this code in a page:</div><br>{{{
 <ol>
 <li style="list-style-type:lower-alpha;">lower-alpha</li>
 <li style="list-style-type:lower-alpha;">lower-alpha</li>
 <li style="list-style-type:lower-alpha;">lower-alpha</li>
 </ol>
-}}}<br><div class="woas_helptext">To create this:</div>
+}}}<br><div class="woas_help_text">To create this:</div>
 <ol>
 <li style="list-style-type:lower-alpha;">lower-alpha</li>
 <li style="list-style-type:lower-alpha;">lower-alpha</li>
 <li style="list-style-type:lower-alpha;">lower-alpha</li>
 </ol>
 
-<div class="woas_helptext">Use this code in a page:</div><br>{{{
+<div class="woas_help_text">Use this code in a page:</div><br>{{{
 <ol>
 <li style="list-style-type:upper-alpha;">upper-alpha</li>
 <li style="list-style-type:upper-alpha;">upper-alpha</li>
 <li style="list-style-type:upper-alpha;">upper-alpha</li>
 </ol>
-}}}<br><div class="woas_helptext">To create this:</div>
+}}}<br><div class="woas_help_text">To create this:</div>
 <ol>
 <li style="list-style-type:upper-alpha;">upper-alpha</li>
 <li style="list-style-type:upper-alpha;">upper-alpha</li>
 <li style="list-style-type:upper-alpha;">upper-alpha</li>
 </ol>
 
-<div class="woas_helptext">Use this code in a page:</div><br>{{{
+<div class="woas_help_text">Use this code in a page:</div><br>{{{
 <ol>
 <li style="list-style-type:circle;">circle</li>
 <li style="list-style-type:circle;">circle</li>
 <li style="list-style-type:circle;">circle</li>
 </ol>
-}}}<br><div class="woas_helptext">To create this:</div>
+}}}<br><div class="woas_help_text">To create this:</div>
 <ol>
 <li style="list-style-type:circle;">circle</li>
 <li style="list-style-type:circle;">circle</li>
 <li style="list-style-type:circle;">circle</li>
 </ol>
 
-<div class="woas_helptext">Use this code in a page:</div><br>{{{
+<div class="woas_help_text">Use this code in a page:</div><br>{{{
 <ol>
 <li style="list-style-type:decimal;">decimal</li>
 <li style="list-style-type:decimal;">decimal</li>
 <li style="list-style-type:decimal;">decimal</li>
 </ol>
-}}}<br><div class="woas_helptext">To create this:</div>
+}}}<br><div class="woas_help_text">To create this:</div>
 <ol>
 <li style="list-style-type:decimal;">decimal</li>
 <li style="list-style-type:decimal;">decimal</li>
 <li style="list-style-type:decimal;">decimal</li>
 </ol>
 
-<div class="woas_helptext">Use this code in a page:</div><br>{{{
+<div class="woas_help_text">Use this code in a page:</div><br>{{{
 <ol>
 <li style="list-style-type:disc;">disc</li>
 <li style="list-style-type:disc;">disc</li>
 <li style="list-style-type:disc;">disc</li>
 </ol>
-}}}<br><div class="woas_helptext">To create this:</div>
+}}}<br><div class="woas_help_text">To create this:</div>
 <ol>
 <li style="list-style-type:disc;">disc</li>
 <li style="list-style-type:disc;">disc</li>
 <li style="list-style-type:disc;">disc</li>
 </ol>
 
-<div class="woas_helptext">Use this code in a page:</div><br>{{{
+<div class="woas_help_text">Use this code in a page:</div><br>{{{
 <ol>
 <li style="list-style-type:lower-roman;">lower-roman</li>
 <li style="list-style-type:lower-roman;">lower-roman</li>
 <li style="list-style-type:lower-roman;">lower-roman</li>
 </ol>
-}}}<br><div class="woas_helptext">To create this:</div>
+}}}<br><div class="woas_help_text">To create this:</div>
 <ol>
 <li style="list-style-type:lower-roman;">lower-roman</li>
 <li style="list-style-type:lower-roman;">lower-roman</li>
 <li style="list-style-type:lower-roman;">lower-roman</li>
 </ol>
 
-<div class="woas_helptext">Use this code in a page:</div><br>{{{
+<div class="woas_help_text">Use this code in a page:</div><br>{{{
 <ol>
 <li style="list-style-type:none;">none</li>
 <li style="list-style-type:none;">none</li>
 <li style="list-style-type:none;">none</li>
 </ol>
-}}}<br><div class="woas_helptext">To create this:</div>
+}}}<br><div class="woas_help_text">To create this:</div>
 <ol>
 <li style="list-style-type:none;">none</li>
 <li style="list-style-type:none;">none</li>
 <li style="list-style-type:none;">none</li>
 </ol>
 
-<div class="woas_helptext">Use this code in a page:</div><br>{{{
+<div class="woas_help_text">Use this code in a page:</div><br>{{{
 <ol>
 <li style="list-style-type:square;">square</li>
 <li style="list-style-type:square;">square</li>
 <li style="list-style-type:square;">square</li>
 </ol>
-}}}<br><div class="woas_helptext">To create this:</div>
+}}}<br><div class="woas_help_text">To create this:</div>
 <ol>
 <li style="list-style-type:square;">square</li>
 <li style="list-style-type:square;">square</li>
 <li style="list-style-type:square;">square</li>
 </ol>
 
-<div class="woas_helptext">Use this code in a page:</div><br>{{{
+<div class="woas_help_text">Use this code in a page:</div><br>{{{
 <ol>
 <li style="list-style-type:upper-roman;">upper-roman</li>
 <li style="list-style-type:upper-roman;">upper-roman</li>
 <li style="list-style-type:upper-roman;">upper-roman</li>
 </ol>
-}}}<br><div class="woas_helptext">To create this:</div>
+}}}<br><div class="woas_help_text">To create this:</div>
 <ol>
 <li style="list-style-type:upper-roman;">upper-roman</li>
 <li style="list-style-type:upper-roman;">upper-roman</li>
 <li style="list-style-type:upper-roman;">upper-roman</li>
 </ol>
 === Mixed HTML list
-<div class="woas_helptext">Use this code in a page:</div><br>{{{
+<div class="woas_help_text">Use this code in a page:</div><br>{{{
 <ol>
 <li style="list-style-type:lower-alpha;">lower-alpha</li>
    <ol>
@@ -2153,7 +2159,7 @@ This method is useful when creating a fancy list with more than one list item ty
       </ol>
    </ol>
 </ol>
-}}}<br><div class="woas_helptext">To create this:</div>
+}}}<br><div class="woas_help_text">To create this:</div>
 <ol>
 <li style="list-style-type:lower-alpha;">lower-alpha</li>
    <ol>
@@ -2191,24 +2197,24 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Table syntax
-<div class="woas_helptext">Use this code in a page:</div><br>{{{
+<div class="woas_help_text">Use this code in a page:</div><br>{{{
 {|
 | CELL1 || CELL2
 | CELL1 || CELL2
 |}
-}}}<br><div class="woas_helptext">To create this:</div>
+}}}<br><div class="woas_help_text">To create this:</div>
 {|
 | CELL1 || CELL2
 | CELL1 || CELL2
 |}
 
-<div class="woas_helptext">Or use this code in a page:</div><br>{{{
+<div class="woas_help_text">Or use this code in a page:</div><br>{{{
 {|
 | CELL1 || CELL2
 |-
 | CELL1 || CELL2
 |}
-}}}<br><div class="woas_helptext">To create this:</div>
+}}}<br><div class="woas_help_text">To create this:</div>
 {|
 | CELL1 || CELL2
 |-
@@ -2217,13 +2223,13 @@ woas.page.boundary: DFQRCTsKlU
 
 The line that starts with {{{|- }}} is a comment line. You can type some text after it which will only be visible when viewing the source:
 
-<div class="woas_helptext">Use this code in a page:</div><br>{{{
+<div class="woas_help_text">Use this code in a page:</div><br>{{{
 {|
 | CELL1 || CELL2
 |- This is a comment.
 | CELL1 || CELL2
 |}
-}}}<br><div class="woas_helptext">To create this:</div>
+}}}<br><div class="woas_help_text">To create this:</div>
 {|
 | CELL1 || CELL2
 |- This is a comment.
@@ -2232,7 +2238,7 @@ The line that starts with {{{|- }}} is a comment line. You can type some text af
 == Header rows
 Tables can have a specially formatted header row created by adding a pipe followed by a plus symbol and a space before the title text (example: {{{|+ Title}}}), and can contain internal and external [[WoaS::Help::Links|wiki links]].
 
-<div class="woas_helptext">Use this code in a page:</div><br>{{{
+<div class="woas_help_text">Use this code in a page:</div><br>{{{
 {|
 |+ TITLE
 | *HEADER1* || *HEADER2* || *HEADER3*
@@ -2245,7 +2251,7 @@ Tables can have a specially formatted header row created by adding a pipe follow
 |-
 | CELL1 || || CELL3
 |}
-}}}<br><div class="woas_helptext">To create this:</div>
+}}}<br><div class="woas_help_text">To create this:</div>
 {|
 |+ TITLE
 | *HEADER1* || *HEADER2* || *HEADER3*
@@ -2259,7 +2265,7 @@ Tables can have a specially formatted header row created by adding a pipe follow
 | CELL1 || || CELL3
 |}
 
-<div class="woas_helptext">Or use this code in a page:</div><br>{{{
+<div class="woas_help_text">Or use this code in a page:</div><br>{{{
 {|
 |+ TITLE
 | *HEADER1* || *HEADER2* || *HEADER3*
@@ -2268,7 +2274,7 @@ Tables can have a specially formatted header row created by adding a pipe follow
 | CELL1 || CELL2 || CELL3
 | CELL1 || || CELL3
 |}
-}}}<br><div class="woas_helptext">To create this:</div>
+}}}<br><div class="woas_help_text">To create this:</div>
 {|
 |+ TITLE
 | *HEADER1* || *HEADER2* || *HEADER3*
@@ -3160,46 +3166,46 @@ Below are methods for creating links using wiki syntax.
 === Anchor link
 You can use a special anchor link to link to a heading on the current page. After clicking an anchor link, use the browser's back button to return to where you were on the page.
 
-<div class="woas_helptext">Use this code in a page, replacing HEADING NAME with the name of the heading you'd like to link to:</div><br>{{{
+<div class="woas_help_text">Use this code in a page, replacing HEADING NAME with the name of the heading you'd like to link to:</div><br>{{{
 [[#HEADING NAME]]
-}}}<br><div class="woas_helptext">To create an anchor link.</div>
+}}}<br><div class="woas_help_text">To create an anchor link.</div>
 === Email link
-<div class="woas_helptext">Use this code in a page, replacing USERNAME with the name of the person, SERVER with the name of their server, and LABEL with the text you'd like displayed as a link:</div><br>{{{
+<div class="woas_help_text">Use this code in a page, replacing USERNAME with the name of the person, SERVER with the name of their server, and LABEL with the text you'd like displayed as a link:</div><br>{{{
 [[mailto://USERNAME@SERVER|LABEL]]
-}}}<br><div class="woas_helptext">To create this:</div>
+}}}<br><div class="woas_help_text">To create this:</div>
 [[mailto://USERNAME@SERVER|LABEL]]
 === Email link with subject
-<div class="woas_helptext">Use this code in a page, replacing USERNAME with the name of the person, SERVER with the name of their server, SUBJECT with the subject of the email, and LABEL with the text you'd like displayed as a link:</div><br>{{{
+<div class="woas_help_text">Use this code in a page, replacing USERNAME with the name of the person, SERVER with the name of their server, SUBJECT with the subject of the email, and LABEL with the text you'd like displayed as a link:</div><br>{{{
 [[mailto://USERNAME@SERVER?subject=SUBJECT|LABEL]]
-}}}<br><div class="woas_helptext">To create this:</div>
+}}}<br><div class="woas_help_text">To create this:</div>
 [[mailto://USERNAME@SERVER?subject=SUBJECT|LABEL]]
 === External link (labeled)
-<div class="woas_helptext">Use this code in a page, replacing URL with the address of the web page, and LABEL with the text for the link:</div><br>{{{
+<div class="woas_help_text">Use this code in a page, replacing URL with the address of the web page, and LABEL with the text for the link:</div><br>{{{
 [[URL|LABEL]]
-}}}<br><div class="woas_helptext">To create a labeled external link like this one:</div>
+}}}<br><div class="woas_help_text">To create a labeled external link like this one:</div>
 [[http://www.gnu.org/|Click here for GNU]]
 === External link (plain)
-<div class="woas_helptext">Use this code in a page, replacing URL with the address of the web page:</div><br>{{{
+<div class="woas_help_text">Use this code in a page, replacing URL with the address of the web page:</div><br>{{{
 [[URL]]
-}}}<br><div class="woas_helptext">To create a plain external link like this one:</div>
+}}}<br><div class="woas_help_text">To create a plain external link like this one:</div>
 [[http://www.gnu.org/]]
 === Image as link
 ==== Base64 image as link
-See the [[WoaS::Help::Images]] page.
+See the [[WoaS::Help::Images|Images]] page.
 ==== Image as link to wiki page
-<div class="woas_helptext">Use this code in a page, replacing IMAGENAME with the name of an embedded image page, and PAGENAME with the name of a page in this wiki:</div>
-<div class="woas_helpcode">[<!-- -->[I<!-- -->nclude:<!-- -->:Image:<!-- -->:IMAGENAME|style="cursor:pointer" oncl<!-- -->ick="go_<!-- -->to('PA<!-- -->GENAME')"]]</div>
-<div class="woas_helptext">To create an image that links to a page in this wiki.</div>
+<div class="woas_help_text">Use this code in a page, replacing IMAGENAME with the name of an embedded image page, and PAGENAME with the name of a page in this wiki:</div>
+<div class="woas_help_code">[<!-- -->[I<!-- -->nclude:<!-- -->:Image:<!-- -->:IMAGENAME|style="cursor:pointer" oncl<!-- -->ick="go_<!-- -->to('PA<!-- -->GENAME')"]]</div>
+<div class="woas_help_text">To create an image that links to a page in this wiki.</div>
 ==== Image as link to web page
-<div class="woas_helptext">Use this code in a page, replacing Image::IMAGENAME with the name of an embedded image page, and URL with the address of a web page:</div>
-<div class="woas_helpcode">[<!-- -->[In<!-- -->clude:<!-- -->:Image:<!-- -->:IMAGENAME|style="cursor:pointer" border="0" onc<!-- -->lick="win<!-- -->dow.o<!-- -->pen('URL')"]<!-- -->]</div>
-<div class="woas_helptext">To create an image that links to a web page.</div>
+<div class="woas_help_text">Use this code in a page, replacing Image::IMAGENAME with the name of an embedded image page, and URL with the address of a web page:</div>
+<div class="woas_help_code">[<!-- -->[In<!-- -->clude:<!-- -->:Image:<!-- -->:IMAGENAME|style="cursor:pointer" border="0" onc<!-- -->lick="win<!-- -->dow.o<!-- -->pen('URL')"]<!-- -->]</div>
+<div class="woas_help_text">To create an image that links to a web page.</div>
 === Include link
 You can include the contents of another page of this wiki in the current page by using an include link.
 
-<div class="woas_helptext">Use this code in a page, replacing PAGENAME with the name of the page you'd like to include:</div>
-<div class="woas_helpcode">[<!-- -->[Include::PAGENAME]<!-- -->]</div>
-<div class="woas_helptext">To include the contents of another page in the current page.</div>
+<div class="woas_help_text">Use this code in a page, replacing PAGENAME with the name of the page you'd like to include:</div>
+<div class="woas_help_code">[<!-- -->[Include::PAGENAME]<!-- -->]</div>
+<div class="woas_help_text">To include the contents of another page in the current page.</div>
 === Internal action link (labeled)
 These are internal wiki actions in the form of links:<br><br>
 {|
@@ -3215,7 +3221,7 @@ These are internal wiki actions in the form of links:<br><br>
 | {{{[[Special::Main Page|Main page]]}}} || Main Page (whatever title it has)
 | {{{[[Special::New Page|New page]]}}} || New page prompt
 | {{{[[Special::Orphaned Pages|Orphaned pages]]}}} || Orphaned pages listing
-| {{{[[Special::Recentchanges|Recentchanges]]}}} || Recently changed pages listing
+| {{{[[Special::Recent Changes|Recent Changes]]}}} || Recently changed pages listing
 | {{{[[Special::Search|Search]]}}} || Search into pages interface
 | {{{[[Tagged::Syntax|Syntax pages]]}}} || Pages tagged with 'Syntax'
 | {{{[[Tagged::|Tagged pages]]}}} || Pages which contain tags
@@ -3223,49 +3229,49 @@ These are internal wiki actions in the form of links:<br><br>
 | {{{[[Untagged::|Untagged pages]]}}} || Listing of pages without any tag
 |}
 === Internal link (labeled)
-<div class="woas_helptext">Use this code in a page, replacing PAGENAME with the page you want to link to and LABEL with the link text:</div><br>{{{
+<div class="woas_help_text">Use this code in a page, replacing PAGENAME with the page you want to link to and LABEL with the link text:</div><br>{{{
 [[PAGENAME|LABEL]]
-}}}<br><div class="woas_helptext">To create a labeled internal link.</div>
+}}}<br><div class="woas_help_text">To create a labeled internal link.</div>
 === Internal link (plain)
-<div class="woas_helptext">Use this code in a page, replacing PAGENAME with the page you want to link to:</div><br>{{{
+<div class="woas_help_text">Use this code in a page, replacing PAGENAME with the page you want to link to:</div><br>{{{
 [[PAGENAME]]
-}}}<br><div class="woas_helptext">To create a plain internal link.</div>
+}}}<br><div class="woas_help_text">To create a plain internal link.</div>
 == HTML links
 Below are methods for creating links using HTML syntax.
 === Alert box link (button)
-<div class="woas_helptext">Use this code in a page, replacing MESSAGE with the content for the alert, and BUTTONTEXT with the text for your button:</div><br>{{{
+<div class="woas_help_text">Use this code in a page, replacing MESSAGE with the content for the alert, and BUTTONTEXT with the text for your button:</div><br>{{{
 <script type="text/javascript">
 function alertme () {alert("MESSAGE");}
 </script>
 <input type=button value="BUTTONTEXT" onClick="alertme()">
-}}}<br><div class="woas_helptext">To create a button that opens an alert.</div>
+}}}<br><div class="woas_help_text">To create a button that opens an alert.</div>
 === Alert box link (labeled)
-<div class="woas_helptext">Use this code in a page, replacing MESSAGE with the content for the alert, and LABEL with the text for your link:</div><br>{{{
+<div class="woas_help_text">Use this code in a page, replacing MESSAGE with the content for the alert, and LABEL with the text for your link:</div><br>{{{
 <a href='javascript:alert("MESSAGE");'>LABEL</a>
-}}}<br><div class="woas_helptext">To create a labeled text link that opens an alert.</div>
+}}}<br><div class="woas_help_text">To create a labeled text link that opens an alert.</div>
 === Anchor links to anywhere on a page
 With a combination of HTML and wiki syntax, you can create anchor links to anywhere on a page, rather than just to headings.
 
-<div class="woas_helptext">Use this code in a page, replacing NAME with the name of the anchor:</div><br>{{{
+<div class="woas_help_text">Use this code in a page, replacing NAME with the name of the anchor:</div><br>{{{
 <a name="NAME">
-}}}<br><div class="woas_helptext">Use this code somewhere else on the same page, replacing NAME with the anchor name:</div><br>{{{
+}}}<br><div class="woas_help_text">Use this code somewhere else on the same page, replacing NAME with the anchor name:</div><br>{{{
 [[#NAME]]
-}}}<br><div class="woas_helptext">To create an anchor link to anywhere on a page.</div>
-<br><div class="woas_helptext">Or use this code somewhere else on the same page, replacing NAME with the anchor name and LABEL with the text for the link:</div><br>{{{
+}}}<br><div class="woas_help_text">To create an anchor link to anywhere on a page.</div>
+<br><div class="woas_help_text">Or use this code somewhere else on the same page, replacing NAME with the anchor name and LABEL with the text for the link:</div><br>{{{
 [[#NAME|LABEL]]
-}}}<br><div class="woas_helptext">To create a labeled anchor link to anywhere on a page.</div>
+}}}<br><div class="woas_help_text">To create a labeled anchor link to anywhere on a page.</div>
 === Edit page link
-<div class="woas_helptext">Use this code in a page, replacing LABEL with the text for your link:</div><br>{{{
+<div class="woas_help_text">Use this code in a page, replacing LABEL with the text for your link:</div><br>{{{
 <a class="woas_link" onclick="javascript:edit()" title="Edit this page">LABEL</a>
-}}}<br><div class="woas_helptext">To create a link that opens the current page in the editor.</div>
+}}}<br><div class="woas_help_text">To create a link that opens the current page in the editor.</div>
 === External link (button)
-<div class="woas_helptext">Use this code in a page, replacing BUTTONTEXT with the text for your button, and URL with the address of the web page:</div><br>{{{
+<div class="woas_help_text">Use this code in a page, replacing BUTTONTEXT with the text for your button, and URL with the address of the web page:</div><br>{{{
 <input type="button" value="BUTTONTEXT" onclick="window.open('URL');">
-}}}<br><div class="woas_helptext">To create a button that opens an external link in another tab or window.</div>
+}}}<br><div class="woas_help_text">To create a button that opens an external link in another tab or window.</div>
 === Internal link (button)
-<div class="woas_helptext">Use this code in a page, replacing BUTTONTEXT with the text you want on the button and PAGENAME with the page you want to link to:</div><br>{{{
-<input value="BUTTONTEXT" onclick="woas.ui.go_to('PAGENAME')" type="submit" />
-}}}<br><div class="woas_helptext">To create a button that opens an internal link in another tab or window.</div>
+<div class="woas_help_text">Use this code in a page, replacing BUTTONTEXT with the text you want on the button and PAGENAME with the page you want to link to:</div><br>{{{
+<input value="BUTTONTEXT" onclick="woas.go_to('PAGENAME')" type="submit" />
+}}}<br><div class="woas_help_text">To create a button that opens an internal link in another tab or window.</div>
 
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Images
@@ -3276,74 +3282,84 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 Wiki on a Stick offers various ways of using images in your pages. You can link to local image files on your drive, remote image files, or embed image files into the wiki.
-== Add an external image from the internet
-<div class="woas_helptext">Use this code in a page, replacing URL with the full link to the image:</div><br>{{{
-<img src="URL" />
-}}}<br><div class="woas_helptext">To add an external image from the internet.</div>
-
-* *Example:*<br><br>
-** <div class="woas_helptext">Use this code:</div><br>{{{
-<img src="http://www.gnu.org/graphics/heckert_gnu.small.png" />
-}}}<br><div class="woas_helptext">To create this:</div><br><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJEAAACMCAAAAABZ%2BxS6AAAACXBIWXMAAAsSAAALEgHS3X78AAAAB3RJTUUH1AkZAiQF53xPugAAGFFJREFUeNrNXH9MVHe2%2F1QmS1OSaTrJmOUdZnYWybDsBJgSUXgID62BpayUEvz1RMKqhfW39Wmrr2qtGik1UnWFwKoLq0RXKWgJ9EHUrU83UOFJkUgDD3iwYKA7E9hlwmxmdoac98e9M8zcucMPq%2B1%2B%2F5mZ7733ez%2F3fM%2F3nM8553vnJcY%2FWVPMfNgyOm6xAAHBUKnUPzSi8QdfP%2B6xeHQE6mLiU4Oe%2FVbO%2FuG%2FjluhfFWp0s3wdC%2FJz9poXWNbgCFaF6IKETq%2BdT4d6Wl%2FGpixW%2FdMcIZr73bZVa8tBEz%2FMNmhjF2yMnweiNrK7ryamh7rK4%2Fh6ivjv94bOG88fYVNuoz4aKVLFwZ6vmnt1GVsDJY7mX1aczal1TuE7476hzZm7j6TueFM8yQz28oiEm7z%2FJrtpDb3kU%2Fv2PW12k0dvmf7IBrKpxT3LRsTiEJX7VlKQjNm7mvksX20aUiAa5sToPsJK5qZebLjwqal%2B%2B472NZ83iQc6d2jFYfyaJJZc5acC9q%2FEcDjyoWBgXfaXP0Bhk4AStUgCg4q2g%2F1rE8PGf%2FqyjXNjHNlDQIwfryuYK%2Bi6UrfU6FTtajTDuXuzcKSenyw%2F%2FiamfRodFtb%2Bgk1AGS0e66y8BMxn5%2Bwbtmi7KqtW1SqQu2VNgSE9fTMvPLOjq5UPLgWfTwMFUcVqZ2DQOo3w%2BKxRTFme%2FJ2wHmqZPUphV89ehipvy58uyrOk757cmhogpmZJyfFk86PMbNtiHdkzjJd9dpQ7YY%2FMvOxVZcn2HFhRT1PHFmXFJeUJgyuHRDOypz0p0f1%2BoRuZp7ovn8jQkTk0qih1ubmIYfnhRMfaJtn02hjvfAMvZIDjrXC6PmCsuozx%2BT1qGGb7jM1cCdP%2BJlqABa9BYw%2BaOnsmwKAgDBDVFSYCrAP999pmCpOn23RN717Imv612DPoBUIMRgAc4oZAJCs%2BXFyNFo3%2FrwqSEaP2leHfKYGnMmDAIDwuwBgqalrgy42epEmwDzc0%2FX1uOvsRb%2FYMgev0rT%2FtfSfAhifGP22a1xl%2BDHsXf2qNzcaTHZ8e%2FYeACi%2FUqIlb1m5wgfReKrzi2AAJYXC78KNgKXkoj02PdVjRZm7vwXwmvqnyrmZRmtTe78TQEiQ%2BmdRgj0cbbzZnnw0DLiXAwAoOAw0bNty2Eez87UdzMzNemGKI23MNUbtnl5%2BAa17q77IwSyYudAhZq6hRqlm11MZM3dkC3gyL4%2BxbQ%2FlDvALao8S0kx8O4WIiOKuM%2FMm%2FYg3ItviVQ5m3iSsyhFmnsx2WYIX0iY3GHuZO3YSEdEx5rHIXG9Ep7W9zMwrBNDM7Mg0dvCLbI53jEPMQ0REtI6Z613ztkBwxhfzwgBAWGZqAAcHq6NnU9vx4eHh0WcmZqWGAjteFSgFgPTET5wejO2ifQcAjNoBAEqg9kZ12Ezjjd5p6RqcAgDoYt9aJuF9zrtffj1sgea1sPhUlX9IbxYeFZbsIAAcSm14y7367XFZhwHg7CkAUJYsty7LOjwDnq7iO4YlP9colYD9ac%2BXLaqNWzysgbP2VEBWjC4QFnNf%2B734LfH%2Bhml%2Fuy56cxMA1MUA2Gypdq%2F%2BW1oTM%2FMxIiJaMcBcZJz0rwFjW0OPeBmFkdMRxlvuX0%2FSjNen%2FY2tJmGDXwuyJ5sdB4iIjB3MfJ%2BG3Jq9KZeZuUZY%2BWPMptAZltkfIzb4cBpbkXaP%2BAwVoflj3ip8OeKCn6FGQjuY84mIIpiZF1cwMysAWO%2BdAoAoQZY98TgfnOV3xioO798tfLM%2F7jEDqpCohQh87638jEs6wLm%2F9j8LAGC0fdAeHGUAoNiYWNB%2FXDbCCM6qisYwAGgAIFVwqcx8Wys8n5GIiM7z2AwiuqCtF%2BnuplCRH1DKBRvzZLa%2Bnh3vUFzFCNtqMoUji4%2BZmJknM99xyI7WEemwaYmI3mdmvq13%2Bf7jbXUAgG11AJBcVXLxK3%2Fk%2FuLx0nQAzsrKQc9u3bkYOLd9kTHYCSBgZVSl2U328nYrAWtOyG9kx1t2KiALAIrXALD8%2FG44sABAT4wYIgAADKjL8AeoQgB0L%2FmoFyAMvl0LxW%2FfrOsE4nOCmk4tWe06Yi9f9jkQVNX5oTyizp8pAeApAChDuiEiWiR4%2B3sAoNk12rXcD6CGo0fTAeu7OYPSI1O7LgKlGev3pra0Ve8Navhql5vwjG8vsCLoD3UlciMa2pW7AeDsAwAI6xH1iJo9iOx%2FcSP5WfoPQ08yc28cybYLQmxyPyJpYmQr6Y8Zpw8lmZgf6e%2FLxSlp7EggIoocYuYDOwUvMopgAM4yAEDiLzAYLE%2Fo%2B7akHgRa04flBXj0%2BKEAAImXBsuCS4ttF%2FOmjWb%2Fm32IKdwuc2HwX6EoAIAJCwD1qDBrTgQAUJQGAsCwE1Z5cmjeuOgc0LTe6s8ulI8qACB%2BYzWwpgqleR5OZ6MZWalb7D7XBA4DdQDwngGASkQEwd8ZjgLAYDUgKyJr9o8uKdCSb%2FfvXESumToKIPE966BHDD2cY0VhgKx2t7QAiCkAgCCLC5Eg3zU6APhE%2Fpb2HEuVCj15U7PnWRRBAJAX1BLr6QoPQVF%2Bs0nmqhIACBDW%2BbgLkRkAhjMGAWDchKcy1737TaUG5nXWmQjBhLi4VAAQFG72siHVN6Ap3C8lL0%2BDEA8AbW%2F3uboWAIANgDWrCwDwa9nI%2BXjduWhYc8wzUp5vhY8oqxkArIvGvY4e7kHWG7ucktUSAiGmsVg9EAnCDqrSAIB6O4KHfSbuWvnhVGB%2F10x4VMHiY2rKD%2FUBj3uy7nkr4jY7PhqVWKX%2BMASuAbDoZrQHomDh4cIblgFQmhCOdqllPLCxACis8w%2FHcKqts2HUJPyIL%2BmEZdf2WonO9XwIZXlpq1dfd6zzbBmg%2Fmw6T7YAQKCgAKrdAPpTS6JUn3sP1bor8ThwzcfoKjWipkRdalofjIWGBpeKZ3Wt%2Bvf1H1dXnYrxPL%2FqBgzHd3vOpaVt5d1TU4D5PADAFCCuj4WCejTtAgB7w%2FbVlf%2Bh9rKMYeUKNB3wHDxgSXKMQQn0tY0G6cTQEOs%2BTRSp8JXi4uXQAQhshyGk06XP%2B9XL1%2FQXXJtmJjcMOuHel%2FARAMu%2FiF4k%2B6SQoxBMfi5PROR7GPpeY5KJ%2BWHotFMwbqpx%2BxmvrNYB%2FWUHM%2FMto4s2DtFOZh6pyRcGj%2Bhl3jrNTCYiG8VohOgWM%2B9MEznkzk3M%2FLdc8Z4HmK%2FTBQ9AxgHmh0Koq82%2FNeDNdE578ckLEQlnupn3nHf36K8KnwNbiYgowcSOd3Jdz7N1FbONiCjz6ggz86p8EVHZYiGou72BiOgMMx8g15hXIxIGmG%2FriYi0B3zo7FXy7po4n0lJ109nuyWXvcf17Vao6HQdW5OamZkdB4xDzJN6F2FjjigSEd2nvwiQVhARFU0yO%2FZR%2FgAz966jXBNzhZaIaJM05h5ZG0nkItUdpyf4PjPz2OWE3D1J3S4cIudkl5yTBpgvaNddbr6QkNTLlzO103mqAWoUEU1oa5iZeYeY%2Blp1nbnGSCnZCWSsYR7LJyIy1nvDKVuXnUBERrd0QkPjSMBs23Tm9CZmnixad5Ivh7ovvC3oUj1z774Vcbm%2FszFHiloUaWLmy9oJV0brzbBzAK4cdFuXJsBa12kLNqwMRO3RcQDJ57xDwcKS4KgmAKs%2FdfXcK38AMSi49iC8%2Fxwsq%2FqBm7FN22pd1u%2BTc4K92p7s4hOvCzY1JyxWBax23nTFa2f0NmbuuHUyQZTS9AJqFnKGJyUT1kgJk%2FeJiFo9Oov2pDEzPyky7otoZT5JRGttzEdS3Asz0xUrdDBz75MxQWoUMSGsy%2BvueE38ziYxeUQdbOplZu4VszcfSDXaSI3cLOYQPEPCDma2%2FW7Ph93MtgiitQ5mHiGTO1nuym%2Fqn3Cvnkg0OFTEzHwkwjadG9mQJgzosjiRWqLzzA9FZpotjW0ekZG5mcgoptp7mzsczMwD%2BzwIKxHVDzEzR0wLst5t0zqSPBhxqInZFHqaXREkkJfXEg88rnazdQCFwSEbBYesPKeQRpGIBwYRXq4Bxq81DauUPbG%2FB6BzDrodVCcQcOPO3w%2Fq8Oq0w09PFz2N2SOtmpcOAGcDt3jmIVNfuQk0dcF5zsNTvCwyhFPrJUW3SFVpPMzvxhco4Lz0ID05GLAmn0gF8PjEJRe9PngFsTeB9hjEF08nI4aX%2BXI%2B9X8rgcF%2FO7xlmh8Bh9o%2BB1L37m3zjHhEQDESQPjy1ep44JWq7QqM1yZXrQ8GEJR6BQCix4%2B7zrIBGQBiYJ%2FwSJxoVkrxpGdoKgB8qMnzYqKJ6SeWK4HKFgSbpA9xUPL7QVWdDiIbV7mLGppaIensJkVB2PUrIQ7WGDyuTpUyW4Fi1951OWBRRjhhPQDg9ZanbVLe%2F4Z3%2Fsf%2Bub1apujntFnGAWDjqItnqpAIy73q6os3yj1PTPa%2Bbr%2B6FQDMR1cnSqqi6hO7EtcjGuiyBOm8uOJeya3fmubSACztw%2F1f9kMzMoWm9QDiU1tFnV2Ee2X3pgAEPvB8goWG6dFDnuJX6QcBOHcGfuTFswEgK%2BdoDwC0aOpygAD3VfGSdKQgQpe%2BFb%2Bec%2FBiPzD8clT8RQsAHG1xGX6U3J0CAPvBG54DrHbLECd0OmVYqRMoaSlX%2BiDC4UV5ZgABDeExwHvu7gJZFuviptVuSl5YXdcHAJoYcdrCFgX8qQAA3gio9rx0jRqAUoOjyoD4gwZArcDnpz6KkatmjSxeJRAXh36fLZQWbyCtlhLkUwCu5HOctugvJhetcrEA16f2SBwRUe%2FJOAmDIaLr1NyYxtwscMUjfqpZT%2FSZQiktd4zXhnbk0wdE5%2BXz46vELxsSJnlCS0S0j1nKVs5rQ4mI%2FsLeaUDOJqJHW5td0Cu0Bxz%2B6rQP9UkDzMxjzOevc3ZKPWnHZBE1u2Q0ZNzk4GNEpH%2FEvT4p%2BVwioiOOh42SUrCeqGLsichidtDpGSrHHcZIkc1MMm%2FoPUm58pN2%2BkP36Gmrmrlm37FudhxzdEtOm4hb1dzdmhD5RNJfQ7RTZAPXjYtvz1jLHkmjrS7hP%2BFsqpFHlFkxnYr9XULmmVvNzVfXPuQyH1lqUyIpdKfP9TsodIKZe88sDT0yMXMtG85zZxUZecKKd4ajUzZPMhpb5xmIDbYPDr8cnq525lVJzywsMSS%2FuaZTmkW0b2vK0nV1jqrXyNQNffAP7NFSSlGzjbmDNsiL6DxNyHUXnfStx6QcY15R79ufRpTy4X25DC7kEt9FSUTalK25VCFf9lkcKbf%2BLlyWucEjbTefXOe7VaGe%2FNXuIN89cHnnCi3RkOzB65Qy96rVgTRuJqMPWBM9mh8iZmbHUqN80TyOsueOaCziqk2fHbpCahq0ZX4uWDBDykzzsmx%2F2fB86miqguP2jNgmZUald3%2F0FX%2FZsRkeLztOtuwbmrQvYR7FxonQottJ7CjTrmr1yhtrEzasG5vfrHGaHKLJFdT8RGubB6QP9A9pgvlJGqVd8ChsNa6NoxvzQzSgTZPp3UofMKfcnweiAe0mGmJmR022loxF04bjDD2ROd3%2FPjbngalE397CuvDDQE5dop%2FNYXXtFqjDohI9bKJuzTWYNYAiK8veXVdetT4%2B%2BBUAPbV1bxvmpUf7KNe3GnFBCNEcv5QtVAzla8mYnZ0ZSUZP92OK9Mj%2BjLzvKk8sPeOY1%2BpvpiTfC4pIzFV1nJStlunPCPsInuyg%2FAlP95Y0ycwD9YL62YaGhoaGxuZrj4roso9Sb6UVLtWsMflesiL04bTeRsR5%2BI5G%2FdI9G4xESU9mVzu%2FiPaISSUPESTQhunJ8jW5j%2Bjk7RUUeUQQ7cg6yp42%2BU%2ByKWLD1asrZt2zNAOiVUkSs39AS%2BSYaagKOqKNKLp%2F%2FoJ7z2CoVMyTmRueGVENbfX82ft%2BKOmJZhzqDBFdFciey51G7pM8w%2FXQWS2Z%2FOq3FpfDHa3au1oaOhG0%2FfWNM%2FuLMAA6wNz8j4AYIUJLX5KzrdTrDgZ796ybP2RXcRJliia%2F%2BViKlogijph4bJZZm4yI1E9wt56IaIe4kib3ZXpR3SF%2FrHRmGdlz%2Bt8UHq1vVycQaFiyLDEQUKnGB2faTBK0vaE6CHesgNJ%2Bs%2FMzNQAEneq6FpzjSURn3foih%2BhG%2F%2FpCBQB05ZgRMPWeK4gMb2mXIrKWjGqiXOmOgm4AMQBif3O6cmeVMLRBYpftsyGSYyNNykJFz5UGc2WWeXtnNFTTitLic%2Bq5mAx3%2FkXx6d%2BB%2BO0BiFF%2BVNpyRe52TxH8LDJqD%2F9ToZAuKDgIj5Ka2lVB88gxpXqqu0IN4OB2uxpI33vpV7LRefizyGiqPac7Jt0ApL83XTMFAPxYemrGJcAyLJaDRAqmVAPA9qB2mT1UleqoZ5HR0XNRB3XAOFQArJ6IfEQeCCCw88ZUeRDQN%2BiZP1Ns7orxMSqbzccVeJbV79mI3Ib%2FtCQe9iBlW5kn3pEYA5%2BUwWQmveOY1WYvmJ0pB06njhr8UOzDX9%2FBjbckxkCaiRvPa8sonV1Ec5CR21%2F26knrx8DdSrD5sKm%2FSSK0SDo2F8q5YB5hRVhP3tQd%2BUNvBZVZpAH5q167bzYX2M8dnstd5oMISIbFz5FtxTPtZ3%2F87r81RdVm4TkhMns6U38bjtM1fo3x4NnUjM6VWGSY42PPNq168iBZk5Tv77zr5IeMTTR3jDDz%2B1Q2t9BlVkRx5JnZCE3wt3wdCQkzrmxHLuVPPhfNVnvOGkIG179bIW9qTwyem9EU%2F%2F7ivW3PRY9C4LlFLBot1Ycvymt9%2BtkZd3HgF6vvmp8HojAMeJrChvK34UcWhaqC8Zk3tMP5PDS7niTpKxuRH658X%2FKehUTDT2vnlHZ6abY36kZj0ebtYGNHdRrd5jDZ%2FaRRpV6%2Bw9TS1j%2FyD7yiekXV%2F3hKPfN%2BZtl3auRa3NMSb49V8bEVSL0kd%2B6VQ0hPjl4kMOKulpZ%2BL5N1Yk7v5M2O6EBVzse%2BKdjkKvkNzoUtADRqmEemAJ1BFwiYx0dHR1GQp5mbgZwd0YP1IV9JncIWU%2FUSfxb6TkvfUztUi6Jfj1%2Fo7i0u%2FkaJ52Sz2RFJ0lz%2BYj%2FlEv%2Btkeb81sDsfk2xGo1SbUc65tdC8Pe5njoHT7sR1ZIeHbrwwtocEOneGLwnKd3iUNv8btMH9XNEhB2QuLItKvPbb5fU9s0d0V1l2FxPnQPvRWzi3S4vcqOpvtjX2QaIoa%2FfZjGZLRYgJHj4Tuqcwb80l7ege1L%2B9Zq0rysVwJu%2F9ePB%2Bga%2FGex7Op1DV36he54yQnjepTvSvQxKAPiiMk%2FGILV1edCF4Kjw4JdfiVc9XxnBujLgrrRGdm10vNai%2FhoQXwoV29k%2FeEVQlSvnvdjmZrbuaz%2BU6b0tZN0ca23eoaOWKKVxcuBqxNzioXmyWnc8%2B0eZUJaWMrNtK4149%2FeeueVgZo7Q214cIs6NGJF2lRGdZMfpCAqVv8REK%2FgFIppMSpuU5uApcoLfF194k8330jO8JDjnCDLoM4tkc%2FUVIEOJmwCGK%2FpqD8kw1uLA48%2FgRuZRAzJ%2BIKkK0C9drwYJ71d6MgZR%2B7pfnIwAXXVTsZcvUePrQ04xZ5Yq4WOjrQCQjgcvwtNOhyXXPvd0cKrKIFRmBcqkHQDgawB4xW%2Be4DllIsI%2Bq%2FbMd0bfCEb7XWGz0og0Bdot7PcLebGIoK5ubfCEdDcdAHbrgHuSXFejAmY8PqRc%2FiI1W6x%2B1EvzVJRiMhKleW2T6NBeHtl0W0%2F1L9AeTVPmL73N4Fqixhryrp09MmoHMiN89iu%2FIEQ85L3QHb%2BktY4EItKeFMU0cUxLS%2BOI9kw8AyB%2B6bv%2FS8zmpqCe1tVTAALLVwKWi8IWu4DS9GcabsF3xeMsb0IUlpQGALBbgTvLioUVH%2FZsgL4zohvxxxF4CEivBICFaN3syo%2F0dP0giB7vHVWtvhsNCBGUBcXTe2D3O38IRP%2BL452f6gBcqxMKMX%2BePta5zfkDIHodQvHDIjj5WqtnLeeLjHY4HwNm5%2FeIKGyvsOX4mgVRAMzv%2FtrzaGdGiO4U%2BioU36dm7xp%2FDAAPsP09APjiE0l5Sbm%2FeP3GeY2o%2BI6IFL9pFWKl%2FaMBUwB6pEFUlvMPwd%2BvPcISAMiCRbNb7uhTZ2n8%2FMYLOPpcEhqhE08SYv%2FPLSCl0%2BUK1JeXf79rzd0%2BUvUpTi2D8CcTUNWJeYLEuiXzHek5yQiICfzRjzL%2F3I31if%2FD%2BNtPihe0TwGa5d0tpp%2FOT1dfer7%2Fx1b5ifXjZdX3Hk%2B9sUP35TfDdvXPlhnmOcRzRoTx2i7N%2BmDnoPnpT5Y82wgv%2FdP9Z92CfzZA%2BH8h6HFxmnJRXwAAAABJRU5ErkJggg%3D%3D" />
-== Add a local image from your hard drive
-<div class="woas_helptext">Use this code in a page, replacing PATH with the full path to the local file you'd like to display:</div><br>{{{
-<img src="file://PATH" />
-}}}<br><div class="woas_helptext">To add a local image from your hard drive.</div>
-
-* *Linux example using a default Kubuntu image:*<br><br>{{{
-<img src="file:///usr/share/icons/default.kde/16x16/actions/stop.png" />
-}}}<br>
-* *Windows example using a default Windows 7 image:*<br><br>{{{
-<img src="file://localhost/C:/Documents and Settings/All Users/Documents/My Pictures/Sample Pictures/Blue hills.jpg" />
-}}}
-== Embed an image in the wiki
+== Standard WoaS syntax
+=== Embed an image in the wiki
 This wiki provides an interface for embedding images. Each image will be given its own page, which you can use in an include link to insert the image anywhere in this wiki.
 <<<woas.note: Embedded images are encoded with Base64 and are 33% bigger than the original files. Since this wiki is a single file, excessive use of images may slow down performance.
 
 It is recommended that the image file extension be retained in the image name. Image export operations will then preserve the extension when writing out the file and that will help those browsers that infer the mime type of the image from the file extension.>>>
-<span class="woas_helptext">Replace NAME in these instructions with the name of your image:</span>
-=== From the menu
-# Click the *New Page* link in the menu.<br><br>
-# Type {{{Image::NAME}}} into the box that comes up. This will bring up the image embedding interface.<br><br>
-# Browse to the image on your computer.<br><br>
+<span class="woas_help_text">Replace NAME in these instructions with the name of your image:</span>
+*From the default menu*
+# Click the *New Page* link in the menu.
+# Type {{{Image::NAME}}} into the box that comes up. This will bring up the image embedding interface.
+# Browse to the image on your computer.
 # Click the *Embed* button.
-=== From any page
-# Create an include link for a new image by typing {{{[[Include::Image::NAME]]}}} into a page, or click the editor's *Image* button and type in a name for the image.<br><br>
-# Click the *Save* icon in the navigation bar to save the page.<br><br>
-# Part of the include link you just created will be red, indicating that the image doesn't exist yet.<br><br>
-# Click on the red part of the link to launch the embedding interface.<br><br>
-# Browse to the image you'd like to embed.<br><br>
-# Click the *Embed* button. You'll be taken to the *Image::NAME* page with your image embedded in it.<br><br>
-== Use an embedded image
+*From any page*
+# Create an include link for a new image by typing {{{[[Include::Image::NAME]]}}} into a page, or click the editor's *Image* button and type in a name for the image.
+# Click the *Save* icon in the navigation bar to save the page.
+# Part of the include link you just created will be red, indicating that the image doesn't exist yet.
+# Click on the red part of the link to launch the embedding interface.
+# Browse to the image you'd like to embed.
+# Click the *Embed* button. You'll be taken to the *Image::NAME* page with your image embedded in it.
+=== Use an embedded image
 Once an image is embedded, you can use the same include link you used to add the embedded image to include the image anywhere in the wiki. 
-# Create a new page or open an existing page in the editor by clicking the *Edit* icon in the navigation bar.<br><br>
-# Create an include link for an already embedded image. There are two ways you can do this:<br><br>
-## Use this code wherever you like in a page:<pre>[\
-[In\
-clude::Image::N\
-AME]\
-]</pre>
-## Or click the editor's *Image* button and type in the name of the image.<br><br>
+# Create a new page or open an existing page in the editor by clicking the *Edit* icon in the navigation bar.
+# Create an include link for an already embedded image. There are two ways you can do this:
+## Use this code wherever you like in a page: {{{[[Include::Image::NAME]]}}}
+## Or click the editor's *Image* button and type in the name of the image.
 # Click the *Save* icon in the navigation bar to save the page. The image should now be where the include link was.
-== Use a data:URI image
+== Using HTML
+=== Add an external image from the internet
+<div class="woas_help_text">Use this code in a page, replacing URL with the full link to the image, to add an external image from the internet:</div>
+{{{
+<img src="URL" />
+}}}
+<div class="woas_help_text">Example:</div>
+{{{
+<img src="http://www.gnu.org/graphics/heckert_gnu.small.png" />
+}}}
+<div class="woas_help_text">Result:</div>
+
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJEAAACMCAAAAABZ%2BxS6AAAACXBIWXMAAAsSAAALEgHS3X78AAAAB3RJTUUH1AkZAiQF53xPugAAGFFJREFUeNrNXH9MVHe2%2F1QmS1OSaTrJmOUdZnYWybDsBJgSUXgID62BpayUEvz1RMKqhfW39Wmrr2qtGik1UnWFwKoLq0RXKWgJ9EHUrU83UOFJkUgDD3iwYKA7E9hlwmxmdoac98e9M8zcucMPq%2B1%2B%2F5mZ7733ez%2F3fM%2F3nM8553vnJcY%2FWVPMfNgyOm6xAAHBUKnUPzSi8QdfP%2B6xeHQE6mLiU4Oe%2FVbO%2FuG%2FjluhfFWp0s3wdC%2FJz9poXWNbgCFaF6IKETq%2BdT4d6Wl%2FGpixW%2FdMcIZr73bZVa8tBEz%2FMNmhjF2yMnweiNrK7ryamh7rK4%2Fh6ivjv94bOG88fYVNuoz4aKVLFwZ6vmnt1GVsDJY7mX1aczal1TuE7476hzZm7j6TueFM8yQz28oiEm7z%2FJrtpDb3kU%2Fv2PW12k0dvmf7IBrKpxT3LRsTiEJX7VlKQjNm7mvksX20aUiAa5sToPsJK5qZebLjwqal%2B%2B472NZ83iQc6d2jFYfyaJJZc5acC9q%2FEcDjyoWBgXfaXP0Bhk4AStUgCg4q2g%2F1rE8PGf%2FqyjXNjHNlDQIwfryuYK%2Bi6UrfU6FTtajTDuXuzcKSenyw%2F%2FiamfRodFtb%2Bgk1AGS0e66y8BMxn5%2Bwbtmi7KqtW1SqQu2VNgSE9fTMvPLOjq5UPLgWfTwMFUcVqZ2DQOo3w%2BKxRTFme%2FJ2wHmqZPUphV89ehipvy58uyrOk757cmhogpmZJyfFk86PMbNtiHdkzjJd9dpQ7YY%2FMvOxVZcn2HFhRT1PHFmXFJeUJgyuHRDOypz0p0f1%2BoRuZp7ovn8jQkTk0qih1ubmIYfnhRMfaJtn02hjvfAMvZIDjrXC6PmCsuozx%2BT1qGGb7jM1cCdP%2BJlqABa9BYw%2BaOnsmwKAgDBDVFSYCrAP999pmCpOn23RN717Imv612DPoBUIMRgAc4oZAJCs%2BXFyNFo3%2FrwqSEaP2leHfKYGnMmDAIDwuwBgqalrgy42epEmwDzc0%2FX1uOvsRb%2FYMgev0rT%2FtfSfAhifGP22a1xl%2BDHsXf2qNzcaTHZ8e%2FYeACi%2FUqIlb1m5wgfReKrzi2AAJYXC78KNgKXkoj02PdVjRZm7vwXwmvqnyrmZRmtTe78TQEiQ%2BmdRgj0cbbzZnnw0DLiXAwAoOAw0bNty2Eez87UdzMzNemGKI23MNUbtnl5%2BAa17q77IwSyYudAhZq6hRqlm11MZM3dkC3gyL4%2BxbQ%2FlDvALao8S0kx8O4WIiOKuM%2FMm%2FYg3ItviVQ5m3iSsyhFmnsx2WYIX0iY3GHuZO3YSEdEx5rHIXG9Ep7W9zMwrBNDM7Mg0dvCLbI53jEPMQ0REtI6Z613ztkBwxhfzwgBAWGZqAAcHq6NnU9vx4eHh0WcmZqWGAjteFSgFgPTET5wejO2ifQcAjNoBAEqg9kZ12Ezjjd5p6RqcAgDoYt9aJuF9zrtffj1sgea1sPhUlX9IbxYeFZbsIAAcSm14y7367XFZhwHg7CkAUJYsty7LOjwDnq7iO4YlP9colYD9ac%2BXLaqNWzysgbP2VEBWjC4QFnNf%2B734LfH%2Bhml%2Fuy56cxMA1MUA2Gypdq%2F%2BW1oTM%2FMxIiJaMcBcZJz0rwFjW0OPeBmFkdMRxlvuX0%2FSjNen%2FY2tJmGDXwuyJ5sdB4iIjB3MfJ%2BG3Jq9KZeZuUZY%2BWPMptAZltkfIzb4cBpbkXaP%2BAwVoflj3ip8OeKCn6FGQjuY84mIIpiZF1cwMysAWO%2BdAoAoQZY98TgfnOV3xioO798tfLM%2F7jEDqpCohQh87638jEs6wLm%2F9j8LAGC0fdAeHGUAoNiYWNB%2FXDbCCM6qisYwAGgAIFVwqcx8Wys8n5GIiM7z2AwiuqCtF%2BnuplCRH1DKBRvzZLa%2Bnh3vUFzFCNtqMoUji4%2BZmJknM99xyI7WEemwaYmI3mdmvq13%2Bf7jbXUAgG11AJBcVXLxK3%2Fk%2FuLx0nQAzsrKQc9u3bkYOLd9kTHYCSBgZVSl2U328nYrAWtOyG9kx1t2KiALAIrXALD8%2FG44sABAT4wYIgAADKjL8AeoQgB0L%2FmoFyAMvl0LxW%2FfrOsE4nOCmk4tWe06Yi9f9jkQVNX5oTyizp8pAeApAChDuiEiWiR4%2B3sAoNk12rXcD6CGo0fTAeu7OYPSI1O7LgKlGev3pra0Ve8Navhql5vwjG8vsCLoD3UlciMa2pW7AeDsAwAI6xH1iJo9iOx%2FcSP5WfoPQ08yc28cybYLQmxyPyJpYmQr6Y8Zpw8lmZgf6e%2FLxSlp7EggIoocYuYDOwUvMopgAM4yAEDiLzAYLE%2Fo%2B7akHgRa04flBXj0%2BKEAAImXBsuCS4ttF%2FOmjWb%2Fm32IKdwuc2HwX6EoAIAJCwD1qDBrTgQAUJQGAsCwE1Z5cmjeuOgc0LTe6s8ulI8qACB%2BYzWwpgqleR5OZ6MZWalb7D7XBA4DdQDwngGASkQEwd8ZjgLAYDUgKyJr9o8uKdCSb%2FfvXESumToKIPE966BHDD2cY0VhgKx2t7QAiCkAgCCLC5Eg3zU6APhE%2Fpb2HEuVCj15U7PnWRRBAJAX1BLr6QoPQVF%2Bs0nmqhIACBDW%2BbgLkRkAhjMGAWDchKcy1737TaUG5nXWmQjBhLi4VAAQFG72siHVN6Ap3C8lL0%2BDEA8AbW%2F3uboWAIANgDWrCwDwa9nI%2BXjduWhYc8wzUp5vhY8oqxkArIvGvY4e7kHWG7ucktUSAiGmsVg9EAnCDqrSAIB6O4KHfSbuWvnhVGB%2F10x4VMHiY2rKD%2FUBj3uy7nkr4jY7PhqVWKX%2BMASuAbDoZrQHomDh4cIblgFQmhCOdqllPLCxACis8w%2FHcKqts2HUJPyIL%2BmEZdf2WonO9XwIZXlpq1dfd6zzbBmg%2Fmw6T7YAQKCgAKrdAPpTS6JUn3sP1bor8ThwzcfoKjWipkRdalofjIWGBpeKZ3Wt%2Bvf1H1dXnYrxPL%2FqBgzHd3vOpaVt5d1TU4D5PADAFCCuj4WCejTtAgB7w%2FbVlf%2Bh9rKMYeUKNB3wHDxgSXKMQQn0tY0G6cTQEOs%2BTRSp8JXi4uXQAQhshyGk06XP%2B9XL1%2FQXXJtmJjcMOuHel%2FARAMu%2FiF4k%2B6SQoxBMfi5PROR7GPpeY5KJ%2BWHotFMwbqpx%2BxmvrNYB%2FWUHM%2FMto4s2DtFOZh6pyRcGj%2Bhl3jrNTCYiG8VohOgWM%2B9MEznkzk3M%2FLdc8Z4HmK%2FTBQ9AxgHmh0Koq82%2FNeDNdE578ckLEQlnupn3nHf36K8KnwNbiYgowcSOd3Jdz7N1FbONiCjz6ggz86p8EVHZYiGou72BiOgMMx8g15hXIxIGmG%2FriYi0B3zo7FXy7po4n0lJ109nuyWXvcf17Vao6HQdW5OamZkdB4xDzJN6F2FjjigSEd2nvwiQVhARFU0yO%2FZR%2FgAz966jXBNzhZaIaJM05h5ZG0nkItUdpyf4PjPz2OWE3D1J3S4cIudkl5yTBpgvaNddbr6QkNTLlzO103mqAWoUEU1oa5iZeYeY%2Blp1nbnGSCnZCWSsYR7LJyIy1nvDKVuXnUBERrd0QkPjSMBs23Tm9CZmnixad5Ivh7ovvC3oUj1z774Vcbm%2FszFHiloUaWLmy9oJV0brzbBzAK4cdFuXJsBa12kLNqwMRO3RcQDJ57xDwcKS4KgmAKs%2FdfXcK38AMSi49iC8%2Fxwsq%2FqBm7FN22pd1u%2BTc4K92p7s4hOvCzY1JyxWBax23nTFa2f0NmbuuHUyQZTS9AJqFnKGJyUT1kgJk%2FeJiFo9Oov2pDEzPyky7otoZT5JRGttzEdS3Asz0xUrdDBz75MxQWoUMSGsy%2BvueE38ziYxeUQdbOplZu4VszcfSDXaSI3cLOYQPEPCDma2%2FW7Ph93MtgiitQ5mHiGTO1nuym%2Fqn3Cvnkg0OFTEzHwkwjadG9mQJgzosjiRWqLzzA9FZpotjW0ekZG5mcgoptp7mzsczMwD%2BzwIKxHVDzEzR0wLst5t0zqSPBhxqInZFHqaXREkkJfXEg88rnazdQCFwSEbBYesPKeQRpGIBwYRXq4Bxq81DauUPbG%2FB6BzDrodVCcQcOPO3w%2Fq8Oq0w09PFz2N2SOtmpcOAGcDt3jmIVNfuQk0dcF5zsNTvCwyhFPrJUW3SFVpPMzvxhco4Lz0ID05GLAmn0gF8PjEJRe9PngFsTeB9hjEF08nI4aX%2BXI%2B9X8rgcF%2FO7xlmh8Bh9o%2BB1L37m3zjHhEQDESQPjy1ep44JWq7QqM1yZXrQ8GEJR6BQCix4%2B7zrIBGQBiYJ%2FwSJxoVkrxpGdoKgB8qMnzYqKJ6SeWK4HKFgSbpA9xUPL7QVWdDiIbV7mLGppaIensJkVB2PUrIQ7WGDyuTpUyW4Fi1951OWBRRjhhPQDg9ZanbVLe%2F4Z3%2Fsf%2Bub1apujntFnGAWDjqItnqpAIy73q6os3yj1PTPa%2Bbr%2B6FQDMR1cnSqqi6hO7EtcjGuiyBOm8uOJeya3fmubSACztw%2F1f9kMzMoWm9QDiU1tFnV2Ee2X3pgAEPvB8goWG6dFDnuJX6QcBOHcGfuTFswEgK%2BdoDwC0aOpygAD3VfGSdKQgQpe%2BFb%2Bec%2FBiPzD8clT8RQsAHG1xGX6U3J0CAPvBG54DrHbLECd0OmVYqRMoaSlX%2BiDC4UV5ZgABDeExwHvu7gJZFuviptVuSl5YXdcHAJoYcdrCFgX8qQAA3gio9rx0jRqAUoOjyoD4gwZArcDnpz6KkatmjSxeJRAXh36fLZQWbyCtlhLkUwCu5HOctugvJhetcrEA16f2SBwRUe%2FJOAmDIaLr1NyYxtwscMUjfqpZT%2FSZQiktd4zXhnbk0wdE5%2BXz46vELxsSJnlCS0S0j1nKVs5rQ4mI%2FsLeaUDOJqJHW5td0Cu0Bxz%2B6rQP9UkDzMxjzOevc3ZKPWnHZBE1u2Q0ZNzk4GNEpH%2FEvT4p%2BVwioiOOh42SUrCeqGLsichidtDpGSrHHcZIkc1MMm%2FoPUm58pN2%2BkP36Gmrmrlm37FudhxzdEtOm4hb1dzdmhD5RNJfQ7RTZAPXjYtvz1jLHkmjrS7hP%2BFsqpFHlFkxnYr9XULmmVvNzVfXPuQyH1lqUyIpdKfP9TsodIKZe88sDT0yMXMtG85zZxUZecKKd4ajUzZPMhpb5xmIDbYPDr8cnq525lVJzywsMSS%2FuaZTmkW0b2vK0nV1jqrXyNQNffAP7NFSSlGzjbmDNsiL6DxNyHUXnfStx6QcY15R79ufRpTy4X25DC7kEt9FSUTalK25VCFf9lkcKbf%2BLlyWucEjbTefXOe7VaGe%2FNXuIN89cHnnCi3RkOzB65Qy96rVgTRuJqMPWBM9mh8iZmbHUqN80TyOsueOaCziqk2fHbpCahq0ZX4uWDBDykzzsmx%2F2fB86miqguP2jNgmZUald3%2F0FX%2FZsRkeLztOtuwbmrQvYR7FxonQottJ7CjTrmr1yhtrEzasG5vfrHGaHKLJFdT8RGubB6QP9A9pgvlJGqVd8ChsNa6NoxvzQzSgTZPp3UofMKfcnweiAe0mGmJmR022loxF04bjDD2ROd3%2FPjbngalE397CuvDDQE5dop%2FNYXXtFqjDohI9bKJuzTWYNYAiK8veXVdetT4%2B%2BBUAPbV1bxvmpUf7KNe3GnFBCNEcv5QtVAzla8mYnZ0ZSUZP92OK9Mj%2BjLzvKk8sPeOY1%2BpvpiTfC4pIzFV1nJStlunPCPsInuyg%2FAlP95Y0ycwD9YL62YaGhoaGxuZrj4roso9Sb6UVLtWsMflesiL04bTeRsR5%2BI5G%2FdI9G4xESU9mVzu%2FiPaISSUPESTQhunJ8jW5j%2Bjk7RUUeUQQ7cg6yp42%2BU%2ByKWLD1asrZt2zNAOiVUkSs39AS%2BSYaagKOqKNKLp%2F%2FoJ7z2CoVMyTmRueGVENbfX82ft%2BKOmJZhzqDBFdFciey51G7pM8w%2FXQWS2Z%2FOq3FpfDHa3au1oaOhG0%2FfWNM%2FuLMAA6wNz8j4AYIUJLX5KzrdTrDgZ796ybP2RXcRJliia%2F%2BViKlogijph4bJZZm4yI1E9wt56IaIe4kib3ZXpR3SF%2FrHRmGdlz%2Bt8UHq1vVycQaFiyLDEQUKnGB2faTBK0vaE6CHesgNJ%2Bs%2FMzNQAEneq6FpzjSURn3foih%2BhG%2F%2FpCBQB05ZgRMPWeK4gMb2mXIrKWjGqiXOmOgm4AMQBif3O6cmeVMLRBYpftsyGSYyNNykJFz5UGc2WWeXtnNFTTitLic%2Bq5mAx3%2FkXx6d%2BB%2BO0BiFF%2BVNpyRe52TxH8LDJqD%2F9ToZAuKDgIj5Ka2lVB88gxpXqqu0IN4OB2uxpI33vpV7LRefizyGiqPac7Jt0ApL83XTMFAPxYemrGJcAyLJaDRAqmVAPA9qB2mT1UleqoZ5HR0XNRB3XAOFQArJ6IfEQeCCCw88ZUeRDQN%2BiZP1Ns7orxMSqbzccVeJbV79mI3Ib%2FtCQe9iBlW5kn3pEYA5%2BUwWQmveOY1WYvmJ0pB06njhr8UOzDX9%2FBjbckxkCaiRvPa8sonV1Ec5CR21%2F26knrx8DdSrD5sKm%2FSSK0SDo2F8q5YB5hRVhP3tQd%2BUNvBZVZpAH5q167bzYX2M8dnstd5oMISIbFz5FtxTPtZ3%2F87r81RdVm4TkhMns6U38bjtM1fo3x4NnUjM6VWGSY42PPNq168iBZk5Tv77zr5IeMTTR3jDDz%2B1Q2t9BlVkRx5JnZCE3wt3wdCQkzrmxHLuVPPhfNVnvOGkIG179bIW9qTwyem9EU%2F%2F7ivW3PRY9C4LlFLBot1Ycvymt9%2BtkZd3HgF6vvmp8HojAMeJrChvK34UcWhaqC8Zk3tMP5PDS7niTpKxuRH658X%2FKehUTDT2vnlHZ6abY36kZj0ebtYGNHdRrd5jDZ%2FaRRpV6%2Bw9TS1j%2FyD7yiekXV%2F3hKPfN%2BZtl3auRa3NMSb49V8bEVSL0kd%2B6VQ0hPjl4kMOKulpZ%2BL5N1Yk7v5M2O6EBVzse%2BKdjkKvkNzoUtADRqmEemAJ1BFwiYx0dHR1GQp5mbgZwd0YP1IV9JncIWU%2FUSfxb6TkvfUztUi6Jfj1%2Fo7i0u%2FkaJ52Sz2RFJ0lz%2BYj%2FlEv%2Btkeb81sDsfk2xGo1SbUc65tdC8Pe5njoHT7sR1ZIeHbrwwtocEOneGLwnKd3iUNv8btMH9XNEhB2QuLItKvPbb5fU9s0d0V1l2FxPnQPvRWzi3S4vcqOpvtjX2QaIoa%2FfZjGZLRYgJHj4Tuqcwb80l7ege1L%2B9Zq0rysVwJu%2F9ePB%2Bga%2FGex7Op1DV36he54yQnjepTvSvQxKAPiiMk%2FGILV1edCF4Kjw4JdfiVc9XxnBujLgrrRGdm10vNai%2FhoQXwoV29k%2FeEVQlSvnvdjmZrbuaz%2BU6b0tZN0ca23eoaOWKKVxcuBqxNzioXmyWnc8%2B0eZUJaWMrNtK4149%2FeeueVgZo7Q214cIs6NGJF2lRGdZMfpCAqVv8REK%2FgFIppMSpuU5uApcoLfF194k8330jO8JDjnCDLoM4tkc%2FUVIEOJmwCGK%2FpqD8kw1uLA48%2FgRuZRAzJ%2BIKkK0C9drwYJ71d6MgZR%2B7pfnIwAXXVTsZcvUePrQ04xZ5Yq4WOjrQCQjgcvwtNOhyXXPvd0cKrKIFRmBcqkHQDgawB4xW%2Be4DllIsI%2Bq%2FbMd0bfCEb7XWGz0og0Bdot7PcLebGIoK5ubfCEdDcdAHbrgHuSXFejAmY8PqRc%2FiI1W6x%2B1EvzVJRiMhKleW2T6NBeHtl0W0%2F1L9AeTVPmL73N4Fqixhryrp09MmoHMiN89iu%2FIEQ85L3QHb%2BktY4EItKeFMU0cUxLS%2BOI9kw8AyB%2B6bv%2FS8zmpqCe1tVTAALLVwKWi8IWu4DS9GcabsF3xeMsb0IUlpQGALBbgTvLioUVH%2FZsgL4zohvxxxF4CEivBICFaN3syo%2F0dP0giB7vHVWtvhsNCBGUBcXTe2D3O38IRP%2BL452f6gBcqxMKMX%2BePta5zfkDIHodQvHDIjj5WqtnLeeLjHY4HwNm5%2FeIKGyvsOX4mgVRAMzv%2FtrzaGdGiO4U%2BioU36dm7xp%2FDAAPsP09APjiE0l5Sbm%2FeP3GeY2o%2BI6IFL9pFWKl%2FaMBUwB6pEFUlvMPwd%2BvPcISAMiCRbNb7uhTZ2n8%2FMYLOPpcEhqhE08SYv%2FPLSCl0%2BUK1JeXf79rzd0%2BUvUpTi2D8CcTUNWJeYLEuiXzHek5yQiICfzRjzL%2F3I31if%2FD%2BNtPihe0TwGa5d0tpp%2FOT1dfer7%2Fx1b5ifXjZdX3Hk%2B9sUP35TfDdvXPlhnmOcRzRoTx2i7N%2BmDnoPnpT5Y82wgv%2FdP9Z92CfzZA%2BH8h6HFxmnJRXwAAAABJRU5ErkJggg%3D%3D" />
+=== Add a local image from your hard drive
+<div class="woas_help_text">Use this code in a page, replacing PATH with the full path to the local file you'd like to display:</div>
+{{{
+<img src="file://PATH" />
+}}}
+<div class="woas_help_text">To add a local image from your hard drive.</div>
+
+* *Linux example using a default Kubuntu image:*{{{
+<img src="file:///usr/share/icons/default.kde/16x16/actions/stop.png" />
+}}}
+* *Windows example using a default Windows 7 image:*{{{
+<img src="file://localhost/C:/Documents and Settings/All Users/Documents/My Pictures/Sample Pictures/Blue hills.jpg" />
+}}}
+=== Use a data:URI image
 It is always better and advisable to embed an image instead of using a data:URI image, mostly because embedded images can be reused inside the wiki and do not garble the edit window when editing the page.
 
-However if you want to use anyway a data:URI image you can do it by directly adding the XHTML snippet:
-
-{{{<img src="data:image/EXTENSION;ENCODING,ENCODED_IMAGE" />}}}
-
-<div class="woas_help_text">Example:</div><br>{{{
+However if you want to use a data:URI image anyway you can do it by directly adding this XHTML snippet:
+{{{
+<img src="data:image/EXTENSION;ENCODING,ENCODED_IMAGE" />
+}}}
+<div class="woas_help_text">Example:</div>
+{{{
 <img src="data:image/png;base64,R0lGODlhBgAFAIABAAAAAP///yH5BAEAAAEALAAAAAAGAAUAAAIJDGJ4ic1qgAwFADs=" />
 }}}
-<div class="woas_helptext">Result:</div><img src="data:image/png;base64,R0lGODlhBgAFAIABAAAAAP///yH5BAEAAAEALAAAAAAGAAUAAAIJDGJ4ic1qgAwFADs=" />
+<div class="woas_help_text">Result:</div>
+<img src="data:image/png;base64,R0lGODlhBgAFAIABAAAAAP///yH5BAEAAAEALAAAAAAGAAUAAAIJDGJ4ic1qgAwFADs=" />
 
 A famous online service to create such URIs is [[http://software.hixie.ch/utilities/cgi/data/data|The data: URI kitchen]]. The recommended encoding to be used in WoaS is base64.
-== Create a data:URI image button
-<div class="woas_helptext">Use this code in a page, replacing YOUR_MESSAGE with the message to be displayed and DATA_URI_GOES_HERE with the data:URI of your image:</div><br>{{{<input type="image" onclick='alert("YOUR_MESSAGE")' src="DATA_URI_GOES_HERE">}}}
-
-* <div class="woas_helptext">Use this example code:</div><br>{{{
+=== Create a data:URI image button
+<div class="woas_help_text">Use this code in a page, replacing YOUR_MESSAGE with the message to be displayed and DATA_URI_GOES_HERE with the data:URI of your image:</div>
+{{{
+<input type="image" onclick='alert("YOUR_MESSAGE")' src="DATA_URI_GOES_HERE">
+}}}
+<div class="woas_help_text">Example:</div>
+{{{
 <input type="image" onclick='alert("Hello world!")' src="data:image/png;base64,R0lGODlhBgAFAIABAAAAAP///yH5BAEAAAEALAAAAAAGAAUAAAIJDGJ4ic1qgAwFADs=" />
-}}}<br><div class="woas_helptext">To create this:</div><input type="image" onclick='alert("Hello world!")' src="data:image/png;base64,R0lGODlhBgAFAIABAAAAAP///yH5BAEAAAEALAAAAAAGAAUAAAIJDGJ4ic1qgAwFADs=" />
+}}}
+<div class="woas_help_text">Result:</div>
+<input type="image" onclick='alert("Hello world!")' src="data:image/png;base64,R0lGODlhBgAFAIABAAAAAP///yH5BAEAAAEALAAAAAAGAAUAAAIJDGJ4ic1qgAwFADs=" />
 
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Import
@@ -3353,24 +3369,18 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-<style>/* PVHL: replace in CSS later */
-#woas_page ol li, .woas_help_body ol li {
-	margin-bottom: .5em;
-}
-</style>
-A WoaS .html file from a current or earlier version can always be imported into your WoaS.
-<<<woas.note: To import a version 0.9.6B or earlier WoaS file you will need a WoaS 0.11.x release as this WoaS cannot import it.>>>
-== Import wiki
-Another Wiki on a Stick can be imported into the current wiki by using the [[Special::Import]] page. Help pages and the WoaS JavaScript code are not imported so it is always best to import an older wiki into a current one as this will also update the older wiki.
-# Access [[Special::Import]] directly or either from [[Special::Advanced#Maintenance]]
+== Importing a WoaS XHTML wiki
+Another Wiki on a Stick can be imported into the current wiki by using the Special::[[WoaS::Help::Special::Import|Import]] page. <<<woas.note: To import a version 0.9.6B or earlier WoaS file you will need a WoaS 0.11.x release as this WoaS cannot import it.>>>
+Help pages and the WoaS JavaScript code are not imported so it is always best to import an older wiki into a current one as this will also update the older wiki.
+# Access [[Special::Import]] either directly or from [[Special::Advanced#Maintenance]]
 # Click the *Browse* button and select the wiki you'd like to import
 # Choose the settings you'd like to use.<<<woas.note: If you are importing WoaS < 0.12.0 it is much better to import CSS manually and not automatically because CSS definitions have changed>>>
 # Click the *Import* button.
 # A warning will pop up letting you know that this will overwrite pages with the same title and asking if you're sure.
 # Click the *OK* button if you're sure. Otherwise, click the *Cancel* button.
 == Importing WSIF
-This method is used to import pages that have been exported using the WSIF format (see the [[WoaS::Help::WSIF]] page for more information). Help pages are not imported so it is always best to import WSIF content into a current WoaS file.
-# Access [[Special::ImportWSIF]] directly or either from [[Special::Advanced#Maintenance]]
+This method is used to import pages that have been exported using the WSIF format (see the [[WoaS::Help::WSIF|WSIF]] page for more information). Help pages are not imported so it is always best to import WSIF content into a current WoaS file.
+# Access [[Special::ImportWSIF]] either directly or from [[Special::Advanced#Maintenance]]
 # Click the *Browse* button and select the .wsif file to import
 # Choose the options to use
 # Click the *Import WSIF* button
@@ -3383,7 +3393,7 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-<input style="font-size:10px;" id="menu_string_to_search" type="text" size="12" onkeydown="return menu_key_hook(event)" onfocus="menu_search_focus(true)" onblur="menu_search_focus(false)" />&nbsp;<input style="font-size: 10px;" class="woas_button" type="button" value="Search" onclick="menu_do_search()" />
+<input style="font-size:.75em;" id="menu_string_to_search" type="text" size="20" onkeydown="return menu_key_hook(event)" onfocus="menu_search_focus(true)" onblur="menu_search_focus(false)" />&nbsp;<input style="font-size:.75em;" class="woas_button" type="button" value="Search" onclick="menu_do_search()" />
 
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Export
@@ -3393,11 +3403,6 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-<style>/* PVHL: replace in CSS later */
-#woas_page ol li, .woas_help_body ol li {
-	margin-bottom: .5em;
-}
-</style>
 == Exporting into XHTML static pages
 Your WoaS pages can be exported into web-compatible XHTML, CSS and eventually attachment files/images; generated pages do not use JavaScript for rendering and can be efficiently cached by web servers.
 # Access [[Special::Export]] either directly or from [[Special::Advanced#Maintenance]]
@@ -3410,17 +3415,17 @@ Your WoaS pages can be exported into web-compatible XHTML, CSS and eventually at
 # Choose the settings for the export.<<<woas.note: Note that you can export into a single WSIF file or multiple WSIF files. Embedded files are exported as individual files unless you choose not to export them as external file blobs, in which case they'll be embedded in the WSIF file(s).>>>
 # Click the *Export WSIF* button. A confirmation will pop up, telling you how many pages were exported
 
-The WSIF file(s) in the export directory can now be copied, shared, or stored for backup purposes. See also [[WoaS::Help::WSIF]].
+The WSIF file(s) in the export directory can now be copied, shared, or stored for backup purposes. See also [[WoaS::Help::WSIF|WSIF]].
 
 --DFQRCTsKlU
-woas.page.title: WoaS::Template::Example::Transclusion
+woas.page.title: WoaS::Template::Transclusion Example
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-<big style="color:lime">%1 had a little %2</big>
+<big style="color:#0A0">%1 had a little %2</big>
 
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Transclusion
@@ -3436,38 +3441,36 @@ This method requires that you create a page to be used as a template. This page 
 
 You can then create a transclusion link or links to that page by creating a normal include link with the values for the variables added after the page name. Each value must be preceded by a pipe ({{{|value}}}). The values you define in the link will be used from left to right to replace the numbered variables on the page you're including.
 
-<div class="helptext">Use this code, replacing PAGENAME with the name of the page to be included, and VALUE1 and VALUE2 with the values you'd like the two variables to have when the included page is displayed:</div>
-<div class="helpcode">[<!-- -->[Include::PAGENAME|VALUE1|VALUE2|VALUE3]<!-- -->]</div>
+<div class="woas_help_text">Use this code, replacing PAGENAME with the name of the page to be included, and VALUE1 and VALUE2 with the values you'd like the two variables to have when the included page is displayed:</div>
+<div class="woas_help_code">[<!-- -->[Include::PAGENAME|VALUE1|VALUE2|VALUE3]<!-- -->]</div>
 == Examples
-These examples use the [[WoaS::Template::Example::Transclusion]] page which contains two variables. The contents of that page are:
+These examples use the [[WoaS::Template::Transclusion Example]] page which contains two variables. The contents of that page are:
 {{{
-<big style="color:lime">%1 had a little %2</big>
+<big style="color:#0A0">%1 had a little %2</big>
 }}}
-<div class="helptext">Use this code:</div>
-<div class="helpcode">[<!-- -->[Include::WoaS::Template::Example::Transclusion|Mary|lamb]<!-- -->]</div>
-<div class="helptext">To create this:</div>
-[[Include::WoaS::Template::Example::Transclusion|Mary|lamb]]
-
-<div class="helptext">Or use this code:</div>
-<div class="helpcode">[<!-- -->[Include::WoaS::Template::Example::Transclusion|Fred|snack]<!-- -->]</div>
-<div class="helptext">To create this:</div>
-[[Include::WoaS::Template::Example::Transclusion|Fred|snack]]
-
-
-
-
-
-<div class="helptext">Or use this code:</div>
-<div class="helpcode">[<!-- -->[Include::WoaS::Template::Example::Transclusion|Bob|Jane|Jack]<!-- -->]</div>
-<div class="helptext">To create this:</div>
-[[Include::WoaS::Template::Example::Transclusion|Bob|Jane|Jack]]
+<div class="woas_help_text">This code:</div>
+<div class="woas_help_code">[<!-- -->[Include::WoaS::Template::Transclusion Example|Mary|lamb]<!-- -->]</div>
+<div class="woas_help_text">Results in this transclusion:</div>
+[[Include::WoaS::Template::Transclusion Example|Mary|lamb]]
+<div class="woas_help_text">While this code:</div>
+<div class="woas_help_code">[<!-- -->[Include::WoaS::Template::Transclusion Example|Fred|snack]<!-- -->]</div>
+<div class="woas_help_text">Results in this transclusion:</div>
+[[Include::WoaS::Template::Transclusion Example|Fred|snack]]
+<div class="woas_help_text">If an unneeded parameter is supplied:</div>
+<div class="woas_help_code">[<!-- -->[Include::WoaS::Template::Transclusion Example|Bob|Jane|Jack]<!-- -->]</div>
+<div class="woas_help_text">The extra parameter is simply ignored:</div>
+[[Include::WoaS::Template::Transclusion Example|Bob|Jane|Jack]]
+<div class="woas_help_text">If a needed parameter is not supplied:</div>
+<div class="woas_help_code">[<!-- -->[Include::WoaS::Template::Transclusion Example|Mary]<!-- -->]</div>
+<div class="woas_help_text">The missing parameter shows up in the transclusion (note the {{{%2}}}):</div>
+[[Include::WoaS::Template::Transclusion Example|Mary]]
 == Wiki and HTML code in transclusion
 Some wiki code and HTML tags are accepted in the values.
 
-<div class="helptext">Use this code:</div>
-<div class="helpcode">[<!-- -->[Include::WoaS::Template::Example::Transclusion|&#042;Mary&#042;|&#042;lamb&#042;.&lt;br&gt;&lt;br&gt;Its &#047;fleece&#047; was white as &#095;snow&#095;.]<!-- -->]</div>
-<div class="helptext">To create this:</div>
-[[Include::WoaS::Template::Example::Transclusion|*Mary*|*lamb*.<br><br>Its /fleece/ was white as _snow_.]]
+<div class="woas_help_text">Use this code:</div>
+<div class="woas_help_code">[<!-- -->[Include::WoaS::Template::Transclusion Example|&#042;Mary&#042;|&#042;lamb&#042;.&lt;br&gt;&lt;br&gt;Its &#047;fleece&#047; was white as &#095;snow&#095;.]<!-- -->]</div>
+<div class="woas_help_text">To create this:</div>
+[[Include::WoaS::Template::Transclusion Example|*Mary*|*lamb*.<br><br>Its /fleece/ was white as _snow_.]]
 == Infinite recursion
 Infinite recursion happens when you create an include link to the current page or to another page that that has an include link to the current page. The included page will be repeated multiple times followed by the include link itself being displayed in bold red text surrounded by infinity symbols like this:
 
@@ -3531,23 +3534,33 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-; Hotkeys
-$SAVE              s
-$EDIT              e
-$PRINT             p
-$HELP              h
-$GOTO             g
+Lines that do not start with '$' are ignored
 
-; Key bindings
-; Cancel key is by default escape (ASCII 0x1b)
-$CANCEL            0x1b
-; Back key is by default backspace (ASCII 0x8)
-$BACK              0x8
+Hotkeys
+-------
 
-; Custom hotkeys
-; You can define custom hotkeys here and the associated JavaScript function
-; in a plugin
-; $CUSTOM(home)    m
+$SAVE     s
+$EDIT     e
+$PRINT    p
+$HELP     h
+$GOTO     g
+
+Key bindings
+------------
+
+Cancel key is by default escape (ASCII 0x1b)
+$CANCEL   0x1b
+
+Back key is by default backspace (ASCII 0x8)
+$BACK     0x8
+
+Custom hotkeys
+--------------
+
+You can define custom hotkeys here and the associated
+JavaScript function in a plugin; disabled example:
+
+;$CUSTOM(home)    m
 
 --DFQRCTsKlU
 woas.page.title: WoaS::CSS::Core
@@ -3571,7 +3584,8 @@ woas.page.boundary: DFQRCTsKlU
 
 /* general layout design */
 
-body, div, textarea {
+/* a quick browser CSS reset - consider '* {' as better suited */
+body, div, textarea, pre, ul, ol, li {
 	margin: 0px;
 	padding: 0px;
 	border-width: 0px
@@ -3623,13 +3637,12 @@ body, div, textarea {
 
 .woas_nav a span, .woas_no_img .woas_nav img, .woas_no_img img.woas_nav,
 .woas_no_img #woas_debug img, .woas_no_img #woas_top img,
-.woas_no_img #woas_menu_edit img, #woas_menu_edit span,
-#woas_debug span, #woas_top span {
+#woas_menu_edit img, #woas_debug span, #woas_top span {
 	display: none
 }
 .woas_no_img .woas_nav a span, .woas_no_img #woas_debug span,
-.woas_no_img #woas_top span, .woas_no_img #woas_menu_edit span {
-	display: inline;
+.woas_no_img #woas_top span, #woas_menu_edit span {
+	display: inline
 }
 
 /* control read-only and locks */
@@ -3638,7 +3651,7 @@ body, div, textarea {
 	display: inline
 }
 .woas_ro #woas_edit, .woas_ro #woas_lock, .woas_ro #woas_unlock,
-.woas_ro #woas_menu_edit, .woas_ro #woas_ns_menu_edit_button,
+.woas_ro #woas_menu_edit,
 .woas_locked #woas_lock, .woas_unlocked #woas_unlock {
 	display: none
 }
@@ -3648,8 +3661,7 @@ body, div, textarea {
 .woas_view #woas_edit_mode, .woas_view #woas_edit_wrap,
 .woas_edit #woas_view_mode, .woas_edit #woas_page_wrap, .woas_edit #woas_menu_wrap,
 .woas_pswd #woas_scroll_wrap, .woas_pswd #woas_header_wrap, .woas_wait #woas_scroll_wrap,
-.woas_no_mts #woas_mts, .woas_no_debug #woas_debug, .woas_no_log #woas_debug_console,
-.woas_no_ns_menu #woas_ns_menu_content, .woas_no_ns_menu #woas_ns_menu_edit_button  {
+.woas_no_mts #woas_mts, .woas_no_debug #woas_debug, .woas_no_log #woas_debug_console {
 	display: none
 }
 .woas_edit #woas_edit_wrap, .woas_view #woas_page_wrap, .woas_view #woas_menu_wrap,
@@ -3665,7 +3677,23 @@ body, div, textarea {
 
 /*
 	All measures except borders in em because IE6 doesn't resize pixel measures properly
-	and IE9 giving some border errors with em measures.
+	and IE9 giving some border errors with em measures; exception is 0px.
+*/
+
+/* _BROWSER RESET VALUES */
+
+ul, ol {
+	margin: .75em 0px .75em 1em
+}
+li {
+	padding-bottom: .125em
+}
+/* could also add values for these reset items if needed
+div {
+}
+
+pre {
+}
 */
 
 /* BACKGROUND */
@@ -3676,7 +3704,9 @@ body, div, textarea {
 
 /* BODY */
 body {
-	font-family: Georgia, verdana
+	word-wrap: break-word;
+	font-family: Georgia, verdana;
+	text-align: left
 }
 
 /* BUTTONS */
@@ -3746,6 +3776,7 @@ body {
 	overflow: auto;
 	*overflow-x: hidden; /* for IE 6/7 */
 	outline: none; /* Webkit (Chrome, Safari, etc.) */
+	font-size: 100%
 }
 #woas_editor_container {
 	background-color: #fff; /* white */
@@ -3756,11 +3787,6 @@ body {
 }
 .woas_editor_link, #woas_edit_wrap{
 	color: #F0F0F5; /* same as header */
-}
-
-/* EMBEDDED FILES */
-.woas_embedded {
-	background-color: #9E9EFF
 }
 
 /* FOOTER */
@@ -3795,27 +3821,32 @@ body {
 }
 
 /* HEADINGS */
-h1.woas_heading, h2.woas_heading, h3.woas_heading,
-h4.woas_heading, h5.woas_heading, h6.woas_heading {
-	margin: .5em 0px .188em;
+/* (PVHL: do we really need woas_heading style? Not using so x-browser better) */
+h1, h2, h3, h4, h5, h6 {
+	margin: .75em 0px .325em;
 	padding: 0px
 }
-h1.woas_heading {
+/* this misses IE6 */
+h1:first-child, #woas_toc + h1, h2:first-child, #woas_toc + h2,
+h3:first-child, #woas_toc + h3, h1 + h2, h2 + h3, h3 + h4 {
+	margin-top: 0px
+}
+h1 {
 	font-size: 1.438em
 }
-h2.woas_heading {
+h2 {
 	font-size: 1.25em
 }
-h3.woas_heading {
+h3 {
 	font-size: 1.063em
 }
-h4.woas_heading {
+h4 {
 	font-size: 0.875em
 }
-h5.woas_heading {
+h5 {
 	font-size: 0.75em
 }
-h6.woas_heading {
+h6 {
 	font-size: 0.625em
 }
 
@@ -3847,16 +3878,19 @@ wraps cannot contain margins, paddings, or borders
 
 /* end of Help layout CSS; rest can be styled */
 
+#woas_help_body {
+	background-color: #FFF; /* white */
+	padding: 1em
+}
+#woas_help_body ol li {
+	margin-bottom: .5em
+}
 .woas_help_top {
 	background-color: #335; /* matches wiki background */
 	color: #F0F0F5; /* matches wiki header */
 	font-family: Arial Black, Gadget, sans-serif;
 	font-size: 1.5em;
 	padding: .625em .625em 1em
-}
-.woas_help_body {
-	background-color: #FFF; /* white */
-	padding: 1em
 }
 .woas_help h3 {
 	margin-bottom: .188em
@@ -3878,11 +3912,11 @@ explicit margins are needed for IE6/7 otherwise collapsed under certain circumst
 .woas_help_button:hover {
 	background-color: #A9A9A9; /* darkgrey */
 }
-.woas_helpcode {
+.woas_help_code {
 	font-family: monospace;
 	padding: 0.438em
 }
-.woas_helptext {
+.woas_help_text {
 	font-family: lucida;
 	color: #048db4;
 	font-weight: bold
@@ -3891,12 +3925,16 @@ explicit margins are needed for IE6/7 otherwise collapsed under certain circumst
 /* IMAGE GALLEY */
 /* temporary test css */
 .woas_img_list, .woas_img_list_first, .woas_img_list_last, .woas_img_list_single {
-	padding-top: 2em;
+	padding-top: 1.75em;
 }
-.woas_img_list_link {
-	display: block;
+a.woas_img_list {
 	color: #00f;
-	margin: 1em 0px
+}
+img.woas_img_list {
+	display: block;
+	margin-bottom: .625em;
+	padding: .5em;
+	background-color: #afa
 }
 
 /* INPUT LAYOUT */
@@ -3969,17 +4007,22 @@ a:hover {
 	margin-bottom: 0.75em;
 	background-color: #fff; /* white */
 	border: 1px solid #000; /* black */
-	padding: 1em;
-	text-align: left
-}
-#woas_page ol li {
-	margin-left: -0.5em
-}
-#woas_page ul li {
-	margin-left: -0.688em
+	padding: 1em
 }
 
 /* MENU */
+/*
+Add the following CSS to WoaS::Custom::CSS to allow an image icon for edit
+instead of the current text icon. I find the text less distracting.
+
+.woas_no_img #woas_menu_edit img, #woas_menu_edit span {
+	display: none
+}
+.woas_no_img #woas_menu_edit span, #woas_menu_edit img {
+	display: inline
+}
+
+*/
 #woas_menu_pad {
 	margin-right: 1.25em;
 	background-color: #fff; /* white */
@@ -3987,22 +4030,41 @@ a:hover {
 	font-size: .75em;
 	padding: 1em
 }
-#woas_menu ol li, #woas_ns_menu_area ol li {
-	margin-left: -1.563em
-}
-#woas_menu ul li, #woas_ns_menu_area ul li {
-	margin-left: -1.875em
-}
 #woas_menu_edit {
-	position: absolute;
-	right: 1.688em;
-	bottom: .188em;
+	font-size: .833em;
+	float: right;
+	margin: -0.25em -0.75em 0px 0.25em;
 }
 #woas_menu_edit img {
+	margin-top: -.5em;
 	background-color: none; /* remove temporary IE8 background */
 }
-#woas_menu_edit span {
-	font-size: .833em
+
+/* MONOSPACED TEXT (except search) */
+pre {
+	white-space: pre-wrap; /* CSS 3 */
+}
+.woas_core_page, .woas_nowiki_multiline {
+	border: 1px solid #808080; /* grey */
+}
+.woas_core_page {
+	background-color: #F0F0F5; /* same as header */
+}
+.woas_core_page, .woas_embedded {
+	padding: 1.25em
+}
+.woas_embedded {
+	background-color: #9E9EFF
+}
+.woas_nowiki {
+	padding: 0px 0.25em
+}
+.woas_nowiki, .woas_nowiki_multiline {
+	background-color: #F5F5F5
+}
+.woas_nowiki_multiline {
+	margin: 1em 0px;
+	padding: .5em
 }
 
 /* NAVIGATION BAR */
@@ -4041,8 +4103,7 @@ img.woas_nav { /* woas logo */
 	margin-right: .375em
 }
 
-/* TEMPLATE::INFO */
-
+/* NOTE MACRO & TEMPLATE::INFO */
 .woas_note { /* could be multiples, so use class */
 	display: inline-block;
 	background: #FFFFAA url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAADtElEQVR42rWWXUxbZRjHBwx0G9go7GJixCXDLQZZjEa9W4yKi04vtnhlsrg4E5Mp2TQu0cyZuESNEmVENseYQNduKx+FApWuUEopLYwPoRvQscGAjrFCP2gpbWkL/HzTxCszOMnYkzwX5+Sc/+99/89z3udsmC/4/pGmpIdEIJLULamkp2ew6fFN/HfvoQAi2Lx5C4c+Pky1qharuQerqZcGdTMFP//BG3veJjExcVXQquK7c3fTaelmKQrhYIQ5r5+Z+27GRhz0dg5hMdr48YdCnnoy/YGQB4rn5LyIY+IerMBCYCGec3N+XDOeOOT6P3a0dW0YdD2cLigjLVUWh0gCbNyYjKHZxHJshXAozPLSMpHFCPPzC7hdXmadbm70j6DXWlCr9DSqLXz+2TfSACI4sP9DAr4wft+8EI4Si8VYDC+K6wAe9xxTDidd5gFamqzUVbVyqVyLvFTL9qzsOGRNQHFRCf65oPDcRyi4QCQSEDuZx+/34xE7uGUfxT50neFBG1cb24V4PVcqmtn/wUdrA0RXiFVpcTm9cTuCQR+RaFBAgoTDogazd5mcvInLNcX09BjXrF2Ul9SjuKDj6JFv1wakpKQIX7U47kyLYrrw+TxEoyFi0QihkJ9AwCNq4cXrnWFi3I6x2UzpGbUA/M2J46ekWVRyRo6tdwTH+LTYhUuIeoWoB4fDztTUbSYnbjI81I/JYEEp/P/zdBVVF5v56ovj0gD5R77G2maj3dBDf+8g43eGRYHd3HXcoq+7lxZdB/U1BhR/ablwto6zhSp0tSbe27tPGmBn9gs0aTrQVBtEr5uw9fcJ7+/hvD9Jl6WLK3IdijItZec08dWryhuplKuRPSFD8of26aF89I3dXKrQInwWfo/g8cwIWA8qRRPni9VCvBJ5iRrz1U727X0f8Z50QFJSEl/mn6RWZabmsp7BG304Jm8zIAAV5zWcK6qhRqnDrO/kk4OHJRwV/4MkkJCQwLvvHKCoQCla14Cl3Sr6vhWVXENDtQZFqZI397wl4bBbJQWErRkZtOgv4nReY2a2g9HRGtqMv/Daq7vi4usyD9pMPxFb6cbtNTJgk1NVeZJt29LIzXllfQDmjkJCi114fe0M2y/ToDnF9ufS2bUzd30ArcbfWcKGP2BhdKwao+FXduzYyvPZOesD6O75jUCwHZfHRIuhmO9OHEQme4yXX3r94QFpaWkkJ2/g6cwMlEoFeXl5CChZWc9KmsmSMzPzGdG68RnMsWNHkfpX8UjzX78dQm6UDc/yAAAAAElFTkSuQmCC) no-repeat .5em .5em;
@@ -4052,18 +4113,6 @@ img.woas_nav { /* woas logo */
 }
 .woas_no_img .woas_note {
 	padding-left: .75em
-}
-
-/* NOWIKI TEXT */
-.woas_nowiki {
-	background-color: #F5F5F5;
-	white-space: pre-wrap; /* CSS 3 */
-	padding-right: 0.25em;
-	padding-left: 0.25em
-}
-.woas_nowiki_multiline {
-	border: 1px solid #808080; /* grey */
-	padding-left: 0.375em
 }
 
 /* PAGE LISTINGS */
@@ -4115,7 +4164,8 @@ img.woas_nav { /* woas logo */
 	padding-top: 1em;
 	padding-right: 1em
 }
-pre.woas_search_results {
+.woas_search_results {
+	font-family: "Courier New", Courier, monospace;
 	background-color: #f9f9f9;
 	border: 1px solid #aaa;
 	clear: both;
@@ -4127,20 +4177,43 @@ pre.woas_search_results {
 }
 
 /* TABLE OF CONTENTS */
-div.woas_toc {
+#woas_toc {
+	float: right;
+	max-width: 40%;
+	margin-left: 2em;
+	margin-bottom: 1em;
 	border: 1px dashed #aaa;
 	background-color: #f9f9f9;
-	padding: 0.313em;
-	width: 50%;
-	font-size: 95%
+	padding: .75em 1em;
+	font-size: 80%
 }
-div.woas_toc ol, div.woas_toc li {
-	margin-left: 3.25em;
-	padding-left: 0px
-}
-p.woas_toc_title {
+#woas_toc_title {
+	line-height: 1em;
 	font-weight: bold;
 	text-align: center
+}
+#woas_toc_content {
+	margin-top: .75em
+}
+.woas_toc_h1, .woas_toc_h2, .woas_toc_h3,
+.woas_toc_h4, .woas_toc_h5, .woas_toc_h6 {
+	margin-top: .125em;
+	margin-bottom: .125em
+}
+.woas_toc_h2 {
+	margin-left: 1.5em
+}
+.woas_toc_h3 {
+	margin-left: 3em
+}
+.woas_toc_h4 {
+	margin-left: 4.5em
+}
+.woas_toc_h5 {
+	margin-left: 6em
+}
+.woas_toc_h6 {
+	margin-left: 7.5em
 }
 
 /* TABLES */
@@ -4158,7 +4231,7 @@ p.woas_toc_title {
 }
 
 /* TAG - CONTAINER */
-div.woas_taglinks {
+.woas_taglinks {
 	border: 1px solid #aaa;
 	margin-top: 1em;
 	overflow: auto;
@@ -4169,14 +4242,14 @@ div.woas_taglinks {
 }
 
 /* TAG - LINKS */
-div.woas_taglinks > a {
+.woas_taglinks > a {
 	margin: 0px;
 	padding: .125em .313em;
 	background-color: #fff; /* white */
 	color: #000; /* black */
 	text-decoration: none
 }
-div.woas_taglinks > a:hover {
+.woas_taglinks > a:hover {
 	background-color: #808080; /* grey */
 	color: #fff; /* white */
 	font-weight: normal;
@@ -4195,11 +4268,6 @@ div.woas_taglinks > a:hover {
 }
 .woas_u {
 	text-decoration: underline
-}
-
-/* WIKI CORE PAGES */
-.woas_core_page {
-	background-color: #bcf
 }
 
 /* WIKI LOADING OVERLAY */
@@ -4234,7 +4302,7 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-/* CSS used when loading/saving WoaS - readonly */
+/* CSS used when loading/saving WoaS; readonly */
 body {
 	margin: 0px;
 	padding: 0px;
@@ -4253,7 +4321,7 @@ body {
 	text-align: center
 }
 #woas_debug_console {
-	width:50%;
+	width: 50%;
 	margin: 3em auto
 }
 #woas_debug_log {
@@ -4299,11 +4367,11 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-All pages of the [[WoaS::Plugins::]] namespace are WoaS plugins; plugins are executed when loading WoaS and remain active during WoaS usage.
+All pages of the [[WoaS::Plugins::]] namespace are WoaS plugins; plugins are executed when loading WoaS and remain active during WoaS usage. The WoaS project has plugin examples available for code syntax highlighting, MathML display, and charting; these are found in the /Plugins/ directory of the download. One powerful use of plugins is to load a [[WoaS::Help::Macros|macro]], or a set of macros, that will be available to all pages. The plugins directory also contains an Italian translation plug-in, though translation support is not yet fully capable in WoaS.
 
-You can share WoaS plugins as WSIF files by exporting them.
+You can share WoaS plugins as [[WoaS::Help::WSIF|WSIF]] files by exporting them.
 == External plugins
-A WoaS plugin is just JavaScript code, unless you create a plugin whose name starts with '@'. Such plugins are made up of external file references and a specific notation to force browser into a specific inclusion mode.
+A WoaS plugin is just JavaScript code, unless you create a plugin whose name starts with '@'. Such plugins are made up of external file references and a specific notation to force the browser into a specific inclusion mode.
 
 Example:
 {{{path/to/mylib1.js = +*
@@ -4388,32 +4456,32 @@ Web pages can be included in a page as embedded HTML objects or in HTML iframes.
 == Embed a web page as an object
 This method makes the embedded web page become a seamless part of the page.
 * *Embed a local HTML file as an object:*<br><br>
-** <div class="woas_helptext">Use this code in a page, replacing PATH with the full path to the HTML file you wish to include, and changing the width and height to suit your taste:</div><br>{{{
+** <div class="woas_help_text">Use this code in a page, replacing PATH with the full path to the HTML file you wish to include, and changing the width and height to suit your taste:</div><br>{{{
 <object data="PATH" style="width:100%; height:630px;">File not found.</object>
-}}}<br><div class="woas_helptext">To embed a local HTML file in a page.</div><br>
+}}}<br><div class="woas_help_text">To embed a local HTML file in a page.</div><br>
 *** For example, this command embeds the {{{/Work/MyProject.html}}} file into a page as an object:<br><br>{{{
 <object data="/Work/MyProject.html" style="width:100%; height:630px;">File not found.</object>
 }}}<br><br>
 * *Embed a remote URL as an object:*<br><br>
-** <div class="woas_helptext">Use this code in a page, replacing URL with the URL of the page you wish to include, and changing the width and height to suit your taste:</div><br>{{{
+** <div class="woas_help_text">Use this code in a page, replacing URL with the URL of the page you wish to include, and changing the width and height to suit your taste:</div><br>{{{
 <object data="URL" style="width:100%; height:630px;">URL not found.</object><
-}}}<br><div class="woas_helptext">To embed an external URL in a page.</div><br>
+}}}<br><div class="woas_help_text">To embed an external URL in a page.</div><br>
 *** For example, this command embeds the WoaS official website at {{{http://stickwiki.sf.net/}}} into a page as an object:<br><br>{{{
 <object data="http://stickwiki.sf.net/" style="width:100%; height:630px;">URL not found.</object>
 }}}
 == Embed a web page in an HTML iframe
 This method creates a frame around the embedded web page. The code shown below is for a plain frame, but you can style the iframe further by adding a border, changing the border style to dotted, dashed, solid, double, groove, ridge, inset, or outset, changing the border width to whatever thickness you like, and the border color to whatever color you like.
 * *Embed a local HTML file in an iframe:*<br><br>
-** <div class="woas_helptext">Use this code in a page, replacing PATH with the full path to HTML file you wish to include, and changing the width and height to suit your taste:</div><br>{{{
+** <div class="woas_help_text">Use this code in a page, replacing PATH with the full path to HTML file you wish to include, and changing the width and height to suit your taste:</div><br>{{{
 <iframe height="400" width="100%" height:630px; src="PATH"></iframe>
-}}}<br><div class="woas_helptext">To include a local HTML file in a wiki page.</div><br>
+}}}<br><div class="woas_help_text">To include a local HTML file in a wiki page.</div><br>
 *** For example, this command embeds the {{{/Work/MyProject.html}}} file into a page in an iframe:<br><br>{{{
 <iframe height="400" width="100%" height:630px; src="/Work/MyProject.html"></iframe>
 }}}<br><br>
 * *Embed a remote URL in an iframe:*<br><br>
-** <div class="woas_helptext">Use this code in a page, replacing URL with the URL of the page you wish to include, and changing the width and height to suit your taste:</div><br>{{{
+** <div class="woas_help_text">Use this code in a page, replacing URL with the URL of the page you wish to include, and changing the width and height to suit your taste:</div><br>{{{
 <iframe height="400" width="100%" height:630px; src="URL"></iframe>
-}}}<br><div class="woas_helptext">To include a web page in a wiki page.</div><br>
+}}}<br><div class="woas_help_text">To include a web page in a wiki page.</div><br>
 *** For example, this command embeds the WoaS official website at {{{http://stickwiki.sf.net/}}} into a page in an iframe:<br><br>{{{
 <iframe height="400" width="100%" height:630px; src="http://stickwiki.sf.net/"></iframe>
 }}}
@@ -4428,11 +4496,11 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 You can include a text file in a page by placing it inside of an HTML iframe.
 
-<div class="woas_helptext">Use this code in a page, replacing PATH with the full path to the file:</div>
+<div class="woas_help_text">Use this code in a page, replacing PATH with the full path to the file:</div>
 {{{
 <iframe height="400" width="100%" src="file:///PATH"></iframe>
 }}}
-<div class="woas_helptext">To include a text file in the page inside an iFrame.</div>
+<div class="woas_help_text">To include a text file in the page inside an iFrame.</div>
 == Examples
 * *Linux example:*<br><br>{{{
 <iframe height="400" width="100%" src="file:///home/username/Desktop/file.txt"></iframe>
@@ -4449,7 +4517,7 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-The look and feel of the wiki is determined by the default CSS definitions in the [[WoaS::CSS::Core]] page. Although the [[WoaS::CSS::Core]] page cannot be edited, the definitions can be copied and used as a foundation for customizing the wiki in any of the ways described in the [[WoaS::Help::CSS]] page.
+The look and feel of the wiki is determined by the default CSS definitions in the [[WoaS::CSS::Core]] page. Although the [[WoaS::CSS::Core]] page cannot be edited, the definitions can be copied and used as a foundation for customizing the wiki in any of the ways described in the [[WoaS::Help::CSS|CSS]] page.
 
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::CSS::Custom
@@ -4482,7 +4550,7 @@ woas.page.boundary: DFQRCTsKlU
 The [[WoaS::CSS::Boot]] page cannot be edited, and contains the CSS definitions that determine how the wiki will look and feel while it is loading.
 
 --DFQRCTsKlU
-woas.page.title: WoaS::Help::Info
+woas.page.title: WoaS::Help
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -4492,7 +4560,9 @@ woas.page.boundary: DFQRCTsKlU
 The first time you save a change to Wiki on a Stick, your browser will ask for permission to save data to the disk. This is normal and necessary for the wiki to make changes to itself. You can give permission each time or make the setting permanent.
 
 You will find the *Help* icon in the navigation bar on every page in this wiki. When you click on it, it will open a pop-up window with either the [[WoaS::Help::Index]] page or a specific help page associated with the page you currently have open.
-== Contents:
+== Contents
+/These pages will open in the [[WoaS::Help::Index|Help system]]./
+
 [[Include::WoaS::Help::]]
 
 --DFQRCTsKlU
@@ -4506,14 +4576,14 @@ woas.page.boundary: DFQRCTsKlU
 The [[Special::Orphaned Pages]] page displays a listing of all pages that no other pages [[WoaS::Help::Links|link to]].
 
 --DFQRCTsKlU
-woas.page.title: WoaS::Help::Special::Recentchanges
+woas.page.title: WoaS::Help::Special::Recent Changes
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-The [[Special::Recentchanges]] page is an optional wiki feature that keeps track of [[WoaS::Help::Edit a page|changed pages]] when enabled.
+The [[Special::Recent Changes]] page is an optional wiki feature that keeps track of [[WoaS::Help::Edit a page|changed pages]] when enabled.
 * When the feature is not enabled, the page displays a notice stating that the last modified timestamp storage is disabled in Special::Options.
 * When the feature is enabled, the page displays a list of links to pages that have been changed followed by the date and time of the most recent change.
 == Enable tracking of page changes
@@ -4616,8 +4686,8 @@ If selected any scripts embedded in the page to be exported will be run before e
 If a name is in this box it will be used as the content of an HTML author meta tag inserted into each exported HTML page. If the box is empty, the HTML author meta tag will not be inserted into any of the exported HTML pages.
 ===Export CSS into shared file
 If selected a CSS stylesheet will be generated for the entire file set and imported by each exported XHTML file; if not selected the full CSS will be included within each XHTML file.
-===Export menu and submenus
-If selected any menus that would show for a particular WoaS page will also be rendered in the output XHTML file; if not selected only the main page area wil be rendered and exported
+===Export menus
+If selected any menu (including any sub-menu) that would show for a particular WoaS page will also be rendered in the output XHTML file; if not selected only the main page area wil be rendered and exported
 
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Special::Import
@@ -4628,25 +4698,23 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 The [[Special::Import]] page provides an interface for importing the contents of a previous or current version of the wiki from an .html source file.
-==Import a wiki from a WoaS /HTML/ file
-Click the *Browse...* button to select the wiki file to import.
 == Source
+Click the *Browse...* button to select the wiki file to import.
 ===Import configuration (except WSIF datasource settings)
 Imports all the settings from the [[Special::Options]] page in the source file into the destination file.
 <<<woas.note: The settings in the /External data source/ section of the [[Special::Options]] page will not be imported.>>>
-===Import CSS
-Imports the [[WoaS::CSS::Custom]] page from the source file, overwriting the [[WoaS::CSS::Custom]] page in the destination file. CSS rules from older releases of the wiki may not work properly in the current version.
-<<<woas.note: If this choice is selected, the /Import pages/ option must also be selected.>>>
-===Import pages
+===Import content
 Imports the following pages from the source file:
 * Any user-created pages.
 * [[Main Page]]
 * [[::Menu]]
-* [[WoaS::Aliases]] if /Import pages of the WoaS:: namespace/ is selected
-* [[WoaS::CSS::Custom]] if /Import CSS/ is selected
-* [[WoaS History]]
-* [[WoaS::Hotkeys]] if /Import pages of the WoaS:: namespace/ is selected
-* [[WoaS::Plugins]] if /Import pages of the WoaS:: namespace/ is selected
+* [[WoaS::Aliases]] Unless /Do not import WoaS:: namespace pages/ is selected
+* [[WoaS::CSS::Custom]] if /Import custom CSS/ is selected
+* [[WoaS::Hotkeys]] Unless /Do not import WoaS:: namespace pages/ is selected
+* [[WoaS::Plugins]] Unless /Do not import WoaS:: namespace pages/ is selected
+===Import custom CSS
+Imports the [[WoaS::CSS::Custom]] page from the source file, overwriting the same page in the destination file. CSS rules from older releases of the wiki may not work properly in the current version.
+<<<woas.note: This option cannot be selected unless the /Import content/ option is already selected.>>>
 == Existing pages
 ===Erase all user pages before import process
 Erases all user-created pages before importing content into the destination file. The import interface will pop up two confirmation boxes to verify that you're sure you want to erase the pages.
@@ -4680,7 +4748,83 @@ Example disabled macro call:
 <<< Macro disabled
 woas.include: My Page>>>
 }}}
-===Import pages of the [[WoaS::]] [[WoaS::Help::Namespaces|namespace]] ([[WoaS::Aliases|aliases]], [[WoaS::CSS::Custom|custom CSS]], [[WoaS::Hotkeys|hotkeys]], and [[WoaS::Plugins|plugins]])
-Gives the import interface blanket permission to import the specified pages from the [[WoaS::]] [[WoaS::Help::Namespaces|namespace]].
+===Do not import WoaS:: [[WoaS::Help::Namespaces|namespace]] pages ([[WoaS::Help::Aliases|aliases]], [[WoaS::Help::Hotkeys|hotkeys]], and [[WoaS::Help::Plugins|plugins]])
+Does not allow import of pages listed.
+
+--DFQRCTsKlU
+woas.page.title: WoaS::Help::Special::Backlinks
+woas.page.attributes: 0
+woas.page.last_modified: 1318738575
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+The [[Special::Backlinks]] page, which is displayed by clicking the [[Special::Backlinks|Backlinks]] link in the menu, displays a list of all pages linking to the current page.
+
+--DFQRCTsKlU
+woas.page.title: WoaS::Help::Menu
+woas.page.attributes: 0
+woas.page.last_modified: 1318739163
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+The menu can contain links to pages, wiki interfaces, and shortcuts to custom functions you create. You can [[WoaS::Help::Edit the menu|edit the menu]] and sub-menus by clicking the edit icon located in its bottom right corner. Sub-menus belong to [[WoaS::Help::Namespaces|Namespaces]] and are discussed in the [[WoaS::Help::Namespaces#Namespace sub-menu|sub-menu]] section there.
+
+If the wiki is erased the menu contents are slightly reduced, with less often used links removed; these links are still accessible from the [[WoaS::Help::Special::Advanced|Special::Advanced]] page. These are the default contents of the menu with the pages linked briefly explained, with links to more detailed help pages, when available:
+* /Main Page/ - The main page of the wiki.
+* /[[WoaS::Help::Special::Options|Options]]/ - The Options page where basic configuration settings can be set.
+* /WoaS History/ - A  page detailing the history of this wiki; this page is deleted if the wiki is erased.
+
+* /WoaS::Help/ - A page listing all the pages in the WoaS::Help::[[WoaS::Help::Namespaces|namespace]]; opens in the main wiki.
+* /[[WoaS::Help::Aliases|WoaS::Aliases]]/ - A page that allows you to create replaceable shortcuts used in wiki links.
+* /[[WoaS::Help::Hotkeys|WoaS::Hotkeys]]/ - A page that allows you to create key bindings for hotkeys and access keys.
+* /[[WoaS::Help::Plugins|WoaS::Plugins]]/ - A page that allows you to create, import, and manage plug-ins.
+
+* /[[WoaS::Help::Special::All Pages|Special::All Pages]]/ - A page that displays a list of all user-created pages.
+* /[[WoaS::Help::Go to a page|Go to...]]/ - An interface for typing in the title of a page to go to (defaults to the current page).
+* /[[WoaS::Help::Special::Recent Changes|Recent Changes]]/ - An optional wiki feature that keeps track of changed pages when enabled.
+
+* /[[WoaS::Help::Special::Backlinks|Backlinks]]/ - A page that displays a list of pages linking to the current page.
+* /[[WoaS::Help::Create a page|New Page]]/ - An interface for creating a new page.
+* /[[WoaS::Help::Duplicate a page|Duplicate Page]]/ - An interface for creating a duplicate of a page (defaults to the current page).
+* /[[WoaS::Help::Delete a page|Delete Page]]/ - An interface for deleting a page (defaults to the current page).
+
+* /[[WoaS::Help::Erase all pages|Erase Wiki]]/ - An interface for erasing the wiki and restoring it to its default state.
+
+* /[[WoaS::Help::Special::Search|Search box]]/ - A direct-entry interface for entering a search term to search all the user-created pages in the wiki.
+
+--DFQRCTsKlU
+woas.page.title: WoaS::Help::Duplicate a page
+woas.page.attributes: 0
+woas.page.last_modified: 1318740655
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= By /Special::/ action link/command
+# Access [[Special::Duplicate Page]] from a [[WoaS::Help::Links|link]] (e.g. from the Special::[[WoaS::Help::Special::Advanced|Advanced]] page, default [[WoaS::Help::Menu|menu]], or user page) or by using the Special::[[WoaS::Help::Go to a page|Go to]] command.
+# You'll be offered the title of the current page with /(duplicate)/ added at the end; this can be replaced with the title of your choice.
+# Accept by pressing the /OK/ button, or cancel by pressing the /Cancel/ button.
+# When the page is duplicated, you'll be on the new page you just created.
+
+--DFQRCTsKlU
+woas.page.title: WoaS::Help::Go to a page
+woas.page.attributes: 0
+woas.page.last_modified: 1318741670
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+= By /Special::/ action link/command
+# Access [[Special::Go to]] from a [[WoaS::Help::Links|link]] (e.g. from the Special::[[WoaS::Help::Special::Advanced|Advanced]] page, default [[WoaS::Help::Menu|menu]] (Go to...), or user page).
+# You'll be offered the title of the current page.
+# Type in the name of the page you wish to go to.
+# Accept by pressing the /OK/ button, or cancel by pressing the /Cancel/ button.
+# If the page exists, you'll be taken to it. If it doesn't exist, and isn't in a [[WoaS::Help::Namespaces#Reserved namespaces|reserved namespace]], the [[WoaS::Help::Create a page|page creation interface]] will open and offer to help you to create the page.
 
 --DFQRCTsKlU

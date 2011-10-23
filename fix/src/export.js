@@ -40,25 +40,26 @@ woas.exporter = {
 			}
 		}
 
-		var l = page_titles.length, fname = "", done = 0, total = 0, mnupos;
+		var pg = page_titles[pi], l = page_titles.length, fname = "",
+			done = 0, total = 0, mnupos;
 		data = null;
 		for (var pi=0;pi < l;pi++) {
 			// do skip physical special pages
-			if (page_titles[pi].match(/^Special::/)) continue;
-			if (woas.static_pages2.indexOf(page_titles[pi]) !== -1) continue;
+			if (pg.match(/^Special::/)) continue;
+			if (woas.static_pages2.indexOf(pg) !== -1) continue;
 			// skip also the unexportable WoaS pages
-			if (woas.unexportable_pages2.indexOf(page_titles[pi]) !== -1) continue;
+			if (woas.unexportable_pages2.indexOf(pg) !== -1) continue;
 			// do skip menu pages (they are already included in each page)
-			mnupos = page_titles[pi].indexOf("::Menu");
-			if ((mnupos !== -1) &&
-				(mnupos === page_titles[pi].length-6)) continue;
-			data = woas.get_text_special(page_titles[pi]);
+			if (pg.substr(-6) === '::Menu' && pg !== 'WoaS::Help::Menu') {
+				continue;
+			}
+			data = woas.get_text_special(pg);
 			// skip pages which could not be decrypted
 			if (data === null) continue;
-			fname = this._get_fname(page_titles[pi], true);
+			fname = this._get_fname(pg, true);
 			// will skip WoaS::Plugins::* and WoaS::Aliases
 			if (fname === '#') {
-	//			woas.log("skipping "+page_titles[pi]);
+	//			woas.log("skipping "+pg);
 				continue;
 			}
 			++total;
@@ -77,7 +78,7 @@ woas.exporter = {
 				}
 			} else
 				data = woas.export_parse(data, this._settings.js_mode);
-			if (!this._one_page(data, page_titles[pi], fname, woas.config.store_mts ? page_mts[pi] : 0))
+			if (!this._one_page(data, pg, fname, woas.config.store_mts ? page_mts[pi] : 0))
 				break;
 			++done;
 		}
@@ -113,9 +114,6 @@ woas.exporter = {
 		var raw_text = woas.trim(woas.xhtml_to_text(data)),
 			exp_menu, ns, mpi, tmp;
 		if (this._settings.exp_menus) {
-			exp_menu = woas.get_text("::Menu");
-			if (exp_menu === null)
-				exp_menu = "";
 			ns = woas.get_namespace(title);
 			// get submenu, if available, from first available namespace
 			while (ns !== "") {
@@ -123,14 +121,17 @@ woas.exporter = {
 				if (mpi !== -1) {
 					tmp = woas.get__text(mpi);
 					if (tmp !== null)
-						exp_menu += tmp;
+						exp_menu = tmp;
 					break;
 				}
 				tmp = ns.lastIndexOf("::");
 				ns = tmp === -1 ? "" : ns.substring(0, tmp);
 			}
+			if (!ns) {
+				exp_menu = woas.get_text("::Menu") || "";
+			}
 			// parse the exported menu
-			if (exp_menu.length) {
+			if (exp_menu) {
 				exp_menu = woas.parser.parse(exp_menu, true, this._settings.js_mode);
 				if (this._settings.js_mode)
 					woas.scripting.activate("menu");
@@ -156,8 +157,8 @@ woas.exporter = {
 				woas.utf8.do_escape(woas._attrib_escape(raw_text.replace(/\s+/g, " ")
 				.substr(0,max_description_length)))+'" />'+"\n"+
 				this._settings.meta_author+this._settings.custom_scripts+
-				'<'+'/head><'+'body class="woas_background">'+data+
-				(mts ? "<"+"div class=\"woas_page_mts\">"+woas.last_modified(mts)+
+				'<'+'/head><'+'body>'+data+
+				(mts ? "<"+"div id=\"woas_page_mts\">"+woas.last_modified(mts)+
 				"<"+"/div>" : "")+"<"+"/body><"+"/html>\n"; raw_text = null;
 		return woas.save_file(this._settings.xhtml_path+
 			fname, woas.file_mode.ASCII_TEXT, woas.DOCTYPE+woas.DOC_START+data);
@@ -333,7 +334,6 @@ woas.export_wiki = function() {
 
 	// refresh if javascript was run
 	if (this.exporter._settings.js_mode) {
-		this.refresh_menu_area();
 		this.set_current(current, false);
 	}
 	// clear allocated resources used during export
