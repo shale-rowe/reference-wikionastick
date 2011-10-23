@@ -81,14 +81,16 @@ woas.importer = {
 			// can we import from WoaS namespace?
 			if (woas.importer.i_no_woas ||
 					// never overwrite help pages with old ones
-					(title.indexOf("WoaS::Help::") === 0) ||
+					title.indexOf("WoaS::Help") === 0 ||
 					// skip other core WoaS:: pages
-					(woas.static_pages2.indexOf(title) !== -1)) {
+					woas.static_pages2.indexOf(title) !== -1) {
 				return false;
 			}
 			// the rest are Plugins, Aliases, or Hotkeys
 			return true;
-		} else if (title.substr(0, 9) === "Special::") {
+		} else if (title.substr(0, 9) === "Special::" ||
+				// WoaS History not imported, but is erased
+				title === "WoaS History") {
 			// always skip special pages and consider them system pages
 			return false;
 		}
@@ -645,7 +647,6 @@ woas.import_wiki = function() {
 		this.full_commit(); // PVHL: this could have failed!
 
 	if (rv) {
-		this.refresh_menu_area();
 		this.set_current(this.config.main_page, true);
 	}
 
@@ -704,12 +705,11 @@ woas.import_wiki_wsif = function() {
 			done = String(done)+"/"+woas.wsif.expected_pages;
 		} else skipped = 0;
 		this.alert(woas.i18n.IMPORT_OK.sprintf(done, skipped));
-		this.refresh_menu_area();
+		this.refresh_menu();
 		// now proceed to actual saving
 		this.commit(woas.wsif.imported);
-	} else {
-		// always save if we have erased the wiki
-		if (this.importer.i_overwrite === 0)
+	} else if (this.importer.i_overwrite === 0) {
+			// always save if we have erased the wiki
 			this.full_commit(); // PVHL: this could have failed!
 	}
 

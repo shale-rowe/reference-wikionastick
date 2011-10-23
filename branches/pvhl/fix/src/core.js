@@ -133,16 +133,15 @@ woas._create_page_direct = function(ns, cr, fill_mode, default_ct) {
 	}
 };
 
-woas.cmd_erase_wiki = function() {
+woas.cmd_erase_wiki = function(page) {
 	if (this.erase_wiki()) {
 		if (!this.full_commit()) {
 			this.alert(this.i18n.FAILED_ERASE);
 			// reload page because all data is lost - works even in IE6
 			window.location = window.location;
 		}
-		// PVHL: next line can't work; history is deleted & current is main page
-		//back_or(this.config.main_page);
-		this.set_current(this.config.main_page, true);
+		// PVHL: successful erase; if called from an Import page will go back there
+		this.set_current(page ? page : this.config.main_page, true);
 	}
 	return null;
 };
@@ -156,76 +155,73 @@ woas.static_pages = [
 ];
 
 woas.static_pages2 = [
-	"WoaS::Plugins", "WoaS::CSS::Boot", "WoaS::CSS::Core",
-	"WoaS::ImportSettings", "WoaS::Template::Search",
-	"WoaS::Template::Example::Transclusion"
+	"WoaS::Plugins", "WoaS::CSS::Boot", "WoaS::CSS::Core", "WoaS::Help",
+	"WoaS::ImportSettings", "WoaS::Template::Search", "WoaS::Template::Info",
+	"WoaS::Template::Transclusion Example"
 ];
 
 woas.static_pages = woas.static_pages.concat(woas.static_pages2);
 						
-woas.help_pages = null;
-woas.default_pages = [
-	"::Menu", "WoaS::Aliases", "WoaS::Hotkeys", "WoaS::CSS::Custom"
-];
-
 woas.erase_wiki = function() {
 	if (!this.config.permit_edits) {
 		this.alert(this.i18n.READ_ONLY);
 		return false;
 	}
 	if (!confirm(this.i18n.CONFIRM_DELETE_ALL1) ||
-		!confirm(this.i18n.CONFIRM_DELETE_ALL2))
+		!confirm(this.i18n.CONFIRM_DELETE_ALL2)) {
 		return false;
-	var i,l,l1,l2,pi,t;
-	this.progress_init("Erasing...");
-	var backup_pages = [];
-	// attributes and last modified timestamps for default pages
-	// first entry is for main page
-	page_attrs = [0]; page_mts =   [0];
-	// zero is the magic timestamp
-	for (i=0;i < this.default_pages.length;++i) {
-		page_attrs.push(0); page_mts.push(0);
 	}
-	// build the array of help pages only once
-	var help_pfx = "WoaS::Help::";
-	if (this.help_pages === null) {
-		this.help_pages = [];
-		for(i=0,l=page_titles.length;i < l;++i) {
-			if (page_titles[i].substr(0, help_pfx.length) === help_pfx)
-				this.help_pages.push(page_titles[i].substr(help_pfx.length));
+	var _titles, _pages, i, il, pt, pi;
+	this.progress_init("Erasing...");
+	_titles = [this.config.main_page, "::Menu", "WoaS::Aliases",
+			"WoaS::Hotkeys", "WoaS::CSS::Custom"];
+	_pages = ["A blank sheet is a catalyst for ideas",
+		"[["+this.config.main_page+"]]\n[[Special::Options|Options]]\n\n"+
+		"* [[Special::All Pages|All Pages]]\n* [[Special::Go to|Go to...]]\n"+
+		"* [[Special::Recent Changes|Recent Changes]]\n\n"+
+		"* [[Special::Backlinks|Backlinks]]\n"+
+		"* [[Special::New Page|New Page]]\n"+
+		"* [[Special::Duplicate Page|Duplicate Page]]\n"+
+		"* [[Special::Delete Page|Delete Page]]\n\n\n"+
+		"[[Include::WoaS::Template::Search]]\n",
+		"Lines that do not start with '$' are ignored\n\n$JS  Javascript",
+		this.hotkey._cache_default(),
+		"/* Your CSS customization goes here */"];
+	// add all system pages
+	for (i = 0, il = page_titles.length; i < il; ++i) {
+		pt = page_titles[i];
+		if (pt.indexOf("WoaS::Help") === 0 ||
+				pt.indexOf("Special::") === 0 ||
+				this.static_pages2.indexOf(pt) !== -1) {
+			pi = this.page_index(pt);
+			if (pi === -1) {
+				this.alert(this.i18n.STATIC_NOT_FOUND.sprintf(pt));
+				continue;
+			}
+			_pages.push(pages[pi]);
+			if (!_pages[_pages.length - 1]) {
+				_pages.pop();
+				continue;
+			}
+			_titles.push(pt);
 		}
 	}
-	var copied_help_pages = [];
-	// now pick the static pages
-	for(i=0,l1=this.static_pages.length,l2=this.help_pages.length,l=l1+l2;i < l;++i) {
-		if (i < l1)
-			t = this.static_pages[i];
-		else
-			t = help_pfx+this.help_pages[i-l1];
-		pi = this.page_index(t);
-		if (pi==-1) {
-			this.alert(this.i18n.STATIC_NOT_FOUND.sprintf(t));
-			continue;
-		} else if (i>=l1)
-			copied_help_pages.push(t);
-		backup_pages.push(pages[pi]);
-		// reset attributes
+	// PVHL: This is where save could be done with temporary arrays.
+	// This whole function could be done in save though - save instead
+	// of erase, with save only saving core pages. Simple flag.
+	pages = _pages;
+	page_titles = _titles;
+	// attributes and last modified timestamps for new pages
+	// zero is the magic timestamp
+	page_attrs = [];
+	page_mts = [];
+	for (i = 0, il = _pages.length; i < il; ++i) {
 		page_attrs.push(0);
-		// reset timestamp
 		page_mts.push(0);
-		this.progress_status(i/l);
 	}
-	// build titles
-	page_titles = [ this.config.main_page ];
-	page_titles = page_titles.concat(this.default_pages);
-	page_titles = page_titles.concat(this.static_pages);
-	page_titles = page_titles.concat(copied_help_pages);
-	// now build pages
-	pages = ["A blank sheet is a catalyst for ideas", "[["+this.config.main_page+"]]\n\n[[Special::All Pages]]\n[[Special::New Page]]\n[[Special::Duplicate Page]]\n[[Special::Go to]]\n[[Special::Delete Page]]\n[[Special::Backlinks]]\n[[Special::Search]]",
-			"", this.hotkey._cache_default(), "/* Your CSS customization goes here */"];
-	pages = pages.concat(backup_pages); backup_pages = null;
 	current = this.config.main_page;
-	this.refresh_menu_area();
+// PVHL: FIX this needs to be moved at some point
+	this.refresh_menu();
 	this.history.clear();
 	// reload all extensions
 	this._load_aliases(this.get_text("WoaS::Aliases"));
@@ -298,7 +294,7 @@ woas.cmd_delete = function() {
 
 // javascript shortcuts for special pages
 woas.shortcuts = ["New Page", "Duplicate Page", "All Pages", "Orphaned Pages", "Backlinks",
-					"Dead Pages", "Erase Wiki", "Main Page", "Go to", "Delete Page", "Recentchanges"];
+					"Dead Pages", "Erase Wiki", "Main Page", "Go to", "Delete Page", "Recent Changes"];
 woas.shortcuts_js = ["cmd_new_page", "cmd_duplicate_page", "special_all_pages", "special_orphaned_pages", "special_backlinks",
 					"special_dead_pages", "cmd_erase_wiki",	"cmd_main_page", "cmd_go_to", "cmd_delete",	"special_recent_changes"];
 					
@@ -337,11 +333,13 @@ woas.delete_page_i = function(i) {
 	if (current === old_title) {
 		// go to an existing page
 		this.set_current(this.history.previous(), true);
+	} else {
+		// always refresh the menu because it could contain the deleted page link
+		// done automatically above
+		this.refresh_menu();
 	}
 	// remove page from history
 	this.history.clear(old_title);
-	// always refresh the menu because it could contain the deleted page link
-	this.refresh_menu_area();
 	//TODO: send proper save notification
 	return this.commit_delete([i]);
 };
@@ -366,7 +364,7 @@ woas.history = (function(){ // woas.history closure
 	
 	// the public API
 	return {
-	
+
 	MAX_BROWSE_HISTORY: 6, // public for overriding
 	
 	has_forstack: function() {
@@ -412,7 +410,7 @@ woas.history = (function(){ // woas.history closure
 		if (!going_back && !woas.ui.edit_mode && current !== title && !/^Lock::/.test(current)) {
 			store(current);
 		}
-		if (!keep_fwd && !going_forward && !going_back/* && !/^Lock::/.test(title)*/) {		
+		if (!keep_fwd && !going_forward && !going_back/* && !/^Lock::/.test(title)*/) {
 			forstack = [];
 		}
 		going_back = going_forward = false;
@@ -621,8 +619,11 @@ woas.merge_bytes = function(byte_arr) {
 
 var reReplaceBr = new RegExp("<"+"br\\s?\\/?>", "gi");
 woas.xhtml_to_text = function(s) {
-	return s.replace(reReplaceBr, "\n").replace(/<\/?\w+[^>]*>/g, ' ').
-					replace(/&#?([^;]+);/g, function(str, $1) { if (!isNaN($1)) return String.fromCharCode($1); else return ""; });
+	return s.replace(reReplaceBr, "\n")
+		.replace(/<\/?\w+[^>]*>/g, '')
+		.replace(/&#?([^;]+);/g, function(str, $1) {
+			return isNaN($1) ? '' : String.fromCharCode($1);
+		});
 };
 
 // WoaS DOM manager

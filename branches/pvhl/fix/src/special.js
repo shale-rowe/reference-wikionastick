@@ -381,7 +381,7 @@ function bool2chk(b) {
 	return "";
 }
 
-//Special::Recentchanges shows a sorted list of pages by modified timestamp
+//Special::Recent Changes shows a sorted list of pages by modified timestamp
 woas.special_recent_changes = function() {
 	if (!this.config.store_mts) {
 		return "/Last modified timestamp storage is disabled in [[Special::Options]]./";
@@ -545,8 +545,8 @@ woas._special_image_gallery = function(ns) {
 	for(i = 0, l = page_titles.length; i < l; ++i) {
 		t = page_titles[i];
 		if (t.indexOf(ns) === 0) {
-			div.push(this.parser.transclude(t, snippets)+
-				'<'+'a class="woas_img_list_link" onclick="woas.go_to(\''+t+
+			div.push(this.parser.transclude(t, snippets, false, true)+
+				'<'+'a class="woas_img_list" onclick="woas.go_to(\''+t+
 				'\')"'+'>'+t+'<'+'/a><'+'/div>');
 		}
 	}

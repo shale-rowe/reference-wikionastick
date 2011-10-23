@@ -5,9 +5,19 @@ I am near to having a finished, fixed 0.12.0. to upload. I simply don't have the
 
 Changes since Revision pvhl-2317 (git: 3d939c7)
 
-(needing to archive my work in an incomplete though working state)
+(needing to archive my work in an incomplete though working state; export probably isn't working right yet)
 
-* a start on revamping menu - incomplete
+* refactor erase_wiki to remove edge-case failure and simplify
+* change name of 'WoaS::Template::Example::Transclusion' to 'WoaS::Template::Transclusion Example'
+* add some missing help pages from Little Girl
+* help pages open in help system except WoaS::Help (an intro) and WoaS::Help::
+* changed name of Recentchanges to 'Recent Changes'
+* 'WoaS History' page is deleted on erase (as an unneeded user page) and not imported (could be older)
+* some changes to menu and erased menu
+* numerous CSS tweaks incl. reducing nowiki styles to single declarations
+* TOC refactored to allow greater control; added roll-up to TOC
+* submenus are now a single menu
+* change to how heading anchors are created
 * capture enter key in password pages to avoid having to click the button
 * improve image pages and image gallery (an incomplete beginning; more tomorrow I hope)
 * fix loading of page reference at start-up

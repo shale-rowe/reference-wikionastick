@@ -582,7 +582,7 @@ woas.macro = {
 		//			macro.text = "<!-- defined "+fn+" macro -->";
 				} else { // set some error message
 					macro.reprocess = false;
-					macro.text = woas.parser._make_preformatted(M[0], "color:red;font-weight:bold");
+					macro.text = woas.parser._make_preformatted(M[0], "color:#f00;font-weight:bold");
 				}
 				return macro;
 			}
@@ -609,7 +609,7 @@ woas.macro = {
 				if (rv === false) {
 					// when macro returns false we automatically highlight it
 					macro.reprocess = false;
-					macro.text = woas.parser._make_preformatted(text, "color:red;font-weight:bold");
+					macro.text = woas.parser._make_preformatted(text, "color:#f00;font-weight:bold");
 				} else {
 					if (M[3] && macro.reprocess === true) {
 						// allows block level syntax to be used (headings, lists, etc.)
@@ -621,11 +621,11 @@ woas.macro = {
 				}
 			} else {
 				woas.log("Undefined macro " + fn);	//log:1
-				macro.text = woas.parser._make_preformatted(text, "color:red");
+				macro.text = woas.parser._make_preformatted(text, "color:#f00");
 			}
 		} else { // bad macro name definition (e.g. '<') can wipe out other text; mark it
 			woas.log("Macro failed validity test: '" + text + "'");	//log:1
-			macro.text = woas.parser._make_preformatted(text, "color:red");
+			macro.text = woas.parser._make_preformatted(text, "color:#f00");
 		}
 		return macro;
 	},

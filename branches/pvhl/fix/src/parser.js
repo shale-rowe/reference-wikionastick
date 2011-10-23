@@ -1,9 +1,59 @@
+/* PVHL: Temporary discussion of heading IDs (to be removed later)
+
+I have struggled for a long time to find a good answer to the multiple issues
+with WoaS' heading ID implementation and tried many approaches. A heading may
+have formatting in it, including links, perhaps even nowiki text. To me this is
+a good thing.
+
+Also, 'Basic HTML data types' (http://www.w3.org/TR/html4/types.html#type-cdata)
+says in part: "ID and NAME tokens must begin with a letter ([A-Za-z]) and may be
+followed by any number of letters, digits, hyphens ("-"), underscores ("_"),
+colons (":"), and periods (".")" However, ':' needs to be encoded, so just '-_.'
+are simple. According to this spec a heading that starts with a numeral is not
+allowed.
+
+So:
+* A change to the formatting -- or changing some of the text to a link --
+  currently changes the ID.
+* My current fix attempts added the link and/or formatting to the TOC (not sure
+  what 12 did, but not nice either)
+* If I am writing in a non-English language the current ID methods may fail
+  completely.
+* Simply using the heading text can break the W3C spec (may be important)
+
+Solution to the above:
+
+1) Heading/TOC will be generated after all other parsing is complete.
+2) Heading has all HTML stripped and snippet entries reified.
+4) The charCode at each position is multiplied by its place and added to total.
+5) The ID is 'S' plus this number.
+6) A section reference can be in this form or the displayed text of the heading
+   (i.e. just the rendered text charactersn, not the markup: 'hi' not '*hi*').
+7) Any section reference handed in at start is passed through decodeURIComponent
+   and converted if needed.
+
+The issue of the ID changing with text changes will not be addressed, nor will
+the possibility of ID collision from repeated headings. I am fixing this in my
+new project by allowing the (optional) simple declaration of a heading ID.
+(Essentially: a code and/or macro tells the parser to add a special reference
+(the heading, at creation, and/or SHA256 hashed, and/or a user provided ID?);
+this id is then always used for this section using a simple alias mechanism.)
+
+Examples:
+heading_anchor('hi'): S314
+heading_anchor(2 kanji characters): S75216
+heading_anchor(fairly long kanji sentance): S4804659
+heading_anchor('Any section reference handed in at start': S77498
+heading_anchor(''): not allowed
+*/
+
+
 // module @parser
 woas.parser = {
 
 render_title: null, // title of page being rendered
 has_toc: null,
-toc: "",
+toc: [],
 force_inline: false, // stops layout being broken when presenting search results
 inline_tags: 0,
 _parsing_menu: false, // true when we are parsing the menu page
@@ -31,12 +81,10 @@ reAutoLinks: /(?:(https?|ftp|file)|[a-zA-Z]+):\/\/(?:[^\s]*[^\s*.;,:?!\)\}\]])+/
 reAutoLinksNo: /[a-zA-Z]+:\/\/(?:[^\s]*[\/*_])+/g,
 // stops automatic br tag generation for listed tags
 reBlkHtml: /^(p|div|br|blockquote|[uo]l|li|table|t[rhd]|tbody|thead|h[1-6r]|center)$/i,
-reBoldSyntax: /([^\w\/\\])\*([^\*\n]+)\*/g,
 reDry: /(\{\{\{[\s\S]*?\}\}\}|<<<[\s\S]*?>>>|<\!--[\s\S]*?-->)/g,
 reHasDNL: /^([ \t]*\n)/,
 // DEPRECATED "!" syntax is supported but will be removed soon
 reHeading: /^([\!=]{1,6})[ \t]*(.*?)[ \t]*(?:\1?)$/gm,
-reHeadingNormalize: /[^a-zA-Z0-9]/g,
 reHtml: /([ \t]*)((?:(?:[ \t]*)?<\/?([^<\/\s>]+)[^<>]*>)+)([ \t]*\n)?/g,
 reListReap: /^([\*#@])[ \t].*(?:\n\1+[ \t].+)*/gm,
 reListItem: /^([\*#@]+)[ \t]([^\n]+)/gm,
@@ -92,21 +140,28 @@ _init: function() {
 
 // create a preformatted block ready to be displayed
 _make_preformatted: function(text, add_style) {
-	var cls = "woas_nowiki", tag = "tt", p = text.indexOf("\n");
+	var cls, tag, p = text.indexOf("\n");
 	if (p !== -1) {
 		// remove the first newline to be compliant with old parsing
-		if (p===0) { text = text.substr(1); }
-		cls += " woas_nowiki_multiline";
-		tag = "pre";
+		if (p === 0) { text = text.substr(1); }
+		cls = " woas_nowiki_multiline";
+		tag = "div";
+	} else {
+		cls = "woas_nowiki";
+		tag = "tt";
 	}
 	return this._raw_preformatted(tag, text, cls, add_style);
 },
 
 _raw_preformatted: function(tag, text, cls, add_style) {
-	if (typeof add_style !== "undefined") { add_style = " style=\"" + add_style + "\""; }
-	else { add_style = ""; }
-	return "<" + tag + " class=\"" + cls + "\"" + add_style + ">"
-		+ woas.xhtml_encode(text) + "</" + tag + ">";
+	add_style = add_style ? ' style="' + add_style + '"' : '';
+	// PVHL: IE can't do pre without windows newlines
+	if (woas.browser.ie) {
+		text = text.replace(/\n/g, '\r\n');
+	} else {
+	}
+	return "<" + tag + " class=\"" + cls + "\"" + add_style + ">" +
+		woas.xhtml_encode(text) + "</"+tag+">";
 },
 
 // render a single wiki link
@@ -148,7 +203,7 @@ _render_wiki_link: function(target, label, snippets, tags, export_links) {
 
 	// create section heading info
 	if (hashloc !== -1) {
-		gotohash = this.heading_anchor(page.substr(hashloc + 1));
+		gotohash = this.heading_anchor(page.substr(hashloc + 1), true);
 		pg = page.substr(0, hashloc);
 	} else
 		pg = page;
@@ -181,7 +236,7 @@ _render_wiki_link: function(target, label, snippets, tags, export_links) {
 	return woas.parser.place_holder(snippets, str);
 },
 
-_transclude: function (str, $1) {
+_transclude: function (str, $1, img_galley) {
 	var that = woas.parser,
 		parts = $1.split("|"),
 		templname = parts[0],
@@ -206,6 +261,11 @@ _transclude: function (str, $1) {
 	// template retrieval error
 	if (P.body === null) {
 		--that._transcluding;
+		if (img_galley) {
+			// stop double message for encrypted image
+			return that.place_holder(that._snippets, that.render_error('[<!-- -->'
+				+str.substr(1), "#8709")+'\n');
+		}
 		// show an error with empty set symbol
 		return that.place_holder(that._snippets, that.render_error(str, "#8709"));
 	}
@@ -213,16 +273,18 @@ _transclude: function (str, $1) {
 	if (is_emb) {
 	//woas.log("Embedded file transclusion: "+templname);	// log:0
 		if (woas.is_image(templname)) {
-			var img, img_name = woas.xhtml_encode(templname.substr(templname.indexOf("::")+2));
+			var img, img_name = woas.xhtml_encode(templname.substr(templname.indexOf("::")+2)),
+				img_cls;
+			img_cls = img_galley ? 'woas_img_list' : 'woas_img';
 			if (that._export_links) {
 				// check that the URI is valid
 				var uri=woas.exporter._get_fname(templname);
 				if (uri == '#')
 					img = that.render_error(templname, "#8709");
 				else
-					img = "<" + "img class=\"woas_embedded\" src=\"" + uri + "\" alt=\"" + img_name + "\" ";
+					img = "<" + "img class=\""+img_cls+"\" src=\"" + uri + "\" alt=\"" + img_name + "\" ";
 			} else
-				img = "<" + "img class=\"woas_embedded\" src=\"" + P.body + "\" ";
+				img = "<" + "img class=\""+img_cls+"\" src=\"" + P.body + "\" ";
 			if (parts.length > 1) {
 				img += parts[1];
 				// always add the alt attribute to images
@@ -234,8 +296,8 @@ _transclude: function (str, $1) {
 			if ((parts.length > 1) && (parts[1] == "raw"))
 				P.body = woas.base64.decode(P.body);
 			else
-				P.body = "<"+"pre class=\"woas_embedded\">"+
-						woas.xhtml_encode(woas.base64.decode(P.body))+"<"+"/pre>";
+				P.body = "<"+"div class=\"woas_embedded\">"+
+						woas.xhtml_encode(woas.base64.decode(P.body))+"<"+"/div>";
 		}
 		P.body = that.place_holder(that._snippets, P.body);
 	} else { // not embedded
@@ -268,21 +330,21 @@ dry: function(P, NP, snippets) {
 extend_syntax: function(P) {
 },
 
-heading_anchor: function(s) {
-	// apply a hard normalization
-	// WARNING: will not preserve heading ids uniqueness
-	// PVHL: why not use encodeURIComponent here instead?
-	return s.replace(this.reHeadingNormalize, '_')
-},
 
-heading_replace: function(str, $1, $2) {
-	var heading = $2, len = $1.length, anchor = woas.parser.heading_anchor(heading);
-	if (typeof $2 === 'undefined' || $2 === '') { return str; }
-	if (woas.parser.has_toc) {
-		woas.parser.toc += String("#").repeat(len)+" [[#"+anchor + "|" + heading + "]]\n";
+// Create a W3C-spec-legal ID from heading using quick & simple hash.
+// The same string produces the same hash, so headings need to be unique
+//   or the first match will be moved to (could add editor alert).
+// 's' is heading text; not empty, straight unicode text - no HTML
+// 'check' (optional) forces test for already transformed anchor
+heading_anchor: function(s, check) {
+	if (check && /^S\d+$/.test(s)) {
+		return s;
 	}
-	return "<"+"h"+len+" class=\"woas_heading\" id=\"" + anchor +
-		"\">" + heading + "<"+"/h"+len+">" + woas.parser.NL_MARKER;
+	var id = 0, i = 0, il;
+	for (il = s.length; i < il;) {
+		id += s.charCodeAt(i) * ++i;
+	}
+	return 'S' + id;
 },
 
 import_disable: function(NP, js, macros) {
@@ -486,7 +548,7 @@ parse_nowiki: function(P, snippets) {
 	var that = this;
 	P.body = P.body.replace(this.reNowiki, function (str, n1, nw, n2, dynamic_nl) {
 		if (n1 || n2 || nw.indexOf("\n") !== -1) {
-			nw = woas.parser._raw_preformatted("pre", nw, "woas_nowiki woas_nowiki_multiline");
+			nw = woas.parser._raw_preformatted("pre", nw, "woas_nowiki_multiline");
 			return that.place_holder_dnl(snippets, nw, dynamic_nl);
 		} else {
 			nw = woas.parser._raw_preformatted("tt", nw, "woas_nowiki");
@@ -607,10 +669,10 @@ syntax_parse: function(P, snippets, tags, export_links, has_toc) {
  */
 	// remove the required \n between same-type lists by marking it for removal
 	// (so always one less \n than typed between lists of the same type)
-	//.replace(/^([*#@])+[ \t].*\n(?=\n+\1[ \t].)/gm, '$&' + this.NL_MARKER)
+	//P.body = P.body.replace(/^([*#@])+[ \t].*\n(?=\n+\1[ \t].)/gm, '$&' + this.NL_MARKER)
 
 	// put HTML tags and tag sequences away (along with attributes)
-	.replace(this.reHtml, function(str, ws, tags, last, dnl) {
+	P.body = P.body.replace(this.reHtml, function(str, ws, tags, last, dnl) {
 		// stop certain html block tags from having a br tag appended when at line end
 		if (that.reBlkHtml.test(last))
 			return ws + that.place_holder_dnl(snippets, tags, dnl);
@@ -635,10 +697,10 @@ syntax_parse: function(P, snippets, tags, export_links, has_toc) {
 	// italics/underline/bold all operate on a single line
 	// italics (needs to be done before code that adds html)
 	// PVHL: bug-fix - can't use \w as in bold/underline as it rejects '_'
-	//   */_ need a rewrite (again) so that Me*n*u works, 9/3/83 doesn't, etc.
+	//   *_/ need a rewrite (again) so that Me*n*u works, 9/3/83 doesn't, etc.
 	//   Just needs simpler capture with another test regexp for in word stuff.
 	//   Also need to combine these; get tables and lists to put away HTML as above?
-	//   Use word break instead? Recurse for proper */_ nesting, etc? Line by line simple
+	//   Use word break instead? Recurse for proper *_/ nesting, etc? Line by line simple
 	.replace(/(^|[^a-zA-Z0-9])\/(.+?)\//mg, function(str, $1, $2) {
 		return $1+"<"+"em>"+$2+"<"+"/em>";
 	})
@@ -662,25 +724,37 @@ syntax_parse: function(P, snippets, tags, export_links, has_toc) {
 		return $1+"<"+"strong>"+$2+"<"+"/strong>";
 	})
 
-	// headings - only h1~h6 are parsed
-	.replace(this.reHeading, this.heading_replace)
-
 	// horizontal rulers: multiline RE used; adding NL_MARKER will remove the \n following.
 	.replace(this.reRuler, this._HR + this.NL_MARKER);
 
 	// other custom syntax should go into this callback
 	this.extend_syntax(P);
 
+	// headings - only h1~h6 are parsed;
+	P.body = P.body.replace(this.reHeading, function(str, depth, heading) {
+		//that.heading_replace(depth, heading, snippets);
+		if (!heading) { return str; } // needed?
+		var anchor, toc_entry, len = depth.length;
+		// remove any markers and html
+		toc_entry = heading.replace(that.reBaseSnippet, function (str, $1) {
+				return snippets[parseInt($1)];
+			})
+			.replace(/(<\/?\w+[^>]*>)+/g, '');
+		anchor = that.heading_anchor(toc_entry);
+		if (that.has_toc) { // [level, anchor, straight heading text, ...]
+			that.toc.push(len);
+			that.toc.push(anchor);
+			that.toc.push(toc_entry);
+		}
+		return "<"+"h"+len+" class=\"woas_heading\" id=\"" + anchor +
+			"\">" + heading + "<"+"/h"+len+">" + woas.parser.NL_MARKER;
+	});
+
 	// replace [[Special::TOC]]
 	if (has_toc) {
-		// replace the TOC placeholder with the real TOC
-		var tmp1 = {body:that.toc.replace(that.reListReap, that.parse_lists)};
-		that.syntax_parse(tmp1, snippets, tags, export_links);
-		//alert(tmp1.body)
-		P.body = P.body.replace(that.marker+"TOC",
-				"<"+"div class=\"woas_toc\"><"+"p class=\"woas_toc_title\">Table of Contents<" +
-				"/p>" +	tmp1.body + "<"+"/div>" );
-		this.toc = "";
+		P.body = P.body.replace(this.marker+"TOC", function() {
+			return that.toc_render(snippets);
+		});
 	}
 
 	// clear dynamic newlines
@@ -700,12 +774,51 @@ syntax_parse: function(P, snippets, tags, export_links, has_toc) {
 	snippets = null;
 },
 
+// override to generate a different style of TOC
+toc_body: '<'+'div id="woas_toc"><' +
+	'div id="woas_toc_title"><'+'a onclick="d$.toggle(\'woas_toc_content\')"' +
+	'>%s<'+'/a><'+'/div><'+'div id="woas_toc_content">%s<'+'/div><'+'/div>',
+toc_line: '<'+'div class="woas_toc_h%s"><' +
+	'a class="woas_link" onclick="woas.go_to(\'#%s\')">%s<'+'/a><'+'/div>',
+// to allow overriding of TOC line rendering
+toc_line_render: function(level, count, anchor, heading) {
+	// the count array could be used for section numbering; e.g. 1.1.2
+	// for current count just use count[level]
+	return this.toc_line.sprintf(level, anchor, heading);
+},
+// replace the TOC placeholder with the real TOC
+// This function should not need to be overwritten; toc_line_render, toc_line,
+// & toc_body should be sufficient to generate any desired TOC.
+toc_render: function() {
+	// this.toc: [level, anchor, heading text, level, anchor, ...]
+	var i, il, j, tmp = [], count = [], level;
+	for (i = 0, il = this.toc.length; i < il;) {
+		level = this.toc[i++];
+		count[level] = count[level] ? count[level] + 1 : 1;
+		for (j = level + 1; j < 7; ++j) {
+			count[j] = 0;
+		}
+		// toc_line_render(level, count, anchor, heading)
+		tmp.push(this.toc_line_render(level, count,  this.toc[i++],
+			this.toc[i++]));
+	}
+	this.toc = [];
+	return this.toc_body.sprintf(woas.i18n.TOC, tmp.join(''));
+},
+/*
+[[Special::TOC]]
+== hi
+=== t{{{h}}}ere [[Matey]]
+== /honey/ *pie*
+
+*/
+
 //API1.0
 //TODO: offer transclusion parameters argument
-transclude: function(title, snippets, export_links) {
+transclude: function(title, snippets, export_links, img_galley) {
 	this._snippets = snippets;
-	this._export_links = export_links ? true : false;
-	var rv = this._transclude("[[Include::"+title+"]]", title);
+	this._export_links = !!export_links;
+	var rv = this._transclude("[[Include::"+title+"]]", title, img_galley);
 	this._export_links = this._snippets = null;
 	return rv;
 },

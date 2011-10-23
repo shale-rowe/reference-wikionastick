@@ -141,7 +141,7 @@ woas._native_wsif_save = function(path, src_fname, locking, single_wsif, inline_
 			pi = plist[ipi];
 		// do skip physical special pages
 		if (!save_all) {
-			if (/^(Special::|WoaS::Help::|WoaS History)/.test(page_titles[pi])) continue;
+			if (/^(Special::|WoaS::Help|WoaS History$)/.test(page_titles[pi])) continue;
 			if (this.static_pages2.indexOf(page_titles[pi]) !== -1) continue;
 		}
 		var record = this.wsif.header(pfx+"title", this.ecma_encode(page_titles[pi]))+

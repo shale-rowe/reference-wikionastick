@@ -128,7 +128,7 @@ woas.is_reserved = function(page) {
 };
 
 woas.is_menu = function(title) {
-	return title.substr(-6) === "::Menu";
+	return title.substr(-6) === '::Menu' && title !== 'WoaS::Help::Menu';
 };
 
 // returns namespace with trailing ::
@@ -191,7 +191,7 @@ woas.page_exists = function(page) {
 // with two trailing colons 'xx::'
 woas._get_namespace_pages = function (ns) {
 	var pg = [], i, l;
-	switch (ns.substr(0, ns.length-2)) {
+	switch (ns.substr(0, ns.indexOf('::'))) {
 	case "Locked":
 		return this.special_encrypted_pages(true);
 	case "Unlocked":
@@ -436,8 +436,7 @@ woas._get__embedded = function (cr, pi, etype) {
 		this.parser.pre_parse(P, snippets);
 		this.parser.syntax_parse(P, snippets);
 		
-		xhtml = "<"+"pre id='woas_file_ct' class=\"woas_nowiki woas_embedded\">"+
-			this.xhtml_encode(pview_data)+"<"+"/pre>"+
+		xhtml = this.parser._raw_preformatted("pre", pview_data, 'woas_embedded')+
 			pview_link+"<"+"br /><"+"hr />"+this.i18n.FILE_SIZE+": "+_convert_bytes(ext_size)+
 			"<"+"br />" + this.last_modified(this.config.store_mts ? page_mts[pi] : 0)+
 			"<"+"br /><"+"br />XHTML transclusion:"+P.body+
@@ -508,7 +507,6 @@ woas._embed_process = function(etype) {
 	// save this last page
 	this.commit([page_titles.length-1]);
 	
-	this.refresh_menu_area();
 	return this.set_current(current, true);
 };
 
@@ -671,8 +669,8 @@ woas.set_current = function (cr, interactive, keep_fwd) {
 								if (this.plugins.is_external) {
 									text = this.plugins.describe_external(text);
 								} else
-									text = this.parser._raw_preformatted('div', text,
-										'woas_core_page woas_nowiki woas_nowiki_multiline');
+									text = this.parser._raw_preformatted('pre', text,
+										'woas_core_page');
 							}
 						} else {
 							text = this.get_text(real_t);
@@ -687,8 +685,8 @@ woas.set_current = function (cr, interactive, keep_fwd) {
 									case "CSS::Boot":
 									case "CSS::Custom":
 										// page is stored plaintext
-										text = this.parser._raw_preformatted('div', text,
-											'woas_core_page woas_nowiki woas_nowiki_multiline');
+										text = this.parser._raw_preformatted('pre', text,
+											'woas_core_page');
 									break;
 									default:
 										// help pages and related resources
@@ -702,7 +700,6 @@ woas.set_current = function (cr, interactive, keep_fwd) {
 							this.pager.decrypt_failed();
 							return false;
 						}
-						this._add_namespace_menu(namespace);
 						if (namespace.length)
 							cr = real_t;
 						return this.load_as_current(cr, text, this.config.store_mts ? page_mts[pi] : 0, true);
@@ -714,7 +711,6 @@ woas.set_current = function (cr, interactive, keep_fwd) {
 							this.pager.decrypt_failed();
 							return false;
 						}
-						this._add_namespace_menu(namespace);
 						if (namespace.length)
 							cr = namespace + "::" + cr;
 						var mts;
@@ -753,17 +749,13 @@ woas.set_current = function (cr, interactive, keep_fwd) {
 		cr = page_titles[pi];
 		mts = page_mts[pi];
 	}
-	this._add_namespace_menu(namespace.length ? cr.substring(0, cr.lastIndexOf("::")) : "");
 	return this.load_as_current(cr, this.parser.parse(text, false, this.js_mode(cr)),
 		this.config.store_mts ? mts : 0, set_b, keep_fwd);
 };
 
 // enable safe mode for non-reserved pages
 woas.js_mode = function(cr) {
-	if (this.config.safe_mode)
-		return this.is_reserved(cr) ? 1 : 3;
-//	else
-	return 1;
+	return this.config.safe_mode && !this.is_reserved(cr) ? 3 : 1;
 };
 
 // no is optional; used by recently modified page
@@ -792,7 +784,9 @@ woas.load_as_current = function(title, xhtml, mts, set_b, keep_fwd) {
 	this.refresh_mts(mts);
 	this.history.go(title, keep_fwd);
 	current = title;
+	this.refresh_menu();
 	// activate menu or page scripts
+// PVHL: FIX = menu can be activated twice
 	this.scripting.activate(this.is_menu(current) ? "menu" : "page");
 	this._set_title(title);
 	this.update_view();
@@ -826,37 +820,6 @@ woas._perform_lock = function(pi) {
 		pages[pi] = this.AES.encrypt(pages[pi]);
 		page_attrs[pi] |= 0x2;
 	}
-};
-
-woas._add_namespace_menu = function(namespace) {
-	var pi, menu, ns, tmp;
-	if (this.current_namespace === namespace) {	return;	}
-	if (namespace === "") {	pi = -1; }
-	else {// locate the menu for current namespace, or a previous one if not found
-		ns = namespace;
-		do {
-//		this.log("namespace menu testing "+ns+"::Menu");	// log:0
-			pi = this.page_index(ns+"::Menu");
-			if (pi !== -1) { break; }
-			tmp = ns.lastIndexOf("::");
-			ns = tmp === -1 ? "" : ns.substring(0, tmp);
-		} while (ns !== "");
-	}
-	if (pi === -1) {
-//		this.log("no namespace menu found");	// log:0
-		this.setHTMLDiv(d$("woas_ns_menu_content"), "");
-		if (this.current_namespace !== "") {
-			this.ui.display({"no_ns_menu": true});
-		}
-	} else {
-//		this.log("namespace menu found: "+page_titles[pi]);	// log:0
-		menu = this.get__text(pi);
-		this.setHTMLDiv(d$("woas_ns_menu_content"), menu === null ? ""
-			: this.parser.parse(menu, false, this.js_mode(namespace+"::Menu")) );
-		// show sub-menu
-		this.ui.display({"no_ns_menu": false});
-	}
-	this.current_namespace = namespace;
 };
 
 // auto-save thread
@@ -1011,14 +974,12 @@ woas._early_render = function() {
 	//   should add ability to give the href of pages and sections to user
 	var loc = woas.trim(unescape(document.location.href.split('?')[1] || '')),
 		page = loc.split('#')[0] || '',
-		hash = document.location.href.split('#')[1] || '',
+		hash = document.location.href.split('#')[1],
 		cr_bkup = current;
-	// easier code if use regexp: (?) - maybe not
-	//   m = /\??(([^#]*)\#?(.*))/.exec(document.location.href)
-	//   loc = woas.trim(unescape(m[1]) || ''; page = = woas.trim(unescape(m[2]) || ''; hash = m[3] || ''
+	hash = hash ? '#' + woas.parser.heading_anchor(unescape(hash), true) : ''; // see if IE needs null check
 	if (!page || page_titles.indexOf(page) === -1) {
-		// no such loc;
-		loc = current + (hash ? '#' + hash : '');
+		// no such page;
+		page = current;
 	} else {
 		cr_bkup = page;
 	}
@@ -1028,17 +989,16 @@ woas._early_render = function() {
 	// goto requested page or default (current; always exists by this point)
 	// force go_to to load even if current
 	current = '';
-	woas.go_to(loc);
+	woas.go_to(page + hash);
 	current = cr_bkup;
-	woas.refresh_menu_area();
 //	this.progress_finish();
 	woas.ui.display({wait: false});
 	// launching post-load hook
 	woas.post_load();
 	// PVHL: awful hack may not be needed once scroll_wrap used
-	if (hash && woas.browser.webkit) {
-		setTimeout('woas.go_to("#'+hash+'")',0);
-	}
+	//if (hash && woas.browser.webkit) {
+	//	setTimeout('woas.go_to("'+hash+'")',0);
+	//}
 };
 
 // disable edit-mode after cancel/save actions and on initial load
@@ -1294,16 +1254,12 @@ woas.save = function() {
 				// actually set text only if it was changed
 				if (do_save)
 					this.pager.set_body(new_title, raw_content);
-				var menu = false;
-				if (this.is_menu(new_title)) {
-					menu = true;
-				} else {
-					back_to = new_title;
-				}
+				var menu = this.is_menu(new_title);
 				// update the plugin if this was a plugin page
 				// NOTE: plugins are not allowed to be renamed, so
 				// old title is equal to new title
 				if (!menu) {
+					back_to = new_title;
 					var _pfx = "WoaS::Plugins::";
 					if (new_title.substr(0, _pfx.length) === _pfx) {
 						// we do not directly call _update_plugin because
@@ -1320,7 +1276,6 @@ woas.save = function() {
 		this.save_page(current);
 	}
 	this.set_current(back_to, true, true); // don't clear fwd history
-	this.refresh_menu_area();
 	this.disable_edit();
 };
 
