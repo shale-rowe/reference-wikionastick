@@ -108,9 +108,9 @@ body {
 <body onload="woas._on_load()" onunload="woas._on_unload()">
 <div id="loading_overlay"><noscript>If you are seeing this text, your browser is not javascript-enabled.</noscript><div id="woas_wait_text">Loading Wiki on a Stick...</div></div>
 <div id="woas_pwd_mask"><div id="woas_pwd_query">
-<h3>Enter a decryption password</h3>
+<h3>Enter a password</h3>
 <p><input id="woas_password" size="40" type="password" onkeydown="woas._password_ok(this, event)" /></p>
-<p id="woas_password_desc">Password will be used next time you attempt to access an encrypted page, and then kept or removed depending on the AES key caching option you have chosen.</p>
+<p id="woas_password_desc">The password you enter here will be used the next time you attempt to access an encrypted page or lock/unlock a page. It will then be kept or removed depending on the AES key caching option you have chosen in <a class="woas_link" onClick="woas.go_to('WoaS::Help::Special::Options')">Special::Options</a>.</p>
 <p><input value="OK" onclick="woas._password_ok(d$('woas_password'))" class="woas_button" type="button" />&nbsp;<input value="Cancel" onclick="woas._password_cancel()" class="woas_button" type="button" /></p>
 </div></div>
 <div id="woas_header_wrap"><div id="woas_header"><div class="woas_nav">
@@ -136,10 +136,8 @@ body {
 </div></div>
 <div id="woas_scroll_wrap"><div id="woas_content">
 <div id="woas_menu_wrap"><div id="woas_menu_pad">
-<a id="woas_menu_edit" title="Edit menu" onclick="edit_menu()"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAPFBMVEWlpaX09PSlpaUoKCgNDQ0NDQ0oKCg3NzdKSDxeWkZoZ2CEekWGhoWlpaXFxcXOt1nY2Nfl5eP09PT///+9MP7bAAAABXRSTlMAAAHT4Mm2GCIAAAB5SURBVBgZBcGBYcMwCAAwgSH7/9qtqbEnRScAztyKnzULcPfvKZl/GrD8rdX52e9hzpE5hf4+3i6gkNnWR4NE2/KZHYHErH1H7BkkorxU7EQi13M3NRuJM1GD5zsk7pnsD3IoxKK9j1kUEvq+qo8yB4glv/dGBwC4/7LOOiWq4O4oAAAAAElFTkSuQmCC" /><span>Edit</span></a>
 <div id="woas_menu" ondblclick="menu_dblclick()"></div>
-<div id="woas_ns_menu_content" ondblclick="woas.ui.ns_menu_dblclick()"></div>
-<div id="woas_ns_menu_edit_button"><input class="woas_button_menu" value="Edit namespace menu" onclick="woas.ui.edit_ns_menu()" type="button" /></div>
+<a id="woas_menu_edit" title="Edit menu" onclick="woas.ui.edit_menu()"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAPFBMVEWlpaX09PSlpaUoKCgNDQ0NDQ0oKCg3NzdKSDxeWkZoZ2CEekWGhoWlpaXFxcXOt1nY2Nfl5eP09PT///+9MP7bAAAABXRSTlMAAAHT4Mm2GCIAAAB5SURBVBgZBcGBYcMwCAAwgSH7/9qtqbEnRScAztyKnzULcPfvKZl/GrD8rdX52e9hzpE5hf4+3i6gkNnWR4NE2/KZHYHErH1H7BkkorxU7EQi13M3NRuJM1GD5zsk7pnsD3IoxKK9j1kUEvq+qo8yB4glv/dGBwC4/7LOOiWq4O4oAAAAAElFTkSuQmCC" /><span>Edit</span></a>
 </div></div>
 <div id="woas_page_wrap">
 <div id="woas_page" ondblclick="page_dblclick()"></div>
