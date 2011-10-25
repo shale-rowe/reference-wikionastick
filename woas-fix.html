@@ -5,11 +5,11 @@
 <script woas_permanent="1" type="text/javascript">
 /* <![CDATA[ */
 
-/* DFQRCTsKlU-0000002-START */
+/* DFQRCTsKlU-0000001-START */
 
 var woas = {"version": "0.12.0"};
 
-var __marker = "DFQRCTsKlU-0000002";
+var __marker = "DFQRCTsKlU-0000001";
 
 woas["config"] = {
 "permit_edits":true,
@@ -135,10 +135,10 @@ var page_titles = [
 'WoaS::Help::Go to a page'
 ];
 
-/* DFQRCTsKlU-0000002-DATA */
+/* DFQRCTsKlU-0000001-DATA */
 var page_attrs = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
 
-var page_mts = [0,0,0,0,1319371721,0,0,0,0,0,0,0,0,1319371590,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1318738575,1318739163,1318740655,1318741670];
+var page_mts = [0,0,0,0,1319533010,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1318738575,1318739163,1318740655,1318741670];
 
 var pages = [
 '[[Main Page]]\n\
@@ -194,7 +194,8 @@ var pages = [
 \x3Cfieldset class="woas_input_wrap"\x3E\x3Clegend\x3ESource\x3C/legend\x3E\\\n\
 \x3Clabel class="woas_input_wrap_left"\x3EFile: \x3Cinput class="woas_input_wrap_inline" id="filename_" type="file" /\x3E\x3C/label\x3E\n\
 \x3Clabel\x3E\x3Cinput type="checkbox" id="woas_cb_import_config" onclick="woas.importer.i_config=this.checked"\x3EImport configuration (except WSIF datasource settings)\x3C/label\x3E\n\
-\x3Clabel\x3E\x3Cinput type="checkbox" id="woas_cb_import_content" onclick="woas.ui._import_load_change()"\x3EImport content\x3C/label\x3E\x3Clabel\x3E\x3Cinput type="checkbox" class="woas_input_wrap_inline" id="woas_cb_import_styles" onclick="woas.importer.i_styles=this.checked"\x3EImport custom CSS\x3C/label\x3E\n\
+\x3Clabel\x3E\x3Cinput type="checkbox" id="woas_cb_import_content" onclick="woas.ui._import_load_change()"\x3EImport content\x3C/label\x3E\n\
+\x3Clabel\x3E\x3Cinput type="checkbox" id="woas_cb_import_styles" onclick="woas.ui._import_load_change()"\x3EImport custom CSS\x3C/label\x3E\n\
 \x3C/fieldset\x3E\\\n\
 [[Include::WoaS::ImportSettings]]\\\n\
 \x3Cscript type="text/javascript"\x3E\n\
@@ -245,16 +246,17 @@ This project wouldn\'t be what it is without the help of other people. If you co
 '= Buyer Beware!\n\
 *Please be aware* that this version is unfinished. I believe it is safe with data, but it is still being updated. Almost done. Also, the contents of this page don\'t match {{{fix/index.wsif}}}.\n\
 \n\
-* *Check out the nice jump to [[WoaS History#The principles|sections]] (and the folding TOC once you get to that page. Erasing the wiki has been improved.*\n\
+* *Check out the nice jump to [[WoaS History#The principles|sections]] (and the folding TOC once you get to that page). Erasing the wiki has also been improved.*\n\
 \n\
 \n\
-* *This version uses a completely new way to control the layout* (adding CSS classes to the HTML tag). It works very well but means that if you try plugins that change the display style (block/hidden) of the main HTML it will likely break the file. This will be fixed later by loading layout from a page (or code) on start up. This new code makes future theming and skinning much easier to implement. (This is a key issue for me.) It also stops the multiple changes that  mess up version control and diffs.\n\
+* The sub-menu system has been changed. Sub-menus now use their own page to replace the main menu; this allows much more versatile designs.\n\
+* This version uses a completely new way to control the layout (adding CSS classes to the HTML tag). It works very well but means that if you try plugins that change the display style (block/hidden) of the main HTML it will likely break the file. This will be fixed later by loading layout from a page (or code) on start up. This new code makes future theming and skinning much easier to implement. (This is a key issue for me.) It also stops the multiple changes that  mess up version control and diffs.\n\
 * I haven\'t finished with export to HTML yet -- or even checked it recently; much of the layout and IDs have changed during this phase. I will make it right before release.\n\
-* Some lists may actually have slowed down a little bit as they are now much more capable; the /Orphaned Pages/ list is now many times faster in larger files.\n\
+* Some lists may actually have slowed down a little bit as they are now much more capable; the /Orphaned Pages/ list is now many times faster in larger files (time is square root of original time).\n\
 * I found it took a few hours to get used to the new page/tag list format, because it works differently from 0.12.0 (so I kept going to pages instead of toggling DIVs); once used to it I found it much easier to use. And I think it looks much better. (The 0.12.0 look actually breaks in one major browser on my system.)\n\
 * I have rearranged some icons to make the code simpler and because it is more consistent to my eyes.\n\
 * The locks are now opposite in looks to 0.12.0; it just makes more sense to me.\n\
-* Though I have fixed up the /Password Entry/ layout (and made a new icon for it) I may change it to use a page (like all the other functions), and may eventually remove the need for it entirely\n\
+* Though I have fixed up the /Password Entry/ layout (and made a new icon for it) I may change it to use a page (like all the other functions), and may eventually remove the need for it entirely. It now accepts the enter key.\n\
 \n\
 Again, some things are in transition. Some pages are not finished, but things are getting close.\n\
 \n\
@@ -338,7 +340,7 @@ Apart from the above, your normal usage of encrypted pages can be considered sec
 \x3Clabel\x3E\x3Cinput type="checkbox" id="cb_save_on_quit" onclick="woas.config.save_on_quit = d$.checked(\'cb_save_on_quit\')" /\x3EAutomatically save options before quitting (if changed)\x3C/label\x3E\n\
 \x3Clabel\x3E\x3Cinput type="checkbox" id="cb_safe_mode" onclick="woas.config.safe_mode = d$.checked(\'cb_safe_mode\')" /\x3EEnable safe mode with embedded scripts and plugins not executed (/requires reload/)\x3C/label\x3E\n\
 \x3Clabel\x3E\x3Cinput type="checkbox" id="cb_allow_diff" onclick="woas.config.allow_diff = d$.checked(\'cb_allow_diff\')" /\x3EMake merge/diff of WoaS XHTML/WSIF data source easier\x3C/label\x3E\n\
-\x3Clabel\x3E\x3Cinput type="checkbox" id="cb_store_mts" onclick="woas.config.store_mts = d$.checked(\'cb_store_mts\')" /\x3EStore and display last modified timestamp\x3C/label\x3E\n\
+\x3Clabel\x3E\x3Cinput type="checkbox" id="cb_store_mts" onclick="var r = woas.config.store_mts = d$.checked(\'cb_store_mts\'); woas.ui.display({no_mts:!r})" /\x3EStore and display last modified timestamp\x3C/label\x3E\n\
 \x3Clabel\x3E\x3Cinput type="checkbox" id="cb_rem_history" onclick="woas.config.nav_history = d$.checked(\'cb_rem_history\')" /\x3EStore current page and navigation history\x3C/label\x3E\\\n\
 \x3C/fieldset\x3E\\\n\
 \x3Cfieldset class="woas_input_wrap woas_no_option"\x3E\x3Clegend\x3EWSIF settings\x3C/legend\x3E\\\n\
@@ -544,8 +546,7 @@ If the file is already in read-only mode the /Prevent Edits/ button is not displ
 ',
 '\x3Cdiv\x3E\x3Cinput class="woas_button_top" title="Import a plugin" value="Import plugin..." onclick="woas.go_to(\'Special::ImportWSIF\')" type="button" /\x3E\x3Cinput class="woas_button_top" title="Create a new plugin" value="Create plugin..." onclick="javascript:_woas_new_plugin()" type="button" /\x3E\x3C/div\x3E\n\
 = Installed plugins',
-'[[Special::TOC]]\n\
-= Wiki on a Stick History\n\
+'= Wiki on a Stick History\n\
 == Versions 0.01 &tilde; 0.04\n\
 \x3Csub\x3Eby Andr\u00e9 Wagner\x3C/sub\x3E\n\
 \n\
@@ -932,7 +933,7 @@ All changes will be visible immediately.\n\
 == Restore the default CSS settings\n\
 You can always restore WoaS default CSS by deleting the content of [[WoaS::CSS::Custom]].\n\
 == Import CSS rules into your wiki\n\
-You can import the CSS rules from another copy of WoaS by following the instructions for [[WoaS::Help::Import|importing]] another wiki into the current one and placing a check in the box next to *Import also CSS.*\n\
+You can import the CSS rules from another copy of WoaS by following the instructions for [[WoaS::Help::Import|importing]] another wiki into the current one and placing a check in the box next to *Import custom CSS.*\n\
 \n\
 Importing from older versions of WoaS can garble the layout of the wiki. There are two ways to avoid this:\n\
 # Manually transfer the CSS from the older version of WoaS into the [[WoaS::CSS::Custom]] page by copying and pasting it, checking the class and id of each entry against the default CSS rules on the [[WoaS::CSS::Core]] page to verify that it\'s still in use before saving your changes.\n\
@@ -2980,14 +2981,22 @@ With a combination of HTML and wiki syntax, you can create anchor links to anywh
 \x3Cinput value="BUTTONTEXT" onclick="woas.go_to(\'PAGENAME\')" type="submit" /\x3E\n\
 }}}\x3Cbr\x3E\x3Cdiv class="woas_help_text"\x3ETo create a button that opens an internal link in another tab or window.\x3C/div\x3E\n\
 ',
-'Wiki on a Stick offers various ways of using images in your pages. You can link to local image files on your drive, remote image files, or embed image files into the wiki.\n\
+'Wiki on a Stick offers various ways to use images in your pages. You can link to image files located on the Internet, network, or local drive, or embed image files into the wiki.\n\
+\n\
+The [[Image::]] namespace listing displays an image gallery. Each image is displayed on a green background so that you can tell if it contains transparency: if all you can see is a thin green border around the image (using the default CSS) then it is not transparent; if the green background shows through then it is.\n\
+\n\
+The image currently highlighted will be opened in its own page if clicked. This page shows it on a normal page background and provides info on the image and its use in the wiki.\n\
+\n\
+The format of both the image gallery and the images can be controlled using [[WoaS::Help::CSS|custom CSS]].\n\
 == Standard WoaS syntax\n\
+All supported browsers can display embedded images, except for Internet Explorer 6 & 7; IE 6 & 7 may have this capability added in a future version. If you are using a Gecko-based browser like Firefox you can also embed images. This capability will hopefully be added for other browsers in the future.\n\
+\n\
+Embedded images allow the wiki to be self-contained within a single file, but means that each image takes up 33% more space than its original file size as it is stored with Base64 encoding. Excessive use of images could affect performance, especially on less capable hardware.\n\
 === Embed an image in the wiki\n\
 This wiki provides an interface for embedding images. Each image will be given its own page, which you can use in an include link to insert the image anywhere in this wiki.\n\
-\x3C\x3C\x3Cwoas.note: Embedded images are encoded with Base64 and are 33% bigger than the original files. Since this wiki is a single file, excessive use of images may slow down performance.\n\
-\n\
-It is recommended that the image file extension be retained in the image name. Image export operations will then preserve the extension when writing out the file and that will help those browsers that infer the mime type of the image from the file extension.\x3E\x3E\x3E\n\
+\x3C\x3C\x3Cwoas.note: It is recommended that the image file extension be retained in the image name. Image export operations will then preserve the extension when writing out the file and that will help those browsers that infer the mime type of the image from the file extension.\x3E\x3E\x3E\n\
 \x3Cspan class="woas_help_text"\x3EReplace NAME in these instructions with the name of your image:\x3C/span\x3E\n\
+\n\
 *From the default menu*\n\
 # Click the *New Page* link in the menu.\n\
 # Type {{{Image::NAME}}} into the box that comes up. This will bring up the image embedding interface.\n\
@@ -3249,7 +3258,8 @@ body, div, textarea, pre, ul, ol, li {\n\
 \n\
 .woas_no_back #woas_back, .woas_no_fwd #woas_fwd, .woas_no_home #woas_home,\n\
 .woas_no_tools #woas_tools, .woas_no_edit #woas_edit,\n\
-.woas_no_lock #woas_lock, .woas_no_lock #woas_unlock {\n\
+.woas_no_lock #woas_lock, .woas_no_lock #woas_unlock,\n\
+.woas_no_debug #woas_debug {\n\
 	display: inline-block; /* IE 6-8 needs this for filter to work */\n\
 	-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=15)"; /* IE8 */\n\
 	*filter: alpha(opacity=15); /* IE 6/7 */\n\
@@ -3288,7 +3298,7 @@ body, div, textarea, pre, ul, ol, li {\n\
 .woas_view #woas_edit_mode, .woas_view #woas_edit_wrap,\n\
 .woas_edit #woas_view_mode, .woas_edit #woas_page_wrap, .woas_edit #woas_menu_wrap,\n\
 .woas_pswd #woas_scroll_wrap, .woas_pswd #woas_header_wrap, .woas_wait #woas_scroll_wrap,\n\
-.woas_no_mts #woas_mts, .woas_no_debug #woas_debug, .woas_no_log #woas_debug_console {\n\
+.woas_no_mts #woas_mts, .woas_no_log #woas_debug_console {\n\
 	display: none\n\
 }\n\
 .woas_edit #woas_edit_wrap, .woas_view #woas_page_wrap, .woas_view #woas_menu_wrap,\n\
@@ -3549,13 +3559,20 @@ explicit margins are needed for IE6/7 otherwise collapsed under certain circumst
 	font-weight: bold\n\
 }\n\
 \n\
-/* IMAGE GALLEY */\n\
-/* temporary test css */\n\
-.woas_img_list, .woas_img_list_first, .woas_img_list_last, .woas_img_list_single {\n\
-	padding-top: 1.75em;\n\
+/* IMAGE GALLERY */\n\
+a.woas_img_list, .woas_img_list_first, .woas_img_list_last, .woas_img_list_single {\n\
+	display: block;\n\
+	padding-bottom: .75em;\n\
+	padding-top: 1em;\n\
 }\n\
-a.woas_img_list {\n\
-	color: #00f;\n\
+a.woas_img_list:hover, .woas_img_list_first:hover, .woas_img_list_last:hover,\n\
+.woas_img_list_single:hover {\n\
+	background-color: #efe;\n\
+	margin-left: -1em; /* same as woas_page padding */\n\
+	margin-right: -1em;\n\
+	padding-left: 1em;\n\
+	padding-right: 1em;\n\
+	text-decoration: none;\n\
 }\n\
 img.woas_img_list {\n\
 	display: block;\n\
@@ -4009,18 +4026,18 @@ An alias is added by editing the [[WoaS::Aliases]] reserved page and adding an a
 \n\
 *$JD* is the alias, which will be replaced when found in wiki page title references, and /"John Doe"/ is the text which will replace *$JD*. You can specify any part of page titles in aliases, like namespaces or page prefixes/suffixes.\n\
 ',
-'\x3Cdiv id="woas_import_content"\x3E\x3Cfieldset class="woas_input_wrap"\x3E\x3Clegend\x3EExisting pages\x3C/legend\x3E\\\n\
+'\x3Cfieldset id="woas_import_pages" class="woas_input_wrap"\x3E\x3Clegend\x3EExisting pages\x3C/legend\x3E\\\n\
 \x3Clabel\x3E\x3Cinput type="radio" id="woas_import_ask" name="woas_import_overwrite" onclick="woas.importer.i_overwrite=3" checked="checked"\x3EAsk before overwrite\x3C/label\x3E\n\
 \x3Clabel\x3E\x3Cinput type="radio" id="woas_import_erase" name="woas_import_overwrite" onclick="woas.importer.i_overwrite=0"\x3EErase all user pages before import process\x3C/label\x3E\n\
 \x3Clabel\x3E\x3Cinput type="radio" id="woas_import_ignore" name="woas_import_overwrite" onclick="woas.importer.i_overwrite=1"\x3EIgnore\x3C/label\x3E\n\
 \x3Clabel\x3E\x3Cinput type="radio" id="woas_import_overwrite" name="woas_import_overwrite" onclick="woas.importer.i_overwrite=2"\x3EOverwrite\x3C/label\x3E\n\
 \x3C/fieldset\x3E\\\n\
-\x3Cfieldset class="woas_input_wrap"\x3E\x3Clegend\x3ESecurity\x3C/legend\x3E\\\n\
+\x3Cfieldset id="woas_import_security" class="woas_input_wrap"\x3E\x3Clegend\x3ESecurity\x3C/legend\x3E\\\n\
 \x3Cdiv class="woas_input_wrap_left"\x3E/If you don\'t trust the pages you are importing you may want to disable imported JavaScript, macros, and special WoaS pages until you can review their content./\x3C/div\x3E\n\
 \x3Clabel\x3E\x3Cinput type="checkbox" id="woas_cb_import_comment_js" onclick="woas.importer.i_comment_js=this.checked"\x3EComment JavaScript tags\x3C/label\x3E\n\
 \x3Clabel\x3E\x3Cinput type="checkbox" id="woas_cb_import_comment_macros" onclick="woas.importer.i_comment_macros=this.checked"\x3EComment macro definition/call\x3C/label\x3E\n\
 \x3Clabel\x3E\x3Cinput type="checkbox" id="woas_cb_import_no_woas" onclick="woas.importer.i_no_woas=this.checked"\x3EDo not import [[WoaS::]] namespace pages ([[WoaS::Hotkeys|hotkeys]], [[WoaS::Plugins|plugins]], and [[WoaS::Aliases|aliases]])\x3C/label\x3E\n\
-\x3C/fieldset\x3E\x3C/div\x3E\n\
+\x3C/fieldset\x3E\n\
 ',
 'Web pages can be included in a page as embedded HTML objects or in HTML iframes.\n\
 \x3C\x3C\x3Cwoas.note: Some pages may not render correctly depending on how they\'re coded. Embedding more than one web page in a wiki page will cause the final embedded web page to steal the focus when the page is loaded, so it\'s recommended to have only one per page.\x3E\x3E\x3E\n\
@@ -4148,24 +4165,25 @@ If selected a CSS stylesheet will be generated for the entire file set and impor
 ===Export menus\n\
 If selected any menu (including any sub-menu) that would show for a particular WoaS page will also be rendered in the output XHTML file; if not selected only the main page area wil be rendered and exported\n\
 ',
-'The [[Special::Import]] page provides an interface for importing the contents of a previous or current version of the wiki from an .html source file.\n\
+'The [[Special::Import]] page provides an interface for importing the contents of a current or earlier version of the wiki from an .html source file (back to v0.9.6B). Certain options are only available if the context allows.\n\
 == Source\n\
 Click the *Browse...* button to select the wiki file to import.\n\
 ===Import configuration (except WSIF datasource settings)\n\
-Imports all the settings from the [[Special::Options]] page in the source file into the destination file.\n\
-\x3C\x3C\x3Cwoas.note: The settings in the /External data source/ section of the [[Special::Options]] page will not be imported.\x3E\x3E\x3E\n\
+Imports all the settings from the [[WoaS::Help::Special::Options|Special::Options]] page in the source file into the destination file.\n\
+\x3C\x3C\x3Cwoas.note: The settings in the /[[WoaS::Help::Special::Options#WSIF Settings|WSIF settings]]/ section of the /Special::Options/ page will not be imported.\x3E\x3E\x3E\n\
 ===Import content\n\
-Imports the following pages from the source file:\n\
+Imports these pages from the source file:\n\
 * Any user-created pages.\n\
 * [[Main Page]]\n\
 * [[::Menu]]\n\
-* [[WoaS::Aliases]] Unless /Do not import WoaS:: namespace pages/ is selected\n\
-* [[WoaS::CSS::Custom]] if /Import custom CSS/ is selected\n\
-* [[WoaS::Hotkeys]] Unless /Do not import WoaS:: namespace pages/ is selected\n\
-* [[WoaS::Plugins]] Unless /Do not import WoaS:: namespace pages/ is selected\n\
+and also these pages unless /Do not import WoaS:: namespace pages/ is selected:\n\
+* [[WoaS::Aliases]]\n\
+* [[WoaS::Hotkeys]]\n\
+* [[WoaS::Plugins]]\n\
 ===Import custom CSS\n\
-Imports the [[WoaS::CSS::Custom]] page from the source file, overwriting the same page in the destination file. CSS rules from older releases of the wiki may not work properly in the current version.\n\
-\x3C\x3C\x3Cwoas.note: This option cannot be selected unless the /Import content/ option is already selected.\x3E\x3E\x3E\n\
+Imports the [[WoaS::CSS::Custom]] page from the source file, overwriting the same page in the destination file. CSS rules from older releases of the wiki may not work properly in the current version; see [[WoaS::Help::CSS#Import CSS rules into your wiki|Import CSS rules]].\n\
+\n\
+Importing custom CSS and configuration from a current WoaS version, while not importing content, is a good way to copy a custom wiki set-up.\n\
 == Existing pages\n\
 ===Erase all user pages before import process\n\
 Erases all user-created pages before importing content into the destination file. The import interface will pop up two confirmation boxes to verify that you\'re sure you want to erase the pages.\n\
@@ -4244,7 +4262,7 @@ If the wiki is erased the menu contents are slightly reduced, with less often us
 '
 ];
 
-/* DFQRCTsKlU-0000002-END */
+/* DFQRCTsKlU-0000001-END */
 
 /* ]]> */
 </script>
@@ -7418,29 +7436,47 @@ woas.ns_listing = function(root, flat_arr, folds) {
 
 // PVHL: have cleaned up and added some HTML/CSS that should help
 //   make things work in every browser, even IE6
+//   (IE6 only has a:hover and doesn't like multi-class selectors)
 woas._special_image_gallery = function(ns) {
-	var snippets = [], div = [], i, l, t,
-		p = {body:'= Pages in '+ns+' namespace\n'};
-	for(i = 0, l = page_titles.length; i < l; ++i) {
-		t = page_titles[i];
-		if (t.indexOf(ns) === 0) {
-			div.push(this.parser.transclude(t, snippets, false, true)+
-				'<'+'a class="woas_img_list" onclick="woas.go_to(\''+t+
-				'\')"'+'>'+t+'<'+'/a><'+'/div>');
+	var snippets = [], div = [], i, l, cnt, t, cls = 'woas_img_list', plus = '',
+		p = {body: '= Pages in '+ns+' namespace\n'},
+		// class, title
+		line1 = '<'+'a class="%s" onclick="woas.go_to(\'%s\')">',
+		// title
+		line2 = '<'+'div class="'+cls+'">%s<'+'/div><'+'/a>';
+	for (i = 0, l = page_titles.length, cnt = 0; i < l; ++i) {
+		if (page_titles[i].indexOf(ns) === 0) {
+			div[cnt++] = page_titles[i];
 		}
 	}
-	if (div.length) {
-		p.body += '<'+'div class="'+(div.length === 1
-			? 'woas_img_list_single' : 'woas_img_list_first')+'">'+div[0];
-	}
-	for (i = 1, l = div.length - 1; i < l; ++i) {
-		p.body += '<'+'div class="woas_img_list">'+div[i]
-	}
+	l = div.length;
+	// first image
 	if (l) {
-		p.body += '<'+'div class="woas_img_list_last">'+div[l]
+		plus = cls + (l === 1 ? '_single' : '_first');
+		t = div[0];
+		div[0] = line1.sprintf(plus, t) +
+			this.parser.transclude(t, snippets, false, true) +
+			line2.sprintf(t);
 	}
+	--l;
+	// last image (if more than one)
+	if (l) {
+		plus = cls + '_last';
+		t = div[l];
+		div[l] = line1.sprintf(plus, t) +
+			this.parser.transclude(t, snippets, false, true) +
+			line2.sprintf(t);
+	}
+	// everything in between
+	for (i = 1; i < l; ++i) {
+		t = div[i];
+		div[i] = line1.sprintf(cls, t) +
+			this.parser.transclude(t, snippets, false, true) +
+			line2.sprintf(t);
+	}
+	p.body += div.join('');
 	this.parser.syntax_parse(p, snippets);
-	snippets = null;
+	snippets = div = null;
 	return p.body;
 };
 
@@ -7668,7 +7704,7 @@ woas.erase_wiki = function() {
 	}
 	current = this.config.main_page;
 // PVHL: FIX this needs to be moved at some point
-	this.refresh_menu();
+	this.ui.refresh_menu();
 	this.history.clear();
 	// reload all extensions
 	this._load_aliases(this.get_text("WoaS::Aliases"));
@@ -7783,7 +7819,7 @@ woas.delete_page_i = function(i) {
 	} else {
 		// always refresh the menu because it could contain the deleted page link
 		// done automatically above
-		this.refresh_menu();
+		this.ui.refresh_menu();
 	}
 	// remove page from history
 	this.history.clear(old_title);
@@ -9195,7 +9231,7 @@ woas.load_as_current = function(title, xhtml, mts, set_b, keep_fwd) {
 	this.refresh_mts(mts);
 	this.history.go(title, keep_fwd);
 	current = title;
-	this.refresh_menu();
+	this.ui.refresh_menu();
 	// activate menu or page scripts
 // PVHL: FIX = menu can be activated twice
 	this.scripting.activate(this.is_menu(current) ? "menu" : "page");
@@ -9267,7 +9303,7 @@ woas._on_load = function() {
 	this._set_debug(this.config.debug_mode, this.config.debug_closed);
 	d$("woas_debug_log").value = ""; // for Firefox
 	// output platform information - note that revision is filled in only in releases
-	woas.log("*** WoaS v"+this.version+"-pvhl-r2473"+" started");	// log:1
+	woas.log("*** WoaS v"+this.version+"-pvhl-r2475"+" started");	// log:1
 	// needed to check if data source changes; forces full save when entering/exiting
 	// WSIF datasource mode or changing the name of the data source file
 	this._old_wsif_ds = is_windows
@@ -10759,6 +10795,7 @@ woas.i18n = {
 	FILE_SIZE: "File size",
 	HEIGHT: "Height",
 	IMG_LOAD_ERR: "/Image failed to load./\n",
+	IMPORT_CONFIG: "Configuration imported.",
 	IMPORT_INCOMPAT: "Incompatible version: %s",
 	IMPORT_OLD_VER: "If this is a WoaS older than v0.9.6B, you should import it by using WoaS 0.11.x.",
 	IMPORT_OK: "%s pages imported successfully (%d pages skipped)",
@@ -10888,6 +10925,10 @@ woas.importer = {
 
 	_filter_by_title: function(title) {
 		// we are not using is_reserved() because will be inconsistant in case of enabled edit_override
+		// PVHL: modified to allow just CSS import, no other pages
+		if (!woas.importer.i_content && woas.importer.i_styles) {
+			return title === "WoaS::CSS::Custom";
+		}
 		// check pages in WoaS:: namespace
 		if (title.substr(0,6) === "WoaS::") {
 			// allow CSS same as WoaS < 11.2 (and makes most sense)
@@ -10939,7 +10980,8 @@ woas.importer = {
 				return;
 			}
 			// the rest of variables are for content, so exit if we don't want content
-			if (!woas.importer.i_content)
+			// PVHL: modified to allow just import CSS; could make it more efficient later
+			if (!(woas.importer.i_content || woas.importer.i_styles))
 				return;
 			// save evaluation if we don't want last modified timestamp
 			if (!woas.config.store_mts && (var_name === "page_mts"))
@@ -11176,6 +11218,7 @@ woas.importer = {
 		}
 	},
 
+	// actual import of html file
 	do_import: function(ct) {
 		// initialize
 		this.pages_imported = 0;
@@ -11321,7 +11364,7 @@ woas.importer = {
 		data = null;
 
 		// apply upgrade fixes
-		if (this.i_content) {
+		if (this.i_content || this.i_styles) {
 			this._import_content(old_version);
 			this.total = this.pages.length;
 			// GC cleanup
@@ -11423,50 +11466,56 @@ woas.importer = {
 };
 
 // called from Special::Import - import WoaS from XHTML file
+// PVHL: this, like other areas, needs to be rewritten to be atomic; certain
+//   failures can leave things in an unknown state.
 woas.import_wiki = function() {
-	if (!woas._import_pre_up(false))
+	var cfg = this.importer.i_config, pgs = woas.importer.i_content,
+		sty = this.importer.i_styles,	ct, rv, v, msg;
+	if (!(cfg || pgs || sty) || !woas._import_pre_up(false)) {console.log('fail')
 		return false;
+	}
 
 	// set hourglass
 	this.progress_init("Import WoaS");
 
 	// file will be loaded as ASCII to overcome browsers' limitations
-	var ct = this.load_file(null, this.file_mode.ASCII_TEXT);
-	if (ct === null) {
-		// remove hourglass
-		this.progress_finish();
-		return false;
-	}
-	if (ct === false) {
-		this.alert(this.i18n.LOAD_ERR);
+	ct = this.load_file(null, this.file_mode.ASCII_TEXT);
+	if (!ct) {
+		if (ct === false) {
+			this.alert(this.i18n.LOAD_ERR);
+		}
 		// remove hourglass
 		this.progress_finish();
 		return false;
 	}
 
-	var rv = this.importer.do_import(ct);
+	rv = this.importer.do_import(ct), v = {};
 
 	// remove hourglass
 	this.progress_finish();
 
 	if (rv) {
-		// inform about the imported pages / total pages present in file
-		this.alert(this.i18n.IMPORT_OK.sprintf(this.importer.pages_imported+"/"+this.importer.total,
-												this.importer.total - this.importer.pages_imported));
-
-		// move to main page
-		current = this.config.main_page;
+		if (cfg) {
+			// make sure any configuration change is represented
+			v.fix_h = this.config.fixed_header;
+			v.fix_m = this.config.fixed_menu;
+			v.no_debug = !this.config.debug_mode;
+			v.no_mts = !this.config.store_mts;
+			this.ui.display(v);
+		}
+		// inform about config & imported pages
+		this.alert((cfg ? this.i18n.IMPORT_CONFIG : '') +
+			(pgs || sty ? (cfg ? '\n\n' : '') + this.i18n.IMPORT_OK.sprintf(
+			this.importer.pages_imported+"/"+this.importer.total,
+			this.importer.total - this.importer.pages_imported) : ''));
 	}
-
-	// always save if we have erased the wiki
-	if ((this.importer.i_overwrite === 0) || rv)
+	// save if successful import or if we have erased the wiki
+	if (rv || this.importer.i_overwrite === 0) {
 		this.full_commit(); // PVHL: this could have failed!
-
-	if (rv) {
-		this.set_current(this.config.main_page, true);
+		this.ui._import_load();
+		this.ui.refresh_menu();
 	}
-
-	// supposedly, everything went OK
+	// PVHL: not going to main page any more as it could be disorienting;
 	return rv;
 };
 
@@ -11521,7 +11570,7 @@ woas.import_wiki_wsif = function() {
 			done = String(done)+"/"+woas.wsif.expected_pages;
 		} else skipped = 0;
 		this.alert(woas.i18n.IMPORT_OK.sprintf(done, skipped));
-		this.refresh_menu();
+		this.ui.refresh_menu();
 		// now proceed to actual saving
 		this.commit(woas.wsif.imported);
 	} else if (this.importer.i_overwrite === 0) {
@@ -12764,6 +12813,10 @@ woas.parser.parse_tables =  function (str, p1) {
 			'/tr>' + '<' + '/table>' + woas.parser.NL_MARKER;
 	return str;
 };
+woas.refresh_menu_area = function() {
+	woas.log("WARNING: Called deprecated function: woas.refresh_menu_area (now woas.ui.refresh_menu)");
+	this.ui.refresh_menu();
+}
 
 /*** src/ui.js ***/
 // @module ui
@@ -12901,7 +12954,7 @@ woas.ui = {
 			woas.importer.i_config = false;
 		} else {
 			// disable settings if needed by content setting
-			this._import_load_change(true);
+			this._import_load_change();
 		}
 		// restore the overwrite option which covers other 2 bits
 		var ovr = 0;
@@ -12914,24 +12967,20 @@ woas.ui = {
 		d$('woas_import_'+params[ovr]).checked = true;
 		woas.importer.i_overwrite = ovr;
 	},
-	// WoaS::Import can disable page import
-	_import_load_change: function(init) {
-		if (init) {
-			this._import_load_css = d$("woas_cb_import_styles").checked;
-		}
-		if (d$("woas_cb_import_content").checked) {
-			woas.importer.i_content = true;
-			d$.show("woas_import_content");
-			// import CSS only possible if import content selected
-			d$("woas_cb_import_styles").checked = woas.importer.i_styles
-				= this._import_load_css;
-			d$("woas_cb_import_styles").disabled = false;
+	// WoaS::Import can disable page/css import
+	// PVHL: TODO: make _import_load cache dom elements or make more efficient
+	_import_load_change: function() {
+		var c = woas.importer.i_content = d$("woas_cb_import_content").checked,
+			s = woas.importer.i_styles = d$("woas_cb_import_styles").checked;
+		if (c || s) {
+			d$.show("woas_import_pages");
 		} else {
-			woas.importer.i_content = false;
-			d$.hide("woas_import_content");
-			this._import_load_css = d$("woas_cb_import_styles").checked;
-			d$("woas_cb_import_styles").checked = woas.importer.i_styles = false;
-			d$("woas_cb_import_styles").disabled = true;
+			d$.hide("woas_import_pages");
+		}
+		if (c) {
+			d$.show("woas_import_security");
+		} else {
+			d$.hide("woas_import_security");
 		}
 	},
 	// click on edit icon
@@ -12964,7 +13013,7 @@ woas.ui = {
 				var menu = menu_orig.replace("\n[["+current+"]]", "");
 				if (menu !== menu_orig) {
 					woas.set__text(menu_i, menu);
-					woas.refresh_menu();
+					woas.ui.refresh_menu();
 				}
 			}
 		}
@@ -13054,7 +13103,11 @@ woas.ui = {
 		this.set_header(fixed);
 		this.set_menu(fixed);
 	},
-
+	toggle_debug: function() {
+		if (!this.display('no_debug')) {
+			d$.toggle_cls('no_log', true);
+		}
+	},
 	// Used by Special::Options page (also used to check/repair filename in ExportWSIF)
 	// chk_box & set are optional
 	//
@@ -13723,15 +13776,18 @@ woas.progress_init = function(section) {
 	d$("loading_overlay").focus();
 };
 
+/*
+PVHL: previously this did nothing if in debug mode and 'crashed' if it
+  didn't know progress was being used. This can lead to problems from
+  various sources. One issue was that if debug mode was changed by import
+  then the cursor stayed in 'wait'. This now does the same for every
+  caller - just in case; at worst we waste a little time. Cursor control
+  will soon be handed over to CSS and '.woas_wait'; leave for now
+*/
 woas.progress_finish = function(section) {
-	if (this._progress_section === false) {
-		this.crash("Cannot finish an unexisting progress indicator section");
-		return;
-	}
-	// no progress indicators in debug mode
-	if (!this.config.debug_mode) {
-		document.body.style.cursor = "auto";
-		this.setHTML(d$("woas_wait_text"), this.i18n.LOADING);
+	document.body.style.cursor = "auto";
+	this.setHTML(d$("woas_wait_text"), this.i18n.LOADING);
+	if (this.ui.display('wait')) {
 		// hide the progress area
 		this.ui.display({wait: false});
 	}
@@ -13894,7 +13950,7 @@ woas._set_debug = function(status, closed) {
 		this.ui.display({no_debug: false});
 		this.ui.display({no_log: closed});
 		// hide the progress area
-		//this.ui.display({wait: false});
+		this.ui.display({wait: false});
 	} else {
 		this.ui.display({no_debug: true});
 		this.ui.display({no_log: true});
@@ -13912,7 +13968,7 @@ PVHL:
   If people have problems with this I'll write an update plugin to put
   menu at beginning of sub-menu.
 */
-woas.refresh_menu = function() {
+woas.ui.refresh_menu = function() {
 	var pi = -1, menu, ns, tmp;
 	// locate the menu for current namespace, or a previous one if not found
 	// (all the way back to ::Menu if need be). Menu is set every time, though
@@ -13926,29 +13982,29 @@ woas.refresh_menu = function() {
 	}
 	ns = tmp > 0 ? current.substr(0, tmp) : '';
 	while (true) {
-//		this.log("menu testing "+ns+"::Menu");	// log:0
-		pi = this.page_index(ns+"::Menu");
+//		woas.log("menu testing "+ns+"::Menu");	// log:0
+		pi = woas.page_index(ns+"::Menu");
 		if (pi !== -1 || !ns) { break; }
 		tmp = ns.lastIndexOf("::");
 		ns = tmp === -1 ? "" : ns.substr(0, tmp);
 	}
-	menu = pi === -1 ? 'ERROR: No menu!' : this.get__text(pi);
+	menu = pi === -1 ? 'ERROR: No menu!' : woas.get__text(pi);
 	if (menu) {
-//		this.log("menu found: "+page_titles[pi]);	// log:0
-		this.parser._parsing_menu = true;
-		this.setHTMLDiv(d$("woas_menu"),
-			this.parser.parse(menu, false, this.js_mode(ns+"::Menu")));
-		this.parser._parsing_menu = false;
+//		woas.log("menu found: "+page_titles[pi]);	// log:0
+		woas.parser._parsing_menu = true;
+		woas.setHTMLDiv(d$("woas_menu"),
+			woas.parser.parse(menu, false, woas.js_mode(ns+"::Menu")));
+		woas.parser._parsing_menu = false;
 		if (!ns) {
-// PVHL: check why this is done every time; change to when needed
-			this.scripting.clear("menu");
-			this.scripting.activate("menu");
+// PVHL: check why woas is done every time; change to when needed
+			woas.scripting.clear("menu");
+			woas.scripting.activate("menu");
 		}
 	} else {
-		this.setHTMLDiv(d$("woas_menu"), '');
-		this.scripting.clear("menu");
+		woas.setHTMLDiv(d$("woas_menu"), '');
+		woas.scripting.clear("menu");
 	}
-	this.current_namespace = ns;
+	woas.current_namespace = ns;
 };
 
 // adapted by PVHL from: weston.ruter.net/2009/05/07/detecting-support-for-data-uris
@@ -14412,11 +14468,11 @@ Wiki Code:
 <input class="woas_button_editor" title="Image link" value="Image" onclick="setHTMLImage()" type="submit" />
 <input class="woas_button_editor" title="External link" value="Link" onclick="setHTMLUrl()" type="submit" />
 </div>
-<div id="woas_editor_container"><div id="woas_editor_sizer"><textarea style="height: 365px;" id="woas_editor" rows="0" cols="0"></textarea></div></div>
+<div id="woas_editor_container"><div id="woas_editor_sizer"><textarea style="height: 410px;" id="woas_editor" rows="0" cols="0"></textarea></div></div>
 </div>
 <div id="woas_footer_wrap"><div id="woas_footer"><div id="woas_footer_panel">
 <div id="woas_about"><a title="About Wiki on a Stick" onclick="woas.ui.about()">About Wiki on a Stick v0.12.0</a></div>
-<a id="woas_debug" title="Toggle debug display" onclick="d$.toggle_cls('no_log', true)">
+<a id="woas_debug" title="Toggle debug display" onclick="woas.ui.toggle_debug()">
 <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAMFBMVEVKYnp9lq7K4/t5aAmpwtv1+f6QqMC70+rn8v6dsshcdY2kvNPY6/7A2fH///8PDw9fznsJAAAAEHRSTlP///////////////////8A4CNdGQAAAAFiS0dEAIgFHUgAAAAJcEhZcwAACxMAAAsTAQCanBgAAABySURBVAjXY/gPBQxA/O4dhPFv5sz3IMa/l6Edfu+BjJebwu+V+P1n+Dc1vPbRi7b3QEZ5nZ76wfdAqfaHEnfkQGr6FN8VARn/Zrx98WTaLaCaHX26nukFQDWvtxyZlsUHMvDZIV2+92ArVq16j2opBAAAW7NklyU6ioMAAAAASUVORK5CYII=" /><span>Debug</span>
 </a>
 <a id="woas_top" title="Go to top of page" onclick="woas.ui.top()">
