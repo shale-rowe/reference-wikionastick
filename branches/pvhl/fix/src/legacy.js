@@ -79,3 +79,7 @@ woas.parser.parse_tables =  function (str, p1) {
 			'/tr>' + '<' + '/table>' + woas.parser.NL_MARKER;
 	return str;
 };
+woas.refresh_menu_area = function() {
+	woas.log("WARNING: Called deprecated function: woas.refresh_menu_area (now woas.ui.refresh_menu)");
+	this.ui.refresh_menu();
+}

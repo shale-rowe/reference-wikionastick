@@ -784,7 +784,7 @@ woas.load_as_current = function(title, xhtml, mts, set_b, keep_fwd) {
 	this.refresh_mts(mts);
 	this.history.go(title, keep_fwd);
 	current = title;
-	this.refresh_menu();
+	this.ui.refresh_menu();
 	// activate menu or page scripts
 // PVHL: FIX = menu can be activated twice
 	this.scripting.activate(this.is_menu(current) ? "menu" : "page");

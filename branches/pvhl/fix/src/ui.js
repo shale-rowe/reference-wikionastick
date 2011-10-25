@@ -133,7 +133,7 @@ woas.ui = {
 			woas.importer.i_config = false;
 		} else {
 			// disable settings if needed by content setting
-			this._import_load_change(true);
+			this._import_load_change();
 		}
 		// restore the overwrite option which covers other 2 bits
 		var ovr = 0;
@@ -146,24 +146,20 @@ woas.ui = {
 		d$('woas_import_'+params[ovr]).checked = true;
 		woas.importer.i_overwrite = ovr;
 	},
-	// WoaS::Import can disable page import
-	_import_load_change: function(init) {
-		if (init) {
-			this._import_load_css = d$("woas_cb_import_styles").checked;
-		}
-		if (d$("woas_cb_import_content").checked) {
-			woas.importer.i_content = true;
-			d$.show("woas_import_content");
-			// import CSS only possible if import content selected
-			d$("woas_cb_import_styles").checked = woas.importer.i_styles
-				= this._import_load_css;
-			d$("woas_cb_import_styles").disabled = false;
+	// WoaS::Import can disable page/css import
+	// PVHL: TODO: make _import_load cache dom elements or make more efficient
+	_import_load_change: function() {
+		var c = woas.importer.i_content = d$("woas_cb_import_content").checked,
+			s = woas.importer.i_styles = d$("woas_cb_import_styles").checked;
+		if (c || s) {
+			d$.show("woas_import_pages");
 		} else {
-			woas.importer.i_content = false;
-			d$.hide("woas_import_content");
-			this._import_load_css = d$("woas_cb_import_styles").checked;
-			d$("woas_cb_import_styles").checked = woas.importer.i_styles = false;
-			d$("woas_cb_import_styles").disabled = true;
+			d$.hide("woas_import_pages");
+		}
+		if (c) {
+			d$.show("woas_import_security");
+		} else {
+			d$.hide("woas_import_security");
 		}
 	},
 	// click on edit icon
@@ -196,7 +192,7 @@ woas.ui = {
 				var menu = menu_orig.replace("\n[["+current+"]]", "");
 				if (menu !== menu_orig) {
 					woas.set__text(menu_i, menu);
-					woas.refresh_menu();
+					woas.ui.refresh_menu();
 				}
 			}
 		}
@@ -286,7 +282,11 @@ woas.ui = {
 		this.set_header(fixed);
 		this.set_menu(fixed);
 	},
-
+	toggle_debug: function() {
+		if (!this.display('no_debug')) {
+			d$.toggle_cls('no_log', true);
+		}
+	},
 	// Used by Special::Options page (also used to check/repair filename in ExportWSIF)
 	// chk_box & set are optional
 	//
@@ -955,15 +955,18 @@ woas.progress_init = function(section) {
 	d$("loading_overlay").focus();
 };
 
+/*
+PVHL: previously this did nothing if in debug mode and 'crashed' if it
+  didn't know progress was being used. This can lead to problems from
+  various sources. One issue was that if debug mode was changed by import
+  then the cursor stayed in 'wait'. This now does the same for every
+  caller - just in case; at worst we waste a little time. Cursor control
+  will soon be handed over to CSS and '.woas_wait'; leave for now
+*/
 woas.progress_finish = function(section) {
-	if (this._progress_section === false) {
-		this.crash("Cannot finish an unexisting progress indicator section");
-		return;
-	}
-	// no progress indicators in debug mode
-	if (!this.config.debug_mode) {
-		document.body.style.cursor = "auto";
-		this.setHTML(d$("woas_wait_text"), this.i18n.LOADING);
+	document.body.style.cursor = "auto";
+	this.setHTML(d$("woas_wait_text"), this.i18n.LOADING);
+	if (this.ui.display('wait')) {
 		// hide the progress area
 		this.ui.display({wait: false});
 	}
@@ -1126,7 +1129,7 @@ woas._set_debug = function(status, closed) {
 		this.ui.display({no_debug: false});
 		this.ui.display({no_log: closed});
 		// hide the progress area
-		//this.ui.display({wait: false});
+		this.ui.display({wait: false});
 	} else {
 		this.ui.display({no_debug: true});
 		this.ui.display({no_log: true});
@@ -1144,7 +1147,7 @@ PVHL:
   If people have problems with this I'll write an update plugin to put
   menu at beginning of sub-menu.
 */
-woas.refresh_menu = function() {
+woas.ui.refresh_menu = function() {
 	var pi = -1, menu, ns, tmp;
 	// locate the menu for current namespace, or a previous one if not found
 	// (all the way back to ::Menu if need be). Menu is set every time, though
@@ -1158,29 +1161,29 @@ woas.refresh_menu = function() {
 	}
 	ns = tmp > 0 ? current.substr(0, tmp) : '';
 	while (true) {
-//		this.log("menu testing "+ns+"::Menu");	// log:0
-		pi = this.page_index(ns+"::Menu");
+//		woas.log("menu testing "+ns+"::Menu");	// log:0
+		pi = woas.page_index(ns+"::Menu");
 		if (pi !== -1 || !ns) { break; }
 		tmp = ns.lastIndexOf("::");
 		ns = tmp === -1 ? "" : ns.substr(0, tmp);
 	}
-	menu = pi === -1 ? 'ERROR: No menu!' : this.get__text(pi);
+	menu = pi === -1 ? 'ERROR: No menu!' : woas.get__text(pi);
 	if (menu) {
-//		this.log("menu found: "+page_titles[pi]);	// log:0
-		this.parser._parsing_menu = true;
-		this.setHTMLDiv(d$("woas_menu"),
-			this.parser.parse(menu, false, this.js_mode(ns+"::Menu")));
-		this.parser._parsing_menu = false;
+//		woas.log("menu found: "+page_titles[pi]);	// log:0
+		woas.parser._parsing_menu = true;
+		woas.setHTMLDiv(d$("woas_menu"),
+			woas.parser.parse(menu, false, woas.js_mode(ns+"::Menu")));
+		woas.parser._parsing_menu = false;
 		if (!ns) {
-// PVHL: check why this is done every time; change to when needed
-			this.scripting.clear("menu");
-			this.scripting.activate("menu");
+// PVHL: check why woas is done every time; change to when needed
+			woas.scripting.clear("menu");
+			woas.scripting.activate("menu");
 		}
 	} else {
-		this.setHTMLDiv(d$("woas_menu"), '');
-		this.scripting.clear("menu");
+		woas.setHTMLDiv(d$("woas_menu"), '');
+		woas.scripting.clear("menu");
 	}
-	this.current_namespace = ns;
+	woas.current_namespace = ns;
 };
 
 // adapted by PVHL from: weston.ruter.net/2009/05/07/detecting-support-for-data-uris

@@ -80,7 +80,8 @@ woas.page.boundary: DFQRCTsKlU
 <fieldset class="woas_input_wrap"><legend>Source</legend>\
 <label class="woas_input_wrap_left">File: <input class="woas_input_wrap_inline" id="filename_" type="file" /></label>
 <label><input type="checkbox" id="woas_cb_import_config" onclick="woas.importer.i_config=this.checked">Import configuration (except WSIF datasource settings)</label>
-<label><input type="checkbox" id="woas_cb_import_content" onclick="woas.ui._import_load_change()">Import content</label><label><input type="checkbox" class="woas_input_wrap_inline" id="woas_cb_import_styles" onclick="woas.importer.i_styles=this.checked">Import custom CSS</label>
+<label><input type="checkbox" id="woas_cb_import_content" onclick="woas.ui._import_load_change()">Import content</label>
+<label><input type="checkbox" id="woas_cb_import_styles" onclick="woas.ui._import_load_change()">Import custom CSS</label>
 </fieldset>\
 [[Include::WoaS::ImportSettings]]\
 <script type="text/javascript">
@@ -272,7 +273,7 @@ woas.page.boundary: DFQRCTsKlU
 <label><input type="checkbox" id="cb_save_on_quit" onclick="woas.config.save_on_quit = d$.checked('cb_save_on_quit')" />Automatically save options before quitting (if changed)</label>
 <label><input type="checkbox" id="cb_safe_mode" onclick="woas.config.safe_mode = d$.checked('cb_safe_mode')" />Enable safe mode with embedded scripts and plugins not executed (/requires reload/)</label>
 <label><input type="checkbox" id="cb_allow_diff" onclick="woas.config.allow_diff = d$.checked('cb_allow_diff')" />Make merge/diff of WoaS XHTML/WSIF data source easier</label>
-<label><input type="checkbox" id="cb_store_mts" onclick="woas.config.store_mts = d$.checked('cb_store_mts')" />Store and display last modified timestamp</label>
+<label><input type="checkbox" id="cb_store_mts" onclick="var r = woas.config.store_mts = d$.checked('cb_store_mts'); woas.ui.display({no_mts:!r})" />Store and display last modified timestamp</label>
 <label><input type="checkbox" id="cb_rem_history" onclick="woas.config.nav_history = d$.checked('cb_rem_history')" />Store current page and navigation history</label>\
 </fieldset>\
 <fieldset class="woas_input_wrap woas_no_option"><legend>WSIF settings</legend>\
@@ -1001,7 +1002,7 @@ All changes will be visible immediately.
 == Restore the default CSS settings
 You can always restore WoaS default CSS by deleting the content of [[WoaS::CSS::Custom]].
 == Import CSS rules into your wiki
-You can import the CSS rules from another copy of WoaS by following the instructions for [[WoaS::Help::Import|importing]] another wiki into the current one and placing a check in the box next to *Import also CSS.*
+You can import the CSS rules from another copy of WoaS by following the instructions for [[WoaS::Help::Import|importing]] another wiki into the current one and placing a check in the box next to *Import custom CSS.*
 
 Importing from older versions of WoaS can garble the layout of the wiki. There are two ways to avoid this:
 # Manually transfer the CSS from the older version of WoaS into the [[WoaS::CSS::Custom]] page by copying and pasting it, checking the class and id of each entry against the default CSS rules on the [[WoaS::CSS::Core]] page to verify that it's still in use before saving your changes.
@@ -3281,14 +3282,22 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-Wiki on a Stick offers various ways of using images in your pages. You can link to local image files on your drive, remote image files, or embed image files into the wiki.
+Wiki on a Stick offers various ways to use images in your pages. You can link to image files located on the Internet, network, or local drive, or embed image files into the wiki.
+
+The [[Image::]] namespace listing displays an image gallery. Each image is displayed on a green background so that you can tell if it contains transparency: if all you can see is a thin green border around the image (using the default CSS) then it is not transparent; if the green background shows through then it is.
+
+The image currently highlighted will be opened in its own page if clicked. This page shows it on a normal page background and provides info on the image and its use in the wiki.
+
+The format of both the image gallery and the images can be controlled using [[WoaS::Help::CSS|custom CSS]].
 == Standard WoaS syntax
+All supported browsers can display embedded images, except for Internet Explorer 6 & 7; IE 6 & 7 may have this capability added in a future version. If you are using a Gecko-based browser like Firefox you can also embed images. This capability will hopefully be added for other browsers in the future.
+
+Embedded images allow the wiki to be self-contained within a single file, but means that each image takes up 33% more space than its original file size as it is stored with Base64 encoding. Excessive use of images could affect performance, especially on less capable hardware.
 === Embed an image in the wiki
 This wiki provides an interface for embedding images. Each image will be given its own page, which you can use in an include link to insert the image anywhere in this wiki.
-<<<woas.note: Embedded images are encoded with Base64 and are 33% bigger than the original files. Since this wiki is a single file, excessive use of images may slow down performance.
-
-It is recommended that the image file extension be retained in the image name. Image export operations will then preserve the extension when writing out the file and that will help those browsers that infer the mime type of the image from the file extension.>>>
+<<<woas.note: It is recommended that the image file extension be retained in the image name. Image export operations will then preserve the extension when writing out the file and that will help those browsers that infer the mime type of the image from the file extension.>>>
 <span class="woas_help_text">Replace NAME in these instructions with the name of your image:</span>
+
 *From the default menu*
 # Click the *New Page* link in the menu.
 # Type {{{Image::NAME}}} into the box that comes up. This will bring up the image embedding interface.
@@ -3622,7 +3631,8 @@ body, div, textarea, pre, ul, ol, li {
 
 .woas_no_back #woas_back, .woas_no_fwd #woas_fwd, .woas_no_home #woas_home,
 .woas_no_tools #woas_tools, .woas_no_edit #woas_edit,
-.woas_no_lock #woas_lock, .woas_no_lock #woas_unlock {
+.woas_no_lock #woas_lock, .woas_no_lock #woas_unlock,
+.woas_no_debug #woas_debug {
 	display: inline-block; /* IE 6-8 needs this for filter to work */
 	-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=15)"; /* IE8 */
 	*filter: alpha(opacity=15); /* IE 6/7 */
@@ -3661,7 +3671,7 @@ body, div, textarea, pre, ul, ol, li {
 .woas_view #woas_edit_mode, .woas_view #woas_edit_wrap,
 .woas_edit #woas_view_mode, .woas_edit #woas_page_wrap, .woas_edit #woas_menu_wrap,
 .woas_pswd #woas_scroll_wrap, .woas_pswd #woas_header_wrap, .woas_wait #woas_scroll_wrap,
-.woas_no_mts #woas_mts, .woas_no_debug #woas_debug, .woas_no_log #woas_debug_console {
+.woas_no_mts #woas_mts, .woas_no_log #woas_debug_console {
 	display: none
 }
 .woas_edit #woas_edit_wrap, .woas_view #woas_page_wrap, .woas_view #woas_menu_wrap,
@@ -3922,13 +3932,20 @@ explicit margins are needed for IE6/7 otherwise collapsed under certain circumst
 	font-weight: bold
 }
 
-/* IMAGE GALLEY */
-/* temporary test css */
-.woas_img_list, .woas_img_list_first, .woas_img_list_last, .woas_img_list_single {
-	padding-top: 1.75em;
+/* IMAGE GALLERY */
+a.woas_img_list, .woas_img_list_first, .woas_img_list_last, .woas_img_list_single {
+	display: block;
+	padding-bottom: .75em;
+	padding-top: 1em;
 }
-a.woas_img_list {
-	color: #00f;
+a.woas_img_list:hover, .woas_img_list_first:hover, .woas_img_list_last:hover,
+.woas_img_list_single:hover {
+	background-color: #efe;
+	margin-left: -1em; /* same as woas_page padding */
+	margin-right: -1em;
+	padding-left: 1em;
+	padding-right: 1em;
+	text-decoration: none;
 }
 img.woas_img_list {
 	display: block;
@@ -4430,18 +4447,18 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-<div id="woas_import_content"><fieldset class="woas_input_wrap"><legend>Existing pages</legend>\
+<fieldset id="woas_import_pages" class="woas_input_wrap"><legend>Existing pages</legend>\
 <label><input type="radio" id="woas_import_ask" name="woas_import_overwrite" onclick="woas.importer.i_overwrite=3" checked="checked">Ask before overwrite</label>
 <label><input type="radio" id="woas_import_erase" name="woas_import_overwrite" onclick="woas.importer.i_overwrite=0">Erase all user pages before import process</label>
 <label><input type="radio" id="woas_import_ignore" name="woas_import_overwrite" onclick="woas.importer.i_overwrite=1">Ignore</label>
 <label><input type="radio" id="woas_import_overwrite" name="woas_import_overwrite" onclick="woas.importer.i_overwrite=2">Overwrite</label>
 </fieldset>\
-<fieldset class="woas_input_wrap"><legend>Security</legend>\
+<fieldset id="woas_import_security" class="woas_input_wrap"><legend>Security</legend>\
 <div class="woas_input_wrap_left">/If you don't trust the pages you are importing you may want to disable imported JavaScript, macros, and special WoaS pages until you can review their content./</div>
 <label><input type="checkbox" id="woas_cb_import_comment_js" onclick="woas.importer.i_comment_js=this.checked">Comment JavaScript tags</label>
 <label><input type="checkbox" id="woas_cb_import_comment_macros" onclick="woas.importer.i_comment_macros=this.checked">Comment macro definition/call</label>
 <label><input type="checkbox" id="woas_cb_import_no_woas" onclick="woas.importer.i_no_woas=this.checked">Do not import [[WoaS::]] namespace pages ([[WoaS::Hotkeys|hotkeys]], [[WoaS::Plugins|plugins]], and [[WoaS::Aliases|aliases]])</label>
-</fieldset></div>
+</fieldset>
 
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Include web page
@@ -4697,24 +4714,25 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-The [[Special::Import]] page provides an interface for importing the contents of a previous or current version of the wiki from an .html source file.
+The [[Special::Import]] page provides an interface for importing the contents of a current or earlier version of the wiki from an .html source file (back to v0.9.6B). Certain options are only available if the context allows.
 == Source
 Click the *Browse...* button to select the wiki file to import.
 ===Import configuration (except WSIF datasource settings)
-Imports all the settings from the [[Special::Options]] page in the source file into the destination file.
-<<<woas.note: The settings in the /External data source/ section of the [[Special::Options]] page will not be imported.>>>
+Imports all the settings from the [[WoaS::Help::Special::Options|Special::Options]] page in the source file into the destination file.
+<<<woas.note: The settings in the /[[WoaS::Help::Special::Options#WSIF Settings|WSIF settings]]/ section of the /Special::Options/ page will not be imported.>>>
 ===Import content
-Imports the following pages from the source file:
+Imports these pages from the source file:
 * Any user-created pages.
 * [[Main Page]]
 * [[::Menu]]
-* [[WoaS::Aliases]] Unless /Do not import WoaS:: namespace pages/ is selected
-* [[WoaS::CSS::Custom]] if /Import custom CSS/ is selected
-* [[WoaS::Hotkeys]] Unless /Do not import WoaS:: namespace pages/ is selected
-* [[WoaS::Plugins]] Unless /Do not import WoaS:: namespace pages/ is selected
+and also these pages unless /Do not import WoaS:: namespace pages/ is selected:
+* [[WoaS::Aliases]]
+* [[WoaS::Hotkeys]]
+* [[WoaS::Plugins]]
 ===Import custom CSS
-Imports the [[WoaS::CSS::Custom]] page from the source file, overwriting the same page in the destination file. CSS rules from older releases of the wiki may not work properly in the current version.
-<<<woas.note: This option cannot be selected unless the /Import content/ option is already selected.>>>
+Imports the [[WoaS::CSS::Custom]] page from the source file, overwriting the same page in the destination file. CSS rules from older releases of the wiki may not work properly in the current version; see [[WoaS::Help::CSS#Import CSS rules into your wiki|Import CSS rules]].
+
+Importing custom CSS and configuration from a current WoaS version, while not importing content, is a good way to copy a custom wiki set-up.
 == Existing pages
 ===Erase all user pages before import process
 Erases all user-created pages before importing content into the destination file. The import interface will pop up two confirmation boxes to verify that you're sure you want to erase the pages.

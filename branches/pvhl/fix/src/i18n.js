@@ -42,6 +42,7 @@ woas.i18n = {
 	FILE_SIZE: "File size",
 	HEIGHT: "Height",
 	IMG_LOAD_ERR: "/Image failed to load./\n",
+	IMPORT_CONFIG: "Configuration imported.",
 	IMPORT_INCOMPAT: "Incompatible version: %s",
 	IMPORT_OLD_VER: "If this is a WoaS older than v0.9.6B, you should import it by using WoaS 0.11.x.",
 	IMPORT_OK: "%s pages imported successfully (%d pages skipped)",

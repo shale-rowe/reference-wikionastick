@@ -7,6 +7,12 @@ Changes since Revision pvhl-2317 (git: 3d939c7)
 
 (needing to archive my work in an incomplete though working state; export probably isn't working right yet)
 
+* update import help page
+* allow import of CSS only from HTML file (CSS & Config allows import of wiki setup without content)
+* fix failure to update display when importing configuration and improve import reporting
+* dim debug button instead of removing
+* moved woas.refresh_menu_area (was now woas.refresh_menu) to woas.ui.refresh_menu
+* fix failure to remove wait cursor on import of debug_mode = true
 * refactor erase_wiki to remove edge-case failure and simplify
 * change name of 'WoaS::Template::Example::Transclusion' to 'WoaS::Template::Transclusion Example'
 * add some missing help pages from Little Girl
