@@ -221,7 +221,7 @@ woas.erase_wiki = function() {
 	}
 	current = this.config.main_page;
 // PVHL: FIX this needs to be moved at some point
-	this.refresh_menu();
+	this.ui.refresh_menu();
 	this.history.clear();
 	// reload all extensions
 	this._load_aliases(this.get_text("WoaS::Aliases"));
@@ -336,7 +336,7 @@ woas.delete_page_i = function(i) {
 	} else {
 		// always refresh the menu because it could contain the deleted page link
 		// done automatically above
-		this.refresh_menu();
+		this.ui.refresh_menu();
 	}
 	// remove page from history
 	this.history.clear(old_title);

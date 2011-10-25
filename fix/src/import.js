@@ -72,6 +72,10 @@ woas.importer = {
 
 	_filter_by_title: function(title) {
 		// we are not using is_reserved() because will be inconsistant in case of enabled edit_override
+		// PVHL: modified to allow just CSS import, no other pages
+		if (!woas.importer.i_content && woas.importer.i_styles) {
+			return title === "WoaS::CSS::Custom";
+		}
 		// check pages in WoaS:: namespace
 		if (title.substr(0,6) === "WoaS::") {
 			// allow CSS same as WoaS < 11.2 (and makes most sense)
@@ -123,7 +127,8 @@ woas.importer = {
 				return;
 			}
 			// the rest of variables are for content, so exit if we don't want content
-			if (!woas.importer.i_content)
+			// PVHL: modified to allow just import CSS; could make it more efficient later
+			if (!(woas.importer.i_content || woas.importer.i_styles))
 				return;
 			// save evaluation if we don't want last modified timestamp
 			if (!woas.config.store_mts && (var_name === "page_mts"))
@@ -360,6 +365,7 @@ woas.importer = {
 		}
 	},
 
+	// actual import of html file
 	do_import: function(ct) {
 		// initialize
 		this.pages_imported = 0;
@@ -505,7 +511,7 @@ woas.importer = {
 		data = null;
 
 		// apply upgrade fixes
-		if (this.i_content) {
+		if (this.i_content || this.i_styles) {
 			this._import_content(old_version);
 			this.total = this.pages.length;
 			// GC cleanup
@@ -607,50 +613,56 @@ woas.importer = {
 };
 
 // called from Special::Import - import WoaS from XHTML file
+// PVHL: this, like other areas, needs to be rewritten to be atomic; certain
+//   failures can leave things in an unknown state.
 woas.import_wiki = function() {
-	if (!woas._import_pre_up(false))
+	var cfg = this.importer.i_config, pgs = woas.importer.i_content,
+		sty = this.importer.i_styles,	ct, rv, v, msg;
+	if (!(cfg || pgs || sty) || !woas._import_pre_up(false)) {console.log('fail')
 		return false;
+	}
 
 	// set hourglass
 	this.progress_init("Import WoaS");
 
 	// file will be loaded as ASCII to overcome browsers' limitations
-	var ct = this.load_file(null, this.file_mode.ASCII_TEXT);
-	if (ct === null) {
-		// remove hourglass
-		this.progress_finish();
-		return false;
-	}
-	if (ct === false) {
-		this.alert(this.i18n.LOAD_ERR);
+	ct = this.load_file(null, this.file_mode.ASCII_TEXT);
+	if (!ct) {
+		if (ct === false) {
+			this.alert(this.i18n.LOAD_ERR);
+		}
 		// remove hourglass
 		this.progress_finish();
 		return false;
 	}
 
-	var rv = this.importer.do_import(ct);
+	rv = this.importer.do_import(ct), v = {};
 
 	// remove hourglass
 	this.progress_finish();
 
 	if (rv) {
-		// inform about the imported pages / total pages present in file
-		this.alert(this.i18n.IMPORT_OK.sprintf(this.importer.pages_imported+"/"+this.importer.total,
-												this.importer.total - this.importer.pages_imported));
-
-		// move to main page
-		current = this.config.main_page;
+		if (cfg) {
+			// make sure any configuration change is represented
+			v.fix_h = this.config.fixed_header;
+			v.fix_m = this.config.fixed_menu;
+			v.no_debug = !this.config.debug_mode;
+			v.no_mts = !this.config.store_mts;
+			this.ui.display(v);
+		}
+		// inform about config & imported pages
+		this.alert((cfg ? this.i18n.IMPORT_CONFIG : '') +
+			(pgs || sty ? (cfg ? '\n\n' : '') + this.i18n.IMPORT_OK.sprintf(
+			this.importer.pages_imported+"/"+this.importer.total,
+			this.importer.total - this.importer.pages_imported) : ''));
 	}
-
-	// always save if we have erased the wiki
-	if ((this.importer.i_overwrite === 0) || rv)
+	// save if successful import or if we have erased the wiki
+	if (rv || this.importer.i_overwrite === 0) {
 		this.full_commit(); // PVHL: this could have failed!
-
-	if (rv) {
-		this.set_current(this.config.main_page, true);
+		this.ui._import_load();
+		this.ui.refresh_menu();
 	}
-
-	// supposedly, everything went OK
+	// PVHL: not going to main page any more as it could be disorienting;
 	return rv;
 };
 
@@ -705,7 +717,7 @@ woas.import_wiki_wsif = function() {
 			done = String(done)+"/"+woas.wsif.expected_pages;
 		} else skipped = 0;
 		this.alert(woas.i18n.IMPORT_OK.sprintf(done, skipped));
-		this.refresh_menu();
+		this.ui.refresh_menu();
 		// now proceed to actual saving
 		this.commit(woas.wsif.imported);
 	} else if (this.importer.i_overwrite === 0) {

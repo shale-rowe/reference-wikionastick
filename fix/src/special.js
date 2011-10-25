@@ -539,28 +539,46 @@ woas.ns_listing = function(root, flat_arr, folds) {
 
 // PVHL: have cleaned up and added some HTML/CSS that should help
 //   make things work in every browser, even IE6
+//   (IE6 only has a:hover and doesn't like multi-class selectors)
 woas._special_image_gallery = function(ns) {
-	var snippets = [], div = [], i, l, t,
-		p = {body:'= Pages in '+ns+' namespace\n'};
-	for(i = 0, l = page_titles.length; i < l; ++i) {
-		t = page_titles[i];
-		if (t.indexOf(ns) === 0) {
-			div.push(this.parser.transclude(t, snippets, false, true)+
-				'<'+'a class="woas_img_list" onclick="woas.go_to(\''+t+
-				'\')"'+'>'+t+'<'+'/a><'+'/div>');
+	var snippets = [], div = [], i, l, cnt, t, cls = 'woas_img_list', plus = '',
+		p = {body: '= Pages in '+ns+' namespace\n'},
+		// class, title
+		line1 = '<'+'a class="%s" onclick="woas.go_to(\'%s\')">',
+		// title
+		line2 = '<'+'div class="'+cls+'">%s<'+'/div><'+'/a>';
+	for (i = 0, l = page_titles.length, cnt = 0; i < l; ++i) {
+		if (page_titles[i].indexOf(ns) === 0) {
+			div[cnt++] = page_titles[i];
 		}
 	}
-	if (div.length) {
-		p.body += '<'+'div class="'+(div.length === 1
-			? 'woas_img_list_single' : 'woas_img_list_first')+'">'+div[0];
-	}
-	for (i = 1, l = div.length - 1; i < l; ++i) {
-		p.body += '<'+'div class="woas_img_list">'+div[i]
-	}
+	l = div.length;
+	// first image
 	if (l) {
-		p.body += '<'+'div class="woas_img_list_last">'+div[l]
+		plus = cls + (l === 1 ? '_single' : '_first');
+		t = div[0];
+		div[0] = line1.sprintf(plus, t) +
+			this.parser.transclude(t, snippets, false, true) +
+			line2.sprintf(t);
 	}
+	--l;
+	// last image (if more than one)
+	if (l) {
+		plus = cls + '_last';
+		t = div[l];
+		div[l] = line1.sprintf(plus, t) +
+			this.parser.transclude(t, snippets, false, true) +
+			line2.sprintf(t);
+	}
+	// everything in between
+	for (i = 1; i < l; ++i) {
+		t = div[i];
+		div[i] = line1.sprintf(cls, t) +
+			this.parser.transclude(t, snippets, false, true) +
+			line2.sprintf(t);
+	}
+	p.body += div.join('');
 	this.parser.syntax_parse(p, snippets);
-	snippets = null;
+	snippets = div = null;
 	return p.body;
 };
