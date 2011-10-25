@@ -5,11 +5,11 @@
 <script woas_permanent="1" type="text/javascript">
 /* <![CDATA[ */
 
-/* DFQRCTsKlU-0000001-START */
+/* DFQRCTsKlU-0000000-START */
 
 var woas = {"version": "0.12.0"};
 
-var __marker = "DFQRCTsKlU-0000001";
+var __marker = "DFQRCTsKlU-0000000";
 
 woas["config"] = {
 "permit_edits":true,
@@ -35,7 +35,9 @@ woas["config"] = {
 "sort_tags":true,
 "fixed_header":true,
 "fixed_menu":true,
-"menu_link":0};
+"menu_link":0
+};
+;
 
 var current = 'Main Page';
 
@@ -135,10 +137,10 @@ var page_titles = [
 'WoaS::Help::Go to a page'
 ];
 
-/* DFQRCTsKlU-0000001-DATA */
+/* DFQRCTsKlU-0000000-DATA */
 var page_attrs = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
 
-var page_mts = [0,0,0,0,1319371747,0,0,0,0,0,0,0,0,1319371788,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1318738575,1318739163,1318740655,1318741670];
+var page_mts = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0x4e9a5a8f,0x4e9a5cdb,0x4e9a62af,0x4e9a66a6];
 
 var pages = [
 '[[Main Page]]\n\
@@ -194,7 +196,8 @@ var pages = [
 \x3Cfieldset class="woas_input_wrap"\x3E\x3Clegend\x3ESource\x3C/legend\x3E\\\n\
 \x3Clabel class="woas_input_wrap_left"\x3EFile: \x3Cinput class="woas_input_wrap_inline" id="filename_" type="file" /\x3E\x3C/label\x3E\n\
 \x3Clabel\x3E\x3Cinput type="checkbox" id="woas_cb_import_config" onclick="woas.importer.i_config=this.checked"\x3EImport configuration (except WSIF datasource settings)\x3C/label\x3E\n\
-\x3Clabel\x3E\x3Cinput type="checkbox" id="woas_cb_import_content" onclick="woas.ui._import_load_change()"\x3EImport content\x3C/label\x3E\x3Clabel\x3E\x3Cinput type="checkbox" class="woas_input_wrap_inline" id="woas_cb_import_styles" onclick="woas.importer.i_styles=this.checked"\x3EImport custom CSS\x3C/label\x3E\n\
+\x3Clabel\x3E\x3Cinput type="checkbox" id="woas_cb_import_content" onclick="woas.ui._import_load_change()"\x3EImport content\x3C/label\x3E\n\
+\x3Clabel\x3E\x3Cinput type="checkbox" id="woas_cb_import_styles" onclick="woas.ui._import_load_change()"\x3EImport custom CSS\x3C/label\x3E\n\
 \x3C/fieldset\x3E\\\n\
 [[Include::WoaS::ImportSettings]]\\\n\
 \x3Cscript type="text/javascript"\x3E\n\
@@ -243,20 +246,20 @@ This project wouldn\'t be what it is without the help of other people. If you co
 * [[https://lists.sourceforge.net/lists/listinfo/stickwiki-devel|SF.net WoaS Development mailing list]] - for discussion of WoaS development\n\
 ',
 '= Buyer Beware!\n\
-*Please be aware* that this version is unfinished. I believe it is safe with data, but it is still being updated. Almost done. Also, the contents of this page don\'t match {{{fix/index.wsif}}}.\n\
-\n\
-* *Check out the nice jump to [[WoaS History#The principles|sections]] (and the folding TOC once you get to that page. Erasing the wiki has been improved.*\n\
-\n\
+*Please be aware* that this version is unfinished. I have uploaded it to update my code and let others take a look at current changes. I believe it is safe with data, but will be uploading a better version within the next day or two.\n\
 \n\
 * *This version uses a completely new way to control the layout* (adding CSS classes to the HTML tag). It works very well but means that if you try plugins that change the display style (block/hidden) of the main HTML it will likely break the file. This will be fixed later by loading layout from a page (or code) on start up. This new code makes future theming and skinning much easier to implement. (This is a key issue for me.) It also stops the multiple changes that  mess up version control and diffs.\n\
+* The /Fixed Header/ is not done yet. Right now content disappears behind it. This will be put right by the next upload. It is actually just a bit of code that I have already written, but I haven\'t had time to get to it yet as I wanted to finish up some other layout issues and got side-tracked with the /Orphaned Pages/ code.\n\
 * I haven\'t finished with export to HTML yet -- or even checked it recently; much of the layout and IDs have changed during this phase. I will make it right before release.\n\
-* Some lists may actually have slowed down a little bit as they are now much more capable; the /Orphaned Pages/ list is now many times faster in larger files.\n\
+* Some lists may actually have slowed down a bit as they are now much more capable; the /Orphaned Pages/ list is now 100 times faster.\n\
 * I found it took a few hours to get used to the new page/tag list format, because it works differently from 0.12.0 (so I kept going to pages instead of toggling DIVs); once used to it I found it much easier to use. And I think it looks much better. (The 0.12.0 look actually breaks in one major browser on my system.)\n\
 * I have rearranged some icons to make the code simpler and because it is more consistent to my eyes.\n\
 * The locks are now opposite in looks to 0.12.0; it just makes more sense to me.\n\
+* I am aware of an issue in the Help pages that breaks one page because of a bad link. I will fix it before release.\n\
+* My new WoaS logo is to differentiate my version from the official one. I haven\'t decided yet whether to use it for this version or to reserve it for my later, enhanced WoaS version (assuming I ever get to it).\n\
 * Though I have fixed up the /Password Entry/ layout (and made a new icon for it) I may change it to use a page (like all the other functions), and may eventually remove the need for it entirely\n\
 \n\
-Again, some things are in transition. Some pages are not finished, but things are getting close.\n\
+Again, some things are in transition. Some pages are not finished and a lot of the help pages have not been updated yet, though /Little Girl/ has done a lot of work on them.\n\
 \n\
 Do let me know what you think and any issues you find. Be sure to check out some of the new options. Sorry to have taken so long to get the code up. Hopefully I\'ll be more or less finished with this soon. I have tested quite a bit with a quite large WoaS file and things seem to be working well, but I haven\'t tested every function recently; I will before release.\n\
 \n\
@@ -338,7 +341,7 @@ Apart from the above, your normal usage of encrypted pages can be considered sec
 \x3Clabel\x3E\x3Cinput type="checkbox" id="cb_save_on_quit" onclick="woas.config.save_on_quit = d$.checked(\'cb_save_on_quit\')" /\x3EAutomatically save options before quitting (if changed)\x3C/label\x3E\n\
 \x3Clabel\x3E\x3Cinput type="checkbox" id="cb_safe_mode" onclick="woas.config.safe_mode = d$.checked(\'cb_safe_mode\')" /\x3EEnable safe mode with embedded scripts and plugins not executed (/requires reload/)\x3C/label\x3E\n\
 \x3Clabel\x3E\x3Cinput type="checkbox" id="cb_allow_diff" onclick="woas.config.allow_diff = d$.checked(\'cb_allow_diff\')" /\x3EMake merge/diff of WoaS XHTML/WSIF data source easier\x3C/label\x3E\n\
-\x3Clabel\x3E\x3Cinput type="checkbox" id="cb_store_mts" onclick="woas.config.store_mts = d$.checked(\'cb_store_mts\')" /\x3EStore and display last modified timestamp\x3C/label\x3E\n\
+\x3Clabel\x3E\x3Cinput type="checkbox" id="cb_store_mts" onclick="var r = woas.config.store_mts = d$.checked(\'cb_store_mts\'); woas.ui.display({no_mts:!r})" /\x3EStore and display last modified timestamp\x3C/label\x3E\n\
 \x3Clabel\x3E\x3Cinput type="checkbox" id="cb_rem_history" onclick="woas.config.nav_history = d$.checked(\'cb_rem_history\')" /\x3EStore current page and navigation history\x3C/label\x3E\\\n\
 \x3C/fieldset\x3E\\\n\
 \x3Cfieldset class="woas_input_wrap woas_no_option"\x3E\x3Clegend\x3EWSIF settings\x3C/legend\x3E\\\n\
@@ -544,8 +547,7 @@ If the file is already in read-only mode the /Prevent Edits/ button is not displ
 ',
 '\x3Cdiv\x3E\x3Cinput class="woas_button_top" title="Import a plugin" value="Import plugin..." onclick="woas.go_to(\'Special::ImportWSIF\')" type="button" /\x3E\x3Cinput class="woas_button_top" title="Create a new plugin" value="Create plugin..." onclick="javascript:_woas_new_plugin()" type="button" /\x3E\x3C/div\x3E\n\
 = Installed plugins',
-'[[Special::TOC]]\n\
-= Wiki on a Stick History\n\
+'= Wiki on a Stick History\n\
 == Versions 0.01 &tilde; 0.04\n\
 \x3Csub\x3Eby Andr\u00e9 Wagner\x3C/sub\x3E\n\
 \n\
@@ -932,7 +934,7 @@ All changes will be visible immediately.\n\
 == Restore the default CSS settings\n\
 You can always restore WoaS default CSS by deleting the content of [[WoaS::CSS::Custom]].\n\
 == Import CSS rules into your wiki\n\
-You can import the CSS rules from another copy of WoaS by following the instructions for [[WoaS::Help::Import|importing]] another wiki into the current one and placing a check in the box next to *Import also CSS.*\n\
+You can import the CSS rules from another copy of WoaS by following the instructions for [[WoaS::Help::Import|importing]] another wiki into the current one and placing a check in the box next to *Import custom CSS.*\n\
 \n\
 Importing from older versions of WoaS can garble the layout of the wiki. There are two ways to avoid this:\n\
 # Manually transfer the CSS from the older version of WoaS into the [[WoaS::CSS::Custom]] page by copying and pasting it, checking the class and id of each entry against the default CSS rules on the [[WoaS::CSS::Core]] page to verify that it\'s still in use before saving your changes.\n\
@@ -2980,14 +2982,22 @@ With a combination of HTML and wiki syntax, you can create anchor links to anywh
 \x3Cinput value="BUTTONTEXT" onclick="woas.go_to(\'PAGENAME\')" type="submit" /\x3E\n\
 }}}\x3Cbr\x3E\x3Cdiv class="woas_help_text"\x3ETo create a button that opens an internal link in another tab or window.\x3C/div\x3E\n\
 ',
-'Wiki on a Stick offers various ways of using images in your pages. You can link to local image files on your drive, remote image files, or embed image files into the wiki.\n\
+'Wiki on a Stick offers various ways to use images in your pages. You can link to image files located on the Internet, network, or local drive, or embed image files into the wiki.\n\
+\n\
+The [[Image::]] namespace listing displays an image gallery. Each image is displayed on a green background so that you can tell if it contains transparency: if all you can see is a thin green border around the image (using the default CSS) then it is not transparent; if the green background shows through then it is.\n\
+\n\
+The image currently highlighted will be opened in its own page if clicked. This page shows it on a normal page background and provides info on the image and its use in the wiki.\n\
+\n\
+The format of both the image gallery and the images can be controlled using [[WoaS::Help::CSS|custom CSS]].\n\
 == Standard WoaS syntax\n\
+All supported browsers can display embedded images, except for Internet Explorer 6 & 7; IE 6 & 7 may have this capability added in a future version. If you are using a Gecko-based browser like Firefox you can also embed images. This capability will hopefully be added for other browsers in the future.\n\
+\n\
+Embedded images allow the wiki to be self-contained within a single file, but means that each image takes up 33% more space than its original file size as it is stored with Base64 encoding. Excessive use of images could affect performance, especially on less capable hardware.\n\
 === Embed an image in the wiki\n\
 This wiki provides an interface for embedding images. Each image will be given its own page, which you can use in an include link to insert the image anywhere in this wiki.\n\
-\x3C\x3C\x3Cwoas.note: Embedded images are encoded with Base64 and are 33% bigger than the original files. Since this wiki is a single file, excessive use of images may slow down performance.\n\
-\n\
-It is recommended that the image file extension be retained in the image name. Image export operations will then preserve the extension when writing out the file and that will help those browsers that infer the mime type of the image from the file extension.\x3E\x3E\x3E\n\
+\x3C\x3C\x3Cwoas.note: It is recommended that the image file extension be retained in the image name. Image export operations will then preserve the extension when writing out the file and that will help those browsers that infer the mime type of the image from the file extension.\x3E\x3E\x3E\n\
 \x3Cspan class="woas_help_text"\x3EReplace NAME in these instructions with the name of your image:\x3C/span\x3E\n\
+\n\
 *From the default menu*\n\
 # Click the *New Page* link in the menu.\n\
 # Type {{{Image::NAME}}} into the box that comes up. This will bring up the image embedding interface.\n\
@@ -3249,7 +3259,8 @@ body, div, textarea, pre, ul, ol, li {\n\
 \n\
 .woas_no_back #woas_back, .woas_no_fwd #woas_fwd, .woas_no_home #woas_home,\n\
 .woas_no_tools #woas_tools, .woas_no_edit #woas_edit,\n\
-.woas_no_lock #woas_lock, .woas_no_lock #woas_unlock {\n\
+.woas_no_lock #woas_lock, .woas_no_lock #woas_unlock,\n\
+.woas_no_debug #woas_debug {\n\
 	display: inline-block; /* IE 6-8 needs this for filter to work */\n\
 	-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=15)"; /* IE8 */\n\
 	*filter: alpha(opacity=15); /* IE 6/7 */\n\
@@ -3288,7 +3299,7 @@ body, div, textarea, pre, ul, ol, li {\n\
 .woas_view #woas_edit_mode, .woas_view #woas_edit_wrap,\n\
 .woas_edit #woas_view_mode, .woas_edit #woas_page_wrap, .woas_edit #woas_menu_wrap,\n\
 .woas_pswd #woas_scroll_wrap, .woas_pswd #woas_header_wrap, .woas_wait #woas_scroll_wrap,\n\
-.woas_no_mts #woas_mts, .woas_no_debug #woas_debug, .woas_no_log #woas_debug_console {\n\
+.woas_no_mts #woas_mts, .woas_no_log #woas_debug_console {\n\
 	display: none\n\
 }\n\
 .woas_edit #woas_edit_wrap, .woas_view #woas_page_wrap, .woas_view #woas_menu_wrap,\n\
@@ -3549,13 +3560,20 @@ explicit margins are needed for IE6/7 otherwise collapsed under certain circumst
 	font-weight: bold\n\
 }\n\
 \n\
-/* IMAGE GALLEY */\n\
-/* temporary test css */\n\
-.woas_img_list, .woas_img_list_first, .woas_img_list_last, .woas_img_list_single {\n\
-	padding-top: 1.75em;\n\
+/* IMAGE GALLERY */\n\
+a.woas_img_list, .woas_img_list_first, .woas_img_list_last, .woas_img_list_single {\n\
+	display: block;\n\
+	padding-bottom: .75em;\n\
+	padding-top: 1em;\n\
 }\n\
-a.woas_img_list {\n\
-	color: #00f;\n\
+a.woas_img_list:hover, .woas_img_list_first:hover, .woas_img_list_last:hover,\n\
+.woas_img_list_single:hover {\n\
+	background-color: #efe;\n\
+	margin-left: -1em; /* same as woas_page padding */\n\
+	margin-right: -1em;\n\
+	padding-left: 1em;\n\
+	padding-right: 1em;\n\
+	text-decoration: none;\n\
 }\n\
 img.woas_img_list {\n\
 	display: block;\n\
@@ -4009,18 +4027,18 @@ An alias is added by editing the [[WoaS::Aliases]] reserved page and adding an a
 \n\
 *$JD* is the alias, which will be replaced when found in wiki page title references, and /"John Doe"/ is the text which will replace *$JD*. You can specify any part of page titles in aliases, like namespaces or page prefixes/suffixes.\n\
 ',
-'\x3Cdiv id="woas_import_content"\x3E\x3Cfieldset class="woas_input_wrap"\x3E\x3Clegend\x3EExisting pages\x3C/legend\x3E\\\n\
+'\x3Cfieldset id="woas_import_pages" class="woas_input_wrap"\x3E\x3Clegend\x3EExisting pages\x3C/legend\x3E\\\n\
 \x3Clabel\x3E\x3Cinput type="radio" id="woas_import_ask" name="woas_import_overwrite" onclick="woas.importer.i_overwrite=3" checked="checked"\x3EAsk before overwrite\x3C/label\x3E\n\
 \x3Clabel\x3E\x3Cinput type="radio" id="woas_import_erase" name="woas_import_overwrite" onclick="woas.importer.i_overwrite=0"\x3EErase all user pages before import process\x3C/label\x3E\n\
 \x3Clabel\x3E\x3Cinput type="radio" id="woas_import_ignore" name="woas_import_overwrite" onclick="woas.importer.i_overwrite=1"\x3EIgnore\x3C/label\x3E\n\
 \x3Clabel\x3E\x3Cinput type="radio" id="woas_import_overwrite" name="woas_import_overwrite" onclick="woas.importer.i_overwrite=2"\x3EOverwrite\x3C/label\x3E\n\
 \x3C/fieldset\x3E\\\n\
-\x3Cfieldset class="woas_input_wrap"\x3E\x3Clegend\x3ESecurity\x3C/legend\x3E\\\n\
+\x3Cfieldset id="woas_import_security" class="woas_input_wrap"\x3E\x3Clegend\x3ESecurity\x3C/legend\x3E\\\n\
 \x3Cdiv class="woas_input_wrap_left"\x3E/If you don\'t trust the pages you are importing you may want to disable imported JavaScript, macros, and special WoaS pages until you can review their content./\x3C/div\x3E\n\
 \x3Clabel\x3E\x3Cinput type="checkbox" id="woas_cb_import_comment_js" onclick="woas.importer.i_comment_js=this.checked"\x3EComment JavaScript tags\x3C/label\x3E\n\
 \x3Clabel\x3E\x3Cinput type="checkbox" id="woas_cb_import_comment_macros" onclick="woas.importer.i_comment_macros=this.checked"\x3EComment macro definition/call\x3C/label\x3E\n\
 \x3Clabel\x3E\x3Cinput type="checkbox" id="woas_cb_import_no_woas" onclick="woas.importer.i_no_woas=this.checked"\x3EDo not import [[WoaS::]] namespace pages ([[WoaS::Hotkeys|hotkeys]], [[WoaS::Plugins|plugins]], and [[WoaS::Aliases|aliases]])\x3C/label\x3E\n\
-\x3C/fieldset\x3E\x3C/div\x3E\n\
+\x3C/fieldset\x3E\n\
 ',
 'Web pages can be included in a page as embedded HTML objects or in HTML iframes.\n\
 \x3C\x3C\x3Cwoas.note: Some pages may not render correctly depending on how they\'re coded. Embedding more than one web page in a wiki page will cause the final embedded web page to steal the focus when the page is loaded, so it\'s recommended to have only one per page.\x3E\x3E\x3E\n\
@@ -4148,24 +4166,25 @@ If selected a CSS stylesheet will be generated for the entire file set and impor
 ===Export menus\n\
 If selected any menu (including any sub-menu) that would show for a particular WoaS page will also be rendered in the output XHTML file; if not selected only the main page area wil be rendered and exported\n\
 ',
-'The [[Special::Import]] page provides an interface for importing the contents of a previous or current version of the wiki from an .html source file.\n\
+'The [[Special::Import]] page provides an interface for importing the contents of a current or earlier version of the wiki from an .html source file (back to v0.9.6B). Certain options are only available if the context allows.\n\
 == Source\n\
 Click the *Browse...* button to select the wiki file to import.\n\
 ===Import configuration (except WSIF datasource settings)\n\
-Imports all the settings from the [[Special::Options]] page in the source file into the destination file.\n\
-\x3C\x3C\x3Cwoas.note: The settings in the /External data source/ section of the [[Special::Options]] page will not be imported.\x3E\x3E\x3E\n\
+Imports all the settings from the [[WoaS::Help::Special::Options|Special::Options]] page in the source file into the destination file.\n\
+\x3C\x3C\x3Cwoas.note: The settings in the /[[WoaS::Help::Special::Options#WSIF Settings|WSIF settings]]/ section of the /Special::Options/ page will not be imported.\x3E\x3E\x3E\n\
 ===Import content\n\
-Imports the following pages from the source file:\n\
+Imports these pages from the source file:\n\
 * Any user-created pages.\n\
 * [[Main Page]]\n\
 * [[::Menu]]\n\
-* [[WoaS::Aliases]] Unless /Do not import WoaS:: namespace pages/ is selected\n\
-* [[WoaS::CSS::Custom]] if /Import custom CSS/ is selected\n\
-* [[WoaS::Hotkeys]] Unless /Do not import WoaS:: namespace pages/ is selected\n\
-* [[WoaS::Plugins]] Unless /Do not import WoaS:: namespace pages/ is selected\n\
+and also these pages unless /Do not import WoaS:: namespace pages/ is selected:\n\
+* [[WoaS::Aliases]]\n\
+* [[WoaS::Hotkeys]]\n\
+* [[WoaS::Plugins]]\n\
 ===Import custom CSS\n\
-Imports the [[WoaS::CSS::Custom]] page from the source file, overwriting the same page in the destination file. CSS rules from older releases of the wiki may not work properly in the current version.\n\
-\x3C\x3C\x3Cwoas.note: This option cannot be selected unless the /Import content/ option is already selected.\x3E\x3E\x3E\n\
+Imports the [[WoaS::CSS::Custom]] page from the source file, overwriting the same page in the destination file. CSS rules from older releases of the wiki may not work properly in the current version; see [[WoaS::Help::CSS#Import CSS rules into your wiki|Import CSS rules]].\n\
+\n\
+Importing custom CSS and configuration from a current WoaS version, while not importing content, is a good way to copy a custom wiki set-up.\n\
 == Existing pages\n\
 ===Erase all user pages before import process\n\
 Erases all user-created pages before importing content into the destination file. The import interface will pop up two confirmation boxes to verify that you\'re sure you want to erase the pages.\n\
@@ -4241,19 +4260,18 @@ If the wiki is erased the menu contents are slightly reduced, with less often us
 # Type in the name of the page you wish to go to.\n\
 # Accept by pressing the /OK/ button, or cancel by pressing the /Cancel/ button.\n\
 # If the page exists, you\'ll be taken to it. If it doesn\'t exist, and isn\'t in a [[WoaS::Help::Namespaces#Reserved namespaces|reserved namespace]], the [[WoaS::Help::Create a page|page creation interface]] will open and offer to help you to create the page.\n\
-'
-];
+'];
 
-/* DFQRCTsKlU-0000001-END */
+/* DFQRCTsKlU-0000000-END */
 
 /* ]]> */
 </script>
 <title woas_permanent="1">Main Page</title>
-<style type="text/css" woas_permanent="1" woas_core_style="1">/* CSS used when loading/saving WoaS; readonly */
+<style type="text/css" woas_permanent="1" woas_core_style="1">/* CSS used when loading/saving WoaS - readonly */
 body {
-	margin: 0px;
-	padding: 0px;
-	border-width: 0px;
+	margin: 0;
+	padding: 0;
+	border-width: 0;
 	font-family: Georgia, verdana;
 	background-color: #F0F0F5; /* to match layout; no name */
 }
@@ -4268,7 +4286,7 @@ body {
 	text-align: center
 }
 #woas_debug_console {
-	width: 50%;
+	width:50%;
 	margin: 3em auto
 }
 #woas_debug_log {
@@ -4649,11 +4667,17 @@ it=folds[oi].length;s+="<"+"div"+" class=\"woas_list_heading\">"+ns+"&nbsp;&nbsp
 fold_id+"')\">"+it+" page"+(it>1?"s":"")+"<"+"/a>\n<"+"/div>\n"+"<"+"div style=\""+dsp(fs===2)+"\" id=\""+fold_id+"\">\n<"+"div class=\"woas_list\">\n[["+folds[oi].join("]]\n[[")+"]]<"+"/div><"+"/div>\n";}
 s+="<"+"/div>\n"+"<"+"div style=\""+dsp(fs===0)+"\" id=\""+list_id+"flat\">\n";}
 s+=root?"* [["+flat_arr.join("]]\n* [[")+"]]\n":"==Pages\n* "+flat_arr.join("\n* ")+"\n";if(f){s+="<"+"/div>";}
-return s;};woas._special_image_gallery=function(ns){var snippets=[],div=[],i,l,t,p={body:'= Pages in '+ns+' namespace\n'};for(i=0,l=page_titles.length;i<l;++i){t=page_titles[i];if(t.indexOf(ns)===0){div.push(this.parser.transclude(t,snippets,false,true)+'<'+'a class="woas_img_list" onclick="woas.go_to(\''+t+'\')"'+'>'+t+'<'+'/a><'+'/div>');}}
-if(div.length){p.body+='<'+'div class="'+(div.length===1?'woas_img_list_single':'woas_img_list_first')+'">'+div[0];}
-for(i=1,l=div.length-1;i<l;++i){p.body+='<'+'div class="woas_img_list">'+div[i]}
-if(l){p.body+='<'+'div class="woas_img_list_last">'+div[l]}
-this.parser.syntax_parse(p,snippets);snippets=null;return p.body;};woas.tweak={edit_override:false,integrity_test:false};woas.cmd_duplicate_page=function(){var pname=this._new_page("Insert duplicate page title",true,current+" (duplicate)");if(pname===null)
+return s;};woas._special_image_gallery=function(ns){var snippets=[],div=[],i,l,cnt,t,cls='woas_img_list',plus='',p={body:'= Pages in '+ns+' namespace\n'},line1='<'+'a class="%s" onclick="woas.go_to(\'%s\')">',line2='<'+'div class="'+cls+'">%s<'+'/div><'+'/a>';for(i=0,l=page_titles.length,cnt=0;i<l;++i){if(page_titles[i].indexOf(ns)===0){div[cnt++]=page_titles[i];}}
+l=div.length;if(l){plus=cls+(l===1?'_single':'_first');t=div[0];div[0]=line1.sprintf(plus,t)+
+this.parser.transclude(t,snippets,false,true)+
+line2.sprintf(t);}
+--l;if(l){plus=cls+'_last';t=div[l];div[l]=line1.sprintf(plus,t)+
+this.parser.transclude(t,snippets,false,true)+
+line2.sprintf(t);}
+for(i=1;i<l;++i){t=div[i];div[i]=line1.sprintf(cls,t)+
+this.parser.transclude(t,snippets,false,true)+
+line2.sprintf(t);}
+p.body+=div.join('');this.parser.syntax_parse(p,snippets);snippets=div=null;return p.body;};woas.tweak={edit_override:false,integrity_test:false};woas.cmd_duplicate_page=function(){var pname=this._new_page("Insert duplicate page title",true,current+" (duplicate)");if(pname===null)
 return;var pi=this.page_index(current);var dpi=this.page_index(pname);if(this.is__encrypted(pi))
 pages[dpi]=pages[pi].slice(0);else
 pages[dpi]=pages[pi];page_attrs[dpi]=page_attrs[pi];this.go_to(pname);this.commit([dpi]);};woas.cmd_new_page=function(){this._new_page(this.i18n.INSERT_NEW,false,'');};woas._new_page=function(msg,fill_mode,title){title=this._prompt_title(msg,title,false);if(title===null)
@@ -4675,14 +4699,14 @@ var _titles,_pages,i,il,pt,pi;this.progress_init("Erasing...");_titles=[this.con
 _pages.push(pages[pi]);if(!_pages[_pages.length-1]){_pages.pop();continue;}
 _titles.push(pt);}}
 pages=_pages;page_titles=_titles;page_attrs=[];page_mts=[];for(i=0,il=_pages.length;i<il;++i){page_attrs.push(0);page_mts.push(0);}
-current=this.config.main_page;this.refresh_menu();this.history.clear();this._load_aliases(this.get_text("WoaS::Aliases"));this.hotkey.load(this.get_text("WoaS::Hotkeys"));this.plugins.clear();this.plugins.load();this.progress_finish();return true;};woas.cmd_main_page=function(){this.go_to(this.config.main_page);return null;};woas.cmd_edit_special=function(cr){if(!this.config.permit_edits&&!this.tweak.edit_override){this.alert(this.i18n.READ_ONLY);}else{var tmp=this.get_text(cr);if(tmp!==null){this.current_editing(cr,this.config.permit_edits||this._server_mode,tmp);}}
+current=this.config.main_page;this.ui.refresh_menu();this.history.clear();this._load_aliases(this.get_text("WoaS::Aliases"));this.hotkey.load(this.get_text("WoaS::Hotkeys"));this.plugins.clear();this.plugins.load();this.progress_finish();return true;};woas.cmd_main_page=function(){this.go_to(this.config.main_page);return null;};woas.cmd_edit_special=function(cr){if(!this.config.permit_edits&&!this.tweak.edit_override){this.alert(this.i18n.READ_ONLY);}else{var tmp=this.get_text(cr);if(tmp!==null){this.current_editing(cr,this.config.permit_edits||this._server_mode,tmp);}}
 return null;};woas.cmd_go_to=function(){if(this.ui.edit_mode)
 return;var pname;do{pname=prompt("Go to page:",current);if((pname!==null)&&pname.length)
 if(this.go_to(pname))
 return;}while(pname!==null);};woas.cmd_delete=function(){if(!this.config.permit_edits){this.alert(this.i18n.READ_ONLY);}else{var pname,pi;while((pname=prompt(this.i18n.DELETE_PAGE_PROMPT,current))!==null){if(!pname.length)
 continue;pi=this.page_index(pname);if(pi===-1){this.alert(this.i18n.PAGE_NOT_EXISTS.sprintf(pname));continue;}else if(this.is_reserved(pname)){this.alert(this.i18n.ERR_RESERVED_NS.sprintf(this.get_namespace(pname,true)));continue;}else if(confirm(this.i18n.CONFIRM_DELETE.sprintf(pname))){this.plugins.delete_check(pname);this.delete_page_i(pi);return true;}}}
 return false;};woas.shortcuts=["New Page","Duplicate Page","All Pages","Orphaned Pages","Backlinks","Dead Pages","Erase Wiki","Main Page","Go to","Delete Page","Recent Changes"];woas.shortcuts_js=["cmd_new_page","cmd_duplicate_page","special_all_pages","special_orphaned_pages","special_backlinks","special_dead_pages","cmd_erase_wiki","cmd_main_page","cmd_go_to","cmd_delete","special_recent_changes"];woas.unexportable_pages=["New Page","Duplicate Page","Backlinks","Erase Wiki","Edit CSS","Go to","Delete Page","Search"];woas.unexportable_pages2=["WoaS::CSS","WoaS::Aliases","WoaS::Hotkeys","WoaS::Plugins"];woas.raw_js=function(code){return"<"+"script type=\"text/javascript\">\n"+code+"\n<"+"/s"+"cript>";};woas.delete_page=function(title){var pi=page_titles.indexOf(title);if(pi===-1){this.crash("Requesting deletion of unexisting page!");return false;}
-return this.delete_page_i(pi);};woas.delete_page_i=function(i){var il,old_title=page_titles[i];page_titles.splice(i,1);pages.splice(i,1);page_attrs.splice(i,1);page_mts.splice(i,1);if(current===old_title){this.set_current(this.history.previous(),true);}else{this.refresh_menu();}
+return this.delete_page_i(pi);};woas.delete_page_i=function(i){var il,old_title=page_titles[i];page_titles.splice(i,1);pages.splice(i,1);page_attrs.splice(i,1);page_mts.splice(i,1);if(current===old_title){this.set_current(this.history.previous(),true);}else{this.ui.refresh_menu();}
 this.history.clear(old_title);return this.commit_delete([i]);};woas.history=(function(){var backstack=window.backstack,forstack=[],going_back=true,going_forward=false;function store(page){if(backstack.length>woas.history.MAX_BROWSE_HISTORY)
 backstack=backstack.slice(1);backstack.push(page);}
 return{MAX_BROWSE_HISTORY:6,has_forstack:function(){return(forstack.length>0);},has_backstack:function(){return(backstack.length>0);},previous:function(){if(backstack.length>0){return backstack.pop();}else
@@ -4828,14 +4852,14 @@ mts=page_mts[pi];else mts=null;}else{pi=this.page_index(cr);cr=page_titles[pi];m
 return this.load_as_current(cr,this.parser.parse(text,false,this.js_mode(cr)),this.config.store_mts?mts:0,set_b,keep_fwd);};woas.js_mode=function(cr){return this.config.safe_mode&&!this.is_reserved(cr)?3:1;};woas.last_modified=function(mts,no){if(mts==0)
 return"";return(no?"":this.i18n.LAST_MODIFIED)+(new Date(mts*1000)).toLocaleString();};woas.load_as_current=function(title,xhtml,mts,set_b,keep_fwd){if(typeof title=="undefined"){this.crash("load_as_current() called with undefined title");return false;}
 this.parser.render_title=title;if(set_b)
-this.pager.bucket.one(title);this.ui.top();this.setHTMLDiv(d$("woas_page"),xhtml);this.refresh_mts(mts);this.history.go(title,keep_fwd);current=title;this.refresh_menu();this.scripting.activate(this.is_menu(current)?"menu":"page");this._set_title(title);this.update_view();return true;};woas._finalize_lock=function(pi,back){this._perform_lock(pi);var title=page_titles[pi];if(!this.config.key_cache){this.AES.clearKey();this.last_AES_page="";}else
+this.pager.bucket.one(title);this.ui.top();this.setHTMLDiv(d$("woas_page"),xhtml);this.refresh_mts(mts);this.history.go(title,keep_fwd);current=title;this.ui.refresh_menu();this.scripting.activate(this.is_menu(current)?"menu":"page");this._set_title(title);this.update_view();return true;};woas._finalize_lock=function(pi,back){this._perform_lock(pi);var title=page_titles[pi];if(!this.config.key_cache){this.AES.clearKey();this.last_AES_page="";}else
 this.last_AES_page=title;if(back){this.ui.back();}else{this.set_current(title,true,true);}
 this.save_page_i(pi);};woas._perform_lock=function(pi){if(!(page_attrs[pi]&0x2)){pages[pi]=this.AES.encrypt(pages[pi]);page_attrs[pi]|=0x2;}};woas._auto_saver=function(){if(woas.save_queue.length&&!woas.ui.edit_mode){woas.commit(woas.save_queue);woas.menu_display("save",false);}
 clearTimeout(woas._autosave_thread);if(_this.config.auto_save)
 woas._autosave_thread=setTimeout("woas._auto_saver()",woas.config.auto_save);};woas._on_unload=function(){if(this.save_queue.length)
 this.commit(this.save_queue);else{if(this.config.save_on_quit&&this.cfg_changed)
 this.cfg_commit();}
-return true;};woas.getHTMLDiv=function(elem){return elem.innerHTML;};woas.setHTMLDiv=function(elem,html){elem.innerHTML=html;};woas._on_load=function(){this._set_debug(this.config.debug_mode,this.config.debug_closed);d$("woas_debug_log").value="";woas.log("*** WoaS v"+this.version+"-pvhl-r2473"+" started");this._old_wsif_ds=is_windows?this.config.wsif_ds.replace(reFwdSlash,'\\'):this.config.wsif_ds;if(this.browser.ie&&Number(this.browser.ie)<9){this.setHTML=function(elem,html){elem.text=html;};this.getHTML=function(elem){return elem.text;};}else{this.setHTML=this.setHTMLDiv;this.getHTML=this.getHTMLDiv;}
+return true;};woas.getHTMLDiv=function(elem){return elem.innerHTML;};woas.setHTMLDiv=function(elem,html){elem.innerHTML=html;};woas._on_load=function(){this._set_debug(this.config.debug_mode,this.config.debug_closed);d$("woas_debug_log").value="";woas.log("*** WoaS v"+this.version+"-pvhl-r2475"+" started");this._old_wsif_ds=is_windows?this.config.wsif_ds.replace(reFwdSlash,'\\'):this.config.wsif_ds;if(this.browser.ie&&Number(this.browser.ie)<9){this.setHTML=function(elem,html){elem.text=html;};this.getHTML=function(elem){return elem.text;};}else{this.setHTML=this.setHTMLDiv;this.getHTML=this.getHTMLDiv;}
 if(this.log()&&this.tweak.integrity_test&&!this.integrity_test()){return;}
 if(this.config.wsif_ds.length){var path=is_windows?this.config.wsif_ds.replace(reFwdSlash,'\\'):this.config.wsif_ds.replace(/\\/g,'/');if(!this._wsif_ds_load(path,this.config.wsif_ds_lock)){if(this.wsif.emsg!==null){this._set_debug(true);this.crash("Could not load WSIF pages data!\n"+this.wsif.emsg);}
 return;}}
@@ -4965,16 +4989,17 @@ return-1;var fname,pos;subpath=subpath.replace(/\\/g,'/');pos=subpath.lastIndexO
 if(is_windows){subpath=subpath.replace(reFwdSlash,'\\');}
 return this._native_wsif_save(subpath,fname,this.config.wsif_ds_lock,!this.ui.wsif_ds_multi,true,this.config.wsif_author,true,plist);};woas.full_commit=function(){var r=this._wsif_ds_save(this.config.wsif_ds,this.config.wsif_ds_lock,[]);if(!r)this.alert(this.i18n.WSIF_SAVE_FAIL);return r?this._save_to_file(true):false;};woas.cfg_commit=function(){return this._save_to_file(true);};woas.commit=function(plist){var r=this._wsif_ds_save(this.config.wsif_ds,this.config.wsif_ds_lock,plist);if(!r)this.alert(this.i18n.WSIF_SAVE_FAIL);return r?this._save_to_file(true):false;};woas.commit_delete=function(plist){var r=this._wsif_ds_save(this.config.wsif_ds,this.config.wsif_ds_lock,plist);if(!r)this.alert(this.i18n.WSIF_SAVE_FAIL);return r?this._save_to_file(true):false;};woas.after_pages_saved=function(plist){if(typeof plist=="undefined"){this.save_queue=[];return;}
 for(var i=0,l=plist.length;i<l;i++){var p=this.save_queue.indexOf(plist[i]);if(p!==-1)
-this.save_queue.splice(p,1);}};woas.after_config_saved=function(){woas.cfg_changed=false;};woas.i18n={ACCESS_DENIED:"Access denied to the '%s' page.",ALT_BROWSER_INPUT:"This browser is not allowing the directory path to be read directly.\n\nPlease specify the full path to the '%s' file.",ASK_MENU_LINK:"Do you want the menu to have a link to this page?",B64_REQ:" (requires %s due to base64 encoding)",CANCEL_EDITING:"Changes to this page will not be saved.",CANNOT_LOCK_RESERVED:"You cannot lock a page in a reserved namespace.",CHOOSE_CANCEL:"\n\nIf you don't want this to happen choose Cancel.",CONFIRM_OVERWRITE:"Page \"%s\" already exists. Overwrite it?",CONFIRM_DELETE:"Are you sure you want to DELETE the '%s' page?",CONFIRM_DELETE_ALL1:"You are about to ERASE all your pages.\n\nDo you want to continue?",CONFIRM_DELETE_ALL2:"This is the last confirmation needed before ERASING all your pages.\n\nALL YOUR PAGES WILL BE LOST\n\nAre you sure you want to continue?",CONFIRM_DELETE_IMAGE:"Are you sure you want to delete the '%s' image?",CONFIRM_EXPORT:"Export '%s' to the path specified below?",CONFIRM_LOCK:"Do you want to use the last password entered to lock the '%s' page? ",CONFIRM_LOCK_LAST:"The password was last used on the '%s' page.",CONFIRM_READ_ONLY:"You will have to manually edit the file to revert this change.\n\nAny other changes to options will also be saved.",CONFIRM_REMOVE_ENCRYPT:"Do you want to remove encryption from the '%s' page?",CONTINUE_WAIT_LOAD:"The loading process seems stuck.\nPlease click OK to keep waiting or Cancel to break.",DELETE:"Delete page:",DELETE_FILE:"Delete embedded file",DELETE_IMAGE:"Delete embedded image",DELETE_PAGE_PROMPT:"Delete page:",DISPLAY_FULL_FILE:"Display full file",DUP_NS_ERROR:"Cannot duplicate into File:: or Image:: namespace!",EDITING:"Editing '%s'",EMPTY_TITLE:"An empty title is not allowed.",EMPTY_NS:"/No pages in '%s' namespace./",ERR_MARKER:"'%s' marker not found!",ERR_NO_PWD:"No password set for decrypting the '%s' page.\nPlease click the key icon and enter a password.",ERR_PAGE_NS:"You cannot create a page as a namespace.",ERR_RESERVED_NS:"Namespace '%s' is reserved.",ERR_SEL_FILE:"A file must be selected.",ERR_VAR_MARKER:"Marker variable not found!",EXPORT_FILE:"Export file",EXPORT_IMAGE:"Export image",EXPORT_OK:"%d/%d pages exported successfully.",FAILED_ERASE:"Saving the erased WoaS has failed!\n\nOriginal content will be restored by reloading file.",FILE_DISPLAY_LIMIT:"Only the first 1024 bytes are displayed.",FILE_SELECT_ERR:"A file must be selected.",FILE_SIZE:"File size",HEIGHT:"Height",IMG_LOAD_ERR:"/Image failed to load./\n",IMPORT_INCOMPAT:"Incompatible version: %s",IMPORT_OLD_VER:"If this is a WoaS older than v0.9.6B, you should import it by using WoaS 0.11.x.",IMPORT_OK:"%s pages imported successfully (%d pages skipped)",IMPORT_UNRECON:"Unrecognized format.",INSERT_NEW:"Insert new page title",INVALID_ALIAS:"Invalid '%s' alias will be ignored.",INVALID_DATA:"Invalid collected data!",INVALID_PAGE:"Invalid %s page.",INVALID_TITLE:"Title cannot contain ':::' or any of these characters:\n# \" | < > [ ] { }",LAST_MODIFIED:"Last modified: ",LOADING:"Loading Wiki on a Stick...",LOAD_ERR:"Cannot load specified file.",MIME_TYPE:"Mime type",MODE_NOT_AVAIL:"File mode 0x%s is not available on this browser.",NO_ERROR:"No error",NO_JAVA:"It was not possible to use TiddlySaver Java applet nor direct Java saving.",NO_TIDDLY_SAVER:"The TiddlySaver Java applet was not available.",NOT_A_NS:"/'%s' is a reserved namespace that is not listable. See [[WoaS::Help::Namespaces#Reserved namespaces|Help]]./",NOT_YET_IMPLEMENTED:"Feature not implemented yet.",NOTE_TEXT:"NOTE:",PAGE_EXISTS:"A page with title '%s' already exists!",PAGE_NOT_EXISTS:"'%s' page does not exist.",PAGE_NOT_FOUND:"Page not found. Do you want to create it?",PRINT_MODE_WARN:"Sorry, you cannot browse the wiki while in print mode.",PWD_QUERY:"Please enter a password.",READ_ONLY:"This Wiki on a Stick is read-only.",SAVE_ERROR:"Unable to save the '%s' file.",SERVER_MODE:"This Wiki on a Stick is not a local file; changes can only be saved to a local copy of the wiki. Please save this file if you want to make changes.\n\n"+"None of the changes made to this copy of Wiki on a Stick will be saved.",STATIC_NOT_FOUND:"Static page '%s' not found!",TIDDLY_HELP:"Please check that TiddlySaver.jar is in the same directory as this WoaS and that you have enabled Java permissions for it.",TOC:"Table of Contents",TOO_LONG_TITLE:"Maximum title length is %d characters.",UNSPECIFIED_JAVA_ERROR:"Please check the Java console for errors regarding the last operation and check that it's not due to your browser/Java restrictions.",UNSUPPORTED_BROWSER:"Your browser might not be supported. Please report a bug with your UserAgent string:\n%s",WIDTH:"Width",WRITE_PROTECTED:"This Wiki on a Stick is already write-protected.",WSIF_BAD_HV:"Could not locate end of header value.",WSIF_DS_TO_EXTERNAL:"The content of this wiki is about to be saved in WSIF format to the filename you entered.\n\nAll internal content will be deleted.\n\n",WSIF_DS_TO_INTERNAL:"The current wiki content is about to be stored internally.\n\nThe current WSIF data source file(s) will not be affected.",WSIF_DS_TO_MULTI:"The WSIF data source file is about to be rewritten as a page index WSIF file.",WSIF_DS_TO_SINGLE:"The current WSIF index file, listing individual page WSIF files, is about to be overwritten with page content.\n\nExisting WSIF files for pages will not be affected.",WSIF_EXIST:"If the filename you entered already exists it is about to be overwritten!",WSIF_NO_HN:"Could not locate header name.",WSIF_NO_VER:"Could not read WSIF version.",WSIF_NS_VER:"WSIF version %s is not supported!",WSIF_PAGES:"\n\nIf individual page files already exist for this data source file they will be overwritten.",WSIF_SAVE_FAIL:"Unable to save WSIF file with path given!\nCheck your data source setting in Special::Options"};woas.i18n.common_words=['the','of','to','and','a','in','is','it','you','that','he','was','for','on','are','with','as','I','his','they','be','at','one','have','this','from','or','had','by','an','all'];woas.importer={pages_imported:0,total:0,_settings_props:["i_comment_js","i_comment_macros","i_no_woas","i_config","i_styles","i_content"],_OVR_ID:6,new_main_page:null,current_mts:null,pages:[],_reference:[],_plugins_update:[],_plugins_add:[],_update_css:false,_update_hotkeys:false,_update_aliases:false,_bootscript_code:"",_fix_mts_val:function(mts,old_version){if(old_version<100)
+this.save_queue.splice(p,1);}};woas.after_config_saved=function(){woas.cfg_changed=false;};woas.i18n={ACCESS_DENIED:"Access denied to the '%s' page.",ALT_BROWSER_INPUT:"This browser is not allowing the directory path to be read directly.\n\nPlease specify the full path to the '%s' file.",ASK_MENU_LINK:"Do you want the menu to have a link to this page?",B64_REQ:" (requires %s due to base64 encoding)",CANCEL_EDITING:"Changes to this page will not be saved.",CANNOT_LOCK_RESERVED:"You cannot lock a page in a reserved namespace.",CHOOSE_CANCEL:"\n\nIf you don't want this to happen choose Cancel.",CONFIRM_OVERWRITE:"Page \"%s\" already exists. Overwrite it?",CONFIRM_DELETE:"Are you sure you want to DELETE the '%s' page?",CONFIRM_DELETE_ALL1:"You are about to ERASE all your pages.\n\nDo you want to continue?",CONFIRM_DELETE_ALL2:"This is the last confirmation needed before ERASING all your pages.\n\nALL YOUR PAGES WILL BE LOST\n\nAre you sure you want to continue?",CONFIRM_DELETE_IMAGE:"Are you sure you want to delete the '%s' image?",CONFIRM_EXPORT:"Export '%s' to the path specified below?",CONFIRM_LOCK:"Do you want to use the last password entered to lock the '%s' page? ",CONFIRM_LOCK_LAST:"The password was last used on the '%s' page.",CONFIRM_READ_ONLY:"You will have to manually edit the file to revert this change.\n\nAny other changes to options will also be saved.",CONFIRM_REMOVE_ENCRYPT:"Do you want to remove encryption from the '%s' page?",CONTINUE_WAIT_LOAD:"The loading process seems stuck.\nPlease click OK to keep waiting or Cancel to break.",DELETE:"Delete page:",DELETE_FILE:"Delete embedded file",DELETE_IMAGE:"Delete embedded image",DELETE_PAGE_PROMPT:"Delete page:",DISPLAY_FULL_FILE:"Display full file",DUP_NS_ERROR:"Cannot duplicate into File:: or Image:: namespace!",EDITING:"Editing '%s'",EMPTY_TITLE:"An empty title is not allowed.",EMPTY_NS:"/No pages in '%s' namespace./",ERR_MARKER:"'%s' marker not found!",ERR_NO_PWD:"No password set for decrypting the '%s' page.\nPlease click the key icon and enter a password.",ERR_PAGE_NS:"You cannot create a page as a namespace.",ERR_RESERVED_NS:"Namespace '%s' is reserved.",ERR_SEL_FILE:"A file must be selected.",ERR_VAR_MARKER:"Marker variable not found!",EXPORT_FILE:"Export file",EXPORT_IMAGE:"Export image",EXPORT_OK:"%d/%d pages exported successfully.",FAILED_ERASE:"Saving the erased WoaS has failed!\n\nOriginal content will be restored by reloading file.",FILE_DISPLAY_LIMIT:"Only the first 1024 bytes are displayed.",FILE_SELECT_ERR:"A file must be selected.",FILE_SIZE:"File size",HEIGHT:"Height",IMG_LOAD_ERR:"/Image failed to load./\n",IMPORT_CONFIG:"Configuration imported.",IMPORT_INCOMPAT:"Incompatible version: %s",IMPORT_OLD_VER:"If this is a WoaS older than v0.9.6B, you should import it by using WoaS 0.11.x.",IMPORT_OK:"%s pages imported successfully (%d pages skipped)",IMPORT_UNRECON:"Unrecognized format.",INSERT_NEW:"Insert new page title",INVALID_ALIAS:"Invalid '%s' alias will be ignored.",INVALID_DATA:"Invalid collected data!",INVALID_PAGE:"Invalid %s page.",INVALID_TITLE:"Title cannot contain ':::' or any of these characters:\n# \" | < > [ ] { }",LAST_MODIFIED:"Last modified: ",LOADING:"Loading Wiki on a Stick...",LOAD_ERR:"Cannot load specified file.",MIME_TYPE:"Mime type",MODE_NOT_AVAIL:"File mode 0x%s is not available on this browser.",NO_ERROR:"No error",NO_JAVA:"It was not possible to use TiddlySaver Java applet nor direct Java saving.",NO_TIDDLY_SAVER:"The TiddlySaver Java applet was not available.",NOT_A_NS:"/'%s' is a reserved namespace that is not listable. See [[WoaS::Help::Namespaces#Reserved namespaces|Help]]./",NOT_YET_IMPLEMENTED:"Feature not implemented yet.",NOTE_TEXT:"NOTE:",PAGE_EXISTS:"A page with title '%s' already exists!",PAGE_NOT_EXISTS:"'%s' page does not exist.",PAGE_NOT_FOUND:"Page not found. Do you want to create it?",PRINT_MODE_WARN:"Sorry, you cannot browse the wiki while in print mode.",PWD_QUERY:"Please enter a password.",READ_ONLY:"This Wiki on a Stick is read-only.",SAVE_ERROR:"Unable to save the '%s' file.",SERVER_MODE:"This Wiki on a Stick is not a local file; changes can only be saved to a local copy of the wiki. Please save this file if you want to make changes.\n\n"+"None of the changes made to this copy of Wiki on a Stick will be saved.",STATIC_NOT_FOUND:"Static page '%s' not found!",TIDDLY_HELP:"Please check that TiddlySaver.jar is in the same directory as this WoaS and that you have enabled Java permissions for it.",TOC:"Table of Contents",TOO_LONG_TITLE:"Maximum title length is %d characters.",UNSPECIFIED_JAVA_ERROR:"Please check the Java console for errors regarding the last operation and check that it's not due to your browser/Java restrictions.",UNSUPPORTED_BROWSER:"Your browser might not be supported. Please report a bug with your UserAgent string:\n%s",WIDTH:"Width",WRITE_PROTECTED:"This Wiki on a Stick is already write-protected.",WSIF_BAD_HV:"Could not locate end of header value.",WSIF_DS_TO_EXTERNAL:"The content of this wiki is about to be saved in WSIF format to the filename you entered.\n\nAll internal content will be deleted.\n\n",WSIF_DS_TO_INTERNAL:"The current wiki content is about to be stored internally.\n\nThe current WSIF data source file(s) will not be affected.",WSIF_DS_TO_MULTI:"The WSIF data source file is about to be rewritten as a page index WSIF file.",WSIF_DS_TO_SINGLE:"The current WSIF index file, listing individual page WSIF files, is about to be overwritten with page content.\n\nExisting WSIF files for pages will not be affected.",WSIF_EXIST:"If the filename you entered already exists it is about to be overwritten!",WSIF_NO_HN:"Could not locate header name.",WSIF_NO_VER:"Could not read WSIF version.",WSIF_NS_VER:"WSIF version %s is not supported!",WSIF_PAGES:"\n\nIf individual page files already exist for this data source file they will be overwritten.",WSIF_SAVE_FAIL:"Unable to save WSIF file with path given!\nCheck your data source setting in Special::Options"};woas.i18n.common_words=['the','of','to','and','a','in','is','it','you','that','he','was','for','on','are','with','as','I','his','they','be','at','one','have','this','from','or','had','by','an','all'];woas.importer={pages_imported:0,total:0,_settings_props:["i_comment_js","i_comment_macros","i_no_woas","i_config","i_styles","i_content"],_OVR_ID:6,new_main_page:null,current_mts:null,pages:[],_reference:[],_plugins_update:[],_plugins_add:[],_update_css:false,_update_hotkeys:false,_update_aliases:false,_bootscript_code:"",_fix_mts_val:function(mts,old_version){if(old_version<100)
 return this.current_mts;if(!mts)
 return 0;if((old_version===100)||(old_version===101)){if(mts===0x4b61cbad)
 mts=0;}
-return mts;},_filter_by_title:function(title){if(title.substr(0,6)==="WoaS::"){if(title==="WoaS::CSS::Custom")
+return mts;},_filter_by_title:function(title){if(!woas.importer.i_content&&woas.importer.i_styles){return title==="WoaS::CSS::Custom";}
+if(title.substr(0,6)==="WoaS::"){if(title==="WoaS::CSS::Custom")
 return woas.importer.i_styles;if(woas.importer.i_no_woas||title.indexOf("WoaS::Help")===0||woas.static_pages2.indexOf(title)!==-1){return false;}
 return true;}else if(title.substr(0,9)==="Special::"||title==="WoaS History"){return false;}
 return true;},_get_import_vars:function(data,ignore_array,old_version){var jstrings=[],fail=false;data=data.replace(/\\'/g,":-"+woas.parser.marker).replace(this.reJString,function(str){jstrings.push(str.substr(1,str.length-2).replace(woas.importer.reRequote,"\\'"));return woas.parser.marker+(jstrings.length-1).toString()+":";});data.replace(/([^\\])\nvar\s+(\w+)\s*=\s*([^;]+);/g,function(str,$1,var_name,definition){if(fail)return;if(ignore_array.indexOf(var_name)!==-1)
 return;if((old_version<=108)&&(var_name==="main_page")){woas.importer.new_main_page=woas.eval(definition.replace(woas.importer.reJStringRep,function(str,id){return"'"+jstrings[id]+"'";}),true);return;}
-if(!woas.importer.i_content)
+if(!(woas.importer.i_content||woas.importer.i_styles))
 return;if(!woas.config.store_mts&&(var_name==="page_mts"))
 return;var the_var=woas.eval(definition.replace(woas.importer.reJStringRep,function(str,id){return"'"+jstrings[id]+"'";}),true);switch(var_name){case"page_titles":for(var i=0,it=the_var.length;i<it;++i){if(woas.importer._filter_by_title(the_var[i])){woas.importer.pages.push({title:the_var[i],attrs:0,mts:(old_version>97?0:(woas.config.store_mts?woas.importer.current_mts:0)),body:null});woas.importer._reference.push(woas.importer.pages[woas.importer.pages.length-1]);}else
 woas.importer._reference.push(null);}
@@ -5021,7 +5046,7 @@ for(p in woas.config){if(typeof old_cfg[p]==="undefined"){if(p="import_settings"
 if((typeof woas.config[p]=="undefined")&&(typeof old_cfg[p]!="undefined"))
 woas.config[p]=old_cfg[p];}
 woas.config.wsif_author=old_cfg.wsif_author;woas.config.wsif_ds=old_cfg.wsif_ds;woas.config.wsif_ds_lock=null;woas.config.wsif_ds_multi=null;}}
-this.current_mts=Math.round(new Date().getTime()/1000);this._get_import_vars(data,['woas','__marker','version','__config'],old_version);data=null;if(this.i_content){this._import_content(old_version);this.total=this.pages.length;this.pages=[];}
+this.current_mts=Math.round(new Date().getTime()/1000);this._get_import_vars(data,['woas','__marker','version','__config'],old_version);data=null;if(this.i_content||this.i_styles){this._import_content(old_version);this.total=this.pages.length;this.pages=[];}
 if(old_version<=112){if(imported_css!==null){this._import_hook({title:"WoaS::CSS::Custom",attrs:0,mts:woas.config.store_mts?this.current_mts:0,body:imported_css});}}
 if(this.i_config){if(old_version<=108)
 woas.config.main_page=old_cfg.main_page;if((this.new_main_page!==old_cfg.main_page)&&woas.page_exists(this.new_main_page))
@@ -5032,18 +5057,20 @@ this._after_import();this._clear();return!fail;},_after_import:function(){var th
 woas.css.set(woas.get_text("WoaS::CSS::Core")+"\n"+woas.get_text("WoaS::CSS::Custom"));if(that._update_aliases)
 woas._load_aliases(woas.get_text("WoaS::Aliases"));if(that._update_hotkeys)
 woas.hotkey.load(woas.get_text("WoaS::Hotkeys"));for(var i=0,it=that._plugins_update.length;i<it;++i){woas.plugins.update(that._plugins_update[i]);}
-for(var i=0,it=that._plugins_add.length;i<it;++i){woas.plugins._all.push(that._plugins_add[i]);woas.plugins.enable(that._plugins_add[i]);}},reRequote:new RegExp(":-"+woas.parser.marker,"g"),reJString:new RegExp("'[^']*'","g"),reJStringRep:new RegExp(woas.parser.marker+"(\\d+):","g"),reValidImage:/^data:\s*[^;]*;\s*base64,\s*/,reImageBadMime:/^data:undefined;\s*base64,\s*/,reOldStyleBlock:new RegExp("<"+"style\\s.*?type=\"?text\\/css\"?[^>]*>((\\n|.)*?)<"+"\\/style>","i")};woas.import_wiki=function(){if(!woas._import_pre_up(false))
-return false;this.progress_init("Import WoaS");var ct=this.load_file(null,this.file_mode.ASCII_TEXT);if(ct===null){this.progress_finish();return false;}
-if(ct===false){this.alert(this.i18n.LOAD_ERR);this.progress_finish();return false;}
-var rv=this.importer.do_import(ct);this.progress_finish();if(rv){this.alert(this.i18n.IMPORT_OK.sprintf(this.importer.pages_imported+"/"+this.importer.total,this.importer.total-this.importer.pages_imported));current=this.config.main_page;}
-if((this.importer.i_overwrite===0)||rv)
-this.full_commit();if(rv){this.set_current(this.config.main_page,true);}
+for(var i=0,it=that._plugins_add.length;i<it;++i){woas.plugins._all.push(that._plugins_add[i]);woas.plugins.enable(that._plugins_add[i]);}},reRequote:new RegExp(":-"+woas.parser.marker,"g"),reJString:new RegExp("'[^']*'","g"),reJStringRep:new RegExp(woas.parser.marker+"(\\d+):","g"),reValidImage:/^data:\s*[^;]*;\s*base64,\s*/,reImageBadMime:/^data:undefined;\s*base64,\s*/,reOldStyleBlock:new RegExp("<"+"style\\s.*?type=\"?text\\/css\"?[^>]*>((\\n|.)*?)<"+"\\/style>","i")};woas.import_wiki=function(){var cfg=this.importer.i_config,pgs=woas.importer.i_content,sty=this.importer.i_styles,ct,rv,v,msg;if(!(cfg||pgs||sty)||!woas._import_pre_up(false)){console.log('fail')
+return false;}
+this.progress_init("Import WoaS");ct=this.load_file(null,this.file_mode.ASCII_TEXT);if(!ct){if(ct===false){this.alert(this.i18n.LOAD_ERR);}
+this.progress_finish();return false;}
+rv=this.importer.do_import(ct),v={};this.progress_finish();if(rv){if(cfg){v.fix_h=this.config.fixed_header;v.fix_m=this.config.fixed_menu;v.no_debug=!this.config.debug_mode;v.no_mts=!this.config.store_mts;this.ui.display(v);}
+this.alert((cfg?this.i18n.IMPORT_CONFIG:'')+
+(pgs||sty?(cfg?'\n\n':'')+this.i18n.IMPORT_OK.sprintf(this.importer.pages_imported+"/"+this.importer.total,this.importer.total-this.importer.pages_imported):''));}
+if(rv||this.importer.i_overwrite===0){this.full_commit();this.ui._import_load();this.ui.refresh_menu();}
 return rv;};woas._file_ext=function(fn){var m=fn.match(/\.(\w+)$/);if(m===null)return"";return"."+m[1];};woas._import_pre_up=function(wsif){var tmp,old_is;if(!this.config.permit_edits){this.alert(woas.i18n.READ_ONLY);return false;}
 tmp=wsif?woas.config.import_wsif:woas.config.import_woas,old_is=tmp;tmp=this.bitfield.get_object(this.importer,this.importer._settings_props);tmp=this.bitfield.set(tmp,this.importer._OVR_ID,this.importer.i_overwrite&1,tmp);tmp=this.bitfield.set(tmp,this.importer._OVR_ID+1,this.importer.i_overwrite&2,tmp);if(wsif)woas.config.import_wsif=tmp;else woas.config.import_woas=tmp;this.cfg_changed|=(tmp!==old_is);if(this.importer.i_overwrite===0){if(!this.erase_wiki())
 return false;}
 return true;};woas.import_wiki_wsif=function(){if(!woas._import_pre_up(true))
 return false;var done=woas._native_wsif_load(null,false,false,0,this.importer._upgrade_content,this.importer._filter_by_title,this.importer._after_import);if(done===false&&(woas.wsif.emsg!==null))
-this.crash(woas.wsif.emsg);if(done!==false){var skipped;if(this.wsif.expected_pages!==null){skipped=this.wsif.expected_pages-done;done=String(done)+"/"+woas.wsif.expected_pages;}else skipped=0;this.alert(woas.i18n.IMPORT_OK.sprintf(done,skipped));this.refresh_menu();this.commit(woas.wsif.imported);}else if(this.importer.i_overwrite===0){this.full_commit();}
+this.crash(woas.wsif.emsg);if(done!==false){var skipped;if(this.wsif.expected_pages!==null){skipped=this.wsif.expected_pages-done;done=String(done)+"/"+woas.wsif.expected_pages;}else skipped=0;this.alert(woas.i18n.IMPORT_OK.sprintf(done,skipped));this.ui.refresh_menu();this.commit(woas.wsif.imported);}else if(this.importer.i_overwrite===0){this.full_commit();}
 return done;};woas.exporter={_unix_norm:false,_default_ext:'html',_title2fn:{},_further_pages:[],_export_fnames_array:[],_settings:{},clear:function(){this._export_fnames_array=[];this._title2fn={};this._further_pages=[];this._settings={};},do_export:function(){this._settings.custom_scripts="";var data;if(this._settings.js_mode==2){var js_fn;for(var pi=0,pt=woas.plugins._active.length;pi<pt;++pi){data=woas.plugins.get(woas.plugins._active[pi]);if(woas.plugins.is_external){for(var i=0;i<data.length;++i){this._settings.custom_scripts+='<'+'sc'+'ript type="text/javascript" src="'+data[i]+'"><'+"/script>\n";}}else{js_fn=woas._unix_normalize(woas.plugins._active[pi])+".js";if(woas.save_file(this._settings.xhtml_path+js_fn,woas.file_mode.ASCII_TEXT,data)){this._settings.custom_scripts+='<'+'script type="text/javascript" src="'+js_fn+'"><'+"/script>\n";}}}}
 var pg=page_titles[pi],l=page_titles.length,fname="",done=0,total=0,mnupos;data=null;for(var pi=0;pi<l;pi++){if(pg.match(/^Special::/))continue;if(woas.static_pages2.indexOf(pg)!==-1)continue;if(woas.unexportable_pages2.indexOf(pg)!==-1)continue;if(pg.substr(-6)==='::Menu'&&pg!=='WoaS::Help::Menu'){continue;}
 data=woas.get_text_special(pg);if(data===null)continue;fname=this._get_fname(pg,true);if(fname==='#'){continue;}
@@ -5208,7 +5235,8 @@ function save(){woas.log("WARNING: Called deprecated function: save (now woas.sa
 woas.parser.reReapTables=/^\{\|.*((?:\n\|.*)*)$/gm;woas.parser.reReapTableRows=/\n\|([+ -])(.*)/g;woas.parser.parse_tables=function(str,p1){var caption=false,stk=[];p1.replace(woas.parser.reReapTableRows,function(str,pp1,pp2){if(pp1=='-')
 return;else if(pp1=='+'){caption=caption||pp2;return;}
 stk.push('<'+'td>'+pp2.split('||').join('<'+'/td><'+'td>')+'<'+'/td>');});if(stk.length)
-return'<'+'table class="woas_text_area">'+(caption?('<'+'caption>'+caption+'<'+'/caption>'):'')+'<'+'tr>'+stk.join('<'+'/tr><'+'tr>')+'<'+'/tr>'+'<'+'/table>'+woas.parser.NL_MARKER;return str;};woas.ui={edit_mode:false,_textbox_focus:false,focus_textbox:function(){woas.ui._textbox_focus=true;},blur_textbox:function(){woas.ui._textbox_focus=false;ff_fix_focus();this._textbox_enter_event=this._textbox_enter_event_dummy;},_textbox_enter_event_dummy:function(){},_textbox_enter_event:null,_custom_key_hook:function(orig_e){return true;},_keyboard_event_hook:function(orig_e){var e=orig_e||window.event,ck=e.keyCode||e.which;if(!woas.ui.edit_mode){if(!woas.ui._custom_key_hook(orig_e))
+return'<'+'table class="woas_text_area">'+(caption?('<'+'caption>'+caption+'<'+'/caption>'):'')+'<'+'tr>'+stk.join('<'+'/tr><'+'tr>')+'<'+'/tr>'+'<'+'/table>'+woas.parser.NL_MARKER;return str;};woas.refresh_menu_area=function(){woas.log("WARNING: Called deprecated function: woas.refresh_menu_area (now woas.ui.refresh_menu)");this.ui.refresh_menu();}
+woas.ui={edit_mode:false,_textbox_focus:false,focus_textbox:function(){woas.ui._textbox_focus=true;},blur_textbox:function(){woas.ui._textbox_focus=false;ff_fix_focus();this._textbox_enter_event=this._textbox_enter_event_dummy;},_textbox_enter_event_dummy:function(){},_textbox_enter_event:null,_custom_key_hook:function(orig_e){return true;},_keyboard_event_hook:function(orig_e){var e=orig_e||window.event,ck=e.keyCode||e.which;if(!woas.ui.edit_mode){if(!woas.ui._custom_key_hook(orig_e))
 return orig_e;if(woas.ui._textbox_focus){if(ck==13){ff_fix_focus();(woas.ui._textbox_enter_event)();return false;}
 return orig_e;}
 if((ck==woas.hotkey.all.back)||(ck==woas.hotkey.all.cancel)){woas.ui.back();ff_fix_focus();return false;}}
@@ -5222,14 +5250,14 @@ woas.go_to("Special::About");},_search_render:function(){if(current==="Special::
 woas.go_to("Special::Search");},_import_load:function(wsif){var except=wsif?3:0,i,settings,chk;if(!woas.config.permit_edits)
 d$("btn_import").disabled=true;settings=wsif?woas.config.import_wsif:woas.config.import_woas;for(i=0;i<woas.importer._settings_props.length-except;++i){chk=woas.bitfield.get(settings,i);d$("woas_cb_import"+woas.importer._settings_props[i].substr(1)).checked=chk
 woas.importer[woas.importer._settings_props[i]]=chk;}
-if(wsif){woas.importer.i_styles=woas.importer.i_content=true;woas.importer.i_config=false;}else{this._import_load_change(true);}
+if(wsif){woas.importer.i_styles=woas.importer.i_content=true;woas.importer.i_config=false;}else{this._import_load_change();}
 var ovr=0;if(woas.bitfield.get(settings,woas.importer._OVR_ID))
 ovr+=1;if(woas.bitfield.get(settings,woas.importer._OVR_ID+1))
-ovr+=2;var params=["erase","ignore","overwrite","ask"];d$('woas_import_'+params[ovr]).checked=true;woas.importer.i_overwrite=ovr;},_import_load_change:function(init){if(init){this._import_load_css=d$("woas_cb_import_styles").checked;}
-if(d$("woas_cb_import_content").checked){woas.importer.i_content=true;d$.show("woas_import_content");d$("woas_cb_import_styles").checked=woas.importer.i_styles=this._import_load_css;d$("woas_cb_import_styles").disabled=false;}else{woas.importer.i_content=false;d$.hide("woas_import_content");this._import_load_css=d$("woas_cb_import_styles").checked;d$("woas_cb_import_styles").checked=woas.importer.i_styles=false;d$("woas_cb_import_styles").disabled=true;}},edit:function(){if(!this.display('no_edit')){woas.edit_page(current);}},cancel:function(){if(!this.edit_mode)
+ovr+=2;var params=["erase","ignore","overwrite","ask"];d$('woas_import_'+params[ovr]).checked=true;woas.importer.i_overwrite=ovr;},_import_load_change:function(){var c=woas.importer.i_content=d$("woas_cb_import_content").checked,s=woas.importer.i_styles=d$("woas_cb_import_styles").checked;if(c||s){d$.show("woas_import_pages");}else{d$.hide("woas_import_pages");}
+if(c){d$.show("woas_import_security");}else{d$.hide("woas_import_security");}},edit:function(){if(!this.display('no_edit')){woas.edit_page(current);}},cancel:function(){if(!this.edit_mode)
 return;if((woas.get_raw_content()!==woas.change_buffer)||(woas.trim(d$("wiki_page_title").value)!==woas.old_title)){if(!confirm(woas.i18n.CANCEL_EDITING))
 return;}
-if(woas._ghost_page){pages.pop();page_mts.pop();page_titles.pop();page_attrs.pop();var menu_i=woas.page_index("::Menu");if(menu_i!==-1){var menu_orig=woas.get__text(menu_i);var menu=menu_orig.replace("\n[["+current+"]]","");if(menu!==menu_orig){woas.set__text(menu_i,menu);woas.refresh_menu();}}}
+if(woas._ghost_page){pages.pop();page_mts.pop();page_titles.pop();page_attrs.pop();var menu_i=woas.page_index("::Menu");if(menu_i!==-1){var menu_orig=woas.get__text(menu_i);var menu=menu_orig.replace("\n[["+current+"]]","");if(menu!==menu_orig){woas.set__text(menu_i,menu);woas.ui.refresh_menu();}}}
 current=woas.prev_title;woas.update_view();woas.disable_edit();},back:function(){if(this.edit_mode||this.display('no_back')){return false;}
 var p=woas.history.back();return p===null?false:woas.set_current(p,true);},forward:function(){if(this.display('no_fwd')){return false;}
 var p=woas.history.forward();return p===null?false:woas.set_current(p,true)},home:function(){if(!this.display('no_home')){woas.go_to(woas.config.main_page);}},edit_menu:function(){var ns=woas.current_namespace,mpi,tmp;do{mpi=woas.page_index(ns+"::Menu");if(mpi!==-1){woas.edit_page(ns+"::Menu");break;}
@@ -5237,7 +5265,7 @@ tmp=ns.lastIndexOf("::");ns=tmp===-1?"":ns.substring(0,tmp);}while(ns!=="");},lo
 _lock_pages(woas.pager.bucket.items);else
 woas.set_current("Lock::"+current,true,true);}},unlock:function(){if(!this.display('no_unlock')){if(woas.pager.bucket.items.length>1)
 _unlock_pages(woas.pager.bucket.items);else
-woas.set_current("Unlock::"+current,true);}},top:function(){if(this.edit_mode){d$('woas_editor').scrollTop=0;}else{document.documentElement.scrollTop=0;document.body.scrollTop=0;}},advanced:function(){if(!this.display('no_tools')){woas.go_to("Special::Advanced");}},set_header:function(fixed){if(!woas.browser.ie6){this.display({fix_h:fixed},true);}},set_menu:function(fixed){if(!woas.browser.ie6){this.display({fix_m:fixed},true);}},set_layout:function(fixed){this.set_header(fixed);this.set_menu(fixed);},wsif_ds:function(txt_box,chk_box,set){var fn=woas.trim(txt_box.value.replace(/\\/g,'/')),ds=woas.trim(woas.config.wsif_ds.replace(/\\/g,'/')),str='',i;while(fn[0]==='/')fn=fn.substr(1);if(set&&(ds||fn)){i=woas.i18n;if(!(ds===fn&&woas.wsif.ds_multi===this.wsif_ds_multi)){if(ds&&!fn){str=i.WSIF_DS_TO_INTERNAL;}else if(!ds&&fn){str=i.WSIF_DS_TO_EXTERNAL+i.WSIF_EXIST;}else if(ds&&fn&&ds===fn){if(woas.wsif.ds_multi&&!this.wsif_ds_multi){str=i.WSIF_DS_TO_SINGLE;}else if(!woas.wsif.ds_multi&&this.wsif_ds_multi){str=i.WSIF_DS_TO_MULTI;}}
+woas.set_current("Unlock::"+current,true);}},top:function(){if(this.edit_mode){d$('woas_editor').scrollTop=0;}else{document.documentElement.scrollTop=0;document.body.scrollTop=0;}},advanced:function(){if(!this.display('no_tools')){woas.go_to("Special::Advanced");}},set_header:function(fixed){if(!woas.browser.ie6){this.display({fix_h:fixed},true);}},set_menu:function(fixed){if(!woas.browser.ie6){this.display({fix_m:fixed},true);}},set_layout:function(fixed){this.set_header(fixed);this.set_menu(fixed);},toggle_debug:function(){if(!this.display('no_debug')){d$.toggle_cls('no_log',true);}},wsif_ds:function(txt_box,chk_box,set){var fn=woas.trim(txt_box.value.replace(/\\/g,'/')),ds=woas.trim(woas.config.wsif_ds.replace(/\\/g,'/')),str='',i;while(fn[0]==='/')fn=fn.substr(1);if(set&&(ds||fn)){i=woas.i18n;if(!(ds===fn&&woas.wsif.ds_multi===this.wsif_ds_multi)){if(ds&&!fn){str=i.WSIF_DS_TO_INTERNAL;}else if(!ds&&fn){str=i.WSIF_DS_TO_EXTERNAL+i.WSIF_EXIST;}else if(ds&&fn&&ds===fn){if(woas.wsif.ds_multi&&!this.wsif_ds_multi){str=i.WSIF_DS_TO_SINGLE;}else if(!woas.wsif.ds_multi&&this.wsif_ds_multi){str=i.WSIF_DS_TO_MULTI;}}
 if((ds&&fn&&ds!==fn)){str+=i.WSIF_EXIST;}
 if(this.wsif_ds_multi&&(!ds||fn)){str+=i.WSIF_PAGES;}}
 if(str&&confirm(str+i.CHOOSE_CANCEL)){woas.config.wsif_ds=fn;woas.wsif.ds_multi=fn&&this.wsif_ds_multi;woas.full_commit();woas.set_current(current,true,true);}else{fn=ds;this.wsif_ds_multi=woas.wsif.ds_multi;str='';}}
@@ -5368,8 +5396,7 @@ return true;};woas.popup=function(name,fw,fh,extra,head,body,body_extra,html_ext
 body+"<"+"/body></"+"html>\n");wnd.document.close();return wnd;};woas.progress_status=function(ratio){if(this.config.debug_mode)return;this.setHTML(d$("woas_wait_text"),this._progress_section+"\n"+
 Math.ceil(ratio*100)+"% done");};woas._progress_section=false;woas.progress_init=function(section){if(this._progress_section!==false){this.crash("Progress indicator already started for "+this._progress_section+", will not start a new one for "+section);return;}
 this._progress_section=section;if(typeof section=="undefined")
-section="";else section="\n"+section;if(this.config.debug_mode)return;this.setHTML(d$("woas_wait_text"),section);document.body.style.cursor="wait";this.ui.display({"wait":true});d$("loading_overlay").focus();};woas.progress_finish=function(section){if(this._progress_section===false){this.crash("Cannot finish an unexisting progress indicator section");return;}
-if(!this.config.debug_mode){document.body.style.cursor="auto";this.setHTML(d$("woas_wait_text"),this.i18n.LOADING);this.ui.display({wait:false});}
+section="";else section="\n"+section;if(this.config.debug_mode)return;this.setHTML(d$("woas_wait_text"),section);document.body.style.cursor="wait";this.ui.display({"wait":true});d$("loading_overlay").focus();};woas.progress_finish=function(section){document.body.style.cursor="auto";this.setHTML(d$("woas_wait_text"),this.i18n.LOADING);if(this.ui.display('wait')){this.ui.display({wait:false});}
 this._progress_section=false;};function search_focus(focused){if(focused){woas.ui._textbox_enter_event=ssearch_do_search;woas.ui.focus_textbox();}else{woas.ui.blur_textbox();ff_fix_focus();}}
 woas._hl_marker=_random_string(10)+":%d:";woas._hl_marker_rx=new RegExp(woas._hl_marker+":(\\d+):","g");woas._search_load=function(){woas.log("called _search_load()");var P={body:""};if(this._last_search===null){}else{if(this._cached_title_search.length+this._cached_body_search.length!==0){for(var i=0,it=this._cached_title_search.length;i<it;++i){P.body+="* [["+this._cached_title_search[i]+"]]\n";woas.pager.bucket.add(this._cached_title_search[i]);}
 for(var i=0,it=this._cached_body_search.length;i<it;++i){P.body+="\n* [["+this._cached_body_search[i].title+"]] - found "
@@ -5387,12 +5414,12 @@ if(woas.browser.opera){--h};e.style.height=(h>64?h:64)+'px';}}
 return woas.browser.ie&&Number(woas.browser.ie)<8?function(){setTimeout(resize,0)}:function(){resize();};}());window.onresize=woas.ui._resize;woas._set_debug=function(status,closed){var logbox=d$("woas_debug_log"),lines=-1,position=0,cut=100,max=200;if(status){woas.log=function(aMessage){if(typeof aMessage!=="undefined"){if(!woas.tweak.integrity_test){if(++lines===max){logbox.value=logbox.value.substring(position);lines=max-cut;}else if(lines===cut){position=logbox.value.length;}}
 logbox.value+=aMessage+'\n';}
 logbox.scrollTop=logbox.scrollHeight;if(window.opera)
-opera.postError(aMessage);return true;};this.ui.display({no_debug:false});this.ui.display({no_log:closed});}else{this.ui.display({no_debug:true});this.ui.display({no_log:true});logbox.value='';woas.log=function(){return false;};}
-this.ui.display({wait:false});window.log=woas.log};woas.refresh_menu=function(){var pi=-1,menu,ns,tmp;if(current.indexOf('WoaS::')===0||current.indexOf('Special')===0){tmp=-1;}else{tmp=current.lastIndexOf("::");}
-ns=tmp>0?current.substr(0,tmp):'';while(true){pi=this.page_index(ns+"::Menu");if(pi!==-1||!ns){break;}
+opera.postError(aMessage);return true;};this.ui.display({no_debug:false});this.ui.display({no_log:closed});this.ui.display({wait:false});}else{this.ui.display({no_debug:true});this.ui.display({no_log:true});logbox.value='';woas.log=function(){return false;};}
+this.ui.display({wait:false});window.log=woas.log};woas.ui.refresh_menu=function(){var pi=-1,menu,ns,tmp;if(current.indexOf('WoaS::')===0||current.indexOf('Special')===0){tmp=-1;}else{tmp=current.lastIndexOf("::");}
+ns=tmp>0?current.substr(0,tmp):'';while(true){pi=woas.page_index(ns+"::Menu");if(pi!==-1||!ns){break;}
 tmp=ns.lastIndexOf("::");ns=tmp===-1?"":ns.substr(0,tmp);}
-menu=pi===-1?'ERROR: No menu!':this.get__text(pi);if(menu){this.parser._parsing_menu=true;this.setHTMLDiv(d$("woas_menu"),this.parser.parse(menu,false,this.js_mode(ns+"::Menu")));this.parser._parsing_menu=false;if(!ns){this.scripting.clear("menu");this.scripting.activate("menu");}}else{this.setHTMLDiv(d$("woas_menu"),'');this.scripting.clear("menu");}
-this.current_namespace=ns;};woas.ui.img_display=function(){function loaded(el){if(el.width!==1||el.height!==1){woas.ui.display({no_img:true});}}
+menu=pi===-1?'ERROR: No menu!':woas.get__text(pi);if(menu){woas.parser._parsing_menu=true;woas.setHTMLDiv(d$("woas_menu"),woas.parser.parse(menu,false,woas.js_mode(ns+"::Menu")));woas.parser._parsing_menu=false;if(!ns){woas.scripting.clear("menu");woas.scripting.activate("menu");}}else{woas.setHTMLDiv(d$("woas_menu"),'');woas.scripting.clear("menu");}
+woas.current_namespace=ns;};woas.ui.img_display=function(){function loaded(el){if(el.width!==1||el.height!==1){woas.ui.display({no_img:true});}}
 var data=new Image();data.onload=function(){loaded(this);}
 data.onerror=function(){loaded(this);}
 data.src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";};woas.menu_display=function(id,visible,opaque){i=id;id=d$('woas_'+id);opaque=opaque||false;var c=opaque?'woas_disabled':'woas_hide',ic=id.className,p=ic.indexOf(c);if(visible&&p!==-1){if(p){id.className=ic.substr(0,ic[p-1]===' '?p-1:p)+ic.substr(p+c.length);}else{id.className=ic.substr(c.length+(ic.length>c.length&&ic[c.length+1]===' '?1:0));}}else if(!visible&&p===-1){id.className+=(ic.length?' ':'')+c;}};woas.refresh_mts=function(mts){if(mts){this.setHTMLDiv(d$("woas_mts"),this.last_modified(mts));this.ui.display({"no_mts":false});}else
@@ -5440,12 +5467,12 @@ woas._editor.setSelectedText(starttag,woas.js_encode(pic)+endtag);}
 function setTag(){var tag=prompt('Set tag:','');if(tag!==null)
 woas._editor.setSelectedText("[[Tag::",tag+"]]");}
 /* ]]> */ </script></head>
-<body style="cursor: auto;" onload="woas._on_load()" onunload="woas._on_unload()">
+<body onload="woas._on_load()" onunload="woas._on_unload()">
 <div id="loading_overlay"><noscript>If you are seeing this text, your browser is not javascript-enabled.</noscript><div id="woas_wait_text">Loading Wiki on a Stick...</div></div>
 <div id="woas_pwd_mask"><div id="woas_pwd_query">
 <h3>Enter a password</h3>
-<p><input id="woas_password" size="40" onkeydown="woas._password_ok(this, event)" type="password" /></p>
-<p id="woas_password_desc">The password you enter here will be used the next time you attempt to access an encrypted page or lock/unlock a page. It will then be kept or removed depending on the AES key caching option you have chosen in <a class="woas_link" onclick="woas.go_to('WoaS::Help::Special::Options')">Special::Options</a>.</p>
+<p><input id="woas_password" size="40" type="password" onkeydown="woas._password_ok(this, event)" /></p>
+<p id="woas_password_desc">The password you enter here will be used the next time you attempt to access an encrypted page or lock/unlock a page. It will then be kept or removed depending on the AES key caching option you have chosen in <a class="woas_link" onClick="woas.go_to('WoaS::Help::Special::Options')">Special::Options</a>.</p>
 <p><input value="OK" onclick="woas._password_ok(d$('woas_password'))" class="woas_button" type="button" />&nbsp;<input value="Cancel" onclick="woas._password_cancel()" class="woas_button" type="button" /></p>
 </div></div>
 <div id="woas_header_wrap"><div id="woas_header"><div class="woas_nav">
@@ -5457,14 +5484,14 @@ woas._editor.setSelectedText("[[Tag::",tag+"]]");}
 <a id="woas_unlock" title="Unlock page" onclick="woas.ui.unlock()"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAACXBIWXMAAAsSAAALEgHS3X78AAADNUlEQVRIx92UPUwkZRjHf+/MLCzn1ypLQI/CrIlamMtxd9zFGBJjTIgJHZUVsbGB1thZ2NpYGAqLFexM/IgUXnKFaESyCTkhYMhyhARw2dx44ALL7O7M+/FY7B5eVI5dtfKfvMUkM//f83+edx74P+pN4AvgGLgFfAUM/Vfm7+dyub18Pi/lclkKhYLMzMzYbDZbA976t+YfTUxM2IODAymXy7K+vi5bW1tSLBZldnZWRkZGNPDePzV/Y3h4uFapVGR1dTUaHx+/DcR9fX2lycnJeGVlRebm5mR0dLTaamHH+np3d1eKxaIMDQ19DhSAV4CRTCbzw9TUVK1QKMj09HQCfNaxezabPQzDUBYXFyNgE3gV6AEUMDw4OFja2dmRfD4vwFon3gFAb29vdxRFVKtVAWJgFWgAAiyVSiW3v7/P0wMDAH0dAzY2Nj7M5XITAEEQfD82Nhb8NP/NrUxf7+u/hIcE6Uf5cWEBxNHTneoPfE+qtfhM0/7+/tfCMJyn1YL7ehzIABYIAV3ZnMc5hTEOZzXOJdQPf8U5g7Q+ctbgdIyN69hGnaWbn/D2p3sAV4Dl4AHAceucSgnUD7Y5DrexVmPjiDhpIM4h0kQYo7FJDXNSIakd4U7RDJy26Cw5ZxFrWg8gqhlZPA8lrlmEUqA8UAqlfLw/muKfCwBpVirC2trP3Nneo15r4DV5APRcSPP8sxfJdhus1lgnfx3yWVKej+d5KE9x7eXrXLpax8QRxhpwTYTTDWwccRweNpujaB+AsxhrMEnC8u3lhyfoapoHftA+QFD4yscPUly9McyloRfRcYy15nTIktQwOuIkFMQJ6UeeBHbbBDiD0w10ErGyvPnQBBkMzln8rnQnM/AQP4XndXPl+mVeuvwCJo5x4qCVwMYRVtep3vXpSqfRuruDGViLYBGrqR1VSeI6xmjc/asLOB1j4hoqSJG+8ATVg8O2AR98e/PLd567+BjRvRJGaxLdwOoY5Xn4QaqZ0gkOD1FdnBxVWFi6A/BdayOcLR9uAB+3Fl4nZx54F7j2N7f2zwyeAp5p/fapNheoBe4BJeCuOudlv2XcdU4xDyoNaOA3gN8BP+S1qNxUaTQAAAAASUVORK5CYII=" /><span>Unlock</span></a>
 <a id="woas_lock" title="Lock page" onclick="woas.ui.lock()"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAADOklEQVR42p2Ta0hTYRjHrT5klyUJsmmUly9+KFFxZLclShc1JUISP6iooQRmaZSbqaiouWQFlZnXVNSZZTovqJtLl3dN0szNS2mzJhKy7GsU/Hvf0yZ2CHbmgR87O885/9/7POc9Nv87lpaWbNmQy9tMbDfD/OdysIPZ8Pl8ESmDRRhhP2HnlsOdnZ29zYFVVVUwGAxYWVnB6OjoZlHIlgQuLi5eNEAikfxeW1tjwnU6HbRaLRYXFylUykjovVYLeDxeJH3YaDSiurr6F3tECoXiJxXSc3qvVYKhoaFd9EG9Xg+lUsmE2NnZpTg6Op53d3f3IIGx9Nry8vJG3c3Nzcdqwerq6kaAQCAIFolEB6VSKa+oqGgvW0A2gj9nQU1NzR76EDn/Z4VxcXH2tMaumxfASdDa2ro7NDSUzw6gK3R1dfUgosMUVp37iPzdBcx8KTKZDKmpqfScDbvOaUzmA+sf+2Cc1+Cbther00qsTLXjk6YSC72lmDcx2/ME2s4HmG7Jx2RDBsqiD5hF3hYFPxb6YBiuhq4lGx+a0jFVn4yxqqsYrUzASEU8w0BJDDSPwqG+exadGUdREu1kFgRZFHyfU+PrQMVfwYt0TMqTMU4FlGcJDIOlsdA8joC64By6Mo9v7iCEg6AHX/rLoWvOgjzzIrKjhBCHHUEaQWyCXqM1VV4AOiRCPI104i5YX+iFYbASs4psLHTmY0aRganGFEzIkzBRl0ghHV3BSEkElDl+aKeCKGsEpAP9m1IynjuWO8glgjQhymMOcRcw76C/ghnRfEceZprFZKckk5Vfw9vaRIbxylgMl4RDlXMabWIf1CZ6chcYdd1Yfl2E989vWeygM/MEFLe9IE/xtaYDFfSaUmYHzbVnYfpVKt7Jb2CiPol2wTBGO6DvIFtEJMfwUuJnhUDbhc+aYkw3kOC662T/x5NtGYP+4sgNNA8vQ114gdlFvYUhaBSf4iwobJLFk5nfxCD5kDT3L0ElDUJXbgC688+g514Qg7ogEKqCYCjzA9GWfhJJAQ40vM/ih7bDxsaX/JQRYCU0XEwQEiw5bBwInoTztGWOBJnCBTSEi8SWsI9gxxE+wZ4d9Ae1D+3QOv0MAAAAAABJRU5ErkJggg==" /><span>Lock</span></a>
 <a id="woas_key" title="Set password" onclick="set_key()"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAADAUlEQVR42tXV+UvTYRwH8JylrprMpalJtEglpQlJl4KRlYrRhbSMmkeXFehUWoKSUZkoXYr6g5hJWVqYt5RnP4SoFV3rsvKcmkdWm7MRHfLuzegP+ObxQ2948YzPnj3Pdx+e7/c763+KiGYsClpNzjTt8aPvRw7uHeB4maxp2rKSRguyk1BZnAF+zqe5NC1xp56s9Dh8eXsNHc3n4ehgW8jaYppyFtHrtOQj+PKmALq6fWgo0sDaanYF6y40pdjSw5OaCHxtL0R/Yxi2+bshZIvPR9braQFZ0KRiSU3xx0Khf38LA037EROxHsHBwS2sx9JGkgpZyF8ikXjI5fJQLy+vSAd7u2DWwqkqKnw7DJ0VGGyOQ2jQMrD2kPaSG8mEXH0AQa1Wmy6mxKIgOxF3i1N+HYpQ4lRCFMZ6ajH6IgMFGdFQKpUGzlWRnGyEXLkvjRfnn0P3i0roO8qh/1CCUW0WBrS3Md5/H8beWmjvJcHeTjwoEom0nK8UevZX0HB+djKMugawx1z8NkYen2GvIzHUksDWlEH/7gbq8lWQzLP6yvk7yVlIW0S0KUyl+t75vBqGjjtmY9014KLmjQYfRJs3GX2Vh60bXPH3rl0m9Blk4e7uHqKJi4Khq5KLliLvkho1N0//vpKTAtNQG2vl4L8x9z9yh8cEf3OY5gh+Enp6evpdTEv8OdZzD1cz48Fa37y5NhqOurKbmTCNPKGnbF0xzsYFGljfTGLBG0il0iUZ6SeGjbp6tNblTsikkrOsuzg7yg611ebg22ALtaLrWQkCA/zx9/RYkbDw3HuLxeKJG7nJKLueCpZMrktdjnP8UVWUztNTZ25fV3MqfNZ6g/WD//oOsKZdNJ57SYOawmT0akvRWJULY18TDN3V5v4f2L0OnHOfnMmS/inL6QB9To1Zw7tVjc/tRdA9ykLNrQuIDvMFv3tCPjSfJp1w6lNtkX/y9nT8vWqFk0mhUPSw9pKCyJ6mnPW0h9R0lLbTSpLRtMWWnGghzSdrmpFYmE0ifwCBgXrsTq+HzgAAAABJRU5ErkJggg==" /><span>Key</span></a>
-<a accesskey="p" id="woas_print" title="Open the Print window" onclick="page_print()"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAMAAADXqc3KAAAACXBIWXMAAB7BAAAewQHDaVRTAAAAY1BMVEX/H+2lpaXGxsaUlJScnJxSUlJaWlqEhIRra2sxMTGtra1CQkJjY2POzs6MjIw5OTkpKSm9vb1zc3O1tbXW1tZKSkp7e3shISH///8ICAj39/cAAADe3t4YGBjv7+/n5+cQEBBvTde5AAAAAXRSTlMAQObYZgAAAR9JREFUeF590TWyxDAQRVF1i5nNA/tf5bcH/ZO5Savq1ItEfiY7PyXaG2DmwinlxCOX4htCmpYMpk1HyxTGD2iwXHFta0P0J5Brh6AUVaNfrtfzwtYei0uy2Gk5g2OC35ZbTdSy6/aFrUNs03K7SaHKdCzaA+yqqfW+YZZi6Jgnuc73TEidZQyxYq7eleIa7sC0I8TMyJWKGTFE0LD5Tc3NigOqujOXbLRAU3RcdF2fYHIZByoZOFpHXgEMvhboaYzd6pRoTqrl6p8gAb03lGVvL7uUZph+wMAQd/KIuzCjs6FPkBTeGa2dBvoB9o1HCeEFQ2D0EwNGZTgA1yjl8C8p5kIIKXMax8vRuHecdNfkqHAnVCnHp+8PNbguyI/+AB1QFvk/nv1+AAAAAElFTkSuQmCC" /><span>Print</span></a>
-<a accesskey="e" id="woas_edit" title="Edit" onclick="woas.ui.edit()"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAEwUlEQVR4XpVVbUxbVRh+bku/uJRCwJLhmikRXTSED0MyFrPJxAHuC0HGXDMwQeKMMIwbykhEmNt+rMPNiasSMTqGSjDbiCGOBCTxYxpdoss6nTMNcYJCm5aVjgKF9vqeE05Imwbjk7y5977tOc/7nOc950hYgZYin0KmCOP/QVGpVI5wODwFQE0REgOk5VAozut0OqvBYAgpiqLi+RWAcogBnlxaWpICgYCPSF4gkj4AcSwtCCBJkpkmcPb39ycUFxeHfT6fpFarxaSrPXloNBqlq6tLam9vl4ikhkjOAWBFhhkTlj+wZs0a9meQXDDExcWJd1ZErBC/SW1tbWFaAbS0tHxMeYXQA4CPFlARMxYWFqRQKCQlJiZKDOybloDlIoJyLMQ7PB6P+vDhw0wFU3WWSNYKBRFgCmZnZzE4OIiCggJkZGRgZmaGETNF0ZWLkNgykQ+qurq6pY6OjgQak0np8QgCqgbx8fEYGRlBfX090tPTUVFRgaqqKqSlpcHlcoFUciJCBJHFYmG+KXNzc8wHnhZrzyEGMLnZ2dl8csvae2G322G1WnH69NtcgcmUiMXFRWGwMDtCkchzH6MJqALk5uYiLy8PP3x/BY2NDah5zoo3WluxY8dOHDt+HOVlu+CdnubLKVTQe3Q7S9EEnFlUUVm5G+PjY7DZjlLegAsXBjH6VS/27t2PBzMfIn/yyRu/8IUvbyyoEAXW/36/H1u3Pkk9psW1az/RcwFzgbso3FKFMydKUb3Pijt3fGDFB4NBvmQEsTyxCYQC4UMotISsrBz09PQC0EOjT4B74gbKS9dhW5EWlbtrcPeuH7dv3yal43wMmfvfCoiAq5imNS4vfxqf93+B61dsCHqG4bzagavf3oLtSAn8nu/wTmc3kpNNoPaMaXBMDwi8Er3egI0bN6D+QDPK9zRhuLcMeo0Cn1+FsZsufNJdhsdKOlBUtBmP5mULglgKYptsNpvJQA2aDjViy/YG1L42ivssKdDr1Ph7fAZJeg3eOrYBDfWNrBgKXUT1MRUIo4QPDF6vF++9a8PmQgdePzGCN1/dAsfvblz/5R9UPPUwRr8ZQ3XNi+j77EPWSRH7Y9U2nZycFK0Ht9uNs50nUVK6E1nrHdhVvB43nR78/ONfOHW0FJu2n8cH3efwfG01I1ndZAFqPX7+kBLWtnwj2e2daD55Hb/ecsOSngjfzAJ1lh8vv5SLy19eXi4yDMLqCshk6o5kdu6I1uNEhY9vwqkz76P6lVqM9lUg8/4UKIsKBi7cwLpH8pcJVvGA5PGgiTmB8GPFlxBq9j0Lp3MM26pbceRgAQaG/oDjTzPsPQdj3naCQKIIG41GaLXacFJSEr/RoiEMPNLWAvM9Kfh0eBjGlAfw9Uc2pKamgoHGKkx1tIIgE3Dx4kW2MyW6D1TijGFHgZBOn9yL+fl5pJmTsXfPMyBKDAxc4jm9Xq9QQ6jYxiPMUTERl34zXfgHaNKgRGAmh8mweIOBvFAYBT1DCATmYTSyI5sTi40pvFLINz0RXAKwP6L3GYaGhnRTU1PyxMREPL3LOTlZssvllP1+r+yddsuB2d/kkifukw81tciBwKxMZ5BM7SzTGB60Z2SHw2EwmUxiXvwLqylmbjrv+acAAAAASUVORK5CYII=" /><span>Edit</span></a>
+<a id="woas_print" title="Open the Print window" onclick="page_print()"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAMAAADXqc3KAAAACXBIWXMAAB7BAAAewQHDaVRTAAAAY1BMVEX/H+2lpaXGxsaUlJScnJxSUlJaWlqEhIRra2sxMTGtra1CQkJjY2POzs6MjIw5OTkpKSm9vb1zc3O1tbXW1tZKSkp7e3shISH///8ICAj39/cAAADe3t4YGBjv7+/n5+cQEBBvTde5AAAAAXRSTlMAQObYZgAAAR9JREFUeF590TWyxDAQRVF1i5nNA/tf5bcH/ZO5Savq1ItEfiY7PyXaG2DmwinlxCOX4htCmpYMpk1HyxTGD2iwXHFta0P0J5Brh6AUVaNfrtfzwtYei0uy2Gk5g2OC35ZbTdSy6/aFrUNs03K7SaHKdCzaA+yqqfW+YZZi6Jgnuc73TEidZQyxYq7eleIa7sC0I8TMyJWKGTFE0LD5Tc3NigOqujOXbLRAU3RcdF2fYHIZByoZOFpHXgEMvhboaYzd6pRoTqrl6p8gAb03lGVvL7uUZph+wMAQd/KIuzCjs6FPkBTeGa2dBvoB9o1HCeEFQ2D0EwNGZTgA1yjl8C8p5kIIKXMax8vRuHecdNfkqHAnVCnHp+8PNbguyI/+AB1QFvk/nv1+AAAAAElFTkSuQmCC" /><span>Print</span></a>
+<a id="woas_edit" title="Edit" onclick="woas.ui.edit()"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAEwUlEQVR4XpVVbUxbVRh+bku/uJRCwJLhmikRXTSED0MyFrPJxAHuC0HGXDMwQeKMMIwbykhEmNt+rMPNiasSMTqGSjDbiCGOBCTxYxpdoss6nTMNcYJCm5aVjgKF9vqeE05Imwbjk7y5977tOc/7nOc950hYgZYin0KmCOP/QVGpVI5wODwFQE0REgOk5VAozut0OqvBYAgpiqLi+RWAcogBnlxaWpICgYCPSF4gkj4AcSwtCCBJkpkmcPb39ycUFxeHfT6fpFarxaSrPXloNBqlq6tLam9vl4ikhkjOAWBFhhkTlj+wZs0a9meQXDDExcWJd1ZErBC/SW1tbWFaAbS0tHxMeYXQA4CPFlARMxYWFqRQKCQlJiZKDOybloDlIoJyLMQ7PB6P+vDhw0wFU3WWSNYKBRFgCmZnZzE4OIiCggJkZGRgZmaGETNF0ZWLkNgykQ+qurq6pY6OjgQak0np8QgCqgbx8fEYGRlBfX090tPTUVFRgaqqKqSlpcHlcoFUciJCBJHFYmG+KXNzc8wHnhZrzyEGMLnZ2dl8csvae2G322G1WnH69NtcgcmUiMXFRWGwMDtCkchzH6MJqALk5uYiLy8PP3x/BY2NDah5zoo3WluxY8dOHDt+HOVlu+CdnubLKVTQe3Q7S9EEnFlUUVm5G+PjY7DZjlLegAsXBjH6VS/27t2PBzMfIn/yyRu/8IUvbyyoEAXW/36/H1u3Pkk9psW1az/RcwFzgbso3FKFMydKUb3Pijt3fGDFB4NBvmQEsTyxCYQC4UMotISsrBz09PQC0EOjT4B74gbKS9dhW5EWlbtrcPeuH7dv3yal43wMmfvfCoiAq5imNS4vfxqf93+B61dsCHqG4bzagavf3oLtSAn8nu/wTmc3kpNNoPaMaXBMDwi8Er3egI0bN6D+QDPK9zRhuLcMeo0Cn1+FsZsufNJdhsdKOlBUtBmP5mULglgKYptsNpvJQA2aDjViy/YG1L42ivssKdDr1Ph7fAZJeg3eOrYBDfWNrBgKXUT1MRUIo4QPDF6vF++9a8PmQgdePzGCN1/dAsfvblz/5R9UPPUwRr8ZQ3XNi+j77EPWSRH7Y9U2nZycFK0Ht9uNs50nUVK6E1nrHdhVvB43nR78/ONfOHW0FJu2n8cH3efwfG01I1ndZAFqPX7+kBLWtnwj2e2daD55Hb/ecsOSngjfzAJ1lh8vv5SLy19eXi4yDMLqCshk6o5kdu6I1uNEhY9vwqkz76P6lVqM9lUg8/4UKIsKBi7cwLpH8pcJVvGA5PGgiTmB8GPFlxBq9j0Lp3MM26pbceRgAQaG/oDjTzPsPQdj3naCQKIIG41GaLXacFJSEr/RoiEMPNLWAvM9Kfh0eBjGlAfw9Uc2pKamgoHGKkx1tIIgE3Dx4kW2MyW6D1TijGFHgZBOn9yL+fl5pJmTsXfPMyBKDAxc4jm9Xq9QQ6jYxiPMUTERl34zXfgHaNKgRGAmh8mweIOBvFAYBT1DCATmYTSyI5sTi40pvFLINz0RXAKwP6L3GYaGhnRTU1PyxMREPL3LOTlZssvllP1+r+yddsuB2d/kkifukw81tciBwKxMZ5BM7SzTGB60Z2SHw2EwmUxiXvwLqylmbjrv+acAAAAASUVORK5CYII=" /><span>Edit</span></a>
 </span>
 <span id="woas_edit_mode">
 <a id="woas_cancel" title="Cancel" onclick="woas.ui.cancel()"><img src="data:image/png;base64,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" /><span>Cancel</span></a>
-<a accesskey="s" id="woas_save" title="Save" onclick="woas.save()"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAACXBIWXMAAAsTAAALEwEAmpwYAAAABmJLR0QA/wD/AP+gvaeTAAADLUlEQVR4Xr2VS4scVRTHf+fe6q7qntgzTo2ZHjLJBB8LZ+vOXRaDoOhGEzAbs3DlN/Aj5AsEFNyaBASV4MLXzsfGR54Y4mN8EJiJoBM6M91dde85dncKUtAM9oh64M+5FJz/j3vr3HMFADgEPFNlBYR/FgYkwPfAZ9SM3ve+8UKjkUbV0nnvDgQQEVQVVcw5b8PhnjOzV4G3EpDHwDaefe41ut11W1nZ1TOvPM/eXoGbmSM4Fzl37j2irsZPP3mjefPmly+KuDEAD9B5KCdN53y+mLK8vEyv18d7x9+FmQHQaDg68/MMBh3a7Q6AQyABACTGEtVIWZYyHA4pitl3YAaqQgiBGINFjQCC1QCIMJbU5NxsOxAB5wShqq08ARz/YfwvgIRayPT2/12AAYjUULP/ZDNBRPYB1GQa8F5HsnGewV0wIPGGatwfoKq02y1++HGbs2cvAB7DagBB6r6AAIZiphPznT/h4cUENZsGYCAoabrC1vZdynIHEV+1KqjG6fEQI810gSzroKqkmQCKINOAqoiiGLKU73Hq1AlihH7/HiLQah2amNTP3Xvj4sUvGBRzpKkjxoBNt+n00Gq1WqytHeerr29x/sK3vH3+G65e3WR1dY3FxWWWlrrkeZdud5VWu0UMcd+mcMDUycYYKYoBW1t3gcOoPjJa7xDCkLIsRioJoZiME40RRGZo07oERATvHM4poDgvQL0V5YGvzXCTDdsHRG2+HFyuwkfvE1QNsHEwVlkEBoM4UqAoA2aGqk1yfQ0PvjHOGFTGiYhgZq7X+8PStI1zu6TN1LKszfr6MUL8DTDWn3yUNM1QFe7XQJZ5ms0U5xOSJAEE7xviXQJgIpCY2S3g3Y8+fPPlLJsr8vy4276zxZUr1zhyJB9pHgCRhBs3vpuYA5iBc8qd37cpCkOjEEOUGEPY3d3xQDSDqti5hYXD79ynSgAUsINKRBSIVc0ZAKlkL518vT0YFCdGl8xtbDxNv3+QF03xXrh06XMryzy5dv3jnzd/unxZREhADIxGIx0cPfbUB088XnL69El69/p452YEMKoXfvk1Mhwe5fbt62wy9hf7C6jjltmoo4ucAAAAAElFTkSuQmCC" /><span>Save</span></a>
+<a id="woas_save" title="Save" onclick="woas.save()"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAACXBIWXMAAAsTAAALEwEAmpwYAAAABmJLR0QA/wD/AP+gvaeTAAADLUlEQVR4Xr2VS4scVRTHf+fe6q7qntgzTo2ZHjLJBB8LZ+vOXRaDoOhGEzAbs3DlN/Aj5AsEFNyaBASV4MLXzsfGR54Y4mN8EJiJoBM6M91dde85dncKUtAM9oh64M+5FJz/j3vr3HMFADgEPFNlBYR/FgYkwPfAZ9SM3ve+8UKjkUbV0nnvDgQQEVQVVcw5b8PhnjOzV4G3EpDHwDaefe41ut11W1nZ1TOvPM/eXoGbmSM4Fzl37j2irsZPP3mjefPmly+KuDEAD9B5KCdN53y+mLK8vEyv18d7x9+FmQHQaDg68/MMBh3a7Q6AQyABACTGEtVIWZYyHA4pitl3YAaqQgiBGINFjQCC1QCIMJbU5NxsOxAB5wShqq08ARz/YfwvgIRayPT2/12AAYjUULP/ZDNBRPYB1GQa8F5HsnGewV0wIPGGatwfoKq02y1++HGbs2cvAB7DagBB6r6AAIZiphPznT/h4cUENZsGYCAoabrC1vZdynIHEV+1KqjG6fEQI810gSzroKqkmQCKINOAqoiiGLKU73Hq1AlihH7/HiLQah2amNTP3Xvj4sUvGBRzpKkjxoBNt+n00Gq1WqytHeerr29x/sK3vH3+G65e3WR1dY3FxWWWlrrkeZdud5VWu0UMcd+mcMDUycYYKYoBW1t3gcOoPjJa7xDCkLIsRioJoZiME40RRGZo07oERATvHM4poDgvQL0V5YGvzXCTDdsHRG2+HFyuwkfvE1QNsHEwVlkEBoM4UqAoA2aGqk1yfQ0PvjHOGFTGiYhgZq7X+8PStI1zu6TN1LKszfr6MUL8DTDWn3yUNM1QFe7XQJZ5ms0U5xOSJAEE7xviXQJgIpCY2S3g3Y8+fPPlLJsr8vy4276zxZUr1zhyJB9pHgCRhBs3vpuYA5iBc8qd37cpCkOjEEOUGEPY3d3xQDSDqti5hYXD79ynSgAUsINKRBSIVc0ZAKlkL518vT0YFCdGl8xtbDxNv3+QF03xXrh06XMryzy5dv3jnzd/unxZREhADIxGIx0cPfbUB088XnL69El69/p452YEMKoXfvk1Mhwe5fbt62wy9hf7C6jjltmoo4ucAAAAAElFTkSuQmCC" /><span>Save</span></a>
 </span>
-<a accesskey="h" id="woas_help" title="Open the Help window" onclick="woas.ui.help()"><img src="data:image/png;base64,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" /><span>Help</span></a>
+<a id="woas_help" title="Open the Help window" onclick="woas.ui.help()"><img src="data:image/png;base64,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" /><span>Help</span></a>
 </div>
 <img class="woas_nav" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAMFBMVEUPDw8BAQEjIyM1NTVBQUFUVFRjY2Nzc3OGhoacnJyxsbHHx8fV1dXNzc3o6OgAAAD9Ug4EAAAAAXRSTlMAQObYZgAAAOhJREFUeNqVktsOhDAIRIVeAdv+/98utjUky2qy86LmzDAqPUy9n1O9H7+0qfN4vC2ev1k8NYflvTz3Izz3Dm9ocmuVeGzqfsCNbET3cVO7GppJTNbRcN7hF6kIGKdBkGmwGhhHYEURkUSgMpVliDXpU5QQKSY1EFeNYua7ImcsibIAC2kRBxiglwxIy1ARJZR6GRg1WoiHqDjhNJw0iqRIEhJfFUhcBksiqTg/s7NG6+D7JQtAiiABIND6UfKiPnfxzNvaZnsd8FBi234paXuAlXhup/KRP7acxt0QF7fTv6mlvUl1/KkPqIMf9tXbo68AAAAASUVORK5CYII=" />
 <span id="woas_title"></span>
@@ -5515,11 +5542,11 @@ Wiki Code:
 <input class="woas_button_editor" title="Image link" value="Image" onclick="setHTMLImage()" type="submit" />
 <input class="woas_button_editor" title="External link" value="Link" onclick="setHTMLUrl()" type="submit" />
 </div>
-<div id="woas_editor_container"><div id="woas_editor_sizer"><textarea style="height: 584px;" id="woas_editor" rows="0" cols="0"></textarea></div></div>
+<div id="woas_editor_container"><div id="woas_editor_sizer"><textarea id="woas_editor" rows="0" cols="0"></textarea></div></div>
 </div>
 <div id="woas_footer_wrap"><div id="woas_footer"><div id="woas_footer_panel">
 <div id="woas_about"><a title="About Wiki on a Stick" onclick="woas.ui.about()">About Wiki on a Stick v0.12.0</a></div>
-<a id="woas_debug" title="Toggle debug display" onclick="d$.toggle_cls('no_log', true)">
+<a id="woas_debug" title="Toggle debug display" onclick="woas.ui.toggle_debug()">
 <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAMFBMVEVKYnp9lq7K4/t5aAmpwtv1+f6QqMC70+rn8v6dsshcdY2kvNPY6/7A2fH///8PDw9fznsJAAAAEHRSTlP///////////////////8A4CNdGQAAAAFiS0dEAIgFHUgAAAAJcEhZcwAACxMAAAsTAQCanBgAAABySURBVAjXY/gPBQxA/O4dhPFv5sz3IMa/l6Edfu+BjJebwu+V+P1n+Dc1vPbRi7b3QEZ5nZ76wfdAqfaHEnfkQGr6FN8VARn/Zrx98WTaLaCaHX26nukFQDWvtxyZlsUHMvDZIV2+92ArVq16j2opBAAAW7NklyU6ioMAAAAASUVORK5CYII=" /><span>Debug</span>
 </a>
 <a id="woas_top" title="Go to top of page" onclick="woas.ui.top()">
