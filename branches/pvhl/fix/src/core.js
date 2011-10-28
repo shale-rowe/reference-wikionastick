@@ -357,6 +357,9 @@ woas.history = (function(){ // woas.history closure
 	
 	// push a page into history
 	function store(page) {
+		if (/^(Lock|Javascript)::/.test(current)) {
+			return;
+		}
 		if (backstack.length > woas.history.MAX_BROWSE_HISTORY)
 			backstack = backstack.slice(1);
 		backstack.push(page);
@@ -385,7 +388,7 @@ woas.history = (function(){ // woas.history closure
 	
 	back: function() {
 		if (backstack.length > 0) {
-			if (!/^Lock::/.test(current)) {
+			if (!/^(Lock|Javascript)::/.test(current)) {
 				forstack.push(current);
 			}
 			var title = backstack.pop();
@@ -407,7 +410,7 @@ woas.history = (function(){ // woas.history closure
 	},
 	
 	go: function(title, keep_fwd) {
-		if (!going_back && !woas.ui.edit_mode && current !== title && !/^Lock::/.test(current)) {
+		if (!going_back && !woas.ui.edit_mode && current !== title) {
 			store(current);
 		}
 		if (!keep_fwd && !going_forward && !going_back/* && !/^Lock::/.test(title)*/) {

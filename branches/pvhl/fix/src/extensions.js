@@ -8,6 +8,14 @@ woas.scripting = {
 	_page_stacked: 0,	// ''
 
 	// remove all scripts from specified array (can be 'menu' or 'page')
+/*
+PVHL:
+  scripting needs to be rethought; Javascript tags can be removed from the DOM
+  without affecting the code that the tag initialized; it survives. Would need
+  to have all scripts added to a namespace closure so that the namespace could
+  be cleared. Facebook does something like this, as does adSafe, I believe,
+  but it is not a trivial implementation task.
+*/
 	clear: function(which) {
 		for(var i=0;i < this["_"+which+"_stacked"];++i) {
 			woas.dom.remove_script(which, i);

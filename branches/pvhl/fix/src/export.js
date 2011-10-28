@@ -40,10 +40,10 @@ woas.exporter = {
 			}
 		}
 
-		var pg = page_titles[pi], l = page_titles.length, fname = "",
-			done = 0, total = 0, mnupos;
+		var pg, pi, l, fname = "", done = 0, total = 0, mnupos;
 		data = null;
-		for (var pi=0;pi < l;pi++) {
+		for (pi = 0, l = page_titles.length; pi < l; pi++) {
+			pg = page_titles[pi];
 			// do skip physical special pages
 			if (pg.match(/^Special::/)) continue;
 			if (woas.static_pages2.indexOf(pg) !== -1) continue;

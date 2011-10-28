@@ -5,7 +5,7 @@ e.g.: the whole wiki was being deleted if there was a data source path error.
 I have modified the WSIF object to allow loading and saving of the files
 WoaS is able to export with Special::ExportWSIF. To make this safer, I have
 added a new header: 'wsif.type: index'. Recursion is allowed if the root file
-is is an index and/or the external file has a mime-type. This works in testing
+is an index and/or the external file has a mime-type. This works in testing
 with image files, but only in Firefox because binary load and save doesn't work
 yet in other browsers. WoaS 0.12.0 fails silently, possibly corrupting the wiki.
 
