@@ -83,7 +83,7 @@ var page_titles = [
 'WoaS::Help::Headings',
 'WoaS::Help::Rulers',
 'WoaS::Help::Include wiki page',
-'WoaS::Help::JavaScript',
+'WoaS::Help::Javascript',
 'WoaS::Help::Join lines of text',
 'WoaS::Help::Namespaces',
 'WoaS::Help::Text formatting',
@@ -102,7 +102,7 @@ var page_titles = [
 'WoaS::Template::Search',
 'WoaS::Help::Export',
 'WoaS::Template::Transclusion Example',
-'WoaS::Help::Transclusion',
+'WoaS::Help::Template transclusion',
 'WoaS::Help::Special::ExportWSIF',
 'WoaS::Help::Special::ImportWSIF',
 'WoaS::Hotkeys',
@@ -138,7 +138,7 @@ var page_titles = [
 /* DFQRCTsKlU-0000001-DATA */
 var page_attrs = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
 
-var page_mts = [0,0,0,0,1319533709,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1318738575,1318739163,1318740655,1318741670];
+var page_mts = [0,0,0,0,1319799342,0,0,0,0,0,0,0,0,1319799357,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1318738575,1318739163,1318740655,1318741670];
 
 var pages = [
 '[[Main Page]]\n\
@@ -180,7 +180,7 @@ var pages = [
 * [[WoaS::Aliases]] - view/edit page title aliases\n\
 * [[WoaS::CSS::Core]], [[WoaS::CSS::Custom]] - view the core CSS and edit the custom CSS\n\
 * [[WoaS::Hotkeys]] - view/edit WoaS access keys and default key bindings\n\
-* [[WoaS::Plugins]] - enable/disable and view/edit WoaS JavaScript plugins\n\
+* [[WoaS::Plugins]] - enable/disable and view/edit WoaS Javascript plugins\n\
 == Maintenance\n\
 * [[Special::Import]] - import wiki from a WoaS html file (including earlier versions)\n\
 * [[Special::ImportWSIF]] - import a [[WoaS::Help::WSIF|WSIF]] file containing one or more wiki pages\n\
@@ -227,7 +227,7 @@ This project wouldn\'t be what it is without the help of other people. If you co
 * *Tim Lord*\n\
 * *Knut Kohl*\n\
 * *Rob Schmersel*\n\
-* *Michiel van Everdingen* - [[http://home.versatel.nl/MAvanEverdingen/Code/|original JavaScript implementation]] of AES encryption\n\
+* *Michiel van Everdingen* - [[http://home.versatel.nl/MAvanEverdingen/Code/|original Javascript implementation]] of AES encryption\n\
 * *Cyril Mazard* - search feature\n\
 * *jimmac* - author of [[http://jimmac.musichall.cz/i.php?i=gorilla-stock|the icon set]] that we are currently using in WoaS\n\
 * *martinellison* - transclusion patch\n\
@@ -244,17 +244,17 @@ This project wouldn\'t be what it is without the help of other people. If you co
 * [[https://lists.sourceforge.net/lists/listinfo/stickwiki-devel|SF.net WoaS Development mailing list]] - for discussion of WoaS development\n\
 ',
 '= Buyer Beware!\n\
-*Please be aware* that this version is unfinished. I believe it is safe with data, but it is still being updated. Almost done. Also, the contents of this page don\'t match {{{fix/index.wsif}}}.\n\
+*Please be aware* that this version is still unfinished. I believe it is safe with data, but it is still being updated. Almost done. Also, the contents of this page don\'t match {{{fix/index.wsif}}}.\n\
 \n\
-* *Check out the nice jump to [[WoaS History#The principles|sections]] (and the folding TOC once you get to that page). Erasing the wiki has also been improved.*\n\
+* *Check out the nice jump to [[WoaS History#The principles|sections]] (and the folding TOC once you get to that page). Erasing the wiki has also been improved (better menu layout), and the [[WoaS::Help::Javascript#Using the Javascript:: namespace in a link|Javascript]] namespace has been improved.*\n\
 \n\
-\n\
+* Chrome/Safari Java saving in Windows should now be properly fixed.\n\
 * The sub-menu system has been changed. Sub-menus now use their own page to replace the main menu; this allows much more versatile designs.\n\
 * This version uses a completely new way to control the layout (adding CSS classes to the HTML tag). It works very well but means that if you try plugins that change the display style (block/hidden) of the main HTML it will likely break the file. This will be fixed later by loading layout from a page (or code) on start up. This new code makes future theming and skinning much easier to implement. (This is a key issue for me.) It also stops the multiple changes that  mess up version control and diffs.\n\
-* I haven\'t finished with export to HTML yet -- or even checked it recently; much of the layout and IDs have changed during this phase. I will make it right before release.\n\
-* Some lists may actually have slowed down a little bit as they are now much more capable; the /Orphaned Pages/ list is now many times faster in larger files (time is square root of original time).\n\
+* I haven\'t finished with export to HTML yet; much of the layout and IDs have changed during this phase. I will make it right before release.\n\
+* The /Orphaned Pages/ list is now many times faster in larger files (time is square root of original time).\n\
 * I found it took a few hours to get used to the new page/tag list format, because it works differently from 0.12.0 (so I kept going to pages instead of toggling DIVs); once used to it I found it much easier to use. And I think it looks much better. (The 0.12.0 look actually breaks in one major browser on my system.)\n\
-* I have rearranged some icons to make the code simpler and because it is more consistent to my eyes.\n\
+* I have rearranged some icons to make the code simpler and because it is more consistent to my eyes. I will be modifying this slightly before I\'m finished so that the icons can be in any order (for Little Girl)\n\
 * The locks are now opposite in looks to 0.12.0; it just makes more sense to me.\n\
 * Though I have fixed up the /Password Entry/ layout (and made a new icon for it) I may change it to use a page (like all the other functions), and may eventually remove the need for it entirely. It now accepts the enter key.\n\
 \n\
@@ -278,7 +278,7 @@ They should be specified in {{{em}}} values for best cross-browser compatibility
 '= Search in Wiki\n\
 \x3Cinput id="string_to_search" type="text" onfocus="search_focus(true)" onblur="search_focus(false)" /\x3E&nbsp;\x3Cinput class="woas_button" type="button" value="Search" onclick="ssearch_do_search()" /\x3E&nbsp;\x3Cinput class="woas_button" type="button" value="Clear" onclick="woas.ui.clear_search()" /\x3E\n\
 \x3Cdiv id="woas_search_results"\x3E&nbsp;\x3C/div\x3E\n\
-\x3Cscript type="text/javascript" language="javascript"\x3E\n\
+\x3Cscript type="text/javascript"\x3E\n\
 woas._search_load();\n\
 \x3C/script\x3E\n\
 ',
@@ -314,7 +314,7 @@ Security is never absolute. Data encrypted with these pages might be compromised
 * User-generated passwords are weak by nature (PBKDF2 will be used in a future version)\n\
 * You have not disabled the AES key cache, so when you enter the password for the first time other users (if not you) will be able to see encrypted pages and could possibly get your key\n\
 * WoaS uses random numbers generated by the browser itself using local time; if someone was somehow able to gain access to the particular time used they could perhaps discover the key (user-generated entropy will be used in a future version)\n\
-* Your Web browser and/or JavaScript interpreter may contain bugs or deliberate security violations which report activity on your computer back to some other Internet site\n\
+* Your Web browser and/or Javascript interpreter may contain bugs or deliberate security violations which report activity on your computer back to some other Internet site\n\
 * Some other applet running on another page in your browser, perhaps without you being aware of its existence, is spying on other windows.\n\
 * Some other "spyware" application running on your computer may have compromised your system\'s security and be snooping on your activity.\n\
 * The implementation of the encryption may contain a bug that makes its results insecure, Wiki on a Stick is open-source; you can judge for yourself whether the tool merits your confidence.\n\
@@ -510,7 +510,7 @@ Tables will use the enhanced [[WoaS::Help::Tables|table syntax]].\n\
 ===Automatically save options before quitting (if changed)\n\
 Saves changes to options automatically when closing the wiki. This will not happen if you are just reloading the file.\n\
 ===Enable safe mode with embedded scripts and plugins not executed (/requires reload/)\n\
-Prevents the wiki from executing [[WoaS::Help::JavaScript|embedded scripts]] and [[WoaS::Help::Plugins|plugins]].\n\
+Prevents the wiki from executing [[WoaS::Help::Javascript|embedded scripts]] and [[WoaS::Help::Plugins|plugins]].\n\
 ===Make merge/diff of WoaS XHTML/WSIF data source easier\n\
 Adds a [[WoaS::Help::Join lines of text|backslash]] and line-end character (\\\\n) to the end of every line of page text. This breaks the text into multiple lines, instead of it being one page-length line, making it easier for source code revision tools (like SVN or git) and merge tools to mark and show changes efficiently.\n\
 ===Store and display last modified time-stamp\n\
@@ -525,13 +525,13 @@ If you just want to use a WSIF file for backing up or sharing your data with oth
 This is the relative path and name of the file the wiki should use to save and retrieve data. A relative path is one that starts in the same directory the WoaS file is in; {{{temp/file.wsif}}} is a relative path, {{{/temp/file.wsif}}} is not; {{{c:\\temp\\file.wsif}}} and {{{c:temp\\file.wsif}}} are also incorrect. The file name can have any extension or none at all, but the /wsif/ extension will let you know that it\'s a WoaS data source file. The path may be entered in Windows or UNIX format, but will be converted to the correct format upon entry (it is stored in the WoaS file in UNIX format).\n\
 \n\
 Providing a filename causes the wiki to create a WSIF file by that name and use that file to store and retrieve all page data (configuration options are currently always stored in the WoaS HTML file, not in a WSIF file). If just a filename is entered the file will be created inside the directory the WoaS file is in. The path can additionally specify a directory path relative to the location of the wiki. WoaS will create the specified subdirectory only if you are using a Gecko-based browser like Firefox. If you are using a different browser you must create the subdirectory yourself before saving the file. (As of this writing, the best browser to use with WoaS is *Firefox*; while [[WoaS::Help::Requirements|all major browsers]] can be used to read, edit, and save a WoaS file, other browsers cannot currently import or export binary files, such as image files. This limits some capabilities, like embedding images or exporting them to a binary image file.)\n\
-\x3C\x3C\x3Cwoas.note: If you enter the name of an existing file that file will be overwritten on the next save; any associated files will also be overwritten if /multiple files/ mode is selected.\x3E\x3E\x3E\n\
+\x3C\x3C\x3Cwoas.note: If you enter the name of an existing file that file will be overwritten when /Change data source/ is clicked; any associated files will also be overwritten if /multiple files/ mode is selected.\x3E\x3E\x3E\n\
 The data source name will be used as the index page name when using multiple files as a data source.\n\
 \n\
 The box is blank by default. Leaving the box blank, or deleting an existing filename from the box, causes the wiki to save all the currently loaded data to itself and retrieve all data from itself. Deleting the filename from the box does not delete any files.\n\
 ===Use multiple files in WSIF data source\n\
 Causes the wiki to create individual WSIF files for each page. The pages will be automatically named by page number in their order of creation. An index page with the WSIF data source filename will be created containing a list of the numbered file names and their corresponding wiki page names. WoaS will use this file to load data and save edits to the correct file.\n\
-\x3C\x3C\x3Cwoas.note: The two WSIF data source settings described above will *not* be used or saved unless you confirm the change with the /Change data source/ button. WoaS will then describe the impact of the changes you are about to make so you can change your mind if you want to by pressing cancel. Though confirmed, the settings will not take effect until the options are saved to the WoaS file, just like the other options\x3E\x3E\x3E\n\
+\x3C\x3C\x3Cwoas.note: The two WSIF data source settings described above will *not* be used or saved unless you confirm the change with the /Change data source/ button. WoaS will then describe the impact of the changes you are about to make so you can change your mind if you want to by pressing cancel.\x3E\x3E\x3E\n\
 ===WSIF Data author\n\
 This is the name of the author as displayed in exported WSIF files. Replace the default name with your own to be credited as the author of the file(s). Deleting the contents of the box prevents the author line from being added to WSIF files.\n\
 ==Permanent changes\n\
@@ -544,9 +544,10 @@ If the file is already in read-only mode the /Prevent Edits/ button is not displ
 = Embed %1\n\
 \x3Cinput id="filename_" type="file" /\x3E\n\
 ',
-'\x3Cdiv\x3E\x3Cinput class="woas_button_top" title="Import a plugin" value="Import plugin..." onclick="woas.go_to(\'Special::ImportWSIF\')" type="button" /\x3E\x3Cinput class="woas_button_top" title="Create a new plugin" value="Create plugin..." onclick="javascript:_woas_new_plugin()" type="button" /\x3E\x3C/div\x3E\n\
+'\x3Cdiv\x3E\x3Cinput class="woas_button_top" title="Import a plugin" value="Import plugin..." onclick="woas.go_to(\'Special::ImportWSIF\')" type="button" /\x3E\x3Cinput class="woas_button_top" title="Create a new plugin" value="Create plugin..." onclick="_woas_new_plugin()" type="button" /\x3E\x3C/div\x3E\n\
 = Installed plugins',
-'= Wiki on a Stick History\n\
+'[[Special::TOC]]\n\
+= Wiki on a Stick History\n\
 == Versions 0.01 &tilde; 0.04\n\
 \x3Csub\x3Eby Andr\u00e9 Wagner\x3C/sub\x3E\n\
 \n\
@@ -570,11 +571,11 @@ Some time later I took courage and asked to take-over the project; Andr\u00e9 Wa
 \n\
 My first big project management change was to switch to [[http://subversion.tigris.org/|Subversion (SVN)]] for the versioning of all our WoaS files; development could this way be fully documented and followed "live" by the mailing list (formerly google group) partecipants, which are the first solid community gathered around WoaS.\n\
 \n\
-Version 0.9B was the first official version which I worked on. My first big change was to have storage of pages not in content-escaped hidden divs but as javascript strings; this brought more speed to the page loading process. I also had to solve some problems inherent to the double file vs single file compatibility (WoaS can since then work with the 2-files version and single file version) and some IE saving issues, but finally the result was good enough.\n\
+Version 0.9B was the first official version which I worked on. My first big change was to have storage of pages not in content-escaped hidden divs but as Javascript strings; this brought more speed to the page loading process. I also had to solve some problems inherent to the double file vs single file compatibility (WoaS can since then work with the 2-files version and single file version) and some IE saving issues, but finally the result was good enough.\n\
 \n\
 A lot of features and improvements have been implemented during the (still current) v0.9.x development cycle, without never slowing down some parts of WoaS for each new feature implemented (further speed optimizations will be engineered when the codebase is stable enough); we are as always gathering the users\' feedback to add usability and more powerful features to WoaS. Such features must of course be coherent with WoaS principles and base philosophy.\n\
 === Object orienting\n\
-Wiki on a Stick codebase has been rewritten as object-oriented in order to be more maintanable and modular (the development version contains multiple javascript source files which are as always merged into one before releases). Such process is not yet complete and is being carried out during the 0.12.x development.\n\
+Wiki on a Stick codebase has been rewritten as object-oriented in order to be more maintanable and modular (the development version contains multiple Javascript source files which are as always merged into one before releases). Such process is not yet complete and is being carried out during the 0.12.x development.\n\
 == 0.10.x\n\
 Development of 0.9.7B was stale and WoaS was getting full of little bugs which prevented it from being successfully used; during last months of 2009 and first months of 2010 WoaS got new blood with 0.10.x releases.\n\
 Some of the best additions were [[WoaS::Help::WSIF|WSIF format]] and a pluggable macro syntax, but finally the product had reached the stability which its users deserved and exited its Beta status to enter a Production development stage.\n\
@@ -605,9 +606,9 @@ Extension for generated XHTML files:&nbsp; \x3Cinput id="woas_ep_ext" type="text
 \x3Clabel for="woas_cb_index_main"\x3E\x3Cinput type="checkbox" id="woas_cb_index_main" checked="checked"\x3EName the main page /index/\x3C/label\x3E\n\
 \x3Clabel for="woas_cb_unix_norm"\x3E\x3Cinput type="checkbox" id="woas_cb_unix_norm" checked="checked"\x3EUse UNIX-style normalization to generated filenames (all lowercase letters; non-alphanumeric characters replaced with underscores)\x3C/label\x3E\n\
 ==Custom page scripts\n\
-\x3Clabel for="woas_cb_js_ign"\x3E\x3Cinput type="radio" id="woas_cb_js_ign" name="woas_cb_js" checked="checked"\x3EDo not export JavaScript\x3C/label\x3E\n\
-\x3Clabel for="woas_cb_js_exp"\x3E\x3Cinput type="radio" id="woas_cb_js_exp" name="woas_cb_js"\x3EExport JavaScript as-is\x3C/label\x3E\n\
-\x3Clabel for="woas_cb_js_dyn"\x3E\x3Cinput type="radio" id="woas_cb_js_dyn" name="woas_cb_js"\x3ERun before exporting, but do not export the JavaScript\x3C/label\x3E\n\
+\x3Clabel for="woas_cb_js_ign"\x3E\x3Cinput type="radio" id="woas_cb_js_ign" name="woas_cb_js" checked="checked"\x3EDo not export Javascript\x3C/label\x3E\n\
+\x3Clabel for="woas_cb_js_exp"\x3E\x3Cinput type="radio" id="woas_cb_js_exp" name="woas_cb_js"\x3EExport Javascript as-is\x3C/label\x3E\n\
+\x3Clabel for="woas_cb_js_dyn"\x3E\x3Cinput type="radio" id="woas_cb_js_dyn" name="woas_cb_js"\x3ERun before exporting, but do not export the Javascript\x3C/label\x3E\n\
 ==Other options\n\
 META author (optional):&nbsp; \x3Cinput id="woas_ep_author" type="text" size="20" value="" /\x3E\n\
 \x3Clabel for="woas_cb_sep_css"\x3E\x3Cinput type="checkbox" id="woas_cb_sep_css" checked="checked"\x3EExport CSS into shared file\x3C/label\x3E\n\
@@ -818,11 +819,11 @@ And the result is:\n\
 I have 3 fruits in my basket\n\
 \x3E\x3E\x3E\n\
 \n\
-The passed arguments must be valid JavaScript expressions.\n\
+The passed arguments must be valid Javascript expressions.\n\
 == Global macros\n\
 Macros can be available on all pages if they are registered by plugins.\n\
 \n\
-In order to define a global macro you should create or edit a plugin and then add JavaScript code like this:\n\
+In order to define a global macro you should create or edit a plugin and then add Javascript code like this:\n\
 \n\
 {{{woas.macro.register(\'my.arg_macro\', function(macro, name, color) {\n\
 macro.text = "\x3Cstrong\x3E"+name+"\x3C/strong\x3E says: \x3Cspan style=\\"color: "+color+"\\"\x3E"+macro.text+"\x3C/span\x3E";\n\
@@ -895,8 +896,8 @@ When browsing the pages in this Help pop-up, you will find an *Index* button in 
 ** [[WoaS::Help::Images|Images]]\n\
 ** [[WoaS::Help::Include text file|Include text file]]\n\
 ** [[WoaS::Help::Include web page|Include web page]]\n\
-** [[WoaS::Help::Include wiki page|Include wiki page]]\n\
-** [[WoaS::Help::JavaScript|JavaScript]]\n\
+** [[WoaS::Help::Include wiki page|Include wiki page (transclusion)]]\n\
+** [[WoaS::Help::Javascript|Javascript]]\n\
 ** [[WoaS::Help::Join lines of text|Join lines of text]]\n\
 ** [[WoaS::Help::Links|Links]]\n\
 ** [[WoaS::Help::Lists|Lists]]\n\
@@ -906,8 +907,8 @@ When browsing the pages in this Help pop-up, you will find an *Index* button in 
 ** [[WoaS::Help::Table of Contents|Table of Contents]]\n\
 ** [[WoaS::Help::Tables|Tables]]\n\
 ** [[WoaS::Help::Tags|Tags]]\n\
-** [[WoaS::Help::Text formatting|Text formatting]]\n\
-** [[WoaS::Help::Transclusion|Transclusion]]',
+** [[WoaS::Help::Template transclusion|Template transclusion]]\n\
+** [[WoaS::Help::Text formatting|Text formatting]]',
 'The Advanced page offers some tools for administration of your wiki. The Special links lead to pages that have individual help available, except for the dynamic commands that create a prompt. Below are links to relevant help pages for those /Special::/ commands.\n\
 * *Special::Delete Page* - See [[WoaS::Help::Delete a page|Delete a page]]\n\
 * *Special::Erase Wiki* - See [[WoaS::Help::Special::Erase Wiki|Erase Wiki]]\n\
@@ -1221,73 +1222,105 @@ See the [[WoaS::Help::Namespaces#Namespace sub-menu|Namespace sub-menu]] section
 ----\n\
 \x3C/div\x3E\x3C/center\x3E\n\
 ',
-'To include the contents of a wiki page inside another wiki page, use an {{{[[Include::]]}}} tag on a line by itself, inserting the name of the page you\'d like to include after the double colons in the tag.\n\
+'Including the contents of one wiki page inside another wiki page is called /transclusion/. To accomplish this use an {{{[[Include::]]}}} tag on a line by itself, inserting the name of the page you\'d like to transclude after the double colons in the tag.\n\
 \x3C\x3C\x3Cwoas.note: Page names are case sensitive.\x3E\x3E\x3E\n\
-\x3Cdiv class="woas_help_text"\x3EUse this code in a page, replacing Page Name with the name of the page you wish to include:\x3C/div\x3E\n\
+\x3Cspan class="woas_help_text"\x3EUse this code in a page, replacing Page Name with the name of the page you wish to include:\x3C/span\x3E\n\
 \x3Cdiv class="woas_help_code"\x3E[\x3C!-- --\x3E[Include::Page Name]]\x3C/div\x3E\n\
-\x3Cdiv class="woas_help_text"\x3ETo include the contents of another wiki page in the current page.\x3C/div\x3E\n\
+\x3Cspan class="woas_help_text"\x3ETo include the contents of another wiki page in the current page.\x3C/span\x3E\n\
 == Example\n\
-\x3Cdiv class="woas_help_text"\x3EUse this code in a page:\x3C/div\x3E\n\
-\x3Cdiv class="woas_help_code"\x3E[\x3C!-- --\x3E[Include::Special::Search]\x3C!-- --\x3E]\x3C/div\x3E\n\
-\x3Cdiv class="woas_help_text"\x3ETo create this:\x3C/div\x3E\n\
-[[Include::Special::Search]]\n\
-',
-'== Adding JavaScript to your page\n\
-To add JavaScript to your page, you must enclose it inside JavaScript tags.\n\
+\x3Cspan class="woas_help_text"\x3EUse this code in a page:\x3C/span\x3E\n\
+\x3Cdiv class="woas_help_code"\x3E[\x3C!-- --\x3E[Include::WoaS::Aliases]\x3C!-- --\x3E]\x3C/div\x3E\n\
+\x3Cspan class="woas_help_text"\x3ETo create this (the [[WoaS::Aliases]] page):\x3C/span\x3E\n\
 \n\
-\x3Cdiv class="woas_help_text"\x3EUse this code in a page, replacing YOUR_CODE_HERE with your JavaScript code:\x3C/div\x3E\n\
+[[Include::WoaS::Aliases]]\n\
+== Template transclusion\n\
+WoaS can also transclude template pages, allowing you to change the content of a transcluded page by using link parameters; see [[WoaS::Help::Template transclusion|Template transclusion]].\n\
+',
+'== Adding Javascript to the wiki source\n\
+You can add &lt;script&gt; tags to your wiki source and they will be correctly rendered in the document &lt;head&gt; tag each time the page is loaded; external scripts (using the /src/ attribute) will also be parsed and activated. The order of declaration of the &lt;script&gt; tags will be respected.\n\
+\x3C\x3C\x3Cwoas.note: Since the Javascript tags are activated from within the &lt;head&gt; tag, you cannot use document.write() or similar inline Javascript statements.\x3E\x3E\x3E\n\
+It is very often better to use a [[WoaS::Help::Macros|macro]] or other Javascript loaded by a custom [[WoaS::Help::Plugins|plugin]]. The code or macro is then loaded once when the file is first loaded and is available to all your pages.\n\
+=== Adding Javascript to your page\n\
+To add Javascript to your page, you must enclose it inside script tags.\n\
+\n\
+\x3Cdiv class="woas_help_text"\x3EUse this code in a page, replacing YOUR_CODE_HERE with your Javascript code:\x3C/div\x3E\n\
 {{{\n\
 \x3Cscript type="text/javascript"\x3E\n\
 YOUR_CODE_HERE\n\
 \x3C/script\x3E\n\
 }}}\n\
-\x3Cdiv class="woas_help_text"\x3ETo add JavaScript to your page.\x3C/div\x3E\n\
-== Adding JavaScript to the wiki source\n\
-It is possible to add &lt;script/&gt; tags to your wiki source and they will be correctly rendered in the document &lt;head/&gt; tag upon page loading; also external scripts (using the /src/ attribute) will be parsed and activated, always respecting the order of declaration of the &lt;script /&gt; tags.\n\
-\x3C\x3C\x3Cwoas.note: Since the JavaScript tags are activated from within the &lt;head /&gt; tag, you cannot use document.write() or similar inline JavaScript statements.\x3E\x3E\x3E\n\
-== Using external JavaScript\n\
-You can include external JavaScript on a page by placing the script file in the same directory as this wiki and then inserting a reference to it in the body of the page.\n\
+\x3Cdiv class="woas_help_text"\x3ETo add Javascript to your page.\x3C/div\x3E\n\
+=== Using external Javascript\n\
+You can include external Javascript on a page by placing the script file in the same directory as the WoaS file and then inserting a reference to it in the body of the page.\n\
 \n\
 \x3Cdiv class="woas_help_text"\x3EUse this code in a page, replacing SCRIPTNAME.JS with the name of your script:\x3C/div\x3E\n\
 {{{\n\
-\x3Cscript src="SCRIPTNAME.JS"\x3E\x3C/script\x3E\n\
+\x3Cscript src="SCRIPTNAME.JS" type="text/javascript"\x3E\x3C/script\x3E\n\
 }}}\n\
-\x3Cdiv class="woas_help_text"\x3ETo include an external JavaScript in a page.\x3C/div\x3E\n\
-=== Example\n\
-This page contains this code:\n\
-{{{\n\
-\x3Cscript src="example.js"\x3E\x3C/script\x3E\n\
-}}}\n\
-To see an example using external JavaScript:\n\
-# Create a text file in the same directory as this wiki.\n\
-# Paste this into the file:{{{\n\
-alert("This is an example alert!");\n\
-}}}\n\
-# Save the file as *example.js*\n\
-# Reload the wiki.\n\
-# Open this page from the menu (not in the help pop-up) to run the *example.js* script and see the alert.\n\
-== Using JavaScript to create a temporary page\n\
-Using this code, you can get this wiki to create a link to a dynamically created temporary page with custom content (it accepts HTML tags as part of the content) under the JavaScript namespace. The temporary page will be created each time the link is clicked and uncreated as soon as you navigate to another page or close the wiki.\n\
+\x3Cdiv class="woas_help_text"\x3ETo include an external Javascript in a page.\x3C/div\x3E\n\
+== Using the /Javascript::/ namespace in a link\n\
+Using a Javascript expression contained in a link, WoaS can dynamically create a temporary page that only exists while it is being displayed and is not stored as a page in the wiki. It does this through the /Javascript::/ namespace. Everything following the namespace declaration will be evaluated as a Javascript expression. You can use /$JS::/ instead of /Javascript::/ if your [[WoaS::Help::Aliases|Aliases]] page still contains the default {{{$JS  Javascript}}} declaration.\n\
+\x3C\x3C\x3Cwoas.note: /Javascript::/ links cannot be [[WoaS::Help::Include wiki page|transcluded]], cannot contain double-quotes ({{{"}}}), and do not create history (back/forward entries).\x3E\x3E\x3E\n\
+If the Javascript expression returns a non-empty string it will be used as the body of the dynamic page and the link text will be used as the title of the page. If the expression returns an array and that array contains exactly two strings, then the first string will be used as the dynamic page\'s title (with /Javascript::/ added), and the second one will form the content of the page. Any other return types will be ignored, as will an empty content string. The content string can be WoaS wiki syntax, HTML, or a combination of both; it is parsed just as a normal page is.\n\
 \n\
-\x3Cdiv class="woas_help_text"\x3EUse this code in a page, replacing CONTENT with your content, NAME with the page name, and LINK with the text you want the link to have:\x3C/div\x3E\n\
+A simple (but useless) example is:\n\
 {{{\n\
-\x3Cscript type="text/javascript"\x3Efunction temporary(arg) {return \'CONTENT\';}\x3C/script\x3E[[Javascript::temporary(\'NAME\')|LINK]]\n\
+[[Javascript::\'=Hi\']]\n\
 }}}\n\
-\x3Cdiv class="woas_help_text"\x3ETo create a dynamically created temporary page.\x3C/div\x3E\n\
-\x3C\x3C\x3Cwoas.note: Only one of these links may be used per page.\x3E\x3E\x3E\n\
-Paste each of these into a new page one by one to see what they do:\n\
-* This one uses the temporary page name as part of its content:{{{\n\
-\x3Cscript type="text/javascript"\x3Efunction temporary(arg) {return \'This page was dynamically created using *\'+arg+\'* as content!\';}\x3C/script\x3E[[Javascript::temporary(\'sample\')|Click here]]\n\
-}}}\n\
-* This one demonstrates the use of various HTML tags in the content of the page:{{{\n\
-\x3Cscript type="text/javascript"\x3Efunction temporary(arg) {return \'This page contains more than one line.\x3Cbr\x3EThis line contains \x3Cb\x3Ebold\x3C/b\x3E, \x3Ci\x3Eitalic\x3C/i\x3E, \x3Cu\x3Eunderlined\x3C/u\x3E, and \x3Cfont color="red"\x3Ecolored\x3C/font\x3E text.\x3Cbr\x3E\x3Cbr\x3EAnd here is a list:\x3Cbr\x3E\x3Cul\x3E\x3Cli\x3Eitem1\x3C/li\x3E\x3Cli\x3Eitem2\x3C/li\x3E\x3Cli\x3Eitem3\x3C/li\x3E\x3C/ul\x3E\';}\x3C/script\x3E[[Javascript::temporary(\'My Page\')|Click here]]\n\
-}}}\n\
-== Using JavaScript to reload the wiki\n\
-\x3Cdiv class="woas_help_text"\x3EUse this code in a page:\x3C/div\x3E\n\
+This link should create a dynamic page in the main wiki: [[Javascript::\'=hi\']]. Note that the Javascript expression is used as the page title; usually not very useful! Another simple example (and equally useless, except we don\'t have the title this time; note the need for a space after the array\'s closing bracket):\n\
 {{{\n\
-\x3Cinput type="button" value="Reload wiki" onclick="window.location.href=window.location.href"\x3E\n\
+[[Javascript::[\'\',\'=Hi\'] ]]\n\
 }}}\n\
-\x3Cdiv class="woas_help_text"\x3ETo create a button that reloads the wiki when you click it.\x3C/div\x3E\n\
+And here\'s the link: [[Javascript::[\'\',\'=Hi\'] ]]. The space isn\'t needed if, as is usual, you are using a label after the page link; for example:\n\
+{{{\n\
+[[Javascript::[\'\',\'Hello World\']|A dynamic page]]\n\
+}}}\n\
+These links should open in the main wiki window; the first uses /Javascript::/ in the page source, the second /$JS::/ (though you won\'t see this when hovering over the link if your /$JS/ Alias is set): [[Javascript::[\'\',\'Hello World\']|A dynamic page]], [[$JS::[\'\',\'Hello World\']|A dynamic page]].\n\
+\n\
+These simple examples could even contain a [[WoaS::Help::Links|link]] (note the use of {{{]\\]}}} in the link):\n\
+{{{\n\
+[[Javascript::[\'Hello world\',\'I am Hello World, not the [[Special::All Pages]\\] page\']|A pointless page]]\n\
+}}}\n\
+The above example as a [[Javascript::[\'Hello world\',\'I am Hello World, not the [[Special::All Pages]\\] page\']|pointless page link]].\n\
+\n\
+Here is a slightly more useful example that uses a Javascript function:\n\
+{{{\n\
+\x3Cscript type="text/javascript"\x3E\n\
+  function rhyme1() {\n\
+    return [\'A Rhyme\',\n\
+      \'=Hello Lamppost\\nWhat cha knowing?\\n\' +\n\
+      \'I\\\'ve come to watch\\n* your flowers\\n* growing.\'];\n\
+  }\n\
+\x3C/script\x3E\n\
+}}}\n\
+\x3Cscript type="text/javascript"\x3E\n\
+	function rhyme1() {\n\
+		return [\'A Rhyme\',\'=Hello Lamppost\\nWhat cha knowing?\\n\' +\n\
+		\'I\\\'ve come to watch\\n* your flowers\\n* growing.\'];\n\
+	}\n\
+\x3C/script\x3E\n\
+The link {{{[[Javascript::rhyme1()|Rhymes]]}}} will open this page in the main wiki window: [[Javascript::rhyme1()|Rhymes]]\n\
+\n\
+The Javascript function can also be passed dynamic content using one or more function parameters:\n\
+{{{\n\
+\x3Cscript type="text/javascript"\x3E\n\
+  function rhyme2(thing) {\n\
+    return [\'A \'+thing+\' Rhyme\',\'=Hello \'+thing+\n\
+      \'\\nWhat cha knowing?\\n\' +\n\
+      \'I\\\'ve come to watch\\n* your flowers\\n* growing.\'];\n\
+  }\n\
+\x3C/script\x3E\n\
+}}}\n\
+\x3Cscript type="text/javascript"\x3E\n\
+	function rhyme2(thing) {\n\
+		return [\'A \'+thing+\' Rhyme\',\'=Hello \'+thing+\n\
+		  \'\\nWhat cha knowing?\\n\' +\n\
+		  \'I\\\'ve come to watch\\n* your flowers\\n* growing.\'];\n\
+	}\n\
+\x3C/script\x3E\n\
+The link {{{[[Javascript::rhyme2(\'Lamppost\')|Rhymes]]}}} will open this page in the main wiki window: [[Javascript::rhyme2(\'Lamppost\')|Rhymes]]. This one uses /$JS/: [[$JS::rhyme2(\'World\')|Another rhyme]].\n\
+\n\
+Not that the above example would be more easily accomplished by [[WoaS::Help::Template transclusion|transcluding]] a template page and passing in replacement parameters. Nevertheless, there are times when generating changable, dynamic text is perfectly suited to the /Javascript::/ namespace technique.\n\
 ',
 'Lengthy wiki page content can be broken up into shorter lines in the editor (while still being parsed as a single line when the page is viewed) by using a backslash at the *end* of any line; such a line will be joined with the one below it.\n\
 \x3C\x3C\x3Cwoas.note: Backslashes *within* a line will be ignored by the wiki parser and will not influence how the text is displayed.\x3E\x3E\x3E\n\
@@ -1317,7 +1350,7 @@ If you open the {{{[[Recipes::Desserts::Cakes]]}}} page, the title in the naviga
 === Namespace sub-menu\n\
 All pages in any namespace can be given a custom sub-menu by creating a *::Menu* page inside the namespace. The sub-menu content will replace the [[WoaS::Help::Menu|::Menu]] content while any pages belonging to that page\'s namespace are open. The sub-menu will vanish as soon as you navigate away from its namespace.\n\
 \n\
-You can control what the sub-menu displays by editing the page with *::Menu* in its name, or by clicking the menu edit icon (bottom right corner of the menu) while it is being displayed. A menu is just a wiki page that is displayed in the menu area, so anything a normal page can contain a menu page can as well; this includes JavaScript scripts and CSS style sheets, allowing very flexible customization of namespaces. To [[WoaS::Help::Transclusion|include]] the main menu in a sub-menu use {{{[[Include::::Menu]]}}}.\n\
+You can control what the sub-menu displays by editing the page with *::Menu* in its name, or by clicking the menu edit icon (bottom right corner of the menu) while it is being displayed. A menu is just a wiki page that is displayed in the menu area, so anything a normal page can contain a menu page can as well; this includes Javascript scripts and CSS style sheets, allowing very flexible customization of namespaces. To [[WoaS::Help::Include wiki page|include]] the main menu in a sub-menu use {{{[[Include::::Menu]]}}}.\n\
 \n\
 For example, if you create the {{{[[Recipes::Menu]]}}} page with *My favorite recipes!* as its content, then whenever you open a page in the {{{Recipes::}}} namespace, a sub-menu will appear with *My favorite recipes!* in it.\n\
 === Sub-namespace sub-menu\n\
@@ -1346,7 +1379,7 @@ These are listable namespaces:\n\
 \n\
 Some namespaces cannot be listed but are used inside wiki links to accomplish a task:\n\
 * *Include::* for transclusion\n\
-* *Javascript::* for direct JavaScript execution\n\
+* *Javascript::* for direct Javascript execution\n\
 * *Lock::* used internally or in a link to lock (encrypt) a page\n\
 * *Tag::* syntax used to tag a page\n\
 * *Tags::* alternative syntax used to tag a page\n\
@@ -1428,7 +1461,7 @@ the displayed page would have a Table of Contents at the top of the page similar
 \x3Cdiv class="woas_toc_h6" style="margin-left: 7.5em"\x3E\x3Ca class="woas_link"\x3EMy level six heading\x3C/a\x3E\x3C/div\x3E\n\
 \x3Cdiv\x3E\x3Ca class="woas_link"\x3EMy next level one heading\x3C/a\x3E\x3C/div\x3E\n\
 \x3C/div\x3E\x3C/div\x3E\n\
-The exact look of the TOC is controlled by the current CSS and javascript, both of which can be changed. The WoaS default implementation includes the ability to toggle the TOC display by clicking the /Table of Contents/ title text.',
+The exact look of the TOC is controlled by the current CSS and Javascript, both of which can be changed. The WoaS default implementation includes the ability to toggle the TOC display by clicking the /Table of Contents/ title text.',
 'Tags are used to group pages by categories/features/topics so they can easily be found again.\n\
 \n\
 Tags can be placed anywhere on a page, but choosing a standard location like the bottom of the page makes them easier to find and edit as your wiki grows.\n\
@@ -2970,7 +3003,7 @@ With a combination of HTML and wiki syntax, you can create anchor links to anywh
 }}}\x3Cbr\x3E\x3Cdiv class="woas_help_text"\x3ETo create a labeled anchor link to anywhere on a page.\x3C/div\x3E\n\
 === Edit page link\n\
 \x3Cdiv class="woas_help_text"\x3EUse this code in a page, replacing LABEL with the text for your link:\x3C/div\x3E\x3Cbr\x3E{{{\n\
-\x3Ca class="woas_link" onclick="javascript:edit()" title="Edit this page"\x3ELABEL\x3C/a\x3E\n\
+\x3Ca class="woas_link" onclick="woas.ui.edit()" title="Edit this page"\x3ELABEL\x3C/a\x3E\n\
 }}}\x3Cbr\x3E\x3Cdiv class="woas_help_text"\x3ETo create a link that opens the current page in the editor.\x3C/div\x3E\n\
 === External link (button)\n\
 \x3Cdiv class="woas_help_text"\x3EUse this code in a page, replacing BUTTONTEXT with the text for your button, and URL with the address of the web page:\x3C/div\x3E\x3Cbr\x3E{{{\n\
@@ -3071,7 +3104,7 @@ A famous online service to create such URIs is [[http://software.hixie.ch/utilit
 ',
 '== Importing a WoaS XHTML wiki\n\
 Another Wiki on a Stick can be imported into the current wiki by using the Special::[[WoaS::Help::Special::Import|Import]] page. \x3C\x3C\x3Cwoas.note: To import a version 0.9.6B or earlier WoaS file you will need a WoaS 0.11.x release as this WoaS cannot import it.\x3E\x3E\x3E\n\
-Help pages and the WoaS JavaScript code are not imported so it is always best to import an older wiki into a current one as this will also update the older wiki.\n\
+Help pages and the WoaS Javascript code are not imported so it is always best to import an older wiki into a current one as this will also update the older wiki.\n\
 # Access [[Special::Import]] either directly or from [[Special::Advanced#Maintenance]]\n\
 # Click the *Browse* button and select the wiki you\'d like to import\n\
 # Choose the settings you\'d like to use.\x3C\x3C\x3Cwoas.note: If you are importing WoaS \x3C 0.12.0 it is much better to import CSS manually and not automatically because CSS definitions have changed\x3E\x3E\x3E\n\
@@ -3088,12 +3121,16 @@ This method is used to import pages that have been exported using the WSIF forma
 '\x3Cinput style="font-size:.75em;" id="menu_string_to_search" type="text" size="20" onkeydown="return menu_key_hook(event)" onfocus="menu_search_focus(true)" onblur="menu_search_focus(false)" /\x3E&nbsp;\x3Cinput style="font-size:.75em;" class="woas_button" type="button" value="Search" onclick="menu_do_search()" /\x3E\n\
 ',
 '== Exporting into XHTML static pages\n\
-Your WoaS pages can be exported into web-compatible XHTML, CSS and eventually attachment files/images; generated pages do not use JavaScript for rendering and can be efficiently cached by web servers.\n\
+/See: [[WoaS::Help::Special::Export|Special::Export]] for a more detailed explanation./\n\
+\n\
+Your WoaS pages can be exported into web-compatible XHTML, CSS and eventually attachment files/images; generated pages do not use Javascript for rendering and can be efficiently cached by web servers.\n\
 # Access [[Special::Export]] either directly or from [[Special::Advanced#Maintenance]]\n\
 # Modify the export directories if necessary\n\
-# Choose the settings for the export.\x3C\x3C\x3Cwoas.note: Note that the "Run before exporting but do not export the javascript" option means that JavaScript is run and then the XHTML is exported, but the JavaScript source code itself is not. This is useful if you have JavaScript that does custom parsing.\x3E\x3E\x3E\n\
+# Choose the settings for the export.\x3C\x3C\x3Cwoas.note: Note that the "Run before exporting but do not export the Javascript" option means that Javascript is run and then the XHTML is exported, but the Javascript source code itself is not. This is useful if you have Javascript that does custom parsing.\x3E\x3E\x3E\n\
 # Click the *Export XHTML* button. A confirmation will pop up\n\
 == Exporting into WSIF\n\
+/See: [[WoaS::Help::Special::ExportWSIF|Special::ExportWSIF]] for a more detailed explanation./\n\
+\n\
 # Access [[Special::ExportWSIF]] either directly or from [[Special::Advanced#Maintenance]]\n\
 # Modify the export directory if necessary\n\
 # Choose the settings for the export.\x3C\x3C\x3Cwoas.note: Note that you can export into a single WSIF file or multiple WSIF files. Embedded files are exported as individual files unless you choose not to export them as external file blobs, in which case they\'ll be embedded in the WSIF file(s).\x3E\x3E\x3E\n\
@@ -3103,7 +3140,7 @@ The WSIF file(s) in the export directory can now be copied, shared, or stored fo
 ',
 '\x3Cbig style="color:#0A0"\x3E%1 had a little %2\x3C/big\x3E\n\
 ',
-'Transclusion is a special way of [[WoaS::Help::Include wiki page|including a wiki page]] in another wiki page. Instead of just displaying the contents of the included page as is, you can change how the content is displayed depending on how you write the link.\n\
+'Transclusion is the name wikis use to describe [[WoaS::Help::Include wiki page|including a wiki page]] inside another wiki page. WoaS can do something much more powerful than simple transclusion: instead of just displaying the contents of the included page as is, you can change how the content is displayed depending on how you write the link.\n\
 \n\
 This method requires that you create a page to be used as a template. This page must contain variables represented by %1, %2, %3, and so on.\n\
 \n\
@@ -3171,14 +3208,14 @@ Available options for imported pages whose title collides with existing page tit
 * *Overwrite* - replace existing page with imported page\n\
 * *Ask before overwrite* - ask for each colliding page before replacing\n\
 == Security\n\
-General JavaScript security options to prevent possibly malicious code from being imported.\n\
-* *Comment JavaScript tags*: convert all {{{\x3Cscript ...\x3E...\x3C/script\x3E}}} tags to {{{\x3Cdisabled_script ...\x3E...\x3C/disabled_script\x3E}}}\n\
+General Javascript security options to prevent possibly malicious code from being imported.\n\
+* *Comment Javascript tags*: convert all {{{\x3Cscript ...\x3E...\x3C/script\x3E}}} tags to {{{\x3Cdisabled_script ...\x3E...\x3C/disabled_script\x3E}}}\n\
 * *Comment macro definition/call*: comment all macro definitions/calls {{{\x3C\x3C\x3C...\x3E\x3E\x3E}}} so that they are not parsed/called\n\
 * *Import pages of the WoaS:: namespace*: allow importing hotkeys, plugins, aliases and custom CSS\n\
 \n\
-*Note:* if you have enabled some JavaScript code by mistake you should enable *safe mode* in [[Special::Options]]\n\
+*Note:* if you have enabled some Javascript code by mistake you should enable *safe mode* in [[Special::Options]]\n\
 ',
-'Lines that do not start with \'$\' are ignored\n\
+'Lines that do not start with \'$\' are ignored.\n\
 \n\
 Hotkeys\n\
 -------\n\
@@ -3188,9 +3225,6 @@ $EDIT     e\n\
 $PRINT    p\n\
 $HELP     h\n\
 $GOTO     g\n\
-\n\
-Key bindings\n\
-------------\n\
 \n\
 Cancel key is by default escape (ASCII 0x1b)\n\
 $CANCEL   0x1b\n\
@@ -3202,7 +3236,8 @@ Custom hotkeys\n\
 --------------\n\
 \n\
 You can define custom hotkeys here and the associated\n\
-JavaScript function in a plugin; disabled example:\n\
+Javascript function in a plugin (see Help).\n\
+This example is disabled:\n\
 \n\
 ;$CUSTOM(home)    m\n\
 ',
@@ -3320,7 +3355,7 @@ body, div, textarea, pre, ul, ol, li {\n\
 /* _BROWSER RESET VALUES */\n\
 \n\
 ul, ol {\n\
-	margin: .75em 0px .75em 1em\n\
+	margin: .75em 0px .75em 1.25em\n\
 }\n\
 li {\n\
 	padding-bottom: .125em\n\
@@ -3551,7 +3586,7 @@ explicit margins are needed for IE6/7 otherwise collapsed under certain circumst
 }\n\
 .woas_help_code {\n\
 	font-family: monospace;\n\
-	padding: 0.438em\n\
+	padding: 0.5em\n\
 }\n\
 .woas_help_text {\n\
 	font-family: lucida;\n\
@@ -3960,7 +3995,7 @@ body {\n\
 	display: none\n\
 }\n\
 ',
-'You can define key bindings for hotkeys and access keys by editing the [[WoaS::Hotkeys]] page.\n\
+'You can define key bindings for hotkeys (also called \'access keys\') by editing the [[WoaS::Hotkeys]] page.\n\
 \n\
 Example:\n\
 {{{\n\
@@ -3969,27 +4004,27 @@ $EDIT e\n\
 }}}\n\
 The *$SAVE* and *$EDIT* definitions identify a WoaS action, while the /\'s\'/ and /\'e\'/ characters identify the associated hotkey.\n\
 \n\
-See also [[http://en.wikipedia.org/wiki/Access_keys]].\n\
+See the Wikipedia [[http://en.wikipedia.org/wiki/Access_key|Access key]] entry for details on how different browsers access these keys.\n\
 == Custom hotkeys\n\
-You can create a custom hotkey associated to a JavaScript function to be called when that hotkey is activated.\n\
+You can create a custom hotkey associated with a Javascript function that will be called when that hotkey is activated.\n\
 \n\
 Example:\n\
 {{{\n\
 $CUSTOM(myfunction)     k\n\
 }}}\n\
-The /myfunction/ JavaScript function will be called (without arguments) when the /\'k\'/ hotkey is activated.\n\
+The /myfunction/ Javascript function will be called (without arguments) when the /\'k\'/ hotkey is activated.\n\
 ',
 'All pages of the [[WoaS::Plugins::]] namespace are WoaS plugins; plugins are executed when loading WoaS and remain active during WoaS usage. The WoaS project has plugin examples available for code syntax highlighting, MathML display, and charting; these are found in the /Plugins/ directory of the download. One powerful use of plugins is to load a [[WoaS::Help::Macros|macro]], or a set of macros, that will be available to all pages. The plugins directory also contains an Italian translation plug-in, though translation support is not yet fully capable in WoaS.\n\
 \n\
 You can share WoaS plugins as [[WoaS::Help::WSIF|WSIF]] files by exporting them.\n\
 == External plugins\n\
-A WoaS plugin is just JavaScript code, unless you create a plugin whose name starts with \'@\'. Such plugins are made up of external file references and a specific notation to force the browser into a specific inclusion mode.\n\
+A WoaS plugin is just Javascript code, unless you create a plugin whose name starts with \'@\'. Such plugins are made up of external file references and a specific notation to force the browser into a specific inclusion mode.\n\
 \n\
 Example:\n\
 {{{path/to/mylib1.js = +*\n\
 path/to/mylib2.js = @*}}}\n\
 \n\
-The first resource, {{{path/to/mylib1.js}}}, will be included as an inline JavaScript (e.g. like source code inside a {{{\x3Cscript /\x3E}}} tag), while the second, {{{path/to/mylib2.js}}}, will be included as external ({{{\x3Cscript /\x3E}}} tag with proper \'src\' attribute).\n\
+The first resource, {{{path/to/mylib1.js}}}, will be included as an inline Javascript (e.g. like source code inside a {{{\x3Cscript \x3E}}} tag), while the second, {{{path/to/mylib2.js}}}, will be included using an external ({{{\x3Cscript\x3E}}} tag with proper \'src\' attribute).\n\
 === Inclusion operators\n\
 There are two inclusion operators which are valid for resource definitions:\n\
 * *+* - which leads to inline inclusion\n\
@@ -4033,8 +4068,8 @@ An alias is added by editing the [[WoaS::Aliases]] reserved page and adding an a
 \x3Clabel\x3E\x3Cinput type="radio" id="woas_import_overwrite" name="woas_import_overwrite" onclick="woas.importer.i_overwrite=2"\x3EOverwrite\x3C/label\x3E\n\
 \x3C/fieldset\x3E\\\n\
 \x3Cfieldset id="woas_import_security" class="woas_input_wrap"\x3E\x3Clegend\x3ESecurity\x3C/legend\x3E\\\n\
-\x3Cdiv class="woas_input_wrap_left"\x3E/If you don\'t trust the pages you are importing you may want to disable imported JavaScript, macros, and special WoaS pages until you can review their content./\x3C/div\x3E\n\
-\x3Clabel\x3E\x3Cinput type="checkbox" id="woas_cb_import_comment_js" onclick="woas.importer.i_comment_js=this.checked"\x3EComment JavaScript tags\x3C/label\x3E\n\
+\x3Cdiv class="woas_input_wrap_left"\x3E/If you don\'t trust the pages you are importing you may want to disable imported Javascript, macros, and special WoaS pages until you can review their content./\x3C/div\x3E\n\
+\x3Clabel\x3E\x3Cinput type="checkbox" id="woas_cb_import_comment_js" onclick="woas.importer.i_comment_js=this.checked"\x3EComment Javascript tags\x3C/label\x3E\n\
 \x3Clabel\x3E\x3Cinput type="checkbox" id="woas_cb_import_comment_macros" onclick="woas.importer.i_comment_macros=this.checked"\x3EComment macro definition/call\x3C/label\x3E\n\
 \x3Clabel\x3E\x3Cinput type="checkbox" id="woas_cb_import_no_woas" onclick="woas.importer.i_no_woas=this.checked"\x3EDo not import [[WoaS::]] namespace pages ([[WoaS::Hotkeys|hotkeys]], [[WoaS::Plugins|plugins]], and [[WoaS::Aliases|aliases]])\x3C/label\x3E\n\
 \x3C/fieldset\x3E\n\
@@ -4151,12 +4186,12 @@ For example, if the default extension is used and this option is enabled, the ma
 ===Use UNIX-style normalization (lower-case letters and spaces replaced by underscores) to generate file names\n\
 If this option is enabled, all exported file names will be in lower case with all spaces and non-alphanumeric characters replaced by underscores, otherwise the files will be named according to the page name.\n\
 == Custom page scripts\n\
-===Do not export JavaScript\n\
+===Do not export Javascript\n\
 If selected any scripts embedded in the page to be exported will not be run before exporting the page, nor will they be included in the exported XHTML file.\n\
-===Export JavaScript as-is\n\
+===Export Javascript as-is\n\
 If selected any scripts embedded in the page to be exported will be included in the parsed, exported XHTML file in the same position they were found in the WoaS page. They will not be run before exporting.\n\
-===Run before exporting but do not export the JavaScript\n\
-If selected any scripts embedded in the page to be exported will be run before exporting the parsed, exported XHTML file. This is only useful if a script on the page affects the parsed output -- a syntax highlighter, for example -- and it is desired that the exported pages do not require the viewer to have JavaScript enabled in their browser as the scripts themselves will not be exported.\n\
+===Run before exporting but do not export the Javascript\n\
+If selected any scripts embedded in the page to be exported will be run before exporting the parsed, exported XHTML file. This is only useful if a script on the page affects the parsed output -- a syntax highlighter, for example -- and it is desired that the exported pages do not require the viewer to have Javascript enabled in their browser as the scripts themselves will not be exported.\n\
 == Other options\n\
 ===META author (optional)\n\
 If a name is in this box it will be used as the content of an HTML author meta tag inserted into each exported HTML page. If the box is empty, the HTML author meta tag will not be inserted into any of the exported HTML pages.\n\
@@ -4194,7 +4229,7 @@ Gives the import interface blanket permission to overwrite existing pages in the
 ===Ask before overwrite\n\
 Forces the import interface to ask your permission to overwrite individual pages in the destination file.\n\
 == Security\n\
-===Comment JavaScript tags\n\
+===Comment Javascript tags\n\
 Inserts /disabled_/ into any script tags in the pages that are imported into the destination file so that scripts will not run.\n\
 \n\
 Example script tag:\n\
@@ -4392,7 +4427,7 @@ enc1=this._b64arr.indexOf(input.charAt(i++));enc2=this._b64arr.indexOf(input.cha
 if(enc4!==64){output.push(((enc3&3)<<6)|enc4);}}
 return output;};}
 woas.utf8={encode:function(s){return unescape(encodeURIComponent(s));},encode_to_array:function(s){return woas.split_bytes(this.encode(s));},decode:function(s){return decodeURIComponent(escape(s));},decode_from_array:function(byte_arr){try{return this.decode(woas.merge_bytes(byte_arr));}
-catch(e){woas.log(e);}
+catch(e){woas.log('ERROR - woas.utf8.decode_from_array: '+e);}
 return null;},reUTF8Space:/[^\u0000-\u007F]+/g,do_escape:function(src){return src.replace(this.reUTF8Space,function($1){var l=$1.length;var s="";for(var i=0;i<l;i++){s+="&#"+$1.charCodeAt(i)+";";}
 return s;});}};woas._get_path=function(id){return this.dirname(this.get_input_file_url(id,true));};woas.bitfield={_field_mask:[0x1,0x2,0x4,0x8,0x10,0x20,0x40,0x80,0x100,0x200,0x400,0x800,0x1000,0x2000,0x4000,0x8000,0x10000,0x20000,0x40000,0x80000,0x100000,0x200000,0x400000,0x800000,0x1000000,0x2000000,0x4000000,0x8000000,0x10000000,0x20000000,0x40000000,0x80000000],get:function(bm,pos){return(bm&this._field_mask[pos])?true:false;},set:function(bm,pos,value){if(value)
 return bm|this._field_mask[pos];return bm&~this._field_mask[pos];},get_object:function(obj,order){var rv=0;for(var i=0;i<order.length;++i){if(obj[order[i]])
@@ -4403,14 +4438,14 @@ return tz;};woas.strnatcmp=function(a,b){var aa=woas.chunkify(a),bb=woas.chunkif
 return aa.length-bb.length;};woas.file_mode={UTF8_TEXT:0,ASCII_TEXT:1,DATA_URI:2,BINARY:3,BASE64:4,UTF16_TEXT:8};woas._guess_mime=function(filename){var m=filename.match(/\.(\w+)$/);if(m===null)m="";else m=m[1].toLowerCase();var guess_mime="image";switch(m){case"png":case"gif":case"bmp":guess_mime+="/"+m;break;case"jpg":case"jpeg":guess_mime="image/jpeg";break;}
 return guess_mime;};woas._data_uri_enc=function(filename,ct,guess_mime){if(typeof guess_mime!="string")
 guess_mime=this._guess_mime(filename);return"data:"+guess_mime+";base64,"+this.base64.encode(ct);};woas._data_uri_enc_array=function(filename,arr,guess_mime){if(typeof guess_mime!="string")
-guess_mime=this._guess_mime(filename);return"data:"+guess_mime+";base64,"+this.base64.encode_array(arr);};woas._save_this_file=function(new_data,old_data){var filename=_get_this_filename();var r=woas.save_file(filename,this.file_mode.ASCII_TEXT,this.DOCTYPE+this.DOC_START+"<"+"script woas_permanent=\"1\" type=\"tex"+"t/javascript\">"
+guess_mime=this._guess_mime(filename);return"data:"+guess_mime+";base64,"+this.base64.encode_array(arr);};woas._save_this_file=function(new_data,old_data){var filename=_get_this_filename();var r=woas.save_file(filename,this.file_mode.UTF8_TEXT,this.DOCTYPE+this.DOC_START+"<"+"script woas_permanent=\"1\" type=\"tex"+"t/javascript\">"
 +new_data+"\n"+old_data+"<"+"/html>");if(r)
 woas.log("NOTICE: \""+filename+"\" saved successfully");else{var msg=this.i18n.SAVE_ERROR.sprintf(filename)+"\n\n";if(this.use_java_io){if(typeof document.applets.TiddlySaver=="undefined")
 msg+=this.i18n.NO_TIDDLY_SAVER+" "+this.i18n.TIDDLY_HELP;else if(typeof java=="undefined")
 msg+=this.i18n.NO_JAVA+" "+this.i18n.TIDDLY_HELP;else
 msg+=this.i18n.UNSPECIFIED_JAVA_ERROR;}else
 msg+=woas.i18n.UNSUPPORTED_BROWSER.sprintf(navigator.userAgent);this.alert(msg);}
-return r;};woas.save_file=function(fileUrl,save_mode,content){var r=null;if(this.browser.firefox){r=this.mozillaSaveFile(fileUrl,save_mode,content);}else if(this.browser.ie){r=this.ieSaveFile(fileUrl,save_mode,content);}else if(!this.use_java_io){r=this.javaSaveFile(fileUrl,save_mode,content);}
+return r;};woas.save_file=function(fileUrl,save_mode,content){var r=null;if(this.browser.firefox){r=this.mozillaSaveFile(fileUrl,save_mode,content);}else if(this.browser.ie){r=this.ieSaveFile(fileUrl,save_mode,content);}else if(this.use_java_io){r=this.javaSaveFile(fileUrl,save_mode,content);}
 if(r===null){this.alert('Could not save "'+fileUrl+'"');}
 return r};var reDataUrlPfx=new RegExp("^data:\\s*([^;]*);\\s*base64,\\s*");woas.mozillaLoadFileID=function(obj_id,load_mode,suggested_mime){var obj=document.getElementById(obj_id);if(!window.Components||!obj.files)
 return null;var D=obj.files.item(0);if(D===null)
@@ -4429,7 +4464,7 @@ try{var file=fso.OpenTextFile(filePath,2,true,s_mode);file.Write(content);file.C
 catch(e){woas.log("ERROR: exception while attempting to save: "+e.toString());return false;}
 return true;};woas.ieLoadFile=function(filePath,load_mode,suggested_mime){var o_mode;switch(load_mode){default:this.crash(this.i18n.MODE_NOT_AVAIL.sprintf(load_mode.toString(16)));return null;case this.file_mode.ASCII_TEXT:o_mode=0;break;case this.file_mode.UTF16_TEXT:case this.file_mode.UTF8_TEXT:o_mode=-1;break;}
 var fso,content=null;try{fso=new ActiveXObject("Scripting.FileSystemObject");}
-catch(e){woas.log(e);return null;}
+catch(e){woas.log('ERROR - woas.ieLoadFile: '+e);return null;}
 try{var file=fso.OpenTextFile(filePath,1,false,o_mode);content=file.ReadAll();file.Close();}
 catch(e){woas.log("ERROR: exception while attempting to load\n\n"+e.toString());return false;}
 return content;};woas.mozillaSaveFile=function(filePath,save_mode,content){if(!window.Components)
@@ -4479,10 +4514,10 @@ computed_js=computed_js.substr(0,computed_js.length-1);computed_js+="};\n";compu
 computed_js+="var page_titles = [\n];\n\n";else
 computed_js+="var page_titles = [\n"+printout_arr(page_titles,false)+"];\n\n";computed_js+="/* "+new_marker+"-DATA */\n";if(full||ds_changed){this._old_wsif_ds=this.config.wsif_ds;if(this.config.wsif_ds.length){computed_js+="var page_attrs = [];\n\n";computed_js+="var page_mts = [];\n\n";computed_js+="var pages = [\n];\n\n";}else{computed_js+="var page_attrs = ["+page_attrs.join(',')+"];\n\n";computed_js+="var page_mts = ["+(this.config.store_mts?page_mts.join(','):"0,".repeat(page_mts.length-1)+"0")+"];\n\n";computed_js+="var pages = [\n"+printout_mixed_arr(pages,this.config.allow_diff,page_attrs)+"];\n\n";}
 computed_js+="/* "+new_marker+"-END */\n";}
-var bak_tx=this.getHTMLDiv(d$("woas_page")),bak_mn=this.getHTMLDiv(d$("woas_menu")),bak_mts=this.getHTMLDiv(d$("woas_mts")),bak_mts_shown=!this.ui.display("no_mts"),bak_wait_text=this.getHTML(d$("woas_wait_text")),bak_debug=d$("woas_debug_log").value,bak_title=this.getHTMLDiv(d$("woas_title"));d$("woas_editor").value="";this.setHTMLDiv(d$("woas_page"),"");this.setHTMLDiv(d$("woas_menu"),"");this.setHTMLDiv(d$("woas_mts"),"");this.setHTMLDiv(d$("woas_title"),"");d$("woas_debug_log").value="";this.setHTML(d$("woas_wait_text"),this.i18n.LOADING);this.ui.display({"wait":true});var bak_cursor=document.body.style.cursor;document.body.style.cursor="auto";var data=this._extract_src_data(__marker,document.documentElement.innerHTML,full||ds_changed,safe_current);var r=false;this.ui.display({"wait":false});this.setHTML(d$("woas_wait_text"),bak_wait_text);document.body.style.cursor=bak_cursor;if(data.length===0){this.crash("Could not retrieve original DOM data!");}else{if(!this._server_mode)
+var bak_tx=this.getHTMLDiv(d$("woas_page")),bak_mn=this.getHTMLDiv(d$("woas_menu")),bak_mts=this.getHTMLDiv(d$("woas_mts")),bak_mts_shown=!this.ui.display("no_mts"),bak_wait_text=this.getHTML(d$("woas_wait_text")),bak_title=this.getHTMLDiv(d$("woas_title"));d$("woas_editor").value="";this.setHTMLDiv(d$("woas_page"),"");this.setHTMLDiv(d$("woas_menu"),"");this.setHTMLDiv(d$("woas_mts"),"");this.setHTMLDiv(d$("woas_title"),"");this.setHTML(d$("woas_wait_text"),this.i18n.LOADING);this.ui.display({"wait":true});var bak_cursor=document.body.style.cursor;document.body.style.cursor="auto";var data=this._extract_src_data(__marker,document.documentElement.innerHTML,full||ds_changed,safe_current);var r=false;this.ui.display({"wait":false});this.setHTML(d$("woas_wait_text"),bak_wait_text);document.body.style.cursor=bak_cursor;if(data.length===0){this.crash("Could not retrieve original DOM data!");}else{if(!this._server_mode)
 r=this._save_this_file(computed_js,data);if(r){this.after_config_saved();if(full)
 this.after_pages_saved();}}
-this.setHTMLDiv(d$("woas_page"),bak_tx);this.setHTMLDiv(d$("woas_menu"),bak_mn);this.setHTMLDiv(d$("woas_mts"),bak_mts);d$("woas_debug_log").value=bak_debug;this.setHTMLDiv(d$("woas_title"),bak_title);this.progress_finish();return r;};function reXHTMLFix_hook(str,tag){var l=str.length;if(str.charAt(l-1)!=='/')
+this.setHTMLDiv(d$("woas_page"),bak_tx);this.setHTMLDiv(d$("woas_menu"),bak_mn);this.setHTMLDiv(d$("woas_mts"),bak_mts);this.setHTMLDiv(d$("woas_title"),bak_title);this.progress_finish();return r;};function reXHTMLFix_hook(str,tag){var l=str.length;if(str.charAt(l-1)!=='/')
 str=str.substr(0,l-1)+" />";return str;}
 var reXHTMLFix=/<(img|hr|br|input|meta)[^>]*>/gi;var reHeadTagEnd=new RegExp("<\\/"+"head[^>]*>","ig"),reHeadTagStart=new RegExp("<"+"head[^>]*>","ig"),reTagStart=/<(\w+)([^>]*)>/g,reTagEnd=/<\/(\w+)[^>]*>/g,reEditorTA=new RegExp('<'+'textarea\\s+id="?woas_editor"?\\s*[^>]+>(.*?)<'+'/textarea>','gi');woas._extract_src_data=function(marker,source,full,current_page,data_only){var e_offset,s_offset;s_offset=source.indexOf("/* "+marker+"-START */");if(s_offset===-1){this.alert(this.i18n.ERR_MARKER.sprintf("START"));return false;}
 e_offset=source.indexOf("/* "+marker+"-END */",s_offset);if(e_offset===-1){this.alert(this.i18n.ERR_MARKER.sprintf("END"));return false;}
@@ -4494,7 +4529,7 @@ head_end=m.index+m[0].length;else{this.crash("Cannot find head end tag");return 
 var needle,m2,l_attrs,the_head=source.substring(0,head_end),splicings=[],tag_end,rest_of_source=source.substring(head_end);source="";reTagStart.lastIndex=head_start;m=reTagStart.exec(the_head);while(m!==null){tag=m[1].toLowerCase();var broken=false;switch(tag){case"script":case"style":case"title":reTagEnd.lastIndex=m.index+m[0].length;do{m2=reTagEnd.exec(the_head);if(m2===null){woas.log("found "+m[1]+" without closing tag");broken=true;break;}
 close_tag=m2[1].toLowerCase();}while(close_tag!==tag);if(!broken){tag_end=tag_end=m2.index+m2[0].length;break;}
 case"meta":tag_end=m.index+m[0].length;break;default:tag_end=m.index+m[0].length;broken=true;break;}
-l_attrs=m[2].toLowerCase();var was_replaced=false;if(l_attrs.indexOf("woas_permanent=")!==-1){if(!broken){if(tag==="style"){was_replaced=true;if(l_attrs.indexOf("woas_core_style=")!==-1){woas.log("Replacing CSS");needle=m[0]+woas.get_text("WoaS::CSS::Boot")+m2[0];}}else if(tag==="title"){woas.log("Replacing title");needle=m[0]+woas.xhtml_encode(current_page)+m2[0];was_replaced=true;}}}else{woas.log("Removing tag "+tag);needle="";was_replaced=true;}
+l_attrs=m[2].toLowerCase();var was_replaced=false;if(l_attrs.indexOf("woas_permanent=")!==-1){if(!broken){if(tag==="style"){was_replaced=true;if(l_attrs.indexOf("woas_core_style=")!==-1){needle=m[0]+woas.get_text("WoaS::CSS::Boot")+m2[0];}}else if(tag==="title"){needle=m[0]+woas.xhtml_encode(current_page)+m2[0];was_replaced=true;}}}else{needle="";was_replaced=true;}
 if(was_replaced)
 splicings.push({start:m.index,end:tag_end,needle:needle});reTagStart.lastIndex=tag_end;m=reTagStart.exec(the_head);}
 if(splicings.length){var prev_ofs=0;for(var i=0;i<splicings.length;++i){source+=the_head.substring(prev_ofs,splicings[i].start)+splicings[i].needle;prev_ofs=splicings[i].end;}splicings=null;source+=the_head.substr(prev_ofs);the_head=null;s_offset=source.indexOf("/* "+marker+"-START */");if(s_offset===-1){this.alert(this.i18n.ERR_MARKER.sprintf("START"));return false;}
@@ -4513,7 +4548,10 @@ return tags;},_init:function(){this.marker=_random_string(3)+":"+_random_string(
 cls=" woas_nowiki_multiline";tag="div";}else{cls="woas_nowiki";tag="tt";}
 return this._raw_preformatted(tag,text,cls,add_style);},_raw_preformatted:function(tag,text,cls,add_style){add_style=add_style?' style="'+add_style+'"':'';if(woas.browser.ie){text=text.replace(/\n/g,'\r\n');}else{}
 return"<"+tag+" class=\""+cls+"\""+add_style+">"+
-woas.xhtml_encode(text)+"</"+tag+">";},_render_wiki_link:function(target,label,snippets,tags,export_links){if(label===undefined)label='';var page=woas.title_unalias(target),hashloc=page.indexOf('#'),r_label=(label==='')?page:label,title='',gotohash='',str,wl,pg,sLink='<'+'a class="%s" title="%s"%s>%s<'+'\/a>',sLinkBroken='<'+'span class="woas_broken_link">%s<'+'\/span>',scWorld='woas_world_link',scWoas='woas_link',scWoasUn='woas_unlink',sHref=' href="%s"',sHrefTrgt=' href="%s" target="_blank"',sOnClick=' onclick="woas.go_to(\'%s\')"';if(page.match('Tag')&&typeof tags==='object'){var found_tags=this._get_tags(page,label);if(found_tags.length>0){for(var i=0,it=found_tags.length;i<it;++i){tags.push(found_tags[i]);}
+woas.xhtml_encode(text)+"</"+tag+">";},_render_wiki_link:function(target,label,snippets,tags,export_links){if(/"/.test(target)){return woas.parser.place_holder(snippets,'[[<'+'span style="color:#f00">'+target+'<'+'/span>'+
+(label?'|'+label:'')+']]');}
+if(label===undefined){label='';}
+var page=woas.title_unalias(target),hashloc=page.indexOf('#'),r_label=(label==='')?page:label,title='',gotohash='',str,wl,pg,sLink='<'+'a class="%s" title="%s"%s>%s<'+'\/a>',sLinkBroken='<'+'span class="woas_broken_link">%s<'+'\/span>',scWorld='woas_world_link',scWoas='woas_link',scWoasUn='woas_unlink',sHref=' href="%s"',sHrefTrgt=' href="%s" target="_blank"',sOnClick=' onclick="woas.go_to(\'%s\')"';if(page.match('Tag')&&typeof tags==='object'){var found_tags=this._get_tags(page,label);if(found_tags.length>0){for(var i=0,it=found_tags.length;i<it;++i){tags.push(found_tags[i]);}
 if(!this.force_inline)
 return'';++this.inline_tags;return woas.parser.marker+'T'+inline_tags+';';}}
 if(page.match(/^\w+:\/\//)){page=page.replace(/^mailto:\/\//,'mailto:');str=sLink.sprintf(scWorld,woas.xhtml_encode(page),sHrefTrgt.sprintf(page),r_label);return woas.parser.place_holder(snippets,str);}
@@ -4707,14 +4745,15 @@ return;}while(pname!==null);};woas.cmd_delete=function(){if(!this.config.permit_
 continue;pi=this.page_index(pname);if(pi===-1){this.alert(this.i18n.PAGE_NOT_EXISTS.sprintf(pname));continue;}else if(this.is_reserved(pname)){this.alert(this.i18n.ERR_RESERVED_NS.sprintf(this.get_namespace(pname,true)));continue;}else if(confirm(this.i18n.CONFIRM_DELETE.sprintf(pname))){this.plugins.delete_check(pname);this.delete_page_i(pi);return true;}}}
 return false;};woas.shortcuts=["New Page","Duplicate Page","All Pages","Orphaned Pages","Backlinks","Dead Pages","Erase Wiki","Main Page","Go to","Delete Page","Recent Changes"];woas.shortcuts_js=["cmd_new_page","cmd_duplicate_page","special_all_pages","special_orphaned_pages","special_backlinks","special_dead_pages","cmd_erase_wiki","cmd_main_page","cmd_go_to","cmd_delete","special_recent_changes"];woas.unexportable_pages=["New Page","Duplicate Page","Backlinks","Erase Wiki","Edit CSS","Go to","Delete Page","Search"];woas.unexportable_pages2=["WoaS::CSS","WoaS::Aliases","WoaS::Hotkeys","WoaS::Plugins"];woas.raw_js=function(code){return"<"+"script type=\"text/javascript\">\n"+code+"\n<"+"/s"+"cript>";};woas.delete_page=function(title){var pi=page_titles.indexOf(title);if(pi===-1){this.crash("Requesting deletion of unexisting page!");return false;}
 return this.delete_page_i(pi);};woas.delete_page_i=function(i){var il,old_title=page_titles[i];page_titles.splice(i,1);pages.splice(i,1);page_attrs.splice(i,1);page_mts.splice(i,1);if(current===old_title){this.set_current(this.history.previous(),true);}else{this.ui.refresh_menu();}
-this.history.clear(old_title);return this.commit_delete([i]);};woas.history=(function(){var backstack=window.backstack,forstack=[],going_back=true,going_forward=false;function store(page){if(backstack.length>woas.history.MAX_BROWSE_HISTORY)
+this.history.clear(old_title);return this.commit_delete([i]);};woas.history=(function(){var backstack=window.backstack,forstack=[],going_back=true,going_forward=false;function store(page){if(/^(Lock|Javascript)::/.test(current)){return;}
+if(backstack.length>woas.history.MAX_BROWSE_HISTORY)
 backstack=backstack.slice(1);backstack.push(page);}
 return{MAX_BROWSE_HISTORY:6,has_forstack:function(){return(forstack.length>0);},has_backstack:function(){return(backstack.length>0);},previous:function(){if(backstack.length>0){return backstack.pop();}else
-return woas.config.main_page;},back:function(){if(backstack.length>0){if(!/^Lock::/.test(current)){forstack.push(current);}
+return woas.config.main_page;},back:function(){if(backstack.length>0){if(!/^(Lock|Javascript)::/.test(current)){forstack.push(current);}
 var title=backstack.pop();if(title)
 going_back=true;return title;}
 woas.log("No back history");return null;},forward:function(){if(forstack.length>0){going_forward=true;return forstack.pop();}
-woas.log("No forward history");return null;},go:function(title,keep_fwd){if(!going_back&&!woas.ui.edit_mode&&current!==title&&!/^Lock::/.test(current)){store(current);}
+woas.log("No forward history");return null;},go:function(title,keep_fwd){if(!going_back&&!woas.ui.edit_mode&&current!==title){store(current);}
 if(!keep_fwd&&!going_forward&&!going_back){forstack=[];}
 going_back=going_forward=false;},store:function(title){store(title);},clear:function(title){if(title&&title.length){var found=false,i,it;for(i=0,it=backstack.length;i<it;++i){if(backstack[i]===title){found=true;backstack.splice(i,1);--it;--i;}}
 for(i=0,it=forstack.length;i<it;++i){if(forstack[i]===title){found=true;forstack.splice(i,1);--it;--i;}}
@@ -4817,15 +4856,18 @@ return null;text=this[fn]();if(is_cmd)
 return false;}else
 text=this.get_text(cr);if(text===null){if(interactive)
 this.alert(this.i18n.INVALID_PAGE.sprintf('Special'));}
-return text;};woas.get_javascript_page=function(cr){var emsg="-",text;text=woas.eval(cr,true);if(this.eval_failed){this.crash("Dynamic evaluation of '"+cr+"' failed!\n\nError message:\n\n"+this.eval_fail_msg);return null;}
-if((typeof text).toLowerCase()!="string")
-return null;return text;};woas.eval=function(code,return_value){var rv;try{if(return_value)
+return text;};woas.get_javascript_page=function(cr){var text=woas.eval(cr,true);if(this.eval_failed){this.crash(this.i18n.JS_PAGE_FAIL1.sprintf(cr)+
+this.i18n.JS_PAGE_FAIL2+this.eval_fail_msg);return null;}
+if(((text instanceof Array)&&(text.length!==2||(typeof text[0])!=='string'||(typeof text[1])!=='string'||!text[1]))||!(text instanceof Array)&&(typeof text)!=="string"){this.crash(this.i18n.JS_PAGE_FAIL1.sprintf(cr)+
+this.i18n.JS_PAGE_FAIL3.sprintf(text,text instanceof Array?'array':typeof text));return null;}
+return text;};woas.eval=function(code,return_value){var rv;try{if(return_value)
 eval("rv = "+code);else
 eval(code);woas.eval_failed=false;}
 catch(e){this.eval_fail_msg=e.toString();this.eval_failed=true;}
 return rv;};woas.set_current=function(cr,interactive,keep_fwd){if(!woas.pager.browse_hook(cr))
-return false;var text,namespace,pi,set_b=false;woas.pager.bucket.clear();if(cr.substring(cr.length-2)==="::"){text=this._get_namespace_pages(cr);namespace=cr.substring(0,cr.length-2);cr="";}else{var p=cr.indexOf("::");if(p>0){namespace=cr.substring(0,p);cr=cr.substring(p+2);switch(namespace){case"Javascript":text=this.get_javascript_page(cr);if(text===null)
-return false;break;case"Special":text=this._get_special(cr,interactive);if(text===false)
+return false;var text,namespace,pi,set_b=false;woas.pager.bucket.clear();if(cr.substring(cr.length-2)==="::"){text=this._get_namespace_pages(cr);namespace=cr.substring(0,cr.length-2);cr="";}else{var p=cr.indexOf("::");if(p>0){namespace=cr.substring(0,p);cr=cr.substring(p+2);switch(namespace){case"Javascript":text=this.get_javascript_page(cr);if(text===null){return false;}else if(text instanceof Array){if(!text[1]){return false;}
+cr=text[0];text=text[1];}
+break;case"Special":text=this._get_special(cr,interactive);if(text===false)
 return true;if(text===null)
 return false;break;case"Tagged":text=this.special_tagged(cr);if(text===null)
 return false;break;case"Lock":if(this.is_reserved(cr)){this.alert(this.i18n.CANNOT_LOCK_RESERVED);return false;}
@@ -4859,7 +4901,7 @@ clearTimeout(woas._autosave_thread);if(_this.config.auto_save)
 woas._autosave_thread=setTimeout("woas._auto_saver()",woas.config.auto_save);};woas._on_unload=function(){if(this.save_queue.length)
 this.commit(this.save_queue);else{if(this.config.save_on_quit&&this.cfg_changed)
 this.cfg_commit();}
-return true;};woas.getHTMLDiv=function(elem){return elem.innerHTML;};woas.setHTMLDiv=function(elem,html){elem.innerHTML=html;};woas._on_load=function(){this._set_debug(this.config.debug_mode,this.config.debug_closed);d$("woas_debug_log").value="";woas.log("*** WoaS v"+this.version+"-pvhl-r2475"+" started");this._old_wsif_ds=is_windows?this.config.wsif_ds.replace(reFwdSlash,'\\'):this.config.wsif_ds;if(this.browser.ie&&Number(this.browser.ie)<9){this.setHTML=function(elem,html){elem.text=html;};this.getHTML=function(elem){return elem.text;};}else{this.setHTML=this.setHTMLDiv;this.getHTML=this.getHTMLDiv;}
+return true;};woas.getHTMLDiv=function(elem){return elem.innerHTML;};woas.setHTMLDiv=function(elem,html){elem.innerHTML=html;};woas._on_load=function(){this._set_debug(this.config.debug_mode,this.config.debug_closed);d$("woas_debug_log").value="";woas.log("*** WoaS v"+this.version+"-pvhl-r2478"+" started");this._old_wsif_ds=is_windows?this.config.wsif_ds.replace(reFwdSlash,'\\'):this.config.wsif_ds;if(this.browser.ie&&Number(this.browser.ie)<9){this.setHTML=function(elem,html){elem.text=html;};this.getHTML=function(elem){return elem.text;};}else{this.setHTML=this.setHTMLDiv;this.getHTML=this.getHTMLDiv;}
 if(this.log()&&this.tweak.integrity_test&&!this.integrity_test()){return;}
 if(this.config.wsif_ds.length){var path=is_windows?this.config.wsif_ds.replace(reFwdSlash,'\\'):this.config.wsif_ds.replace(/\\/g,'/');if(!this._wsif_ds_load(path,this.config.wsif_ds_lock)){if(this.wsif.emsg!==null){this._set_debug(true);this.crash("Could not load WSIF pages data!\n"+this.wsif.emsg);}
 return;}}
@@ -4908,7 +4950,7 @@ this.set_current(back_to,true,true);this.disable_edit();};woas.save_page=functio
 page_mts[pi]=this.config.store_mts?Math.round(new Date().getTime()/1000):0;if(this.config.cumulative_save){if(!this.save_queue.length){this.save_queue.push(pi);this.menu_display("save",true);}else{if(this.save_queue.indexOf(pi)==-1)
 this.save_queue.push(pi);}
 woas.log("save_queue = ("+this.save_queue+")");return true;}
-return this.commit([pi]);};woas.create_breadcrumb=function(title){if(title==="::Menu"){return title;}
+return this.commit([pi]);};woas.create_breadcrumb=function(title){if(title==="::Menu"){return title;}else if(title.indexOf('Javascript::')===0){return'Javascript :: '+title.substr(12);}
 var tmp=title.split("::");if(tmp.length===1)
 return title;var s="",partial="",js="",i,il;for(i=0,il=tmp.length-1;i<il;i++){if(this.ui.edit_mode)
 s+=tmp[i]+" :: ";else{partial+=tmp[i]+"::";js="woas.go_to('"+this.js_encode(partial)+"')";s+=tmp[i]+(tmp[i+1]?" <"+"a class=\"woas_link\" title=\""+
@@ -4989,7 +5031,7 @@ return-1;var fname,pos;subpath=subpath.replace(/\\/g,'/');pos=subpath.lastIndexO
 if(is_windows){subpath=subpath.replace(reFwdSlash,'\\');}
 return this._native_wsif_save(subpath,fname,this.config.wsif_ds_lock,!this.ui.wsif_ds_multi,true,this.config.wsif_author,true,plist);};woas.full_commit=function(){var r=this._wsif_ds_save(this.config.wsif_ds,this.config.wsif_ds_lock,[]);if(!r)this.alert(this.i18n.WSIF_SAVE_FAIL);return r?this._save_to_file(true):false;};woas.cfg_commit=function(){return this._save_to_file(true);};woas.commit=function(plist){var r=this._wsif_ds_save(this.config.wsif_ds,this.config.wsif_ds_lock,plist);if(!r)this.alert(this.i18n.WSIF_SAVE_FAIL);return r?this._save_to_file(true):false;};woas.commit_delete=function(plist){var r=this._wsif_ds_save(this.config.wsif_ds,this.config.wsif_ds_lock,plist);if(!r)this.alert(this.i18n.WSIF_SAVE_FAIL);return r?this._save_to_file(true):false;};woas.after_pages_saved=function(plist){if(typeof plist=="undefined"){this.save_queue=[];return;}
 for(var i=0,l=plist.length;i<l;i++){var p=this.save_queue.indexOf(plist[i]);if(p!==-1)
-this.save_queue.splice(p,1);}};woas.after_config_saved=function(){woas.cfg_changed=false;};woas.i18n={ACCESS_DENIED:"Access denied to the '%s' page.",ALT_BROWSER_INPUT:"This browser is not allowing the directory path to be read directly.\n\nPlease specify the full path to the '%s' file.",ASK_MENU_LINK:"Do you want the menu to have a link to this page?",B64_REQ:" (requires %s due to base64 encoding)",CANCEL_EDITING:"Changes to this page will not be saved.",CANNOT_LOCK_RESERVED:"You cannot lock a page in a reserved namespace.",CHOOSE_CANCEL:"\n\nIf you don't want this to happen choose Cancel.",CONFIRM_OVERWRITE:"Page \"%s\" already exists. Overwrite it?",CONFIRM_DELETE:"Are you sure you want to DELETE the '%s' page?",CONFIRM_DELETE_ALL1:"You are about to ERASE all your pages.\n\nDo you want to continue?",CONFIRM_DELETE_ALL2:"This is the last confirmation needed before ERASING all your pages.\n\nALL YOUR PAGES WILL BE LOST\n\nAre you sure you want to continue?",CONFIRM_DELETE_IMAGE:"Are you sure you want to delete the '%s' image?",CONFIRM_EXPORT:"Export '%s' to the path specified below?",CONFIRM_LOCK:"Do you want to use the last password entered to lock the '%s' page? ",CONFIRM_LOCK_LAST:"The password was last used on the '%s' page.",CONFIRM_READ_ONLY:"You will have to manually edit the file to revert this change.\n\nAny other changes to options will also be saved.",CONFIRM_REMOVE_ENCRYPT:"Do you want to remove encryption from the '%s' page?",CONTINUE_WAIT_LOAD:"The loading process seems stuck.\nPlease click OK to keep waiting or Cancel to break.",DELETE:"Delete page:",DELETE_FILE:"Delete embedded file",DELETE_IMAGE:"Delete embedded image",DELETE_PAGE_PROMPT:"Delete page:",DISPLAY_FULL_FILE:"Display full file",DUP_NS_ERROR:"Cannot duplicate into File:: or Image:: namespace!",EDITING:"Editing '%s'",EMPTY_TITLE:"An empty title is not allowed.",EMPTY_NS:"/No pages in '%s' namespace./",ERR_MARKER:"'%s' marker not found!",ERR_NO_PWD:"No password set for decrypting the '%s' page.\nPlease click the key icon and enter a password.",ERR_PAGE_NS:"You cannot create a page as a namespace.",ERR_RESERVED_NS:"Namespace '%s' is reserved.",ERR_SEL_FILE:"A file must be selected.",ERR_VAR_MARKER:"Marker variable not found!",EXPORT_FILE:"Export file",EXPORT_IMAGE:"Export image",EXPORT_OK:"%d/%d pages exported successfully.",FAILED_ERASE:"Saving the erased WoaS has failed!\n\nOriginal content will be restored by reloading file.",FILE_DISPLAY_LIMIT:"Only the first 1024 bytes are displayed.",FILE_SELECT_ERR:"A file must be selected.",FILE_SIZE:"File size",HEIGHT:"Height",IMG_LOAD_ERR:"/Image failed to load./\n",IMPORT_CONFIG:"Configuration imported.",IMPORT_INCOMPAT:"Incompatible version: %s",IMPORT_OLD_VER:"If this is a WoaS older than v0.9.6B, you should import it by using WoaS 0.11.x.",IMPORT_OK:"%s pages imported successfully (%d pages skipped)",IMPORT_UNRECON:"Unrecognized format.",INSERT_NEW:"Insert new page title",INVALID_ALIAS:"Invalid '%s' alias will be ignored.",INVALID_DATA:"Invalid collected data!",INVALID_PAGE:"Invalid %s page.",INVALID_TITLE:"Title cannot contain ':::' or any of these characters:\n# \" | < > [ ] { }",LAST_MODIFIED:"Last modified: ",LOADING:"Loading Wiki on a Stick...",LOAD_ERR:"Cannot load specified file.",MIME_TYPE:"Mime type",MODE_NOT_AVAIL:"File mode 0x%s is not available on this browser.",NO_ERROR:"No error",NO_JAVA:"It was not possible to use TiddlySaver Java applet nor direct Java saving.",NO_TIDDLY_SAVER:"The TiddlySaver Java applet was not available.",NOT_A_NS:"/'%s' is a reserved namespace that is not listable. See [[WoaS::Help::Namespaces#Reserved namespaces|Help]]./",NOT_YET_IMPLEMENTED:"Feature not implemented yet.",NOTE_TEXT:"NOTE:",PAGE_EXISTS:"A page with title '%s' already exists!",PAGE_NOT_EXISTS:"'%s' page does not exist.",PAGE_NOT_FOUND:"Page not found. Do you want to create it?",PRINT_MODE_WARN:"Sorry, you cannot browse the wiki while in print mode.",PWD_QUERY:"Please enter a password.",READ_ONLY:"This Wiki on a Stick is read-only.",SAVE_ERROR:"Unable to save the '%s' file.",SERVER_MODE:"This Wiki on a Stick is not a local file; changes can only be saved to a local copy of the wiki. Please save this file if you want to make changes.\n\n"+"None of the changes made to this copy of Wiki on a Stick will be saved.",STATIC_NOT_FOUND:"Static page '%s' not found!",TIDDLY_HELP:"Please check that TiddlySaver.jar is in the same directory as this WoaS and that you have enabled Java permissions for it.",TOC:"Table of Contents",TOO_LONG_TITLE:"Maximum title length is %d characters.",UNSPECIFIED_JAVA_ERROR:"Please check the Java console for errors regarding the last operation and check that it's not due to your browser/Java restrictions.",UNSUPPORTED_BROWSER:"Your browser might not be supported. Please report a bug with your UserAgent string:\n%s",WIDTH:"Width",WRITE_PROTECTED:"This Wiki on a Stick is already write-protected.",WSIF_BAD_HV:"Could not locate end of header value.",WSIF_DS_TO_EXTERNAL:"The content of this wiki is about to be saved in WSIF format to the filename you entered.\n\nAll internal content will be deleted.\n\n",WSIF_DS_TO_INTERNAL:"The current wiki content is about to be stored internally.\n\nThe current WSIF data source file(s) will not be affected.",WSIF_DS_TO_MULTI:"The WSIF data source file is about to be rewritten as a page index WSIF file.",WSIF_DS_TO_SINGLE:"The current WSIF index file, listing individual page WSIF files, is about to be overwritten with page content.\n\nExisting WSIF files for pages will not be affected.",WSIF_EXIST:"If the filename you entered already exists it is about to be overwritten!",WSIF_NO_HN:"Could not locate header name.",WSIF_NO_VER:"Could not read WSIF version.",WSIF_NS_VER:"WSIF version %s is not supported!",WSIF_PAGES:"\n\nIf individual page files already exist for this data source file they will be overwritten.",WSIF_SAVE_FAIL:"Unable to save WSIF file with path given!\nCheck your data source setting in Special::Options"};woas.i18n.common_words=['the','of','to','and','a','in','is','it','you','that','he','was','for','on','are','with','as','I','his','they','be','at','one','have','this','from','or','had','by','an','all'];woas.importer={pages_imported:0,total:0,_settings_props:["i_comment_js","i_comment_macros","i_no_woas","i_config","i_styles","i_content"],_OVR_ID:6,new_main_page:null,current_mts:null,pages:[],_reference:[],_plugins_update:[],_plugins_add:[],_update_css:false,_update_hotkeys:false,_update_aliases:false,_bootscript_code:"",_fix_mts_val:function(mts,old_version){if(old_version<100)
+this.save_queue.splice(p,1);}};woas.after_config_saved=function(){woas.cfg_changed=false;};woas.i18n={ACCESS_DENIED:"Access denied to the '%s' page.",ALT_BROWSER_INPUT:"This browser is not allowing the directory path to be read directly.\n\nPlease specify the full path to the '%s' file.",ASK_MENU_LINK:"Do you want the menu to have a link to this page?",B64_REQ:" (requires %s due to base64 encoding)",CANCEL_EDITING:"Changes to this page will not be saved.",CANNOT_LOCK_RESERVED:"You cannot lock a page in a reserved namespace.",CHOOSE_CANCEL:"\n\nIf you don't want this to happen choose Cancel.",CONFIRM_OVERWRITE:"Page \"%s\" already exists. Overwrite it?",CONFIRM_DELETE:"Are you sure you want to DELETE the '%s' page?",CONFIRM_DELETE_ALL1:"You are about to ERASE all your pages.\n\nDo you want to continue?",CONFIRM_DELETE_ALL2:"This is the last confirmation needed before ERASING all your pages.\n\nALL YOUR PAGES WILL BE LOST\n\nAre you sure you want to continue?",CONFIRM_DELETE_IMAGE:"Are you sure you want to delete the '%s' image?",CONFIRM_EXPORT:"Export '%s' to the path specified below?",CONFIRM_LOCK:"Do you want to use the last password entered to lock the '%s' page? ",CONFIRM_LOCK_LAST:"The password was last used on the '%s' page.",CONFIRM_READ_ONLY:"You will have to manually edit the file to revert this change.\n\nAny other changes to options will also be saved.",CONFIRM_REMOVE_ENCRYPT:"Do you want to remove encryption from the '%s' page?",CONTINUE_WAIT_LOAD:"The loading process seems stuck.\nPlease click OK to keep waiting or Cancel to break.",DELETE:"Delete page:",DELETE_FILE:"Delete embedded file",DELETE_IMAGE:"Delete embedded image",DELETE_PAGE_PROMPT:"Delete page:",DISPLAY_FULL_FILE:"Display full file",DUP_NS_ERROR:"Cannot duplicate into File:: or Image:: namespace!",EDITING:"Editing '%s'",EMPTY_TITLE:"An empty title is not allowed.",EMPTY_NS:"/No pages in '%s' namespace./",ERR_MARKER:"'%s' marker not found!",ERR_NO_PWD:"No password set for decrypting the '%s' page.\nPlease click the key icon and enter a password.",ERR_PAGE_NS:"You cannot create a page as a namespace.",ERR_RESERVED_NS:"Namespace '%s' is reserved.",ERR_SEL_FILE:"A file must be selected.",ERR_VAR_MARKER:"Marker variable not found!",EXPORT_FILE:"Export file",EXPORT_IMAGE:"Export image",EXPORT_OK:"%d/%d pages exported successfully.",FAILED_ERASE:"Saving the erased WoaS has failed!\n\nOriginal content will be restored by reloading file.",FILE_DISPLAY_LIMIT:"Only the first 1024 bytes are displayed.",FILE_SELECT_ERR:"A file must be selected.",FILE_SIZE:"File size",HEIGHT:"Height",IMG_LOAD_ERR:"/Image failed to load./\n",IMPORT_CONFIG:"Configuration imported.",IMPORT_INCOMPAT:"Incompatible version: %s",IMPORT_OLD_VER:"If this is a WoaS older than v0.9.6B, you should import it by using WoaS 0.11.x.",IMPORT_OK:"%s pages imported successfully (%d pages skipped)",IMPORT_UNRECON:"Unrecognized format.",INSERT_NEW:"Insert new page title",INVALID_ALIAS:"Invalid '%s' alias will be ignored.",INVALID_DATA:"Invalid collected data!",INVALID_PAGE:"Invalid %s page.",INVALID_TITLE:"Title cannot contain ':::' or any of these characters:\n# \" | < > [ ] { }",JS_PAGE_FAIL1:"Dynamic evaluation of '%s' failed!",JS_PAGE_FAIL2:"\n\nError message:\n\n",JS_PAGE_FAIL3:"\n\nInvalid return value or type:\n\nValue: '%s'\nType: '%s'",LAST_MODIFIED:"Last modified: ",LOADING:"Loading Wiki on a Stick...",LOAD_ERR:"Cannot load specified file.",MIME_TYPE:"Mime type",MODE_NOT_AVAIL:"File mode 0x%s is not available on this browser.",NO_ERROR:"No error",NO_JAVA:"It was not possible to use TiddlySaver Java applet nor direct Java saving.",NO_TIDDLY_SAVER:"The TiddlySaver Java applet was not available.",NOT_A_NS:"/'%s' is a reserved namespace that is not listable. See [[WoaS::Help::Namespaces#Reserved namespaces|Help]]./",NOT_YET_IMPLEMENTED:"Feature not implemented yet.",NOTE_TEXT:"NOTE:",PAGE_EXISTS:"A page with title '%s' already exists!",PAGE_NOT_EXISTS:"'%s' page does not exist.",PAGE_NOT_FOUND:"Page not found. Do you want to create it?",PRINT_MODE_WARN:"Sorry, you cannot browse the wiki while in print mode.",PWD_QUERY:"Please enter a password.",READ_ONLY:"This Wiki on a Stick is read-only.",SAVE_ERROR:"Unable to save the '%s' file.",SERVER_MODE:"This Wiki on a Stick is not a local file; changes can only be saved to a local copy of the wiki. Please save this file if you want to make changes.\n\n"+"None of the changes made to this copy of Wiki on a Stick will be saved.",STATIC_NOT_FOUND:"Static page '%s' not found!",TIDDLY_HELP:"Please check that TiddlySaver.jar is in the same directory as this WoaS and that you have enabled Java permissions for it.",TOC:"Table of Contents",TOO_LONG_TITLE:"Maximum title length is %d characters.",UNSPECIFIED_JAVA_ERROR:"Please check the Java console for errors regarding the last operation and check that it's not due to your browser/Java restrictions.",UNSUPPORTED_BROWSER:"Your browser might not be supported. Please report a bug with your UserAgent string:\n%s",WIDTH:"Width",WRITE_PROTECTED:"This Wiki on a Stick is already write-protected.",WSIF_BAD_HV:"Could not locate end of header value.",WSIF_DS_TO_EXTERNAL:"The content of this wiki is about to be saved in WSIF format to the filename you entered.\n\nAll internal content will be deleted.\n\n",WSIF_DS_TO_INTERNAL:"The current wiki content is about to be stored internally.\n\nThe current WSIF data source file(s) will not be affected.",WSIF_DS_TO_MULTI:"The WSIF data source file is about to be rewritten as a page index WSIF file.",WSIF_DS_TO_SINGLE:"The current WSIF index file, listing individual page WSIF files, is about to be overwritten with page content.\n\nExisting WSIF files for pages will not be affected.",WSIF_EXIST:"If the filename you entered already exists it is about to be overwritten!",WSIF_NO_HN:"Could not locate header name.",WSIF_NO_VER:"Could not read WSIF version.",WSIF_NS_VER:"WSIF version %s is not supported!",WSIF_PAGES:"\n\nIf individual page files already exist for this data source file they will be overwritten.",WSIF_SAVE_FAIL:"Unable to save WSIF file with path given!\nCheck your data source setting in Special::Options"};woas.i18n.common_words=['the','of','to','and','a','in','is','it','you','that','he','was','for','on','are','with','as','I','his','they','be','at','one','have','this','from','or','had','by','an','all'];woas.importer={pages_imported:0,total:0,_settings_props:["i_comment_js","i_comment_macros","i_no_woas","i_config","i_styles","i_content"],_OVR_ID:6,new_main_page:null,current_mts:null,pages:[],_reference:[],_plugins_update:[],_plugins_add:[],_update_css:false,_update_hotkeys:false,_update_aliases:false,_bootscript_code:"",_fix_mts_val:function(mts,old_version){if(old_version<100)
 return this.current_mts;if(!mts)
 return 0;if((old_version===100)||(old_version===101)){if(mts===0x4b61cbad)
 mts=0;}
@@ -5057,8 +5099,7 @@ this._after_import();this._clear();return!fail;},_after_import:function(){var th
 woas.css.set(woas.get_text("WoaS::CSS::Core")+"\n"+woas.get_text("WoaS::CSS::Custom"));if(that._update_aliases)
 woas._load_aliases(woas.get_text("WoaS::Aliases"));if(that._update_hotkeys)
 woas.hotkey.load(woas.get_text("WoaS::Hotkeys"));for(var i=0,it=that._plugins_update.length;i<it;++i){woas.plugins.update(that._plugins_update[i]);}
-for(var i=0,it=that._plugins_add.length;i<it;++i){woas.plugins._all.push(that._plugins_add[i]);woas.plugins.enable(that._plugins_add[i]);}},reRequote:new RegExp(":-"+woas.parser.marker,"g"),reJString:new RegExp("'[^']*'","g"),reJStringRep:new RegExp(woas.parser.marker+"(\\d+):","g"),reValidImage:/^data:\s*[^;]*;\s*base64,\s*/,reImageBadMime:/^data:undefined;\s*base64,\s*/,reOldStyleBlock:new RegExp("<"+"style\\s.*?type=\"?text\\/css\"?[^>]*>((\\n|.)*?)<"+"\\/style>","i")};woas.import_wiki=function(){var cfg=this.importer.i_config,pgs=woas.importer.i_content,sty=this.importer.i_styles,ct,rv,v,msg;if(!(cfg||pgs||sty)||!woas._import_pre_up(false)){console.log('fail')
-return false;}
+for(var i=0,it=that._plugins_add.length;i<it;++i){woas.plugins._all.push(that._plugins_add[i]);woas.plugins.enable(that._plugins_add[i]);}},reRequote:new RegExp(":-"+woas.parser.marker,"g"),reJString:new RegExp("'[^']*'","g"),reJStringRep:new RegExp(woas.parser.marker+"(\\d+):","g"),reValidImage:/^data:\s*[^;]*;\s*base64,\s*/,reImageBadMime:/^data:undefined;\s*base64,\s*/,reOldStyleBlock:new RegExp("<"+"style\\s.*?type=\"?text\\/css\"?[^>]*>((\\n|.)*?)<"+"\\/style>","i")};woas.import_wiki=function(){var cfg=this.importer.i_config,pgs=woas.importer.i_content,sty=this.importer.i_styles,ct,rv,v,msg;if(!(cfg||pgs||sty)||!woas._import_pre_up(false)){return false;}
 this.progress_init("Import WoaS");ct=this.load_file(null,this.file_mode.ASCII_TEXT);if(!ct){if(ct===false){this.alert(this.i18n.LOAD_ERR);}
 this.progress_finish();return false;}
 rv=this.importer.do_import(ct),v={};this.progress_finish();if(rv){if(cfg){v.fix_h=this.config.fixed_header;v.fix_m=this.config.fixed_menu;v.no_debug=!this.config.debug_mode;v.no_mts=!this.config.store_mts;this.ui.display(v);}
@@ -5072,7 +5113,7 @@ return true;};woas.import_wiki_wsif=function(){if(!woas._import_pre_up(true))
 return false;var done=woas._native_wsif_load(null,false,false,0,this.importer._upgrade_content,this.importer._filter_by_title,this.importer._after_import);if(done===false&&(woas.wsif.emsg!==null))
 this.crash(woas.wsif.emsg);if(done!==false){var skipped;if(this.wsif.expected_pages!==null){skipped=this.wsif.expected_pages-done;done=String(done)+"/"+woas.wsif.expected_pages;}else skipped=0;this.alert(woas.i18n.IMPORT_OK.sprintf(done,skipped));this.ui.refresh_menu();this.commit(woas.wsif.imported);}else if(this.importer.i_overwrite===0){this.full_commit();}
 return done;};woas.exporter={_unix_norm:false,_default_ext:'html',_title2fn:{},_further_pages:[],_export_fnames_array:[],_settings:{},clear:function(){this._export_fnames_array=[];this._title2fn={};this._further_pages=[];this._settings={};},do_export:function(){this._settings.custom_scripts="";var data;if(this._settings.js_mode==2){var js_fn;for(var pi=0,pt=woas.plugins._active.length;pi<pt;++pi){data=woas.plugins.get(woas.plugins._active[pi]);if(woas.plugins.is_external){for(var i=0;i<data.length;++i){this._settings.custom_scripts+='<'+'sc'+'ript type="text/javascript" src="'+data[i]+'"><'+"/script>\n";}}else{js_fn=woas._unix_normalize(woas.plugins._active[pi])+".js";if(woas.save_file(this._settings.xhtml_path+js_fn,woas.file_mode.ASCII_TEXT,data)){this._settings.custom_scripts+='<'+'script type="text/javascript" src="'+js_fn+'"><'+"/script>\n";}}}}
-var pg=page_titles[pi],l=page_titles.length,fname="",done=0,total=0,mnupos;data=null;for(var pi=0;pi<l;pi++){if(pg.match(/^Special::/))continue;if(woas.static_pages2.indexOf(pg)!==-1)continue;if(woas.unexportable_pages2.indexOf(pg)!==-1)continue;if(pg.substr(-6)==='::Menu'&&pg!=='WoaS::Help::Menu'){continue;}
+var pg,pi,l,fname="",done=0,total=0,mnupos;data=null;for(pi=0,l=page_titles.length;pi<l;pi++){pg=page_titles[pi];if(pg.match(/^Special::/))continue;if(woas.static_pages2.indexOf(pg)!==-1)continue;if(woas.unexportable_pages2.indexOf(pg)!==-1)continue;if(pg.substr(-6)==='::Menu'&&pg!=='WoaS::Help::Menu'){continue;}
 data=woas.get_text_special(pg);if(data===null)continue;fname=this._get_fname(pg,true);if(fname==='#'){continue;}
 ++total;if(woas.is__embedded(pi)){if(woas.is__image(pi)){if(!woas._b64_export(data,this._settings.img_path+fname))
 break;else{++done;continue;}}else{if(!woas._b64_export(data,this._settings.xhtml_path+fname))
@@ -5239,8 +5280,7 @@ return'<'+'table class="woas_text_area">'+(caption?('<'+'caption>'+caption+'<'+'
 woas.ui={edit_mode:false,_textbox_focus:false,focus_textbox:function(){woas.ui._textbox_focus=true;},blur_textbox:function(){woas.ui._textbox_focus=false;ff_fix_focus();this._textbox_enter_event=this._textbox_enter_event_dummy;},_textbox_enter_event_dummy:function(){},_textbox_enter_event:null,_custom_key_hook:function(orig_e){return true;},_keyboard_event_hook:function(orig_e){var e=orig_e||window.event,ck=e.keyCode||e.which;if(!woas.ui.edit_mode){if(!woas.ui._custom_key_hook(orig_e))
 return orig_e;if(woas.ui._textbox_focus){if(ck==13){ff_fix_focus();(woas.ui._textbox_enter_event)();return false;}
 return orig_e;}
-if((ck==woas.hotkey.all.back)||(ck==woas.hotkey.all.cancel)){woas.ui.back();ff_fix_focus();return false;}}
-if(ck==woas.hotkey.all.cancel){woas.ui.cancel();ff_fix_focus();return false;}
+if((ck==woas.hotkey.all.back)||(ck==woas.hotkey.all.cancel)){woas.ui.back();ff_fix_focus();return false;}}else if(ck==woas.hotkey.all.cancel){woas.ui.cancel();ff_fix_focus();return false;}
 return orig_e;},help:function(){var pg;if(this.edit_mode){pg="Editor";}else{pg=current;if(pg.lastIndexOf('::')===pg.length-2){pg=pg.substring(0,pg.length-2);}
 if(pg.indexOf('WoaS::')===0&&woas.help_system._help_lookup.indexOf(pg.substr(6))!==-1){pg=pg.substr(6);}}
 woas.help_system.go_to([pg,'']);},tables_help:function(){woas.help_system.go_to(["Tables",'']);},clear_search:function(no_render){if(current==="Special::Search"){d$("string_to_search").value="";d$("string_to_search").focus();}
@@ -5270,9 +5310,9 @@ if((ds&&fn&&ds!==fn)){str+=i.WSIF_EXIST;}
 if(this.wsif_ds_multi&&(!ds||fn)){str+=i.WSIF_PAGES;}}
 if(str&&confirm(str+i.CHOOSE_CANCEL)){woas.config.wsif_ds=fn;woas.wsif.ds_multi=fn&&this.wsif_ds_multi;woas.full_commit();woas.set_current(current,true,true);}else{fn=ds;this.wsif_ds_multi=woas.wsif.ds_multi;str='';}}
 if(chk_box){chk_box.checked=woas.bool2chk(woas.wsif.ds_multi);if(!set){fn=ds;}}
-if(!str){txt_box.value=is_windows?fn.replace(reFwdSlash,'\\'):fn;}}};woas.ui._textbox_enter_event=woas.ui._textbox_enter_event_dummy;woas.go_to=function(cr){if(this.ui.edit_mode){return false;}
-var parts=cr.split('#'),section=parts[1],r=true,mv=0,el;cr=parts[0];if(cr.indexOf(this.help_system._pfx)===0&&cr.substr(-2)!=='::'&&current&&page_titles.indexOf(parts[0])!==-1){parts[0]=cr.substr(this.help_system._pfx.length);if(!parts[1]){parts[1]='';}
+if(!str){txt_box.value=is_windows?fn.replace(reFwdSlash,'\\'):fn;}}};woas.ui._textbox_enter_event=woas.ui._textbox_enter_event_dummy;woas.go_to=function(cr){var parts=cr.split('#'),section=parts[1],r=true,mv=0,el;cr=parts[0];if(cr.indexOf(this.help_system._pfx)===0&&cr.substr(-2)!=='::'&&current&&page_titles.indexOf(parts[0])!==-1){parts[0]=cr.substr(this.help_system._pfx.length);if(!parts[1]){parts[1]='';}
 woas.help_system.go_to(parts);return true;}
+if(this.ui.edit_mode){return false;}
 if(cr&&cr!==current){r=this.set_current(cr,true);}
 if(r&&section){el=d$(section);if(el){if(this.ui.display('fix_h')){mv=Number(this.browser.ie)===7?0:d$('woas_header_wrap').offsetHeight+8;}else{mv=Number(this.browser.ie)===7?-d$('woas_header_wrap').offsetHeight:8;}
 mv=el.offsetTop-mv;}}
@@ -5319,7 +5359,7 @@ function d$(id) {\n\
 function help_resize() {\n\
  var top = d$('woas_help_top_wrap').offsetHeight,\n\
   body = d$('woas_help_body_wrap');\n\
- body.style.top = top; // stops a slight flash on some browsers\n\
+ body.style.top = top + 'px'; // stops a slight flash on some browsers\n\
  body.style.height = document.body.offsetHeight - top + 'px';\n\
 }\n\
 window.onresize = help_resize;\n"),popup_page:'<'+'div id="woas_help_top_wrap"><'+'div class="woas_help_top">\n\
@@ -5331,7 +5371,7 @@ if(pg[0]){pg.push(woas.get_text(this._pfx+pg[0]));if(!pg[2]){pg[2]=woas.get_text
 pg[0]='Index';}}
 if(this.going_back){this.going_back=false;}else if(this.page_title){if(pg[0]!==this.page_title){this.previous_page.push(this.page_title);}else if(!pg[1]&&!this.popup_window.closed){setTimeout('woas.help_system.popup_window.focus()',0);return;}}
 if(pg[0]){this.page_title=pg[0];}
-this.make_pop_up(pg);},make_pop_up:function(pg){var title=this._pfx+pg[0],btn,fn,el;if((this.popup_window===null)||this.popup_window.closed){this.previous_page=[];this.popup_window=woas.popup("help_popup",this.popup_w,this.popup_h,this.popup_wnd,'<'+'title>'+title+'<'+'/title>'+'<'+'style type="text/css">'
+this.make_pop_up(pg);woas.scripting.activate("page");},make_pop_up:function(pg){var title=this._pfx+pg[0],btn,fn,el;if((this.popup_window===null)||this.popup_window.closed){this.previous_page=[];this.popup_window=woas.popup("help_popup",this.popup_w,this.popup_h,this.popup_wnd,'<'+'title>'+title+'<'+'/title>'+'<'+'style type="text/css">'
 +woas.css.get()+'<'+'/style>'+this.popup_code,woas.parser.parse(this.popup_page.sprintf('Close','Close','window.close',pg[0],pg[2])),' class="woas_help"',' class="woas_help"');}else{btn=this.previous_page.length?'Back':'Close';fn=this.previous_page.length?'help_go_back':'window.close';woas.setHTMLDiv(this.popup_window.document.body,woas.parser.parse(this.popup_page.sprintf(btn,btn,fn,pg[0],pg[2])));this.popup_window.document.title=title;}
 this.popup_window.help_resize();if(pg[1]){el=this.popup_window.d$(pg[1]);if(el){this.popup_window.d$("woas_help_body_wrap").scrollTop=el.offsetTop;}}
 pg=null;setTimeout('woas.help_system.popup_window.focus()',0);}};function menu_dblclick(){if(!woas.config.dblclick_edit)
@@ -5411,10 +5451,9 @@ woas.setHTMLDiv(d$('woas_search_results'),P.body);};var _servm_shown=false;funct
 woas.update_view=function(){var v={view:true,edit:false};v.no_back=!this.history.has_backstack();v.no_fwd=!this.history.has_forstack();v.no_home=current===this.config.main_page;v.no_tools=current==="Special::Advanced";v.no_edit=!(this.config.permit_edits&&this.edit_allowed(current));v.locked=this.is_encrypted(current);v.unlocked=!v.locked;v.no_lock=!this.config.permit_edits||this.is_reserved(current);this.ui.display(v,true);};woas.ui._resize=(function(){function resize(){if(woas.ui.edit_mode){var e=d$('woas_editor'),h=e.offsetHeight+
 document.documentElement.clientHeight-document.body.offsetHeight;if(woas.browser.ie&&Number(woas.browser.ie)<7){e.style.width=0;e.style.width=d$('woas_editor_sizer').offsetWidth+'px';}
 if(woas.browser.opera){--h};e.style.height=(h>64?h:64)+'px';}}
-return woas.browser.ie&&Number(woas.browser.ie)<8?function(){setTimeout(resize,0)}:function(){resize();};}());window.onresize=woas.ui._resize;woas._set_debug=function(status,closed){var logbox=d$("woas_debug_log"),lines=-1,position=0,cut=100,max=200;if(status){woas.log=function(aMessage){if(typeof aMessage!=="undefined"){if(!woas.tweak.integrity_test){if(++lines===max){logbox.value=logbox.value.substring(position);lines=max-cut;}else if(lines===cut){position=logbox.value.length;}}
-logbox.value+=aMessage+'\n';}
-logbox.scrollTop=logbox.scrollHeight;if(window.opera)
-opera.postError(aMessage);return true;};this.ui.display({no_debug:false});this.ui.display({no_log:closed});this.ui.display({wait:false});}else{this.ui.display({no_debug:true});this.ui.display({no_log:true});logbox.value='';woas.log=function(){return false;};}
+return woas.browser.ie&&Number(woas.browser.ie)<8?function(){setTimeout(resize,0)}:function(){resize();};}());window.onresize=woas.ui._resize;woas._set_debug=function(status,closed){var logbox=d$("woas_debug_log"),lines=-1,position=0,cut=100,max=200;if(status){woas.log=function(msg){if(msg){if(!woas.tweak.integrity_test){if(++lines===max){logbox.value=logbox.value.substring(position);lines=max-cut;}else if(lines===cut){position=logbox.value.length;}}
+logbox.value+=msg+'\n';if(console){console.log(msg);}else if(window.opera){opera.postError(msg);}}
+logbox.scrollTop=logbox.scrollHeight;return true;};this.ui.display({no_debug:false,no_log:closed});}else{this.ui.display({no_debug:true,no_log:true});logbox.value='';woas.log=function(){return false;};}
 this.ui.display({wait:false});window.log=woas.log};woas.ui.refresh_menu=function(){var pi=-1,menu,ns,tmp;if(current.indexOf('WoaS::')===0||current.indexOf('Special')===0){tmp=-1;}else{tmp=current.lastIndexOf("::");}
 ns=tmp>0?current.substr(0,tmp):'';while(true){pi=woas.page_index(ns+"::Menu");if(pi!==-1||!ns){break;}
 tmp=ns.lastIndexOf("::");ns=tmp===-1?"":ns.substr(0,tmp);}
@@ -5542,7 +5581,7 @@ Wiki Code:
 <input class="woas_button_editor" title="Image link" value="Image" onclick="setHTMLImage()" type="submit" />
 <input class="woas_button_editor" title="External link" value="Link" onclick="setHTMLUrl()" type="submit" />
 </div>
-<div id="woas_editor_container"><div id="woas_editor_sizer"><textarea style="height: 410px;" id="woas_editor" rows="0" cols="0"></textarea></div></div>
+<div id="woas_editor_container"><div id="woas_editor_sizer"><textarea style="height: 584px;" id="woas_editor" rows="0" cols="0"></textarea></div></div>
 </div>
 <div id="woas_footer_wrap"><div id="woas_footer"><div id="woas_footer_panel">
 <div id="woas_about"><a title="About Wiki on a Stick" onclick="woas.ui.about()">About Wiki on a Stick v0.12.0</a></div>

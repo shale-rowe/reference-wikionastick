@@ -5,11 +5,11 @@
 <script woas_permanent="1" type="text/javascript">
 /* <![CDATA[ */
 
-/* DFQRCTsKlU-0000001-START */
+/* DFQRCTsKlU-0000002-START */
 
 var woas = {"version": "0.12.0"};
 
-var __marker = "DFQRCTsKlU-0000001";
+var __marker = "DFQRCTsKlU-0000002";
 
 woas["config"] = {
 "permit_edits":true,
@@ -30,7 +30,7 @@ woas["config"] = {
 "store_mts":true,
 "folding_style":1,
 "import_woas":224,
-"import_wsif":248,
+"import_wsif":176,
 "auto_links":true,
 "sort_tags":true,
 "fixed_header":true,
@@ -83,7 +83,7 @@ var page_titles = [
 'WoaS::Help::Headings',
 'WoaS::Help::Rulers',
 'WoaS::Help::Include wiki page',
-'WoaS::Help::JavaScript',
+'WoaS::Help::Javascript',
 'WoaS::Help::Join lines of text',
 'WoaS::Help::Namespaces',
 'WoaS::Help::Text formatting',
@@ -102,7 +102,7 @@ var page_titles = [
 'WoaS::Template::Search',
 'WoaS::Help::Export',
 'WoaS::Template::Transclusion Example',
-'WoaS::Help::Transclusion',
+'WoaS::Help::Template transclusion',
 'WoaS::Help::Special::ExportWSIF',
 'WoaS::Help::Special::ImportWSIF',
 'WoaS::Hotkeys',
@@ -135,10 +135,10 @@ var page_titles = [
 'WoaS::Help::Go to a page'
 ];
 
-/* DFQRCTsKlU-0000001-DATA */
+/* DFQRCTsKlU-0000002-DATA */
 var page_attrs = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
 
-var page_mts = [0,0,0,0,1319533010,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1318738575,1318739163,1318740655,1318741670];
+var page_mts = [0,0,0,0,1319799264,0,0,0,0,0,0,0,0,1319799213,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1318738575,1318739163,1318740655,1318741670];
 
 var pages = [
 '[[Main Page]]\n\
@@ -180,7 +180,7 @@ var pages = [
 * [[WoaS::Aliases]] - view/edit page title aliases\n\
 * [[WoaS::CSS::Core]], [[WoaS::CSS::Custom]] - view the core CSS and edit the custom CSS\n\
 * [[WoaS::Hotkeys]] - view/edit WoaS access keys and default key bindings\n\
-* [[WoaS::Plugins]] - enable/disable and view/edit WoaS JavaScript plugins\n\
+* [[WoaS::Plugins]] - enable/disable and view/edit WoaS Javascript plugins\n\
 == Maintenance\n\
 * [[Special::Import]] - import wiki from a WoaS html file (including earlier versions)\n\
 * [[Special::ImportWSIF]] - import a [[WoaS::Help::WSIF|WSIF]] file containing one or more wiki pages\n\
@@ -227,7 +227,7 @@ This project wouldn\'t be what it is without the help of other people. If you co
 * *Tim Lord*\n\
 * *Knut Kohl*\n\
 * *Rob Schmersel*\n\
-* *Michiel van Everdingen* - [[http://home.versatel.nl/MAvanEverdingen/Code/|original JavaScript implementation]] of AES encryption\n\
+* *Michiel van Everdingen* - [[http://home.versatel.nl/MAvanEverdingen/Code/|original Javascript implementation]] of AES encryption\n\
 * *Cyril Mazard* - search feature\n\
 * *jimmac* - author of [[http://jimmac.musichall.cz/i.php?i=gorilla-stock|the icon set]] that we are currently using in WoaS\n\
 * *martinellison* - transclusion patch\n\
@@ -244,17 +244,17 @@ This project wouldn\'t be what it is without the help of other people. If you co
 * [[https://lists.sourceforge.net/lists/listinfo/stickwiki-devel|SF.net WoaS Development mailing list]] - for discussion of WoaS development\n\
 ',
 '= Buyer Beware!\n\
-*Please be aware* that this version is unfinished. I believe it is safe with data, but it is still being updated. Almost done. Also, the contents of this page don\'t match {{{fix/index.wsif}}}.\n\
+*Please be aware* that this version is still unfinished. I believe it is safe with data, but it is still being updated. Almost done. Also, the contents of this page don\'t match {{{fix/index.wsif}}}.\n\
 \n\
-* *Check out the nice jump to [[WoaS History#The principles|sections]] (and the folding TOC once you get to that page). Erasing the wiki has also been improved.*\n\
+* *Check out the nice jump to [[WoaS History#The principles|sections]] (and the folding TOC once you get to that page). Erasing the wiki has also been improved (better menu layout), and the [[WoaS::Help::Javascript#Using the Javascript:: namespace in a link|Javascript]] namespace has been improved.*\n\
 \n\
-\n\
+* Chrome/Safari Java saving in Windows should now be properly fixed.\n\
 * The sub-menu system has been changed. Sub-menus now use their own page to replace the main menu; this allows much more versatile designs.\n\
 * This version uses a completely new way to control the layout (adding CSS classes to the HTML tag). It works very well but means that if you try plugins that change the display style (block/hidden) of the main HTML it will likely break the file. This will be fixed later by loading layout from a page (or code) on start up. This new code makes future theming and skinning much easier to implement. (This is a key issue for me.) It also stops the multiple changes that  mess up version control and diffs.\n\
-* I haven\'t finished with export to HTML yet -- or even checked it recently; much of the layout and IDs have changed during this phase. I will make it right before release.\n\
-* Some lists may actually have slowed down a little bit as they are now much more capable; the /Orphaned Pages/ list is now many times faster in larger files (time is square root of original time).\n\
+* I haven\'t finished with export to HTML yet; much of the layout and IDs have changed during this phase. I will make it right before release.\n\
+* The /Orphaned Pages/ list is now many times faster in larger files (time is square root of original time).\n\
 * I found it took a few hours to get used to the new page/tag list format, because it works differently from 0.12.0 (so I kept going to pages instead of toggling DIVs); once used to it I found it much easier to use. And I think it looks much better. (The 0.12.0 look actually breaks in one major browser on my system.)\n\
-* I have rearranged some icons to make the code simpler and because it is more consistent to my eyes.\n\
+* I have rearranged some icons to make the code simpler and because it is more consistent to my eyes. I will be modifying this slightly before I\'m finished so that the icons can be in any order (for Little Girl)\n\
 * The locks are now opposite in looks to 0.12.0; it just makes more sense to me.\n\
 * Though I have fixed up the /Password Entry/ layout (and made a new icon for it) I may change it to use a page (like all the other functions), and may eventually remove the need for it entirely. It now accepts the enter key.\n\
 \n\
@@ -278,7 +278,7 @@ They should be specified in {{{em}}} values for best cross-browser compatibility
 '= Search in Wiki\n\
 \x3Cinput id="string_to_search" type="text" onfocus="search_focus(true)" onblur="search_focus(false)" /\x3E&nbsp;\x3Cinput class="woas_button" type="button" value="Search" onclick="ssearch_do_search()" /\x3E&nbsp;\x3Cinput class="woas_button" type="button" value="Clear" onclick="woas.ui.clear_search()" /\x3E\n\
 \x3Cdiv id="woas_search_results"\x3E&nbsp;\x3C/div\x3E\n\
-\x3Cscript type="text/javascript" language="javascript"\x3E\n\
+\x3Cscript type="text/javascript"\x3E\n\
 woas._search_load();\n\
 \x3C/script\x3E\n\
 ',
@@ -314,7 +314,7 @@ Security is never absolute. Data encrypted with these pages might be compromised
 * User-generated passwords are weak by nature (PBKDF2 will be used in a future version)\n\
 * You have not disabled the AES key cache, so when you enter the password for the first time other users (if not you) will be able to see encrypted pages and could possibly get your key\n\
 * WoaS uses random numbers generated by the browser itself using local time; if someone was somehow able to gain access to the particular time used they could perhaps discover the key (user-generated entropy will be used in a future version)\n\
-* Your Web browser and/or JavaScript interpreter may contain bugs or deliberate security violations which report activity on your computer back to some other Internet site\n\
+* Your Web browser and/or Javascript interpreter may contain bugs or deliberate security violations which report activity on your computer back to some other Internet site\n\
 * Some other applet running on another page in your browser, perhaps without you being aware of its existence, is spying on other windows.\n\
 * Some other "spyware" application running on your computer may have compromised your system\'s security and be snooping on your activity.\n\
 * The implementation of the encryption may contain a bug that makes its results insecure, Wiki on a Stick is open-source; you can judge for yourself whether the tool merits your confidence.\n\
@@ -510,7 +510,7 @@ Tables will use the enhanced [[WoaS::Help::Tables|table syntax]].\n\
 ===Automatically save options before quitting (if changed)\n\
 Saves changes to options automatically when closing the wiki. This will not happen if you are just reloading the file.\n\
 ===Enable safe mode with embedded scripts and plugins not executed (/requires reload/)\n\
-Prevents the wiki from executing [[WoaS::Help::JavaScript|embedded scripts]] and [[WoaS::Help::Plugins|plugins]].\n\
+Prevents the wiki from executing [[WoaS::Help::Javascript|embedded scripts]] and [[WoaS::Help::Plugins|plugins]].\n\
 ===Make merge/diff of WoaS XHTML/WSIF data source easier\n\
 Adds a [[WoaS::Help::Join lines of text|backslash]] and line-end character (\\\\n) to the end of every line of page text. This breaks the text into multiple lines, instead of it being one page-length line, making it easier for source code revision tools (like SVN or git) and merge tools to mark and show changes efficiently.\n\
 ===Store and display last modified time-stamp\n\
@@ -525,13 +525,13 @@ If you just want to use a WSIF file for backing up or sharing your data with oth
 This is the relative path and name of the file the wiki should use to save and retrieve data. A relative path is one that starts in the same directory the WoaS file is in; {{{temp/file.wsif}}} is a relative path, {{{/temp/file.wsif}}} is not; {{{c:\\temp\\file.wsif}}} and {{{c:temp\\file.wsif}}} are also incorrect. The file name can have any extension or none at all, but the /wsif/ extension will let you know that it\'s a WoaS data source file. The path may be entered in Windows or UNIX format, but will be converted to the correct format upon entry (it is stored in the WoaS file in UNIX format).\n\
 \n\
 Providing a filename causes the wiki to create a WSIF file by that name and use that file to store and retrieve all page data (configuration options are currently always stored in the WoaS HTML file, not in a WSIF file). If just a filename is entered the file will be created inside the directory the WoaS file is in. The path can additionally specify a directory path relative to the location of the wiki. WoaS will create the specified subdirectory only if you are using a Gecko-based browser like Firefox. If you are using a different browser you must create the subdirectory yourself before saving the file. (As of this writing, the best browser to use with WoaS is *Firefox*; while [[WoaS::Help::Requirements|all major browsers]] can be used to read, edit, and save a WoaS file, other browsers cannot currently import or export binary files, such as image files. This limits some capabilities, like embedding images or exporting them to a binary image file.)\n\
-\x3C\x3C\x3Cwoas.note: If you enter the name of an existing file that file will be overwritten on the next save; any associated files will also be overwritten if /multiple files/ mode is selected.\x3E\x3E\x3E\n\
+\x3C\x3C\x3Cwoas.note: If you enter the name of an existing file that file will be overwritten when /Change data source/ is clicked; any associated files will also be overwritten if /multiple files/ mode is selected.\x3E\x3E\x3E\n\
 The data source name will be used as the index page name when using multiple files as a data source.\n\
 \n\
 The box is blank by default. Leaving the box blank, or deleting an existing filename from the box, causes the wiki to save all the currently loaded data to itself and retrieve all data from itself. Deleting the filename from the box does not delete any files.\n\
 ===Use multiple files in WSIF data source\n\
 Causes the wiki to create individual WSIF files for each page. The pages will be automatically named by page number in their order of creation. An index page with the WSIF data source filename will be created containing a list of the numbered file names and their corresponding wiki page names. WoaS will use this file to load data and save edits to the correct file.\n\
-\x3C\x3C\x3Cwoas.note: The two WSIF data source settings described above will *not* be used or saved unless you confirm the change with the /Change data source/ button. WoaS will then describe the impact of the changes you are about to make so you can change your mind if you want to by pressing cancel. Though confirmed, the settings will not take effect until the options are saved to the WoaS file, just like the other options\x3E\x3E\x3E\n\
+\x3C\x3C\x3Cwoas.note: The two WSIF data source settings described above will *not* be used or saved unless you confirm the change with the /Change data source/ button. WoaS will then describe the impact of the changes you are about to make so you can change your mind if you want to by pressing cancel.\x3E\x3E\x3E\n\
 ===WSIF Data author\n\
 This is the name of the author as displayed in exported WSIF files. Replace the default name with your own to be credited as the author of the file(s). Deleting the contents of the box prevents the author line from being added to WSIF files.\n\
 ==Permanent changes\n\
@@ -544,9 +544,10 @@ If the file is already in read-only mode the /Prevent Edits/ button is not displ
 = Embed %1\n\
 \x3Cinput id="filename_" type="file" /\x3E\n\
 ',
-'\x3Cdiv\x3E\x3Cinput class="woas_button_top" title="Import a plugin" value="Import plugin..." onclick="woas.go_to(\'Special::ImportWSIF\')" type="button" /\x3E\x3Cinput class="woas_button_top" title="Create a new plugin" value="Create plugin..." onclick="javascript:_woas_new_plugin()" type="button" /\x3E\x3C/div\x3E\n\
+'\x3Cdiv\x3E\x3Cinput class="woas_button_top" title="Import a plugin" value="Import plugin..." onclick="woas.go_to(\'Special::ImportWSIF\')" type="button" /\x3E\x3Cinput class="woas_button_top" title="Create a new plugin" value="Create plugin..." onclick="_woas_new_plugin()" type="button" /\x3E\x3C/div\x3E\n\
 = Installed plugins',
-'= Wiki on a Stick History\n\
+'[[Special::TOC]]\n\
+= Wiki on a Stick History\n\
 == Versions 0.01 &tilde; 0.04\n\
 \x3Csub\x3Eby Andr\u00e9 Wagner\x3C/sub\x3E\n\
 \n\
@@ -570,11 +571,11 @@ Some time later I took courage and asked to take-over the project; Andr\u00e9 Wa
 \n\
 My first big project management change was to switch to [[http://subversion.tigris.org/|Subversion (SVN)]] for the versioning of all our WoaS files; development could this way be fully documented and followed "live" by the mailing list (formerly google group) partecipants, which are the first solid community gathered around WoaS.\n\
 \n\
-Version 0.9B was the first official version which I worked on. My first big change was to have storage of pages not in content-escaped hidden divs but as javascript strings; this brought more speed to the page loading process. I also had to solve some problems inherent to the double file vs single file compatibility (WoaS can since then work with the 2-files version and single file version) and some IE saving issues, but finally the result was good enough.\n\
+Version 0.9B was the first official version which I worked on. My first big change was to have storage of pages not in content-escaped hidden divs but as Javascript strings; this brought more speed to the page loading process. I also had to solve some problems inherent to the double file vs single file compatibility (WoaS can since then work with the 2-files version and single file version) and some IE saving issues, but finally the result was good enough.\n\
 \n\
 A lot of features and improvements have been implemented during the (still current) v0.9.x development cycle, without never slowing down some parts of WoaS for each new feature implemented (further speed optimizations will be engineered when the codebase is stable enough); we are as always gathering the users\' feedback to add usability and more powerful features to WoaS. Such features must of course be coherent with WoaS principles and base philosophy.\n\
 === Object orienting\n\
-Wiki on a Stick codebase has been rewritten as object-oriented in order to be more maintanable and modular (the development version contains multiple javascript source files which are as always merged into one before releases). Such process is not yet complete and is being carried out during the 0.12.x development.\n\
+Wiki on a Stick codebase has been rewritten as object-oriented in order to be more maintanable and modular (the development version contains multiple Javascript source files which are as always merged into one before releases). Such process is not yet complete and is being carried out during the 0.12.x development.\n\
 == 0.10.x\n\
 Development of 0.9.7B was stale and WoaS was getting full of little bugs which prevented it from being successfully used; during last months of 2009 and first months of 2010 WoaS got new blood with 0.10.x releases.\n\
 Some of the best additions were [[WoaS::Help::WSIF|WSIF format]] and a pluggable macro syntax, but finally the product had reached the stability which its users deserved and exited its Beta status to enter a Production development stage.\n\
@@ -605,9 +606,9 @@ Extension for generated XHTML files:&nbsp; \x3Cinput id="woas_ep_ext" type="text
 \x3Clabel for="woas_cb_index_main"\x3E\x3Cinput type="checkbox" id="woas_cb_index_main" checked="checked"\x3EName the main page /index/\x3C/label\x3E\n\
 \x3Clabel for="woas_cb_unix_norm"\x3E\x3Cinput type="checkbox" id="woas_cb_unix_norm" checked="checked"\x3EUse UNIX-style normalization to generated filenames (all lowercase letters; non-alphanumeric characters replaced with underscores)\x3C/label\x3E\n\
 ==Custom page scripts\n\
-\x3Clabel for="woas_cb_js_ign"\x3E\x3Cinput type="radio" id="woas_cb_js_ign" name="woas_cb_js" checked="checked"\x3EDo not export JavaScript\x3C/label\x3E\n\
-\x3Clabel for="woas_cb_js_exp"\x3E\x3Cinput type="radio" id="woas_cb_js_exp" name="woas_cb_js"\x3EExport JavaScript as-is\x3C/label\x3E\n\
-\x3Clabel for="woas_cb_js_dyn"\x3E\x3Cinput type="radio" id="woas_cb_js_dyn" name="woas_cb_js"\x3ERun before exporting, but do not export the JavaScript\x3C/label\x3E\n\
+\x3Clabel for="woas_cb_js_ign"\x3E\x3Cinput type="radio" id="woas_cb_js_ign" name="woas_cb_js" checked="checked"\x3EDo not export Javascript\x3C/label\x3E\n\
+\x3Clabel for="woas_cb_js_exp"\x3E\x3Cinput type="radio" id="woas_cb_js_exp" name="woas_cb_js"\x3EExport Javascript as-is\x3C/label\x3E\n\
+\x3Clabel for="woas_cb_js_dyn"\x3E\x3Cinput type="radio" id="woas_cb_js_dyn" name="woas_cb_js"\x3ERun before exporting, but do not export the Javascript\x3C/label\x3E\n\
 ==Other options\n\
 META author (optional):&nbsp; \x3Cinput id="woas_ep_author" type="text" size="20" value="" /\x3E\n\
 \x3Clabel for="woas_cb_sep_css"\x3E\x3Cinput type="checkbox" id="woas_cb_sep_css" checked="checked"\x3EExport CSS into shared file\x3C/label\x3E\n\
@@ -818,11 +819,11 @@ And the result is:\n\
 I have 3 fruits in my basket\n\
 \x3E\x3E\x3E\n\
 \n\
-The passed arguments must be valid JavaScript expressions.\n\
+The passed arguments must be valid Javascript expressions.\n\
 == Global macros\n\
 Macros can be available on all pages if they are registered by plugins.\n\
 \n\
-In order to define a global macro you should create or edit a plugin and then add JavaScript code like this:\n\
+In order to define a global macro you should create or edit a plugin and then add Javascript code like this:\n\
 \n\
 {{{woas.macro.register(\'my.arg_macro\', function(macro, name, color) {\n\
 macro.text = "\x3Cstrong\x3E"+name+"\x3C/strong\x3E says: \x3Cspan style=\\"color: "+color+"\\"\x3E"+macro.text+"\x3C/span\x3E";\n\
@@ -895,8 +896,8 @@ When browsing the pages in this Help pop-up, you will find an *Index* button in 
 ** [[WoaS::Help::Images|Images]]\n\
 ** [[WoaS::Help::Include text file|Include text file]]\n\
 ** [[WoaS::Help::Include web page|Include web page]]\n\
-** [[WoaS::Help::Include wiki page|Include wiki page]]\n\
-** [[WoaS::Help::JavaScript|JavaScript]]\n\
+** [[WoaS::Help::Include wiki page|Include wiki page (transclusion)]]\n\
+** [[WoaS::Help::Javascript|Javascript]]\n\
 ** [[WoaS::Help::Join lines of text|Join lines of text]]\n\
 ** [[WoaS::Help::Links|Links]]\n\
 ** [[WoaS::Help::Lists|Lists]]\n\
@@ -906,8 +907,8 @@ When browsing the pages in this Help pop-up, you will find an *Index* button in 
 ** [[WoaS::Help::Table of Contents|Table of Contents]]\n\
 ** [[WoaS::Help::Tables|Tables]]\n\
 ** [[WoaS::Help::Tags|Tags]]\n\
-** [[WoaS::Help::Text formatting|Text formatting]]\n\
-** [[WoaS::Help::Transclusion|Transclusion]]',
+** [[WoaS::Help::Template transclusion|Template transclusion]]\n\
+** [[WoaS::Help::Text formatting|Text formatting]]',
 'The Advanced page offers some tools for administration of your wiki. The Special links lead to pages that have individual help available, except for the dynamic commands that create a prompt. Below are links to relevant help pages for those /Special::/ commands.\n\
 * *Special::Delete Page* - See [[WoaS::Help::Delete a page|Delete a page]]\n\
 * *Special::Erase Wiki* - See [[WoaS::Help::Special::Erase Wiki|Erase Wiki]]\n\
@@ -1221,73 +1222,105 @@ See the [[WoaS::Help::Namespaces#Namespace sub-menu|Namespace sub-menu]] section
 ----\n\
 \x3C/div\x3E\x3C/center\x3E\n\
 ',
-'To include the contents of a wiki page inside another wiki page, use an {{{[[Include::]]}}} tag on a line by itself, inserting the name of the page you\'d like to include after the double colons in the tag.\n\
+'Including the contents of one wiki page inside another wiki page is called /transclusion/. To accomplish this use an {{{[[Include::]]}}} tag on a line by itself, inserting the name of the page you\'d like to transclude after the double colons in the tag.\n\
 \x3C\x3C\x3Cwoas.note: Page names are case sensitive.\x3E\x3E\x3E\n\
-\x3Cdiv class="woas_help_text"\x3EUse this code in a page, replacing Page Name with the name of the page you wish to include:\x3C/div\x3E\n\
+\x3Cspan class="woas_help_text"\x3EUse this code in a page, replacing Page Name with the name of the page you wish to include:\x3C/span\x3E\n\
 \x3Cdiv class="woas_help_code"\x3E[\x3C!-- --\x3E[Include::Page Name]]\x3C/div\x3E\n\
-\x3Cdiv class="woas_help_text"\x3ETo include the contents of another wiki page in the current page.\x3C/div\x3E\n\
+\x3Cspan class="woas_help_text"\x3ETo include the contents of another wiki page in the current page.\x3C/span\x3E\n\
 == Example\n\
-\x3Cdiv class="woas_help_text"\x3EUse this code in a page:\x3C/div\x3E\n\
-\x3Cdiv class="woas_help_code"\x3E[\x3C!-- --\x3E[Include::Special::Search]\x3C!-- --\x3E]\x3C/div\x3E\n\
-\x3Cdiv class="woas_help_text"\x3ETo create this:\x3C/div\x3E\n\
-[[Include::Special::Search]]\n\
-',
-'== Adding JavaScript to your page\n\
-To add JavaScript to your page, you must enclose it inside JavaScript tags.\n\
+\x3Cspan class="woas_help_text"\x3EUse this code in a page:\x3C/span\x3E\n\
+\x3Cdiv class="woas_help_code"\x3E[\x3C!-- --\x3E[Include::WoaS::Aliases]\x3C!-- --\x3E]\x3C/div\x3E\n\
+\x3Cspan class="woas_help_text"\x3ETo create this (the [[WoaS::Aliases]] page):\x3C/span\x3E\n\
 \n\
-\x3Cdiv class="woas_help_text"\x3EUse this code in a page, replacing YOUR_CODE_HERE with your JavaScript code:\x3C/div\x3E\n\
+[[Include::WoaS::Aliases]]\n\
+== Template transclusion\n\
+WoaS can also transclude template pages, allowing you to change the content of a transcluded page by using link parameters; see [[WoaS::Help::Template transclusion|Template transclusion]].\n\
+',
+'== Adding Javascript to the wiki source\n\
+You can add &lt;script&gt; tags to your wiki source and they will be correctly rendered in the document &lt;head&gt; tag each time the page is loaded; external scripts (using the /src/ attribute) will also be parsed and activated. The order of declaration of the &lt;script&gt; tags will be respected.\n\
+\x3C\x3C\x3Cwoas.note: Since the Javascript tags are activated from within the &lt;head&gt; tag, you cannot use document.write() or similar inline Javascript statements.\x3E\x3E\x3E\n\
+It is very often better to use a [[WoaS::Help::Macros|macro]] or other Javascript loaded by a custom [[WoaS::Help::Plugins|plugin]]. The code or macro is then loaded once when the file is first loaded and is available to all your pages.\n\
+=== Adding Javascript to your page\n\
+To add Javascript to your page, you must enclose it inside script tags.\n\
+\n\
+\x3Cdiv class="woas_help_text"\x3EUse this code in a page, replacing YOUR_CODE_HERE with your Javascript code:\x3C/div\x3E\n\
 {{{\n\
 \x3Cscript type="text/javascript"\x3E\n\
 YOUR_CODE_HERE\n\
 \x3C/script\x3E\n\
 }}}\n\
-\x3Cdiv class="woas_help_text"\x3ETo add JavaScript to your page.\x3C/div\x3E\n\
-== Adding JavaScript to the wiki source\n\
-It is possible to add &lt;script/&gt; tags to your wiki source and they will be correctly rendered in the document &lt;head/&gt; tag upon page loading; also external scripts (using the /src/ attribute) will be parsed and activated, always respecting the order of declaration of the &lt;script /&gt; tags.\n\
-\x3C\x3C\x3Cwoas.note: Since the JavaScript tags are activated from within the &lt;head /&gt; tag, you cannot use document.write() or similar inline JavaScript statements.\x3E\x3E\x3E\n\
-== Using external JavaScript\n\
-You can include external JavaScript on a page by placing the script file in the same directory as this wiki and then inserting a reference to it in the body of the page.\n\
+\x3Cdiv class="woas_help_text"\x3ETo add Javascript to your page.\x3C/div\x3E\n\
+=== Using external Javascript\n\
+You can include external Javascript on a page by placing the script file in the same directory as the WoaS file and then inserting a reference to it in the body of the page.\n\
 \n\
 \x3Cdiv class="woas_help_text"\x3EUse this code in a page, replacing SCRIPTNAME.JS with the name of your script:\x3C/div\x3E\n\
 {{{\n\
-\x3Cscript src="SCRIPTNAME.JS"\x3E\x3C/script\x3E\n\
+\x3Cscript src="SCRIPTNAME.JS" type="text/javascript"\x3E\x3C/script\x3E\n\
 }}}\n\
-\x3Cdiv class="woas_help_text"\x3ETo include an external JavaScript in a page.\x3C/div\x3E\n\
-=== Example\n\
-This page contains this code:\n\
-{{{\n\
-\x3Cscript src="example.js"\x3E\x3C/script\x3E\n\
-}}}\n\
-To see an example using external JavaScript:\n\
-# Create a text file in the same directory as this wiki.\n\
-# Paste this into the file:{{{\n\
-alert("This is an example alert!");\n\
-}}}\n\
-# Save the file as *example.js*\n\
-# Reload the wiki.\n\
-# Open this page from the menu (not in the help pop-up) to run the *example.js* script and see the alert.\n\
-== Using JavaScript to create a temporary page\n\
-Using this code, you can get this wiki to create a link to a dynamically created temporary page with custom content (it accepts HTML tags as part of the content) under the JavaScript namespace. The temporary page will be created each time the link is clicked and uncreated as soon as you navigate to another page or close the wiki.\n\
+\x3Cdiv class="woas_help_text"\x3ETo include an external Javascript in a page.\x3C/div\x3E\n\
+== Using the /Javascript::/ namespace in a link\n\
+Using a Javascript expression contained in a link, WoaS can dynamically create a temporary page that only exists while it is being displayed and is not stored as a page in the wiki. It does this through the /Javascript::/ namespace. Everything following the namespace declaration will be evaluated as a Javascript expression. You can use /$JS::/ instead of /Javascript::/ if your [[WoaS::Help::Aliases|Aliases]] page still contains the default {{{$JS  Javascript}}} declaration.\n\
+\x3C\x3C\x3Cwoas.note: /Javascript::/ links cannot be [[WoaS::Help::Include wiki page|transcluded]], cannot contain double-quotes ({{{"}}}), and do not create history (back/forward entries).\x3E\x3E\x3E\n\
+If the Javascript expression returns a non-empty string it will be used as the body of the dynamic page and the link text will be used as the title of the page. If the expression returns an array and that array contains exactly two strings, then the first string will be used as the dynamic page\'s title (with /Javascript::/ added), and the second one will form the content of the page. Any other return types will be ignored, as will an empty content string. The content string can be WoaS wiki syntax, HTML, or a combination of both; it is parsed just as a normal page is.\n\
 \n\
-\x3Cdiv class="woas_help_text"\x3EUse this code in a page, replacing CONTENT with your content, NAME with the page name, and LINK with the text you want the link to have:\x3C/div\x3E\n\
+A simple (but useless) example is:\n\
 {{{\n\
-\x3Cscript type="text/javascript"\x3Efunction temporary(arg) {return \'CONTENT\';}\x3C/script\x3E[[Javascript::temporary(\'NAME\')|LINK]]\n\
+[[Javascript::\'=Hi\']]\n\
 }}}\n\
-\x3Cdiv class="woas_help_text"\x3ETo create a dynamically created temporary page.\x3C/div\x3E\n\
-\x3C\x3C\x3Cwoas.note: Only one of these links may be used per page.\x3E\x3E\x3E\n\
-Paste each of these into a new page one by one to see what they do:\n\
-* This one uses the temporary page name as part of its content:{{{\n\
-\x3Cscript type="text/javascript"\x3Efunction temporary(arg) {return \'This page was dynamically created using *\'+arg+\'* as content!\';}\x3C/script\x3E[[Javascript::temporary(\'sample\')|Click here]]\n\
-}}}\n\
-* This one demonstrates the use of various HTML tags in the content of the page:{{{\n\
-\x3Cscript type="text/javascript"\x3Efunction temporary(arg) {return \'This page contains more than one line.\x3Cbr\x3EThis line contains \x3Cb\x3Ebold\x3C/b\x3E, \x3Ci\x3Eitalic\x3C/i\x3E, \x3Cu\x3Eunderlined\x3C/u\x3E, and \x3Cfont color="red"\x3Ecolored\x3C/font\x3E text.\x3Cbr\x3E\x3Cbr\x3EAnd here is a list:\x3Cbr\x3E\x3Cul\x3E\x3Cli\x3Eitem1\x3C/li\x3E\x3Cli\x3Eitem2\x3C/li\x3E\x3Cli\x3Eitem3\x3C/li\x3E\x3C/ul\x3E\';}\x3C/script\x3E[[Javascript::temporary(\'My Page\')|Click here]]\n\
-}}}\n\
-== Using JavaScript to reload the wiki\n\
-\x3Cdiv class="woas_help_text"\x3EUse this code in a page:\x3C/div\x3E\n\
+This link should create a dynamic page in the main wiki: [[Javascript::\'=hi\']]. Note that the Javascript expression is used as the page title; usually not very useful! Another simple example (and equally useless, except we don\'t have the title this time; note the need for a space after the array\'s closing bracket):\n\
 {{{\n\
-\x3Cinput type="button" value="Reload wiki" onclick="window.location.href=window.location.href"\x3E\n\
+[[Javascript::[\'\',\'=Hi\'] ]]\n\
 }}}\n\
-\x3Cdiv class="woas_help_text"\x3ETo create a button that reloads the wiki when you click it.\x3C/div\x3E\n\
+And here\'s the link: [[Javascript::[\'\',\'=Hi\'] ]]. The space isn\'t needed if, as is usual, you are using a label after the page link; for example:\n\
+{{{\n\
+[[Javascript::[\'\',\'Hello World\']|A dynamic page]]\n\
+}}}\n\
+These links should open in the main wiki window; the first uses /Javascript::/ in the page source, the second /$JS::/ (though you won\'t see this when hovering over the link if your /$JS/ Alias is set): [[Javascript::[\'\',\'Hello World\']|A dynamic page]], [[$JS::[\'\',\'Hello World\']|A dynamic page]].\n\
+\n\
+These simple examples could even contain a [[WoaS::Help::Links|link]] (note the use of {{{]\\]}}} in the link):\n\
+{{{\n\
+[[Javascript::[\'Hello world\',\'I am Hello World, not the [[Special::All Pages]\\] page\']|A pointless page]]\n\
+}}}\n\
+The above example as a [[Javascript::[\'Hello world\',\'I am Hello World, not the [[Special::All Pages]\\] page\']|pointless page link]].\n\
+\n\
+Here is a slightly more useful example that uses a Javascript function:\n\
+{{{\n\
+\x3Cscript type="text/javascript"\x3E\n\
+  function rhyme1() {\n\
+    return [\'A Rhyme\',\n\
+      \'=Hello Lamppost\\nWhat cha knowing?\\n\' +\n\
+      \'I\\\'ve come to watch\\n* your flowers\\n* growing.\'];\n\
+  }\n\
+\x3C/script\x3E\n\
+}}}\n\
+\x3Cscript type="text/javascript"\x3E\n\
+	function rhyme1() {\n\
+		return [\'A Rhyme\',\'=Hello Lamppost\\nWhat cha knowing?\\n\' +\n\
+		\'I\\\'ve come to watch\\n* your flowers\\n* growing.\'];\n\
+	}\n\
+\x3C/script\x3E\n\
+The link {{{[[Javascript::rhyme1()|Rhymes]]}}} will open this page in the main wiki window: [[Javascript::rhyme1()|Rhymes]]\n\
+\n\
+The Javascript function can also be passed dynamic content using one or more function parameters:\n\
+{{{\n\
+\x3Cscript type="text/javascript"\x3E\n\
+  function rhyme2(thing) {\n\
+    return [\'A \'+thing+\' Rhyme\',\'=Hello \'+thing+\n\
+      \'\\nWhat cha knowing?\\n\' +\n\
+      \'I\\\'ve come to watch\\n* your flowers\\n* growing.\'];\n\
+  }\n\
+\x3C/script\x3E\n\
+}}}\n\
+\x3Cscript type="text/javascript"\x3E\n\
+	function rhyme2(thing) {\n\
+		return [\'A \'+thing+\' Rhyme\',\'=Hello \'+thing+\n\
+		  \'\\nWhat cha knowing?\\n\' +\n\
+		  \'I\\\'ve come to watch\\n* your flowers\\n* growing.\'];\n\
+	}\n\
+\x3C/script\x3E\n\
+The link {{{[[Javascript::rhyme2(\'Lamppost\')|Rhymes]]}}} will open this page in the main wiki window: [[Javascript::rhyme2(\'Lamppost\')|Rhymes]]. This one uses /$JS/: [[$JS::rhyme2(\'World\')|Another rhyme]].\n\
+\n\
+Not that the above example would be more easily accomplished by [[WoaS::Help::Template transclusion|transcluding]] a template page and passing in replacement parameters. Nevertheless, there are times when generating changable, dynamic text is perfectly suited to the /Javascript::/ namespace technique.\n\
 ',
 'Lengthy wiki page content can be broken up into shorter lines in the editor (while still being parsed as a single line when the page is viewed) by using a backslash at the *end* of any line; such a line will be joined with the one below it.\n\
 \x3C\x3C\x3Cwoas.note: Backslashes *within* a line will be ignored by the wiki parser and will not influence how the text is displayed.\x3E\x3E\x3E\n\
@@ -1317,7 +1350,7 @@ If you open the {{{[[Recipes::Desserts::Cakes]]}}} page, the title in the naviga
 === Namespace sub-menu\n\
 All pages in any namespace can be given a custom sub-menu by creating a *::Menu* page inside the namespace. The sub-menu content will replace the [[WoaS::Help::Menu|::Menu]] content while any pages belonging to that page\'s namespace are open. The sub-menu will vanish as soon as you navigate away from its namespace.\n\
 \n\
-You can control what the sub-menu displays by editing the page with *::Menu* in its name, or by clicking the menu edit icon (bottom right corner of the menu) while it is being displayed. A menu is just a wiki page that is displayed in the menu area, so anything a normal page can contain a menu page can as well; this includes JavaScript scripts and CSS style sheets, allowing very flexible customization of namespaces. To [[WoaS::Help::Transclusion|include]] the main menu in a sub-menu use {{{[[Include::::Menu]]}}}.\n\
+You can control what the sub-menu displays by editing the page with *::Menu* in its name, or by clicking the menu edit icon (bottom right corner of the menu) while it is being displayed. A menu is just a wiki page that is displayed in the menu area, so anything a normal page can contain a menu page can as well; this includes Javascript scripts and CSS style sheets, allowing very flexible customization of namespaces. To [[WoaS::Help::Include wiki page|include]] the main menu in a sub-menu use {{{[[Include::::Menu]]}}}.\n\
 \n\
 For example, if you create the {{{[[Recipes::Menu]]}}} page with *My favorite recipes!* as its content, then whenever you open a page in the {{{Recipes::}}} namespace, a sub-menu will appear with *My favorite recipes!* in it.\n\
 === Sub-namespace sub-menu\n\
@@ -1346,7 +1379,7 @@ These are listable namespaces:\n\
 \n\
 Some namespaces cannot be listed but are used inside wiki links to accomplish a task:\n\
 * *Include::* for transclusion\n\
-* *Javascript::* for direct JavaScript execution\n\
+* *Javascript::* for direct Javascript execution\n\
 * *Lock::* used internally or in a link to lock (encrypt) a page\n\
 * *Tag::* syntax used to tag a page\n\
 * *Tags::* alternative syntax used to tag a page\n\
@@ -1428,7 +1461,7 @@ the displayed page would have a Table of Contents at the top of the page similar
 \x3Cdiv class="woas_toc_h6" style="margin-left: 7.5em"\x3E\x3Ca class="woas_link"\x3EMy level six heading\x3C/a\x3E\x3C/div\x3E\n\
 \x3Cdiv\x3E\x3Ca class="woas_link"\x3EMy next level one heading\x3C/a\x3E\x3C/div\x3E\n\
 \x3C/div\x3E\x3C/div\x3E\n\
-The exact look of the TOC is controlled by the current CSS and javascript, both of which can be changed. The WoaS default implementation includes the ability to toggle the TOC display by clicking the /Table of Contents/ title text.',
+The exact look of the TOC is controlled by the current CSS and Javascript, both of which can be changed. The WoaS default implementation includes the ability to toggle the TOC display by clicking the /Table of Contents/ title text.',
 'Tags are used to group pages by categories/features/topics so they can easily be found again.\n\
 \n\
 Tags can be placed anywhere on a page, but choosing a standard location like the bottom of the page makes them easier to find and edit as your wiki grows.\n\
@@ -2970,7 +3003,7 @@ With a combination of HTML and wiki syntax, you can create anchor links to anywh
 }}}\x3Cbr\x3E\x3Cdiv class="woas_help_text"\x3ETo create a labeled anchor link to anywhere on a page.\x3C/div\x3E\n\
 === Edit page link\n\
 \x3Cdiv class="woas_help_text"\x3EUse this code in a page, replacing LABEL with the text for your link:\x3C/div\x3E\x3Cbr\x3E{{{\n\
-\x3Ca class="woas_link" onclick="javascript:edit()" title="Edit this page"\x3ELABEL\x3C/a\x3E\n\
+\x3Ca class="woas_link" onclick="woas.ui.edit()" title="Edit this page"\x3ELABEL\x3C/a\x3E\n\
 }}}\x3Cbr\x3E\x3Cdiv class="woas_help_text"\x3ETo create a link that opens the current page in the editor.\x3C/div\x3E\n\
 === External link (button)\n\
 \x3Cdiv class="woas_help_text"\x3EUse this code in a page, replacing BUTTONTEXT with the text for your button, and URL with the address of the web page:\x3C/div\x3E\x3Cbr\x3E{{{\n\
@@ -3071,7 +3104,7 @@ A famous online service to create such URIs is [[http://software.hixie.ch/utilit
 ',
 '== Importing a WoaS XHTML wiki\n\
 Another Wiki on a Stick can be imported into the current wiki by using the Special::[[WoaS::Help::Special::Import|Import]] page. \x3C\x3C\x3Cwoas.note: To import a version 0.9.6B or earlier WoaS file you will need a WoaS 0.11.x release as this WoaS cannot import it.\x3E\x3E\x3E\n\
-Help pages and the WoaS JavaScript code are not imported so it is always best to import an older wiki into a current one as this will also update the older wiki.\n\
+Help pages and the WoaS Javascript code are not imported so it is always best to import an older wiki into a current one as this will also update the older wiki.\n\
 # Access [[Special::Import]] either directly or from [[Special::Advanced#Maintenance]]\n\
 # Click the *Browse* button and select the wiki you\'d like to import\n\
 # Choose the settings you\'d like to use.\x3C\x3C\x3Cwoas.note: If you are importing WoaS \x3C 0.12.0 it is much better to import CSS manually and not automatically because CSS definitions have changed\x3E\x3E\x3E\n\
@@ -3088,12 +3121,16 @@ This method is used to import pages that have been exported using the WSIF forma
 '\x3Cinput style="font-size:.75em;" id="menu_string_to_search" type="text" size="20" onkeydown="return menu_key_hook(event)" onfocus="menu_search_focus(true)" onblur="menu_search_focus(false)" /\x3E&nbsp;\x3Cinput style="font-size:.75em;" class="woas_button" type="button" value="Search" onclick="menu_do_search()" /\x3E\n\
 ',
 '== Exporting into XHTML static pages\n\
-Your WoaS pages can be exported into web-compatible XHTML, CSS and eventually attachment files/images; generated pages do not use JavaScript for rendering and can be efficiently cached by web servers.\n\
+/See: [[WoaS::Help::Special::Export|Special::Export]] for a more detailed explanation./\n\
+\n\
+Your WoaS pages can be exported into web-compatible XHTML, CSS and eventually attachment files/images; generated pages do not use Javascript for rendering and can be efficiently cached by web servers.\n\
 # Access [[Special::Export]] either directly or from [[Special::Advanced#Maintenance]]\n\
 # Modify the export directories if necessary\n\
-# Choose the settings for the export.\x3C\x3C\x3Cwoas.note: Note that the "Run before exporting but do not export the javascript" option means that JavaScript is run and then the XHTML is exported, but the JavaScript source code itself is not. This is useful if you have JavaScript that does custom parsing.\x3E\x3E\x3E\n\
+# Choose the settings for the export.\x3C\x3C\x3Cwoas.note: Note that the "Run before exporting but do not export the Javascript" option means that Javascript is run and then the XHTML is exported, but the Javascript source code itself is not. This is useful if you have Javascript that does custom parsing.\x3E\x3E\x3E\n\
 # Click the *Export XHTML* button. A confirmation will pop up\n\
 == Exporting into WSIF\n\
+/See: [[WoaS::Help::Special::ExportWSIF|Special::ExportWSIF]] for a more detailed explanation./\n\
+\n\
 # Access [[Special::ExportWSIF]] either directly or from [[Special::Advanced#Maintenance]]\n\
 # Modify the export directory if necessary\n\
 # Choose the settings for the export.\x3C\x3C\x3Cwoas.note: Note that you can export into a single WSIF file or multiple WSIF files. Embedded files are exported as individual files unless you choose not to export them as external file blobs, in which case they\'ll be embedded in the WSIF file(s).\x3E\x3E\x3E\n\
@@ -3103,7 +3140,7 @@ The WSIF file(s) in the export directory can now be copied, shared, or stored fo
 ',
 '\x3Cbig style="color:#0A0"\x3E%1 had a little %2\x3C/big\x3E\n\
 ',
-'Transclusion is a special way of [[WoaS::Help::Include wiki page|including a wiki page]] in another wiki page. Instead of just displaying the contents of the included page as is, you can change how the content is displayed depending on how you write the link.\n\
+'Transclusion is the name wikis use to describe [[WoaS::Help::Include wiki page|including a wiki page]] inside another wiki page. WoaS can do something much more powerful than simple transclusion: instead of just displaying the contents of the included page as is, you can change how the content is displayed depending on how you write the link.\n\
 \n\
 This method requires that you create a page to be used as a template. This page must contain variables represented by %1, %2, %3, and so on.\n\
 \n\
@@ -3171,14 +3208,14 @@ Available options for imported pages whose title collides with existing page tit
 * *Overwrite* - replace existing page with imported page\n\
 * *Ask before overwrite* - ask for each colliding page before replacing\n\
 == Security\n\
-General JavaScript security options to prevent possibly malicious code from being imported.\n\
-* *Comment JavaScript tags*: convert all {{{\x3Cscript ...\x3E...\x3C/script\x3E}}} tags to {{{\x3Cdisabled_script ...\x3E...\x3C/disabled_script\x3E}}}\n\
+General Javascript security options to prevent possibly malicious code from being imported.\n\
+* *Comment Javascript tags*: convert all {{{\x3Cscript ...\x3E...\x3C/script\x3E}}} tags to {{{\x3Cdisabled_script ...\x3E...\x3C/disabled_script\x3E}}}\n\
 * *Comment macro definition/call*: comment all macro definitions/calls {{{\x3C\x3C\x3C...\x3E\x3E\x3E}}} so that they are not parsed/called\n\
 * *Import pages of the WoaS:: namespace*: allow importing hotkeys, plugins, aliases and custom CSS\n\
 \n\
-*Note:* if you have enabled some JavaScript code by mistake you should enable *safe mode* in [[Special::Options]]\n\
+*Note:* if you have enabled some Javascript code by mistake you should enable *safe mode* in [[Special::Options]]\n\
 ',
-'Lines that do not start with \'$\' are ignored\n\
+'Lines that do not start with \'$\' are ignored.\n\
 \n\
 Hotkeys\n\
 -------\n\
@@ -3188,9 +3225,6 @@ $EDIT     e\n\
 $PRINT    p\n\
 $HELP     h\n\
 $GOTO     g\n\
-\n\
-Key bindings\n\
-------------\n\
 \n\
 Cancel key is by default escape (ASCII 0x1b)\n\
 $CANCEL   0x1b\n\
@@ -3202,7 +3236,8 @@ Custom hotkeys\n\
 --------------\n\
 \n\
 You can define custom hotkeys here and the associated\n\
-JavaScript function in a plugin; disabled example:\n\
+Javascript function in a plugin (see Help).\n\
+This example is disabled:\n\
 \n\
 ;$CUSTOM(home)    m\n\
 ',
@@ -3320,7 +3355,7 @@ body, div, textarea, pre, ul, ol, li {\n\
 /* _BROWSER RESET VALUES */\n\
 \n\
 ul, ol {\n\
-	margin: .75em 0px .75em 1em\n\
+	margin: .75em 0px .75em 1.25em\n\
 }\n\
 li {\n\
 	padding-bottom: .125em\n\
@@ -3551,7 +3586,7 @@ explicit margins are needed for IE6/7 otherwise collapsed under certain circumst
 }\n\
 .woas_help_code {\n\
 	font-family: monospace;\n\
-	padding: 0.438em\n\
+	padding: 0.5em\n\
 }\n\
 .woas_help_text {\n\
 	font-family: lucida;\n\
@@ -3960,7 +3995,7 @@ body {\n\
 	display: none\n\
 }\n\
 ',
-'You can define key bindings for hotkeys and access keys by editing the [[WoaS::Hotkeys]] page.\n\
+'You can define key bindings for hotkeys (also called \'access keys\') by editing the [[WoaS::Hotkeys]] page.\n\
 \n\
 Example:\n\
 {{{\n\
@@ -3969,27 +4004,27 @@ $EDIT e\n\
 }}}\n\
 The *$SAVE* and *$EDIT* definitions identify a WoaS action, while the /\'s\'/ and /\'e\'/ characters identify the associated hotkey.\n\
 \n\
-See also [[http://en.wikipedia.org/wiki/Access_keys]].\n\
+See the Wikipedia [[http://en.wikipedia.org/wiki/Access_key|Access key]] entry for details on how different browsers access these keys.\n\
 == Custom hotkeys\n\
-You can create a custom hotkey associated to a JavaScript function to be called when that hotkey is activated.\n\
+You can create a custom hotkey associated with a Javascript function that will be called when that hotkey is activated.\n\
 \n\
 Example:\n\
 {{{\n\
 $CUSTOM(myfunction)     k\n\
 }}}\n\
-The /myfunction/ JavaScript function will be called (without arguments) when the /\'k\'/ hotkey is activated.\n\
+The /myfunction/ Javascript function will be called (without arguments) when the /\'k\'/ hotkey is activated.\n\
 ',
 'All pages of the [[WoaS::Plugins::]] namespace are WoaS plugins; plugins are executed when loading WoaS and remain active during WoaS usage. The WoaS project has plugin examples available for code syntax highlighting, MathML display, and charting; these are found in the /Plugins/ directory of the download. One powerful use of plugins is to load a [[WoaS::Help::Macros|macro]], or a set of macros, that will be available to all pages. The plugins directory also contains an Italian translation plug-in, though translation support is not yet fully capable in WoaS.\n\
 \n\
 You can share WoaS plugins as [[WoaS::Help::WSIF|WSIF]] files by exporting them.\n\
 == External plugins\n\
-A WoaS plugin is just JavaScript code, unless you create a plugin whose name starts with \'@\'. Such plugins are made up of external file references and a specific notation to force the browser into a specific inclusion mode.\n\
+A WoaS plugin is just Javascript code, unless you create a plugin whose name starts with \'@\'. Such plugins are made up of external file references and a specific notation to force the browser into a specific inclusion mode.\n\
 \n\
 Example:\n\
 {{{path/to/mylib1.js = +*\n\
 path/to/mylib2.js = @*}}}\n\
 \n\
-The first resource, {{{path/to/mylib1.js}}}, will be included as an inline JavaScript (e.g. like source code inside a {{{\x3Cscript /\x3E}}} tag), while the second, {{{path/to/mylib2.js}}}, will be included as external ({{{\x3Cscript /\x3E}}} tag with proper \'src\' attribute).\n\
+The first resource, {{{path/to/mylib1.js}}}, will be included as an inline Javascript (e.g. like source code inside a {{{\x3Cscript \x3E}}} tag), while the second, {{{path/to/mylib2.js}}}, will be included using an external ({{{\x3Cscript\x3E}}} tag with proper \'src\' attribute).\n\
 === Inclusion operators\n\
 There are two inclusion operators which are valid for resource definitions:\n\
 * *+* - which leads to inline inclusion\n\
@@ -4033,8 +4068,8 @@ An alias is added by editing the [[WoaS::Aliases]] reserved page and adding an a
 \x3Clabel\x3E\x3Cinput type="radio" id="woas_import_overwrite" name="woas_import_overwrite" onclick="woas.importer.i_overwrite=2"\x3EOverwrite\x3C/label\x3E\n\
 \x3C/fieldset\x3E\\\n\
 \x3Cfieldset id="woas_import_security" class="woas_input_wrap"\x3E\x3Clegend\x3ESecurity\x3C/legend\x3E\\\n\
-\x3Cdiv class="woas_input_wrap_left"\x3E/If you don\'t trust the pages you are importing you may want to disable imported JavaScript, macros, and special WoaS pages until you can review their content./\x3C/div\x3E\n\
-\x3Clabel\x3E\x3Cinput type="checkbox" id="woas_cb_import_comment_js" onclick="woas.importer.i_comment_js=this.checked"\x3EComment JavaScript tags\x3C/label\x3E\n\
+\x3Cdiv class="woas_input_wrap_left"\x3E/If you don\'t trust the pages you are importing you may want to disable imported Javascript, macros, and special WoaS pages until you can review their content./\x3C/div\x3E\n\
+\x3Clabel\x3E\x3Cinput type="checkbox" id="woas_cb_import_comment_js" onclick="woas.importer.i_comment_js=this.checked"\x3EComment Javascript tags\x3C/label\x3E\n\
 \x3Clabel\x3E\x3Cinput type="checkbox" id="woas_cb_import_comment_macros" onclick="woas.importer.i_comment_macros=this.checked"\x3EComment macro definition/call\x3C/label\x3E\n\
 \x3Clabel\x3E\x3Cinput type="checkbox" id="woas_cb_import_no_woas" onclick="woas.importer.i_no_woas=this.checked"\x3EDo not import [[WoaS::]] namespace pages ([[WoaS::Hotkeys|hotkeys]], [[WoaS::Plugins|plugins]], and [[WoaS::Aliases|aliases]])\x3C/label\x3E\n\
 \x3C/fieldset\x3E\n\
@@ -4151,12 +4186,12 @@ For example, if the default extension is used and this option is enabled, the ma
 ===Use UNIX-style normalization (lower-case letters and spaces replaced by underscores) to generate file names\n\
 If this option is enabled, all exported file names will be in lower case with all spaces and non-alphanumeric characters replaced by underscores, otherwise the files will be named according to the page name.\n\
 == Custom page scripts\n\
-===Do not export JavaScript\n\
+===Do not export Javascript\n\
 If selected any scripts embedded in the page to be exported will not be run before exporting the page, nor will they be included in the exported XHTML file.\n\
-===Export JavaScript as-is\n\
+===Export Javascript as-is\n\
 If selected any scripts embedded in the page to be exported will be included in the parsed, exported XHTML file in the same position they were found in the WoaS page. They will not be run before exporting.\n\
-===Run before exporting but do not export the JavaScript\n\
-If selected any scripts embedded in the page to be exported will be run before exporting the parsed, exported XHTML file. This is only useful if a script on the page affects the parsed output -- a syntax highlighter, for example -- and it is desired that the exported pages do not require the viewer to have JavaScript enabled in their browser as the scripts themselves will not be exported.\n\
+===Run before exporting but do not export the Javascript\n\
+If selected any scripts embedded in the page to be exported will be run before exporting the parsed, exported XHTML file. This is only useful if a script on the page affects the parsed output -- a syntax highlighter, for example -- and it is desired that the exported pages do not require the viewer to have Javascript enabled in their browser as the scripts themselves will not be exported.\n\
 == Other options\n\
 ===META author (optional)\n\
 If a name is in this box it will be used as the content of an HTML author meta tag inserted into each exported HTML page. If the box is empty, the HTML author meta tag will not be inserted into any of the exported HTML pages.\n\
@@ -4194,7 +4229,7 @@ Gives the import interface blanket permission to overwrite existing pages in the
 ===Ask before overwrite\n\
 Forces the import interface to ask your permission to overwrite individual pages in the destination file.\n\
 == Security\n\
-===Comment JavaScript tags\n\
+===Comment Javascript tags\n\
 Inserts /disabled_/ into any script tags in the pages that are imported into the destination file so that scripts will not run.\n\
 \n\
 Example script tag:\n\
@@ -4262,7 +4297,7 @@ If the wiki is erased the menu contents are slightly reduced, with less often us
 '
 ];
 
-/* DFQRCTsKlU-0000001-END */
+/* DFQRCTsKlU-0000002-END */
 
 /* ]]> */
 </script>
@@ -5081,7 +5116,7 @@ woas.utf8 = {
 			return this.decode( woas.merge_bytes( byte_arr ) );
 		}
 		catch (e) {
-			woas.log(e);	//log:1
+			woas.log('ERROR - woas.utf8.decode_from_array: '+e);	//log:1
 		}
 		return null;
 	},
@@ -5259,10 +5294,14 @@ woas._data_uri_enc_array = function(filename, arr, guess_mime) {
 };
 
 // save the currently open WoaS
+// PVHL: file_mode has to be UTF8, or Java saves in Windows with CRLF, except
+//   Opera which saves LFCRLF. A note somewhere says some browsers can't do this
+//   but I haven't been able to find one that doesn't. Which ones? Java should
+//   be the same for all, and supported IE & FF can save UTF8 AFAIK. Will test
 woas._save_this_file = function(new_data, old_data) {
 	var filename = _get_this_filename();
 
-	var r = woas.save_file(filename, this.file_mode.ASCII_TEXT,
+	var r = woas.save_file(filename, this.file_mode.UTF8_TEXT, // was ASCII_TEXT
 		this.DOCTYPE + this.DOC_START + "<"+"script woas_permanent=\"1\" type=\"tex"+"t/javascript\">"
 		+ new_data + "\n" + old_data + "<"+"/html>");
 	if (r)
@@ -5294,7 +5333,7 @@ woas.save_file = function(fileUrl, save_mode, content) {
 		r = this.mozillaSaveFile(fileUrl, save_mode, content);
 	} else if (this.browser.ie) {
 		r = this.ieSaveFile(fileUrl, save_mode, content);
-	} else if (!this.use_java_io) {
+	} else if (this.use_java_io) {
 		r = this.javaSaveFile(fileUrl, save_mode, content);
 	}
 	if (r === null) {
@@ -5344,7 +5383,7 @@ woas.mozillaLoadFileID = function(obj_id, load_mode, suggested_mime) {
 //
 // Refactored by PVHL for FF7 breakdown. NOTE: FF7 broke because they went to standards.
 // WoaS must be rewritten for asynchronous file read as this is the future standard;
-// once done modern browsers will be able to read/write without Java -- including binary..
+// once done modern browsers will be able to read/write without Java -- including binary.
 // Same probably true for write also -- haven't researched it yet.
 //
 // fileUrl is null if interactive read from file control.
@@ -5462,7 +5501,7 @@ woas.ieLoadFile = function(filePath, load_mode, suggested_mime) {
 		fso = new ActiveXObject("Scripting.FileSystemObject");
 	}
 	catch (e) {
-		woas.log(e);
+		woas.log('ERROR - woas.ieLoadFile: '+e);
 		return null;
 	}
 	try {
@@ -5763,7 +5802,6 @@ woas._save_to_file = function(full) {
 		bak_mts = this.getHTMLDiv(d$("woas_mts")),
 		bak_mts_shown = !this.ui.display("no_mts"),
 		bak_wait_text = this.getHTML(d$("woas_wait_text")),
-		bak_debug = d$("woas_debug_log").value,
 	// clear titles and css as well as they will be set on load.
 		bak_title = this.getHTMLDiv(d$("woas_title"));
 
@@ -5772,7 +5810,6 @@ woas._save_to_file = function(full) {
 	this.setHTMLDiv(d$("woas_menu"), "");
 	this.setHTMLDiv(d$("woas_mts"), "");
 	this.setHTMLDiv(d$("woas_title"), "");
-	d$("woas_debug_log").value = "";
 
 	// set the loading message
 	this.setHTML(d$("woas_wait_text"), this.i18n.LOADING);
@@ -5811,7 +5848,6 @@ woas._save_to_file = function(full) {
 	this.setHTMLDiv(d$("woas_page"), bak_tx);
 	this.setHTMLDiv(d$("woas_menu"), bak_mn);
 	this.setHTMLDiv(d$("woas_mts"), bak_mts);
-	d$("woas_debug_log").value = bak_debug;
 	this.setHTMLDiv(d$("woas_title"), bak_title);
 	
 	//TODO: re-run after parsing hooks
@@ -5934,18 +5970,18 @@ woas._extract_src_data = function(marker, source, full, current_page, data_only)
 			if (tag === "style") {
 				was_replaced = true;
 				if (l_attrs.indexOf("woas_core_style=")!==-1) {
-					woas.log("Replacing CSS");
+//					woas.log("Replacing CSS");
 					needle = m[0]+woas.get_text("WoaS::CSS::Boot")+m2[0];
 				} // else leave as-is
 			} else if (tag === "title") {
-				woas.log("Replacing title");
+//				woas.log("Replacing title");
 				needle = m[0]+woas.xhtml_encode(current_page)+m2[0];
 				was_replaced = true;
 			}
 			}
 			// will leave tag untouched
 		} else {
-			woas.log("Removing tag "+tag);
+//			woas.log("Removing tag "+tag);
 			needle = "";
 			was_replaced = true;
 		}
@@ -6203,7 +6239,15 @@ _raw_preformatted: function(tag, text, cls, add_style) {
 
 // render a single wiki link
 _render_wiki_link: function(target, label, snippets, tags, export_links) {
-	if (label === undefined) label = '';
+	if (/"/.test(target)) {
+		// PVHL: " will break link - current code does not allow.
+		return woas.parser.place_holder(snippets,
+			'[[<'+'span style="color:#f00">'+target+'<'+'/span>'+
+			(label ? '|'+label : '')+']]');
+	}
+	if (label === undefined) {
+		label = '';
+	}
 	var page = woas.title_unalias(target), // apply aliases to page title
 		hashloc = page.indexOf('#'),
 		r_label = (label === '') ? page : label,
@@ -7840,6 +7884,9 @@ woas.history = (function(){ // woas.history closure
 	
 	// push a page into history
 	function store(page) {
+		if (/^(Lock|Javascript)::/.test(current)) {
+			return;
+		}
 		if (backstack.length > woas.history.MAX_BROWSE_HISTORY)
 			backstack = backstack.slice(1);
 		backstack.push(page);
@@ -7868,7 +7915,7 @@ woas.history = (function(){ // woas.history closure
 	
 	back: function() {
 		if (backstack.length > 0) {
-			if (!/^Lock::/.test(current)) {
+			if (!/^(Lock|Javascript)::/.test(current)) {
 				forstack.push(current);
 			}
 			var title = backstack.pop();
@@ -7890,7 +7937,7 @@ woas.history = (function(){ // woas.history closure
 	},
 	
 	go: function(title, keep_fwd) {
-		if (!going_back && !woas.ui.edit_mode && current !== title && !/^Lock::/.test(current)) {
+		if (!going_back && !woas.ui.edit_mode && current !== title) {
 			store(current);
 		}
 		if (!keep_fwd && !going_forward && !going_back/* && !/^Lock::/.test(title)*/) {
@@ -8980,17 +9027,23 @@ woas._get_special = function(cr, interactive) {
 	return text;
 };
 
-// this is quite undocumented
 woas.get_javascript_page = function(cr) {
-	var emsg = "-", text;
-	text = woas.eval(cr, true);
+	var text = woas.eval(cr, true);
 	if (this.eval_failed) {
-		this.crash("Dynamic evaluation of '"+cr+"' failed!\n\nError message:\n\n"+this.eval_fail_msg);
+		this.crash(this.i18n.JS_PAGE_FAIL1.sprintf(cr) +
+			this.i18n.JS_PAGE_FAIL2 + this.eval_fail_msg);
 		return null;
 	}
-	// for safety
-	if ((typeof text).toLowerCase() != "string")
+	// safety check; returned value contains ['title', 'body'] or 'body'
+	// parser allows title to be empty string; body can't be empty
+	if (((text instanceof Array) && (text.length !== 2 || (typeof text[0]) !==
+			'string' || (typeof text[1]) !== 'string' || !text[1] )) ||
+			!(text instanceof Array) && (typeof text) !== "string") {
+		this.crash(this.i18n.JS_PAGE_FAIL1.sprintf(cr) +
+			this.i18n.JS_PAGE_FAIL3.sprintf(text, text instanceof Array
+			? 'array' : typeof text));
 		return null;
+	}
 	return text;
 };
 
@@ -9038,11 +9091,20 @@ woas.set_current = function (cr, interactive, keep_fwd) {
 			cr = cr.substring(p+2);
 				switch (namespace) {
 					case "Javascript":
-					// this namespace may deprecate many others
-					text = this.get_javascript_page(cr);
-					if (text === null)
-						return false;
-					break;
+						// this namespace may deprecate many others
+						text = this.get_javascript_page(cr);
+						if (text === null) {
+							return false;
+						} else if (text instanceof Array) {
+							// allows function to return [title, body]
+							if (!text[1]) {
+								return false;
+							}
+							// title allowed to be empty string: 'Javascript::'
+							cr = text[0];
+							text = text[1];
+						}
+						break;
 					case "Special":
 						text = this._get_special(cr, interactive);
 						//the 'false' special value is returned in case of command execution
@@ -9303,7 +9365,7 @@ woas._on_load = function() {
 	this._set_debug(this.config.debug_mode, this.config.debug_closed);
 	d$("woas_debug_log").value = ""; // for Firefox
 	// output platform information - note that revision is filled in only in releases
-	woas.log("*** WoaS v"+this.version+"-pvhl-r2475"+" started");	// log:1
+	woas.log("*** WoaS v"+this.version+"-pvhl-r2478"+" started");	// log:1
 	// needed to check if data source changes; forces full save when entering/exiting
 	// WSIF datasource mode or changing the name of the data source file
 	this._old_wsif_ds = is_windows
@@ -9753,6 +9815,8 @@ woas.save_page_i = function(pi) {
 woas.create_breadcrumb = function(title) {
 	if (title === "::Menu") {
 		return title;
+	} else if (title.indexOf('Javascript::') === 0) {
+		return 'Javascript :: ' + title.substr(12);
 	}
 	var tmp = title.split("::");
 	if (tmp.length === 1)
@@ -9786,6 +9850,14 @@ woas.scripting = {
 	_page_stacked: 0,	// ''
 
 	// remove all scripts from specified array (can be 'menu' or 'page')
+/*
+PVHL:
+  scripting needs to be rethought; Javascript tags can be removed from the DOM
+  without affecting the code that the tag initialized; it survives. Would need
+  to have all scripts added to a namespace closure so that the namespace could
+  be cleared. Facebook does something like this, as does adSafe, I believe,
+  but it is not a trivial implementation task.
+*/
 	clear: function(which) {
 		for(var i=0;i < this["_"+which+"_stacked"];++i) {
 			woas.dom.remove_script(which, i);
@@ -10805,6 +10877,9 @@ woas.i18n = {
 	INVALID_DATA:"Invalid collected data!",
 	INVALID_PAGE: "Invalid %s page.",
 	INVALID_TITLE: "Title cannot contain ':::' or any of these characters:\n# \" | < > [ ] { }",
+	JS_PAGE_FAIL1: "Dynamic evaluation of '%s' failed!",
+	JS_PAGE_FAIL2: "\n\nError message:\n\n",
+	JS_PAGE_FAIL3: "\n\nInvalid return value or type:\n\nValue: '%s'\nType: '%s'",
 	LAST_MODIFIED: "Last modified: ",
 	LOADING: "Loading Wiki on a Stick...",
 	LOAD_ERR: "Cannot load specified file.",
@@ -10813,7 +10888,6 @@ woas.i18n = {
 	NO_ERROR: "No error",
 	NO_JAVA:"It was not possible to use TiddlySaver Java applet nor direct Java saving.",
 	NO_TIDDLY_SAVER:"The TiddlySaver Java applet was not available.",
-	// PVHL: not possible yet.
 	NOT_A_NS:"/'%s' is a reserved namespace that is not listable. See [[WoaS::Help::Namespaces#Reserved namespaces|Help]]./",
 	NOT_YET_IMPLEMENTED: "Feature not implemented yet.",
 	NOTE_TEXT: "NOTE:",
@@ -11470,8 +11544,8 @@ woas.importer = {
 //   failures can leave things in an unknown state.
 woas.import_wiki = function() {
 	var cfg = this.importer.i_config, pgs = woas.importer.i_content,
-		sty = this.importer.i_styles,	ct, rv, v, msg;
-	if (!(cfg || pgs || sty) || !woas._import_pre_up(false)) {console.log('fail')
+		sty = this.importer.i_styles, ct, rv, v, msg;
+	if (!(cfg || pgs || sty) || !woas._import_pre_up(false)) {
 		return false;
 	}
 
@@ -11624,10 +11698,10 @@ woas.exporter = {
 			}
 		}
 
-		var pg = page_titles[pi], l = page_titles.length, fname = "",
-			done = 0, total = 0, mnupos;
+		var pg, pi, l, fname = "", done = 0, total = 0, mnupos;
 		data = null;
-		for (var pi=0;pi < l;pi++) {
+		for (pi = 0, l = page_titles.length; pi < l; pi++) {
+			pg = page_titles[pi];
 			// do skip physical special pages
 			if (pg.match(/^Special::/)) continue;
 			if (woas.static_pages2.indexOf(pg) !== -1) continue;
@@ -11996,7 +12070,7 @@ e.g.: the whole wiki was being deleted if there was a data source path error.
 I have modified the WSIF object to allow loading and saving of the files
 WoaS is able to export with Special::ExportWSIF. To make this safer, I have
 added a new header: 'wsif.type: index'. Recursion is allowed if the root file
-is is an index and/or the external file has a mime-type. This works in testing
+is an index and/or the external file has a mime-type. This works in testing
 with image files, but only in Firefox because binary load and save doesn't work
 yet in other browsers. WoaS 0.12.0 fails silently, possibly corrupting the wiki.
 
@@ -12848,6 +12922,13 @@ woas.ui = {
 	
 	// event called on key press
 	//NOTE: since this is attached directly to DOM, you should not use 'this'
+/*
+PVHL: FIX; this needs to be changed as
+ 1. every user page that adds a text input control needs to know about setting
+    blur/focus textbox or else pressing backspace goes back a page.
+ 2. (comment belongs in hotkey code) deleting a custom key (like back/escape)
+    does not remove it from access keys. User desires need to be recognized.
+*/
 	_keyboard_event_hook: function(orig_e) {
 		var e = orig_e || window.event,
 			ck = e.keyCode || e.which;
@@ -12873,20 +12954,16 @@ woas.ui = {
 				ff_fix_focus();
 				return false;
 			}
-		}
-		// cancel key
-		if (ck == woas.hotkey.all.cancel) {
+		} else if (ck == woas.hotkey.all.cancel) {
+			// cancel key in edit mode
 			woas.ui.cancel();
 			ff_fix_focus();
 			return false;
 		}
 		return orig_e;
 	},
-	// could have a better name
-	// PVHL: most of this should be moved into woas.help_system
-	//  Also, allow an optional page title to be passed in, even if in editor
-	//  This function now sends help system just the help page name (everything
-	//  after WoaS::Help)
+	//  PVHL: This function now sends help system just the help page name
+	//  (everything after WoaS::Help)
 	help: function() {
 		var pg;
 		// we are editing
@@ -13180,10 +13257,6 @@ woas.ui._textbox_enter_event = woas.ui._textbox_enter_event_dummy;
 //API1.0
 // PVHL: should make go_to create history but not set_current; would make history easier
 woas.go_to = function(cr) {
-	// don't go anywhere while editing!
-	if (this.ui.edit_mode) {
-		return false;
-	}
 	var parts = cr.split('#'), section = parts[1], r = true, mv = 0, el;
 	cr = parts[0];
 	if (cr.indexOf(this.help_system._pfx) === 0 && cr.substr(-2) !== '::'
@@ -13196,6 +13269,10 @@ woas.go_to = function(cr) {
 		}
 		woas.help_system.go_to(parts);
 		return true;
+	}
+	// don't go anywhere while editing!
+	if (this.ui.edit_mode) {
+		return false;
 	}
 	if (cr && cr !== current) {
 			r = this.set_current(cr, true);
@@ -13288,7 +13365,7 @@ function d$(id) {\n\
 function help_resize() {\n\
 	var top = d$('woas_help_top_wrap').offsetHeight,\n\
 		body = d$('woas_help_body_wrap');\n\
-	body.style.top = top; // stops a slight flash on some browsers\n\
+	body.style.top = top + 'px'; // stops a slight flash on some browsers\n\
 	body.style.height = document.body.offsetHeight - top + 'px';\n\
 }\n\
 window.onresize = help_resize;\n"
@@ -13347,6 +13424,16 @@ type="button" /><'+'input tabindex=1 class="woas_help_button" value="Index" oncl
 		}
 		// allow overriding this function
 		this.make_pop_up(pg);
+/*
+PVHL:
+  any help page scripts are only active for main window (allows use of examples
+  in main window). This works for now because Javascript code doesn't work the
+  way the scripting module assumes: removing a script tag does NOT remove the
+  code that tag created; the tag could be removed immediately after creation
+  withoout affecting anything. Until scripting is rewritten to fix the clear
+  function this activation is sufficient.
+*/	
+		woas.scripting.activate("page");
 	},
 
 	// PVHL: create a custom help page from scratch that works in all browsers
@@ -13906,6 +13993,7 @@ woas.ui._resize = (function() {
 			var e = d$('woas_editor'), h = e.offsetHeight +
 				document.documentElement.clientHeight - document.body.offsetHeight;
 			if (woas.browser.ie && Number(woas.browser.ie) < 7) {
+				// stops IE6 textarea overflow; will fix later
 				e.style.width = 0;
 				e.style.width = d$('woas_editor_sizer').offsetWidth + 'px';
 			}
@@ -13927,8 +14015,8 @@ woas._set_debug = function(status, closed) {
 	if (status) {
 	// logging function - used in development; call without argument to scroll to bottom
 	// and see if we are in debug mode
-		woas.log = function (aMessage) {
-			if (typeof aMessage !== "undefined") {
+		woas.log = function (msg) {
+			if (msg) {
 				if (!woas.tweak.integrity_test) {
 					// log up to max lines; 'cut' lines removed if too big
 					if (++lines === max) { // lines is line count now, before this post
@@ -13938,25 +14026,27 @@ woas._set_debug = function(status, closed) {
 						position = logbox.value.length;
 					}
 				}
-				logbox.value += aMessage + '\n';
+				logbox.value += msg + '\n';
+				// same msg to console
+				if (console) {
+					console.log(msg);
+				// kept as it was here first
+				} else if (window.opera) {
+					opera.postError(msg);
+				}
 			}
 			// keep the log scrolled down
 			logbox.scrollTop = logbox.scrollHeight;
-			if(window.opera)
-				opera.postError(aMessage);
 			return true;
 		};
 		// activate debug icon
-		this.ui.display({no_debug: false});
-		this.ui.display({no_log: closed});
-		// hide the progress area
-		this.ui.display({wait: false});
+		this.ui.display({no_debug: false, no_log: closed});
 	} else {
-		this.ui.display({no_debug: true});
-		this.ui.display({no_log: true});
+		this.ui.display({no_debug: true, no_log: true});
 		logbox.value = '';
 		woas.log = function() { return false; };
 	}
+	// hide the progress area - PVHL: why done here?
 	this.ui.display({wait: false});
 	window.log = woas.log // for deprecated function - legacy.js
 };
@@ -14468,7 +14558,7 @@ Wiki Code:
 <input class="woas_button_editor" title="Image link" value="Image" onclick="setHTMLImage()" type="submit" />
 <input class="woas_button_editor" title="External link" value="Link" onclick="setHTMLUrl()" type="submit" />
 </div>
-<div id="woas_editor_container"><div id="woas_editor_sizer"><textarea style="height: 410px;" id="woas_editor" rows="0" cols="0"></textarea></div></div>
+<div id="woas_editor_container"><div id="woas_editor_sizer"><textarea style="height: 584px;" id="woas_editor" rows="0" cols="0"></textarea></div></div>
 </div>
 <div id="woas_footer_wrap"><div id="woas_footer"><div id="woas_footer_panel">
 <div id="woas_about"><a title="About Wiki on a Stick" onclick="woas.ui.about()">About Wiki on a Stick v0.12.0</a></div>
