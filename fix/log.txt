@@ -7,7 +7,12 @@ Changes since Revision pvhl-2317 (git: 3d939c7)
 
 (needing to archive my work in an incomplete though working state; export probably isn't working right yet)
 
-* update import help page
+* rename 'Transclusion' help page to 'Template transclusion' and update associated help pages
+* fix errors in java saving (one mine from refactoring code; one original; now works in Windows Chrome & Opera)
+* disallow " in wiki links (they break the link and aren't allowed by code)
+* replace all occurrences of JavaScript with Javascript to avoid namespace confusion
+* refactor Javascript:: namespace to allow title declaration, and update help page
+* update Import and Options help pages
 * allow import of CSS only from HTML file (CSS & Config allows import of wiki setup without content)
 * fix failure to update display when importing configuration and improve import reporting
 * dim debug button instead of removing

@@ -166,7 +166,15 @@ _raw_preformatted: function(tag, text, cls, add_style) {
 
 // render a single wiki link
 _render_wiki_link: function(target, label, snippets, tags, export_links) {
-	if (label === undefined) label = '';
+	if (/"/.test(target)) {
+		// PVHL: " will break link - current code does not allow.
+		return woas.parser.place_holder(snippets,
+			'[[<'+'span style="color:#f00">'+target+'<'+'/span>'+
+			(label ? '|'+label : '')+']]');
+	}
+	if (label === undefined) {
+		label = '';
+	}
 	var page = woas.title_unalias(target), // apply aliases to page title
 		hashloc = page.indexOf('#'),
 		r_label = (label === '') ? page : label,

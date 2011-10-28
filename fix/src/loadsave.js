@@ -42,10 +42,14 @@ woas._data_uri_enc_array = function(filename, arr, guess_mime) {
 };
 
 // save the currently open WoaS
+// PVHL: file_mode has to be UTF8, or Java saves in Windows with CRLF, except
+//   Opera which saves LFCRLF. A note somewhere says some browsers can't do this
+//   but I haven't been able to find one that doesn't. Which ones? Java should
+//   be the same for all, and supported IE & FF can save UTF8 AFAIK. Will test
 woas._save_this_file = function(new_data, old_data) {
 	var filename = _get_this_filename();
 
-	var r = woas.save_file(filename, this.file_mode.ASCII_TEXT,
+	var r = woas.save_file(filename, this.file_mode.UTF8_TEXT, // was ASCII_TEXT
 		this.DOCTYPE + this.DOC_START + "<"+"script woas_permanent=\"1\" type=\"tex"+"t/javascript\">"
 		+ new_data + "\n" + old_data + "<"+"/html>");
 	if (r)
@@ -77,7 +81,7 @@ woas.save_file = function(fileUrl, save_mode, content) {
 		r = this.mozillaSaveFile(fileUrl, save_mode, content);
 	} else if (this.browser.ie) {
 		r = this.ieSaveFile(fileUrl, save_mode, content);
-	} else if (!this.use_java_io) {
+	} else if (this.use_java_io) {
 		r = this.javaSaveFile(fileUrl, save_mode, content);
 	}
 	if (r === null) {
@@ -127,7 +131,7 @@ woas.mozillaLoadFileID = function(obj_id, load_mode, suggested_mime) {
 //
 // Refactored by PVHL for FF7 breakdown. NOTE: FF7 broke because they went to standards.
 // WoaS must be rewritten for asynchronous file read as this is the future standard;
-// once done modern browsers will be able to read/write without Java -- including binary..
+// once done modern browsers will be able to read/write without Java -- including binary.
 // Same probably true for write also -- haven't researched it yet.
 //
 // fileUrl is null if interactive read from file control.
@@ -245,7 +249,7 @@ woas.ieLoadFile = function(filePath, load_mode, suggested_mime) {
 		fso = new ActiveXObject("Scripting.FileSystemObject");
 	}
 	catch (e) {
-		woas.log(e);
+		woas.log('ERROR - woas.ieLoadFile: '+e);
 		return null;
 	}
 	try {
@@ -546,7 +550,6 @@ woas._save_to_file = function(full) {
 		bak_mts = this.getHTMLDiv(d$("woas_mts")),
 		bak_mts_shown = !this.ui.display("no_mts"),
 		bak_wait_text = this.getHTML(d$("woas_wait_text")),
-		bak_debug = d$("woas_debug_log").value,
 	// clear titles and css as well as they will be set on load.
 		bak_title = this.getHTMLDiv(d$("woas_title"));
 
@@ -555,7 +558,6 @@ woas._save_to_file = function(full) {
 	this.setHTMLDiv(d$("woas_menu"), "");
 	this.setHTMLDiv(d$("woas_mts"), "");
 	this.setHTMLDiv(d$("woas_title"), "");
-	d$("woas_debug_log").value = "";
 
 	// set the loading message
 	this.setHTML(d$("woas_wait_text"), this.i18n.LOADING);
@@ -594,7 +596,6 @@ woas._save_to_file = function(full) {
 	this.setHTMLDiv(d$("woas_page"), bak_tx);
 	this.setHTMLDiv(d$("woas_menu"), bak_mn);
 	this.setHTMLDiv(d$("woas_mts"), bak_mts);
-	d$("woas_debug_log").value = bak_debug;
 	this.setHTMLDiv(d$("woas_title"), bak_title);
 	
 	//TODO: re-run after parsing hooks
@@ -717,18 +718,18 @@ woas._extract_src_data = function(marker, source, full, current_page, data_only)
 			if (tag === "style") {
 				was_replaced = true;
 				if (l_attrs.indexOf("woas_core_style=")!==-1) {
-					woas.log("Replacing CSS");
+//					woas.log("Replacing CSS");
 					needle = m[0]+woas.get_text("WoaS::CSS::Boot")+m2[0];
 				} // else leave as-is
 			} else if (tag === "title") {
-				woas.log("Replacing title");
+//				woas.log("Replacing title");
 				needle = m[0]+woas.xhtml_encode(current_page)+m2[0];
 				was_replaced = true;
 			}
 			}
 			// will leave tag untouched
 		} else {
-			woas.log("Removing tag "+tag);
+//			woas.log("Removing tag "+tag);
 			needle = "";
 			was_replaced = true;
 		}

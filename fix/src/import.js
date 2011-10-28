@@ -617,8 +617,8 @@ woas.importer = {
 //   failures can leave things in an unknown state.
 woas.import_wiki = function() {
 	var cfg = this.importer.i_config, pgs = woas.importer.i_content,
-		sty = this.importer.i_styles,	ct, rv, v, msg;
-	if (!(cfg || pgs || sty) || !woas._import_pre_up(false)) {console.log('fail')
+		sty = this.importer.i_styles, ct, rv, v, msg;
+	if (!(cfg || pgs || sty) || !woas._import_pre_up(false)) {
 		return false;
 	}
 

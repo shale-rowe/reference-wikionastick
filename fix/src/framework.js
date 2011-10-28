@@ -495,7 +495,7 @@ woas.utf8 = {
 			return this.decode( woas.merge_bytes( byte_arr ) );
 		}
 		catch (e) {
-			woas.log(e);	//log:1
+			woas.log('ERROR - woas.utf8.decode_from_array: '+e);	//log:1
 		}
 		return null;
 	},

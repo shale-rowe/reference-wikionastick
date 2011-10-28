@@ -27,6 +27,13 @@ woas.ui = {
 	
 	// event called on key press
 	//NOTE: since this is attached directly to DOM, you should not use 'this'
+/*
+PVHL: FIX; this needs to be changed as
+ 1. every user page that adds a text input control needs to know about setting
+    blur/focus textbox or else pressing backspace goes back a page.
+ 2. (comment belongs in hotkey code) deleting a custom key (like back/escape)
+    does not remove it from access keys. User desires need to be recognized.
+*/
 	_keyboard_event_hook: function(orig_e) {
 		var e = orig_e || window.event,
 			ck = e.keyCode || e.which;
@@ -52,20 +59,16 @@ woas.ui = {
 				ff_fix_focus();
 				return false;
 			}
-		}
-		// cancel key
-		if (ck == woas.hotkey.all.cancel) {
+		} else if (ck == woas.hotkey.all.cancel) {
+			// cancel key in edit mode
 			woas.ui.cancel();
 			ff_fix_focus();
 			return false;
 		}
 		return orig_e;
 	},
-	// could have a better name
-	// PVHL: most of this should be moved into woas.help_system
-	//  Also, allow an optional page title to be passed in, even if in editor
-	//  This function now sends help system just the help page name (everything
-	//  after WoaS::Help)
+	//  PVHL: This function now sends help system just the help page name
+	//  (everything after WoaS::Help)
 	help: function() {
 		var pg;
 		// we are editing
@@ -359,10 +362,6 @@ woas.ui._textbox_enter_event = woas.ui._textbox_enter_event_dummy;
 //API1.0
 // PVHL: should make go_to create history but not set_current; would make history easier
 woas.go_to = function(cr) {
-	// don't go anywhere while editing!
-	if (this.ui.edit_mode) {
-		return false;
-	}
 	var parts = cr.split('#'), section = parts[1], r = true, mv = 0, el;
 	cr = parts[0];
 	if (cr.indexOf(this.help_system._pfx) === 0 && cr.substr(-2) !== '::'
@@ -375,6 +374,10 @@ woas.go_to = function(cr) {
 		}
 		woas.help_system.go_to(parts);
 		return true;
+	}
+	// don't go anywhere while editing!
+	if (this.ui.edit_mode) {
+		return false;
 	}
 	if (cr && cr !== current) {
 			r = this.set_current(cr, true);
@@ -467,7 +470,7 @@ function d$(id) {\n\
 function help_resize() {\n\
 	var top = d$('woas_help_top_wrap').offsetHeight,\n\
 		body = d$('woas_help_body_wrap');\n\
-	body.style.top = top; // stops a slight flash on some browsers\n\
+	body.style.top = top + 'px'; // stops a slight flash on some browsers\n\
 	body.style.height = document.body.offsetHeight - top + 'px';\n\
 }\n\
 window.onresize = help_resize;\n"
@@ -526,6 +529,16 @@ type="button" /><'+'input tabindex=1 class="woas_help_button" value="Index" oncl
 		}
 		// allow overriding this function
 		this.make_pop_up(pg);
+/*
+PVHL:
+  any help page scripts are only active for main window (allows use of examples
+  in main window). This works for now because Javascript code doesn't work the
+  way the scripting module assumes: removing a script tag does NOT remove the
+  code that tag created; the tag could be removed immediately after creation
+  withoout affecting anything. Until scripting is rewritten to fix the clear
+  function this activation is sufficient.
+*/	
+		woas.scripting.activate("page");
 	},
 
 	// PVHL: create a custom help page from scratch that works in all browsers
@@ -1085,6 +1098,7 @@ woas.ui._resize = (function() {
 			var e = d$('woas_editor'), h = e.offsetHeight +
 				document.documentElement.clientHeight - document.body.offsetHeight;
 			if (woas.browser.ie && Number(woas.browser.ie) < 7) {
+				// stops IE6 textarea overflow; will fix later
 				e.style.width = 0;
 				e.style.width = d$('woas_editor_sizer').offsetWidth + 'px';
 			}
@@ -1106,8 +1120,8 @@ woas._set_debug = function(status, closed) {
 	if (status) {
 	// logging function - used in development; call without argument to scroll to bottom
 	// and see if we are in debug mode
-		woas.log = function (aMessage) {
-			if (typeof aMessage !== "undefined") {
+		woas.log = function (msg) {
+			if (msg) {
 				if (!woas.tweak.integrity_test) {
 					// log up to max lines; 'cut' lines removed if too big
 					if (++lines === max) { // lines is line count now, before this post
@@ -1117,25 +1131,27 @@ woas._set_debug = function(status, closed) {
 						position = logbox.value.length;
 					}
 				}
-				logbox.value += aMessage + '\n';
+				logbox.value += msg + '\n';
+				// same msg to console
+				if (console) {
+					console.log(msg);
+				// kept as it was here first
+				} else if (window.opera) {
+					opera.postError(msg);
+				}
 			}
 			// keep the log scrolled down
 			logbox.scrollTop = logbox.scrollHeight;
-			if(window.opera)
-				opera.postError(aMessage);
 			return true;
 		};
 		// activate debug icon
-		this.ui.display({no_debug: false});
-		this.ui.display({no_log: closed});
-		// hide the progress area
-		this.ui.display({wait: false});
+		this.ui.display({no_debug: false, no_log: closed});
 	} else {
-		this.ui.display({no_debug: true});
-		this.ui.display({no_log: true});
+		this.ui.display({no_debug: true, no_log: true});
 		logbox.value = '';
 		woas.log = function() { return false; };
 	}
+	// hide the progress area - PVHL: why done here?
 	this.ui.display({wait: false});
 	window.log = woas.log // for deprecated function - legacy.js
 };

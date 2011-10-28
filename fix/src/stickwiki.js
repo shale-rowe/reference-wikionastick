@@ -533,17 +533,23 @@ woas._get_special = function(cr, interactive) {
 	return text;
 };
 
-// this is quite undocumented
 woas.get_javascript_page = function(cr) {
-	var emsg = "-", text;
-	text = woas.eval(cr, true);
+	var text = woas.eval(cr, true);
 	if (this.eval_failed) {
-		this.crash("Dynamic evaluation of '"+cr+"' failed!\n\nError message:\n\n"+this.eval_fail_msg);
+		this.crash(this.i18n.JS_PAGE_FAIL1.sprintf(cr) +
+			this.i18n.JS_PAGE_FAIL2 + this.eval_fail_msg);
 		return null;
 	}
-	// for safety
-	if ((typeof text).toLowerCase() != "string")
+	// safety check; returned value contains ['title', 'body'] or 'body'
+	// parser allows title to be empty string; body can't be empty
+	if (((text instanceof Array) && (text.length !== 2 || (typeof text[0]) !==
+			'string' || (typeof text[1]) !== 'string' || !text[1] )) ||
+			!(text instanceof Array) && (typeof text) !== "string") {
+		this.crash(this.i18n.JS_PAGE_FAIL1.sprintf(cr) +
+			this.i18n.JS_PAGE_FAIL3.sprintf(text, text instanceof Array
+			? 'array' : typeof text));
 		return null;
+	}
 	return text;
 };
 
@@ -591,11 +597,20 @@ woas.set_current = function (cr, interactive, keep_fwd) {
 			cr = cr.substring(p+2);
 				switch (namespace) {
 					case "Javascript":
-					// this namespace may deprecate many others
-					text = this.get_javascript_page(cr);
-					if (text === null)
-						return false;
-					break;
+						// this namespace may deprecate many others
+						text = this.get_javascript_page(cr);
+						if (text === null) {
+							return false;
+						} else if (text instanceof Array) {
+							// allows function to return [title, body]
+							if (!text[1]) {
+								return false;
+							}
+							// title allowed to be empty string: 'Javascript::'
+							cr = text[0];
+							text = text[1];
+						}
+						break;
 					case "Special":
 						text = this._get_special(cr, interactive);
 						//the 'false' special value is returned in case of command execution
@@ -1306,6 +1321,8 @@ woas.save_page_i = function(pi) {
 woas.create_breadcrumb = function(title) {
 	if (title === "::Menu") {
 		return title;
+	} else if (title.indexOf('Javascript::') === 0) {
+		return 'Javascript :: ' + title.substr(12);
 	}
 	var tmp = title.split("::");
 	if (tmp.length === 1)
