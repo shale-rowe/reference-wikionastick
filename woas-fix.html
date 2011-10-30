@@ -5,11 +5,11 @@
 <script woas_permanent="1" type="text/javascript">
 /* <![CDATA[ */
 
-/* DFQRCTsKlU-0000002-START */
+/* DFQRCTsKlU-0000001-START */
 
 var woas = {"version": "0.12.0"};
 
-var __marker = "DFQRCTsKlU-0000002";
+var __marker = "DFQRCTsKlU-0000001";
 
 woas["config"] = {
 "permit_edits":true,
@@ -135,10 +135,10 @@ var page_titles = [
 'WoaS::Help::Go to a page'
 ];
 
-/* DFQRCTsKlU-0000002-DATA */
+/* DFQRCTsKlU-0000001-DATA */
 var page_attrs = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
 
-var page_mts = [0,0,0,0,1319799264,0,0,0,0,0,0,0,0,1319799213,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1318738575,1318739163,1318740655,1318741670];
+var page_mts = [0,0,0,0,1319533709,0,0,0,0,0,0,0,0,1319967274,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1318738575,1318739163,1318740655,1318741670];
 
 var pages = [
 '[[Main Page]]\n\
@@ -733,59 +733,60 @@ woas.ui._import_load(true);\n\
 \x3C/script\x3E\n\
 ',
 'Wiki on a Stick (version 0.10.7 and above) supports wiki macros for pluggable wiki syntax.\n\
-== Definition\n\
-A macro block is defined as follows:\n\
-\n\
-{{{\x3C\x3C\x3C ... the macro content here ... \x3E\x3E\x3E}}}\n\
-\n\
-However the above macro example is not parsed in any particular way by WoaS. If you want to run a plugged-in parser on the macro content you should use this syntax instead:\n\
-\n\
-{{{\x3C\x3C\x3Cmacroname:\n\
-24\n\
-56\n\
-89\n\
-28\n\
-19\n\
-33\n\
-\x3E\x3E\x3E}}}\n\
-= Real example\n\
-For example, let\'s define the sum macro:\n\
-\n\
-{{{\x3C\x3C\x3C%my_sum:\n\
-\n\
-  var elements = macro.text.split(/[\\s\\n]+/), total = 0;\n\
-  for (var i=0,l=elements.length;i\x3Cl;++i) {\n\
-    if (!elements[i].length) continue;\n\
-    try { total += parseInt(elements[i]); } catch(e) { }\n\
-  }\n\
-  macro.text = total.toString();\n\
-\x3E\x3E\x3E}}}\n\
-\x3C\x3C\x3C%my_sum:\n\
-\n\
-  var elements = macro.text.split(/[\\s\\n]+/), total = 0;\n\
-  for (var i=0,l=elements.length;i\x3Cl;++i) {\n\
-    if (!elements[i].length) continue;\n\
-    try { total += parseInt(elements[i]); } catch(e) { }\n\
-  }\n\
-  macro.text = total.toString();\n\
+== Using a defined macro\n\
+A macro block is enclosed in triple angle brackets. This example will create an info box using one of the built-in default macros, /woas.note/:\n\
+{{{\n\
+\x3C\x3C\x3Cwoas.note: *This* is /my/ note\x3E\x3E\x3E\n\
+}}}\n\
+This could also have been written like this:\n\
+{{{\n\
+\x3C\x3C\x3Cwoas.note:\n\
+*This* is /my/ note\n\
 \x3E\x3E\x3E\n\
-Note that macro definition happens with the special \'%\' sign before the macro name. Macros cannot be overriden with the macro definition.\n\
-Such defined macro uses the macro object which has two standard properties:\n\
-* *reprocess* - set to true when text can be re-processed by WoaS parser (default false)\n\
-* *text* - the content of macro block after the double colon\n\
+}}}\n\
+with exactly the same results. And here it is in action:\n\
+\x3C\x3C\x3Cwoas.note:\n\
+*This* is /my/ note\n\
+\x3E\x3E\x3E\n\
+== Default macros\n\
+These macros are currently defined by WoaS:\n\
+* /woas.include/ - allows a template page to be [[WoaS::Help::Template transclusion|transcluded]] with each new line of text in the macro block forming a transclusion parameter; this allows parameters to be used that would not be possible within a simple link;\n\
+* /woas.note/ - as demonstrated above.\n\
+== Defining a macro\n\
+A macro is defined by using the special \'%\' sign before the macro name. Macro code is passed the macro object which has four standard properties:\n\
+* *block* - set to true when the macro doesn\'t want any newline following it turned into a {{{\x3Cbr /\x3E}}} tag (default false);\n\
+* *parse* - a simple parser function that can be used to parse text before returning it to the parser (e.g. {{{macro.text = macro.parse(macro.text)}}}), instead of using {{{reprocess = true}}}; this may speed up results in certain circumstances as it does not look for [[WoaS::Help::Include wiki page|transclude links]] ({{{[[Include::...]]}}}) or macros, and can make certain advanced macros possible (e.g. creating block markup, like headings, inside a list or table);\n\
+* *reprocess* - set to true when the returned text should be re-processed by the parser (default false);\n\
+* *text* - the content of the macro block after the colon. Exactly what text is passed to the macro follows some simple rules:\n\
+** if there is a newline character before the actual text then it and any other whitespace before the newline will be removed;\n\
+** a single whitespace character between the colon and the text will be removed;\n\
+** if the closing macro block brackets are on a line by themselves then the last newline character will also be removed from the text block;\n\
+** the above rules can help readability and make the macro block act in a manner consistent with the [[WoaS::Help::Nowiki text#Multi-line blocks|nowiki multi-line]] syntax.\n\
+Existing macros cannot be replaced by a new macro definition. The macro should return a value of {{{true}}} to show that it completed successfully; the parser will highlight the text of a macro that returns {{{false}}}, and the debug log will include a warning if no value was returned.\n\
 \n\
+Let\'s define the /sum/ macro:\n\
+{{{\n\
+\x3C\x3C\x3C%my_sum:\n\
+  var elements = macro.text.split(/[\\s\\n]+/), total = 0;\n\
+  for (var i=0,l=elements.length;i\x3Cl;++i) {\n\
+    if (!elements[i].length) continue;\n\
+    try { total += parseInt(elements[i]); } catch(e) { }\n\
+  }\n\
+  macro.text = total.toString();\n\
+  return true;\n\
+\x3E\x3E\x3E\n\
+}}}\n\
+\x3C\x3C\x3C%my_sum:\n\
+  var elements = macro.text.split(/[\\s\\n]+/), total = 0;\n\
+  for (var i=0,l=elements.length;i\x3Cl;++i) {\n\
+    if (!elements[i].length) continue;\n\
+    try { total += parseInt(elements[i]); } catch(e) { }\n\
+  }\n\
+  macro.text = total.toString();\n\
+  return true;\n\
+\x3E\x3E\x3E\n\
 Now we call the macro:\n\
-\n\
-{{{\x3C\x3C\x3Cmy_sum:\n\
-24\n\
-56\n\
-89\n\
-28\n\
-19\n\
-33\n\
-\x3E\x3E\x3E}}}\n\
-\n\
-And this is the actual result:\n\
+{{{\n\
 \x3C\x3C\x3Cmy_sum:\n\
 24\n\
 56\n\
@@ -794,43 +795,65 @@ And this is the actual result:\n\
 19\n\
 33\n\
 \x3E\x3E\x3E\n\
+}}}\n\
+And this is the result: \x3C\x3C\x3Cmy_sum:\n\
+24\n\
+56\n\
+89\n\
+28\n\
+19\n\
+33\n\
+\x3E\x3E\x3E\n\
 == Macros with arguments\n\
-Starting with WoaS 0.12.0 macros do support named arguments and should return a true/false value to tell about their success/failure at rendering the macro text.\n\
+Starting with WoaS 0.12.0 macros support named arguments and should return a true/false value to tell about their success/failure at rendering the macro text.\n\
 \n\
 Example:\n\
-{{{\x3C\x3C\x3C%my_arg_macro(name, color):\n\
-\n\
-macro.text = "\x3Cstrong\x3E"+name+"\x3C/strong\x3E says: \x3Cspan style=\\"color: "+color+"\\"\x3E"+macro.text+"\x3C/span\x3E";\n\
-\n\
-return true;\n\
-\n\
-\x3E\x3E\x3E}}}\x3C\x3C\x3C%my_arg_macro(name, color):\n\
+{{{\n\
+\x3C\x3C\x3C%my_arg_macro(name, color):\n\
+    macro.text = "\x3Cstrong\x3E" + name +\n\
+	    "\x3C/strong\x3E says: \x3Cspan style=\\"color: " +\n\
+	    color + "\\"\x3E" + macro.text + "\x3C/span\x3E";\n\
+    return true;\n\
+\x3E\x3E\x3E\n\
+}}}\n\
+\x3C\x3C\x3C%my_arg_macro(name, color):\n\
 macro.text = "\x3Cstrong\x3E"+name+"\x3C/strong\x3E says: \x3Cspan style=\\"color: "+color+"\\"\x3E"+macro.text+"\x3C/span\x3E";\n\
 return true;\n\
 \x3E\x3E\x3E\n\
 Which is then called with:\n\
-\n\
-{{{\x3C\x3C\x3Cmy_arg_macro("Simon", "green"):\n\
-I have 3 fruits in my basket\n\
-\x3E\x3E\x3E}}}\n\
+{{{\n\
+\x3C\x3C\x3Cmy_arg_macro("Simon", "green"):\n\
+I have 3 pieces of fruit in my basket\n\
+\x3E\x3E\x3E\n\
+}}}\n\
 And the result is:\n\
 \n\
 \x3C\x3C\x3Cmy_arg_macro("Simon", "green"):\n\
-I have 3 fruits in my basket\n\
+I have 3 pieces of fruit in my basket\n\
 \x3E\x3E\x3E\n\
 \n\
 The passed arguments must be valid Javascript expressions.\n\
 == Global macros\n\
 Macros can be available on all pages if they are registered by plugins.\n\
 \n\
-In order to define a global macro you should create or edit a plugin and then add Javascript code like this:\n\
-\n\
-{{{woas.macro.register(\'my.arg_macro\', function(macro, name, color) {\n\
-macro.text = "\x3Cstrong\x3E"+name+"\x3C/strong\x3E says: \x3Cspan style=\\"color: "+color+"\\"\x3E"+macro.text+"\x3C/span\x3E";\n\
+In order to define a global macro you should create or edit a [[WoaS::Help::Plugins|plugin]] and then add Javascript code similar to this:\n\
+{{{\n\
+woas.macro.register(\'my.arg_macro\', function(macro, name, color) {\n\
+macro.text = "\x3Cstrong\x3E"+name+"\x3C/strong\x3E says: \x3Cspan style=\\"color: " +\n\
+    color + "\\"\x3E" + macro.text + "\x3C/span\x3E";\n\
 return true;\n\
 });\n\
 }}}\n\
-',
+\x3C\x3C\x3C%my.argMacro(name, color):\n\
+macro.text = "\x3Cstrong\x3E"+name+"\x3C/strong\x3E says: \x3Cspan style=\\"color: "+color+"\\"\x3E"+macro.text+"\x3C/span\x3E";\n\
+return true;\n\
+\x3E\x3E\x3E\n\
+\x3C\x3C\x3Cwoas.note: The first parameter to the macro function is the /macro/ object that will be passed in by the parser: it doesn\'t appear in the macro call itself; it can, of course, have any name you want.\x3E\x3E\x3E\n\
+If the above macro was included in a page as {{{\x3C\x3C\x3Cmy.argMacro("Paul", "red"): Hi!\x3E\x3E\x3E}}} the result would be:\n\
+\n\
+\x3C\x3C\x3Cmy.argMacro("Paul", "red"): Hi!\x3E\x3E\x3E\n\
+\n\
+You can learn more about macros by studying the macros and plugins that come with WoaS.',
 'The first time you save a change to Wiki on a Stick, your browser will ask for permission to save data to the disk. This is normal and necessary for the wiki to make changes to itself. You can give permission each time or make the setting permanent.\n\
 \n\
 You will find the *Help* icon in the navigation bar on every page in this wiki. When you click on it, it will either open this page or a specific help page that explains how to work with the page you currently have open.\n\
@@ -3360,6 +3383,9 @@ ul, ol {\n\
 li {\n\
 	padding-bottom: .125em\n\
 }\n\
+li ul, li ol {\n\
+	margin: .125em 0px 0px 1.25em\n\
+}\n\
 /* could also add values for these reset items if needed\n\
 div {\n\
 }\n\
@@ -3787,7 +3813,7 @@ img.woas_nav { /* woas logo */\n\
 	display: inline-block;\n\
 	background: #FFFFAA url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAADtElEQVR42rWWXUxbZRjHBwx0G9go7GJixCXDLQZZjEa9W4yKi04vtnhlsrg4E5Mp2TQu0cyZuESNEmVENseYQNduKx+FApWuUEopLYwPoRvQscGAjrFCP2gpbWkL/HzTxCszOMnYkzwX5+Sc/+99/89z3udsmC/4/pGmpIdEIJLULamkp2ew6fFN/HfvoQAi2Lx5C4c+Pky1qharuQerqZcGdTMFP//BG3veJjExcVXQquK7c3fTaelmKQrhYIQ5r5+Z+27GRhz0dg5hMdr48YdCnnoy/YGQB4rn5LyIY+IerMBCYCGec3N+XDOeOOT6P3a0dW0YdD2cLigjLVUWh0gCbNyYjKHZxHJshXAozPLSMpHFCPPzC7hdXmadbm70j6DXWlCr9DSqLXz+2TfSACI4sP9DAr4wft+8EI4Si8VYDC+K6wAe9xxTDidd5gFamqzUVbVyqVyLvFTL9qzsOGRNQHFRCf65oPDcRyi4QCQSEDuZx+/34xE7uGUfxT50neFBG1cb24V4PVcqmtn/wUdrA0RXiFVpcTm9cTuCQR+RaFBAgoTDogazd5mcvInLNcX09BjXrF2Ul9SjuKDj6JFv1wakpKQIX7U47kyLYrrw+TxEoyFi0QihkJ9AwCNq4cXrnWFi3I6x2UzpGbUA/M2J46ekWVRyRo6tdwTH+LTYhUuIeoWoB4fDztTUbSYnbjI81I/JYEEp/P/zdBVVF5v56ovj0gD5R77G2maj3dBDf+8g43eGRYHd3HXcoq+7lxZdB/U1BhR/ablwto6zhSp0tSbe27tPGmBn9gs0aTrQVBtEr5uw9fcJ7+/hvD9Jl6WLK3IdijItZec08dWryhuplKuRPSFD8of26aF89I3dXKrQInwWfo/g8cwIWA8qRRPni9VCvBJ5iRrz1U727X0f8Z50QFJSEl/mn6RWZabmsp7BG304Jm8zIAAV5zWcK6qhRqnDrO/kk4OHJRwV/4MkkJCQwLvvHKCoQCla14Cl3Sr6vhWVXENDtQZFqZI397wl4bBbJQWErRkZtOgv4nReY2a2g9HRGtqMv/Daq7vi4usyD9pMPxFb6cbtNTJgk1NVeZJt29LIzXllfQDmjkJCi114fe0M2y/ToDnF9ufS2bUzd30ArcbfWcKGP2BhdKwao+FXduzYyvPZOesD6O75jUCwHZfHRIuhmO9OHEQme4yXX3r94QFpaWkkJ2/g6cwMlEoFeXl5CChZWc9KmsmSMzPzGdG68RnMsWNHkfpX8UjzX78dQm6UDc/yAAAAAElFTkSuQmCC) no-repeat .5em .5em;\n\
 	border: 1px solid #000;\n\
-	margin: 1.25em;\n\
+	margin: 1em 1.25em;\n\
 	padding: .75em .75em .75em 2.5em\n\
 }\n\
 .woas_no_img .woas_note {\n\
@@ -3840,8 +3866,7 @@ img.woas_nav { /* woas logo */\n\
 \n\
 /* SEARCH */\n\
 #woas_search_results {\n\
-	padding-top: 1em;\n\
-	padding-right: 1em\n\
+	padding-top: 1.5em\n\
 }\n\
 .woas_search_results {\n\
 	font-family: "Courier New", Courier, monospace;\n\
@@ -3849,7 +3874,7 @@ img.woas_nav { /* woas logo */\n\
 	border: 1px solid #aaa;\n\
 	clear: both;\n\
 	padding: 0.313em;\n\
-	margin-top: 1em\n\
+	margin: .75em\n\
 }\n\
 .woas_search_highlight {\n\
 	background-color: #ff0; /* yellow */\n\
@@ -4297,7 +4322,7 @@ If the wiki is erased the menu contents are slightly reduced, with less often us
 '
 ];
 
-/* DFQRCTsKlU-0000002-END */
+/* DFQRCTsKlU-0000001-END */
 
 /* ]]> */
 </script>
@@ -6187,7 +6212,7 @@ _get_tags: function(text, last_tag) {
 	if (text.substr(0, 5) === "Tag::")
 		text = woas.trim(text.substring(5));
 	else if (text.substr(0,6)==="Tags::") {
-		woas.log("Using deprecated 'Tags' namespace");
+//		woas.log("Using deprecated 'Tags' namespace");
 		text = woas.trim(text.substring(6));
 	} else // not a valid tagging
 		return tags;
@@ -6218,7 +6243,7 @@ _make_preformatted: function(text, add_style) {
 		// remove the first newline to be compliant with old parsing
 		if (p === 0) { text = text.substr(1); }
 		cls = " woas_nowiki_multiline";
-		tag = "div";
+		tag = "pre";
 	} else {
 		cls = "woas_nowiki";
 		tag = "tt";
@@ -6317,7 +6342,7 @@ _render_wiki_link: function(target, label, snippets, tags, export_links) {
 	return woas.parser.place_holder(snippets, str);
 },
 
-_transclude: function (str, $1, img_galley) {
+_transclude: function (str, $1, img_gallery) {
 	var that = woas.parser,
 		parts = $1.split("|"),
 		templname = parts[0],
@@ -6342,7 +6367,7 @@ _transclude: function (str, $1, img_galley) {
 	// template retrieval error
 	if (P.body === null) {
 		--that._transcluding;
-		if (img_galley) {
+		if (img_gallery) {
 			// stop double message for encrypted image
 			return that.place_holder(that._snippets, that.render_error('[<!-- -->'
 				+str.substr(1), "#8709")+'\n');
@@ -6356,7 +6381,7 @@ _transclude: function (str, $1, img_galley) {
 		if (woas.is_image(templname)) {
 			var img, img_name = woas.xhtml_encode(templname.substr(templname.indexOf("::")+2)),
 				img_cls;
-			img_cls = img_galley ? 'woas_img_list' : 'woas_img';
+			img_cls = img_gallery ? 'woas_img_list' : 'woas_img';
 			if (that._export_links) {
 				// check that the URI is valid
 				var uri=woas.exporter._get_fname(templname);
@@ -6499,7 +6524,8 @@ parse: function(text, export_links, js_mode) {
 				return that.place_holder_dnl(snippets, str, dynamic_nl);
 			} else if (js_mode==3) {
 				// during safe mode do not activate scripts, transform them to nowiki blocks
-				return that.place_holder_dnl(snippets, that._make_preformatted(str), dynamic_nl);
+				return that.place_holder_dnl(snippets, that._make_preformatted(
+					woas.i18n.JS_DISABLED + str, 'border:1px solid #f00'), dynamic_nl);
 			} // else
 			var m=$1.match(/src=(?:"|')([^\s'">]+)/),
 				external = (m!==null);
@@ -6606,20 +6632,23 @@ parse_lists: function(str, type) {
 	return lst_type[type].sprintf(sublist(stk, 1, type));
 },
 
+// put away stuff contained in user-defined macro blocks
 parse_macros: function(P, snippets) {
-	// put away stuff contained in user-defined macro multi-line blocks
 	P.body = P.body.replace(this.reMacros, function (str, $1, dynamic_nl) {
+		dynamic_nl = dynamic_nl || '';
 		// ask macro_parser to prepare this block
-		var ws = '', macro = woas.macro.parser($1);
-		// if this is not a macro definition don't remove a \n following
-		if ($1.charAt(0) !== '%' && typeof dynamic_nl !== 'undefined' && dynamic_nl !== '') {
-			ws += dynamic_nl;
-			dynamic_nl = '';
+		var macro = woas.macro.parser($1);
+		if (macro.reprocess) {
+			// allow further parser processing
+			return macro.text + (macro.block ? woas.parser.NL_MARKER : '') +
+				dynamic_nl;
 		}
-		// allow further parser processing
-		if (macro.reprocess) { return macro.text + ws; }
 		// otherwise store it for later
-		return woas.parser.place_holder_dnl(snippets, macro.text, dynamic_nl) + ws;
+		if (macro.block) {
+			// definitions and block macros
+			return woas.parser.place_holder_dnl(snippets, macro.text, dynamic_nl)
+		}
+		return woas.parser.place_holder(snippets, macro.text) + dynamic_nl;
 	});
 },
 
@@ -6692,7 +6721,7 @@ parse_tables_new: function (str, prop, p1) {
     return '<'+'table ' + ((prop.indexOf("class=")!==-1) ? '' : 'class="woas_text_area" ') + prop + '>' + caption + colgroup + '<'+'tr>' + stk.join('<'+'/tr><'+'tr>') + '<'+'/tr>' + '<'+'/table>' + woas.parser.NL_MARKER;
 },
 
-/** PVHL:
+/* PVHL:
  * Removed separator as unneeded.
  * Rewrote to perform entire place_holder function here. Will be slightly slower
    but only optimize if truly needed. Rest of code is much simpler this way.
@@ -6711,11 +6740,12 @@ place_holder_dnl: function (snippets, str, dnl) {
 },
 
 // NOTE: XHTML comments can now be contained in nowiki and macro blocks
+//  no_macros used by macro.parse; optional
 pre_parse: function(P, snippets, no_macros) {
 	var that = this;
 	// put away stuff contained in nowiki blocks {{{ }}}, macros, and XHTML-style comments
 	this.parse_nowiki(P, snippets);
-	if (no_macros !== true) { this.parse_macros(P, snippets); }
+	if (!no_macros) { this.parse_macros(P, snippets); }
 	P.body = P.body.replace(this.reComments, function (str, comment, dynamic_nl) {
 		// don't skip anything -- remove all comments for future syntax needs
 		return that.place_holder_dnl(snippets, str, dynamic_nl);
@@ -6886,20 +6916,13 @@ toc_render: function() {
 	this.toc = [];
 	return this.toc_body.sprintf(woas.i18n.TOC, tmp.join(''));
 },
-/*
-[[Special::TOC]]
-== hi
-=== t{{{h}}}ere [[Matey]]
-== /honey/ *pie*
-
-*/
 
 //API1.0
 //TODO: offer transclusion parameters argument
-transclude: function(title, snippets, export_links, img_galley) {
+transclude: function(title, snippets, export_links, img_gallery) {
 	this._snippets = snippets;
 	this._export_links = !!export_links;
-	var rv = this._transclude("[[Include::"+title+"]]", title, img_galley);
+	var rv = this._transclude("[[Include::"+title+"]]", title, img_gallery);
 	this._export_links = this._snippets = null;
 	return rv;
 },
@@ -7504,7 +7527,7 @@ woas._special_image_gallery = function(ns) {
 	}
 	--l;
 	// last image (if more than one)
-	if (l) {
+	if (l > 0) {
 		plus = cls + '_last';
 		t = div[l];
 		div[l] = line1.sprintf(plus, t) +
@@ -9365,7 +9388,7 @@ woas._on_load = function() {
 	this._set_debug(this.config.debug_mode, this.config.debug_closed);
 	d$("woas_debug_log").value = ""; // for Firefox
 	// output platform information - note that revision is filled in only in releases
-	woas.log("*** WoaS v"+this.version+"-pvhl-r2478"+" started");	// log:1
+	woas.log("*** WoaS v"+this.version+"-pvhl-r2480"+" started");	// log:1
 	// needed to check if data source changes; forces full save when entering/exiting
 	// WSIF datasource mode or changing the name of the data source file
 	this._old_wsif_ds = is_windows
@@ -10393,6 +10416,7 @@ woas.macro = {
 	// Follows nowiki block rules. If line after tag contains only whitespace it is removed,
 	// as is the last \n (so text is just what appears between the tags). Also allows an
 	// optional single space after colon if text is on the same line as opening tag.
+	// 1: name, 2: params, 3: newline before text, 4: text without last newline
 	reMacroDef: /^(%?[A-Za-z0-9_\.]+)\s*(\(.*?\))?\s*: ?(?:[ \t]*(\n))?([\s\S]*?)(?:\n[ \t]*)?$/,
 
 	// allows macros to safely parse text; normal syntax allowed, macros and tags not parsed.
@@ -10412,7 +10436,8 @@ woas.macro = {
 		var macro = { "reprocess": false, "text": text, parse: this._parse };
 		// match macro definition/call
 		var M = text.match(this.reMacroDef);
-		// if no double colon declaration was found, then do not process anything
+//woas.log("0: '"+M[0]+"'\n1: '"+M[1]+"'\n2: '"+M[2]+"'\n3: '"+M[3]+"'\n4: '"+M[4]+"'")
+		// if no colon declaration was found, then do not process anything
 		if (M !== null) {
 			var fn = M[1];
 			// check validity of macro name
@@ -10427,13 +10452,13 @@ woas.macro = {
 				// when macro is not defined, define it
 				if (this.create(fn, M[2], M[4])) {
 					// we totally remove the block
-					macro.reprocess = false;
 					macro.text = "";
 		//			macro.text = "<!-- defined "+fn+" macro -->";
 				} else { // set some error message
-					macro.reprocess = false;
 					macro.text = woas.parser._make_preformatted(M[0], "color:#f00;font-weight:bold");
 				}
+				macro.reprocess = false;
+				macro.block = true;
 				return macro;
 			}
 			var fi = this.names.indexOf(fn);
@@ -10461,7 +10486,7 @@ woas.macro = {
 					macro.reprocess = false;
 					macro.text = woas.parser._make_preformatted(text, "color:#f00;font-weight:bold");
 				} else {
-					if (M[3] && macro.reprocess === true) {
+					if (M[3] && macro.reprocess) {
 						// allows block level syntax to be used (headings, lists, etc.)
 						macro.text = woas.parser.NL_MARKER + '\n' + macro.text;
 					}
@@ -10477,6 +10502,7 @@ woas.macro = {
 			woas.log("Macro failed validity test: '" + text + "'");	//log:1
 			macro.text = woas.parser._make_preformatted(text, "color:#f00");
 		}
+//woas.log("'"+macro.text+"'")
 		return macro;
 	},
 
@@ -10531,9 +10557,11 @@ woas.macro = {
 		//   Or don't use a switch and rely on user -- any can be added then.
 		note: function(m) {
 			// the extra div helps IE6
-			var txt = "<"+"div><"+"div class='woas_note'>*%s* %s</"+"div><"+"/div>";
-			m.text = txt.sprintf(woas.i18n.NOTE_TEXT, m.text);
-			m.reprocess = true;
+			var txt1 = "<"+"div><"+"div class='woas_note'>"+woas.i18n.NOTE_TEXT+" ",
+				txt2 = "</"+"div><"+"/div>";
+			// if nothing passed to macro.parse it uses macro.text
+			m.text = txt1 + m.parse() + txt2;
+			m.block = true;
 			return true;
 		}
 	},
@@ -10877,6 +10905,7 @@ woas.i18n = {
 	INVALID_DATA:"Invalid collected data!",
 	INVALID_PAGE: "Invalid %s page.",
 	INVALID_TITLE: "Title cannot contain ':::' or any of these characters:\n# \" | < > [ ] { }",
+	JS_DISABLED: "Scripts are disabled in Special::Options ('Enable safe mode')\n",
 	JS_PAGE_FAIL1: "Dynamic evaluation of '%s' failed!",
 	JS_PAGE_FAIL2: "\n\nError message:\n\n",
 	JS_PAGE_FAIL3: "\n\nInvalid return value or type:\n\nValue: '%s'\nType: '%s'",
