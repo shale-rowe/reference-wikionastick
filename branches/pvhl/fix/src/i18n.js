@@ -52,6 +52,7 @@ woas.i18n = {
 	INVALID_DATA:"Invalid collected data!",
 	INVALID_PAGE: "Invalid %s page.",
 	INVALID_TITLE: "Title cannot contain ':::' or any of these characters:\n# \" | < > [ ] { }",
+	JS_DISABLED: "Scripts are disabled in Special::Options ('Enable safe mode')\n",
 	JS_PAGE_FAIL1: "Dynamic evaluation of '%s' failed!",
 	JS_PAGE_FAIL2: "\n\nError message:\n\n",
 	JS_PAGE_FAIL3: "\n\nInvalid return value or type:\n\nValue: '%s'\nType: '%s'",

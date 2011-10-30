@@ -761,59 +761,60 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 Wiki on a Stick (version 0.10.7 and above) supports wiki macros for pluggable wiki syntax.
-== Definition
-A macro block is defined as follows:
-
-{{{<<< ... the macro content here ... >>>}}}
-
-However the above macro example is not parsed in any particular way by WoaS. If you want to run a plugged-in parser on the macro content you should use this syntax instead:
-
-{{{<<<macroname:
-24
-56
-89
-28
-19
-33
->>>}}}
-= Real example
-For example, let's define the sum macro:
-
-{{{<<<%my_sum:
-
-  var elements = macro.text.split(/[\s\n]+/), total = 0;
-  for (var i=0,l=elements.length;i<l;++i) {
-    if (!elements[i].length) continue;
-    try { total += parseInt(elements[i]); } catch(e) { }
-  }
-  macro.text = total.toString();
->>>}}}
-<<<%my_sum:
-
-  var elements = macro.text.split(/[\s\n]+/), total = 0;
-  for (var i=0,l=elements.length;i<l;++i) {
-    if (!elements[i].length) continue;
-    try { total += parseInt(elements[i]); } catch(e) { }
-  }
-  macro.text = total.toString();
+== Using a defined macro
+A macro block is enclosed in triple angle brackets. This example will create an info box using one of the built-in default macros, /woas.note/:
+{{{
+<<<woas.note: *This* is /my/ note>>>
+}}}
+This could also have been written like this:
+{{{
+<<<woas.note:
+*This* is /my/ note
 >>>
-Note that macro definition happens with the special '%' sign before the macro name. Macros cannot be overriden with the macro definition.
-Such defined macro uses the macro object which has two standard properties:
-* *reprocess* - set to true when text can be re-processed by WoaS parser (default false)
-* *text* - the content of macro block after the double colon
+}}}
+with exactly the same results. And here it is in action:
+<<<woas.note:
+*This* is /my/ note
+>>>
+== Default macros
+These macros are currently defined by WoaS:
+* /woas.include/ - allows a template page to be [[WoaS::Help::Template transclusion|transcluded]] with each new line of text in the macro block forming a transclusion parameter; this allows parameters to be used that would not be possible within a simple link;
+* /woas.note/ - as demonstrated above.
+== Defining a macro
+A macro is defined by using the special '%' sign before the macro name. Macro code is passed the macro object which has four standard properties:
+* *block* - set to true when the macro doesn't want any newline following it turned into a {{{<br />}}} tag (default false);
+* *parse* - a simple parser function that can be used to parse text before returning it to the parser (e.g. {{{macro.text = macro.parse(macro.text)}}}), instead of using {{{reprocess = true}}}; this may speed up results in certain circumstances as it does not look for [[WoaS::Help::Include wiki page|transclude links]] ({{{[[Include::...]]}}}) or macros, and can make certain advanced macros possible (e.g. creating block markup, like headings, inside a list or table);
+* *reprocess* - set to true when the returned text should be re-processed by the parser (default false);
+* *text* - the content of the macro block after the colon. Exactly what text is passed to the macro follows some simple rules:
+** if there is a newline character before the actual text then it and any other whitespace before the newline will be removed;
+** a single whitespace character between the colon and the text will be removed;
+** if the closing macro block brackets are on a line by themselves then the last newline character will also be removed from the text block;
+** the above rules can help readability and make the macro block act in a manner consistent with the [[WoaS::Help::Nowiki text#Multi-line blocks|nowiki multi-line]] syntax.
+Existing macros cannot be replaced by a new macro definition. The macro should return a value of {{{true}}} to show that it completed successfully; the parser will highlight the text of a macro that returns {{{false}}}, and the debug log will include a warning if no value was returned.
 
+Let's define the /sum/ macro:
+{{{
+<<<%my_sum:
+  var elements = macro.text.split(/[\s\n]+/), total = 0;
+  for (var i=0,l=elements.length;i<l;++i) {
+    if (!elements[i].length) continue;
+    try { total += parseInt(elements[i]); } catch(e) { }
+  }
+  macro.text = total.toString();
+  return true;
+>>>
+}}}
+<<<%my_sum:
+  var elements = macro.text.split(/[\s\n]+/), total = 0;
+  for (var i=0,l=elements.length;i<l;++i) {
+    if (!elements[i].length) continue;
+    try { total += parseInt(elements[i]); } catch(e) { }
+  }
+  macro.text = total.toString();
+  return true;
+>>>
 Now we call the macro:
-
-{{{<<<my_sum:
-24
-56
-89
-28
-19
-33
->>>}}}
-
-And this is the actual result:
+{{{
 <<<my_sum:
 24
 56
@@ -822,43 +823,65 @@ And this is the actual result:
 19
 33
 >>>
+}}}
+And this is the result: <<<my_sum:
+24
+56
+89
+28
+19
+33
+>>>
 == Macros with arguments
-Starting with WoaS 0.12.0 macros do support named arguments and should return a true/false value to tell about their success/failure at rendering the macro text.
+Starting with WoaS 0.12.0 macros support named arguments and should return a true/false value to tell about their success/failure at rendering the macro text.
 
 Example:
-{{{<<<%my_arg_macro(name, color):
-
-macro.text = "<strong>"+name+"</strong> says: <span style=\"color: "+color+"\">"+macro.text+"</span>";
-
-return true;
-
->>>}}}<<<%my_arg_macro(name, color):
+{{{
+<<<%my_arg_macro(name, color):
+    macro.text = "<strong>" + name +
+	    "</strong> says: <span style=\"color: " +
+	    color + "\">" + macro.text + "</span>";
+    return true;
+>>>
+}}}
+<<<%my_arg_macro(name, color):
 macro.text = "<strong>"+name+"</strong> says: <span style=\"color: "+color+"\">"+macro.text+"</span>";
 return true;
 >>>
 Which is then called with:
-
-{{{<<<my_arg_macro("Simon", "green"):
-I have 3 fruits in my basket
->>>}}}
+{{{
+<<<my_arg_macro("Simon", "green"):
+I have 3 pieces of fruit in my basket
+>>>
+}}}
 And the result is:
 
 <<<my_arg_macro("Simon", "green"):
-I have 3 fruits in my basket
+I have 3 pieces of fruit in my basket
 >>>
 
 The passed arguments must be valid Javascript expressions.
 == Global macros
 Macros can be available on all pages if they are registered by plugins.
 
-In order to define a global macro you should create or edit a plugin and then add Javascript code like this:
-
-{{{woas.macro.register('my.arg_macro', function(macro, name, color) {
-macro.text = "<strong>"+name+"</strong> says: <span style=\"color: "+color+"\">"+macro.text+"</span>";
+In order to define a global macro you should create or edit a [[WoaS::Help::Plugins|plugin]] and then add Javascript code similar to this:
+{{{
+woas.macro.register('my.arg_macro', function(macro, name, color) {
+macro.text = "<strong>"+name+"</strong> says: <span style=\"color: " +
+    color + "\">" + macro.text + "</span>";
 return true;
 });
 }}}
+<<<%my.argMacro(name, color):
+macro.text = "<strong>"+name+"</strong> says: <span style=\"color: "+color+"\">"+macro.text+"</span>";
+return true;
+>>>
+<<<woas.note: The first parameter to the macro function is the /macro/ object that will be passed in by the parser: it doesn't appear in the macro call itself; it can, of course, have any name you want.>>>
+If the above macro was included in a page as {{{<<<my.argMacro("Paul", "red"): Hi!>>>}}} the result would be:
 
+<<<my.argMacro("Paul", "red"): Hi!>>>
+
+You can learn more about macros by studying the macros and plugins that come with WoaS.
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Index
 woas.page.attributes: 0
@@ -3732,6 +3755,9 @@ ul, ol {
 li {
 	padding-bottom: .125em
 }
+li ul, li ol {
+	margin: .125em 0px 0px 1.25em
+}
 /* could also add values for these reset items if needed
 div {
 }
@@ -4159,7 +4185,7 @@ img.woas_nav { /* woas logo */
 	display: inline-block;
 	background: #FFFFAA url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAADtElEQVR42rWWXUxbZRjHBwx0G9go7GJixCXDLQZZjEa9W4yKi04vtnhlsrg4E5Mp2TQu0cyZuESNEmVENseYQNduKx+FApWuUEopLYwPoRvQscGAjrFCP2gpbWkL/HzTxCszOMnYkzwX5+Sc/+99/89z3udsmC/4/pGmpIdEIJLULamkp2ew6fFN/HfvoQAi2Lx5C4c+Pky1qharuQerqZcGdTMFP//BG3veJjExcVXQquK7c3fTaelmKQrhYIQ5r5+Z+27GRhz0dg5hMdr48YdCnnoy/YGQB4rn5LyIY+IerMBCYCGec3N+XDOeOOT6P3a0dW0YdD2cLigjLVUWh0gCbNyYjKHZxHJshXAozPLSMpHFCPPzC7hdXmadbm70j6DXWlCr9DSqLXz+2TfSACI4sP9DAr4wft+8EI4Si8VYDC+K6wAe9xxTDidd5gFamqzUVbVyqVyLvFTL9qzsOGRNQHFRCf65oPDcRyi4QCQSEDuZx+/34xE7uGUfxT50neFBG1cb24V4PVcqmtn/wUdrA0RXiFVpcTm9cTuCQR+RaFBAgoTDogazd5mcvInLNcX09BjXrF2Ul9SjuKDj6JFv1wakpKQIX7U47kyLYrrw+TxEoyFi0QihkJ9AwCNq4cXrnWFi3I6x2UzpGbUA/M2J46ekWVRyRo6tdwTH+LTYhUuIeoWoB4fDztTUbSYnbjI81I/JYEEp/P/zdBVVF5v56ovj0gD5R77G2maj3dBDf+8g43eGRYHd3HXcoq+7lxZdB/U1BhR/ablwto6zhSp0tSbe27tPGmBn9gs0aTrQVBtEr5uw9fcJ7+/hvD9Jl6WLK3IdijItZec08dWryhuplKuRPSFD8of26aF89I3dXKrQInwWfo/g8cwIWA8qRRPni9VCvBJ5iRrz1U727X0f8Z50QFJSEl/mn6RWZabmsp7BG304Jm8zIAAV5zWcK6qhRqnDrO/kk4OHJRwV/4MkkJCQwLvvHKCoQCla14Cl3Sr6vhWVXENDtQZFqZI397wl4bBbJQWErRkZtOgv4nReY2a2g9HRGtqMv/Daq7vi4usyD9pMPxFb6cbtNTJgk1NVeZJt29LIzXllfQDmjkJCi114fe0M2y/ToDnF9ufS2bUzd30ArcbfWcKGP2BhdKwao+FXduzYyvPZOesD6O75jUCwHZfHRIuhmO9OHEQme4yXX3r94QFpaWkkJ2/g6cwMlEoFeXl5CChZWc9KmsmSMzPzGdG68RnMsWNHkfpX8UjzX78dQm6UDc/yAAAAAElFTkSuQmCC) no-repeat .5em .5em;
 	border: 1px solid #000;
-	margin: 1.25em;
+	margin: 1em 1.25em;
 	padding: .75em .75em .75em 2.5em
 }
 .woas_no_img .woas_note {
@@ -4212,8 +4238,7 @@ img.woas_nav { /* woas logo */
 
 /* SEARCH */
 #woas_search_results {
-	padding-top: 1em;
-	padding-right: 1em
+	padding-top: 1.5em
 }
 .woas_search_results {
 	font-family: "Courier New", Courier, monospace;
@@ -4221,7 +4246,7 @@ img.woas_nav { /* woas logo */
 	border: 1px solid #aaa;
 	clear: both;
 	padding: 0.313em;
-	margin-top: 1em
+	margin: .75em
 }
 .woas_search_highlight {
 	background-color: #ff0; /* yellow */

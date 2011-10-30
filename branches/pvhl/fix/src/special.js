@@ -563,7 +563,7 @@ woas._special_image_gallery = function(ns) {
 	}
 	--l;
 	// last image (if more than one)
-	if (l) {
+	if (l > 0) {
 		plus = cls + '_last';
 		t = div[l];
 		div[l] = line1.sprintf(plus, t) +
