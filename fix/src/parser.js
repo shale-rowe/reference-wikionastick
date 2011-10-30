@@ -114,7 +114,7 @@ _get_tags: function(text, last_tag) {
 	if (text.substr(0, 5) === "Tag::")
 		text = woas.trim(text.substring(5));
 	else if (text.substr(0,6)==="Tags::") {
-		woas.log("Using deprecated 'Tags' namespace");
+//		woas.log("Using deprecated 'Tags' namespace");
 		text = woas.trim(text.substring(6));
 	} else // not a valid tagging
 		return tags;
@@ -145,7 +145,7 @@ _make_preformatted: function(text, add_style) {
 		// remove the first newline to be compliant with old parsing
 		if (p === 0) { text = text.substr(1); }
 		cls = " woas_nowiki_multiline";
-		tag = "div";
+		tag = "pre";
 	} else {
 		cls = "woas_nowiki";
 		tag = "tt";
@@ -244,7 +244,7 @@ _render_wiki_link: function(target, label, snippets, tags, export_links) {
 	return woas.parser.place_holder(snippets, str);
 },
 
-_transclude: function (str, $1, img_galley) {
+_transclude: function (str, $1, img_gallery) {
 	var that = woas.parser,
 		parts = $1.split("|"),
 		templname = parts[0],
@@ -269,7 +269,7 @@ _transclude: function (str, $1, img_galley) {
 	// template retrieval error
 	if (P.body === null) {
 		--that._transcluding;
-		if (img_galley) {
+		if (img_gallery) {
 			// stop double message for encrypted image
 			return that.place_holder(that._snippets, that.render_error('[<!-- -->'
 				+str.substr(1), "#8709")+'\n');
@@ -283,7 +283,7 @@ _transclude: function (str, $1, img_galley) {
 		if (woas.is_image(templname)) {
 			var img, img_name = woas.xhtml_encode(templname.substr(templname.indexOf("::")+2)),
 				img_cls;
-			img_cls = img_galley ? 'woas_img_list' : 'woas_img';
+			img_cls = img_gallery ? 'woas_img_list' : 'woas_img';
 			if (that._export_links) {
 				// check that the URI is valid
 				var uri=woas.exporter._get_fname(templname);
@@ -426,7 +426,8 @@ parse: function(text, export_links, js_mode) {
 				return that.place_holder_dnl(snippets, str, dynamic_nl);
 			} else if (js_mode==3) {
 				// during safe mode do not activate scripts, transform them to nowiki blocks
-				return that.place_holder_dnl(snippets, that._make_preformatted(str), dynamic_nl);
+				return that.place_holder_dnl(snippets, that._make_preformatted(
+					woas.i18n.JS_DISABLED + str, 'border:1px solid #f00'), dynamic_nl);
 			} // else
 			var m=$1.match(/src=(?:"|')([^\s'">]+)/),
 				external = (m!==null);
@@ -533,20 +534,23 @@ parse_lists: function(str, type) {
 	return lst_type[type].sprintf(sublist(stk, 1, type));
 },
 
+// put away stuff contained in user-defined macro blocks
 parse_macros: function(P, snippets) {
-	// put away stuff contained in user-defined macro multi-line blocks
 	P.body = P.body.replace(this.reMacros, function (str, $1, dynamic_nl) {
+		dynamic_nl = dynamic_nl || '';
 		// ask macro_parser to prepare this block
-		var ws = '', macro = woas.macro.parser($1);
-		// if this is not a macro definition don't remove a \n following
-		if ($1.charAt(0) !== '%' && typeof dynamic_nl !== 'undefined' && dynamic_nl !== '') {
-			ws += dynamic_nl;
-			dynamic_nl = '';
+		var macro = woas.macro.parser($1);
+		if (macro.reprocess) {
+			// allow further parser processing
+			return macro.text + (macro.block ? woas.parser.NL_MARKER : '') +
+				dynamic_nl;
 		}
-		// allow further parser processing
-		if (macro.reprocess) { return macro.text + ws; }
 		// otherwise store it for later
-		return woas.parser.place_holder_dnl(snippets, macro.text, dynamic_nl) + ws;
+		if (macro.block) {
+			// definitions and block macros
+			return woas.parser.place_holder_dnl(snippets, macro.text, dynamic_nl)
+		}
+		return woas.parser.place_holder(snippets, macro.text) + dynamic_nl;
 	});
 },
 
@@ -619,7 +623,7 @@ parse_tables_new: function (str, prop, p1) {
     return '<'+'table ' + ((prop.indexOf("class=")!==-1) ? '' : 'class="woas_text_area" ') + prop + '>' + caption + colgroup + '<'+'tr>' + stk.join('<'+'/tr><'+'tr>') + '<'+'/tr>' + '<'+'/table>' + woas.parser.NL_MARKER;
 },
 
-/** PVHL:
+/* PVHL:
  * Removed separator as unneeded.
  * Rewrote to perform entire place_holder function here. Will be slightly slower
    but only optimize if truly needed. Rest of code is much simpler this way.
@@ -638,11 +642,12 @@ place_holder_dnl: function (snippets, str, dnl) {
 },
 
 // NOTE: XHTML comments can now be contained in nowiki and macro blocks
+//  no_macros used by macro.parse; optional
 pre_parse: function(P, snippets, no_macros) {
 	var that = this;
 	// put away stuff contained in nowiki blocks {{{ }}}, macros, and XHTML-style comments
 	this.parse_nowiki(P, snippets);
-	if (no_macros !== true) { this.parse_macros(P, snippets); }
+	if (!no_macros) { this.parse_macros(P, snippets); }
 	P.body = P.body.replace(this.reComments, function (str, comment, dynamic_nl) {
 		// don't skip anything -- remove all comments for future syntax needs
 		return that.place_holder_dnl(snippets, str, dynamic_nl);
@@ -813,20 +818,13 @@ toc_render: function() {
 	this.toc = [];
 	return this.toc_body.sprintf(woas.i18n.TOC, tmp.join(''));
 },
-/*
-[[Special::TOC]]
-== hi
-=== t{{{h}}}ere [[Matey]]
-== /honey/ *pie*
-
-*/
 
 //API1.0
 //TODO: offer transclusion parameters argument
-transclude: function(title, snippets, export_links, img_galley) {
+transclude: function(title, snippets, export_links, img_gallery) {
 	this._snippets = snippets;
 	this._export_links = !!export_links;
-	var rv = this._transclude("[[Include::"+title+"]]", title, img_galley);
+	var rv = this._transclude("[[Include::"+title+"]]", title, img_gallery);
 	this._export_links = this._snippets = null;
 	return rv;
 },

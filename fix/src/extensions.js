@@ -551,6 +551,7 @@ woas.macro = {
 	// Follows nowiki block rules. If line after tag contains only whitespace it is removed,
 	// as is the last \n (so text is just what appears between the tags). Also allows an
 	// optional single space after colon if text is on the same line as opening tag.
+	// 1: name, 2: params, 3: newline before text, 4: text without last newline
 	reMacroDef: /^(%?[A-Za-z0-9_\.]+)\s*(\(.*?\))?\s*: ?(?:[ \t]*(\n))?([\s\S]*?)(?:\n[ \t]*)?$/,
 
 	// allows macros to safely parse text; normal syntax allowed, macros and tags not parsed.
@@ -570,7 +571,8 @@ woas.macro = {
 		var macro = { "reprocess": false, "text": text, parse: this._parse };
 		// match macro definition/call
 		var M = text.match(this.reMacroDef);
-		// if no double colon declaration was found, then do not process anything
+//woas.log("0: '"+M[0]+"'\n1: '"+M[1]+"'\n2: '"+M[2]+"'\n3: '"+M[3]+"'\n4: '"+M[4]+"'")
+		// if no colon declaration was found, then do not process anything
 		if (M !== null) {
 			var fn = M[1];
 			// check validity of macro name
@@ -585,13 +587,13 @@ woas.macro = {
 				// when macro is not defined, define it
 				if (this.create(fn, M[2], M[4])) {
 					// we totally remove the block
-					macro.reprocess = false;
 					macro.text = "";
 		//			macro.text = "<!-- defined "+fn+" macro -->";
 				} else { // set some error message
-					macro.reprocess = false;
 					macro.text = woas.parser._make_preformatted(M[0], "color:#f00;font-weight:bold");
 				}
+				macro.reprocess = false;
+				macro.block = true;
 				return macro;
 			}
 			var fi = this.names.indexOf(fn);
@@ -619,7 +621,7 @@ woas.macro = {
 					macro.reprocess = false;
 					macro.text = woas.parser._make_preformatted(text, "color:#f00;font-weight:bold");
 				} else {
-					if (M[3] && macro.reprocess === true) {
+					if (M[3] && macro.reprocess) {
 						// allows block level syntax to be used (headings, lists, etc.)
 						macro.text = woas.parser.NL_MARKER + '\n' + macro.text;
 					}
@@ -635,6 +637,7 @@ woas.macro = {
 			woas.log("Macro failed validity test: '" + text + "'");	//log:1
 			macro.text = woas.parser._make_preformatted(text, "color:#f00");
 		}
+//woas.log("'"+macro.text+"'")
 		return macro;
 	},
 
@@ -689,9 +692,11 @@ woas.macro = {
 		//   Or don't use a switch and rely on user -- any can be added then.
 		note: function(m) {
 			// the extra div helps IE6
-			var txt = "<"+"div><"+"div class='woas_note'>*%s* %s</"+"div><"+"/div>";
-			m.text = txt.sprintf(woas.i18n.NOTE_TEXT, m.text);
-			m.reprocess = true;
+			var txt1 = "<"+"div><"+"div class='woas_note'>"+woas.i18n.NOTE_TEXT+" ",
+				txt2 = "</"+"div><"+"/div>";
+			// if nothing passed to macro.parse it uses macro.text
+			m.text = txt1 + m.parse() + txt2;
+			m.block = true;
 			return true;
 		}
 	},

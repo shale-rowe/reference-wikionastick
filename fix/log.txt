@@ -7,6 +7,8 @@ Changes since Revision pvhl-2317 (git: 3d939c7)
 
 (needing to archive my work in an incomplete though working state; export probably isn't working right yet)
 
+* modify macro code so block macros can work correctly; refactor macro help page
+* improve script disabling and search result layout
 * rename 'Transclusion' help page to 'Template transclusion' and update associated help pages
 * fix errors in java saving (one mine from refactoring code; one original; now works in Windows Chrome & Opera)
 * disallow " in wiki links (they break the link and aren't allowed by code)
