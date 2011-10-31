@@ -77,7 +77,7 @@ woas.page.boundary: DFQRCTsKlU
 <div><input id="btn_import" class="woas_button_top" type="button" value="Import" onclick="import_wiki()" /></div>
 =Import a wiki from a WoaS /HTML/ file
 /The imported WoaS file can be from a current or earlier version./
-<fieldset class="woas_input_wrap"><legend>Source</legend>\
+<fieldset id="S2213" class="woas_input_wrap"><legend>Source</legend>\
 <label class="woas_input_wrap_left">File: <input class="woas_input_wrap_inline" id="filename_" type="file" /></label>
 <label><input type="checkbox" id="woas_cb_import_config" onclick="woas.importer.i_config=this.checked">Import configuration (except WSIF datasource settings)</label>
 <label><input type="checkbox" id="woas_cb_import_content" onclick="woas.ui._import_load_change()">Import content</label>
@@ -257,7 +257,7 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 <div class="woas_no_option"><input class="woas_button_top" type="button" onclick="save_options()" value="Save options" /></div>
 = Options
-<fieldset class="woas_input_wrap"><legend>User Interface</legend>\
+<fieldset id="S10406" class="woas_input_wrap"><legend>User Interface</legend>\
 <label><input type="checkbox" id="cb_auto_links" onclick="woas.config.auto_links = d$.checked('cb_auto_links')" />Automatically convert URLs to hyperlinks</label>
 <label><input type="checkbox" id="cb_key_cache" onclick="woas.config.key_cache = !d$.checked('cb_key_cache')" />Do not temporarily cache the AES key</label><br id="woas_hidden_break" /><label class="woas_no_option"><input type="checkbox" id="cb_dblclick_edit" onclick="woas.config.dblclick_edit = d$.checked('cb_dblclick_edit')" />Double click to edit pages/menu</label>
 <label><input type="checkbox" id="cb_debug_mode" onclick="woas.config.debug_mode = d$.checked('cb_debug_mode');woas._set_debug(woas.config.debug_mode);d$('cb_debug_closed').disabled=!woas.config.debug_mode" />Enable debug mode</label>&nbsp;&nbsp;<label><input type="checkbox" id="cb_debug_closed" class="woas_input_wrap_inline" onclick="woas.config.debug_closed = d$.checked('cb_debug_closed')" />Start with console closed</label>
@@ -266,17 +266,17 @@ woas.page.boundary: DFQRCTsKlU
 <label><input type="checkbox" id="cb_sort_tags" onclick="woas.config.sort_tags = d$.checked('cb_sort_tags')" />Sort tags in tag display</label>
 <label class="woas_no_option"><select id="sel_menu_link" onChange="woas.config.menu_link=this.selectedIndex"><option>Always ask</option><option>Always</option> <option>Never</option></select> Create a main menu link to newly created pages</label>\
 </fieldset>\
-<fieldset class="woas_input_wrap"><legend>Syntax</legend>\
+<fieldset id="S2324" class="woas_input_wrap"><legend>Syntax</legend>\
 <label><input type="checkbox" id="cb_new_tables_syntax" onclick="woas.config.new_tables_syntax = d$.checked('cb_new_tables_syntax')" />Enhanced tables syntax</label>\
 </fieldset>\
-<fieldset class="woas_input_wrap woas_no_option"><legend>Saving</legend>\
+<fieldset id="S2219" class="woas_input_wrap woas_no_option"><legend>Saving</legend>\
 <label><input type="checkbox" id="cb_save_on_quit" onclick="woas.config.save_on_quit = d$.checked('cb_save_on_quit')" />Automatically save options before quitting (if changed)</label>
 <label><input type="checkbox" id="cb_safe_mode" onclick="woas.config.safe_mode = d$.checked('cb_safe_mode')" />Enable safe mode with embedded scripts and plugins not executed (/requires reload/)</label>
 <label><input type="checkbox" id="cb_allow_diff" onclick="woas.config.allow_diff = d$.checked('cb_allow_diff')" />Make merge/diff of WoaS XHTML/WSIF data source easier</label>
 <label><input type="checkbox" id="cb_store_mts" onclick="var r = woas.config.store_mts = d$.checked('cb_store_mts'); woas.ui.display({no_mts:!r})" />Store and display last modified timestamp</label>
 <label><input type="checkbox" id="cb_rem_history" onclick="woas.config.nav_history = d$.checked('cb_rem_history')" />Store current page and navigation history</label>\
 </fieldset>\
-<fieldset class="woas_input_wrap woas_no_option"><legend>WSIF settings</legend>\
+<fieldset id="S9272" class="woas_input_wrap woas_no_option"><legend>WSIF settings</legend>\
 <div class="woas_input_wrap_left">Pages are stored internally if /WSIF data source/ is blank. *Existing internal pages will be deleted if /WSIF data source/ is changed from blank to an external source, and the external source will be overwritten with this wiki's content if it already exists!*
 
 If the /Use multiple files for WSIF data source/ option is being used (creating one WSIF file for each page) then disabling the option will not remove existing WSIF files, though the /WSIF data source/ index file will be overwritten with the full page content.
@@ -291,7 +291,7 @@ The path may be entered in Windows or UNIX format. *Any directories in the path 
 <label class="woas_input_wrap_left">WSIF author: <input class="woas_input_wrap_inline" id="txt_author" type="text" size="30" value="" onchange="woas.config.wsif_author=this.value" /></label>\
 </fieldset>\
 <div class="woas_no_option">\
-<fieldset class="woas_input_wrap" style="border-color:#f00"><legend>Permanent changes</legend>\
+<fieldset id="S15410" class="woas_input_wrap" style="border-color:#f00"><legend>Permanent changes</legend>\
 <input class="woas_button_ro" type="button" onclick="ro_woas()" value="Prevent edits" />&nbsp; /Caution: to re-enable editing you will have to manually edit this WoaS file/\
 </fieldset>\
 </div>
@@ -638,13 +638,13 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 <div><input class="woas_button_top" type="button" value="Export WSIF" onclick="woas.export_wiki_wsif()" /></div>
-= Export to WSIF format
-<fieldset class="woas_input_wrap"><legend>File generation Options</legend><div style="margin-bottom:5px" class="woas_input_wrap_left">*Directory path must exist if using a non-Mozilla browser. If file exists it will be overwritten, along with any associated files if exporting to multiple files.* Filename is the name of the page index file if /Export as multiple WSIF files/ is selected.</div>
+= Export to [[WoaS::Help::WSIF|WSIF]] format
+<fieldset id="S28565" class="woas_input_wrap"><legend>File generation options</legend><div style="margin-bottom:5px" class="woas_input_wrap_left">*Directory path must exist if using a non-Mozilla browser. If file exists it will be overwritten, along with any associated files if exporting to multiple files.* Filename is the name of the page index file if /Export as multiple WSIF files/ is selected.</div>
 
 <label class="woas_input_wrap_left">Relative path for WSIF file, including filename: <input class="woas_input_wrap_inline" id="woas_ep_path" type="text" size="60" value="" onblur="woas.ui.wsif_ds(this);woas.ui.blur_textbox()" /></label>
 <label><input type="checkbox" id="woas_cb_multi_wsif" />Export as multiple WSIF files (instead of saving all pages to a single wsif file)</label>
 <label><input type="checkbox" id="woas_cb_all_wsif">Include ALL pages from this WoaS (instead of only user created pages)</label></fieldset>\
-<fieldset class="woas_input_wrap"><legend>Other options</legend><label class="woas_input_wrap_left">Author: <input class="woas_input_wrap_inline" id="woas_ep_author" type="text" size="30" value="Anonymous" /></label>
+<fieldset id="S9592" class="woas_input_wrap"><legend>Other options</legend><label class="woas_input_wrap_left">Author: <input class="woas_input_wrap_inline" id="woas_ep_author" type="text" size="30" value="Anonymous" /></label>
 <script type="text/javascript">
 d$('woas_ep_path').value = "wsif" + woas.DIRECTORY_SEPARATOR + woas.wsif.DEFAULT_INDEX;
 d$('woas_ep_author').onfocus = d$('woas_ep_path').onfocus = woas.ui.focus_textbox;
@@ -744,7 +744,7 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 <div><input id="btn_import" class="woas_button_top" type="button" value="Import WSIF" onclick="woas.import_wiki_wsif()" /></div>
 =Import content in [[WoaS::Help::WSIF|WSIF]] format.
-<fieldset class="woas_input_wrap"><legend>Source</legend>\
+<fieldset id="S2213" class="woas_input_wrap"><legend>Source</legend>\
 <label class="woas_input_wrap_left">File: <input class="woas_input_wrap_inline" id="filename_" type="file" /></label>\
 </fieldset>\
 [[Include::WoaS::ImportSettings]]\
@@ -4506,13 +4506,13 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-<fieldset id="woas_import_pages" class="woas_input_wrap"><legend>Existing pages</legend>\
+<fieldset id="S10522" class="woas_input_wrap"><legend>Existing pages</legend>\
 <label><input type="radio" id="woas_import_ask" name="woas_import_overwrite" onclick="woas.importer.i_overwrite=3" checked="checked">Ask before overwrite</label>
 <label><input type="radio" id="woas_import_erase" name="woas_import_overwrite" onclick="woas.importer.i_overwrite=0">Erase all user pages before import process</label>
 <label><input type="radio" id="woas_import_ignore" name="woas_import_overwrite" onclick="woas.importer.i_overwrite=1">Ignore</label>
 <label><input type="radio" id="woas_import_overwrite" name="woas_import_overwrite" onclick="woas.importer.i_overwrite=2">Overwrite</label>
 </fieldset>\
-<fieldset id="woas_import_security" class="woas_input_wrap"><legend>Security</legend>\
+<fieldset id="S4030" class="woas_input_wrap"><legend>Security</legend>\
 <div class="woas_input_wrap_left">/If you don't trust the pages you are importing you may want to disable imported Javascript, macros, and special WoaS pages until you can review their content./</div>
 <label><input type="checkbox" id="woas_cb_import_comment_js" onclick="woas.importer.i_comment_js=this.checked">Comment Javascript tags</label>
 <label><input type="checkbox" id="woas_cb_import_comment_macros" onclick="woas.importer.i_comment_macros=this.checked">Comment macro definition/call</label>
