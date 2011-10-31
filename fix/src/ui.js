@@ -154,15 +154,17 @@ PVHL: FIX; this needs to be changed as
 	_import_load_change: function() {
 		var c = woas.importer.i_content = d$("woas_cb_import_content").checked,
 			s = woas.importer.i_styles = d$("woas_cb_import_styles").checked;
+		// the IDs below are from parser.heading_anchor to allow use in links
+		// MUST be changed if section title changed
 		if (c || s) {
-			d$.show("woas_import_pages");
+			d$.show("S10522");
 		} else {
-			d$.hide("woas_import_pages");
+			d$.hide("S10522");
 		}
 		if (c) {
-			d$.show("woas_import_security");
+			d$.show("S4030");
 		} else {
-			d$.hide("woas_import_security");
+			d$.hide("S4030");
 		}
 	},
 	// click on edit icon
