@@ -1,6 +1,11 @@
-The only code being worked on is in the fix directory. I am finishing up a version to be left with this project, but have started a 'Woas Legacy' fork project that will use my updated/fixed code and remain essentially compatible with WoaS 0.12.0, and a new 'Woas' project that will eventually create a completely new version with advanced capabilities.
+The only code being worked on is in the fix directory. I am finishing up
+a version to be left with this project, but have started a 'Woas Legacy'
+fork project that will use my updated/fixed code and remain essentially
+compatible with WoaS 0.12.0, and a new 'Woas' project that will
+eventually create a completely new version with advanced capabilities.
 
-You can read some of my reasons for doing this here: http://sourceforge.net/p/woas/blog/2011/09/welcome-332/
+You can read some of my reasons for doing this here:
+  http://sourceforge.net/p/woas/blog/2011/09/welcome-332/
 
 Thanks, Paul.
 
