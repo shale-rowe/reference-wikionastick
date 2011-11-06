@@ -12,9 +12,15 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 // internationalization language resources - Italian translation
-
-i18n = {
-ui: {
+/*
+ object loaded could also have:
+	strings_add:true - to add strings that are not in the current woas.i18n
+	  object (useful for plugin translations)
+	common_words_replace:true - to delete the default common words
+	  before adding to them
+*/
+woas.i18n.load({
+strings: {
 ACCESS_DENIED: "Accesso non consentito alla pagina '%s'",
 ALT_BROWSER_INPUT: "Per favore specifica il percorso completo per il file '%s', il tuo browser per ragioni di sicurezza non permette che questo tipo di percorso venga letto direttamente.",
 ASK_MENU_LINK: "Vuoi aggiungere un link nel menu principale?",
@@ -59,7 +65,7 @@ IMPORT_UNRECON: "Formato sconosciuto",
 INSERT_NEW:"Inserisci il titolo per la nuova pagina",
 INVALID_ALIAS: "Alias non valido: '%s', non verr\u00e0 considerato",
 INVALID_DATA:"Gruppo di dati non validi!",
-INVALID_SPECIAL: "Pagina speciale non valida.",
+INVALID_PAGE: "Pagina %s non valida.",
 INVALID_TITLE: "Il titolo non pu\u00f2 contenere ':::' e nessuno dei seguenti caratteri:\\n< > | [ ] { }",
 LAST_MODIFIED: "Ultima modifica: ",
 LOADING: "Sto caricando Wiki on a Stick...",
@@ -69,7 +75,7 @@ NO_ERROR: "Nessun errore",
 NO_JAVA:"Non \u00e8 stato possibile utilizzare l'applet Java TiddlySaver e nemmeno eseguire il salvataggio diretto di Java.",
 NO_TIDDLY_SAVER:"L'applet Java TiddlySaver non \u00e8 disponibile.",
 PAGE_EXISTS: "Esiste gi\u00e0 una pagina con il titolo '%s'!",
-PAGE_NOT_EXISTS: "Pagina inesistente: ",
+PAGE_NOT_EXISTS: "'%s' pagina inesistente",
 PAGE_NOT_FOUND: "Pagina non trovata. Vuoi crearla?",
 PRINT_MODE_WARN: "Spiacente, ma non \u00e8 possibile navigare il wiki mentre ti trovi in modalit\u00e0 stampa",
 PWD_QUERY: "Inserisci una password",
@@ -92,7 +98,8 @@ WSIF_NS_VER: "La versione WSIF %s non \u00e8 supportata!",
 CANNOT_LOCK_RESERVED: "Non \u00e8 possibile proteggere una pagina appartenente a un namespace riservato",
 CONTINUE_WAIT_LOAD: "Il processo di caricamento sembra bloccato.\\nClicca su OK per continuare ad aspettare o su ANNULLA per interrompere."
 },
-words: [ // do not use any copyrighted wordlist here
+common_words: [
+// do not use any copyrighted wordlist here
 'il','di','e','a','un','in','che','non','si','da','lo','per','con','ma','come',
 'su','mi','anche','o','io','se','perch\u00e9','li','ci','ne','lei','ancora',
 'tu','lui','senza','bene','cui','chi','gi\u00e0','dopo','uno','noi','dove',
@@ -111,22 +118,7 @@ words: [ // do not use any copyrighted wordlist here
 'magari','oppure','inoltre','indietro','addosso','addirittura','finch\u00e9',
 'perfino','affatto','stamattina','completamente','probabilmente','chiss\u00e0',
 'sino','ognuno','entro'
-]};
-
-// This code is here temporarily. It should be in the main WoaS code.
-
-// Merge phrases into i18n object
-var phrase;
-for (phrase in i18n.ui) {
-	if (typeof i18n.ui[phrase] === 'string') {
-		woas.i18n[phrase] = i18n.ui[phrase];
-	}
-}
-
-// TODO: should check word not present before adding; see pvhl.notes for details.
-woas.i18n.common_words = woas.i18n.common_words.concat(i18n.words);
-
-delete i18n;
-delete phrase;
+]
+});
 
 --DFQRCTsKlU
