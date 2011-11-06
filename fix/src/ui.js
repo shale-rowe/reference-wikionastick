@@ -860,14 +860,14 @@ function query_delete_image(cr) {
 }
 
 // triggered by UI graphic button
+// PVHL: print CSS now controlled by CSS (section /* PRINT */) to allow change
+//   by those who use the print window for presentations.
 function page_print() {
 	woas._customized_popup(current,
 		woas.getHTMLDiv(d$("woas_page")),
 		'woas={};woas.go_to=function(page){alert("'
 		+woas.js_encode(woas.i18n.PRINT_MODE_WARN)+'");}',
-		'#woas_page { overflow: auto; border: none !important; padding: 0px;\
-margin: 0px }\n.woas_nowiki_multiline { page-break-inside: avoid }',
-		' id="woas_page"');
+		'', ' id="woas_page" class="woas_print"');
 }
 
 /*

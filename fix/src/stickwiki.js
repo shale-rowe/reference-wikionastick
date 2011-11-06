@@ -105,16 +105,15 @@ woas.xhtml_encode = function(src) {
 
 // DO NOT modify this list! these are namespaces that are reserved to WoaS
 var reserved_namespaces = ["Special", "WoaS", "Lock", "Locked", "Unlocked", "Unlock",
-						"Tags" /*DEPRECATED*/,
+						"Tags?" /*DEPRECATED*/,
 						"Tagged", "Untagged", "Include", "Javascript"];
 
 // create the regex for reserved namespaces
-var reserved_rx = "^";
-for(var i = (woas.tweak.edit_override ? 2 : 0);i < reserved_namespaces.length;i++) {
-	reserved_rx += /*RegExp.Escape(*/reserved_namespaces[i] + "::";
-	if (i < reserved_namespaces.length-1)
-		reserved_rx += "|";
+var reserved_rx = "^(?:";
+for(var i = (woas.tweak.edit_override ? 2 : 0);i < reserved_namespaces.length - 1;i++) {
+	reserved_rx += reserved_namespaces[i] + "|";
 }
+reserved_rx += reserved_namespaces[i] + ")::";
 woas._reserved_rx = new RegExp(reserved_rx, "i");
 reserved_namespaces = reserved_rx = null;
 
@@ -536,21 +535,23 @@ woas._get_special = function(cr, interactive) {
 woas.get_javascript_page = function(cr) {
 	var text = woas.eval(cr, true);
 	if (this.eval_failed) {
-		this.crash(this.i18n.JS_PAGE_FAIL1.sprintf(cr) +
+		woas.log(this.i18n.JS_PAGE_FAIL1.sprintf(cr) +
 			this.i18n.JS_PAGE_FAIL2 + this.eval_fail_msg);
 		return null;
 	}
-	// safety check; returned value contains ['title', 'body'] or 'body'
-	// parser allows title to be empty string; body can't be empty
-	if (((text instanceof Array) && (text.length !== 2 || (typeof text[0]) !==
-			'string' || (typeof text[1]) !== 'string' || !text[1] )) ||
-			!(text instanceof Array) && (typeof text) !== "string") {
-		this.crash(this.i18n.JS_PAGE_FAIL1.sprintf(cr) +
-			this.i18n.JS_PAGE_FAIL3.sprintf(text, text instanceof Array
-			? 'array' : typeof text));
-		return null;
+	// safety check; returned value contains 'body' or ['title', 'body']
+	// body can be null if type is not array, otherwise type must be array and
+	// title can be empty, but body must exist (dynamic page creation)
+	if ((typeof text) === "undefined" ||
+			(!(text instanceof Array) && (typeof text) === "string") ||
+			((text instanceof Array) && text.length === 2 &&
+				(typeof text[0]) === 'string' && (typeof text[1]) === 'string'
+				&& text[1])) {
+		return text || null;
 	}
-	return text;
+	this.log(this.i18n.JS_PAGE_FAIL1.sprintf(cr) + this.i18n.JS_PAGE_FAIL3
+		.sprintf(text, text instanceof Array ? 'array' : typeof text));
+	return null;
 };
 
 woas.eval = function(code, return_value) {
@@ -607,8 +608,7 @@ woas.set_current = function (cr, interactive, keep_fwd) {
 								return false;
 							}
 							// title allowed to be empty string: 'Javascript::'
-							cr = text[0];
-							text = text[1];
+							cr = text[0] || '';
 						}
 						break;
 					case "Special":
@@ -801,7 +801,7 @@ woas.load_as_current = function(title, xhtml, mts, set_b, keep_fwd) {
 	current = title;
 	this.ui.refresh_menu();
 	// activate menu or page scripts
-// PVHL: FIX = menu can be activated twice
+// PVHL: FIX - menu can be activated twice
 	this.scripting.activate(this.is_menu(current) ? "menu" : "page");
 	this._set_title(title);
 	this.update_view();

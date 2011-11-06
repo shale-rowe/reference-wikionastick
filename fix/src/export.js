@@ -111,55 +111,64 @@ woas.exporter = {
 	_one_page: function (data, title, fname, mts) {
 		data = woas.utf8.do_escape(data);
 		// prepare the raw text for later description/keywords generation
-		var raw_text = woas.trim(woas.xhtml_to_text(data)),
-			exp_menu, ns, mpi, tmp;
+		var raw_text = woas.trim(woas.xhtml_to_text(data)), exp_menu = '',
+			ns, mpi, tmp;
 		if (this._settings.exp_menus) {
 			ns = woas.get_namespace(title);
 			// get submenu, if available, from first available namespace
-			while (ns !== "") {
-				mpi = woas.page_index(ns + "::Menu");
-				if (mpi !== -1) {
-					tmp = woas.get__text(mpi);
-					if (tmp !== null)
-						exp_menu = tmp;
-					break;
+			if (!/^WoaS::Help/.test(ns)) {
+				while (ns !== "") {
+					mpi = woas.page_index(ns + "::Menu");
+					if (mpi !== -1) {
+						tmp = woas.get__text(mpi);
+						if (tmp !== null)
+							exp_menu = tmp;
+						break;
+					}
+					tmp = ns.lastIndexOf("::");
+					ns = tmp === -1 ? "" : ns.substring(0, tmp);
 				}
-				tmp = ns.lastIndexOf("::");
-				ns = tmp === -1 ? "" : ns.substring(0, tmp);
 			}
-			if (!ns) {
+			if (!exp_menu) {
 				exp_menu = woas.get_text("::Menu") || "";
 			}
 			// parse the exported menu
 			if (exp_menu) {
 				exp_menu = woas.parser.parse(exp_menu, true, this._settings.js_mode);
-				if (this._settings.js_mode)
+				if (this._settings.js_mode) {
 					woas.scripting.activate("menu");
+				}
 				// fix also the encoding in the menus
-				exp_menu = woas.utf8.do_escape(exp_menu);
+				exp_menu = 'div id="woas_menu_wrap"><'+'div id="woas_menu_pad"><'+
+					'div id="woas_menu">'+woas.utf8.do_escape(exp_menu)+'<'+
+					'/div><'+'/div><'+'/div><';
 			}
-			//TODO: use correct ids/class names
-			data = '<'+'div id="i_woas_menu_wrap" style="position: absolute;"><'+'div class="woas_wiki" id="woas_menu">'+exp_menu+'<'+'/div><'+
-					'/div><'+'div class="woas_text_area" id="woas_page">'+data+'<'+'/div>';
 		}
+		data = '<'+'div id="woas_header_wrap"><'+'div id="woas_header"><'+
+			'span id="woas_title">'+title+'<'+'/span><'+'/div><'+'/div><'+
+			'div id="woas_content"><'+exp_menu+'div id="woas_page_wrap"><'+
+			'div id="woas_page">'+data+'<'+'/div>'+(mts ? '<'+
+			'div id="woas_mts">'+woas.last_modified(mts)+'<'+'/div>' : '')+
+			'<'+'/div><'+'/div>';
 		// craft a nice XHTML page
 		data = "<"+"title>"+woas.xhtml_encode(title)+"<"+"/title>"+
-				// add the exported CSS
-				this._settings.css+
-				// add the last-modified header
-				(mts ? '<'+'meta http-equiv="last-modified" content="'+
-				(new Date(mts*1000)).toGMTString()+'" />'+"\n" : '')+
-				// other useful META stuff
-				'<'+'meta name="generator" content="Wiki on a Stick v'+woas.version+' - http://stickwiki.sf.net/" />'+"\n"+
-				'<'+'meta name="keywords" content="'+
-				woas.utf8.do_escape(woas._attrib_escape(_auto_keywords(raw_text)))+'" />'+"\n"+
-				'<'+'meta name="description" content="'+
-				woas.utf8.do_escape(woas._attrib_escape(raw_text.replace(/\s+/g, " ")
-				.substr(0,max_description_length)))+'" />'+"\n"+
-				this._settings.meta_author+this._settings.custom_scripts+
-				'<'+'/head><'+'body>'+data+
-				(mts ? "<"+"div id=\"woas_page_mts\">"+woas.last_modified(mts)+
-				"<"+"/div>" : "")+"<"+"/body><"+"/html>\n"; raw_text = null;
+			// add the exported CSS
+			this._settings.css+
+			// add the last-modified header
+			(mts ? '<'+'meta http-equiv="last-modified" content="'+
+			(new Date(mts*1000)).toGMTString()+'" />'+"\n" : '')+
+			// other useful META stuff
+			'<'+'meta name="generator" content="Wiki on a Stick v'+
+			woas.version+' - http://stickwiki.sf.net/" />'+"\n"+
+			'<'+'meta name="keywords" content="'+
+			woas.utf8.do_escape(woas._attrib_escape(_auto_keywords(raw_text)))+
+			'" />'+"\n"+'<'+'meta name="description" content="'+
+			woas.utf8.do_escape(woas._attrib_escape(raw_text.replace(/\s+/g,
+			" ").substr(0,max_description_length)))+'" />'+"\n"+
+			this._settings.meta_author+this._settings.custom_scripts+'<'+
+			'/head><'+'body class="woas_export'+(exp_menu ? '' :
+			' woas_export_no_menu')+'">'+data+'<'+'/body><'+'/html>\n';
+		raw_text = null;
 		return woas.save_file(this._settings.xhtml_path+
 			fname, woas.file_mode.ASCII_TEXT, woas.DOCTYPE+woas.DOC_START+data);
 	},

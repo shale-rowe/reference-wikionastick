@@ -2,7 +2,7 @@ wsif.version: 1.3.1
 wsif.generator: woas
 wsif.generator.version: 0.12.0
 woas.author: Anonymous
-woas.pages: 90
+woas.pages: 92
 
 woas.page.title: ::Menu
 woas.page.attributes: 0
@@ -14,6 +14,9 @@ woas.page.boundary: DFQRCTsKlU
 [[Main Page]]
 [[Special::Options|Options]]
 [[WoaS History]]
+
+[[Improvements]]
+[[log.txt]]
 
 * [[WoaS::Help]]
 * [[WoaS::Aliases]]
@@ -42,24 +45,28 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-== Pages
-* [[Locked::]], [[Unlocked::]] - a list of all encrypted/plain pages
-* [[Special::All Pages]] - a list of all user created pages
-* [[Special::Dead Pages]] - a list of nonexistent pages that other pages link to
+== General
+* [[Special::Options]] - WoaS options
+* [[Special::Search]] - search all wiki pages
+== Lists
+* [[File::]], [[Image::]] - pages in the embedded namespaces
+* [[Locked::]], [[Unlocked::]] - encrypted/plain pages
+* [[Special::All Pages]] - user created pages
+* [[Special::Dead Pages]] - nonexistent pages that other pages link to
+* [[Special::Orphaned Pages]] - pages that no other page links to
+* [[Special::Recent Changes]] - recently modified pages
+* [[Tagged::]], [[Untagged::]] - tagged/untagged pages
+== Page commands
 * [[Special::Delete Page]] - delete a specific page
+* [[Special::Duplicate Page]] - duplicate a specific page
 * [[Special::Go to]] - go to a specific page
 * [[Special::New Page]] - create a new page
-* [[Special::Orphaned Pages]] - a list of pages that no other page links to
-* [[Special::Recent Changes]] - a list of all recently modified pages
-* [[Special::Search]] - search all wiki pages
-* [[Tagged::]], [[Untagged::]] - a list of all tagged/untagged pages
-== Advanced features
-* [[Special::Options]] - general WoaS options
+== Special features
 * [[WoaS::Aliases]] - view/edit page title aliases
 * [[WoaS::CSS::Core]], [[WoaS::CSS::Custom]] - view the core CSS and edit the custom CSS
 * [[WoaS::Hotkeys]] - view/edit WoaS access keys and default key bindings
 * [[WoaS::Plugins]] - enable/disable and view/edit WoaS Javascript plugins
-== Maintenance
+== Wiki maintenance
 * [[Special::Import]] - import wiki from a WoaS html file (including earlier versions)
 * [[Special::ImportWSIF]] - import a [[WoaS::Help::WSIF|WSIF]] file containing one or more wiki pages
 * [[Special::Export]] - export wiki into multiple linked static XHTML files
@@ -145,23 +152,49 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
+= Why this version?
+
+WoaS is a great project and an incredibly useful tool -- and if you use Firefox you may not even notice most of the issues with version 0.12.0. I am very grateful to the project owner for all his hard work in the past, and for his friendliness to me personally. I am Paul Levey ([[https://sourceforge.net/sendmessage.php?touser=2848781|PVHL]]), one of the people with WoaS SVN commit privileges. I have decided to add my current code to this zip file because so many people are downloading it rather than reading the info file I added to the files section.
+
+Perhaps I should have done this a long time ago ... I have been increasingly frustrated over the past months to see thousands of people downloading this broken code, but have not wanted to make this move, just as I tried hard not to fork the WoaS project itself: I have been waiting for the owner to come back. He did appear for a day a few months ago and gave me permission to add to these files, but has since disappeared again. No emails are answered and the official forums have been down for months. I don't know why this is -- I hope everything is fine with him -- but I finally decided to create a new project. Some of *[[http://sourceforge.net/p/woas/blog/2011/09/welcome-332/|my reasons for doing this are explained in this blog post]]*.
+
+The WoaS 0.12.0 code has not been updated in almost one-and-a-half years, though it corrupts files in Chrome, Opera, and Safari, and one of the previously included files (I have removed it to make room for this file) doesn't even load! So, this file is my current work as of when I uploaded it. The current code is in *[[http://stickwiki.svn.sourceforge.net/viewvc/stickwiki/branches/pvhl/|my SVN branch]]*, and that version should be used instead of this file. The easiest way right now is to *[[http://stickwiki.svn.sourceforge.net/viewvc/stickwiki/branches/pvhl/?view=tar|download the tarball]]*.
+
+*This file still has some unfixed issues:*
+* I am in the midst of updating the WoaS::Export code to match the current HTML/CSS, so the Export function is broken in this file, though it will be fixed in the next few days in my branch.
+* I need to add the code that fixes the layout when the title is too long; again, this will be uploaded very soon.
+
+I am almost finished with my updating work. Once this is done I will be moving permanently to my new projects.
+
+* The *[[http://sourceforge.net/p/woas|Woas project]]* will one day be a very capable new system that is able to do all that WoaS does and much more. It will not be compatible with WoaS 0.12.0, though it will be able to import WoaS [[WoaS::Help::WSIF|WSIF]] files.
+
+* The *[[http://sourceforge.net/p/woas/legacy|Woas Legacy project]]* will use the final version of my fixed WoaS code and remain essentially compatible with WoaS 0.12.0
+
+The next section details some of the changes I have made to the 0.12.0 code, and tonight I started a page that will detail [[Improvements|major changes]]; I've also included a [[log.txt|copy of the log.txt]] for this version, along with some additional information.
+
+Hope to see you there! Paul.
+\
 = Buyer Beware!
-*Please be aware* that this version is unfinished. I have uploaded it to update my code and let others take a look at current changes. I believe it is safe with data, but will be uploading a better version within the next day or two.
+*Please be aware* that this version is still unfinished. I believe it is safe with data, but it is still being updated. Almost done. Also, the contents of this page don't match {{{fix/index.wsif}}}.
 
-* *This version uses a completely new way to control the layout* (adding CSS classes to the HTML tag). It works very well but means that if you try plugins that change the display style (block/hidden) of the main HTML it will likely break the file. This will be fixed later by loading layout from a page (or code) on start up. This new code makes future theming and skinning much easier to implement. (This is a key issue for me.) It also stops the multiple changes that  mess up version control and diffs.
-* The /Fixed Header/ is not done yet. Right now content disappears behind it. This will be put right by the next upload. It is actually just a bit of code that I have already written, but I haven't had time to get to it yet as I wanted to finish up some other layout issues and got side-tracked with the /Orphaned Pages/ code.
-* I haven't finished with export to HTML yet -- or even checked it recently; much of the layout and IDs have changed during this phase. I will make it right before release.
-* Some lists may actually have slowed down a bit as they are now much more capable; the /Orphaned Pages/ list is now 100 times faster.
+* *Check out the nice jump to [[Improvements#Layout|sections]] (and the folding TOC once you get to that page).* Also improved:
+** Erasing the wiki (better menu layout)
+** Using the [[WoaS::Help::Javascript#Using the Javascript:: namespace in a link|Javascript]] namespace is more powerful
+** Image namespace listing allows better selecting and improved layout possibilities
+
+* Chrome/Safari Java saving in Windows should now be properly fixed.
+* The sub-menu system has been changed. Sub-menus now use their own page to replace the main menu; this allows much more versatile designs.
+* This version uses a completely new way to control the layout (adding CSS classes to the HTML tag). It works very well but means that if you try plugins that change the display style (block/hidden) of the main HTML it will likely break the file. This will be fixed later by loading layout from a page (or code) on start up. This new code makes future theming and skinning much easier to implement. (This is a key issue for me.) It also stops the multiple changes that  mess up version control and diffs.
+* I haven't finished with export to HTML yet; much of the layout and IDs have changed during this phase. I will make it right before release.
+* The /Orphaned Pages/ list is now many times faster in larger files (time is square root of original time).
 * I found it took a few hours to get used to the new page/tag list format, because it works differently from 0.12.0 (so I kept going to pages instead of toggling DIVs); once used to it I found it much easier to use. And I think it looks much better. (The 0.12.0 look actually breaks in one major browser on my system.)
-* I have rearranged some icons to make the code simpler and because it is more consistent to my eyes.
+* I have rearranged some icons to make the code simpler and because it is more consistent to my eyes. I will be modifying this slightly before I'm finished so that the icons can be in any order (for Little Girl)
 * The locks are now opposite in looks to 0.12.0; it just makes more sense to me.
-* I am aware of an issue in the Help pages that breaks one page because of a bad link. I will fix it before release.
-* My new WoaS logo is to differentiate my version from the official one. I haven't decided yet whether to use it for this version or to reserve it for my later, enhanced WoaS version (assuming I ever get to it).
-* Though I have fixed up the /Password Entry/ layout (and made a new icon for it) I may change it to use a page (like all the other functions), and may eventually remove the need for it entirely
+* Though I have fixed up the /Password Entry/ layout (and made a new icon for it) I may change it to use a page (like all the other functions), and may eventually remove the need for it entirely. It now accepts the enter key.
 
-Again, some things are in transition. Some pages are not finished and a lot of the help pages have not been updated yet, though /Little Girl/ has done a lot of work on them.
+Again, some things are in transition. Some pages are not finished (like Export), but things are getting close.
 
-Do let me know what you think and any issues you find. Be sure to check out some of the new options. Sorry to have taken so long to get the code up. Hopefully I'll be more or less finished with this soon. I have tested quite a bit with a quite large WoaS file and things seem to be working well, but I haven't tested every function recently; I will before release.
+Do let me know what you think and any issues you find. Be sure to check out some of the new options. Sorry to have taken so long to get the code up. Hopefully I'll be more or less finished with this soon. I have tested quite a bit with a quite large WoaS file and things seem to be working well, but I haven't tested every function exhaustively; I will before release.
 
 Some of these changes will have broken some plug-ins; future changes will break some more. They can be fixed once things are stable. Thanks for your patience.
 
@@ -519,6 +552,7 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
+[[Special::TOC]]
 = Wiki on a Stick History
 == Versions 0.01 &tilde; 0.04
 <sub>by Andr\u00e9 Wagner</sub>
@@ -564,35 +598,22 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-<style>
-#woas_ep_xhtml, #woas_ep_img, #woas_ep_ext, #woas_ep_author {
-	margin: .25em 0em .75em
-}
-#woas_page {
-	text-align: left
-}
-#woas_page h2 {
-	margin-bottom: .375em
-}
-</style>
 <div><input class="woas_button_top" type="button" value="Export XHTML" onclick="woas.export_wiki()" /></div>
-= Export content into XHTML files
-Export wiki content into multiple linked XHTML files.
-==Paths
-<<<woas.note: All directories must exist if using a non-Mozilla browser.>>>
-Directory for XHTML files:&nbsp; <input id="woas_ep_xhtml" type="text" size="80" />
-Directory for embedded pictures:&nbsp; <input id="woas_ep_img" type="text" size="80" />
-Extension for generated XHTML files:&nbsp; <input id="woas_ep_ext" type="text" size="8" />
-<label for="woas_cb_index_main"><input type="checkbox" id="woas_cb_index_main" checked="checked">Name the main page /index/</label>
-<label for="woas_cb_unix_norm"><input type="checkbox" id="woas_cb_unix_norm" checked="checked">Use UNIX-style normalization to generated filenames (all lowercase letters; non-alphanumeric characters replaced with underscores)</label>
-==Custom page scripts
-<label for="woas_cb_js_ign"><input type="radio" id="woas_cb_js_ign" name="woas_cb_js" checked="checked">Do not export Javascript</label>
+= Export content into linked XHTML files
+<fieldset id="S1613" class="woas_input_wrap"><legend>Paths</legend>\
+<div class="woas_input_wrap_left" style="margin-bottom:5px">*Directory paths must exist if using a non-Mozilla browser. If exported files already exist they will be overwritten.*</div>
+
+<label class="woas_input_wrap_left">Directory for XHTML files: <input class="woas_input_wrap_inline" id="woas_ep_xhtml" type="text" size="80" /></label>
+<label class="woas_input_wrap_left">Directory for embedded pictures: <input class="woas_input_wrap_inline" id="woas_ep_img" type="text" size="80" /></label>
+<label class="woas_input_wrap_left">Extension for generated XHTML files: <input class="woas_input_wrap_inline" id="woas_ep_ext" type="text" size="8" /></label>
+<label for="woas_cb_index_main"><input type="checkbox" id="woas_cb_index_main" checked="checked">Name the main page /index/ (plus file extension above)</label>
+<label for="woas_cb_unix_norm"><input type="checkbox" id="woas_cb_unix_norm" checked="checked">Apply UNIX-style normalization to generated filenames (all lowercase letters; non-alphanumeric characters replaced with underscores)</label></fieldset>\
+<fieldset id="S19285" class="woas_input_wrap"><legend>Custom page scripts</legend><label for="woas_cb_js_ign"><input type="radio" id="woas_cb_js_ign" name="woas_cb_js" checked="checked">Do not export Javascript</label>
 <label for="woas_cb_js_exp"><input type="radio" id="woas_cb_js_exp" name="woas_cb_js">Export Javascript as-is</label>
-<label for="woas_cb_js_dyn"><input type="radio" id="woas_cb_js_dyn" name="woas_cb_js">Run before exporting, but do not export the Javascript</label>
-==Other options
-META author (optional):&nbsp; <input id="woas_ep_author" type="text" size="20" value="" />
-<label for="woas_cb_sep_css"><input type="checkbox" id="woas_cb_sep_css" checked="checked">Export CSS into shared file</label>
-<label for="woas_cb_export_menu"><input type="checkbox" id="woas_cb_export_menu" checked="checked">Export menus</label>
+<label for="woas_cb_js_dyn"><input type="radio" id="woas_cb_js_dyn" name="woas_cb_js">Run before exporting, but do not export the Javascript</label></fieldset>\
+<fieldset id="S9592" class="woas_input_wrap"><legend>Other options</legend><label class="woas_input_wrap_left">META author (optional): <input class="woas_input_wrap_inline" id="woas_ep_author" type="text" size="30" value="" /></label>
+<label><input type="checkbox" id="woas_cb_sep_css" checked="checked">Export CSS into shared file</label>
+<label><input type="checkbox" id="woas_cb_export_menu" checked="checked">Export menus</label></fieldset>\
 <script type="text/javascript">
 var path = woas.ROOT_DIRECTORY + "export" + woas.DIRECTORY_SEPARATOR;
 d$('woas_ep_xhtml').value = path;
@@ -986,6 +1007,7 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 The Advanced page offers some tools for administration of your wiki. The Special links lead to pages that have individual help available, except for the dynamic commands that create a prompt. Below are links to relevant help pages for those /Special::/ commands.
 * *Special::Delete Page* - See [[WoaS::Help::Delete a page|Delete a page]]
+* *Special::Duplicate Page* - See [[WoaS::Help::Duplicate a page|Duplicate a page]]
 * *Special::Erase Wiki* - See [[WoaS::Help::Special::Erase Wiki|Erase Wiki]]
 * *Special::Go to* - See [[WoaS::Help::Go to a page|Go to a page]]
 * *Special::New Page* - See [[WoaS::Help::Create a page|Create a page]]
@@ -3486,7 +3508,7 @@ Your WoaS pages can be exported into web-compatible XHTML, CSS and eventually at
 The WSIF file(s) in the export directory can now be copied, shared, or stored for backup purposes. See also [[WoaS::Help::WSIF|WSIF]].
 
 --DFQRCTsKlU
-woas.page.title: WoaS::Template::Transclusion Example
+woas.page.title: WoaS::Help::Template transclusion::Example
 woas.page.attributes: 0
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
@@ -3512,33 +3534,33 @@ You can then create a transclusion link or links to that page by creating a norm
 <div class="woas_help_text">Use this code, replacing PAGENAME with the name of the page to be included, and VALUE1 and VALUE2 with the values you'd like the two variables to have when the included page is displayed:</div>
 <div class="woas_help_code">[<!-- -->[Include::PAGENAME|VALUE1|VALUE2|VALUE3]<!-- -->]</div>
 == Examples
-These examples use the [[WoaS::Template::Transclusion Example]] page which contains two variables. The contents of that page are:
+These examples use the [[WoaS::Help::Template transclusion::Example]] page which contains two variables. The contents of that page are:
 {{{
 <big style="color:#0A0">%1 had a little %2</big>
 }}}
 <div class="woas_help_text">This code:</div>
-<div class="woas_help_code">[<!-- -->[Include::WoaS::Template::Transclusion Example|Mary|lamb]<!-- -->]</div>
+<div class="woas_help_code">[<!-- -->[Include::WoaS::Help::Template transclusion::Example|Mary|lamb]<!-- -->]</div>
 <div class="woas_help_text">Results in this transclusion:</div>
-[[Include::WoaS::Template::Transclusion Example|Mary|lamb]]
+[[Include::WoaS::Help::Template transclusion::Example|Mary|lamb]]
 <div class="woas_help_text">While this code:</div>
-<div class="woas_help_code">[<!-- -->[Include::WoaS::Template::Transclusion Example|Fred|snack]<!-- -->]</div>
+<div class="woas_help_code">[<!-- -->[Include::WoaS::Help::Template transclusion::Example|Fred|snack]<!-- -->]</div>
 <div class="woas_help_text">Results in this transclusion:</div>
-[[Include::WoaS::Template::Transclusion Example|Fred|snack]]
+[[Include::WoaS::Help::Template transclusion::Example|Fred|snack]]
 <div class="woas_help_text">If an unneeded parameter is supplied:</div>
-<div class="woas_help_code">[<!-- -->[Include::WoaS::Template::Transclusion Example|Bob|Jane|Jack]<!-- -->]</div>
+<div class="woas_help_code">[<!-- -->[Include::WoaS::Help::Template transclusion::Example|Bob|Jane|Jack]<!-- -->]</div>
 <div class="woas_help_text">The extra parameter is simply ignored:</div>
-[[Include::WoaS::Template::Transclusion Example|Bob|Jane|Jack]]
+[[Include::WoaS::Help::Template transclusion::Example|Bob|Jane|Jack]]
 <div class="woas_help_text">If a needed parameter is not supplied:</div>
-<div class="woas_help_code">[<!-- -->[Include::WoaS::Template::Transclusion Example|Mary]<!-- -->]</div>
+<div class="woas_help_code">[<!-- -->[Include::WoaS::Help::Template transclusion::Example|Mary]<!-- -->]</div>
 <div class="woas_help_text">The missing parameter shows up in the transclusion (note the {{{%2}}}):</div>
-[[Include::WoaS::Template::Transclusion Example|Mary]]
+[[Include::WoaS::Help::Template transclusion::Example|Mary]]
 == Wiki and HTML code in transclusion
 Some wiki code and HTML tags are accepted in the values.
 
 <div class="woas_help_text">Use this code:</div>
-<div class="woas_help_code">[<!-- -->[Include::WoaS::Template::Transclusion Example|&#042;Mary&#042;|&#042;lamb&#042;.&lt;br&gt;&lt;br&gt;Its &#047;fleece&#047; was white as &#095;snow&#095;.]<!-- -->]</div>
+<div class="woas_help_code">[<!-- -->[Include::WoaS::Help::Template transclusion::Example|&#042;Mary&#042;|&#042;lamb&#042;.&lt;br&gt;&lt;br&gt;Its &#047;fleece&#047; was white as &#095;snow&#095;.]<!-- -->]</div>
 <div class="woas_help_text">To create this:</div>
-[[Include::WoaS::Template::Transclusion Example|*Mary*|*lamb*.<br><br>Its /fleece/ was white as _snow_.]]
+[[Include::WoaS::Help::Template transclusion::Example|*Mary*|*lamb*.<br><br>Its /fleece/ was white as _snow_.]]
 == Infinite recursion
 Infinite recursion happens when you create an include link to the current page or to another page that that has an include link to the current page. The included page will be repeated multiple times followed by the include link itself being displayed in bold red text surrounded by infinity symbols like this:
 
@@ -3682,6 +3704,9 @@ body, div, textarea, pre, ul, ol, li {
 	height: 100%;
 	width: 100%;
 	z-index: 100
+}
+#woas_page {
+	position: relative
 }
 
 /* control disabling of navbar icons (or text if no images) */
@@ -3858,6 +3883,8 @@ body {
 .woas_editor_link, #woas_edit_wrap{
 	color: #F0F0F5; /* same as header */
 }
+
+/* EXPORT (at end of CSS) */
 
 /* FOOTER */
 #woas_footer {
@@ -4236,6 +4263,8 @@ img.woas_nav { /* woas logo */
 	border: 2px solid #666666;
 }
 
+/* PRINT  (at end of CSS) */
+
 /* SEARCH */
 #woas_search_results {
 	padding-top: 1.5em
@@ -4358,6 +4387,39 @@ img.woas_nav { /* woas logo */
 	color: 	#000080; /* navy */
 	font-size: large;
 	text-align: center
+}
+
+/* WOAS MODIFIER CSS (EXPORT & PRINT)
+   (needs to be after other CSS)
+*/
+
+/* EXPORT (modifier: .woas_export) */
+.woas_export #woas_header_wrap {
+    position: static
+}
+.woas_export #woas_content {
+    padding: 0.75em 0.75em
+}
+.woas_export #woas_page {
+    margin-bottom: 0px
+}
+.woas_export #woas_menu_wrap {
+	position: relative;
+	float: left
+}
+.woas_export_no_menu #woas_page_wrap {
+    margin-left: 0px
+}
+
+/* PRINT (modifier: .woas_print) */
+#woas_page.woas_print {
+	overflow: auto;
+	border-width: 0px;
+	padding: 0px;
+	margin: 0px
+}
+.woas_print .woas_nowiki_multiline {
+	page-break-inside: avoid
 }
 
 --DFQRCTsKlU
@@ -4736,19 +4798,18 @@ woas.page.boundary: DFQRCTsKlU
 The [[Special::Export]] page provides an interface for exporting the wiki content into multiple linked XHTML files.
 <<<woas.note: WoaS code generates valid XHTML, but if the WoaS author has included invalid XHTML code within a wiki page, WoaS will not attempt to reform it. /Garbage in, garbage out!/>>>
 == Paths
-===Destination directory for exported XHTML files
+=== Directory for XHTML files
 The exported XHTML files will be placed into the /export/ subdirectory in the directory the wiki is in by default. You can specify a different directory.
-===Destination directory for exported embedded pictures
+=== Directory for embedded pictures
 The exported embedded pictures (if any) will be placed into the /export/ subdirectory in the directory the wiki is in by default. You can specify a different directory. If there are no embedded pictures, this setting will be ignored.
-<<<woas.note: In both cases, the destination directory must exist if you are not using a Mozilla browser.>>>
-== File naming
-===Default extension for generated XHTML files
+<<<woas.note: In both cases, unless you are using a Mozilla browser, the destination directory must exist.>>>
+== Extension for generated XHTML files
 The default extension for generated XHTML files is /html/. You can specify a different extension.
-===The main page will be named index with the extension specified above
+=== Name the main page /index/ (plus file extension above)
 If this choice is enabled, the main page will be named /index/ with the extension specified above, otherwise it will be named /main_page/, also with the extension specified above.
 
 For example, if the default extension is used and this option is enabled, the main page would be named /index.html/
-===Use UNIX-style normalization (lower-case letters and spaces replaced by underscores) to generate file names
+=== Apply UNIX-style normalization to generated filenames (all lowercase letters; non-alphanumeric characters replaced with underscores)
 If this option is enabled, all exported file names will be in lower case with all spaces and non-alphanumeric characters replaced by underscores, otherwise the files will be named according to the page name.
 == Custom page scripts
 ===Do not export Javascript
@@ -4850,7 +4911,7 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 The menu can contain links to pages, wiki interfaces, and shortcuts to custom functions you create. You can [[WoaS::Help::Edit the menu|edit the menu]] and sub-menus by clicking the edit icon located in its bottom right corner. Sub-menus belong to [[WoaS::Help::Namespaces|Namespaces]] and are discussed in the [[WoaS::Help::Namespaces#Namespace sub-menu|sub-menu]] section there.
 
-If the wiki is erased the menu contents are slightly reduced, with less often used links removed; these links are still accessible from the [[WoaS::Help::Special::Advanced|Special::Advanced]] page. These are the default contents of the menu with the pages linked briefly explained, with links to more detailed help pages, when available:
+If the wiki is erased the menu contents are slightly reduced, with less often used links removed; these links are still accessible from the Special::[[WoaS::Help::Special::Advanced|Advanced]] page. These are the default contents of the menu with the pages linked briefly explained, with links to more detailed help pages, when available:
 * /Main Page/ - The main page of the wiki.
 * /[[WoaS::Help::Special::Options|Options]]/ - The Options page where basic configuration settings can be set.
 * /WoaS History/ - A  page detailing the history of this wiki; this page is deleted if the wiki is erased.
@@ -4903,5 +4964,311 @@ woas.page.boundary: DFQRCTsKlU
 # Type in the name of the page you wish to go to.
 # Accept by pressing the /OK/ button, or cancel by pressing the /Cancel/ button.
 # If the page exists, you'll be taken to it. If it doesn't exist, and isn't in a [[WoaS::Help::Namespaces#Reserved namespaces|reserved namespace]], the [[WoaS::Help::Create a page|page creation interface]] will open and offer to help you to create the page.
+
+--DFQRCTsKlU
+woas.page.title: Improvements
+woas.page.attributes: 0
+woas.page.last_modified: 1320126532
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+[[Special::TOC]]
+= Improvements made
+== Operation
+* The Help system has been improved in capability, style, and content (the last in large part thanks to Little Girl). Every Help page now opens in the Help system, except the [[WoaS::Help::|namespace listing]] and the [[WoaS::Help]] information page. This allows the Help system to become an active guide to using the wiki, as links to the main wiki clicked from within a Help page opens in the main wiki (as they always did). Help page links can now target page sections in the Help system and also in the main wiki.
+
+* Namespace listings have been, IMHO, greatly improved in styling, and also in capability. The [[Special::All Pages]] listing (renamed for consistency with the other special pages) now also lists no-namespace pages in a fold (they used to overwhelm the listing in large files). I intend to add the capability to select a listing style within the page link in the new project. The [[Special::Orphaned Pages]] code has been rewritten so that it completes in the square-root of the time it used to take (important in a wiki with hundreds of pages), and the [[Tagged::]] listing now allows some really powerful listings if, like me, you make extensive use of tags. The [[Image::]] listing is also -- again IMHO -- much improved and has styles added for those who want complete control of the presentation.
+\
+== Layout
+* I have spent a huge number of hours updating the CSS and HTML layout and checking it across popular browsers.
+
+* Links to headings will now appear below the header instead of behind it. This has removed the need for a semi-transparent header. The linking system has also been fixed/improved, allowing a section to be linked to when loading the file ({{{woas.html?my page#section}}}) and not creating browser history when clicked in the TOC. The code has been refactored so that legal section heading are used internally that also have a much smaller chance of conflicting within a page. These may be made more accessible in the new project as either the usual form or the internal form (e.g.: #S123) can now be used.
+** The file load section doesn't work in all browsers yet as the '#' is interpreted as a section to jump to, putting it behind the header. In the new project this will not be an issue, so I have not spent much time trying to fix it. I am willing to fix this if it is a felt need.
+
+* The TOC code has been rewritten to allow a lot more control of presentation and is now foldable. I don't want a numbered TOC so the current CSS reflects that fact; if there is a demand I will create plugins for various views, including the old numbering (I have created the code for this in testing, including full section numbering; e.g. 2.1.9). The new code allows the TOC to start at any heading level without errors.
+
+* I have changed the order of the navigation icons a little to be more consistent (mostly, it stops the /Help/ icon moving around when switching to /edit/ mode), and updated & minimized the icons. The lock icon view has been reversed as it was very confusing; they now reflect what will be done when clicked, just like the other icons, not the status of the page. The CSS styling for a locked page has also been changed to a red border on locked pages and can be easily modified through custom CSS, including returning the original display.<br><br>I am rewriting the code so icons can be easily moved to any position (mostly for Little Girl & [[http://bookonastick.wordpress.com|BoaS]]'s sake), though the new project will make this unnecessary because the layout will come from layout pages that are rendered on load.
+
+* The editor has been improved in that it now acts as a single page (if there is enough screen layout available), removing the double scrollbars that used to appear. It works well across all browsers, including IE6. I was going to do the same with the view layout (and developed code to do so, allowing fixed layout in all browsers) but have decided to wait and do it in the new project. I also need to decide whether to add image capabilities to IE6&7 in the new project as I have code written that can do so. Would be interested in feedback on this.
+\
+== Parsing
+* Most URLs, like https://example.com/page?hi#there, will be recognized and kept from being seen as text markup (try this page in 0.12.0). If /Automatically convert URLs to hyperlinks/ is turned on in the [[Special::Options#User Interface|User Interface]] section of [[Special::Options]] then the URL will also be automatically turned into an external wiki link. This doesn't fix UNIX paths, but as long as the path doesn't have a leading slash, it should be rendered correctly: my/path/t. I want to add syntax, consistent with Creole 1, that stops the next character (or perhaps next syntax block; e.g: '{|') from being interpreted as markup. (There are many other ways to accomplish this as well, like recognizing backslash escapes within the line.)
+
+* In-line syntax for text styling -- italics, bold, underline -- now all work the same and do not cross lines. Markup for these can't start inside a word, but can end inside a word: *this works*, *this wor*ks, thi*s doesn't*. This seems a fair compromise, and is, I think, what the original parser intended, though it was inconsistent across the different text stylings. HTML can be used in situations where in-word styling is needed: Em<b>bro</b>il. I will check other markup systems, and specifically Creole's rules for this. (I intend to introduce a Creole compatible parser later, in addition to MarkDown and other parsers; this requires a complete rewrite of the code though.)
+\
+= Bug Fixes
+/See my *[[http://stickwiki.svn.sourceforge.net/viewvc/stickwiki/branches/pvhl/fix/log.txt|log.txt]]* in SVN for a fuller list of fixes. The file, as it was when I uploaded this file, is also [[log.txt|included in this wiki]], so you can get an idea of the changes made./
+== Major
+* Fixed the file corruption that happened in WoaS.0.12.0 when using Java for saving (Chrome, Safari, Opera).
+== Minor
+* many parser spacing fixes
+
+* Many changes to fix layout issues across browsers in Windows, including IE 6&7. Layout is now consistent at all text sizes and zoom levels in all major browsers (in Windows; I have done only limited testing for Linux, and none at all for Mac). I have been able to test early versions of IE and Firefox, but have no ability (or real desire) to test early versions of Chrome, Opera, and Safari. /I also had not realized how many load|save related WoaS features only work in Firefox! I have code to make image embedding work in IE, but adding such capabilities to the other browsers will have to be limited and based either on a new Java system, or HTML 5./
+
+* Most history and navigation icon errors have been removed.
+
+--DFQRCTsKlU
+woas.page.title: log.txt
+woas.page.attributes: 0
+woas.page.last_modified: 1320125219
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+WHILE THE CODE IN 'FIX' IS BEING UPDATED/MERGED IT MAY NOT ALWAYS BE WORKING AS FOUND.
+IT IS NOT BEING TESTED MUCH DURING THIS PROCESS AND COULD OCCASIONALLY BE BROKEN.
+
+That said, I'm actually trying to make sure that only working 'fix' code is uploaded, especially for the woas-fix[.min].html files; these will not always be the same as the multi-file code for that reason.
+
+I am near to having a finished, fixed 0.12.0. to upload. I simply don't have the time to commit changes piece by piece. If anyone really wants to see it later I'll consider sending them my git development repository (what a mess!)
+
+Changes since Revision pvhl-2317 (git: 3d939c7)
+
+(needing to archive my work in an incomplete though working state; export probably isn't working right yet)
+
+* another fix for text style parsing (*/_) requiring a marker change
+* some macro, css, and autolink fixes
+* add loading capability to i18n and update some strings
+* fix exported scripts (were being exported with br tags added for every newline!)
+* fix text-style (*/_) parsing errors, including html, link, & hyphenated word misparsing; place-holder marker now uses '-' or ';'
+* final name change of 'WoaS::Template::Transclusion Example' to 'WoaS::Help::Template transclusion::Example'
+* quick hack to fix page export; works with/without menus and allows for custom export CSS
+* add export version to new TOC code
+* change Print function to use .woas_print and add CSS to WoaS::CSS::Core (allows customization)
+* refactor Special::Export page layout (to match others) and associated help page
+* rearrange Special::Advanced page and add some missing links (may need Help pages for File:: and Image::)
+* fix woas._reserved_rx (broken RegExp was testing titles incorrectly -  e.g. [[A WoaS::... tested true)
+* add ability to jump to fieldset headings in import/export pages (Special::Export not finished yet)
+* modify macro code so block macros can work correctly; refactor macro help page
+* improve script disabling and search result layout
+* rename 'Transclusion' help page to 'Template transclusion' and update associated help pages
+* fix errors in java saving (one mine from refactoring code; one original; now works in Windows Chrome & Opera)
+* disallow " in wiki links (they break the link and aren't allowed by code)
+* replace all occurrences of JavaScript with Javascript to avoid namespace confusion
+* refactor Javascript:: namespace to allow title declaration, and update help page
+* update Import and Options help pages
+* allow import of CSS only from HTML file (CSS & Config allows import of wiki setup without content)
+* fix failure to update display when importing configuration and improve import reporting
+* dim debug button instead of removing
+* moved woas.refresh_menu_area (was now woas.refresh_menu) to woas.ui.refresh_menu
+* fix failure to remove wait cursor on import of debug_mode = true
+* refactor erase_wiki to remove edge-case failure and simplify
+* change name of 'WoaS::Template::Example::Transclusion' to 'WoaS::Template::Transclusion Example'
+* add some missing help pages from Little Girl
+* help pages open in help system except WoaS::Help (an intro) and WoaS::Help::
+* changed name of Recentchanges to 'Recent Changes'
+* 'WoaS History' page is deleted on erase (as an unneeded user page) and not imported (could be older)
+* some changes to menu and erased menu
+* numerous CSS tweaks incl. reducing nowiki styles to single declarations
+* TOC refactored to allow greater control; added roll-up to TOC
+* submenus are now a single menu
+* change to how heading anchors are created
+* capture enter key in password pages to avoid having to click the button
+* improve image pages and image gallery (an incomplete beginning; more tomorrow I hope)
+* fix loading of page reference at start-up
+* adjust the colour scheme
+* fix go_to code to handle page section links
+* multiple fixes to allow my current fix-wip code to work with ie6/7 and be left with WoaS
+* more work on using CSS classes to control layout
+* change d$.clone to woas.clone, add d$.toggle_class with optional resize
+* disable menu edit and Options save buttons, and remove some options when read-only
+* add icon lockout code for new display system, and a ui state discovery system
+* fix all the array printouts; failed if length was 1; also removed base16 array encoding as no shorter
+* fix 'Lock::xxx' being saved as current page to open
+* fix some woas history issues, especially with options and locking/unlocking
+* add Special::Options information concerning what is about to happen
+* fix broken FF7 path access, and general rewrite of file load
+* update Special::Import and Special::Export Help pages
+* delete WoaS::Template::Button as no longer needed and remove it and WoaS::Template::Info from code
+* add official macro for info box and use in Help Pages; will expand function later
+* Asthetic adjustment to Recent Changes
+* Changes to breadcrumbs display: improve asthetics and fix issue with ::Menu & Namespace listings
+* Changes to Tagged:: listing to improve capability
+* Refactor of listing code to simplify and add no-namespace folding
+* Refactor of orphan pages code ( Order(n) instead of O(n*n) )
+* Redesign and tuning of HTML, CSS, and control code for main layout
+* New Help pop-up code; works in all browsers (even IE6)
+* Allow import of encrypted images (partial fix; will revisit later)
+* Redesign of Special::Import and Special::ImportWSIF and associated functions
+* add separate settings for import and importWSIF and fix import of old settings
+* disable plist use until various broken commit and autosave code is fixed
+* use reFwdSlash instead of new regexp each time
+* change wsif_ds check to whole name instead of length
+* Updated legacy.js to include call information (with help from Little Girl)
+* Redesign of Special::ExportWSIF and associated Help page; others to follow
+* Redesign of Special::Options and associated CSS and Help page
+* Fix 2 small errors including broken list CSS
+* Bring Help window forward if hidden
+* disable WSIF blob saving as only Gecko can do it and others corrupt file
+* add 'wsif.type: index' to allow safe loading/saving of exported multi-file WSIF
+* allow recursive load of WSIF files so multi-file index file can be used
+* hack fix of path in WSIF data source; stop file being corrupted for bad path
+* fix backspace/erase causing page back action when in textbox
+* reload file if erase wiki failed
+* add new help pages and help page updates from Little Girl
+* change default setting for config import to safer setting
+* add new page menu link options
+* small changes to various page layouts
+* fix export and edit for submenus and fix up _add_namespace_menu
+* change nowiki_multiline parsing to match macro parsing rules and break-out function
+* modify how hotkey accesses restricted word 'goto'
+* improve show/hide/toggle functions
+* remove visibility attribute from WoaS (display is sufficient in all cases)
+* update i18n strings (mostly Little Girl's work)
+* hide 'make woas read only' in read only woas
+* fix macro backup functionality
+* add macro.parse ability
+* fix macro regexp and related issues (follow rules similar to nowiki and work better with block syntax)
+* refactor woas.log for better efficiency
+* fix legacy log function I broke; replace remaining log() calls in code
+* disable debug history log
+* remove h1 from no script; corrupted by IE on save
+* fix logo width in IE8+
+* modify woas.include macro to stop page listing header display
+* allow menu for earlier namespace to show up if no ns menu found
+* change namespace listing to use divs instead of spans
+* fix Special:: namespace listing and associated issues
+* add option to start with console closed and clean up the html a bit
+* change debug/log function so it can be turned on/off dynamically
+* add all pages option and filename to Special::ExportWSIF
+* add fix header/menu options and rearrange things a bit
+* fix woas.browser.firefox_new test
+* fix included pages shown in Special::Orphans (found by Michele1995)
+* fix tweak var replacement in mk
+* stop WoaS History being exported in user page WSIF files
+* correct incorrect number of pages in index.wsif
+* some base64 rearrangement
+* error in load_mode spelling
+* fix file read 'off by one error' (extra byte was read for binary); also fixes html comment issue (-->)
+* fix base64 encoding (was failing for images with NULL)
+* fix macro error - no returned value bug
+* fix bad Firefox identification
+* fix bug I introduced: missing menu update after edit (found by Michele1995)
+* fix bug I introduced: missing namespace links after edit (found by Michele1995)
+* redo last fix to correct error introduced (broke img tags; found by Michele1995)
+* redo fix for block html to allow tags to break across lines + simplify
+* changes to stop 'tag found' warning during build
+* slight clean up; simplify/clarify place_holder function by adding place_holder_dnl
+* fix bad export CSS
+* redo nowiki to fix insanity of my new code
+* partial fix for export html problems
+* fix export html CSS background
+* remove width settings from woas.htm (broke layout in some browsers)
+* fix external disposition wsif import failure (found by tomas)
+* changes to allow more custom help pages
+* slight Special::Options rearrangement
+* add (currently inactive) code to remove blank line between same-type lists
+* simplify heading parser
+* add sort_tags configuration option
+* add auto_links configuration option and tidy option page slightly
+* fix import disable issues for IE
+* fix macro dynamic_nl issues
+* fix italic/underline parsing issues and add autolinks
+* fix sorting in tag listing
+* fix hash location issues introduced earlier
+* refix some previous fixes to remove side-effects
+* fix transclusion loop
+* fix double-quotes in title
+* fix plug-in name check when creating
+* fix bad lock message
+* initial spacing fix -- same issues as official (a better fix coming)
+* redo fix for replacing html tag(s)
+* some more history.backstack fixes missed earlier
+* refix css export
+* fix broken search results display and adjust its CSS
+* fix newline before alpha list bug and tiny change to list code
+* stop all WoaS::CSS pages being exported (Boot and namespace were)
+* fix incorrect display of exported pages because of help pages being exported twice
+* fix bad file_mode in export.js (ASCII -> ASCII_TEXT)
+* refactored woas.parser._render_wiki_link (to test an idea and for a coming plugin)
+* update aes module closures to recommended practice (removes jslint warning)
+* fix extra line after tables
+* optimize list parsing code
+* mostly parser module rearrangement and relocation of some parse code to parser.js
+* fix empty namespace listing
+* change 'header' to 'heading' where heading is intended (avoid confusion with wsif headers)
+* fix double calling of nav icon update for certain instances
+* don't ask to create menu link if already in menu (needs rewrite for namespace menus)
+* more page delete fixes including deleting page that is not current but in history
+* mostly more ghost page fixes
+* move ghost page disabling to disable_edit()
+* clear log div at start-up (fixes a Firefox bug)
+* improve page saving (removes unneeded save of editor text)
+* modified sprintf function
+* tiny history log format change
+* stop some block HTML markup from having a br tag added
+* fix ruler bug (eats multiple preceding \n); also simplifies code
+* changes to allow html comments in nowiki and macro output
+* changed all marker formats; also fixes potential bug if marker followed by a numeral
+* parser.dry made more efficient and simpler; combined macro expansion into pre_parse
+* change place_holder to simplify code; now pushes to array and returns marker text
+* minor change to tag display (moved a space)
+* minor change to menu updating for import wiki
+
+==Changes made before move to fix-wip
+
+Revision pvhl-2317 (fix branch)
+* fix non-breaking tags display issue
+
+Revision pvhl-2314
+* fix broken Italian language plugin and update design (adding a change to i18n
+  during lock fix was a reminder that translations will break using the current
+  'overwrite everything' system; rewrote the Italian language plugin and added
+  a 'pvhl.notes' file on improving language support in WoaS)
+
+Revision pvhl-2313
+* hack incorrect lock icon display
+
+Revision pvhl-2312
+* macroTagThis and reformat
+* restore print page no browsing warnings
+* added Plugins help page to index
+* slight grammatical change
+* slight ui.js changes
+
+Revision pvhl-2309
+* fix broken nowiki (was failing after heading; better fix to come)
+* fix potential edge-case failure in placeholder.
+* slight cleanup to woas._raw_preformatted
+* added CSS3 rule to core CSS to break unbreakable lines
+
+Revision pvhl-2308
+* fix nowiki class spelling I thought I'd already fixed
+* update single files
+
+Revision pvhl-2291
+* some changes to the About page to explain this version
+* add php files that will be used to create single-file (not finished)
+* stop '#' being used in page titles (found by jufooo)
+* change to log display: closed on loading
+* fix wrong mts display (reported by Winterblood)
+
+Revision pvhl-2289
+* fix Chrome file corruption issues
+* fix edit_override to allow edit of WoaS namespace
+* quick changes (hack) to remove cancelled new page from menu
+* slight change to menu to allow better addition placement
+* fix logbox scroll position after save and improve function
+* small formatting change for readability
+* some minor comment additions
+
+Revision pvhl-2288
+* hack for cumulative save issues
+* fix no-load mode error when mode = 0
+* fix new page history (still some edge case issues)
+* fix commit bug in unused code :(
+
+Revision pvhl-2287
+* fix history so back/forward buttons work
+* fix help back button (not working in FF/IE)
+
+Revision pvhl-2286
+* syntax fixes found by Little Girl
+* syntax fixes found by PVHL
+* fixed up deprecated go_to() & go_back
+* minor documentation clarifications
 
 --DFQRCTsKlU

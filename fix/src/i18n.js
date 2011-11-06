@@ -24,6 +24,7 @@ woas.i18n = {
 	DELETE_PAGE_PROMPT: "Delete page:",
 	DISPLAY_FULL_FILE: "Display full file",
 	DUP_NS_ERROR: "Cannot duplicate into File:: or Image:: namespace!",
+	DUPLICATE_PAGE: "Insert duplicate page title",
 	EDITING:"Editing '%s'",
 	EMPTY_TITLE: "An empty title is not allowed.",
 	EMPTY_NS: "/No pages in '%s' namespace./",
@@ -40,6 +41,7 @@ woas.i18n = {
 	FILE_DISPLAY_LIMIT: "Only the first 1024 bytes are displayed.",
 	FILE_SELECT_ERR: "A file must be selected.",
 	FILE_SIZE: "File size",
+	GO_TO_PAGE: "Go to page:",
 	HEIGHT: "Height",
 	IMG_LOAD_ERR: "/Image failed to load./\n",
 	IMPORT_CONFIG: "Configuration imported.",
@@ -99,3 +101,49 @@ woas.i18n = {
 
 // do not use any copyrighted wordlist here
 woas.i18n.common_words = ['the','of','to' ,'and' ,'a' ,'in' ,'is' ,'it' ,'you' ,'that' ,'he' ,'was' ,'for','on' ,'are' ,'with' ,'as' ,'I' ,'his' ,'they' ,'be' ,'at' ,'one' ,'have' ,'this' ,'from' ,'or' ,'had' ,'by' , 'an', 'all' ];
+
+// Used to load alternative language plug-ins (e.g.: plugins/translations).
+// obj = { strings:{}, strings_add: bool (default false),
+//         common_words:[], common_words_replace:bool (default false) }
+woas.i18n.load = function(obj) {
+	var str, i, il, keys = {};
+	if (obj.strings) {
+		for (str in obj.strings) {
+			if ((obj.strings_add || this.hasOwnProperty(str)) &&
+					obj.strings.hasOwnProperty(str) &&
+					(typeof obj.strings[str]) === 'string') {
+				this[str] = obj.strings[str];
+				keys[str] = true;
+			}
+		}
+		// report strings missing from translation
+		for (str in this) {
+			if (!keys[str] && (typeof this[str]) === 'string') {
+				woas.log('Missing - '+this.list_item(str));
+			}
+		}
+	}
+	if (obj.common_words && (obj.common_words instanceof Array)
+			&& obj.common_words.length) {
+		if (obj.common_words_replace) {
+			this.common_words = [];
+		}
+		this.common_words = this.common_words.concat(obj.common_words)
+			.toUnique();
+	}
+}
+
+woas.i18n.list = function() {
+	var str, list = [];
+	for (str in this) {
+		if ((typeof this[str]) === 'string') {
+			list.push(this.list_item(str));
+		}
+	}
+	return list.join('\n');
+}
+
+woas.i18n.list_item = function(key){
+	return key+': "'+this[key].replace(/\n\\?/g, '\\n')
+		.replace(/\t/g, '\\t')+'"';
+}
