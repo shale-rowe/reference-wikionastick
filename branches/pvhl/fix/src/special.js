@@ -10,7 +10,7 @@ woas.special_encrypted_pages = function(locked) {
 			pg.push(page_titles[i]);
 	}
 	if (!pg.length)
-		return "/No locked pages found/";
+		return "/No locked pages/";
 	else
 		return this._join_list(pg);
 };
@@ -67,7 +67,7 @@ woas.special_orphaned_pages = function() {
 		}
 	}
 	if (!pg.length)
-		return "/No orphaned pages found/";
+		return "/No orphaned pages/";
 	else
 		return this._join_list(pg);
 };
@@ -93,7 +93,7 @@ woas.special_backlinks = function() {
 			pg.push( page_titles[j] );
 	}
 	if(pg.length === 0)
-		return "/No page links to [["+pg_title+"]]/";
+		return "/No user page links to [["+pg_title+"]]/";
 	else
 		return "== Links to [["+pg_title+"]]\n"+this._join_list(pg);
 };
@@ -217,7 +217,7 @@ woas.special_tagged = function(filter_string) {
 		// parse tree with sorting
 		return woas.ns_listing("", pg, folds);
 	} else {
-		return "/No tagged pages found/";
+		return "/No tagged pages/";
 	}
 };
 
@@ -541,8 +541,8 @@ woas.ns_listing = function(root, flat_arr, folds) {
 //   make things work in every browser, even IE6
 //   (IE6 only has a:hover and doesn't like multi-class selectors)
 woas._special_image_gallery = function(ns) {
-	var snippets = [], div = [], i, l, cnt, t, cls = 'woas_img_list', plus = '',
-		p = {body: '= Pages in '+ns+' namespace\n'},
+	var snippets = [], div = [], i, l, cnt, t, cls = 'woas_img_list',
+		plus = '', p = {},
 		// class, title
 		line1 = '<'+'a class="%s" onclick="woas.go_to(\'%s\')">',
 		// title
@@ -577,7 +577,11 @@ woas._special_image_gallery = function(ns) {
 			this.parser.transclude(t, snippets, false, true) +
 			line2.sprintf(t);
 	}
-	p.body += div.join('');
+	if (div.length) {
+		p.body = '= Pages in '+ns+' namespace\n' + div.join('');
+	} else {
+		p.body = this.i18n.EMPTY_NS.sprintf(ns);
+	}
 	this.parser.syntax_parse(p, snippets);
 	snippets = div = null;
 	return p.body;

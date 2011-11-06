@@ -9,7 +9,19 @@ Changes since Revision pvhl-2317 (git: 3d939c7)
 
 (needing to archive my work in an incomplete though working state; export probably isn't working right yet)
 
-* add ability to jump to fieldset headings in import/export pages (Special::Export not finished yet)
+* another fix for text style parsing (*/_) requiring a marker change
+* some macro, css, and autolink fixes
+* add loading capability to i18n and update some strings
+* fix exported scripts (were being exported with br tags added for every newline!)
+* fix text-style (*/_) parsing errors, including html, link, & hyphenated word misparsing; place-holder marker now uses '-' or ';'
+* final name change of 'WoaS::Template::Transclusion Example' to 'WoaS::Help::Template transclusion::Example'
+* quick hack to fix page export; works with/without menus and allows for custom export CSS
+* add export version to new TOC code
+* change Print function to use .woas_print and add CSS to WoaS::CSS::Core (allows customization)
+* refactor Special::Export page layout (to match others) and associated help page
+* rearrange Special::Advanced page and add some missing links (may need Help pages for File:: and Image::)
+* fix woas._reserved_rx (broken RegExp was testing titles incorrectly -  e.g. [[A WoaS::... tested true)
+* add ability to jump to fieldset headings in import/export pages
 * modify macro code so block macros can work correctly; refactor macro help page
 * improve script disabling and search result layout
 * rename 'Transclusion' help page to 'Template transclusion' and update associated help pages

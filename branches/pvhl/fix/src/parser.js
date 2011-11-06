@@ -28,7 +28,7 @@ Solution to the above:
 4) The charCode at each position is multiplied by its place and added to total.
 5) The ID is 'S' plus this number.
 6) A section reference can be in this form or the displayed text of the heading
-   (i.e. just the rendered text charactersn, not the markup: 'hi' not '*hi*').
+   (i.e. just the rendered text characters, not the markup: 'hi' not '*hi*').
 7) Any section reference handed in at start is passed through decodeURIComponent
    and converted if needed.
 
@@ -75,10 +75,10 @@ reStyles: new RegExp("<"+"style([^>]*)>[\\s\\S]*?<"+"\\/style>([ \\t]*\\n)?", "g
 reTOC: /\[\[Special::TOC\]\]([ \t]*\n)?/,
 
 // REs without optional newline search
-// reAutoLinks removes sequences that look like URLs (x://x)
-reAutoLinks: /(?:(https?|ftp|file)|[a-zA-Z]+):\/\/(?:[^\s]*[^\s*.;,:?!\)\}\]])+/g,
+// reAutoLinks removes sequences that look like URLs (x://)
+reAutoLinks: /(?:(https?|ftp|file)|[a-zA-Z]+):\/\/(?:[^\s]*[^\s*.;,:?!\)\}\]])*/g,
 // removes possible parse conflicts but no automatic links; must match str only, no subgroups
-reAutoLinksNo: /[a-zA-Z]+:\/\/(?:[^\s]*[\/*_])+/g,
+reAutoLinksNo: /[a-zA-Z]+:\/\/(?:[^\s]*[\/*_])*/g,
 // stops automatic br tag generation for listed tags
 reBlkHtml: /^(p|div|br|blockquote|[uo]l|li|table|t[rhd]|tbody|thead|h[1-6r]|center)$/i,
 reDry: /(\{\{\{[\s\S]*?\}\}\}|<<<[\s\S]*?>>>|<\!--[\s\S]*?-->)/g,
@@ -133,7 +133,7 @@ _get_tags: function(text, last_tag) {
 
 _init: function() {
 	this.marker = _random_string(3) + ":" + _random_string(3);
-	this.reBaseSnippet = new RegExp(this.marker + "(\\d+);", "g");
+	this.reBaseSnippet = new RegExp(this.marker + "(\\d+)[\\>\\-]", "g");
 	this.NL_MARKER = this.marker + "NL";
 	this.reNL_MARKER = new RegExp(this.marker + "NL([ \\t]*\\n)?", "g");
 },
@@ -166,12 +166,6 @@ _raw_preformatted: function(tag, text, cls, add_style) {
 
 // render a single wiki link
 _render_wiki_link: function(target, label, snippets, tags, export_links) {
-	if (/"/.test(target)) {
-		// PVHL: " will break link - current code does not allow.
-		return woas.parser.place_holder(snippets,
-			'[[<'+'span style="color:#f00">'+target+'<'+'/span>'+
-			(label ? '|'+label : '')+']]');
-	}
 	if (label === undefined) {
 		label = '';
 	}
@@ -213,11 +207,16 @@ _render_wiki_link: function(target, label, snippets, tags, export_links) {
 	if (hashloc !== -1) {
 		gotohash = this.heading_anchor(page.substr(hashloc + 1), true);
 		pg = page.substr(0, hashloc);
-	} else
+	} else {
 		pg = page;
-	if (!pg && !gotohash)
-		return ""; // PVHL: needs error report?
-
+	}
+	if (!pg && !gotohash || /"/.test(pg)) {
+		// PVHL: " will break link - current code does not allow.
+		//  empty link - [[#]] ?
+		return woas.parser.place_holder(snippets,
+			'[[<'+'span style="color:#f00">'+target+'<'+'/span>'+
+			(label ? '|'+label : '')+']]');
+	}
 	// create a title attribute only when page URI differs from page title
 	if (label !== '' || gotohash) {
 		title = woas.xhtml_encode(page);
@@ -229,9 +228,10 @@ _render_wiki_link: function(target, label, snippets, tags, export_links) {
 			if (wl === '#') {
 				return woas.parser.place_holder(snippets, sLinkBroken.sprintf(r_label));
 			}
-			wl = sHref.sprintf(wl + '#' + gotohash);
-		} else
+			wl = sHref.sprintf(wl + (gotohash ? '#' + gotohash : ''));
+		} else {
 			wl = sOnClick.sprintf(woas.js_encode(pg) + (gotohash ? '#' + woas.js_encode(gotohash) : ''));
+		}
 		str = sLink.sprintf(scWoas, title, wl, r_label);
 	} else { // page does not exist
 		if (export_links) {
@@ -342,10 +342,10 @@ extend_syntax: function(P) {
 // Create a W3C-spec-legal ID from heading using quick & simple hash.
 // The same string produces the same hash, so headings need to be unique
 //   or the first match will be moved to (could add editor alert).
-// 's' is heading text; not empty, straight unicode text - no HTML
+// 's' is heading text; should not be empty, straight unicode text - no HTML
 // 'check' (optional) forces test for already transformed anchor
 heading_anchor: function(s, check) {
-	if (check && /^S\d+$/.test(s)) {
+	if (!s || check && /^S\d+$/.test(s)) {
 		return s;
 	}
 	var id = 0, i = 0, il;
@@ -380,7 +380,7 @@ import_disable: function(NP, js, macros) {
 // 'text' is the raw wiki source
 // 'export_links' is set to true when exporting wiki pages (used to generate proper href for hyperlinks)
 // 'js_mode' controls javascript behavior. Allowed values are:
-//    0 - leave script tags as they are (used for exporting)
+//    0 - leave script tags as they are (used for exporting; acts much like mode 2)
 //    1 - place script tags in head (dynamic),
 //    2 - re-add script tags after parsing
 //    3 - convert script tags to nowiki blocks
@@ -416,25 +416,26 @@ parse: function(text, export_links, js_mode) {
 		this.transclude_syntax(P, snippets, export_links);
 	}
 
+	// PVHL: code was breaking exported scripts by adding br tags; refactored
 	if (js_mode) {
 		// reset the array of custom scripts for the correct target
 		var script_target = this._parsing_menu ? "menu" : "page";
 		woas.scripting.clear(script_target);
-		// gather all script tags
-		P.body = P.body.replace(this.reScripts, function (str, $1, $2, dynamic_nl) {
-			if (js_mode==2) {
-				return that.place_holder_dnl(snippets, str, dynamic_nl);
-			} else if (js_mode==3) {
-				// during safe mode do not activate scripts, transform them to nowiki blocks
-				return that.place_holder_dnl(snippets, that._make_preformatted(
-					woas.i18n.JS_DISABLED + str, 'border:1px solid #f00'), dynamic_nl);
-			} // else
-			var m=$1.match(/src=(?:"|')([^\s'">]+)/),
-				external = (m!==null);
-			woas.scripting.add(script_target, external ? m[1] : $2, external);
-			return "";
-		});
 	}
+	// gather all script tags
+	P.body = P.body.replace(this.reScripts, function (str, $1, $2, dynamic_nl) {
+		if (js_mode === 0 || js_mode === 2) {
+			return that.place_holder_dnl(snippets, str, dynamic_nl);
+		} else if (js_mode === 3) {
+			// during safe mode do not activate scripts, transform them to nowiki blocks
+			return that.place_holder_dnl(snippets, that._make_preformatted(
+				woas.i18n.JS_DISABLED + str, 'border:1px solid #f00'), dynamic_nl);
+		} // else
+		var m = $1.match(/src=(?:"|')([^\s'">]+)/),
+			external = (m!==null);
+		woas.scripting.add(script_target, external ? m[1] : $2, external);
+		return "";
+	});
 
 	// take away style blocks
 	P.body = P.body.replace(this.reStyles, function(str, $1, dynamic_nl) {
@@ -535,22 +536,33 @@ parse_lists: function(str, type) {
 },
 
 // put away stuff contained in user-defined macro blocks
+// PVHL: needs more refactoring; pass snippets to macro? Returned
+//   text should not need more processing
 parse_macros: function(P, snippets) {
+	var that = this;
 	P.body = P.body.replace(this.reMacros, function (str, $1, dynamic_nl) {
 		dynamic_nl = dynamic_nl || '';
 		// ask macro_parser to prepare this block
 		var macro = woas.macro.parser($1);
 		if (macro.reprocess) {
 			// allow further parser processing
-			return macro.text + (macro.block ? woas.parser.NL_MARKER : '') +
+			return macro.text + (macro.block ? this.NL_MARKER : '') +
 				dynamic_nl;
 		}
 		// otherwise store it for later
+		if (!macro.defn && snippets.length) {
+			// text could have nowiki text in it; retrieve now
+			// can't use undry because of name difference; FIX?
+			macro.text = macro.text.replace(that.reBaseSnippet,
+				function (str, $1) {
+					return snippets[parseInt($1)];
+				})
+		}
 		if (macro.block) {
 			// definitions and block macros
-			return woas.parser.place_holder_dnl(snippets, macro.text, dynamic_nl)
+			return that.place_holder_dnl(snippets, macro.text, dynamic_nl)
 		}
-		return woas.parser.place_holder(snippets, macro.text) + dynamic_nl;
+		return that.place_holder(snippets, macro.text) + dynamic_nl;
 	});
 },
 
@@ -631,14 +643,16 @@ parse_tables_new: function (str, prop, p1) {
  * Split function into place_holder_dnl and place_holder for simplicity/readability
  * place_holder_dnl marks a following newline for later removal if it exists
 */
-place_holder: function (snippets, str) {
+place_holder: function (snippets, str, block) {
 	snippets.push(str);
-	return this.marker + (snippets.length - 1) + ';';
+	// end test is required to make text style parsing work with HTML blocks
+	return this.marker + (snippets.length - 1) + (block ? '>' : '-');
 },
 
-place_holder_dnl: function (snippets, str, dnl) {
+place_holder_dnl: function (snippets, str, dnl, block) {
 	snippets.push(str);
-	return this.marker + (snippets.length - 1) + ';' + (!dnl ? '' : this.NL_MARKER + dnl);
+	return this.marker + (snippets.length - 1) + (block ? '>' : '-') +
+		(!dnl ? '' : this.NL_MARKER + dnl);
 },
 
 // NOTE: XHTML comments can now be contained in nowiki and macro blocks
@@ -676,20 +690,12 @@ syntax_parse: function(P, snippets, tags, export_links, has_toc) {
 	// restore text lines (lines ending in '\' are joined)
 	P.body = P.body.replace(/\\\n/g, "")
 
-/* NOTE: the line below will be used once the editor takes care of spacing display
- * and all content is saved without optional newlines except the one needed between
- * same-type lists. At that point newlineBefore/After code will be removed.
- */
-	// remove the required \n between same-type lists by marking it for removal
-	// (so always one less \n than typed between lists of the same type)
-	//P.body = P.body.replace(/^([*#@])+[ \t].*\n(?=\n+\1[ \t].)/gm, '$&' + this.NL_MARKER)
-
 	// put HTML tags and tag sequences away (along with attributes)
 	P.body = P.body.replace(this.reHtml, function(str, ws, tags, last, dnl) {
 		// stop certain html block tags from having a br tag appended when at line end
 		if (that.reBlkHtml.test(last))
-			return ws + that.place_holder_dnl(snippets, tags, dnl);
-		return ws + that.place_holder(snippets, tags) + (!dnl ? '' : dnl);
+			return ws + that.place_holder_dnl(snippets, tags, dnl, true);
+		return ws + that.place_holder(snippets, tags, true) + (!dnl ? '' : dnl);
 	})
 
 	// render links e.g. [[target]] & [[target|label]]
@@ -702,19 +708,24 @@ syntax_parse: function(P, snippets, tags, export_links, has_toc) {
 	// remove URL style text ('*://*') to avoid parsing problems.
 	.replace(woas.config.auto_links ? this.reAutoLinks : this.reAutoLinksNo,
 			function(str, prot) {
-		if (typeof prot === 'string' && prot !== '')
-			str = '<'+'a class="woas_world_link" href="' + str + '">' + str + '<'+'/a>';
-		return that.place_holder(snippets, str);
+		// only return a link if autolinks on and a target exists
+		return that.place_holder(snippets, (prot && prot.length + 3 !== str.length)
+			? '<'+'a class="woas_world_link" href="'+str+'" target="_blank">'+
+				str+'<'+'/a>'
+			: str);
 	})
 
 	// italics/underline/bold all operate on a single line
-	// italics (needs to be done before code that adds html)
-	// PVHL: bug-fix - can't use \w as in bold/underline as it rejects '_'
+	// PVHL: bug-fix - can't use \w as in bold/underline as \w rejects '_'
 	//   *_/ need a rewrite (again) so that Me*n*u works, 9/3/83 doesn't, etc.
-	//   Just needs simpler capture with another test regexp for in word stuff.
+	//   Perhaps needs simpler capture with another test regexp for in word stuff.
+	//   Actually, just needs block syntax to deal with their own line parsing,
+	//   and/or bold syntax to have a different rule from the others as '*' is not
+	//   usually present for non-markup reasons within a word, but '_' and '/' may be.
 	//   Also need to combine these; get tables and lists to put away HTML as above?
-	//   Use word break instead? Recurse for proper *_/ nesting, etc? Line by line simple
-	.replace(/(^|[^a-zA-Z0-9])\/(.+?)\//mg, function(str, $1, $2) {
+	//   Use word break instead? Recurse for proper *_/ nesting, etc?
+	// italics (needs to be done before code that adds html)
+	.replace(/(^|[\s\*\_>])\/(.+?)\//mg, function(str, $1, $2) {
 		return $1+"<"+"em>"+$2+"<"+"/em>";
 	})
 
@@ -728,12 +739,12 @@ syntax_parse: function(P, snippets, tags, export_links, has_toc) {
 
 	// underline (now works on a single line the same as bold/italics)
 	// needs to be before bold with this regexp (see italics)
-	.replace(/(^|[^\w])_(.+?)_/mg, function(str, $1, $2) {
+	.replace(/(^|[\s\*>])_(.+?)_/mg, function(str, $1, $2) {
 		return $1+"<"+"span style=\"text-decoration:underline;\">"+$2+"<"+"/span>";
 	})
 
-	// bold (needs to be after lists and tables)
-	.replace(/(^|[^\w])\*(.+?)\*/mg, function(str, $1, $2) {
+	// bold (needs to be after lists, tables, italics, and underline)
+	.replace(/(^|[\s>])\*(.+?)\*/mg, function(str, $1, $2) {
 		return $1+"<"+"strong>"+$2+"<"+"/strong>";
 	})
 
@@ -766,7 +777,7 @@ syntax_parse: function(P, snippets, tags, export_links, has_toc) {
 	// replace [[Special::TOC]]
 	if (has_toc) {
 		P.body = P.body.replace(this.marker+"TOC", function() {
-			return that.toc_render(snippets);
+			return that.toc_render(export_links);
 		});
 	}
 
@@ -791,20 +802,32 @@ syntax_parse: function(P, snippets, tags, export_links, has_toc) {
 toc_body: '<'+'div id="woas_toc"><' +
 	'div id="woas_toc_title"><'+'a onclick="d$.toggle(\'woas_toc_content\')"' +
 	'>%s<'+'/a><'+'/div><'+'div id="woas_toc_content">%s<'+'/div><'+'/div>',
+toc_body_exp: '<'+'div id="woas_toc"><'+'div id="woas_toc_title">%s<' +
+	'/div><'+'div id="woas_toc_content">%s<'+'/div><'+'/div>',
 toc_line: '<'+'div class="woas_toc_h%s"><' +
 	'a class="woas_link" onclick="woas.go_to(\'#%s\')">%s<'+'/a><'+'/div>',
+toc_line_exp: '<'+'div class="woas_toc_h%s"><' +
+	'a class="woas_link" href="#%s">%s<'+'/a><'+'/div>',
 // to allow overriding of TOC line rendering
 toc_line_render: function(level, count, anchor, heading) {
 	// the count array could be used for section numbering; e.g. 1.1.2
 	// for current count just use count[level]
 	return this.toc_line.sprintf(level, anchor, heading);
 },
+// PVHL: added in case user wants different TOC generated for exported pages
+toc_line_render_exp: function(level, count, anchor, heading) {
+	// see notes for toc_line_render
+	return this.toc_line_exp.sprintf(level, anchor, heading);
+},
 // replace the TOC placeholder with the real TOC
 // This function should not need to be overwritten; toc_line_render, toc_line,
-// & toc_body should be sufficient to generate any desired TOC.
-toc_render: function() {
+// & toc_body (and related export versions) should be sufficient to generate
+// any desired TOC.
+toc_render: function(export_links) {
 	// this.toc: [level, anchor, heading text, level, anchor, ...]
-	var i, il, j, tmp = [], count = [], level;
+	var i, il, j, tmp = [], count = [], level,
+		body = export_links ? this.toc_body_exp: this.toc_body,
+		line_fn = export_links ? this.toc_line_render_exp : this.toc_line_render;
 	for (i = 0, il = this.toc.length; i < il;) {
 		level = this.toc[i++];
 		count[level] = count[level] ? count[level] + 1 : 1;
@@ -812,11 +835,10 @@ toc_render: function() {
 			count[j] = 0;
 		}
 		// toc_line_render(level, count, anchor, heading)
-		tmp.push(this.toc_line_render(level, count,  this.toc[i++],
-			this.toc[i++]));
+		tmp.push(line_fn.call(this, level, count, this.toc[i++], this.toc[i++]));
 	}
 	this.toc = [];
-	return this.toc_body.sprintf(woas.i18n.TOC, tmp.join(''));
+	return body.sprintf(woas.i18n.TOC, tmp.join(''));
 },
 
 //API1.0

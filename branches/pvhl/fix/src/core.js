@@ -9,7 +9,7 @@ woas.tweak = {
 };
 
 woas.cmd_duplicate_page = function() {
-	var pname = this._new_page("Insert duplicate page title", true, current+" (duplicate)");
+	var pname = this._new_page(this.i18n.DUPLICATE_PAGE, true, current+" (duplicate)");
 	if (pname === null)
 		return;
 	var pi = this.page_index(current);
@@ -156,8 +156,7 @@ woas.static_pages = [
 
 woas.static_pages2 = [
 	"WoaS::Plugins", "WoaS::CSS::Boot", "WoaS::CSS::Core", "WoaS::Help",
-	"WoaS::ImportSettings", "WoaS::Template::Search", "WoaS::Template::Info",
-	"WoaS::Template::Transclusion Example"
+	"WoaS::ImportSettings", "WoaS::Template::Search", "WoaS::Template::Info"
 ];
 
 woas.static_pages = woas.static_pages.concat(woas.static_pages2);
@@ -259,7 +258,7 @@ woas.cmd_go_to = function() {
 		return;
 	var pname;
 	do {
-		pname = prompt("Go to page:", current);
+		pname = prompt(this.i18n.GO_TO_PAGE, current);
 		if ((pname !== null) && pname.length)
 			if (this.go_to(pname))
 				return;

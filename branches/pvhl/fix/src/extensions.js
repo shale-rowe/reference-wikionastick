@@ -559,7 +559,7 @@ woas.macro = {
 	// 'this' is macro object that was passed to macro
 	_parse: function(text) {
 		var snippets = [], P = {};
-		P.body = text ? text : this.text;
+		P.body = text || this.text;
 		woas.parser.pre_parse(P, snippets, true);
 		woas.parser.syntax_parse(P, snippets);
 		return P.body;
@@ -592,8 +592,8 @@ woas.macro = {
 				} else { // set some error message
 					macro.text = woas.parser._make_preformatted(M[0], "color:#f00;font-weight:bold");
 				}
-				macro.reprocess = false;
 				macro.block = true;
+				macro.defn = true;
 				return macro;
 			}
 			var fi = this.names.indexOf(fn);
