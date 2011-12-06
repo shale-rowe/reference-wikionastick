@@ -1135,12 +1135,12 @@ woas._set_debug = function(status, closed) {
 				}
 				logbox.value += msg + '\n';
 				// same msg to console
-				if (console) {
-					console.log(msg);
+				//if (console) {
+				//	console.log(msg);
 				// kept as it was here first
-				} else if (window.opera) {
-					opera.postError(msg);
-				}
+				//} else if (window.opera) {
+				//	opera.postError(msg);
+				//}
 			}
 			// keep the log scrolled down
 			logbox.scrollTop = logbox.scrollHeight;
