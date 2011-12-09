@@ -14062,7 +14062,7 @@ woas._set_debug = function(status, closed) {
 				}
 				logbox.value += msg + '\n';
 				// same msg to console
-				if (console) {
+				if (window.console) {
 					console.log(msg);
 				// kept as it was here first
 				} else if (window.opera) {
