@@ -259,7 +259,7 @@ function _woas_config_cb_single($m) {
 function _woas_config_cb($m) {
 	return "woas[\"config\"] = {\n".
 		preg_replace_callback('/"([^"]+)"\\s*:\\s*([^,}]+)/', '_woas_config_cb_single', $m[1]).
-		"\n};\n";
+		"}";
 }
 
 function _mk_woas($ct, $scripts) {
