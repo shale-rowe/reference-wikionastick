@@ -45,12 +45,6 @@ heading_anchor(2 kanji characters): S75216
 heading_anchor(fairly long kanji sentance): S4804659
 heading_anchor('Any section reference handed in at start': S77498
 heading_anchor(''): not allowed
-
-FBnil: Proposing this syntax for hard ID's:
-= my title =H01
-This way, I can start referencing this chapter from another page, without
-breaking it if I prepend a new chapter. [[otherpage#H01]]
-
 */
 
 

@@ -107,9 +107,9 @@ woas.page.boundary: DFQRCTsKlU
 = Welcome to Wiki on a Stick!
 Wiki on a Stick (*WoaS*) is a [[http://en.wikipedia.org/wiki/Wiki|wiki]] that lives in *one self-modifying XHTML file*. It's perfect for use at home or office, on your laptop or USB pen drive. It can be used as a personal notepad, calendar, repository for software documentation, and for many other purposes; it allows full customization and extension by your own scripts and plugins. It also offers [[WoaS::Help::Security|AES encryption]] of pages.
 == Version
-This version of WoaS is based on v@@WOAS_VERSION@@ but has been modified by Paul Levey ([[http://pvhl.users.sourceforge.net/|pvhl]]) to fix various bugs present in the official @@WOAS_VERSION@@ release. It is expected that these changes will some day make their way into the official code. The latest version of this file (woas-fix.html) can be found on [[http://stickwiki.svn.sourceforge.net/viewvc/stickwiki/branches/pvhl/|my WoaS SVN branch]]. It is a simple matter to import any content you have in other WoaS files using the [[Special::Import|import page]]. My thanks to [[http://bookonastick.wordpress.com/|Little Girl]] for her work on the Help pages and help with testing.
+This version of WoaS is based on v0.12.0 but has been modified by Paul Levey ([[http://pvhl.users.sourceforge.net/|pvhl]]) to fix various bugs present in the official 0.12.0 release. It is expected that these changes will some day make their way into the official code. The latest version of this file (woas-fix.html) can be found on [[http://stickwiki.svn.sourceforge.net/viewvc/stickwiki/branches/pvhl/|my WoaS SVN branch]]. It is a simple matter to import any content you have in other WoaS files using the [[Special::Import|import page]]. My thanks to [[http://bookonastick.wordpress.com/|Little Girl]] for her work on the Help pages and help with testing.
 
-Versions 0.9&tilde;@@WOAS_VERSION@@ by Daniele C. ([[http://sf.net/users/legolas558/|legolas558]])
+Versions 0.9&tilde;0.12.0 by Daniele C. ([[http://sf.net/users/legolas558/|legolas558]])
 Original version (v0.01 &tilde; v0.04) by Andr\u00e9 Wagner
 
 <big>[[Special::License|Wiki on a Stick is licensed under the GNU/GPL license]].</big>
