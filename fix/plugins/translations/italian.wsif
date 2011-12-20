@@ -15,7 +15,7 @@ woas.page.boundary: DFQRCTsKlU
 /*
  object loaded could also have:
 	strings_add:true - to add strings that are not in the current woas.i18n
-	  object (useful for plugin translations)
+	  object (useful for plugins)
 	common_words_replace:true - to delete the default common words
 	  before adding to them
 */

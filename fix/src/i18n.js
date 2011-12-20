@@ -102,9 +102,20 @@ woas.i18n = {
 // do not use any copyrighted wordlist here
 woas.i18n.common_words = ['the','of','to' ,'and' ,'a' ,'in' ,'is' ,'it' ,'you' ,'that' ,'he' ,'was' ,'for','on' ,'are' ,'with' ,'as' ,'I' ,'his' ,'they' ,'be' ,'at' ,'one' ,'have' ,'this' ,'from' ,'or' ,'had' ,'by' , 'an', 'all' ];
 
-// Used to load alternative language plug-ins (e.g.: plugins/translations).
-// obj = { strings:{}, strings_add: bool (default false),
-//         common_words:[], common_words_replace:bool (default false) }
+/*
+Used to load alternative language plug-ins (e.g.: plugins/translations).
+Can also be used by plugins to add strings to i18n object, or change wording.
+	obj = {
+		strings:{} - strings to replace/augment built-in strings
+		strings_add: bool (optional) - change existing string collection
+			F: string is ignored if not found in i18n (default)
+			T: string will be added to i18n collection if it doesn't exist
+		common_words:[] - exclusion list used by Special::Export to build webpage metadata
+		common_words_replace: bool (optional) - change existing word list
+			F: common_words added to existing words if not already present (default)
+			T: i18n.common_words list will be overwritten by common_words array
+	}
+*/
 woas.i18n.load = function(obj) {
 	var str, i, il, keys = {};
 	if (obj.strings) {

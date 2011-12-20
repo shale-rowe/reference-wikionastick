@@ -387,24 +387,14 @@ woas.go_to = function(cr) {
 	if (r && section) {
 		el = d$(section);
 		if (el) {
-			if (this.ui.display('fix_h')) {
-				mv = Number(this.browser.ie) === 7
-					? 0
-					: d$('woas_header_wrap').offsetHeight + 8;
-			} else {
-				mv = Number(this.browser.ie) === 7
-					? - d$('woas_header_wrap').offsetHeight
-					: 8;
-			}
-			mv = el.offsetTop - mv;
+			mv = el.offsetTop;
 		}
 	}
-//if (console) console.log(cr+'  '+section+'  '+mv);
 	// there must be a better way!
 	if (cr !== 'Special::Go to') {
-		// just for now! (Chrome uses body - Webkit?)
-		document.documentElement.scrollTop = mv;
-		document.body.scrollTop = mv;
+		// Doing both doesn't hurt for now; need to do more testing.
+		document.documentElement.scrollTop = mv; // IE up to 8; 9+?
+		document.body.scrollTop = mv; // Chrome, FF, Opera; Safari? Probably
 	}
 	return r; // if loading could pass back scroll amount: current = ''
 };
@@ -537,7 +527,7 @@ PVHL:
   in main window). This works for now because Javascript code doesn't work the
   way the scripting module assumes: removing a script tag does NOT remove the
   code that tag created; the tag could be removed immediately after creation
-  withoout affecting anything. Until scripting is rewritten to fix the clear
+  without affecting anything. Until scripting is rewritten to fix the clear
   function this activation is sufficient.
 */	
 		woas.scripting.activate("page");
@@ -603,8 +593,6 @@ function menu_do_search() {
 // make the actual search and cache the results
 function ssearch_do_search() {
 	var search_string = d$("string_to_search").value;
-	if ( !search_string.length )
-		return;
 	woas.do_search(search_string);
 }
 
@@ -641,6 +629,8 @@ function menu_search_focus(f) {
 
 //NOTE: this is attached to onkeydown of menu's search box, so you can't use 'this'
 woas.do_search = function(str, noclear) {
+	if (!str)
+		return;
 	// clear previous search results
 	if (!noclear)
 		woas.ui.clear_search(true);
