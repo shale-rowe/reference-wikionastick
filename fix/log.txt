@@ -9,6 +9,7 @@ Changes since Revision pvhl-2317 (git: 3d939c7)
 
 (needing to archive my work in an incomplete though working state; export probably isn't working right yet)
 
+* fix WoaS::Template::Info script error (mea culpa) and minor content changes
 * fix bold/italic/underline crossing line endings when in a list
 * revert bold/italic/underline parsing to (mostly) conform to 0.12.0 and recent marker changes
 * fix my URL autolink generation
