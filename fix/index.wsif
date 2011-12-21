@@ -5000,9 +5000,9 @@ woas.page.boundary: DFQRCTsKlU
 * The editor has been improved in that it now acts as a single page (if there is enough screen layout available), removing the double scrollbars that used to appear. It works well across all browsers, including IE6. I was going to do the same with the view layout (and developed code to do so, allowing fixed layout in all browsers) but have decided to wait and do it in the new project. I also need to decide whether to add image capabilities to IE6&7 in the new project as I have code written that can do so. Would be interested in feedback on this.
 \
 == Parsing
-* Most URLs, like https://example.com/page?hi#there, will be recognized and kept from being seen as text markup (try this page in 0.12.0). If /Automatically convert URLs to hyperlinks/ is turned on in the [[Special::Options#User Interface|User Interface]] section of [[Special::Options]] then the URL will also be automatically turned into an external wiki link. This doesn't fix UNIX paths, but as long as the path doesn't have a leading slash, it should be rendered correctly: my/path/t. I want to add syntax, consistent with Creole 1, that stops the next character (or perhaps next syntax block; e.g: '{|') from being interpreted as markup. (There are many other ways to accomplish this as well, like recognizing backslash escapes within the line.)
+* Most URLs, like https://example.com/page?hi#there, will be recognized and kept from being seen as text markup (try this page in 0.12.0). If /Automatically convert URLs to hyperlinks/ is turned on in the [[Special::Options#User Interface|User Interface]] section of [[Special::Options]], and the URL is recognized (http, https, file, ftp) then the URL will also be automatically turned into an external wiki link. This doesn't fix UNIX paths, but as long as the path doesn't have a leading slash, it should be rendered correctly: my/path/t. In my new project I want to add syntax, consistent with Creole 1, that stops the next character (or perhaps next syntax block; e.g: '{|') from being interpreted as markup. (There are many other ways to accomplish this as well, like recognizing backslash escapes within the line.)
 
-* In-line syntax for text styling -- italics, bold, underline -- now all work the same and do not cross lines. Markup for these can't start inside a word, but can end inside a word: *this works*, *this wor*ks, thi*s doesn't*. This seems a fair compromise, and is, I think, what the original parser intended, though it was inconsistent across the different text stylings. HTML can be used in situations where in-word styling is needed: Em<b>bro</b>il. I will check other markup systems, and specifically Creole's rules for this. (I intend to introduce a Creole compatible parser later, in addition to MarkDown and other parsers; this requires a complete rewrite of the code though.)
+* In-line syntax for text styling -- italics, bold, underline -- all work the same in that they cannot cross lines of text (in 0.12.0 underline would work across lines). Other than that I have now returned to the original parsing rules for 0.12.0 with the exception that bold markup can start after "/" and "\"; I can't see why this existed other than for file path display (where it fails in many instances). Italics cannot start after a colon (':'), presumably also to protect file paths; this is standard behaviour in 0.12.0. I am considering protecting file paths in my new project in much the same way as I have now protected URLs (by removing them from parsing).
 \
 = Bug Fixes
 /See my *[[http://stickwiki.svn.sourceforge.net/viewvc/stickwiki/branches/pvhl/fix/log.txt|log.txt]]* in SVN for a fuller list of fixes. The file, as it was when I uploaded this file, is also [[log.txt|included in this wiki]], so you can get an idea of the changes made./
@@ -5035,11 +5035,17 @@ Changes since Revision pvhl-2317 (git: 3d939c7)
 
 (needing to archive my work in an incomplete though working state; export probably isn't working right yet)
 
-* another fix for text style parsing (*/_) requiring a marker change
+* fix bold/italic/underline crossing line endings when in a list
+* revert bold/italic/underline parsing to (mostly) conform to 0.12.0 and recent marker changes
+* fix my URL autolink generation
+* undeprecate Tags:: namespace
+* fix section jump error I introduced with last CSS change
+* move search string check
+* add some comments to i18n.js
+* index: revert info macro change and add some export CSS for later
 * some macro, css, and autolink fixes
 * add loading capability to i18n and update some strings
 * fix exported scripts (were being exported with br tags added for every newline!)
-* fix text-style (*/_) parsing errors, including html, link, & hyphenated word misparsing; place-holder marker now uses '-' or ';'
 * final name change of 'WoaS::Template::Transclusion Example' to 'WoaS::Help::Template transclusion::Example'
 * quick hack to fix page export; works with/without menus and allows for custom export CSS
 * add export version to new TOC code
@@ -5047,7 +5053,7 @@ Changes since Revision pvhl-2317 (git: 3d939c7)
 * refactor Special::Export page layout (to match others) and associated help page
 * rearrange Special::Advanced page and add some missing links (may need Help pages for File:: and Image::)
 * fix woas._reserved_rx (broken RegExp was testing titles incorrectly -  e.g. [[A WoaS::... tested true)
-* add ability to jump to fieldset headings in import/export pages (Special::Export not finished yet)
+* add ability to jump to fieldset headings in import/export pages
 * modify macro code so block macros can work correctly; refactor macro help page
 * improve script disabling and search result layout
 * rename 'Transclusion' help page to 'Template transclusion' and update associated help pages
