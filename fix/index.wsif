@@ -152,6 +152,10 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
+= Why the delay?
+
+I am sorry to report that my laptop was stolen recently resulting in the loss of an enormous amount of work. I am slowly recovering, rewriting, and finishing the code, but am back to using library computers that limit my effectiveness. I have also lost the ability to test with non-portable browsers (Safari), older Windows browsers (IE6 and earlier Firefox versions), and to use a VM to test in Linux. This has caused a delay in finalizing my last woas-fix, though I (again) hope to be done in the next few days.
+\
 = Why this version?
 
 WoaS is a great project and an incredibly useful tool -- and if you use Firefox you may not even notice most of the issues with version 0.12.0. I am very grateful to the project owner for all his hard work in the past, and for his friendliness to me personally. I am Paul Levey ([[https://sourceforge.net/sendmessage.php?touser=2848781|PVHL]]), one of the people with WoaS SVN commit privileges. I have decided to add my current code to this zip file because so many people are downloading it rather than reading the info file I added to the files section.
@@ -554,6 +558,8 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 [[Special::TOC]]
 = Wiki on a Stick History
+== This version
+This WoaS uses the 0.12.0 code as a base for various fixes. See [[Improvements]].
 == Versions 0.01 &tilde; 0.04
 <sub>by Andr\u00e9 Wagner</sub>
 
@@ -5008,6 +5014,8 @@ woas.page.boundary: DFQRCTsKlU
 /See my *[[http://stickwiki.svn.sourceforge.net/viewvc/stickwiki/branches/pvhl/fix/log.txt|log.txt]]* in SVN for a fuller list of fixes. The file, as it was when I uploaded this file, is also [[log.txt|included in this wiki]], so you can get an idea of the changes made./
 == Major
 * Fixed the file corruption that happened in WoaS.0.12.0 when using Java for saving (Chrome, Safari, Opera).
+* Fixed Firefox 7+ breaking file selection
+\
 == Minor
 * many parser spacing fixes
 
