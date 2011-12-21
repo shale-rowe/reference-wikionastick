@@ -5,11 +5,11 @@
 <script woas_permanent="1" type="text/javascript">
 /* <![CDATA[ */
 
-/* DFQRCTsKlU-0000001-START */
+/* DFQRCTsKlU-0000000-START */
 
 var woas = {"version": "0.12.0"};
 
-var __marker = "DFQRCTsKlU-0000001";
+var __marker = "DFQRCTsKlU-0000000";
 
 woas["config"] = {
 "permit_edits":true,
@@ -30,7 +30,7 @@ woas["config"] = {
 "store_mts":true,
 "folding_style":1,
 "import_woas":224,
-"import_wsif":176,
+"import_wsif":248,
 "auto_links":true,
 "sort_tags":true,
 "fixed_header":true,
@@ -101,7 +101,7 @@ var page_titles = [
 'WoaS::Help::Import',
 'WoaS::Template::Search',
 'WoaS::Help::Export',
-'WoaS::Template::Transclusion Example',
+'WoaS::Help::Template transclusion::Example',
 'WoaS::Help::Template transclusion',
 'WoaS::Help::Special::ExportWSIF',
 'WoaS::Help::Special::ImportWSIF',
@@ -132,18 +132,23 @@ var page_titles = [
 'WoaS::Help::Special::Backlinks',
 'WoaS::Help::Menu',
 'WoaS::Help::Duplicate a page',
-'WoaS::Help::Go to a page'
+'WoaS::Help::Go to a page',
+'Improvements',
+'log.txt'
 ];
 
-/* DFQRCTsKlU-0000001-DATA */
-var page_attrs = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+/* DFQRCTsKlU-0000000-DATA */
+var page_attrs = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
 
-var page_mts = [0,0,0,0,0,0,0,0,0,0,0,0,0,1320032459,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1318738575,1318739163,1318740655,1318741670];
+var page_mts = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0x4e9a5a8f,0x4e9a5cdb,0x4e9a62af,0x4e9a66a6,0x4eaf8844,0x4eaf8323];
 
 var pages = [
 '[[Main Page]]\n\
 [[Special::Options|Options]]\n\
 [[WoaS History]]\n\
+\n\
+[[Improvements]]\n\
+[[log.txt]]\n\
 \n\
 * [[WoaS::Help]]\n\
 * [[WoaS::Aliases]]\n\
@@ -164,24 +169,28 @@ var pages = [
 \n\
 [[Include::WoaS::Template::Search]]\n\
 ',
-'== Pages\n\
-* [[Locked::]], [[Unlocked::]] - a list of all encrypted/plain pages\n\
-* [[Special::All Pages]] - a list of all user created pages\n\
-* [[Special::Dead Pages]] - a list of nonexistent pages that other pages link to\n\
+'== General\n\
+* [[Special::Options]] - WoaS options\n\
+* [[Special::Search]] - search all wiki pages\n\
+== Lists\n\
+* [[File::]], [[Image::]] - pages in the embedded namespaces\n\
+* [[Locked::]], [[Unlocked::]] - encrypted/plain pages\n\
+* [[Special::All Pages]] - user created pages\n\
+* [[Special::Dead Pages]] - nonexistent pages that other pages link to\n\
+* [[Special::Orphaned Pages]] - pages that no other page links to\n\
+* [[Special::Recent Changes]] - recently modified pages\n\
+* [[Tagged::]], [[Untagged::]] - tagged/untagged pages\n\
+== Page commands\n\
 * [[Special::Delete Page]] - delete a specific page\n\
+* [[Special::Duplicate Page]] - duplicate a specific page\n\
 * [[Special::Go to]] - go to a specific page\n\
 * [[Special::New Page]] - create a new page\n\
-* [[Special::Orphaned Pages]] - a list of pages that no other page links to\n\
-* [[Special::Recent Changes]] - a list of all recently modified pages\n\
-* [[Special::Search]] - search all wiki pages\n\
-* [[Tagged::]], [[Untagged::]] - a list of all tagged/untagged pages\n\
-== Advanced features\n\
-* [[Special::Options]] - general WoaS options\n\
+== Special features\n\
 * [[WoaS::Aliases]] - view/edit page title aliases\n\
 * [[WoaS::CSS::Core]], [[WoaS::CSS::Custom]] - view the core CSS and edit the custom CSS\n\
 * [[WoaS::Hotkeys]] - view/edit WoaS access keys and default key bindings\n\
 * [[WoaS::Plugins]] - enable/disable and view/edit WoaS Javascript plugins\n\
-== Maintenance\n\
+== Wiki maintenance\n\
 * [[Special::Import]] - import wiki from a WoaS html file (including earlier versions)\n\
 * [[Special::ImportWSIF]] - import a [[WoaS::Help::WSIF|WSIF]] file containing one or more wiki pages\n\
 * [[Special::Export]] - export wiki into multiple linked static XHTML files\n\
@@ -243,10 +252,36 @@ This project wouldn\'t be what it is without the help of other people. If you co
 * [[http://www.iragan.com/woas_irc/|Official WoaS IRC Channel]] - #woas room at FreeNode servers\n\
 * [[https://lists.sourceforge.net/lists/listinfo/stickwiki-devel|SF.net WoaS Development mailing list]] - for discussion of WoaS development\n\
 ',
-'= Buyer Beware!\n\
+'= Why the delay?\n\
+\n\
+I am sorry to report that my laptop was stolen recently resulting in the loss of an enormous amount of work. I am slowly recovering, rewriting, and finishing the code, but am back to using library computers that limit my effectiveness. I have also lost the ability to test with non-portable browsers (Safari), older Windows browsers (IE6 and earlier Firefox versions), and to use a VM to test in Linux. This has caused a delay in finalizing my last woas-fix, though I (again) hope to be done in the next few days.\n\
+\\\n\
+= Why this version?\n\
+\n\
+WoaS is a great project and an incredibly useful tool -- and if you use Firefox you may not even notice most of the issues with version 0.12.0. I am very grateful to the project owner for all his hard work in the past, and for his friendliness to me personally. I am Paul Levey ([[https://sourceforge.net/sendmessage.php?touser=2848781|PVHL]]), one of the people with WoaS SVN commit privileges. I have decided to add my current code to this zip file because so many people are downloading it rather than reading the info file I added to the files section.\n\
+\n\
+Perhaps I should have done this a long time ago ... I have been increasingly frustrated over the past months to see thousands of people downloading this broken code, but have not wanted to make this move, just as I tried hard not to fork the WoaS project itself: I have been waiting for the owner to come back. He did appear for a day a few months ago and gave me permission to add to these files, but has since disappeared again. No emails are answered and the official forums have been down for months. I don\'t know why this is -- I hope everything is fine with him -- but I finally decided to create a new project. Some of *[[http://sourceforge.net/p/woas/blog/2011/09/welcome-332/|my reasons for doing this are explained in this blog post]]*.\n\
+\n\
+The WoaS 0.12.0 code has not been updated in almost one-and-a-half years, though it corrupts files in Chrome, Opera, and Safari, and one of the previously included files (I have removed it to make room for this file) doesn\'t even load! So, this file is my current work as of when I uploaded it. The current code is in *[[http://stickwiki.svn.sourceforge.net/viewvc/stickwiki/branches/pvhl/|my SVN branch]]*, and that version should be used instead of this file. The easiest way right now is to *[[http://stickwiki.svn.sourceforge.net/viewvc/stickwiki/branches/pvhl/?view=tar|download the tarball]]*.\n\
+\n\
+*This file still has some unfixed issues:*\n\
+* I am in the midst of updating the WoaS::Export code to match the current HTML/CSS, so the Export function is broken in this file, though it will be fixed in the next few days in my branch.\n\
+* I need to add the code that fixes the layout when the title is too long; again, this will be uploaded very soon.\n\
+\n\
+I am almost finished with my updating work. Once this is done I will be moving permanently to my new projects.\n\
+\n\
+* The *[[http://sourceforge.net/p/woas|Woas project]]* will one day be a very capable new system that is able to do all that WoaS does and much more. It will not be compatible with WoaS 0.12.0, though it will be able to import WoaS [[WoaS::Help::WSIF|WSIF]] files.\n\
+\n\
+* The *[[http://sourceforge.net/p/woas/legacy|Woas Legacy project]]* will use the final version of my fixed WoaS code and remain essentially compatible with WoaS 0.12.0\n\
+\n\
+The next section details some of the changes I have made to the 0.12.0 code, and tonight I started a page that will detail [[Improvements|major changes]]; I\'ve also included a [[log.txt|copy of the log.txt]] for this version, along with some additional information.\n\
+\n\
+Hope to see you there! Paul.\n\
+\\\n\
+= Buyer Beware!\n\
 *Please be aware* that this version is still unfinished. I believe it is safe with data, but it is still being updated. Almost done. Also, the contents of this page don\'t match {{{fix/index.wsif}}}.\n\
 \n\
-* *Check out the nice jump to [[WoaS History#The principles|sections]] (and the folding TOC once you get to that page).* Also improved:\n\
+* *Check out the nice jump to [[Improvements#Layout|sections]] (and the folding TOC once you get to that page).* Also improved:\n\
 ** Erasing the wiki (better menu layout)\n\
 ** Using the [[WoaS::Help::Javascript#Using the Javascript:: namespace in a link|Javascript]] namespace is more powerful\n\
 ** Image namespace listing allows better selecting and improved layout possibilities\n\
@@ -261,9 +296,9 @@ This project wouldn\'t be what it is without the help of other people. If you co
 * The locks are now opposite in looks to 0.12.0; it just makes more sense to me.\n\
 * Though I have fixed up the /Password Entry/ layout (and made a new icon for it) I may change it to use a page (like all the other functions), and may eventually remove the need for it entirely. It now accepts the enter key.\n\
 \n\
-Again, some things are in transition. Some pages are not finished, but things are getting close.\n\
+Again, some things are in transition. Some pages are not finished (like Export), but things are getting close.\n\
 \n\
-Do let me know what you think and any issues you find. Be sure to check out some of the new options. Sorry to have taken so long to get the code up. Hopefully I\'ll be more or less finished with this soon. I have tested quite a bit with a quite large WoaS file and things seem to be working well, but I haven\'t tested every function recently; I will before release.\n\
+Do let me know what you think and any issues you find. Be sure to check out some of the new options. Sorry to have taken so long to get the code up. Hopefully I\'ll be more or less finished with this soon. I have tested quite a bit with a quite large WoaS file and things seem to be working well, but I haven\'t tested every function exhaustively; I will before release.\n\
 \n\
 Some of these changes will have broken some plug-ins; future changes will break some more. They can be fixed once things are stable. Thanks for your patience.\n\
 \n\
@@ -551,6 +586,8 @@ If the file is already in read-only mode the /Prevent Edits/ button is not displ
 = Installed plugins',
 '[[Special::TOC]]\n\
 = Wiki on a Stick History\n\
+== This version\n\
+This WoaS uses the 0.12.0 code as a base for various fixes. See [[Improvements]].\n\
 == Versions 0.01 &tilde; 0.04\n\
 \x3Csub\x3Eby Andr\u00e9 Wagner\x3C/sub\x3E\n\
 \n\
@@ -587,35 +624,22 @@ The 0.11.x development stage is focusing new features and fixing old bugs; there
 == 0.12.x\n\
 During development of 0.12.0 plugins support has been added and code has been re-organized for modularity.\n\
 ',
-'\x3Cstyle\x3E\n\
-#woas_ep_xhtml, #woas_ep_img, #woas_ep_ext, #woas_ep_author {\n\
-	margin: .25em 0em .75em\n\
-}\n\
-#woas_page {\n\
-	text-align: left\n\
-}\n\
-#woas_page h2 {\n\
-	margin-bottom: .375em\n\
-}\n\
-\x3C/style\x3E\n\
-\x3Cdiv\x3E\x3Cinput class="woas_button_top" type="button" value="Export XHTML" onclick="woas.export_wiki()" /\x3E\x3C/div\x3E\n\
-= Export content into XHTML files\n\
-Export wiki content into multiple linked XHTML files.\n\
-==Paths\n\
-\x3C\x3C\x3Cwoas.note: All directories must exist if using a non-Mozilla browser.\x3E\x3E\x3E\n\
-Directory for XHTML files:&nbsp; \x3Cinput id="woas_ep_xhtml" type="text" size="80" /\x3E\n\
-Directory for embedded pictures:&nbsp; \x3Cinput id="woas_ep_img" type="text" size="80" /\x3E\n\
-Extension for generated XHTML files:&nbsp; \x3Cinput id="woas_ep_ext" type="text" size="8" /\x3E\n\
-\x3Clabel for="woas_cb_index_main"\x3E\x3Cinput type="checkbox" id="woas_cb_index_main" checked="checked"\x3EName the main page /index/\x3C/label\x3E\n\
-\x3Clabel for="woas_cb_unix_norm"\x3E\x3Cinput type="checkbox" id="woas_cb_unix_norm" checked="checked"\x3EUse UNIX-style normalization to generated filenames (all lowercase letters; non-alphanumeric characters replaced with underscores)\x3C/label\x3E\n\
-==Custom page scripts\n\
-\x3Clabel for="woas_cb_js_ign"\x3E\x3Cinput type="radio" id="woas_cb_js_ign" name="woas_cb_js" checked="checked"\x3EDo not export Javascript\x3C/label\x3E\n\
+'\x3Cdiv\x3E\x3Cinput class="woas_button_top" type="button" value="Export XHTML" onclick="woas.export_wiki()" /\x3E\x3C/div\x3E\n\
+= Export content into linked XHTML files\n\
+\x3Cfieldset id="S1613" class="woas_input_wrap"\x3E\x3Clegend\x3EPaths\x3C/legend\x3E\\\n\
+\x3Cdiv class="woas_input_wrap_left" style="margin-bottom:5px"\x3E*Directory paths must exist if using a non-Mozilla browser. If exported files already exist they will be overwritten.*\x3C/div\x3E\n\
+\n\
+\x3Clabel class="woas_input_wrap_left"\x3EDirectory for XHTML files: \x3Cinput class="woas_input_wrap_inline" id="woas_ep_xhtml" type="text" size="80" /\x3E\x3C/label\x3E\n\
+\x3Clabel class="woas_input_wrap_left"\x3EDirectory for embedded pictures: \x3Cinput class="woas_input_wrap_inline" id="woas_ep_img" type="text" size="80" /\x3E\x3C/label\x3E\n\
+\x3Clabel class="woas_input_wrap_left"\x3EExtension for generated XHTML files: \x3Cinput class="woas_input_wrap_inline" id="woas_ep_ext" type="text" size="8" /\x3E\x3C/label\x3E\n\
+\x3Clabel for="woas_cb_index_main"\x3E\x3Cinput type="checkbox" id="woas_cb_index_main" checked="checked"\x3EName the main page /index/ (plus file extension above)\x3C/label\x3E\n\
+\x3Clabel for="woas_cb_unix_norm"\x3E\x3Cinput type="checkbox" id="woas_cb_unix_norm" checked="checked"\x3EApply UNIX-style normalization to generated filenames (all lowercase letters; non-alphanumeric characters replaced with underscores)\x3C/label\x3E\x3C/fieldset\x3E\\\n\
+\x3Cfieldset id="S19285" class="woas_input_wrap"\x3E\x3Clegend\x3ECustom page scripts\x3C/legend\x3E\x3Clabel for="woas_cb_js_ign"\x3E\x3Cinput type="radio" id="woas_cb_js_ign" name="woas_cb_js" checked="checked"\x3EDo not export Javascript\x3C/label\x3E\n\
 \x3Clabel for="woas_cb_js_exp"\x3E\x3Cinput type="radio" id="woas_cb_js_exp" name="woas_cb_js"\x3EExport Javascript as-is\x3C/label\x3E\n\
-\x3Clabel for="woas_cb_js_dyn"\x3E\x3Cinput type="radio" id="woas_cb_js_dyn" name="woas_cb_js"\x3ERun before exporting, but do not export the Javascript\x3C/label\x3E\n\
-==Other options\n\
-META author (optional):&nbsp; \x3Cinput id="woas_ep_author" type="text" size="20" value="" /\x3E\n\
-\x3Clabel for="woas_cb_sep_css"\x3E\x3Cinput type="checkbox" id="woas_cb_sep_css" checked="checked"\x3EExport CSS into shared file\x3C/label\x3E\n\
-\x3Clabel for="woas_cb_export_menu"\x3E\x3Cinput type="checkbox" id="woas_cb_export_menu" checked="checked"\x3EExport menus\x3C/label\x3E\n\
+\x3Clabel for="woas_cb_js_dyn"\x3E\x3Cinput type="radio" id="woas_cb_js_dyn" name="woas_cb_js"\x3ERun before exporting, but do not export the Javascript\x3C/label\x3E\x3C/fieldset\x3E\\\n\
+\x3Cfieldset id="S9592" class="woas_input_wrap"\x3E\x3Clegend\x3EOther options\x3C/legend\x3E\x3Clabel class="woas_input_wrap_left"\x3EMETA author (optional): \x3Cinput class="woas_input_wrap_inline" id="woas_ep_author" type="text" size="30" value="" /\x3E\x3C/label\x3E\n\
+\x3Clabel\x3E\x3Cinput type="checkbox" id="woas_cb_sep_css" checked="checked"\x3EExport CSS into shared file\x3C/label\x3E\n\
+\x3Clabel\x3E\x3Cinput type="checkbox" id="woas_cb_export_menu" checked="checked"\x3EExport menus\x3C/label\x3E\x3C/fieldset\x3E\\\n\
 \x3Cscript type="text/javascript"\x3E\n\
 var path = woas.ROOT_DIRECTORY + "export" + woas.DIRECTORY_SEPARATOR;\n\
 d$(\'woas_ep_xhtml\').value = path;\n\
@@ -937,6 +961,7 @@ When browsing the pages in this Help pop-up, you will find an *Index* button in 
 ** [[WoaS::Help::Text formatting|Text formatting]]',
 'The Advanced page offers some tools for administration of your wiki. The Special links lead to pages that have individual help available, except for the dynamic commands that create a prompt. Below are links to relevant help pages for those /Special::/ commands.\n\
 * *Special::Delete Page* - See [[WoaS::Help::Delete a page|Delete a page]]\n\
+* *Special::Duplicate Page* - See [[WoaS::Help::Duplicate a page|Duplicate a page]]\n\
 * *Special::Erase Wiki* - See [[WoaS::Help::Special::Erase Wiki|Erase Wiki]]\n\
 * *Special::Go to* - See [[WoaS::Help::Go to a page|Go to a page]]\n\
 * *Special::New Page* - See [[WoaS::Help::Create a page|Create a page]]\n\
@@ -1063,14 +1088,10 @@ made of one\n\
 or more lines.\n\
 }}}\x3C/span\x3E\n\
 ',
-'\x3C\x3C\x3Cwoas.note: %1\n\
-\n\
-*ERROR! DO NOT USE THE WoaS::Template::Info TEMPLATE AS IT IS BEING REMOVED FROM WOAS!*\n\
-\n\
-Use the much more flexible */woas.note/* macro instead; e.g.: {{{\x3C\x3C\x3Cwoas.note: My note text\x3E\x3E\x3E}}}\n\
-\n\
-Unlike WoaS::Template::Info, the macro can have links within it -- even include:: links -- and be easily attached to lists, etc. It can also be styled easily using the {{{woas_note}}} class.\n\
-\x3E\x3E\x3E',
+'\x3Cdiv style="background-color: #FFFFAA; border: 0.1em solid; padding: 0.2em;"\x3E\x3Cimg src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAADtElEQVR42rWWXUxbZRjHBwx0G9go7GJixCXDLQZZjEa9W4yKi04vtnhlsrg4E5Mp2TQu0cyZuESNEmVENseYQNduKx+FApWuUEopLYwPoRvQscGAjrFCP2gpbWkL/HzTxCszOMnYkzwX5+Sc/+99/89z3udsmC/4/pGmpIdEIJLULamkp2ew6fFN/HfvoQAi2Lx5C4c+Pky1qharuQerqZcGdTMFP//BG3veJjExcVXQquK7c3fTaelmKQrhYIQ5r5+Z+27GRhz0dg5hMdr48YdCnnoy/YGQB4rn5LyIY+IerMBCYCGec3N+XDOeOOT6P3a0dW0YdD2cLigjLVUWh0gCbNyYjKHZxHJshXAozPLSMpHFCPPzC7hdXmadbm70j6DXWlCr9DSqLXz+2TfSACI4sP9DAr4wft+8EI4Si8VYDC+K6wAe9xxTDidd5gFamqzUVbVyqVyLvFTL9qzsOGRNQHFRCf65oPDcRyi4QCQSEDuZx+/34xE7uGUfxT50neFBG1cb24V4PVcqmtn/wUdrA0RXiFVpcTm9cTuCQR+RaFBAgoTDogazd5mcvInLNcX09BjXrF2Ul9SjuKDj6JFv1wakpKQIX7U47kyLYrrw+TxEoyFi0QihkJ9AwCNq4cXrnWFi3I6x2UzpGbUA/M2J46ekWVRyRo6tdwTH+LTYhUuIeoWoB4fDztTUbSYnbjI81I/JYEEp/P/zdBVVF5v56ovj0gD5R77G2maj3dBDf+8g43eGRYHd3HXcoq+7lxZdB/U1BhR/ablwto6zhSp0tSbe27tPGmBn9gs0aTrQVBtEr5uw9fcJ7+/hvD9Jl6WLK3IdijItZec08dWryhuplKuRPSFD8of26aF89I3dXKrQInwWfo/g8cwIWA8qRRPni9VCvBJ5iRrz1U727X0f8Z50QFJSEl/mn6RWZabmsp7BG304Jm8zIAAV5zWcK6qhRqnDrO/kk4OHJRwV/4MkkJCQwLvvHKCoQCla14Cl3Sr6vhWVXENDtQZFqZI397wl4bBbJQWErRkZtOgv4nReY2a2g9HRGtqMv/Daq7vi4usyD9pMPxFb6cbtNTJgk1NVeZJt29LIzXllfQDmjkJCi114fe0M2y/ToDnF9ufS2bUzd30ArcbfWcKGP2BhdKwao+FXduzYyvPZOesD6O75jUCwHZfHRIuhmO9OHEQme4yXX3r94QFpaWkkJ2/g6cwMlEoFeXl5CChZWc9KmsmSMzPzGdG68RnMsWNHkfpX8UjzX78dQm6UDc/yAAAAAElFTkSuQmCC" alt="Info" border="0" /\x3E %1\x3C/div\x3E\n\
+\x3Cscript\x3E\n\
+woas.log("DEPRECATED: WoaS::Template::Info\\nUse the much more flexible woas.note macro instead; e.g.: \x3C\x3C\x3Cwoas.note: My note text\x3E\x3E\x3E");\n\
+\x3C/script\x3E',
 'Read-only protection is by no means a security mechanism (see [[WoaS::Help::Security|Security]]), but rather an invitation to /fair use/ of the content. The author disables the write features assuming they won\'t be useful to the end-user or to indicate their expectation that the content won\'t be edited or copied.\n\
 \n\
 To re-enable the write features manually:\n\
@@ -3175,33 +3196,33 @@ You can then create a transclusion link or links to that page by creating a norm
 \x3Cdiv class="woas_help_text"\x3EUse this code, replacing PAGENAME with the name of the page to be included, and VALUE1 and VALUE2 with the values you\'d like the two variables to have when the included page is displayed:\x3C/div\x3E\n\
 \x3Cdiv class="woas_help_code"\x3E[\x3C!-- --\x3E[Include::PAGENAME|VALUE1|VALUE2|VALUE3]\x3C!-- --\x3E]\x3C/div\x3E\n\
 == Examples\n\
-These examples use the [[WoaS::Template::Transclusion Example]] page which contains two variables. The contents of that page are:\n\
+These examples use the [[WoaS::Help::Template transclusion::Example]] page which contains two variables. The contents of that page are:\n\
 {{{\n\
 \x3Cbig style="color:#0A0"\x3E%1 had a little %2\x3C/big\x3E\n\
 }}}\n\
 \x3Cdiv class="woas_help_text"\x3EThis code:\x3C/div\x3E\n\
-\x3Cdiv class="woas_help_code"\x3E[\x3C!-- --\x3E[Include::WoaS::Template::Transclusion Example|Mary|lamb]\x3C!-- --\x3E]\x3C/div\x3E\n\
+\x3Cdiv class="woas_help_code"\x3E[\x3C!-- --\x3E[Include::WoaS::Help::Template transclusion::Example|Mary|lamb]\x3C!-- --\x3E]\x3C/div\x3E\n\
 \x3Cdiv class="woas_help_text"\x3EResults in this transclusion:\x3C/div\x3E\n\
-[[Include::WoaS::Template::Transclusion Example|Mary|lamb]]\n\
+[[Include::WoaS::Help::Template transclusion::Example|Mary|lamb]]\n\
 \x3Cdiv class="woas_help_text"\x3EWhile this code:\x3C/div\x3E\n\
-\x3Cdiv class="woas_help_code"\x3E[\x3C!-- --\x3E[Include::WoaS::Template::Transclusion Example|Fred|snack]\x3C!-- --\x3E]\x3C/div\x3E\n\
+\x3Cdiv class="woas_help_code"\x3E[\x3C!-- --\x3E[Include::WoaS::Help::Template transclusion::Example|Fred|snack]\x3C!-- --\x3E]\x3C/div\x3E\n\
 \x3Cdiv class="woas_help_text"\x3EResults in this transclusion:\x3C/div\x3E\n\
-[[Include::WoaS::Template::Transclusion Example|Fred|snack]]\n\
+[[Include::WoaS::Help::Template transclusion::Example|Fred|snack]]\n\
 \x3Cdiv class="woas_help_text"\x3EIf an unneeded parameter is supplied:\x3C/div\x3E\n\
-\x3Cdiv class="woas_help_code"\x3E[\x3C!-- --\x3E[Include::WoaS::Template::Transclusion Example|Bob|Jane|Jack]\x3C!-- --\x3E]\x3C/div\x3E\n\
+\x3Cdiv class="woas_help_code"\x3E[\x3C!-- --\x3E[Include::WoaS::Help::Template transclusion::Example|Bob|Jane|Jack]\x3C!-- --\x3E]\x3C/div\x3E\n\
 \x3Cdiv class="woas_help_text"\x3EThe extra parameter is simply ignored:\x3C/div\x3E\n\
-[[Include::WoaS::Template::Transclusion Example|Bob|Jane|Jack]]\n\
+[[Include::WoaS::Help::Template transclusion::Example|Bob|Jane|Jack]]\n\
 \x3Cdiv class="woas_help_text"\x3EIf a needed parameter is not supplied:\x3C/div\x3E\n\
-\x3Cdiv class="woas_help_code"\x3E[\x3C!-- --\x3E[Include::WoaS::Template::Transclusion Example|Mary]\x3C!-- --\x3E]\x3C/div\x3E\n\
+\x3Cdiv class="woas_help_code"\x3E[\x3C!-- --\x3E[Include::WoaS::Help::Template transclusion::Example|Mary]\x3C!-- --\x3E]\x3C/div\x3E\n\
 \x3Cdiv class="woas_help_text"\x3EThe missing parameter shows up in the transclusion (note the {{{%2}}}):\x3C/div\x3E\n\
-[[Include::WoaS::Template::Transclusion Example|Mary]]\n\
+[[Include::WoaS::Help::Template transclusion::Example|Mary]]\n\
 == Wiki and HTML code in transclusion\n\
 Some wiki code and HTML tags are accepted in the values.\n\
 \n\
 \x3Cdiv class="woas_help_text"\x3EUse this code:\x3C/div\x3E\n\
-\x3Cdiv class="woas_help_code"\x3E[\x3C!-- --\x3E[Include::WoaS::Template::Transclusion Example|&#042;Mary&#042;|&#042;lamb&#042;.&lt;br&gt;&lt;br&gt;Its &#047;fleece&#047; was white as &#095;snow&#095;.]\x3C!-- --\x3E]\x3C/div\x3E\n\
+\x3Cdiv class="woas_help_code"\x3E[\x3C!-- --\x3E[Include::WoaS::Help::Template transclusion::Example|&#042;Mary&#042;|&#042;lamb&#042;.&lt;br&gt;&lt;br&gt;Its &#047;fleece&#047; was white as &#095;snow&#095;.]\x3C!-- --\x3E]\x3C/div\x3E\n\
 \x3Cdiv class="woas_help_text"\x3ETo create this:\x3C/div\x3E\n\
-[[Include::WoaS::Template::Transclusion Example|*Mary*|*lamb*.\x3Cbr\x3E\x3Cbr\x3EIts /fleece/ was white as _snow_.]]\n\
+[[Include::WoaS::Help::Template transclusion::Example|*Mary*|*lamb*.\x3Cbr\x3E\x3Cbr\x3EIts /fleece/ was white as _snow_.]]\n\
 == Infinite recursion\n\
 Infinite recursion happens when you create an include link to the current page or to another page that that has an include link to the current page. The included page will be repeated multiple times followed by the include link itself being displayed in bold red text surrounded by infinity symbols like this:\n\
 \n\
@@ -3313,6 +3334,9 @@ body, div, textarea, pre, ul, ol, li {\n\
 	height: 100%;\n\
 	width: 100%;\n\
 	z-index: 100\n\
+}\n\
+#woas_page {\n\
+	position: relative\n\
 }\n\
 \n\
 /* control disabling of navbar icons (or text if no images) */\n\
@@ -3489,6 +3513,8 @@ body {\n\
 .woas_editor_link, #woas_edit_wrap{\n\
 	color: #F0F0F5; /* same as header */\n\
 }\n\
+\n\
+/* EXPORT (at end of CSS) */\n\
 \n\
 /* FOOTER */\n\
 #woas_footer {\n\
@@ -3867,6 +3893,8 @@ img.woas_nav { /* woas logo */\n\
 	border: 2px solid #666666;\n\
 }\n\
 \n\
+/* PRINT  (at end of CSS) */\n\
+\n\
 /* SEARCH */\n\
 #woas_search_results {\n\
 	padding-top: 1.5em\n\
@@ -3989,6 +4017,49 @@ img.woas_nav { /* woas logo */\n\
 	color: 	#000080; /* navy */\n\
 	font-size: large;\n\
 	text-align: center\n\
+}\n\
+\n\
+/* WOAS MODIFIER CSS (EXPORT & PRINT)\n\
+   (needs to be after other CSS)\n\
+*/\n\
+\n\
+/* EXPORT (modifier: .woas_export) */\n\
+.woas_export #woas_header_wrap {\n\
+    position: static\n\
+}\n\
+.woas_export #woas_content {\n\
+    padding: 0.75em 0.75em\n\
+}\n\
+.woas_export #woas_page {\n\
+    margin-bottom: 0px\n\
+}\n\
+.woas_export #woas_menu_wrap {\n\
+	position: relative;\n\
+	float: left\n\
+}\n\
+.woas_export .woas_broken_link {\n\
+	color: #000;\n\
+	text-decoration: none\n\
+}\n\
+.woas_export .woas_link {\n\
+	text-decoration: none\n\
+}\n\
+.woas_export .woas_link:hover {\n\
+	text-decoration: underline\n\
+}\n\
+.woas_export_no_menu #woas_page_wrap {\n\
+    margin-left: 0px\n\
+}\n\
+\n\
+/* PRINT (modifier: .woas_print) */\n\
+#woas_page.woas_print {\n\
+	overflow: auto;\n\
+	border-width: 0px;\n\
+	padding: 0px;\n\
+	margin: 0px\n\
+}\n\
+.woas_print .woas_nowiki_multiline {\n\
+	page-break-inside: avoid\n\
 }\n\
 ',
 '/* Your CSS customization goes here */\n\
@@ -4199,19 +4270,18 @@ The search box in the menu can be deleted by editing the menu and removing the {
 'The [[Special::Export]] page provides an interface for exporting the wiki content into multiple linked XHTML files.\n\
 \x3C\x3C\x3Cwoas.note: WoaS code generates valid XHTML, but if the WoaS author has included invalid XHTML code within a wiki page, WoaS will not attempt to reform it. /Garbage in, garbage out!/\x3E\x3E\x3E\n\
 == Paths\n\
-===Destination directory for exported XHTML files\n\
+=== Directory for XHTML files\n\
 The exported XHTML files will be placed into the /export/ subdirectory in the directory the wiki is in by default. You can specify a different directory.\n\
-===Destination directory for exported embedded pictures\n\
+=== Directory for embedded pictures\n\
 The exported embedded pictures (if any) will be placed into the /export/ subdirectory in the directory the wiki is in by default. You can specify a different directory. If there are no embedded pictures, this setting will be ignored.\n\
-\x3C\x3C\x3Cwoas.note: In both cases, the destination directory must exist if you are not using a Mozilla browser.\x3E\x3E\x3E\n\
-== File naming\n\
-===Default extension for generated XHTML files\n\
+\x3C\x3C\x3Cwoas.note: In both cases, unless you are using a Mozilla browser, the destination directory must exist.\x3E\x3E\x3E\n\
+== Extension for generated XHTML files\n\
 The default extension for generated XHTML files is /html/. You can specify a different extension.\n\
-===The main page will be named index with the extension specified above\n\
+=== Name the main page /index/ (plus file extension above)\n\
 If this choice is enabled, the main page will be named /index/ with the extension specified above, otherwise it will be named /main_page/, also with the extension specified above.\n\
 \n\
 For example, if the default extension is used and this option is enabled, the main page would be named /index.html/\n\
-===Use UNIX-style normalization (lower-case letters and spaces replaced by underscores) to generate file names\n\
+=== Apply UNIX-style normalization to generated filenames (all lowercase letters; non-alphanumeric characters replaced with underscores)\n\
 If this option is enabled, all exported file names will be in lower case with all spaces and non-alphanumeric characters replaced by underscores, otherwise the files will be named according to the page name.\n\
 == Custom page scripts\n\
 ===Do not export Javascript\n\
@@ -4287,7 +4357,7 @@ Does not allow import of pages listed.\n\
 ',
 'The menu can contain links to pages, wiki interfaces, and shortcuts to custom functions you create. You can [[WoaS::Help::Edit the menu|edit the menu]] and sub-menus by clicking the edit icon located in its bottom right corner. Sub-menus belong to [[WoaS::Help::Namespaces|Namespaces]] and are discussed in the [[WoaS::Help::Namespaces#Namespace sub-menu|sub-menu]] section there.\n\
 \n\
-If the wiki is erased the menu contents are slightly reduced, with less often used links removed; these links are still accessible from the [[WoaS::Help::Special::Advanced|Special::Advanced]] page. These are the default contents of the menu with the pages linked briefly explained, with links to more detailed help pages, when available:\n\
+If the wiki is erased the menu contents are slightly reduced, with less often used links removed; these links are still accessible from the Special::[[WoaS::Help::Special::Advanced|Advanced]] page. These are the default contents of the menu with the pages linked briefly explained, with links to more detailed help pages, when available:\n\
 * /Main Page/ - The main page of the wiki.\n\
 * /[[WoaS::Help::Special::Options|Options]]/ - The Options page where basic configuration settings can be set.\n\
 * /WoaS History/ - A  page detailing the history of this wiki; this page is deleted if the wiki is erased.\n\
@@ -4322,19 +4392,314 @@ If the wiki is erased the menu contents are slightly reduced, with less often us
 # Type in the name of the page you wish to go to.\n\
 # Accept by pressing the /OK/ button, or cancel by pressing the /Cancel/ button.\n\
 # If the page exists, you\'ll be taken to it. If it doesn\'t exist, and isn\'t in a [[WoaS::Help::Namespaces#Reserved namespaces|reserved namespace]], the [[WoaS::Help::Create a page|page creation interface]] will open and offer to help you to create the page.\n\
-'
-];
+',
+'[[Special::TOC]]\n\
+= Improvements made\n\
+== Operation\n\
+* The Help system has been improved in capability, style, and content (the last in large part thanks to Little Girl). Every Help page now opens in the Help system, except the [[WoaS::Help::|namespace listing]] and the [[WoaS::Help]] information page. This allows the Help system to become an active guide to using the wiki, as links to the main wiki clicked from within a Help page opens in the main wiki (as they always did). Help page links can now target page sections in the Help system and also in the main wiki.\n\
+\n\
+* Namespace listings have been, IMHO, greatly improved in styling, and also in capability. The [[Special::All Pages]] listing (renamed for consistency with the other special pages) now also lists no-namespace pages in a fold (they used to overwhelm the listing in large files). I intend to add the capability to select a listing style within the page link in the new project. The [[Special::Orphaned Pages]] code has been rewritten so that it completes in the square-root of the time it used to take (important in a wiki with hundreds of pages), and the [[Tagged::]] listing now allows some really powerful listings if, like me, you make extensive use of tags. The [[Image::]] listing is also -- again IMHO -- much improved and has styles added for those who want complete control of the presentation.\n\
+\\\n\
+== Layout\n\
+* I have spent a huge number of hours updating the CSS and HTML layout and checking it across popular browsers.\n\
+\n\
+* Links to headings will now appear below the header instead of behind it. This has removed the need for a semi-transparent header. The linking system has also been fixed/improved, allowing a section to be linked to when loading the file ({{{woas.html?my page#section}}}) and not creating browser history when clicked in the TOC. The code has been refactored so that legal section heading are used internally that also have a much smaller chance of conflicting within a page. These may be made more accessible in the new project as either the usual form or the internal form (e.g.: #S123) can now be used.\n\
+** The file load section doesn\'t work in all browsers yet as the \'#\' is interpreted as a section to jump to, putting it behind the header. In the new project this will not be an issue, so I have not spent much time trying to fix it. I am willing to fix this if it is a felt need.\n\
+\n\
+* The TOC code has been rewritten to allow a lot more control of presentation and is now foldable. I don\'t want a numbered TOC so the current CSS reflects that fact; if there is a demand I will create plugins for various views, including the old numbering (I have created the code for this in testing, including full section numbering; e.g. 2.1.9). The new code allows the TOC to start at any heading level without errors.\n\
+\n\
+* I have changed the order of the navigation icons a little to be more consistent (mostly, it stops the /Help/ icon moving around when switching to /edit/ mode), and updated & minimized the icons. The lock icon view has been reversed as it was very confusing; they now reflect what will be done when clicked, just like the other icons, not the status of the page. The CSS styling for a locked page has also been changed to a red border on locked pages and can be easily modified through custom CSS, including returning the original display.\x3Cbr\x3E\x3Cbr\x3EI am rewriting the code so icons can be easily moved to any position (mostly for Little Girl & [[http://bookonastick.wordpress.com|BoaS]]\'s sake), though the new project will make this unnecessary because the layout will come from layout pages that are rendered on load.\n\
+\n\
+* The editor has been improved in that it now acts as a single page (if there is enough screen layout available), removing the double scrollbars that used to appear. It works well across all browsers, including IE6. I was going to do the same with the view layout (and developed code to do so, allowing fixed layout in all browsers) but have decided to wait and do it in the new project. I also need to decide whether to add image capabilities to IE6&7 in the new project as I have code written that can do so. Would be interested in feedback on this.\n\
+\\\n\
+== Parsing\n\
+* Most URLs, like https://example.com/page?hi#there, will be recognized and kept from being seen as text markup (try this page in 0.12.0). If /Automatically convert URLs to hyperlinks/ is turned on in the [[Special::Options#User Interface|User Interface]] section of [[Special::Options]], and the URL is recognized (http, https, file, ftp) then the URL will also be automatically turned into an external wiki link. This doesn\'t fix UNIX paths, but as long as the path doesn\'t have a leading slash, it should be rendered correctly: my/path/t. In my new project I want to add syntax, consistent with Creole 1, that stops the next character (or perhaps next syntax block; e.g: \'{|\') from being interpreted as markup. (There are many other ways to accomplish this as well, like recognizing backslash escapes within the line.)\n\
+\n\
+* In-line syntax for text styling -- italics, bold, underline -- all work the same in that they cannot cross lines of text (in 0.12.0 underline would work across lines). Other than that I have now returned to the original parsing rules for 0.12.0 with the exception that bold markup can start after "/" and "\\"; I can\'t see why this existed other than for file path display (where it fails in many instances). Italics cannot start after a colon (\':\'), presumably also to protect file paths; this is standard behaviour in 0.12.0. I am considering protecting file paths in my new project in much the same way as I have now protected URLs (by removing them from parsing).\n\
+\\\n\
+= Bug Fixes\n\
+/See my *[[http://stickwiki.svn.sourceforge.net/viewvc/stickwiki/branches/pvhl/fix/log.txt|log.txt]]* in SVN for a fuller list of fixes. The file, as it was when I uploaded this file, is also [[log.txt|included in this wiki]], so you can get an idea of the changes made./\n\
+== Major\n\
+* Fixed the file corruption that happened in WoaS.0.12.0 when using Java for saving (Chrome, Safari, Opera).\n\
+* Fixed Firefox 7+ breaking file selection\n\
+\\\n\
+== Minor\n\
+* many parser spacing fixes\n\
+\n\
+* Many changes to fix layout issues across browsers in Windows, including IE 6&7. Layout is now consistent at all text sizes and zoom levels in all major browsers (in Windows; I have done only limited testing for Linux, and none at all for Mac). I have been able to test early versions of IE and Firefox, but have no ability (or real desire) to test early versions of Chrome, Opera, and Safari. /I also had not realized how many load|save related WoaS features only work in Firefox! I have code to make image embedding work in IE, but adding such capabilities to the other browsers will have to be limited and based either on a new Java system, or HTML 5./\n\
+\n\
+* Most history and navigation icon errors have been removed.\n\
+',
+'WHILE THE CODE IN \'FIX\' IS BEING UPDATED/MERGED IT MAY NOT ALWAYS BE WORKING AS FOUND.\n\
+IT IS NOT BEING TESTED MUCH DURING THIS PROCESS AND COULD OCCASIONALLY BE BROKEN.\n\
+\n\
+That said, I\'m actually trying to make sure that only working \'fix\' code is uploaded, especially for the woas-fix[.min].html files; these will not always be the same as the multi-file code for that reason.\n\
+\n\
+I am near to having a finished, fixed 0.12.0. to upload. I simply don\'t have the time to commit changes piece by piece. If anyone really wants to see it later I\'ll consider sending them my git development repository (what a mess!)\n\
+\n\
+Changes since Revision pvhl-2317 (git: 3d939c7)\n\
+\n\
+(needing to archive my work in an incomplete though working state; export probably isn\'t working right yet)\n\
+\n\
+* fix bold/italic/underline crossing line endings when in a list\n\
+* revert bold/italic/underline parsing to (mostly) conform to 0.12.0 and recent marker changes\n\
+* fix my URL autolink generation\n\
+* undeprecate Tags:: namespace\n\
+* fix section jump error I introduced with last CSS change\n\
+* move search string check\n\
+* add some comments to i18n.js\n\
+* index: revert info macro change and add some export CSS for later\n\
+* some macro, css, and autolink fixes\n\
+* add loading capability to i18n and update some strings\n\
+* fix exported scripts (were being exported with br tags added for every newline!)\n\
+* final name change of \'WoaS::Template::Transclusion Example\' to \'WoaS::Help::Template transclusion::Example\'\n\
+* quick hack to fix page export; works with/without menus and allows for custom export CSS\n\
+* add export version to new TOC code\n\
+* change Print function to use .woas_print and add CSS to WoaS::CSS::Core (allows customization)\n\
+* refactor Special::Export page layout (to match others) and associated help page\n\
+* rearrange Special::Advanced page and add some missing links (may need Help pages for File:: and Image::)\n\
+* fix woas._reserved_rx (broken RegExp was testing titles incorrectly -  e.g. [[A WoaS::... tested true)\n\
+* add ability to jump to fieldset headings in import/export pages\n\
+* modify macro code so block macros can work correctly; refactor macro help page\n\
+* improve script disabling and search result layout\n\
+* rename \'Transclusion\' help page to \'Template transclusion\' and update associated help pages\n\
+* fix errors in java saving (one mine from refactoring code; one original; now works in Windows Chrome & Opera)\n\
+* disallow " in wiki links (they break the link and aren\'t allowed by code)\n\
+* replace all occurrences of JavaScript with Javascript to avoid namespace confusion\n\
+* refactor Javascript:: namespace to allow title declaration, and update help page\n\
+* update Import and Options help pages\n\
+* allow import of CSS only from HTML file (CSS & Config allows import of wiki setup without content)\n\
+* fix failure to update display when importing configuration and improve import reporting\n\
+* dim debug button instead of removing\n\
+* moved woas.refresh_menu_area (was now woas.refresh_menu) to woas.ui.refresh_menu\n\
+* fix failure to remove wait cursor on import of debug_mode = true\n\
+* refactor erase_wiki to remove edge-case failure and simplify\n\
+* change name of \'WoaS::Template::Example::Transclusion\' to \'WoaS::Template::Transclusion Example\'\n\
+* add some missing help pages from Little Girl\n\
+* help pages open in help system except WoaS::Help (an intro) and WoaS::Help::\n\
+* changed name of Recentchanges to \'Recent Changes\'\n\
+* \'WoaS History\' page is deleted on erase (as an unneeded user page) and not imported (could be older)\n\
+* some changes to menu and erased menu\n\
+* numerous CSS tweaks incl. reducing nowiki styles to single declarations\n\
+* TOC refactored to allow greater control; added roll-up to TOC\n\
+* submenus are now a single menu\n\
+* change to how heading anchors are created\n\
+* capture enter key in password pages to avoid having to click the button\n\
+* improve image pages and image gallery (an incomplete beginning; more tomorrow I hope)\n\
+* fix loading of page reference at start-up\n\
+* adjust the colour scheme\n\
+* fix go_to code to handle page section links\n\
+* multiple fixes to allow my current fix-wip code to work with ie6/7 and be left with WoaS\n\
+* more work on using CSS classes to control layout\n\
+* change d$.clone to woas.clone, add d$.toggle_class with optional resize\n\
+* disable menu edit and Options save buttons, and remove some options when read-only\n\
+* add icon lockout code for new display system, and a ui state discovery system\n\
+* fix all the array printouts; failed if length was 1; also removed base16 array encoding as no shorter\n\
+* fix \'Lock::xxx\' being saved as current page to open\n\
+* fix some woas history issues, especially with options and locking/unlocking\n\
+* add Special::Options information concerning what is about to happen\n\
+* fix broken FF7 path access, and general rewrite of file load\n\
+* update Special::Import and Special::Export Help pages\n\
+* delete WoaS::Template::Button as no longer needed and remove it and WoaS::Template::Info from code\n\
+* add official macro for info box and use in Help Pages; will expand function later\n\
+* Asthetic adjustment to Recent Changes\n\
+* Changes to breadcrumbs display: improve asthetics and fix issue with ::Menu & Namespace listings\n\
+* Changes to Tagged:: listing to improve capability\n\
+* Refactor of listing code to simplify and add no-namespace folding\n\
+* Refactor of orphan pages code ( Order(n) instead of O(n*n) )\n\
+* Redesign and tuning of HTML, CSS, and control code for main layout\n\
+* New Help pop-up code; works in all browsers (even IE6)\n\
+* Allow import of encrypted images (partial fix; will revisit later)\n\
+* Redesign of Special::Import and Special::ImportWSIF and associated functions\n\
+* add separate settings for import and importWSIF and fix import of old settings\n\
+* disable plist use until various broken commit and autosave code is fixed\n\
+* use reFwdSlash instead of new regexp each time\n\
+* change wsif_ds check to whole name instead of length\n\
+* Updated legacy.js to include call information (with help from Little Girl)\n\
+* Redesign of Special::ExportWSIF and associated Help page; others to follow\n\
+* Redesign of Special::Options and associated CSS and Help page\n\
+* Fix 2 small errors including broken list CSS\n\
+* Bring Help window forward if hidden\n\
+* disable WSIF blob saving as only Gecko can do it and others corrupt file\n\
+* add \'wsif.type: index\' to allow safe loading/saving of exported multi-file WSIF\n\
+* allow recursive load of WSIF files so multi-file index file can be used\n\
+* hack fix of path in WSIF data source; stop file being corrupted for bad path\n\
+* fix backspace/erase causing page back action when in textbox\n\
+* reload file if erase wiki failed\n\
+* add new help pages and help page updates from Little Girl\n\
+* change default setting for config import to safer setting\n\
+* add new page menu link options\n\
+* small changes to various page layouts\n\
+* fix export and edit for submenus and fix up _add_namespace_menu\n\
+* change nowiki_multiline parsing to match macro parsing rules and break-out function\n\
+* modify how hotkey accesses restricted word \'goto\'\n\
+* improve show/hide/toggle functions\n\
+* remove visibility attribute from WoaS (display is sufficient in all cases)\n\
+* update i18n strings (mostly Little Girl\'s work)\n\
+* hide \'make woas read only\' in read only woas\n\
+* fix macro backup functionality\n\
+* add macro.parse ability\n\
+* fix macro regexp and related issues (follow rules similar to nowiki and work better with block syntax)\n\
+* refactor woas.log for better efficiency\n\
+* fix legacy log function I broke; replace remaining log() calls in code\n\
+* disable debug history log\n\
+* remove h1 from no script; corrupted by IE on save\n\
+* fix logo width in IE8+\n\
+* modify woas.include macro to stop page listing header display\n\
+* allow menu for earlier namespace to show up if no ns menu found\n\
+* change namespace listing to use divs instead of spans\n\
+* fix Special:: namespace listing and associated issues\n\
+* add option to start with console closed and clean up the html a bit\n\
+* change debug/log function so it can be turned on/off dynamically\n\
+* add all pages option and filename to Special::ExportWSIF\n\
+* add fix header/menu options and rearrange things a bit\n\
+* fix woas.browser.firefox_new test\n\
+* fix included pages shown in Special::Orphans (found by Michele1995)\n\
+* fix tweak var replacement in mk\n\
+* stop WoaS History being exported in user page WSIF files\n\
+* correct incorrect number of pages in index.wsif\n\
+* some base64 rearrangement\n\
+* error in load_mode spelling\n\
+* fix file read \'off by one error\' (extra byte was read for binary); also fixes html comment issue (--\x3E)\n\
+* fix base64 encoding (was failing for images with NULL)\n\
+* fix macro error - no returned value bug\n\
+* fix bad Firefox identification\n\
+* fix bug I introduced: missing menu update after edit (found by Michele1995)\n\
+* fix bug I introduced: missing namespace links after edit (found by Michele1995)\n\
+* redo last fix to correct error introduced (broke img tags; found by Michele1995)\n\
+* redo fix for block html to allow tags to break across lines + simplify\n\
+* changes to stop \'tag found\' warning during build\n\
+* slight clean up; simplify/clarify place_holder function by adding place_holder_dnl\n\
+* fix bad export CSS\n\
+* redo nowiki to fix insanity of my new code\n\
+* partial fix for export html problems\n\
+* fix export html CSS background\n\
+* remove width settings from woas.htm (broke layout in some browsers)\n\
+* fix external disposition wsif import failure (found by tomas)\n\
+* changes to allow more custom help pages\n\
+* slight Special::Options rearrangement\n\
+* add (currently inactive) code to remove blank line between same-type lists\n\
+* simplify heading parser\n\
+* add sort_tags configuration option\n\
+* add auto_links configuration option and tidy option page slightly\n\
+* fix import disable issues for IE\n\
+* fix macro dynamic_nl issues\n\
+* fix italic/underline parsing issues and add autolinks\n\
+* fix sorting in tag listing\n\
+* fix hash location issues introduced earlier\n\
+* refix some previous fixes to remove side-effects\n\
+* fix transclusion loop\n\
+* fix double-quotes in title\n\
+* fix plug-in name check when creating\n\
+* fix bad lock message\n\
+* initial spacing fix -- same issues as official (a better fix coming)\n\
+* redo fix for replacing html tag(s)\n\
+* some more history.backstack fixes missed earlier\n\
+* refix css export\n\
+* fix broken search results display and adjust its CSS\n\
+* fix newline before alpha list bug and tiny change to list code\n\
+* stop all WoaS::CSS pages being exported (Boot and namespace were)\n\
+* fix incorrect display of exported pages because of help pages being exported twice\n\
+* fix bad file_mode in export.js (ASCII -\x3E ASCII_TEXT)\n\
+* refactored woas.parser._render_wiki_link (to test an idea and for a coming plugin)\n\
+* update aes module closures to recommended practice (removes jslint warning)\n\
+* fix extra line after tables\n\
+* optimize list parsing code\n\
+* mostly parser module rearrangement and relocation of some parse code to parser.js\n\
+* fix empty namespace listing\n\
+* change \'header\' to \'heading\' where heading is intended (avoid confusion with wsif headers)\n\
+* fix double calling of nav icon update for certain instances\n\
+* don\'t ask to create menu link if already in menu (needs rewrite for namespace menus)\n\
+* more page delete fixes including deleting page that is not current but in history\n\
+* mostly more ghost page fixes\n\
+* move ghost page disabling to disable_edit()\n\
+* clear log div at start-up (fixes a Firefox bug)\n\
+* improve page saving (removes unneeded save of editor text)\n\
+* modified sprintf function\n\
+* tiny history log format change\n\
+* stop some block HTML markup from having a br tag added\n\
+* fix ruler bug (eats multiple preceding \\n); also simplifies code\n\
+* changes to allow html comments in nowiki and macro output\n\
+* changed all marker formats; also fixes potential bug if marker followed by a numeral\n\
+* parser.dry made more efficient and simpler; combined macro expansion into pre_parse\n\
+* change place_holder to simplify code; now pushes to array and returns marker text\n\
+* minor change to tag display (moved a space)\n\
+* minor change to menu updating for import wiki\n\
+\n\
+==Changes made before move to fix-wip\n\
+\n\
+Revision pvhl-2317 (fix branch)\n\
+* fix non-breaking tags display issue\n\
+\n\
+Revision pvhl-2314\n\
+* fix broken Italian language plugin and update design (adding a change to i18n\n\
+  during lock fix was a reminder that translations will break using the current\n\
+  \'overwrite everything\' system; rewrote the Italian language plugin and added\n\
+  a \'pvhl.notes\' file on improving language support in WoaS)\n\
+\n\
+Revision pvhl-2313\n\
+* hack incorrect lock icon display\n\
+\n\
+Revision pvhl-2312\n\
+* macroTagThis and reformat\n\
+* restore print page no browsing warnings\n\
+* added Plugins help page to index\n\
+* slight grammatical change\n\
+* slight ui.js changes\n\
+\n\
+Revision pvhl-2309\n\
+* fix broken nowiki (was failing after heading; better fix to come)\n\
+* fix potential edge-case failure in placeholder.\n\
+* slight cleanup to woas._raw_preformatted\n\
+* added CSS3 rule to core CSS to break unbreakable lines\n\
+\n\
+Revision pvhl-2308\n\
+* fix nowiki class spelling I thought I\'d already fixed\n\
+* update single files\n\
+\n\
+Revision pvhl-2291\n\
+* some changes to the About page to explain this version\n\
+* add php files that will be used to create single-file (not finished)\n\
+* stop \'#\' being used in page titles (found by jufooo)\n\
+* change to log display: closed on loading\n\
+* fix wrong mts display (reported by Winterblood)\n\
+\n\
+Revision pvhl-2289\n\
+* fix Chrome file corruption issues\n\
+* fix edit_override to allow edit of WoaS namespace\n\
+* quick changes (hack) to remove cancelled new page from menu\n\
+* slight change to menu to allow better addition placement\n\
+* fix logbox scroll position after save and improve function\n\
+* small formatting change for readability\n\
+* some minor comment additions\n\
+\n\
+Revision pvhl-2288\n\
+* hack for cumulative save issues\n\
+* fix no-load mode error when mode = 0\n\
+* fix new page history (still some edge case issues)\n\
+* fix commit bug in unused code :(\n\
+\n\
+Revision pvhl-2287\n\
+* fix history so back/forward buttons work\n\
+* fix help back button (not working in FF/IE)\n\
+\n\
+Revision pvhl-2286\n\
+* syntax fixes found by Little Girl\n\
+* syntax fixes found by PVHL\n\
+* fixed up deprecated go_to() & go_back\n\
+* minor documentation clarifications\n\
+'];
 
-/* DFQRCTsKlU-0000001-END */
+/* DFQRCTsKlU-0000000-END */
 
 /* ]]> */
 </script>
 <title woas_permanent="1">Main Page</title>
-<style type="text/css" woas_permanent="1" woas_core_style="1">/* CSS used when loading/saving WoaS; readonly */
+<style type="text/css" woas_permanent="1" woas_core_style="1">/* CSS used when loading/saving WoaS - readonly */
 body {
-	margin: 0px;
-	padding: 0px;
-	border-width: 0px;
+	margin: 0;
+	padding: 0;
+	border-width: 0;
 	font-family: Georgia, verdana;
 	background-color: #F0F0F5; /* to match layout; no name */
 }
@@ -4349,7 +4714,7 @@ body {
 	text-align: center
 }
 #woas_debug_console {
-	width: 50%;
+	width:50%;
 	margin: 3em auto
 }
 #woas_debug_log {
@@ -6099,56 +6464,6 @@ woas.remote_load = function(url) {
 };
 
 /*** src/parser.js ***/
-/* PVHL: Temporary discussion of heading IDs (to be removed later)
-
-I have struggled for a long time to find a good answer to the multiple issues
-with WoaS' heading ID implementation and tried many approaches. A heading may
-have formatting in it, including links, perhaps even nowiki text. To me this is
-a good thing.
-
-Also, 'Basic HTML data types' (http://www.w3.org/TR/html4/types.html#type-cdata)
-says in part: "ID and NAME tokens must begin with a letter ([A-Za-z]) and may be
-followed by any number of letters, digits, hyphens ("-"), underscores ("_"),
-colons (":"), and periods (".")" However, ':' needs to be encoded, so just '-_.'
-are simple. According to this spec a heading that starts with a numeral is not
-allowed.
-
-So:
-* A change to the formatting -- or changing some of the text to a link --
-  currently changes the ID.
-* My current fix attempts added the link and/or formatting to the TOC (not sure
-  what 12 did, but not nice either)
-* If I am writing in a non-English language the current ID methods may fail
-  completely.
-* Simply using the heading text can break the W3C spec (may be important)
-
-Solution to the above:
-
-1) Heading/TOC will be generated after all other parsing is complete.
-2) Heading has all HTML stripped and snippet entries reified.
-4) The charCode at each position is multiplied by its place and added to total.
-5) The ID is 'S' plus this number.
-6) A section reference can be in this form or the displayed text of the heading
-   (i.e. just the rendered text charactersn, not the markup: 'hi' not '*hi*').
-7) Any section reference handed in at start is passed through decodeURIComponent
-   and converted if needed.
-
-The issue of the ID changing with text changes will not be addressed, nor will
-the possibility of ID collision from repeated headings. I am fixing this in my
-new project by allowing the (optional) simple declaration of a heading ID.
-(Essentially: a code and/or macro tells the parser to add a special reference
-(the heading, at creation, and/or SHA256 hashed, and/or a user provided ID?);
-this id is then always used for this section using a simple alias mechanism.)
-
-Examples:
-heading_anchor('hi'): S314
-heading_anchor(2 kanji characters): S75216
-heading_anchor(fairly long kanji sentance): S4804659
-heading_anchor('Any section reference handed in at start': S77498
-heading_anchor(''): not allowed
-*/
-
-
 // module @parser
 woas.parser = {
 
@@ -6176,10 +6491,8 @@ reStyles: new RegExp("<"+"style([^>]*)>[\\s\\S]*?<"+"\\/style>([ \\t]*\\n)?", "g
 reTOC: /\[\[Special::TOC\]\]([ \t]*\n)?/,
 
 // REs without optional newline search
-// reAutoLinks removes sequences that look like URLs (x://x)
-reAutoLinks: /(?:(https?|ftp|file)|[a-zA-Z]+):\/\/(?:[^\s]*[^\s*.;,:?!\)\}\]])+/g,
-// removes possible parse conflicts but no automatic links; must match str only, no subgroups
-reAutoLinksNo: /[a-zA-Z]+:\/\/(?:[^\s]*[\/*_])+/g,
+// reAutoLinks finds sequences that look like URLs (x://)
+reAutoLinks: /(?:(https?|ftp|file)|[a-zA-Z]+):\/\/(?:[^\s]*[^\s*.;,:?!\)\}\]])*/g,
 // stops automatic br tag generation for listed tags
 reBlkHtml: /^(p|div|br|blockquote|[uo]l|li|table|t[rhd]|tbody|thead|h[1-6r]|center)$/i,
 reDry: /(\{\{\{[\s\S]*?\}\}\}|<<<[\s\S]*?>>>|<\!--[\s\S]*?-->)/g,
@@ -6235,8 +6548,8 @@ _get_tags: function(text, last_tag) {
 _init: function() {
 	this.marker = _random_string(3) + ":" + _random_string(3);
 	this.reBaseSnippet = new RegExp(this.marker + "(\\d+);", "g");
-	this.NL_MARKER = this.marker + "NL";
-	this.reNL_MARKER = new RegExp(this.marker + "NL([ \\t]*\\n)?", "g");
+	this.NL_MARKER = this.marker + "NL;";
+	this.reNL_MARKER = new RegExp(this.marker + "NL;([ \\t]*\\n)?", "g");
 },
 
 // create a preformatted block ready to be displayed
@@ -6267,12 +6580,6 @@ _raw_preformatted: function(tag, text, cls, add_style) {
 
 // render a single wiki link
 _render_wiki_link: function(target, label, snippets, tags, export_links) {
-	if (/"/.test(target)) {
-		// PVHL: " will break link - current code does not allow.
-		return woas.parser.place_holder(snippets,
-			'[[<'+'span style="color:#f00">'+target+'<'+'/span>'+
-			(label ? '|'+label : '')+']]');
-	}
 	if (label === undefined) {
 		label = '';
 	}
@@ -6314,11 +6621,16 @@ _render_wiki_link: function(target, label, snippets, tags, export_links) {
 	if (hashloc !== -1) {
 		gotohash = this.heading_anchor(page.substr(hashloc + 1), true);
 		pg = page.substr(0, hashloc);
-	} else
+	} else {
 		pg = page;
-	if (!pg && !gotohash)
-		return ""; // PVHL: needs error report?
-
+	}
+	if (!pg && !gotohash || /"/.test(pg)) {
+		// PVHL: " will break link - current code does not allow.
+		//  empty link - [[#]] ?
+		return woas.parser.place_holder(snippets,
+			'[[<'+'span style="color:#f00">'+target+'<'+'/span>'+
+			(label ? '|'+label : '')+']]');
+	}
 	// create a title attribute only when page URI differs from page title
 	if (label !== '' || gotohash) {
 		title = woas.xhtml_encode(page);
@@ -6330,9 +6642,10 @@ _render_wiki_link: function(target, label, snippets, tags, export_links) {
 			if (wl === '#') {
 				return woas.parser.place_holder(snippets, sLinkBroken.sprintf(r_label));
 			}
-			wl = sHref.sprintf(wl + '#' + gotohash);
-		} else
+			wl = sHref.sprintf(wl + (gotohash ? '#' + gotohash : ''));
+		} else {
 			wl = sOnClick.sprintf(woas.js_encode(pg) + (gotohash ? '#' + woas.js_encode(gotohash) : ''));
+		}
 		str = sLink.sprintf(scWoas, title, wl, r_label);
 	} else { // page does not exist
 		if (export_links) {
@@ -6443,10 +6756,10 @@ extend_syntax: function(P) {
 // Create a W3C-spec-legal ID from heading using quick & simple hash.
 // The same string produces the same hash, so headings need to be unique
 //   or the first match will be moved to (could add editor alert).
-// 's' is heading text; not empty, straight unicode text - no HTML
+// 's' is heading text; should not be empty, straight unicode text - no HTML
 // 'check' (optional) forces test for already transformed anchor
 heading_anchor: function(s, check) {
-	if (check && /^S\d+$/.test(s)) {
+	if (!s || check && /^S\d+$/.test(s)) {
 		return s;
 	}
 	var id = 0, i = 0, il;
@@ -6481,7 +6794,7 @@ import_disable: function(NP, js, macros) {
 // 'text' is the raw wiki source
 // 'export_links' is set to true when exporting wiki pages (used to generate proper href for hyperlinks)
 // 'js_mode' controls javascript behavior. Allowed values are:
-//    0 - leave script tags as they are (used for exporting)
+//    0 - leave script tags as they are (used for exporting; acts much like mode 2)
 //    1 - place script tags in head (dynamic),
 //    2 - re-add script tags after parsing
 //    3 - convert script tags to nowiki blocks
@@ -6517,25 +6830,26 @@ parse: function(text, export_links, js_mode) {
 		this.transclude_syntax(P, snippets, export_links);
 	}
 
+	// PVHL: code was breaking exported scripts by adding br tags; refactored
 	if (js_mode) {
 		// reset the array of custom scripts for the correct target
 		var script_target = this._parsing_menu ? "menu" : "page";
 		woas.scripting.clear(script_target);
-		// gather all script tags
-		P.body = P.body.replace(this.reScripts, function (str, $1, $2, dynamic_nl) {
-			if (js_mode==2) {
-				return that.place_holder_dnl(snippets, str, dynamic_nl);
-			} else if (js_mode==3) {
-				// during safe mode do not activate scripts, transform them to nowiki blocks
-				return that.place_holder_dnl(snippets, that._make_preformatted(
-					woas.i18n.JS_DISABLED + str, 'border:1px solid #f00'), dynamic_nl);
-			} // else
-			var m=$1.match(/src=(?:"|')([^\s'">]+)/),
-				external = (m!==null);
-			woas.scripting.add(script_target, external ? m[1] : $2, external);
-			return "";
-		});
 	}
+	// gather all script tags
+	P.body = P.body.replace(this.reScripts, function (str, $1, $2, dynamic_nl) {
+		if (js_mode === 0 || js_mode === 2) {
+			return that.place_holder_dnl(snippets, str, dynamic_nl);
+		} else if (js_mode === 3) {
+			// during safe mode do not activate scripts, transform them to nowiki blocks
+			return that.place_holder_dnl(snippets, that._make_preformatted(
+				woas.i18n.JS_DISABLED + str, 'border:1px solid #f00'), dynamic_nl);
+		} // else
+		var m = $1.match(/src=(?:"|')([^\s'">]+)/),
+			external = (m!==null);
+		woas.scripting.add(script_target, external ? m[1] : $2, external);
+		return "";
+	});
 
 	// take away style blocks
 	P.body = P.body.replace(this.reStyles, function(str, $1, dynamic_nl) {
@@ -6620,7 +6934,7 @@ parse_lists: function(str, type) {
 		return s;
 	};
 
-	var lst_item = '<'+'li>%s<'+'/li>',
+	var lst_item = '<'+'li>%s<'+'/li>' + woas.parser.NL_MARKER + '\n',
 		lst_type = [
 			'<'+'ul>%s<'+'/ul>' + woas.parser.NL_MARKER,
 			'<'+'ol>%s<'+'/ol>' + woas.parser.NL_MARKER,
@@ -6636,22 +6950,33 @@ parse_lists: function(str, type) {
 },
 
 // put away stuff contained in user-defined macro blocks
+// PVHL: needs more refactoring; pass snippets to macro? Returned
+//   text should not need more processing
 parse_macros: function(P, snippets) {
+	var that = this;
 	P.body = P.body.replace(this.reMacros, function (str, $1, dynamic_nl) {
 		dynamic_nl = dynamic_nl || '';
 		// ask macro_parser to prepare this block
 		var macro = woas.macro.parser($1);
 		if (macro.reprocess) {
 			// allow further parser processing
-			return macro.text + (macro.block ? woas.parser.NL_MARKER : '') +
+			return macro.text + (macro.block ? this.NL_MARKER : '') +
 				dynamic_nl;
 		}
 		// otherwise store it for later
+		if (!macro.defn && snippets.length) {
+			// text could have nowiki text in it; retrieve now
+			// can't use undry because of name difference; FIX?
+			macro.text = macro.text.replace(that.reBaseSnippet,
+				function (str, $1) {
+					return snippets[parseInt($1)];
+				})
+		}
 		if (macro.block) {
 			// definitions and block macros
-			return woas.parser.place_holder_dnl(snippets, macro.text, dynamic_nl)
+			return that.place_holder_dnl(snippets, macro.text, dynamic_nl)
 		}
-		return woas.parser.place_holder(snippets, macro.text) + dynamic_nl;
+		return that.place_holder(snippets, macro.text) + dynamic_nl;
 	});
 },
 
@@ -6739,7 +7064,8 @@ place_holder: function (snippets, str) {
 
 place_holder_dnl: function (snippets, str, dnl) {
 	snippets.push(str);
-	return this.marker + (snippets.length - 1) + ';' + (!dnl ? '' : this.NL_MARKER + dnl);
+	return this.marker + (snippets.length - 1) + ';' +
+		(!dnl ? '' : this.NL_MARKER + dnl);
 },
 
 // NOTE: XHTML comments can now be contained in nowiki and macro blocks
@@ -6777,14 +7103,6 @@ syntax_parse: function(P, snippets, tags, export_links, has_toc) {
 	// restore text lines (lines ending in '\' are joined)
 	P.body = P.body.replace(/\\\n/g, "")
 
-/* NOTE: the line below will be used once the editor takes care of spacing display
- * and all content is saved without optional newlines except the one needed between
- * same-type lists. At that point newlineBefore/After code will be removed.
- */
-	// remove the required \n between same-type lists by marking it for removal
-	// (so always one less \n than typed between lists of the same type)
-	//P.body = P.body.replace(/^([*#@])+[ \t].*\n(?=\n+\1[ \t].)/gm, '$&' + this.NL_MARKER)
-
 	// put HTML tags and tag sequences away (along with attributes)
 	P.body = P.body.replace(this.reHtml, function(str, ws, tags, last, dnl) {
 		// stop certain html block tags from having a br tag appended when at line end
@@ -6801,23 +7119,26 @@ syntax_parse: function(P, snippets, tags, export_links, has_toc) {
 	})
 
 	// remove URL style text ('*://*') to avoid parsing problems.
-	.replace(woas.config.auto_links ? this.reAutoLinks : this.reAutoLinksNo,
-			function(str, prot) {
-		if (typeof prot === 'string' && prot !== '')
-			str = '<'+'a class="woas_world_link" href="' + str + '">' + str + '<'+'/a>';
-		return that.place_holder(snippets, str);
+	.replace(this.reAutoLinks, function(str, prot) {
+		// only return a link if autolinks on and a target exists
+		return that.place_holder(snippets,
+			woas.config.auto_links && prot && (prot.length + 3 !== str.length)
+			? '<'+'a class="woas_world_link" href="'+str+
+				'" target="_blank">'+str+'<'+'/a>'
+			: str);
 	})
 
-	// italics/underline/bold all operate on a single line
-	// italics (needs to be done before code that adds html)
-	// PVHL: bug-fix - can't use \w as in bold/underline as it rejects '_'
-	//   *_/ need a rewrite (again) so that Me*n*u works, 9/3/83 doesn't, etc.
-	//   Just needs simpler capture with another test regexp for in word stuff.
-	//   Also need to combine these; get tables and lists to put away HTML as above?
-	//   Use word break instead? Recurse for proper *_/ nesting, etc? Line by line simple
-	.replace(/(^|[^a-zA-Z0-9])\/(.+?)\//mg, function(str, $1, $2) {
-		return $1+"<"+"em>"+$2+"<"+"/em>";
-	})
+	// italics/underline/bold all operate on a single line now; otherwise
+	// they act as they did in 0.12.0 unless otherwise noted.
+
+	// italics (needs to be done before code that adds html; this should be fixed
+	// by changing how block level syntax is parsed). Italics can't start after a
+	// colon, presumably to stop 'c:/my/path' from disappearing. Will fix in new.
+	.replace(/(^|_|[^\w:])\/(.+?)\//mg, "$1<"+"em>$2<"+"/em>")
+
+	// underline (now works on a single line the same as bold/italics)
+	.replace(/(^|[^\w])_(.+?)_/mg, "$1<"+
+		"span style=\"text-decoration:underline;\">$2<"+"/span>")
 
 	// ordered/unordered lists parsing (code by plumloco)
 	.replace(this.reListReap, this.parse_lists)
@@ -6827,16 +7148,9 @@ syntax_parse: function(P, snippets, tags, export_links, has_toc) {
 				woas.config.new_tables_syntax ? this.parse_tables_new : this.parse_tables
 	)
 
-	// underline (now works on a single line the same as bold/italics)
-	// needs to be before bold with this regexp (see italics)
-	.replace(/(^|[^\w])_(.+?)_/mg, function(str, $1, $2) {
-		return $1+"<"+"span style=\"text-decoration:underline;\">"+$2+"<"+"/span>";
-	})
-
-	// bold (needs to be after lists and tables)
-	.replace(/(^|[^\w])\*(.+?)\*/mg, function(str, $1, $2) {
-		return $1+"<"+"strong>"+$2+"<"+"/strong>";
-	})
+	// bold (needs to be after lists & tables). 0.12.0 doesn't allow start
+	// after / or \; this code does as can't see need, esp. with URLs protected
+	.replace(/(^|[^\w])\*(.+?)\*/mg, "$1<"+"strong>$2<"+"/strong>")
 
 	// horizontal rulers: multiline RE used; adding NL_MARKER will remove the \n following.
 	.replace(this.reRuler, this._HR + this.NL_MARKER);
@@ -6867,7 +7181,7 @@ syntax_parse: function(P, snippets, tags, export_links, has_toc) {
 	// replace [[Special::TOC]]
 	if (has_toc) {
 		P.body = P.body.replace(this.marker+"TOC", function() {
-			return that.toc_render(snippets);
+			return that.toc_render(export_links);
 		});
 	}
 
@@ -6892,20 +7206,32 @@ syntax_parse: function(P, snippets, tags, export_links, has_toc) {
 toc_body: '<'+'div id="woas_toc"><' +
 	'div id="woas_toc_title"><'+'a onclick="d$.toggle(\'woas_toc_content\')"' +
 	'>%s<'+'/a><'+'/div><'+'div id="woas_toc_content">%s<'+'/div><'+'/div>',
+toc_body_exp: '<'+'div id="woas_toc"><'+'div id="woas_toc_title">%s<' +
+	'/div><'+'div id="woas_toc_content">%s<'+'/div><'+'/div>',
 toc_line: '<'+'div class="woas_toc_h%s"><' +
 	'a class="woas_link" onclick="woas.go_to(\'#%s\')">%s<'+'/a><'+'/div>',
+toc_line_exp: '<'+'div class="woas_toc_h%s"><' +
+	'a class="woas_link" href="#%s">%s<'+'/a><'+'/div>',
 // to allow overriding of TOC line rendering
 toc_line_render: function(level, count, anchor, heading) {
 	// the count array could be used for section numbering; e.g. 1.1.2
 	// for current count just use count[level]
 	return this.toc_line.sprintf(level, anchor, heading);
 },
+// PVHL: added in case user wants different TOC generated for exported pages
+toc_line_render_exp: function(level, count, anchor, heading) {
+	// see notes for toc_line_render
+	return this.toc_line_exp.sprintf(level, anchor, heading);
+},
 // replace the TOC placeholder with the real TOC
 // This function should not need to be overwritten; toc_line_render, toc_line,
-// & toc_body should be sufficient to generate any desired TOC.
-toc_render: function() {
+// & toc_body (and related export versions) should be sufficient to generate
+// any desired TOC.
+toc_render: function(export_links) {
 	// this.toc: [level, anchor, heading text, level, anchor, ...]
-	var i, il, j, tmp = [], count = [], level;
+	var i, il, j, tmp = [], count = [], level,
+		body = export_links ? this.toc_body_exp: this.toc_body,
+		line_fn = export_links ? this.toc_line_render_exp : this.toc_line_render;
 	for (i = 0, il = this.toc.length; i < il;) {
 		level = this.toc[i++];
 		count[level] = count[level] ? count[level] + 1 : 1;
@@ -6913,11 +7239,10 @@ toc_render: function() {
 			count[j] = 0;
 		}
 		// toc_line_render(level, count, anchor, heading)
-		tmp.push(this.toc_line_render(level, count,  this.toc[i++],
-			this.toc[i++]));
+		tmp.push(line_fn.call(this, level, count, this.toc[i++], this.toc[i++]));
 	}
 	this.toc = [];
-	return this.toc_body.sprintf(woas.i18n.TOC, tmp.join(''));
+	return body.sprintf(woas.i18n.TOC, tmp.join(''));
 },
 
 //API1.0
@@ -6977,7 +7302,7 @@ woas.special_encrypted_pages = function(locked) {
 			pg.push(page_titles[i]);
 	}
 	if (!pg.length)
-		return "/No locked pages found/";
+		return "/No locked pages/";
 	else
 		return this._join_list(pg);
 };
@@ -7034,7 +7359,7 @@ woas.special_orphaned_pages = function() {
 		}
 	}
 	if (!pg.length)
-		return "/No orphaned pages found/";
+		return "/No orphaned pages/";
 	else
 		return this._join_list(pg);
 };
@@ -7060,7 +7385,7 @@ woas.special_backlinks = function() {
 			pg.push( page_titles[j] );
 	}
 	if(pg.length === 0)
-		return "/No page links to [["+pg_title+"]]/";
+		return "/No user page links to [["+pg_title+"]]/";
 	else
 		return "== Links to [["+pg_title+"]]\n"+this._join_list(pg);
 };
@@ -7184,7 +7509,7 @@ woas.special_tagged = function(filter_string) {
 		// parse tree with sorting
 		return woas.ns_listing("", pg, folds);
 	} else {
-		return "/No tagged pages found/";
+		return "/No tagged pages/";
 	}
 };
 
@@ -7508,8 +7833,8 @@ woas.ns_listing = function(root, flat_arr, folds) {
 //   make things work in every browser, even IE6
 //   (IE6 only has a:hover and doesn't like multi-class selectors)
 woas._special_image_gallery = function(ns) {
-	var snippets = [], div = [], i, l, cnt, t, cls = 'woas_img_list', plus = '',
-		p = {body: '= Pages in '+ns+' namespace\n'},
+	var snippets = [], div = [], i, l, cnt, t, cls = 'woas_img_list',
+		plus = '', p = {},
 		// class, title
 		line1 = '<'+'a class="%s" onclick="woas.go_to(\'%s\')">',
 		// title
@@ -7544,7 +7869,11 @@ woas._special_image_gallery = function(ns) {
 			this.parser.transclude(t, snippets, false, true) +
 			line2.sprintf(t);
 	}
-	p.body += div.join('');
+	if (div.length) {
+		p.body = '= Pages in '+ns+' namespace\n' + div.join('');
+	} else {
+		p.body = this.i18n.EMPTY_NS.sprintf(ns);
+	}
 	this.parser.syntax_parse(p, snippets);
 	snippets = div = null;
 	return p.body;
@@ -7562,7 +7891,7 @@ woas.tweak = {
 };
 
 woas.cmd_duplicate_page = function() {
-	var pname = this._new_page("Insert duplicate page title", true, current+" (duplicate)");
+	var pname = this._new_page(this.i18n.DUPLICATE_PAGE, true, current+" (duplicate)");
 	if (pname === null)
 		return;
 	var pi = this.page_index(current);
@@ -7709,8 +8038,7 @@ woas.static_pages = [
 
 woas.static_pages2 = [
 	"WoaS::Plugins", "WoaS::CSS::Boot", "WoaS::CSS::Core", "WoaS::Help",
-	"WoaS::ImportSettings", "WoaS::Template::Search", "WoaS::Template::Info",
-	"WoaS::Template::Transclusion Example"
+	"WoaS::ImportSettings", "WoaS::Template::Search", "WoaS::Template::Info"
 ];
 
 woas.static_pages = woas.static_pages.concat(woas.static_pages2);
@@ -7812,7 +8140,7 @@ woas.cmd_go_to = function() {
 		return;
 	var pname;
 	do {
-		pname = prompt("Go to page:", current);
+		pname = prompt(this.i18n.GO_TO_PAGE, current);
 		if ((pname !== null) && pname.length)
 			if (this.go_to(pname))
 				return;
@@ -8624,17 +8952,15 @@ woas.xhtml_encode = function(src) {
 };
 
 // DO NOT modify this list! these are namespaces that are reserved to WoaS
-var reserved_namespaces = ["Special", "WoaS", "Lock", "Locked", "Unlocked", "Unlock",
-						"Tags" /*DEPRECATED*/,
-						"Tagged", "Untagged", "Include", "Javascript"];
+var reserved_namespaces = ["Special", "WoaS", "Lock", "Locked", "Unlocked",
+		"Unlock", "Tags?", "Tagged", "Untagged", "Include", "Javascript"];
 
 // create the regex for reserved namespaces
-var reserved_rx = "^";
-for(var i = (woas.tweak.edit_override ? 2 : 0);i < reserved_namespaces.length;i++) {
-	reserved_rx += /*RegExp.Escape(*/reserved_namespaces[i] + "::";
-	if (i < reserved_namespaces.length-1)
-		reserved_rx += "|";
+var reserved_rx = "^(?:";
+for(var i = (woas.tweak.edit_override ? 2 : 0);i < reserved_namespaces.length - 1;i++) {
+	reserved_rx += reserved_namespaces[i] + "|";
 }
+reserved_rx += reserved_namespaces[i] + ")::";
 woas._reserved_rx = new RegExp(reserved_rx, "i");
 reserved_namespaces = reserved_rx = null;
 
@@ -9056,21 +9382,23 @@ woas._get_special = function(cr, interactive) {
 woas.get_javascript_page = function(cr) {
 	var text = woas.eval(cr, true);
 	if (this.eval_failed) {
-		this.crash(this.i18n.JS_PAGE_FAIL1.sprintf(cr) +
+		woas.log(this.i18n.JS_PAGE_FAIL1.sprintf(cr) +
 			this.i18n.JS_PAGE_FAIL2 + this.eval_fail_msg);
 		return null;
 	}
-	// safety check; returned value contains ['title', 'body'] or 'body'
-	// parser allows title to be empty string; body can't be empty
-	if (((text instanceof Array) && (text.length !== 2 || (typeof text[0]) !==
-			'string' || (typeof text[1]) !== 'string' || !text[1] )) ||
-			!(text instanceof Array) && (typeof text) !== "string") {
-		this.crash(this.i18n.JS_PAGE_FAIL1.sprintf(cr) +
-			this.i18n.JS_PAGE_FAIL3.sprintf(text, text instanceof Array
-			? 'array' : typeof text));
-		return null;
+	// safety check; returned value contains 'body' or ['title', 'body']
+	// body can be null if type is not array, otherwise type must be array and
+	// title can be empty, but body must exist (dynamic page creation)
+	if ((typeof text) === "undefined" ||
+			(!(text instanceof Array) && (typeof text) === "string") ||
+			((text instanceof Array) && text.length === 2 &&
+				(typeof text[0]) === 'string' && (typeof text[1]) === 'string'
+				&& text[1])) {
+		return text || null;
 	}
-	return text;
+	this.log(this.i18n.JS_PAGE_FAIL1.sprintf(cr) + this.i18n.JS_PAGE_FAIL3
+		.sprintf(text, text instanceof Array ? 'array' : typeof text));
+	return null;
 };
 
 woas.eval = function(code, return_value) {
@@ -9127,8 +9455,7 @@ woas.set_current = function (cr, interactive, keep_fwd) {
 								return false;
 							}
 							// title allowed to be empty string: 'Javascript::'
-							cr = text[0];
-							text = text[1];
+							cr = text[0] || '';
 						}
 						break;
 					case "Special":
@@ -9321,7 +9648,7 @@ woas.load_as_current = function(title, xhtml, mts, set_b, keep_fwd) {
 	current = title;
 	this.ui.refresh_menu();
 	// activate menu or page scripts
-// PVHL: FIX = menu can be activated twice
+// PVHL: FIX - menu can be activated twice
 	this.scripting.activate(this.is_menu(current) ? "menu" : "page");
 	this._set_title(title);
 	this.update_view();
@@ -9391,7 +9718,7 @@ woas._on_load = function() {
 	this._set_debug(this.config.debug_mode, this.config.debug_closed);
 	d$("woas_debug_log").value = ""; // for Firefox
 	// output platform information - note that revision is filled in only in releases
-	woas.log("*** WoaS v"+this.version+"-pvhl-r2482"+" started");	// log:1
+	woas.log("*** WoaS v"+this.version+"-pvhl-r2498"+" started");	// log:1
 	// needed to check if data source changes; forces full save when entering/exiting
 	// WSIF datasource mode or changing the name of the data source file
 	this._old_wsif_ds = is_windows
@@ -10427,7 +10754,7 @@ woas.macro = {
 	// 'this' is macro object that was passed to macro
 	_parse: function(text) {
 		var snippets = [], P = {};
-		P.body = text ? text : this.text;
+		P.body = text || this.text;
 		woas.parser.pre_parse(P, snippets, true);
 		woas.parser.syntax_parse(P, snippets);
 		return P.body;
@@ -10460,8 +10787,8 @@ woas.macro = {
 				} else { // set some error message
 					macro.text = woas.parser._make_preformatted(M[0], "color:#f00;font-weight:bold");
 				}
-				macro.reprocess = false;
 				macro.block = true;
+				macro.defn = true;
 				return macro;
 			}
 			var fi = this.names.indexOf(fn);
@@ -10880,6 +11207,7 @@ woas.i18n = {
 	DELETE_PAGE_PROMPT: "Delete page:",
 	DISPLAY_FULL_FILE: "Display full file",
 	DUP_NS_ERROR: "Cannot duplicate into File:: or Image:: namespace!",
+	DUPLICATE_PAGE: "Insert duplicate page title",
 	EDITING:"Editing '%s'",
 	EMPTY_TITLE: "An empty title is not allowed.",
 	EMPTY_NS: "/No pages in '%s' namespace./",
@@ -10896,6 +11224,7 @@ woas.i18n = {
 	FILE_DISPLAY_LIMIT: "Only the first 1024 bytes are displayed.",
 	FILE_SELECT_ERR: "A file must be selected.",
 	FILE_SIZE: "File size",
+	GO_TO_PAGE: "Go to page:",
 	HEIGHT: "Height",
 	IMG_LOAD_ERR: "/Image failed to load./\n",
 	IMPORT_CONFIG: "Configuration imported.",
@@ -10955,6 +11284,63 @@ woas.i18n = {
 
 // do not use any copyrighted wordlist here
 woas.i18n.common_words = ['the','of','to' ,'and' ,'a' ,'in' ,'is' ,'it' ,'you' ,'that' ,'he' ,'was' ,'for','on' ,'are' ,'with' ,'as' ,'I' ,'his' ,'they' ,'be' ,'at' ,'one' ,'have' ,'this' ,'from' ,'or' ,'had' ,'by' , 'an', 'all' ];
+
+/*
+Used to load alternative language plug-ins (e.g.: plugins/translations).
+Can also be used by plugins to add strings to i18n object, or change wording.
+	obj = {
+		strings:{} - strings to replace/augment built-in strings
+		strings_add: bool (optional) - change existing string collection
+			F: string is ignored if not found in i18n (default)
+			T: string will be added to i18n collection if it doesn't exist
+		common_words:[] - exclusion list used by Special::Export to build webpage metadata
+		common_words_replace: bool (optional) - change existing word list
+			F: common_words added to existing words if not already present (default)
+			T: i18n.common_words list will be overwritten by common_words array
+	}
+*/
+woas.i18n.load = function(obj) {
+	var str, i, il, keys = {};
+	if (obj.strings) {
+		for (str in obj.strings) {
+			if ((obj.strings_add || this.hasOwnProperty(str)) &&
+					obj.strings.hasOwnProperty(str) &&
+					(typeof obj.strings[str]) === 'string') {
+				this[str] = obj.strings[str];
+				keys[str] = true;
+			}
+		}
+		// report strings missing from translation
+		for (str in this) {
+			if (!keys[str] && (typeof this[str]) === 'string') {
+				woas.log('Missing - '+this.list_item(str));
+			}
+		}
+	}
+	if (obj.common_words && (obj.common_words instanceof Array)
+			&& obj.common_words.length) {
+		if (obj.common_words_replace) {
+			this.common_words = [];
+		}
+		this.common_words = this.common_words.concat(obj.common_words)
+			.toUnique();
+	}
+}
+
+woas.i18n.list = function() {
+	var str, list = [];
+	for (str in this) {
+		if ((typeof this[str]) === 'string') {
+			list.push(this.list_item(str));
+		}
+	}
+	return list.join('\n');
+}
+
+woas.i18n.list_item = function(key){
+	return key+': "'+this[key].replace(/\n\\?/g, '\\n')
+		.replace(/\t/g, '\\t')+'"';
+}
 
 /*** src/import.js ***/
 // @module importer
@@ -11801,55 +12187,64 @@ woas.exporter = {
 	_one_page: function (data, title, fname, mts) {
 		data = woas.utf8.do_escape(data);
 		// prepare the raw text for later description/keywords generation
-		var raw_text = woas.trim(woas.xhtml_to_text(data)),
-			exp_menu, ns, mpi, tmp;
+		var raw_text = woas.trim(woas.xhtml_to_text(data)), exp_menu = '',
+			ns, mpi, tmp;
 		if (this._settings.exp_menus) {
 			ns = woas.get_namespace(title);
 			// get submenu, if available, from first available namespace
-			while (ns !== "") {
-				mpi = woas.page_index(ns + "::Menu");
-				if (mpi !== -1) {
-					tmp = woas.get__text(mpi);
-					if (tmp !== null)
-						exp_menu = tmp;
-					break;
+			if (!/^WoaS::Help/.test(ns)) {
+				while (ns !== "") {
+					mpi = woas.page_index(ns + "::Menu");
+					if (mpi !== -1) {
+						tmp = woas.get__text(mpi);
+						if (tmp !== null)
+							exp_menu = tmp;
+						break;
+					}
+					tmp = ns.lastIndexOf("::");
+					ns = tmp === -1 ? "" : ns.substring(0, tmp);
 				}
-				tmp = ns.lastIndexOf("::");
-				ns = tmp === -1 ? "" : ns.substring(0, tmp);
 			}
-			if (!ns) {
+			if (!exp_menu) {
 				exp_menu = woas.get_text("::Menu") || "";
 			}
 			// parse the exported menu
 			if (exp_menu) {
 				exp_menu = woas.parser.parse(exp_menu, true, this._settings.js_mode);
-				if (this._settings.js_mode)
+				if (this._settings.js_mode) {
 					woas.scripting.activate("menu");
+				}
 				// fix also the encoding in the menus
-				exp_menu = woas.utf8.do_escape(exp_menu);
+				exp_menu = 'div id="woas_menu_wrap"><'+'div id="woas_menu_pad"><'+
+					'div id="woas_menu">'+woas.utf8.do_escape(exp_menu)+'<'+
+					'/div><'+'/div><'+'/div><';
 			}
-			//TODO: use correct ids/class names
-			data = '<'+'div id="i_woas_menu_wrap" style="position: absolute;"><'+'div class="woas_wiki" id="woas_menu">'+exp_menu+'<'+'/div><'+
-					'/div><'+'div class="woas_text_area" id="woas_page">'+data+'<'+'/div>';
 		}
+		data = '<'+'div id="woas_header_wrap"><'+'div id="woas_header"><'+
+			'span id="woas_title">'+title+'<'+'/span><'+'/div><'+'/div><'+
+			'div id="woas_content"><'+exp_menu+'div id="woas_page_wrap"><'+
+			'div id="woas_page">'+data+'<'+'/div>'+(mts ? '<'+
+			'div id="woas_mts">'+woas.last_modified(mts)+'<'+'/div>' : '')+
+			'<'+'/div><'+'/div>';
 		// craft a nice XHTML page
 		data = "<"+"title>"+woas.xhtml_encode(title)+"<"+"/title>"+
-				// add the exported CSS
-				this._settings.css+
-				// add the last-modified header
-				(mts ? '<'+'meta http-equiv="last-modified" content="'+
-				(new Date(mts*1000)).toGMTString()+'" />'+"\n" : '')+
-				// other useful META stuff
-				'<'+'meta name="generator" content="Wiki on a Stick v'+woas.version+' - http://stickwiki.sf.net/" />'+"\n"+
-				'<'+'meta name="keywords" content="'+
-				woas.utf8.do_escape(woas._attrib_escape(_auto_keywords(raw_text)))+'" />'+"\n"+
-				'<'+'meta name="description" content="'+
-				woas.utf8.do_escape(woas._attrib_escape(raw_text.replace(/\s+/g, " ")
-				.substr(0,max_description_length)))+'" />'+"\n"+
-				this._settings.meta_author+this._settings.custom_scripts+
-				'<'+'/head><'+'body>'+data+
-				(mts ? "<"+"div id=\"woas_page_mts\">"+woas.last_modified(mts)+
-				"<"+"/div>" : "")+"<"+"/body><"+"/html>\n"; raw_text = null;
+			// add the exported CSS
+			this._settings.css+
+			// add the last-modified header
+			(mts ? '<'+'meta http-equiv="last-modified" content="'+
+			(new Date(mts*1000)).toGMTString()+'" />'+"\n" : '')+
+			// other useful META stuff
+			'<'+'meta name="generator" content="Wiki on a Stick v'+
+			woas.version+' - http://stickwiki.sf.net/" />'+"\n"+
+			'<'+'meta name="keywords" content="'+
+			woas.utf8.do_escape(woas._attrib_escape(_auto_keywords(raw_text)))+
+			'" />'+"\n"+'<'+'meta name="description" content="'+
+			woas.utf8.do_escape(woas._attrib_escape(raw_text.replace(/\s+/g,
+			" ").substr(0,max_description_length)))+'" />'+"\n"+
+			this._settings.meta_author+this._settings.custom_scripts+'<'+
+			'/head><'+'body class="woas_export'+(exp_menu ? '' :
+			' woas_export_no_menu')+'">'+data+'<'+'/body><'+'/html>\n';
+		raw_text = null;
 		return woas.save_file(this._settings.xhtml_path+
 			fname, woas.file_mode.ASCII_TEXT, woas.DOCTYPE+woas.DOC_START+data);
 	},
@@ -13314,24 +13709,14 @@ woas.go_to = function(cr) {
 	if (r && section) {
 		el = d$(section);
 		if (el) {
-			if (this.ui.display('fix_h')) {
-				mv = Number(this.browser.ie) === 7
-					? 0
-					: d$('woas_header_wrap').offsetHeight + 8;
-			} else {
-				mv = Number(this.browser.ie) === 7
-					? - d$('woas_header_wrap').offsetHeight
-					: 8;
-			}
-			mv = el.offsetTop - mv;
+			mv = el.offsetTop;
 		}
 	}
-//if (console) console.log(cr+'  '+section+'  '+mv);
 	// there must be a better way!
 	if (cr !== 'Special::Go to') {
-		// just for now! (Chrome uses body - Webkit?)
-		document.documentElement.scrollTop = mv;
-		document.body.scrollTop = mv;
+		// Doing both doesn't hurt for now; need to do more testing.
+		document.documentElement.scrollTop = mv; // IE up to 8; 9+?
+		document.body.scrollTop = mv; // Chrome, FF, Opera; Safari? Probably
 	}
 	return r; // if loading could pass back scroll amount: current = ''
 };
@@ -13464,7 +13849,7 @@ PVHL:
   in main window). This works for now because Javascript code doesn't work the
   way the scripting module assumes: removing a script tag does NOT remove the
   code that tag created; the tag could be removed immediately after creation
-  withoout affecting anything. Until scripting is rewritten to fix the clear
+  without affecting anything. Until scripting is rewritten to fix the clear
   function this activation is sufficient.
 */	
 		woas.scripting.activate("page");
@@ -13530,8 +13915,6 @@ function menu_do_search() {
 // make the actual search and cache the results
 function ssearch_do_search() {
 	var search_string = d$("string_to_search").value;
-	if ( !search_string.length )
-		return;
 	woas.do_search(search_string);
 }
 
@@ -13568,6 +13951,8 @@ function menu_search_focus(f) {
 
 //NOTE: this is attached to onkeydown of menu's search box, so you can't use 'this'
 woas.do_search = function(str, noclear) {
+	if (!str)
+		return;
 	// clear previous search results
 	if (!noclear)
 		woas.ui.clear_search(true);
@@ -13787,14 +14172,14 @@ function query_delete_image(cr) {
 }
 
 // triggered by UI graphic button
+// PVHL: print CSS now controlled by CSS (section /* PRINT */) to allow change
+//   by those who use the print window for presentations.
 function page_print() {
 	woas._customized_popup(current,
 		woas.getHTMLDiv(d$("woas_page")),
 		'woas={};woas.go_to=function(page){alert("'
 		+woas.js_encode(woas.i18n.PRINT_MODE_WARN)+'");}',
-		'#woas_page { overflow: auto; border: none !important; padding: 0px;\
-margin: 0px }\n.woas_nowiki_multiline { page-break-inside: avoid }',
-		' id="woas_page"');
+		'', ' id="woas_page" class="woas_print"');
 }
 
 /*
@@ -14366,6 +14751,7 @@ woas.ui.display = (function() {
 		if (resize) { this._resize(); }
 	}
 }())
+
 /*** src/editor.js ***/
 // @module ui.editor
 // this sub-module shall contain the whole editor code
@@ -14517,12 +14903,12 @@ function setTag() {
 
 
 /* ]]> */ </script></head>
-<body style="cursor: auto;" onload="woas._on_load()" onunload="woas._on_unload()">
+<body onload="woas._on_load()" onunload="woas._on_unload()">
 <div id="loading_overlay"><noscript>If you are seeing this text, your browser is not javascript-enabled.</noscript><div id="woas_wait_text">Loading Wiki on a Stick...</div></div>
 <div id="woas_pwd_mask"><div id="woas_pwd_query">
 <h3>Enter a password</h3>
-<p><input id="woas_password" size="40" onkeydown="woas._password_ok(this, event)" type="password" /></p>
-<p id="woas_password_desc">The password you enter here will be used the next time you attempt to access an encrypted page or lock/unlock a page. It will then be kept or removed depending on the AES key caching option you have chosen in <a class="woas_link" onclick="woas.go_to('WoaS::Help::Special::Options')">Special::Options</a>.</p>
+<p><input id="woas_password" size="40" type="password" onkeydown="woas._password_ok(this, event)" /></p>
+<p id="woas_password_desc">The password you enter here will be used the next time you attempt to access an encrypted page or lock/unlock a page. It will then be kept or removed depending on the AES key caching option you have chosen in <a class="woas_link" onClick="woas.go_to('WoaS::Help::Special::Options')">Special::Options</a>.</p>
 <p><input value="OK" onclick="woas._password_ok(d$('woas_password'))" class="woas_button" type="button" />&nbsp;<input value="Cancel" onclick="woas._password_cancel()" class="woas_button" type="button" /></p>
 </div></div>
 <div id="woas_header_wrap"><div id="woas_header"><div class="woas_nav">
@@ -14534,14 +14920,14 @@ function setTag() {
 <a id="woas_unlock" title="Unlock page" onclick="woas.ui.unlock()"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAACXBIWXMAAAsSAAALEgHS3X78AAADNUlEQVRIx92UPUwkZRjHf+/MLCzn1ypLQI/CrIlamMtxd9zFGBJjTIgJHZUVsbGB1thZ2NpYGAqLFexM/IgUXnKFaESyCTkhYMhyhARw2dx44ALL7O7M+/FY7B5eVI5dtfKfvMUkM//f83+edx74P+pN4AvgGLgFfAUM/Vfm7+dyub18Pi/lclkKhYLMzMzYbDZbA976t+YfTUxM2IODAymXy7K+vi5bW1tSLBZldnZWRkZGNPDePzV/Y3h4uFapVGR1dTUaHx+/DcR9fX2lycnJeGVlRebm5mR0dLTaamHH+np3d1eKxaIMDQ19DhSAV4CRTCbzw9TUVK1QKMj09HQCfNaxezabPQzDUBYXFyNgE3gV6AEUMDw4OFja2dmRfD4vwFon3gFAb29vdxRFVKtVAWJgFWgAAiyVSiW3v7/P0wMDAH0dAzY2Nj7M5XITAEEQfD82Nhb8NP/NrUxf7+u/hIcE6Uf5cWEBxNHTneoPfE+qtfhM0/7+/tfCMJyn1YL7ehzIABYIAV3ZnMc5hTEOZzXOJdQPf8U5g7Q+ctbgdIyN69hGnaWbn/D2p3sAV4Dl4AHAceucSgnUD7Y5DrexVmPjiDhpIM4h0kQYo7FJDXNSIakd4U7RDJy26Cw5ZxFrWg8gqhlZPA8lrlmEUqA8UAqlfLw/muKfCwBpVirC2trP3Nneo15r4DV5APRcSPP8sxfJdhus1lgnfx3yWVKej+d5KE9x7eXrXLpax8QRxhpwTYTTDWwccRweNpujaB+AsxhrMEnC8u3lhyfoapoHftA+QFD4yscPUly9McyloRfRcYy15nTIktQwOuIkFMQJ6UeeBHbbBDiD0w10ErGyvPnQBBkMzln8rnQnM/AQP4XndXPl+mVeuvwCJo5x4qCVwMYRVtep3vXpSqfRuruDGViLYBGrqR1VSeI6xmjc/asLOB1j4hoqSJG+8ATVg8O2AR98e/PLd567+BjRvRJGaxLdwOoY5Xn4QaqZ0gkOD1FdnBxVWFi6A/BdayOcLR9uAB+3Fl4nZx54F7j2N7f2zwyeAp5p/fapNheoBe4BJeCuOudlv2XcdU4xDyoNaOA3gN8BP+S1qNxUaTQAAAAASUVORK5CYII=" /><span>Unlock</span></a>
 <a id="woas_lock" title="Lock page" onclick="woas.ui.lock()"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAADOklEQVR42p2Ta0hTYRjHrT5klyUJsmmUly9+KFFxZLclShc1JUISP6iooQRmaZSbqaiouWQFlZnXVNSZZTovqJtLl3dN0szNS2mzJhKy7GsU/Hvf0yZ2CHbmgR87O885/9/7POc9Nv87lpaWbNmQy9tMbDfD/OdysIPZ8Pl8ESmDRRhhP2HnlsOdnZ29zYFVVVUwGAxYWVnB6OjoZlHIlgQuLi5eNEAikfxeW1tjwnU6HbRaLRYXFylUykjovVYLeDxeJH3YaDSiurr6F3tECoXiJxXSc3qvVYKhoaFd9EG9Xg+lUsmE2NnZpTg6Op53d3f3IIGx9Nry8vJG3c3Nzcdqwerq6kaAQCAIFolEB6VSKa+oqGgvW0A2gj9nQU1NzR76EDn/Z4VxcXH2tMaumxfASdDa2ro7NDSUzw6gK3R1dfUgosMUVp37iPzdBcx8KTKZDKmpqfScDbvOaUzmA+sf+2Cc1+Cbther00qsTLXjk6YSC72lmDcx2/ME2s4HmG7Jx2RDBsqiD5hF3hYFPxb6YBiuhq4lGx+a0jFVn4yxqqsYrUzASEU8w0BJDDSPwqG+exadGUdREu1kFgRZFHyfU+PrQMVfwYt0TMqTMU4FlGcJDIOlsdA8joC64By6Mo9v7iCEg6AHX/rLoWvOgjzzIrKjhBCHHUEaQWyCXqM1VV4AOiRCPI104i5YX+iFYbASs4psLHTmY0aRganGFEzIkzBRl0ghHV3BSEkElDl+aKeCKGsEpAP9m1IynjuWO8glgjQhymMOcRcw76C/ghnRfEceZprFZKckk5Vfw9vaRIbxylgMl4RDlXMabWIf1CZ6chcYdd1Yfl2E989vWeygM/MEFLe9IE/xtaYDFfSaUmYHzbVnYfpVKt7Jb2CiPol2wTBGO6DvIFtEJMfwUuJnhUDbhc+aYkw3kOC662T/x5NtGYP+4sgNNA8vQ114gdlFvYUhaBSf4iwobJLFk5nfxCD5kDT3L0ElDUJXbgC688+g514Qg7ogEKqCYCjzA9GWfhJJAQ40vM/ih7bDxsaX/JQRYCU0XEwQEiw5bBwInoTztGWOBJnCBTSEi8SWsI9gxxE+wZ4d9Ae1D+3QOv0MAAAAAABJRU5ErkJggg==" /><span>Lock</span></a>
 <a id="woas_key" title="Set password" onclick="set_key()"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAADAUlEQVR42tXV+UvTYRwH8JylrprMpalJtEglpQlJl4KRlYrRhbSMmkeXFehUWoKSUZkoXYr6g5hJWVqYt5RnP4SoFV3rsvKcmkdWm7MRHfLuzegP+ObxQ2948YzPnj3Pdx+e7/c763+KiGYsClpNzjTt8aPvRw7uHeB4maxp2rKSRguyk1BZnAF+zqe5NC1xp56s9Dh8eXsNHc3n4ehgW8jaYppyFtHrtOQj+PKmALq6fWgo0sDaanYF6y40pdjSw5OaCHxtL0R/Yxi2+bshZIvPR9braQFZ0KRiSU3xx0Khf38LA037EROxHsHBwS2sx9JGkgpZyF8ikXjI5fJQLy+vSAd7u2DWwqkqKnw7DJ0VGGyOQ2jQMrD2kPaSG8mEXH0AQa1Wmy6mxKIgOxF3i1N+HYpQ4lRCFMZ6ajH6IgMFGdFQKpUGzlWRnGyEXLkvjRfnn0P3i0roO8qh/1CCUW0WBrS3Md5/H8beWmjvJcHeTjwoEom0nK8UevZX0HB+djKMugawx1z8NkYen2GvIzHUksDWlEH/7gbq8lWQzLP6yvk7yVlIW0S0KUyl+t75vBqGjjtmY9014KLmjQYfRJs3GX2Vh60bXPH3rl0m9Blk4e7uHqKJi4Khq5KLliLvkho1N0//vpKTAtNQG2vl4L8x9z9yh8cEf3OY5gh+Enp6evpdTEv8OdZzD1cz48Fa37y5NhqOurKbmTCNPKGnbF0xzsYFGljfTGLBG0il0iUZ6SeGjbp6tNblTsikkrOsuzg7yg611ebg22ALtaLrWQkCA/zx9/RYkbDw3HuLxeKJG7nJKLueCpZMrktdjnP8UVWUztNTZ25fV3MqfNZ6g/WD//oOsKZdNJ57SYOawmT0akvRWJULY18TDN3V5v4f2L0OnHOfnMmS/inL6QB9To1Zw7tVjc/tRdA9ykLNrQuIDvMFv3tCPjSfJp1w6lNtkX/y9nT8vWqFk0mhUPSw9pKCyJ6mnPW0h9R0lLbTSpLRtMWWnGghzSdrmpFYmE0ifwCBgXrsTq+HzgAAAABJRU5ErkJggg==" /><span>Key</span></a>
-<a accesskey="p" id="woas_print" title="Open the Print window" onclick="page_print()"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAMAAADXqc3KAAAACXBIWXMAAB7BAAAewQHDaVRTAAAAY1BMVEX/H+2lpaXGxsaUlJScnJxSUlJaWlqEhIRra2sxMTGtra1CQkJjY2POzs6MjIw5OTkpKSm9vb1zc3O1tbXW1tZKSkp7e3shISH///8ICAj39/cAAADe3t4YGBjv7+/n5+cQEBBvTde5AAAAAXRSTlMAQObYZgAAAR9JREFUeF590TWyxDAQRVF1i5nNA/tf5bcH/ZO5Savq1ItEfiY7PyXaG2DmwinlxCOX4htCmpYMpk1HyxTGD2iwXHFta0P0J5Brh6AUVaNfrtfzwtYei0uy2Gk5g2OC35ZbTdSy6/aFrUNs03K7SaHKdCzaA+yqqfW+YZZi6Jgnuc73TEidZQyxYq7eleIa7sC0I8TMyJWKGTFE0LD5Tc3NigOqujOXbLRAU3RcdF2fYHIZByoZOFpHXgEMvhboaYzd6pRoTqrl6p8gAb03lGVvL7uUZph+wMAQd/KIuzCjs6FPkBTeGa2dBvoB9o1HCeEFQ2D0EwNGZTgA1yjl8C8p5kIIKXMax8vRuHecdNfkqHAnVCnHp+8PNbguyI/+AB1QFvk/nv1+AAAAAElFTkSuQmCC" /><span>Print</span></a>
-<a accesskey="e" id="woas_edit" title="Edit" onclick="woas.ui.edit()"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAEwUlEQVR4XpVVbUxbVRh+bku/uJRCwJLhmikRXTSED0MyFrPJxAHuC0HGXDMwQeKMMIwbykhEmNt+rMPNiasSMTqGSjDbiCGOBCTxYxpdoss6nTMNcYJCm5aVjgKF9vqeE05Imwbjk7y5977tOc/7nOc950hYgZYin0KmCOP/QVGpVI5wODwFQE0REgOk5VAozut0OqvBYAgpiqLi+RWAcogBnlxaWpICgYCPSF4gkj4AcSwtCCBJkpkmcPb39ycUFxeHfT6fpFarxaSrPXloNBqlq6tLam9vl4ikhkjOAWBFhhkTlj+wZs0a9meQXDDExcWJd1ZErBC/SW1tbWFaAbS0tHxMeYXQA4CPFlARMxYWFqRQKCQlJiZKDOybloDlIoJyLMQ7PB6P+vDhw0wFU3WWSNYKBRFgCmZnZzE4OIiCggJkZGRgZmaGETNF0ZWLkNgykQ+qurq6pY6OjgQak0np8QgCqgbx8fEYGRlBfX090tPTUVFRgaqqKqSlpcHlcoFUciJCBJHFYmG+KXNzc8wHnhZrzyEGMLnZ2dl8csvae2G322G1WnH69NtcgcmUiMXFRWGwMDtCkchzH6MJqALk5uYiLy8PP3x/BY2NDah5zoo3WluxY8dOHDt+HOVlu+CdnubLKVTQe3Q7S9EEnFlUUVm5G+PjY7DZjlLegAsXBjH6VS/27t2PBzMfIn/yyRu/8IUvbyyoEAXW/36/H1u3Pkk9psW1az/RcwFzgbso3FKFMydKUb3Pijt3fGDFB4NBvmQEsTyxCYQC4UMotISsrBz09PQC0EOjT4B74gbKS9dhW5EWlbtrcPeuH7dv3yal43wMmfvfCoiAq5imNS4vfxqf93+B61dsCHqG4bzagavf3oLtSAn8nu/wTmc3kpNNoPaMaXBMDwi8Er3egI0bN6D+QDPK9zRhuLcMeo0Cn1+FsZsufNJdhsdKOlBUtBmP5mULglgKYptsNpvJQA2aDjViy/YG1L42ivssKdDr1Ph7fAZJeg3eOrYBDfWNrBgKXUT1MRUIo4QPDF6vF++9a8PmQgdePzGCN1/dAsfvblz/5R9UPPUwRr8ZQ3XNi+j77EPWSRH7Y9U2nZycFK0Ht9uNs50nUVK6E1nrHdhVvB43nR78/ONfOHW0FJu2n8cH3efwfG01I1ndZAFqPX7+kBLWtnwj2e2daD55Hb/ecsOSngjfzAJ1lh8vv5SLy19eXi4yDMLqCshk6o5kdu6I1uNEhY9vwqkz76P6lVqM9lUg8/4UKIsKBi7cwLpH8pcJVvGA5PGgiTmB8GPFlxBq9j0Lp3MM26pbceRgAQaG/oDjTzPsPQdj3naCQKIIG41GaLXacFJSEr/RoiEMPNLWAvM9Kfh0eBjGlAfw9Uc2pKamgoHGKkx1tIIgE3Dx4kW2MyW6D1TijGFHgZBOn9yL+fl5pJmTsXfPMyBKDAxc4jm9Xq9QQ6jYxiPMUTERl34zXfgHaNKgRGAmh8mweIOBvFAYBT1DCATmYTSyI5sTi40pvFLINz0RXAKwP6L3GYaGhnRTU1PyxMREPL3LOTlZssvllP1+r+yddsuB2d/kkifukw81tciBwKxMZ5BM7SzTGB60Z2SHw2EwmUxiXvwLqylmbjrv+acAAAAASUVORK5CYII=" /><span>Edit</span></a>
+<a id="woas_print" title="Open the Print window" onclick="page_print()"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAMAAADXqc3KAAAACXBIWXMAAB7BAAAewQHDaVRTAAAAY1BMVEX/H+2lpaXGxsaUlJScnJxSUlJaWlqEhIRra2sxMTGtra1CQkJjY2POzs6MjIw5OTkpKSm9vb1zc3O1tbXW1tZKSkp7e3shISH///8ICAj39/cAAADe3t4YGBjv7+/n5+cQEBBvTde5AAAAAXRSTlMAQObYZgAAAR9JREFUeF590TWyxDAQRVF1i5nNA/tf5bcH/ZO5Savq1ItEfiY7PyXaG2DmwinlxCOX4htCmpYMpk1HyxTGD2iwXHFta0P0J5Brh6AUVaNfrtfzwtYei0uy2Gk5g2OC35ZbTdSy6/aFrUNs03K7SaHKdCzaA+yqqfW+YZZi6Jgnuc73TEidZQyxYq7eleIa7sC0I8TMyJWKGTFE0LD5Tc3NigOqujOXbLRAU3RcdF2fYHIZByoZOFpHXgEMvhboaYzd6pRoTqrl6p8gAb03lGVvL7uUZph+wMAQd/KIuzCjs6FPkBTeGa2dBvoB9o1HCeEFQ2D0EwNGZTgA1yjl8C8p5kIIKXMax8vRuHecdNfkqHAnVCnHp+8PNbguyI/+AB1QFvk/nv1+AAAAAElFTkSuQmCC" /><span>Print</span></a>
+<a id="woas_edit" title="Edit" onclick="woas.ui.edit()"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAEwUlEQVR4XpVVbUxbVRh+bku/uJRCwJLhmikRXTSED0MyFrPJxAHuC0HGXDMwQeKMMIwbykhEmNt+rMPNiasSMTqGSjDbiCGOBCTxYxpdoss6nTMNcYJCm5aVjgKF9vqeE05Imwbjk7y5977tOc/7nOc950hYgZYin0KmCOP/QVGpVI5wODwFQE0REgOk5VAozut0OqvBYAgpiqLi+RWAcogBnlxaWpICgYCPSF4gkj4AcSwtCCBJkpkmcPb39ycUFxeHfT6fpFarxaSrPXloNBqlq6tLam9vl4ikhkjOAWBFhhkTlj+wZs0a9meQXDDExcWJd1ZErBC/SW1tbWFaAbS0tHxMeYXQA4CPFlARMxYWFqRQKCQlJiZKDOybloDlIoJyLMQ7PB6P+vDhw0wFU3WWSNYKBRFgCmZnZzE4OIiCggJkZGRgZmaGETNF0ZWLkNgykQ+qurq6pY6OjgQak0np8QgCqgbx8fEYGRlBfX090tPTUVFRgaqqKqSlpcHlcoFUciJCBJHFYmG+KXNzc8wHnhZrzyEGMLnZ2dl8csvae2G322G1WnH69NtcgcmUiMXFRWGwMDtCkchzH6MJqALk5uYiLy8PP3x/BY2NDah5zoo3WluxY8dOHDt+HOVlu+CdnubLKVTQe3Q7S9EEnFlUUVm5G+PjY7DZjlLegAsXBjH6VS/27t2PBzMfIn/yyRu/8IUvbyyoEAXW/36/H1u3Pkk9psW1az/RcwFzgbso3FKFMydKUb3Pijt3fGDFB4NBvmQEsTyxCYQC4UMotISsrBz09PQC0EOjT4B74gbKS9dhW5EWlbtrcPeuH7dv3yal43wMmfvfCoiAq5imNS4vfxqf93+B61dsCHqG4bzagavf3oLtSAn8nu/wTmc3kpNNoPaMaXBMDwi8Er3egI0bN6D+QDPK9zRhuLcMeo0Cn1+FsZsufNJdhsdKOlBUtBmP5mULglgKYptsNpvJQA2aDjViy/YG1L42ivssKdDr1Ph7fAZJeg3eOrYBDfWNrBgKXUT1MRUIo4QPDF6vF++9a8PmQgdePzGCN1/dAsfvblz/5R9UPPUwRr8ZQ3XNi+j77EPWSRH7Y9U2nZycFK0Ht9uNs50nUVK6E1nrHdhVvB43nR78/ONfOHW0FJu2n8cH3efwfG01I1ndZAFqPX7+kBLWtnwj2e2daD55Hb/ecsOSngjfzAJ1lh8vv5SLy19eXi4yDMLqCshk6o5kdu6I1uNEhY9vwqkz76P6lVqM9lUg8/4UKIsKBi7cwLpH8pcJVvGA5PGgiTmB8GPFlxBq9j0Lp3MM26pbceRgAQaG/oDjTzPsPQdj3naCQKIIG41GaLXacFJSEr/RoiEMPNLWAvM9Kfh0eBjGlAfw9Uc2pKamgoHGKkx1tIIgE3Dx4kW2MyW6D1TijGFHgZBOn9yL+fl5pJmTsXfPMyBKDAxc4jm9Xq9QQ6jYxiPMUTERl34zXfgHaNKgRGAmh8mweIOBvFAYBT1DCATmYTSyI5sTi40pvFLINz0RXAKwP6L3GYaGhnRTU1PyxMREPL3LOTlZssvllP1+r+yddsuB2d/kkifukw81tciBwKxMZ5BM7SzTGB60Z2SHw2EwmUxiXvwLqylmbjrv+acAAAAASUVORK5CYII=" /><span>Edit</span></a>
 </span>
 <span id="woas_edit_mode">
 <a id="woas_cancel" title="Cancel" onclick="woas.ui.cancel()"><img src="data:image/png;base64,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" /><span>Cancel</span></a>
-<a accesskey="s" id="woas_save" title="Save" onclick="woas.save()"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAACXBIWXMAAAsTAAALEwEAmpwYAAAABmJLR0QA/wD/AP+gvaeTAAADLUlEQVR4Xr2VS4scVRTHf+fe6q7qntgzTo2ZHjLJBB8LZ+vOXRaDoOhGEzAbs3DlN/Aj5AsEFNyaBASV4MLXzsfGR54Y4mN8EJiJoBM6M91dde85dncKUtAM9oh64M+5FJz/j3vr3HMFADgEPFNlBYR/FgYkwPfAZ9SM3ve+8UKjkUbV0nnvDgQQEVQVVcw5b8PhnjOzV4G3EpDHwDaefe41ut11W1nZ1TOvPM/eXoGbmSM4Fzl37j2irsZPP3mjefPmly+KuDEAD9B5KCdN53y+mLK8vEyv18d7x9+FmQHQaDg68/MMBh3a7Q6AQyABACTGEtVIWZYyHA4pitl3YAaqQgiBGINFjQCC1QCIMJbU5NxsOxAB5wShqq08ARz/YfwvgIRayPT2/12AAYjUULP/ZDNBRPYB1GQa8F5HsnGewV0wIPGGatwfoKq02y1++HGbs2cvAB7DagBB6r6AAIZiphPznT/h4cUENZsGYCAoabrC1vZdynIHEV+1KqjG6fEQI810gSzroKqkmQCKINOAqoiiGLKU73Hq1AlihH7/HiLQah2amNTP3Xvj4sUvGBRzpKkjxoBNt+n00Gq1WqytHeerr29x/sK3vH3+G65e3WR1dY3FxWWWlrrkeZdud5VWu0UMcd+mcMDUycYYKYoBW1t3gcOoPjJa7xDCkLIsRioJoZiME40RRGZo07oERATvHM4poDgvQL0V5YGvzXCTDdsHRG2+HFyuwkfvE1QNsHEwVlkEBoM4UqAoA2aGqk1yfQ0PvjHOGFTGiYhgZq7X+8PStI1zu6TN1LKszfr6MUL8DTDWn3yUNM1QFe7XQJZ5ms0U5xOSJAEE7xviXQJgIpCY2S3g3Y8+fPPlLJsr8vy4276zxZUr1zhyJB9pHgCRhBs3vpuYA5iBc8qd37cpCkOjEEOUGEPY3d3xQDSDqti5hYXD79ynSgAUsINKRBSIVc0ZAKlkL518vT0YFCdGl8xtbDxNv3+QF03xXrh06XMryzy5dv3jnzd/unxZREhADIxGIx0cPfbUB088XnL69El69/p452YEMKoXfvk1Mhwe5fbt62wy9hf7C6jjltmoo4ucAAAAAElFTkSuQmCC" /><span>Save</span></a>
+<a id="woas_save" title="Save" onclick="woas.save()"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAACXBIWXMAAAsTAAALEwEAmpwYAAAABmJLR0QA/wD/AP+gvaeTAAADLUlEQVR4Xr2VS4scVRTHf+fe6q7qntgzTo2ZHjLJBB8LZ+vOXRaDoOhGEzAbs3DlN/Aj5AsEFNyaBASV4MLXzsfGR54Y4mN8EJiJoBM6M91dde85dncKUtAM9oh64M+5FJz/j3vr3HMFADgEPFNlBYR/FgYkwPfAZ9SM3ve+8UKjkUbV0nnvDgQQEVQVVcw5b8PhnjOzV4G3EpDHwDaefe41ut11W1nZ1TOvPM/eXoGbmSM4Fzl37j2irsZPP3mjefPmly+KuDEAD9B5KCdN53y+mLK8vEyv18d7x9+FmQHQaDg68/MMBh3a7Q6AQyABACTGEtVIWZYyHA4pitl3YAaqQgiBGINFjQCC1QCIMJbU5NxsOxAB5wShqq08ARz/YfwvgIRayPT2/12AAYjUULP/ZDNBRPYB1GQa8F5HsnGewV0wIPGGatwfoKq02y1++HGbs2cvAB7DagBB6r6AAIZiphPznT/h4cUENZsGYCAoabrC1vZdynIHEV+1KqjG6fEQI810gSzroKqkmQCKINOAqoiiGLKU73Hq1AlihH7/HiLQah2amNTP3Xvj4sUvGBRzpKkjxoBNt+n00Gq1WqytHeerr29x/sK3vH3+G65e3WR1dY3FxWWWlrrkeZdud5VWu0UMcd+mcMDUycYYKYoBW1t3gcOoPjJa7xDCkLIsRioJoZiME40RRGZo07oERATvHM4poDgvQL0V5YGvzXCTDdsHRG2+HFyuwkfvE1QNsHEwVlkEBoM4UqAoA2aGqk1yfQ0PvjHOGFTGiYhgZq7X+8PStI1zu6TN1LKszfr6MUL8DTDWn3yUNM1QFe7XQJZ5ms0U5xOSJAEE7xviXQJgIpCY2S3g3Y8+fPPlLJsr8vy4276zxZUr1zhyJB9pHgCRhBs3vpuYA5iBc8qd37cpCkOjEEOUGEPY3d3xQDSDqti5hYXD79ynSgAUsINKRBSIVc0ZAKlkL518vT0YFCdGl8xtbDxNv3+QF03xXrh06XMryzy5dv3jnzd/unxZREhADIxGIx0cPfbUB088XnL69El69/p452YEMKoXfvk1Mhwe5fbt62wy9hf7C6jjltmoo4ucAAAAAElFTkSuQmCC" /><span>Save</span></a>
 </span>
-<a accesskey="h" id="woas_help" title="Open the Help window" onclick="woas.ui.help()"><img src="data:image/png;base64,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" /><span>Help</span></a>
+<a id="woas_help" title="Open the Help window" onclick="woas.ui.help()"><img src="data:image/png;base64,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" /><span>Help</span></a>
 </div>
 <img class="woas_nav" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAMFBMVEUPDw8BAQEjIyM1NTVBQUFUVFRjY2Nzc3OGhoacnJyxsbHHx8fV1dXNzc3o6OgAAAD9Ug4EAAAAAXRSTlMAQObYZgAAAOhJREFUeNqVktsOhDAIRIVeAdv+/98utjUky2qy86LmzDAqPUy9n1O9H7+0qfN4vC2ev1k8NYflvTz3Izz3Dm9ocmuVeGzqfsCNbET3cVO7GppJTNbRcN7hF6kIGKdBkGmwGhhHYEURkUSgMpVliDXpU5QQKSY1EFeNYua7ImcsibIAC2kRBxiglwxIy1ARJZR6GRg1WoiHqDjhNJw0iqRIEhJfFUhcBksiqTg/s7NG6+D7JQtAiiABIND6UfKiPnfxzNvaZnsd8FBi234paXuAlXhup/KRP7acxt0QF7fTv6mlvUl1/KkPqIMf9tXbo68AAAAASUVORK5CYII=" />
 <span id="woas_title"></span>
@@ -14592,7 +14978,7 @@ Wiki Code:
 <input class="woas_button_editor" title="Image link" value="Image" onclick="setHTMLImage()" type="submit" />
 <input class="woas_button_editor" title="External link" value="Link" onclick="setHTMLUrl()" type="submit" />
 </div>
-<div id="woas_editor_container"><div id="woas_editor_sizer"><textarea style="height: 584px;" id="woas_editor" rows="0" cols="0"></textarea></div></div>
+<div id="woas_editor_container"><div id="woas_editor_sizer"><textarea id="woas_editor" rows="0" cols="0"></textarea></div></div>
 </div>
 <div id="woas_footer_wrap"><div id="woas_footer"><div id="woas_footer_panel">
 <div id="woas_about"><a title="About Wiki on a Stick" onclick="woas.ui.about()">About Wiki on a Stick v0.12.0</a></div>
