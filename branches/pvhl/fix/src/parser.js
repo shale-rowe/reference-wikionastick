@@ -1,53 +1,3 @@
-/* PVHL: Temporary discussion of heading IDs (to be removed later)
-
-I have struggled for a long time to find a good answer to the multiple issues
-with WoaS' heading ID implementation and tried many approaches. A heading may
-have formatting in it, including links, perhaps even nowiki text. To me this is
-a good thing.
-
-Also, 'Basic HTML data types' (http://www.w3.org/TR/html4/types.html#type-cdata)
-says in part: "ID and NAME tokens must begin with a letter ([A-Za-z]) and may be
-followed by any number of letters, digits, hyphens ("-"), underscores ("_"),
-colons (":"), and periods (".")" However, ':' needs to be encoded, so just '-_.'
-are simple. According to this spec a heading that starts with a numeral is not
-allowed.
-
-So:
-* A change to the formatting -- or changing some of the text to a link --
-  currently changes the ID.
-* My current fix attempts added the link and/or formatting to the TOC (not sure
-  what 12 did, but not nice either)
-* If I am writing in a non-English language the current ID methods may fail
-  completely.
-* Simply using the heading text can break the W3C spec (may be important)
-
-Solution to the above:
-
-1) Heading/TOC will be generated after all other parsing is complete.
-2) Heading has all HTML stripped and snippet entries reified.
-4) The charCode at each position is multiplied by its place and added to total.
-5) The ID is 'S' plus this number.
-6) A section reference can be in this form or the displayed text of the heading
-   (i.e. just the rendered text characters, not the markup: 'hi' not '*hi*').
-7) Any section reference handed in at start is passed through decodeURIComponent
-   and converted if needed.
-
-The issue of the ID changing with text changes will not be addressed, nor will
-the possibility of ID collision from repeated headings. I am fixing this in my
-new project by allowing the (optional) simple declaration of a heading ID.
-(Essentially: a code and/or macro tells the parser to add a special reference
-(the heading, at creation, and/or SHA256 hashed, and/or a user provided ID?);
-this id is then always used for this section using a simple alias mechanism.)
-
-Examples:
-heading_anchor('hi'): S314
-heading_anchor(2 kanji characters): S75216
-heading_anchor(fairly long kanji sentance): S4804659
-heading_anchor('Any section reference handed in at start': S77498
-heading_anchor(''): not allowed
-*/
-
-
 // module @parser
 woas.parser = {
 
@@ -75,10 +25,8 @@ reStyles: new RegExp("<"+"style([^>]*)>[\\s\\S]*?<"+"\\/style>([ \\t]*\\n)?", "g
 reTOC: /\[\[Special::TOC\]\]([ \t]*\n)?/,
 
 // REs without optional newline search
-// reAutoLinks removes sequences that look like URLs (x://)
+// reAutoLinks finds sequences that look like URLs (x://)
 reAutoLinks: /(?:(https?|ftp|file)|[a-zA-Z]+):\/\/(?:[^\s]*[^\s*.;,:?!\)\}\]])*/g,
-// removes possible parse conflicts but no automatic links; must match str only, no subgroups
-reAutoLinksNo: /[a-zA-Z]+:\/\/(?:[^\s]*[\/*_])*/g,
 // stops automatic br tag generation for listed tags
 reBlkHtml: /^(p|div|br|blockquote|[uo]l|li|table|t[rhd]|tbody|thead|h[1-6r]|center)$/i,
 reDry: /(\{\{\{[\s\S]*?\}\}\}|<<<[\s\S]*?>>>|<\!--[\s\S]*?-->)/g,
@@ -133,9 +81,9 @@ _get_tags: function(text, last_tag) {
 
 _init: function() {
 	this.marker = _random_string(3) + ":" + _random_string(3);
-	this.reBaseSnippet = new RegExp(this.marker + "(\\d+)[\\>\\-]", "g");
-	this.NL_MARKER = this.marker + "NL";
-	this.reNL_MARKER = new RegExp(this.marker + "NL([ \\t]*\\n)?", "g");
+	this.reBaseSnippet = new RegExp(this.marker + "(\\d+);", "g");
+	this.NL_MARKER = this.marker + "NL;";
+	this.reNL_MARKER = new RegExp(this.marker + "NL;([ \\t]*\\n)?", "g");
 },
 
 // create a preformatted block ready to be displayed
@@ -520,7 +468,7 @@ parse_lists: function(str, type) {
 		return s;
 	};
 
-	var lst_item = '<'+'li>%s<'+'/li>',
+	var lst_item = '<'+'li>%s<'+'/li>' + woas.parser.NL_MARKER + '\n',
 		lst_type = [
 			'<'+'ul>%s<'+'/ul>' + woas.parser.NL_MARKER,
 			'<'+'ol>%s<'+'/ol>' + woas.parser.NL_MARKER,
@@ -643,15 +591,14 @@ parse_tables_new: function (str, prop, p1) {
  * Split function into place_holder_dnl and place_holder for simplicity/readability
  * place_holder_dnl marks a following newline for later removal if it exists
 */
-place_holder: function (snippets, str, block) {
+place_holder: function (snippets, str) {
 	snippets.push(str);
-	// end test is required to make text style parsing work with HTML blocks
-	return this.marker + (snippets.length - 1) + (block ? '>' : '-');
+	return this.marker + (snippets.length - 1) + ';';
 },
 
-place_holder_dnl: function (snippets, str, dnl, block) {
+place_holder_dnl: function (snippets, str, dnl) {
 	snippets.push(str);
-	return this.marker + (snippets.length - 1) + (block ? '>' : '-') +
+	return this.marker + (snippets.length - 1) + ';' +
 		(!dnl ? '' : this.NL_MARKER + dnl);
 },
 
@@ -694,8 +641,8 @@ syntax_parse: function(P, snippets, tags, export_links, has_toc) {
 	P.body = P.body.replace(this.reHtml, function(str, ws, tags, last, dnl) {
 		// stop certain html block tags from having a br tag appended when at line end
 		if (that.reBlkHtml.test(last))
-			return ws + that.place_holder_dnl(snippets, tags, dnl, true);
-		return ws + that.place_holder(snippets, tags, true) + (!dnl ? '' : dnl);
+			return ws + that.place_holder_dnl(snippets, tags, dnl);
+		return ws + that.place_holder(snippets, tags) + (!dnl ? '' : dnl);
 	})
 
 	// render links e.g. [[target]] & [[target|label]]
@@ -706,28 +653,26 @@ syntax_parse: function(P, snippets, tags, export_links, has_toc) {
 	})
 
 	// remove URL style text ('*://*') to avoid parsing problems.
-	.replace(woas.config.auto_links ? this.reAutoLinks : this.reAutoLinksNo,
-			function(str, prot) {
+	.replace(this.reAutoLinks, function(str, prot) {
 		// only return a link if autolinks on and a target exists
-		return that.place_holder(snippets, (prot && prot.length + 3 !== str.length)
-			? '<'+'a class="woas_world_link" href="'+str+'" target="_blank">'+
-				str+'<'+'/a>'
+		return that.place_holder(snippets,
+			woas.config.auto_links && prot && (prot.length + 3 !== str.length)
+			? '<'+'a class="woas_world_link" href="'+str+
+				'" target="_blank">'+str+'<'+'/a>'
 			: str);
 	})
 
-	// italics/underline/bold all operate on a single line
-	// PVHL: bug-fix - can't use \w as in bold/underline as \w rejects '_'
-	//   *_/ need a rewrite (again) so that Me*n*u works, 9/3/83 doesn't, etc.
-	//   Perhaps needs simpler capture with another test regexp for in word stuff.
-	//   Actually, just needs block syntax to deal with their own line parsing,
-	//   and/or bold syntax to have a different rule from the others as '*' is not
-	//   usually present for non-markup reasons within a word, but '_' and '/' may be.
-	//   Also need to combine these; get tables and lists to put away HTML as above?
-	//   Use word break instead? Recurse for proper *_/ nesting, etc?
-	// italics (needs to be done before code that adds html)
-	.replace(/(^|[\s\*\_>])\/(.+?)\//mg, function(str, $1, $2) {
-		return $1+"<"+"em>"+$2+"<"+"/em>";
-	})
+	// italics/underline/bold all operate on a single line now; otherwise
+	// they act as they did in 0.12.0 unless otherwise noted.
+
+	// italics (needs to be done before code that adds html; this should be fixed
+	// by changing how block level syntax is parsed). Italics can't start after a
+	// colon, presumably to stop 'c:/my/path' from disappearing. Will fix in new.
+	.replace(/(^|_|[^\w:])\/(.+?)\//mg, "$1<"+"em>$2<"+"/em>")
+
+	// underline (now works on a single line the same as bold/italics)
+	.replace(/(^|[^\w])_(.+?)_/mg, "$1<"+
+		"span style=\"text-decoration:underline;\">$2<"+"/span>")
 
 	// ordered/unordered lists parsing (code by plumloco)
 	.replace(this.reListReap, this.parse_lists)
@@ -737,16 +682,9 @@ syntax_parse: function(P, snippets, tags, export_links, has_toc) {
 				woas.config.new_tables_syntax ? this.parse_tables_new : this.parse_tables
 	)
 
-	// underline (now works on a single line the same as bold/italics)
-	// needs to be before bold with this regexp (see italics)
-	.replace(/(^|[\s\*>])_(.+?)_/mg, function(str, $1, $2) {
-		return $1+"<"+"span style=\"text-decoration:underline;\">"+$2+"<"+"/span>";
-	})
-
-	// bold (needs to be after lists, tables, italics, and underline)
-	.replace(/(^|[\s>])\*(.+?)\*/mg, function(str, $1, $2) {
-		return $1+"<"+"strong>"+$2+"<"+"/strong>";
-	})
+	// bold (needs to be after lists & tables). 0.12.0 doesn't allow start
+	// after / or \; this code does as can't see need, esp. with URLs protected
+	.replace(/(^|[^\w])\*(.+?)\*/mg, "$1<"+"strong>$2<"+"/strong>")
 
 	// horizontal rulers: multiline RE used; adding NL_MARKER will remove the \n following.
 	.replace(this.reRuler, this._HR + this.NL_MARKER);
