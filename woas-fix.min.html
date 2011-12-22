@@ -1090,7 +1090,7 @@ or more lines.\n\
 ',
 '\x3Cdiv style="background-color: #FFFFAA; border: 0.1em solid; padding: 0.2em;"\x3E\x3Cimg src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAADtElEQVR42rWWXUxbZRjHBwx0G9go7GJixCXDLQZZjEa9W4yKi04vtnhlsrg4E5Mp2TQu0cyZuESNEmVENseYQNduKx+FApWuUEopLYwPoRvQscGAjrFCP2gpbWkL/HzTxCszOMnYkzwX5+Sc/+99/89z3udsmC/4/pGmpIdEIJLULamkp2ew6fFN/HfvoQAi2Lx5C4c+Pky1qharuQerqZcGdTMFP//BG3veJjExcVXQquK7c3fTaelmKQrhYIQ5r5+Z+27GRhz0dg5hMdr48YdCnnoy/YGQB4rn5LyIY+IerMBCYCGec3N+XDOeOOT6P3a0dW0YdD2cLigjLVUWh0gCbNyYjKHZxHJshXAozPLSMpHFCPPzC7hdXmadbm70j6DXWlCr9DSqLXz+2TfSACI4sP9DAr4wft+8EI4Si8VYDC+K6wAe9xxTDidd5gFamqzUVbVyqVyLvFTL9qzsOGRNQHFRCf65oPDcRyi4QCQSEDuZx+/34xE7uGUfxT50neFBG1cb24V4PVcqmtn/wUdrA0RXiFVpcTm9cTuCQR+RaFBAgoTDogazd5mcvInLNcX09BjXrF2Ul9SjuKDj6JFv1wakpKQIX7U47kyLYrrw+TxEoyFi0QihkJ9AwCNq4cXrnWFi3I6x2UzpGbUA/M2J46ekWVRyRo6tdwTH+LTYhUuIeoWoB4fDztTUbSYnbjI81I/JYEEp/P/zdBVVF5v56ovj0gD5R77G2maj3dBDf+8g43eGRYHd3HXcoq+7lxZdB/U1BhR/ablwto6zhSp0tSbe27tPGmBn9gs0aTrQVBtEr5uw9fcJ7+/hvD9Jl6WLK3IdijItZec08dWryhuplKuRPSFD8of26aF89I3dXKrQInwWfo/g8cwIWA8qRRPni9VCvBJ5iRrz1U727X0f8Z50QFJSEl/mn6RWZabmsp7BG304Jm8zIAAV5zWcK6qhRqnDrO/kk4OHJRwV/4MkkJCQwLvvHKCoQCla14Cl3Sr6vhWVXENDtQZFqZI397wl4bBbJQWErRkZtOgv4nReY2a2g9HRGtqMv/Daq7vi4usyD9pMPxFb6cbtNTJgk1NVeZJt29LIzXllfQDmjkJCi114fe0M2y/ToDnF9ufS2bUzd30ArcbfWcKGP2BhdKwao+FXduzYyvPZOesD6O75jUCwHZfHRIuhmO9OHEQme4yXX3r94QFpaWkkJ2/g6cwMlEoFeXl5CChZWc9KmsmSMzPzGdG68RnMsWNHkfpX8UjzX78dQm6UDc/yAAAAAElFTkSuQmCC" alt="Info" border="0" /\x3E %1\x3C/div\x3E\n\
 \x3Cscript\x3E\n\
-woas.log("DEPRECATED: WoaS::Template::Info\\nUse the much more flexible woas.note macro instead; e.g.: \x3C\x3C\x3Cwoas.note: My note text\x3E\x3E\x3E");\n\
+woas.log("DEPRECATED: WoaS::Template::Info. Use the much more flexible woas.note macro instead; e.g.:\\n     \x3C"+"\x3C\x3Cwoas.note: My note text\x3E"+"\x3E\x3E");\n\
 \x3C/script\x3E',
 'Read-only protection is by no means a security mechanism (see [[WoaS::Help::Security|Security]]), but rather an invitation to /fair use/ of the content. The author disables the write features assuming they won\'t be useful to the end-user or to indicate their expectation that the content won\'t be edited or copied.\n\
 \n\
@@ -4441,6 +4441,7 @@ Changes since Revision pvhl-2317 (git: 3d939c7)\n\
 \n\
 (needing to archive my work in an incomplete though working state; export probably isn\'t working right yet)\n\
 \n\
+* fix WoaS::Template::Info script error (mea culpa) and minor content changes\n\
 * fix bold/italic/underline crossing line endings when in a list\n\
 * revert bold/italic/underline parsing to (mostly) conform to 0.12.0 and recent marker changes\n\
 * fix my URL autolink generation\n\
@@ -5294,7 +5295,7 @@ clearTimeout(woas._autosave_thread);if(_this.config.auto_save)
 woas._autosave_thread=setTimeout("woas._auto_saver()",woas.config.auto_save);};woas._on_unload=function(){if(this.save_queue.length)
 this.commit(this.save_queue);else{if(this.config.save_on_quit&&this.cfg_changed)
 this.cfg_commit();}
-return true;};woas.getHTMLDiv=function(elem){return elem.innerHTML;};woas.setHTMLDiv=function(elem,html){elem.innerHTML=html;};woas._on_load=function(){this._set_debug(this.config.debug_mode,this.config.debug_closed);d$("woas_debug_log").value="";woas.log("*** WoaS v"+this.version+"-pvhl-r2498"+" started");this._old_wsif_ds=is_windows?this.config.wsif_ds.replace(reFwdSlash,'\\'):this.config.wsif_ds;if(this.browser.ie&&Number(this.browser.ie)<9){this.setHTML=function(elem,html){elem.text=html;};this.getHTML=function(elem){return elem.text;};}else{this.setHTML=this.setHTMLDiv;this.getHTML=this.getHTMLDiv;}
+return true;};woas.getHTMLDiv=function(elem){return elem.innerHTML;};woas.setHTMLDiv=function(elem,html){elem.innerHTML=html;};woas._on_load=function(){this._set_debug(this.config.debug_mode,this.config.debug_closed);d$("woas_debug_log").value="";woas.log("*** WoaS v"+this.version+"-pvhl-r2500"+" started");this._old_wsif_ds=is_windows?this.config.wsif_ds.replace(reFwdSlash,'\\'):this.config.wsif_ds;if(this.browser.ie&&Number(this.browser.ie)<9){this.setHTML=function(elem,html){elem.text=html;};this.getHTML=function(elem){return elem.text;};}else{this.setHTML=this.setHTMLDiv;this.getHTML=this.getHTMLDiv;}
 if(this.log()&&this.tweak.integrity_test&&!this.integrity_test()){return;}
 if(this.config.wsif_ds.length){var path=is_windows?this.config.wsif_ds.replace(reFwdSlash,'\\'):this.config.wsif_ds.replace(/\\/g,'/');if(!this._wsif_ds_load(path,this.config.wsif_ds_lock)){if(this.wsif.emsg!==null){this._set_debug(true);this.crash("Could not load WSIF pages data!\n"+this.wsif.emsg);}
 return;}}
