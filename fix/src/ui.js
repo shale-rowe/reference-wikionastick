@@ -384,10 +384,13 @@ woas.go_to = function(cr) {
 	if (cr && cr !== current) {
 			r = this.set_current(cr, true);
 	}
+	// PVHL: will rewrite this with dom caching once code stabilizes
 	if (r && section) {
 		el = d$(section);
 		if (el) {
-			mv = el.offsetTop;
+			mv = this.ui.display("fix_h")
+				? el.offsetTop
+				: el.offsetTop + d$("woas_header").offsetHeight;
 		}
 	}
 	// there must be a better way!
@@ -553,16 +556,20 @@ PVHL:
 					this.popup_page.sprintf(btn, btn, fn, pg[0], pg[2])));
 			this.popup_window.document.title = title;
 		}
-		this.popup_window.help_resize();
-		if (pg[1]) {
-			el = this.popup_window.d$(pg[1]);
-			if (el) {
-				this.popup_window.d$("woas_help_body_wrap").scrollTop = el.offsetTop;
+
+		// in case popup is waiting for Javascript permission; seen on IE.
+		if (this.popup_window.help_resize) {
+			this.popup_window.help_resize();
+			if (pg[1]) {
+				el = this.popup_window.d$(pg[1]);
+				if (el) {
+					this.popup_window.d$("woas_help_body_wrap").scrollTop = el.offsetTop;
+				}
 			}
+			// stop page load flash
+			setTimeout('woas.help_system.popup_window.focus()', 0);
 		}
-		// stop page load flash
 		pg = null;
-		setTimeout('woas.help_system.popup_window.focus()', 0);
 	}
 };
 
@@ -852,17 +859,36 @@ function query_delete_image(cr) {
 // triggered by UI graphic button
 // PVHL: print CSS now controlled by CSS (section /* PRINT */) to allow change
 //   by those who use the print window for presentations.
+//   Could use custom print css read from WoaS::CSS::Print instead
 function page_print() {
-	woas._customized_popup(current,
-		woas.getHTMLDiv(d$("woas_page")),
-		'woas={};woas.go_to=function(page){alert("'
-		+woas.js_encode(woas.i18n.PRINT_MODE_WARN)+'");}',
-		'', ' id="woas_page" class="woas_print"');
+	var t = "WoaS Print - " + current;
+	if (!woas.popup_window || woas.popup_window.closed) {
+		woas.popup_window = woas.popup(
+			"woas_print_popup",
+			Math.ceil(screen.width*0.75),
+			Math.ceil(screen.height*0.75),
+			",status=yes,menubar=yes,resizable=yes,scrollbars=yes",
+			"<"+"title>" + t + "<"+"/title>" + "<"+"style type=\"text/css\">"+
+				woas.css.get() + "<"+"/style>" +
+				woas.raw_js('woas={};woas.go_to=function(page){alert("'+
+					woas.js_encode(woas.i18n.PRINT_MODE_WARN)+'");}'),
+			'<'+'h1 class="woas_print_title">'+current+'<'+'/h1>'+
+				woas.getHTMLDiv(d$("woas_page")),
+			' id="woas_page" class="woas_print"');
+	} else {
+		woas.setHTMLDiv(woas.popup_window.document.body,
+			'<'+'h1 class="woas_print_title">'+current+'<'+'/h1>'+
+			woas.getHTMLDiv(d$('woas_page')));
+		woas.popup_window.document.title = t;
+		//woas.popup_window.focus();
+		setTimeout('woas.popup_window.focus()', 0);
+	}
 }
 
 /*
-Needs change to custom help/print css. Read from WoaS::CSS::[Help|Print]
-This function is no longer used by the help system; print_popup is hardwired!
+This function is no longer used by the help system; print_popup is hardwired?
+Also no longer used by the page_print function, but left here just in case it's
+used by custom code (want print to be customizable)
 */
 woas._customized_popup = function(page_title, page_body, additional_js,
 		additional_css, body_extra) {
@@ -1084,18 +1110,30 @@ woas.update_view = function() {
 // PVHL: still some edit resize issues with Safari. Works well enough though.
 //   document.documentElement.clientHeight works in all browsers so window.height
 //   not used; old IEs don't have window.height.
+//   Quickly refactored to handle long titles; will do better in new code
+//   Top padding for content is hard-wired to 12px until I can test more browsers
 woas.ui._resize = (function() {
-	function resize() {
+	var hh = -1;
+	function resize(p) {
+		// hack to adjust header for two line titles
+		var hh_el = d$("woas_header"), hh_now; // els should be cached
+		if (hh_el) {
+			// Opera is failing with offsetHeight
+			hh_now = hh_el.offsetHeight;
+			if (hh !== hh_now) {
+				hh = hh_now;
+				d$("woas_content").style.paddingTop = hh_now + 12 + "px";
+			}
+		}
 		if (woas.ui.edit_mode) {
+			// h - 1 helps early IE and Opera; not sure why yet; OK for others
 			var e = d$('woas_editor'), h = e.offsetHeight +
-				document.documentElement.clientHeight - document.body.offsetHeight;
+				document.documentElement.clientHeight - document.body.offsetHeight - 1;
 			if (woas.browser.ie && Number(woas.browser.ie) < 7) {
 				// stops IE6 textarea overflow; will fix later
 				e.style.width = 0;
 				e.style.width = d$('woas_editor_sizer').offsetWidth + 'px';
 			}
-			// PVHL: stops Opera overflow on resize while editing; don't know why it happens yet
-			if (woas.browser.opera) { --h };
 			e.style.height = (h > 64 ? h : 64) + 'px';
 		}
 	}

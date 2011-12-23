@@ -9,6 +9,15 @@ Changes since Revision pvhl-2317 (git: 3d939c7)
 
 (needing to archive my work in an incomplete though working state; export probably isn't working right yet)
 
+* added woas_print_title CSS class and title to print window
+* fix print window reuse in some browsers
+* close help and print windows on exit/reload (doesn't work in Opera)
+* remove my macro.parse function (was being tested)
+* fix page rename function failing in some browsers (!)
+* adjust header height for long titles (better fix coming but this one works OK)
+* move page export lists from core.js to export.js; only used there and want to change them
+* fix search button (template) moving to next line some text resizes
+* fix (IE) Help window error when waiting for JS permission
 * fix WoaS::Template::Info script error (mea culpa) and minor content changes
 * fix bold/italic/underline crossing line endings when in a list
 * revert bold/italic/underline parsing to (mostly) conform to 0.12.0 and recent marker changes

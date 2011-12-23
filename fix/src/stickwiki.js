@@ -849,8 +849,19 @@ woas._auto_saver = function() {
 		woas._autosave_thread = setTimeout("woas._auto_saver()", woas.config.auto_save);
 };
 
-// save configuration on exit
 woas._on_unload = function () {
+	// close down Print & Help windows if they exist
+	// Doesn't work in recent Opera
+	if (this.popup_window && !this.popup_window.closed) {
+		this.popup_window.close();
+	}
+	if (this.help_system.popup_window && !this.help_system.popup_window.closed) {
+		this.help_system.popup_window.close();
+	}
+	// PVHL: These saves don't work; will leave code here for now. Testing
+	//	 showed delayed save failures so delayed save was removed as an option
+	//   (risky); config save was removed as it used to corrupt content; this
+	//   (useless?) option actually saves the whole file currently IIRC.
 	if (this.save_queue.length)
 		this.commit(this.save_queue);
 	else {
@@ -1167,6 +1178,7 @@ woas.rename_page = function(previous, newpage) {
 		// replace direct links and transclusion links
 		NP.body = NP.body.replace(reTitles, function (str, inc) {
 			changed = true;
+			inc = inc || '';
 			ilen = 2 + inc.length;
 			return str.substr(0, ilen)+newpage+str.substr(previous.length+ilen);
 		});

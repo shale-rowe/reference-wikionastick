@@ -1,3 +1,15 @@
+// PVHL: DEPRECATED - these arrays moved here from core.js; not used elsewhere
+woas.unexportable_pages = ["New Page", "Duplicate Page", "Backlinks", "Erase Wiki", "Edit CSS",
+								"Go to", "Delete Page", "Search"];
+woas.unexportable_pages2 = ["WoaS::CSS", "WoaS::Aliases", "WoaS::Hotkeys", "WoaS::Plugins"];
+
+/* Just needing to look at these for a bit
+woas.static_pages2 = [
+	"WoaS::Plugins", "WoaS::CSS::Boot", "WoaS::CSS::Core", "WoaS::Help",
+	"WoaS::ImportSettings", "WoaS::Template::Search", "WoaS::Template::Info"
+];
+*/
+
 // WoaS 'exporter' module
 woas.exporter = {
 	_unix_norm: false,

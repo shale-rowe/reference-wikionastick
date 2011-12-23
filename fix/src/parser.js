@@ -486,6 +486,8 @@ parse_lists: function(str, type) {
 // put away stuff contained in user-defined macro blocks
 // PVHL: needs more refactoring; pass snippets to macro? Returned
 //   text should not need more processing
+//   m.block flags removal of dnl; being tested as a possible remedy
+//   for some formatting issues (works well, but undocumented at present).
 parse_macros: function(P, snippets) {
 	var that = this;
 	P.body = P.body.replace(this.reMacros, function (str, $1, dynamic_nl) {

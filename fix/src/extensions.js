@@ -554,17 +554,6 @@ woas.macro = {
 	// 1: name, 2: params, 3: newline before text, 4: text without last newline
 	reMacroDef: /^(%?[A-Za-z0-9_\.]+)\s*(\(.*?\))?\s*: ?(?:[ \t]*(\n))?([\s\S]*?)(?:\n[ \t]*)?$/,
 
-	// allows macros to safely parse text; normal syntax allowed, macros and tags not parsed.
-	// Passed to macro in the macro object: macro.parse()
-	// 'this' is macro object that was passed to macro
-	_parse: function(text) {
-		var snippets = [], P = {};
-		P.body = text || this.text;
-		woas.parser.pre_parse(P, snippets, true);
-		woas.parser.syntax_parse(P, snippets);
-		return P.body;
-	},
-
 	// macro syntax plugin code adapted from FBNil's implementation
 	parser: function(text){
 		// standard macro object
@@ -694,8 +683,8 @@ woas.macro = {
 			// the extra div helps IE6
 			var txt1 = "<"+"div><"+"div class='woas_note'>"+woas.i18n.NOTE_TEXT+" ",
 				txt2 = "</"+"div><"+"/div>";
-			// if nothing passed to macro.parse it uses macro.text
-			m.text = txt1 + m.parse() + txt2;
+			m.text = txt1 + m.text + txt2;
+			m.reprocess = true;
 			m.block = true;
 			return true;
 		}
