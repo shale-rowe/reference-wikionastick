@@ -296,11 +296,8 @@ woas.shortcuts = ["New Page", "Duplicate Page", "All Pages", "Orphaned Pages", "
 					"Dead Pages", "Erase Wiki", "Main Page", "Go to", "Delete Page", "Recent Changes"];
 woas.shortcuts_js = ["cmd_new_page", "cmd_duplicate_page", "special_all_pages", "special_orphaned_pages", "special_backlinks",
 					"special_dead_pages", "cmd_erase_wiki",	"cmd_main_page", "cmd_go_to", "cmd_delete",	"special_recent_changes"];
-					
-woas.unexportable_pages = ["New Page", "Duplicate Page", "Backlinks", "Erase Wiki", "Edit CSS",
-								"Go to", "Delete Page", "Search"];
 
-woas.unexportable_pages2 = ["WoaS::CSS", "WoaS::Aliases", "WoaS::Hotkeys", "WoaS::Plugins"];
+// PVHL: moved unexportable lists to export.js
 
 // return raw javascript tag to be included in XHTML page
 woas.raw_js = function(code) {

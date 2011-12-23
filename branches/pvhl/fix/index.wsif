@@ -165,8 +165,7 @@ Perhaps I should have done this a long time ago ... I have been increasingly fru
 The WoaS 0.12.0 code has not been updated in almost one-and-a-half years, though it corrupts files in Chrome, Opera, and Safari, and one of the previously included files (I have removed it to make room for this file) doesn't even load! So, this file is my current work as of when I uploaded it. The current code is in *[[http://stickwiki.svn.sourceforge.net/viewvc/stickwiki/branches/pvhl/|my SVN branch]]*, and that version should be used instead of this file. The easiest way right now is to *[[http://stickwiki.svn.sourceforge.net/viewvc/stickwiki/branches/pvhl/?view=tar|download the tarball]]*.
 
 *This file still has some unfixed issues:*
-* I am in the midst of updating the WoaS::Export code to match the current HTML/CSS, so the Export function is broken in this file, though it will be fixed in the next few days in my branch.
-* I need to add the code that fixes the layout when the title is too long; again, this will be uploaded very soon.
+* The Special::Export code is still being updated/fixed. It currently works about as well as the 0.12.0 version and so is, essentially, usable. I still have a few more fixes to do.
 
 I am almost finished with my updating work. Once this is done I will be moving permanently to my new projects.
 
@@ -179,9 +178,10 @@ The next section details some of the changes I have made to the 0.12.0 code, and
 Hope to see you there! Paul.
 \
 = Buyer Beware!
-*Please be aware* that this version is still unfinished. I believe it is safe with data, but it is still being updated. Almost done. Also, the contents of this page don't match {{{fix/index.wsif}}}.
+*Please be aware* that this version is still unfinished. I believe it is safe with data (much safer than the original 0.12.0 version!), but it is still being updated. Almost done.
 
 * *Check out the nice jump to [[Improvements#Layout|sections]] (and the folding TOC once you get to that page).* Also improved:
+** Long page names don't hide content
 ** Erasing the wiki (better menu layout)
 ** Using the [[WoaS::Help::Javascript#Using the Javascript:: namespace in a link|Javascript]] namespace is more powerful
 ** Image namespace listing allows better selecting and improved layout possibilities
@@ -3481,7 +3481,7 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-<input style="font-size:.75em;" id="menu_string_to_search" type="text" size="20" onkeydown="return menu_key_hook(event)" onfocus="menu_search_focus(true)" onblur="menu_search_focus(false)" />&nbsp;<input style="font-size:.75em;" class="woas_button" type="button" value="Search" onclick="menu_do_search()" />
+<input style="font-size:.75em;" id="menu_string_to_search" type="text" size="19" onkeydown="return menu_key_hook(event)" onfocus="menu_search_focus(true)" onblur="menu_search_focus(false)" />&nbsp;<input style="font-size:.75em;" class="woas_button" type="button" value="Search" onclick="menu_do_search()" />
 
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Export
@@ -3842,7 +3842,7 @@ body {
 
 /* CONTENT (page layout) */
 #woas_content {
-	padding: 4em .75em .75em
+	padding: .75em
 }
 
 /* DEBUG CONSOLE */
@@ -4399,9 +4399,6 @@ img.woas_nav { /* woas logo */
 .woas_export #woas_header_wrap {
     position: static
 }
-.woas_export #woas_content {
-    padding: 0.75em 0.75em
-}
 .woas_export #woas_page {
     margin-bottom: 0px
 }
@@ -4904,7 +4901,6 @@ Does not allow import of pages listed.
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Special::Backlinks
 woas.page.attributes: 0
-woas.page.last_modified: 1318738575
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -4915,7 +4911,6 @@ The [[Special::Backlinks]] page, which is displayed by clicking the [[Special::B
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Menu
 woas.page.attributes: 0
-woas.page.last_modified: 1318739163
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -4949,7 +4944,6 @@ If the wiki is erased the menu contents are slightly reduced, with less often us
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Duplicate a page
 woas.page.attributes: 0
-woas.page.last_modified: 1318740655
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -4964,7 +4958,6 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Go to a page
 woas.page.attributes: 0
-woas.page.last_modified: 1318741670
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -4980,7 +4973,6 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: Improvements
 woas.page.attributes: 0
-woas.page.last_modified: 1320126532
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -4994,7 +4986,9 @@ woas.page.boundary: DFQRCTsKlU
 * Namespace listings have been, IMHO, greatly improved in styling, and also in capability. The [[Special::All Pages]] listing (renamed for consistency with the other special pages) now also lists no-namespace pages in a fold (they used to overwhelm the listing in large files). I intend to add the capability to select a listing style within the page link in the new project. The [[Special::Orphaned Pages]] code has been rewritten so that it completes in the square-root of the time it used to take (important in a wiki with hundreds of pages), and the [[Tagged::]] listing now allows some really powerful listings if, like me, you make extensive use of tags. The [[Image::]] listing is also -- again IMHO -- much improved and has styles added for those who want complete control of the presentation.
 \
 == Layout
-* I have spent a huge number of hours updating the CSS and HTML layout and checking it across popular browsers.
+* I have spent a huge number of hours updating the CSS and HTML layout and checking it across popular browsers, with generally pleasing results. Layout now stays consistent across most text size and zoom changes. (For some reason Opera seems to make all the text bigger than other browsers, but this is easily changed with the 'zoom' control.)
+
+* The layout now adjusts to very long page titles.
 
 * Links to headings will now appear below the header instead of behind it. This has removed the need for a semi-transparent header. The linking system has also been fixed/improved, allowing a section to be linked to when loading the file ({{{woas.html?my page#section}}}) and not creating browser history when clicked in the TOC. The code has been refactored so that legal section heading are used internally that also have a much smaller chance of conflicting within a page. These may be made more accessible in the new project as either the usual form or the internal form (e.g.: #S123) can now be used.
 ** The file load section doesn't work in all browsers yet as the '#' is interpreted as a section to jump to, putting it behind the header. In the new project this will not be an issue, so I have not spent much time trying to fix it. I am willing to fix this if it is a felt need.
@@ -5026,7 +5020,6 @@ woas.page.boundary: DFQRCTsKlU
 --DFQRCTsKlU
 woas.page.title: log.txt
 woas.page.attributes: 0
-woas.page.last_modified: 1320125219
 woas.page.encoding: 8bit/plain
 woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
@@ -5043,6 +5036,15 @@ Changes since Revision pvhl-2317 (git: 3d939c7)
 
 (needing to archive my work in an incomplete though working state; export probably isn't working right yet)
 
+* added woas_print_title CSS class and title to print window
+* fix print window reuse in some browsers
+* close help and print windows on exit/reload (doesn't work in Opera)
+* remove my macro.parse function (was being tested)
+* fix page rename function failing in some browsers (!)
+* adjust header height for long titles (better fix coming but this one works OK)
+* move page export lists from core.js to export.js; only used there and want to change them
+* fix search button (template) moving to next line some text resizes
+* fix (IE) Help window error when waiting for JS permission
 * fix WoaS::Template::Info script error (mea culpa) and minor content changes
 * fix bold/italic/underline crossing line endings when in a list
 * revert bold/italic/underline parsing to (mostly) conform to 0.12.0 and recent marker changes
