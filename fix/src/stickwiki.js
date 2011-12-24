@@ -453,8 +453,8 @@ woas._get__embedded = function (cr, pi, etype) {
 			tot_len = text.length,
 			enc_len = text.match(/^data:\s*[^;]*;\s*[^,]*,\s*/)[0].length,
 			mts = (this.config.store_mts ? page_mts[pi] : 0 ),
-			fn = "=\"_img_properties_show('"+mime+"',"+tot_len+","+enc_len+ ","+mts;
-			load = this.browser.ie6 // instead create description string here
+			fn = "=\"_img_properties_show('"+mime+"',"+tot_len+","+enc_len+","+mts,
+			load = this.browser.ie6
 				? 'class="woas_hide" />/This browser can\'t display images yet./'+"\n\n"+
 				  woas.i18n.MIME_TYPE+": "+mime+"\n"+woas.i18n.FILE_SIZE+": about "+
 				  _convert_bytes(((tot_len-enc_len)*3)/4, 1)+
@@ -462,8 +462,7 @@ woas._get__embedded = function (cr, pi, etype) {
 				  "\n"+woas.last_modified(mts)
 				: "onload"+fn+")\"; onerror"+fn+",true)\" /><"+
 				"div id=\"woas_img_desc\">"+this.i18n.LOADING+"<"+"/div>";
-		// PVHL: use my quick & simple macro parser
-		xhtml = this.macro._parse("= "+img_name+"\n\n\n"+"<"+"img id=\"woas_img_tag\" src=\""+
+		xhtml = this.parser.parse("= "+img_name+"\n\n\n"+"<"+"img id=\"woas_img_tag\" src=\""+
 			text+"\" alt=\""+this.xhtml_encode(img_name)+"\" "+load+
 			"\n\nSimple transclusion:\n\n{{{[[Include::"+cr+
 			"]]}}}\n\nTransclusion with additional attributes:\n\n{{{[[Include::"+cr+

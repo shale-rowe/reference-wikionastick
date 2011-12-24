@@ -843,7 +843,7 @@ function _img_properties_show(mime, tot_len, enc_len, mts, fail) {
 		"\n"+woas.last_modified(mts)+(fail ? ''
 		: "\n"+woas.i18n.WIDTH+": "+img.width+"px\n"+
 		woas.i18n.HEIGHT+": "+img.height+"px");
-	woas.setHTMLDiv(d$('woas_img_desc'), woas.macro._parse(html));
+	woas.setHTMLDiv(d$('woas_img_desc'), woas.parser.parse(html));
 	return false;
 }
 
