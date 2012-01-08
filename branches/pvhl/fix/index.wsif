@@ -236,12 +236,12 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-<div><input id="btn_lock" class="woas_button_top" type="button" value="" /></div>
+<div><input id="btn_lock" class="woas_button_top" type="button" value="" onclick="lock_page()" /></div>
 == AES encryption
 Read more about the [[WoaS::Help::Security|embedded AES encryption]] used in Wiki On a Stick.
 == Password
 Enter your password for AES encryption. The more complex your password is, the more difficult it will be to attack the encryption. It is suggested *not* to use passwords whose textbox color is <span style="background-color:red">&nbsp;red&nbsp;</span>, and to accept passwords only when the textbox color is <span style="background-color:lime">&nbsp;green&nbsp;</span>. Punctuation and Mixed case characters will exponentially increase the strength of your password.
-<dl><dt><label for="pw1">Enter password:</label></dt><dd><input type="password" id="pw1" style="background-color:red" value="" size="50" onfocus="woas.ui.focus_textbox()" onblur="woas.ui.blur_textbox()" onkeyup="pw_quality()" />&nbsp;<span id="txtBits">&nbsp;</span></dd><dt><label for="pw2">Re-enter password:</label></dt><dd><input type="password" id="pw2" value="" size="50" onfocus="woas.ui.focus_textbox()" onblur="woas.ui.blur_textbox()" onkeydown="lock_page(event)" /></dd></dl>\
+<dl><dt><label for="pw1">Enter password:</label></dt><dd><input type="password" id="pw1" style="background-color:red" value="" size="50" onfocus="woas.ui.focus_textbox()" onblur="woas.ui.blur_textbox()" onkeyup="pw_quality()" onkeydown="lock_page(event)" />&nbsp;<span id="txtBits">&nbsp;</span></dd><dt><label for="pw2">Re-enter password:</label></dt><dd><input type="password" id="pw2" value="" size="50" onfocus="woas.ui.focus_textbox()" onblur="woas.ui.blur_textbox()" onkeydown="lock_page(event)" /></dd></dl>\
 <script type="text/javascript">
 	_lock_page();
 </script>
@@ -5036,7 +5036,9 @@ Changes since Revision pvhl-2317 (git: 3d939c7)
 
 (needing to archive my work in an incomplete though working state; export probably isn't working right yet)
 
-* added woas_print_title CSS class and title to print window
+* complete fix of page locking (incl. button: forgot I hadn't finished refactoring; sorry)
+* fix incorrect 'index' status I added to multiple page wsif saves
+* add woas_print_title CSS class and title to print window
 * fix print window reuse in some browsers
 * close help and print windows on exit/reload (doesn't work in Opera)
 * remove my macro.parse function (was being tested)
@@ -5086,7 +5088,7 @@ Changes since Revision pvhl-2317 (git: 3d939c7)
 * 'WoaS History' page is deleted on erase (as an unneeded user page) and not imported (could be older)
 * some changes to menu and erased menu
 * numerous CSS tweaks incl. reducing nowiki styles to single declarations
-* TOC refactored to allow greater control; added roll-up to TOC
+* TOC refactored to fix parse errors and allow greater control; added roll-up to TOC
 * submenus are now a single menu
 * change to how heading anchors are created
 * capture enter key in password pages to avoid having to click the button

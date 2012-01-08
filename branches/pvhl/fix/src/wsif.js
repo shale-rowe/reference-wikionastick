@@ -109,8 +109,6 @@ woas._native_wsif_save = function(path, src_fname, locking, single_wsif, inline_
 	var extra = this.wsif.header('wsif.version', this.wsif.version);
 	extra += this.wsif.header('wsif.generator', 'woas');
 	extra += this.wsif.header('wsif.generator.version', this.version);
-	if (!single_wsif)
-		extra += this.wsif.header('wsif.type', 'index'); // for safety in recursive loading
 	if (author.length)
 		extra += this.wsif.header('woas.author', author);
 
@@ -260,6 +258,8 @@ woas._native_wsif_save = function(path, src_fname, locking, single_wsif, inline_
 		// reset the record
 		record = "";
 	} // foreach page
+	if (!single_wsif)
+		extra += this.wsif.header('wsif.type', 'index'); // for safety in recursive loading
 	// add the total pages number
 	if (full_save || single_wsif)
 		extra += this.wsif.header('woas.pages', done);

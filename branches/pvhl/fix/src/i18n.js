@@ -61,6 +61,7 @@ woas.i18n = {
 	LAST_MODIFIED: "Last modified: ",
 	LOADING: "Loading Wiki on a Stick...",
 	LOAD_ERR: "Cannot load specified file.",
+	LOCK_PAGE: "Lock %s",
 	MIME_TYPE: "Mime type",
 	MODE_NOT_AVAIL: "File mode 0x%s is not available on this browser.",
 	NO_ERROR: "No error",
@@ -73,7 +74,9 @@ woas.i18n = {
 	PAGE_NOT_EXISTS: "'%s' page does not exist.",
 	PAGE_NOT_FOUND: "Page not found. Do you want to create it?",
 	PRINT_MODE_WARN: "Sorry, you cannot browse the wiki while in print mode.",
+	PWD_ERROR: "Passwords must match each other.",
 	PWD_QUERY: "Please enter a password.",
+	PWD_KEY_SIZE: "Key size: %s bits",
 	READ_ONLY: "This Wiki on a Stick is read-only.",
 	SAVE_ERROR:"Unable to save the '%s' file.",
 	SERVER_MODE: "This Wiki on a Stick is not a local file; changes can only be saved to a local copy of the wiki. Please save this file if you want to make changes.\n\n"+
