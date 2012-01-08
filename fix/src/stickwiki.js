@@ -316,11 +316,10 @@ woas._password_cancel = function() {
 };
 
 // PVHL: input now accepts password if enter has been pressed
-// see woas.htm for use. (My own design; needs onkeydown in some browsers
-// instead of onkeypress for some reason I haven't worked out yet.
+//   will redo to use key callback function later
 woas._password_ok = function(el, e) {
 	// test for enter key pressed
-	var flag = e ? (e.which || e.keyCode) === 13 : true, pw;
+	var flag = e ? e.keyCode === 13 : true, pw;
 	if (flag) {
 		pw = el.value;
 		if (!pw.length) {
@@ -629,11 +628,13 @@ woas.set_current = function (cr, interactive, keep_fwd) {
 							this.alert(this.i18n.CANNOT_LOCK_RESERVED);
 							return false;
 						}
+						this.currently_locking = this.js_encode(cr);
 						pi = this.page_index(cr);
 						if (this.AES.isKeySet()) {
 							// display a message
 							if (confirm(this.i18n.CONFIRM_LOCK.sprintf(cr)+
-								(this.last_AES_page ? this.i18n.CONFIRM_LOCK_LAST.sprintf(this.last_AES_page) : ''))) {
+								(this.last_AES_page ? this.i18n.CONFIRM_LOCK_LAST
+									.sprintf(this.last_AES_page) : ''))) {
 								this._finalize_lock(pi);
 								return false;
 							}
@@ -785,6 +786,9 @@ woas.load_as_current = function(title, xhtml, mts, set_b, keep_fwd) {
 		this.crash("load_as_current() called with undefined title");
 		return false;
 	}
+	if (title.indexOf("Lock::") !== 0) {
+		this.currently_locking = '';
+	}
 	
 	// used by some special pages (e.g. backlinks) for page title override
 	this.parser.render_title = title;
@@ -827,7 +831,7 @@ woas._finalize_lock = function(pi, back) {
 };
 
 woas._perform_lock = function(pi) {
-	// PVHL: Just a preventive; may be a bug that could lock twice:
+	// PVHL: Just a preventive; in case of a bug that could lock twice:
 	//   only lock if unlocked
 	if (!(page_attrs[pi] & 0x2)) {
 		pages[pi] = this.AES.encrypt(pages[pi]);

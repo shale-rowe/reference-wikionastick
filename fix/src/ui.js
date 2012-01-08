@@ -243,6 +243,7 @@ PVHL: FIX; this needs to be changed as
 	lock: function() {
 		if (!this.display('no_lock')) {
 			if (woas.pager.bucket.items.length>1)
+				// option not implemented
 				_lock_pages(woas.pager.bucket.items);
 			else
 				woas.set_current("Lock::" + current, true, true);
@@ -682,25 +683,28 @@ function ro_woas() {
 // Used by Special::Lock
 function lock_page(e) {
 	// PVHL: see my notes for woas._password_ok for flag use discussion
-	//  strings need to be i18n here and in _lock
-	var flag = e ? (e.which || e.keyCode) === 13 : true, pwd, pi;
+	var flag = e ? e.keyCode === 13 : true, pw1, pw2;
 	if (flag) {
-		if (!woas.currently_locking || !d$("pw1")) {
+		pw1 = d$("pw1");
+		pw2 = d$("pw2");
+		if (!woas.currently_locking || !pw1 || !pw2) {
 			return;
 		}
-		pwd = d$("pw1").value;
-		if (!pwd.length) {
-			d$("pw1").focus();
+		if (!pw1.value.length) {
+			pw1.focus();
 			return;
 		}
-		if (pwd !== d$("pw2").value) {
-			alert("Passwords don't match!");
-			d$("pw2").focus();
+		if (!pw2.value.length) {
+			pw2.focus();
 			return;
 		}
-		pi = woas.page_index(woas.currently_locking);
-		woas.AES.setKey(pwd);
-		woas._finalize_lock(pi, true);
+		if (pw1.value !== pw2.value) {
+			alert(woas.i18n.PWD_ERROR);
+			pw2.focus();
+			return;
+		}
+		woas.AES.setKey(pw1.value);
+		woas._finalize_lock(woas.page_index(woas.currently_locking), true);
 	}
 	return true;
 }
@@ -729,19 +733,17 @@ function set_key() {
 var _pw_q_lock = false;
 
 function pw_quality() {
-
 	if (_pw_q_lock)
 		return;
-		
 	_pw_q_lock = true;
 
-// used to get a red-to-green color tone
-function _hex_col(tone) {
-	var s=Math.floor(tone).toString(16);
-	if (s.length==1)
-		return "0"+s;
-	return s;
-}
+	// used to get a red-to-green color tone
+	function _hex_col(tone) {
+		var s=Math.floor(tone).toString(16);
+		if (s.length==1)
+			return "0"+s;
+		return s;
+	}
 
 	// original code from http://lxr.mozilla.org/seamonkey/source/security/manager/pki/resources/content/password.js
 	var pw=d$('pw1').value;
@@ -785,8 +787,8 @@ function _hex_col(tone) {
 		color = "#" + _hex_col((100-pwstrength)*255/100) + _hex_col((pwstrength*255)/100) + "00";
   
 	d$("pw1").style.backgroundColor = color;
-	woas.setHTMLDiv(d$("txtBits"), "Key size: "+(pwlength*8).toString() + " bits");
-	
+	woas.setHTMLDiv(d$("txtBits"), woas.i18n.PWD_KEY_SIZE.sprintf(pwlength*8));
+
 	_pw_q_lock = false;
 }
 
@@ -1291,16 +1293,15 @@ woas.crash = function() {
 };
 
 // PVHL: have simplified usage (here just to document):
+//   set by 'Lock::' in 'set_current' is set, cleared by load_as_current.
 woas.currently_locking = '';
-// called from Special::Lock page
+// initialize page on loading; called from Special::Lock page
 function _lock_page() {
-	// do not call if not on a page locking context
-	if (current.indexOf("Lock::")!==0)
-		return;
-	var page = current.substring(6);
-	woas.currently_locking = page;
-	d$("btn_lock").value = "Lock "+page;
-	d$("pw1").focus();
+	// do not call if not in a page locking context
+	if (woas.currently_locking) {
+		d$("btn_lock").value = woas.i18n.LOCK_PAGE.sprintf(woas.currently_locking);
+		d$("pw1").focus();
+	}
 }
 
 function _woas_new_plugin() {
