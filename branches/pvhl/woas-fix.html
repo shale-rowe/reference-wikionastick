@@ -140,7 +140,7 @@ var page_titles = [
 /* DFQRCTsKlU-0000000-DATA */
 var page_attrs = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
 
-var page_mts = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0x4e9a5a8f,0x4e9a5cdb,0x4e9a62af,0x4e9a66a6,0x4eaf8844,0x4eaf8323];
+var page_mts = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
 
 var pages = [
 '[[Main Page]]\n\
@@ -265,8 +265,7 @@ Perhaps I should have done this a long time ago ... I have been increasingly fru
 The WoaS 0.12.0 code has not been updated in almost one-and-a-half years, though it corrupts files in Chrome, Opera, and Safari, and one of the previously included files (I have removed it to make room for this file) doesn\'t even load! So, this file is my current work as of when I uploaded it. The current code is in *[[http://stickwiki.svn.sourceforge.net/viewvc/stickwiki/branches/pvhl/|my SVN branch]]*, and that version should be used instead of this file. The easiest way right now is to *[[http://stickwiki.svn.sourceforge.net/viewvc/stickwiki/branches/pvhl/?view=tar|download the tarball]]*.\n\
 \n\
 *This file still has some unfixed issues:*\n\
-* I am in the midst of updating the WoaS::Export code to match the current HTML/CSS, so the Export function is broken in this file, though it will be fixed in the next few days in my branch.\n\
-* I need to add the code that fixes the layout when the title is too long; again, this will be uploaded very soon.\n\
+* The Special::Export code is still being updated/fixed. It currently works about as well as the 0.12.0 version and so is, essentially, usable. I still have a few more fixes to do.\n\
 \n\
 I am almost finished with my updating work. Once this is done I will be moving permanently to my new projects.\n\
 \n\
@@ -279,9 +278,10 @@ The next section details some of the changes I have made to the 0.12.0 code, and
 Hope to see you there! Paul.\n\
 \\\n\
 = Buyer Beware!\n\
-*Please be aware* that this version is still unfinished. I believe it is safe with data, but it is still being updated. Almost done. Also, the contents of this page don\'t match {{{fix/index.wsif}}}.\n\
+*Please be aware* that this version is still unfinished. I believe it is safe with data (much safer than the original 0.12.0 version!), but it is still being updated. Almost done.\n\
 \n\
 * *Check out the nice jump to [[Improvements#Layout|sections]] (and the folding TOC once you get to that page).* Also improved:\n\
+** Long page names don\'t hide content\n\
 ** Erasing the wiki (better menu layout)\n\
 ** Using the [[WoaS::Help::Javascript#Using the Javascript:: namespace in a link|Javascript]] namespace is more powerful\n\
 ** Image namespace listing allows better selecting and improved layout possibilities\n\
@@ -320,12 +320,12 @@ They should be specified in {{{em}}} values for best cross-browser compatibility
 woas._search_load();\n\
 \x3C/script\x3E\n\
 ',
-'\x3Cdiv\x3E\x3Cinput id="btn_lock" class="woas_button_top" type="button" value="" /\x3E\x3C/div\x3E\n\
+'\x3Cdiv\x3E\x3Cinput id="btn_lock" class="woas_button_top" type="button" value="" onclick="lock_page()" /\x3E\x3C/div\x3E\n\
 == AES encryption\n\
 Read more about the [[WoaS::Help::Security|embedded AES encryption]] used in Wiki On a Stick.\n\
 == Password\n\
 Enter your password for AES encryption. The more complex your password is, the more difficult it will be to attack the encryption. It is suggested *not* to use passwords whose textbox color is \x3Cspan style="background-color:red"\x3E&nbsp;red&nbsp;\x3C/span\x3E, and to accept passwords only when the textbox color is \x3Cspan style="background-color:lime"\x3E&nbsp;green&nbsp;\x3C/span\x3E. Punctuation and Mixed case characters will exponentially increase the strength of your password.\n\
-\x3Cdl\x3E\x3Cdt\x3E\x3Clabel for="pw1"\x3EEnter password:\x3C/label\x3E\x3C/dt\x3E\x3Cdd\x3E\x3Cinput type="password" id="pw1" style="background-color:red" value="" size="50" onfocus="woas.ui.focus_textbox()" onblur="woas.ui.blur_textbox()" onkeyup="pw_quality()" /\x3E&nbsp;\x3Cspan id="txtBits"\x3E&nbsp;\x3C/span\x3E\x3C/dd\x3E\x3Cdt\x3E\x3Clabel for="pw2"\x3ERe-enter password:\x3C/label\x3E\x3C/dt\x3E\x3Cdd\x3E\x3Cinput type="password" id="pw2" value="" size="50" onfocus="woas.ui.focus_textbox()" onblur="woas.ui.blur_textbox()" onkeydown="lock_page(event)" /\x3E\x3C/dd\x3E\x3C/dl\x3E\\\n\
+\x3Cdl\x3E\x3Cdt\x3E\x3Clabel for="pw1"\x3EEnter password:\x3C/label\x3E\x3C/dt\x3E\x3Cdd\x3E\x3Cinput type="password" id="pw1" style="background-color:red" value="" size="50" onfocus="woas.ui.focus_textbox()" onblur="woas.ui.blur_textbox()" onkeyup="pw_quality()" onkeydown="lock_page(event)" /\x3E&nbsp;\x3Cspan id="txtBits"\x3E&nbsp;\x3C/span\x3E\x3C/dd\x3E\x3Cdt\x3E\x3Clabel for="pw2"\x3ERe-enter password:\x3C/label\x3E\x3C/dt\x3E\x3Cdd\x3E\x3Cinput type="password" id="pw2" value="" size="50" onfocus="woas.ui.focus_textbox()" onblur="woas.ui.blur_textbox()" onkeydown="lock_page(event)" /\x3E\x3C/dd\x3E\x3C/dl\x3E\\\n\
 \x3Cscript type="text/javascript"\x3E\n\
 	_lock_page();\n\
 \x3C/script\x3E\n\
@@ -3165,7 +3165,7 @@ This method is used to import pages that have been exported using the WSIF forma
 # Choose the options to use\n\
 # Click the *Import WSIF* button\n\
 ',
-'\x3Cinput style="font-size:.75em;" id="menu_string_to_search" type="text" size="20" onkeydown="return menu_key_hook(event)" onfocus="menu_search_focus(true)" onblur="menu_search_focus(false)" /\x3E&nbsp;\x3Cinput style="font-size:.75em;" class="woas_button" type="button" value="Search" onclick="menu_do_search()" /\x3E\n\
+'\x3Cinput style="font-size:.75em;" id="menu_string_to_search" type="text" size="19" onkeydown="return menu_key_hook(event)" onfocus="menu_search_focus(true)" onblur="menu_search_focus(false)" /\x3E&nbsp;\x3Cinput style="font-size:.75em;" class="woas_button" type="button" value="Search" onclick="menu_do_search()" /\x3E\n\
 ',
 '== Exporting into XHTML static pages\n\
 /See: [[WoaS::Help::Special::Export|Special::Export]] for a more detailed explanation./\n\
@@ -3470,7 +3470,7 @@ body {\n\
 \n\
 /* CONTENT (page layout) */\n\
 #woas_content {\n\
-	padding: 4em .75em .75em\n\
+	padding: .75em\n\
 }\n\
 \n\
 /* DEBUG CONSOLE */\n\
@@ -4027,9 +4027,6 @@ img.woas_nav { /* woas logo */\n\
 .woas_export #woas_header_wrap {\n\
     position: static\n\
 }\n\
-.woas_export #woas_content {\n\
-    padding: 0.75em 0.75em\n\
-}\n\
 .woas_export #woas_page {\n\
     margin-bottom: 0px\n\
 }\n\
@@ -4401,7 +4398,9 @@ If the wiki is erased the menu contents are slightly reduced, with less often us
 * Namespace listings have been, IMHO, greatly improved in styling, and also in capability. The [[Special::All Pages]] listing (renamed for consistency with the other special pages) now also lists no-namespace pages in a fold (they used to overwhelm the listing in large files). I intend to add the capability to select a listing style within the page link in the new project. The [[Special::Orphaned Pages]] code has been rewritten so that it completes in the square-root of the time it used to take (important in a wiki with hundreds of pages), and the [[Tagged::]] listing now allows some really powerful listings if, like me, you make extensive use of tags. The [[Image::]] listing is also -- again IMHO -- much improved and has styles added for those who want complete control of the presentation.\n\
 \\\n\
 == Layout\n\
-* I have spent a huge number of hours updating the CSS and HTML layout and checking it across popular browsers.\n\
+* I have spent a huge number of hours updating the CSS and HTML layout and checking it across popular browsers, with generally pleasing results. Layout now stays consistent across most text size and zoom changes. (For some reason Opera seems to make all the text bigger than other browsers, but this is easily changed with the \'zoom\' control.)\n\
+\n\
+* The layout now adjusts to very long page titles.\n\
 \n\
 * Links to headings will now appear below the header instead of behind it. This has removed the need for a semi-transparent header. The linking system has also been fixed/improved, allowing a section to be linked to when loading the file ({{{woas.html?my page#section}}}) and not creating browser history when clicked in the TOC. The code has been refactored so that legal section heading are used internally that also have a much smaller chance of conflicting within a page. These may be made more accessible in the new project as either the usual form or the internal form (e.g.: #S123) can now be used.\n\
 ** The file load section doesn\'t work in all browsers yet as the \'#\' is interpreted as a section to jump to, putting it behind the header. In the new project this will not be an issue, so I have not spent much time trying to fix it. I am willing to fix this if it is a felt need.\n\
@@ -4441,6 +4440,17 @@ Changes since Revision pvhl-2317 (git: 3d939c7)\n\
 \n\
 (needing to archive my work in an incomplete though working state; export probably isn\'t working right yet)\n\
 \n\
+* complete fix of page locking (incl. button: forgot I hadn\'t finished refactoring; sorry)\n\
+* fix incorrect \'index\' status I added to multiple page wsif saves\n\
+* add woas_print_title CSS class and title to print window\n\
+* fix print window reuse in some browsers\n\
+* close help and print windows on exit/reload (doesn\'t work in Opera)\n\
+* remove my macro.parse function (was being tested)\n\
+* fix page rename function failing in some browsers (!)\n\
+* adjust header height for long titles (better fix coming but this one works OK)\n\
+* move page export lists from core.js to export.js; only used there and want to change them\n\
+* fix search button (template) moving to next line some text resizes\n\
+* fix (IE) Help window error when waiting for JS permission\n\
 * fix WoaS::Template::Info script error (mea culpa) and minor content changes\n\
 * fix bold/italic/underline crossing line endings when in a list\n\
 * revert bold/italic/underline parsing to (mostly) conform to 0.12.0 and recent marker changes\n\
@@ -4482,7 +4492,7 @@ Changes since Revision pvhl-2317 (git: 3d939c7)\n\
 * \'WoaS History\' page is deleted on erase (as an unneeded user page) and not imported (could be older)\n\
 * some changes to menu and erased menu\n\
 * numerous CSS tweaks incl. reducing nowiki styles to single declarations\n\
-* TOC refactored to allow greater control; added roll-up to TOC\n\
+* TOC refactored to fix parse errors and allow greater control; added roll-up to TOC\n\
 * submenus are now a single menu\n\
 * change to how heading anchors are created\n\
 * capture enter key in password pages to avoid having to click the button\n\
@@ -6953,6 +6963,8 @@ parse_lists: function(str, type) {
 // put away stuff contained in user-defined macro blocks
 // PVHL: needs more refactoring; pass snippets to macro? Returned
 //   text should not need more processing
+//   m.block flags removal of dnl; being tested as a possible remedy
+//   for some formatting issues (works well, but undocumented at present).
 parse_macros: function(P, snippets) {
 	var that = this;
 	P.body = P.body.replace(this.reMacros, function (str, $1, dynamic_nl) {
@@ -8179,11 +8191,8 @@ woas.shortcuts = ["New Page", "Duplicate Page", "All Pages", "Orphaned Pages", "
 					"Dead Pages", "Erase Wiki", "Main Page", "Go to", "Delete Page", "Recent Changes"];
 woas.shortcuts_js = ["cmd_new_page", "cmd_duplicate_page", "special_all_pages", "special_orphaned_pages", "special_backlinks",
 					"special_dead_pages", "cmd_erase_wiki",	"cmd_main_page", "cmd_go_to", "cmd_delete",	"special_recent_changes"];
-					
-woas.unexportable_pages = ["New Page", "Duplicate Page", "Backlinks", "Erase Wiki", "Edit CSS",
-								"Go to", "Delete Page", "Search"];
 
-woas.unexportable_pages2 = ["WoaS::CSS", "WoaS::Aliases", "WoaS::Hotkeys", "WoaS::Plugins"];
+// PVHL: moved unexportable lists to export.js
 
 // return raw javascript tag to be included in XHTML page
 woas.raw_js = function(code) {
@@ -9165,11 +9174,10 @@ woas._password_cancel = function() {
 };
 
 // PVHL: input now accepts password if enter has been pressed
-// see woas.htm for use. (My own design; needs onkeydown in some browsers
-// instead of onkeypress for some reason I haven't worked out yet.
+//   will redo to use key callback function later
 woas._password_ok = function(el, e) {
 	// test for enter key pressed
-	var flag = e ? (e.which || e.keyCode) === 13 : true, pw;
+	var flag = e ? e.keyCode === 13 : true, pw;
 	if (flag) {
 		pw = el.value;
 		if (!pw.length) {
@@ -9302,8 +9310,8 @@ woas._get__embedded = function (cr, pi, etype) {
 			tot_len = text.length,
 			enc_len = text.match(/^data:\s*[^;]*;\s*[^,]*,\s*/)[0].length,
 			mts = (this.config.store_mts ? page_mts[pi] : 0 ),
-			fn = "=\"_img_properties_show('"+mime+"',"+tot_len+","+enc_len+ ","+mts;
-			load = this.browser.ie6 // instead create description string here
+			fn = "=\"_img_properties_show('"+mime+"',"+tot_len+","+enc_len+","+mts,
+			load = this.browser.ie6
 				? 'class="woas_hide" />/This browser can\'t display images yet./'+"\n\n"+
 				  woas.i18n.MIME_TYPE+": "+mime+"\n"+woas.i18n.FILE_SIZE+": about "+
 				  _convert_bytes(((tot_len-enc_len)*3)/4, 1)+
@@ -9311,8 +9319,7 @@ woas._get__embedded = function (cr, pi, etype) {
 				  "\n"+woas.last_modified(mts)
 				: "onload"+fn+")\"; onerror"+fn+",true)\" /><"+
 				"div id=\"woas_img_desc\">"+this.i18n.LOADING+"<"+"/div>";
-		// PVHL: use my quick & simple macro parser
-		xhtml = this.macro._parse("= "+img_name+"\n\n\n"+"<"+"img id=\"woas_img_tag\" src=\""+
+		xhtml = this.parser.parse("= "+img_name+"\n\n\n"+"<"+"img id=\"woas_img_tag\" src=\""+
 			text+"\" alt=\""+this.xhtml_encode(img_name)+"\" "+load+
 			"\n\nSimple transclusion:\n\n{{{[[Include::"+cr+
 			"]]}}}\n\nTransclusion with additional attributes:\n\n{{{[[Include::"+cr+
@@ -9479,11 +9486,13 @@ woas.set_current = function (cr, interactive, keep_fwd) {
 							this.alert(this.i18n.CANNOT_LOCK_RESERVED);
 							return false;
 						}
+						this.currently_locking = this.js_encode(cr);
 						pi = this.page_index(cr);
 						if (this.AES.isKeySet()) {
 							// display a message
 							if (confirm(this.i18n.CONFIRM_LOCK.sprintf(cr)+
-								(this.last_AES_page ? this.i18n.CONFIRM_LOCK_LAST.sprintf(this.last_AES_page) : ''))) {
+								(this.last_AES_page ? this.i18n.CONFIRM_LOCK_LAST
+									.sprintf(this.last_AES_page) : ''))) {
 								this._finalize_lock(pi);
 								return false;
 							}
@@ -9635,6 +9644,9 @@ woas.load_as_current = function(title, xhtml, mts, set_b, keep_fwd) {
 		this.crash("load_as_current() called with undefined title");
 		return false;
 	}
+	if (title.indexOf("Lock::") !== 0) {
+		this.currently_locking = '';
+	}
 	
 	// used by some special pages (e.g. backlinks) for page title override
 	this.parser.render_title = title;
@@ -9677,7 +9689,7 @@ woas._finalize_lock = function(pi, back) {
 };
 
 woas._perform_lock = function(pi) {
-	// PVHL: Just a preventive; may be a bug that could lock twice:
+	// PVHL: Just a preventive; in case of a bug that could lock twice:
 	//   only lock if unlocked
 	if (!(page_attrs[pi] & 0x2)) {
 		pages[pi] = this.AES.encrypt(pages[pi]);
@@ -9698,8 +9710,19 @@ woas._auto_saver = function() {
 		woas._autosave_thread = setTimeout("woas._auto_saver()", woas.config.auto_save);
 };
 
-// save configuration on exit
 woas._on_unload = function () {
+	// close down Print & Help windows if they exist
+	// Doesn't work in recent Opera
+	if (this.popup_window && !this.popup_window.closed) {
+		this.popup_window.close();
+	}
+	if (this.help_system.popup_window && !this.help_system.popup_window.closed) {
+		this.help_system.popup_window.close();
+	}
+	// PVHL: These saves don't work; will leave code here for now. Testing
+	//	 showed delayed save failures so delayed save was removed as an option
+	//   (risky); config save was removed as it used to corrupt content; this
+	//   (useless?) option actually saves the whole file currently IIRC.
 	if (this.save_queue.length)
 		this.commit(this.save_queue);
 	else {
@@ -9719,7 +9742,7 @@ woas._on_load = function() {
 	this._set_debug(this.config.debug_mode, this.config.debug_closed);
 	d$("woas_debug_log").value = ""; // for Firefox
 	// output platform information - note that revision is filled in only in releases
-	woas.log("*** WoaS v"+this.version+"-pvhl-r2500"+" started");	// log:1
+	woas.log("*** WoaS v"+this.version+"-pvhl-r2504"+" started");	// log:1
 	// needed to check if data source changes; forces full save when entering/exiting
 	// WSIF datasource mode or changing the name of the data source file
 	this._old_wsif_ds = is_windows
@@ -10016,6 +10039,7 @@ woas.rename_page = function(previous, newpage) {
 		// replace direct links and transclusion links
 		NP.body = NP.body.replace(reTitles, function (str, inc) {
 			changed = true;
+			inc = inc || '';
 			ilen = 2 + inc.length;
 			return str.substr(0, ilen)+newpage+str.substr(previous.length+ilen);
 		});
@@ -10750,17 +10774,6 @@ woas.macro = {
 	// 1: name, 2: params, 3: newline before text, 4: text without last newline
 	reMacroDef: /^(%?[A-Za-z0-9_\.]+)\s*(\(.*?\))?\s*: ?(?:[ \t]*(\n))?([\s\S]*?)(?:\n[ \t]*)?$/,
 
-	// allows macros to safely parse text; normal syntax allowed, macros and tags not parsed.
-	// Passed to macro in the macro object: macro.parse()
-	// 'this' is macro object that was passed to macro
-	_parse: function(text) {
-		var snippets = [], P = {};
-		P.body = text || this.text;
-		woas.parser.pre_parse(P, snippets, true);
-		woas.parser.syntax_parse(P, snippets);
-		return P.body;
-	},
-
 	// macro syntax plugin code adapted from FBNil's implementation
 	parser: function(text){
 		// standard macro object
@@ -10890,8 +10903,8 @@ woas.macro = {
 			// the extra div helps IE6
 			var txt1 = "<"+"div><"+"div class='woas_note'>"+woas.i18n.NOTE_TEXT+" ",
 				txt2 = "</"+"div><"+"/div>";
-			// if nothing passed to macro.parse it uses macro.text
-			m.text = txt1 + m.parse() + txt2;
+			m.text = txt1 + m.text + txt2;
+			m.reprocess = true;
 			m.block = true;
 			return true;
 		}
@@ -11245,6 +11258,7 @@ woas.i18n = {
 	LAST_MODIFIED: "Last modified: ",
 	LOADING: "Loading Wiki on a Stick...",
 	LOAD_ERR: "Cannot load specified file.",
+	LOCK_PAGE: "Lock %s",
 	MIME_TYPE: "Mime type",
 	MODE_NOT_AVAIL: "File mode 0x%s is not available on this browser.",
 	NO_ERROR: "No error",
@@ -11257,7 +11271,9 @@ woas.i18n = {
 	PAGE_NOT_EXISTS: "'%s' page does not exist.",
 	PAGE_NOT_FOUND: "Page not found. Do you want to create it?",
 	PRINT_MODE_WARN: "Sorry, you cannot browse the wiki while in print mode.",
+	PWD_ERROR: "Passwords must match each other.",
 	PWD_QUERY: "Please enter a password.",
+	PWD_KEY_SIZE: "Key size: %s bits",
 	READ_ONLY: "This Wiki on a Stick is read-only.",
 	SAVE_ERROR:"Unable to save the '%s' file.",
 	SERVER_MODE: "This Wiki on a Stick is not a local file; changes can only be saved to a local copy of the wiki. Please save this file if you want to make changes.\n\n"+
@@ -12075,6 +12091,18 @@ woas.import_wiki_wsif = function() {
 };
 
 /*** src/export.js ***/
+// PVHL: DEPRECATED - these arrays moved here from core.js; not used elsewhere
+woas.unexportable_pages = ["New Page", "Duplicate Page", "Backlinks", "Erase Wiki", "Edit CSS",
+								"Go to", "Delete Page", "Search"];
+woas.unexportable_pages2 = ["WoaS::CSS", "WoaS::Aliases", "WoaS::Hotkeys", "WoaS::Plugins"];
+
+/* Just needing to look at these for a bit
+woas.static_pages2 = [
+	"WoaS::Plugins", "WoaS::CSS::Boot", "WoaS::CSS::Core", "WoaS::Help",
+	"WoaS::ImportSettings", "WoaS::Template::Search", "WoaS::Template::Info"
+];
+*/
+
 // WoaS 'exporter' module
 woas.exporter = {
 	_unix_norm: false,
@@ -12602,8 +12630,6 @@ woas._native_wsif_save = function(path, src_fname, locking, single_wsif, inline_
 	var extra = this.wsif.header('wsif.version', this.wsif.version);
 	extra += this.wsif.header('wsif.generator', 'woas');
 	extra += this.wsif.header('wsif.generator.version', this.version);
-	if (!single_wsif)
-		extra += this.wsif.header('wsif.type', 'index'); // for safety in recursive loading
 	if (author.length)
 		extra += this.wsif.header('woas.author', author);
 
@@ -12753,6 +12779,8 @@ woas._native_wsif_save = function(path, src_fname, locking, single_wsif, inline_
 		// reset the record
 		record = "";
 	} // foreach page
+	if (!single_wsif)
+		extra += this.wsif.header('wsif.type', 'index'); // for safety in recursive loading
 	// add the total pages number
 	if (full_save || single_wsif)
 		extra += this.wsif.header('woas.pages', done);
@@ -13566,6 +13594,7 @@ PVHL: FIX; this needs to be changed as
 	lock: function() {
 		if (!this.display('no_lock')) {
 			if (woas.pager.bucket.items.length>1)
+				// option not implemented
 				_lock_pages(woas.pager.bucket.items);
 			else
 				woas.set_current("Lock::" + current, true, true);
@@ -13707,10 +13736,13 @@ woas.go_to = function(cr) {
 	if (cr && cr !== current) {
 			r = this.set_current(cr, true);
 	}
+	// PVHL: will rewrite this with dom caching once code stabilizes
 	if (r && section) {
 		el = d$(section);
 		if (el) {
-			mv = el.offsetTop;
+			mv = this.ui.display("fix_h")
+				? el.offsetTop
+				: el.offsetTop + d$("woas_header").offsetHeight;
 		}
 	}
 	// there must be a better way!
@@ -13876,16 +13908,20 @@ PVHL:
 					this.popup_page.sprintf(btn, btn, fn, pg[0], pg[2])));
 			this.popup_window.document.title = title;
 		}
-		this.popup_window.help_resize();
-		if (pg[1]) {
-			el = this.popup_window.d$(pg[1]);
-			if (el) {
-				this.popup_window.d$("woas_help_body_wrap").scrollTop = el.offsetTop;
+
+		// in case popup is waiting for Javascript permission; seen on IE.
+		if (this.popup_window.help_resize) {
+			this.popup_window.help_resize();
+			if (pg[1]) {
+				el = this.popup_window.d$(pg[1]);
+				if (el) {
+					this.popup_window.d$("woas_help_body_wrap").scrollTop = el.offsetTop;
+				}
 			}
+			// stop page load flash
+			setTimeout('woas.help_system.popup_window.focus()', 0);
 		}
-		// stop page load flash
 		pg = null;
-		setTimeout('woas.help_system.popup_window.focus()', 0);
 	}
 };
 
@@ -13998,25 +14034,28 @@ function ro_woas() {
 // Used by Special::Lock
 function lock_page(e) {
 	// PVHL: see my notes for woas._password_ok for flag use discussion
-	//  strings need to be i18n here and in _lock
-	var flag = e ? (e.which || e.keyCode) === 13 : true, pwd, pi;
+	var flag = e ? e.keyCode === 13 : true, pw1, pw2;
 	if (flag) {
-		if (!woas.currently_locking || !d$("pw1")) {
+		pw1 = d$("pw1");
+		pw2 = d$("pw2");
+		if (!woas.currently_locking || !pw1 || !pw2) {
 			return;
 		}
-		pwd = d$("pw1").value;
-		if (!pwd.length) {
-			d$("pw1").focus();
+		if (!pw1.value.length) {
+			pw1.focus();
 			return;
 		}
-		if (pwd !== d$("pw2").value) {
-			alert("Passwords don't match!");
-			d$("pw2").focus();
+		if (!pw2.value.length) {
+			pw2.focus();
 			return;
 		}
-		pi = woas.page_index(woas.currently_locking);
-		woas.AES.setKey(pwd);
-		woas._finalize_lock(pi, true);
+		if (pw1.value !== pw2.value) {
+			alert(woas.i18n.PWD_ERROR);
+			pw2.focus();
+			return;
+		}
+		woas.AES.setKey(pw1.value);
+		woas._finalize_lock(woas.page_index(woas.currently_locking), true);
 	}
 	return true;
 }
@@ -14045,19 +14084,17 @@ function set_key() {
 var _pw_q_lock = false;
 
 function pw_quality() {
-
 	if (_pw_q_lock)
 		return;
-		
 	_pw_q_lock = true;
 
-// used to get a red-to-green color tone
-function _hex_col(tone) {
-	var s=Math.floor(tone).toString(16);
-	if (s.length==1)
-		return "0"+s;
-	return s;
-}
+	// used to get a red-to-green color tone
+	function _hex_col(tone) {
+		var s=Math.floor(tone).toString(16);
+		if (s.length==1)
+			return "0"+s;
+		return s;
+	}
 
 	// original code from http://lxr.mozilla.org/seamonkey/source/security/manager/pki/resources/content/password.js
 	var pw=d$('pw1').value;
@@ -14101,8 +14138,8 @@ function _hex_col(tone) {
 		color = "#" + _hex_col((100-pwstrength)*255/100) + _hex_col((pwstrength*255)/100) + "00";
   
 	d$("pw1").style.backgroundColor = color;
-	woas.setHTMLDiv(d$("txtBits"), "Key size: "+(pwlength*8).toString() + " bits");
-	
+	woas.setHTMLDiv(d$("txtBits"), woas.i18n.PWD_KEY_SIZE.sprintf(pwlength*8));
+
 	_pw_q_lock = false;
 }
 
@@ -14159,7 +14196,7 @@ function _img_properties_show(mime, tot_len, enc_len, mts, fail) {
 		"\n"+woas.last_modified(mts)+(fail ? ''
 		: "\n"+woas.i18n.WIDTH+": "+img.width+"px\n"+
 		woas.i18n.HEIGHT+": "+img.height+"px");
-	woas.setHTMLDiv(d$('woas_img_desc'), woas.macro._parse(html));
+	woas.setHTMLDiv(d$('woas_img_desc'), woas.parser.parse(html));
 	return false;
 }
 
@@ -14175,17 +14212,36 @@ function query_delete_image(cr) {
 // triggered by UI graphic button
 // PVHL: print CSS now controlled by CSS (section /* PRINT */) to allow change
 //   by those who use the print window for presentations.
+//   Could use custom print css read from WoaS::CSS::Print instead
 function page_print() {
-	woas._customized_popup(current,
-		woas.getHTMLDiv(d$("woas_page")),
-		'woas={};woas.go_to=function(page){alert("'
-		+woas.js_encode(woas.i18n.PRINT_MODE_WARN)+'");}',
-		'', ' id="woas_page" class="woas_print"');
+	var t = "WoaS Print - " + current;
+	if (!woas.popup_window || woas.popup_window.closed) {
+		woas.popup_window = woas.popup(
+			"woas_print_popup",
+			Math.ceil(screen.width*0.75),
+			Math.ceil(screen.height*0.75),
+			",status=yes,menubar=yes,resizable=yes,scrollbars=yes",
+			"<"+"title>" + t + "<"+"/title>" + "<"+"style type=\"text/css\">"+
+				woas.css.get() + "<"+"/style>" +
+				woas.raw_js('woas={};woas.go_to=function(page){alert("'+
+					woas.js_encode(woas.i18n.PRINT_MODE_WARN)+'");}'),
+			'<'+'h1 class="woas_print_title">'+current+'<'+'/h1>'+
+				woas.getHTMLDiv(d$("woas_page")),
+			' id="woas_page" class="woas_print"');
+	} else {
+		woas.setHTMLDiv(woas.popup_window.document.body,
+			'<'+'h1 class="woas_print_title">'+current+'<'+'/h1>'+
+			woas.getHTMLDiv(d$('woas_page')));
+		woas.popup_window.document.title = t;
+		//woas.popup_window.focus();
+		setTimeout('woas.popup_window.focus()', 0);
+	}
 }
 
 /*
-Needs change to custom help/print css. Read from WoaS::CSS::[Help|Print]
-This function is no longer used by the help system; print_popup is hardwired!
+This function is no longer used by the help system; print_popup is hardwired?
+Also no longer used by the page_print function, but left here just in case it's
+used by custom code (want print to be customizable)
 */
 woas._customized_popup = function(page_title, page_body, additional_js,
 		additional_css, body_extra) {
@@ -14407,18 +14463,30 @@ woas.update_view = function() {
 // PVHL: still some edit resize issues with Safari. Works well enough though.
 //   document.documentElement.clientHeight works in all browsers so window.height
 //   not used; old IEs don't have window.height.
+//   Quickly refactored to handle long titles; will do better in new code
+//   Top padding for content is hard-wired to 12px until I can test more browsers
 woas.ui._resize = (function() {
-	function resize() {
+	var hh = -1;
+	function resize(p) {
+		// hack to adjust header for two line titles
+		var hh_el = d$("woas_header"), hh_now; // els should be cached
+		if (hh_el) {
+			// Opera is failing with offsetHeight
+			hh_now = hh_el.offsetHeight;
+			if (hh !== hh_now) {
+				hh = hh_now;
+				d$("woas_content").style.paddingTop = hh_now + 12 + "px";
+			}
+		}
 		if (woas.ui.edit_mode) {
+			// h - 1 helps early IE and Opera; not sure why yet; OK for others
 			var e = d$('woas_editor'), h = e.offsetHeight +
-				document.documentElement.clientHeight - document.body.offsetHeight;
+				document.documentElement.clientHeight - document.body.offsetHeight - 1;
 			if (woas.browser.ie && Number(woas.browser.ie) < 7) {
 				// stops IE6 textarea overflow; will fix later
 				e.style.width = 0;
 				e.style.width = d$('woas_editor_sizer').offsetWidth + 'px';
 			}
-			// PVHL: stops Opera overflow on resize while editing; don't know why it happens yet
-			if (woas.browser.opera) { --h };
 			e.style.height = (h > 64 ? h : 64) + 'px';
 		}
 	}
@@ -14576,16 +14644,15 @@ woas.crash = function() {
 };
 
 // PVHL: have simplified usage (here just to document):
+//   set by 'Lock::' in 'set_current' is set, cleared by load_as_current.
 woas.currently_locking = '';
-// called from Special::Lock page
+// initialize page on loading; called from Special::Lock page
 function _lock_page() {
-	// do not call if not on a page locking context
-	if (current.indexOf("Lock::")!==0)
-		return;
-	var page = current.substring(6);
-	woas.currently_locking = page;
-	d$("btn_lock").value = "Lock "+page;
-	d$("pw1").focus();
+	// do not call if not in a page locking context
+	if (woas.currently_locking) {
+		d$("btn_lock").value = woas.i18n.LOCK_PAGE.sprintf(woas.currently_locking);
+		d$("pw1").focus();
+	}
 }
 
 function _woas_new_plugin() {
