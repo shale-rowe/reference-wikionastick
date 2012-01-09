@@ -356,11 +356,23 @@ woas._native_wsif_load = function(path, locking, _native, recursing, import_hook
 	// start looping to find each page
 	var p = ct.indexOf(pfx), fail = false,
 	// this is used to mark end-of-block
-		previous_h = null;
+		previous_h = null, chk;
+
 	// too early failure
 	if (p === -1)
 		this.wsif.do_error("Invalid WSIF file");
-	else { // OK, first page was located, now get some general WSIF info
+	else { // OK, first page was located
+		// PVHL: check that contents has UNIX line endings
+		//   (a handwritten wsif file could choke otherwise)
+		chk = ct.substr(0, p);
+		if (chk.indexOf('\r') !== -1) {
+			// change to UNIX line endings
+			ct = ct.replace(new RegExp("\r\n", "g"), "\n");
+			p = ct.indexOf(pfx);
+		}
+		chk = null;
+
+		// now get some general WSIF info
 		var wsif_v = ct.substring(0,p).match(/^wsif\.version:\s+(.+)$/m);
 		if (wsif_v === null) {
 			this.wsif.do_error(this.i18n.WSIF_NO_VER);
