@@ -302,7 +302,7 @@ Do let me know what you think and any issues you find. Be sure to check out some
 \n\
 Some of these changes will have broken some plug-ins; future changes will break some more. They can be fixed once things are stable. Thanks for your patience.\n\
 \n\
-By the way, if you want to change the menu width the CSS you need to add to WoaS::Custom:CSS looks like this\n\
+By the way, if you want to change the menu width the CSS you need to add to [[WoaS::CSS::Custom]] looks like this\n\
 {{{\n\
 #woas_footer_wrap, #woas_page_wrap {\n\
 	margin-left: 13em;\n\
@@ -2948,7 +2948,7 @@ table td.special {\n\
 }\n\
 \x3C/style\x3E\n\
 ',
-'This wiki accepts wiki and HTML links.\n\
+'[[Special::TOC]]This wiki accepts wiki and HTML links.\n\
 == Wiki links\n\
 Below are methods for creating links using wiki syntax.\n\
 === Anchor link\n\
@@ -3876,21 +3876,20 @@ img.woas_nav { /* woas logo */\n\
 #woas_password_desc {\n\
 	background-color: #FAFAFB;\n\
 	border: 1px solid #000080; /* navy */\n\
-	font-size: 0.75em;\n\
 	margin: 0px 10%;\n\
 	padding: 2em\n\
 }\n\
 /* mask should not contain borders/padding/margins */\n\
 #woas_pwd_mask {\n\
-	font-size: large;\n\
 	text-align: center\n\
 }\n\
 #woas_pwd_query {\n\
 	position: relative;\n\
 	margin: 0px 10%;\n\
 	top: 10%;\n\
+	padding-top: 1em;\n\
 	background-color: #d6dff7;\n\
-	border: 2px solid #666666;\n\
+	border: 2px solid #666666\n\
 }\n\
 \n\
 /* PRINT  (at end of CSS) */\n\
@@ -4440,6 +4439,7 @@ Changes since Revision pvhl-2317 (git: 3d939c7)\n\
 \n\
 (needing to archive my work in an incomplete though working state; export probably isn\'t working right yet)\n\
 \n\
+* enable import of wsif files with Windows EOL (just in case)\n\
 * complete fix of page locking (incl. button: forgot I hadn\'t finished refactoring; sorry)\n\
 * fix incorrect \'index\' status I added to multiple page wsif saves\n\
 * add woas_print_title CSS class and title to print window\n\
@@ -4708,9 +4708,9 @@ Revision pvhl-2286\n\
 <title woas_permanent="1">Main Page</title>
 <style type="text/css" woas_permanent="1" woas_core_style="1">/* CSS used when loading/saving WoaS - readonly */
 body {
-	margin: 0;
-	padding: 0;
-	border-width: 0;
+	margin: 0px;
+	padding: 0px;
+	border-width: 0px;
 	font-family: Georgia, verdana;
 	background-color: #F0F0F5; /* to match layout; no name */
 }
@@ -4725,7 +4725,7 @@ body {
 	text-align: center
 }
 #woas_debug_console {
-	width:50%;
+	width: 50%;
 	margin: 3em auto
 }
 #woas_debug_log {
@@ -6964,7 +6964,8 @@ parse_lists: function(str, type) {
 // PVHL: needs more refactoring; pass snippets to macro? Returned
 //   text should not need more processing
 //   m.block flags removal of dnl; being tested as a possible remedy
-//   for some formatting issues (works well, but undocumented at present).
+//   for some formatting issues (works well, but undocumented at present;
+//   there is probably a better way to do this though).
 parse_macros: function(P, snippets) {
 	var that = this;
 	P.body = P.body.replace(this.reMacros, function (str, $1, dynamic_nl) {
@@ -6973,12 +6974,12 @@ parse_macros: function(P, snippets) {
 		var macro = woas.macro.parser($1);
 		if (macro.reprocess) {
 			// allow further parser processing
-			return macro.text + (macro.block ? this.NL_MARKER : '') +
+			return macro.text + (macro.block ? that.NL_MARKER : '') +
 				dynamic_nl;
 		}
-		// otherwise store it for later
 		if (!macro.defn && snippets.length) {
-			// text could have nowiki text in it; retrieve now
+			// text could have nowiki text in it so retrieve now
+			// (don't want snippet references stored in snippets).
 			// can't use undry because of name difference; FIX?
 			macro.text = macro.text.replace(that.reBaseSnippet,
 				function (str, $1) {
@@ -7117,7 +7118,7 @@ syntax_parse: function(P, snippets, tags, export_links, has_toc) {
 	P.body = P.body.replace(/\\\n/g, "")
 
 	// put HTML tags and tag sequences away (along with attributes)
-	P.body = P.body.replace(this.reHtml, function(str, ws, tags, last, dnl) {
+	.replace(this.reHtml, function(str, ws, tags, last, dnl) {
 		// stop certain html block tags from having a br tag appended when at line end
 		if (that.reBlkHtml.test(last))
 			return ws + that.place_holder_dnl(snippets, tags, dnl);
@@ -9742,7 +9743,7 @@ woas._on_load = function() {
 	this._set_debug(this.config.debug_mode, this.config.debug_closed);
 	d$("woas_debug_log").value = ""; // for Firefox
 	// output platform information - note that revision is filled in only in releases
-	woas.log("*** WoaS v"+this.version+"-pvhl-r2504"+" started");	// log:1
+	woas.log("*** WoaS v"+this.version+"-pvhl-r2507"+" started");	// log:1
 	// needed to check if data source changes; forces full save when entering/exiting
 	// WSIF datasource mode or changing the name of the data source file
 	this._old_wsif_ds = is_windows
@@ -12877,11 +12878,23 @@ woas._native_wsif_load = function(path, locking, _native, recursing, import_hook
 	// start looping to find each page
 	var p = ct.indexOf(pfx), fail = false,
 	// this is used to mark end-of-block
-		previous_h = null;
+		previous_h = null, chk;
+
 	// too early failure
 	if (p === -1)
 		this.wsif.do_error("Invalid WSIF file");
-	else { // OK, first page was located, now get some general WSIF info
+	else { // OK, first page was located
+		// PVHL: check that contents has UNIX line endings
+		//   (a handwritten wsif file could choke otherwise)
+		chk = ct.substr(0, p);
+		if (chk.indexOf('\r') !== -1) {
+			// change to UNIX line endings
+			ct = ct.replace(new RegExp("\r\n", "g"), "\n");
+			p = ct.indexOf(pfx);
+		}
+		chk = null;
+
+		// now get some general WSIF info
 		var wsif_v = ct.substring(0,p).match(/^wsif\.version:\s+(.+)$/m);
 		if (wsif_v === null) {
 			this.wsif.do_error(this.i18n.WSIF_NO_VER);
@@ -13729,8 +13742,8 @@ woas.go_to = function(cr) {
 		woas.help_system.go_to(parts);
 		return true;
 	}
-	// don't go anywhere while editing!
-	if (this.ui.edit_mode) {
+	// don't change page when editing or entering a password
+	if (this.ui.edit_mode || this.ui.display('pswd')) {
 		return false;
 	}
 	if (cr && cr !== current) {
@@ -14574,7 +14587,7 @@ woas.ui.refresh_menu = function() {
 			woas.parser.parse(menu, false, woas.js_mode(ns+"::Menu")));
 		woas.parser._parsing_menu = false;
 		if (!ns) {
-// PVHL: check why woas is done every time; change to when needed
+// PVHL: check why this is done every time; change to when needed
 			woas.scripting.clear("menu");
 			woas.scripting.activate("menu");
 		}
@@ -14974,9 +14987,9 @@ function setTag() {
 <body onload="woas._on_load()" onunload="woas._on_unload()">
 <div id="loading_overlay"><noscript>If you are seeing this text, your browser is not javascript-enabled.</noscript><div id="woas_wait_text">Loading Wiki on a Stick...</div></div>
 <div id="woas_pwd_mask"><div id="woas_pwd_query">
-<h3>Enter a password</h3>
+<h2>Enter a password</h2>
 <p><input id="woas_password" size="40" type="password" onkeydown="woas._password_ok(this, event)" /></p>
-<p id="woas_password_desc">The password you enter here will be used the next time you attempt to access an encrypted page or lock/unlock a page. It will then be kept or removed depending on the AES key caching option you have chosen in <a class="woas_link" onClick="woas.go_to('WoaS::Help::Special::Options')">Special::Options</a>.</p>
+<p id="woas_password_desc">The password you enter here will be used the next time you attempt to access an encrypted page or lock/unlock a page. It will then be kept or removed depending on the AES key caching option you have chosen in <a class="woas_link" title="WoaS::Help::Special::Options#Do not temporarily cache the AES key" onClick="woas.go_to('WoaS::Help::Special::Options#S59365')">Special::Options</a>.</p>
 <p><input value="OK" onclick="woas._password_ok(d$('woas_password'))" class="woas_button" type="button" />&nbsp;<input value="Cancel" onclick="woas._password_cancel()" class="woas_button" type="button" /></p>
 </div></div>
 <div id="woas_header_wrap"><div id="woas_header"><div class="woas_nav">

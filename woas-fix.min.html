@@ -302,7 +302,7 @@ Do let me know what you think and any issues you find. Be sure to check out some
 \n\
 Some of these changes will have broken some plug-ins; future changes will break some more. They can be fixed once things are stable. Thanks for your patience.\n\
 \n\
-By the way, if you want to change the menu width the CSS you need to add to WoaS::Custom:CSS looks like this\n\
+By the way, if you want to change the menu width the CSS you need to add to [[WoaS::CSS::Custom]] looks like this\n\
 {{{\n\
 #woas_footer_wrap, #woas_page_wrap {\n\
 	margin-left: 13em;\n\
@@ -2948,7 +2948,7 @@ table td.special {\n\
 }\n\
 \x3C/style\x3E\n\
 ',
-'This wiki accepts wiki and HTML links.\n\
+'[[Special::TOC]]This wiki accepts wiki and HTML links.\n\
 == Wiki links\n\
 Below are methods for creating links using wiki syntax.\n\
 === Anchor link\n\
@@ -3876,21 +3876,20 @@ img.woas_nav { /* woas logo */\n\
 #woas_password_desc {\n\
 	background-color: #FAFAFB;\n\
 	border: 1px solid #000080; /* navy */\n\
-	font-size: 0.75em;\n\
 	margin: 0px 10%;\n\
 	padding: 2em\n\
 }\n\
 /* mask should not contain borders/padding/margins */\n\
 #woas_pwd_mask {\n\
-	font-size: large;\n\
 	text-align: center\n\
 }\n\
 #woas_pwd_query {\n\
 	position: relative;\n\
 	margin: 0px 10%;\n\
 	top: 10%;\n\
+	padding-top: 1em;\n\
 	background-color: #d6dff7;\n\
-	border: 2px solid #666666;\n\
+	border: 2px solid #666666\n\
 }\n\
 \n\
 /* PRINT  (at end of CSS) */\n\
@@ -4440,6 +4439,7 @@ Changes since Revision pvhl-2317 (git: 3d939c7)\n\
 \n\
 (needing to archive my work in an incomplete though working state; export probably isn\'t working right yet)\n\
 \n\
+* enable import of wsif files with Windows EOL (just in case)\n\
 * complete fix of page locking (incl. button: forgot I hadn\'t finished refactoring; sorry)\n\
 * fix incorrect \'index\' status I added to multiple page wsif saves\n\
 * add woas_print_title CSS class and title to print window\n\
@@ -4708,9 +4708,9 @@ Revision pvhl-2286\n\
 <title woas_permanent="1">Main Page</title>
 <style type="text/css" woas_permanent="1" woas_core_style="1">/* CSS used when loading/saving WoaS - readonly */
 body {
-	margin: 0;
-	padding: 0;
-	border-width: 0;
+	margin: 0px;
+	padding: 0px;
+	border-width: 0px;
 	font-family: Georgia, verdana;
 	background-color: #F0F0F5; /* to match layout; no name */
 }
@@ -4725,7 +4725,7 @@ body {
 	text-align: center
 }
 #woas_debug_console {
-	width:50%;
+	width: 50%;
 	margin: 3em auto
 }
 #woas_debug_log {
@@ -5006,7 +5006,7 @@ return sublist(lst,ll+1,type);var item,subl,s='';while(lst[0][1].length==ll){ite
 s+=lst_item.sprintf(item[2]+lst_type[type].sprintf(subl));else
 s+=lst_item.sprintf(item[2]);if(!lst.length)
 break;}
-return s;};var lst_item='<'+'li>%s<'+'/li>'+woas.parser.NL_MARKER+'\n',lst_type=['<'+'ul>%s<'+'/ul>'+woas.parser.NL_MARKER,'<'+'ol>%s<'+'/ol>'+woas.parser.NL_MARKER,'<'+'ol type="a">%s<'+'/ol>'+woas.parser.NL_MARKER],stk=[];type="*#@".indexOf(type);if(type===-1)return;str.replace(woas.parser.reListItem,function(str,p1,p2){stk.push([str,p1,p2]);});return lst_type[type].sprintf(sublist(stk,1,type));},parse_macros:function(P,snippets){var that=this;P.body=P.body.replace(this.reMacros,function(str,$1,dynamic_nl){dynamic_nl=dynamic_nl||'';var macro=woas.macro.parser($1);if(macro.reprocess){return macro.text+(macro.block?this.NL_MARKER:'')+
+return s;};var lst_item='<'+'li>%s<'+'/li>'+woas.parser.NL_MARKER+'\n',lst_type=['<'+'ul>%s<'+'/ul>'+woas.parser.NL_MARKER,'<'+'ol>%s<'+'/ol>'+woas.parser.NL_MARKER,'<'+'ol type="a">%s<'+'/ol>'+woas.parser.NL_MARKER],stk=[];type="*#@".indexOf(type);if(type===-1)return;str.replace(woas.parser.reListItem,function(str,p1,p2){stk.push([str,p1,p2]);});return lst_type[type].sprintf(sublist(stk,1,type));},parse_macros:function(P,snippets){var that=this;P.body=P.body.replace(this.reMacros,function(str,$1,dynamic_nl){dynamic_nl=dynamic_nl||'';var macro=woas.macro.parser($1);if(macro.reprocess){return macro.text+(macro.block?that.NL_MARKER:'')+
 dynamic_nl;}
 if(!macro.defn&&snippets.length){macro.text=macro.text.replace(that.reBaseSnippet,function(str,$1){return snippets[parseInt($1)];})}
 if(macro.block){return that.place_holder_dnl(snippets,macro.text,dynamic_nl)}
@@ -5016,8 +5016,7 @@ var cells=pp2.replace(woas.parser.reReapTablesNewSub2,"$1$2$3  ").replace(woas.p
 stk.push(row.join(""));});return'<'+'table '+((prop.indexOf("class=")!==-1)?'':'class="woas_text_area" ')+prop+'>'+caption+colgroup+'<'+'tr>'+stk.join('<'+'/tr><'+'tr>')+'<'+'/tr>'+'<'+'/table>'+woas.parser.NL_MARKER;},place_holder:function(snippets,str){snippets.push(str);return this.marker+(snippets.length-1)+';';},place_holder_dnl:function(snippets,str,dnl){snippets.push(str);return this.marker+(snippets.length-1)+';'+
 (!dnl?'':this.NL_MARKER+dnl);},pre_parse:function(P,snippets,no_macros){var that=this;this.parse_nowiki(P,snippets);if(!no_macros){this.parse_macros(P,snippets);}
 P.body=P.body.replace(this.reComments,function(str,comment,dynamic_nl){return that.place_holder_dnl(snippets,str,dynamic_nl);});},render_error:function(str,symbol){symbol="&"+symbol+";";return"<"+"span style=\"color:red;font-weight:bold;\">"+symbol+" "+str+" "+symbol+"<"+"/span>";},split_tags:function(tlist){if(tlist.indexOf(",")!==-1)
-return tlist.split(",");return tlist.split("|");},syntax_parse:function(P,snippets,tags,export_links,has_toc){var that=this;P.body=P.body.replace(/\\\n/g,"")
-P.body=P.body.replace(this.reHtml,function(str,ws,tags,last,dnl){if(that.reBlkHtml.test(last))
+return tlist.split(",");return tlist.split("|");},syntax_parse:function(P,snippets,tags,export_links,has_toc){var that=this;P.body=P.body.replace(/\\\n/g,"").replace(this.reHtml,function(str,ws,tags,last,dnl){if(that.reBlkHtml.test(last))
 return ws+that.place_holder_dnl(snippets,tags,dnl);return ws+that.place_holder(snippets,tags)+(!dnl?'':dnl);}).replace(this.reWikiLink,function(str,target,label){if(target)
 return that._render_wiki_link(target,label,snippets,tags,export_links);return str;}).replace(this.reAutoLinks,function(str,prot){return that.place_holder(snippets,woas.config.auto_links&&prot&&(prot.length+3!==str.length)?'<'+'a class="woas_world_link" href="'+str+'" target="_blank">'+str+'<'+'/a>':str);}).replace(/(^|_|[^\w:])\/(.+?)\//mg,"$1<"+"em>$2<"+"/em>").replace(/(^|[^\w])_(.+?)_/mg,"$1<"+"span style=\"text-decoration:underline;\">$2<"+"/span>").replace(this.reListReap,this.parse_lists).replace(woas.config.new_tables_syntax?this.reReapTablesNew:this.reReapTables,woas.config.new_tables_syntax?this.parse_tables_new:this.parse_tables).replace(/(^|[^\w])\*(.+?)\*/mg,"$1<"+"strong>$2<"+"/strong>").replace(this.reRuler,this._HR+this.NL_MARKER);this.extend_syntax(P);P.body=P.body.replace(this.reHeading,function(str,depth,heading){if(!heading){return str;}
 var anchor,toc_entry,len=depth.length;toc_entry=heading.replace(that.reBaseSnippet,function(str,$1){return snippets[parseInt($1)];}).replace(/(<\/?\w+[^>]*>)+/g,'');anchor=that.heading_anchor(toc_entry);if(that.has_toc){that.toc.push(len);that.toc.push(anchor);that.toc.push(toc_entry);}
@@ -5308,7 +5307,7 @@ if(this.help_system.popup_window&&!this.help_system.popup_window.closed){this.he
 if(this.save_queue.length)
 this.commit(this.save_queue);else{if(this.config.save_on_quit&&this.cfg_changed)
 this.cfg_commit();}
-return true;};woas.getHTMLDiv=function(elem){return elem.innerHTML;};woas.setHTMLDiv=function(elem,html){elem.innerHTML=html;};woas._on_load=function(){this._set_debug(this.config.debug_mode,this.config.debug_closed);d$("woas_debug_log").value="";woas.log("*** WoaS v"+this.version+"-pvhl-r2504"+" started");this._old_wsif_ds=is_windows?this.config.wsif_ds.replace(reFwdSlash,'\\'):this.config.wsif_ds;if(this.browser.ie&&Number(this.browser.ie)<9){this.setHTML=function(elem,html){elem.text=html;};this.getHTML=function(elem){return elem.text;};}else{this.setHTML=this.setHTMLDiv;this.getHTML=this.getHTMLDiv;}
+return true;};woas.getHTMLDiv=function(elem){return elem.innerHTML;};woas.setHTMLDiv=function(elem,html){elem.innerHTML=html;};woas._on_load=function(){this._set_debug(this.config.debug_mode,this.config.debug_closed);d$("woas_debug_log").value="";woas.log("*** WoaS v"+this.version+"-pvhl-r2507"+" started");this._old_wsif_ds=is_windows?this.config.wsif_ds.replace(reFwdSlash,'\\'):this.config.wsif_ds;if(this.browser.ie&&Number(this.browser.ie)<9){this.setHTML=function(elem,html){elem.text=html;};this.getHTML=function(elem){return elem.text;};}else{this.setHTML=this.setHTMLDiv;this.getHTML=this.getHTMLDiv;}
 if(this.log()&&this.tweak.integrity_test&&!this.integrity_test()){return;}
 if(this.config.wsif_ds.length){var path=is_windows?this.config.wsif_ds.replace(reFwdSlash,'\\'):this.config.wsif_ds.replace(/\\/g,'/');if(!this._wsif_ds_load(path,this.config.wsif_ds_lock)){if(this.wsif.emsg!==null){this._set_debug(true);this.crash("Could not load WSIF pages data!\n"+this.wsif.emsg);}
 return;}}
@@ -5624,8 +5623,9 @@ this.progress_finish();if(ct===false)
 this.alert(this.i18n.LOAD_ERR);return false;}
 if(path){var pos=path.lastIndexOf('/')+1||path.lastIndexOf('\\')+1;if(pos)path=path.substring(0,pos);}
 if(!recursing){this.wsif.expected_pages=null;this.wsif.emsg=this.i18n.NO_ERROR;this.wsif.imported=[];this.wsif.global_progress=0;this.wsif.generator={version:null,name:null};}
-var pfx="\nwoas.page.",pfx_len=pfx.length;var p=ct.indexOf(pfx),fail=false,previous_h=null;if(p===-1)
-this.wsif.do_error("Invalid WSIF file");else{var wsif_v=ct.substring(0,p).match(/^wsif\.version:\s+(.+)$/m);if(wsif_v===null){this.wsif.do_error(this.i18n.WSIF_NO_VER);p=-1;fail=true;}else{wsif_v=wsif_v[1];var wsif_v_n=this._normver(wsif_v);if((wsif_v_n==100)||(wsif_v_n>this._normver(this.wsif.version))){this.wsif.do_error(this.i18n.WSIF_NS_VER.sprintf(wsif_v));p=-1;fail=true;}else{if(!recursing){is_index=ct.substring(0,p).indexOf('wsif.type: index')!==-1;if(is_index)this.wsif.ds_multi=true;this.wsif.expected_pages=ct.substring(0,p).match(/^woas\.pages:\s+(\d+)$/m);if(this.wsif.expected_pages!==null)
+var pfx="\nwoas.page.",pfx_len=pfx.length;var p=ct.indexOf(pfx),fail=false,previous_h=null,chk;if(p===-1)
+this.wsif.do_error("Invalid WSIF file");else{chk=ct.substr(0,p);if(chk.indexOf('\r')!==-1){ct=ct.replace(new RegExp("\r\n","g"),"\n");p=ct.indexOf(pfx);}
+chk=null;var wsif_v=ct.substring(0,p).match(/^wsif\.version:\s+(.+)$/m);if(wsif_v===null){this.wsif.do_error(this.i18n.WSIF_NO_VER);p=-1;fail=true;}else{wsif_v=wsif_v[1];var wsif_v_n=this._normver(wsif_v);if((wsif_v_n==100)||(wsif_v_n>this._normver(this.wsif.version))){this.wsif.do_error(this.i18n.WSIF_NS_VER.sprintf(wsif_v));p=-1;fail=true;}else{if(!recursing){is_index=ct.substring(0,p).indexOf('wsif.type: index')!==-1;if(is_index)this.wsif.ds_multi=true;this.wsif.expected_pages=ct.substring(0,p).match(/^woas\.pages:\s+(\d+)$/m);if(this.wsif.expected_pages!==null)
 this.wsif.expected_pages=Number(this.wsif.expected_pages[1]);this.wsif.generator.name=ct.substring(0,p).match(/^wsif\.generator:\s+(.+)$/m);if(this.wsif.generator.name!==null){this.wsif.generator.name=this.wsif.generator.name[1];this.wsif.generator.version=ct.substring(0,p).match((wsif_v_n<131)?/^woas\.version:\s+(.+)$/m:/^wsif\.generator\.version:\s+(.+)$/m);if(this.wsif.generator.version!==null){this.wsif.generator.version=this.wsif.generator.version[1];}}
 if(this.wsif.generator.name==="woas"){if(this.wsif.generator.version===null){this.wsif.do_error("WSIF generator version is not available");p=-1;fail=true;}else{if(!_native)
 this.importer._old_version=this._normver(this.wsif.generator.version);else{if(this.wsif.generator.version!==this.version){this.wsif.do_error("WSIF generator version should match WoaS version");p=-1;fail=true;}}}}else{if(!_native){this.importer._old_version=this._normver(this.version);}else{this.wsif.do_error("WSIF generator is not 'woas'");p=-1;fail=true;}}}}}}
@@ -5725,7 +5725,7 @@ if(str&&confirm(str+i.CHOOSE_CANCEL)){woas.config.wsif_ds=fn;woas.wsif.ds_multi=
 if(chk_box){chk_box.checked=woas.bool2chk(woas.wsif.ds_multi);if(!set){fn=ds;}}
 if(!str){txt_box.value=is_windows?fn.replace(reFwdSlash,'\\'):fn;}}};woas.ui._textbox_enter_event=woas.ui._textbox_enter_event_dummy;woas.go_to=function(cr){var parts=cr.split('#'),section=parts[1],r=true,mv=0,el;cr=parts[0];if(cr.indexOf(this.help_system._pfx)===0&&cr.substr(-2)!=='::'&&current&&page_titles.indexOf(parts[0])!==-1){parts[0]=cr.substr(this.help_system._pfx.length);if(!parts[1]){parts[1]='';}
 woas.help_system.go_to(parts);return true;}
-if(this.ui.edit_mode){return false;}
+if(this.ui.edit_mode||this.ui.display('pswd')){return false;}
 if(cr&&cr!==current){r=this.set_current(cr,true);}
 if(r&&section){el=d$(section);if(el){mv=this.ui.display("fix_h")?el.offsetTop:el.offsetTop+d$("woas_header").offsetHeight;}}
 if(cr!=='Special::Go to'){document.documentElement.scrollTop=mv;document.body.scrollTop=mv;}
@@ -5926,9 +5926,9 @@ woas._editor.setSelectedText("[[Tag::",tag+"]]");}
 <body onload="woas._on_load()" onunload="woas._on_unload()">
 <div id="loading_overlay"><noscript>If you are seeing this text, your browser is not javascript-enabled.</noscript><div id="woas_wait_text">Loading Wiki on a Stick...</div></div>
 <div id="woas_pwd_mask"><div id="woas_pwd_query">
-<h3>Enter a password</h3>
+<h2>Enter a password</h2>
 <p><input id="woas_password" size="40" type="password" onkeydown="woas._password_ok(this, event)" /></p>
-<p id="woas_password_desc">The password you enter here will be used the next time you attempt to access an encrypted page or lock/unlock a page. It will then be kept or removed depending on the AES key caching option you have chosen in <a class="woas_link" onClick="woas.go_to('WoaS::Help::Special::Options')">Special::Options</a>.</p>
+<p id="woas_password_desc">The password you enter here will be used the next time you attempt to access an encrypted page or lock/unlock a page. It will then be kept or removed depending on the AES key caching option you have chosen in <a class="woas_link" title="WoaS::Help::Special::Options#Do not temporarily cache the AES key" onClick="woas.go_to('WoaS::Help::Special::Options#S59365')">Special::Options</a>.</p>
 <p><input value="OK" onclick="woas._password_ok(d$('woas_password'))" class="woas_button" type="button" />&nbsp;<input value="Cancel" onclick="woas._password_cancel()" class="woas_button" type="button" /></p>
 </div></div>
 <div id="woas_header_wrap"><div id="woas_header"><div class="woas_nav">
