@@ -487,7 +487,8 @@ parse_lists: function(str, type) {
 // PVHL: needs more refactoring; pass snippets to macro? Returned
 //   text should not need more processing
 //   m.block flags removal of dnl; being tested as a possible remedy
-//   for some formatting issues (works well, but undocumented at present).
+//   for some formatting issues (works well, but undocumented at present;
+//   there is probably a better way to do this though).
 parse_macros: function(P, snippets) {
 	var that = this;
 	P.body = P.body.replace(this.reMacros, function (str, $1, dynamic_nl) {
@@ -496,12 +497,12 @@ parse_macros: function(P, snippets) {
 		var macro = woas.macro.parser($1);
 		if (macro.reprocess) {
 			// allow further parser processing
-			return macro.text + (macro.block ? this.NL_MARKER : '') +
+			return macro.text + (macro.block ? that.NL_MARKER : '') +
 				dynamic_nl;
 		}
-		// otherwise store it for later
 		if (!macro.defn && snippets.length) {
-			// text could have nowiki text in it; retrieve now
+			// text could have nowiki text in it so retrieve now
+			// (don't want snippet references stored in snippets).
 			// can't use undry because of name difference; FIX?
 			macro.text = macro.text.replace(that.reBaseSnippet,
 				function (str, $1) {
@@ -640,7 +641,7 @@ syntax_parse: function(P, snippets, tags, export_links, has_toc) {
 	P.body = P.body.replace(/\\\n/g, "")
 
 	// put HTML tags and tag sequences away (along with attributes)
-	P.body = P.body.replace(this.reHtml, function(str, ws, tags, last, dnl) {
+	.replace(this.reHtml, function(str, ws, tags, last, dnl) {
 		// stop certain html block tags from having a br tag appended when at line end
 		if (that.reBlkHtml.test(last))
 			return ws + that.place_holder_dnl(snippets, tags, dnl);
