@@ -202,7 +202,7 @@ Do let me know what you think and any issues you find. Be sure to check out some
 
 Some of these changes will have broken some plug-ins; future changes will break some more. They can be fixed once things are stable. Thanks for your patience.
 
-By the way, if you want to change the menu width the CSS you need to add to WoaS::Custom:CSS looks like this
+By the way, if you want to change the menu width the CSS you need to add to [[WoaS::CSS::Custom]] looks like this
 {{{
 #woas_footer_wrap, #woas_page_wrap {
 	margin-left: 13em;
@@ -3240,7 +3240,7 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-This wiki accepts wiki and HTML links.
+[[Special::TOC]]This wiki accepts wiki and HTML links.
 == Wiki links
 Below are methods for creating links using wiki syntax.
 === Anchor link
@@ -4248,21 +4248,20 @@ img.woas_nav { /* woas logo */
 #woas_password_desc {
 	background-color: #FAFAFB;
 	border: 1px solid #000080; /* navy */
-	font-size: 0.75em;
 	margin: 0px 10%;
 	padding: 2em
 }
 /* mask should not contain borders/padding/margins */
 #woas_pwd_mask {
-	font-size: large;
 	text-align: center
 }
 #woas_pwd_query {
 	position: relative;
 	margin: 0px 10%;
 	top: 10%;
+	padding-top: 1em;
 	background-color: #d6dff7;
-	border: 2px solid #666666;
+	border: 2px solid #666666
 }
 
 /* PRINT  (at end of CSS) */

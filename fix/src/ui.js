@@ -378,8 +378,8 @@ woas.go_to = function(cr) {
 		woas.help_system.go_to(parts);
 		return true;
 	}
-	// don't go anywhere while editing!
-	if (this.ui.edit_mode) {
+	// don't change page when editing or entering a password
+	if (this.ui.edit_mode || this.ui.display('pswd')) {
 		return false;
 	}
 	if (cr && cr !== current) {
@@ -1223,7 +1223,7 @@ woas.ui.refresh_menu = function() {
 			woas.parser.parse(menu, false, woas.js_mode(ns+"::Menu")));
 		woas.parser._parsing_menu = false;
 		if (!ns) {
-// PVHL: check why woas is done every time; change to when needed
+// PVHL: check why this is done every time; change to when needed
 			woas.scripting.clear("menu");
 			woas.scripting.activate("menu");
 		}
