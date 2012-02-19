@@ -7,7 +7,6 @@ woas.i18n = {
 	CANCEL_EDITING:"Changes to this page will not be saved.",
 	CANNOT_LOCK_RESERVED: "You cannot lock a page in a reserved namespace.",
 	CHOOSE_CANCEL: "\n\nIf you don't want this to happen choose Cancel.",
-	CONFIRM_OVERWRITE: "Page \"%s\" already exists. Overwrite it?",
 	CONFIRM_DELETE:"Are you sure you want to DELETE the '%s' page?",
 	CONFIRM_DELETE_ALL1: "You are about to ERASE all your pages.\n\nDo you want to continue?",
 	CONFIRM_DELETE_ALL2: "This is the last confirmation needed before ERASING all your pages.\n\nALL YOUR PAGES WILL BE LOST\n\nAre you sure you want to continue?",
@@ -15,6 +14,7 @@ woas.i18n = {
 	CONFIRM_EXPORT: "Export '%s' to the path specified below?",
 	CONFIRM_LOCK: "Do you want to use the last password entered to lock the '%s' page? ",
 	CONFIRM_LOCK_LAST: "The password was last used on the '%s' page.",
+	CONFIRM_OVERWRITE: "Page '%s' already exists. Overwrite it?",
 	CONFIRM_READ_ONLY: "You will have to manually edit the file to revert this change.\n\nAny other changes to options will also be saved.",
 	CONFIRM_REMOVE_ENCRYPT: "Do you want to remove encryption from the '%s' page?",
 	CONTINUE_WAIT_LOAD: "The loading process seems stuck.\nPlease click OK to keep waiting or Cancel to break.",
@@ -26,8 +26,8 @@ woas.i18n = {
 	DUP_NS_ERROR: "Cannot duplicate into File:: or Image:: namespace!",
 	DUPLICATE_PAGE: "Insert duplicate page title",
 	EDITING:"Editing '%s'",
-	EMPTY_TITLE: "An empty title is not allowed.",
 	EMPTY_NS: "/No pages in '%s' namespace./",
+	EMPTY_TITLE: "An empty title is not allowed.",
 	ERR_MARKER: "'%s' marker not found!",
 	ERR_NO_PWD: "No password set for decrypting the '%s' page.\nPlease click the key icon and enter a password.",
 	ERR_PAGE_NS: "You cannot create a page as a namespace.",
@@ -46,21 +46,21 @@ woas.i18n = {
 	IMG_LOAD_ERR: "/Image failed to load./\n",
 	IMPORT_CONFIG: "Configuration imported.",
 	IMPORT_INCOMPAT: "Incompatible version: %s",
-	IMPORT_OLD_VER: "If this is a WoaS older than v0.9.6B, you should import it by using WoaS 0.11.x.",
 	IMPORT_OK: "%s pages imported successfully (%d pages skipped)",
+	IMPORT_OLD_VER: "If this is a WoaS older than v0.9.6B, you should import it by using WoaS 0.11.x.",
 	IMPORT_UNRECON: "Unrecognized format.",
 	INSERT_NEW:"Insert new page title",
 	INVALID_ALIAS: "Invalid '%s' alias will be ignored.",
 	INVALID_DATA:"Invalid collected data!",
-	INVALID_PAGE: "Invalid %s page.",
+	INVALID_PAGE: "Invalid '%s' page.",
 	INVALID_TITLE: "Title cannot contain ':::' or any of these characters:\n# \" | < > [ ] { }",
 	JS_DISABLED: "Scripts are disabled in Special::Options ('Enable safe mode')\n",
 	JS_PAGE_FAIL1: "Dynamic evaluation of '%s' failed!",
 	JS_PAGE_FAIL2: "\n\nError message:\n\n",
 	JS_PAGE_FAIL3: "\n\nInvalid return value or type:\n\nValue: '%s'\nType: '%s'",
 	LAST_MODIFIED: "Last modified: ",
-	LOADING: "Loading Wiki on a Stick...",
 	LOAD_ERR: "Cannot load specified file.",
+	LOADING: "Loading Wiki on a Stick...",
 	LOCK_PAGE: "Lock %s",
 	MIME_TYPE: "Mime type",
 	MODE_NOT_AVAIL: "File mode 0x%s is not available on this browser.",
@@ -75,8 +75,8 @@ woas.i18n = {
 	PAGE_NOT_FOUND: "Page not found. Do you want to create it?",
 	PRINT_MODE_WARN: "Sorry, you cannot browse the wiki while in print mode.",
 	PWD_ERROR: "Passwords must match each other.",
-	PWD_QUERY: "Please enter a password.",
 	PWD_KEY_SIZE: "Key size: %s bits",
+	PWD_QUERY: "Please enter a password.",
 	READ_ONLY: "This Wiki on a Stick is read-only.",
 	SAVE_ERROR:"Unable to save the '%s' file.",
 	SERVER_MODE: "This Wiki on a Stick is not a local file; changes can only be saved to a local copy of the wiki. Please save this file if you want to make changes.\n\n"+
@@ -131,9 +131,11 @@ woas.i18n.load = function(obj) {
 			}
 		}
 		// report strings missing from translation
-		for (str in this) {
-			if (!keys[str] && (typeof this[str]) === 'string') {
-				woas.log('Missing - '+this.list_item(str));
+		if (woas.config.debug_mode) {
+			for (str in this) {
+				if (!keys[str] && (typeof this[str]) === 'string') {
+					woas.log('Missing - '+this.list_item(str));
+				}
 			}
 		}
 	}
@@ -147,17 +149,18 @@ woas.i18n.load = function(obj) {
 	}
 }
 
+// PVHL: mostly here to help with translations
 woas.i18n.list = function() {
 	var str, list = [];
 	for (str in this) {
 		if ((typeof this[str]) === 'string') {
-			list.push(this.list_item(str));
+			list.push(woas._utf8_js_fix(this.list_item(str)));
 		}
 	}
-	return list.join('\n');
+	return list.join(',\n');
 }
 
 woas.i18n.list_item = function(key){
 	return key+': "'+this[key].replace(/\n\\?/g, '\\n')
-		.replace(/\t/g, '\\t')+'"';
+		.replace(/\t/g, '\\t').replace(/"/g, '\\"')+'"';
 }
