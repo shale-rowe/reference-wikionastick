@@ -488,7 +488,7 @@ woas.hotkey = {
 		new_custom_accesskeys.push({fn:"woas.cmd_go_to", key: this.all["goto"]});
 
 		// (1) delete access keys which no more exist
-		var found,a,b;
+		var found, a, at, b, bt;
 		for(a=0,at=this.custom_accesskeys.length;a < at;++a) {
 			found = false;
 			for (b=0,bt=new_custom_accesskeys.length;b < bt;++b) {
