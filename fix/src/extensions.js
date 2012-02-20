@@ -278,7 +278,7 @@ woas.plugins = {
 	clear: function() {
 		for(var i=0,it=this._active.length;i < it;++i) {
 			// remove the DOM object
-			this.dom.remove_script("plugin", this._mapping(this._active[i]));
+			woas.dom.remove_script("plugin", this._mapping(this._active[i]));
 		}
 		// reset array
 		this._active = [];
