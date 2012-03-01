@@ -5035,7 +5035,8 @@ Changes since Revision pvhl-2317 (git: 3d939c7)
 
 (needing to archive my work in an incomplete though working state; export probably isn't working right yet)
 
-* update italian plugin (helped by Michele1995) and small changes to i18n
+* add German plugin (helped by Little Girl) and hack to fix plugin delete error
+* update Italian plugin (helped by Michele1995) and small changes to i18n
 * enable import of wsif files with Windows EOL (just in case)
 * complete fix of page locking (incl. button: forgot I hadn't finished refactoring; sorry)
 * fix incorrect 'index' status I added to multiple page wsif saves
