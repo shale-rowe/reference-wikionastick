@@ -172,7 +172,7 @@ _render_wiki_link: function(target, label, snippets, tags, export_links) {
 
 	if ((!pg && gotohash) || woas.page_exists(pg)) { // normal page
 		if (export_links) {
-			wl = woas.exporter._get_fname(pg);
+			wl = pg ? woas.exporter._get_fname(pg) : '';
 			if (wl === '#') {
 				return woas.parser.place_holder(snippets, sLinkBroken.sprintf(r_label));
 			}
