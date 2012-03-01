@@ -1,0 +1,137 @@
+wsif.version: 1.3.1
+wsif.generator: woas
+wsif.generator.version: 0.12.0
+woas.author: legolas558/pvhl/littlegirl
+woas.pages: 1
+
+woas.page.title: WoaS::Plugins::i18n_de
+woas.page.attributes: 0
+woas.page.encoding: 8bit/plain
+woas.page.disposition: inline
+woas.page.boundary: DFQRCTsKlU
+
+--DFQRCTsKlU
+// internationalization language resources - German translation
+/*
+ object loaded could also have:
+	strings_add:true - to add strings that are not in the current woas.i18n
+	  object (useful for plugins)
+	common_words_replace:true - to delete the default common words
+	  before adding to them
+*/
+woas.i18n.load({
+strings: {
+ACCESS_DENIED: "Zugang zur '%s' Seite wird verweigert.",
+ALT_BROWSER_INPUT: "Dieser Browser kann den Verzeichnispfad nicht direkt lesen.\n\nGeben Sie bitte den vollen Pfad zur '%s' Datei an.",
+ASK_MENU_LINK: "Wollen Sie einen Link zu dieser Seite in den Men\u00fc?",
+B64_REQ: " (ben\u00f6tigt %s aufgrund von Base64-Codierung)",
+CANCEL_EDITING: "\u00c4nderungen an dieser Seite werden nicht abgespeichert.",
+CANNOT_LOCK_RESERVED: "Sie k\u00f6nnen eine Seite in einem reservierten namespace nicht sperren.",
+CHOOSE_CANCEL: "\n\nWenn Sie dieses nicht geschehen m\u00f6chten, w\u00e4hlen Sie Cancel.",
+CONFIRM_DELETE: "Sind Sie sicher dass Sie die '%s' Seite l\u00f6schen m\u00f6chten?",
+CONFIRM_DELETE_ALL1: "Alle Ihre Seiten werden gel\u00f6scht.\n\nM\u00f6chten Sie fortfahren?",
+CONFIRM_DELETE_ALL2: "Dies ist die letzte Best\u00e4tigung ben\u00f6tigt vor dem L\u00d6SCHEN alle Ihrer Seiten.\n\nALLE IHRE SEITEN WERDEN VERLOREN GEHEN.\n\nSind Sie sicher dass Sie fortfahren m\u00f6chten?",
+CONFIRM_DELETE_IMAGE: "Sind Sie sicher dass Sie das '%s' Bild l\u00f6schen m\u00f6chten?",
+CONFIRM_EXPORT: "'%s' zum unten angegebenen Pfad exportieren?",
+CONFIRM_LOCK: "M\u00f6chten Sie das zuletzt benutztes Kennwort verwenden um die '%s' Seite zu sperren?",
+CONFIRM_LOCK_LAST: "Das Kennwort wurde zuletzt auf der '%s' Seite verwendet.",
+CONFIRM_OVERWRITE: "Die '%s' Seite existiert schon. \u00dcberschreiben?",
+CONFIRM_READ_ONLY: "Sie werden die Datei manuell bearbeiten m\u00fcssen um diese \u00c4nderung zur\u00fcckzukehren.\n\nIrgendwelche anderen \u00c4nderungen zu Optionen werden auch gespeichert.",
+CONFIRM_REMOVE_ENCRYPT: "M\u00f6chten Sie die Verschl\u00fcsselung von der '%s' Seite entfernen?",
+CONTINUE_WAIT_LOAD: "Der laden Prozess scheint festgesteckt zu sein.\nKlicken Sie bitte OK um weiter zu warten oder Cancel um abzubrechen.",
+DELETE: "Seite l\u00f6schen:",
+DELETE_FILE: "Eingebettete Datei l\u00f6schen",
+DELETE_IMAGE: "Eingebettetes Bild l\u00f6schen",
+DELETE_PAGE_PROMPT: "Seite l\u00f6schen:",
+DISPLAY_FULL_FILE: "Die s\u00e4mtliche Datei zeigen",
+DUP_NS_ERROR: "Kann in den File:: oder Image:: namespace nicht duplizieren!",
+DUPLICATE_PAGE: "Titel f\u00fcr die duplizierte Seite einf\u00fcgen",
+EDITING: "'%s' bearbeiten",
+EMPTY_NS: "/Keine Seiten in den '%s' namespace./",
+EMPTY_TITLE: "Ein leerer Titel ist nicht erlaubt.",
+ERR_MARKER: "'%s' Marker nicht gefunden!",
+ERR_NO_PWD: "Kein Kennwort f\u00fcr die Verschl\u00fcsselung der '%s' Seite.\nKlicken Sie bitte den Schl\u00fcsselsymbol und stellen Sie einen Kennwort ein.",
+ERR_PAGE_NS: "Sie k\u00f6nnen eine Seite als namespace nicht erstellen.",
+ERR_RESERVED_NS: "Namespace '%s' ist reserviert.",
+ERR_SEL_FILE: "Eine Datei muss ausgew\u00e4hlt werden.",
+ERR_VAR_MARKER: "Marker Variable nicht gefunden!",
+EXPORT_FILE: "Datei exportieren",
+EXPORT_IMAGE: "Bild exportieren",
+EXPORT_OK: "%d/%d Seiten erfolgreich exportiert.",
+FAILED_ERASE: "Das Speichern des gel\u00f6schtes WoaS war nicht m\u00f6glich!\n\nOriginaler Inhalt wird durch das Neuladen des Datei wiederhergestellt.",
+FILE_DISPLAY_LIMIT: "Nur die ersten 1024 bytes werden gezeigt.",
+FILE_SELECT_ERR: "Eine Datei muss ausgew\u00e4hlt werden.",
+FILE_SIZE: "Dateigr\u00f6\u00dfe",
+GO_TO_PAGE: "Gehen Sie zur Seite:",
+HEIGHT: "H\u00f6he",
+IMG_LOAD_ERR: "/Bild Laden gescheitert./\n",
+IMPORT_CONFIG: "Konfiguration importiert.",
+IMPORT_INCOMPAT: "Inkompatible Version: %s",
+IMPORT_OK: "%s Seiten erfolgreich importiert (%d Seiten \u00fcbergangen)",
+IMPORT_OLD_VER: "Wenn dieses WoaS \u00e4lter als v0.9.6B ist, sollten Sie es mit Hilfe WoaS 0.11.x importieren.",
+IMPORT_UNRECON: "Unerkanntes Format.",
+INSERT_NEW: "Setzen Sie einen neuen Seitentitel ein",
+INVALID_ALIAS: "Ung\u00fcltiger '%s' Deckname wird ignoriert.",
+INVALID_DATA: "Ung\u00fcltige gesammelte Daten!",
+INVALID_PAGE: "Ung\u00fcltige '%s' Seite.",
+INVALID_TITLE: "Titel darf nicht ':::' oder irgendwelche dieser Charaktere enthalten:\n# \" | < > [ ] { }",
+JS_DISABLED: "Skripts werden in Special::Options deaktiviert ('Abgesicherten Modus aktivieren')\n",
+JS_PAGE_FAIL1: "Dynamische Bewertung von '%s' versagt!",
+JS_PAGE_FAIL2: "\n\nFehlermeldung:\n\n",
+JS_PAGE_FAIL3: "\n\nUng\u00fcltiger R\u00fcckgabewert oder Typ:\n\nWert: '%s'\nTyp: '%s'",
+LAST_MODIFIED: "Zuletzt modifiziert:",
+LOAD_ERR: "Angegebene Datei kann nicht geladen werden.",
+LOADING: "Wiki on a Stick wird geladen...",
+LOCK_PAGE: "%s sperren",
+MIME_TYPE: "Mime Typ",
+MODE_NOT_AVAIL: "Datei Modus 0x%s ist in diesem Browser nicht vorhanden.",
+NO_ERROR: "Kein Fehler",
+NO_JAVA: "Es war nicht m\u00f6glich entweder TiddlySaver Java applet oder direkt Java Speichern zu benutzen.",
+NO_TIDDLY_SAVER: "Der TiddlySaver Java applet war nicht vorhanden.",
+NOT_A_NS: "/'%s' ist ein reservierter namespace, der nicht aufgef\u00fchrt werden kann. Sehen Sie bitte [[WoaS::Help::Namespaces#Reserved namespaces|Help]]./",
+NOT_YET_IMPLEMENTED: "Funktion noch nicht implementiert.",
+NOTE_TEXT: "Anmerkung:",
+PAGE_EXISTS: "Eine Seite mit Titel '%s' besteht bereits!",
+PAGE_NOT_EXISTS: "'%s' Seite besteht nicht.",
+PAGE_NOT_FOUND: "Seite nicht gefunden. M\u00f6chten Sie sie erstellen?",
+PRINT_MODE_WARN: "Leider k\u00f6nnen Sie das wiki nicht durchsuchen w\u00e4hrend in der Druckmodus.",
+PWD_ERROR: "Kennw\u00f6rter m\u00fcssen \u00fcbereinstimmen.",
+PWD_KEY_SIZE: "Schl\u00fcsselgr\u00f6\u00dfe: %s Bits",
+PWD_QUERY: "Bitte geben Sie ein Kennwort ein.",
+READ_ONLY: "Dieser wiki ist schreibgesch\u00fctzt.",
+SAVE_ERROR: "Kann die '%s' Datei nicht speichern.",
+SERVER_MODE: "Dieser Wiki on a Stick ist nicht eine lokale Datei. \u00c4nderungen k\u00f6nnen nur auf eine lokale Kopie des Wikis gespeichert werden. Bitte speichern Sie diese Datei, wenn Sie \u00c4nderungen vornehmen m\u00f6chten.\n\nKeine der \u00c4nderungen an dieser Kopie von Wiki on a Stick werden gespeichert.",
+STATIC_NOT_FOUND: "Statische '%s' Seite nicht gefunden!",
+TIDDLY_HELP: "Bitte \u00fcberpr\u00fcfen dass TiddlySaver.jar im selben Verzeichnis als dieser WoaS ist, und dass Sie die Java Berechtigungen daf\u00fcr aktiviert haben.",
+TOC: "Inhaltsverzeichnis",
+TOO_LONG_TITLE: "Maximale Titell\u00e4nge ist %d Charaktere.",
+UNSPECIFIED_JAVA_ERROR: "\u00dcberpr\u00fcfen Sie bitte die Java Konsole f\u00fcr Fehler mit dem letzten Betrieb, und ob die Grund daf\u00fcr nicht wegen Ihres Browsers/Java Beschr\u00e4nkungen ist.",
+UNSUPPORTED_BROWSER: "Ihr Browser ist m\u00f6glicherweise nicht unterst\u00fctzt. Bitte melden Sie einen Bug mit Ihrer UserAgent string:\n%s",
+WIDTH: "Breite",
+WRITE_PROTECTED: "Dieses Wiki on a Stick ist schon schreibgesch\u00fctzt.",
+WSIF_BAD_HV: "Konnte die Ende des Headerwertes nicht finden.",
+WSIF_DS_TO_EXTERNAL: "Der Inhalt dieses wiki wird eben im WSIF Format zum angegebenen Dateinamen gespeichert.\n\nAller innerer Inhalt wird gel\u00f6scht.\n\n",
+WSIF_DS_TO_INTERNAL: "Der gegenw\u00e4rtiger wiki Inhalt ist im Begriff, um innerlich gespeichert zu werden.\n\nDie gegenw\u00e4rtige WSIF Datenquelle Datei(en) wird (werden) nicht betroffen.",
+WSIF_DS_TO_MULTI: "Die Datenquelle Datei wird als eine Seite Index Datei neugeschrieben.",
+WSIF_DS_TO_SINGLE: "Die gegenw\u00e4rtige WSIF Index Datei, die individuelle WSIF Seitendateien auflistet, steht vor mit Seiteninhalt \u00fcberschrieben zu werden.\n\nBestehende WSIF Seitendateien werden nicht betroffen.",
+WSIF_EXIST: "Wenn der Dateiname den Sie eingegeben haben schon existiert, wird er \u00fcberschrieben!",
+WSIF_NO_HN: "Konnte Header Namen nicht lokalisieren.",
+WSIF_NO_VER: "Konnte WSIF Version nicht lesen.",
+WSIF_NS_VER: "WSIF Version %s wird nicht unterst\u00fctzt!",
+WSIF_PAGES: "\n\nSollten individuelle Seitendateien f\u00fcr diese Datenquelle Datei schon existieren, werden sie \u00fcberschrieben.",
+WSIF_SAVE_FAIL: "Kann WSIF Datei mit den gegebenen Pfad nicht speichern!\n\u00dcberpr\u00fcfen Sie Ihre Datenquelleeinstellung im Special::Options."
+},
+common_words: [
+// do not use any copyrighted wordlist here
+"aber", "als", "am", "an", "ans", "auch", "auf", "aus", "bei", "bis", "dann",
+"das", "dass", "daß", "dem", "den", "der", "des", "die", "durch", "ein",
+"eine", "einem", "einen", "einer", "eines", "er", "es", "für", "habe", "haben",
+"hat", "hatte", "ihr", "ihre", "im", "in", "ist", "kann", "konnte", "können",
+"man", "mehr", "mit", "nach", "nicht", "noch", "nur", "oder", "schon", "sei",
+"sein", "seine", "seinen", "sich", "sie", "sind", "so", "um", "und", "unter",
+"von", "vor", "vorm", "vors", "war", "wenn", "werden", "wie", "wird", "wurde",
+"zu", "zum", "zur", "über"
+]
+});
+
+--DFQRCTsKlU
