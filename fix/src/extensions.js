@@ -48,6 +48,11 @@ PVHL:
 };
 
 // @module 'plugins'
+
+// PVHL: NOTE! All this code is deprecated so far as I am concerned as it
+//   assumes a script block can be removed; removal does NOT remove code!
+//   New code (new project) will simplify system (by reloading WoaS) and
+//   also allow UTF8 text. (I may use an existing open source loader system)
 woas.plugins = {
 
 	// flag set by last call to get()
@@ -347,10 +352,11 @@ woas.plugins = {
 			this.disable(pname.substr(_pfx.length));
 	},
 
+	// PVHL: function is only called using 'Javascript::' so cannot currently return an error value
 	remove: function(name) {
 		var page_name = "WoaS::Plugins::"+name;
 		if (!confirm(woas.i18n.CONFIRM_DELETE.sprintf(page_name)))
-			return false;
+			return;
 		// first we attempt to disable it, ignoring failure (because it could just not be active)
 		this.disable(name);
 		woas.delete_page(page_name);
@@ -361,7 +367,7 @@ woas.plugins = {
 			//HACK: reload plugins
 			woas.setHTMLDiv(d$("woas_page"), woas.parser.parse(woas.get_text("WoaS::Plugins") + this.list()));
 		}
-		return true;
+		return;
 	}
 
 };
