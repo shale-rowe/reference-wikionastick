@@ -4439,7 +4439,9 @@ Changes since Revision pvhl-2317 (git: 3d939c7)\n\
 \n\
 (needing to archive my work in an incomplete though working state; export probably isn\'t working right yet)\n\
 \n\
-* update italian plugin (helped by Michele1995) and small changes to i18n\n\
+* fix which pages get exported by Special::Export\n\
+* add German plugin (helped by Little Girl) and hack to fix plugin delete error\n\
+* update Italian plugin (helped by Michele1995) and small changes to i18n\n\
 * enable import of wsif files with Windows EOL (just in case)\n\
 * complete fix of page locking (incl. button: forgot I hadn\'t finished refactoring; sorry)\n\
 * fix incorrect \'index\' status I added to multiple page wsif saves\n\
@@ -6650,7 +6652,7 @@ _render_wiki_link: function(target, label, snippets, tags, export_links) {
 
 	if ((!pg && gotohash) || woas.page_exists(pg)) { // normal page
 		if (export_links) {
-			wl = woas.exporter._get_fname(pg);
+			wl = pg ? woas.exporter._get_fname(pg) : '';
 			if (wl === '#') {
 				return woas.parser.place_holder(snippets, sLinkBroken.sprintf(r_label));
 			}
@@ -9744,7 +9746,7 @@ woas._on_load = function() {
 	this._set_debug(this.config.debug_mode, this.config.debug_closed);
 	d$("woas_debug_log").value = ""; // for Firefox
 	// output platform information - note that revision is filled in only in releases
-	woas.log("*** WoaS v"+this.version+"-pvhl-r2511"+" started");	// log:1
+	woas.log("*** WoaS v"+this.version+"-pvhl-r2516"+" started");	// log:1
 	// needed to check if data source changes; forces full save when entering/exiting
 	// WSIF datasource mode or changing the name of the data source file
 	this._old_wsif_ds = is_windows
@@ -10270,6 +10272,11 @@ PVHL:
 };
 
 // @module 'plugins'
+
+// PVHL: NOTE! All this code is deprecated so far as I am concerned as it
+//   assumes a script block can be removed; removal does NOT remove code!
+//   New code (new project) will simplify system (by reloading WoaS) and
+//   also allow UTF8 text. (I may use an existing open source loader system)
 woas.plugins = {
 
 	// flag set by last call to get()
@@ -10569,10 +10576,11 @@ woas.plugins = {
 			this.disable(pname.substr(_pfx.length));
 	},
 
+	// PVHL: function is only called using 'Javascript::' so cannot currently return an error value
 	remove: function(name) {
 		var page_name = "WoaS::Plugins::"+name;
 		if (!confirm(woas.i18n.CONFIRM_DELETE.sprintf(page_name)))
-			return false;
+			return;
 		// first we attempt to disable it, ignoring failure (because it could just not be active)
 		this.disable(name);
 		woas.delete_page(page_name);
@@ -10583,7 +10591,7 @@ woas.plugins = {
 			//HACK: reload plugins
 			woas.setHTMLDiv(d$("woas_page"), woas.parser.parse(woas.get_text("WoaS::Plugins") + this.list()));
 		}
-		return true;
+		return;
 	}
 
 };
@@ -11203,10 +11211,10 @@ woas.i18n = {
 	ALT_BROWSER_INPUT: "This browser is not allowing the directory path to be read directly.\n\nPlease specify the full path to the '%s' file.",
 	ASK_MENU_LINK: "Do you want the menu to have a link to this page?",
 	B64_REQ: " (requires %s due to base64 encoding)",
-	CANCEL_EDITING:"Changes to this page will not be saved.",
+	CANCEL_EDITING: "Changes to this page will not be saved.",
 	CANNOT_LOCK_RESERVED: "You cannot lock a page in a reserved namespace.",
 	CHOOSE_CANCEL: "\n\nIf you don't want this to happen choose Cancel.",
-	CONFIRM_DELETE:"Are you sure you want to DELETE the '%s' page?",
+	CONFIRM_DELETE: "Are you sure you want to DELETE the '%s' page?",
 	CONFIRM_DELETE_ALL1: "You are about to ERASE all your pages.\n\nDo you want to continue?",
 	CONFIRM_DELETE_ALL2: "This is the last confirmation needed before ERASING all your pages.\n\nALL YOUR PAGES WILL BE LOST\n\nAre you sure you want to continue?",
 	CONFIRM_DELETE_IMAGE: "Are you sure you want to delete the '%s' image?",
@@ -11217,14 +11225,14 @@ woas.i18n = {
 	CONFIRM_READ_ONLY: "You will have to manually edit the file to revert this change.\n\nAny other changes to options will also be saved.",
 	CONFIRM_REMOVE_ENCRYPT: "Do you want to remove encryption from the '%s' page?",
 	CONTINUE_WAIT_LOAD: "The loading process seems stuck.\nPlease click OK to keep waiting or Cancel to break.",
-	DELETE:"Delete page:",
- 	DELETE_FILE:"Delete embedded file",
- 	DELETE_IMAGE:"Delete embedded image",
+	DELETE: "Delete page:",
+	DELETE_FILE: "Delete embedded file",
+	DELETE_IMAGE: "Delete embedded image",
 	DELETE_PAGE_PROMPT: "Delete page:",
 	DISPLAY_FULL_FILE: "Display full file",
 	DUP_NS_ERROR: "Cannot duplicate into File:: or Image:: namespace!",
 	DUPLICATE_PAGE: "Insert duplicate page title",
-	EDITING:"Editing '%s'",
+	EDITING: "Editing '%s'",
 	EMPTY_NS: "/No pages in '%s' namespace./",
 	EMPTY_TITLE: "An empty title is not allowed.",
 	ERR_MARKER: "'%s' marker not found!",
@@ -11233,10 +11241,10 @@ woas.i18n = {
 	ERR_RESERVED_NS: "Namespace '%s' is reserved.",
 	ERR_SEL_FILE: "A file must be selected.",
 	ERR_VAR_MARKER: "Marker variable not found!",
- 	EXPORT_FILE:"Export file",
- 	EXPORT_IMAGE:"Export image",
+	EXPORT_FILE: "Export file",
+	EXPORT_IMAGE: "Export image",
 	EXPORT_OK: "%d/%d pages exported successfully.",
-	FAILED_ERASE:"Saving the erased WoaS has failed!\n\nOriginal content will be restored by reloading file.",
+	FAILED_ERASE: "Saving the erased WoaS has failed!\n\nOriginal content will be restored by reloading file.",
 	FILE_DISPLAY_LIMIT: "Only the first 1024 bytes are displayed.",
 	FILE_SELECT_ERR: "A file must be selected.",
 	FILE_SIZE: "File size",
@@ -11248,9 +11256,9 @@ woas.i18n = {
 	IMPORT_OK: "%s pages imported successfully (%d pages skipped)",
 	IMPORT_OLD_VER: "If this is a WoaS older than v0.9.6B, you should import it by using WoaS 0.11.x.",
 	IMPORT_UNRECON: "Unrecognized format.",
-	INSERT_NEW:"Insert new page title",
+	INSERT_NEW: "Insert new page title",
 	INVALID_ALIAS: "Invalid '%s' alias will be ignored.",
-	INVALID_DATA:"Invalid collected data!",
+	INVALID_DATA: "Invalid collected data!",
 	INVALID_PAGE: "Invalid '%s' page.",
 	INVALID_TITLE: "Title cannot contain ':::' or any of these characters:\n# \" | < > [ ] { }",
 	JS_DISABLED: "Scripts are disabled in Special::Options ('Enable safe mode')\n",
@@ -11264,9 +11272,9 @@ woas.i18n = {
 	MIME_TYPE: "Mime type",
 	MODE_NOT_AVAIL: "File mode 0x%s is not available on this browser.",
 	NO_ERROR: "No error",
-	NO_JAVA:"It was not possible to use TiddlySaver Java applet nor direct Java saving.",
-	NO_TIDDLY_SAVER:"The TiddlySaver Java applet was not available.",
-	NOT_A_NS:"/'%s' is a reserved namespace that is not listable. See [[WoaS::Help::Namespaces#Reserved namespaces|Help]]./",
+	NO_JAVA: "It was not possible to use TiddlySaver Java applet nor direct Java saving.",
+	NO_TIDDLY_SAVER: "The TiddlySaver Java applet was not available.",
+	NOT_A_NS: "/'%s' is a reserved namespace that is not listable. See [[WoaS::Help::Namespaces#Reserved namespaces|Help]]./",
 	NOT_YET_IMPLEMENTED: "Feature not implemented yet.",
 	NOTE_TEXT: "NOTE:",
 	PAGE_EXISTS: "A page with title '%s' already exists!",
@@ -11277,11 +11285,10 @@ woas.i18n = {
 	PWD_KEY_SIZE: "Key size: %s bits",
 	PWD_QUERY: "Please enter a password.",
 	READ_ONLY: "This Wiki on a Stick is read-only.",
-	SAVE_ERROR:"Unable to save the '%s' file.",
-	SERVER_MODE: "This Wiki on a Stick is not a local file; changes can only be saved to a local copy of the wiki. Please save this file if you want to make changes.\n\n"+
-					"None of the changes made to this copy of Wiki on a Stick will be saved.",
+	SAVE_ERROR: "Unable to save the '%s' file.",
+	SERVER_MODE: "This Wiki on a Stick is not a local file; changes can only be saved to a local copy of the wiki. Please save this file if you want to make changes.\n\nNone of the changes made to this copy of Wiki on a Stick will be saved.",
 	STATIC_NOT_FOUND: "Static page '%s' not found!",
-	TIDDLY_HELP:"Please check that TiddlySaver.jar is in the same directory as this WoaS and that you have enabled Java permissions for it.",
+	TIDDLY_HELP: "Please check that TiddlySaver.jar is in the same directory as this WoaS and that you have enabled Java permissions for it.",
 	TOC: "Table of Contents",
 	TOO_LONG_TITLE: "Maximum title length is %d characters.",
 	UNSPECIFIED_JAVA_ERROR: "Please check the Java console for errors regarding the last operation and check that it's not due to your browser/Java restrictions.",
@@ -11298,7 +11305,7 @@ woas.i18n = {
 	WSIF_NO_VER: "Could not read WSIF version.",
 	WSIF_NS_VER: "WSIF version %s is not supported!",
 	WSIF_PAGES: "\n\nIf individual page files already exist for this data source file they will be overwritten.",
-	WSIF_SAVE_FAIL: "Unable to save WSIF file with path given!\nCheck your data source setting in Special::Options"
+	WSIF_SAVE_FAIL: "Unable to save WSIF file with path given!\nCheck your data source setting in Special::Options."
 };
 
 // do not use any copyrighted wordlist here
@@ -12096,22 +12103,12 @@ woas.import_wiki_wsif = function() {
 };
 
 /*** src/export.js ***/
-// PVHL: DEPRECATED - these arrays moved here from core.js; not used elsewhere
-woas.unexportable_pages = ["New Page", "Duplicate Page", "Backlinks", "Erase Wiki", "Edit CSS",
-								"Go to", "Delete Page", "Search"];
-woas.unexportable_pages2 = ["WoaS::CSS", "WoaS::Aliases", "WoaS::Hotkeys", "WoaS::Plugins"];
-
-/* Just needing to look at these for a bit
-woas.static_pages2 = [
-	"WoaS::Plugins", "WoaS::CSS::Boot", "WoaS::CSS::Core", "WoaS::Help",
-	"WoaS::ImportSettings", "WoaS::Template::Search", "WoaS::Template::Info"
-];
-*/
-
 // WoaS 'exporter' module
 woas.exporter = {
 	_unix_norm: false,
 	_default_ext: 'html',
+	_reExportSpecial: /(?:About|Advanced|All Pages|Dead Pages|License|Orphaned Pages|Recent Changes)$/,
+	_reExportWoas: /^WoaS::Help/,
 
 	// arrays/objects using during export
 	_title2fn: {},
@@ -12154,12 +12151,11 @@ woas.exporter = {
 		data = null;
 		for (pi = 0, l = page_titles.length; pi < l; pi++) {
 			pg = page_titles[pi];
-			// do skip physical special pages
+			// skip physical special pages
 			if (pg.match(/^Special::/)) continue;
-			if (woas.static_pages2.indexOf(pg) !== -1) continue;
-			// skip also the unexportable WoaS pages
-			if (woas.unexportable_pages2.indexOf(pg) !== -1) continue;
-			// do skip menu pages (they are already included in each page)
+			// skip unexportable WoaS pages
+			if (pg.indexOf('WoaS::') === 0 && !this._reExportWoas.test(pg)) continue;
+			// skip menu pages (they are already included in each page)
 			if (pg.substr(-6) === '::Menu' && pg !== 'WoaS::Help::Menu') {
 				continue;
 			}
@@ -12296,21 +12292,22 @@ woas.exporter = {
 		}
 		var sp, orig_title = title;
 		// handle the valid exportable special pages
-		if (title.match(/::$/)) {
+		// PVHL: no plugin listing as so many issues involved I will not fix here
+		if (title.substr(-2) === '::' && title !== 'WoaS::Plugins::'
+				 // want menu links if present
+				 || title.substr(-6) === '::Menu' && title !== 'WoaS::Help::Menu') {
 			sp = true;
 		} else if (woas.is_reserved(title)) {
-			var nogo;
-			if (title.match(/^WoaS::/))
-				nogo = (woas.unexportable_pages2.indexOf(title)!==-1);
-			else if (title.match(/^Special::/))
-				nogo = (woas.unexportable_pages.indexOf(title.substr(9)) !== -1);
-			else // other reserved pages, deny
-				nogo = true;
+			var nogo = true; // only allow desired reserved pages
+			if (title.indexOf('WoaS::') === 0)
+				nogo = !this._reExportWoas.test(title);
+			else if (title.indexOf('Special::') === 0)
+				nogo = !this._reExportSpecial.test(title);
 			if (nogo) {
 				woas.log("Reserved page will not be exported: "+title);
 				this._title2fn[title] = "#";
 				return "#";
-			} else // do export these special pages later
+			} else // export valid special pages later
 				// PVHL: but don't rewrite actual help pages
 				if (!title.match("WoaS::Help")) sp = true;
 		}
