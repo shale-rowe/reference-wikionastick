@@ -1,19 +1,9 @@
-// PVHL: DEPRECATED - these arrays moved here from core.js; not used elsewhere
-woas.unexportable_pages = ["New Page", "Duplicate Page", "Backlinks", "Erase Wiki", "Edit CSS",
-								"Go to", "Delete Page", "Search"];
-woas.unexportable_pages2 = ["WoaS::CSS", "WoaS::Aliases", "WoaS::Hotkeys", "WoaS::Plugins"];
-
-/* Just needing to look at these for a bit
-woas.static_pages2 = [
-	"WoaS::Plugins", "WoaS::CSS::Boot", "WoaS::CSS::Core", "WoaS::Help",
-	"WoaS::ImportSettings", "WoaS::Template::Search", "WoaS::Template::Info"
-];
-*/
-
 // WoaS 'exporter' module
 woas.exporter = {
 	_unix_norm: false,
 	_default_ext: 'html',
+	_reExportSpecial: /(?:About|Advanced|All Pages|Dead Pages|License|Orphaned Pages|Recent Changes)$/,
+	_reExportWoas: /^WoaS::Help/,
 
 	// arrays/objects using during export
 	_title2fn: {},
@@ -56,12 +46,11 @@ woas.exporter = {
 		data = null;
 		for (pi = 0, l = page_titles.length; pi < l; pi++) {
 			pg = page_titles[pi];
-			// do skip physical special pages
+			// skip physical special pages
 			if (pg.match(/^Special::/)) continue;
-			if (woas.static_pages2.indexOf(pg) !== -1) continue;
-			// skip also the unexportable WoaS pages
-			if (woas.unexportable_pages2.indexOf(pg) !== -1) continue;
-			// do skip menu pages (they are already included in each page)
+			// skip unexportable WoaS pages
+			if (pg.indexOf('WoaS::') === 0 && !this._reExportWoas.test(pg)) continue;
+			// skip menu pages (they are already included in each page)
 			if (pg.substr(-6) === '::Menu' && pg !== 'WoaS::Help::Menu') {
 				continue;
 			}
@@ -198,21 +187,22 @@ woas.exporter = {
 		}
 		var sp, orig_title = title;
 		// handle the valid exportable special pages
-		if (title.match(/::$/)) {
+		// PVHL: no plugin listing as so many issues involved I will not fix here
+		if (title.substr(-2) === '::' && title !== 'WoaS::Plugins::'
+				 // want menu links if present
+				 || title.substr(-6) === '::Menu' && title !== 'WoaS::Help::Menu') {
 			sp = true;
 		} else if (woas.is_reserved(title)) {
-			var nogo;
-			if (title.match(/^WoaS::/))
-				nogo = (woas.unexportable_pages2.indexOf(title)!==-1);
-			else if (title.match(/^Special::/))
-				nogo = (woas.unexportable_pages.indexOf(title.substr(9)) !== -1);
-			else // other reserved pages, deny
-				nogo = true;
+			var nogo = true; // only allow desired reserved pages
+			if (title.indexOf('WoaS::') === 0)
+				nogo = !this._reExportWoas.test(title);
+			else if (title.indexOf('Special::') === 0)
+				nogo = !this._reExportSpecial.test(title);
 			if (nogo) {
 				woas.log("Reserved page will not be exported: "+title);
 				this._title2fn[title] = "#";
 				return "#";
-			} else // do export these special pages later
+			} else // export valid special pages later
 				// PVHL: but don't rewrite actual help pages
 				if (!title.match("WoaS::Help")) sp = true;
 		}
