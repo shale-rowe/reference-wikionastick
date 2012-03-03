@@ -135,7 +135,7 @@ woas.exporter = {
 			}
 			// parse the exported menu
 			if (exp_menu) {
-				exp_menu = woas.parser.parse(exp_menu, true, this._settings.js_mode);
+				exp_menu = woas.parser.parse(exp_menu, this._settings.js_mode);
 				if (this._settings.js_mode) {
 					woas.scripting.activate("menu");
 				}
@@ -297,7 +297,7 @@ woas._attrib_escape = function(s) {
 
 woas.export_parse = function (data, js_mode) {
 	// a normal wiki page, parse it and eventually execute the attached javascript
-	data = this.parser.parse(data, true, js_mode);
+	data = this.parser.parse(data, js_mode);
 	if (js_mode) {
 		this.setHTMLDiv(d$("woas_page"), data);
 		this.scripting.activate("page");
@@ -307,7 +307,7 @@ woas.export_parse = function (data, js_mode) {
 };
 
 woas.export_wiki = function() {
-	var sep_css;
+	var sep_css, stats;
 	// parse user export options
 	try {
 		this.exporter._settings.xhtml_path = d$("woas_ep_xhtml").value;
@@ -337,11 +337,13 @@ woas.export_wiki = function() {
 		this.exporter._export_fnames_array.push(this.exporter._settings.css_path);
 		this.save_file(this.exporter._settings.xhtml_path+this.exporter._settings.css_path, this.file_mode.ASCII_TEXT, this.exporter._settings.css);
 		this.exporter._settings.css = "<"+"link rel=\"stylesheet\" type=\"text/css\" media=\"all\" href=\""+this.exporter._settings.css_path+"\" /"+">";
-		} else
-	this.exporter._settings.css = "<"+"style type=\"text/css\">"+this.exporter._settings.css+"<"+"/style>";
+	} else
+		this.exporter._settings.css = "<"+"style type=\"text/css\">"+this.exporter._settings.css+"<"+"/style>";
 
 	// actual exporting
-	var stats = this.exporter.do_export();
+	woas.parser.export_links = true;
+	stats = this.exporter.do_export();
+	woas.parser.export_links = false;
 
 	// refresh if javascript was run
 	if (this.exporter._settings.js_mode) {

@@ -2,6 +2,7 @@
 woas.parser = {
 
 render_title: null, // title of page being rendered
+export_links: false, // true if exporter active
 has_toc: null,
 toc: [],
 force_inline: false, // stops layout being broken when presenting search results
@@ -12,7 +13,6 @@ _parsing_menu: false, // true when we are parsing the menu page
 _MAX_TRANSCLUSION_RECURSE: 256,
 _transcluding: 0,
 _snippets: null,
-_export_links: null,
 
 // a variety of regular expressions used by the parser
 
@@ -113,11 +113,12 @@ _raw_preformatted: function(tag, text, cls, add_style) {
 },
 
 // render a single wiki link
-_render_wiki_link: function(target, label, snippets, tags, export_links) {
+_render_wiki_link: function(target, label, snippets, tags) {
 	if (label === undefined) {
 		label = '';
 	}
-	var page = woas.title_unalias(target), // apply aliases to page title
+	var that = woas.parser,
+		page = woas.title_unalias(target), // apply aliases to page title
 		hashloc = page.indexOf('#'),
 		r_label = (label === '') ? page : label,
 		title = '', gotohash = '', str, wl, pg,
@@ -138,7 +139,7 @@ _render_wiki_link: function(target, label, snippets, tags, export_links) {
 			if (!this.force_inline)
 				return '';
 			++this.inline_tags;
-			return woas.parser.marker + 'T' + inline_tags + ';';
+			return that.marker + 'T' + inline_tags + ';';
 		}
 	}
 
@@ -148,7 +149,7 @@ _render_wiki_link: function(target, label, snippets, tags, export_links) {
 		page = page.replace(/^mailto:\/\//, 'mailto:');
 		// always give title attribute
 		str = sLink.sprintf(scWorld, woas.xhtml_encode(page), sHrefTrgt.sprintf(page), r_label);
-		return woas.parser.place_holder(snippets, str);
+		return that.place_holder(snippets, str);
 	}
 
 	// create section heading info
@@ -161,7 +162,7 @@ _render_wiki_link: function(target, label, snippets, tags, export_links) {
 	if (!pg && !gotohash || /"/.test(pg)) {
 		// PVHL: " will break link - current code does not allow.
 		//  empty link - [[#]] ?
-		return woas.parser.place_holder(snippets,
+		return that.place_holder(snippets,
 			'[[<'+'span style="color:#f00">'+target+'<'+'/span>'+
 			(label ? '|'+label : '')+']]');
 	}
@@ -171,10 +172,10 @@ _render_wiki_link: function(target, label, snippets, tags, export_links) {
 	}
 
 	if ((!pg && gotohash) || woas.page_exists(pg)) { // normal page
-		if (export_links) {
+		if (that.export_links) {
 			wl = pg ? woas.exporter._get_fname(pg) : '';
 			if (wl === '#') {
-				return woas.parser.place_holder(snippets, sLinkBroken.sprintf(r_label));
+				return that.place_holder(snippets, sLinkBroken.sprintf(r_label));
 			}
 			wl = sHref.sprintf(wl + (gotohash ? '#' + gotohash : ''));
 		} else {
@@ -182,14 +183,14 @@ _render_wiki_link: function(target, label, snippets, tags, export_links) {
 		}
 		str = sLink.sprintf(scWoas, title, wl, r_label);
 	} else { // page does not exist
-		if (export_links) {
+		if (that.export_links) {
 			str = sLinkBroken.sprintf(r_label);
 		} else {
 			wl = sOnClick.sprintf(woas.js_encode(pg));
 			str = sLink.sprintf(scWoasUn, title, wl, r_label);
 		}
 	}
-	return woas.parser.place_holder(snippets, str);
+	return that.place_holder(snippets, str);
 },
 
 _transclude: function (str, $1, img_gallery) {
@@ -232,7 +233,7 @@ _transclude: function (str, $1, img_gallery) {
 			var img, img_name = woas.xhtml_encode(templname.substr(templname.indexOf("::")+2)),
 				img_cls;
 			img_cls = img_gallery ? 'woas_img_list' : 'woas_img';
-			if (that._export_links) {
+			if (that.export_links) {
 				// check that the URI is valid
 				var uri=woas.exporter._get_fname(templname);
 				if (uri == '#')
@@ -244,7 +245,7 @@ _transclude: function (str, $1, img_gallery) {
 			if (parts.length > 1) {
 				img += parts[1];
 				// always add the alt attribute to images
-				if (!that._export_links && !parts[1].match(/alt=('|").*?\1/))
+				if (!that.export_links && !parts[1].match(/alt=('|").*?\1/))
 					img += " alt=\"" + img_name + "\"";
 			}
 			P.body = img + " />";
@@ -326,14 +327,13 @@ import_disable: function(NP, js, macros) {
 },
 
 // 'text' is the raw wiki source
-// 'export_links' is set to true when exporting wiki pages (used to generate proper href for hyperlinks)
 // 'js_mode' controls javascript behavior. Allowed values are:
 //    0 - leave script tags as they are (used for exporting; acts much like mode 2)
 //    1 - place script tags in head (dynamic),
 //    2 - re-add script tags after parsing
 //    3 - convert script tags to nowiki blocks
 // @override to customize parsing (see also woas.parser.after_parse and woas.pager.browse
-parse: function(text, export_links, js_mode) {
+parse: function(text, js_mode) {
 	if (woas.config.debug_mode) {
 		if ((typeof text).toLowerCase() != "string") {
 			woas.crash("Called parse() with invalid argument: "+(typeof text));	// log:1
@@ -341,8 +341,6 @@ parse: function(text, export_links, js_mode) {
 		}
 	}
 	// default fallback
-	if (typeof export_links == "undefined")
-		export_links = false;
 	if (typeof js_mode == "undefined")
 		js_mode = 1;
 
@@ -361,7 +359,7 @@ parse: function(text, export_links, js_mode) {
 	// transclude pages (templates)
 	if (!this.force_inline) {
 		// apply transclusion syntax
-		this.transclude_syntax(P, snippets, export_links);
+		this.transclude_syntax(P, snippets);
 	}
 
 	// PVHL: code was breaking exported scripts by adding br tags; refactored
@@ -403,7 +401,7 @@ parse: function(text, export_links, js_mode) {
 	this.inline_tags = 0;
 
 	// static syntax parsing
-	this.syntax_parse(P, snippets, tags, export_links, this.has_toc);
+	this.syntax_parse(P, snippets, tags, this.has_toc);
 
 	// restore macros to those already defined before page was parsed
 	woas.macro.remove_backup();
@@ -411,7 +409,7 @@ parse: function(text, export_links, js_mode) {
 	// sort tags at bottom of page if set in config
 	tags = tags.toUnique();
 	if (woas.config.sort_tags) { tags = tags.sort(); }
-	if (tags.length && !export_links) {
+	if (tags.length && !this.export_links) {
 		var s;
 		if (this.force_inline)
 			s = "";
@@ -634,7 +632,7 @@ split_tags: function(tlist) {
 },
 
 // parse passive syntax only
-syntax_parse: function(P, snippets, tags, export_links, has_toc) {
+syntax_parse: function(P, snippets, tags, has_toc) {
 	var that = this;
 
 	// restore text lines (lines ending in '\' are joined)
@@ -651,7 +649,7 @@ syntax_parse: function(P, snippets, tags, export_links, has_toc) {
 	// render links e.g. [[target]] & [[target|label]]
 	.replace(this.reWikiLink, function(str, target, label) {
 		if (target)
-			return that._render_wiki_link(target, label, snippets, tags, export_links);
+			return that._render_wiki_link(target, label, snippets, tags);
 		return str; // not a valid link
 	})
 
@@ -718,7 +716,7 @@ syntax_parse: function(P, snippets, tags, export_links, has_toc) {
 	// replace [[Special::TOC]]
 	if (has_toc) {
 		P.body = P.body.replace(this.marker+"TOC", function() {
-			return that.toc_render(export_links);
+			return that.toc_render();
 		});
 	}
 
@@ -764,11 +762,11 @@ toc_line_render_exp: function(level, count, anchor, heading) {
 // This function should not need to be overwritten; toc_line_render, toc_line,
 // & toc_body (and related export versions) should be sufficient to generate
 // any desired TOC.
-toc_render: function(export_links) {
+toc_render: function() {
 	// this.toc: [level, anchor, heading text, level, anchor, ...]
 	var i, il, j, tmp = [], count = [], level,
-		body = export_links ? this.toc_body_exp: this.toc_body,
-		line_fn = export_links ? this.toc_line_render_exp : this.toc_line_render;
+		body = this.export_links ? this.toc_body_exp: this.toc_body,
+		line_fn = this.export_links ? this.toc_line_render_exp : this.toc_line_render;
 	for (i = 0, il = this.toc.length; i < il;) {
 		level = this.toc[i++];
 		count[level] = count[level] ? count[level] + 1 : 1;
@@ -784,18 +782,16 @@ toc_render: function(export_links) {
 
 //API1.0
 //TODO: offer transclusion parameters argument
-transclude: function(title, snippets, export_links, img_gallery) {
+transclude: function(title, snippets, img_gallery) {
 	this._snippets = snippets;
-	this._export_links = !!export_links;
 	var rv = this._transclude("[[Include::"+title+"]]", title, img_gallery);
-	this._export_links = this._snippets = null;
+	this._snippets = null;
 	return rv;
 },
 
-transclude_syntax: function(P, snippets, export_links) {
+transclude_syntax: function(P, snippets) {
 	var trans_level = 0, that = this, found;
 	this._snippets = snippets;
-	this._export_links = export_links ? true : false;
 	do {
 		found = false;
 		P.body = P.body.replace(this.reTransclusion, function(str, $1) {
@@ -809,7 +805,7 @@ transclude_syntax: function(P, snippets, export_links) {
 			return that.place_holder(snippets, that.render_error(str, 'infin'));
 		});
 	}
-	this._snippets = this._export_links = null;
+	this._snippets = null;
 },
 
 // return all the snippets that were pushed to snippets array
