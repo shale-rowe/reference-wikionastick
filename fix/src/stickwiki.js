@@ -763,7 +763,7 @@ woas.set_current = function (cr, interactive, keep_fwd) {
 		cr = page_titles[pi];
 		mts = page_mts[pi];
 	}
-	return this.load_as_current(cr, this.parser.parse(text, false, this.js_mode(cr)),
+	return this.load_as_current(cr, this.parser.parse(text, this.js_mode(cr)),
 		this.config.store_mts ? mts : 0, set_b, keep_fwd);
 };
 

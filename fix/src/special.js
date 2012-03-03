@@ -479,7 +479,7 @@ woas.ns_listing = function(root, flat_arr, folds) {
 	flat_arr.sort();
 	// sort folds content and folds
 	// do not produce the header if listing is transcluded
-	if (!woas.parser._transcluding) {
+	if (!(woas.parser.export_links || woas.parser._transcluding)) {
 		for (f in folds) {
 			if (folds.hasOwnProperty(f)) {
 				folds[f].sort();
@@ -558,7 +558,7 @@ woas._special_image_gallery = function(ns) {
 		plus = cls + (l === 1 ? '_single' : '_first');
 		t = div[0];
 		div[0] = line1.sprintf(plus, t) +
-			this.parser.transclude(t, snippets, false, true) +
+			this.parser.transclude(t, snippets, true) +
 			line2.sprintf(t);
 	}
 	--l;
@@ -567,14 +567,14 @@ woas._special_image_gallery = function(ns) {
 		plus = cls + '_last';
 		t = div[l];
 		div[l] = line1.sprintf(plus, t) +
-			this.parser.transclude(t, snippets, false, true) +
+			this.parser.transclude(t, snippets, true) +
 			line2.sprintf(t);
 	}
 	// everything in between
 	for (i = 1; i < l; ++i) {
 		t = div[i];
 		div[i] = line1.sprintf(cls, t) +
-			this.parser.transclude(t, snippets, false, true) +
+			this.parser.transclude(t, snippets, true) +
 			line2.sprintf(t);
 	}
 	if (div.length) {

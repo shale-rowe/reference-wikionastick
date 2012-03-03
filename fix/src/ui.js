@@ -1220,7 +1220,7 @@ woas.ui.refresh_menu = function() {
 //		woas.log("menu found: "+page_titles[pi]);	// log:0
 		woas.parser._parsing_menu = true;
 		woas.setHTMLDiv(d$("woas_menu"),
-			woas.parser.parse(menu, false, woas.js_mode(ns+"::Menu")));
+			woas.parser.parse(menu, woas.js_mode(ns+"::Menu")));
 		woas.parser._parsing_menu = false;
 		if (!ns) {
 // PVHL: check why this is done every time; change to when needed
