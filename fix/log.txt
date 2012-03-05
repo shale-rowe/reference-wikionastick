@@ -7,8 +7,8 @@ I am near to having a finished, fixed 0.12.0. to upload. I simply don't have the
 
 Changes since Revision pvhl-2317 (git: 3d939c7)
 
-(needing to archive my work in an incomplete though working state; export probably isn't working right yet)
-
+* fix File::x full-file display and links on page
+* fix Image::x page delete history issue and exported image gallery
 * remove list control from HTML export namespace listing pages (now normal list)
 * remove export_links from function calls to fix export issues; parse now parse(text, jsmode)
 * fix which pages get exported by Special::Export

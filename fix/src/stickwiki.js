@@ -416,16 +416,17 @@ woas._get__embedded = function (cr, pi, etype) {
 	
 	if (etype=="file") {
 		var fn = cr.substr(cr.indexOf("::")+2);
-		var pview_data = this.base64.decode(text, 1024), pview_link = "",
+		var pview_data = this.base64.decode(text, 1024),
+			pview_link = "<"+"div id='_part_display'>",
 			ext_size = Math.ceil((text.length*3)/4);
-		//FIXME: is this even correct?
 		if (ext_size-pview_data.length>10)
-			pview_link = "<"+"div id='_part_display'><"+"em>"+this.i18n.FILE_DISPLAY_LIMIT+
-			"<"+"/em><"+"br /><"+"a href='javascript:show_full_file("+pi+")'>"+this.i18n.DISPLAY_FULL_FILE+"<"+"/a><"+"/div>";
+			pview_link += "<"+"em>"+this.i18n.FILE_DISPLAY_LIMIT+"<"+"/em><"+
+				"br /><"+"a class=\"woas_link\" onClick='show_full_file("+
+				pi+")'>"+this.i18n.DISPLAY_FULL_FILE+"<"+"/a>";
 		var P = {body: "\n{{{[[Include::"+cr+"]]}}}"+
 				"\n\nRaw transclusion:\n\n{{{[[Include::"+cr+"|raw]]}}}"};
 		if (!this.is_reserved(cr))
-			P.body += "\n\n\n<"+"a href=\"javascript:query_delete_file('"+this.js_encode(cr)+"')\">"+this.i18n.DELETE_FILE+"<"+"/a>\n";
+			P.body += "\n\n<"+"a class=\"woas_link\" onClick=\"query_delete_file('"+this.js_encode(cr)+"')\">"+this.i18n.DELETE_FILE+"<"+"/a>\n";
 		P.body += "\n";
 		
 		// correct syntax parsing of nowiki syntax (also does macros and XHTML comments)
@@ -433,11 +434,12 @@ woas._get__embedded = function (cr, pi, etype) {
 		this.parser.pre_parse(P, snippets);
 		this.parser.syntax_parse(P, snippets);
 		
-		xhtml = this.parser._raw_preformatted("pre", pview_data, 'woas_embedded')+
-			pview_link+"<"+"br /><"+"hr />"+this.i18n.FILE_SIZE+": "+_convert_bytes(ext_size)+
+		xhtml = pview_link+
+			this.parser._raw_preformatted("pre", pview_data, 'woas_embedded')+
+			"<"+"/div><"+"br /><"+"hr />"+this.i18n.FILE_SIZE+": "+_convert_bytes(ext_size)+
 			"<"+"br />" + this.last_modified(this.config.store_mts ? page_mts[pi] : 0)+
 			"<"+"br /><"+"br />XHTML transclusion:"+P.body+
-			"<"+"a onClick=\"query_export_file('"+this.js_encode(cr)+"')\">"+this.i18n.EXPORT_FILE+
+			"<"+"a class=\"woas_link\" onClick=\"query_export_file('"+this.js_encode(cr)+"')\">"+this.i18n.EXPORT_FILE+
 			"<"+"/a><"+"br />";
 		P = null;
 	} else { // etype == image
