@@ -542,14 +542,17 @@ woas.ns_listing = function(root, flat_arr, folds) {
 //   (IE6 only has a:hover and doesn't like multi-class selectors)
 woas._special_image_gallery = function(ns) {
 	var snippets = [], div = [], i, l, cnt, t, cls = 'woas_img_list',
-		plus = '', p = {},
+		plus = '', p = {}, exp = woas.parser.export_links,
 		// class, title
-		line1 = '<'+'a class="%s" onclick="woas.go_to(\'%s\')">',
+		line1 = '<'+'a class="%s" ' + (exp
+			? 'href="%s">'
+			: 'onclick="woas.go_to(\'%s\')">'),
 		// title
 		line2 = '<'+'div class="'+cls+'">%s<'+'/div><'+'/a>';
 	for (i = 0, l = page_titles.length, cnt = 0; i < l; ++i) {
-		if (page_titles[i].indexOf(ns) === 0) {
-			div[cnt++] = page_titles[i];
+		t = page_titles[i]
+		if (t.indexOf(ns) === 0) {
+			div[cnt++] = t;
 		}
 	}
 	l = div.length;
@@ -557,7 +560,7 @@ woas._special_image_gallery = function(ns) {
 	if (l) {
 		plus = cls + (l === 1 ? '_single' : '_first');
 		t = div[0];
-		div[0] = line1.sprintf(plus, t) +
+		div[0] = line1.sprintf(plus, exp ? woas.exporter._get_fname(t) : t) +
 			this.parser.transclude(t, snippets, true) +
 			line2.sprintf(t);
 	}
@@ -566,14 +569,14 @@ woas._special_image_gallery = function(ns) {
 	if (l > 0) {
 		plus = cls + '_last';
 		t = div[l];
-		div[l] = line1.sprintf(plus, t) +
+		div[l] = line1.sprintf(plus, exp ? woas.exporter._get_fname(t) : t) +
 			this.parser.transclude(t, snippets, true) +
 			line2.sprintf(t);
 	}
 	// everything in between
 	for (i = 1; i < l; ++i) {
 		t = div[i];
-		div[i] = line1.sprintf(cls, t) +
+		div[i] = line1.sprintf(cls, exp ? woas.exporter._get_fname(t) : t) +
 			this.parser.transclude(t, snippets, true) +
 			line2.sprintf(t);
 	}

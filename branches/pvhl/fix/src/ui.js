@@ -799,9 +799,9 @@ function show_full_file(pi) {
 		return;
 	// put WoaS in loading mode
 	woas.progress_init("Loading full file");
-	// clear the partial display and put in the whole file content
-	woas.setHTML(d$('_part_display'), '');
-	woas.setHTML(d$('woas_file_ct'), woas.xhtml_encode(woas.base64.decode(text)));
+	// put in the whole file content
+	woas.setHTML(d$('_part_display'), woas.parser._raw_preformatted("pre",
+		woas.base64.decode(text), 'woas_embedded'));
 	// finished loading the file
 	woas.progress_finish();
 }
@@ -820,7 +820,6 @@ function query_export_image(cr) {
 }
 
 
-// PVHL: FIX Goes back 2 pages
 function query_delete_file(cr) {
 	if (!confirm(woas.i18n.CONFIRM_DELETE.sprintf(cr)))
 		return;
@@ -854,7 +853,6 @@ function query_delete_image(cr) {
 		return;
 	// do not check for plugin deletion here
 	woas.delete_page(cr);
-	back_or(woas.config.main_page);
 	return false;
 }
 
