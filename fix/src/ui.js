@@ -101,7 +101,7 @@ PVHL: FIX; this needs to be changed as
 		woas._cached_body_search = [];
 		woas._cached_title_search = [];
 		woas._last_search = null;
-		woas.pager.bucket.clear();
+		//woas.pager.bucket.clear();
 		if (!no_render)
 			this._search_render();
 	},
@@ -590,27 +590,24 @@ function page_dblclick() {
 
 /** Used by search box **/
 function menu_do_search() {
+	var str = d$('menu_string_to_search').value;
 	// directly use the search page if it is active
     if (current === "Special::Search") {
-		d$('string_to_search').value = d$('menu_string_to_search').value;
+		d$('string_to_search').value = str;
     }
-    woas.do_search(d$('menu_string_to_search').value);
+    woas.do_search(str);
 }
 
 // Used by Special::Search
 // make the actual search and cache the results
 function ssearch_do_search() {
-	var search_string = d$("string_to_search").value;
-	woas.do_search(search_string);
+	var str = d$("string_to_search").value;
+	woas.do_search(str);
 }
 
 function menu_key_hook(orig_e) {
-    var e;
-    if (!orig_e)
-        e = window.event;
-    else
-        e = orig_e;
-	var ck = woas.browser.ie ? e.keyCode : e.which;
+	var e = orig_e || window.event,
+		ck = e.keyCode || e.which;
     if (ck == 13) {
 		ff_fix_focus();
 		menu_do_search();
@@ -626,6 +623,7 @@ function menu_search_focus(f) {
 		if (current == "Special::Search") {
 //		ff_fix_focus();
 			d$('string_to_search').focus();
+			woas.ui.top();
 		} else {
 			woas.ui.focus_textbox();
 		}
@@ -635,24 +633,23 @@ function menu_search_focus(f) {
 	}
 }
 
-//NOTE: this is attached to onkeydown of menu's search box, so you can't use 'this'
 woas.do_search = function(str, noclear) {
 	if (!str)
 		return;
 	// clear previous search results
 	if (!noclear)
-		woas.ui.clear_search(true);
+		this.ui.clear_search(true);
 
-	woas.progress_init("Searching");
+	this.progress_init("Searching");
 	// reset result pages
-	woas.pager.bucket.clear();
+	//this.pager.bucket.clear();
 
 	// cache new search results
-	woas._cache_search( str );
-	woas.progress_finish();
+	this._cache_search( str );
+	this.progress_finish();
 
 	// refresh the search page, or go to it if we are not
-	woas.ui._search_render();
+	this.ui._search_render();
 };
 
 // Used by Special::Options page
@@ -1010,7 +1007,6 @@ function search_focus(focused) {
 		woas.ui.focus_textbox();
 	} else {
 		woas.ui.blur_textbox();
-		ff_fix_focus();
 	}
 }
 
@@ -1020,32 +1016,41 @@ woas._hl_marker_rx = new RegExp(woas._hl_marker+":(\\d+):", "g");
 
 // display search results
 woas._search_load = function() {
-	woas.log("called _search_load()");
-	var P = {body: ""};
+//	woas.log("called _search_load()");	//log:0
+	var P = {body: ""}, hd = '<'+'p class="woas_search_head">%s<'+'/p>\n',
+	i, it, r, a, at, count;
 	if (this._last_search === null) {
 //		woas.log("No search done, returning blank");	//log:0
 	} else {
+		P.body = '/%s <'+'span class="woas_search_highlight">' +
+			woas.xhtml_encode(woas._last_search) + '<'+'/span>/';
 		// proceed to parsing if there are matching pages
 		if (this._cached_title_search.length + this._cached_body_search.length !== 0) {
-		
+			P.body = P.body.sprintf('Results for');
+
 			// (1) prepare the title results
-			for(var i=0,it=this._cached_title_search.length;i<it;++i) {
-				P.body += "* [["+ this._cached_title_search[i] + "]]\n";
-				woas.pager.bucket.add(this._cached_title_search[i]);
+			it = this._cached_title_search.length;
+			if (it > 0) {
+				P.body += hd.sprintf('Found in '+it+' title'+(it > 1 ? 's' : ''));
+				for(i=0;i<it;++i) {
+					P.body += "* [["+ this._cached_title_search[i] + "]]\n";
+					//woas.pager.bucket.add(this._cached_title_search[i]);
+				}
 			}
 			
 			// (2) parse the body snippets
-			for(var i = 0, it = this._cached_body_search.length; i < it; ++i) {
-				P.body += "\n* [[" + this._cached_body_search[i].title + "]] - found "
-						+ this._hl_marker+":" + i + ":";
-				woas.pager.bucket.add(this._cached_body_search[i].title);
+			it = this._cached_body_search.length;
+			if (it > 0) {
+				P.body += hd.sprintf('Found in '+it+' page'+(it > 1 ? 's' : ''));
+				for(i = 0; i < it; ++i) {
+					P.body += "\n* [[" + this._cached_body_search[i].title + "]] - found "
+							+ this._hl_marker+":" + i + ":";
+					//woas.pager.bucket.add(this._cached_body_search[i].title);
+				}
 			}
-
-			P.body = 'Results for <'+'strong class="woas_search_highlight">'
-					+ woas.xhtml_encode(woas._last_search) + "<"+"/strong>\n" + P.body;
-		} else
-			P.body = "/No results found for *" + woas.xhtml_encode(woas._last_search) + "*/";
-
+		} else {
+			P.body = P.body.sprintf('No results found for');
+		}
 	}
 
 	// position cursor back in search box
@@ -1056,17 +1061,16 @@ woas._search_load = function() {
 		woas.parser.syntax_parse( P, [] );
 		
 		P.body = P.body.replace(this._hl_marker_rx, function(str, i) {
-			var r="",count=0;
-			// PVHL: don't worry about IE pre as results are single line
-			for(var a=0,at=woas._cached_body_search[i].matches.length;a<at;++a) {
+			r="",count=0;
+			for(a=0,at=woas._cached_body_search[i].matches.length;a<at;++a) {
 				r += "<"+"pre class=\"woas_search_results\">" +
 						// apply highlighting
-						woas._cached_body_search[i].matches[a].replace(woas._reLastSearch, function(str, $1) {
+						woas._cached_body_search[i].matches[a].replace(woas._reLastSearch, function(str) {
 							++count;
-								return '<'+'span class="woas_search_highlight">'+$1+'<'+'/span>';
+							return '<'+'span class="woas_search_highlight">'+str+'<'+'/span>';
 						})+"<"+"/pre>";
 			}
-			return " <"+"strong>"+count+"<"+"/strong> times: "+r;
+			return " <"+"strong>"+count+"<"+"/strong> time"+(count > 1 ? 's' : '')+": "+r;
 		});
 	}
 	

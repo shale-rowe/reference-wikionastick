@@ -4276,10 +4276,14 @@ img.woas_nav { /* woas logo */
 	border: 1px solid #aaa;
 	clear: both;
 	padding: 0.313em;
-	margin: .75em
+	margin: .75em 0px .75em 1em
 }
 .woas_search_highlight {
 	background-color: #ff0; /* yellow */
+}
+.woas_search_head {
+	font-weight: bold;
+	font-family: sans-serif
 }
 
 /* TABLE OF CONTENTS */
@@ -4997,6 +5001,8 @@ woas.page.boundary: DFQRCTsKlU
 * I have changed the order of the navigation icons a little to be more consistent (mostly, it stops the /Help/ icon moving around when switching to /edit/ mode), and updated & minimized the icons. The lock icon view has been reversed as it was very confusing; they now reflect what will be done when clicked, just like the other icons, not the status of the page. The CSS styling for a locked page has also been changed to a red border on locked pages and can be easily modified through custom CSS, including returning the original display.<br><br>I am rewriting the code so icons can be easily moved to any position (mostly for Little Girl & [[http://bookonastick.wordpress.com|BoaS]]'s sake), though the new project will make this unnecessary because the layout will come from layout pages that are rendered on load.
 
 * The editor has been improved in that it now acts as a single page (if there is enough screen layout available), removing the double scrollbars that used to appear. It works well across all browsers, including IE6. I was going to do the same with the view layout (and developed code to do so, allowing fixed layout in all browsers) but have decided to wait and do it in the new project. I also need to decide whether to add image capabilities to IE6&7 in the new project as I have code written that can do so. Would be interested in feedback on this.
+
+* The [[Special::Search|search page]] layout has been improved, with more to come, though further changes may need to wait for my new project.
 \
 == Parsing
 * Most URLs, like https://example.com/page?hi#there, will be recognized and kept from being seen as text markup (try this page in 0.12.0). If /Automatically convert URLs to hyperlinks/ is turned on in the [[Special::Options#User Interface|User Interface]] section of [[Special::Options]], and the URL is recognized (http, https, file, ftp) then the URL will also be automatically turned into an external wiki link. This doesn't fix UNIX paths, but as long as the path doesn't have a leading slash, it should be rendered correctly: my/path/t. In my new project I want to add syntax, consistent with Creole 1, that stops the next character (or perhaps next syntax block; e.g: '{|') from being interpreted as markup. (There are many other ways to accomplish this as well, like recognizing backslash escapes within the line.)
@@ -5007,14 +5013,16 @@ woas.page.boundary: DFQRCTsKlU
 /See my *[[http://stickwiki.svn.sourceforge.net/viewvc/stickwiki/branches/pvhl/fix/log.txt|log.txt]]* in SVN for a fuller list of fixes. The file, as it was when I uploaded this file, is also [[log.txt|included in this wiki]], so you can get an idea of the changes made./
 == Major
 * Fixed the file corruption that happened in WoaS.0.12.0 when using Java for saving (Chrome, Safari, Opera).
-* Fixed Firefox 7+ breaking file selection
+* Fixed Firefox 7+ breaking file selection.
 \
 == Minor
-* many parser spacing fixes
+* Many parser spacing fixes.
 
 * Many changes to fix layout issues across browsers in Windows, including IE 6&7. Layout is now consistent at all text sizes and zoom levels in all major browsers (in Windows; I have done only limited testing for Linux, and none at all for Mac). I have been able to test early versions of IE and Firefox, but have no ability (or real desire) to test early versions of Chrome, Opera, and Safari. /I also had not realized how many load|save related WoaS features only work in Firefox! I have code to make image embedding work in IE, but adding such capabilities to the other browsers will have to be limited and based either on a new Java system, or HTML 5./
 
 * Most history and navigation icon errors have been removed.
+
+* Many Special::Search layout bugs are fixed.
 
 --DFQRCTsKlU
 woas.page.title: log.txt
@@ -5033,6 +5041,7 @@ I am near to having a finished, fixed 0.12.0. to upload. I simply don't have the
 
 Changes since Revision pvhl-2317 (git: 3d939c7)
 
+* make search highlighting match the search results (no 'found 0 times'); restrict match length to 200 characters between words instead of the whole page; add section headings for titles/pages; (NOTE: the current algorithm has never really worked, but now the results show what was really found. I will be changing the search algorithm to be faster, find the true closest match, and work without script activity warnings, and will add many options like match case/whole word/phrase, etc., to the search page. The current matching method is not really useful to me, and I have designed the new algorithm, but it may need to wait for the new project)
 * fix File::x full-file display and links on page
 * fix Image::x page delete history issue and exported image gallery
 * remove list control from HTML export namespace listing pages (now normal list)
@@ -5115,7 +5124,7 @@ Changes since Revision pvhl-2317 (git: 3d939c7)
 * delete WoaS::Template::Button as no longer needed and remove it and WoaS::Template::Info from code
 * add official macro for info box and use in Help Pages; will expand function later
 * Asthetic adjustment to Recent Changes
-* Changes to breadcrumbs display: improve asthetics and fix issue with ::Menu & Namespace listings
+* Changes to breadcrumbs display: improve aesthetics and fix issue with ::Menu & Namespace listings
 * Changes to Tagged:: listing to improve capability
 * Refactor of listing code to simplify and add no-namespace folding
 * Refactor of orphan pages code ( Order(n) instead of O(n*n) )
@@ -5300,5 +5309,4 @@ Revision pvhl-2286
 * syntax fixes found by PVHL
 * fixed up deprecated go_to() & go_back
 * minor documentation clarifications
-
 --DFQRCTsKlU

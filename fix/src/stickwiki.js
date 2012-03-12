@@ -573,7 +573,7 @@ woas.eval = function(code, return_value) {
 // Load a new current page
 // return true if page was successfully loaded
 // PVHL: needs to handle section references;
-//   no_history added for Lock/Unlock/Options, etc. to stop history problems
+//   keep_fwd added for Lock/Unlock/Options, etc. to stop history problems
 woas.set_current = function (cr, interactive, keep_fwd) {
 	// pager.browse_hook determines if cr is allowed to be set
 	if (!woas.pager.browse_hook(cr))

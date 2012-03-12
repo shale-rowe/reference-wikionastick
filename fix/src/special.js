@@ -98,32 +98,30 @@ woas.special_backlinks = function() {
 		return "== Links to [["+pg_title+"]]\n"+this._join_list(pg);
 };
 
-woas._reLastSearch = null;	// search highlighting regex
-
-woas._nearby_chars = 200;		// amount of nearby characters to display
 
 // cached search results
 woas._cached_title_search = [];
 woas._cached_body_search = [];
 // last string searched
 woas._last_search = null;
+woas._reLastSearch = null;	// search highlighting regex
+woas._nearby_chars = 200;		// amount of nearby characters to display
 
-// create an index of searched pages (by miz & legolas558)
+// create an index of searched pages (by miz & legolas558 & pvhl)
 woas._cache_search = function( str ) {
-	var count = 0, tmp,
-		// matches the search string and nearby text
-		reg = new RegExp( ".{0,"+this._nearby_chars+"}" + RegExp.escape(this.trim(str)).
-					replace(/\s+/g, "(.|\n)*?") + ".{0,"+this._nearby_chars+"}", "gi" );
+	var tmp, pt, i, l, reg, res_body;
+	this._last_search = str = this.trim(str);
+	str = (RegExp.escape(str)).replace(/\s+/g, "[\\s\\S]{0,"+this._nearby_chars+"}?");
+	this._reLastSearch = new RegExp(str, "gi");
+	// matches the search string and nearby text
+	reg = new RegExp( ".{0,"+this._nearby_chars+"}"+str+
+			".{0,"+this._nearby_chars+"}", "gi" );
 
-	this._reLastSearch = new RegExp("("+RegExp.escape(str)+")", "gi");
-	
-	this._last_search = str;
-
-	for(var i=0,l=pages.length; i < l; i++) {
+	for(i=0,l=pages.length; i < l; i++) {
+		pt = page_titles[i];
 
 		//TODO: implement searching in help pages
-
-		if (this.is_reserved(page_titles[i]) && !this.tweak.edit_override)
+		if (this.is_image(pt) || this.is_reserved(pt) && !this.tweak.edit_override)
 			continue;
 
 		// this could be modified for wiki searching issues
@@ -132,14 +130,14 @@ woas._cache_search = function( str ) {
 			continue;
 	
 		// look for string in title
-		if(page_titles[i].match(reg)) {
-			this._cached_title_search.push(page_titles[i]);
+		if (pt.search(this._reLastSearch) !== -1) {
+			this._cached_title_search.push(pt);
 		}
 
 		// look for string in body
 		res_body = tmp.match(reg);
 		if (res_body !== null)
-			this._cached_body_search.push( { title: page_titles[i],	 matches: res_body} );
+			this._cached_body_search.push( {title:pt, matches: res_body} );
 	}
 };
 
