@@ -7,6 +7,7 @@ I am near to having a finished, fixed 0.12.0. to upload. I simply don't have the
 
 Changes since Revision pvhl-2317 (git: 3d939c7)
 
+* make search highlighting match the search results (no 'found 0 times'); restrict match length to 200 characters between words instead of the whole page; add section headings for titles/pages; (NOTE: the current algorithm has never really worked, but now the results show what was really found. I will be changing the search algorithm to be faster, find the true closest match, and work without script activity warnings, and will add many options like match case/whole word/phrase, etc., to the search page. The current matching method is not really useful to me, and I have designed the new algorithm, but it may need to wait for the new project)
 * fix File::x full-file display and links on page
 * fix Image::x page delete history issue and exported image gallery
 * remove list control from HTML export namespace listing pages (now normal list)
@@ -89,7 +90,7 @@ Changes since Revision pvhl-2317 (git: 3d939c7)
 * delete WoaS::Template::Button as no longer needed and remove it and WoaS::Template::Info from code
 * add official macro for info box and use in Help Pages; will expand function later
 * Asthetic adjustment to Recent Changes
-* Changes to breadcrumbs display: improve asthetics and fix issue with ::Menu & Namespace listings
+* Changes to breadcrumbs display: improve aesthetics and fix issue with ::Menu & Namespace listings
 * Changes to Tagged:: listing to improve capability
 * Refactor of listing code to simplify and add no-namespace folding
 * Refactor of orphan pages code ( Order(n) instead of O(n*n) )
