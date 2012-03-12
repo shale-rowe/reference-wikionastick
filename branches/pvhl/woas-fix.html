@@ -3904,10 +3904,14 @@ img.woas_nav { /* woas logo */\n\
 	border: 1px solid #aaa;\n\
 	clear: both;\n\
 	padding: 0.313em;\n\
-	margin: .75em\n\
+	margin: .75em 0px .75em 1em\n\
 }\n\
 .woas_search_highlight {\n\
 	background-color: #ff0; /* yellow */\n\
+}\n\
+.woas_search_head {\n\
+	font-weight: bold;\n\
+	font-family: sans-serif\n\
 }\n\
 \n\
 /* TABLE OF CONTENTS */\n\
@@ -4409,6 +4413,8 @@ If the wiki is erased the menu contents are slightly reduced, with less often us
 * I have changed the order of the navigation icons a little to be more consistent (mostly, it stops the /Help/ icon moving around when switching to /edit/ mode), and updated & minimized the icons. The lock icon view has been reversed as it was very confusing; they now reflect what will be done when clicked, just like the other icons, not the status of the page. The CSS styling for a locked page has also been changed to a red border on locked pages and can be easily modified through custom CSS, including returning the original display.\x3Cbr\x3E\x3Cbr\x3EI am rewriting the code so icons can be easily moved to any position (mostly for Little Girl & [[http://bookonastick.wordpress.com|BoaS]]\'s sake), though the new project will make this unnecessary because the layout will come from layout pages that are rendered on load.\n\
 \n\
 * The editor has been improved in that it now acts as a single page (if there is enough screen layout available), removing the double scrollbars that used to appear. It works well across all browsers, including IE6. I was going to do the same with the view layout (and developed code to do so, allowing fixed layout in all browsers) but have decided to wait and do it in the new project. I also need to decide whether to add image capabilities to IE6&7 in the new project as I have code written that can do so. Would be interested in feedback on this.\n\
+\n\
+* The [[Special::Search|search page]] layout has been improved, with more to come, though further changes may need to wait for my new project.\n\
 \\\n\
 == Parsing\n\
 * Most URLs, like https://example.com/page?hi#there, will be recognized and kept from being seen as text markup (try this page in 0.12.0). If /Automatically convert URLs to hyperlinks/ is turned on in the [[Special::Options#User Interface|User Interface]] section of [[Special::Options]], and the URL is recognized (http, https, file, ftp) then the URL will also be automatically turned into an external wiki link. This doesn\'t fix UNIX paths, but as long as the path doesn\'t have a leading slash, it should be rendered correctly: my/path/t. In my new project I want to add syntax, consistent with Creole 1, that stops the next character (or perhaps next syntax block; e.g: \'{|\') from being interpreted as markup. (There are many other ways to accomplish this as well, like recognizing backslash escapes within the line.)\n\
@@ -4419,14 +4425,16 @@ If the wiki is erased the menu contents are slightly reduced, with less often us
 /See my *[[http://stickwiki.svn.sourceforge.net/viewvc/stickwiki/branches/pvhl/fix/log.txt|log.txt]]* in SVN for a fuller list of fixes. The file, as it was when I uploaded this file, is also [[log.txt|included in this wiki]], so you can get an idea of the changes made./\n\
 == Major\n\
 * Fixed the file corruption that happened in WoaS.0.12.0 when using Java for saving (Chrome, Safari, Opera).\n\
-* Fixed Firefox 7+ breaking file selection\n\
+* Fixed Firefox 7+ breaking file selection.\n\
 \\\n\
 == Minor\n\
-* many parser spacing fixes\n\
+* Many parser spacing fixes.\n\
 \n\
 * Many changes to fix layout issues across browsers in Windows, including IE 6&7. Layout is now consistent at all text sizes and zoom levels in all major browsers (in Windows; I have done only limited testing for Linux, and none at all for Mac). I have been able to test early versions of IE and Firefox, but have no ability (or real desire) to test early versions of Chrome, Opera, and Safari. /I also had not realized how many load|save related WoaS features only work in Firefox! I have code to make image embedding work in IE, but adding such capabilities to the other browsers will have to be limited and based either on a new Java system, or HTML 5./\n\
 \n\
 * Most history and navigation icon errors have been removed.\n\
+\n\
+* Many Special::Search layout bugs are fixed.\n\
 ',
 'WHILE THE CODE IN \'FIX\' IS BEING UPDATED/MERGED IT MAY NOT ALWAYS BE WORKING AS FOUND.\n\
 IT IS NOT BEING TESTED MUCH DURING THIS PROCESS AND COULD OCCASIONALLY BE BROKEN.\n\
@@ -4437,8 +4445,11 @@ I am near to having a finished, fixed 0.12.0. to upload. I simply don\'t have th
 \n\
 Changes since Revision pvhl-2317 (git: 3d939c7)\n\
 \n\
-(needing to archive my work in an incomplete though working state; export probably isn\'t working right yet)\n\
-\n\
+* make search highlighting match the search results (no \'found 0 times\'); restrict match length to 200 characters between words instead of the whole page; add section headings for titles/pages; (NOTE: the current algorithm has never really worked, but now the results show what was really found. I will be changing the search algorithm to be faster, find the true closest match, and work without script activity warnings, and will add many options like match case/whole word/phrase, etc., to the search page. The current matching method is not really useful to me, and I have designed the new algorithm, but it may need to wait for the new project)\n\
+* fix File::x full-file display and links on page\n\
+* fix Image::x page delete history issue and exported image gallery\n\
+* remove list control from HTML export namespace listing pages (now normal list)\n\
+* remove export_links from function calls to fix export issues; parse now parse(text, jsmode)\n\
 * fix which pages get exported by Special::Export\n\
 * add German plugin (helped by Little Girl) and hack to fix plugin delete error\n\
 * update Italian plugin (helped by Michele1995) and small changes to i18n\n\
@@ -4517,7 +4528,7 @@ Changes since Revision pvhl-2317 (git: 3d939c7)\n\
 * delete WoaS::Template::Button as no longer needed and remove it and WoaS::Template::Info from code\n\
 * add official macro for info box and use in Help Pages; will expand function later\n\
 * Asthetic adjustment to Recent Changes\n\
-* Changes to breadcrumbs display: improve asthetics and fix issue with ::Menu & Namespace listings\n\
+* Changes to breadcrumbs display: improve aesthetics and fix issue with ::Menu & Namespace listings\n\
 * Changes to Tagged:: listing to improve capability\n\
 * Refactor of listing code to simplify and add no-namespace folding\n\
 * Refactor of orphan pages code ( Order(n) instead of O(n*n) )\n\
@@ -4701,8 +4712,7 @@ Revision pvhl-2286\n\
 * syntax fixes found by Little Girl\n\
 * syntax fixes found by PVHL\n\
 * fixed up deprecated go_to() & go_back\n\
-* minor documentation clarifications\n\
-'];
+* minor documentation clarifications'];
 
 /* DFQRCTsKlU-0000000-END */
 
@@ -6482,6 +6492,7 @@ woas.remote_load = function(url) {
 woas.parser = {
 
 render_title: null, // title of page being rendered
+export_links: false, // true if exporter active
 has_toc: null,
 toc: [],
 force_inline: false, // stops layout being broken when presenting search results
@@ -6492,7 +6503,6 @@ _parsing_menu: false, // true when we are parsing the menu page
 _MAX_TRANSCLUSION_RECURSE: 256,
 _transcluding: 0,
 _snippets: null,
-_export_links: null,
 
 // a variety of regular expressions used by the parser
 
@@ -6593,11 +6603,12 @@ _raw_preformatted: function(tag, text, cls, add_style) {
 },
 
 // render a single wiki link
-_render_wiki_link: function(target, label, snippets, tags, export_links) {
+_render_wiki_link: function(target, label, snippets, tags) {
 	if (label === undefined) {
 		label = '';
 	}
-	var page = woas.title_unalias(target), // apply aliases to page title
+	var that = woas.parser,
+		page = woas.title_unalias(target), // apply aliases to page title
 		hashloc = page.indexOf('#'),
 		r_label = (label === '') ? page : label,
 		title = '', gotohash = '', str, wl, pg,
@@ -6618,7 +6629,7 @@ _render_wiki_link: function(target, label, snippets, tags, export_links) {
 			if (!this.force_inline)
 				return '';
 			++this.inline_tags;
-			return woas.parser.marker + 'T' + inline_tags + ';';
+			return that.marker + 'T' + inline_tags + ';';
 		}
 	}
 
@@ -6628,7 +6639,7 @@ _render_wiki_link: function(target, label, snippets, tags, export_links) {
 		page = page.replace(/^mailto:\/\//, 'mailto:');
 		// always give title attribute
 		str = sLink.sprintf(scWorld, woas.xhtml_encode(page), sHrefTrgt.sprintf(page), r_label);
-		return woas.parser.place_holder(snippets, str);
+		return that.place_holder(snippets, str);
 	}
 
 	// create section heading info
@@ -6641,7 +6652,7 @@ _render_wiki_link: function(target, label, snippets, tags, export_links) {
 	if (!pg && !gotohash || /"/.test(pg)) {
 		// PVHL: " will break link - current code does not allow.
 		//  empty link - [[#]] ?
-		return woas.parser.place_holder(snippets,
+		return that.place_holder(snippets,
 			'[[<'+'span style="color:#f00">'+target+'<'+'/span>'+
 			(label ? '|'+label : '')+']]');
 	}
@@ -6651,10 +6662,10 @@ _render_wiki_link: function(target, label, snippets, tags, export_links) {
 	}
 
 	if ((!pg && gotohash) || woas.page_exists(pg)) { // normal page
-		if (export_links) {
+		if (that.export_links) {
 			wl = pg ? woas.exporter._get_fname(pg) : '';
 			if (wl === '#') {
-				return woas.parser.place_holder(snippets, sLinkBroken.sprintf(r_label));
+				return that.place_holder(snippets, sLinkBroken.sprintf(r_label));
 			}
 			wl = sHref.sprintf(wl + (gotohash ? '#' + gotohash : ''));
 		} else {
@@ -6662,14 +6673,14 @@ _render_wiki_link: function(target, label, snippets, tags, export_links) {
 		}
 		str = sLink.sprintf(scWoas, title, wl, r_label);
 	} else { // page does not exist
-		if (export_links) {
+		if (that.export_links) {
 			str = sLinkBroken.sprintf(r_label);
 		} else {
 			wl = sOnClick.sprintf(woas.js_encode(pg));
 			str = sLink.sprintf(scWoasUn, title, wl, r_label);
 		}
 	}
-	return woas.parser.place_holder(snippets, str);
+	return that.place_holder(snippets, str);
 },
 
 _transclude: function (str, $1, img_gallery) {
@@ -6712,7 +6723,7 @@ _transclude: function (str, $1, img_gallery) {
 			var img, img_name = woas.xhtml_encode(templname.substr(templname.indexOf("::")+2)),
 				img_cls;
 			img_cls = img_gallery ? 'woas_img_list' : 'woas_img';
-			if (that._export_links) {
+			if (that.export_links) {
 				// check that the URI is valid
 				var uri=woas.exporter._get_fname(templname);
 				if (uri == '#')
@@ -6724,7 +6735,7 @@ _transclude: function (str, $1, img_gallery) {
 			if (parts.length > 1) {
 				img += parts[1];
 				// always add the alt attribute to images
-				if (!that._export_links && !parts[1].match(/alt=('|").*?\1/))
+				if (!that.export_links && !parts[1].match(/alt=('|").*?\1/))
 					img += " alt=\"" + img_name + "\"";
 			}
 			P.body = img + " />";
@@ -6806,14 +6817,13 @@ import_disable: function(NP, js, macros) {
 },
 
 // 'text' is the raw wiki source
-// 'export_links' is set to true when exporting wiki pages (used to generate proper href for hyperlinks)
 // 'js_mode' controls javascript behavior. Allowed values are:
 //    0 - leave script tags as they are (used for exporting; acts much like mode 2)
 //    1 - place script tags in head (dynamic),
 //    2 - re-add script tags after parsing
 //    3 - convert script tags to nowiki blocks
 // @override to customize parsing (see also woas.parser.after_parse and woas.pager.browse
-parse: function(text, export_links, js_mode) {
+parse: function(text, js_mode) {
 	if (woas.config.debug_mode) {
 		if ((typeof text).toLowerCase() != "string") {
 			woas.crash("Called parse() with invalid argument: "+(typeof text));	// log:1
@@ -6821,8 +6831,6 @@ parse: function(text, export_links, js_mode) {
 		}
 	}
 	// default fallback
-	if (typeof export_links == "undefined")
-		export_links = false;
 	if (typeof js_mode == "undefined")
 		js_mode = 1;
 
@@ -6841,7 +6849,7 @@ parse: function(text, export_links, js_mode) {
 	// transclude pages (templates)
 	if (!this.force_inline) {
 		// apply transclusion syntax
-		this.transclude_syntax(P, snippets, export_links);
+		this.transclude_syntax(P, snippets);
 	}
 
 	// PVHL: code was breaking exported scripts by adding br tags; refactored
@@ -6883,7 +6891,7 @@ parse: function(text, export_links, js_mode) {
 	this.inline_tags = 0;
 
 	// static syntax parsing
-	this.syntax_parse(P, snippets, tags, export_links, this.has_toc);
+	this.syntax_parse(P, snippets, tags, this.has_toc);
 
 	// restore macros to those already defined before page was parsed
 	woas.macro.remove_backup();
@@ -6891,7 +6899,7 @@ parse: function(text, export_links, js_mode) {
 	// sort tags at bottom of page if set in config
 	tags = tags.toUnique();
 	if (woas.config.sort_tags) { tags = tags.sort(); }
-	if (tags.length && !export_links) {
+	if (tags.length && !this.export_links) {
 		var s;
 		if (this.force_inline)
 			s = "";
@@ -7114,7 +7122,7 @@ split_tags: function(tlist) {
 },
 
 // parse passive syntax only
-syntax_parse: function(P, snippets, tags, export_links, has_toc) {
+syntax_parse: function(P, snippets, tags, has_toc) {
 	var that = this;
 
 	// restore text lines (lines ending in '\' are joined)
@@ -7131,7 +7139,7 @@ syntax_parse: function(P, snippets, tags, export_links, has_toc) {
 	// render links e.g. [[target]] & [[target|label]]
 	.replace(this.reWikiLink, function(str, target, label) {
 		if (target)
-			return that._render_wiki_link(target, label, snippets, tags, export_links);
+			return that._render_wiki_link(target, label, snippets, tags);
 		return str; // not a valid link
 	})
 
@@ -7198,7 +7206,7 @@ syntax_parse: function(P, snippets, tags, export_links, has_toc) {
 	// replace [[Special::TOC]]
 	if (has_toc) {
 		P.body = P.body.replace(this.marker+"TOC", function() {
-			return that.toc_render(export_links);
+			return that.toc_render();
 		});
 	}
 
@@ -7244,11 +7252,11 @@ toc_line_render_exp: function(level, count, anchor, heading) {
 // This function should not need to be overwritten; toc_line_render, toc_line,
 // & toc_body (and related export versions) should be sufficient to generate
 // any desired TOC.
-toc_render: function(export_links) {
+toc_render: function() {
 	// this.toc: [level, anchor, heading text, level, anchor, ...]
 	var i, il, j, tmp = [], count = [], level,
-		body = export_links ? this.toc_body_exp: this.toc_body,
-		line_fn = export_links ? this.toc_line_render_exp : this.toc_line_render;
+		body = this.export_links ? this.toc_body_exp: this.toc_body,
+		line_fn = this.export_links ? this.toc_line_render_exp : this.toc_line_render;
 	for (i = 0, il = this.toc.length; i < il;) {
 		level = this.toc[i++];
 		count[level] = count[level] ? count[level] + 1 : 1;
@@ -7264,18 +7272,16 @@ toc_render: function(export_links) {
 
 //API1.0
 //TODO: offer transclusion parameters argument
-transclude: function(title, snippets, export_links, img_gallery) {
+transclude: function(title, snippets, img_gallery) {
 	this._snippets = snippets;
-	this._export_links = !!export_links;
 	var rv = this._transclude("[[Include::"+title+"]]", title, img_gallery);
-	this._export_links = this._snippets = null;
+	this._snippets = null;
 	return rv;
 },
 
-transclude_syntax: function(P, snippets, export_links) {
+transclude_syntax: function(P, snippets) {
 	var trans_level = 0, that = this, found;
 	this._snippets = snippets;
-	this._export_links = export_links ? true : false;
 	do {
 		found = false;
 		P.body = P.body.replace(this.reTransclusion, function(str, $1) {
@@ -7289,7 +7295,7 @@ transclude_syntax: function(P, snippets, export_links) {
 			return that.place_holder(snippets, that.render_error(str, 'infin'));
 		});
 	}
-	this._snippets = this._export_links = null;
+	this._snippets = null;
 },
 
 // return all the snippets that were pushed to snippets array
@@ -7407,32 +7413,30 @@ woas.special_backlinks = function() {
 		return "== Links to [["+pg_title+"]]\n"+this._join_list(pg);
 };
 
-woas._reLastSearch = null;	// search highlighting regex
-
-woas._nearby_chars = 200;		// amount of nearby characters to display
 
 // cached search results
 woas._cached_title_search = [];
 woas._cached_body_search = [];
 // last string searched
 woas._last_search = null;
+woas._reLastSearch = null;	// search highlighting regex
+woas._nearby_chars = 200;		// amount of nearby characters to display
 
-// create an index of searched pages (by miz & legolas558)
+// create an index of searched pages (by miz & legolas558 & pvhl)
 woas._cache_search = function( str ) {
-	var count = 0, tmp,
-		// matches the search string and nearby text
-		reg = new RegExp( ".{0,"+this._nearby_chars+"}" + RegExp.escape(this.trim(str)).
-					replace(/\s+/g, "(.|\n)*?") + ".{0,"+this._nearby_chars+"}", "gi" );
+	var tmp, pt, i, l, reg, res_body;
+	this._last_search = str = this.trim(str);
+	str = (RegExp.escape(str)).replace(/\s+/g, "[\\s\\S]{0,"+this._nearby_chars+"}?");
+	this._reLastSearch = new RegExp(str, "gi");
+	// matches the search string and nearby text
+	reg = new RegExp( ".{0,"+this._nearby_chars+"}"+str+
+			".{0,"+this._nearby_chars+"}", "gi" );
 
-	this._reLastSearch = new RegExp("("+RegExp.escape(str)+")", "gi");
-	
-	this._last_search = str;
-
-	for(var i=0,l=pages.length; i < l; i++) {
+	for(i=0,l=pages.length; i < l; i++) {
+		pt = page_titles[i];
 
 		//TODO: implement searching in help pages
-
-		if (this.is_reserved(page_titles[i]) && !this.tweak.edit_override)
+		if (this.is_image(pt) || this.is_reserved(pt) && !this.tweak.edit_override)
 			continue;
 
 		// this could be modified for wiki searching issues
@@ -7441,14 +7445,14 @@ woas._cache_search = function( str ) {
 			continue;
 	
 		// look for string in title
-		if(page_titles[i].match(reg)) {
-			this._cached_title_search.push(page_titles[i]);
+		if (pt.search(this._reLastSearch) !== -1) {
+			this._cached_title_search.push(pt);
 		}
 
 		// look for string in body
 		res_body = tmp.match(reg);
 		if (res_body !== null)
-			this._cached_body_search.push( { title: page_titles[i],	 matches: res_body} );
+			this._cached_body_search.push( {title:pt, matches: res_body} );
 	}
 };
 
@@ -7788,7 +7792,7 @@ woas.ns_listing = function(root, flat_arr, folds) {
 	flat_arr.sort();
 	// sort folds content and folds
 	// do not produce the header if listing is transcluded
-	if (!woas.parser._transcluding) {
+	if (!(woas.parser.export_links || woas.parser._transcluding)) {
 		for (f in folds) {
 			if (folds.hasOwnProperty(f)) {
 				folds[f].sort();
@@ -7851,14 +7855,17 @@ woas.ns_listing = function(root, flat_arr, folds) {
 //   (IE6 only has a:hover and doesn't like multi-class selectors)
 woas._special_image_gallery = function(ns) {
 	var snippets = [], div = [], i, l, cnt, t, cls = 'woas_img_list',
-		plus = '', p = {},
+		plus = '', p = {}, exp = woas.parser.export_links,
 		// class, title
-		line1 = '<'+'a class="%s" onclick="woas.go_to(\'%s\')">',
+		line1 = '<'+'a class="%s" ' + (exp
+			? 'href="%s">'
+			: 'onclick="woas.go_to(\'%s\')">'),
 		// title
 		line2 = '<'+'div class="'+cls+'">%s<'+'/div><'+'/a>';
 	for (i = 0, l = page_titles.length, cnt = 0; i < l; ++i) {
-		if (page_titles[i].indexOf(ns) === 0) {
-			div[cnt++] = page_titles[i];
+		t = page_titles[i]
+		if (t.indexOf(ns) === 0) {
+			div[cnt++] = t;
 		}
 	}
 	l = div.length;
@@ -7866,8 +7873,8 @@ woas._special_image_gallery = function(ns) {
 	if (l) {
 		plus = cls + (l === 1 ? '_single' : '_first');
 		t = div[0];
-		div[0] = line1.sprintf(plus, t) +
-			this.parser.transclude(t, snippets, false, true) +
+		div[0] = line1.sprintf(plus, exp ? woas.exporter._get_fname(t) : t) +
+			this.parser.transclude(t, snippets, true) +
 			line2.sprintf(t);
 	}
 	--l;
@@ -7875,15 +7882,15 @@ woas._special_image_gallery = function(ns) {
 	if (l > 0) {
 		plus = cls + '_last';
 		t = div[l];
-		div[l] = line1.sprintf(plus, t) +
-			this.parser.transclude(t, snippets, false, true) +
+		div[l] = line1.sprintf(plus, exp ? woas.exporter._get_fname(t) : t) +
+			this.parser.transclude(t, snippets, true) +
 			line2.sprintf(t);
 	}
 	// everything in between
 	for (i = 1; i < l; ++i) {
 		t = div[i];
-		div[i] = line1.sprintf(cls, t) +
-			this.parser.transclude(t, snippets, false, true) +
+		div[i] = line1.sprintf(cls, exp ? woas.exporter._get_fname(t) : t) +
+			this.parser.transclude(t, snippets, true) +
 			line2.sprintf(t);
 	}
 	if (div.length) {
@@ -9278,16 +9285,17 @@ woas._get__embedded = function (cr, pi, etype) {
 	
 	if (etype=="file") {
 		var fn = cr.substr(cr.indexOf("::")+2);
-		var pview_data = this.base64.decode(text, 1024), pview_link = "",
+		var pview_data = this.base64.decode(text, 1024),
+			pview_link = "<"+"div id='_part_display'>",
 			ext_size = Math.ceil((text.length*3)/4);
-		//FIXME: is this even correct?
 		if (ext_size-pview_data.length>10)
-			pview_link = "<"+"div id='_part_display'><"+"em>"+this.i18n.FILE_DISPLAY_LIMIT+
-			"<"+"/em><"+"br /><"+"a href='javascript:show_full_file("+pi+")'>"+this.i18n.DISPLAY_FULL_FILE+"<"+"/a><"+"/div>";
+			pview_link += "<"+"em>"+this.i18n.FILE_DISPLAY_LIMIT+"<"+"/em><"+
+				"br /><"+"a class=\"woas_link\" onClick='show_full_file("+
+				pi+")'>"+this.i18n.DISPLAY_FULL_FILE+"<"+"/a>";
 		var P = {body: "\n{{{[[Include::"+cr+"]]}}}"+
 				"\n\nRaw transclusion:\n\n{{{[[Include::"+cr+"|raw]]}}}"};
 		if (!this.is_reserved(cr))
-			P.body += "\n\n\n<"+"a href=\"javascript:query_delete_file('"+this.js_encode(cr)+"')\">"+this.i18n.DELETE_FILE+"<"+"/a>\n";
+			P.body += "\n\n<"+"a class=\"woas_link\" onClick=\"query_delete_file('"+this.js_encode(cr)+"')\">"+this.i18n.DELETE_FILE+"<"+"/a>\n";
 		P.body += "\n";
 		
 		// correct syntax parsing of nowiki syntax (also does macros and XHTML comments)
@@ -9295,11 +9303,12 @@ woas._get__embedded = function (cr, pi, etype) {
 		this.parser.pre_parse(P, snippets);
 		this.parser.syntax_parse(P, snippets);
 		
-		xhtml = this.parser._raw_preformatted("pre", pview_data, 'woas_embedded')+
-			pview_link+"<"+"br /><"+"hr />"+this.i18n.FILE_SIZE+": "+_convert_bytes(ext_size)+
+		xhtml = pview_link+
+			this.parser._raw_preformatted("pre", pview_data, 'woas_embedded')+
+			"<"+"/div><"+"br /><"+"hr />"+this.i18n.FILE_SIZE+": "+_convert_bytes(ext_size)+
 			"<"+"br />" + this.last_modified(this.config.store_mts ? page_mts[pi] : 0)+
 			"<"+"br /><"+"br />XHTML transclusion:"+P.body+
-			"<"+"a onClick=\"query_export_file('"+this.js_encode(cr)+"')\">"+this.i18n.EXPORT_FILE+
+			"<"+"a class=\"woas_link\" onClick=\"query_export_file('"+this.js_encode(cr)+"')\">"+this.i18n.EXPORT_FILE+
 			"<"+"/a><"+"br />";
 		P = null;
 	} else { // etype == image
@@ -9433,7 +9442,7 @@ woas.eval = function(code, return_value) {
 // Load a new current page
 // return true if page was successfully loaded
 // PVHL: needs to handle section references;
-//   no_history added for Lock/Unlock/Options, etc. to stop history problems
+//   keep_fwd added for Lock/Unlock/Options, etc. to stop history problems
 woas.set_current = function (cr, interactive, keep_fwd) {
 	// pager.browse_hook determines if cr is allowed to be set
 	if (!woas.pager.browse_hook(cr))
@@ -9625,7 +9634,7 @@ woas.set_current = function (cr, interactive, keep_fwd) {
 		cr = page_titles[pi];
 		mts = page_mts[pi];
 	}
-	return this.load_as_current(cr, this.parser.parse(text, false, this.js_mode(cr)),
+	return this.load_as_current(cr, this.parser.parse(text, this.js_mode(cr)),
 		this.config.store_mts ? mts : 0, set_b, keep_fwd);
 };
 
@@ -9746,7 +9755,7 @@ woas._on_load = function() {
 	this._set_debug(this.config.debug_mode, this.config.debug_closed);
 	d$("woas_debug_log").value = ""; // for Firefox
 	// output platform information - note that revision is filled in only in releases
-	woas.log("*** WoaS v"+this.version+"-pvhl-r2516"+" started");	// log:1
+	woas.log("*** WoaS v"+this.version+"-pvhl-r2520"+" started");	// log:1
 	// needed to check if data source changes; forces full save when entering/exiting
 	// WSIF datasource mode or changing the name of the data source file
 	this._old_wsif_ds = is_windows
@@ -12240,7 +12249,7 @@ woas.exporter = {
 			}
 			// parse the exported menu
 			if (exp_menu) {
-				exp_menu = woas.parser.parse(exp_menu, true, this._settings.js_mode);
+				exp_menu = woas.parser.parse(exp_menu, this._settings.js_mode);
 				if (this._settings.js_mode) {
 					woas.scripting.activate("menu");
 				}
@@ -12402,7 +12411,7 @@ woas._attrib_escape = function(s) {
 
 woas.export_parse = function (data, js_mode) {
 	// a normal wiki page, parse it and eventually execute the attached javascript
-	data = this.parser.parse(data, true, js_mode);
+	data = this.parser.parse(data, js_mode);
 	if (js_mode) {
 		this.setHTMLDiv(d$("woas_page"), data);
 		this.scripting.activate("page");
@@ -12412,7 +12421,7 @@ woas.export_parse = function (data, js_mode) {
 };
 
 woas.export_wiki = function() {
-	var sep_css;
+	var sep_css, stats;
 	// parse user export options
 	try {
 		this.exporter._settings.xhtml_path = d$("woas_ep_xhtml").value;
@@ -12442,11 +12451,13 @@ woas.export_wiki = function() {
 		this.exporter._export_fnames_array.push(this.exporter._settings.css_path);
 		this.save_file(this.exporter._settings.xhtml_path+this.exporter._settings.css_path, this.file_mode.ASCII_TEXT, this.exporter._settings.css);
 		this.exporter._settings.css = "<"+"link rel=\"stylesheet\" type=\"text/css\" media=\"all\" href=\""+this.exporter._settings.css_path+"\" /"+">";
-		} else
-	this.exporter._settings.css = "<"+"style type=\"text/css\">"+this.exporter._settings.css+"<"+"/style>";
+	} else
+		this.exporter._settings.css = "<"+"style type=\"text/css\">"+this.exporter._settings.css+"<"+"/style>";
 
 	// actual exporting
-	var stats = this.exporter.do_export();
+	woas.parser.export_links = true;
+	stats = this.exporter.do_export();
+	woas.parser.export_links = false;
 
 	// refresh if javascript was run
 	if (this.exporter._settings.js_mode) {
@@ -13466,7 +13477,7 @@ PVHL: FIX; this needs to be changed as
 		woas._cached_body_search = [];
 		woas._cached_title_search = [];
 		woas._last_search = null;
-		woas.pager.bucket.clear();
+		//woas.pager.bucket.clear();
 		if (!no_render)
 			this._search_render();
 	},
@@ -13955,27 +13966,24 @@ function page_dblclick() {
 
 /** Used by search box **/
 function menu_do_search() {
+	var str = d$('menu_string_to_search').value;
 	// directly use the search page if it is active
     if (current === "Special::Search") {
-		d$('string_to_search').value = d$('menu_string_to_search').value;
+		d$('string_to_search').value = str;
     }
-    woas.do_search(d$('menu_string_to_search').value);
+    woas.do_search(str);
 }
 
 // Used by Special::Search
 // make the actual search and cache the results
 function ssearch_do_search() {
-	var search_string = d$("string_to_search").value;
-	woas.do_search(search_string);
+	var str = d$("string_to_search").value;
+	woas.do_search(str);
 }
 
 function menu_key_hook(orig_e) {
-    var e;
-    if (!orig_e)
-        e = window.event;
-    else
-        e = orig_e;
-	var ck = woas.browser.ie ? e.keyCode : e.which;
+	var e = orig_e || window.event,
+		ck = e.keyCode || e.which;
     if (ck == 13) {
 		ff_fix_focus();
 		menu_do_search();
@@ -13991,6 +13999,7 @@ function menu_search_focus(f) {
 		if (current == "Special::Search") {
 //		ff_fix_focus();
 			d$('string_to_search').focus();
+			woas.ui.top();
 		} else {
 			woas.ui.focus_textbox();
 		}
@@ -14000,24 +14009,23 @@ function menu_search_focus(f) {
 	}
 }
 
-//NOTE: this is attached to onkeydown of menu's search box, so you can't use 'this'
 woas.do_search = function(str, noclear) {
 	if (!str)
 		return;
 	// clear previous search results
 	if (!noclear)
-		woas.ui.clear_search(true);
+		this.ui.clear_search(true);
 
-	woas.progress_init("Searching");
+	this.progress_init("Searching");
 	// reset result pages
-	woas.pager.bucket.clear();
+	//this.pager.bucket.clear();
 
 	// cache new search results
-	woas._cache_search( str );
-	woas.progress_finish();
+	this._cache_search( str );
+	this.progress_finish();
 
 	// refresh the search page, or go to it if we are not
-	woas.ui._search_render();
+	this.ui._search_render();
 };
 
 // Used by Special::Options page
@@ -14164,9 +14172,9 @@ function show_full_file(pi) {
 		return;
 	// put WoaS in loading mode
 	woas.progress_init("Loading full file");
-	// clear the partial display and put in the whole file content
-	woas.setHTML(d$('_part_display'), '');
-	woas.setHTML(d$('woas_file_ct'), woas.xhtml_encode(woas.base64.decode(text)));
+	// put in the whole file content
+	woas.setHTML(d$('_part_display'), woas.parser._raw_preformatted("pre",
+		woas.base64.decode(text), 'woas_embedded'));
 	// finished loading the file
 	woas.progress_finish();
 }
@@ -14185,7 +14193,6 @@ function query_export_image(cr) {
 }
 
 
-// PVHL: FIX Goes back 2 pages
 function query_delete_file(cr) {
 	if (!confirm(woas.i18n.CONFIRM_DELETE.sprintf(cr)))
 		return;
@@ -14219,7 +14226,6 @@ function query_delete_image(cr) {
 		return;
 	// do not check for plugin deletion here
 	woas.delete_page(cr);
-	back_or(woas.config.main_page);
 	return false;
 }
 
@@ -14377,7 +14383,6 @@ function search_focus(focused) {
 		woas.ui.focus_textbox();
 	} else {
 		woas.ui.blur_textbox();
-		ff_fix_focus();
 	}
 }
 
@@ -14387,32 +14392,41 @@ woas._hl_marker_rx = new RegExp(woas._hl_marker+":(\\d+):", "g");
 
 // display search results
 woas._search_load = function() {
-	woas.log("called _search_load()");
-	var P = {body: ""};
+//	woas.log("called _search_load()");	//log:0
+	var P = {body: ""}, hd = '<'+'p class="woas_search_head">%s<'+'/p>\n',
+	i, it, r, a, at, count;
 	if (this._last_search === null) {
 //		woas.log("No search done, returning blank");	//log:0
 	} else {
+		P.body = '/%s <'+'span class="woas_search_highlight">' +
+			woas.xhtml_encode(woas._last_search) + '<'+'/span>/';
 		// proceed to parsing if there are matching pages
 		if (this._cached_title_search.length + this._cached_body_search.length !== 0) {
-		
+			P.body = P.body.sprintf('Results for');
+
 			// (1) prepare the title results
-			for(var i=0,it=this._cached_title_search.length;i<it;++i) {
-				P.body += "* [["+ this._cached_title_search[i] + "]]\n";
-				woas.pager.bucket.add(this._cached_title_search[i]);
+			it = this._cached_title_search.length;
+			if (it > 0) {
+				P.body += hd.sprintf('Found in '+it+' title'+(it > 1 ? 's' : ''));
+				for(i=0;i<it;++i) {
+					P.body += "* [["+ this._cached_title_search[i] + "]]\n";
+					//woas.pager.bucket.add(this._cached_title_search[i]);
+				}
 			}
 			
 			// (2) parse the body snippets
-			for(var i = 0, it = this._cached_body_search.length; i < it; ++i) {
-				P.body += "\n* [[" + this._cached_body_search[i].title + "]] - found "
-						+ this._hl_marker+":" + i + ":";
-				woas.pager.bucket.add(this._cached_body_search[i].title);
+			it = this._cached_body_search.length;
+			if (it > 0) {
+				P.body += hd.sprintf('Found in '+it+' page'+(it > 1 ? 's' : ''));
+				for(i = 0; i < it; ++i) {
+					P.body += "\n* [[" + this._cached_body_search[i].title + "]] - found "
+							+ this._hl_marker+":" + i + ":";
+					//woas.pager.bucket.add(this._cached_body_search[i].title);
+				}
 			}
-
-			P.body = 'Results for <'+'strong class="woas_search_highlight">'
-					+ woas.xhtml_encode(woas._last_search) + "<"+"/strong>\n" + P.body;
-		} else
-			P.body = "/No results found for *" + woas.xhtml_encode(woas._last_search) + "*/";
-
+		} else {
+			P.body = P.body.sprintf('No results found for');
+		}
 	}
 
 	// position cursor back in search box
@@ -14423,17 +14437,16 @@ woas._search_load = function() {
 		woas.parser.syntax_parse( P, [] );
 		
 		P.body = P.body.replace(this._hl_marker_rx, function(str, i) {
-			var r="",count=0;
-			// PVHL: don't worry about IE pre as results are single line
-			for(var a=0,at=woas._cached_body_search[i].matches.length;a<at;++a) {
+			r="",count=0;
+			for(a=0,at=woas._cached_body_search[i].matches.length;a<at;++a) {
 				r += "<"+"pre class=\"woas_search_results\">" +
 						// apply highlighting
-						woas._cached_body_search[i].matches[a].replace(woas._reLastSearch, function(str, $1) {
+						woas._cached_body_search[i].matches[a].replace(woas._reLastSearch, function(str) {
 							++count;
-								return '<'+'span class="woas_search_highlight">'+$1+'<'+'/span>';
+							return '<'+'span class="woas_search_highlight">'+str+'<'+'/span>';
 						})+"<"+"/pre>";
 			}
-			return " <"+"strong>"+count+"<"+"/strong> times: "+r;
+			return " <"+"strong>"+count+"<"+"/strong> time"+(count > 1 ? 's' : '')+": "+r;
 		});
 	}
 	
@@ -14585,7 +14598,7 @@ woas.ui.refresh_menu = function() {
 //		woas.log("menu found: "+page_titles[pi]);	// log:0
 		woas.parser._parsing_menu = true;
 		woas.setHTMLDiv(d$("woas_menu"),
-			woas.parser.parse(menu, false, woas.js_mode(ns+"::Menu")));
+			woas.parser.parse(menu, woas.js_mode(ns+"::Menu")));
 		woas.parser._parsing_menu = false;
 		if (!ns) {
 // PVHL: check why this is done every time; change to when needed
