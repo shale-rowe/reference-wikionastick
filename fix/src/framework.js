@@ -120,6 +120,13 @@ d$.show = function(id, inline) {
 	d$(id).style.display = inline ? 'inline' : 'block';
 };
 
+d$.set = function(show, id, inline) {
+	if (show)
+		d$(id).style.display = inline ? 'inline' : 'block';
+	else
+		d$(id).style.display = 'none';
+};
+
 d$.is_visible = function(id) {
 	return !!d$(id).offsetWidth;
 };
